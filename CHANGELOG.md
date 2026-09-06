@@ -7,6 +7,15 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Non publié]
 
+### Added
+
+- Test unitaire pour `plugin_grcmanager_redefine_menus()` (`setup.php`), le hook qui corrige le
+  doublon de libellé du sous-menu "GRC & Conformité" (v1.1.4) — c'est une fonction pure (aucune
+  dépendance GLPI dans son propre corps), testable directement sans instance GLPI réelle, qui
+  n'avait pourtant aucun test malgré ça. Ne couvre que la logique de transformation du tableau de
+  menu elle-même ; l'effet réel sur le rendu GLPI (breadcrumb, absence de doublon visuel) reste
+  hors de portée d'un test unitaire et nécessiterait un test au niveau navigateur/GLPI réel.
+
 ## [1.1.4] - 2026-09-04
 
 ### Fixed
