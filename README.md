@@ -57,7 +57,7 @@ source :
 
 ```bash
 cd /var/www/glpi/plugins
-git clone https://github.com/parime/glpi-grc-manager.git grcmanager
+git clone https://github.com/parime/glpi-iso27001-management.git grcmanager
 cd grcmanager
 composer install --no-dev
 ```

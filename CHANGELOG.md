@@ -7,6 +7,15 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Non publié]
 
+### Changed
+
+- **Dépôt renommé** de `glpi-grc-manager` vers `glpi-iso27001-management` — nom jugé plus parlant
+  (le plugin est un ISMS ISO 27001 : risques, contrôles/SoA, audits, non-conformités). GitHub
+  redirige automatiquement l'ancien nom. Le namespace PHP (`GlpiPlugin\Grcmanager`), les noms de
+  table (`glpi_plugin_grcmanager_*`) et la clé du plugin restent inchangés — casser ça imposerait
+  une migration de données à toute installation existante pour un simple changement de nom de
+  dépôt.
+
 ### Added
 
 - Test unitaire pour `plugin_grcmanager_redefine_menus()` (`setup.php`), le hook qui corrige le
