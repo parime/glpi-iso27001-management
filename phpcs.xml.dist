@@ -30,10 +30,14 @@
     </rule>
 
     <!-- setup.php necessarily mixes constant/function declarations with the conditional
-         vendor/autoload.php require, that's the standard GLPI plugin entry point shape. -->
+         vendor/autoload.php require, that's the standard GLPI plugin entry point shape.
+         SetupMenuRedefinitionTest.php is the same shape for the same reason: it requires
+         setup.php (a side effect) to reach plugin_grcmanager_redefine_menus() before declaring
+         its own test class. -->
     <rule ref="PSR1.Files.SideEffects">
         <exclude-pattern>setup.php</exclude-pattern>
         <exclude-pattern>front/*</exclude-pattern>
+        <exclude-pattern>tests/Unit/SetupMenuRedefinitionTest.php</exclude-pattern>
     </rule>
 
     <!-- inc/ holds GLPI's legacy global-namespace CommonDBTM subclasses (PluginGrcmanager*),
