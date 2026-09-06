@@ -65,6 +65,6 @@ Objectif : une plateforme GRC/ISO 27001 générique fonctionnelle de bout en bou
 ## Suivi
 
 L'avancement réel (issues, PR, jalons) est suivi sur le
-[GitHub Project](https://github.com/parime/glpi-grc-manager) du repository une fois celui-ci
+[GitHub Project](https://github.com/parime/glpi-iso27001-management) du repository une fois celui-ci
 activé. Les priorités peuvent évoluer en fonction des retours communautaires : voir
 [GOVERNANCE.md](GOVERNANCE.md) pour le processus de décision.
