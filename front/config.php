@@ -16,6 +16,7 @@
  */
 
 use GlpiPlugin\Grcmanager\Services\GithubVersionChecker;
+use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentModuleConfig;
 use GlpiPlugin\Grcmanager\Services\Risk\RiskMatrixConfig;
 
 include('../../../inc/includes.php');
@@ -42,6 +43,19 @@ if (isset($_POST['update_risk_matrix'])) {
     Html::back();
 }
 
+if (isset($_POST['update_securityincident_modules'])) {
+    Session::checkRight(PluginGrcmanagerRisk::$rightname, UPDATE);
+
+    SecurityIncidentModuleConfig::save([
+        'securityincident_enabled'           => isset($_POST['securityincident_enabled']),
+        'securityincident_cve_enabled'       => isset($_POST['securityincident_cve_enabled']),
+        'securityincident_templates_enabled' => isset($_POST['securityincident_templates_enabled']),
+        'securityincident_dashboard_enabled' => isset($_POST['securityincident_dashboard_enabled']),
+    ]);
+
+    Html::back();
+}
+
 Html::header(
     __('Configuration', 'grcmanager'),
     $_SERVER['PHP_SELF'],
@@ -56,6 +70,7 @@ Html::header(
     'csrf_token'         => Session::getNewCSRFToken(),
     'installed_version'     => PLUGIN_GRCMANAGER_VERSION,
     'latest_github_version' => GithubVersionChecker::getLatestGithubVersion(),
+    'securityincident_modules' => SecurityIncidentModuleConfig::load(),
 ]);
 
 Html::footer();

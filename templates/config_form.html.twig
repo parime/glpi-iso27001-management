@@ -17,6 +17,49 @@
   </div>
 </div>
 
+{# Absorption de glpi-security-incidents (ROADMAP.md "Version 2.0") : interrupteurs
+   module/CVE/modèles/tableau de bord, un par fonctionnalité plutôt qu'un seul bouton global
+   (voir front/config.php, SecurityIncidentModuleConfig). Le sous-module technique
+   (registre parent : securityincident_enabled) désactive aussi ses sous-modules à l'affichage,
+   même si leur propre case reste cochée en base - évite de présenter des cases actives sans
+   effet visible. #}
+<div class="card mb-3">
+  <div class="card-body">
+    <h4>{{ __('Incidents de sécurité', 'grcmanager') }}</h4>
+    <p class="text-muted">
+      {{ __('Active ou désactive chaque partie du module de gestion des incidents de sécurité (objet ITIL dédié, visible dans le menu Assistance).', 'grcmanager') }}
+    </p>
+
+    <form method="post" action="{{ config('root_doc') }}/plugins/grcmanager/front/config.php">
+      <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
+
+      <div class="form-check form-switch mb-2">
+        <input class="form-check-input" type="checkbox" role="switch" id="securityincident_enabled" name="securityincident_enabled" {{ securityincident_modules.securityincident_enabled ? 'checked' : '' }}>
+        <label class="form-check-label" for="securityincident_enabled">{{ __('Module Incidents de sécurité (menu Assistance)', 'grcmanager') }}</label>
+      </div>
+
+      <div class="ms-4">
+        <div class="form-check form-switch mb-2">
+          <input class="form-check-input" type="checkbox" role="switch" id="securityincident_cve_enabled" name="securityincident_cve_enabled" {{ securityincident_modules.securityincident_cve_enabled ? 'checked' : '' }}>
+          <label class="form-check-label" for="securityincident_cve_enabled">{{ __('Suivi des CVE', 'grcmanager') }}</label>
+        </div>
+        <div class="form-check form-switch mb-2">
+          <input class="form-check-input" type="checkbox" role="switch" id="securityincident_templates_enabled" name="securityincident_templates_enabled" {{ securityincident_modules.securityincident_templates_enabled ? 'checked' : '' }}>
+          <label class="form-check-label" for="securityincident_templates_enabled">{{ __('Modèles d\'incident', 'grcmanager') }}</label>
+        </div>
+        <div class="form-check form-switch mb-2">
+          <input class="form-check-input" type="checkbox" role="switch" id="securityincident_dashboard_enabled" name="securityincident_dashboard_enabled" {{ securityincident_modules.securityincident_dashboard_enabled ? 'checked' : '' }}>
+          <label class="form-check-label" for="securityincident_dashboard_enabled">{{ __('Cartes de tableau de bord', 'grcmanager') }}</label>
+        </div>
+      </div>
+
+      <div class="d-flex gap-2 mt-2">
+        <button type="submit" name="update_securityincident_modules" class="btn btn-primary">{{ __('Enregistrer') }}</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 {# Sprint 2 : matrice probabilité x impact administrable (voir front/config.php,
    RiskMatrixConfig). Un seul écran pour l'instant (pas d'onglets comme le plugin jumeau
    glpi-vulnerability-manager, qui en a besoin pour 11 sous-écrans différents) : à réévaluer en

@@ -7,6 +7,17 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Non publié]
 
+### Added
+
+- **Infrastructure d'interrupteurs pour le futur module "Incidents de sécurité".** Première étape
+  de l'absorption de glpi-security-incidents (voir ROADMAP.md "Version 2.0") : nouvel écran dans
+  Configuration > Plugins > GRC Manager permettant d'activer/désactiver séparément le module
+  principal, le suivi CVE, les modèles d'incident et les cartes de tableau de bord. Tous les
+  indicateurs sont activés par défaut sur une base neuve (`SecurityIncidentModuleConfig`,
+  `glpi_plugin_grcmanager_securityincidentconfig`) ; le module lui-même n'existe pas encore, ces
+  interrupteurs n'ont donc pour l'instant aucun effet visible — ils seront branchés au menu/aux
+  onglets/au tableau de bord dans une prochaine version.
+
 ### Documentation
 
 - **Références obsolètes à glpi-vulnerability-manager mises à jour.** Ce plugin jumeau a été
