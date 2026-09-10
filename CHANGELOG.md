@@ -7,6 +7,24 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Non publié]
 
+## [1.1.5] - 2026-09-10
+
+### Fixed
+
+- **Le titre d'un contrôle Annexe A (liste SoA) n'était pas cliquable** — seule une colonne "ID"
+  séparée, peu lisible (juste un numéro), permettait de rouvrir la fiche du contrôle. La colonne
+  qu'un utilisateur lit et clique naturellement (`code`, ex. "A.5.1 - Politiques de sécurité de
+  l'information") restait du texte brut malgré son affichage personnalisé
+  (`getSpecificValueToDisplay()`). Retour utilisateur direct sur cette liste précise.
+
+  Corrigé en reprenant la même convention que `CommonITILObject::rawSearchOptions()` pour sa
+  propre colonne "Titre" (`'additionalfields' => ['id']`, nécessaire même pour la toute première
+  colonne — confirmé en lisant le code de `Ticket`) : le lien entoure maintenant le texte formaté
+  existant plutôt que d'être une colonne séparée à part.
+
+  Vérifié en direct sur l'instance de test : la liste des 93 contrôles Annexe A affiche bien
+  chaque "A.x.y - Titre" comme un lien cliquable vers la fiche correspondante.
+
 ### Changed
 
 - **Dépôt renommé** de `glpi-grc-manager` vers `glpi-iso27001-management` — nom jugé plus parlant

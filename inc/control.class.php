@@ -292,11 +292,18 @@ class PluginGrcmanagerControl extends CommonDBTM
         ];
 
         $tab[] = [
-            'id'       => 1,
-            'table'    => $this->getTable(),
-            'field'    => 'code',
-            'name'     => __('Contrôle', 'grcmanager'),
-            'datatype' => 'specific',
+            'id'               => 1,
+            'table'            => $this->getTable(),
+            'field'            => 'code',
+            'name'             => __('Contrôle', 'grcmanager'),
+            'datatype'         => 'specific',
+            // Same convention as CommonITILObject's own "Title" column (id=1, 'datatype' =>
+            // 'itemlink', 'additionalfields' => ['id']): 'id' has to be requested explicitly for
+            // a search option to receive it in $values, even for the primary/first column.
+            // Without this, the only clickable way back to a control's own form was a separate,
+            // barely-readable numeric "ID" column (id 8 below) instead of the actual title text a
+            // user would naturally click — real user feedback on this exact list.
+            'additionalfields' => ['id'],
         ];
 
         $tab[] = [
@@ -375,8 +382,20 @@ class PluginGrcmanagerControl extends CommonDBTM
                     return '';
                 }
 
-                return '<strong>' . htmlescape((string) $code) . '</strong> - '
+                $label = '<strong>' . htmlescape((string) $code) . '</strong> - '
                     . htmlescape(self::getControlTitle((string) $code));
+
+                // Same "a list with no way back to showForm() is not self-explanatory" lesson as
+                // the rest of this plugin family — but here the fix is making this column (the
+                // one a user actually reads and clicks) the link, not adding a separate one: this
+                // column already had a custom 'specific' display, and a bare numeric "ID" column
+                // was the only clickable way back to a control's own form. Real user feedback.
+                $id = $values['id'] ?? null;
+                if ($id !== null && (int) $id > 0) {
+                    return '<a href="' . htmlescape(self::getFormURLWithID((int) $id)) . '">' . $label . '</a>';
+                }
+
+                return $label;
 
             case 'theme':
                 return self::themeBadge($values[$field] ?? null);
