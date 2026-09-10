@@ -45,7 +45,7 @@ dans ce document.
 | Risque | Impact | Probabilité | Mitigation |
 |---|---|---|---|
 | Périmètre ISO 27001 très large (93 contrôles Annexe A, audits, CAPA, tiers, formations, revues) | Blocage de la v1.0 | Moyenne | Découpage strict en sprints indépendants (voir tableau ci-dessus), chacun livrable et validable seul |
-| Chevauchement fonctionnel avec le plugin jumeau glpi-vulnerability-manager | Confusion utilisateur, double saisie | Moyenne | Séparation stricte actée dans l'issue #89 du plugin jumeau : ce plugin ne traite aucune donnée CVE/CVSS, l'intégration bidirectionnelle (v2.0, voir ROADMAP.md) reste optionnelle |
+| Chevauchement fonctionnel avec glpi-security-incidents (suivi CVE/incidents) | Confusion utilisateur, double saisie | Faible | Séparation actée dès la conception (historiquement issue #89 du plugin glpi-vulnerability-manager, depuis archivé et remplacé par glpi-security-incidents) : ce plugin ne traite aucune donnée CVE/incident, l'intégration avec glpi-security-incidents (v2.0, voir ROADMAP.md) reste optionnelle |
 | Modèle de données figé trop tôt (ex. matrice de risque fixe du Sprint 1) | Refonte coûteuse plus tard | Faible | Documenté explicitement dans `TECH_DEBT.md`, évolution planifiée dès le Sprint 2 |
 | Divergence entre modèle GLPI et modèle du plugin (évolutions du core GLPI 11→12) | Rupture de compatibilité | Moyenne | Aucune dépendance à des mécanismes non documentés/non stables de GLPI ; vérification de version au chargement |
 
