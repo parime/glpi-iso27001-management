@@ -55,3 +55,6 @@ parameters:
         # OverdueTreatmentActionResult.php in the same directory stay in scope: both are pure PHP
         # with no GLPI dependency.
         - src/Services/Risk/OverdueTreatmentActionService.php
+        # Module toggle infra for the security-incident absorption (ROADMAP.md "Version 2.0"):
+        # depends on GLPI's runtime global $DB, same rationale as RiskMatrixConfig above.
+        - src/Services/Incident/SecurityIncidentModuleConfig.php

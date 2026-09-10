@@ -9,6 +9,7 @@ use DBConnection;
 use GlpiPlugin\Grcmanager\Services\Control\ControlCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Dashboard\DefaultDashboardService;
 use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
+use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentModuleConfig;
 use GlpiPlugin\Grcmanager\Services\Risk\RiskMatrixDefaults;
 use Migration;
 use Notification;
@@ -88,6 +89,12 @@ final class Installer
     // Issue #31 (plan d'action de traitement des risques, clause 8.3/6.1.3), même dérivation de nom
     // de table que toutes les autres ci-dessus.
     private const RISK_TREATMENT_ACTIONS_TABLE = 'glpi_plugin_grcmanager_risktreatmentactions';
+
+    // Absorption de glpi-security-incidents (ROADMAP.md "Version 2.0") : interrupteurs
+    // module/CVE/modèles/tableau de bord, une seule ligne singleton (id=1), même convention que
+    // RISK_MATRIX_CONFIG_TABLE ci-dessus (voir SecurityIncidentModuleConfig). Ne pilote jamais de
+    // DDL - seulement l'enregistrement des hooks/menus/onglets à l'exécution.
+    private const SECURITY_INCIDENT_CONFIG_TABLE = 'glpi_plugin_grcmanager_securityincidentconfig';
 
     public function install(Migration $migration): bool
     {
@@ -720,6 +727,30 @@ final class Installer
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
             $DB->doQuery($query) or die($DB->error());
+        }
+
+        // Absorption de glpi-security-incidents (ROADMAP.md "Version 2.0") : interrupteurs
+        // module/CVE/modèles/tableau de bord, une seule ligne singleton (id=1) seedée avec tous
+        // les indicateurs activés — même convention que RISK_MATRIX_CONFIG_TABLE ci-dessus (voir
+        // SecurityIncidentModuleConfig). Tous activés par défaut : sur une install existante, ce
+        // toggle ne fait que permettre de DÉSACTIVER une fonctionnalité, jamais l'inverse.
+        if (!$DB->tableExists(self::SECURITY_INCIDENT_CONFIG_TABLE)) {
+            $query = "CREATE TABLE `" . self::SECURITY_INCIDENT_CONFIG_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `securityincident_enabled` tinyint NOT NULL DEFAULT 1,
+                `securityincident_cve_enabled` tinyint NOT NULL DEFAULT 1,
+                `securityincident_templates_enabled` tinyint NOT NULL DEFAULT 1,
+                `securityincident_dashboard_enabled` tinyint NOT NULL DEFAULT 1,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+
+            $DB->insert(self::SECURITY_INCIDENT_CONFIG_TABLE, array_merge(
+                array_map(static fn (bool $v): int => $v ? 1 : 0, SecurityIncidentModuleConfig::DEFAULTS),
+                ['date_mod' => date('Y-m-d H:i:s')]
+            ));
         }
 
         $this->seedControls();
@@ -1382,6 +1413,7 @@ final class Installer
         $migration->dropTable(self::OBJECTIVES_TABLE);
         $migration->dropTable(self::SECURITY_INCIDENTS_TABLE);
         $migration->dropTable(self::RISK_TREATMENT_ACTIONS_TABLE);
+        $migration->dropTable(self::SECURITY_INCIDENT_CONFIG_TABLE);
 
         $migration->executeMigration();
 
