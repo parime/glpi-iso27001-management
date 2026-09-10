@@ -20,12 +20,11 @@ d'un auditeur ISO 27001 :
 > **Quels sont les risques organisationnels (pas seulement techniques) de mon organisation, qui
 > les a acceptés et pourquoi, et suis-je conforme à l'Annexe A ?**
 
-**GLPI GRC Manager** est un plugin **distinct** du plugin jumeau
-[glpi-vulnerability-manager](https://github.com/parime/glpi-vulnerability-manager) : ce dernier
-couvre le risque cyber piloté par CVE (CVSS/EPSS/KEV), tandis que GLPI GRC Manager couvre le
-risque organisationnel générique (clause 6.1.2/8.2 ISO 27001) : humain, processus, physique,
-tiers/fournisseur, avec acceptation, traitement, Déclaration d'Applicabilité (SoA), audits
-internes et actions correctives.
+**GLPI GRC Manager** couvre le risque organisationnel générique (clause 6.1.2/8.2 ISO 27001) :
+humain, processus, physique, tiers/fournisseur, avec acceptation, traitement, Déclaration
+d'Applicabilité (SoA), audits internes et actions correctives — à distinguer du suivi des
+incidents de sécurité et des CVE, assuré par le plugin
+[glpi-security-incidents](https://github.com/parime/glpi-security-incidents).
 
 ## Ce que le plugin apporte (vision v1.0, voir ROADMAP.md)
 

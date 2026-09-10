@@ -57,10 +57,11 @@ Objectif : une plateforme GRC/ISO 27001 générique fonctionnelle de bout en bou
 - Cartographie des risques (heatmap probabilité x impact interactive)
 - Bibliothèque de contrôles étendue (ISO 27002, NIST CSF, CIS Controls) en complément de
   l'Annexe A ISO 27001
-- Intégration bidirectionnelle avec le plugin jumeau
-  [glpi-vulnerability-manager](https://github.com/parime/glpi-vulnerability-manager) : un risque
-  cyber accepté/mitigé côté vulnérabilités peut alimenter le registre de risques générique, sans
-  fusionner les deux plateformes
+- Intégration avec [glpi-security-incidents](https://github.com/parime/glpi-security-incidents) :
+  un incident de sécurité lié à une ou plusieurs CVE pourrait alimenter le registre de risques
+  générique (risque cyber accepté/mitigé), sans fusionner les deux plateformes. Remplace le plan
+  d'intégration avec glpi-vulnerability-manager (archivé), dont le suivi CVE est désormais couvert
+  nativement par glpi-security-incidents
 
 ## Suivi
 

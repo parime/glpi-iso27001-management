@@ -7,6 +7,15 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Non publié]
 
+### Documentation
+
+- **Références obsolètes à glpi-vulnerability-manager mises à jour.** Ce plugin jumeau a été
+  archivé ; son rôle de suivi CVE/incidents a été repris nativement par
+  [glpi-security-incidents](https://github.com/parime/glpi-security-incidents). `README.md`/
+  `README.en.md`, `ROADMAP.md` (plan d'intégration v2.0) et
+  `docs/design/DEVELOPMENT_PLAN.md` (registre de risques) référencent désormais
+  glpi-security-incidents plutôt qu'un dépôt archivé.
+
 ## [1.1.5] - 2026-09-10
 
 ### Fixed
