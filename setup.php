@@ -25,7 +25,7 @@ use GlpiPlugin\Grcmanager\Services\Risk\LinkableItemtypes;
 // must bundle vendor/, see .github/workflows/release.yml.
 require_once __DIR__ . '/vendor/autoload.php';
 
-define('PLUGIN_GRCMANAGER_VERSION', '1.1.4');
+define('PLUGIN_GRCMANAGER_VERSION', '1.1.5');
 define('PLUGIN_GRCMANAGER_MIN_GLPI', '11.0.0');
 define('PLUGIN_GRCMANAGER_MAX_GLPI', '11.99.99');
 define('PLUGIN_GRCMANAGER_MIN_PHP', '8.1.0');
