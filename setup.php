@@ -26,10 +26,12 @@ use GlpiPlugin\Grcmanager\Services\Risk\LinkableItemtypes;
 // must bundle vendor/, see .github/workflows/release.yml.
 require_once __DIR__ . '/vendor/autoload.php';
 
-define('PLUGIN_GRCMANAGER_VERSION', '1.1.5');
+define('PLUGIN_GRCMANAGER_VERSION', '2.0.0');
 define('PLUGIN_GRCMANAGER_MIN_GLPI', '11.0.0');
 define('PLUGIN_GRCMANAGER_MAX_GLPI', '11.99.99');
-define('PLUGIN_GRCMANAGER_MIN_PHP', '8.1.0');
+// Relevé de 8.1.0 à 8.2.0 en v2.0.0 : exigence héritée du module Incidents de sécurité absorbé
+// depuis glpi-security-incidents (ROADMAP.md "Version 2.0"), qui exigeait déjà PHP 8.2 minimum.
+define('PLUGIN_GRCMANAGER_MIN_PHP', '8.2.0');
 
 /**
  * Called by GLPI on every page load once the plugin is active. Registers hooks.
