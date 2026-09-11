@@ -54,6 +54,15 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   CVE, les modèles d'incident et les cartes de tableau de bord (`SecurityIncidentModuleConfig`,
   `glpi_plugin_grcmanager_securityincidentconfig`). Tous les indicateurs sont activés par défaut.
 
+- **Première suite de tests d'intégration** (`tests/Integration/`, `phpunit-integration.xml.dist`,
+  `composer test:integration`) — ce plugin n'en avait aucune jusqu'ici (seulement `tests/Unit`,
+  sans base de données). Portée depuis le plugin absorbé glpi-security-incidents : boot réel du
+  Kernel GLPI, transaction par test. Couvre le cycle de vie complet de l'objet ITIL fusionné (CRUD,
+  liaison d'actif, champs de classification ISO 27001, blocage/déblocage de la clôture, lien vers
+  un risque, CVE, notifications, droits Super-Admin). La logique de mapping de la migration
+  légère->fusionnée (`LegacySecurityIncidentMigrator`, y compris la conversion du vocabulaire de
+  statuts) est en plus couverte séparément par la suite `unit` existante (rapide, sans DB).
+
 ### Documentation
 
 - **Références obsolètes à glpi-vulnerability-manager et glpi-security-incidents mises à jour.**

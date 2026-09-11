@@ -583,6 +583,24 @@ Journal des limites connues et compromis assumés, tenu à jour à chaque sprint
   entre modules plutôt que de la résoudre. À réévaluer si une demande réelle de parité de
   traduction complète apparaît (traduction des ~30 nouvelles chaînes utilisateur du module dans les
   3 langues manquantes, pas un chantier de traduction du plugin entier).
+- **La nouvelle suite d'intégration (`tests/Integration/`, `phpunit-integration.xml.dist`) n'a pas
+  pu être exécutée avec succès sur l'instance de développement partagée** (qui héberge plusieurs
+  plugins actifs en même temps). Cause identifiée précisément, pas une simple hypothèse : chaque
+  plugin actif embarque sa propre copie de développement de `phpunit/phpunit` dans son propre
+  `vendor/`, et le chargement de classes PHP au niveau du process (déclenché par
+  `Glpi\Kernel\Kernel::boot()`, qui charge le code de TOUS les plugins actifs) fait résoudre des
+  classes internes `PHPUnit\TextUI\...` depuis la copie d'un AUTRE plugin actif plutôt que celle de
+  ce plugin - confirmé en désactivant tour à tour différents plugins voisins : le plugin blâmé dans
+  la trace change à chaque fois, mais l'erreur persiste tant qu'au moins un autre plugin actif
+  reste présent. N'affecte que cette instance de développement multi-plugins ; la CI réelle
+  (`real-glpi-install`) installe une instance GLPI fraîche avec uniquement ce plugin, donc cette
+  collision ne peut pas s'y produire. La logique métier la plus délicate de cette suite (le mapping
+  de migration, `LegacySecurityIncidentMigrator`) est de toute façon couverte séparément et avec
+  succès par la suite `unit` (rapide, sans DB, sans ce risque de collision) ; le reste a déjà été
+  vérifié manuellement en conditions réelles (requêtes HTTP réelles contre l'instance) lors de
+  l'absorption du module. À réévaluer : soit exécuter cette suite dans un environnement dédié à un
+  seul plugin (comme le fait déjà `real-glpi-install` en CI), soit isoler `phpunit/phpunit` des
+  dépendances chargées par chaque plugin en production.
 - **`docs/TUTORIAL.md` n'a pas été mis à jour avec le nouveau module Incidents de sécurité.** Son
   format (une capture d'écran réelle par étape) n'a pas pu être respecté sans repasser par un
   navigateur réel pour capturer chaque étape - à faire dans une itération séparée plutôt que

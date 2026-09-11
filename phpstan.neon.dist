@@ -62,6 +62,9 @@ parameters:
         # 2.0"): depends on GLPI's runtime global $DB and legacy PluginGrcmanagerSecurityIncident
         # class, same rationale as DashboardCardService.php above.
         - src/Services/Dashboard/SecurityIncidentCardProvider.php
+        # LegacySecurityIncidentMigrator.php in the same directory stays IN scope: pure PHP, no
+        # GLPI dependency (see its own docblock for why the status ints are hardcoded rather than
+        # referencing \CommonITILObject's constants).
         # Depends on GLPI core's Glpi\ContentTemplates\Parameters\CommonITILObjectParameters and
         # the legacy PluginGrcmanagerSecurityIncident class, not available for static analysis.
         - src/Services/Incident/SecurityIncidentParameters.php

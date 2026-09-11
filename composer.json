@@ -29,7 +29,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "GlpiPlugin\\Grcmanager\\Tests\\": "tests/Unit/"
+            "GlpiPlugin\\Grcmanager\\Tests\\": "tests/Unit/",
+            "GlpiPlugin\\Grcmanager\\Tests\\Integration\\": "tests/Integration/"
         }
     },
     "config": {
@@ -37,6 +38,7 @@
     },
     "scripts": {
         "test": "phpunit --testsuite unit",
+        "test:integration": "phpunit -c phpunit-integration.xml.dist",
         "stan": "phpstan analyse --no-progress",
         "cs": "phpcs"
     }
