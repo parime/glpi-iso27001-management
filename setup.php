@@ -17,6 +17,7 @@
 
 use Glpi\Plugin\Hooks;
 use GlpiPlugin\Grcmanager\Compatibility\RequirementChecker;
+use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentModuleConfig;
 use GlpiPlugin\Grcmanager\Services\Risk\LinkableItemtypes;
 
 // GLPI does NOT autoload plugin src/ classes on its own (confirmed against a real GLPI 11
@@ -65,10 +66,7 @@ function plugin_init_grcmanager(): void
     // has NO menu entry of its own: it is only ever added/removed inline from its parent
     // objective's own form (see PluginGrcmanagerObjective::showMeasurementHistory()), same
     // "no menu entry for a pure link/child table" convention as every many-to-many link in this
-    // plugin family. Issue #29 (registre des incidents de sécurité de l'information, clause
-    // A.5.24-27) adds PluginGrcmanagerSecurityIncident right after the audit/non-conformity screens
-    // it complements (an incident can reveal a non-conformity or feed the CAPA loop, even though
-    // there is no hard link between the two itemtypes in this first version).
+    // plugin family.
     // Dedicated first-level menu "GRC & Conformité" (as opposed to a native GLPI category such as
     // 'tools'): using ANY category key not recognised as a native GLPI sector makes
     // Html::generateMenuSession() (GLPI core) create a brand-new top-level sidebar entry for it,
@@ -79,7 +77,7 @@ function plugin_init_grcmanager(): void
     // from IT rather than from the first functional screen (PluginGrcmanagerRisk) - GLPI core fills
     // an unknown category's title/icon from the first entry in its MENU_TOADD array whose
     // getMenuContent()/getIcon() supply one, see PluginGrcmanagerMenu's own docblock.
-    $PLUGIN_HOOKS[Hooks::MENU_TOADD]['grcmanager'] = [
+    $menuToAdd = [
         'grcmanager' => [
             PluginGrcmanagerMenu::class,
             PluginGrcmanagerRisk::class,
@@ -88,13 +86,27 @@ function plugin_init_grcmanager(): void
             PluginGrcmanagerComplianceObligation::class,
             PluginGrcmanagerAudit::class,
             PluginGrcmanagerNonconformity::class,
-            PluginGrcmanagerSecurityIncident::class,
             PluginGrcmanagerTraining::class,
             PluginGrcmanagerManagementReview::class,
             PluginGrcmanagerPolicy::class,
             PluginGrcmanagerObjective::class,
         ],
     ];
+
+    // Absorption de glpi-security-incidents (ROADMAP.md "Version 2.0") : contrairement au reste de
+    // ce plugin (registres CommonDBTM dans le secteur "GRC & Conformité" ci-dessus), l'objet ITIL
+    // fusionné vit dans le secteur natif "helpdesk" ("Assistance"), aux côtés de Ticket/Problem/
+    // Change - un incident géré au quotidien (acteurs, workflow, tâches) appartient à ce secteur,
+    // pas au menu de conformité. Un même plugin peut parfaitement enregistrer des classes dans
+    // plusieurs secteurs à la fois (confirmé par lecture de Html::generateMenuSession()) : rien
+    // n'empêche cet objet de vivre physiquement dans ce plugin tout en apparaissant ailleurs dans
+    // le menu. Conditionné par SecurityIncidentModuleConfig : un administrateur qui désactive le
+    // module ne voit plus l'entrée de menu, mais les données/droits/tables restent intacts.
+    if (SecurityIncidentModuleConfig::load()['securityincident_enabled']) {
+        $menuToAdd['helpdesk'] = [PluginGrcmanagerSecurityIncident::class];
+    }
+
+    $PLUGIN_HOOKS[Hooks::MENU_TOADD]['grcmanager'] = $menuToAdd;
 
     // Issue #28 (bibliothèque de politiques de sécurité versionnées, A.5.1) : le fichier joint
     // (PDF, Word...) d'une politique est stocké via le mécanisme natif GLPI Document/Document_Item,
@@ -162,6 +174,15 @@ function plugin_init_grcmanager(): void
     // fully-built $menu array - the row is safe to drop by then, title/icon already copied onto
     // $menu['grcmanager'] itself.
     $PLUGIN_HOOKS[Hooks::REDEFINE_MENUS]['grcmanager'] = 'plugin_grcmanager_redefine_menus';
+
+    // Absorption de glpi-security-incidents (ROADMAP.md "Version 2.0") : rend l'accordéon "Analyse"
+    // (impact/contrôles/plan de retour arrière) et le nouvel accordéon "Classification ISO 27001"
+    // directement dans le panneau principal de l'objet ITIL fusionné, exactement là où vivent les
+    // accordéons natifs "Analyse"/"Plans" de Change/Problem (câblés en dur pour ces deux seuls
+    // types dans components/itilobject/fields_panel.html.twig, non extensibles par un tiers) - ce
+    // hook, appelé à la toute fin de ce même panneau, est le point d'extension réel confirmé cette
+    // session pour obtenir le même rendu visuel sans patcher le cœur.
+    $PLUGIN_HOOKS[Hooks::POST_ITIL_INFO_SECTION]['grcmanager'] = 'plugin_grcmanager_post_itil_info_section';
 }
 
 /**

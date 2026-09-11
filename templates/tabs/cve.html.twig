@@ -1,0 +1,47 @@
+{# Absorbé depuis glpi-security-incidents (ROADMAP.md "Version 2.0") — voir
+   PluginGrcmanagerSecurityIncidentCve::displayTabContentForItem(). #}
+{% if can_edit %}
+<form method="post" action="{{ path('/plugins/grcmanager/front/securityincidentcve.form.php') }}" class="mb-3 d-flex gap-2 align-items-end">
+  <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+  <input type="hidden" name="plugin_grcmanager_securityincidents_id" value="{{ item.getID() }}">
+  <div class="flex-fill">
+    <label class="form-label">{{ __('Identifiant(s) CVE', 'grcmanager') }}</label>
+    <textarea name="cve_ids" class="form-control" rows="2" placeholder="CVE-2026-12345&#10;CVE-2026-67890" required></textarea>
+    <div class="form-hint">{{ __('Un par ligne, ou séparés par des virgules — plusieurs à la fois sont pris en charge.', 'grcmanager') }}</div>
+  </div>
+  <button type="submit" name="add" class="btn btn-primary">
+    <i class="ti ti-plus"></i> {{ __('Ajouter') }}
+  </button>
+</form>
+{% endif %}
+
+{% if cves is empty %}
+  <p class="text-muted">{{ __('Aucune référence CVE associée à cet incident pour l\'instant.', 'grcmanager') }}</p>
+{% else %}
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>{{ __('Identifiant CVE', 'grcmanager') }}</th>
+        {% if can_edit %}<th></th>{% endif %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for cve in cves %}
+      <tr>
+        <td><a href="https://nvd.nist.gov/vuln/detail/{{ cve.cve_id }}" target="_blank" rel="noopener">{{ cve.cve_id }}</a></td>
+        {% if can_edit %}
+        <td class="text-end">
+          <form method="post" action="{{ path('/plugins/grcmanager/front/securityincidentcve.form.php') }}">
+            <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="id" value="{{ cve.id }}">
+            <button type="submit" name="purge" class="btn btn-sm btn-ghost-danger" onclick="return confirm('{{ __('Are you sure?')|e('js') }}');">
+              <i class="ti ti-trash"></i>
+            </button>
+          </form>
+        </td>
+        {% endif %}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}

@@ -15,29 +15,23 @@
  * -------------------------------------------------------------------------
  */
 
-use Glpi\Search\Input\QueryBuilder;
-use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
-
-include('../../../inc/includes.php');
-
-Session::checkRight(PluginGrcmanagerSecurityIncident::$rightname, READ);
+// The search/list page — PluginGrcmanagerSecurityIncident::getSearchURL() resolves here
+// generically (Toolbox::getItemTypeSearchURL(), same convention core uses for
+// Ticket/Change/Problem), unlike PluginGrcmanagerSecurityIncident::displayFullPageForItem()
+// (front/securityincident.form.php with no id), which shows the "new item" creation form instead
+// of a list.
+Session::checkRightsOr(PluginGrcmanagerSecurityIncident::$rightname, [
+    PluginGrcmanagerSecurityIncident::READALL,
+    PluginGrcmanagerSecurityIncident::READMY,
+]);
 
 Html::header(
     PluginGrcmanagerSecurityIncident::getTypeName(2),
     $_SERVER['PHP_SELF'],
-    'grcmanager',
+    'helpdesk',
     PluginGrcmanagerSecurityIncident::class
 );
 
-// Same URL-driven search fix already applied to every list of this plugin (see
-// front/risk.php's own docblock for the full explanation): Search::showList() needs $_GET merged
-// through QueryBuilder::manageParams() itself, unlike Search::show().
-$params = QueryBuilder::manageParams(PluginGrcmanagerSecurityIncident::class, $_GET);
-
-Search::showList(
-    PluginGrcmanagerSecurityIncident::class,
-    $params,
-    DefaultSearchColumns::COLUMNS[PluginGrcmanagerSecurityIncident::class]
-);
+Search::show(PluginGrcmanagerSecurityIncident::class);
 
 Html::footer();

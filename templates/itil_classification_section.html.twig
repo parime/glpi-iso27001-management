@@ -1,0 +1,81 @@
+{# Champs de conformité ISO/IEC 27001:2022 Annexe A A.5.24-27, fusionnés depuis l'ancien registre
+   léger PluginGrcmanagerSecurityIncident (CommonDBTM, issue #29) directement sur l'objet ITIL
+   absorbé de glpi-security-incidents (ROADMAP.md "Version 2.0") — voir
+   plugin_grcmanager_post_itil_info_section() dans hook.php. #}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+
+{% set classification_fields = ['category', 'severity', 'cia_impact', 'root_cause', 'lessons_learned', 'plugin_grcmanager_risks_id'] %}
+{% set nb_classification = 0 %}
+{% for classification_field in classification_fields %}
+   {% if item.fields[classification_field]|default('')|trim|length > 0 and item.fields[classification_field] != '0' %}
+      {% set nb_classification = nb_classification + 1 %}
+   {% endif %}
+{% endfor %}
+
+<section class="accordion-item" aria-label="{{ __('Classification ISO 27001', 'grcmanager') }}">
+   <div class="accordion-header" id="grcmanager-classification-heading" title="{{ __('Classification ISO 27001', 'grcmanager') }}" data-bs-toggle="tooltip">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#grcmanager-classification" aria-expanded="true" aria-controls="grcmanager-classification">
+         <i class="ti ti-shield-lock"></i>
+         <span class="item-title">
+            {{ __('Classification ISO 27001', 'grcmanager') }}
+         </span>
+         {% if nb_classification > 0 %}
+            <span class="badge bg-secondary text-secondary-fg ms-2">{{ nb_classification }}</span>
+         {% endif %}
+      </button>
+   </div>
+   <div id="grcmanager-classification" class="accordion-collapse collapse show" aria-labelledby="grcmanager-classification-heading">
+      <div class="accordion-body row m-0 mt-n2">
+         {{ fields.dropdownArrayField(
+            'category',
+            item.fields['category'],
+            categories,
+            __('Catégorie', 'grcmanager'),
+            {'full_width': false, 'disabled': not item.canUpdateItem(), 'rand': rand}
+         ) }}
+
+         {{ fields.dropdownArrayField(
+            'severity',
+            item.fields['severity'],
+            severities,
+            __('Sévérité', 'grcmanager'),
+            {'full_width': false, 'disabled': not item.canUpdateItem(), 'rand': rand}
+         ) }}
+
+         {% set cia_field %}
+            {% set selected_axes = item.fields['cia_impact']|default('')|split(',') %}
+            {% for axis, axis_label in cia_axes %}
+               <label class="form-check form-check-inline">
+                  <input type="checkbox" class="form-check-input" name="cia_impact[]" value="{{ axis }}"
+                     {{ axis in selected_axes ? 'checked' : '' }}
+                     {{ not item.canUpdateItem() ? 'disabled' : '' }}>
+                  <span class="form-check-label">{{ axis_label }}</span>
+               </label>
+            {% endfor %}
+         {% endset %}
+         {{ fields.field('cia_impact', cia_field, __('Impact C/I/D', 'grcmanager'), {'full_width': false}) }}
+
+         {{ fields.dropdownArrayField(
+            'plugin_grcmanager_risks_id',
+            item.fields['plugin_grcmanager_risks_id'],
+            risks,
+            risk_type_name,
+            {'full_width': false, 'disabled': not item.canUpdateItem(), 'rand': rand}
+         ) }}
+
+         {{ fields.textareaField(
+            'root_cause',
+            item.fields['root_cause'],
+            __('Cause racine', 'grcmanager'),
+            {'full_width': true, 'is_horizontal': false, 'enable_richtext': false, 'disabled': not item.canUpdateItem(), 'rand': rand, 'helper': __('Obligatoire, avec les enseignements tirés, pour clôturer cet incident.', 'grcmanager')}
+         ) }}
+
+         {{ fields.textareaField(
+            'lessons_learned',
+            item.fields['lessons_learned'],
+            __('Enseignements tirés', 'grcmanager'),
+            {'full_width': true, 'is_horizontal': false, 'enable_richtext': false, 'disabled': not item.canUpdateItem(), 'rand': rand}
+         ) }}
+      </div>
+   </div>
+</section>

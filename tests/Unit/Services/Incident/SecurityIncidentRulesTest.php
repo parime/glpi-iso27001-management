@@ -75,39 +75,6 @@ final class SecurityIncidentRulesTest extends TestCase
         self::assertSame('minor', SecurityIncidentRules::normalizeSeverity(null));
     }
 
-    // --- status ----------------------------------------------------------------------------------
-
-    /**
-     * @dataProvider allowedStatusProvider
-     */
-    public function testNormalizeStatusKeepsAnAllowedValue(string $status): void
-    {
-        self::assertSame($status, SecurityIncidentRules::normalizeStatus($status));
-    }
-
-    /**
-     * @return array<string, array{0: string}>
-     */
-    public static function allowedStatusProvider(): array
-    {
-        return [
-            'open'          => ['open'],
-            'investigating' => ['investigating'],
-            'contained'     => ['contained'],
-            'closed'        => ['closed'],
-        ];
-    }
-
-    public function testNormalizeStatusFallsBackToOpenForAnUnknownValue(): void
-    {
-        self::assertSame('open', SecurityIncidentRules::normalizeStatus('bogus'));
-    }
-
-    public function testNormalizeStatusFallsBackToOpenForNull(): void
-    {
-        self::assertSame('open', SecurityIncidentRules::normalizeStatus(null));
-    }
-
     // --- cia_impact --------------------------------------------------------------------------
 
     public function testNormalizeCiaImpactFromArrayKeepsValidAxesInCanonicalOrder(): void
@@ -197,105 +164,38 @@ final class SecurityIncidentRulesTest extends TestCase
         self::assertFalse(SecurityIncidentRules::isLinkedToRisk($unlinked));
     }
 
-    // --- optional zero-or-one reference to a Ticket/Problem ------------------------------------
-
-    public function testNormalizeLinkedItemKeepsAnAllowedItemtypeWithAPositiveId(): void
-    {
-        self::assertSame(
-            ['itemtype' => 'Ticket', 'items_id' => 12],
-            SecurityIncidentRules::normalizeLinkedItem('Ticket', 12)
-        );
-        self::assertSame(
-            ['itemtype' => 'Problem', 'items_id' => 5],
-            SecurityIncidentRules::normalizeLinkedItem('Problem', '5')
-        );
-    }
-
-    public function testNormalizeLinkedItemRejectsADisallowedItemtype(): void
-    {
-        self::assertSame(
-            ['itemtype' => '', 'items_id' => 0],
-            SecurityIncidentRules::normalizeLinkedItem('Computer', 12)
-        );
-    }
-
-    public function testNormalizeLinkedItemRejectsAZeroOrNegativeId(): void
-    {
-        self::assertSame(
-            ['itemtype' => '', 'items_id' => 0],
-            SecurityIncidentRules::normalizeLinkedItem('Ticket', 0)
-        );
-        self::assertSame(
-            ['itemtype' => '', 'items_id' => 0],
-            SecurityIncidentRules::normalizeLinkedItem('Ticket', -1)
-        );
-    }
-
-    public function testNormalizeLinkedItemRejectsANullItemtype(): void
-    {
-        self::assertSame(
-            ['itemtype' => '', 'items_id' => 0],
-            SecurityIncidentRules::normalizeLinkedItem(null, 12)
-        );
-    }
-
-    public function testUnlinkingTheItemIsSettingBackToTheCanonicalUnlinkedPair(): void
-    {
-        $linked = SecurityIncidentRules::normalizeLinkedItem('Ticket', 9);
-        self::assertTrue(SecurityIncidentRules::isLinkedToItem($linked['itemtype'], $linked['items_id']));
-
-        $unlinked = SecurityIncidentRules::normalizeLinkedItem('', 0);
-        self::assertFalse(SecurityIncidentRules::isLinkedToItem($unlinked['itemtype'], $unlinked['items_id']));
-    }
-
-    // --- root_cause/lessons_learned required only before closing (issue #29, clause A.5.27) ----
-
-    public function testClosureDocumentationIsNotRequiredWhenOpen(): void
-    {
-        self::assertFalse(SecurityIncidentRules::isClosureDocumentationMissing('open', null, null));
-    }
-
-    public function testClosureDocumentationIsNotRequiredWhenInvestigating(): void
-    {
-        self::assertFalse(SecurityIncidentRules::isClosureDocumentationMissing('investigating', '', ''));
-    }
-
-    public function testClosureDocumentationIsNotRequiredWhenContained(): void
-    {
-        self::assertFalse(SecurityIncidentRules::isClosureDocumentationMissing('contained', null, null));
-    }
+    // --- root_cause/lessons_learned required before closing (issue #29, clause A.5.27) ---------
+    //
+    // Absorbed onto the full ITIL object (ROADMAP.md "Version 2.0"): the caller
+    // (PluginGrcmanagerSecurityIncident::normalizeIsoFields()) now checks `status === self::CLOSED`
+    // itself before calling this, so this rule only ever receives the two documentation fields -
+    // no `linked_itemtype`/`linked_items_id`/`status` string vocabulary left to test here, both
+    // superseded by CommonITILObject's own mechanisms (see the class docblock).
 
     public function testClosureIsBlockedWithoutRootCause(): void
     {
-        self::assertTrue(
-            SecurityIncidentRules::isClosureDocumentationMissing('closed', '', 'On a appris X')
-        );
+        self::assertTrue(SecurityIncidentRules::isClosureDocumentationMissing('', 'On a appris X'));
     }
 
     public function testClosureIsBlockedWithoutLessonsLearned(): void
     {
-        self::assertTrue(
-            SecurityIncidentRules::isClosureDocumentationMissing('closed', 'Cause racine', '')
-        );
+        self::assertTrue(SecurityIncidentRules::isClosureDocumentationMissing('Cause racine', ''));
     }
 
     public function testClosureIsBlockedWithOnlyWhitespace(): void
     {
-        self::assertTrue(
-            SecurityIncidentRules::isClosureDocumentationMissing('closed', '   ', '   ')
-        );
+        self::assertTrue(SecurityIncidentRules::isClosureDocumentationMissing('   ', '   '));
     }
 
     public function testClosureIsBlockedWithBothMissing(): void
     {
-        self::assertTrue(SecurityIncidentRules::isClosureDocumentationMissing('closed', null, null));
+        self::assertTrue(SecurityIncidentRules::isClosureDocumentationMissing(null, null));
     }
 
     public function testClosureIsAllowedWithBothDocumented(): void
     {
         self::assertFalse(
             SecurityIncidentRules::isClosureDocumentationMissing(
-                'closed',
                 'Cause racine identifiée',
                 'Enseignements tirés'
             )

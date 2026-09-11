@@ -9,6 +9,40 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Absorption du module "Incidents de sécurité" (objet ITIL complet)** depuis le plugin jumeau
+  glpi-security-incidents (ROADMAP.md "Version 2.0"). L'ancien registre léger de conformité ISO
+  (`PluginGrcmanagerSecurityIncident`, issue #29 : catégorie/sévérité/impact C/I/D/cause racine/
+  enseignements tirés/lien vers un risque) est remplacé par l'objet ITIL complet porté depuis ce
+  plugin jumeau (acteurs, workflow, tâches, notifications, suivi CVE, modèles d'incident) — **les
+  deux fusionnés en un seul enregistrement**, plus de double saisie entre le suivi opérationnel et
+  la conformité :
+  - Nouvelle entrée de menu "Incidents de sécurité" dans le secteur natif Assistance (`helpdesk`),
+    aux côtés de Tickets/Problèmes/Changements — ce plugin peut désormais enregistrer des classes
+    dans plusieurs secteurs de menu à la fois.
+  - Les champs de classification ISO 27001 (catégorie/sévérité/impact C/I/D/cause racine/
+    enseignements tirés/risque lié) s'affichent dans un accordéon dédié "Classification ISO 27001",
+    aux côtés de l'accordéon "Analyse" (impact/contrôles/plan de retour arrière) également absorbé
+    — les deux directement dans le panneau principal de champs, via `Hooks::POST_ITIL_INFO_SECTION`.
+  - La clôture d'un incident (statut "Clos") exige toujours une cause racine et des enseignements
+    tirés documentés (clause A.5.27), exactement comme le faisait l'ancien registre.
+  - Suivi CVE (association en masse, format validé), modèles d'incident, et 4 cartes de tableau de
+    bord natives (total, ouverts, répartition par entité/catégorie) en plus des cartes existantes
+    (par statut/sévérité, mises à jour pour le nouveau vocabulaire de statuts ITIL).
+  - Chaque partie (module principal, CVE, modèles, tableau de bord) reste activable/désactivable
+    indépendamment via l'écran de configuration ajouté précédemment.
+  - **Migration automatique et transparente** : toute donnée existante dans l'ancien registre léger
+    est migrée vers le nouvel objet fusionné à la mise à jour du plugin (mapping des statuts,
+    conversion du responsable en acteur assigné), sans action manuelle requise.
+  - Droits dédiés (`plugin_grcmanager_securityincident`, `rule_grcmanager_securityincident`)
+    conservés distincts du droit plat du reste du plugin, pour la granularité de visibilité réelle
+    qu'un objet ITIL nécessite (voir/mes-incidents vs. voir-tout).
+  - Vérifié en conditions réelles sur l'instance GLPI partagée : migration d'un incident réel,
+    affichage des deux accordéons avec les données migrées, blocage/déblocage de la clôture selon
+    la documentation, activation/désactivation de chaque interrupteur, création d'un nouvel
+    incident, enregistrement des notifications (infrastructure confirmée ; aucun envoi réel testé,
+    les notifications étant globalement désactivées sur cette instance), cartes de tableau de bord
+    exécutées avec succès via un script Kernel réel.
+
 - **Infrastructure d'interrupteurs pour le futur module "Incidents de sécurité".** Première étape
   de l'absorption de glpi-security-incidents (voir ROADMAP.md "Version 2.0") : nouvel écran dans
   Configuration > Plugins > GRC Manager permettant d'activer/désactiver séparément le module

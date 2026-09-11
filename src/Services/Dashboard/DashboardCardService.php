@@ -641,17 +641,19 @@ final class DashboardCardService
 
     /**
      * Issue #29 (registre des incidents de sécurité de l'information, A.5.24-27) : répartition par
-     * statut (ouvert/en investigation/contenu/clôturé), même schéma que
-     * auditsByStatus()/managementReviewsByStatus() ci-dessus.
+     * statut. Absorption de glpi-security-incidents (ROADMAP.md "Version 2.0") : `status` est
+     * désormais le statut ITIL entier hérité de CommonITILObject (INCOMING/ASSIGNED/PLANNED/
+     * WAITING/SOLVED/CLOSED), plus l'ancien statut texte (open/investigating/contained/closed) du
+     * registre CommonDBTM d'origine - les libellés viennent directement de
+     * PluginGrcmanagerSecurityIncident::getAllStatusArray() pour ne jamais dupliquer un second
+     * vocabulaire de statuts.
      */
     public static function securityIncidentsByStatus(array $params = []): array
     {
         global $DB;
 
-        $countsByStatus = array_fill_keys(
-            ['open', 'investigating', 'contained', 'closed'],
-            0
-        );
+        $labels = \PluginGrcmanagerSecurityIncident::getAllStatusArray();
+        $countsByStatus = array_fill_keys(array_keys($labels), 0);
 
         $rows = $DB->request([
             'SELECT' => ['status', new QueryExpression('COUNT(*) AS c')],
@@ -667,7 +669,7 @@ final class DashboardCardService
 
         $data = [];
         foreach ($countsByStatus as $status => $count) {
-            $data[] = ['label' => $status, 'number' => $count];
+            $data[] = ['label' => $labels[$status] ?? (string) $status, 'number' => $count];
         }
 
         return [

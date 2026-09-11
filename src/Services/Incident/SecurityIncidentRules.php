@@ -5,16 +5,24 @@ declare(strict_types=1);
 namespace GlpiPlugin\Grcmanager\Services\Incident;
 
 /**
- * Pure decision logic behind PluginGrcmanagerSecurityIncident (issue #29, ISO/IEC 27001:2022
- * Annexe A A.5.24-27 "planification et préparation, évaluation et décision, réponse, apprentissage
- * des incidents de sécurité de l'information") : category/severity/status normalization, the
- * `cia_impact` comma-separated axis list, the optional zero-or-one link to a
- * PluginGrcmanagerRisk, the optional zero-or-one reference to a real GLPI Ticket/Problem, and the
- * root_cause/lessons_learned-required-before-closed validation (clause A.5.27). Kept
- * GLPI-independent (no $DB, no CommonDBTM, no __()) so every branch is unit tested directly, the
- * same split already used throughout this plugin between pure decision logic and the thin
- * CommonDBTM/$DB wrapper that calls it (see ComplianceObligationRules, ClassificationLevels,
- * CapaRequirementService).
+ * Pure decision logic behind PluginGrcmanagerSecurityIncident's ISO/IEC 27001:2022 Annexe A
+ * A.5.24-27 classification fields ("planification et préparation, évaluation et décision, réponse,
+ * apprentissage des incidents de sécurité de l'information") : category/severity normalization,
+ * the `cia_impact` comma-separated axis list, the optional zero-or-one link to a
+ * PluginGrcmanagerRisk, and the root_cause/lessons_learned-required-before-closed validation
+ * (clause A.5.27). Kept GLPI-independent (no $DB, no CommonDBTM, no __()) so every branch is unit
+ * tested directly, the same split already used throughout this plugin between pure decision logic
+ * and the thin CommonDBTM/$DB wrapper that calls it (see ComplianceObligationRules,
+ * ClassificationLevels, CapaRequirementService).
+ *
+ * Absorbed from the sibling plugin glpi-security-incidents (issue #29, now merged directly onto
+ * the full ITIL object — see PluginGrcmanagerSecurityIncident's own docblock, ROADMAP.md "Version
+ * 2.0"). `status` normalization and the `linked_itemtype`/`linked_items_id` zero-or-one Ticket/
+ * Problem reference from the former standalone lightweight register are both gone: status is now
+ * CommonITILObject's own int-based lifecycle (see PluginGrcmanagerSecurityIncident::CLOSED etc.),
+ * and the Ticket/Problem reference is superseded by the polymorphic asset-link tab
+ * (PluginGrcmanagerSecurityIncident_Item, inherited from CommonITILObject) which already accepts
+ * any itemtype including Ticket/Problem — one linking mechanism instead of two overlapping ones.
  *
  * Not extracted into a shared trait/helper with ComplianceObligationRules::normalizeLinkedRiskId()/
  * isLinkedToRisk() despite the identical zero-or-one-risk-link logic: no other Rules class in this
@@ -50,21 +58,6 @@ final class SecurityIncidentRules
     public const DEFAULT_SEVERITY = 'minor';
 
     /**
-     * @var array<int, string>
-     */
-    public const ALLOWED_STATUSES = ['open', 'investigating', 'contained', 'closed'];
-
-    public const DEFAULT_STATUS = 'open';
-
-    /**
-     * A security incident is only ever linked to a real GLPI Ticket or Problem (issue #29: "cet
-     * incident de sécurité correspond à ce Ticket/Problem GLPI"), never any other itemtype.
-     *
-     * @var array<int, string>
-     */
-    public const ALLOWED_LINKED_ITEMTYPES = ['Ticket', 'Problem'];
-
-    /**
      * The three C/I/D axes an incident may have affected, reusing the exact same axis names as
      * GlpiPlugin\Grcmanager\Services\Classification\ClassificationLevels::AXES (issue #26) rather
      * than inventing a second confidentiality/integrity/availability vocabulary - not a literal
@@ -83,11 +76,6 @@ final class SecurityIncidentRules
     public static function normalizeSeverity(?string $value): string
     {
         return in_array($value, self::ALLOWED_SEVERITIES, true) ? $value : self::DEFAULT_SEVERITY;
-    }
-
-    public static function normalizeStatus(?string $value): string
-    {
-        return in_array($value, self::ALLOWED_STATUSES, true) ? $value : self::DEFAULT_STATUS;
     }
 
     /**
@@ -155,52 +143,19 @@ final class SecurityIncidentRules
     }
 
     /**
-     * The optional reference to a real GLPI Ticket/Problem (issue #29: "une relation légère 'cet
-     * incident de sécurité correspond à ce Ticket/Problem GLPI'"), a zero-or-one polymorphic
-     * reference restricted to ALLOWED_LINKED_ITEMTYPES - simpler cardinality than the risk<->CMDB
-     * asset many-to-many link table of issue #25 (an incident maps to AT MOST ONE ticket/problem in
-     * practice), so two direct columns (`linked_itemtype`/`linked_items_id`) rather than a link
-     * table, same reasoning as the risk-link column above. Anything outside
-     * ALLOWED_LINKED_ITEMTYPES, or a non-positive id, collapses to the canonical "unlinked" pair
-     * (empty string, 0) rather than being stored as garbage.
-     *
-     * @return array{itemtype: string, items_id: int}
-     */
-    public static function normalizeLinkedItem(?string $itemtype, int|string|null $itemsId): array
-    {
-        $id = (int) $itemsId;
-
-        if ($itemtype === null || !in_array($itemtype, self::ALLOWED_LINKED_ITEMTYPES, true) || $id <= 0) {
-            return ['itemtype' => '', 'items_id' => 0];
-        }
-
-        return ['itemtype' => $itemtype, 'items_id' => $id];
-    }
-
-    public static function isLinkedToItem(?string $itemtype, int $itemsId): bool
-    {
-        return $itemtype !== null && $itemtype !== '' && $itemsId > 0;
-    }
-
-    /**
      * Enforces ISO/IEC 27001:2022 clause A.5.27 ("tirer des enseignements des incidents") in
-     * practice: an incident cannot be marked `closed` without a documented root cause AND
-     * documented lessons learned. Neither is required to open an incident or move it to
-     * `investigating`/`contained` - the exact same "required only at a certain status transition"
-     * convention already established by PluginGrcmanagerNonconformity's own
+     * practice: an incident cannot be marked closed without a documented root cause AND documented
+     * lessons learned. Neither is required to open an incident or move it through any other
+     * status - the exact same "required only at a certain status transition" convention already
+     * established by PluginGrcmanagerNonconformity's own
      * `corrective_action`/CapaRequirementService::isCapaMandatory() (issue #27, Sprint 4), applied
      * here to TWO fields instead of one because A.5.27 explicitly asks for both a cause and a
-     * lesson, not just a fix.
+     * lesson, not just a fix. The caller (PluginGrcmanagerSecurityIncident::normalizeIsoFields())
+     * checks `status === self::CLOSED` itself before calling this - CommonITILObject's own int
+     * status constants aren't something this GLPI-independent class should know about.
      */
-    public static function isClosureDocumentationMissing(
-        string $status,
-        ?string $rootCause,
-        ?string $lessonsLearned
-    ): bool {
-        if ($status !== 'closed') {
-            return false;
-        }
-
+    public static function isClosureDocumentationMissing(?string $rootCause, ?string $lessonsLearned): bool
+    {
         return trim((string) $rootCause) === '' || trim((string) $lessonsLearned) === '';
     }
 }
