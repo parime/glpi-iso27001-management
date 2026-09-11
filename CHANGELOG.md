@@ -5,7 +5,13 @@ Toutes les évolutions notables de ce projet sont documentées dans ce fichier.
 Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce projet adhère au
 [Semantic Versioning](https://semver.org/lang/fr/) (`MAJEUR.MINEUR.CORRECTIF`).
 
-## [Non publié]
+## [2.0.0] - 2026-09-11
+
+### Changed
+
+- **PHP 8.2 minimum requis** (était 8.1) — hérité du module Incidents de sécurité absorbé
+  ci-dessous, qui l'exigeait déjà dans son plugin d'origine. Changement cassant pour toute
+  installation encore sur PHP 8.1.
 
 ### Added
 
@@ -43,23 +49,19 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
     les notifications étant globalement désactivées sur cette instance), cartes de tableau de bord
     exécutées avec succès via un script Kernel réel.
 
-- **Infrastructure d'interrupteurs pour le futur module "Incidents de sécurité".** Première étape
-  de l'absorption de glpi-security-incidents (voir ROADMAP.md "Version 2.0") : nouvel écran dans
-  Configuration > Plugins > GRC Manager permettant d'activer/désactiver séparément le module
-  principal, le suivi CVE, les modèles d'incident et les cartes de tableau de bord. Tous les
-  indicateurs sont activés par défaut sur une base neuve (`SecurityIncidentModuleConfig`,
-  `glpi_plugin_grcmanager_securityincidentconfig`) ; le module lui-même n'existe pas encore, ces
-  interrupteurs n'ont donc pour l'instant aucun effet visible — ils seront branchés au menu/aux
-  onglets/au tableau de bord dans une prochaine version.
+- **Écran de configuration du module Incidents de sécurité.** Nouvel écran dans Configuration >
+  Plugins > GRC Manager permettant d'activer/désactiver séparément le module principal, le suivi
+  CVE, les modèles d'incident et les cartes de tableau de bord (`SecurityIncidentModuleConfig`,
+  `glpi_plugin_grcmanager_securityincidentconfig`). Tous les indicateurs sont activés par défaut.
 
 ### Documentation
 
-- **Références obsolètes à glpi-vulnerability-manager mises à jour.** Ce plugin jumeau a été
-  archivé ; son rôle de suivi CVE/incidents a été repris nativement par
-  [glpi-security-incidents](https://github.com/parime/glpi-security-incidents). `README.md`/
-  `README.en.md`, `ROADMAP.md` (plan d'intégration v2.0) et
-  `docs/design/DEVELOPMENT_PLAN.md` (registre de risques) référencent désormais
-  glpi-security-incidents plutôt qu'un dépôt archivé.
+- **Références obsolètes à glpi-vulnerability-manager et glpi-security-incidents mises à jour.**
+  Les deux plugins jumeaux sont désormais archivés (le premier retiré au profit du suivi CVE de
+  glpi-security-incidents à l'époque, le second absorbé dans ce même plugin ci-dessus). `README.md`/
+  `README.en.md`, `ROADMAP.md`, `grcmanager.xml` et `docs/design/DEVELOPMENT_PLAN.md` reflètent
+  désormais que le suivi des incidents de sécurité et des CVE est natif à ce plugin, plus besoin
+  d'un dépôt distinct ni archivé.
 
 ## [1.1.5] - 2026-09-10
 

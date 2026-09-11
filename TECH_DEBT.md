@@ -576,6 +576,19 @@ Journal des limites connues et compromis assumés, tenu à jour à chaque sprint
   cette issue, une colonne de recherche (ex. compteur d'actions en retard par risque) resterait à
   construire sur mesure si un besoin réel de tri/filtre sur ce critère apparaît en usage réel.
 
+- **Le module Incidents de sécurité absorbé (ROADMAP.md "Version 2.0") n'a que fr_FR/en_GB, pas
+  les 5 langues du plugin jumeau glpi-security-incidents d'origine (de_DE/it_IT/es_ES en plus).**
+  Choix délibéré à l'absorption : le reste de GRC Manager n'a lui-même que ces deux langues,
+  ajouter 3 langues supplémentaires pour un seul module aurait créé une incohérence de couverture
+  entre modules plutôt que de la résoudre. À réévaluer si une demande réelle de parité de
+  traduction complète apparaît (traduction des ~30 nouvelles chaînes utilisateur du module dans les
+  3 langues manquantes, pas un chantier de traduction du plugin entier).
+- **`docs/TUTORIAL.md` n'a pas été mis à jour avec le nouveau module Incidents de sécurité.** Son
+  format (une capture d'écran réelle par étape) n'a pas pu être respecté sans repasser par un
+  navigateur réel pour capturer chaque étape - à faire dans une itération séparée plutôt que
+  d'insérer des captures manquantes ou une section sans capture qui romprait le format du reste du
+  document.
+
 - **`docs/design/` ne contient qu'un seul document (`DEVELOPMENT_PLAN.md`), pas d'ADR dédiées.**
   Évalué lors de la même revue : il n'existe pas de série de fichiers "Architecture Decision
   Record" formels comme le ferait un projet plus mature. Jugé suffisant pour l'instant (pas
