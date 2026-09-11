@@ -9,6 +9,7 @@ use DBConnection;
 use GlpiPlugin\Grcmanager\Services\Control\ControlCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Dashboard\DefaultDashboardService;
 use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
+use GlpiPlugin\Grcmanager\Services\Incident\LegacySecurityIncidentMigrator;
 use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentModuleConfig;
 use GlpiPlugin\Grcmanager\Services\Risk\RiskMatrixDefaults;
 use Migration;
@@ -1714,49 +1715,28 @@ final class Installer
      * per instance: the legacy table only exists on an upgrade from a pre-absorption version, and
      * is gone for good after this method returns.
      *
-     * Field mapping: `title`->`name`, `description`->`content`, `incident_date`->`date`,
-     * `category`/`severity`/`cia_impact`/`root_cause`/`lessons_learned`/`plugin_grcmanager_risks_id`
-     * copied as-is (identical column names/semantics on the new table). `status` is re-mapped from
-     * the old 4-value ISO vocabulary to CommonITILObject's own lifecycle constants (open->INCOMING,
-     * investigating->ASSIGNED, contained->WAITING, closed->CLOSED) - a judgment call, not a 1:1
-     * native equivalence, since the two vocabularies don't line up exactly. `users_id` (the old
-     * register's single "responsable" field) becomes an ASSIGN actor on the new object - the
-     * closest equivalent of "who is responsible for this incident" in CommonITILObject's own actor
-     * model. `linked_itemtype`/`linked_items_id` (if set) becomes a row in
-     * SECURITY_INCIDENTS_ITEMS_TABLE, the polymorphic link mechanism that supersedes it.
+     * The actual field mapping (including the status-vocabulary conversion) lives in
+     * `LegacySecurityIncidentMigrator::mapRow()` — a pure, GLPI-independent, unit-tested class —
+     * so the trickiest part of this migration is verified without needing a live DB. `users_id`
+     * (the old register's single "responsable" field) becomes an ASSIGN actor on the new object;
+     * `linked_itemtype`/`linked_items_id` (if set) becomes a row in SECURITY_INCIDENTS_ITEMS_TABLE,
+     * the polymorphic link mechanism that supersedes it.
      */
     private function migrateLegacySecurityIncidents(): void
     {
         global $DB;
 
-        $statusMap = [
-            'open'          => \CommonITILObject::INCOMING,
-            'investigating' => \CommonITILObject::ASSIGNED,
-            'contained'     => \CommonITILObject::WAITING,
-            'closed'        => \CommonITILObject::CLOSED,
-        ];
-
         foreach ($DB->request(['FROM' => self::SECURITY_INCIDENTS_LEGACY_TABLE]) as $row) {
-            $newId = $DB->insert(self::SECURITY_INCIDENTS_TABLE, [
-                'name'                       => $row['title'] ?? '',
-                'content'                    => $row['description'] ?? '',
-                'date'                       => $row['incident_date'] ?: null,
-                'status'                     => $statusMap[$row['status']] ?? \CommonITILObject::INCOMING,
-                'category'                   => $row['category'] ?? 'other',
-                'severity'                   => $row['severity'] ?? 'minor',
-                'cia_impact'                 => $row['cia_impact'] ?? '',
-                'root_cause'                 => $row['root_cause'] ?? '',
-                'lessons_learned'            => $row['lessons_learned'] ?? '',
-                'plugin_grcmanager_risks_id' => $row['plugin_grcmanager_risks_id'] ?? 0,
-                'entities_id'                => 0,
-                'date_creation'              => $row['date_creation'] ?? date('Y-m-d H:i:s'),
-            ]) ? $DB->insertId() : 0;
+            $fields = LegacySecurityIncidentMigrator::mapRow($row);
+            $fields['date_creation'] ??= date('Y-m-d H:i:s');
+
+            $newId = $DB->insert(self::SECURITY_INCIDENTS_TABLE, $fields) ? $DB->insertId() : 0;
 
             if ($newId === 0) {
                 continue;
             }
 
-            if ((int) ($row['users_id'] ?? 0) > 0) {
+            if (LegacySecurityIncidentMigrator::hasResponsibleUser($row)) {
                 $DB->insert(self::SECURITY_INCIDENTS_USERS_TABLE, [
                     'plugin_grcmanager_securityincidents_id' => $newId,
                     'users_id'                                => (int) $row['users_id'],
@@ -1764,7 +1744,7 @@ final class Installer
                 ]);
             }
 
-            if (($row['linked_itemtype'] ?? '') !== '' && (int) ($row['linked_items_id'] ?? 0) > 0) {
+            if (LegacySecurityIncidentMigrator::hasLinkedItem($row)) {
                 $DB->insert(self::SECURITY_INCIDENTS_ITEMS_TABLE, [
                     'plugin_grcmanager_securityincidents_id' => $newId,
                     'itemtype'                                 => $row['linked_itemtype'],
