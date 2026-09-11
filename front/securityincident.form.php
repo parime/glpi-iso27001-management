@@ -15,43 +15,71 @@
  * -------------------------------------------------------------------------
  */
 
-include('../../../inc/includes.php');
+// Same shape as GLPI core's own front/change.form.php (the closest native analogue) — add/update/
+// delete/restore/purge plus the two "add myself as actor" shortcuts, trimmed of Change-specific
+// branches (Kanban, cross-linking from an existing Ticket/Problem) not needed by this plugin yet.
 
-$item = new PluginGrcmanagerSecurityIncident();
+if (empty($_GET['id'])) {
+    $_GET['id'] = '';
+}
+
+if (isset($_POST['_actors'])) {
+    $_POST['_actors'] = json_decode((string) $_POST['_actors'], true);
+    $_REQUEST['_actors'] = $_POST['_actors'];
+}
+
+$securityIncident = new PluginGrcmanagerSecurityIncident();
 
 if (isset($_POST['add'])) {
-    Session::checkRight(PluginGrcmanagerSecurityIncident::$rightname, CREATE);
-    $newID = $item->add($_POST);
-    Html::back();
-} elseif (isset($_POST['delete'])) {
-    Session::checkRight(PluginGrcmanagerSecurityIncident::$rightname, DELETE);
-    $item->delete($_POST);
-    Html::redirect(PluginGrcmanagerSecurityIncident::getSearchURL());
-} elseif (isset($_POST['purge'])) {
-    Session::checkRight(PluginGrcmanagerSecurityIncident::$rightname, PURGE);
-    $item->delete($_POST, 1);
-    Html::redirect(PluginGrcmanagerSecurityIncident::getSearchURL());
-} elseif (isset($_POST['update'])) {
-    Session::checkRight(PluginGrcmanagerSecurityIncident::$rightname, UPDATE);
-    $item->update($_POST);
-    Html::back();
-} else {
-    Session::checkRight(PluginGrcmanagerSecurityIncident::$rightname, READ);
-
-    Html::header(
-        PluginGrcmanagerSecurityIncident::getTypeName(1),
-        $_SERVER['PHP_SELF'],
-        'grcmanager',
-        PluginGrcmanagerSecurityIncident::class
-    );
-
-    $id = (int) ($_GET['id'] ?? 0);
-
-    if ($id > 0) {
-        $item->getFromDB($id);
+    $securityIncident->check(-1, CREATE, $_POST);
+    $newId = $securityIncident->add($_POST);
+    if ($_SESSION['glpibackcreated']) {
+        Html::redirect($securityIncident->getLinkURL());
+    } else {
+        Html::back();
     }
-
-    $item->showForm($id);
-
+} elseif (isset($_POST['delete'])) {
+    $securityIncident->check($_POST['id'], DELETE);
+    $securityIncident->delete($_POST);
+    $securityIncident->redirectToList();
+} elseif (isset($_POST['restore'])) {
+    $securityIncident->check($_POST['id'], DELETE);
+    $securityIncident->restore($_POST);
+    $securityIncident->redirectToList();
+} elseif (isset($_POST['purge'])) {
+    $securityIncident->check($_POST['id'], PURGE);
+    $securityIncident->delete($_POST, true);
+    $securityIncident->redirectToList();
+} elseif (isset($_POST['update'])) {
+    $securityIncident->check($_POST['id'], UPDATE);
+    $securityIncident->update($_POST);
+    Html::back();
+} elseif (isset($_POST['addme_observer'])) {
+    $securityIncident->check($_POST['plugin_grcmanager_securityincidents_id'], READ);
+    $securityIncident->update(array_merge($securityIncident->fields, [
+        'id' => $_POST['plugin_grcmanager_securityincidents_id'],
+        '_itil_observer' => [
+            '_type' => 'user',
+            'users_id' => Session::getLoginUserID(),
+            'use_notification' => 1,
+        ],
+    ]));
+    Html::redirect(PluginGrcmanagerSecurityIncident::getFormURLWithID(
+        $_POST['plugin_grcmanager_securityincidents_id']
+    ));
+} elseif (isset($_POST['addme_assign'])) {
+    $securityIncident->check($_POST['plugin_grcmanager_securityincidents_id'], READ);
+    (new PluginGrcmanagerSecurityIncident_User())->add([
+        'plugin_grcmanager_securityincidents_id' => $_POST['plugin_grcmanager_securityincidents_id'],
+        'users_id' => Session::getLoginUserID(),
+        'use_notification' => 1,
+        'type' => CommonITILActor::ASSIGN,
+    ]);
+    Html::redirect(PluginGrcmanagerSecurityIncident::getFormURLWithID(
+        $_POST['plugin_grcmanager_securityincidents_id']
+    ));
+} else {
+    $menus = ['helpdesk', PluginGrcmanagerSecurityIncident::class];
+    PluginGrcmanagerSecurityIncident::displayFullPageForItem((int) ($_REQUEST['id'] ?? 0), $menus, $_REQUEST);
     Html::footer();
 }

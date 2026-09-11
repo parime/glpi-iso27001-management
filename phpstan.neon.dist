@@ -58,3 +58,10 @@ parameters:
         # Module toggle infra for the security-incident absorption (ROADMAP.md "Version 2.0"):
         # depends on GLPI's runtime global $DB, same rationale as RiskMatrixConfig above.
         - src/Services/Incident/SecurityIncidentModuleConfig.php
+        # Security-incident module absorbed from glpi-security-incidents (ROADMAP.md "Version
+        # 2.0"): depends on GLPI's runtime global $DB and legacy PluginGrcmanagerSecurityIncident
+        # class, same rationale as DashboardCardService.php above.
+        - src/Services/Dashboard/SecurityIncidentCardProvider.php
+        # Depends on GLPI core's Glpi\ContentTemplates\Parameters\CommonITILObjectParameters and
+        # the legacy PluginGrcmanagerSecurityIncident class, not available for static analysis.
+        - src/Services/Incident/SecurityIncidentParameters.php

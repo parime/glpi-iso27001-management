@@ -46,4 +46,14 @@
     <rule ref="PSR1.Classes.ClassDeclaration">
         <exclude-pattern>inc/*</exclude-pattern>
     </rule>
+
+    <!-- GLPI core's own ITIL actor/relation classes are always named "Type_Relation" with an
+         underscore (Change_User, Ticket_Group, Problem_Supplier...), never PascalCase - a load-
+         bearing naming convention, not a style choice (CommonITILActor::getSQLTablesFrom() and
+         similar core mechanisms derive the relation from this exact class-name shape). Absorbed
+         from glpi-security-incidents (ROADMAP.md "Version 2.0"): PluginGrcmanagerSecurityIncident_
+         User/_Group/_Supplier follow the same convention, the first such classes in this plugin. -->
+    <rule ref="Squiz.Classes.ValidClassName">
+        <exclude-pattern>inc/*</exclude-pattern>
+    </rule>
 </ruleset>
