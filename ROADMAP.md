@@ -76,7 +76,12 @@ Objectif : une plateforme GRC/ISO 27001 générique fonctionnelle de bout en bou
 
 ## Version 2.2 (à venir)
 
-- Cartographie des risques (heatmap probabilité x impact interactive)
+- ~~Cartographie des risques (heatmap probabilité x impact interactive)~~ — **livré** : nouvel
+  écran (`front/riskheatmap.php`, accessible depuis un bouton sur la liste des risques) affichant
+  une grille probabilité x impact, chaque cellule colorée selon le niveau de risque configuré
+  (`front/config.php`, la même matrice administrable que le Sprint 2) et affichant le nombre de
+  risques qui y tombent. Chaque cellule est cliquable et ouvre la liste des risques filtrée sur
+  cette combinaison exacte.
 - Bibliothèque de contrôles étendue (ISO 27002, NIST CSF, CIS Controls) en complément de
   l'Annexe A ISO 27001
 

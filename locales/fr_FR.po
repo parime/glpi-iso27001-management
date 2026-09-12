@@ -1075,3 +1075,12 @@ msgstr "Actions de traitement de risque en retard"
 
 msgid "Risques à mitiger/transférer sans plan de traitement"
 msgstr "Risques à mitiger/transférer sans plan de traitement"
+
+msgid "Cartographie des risques"
+msgstr "Cartographie des risques"
+
+msgid "Cliquez sur une cellule pour voir la liste des risques correspondants."
+msgstr "Cliquez sur une cellule pour voir la liste des risques correspondants."
+
+msgid "Retour à la liste des risques"
+msgstr "Retour à la liste des risques"

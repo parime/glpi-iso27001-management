@@ -43,7 +43,16 @@ $myRisksURL = PluginGrcmanagerRisk::getSearchURL() . '?' . http_build_query([
         ['field' => 7, 'searchtype' => 'equals', 'value' => Session::getLoginUserID()],
     ],
 ]);
-echo '<div class="d-flex justify-content-end mb-2">';
+// ROADMAP.md "Version 2.2" (cartographie des risques) : lien vers front/riskheatmap.php, même
+// emplacement/style que "Mes risques" ci-dessus - la grille probabilité x impact n'a pas d'entrée
+// de menu dédiée (même choix d'empreinte minimale que front/config.php, reachable seulement via
+// l'icône de configuration du plugin), ce bouton est donc le seul point d'entrée de ce nouvel
+// écran depuis la navigation normale.
+$riskHeatmapURL = Plugin::getWebDir('grcmanager') . '/front/riskheatmap.php';
+echo '<div class="d-flex justify-content-end mb-2 gap-2">';
+echo '<a href="' . htmlescape($riskHeatmapURL) . '" class="btn btn-outline-secondary btn-sm">';
+echo '<i class="ti ti-grid-dots me-1"></i>' . __('Cartographie des risques', 'grcmanager');
+echo '</a>';
 echo '<a href="' . htmlescape($myRisksURL) . '" class="btn btn-outline-secondary btn-sm">';
 echo '<i class="ti ti-user-check me-1"></i>' . __('Mes risques', 'grcmanager');
 echo '</a></div>';
