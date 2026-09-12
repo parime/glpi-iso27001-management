@@ -42,18 +42,25 @@ classification fields merged directly onto it.
 
 ## Project status
 
-**Sprints 1 through 7 complete**, validated against a real GLPI 11: generic risk register
-(administrable probability x impact matrix, filters, review reminders), Statement of Applicability
-(93 ISO/IEC 27001:2022 Annex A controls), internal audit program with non-conformities and CAPA,
-supplier/third-party risk register, security awareness training tracking and management reviews,
-and a complete ISMS dashboard (15 cards, a default dashboard seeded at install time). Sprint 8
-(documentation and the v1.0.0 release, in progress) is the last one before the first published
-version. See [ROADMAP.md](ROADMAP.md) and
-[docs/design/DEVELOPMENT_PLAN.md](docs/design/DEVELOPMENT_PLAN.md) for the details.
+**Stable v2.1.0**, published and installable right now: generic risk register (administrable
+probability x impact matrix, interactive heatmap, filters, review reminders), Statement of
+Applicability (93 ISO/IEC 27001:2022 Annex A controls), internal audit program with
+non-conformities and CAPA, supplier/third-party risk register, security awareness training
+tracking (including assessment pass rate) and management reviews, a full Security Incidents module
+(ITIL object, CVE tracking, absorbed from the sibling plugin `glpi-security-incidents` in v2.0.0),
+and a complete ISMS dashboard. See [ROADMAP.md](ROADMAP.md) for what's planned next and
+[CHANGELOG.md](CHANGELOG.md) for the full history of published versions.
 
 ## Installation
 
-During the initial development phase (before the first release), install from source:
+**1. Get the code** into your GLPI's `plugins/` directory, under the name **`grcmanager`** (GLPI
+derives the plugin key from it):
+
+- From a [release](https://github.com/parime/glpi-iso27001-management/releases) (recommended, no
+  dependency to install — `vendor/` is already bundled in the ZIP): download
+  `glpi-iso27001-management-X.Y.Z.zip`, extract it into `plugins/`, then rename the extracted
+  folder to `grcmanager`.
+- Or for development, from source:
 
 ```bash
 cd /var/www/glpi/plugins
@@ -62,7 +69,13 @@ cd grcmanager
 composer install --no-dev
 ```
 
-Then, from GLPI: Setup > Plugins > GLPI GRC Manager > Install > Enable.
+**2. Install and enable it**, from the UI (**Setup > Plugins**, "GLPI GRC Manager") or from the
+command line:
+
+```bash
+php bin/console plugin:install grcmanager
+php bin/console plugin:activate grcmanager
+```
 
 ## Documentation
 
