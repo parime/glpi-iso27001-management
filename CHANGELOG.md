@@ -54,6 +54,13 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   CVE, les modèles d'incident et les cartes de tableau de bord (`SecurityIncidentModuleConfig`,
   `glpi_plugin_grcmanager_securityincidentconfig`). Tous les indicateurs sont activés par défaut.
 
+- **Carte de tableau de bord "délai moyen de réponse aux incidents"** (issue A.5.24-27 ISO/IEC
+  27001:2022) : moyenne, en heures, du temps écoulé entre la création et la résolution des
+  incidents de sécurité effectivement résolus. Complète les cartes déjà existantes (par statut/
+  sévérité/entité/catégorie, qui comptent) avec un indicateur qui mesure un temps — un indicateur
+  ISO 27001 classique qui n'avait pas d'équivalent parmi les cartes portées depuis le plugin
+  absorbé.
+
 - **Première suite de tests d'intégration** (`tests/Integration/`, `phpunit-integration.xml.dist`,
   `composer test:integration`) — ce plugin n'en avait aucune jusqu'ici (seulement `tests/Unit`,
   sans base de données). Portée depuis le plugin absorbé glpi-security-incidents : boot réel du
