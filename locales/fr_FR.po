@@ -1084,3 +1084,132 @@ msgstr "Cliquez sur une cellule pour voir la liste des risques correspondants."
 
 msgid "Retour à la liste des risques"
 msgstr "Retour à la liste des risques"
+
+msgid "Security incident"
+msgid_plural "Security incidents"
+msgstr[0] "Incident de sécurité"
+msgstr[1] "Incidents de sécurité"
+
+msgid "Security incident item"
+msgid_plural "Security incident items"
+msgstr[0] "Élément d'incident de sécurité"
+msgstr[1] "Éléments d'incident de sécurité"
+
+msgid "Security incident task"
+msgid_plural "Security incident tasks"
+msgstr[0] "Tâche d'incident de sécurité"
+msgstr[1] "Tâches d'incident de sécurité"
+
+msgid "Security incident template"
+msgid_plural "Security incident templates"
+msgstr[0] "Modèle d'incident de sécurité"
+msgstr[1] "Modèles d'incident de sécurité"
+
+msgid "CVE reference"
+msgid_plural "CVE references"
+msgstr[0] "Référence CVE"
+msgstr[1] "Références CVE"
+
+msgid "CVE"
+msgid_plural "CVEs"
+msgstr[0] "CVE"
+msgstr[1] "CVE"
+
+msgid "%d CVE reference added."
+msgid_plural "%d CVE references added."
+msgstr[0] "%d référence CVE ajoutée."
+msgstr[1] "%d références CVE ajoutées."
+
+msgid "New security incident"
+msgstr "Nouvel incident de sécurité"
+
+msgid "Update of a security incident"
+msgstr "Mise à jour d'un incident de sécurité"
+
+msgid "Security incident solved"
+msgstr "Incident de sécurité résolu"
+
+msgid "Security incident closed"
+msgstr "Incident de sécurité clôturé"
+
+msgid "Business rules for security incidents"
+msgstr "Règles métier pour les incidents de sécurité"
+
+msgid "\"%s\" is not a valid CVE identifier (expected format: CVE-YYYY-NNNN)."
+msgstr "« %s » n'est pas un identifiant CVE valide (format attendu : CVE-AAAA-NNNN)."
+
+msgid "Délai moyen de réponse aux incidents (heures)"
+msgstr "Délai moyen de réponse aux incidents (heures)"
+
+msgid "Taux de réussite des formations évaluées"
+msgstr "Taux de réussite des formations évaluées"
+
+msgid "GRC & Conformité"
+msgstr "GRC & Conformité"
+
+msgid "Action corrective"
+msgstr "Action corrective"
+
+msgid "Action préventive"
+msgstr "Action préventive"
+
+msgid "Sans évaluation"
+msgstr "Sans évaluation"
+
+msgid "Réussie"
+msgstr "Réussie"
+
+msgid "Échouée"
+msgstr "Échouée"
+
+msgid "Évaluation"
+msgstr "Évaluation"
+
+msgid "Classification ISO 27001"
+msgstr "Classification ISO 27001"
+
+msgid "Obligatoire, avec les enseignements tirés, pour clôturer cet incident."
+msgstr "Obligatoire, avec les enseignements tirés, pour clôturer cet incident."
+
+msgid "Identifiant(s) CVE"
+msgstr "Identifiant(s) CVE"
+
+msgid "Aucune référence CVE associée à cet incident pour l'instant."
+msgstr "Aucune référence CVE associée à cet incident pour l'instant."
+
+msgid "Identifiant CVE"
+msgstr "Identifiant CVE"
+
+msgid "Incidents de sécurité"
+msgstr "Incidents de sécurité"
+
+msgid "Module Incidents de sécurité (menu Assistance)"
+msgstr "Module Incidents de sécurité (menu Assistance)"
+
+msgid "Suivi des CVE"
+msgstr "Suivi des CVE"
+
+msgid "Modèles d'incident"
+msgstr "Modèles d'incident"
+
+msgid "Cartes de tableau de bord"
+msgstr "Cartes de tableau de bord"
+
+msgid "Contrôles appliqués / à appliquer"
+msgstr "Contrôles appliqués / à appliquer"
+
+msgid "Plan de retour arrière / confinement"
+msgstr "Plan de retour arrière / confinement"
+
+msgid "Analyse"
+msgstr "Analyse"
+
+msgid "Incidents de sécurité par entité"
+msgstr "Incidents de sécurité par entité"
+
+msgid "Incidents de sécurité par catégorie GLPI"
+msgstr "Incidents de sécurité par catégorie GLPI"
+
+msgctxt "security incidents"
+msgid "Open"
+msgstr "Ouverts"

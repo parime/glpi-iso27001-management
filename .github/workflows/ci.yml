@@ -115,6 +115,57 @@ jobs:
       - name: PHP_CodeSniffer
         run: vendor/bin/phpcs
 
+  locales:
+    name: Locale completeness
+    needs: detect
+    if: needs.detect.outputs.has_composer == 'true'
+    runs-on: ubuntu-latest
+    # Catches a __()/_n()/_x() string added to the code without a matching entry in
+    # locales/*.po — the exact gap that let ~38 strings (menu title, security-incident absorbed
+    # module, config toggles, dashboard cards, training evaluation) sit with NO translation entry
+    # at all in either shipped language (fr_FR/en_GB) for whole sprints before a manual audit
+    # found them — distinct from the already-documented TECH_DEBT.md item about the absorbed
+    # module only shipping 2 of the sibling plugin's original 5 languages, which this job does
+    # not address. Regenerates the .pot from the current code (vendor/bin/extract-locales, same
+    # tool a human contributor would run by hand) rather than a hand-rolled regex.
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+          coverage: none
+
+      - name: Composer install
+        run: composer install --no-progress --prefer-dist
+
+      - name: Install gettext
+        run: sudo apt-get update -qq && sudo apt-get install -y --no-install-recommends gettext
+
+      - name: Regenerate .pot from current code
+        run: |
+          vendor/bin/extract-locales
+          # extract-locales' own last step overwrites en_GB.po from scratch via msginit (French
+          # msgid copied as a placeholder msgstr for every string, wiping real English
+          # translations) - undo that so en_GB.po is checked the same way as fr_FR.po, not
+          # blindly regenerated.
+          git checkout -- locales/en_GB.po
+
+      - name: Check every language has a translation for every extracted string
+        run: |
+          status=0
+          for lang in fr_FR en_GB; do
+            msgmerge --no-fuzzy-matching --quiet -o /tmp/merged_${lang}.po locales/${lang}.po locales/grcmanager.pot
+            missing=$(msgattrib --untranslated /tmp/merged_${lang}.po | grep -c '^msgid "[^"]' || true)
+            if [ "$missing" -gt 0 ]; then
+              echo "::error::${lang}.po is missing ${missing} translation(s) for strings present in the code"
+              msgattrib --untranslated /tmp/merged_${lang}.po | grep '^msgid "[^"]'
+              status=1
+            fi
+          done
+          exit $status
+
   tests:
     name: Automated tests (PHPUnit)
     needs: detect
