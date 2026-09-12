@@ -1,0 +1,99 @@
+{# ROADMAP.md "Version 2.2" (cartographie des risques) : grille probabilite x impact, une cellule
+   par combinaison, coloree par niveau de risque (meme matrice administrable que front/config.php,
+   RiskMatrixConfig) et affichant le nombre de risques qui y tombent. Chaque cellule est un lien
+   direct vers la liste des risques filtree sur cette combinaison exacte (voir front/riskheatmap.php
+   pour la construction de l'URL) : le volet "interactive" de cette fonctionnalite. #}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <div class="text-muted">
+    {{ __('Cliquez sur une cellule pour voir la liste des risques correspondants.', 'grcmanager') }}
+  </div>
+  <a href="{{ risk_list_url }}" class="btn btn-outline-secondary btn-sm">
+    <i class="ti ti-list me-1"></i>{{ __('Retour à la liste des risques', 'grcmanager') }}
+  </a>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-bordered grcmanager-heatmap-table text-center">
+    <thead>
+      <tr>
+        <th>{{ __('Probabilité', 'grcmanager') }} \ {{ __('Impact', 'grcmanager') }}</th>
+        {% for impact_key, impact_label in risk_impacts %}
+          <th>{{ impact_label }}</th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for probability_key, probability_label in risk_probabilities %}
+        <tr>
+          <th>{{ probability_label }}</th>
+          {% for impact_key, impact_label in risk_impacts %}
+            {% set cell = heatmap[probability_key][impact_key]|default(null) %}
+            <td class="grcmanager-heatmap-cell grcmanager-level-{{ cell ? cell.level : 'low' }}">
+              {% if cell %}
+                <a href="{{ cell.url }}" class="grcmanager-heatmap-link">
+                  <span class="grcmanager-heatmap-count">{{ cell.count }}</span>
+                </a>
+              {% endif %}
+            </td>
+          {% endfor %}
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<div class="d-flex gap-3 mt-2">
+  {% for level, class in {
+    'low': 'grcmanager-level-low',
+    'medium': 'grcmanager-level-medium',
+    'high': 'grcmanager-level-high',
+    'critical': 'grcmanager-level-critical'
+  } %}
+    <div class="d-flex align-items-center gap-1">
+      <span class="grcmanager-heatmap-legend-swatch {{ class }}"></span>
+      <span class="small text-muted">
+        {{ {
+          'low': __('Faible', 'grcmanager'),
+          'medium': __('Moyen', 'grcmanager'),
+          'high': __('Élevé', 'grcmanager'),
+          'critical': __('Critique', 'grcmanager')
+        }[level] }}
+      </span>
+    </div>
+  {% endfor %}
+</div>
+
+<style>
+  .grcmanager-heatmap-cell.grcmanager-level-low { background-color: var(--tblr-green-lt, #d4f4e2); }
+  .grcmanager-heatmap-cell.grcmanager-level-medium { background-color: var(--tblr-yellow-lt, #fdf3d8); }
+  .grcmanager-heatmap-cell.grcmanager-level-high { background-color: var(--tblr-orange-lt, #fde6d8); }
+  .grcmanager-heatmap-cell.grcmanager-level-critical { background-color: var(--tblr-red-lt, #fbd9d3); }
+  .grcmanager-heatmap-legend-swatch {
+    display: inline-block;
+    width: 0.9rem;
+    height: 0.9rem;
+    border-radius: 0.2rem;
+  }
+  .grcmanager-heatmap-cell {
+    padding: 0;
+    vertical-align: middle;
+  }
+  .grcmanager-heatmap-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    min-height: 3.5rem;
+    color: inherit;
+    text-decoration: none;
+  }
+  .grcmanager-heatmap-link:hover {
+    filter: brightness(0.93);
+  }
+  .grcmanager-heatmap-count {
+    font-size: 1.4rem;
+    font-weight: 600;
+  }
+</style>

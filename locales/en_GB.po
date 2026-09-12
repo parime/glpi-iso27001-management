@@ -1075,3 +1075,12 @@ msgstr "Overdue risk treatment actions"
 
 msgid "Risques à mitiger/transférer sans plan de traitement"
 msgstr "Risks to mitigate/transfer with no treatment plan"
+
+msgid "Cartographie des risques"
+msgstr "Risk heatmap"
+
+msgid "Cliquez sur une cellule pour voir la liste des risques correspondants."
+msgstr "Click a cell to see the matching list of risks."
+
+msgid "Retour à la liste des risques"
+msgstr "Back to the risk list"

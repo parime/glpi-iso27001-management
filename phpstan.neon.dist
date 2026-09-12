@@ -36,6 +36,10 @@ parameters:
         # both are pure PHP with no GLPI dependency.
         - src/Services/Risk/RiskMatrixConfig.php
         - src/Services/Risk/ReviewReminderService.php
+        # ROADMAP.md "Version 2.2" (cartographie des risques) : depends on GLPI's runtime global
+        # $DB, same rationale as RiskMatrixConfig.php above. RiskHeatmapGrid.php in the same
+        # directory stays in scope: pure PHP, no GLPI dependency.
+        - src/Services/Risk/RiskHeatmapService.php
         # Sprint 4: depends on GLPI core classes NotificationEvent/PluginGrcmanagerNonconformity,
         # same rationale as ReviewReminderService above. OverdueCapaResult.php in the same
         # directory stays in scope: pure PHP with no GLPI dependency.
