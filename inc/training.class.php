@@ -87,6 +87,25 @@ class PluginGrcmanagerTraining extends CommonDBTM
     }
 
     /**
+     * Independent axis from `completion_status` above: a training can be "completed" with no
+     * evaluation attached at all (`not_applicable`, the default - existing rows are never
+     * retroactively marked passed/failed), or completed AND assessed (quiz, practical test...).
+     * Kept as a separate column rather than folded into `completion_status` because the two
+     * questions are genuinely independent: "did they attend" vs. "did they demonstrate the
+     * competency", and a training with no formal assessment should never be forced to say either.
+     *
+     * @return array<string, string>
+     */
+    public static function getAssessmentResults(): array
+    {
+        return [
+            'not_applicable' => __('Sans évaluation', 'grcmanager'),
+            'passed'         => __('Réussie', 'grcmanager'),
+            'failed'         => __('Échouée', 'grcmanager'),
+        ];
+    }
+
+    /**
      * Normalizes `renewal_period_months`/`is_mandatory` posted from the form, and syncs the
      * participant set + per-participant completion status/date the same "single normalize
      * function called from both prepare hooks" convention as PluginGrcmanagerAudit's own
@@ -177,12 +196,14 @@ class PluginGrcmanagerTraining extends CommonDBTM
                 'plugin_grcmanager_trainings_id' => $trainingId,
                 'users_id'                       => $addedId,
                 'completion_status'              => 'pending',
+                'assessment_result'              => 'not_applicable',
                 'date_creation'                  => date('Y-m-d H:i:s'),
             ]);
         }
 
         $statuses = (array) ($this->input['participant_status'] ?? []);
         $dates    = (array) ($this->input['participant_date'] ?? []);
+        $results  = (array) ($this->input['participant_result'] ?? []);
 
         foreach (array_intersect($selectedIds, $existingIds) as $userId) {
             if (!isset($statuses[$userId])) {
@@ -191,6 +212,10 @@ class PluginGrcmanagerTraining extends CommonDBTM
 
             $status = (string) $statuses[$userId];
             $date   = trim((string) ($dates[$userId] ?? ''));
+            $result = (string) ($results[$userId] ?? 'not_applicable');
+            if (!array_key_exists($result, self::getAssessmentResults())) {
+                $result = 'not_applicable';
+            }
 
             if ($status === 'completed' && $date === '') {
                 $date = date('Y-m-d');
@@ -199,6 +224,7 @@ class PluginGrcmanagerTraining extends CommonDBTM
             $DB->update(self::PARTICIPANTS_TABLE, [
                 'completion_status' => $status,
                 'completion_date'   => $date !== '' ? $date : null,
+                'assessment_result' => $result,
             ], [
                 'plugin_grcmanager_trainings_id' => $trainingId,
                 'users_id'                       => $userId,
@@ -228,7 +254,10 @@ class PluginGrcmanagerTraining extends CommonDBTM
     }
 
     /**
-     * @return array<int, array{users_id: int, name: string, completion_status: string, completion_date: ?string}>
+     * @return array<int, array{
+     *     users_id: int, name: string, completion_status: string, completion_date: ?string,
+     *     assessment_result: string,
+     * }>
      */
     public static function getParticipants(int $trainingId): array
     {
@@ -237,7 +266,10 @@ class PluginGrcmanagerTraining extends CommonDBTM
         $participants = [];
 
         $rows = $DB->request([
-            'SELECT'     => ['links.users_id', 'links.completion_status', 'links.completion_date', 'u.name'],
+            'SELECT'     => [
+                'links.users_id', 'links.completion_status', 'links.completion_date',
+                'links.assessment_result', 'u.name',
+            ],
             'FROM'       => self::PARTICIPANTS_TABLE . ' AS links',
             'INNER JOIN' => [
                 'glpi_users AS u' => [
@@ -254,6 +286,7 @@ class PluginGrcmanagerTraining extends CommonDBTM
                 'name'              => (string) $row['name'],
                 'completion_status' => (string) $row['completion_status'],
                 'completion_date'   => $row['completion_date'] !== null ? (string) $row['completion_date'] : null,
+                'assessment_result' => (string) ($row['assessment_result'] ?? 'not_applicable'),
             ];
         }
 
@@ -531,6 +564,7 @@ class PluginGrcmanagerTraining extends CommonDBTM
             echo '<th>' . User::getTypeName(1) . '</th>';
             echo '<th>' . __('Statut de réalisation', 'grcmanager') . '</th>';
             echo '<th>' . __('Date de réalisation', 'grcmanager') . '</th>';
+            echo '<th>' . __('Évaluation', 'grcmanager') . '</th>';
             echo '</tr></thead><tbody>';
 
             foreach ($participants as $participant) {
@@ -542,6 +576,10 @@ class PluginGrcmanagerTraining extends CommonDBTM
                 echo '</td><td>';
                 Html::showDateField("participant_date[{$userId}]", [
                     'value' => $participant['completion_date'] ?? '',
+                ]);
+                echo '</td><td>';
+                Dropdown::showFromArray("participant_result[{$userId}]", self::getAssessmentResults(), [
+                    'value' => $participant['assessment_result'],
                 ]);
                 echo '</td></tr>';
             }

@@ -66,7 +66,15 @@ Objectif : une plateforme GRC/ISO 27001 générique fonctionnelle de bout en bou
   Migration automatique des données existantes à la mise à jour, sans action manuelle. PHP 8.2
   minimum requis (hérité du plugin absorbé).
 
-## Version 2.1 (à venir)
+## Version 2.1 (livrée)
+
+- **Taux de réussite des formations évaluées** : deuxième indicateur manquant identifié lors d'un
+  audit complet du plugin (recherche des bonnes pratiques KPI ISO 27001:2022), après le délai de
+  réponse aux incidents (v2.0.0). Nouvel axe indépendant du statut de réalisation existant : une
+  formation évaluée (quiz, test pratique...) peut être marquée réussie ou échouée, sans affecter
+  les formations suivies sans évaluation formelle.
+
+## Version 2.2 (à venir)
 
 - Cartographie des risques (heatmap probabilité x impact interactive)
 - Bibliothèque de contrôles étendue (ISO 27002, NIST CSF, CIS Controls) en complément de

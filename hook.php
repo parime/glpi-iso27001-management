@@ -125,6 +125,12 @@ function plugin_grcmanager_dashboard_cards(?array $cards = null): array
             'group' => $group,
             'provider' => DashboardCardService::class . '::trainingCompletionRate',
         ],
+        'grcmanager_training_pass_rate' => [
+            'widgettype' => ['bigNumber'],
+            'label' => __('Taux de réussite des formations évaluées', 'grcmanager'),
+            'group' => $group,
+            'provider' => DashboardCardService::class . '::trainingPassRate',
+        ],
         'grcmanager_training_overdue_renewal' => [
             'widgettype' => ['bigNumber'],
             'label' => __('Participants en retard de renouvellement de formation', 'grcmanager'),
