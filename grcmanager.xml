@@ -79,6 +79,11 @@ administration (matrices, thresholds, controls).
     </authors>
     <versions>
         <version>
+            <num>2.1.0</num>
+            <compatibility>~11.0</compatibility>
+            <download_url>https://github.com/parime/glpi-iso27001-management/releases/download/v2.1.0/glpi-iso27001-management-2.1.0.zip</download_url>
+        </version>
+        <version>
             <num>2.0.0</num>
             <compatibility>~11.0</compatibility>
             <download_url>https://github.com/parime/glpi-iso27001-management/releases/download/v2.0.0/glpi-iso27001-management-2.0.0.zip</download_url>
