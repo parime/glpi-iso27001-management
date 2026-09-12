@@ -453,6 +453,30 @@ final class Installer
             $DB->doQuery($query) or die($DB->error());
         }
 
+        // Indicateur manquant identifié lors de l'audit complet du plugin (recherche des bonnes
+        // pratiques KPI ISO 27001:2022) : `completion_status` (pending/completed/exempted) ne
+        // distingue pas une formation suivie d'une formation réellement réussie - une formation
+        // avec évaluation (quiz, test pratique...) peut être "completed" sans que le participant
+        // ait démontré la compétence visée. Colonne ajoutée séparément de `completion_status`
+        // (pas un remplacement) : les deux axes sont indépendants, une formation peut très bien
+        // n'avoir aucune évaluation associée (`not_applicable`, valeur par défaut - n'affecte
+        // aucune ligne existante) auquel cas seul `completion_status` compte. Ajoutée après coup
+        // sur une table déjà existante, gardée par `fieldExists()` - premier usage réel de ce
+        // patron dans ce fichier (jusqu'ici seulement anticipé en commentaire).
+        if (!$DB->fieldExists(self::TRAININGS_USERS_TABLE, 'assessment_result')) {
+            $migration->addField(
+                self::TRAININGS_USERS_TABLE,
+                'assessment_result',
+                'string',
+                [
+                    'value'   => 'not_applicable',
+                    'comment' => 'not_applicable, passed, failed',
+                    'after'   => 'completion_status',
+                ]
+            );
+            $migration->addKey(self::TRAININGS_USERS_TABLE, 'assessment_result');
+        }
+
         // Sprint 6 (revues de direction, clause 9.3) : une ligne par revue de direction realisee ou
         // planifiee, avec l'ordre du jour et les decisions/actions en texte libre (pas un lien
         // fort vers le mecanisme CAPA existant, voir PluginGrcmanagerManagementReview pour le

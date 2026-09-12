@@ -5,6 +5,20 @@ Toutes les évolutions notables de ce projet sont documentées dans ce fichier.
 Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce projet adhère au
 [Semantic Versioning](https://semver.org/lang/fr/) (`MAJEUR.MINEUR.CORRECTIF`).
 
+## [Non publié]
+
+### Added
+
+- **Taux de réussite des formations évaluées.** Deuxième indicateur manquant identifié lors de
+  l'audit complet du plugin (recherche des bonnes pratiques KPI ISO 27001:2022), après le délai
+  de réponse aux incidents (v2.0.0). Nouvelle colonne `assessment_result` (sans évaluation/
+  réussie/échouée) sur le suivi individuel de formation, indépendante du statut de réalisation
+  existant (pending/completed/exempted) : une formation peut être suivie sans évaluation formelle
+  (quiz, test pratique...), auquel cas elle reste hors périmètre de ce nouvel indicateur plutôt que
+  comptée comme réussie ou échouée par défaut. Nouvelle carte de tableau de bord correspondante,
+  calculée uniquement sur les participants effectivement évalués. Aucune ligne existante n'est
+  affectée (valeur par défaut `not_applicable`).
+
 ## [2.0.0] - 2026-09-11
 
 ### Changed
