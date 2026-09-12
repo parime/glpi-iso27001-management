@@ -30,16 +30,30 @@
     </rule>
 
     <!-- setup.php necessarily mixes constant/function declarations with the conditional
-         vendor/autoload.php require, that's the standard GLPI plugin entry point shape. -->
+         vendor/autoload.php require, that's the standard GLPI plugin entry point shape.
+         SetupMenuRedefinitionTest.php is the same shape for the same reason: it requires
+         setup.php (a side effect) to reach plugin_grcmanager_redefine_menus() before declaring
+         its own test class. -->
     <rule ref="PSR1.Files.SideEffects">
         <exclude-pattern>setup.php</exclude-pattern>
         <exclude-pattern>front/*</exclude-pattern>
+        <exclude-pattern>tests/Unit/SetupMenuRedefinitionTest.php</exclude-pattern>
     </rule>
 
     <!-- inc/ holds GLPI's legacy global-namespace CommonDBTM subclasses (PluginGrcmanager*),
          GLPI's own plugin autoloader requires this shape (no namespace), not an oversight.
          front/ scripts are also global-namespace by the same GLPI convention. -->
     <rule ref="PSR1.Classes.ClassDeclaration">
+        <exclude-pattern>inc/*</exclude-pattern>
+    </rule>
+
+    <!-- GLPI core's own ITIL actor/relation classes are always named "Type_Relation" with an
+         underscore (Change_User, Ticket_Group, Problem_Supplier...), never PascalCase - a load-
+         bearing naming convention, not a style choice (CommonITILActor::getSQLTablesFrom() and
+         similar core mechanisms derive the relation from this exact class-name shape). Absorbed
+         from glpi-security-incidents (ROADMAP.md "Version 2.0"): PluginGrcmanagerSecurityIncident_
+         User/_Group/_Supplier follow the same convention, the first such classes in this plugin. -->
+    <rule ref="Squiz.Classes.ValidClassName">
         <exclude-pattern>inc/*</exclude-pattern>
     </rule>
 </ruleset>

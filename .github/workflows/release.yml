@@ -65,7 +65,7 @@ jobs:
         # (structure exigée par le cœur GLPI).
         run: |
           VERSION="${GITHUB_REF_NAME#v}"
-          ARCHIVE_NAME="glpi-grc-manager-${VERSION}.zip"
+          ARCHIVE_NAME="glpi-iso27001-management-${VERSION}.zip"
           # $GITHUB_ENV n'est lu qu'à partir de l'étape SUIVANTE, jamais dans celle qui l'écrit —
           # on garde donc aussi une variable shell locale pour l'utiliser plus bas dans cette même
           # étape.
@@ -168,7 +168,7 @@ jobs:
           VERSION="${GITHUB_REF_NAME#v}"
           python3 .github/scripts/update_marketplace_xml.py \
             grcmanager.xml "$VERSION" "~11.0" \
-            "https://github.com/parime/glpi-grc-manager/releases/download/${GITHUB_REF_NAME}/${ARCHIVE_NAME}" \
+            "https://github.com/parime/glpi-iso27001-management/releases/download/${GITHUB_REF_NAME}/${ARCHIVE_NAME}" \
             "        " "            "
 
           if git diff --quiet -- grcmanager.xml; then

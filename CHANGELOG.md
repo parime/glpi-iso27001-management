@@ -5,7 +5,115 @@ Toutes les évolutions notables de ce projet sont documentées dans ce fichier.
 Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce projet adhère au
 [Semantic Versioning](https://semver.org/lang/fr/) (`MAJEUR.MINEUR.CORRECTIF`).
 
-## [Non publié]
+## [2.0.0] - 2026-09-11
+
+### Changed
+
+- **PHP 8.2 minimum requis** (était 8.1) — hérité du module Incidents de sécurité absorbé
+  ci-dessous, qui l'exigeait déjà dans son plugin d'origine. Changement cassant pour toute
+  installation encore sur PHP 8.1.
+
+### Added
+
+- **Absorption du module "Incidents de sécurité" (objet ITIL complet)** depuis le plugin jumeau
+  glpi-security-incidents (ROADMAP.md "Version 2.0"). L'ancien registre léger de conformité ISO
+  (`PluginGrcmanagerSecurityIncident`, issue #29 : catégorie/sévérité/impact C/I/D/cause racine/
+  enseignements tirés/lien vers un risque) est remplacé par l'objet ITIL complet porté depuis ce
+  plugin jumeau (acteurs, workflow, tâches, notifications, suivi CVE, modèles d'incident) — **les
+  deux fusionnés en un seul enregistrement**, plus de double saisie entre le suivi opérationnel et
+  la conformité :
+  - Nouvelle entrée de menu "Incidents de sécurité" dans le secteur natif Assistance (`helpdesk`),
+    aux côtés de Tickets/Problèmes/Changements — ce plugin peut désormais enregistrer des classes
+    dans plusieurs secteurs de menu à la fois.
+  - Les champs de classification ISO 27001 (catégorie/sévérité/impact C/I/D/cause racine/
+    enseignements tirés/risque lié) s'affichent dans un accordéon dédié "Classification ISO 27001",
+    aux côtés de l'accordéon "Analyse" (impact/contrôles/plan de retour arrière) également absorbé
+    — les deux directement dans le panneau principal de champs, via `Hooks::POST_ITIL_INFO_SECTION`.
+  - La clôture d'un incident (statut "Clos") exige toujours une cause racine et des enseignements
+    tirés documentés (clause A.5.27), exactement comme le faisait l'ancien registre.
+  - Suivi CVE (association en masse, format validé), modèles d'incident, et 4 cartes de tableau de
+    bord natives (total, ouverts, répartition par entité/catégorie) en plus des cartes existantes
+    (par statut/sévérité, mises à jour pour le nouveau vocabulaire de statuts ITIL).
+  - Chaque partie (module principal, CVE, modèles, tableau de bord) reste activable/désactivable
+    indépendamment via l'écran de configuration ajouté précédemment.
+  - **Migration automatique et transparente** : toute donnée existante dans l'ancien registre léger
+    est migrée vers le nouvel objet fusionné à la mise à jour du plugin (mapping des statuts,
+    conversion du responsable en acteur assigné), sans action manuelle requise.
+  - Droits dédiés (`plugin_grcmanager_securityincident`, `rule_grcmanager_securityincident`)
+    conservés distincts du droit plat du reste du plugin, pour la granularité de visibilité réelle
+    qu'un objet ITIL nécessite (voir/mes-incidents vs. voir-tout).
+  - Vérifié en conditions réelles sur l'instance GLPI partagée : migration d'un incident réel,
+    affichage des deux accordéons avec les données migrées, blocage/déblocage de la clôture selon
+    la documentation, activation/désactivation de chaque interrupteur, création d'un nouvel
+    incident, enregistrement des notifications (infrastructure confirmée ; aucun envoi réel testé,
+    les notifications étant globalement désactivées sur cette instance), cartes de tableau de bord
+    exécutées avec succès via un script Kernel réel.
+
+- **Écran de configuration du module Incidents de sécurité.** Nouvel écran dans Configuration >
+  Plugins > GRC Manager permettant d'activer/désactiver séparément le module principal, le suivi
+  CVE, les modèles d'incident et les cartes de tableau de bord (`SecurityIncidentModuleConfig`,
+  `glpi_plugin_grcmanager_securityincidentconfig`). Tous les indicateurs sont activés par défaut.
+
+- **Carte de tableau de bord "délai moyen de réponse aux incidents"** (issue A.5.24-27 ISO/IEC
+  27001:2022) : moyenne, en heures, du temps écoulé entre la création et la résolution des
+  incidents de sécurité effectivement résolus. Complète les cartes déjà existantes (par statut/
+  sévérité/entité/catégorie, qui comptent) avec un indicateur qui mesure un temps — un indicateur
+  ISO 27001 classique qui n'avait pas d'équivalent parmi les cartes portées depuis le plugin
+  absorbé.
+
+- **Première suite de tests d'intégration** (`tests/Integration/`, `phpunit-integration.xml.dist`,
+  `composer test:integration`) — ce plugin n'en avait aucune jusqu'ici (seulement `tests/Unit`,
+  sans base de données). Portée depuis le plugin absorbé glpi-security-incidents : boot réel du
+  Kernel GLPI, transaction par test. Couvre le cycle de vie complet de l'objet ITIL fusionné (CRUD,
+  liaison d'actif, champs de classification ISO 27001, blocage/déblocage de la clôture, lien vers
+  un risque, CVE, notifications, droits Super-Admin). La logique de mapping de la migration
+  légère->fusionnée (`LegacySecurityIncidentMigrator`, y compris la conversion du vocabulaire de
+  statuts) est en plus couverte séparément par la suite `unit` existante (rapide, sans DB).
+
+### Documentation
+
+- **Références obsolètes à glpi-vulnerability-manager et glpi-security-incidents mises à jour.**
+  Les deux plugins jumeaux sont désormais archivés (le premier retiré au profit du suivi CVE de
+  glpi-security-incidents à l'époque, le second absorbé dans ce même plugin ci-dessus). `README.md`/
+  `README.en.md`, `ROADMAP.md`, `grcmanager.xml` et `docs/design/DEVELOPMENT_PLAN.md` reflètent
+  désormais que le suivi des incidents de sécurité et des CVE est natif à ce plugin, plus besoin
+  d'un dépôt distinct ni archivé.
+
+## [1.1.5] - 2026-09-10
+
+### Fixed
+
+- **Le titre d'un contrôle Annexe A (liste SoA) n'était pas cliquable** — seule une colonne "ID"
+  séparée, peu lisible (juste un numéro), permettait de rouvrir la fiche du contrôle. La colonne
+  qu'un utilisateur lit et clique naturellement (`code`, ex. "A.5.1 - Politiques de sécurité de
+  l'information") restait du texte brut malgré son affichage personnalisé
+  (`getSpecificValueToDisplay()`). Retour utilisateur direct sur cette liste précise.
+
+  Corrigé en reprenant la même convention que `CommonITILObject::rawSearchOptions()` pour sa
+  propre colonne "Titre" (`'additionalfields' => ['id']`, nécessaire même pour la toute première
+  colonne — confirmé en lisant le code de `Ticket`) : le lien entoure maintenant le texte formaté
+  existant plutôt que d'être une colonne séparée à part.
+
+  Vérifié en direct sur l'instance de test : la liste des 93 contrôles Annexe A affiche bien
+  chaque "A.x.y - Titre" comme un lien cliquable vers la fiche correspondante.
+
+### Changed
+
+- **Dépôt renommé** de `glpi-grc-manager` vers `glpi-iso27001-management` — nom jugé plus parlant
+  (le plugin est un ISMS ISO 27001 : risques, contrôles/SoA, audits, non-conformités). GitHub
+  redirige automatiquement l'ancien nom. Le namespace PHP (`GlpiPlugin\Grcmanager`), les noms de
+  table (`glpi_plugin_grcmanager_*`) et la clé du plugin restent inchangés — casser ça imposerait
+  une migration de données à toute installation existante pour un simple changement de nom de
+  dépôt.
+
+### Added
+
+- Test unitaire pour `plugin_grcmanager_redefine_menus()` (`setup.php`), le hook qui corrige le
+  doublon de libellé du sous-menu "GRC & Conformité" (v1.1.4) — c'est une fonction pure (aucune
+  dépendance GLPI dans son propre corps), testable directement sans instance GLPI réelle, qui
+  n'avait pourtant aucun test malgré ça. Ne couvre que la logique de transformation du tableau de
+  menu elle-même ; l'effet réel sur le rendu GLPI (breadcrumb, absence de doublon visuel) reste
+  hors de portée d'un test unitaire et nécessiterait un test au niveau navigateur/GLPI réel.
 
 ## [1.1.4] - 2026-09-04
 

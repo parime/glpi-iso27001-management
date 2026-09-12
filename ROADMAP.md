@@ -52,19 +52,29 @@ Objectif : une plateforme GRC/ISO 27001 générique fonctionnelle de bout en bou
 - Workflow d'approbation multi-niveaux pour l'acceptation de risque
 - API REST publique documentée (OpenAPI)
 
-## Version 2.0
+## Version 2.0 (livrée)
+
+- **Absorption complète du plugin jumeau [glpi-security-incidents](https://github.com/parime/glpi-security-incidents)**
+  (désormais archivé) : le registre léger d'incidents de sécurité de la v1.0 (issue #29, simple
+  fiche de conformité) est remplacé par un véritable objet ITIL — acteurs, workflow, tâches,
+  notifications, suivi CVE, modèles d'incident — visible dans le menu Assistance aux côtés de
+  Ticket/Problem/Change. Les champs de classification ISO 27001 (catégorie, sévérité, axes C/I/D,
+  cause racine/enseignements tirés obligatoires à la clôture, lien vers le registre de risques) et
+  le suivi CVE sont fusionnés directement sur ce même objet : un seul enregistrement par incident
+  réel, plus de double saisie entre le suivi opérationnel et la conformité. Chaque partie du
+  module (base, CVE, modèles, tableau de bord) reste activable/désactivable indépendamment.
+  Migration automatique des données existantes à la mise à jour, sans action manuelle. PHP 8.2
+  minimum requis (hérité du plugin absorbé).
+
+## Version 2.1 (à venir)
 
 - Cartographie des risques (heatmap probabilité x impact interactive)
 - Bibliothèque de contrôles étendue (ISO 27002, NIST CSF, CIS Controls) en complément de
   l'Annexe A ISO 27001
-- Intégration bidirectionnelle avec le plugin jumeau
-  [glpi-vulnerability-manager](https://github.com/parime/glpi-vulnerability-manager) : un risque
-  cyber accepté/mitigé côté vulnérabilités peut alimenter le registre de risques générique, sans
-  fusionner les deux plateformes
 
 ## Suivi
 
 L'avancement réel (issues, PR, jalons) est suivi sur le
-[GitHub Project](https://github.com/parime/glpi-grc-manager) du repository une fois celui-ci
+[GitHub Project](https://github.com/parime/glpi-iso27001-management) du repository une fois celui-ci
 activé. Les priorités peuvent évoluer en fonction des retours communautaires : voir
 [GOVERNANCE.md](GOVERNANCE.md) pour le processus de décision.

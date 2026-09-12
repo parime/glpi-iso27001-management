@@ -9,10 +9,13 @@ use DBConnection;
 use GlpiPlugin\Grcmanager\Services\Control\ControlCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Dashboard\DefaultDashboardService;
 use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
+use GlpiPlugin\Grcmanager\Services\Incident\LegacySecurityIncidentMigrator;
+use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentModuleConfig;
 use GlpiPlugin\Grcmanager\Services\Risk\RiskMatrixDefaults;
 use Migration;
 use Notification;
 use NotificationTemplate;
+use PluginGrcmanagerSecurityIncident;
 use ProfileRight;
 
 /**
@@ -26,6 +29,12 @@ use ProfileRight;
 final class Installer
 {
     public const RIGHT_NAME = 'plugin_grcmanager';
+
+    // Absorption de glpi-security-incidents (ROADMAP.md "Version 2.0") : droits dédiés de l'objet
+    // ITIL fusionné, distincts de RIGHT_NAME ci-dessus - voir le commentaire dans install().
+    public const SECURITY_INCIDENT_RIGHT = 'plugin_grcmanager_securityincident';
+
+    public const SECURITY_INCIDENT_RULE_RIGHT = 'rule_grcmanager_securityincident';
 
     // Table-name derivation confirmed against a real GLPI 11 instance by the sibling plugins of
     // this same author (glpi-vulnerability-manager, assetsign-glpi): the class-name suffix is
@@ -81,13 +90,57 @@ final class Installer
     private const MANAGEMENT_REVIEWS_OBJECTIVES_TABLE
         = 'glpi_plugin_grcmanager_managementreviews_objectives';
 
-    // Issue #29 (registre des incidents de sécurité de l'information, A.5.24-27), même dérivation
-    // de nom de table que toutes les autres tables ci-dessus.
+    // Issue #29 (registre des incidents de sécurité de l'information, A.5.24-27). Absorption de
+    // glpi-security-incidents (ROADMAP.md "Version 2.0") : ce nom de table reste inchangé, mais son
+    // schéma change du tout au tout (objet ITIL complet au lieu d'un simple registre CommonDBTM) —
+    // voir la migration légère->fusionnée dans install() ci-dessous, qui renomme l'ancien contenu
+    // vers SECURITY_INCIDENTS_LEGACY_TABLE avant de recréer celui-ci avec le nouveau schéma.
     private const SECURITY_INCIDENTS_TABLE = 'glpi_plugin_grcmanager_securityincidents';
+
+    private const SECURITY_INCIDENTS_LEGACY_TABLE = 'glpi_plugin_grcmanager_securityincidents_legacy';
+
+    private const SECURITY_INCIDENTS_USERS_TABLE = 'glpi_plugin_grcmanager_securityincidents_users';
+
+    private const SECURITY_INCIDENTS_GROUPS_TABLE = 'glpi_plugin_grcmanager_securityincidents_groups';
+
+    private const SECURITY_INCIDENTS_SUPPLIERS_TABLE
+        = 'glpi_plugin_grcmanager_securityincidents_suppliers';
+
+    private const SECURITY_INCIDENTS_ITEMS_TABLE = 'glpi_plugin_grcmanager_securityincidents_items';
+
+    private const SECURITY_INCIDENT_TASKS_TABLE = 'glpi_plugin_grcmanager_securityincidenttasks';
+
+    private const SECURITY_INCIDENT_CVES_TABLE = 'glpi_plugin_grcmanager_securityincidentcves';
+
+    private const SECURITY_INCIDENT_COSTS_TABLE = 'glpi_plugin_grcmanager_securityincidentcosts';
+
+    // Raccourci (ne reflète pas le nom de classe complet) : le nom par défaut que GLPI dériverait
+    // (glpi_plugin_grcmanager_securityincidenttemplates_predefinedfields, etc. pour les 4 tables
+    // satellites) dépasse la limite de 64 caractères de MySQL pour un identifiant — voir le
+    // docblock de PluginGrcmanagerSecurityIncidentTemplate::getTable().
+    private const SECURITY_INCIDENT_TEMPLATES_TABLE = 'glpi_plugin_grcmanager_secincidenttemplates';
+
+    private const SECURITY_INCIDENT_TEMPLATES_PREDEFINED_FIELDS_TABLE
+        = 'glpi_plugin_grcmanager_secincidenttemplates_predefinedfields';
+
+    private const SECURITY_INCIDENT_TEMPLATES_HIDDEN_FIELDS_TABLE
+        = 'glpi_plugin_grcmanager_secincidenttemplates_hiddenfields';
+
+    private const SECURITY_INCIDENT_TEMPLATES_MANDATORY_FIELDS_TABLE
+        = 'glpi_plugin_grcmanager_secincidenttemplates_mandatoryfields';
+
+    private const SECURITY_INCIDENT_TEMPLATES_READONLY_FIELDS_TABLE
+        = 'glpi_plugin_grcmanager_secincidenttemplates_readonlyfields';
 
     // Issue #31 (plan d'action de traitement des risques, clause 8.3/6.1.3), même dérivation de nom
     // de table que toutes les autres ci-dessus.
     private const RISK_TREATMENT_ACTIONS_TABLE = 'glpi_plugin_grcmanager_risktreatmentactions';
+
+    // Absorption de glpi-security-incidents (ROADMAP.md "Version 2.0") : interrupteurs
+    // module/CVE/modèles/tableau de bord, une seule ligne singleton (id=1), même convention que
+    // RISK_MATRIX_CONFIG_TABLE ci-dessus (voir SecurityIncidentModuleConfig). Ne pilote jamais de
+    // DDL - seulement l'enregistrement des hooks/menus/onglets à l'exécution.
+    private const SECURITY_INCIDENT_CONFIG_TABLE = 'glpi_plugin_grcmanager_securityincidentconfig';
 
     public function install(Migration $migration): bool
     {
@@ -642,51 +695,307 @@ final class Installer
         }
 
         // Issue #29 (registre des incidents de sécurité de l'information, ISO/IEC 27001:2022
-        // Annexe A A.5.24-27) : `linked_itemtype`/`linked_items_id` référencent un Ticket/Problem
-        // GLPI déjà existant EN COLONNES DIRECTES (pas une table de liaison polymorphe comme
-        // RISKS_ITEMS_TABLE ci-dessus) : un incident correspond au plus à un seul Ticket/Problem en
-        // pratique, cardinalité plus simple que le lien risque <-> actifs CMDB many-to-many de
-        // l'issue #25 - voir le docblock de PluginGrcmanagerSecurityIncident. `plugin_grcmanager_risks_id`
-        // suit exactement la même convention zéro-ou-un que COMPLIANCE_OBLIGATIONS_TABLE ci-dessus
-        // (issue #30). `cia_impact` est une liste de valeurs séparées par des virgules sur une
-        // seule colonne, même convention que `risk_categories` sur AUDITS_TABLE ci-dessus (Sprint
-        // 4) pour un ensemble fixe et petit de valeurs. `root_cause`/`lessons_learned` restent
-        // toutes deux nullables : ni obligatoires pour ouvrir un incident, seulement validées
-        // avant clôture côté PluginGrcmanagerSecurityIncident (clause A.5.27, même convention que
-        // `corrective_action` sur NONCONFORMITIES_TABLE ci-dessus).
+        // Annexe A A.5.24-27). Absorption de glpi-security-incidents (ROADMAP.md "Version 2.0") :
+        // ce qui était un simple registre CommonDBTM devient l'objet ITIL complet porté depuis ce
+        // plugin jumeau (acteurs, workflow, tâches, notifications, CVE), avec les champs de
+        // classification ISO ci-dessus FUSIONNÉS dessus (`category`/`severity`/`cia_impact`/
+        // `root_cause`/`lessons_learned`/`plugin_grcmanager_risks_id`) plutôt que gardés sur un
+        // second enregistrement séparé — un seul incident, jamais deux saisies à faire concorder.
+        // `linked_itemtype`/`linked_items_id` (référence légère vers un Ticket/Problem) disparaît :
+        // le lien polymorphe hérité de CommonITILObject (SECURITY_INCIDENTS_ITEMS_TABLE ci-dessous,
+        // qui accepte n'importe quel itemtype) couvre déjà ce besoin, pas la peine de deux
+        // mécanismes de liaison qui se chevauchent.
+        //
+        // Le nom de table ne change pas, mais son schéma si : le contenu existant (sous l'ancien
+        // schéma CommonDBTM) est d'abord renommé vers SECURITY_INCIDENTS_LEGACY_TABLE avant de
+        // recréer la table sous son nom canonique avec le nouveau schéma — voir la migration de
+        // données après la création des tables satellites ci-dessous. `incident_date` n'existe que
+        // dans l'ancien schéma, donc sa présence sert de marqueur fiable pour détecter qu'une
+        // migration est nécessaire (idempotent : une fois migré et la table legacy supprimée, ce
+        // marqueur n'existe plus jamais).
+        $hasLegacySecurityIncidents = $DB->tableExists(self::SECURITY_INCIDENTS_TABLE)
+            && $DB->fieldExists(self::SECURITY_INCIDENTS_TABLE, 'incident_date');
+
+        if ($hasLegacySecurityIncidents) {
+            $migration->renameTable(self::SECURITY_INCIDENTS_TABLE, self::SECURITY_INCIDENTS_LEGACY_TABLE);
+        }
+
+        // Colonnes calquées sur `glpi_changes` (le plus proche analogue natif), lues directement
+        // depuis un vrai schéma GLPI 11 par le plugin absorbé plutôt que devinées — voir son propre
+        // Installer.php d'origine.
         if (!$DB->tableExists(self::SECURITY_INCIDENTS_TABLE)) {
             $query = "CREATE TABLE `" . self::SECURITY_INCIDENTS_TABLE . "` (
                 `id` int {$keySign} NOT NULL AUTO_INCREMENT,
-                `title` varchar(255) NOT NULL,
-                `description` text,
-                `incident_date` datetime DEFAULT NULL,
+                `name` varchar(255) DEFAULT NULL,
+                `entities_id` int {$keySign} NOT NULL DEFAULT 0,
+                `is_recursive` tinyint NOT NULL DEFAULT 0,
+                `is_deleted` tinyint NOT NULL DEFAULT 0,
+                `status` int NOT NULL DEFAULT 1,
+                `content` longtext,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                `date` timestamp NULL DEFAULT NULL,
+                `solvedate` timestamp NULL DEFAULT NULL,
+                `closedate` timestamp NULL DEFAULT NULL,
+                `time_to_resolve` timestamp NULL DEFAULT NULL,
+                `users_id_recipient` int {$keySign} NOT NULL DEFAULT 0,
+                `users_id_lastupdater` int {$keySign} NOT NULL DEFAULT 0,
+                `urgency` int NOT NULL DEFAULT 1,
+                `impact` int NOT NULL DEFAULT 1,
+                `priority` int NOT NULL DEFAULT 1,
+                `itilcategories_id` int {$keySign} NOT NULL DEFAULT 0,
+                `impact_content` longtext,
+                `control_list_content` longtext,
+                `rollback_plan_content` longtext,
+                `actiontime` int NOT NULL DEFAULT 0,
+                `begin_waiting_date` timestamp NULL DEFAULT NULL,
+                `waiting_duration` int NOT NULL DEFAULT 0,
+                `close_delay_stat` int NOT NULL DEFAULT 0,
+                `solve_delay_stat` int NOT NULL DEFAULT 0,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `locations_id` int {$keySign} NOT NULL DEFAULT 0,
+                `plugin_grcmanager_secincidenttemplates_id` int {$keySign} NOT NULL DEFAULT 0,
                 `category` varchar(32) NOT NULL DEFAULT 'other'
                     COMMENT 'data_breach, malware, unauthorized_access, availability, other',
                 `severity` varchar(16) NOT NULL DEFAULT 'minor' COMMENT 'minor, major, critical',
                 `cia_impact` varchar(64) NOT NULL DEFAULT ''
                     COMMENT 'Axes confidentiality/integrity/availability separes par des virgules, vide = non evalue',
-                `status` varchar(16) NOT NULL DEFAULT 'open'
-                    COMMENT 'open, investigating, contained, closed',
                 `root_cause` text,
                 `lessons_learned` text,
-                `users_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Responsable',
-                `linked_itemtype` varchar(100) NOT NULL DEFAULT ''
-                    COMMENT 'Ticket, Problem, vide = aucune reference',
-                `linked_items_id` int {$keySign} NOT NULL DEFAULT 0,
                 `plugin_grcmanager_risks_id` int {$keySign} NOT NULL DEFAULT 0
                     COMMENT 'Lien optionnel zero-ou-un vers un risque, 0 = aucun',
-                `date_creation` timestamp NULL DEFAULT NULL,
-                `date_mod` timestamp NULL DEFAULT NULL,
                 PRIMARY KEY (`id`),
+                KEY `entities_id` (`entities_id`),
+                KEY `is_recursive` (`is_recursive`),
+                KEY `is_deleted` (`is_deleted`),
+                KEY `status` (`status`),
+                KEY `itilcategories_id` (`itilcategories_id`),
+                KEY `date` (`date`),
+                KEY `plugin_grcmanager_secincidenttemplates_id` (`plugin_grcmanager_secincidenttemplates_id`),
                 KEY `category` (`category`),
                 KEY `severity` (`severity`),
-                KEY `status` (`status`),
-                KEY `users_id` (`users_id`),
-                KEY `item` (`linked_itemtype`, `linked_items_id`),
                 KEY `plugin_grcmanager_risks_id` (`plugin_grcmanager_risks_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
             $DB->doQuery($query) or die($DB->error());
+        }
+
+        if (!$DB->tableExists(self::SECURITY_INCIDENTS_USERS_TABLE)) {
+            $query = "CREATE TABLE `" . self::SECURITY_INCIDENTS_USERS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_securityincidents_id` int {$keySign} NOT NULL DEFAULT 0,
+                `users_id` int {$keySign} NOT NULL DEFAULT 0,
+                `type` int NOT NULL DEFAULT 1,
+                `use_notification` tinyint NOT NULL DEFAULT 0,
+                `alternative_email` varchar(255) DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `plugin_grcmanager_securityincidents_id` (`plugin_grcmanager_securityincidents_id`),
+                KEY `users_id` (`users_id`),
+                KEY `type` (`type`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+        }
+
+        if (!$DB->tableExists(self::SECURITY_INCIDENTS_GROUPS_TABLE)) {
+            $query = "CREATE TABLE `" . self::SECURITY_INCIDENTS_GROUPS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_securityincidents_id` int {$keySign} NOT NULL DEFAULT 0,
+                `groups_id` int {$keySign} NOT NULL DEFAULT 0,
+                `type` int NOT NULL DEFAULT 1,
+                PRIMARY KEY (`id`),
+                KEY `plugin_grcmanager_securityincidents_id` (`plugin_grcmanager_securityincidents_id`),
+                KEY `groups_id` (`groups_id`),
+                KEY `type` (`type`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+        }
+
+        if (!$DB->tableExists(self::SECURITY_INCIDENTS_SUPPLIERS_TABLE)) {
+            $query = "CREATE TABLE `" . self::SECURITY_INCIDENTS_SUPPLIERS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_securityincidents_id` int {$keySign} NOT NULL DEFAULT 0,
+                `suppliers_id` int {$keySign} NOT NULL DEFAULT 0,
+                `type` int NOT NULL DEFAULT 1,
+                `use_notification` tinyint NOT NULL DEFAULT 0,
+                `alternative_email` varchar(255) DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `plugin_grcmanager_securityincidents_id` (`plugin_grcmanager_securityincidents_id`),
+                KEY `suppliers_id` (`suppliers_id`),
+                KEY `type` (`type`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+        }
+
+        if (!$DB->tableExists(self::SECURITY_INCIDENTS_ITEMS_TABLE)) {
+            $query = "CREATE TABLE `" . self::SECURITY_INCIDENTS_ITEMS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_securityincidents_id` int {$keySign} NOT NULL DEFAULT 0,
+                `itemtype` varchar(100) DEFAULT NULL,
+                `items_id` int {$keySign} NOT NULL DEFAULT 0,
+                PRIMARY KEY (`id`),
+                KEY `plugin_grcmanager_securityincidents_id` (`plugin_grcmanager_securityincidents_id`),
+                KEY `item` (`itemtype`,`items_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+        }
+
+        if (!$DB->tableExists(self::SECURITY_INCIDENT_TASKS_TABLE)) {
+            $query = "CREATE TABLE `" . self::SECURITY_INCIDENT_TASKS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `uuid` varchar(255) DEFAULT NULL,
+                `plugin_grcmanager_securityincidents_id` int {$keySign} NOT NULL DEFAULT 0,
+                `taskcategories_id` int {$keySign} NOT NULL DEFAULT 0,
+                `state` int NOT NULL DEFAULT 0,
+                `date` timestamp NULL DEFAULT NULL,
+                `begin` timestamp NULL DEFAULT NULL,
+                `end` timestamp NULL DEFAULT NULL,
+                `users_id` int {$keySign} NOT NULL DEFAULT 0,
+                `users_id_editor` int {$keySign} NOT NULL DEFAULT 0,
+                `users_id_tech` int {$keySign} NOT NULL DEFAULT 0,
+                `groups_id_tech` int {$keySign} NOT NULL DEFAULT 0,
+                `content` longtext,
+                `actiontime` int NOT NULL DEFAULT 0,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `tasktemplates_id` int {$keySign} NOT NULL DEFAULT 0,
+                `timeline_position` tinyint NOT NULL DEFAULT 0,
+                `is_private` tinyint NOT NULL DEFAULT 0,
+                PRIMARY KEY (`id`),
+                KEY `plugin_grcmanager_securityincidents_id` (`plugin_grcmanager_securityincidents_id`),
+                KEY `users_id` (`users_id`),
+                KEY `users_id_tech` (`users_id_tech`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+        }
+
+        if (!$DB->tableExists(self::SECURITY_INCIDENT_CVES_TABLE)) {
+            $query = "CREATE TABLE `" . self::SECURITY_INCIDENT_CVES_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_securityincidents_id` int {$keySign} NOT NULL DEFAULT 0,
+                `cve_id` varchar(20) NOT NULL DEFAULT '',
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity` (`plugin_grcmanager_securityincidents_id`,`cve_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+        }
+
+        if (!$DB->tableExists(self::SECURITY_INCIDENT_COSTS_TABLE)) {
+            $query = "CREATE TABLE `" . self::SECURITY_INCIDENT_COSTS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_securityincidents_id` int {$keySign} NOT NULL DEFAULT 0,
+                `name` varchar(255) DEFAULT NULL,
+                `comment` text,
+                `begin_date` date DEFAULT NULL,
+                `end_date` date DEFAULT NULL,
+                `actiontime` int NOT NULL DEFAULT 0,
+                `cost_time` decimal(20,4) NOT NULL DEFAULT 0.0000,
+                `cost_fixed` decimal(20,4) NOT NULL DEFAULT 0.0000,
+                `cost_material` decimal(20,4) NOT NULL DEFAULT 0.0000,
+                `budgets_id` int {$keySign} NOT NULL DEFAULT 0,
+                `entities_id` int {$keySign} NOT NULL DEFAULT 0,
+                `is_recursive` tinyint NOT NULL DEFAULT 0,
+                PRIMARY KEY (`id`),
+                KEY `plugin_grcmanager_securityincidents_id` (`plugin_grcmanager_securityincidents_id`),
+                KEY `entities_id` (`entities_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+        }
+
+        if (!$DB->tableExists(self::SECURITY_INCIDENT_TEMPLATES_TABLE)) {
+            $query = "CREATE TABLE `" . self::SECURITY_INCIDENT_TEMPLATES_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `name` varchar(255) DEFAULT NULL,
+                `entities_id` int {$keySign} NOT NULL DEFAULT 0,
+                `is_recursive` tinyint NOT NULL DEFAULT 0,
+                `comment` text,
+                `allowed_statuses` varchar(255) DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `entities_id` (`entities_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+        }
+
+        foreach (
+            [
+            self::SECURITY_INCIDENT_TEMPLATES_PREDEFINED_FIELDS_TABLE => true,
+            self::SECURITY_INCIDENT_TEMPLATES_HIDDEN_FIELDS_TABLE => false,
+            self::SECURITY_INCIDENT_TEMPLATES_MANDATORY_FIELDS_TABLE => false,
+            self::SECURITY_INCIDENT_TEMPLATES_READONLY_FIELDS_TABLE => false,
+            ] as $table => $hasValueColumn
+        ) {
+            if ($DB->tableExists($table)) {
+                continue;
+            }
+
+            $valueColumn = $hasValueColumn ? "`value` longtext,\n                " : '';
+            $query = "CREATE TABLE `{$table}` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `securityincidenttemplates_id` int {$keySign} NOT NULL DEFAULT 0,
+                `num` int NOT NULL DEFAULT 0,
+                {$valueColumn}PRIMARY KEY (`id`),
+                KEY `securityincidenttemplates_id` (`securityincidenttemplates_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+        }
+
+        // Colonnes requises par convention GLPI core (dérivées de strtolower(static::class) pour
+        // un objet ITIL avec gestion de modèles) : CommonITILObject::getITILTemplateToUse() /
+        // Entity::getUsedConfig() vont chercher ces colonnes par ce nom exact — confirmé sur le
+        // plugin absorbé avant fusion, pas une supposition. Même forme que les colonnes natives
+        // changetemplates_strategy/_id.
+        if (!$DB->fieldExists('glpi_entities', 'plugingrcmanagersecurityincidenttemplates_strategy')) {
+            $migration->addField(
+                'glpi_entities',
+                'plugingrcmanagersecurityincidenttemplates_strategy',
+                'integer',
+                ['value' => -2, 'after' => 'entities_id']
+            );
+        }
+        if (!$DB->fieldExists('glpi_entities', 'plugingrcmanagersecurityincidenttemplates_id')) {
+            $migration->addField(
+                'glpi_entities',
+                'plugingrcmanagersecurityincidenttemplates_id',
+                'integer',
+                ['value' => 0, 'after' => 'plugingrcmanagersecurityincidenttemplates_strategy']
+            );
+        }
+        if (!$DB->fieldExists('glpi_itilcategories', 'plugingrcmanagersecurityincidenttemplates_id')) {
+            $migration->addField(
+                'glpi_itilcategories',
+                'plugingrcmanagersecurityincidenttemplates_id',
+                'integer',
+                ['value' => 0, 'after' => 'problemtemplates_id']
+            );
+            $migration->addKey('glpi_itilcategories', 'plugingrcmanagersecurityincidenttemplates_id');
+        }
+        if (!$DB->fieldExists('glpi_profiles', 'plugingrcmanagersecurityincidenttemplates_id')) {
+            $migration->addField(
+                'glpi_profiles',
+                'plugingrcmanagersecurityincidenttemplates_id',
+                'integer',
+                ['value' => 0, 'after' => 'problemtemplates_id']
+            );
+            $migration->addKey('glpi_profiles', 'plugingrcmanagersecurityincidenttemplates_id');
+        }
+
+        $migration->executeMigration();
+
+        // Migration légère->fusionnée (voir le commentaire au-dessus de la création de
+        // SECURITY_INCIDENTS_TABLE) : ne s'exécute qu'une seule fois, tant que la table renommée
+        // existe encore - une fois migrée et supprimée ci-dessous, ce bloc devient un no-op
+        // permanent (idempotent par construction, pas besoin d'un indicateur de version séparé).
+        if ($hasLegacySecurityIncidents && $DB->tableExists(self::SECURITY_INCIDENTS_LEGACY_TABLE)) {
+            $this->migrateLegacySecurityIncidents();
         }
 
         // Issue #31 (plan d'action de traitement des risques, clause 8.3/6.1.3) : PLUSIEURS
@@ -722,7 +1031,33 @@ final class Installer
             $DB->doQuery($query) or die($DB->error());
         }
 
+        // Absorption de glpi-security-incidents (ROADMAP.md "Version 2.0") : interrupteurs
+        // module/CVE/modèles/tableau de bord, une seule ligne singleton (id=1) seedée avec tous
+        // les indicateurs activés — même convention que RISK_MATRIX_CONFIG_TABLE ci-dessus (voir
+        // SecurityIncidentModuleConfig). Tous activés par défaut : sur une install existante, ce
+        // toggle ne fait que permettre de DÉSACTIVER une fonctionnalité, jamais l'inverse.
+        if (!$DB->tableExists(self::SECURITY_INCIDENT_CONFIG_TABLE)) {
+            $query = "CREATE TABLE `" . self::SECURITY_INCIDENT_CONFIG_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `securityincident_enabled` tinyint NOT NULL DEFAULT 1,
+                `securityincident_cve_enabled` tinyint NOT NULL DEFAULT 1,
+                `securityincident_templates_enabled` tinyint NOT NULL DEFAULT 1,
+                `securityincident_dashboard_enabled` tinyint NOT NULL DEFAULT 1,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+
+            $DB->insert(self::SECURITY_INCIDENT_CONFIG_TABLE, array_merge(
+                array_map(static fn (bool $v): int => $v ? 1 : 0, SecurityIncidentModuleConfig::DEFAULTS),
+                ['date_mod' => date('Y-m-d H:i:s')]
+            ));
+        }
+
         $this->seedControls();
+
+        $this->seedSecurityIncidentNotifications();
 
         $this->seedReviewReminderNotification(
             'PluginGrcmanagerRisk',
@@ -871,6 +1206,31 @@ final class Installer
         // of this same author (glpi-vulnerability-manager, assetsign-glpi, Configuration-glpi-auto).
         foreach ($DB->request(['FROM' => 'glpi_profiles', 'WHERE' => ['name' => 'Super-Admin']]) as $profileRow) {
             ProfileRight::updateProfileRights((int) $profileRow['id'], [self::RIGHT_NAME => ALLSTANDARDRIGHT]);
+        }
+
+        // Absorption de glpi-security-incidents (ROADMAP.md "Version 2.0") : contrairement au reste
+        // de ce plugin (un seul droit plat ci-dessus), l'objet ITIL fusionné garde ses propres
+        // droits dédiés - un vrai objet ITIL a besoin d'une vraie granularité de visibilité (un
+        // technicien voit ses incidents assignés sans forcément tout voir) que RIGHT_NAME seul ne
+        // permet pas. `rule_grcmanager_securityincident` est requis par convention core (voir
+        // RulePluginGrcmanagerSecurityIncidentCollection) même si aucune règle n'est encore
+        // administrée par défaut.
+        foreach ([self::SECURITY_INCIDENT_RIGHT, self::SECURITY_INCIDENT_RULE_RIGHT] as $right) {
+            if ($DB->request(['FROM' => 'glpi_profilerights', 'WHERE' => ['name' => $right]])->count() === 0) {
+                ProfileRight::addProfileRights([$right]);
+            }
+        }
+
+        // ALLSTANDARDRIGHT seul (READ/UPDATE/CREATE/DELETE/PURGE = 31) ne suffit pas pour un objet
+        // ITIL : PluginGrcmanagerSecurityIncident::getRights() ajoute READALL (bit distinct de
+        // READ/READMY qu'il remplace) en plus du jeu standard - même écart déjà rencontré sur le
+        // plugin absorbé avant fusion (Super-Admin recevait un vrai 403 sur un incident dont il
+        // n'était pas acteur).
+        foreach ($DB->request(['FROM' => 'glpi_profiles', 'WHERE' => ['name' => 'Super-Admin']]) as $profileRow) {
+            ProfileRight::updateProfileRights((int) $profileRow['id'], [
+                self::SECURITY_INCIDENT_RIGHT => ALLSTANDARDRIGHT | PluginGrcmanagerSecurityIncident::READALL,
+                self::SECURITY_INCIDENT_RULE_RIGHT => ALLSTANDARDRIGHT,
+            ]);
         }
 
         $this->seedDisplayPreferences();
@@ -1274,6 +1634,129 @@ final class Installer
     }
 
     /**
+     * Without this, `NotificationEvent::raiseEvent('new'|'update'|'solved'|'closed', $this)`
+     * (called from `PluginGrcmanagerSecurityIncident::post_addItem()`/`post_updateItem()`) finds no
+     * active `Notification` row to fire and silently does nothing. One shared `NotificationTemplate`
+     * for all four events (same pattern as GLPI core's own native `Change` notifications) and four
+     * `Notification` rows. Target `items_id`/`type` values (1, 3, 21, and 1/2/3/4/21 for "update")
+     * are copied verbatim from a real GLPI 11 install's own `glpi_notificationtargets` rows for
+     * `Change` — ported unchanged from the absorbed plugin's own Installer.php.
+     */
+    private function seedSecurityIncidentNotifications(): void
+    {
+        $itemtype = PluginGrcmanagerSecurityIncident::class;
+        $tag      = strtolower($itemtype);
+
+        $template = new NotificationTemplate();
+        if (!$template->getFromDBByCrit(['itemtype' => $itemtype, 'name' => 'Security incident'])) {
+            $templateId = $template->add([
+                'name'    => 'Security incident',
+                'itemtype' => $itemtype,
+                'comment' => 'Seeded at install by the absorbed glpi-security-incidents module.',
+            ]);
+
+            (new \NotificationTemplateTranslation())->add([
+                'notificationtemplates_id' => $templateId,
+                'language'                 => '',
+                'subject'                  => "##{$tag}.action## ##{$tag}.title##",
+                'content_text'             => "##{$tag}.action## ##{$tag}.title##\n\n"
+                    . "##{$tag}.url##\n\n"
+                    . "##{$tag}.content##",
+                'content_html'             => "<p>##{$tag}.action## ##{$tag}.title##</p>"
+                    . "<p><a href=\"##{$tag}.url##\">##{$tag}.url##</a></p>"
+                    . "<p>##{$tag}.content##</p>",
+            ]);
+        } else {
+            $templateId = (int) $template->getID();
+        }
+
+        $eventsAndTargets = [
+            'new'    => [1, 3, 21],
+            'update' => [1, 2, 3, 4, 21],
+            'solved' => [1, 3, 21],
+            'closed' => [1, 3, 21],
+        ];
+
+        foreach ($eventsAndTargets as $event => $targetItemsIds) {
+            $notification = new Notification();
+            if ($notification->getFromDBByCrit(['itemtype' => $itemtype, 'event' => $event])) {
+                continue;
+            }
+
+            $notificationId = $notification->add([
+                'name'         => 'Security incident — ' . $event,
+                'entities_id'  => 0,
+                'is_recursive' => 1,
+                'is_active'    => 1,
+                'itemtype'     => $itemtype,
+                'event'        => $event,
+            ]);
+
+            (new \Notification_NotificationTemplate())->add([
+                'notifications_id'         => $notificationId,
+                'notificationtemplates_id' => $templateId,
+                'mode'                     => 'mailing',
+            ]);
+
+            foreach ($targetItemsIds as $targetItemsId) {
+                (new \NotificationTarget())->add([
+                    'notifications_id' => $notificationId,
+                    'items_id'         => $targetItemsId,
+                    'type'             => Notification::USER_TYPE,
+                ]);
+            }
+        }
+    }
+
+    /**
+     * Migrates every row of the former lightweight CommonDBTM register (renamed to
+     * SECURITY_INCIDENTS_LEGACY_TABLE just before the new ITIL-object table was created — see the
+     * caller) into the new merged schema, then drops the now-empty legacy table. Runs at most once
+     * per instance: the legacy table only exists on an upgrade from a pre-absorption version, and
+     * is gone for good after this method returns.
+     *
+     * The actual field mapping (including the status-vocabulary conversion) lives in
+     * `LegacySecurityIncidentMigrator::mapRow()` — a pure, GLPI-independent, unit-tested class —
+     * so the trickiest part of this migration is verified without needing a live DB. `users_id`
+     * (the old register's single "responsable" field) becomes an ASSIGN actor on the new object;
+     * `linked_itemtype`/`linked_items_id` (if set) becomes a row in SECURITY_INCIDENTS_ITEMS_TABLE,
+     * the polymorphic link mechanism that supersedes it.
+     */
+    private function migrateLegacySecurityIncidents(): void
+    {
+        global $DB;
+
+        foreach ($DB->request(['FROM' => self::SECURITY_INCIDENTS_LEGACY_TABLE]) as $row) {
+            $fields = LegacySecurityIncidentMigrator::mapRow($row);
+            $fields['date_creation'] ??= date('Y-m-d H:i:s');
+
+            $newId = $DB->insert(self::SECURITY_INCIDENTS_TABLE, $fields) ? $DB->insertId() : 0;
+
+            if ($newId === 0) {
+                continue;
+            }
+
+            if (LegacySecurityIncidentMigrator::hasResponsibleUser($row)) {
+                $DB->insert(self::SECURITY_INCIDENTS_USERS_TABLE, [
+                    'plugin_grcmanager_securityincidents_id' => $newId,
+                    'users_id'                                => (int) $row['users_id'],
+                    'type'                                     => \CommonITILActor::ASSIGN,
+                ]);
+            }
+
+            if (LegacySecurityIncidentMigrator::hasLinkedItem($row)) {
+                $DB->insert(self::SECURITY_INCIDENTS_ITEMS_TABLE, [
+                    'plugin_grcmanager_securityincidents_id' => $newId,
+                    'itemtype'                                 => $row['linked_itemtype'],
+                    'items_id'                                 => (int) $row['linked_items_id'],
+                ]);
+            }
+        }
+
+        $DB->doQuery('DROP TABLE IF EXISTS `' . self::SECURITY_INCIDENTS_LEGACY_TABLE . '`');
+    }
+
+    /**
      * Idempotent like seedSource() on the sibling plugin glpi-vulnerability-manager (same author,
      * same guard shape): each of the 93 controls is looked up by its unique `code` before
      * inserting, so re-running install() (upgrade path, `plugin:install --force`) never duplicates
@@ -1337,6 +1820,7 @@ final class Installer
         global $DB;
 
         ProfileRight::deleteProfileRights([self::RIGHT_NAME]);
+        ProfileRight::deleteProfileRights([self::SECURITY_INCIDENT_RIGHT, self::SECURITY_INCIDENT_RULE_RIGHT]);
 
         $DB->delete('glpi_displaypreferences', ['itemtype' => array_keys(DefaultSearchColumns::COLUMNS)]);
 
@@ -1352,6 +1836,16 @@ final class Installer
         $this->unseedNotification('PluginGrcmanagerTraining');
         $this->unseedNotification('PluginGrcmanagerPolicy');
         $this->unseedNotification('PluginGrcmanagerRiskTreatmentAction');
+        $this->unseedNotification(PluginGrcmanagerSecurityIncident::class);
+
+        // Absorption de glpi-security-incidents (ROADMAP.md "Version 2.0") : colonnes ajoutées sur
+        // les tables cœur pour la gestion de modèles - même dérivation que le plugin absorbé
+        // (strtolower(nom de classe)), migrées vers ces nouveaux noms lors de la fusion (voir
+        // install()).
+        $migration->dropField('glpi_entities', 'plugingrcmanagersecurityincidenttemplates_id');
+        $migration->dropField('glpi_entities', 'plugingrcmanagersecurityincidenttemplates_strategy');
+        $migration->dropField('glpi_itilcategories', 'plugingrcmanagersecurityincidenttemplates_id');
+        $migration->dropField('glpi_profiles', 'plugingrcmanagersecurityincidenttemplates_id');
 
         // Sprint 7 (tableaux de bord) : retire le tableau de bord natif seedé par
         // DefaultDashboardService::seed() ci-dessus, avant que ses tables ne disparaissent.
@@ -1380,8 +1874,22 @@ final class Installer
         $migration->dropTable(self::MANAGEMENT_REVIEWS_OBJECTIVES_TABLE);
         $migration->dropTable(self::OBJECTIVE_MEASUREMENTS_TABLE);
         $migration->dropTable(self::OBJECTIVES_TABLE);
+        $migration->dropTable(self::SECURITY_INCIDENT_TEMPLATES_PREDEFINED_FIELDS_TABLE);
+        $migration->dropTable(self::SECURITY_INCIDENT_TEMPLATES_HIDDEN_FIELDS_TABLE);
+        $migration->dropTable(self::SECURITY_INCIDENT_TEMPLATES_MANDATORY_FIELDS_TABLE);
+        $migration->dropTable(self::SECURITY_INCIDENT_TEMPLATES_READONLY_FIELDS_TABLE);
+        $migration->dropTable(self::SECURITY_INCIDENT_TEMPLATES_TABLE);
+        $migration->dropTable(self::SECURITY_INCIDENT_COSTS_TABLE);
+        $migration->dropTable(self::SECURITY_INCIDENT_CVES_TABLE);
+        $migration->dropTable(self::SECURITY_INCIDENT_TASKS_TABLE);
+        $migration->dropTable(self::SECURITY_INCIDENTS_ITEMS_TABLE);
+        $migration->dropTable(self::SECURITY_INCIDENTS_SUPPLIERS_TABLE);
+        $migration->dropTable(self::SECURITY_INCIDENTS_GROUPS_TABLE);
+        $migration->dropTable(self::SECURITY_INCIDENTS_USERS_TABLE);
+        $migration->dropTable(self::SECURITY_INCIDENTS_LEGACY_TABLE);
         $migration->dropTable(self::SECURITY_INCIDENTS_TABLE);
         $migration->dropTable(self::RISK_TREATMENT_ACTIONS_TABLE);
+        $migration->dropTable(self::SECURITY_INCIDENT_CONFIG_TABLE);
 
         $migration->executeMigration();
 

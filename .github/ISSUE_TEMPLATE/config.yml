@@ -1,10 +1,10 @@
 blank_issues_enabled: false
 contact_links:
   - name: Signaler une vulnérabilité de sécurité
-    url: https://github.com/parime/glpi-grc-manager/security/advisories/new
+    url: https://github.com/parime/glpi-iso27001-management/security/advisories/new
     about: >-
       Ne créez jamais d'issue publique pour une faille de sécurité — utilisez ce canal privé.
       Voir SECURITY.md pour la procédure complète.
   - name: Question / discussion
-    url: https://github.com/parime/glpi-grc-manager/discussions
+    url: https://github.com/parime/glpi-iso27001-management/discussions
     about: Pour une question d'usage qui n'est pas un bug ni une demande de fonctionnalité.

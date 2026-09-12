@@ -6,7 +6,7 @@
 > GLPI.
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE)
-[![Status](https://img.shields.io/badge/status-stable%20%E2%80%94%20v1.0.0-brightgreen)](ROADMAP.md)
+[![Status](https://img.shields.io/badge/status-stable%20%E2%80%94%20v2.0.0-brightgreen)](ROADMAP.md)
 [![GLPI](https://img.shields.io/badge/GLPI-11.x-green)](docs/design/DEVELOPMENT_PLAN.md)
 
 [🇫🇷 Français](README.md) | 🇬🇧 **English**
@@ -19,13 +19,13 @@ natively do is answer the questions a security officer or an ISO 27001 auditor a
 > **What are my organization's risks, not just the technical ones, who accepted them and why, and
 > am I compliant with Annex A?**
 
-**GLPI GRC Manager** is a **separate** plugin from its sibling
-[glpi-vulnerability-manager](https://github.com/parime/glpi-vulnerability-manager): that one
-covers CVE-driven cyber risk (CVSS/EPSS/KEV), while GLPI GRC Manager covers generic organizational
-risk (ISO 27001 clause 6.1.2/8.2): people, process, physical, third-party, with acceptance,
-treatment, a Statement of Applicability (SoA), internal audits and corrective actions.
+**GLPI GRC Manager** covers generic organizational risk (ISO 27001 clause 6.1.2/8.2): people,
+process, physical, third-party, with acceptance, treatment, a Statement of Applicability (SoA),
+internal audits and corrective actions — and, since v2.0, a real "Security Incident" ITIL object
+(absorbed from the sibling plugin glpi-security-incidents, now archived), with its ISO 27001
+classification fields merged directly onto it.
 
-## What the plugin brings (v1.0 vision, see ROADMAP.md)
+## What the plugin brings (see ROADMAP.md)
 
 - **Generic risk register**: category (people/process/physical/third-party/technical),
   probability, impact, computed risk level, treatment decision (accept/mitigate/transfer/avoid),
@@ -35,6 +35,10 @@ treatment, a Statement of Applicability (SoA), internal audits and corrective ac
 - **Supplier/third-party risk register.**
 - **Security awareness training tracking.**
 - **Management reviews.**
+- **Security incidents**: a full ITIL object in the Assistance menu (actors, workflow, tasks,
+  notifications, CVE tracking), with ISO 27001 classification (category, severity, root cause/
+  lessons learned required at closure) merged onto it (Annex A A.5.24-27). Each part of the module
+  can be enabled/disabled independently (Configuration > Plugins).
 
 ## Project status
 
@@ -53,7 +57,7 @@ During the initial development phase (before the first release), install from so
 
 ```bash
 cd /var/www/glpi/plugins
-git clone https://github.com/parime/glpi-grc-manager.git grcmanager
+git clone https://github.com/parime/glpi-iso27001-management.git grcmanager
 cd grcmanager
 composer install --no-dev
 ```
@@ -75,7 +79,7 @@ with a real screenshot for every step (available in French and English).
 ## Target compatibility
 
 - GLPI 11.x
-- PHP per the GLPI 11 compatibility matrix (PHP 8.1 minimum)
+- PHP per the GLPI 11 compatibility matrix (PHP 8.2 minimum)
 
 ## License
 

@@ -4,11 +4,11 @@
   "state": "stable",
   "version": "1.1.4",
   "license": "GPL-3.0-or-later",
-  "homepage": "https://github.com/parime/glpi-grc-manager",
-  "download": "https://github.com/parime/glpi-grc-manager/releases/latest",
+  "homepage": "https://github.com/parime/glpi-iso27001-management",
+  "download": "https://github.com/parime/glpi-iso27001-management/releases/latest",
   "screenshots": [
-    "https://raw.githubusercontent.com/parime/glpi-grc-manager/main/docs/screenshots/tutorial/03-risk-list-empty.png",
-    "https://raw.githubusercontent.com/parime/glpi-grc-manager/main/docs/screenshots/tutorial/05-risk-created-level.png"
+    "https://raw.githubusercontent.com/parime/glpi-iso27001-management/main/docs/screenshots/tutorial/03-risk-list-empty.png",
+    "https://raw.githubusercontent.com/parime/glpi-iso27001-management/main/docs/screenshots/tutorial/05-risk-created-level.png"
   ],
   "authors": [
     {

@@ -15,78 +15,71 @@
  * -------------------------------------------------------------------------
  */
 
+use Glpi\ContentTemplates\Parameters\CommonITILObjectParameters;
+use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentModuleConfig;
+use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentParameters;
 use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentRules;
 
 /**
- * Registre des incidents de sécurité de l'information (issue #29, ISO/IEC 27001:2022 Annexe A
- * A.5.24-27 "planification et préparation, évaluation et décision des incidents de sécurité de
- * l'information, réponse aux incidents de sécurité de l'information, apprentissage tiré des
- * incidents de sécurité de l'information"). Ces contrôles n'existaient jusqu'ici que comme lignes à
- * cocher dans la Déclaration d'Applicabilité (PluginGrcmanagerControl) : GLPI dispose nativement de
- * Ticket/Problem pour tracer un incident opérationnellement, mais rien ne le qualifie comme
- * "incident de sécurité de l'information" au sens ISO, ni ne le relie au registre de risques de ce
- * plugin pour boucler la clause A.5.27 ("tirer des enseignements des incidents").
+ * A security incident (unauthorized access, data leak, malware, phishing...), as its own native
+ * GLPI ITIL object alongside Ticket/Problem/Change — not a Ticket sub-type, since a security
+ * incident has its own actors/workflow/notifications and belongs in a dedicated register rather
+ * than mixed into the general helpdesk queue. Absorbed from the sibling plugin
+ * glpi-security-incidents (ROADMAP.md "Version 2.0", now archived) into this plugin as one merged
+ * object: the operational ITIL workflow (actors, tasks, notifications, CVE tracking) AND the
+ * ISO/IEC 27001:2022 Annexe A A.5.24-27 compliance fields (`category`/`severity`/`cia_impact`/
+ * `root_cause`/`lessons_learned`/link to a PluginGrcmanagerRisk) that used to live on a separate,
+ * lightweight `PluginGrcmanagerSecurityIncident` CommonDBTM register (issue #29) — ONE record per
+ * real-world incident now, not two that could drift apart or be double-entered. The ISO
+ * classification fields render in their own accordion via `Hooks::POST_ITIL_INFO_SECTION` (see
+ * `plugin_grcmanager_post_itil_info_section()` in hook.php), alongside the pre-existing "Analyse"
+ * accordion (`impact_content`/`control_list_content`/`rollback_plan_content`) also absorbed from
+ * the same plugin.
  *
- * Ne duplique jamais le contenu d'un ticket GLPI existant : `linked_itemtype`/`linked_items_id`
- * (voir SecurityIncidentRules::ALLOWED_LINKED_ITEMTYPES) est une simple référence optionnelle
- * zéro-ou-un vers un Ticket ou Problem déjà existant, affichée via un lien construit avec
- * `CommonDBTM::getLinkURL()` natif (voir ticketLink() ci-dessous) plutôt qu'un recopiage de son
- * titre/sa description. Cardinalité plus simple que le lien risque <-> actifs CMDB many-to-many de
- * l'issue #25 (un incident correspond au plus à un seul Ticket/Problem en pratique) : deux colonnes
- * directes, pas une table de liaison.
+ * Legacy global-namespace `PluginXxxYyy` convention (not this plugin's own PSR-4
+ * `GlpiPlugin\Grcmanager\*`, used everywhere else in this plugin) — deliberate, not an oversight:
+ * several GLPI core mechanisms that a `CommonITILObject` subclass must hook into derive internal
+ * identifiers straight from `strtolower(static::class)` with no namespace-awareness (confirmed the
+ * hard way on the original plugin — `CommonITILObject::getITILTemplateToUse()` tried to `SELECT` a
+ * column literally named after the PSR-4 namespace when this class was namespaced).
  *
- * Lien optionnel zéro-ou-un vers un risque existant (`plugin_grcmanager_risks_id`, colonne
- * directe) : même convention que PluginGrcmanagerComplianceObligation (issue #30, voir son
- * docblock et SecurityIncidentRules::normalizeLinkedRiskId()/isLinkedToRisk()) plutôt qu'une
- * nouvelle table de liaison, la boucle "leçons apprises" que la clause A.5.27 demande explicitement.
+ * Which parts of this object are exposed is controlled by `SecurityIncidentModuleConfig` (see
+ * front/config.php): the ISO classification fields and the base ITIL object itself are never
+ * gated (they're the reason this class exists at all), but the CVE tab, incident templates, and
+ * dashboard cards can each be turned off independently.
  *
- * `root_cause`/`lessons_learned` suivent exactement la même convention "obligatoire seulement à la
- * clôture" que `corrective_action` sur PluginGrcmanagerNonconformity (issue #27/Sprint 4, clause
- * 10.2) : ni requis pour ouvrir un incident ni pour le passer en investigation/contenu, mais
- * bloquant pour le clôturer sans avoir documenté sa cause racine ET ce qui en a été appris (clause
- * A.5.27), voir SecurityIncidentRules::isClosureDocumentationMissing().
- *
- * `cia_impact` (axes confidentialité/intégrité/disponibilité affectés) est une liste de valeurs
- * séparées par des virgules sur une seule colonne varchar, pas une table de liaison ni un
- * multi-select GLPI/select2 : même convention déjà établie par `PluginGrcmanagerAudit.risk_categories`
- * (Sprint 4, TECH_DEBT.md) pour un ensemble fixe et petit de valeurs sur un seul enregistrement.
- * Rendue ici avec de simples cases à cocher HTML plutôt que
- * `Dropdown::showFromArray(..., ['multiple' => true])` (le widget select2 que
- * `PluginGrcmanagerAudit::showForm()` utilise pour son propre `risk_categories`) : un multi-select
- * select2 alimenté par un tableau PHP brut ne répond pas de façon fiable, en conditions réelles
- * (voir la leçon de test de ce même projet), à une sélection simulée par un simple événement JS
- * bas niveau, et n'apporte aucun bénéfice réel pour seulement 3 cases (pas de recherche, pas de
- * longue liste à faire défiler) - de simples cases à cocher sont ici à la fois plus simples et plus
- * fiables. Réutilise les noms d'axes de `ClassificationLevels::AXES` (issue #26) pour ne jamais
- * introduire un second vocabulaire confidentiality/integrity/availability.
- *
- * `users_id` (responsable de l'incident) et `description` (texte libre décrivant ce qui s'est
- * passé) ne sont pas explicitement listés par l'issue #29 mais ajoutés par cohérence avec CHAQUE
- * autre registre de ce plugin (risque, non-conformité, obligation, politique, audit...), qui ont
- * tous les deux : un registre d'incidents sans responsable assignable ni description libre aurait
- * été une régression d'utilisabilité par rapport au reste du plugin, pas une simplification
- * justifiée.
+ * Modeled directly on GLPI core's own `Change` class (the closest native analogue).
  */
-class PluginGrcmanagerSecurityIncident extends CommonDBTM
+class PluginGrcmanagerSecurityIncident extends CommonITILObject
 {
-    public static $rightname = 'plugin_grcmanager';
+    // From CommonDBTM
+    public $dohistory = true;
 
-    public static function getTable($classname = null)
-    {
-        return 'glpi_plugin_grcmanager_securityincidents';
-    }
+    // From CommonITIL
+    public $userlinkclass = PluginGrcmanagerSecurityIncident_User::class;
+    public $grouplinkclass = PluginGrcmanagerSecurityIncident_Group::class;
+    public $supplierlinkclass = PluginGrcmanagerSecurityIncident_Supplier::class;
+
+    public static $rightname = 'plugin_grcmanager_securityincident';
+
+    protected $usenotepad = true;
 
     public static function getTypeName($nb = 0)
     {
-        return _n('Incident de sécurité', 'Incidents de sécurité', $nb, 'grcmanager');
+        return _n('Security incident', 'Security incidents', $nb, 'grcmanager');
     }
 
     public static function getIcon()
     {
-        return 'ti ti-shield-bolt';
+        return 'ti ti-shield-exclamation';
     }
 
     /**
+     * Translated labels for the ISO classification fields absorbed from the plugin's former
+     * lightweight register (issue #29) — kept as static methods here (not constants, and not on
+     * the GLPI-independent SecurityIncidentRules) since `__()` calls aren't compile-time constant
+     * expressions.
+     *
      * @return array<string, string>
      */
     public static function getCategories(): array
@@ -101,11 +94,6 @@ class PluginGrcmanagerSecurityIncident extends CommonDBTM
     }
 
     /**
-     * Même échelle que PluginGrcmanagerNonconformity::getSeverities() (issue #29 : "reuse the SAME
-     * severity scale"), dupliquée ici plutôt que partagée via un trait - voir le docblock de
-     * SecurityIncidentRules pour le raisonnement (aucune autre échelle de sévérité de ce plugin
-     * n'est factorisée non plus, seul un vrai calcul partagé, RiskAssessmentTrait, l'est).
-     *
      * @return array<string, string>
      */
     public static function getSeverities(): array
@@ -114,19 +102,6 @@ class PluginGrcmanagerSecurityIncident extends CommonDBTM
             'minor'    => __('Mineure', 'grcmanager'),
             'major'    => __('Majeure', 'grcmanager'),
             'critical' => __('Critique', 'grcmanager'),
-        ];
-    }
-
-    /**
-     * @return array<string, string>
-     */
-    public static function getStatuses(): array
-    {
-        return [
-            'open'          => __('Ouvert', 'grcmanager'),
-            'investigating' => __('En investigation', 'grcmanager'),
-            'contained'     => __('Contenu', 'grcmanager'),
-            'closed'        => __('Clôturé', 'grcmanager'),
         ];
     }
 
@@ -142,13 +117,280 @@ class PluginGrcmanagerSecurityIncident extends CommonDBTM
         ];
     }
 
+    public static function getSectorizedDetails(): array
+    {
+        return ['helpdesk', self::class];
+    }
+
     /**
+     * `CommonITILObject`'s own status-array methods explicitly say "to be overridden by class" and
+     * default to an empty array — confirmed the hard way on the original plugin:
+     * `handleNewItemNotifications()` fataled with "Empty IN are not allowed"
+     * (`getSolvedStatusArray()`/`getClosedStatusArray()` both `[]`, merged into a `NOT IN ()` SQL
+     * clause) the first time a real incident was created after notifications were wired up. Uses
+     * only the base, universally-shared lifecycle constants (`INCOMING`/`ASSIGNED`/`PLANNED`/
+     * `WAITING`/`SOLVED`/`CLOSED`, defined on `CommonITILObject` itself) rather than `Change`'s own
+     * richer set — a security incident's workflow doesn't need change-specific approval/testing/
+     * rollback states.
+     */
+    public static function getAllStatusArray($withmetaforsearch = false)
+    {
+        $status = [
+            self::INCOMING => _x('status', 'New'),
+            self::ASSIGNED => __('Processing (assigned)'),
+            self::PLANNED  => __('Processing (planned)'),
+            self::WAITING  => __('Pending'),
+            self::SOLVED   => __('Solved'),
+            self::CLOSED   => _x('status', 'Closed'),
+        ];
+
+        if ($withmetaforsearch) {
+            $status['notold']    = _x('status', 'Not solved');
+            $status['notclosed'] = _x('status', 'Not closed');
+            $status['process']   = __('Processing');
+            $status['old']       = _x('status', 'Solved + Closed');
+            $status['all']       = __('All');
+        }
+
+        return $status;
+    }
+
+    public static function getClosedStatusArray()
+    {
+        return [self::CLOSED];
+    }
+
+    public static function getSolvedStatusArray()
+    {
+        return [self::SOLVED];
+    }
+
+    public static function getNewStatusArray()
+    {
+        return [self::INCOMING];
+    }
+
+    public static function getProcessStatusArray()
+    {
+        return [self::ASSIGNED, self::PLANNED];
+    }
+
+    public static function getDefaultValues($entity = 0)
+    {
+        $usersId         = is_numeric(Session::getLoginUserID(false)) ? Session::getLoginUserID() : 0;
+        $defaultUseNotif = Entity::getUsedConfig('is_notif_enable_default', $_SESSION['glpiactive_entity'] ?? 0, '', 1);
+
+        return [
+            '_users_id_requester'        => $usersId,
+            '_users_id_requester_notif'  => ['use_notification' => $defaultUseNotif, 'alternative_email' => ''],
+            '_groups_id_requester'       => 0,
+            '_users_id_assign'           => 0,
+            '_users_id_assign_notif'     => ['use_notification' => $defaultUseNotif, 'alternative_email' => ''],
+            '_groups_id_assign'          => 0,
+            '_users_id_observer'         => 0,
+            '_users_id_observer_notif'   => ['use_notification' => $defaultUseNotif, 'alternative_email' => ''],
+            '_groups_id_observer'        => 0,
+            '_suppliers_id_assign'       => 0,
+            '_suppliers_id_assign_notif' => ['use_notification' => $defaultUseNotif, 'alternative_email' => ''],
+            'priority'                   => 3,
+            'urgency'                    => 3,
+            'impact'                     => 3,
+            'content'                    => '',
+            'entities_id'                => $_SESSION['glpiactive_entity'] ?? 0,
+            'name'                       => '',
+            'itilcategories_id'          => 0,
+            'actiontime'                 => 0,
+            'date'                       => 'NULL',
+            '_add_validation'            => 0,
+            '_validation_targets'        => [],
+            '_tasktemplates_id'          => [],
+            'impact_content'             => '',
+            'control_list_content'       => '',
+            'rollback_plan_content'      => '',
+            'items_id'                   => 0,
+            '_actors'                    => [],
+            'status'                     => self::INCOMING,
+            'time_to_resolve'            => 'NULL',
+            'itemtype'                   => '',
+            'locations_id'               => 0,
+            // ISO/IEC 27001:2022 Annexe A A.5.24-27 classification, absorbed from the plugin's own
+            // former lightweight register (issue #29) — see SecurityIncidentRules.
+            'category'                   => SecurityIncidentRules::DEFAULT_CATEGORY,
+            'severity'                   => SecurityIncidentRules::DEFAULT_SEVERITY,
+            'cia_impact'                 => '',
+            'root_cause'                 => '',
+            'lessons_learned'            => '',
+            'plugin_grcmanager_risks_id' => 0,
+        ];
+    }
+
+    public static function getItemLinkClass(): string
+    {
+        return PluginGrcmanagerSecurityIncident_Item::class;
+    }
+
+    /**
+     * Required, not optional — same class of surprise as `getRuleCollectionClassInstance()` (see
+     * `RulePluginGrcmanagerSecurityIncidentCollection`'s own docblock): unlike most
+     * `CommonITILObject` extension points, this one is a hardcoded `switch` in core listing only
+     * `Ticket`/`Change`/`Problem`, with no generic fallback and no way to register a plugin's own
+     * itemtype from outside. Not abstract, so overriding it here is enough — no core patch needed.
+     */
+    public static function getItemsTable()
+    {
+        return PluginGrcmanagerSecurityIncident_Item::getTable();
+    }
+
+    public static function getContentTemplatesParametersClassInstance(): CommonITILObjectParameters
+    {
+        return new SecurityIncidentParameters();
+    }
+
+    public function getRights($interface = 'central')
+    {
+        $values = parent::getRights();
+        unset($values[READ]);
+
+        $values[self::READALL] = __('See all');
+        $values[self::READMY]  = __('See (author)');
+
+        return $values;
+    }
+
+    public static function canView(): bool
+    {
+        return Session::haveRightsOr(self::$rightname, [self::READALL, self::READMY]);
+    }
+
+    public function canViewItem(): bool
+    {
+        if (!$this->checkEntity(true)) {
+            return false;
+        }
+
+        return Session::haveRight(self::$rightname, self::READALL)
+            || (Session::haveRight(self::$rightname, self::READMY)
+                && ($this->isUser(CommonITILActor::REQUESTER, Session::getLoginUserID())
+                    || $this->isUser(CommonITILActor::OBSERVER, Session::getLoginUserID())
+                    || (isset($_SESSION['glpigroups'])
+                        && ($this->haveAGroup(CommonITILActor::REQUESTER, $_SESSION['glpigroups'])
+                            || $this->haveAGroup(CommonITILActor::OBSERVER, $_SESSION['glpigroups'])))
+                    || $this->isUser(CommonITILActor::ASSIGN, Session::getLoginUserID())
+                    || (isset($_SESSION['glpigroups'])
+                        && $this->haveAGroup(CommonITILActor::ASSIGN, $_SESSION['glpigroups']))));
+    }
+
+    public function canCreateItem(): bool
+    {
+        if (!Session::haveAccessToEntity($this->getEntityID())) {
+            return false;
+        }
+
+        return Session::haveRight(self::$rightname, CREATE);
+    }
+
+    public function canSolve()
+    {
+        return self::isAllowedStatus($this->fields['status'], self::SOLVED)
+            && !in_array($this->fields['status'], static::getClosedStatusArray(), true)
+            && (Session::haveRight(self::$rightname, UPDATE)
+                || (Session::haveRight(self::$rightname, self::READMY)
+                    && ($this->isUser(CommonITILActor::ASSIGN, Session::getLoginUserID())
+                        || (isset($_SESSION['glpigroups'])
+                            && $this->haveAGroup(CommonITILActor::ASSIGN, $_SESSION['glpigroups'])))));
+    }
+
+    /**
+     * No separate "Analysis"/"Classification" tab for either the impact/controls/rollback fields
+     * or the ISO category/severity/CIA/root-cause fields: both render directly in the main field
+     * panel via `Hooks::POST_ITIL_INFO_SECTION` (two accordions, see hook.php), exactly where
+     * `Change`'s own native "Analysis" accordion lives. Keeping either as a separate tab would show
+     * the same fields editable in two different places.
+     *
+     * The CVE tab is conditioned on `SecurityIncidentModuleConfig` (issue: absorption toggles) so
+     * an administrator who doesn't track CVEs can hide it entirely rather than see an always-empty
+     * tab.
+     */
+    public function defineTabs($options = [])
+    {
+        $tabs = [];
+        $this->addDefaultFormTab($tabs);
+
+        if (SecurityIncidentModuleConfig::load()['securityincident_cve_enabled']) {
+            $this->addStandardTab(PluginGrcmanagerSecurityIncidentCve::class, $tabs, $options);
+        }
+
+        $this->addStandardTab(PluginGrcmanagerSecurityIncident_Item::class, $tabs, $options);
+        $this->addStandardTab(PluginGrcmanagerSecurityIncidentCost::class, $tabs, $options);
+        $this->addStandardTab(KnowbaseItem_Item::class, $tabs, $options);
+        $this->addStandardTab(Notepad::class, $tabs, $options);
+        $this->addStandardTab(Log::class, $tabs, $options);
+
+        return $tabs;
+    }
+
+    public function cleanDBonPurge()
+    {
+        $task = new PluginGrcmanagerSecurityIncidentTask();
+        $task->deleteByCriteria(['plugin_grcmanager_securityincidents_id' => $this->fields['id']]);
+
+        $this->deleteChildrenAndRelationsFromDb([
+            PluginGrcmanagerSecurityIncident_Item::class,
+            PluginGrcmanagerSecurityIncidentCve::class,
+            PluginGrcmanagerSecurityIncidentCost::class,
+        ]);
+
+        parent::cleanDBonPurge();
+    }
+
+    public function post_addItem()
+    {
+        parent::post_addItem();
+
+        $this->handleNewItemNotifications();
+    }
+
+    public function post_updateItem($history = true)
+    {
+        global $CFG_GLPI;
+
+        parent::post_updateItem($history);
+
+        $doNotif = count($this->updates) > 0;
+        if (isset($this->input['_disablenotif'])) {
+            $doNotif = false;
+        }
+
+        if ($doNotif && $CFG_GLPI['use_notifications']) {
+            $mailType = 'update';
+            if (isset($this->input['status']) && in_array('status', $this->updates, true)) {
+                if (in_array($this->input['status'], static::getSolvedStatusArray(), true)) {
+                    $mailType = 'solved';
+                } elseif (in_array($this->input['status'], static::getClosedStatusArray(), true)) {
+                    $mailType = 'closed';
+                }
+            }
+
+            $this->getFromDB($this->fields['id']);
+            NotificationEvent::raiseEvent($mailType, $this);
+        }
+    }
+
+    /**
+     * Normalizes the ISO classification fields absorbed from the plugin's former lightweight
+     * register (issue #29) and enforces clause A.5.27 ("tirer des enseignements des incidents") in
+     * practice: closing an incident (`status` = CLOSED) without a documented root cause AND
+     * documented lessons learned is refused, exactly like the standalone register used to. Neither
+     * is required to open an incident or move it through any other status.
+     *
      * @param array<string, mixed> $input
      * @return array<string, mixed>|false
      */
     public function prepareInputForAdd($input)
     {
-        return $this->validateAndNormalize($input);
+        $input = parent::prepareInputForAdd($input);
+
+        return $input === false ? false : $this->normalizeIsoFields($input);
     }
 
     /**
@@ -157,14 +399,16 @@ class PluginGrcmanagerSecurityIncident extends CommonDBTM
      */
     public function prepareInputForUpdate($input)
     {
-        return $this->validateAndNormalize($input);
+        $input = parent::prepareInputForUpdate($input);
+
+        return $input === false ? false : $this->normalizeIsoFields($input);
     }
 
     /**
      * @param array<string, mixed> $input
      * @return array<string, mixed>|false
      */
-    private function validateAndNormalize(array $input)
+    private function normalizeIsoFields(array $input)
     {
         if (array_key_exists('category', $input)) {
             $input['category'] = SecurityIncidentRules::normalizeCategory($input['category']);
@@ -184,44 +428,25 @@ class PluginGrcmanagerSecurityIncident extends CommonDBTM
             );
         }
 
-        if (array_key_exists('linked_itemtype', $input) || array_key_exists('linked_items_id', $input)) {
-            $linked = SecurityIncidentRules::normalizeLinkedItem(
-                (string) ($input['linked_itemtype'] ?? ($this->fields['linked_itemtype'] ?? '')),
-                $input['linked_items_id'] ?? ($this->fields['linked_items_id'] ?? 0)
-            );
+        $status = (int) ($input['status'] ?? $this->fields['status'] ?? self::INCOMING);
 
-            $input['linked_itemtype'] = $linked['itemtype'];
-            $input['linked_items_id'] = $linked['items_id'];
-        }
+        if ($status === self::CLOSED) {
+            $rootCause      = (string) ($input['root_cause'] ?? $this->fields['root_cause'] ?? '');
+            $lessonsLearned = (string) ($input['lessons_learned'] ?? $this->fields['lessons_learned'] ?? '');
 
-        // Statut : normalisé puis validé pour la clôture (clause A.5.27), même schéma que
-        // PluginGrcmanagerNonconformity::validateAndNormalize() (issue #27) - recalculé à chaque
-        // add()/update() à partir de $this->fields quand $input ne le fournit pas explicitement,
-        // pour qu'éditer root_cause/lessons_learned sur un incident déjà clôturé ne puisse jamais
-        // les vider en douce sans repasser par cette même validation.
-        $status = SecurityIncidentRules::normalizeStatus(
-            (string) ($input['status'] ?? ($this->fields['status'] ?? SecurityIncidentRules::DEFAULT_STATUS))
-        );
+            if (SecurityIncidentRules::isClosureDocumentationMissing($rootCause, $lessonsLearned)) {
+                Session::addMessageAfterRedirect(
+                    __(
+                        'La cause racine et les enseignements tirés sont obligatoires pour clôturer un '
+                            . 'incident de sécurité.',
+                        'grcmanager'
+                    ),
+                    false,
+                    ERROR
+                );
 
-        if (array_key_exists('status', $input)) {
-            $input['status'] = $status;
-        }
-
-        $rootCause      = (string) ($input['root_cause'] ?? ($this->fields['root_cause'] ?? ''));
-        $lessonsLearned = (string) ($input['lessons_learned'] ?? ($this->fields['lessons_learned'] ?? ''));
-
-        if (SecurityIncidentRules::isClosureDocumentationMissing($status, $rootCause, $lessonsLearned)) {
-            Session::addMessageAfterRedirect(
-                __(
-                    'La cause racine et les enseignements tirés sont obligatoires pour clôturer un '
-                        . 'incident de sécurité.',
-                    'grcmanager'
-                ),
-                false,
-                ERROR
-            );
-
-            return false;
+                return false;
+            }
         }
 
         return $input;
@@ -229,24 +454,14 @@ class PluginGrcmanagerSecurityIncident extends CommonDBTM
 
     public function rawSearchOptions()
     {
-        $tab = [];
+        $tab = $this->getSearchOptionsMain();
 
+        // ISO/IEC 27001:2022 Annexe A A.5.24-27 classification fields absorbed from the plugin's
+        // former lightweight register (issue #29) — IDs 220+ deliberately clear of every ID
+        // CommonITILObject/Change use for their own fields (checked against a real GLPI 11
+        // instance: the highest core-used id below 400 is 154, Change's own highest is 211).
         $tab[] = [
-            'id'   => 'common',
-            'name' => self::getTypeName(1),
-        ];
-
-        $tab[] = [
-            'id'       => 1,
-            'table'    => $this->getTable(),
-            'field'    => 'title',
-            'name'     => __('Titre', 'grcmanager'),
-            'datatype' => 'itemlink',
-            'itemtype' => self::class,
-        ];
-
-        $tab[] = [
-            'id'       => 2,
+            'id'       => 220,
             'table'    => $this->getTable(),
             'field'    => 'category',
             'name'     => __('Catégorie', 'grcmanager'),
@@ -254,7 +469,7 @@ class PluginGrcmanagerSecurityIncident extends CommonDBTM
         ];
 
         $tab[] = [
-            'id'       => 3,
+            'id'       => 221,
             'table'    => $this->getTable(),
             'field'    => 'severity',
             'name'     => __('Sévérité', 'grcmanager'),
@@ -262,32 +477,7 @@ class PluginGrcmanagerSecurityIncident extends CommonDBTM
         ];
 
         $tab[] = [
-            'id'       => 4,
-            'table'    => $this->getTable(),
-            'field'    => 'status',
-            'name'     => __('Statut', 'grcmanager'),
-            'datatype' => 'specific',
-        ];
-
-        $tab[] = [
-            'id'       => 5,
-            'table'    => $this->getTable(),
-            'field'    => 'incident_date',
-            'name'     => __('Date de l\'incident', 'grcmanager'),
-            'datatype' => 'datetime',
-        ];
-
-        $tab[] = [
-            'id'       => 6,
-            'table'    => 'glpi_users',
-            'field'    => 'name',
-            'name'     => __('Responsable', 'grcmanager'),
-            'datatype' => 'dropdown',
-            'right'    => 'all',
-        ];
-
-        $tab[] = [
-            'id'       => 7,
+            'id'       => 222,
             'table'    => $this->getTable(),
             'field'    => 'cia_impact',
             'name'     => __('Impact C/I/D', 'grcmanager'),
@@ -295,31 +485,7 @@ class PluginGrcmanagerSecurityIncident extends CommonDBTM
         ];
 
         $tab[] = [
-            'id'       => 8,
-            'table'    => $this->getTable(),
-            'field'    => 'plugin_grcmanager_risks_id',
-            'name'     => PluginGrcmanagerRisk::getTypeName(1),
-            'datatype' => 'specific',
-        ];
-
-        $tab[] = [
-            'id'       => 9,
-            'table'    => $this->getTable(),
-            'field'    => 'linked_items_id',
-            'name'     => __('Ticket/Problem lié', 'grcmanager'),
-            'datatype' => 'specific',
-        ];
-
-        $tab[] = [
-            'id'       => 10,
-            'table'    => $this->getTable(),
-            'field'    => 'description',
-            'name'     => __('Description', 'grcmanager'),
-            'datatype' => 'text',
-        ];
-
-        $tab[] = [
-            'id'       => 11,
+            'id'       => 223,
             'table'    => $this->getTable(),
             'field'    => 'root_cause',
             'name'     => __('Cause racine', 'grcmanager'),
@@ -327,22 +493,19 @@ class PluginGrcmanagerSecurityIncident extends CommonDBTM
         ];
 
         $tab[] = [
-            'id'       => 12,
+            'id'       => 224,
             'table'    => $this->getTable(),
             'field'    => 'lessons_learned',
             'name'     => __('Enseignements tirés', 'grcmanager'),
             'datatype' => 'text',
         ];
 
-        // Row link, same "a list with no way back to showForm() is not self-explanatory" lesson
-        // already applied throughout this plugin family.
         $tab[] = [
-            'id'       => 13,
+            'id'       => 225,
             'table'    => $this->getTable(),
-            'field'    => 'id',
-            'name'     => __('ID'),
-            'datatype' => 'itemlink',
-            'itemtype' => self::class,
+            'field'    => 'plugin_grcmanager_risks_id',
+            'name'     => PluginGrcmanagerRisk::getTypeName(1),
+            'datatype' => 'specific',
         ];
 
         return $tab;
@@ -361,34 +524,16 @@ class PluginGrcmanagerSecurityIncident extends CommonDBTM
             case 'severity':
                 return self::severityBadge($values[$field] ?? null);
 
-            case 'status':
-                return self::statusBadge($values[$field] ?? null);
-
             case 'cia_impact':
                 return self::ciaImpactBadges((string) ($values[$field] ?? ''));
 
             case 'plugin_grcmanager_risks_id':
                 return self::riskLink((int) ($values[$field] ?? 0));
-
-            case 'linked_items_id':
-                return self::ticketLink(
-                    (string) ($values['linked_itemtype'] ?? ''),
-                    (int) ($values[$field] ?? 0)
-                );
         }
 
         return parent::getSpecificValueToDisplay($field, $values, $options);
     }
 
-    /**
-     * Real `<select>` filter widgets for category/severity/status, same lesson as
-     * PluginGrcmanagerRisk::getSpecificValueToSelect(). `cia_impact` (a comma-separated column)
-     * uses the same single-value "contains" filter already accepted for
-     * PluginGrcmanagerAudit::risk_categories (TECH_DEBT.md Sprint 4). `plugin_grcmanager_risks_id`
-     * and `linked_items_id` are left to the parent's default (free-text search on the raw numeric
-     * id), same choice already made for `plugin_grcmanager_audits_id` on
-     * PluginGrcmanagerNonconformity.
-     */
     public static function getSpecificValueToSelect($field, $name = '', $values = '', array $options = [])
     {
         if (!is_array($values)) {
@@ -405,9 +550,6 @@ class PluginGrcmanagerSecurityIncident extends CommonDBTM
 
             case 'severity':
                 return Dropdown::showFromArray($name, self::getSeverities(), $options);
-
-            case 'status':
-                return Dropdown::showFromArray($name, self::getStatuses(), $options);
 
             case 'cia_impact':
                 return Dropdown::showFromArray($name, self::getCiaAxisLabels(), $options);
@@ -450,21 +592,6 @@ class PluginGrcmanagerSecurityIncident extends CommonDBTM
             . htmlescape($label) . '</span>';
     }
 
-    private static function statusBadge(?string $value): string
-    {
-        $map = [
-            'open'          => ['bg-red-lt', 'ti-flag', __('Ouvert', 'grcmanager')],
-            'investigating' => ['bg-blue-lt', 'ti-search', __('En investigation', 'grcmanager')],
-            'contained'     => ['bg-yellow-lt', 'ti-shield-check', __('Contenu', 'grcmanager')],
-            'closed'        => ['bg-green-lt', 'ti-check', __('Clôturé', 'grcmanager')],
-        ];
-
-        [$class, $icon, $label] = $map[$value] ?? ['bg-secondary-lt', 'ti-help', (string) $value];
-
-        return '<span class="badge ' . $class . '"><i class="ti ' . $icon . ' me-1"></i>'
-            . htmlescape($label) . '</span>';
-    }
-
     private static function ciaImpactBadges(string $csv): string
     {
         $axes = SecurityIncidentRules::splitCiaImpact($csv);
@@ -496,183 +623,5 @@ class PluginGrcmanagerSecurityIncident extends CommonDBTM
 
         return '<a href="' . htmlescape($risk->getFormURLWithID($riskId)) . '">'
             . htmlescape($risk->fields['title']) . '</a>';
-    }
-
-    /**
-     * Renders the optional Ticket/Problem reference as a real link, built from the referenced
-     * item's own `getLinkURL()` (issue #29: "using GLPI's own getLinkURL()-style convention") -
-     * never a recopy of its title/description, only ever a pointer to the item that already exists
-     * in GLPI.
-     */
-    private static function ticketLink(string $itemtype, int $itemsId): string
-    {
-        if (!SecurityIncidentRules::isLinkedToItem($itemtype, $itemsId)) {
-            return '';
-        }
-
-        if (!is_a($itemtype, CommonDBTM::class, true)) {
-            return '';
-        }
-
-        $item = new $itemtype();
-        if (!$item->getFromDB($itemsId)) {
-            return sprintf(__('%1$s #%2$d (supprimé)', 'grcmanager'), $itemtype::getTypeName(1), $itemsId);
-        }
-
-        return '<a href="' . htmlescape($item->getLinkURL()) . '">'
-            . htmlescape($itemtype::getTypeName(1) . ' #' . $itemsId . ' - ' . $item->getName()) . '</a>';
-    }
-
-    public function showForm($ID, array $options = []): bool
-    {
-        global $DB;
-
-        $this->initForm($ID, $options);
-        $this->showFormHeader($options);
-
-        echo '<tr class="tab_bg_1"><td>' . __('Titre', 'grcmanager') . '</td>';
-        echo '<td colspan="3">';
-        echo Html::input('title', ['value' => $this->fields['title'] ?? '', 'size' => 80]);
-        echo '</td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . __('Catégorie', 'grcmanager') . '</td><td>';
-        Dropdown::showFromArray('category', self::getCategories(), [
-            'value' => $this->fields['category'] ?? SecurityIncidentRules::DEFAULT_CATEGORY,
-        ]);
-        echo '</td>';
-
-        echo '<td>' . __('Sévérité', 'grcmanager') . '</td><td>';
-        Dropdown::showFromArray('severity', self::getSeverities(), [
-            'value' => $this->fields['severity'] ?? SecurityIncidentRules::DEFAULT_SEVERITY,
-        ]);
-        echo '</td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . __('Date de l\'incident', 'grcmanager') . '</td><td>';
-        Html::showDateTimeField('incident_date', ['value' => $this->fields['incident_date'] ?? '']);
-        echo '</td>';
-
-        echo '<td>' . __('Responsable', 'grcmanager') . '</td><td>';
-        User::dropdown([
-            'name'  => 'users_id',
-            'value' => $this->fields['users_id'] ?? 0,
-            'right' => 'all',
-        ]);
-        echo '</td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . __('Statut', 'grcmanager') . '</td><td>';
-        Dropdown::showFromArray('status', self::getStatuses(), [
-            'value' => $this->fields['status'] ?? SecurityIncidentRules::DEFAULT_STATUS,
-        ]);
-        echo '</td><td colspan="2"></td></tr>';
-
-        // Issue #29 : cases a cocher HTML simples (jamais un select2 multi-valeurs), voir le
-        // docblock de classe pour le raisonnement complet (fiabilite de persistance + seulement 3
-        // valeurs fixes).
-        echo '<tr class="tab_bg_1"><td>' . __('Impact C/I/D', 'grcmanager') . '</td>';
-        echo '<td colspan="3">';
-        $selectedAxes = SecurityIncidentRules::splitCiaImpact((string) ($this->fields['cia_impact'] ?? ''));
-        foreach (self::getCiaAxisLabels() as $axis => $label) {
-            $checked = in_array($axis, $selectedAxes, true) ? ' checked' : '';
-            echo '<label class="form-check form-check-inline">';
-            echo '<input type="checkbox" class="form-check-input" name="cia_impact[]" value="'
-                . htmlescape($axis) . '"' . $checked . '>';
-            echo '<span class="form-check-label">' . htmlescape($label) . '</span>';
-            echo '</label>';
-        }
-        echo '<br><small class="form-hint">' . __(
-            'Axe(s) confidentialité/intégrité/disponibilité affecté(s) par cet incident.',
-            'grcmanager'
-        ) . '</small>';
-        echo '</td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . __('Description', 'grcmanager') . '</td>';
-        echo '<td colspan="3">';
-        echo '<textarea name="description" class="form-control" rows="3">'
-            . htmlescape($this->fields['description'] ?? '') . '</textarea>';
-        echo '</td></tr>';
-
-        // Issue #29 : reference legere vers un Ticket/Problem GLPI deja existant, jamais une
-        // duplication de son contenu (voir le docblock de classe).
-        $linkedItemtype = (string) ($this->fields['linked_itemtype'] ?? '');
-        $linkedItemsId  = (int) ($this->fields['linked_items_id'] ?? 0);
-
-        echo '<tr class="tab_bg_1"><td>' . __('Type d\'élément lié', 'grcmanager') . '</td><td>';
-        Dropdown::showFromArray('linked_itemtype', [
-            ''         => Dropdown::EMPTY_VALUE,
-            'Ticket'   => Ticket::getTypeName(1),
-            'Problem'  => Problem::getTypeName(1),
-        ], [
-            'value' => $linkedItemtype,
-        ]);
-        echo '</td>';
-
-        echo '<td>' . __('Ticket/Problem lié (optionnel)', 'grcmanager') . '</td><td>';
-        $linkedOptions = [0 => Dropdown::EMPTY_VALUE];
-        foreach (SecurityIncidentRules::ALLOWED_LINKED_ITEMTYPES as $itemtype) {
-            if ($linkedItemtype !== '' && $itemtype !== $linkedItemtype) {
-                continue;
-            }
-
-            foreach ($DB->request(['SELECT' => ['id', 'name'], 'FROM' => $itemtype::getTable()]) as $row) {
-                $linkedOptions[(int) $row['id']] = sprintf(
-                    '%s #%d - %s',
-                    $itemtype::getTypeName(1),
-                    (int) $row['id'],
-                    $row['name'] !== '' ? $row['name'] : sprintf('#%d', (int) $row['id'])
-                );
-            }
-        }
-        Dropdown::showFromArray('linked_items_id', $linkedOptions, [
-            'value' => $linkedItemsId,
-        ]);
-        echo '<small class="form-hint">' . __(
-            'Choisir d\'abord un type ci-contre pour filtrer la liste.',
-            'grcmanager'
-        ) . '</small>';
-        echo '</td></tr>';
-
-        // Issue #29 : lien optionnel zero-ou-un vers un risque du registre (boucle "lecons
-        // apprises" A.5.27), meme convention que PluginGrcmanagerComplianceObligation::showForm()
-        // (issue #30) - un simple Dropdown::showFromArray non-multiple avec une option "Aucun".
-        $riskTitles = [0 => Dropdown::EMPTY_VALUE];
-        foreach ($DB->request(['SELECT' => ['id', 'title'], 'FROM' => PluginGrcmanagerRisk::getTable()]) as $row) {
-            $riskTitles[(int) $row['id']] = $row['title'];
-        }
-
-        echo '<tr class="tab_bg_1"><td>' . __('Risque lié (optionnel)', 'grcmanager') . '</td>';
-        echo '<td colspan="3">';
-        Dropdown::showFromArray('plugin_grcmanager_risks_id', $riskTitles, [
-            'value' => $this->fields['plugin_grcmanager_risks_id'] ?? 0,
-        ]);
-        echo '<small class="form-hint">' . __(
-            'À renseigner si cet incident a mis en évidence un risque identifié dans le registre '
-                . 'de risques (ou en a révélé un nouveau).',
-            'grcmanager'
-        ) . '</small>';
-        echo '</td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . __('Cause racine', 'grcmanager') . '</td>';
-        echo '<td colspan="3">';
-        echo '<textarea name="root_cause" class="form-control" rows="3">'
-            . htmlescape($this->fields['root_cause'] ?? '') . '</textarea>';
-        echo '<small class="form-hint">' . __(
-            'Obligatoire, avec les enseignements tirés ci-dessous, pour clôturer cet incident.',
-            'grcmanager'
-        ) . '</small>';
-        echo '</td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . __('Enseignements tirés', 'grcmanager') . '</td>';
-        echo '<td colspan="3">';
-        echo '<textarea name="lessons_learned" class="form-control" rows="3">'
-            . htmlescape($this->fields['lessons_learned'] ?? '') . '</textarea>';
-        echo '<small class="form-hint">' . __(
-            'Ce qui a été appris de cet incident (clause A.5.27) : à documenter avant clôture.',
-            'grcmanager'
-        ) . '</small>';
-        echo '</td></tr>';
-
-        $this->showFormButtons($options);
-
-        return true;
     }
 }

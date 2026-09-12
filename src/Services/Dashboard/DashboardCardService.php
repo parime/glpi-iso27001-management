@@ -641,17 +641,19 @@ final class DashboardCardService
 
     /**
      * Issue #29 (registre des incidents de sécurité de l'information, A.5.24-27) : répartition par
-     * statut (ouvert/en investigation/contenu/clôturé), même schéma que
-     * auditsByStatus()/managementReviewsByStatus() ci-dessus.
+     * statut. Absorption de glpi-security-incidents (ROADMAP.md "Version 2.0") : `status` est
+     * désormais le statut ITIL entier hérité de CommonITILObject (INCOMING/ASSIGNED/PLANNED/
+     * WAITING/SOLVED/CLOSED), plus l'ancien statut texte (open/investigating/contained/closed) du
+     * registre CommonDBTM d'origine - les libellés viennent directement de
+     * PluginGrcmanagerSecurityIncident::getAllStatusArray() pour ne jamais dupliquer un second
+     * vocabulaire de statuts.
      */
     public static function securityIncidentsByStatus(array $params = []): array
     {
         global $DB;
 
-        $countsByStatus = array_fill_keys(
-            ['open', 'investigating', 'contained', 'closed'],
-            0
-        );
+        $labels = \PluginGrcmanagerSecurityIncident::getAllStatusArray();
+        $countsByStatus = array_fill_keys(array_keys($labels), 0);
 
         $rows = $DB->request([
             'SELECT' => ['status', new QueryExpression('COUNT(*) AS c')],
@@ -667,7 +669,7 @@ final class DashboardCardService
 
         $data = [];
         foreach ($countsByStatus as $status => $count) {
-            $data[] = ['label' => $status, 'number' => $count];
+            $data[] = ['label' => $labels[$status] ?? (string) $status, 'number' => $count];
         }
 
         return [
@@ -709,6 +711,40 @@ final class DashboardCardService
             'data' => $data,
             'label' => $params['label'] ?? __('Incidents de sécurité par sévérité', 'grcmanager'),
             'icon' => 'ti ti-chart-pie',
+        ];
+    }
+
+    /**
+     * Absorption de glpi-security-incidents (ROADMAP.md "Version 2.0") : délai moyen de réponse
+     * (heures entre la création `date` et la résolution `solvedate`), calculé uniquement sur les
+     * incidents effectivement résolus (`solvedate` renseigné) — un incident encore ouvert n'a pas
+     * de délai à mesurer, l'inclure avec une valeur nulle/zéro fausserait la moyenne à la baisse.
+     * Absent des indicateurs déjà existants (par statut/sévérité) : ceux-ci comptent, celui-ci
+     * mesure un temps, un indicateur ISO 27001 A.5.24-27 classique ("temps de réponse") qui
+     * n'a pas d'équivalent dans les cartes déjà portées depuis le plugin absorbé.
+     */
+    public static function securityIncidentResponseTimeHours(array $params = []): array
+    {
+        global $DB;
+
+        $row = $DB->request([
+            'SELECT' => [
+                new QueryExpression(
+                    'AVG(TIMESTAMPDIFF(HOUR, `date`, `solvedate`)) AS avg_hours'
+                ),
+            ],
+            'FROM'  => 'glpi_plugin_grcmanager_securityincidents',
+            'WHERE' => [
+                new QueryExpression('solvedate IS NOT NULL'),
+            ],
+        ])->current();
+
+        $avgHours = $row['avg_hours'] !== null ? (int) round((float) $row['avg_hours']) : 0;
+
+        return [
+            'number' => $avgHours,
+            'label'  => $params['label'] ?? __('Délai moyen de réponse aux incidents (heures)', 'grcmanager'),
+            'icon'   => 'ti ti-clock-hour-4',
         ];
     }
 

@@ -1,6 +1,6 @@
 {
-    "name": "parime/glpi-grc-manager",
-    "description": "Generic organizational risk, ISO 27001 Statement of Applicability, internal audit and CAPA platform built on GLPI.",
+    "name": "parime/glpi-iso27001-management",
+    "description": "Generic organizational risk, ISO 27001 Statement of Applicability, internal audit, CAPA and security incident management platform built on GLPI.",
     "type": "glpi-plugin",
     "license": "GPL-3.0-or-later",
     "authors": [
@@ -9,13 +9,13 @@
             "homepage": "https://github.com/parime"
         }
     ],
-    "homepage": "https://github.com/parime/glpi-grc-manager",
+    "homepage": "https://github.com/parime/glpi-iso27001-management",
     "support": {
-        "issues": "https://github.com/parime/glpi-grc-manager/issues",
-        "source": "https://github.com/parime/glpi-grc-manager"
+        "issues": "https://github.com/parime/glpi-iso27001-management/issues",
+        "source": "https://github.com/parime/glpi-iso27001-management"
     },
     "require": {
-        "php": ">=8.1"
+        "php": ">=8.2"
     },
     "require-dev": {
         "phpunit/phpunit": "^10.5",
@@ -29,7 +29,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "GlpiPlugin\\Grcmanager\\Tests\\": "tests/Unit/"
+            "GlpiPlugin\\Grcmanager\\Tests\\": "tests/Unit/",
+            "GlpiPlugin\\Grcmanager\\Tests\\Integration\\": "tests/Integration/"
         }
     },
     "config": {
@@ -37,6 +38,7 @@
     },
     "scripts": {
         "test": "phpunit --testsuite unit",
+        "test:integration": "phpunit -c phpunit-integration.xml.dist",
         "stan": "phpstan analyse --no-progress",
         "cs": "phpcs"
     }

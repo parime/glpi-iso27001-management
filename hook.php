@@ -17,6 +17,8 @@
 
 use GlpiPlugin\Grcmanager\Install\Installer;
 use GlpiPlugin\Grcmanager\Services\Dashboard\DashboardCardService;
+use GlpiPlugin\Grcmanager\Services\Dashboard\SecurityIncidentCardProvider;
+use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentModuleConfig;
 
 /**
  * Hooks::DASHBOARD_CARDS callback (registered in setup.php).
@@ -40,7 +42,7 @@ function plugin_grcmanager_dashboard_cards(?array $cards = null): array
 
     $group = __('GRC Manager', 'grcmanager');
 
-    return $cards + [
+    $cards += [
         'grcmanager_open_risks' => [
             'widgettype' => ['bigNumber'],
             'label' => __('Risques ouverts', 'grcmanager'),
@@ -207,6 +209,113 @@ function plugin_grcmanager_dashboard_cards(?array $cards = null): array
             'provider' => DashboardCardService::class . '::risksMissingTreatmentPlanCount',
         ],
     ];
+
+    // Absorption de glpi-security-incidents (ROADMAP.md "Version 2.0") : les 4 cartes natives
+    // portées depuis ce plugin jumeau (total/ouverts/répartition par entité et par catégorie),
+    // conditionnées par le module ET son propre interrupteur "cartes de tableau de bord" - un
+    // administrateur qui désactive l'un ou l'autre ne voit plus jamais une carte vide. `total`/
+    // `by_entity`/`by_category` réutilisent directement les fournisseurs génériques
+    // `Glpi\Dashboard\Provider::bigNumber<Itemtype>`/`multipleNumber<Itemtype>By<FkItemtype>`
+    // (magic __callStatic, gèrent déjà entités/is_deleted pour tout CommonDBTM) ; seul "ouverts" a
+    // besoin d'une requête dédiée (SecurityIncidentCardProvider::open()), sa définition de "ouvert"
+    // dépendant des constantes de statut propres à cet objet.
+    $moduleFlags = SecurityIncidentModuleConfig::load();
+    if ($moduleFlags['securityincident_enabled'] && $moduleFlags['securityincident_dashboard_enabled']) {
+        $itilItemtype = \PluginGrcmanagerSecurityIncident::class;
+        $itilTable    = $itilItemtype::getTable();
+        $itilFilters  = \Glpi\Dashboard\Filter::getAppliableFilters($itilTable);
+
+        $cards += [
+            'securityincidents_bn_total' => [
+                'widgettype' => ['bigNumber'],
+                'itemtype'   => "\\{$itilItemtype}",
+                'label'      => __('Incidents de sécurité', 'grcmanager'),
+                'group'      => $group,
+                // Fournisseur générique cœur (Glpi\Dashboard\Provider::__callStatic()), déjà porté
+                // depuis glpi-security-incidents (ROADMAP.md "Version 2.0") - gère déjà entités/
+                // is_deleted pour tout CommonDBTM.
+                'provider'   => 'Glpi\\Dashboard\\Provider::bigNumber' . $itilItemtype,
+                'filters'    => $itilFilters,
+            ],
+            'securityincidents_bn_open' => [
+                'widgettype' => ['bigNumber'],
+                'itemtype'   => "\\{$itilItemtype}",
+                'label'      => _x('security incidents', 'Open', 'grcmanager'),
+                'group'      => $group,
+                'provider'   => SecurityIncidentCardProvider::class . '::open',
+                'filters'    => $itilFilters,
+            ],
+            'securityincidents_by_entity' => [
+                'widgettype' => [
+                    'summaryNumbers', 'multipleNumber', 'pie', 'donut', 'halfpie', 'halfdonut', 'bar', 'hbar',
+                ],
+                'itemtype'   => "\\{$itilItemtype}",
+                'label'      => __('Incidents de sécurité par entité', 'grcmanager'),
+                'group'      => $group,
+                'provider'   => 'Glpi\\Dashboard\\Provider::multipleNumber' . $itilItemtype . 'ByEntity',
+                'filters'    => $itilFilters,
+            ],
+            'securityincidents_by_category' => [
+                'widgettype' => [
+                    'summaryNumbers', 'multipleNumber', 'pie', 'donut', 'halfpie', 'halfdonut', 'bar', 'hbar',
+                ],
+                'itemtype'   => "\\{$itilItemtype}",
+                'label'      => __('Incidents de sécurité par catégorie GLPI', 'grcmanager'),
+                'group'      => $group,
+                'provider'   => 'Glpi\\Dashboard\\Provider::multipleNumber' . $itilItemtype . 'ByITILCategory',
+                'filters'    => $itilFilters,
+            ],
+            'grcmanager_security_incident_response_time' => [
+                'widgettype' => ['bigNumber'],
+                'label' => __('Délai moyen de réponse aux incidents (heures)', 'grcmanager'),
+                'group' => $group,
+                'provider' => DashboardCardService::class . '::securityIncidentResponseTimeHours',
+            ],
+        ];
+    }
+
+    return $cards;
+}
+
+/**
+ * Hooks::POST_ITIL_INFO_SECTION callback (registered in setup.php). Renders both accordions
+ * absorbed from glpi-security-incidents (ROADMAP.md "Version 2.0") directly in the main ITIL
+ * fields panel, exactly where Change/Problem's own native "Analyse"/"Plans" accordions live:
+ * "Analyse" (impact/contrôles appliqués/plan de retour arrière, ported unchanged) and
+ * "Classification ISO 27001" (catégorie/sévérité/impact C/I/D/cause racine/enseignements tirés/
+ * risque lié, the fields merged from the plugin's former lightweight compliance register).
+ */
+function plugin_grcmanager_post_itil_info_section(array $params): void
+{
+    $item = $params['item'] ?? null;
+    if (!($item instanceof PluginGrcmanagerSecurityIncident)) {
+        return;
+    }
+
+    $renderer = Glpi\Application\View\TemplateRenderer::getInstance();
+    $rand     = mt_rand();
+
+    $renderer->display('@grcmanager/itil_analysis_section.html.twig', [
+        'item' => $item,
+        'rand' => $rand,
+    ]);
+
+    global $DB;
+
+    $risks = [0 => Dropdown::EMPTY_VALUE];
+    foreach ($DB->request(['SELECT' => ['id', 'title'], 'FROM' => PluginGrcmanagerRisk::getTable()]) as $row) {
+        $risks[(int) $row['id']] = $row['title'];
+    }
+
+    $renderer->display('@grcmanager/itil_classification_section.html.twig', [
+        'item'           => $item,
+        'rand'           => $rand,
+        'categories'     => PluginGrcmanagerSecurityIncident::getCategories(),
+        'severities'     => PluginGrcmanagerSecurityIncident::getSeverities(),
+        'cia_axes'       => PluginGrcmanagerSecurityIncident::getCiaAxisLabels(),
+        'risks'          => $risks,
+        'risk_type_name' => PluginGrcmanagerRisk::getTypeName(1),
+    ]);
 }
 
 function plugin_grcmanager_install(): bool
