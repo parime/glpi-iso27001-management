@@ -265,6 +265,12 @@ function plugin_grcmanager_dashboard_cards(?array $cards = null): array
                 'provider'   => 'Glpi\\Dashboard\\Provider::multipleNumber' . $itilItemtype . 'ByITILCategory',
                 'filters'    => $itilFilters,
             ],
+            'grcmanager_security_incident_response_time' => [
+                'widgettype' => ['bigNumber'],
+                'label' => __('Délai moyen de réponse aux incidents (heures)', 'grcmanager'),
+                'group' => $group,
+                'provider' => DashboardCardService::class . '::securityIncidentResponseTimeHours',
+            ],
         ];
     }
 

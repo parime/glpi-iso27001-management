@@ -715,6 +715,40 @@ final class DashboardCardService
     }
 
     /**
+     * Absorption de glpi-security-incidents (ROADMAP.md "Version 2.0") : délai moyen de réponse
+     * (heures entre la création `date` et la résolution `solvedate`), calculé uniquement sur les
+     * incidents effectivement résolus (`solvedate` renseigné) — un incident encore ouvert n'a pas
+     * de délai à mesurer, l'inclure avec une valeur nulle/zéro fausserait la moyenne à la baisse.
+     * Absent des indicateurs déjà existants (par statut/sévérité) : ceux-ci comptent, celui-ci
+     * mesure un temps, un indicateur ISO 27001 A.5.24-27 classique ("temps de réponse") qui
+     * n'a pas d'équivalent dans les cartes déjà portées depuis le plugin absorbé.
+     */
+    public static function securityIncidentResponseTimeHours(array $params = []): array
+    {
+        global $DB;
+
+        $row = $DB->request([
+            'SELECT' => [
+                new QueryExpression(
+                    'AVG(TIMESTAMPDIFF(HOUR, `date`, `solvedate`)) AS avg_hours'
+                ),
+            ],
+            'FROM'  => 'glpi_plugin_grcmanager_securityincidents',
+            'WHERE' => [
+                new QueryExpression('solvedate IS NOT NULL'),
+            ],
+        ])->current();
+
+        $avgHours = $row['avg_hours'] !== null ? (int) round((float) $row['avg_hours']) : 0;
+
+        return [
+            'number' => $avgHours,
+            'label'  => $params['label'] ?? __('Délai moyen de réponse aux incidents (heures)', 'grcmanager'),
+            'icon'   => 'ti ti-clock-hour-4',
+        ];
+    }
+
+    /**
      * Issue #31 (plan d'action de traitement des risques, clause 8.3/6.1.3) : même définition "en
      * retard" que GlpiPlugin\Grcmanager\Services\Risk\TreatmentPlanRules::isOverdue() et la tâche
      * Cron PluginGrcmanagerRiskTreatmentAction::cronOverduetreatmentaction() (échéance dépassée,
