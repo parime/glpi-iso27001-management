@@ -396,6 +396,39 @@ final class DashboardCardService
     }
 
     /**
+     * Indicateur manquant identifié lors de l'audit complet du plugin (recherche des bonnes
+     * pratiques KPI ISO 27001:2022) : distinct de trainingCompletionRate() ci-dessus, qui compte
+     * la présence/participation, pas la réussite d'une évaluation. Calculé uniquement sur les
+     * participants avec une évaluation renseignée (`assessment_result` != 'not_applicable') : une
+     * formation sans évaluation ne doit ni compter comme réussie ni comme échouée, elle est hors
+     * périmètre de cet indicateur (voir `PluginGrcmanagerTraining::getAssessmentResults()`).
+     */
+    public static function trainingPassRate(array $params = []): array
+    {
+        global $DB;
+
+        $assessed = (int) $DB->request([
+            'COUNT' => 'c',
+            'FROM'  => 'glpi_plugin_grcmanager_trainings_users',
+            'WHERE' => ['assessment_result' => ['<>', 'not_applicable']],
+        ])->current()['c'];
+
+        $passed = (int) $DB->request([
+            'COUNT' => 'c',
+            'FROM'  => 'glpi_plugin_grcmanager_trainings_users',
+            'WHERE' => ['assessment_result' => 'passed'],
+        ])->current()['c'];
+
+        $rate = $assessed > 0 ? (int) round(($passed / $assessed) * 100) : 0;
+
+        return [
+            'number' => $rate,
+            'label' => $params['label'] ?? __('Taux de réussite des formations évaluées', 'grcmanager'),
+            'icon' => 'ti ti-certificate',
+        ];
+    }
+
+    /**
      * Nombre de participants distincts en retard de renouvellement, même définition partagée par
      * PluginGrcmanagerTraining::getOverdueParticipants() et la tâche Cron
      * PluginGrcmanagerTraining::cronRenewaldue(), pour que la carte de tableau de bord et le rappel
