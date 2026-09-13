@@ -74,7 +74,7 @@ Objectif : une plateforme GRC/ISO 27001 générique fonctionnelle de bout en bou
   formation évaluée (quiz, test pratique...) peut être marquée réussie ou échouée, sans affecter
   les formations suivies sans évaluation formelle.
 
-## Version 2.2 (à venir)
+## Version 2.2 (livrée)
 
 - ~~Cartographie des risques (heatmap probabilité x impact interactive)~~ — **livré** : nouvel
   écran (`front/riskheatmap.php`, accessible depuis un bouton sur la liste des risques) affichant
