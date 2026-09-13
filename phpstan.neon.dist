@@ -17,6 +17,7 @@ parameters:
         - src/Services/Objective
         - src/Services/Compliance
         - src/Services/Incident
+        - src/Services/Cve
     excludePaths:
         # Depends on GLPI's legacy global-namespace CommonDBTM classes (PluginGrcmanager*), not
         # available for static analysis, see above. src/Install/ is entirely GLPI-dependent and
@@ -72,3 +73,9 @@ parameters:
         # Depends on GLPI core's Glpi\ContentTemplates\Parameters\CommonITILObjectParameters and
         # the legacy PluginGrcmanagerSecurityIncident class, not available for static analysis.
         - src/Services/Incident/SecurityIncidentParameters.php
+        # Enrichissement CVE via NVD : dépend de GLPI \Toolbox::getURLContent() et du $DB global,
+        # même rationale que RiskMatrixConfig.php ci-dessus. NvdCveParser.php et
+        # NvdConfigDefaults.php dans le même dossier restent dans le périmètre : purs PHP, aucune
+        # dépendance GLPI.
+        - src/Services/Cve/NvdCveEnrichmentService.php
+        - src/Services/Cve/NvdConfig.php

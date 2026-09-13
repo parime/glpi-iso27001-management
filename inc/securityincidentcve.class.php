@@ -15,6 +15,9 @@
  * -------------------------------------------------------------------------
  */
 
+use GlpiPlugin\Grcmanager\Services\Cve\NvdCveEnrichmentService;
+use GlpiPlugin\Grcmanager\Services\Cve\NvdConfig;
+
 /**
  * One CVE reference associated to a PluginGrcmanagerSecurityIncident — several per
  * incident, native reference feature ported from the sibling plugin `glpi-vulnerability-manager`'s
@@ -24,6 +27,12 @@
  *
  * Uses `PluginGrcmanagerSecurityIncident`'s own right rather than a dedicated one: a CVE
  * reference has no meaningful access boundary of its own, separate from the incident it documents.
+ *
+ * Optional NVD enrichment (score, severity, description, patch links — see
+ * GlpiPlugin\Grcmanager\Services\Cve\NvdCveEnrichmentService, front/config.php) is triggered right
+ * after a successful add via post_addItem(), the standard CommonDBTM lifecycle hook, so every add
+ * path (single identifier, or the multi-line textarea in front/securityincidentcve.form.php) gets
+ * it for free rather than each caller remembering to trigger it itself.
  */
 class PluginGrcmanagerSecurityIncidentCve extends CommonDBTM
 {
@@ -40,6 +49,49 @@ class PluginGrcmanagerSecurityIncidentCve extends CommonDBTM
     public static function getIcon()
     {
         return 'ti ti-bug';
+    }
+
+    /**
+     * Best-effort synchronous enrichment right after a successful add — a single lightweight NVD
+     * call, same cost as GithubVersionChecker's own inline HTTP call elsewhere in this plugin. A
+     * network failure here is captured as `fetch_status = 'error'` by
+     * NvdCveEnrichmentService::fetchForCve() itself (never an exception), so it can never abort or
+     * roll back the CVE reference that was just successfully added; the daily Cron
+     * (cronRefreshNvdData() below) catches it up later.
+     */
+    public function post_addItem()
+    {
+        parent::post_addItem();
+
+        if (NvdConfig::load()['enable_nvd_enrichment']) {
+            NvdCveEnrichmentService::fetchForCve($this->fields['cve_id']);
+        }
+    }
+
+    /**
+     * Cron entry point (registered in src/Install/Installer.php) : rattrape les CVE jamais
+     * enrichies avec succès et rafraîchit celles dont la donnée commence à dater — voir
+     * NvdCveEnrichmentService::refreshDue(). No-op explicite (retourne 0 sans requête réseau) si
+     * l'enrichissement est désactivé, plutôt que de laisser le Cron tourner pour rien.
+     */
+    public static function cronRefreshNvdData(CronTask $task): int
+    {
+        if (!NvdConfig::load()['enable_nvd_enrichment']) {
+            return 0;
+        }
+
+        global $DB;
+
+        $trackedCveIds = [];
+        foreach ($DB->request(['SELECT' => ['cve_id'], 'FROM' => self::getTable(), 'DISTINCT' => true]) as $row) {
+            $trackedCveIds[] = $row['cve_id'];
+        }
+
+        $refreshed = NvdCveEnrichmentService::refreshDue($trackedCveIds);
+        $task->addVolume($refreshed);
+        $task->log(sprintf('%d CVE rafraîchie(s) depuis le NVD sur %d suivie(s).', $refreshed, count($trackedCveIds)));
+
+        return $refreshed > 0 ? 1 : 0;
     }
 
     public function getTabNameForItem(CommonGLPI $item, $withtemplate = 0)
@@ -63,15 +115,25 @@ class PluginGrcmanagerSecurityIncidentCve extends CommonDBTM
         }
 
         $cves = [];
+        $enrichmentByCveId = [];
         if (!$item->isNewID($item->getID())) {
             $cve = new self();
             $cves = $cve->find(['plugin_grcmanager_securityincidents_id' => $item->getID()], ['cve_id ASC']);
+
+            foreach ($cves as $row) {
+                $enrichmentByCveId[$row['cve_id']] = NvdCveEnrichmentService::getForCve($row['cve_id']);
+            }
         }
+
+        $nvdConfig = NvdConfig::load();
 
         Glpi\Application\View\TemplateRenderer::getInstance()->display('@grcmanager/tabs/cve.html.twig', [
            'item' => $item,
            'cves' => $cves,
            'can_edit' => $item->canUpdateItem(),
+           'nvd_enrichment_enabled' => $nvdConfig['enable_nvd_enrichment'],
+           'cvss_alert_threshold'   => $nvdConfig['cvss_alert_threshold'],
+           'enrichment_by_cve_id'   => $enrichmentByCveId,
         ]);
 
         return true;

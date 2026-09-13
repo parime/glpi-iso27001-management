@@ -15,6 +15,7 @@
  * -------------------------------------------------------------------------
  */
 
+use GlpiPlugin\Grcmanager\Services\Cve\NvdConfig;
 use GlpiPlugin\Grcmanager\Services\GithubVersionChecker;
 use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentModuleConfig;
 use GlpiPlugin\Grcmanager\Services\Risk\RiskMatrixConfig;
@@ -56,6 +57,24 @@ if (isset($_POST['update_securityincident_modules'])) {
     Html::back();
 }
 
+if (isset($_POST['update_nvd_config'])) {
+    Session::checkRight(PluginGrcmanagerRisk::$rightname, UPDATE);
+
+    NvdConfig::save([
+        'enable_nvd_enrichment' => isset($_POST['enable_nvd_enrichment']),
+        // Never trusted as free text: a non-numeric or out-of-range submission falls back to the
+        // documented default rather than storing something a Twig template would then have to
+        // guard against when formatting/comparing it.
+        'cvss_alert_threshold'  => is_numeric($_POST['cvss_alert_threshold'] ?? null)
+            && (float) $_POST['cvss_alert_threshold'] >= 0.0
+            && (float) $_POST['cvss_alert_threshold'] <= 10.0
+                ? (float) $_POST['cvss_alert_threshold']
+                : \GlpiPlugin\Grcmanager\Services\Cve\NvdConfigDefaults::CVSS_ALERT_THRESHOLD,
+    ]);
+
+    Html::back();
+}
+
 Html::header(
     __('Configuration', 'grcmanager'),
     $_SERVER['PHP_SELF'],
@@ -71,6 +90,7 @@ Html::header(
     'installed_version'     => PLUGIN_GRCMANAGER_VERSION,
     'latest_github_version' => GithubVersionChecker::getLatestGithubVersion(),
     'securityincident_modules' => SecurityIncidentModuleConfig::load(),
+    'nvd_config'                => NvdConfig::load(),
 ]);
 
 Html::footer();
