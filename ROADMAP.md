@@ -53,7 +53,13 @@ Objectif : une plateforme GRC/ISO 27001 générique fonctionnelle de bout en bou
   registre de risques, ou programme d'audit interne et CAPA. Le CSV n'a nécessité aucun
   développement : chaque liste dispose déjà nativement du menu d'export CSV/XLSX/ODS de GLPI
   (`Search::showList()`), vérifié toujours fonctionnel.
-- Import/export de la SoA au format standard
+- **Import/export de la SoA au format standard** — **livré** : écran dédié
+  (`front/control.csv.php`, lien "Import/export CSV" sur la liste des contrôles) — export CSV
+  propre (code, thème, intitulé, applicabilité, état de mise en œuvre, justification) pensé pour
+  être réimporté tel quel après modification dans un tableur, et import réel qui applique
+  chaque ligne indépendamment (une ligne rejetée n'empêche pas les autres) sans jamais créer ni
+  supprimer de contrôle — un code inconnu du catalogue fixe (93 contrôles) est un rejet explicite,
+  jamais une création silencieuse.
 - Workflow d'approbation multi-niveaux pour l'acceptation de risque
 - API REST publique documentée (OpenAPI)
 
