@@ -1319,3 +1319,55 @@ msgstr "l'écran Référentiels"
 
 msgid "pour le détail."
 msgstr "pour le détail."
+
+msgid "Résumé"
+msgstr "Résumé"
+
+msgid "Audits internes"
+msgstr "Audits internes"
+
+msgid "Audits"
+msgstr "Audits"
+
+msgid "Non-conformités, observations et CAPA"
+msgstr "Non-conformités, observations et CAPA"
+
+msgid "Contrôles Annexe A"
+msgstr "Contrôles Annexe A"
+
+msgid "Contrôles revus"
+msgstr "Contrôles revus"
+
+msgid "Par applicabilité"
+msgstr "Par applicabilité"
+
+msgid "Par état de mise en œuvre"
+msgstr "Par état de mise en œuvre"
+
+msgid "Détail des contrôles"
+msgstr "Détail des contrôles"
+
+msgid "Risques au registre"
+msgstr "Risques au registre"
+
+msgid "Niveau"
+msgstr "Niveau"
+
+msgid "Détail des risques"
+msgstr "Détail des risques"
+
+msgid "Déclaration d'Applicabilité — Annexe A ISO/IEC 27001:2022"
+msgstr "Déclaration d'Applicabilité — Annexe A ISO/IEC 27001:2022"
+
+#, php-format
+msgid "Généré le %s"
+msgstr "Généré le %s"
+
+msgid "Export PDF"
+msgstr "Export PDF"
+
+msgid "Registre des risques"
+msgstr "Registre des risques"
+
+msgid "Programme d'audit interne et CAPA"
+msgstr "Programme d'audit interne et CAPA"

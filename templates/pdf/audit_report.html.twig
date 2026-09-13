@@ -1,0 +1,73 @@
+{% include '@grcmanager/pdf/_pdf_style.html.twig' %}
+
+<h2>{{ __('Résumé', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-summary">
+  <tr>
+    <td>{{ __('Audits internes', 'grcmanager') }}</td>
+    <td class="grcmanager-pdf-summary-number">{{ total_audits }}</td>
+  </tr>
+  <tr>
+    <td>{{ open_nonconformities.label }}</td>
+    <td class="grcmanager-pdf-summary-number">{{ open_nonconformities.number }}</td>
+  </tr>
+  <tr>
+    <td>{{ overdue_capa.label }}</td>
+    <td class="grcmanager-pdf-summary-number">{{ overdue_capa.number }}</td>
+  </tr>
+  {% for entry in by_status.data %}
+    <tr>
+      <td>{{ __('Audits', 'grcmanager') }} : {{ entry.label }}</td>
+      <td class="grcmanager-pdf-summary-number">{{ entry.number }}</td>
+    </tr>
+  {% endfor %}
+</table>
+
+<h2>{{ __('Audits internes', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-table">
+  <thead>
+    <tr>
+      <th>{{ __('Titre', 'grcmanager') }}</th>
+      <th>{{ __('Auditeur', 'grcmanager') }}</th>
+      <th>{{ __('Statut', 'grcmanager') }}</th>
+      <th>{{ __('Date planifiée', 'grcmanager') }}</th>
+      <th>{{ __('Date réalisée', 'grcmanager') }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for audit in audits %}
+      <tr>
+        <td>{{ audit.title }}</td>
+        <td>{{ audit.auditor }}</td>
+        <td>{{ audit.status }}</td>
+        <td>{{ audit.planned_date }}</td>
+        <td>{{ audit.actual_date }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h2>{{ __('Non-conformités, observations et CAPA', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-table">
+  <thead>
+    <tr>
+      <th>{{ __('Titre', 'grcmanager') }}</th>
+      <th>{{ __('Type de constat', 'grcmanager') }}</th>
+      <th>{{ __('Sévérité', 'grcmanager') }}</th>
+      <th>{{ __('Statut', 'grcmanager') }}</th>
+      <th>{{ __('Responsable', 'grcmanager') }}</th>
+      <th>{{ __('Échéance', 'grcmanager') }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for finding in findings %}
+      <tr>
+        <td>{{ finding.title }}</td>
+        <td>{{ finding.finding_type }}</td>
+        <td>{{ finding.severity }}</td>
+        <td>{{ finding.status }}</td>
+        <td>{{ finding.responsible }}</td>
+        <td>{{ finding.due_date }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>

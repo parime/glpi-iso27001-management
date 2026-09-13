@@ -15,7 +15,8 @@
         "source": "https://github.com/parime/glpi-iso27001-management"
     },
     "require": {
-        "php": ">=8.2"
+        "php": ">=8.2",
+        "dompdf/dompdf": "^3.0"
     },
     "require-dev": {
         "glpi-project/tools": "^0.8.4",

@@ -1,0 +1,101 @@
+{# Partiel CSS partagé par les 3 rapports PDF d'audit externe (SoA, registre de risques, programme
+   d'audit/CAPA — ROADMAP.md "Version 1.5") : en-tête avec titre + date de génération, pied de page
+   fixe avec numérotation de page (technique CSS standard Dompdf, `position: fixed` + compteur),
+   styles de tableau réutilisés par les 3 gabarits. Même convention visuelle que le plugin jumeau
+   assetsign-glpi (`templates/pdf/_pdf_style.html.twig`), fichier propre à ce plugin. #}
+<style>
+  @page {
+    margin: 90px 40px 60px 40px;
+  }
+
+  body {
+    font-family: 'DejaVu Sans', sans-serif;
+    font-size: 10px;
+    color: #1a1a1a;
+  }
+
+  .grcmanager-pdf-header {
+    position: fixed;
+    top: -70px;
+    left: 0;
+    right: 0;
+    height: 60px;
+    border-bottom: 2px solid #206bc4;
+  }
+
+  .grcmanager-pdf-header h1 {
+    font-size: 16px;
+    margin: 0 0 4px 0;
+    color: #206bc4;
+  }
+
+  .grcmanager-pdf-header .grcmanager-pdf-meta {
+    font-size: 9px;
+    color: #6c757d;
+  }
+
+  .grcmanager-pdf-footer {
+    position: fixed;
+    bottom: -50px;
+    left: 0;
+    right: 0;
+    height: 40px;
+    font-size: 8px;
+    color: #6c757d;
+    border-top: 1px solid #dee2e6;
+    padding-top: 4px;
+  }
+
+  .grcmanager-pdf-footer .page-number::after {
+    content: counter(page) " / " counter(pages);
+  }
+
+  h2 {
+    font-size: 13px;
+    color: #206bc4;
+    border-bottom: 1px solid #dee2e6;
+    padding-bottom: 3px;
+    margin-top: 20px;
+  }
+
+  table.grcmanager-pdf-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 12px;
+  }
+
+  table.grcmanager-pdf-table th,
+  table.grcmanager-pdf-table td {
+    border: 1px solid #dee2e6;
+    padding: 3px 5px;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  table.grcmanager-pdf-table th {
+    background-color: #f1f5f9;
+    font-weight: bold;
+  }
+
+  table.grcmanager-pdf-summary {
+    width: 100%;
+    margin-bottom: 12px;
+  }
+
+  table.grcmanager-pdf-summary td {
+    padding: 2px 8px 2px 0;
+  }
+
+  table.grcmanager-pdf-summary .grcmanager-pdf-summary-number {
+    font-weight: bold;
+    text-align: right;
+  }
+</style>
+<div class="grcmanager-pdf-header">
+  <h1>{{ report_title }}</h1>
+  <div class="grcmanager-pdf-meta">{{ generated_at_label }}</div>
+</div>
+<div class="grcmanager-pdf-footer">
+  <span>GLPI GRC Manager — {{ report_title }}</span>
+  <span style="float: right;" class="page-number"></span>
+</div>

@@ -55,6 +55,12 @@ echo '<i class="ti ti-grid-dots me-1"></i>' . __('Cartographie des risques', 'gr
 echo '</a>';
 echo '<a href="' . htmlescape($myRisksURL) . '" class="btn btn-outline-secondary btn-sm">';
 echo '<i class="ti ti-user-check me-1"></i>' . __('Mes risques', 'grcmanager');
+echo '</a>';
+// ROADMAP.md "Version 1.5" (rapports exportables pour audit externe) : export PDF mis en forme
+// (résumé + détail), en complément de l'export CSV/XLSX déjà natif de Search::showList() ci-dessous.
+$riskReportURL = Plugin::getWebDir('grcmanager') . '/front/risk.report.php';
+echo '<a href="' . htmlescape($riskReportURL) . '" class="btn btn-outline-secondary btn-sm" target="_blank">';
+echo '<i class="ti ti-file-type-pdf me-1"></i>' . __('Export PDF', 'grcmanager');
 echo '</a></div>';
 
 // Sprint 1 passed an empty array here, which silently discarded any criteria/sort/pagination in
