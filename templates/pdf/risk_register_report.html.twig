@@ -1,0 +1,47 @@
+{% include '@grcmanager/pdf/_pdf_style.html.twig' %}
+
+<h2>{{ __('Résumé', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-summary">
+  <tr>
+    <td>{{ __('Risques au registre', 'grcmanager') }}</td>
+    <td class="grcmanager-pdf-summary-number">{{ total_count }}</td>
+  </tr>
+  <tr>
+    <td>{{ open_count.label }}</td>
+    <td class="grcmanager-pdf-summary-number">{{ open_count.number }}</td>
+  </tr>
+  {% for entry in by_level.data %}
+    <tr>
+      <td>{{ __('Niveau', 'grcmanager') }} : {{ entry.label }}</td>
+      <td class="grcmanager-pdf-summary-number">{{ entry.number }}</td>
+    </tr>
+  {% endfor %}
+</table>
+
+<h2>{{ __('Détail des risques', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-table">
+  <thead>
+    <tr>
+      <th>{{ __('Titre', 'grcmanager') }}</th>
+      <th>{{ __('Catégorie', 'grcmanager') }}</th>
+      <th>{{ __('Niveau de risque', 'grcmanager') }}</th>
+      <th>{{ __('Traitement', 'grcmanager') }}</th>
+      <th>{{ __('Statut', 'grcmanager') }}</th>
+      <th>{{ __('Propriétaire', 'grcmanager') }}</th>
+      <th>{{ __('Date de revue', 'grcmanager') }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for risk in risks %}
+      <tr>
+        <td>{{ risk.title }}</td>
+        <td>{{ risk.category }}</td>
+        <td>{{ risk.risk_level }}</td>
+        <td>{{ risk.treatment }}</td>
+        <td>{{ risk.status }}</td>
+        <td>{{ risk.owner }}</td>
+        <td>{{ risk.review_date }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>

@@ -1319,3 +1319,55 @@ msgstr "the Reference frameworks screen"
 
 msgid "pour le détail."
 msgstr "for details."
+
+msgid "Résumé"
+msgstr "Summary"
+
+msgid "Audits internes"
+msgstr "Internal audits"
+
+msgid "Audits"
+msgstr "Audits"
+
+msgid "Non-conformités, observations et CAPA"
+msgstr "Nonconformities, observations and CAPA"
+
+msgid "Contrôles Annexe A"
+msgstr "Annex A controls"
+
+msgid "Contrôles revus"
+msgstr "Reviewed controls"
+
+msgid "Par applicabilité"
+msgstr "By applicability"
+
+msgid "Par état de mise en œuvre"
+msgstr "By implementation status"
+
+msgid "Détail des contrôles"
+msgstr "Control details"
+
+msgid "Risques au registre"
+msgstr "Risks in the register"
+
+msgid "Niveau"
+msgstr "Level"
+
+msgid "Détail des risques"
+msgstr "Risk details"
+
+msgid "Déclaration d'Applicabilité — Annexe A ISO/IEC 27001:2022"
+msgstr "Statement of Applicability — ISO/IEC 27001:2022 Annex A"
+
+#, php-format
+msgid "Généré le %s"
+msgstr "Generated on %s"
+
+msgid "Export PDF"
+msgstr "Export PDF"
+
+msgid "Registre des risques"
+msgstr "Risk register"
+
+msgid "Programme d'audit interne et CAPA"
+msgstr "Internal audit program and CAPA"

@@ -47,7 +47,12 @@ Objectif : une plateforme GRC/ISO 27001 générique fonctionnelle de bout en bou
 
 ## Version 1.5
 
-- Rapports exportables (PDF, CSV) pour audit externe
+- **Rapports exportables (PDF, CSV) pour audit externe** — **livré** : bouton « Export PDF » sur
+  les 3 écrans de registre concernés (Contrôles/SoA, Risques, Audits) générant un document PDF
+  mis en forme (résumé chiffré puis détail) — Déclaration d'Applicabilité complète (93 contrôles),
+  registre de risques, ou programme d'audit interne et CAPA. Le CSV n'a nécessité aucun
+  développement : chaque liste dispose déjà nativement du menu d'export CSV/XLSX/ODS de GLPI
+  (`Search::showList()`), vérifié toujours fonctionnel.
 - Import/export de la SoA au format standard
 - Workflow d'approbation multi-niveaux pour l'acceptation de risque
 - API REST publique documentée (OpenAPI)

@@ -1,0 +1,58 @@
+{% include '@grcmanager/pdf/_pdf_style.html.twig' %}
+
+<h2>{{ __('Résumé', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-summary">
+  <tr>
+    <td>{{ __('Contrôles Annexe A', 'grcmanager') }}</td>
+    <td class="grcmanager-pdf-summary-number">{{ total_count }}</td>
+  </tr>
+  <tr>
+    <td>{{ __('Contrôles revus', 'grcmanager') }}</td>
+    <td class="grcmanager-pdf-summary-number">{{ reviewed_count.number }} / {{ total_count }}</td>
+  </tr>
+</table>
+
+<table class="grcmanager-pdf-summary">
+  <tr>
+    <td><strong>{{ __('Par applicabilité', 'grcmanager') }}</strong></td>
+    <td><strong>{{ __('Par état de mise en œuvre', 'grcmanager') }}</strong></td>
+  </tr>
+  <tr>
+    <td>
+      {% for entry in by_applicability.data %}
+        {{ entry.label }} : {{ entry.number }}<br>
+      {% endfor %}
+    </td>
+    <td>
+      {% for entry in by_status.data %}
+        {{ entry.label }} : {{ entry.number }}<br>
+      {% endfor %}
+    </td>
+  </tr>
+</table>
+
+<h2>{{ __('Détail des contrôles', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-table">
+  <thead>
+    <tr>
+      <th>{{ __('Code') }}</th>
+      <th>{{ __('Thème', 'grcmanager') }}</th>
+      <th>{{ __('Intitulé') }}</th>
+      <th>{{ __('Applicabilité', 'grcmanager') }}</th>
+      <th>{{ __('État de mise en œuvre', 'grcmanager') }}</th>
+      <th>{{ __('Justification', 'grcmanager') }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for control in controls %}
+      <tr>
+        <td>{{ control.code }}</td>
+        <td>{{ control.theme }}</td>
+        <td>{{ control.title }}</td>
+        <td>{{ control.applicability }}</td>
+        <td>{{ control.implementation_status }}</td>
+        <td>{{ control.justification }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
