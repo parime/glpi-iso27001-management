@@ -81,6 +81,53 @@ final class NvdCveParserTest extends TestCase
                     'tags' => ['Third Party Advisory', 'VDB Entry'],
                 ],
             ],
+            'configurations' => [
+                [
+                    'operator' => 'OR',
+                    'nodes' => [
+                        [
+                            'operator' => 'OR',
+                            'cpeMatch' => [
+                                [
+                                    'vulnerable'           => true,
+                                    'criteria'             => 'cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*',
+                                    'versionStartIncluding' => '2.0.1',
+                                    'versionEndExcluding'   => '2.3.1',
+                                ],
+                                [
+                                    'vulnerable' => true,
+                                    'criteria'   => 'cpe:2.3:a:apache:log4j:2.0:beta9:*:*:*:*:*:*',
+                                ],
+                                // Real NVD payloads carry non-vulnerable siblings in the same node
+                                // (e.g. a fixed version listed for reference) — must be excluded.
+                                ['vulnerable' => false, 'criteria' => 'cpe:2.3:a:apache:log4j:2.17.0:*:*:*:*:*:*:*'],
+                            ],
+                        ],
+                    ],
+                ],
+                // Real NVD payloads also carry AND-combined nodes with nested `children`
+                // preconditions (e.g. "this Siemens firmware AND this specific hardware
+                // revision") — deliberately not walked, see affectedCpes()'s own docblock.
+                [
+                    'operator' => 'AND',
+                    'nodes' => [
+                        [
+                            'operator' => 'AND',
+                            'children' => [
+                                [
+                                    'operator' => 'OR',
+                                    'cpeMatch' => [
+                                        [
+                                            'vulnerable' => true,
+                                            'criteria'   => 'cpe:2.3:o:siemens:some_firmware:*:*:*:*:*:*:*:*',
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
         ];
     }
 
@@ -101,6 +148,44 @@ final class NvdCveParserTest extends TestCase
         $result = NvdCveParser::parse($this->log4shellPayload());
 
         self::assertStringContainsString('JNDI features do not protect', $result['description']);
+    }
+
+    public function testExtractsVulnerableCpesAndSkipsNonVulnerableAndNestedChildrenNodes(): void
+    {
+        $result = NvdCveParser::parse($this->log4shellPayload());
+
+        // 2 vulnerable entries kept from the flat OR node; the non-vulnerable sibling and the
+        // entire AND/children Siemens configuration are both excluded.
+        self::assertCount(2, $result['affected_cpes']);
+
+        $rangedEntry = $result['affected_cpes'][0];
+        self::assertSame('cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*', $rangedEntry['cpe23_uri']);
+        self::assertSame('2.0.1', $rangedEntry['version_start_including']);
+        self::assertSame('2.3.1', $rangedEntry['version_end_excluding']);
+        self::assertNull($rangedEntry['version_start_excluding']);
+        self::assertNull($rangedEntry['version_end_including']);
+
+        $concreteEntry = $result['affected_cpes'][1];
+        self::assertSame('cpe:2.3:a:apache:log4j:2.0:beta9:*:*:*:*:*:*', $concreteEntry['cpe23_uri']);
+        self::assertNull($concreteEntry['version_start_including']);
+
+        $uris = array_column($result['affected_cpes'], 'cpe23_uri');
+        self::assertNotContains('cpe:2.3:a:apache:log4j:2.17.0:*:*:*:*:*:*:*', $uris);
+        self::assertNotContains('cpe:2.3:o:siemens:some_firmware:*:*:*:*:*:*:*:*', $uris);
+    }
+
+    public function testReturnsNoAffectedCpesWhenConfigurationsIsAbsent(): void
+    {
+        $payload = [
+            'id'           => 'CVE-2026-00003',
+            'descriptions' => [['lang' => 'en', 'value' => 'No configurations block at all.']],
+            'metrics'      => [],
+            'references'   => [],
+        ];
+
+        $result = NvdCveParser::parse($payload);
+
+        self::assertSame([], $result['affected_cpes']);
     }
 
     public function testExtractsPatchLinksDeduplicatedByUrlAndExcludesNonRemediationReferences(): void

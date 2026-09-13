@@ -1237,3 +1237,52 @@ msgstr "Activer l'enrichissement NVD"
 
 msgid "Seuil d'alerte (score CVSS)"
 msgstr "Seuil d'alerte (score CVSS)"
+
+#, php-format
+msgid "%d actif(s) potentiellement concerné(s) de votre parc"
+msgstr "%d actif(s) potentiellement concerné(s) de votre parc"
+
+msgid "version non vérifiable"
+msgstr "version non vérifiable"
+
+msgid "Produit (corrélation CVE)"
+msgid_plural "Produits (corrélation CVE)"
+msgstr[0] "Produit (corrélation CVE)"
+msgstr[1] "Produits (corrélation CVE)"
+
+msgid "Éditeur / fabricant"
+msgstr "Éditeur / fabricant"
+
+msgid "Produit"
+msgstr "Produit"
+
+msgid "Identifiants CPE"
+msgstr "Identifiants CPE"
+
+msgid "Aucun identifiant CPE pour l'instant."
+msgstr "Aucun identifiant CPE pour l'instant."
+
+msgid "Alias de logiciels (parc GLPI)"
+msgstr "Alias de logiciels (parc GLPI)"
+
+msgid "Aucun alias pour l'instant."
+msgstr "Aucun alias pour l'instant."
+
+msgid "Alias de logiciel"
+msgid_plural "Alias de logiciels"
+msgstr[0] "Alias de logiciel"
+msgstr[1] "Alias de logiciels"
+
+msgid "Identifiant CPE"
+msgid_plural "Identifiants CPE"
+msgstr[0] "Identifiant CPE"
+msgstr[1] "Identifiants CPE"
+
+msgid "Nom court, ex. \"Apache\", \"Microsoft\" — sert uniquement d'étiquette, pas de comparaison."
+msgstr "Nom court, ex. \"Apache\", \"Microsoft\" — sert uniquement d'étiquette, pas de comparaison."
+
+msgid "Un identifiant CPE tel que rapporté par le NVD pour ce produit (ex. \"cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*\"). Plusieurs identifiants peuvent pointer vers le même produit."
+msgstr "Un identifiant CPE tel que rapporté par le NVD pour ce produit (ex. \"cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*\"). Plusieurs identifiants peuvent pointer vers le même produit."
+
+msgid "Le nom exact tel qu'il apparaît dans votre inventaire GLPI (fiche Logiciel), pour que la corrélation puisse reconnaître ce produit sur vos actifs. Aucune correspondance approximative n'est faite automatiquement."
+msgstr "Le nom exact tel qu'il apparaît dans votre inventaire GLPI (fiche Logiciel), pour que la corrélation puisse reconnaître ce produit sur vos actifs. Aucune correspondance approximative n'est faite automatiquement."

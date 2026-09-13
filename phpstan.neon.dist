@@ -79,3 +79,8 @@ parameters:
         # dépendance GLPI.
         - src/Services/Cve/NvdCveEnrichmentService.php
         - src/Services/Cve/NvdConfig.php
+        # Corrélation CPE des CVE avec le parc GLPI : dépend du $DB global et de
+        # $CFG_GLPI['software_types'], même rationale que RiskMatrixConfig.php ci-dessus.
+        # CpeIdentity.php et CpeVersionMatch.php dans le même dossier restent dans le périmètre :
+        # purs PHP, aucune dépendance GLPI.
+        - src/Services/Cve/InventoryCveMatcher.php

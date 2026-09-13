@@ -15,6 +15,7 @@
  * -------------------------------------------------------------------------
  */
 
+use GlpiPlugin\Grcmanager\Services\Cve\InventoryCveMatcher;
 use GlpiPlugin\Grcmanager\Services\Cve\NvdCveEnrichmentService;
 use GlpiPlugin\Grcmanager\Services\Cve\NvdConfig;
 
@@ -116,12 +117,19 @@ class PluginGrcmanagerSecurityIncidentCve extends CommonDBTM
 
         $cves = [];
         $enrichmentByCveId = [];
+        $matchedAssetsByCveId = [];
         if (!$item->isNewID($item->getID())) {
             $cve = new self();
             $cves = $cve->find(['plugin_grcmanager_securityincidents_id' => $item->getID()], ['cve_id ASC']);
 
             foreach ($cves as $row) {
-                $enrichmentByCveId[$row['cve_id']] = NvdCveEnrichmentService::getForCve($row['cve_id']);
+                $enrichment = NvdCveEnrichmentService::getForCve($row['cve_id']);
+                $enrichmentByCveId[$row['cve_id']] = $enrichment;
+
+                if ($enrichment !== null && count($enrichment['affected_cpes']) > 0) {
+                    $matchedAssetsByCveId[$row['cve_id']] =
+                        InventoryCveMatcher::findMatchingAssets($enrichment['affected_cpes']);
+                }
             }
         }
 
@@ -134,6 +142,7 @@ class PluginGrcmanagerSecurityIncidentCve extends CommonDBTM
            'nvd_enrichment_enabled' => $nvdConfig['enable_nvd_enrichment'],
            'cvss_alert_threshold'   => $nvdConfig['cvss_alert_threshold'],
            'enrichment_by_cve_id'   => $enrichmentByCveId,
+           'matched_assets_by_cve_id' => $matchedAssetsByCveId,
         ]);
 
         return true;

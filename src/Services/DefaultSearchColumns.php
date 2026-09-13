@@ -44,5 +44,10 @@ final class DefaultSearchColumns
         // Issue #29 (registre des incidents de sécurité de l'information, A.5.24-27), same
         // "id first" convention: titre, catégorie, sévérité, statut, date, responsable.
         'PluginGrcmanagerSecurityIncident' => [13, 1, 2, 3, 4, 5, 6],
+        // Corrélation CPE des CVE avec le parc GLPI (cf. ROADMAP.md) : seulement 2 colonnes
+        // (éditeur, produit), pas de convention "id first" à respecter faute de colonne ID dédiée
+        // — même choix que le CanonicalProduct du plugin jumeau glpi-vulnerability-manager, qui n'a
+        // lui non plus pas de colonne de titre naturelle.
+        'PluginGrcmanagerCanonicalProduct' => [1, 2],
     ];
 }
