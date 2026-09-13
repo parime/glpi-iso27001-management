@@ -9,6 +9,11 @@ use PHPUnit\Framework\TestCase;
 
 final class NvdCveParserTest extends TestCase
 {
+    private const APACHE_ADVISORY_URL = 'https://logging.apache.org/log4j/2.x/security.html';
+
+    private const MICROSOFT_ADVISORY_URL = 'https://msrc-blog.microsoft.com/2021/12/11/'
+        . 'microsofts-response-to-cve-2021-44228-apache-log4j2/';
+
     /**
      * Trimmed real payload for CVE-2021-44228 ("Log4Shell"), captured live from
      * https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2021-44228 — including the exact
@@ -22,7 +27,10 @@ final class NvdCveParserTest extends TestCase
             'id'        => 'CVE-2021-44228',
             'published' => '2021-12-10T10:15:09.143',
             'descriptions' => [
-                ['lang' => 'en', 'value' => 'Apache Log4j2 JNDI features do not protect against attacker controlled LDAP endpoints.'],
+                [
+                    'lang'  => 'en',
+                    'value' => 'Apache Log4j2 JNDI features do not protect against attacker controlled LDAP endpoints.',
+                ],
                 ['lang' => 'es', 'value' => 'Las caracteristicas JNDI de Apache Log4j2...'],
             ],
             'metrics' => [
@@ -52,18 +60,26 @@ final class NvdCveParserTest extends TestCase
                     [
                         'source'   => 'nvd@nist.gov',
                         'type'     => 'Primary',
-                        'cvssData' => ['version' => '2.0', 'vectorString' => 'AV:N/AC:M/Au:N/C:C/I:C/A:C', 'baseScore' => 9.3],
+                        'cvssData' => [
+                            'version'      => '2.0',
+                            'vectorString' => 'AV:N/AC:M/Au:N/C:C/I:C/A:C',
+                            'baseScore'    => 9.3,
+                        ],
                         'baseSeverity' => 'HIGH',
                     ],
                 ],
             ],
             'references' => [
-                ['url' => 'https://logging.apache.org/log4j/2.x/security.html', 'tags' => ['Release Notes', 'Vendor Advisory']],
-                ['url' => 'https://msrc-blog.microsoft.com/2021/12/11/microsofts-response-to-cve-2021-44228-apache-log4j2/', 'tags' => ['Patch', 'Third Party Advisory', 'Vendor Advisory']],
+                ['url' => self::APACHE_ADVISORY_URL, 'tags' => ['Release Notes', 'Vendor Advisory']],
+                ['url' => self::MICROSOFT_ADVISORY_URL, 'tags' => ['Patch', 'Third Party Advisory', 'Vendor Advisory']],
                 // Real NVD feed genuinely lists both of the above a second time.
-                ['url' => 'https://logging.apache.org/log4j/2.x/security.html', 'tags' => ['Release Notes', 'Vendor Advisory']],
-                ['url' => 'https://msrc-blog.microsoft.com/2021/12/11/microsofts-response-to-cve-2021-44228-apache-log4j2/', 'tags' => ['Patch', 'Third Party Advisory', 'Vendor Advisory']],
-                ['url' => 'http://packetstormsecurity.com/files/165225/Apache-Log4j2-2.14.1-Remote-Code-Execution.html', 'tags' => ['Third Party Advisory', 'VDB Entry']],
+                ['url' => self::APACHE_ADVISORY_URL, 'tags' => ['Release Notes', 'Vendor Advisory']],
+                ['url' => self::MICROSOFT_ADVISORY_URL, 'tags' => ['Patch', 'Third Party Advisory', 'Vendor Advisory']],
+                [
+                    'url'  => 'http://packetstormsecurity.com/files/165225/'
+                        . 'Apache-Log4j2-2.14.1-Remote-Code-Execution.html',
+                    'tags' => ['Third Party Advisory', 'VDB Entry'],
+                ],
             ],
         ];
     }
@@ -107,11 +123,8 @@ final class NvdCveParserTest extends TestCase
         );
 
         $tagsByUrl = array_column($result['patch_links'], 'tag', 'url');
-        self::assertSame('Vendor Advisory', $tagsByUrl['https://logging.apache.org/log4j/2.x/security.html']);
-        self::assertSame(
-            'Patch',
-            $tagsByUrl['https://msrc-blog.microsoft.com/2021/12/11/microsofts-response-to-cve-2021-44228-apache-log4j2/']
-        );
+        self::assertSame('Vendor Advisory', $tagsByUrl[self::APACHE_ADVISORY_URL]);
+        self::assertSame('Patch', $tagsByUrl[self::MICROSOFT_ADVISORY_URL]);
     }
 
     public function testParsesThePublicationDateIntoAMysqlCompatibleTimestamp(): void
@@ -136,7 +149,11 @@ final class NvdCveParserTest extends TestCase
                     [
                         'source'   => 'nvd@nist.gov',
                         'type'     => 'Primary',
-                        'cvssData' => ['version' => '2.0', 'vectorString' => 'AV:N/AC:L/Au:N/C:P/I:P/A:P', 'baseScore' => 7.5],
+                        'cvssData' => [
+                            'version'      => '2.0',
+                            'vectorString' => 'AV:N/AC:L/Au:N/C:P/I:P/A:P',
+                            'baseScore'    => 7.5,
+                        ],
                         // Deliberately no 'baseSeverity' key, matching a genuine v2-only NVD entry.
                     ],
                 ],

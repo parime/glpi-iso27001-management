@@ -1213,3 +1213,27 @@ msgstr "Security incidents by GLPI category"
 msgctxt "security incidents"
 msgid "Open"
 msgstr "Open"
+
+msgid "Récupération en cours…"
+msgstr "Fetching…"
+
+msgid "Non trouvée dans le NVD"
+msgstr "Not found in the NVD"
+
+msgid "Échec de la récupération, nouvel essai automatique prochainement"
+msgstr "Fetch failed, automatic retry coming soon"
+
+msgid "Rafraîchir depuis le NVD"
+msgstr "Refresh from the NVD"
+
+msgid "Correctifs / avis éditeur :"
+msgstr "Patches / vendor advisories:"
+
+msgid "Enrichissement CVE (NVD)"
+msgstr "CVE enrichment (NVD)"
+
+msgid "Activer l'enrichissement NVD"
+msgstr "Enable NVD enrichment"
+
+msgid "Seuil d'alerte (score CVSS)"
+msgstr "Alert threshold (CVSS score)"
