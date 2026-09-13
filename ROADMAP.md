@@ -89,8 +89,16 @@ Objectif : une plateforme GRC/ISO 27001 générique fonctionnelle de bout en bou
   (`front/config.php`), rafraîchi automatiquement chaque jour et manuellement à la demande. Aucune
   donnée inventée : un score ou un correctif absent s'affiche comme explicitement en attente/non
   trouvé, jamais comme une valeur par défaut.
-- Bibliothèque de contrôles étendue (ISO 27002, NIST CSF, CIS Controls) en complément de
-  l'Annexe A ISO 27001
+- **Bibliothèque de contrôles étendue** — **livré** : nouvel écran « Référentiels » avec deux
+  bibliothèques de référence consultables en complément de l'Annexe A — NIST CSF 2.0 (6 fonctions,
+  22 catégories, 106 sous-catégories) et CIS Controls v8 (18 contrôles, 153 sauvegardes), texte
+  intégral officiel. Chaque contrôle Annexe A ayant une correspondance publiée par le NIST
+  l'affiche directement sur son propre formulaire (ex. A.8.9 ↔ NIST CSF PR.PS-01). Pas de
+  bibliothèque ISO 27002 séparée : depuis 2022, l'Annexe A ISO 27001 EST la liste normative des
+  contrôles ISO 27002, déjà couverte par l'écran Contrôles existant. Pas de correspondance CIS
+  Controls vers l'Annexe A pour l'instant : le document officiel de correspondance de CIS
+  nécessite la création d'un compte, non récupérable automatiquement — voir le docblock de
+  `ControlCrosswalkDefaults`.
 - **Corrélation des CVE avec le parc GLPI** — **livré** : nouvel écran « Produits (corrélation
   CVE) » où un admin déclare des produits canoniques (éditeur + produit), chacun rattaché à un ou
   plusieurs identifiants CPE (tels que rapportés par le NVD) et à un ou plusieurs alias de nom de
