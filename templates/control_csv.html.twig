@@ -1,0 +1,42 @@
+{# ROADMAP.md "Version 1.5" (import/export de la SoA au format standard) — voir front/control.csv.php.
+   Contrairement à l'export CSV natif de Search::showList() (menu "Exporter" sur la liste des
+   contrôles), ce CSV dédié sépare le code de l'intitulé et n'utilise que des libellés stables,
+   pensé pour être réimporté tel quel après modification dans un tableur. #}
+
+<p class="text-muted">
+  {{ __('Exportez l\'état actuel de la Déclaration d\'Applicabilité, modifiez-le dans un tableur, puis réimportez le fichier pour appliquer les changements en une fois.', 'grcmanager') }}
+</p>
+
+<a href="{{ path('/plugins/grcmanager/front/control.csv.php') }}?action=export" class="btn btn-outline-secondary mb-3">
+  <i class="ti ti-download me-1"></i>{{ __('Télécharger le CSV actuel', 'grcmanager') }}
+</a>
+
+{% if import_result %}
+  <div class="alert {{ import_result.rejected_count > 0 ? 'alert-warning' : 'alert-success' }}">
+    {{ __('%d contrôle(s) mis à jour.', 'grcmanager')|format(import_result.updated_count) }}
+    {% if import_result.rejected_count > 0 %}
+      {{ __('%d ligne(s) rejetée(s) :', 'grcmanager')|format(import_result.rejected_count) }}
+      <ul class="mb-0">
+        {% for rejection in import_result.rejected %}
+          <li><strong>{{ rejection.code|default(__('(ligne vide)', 'grcmanager')) }}</strong> — {{ rejection.reason }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </div>
+{% endif %}
+
+{% if can_edit %}
+  <form method="post" action="{{ path('/plugins/grcmanager/front/control.csv.php') }}" enctype="multipart/form-data" class="card">
+    <div class="card-body">
+      <h3 class="card-title">{{ __('Importer un CSV modifié', 'grcmanager') }}</h3>
+      <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+      <input type="file" name="soa_file" accept=".csv" class="form-control mb-2" required>
+      <small class="form-hint d-block mb-2">
+        {{ __('Seules les colonnes applicabilite, etat_mise_en_oeuvre et justification sont appliquées, identifiées par le code du contrôle. Aucune ligne n\'est jamais créée ni supprimée.', 'grcmanager') }}
+      </small>
+      <button type="submit" name="import" class="btn btn-primary">
+        <i class="ti ti-upload me-1"></i>{{ __('Importer', 'grcmanager') }}
+      </button>
+    </div>
+  </form>
+{% endif %}

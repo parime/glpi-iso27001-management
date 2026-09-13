@@ -1371,3 +1371,62 @@ msgstr "Registre des risques"
 
 msgid "Programme d'audit interne et CAPA"
 msgstr "Programme d'audit interne et CAPA"
+
+msgid "Exportez l'état actuel de la Déclaration d'Applicabilité, modifiez-le dans un tableur, puis réimportez le fichier pour appliquer les changements en une fois."
+msgstr "Exportez l'état actuel de la Déclaration d'Applicabilité, modifiez-le dans un tableur, puis réimportez le fichier pour appliquer les changements en une fois."
+
+msgid "Télécharger le CSV actuel"
+msgstr "Télécharger le CSV actuel"
+
+#, php-format
+msgid "%d contrôle(s) mis à jour."
+msgstr "%d contrôle(s) mis à jour."
+
+#, php-format
+msgid "%d ligne(s) rejetée(s) :"
+msgstr "%d ligne(s) rejetée(s) :"
+
+msgid "(ligne vide)"
+msgstr "(ligne vide)"
+
+msgid "Importer un CSV modifié"
+msgstr "Importer un CSV modifié"
+
+msgid "Seules les colonnes applicabilite, etat_mise_en_oeuvre et justification sont appliquées, identifiées par le code du contrôle. Aucune ligne n'est jamais créée ni supprimée."
+msgstr "Seules les colonnes applicabilite, etat_mise_en_oeuvre et justification sont appliquées, identifiées par le code du contrôle. Aucune ligne n'est jamais créée ni supprimée."
+
+msgid "Importer"
+msgstr "Importer"
+
+msgid "Aucun fichier valide n'a été envoyé."
+msgstr "Aucun fichier valide n'a été envoyé."
+
+msgid "Code inconnu du catalogue Annexe A."
+msgstr "Code inconnu du catalogue Annexe A."
+
+msgid "Valeur d'applicabilité non reconnue."
+msgstr "Valeur d'applicabilité non reconnue."
+
+msgid "Valeur d'état de mise en œuvre non reconnue."
+msgstr "Valeur d'état de mise en œuvre non reconnue."
+
+msgid "Justification obligatoire : ce contrôle n'est pas pleinement applicable."
+msgstr "Justification obligatoire : ce contrôle n'est pas pleinement applicable."
+
+msgid "Import/export CSV — Annexe A"
+msgstr "Import/export CSV — Annexe A"
+
+msgid "Import/export CSV"
+msgstr "Import/export CSV"
+
+msgid "Un par ligne, ou séparés par des virgules — plusieurs à la fois sont pris en charge."
+msgstr "Un par ligne, ou séparés par des virgules — plusieurs à la fois sont pris en charge."
+
+msgid "Active ou désactive chaque partie du module de gestion des incidents de sécurité (objet ITIL dédié, visible dans le menu Assistance)."
+msgstr "Active ou désactive chaque partie du module de gestion des incidents de sécurité (objet ITIL dédié, visible dans le menu Assistance)."
+
+msgid "Récupère automatiquement le score CVSS, la sévérité, la description et les liens de correctif de chaque CVE suivie, depuis la base publique NVD (National Vulnerability Database). Aucune donnée n'est inventée : si le NVD n'a pas encore analysé une CVE, rien ne s'affiche tant que ce n'est pas le cas."
+msgstr "Récupère automatiquement le score CVSS, la sévérité, la description et les liens de correctif de chaque CVE suivie, depuis la base publique NVD (National Vulnerability Database). Aucune donnée n'est inventée : si le NVD n'a pas encore analysé une CVE, rien ne s'affiche tant que ce n'est pas le cas."
+
+msgid "Une CVE avec un score égal ou supérieur est mise en avant comme urgente."
+msgstr "Une CVE avec un score égal ou supérieur est mise en avant comme urgente."

@@ -42,9 +42,17 @@ echo '</div>';
 // (résumé + détail), en complément de l'export CSV/XLSX déjà natif de Search::showList() ci-dessous
 // (menu "Exporter" au-dessus de la liste, aucun code plugin nécessaire pour celui-ci).
 global $CFG_GLPI;
+echo '<div class="d-flex gap-2">';
 echo '<a href="' . htmlescape($CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/control.report.php') . '" '
     . 'class="btn btn-outline-secondary btn-sm" target="_blank">';
 echo '<i class="ti ti-file-type-pdf me-1"></i>' . __('Export PDF', 'grcmanager') . '</a>';
+// ROADMAP.md "Version 1.5" (import/export de la SoA au format standard) : CSV dédié
+// (code/applicabilité/statut/justification), pensé pour être réimporté tel quel après
+// modification dans un tableur — distinct de l'export brut de Search::showList() ci-dessous.
+echo '<a href="' . htmlescape($CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/control.csv.php') . '" '
+    . 'class="btn btn-outline-secondary btn-sm">';
+echo '<i class="ti ti-file-spreadsheet me-1"></i>' . __('Import/export CSV', 'grcmanager') . '</a>';
+echo '</div>';
 echo '</div>';
 
 // Same URL-driven search fix as front/risk.php (Search::showList()'s $params must be pre-merged
