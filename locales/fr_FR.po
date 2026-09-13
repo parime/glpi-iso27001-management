@@ -1286,3 +1286,36 @@ msgstr "Un identifiant CPE tel que rapporté par le NVD pour ce produit (ex. \"c
 
 msgid "Le nom exact tel qu'il apparaît dans votre inventaire GLPI (fiche Logiciel), pour que la corrélation puisse reconnaître ce produit sur vos actifs. Aucune correspondance approximative n'est faite automatiquement."
 msgstr "Le nom exact tel qu'il apparaît dans votre inventaire GLPI (fiche Logiciel), pour que la corrélation puisse reconnaître ce produit sur vos actifs. Aucune correspondance approximative n'est faite automatiquement."
+
+msgid "Bibliothèques de référence consultables, en complément de votre Déclaration d'Applicabilité (Annexe A ISO 27001)."
+msgstr "Bibliothèques de référence consultables, en complément de votre Déclaration d'Applicabilité (Annexe A ISO 27001)."
+
+msgid "Annexe A ISO 27001 / ISO 27002"
+msgstr "Annexe A ISO 27001 / ISO 27002"
+
+msgid "Filtrer…"
+msgstr "Filtrer…"
+
+msgid "NIST CSF 2.0 équivalent"
+msgstr "NIST CSF 2.0 équivalent"
+
+msgid "NIST Cybersecurity Framework (CSF) 2.0"
+msgstr "NIST Cybersecurity Framework (CSF) 2.0"
+
+msgid "CIS Controls v8"
+msgstr "CIS Controls v8"
+
+msgid "Référentiels"
+msgstr "Référentiels"
+
+msgid "Référentiels équivalents"
+msgstr "Référentiels équivalents"
+
+msgid "Correspondance publiée par le NIST — voir"
+msgstr "Correspondance publiée par le NIST — voir"
+
+msgid "l'écran Référentiels"
+msgstr "l'écran Référentiels"
+
+msgid "pour le détail."
+msgstr "pour le détail."

@@ -1,0 +1,135 @@
+{# ROADMAP.md "Version 2.2" (bibliothèque de contrôles étendue) : 3 bibliothèques de référence
+   purement consultables (Annexe A ISO 27001, NIST CSF 2.0, CIS Controls v8) — voir
+   front/referentiels.php pour la construction des données et
+   GlpiPlugin\Grcmanager\Services\Control\{NistCsfCatalogDefaults,CisControlsCatalogDefaults,
+   ControlCrosswalkDefaults} pour leur source. Rien n'est éditable ici : un admin gère
+   l'applicabilité/le statut de l'Annexe A depuis son propre écran (Contrôles), cette page ne fait
+   que consulter et faire le lien entre référentiels. #}
+
+<div class="text-muted mb-3">
+  {{ __('Bibliothèques de référence consultables, en complément de votre Déclaration d\'Applicabilité (Annexe A ISO 27001).', 'grcmanager') }}
+</div>
+
+<div class="card mb-3">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <h3 class="card-title mb-0">{{ __('Annexe A ISO 27001 / ISO 27002', 'grcmanager') }}</h3>
+    <input type="search" class="form-control form-control-sm w-auto grcmanager-ref-filter"
+           data-target="grcmanager-annexa-table" placeholder="{{ __('Filtrer…', 'grcmanager') }}">
+  </div>
+  <div class="table-responsive">
+    <table class="table table-vcenter card-table" id="grcmanager-annexa-table">
+      <thead>
+        <tr>
+          <th>{{ __('Code') }}</th>
+          <th>{{ __('Thème', 'grcmanager') }}</th>
+          <th>{{ __('Intitulé') }}</th>
+          <th>{{ __('NIST CSF 2.0 équivalent', 'grcmanager') }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for control in annex_a %}
+          <tr>
+            <td>
+              {% if control.id %}
+                <a href="{{ path('/plugins/grcmanager/front/control.form.php') }}?id={{ control.id }}">{{ control.code }}</a>
+              {% else %}
+                {{ control.code }}
+              {% endif %}
+            </td>
+            <td>{{ control.theme }}</td>
+            <td>{{ control.title }}</td>
+            <td>
+              {% for nist_code in control.crosswalk %}
+                <span class="badge bg-blue-lt">{{ nist_code }}</span>
+              {% endfor %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="card mb-3">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <h3 class="card-title mb-0">{{ __('NIST Cybersecurity Framework (CSF) 2.0', 'grcmanager') }}</h3>
+    <input type="search" class="form-control form-control-sm w-auto grcmanager-ref-filter"
+           data-target="grcmanager-nist-body" placeholder="{{ __('Filtrer…', 'grcmanager') }}">
+  </div>
+  <div class="card-body" id="grcmanager-nist-body">
+    {% for function in nist_csf %}
+      <details class="mb-2">
+        <summary class="fw-bold">{{ function.code }} — {{ function.name }}</summary>
+        {% for category in function.categories %}
+          <div class="ms-3 mt-2">
+            <div class="text-muted small mb-1">{{ category.code }} — {{ category.name }}</div>
+            <table class="table table-sm">
+              <tbody>
+                {% for sub in category.subcategories %}
+                  <tr>
+                    <td class="text-nowrap"><code>{{ sub.code }}</code></td>
+                    <td>{{ sub.text }}</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        {% endfor %}
+      </details>
+    {% endfor %}
+  </div>
+</div>
+
+<div class="card mb-3">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <h3 class="card-title mb-0">{{ __('CIS Controls v8', 'grcmanager') }}</h3>
+    <input type="search" class="form-control form-control-sm w-auto grcmanager-ref-filter"
+           data-target="grcmanager-cis-body" placeholder="{{ __('Filtrer…', 'grcmanager') }}">
+  </div>
+  <div class="card-body" id="grcmanager-cis-body">
+    {% for control in cis_controls %}
+      <details class="mb-2">
+        <summary class="fw-bold">{{ control.number }}. {{ control.name }}</summary>
+        <table class="table table-sm ms-3 mt-2">
+          <tbody>
+            {% for safeguard in control.safeguards %}
+              <tr>
+                <td class="text-nowrap"><code>{{ safeguard.code }}</code></td>
+                <td>{{ safeguard.text }}</td>
+                <td class="text-nowrap"><span class="badge bg-secondary-lt">IG{{ safeguard.ig }}</span></td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </details>
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('.grcmanager-ref-filter').forEach(function (input) {
+    input.addEventListener('input', function () {
+      var query = input.value.toLowerCase();
+      var target = document.getElementById(input.dataset.target);
+      if (!target) {
+        return;
+      }
+      target.querySelectorAll('tr').forEach(function (row) {
+        if (row.querySelector('th')) {
+          return;
+        }
+        row.hidden = query.length > 0 && !row.textContent.toLowerCase().includes(query);
+      });
+      target.querySelectorAll('details').forEach(function (details) {
+        var hasVisibleRow = Array.prototype.some.call(
+          details.querySelectorAll('tr'),
+          function (row) { return !row.hidden; }
+        );
+        details.hidden = query.length > 0 && !hasVisibleRow;
+        if (query.length > 0 && hasVisibleRow) {
+          details.open = true;
+        }
+      });
+    });
+  });
+</script>

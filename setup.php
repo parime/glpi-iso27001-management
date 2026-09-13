@@ -92,12 +92,15 @@ function plugin_init_grcmanager(): void
             PluginGrcmanagerManagementReview::class,
             PluginGrcmanagerPolicy::class,
             PluginGrcmanagerObjective::class,
-            // Corrélation CPE des CVE avec le parc GLPI (cf. ROADMAP.md) : dernier ajouté, un seul
-            // menu entry pour le catalogue de correspondance (le produit canonique) — ses deux
-            // tables satellites (CpeReference, ProductAlias) n'ont pas d'entrée propre, gérées en
-            // ligne sur le formulaire du produit, même convention que
-            // PluginGrcmanagerObjectiveMeasurement.
+            // Corrélation CPE des CVE avec le parc GLPI (cf. ROADMAP.md) : un seul menu entry pour
+            // le catalogue de correspondance (le produit canonique) — ses deux tables satellites
+            // (CpeReference, ProductAlias) n'ont pas d'entrée propre, gérées en ligne sur le
+            // formulaire du produit, même convention que PluginGrcmanagerObjectiveMeasurement.
             PluginGrcmanagerCanonicalProduct::class,
+            // Bibliothèque de contrôles étendue (ROADMAP.md "Version 2.2") : dernier ajouté, ancre
+            // sans CommonDBTM vers l'écran de consultation NIST CSF/CIS Controls, même convention
+            // que PluginGrcmanagerMenu ci-dessus.
+            PluginGrcmanagerReferentials::class,
         ],
     ];
 
