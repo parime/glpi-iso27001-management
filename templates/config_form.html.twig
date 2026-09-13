@@ -60,6 +60,38 @@
   </div>
 </div>
 
+{# Enrichissement CVE via NVD : dépend d'un appel réseau externe (services.nvd.nist.gov) à
+   chaque nouvelle CVE suivie, désactivé par défaut - même raisonnement/convention que le module
+   Incidents de sécurité ci-dessus (interrupteur explicite plutôt qu'un comportement silencieux
+   au premier upgrade). #}
+<div class="card mb-3">
+  <div class="card-body">
+    <h4>{{ __('Enrichissement CVE (NVD)', 'grcmanager') }}</h4>
+    <p class="text-muted">
+      {{ __('Récupère automatiquement le score CVSS, la sévérité, la description et les liens de correctif de chaque CVE suivie, depuis la base publique NVD (National Vulnerability Database). Aucune donnée n\'est inventée : si le NVD n\'a pas encore analysé une CVE, rien ne s\'affiche tant que ce n\'est pas le cas.', 'grcmanager') }}
+    </p>
+
+    <form method="post" action="{{ config('root_doc') }}/plugins/grcmanager/front/config.php">
+      <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
+
+      <div class="form-check form-switch mb-2">
+        <input class="form-check-input" type="checkbox" role="switch" id="enable_nvd_enrichment" name="enable_nvd_enrichment" {{ nvd_config.enable_nvd_enrichment ? 'checked' : '' }}>
+        <label class="form-check-label" for="enable_nvd_enrichment">{{ __('Activer l\'enrichissement NVD', 'grcmanager') }}</label>
+      </div>
+
+      <div class="mb-2" style="max-width: 220px;">
+        <label class="form-label" for="cvss_alert_threshold">{{ __('Seuil d\'alerte (score CVSS)', 'grcmanager') }}</label>
+        <input type="number" class="form-control" id="cvss_alert_threshold" name="cvss_alert_threshold" min="0" max="10" step="0.1" value="{{ nvd_config.cvss_alert_threshold }}">
+        <div class="form-hint">{{ __('Une CVE avec un score égal ou supérieur est mise en avant comme urgente.', 'grcmanager') }}</div>
+      </div>
+
+      <div class="d-flex gap-2 mt-2">
+        <button type="submit" name="update_nvd_config" class="btn btn-primary">{{ __('Enregistrer') }}</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 {# Sprint 2 : matrice probabilité x impact administrable (voir front/config.php,
    RiskMatrixConfig). Un seul écran pour l'instant (pas d'onglets comme le plugin jumeau
    glpi-vulnerability-manager, qui en a besoin pour 11 sous-écrans différents) : à réévaluer en

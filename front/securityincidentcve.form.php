@@ -51,6 +51,14 @@ if (isset($_POST['add'])) {
 } elseif (isset($_POST['purge'])) {
     $item->check($_POST['id'], PURGE);
     $item->delete($_POST, true);
+} elseif (isset($_POST['refresh_nvd'])) {
+    // Manual per-row control (in addition to the daily Cron and the automatic fetch on add) : an
+    // admin can always ask for an immediate re-check rather than wait for the next scheduled
+    // pass — e.g. right after NVD finishes analyzing a CVE that was still 'pending'/'not_found'.
+    $item->check($_POST['id'], READ);
+    Session::checkRight(PluginGrcmanagerSecurityIncidentCve::$rightname, UPDATE);
+    $item->getFromDB($_POST['id']);
+    \GlpiPlugin\Grcmanager\Services\Cve\NvdCveEnrichmentService::fetchForCve($item->fields['cve_id']);
 }
 
 Html::back();

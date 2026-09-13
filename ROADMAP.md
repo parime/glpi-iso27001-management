@@ -82,8 +82,18 @@ Objectif : une plateforme GRC/ISO 27001 générique fonctionnelle de bout en bou
   (`front/config.php`, la même matrice administrable que le Sprint 2) et affichant le nombre de
   risques qui y tombent. Chaque cellule est cliquable et ouvre la liste des risques filtrée sur
   cette combinaison exacte.
+- **Enrichissement CVE via NVD** — **livré** : chaque CVE suivie sur un incident de sécurité peut
+  être enrichie automatiquement (score CVSS, sévérité, description, liens de correctif/avis
+  éditeur) depuis la base publique NVD (National Vulnerability Database), avec mise en avant
+  visuelle des CVE au-delà d'un seuil de score configurable. Désactivé par défaut
+  (`front/config.php`), rafraîchi automatiquement chaque jour et manuellement à la demande. Aucune
+  donnée inventée : un score ou un correctif absent s'affiche comme explicitement en attente/non
+  trouvé, jamais comme une valeur par défaut.
 - Bibliothèque de contrôles étendue (ISO 27002, NIST CSF, CIS Controls) en complément de
   l'Annexe A ISO 27001
+- Corrélation des CVE avec le parc GLPI (correspondance CPE par logiciel/actif) — chantier à part,
+  plus important que l'enrichissement NVD ci-dessus (déclaration manuelle de CPE, moteur de
+  correspondance par version), à planifier séparément
 
 ## Suivi
 
