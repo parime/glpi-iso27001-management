@@ -1237,3 +1237,52 @@ msgstr "Enable NVD enrichment"
 
 msgid "Seuil d'alerte (score CVSS)"
 msgstr "Alert threshold (CVSS score)"
+
+#, php-format
+msgid "%d actif(s) potentiellement concerné(s) de votre parc"
+msgstr "%d potentially affected asset(s) in your inventory"
+
+msgid "version non vérifiable"
+msgstr "version not verifiable"
+
+msgid "Produit (corrélation CVE)"
+msgid_plural "Produits (corrélation CVE)"
+msgstr[0] "Product (CVE correlation)"
+msgstr[1] "Products (CVE correlation)"
+
+msgid "Éditeur / fabricant"
+msgstr "Vendor / manufacturer"
+
+msgid "Produit"
+msgstr "Product"
+
+msgid "Identifiants CPE"
+msgstr "CPE identifiers"
+
+msgid "Aucun identifiant CPE pour l'instant."
+msgstr "No CPE identifier yet."
+
+msgid "Alias de logiciels (parc GLPI)"
+msgstr "Software aliases (GLPI inventory)"
+
+msgid "Aucun alias pour l'instant."
+msgstr "No alias yet."
+
+msgid "Alias de logiciel"
+msgid_plural "Alias de logiciels"
+msgstr[0] "Software alias"
+msgstr[1] "Software aliases"
+
+msgid "Identifiant CPE"
+msgid_plural "Identifiants CPE"
+msgstr[0] "CPE identifier"
+msgstr[1] "CPE identifiers"
+
+msgid "Nom court, ex. \"Apache\", \"Microsoft\" — sert uniquement d'étiquette, pas de comparaison."
+msgstr "Short name, e.g. \"Apache\", \"Microsoft\" — used only as a label, never for matching."
+
+msgid "Un identifiant CPE tel que rapporté par le NVD pour ce produit (ex. \"cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*\"). Plusieurs identifiants peuvent pointer vers le même produit."
+msgstr "A CPE identifier as reported by the NVD for this product (e.g. \"cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point to the same product."
+
+msgid "Le nom exact tel qu'il apparaît dans votre inventaire GLPI (fiche Logiciel), pour que la corrélation puisse reconnaître ce produit sur vos actifs. Aucune correspondance approximative n'est faite automatiquement."
+msgstr "The exact name as it appears in your GLPI inventory (Software record), so the correlation can recognize this product on your assets. No approximate matching is ever done automatically."

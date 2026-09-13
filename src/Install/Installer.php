@@ -54,6 +54,14 @@ final class Installer
     // voir GlpiPlugin\Grcmanager\Services\Cve\NvdCveEnrichmentService.
     private const CVE_ENRICHMENTS_TABLE = 'glpi_plugin_grcmanager_cveenrichments';
 
+    // Corrélation CPE des CVE avec le parc GLPI : catalogue de correspondance produit (cf.
+    // ROADMAP.md, PluginGrcmanagerCanonicalProduct et ses deux tables satellites ci-dessous).
+    private const CANONICAL_PRODUCTS_TABLE = 'glpi_plugin_grcmanager_canonicalproducts';
+
+    private const CPE_REFERENCES_TABLE = 'glpi_plugin_grcmanager_cpereferences';
+
+    private const PRODUCT_ALIASES_TABLE = 'glpi_plugin_grcmanager_productaliases';
+
     // Sprint 3 (Déclaration d'Applicabilité / SoA, clause 6.1.3), same derivation rule.
     private const CONTROLS_TABLE = 'glpi_plugin_grcmanager_controls';
 
@@ -254,6 +262,7 @@ final class Installer
                 `severity` varchar(20) DEFAULT NULL,
                 `description` text,
                 `patch_links` text COMMENT 'JSON - liste de {url, tag}',
+                `affected_cpes` text COMMENT 'JSON - liste de CPE affectes (cf. NvdCveParser)',
                 `published_at` timestamp NULL DEFAULT NULL,
                 `fetched_at` timestamp NULL DEFAULT NULL,
                 `fetch_status` varchar(20) NOT NULL DEFAULT 'pending',
@@ -261,6 +270,65 @@ final class Installer
                 `date_mod` timestamp NULL DEFAULT NULL,
                 PRIMARY KEY (`id`),
                 UNIQUE KEY `unicity_cve` (`cve_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+        } elseif (!$DB->fieldExists(self::CVE_ENRICHMENTS_TABLE, 'affected_cpes')) {
+            // Corrélation CPE avec le parc (cf. ROADMAP.md) : ajoutée après la première version de
+            // cette table (enrichissement NVD seul) - une instance déjà installée doit recevoir la
+            // colonne sans perdre les données déjà enrichies.
+            $migration->addField(
+                self::CVE_ENRICHMENTS_TABLE,
+                'affected_cpes',
+                'text',
+                ['after' => 'patch_links', 'comment' => 'JSON - liste de CPE affectes (cf. NvdCveParser)']
+            );
+            $migration->migrationOneTable(self::CVE_ENRICHMENTS_TABLE);
+        }
+
+        // Corrélation CPE des CVE avec le parc GLPI (cf. ROADMAP.md) : catalogue de correspondance
+        // produit, voir PluginGrcmanagerCanonicalProduct/CpeReference/ProductAlias et
+        // GlpiPlugin\Grcmanager\Services\Cve\InventoryCveMatcher. Le produit canonique est le seul
+        // des trois avec une entree de menu ; les deux tables satellites sont gerees en ligne sur
+        // son propre formulaire, meme convention que OBJECTIVE_MEASUREMENTS_TABLE ci-dessus (pas
+        // d'entree de menu pour une simple table enfant).
+        if (!$DB->tableExists(self::CANONICAL_PRODUCTS_TABLE)) {
+            $query = "CREATE TABLE `" . self::CANONICAL_PRODUCTS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `manufacturer` varchar(255) NOT NULL,
+                `product` varchar(255) NOT NULL,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity_product` (`manufacturer`, `product`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+        }
+
+        if (!$DB->tableExists(self::CPE_REFERENCES_TABLE)) {
+            $query = "CREATE TABLE `" . self::CPE_REFERENCES_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `cpe` varchar(255) NOT NULL,
+                `plugin_grcmanager_canonicalproducts_id` int {$keySign} NOT NULL,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity_cpe` (`cpe`),
+                KEY `canonicalproducts_id` (`plugin_grcmanager_canonicalproducts_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+        }
+
+        if (!$DB->tableExists(self::PRODUCT_ALIASES_TABLE)) {
+            $query = "CREATE TABLE `" . self::PRODUCT_ALIASES_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `alias` varchar(255) NOT NULL,
+                `plugin_grcmanager_canonicalproducts_id` int {$keySign} NOT NULL,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity_alias` (`alias`),
+                KEY `canonicalproducts_id` (`plugin_grcmanager_canonicalproducts_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
             $DB->doQuery($query) or die($DB->error());
@@ -1961,6 +2029,9 @@ final class Installer
         $migration->dropTable(self::RISK_MATRIX_CONFIG_TABLE);
         $migration->dropTable(self::NVD_CONFIG_TABLE);
         $migration->dropTable(self::CVE_ENRICHMENTS_TABLE);
+        $migration->dropTable(self::CPE_REFERENCES_TABLE);
+        $migration->dropTable(self::PRODUCT_ALIASES_TABLE);
+        $migration->dropTable(self::CANONICAL_PRODUCTS_TABLE);
         $migration->dropTable(self::CONTROLS_RISKS_TABLE);
         $migration->dropTable(self::CONTROLS_TABLE);
         $migration->dropTable(self::AUDITS_CONTROLS_TABLE);

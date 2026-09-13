@@ -80,6 +80,32 @@
               {% endfor %}
             </div>
           {% endif %}
+
+          {% set matched_assets = matched_assets_by_cve_id[cve.cve_id]|default([]) %}
+          {% if matched_assets is not empty %}
+            {% set details_id = 'grcmanager-cve-assets-' ~ cve.id %}
+            <div class="small mt-2">
+              <a href="#" data-bs-toggle="collapse" data-bs-target="#{{ details_id }}">
+                <i class="ti ti-alert-triangle me-1 text-danger"></i>
+                {{ __('%d actif(s) potentiellement concerné(s) de votre parc', 'grcmanager')|format(matched_assets|length) }}
+              </a>
+              <div id="{{ details_id }}" class="collapse mt-1">
+                <ul class="mb-0">
+                  {% for asset in matched_assets %}
+                    <li>
+                      <a href="{{ path('/front/' ~ asset.itemtype|lower ~ '.form.php') }}?id={{ asset.items_id }}">
+                        {{ asset.item_name }}
+                      </a>
+                      — {{ asset.software_name }} {{ asset.version }}
+                      {% if asset.state == 'unknown' %}
+                        <span class="text-muted">({{ __('version non vérifiable', 'grcmanager') }})</span>
+                      {% endif %}
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+          {% endif %}
         {% endif %}
       </div>
     </div>

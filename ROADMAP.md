@@ -91,9 +91,14 @@ Objectif : une plateforme GRC/ISO 27001 générique fonctionnelle de bout en bou
   trouvé, jamais comme une valeur par défaut.
 - Bibliothèque de contrôles étendue (ISO 27002, NIST CSF, CIS Controls) en complément de
   l'Annexe A ISO 27001
-- Corrélation des CVE avec le parc GLPI (correspondance CPE par logiciel/actif) — chantier à part,
-  plus important que l'enrichissement NVD ci-dessus (déclaration manuelle de CPE, moteur de
-  correspondance par version), à planifier séparément
+- **Corrélation des CVE avec le parc GLPI** — **livré** : nouvel écran « Produits (corrélation
+  CVE) » où un admin déclare des produits canoniques (éditeur + produit), chacun rattaché à un ou
+  plusieurs identifiants CPE (tels que rapportés par le NVD) et à un ou plusieurs alias de nom de
+  logiciel (correspondance exacte avec `glpi_softwares.name`, jamais approximative). L'onglet CVE
+  d'un incident affiche désormais, pour toute CVE enrichie dont le NVD référence des CPE affectés,
+  les actifs du parc potentiellement concernés (calculé à la demande, jamais persisté), avec
+  évaluation de version à 3 états (concerné / non vérifiable / exclu par version). Aucune donnée
+  inventée : un logiciel installé sans alias déclaré est ignoré plutôt que deviné.
 
 ## Suivi
 

@@ -53,7 +53,11 @@ final class NvdCveParser
      *     severity: ?string,
      *     description: string,
      *     published_at: ?string,
-     *     patch_links: list<array{url: string, tag: string}>
+     *     patch_links: list<array{url: string, tag: string}>,
+     *     affected_cpes: list<array{
+     *         cpe23_uri: string, version_start_including: ?string, version_start_excluding: ?string,
+     *         version_end_including: ?string, version_end_excluding: ?string
+     *     }>
      * }
      */
     public static function parse(array $cve): array
@@ -62,13 +66,14 @@ final class NvdCveParser
         [$cvssScore, $cvssVector, $severity] = self::bestCvss($cve);
 
         return [
-            'cve_id'       => $cveId,
-            'cvss_score'   => $cvssScore,
-            'cvss_vector'  => $cvssVector,
-            'severity'     => $severity ?? self::severityFromScore($cvssScore),
-            'description'  => self::truncate(self::englishDescription($cve), 2000),
-            'published_at' => self::normalizeDate($cve['published'] ?? null),
-            'patch_links'  => self::patchLinks($cve),
+            'cve_id'        => $cveId,
+            'cvss_score'    => $cvssScore,
+            'cvss_vector'   => $cvssVector,
+            'severity'      => $severity ?? self::severityFromScore($cvssScore),
+            'description'   => self::truncate(self::englishDescription($cve), 2000),
+            'published_at'  => self::normalizeDate($cve['published'] ?? null),
+            'patch_links'   => self::patchLinks($cve),
+            'affected_cpes' => self::affectedCpes($cve),
         ];
     }
 
@@ -194,6 +199,60 @@ final class NvdCveParser
         }
 
         return $links;
+    }
+
+    /**
+     * Flattens `configurations[].nodes[].cpeMatch[]`, keeping only entries with `vulnerable: true`
+     * — same rule, and same accepted limitation, as the sibling plugin glpi-vulnerability-manager's
+     * own NvdConnector::affectedCpes() (confirmed live on CVE-2021-44228's own `configurations`,
+     * which does carry nested `children` precondition nodes for some entries — e.g. "this firmware
+     * AND this specific hardware revision" — deliberately not walked here: the correlation this
+     * feature does is inherently best-effort already, walking `children` would need evaluating an
+     * AND/OR boolean tree of preconditions this plugin has no other data to satisfy anyway).
+     *
+     * @param array<string, mixed> $cve
+     * @return list<array{
+     *     cpe23_uri: string, version_start_including: ?string, version_start_excluding: ?string,
+     *     version_end_including: ?string, version_end_excluding: ?string
+     * }>
+     */
+    private static function affectedCpes(array $cve): array
+    {
+        $configurations = is_array($cve['configurations'] ?? null) ? $cve['configurations'] : [];
+        $affectedCpes   = [];
+
+        foreach ($configurations as $configuration) {
+            $nodes = is_array($configuration['nodes'] ?? null) ? $configuration['nodes'] : [];
+
+            foreach ($nodes as $node) {
+                $cpeMatches = is_array($node['cpeMatch'] ?? null) ? $node['cpeMatch'] : [];
+
+                foreach ($cpeMatches as $cpeMatch) {
+                    if (!is_array($cpeMatch) || ($cpeMatch['vulnerable'] ?? false) !== true) {
+                        continue;
+                    }
+
+                    if (!isset($cpeMatch['criteria']) || !is_string($cpeMatch['criteria'])) {
+                        continue;
+                    }
+
+                    $affectedCpes[] = [
+                        'cpe23_uri'                => $cpeMatch['criteria'],
+                        'version_start_including'  => self::stringOrNull($cpeMatch['versionStartIncluding'] ?? null),
+                        'version_start_excluding'  => self::stringOrNull($cpeMatch['versionStartExcluding'] ?? null),
+                        'version_end_including'    => self::stringOrNull($cpeMatch['versionEndIncluding'] ?? null),
+                        'version_end_excluding'    => self::stringOrNull($cpeMatch['versionEndExcluding'] ?? null),
+                    ];
+                }
+            }
+        }
+
+        return $affectedCpes;
+    }
+
+    private static function stringOrNull(mixed $value): ?string
+    {
+        return is_string($value) ? $value : null;
     }
 
     private static function normalizeDate(mixed $value): ?string

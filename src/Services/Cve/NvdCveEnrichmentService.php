@@ -48,6 +48,10 @@ final class NvdCveEnrichmentService
      * @return array{
      *     cve_id: string, cvss_score: ?float, cvss_vector: ?string, severity: ?string,
      *     description: ?string, patch_links: list<array{url: string, tag: string}>,
+     *     affected_cpes: list<array{
+     *         cpe23_uri: string, version_start_including: ?string, version_start_excluding: ?string,
+     *         version_end_including: ?string, version_end_excluding: ?string
+     *     }>,
      *     published_at: ?string, fetch_status: string, fetched_at: ?string
      * }|null Null if this CVE has never been enriched at all (row doesn't exist yet).
      */
@@ -57,17 +61,19 @@ final class NvdCveEnrichmentService
 
         foreach ($DB->request(['FROM' => self::TABLE, 'WHERE' => ['cve_id' => $cveId]]) as $row) {
             $decodedLinks = json_decode((string) ($row['patch_links'] ?? ''), true);
+            $decodedCpes  = json_decode((string) ($row['affected_cpes'] ?? ''), true);
 
             return [
-                'cve_id'       => $row['cve_id'],
-                'cvss_score'   => $row['cvss_score'] !== null ? (float) $row['cvss_score'] : null,
-                'cvss_vector'  => $row['cvss_vector'],
-                'severity'     => $row['severity'],
-                'description'  => $row['description'],
-                'patch_links'  => is_array($decodedLinks) ? $decodedLinks : [],
-                'published_at' => $row['published_at'],
-                'fetch_status' => $row['fetch_status'],
-                'fetched_at'   => $row['fetched_at'],
+                'cve_id'        => $row['cve_id'],
+                'cvss_score'    => $row['cvss_score'] !== null ? (float) $row['cvss_score'] : null,
+                'cvss_vector'   => $row['cvss_vector'],
+                'severity'      => $row['severity'],
+                'description'   => $row['description'],
+                'patch_links'   => is_array($decodedLinks) ? $decodedLinks : [],
+                'affected_cpes' => is_array($decodedCpes) ? $decodedCpes : [],
+                'published_at'  => $row['published_at'],
+                'fetch_status'  => $row['fetch_status'],
+                'fetched_at'    => $row['fetched_at'],
             ];
         }
 
@@ -117,13 +123,14 @@ final class NvdCveEnrichmentService
         $parsed = NvdCveParser::parse($entry);
 
         self::upsert($cveId, [
-            'cvss_score'   => $parsed['cvss_score'],
-            'cvss_vector'  => $parsed['cvss_vector'],
-            'severity'     => $parsed['severity'],
-            'description'  => $parsed['description'],
-            'patch_links'  => json_encode($parsed['patch_links']),
-            'published_at' => $parsed['published_at'],
-            'fetch_status' => 'ok',
+            'cvss_score'    => $parsed['cvss_score'],
+            'cvss_vector'   => $parsed['cvss_vector'],
+            'severity'      => $parsed['severity'],
+            'description'   => $parsed['description'],
+            'patch_links'   => json_encode($parsed['patch_links']),
+            'affected_cpes' => json_encode($parsed['affected_cpes']),
+            'published_at'  => $parsed['published_at'],
+            'fetch_status'  => 'ok',
         ]);
     }
 
