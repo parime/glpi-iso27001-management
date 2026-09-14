@@ -14,7 +14,13 @@ namespace GlpiPlugin\Grcmanager\Services\Cve;
  * - EXCLUDED: the installed version is confirmed OUTSIDE the vulnerable range (e.g. already
  *   patched) — must remove the candidate entirely from a match list, never just deprioritize it.
  * - UNKNOWN: neither explicit version bounds nor a concrete version in the CPE URI itself are
- *   available to compare against — genuinely unknown, never guessed at or silently dropped.
+ *   available to compare against — genuinely unknown, never guessed at or silently dropped. Also
+ *   returned whenever the INSTALLED version itself doesn't look like a version at all (see
+ *   looksLikeAVersion()) — real GLPI software inventories do contain free-text version fields
+ *   ("unknown", "N/A", "latest", a build hash...), and version_compare() never errors on these,
+ *   it just degrades to treating them as very low precedence, which silently produced a confident
+ *   EXCLUDED verdict for input the plugin has no real basis to judge — confirmed live against a
+ *   real installed-version string ("unknown") on the shared Docker instance before this fix.
  *
  * Unlike that sibling plugin, there is no separate weighted "confidence score" alongside this
  * state: here, product identity is already resolved to a binary yes/no via the canonical-product
@@ -38,6 +44,10 @@ final class CpeVersionMatch
      */
     public static function evaluate(array $affectedCpe, string $installedVersion): string
     {
+        if (!self::looksLikeAVersion($installedVersion)) {
+            return self::UNKNOWN;
+        }
+
         $hasExplicitBound = $affectedCpe['version_start_including'] !== null
             || $affectedCpe['version_start_excluding'] !== null
             || $affectedCpe['version_end_including'] !== null
@@ -107,11 +117,23 @@ final class CpeVersionMatch
     }
 
     /**
+     * Guards every comparison against a genuinely non-version installed value (see evaluate()) —
+     * deliberately permissive (only requires a leading digit) rather than a strict semver pattern,
+     * so real messy-but-real version strings ("2.0:beta9", "2.14.1-patched", a single "3") are
+     * still compared normally; only clearly non-numeric free text ("unknown", "N/A", "latest", an
+     * empty string) is turned away as UNKNOWN instead of silently miscompared.
+     */
+    private static function looksLikeAVersion(string $version): bool
+    {
+        return preg_match('/^\d/', trim($version)) === 1;
+    }
+
+    /**
      * version_compare() rather than a string comparison — chosen specifically to avoid the classic
      * `"9.10" < "9.9"` string-ordering bug, same reasoning as the sibling plugin's own
-     * VersionRangeMatcher. Malformed/non-numeric version strings (real installed software version
-     * strings are not always clean semver) still degrade gracefully: version_compare() falls back
-     * to its own lexical rules rather than throwing, so this never fatals on messy real-world data.
+     * VersionRangeMatcher. Only ever reached once looksLikeAVersion() has already screened
+     * $installedVersion, so its own fallback-to-lexical-rules behavior on messy input no longer
+     * has a chance to silently misjudge a non-version string as excluded.
      */
     private static function compare(string $a, string $b, string $operator): bool
     {

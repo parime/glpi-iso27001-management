@@ -100,4 +100,50 @@ final class CpeVersionMatchTest extends TestCase
 
         self::assertSame(CpeVersionMatch::UNKNOWN, CpeVersionMatch::evaluate($affectedCpe, '2.1.0'));
     }
+
+    /**
+     * Real bug found by testing a real installed-version string against a real CVE with explicit
+     * bounds on the shared Docker instance: version_compare("unknown", "2.13.0", ">=") returns
+     * false (non-numeric input degrades to very low precedence), which the bounds check used to
+     * read as a confirmed EXCLUDED — silently claiming "not vulnerable" for a value the plugin
+     * actually has no basis to judge. Must be UNKNOWN instead, same as the no-bounds/no-concrete-
+     * version case above.
+     */
+    public function testIsUnknownWhenTheInstalledVersionIsNotAVersionAtAllAgainstExplicitBounds(): void
+    {
+        $affectedCpe = $this->affectedCpe([
+            'version_start_including' => '2.13.0',
+            'version_end_excluding'   => '2.15.0',
+        ]);
+
+        self::assertSame(CpeVersionMatch::UNKNOWN, CpeVersionMatch::evaluate($affectedCpe, 'unknown'));
+    }
+
+    public function testIsUnknownWhenTheInstalledVersionIsNotAVersionAtAllAgainstAConcreteCpeVersion(): void
+    {
+        $affectedCpe = $this->affectedCpe(['cpe23_uri' => 'cpe:2.3:a:apache:log4j:2.0:beta9:*:*:*:*:*:*']);
+
+        self::assertSame(CpeVersionMatch::UNKNOWN, CpeVersionMatch::evaluate($affectedCpe, 'N/A'));
+    }
+
+    public function testIsUnknownWhenTheInstalledVersionIsAnEmptyString(): void
+    {
+        $affectedCpe = $this->affectedCpe(['version_start_including' => '2.0.1']);
+
+        self::assertSame(CpeVersionMatch::UNKNOWN, CpeVersionMatch::evaluate($affectedCpe, ''));
+    }
+
+    /**
+     * looksLikeAVersion() is deliberately permissive (leading digit only) so real messy-but-real
+     * version strings are never wrongly turned away as UNKNOWN.
+     */
+    public function testAVersionWithATrailingQualifierIsStillComparedNormally(): void
+    {
+        $affectedCpe = $this->affectedCpe([
+            'version_start_including' => '2.0.1',
+            'version_end_excluding'   => '2.3.1',
+        ]);
+
+        self::assertSame(CpeVersionMatch::MATCHED, CpeVersionMatch::evaluate($affectedCpe, '2.1.0-patched'));
+    }
 }
