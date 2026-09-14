@@ -39,6 +39,62 @@ class PluginGrcmanagerCpeReference extends CommonDBTM
     }
 
     /**
+     * `cpe` is UNIQUE in the database (one CPE identifier can only ever point to one canonical
+     * product, see Installer.php) — without this check, a duplicate submission reaches
+     * CommonDBTM::add()'s raw INSERT and surfaces as an uncaught RuntimeException (HTTP 500,
+     * confirmed live against a real GLPI instance) instead of the normal
+     * Session::addMessageAfterRedirect() error flow every other validation failure in this plugin
+     * uses.
+     */
+    public function prepareInputForAdd($input)
+    {
+        $cpe = trim((string) ($input['cpe'] ?? ''));
+
+        if ($cpe === '') {
+            Session::addMessageAfterRedirect(
+                __('Veuillez saisir un identifiant CPE.', 'grcmanager'),
+                false,
+                ERROR
+            );
+
+            return false;
+        }
+
+        global $DB;
+        $existing = $DB->request([
+            'SELECT' => ['manufacturer', 'product'],
+            'FROM'   => PluginGrcmanagerCanonicalProduct::getTable(),
+            'INNER JOIN' => [
+                self::getTable() => [
+                    'FKEY' => [
+                        self::getTable() => 'plugin_grcmanager_canonicalproducts_id',
+                        PluginGrcmanagerCanonicalProduct::getTable() => 'id',
+                    ],
+                ],
+            ],
+            'WHERE' => [self::getTable() . '.cpe' => $cpe],
+        ])->current();
+
+        if ($existing !== null) {
+            Session::addMessageAfterRedirect(
+                sprintf(
+                    __('Cet identifiant CPE est déjà rattaché au produit "%s / %s".', 'grcmanager'),
+                    $existing['manufacturer'],
+                    $existing['product']
+                ),
+                false,
+                ERROR
+            );
+
+            return false;
+        }
+
+        $input['cpe'] = $cpe;
+
+        return $input;
+    }
+
+    /**
      * @return list<array{id: int, cpe: string}>
      */
     public static function getForCanonicalProduct(int $canonicalProductId): array

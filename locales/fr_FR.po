@@ -1430,3 +1430,34 @@ msgstr "Récupère automatiquement le score CVSS, la sévérité, la description
 
 msgid "Une CVE avec un score égal ou supérieur est mise en avant comme urgente."
 msgstr "Une CVE avec un score égal ou supérieur est mise en avant comme urgente."
+
+msgid "Aucune ligne exploitable trouvée dans ce fichier — vérifiez qu'il s'agit bien d'un CSV exporté depuis cet écran (colonnes séparées par des points-virgules)."
+msgstr "Aucune ligne exploitable trouvée dans ce fichier — vérifiez qu'il s'agit bien d'un CSV exporté depuis cet écran (colonnes séparées par des points-virgules)."
+
+msgid "Fichier attendu : celui téléchargé ci-dessus, éventuellement modifié (colonnes séparées par des points-virgules). Seules les colonnes applicabilite, etat_mise_en_oeuvre et justification sont appliquées, identifiées par le code du contrôle. Aucune ligne n'est jamais créée ni supprimée."
+msgstr "Fichier attendu : celui téléchargé ci-dessus, éventuellement modifié (colonnes séparées par des points-virgules). Seules les colonnes applicabilite, etat_mise_en_oeuvre et justification sont appliquées, identifiées par le code du contrôle. Aucune ligne n'est jamais créée ni supprimée."
+
+msgid "L'éditeur/fabricant et le produit sont obligatoires."
+msgstr "L'éditeur/fabricant et le produit sont obligatoires."
+
+#, php-format
+msgid "Un produit \"%s / %s\" existe déjà."
+msgstr "Un produit \"%s / %s\" existe déjà."
+
+msgid "Veuillez saisir un alias."
+msgstr "Veuillez saisir un alias."
+
+#, php-format
+msgid "Cet alias est déjà rattaché au produit \"%s / %s\"."
+msgstr "Cet alias est déjà rattaché au produit \"%s / %s\"."
+
+msgid "Veuillez saisir un identifiant CPE."
+msgstr "Veuillez saisir un identifiant CPE."
+
+#, php-format
+msgid "Cet identifiant CPE est déjà rattaché au produit \"%s / %s\"."
+msgstr "Cet identifiant CPE est déjà rattaché au produit \"%s / %s\"."
+
+#, php-format
+msgid "%s est déjà référencée sur cet incident."
+msgstr "%s est déjà référencée sur cet incident."

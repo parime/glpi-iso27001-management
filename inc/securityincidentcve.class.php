@@ -156,7 +156,33 @@ class PluginGrcmanagerSecurityIncidentCve extends CommonDBTM
      */
     public function prepareInputForAdd($input)
     {
-        return $this->prepareInput($input);
+        $input = $this->prepareInput($input);
+
+        if ($input === false) {
+            return false;
+        }
+
+        // `UNIQUE(plugin_grcmanager_securityincidents_id, cve_id)` in the database — without this
+        // check, re-submitting an already-linked CVE (e.g. the multi-line textarea re-processing
+        // an identifier already added earlier) reaches CommonDBTM::add()'s raw INSERT and surfaces
+        // as an uncaught RuntimeException (HTTP 500, confirmed live against a real GLPI instance)
+        // instead of a normal validation message.
+        $alreadyLinked = countElementsInTable(self::getTable(), [
+            'plugin_grcmanager_securityincidents_id' => $input['plugin_grcmanager_securityincidents_id'] ?? 0,
+            'cve_id' => $input['cve_id'],
+        ]) > 0;
+
+        if ($alreadyLinked) {
+            Session::addMessageAfterRedirect(
+                sprintf(__('%s est déjà référencée sur cet incident.', 'grcmanager'), $input['cve_id']),
+                false,
+                ERROR
+            );
+
+            return false;
+        }
+
+        return $input;
     }
 
     public function prepareInputForUpdate($input)

@@ -126,10 +126,16 @@ if (isset($_POST['import'])) {
                 __('Justification obligatoire : ce contrôle n\'est pas pleinement applicable.', 'grcmanager'),
         ];
 
+        // Un fichier vide, non-CSV, ou dont l'en-tête ne compte pas exactement les colonnes
+        // attendues produit silencieusement 0 ligne exploitable (ni mise à jour, ni rejet à
+        // afficher) — distingué explicitement d'un import normal à 0 changement, pour ne jamais
+        // laisser un utilisateur croire que son fichier a été traité avec succès alors qu'il n'a
+        // pas été lu du tout.
         $importResult = [
-            'updated_count'  => count($result['valid']),
-            'rejected_count' => count($result['rejected']),
-            'rejected'       => array_map(
+            'updated_count'   => count($result['valid']),
+            'rejected_count'  => count($result['rejected']),
+            'no_rows_found'   => count($rows) === 0,
+            'rejected'        => array_map(
                 static fn (array $r) => ['code' => $r['code'], 'reason' => $reasonLabels[$r['reason']] ?? $r['reason']],
                 $result['rejected']
             ),

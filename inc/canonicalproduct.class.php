@@ -50,6 +50,69 @@ class PluginGrcmanagerCanonicalProduct extends CommonDBTM
         return 'ti ti-package';
     }
 
+    /**
+     * `UNIQUE(manufacturer, product)` in the database (Installer.php) — without this check, a
+     * duplicate submission reaches CommonDBTM::add()'s raw INSERT and surfaces as an uncaught
+     * RuntimeException (HTTP 500, confirmed live against a real GLPI instance) instead of the
+     * normal Session::addMessageAfterRedirect() error flow every other validation failure in this
+     * plugin uses.
+     */
+    public function prepareInputForAdd($input)
+    {
+        return $this->rejectIfDuplicate($input);
+    }
+
+    public function prepareInputForUpdate($input)
+    {
+        return $this->rejectIfDuplicate($input, (int) $this->getID());
+    }
+
+    /**
+     * @param array<string, mixed> $input
+     * @return array<string, mixed>|false
+     */
+    private function rejectIfDuplicate(array $input, int $excludeId = 0)
+    {
+        $manufacturer = trim((string) ($input['manufacturer'] ?? ($this->fields['manufacturer'] ?? '')));
+        $product = trim((string) ($input['product'] ?? ($this->fields['product'] ?? '')));
+
+        if ($manufacturer === '' || $product === '') {
+            Session::addMessageAfterRedirect(
+                __('L\'éditeur/fabricant et le produit sont obligatoires.', 'grcmanager'),
+                false,
+                ERROR
+            );
+
+            return false;
+        }
+
+        global $DB;
+        $where = ['manufacturer' => $manufacturer, 'product' => $product];
+        if ($excludeId > 0) {
+            $where['id'] = ['<>', $excludeId];
+        }
+        $exists = $DB->request(['FROM' => self::getTable(), 'WHERE' => $where])->count() > 0;
+
+        if ($exists) {
+            Session::addMessageAfterRedirect(
+                sprintf(
+                    __('Un produit "%s / %s" existe déjà.', 'grcmanager'),
+                    $manufacturer,
+                    $product
+                ),
+                false,
+                ERROR
+            );
+
+            return false;
+        }
+
+        $input['manufacturer'] = $manufacturer;
+        $input['product'] = $product;
+
+        return $input;
+    }
+
     public function rawSearchOptions()
     {
         $tab = [];

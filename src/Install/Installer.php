@@ -262,7 +262,7 @@ final class Installer
                 `severity` varchar(20) DEFAULT NULL,
                 `description` text,
                 `patch_links` text COMMENT 'JSON - liste de {url, tag}',
-                `affected_cpes` text COMMENT 'JSON - liste de CPE affectes (cf. NvdCveParser)',
+                `affected_cpes` mediumtext COMMENT 'JSON - liste de CPE affectes (cf. NvdCveParser)',
                 `published_at` timestamp NULL DEFAULT NULL,
                 `fetched_at` timestamp NULL DEFAULT NULL,
                 `fetch_status` varchar(20) NOT NULL DEFAULT 'pending',
@@ -280,8 +280,24 @@ final class Installer
             $migration->addField(
                 self::CVE_ENRICHMENTS_TABLE,
                 'affected_cpes',
-                'text',
+                'mediumtext',
                 ['after' => 'patch_links', 'comment' => 'JSON - liste de CPE affectes (cf. NvdCveParser)']
+            );
+            $migration->migrationOneTable(self::CVE_ENRICHMENTS_TABLE);
+        } else {
+            // Élargit une colonne déjà créée en `text` par une version antérieure de cette
+            // migration (limite 64 Ko) vers `mediumtext` (16 Mo) : une CVE très largement diffusée
+            // (ex. Log4Shell, CVE-2021-44228) référence des centaines de CPE affectés chez de
+            // nombreux éditeurs downstream dans sa réponse NVD réelle, dépassant `text` de manière
+            // confirmée en conditions réelles (erreur SQL 1406 "Data too long"). `changeField` est
+            // sans risque à rappeler même si la colonne est déjà au bon type (ALTER TABLE... vers
+            // le même type, opération idempotente côté MySQL).
+            $migration->changeField(
+                self::CVE_ENRICHMENTS_TABLE,
+                'affected_cpes',
+                'affected_cpes',
+                'mediumtext',
+                ['comment' => 'JSON - liste de CPE affectes (cf. NvdCveParser)']
             );
             $migration->migrationOneTable(self::CVE_ENRICHMENTS_TABLE);
         }
