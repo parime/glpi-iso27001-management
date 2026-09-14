@@ -12,17 +12,23 @@
 </a>
 
 {% if import_result %}
-  <div class="alert {{ import_result.rejected_count > 0 ? 'alert-warning' : 'alert-success' }}">
-    {{ __('%d contrôle(s) mis à jour.', 'grcmanager')|format(import_result.updated_count) }}
-    {% if import_result.rejected_count > 0 %}
-      {{ __('%d ligne(s) rejetée(s) :', 'grcmanager')|format(import_result.rejected_count) }}
-      <ul class="mb-0">
-        {% for rejection in import_result.rejected %}
-          <li><strong>{{ rejection.code|default(__('(ligne vide)', 'grcmanager')) }}</strong> — {{ rejection.reason }}</li>
-        {% endfor %}
-      </ul>
-    {% endif %}
-  </div>
+  {% if import_result.no_rows_found %}
+    <div class="alert alert-danger">
+      {{ __('Aucune ligne exploitable trouvée dans ce fichier — vérifiez qu\'il s\'agit bien d\'un CSV exporté depuis cet écran (colonnes séparées par des points-virgules).', 'grcmanager') }}
+    </div>
+  {% else %}
+    <div class="alert {{ import_result.rejected_count > 0 ? 'alert-warning' : 'alert-success' }}">
+      {{ __('%d contrôle(s) mis à jour.', 'grcmanager')|format(import_result.updated_count) }}
+      {% if import_result.rejected_count > 0 %}
+        {{ __('%d ligne(s) rejetée(s) :', 'grcmanager')|format(import_result.rejected_count) }}
+        <ul class="mb-0">
+          {% for rejection in import_result.rejected %}
+            <li><strong>{{ rejection.code|default(__('(ligne vide)', 'grcmanager')) }}</strong> — {{ rejection.reason }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+  {% endif %}
 {% endif %}
 
 {% if can_edit %}
@@ -32,7 +38,7 @@
       <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
       <input type="file" name="soa_file" accept=".csv" class="form-control mb-2" required>
       <small class="form-hint d-block mb-2">
-        {{ __('Seules les colonnes applicabilite, etat_mise_en_oeuvre et justification sont appliquées, identifiées par le code du contrôle. Aucune ligne n\'est jamais créée ni supprimée.', 'grcmanager') }}
+        {{ __('Fichier attendu : celui téléchargé ci-dessus, éventuellement modifié (colonnes séparées par des points-virgules). Seules les colonnes applicabilite, etat_mise_en_oeuvre et justification sont appliquées, identifiées par le code du contrôle. Aucune ligne n\'est jamais créée ni supprimée.', 'grcmanager') }}
       </small>
       <button type="submit" name="import" class="btn btn-primary">
         <i class="ti ti-upload me-1"></i>{{ __('Importer', 'grcmanager') }}

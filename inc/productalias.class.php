@@ -44,6 +44,62 @@ class PluginGrcmanagerProductAlias extends CommonDBTM
     }
 
     /**
+     * `alias` is UNIQUE in the database (one GLPI software name can only ever point to one
+     * canonical product, see Installer.php) — without this check, a duplicate submission reaches
+     * CommonDBTM::add()'s raw INSERT and surfaces as an uncaught RuntimeException (HTTP 500,
+     * confirmed live against a real GLPI instance for the sibling PluginGrcmanagerCpeReference,
+     * same underlying issue here) instead of the normal Session::addMessageAfterRedirect() error
+     * flow every other validation failure in this plugin uses.
+     */
+    public function prepareInputForAdd($input)
+    {
+        $alias = trim((string) ($input['alias'] ?? ''));
+
+        if ($alias === '') {
+            Session::addMessageAfterRedirect(
+                __('Veuillez saisir un alias.', 'grcmanager'),
+                false,
+                ERROR
+            );
+
+            return false;
+        }
+
+        global $DB;
+        $existing = $DB->request([
+            'SELECT' => ['manufacturer', 'product'],
+            'FROM'   => PluginGrcmanagerCanonicalProduct::getTable(),
+            'INNER JOIN' => [
+                self::getTable() => [
+                    'FKEY' => [
+                        self::getTable() => 'plugin_grcmanager_canonicalproducts_id',
+                        PluginGrcmanagerCanonicalProduct::getTable() => 'id',
+                    ],
+                ],
+            ],
+            'WHERE' => [self::getTable() . '.alias' => $alias],
+        ])->current();
+
+        if ($existing !== null) {
+            Session::addMessageAfterRedirect(
+                sprintf(
+                    __('Cet alias est déjà rattaché au produit "%s / %s".', 'grcmanager'),
+                    $existing['manufacturer'],
+                    $existing['product']
+                ),
+                false,
+                ERROR
+            );
+
+            return false;
+        }
+
+        $input['alias'] = $alias;
+
+        return $input;
+    }
+
+    /**
      * @return list<array{id: int, alias: string}>
      */
     public static function getForCanonicalProduct(int $canonicalProductId): array
