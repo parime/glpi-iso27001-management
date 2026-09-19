@@ -67,6 +67,13 @@ final class LegacySecurityIncidentMigrator
 
     public static function mapStatus(?string $legacyStatus): int
     {
+        // Indexing STATUS_MAP directly with $legacyStatus when it's null would still trigger
+        // PHP's "Using null as an array offset is deprecated" (the array access itself is
+        // evaluated before `??` can short-circuit it) — checked explicitly instead.
+        if ($legacyStatus === null) {
+            return self::STATUS_INCOMING;
+        }
+
         return self::STATUS_MAP[$legacyStatus] ?? self::STATUS_INCOMING;
     }
 
