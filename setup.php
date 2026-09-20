@@ -46,6 +46,26 @@ function plugin_init_grcmanager(): void
         return;
     }
 
+    // GLPI's own legacy `inc/{name}.class.php` autoloader (src/autoload/legacy-autoloader.php,
+    // glpi_autoload()) only fires for a classname that itself STARTS WITH "Plugin" (or the PSR-4
+    // namespace prefix) -- confirmed by reading that function directly. GLPI core's own rule-engine
+    // convention (CommonITILObject::getRuleCollectionClassInstance(), `'Rule' . static::getType() .
+    // 'Collection'`) always produces a name where "Plugin..." sits in the MIDDLE
+    // ("RulePluginGrcmanagerSecurityIncidentCollection"), never at the start -- so for ANY plugin
+    // exposing a custom CommonITILObject, its Rule/RuleCollection pair can never be reached by
+    // either of glpi_autoload()'s two lookup paths, no matter where the files live. Every other
+    // class in inc/ is named `PluginGrcmanagerXxx` and loads fine through that same autoloader;
+    // only these two are structurally unreachable by it. Confirmed live: linking an asset to a
+    // security incident fatals with "Collection class RulePluginGrcmanagerSecurityIncidentCollection
+    // does not exists" without this explicit require, even though both classes already exist with
+    // correct content. Deliberately here, not at this file's top level: `RuleCommonITILObject`
+    // (the parent class) only exists inside a real GLPI Kernel boot, and setup.php is also
+    // require_once'd standalone by SetupMenuRedefinitionTest (tests/Unit/) with no GLPI loaded at
+    // all — a top-level require here would fatal that test with "Class RuleCommonITILObject not
+    // found" (confirmed the hard way, first attempt at this fix).
+    require_once __DIR__ . '/inc/rulesecurityincident.class.php';
+    require_once __DIR__ . '/inc/rulesecurityincidentcollection.class.php';
+
     // Single entry point (matches the "used daily by the RSSI" intent of the plugin: the generic
     // risk register is the first screen a compliance officer needs).
     // Format confirmed against the sibling plugins of this same author (glpi-vulnerability-manager,

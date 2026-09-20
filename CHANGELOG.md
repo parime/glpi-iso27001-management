@@ -5,6 +5,28 @@ Toutes les évolutions notables de ce projet sont documentées dans ce fichier.
 Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce projet adhère au
 [Semantic Versioning](https://semver.org/lang/fr/) (`MAJEUR.MINEUR.CORRECTIF`).
 
+## [Unreleased]
+
+### Fixed
+
+- **Lier un actif à un incident de sécurité fatalait** (`CommonITILObject::
+  getRuleCollectionClassInstance()` réclame une classe `Rule{Type}Collection` pour tout objet ITIL,
+  y compris ceux définis par un plugin). `RulePluginGrcmanagerSecurityIncident`/
+  `RulePluginGrcmanagerSecurityIncidentCollection` existaient déjà avec un contenu correct
+  (`inc/rulesecurityincident*.class.php`), mais n'étaient jamais chargées : l'autoloader natif de
+  GLPI pour les classes `inc/{nom}.class.php` (`glpi_autoload()`) n'agit que sur un nom de classe
+  qui commence littéralement par `Plugin` — or la convention `'Rule' . static::getType() .
+  'Collection'` place systématiquement `Plugin...` au milieu du nom, jamais au début, pour n'importe
+  quel objet ITIL défini par un plugin tiers. `require_once` explicite ajouté dans
+  `plugin_init_grcmanager()` (pas au premier niveau de `setup.php`, qui doit rester chargeable sans
+  noyau GLPI pour `SetupMenuRedefinitionTest`).
+- **`tests/integration-bootstrap.php` ne rendait jamais `$kernel` réellement global** — `global
+  $kernel` (code historique de GLPI, ex. les chemins dépendant de `getMainRequest()` déclenchés
+  par certains hooks `CommonDBTM::add()`) n'y trouvait rien, plantant avec "Call to a member
+  function getMainRequest() on null" sur tout test créant un `User`. Même correctif déjà nécessaire
+  sur le plugin jumeau Configuration-glpi-auto, appliqué ici aussi (`$GLOBALS['kernel'] = $kernel;`
+  avant `$kernel->boot()`).
+
 ## [2.1.0] - 2026-09-12
 
 ### Added
