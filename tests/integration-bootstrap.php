@@ -40,6 +40,15 @@ if (is_file(__DIR__ . '/../vendor/autoload.php')) {
 }
 
 $kernel = new \Glpi\Kernel\Kernel('production');
+// A plain local variable here never becomes a real PHP global (this bootstrap is include_once'd
+// from inside a method, not run at top-level script scope) — GLPI's own legacy code (e.g.
+// isAPI()/getMainRequest()-dependent paths reached from CommonDBTM::add() hooks such as
+// notification queueing) does `global $kernel` internally and finds nothing without this,
+// crashing with "Call to a member function getMainRequest() on null". Confirmed live: exactly
+// this fatal on any test that adds a User (GrcmanagerIntegrationTestCase::createTestUser()) before
+// this line was added. Same fix already proven necessary in the sibling plugin
+// Configuration-glpi-auto's own tests/integration-bootstrap.php.
+$GLOBALS['kernel'] = $kernel;
 $kernel->boot();
 
 if (!\Plugin::isPluginActive('grcmanager')) {
