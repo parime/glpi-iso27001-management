@@ -27,6 +27,16 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   sur le plugin jumeau Configuration-glpi-auto, appliqué ici aussi (`$GLOBALS['kernel'] = $kernel;`
   avant `$kernel->boot()`).
 
+- **La fiche d'une Politique de sécurité affichait « N/A » comme titre de page**, au lieu du vrai
+  titre de la politique — trouvé en peuplant une instance de test avec de vraies politiques.
+  `front/policy.form.php` est le seul contrôleur de ce plugin à appeler `displayFullPageForItem()`
+  (nécessaire pour que l'onglet natif « Documents » s'affiche, cf. le commentaire déjà présent dans
+  ce fichier) ; ce chemin construit l'en-tête de page à partir de `getNameField()`, jamais surchargé
+  sur `PluginGrcmanagerPolicy` alors que sa colonne d'affichage principale est `title`, pas `name`
+  (cette table n'a même pas de colonne `name`). Chaque classe sœur (Risque, Audit...) utilise un
+  simple `Html::header()`, qui ne consulte jamais de champ nom — aucune n'avait besoin de ce
+  correctif.
+
 ## [2.1.0] - 2026-09-12
 
 ### Added
