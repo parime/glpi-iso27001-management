@@ -56,6 +56,21 @@ class PluginGrcmanagerPolicy extends CommonDBTM
         return _n('Politique de sécurité', 'Politiques de sécurité', $nb, 'grcmanager');
     }
 
+    /**
+     * This class' primary display column is `title`, not GLPI's default `name` (which this table
+     * doesn't even have). Front-page-bar bug found live: `front/policy.form.php` is this plugin's
+     * only front controller that calls `displayFullPageForItem()` (needed so the native
+     * "Documents" tab actually renders, see that file's own comment) — that path builds the page
+     * header/breadcrumb from `getNameField()`, so without this override it silently read a
+     * nonexistent `name` field and printed the literal string "N/A" instead of the policy's real
+     * title. Every sibling class here (Risk, Audit...) uses a plain `Html::header()` call instead,
+     * which never looks up a name field at all, so none of them needed this override.
+     */
+    public static function getNameField()
+    {
+        return 'title';
+    }
+
     public static function getIcon()
     {
         return 'ti ti-shield-lock';
