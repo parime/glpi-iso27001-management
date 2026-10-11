@@ -43,7 +43,7 @@ if (isset($_GET['pdf'])) {
         || !$document->getFromDB((int) $version->fields['documents_id'])
         || !is_file(GLPI_DOC_DIR . '/' . $document->fields['filepath'])
     ) {
-        Html::displayNotFoundError();
+        throw new \Glpi\Exception\Http\NotFoundHttpException();
     }
     header('Content-Type: application/pdf');
     header('Content-Disposition: inline; filename="' . basename((string) $document->fields['filename']) . '"');

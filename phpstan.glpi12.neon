@@ -1,0 +1,9 @@
+# Analyse PHPStan contre les sources de GLPI 12 (job GLPI 12 de la CI) : detecte les appels a des
+# methodes du coeur supprimees en GLPI 12 (Html::displayNotFoundError(), Plugin::getWebDir()...),
+# que l'analyse habituelle, faite contre GLPI 11, ne peut pas voir. Reprend la configuration
+# normale ; seules les branches GLPI 11 de la couche de compatibilite sont ignorees ici.
+includes:
+    - phpstan.neon.dist
+
+parameters:
+    reportUnmatchedIgnoredErrors: false
