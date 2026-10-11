@@ -7,6 +7,27 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.3.0] - 2026-10-11
+
+### Added
+
+- **Référentiel NIS2** (directive (UE) 2022/2555 : articles 20, 21 §2, 23 §4), relié aux contrôles
+  de l'Annexe A ISO 27001 (issue #110).
+- **Guide d'hygiène informatique de l'ANSSI** (42 mesures, Licence Ouverte), relié aux contrôles de
+  l'Annexe A (issue #111).
+- **Exigences du SMSI, articles 4 à 10** : 30 sous-articles suivis (statut, responsable, preuves,
+  liens vers les modules du plugin), taux de complétude, repris dans le PDF de la SoA (issue #113).
+- **Approbation de la Déclaration d'Applicabilité par la direction** : versions figées (PDF et
+  empreinte SHA-256), approbateurs désignés, historique, nouvelle approbation exigée après toute
+  modification de la SoA (issue #112).
+- **Preuves assetsign** : les remises et restitutions signées du plugin assetsign servent de preuves
+  sur les contrôles A.5.9 à A.5.11 et figurent dans le PDF de la SoA (issue #109).
+
+### Changed
+
+- CI : vérification sur GLPI 11.0.11 et 12.0.0 finale, suite d'intégration sur GLPI 11 et 12,
+  PHPStan aussi contre les sources de GLPI 12.
+
 ### Fixed
 
 - **GLPI 12** : les pages Audits et Risques provoquaient une erreur 500 (`Plugin::getWebDir()`
