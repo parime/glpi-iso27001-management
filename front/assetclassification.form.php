@@ -35,12 +35,12 @@ $itemsId  = (int) ($_POST['items_id'] ?? 0);
 // actif réellement liable par ce plugin, plutôt que de faire confiance à un POST forgé pointant
 // vers un itemtype arbitraire (ex. `User`, jamais dans la liste des actifs classifiables).
 if (!RiskItemLinkNormalizer::isLinkable($itemtype, $itemsId, PluginGrcmanagerRisk::getLinkableItemtypes())) {
-    Html::displayNotFoundError();
+    throw new \Glpi\Exception\Http\NotFoundHttpException();
 }
 
 $target = new $itemtype();
 if (!$target->getFromDB($itemsId)) {
-    Html::displayNotFoundError();
+    throw new \Glpi\Exception\Http\NotFoundHttpException();
 }
 
 $existing = PluginGrcmanagerAssetClassification::getByItem($itemtype, $itemsId);

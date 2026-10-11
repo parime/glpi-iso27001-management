@@ -5,6 +5,15 @@ Toutes les évolutions notables de ce projet sont documentées dans ce fichier.
 Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce projet adhère au
 [Semantic Versioning](https://semver.org/lang/fr/) (`MAJEUR.MINEUR.CORRECTIF`).
 
+## [Unreleased]
+
+### Fixed
+
+- **GLPI 12** : les pages Audits et Risques provoquaient une erreur 500 (`Plugin::getWebDir()`
+  supprimée en GLPI 12), de même que les pages de classification et d'approbation de la SoA quand
+  l'élément est introuvable (`Html::displayNotFoundError()`). La CI analyse désormais aussi le
+  plugin avec PHPStan contre les sources de GLPI 12.
+
 ## [2.2.0] - 2026-10-04
 
 ### Added
