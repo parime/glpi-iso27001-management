@@ -6,6 +6,7 @@ namespace GlpiPlugin\Grcmanager\Install;
 
 use CronTask;
 use DBConnection;
+use GlpiPlugin\Grcmanager\Services\Clause\IsmsClauseCatalog;
 use GlpiPlugin\Grcmanager\Services\Control\ControlCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Dashboard\DefaultDashboardService;
 use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
@@ -64,6 +65,13 @@ final class Installer
 
     // Sprint 3 (Déclaration d'Applicabilité / SoA, clause 6.1.3), same derivation rule.
     private const CONTROLS_TABLE = 'glpi_plugin_grcmanager_controls';
+
+    // Issue #113 (exigences du SMSI, articles 4 à 10), same table-name derivation rule.
+    private const ISMS_REQUIREMENTS_TABLE = 'glpi_plugin_grcmanager_ismsrequirements';
+
+    // Issue #112 (approbation de la SoA par la direction) : versions figées + approbateurs.
+    private const SOA_VERSIONS_TABLE = 'glpi_plugin_grcmanager_soaversions';
+    private const SOA_VERSIONS_USERS_TABLE = 'glpi_plugin_grcmanager_soaversions_users';
 
     // Many-to-many link table, `<left>_<right>` naming after the `glpi_plugin_grcmanager_` prefix
     // (both sides already lowercased+concatenated class-name suffixes), matching GLPI core's own
@@ -374,6 +382,75 @@ final class Installer
                 KEY `theme` (`theme`),
                 KEY `applicability` (`applicability`),
                 KEY `implementation_status` (`implementation_status`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+        }
+
+        // Issue #113 : une ligne par sous-article des articles 4 à 10 (numéro seul, titres courts
+        // résolus par PluginGrcmanagerIsmsRequirement::getClauseTitles(), jamais stockés), seedée par
+        // seedClauses() ci-dessous ; preuves = Documents GLPI liés (Document_Item).
+        // Issue #112 : une ligne par version figée de la SoA soumise à approbation (PDF = Document
+        // GLPI lié, `pdf_sha256` = empreinte du fichier, `fingerprint` = empreinte du contenu, voir
+        // SoaApprovalLogic), une ligne par approbateur désigné et sa réponse.
+        if (!$DB->tableExists(self::SOA_VERSIONS_TABLE)) {
+            $query = "CREATE TABLE `" . self::SOA_VERSIONS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `version` int NOT NULL DEFAULT 0,
+                `status` varchar(16) NOT NULL DEFAULT 'pending'
+                    COMMENT 'pending, approved, rejected, obsolete',
+                `fingerprint` char(64) NOT NULL DEFAULT '' COMMENT 'SHA-256 du contenu de la SoA',
+                `pdf_sha256` char(64) NOT NULL DEFAULT '' COMMENT 'SHA-256 du PDF fige',
+                `documents_id` int {$keySign} NOT NULL DEFAULT 0,
+                `users_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Demandeur',
+                `comment` text,
+                `date_answered` timestamp NULL DEFAULT NULL,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity_version` (`version`),
+                KEY `status` (`status`),
+                KEY `users_id` (`users_id`),
+                KEY `documents_id` (`documents_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+        }
+
+        if (!$DB->tableExists(self::SOA_VERSIONS_USERS_TABLE)) {
+            $query = "CREATE TABLE `" . self::SOA_VERSIONS_USERS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_soaversions_id` int {$keySign} NOT NULL,
+                `users_id` int {$keySign} NOT NULL,
+                `status` varchar(16) NOT NULL DEFAULT 'pending' COMMENT 'pending, approved, rejected',
+                `comment` text,
+                `date_answered` timestamp NULL DEFAULT NULL,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity_link` (`plugin_grcmanager_soaversions_id`, `users_id`),
+                KEY `soaversions_id` (`plugin_grcmanager_soaversions_id`),
+                KEY `users_id` (`users_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+        }
+
+        if (!$DB->tableExists(self::ISMS_REQUIREMENTS_TABLE)) {
+            $query = "CREATE TABLE `" . self::ISMS_REQUIREMENTS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `code` varchar(8) NOT NULL COMMENT 'Sous-article ISO/IEC 27001:2022, ex. 6.1.2',
+                `clause` varchar(2) NOT NULL COMMENT 'Article de premier niveau, 4 a 10',
+                `status` varchar(16) NOT NULL DEFAULT 'not_started'
+                    COMMENT 'not_started, in_progress, compliant',
+                `users_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Responsable',
+                `comment` text,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity_code` (`code`),
+                KEY `clause` (`clause`),
+                KEY `status` (`status`),
+                KEY `users_id` (`users_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
             $DB->doQuery($query) or die($DB->error());
@@ -1224,6 +1301,8 @@ final class Installer
         }
 
         $this->seedControls();
+        $this->seedClauses();
+        $this->seedSoaApprovalNotification();
 
         $this->seedSecurityIncidentNotifications();
 
@@ -1974,6 +2053,115 @@ final class Installer
         }
     }
 
+    /**
+     * Issue #113 : même garde idempotente que seedControls() (recherche par `code` avant
+     * insertion), une mise à jour du plugin n'écrase jamais le statut/responsable/commentaire saisis.
+     */
+    private function seedClauses(): void
+    {
+        global $DB;
+
+        foreach (IsmsClauseCatalog::SUBCLAUSES as $code => $subclause) {
+            $exists = $DB->request([
+                'FROM'  => self::ISMS_REQUIREMENTS_TABLE,
+                'WHERE' => ['code' => (string) $code],
+            ])->count() > 0;
+
+            if ($exists) {
+                continue;
+            }
+
+            $DB->insert(self::ISMS_REQUIREMENTS_TABLE, [
+                'code'          => (string) $code,
+                'clause'        => $subclause['clause'],
+                'status'        => IsmsClauseCatalog::STATUS_NOT_STARTED,
+                'date_creation' => date('Y-m-d H:i:s'),
+                'date_mod'      => date('Y-m-d H:i:s'),
+            ]);
+        }
+    }
+
+    /**
+     * Issue #112 : prévient les approbateurs désignés qu'une version de la SoA attend leur
+     * approbation (cible « Approbateurs désignés », voir PluginGrcmanagerNotificationTargetSoaVersion).
+     */
+    private function seedSoaApprovalNotification(): void
+    {
+        global $DB;
+
+        $itemtype = 'PluginGrcmanagerSoaVersion';
+        $event    = 'soa_approval_request';
+
+        $alreadySeeded = $DB->request([
+            'FROM'  => 'glpi_notifications',
+            'WHERE' => ['itemtype' => $itemtype, 'event' => $event],
+        ])->count() > 0;
+
+        if ($alreadySeeded) {
+            return;
+        }
+
+        $template = new NotificationTemplate();
+        $templateId = $template->add([
+            'name'     => 'GRC Manager - Approbation de la SoA demandée',
+            'itemtype' => $itemtype,
+            'comment'  => 'Envoyée aux approbateurs désignés quand une version de la Déclaration '
+                . 'd\'Applicabilité est figée et soumise à approbation.',
+        ]);
+
+        // Modèle FR par défaut + EN pour les destinataires en anglais (sinon libellés traduits et
+        // texte français se mélangent dans le même e-mail).
+        $translations = [
+            ''      => [
+                'subject' => '##soa.action## : version ##soa.version##',
+                'ask'     => '##soa.requester## vous demande d\'approuver la version ##soa.version## de la '
+                    . 'Déclaration d\'Applicabilité (##soa.date##).',
+                'link'    => 'Lire la version figée et répondre',
+                'sep'     => ' : ',
+            ],
+            'en_GB' => [
+                'subject' => '##soa.action##: version ##soa.version##',
+                'ask'     => '##soa.requester## asks you to approve version ##soa.version## of the Statement '
+                    . 'of Applicability (##soa.date##).',
+                'link'    => 'Read the frozen version and answer',
+                'sep'     => ': ',
+            ],
+        ];
+        foreach ($translations as $language => $t) {
+            $DB->insert('glpi_notificationtemplatetranslations', [
+                'notificationtemplates_id' => $templateId,
+                'language'                 => $language,
+                'subject'                  => $t['subject'],
+                'content_text'             => $t['ask'] . "\n\n##soa.comment##\n\n"
+                    . $t['link'] . $t['sep'] . '##soa.url##',
+                'content_html'             => '<p>' . $t['ask'] . '</p><p>##soa.comment##</p>'
+                    . '<p><a href="##soa.url##">' . $t['link'] . '</a></p>',
+            ]);
+        }
+
+        $notification = new Notification();
+        $notificationId = $notification->add([
+            'name'         => 'GRC Manager - Approbation de la SoA demandée',
+            'entities_id'  => 0,
+            'is_recursive' => 1,
+            'itemtype'     => $itemtype,
+            'event'        => $event,
+            'is_active'    => 1,
+        ]);
+
+        $DB->insert('glpi_notifications_notificationtemplates', [
+            'notifications_id'         => $notificationId,
+            'mode'                     => 'mailing',
+            'notificationtemplates_id' => $templateId,
+        ]);
+
+        $DB->insert('glpi_notificationtargets', [
+            'items_id'         => \PluginGrcmanagerNotificationTargetSoaVersion::APPROVERS_TARGET,
+            'type'             => Notification::USER_TYPE,
+            'notifications_id' => $notificationId,
+        ]);
+    }
+
     private function seedDisplayPreferences(): void
     {
         global $DB;
@@ -2015,6 +2203,7 @@ final class Installer
         CronTask::Unregister('grcmanager');
 
         $this->unseedNotification('PluginGrcmanagerRisk');
+        $this->unseedNotification('PluginGrcmanagerSoaVersion');
         $this->unseedNotification('PluginGrcmanagerSupplierRisk');
         $this->unseedNotification('PluginGrcmanagerComplianceObligation');
         $this->unseedNotification('PluginGrcmanagerNonconformity');
@@ -2050,6 +2239,9 @@ final class Installer
         $migration->dropTable(self::CANONICAL_PRODUCTS_TABLE);
         $migration->dropTable(self::CONTROLS_RISKS_TABLE);
         $migration->dropTable(self::CONTROLS_TABLE);
+        $migration->dropTable(self::ISMS_REQUIREMENTS_TABLE);
+        $migration->dropTable(self::SOA_VERSIONS_USERS_TABLE);
+        $migration->dropTable(self::SOA_VERSIONS_TABLE);
         $migration->dropTable(self::AUDITS_CONTROLS_TABLE);
         $migration->dropTable(self::NONCONFORMITIES_TABLE);
         $migration->dropTable(self::AUDITS_TABLE);

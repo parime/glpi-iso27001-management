@@ -15,9 +15,11 @@
  * -------------------------------------------------------------------------
  */
 
+use GlpiPlugin\Grcmanager\Services\Control\AnssiHygieneCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\CisControlsCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\ControlCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\ControlCrosswalkDefaults;
+use GlpiPlugin\Grcmanager\Services\Control\Nis2CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\NistCsfCatalogDefaults;
 
 include('../../../inc/includes.php');
@@ -89,10 +91,58 @@ foreach (CisControlsCatalogDefaults::CONTROLS as $controlNumber => $controlName)
     $cisControls[] = ['number' => $controlNumber, 'name' => $controlName, 'safeguards' => $safeguards];
 }
 
+// Issue #110 : NIS2 dans la langue de l'utilisateur (versions officielles FR/EN de la directive,
+// le français pour toute langue fr_*, l'anglais sinon), correspondance Annexe A indicative reliée
+// aux fiches de contrôle quand elles existent.
+$nis2Lang = str_starts_with((string) ($_SESSION['glpilanguage'] ?? 'fr_FR'), 'fr') ? 'fr' : 'en';
+$nis2 = [];
+foreach (Nis2CatalogDefaults::ARTICLES as $article => $articleTitle) {
+    $requirements = [];
+    foreach (Nis2CatalogDefaults::REQUIREMENTS as $code => $requirement) {
+        if ($requirement['article'] !== (string) $article) {
+            continue;
+        }
+        $controls = [];
+        foreach ($requirement['annex_a'] as $annexACode) {
+            $controls[] = ['code' => $annexACode, 'id' => $idsByCode[$annexACode] ?? null];
+        }
+        $requirements[] = [
+            'reference' => Nis2CatalogDefaults::reference($code),
+            'text'      => $requirement[$nis2Lang],
+            'summary'   => $requirement['summary'],
+            'controls'  => $controls,
+        ];
+    }
+    $nis2[] = ['article' => (string) $article, 'title' => $articleTitle[$nis2Lang], 'requirements' => $requirements];
+}
+
+// Issue #111 : guide d'hygiène ANSSI — intitulés officiels en français, traduction anglaise
+// indicative pour les autres langues ; mesures regroupées par thème.
+$anssi = [];
+foreach (AnssiHygieneCatalogDefaults::THEMES as $themeCode => $themeTitle) {
+    $measures = [];
+    foreach (AnssiHygieneCatalogDefaults::MEASURES as $number => $measure) {
+        if ($measure['theme'] !== $themeCode) {
+            continue;
+        }
+        $controls = [];
+        foreach ($measure['annex_a'] as $annexACode) {
+            $controls[] = ['code' => $annexACode, 'id' => $idsByCode[$annexACode] ?? null];
+        }
+        $measures[] = ['number' => $number, 'text' => $measure[$nis2Lang], 'controls' => $controls];
+    }
+    $anssi[] = ['code' => $themeCode, 'title' => $themeTitle[$nis2Lang], 'measures' => $measures];
+}
+
 \Glpi\Application\View\TemplateRenderer::getInstance()->display('@grcmanager/referentiels.html.twig', [
     'annex_a'      => $annexA,
     'nist_csf'     => $nistCsf,
     'cis_controls' => $cisControls,
+    'nis2'         => $nis2,
+    'nis2_source'  => Nis2CatalogDefaults::SOURCE_URL,
+    'anssi'        => $anssi,
+    'anssi_source' => AnssiHygieneCatalogDefaults::SOURCE_URL,
+    'anssi_lang'   => $nis2Lang,
 ]);
 
 Html::footer();

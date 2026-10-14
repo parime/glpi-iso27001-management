@@ -10,6 +10,12 @@ on:
   # le GITHUB_TOKEN par defaut ne declenche pas ces triggers (garde-fou anti-boucle GitHub
   # Actions), seul un declenchement explicite via workflow_dispatch les contourne.
   workflow_dispatch:
+  # Filet de securite quotidien (meme choix qu'assetsign-glpi) : detecte une regression qui ne vient
+  # pas de ce depot - nouvelle image GLPI, avis de securite publie apres coup sur une dependance - sans
+  # attendre le prochain push. Ecart constate le 8 octobre 2026 sur Configuration-glpi-auto, casse par
+  # une mise a jour de l'image GLPI 11 sans qu'aucun push ne l'ait revele.
+  schedule:
+    - cron: '29 3 * * *'
 
 permissions:
   contents: read
@@ -204,12 +210,12 @@ jobs:
     # Ne remplace pas les tests unitaires (job "tests" ci-dessus) : verifie ce qu'eux ne peuvent
     # pas couvrir, a savoir que setup.php/hook.php/l'installeur fonctionnent reellement contre un
     # GLPI qui boot pour de vrai. Approche et commandes reprises du plugin jumeau
-    # glpi-vulnerability-manager (meme auteur), deja validees manuellement contre glpi/glpi:11.0.8.
+    # glpi-vulnerability-manager (meme auteur), deja validees manuellement contre glpi/glpi:11.0.11.
     needs: detect
     if: needs.detect.outputs.has_composer == 'true'
     runs-on: ubuntu-latest
     env:
-      GLPI_IMAGE: glpi/glpi:11.0.8
+      GLPI_IMAGE: glpi/glpi:11.0.11
     steps:
       - uses: actions/checkout@v7
 
@@ -289,13 +295,28 @@ jobs:
             exit 1
           fi
 
-      - name: Installe, active puis desinstalle le plugin (cycle complet)
+      - name: Installe, active puis desinstalle le plugin (cycle complet), puis le reinstalle
         run: |
           docker exec glpi php bin/console plugin:install grcmanager --force --no-interaction
           docker exec glpi php bin/console plugin:activate grcmanager --no-interaction
           docker exec glpi php bin/console plugin:list --no-interaction
           docker exec glpi php bin/console plugin:deactivate grcmanager --no-interaction
           docker exec glpi php bin/console plugin:uninstall grcmanager --no-interaction
+          docker exec glpi php bin/console plugin:install grcmanager --force --no-interaction
+          docker exec glpi php bin/console plugin:activate grcmanager --no-interaction
+
+      - name: Suite d'integration sur GLPI 11
+        # Jusqu'au 8 octobre 2026, la suite d'integration ne tournait que sur GLPI 12 : la version
+        # principale du plugin n'etait verifiee que par le cycle installation/desinstallation
+        # ci-dessus. Dependances de dev installees APRES les commandes console, meme precaution que
+        # le job GLPI 12 (collision possible avec la symfony/console de GLPI).
+        run: |
+          docker exec glpi sh -c '
+            export COMPOSER_HOME=/tmp/composer-home
+            cd /var/www/glpi/plugins/grcmanager
+            php /tmp/composer.phar install --no-interaction --prefer-dist
+            php vendor/bin/phpunit -c phpunit-integration.xml.dist
+          '
 
       - name: Logs GLPI (en cas d'echec)
         if: failure()
@@ -315,7 +336,7 @@ jobs:
 
       - name: Extrait le code de GLPI 11 et GLPI 12 des images officielles
         run: |
-          for v in 11.0.9 12.0.0-rc2; do
+          for v in 11.0.11 12.0.0; do
             docker create --name "glpi-$v" "glpi/glpi:$v"
             mkdir -p "/tmp/glpi-$v"
             docker cp "glpi-$v:/var/www/glpi/src" "/tmp/glpi-$v/src"
@@ -326,8 +347,8 @@ jobs:
         # GLPI 11 : PHP 8.2 a 8.5 ; GLPI 12 : PHP 8.3 a 8.5.
         run: |
           status=0
-          for combo in "8.2 11.0.9" "8.3 11.0.9" "8.4 11.0.9" "8.5 11.0.9" \
-                       "8.3 12.0.0-rc2" "8.4 12.0.0-rc2" "8.5 12.0.0-rc2"; do
+          for combo in "8.2 11.0.11" "8.3 11.0.11" "8.4 11.0.11" "8.5 11.0.11" \
+                       "8.3 12.0.0" "8.4 12.0.0" "8.5 12.0.0"; do
             set -- $combo
             docker run --rm -v "$PWD:/p" -v "/tmp/glpi-$2:/g" "php:$1-cli" \
               php /p/.github/scripts/compat-smoke.php /g /p || status=1
@@ -343,7 +364,7 @@ jobs:
     if: needs.detect.outputs.has_composer == 'true'
     runs-on: ubuntu-latest
     env:
-      GLPI12_IMAGE: glpi/glpi:12.0.0-rc2
+      GLPI12_IMAGE: glpi/glpi:12.0.0
     steps:
       - uses: actions/checkout@v7
 
@@ -407,6 +428,9 @@ jobs:
             php /tmp/composer.phar install --no-interaction --prefer-dist
             php vendor/bin/phpunit -c phpunit-integration.xml.dist
           '
+
+      - name: PHPStan contre les sources de GLPI 12 (méthodes du cœur supprimées)
+        run: docker exec glpi sh -c 'cd /var/www/glpi/plugins/grcmanager && php vendor/bin/phpstan analyse -c phpstan.glpi12.neon --no-progress --memory-limit=2G'
 
       - name: Logs GLPI (en cas d'echec)
         if: failure()

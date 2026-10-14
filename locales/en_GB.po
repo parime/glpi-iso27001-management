@@ -1461,3 +1461,394 @@ msgstr "This CPE identifier is already attached to product \"%s / %s\"."
 #, php-format
 msgid "%s est déjà référencée sur cet incident."
 msgstr "%s is already referenced on this incident."
+
+msgid "Source : CIS Critical Security Controls® v8, © Center for Internet Security, Inc., intitulés reproduits sans modification sous licence CC BY-NC-ND 4.0. Ce projet n'est ni affilié au CIS ni approuvé par lui."
+msgstr "Source: CIS Critical Security Controls® v8, © Center for Internet Security, Inc., titles reproduced unmodified under the CC BY-NC-ND 4.0 license. This project is not affiliated with or endorsed by CIS."
+
+msgid "Preuves assetsign"
+msgstr "assetsign evidence"
+
+msgid "Compteurs calculés en direct depuis le plugin assetsign, sur vos entités actives."
+msgstr "Counters computed live from the assetsign plugin, on your active entities."
+
+msgid "Restitutions"
+msgstr "Returns"
+
+msgid "Remises"
+msgstr "Handovers"
+
+#, php-format
+msgid "%d signée(s)"
+msgstr "%d signed"
+
+#, php-format
+msgid "%d en attente"
+msgstr "%d pending"
+
+#, php-format
+msgid "%d expirée(s)"
+msgstr "%d expired"
+
+msgid "Voir les fiches"
+msgstr "View forms"
+
+msgid "Preuves assetsign (A.5.9, A.5.10, A.5.11)"
+msgstr "assetsign evidence (A.5.9, A.5.10, A.5.11)"
+
+msgid "Signées"
+msgstr "Signed"
+
+msgid "Expirées"
+msgstr "Expired"
+
+msgid "Remises (A.5.9, A.5.10)"
+msgstr "Handovers (A.5.9, A.5.10)"
+
+msgid "Restitutions (A.5.11)"
+msgstr "Returns (A.5.11)"
+
+msgid "Directive NIS2 (UE) 2022/2555"
+msgstr "NIS2 Directive (EU) 2022/2555"
+
+msgid "Article"
+msgstr "Article"
+
+msgid "résumé"
+msgstr "summary"
+
+msgid "Source : directive (UE) 2022/2555 (NIS2), © Union européenne, EUR-Lex. Correspondance avec l'Annexe A ISO 27001 indicative, établie par ce projet."
+msgstr "Source: Directive (EU) 2022/2555 (NIS2), © European Union, EUR-Lex. Mapping to ISO 27001 Annex A is indicative and made by this project."
+
+msgid "Exigences NIS2"
+msgstr "NIS2 requirements"
+
+msgid "Correspondance indicative, établie par ce projet — voir"
+msgstr "Indicative mapping made by this project — see"
+
+msgid "Hygiène ANSSI"
+msgstr "ANSSI hygiene"
+
+#, php-format
+msgid "Mesure %d"
+msgstr "Measure %d"
+
+msgid "Guide d'hygiène informatique ANSSI (42 mesures)"
+msgstr "ANSSI IT hygiene guide (42 measures)"
+
+msgid "ISO 27001 §6.1 (hors Annexe A)"
+msgstr "ISO 27001 §6.1 (outside Annex A)"
+
+msgid "Source : ANSSI, Guide d'hygiène informatique, version 2.0, septembre 2017, Licence Ouverte / Open Licence (Etalab). Correspondance avec l'Annexe A ISO 27001 indicative, établie par ce projet."
+msgstr "Source: ANSSI, Guide d'hygiène informatique (IT hygiene guide), version 2.0, September 2017, Licence Ouverte / Open Licence (Etalab). Mapping to ISO 27001 Annex A is indicative and made by this project."
+
+msgid "Traduction anglaise indicative, établie par ce projet."
+msgstr "Indicative English translation made by this project."
+
+msgid "Exigence SMSI (articles 4 à 10)"
+msgid_plural "Exigences SMSI (articles 4 à 10)"
+msgstr[0] "ISMS requirement (clauses 4 to 10)"
+msgstr[1] "ISMS requirements (clauses 4 to 10)"
+
+msgid "Contexte de l'organisation"
+msgstr "Context of the organization"
+
+msgid "Organisation et son contexte"
+msgstr "Organization and its context"
+
+msgid "Parties intéressées"
+msgstr "Interested parties"
+
+msgid "Domaine d'application du SMSI"
+msgstr "ISMS scope"
+
+msgid "Système de management de la sécurité de l'information"
+msgstr "Information security management system"
+
+msgid "Leadership"
+msgstr "Leadership"
+
+msgid "Leadership et engagement"
+msgstr "Leadership and commitment"
+
+msgid "Politique"
+msgstr "Policy"
+
+msgid "Rôles, responsabilités et autorités"
+msgstr "Roles, responsibilities and authorities"
+
+msgid "Planification"
+msgstr "Planning"
+
+msgid "Risques et opportunités : généralités"
+msgstr "Risks and opportunities: general"
+
+msgid "Appréciation des risques"
+msgstr "Risk assessment"
+
+msgid "Traitement des risques"
+msgstr "Risk treatment"
+
+msgid "Objectifs de sécurité de l'information"
+msgstr "Information security objectives"
+
+msgid "Planification des modifications"
+msgstr "Planning of changes"
+
+msgid "Support"
+msgstr "Support"
+
+msgid "Ressources"
+msgstr "Resources"
+
+msgid "Compétences"
+msgstr "Competence"
+
+msgid "Sensibilisation"
+msgstr "Awareness"
+
+msgid "Communication"
+msgstr "Communication"
+
+msgid "Informations documentées : généralités"
+msgstr "Documented information: general"
+
+msgid "Création et mise à jour"
+msgstr "Creating and updating"
+
+msgid "Maîtrise des informations documentées"
+msgstr "Control of documented information"
+
+msgid "Fonctionnement"
+msgstr "Operation"
+
+msgid "Planification et maîtrise opérationnelles"
+msgstr "Operational planning and control"
+
+msgid "Appréciation des risques (réalisation)"
+msgstr "Risk assessment (performing)"
+
+msgid "Traitement des risques (mise en œuvre)"
+msgstr "Risk treatment (implementing)"
+
+msgid "Évaluation des performances"
+msgstr "Performance evaluation"
+
+msgid "Surveillance, mesure, analyse et évaluation"
+msgstr "Monitoring, measurement, analysis and evaluation"
+
+msgid "Audit interne : généralités"
+msgstr "Internal audit: general"
+
+msgid "Programme d'audit interne"
+msgstr "Internal audit programme"
+
+msgid "Revue de direction : généralités"
+msgstr "Management review: general"
+
+msgid "Éléments d'entrée de la revue de direction"
+msgstr "Management review inputs"
+
+msgid "Résultats de la revue de direction"
+msgstr "Management review results"
+
+msgid "Amélioration"
+msgstr "Improvement"
+
+msgid "Amélioration continue"
+msgstr "Continual improvement"
+
+msgid "Non-conformité et action corrective"
+msgstr "Nonconformity and corrective action"
+
+msgid "Non commencé"
+msgstr "Not started"
+
+msgid "Statut invalide."
+msgstr "Invalid status."
+
+msgid "Exigence"
+msgstr "Requirement"
+
+msgid "Comment l'exigence est satisfaite, où trouver les preuves. Joignez les documents dans l'onglet Documents."
+msgstr "How the requirement is met and where to find the evidence. Attach the files in the Documents tab."
+
+msgid "Module lié"
+msgstr "Linked module"
+
+#, php-format
+msgid "%d enregistrement(s)"
+msgstr "%d record(s)"
+
+msgid "Ce module du plugin produit déjà des preuves pour cette exigence."
+msgstr "This plugin module already produces evidence for this requirement."
+
+msgid "Exigences du système de management - articles 4 à 10 ISO/IEC 27001:2022 (références et titres courts uniquement)."
+msgstr "Management system requirements - ISO/IEC 27001:2022 clauses 4 to 10 (references and short titles only)."
+
+#, php-format
+msgid "Complétude du SMSI : %1$d %% (%2$d / %3$d exigences conformes)"
+msgstr "ISMS completeness: %1$d %% (%2$d / %3$d requirements compliant)"
+
+msgid "Exigences du SMSI (articles 4 à 10)"
+msgstr "ISMS requirements (clauses 4 to 10)"
+
+msgid "Version approuvée de la SoA"
+msgid_plural "Versions approuvées de la SoA"
+msgstr[0] "Approved SoA version"
+msgstr[1] "Approved SoA versions"
+
+msgid "En attente d'approbation"
+msgstr "Awaiting approval"
+
+msgid "Refusée"
+msgstr "Rejected"
+
+msgid "Obsolète"
+msgstr "Obsolete"
+
+msgid "Approuvé"
+msgstr "Approved"
+
+msgid "Refusé"
+msgstr "Rejected"
+
+msgid "Choisissez au moins un approbateur."
+msgstr "Choose at least one approver."
+
+#, php-format
+msgid "Déclaration d'Applicabilité - version %d"
+msgstr "Statement of Applicability - version %d"
+
+msgid "Approbation de la SoA demandée"
+msgstr "SoA approval requested"
+
+msgid "Approbateurs désignés"
+msgstr "Designated approvers"
+
+msgid "Demandeur"
+msgstr "Requester"
+
+msgid "Date de la demande"
+msgstr "Request date"
+
+msgid "Empreinte du contenu (SHA-256)"
+msgstr "Content fingerprint (SHA-256)"
+
+msgid "Version figée et envoyée aux approbateurs."
+msgstr "Version frozen and sent to the approvers."
+
+msgid "Indiquez la raison du refus."
+msgstr "Please give the reason for the rejection."
+
+msgid "Approbation enregistrée."
+msgstr "Approval recorded."
+
+msgid "Refus enregistré."
+msgstr "Rejection recorded."
+
+msgid "Cette version n'attend pas votre réponse."
+msgstr "This version is not awaiting your answer."
+
+msgid "Approbation de la SoA"
+msgstr "SoA approval"
+
+msgid "Approbation par la direction"
+msgstr "Management approval"
+
+#, php-format
+msgid "La version %d de la SoA attend votre approbation."
+msgstr "Version %d of the SoA is awaiting your approval."
+
+msgid "Répondre"
+msgstr "Answer"
+
+#, php-format
+msgid "La SoA a changé depuis la version %d approuvée : une nouvelle approbation est nécessaire."
+msgstr "The SoA has changed since approved version %d: a new approval is required."
+
+msgid "SoA approuvée"
+msgstr "SoA approved"
+
+#, php-format
+msgid "Version %1$d approuvée le %2$s ; la SoA n'a pas changé depuis."
+msgstr "Version %1$d approved on %2$s; the SoA has not changed since."
+
+msgid "SoA modifiée"
+msgstr "SoA changed"
+
+msgid "Jamais approuvée"
+msgstr "Never approved"
+
+msgid "Aucune version de la SoA n'a encore été approuvée par la direction."
+msgstr "No version of the SoA has been approved by management yet."
+
+#, php-format
+msgid "Version %d en attente d'approbation"
+msgstr "Version %d awaiting approval"
+
+#, php-format
+msgid "Version %d attend votre approbation"
+msgstr "Version %d is awaiting your approval"
+
+#, php-format
+msgid "Demandée par %s."
+msgstr "Requested by %s."
+
+msgid "Lire la version figée (PDF)"
+msgstr "Read the frozen version (PDF)"
+
+msgid "Commentaire (obligatoire en cas de refus)"
+msgstr "Comment (required to reject)"
+
+msgid "J'approuve cette version"
+msgstr "I approve this version"
+
+msgid "Refuser"
+msgstr "Reject"
+
+msgid "Faire approuver la SoA par la direction"
+msgstr "Have the SoA approved by management"
+
+msgid "Fige la SoA actuelle dans un PDF daté (conservé dans les documents GLPI avec son empreinte SHA-256), puis l'envoie aux approbateurs choisis. Chacun approuve depuis sa session GLPI ; le PDF comporte aussi un bloc de signature manuscrite. Toute modification ultérieure de la SoA demandera une nouvelle version."
+msgstr "Freezes the current SoA into a dated PDF (kept in GLPI documents with its SHA-256 fingerprint), then sends it to the chosen approvers. Each approves from their own GLPI session; the PDF also includes a handwritten signature block. Any later change to the SoA will require a new version."
+
+msgid "Approbateurs"
+msgstr "Approvers"
+
+msgid "Message aux approbateurs (facultatif)"
+msgstr "Message to the approvers (optional)"
+
+msgid "Figer et envoyer pour approbation"
+msgstr "Freeze and send for approval"
+
+msgid "Revoir la SoA avant"
+msgstr "Review the SoA first"
+
+msgid "Historique des versions"
+msgstr "Version history"
+
+msgid "Aucune version pour l'instant."
+msgstr "No version yet."
+
+msgid "Demandée"
+msgstr "Requested"
+
+msgid "PDF figé"
+msgstr "Frozen PDF"
+
+msgid "Version soumise à approbation"
+msgstr "Version submitted for approval"
+
+#, php-format
+msgid "Version %d"
+msgstr "Version %d"
+
+#, php-format
+msgid "Demandée le %1$s par %2$s"
+msgstr "Requested on %1$s by %2$s"
+
+msgid "Approbateur"
+msgstr "Approver"
+
+msgid "Signature"
+msgstr "Signature"

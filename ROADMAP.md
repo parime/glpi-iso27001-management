@@ -119,6 +119,14 @@ Objectif : une plateforme GRC/ISO 27001 générique fonctionnelle de bout en bou
   évaluation de version à 3 états (concerné / non vérifiable / exclu par version). Aucune donnée
   inventée : un logiciel installé sans alias déclaré est ignoré plutôt que deviné.
 
+## Version 2.3 (livrée)
+
+- **Référentiel NIS2** (directive (UE) 2022/2555 : articles 20, 21 §2, 23 §4) relié à l'Annexe A, issue #110.
+- **Guide d'hygiène informatique de l'ANSSI** (42 mesures, Licence Ouverte) relié à l'Annexe A, issue #111.
+- **Exigences du SMSI, articles 4 à 10** : 30 sous-articles suivis (statut, responsable, preuves, liens vers les modules), taux de complétude, inclus dans le PDF de la SoA, issue #113.
+- **Approbation de la SoA par la direction** : versions figées (PDF + empreinte SHA-256), approbateurs désignés, historique, nouvelle approbation exigée après modification, issue #112.
+- **Preuves assetsign** (remises/restitutions signées) sur les contrôles A.5.9 à A.5.11 et dans le PDF de la SoA, issue #109.
+
 ## Suivi
 
 L'avancement réel (issues, PR, jalons) est suivi sur le

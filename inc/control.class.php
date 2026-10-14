@@ -16,7 +16,11 @@
  */
 
 use GlpiPlugin\Grcmanager\Compatibility\Base\ControlBase;
+use GlpiPlugin\Grcmanager\Services\Control\AnssiHygieneCatalogDefaults;
+use GlpiPlugin\Grcmanager\Services\Control\AssetsignEvidence;
+use GlpiPlugin\Grcmanager\Services\Control\AssetsignEvidenceProvider;
 use GlpiPlugin\Grcmanager\Services\Control\ControlCrosswalkDefaults;
+use GlpiPlugin\Grcmanager\Services\Control\Nis2CatalogDefaults;
 
 /**
  * Declaration of Applicability (SoA, ISO 27001:2022 clause 6.1.3): the 93 ISO/IEC 27001:2022
@@ -484,6 +488,34 @@ class PluginGrcmanagerControl extends ControlBase
     }
 
     /**
+     * Issue #109 : une ligne de compteurs assetsign (remises ou restitutions), avec lien vers la
+     * liste filtrée seulement si l'utilisateur a le droit de lecture assetsign.
+     *
+     * @param array{signed: int, pending: int, expired: int} $counts
+     */
+    private static function assetsignEvidenceLine(int $type, array $counts): string
+    {
+        $label = $type === AssetsignEvidence::TYPE_RETURN
+            ? __('Restitutions', 'grcmanager')
+            : __('Remises', 'grcmanager');
+
+        $html = '<div class="mb-1"><strong>' . htmlescape($label) . '</strong> : '
+            . '<span class="badge bg-green-lt me-1"><i class="ti ti-check me-1"></i>'
+            . htmlescape(sprintf(__('%d signée(s)', 'grcmanager'), $counts['signed'])) . '</span>'
+            . '<span class="badge bg-yellow-lt me-1"><i class="ti ti-hourglass me-1"></i>'
+            . htmlescape(sprintf(__('%d en attente', 'grcmanager'), $counts['pending'])) . '</span>'
+            . '<span class="badge bg-red-lt me-1"><i class="ti ti-clock-x me-1"></i>'
+            . htmlescape(sprintf(__('%d expirée(s)', 'grcmanager'), $counts['expired'])) . '</span>';
+
+        $url = AssetsignEvidenceProvider::listUrl($type);
+        if ($url !== null) {
+            $html .= ' <a href="' . htmlescape($url) . '">' . __('Voir les fiches', 'grcmanager') . '</a>';
+        }
+
+        return $html . '</div>';
+    }
+
+    /**
      * @return array<int, string> risk id => title, for every risk linked to this control.
      */
     public static function getLinkedRisks(int $controlId): array
@@ -634,6 +666,66 @@ class PluginGrcmanagerControl extends ControlBase
             echo __('l\'écran Référentiels', 'grcmanager') . '</a> ' . __('pour le détail.', 'grcmanager');
             echo '</small>';
             echo '</td></tr>';
+        }
+
+        // Issue #110 : exigences NIS2 renvoyant à ce contrôle (correspondance indicative, établie
+        // par ce projet, voir Nis2CatalogDefaults) — ligne absente si aucune.
+        $nis2Matches = Nis2CatalogDefaults::requirementsForControl((string) $code);
+
+        if ($nis2Matches !== []) {
+            echo '<tr class="tab_bg_1"><td>' . __('Exigences NIS2', 'grcmanager') . '</td>';
+            echo '<td colspan="3">';
+            foreach ($nis2Matches as $nis2Code) {
+                echo '<span class="badge bg-purple-lt me-1">NIS2 '
+                    . htmlescape(Nis2CatalogDefaults::reference($nis2Code)) . '</span>';
+            }
+            global $CFG_GLPI;
+            echo '<small class="form-hint d-block mt-1">';
+            echo __('Correspondance indicative, établie par ce projet — voir', 'grcmanager') . ' ';
+            echo '<a href="' . htmlescape($CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/referentiels.php') . '">';
+            echo __('l\'écran Référentiels', 'grcmanager') . '</a> ' . __('pour le détail.', 'grcmanager');
+            echo '</small>';
+            echo '</td></tr>';
+        }
+
+        // Issue #111 : mesures du guide d'hygiène informatique ANSSI renvoyant à ce contrôle
+        // (correspondance indicative, voir AnssiHygieneCatalogDefaults) — ligne absente si aucune.
+        $anssiMatches = AnssiHygieneCatalogDefaults::measuresForControl((string) $code);
+
+        if ($anssiMatches !== []) {
+            echo '<tr class="tab_bg_1"><td>' . __('Hygiène ANSSI', 'grcmanager') . '</td>';
+            echo '<td colspan="3">';
+            $anssiLang = str_starts_with((string) ($_SESSION['glpilanguage'] ?? 'fr_FR'), 'fr') ? 'fr' : 'en';
+            foreach ($anssiMatches as $measureNumber) {
+                $measureTitle = AnssiHygieneCatalogDefaults::MEASURES[$measureNumber][$anssiLang];
+                echo '<span class="badge bg-teal-lt me-1" title="' . htmlescape($measureTitle) . '">'
+                    . sprintf(__('Mesure %d', 'grcmanager'), $measureNumber) . '</span>';
+            }
+            global $CFG_GLPI;
+            echo '<small class="form-hint d-block mt-1">';
+            echo __('Correspondance indicative, établie par ce projet — voir', 'grcmanager') . ' ';
+            echo '<a href="' . htmlescape($CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/referentiels.php') . '">';
+            echo __('l\'écran Référentiels', 'grcmanager') . '</a> ' . __('pour le détail.', 'grcmanager');
+            echo '</small>';
+            echo '</td></tr>';
+        }
+
+        // Issue #109 : preuves agrégées issues d'assetsign (fiches de remise/restitution signées)
+        // pour A.5.9/A.5.10/A.5.11 — ligne absente si assetsign n'est pas installé et actif.
+        if (AssetsignEvidence::isRelevantControl((string) $code)) {
+            $summary = AssetsignEvidenceProvider::fetchSummary();
+            if ($summary !== null) {
+                echo '<tr class="tab_bg_1"><td><i class="ti ti-signature me-1"></i>'
+                    . __('Preuves assetsign', 'grcmanager') . '</td><td colspan="3">';
+                foreach (AssetsignEvidence::CONTROL_TYPES[(string) $code] as $type) {
+                    echo self::assetsignEvidenceLine($type, $summary[$type]);
+                }
+                echo '<small class="form-hint d-block mt-1">' . __(
+                    'Compteurs calculés en direct depuis le plugin assetsign, sur vos entités actives.',
+                    'grcmanager'
+                ) . '</small>';
+                echo '</td></tr>';
+            }
         }
 
         // No delete/purge buttons: the 93 controls are a fixed catalog seeded at install (see

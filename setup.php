@@ -25,7 +25,7 @@ use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentModuleConfig;
 // must bundle vendor/, see .github/workflows/release.yml.
 require_once __DIR__ . '/vendor/autoload.php';
 
-define('PLUGIN_GRCMANAGER_VERSION', '2.2.0');
+define('PLUGIN_GRCMANAGER_VERSION', '2.3.0');
 define('PLUGIN_GRCMANAGER_MIN_GLPI', '11.0.0');
 // GLPI 11 and 12 from a single code base (see src/Compatibility/).
 define('PLUGIN_GRCMANAGER_MAX_GLPI', '12.99.99');
@@ -105,6 +105,8 @@ function plugin_init_grcmanager(): void
             PluginGrcmanagerRisk::class,
             PluginGrcmanagerSupplierRisk::class,
             PluginGrcmanagerControl::class,
+            // Issue #113 : exigences du SMSI (articles 4 à 10), juste après la SoA (Annexe A).
+            PluginGrcmanagerIsmsRequirement::class,
             PluginGrcmanagerComplianceObligation::class,
             PluginGrcmanagerAudit::class,
             PluginGrcmanagerNonconformity::class,
@@ -153,6 +155,8 @@ function plugin_init_grcmanager(): void
     // polymorphe CommonDBTM::cleanDBonPurge()) - ignorerait cette politique.
     global $CFG_GLPI;
     $CFG_GLPI['document_types'][] = PluginGrcmanagerPolicy::class;
+    // Issue #113 : preuves des exigences du SMSI, même mécanisme.
+    $CFG_GLPI['document_types'][] = PluginGrcmanagerIsmsRequirement::class;
 
     // Sprint 2 (matrice de risque administrable, front/config.php) : reachable via
     // Configuration > Plugins > wrench icon on this plugin's row, same minimal-footprint pattern

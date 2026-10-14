@@ -1,0 +1,114 @@
+{# Issue #112 : approbation de la Déclaration d'Applicabilité par la direction. #}
+
+{% if can_read %}
+<div class="card mb-3">
+  <div class="card-body d-flex align-items-center gap-3">
+    {% if state == 'up_to_date' %}
+      <span class="badge bg-green-lt fs-5"><i class="ti ti-circle-check me-1"></i>{{ __('SoA approuvée', 'grcmanager') }}</span>
+      <span>{{ __('Version %1$d approuvée le %2$s ; la SoA n\'a pas changé depuis.', 'grcmanager')|format(last_approved.version, last_approved.answered_at) }}</span>
+    {% elseif state == 'changed' %}
+      <span class="badge bg-yellow-lt fs-5"><i class="ti ti-alert-triangle me-1"></i>{{ __('SoA modifiée', 'grcmanager') }}</span>
+      <span>{{ __('La SoA a changé depuis la version %d approuvée : une nouvelle approbation est nécessaire.', 'grcmanager')|format(last_approved.version) }}</span>
+    {% else %}
+      <span class="badge bg-secondary-lt fs-5"><i class="ti ti-file-unknown me-1"></i>{{ __('Jamais approuvée', 'grcmanager') }}</span>
+      <span>{{ __('Aucune version de la SoA n\'a encore été approuvée par la direction.', 'grcmanager') }}</span>
+    {% endif %}
+    {% if pending is not null %}
+      <span class="badge bg-blue-lt ms-auto"><i class="ti ti-hourglass me-1"></i>{{ __('Version %d en attente d\'approbation', 'grcmanager')|format(pending.version) }}</span>
+    {% endif %}
+  </div>
+</div>
+{% endif %}
+
+{% for version in my_pending %}
+  <div class="card mb-3 border-primary">
+    <div class="card-header"><h3 class="card-title"><i class="ti ti-signature me-2"></i>{{ __('Version %d attend votre approbation', 'grcmanager')|format(version.version) }}</h3></div>
+    <div class="card-body">
+      <p>{{ __('Demandée par %s.', 'grcmanager')|format(version.requested_by) }} {{ version.comment }}</p>
+      {% if version.pdf_url %}
+        <p><a href="{{ version.pdf_url }}" class="btn btn-outline-secondary btn-sm"><i class="ti ti-file-type-pdf me-1"></i>{{ __('Lire la version figée (PDF)', 'grcmanager') }}</a></p>
+      {% endif %}
+      <form method="post" action="{{ config('root_doc') }}/plugins/grcmanager/front/soaapproval.php">
+        <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
+        <input type="hidden" name="answer" value="1">
+        <input type="hidden" name="versions_id" value="{{ version.id }}">
+        <label class="form-label" for="grcmanager-answer-comment-{{ version.id }}">{{ __('Commentaire (obligatoire en cas de refus)', 'grcmanager') }}</label>
+        <textarea class="form-control mb-2" name="comment" id="grcmanager-answer-comment-{{ version.id }}" rows="2"></textarea>
+        <button type="submit" name="decision" value="approve" class="btn btn-success"><i class="ti ti-check me-1"></i>{{ __('J\'approuve cette version', 'grcmanager') }}</button>
+        <button type="submit" name="decision" value="reject" class="btn btn-outline-danger"><i class="ti ti-x me-1"></i>{{ __('Refuser', 'grcmanager') }}</button>
+      </form>
+    </div>
+  </div>
+{% endfor %}
+
+{% if can_request %}
+  <div class="card mb-3">
+    <div class="card-header"><h3 class="card-title"><i class="ti ti-send me-2"></i>{{ __('Faire approuver la SoA par la direction', 'grcmanager') }}</h3></div>
+    <div class="card-body">
+      <p class="text-muted">{{ __('Fige la SoA actuelle dans un PDF daté (conservé dans les documents GLPI avec son empreinte SHA-256), puis l\'envoie aux approbateurs choisis. Chacun approuve depuis sa session GLPI ; le PDF comporte aussi un bloc de signature manuscrite. Toute modification ultérieure de la SoA demandera une nouvelle version.', 'grcmanager') }}</p>
+      <form method="post" action="{{ config('root_doc') }}/plugins/grcmanager/front/soaapproval.php">
+        <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
+        <div class="mb-2">
+          <label class="form-label">{{ __('Approbateurs', 'grcmanager') }}</label>
+          {{ approver_field|raw }}
+        </div>
+        <div class="mb-2">
+          <label class="form-label" for="grcmanager-request-comment">{{ __('Message aux approbateurs (facultatif)', 'grcmanager') }}</label>
+          <textarea class="form-control" name="comment" id="grcmanager-request-comment" rows="2"></textarea>
+        </div>
+        <button type="submit" name="request_approval" value="1" class="btn btn-primary"><i class="ti ti-send me-1"></i>{{ __('Figer et envoyer pour approbation', 'grcmanager') }}</button>
+        <a href="{{ soa_url }}" class="btn btn-link">{{ __('Revoir la SoA avant', 'grcmanager') }}</a>
+      </form>
+    </div>
+  </div>
+{% endif %}
+
+{% if can_read %}
+<div class="card">
+  <div class="card-header"><h3 class="card-title"><i class="ti ti-history me-2"></i>{{ __('Historique des versions', 'grcmanager') }}</h3></div>
+  <div class="card-body p-0">
+    {% if history is empty %}
+      <p class="text-muted p-3 mb-0">{{ __('Aucune version pour l\'instant.', 'grcmanager') }}</p>
+    {% else %}
+      <table class="table table-vcenter mb-0">
+        <thead>
+          <tr>
+            <th>{{ __('Version', 'grcmanager') }}</th>
+            <th>{{ __('Statut') }}</th>
+            <th>{{ __('Demandée', 'grcmanager') }}</th>
+            <th>{{ __('Approbateurs', 'grcmanager') }}</th>
+            <th>{{ __('PDF figé', 'grcmanager') }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for version in history %}
+            {% set status_class = {
+              'approved': 'bg-green-lt', 'pending': 'bg-blue-lt', 'rejected': 'bg-red-lt', 'obsolete': 'bg-secondary-lt'
+            }[version.status]|default('bg-secondary-lt') %}
+            <tr>
+              <td><strong>{{ version.version }}</strong></td>
+              <td><span class="badge {{ status_class }}">{{ version.status_label }}</span>
+                {% if version.answered_at %}<div class="text-muted small">{{ version.answered_at }}</div>{% endif %}</td>
+              <td>{{ version.requested_at }}<div class="text-muted small">{{ version.requested_by }}</div>
+                {% if version.comment %}<div class="small">{{ version.comment }}</div>{% endif %}</td>
+              <td>
+                {% for approver in version.approvers %}
+                  <div>{{ approver.name }} :
+                    <span class="badge {{ approver.status == 'approved' ? 'bg-green-lt' : (approver.status == 'rejected' ? 'bg-red-lt' : 'bg-secondary-lt') }}">{{ approver.status_label }}</span>
+                    {% if approver.date_answered %}<span class="text-muted small">{{ approver.date_answered }}</span>{% endif %}
+                    {% if approver.comment %}<div class="small text-muted">« {{ approver.comment }} »</div>{% endif %}
+                  </div>
+                {% endfor %}
+              </td>
+              <td>
+                {% if version.pdf_url %}<a href="{{ version.pdf_url }}"><i class="ti ti-file-type-pdf me-1"></i>PDF</a>{% endif %}
+                {% if version.pdf_sha256 %}<div class="text-muted small" title="{{ version.pdf_sha256 }}">SHA-256 {{ version.pdf_sha256|slice(0, 12) }}…</div>{% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% endif %}
+  </div>
+</div>
+{% endif %}

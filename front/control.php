@@ -16,6 +16,7 @@
  */
 
 use Glpi\Search\Input\QueryBuilder;
+use GlpiPlugin\Grcmanager\Services\Control\SoaApprovalLogic;
 use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
 
 include('../../../inc/includes.php');
@@ -52,8 +53,41 @@ echo '<i class="ti ti-file-type-pdf me-1"></i>' . __('Export PDF', 'grcmanager')
 echo '<a href="' . htmlescape($CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/control.csv.php') . '" '
     . 'class="btn btn-outline-secondary btn-sm">';
 echo '<i class="ti ti-file-spreadsheet me-1"></i>' . __('Import/export CSV', 'grcmanager') . '</a>';
+// Issue #112 : approbation de la SoA par la direction (versions figées).
+echo '<a href="' . htmlescape($CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/soaapproval.php') . '" '
+    . 'class="btn btn-outline-primary btn-sm">';
+echo '<i class="ti ti-signature me-1"></i>' . __('Approbation par la direction', 'grcmanager') . '</a>';
 echo '</div>';
 echo '</div>';
+
+// Issue #112 : rappel visible dès la SoA — version qui attend la réponse de l'utilisateur, ou SoA
+// modifiée depuis la dernière version approuvée.
+$soaApprovalUrl = $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/soaapproval.php';
+$myPendingVersions = PluginGrcmanagerSoaVersion::pendingForUser((int) Session::getLoginUserID());
+if ($myPendingVersions !== []) {
+    echo '<div class="alert alert-primary"><i class="ti ti-signature me-2"></i>';
+    echo htmlescape(sprintf(
+        __('La version %d de la SoA attend votre approbation.', 'grcmanager'),
+        (int) $myPendingVersions[0]['version']
+    ));
+    echo ' <a href="' . htmlescape($soaApprovalUrl) . '">' . __('Répondre', 'grcmanager') . '</a></div>';
+}
+$lastApprovedVersion = PluginGrcmanagerSoaVersion::latest(SoaApprovalLogic::VERSION_APPROVED);
+if (
+    $lastApprovedVersion !== null
+    && SoaApprovalLogic::currentState(
+        (string) $lastApprovedVersion['fingerprint'],
+        PluginGrcmanagerSoaVersion::currentFingerprint()
+    ) === 'changed'
+) {
+    echo '<div class="alert alert-warning"><i class="ti ti-alert-triangle me-2"></i>';
+    echo htmlescape(sprintf(
+        __('La SoA a changé depuis la version %d approuvée : une nouvelle approbation est nécessaire.', 'grcmanager'),
+        (int) $lastApprovedVersion['version']
+    ));
+    echo ' <a href="' . htmlescape($soaApprovalUrl) . '">'
+        . __('Approbation par la direction', 'grcmanager') . '</a></div>';
+}
 
 // Same URL-driven search fix as front/risk.php (Search::showList()'s $params must be pre-merged
 // with $_GET via QueryBuilder::manageParams(), unlike Search::show() which does this internally),

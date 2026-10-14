@@ -20,6 +20,8 @@ final class DefaultSearchColumns
         // Sprint 3 (SoA) : id-then-theme-then-code first, same "clickable row first" convention
         // as the risk register above.
         'PluginGrcmanagerControl' => [8, 2, 1, 3, 4, 6, 7],
+        // Issue #113 : exigence (lien) puis article, statut, responsable, dernière modification.
+        'PluginGrcmanagerIsmsRequirement' => [1, 2, 3, 4, 7],
         // Sprint 4 (audits internes et CAPA), same "id first" convention.
         'PluginGrcmanagerAudit'         => [9, 1, 2, 3, 4, 5, 6],
         // Issue #27 : id 13 (finding_type) juste apres le titre, avant severite (2), pour que le

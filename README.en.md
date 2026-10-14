@@ -31,6 +31,12 @@ classification fields merged directly onto it.
   probability, impact, computed risk level, treatment decision (accept/mitigate/transfer/avoid),
   owner, justification, review date.
 - **Statement of Applicability (SoA)**: the 93 ISO 27001:2022 Annex A controls (clause 6.1.3).
+- **Management approval of the SoA**: frozen, dated version (PDF kept in GLPI documents with its
+  SHA-256 fingerprint), designated approvers who approve from GLPI, version history; any later
+  change to the SoA requires a new version.
+- **ISMS requirements (clauses 4 to 10)**: the 30 sub-clauses 4.1 to 10.2, with status, owner,
+  evidence (linked GLPI documents), a link to the module that already covers them and a
+  completeness rate, included in the PDF export.
 - **Internal audit program**: non-conformities, corrective and preventive actions (CAPA).
 - **Supplier/third-party risk register.**
 - **Security awareness training tracking.**
@@ -94,10 +100,58 @@ with a real screenshot for every step (available in French and English).
 - GLPI 11.x and GLPI 12.x (a single package for both versions)
 - PHP per the compatibility matrix of the GLPI version in use (PHP 8.2 minimum)
 
+## Disclaimer: ISO 27001 and third-party frameworks
+
+**This project is not affiliated with, endorsed by or certified by ISO (International
+Organization for Standardization), IEC or AFNOR.** The "ISO 27001" wording in the repository name
+and documentation only identifies the framework the plugin helps you track.
+
+- **What the plugin contains**: only the **references** of the 93 ISO/IEC 27001:2022 Annex A
+  controls (A.5.1 to A.8.34), their theme and a **short title** per control, plus the numbers of
+  sub-clauses 4.1 to 10.2 with a short title written by this project.
+- **What it does not contain**: the control text, the ISO/IEC 27002 implementation guidance, or
+  the text of the requirements (clauses 4 to 10). Justification and implementation fields are
+  written by your organisation.
+- **The standard must be purchased** from [ISO](https://www.iso.org/standard/27001) or your
+  national standards body (e.g. [AFNOR](https://www.boutique.afnor.org/)): the official text of
+  ISO/IEC 27001 (requirements) and ideally ISO/IEC 27002 (implementation guidance) is required to
+  implement an ISMS and seek certification.
+- **The plugin does not grant any certification**: certification is issued by an accredited
+  certification body. The plugin helps you prepare for the audit, nothing more.
+
+**Additional reference frameworks viewable in the plugin:**
+
+- **CIS Critical Security Controls® v8**: the titles of the 18 controls and 153 Safeguards are
+  reproduced unmodified, in English, from the publication of the
+  [Center for Internet Security, Inc.](https://www.cisecurity.org/controls), licensed under
+  [Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)](https://creativecommons.org/licenses/by-nc-nd/4.0/).
+  © Center for Internet Security, Inc. CIS Controls® and CIS Critical Security Controls® are
+  trademarks of the Center for Internet Security, Inc. This project is not affiliated with or
+  endorsed by CIS. This excerpt is not covered by the plugin's GPLv3 license and may not be reused
+  for commercial purposes.
+- **NIST Cybersecurity Framework (CSF) 2.0**: published by the
+  [National Institute of Standards and Technology](https://www.nist.gov/cyberframework)
+  (U.S. federal government), in the public domain.
+- **Directive (EU) 2022/2555 "NIS2"**: articles 20, 21(2) and 23(4). The ten measures of
+  article 21(2) are reproduced from the official French and English language versions published
+  on [EUR-Lex](https://eur-lex.europa.eu/eli/dir/2022/2555/oj); articles 20 and 23 are
+  summarised. © European Union, https://eur-lex.europa.eu/ — reuse authorised (Commission
+  Decision 2011/833/EU). Only the version published in the Official Journal of the EU is
+  authentic. The mapping to ISO 27001 Annex A is indicative and made by this project.
+- **ANSSI IT hygiene guide (42 measures)**: titles of the 42 measures and 10 themes reproduced
+  from the guide "Renforcer la sécurité de son système d'information en 42 mesures", version 2.0
+  of September 2017, published by
+  [ANSSI](https://cyber.gouv.fr/publications/guide-dhygiene-informatique) (French national
+  cybersecurity agency) under the
+  [Licence Ouverte / Open Licence (Etalab)](https://www.etalab.gouv.fr/licence-ouverte-open-licence/).
+  The English translation and the Annex A mapping are indicative and made by this project; this
+  project is not affiliated with or endorsed by ANSSI.
+
 ## License
 
 Distributed under the [GNU GPLv3](LICENSE) license. Free, community-driven project, with no
-mandatory paid feature.
+mandatory paid feature. Excerpts of third-party frameworks (CIS Controls, NIST CSF, NIS2, ANSSI guide) remain under
+their original license: see the disclaimer above.
 
 ## Contributing
 

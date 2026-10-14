@@ -6,9 +6,15 @@ namespace GlpiPlugin\Grcmanager\Services\Control;
 
 /**
  * CIS Critical Security Controls v8 (18 Contrôles, 153 Sauvegardes/Safeguards) — intitulés
- * publiés librement par le Center for Internet Security pour l'adoption communautaire (comptes
- * 18/153 vérifiés). Le niveau de groupe de mise en œuvre (`ig`, 1/2/3) de chaque sauvegarde
- * vient du dépôt officiel du Center for Internet Security lui-même
+ * reproduits SANS MODIFICATION (en anglais, pas de traduction : la licence interdit les œuvres
+ * dérivées) depuis la publication du Center for Internet Security, Inc., sous licence Creative
+ * Commons Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0,
+ * https://creativecommons.org/licenses/by-nc-nd/4.0/). © Center for Internet Security, Inc. La
+ * mention de source est obligatoire : elle est affichée sous la carte CIS de
+ * templates/referentiels.html.twig et dans le README (comptes 18/153 vérifiés).
+ *
+ * Le niveau de groupe de mise en œuvre (`ig`, 1/2/3) de chaque sauvegarde vient du dépôt
+ * officiel du Center for Internet Security lui-même
  * (github.com/CISecurity/ControlsAssessmentSpecification), pas des résumés tiers largement
  * cités ("56 en IG1, 74 de plus en IG2, 23 de plus en IG3") qui datent de la sortie initiale
  * de v8 en 2021 — CIS a depuis légèrement rééquilibré quelques sauvegardes entre groupes (ex.

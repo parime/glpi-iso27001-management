@@ -16,7 +16,7 @@
  */
 
 use GlpiPlugin\Grcmanager\Pdf\PdfRenderer;
-use GlpiPlugin\Grcmanager\Services\Dashboard\DashboardCardService;
+use GlpiPlugin\Grcmanager\Services\Control\SoaReportBuilder;
 
 include('../../../inc/includes.php');
 
@@ -24,40 +24,8 @@ include('../../../inc/includes.php');
 // forme des données déjà réelles de la Déclaration d'Applicabilité (ROADMAP.md "Version 1.5").
 Session::checkRight(PluginGrcmanagerControl::$rightname, READ);
 
-global $DB;
-
-$titles = PluginGrcmanagerControl::getControlTitles();
-$themes = PluginGrcmanagerControl::getThemes();
-$applicabilities = PluginGrcmanagerControl::getApplicabilities();
-$implementationStatuses = PluginGrcmanagerControl::getImplementationStatuses();
-
-$controls = [];
-foreach (
-    $DB->request([
-        'FROM'  => PluginGrcmanagerControl::getTable(),
-        'ORDER' => 'code ASC',
-    ]) as $row
-) {
-    $controls[] = [
-        'code'                  => $row['code'],
-        'theme'                 => $themes[$row['theme']] ?? $row['theme'],
-        'title'                 => $titles[$row['code']] ?? $row['code'],
-        'applicability'         => $applicabilities[$row['applicability']] ?? $row['applicability'],
-        'implementation_status' => $implementationStatuses[$row['implementation_status']]
-            ?? $row['implementation_status'],
-        'justification'         => $row['justification'],
-    ];
-}
-
-$html = \Glpi\Application\View\TemplateRenderer::getInstance()->render('@grcmanager/pdf/soa_report.html.twig', [
-    'report_title'         => __('Déclaration d\'Applicabilité — Annexe A ISO/IEC 27001:2022', 'grcmanager'),
-    'generated_at_label'   => sprintf(__('Généré le %s', 'grcmanager'), Html::convDateTime(date('Y-m-d H:i:s'))),
-    'controls'             => $controls,
-    'by_applicability'     => DashboardCardService::soaByApplicability(),
-    'by_status'            => DashboardCardService::soaByImplementationStatus(),
-    'reviewed_count'       => DashboardCardService::soaReviewedCount(),
-    'total_count'          => count($controls),
-]);
+// Issue #112 : même HTML que les versions figées soumises à approbation, voir SoaReportBuilder.
+$html = SoaReportBuilder::renderHtml();
 
 $pdf = PdfRenderer::renderHtmlToPdf($html);
 

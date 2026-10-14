@@ -32,7 +32,7 @@ Html::header(
 // ROADMAP.md "Version 1.5" (rapports exportables pour audit externe) : export PDF mis en forme
 // (audits + non-conformités/CAPA), en complément de l'export CSV/XLSX déjà natif de
 // Search::showList() ci-dessous.
-$auditReportURL = Plugin::getWebDir('grcmanager') . '/front/audit.report.php';
+$auditReportURL = $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/audit.report.php';
 echo '<div class="d-flex justify-content-end mb-2">';
 echo '<a href="' . htmlescape($auditReportURL) . '" class="btn btn-outline-secondary btn-sm" target="_blank">';
 echo '<i class="ti ti-file-type-pdf me-1"></i>' . __('Export PDF', 'grcmanager');

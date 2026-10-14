@@ -1,5 +1,19 @@
 {% include '@grcmanager/pdf/_pdf_style.html.twig' %}
 
+{# Issue #112 : version figée soumise à l'approbation de la direction. #}
+{% if approval is not null %}
+<table class="grcmanager-pdf-summary">
+  <tr>
+    <td><strong>{{ __('Version soumise à approbation', 'grcmanager') }}</strong></td>
+    <td class="grcmanager-pdf-summary-number">{{ __('Version %d', 'grcmanager')|format(approval.version) }}</td>
+  </tr>
+  <tr>
+    <td>{{ __('Demandée le %1$s par %2$s', 'grcmanager')|format(approval.requested_at, approval.requested_by) }}</td>
+    <td>{{ __('Empreinte du contenu (SHA-256)', 'grcmanager') }} : {{ approval.fingerprint|slice(0, 16) }}…</td>
+  </tr>
+</table>
+{% endif %}
+
 <h2>{{ __('Résumé', 'grcmanager') }}</h2>
 <table class="grcmanager-pdf-summary">
   <tr>
@@ -31,6 +45,36 @@
   </tr>
 </table>
 
+{# Issue #109 : preuves agrégées issues du plugin assetsign (A.5.9, A.5.10, A.5.11), section
+   absente si assetsign n'est pas installé et actif. Type 0 = remise, 1 = restitution. #}
+{% if assetsign_evidence is not null %}
+<h2>{{ __('Preuves assetsign (A.5.9, A.5.10, A.5.11)', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-table">
+  <thead>
+    <tr>
+      <th></th>
+      <th>{{ __('Signées', 'grcmanager') }}</th>
+      <th>{{ __('En attente', 'grcmanager') }}</th>
+      <th>{{ __('Expirées', 'grcmanager') }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{ __('Remises (A.5.9, A.5.10)', 'grcmanager') }}</td>
+      <td>{{ assetsign_evidence[0].signed }}</td>
+      <td>{{ assetsign_evidence[0].pending }}</td>
+      <td>{{ assetsign_evidence[0].expired }}</td>
+    </tr>
+    <tr>
+      <td>{{ __('Restitutions (A.5.11)', 'grcmanager') }}</td>
+      <td>{{ assetsign_evidence[1].signed }}</td>
+      <td>{{ assetsign_evidence[1].pending }}</td>
+      <td>{{ assetsign_evidence[1].expired }}</td>
+    </tr>
+  </tbody>
+</table>
+{% endif %}
+
 <h2>{{ __('Détail des contrôles', 'grcmanager') }}</h2>
 <table class="grcmanager-pdf-table">
   <thead>
@@ -56,3 +100,53 @@
     {% endfor %}
   </tbody>
 </table>
+
+{# Issue #113 : exigences du système de management (articles 4 à 10), références et titres courts
+   uniquement. #}
+{% if clauses is not empty %}
+<h2>{{ __('Exigences du SMSI (articles 4 à 10)', 'grcmanager') }}</h2>
+<p>{{ __('Complétude du SMSI : %1$d %% (%2$d / %3$d exigences conformes)', 'grcmanager')|format(clause_completion.percent, clause_completion.compliant, clause_completion.total) }}</p>
+<table class="grcmanager-pdf-table">
+  <thead>
+    <tr>
+      <th>{{ __('Exigence', 'grcmanager') }}</th>
+      <th>{{ __('Intitulé') }}</th>
+      <th>{{ __('Statut') }}</th>
+      <th>{{ __('Responsable', 'grcmanager') }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for clause in clauses %}
+      <tr>
+        <td>{{ clause.code }}</td>
+        <td>{{ clause.title }}</td>
+        <td>{{ clause.status }}</td>
+        <td>{{ clause.owner }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+
+{# Issue #112 : bloc de signature manuscrite (approbation hors ligne ou en complément). #}
+{% if approval is not null %}
+<h2>{{ __('Approbation par la direction', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-table">
+  <thead>
+    <tr>
+      <th>{{ __('Approbateur', 'grcmanager') }}</th>
+      <th>{{ __('Date') }}</th>
+      <th>{{ __('Signature', 'grcmanager') }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for approver in approval.approvers %}
+      <tr>
+        <td>{{ approver }}</td>
+        <td style="height: 40px"></td>
+        <td></td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}
