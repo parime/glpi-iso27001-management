@@ -17,6 +17,7 @@
 
 use Glpi\ContentTemplates\Parameters\CommonITILObjectParameters;
 use GlpiPlugin\Grcmanager\Compatibility\Base\SecurityIncidentBase;
+use GlpiPlugin\Grcmanager\Services\Incident\RegulatoryDeadlines;
 use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentModuleConfig;
 use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentParameters;
 use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentRules;
@@ -422,6 +423,28 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
             );
         }
 
+        // Issue #128 : cases « Soumis à NIS2 » / « Violation de données personnelles » et dates
+        // auxquelles l'équipe a effectivement notifié (vide = pas encore).
+        foreach (['nis2_applicable', 'personal_data_breach'] as $flag) {
+            if (array_key_exists($flag, $input)) {
+                $input[$flag] = empty($input[$flag]) ? 0 : 1;
+            }
+        }
+        foreach (RegulatoryDeadlines::DEADLINES as [, , $doneField]) {
+            if (!array_key_exists($doneField, $input)) {
+                continue;
+            }
+            $value = trim((string) $input[$doneField]);
+            if ($value === '' || $value === 'NULL') {
+                $input[$doneField] = 'NULL';
+            } elseif (($time = strtotime(str_replace('T', ' ', $value))) !== false) {
+                // Champ « datetime-local » du navigateur : « 2026-10-18T20:00 ».
+                $input[$doneField] = date('Y-m-d H:i:s', $time);
+            } else {
+                unset($input[$doneField]);
+            }
+        }
+
         $status = (int) ($input['status'] ?? $this->fields['status'] ?? self::INCOMING);
 
         if ($status === self::CLOSED) {
@@ -502,7 +525,116 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
             'datatype' => 'specific',
         ];
 
+        // Issue #128 : notifications réglementaires.
+        $tab[] = [
+            'id'       => 226,
+            'table'    => $this->getTable(),
+            'field'    => 'nis2_applicable',
+            'name'     => __('Soumis à NIS2', 'grcmanager'),
+            'datatype' => 'bool',
+        ];
+        $tab[] = [
+            'id'       => 227,
+            'table'    => $this->getTable(),
+            'field'    => 'personal_data_breach',
+            'name'     => __('Violation de données personnelles', 'grcmanager'),
+            'datatype' => 'bool',
+        ];
+        $id = 228;
+        foreach (self::getRegulatoryLabels() as $key => $label) {
+            $tab[] = [
+                'id'       => $id++,
+                'table'    => $this->getTable(),
+                'field'    => RegulatoryDeadlines::DEADLINES[$key][2],
+                'name'     => sprintf(__('%s : notifié le', 'grcmanager'), $label),
+                'datatype' => 'datetime',
+            ];
+        }
+
         return $tab;
+    }
+
+    /**
+     * Issue #128 : libellés des échéances réglementaires (voir RegulatoryDeadlines).
+     *
+     * @return array<string, string>
+     */
+    public static function getRegulatoryLabels(): array
+    {
+        return [
+            'nis2_early_warning' => __('NIS2 — alerte précoce (24 h)', 'grcmanager'),
+            'nis2_notification'  => __('NIS2 — notification d\'incident (72 h)', 'grcmanager'),
+            'nis2_final_report'  => __('NIS2 — rapport final (1 mois)', 'grcmanager'),
+            'gdpr_notification'  => __('RGPD — notification à l\'autorité de contrôle (72 h)', 'grcmanager'),
+        ];
+    }
+
+    /**
+     * @return array{description?: string}
+     */
+    public static function cronInfo(string $name): array
+    {
+        return $name === 'regulatorydeadlines'
+            ? ['description' => __(
+                'Signale par un suivi les délais de notification NIS2 / RGPD proches ou dépassés',
+                'grcmanager'
+            )]
+            : [];
+    }
+
+    /**
+     * Issue #128 : pour chaque incident ouvert soumis à NIS2 ou au RGPD, un suivi privé quand une
+     * échéance de notification approche (moins d'un quart du délai restant) puis quand elle est
+     * dépassée — une seule fois par niveau. Le suivi déclenche les notifications GLPI habituelles
+     * aux acteurs de l'incident. Rien n'est envoyé à une autorité, aucun statut ne change.
+     */
+    public static function cronRegulatorydeadlines(CronTask $task): int
+    {
+        global $DB;
+
+        $labels = self::getRegulatoryLabels();
+        $count = 0;
+        $rows = $DB->request([
+            'FROM'  => self::getTable(),
+            'WHERE' => [
+                'is_deleted' => 0,
+                'NOT'        => ['status' => self::getClosedStatusArray()],
+                'OR'         => ['nis2_applicable' => 1, 'personal_data_breach' => 1],
+            ],
+        ]);
+        foreach ($rows as $row) {
+            $alerted = json_decode((string) ($row['regulatory_alerts'] ?? ''), true);
+            $alerted = is_array($alerted) ? array_values(array_map('strval', $alerted)) : [];
+            $toAlert = RegulatoryDeadlines::toAlert($row, $alerted);
+            if ($toAlert === []) {
+                continue;
+            }
+            foreach ($toAlert as $deadline) {
+                $message = $deadline['status'] === RegulatoryDeadlines::STATUS_OVERDUE
+                    ? __('Échéance dépassée : « %1$s » devait être faite au plus tard le %2$s.', 'grcmanager')
+                    : __('Échéance proche : « %1$s » doit être faite au plus tard le %2$s.', 'grcmanager');
+                (new ITILFollowup())->add([
+                    'itemtype'   => self::class,
+                    'items_id'   => (int) $row['id'],
+                    'is_private' => 1,
+                    'content'    => '<p>' . htmlescape(sprintf(
+                        $message,
+                        $labels[$deadline['key']] ?? $deadline['key'],
+                        Html::convDateTime($deadline['due'])
+                    )) . '</p><p>' . htmlescape(__(
+                        'Rien n\'est envoyé automatiquement à l\'autorité : faites la notification, puis renseignez sa '
+                            . 'date dans « Notifications réglementaires » sur l\'incident.',
+                        'grcmanager'
+                    )) . '</p>',
+                ]);
+                $alerted[] = $deadline['key'] . ':' . $deadline['status'];
+                $count++;
+            }
+            $DB->update(self::getTable(), ['regulatory_alerts' => json_encode($alerted)], ['id' => (int) $row['id']]);
+        }
+        $task->addVolume($count);
+
+        return $count > 0 ? 1 : 0;
     }
 
     public static function getSpecificValueToDisplay($field, $values, array $options = [])

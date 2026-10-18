@@ -1852,3 +1852,100 @@ msgstr "Approbateur"
 
 msgid "Signature"
 msgstr "Signature"
+
+msgid "Ce ticket n'est lié à aucun incident de sécurité."
+msgstr "Ce ticket n'est lié à aucun incident de sécurité."
+
+msgid "Qualifier en incident de sécurité"
+msgstr "Qualifier en incident de sécurité"
+
+msgid "Crée un incident de sécurité à partir de ce ticket (titre, description, date, demandeur, éléments liés) et les relie. Le ticket n'est pas modifié : il garde son statut et son attribution, et reçoit un suivi privé avec le lien."
+msgstr "Crée un incident de sécurité à partir de ce ticket (titre, description, date, demandeur, éléments liés) et les relie. Le ticket n'est pas modifié : il garde son statut et son attribution, et reçoit un suivi privé avec le lien."
+
+msgid "Aucun ticket n'a été qualifié en cet incident. Depuis un ticket, l'onglet « Incident de sécurité » permet de le faire."
+msgstr "Aucun ticket n'a été qualifié en cet incident. Depuis un ticket, l'onglet « Incident de sécurité » permet de le faire."
+
+msgid "Fait"
+msgstr "Fait"
+
+msgid "Dépassé"
+msgstr "Dépassé"
+
+msgid "Bientôt"
+msgstr "Bientôt"
+
+msgid "À faire"
+msgstr "À faire"
+
+msgid "Notifications réglementaires"
+msgstr "Notifications réglementaires"
+
+msgid "Soumis à NIS2"
+msgstr "Soumis à NIS2"
+
+msgid "Violation de données personnelles"
+msgstr "Violation de données personnelles"
+
+msgid "Entité essentielle ou importante, incident significatif : alerte précoce sous 24 h, notification sous 72 h, rapport final sous un mois."
+msgstr "Entité essentielle ou importante, incident significatif : alerte précoce sous 24 h, notification sous 72 h, rapport final sous un mois."
+
+msgid "RGPD : notification à l'autorité de contrôle (la CNIL en France) sous 72 h."
+msgstr "RGPD : notification à l'autorité de contrôle (la CNIL en France) sous 72 h."
+
+msgid "Échéances calculées depuis la date d'ouverture de l'incident. Rien n'est envoyé automatiquement : faites la notification, puis renseignez sa date ici."
+msgstr "Échéances calculées depuis la date d'ouverture de l'incident. Rien n'est envoyé automatiquement : faites la notification, puis renseignez sa date ici."
+
+#, php-format
+msgid "au plus tard le %s"
+msgstr "au plus tard le %s"
+
+msgid "Notifié le"
+msgstr "Notifié le"
+
+msgid "L'incident de sécurité n'a pas pu être créé."
+msgstr "L'incident de sécurité n'a pas pu être créé."
+
+#, php-format
+msgid "Ticket qualifié en incident de sécurité n° %d."
+msgstr "Ticket qualifié en incident de sécurité n° %d."
+
+#, php-format
+msgid "%s : notifié le"
+msgstr "%s : notifié le"
+
+msgid "NIS2 — alerte précoce (24 h)"
+msgstr "NIS2 — alerte précoce (24 h)"
+
+msgid "NIS2 — notification d'incident (72 h)"
+msgstr "NIS2 — notification d'incident (72 h)"
+
+msgid "NIS2 — rapport final (1 mois)"
+msgstr "NIS2 — rapport final (1 mois)"
+
+msgid "RGPD — notification à l'autorité de contrôle (72 h)"
+msgstr "RGPD — notification à l'autorité de contrôle (72 h)"
+
+msgid "Signale par un suivi les délais de notification NIS2 / RGPD proches ou dépassés"
+msgstr "Signale par un suivi les délais de notification NIS2 / RGPD proches ou dépassés"
+
+#, php-format
+msgid "Échéance dépassée : « %1$s » devait être faite au plus tard le %2$s."
+msgstr "Échéance dépassée : « %1$s » devait être faite au plus tard le %2$s."
+
+#, php-format
+msgid "Échéance proche : « %1$s » doit être faite au plus tard le %2$s."
+msgstr "Échéance proche : « %1$s » doit être faite au plus tard le %2$s."
+
+msgid "Rien n'est envoyé automatiquement à l'autorité : faites la notification, puis renseignez sa date dans « Notifications réglementaires » sur l'incident."
+msgstr "Rien n'est envoyé automatiquement à l'autorité : faites la notification, puis renseignez sa date dans « Notifications réglementaires » sur l'incident."
+
+msgid "Tickets liés"
+msgstr "Tickets liés"
+
+#, php-format
+msgid "Ce ticket a été qualifié en incident de sécurité n° %d : la suite de son traitement de sécurité (gravité, impact, délais de notification NIS2 / RGPD) se fait sur l'incident."
+msgstr "Ce ticket a été qualifié en incident de sécurité n° %d : la suite de son traitement de sécurité (gravité, impact, délais de notification NIS2 / RGPD) se fait sur l'incident."
+
+#, php-format
+msgid "Ouvrir l'incident de sécurité n° %d"
+msgstr "Ouvrir l'incident de sécurité n° %d"
