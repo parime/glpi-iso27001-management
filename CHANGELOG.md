@@ -9,6 +9,21 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Évaluation des fournisseurs : questionnaire de sécurité, contrats et ticket de réévaluation**
+  (issue #127).
+  - **Onglet « Questionnaire de sécurité »** sur le risque fournisseur : douze questions
+    (certification, politique, localisation et chiffrement des données, MFA, sous-traitants,
+    notification d'incident, sauvegardes, audits, vulnérabilités, réversibilité, clauses) avec
+    oui / partiel / non / sans objet. Le score (en %) et son niveau sont indicatifs : le niveau de
+    risque saisi par l'équipe n'est pas modifié. La date et l'auteur sont conservés.
+  - **Onglet « Contrats du fournisseur »** : contrats GLPI du fournisseur avec leurs dates de
+    début et de fin, et un badge « Échu ».
+  - **Onglets Documents et Historique** : les preuves (questionnaire signé, certificats) se
+    joignent au risque fournisseur. Le formulaire affiche désormais sa barre d'onglets.
+  - **Ticket de réévaluation** : à l'échéance de la date de revue, la tâche « reviewreminder »
+    ouvre un ticket « Réévaluer le fournisseur X » pour le propriétaire du risque, lié sur le
+    formulaire. Un seul ticket tant qu'il n'est pas résolu ; le statut du risque n'est pas modifié.
+
 - **Incidents de sécurité : qualification d'un ticket et délais de notification réglementaires**
   (issue #128).
   - **Qualifier un ticket** : l'onglet « Incident de sécurité » d'un ticket crée l'incident en

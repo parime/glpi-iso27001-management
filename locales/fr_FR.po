@@ -1949,3 +1949,119 @@ msgstr "Ce ticket a été qualifié en incident de sécurité n° %d : la suite 
 #, php-format
 msgid "Ouvrir l'incident de sécurité n° %d"
 msgstr "Ouvrir l'incident de sécurité n° %d"
+
+msgid "Ticket de réévaluation"
+msgstr "Ticket de réévaluation"
+
+#, php-format
+msgid "Ticket n° %d"
+msgstr "Ticket n° %d"
+
+#, php-format
+msgid "Réévaluer le fournisseur %s"
+msgstr "Réévaluer le fournisseur %s"
+
+#, php-format
+msgid "La revue du risque fournisseur « %1$s » était prévue le %2$s."
+msgstr "La revue du risque fournisseur « %1$s » était prévue le %2$s."
+
+msgid "Mettez à jour le questionnaire de sécurité, vérifiez les contrats et les preuves, puis la date de la prochaine revue."
+msgstr "Mettez à jour le questionnaire de sécurité, vérifiez les contrats et les preuves, puis la date de la prochaine revue."
+
+msgid "Ouvrir le risque fournisseur"
+msgstr "Ouvrir le risque fournisseur"
+
+msgid "Questionnaire de sécurité"
+msgstr "Questionnaire de sécurité"
+
+msgid "Le fournisseur détient une certification de sécurité en cours de validité (ISO 27001, SOC 2, HDS…)."
+msgstr "Le fournisseur détient une certification de sécurité en cours de validité (ISO 27001, SOC 2, HDS…)."
+
+msgid "Il dispose d'une politique de sécurité de l'information formalisée et à jour."
+msgstr "Il dispose d'une politique de sécurité de l'information formalisée et à jour."
+
+msgid "Nos données sont hébergées et traitées dans l'Union européenne."
+msgstr "Nos données sont hébergées et traitées dans l'Union européenne."
+
+msgid "Nos données sont chiffrées au repos et en transit."
+msgstr "Nos données sont chiffrées au repos et en transit."
+
+msgid "Les accès à nos données exigent une authentification multifacteur."
+msgstr "Les accès à nos données exigent une authentification multifacteur."
+
+msgid "La liste de ses sous-traitants nous est communiquée et nos exigences leur sont répercutées."
+msgstr "La liste de ses sous-traitants nous est communiquée et nos exigences leur sont répercutées."
+
+msgid "Il s'engage à nous notifier ses incidents de sécurité dans un délai contractuel."
+msgstr "Il s'engage à nous notifier ses incidents de sécurité dans un délai contractuel."
+
+msgid "Ses sauvegardes sont testées et il dispose d'un plan de continuité."
+msgstr "Ses sauvegardes sont testées et il dispose d'un plan de continuité."
+
+msgid "Il réalise des audits ou tests d'intrusion réguliers, ou accepte d'être audité."
+msgstr "Il réalise des audits ou tests d'intrusion réguliers, ou accepte d'être audité."
+
+msgid "Il gère ses vulnérabilités et applique les correctifs dans des délais définis."
+msgstr "Il gère ses vulnérabilités et applique les correctifs dans des délais définis."
+
+msgid "La restitution et la suppression de nos données en fin de contrat sont prévues."
+msgstr "La restitution et la suppression de nos données en fin de contrat sont prévues."
+
+msgid "Le contrat comporte des clauses de sécurité et de confidentialité."
+msgstr "Le contrat comporte des clauses de sécurité et de confidentialité."
+
+msgid "Oui"
+msgstr "Oui"
+
+msgid "Partiel"
+msgstr "Partiel"
+
+msgid "Non"
+msgstr "Non"
+
+msgid "Sans objet"
+msgstr "Sans objet"
+
+msgid "Contrats du fournisseur"
+msgstr "Contrats du fournisseur"
+
+msgid "Questionnaire de sécurité enregistré."
+msgstr "Questionnaire de sécurité enregistré."
+
+msgid "Aucun contrat GLPI n'est rattaché à ce fournisseur (Gestion > Contrats, onglet Fournisseurs)."
+msgstr "Aucun contrat GLPI n'est rattaché à ce fournisseur (Gestion > Contrats, onglet Fournisseurs)."
+
+msgid "Contrat"
+msgstr "Contrat"
+
+msgid "Début"
+msgstr "Début"
+
+msgid "Fin"
+msgstr "Fin"
+
+msgid "Échu"
+msgstr "Échu"
+
+msgid "Bon niveau"
+msgstr "Bon niveau"
+
+msgid "Niveau à améliorer"
+msgstr "Niveau à améliorer"
+
+msgid "Niveau insuffisant"
+msgstr "Niveau insuffisant"
+
+#, php-format
+msgid "Score : %d %%"
+msgstr "Score : %d %%"
+
+#, php-format
+msgid "Rempli le %1$s par %2$s"
+msgstr "Rempli le %1$s par %2$s"
+
+msgid "Oui = 1 point, partiel = ½, non = 0 ; « sans objet » ne compte pas. Le score éclaire l'évaluation, il ne modifie pas le niveau de risque saisi. Joignez les preuves (questionnaire signé, certificats) dans l'onglet Documents."
+msgstr "Oui = 1 point, partiel = ½, non = 0 ; « sans objet » ne compte pas. Le score éclaire l'évaluation, il ne modifie pas le niveau de risque saisi. Joignez les preuves (questionnaire signé, certificats) dans l'onglet Documents."
+
+msgid "Enregistrer le questionnaire"
+msgstr "Enregistrer le questionnaire"

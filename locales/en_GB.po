@@ -1949,3 +1949,119 @@ msgstr "This ticket was qualified as security incident no. %d: its security hand
 #, php-format
 msgid "Ouvrir l'incident de sécurité n° %d"
 msgstr "Open security incident no. %d"
+
+msgid "Ticket de réévaluation"
+msgstr "Reassessment ticket"
+
+#, php-format
+msgid "Ticket n° %d"
+msgstr "Ticket #%d"
+
+#, php-format
+msgid "Réévaluer le fournisseur %s"
+msgstr "Reassess supplier %s"
+
+#, php-format
+msgid "La revue du risque fournisseur « %1$s » était prévue le %2$s."
+msgstr "The review of supplier risk \"%1$s\" was due on %2$s."
+
+msgid "Mettez à jour le questionnaire de sécurité, vérifiez les contrats et les preuves, puis la date de la prochaine revue."
+msgstr "Update the security questionnaire, check the contracts and evidence, then set the next review date."
+
+msgid "Ouvrir le risque fournisseur"
+msgstr "Open the supplier risk"
+
+msgid "Questionnaire de sécurité"
+msgstr "Security questionnaire"
+
+msgid "Le fournisseur détient une certification de sécurité en cours de validité (ISO 27001, SOC 2, HDS…)."
+msgstr "The supplier holds a valid security certification (ISO 27001, SOC 2, HDS…)."
+
+msgid "Il dispose d'une politique de sécurité de l'information formalisée et à jour."
+msgstr "It has a formal, up-to-date information security policy."
+
+msgid "Nos données sont hébergées et traitées dans l'Union européenne."
+msgstr "Our data is hosted and processed in the European Union."
+
+msgid "Nos données sont chiffrées au repos et en transit."
+msgstr "Our data is encrypted at rest and in transit."
+
+msgid "Les accès à nos données exigent une authentification multifacteur."
+msgstr "Access to our data requires multi-factor authentication."
+
+msgid "La liste de ses sous-traitants nous est communiquée et nos exigences leur sont répercutées."
+msgstr "Its list of subcontractors is shared with us and our requirements are passed on to them."
+
+msgid "Il s'engage à nous notifier ses incidents de sécurité dans un délai contractuel."
+msgstr "It commits to notifying us of its security incidents within a contractual deadline."
+
+msgid "Ses sauvegardes sont testées et il dispose d'un plan de continuité."
+msgstr "Its backups are tested and it has a business continuity plan."
+
+msgid "Il réalise des audits ou tests d'intrusion réguliers, ou accepte d'être audité."
+msgstr "It performs regular audits or penetration tests, or agrees to be audited."
+
+msgid "Il gère ses vulnérabilités et applique les correctifs dans des délais définis."
+msgstr "It manages its vulnerabilities and applies patches within defined timeframes."
+
+msgid "La restitution et la suppression de nos données en fin de contrat sont prévues."
+msgstr "The return and deletion of our data at the end of the contract are provided for."
+
+msgid "Le contrat comporte des clauses de sécurité et de confidentialité."
+msgstr "The contract includes security and confidentiality clauses."
+
+msgid "Oui"
+msgstr "Yes"
+
+msgid "Partiel"
+msgstr "Partial"
+
+msgid "Non"
+msgstr "No"
+
+msgid "Sans objet"
+msgstr "Not applicable"
+
+msgid "Contrats du fournisseur"
+msgstr "Supplier contracts"
+
+msgid "Questionnaire de sécurité enregistré."
+msgstr "Security questionnaire saved."
+
+msgid "Aucun contrat GLPI n'est rattaché à ce fournisseur (Gestion > Contrats, onglet Fournisseurs)."
+msgstr "No GLPI contract is linked to this supplier (Management > Contracts, Suppliers tab)."
+
+msgid "Contrat"
+msgstr "Contract"
+
+msgid "Début"
+msgstr "Start"
+
+msgid "Fin"
+msgstr "End"
+
+msgid "Échu"
+msgstr "Expired"
+
+msgid "Bon niveau"
+msgstr "Good level"
+
+msgid "Niveau à améliorer"
+msgstr "Needs improvement"
+
+msgid "Niveau insuffisant"
+msgstr "Insufficient level"
+
+#, php-format
+msgid "Score : %d %%"
+msgstr "Score: %d %%"
+
+#, php-format
+msgid "Rempli le %1$s par %2$s"
+msgstr "Filled in on %1$s by %2$s"
+
+msgid "Oui = 1 point, partiel = ½, non = 0 ; « sans objet » ne compte pas. Le score éclaire l'évaluation, il ne modifie pas le niveau de risque saisi. Joignez les preuves (questionnaire signé, certificats) dans l'onglet Documents."
+msgstr "Yes = 1 point, partial = ½, no = 0; \"not applicable\" is not counted. The score informs the assessment; it does not change the risk level entered. Attach the evidence (signed questionnaire, certificates) in the Documents tab."
+
+msgid "Enregistrer le questionnaire"
+msgstr "Save questionnaire"

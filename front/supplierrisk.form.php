@@ -36,22 +36,11 @@ if (isset($_POST['add'])) {
     $item->update($_POST);
     Html::back();
 } else {
-    Session::checkRight(PluginGrcmanagerSupplierRisk::$rightname, READ);
-
-    Html::header(
-        PluginGrcmanagerSupplierRisk::getTypeName(1),
-        $_SERVER['PHP_SELF'],
-        'grcmanager',
-        PluginGrcmanagerSupplierRisk::class
+    // Issue #127 : displayFullPageForItem() (comme front/policy.form.php) affiche la barre
+    // d'onglets (questionnaire, contrats, documents, historique) ; showForm() seul ne la rend pas.
+    // Les droits (READ, ou CREATE pour un nouvel élément) sont vérifiés par $item->can().
+    PluginGrcmanagerSupplierRisk::displayFullPageForItem(
+        $_GET['id'] ?? 0,
+        ['central' => ['grcmanager', PluginGrcmanagerSupplierRisk::class], 'helpdesk' => []]
     );
-
-    $id = (int) ($_GET['id'] ?? 0);
-
-    if ($id > 0) {
-        $item->getFromDB($id);
-    }
-
-    $item->showForm($id);
-
-    Html::footer();
 }

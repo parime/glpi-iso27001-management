@@ -69,6 +69,21 @@ class PluginGrcmanagerSupplierRisk extends SupplierRiskBase
      * @param array<string, mixed> $input
      * @return array<string, mixed>|false
      */
+    /**
+     * Issue #127 : questionnaire de sécurité et contrats du fournisseur
+     * (PluginGrcmanagerSupplierAssessment), preuves (Documents) et historique.
+     */
+    public function defineTabs($options = [])
+    {
+        $tabs = [];
+        $this->addDefaultFormTab($tabs)
+            ->addStandardTab(PluginGrcmanagerSupplierAssessment::class, $tabs, $options)
+            ->addStandardTab(Document_Item::class, $tabs, $options)
+            ->addStandardTab(Log::class, $tabs, $options);
+
+        return $tabs;
+    }
+
     public function prepareInputForAdd($input)
     {
         return $this->validateSupplierAndComputeRiskLevel($input);
@@ -332,7 +347,14 @@ class PluginGrcmanagerSupplierRisk extends SupplierRiskBase
 
         echo '<tr class="tab_bg_1"><td>' . __('Date de revue', 'grcmanager') . '</td><td>';
         Html::showDateField('review_date', ['value' => $this->fields['review_date'] ?? '']);
-        echo '</td><td colspan="2"></td></tr>';
+        echo '</td><td>' . __('Ticket de réévaluation', 'grcmanager') . '</td><td>';
+        // Issue #127 : ticket ouvert par la tâche de rappel à l'échéance de la revue.
+        $reviewTicket = (int) ($this->fields['review_tickets_id'] ?? 0);
+        echo $reviewTicket > 0
+            ? '<a href="' . htmlescape(Ticket::getFormURLWithID($reviewTicket)) . '"><i class="ti ti-ticket me-1"></i>'
+                . htmlescape(sprintf(__('Ticket n° %d', 'grcmanager'), $reviewTicket)) . '</a>'
+            : '—';
+        echo '</td></tr>';
 
         echo '<tr class="tab_bg_1"><td>' . __('Description', 'grcmanager') . '</td>';
         echo '<td colspan="3">';
@@ -364,8 +386,9 @@ class PluginGrcmanagerSupplierRisk extends SupplierRiskBase
     public static function cronReviewreminder(CronTask $task): int
     {
         $result = (new ReviewReminderService(self::class))->notify();
+        $tickets = self::openReviewTickets();
 
-        $task->addVolume($result->getNotified());
+        $task->addVolume($result->getNotified() + $tickets);
         $task->log(sprintf(
             '%d risque(s) fournisseur en attente de revue, %d notification(s) déclenchée(s).',
             $result->getDue(),
@@ -373,5 +396,68 @@ class PluginGrcmanagerSupplierRisk extends SupplierRiskBase
         ));
 
         return $result->getDue() > 0 ? 1 : 0;
+    }
+
+    /**
+     * Issue #127 : à l'échéance de la revue (date dépassée ou atteinte), un ticket « Réévaluer le
+     * fournisseur » pour le propriétaire du risque, en plus de la notification existante. Un seul
+     * ticket tant qu'il reste ouvert ; rien n'est modifié sur le risque lui-même, hormis le lien.
+     *
+     * @return int nombre de tickets ouverts
+     */
+    public static function openReviewTickets(): int
+    {
+        global $DB;
+
+        $count = 0;
+        $rows = $DB->request([
+            'FROM'  => self::getTable(),
+            'WHERE' => [
+                'review_date' => ['<=', date('Y-m-d')],
+                'NOT'         => ['status' => 'closed'],
+            ],
+        ]);
+        foreach ($rows as $row) {
+            $existing = new Ticket();
+            $ticketsId = (int) ($row['review_tickets_id'] ?? 0);
+            if (
+                $ticketsId > 0
+                && $existing->getFromDB($ticketsId)
+                && !in_array(
+                    (int) $existing->fields['status'],
+                    [CommonITILObject::SOLVED, CommonITILObject::CLOSED],
+                    true
+                )
+            ) {
+                continue;
+            }
+            $supplier = Dropdown::getDropdownName(Supplier::getTable(), (int) $row['suppliers_id']);
+            $input = [
+                'name'        => sprintf(__('Réévaluer le fournisseur %s', 'grcmanager'), $supplier),
+                'content'     => '<p>' . htmlescape(sprintf(
+                    __('La revue du risque fournisseur « %1$s » était prévue le %2$s.', 'grcmanager'),
+                    (string) $row['title'],
+                    Html::convDate((string) $row['review_date'])
+                )) . '</p><p>' . htmlescape(__(
+                    'Mettez à jour le questionnaire de sécurité, vérifiez les contrats et les preuves, '
+                        . 'puis la date de la prochaine revue.',
+                    'grcmanager'
+                )) . '</p><p><a href="' . htmlescape(self::getFormURLWithID((int) $row['id'])) . '">'
+                    . htmlescape(__('Ouvrir le risque fournisseur', 'grcmanager')) . '</a></p>',
+                'type'        => Ticket::DEMAND_TYPE,
+                'entities_id' => 0,
+            ];
+            if ((int) $row['users_id'] > 0) {
+                $input['_users_id_requester'] = (int) $row['users_id'];
+                $input['_users_id_assign'] = (int) $row['users_id'];
+            }
+            $newTicket = (int) (new Ticket())->add($input);
+            if ($newTicket > 0) {
+                $DB->update(self::getTable(), ['review_tickets_id' => $newTicket], ['id' => (int) $row['id']]);
+                $count++;
+            }
+        }
+
+        return $count;
     }
 }
