@@ -58,6 +58,16 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
     quand une échéance approche puis quand elle est dépassée, une seule fois par niveau. Ce suivi
     prévient les acteurs par les notifications GLPI habituelles. Rien n'est envoyé à une autorité.
 
+### Fixed
+
+- **Incidents de sécurité, onglet « Coûts » (GLPI 12)** : l'onglet échouait (erreur 500) faute des colonnes
+  `date_creation`, `date_mod`, `users_id` et `users_id_lastupdater` que GLPI 12 lit sur les coûts ITIL.
+  Elles sont ajoutées à la mise à jour.
+- **Listes Risques et Audits internes** : avertissements PHP « Undefined variable $CFG_GLPI » et liens
+  d'en-tête cassés, la configuration GLPI n'étant pas déclarée globale dans ces pages.
+- **Approbation de la SoA** : après une demande ou une réponse, retour garanti sur la page d'approbation
+  (la redirection reposait sur `$_SERVER['PHP_SELF']`, qui vaut `/index.php` derrière le routeur GLPI).
+
 ## [2.3.0] - 2026-10-11
 
 ### Added
