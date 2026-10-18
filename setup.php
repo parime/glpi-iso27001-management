@@ -196,6 +196,16 @@ function plugin_init_grcmanager(): void
         'addtabon' => PluginGrcmanagerRisk::getLinkableItemtypes(),
     ]);
 
+    // Issue #128 : qualifier un ticket en incident de sécurité (onglet sur les deux objets) ; les
+    // liens disparaissent avec le ticket ou l'incident supprimé définitivement.
+    Plugin::registerClass(PluginGrcmanagerSecurityIncidentTicket::class, [
+        'addtabon' => ['Ticket', PluginGrcmanagerSecurityIncident::class],
+    ]);
+    $PLUGIN_HOOKS[Hooks::ITEM_PURGE]['grcmanager'] = [
+        'Ticket'                                => 'plugin_grcmanager_purge_security_incident_links',
+        PluginGrcmanagerSecurityIncident::class => 'plugin_grcmanager_purge_security_incident_links',
+    ];
+
     // Dashboard KPI cards, kept accumulator-safe from the start (?array $cards = null, merged
     // onto rather than replacing): a bare no-argument signature returning only this plugin's own
     // cards would silently discard every other plugin's contribution when

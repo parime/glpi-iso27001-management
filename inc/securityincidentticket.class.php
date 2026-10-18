@@ -1,0 +1,200 @@
+<?php
+
+/**
+ * -------------------------------------------------------------------------
+ * GLPI GRC Manager plugin for GLPI
+ * Copyright (C) 2026 Vincent GUILLOTTE
+ * https://github.com/parime/glpi-grc-manager
+ * -------------------------------------------------------------------------
+ * LICENSE
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version. See LICENSE for the full text.
+ * -------------------------------------------------------------------------
+ */
+
+use Glpi\Application\View\TemplateRenderer;
+
+/**
+ * Issue #128 : qualifier un ticket GLPI en incident de sécurité, et lien dans les deux sens.
+ *
+ * Onglet « Incident de sécurité » sur le ticket (incidents liés, bouton « Qualifier en incident de
+ * sécurité ») et onglet « Tickets liés » sur l'incident. La qualification crée l'incident à partir
+ * du ticket (titre, description, date, entité, urgence/impact, demandeur, éléments liés) et ajoute
+ * un suivi privé au ticket ; le ticket lui-même n'est pas modifié (ni statut ni attribution).
+ *
+ * Simple fournisseur d'onglets (CommonGLPI) plutôt qu'un CommonDBRelation : les propriétés héritées
+ * de ce dernier sont typées en GLPI 12 et non en GLPI 11 (voir src/Compatibility/Base), et ce lien
+ * n'a besoin ni de formulaire ni d'historique propres — la table est lue et écrite directement.
+ */
+class PluginGrcmanagerSecurityIncidentTicket extends CommonGLPI
+{
+    public const TABLE = 'glpi_plugin_grcmanager_securityincidents_tickets';
+
+    public static function getTypeName($nb = 0)
+    {
+        return PluginGrcmanagerSecurityIncident::getTypeName($nb);
+    }
+
+    /**
+     * @return list<int>
+     */
+    public static function getIncidentIdsForTicket(int $ticketsId): array
+    {
+        global $DB;
+
+        $ids = [];
+        foreach ($DB->request(['SELECT' => ['plugin_grcmanager_securityincidents_id'], 'FROM' => self::TABLE, 'WHERE' => ['tickets_id' => $ticketsId]]) as $row) {
+            $ids[] = (int) $row['plugin_grcmanager_securityincidents_id'];
+        }
+
+        return $ids;
+    }
+
+    /**
+     * @return list<int>
+     */
+    public static function getTicketIdsForIncident(int $incidentsId): array
+    {
+        global $DB;
+
+        $ids = [];
+        foreach ($DB->request(['SELECT' => ['tickets_id'], 'FROM' => self::TABLE, 'WHERE' => ['plugin_grcmanager_securityincidents_id' => $incidentsId]]) as $row) {
+            $ids[] = (int) $row['tickets_id'];
+        }
+
+        return $ids;
+    }
+
+    public function getTabNameForItem(CommonGLPI $item, $withtemplate = 0)
+    {
+        if (!PluginGrcmanagerSecurityIncident::canView()) {
+            return '';
+        }
+        if ($item instanceof Ticket) {
+            $count = count(self::getIncidentIdsForTicket((int) $item->getID()));
+
+            return self::createTabEntry(self::getTypeName(1), $count, null, PluginGrcmanagerSecurityIncident::getIcon());
+        }
+        if ($item instanceof PluginGrcmanagerSecurityIncident) {
+            $count = count(self::getTicketIdsForIncident((int) $item->getID()));
+
+            return self::createTabEntry(__('Tickets liés', 'grcmanager'), $count, null, Ticket::getIcon());
+        }
+
+        return '';
+    }
+
+    public static function displayTabContentForItem(CommonGLPI $item, $tabnum = 1, $withtemplate = 0)
+    {
+        global $CFG_GLPI;
+
+        if ($item instanceof Ticket) {
+            $rows = [];
+            foreach (self::getIncidentIdsForTicket((int) $item->getID()) as $id) {
+                $incident = new PluginGrcmanagerSecurityIncident();
+                if ($incident->getFromDB($id)) {
+                    $rows[] = [
+                        'id'       => $id,
+                        'name'     => (string) $incident->fields['name'],
+                        'url'      => PluginGrcmanagerSecurityIncident::getFormURLWithID($id),
+                        'status'   => PluginGrcmanagerSecurityIncident::getStatus((int) $incident->fields['status']),
+                        'severity' => PluginGrcmanagerSecurityIncident::getSeverities()[(string) $incident->fields['severity']] ?? '',
+                    ];
+                }
+            }
+            TemplateRenderer::getInstance()->display('@grcmanager/tabs/ticket_security_incidents.html.twig', [
+                'rows'       => $rows,
+                'can_create' => PluginGrcmanagerSecurityIncident::canCreate(),
+                'action'     => $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/securityincidentticket.form.php',
+                'tickets_id' => (int) $item->getID(),
+            ]);
+
+            return true;
+        }
+
+        if ($item instanceof PluginGrcmanagerSecurityIncident) {
+            $rows = [];
+            foreach (self::getTicketIdsForIncident((int) $item->getID()) as $id) {
+                $ticket = new Ticket();
+                if ($ticket->getFromDB($id)) {
+                    $rows[] = [
+                        'id'     => $id,
+                        'name'   => (string) $ticket->fields['name'],
+                        'url'    => Ticket::getFormURLWithID($id),
+                        'status' => Ticket::getStatus((int) $ticket->fields['status']),
+                    ];
+                }
+            }
+            TemplateRenderer::getInstance()->display('@grcmanager/tabs/security_incident_tickets.html.twig', ['rows' => $rows]);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Crée l'incident de sécurité à partir du ticket et les relie. Un ticket déjà qualifié renvoie
+     * son incident existant (pas de doublon).
+     *
+     * @return int id de l'incident (0 si la création a échoué)
+     */
+    public static function qualify(Ticket $ticket): int
+    {
+        global $DB;
+
+        $existing = self::getIncidentIdsForTicket((int) $ticket->getID());
+        if ($existing !== []) {
+            return $existing[0];
+        }
+
+        $input = [
+            'name'        => (string) $ticket->fields['name'],
+            'content'     => (string) $ticket->fields['content'],
+            'date'        => (string) $ticket->fields['date'],
+            'entities_id' => (int) $ticket->fields['entities_id'],
+            'urgency'     => (int) $ticket->fields['urgency'],
+            'impact'      => (int) $ticket->fields['impact'],
+        ];
+        foreach ((new Ticket_User())->find(['tickets_id' => (int) $ticket->getID(), 'type' => CommonITILActor::REQUESTER]) as $actor) {
+            if ((int) $actor['users_id'] > 0) {
+                $input['_users_id_requester'] = (int) $actor['users_id'];
+                break;
+            }
+        }
+
+        $incidentsId = (int) (new PluginGrcmanagerSecurityIncident())->add($input);
+        if ($incidentsId <= 0) {
+            return 0;
+        }
+
+        $DB->insert(self::TABLE, [
+            'plugin_grcmanager_securityincidents_id' => $incidentsId,
+            'tickets_id'                             => (int) $ticket->getID(),
+            'date_creation'                          => date('Y-m-d H:i:s'),
+        ]);
+        foreach ((new Item_Ticket())->find(['tickets_id' => (int) $ticket->getID()]) as $link) {
+            (new PluginGrcmanagerSecurityIncident_Item())->add([
+                'plugin_grcmanager_securityincidents_id' => $incidentsId,
+                'itemtype'                               => (string) $link['itemtype'],
+                'items_id'                               => (int) $link['items_id'],
+            ]);
+        }
+
+        (new ITILFollowup())->add([
+            'itemtype'   => Ticket::class,
+            'items_id'   => (int) $ticket->getID(),
+            'is_private' => 1,
+            'content'    => '<p>' . htmlescape(sprintf(
+                __('Ce ticket a été qualifié en incident de sécurité n° %d : la suite de son traitement de sécurité (gravité, impact, délais de notification NIS2 / RGPD) se fait sur l\'incident.', 'grcmanager'),
+                $incidentsId
+            )) . '</p><p><a href="' . htmlescape(PluginGrcmanagerSecurityIncident::getFormURLWithID($incidentsId)) . '">'
+                . htmlescape(sprintf(__('Ouvrir l\'incident de sécurité n° %d', 'grcmanager'), $incidentsId)) . '</a></p>',
+        ]);
+
+        return $incidentsId;
+    }
+}

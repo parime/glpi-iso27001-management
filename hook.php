@@ -322,6 +322,32 @@ function plugin_grcmanager_post_itil_info_section(array $params): void
         'risks'          => $risks,
         'risk_type_name' => PluginGrcmanagerRisk::getTypeName(1),
     ]);
+
+    // Issue #128 : délais de notification réglementaires (NIS2, RGPD).
+    $renderer->display('@grcmanager/itil_regulatory_section.html.twig', [
+        'item'        => $item,
+        'rand'        => $rand,
+        'deadlines'   => GlpiPlugin\Grcmanager\Services\Incident\RegulatoryDeadlines::compute($item->fields),
+        'labels'      => PluginGrcmanagerSecurityIncident::getRegulatoryLabels(),
+        'done_fields' => array_map(
+            static fn (array $deadline): string => $deadline[2],
+            GlpiPlugin\Grcmanager\Services\Incident\RegulatoryDeadlines::DEADLINES
+        ),
+    ]);
+}
+
+/**
+ * Issue #128 : supprime les liens ticket <-> incident de sécurité quand l'un des deux est
+ * supprimé définitivement (Hooks::ITEM_PURGE, setup.php).
+ */
+function plugin_grcmanager_purge_security_incident_links(CommonDBTM $item): void
+{
+    global $DB;
+
+    $field = $item instanceof Ticket ? 'tickets_id' : 'plugin_grcmanager_securityincidents_id';
+    if ($DB->tableExists(PluginGrcmanagerSecurityIncidentTicket::TABLE)) {
+        $DB->delete(PluginGrcmanagerSecurityIncidentTicket::TABLE, [$field => (int) $item->getID()]);
+    }
 }
 
 function plugin_grcmanager_install(): bool

@@ -1,0 +1,61 @@
+{# Issue #128 : délais de notification réglementaires (NIS2, RGPD) d'un incident de sécurité, rendus
+   dans le panneau principal de l'objet ITIL (plugin_grcmanager_post_itil_info_section()). Les dates
+   « notifié le » sont saisies par l'équipe : le plugin n'envoie jamais rien à une autorité. #}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+
+{% set badge_class = {'done': 'bg-green-lt', 'overdue': 'bg-red-lt', 'due_soon': 'bg-orange-lt', 'pending': 'bg-blue-lt'} %}
+{% set badge_icon = {'done': 'ti-circle-check', 'overdue': 'ti-alert-octagon', 'due_soon': 'ti-clock-exclamation', 'pending': 'ti-clock'} %}
+{% set status_labels = {
+   'done': __('Fait', 'grcmanager'),
+   'overdue': __('Dépassé', 'grcmanager'),
+   'due_soon': __('Bientôt', 'grcmanager'),
+   'pending': __('À faire', 'grcmanager')
+} %}
+{% set nb_alerts = deadlines|filter(d => d.status in ['overdue', 'due_soon'])|length %}
+
+<section class="accordion-item" aria-label="{{ __('Notifications réglementaires', 'grcmanager') }}">
+   <div class="accordion-header" id="grcmanager-regulatory-heading">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#grcmanager-regulatory" aria-expanded="true" aria-controls="grcmanager-regulatory">
+         <i class="ti ti-building-bank"></i>
+         <span class="item-title">{{ __('Notifications réglementaires', 'grcmanager') }}</span>
+         {% if nb_alerts > 0 %}
+            <span class="badge bg-red text-red-fg ms-2">{{ nb_alerts }}</span>
+         {% endif %}
+      </button>
+   </div>
+   <div id="grcmanager-regulatory" class="accordion-collapse collapse show" aria-labelledby="grcmanager-regulatory-heading">
+      <div class="accordion-body row m-0 mt-n2">
+         {{ fields.checkboxField(
+            'nis2_applicable',
+            item.fields['nis2_applicable']|default(0),
+            __('Soumis à NIS2', 'grcmanager'),
+            {'full_width': true, 'disabled': not item.canUpdateItem(), 'rand': rand, 'helper': __('Entité essentielle ou importante, incident significatif : alerte précoce sous 24 h, notification sous 72 h, rapport final sous un mois.', 'grcmanager')}
+         ) }}
+         {{ fields.checkboxField(
+            'personal_data_breach',
+            item.fields['personal_data_breach']|default(0),
+            __('Violation de données personnelles', 'grcmanager'),
+            {'full_width': true, 'disabled': not item.canUpdateItem(), 'rand': rand, 'helper': __('RGPD : notification à l\'autorité de contrôle (la CNIL en France) sous 72 h.', 'grcmanager')}
+         ) }}
+
+         {% if deadlines|length %}
+            <div class="col-12 mt-2">
+               <p class="text-muted small mb-2">{{ __('Échéances calculées depuis la date d\'ouverture de l\'incident. Rien n\'est envoyé automatiquement : faites la notification, puis renseignez sa date ici.', 'grcmanager') }}</p>
+            </div>
+            {% for d in deadlines %}
+               {% set notified_field %}
+                  <div class="d-flex flex-wrap align-items-center gap-2">
+                     <span class="badge {{ badge_class[d.status] }}"><i class="ti {{ badge_icon[d.status] }} me-1"></i>{{ status_labels[d.status] }}</span>
+                     <span class="text-muted small">{{ __('au plus tard le %s', 'grcmanager')|format(d.due|formatted_datetime) }}</span>
+                     <input type="datetime-local" class="form-control form-control-sm" style="max-width: 220px;"
+                        name="{{ done_fields[d.key] }}" value="{{ d.done_at ? d.done_at|date('Y-m-d\\TH:i') : '' }}"
+                        aria-label="{{ __('Notifié le', 'grcmanager') }}"
+                        {{ not item.canUpdateItem() ? 'disabled' : '' }}>
+                  </div>
+               {% endset %}
+               {{ fields.field(done_fields[d.key], notified_field, labels[d.key], {'full_width': true}) }}
+            {% endfor %}
+         {% endif %}
+      </div>
+   </div>
+</section>

@@ -7,6 +7,22 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Added
+
+- **Incidents de sécurité : qualification d'un ticket et délais de notification réglementaires**
+  (issue #128).
+  - **Qualifier un ticket** : l'onglet « Incident de sécurité » d'un ticket crée l'incident en
+    reprenant titre, description, date, demandeur et éléments liés, puis relie les deux (onglet
+    « Tickets liés » sur l'incident). Le ticket garde son statut et son attribution, et reçoit un
+    suivi privé avec le lien. Un ticket n'est qualifié qu'une fois.
+  - **Notifications réglementaires** : nouvelle section sur l'incident, avec les cases « Soumis à
+    NIS2 » et « Violation de données personnelles ». Les échéances sont calculées depuis l'ouverture
+    de l'incident : NIS2 alerte précoce 24 h, notification 72 h, rapport final 1 mois ; RGPD 72 h.
+    Chacune a son statut (à faire, bientôt, dépassé, fait) et la date où l'équipe a notifié.
+  - **Tâche planifiée horaire « regulatorydeadlines »** : un suivi privé est ajouté sur l'incident
+    quand une échéance approche puis quand elle est dépassée, une seule fois par niveau. Ce suivi
+    prévient les acteurs par les notifications GLPI habituelles. Rien n'est envoyé à une autorité.
+
 ## [2.3.0] - 2026-10-11
 
 ### Added

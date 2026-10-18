@@ -134,6 +134,9 @@ final class Installer
 
     private const SECURITY_INCIDENTS_ITEMS_TABLE = 'glpi_plugin_grcmanager_securityincidents_items';
 
+    // Issue #128 : tickets GLPI qualifiés en incident de sécurité.
+    private const SECURITY_INCIDENTS_TICKETS_TABLE = 'glpi_plugin_grcmanager_securityincidents_tickets';
+
     private const SECURITY_INCIDENT_TASKS_TABLE = 'glpi_plugin_grcmanager_securityincidenttasks';
 
     private const SECURITY_INCIDENT_CVES_TABLE = 'glpi_plugin_grcmanager_securityincidentcves';
@@ -1008,6 +1011,13 @@ final class Installer
                 `lessons_learned` text,
                 `plugin_grcmanager_risks_id` int {$keySign} NOT NULL DEFAULT 0
                     COMMENT 'Lien optionnel zero-ou-un vers un risque, 0 = aucun',
+                `nis2_applicable` tinyint NOT NULL DEFAULT 0,
+                `personal_data_breach` tinyint NOT NULL DEFAULT 0,
+                `nis2_early_warning_at` timestamp NULL DEFAULT NULL,
+                `nis2_notification_at` timestamp NULL DEFAULT NULL,
+                `nis2_final_report_at` timestamp NULL DEFAULT NULL,
+                `gdpr_notification_at` timestamp NULL DEFAULT NULL,
+                `regulatory_alerts` text COMMENT 'Alertes deja envoyees, echeance:statut (issue #128)',
                 PRIMARY KEY (`id`),
                 KEY `entities_id` (`entities_id`),
                 KEY `is_recursive` (`is_recursive`),
@@ -1233,6 +1243,36 @@ final class Installer
             $migration->addKey('glpi_profiles', 'plugingrcmanagersecurityincidenttemplates_id');
         }
 
+        // Issue #128 : délais de notification réglementaires (NIS2, RGPD) et qualification d'un
+        // ticket en incident de sécurité. Sans 'after' : la mise à jour depuis une version
+        // antérieure doit fonctionner quel que soit l'ordre des colonnes existantes.
+        foreach (['nis2_applicable', 'personal_data_breach'] as $flag) {
+            if (!$DB->fieldExists(self::SECURITY_INCIDENTS_TABLE, $flag)) {
+                $migration->addField(self::SECURITY_INCIDENTS_TABLE, $flag, 'bool', ['value' => 0]);
+            }
+        }
+        foreach (['nis2_early_warning_at', 'nis2_notification_at', 'nis2_final_report_at', 'gdpr_notification_at'] as $doneField) {
+            if (!$DB->fieldExists(self::SECURITY_INCIDENTS_TABLE, $doneField)) {
+                $migration->addField(self::SECURITY_INCIDENTS_TABLE, $doneField, 'timestamp', ['null' => true]);
+            }
+        }
+        if (!$DB->fieldExists(self::SECURITY_INCIDENTS_TABLE, 'regulatory_alerts')) {
+            $migration->addField(self::SECURITY_INCIDENTS_TABLE, 'regulatory_alerts', 'text');
+        }
+        if (!$DB->tableExists(self::SECURITY_INCIDENTS_TICKETS_TABLE)) {
+            $query = "CREATE TABLE `" . self::SECURITY_INCIDENTS_TICKETS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_securityincidents_id` int {$keySign} NOT NULL DEFAULT 0,
+                `tickets_id` int {$keySign} NOT NULL DEFAULT 0,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity` (`plugin_grcmanager_securityincidents_id`, `tickets_id`),
+                KEY `tickets_id` (`tickets_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+        }
+
         $migration->executeMigration();
 
         // Migration légère->fusionnée (voir le commentaire au-dessus de la création de
@@ -1435,6 +1475,19 @@ final class Installer
             [
                 'comment' => 'Notifie le propriétaire de chaque politique de sécurité dont la '
                     . 'prochaine date de revue est dépassée ou approche',
+                'mode'    => CronTask::MODE_EXTERNAL,
+            ]
+        );
+
+        // Issue #128 : délais de notification réglementaires (NIS2, RGPD) des incidents de
+        // sécurité — suivi sur l'incident quand une échéance approche ou est dépassée (voir
+        // PluginGrcmanagerSecurityIncident::cronRegulatorydeadlines()).
+        CronTask::Register(
+            'PluginGrcmanagerSecurityIncident',
+            'regulatorydeadlines',
+            HOUR_TIMESTAMP,
+            [
+                'comment' => 'Signale par un suivi les délais de notification NIS2 / RGPD proches ou dépassés',
                 'mode'    => CronTask::MODE_EXTERNAL,
             ]
         );
@@ -2264,6 +2317,7 @@ final class Installer
         $migration->dropTable(self::SECURITY_INCIDENT_COSTS_TABLE);
         $migration->dropTable(self::SECURITY_INCIDENT_CVES_TABLE);
         $migration->dropTable(self::SECURITY_INCIDENT_TASKS_TABLE);
+        $migration->dropTable(self::SECURITY_INCIDENTS_TICKETS_TABLE);
         $migration->dropTable(self::SECURITY_INCIDENTS_ITEMS_TABLE);
         $migration->dropTable(self::SECURITY_INCIDENTS_SUPPLIERS_TABLE);
         $migration->dropTable(self::SECURITY_INCIDENTS_GROUPS_TABLE);

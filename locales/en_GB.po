@@ -1852,3 +1852,100 @@ msgstr "Approver"
 
 msgid "Signature"
 msgstr "Signature"
+
+msgid "Ce ticket n'est lié à aucun incident de sécurité."
+msgstr "This ticket is not linked to any security incident."
+
+msgid "Qualifier en incident de sécurité"
+msgstr "Qualify as a security incident"
+
+msgid "Crée un incident de sécurité à partir de ce ticket (titre, description, date, demandeur, éléments liés) et les relie. Le ticket n'est pas modifié : il garde son statut et son attribution, et reçoit un suivi privé avec le lien."
+msgstr "Creates a security incident from this ticket (title, description, date, requester, linked items) and links them. The ticket is not changed: it keeps its status and assignment, and receives a private follow-up with the link."
+
+msgid "Aucun ticket n'a été qualifié en cet incident. Depuis un ticket, l'onglet « Incident de sécurité » permet de le faire."
+msgstr "No ticket has been qualified as this incident. From a ticket, the “Security incident” tab does it."
+
+msgid "Fait"
+msgstr "Done"
+
+msgid "Dépassé"
+msgstr "Overdue"
+
+msgid "Bientôt"
+msgstr "Due soon"
+
+msgid "À faire"
+msgstr "To do"
+
+msgid "Notifications réglementaires"
+msgstr "Regulatory notifications"
+
+msgid "Soumis à NIS2"
+msgstr "Subject to NIS2"
+
+msgid "Violation de données personnelles"
+msgstr "Personal data breach"
+
+msgid "Entité essentielle ou importante, incident significatif : alerte précoce sous 24 h, notification sous 72 h, rapport final sous un mois."
+msgstr "Essential or important entity, significant incident: early warning within 24 h, notification within 72 h, final report within one month."
+
+msgid "RGPD : notification à l'autorité de contrôle (la CNIL en France) sous 72 h."
+msgstr "GDPR: notification to the supervisory authority (the CNIL in France) within 72 h."
+
+msgid "Échéances calculées depuis la date d'ouverture de l'incident. Rien n'est envoyé automatiquement : faites la notification, puis renseignez sa date ici."
+msgstr "Deadlines computed from the incident's opening date. Nothing is sent automatically: make the notification, then enter its date here."
+
+#, php-format
+msgid "au plus tard le %s"
+msgstr "no later than %s"
+
+msgid "Notifié le"
+msgstr "Notified on"
+
+msgid "L'incident de sécurité n'a pas pu être créé."
+msgstr "The security incident could not be created."
+
+#, php-format
+msgid "Ticket qualifié en incident de sécurité n° %d."
+msgstr "Ticket qualified as security incident no. %d."
+
+#, php-format
+msgid "%s : notifié le"
+msgstr "%s: notified on"
+
+msgid "NIS2 — alerte précoce (24 h)"
+msgstr "NIS2 — early warning (24 h)"
+
+msgid "NIS2 — notification d'incident (72 h)"
+msgstr "NIS2 — incident notification (72 h)"
+
+msgid "NIS2 — rapport final (1 mois)"
+msgstr "NIS2 — final report (1 month)"
+
+msgid "RGPD — notification à l'autorité de contrôle (72 h)"
+msgstr "GDPR — notification to the supervisory authority (72 h)"
+
+msgid "Signale par un suivi les délais de notification NIS2 / RGPD proches ou dépassés"
+msgstr "Reports NIS2 / GDPR notification deadlines that are near or past with a follow-up"
+
+#, php-format
+msgid "Échéance dépassée : « %1$s » devait être faite au plus tard le %2$s."
+msgstr "Deadline passed: “%1$s” was due no later than %2$s."
+
+#, php-format
+msgid "Échéance proche : « %1$s » doit être faite au plus tard le %2$s."
+msgstr "Deadline approaching: “%1$s” is due no later than %2$s."
+
+msgid "Rien n'est envoyé automatiquement à l'autorité : faites la notification, puis renseignez sa date dans « Notifications réglementaires » sur l'incident."
+msgstr "Nothing is sent to the authority automatically: make the notification, then enter its date in “Regulatory notifications” on the incident."
+
+msgid "Tickets liés"
+msgstr "Linked tickets"
+
+#, php-format
+msgid "Ce ticket a été qualifié en incident de sécurité n° %d : la suite de son traitement de sécurité (gravité, impact, délais de notification NIS2 / RGPD) se fait sur l'incident."
+msgstr "This ticket was qualified as security incident no. %d: its security handling (severity, impact, NIS2 / GDPR notification deadlines) continues on the incident."
+
+#, php-format
+msgid "Ouvrir l'incident de sécurité n° %d"
+msgstr "Open security incident no. %d"
