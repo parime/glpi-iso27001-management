@@ -2065,3 +2065,246 @@ msgstr "Oui = 1 point, partiel = ½, non = 0 ; « sans objet » ne compte pas. L
 
 msgid "Enregistrer le questionnaire"
 msgstr "Enregistrer le questionnaire"
+
+msgid "Pour chaque compte de votre équipe, validez ses accès ou demandez une modification ou un retrait en précisant quoi changer. Une demande crée un ticket pour l'équipe support : aucun droit n'est modifié automatiquement."
+msgstr "Pour chaque compte de votre équipe, validez ses accès ou demandez une modification ou un retrait en précisant quoi changer. Une demande crée un ticket pour l'équipe support : aucun droit n'est modifié automatiquement."
+
+msgid "Aucune revue des accès ne vous attend."
+msgstr "Aucune revue des accès ne vous attend."
+
+#, php-format
+msgid "Échéance : %s"
+msgstr "Échéance : %s"
+
+#, php-format
+msgid "%1$d compte(s) revu(s) sur %2$d"
+msgstr "%1$d compte(s) revu(s) sur %2$d"
+
+msgid "Enregistrer les décisions"
+msgstr "Enregistrer les décisions"
+
+msgid "Entité"
+msgstr "Entité"
+
+msgid "(et sous-entités)"
+msgstr "(et sous-entités)"
+
+msgid "Pilote"
+msgstr "Pilote"
+
+msgid "Fréquence"
+msgstr "Fréquence"
+
+msgid "Mesure de la SoA"
+msgstr "Mesure de la SoA"
+
+msgid "Début / échéance"
+msgstr "Début / échéance"
+
+msgid "Lancée le"
+msgstr "Lancée le"
+
+msgid "Clôturée le"
+msgstr "Clôturée le"
+
+msgid "Comptes revus"
+msgstr "Comptes revus"
+
+msgid "Décisions par compte"
+msgstr "Décisions par compte"
+
+msgid "Compte"
+msgstr "Compte"
+
+msgid "Profils et groupes au lancement"
+msgstr "Profils et groupes au lancement"
+
+msgid "Décision"
+msgstr "Décision"
+
+msgid "Ticket"
+msgstr "Ticket"
+
+msgid "Non revu"
+msgstr "Non revu"
+
+msgid "Aucune campagne de revue des accès n'est rattachée à cette mesure."
+msgstr "Aucune campagne de revue des accès n'est rattachée à cette mesure."
+
+msgid "Préparer une campagne"
+msgstr "Préparer une campagne"
+
+msgid "Campagne"
+msgstr "Campagne"
+
+msgid "Date de début"
+msgstr "Date de début"
+
+msgid "Rapport"
+msgstr "Rapport"
+
+msgid "Rapport PDF"
+msgstr "Rapport PDF"
+
+msgid "Le lancement liste les comptes actifs de l'entité avec leurs profils et groupes GLPI, désigne leur responsable (responsable hiérarchique, sinon responsable de groupe, sinon le pilote) et le prévient par notification."
+msgstr "Le lancement liste les comptes actifs de l'entité avec leurs profils et groupes GLPI, désigne leur responsable (responsable hiérarchique, sinon responsable de groupe, sinon le pilote) et le prévient par notification."
+
+msgid "Lancer la campagne"
+msgstr "Lancer la campagne"
+
+msgid "Échéance dépassée : les responsables en retard sont relancés chaque semaine."
+msgstr "Échéance dépassée : les responsables en retard sont relancés chaque semaine."
+
+msgid "Mes revues d'accès"
+msgstr "Mes revues d'accès"
+
+msgid "Clôturer la campagne ? Les comptes non revus resteront « Non revu » dans le rapport."
+msgstr "Clôturer la campagne ? Les comptes non revus resteront « Non revu » dans le rapport."
+
+msgid "Clôturer et archiver le rapport"
+msgstr "Clôturer et archiver le rapport"
+
+msgid "Préparer la campagne suivante"
+msgstr "Préparer la campagne suivante"
+
+msgid "Profils et groupes"
+msgstr "Profils et groupes"
+
+msgid "Obligatoire pour modifier ou retirer"
+msgstr "Obligatoire pour modifier ou retirer"
+
+#, php-format
+msgid "%d décision(s) enregistrée(s)."
+msgstr "%d décision(s) enregistrée(s)."
+
+#, php-format
+msgid "Campagne lancée : %d compte(s) à revoir, les responsables sont prévenus."
+msgstr "Campagne lancée : %d compte(s) à revoir, les responsables sont prévenus."
+
+msgid "Campagne clôturée, rapport PDF archivé dans les documents."
+msgstr "Campagne clôturée, rapport PDF archivé dans les documents."
+
+msgid "En préparation"
+msgstr "En préparation"
+
+msgid "Trimestrielle"
+msgstr "Trimestrielle"
+
+msgid "Semestrielle"
+msgstr "Semestrielle"
+
+msgid "Annuelle"
+msgstr "Annuelle"
+
+msgid "À revoir"
+msgstr "À revoir"
+
+msgid "Accès validés"
+msgstr "Accès validés"
+
+msgid "À modifier"
+msgstr "À modifier"
+
+msgid "À retirer"
+msgstr "À retirer"
+
+msgid "responsable hiérarchique"
+msgstr "responsable hiérarchique"
+
+msgid "responsable du groupe"
+msgstr "responsable du groupe"
+
+msgid "pilote (aucun responsable)"
+msgstr "pilote (aucun responsable)"
+
+msgid "Comptes à revoir"
+msgstr "Comptes à revoir"
+
+msgid "Le nom de la campagne est obligatoire."
+msgstr "Le nom de la campagne est obligatoire."
+
+msgid "Date de clôture"
+msgstr "Date de clôture"
+
+msgid "Ex. : Revue des accès T4 2026"
+msgstr "Ex. : Revue des accès T4 2026"
+
+msgid "Après l'enregistrement, ouvrez l'onglet « Comptes à revoir » pour lancer la campagne. Les responsables sont prévenus par notification ; aucun droit n'est modifié par le plugin."
+msgstr "Après l'enregistrement, ouvrez l'onglet « Comptes à revoir » pour lancer la campagne. Les responsables sont prévenus par notification ; aucun droit n'est modifié par le plugin."
+
+msgid "Aucun compte actif n'a de profil dans cette entité."
+msgstr "Aucun compte actif n'a de profil dans cette entité."
+
+msgid "Cette ligne n'appartient pas à une campagne en cours."
+msgstr "Cette ligne n'appartient pas à une campagne en cours."
+
+msgid "Cette ligne est confiée à un autre responsable."
+msgstr "Cette ligne est confiée à un autre responsable."
+
+msgid "Décision inconnue."
+msgstr "Décision inconnue."
+
+msgid "Un ticket a déjà été créé pour ce compte : la décision ne peut plus changer."
+msgstr "Un ticket a déjà été créé pour ce compte : la décision ne peut plus changer."
+
+msgid "Précisez ce qu'il faut modifier ou retirer."
+msgstr "Précisez ce qu'il faut modifier ou retirer."
+
+#, php-format
+msgid "Revue des accès : retirer les accès de %s"
+msgstr "Revue des accès : retirer les accès de %s"
+
+#, php-format
+msgid "Revue des accès : modifier les accès de %s"
+msgstr "Revue des accès : modifier les accès de %s"
+
+#, php-format
+msgid "Demande issue de la campagne « %1$s », par %2$s."
+msgstr "Demande issue de la campagne « %1$s », par %2$s."
+
+msgid "Demande"
+msgstr "Demande"
+
+msgid "Profils au lancement"
+msgstr "Profils au lancement"
+
+msgid "Groupes au lancement"
+msgstr "Groupes au lancement"
+
+msgid "Le plugin GRC ne modifie aucun droit : appliquez la demande puis résolvez ce ticket."
+msgstr "Le plugin GRC ne modifie aucun droit : appliquez la demande puis résolvez ce ticket."
+
+#, php-format
+msgid "Revue des accès : %s"
+msgstr "Revue des accès : %s"
+
+#, php-format
+msgid "Rapport de revue des accès - %s"
+msgstr "Rapport de revue des accès - %s"
+
+#, php-format
+msgid "Revue des accès du %s"
+msgstr "Revue des accès du %s"
+
+msgid "Relance des responsables en retard sur la revue des accès"
+msgstr "Relance des responsables en retard sur la revue des accès"
+
+msgid "Revue des accès à réaliser"
+msgstr "Revue des accès à réaliser"
+
+msgid "Relance de la revue des accès"
+msgstr "Relance de la revue des accès"
+
+msgid "Responsables ayant des comptes à revoir"
+msgstr "Responsables ayant des comptes à revoir"
+
+msgid "Revue des accès"
+msgid_plural "Revues des accès"
+msgstr[0] "Revue des accès"
+msgstr[1] "Revues des accès"
+
+msgid "Décision et commentaire"
+msgstr "Décision et commentaire"
+
+msgid "Commentaire (obligatoire pour modifier ou retirer)"
+msgstr "Commentaire (obligatoire pour modifier ou retirer)"

@@ -2065,3 +2065,246 @@ msgstr "Yes = 1 point, partial = ½, no = 0; \"not applicable\" is not counted. 
 
 msgid "Enregistrer le questionnaire"
 msgstr "Save questionnaire"
+
+msgid "Pour chaque compte de votre équipe, validez ses accès ou demandez une modification ou un retrait en précisant quoi changer. Une demande crée un ticket pour l'équipe support : aucun droit n'est modifié automatiquement."
+msgstr "For each account in your team, approve its access or request a change or removal, stating what to change. A request creates a ticket for the support team: no right is changed automatically."
+
+msgid "Aucune revue des accès ne vous attend."
+msgstr "No access review is waiting for you."
+
+#, php-format
+msgid "Échéance : %s"
+msgstr "Due: %s"
+
+#, php-format
+msgid "%1$d compte(s) revu(s) sur %2$d"
+msgstr "%1$d of %2$d account(s) reviewed"
+
+msgid "Enregistrer les décisions"
+msgstr "Save decisions"
+
+msgid "Entité"
+msgstr "Entity"
+
+msgid "(et sous-entités)"
+msgstr "(and sub-entities)"
+
+msgid "Pilote"
+msgstr "Owner"
+
+msgid "Fréquence"
+msgstr "Frequency"
+
+msgid "Mesure de la SoA"
+msgstr "SoA control"
+
+msgid "Début / échéance"
+msgstr "Start / due date"
+
+msgid "Lancée le"
+msgstr "Launched on"
+
+msgid "Clôturée le"
+msgstr "Closed on"
+
+msgid "Comptes revus"
+msgstr "Accounts reviewed"
+
+msgid "Décisions par compte"
+msgstr "Decisions per account"
+
+msgid "Compte"
+msgstr "Account"
+
+msgid "Profils et groupes au lancement"
+msgstr "Profiles and groups at launch"
+
+msgid "Décision"
+msgstr "Decision"
+
+msgid "Ticket"
+msgstr "Ticket"
+
+msgid "Non revu"
+msgstr "Not reviewed"
+
+msgid "Aucune campagne de revue des accès n'est rattachée à cette mesure."
+msgstr "No access review campaign is linked to this control."
+
+msgid "Préparer une campagne"
+msgstr "Prepare a campaign"
+
+msgid "Campagne"
+msgstr "Campaign"
+
+msgid "Date de début"
+msgstr "Start date"
+
+msgid "Rapport"
+msgstr "Report"
+
+msgid "Rapport PDF"
+msgstr "PDF report"
+
+msgid "Le lancement liste les comptes actifs de l'entité avec leurs profils et groupes GLPI, désigne leur responsable (responsable hiérarchique, sinon responsable de groupe, sinon le pilote) et le prévient par notification."
+msgstr "Launching lists the entity's active accounts with their GLPI profiles and groups, assigns their reviewer (line manager, otherwise group manager, otherwise the campaign owner) and notifies them."
+
+msgid "Lancer la campagne"
+msgstr "Launch the campaign"
+
+msgid "Échéance dépassée : les responsables en retard sont relancés chaque semaine."
+msgstr "Deadline passed: late reviewers are reminded every week."
+
+msgid "Mes revues d'accès"
+msgstr "My access reviews"
+
+msgid "Clôturer la campagne ? Les comptes non revus resteront « Non revu » dans le rapport."
+msgstr "Close the campaign? Accounts not reviewed will remain \"Not reviewed\" in the report."
+
+msgid "Clôturer et archiver le rapport"
+msgstr "Close and archive the report"
+
+msgid "Préparer la campagne suivante"
+msgstr "Prepare the next campaign"
+
+msgid "Profils et groupes"
+msgstr "Profiles and groups"
+
+msgid "Obligatoire pour modifier ou retirer"
+msgstr "Required to change or remove"
+
+#, php-format
+msgid "%d décision(s) enregistrée(s)."
+msgstr "%d decision(s) saved."
+
+#, php-format
+msgid "Campagne lancée : %d compte(s) à revoir, les responsables sont prévenus."
+msgstr "Campaign launched: %d account(s) to review, reviewers have been notified."
+
+msgid "Campagne clôturée, rapport PDF archivé dans les documents."
+msgstr "Campaign closed, PDF report archived in the documents."
+
+msgid "En préparation"
+msgstr "In preparation"
+
+msgid "Trimestrielle"
+msgstr "Quarterly"
+
+msgid "Semestrielle"
+msgstr "Half-yearly"
+
+msgid "Annuelle"
+msgstr "Yearly"
+
+msgid "À revoir"
+msgstr "To review"
+
+msgid "Accès validés"
+msgstr "Access approved"
+
+msgid "À modifier"
+msgstr "To change"
+
+msgid "À retirer"
+msgstr "To remove"
+
+msgid "responsable hiérarchique"
+msgstr "line manager"
+
+msgid "responsable du groupe"
+msgstr "group manager"
+
+msgid "pilote (aucun responsable)"
+msgstr "owner (no manager)"
+
+msgid "Comptes à revoir"
+msgstr "Accounts to review"
+
+msgid "Le nom de la campagne est obligatoire."
+msgstr "The campaign name is required."
+
+msgid "Date de clôture"
+msgstr "Closing date"
+
+msgid "Ex. : Revue des accès T4 2026"
+msgstr "E.g.: Access review Q4 2026"
+
+msgid "Après l'enregistrement, ouvrez l'onglet « Comptes à revoir » pour lancer la campagne. Les responsables sont prévenus par notification ; aucun droit n'est modifié par le plugin."
+msgstr "Once saved, open the \"Accounts to review\" tab to launch the campaign. Reviewers are notified; the plugin never changes any right."
+
+msgid "Aucun compte actif n'a de profil dans cette entité."
+msgstr "No active account has a profile in this entity."
+
+msgid "Cette ligne n'appartient pas à une campagne en cours."
+msgstr "This line does not belong to an ongoing campaign."
+
+msgid "Cette ligne est confiée à un autre responsable."
+msgstr "This line is assigned to another reviewer."
+
+msgid "Décision inconnue."
+msgstr "Unknown decision."
+
+msgid "Un ticket a déjà été créé pour ce compte : la décision ne peut plus changer."
+msgstr "A ticket has already been created for this account: the decision can no longer change."
+
+msgid "Précisez ce qu'il faut modifier ou retirer."
+msgstr "State what must be changed or removed."
+
+#, php-format
+msgid "Revue des accès : retirer les accès de %s"
+msgstr "Access review: remove the access of %s"
+
+#, php-format
+msgid "Revue des accès : modifier les accès de %s"
+msgstr "Access review: change the access of %s"
+
+#, php-format
+msgid "Demande issue de la campagne « %1$s », par %2$s."
+msgstr "Request from campaign \"%1$s\", by %2$s."
+
+msgid "Demande"
+msgstr "Request"
+
+msgid "Profils au lancement"
+msgstr "Profiles at launch"
+
+msgid "Groupes au lancement"
+msgstr "Groups at launch"
+
+msgid "Le plugin GRC ne modifie aucun droit : appliquez la demande puis résolvez ce ticket."
+msgstr "The GRC plugin changes no right: apply the request, then solve this ticket."
+
+#, php-format
+msgid "Revue des accès : %s"
+msgstr "Access review: %s"
+
+#, php-format
+msgid "Rapport de revue des accès - %s"
+msgstr "Access review report - %s"
+
+#, php-format
+msgid "Revue des accès du %s"
+msgstr "Access review of %s"
+
+msgid "Relance des responsables en retard sur la revue des accès"
+msgstr "Reminds reviewers who are late on an access review"
+
+msgid "Revue des accès à réaliser"
+msgstr "Access review to complete"
+
+msgid "Relance de la revue des accès"
+msgstr "Access review reminder"
+
+msgid "Responsables ayant des comptes à revoir"
+msgstr "Reviewers with accounts to review"
+
+msgid "Revue des accès"
+msgid_plural "Revues des accès"
+msgstr[0] "Access review"
+msgstr[1] "Access reviews"
+
+msgid "Décision et commentaire"
+msgstr "Decision and comment"
+
+msgid "Commentaire (obligatoire pour modifier ou retirer)"
+msgstr "Comment (required to change or remove)"

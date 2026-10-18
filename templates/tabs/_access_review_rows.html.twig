@@ -1,0 +1,56 @@
+{# Issue #126 : lignes de revue (onglet de la campagne et « Mes revues d'accès »).
+   Paramètres : lines, decisions, sources, can_decide, show_reviewer #}
+{% set decision_class = {'pending': 'bg-secondary-lt', 'keep': 'bg-green-lt', 'modify': 'bg-orange-lt', 'remove': 'bg-red-lt'} %}
+<div class="table-responsive">
+<table class="table table-sm table-vcenter mb-0">
+   <thead>
+      <tr>
+         <th>{{ __('Compte', 'grcmanager') }}</th>
+         <th>{{ __('Profils et groupes', 'grcmanager') }}</th>
+         {% if show_reviewer %}<th>{{ __('Responsable', 'grcmanager') }}</th>{% endif %}
+         <th>{{ __('Décision et commentaire', 'grcmanager') }}</th>
+      </tr>
+   </thead>
+   <tbody>
+      {% for line in lines %}
+         {% set locked = line.tickets_id > 0 %}
+         <tr>
+            <td class="text-nowrap"><i class="ti ti-user me-1"></i>{{ line.user_name }}</td>
+            <td>
+               {% for p in line.profiles_list %}<div><i class="ti ti-id-badge-2 me-1 text-muted"></i>{{ p }}</div>{% endfor %}
+               {% if line.groups_list is not empty %}
+                  <div class="text-muted small"><i class="ti ti-users me-1"></i>{{ line.groups_list|join(', ') }}</div>
+               {% endif %}
+            </td>
+            {% if show_reviewer %}
+               <td class="text-nowrap">{{ line.reviewer_name }}<div class="text-muted small">{{ sources[line.reviewer_source]|default('') }}</div></td>
+            {% endif %}
+            <td style="min-width: 300px">
+               {% if can_decide and not locked %}
+                  <div class="btn-group btn-group-sm" role="group">
+                     {% for value in ['keep', 'modify', 'remove'] %}
+                        <input type="radio" class="btn-check" name="decisions[{{ line.id }}]" id="d-{{ line.id }}-{{ value }}" value="{{ value }}" {{ line.decision == value ? 'checked' : '' }}>
+                        <label class="btn btn-outline-secondary" for="d-{{ line.id }}-{{ value }}">{{ decisions[value] }}</label>
+                     {% endfor %}
+                  </div>
+               {% else %}
+                  <span class="badge {{ decision_class[line.decision] }}">{{ decisions[line.decision] }}</span>
+               {% endif %}
+               {% if line.decided_by_name %}
+                  <div class="text-muted small">{{ line.decided_by_name }}, {{ line.date_decision|formatted_datetime }}</div>
+               {% endif %}
+               {% if can_decide and not locked %}
+                  <input type="text" class="form-control form-control-sm mt-1" name="comments[{{ line.id }}]" value="{{ line.comment }}"
+                     placeholder="{{ __('Commentaire (obligatoire pour modifier ou retirer)', 'grcmanager') }}">
+               {% elseif line.comment %}
+                  <div class="mt-1"><i class="ti ti-message me-1 text-muted"></i>{{ line.comment }}</div>
+               {% endif %}
+               {% if line.ticket_url %}
+                  <div><a href="{{ line.ticket_url }}"><i class="ti ti-ticket me-1"></i>{{ __('Ticket n° %d', 'grcmanager')|format(line.tickets_id) }}</a></div>
+               {% endif %}
+            </td>
+         </tr>
+      {% endfor %}
+   </tbody>
+</table>
+</div>

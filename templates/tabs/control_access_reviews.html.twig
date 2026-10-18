@@ -1,0 +1,32 @@
+{# Issue #126 : campagnes de revue des accès rattachées à une mesure de la SoA #}
+<div class="card">
+   <div class="card-body">
+      {% if campaigns is empty %}
+         <p class="text-muted mb-2"><i class="ti ti-user-check me-1"></i>{{ __('Aucune campagne de revue des accès n\'est rattachée à cette mesure.', 'grcmanager') }}</p>
+         <a class="btn btn-sm btn-outline-primary" href="{{ new_url }}"><i class="ti ti-plus me-1"></i>{{ __('Préparer une campagne', 'grcmanager') }}</a>
+      {% else %}
+         <table class="table table-sm table-vcenter mb-0">
+            <thead><tr>
+               <th>{{ __('Campagne', 'grcmanager') }}</th><th>{{ __('Statut', 'grcmanager') }}</th>
+               <th>{{ __('Date de début', 'grcmanager') }}</th><th>{{ __('Comptes revus', 'grcmanager') }}</th>
+               <th>{{ __('Rapport', 'grcmanager') }}</th>
+            </tr></thead>
+            <tbody>
+               {% for c in campaigns %}
+                  <tr>
+                     <td><a href="{{ c.url }}"><i class="ti ti-user-check me-1"></i>{{ c.name }}</a></td>
+                     <td>{{ c.status }}</td>
+                     <td>{{ c.date_start ? c.date_start|formatted_date : '—' }}</td>
+                     <td>{{ c.progress.done }} / {{ c.progress.total }}</td>
+                     <td>
+                        {% if c.report_url %}
+                           <a href="{{ c.report_url }}"><i class="ti ti-file-type-pdf me-1"></i>{{ __('Rapport PDF', 'grcmanager') }}</a>
+                        {% else %}—{% endif %}
+                     </td>
+                  </tr>
+               {% endfor %}
+            </tbody>
+         </table>
+      {% endif %}
+   </div>
+</div>

@@ -34,6 +34,8 @@ final class DefaultSearchColumns
         // Sprint 6 (formations et revues de direction), same "id first" convention.
         'PluginGrcmanagerTraining'         => [8, 1, 2, 3, 4, 5, 6],
         'PluginGrcmanagerManagementReview' => [6, 1, 2, 3, 4, 5],
+        // Issue #126 : campagne (lien), statut, fréquence, dates, pilote, entité.
+        'PluginGrcmanagerAccessReview'     => [1, 2, 3, 4, 5, 6, 80],
         // Issue #28 (bibliothèque de politiques de sécurité versionnées, A.5.1), same "id first"
         // convention.
         'PluginGrcmanagerPolicy'           => [8, 1, 2, 3, 4, 5, 6],
