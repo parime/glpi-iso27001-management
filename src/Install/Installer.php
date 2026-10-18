@@ -1226,6 +1226,20 @@ final class Installer
 
             $DB->doQuery($query) or die($DB->error());
         }
+        // GLPI 12 : CommonITILCost lit aussi date_creation, date_mod, users_id et
+        // users_id_lastupdater (comme glpi_ticketcosts) ; sans elles, l'onglet « Coûts » d'un
+        // incident de sécurité échouait (HTTP 500). Ajoutées aussi sur GLPI 11, sans effet.
+        $costFields = [
+            'date_creation'        => ['timestamp', ['null' => true]],
+            'date_mod'             => ['timestamp', ['null' => true]],
+            'users_id'             => ['fkey', []],
+            'users_id_lastupdater' => ['fkey', []],
+        ];
+        foreach ($costFields as $field => [$type, $options]) {
+            if (!$DB->fieldExists(self::SECURITY_INCIDENT_COSTS_TABLE, $field)) {
+                $migration->addField(self::SECURITY_INCIDENT_COSTS_TABLE, $field, $type, $options);
+            }
+        }
 
         if (!$DB->tableExists(self::SECURITY_INCIDENT_TEMPLATES_TABLE)) {
             $query = "CREATE TABLE `" . self::SECURITY_INCIDENT_TEMPLATES_TABLE . "` (
