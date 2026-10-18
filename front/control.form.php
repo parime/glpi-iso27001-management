@@ -36,22 +36,10 @@ if (isset($_POST['add'])) {
     $item->update($_POST);
     Html::back();
 } else {
-    Session::checkRight(PluginGrcmanagerControl::$rightname, READ);
-
-    Html::header(
-        PluginGrcmanagerControl::getTypeName(1),
-        $_SERVER['PHP_SELF'],
-        'grcmanager',
-        PluginGrcmanagerControl::class
+    // Issue #126 : displayFullPageForItem() (comme front/policy.form.php) affiche la barre
+    // d'onglets (revues des accès, documents) ; showForm() seul ne la rend pas.
+    PluginGrcmanagerControl::displayFullPageForItem(
+        $_GET['id'] ?? 0,
+        ['central' => ['grcmanager', PluginGrcmanagerControl::class], 'helpdesk' => []]
     );
-
-    $id = (int) ($_GET['id'] ?? 0);
-
-    if ($id > 0) {
-        $item->getFromDB($id);
-    }
-
-    $item->showForm($id);
-
-    Html::footer();
 }

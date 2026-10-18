@@ -9,6 +9,26 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Revue périodique des accès : campagne de validation par les responsables** (issue #126).
+  - **Campagne** (menu « Revues des accès ») : entité, fréquence (trimestrielle, semestrielle,
+    annuelle), échéance, pilote et mesure de la SoA (A.5.18 « Droits d'accès » par défaut).
+  - **Lancement** : chaque compte actif de l'entité est figé avec ses profils et groupes GLPI.
+    Il est confié à son responsable hiérarchique, sinon au responsable d'un de ses groupes, sinon
+    au pilote. Les responsables sont prévenus par notification.
+  - **« Mes revues d'accès »** : chaque responsable, même sans droit sur le plugin, valide ou
+    demande une modification ou un retrait, ligne par ligne, avec un commentaire obligatoire pour
+    une demande.
+  - **Ticket, jamais de changement de droit** : une demande de modification ou de retrait crée un
+    ticket pour l'équipe support. La ligne est alors figée. Le plugin ne modifie aucun droit,
+    compte ni statut.
+  - **Relances** : la tâche quotidienne « accessreviewreminder » relance au plus une fois par
+    semaine les responsables qui ont encore des comptes à revoir après l'échéance.
+  - **Clôture** : un rapport PDF (comptes, profils, décisions, tickets, comptes non revus) est
+    archivé comme Document sur la campagne et sur la mesure de la SoA. La campagne suivante se
+    prépare en un clic d'après la fréquence.
+  - **Mesures de la SoA** : la fiche d'une mesure a désormais des onglets « Revues des accès » et
+    « Documents », et affiche son code dans l'en-tête.
+
 - **Évaluation des fournisseurs : questionnaire de sécurité, contrats et ticket de réévaluation**
   (issue #127).
   - **Onglet « Questionnaire de sécurité »** sur le risque fournisseur : douze questions

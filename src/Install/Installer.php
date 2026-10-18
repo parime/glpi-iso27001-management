@@ -90,6 +90,10 @@ final class Installer
     // derivation rule.
     private const TRAININGS_TABLE = 'glpi_plugin_grcmanager_trainings';
     private const TRAININGS_USERS_TABLE = 'glpi_plugin_grcmanager_trainings_users';
+
+    // Issue #126 (revue périodique des accès), même dérivation de nom de table.
+    private const ACCESS_REVIEWS_TABLE = 'glpi_plugin_grcmanager_accessreviews';
+    private const ACCESS_REVIEWS_USERS_TABLE = 'glpi_plugin_grcmanager_accessreviews_users';
     private const MANAGEMENT_REVIEWS_TABLE = 'glpi_plugin_grcmanager_managementreviews';
     private const MANAGEMENT_REVIEWS_USERS_TABLE = 'glpi_plugin_grcmanager_managementreviews_users';
 
@@ -677,6 +681,60 @@ final class Installer
                 KEY `trainings_id` (`plugin_grcmanager_trainings_id`),
                 KEY `users_id` (`users_id`),
                 KEY `completion_status` (`completion_status`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+        }
+
+        // Issue #126 : campagnes de revue des accès et leurs lignes (un compte par ligne, profils et
+        // groupes figés au lancement, décision du responsable et ticket éventuel).
+        if (!$DB->tableExists(self::ACCESS_REVIEWS_TABLE)) {
+            $query = "CREATE TABLE `" . self::ACCESS_REVIEWS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `name` varchar(255) NOT NULL DEFAULT '',
+                `entities_id` int {$keySign} NOT NULL DEFAULT 0,
+                `is_recursive` tinyint NOT NULL DEFAULT 1,
+                `frequency` varchar(16) NOT NULL DEFAULT 'annual' COMMENT 'quarterly, semiannual, annual',
+                `status` varchar(16) NOT NULL DEFAULT 'draft' COMMENT 'draft, open, closed',
+                `date_start` date DEFAULT NULL,
+                `due_date` date DEFAULT NULL,
+                `users_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Pilote de la campagne',
+                `plugin_grcmanager_controls_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Mesure de la SoA',
+                `comment` text,
+                `documents_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Rapport PDF de clôture',
+                `date_launch` timestamp NULL DEFAULT NULL,
+                `date_close` timestamp NULL DEFAULT NULL,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `entities_id` (`entities_id`),
+                KEY `status` (`status`),
+                KEY `plugin_grcmanager_controls_id` (`plugin_grcmanager_controls_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+        }
+        if (!$DB->tableExists(self::ACCESS_REVIEWS_USERS_TABLE)) {
+            $query = "CREATE TABLE `" . self::ACCESS_REVIEWS_USERS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_accessreviews_id` int {$keySign} NOT NULL,
+                `users_id` int {$keySign} NOT NULL COMMENT 'Compte revu',
+                `reviewers_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Responsable qui revoit',
+                `groups_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Groupe du responsable, 0 sinon',
+                `reviewer_source` varchar(16) NOT NULL DEFAULT 'owner' COMMENT 'supervisor, group, owner',
+                `profiles` text COMMENT 'JSON : profils et entités au lancement',
+                `user_groups` text COMMENT 'JSON : groupes au lancement',
+                `decision` varchar(16) NOT NULL DEFAULT 'pending' COMMENT 'pending, keep, modify, remove',
+                `comment` text,
+                `decided_by` int {$keySign} NOT NULL DEFAULT 0,
+                `date_decision` timestamp NULL DEFAULT NULL,
+                `tickets_id` int {$keySign} NOT NULL DEFAULT 0,
+                `date_reminder` timestamp NULL DEFAULT NULL,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity_line` (`plugin_grcmanager_accessreviews_id`, `users_id`),
+                KEY `reviewers_id` (`reviewers_id`),
+                KEY `decision` (`decision`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
             $DB->doQuery($query) or die($DB->error());
@@ -1389,6 +1447,18 @@ final class Installer
         $this->seedTrainingRenewalNotification();
         $this->seedPolicyReviewReminderNotification();
         $this->seedTreatmentActionOverdueNotification();
+        $this->seedAccessReviewNotifications();
+
+        // Issue #126 : relance hebdomadaire des responsables en retard sur une revue des accès.
+        CronTask::Register(
+            'PluginGrcmanagerAccessReview',
+            'accessreviewreminder',
+            DAY_TIMESTAMP,
+            [
+                'comment' => 'Relance les responsables qui n\'ont pas terminé une revue des accès échue',
+                'mode'    => CronTask::MODE_EXTERNAL,
+            ]
+        );
 
         // Sprint 2 (rappels de date de revue) : évalue chaque jour les risques dont la date de
         // revue est dépassée ou approche, et déclenche la notification GLPI seedée ci-dessus (voir
@@ -2235,6 +2305,94 @@ final class Installer
         ]);
     }
 
+    /**
+     * Issue #126 : notifications de la revue des accès (lancement, puis relances des responsables
+     * en retard), cible « Responsables ayant des comptes à revoir ».
+     */
+    private function seedAccessReviewNotifications(): void
+    {
+        global $DB;
+
+        $itemtype = 'PluginGrcmanagerAccessReview';
+        $events = [
+            'access_review_request'  => [
+                'name' => 'GRC Manager - Revue des accès à réaliser',
+                ''     => [
+                    'Revue des accès à réaliser : ##accessreview.name##',
+                    '##accessreview.owner## vous demande de revoir les accès des comptes de votre équipe '
+                        . 'avant le ##accessreview.duedate## (campagne « ##accessreview.name## »).',
+                    'Faire ma revue des accès',
+                ],
+                'en_GB' => [
+                    'Access review to complete: ##accessreview.name##',
+                    '##accessreview.owner## asks you to review the access rights of your team\'s accounts '
+                        . 'before ##accessreview.duedate## (campaign "##accessreview.name##").',
+                    'Complete my access review',
+                ],
+            ],
+            'access_review_reminder' => [
+                'name' => 'GRC Manager - Relance de la revue des accès',
+                ''     => [
+                    'Relance : revue des accès ##accessreview.name##',
+                    'L\'échéance du ##accessreview.duedate## est dépassée et des comptes de votre équipe '
+                        . 'attendent encore votre décision (campagne « ##accessreview.name## »).',
+                    'Terminer ma revue des accès',
+                ],
+                'en_GB' => [
+                    'Reminder: access review ##accessreview.name##',
+                    'The ##accessreview.duedate## deadline has passed and accounts of your team are still '
+                        . 'waiting for your decision (campaign "##accessreview.name##").',
+                    'Finish my access review',
+                ],
+            ],
+        ];
+
+        foreach ($events as $event => $definition) {
+            $alreadySeeded = $DB->request([
+                'FROM'  => 'glpi_notifications',
+                'WHERE' => ['itemtype' => $itemtype, 'event' => $event],
+            ])->count() > 0;
+            if ($alreadySeeded) {
+                continue;
+            }
+
+            $templateId = (new NotificationTemplate())->add([
+                'name'     => $definition['name'],
+                'itemtype' => $itemtype,
+            ]);
+            foreach (['', 'en_GB'] as $language) {
+                [$subject, $text, $link] = $definition[$language];
+                $DB->insert('glpi_notificationtemplatetranslations', [
+                    'notificationtemplates_id' => $templateId,
+                    'language'                 => $language,
+                    'subject'                  => $subject,
+                    'content_text'             => $text . "\n\n" . $link . ' : ##accessreview.url##',
+                    'content_html'             => '<p>' . $text . '</p><p><a href="##accessreview.url##">'
+                        . $link . '</a></p>',
+                ]);
+            }
+
+            $notificationId = (new Notification())->add([
+                'name'         => $definition['name'],
+                'entities_id'  => 0,
+                'is_recursive' => 1,
+                'itemtype'     => $itemtype,
+                'event'        => $event,
+                'is_active'    => 1,
+            ]);
+            $DB->insert('glpi_notifications_notificationtemplates', [
+                'notifications_id'         => $notificationId,
+                'mode'                     => 'mailing',
+                'notificationtemplates_id' => $templateId,
+            ]);
+            $DB->insert('glpi_notificationtargets', [
+                'items_id'         => \PluginGrcmanagerNotificationTargetAccessReview::REVIEWERS_TARGET,
+                'type'             => Notification::USER_TYPE,
+                'notifications_id' => $notificationId,
+            ]);
+        }
+    }
+
     private function seedDisplayPreferences(): void
     {
         global $DB;
@@ -2284,6 +2442,7 @@ final class Installer
         $this->unseedNotification('PluginGrcmanagerPolicy');
         $this->unseedNotification('PluginGrcmanagerRiskTreatmentAction');
         $this->unseedNotification(PluginGrcmanagerSecurityIncident::class);
+        $this->unseedNotification('PluginGrcmanagerAccessReview');
 
         // Absorption de glpi-security-incidents (ROADMAP.md "Version 2.0") : colonnes ajoutées sur
         // les tables cœur pour la gestion de modèles - même dérivation que le plugin absorbé
@@ -2328,6 +2487,8 @@ final class Installer
         $migration->dropTable(self::COMPLIANCE_OBLIGATIONS_TABLE);
         $migration->dropTable(self::MANAGEMENT_REVIEWS_OBJECTIVES_TABLE);
         $migration->dropTable(self::OBJECTIVE_MEASUREMENTS_TABLE);
+        $migration->dropTable(self::ACCESS_REVIEWS_USERS_TABLE);
+        $migration->dropTable(self::ACCESS_REVIEWS_TABLE);
         $migration->dropTable(self::OBJECTIVES_TABLE);
         $migration->dropTable(self::SECURITY_INCIDENT_TEMPLATES_PREDEFINED_FIELDS_TABLE);
         $migration->dropTable(self::SECURITY_INCIDENT_TEMPLATES_HIDDEN_FIELDS_TABLE);

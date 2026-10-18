@@ -112,6 +112,8 @@ function plugin_init_grcmanager(): void
             PluginGrcmanagerNonconformity::class,
             PluginGrcmanagerTraining::class,
             PluginGrcmanagerManagementReview::class,
+            // Issue #126 : campagnes de revue périodique des accès.
+            PluginGrcmanagerAccessReview::class,
             PluginGrcmanagerPolicy::class,
             PluginGrcmanagerObjective::class,
             // Corrélation CPE des CVE avec le parc GLPI (cf. ROADMAP.md) : un seul menu entry pour
@@ -159,6 +161,9 @@ function plugin_init_grcmanager(): void
     $CFG_GLPI['document_types'][] = PluginGrcmanagerIsmsRequirement::class;
     // Issue #127 : preuves de l'évaluation d'un fournisseur (questionnaire signé, certificats).
     $CFG_GLPI['document_types'][] = PluginGrcmanagerSupplierRisk::class;
+    // Issue #126 : rapport PDF de clôture d'une revue des accès, sur la campagne et sur la mesure.
+    $CFG_GLPI['document_types'][] = PluginGrcmanagerAccessReview::class;
+    $CFG_GLPI['document_types'][] = PluginGrcmanagerControl::class;
 
     // Sprint 2 (matrice de risque administrable, front/config.php) : reachable via
     // Configuration > Plugins > wrench icon on this plugin's row, same minimal-footprint pattern
