@@ -616,6 +616,11 @@ final class Installer
                 `review_date` date DEFAULT NULL,
                 `status` varchar(16) NOT NULL DEFAULT 'identified'
                     COMMENT 'identified, in_treatment, accepted, closed',
+                `questionnaire_answers` text COMMENT 'Issue #127 : question => yes/partial/no/na',
+                `questionnaire_score` int DEFAULT NULL COMMENT 'Issue #127 : %, NULL = pas encore rempli',
+                `questionnaire_date` timestamp NULL DEFAULT NULL,
+                `questionnaire_users_id` int {$keySign} NOT NULL DEFAULT 0,
+                `review_tickets_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Issue #127 : ticket de réévaluation',
                 `date_creation` timestamp NULL DEFAULT NULL,
                 `date_mod` timestamp NULL DEFAULT NULL,
                 PRIMARY KEY (`id`),
@@ -1251,6 +1256,20 @@ final class Installer
                 $migration->addField(self::SECURITY_INCIDENTS_TABLE, $flag, 'bool', ['value' => 0]);
             }
         }
+        // Issue #127 : questionnaire de sécurité fournisseur et ticket de réévaluation.
+        $questionnaireFields = [
+            'questionnaire_answers'  => ['text', []],
+            'questionnaire_score'    => ['integer', ['null' => true, 'value' => null]],
+            'questionnaire_date'     => ['timestamp', ['null' => true]],
+            'questionnaire_users_id' => ['fkey', []],
+            'review_tickets_id'      => ['fkey', []],
+        ];
+        foreach ($questionnaireFields as $field => [$type, $options]) {
+            if (!$DB->fieldExists(self::SUPPLIER_RISKS_TABLE, $field)) {
+                $migration->addField(self::SUPPLIER_RISKS_TABLE, $field, $type, $options);
+            }
+        }
+
         $doneFields = ['nis2_early_warning_at', 'nis2_notification_at', 'nis2_final_report_at', 'gdpr_notification_at'];
         foreach ($doneFields as $doneField) {
             if (!$DB->fieldExists(self::SECURITY_INCIDENTS_TABLE, $doneField)) {

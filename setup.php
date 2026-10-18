@@ -157,6 +157,8 @@ function plugin_init_grcmanager(): void
     $CFG_GLPI['document_types'][] = PluginGrcmanagerPolicy::class;
     // Issue #113 : preuves des exigences du SMSI, même mécanisme.
     $CFG_GLPI['document_types'][] = PluginGrcmanagerIsmsRequirement::class;
+    // Issue #127 : preuves de l'évaluation d'un fournisseur (questionnaire signé, certificats).
+    $CFG_GLPI['document_types'][] = PluginGrcmanagerSupplierRisk::class;
 
     // Sprint 2 (matrice de risque administrable, front/config.php) : reachable via
     // Configuration > Plugins > wrench icon on this plugin's row, same minimal-footprint pattern

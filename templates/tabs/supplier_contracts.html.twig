@@ -1,0 +1,26 @@
+{# Issue #127 : contrats GLPI du fournisseur (PluginGrcmanagerSupplierAssessment) #}
+<div class="card">
+   <div class="card-body">
+      {% if contracts is empty %}
+         <p class="text-muted mb-0"><i class="ti ti-file-off me-1"></i>{{ __('Aucun contrat GLPI n\'est rattaché à ce fournisseur (Gestion > Contrats, onglet Fournisseurs).', 'grcmanager') }}</p>
+      {% else %}
+         <table class="table table-sm table-vcenter mb-0">
+            <thead><tr><th>{{ __('Contrat', 'grcmanager') }}</th><th>{{ __('Début', 'grcmanager') }}</th><th>{{ __('Fin', 'grcmanager') }}</th></tr></thead>
+            <tbody>
+               {% for c in contracts %}
+                  <tr>
+                     <td><a href="{{ c.url }}"><i class="ti ti-writing-sign me-1"></i>{{ c.name }}</a></td>
+                     <td>{{ c.begin_date ? c.begin_date|formatted_date : '—' }}</td>
+                     <td>
+                        {{ c.end_date ? c.end_date|formatted_date : '—' }}
+                        {% if c.end_date and c.end_date < 'now'|date('Y-m-d') %}
+                           <span class="badge bg-red-lt ms-1">{{ __('Échu', 'grcmanager') }}</span>
+                        {% endif %}
+                     </td>
+                  </tr>
+               {% endfor %}
+            </tbody>
+         </table>
+      {% endif %}
+   </div>
+</div>
