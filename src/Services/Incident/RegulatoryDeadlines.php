@@ -95,7 +95,11 @@ final class RegulatoryDeadlines
     {
         return array_values(array_filter(
             self::compute($fields, $now),
-            static fn (array $row): bool => in_array($row['status'], [self::STATUS_DUE_SOON, self::STATUS_OVERDUE], true)
+            static fn (array $row): bool => in_array(
+                $row['status'],
+                [self::STATUS_DUE_SOON, self::STATUS_OVERDUE],
+                true
+            )
                 && !in_array($row['key'] . ':' . $row['status'], $alreadyAlerted, true)
         ));
     }

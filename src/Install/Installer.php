@@ -1251,7 +1251,8 @@ final class Installer
                 $migration->addField(self::SECURITY_INCIDENTS_TABLE, $flag, 'bool', ['value' => 0]);
             }
         }
-        foreach (['nis2_early_warning_at', 'nis2_notification_at', 'nis2_final_report_at', 'gdpr_notification_at'] as $doneField) {
+        $doneFields = ['nis2_early_warning_at', 'nis2_notification_at', 'nis2_final_report_at', 'gdpr_notification_at'];
+        foreach ($doneFields as $doneField) {
             if (!$DB->fieldExists(self::SECURITY_INCIDENTS_TABLE, $doneField)) {
                 $migration->addField(self::SECURITY_INCIDENTS_TABLE, $doneField, 'timestamp', ['null' => true]);
             }

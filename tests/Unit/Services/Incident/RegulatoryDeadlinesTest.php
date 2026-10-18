@@ -44,7 +44,8 @@ final class RegulatoryDeadlinesTest extends TestCase
 
     public function testGdprDeadlineOnlyForPersonalDataBreaches(): void
     {
-        $rows = self::byKey(RegulatoryDeadlines::compute(self::incident(['nis2_applicable' => 0, 'personal_data_breach' => 1])));
+        $incident = self::incident(['nis2_applicable' => 0, 'personal_data_breach' => 1]);
+        $rows = self::byKey(RegulatoryDeadlines::compute($incident));
 
         self::assertSame(['gdpr_notification'], array_keys($rows));
         self::assertSame('2026-10-21 08:00:00', $rows['gdpr_notification']['due']);
@@ -58,12 +59,23 @@ final class RegulatoryDeadlinesTest extends TestCase
     public function testStatusFollowsTimeAndRecordedNotification(): void
     {
         $start = (int) strtotime(self::DETECTED);
-        $early = static fn (int $now, array $extra = []): string => self::byKey(RegulatoryDeadlines::compute(self::incident($extra), $now))['nis2_early_warning']['status'];
+        $early = static function (int $now, array $extra = []): string {
+            $rows = self::byKey(RegulatoryDeadlines::compute(self::incident($extra), $now));
+
+            return $rows['nis2_early_warning']['status'];
+        };
 
         self::assertSame(RegulatoryDeadlines::STATUS_PENDING, $early($start + 3600));
-        self::assertSame(RegulatoryDeadlines::STATUS_DUE_SOON, $early($start + 20 * 3600), 'moins d\'un quart du délai');
+        self::assertSame(
+            RegulatoryDeadlines::STATUS_DUE_SOON,
+            $early($start + 20 * 3600),
+            'moins d\'un quart du délai'
+        );
         self::assertSame(RegulatoryDeadlines::STATUS_OVERDUE, $early($start + 25 * 3600));
-        self::assertSame(RegulatoryDeadlines::STATUS_DONE, $early($start + 25 * 3600, ['nis2_early_warning_at' => '2026-10-18 20:00:00']));
+        self::assertSame(
+            RegulatoryDeadlines::STATUS_DONE,
+            $early($start + 25 * 3600, ['nis2_early_warning_at' => '2026-10-18 20:00:00'])
+        );
     }
 
     public function testEachAlertLevelIsRaisedOnlyOnce(): void
@@ -75,6 +87,7 @@ final class RegulatoryDeadlinesTest extends TestCase
         self::assertSame([], RegulatoryDeadlines::toAlert(self::incident(), ['nis2_early_warning:due_soon'], $now));
 
         $later = RegulatoryDeadlines::toAlert(self::incident(), ['nis2_early_warning:due_soon'], $now + 6 * 3600);
-        self::assertSame(['nis2_early_warning:overdue'], array_map(static fn (array $r): string => $r['key'] . ':' . $r['status'], $later));
+        $keys = array_map(static fn (array $r): string => $r['key'] . ':' . $r['status'], $later);
+        self::assertSame(['nis2_early_warning:overdue'], $keys);
     }
 }

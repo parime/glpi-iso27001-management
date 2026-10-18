@@ -33,5 +33,7 @@ if ($incidentsId <= 0) {
     Html::back();
 }
 
-Session::addMessageAfterRedirect(sprintf(__('Ticket qualifié en incident de sécurité n° %d.', 'grcmanager'), $incidentsId));
+Session::addMessageAfterRedirect(
+    sprintf(__('Ticket qualifié en incident de sécurité n° %d.', 'grcmanager'), $incidentsId)
+);
 Html::redirect(PluginGrcmanagerSecurityIncident::getFormURLWithID($incidentsId));

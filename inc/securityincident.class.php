@@ -526,8 +526,20 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
         ];
 
         // Issue #128 : notifications réglementaires.
-        $tab[] = ['id' => 226, 'table' => $this->getTable(), 'field' => 'nis2_applicable', 'name' => __('Soumis à NIS2', 'grcmanager'), 'datatype' => 'bool'];
-        $tab[] = ['id' => 227, 'table' => $this->getTable(), 'field' => 'personal_data_breach', 'name' => __('Violation de données personnelles', 'grcmanager'), 'datatype' => 'bool'];
+        $tab[] = [
+            'id'       => 226,
+            'table'    => $this->getTable(),
+            'field'    => 'nis2_applicable',
+            'name'     => __('Soumis à NIS2', 'grcmanager'),
+            'datatype' => 'bool',
+        ];
+        $tab[] = [
+            'id'       => 227,
+            'table'    => $this->getTable(),
+            'field'    => 'personal_data_breach',
+            'name'     => __('Violation de données personnelles', 'grcmanager'),
+            'datatype' => 'bool',
+        ];
         $id = 228;
         foreach (self::getRegulatoryLabels() as $key => $label) {
             $tab[] = [
@@ -563,7 +575,10 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
     public static function cronInfo(string $name): array
     {
         return $name === 'regulatorydeadlines'
-            ? ['description' => __('Signale par un suivi les délais de notification NIS2 / RGPD proches ou dépassés', 'grcmanager')]
+            ? ['description' => __(
+                'Signale par un suivi les délais de notification NIS2 / RGPD proches ou dépassés',
+                'grcmanager'
+            )]
             : [];
     }
 
@@ -602,8 +617,15 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
                     'itemtype'   => self::class,
                     'items_id'   => (int) $row['id'],
                     'is_private' => 1,
-                    'content'    => '<p>' . htmlescape(sprintf($message, $labels[$deadline['key']] ?? $deadline['key'], Html::convDateTime($deadline['due']))) . '</p>'
-                        . '<p>' . htmlescape(__('Rien n\'est envoyé automatiquement à l\'autorité : faites la notification, puis renseignez sa date dans « Notifications réglementaires » sur l\'incident.', 'grcmanager')) . '</p>',
+                    'content'    => '<p>' . htmlescape(sprintf(
+                        $message,
+                        $labels[$deadline['key']] ?? $deadline['key'],
+                        Html::convDateTime($deadline['due'])
+                    )) . '</p><p>' . htmlescape(__(
+                        'Rien n\'est envoyé automatiquement à l\'autorité : faites la notification, puis renseignez sa '
+                            . 'date dans « Notifications réglementaires » sur l\'incident.',
+                        'grcmanager'
+                    )) . '</p>',
                 ]);
                 $alerted[] = $deadline['key'] . ':' . $deadline['status'];
                 $count++;

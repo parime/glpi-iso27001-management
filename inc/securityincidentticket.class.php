@@ -46,7 +46,12 @@ class PluginGrcmanagerSecurityIncidentTicket extends CommonGLPI
         global $DB;
 
         $ids = [];
-        foreach ($DB->request(['SELECT' => ['plugin_grcmanager_securityincidents_id'], 'FROM' => self::TABLE, 'WHERE' => ['tickets_id' => $ticketsId]]) as $row) {
+        $rows = $DB->request([
+            'SELECT' => ['plugin_grcmanager_securityincidents_id'],
+            'FROM'   => self::TABLE,
+            'WHERE'  => ['tickets_id' => $ticketsId],
+        ]);
+        foreach ($rows as $row) {
             $ids[] = (int) $row['plugin_grcmanager_securityincidents_id'];
         }
 
@@ -61,7 +66,12 @@ class PluginGrcmanagerSecurityIncidentTicket extends CommonGLPI
         global $DB;
 
         $ids = [];
-        foreach ($DB->request(['SELECT' => ['tickets_id'], 'FROM' => self::TABLE, 'WHERE' => ['plugin_grcmanager_securityincidents_id' => $incidentsId]]) as $row) {
+        $rows = $DB->request([
+            'SELECT' => ['tickets_id'],
+            'FROM'   => self::TABLE,
+            'WHERE'  => ['plugin_grcmanager_securityincidents_id' => $incidentsId],
+        ]);
+        foreach ($rows as $row) {
             $ids[] = (int) $row['tickets_id'];
         }
 
@@ -76,7 +86,9 @@ class PluginGrcmanagerSecurityIncidentTicket extends CommonGLPI
         if ($item instanceof Ticket) {
             $count = count(self::getIncidentIdsForTicket((int) $item->getID()));
 
-            return self::createTabEntry(self::getTypeName(1), $count, null, PluginGrcmanagerSecurityIncident::getIcon());
+            $icon = PluginGrcmanagerSecurityIncident::getIcon();
+
+            return self::createTabEntry(self::getTypeName(1), $count, null, $icon);
         }
         if ($item instanceof PluginGrcmanagerSecurityIncident) {
             $count = count(self::getTicketIdsForIncident((int) $item->getID()));
@@ -101,7 +113,9 @@ class PluginGrcmanagerSecurityIncidentTicket extends CommonGLPI
                         'name'     => (string) $incident->fields['name'],
                         'url'      => PluginGrcmanagerSecurityIncident::getFormURLWithID($id),
                         'status'   => PluginGrcmanagerSecurityIncident::getStatus((int) $incident->fields['status']),
-                        'severity' => PluginGrcmanagerSecurityIncident::getSeverities()[(string) $incident->fields['severity']] ?? '',
+                        'severity' => PluginGrcmanagerSecurityIncident::getSeverities()[
+                            (string) $incident->fields['severity']
+                        ] ?? '',
                     ];
                 }
             }
@@ -128,7 +142,10 @@ class PluginGrcmanagerSecurityIncidentTicket extends CommonGLPI
                     ];
                 }
             }
-            TemplateRenderer::getInstance()->display('@grcmanager/tabs/security_incident_tickets.html.twig', ['rows' => $rows]);
+            TemplateRenderer::getInstance()->display(
+                '@grcmanager/tabs/security_incident_tickets.html.twig',
+                ['rows' => $rows]
+            );
 
             return true;
         }
@@ -159,7 +176,11 @@ class PluginGrcmanagerSecurityIncidentTicket extends CommonGLPI
             'urgency'     => (int) $ticket->fields['urgency'],
             'impact'      => (int) $ticket->fields['impact'],
         ];
-        foreach ((new Ticket_User())->find(['tickets_id' => (int) $ticket->getID(), 'type' => CommonITILActor::REQUESTER]) as $actor) {
+        $requesters = (new Ticket_User())->find([
+            'tickets_id' => (int) $ticket->getID(),
+            'type'       => CommonITILActor::REQUESTER,
+        ]);
+        foreach ($requesters as $actor) {
             if ((int) $actor['users_id'] > 0) {
                 $input['_users_id_requester'] = (int) $actor['users_id'];
                 break;
@@ -189,10 +210,16 @@ class PluginGrcmanagerSecurityIncidentTicket extends CommonGLPI
             'items_id'   => (int) $ticket->getID(),
             'is_private' => 1,
             'content'    => '<p>' . htmlescape(sprintf(
-                __('Ce ticket a été qualifié en incident de sécurité n° %d : la suite de son traitement de sécurité (gravité, impact, délais de notification NIS2 / RGPD) se fait sur l\'incident.', 'grcmanager'),
+                __(
+                    'Ce ticket a été qualifié en incident de sécurité n° %d : la suite de son traitement de '
+                        . 'sécurité (gravité, impact, délais de notification NIS2 / RGPD) se fait sur l\'incident.',
+                    'grcmanager'
+                ),
                 $incidentsId
-            )) . '</p><p><a href="' . htmlescape(PluginGrcmanagerSecurityIncident::getFormURLWithID($incidentsId)) . '">'
-                . htmlescape(sprintf(__('Ouvrir l\'incident de sécurité n° %d', 'grcmanager'), $incidentsId)) . '</a></p>',
+            )) . '</p><p><a href="'
+                . htmlescape(PluginGrcmanagerSecurityIncident::getFormURLWithID($incidentsId)) . '">'
+                . htmlescape(sprintf(__('Ouvrir l\'incident de sécurité n° %d', 'grcmanager'), $incidentsId))
+                . '</a></p>',
         ]);
 
         return $incidentsId;
