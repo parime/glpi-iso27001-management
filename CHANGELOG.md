@@ -7,6 +7,69 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.4.0] - 2026-10-19
+
+### Added
+
+- **Revue périodique des accès : campagne de validation par les responsables** (issue #126).
+  - **Campagne** (menu « Revues des accès ») : entité, fréquence (trimestrielle, semestrielle,
+    annuelle), échéance, pilote et mesure de la SoA (A.5.18 « Droits d'accès » par défaut).
+  - **Lancement** : chaque compte actif de l'entité est figé avec ses profils et groupes GLPI.
+    Il est confié à son responsable hiérarchique, sinon au responsable d'un de ses groupes, sinon
+    au pilote. Les responsables sont prévenus par notification.
+  - **« Mes revues d'accès »** : chaque responsable, même sans droit sur le plugin, valide ou
+    demande une modification ou un retrait, ligne par ligne, avec un commentaire obligatoire pour
+    une demande.
+  - **Ticket, jamais de changement de droit** : une demande de modification ou de retrait crée un
+    ticket pour l'équipe support. La ligne est alors figée. Le plugin ne modifie aucun droit,
+    compte ni statut.
+  - **Relances** : la tâche quotidienne « accessreviewreminder » relance au plus une fois par
+    semaine les responsables qui ont encore des comptes à revoir après l'échéance.
+  - **Clôture** : un rapport PDF (comptes, profils, décisions, tickets, comptes non revus) est
+    archivé comme Document sur la campagne et sur la mesure de la SoA. La campagne suivante se
+    prépare en un clic d'après la fréquence.
+  - **Mesures de la SoA** : la fiche d'une mesure a désormais des onglets « Revues des accès » et
+    « Documents », et affiche son code dans l'en-tête.
+
+- **Évaluation des fournisseurs : questionnaire de sécurité, contrats et ticket de réévaluation**
+  (issue #127).
+  - **Onglet « Questionnaire de sécurité »** sur le risque fournisseur : douze questions
+    (certification, politique, localisation et chiffrement des données, MFA, sous-traitants,
+    notification d'incident, sauvegardes, audits, vulnérabilités, réversibilité, clauses) avec
+    oui / partiel / non / sans objet. Le score (en %) et son niveau sont indicatifs : le niveau de
+    risque saisi par l'équipe n'est pas modifié. La date et l'auteur sont conservés.
+  - **Onglet « Contrats du fournisseur »** : contrats GLPI du fournisseur avec leurs dates de
+    début et de fin, et un badge « Échu ».
+  - **Onglets Documents et Historique** : les preuves (questionnaire signé, certificats) se
+    joignent au risque fournisseur. Le formulaire affiche désormais sa barre d'onglets.
+  - **Ticket de réévaluation** : à l'échéance de la date de revue, la tâche « reviewreminder »
+    ouvre un ticket « Réévaluer le fournisseur X » pour le propriétaire du risque, lié sur le
+    formulaire. Un seul ticket tant qu'il n'est pas résolu ; le statut du risque n'est pas modifié.
+
+- **Incidents de sécurité : qualification d'un ticket et délais de notification réglementaires**
+  (issue #128).
+  - **Qualifier un ticket** : l'onglet « Incident de sécurité » d'un ticket crée l'incident en
+    reprenant titre, description, date, demandeur et éléments liés, puis relie les deux (onglet
+    « Tickets liés » sur l'incident). Le ticket garde son statut et son attribution, et reçoit un
+    suivi privé avec le lien. Un ticket n'est qualifié qu'une fois.
+  - **Notifications réglementaires** : nouvelle section sur l'incident, avec les cases « Soumis à
+    NIS2 » et « Violation de données personnelles ». Les échéances sont calculées depuis l'ouverture
+    de l'incident : NIS2 alerte précoce 24 h, notification 72 h, rapport final 1 mois ; RGPD 72 h.
+    Chacune a son statut (à faire, bientôt, dépassé, fait) et la date où l'équipe a notifié.
+  - **Tâche planifiée horaire « regulatorydeadlines »** : un suivi privé est ajouté sur l'incident
+    quand une échéance approche puis quand elle est dépassée, une seule fois par niveau. Ce suivi
+    prévient les acteurs par les notifications GLPI habituelles. Rien n'est envoyé à une autorité.
+
+### Fixed
+
+- **Incidents de sécurité, onglet « Coûts » (GLPI 12)** : l'onglet échouait (erreur 500) faute des colonnes
+  `date_creation`, `date_mod`, `users_id` et `users_id_lastupdater` que GLPI 12 lit sur les coûts ITIL.
+  Elles sont ajoutées à la mise à jour.
+- **Listes Risques et Audits internes** : avertissements PHP « Undefined variable $CFG_GLPI » et liens
+  d'en-tête cassés, la configuration GLPI n'étant pas déclarée globale dans ces pages.
+- **Approbation de la SoA** : après une demande ou une réponse, retour garanti sur la page d'approbation
+  (la redirection reposait sur `$_SERVER['PHP_SELF']`, qui vaut `/index.php` derrière le routeur GLPI).
+
 ## [2.3.0] - 2026-10-11
 
 ### Added

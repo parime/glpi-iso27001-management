@@ -1,0 +1,35 @@
+{# Issue #128 : onglet « Incident de sécurité » du ticket (PluginGrcmanagerSecurityIncidentTicket) #}
+<div class="card">
+   <div class="card-body">
+      {% if rows is empty %}
+         <p class="text-muted mb-3">
+            <i class="ti ti-shield-lock me-1"></i>{{ __('Ce ticket n\'est lié à aucun incident de sécurité.', 'grcmanager') }}
+         </p>
+         {% if can_create %}
+            <form method="post" action="{{ action }}">
+               <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+               <input type="hidden" name="tickets_id" value="{{ tickets_id }}">
+               <button type="submit" name="qualify" value="1" class="btn btn-danger">
+                  <i class="ti ti-shield-plus me-1"></i>{{ __('Qualifier en incident de sécurité', 'grcmanager') }}
+               </button>
+               <p class="form-text mb-0 mt-2">{{ __('Crée un incident de sécurité à partir de ce ticket (titre, description, date, demandeur, éléments liés) et les relie. Le ticket n\'est pas modifié : il garde son statut et son attribution, et reçoit un suivi privé avec le lien.', 'grcmanager') }}</p>
+            </form>
+         {% endif %}
+      {% else %}
+         <table class="table table-sm table-vcenter mb-0">
+            <thead>
+               <tr><th>{{ __('Incident de sécurité', 'grcmanager') }}</th><th>{{ __('Statut') }}</th><th>{{ __('Sévérité', 'grcmanager') }}</th></tr>
+            </thead>
+            <tbody>
+               {% for r in rows %}
+                  <tr>
+                     <td><a href="{{ r.url }}"><i class="ti ti-shield-lock me-1"></i>{{ r.name }} ({{ r.id }})</a></td>
+                     <td>{{ r.status }}</td>
+                     <td>{{ r.severity }}</td>
+                  </tr>
+               {% endfor %}
+            </tbody>
+         </table>
+      {% endif %}
+   </div>
+</div>

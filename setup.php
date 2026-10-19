@@ -25,7 +25,7 @@ use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentModuleConfig;
 // must bundle vendor/, see .github/workflows/release.yml.
 require_once __DIR__ . '/vendor/autoload.php';
 
-define('PLUGIN_GRCMANAGER_VERSION', '2.3.0');
+define('PLUGIN_GRCMANAGER_VERSION', '2.4.0');
 define('PLUGIN_GRCMANAGER_MIN_GLPI', '11.0.0');
 // GLPI 11 and 12 from a single code base (see src/Compatibility/).
 define('PLUGIN_GRCMANAGER_MAX_GLPI', '12.99.99');
@@ -112,6 +112,8 @@ function plugin_init_grcmanager(): void
             PluginGrcmanagerNonconformity::class,
             PluginGrcmanagerTraining::class,
             PluginGrcmanagerManagementReview::class,
+            // Issue #126 : campagnes de revue périodique des accès.
+            PluginGrcmanagerAccessReview::class,
             PluginGrcmanagerPolicy::class,
             PluginGrcmanagerObjective::class,
             // Corrélation CPE des CVE avec le parc GLPI (cf. ROADMAP.md) : un seul menu entry pour
@@ -157,6 +159,11 @@ function plugin_init_grcmanager(): void
     $CFG_GLPI['document_types'][] = PluginGrcmanagerPolicy::class;
     // Issue #113 : preuves des exigences du SMSI, même mécanisme.
     $CFG_GLPI['document_types'][] = PluginGrcmanagerIsmsRequirement::class;
+    // Issue #127 : preuves de l'évaluation d'un fournisseur (questionnaire signé, certificats).
+    $CFG_GLPI['document_types'][] = PluginGrcmanagerSupplierRisk::class;
+    // Issue #126 : rapport PDF de clôture d'une revue des accès, sur la campagne et sur la mesure.
+    $CFG_GLPI['document_types'][] = PluginGrcmanagerAccessReview::class;
+    $CFG_GLPI['document_types'][] = PluginGrcmanagerControl::class;
 
     // Sprint 2 (matrice de risque administrable, front/config.php) : reachable via
     // Configuration > Plugins > wrench icon on this plugin's row, same minimal-footprint pattern
@@ -195,6 +202,16 @@ function plugin_init_grcmanager(): void
     Plugin::registerClass(PluginGrcmanagerAssetClassification::class, [
         'addtabon' => PluginGrcmanagerRisk::getLinkableItemtypes(),
     ]);
+
+    // Issue #128 : qualifier un ticket en incident de sécurité (onglet sur les deux objets) ; les
+    // liens disparaissent avec le ticket ou l'incident supprimé définitivement.
+    Plugin::registerClass(PluginGrcmanagerSecurityIncidentTicket::class, [
+        'addtabon' => ['Ticket', PluginGrcmanagerSecurityIncident::class],
+    ]);
+    $PLUGIN_HOOKS[Hooks::ITEM_PURGE]['grcmanager'] = [
+        'Ticket'                                => 'plugin_grcmanager_purge_security_incident_links',
+        PluginGrcmanagerSecurityIncident::class => 'plugin_grcmanager_purge_security_incident_links',
+    ];
 
     // Dashboard KPI cards, kept accumulator-safe from the start (?array $cards = null, merged
     // onto rather than replacing): a bare no-argument signature returning only this plugin's own

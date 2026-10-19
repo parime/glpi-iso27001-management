@@ -1852,3 +1852,459 @@ msgstr "Approver"
 
 msgid "Signature"
 msgstr "Signature"
+
+msgid "Ce ticket n'est lié à aucun incident de sécurité."
+msgstr "This ticket is not linked to any security incident."
+
+msgid "Qualifier en incident de sécurité"
+msgstr "Qualify as a security incident"
+
+msgid "Crée un incident de sécurité à partir de ce ticket (titre, description, date, demandeur, éléments liés) et les relie. Le ticket n'est pas modifié : il garde son statut et son attribution, et reçoit un suivi privé avec le lien."
+msgstr "Creates a security incident from this ticket (title, description, date, requester, linked items) and links them. The ticket is not changed: it keeps its status and assignment, and receives a private follow-up with the link."
+
+msgid "Aucun ticket n'a été qualifié en cet incident. Depuis un ticket, l'onglet « Incident de sécurité » permet de le faire."
+msgstr "No ticket has been qualified as this incident. From a ticket, the “Security incident” tab does it."
+
+msgid "Fait"
+msgstr "Done"
+
+msgid "Dépassé"
+msgstr "Overdue"
+
+msgid "Bientôt"
+msgstr "Due soon"
+
+msgid "À faire"
+msgstr "To do"
+
+msgid "Notifications réglementaires"
+msgstr "Regulatory notifications"
+
+msgid "Soumis à NIS2"
+msgstr "Subject to NIS2"
+
+msgid "Violation de données personnelles"
+msgstr "Personal data breach"
+
+msgid "Entité essentielle ou importante, incident significatif : alerte précoce sous 24 h, notification sous 72 h, rapport final sous un mois."
+msgstr "Essential or important entity, significant incident: early warning within 24 h, notification within 72 h, final report within one month."
+
+msgid "RGPD : notification à l'autorité de contrôle (la CNIL en France) sous 72 h."
+msgstr "GDPR: notification to the supervisory authority (the CNIL in France) within 72 h."
+
+msgid "Échéances calculées depuis la date d'ouverture de l'incident. Rien n'est envoyé automatiquement : faites la notification, puis renseignez sa date ici."
+msgstr "Deadlines computed from the incident's opening date. Nothing is sent automatically: make the notification, then enter its date here."
+
+#, php-format
+msgid "au plus tard le %s"
+msgstr "no later than %s"
+
+msgid "Notifié le"
+msgstr "Notified on"
+
+msgid "L'incident de sécurité n'a pas pu être créé."
+msgstr "The security incident could not be created."
+
+#, php-format
+msgid "Ticket qualifié en incident de sécurité n° %d."
+msgstr "Ticket qualified as security incident no. %d."
+
+#, php-format
+msgid "%s : notifié le"
+msgstr "%s: notified on"
+
+msgid "NIS2 — alerte précoce (24 h)"
+msgstr "NIS2 — early warning (24 h)"
+
+msgid "NIS2 — notification d'incident (72 h)"
+msgstr "NIS2 — incident notification (72 h)"
+
+msgid "NIS2 — rapport final (1 mois)"
+msgstr "NIS2 — final report (1 month)"
+
+msgid "RGPD — notification à l'autorité de contrôle (72 h)"
+msgstr "GDPR — notification to the supervisory authority (72 h)"
+
+msgid "Signale par un suivi les délais de notification NIS2 / RGPD proches ou dépassés"
+msgstr "Reports NIS2 / GDPR notification deadlines that are near or past with a follow-up"
+
+#, php-format
+msgid "Échéance dépassée : « %1$s » devait être faite au plus tard le %2$s."
+msgstr "Deadline passed: “%1$s” was due no later than %2$s."
+
+#, php-format
+msgid "Échéance proche : « %1$s » doit être faite au plus tard le %2$s."
+msgstr "Deadline approaching: “%1$s” is due no later than %2$s."
+
+msgid "Rien n'est envoyé automatiquement à l'autorité : faites la notification, puis renseignez sa date dans « Notifications réglementaires » sur l'incident."
+msgstr "Nothing is sent to the authority automatically: make the notification, then enter its date in “Regulatory notifications” on the incident."
+
+msgid "Tickets liés"
+msgstr "Linked tickets"
+
+#, php-format
+msgid "Ce ticket a été qualifié en incident de sécurité n° %d : la suite de son traitement de sécurité (gravité, impact, délais de notification NIS2 / RGPD) se fait sur l'incident."
+msgstr "This ticket was qualified as security incident no. %d: its security handling (severity, impact, NIS2 / GDPR notification deadlines) continues on the incident."
+
+#, php-format
+msgid "Ouvrir l'incident de sécurité n° %d"
+msgstr "Open security incident no. %d"
+
+msgid "Ticket de réévaluation"
+msgstr "Reassessment ticket"
+
+#, php-format
+msgid "Ticket n° %d"
+msgstr "Ticket #%d"
+
+#, php-format
+msgid "Réévaluer le fournisseur %s"
+msgstr "Reassess supplier %s"
+
+#, php-format
+msgid "La revue du risque fournisseur « %1$s » était prévue le %2$s."
+msgstr "The review of supplier risk \"%1$s\" was due on %2$s."
+
+msgid "Mettez à jour le questionnaire de sécurité, vérifiez les contrats et les preuves, puis la date de la prochaine revue."
+msgstr "Update the security questionnaire, check the contracts and evidence, then set the next review date."
+
+msgid "Ouvrir le risque fournisseur"
+msgstr "Open the supplier risk"
+
+msgid "Questionnaire de sécurité"
+msgstr "Security questionnaire"
+
+msgid "Le fournisseur détient une certification de sécurité en cours de validité (ISO 27001, SOC 2, HDS…)."
+msgstr "The supplier holds a valid security certification (ISO 27001, SOC 2, HDS…)."
+
+msgid "Il dispose d'une politique de sécurité de l'information formalisée et à jour."
+msgstr "It has a formal, up-to-date information security policy."
+
+msgid "Nos données sont hébergées et traitées dans l'Union européenne."
+msgstr "Our data is hosted and processed in the European Union."
+
+msgid "Nos données sont chiffrées au repos et en transit."
+msgstr "Our data is encrypted at rest and in transit."
+
+msgid "Les accès à nos données exigent une authentification multifacteur."
+msgstr "Access to our data requires multi-factor authentication."
+
+msgid "La liste de ses sous-traitants nous est communiquée et nos exigences leur sont répercutées."
+msgstr "Its list of subcontractors is shared with us and our requirements are passed on to them."
+
+msgid "Il s'engage à nous notifier ses incidents de sécurité dans un délai contractuel."
+msgstr "It commits to notifying us of its security incidents within a contractual deadline."
+
+msgid "Ses sauvegardes sont testées et il dispose d'un plan de continuité."
+msgstr "Its backups are tested and it has a business continuity plan."
+
+msgid "Il réalise des audits ou tests d'intrusion réguliers, ou accepte d'être audité."
+msgstr "It performs regular audits or penetration tests, or agrees to be audited."
+
+msgid "Il gère ses vulnérabilités et applique les correctifs dans des délais définis."
+msgstr "It manages its vulnerabilities and applies patches within defined timeframes."
+
+msgid "La restitution et la suppression de nos données en fin de contrat sont prévues."
+msgstr "The return and deletion of our data at the end of the contract are provided for."
+
+msgid "Le contrat comporte des clauses de sécurité et de confidentialité."
+msgstr "The contract includes security and confidentiality clauses."
+
+msgid "Oui"
+msgstr "Yes"
+
+msgid "Partiel"
+msgstr "Partial"
+
+msgid "Non"
+msgstr "No"
+
+msgid "Sans objet"
+msgstr "Not applicable"
+
+msgid "Contrats du fournisseur"
+msgstr "Supplier contracts"
+
+msgid "Questionnaire de sécurité enregistré."
+msgstr "Security questionnaire saved."
+
+msgid "Aucun contrat GLPI n'est rattaché à ce fournisseur (Gestion > Contrats, onglet Fournisseurs)."
+msgstr "No GLPI contract is linked to this supplier (Management > Contracts, Suppliers tab)."
+
+msgid "Contrat"
+msgstr "Contract"
+
+msgid "Début"
+msgstr "Start"
+
+msgid "Fin"
+msgstr "End"
+
+msgid "Échu"
+msgstr "Expired"
+
+msgid "Bon niveau"
+msgstr "Good level"
+
+msgid "Niveau à améliorer"
+msgstr "Needs improvement"
+
+msgid "Niveau insuffisant"
+msgstr "Insufficient level"
+
+#, php-format
+msgid "Score : %d %%"
+msgstr "Score: %d %%"
+
+#, php-format
+msgid "Rempli le %1$s par %2$s"
+msgstr "Filled in on %1$s by %2$s"
+
+msgid "Oui = 1 point, partiel = ½, non = 0 ; « sans objet » ne compte pas. Le score éclaire l'évaluation, il ne modifie pas le niveau de risque saisi. Joignez les preuves (questionnaire signé, certificats) dans l'onglet Documents."
+msgstr "Yes = 1 point, partial = ½, no = 0; \"not applicable\" is not counted. The score informs the assessment; it does not change the risk level entered. Attach the evidence (signed questionnaire, certificates) in the Documents tab."
+
+msgid "Enregistrer le questionnaire"
+msgstr "Save questionnaire"
+
+msgid "Pour chaque compte de votre équipe, validez ses accès ou demandez une modification ou un retrait en précisant quoi changer. Une demande crée un ticket pour l'équipe support : aucun droit n'est modifié automatiquement."
+msgstr "For each account in your team, approve its access or request a change or removal, stating what to change. A request creates a ticket for the support team: no right is changed automatically."
+
+msgid "Aucune revue des accès ne vous attend."
+msgstr "No access review is waiting for you."
+
+#, php-format
+msgid "Échéance : %s"
+msgstr "Due: %s"
+
+#, php-format
+msgid "%1$d compte(s) revu(s) sur %2$d"
+msgstr "%1$d of %2$d account(s) reviewed"
+
+msgid "Enregistrer les décisions"
+msgstr "Save decisions"
+
+msgid "Entité"
+msgstr "Entity"
+
+msgid "(et sous-entités)"
+msgstr "(and sub-entities)"
+
+msgid "Pilote"
+msgstr "Owner"
+
+msgid "Fréquence"
+msgstr "Frequency"
+
+msgid "Mesure de la SoA"
+msgstr "SoA control"
+
+msgid "Début / échéance"
+msgstr "Start / due date"
+
+msgid "Lancée le"
+msgstr "Launched on"
+
+msgid "Clôturée le"
+msgstr "Closed on"
+
+msgid "Comptes revus"
+msgstr "Accounts reviewed"
+
+msgid "Décisions par compte"
+msgstr "Decisions per account"
+
+msgid "Compte"
+msgstr "Account"
+
+msgid "Profils et groupes au lancement"
+msgstr "Profiles and groups at launch"
+
+msgid "Décision"
+msgstr "Decision"
+
+msgid "Ticket"
+msgstr "Ticket"
+
+msgid "Non revu"
+msgstr "Not reviewed"
+
+msgid "Aucune campagne de revue des accès n'est rattachée à cette mesure."
+msgstr "No access review campaign is linked to this control."
+
+msgid "Préparer une campagne"
+msgstr "Prepare a campaign"
+
+msgid "Campagne"
+msgstr "Campaign"
+
+msgid "Date de début"
+msgstr "Start date"
+
+msgid "Rapport"
+msgstr "Report"
+
+msgid "Rapport PDF"
+msgstr "PDF report"
+
+msgid "Le lancement liste les comptes actifs de l'entité avec leurs profils et groupes GLPI, désigne leur responsable (responsable hiérarchique, sinon responsable de groupe, sinon le pilote) et le prévient par notification."
+msgstr "Launching lists the entity's active accounts with their GLPI profiles and groups, assigns their reviewer (line manager, otherwise group manager, otherwise the campaign owner) and notifies them."
+
+msgid "Lancer la campagne"
+msgstr "Launch the campaign"
+
+msgid "Échéance dépassée : les responsables en retard sont relancés chaque semaine."
+msgstr "Deadline passed: late reviewers are reminded every week."
+
+msgid "Mes revues d'accès"
+msgstr "My access reviews"
+
+msgid "Clôturer la campagne ? Les comptes non revus resteront « Non revu » dans le rapport."
+msgstr "Close the campaign? Accounts not reviewed will remain \"Not reviewed\" in the report."
+
+msgid "Clôturer et archiver le rapport"
+msgstr "Close and archive the report"
+
+msgid "Préparer la campagne suivante"
+msgstr "Prepare the next campaign"
+
+msgid "Profils et groupes"
+msgstr "Profiles and groups"
+
+msgid "Obligatoire pour modifier ou retirer"
+msgstr "Required to change or remove"
+
+#, php-format
+msgid "%d décision(s) enregistrée(s)."
+msgstr "%d decision(s) saved."
+
+#, php-format
+msgid "Campagne lancée : %d compte(s) à revoir, les responsables sont prévenus."
+msgstr "Campaign launched: %d account(s) to review, reviewers have been notified."
+
+msgid "Campagne clôturée, rapport PDF archivé dans les documents."
+msgstr "Campaign closed, PDF report archived in the documents."
+
+msgid "En préparation"
+msgstr "In preparation"
+
+msgid "Trimestrielle"
+msgstr "Quarterly"
+
+msgid "Semestrielle"
+msgstr "Half-yearly"
+
+msgid "Annuelle"
+msgstr "Yearly"
+
+msgid "À revoir"
+msgstr "To review"
+
+msgid "Accès validés"
+msgstr "Access approved"
+
+msgid "À modifier"
+msgstr "To change"
+
+msgid "À retirer"
+msgstr "To remove"
+
+msgid "responsable hiérarchique"
+msgstr "line manager"
+
+msgid "responsable du groupe"
+msgstr "group manager"
+
+msgid "pilote (aucun responsable)"
+msgstr "owner (no manager)"
+
+msgid "Comptes à revoir"
+msgstr "Accounts to review"
+
+msgid "Le nom de la campagne est obligatoire."
+msgstr "The campaign name is required."
+
+msgid "Date de clôture"
+msgstr "Closing date"
+
+msgid "Ex. : Revue des accès T4 2026"
+msgstr "E.g.: Access review Q4 2026"
+
+msgid "Après l'enregistrement, ouvrez l'onglet « Comptes à revoir » pour lancer la campagne. Les responsables sont prévenus par notification ; aucun droit n'est modifié par le plugin."
+msgstr "Once saved, open the \"Accounts to review\" tab to launch the campaign. Reviewers are notified; the plugin never changes any right."
+
+msgid "Aucun compte actif n'a de profil dans cette entité."
+msgstr "No active account has a profile in this entity."
+
+msgid "Cette ligne n'appartient pas à une campagne en cours."
+msgstr "This line does not belong to an ongoing campaign."
+
+msgid "Cette ligne est confiée à un autre responsable."
+msgstr "This line is assigned to another reviewer."
+
+msgid "Décision inconnue."
+msgstr "Unknown decision."
+
+msgid "Un ticket a déjà été créé pour ce compte : la décision ne peut plus changer."
+msgstr "A ticket has already been created for this account: the decision can no longer change."
+
+msgid "Précisez ce qu'il faut modifier ou retirer."
+msgstr "State what must be changed or removed."
+
+#, php-format
+msgid "Revue des accès : retirer les accès de %s"
+msgstr "Access review: remove the access of %s"
+
+#, php-format
+msgid "Revue des accès : modifier les accès de %s"
+msgstr "Access review: change the access of %s"
+
+#, php-format
+msgid "Demande issue de la campagne « %1$s », par %2$s."
+msgstr "Request from campaign \"%1$s\", by %2$s."
+
+msgid "Demande"
+msgstr "Request"
+
+msgid "Profils au lancement"
+msgstr "Profiles at launch"
+
+msgid "Groupes au lancement"
+msgstr "Groups at launch"
+
+msgid "Le plugin GRC ne modifie aucun droit : appliquez la demande puis résolvez ce ticket."
+msgstr "The GRC plugin changes no right: apply the request, then solve this ticket."
+
+#, php-format
+msgid "Revue des accès : %s"
+msgstr "Access review: %s"
+
+#, php-format
+msgid "Rapport de revue des accès - %s"
+msgstr "Access review report - %s"
+
+#, php-format
+msgid "Revue des accès du %s"
+msgstr "Access review of %s"
+
+msgid "Relance des responsables en retard sur la revue des accès"
+msgstr "Reminds reviewers who are late on an access review"
+
+msgid "Revue des accès à réaliser"
+msgstr "Access review to complete"
+
+msgid "Relance de la revue des accès"
+msgstr "Access review reminder"
+
+msgid "Responsables ayant des comptes à revoir"
+msgstr "Reviewers with accounts to review"
+
+msgid "Revue des accès"
+msgid_plural "Revues des accès"
+msgstr[0] "Access review"
+msgstr[1] "Access reviews"
+
+msgid "Décision et commentaire"
+msgstr "Decision and comment"
+
+msgid "Commentaire (obligatoire pour modifier ou retirer)"
+msgstr "Comment (required to change or remove)"

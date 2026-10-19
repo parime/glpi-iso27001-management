@@ -19,6 +19,8 @@ use GlpiPlugin\Grcmanager\Services\Control\SoaApprovalLogic;
 
 include('../../../inc/includes.php');
 
+global $CFG_GLPI;
+
 // Issue #112 : approbation de la Déclaration d'Applicabilité par la direction. Lecture : même
 // droit que la SoA ; demander une approbation : droit de modification ; répondre : être
 // approbateur désigné de la version (vérifié par PluginGrcmanagerSoaVersion::answer()). Un
@@ -60,7 +62,7 @@ if (isset($_POST['request_approval'])) {
     if ($id > 0) {
         Session::addMessageAfterRedirect(__('Version figée et envoyée aux approbateurs.', 'grcmanager'));
     }
-    Html::redirect($_SERVER['PHP_SELF']);
+    Html::redirect($CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/soaapproval.php');
 }
 
 if (isset($_POST['answer'])) {
@@ -82,7 +84,7 @@ if (isset($_POST['answer'])) {
     } else {
         Session::addMessageAfterRedirect(__('Cette version n\'attend pas votre réponse.', 'grcmanager'), false, ERROR);
     }
-    Html::redirect($_SERVER['PHP_SELF']);
+    Html::redirect($CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/soaapproval.php');
 }
 
 Html::header(

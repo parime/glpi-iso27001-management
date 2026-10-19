@@ -244,6 +244,29 @@ class PluginGrcmanagerControl extends ControlBase
      * @param array<string, mixed> $input
      * @return array<string, mixed>|false
      */
+    /**
+     * Issue #126 : la fiche passe par displayFullPageForItem() ; son en-tête affiche le code de la
+     * mesure (A.5.18…), la table n'ayant pas de colonne `name` (même correctif que Policy).
+     */
+    public static function getNameField()
+    {
+        return 'code';
+    }
+
+    /**
+     * Issue #126 : preuves (Documents, dont le rapport de revue des accès) et campagnes de revue
+     * des accès rattachées à la mesure.
+     */
+    public function defineTabs($options = [])
+    {
+        $tabs = [];
+        $this->addDefaultFormTab($tabs)
+            ->addStandardTab(PluginGrcmanagerAccessReview::class, $tabs, $options)
+            ->addStandardTab(Document_Item::class, $tabs, $options);
+
+        return $tabs;
+    }
+
     public function prepareInputForAdd($input)
     {
         return $this->validateAndMarkReviewed($input);
