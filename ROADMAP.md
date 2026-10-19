@@ -127,6 +127,12 @@ Objectif : une plateforme GRC/ISO 27001 générique fonctionnelle de bout en bou
 - **Approbation de la SoA par la direction** : versions figées (PDF + empreinte SHA-256), approbateurs désignés, historique, nouvelle approbation exigée après modification, issue #112.
 - **Preuves assetsign** (remises/restitutions signées) sur les contrôles A.5.9 à A.5.11 et dans le PDF de la SoA, issue #109.
 
+## Version 2.4 (livrée)
+
+- **Incidents de sécurité** : qualification d'un ticket en incident (éléments liés repris, statut du ticket inchangé) et délais de notification NIS2 (24 h, 72 h, 1 mois) et RGPD (72 h) suivis par une tâche planifiée, issue #128.
+- **Évaluation des fournisseurs** : questionnaire de sécurité avec score, contrats GLPI du fournisseur, preuves, ticket de réévaluation à l'échéance, issue #127.
+- **Revue périodique des accès** : campagnes validées par les responsables, ticket pour chaque modification ou retrait (aucun droit modifié), relances, rapport PDF archivé sur la mesure A.5.18, issue #126.
+
 ## Suivi
 
 L'avancement réel (issues, PR, jalons) est suivi sur le
