@@ -7,6 +7,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.4.1] - 2026-10-22
+
 ### Security
 
 - **Audit de sécurité (contrôle d'accès)**, aligné sur les revues de la marketplace GLPI des plugins
