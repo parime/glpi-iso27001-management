@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 # Matrice de controle d'acces de bout en bout (vraies requetes HTTP, vraie session GLPI).
 #
-# Usage : access-matrix.sh <url GLPI> <limited|reader|admin> <login> <mot de passe> <json de setup.php>
+# Usage : access-matrix.sh <url GLPI> <none|reader|limited|admin> <login> <mot de passe> <json de setup.php>
 #   limited : gestionnaire limite a l'entite A -> rien de l'entite B (incident, campagne, contrat,
 #             ordinateur), ni lu ni modifie ; ses enregistrements ne touchent pas aux liens vers B
-#   reader  : lecteur (lecture seule) limite a A -> ne peut pas s'assigner un incident
+#   none    : aucun droit sur le plugin -> chaque page refusee, aucune creation possible
+#   reader  : lecteur (lecture seule) limite a A -> listes, rapports et fiches lisibles, aucune
+#             creation possible, ne peut pas s'assigner un incident
 #   admin   : super-admin -> tout reste accessible (detecte un controle trop strict)
 #
 # Les verifications en base (liens d'un risque, approbateurs de la SoA) sont faites par la CI avec
@@ -41,10 +43,63 @@ done
 P=$BASE/plugins/grcmanager/front
 if [ "$ROLE" = admin ]; then SEE_B=oui; DENY=200; else SEE_B=non; DENY=403; fi
 
+# Pages consultables (listes, rapports, fiches existantes) : refusees sans droit, ouvertes en lecture.
+READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php front/complianceobligation.php
+  front/control.php front/ismsrequirement.php front/managementreview.php front/nonconformity.php
+  front/objective.php front/policy.php front/risk.php front/securityincident.php front/supplierrisk.php
+  front/training.php front/referentiels.php front/riskheatmap.php front/soaapproval.php front/config.php
+  front/audit.report.php front/control.report.php front/risk.report.php front/control.csv.php?action=export"
+# Creations : refusees sans droit comme en lecture seule (etat en base compare par la CI).
+create_attempts() { # code attendu, code attendu pour la classification (404 sans droit sur l'actif)
+  local incident; incident=$(id incident_A)
+  for form in front/accessreview.form.php front/audit.form.php front/canonicalproduct.form.php \
+    front/complianceobligation.form.php front/control.form.php front/managementreview.form.php \
+    front/nonconformity.form.php front/objective.form.php front/objectivemeasurement.form.php \
+    front/policy.form.php front/risk.form.php front/risktreatmentaction.form.php front/supplierrisk.form.php \
+    front/training.form.php front/securityincident.form.php front/securityincidentticket.form.php \
+    front/securityincidentcve.form.php front/cpereference.form.php front/productalias.form.php; do
+    expect "$form : creation" "$1" "$(code -d "add=1&name=securite&title=securite&_glpi_csrf_token=$(csrf)" "$BASE/plugins/grcmanager/$form")"
+  done
+  expect "front/ismsrequirement.form.php : modification" "$1" \
+    "$(code -d "update=1&id=1&status=done&_glpi_csrf_token=$(csrf)" "$P/ismsrequirement.form.php")"
+  expect "front/supplierassessment.form.php : questionnaire" "$1" \
+    "$(code -d "save=1&id=$(id supplierrisk)&_glpi_csrf_token=$(csrf)" "$P/supplierassessment.form.php")"
+  expect "front/assetclassification.form.php : classification" "$2" \
+    "$(code -d "save=1&itemtype=Computer&items_id=$(id computer_A)&confidentiality=high&integrity=high&availability=high&_glpi_csrf_token=$(csrf)" "$P/assetclassification.form.php")"
+  expect "front/securityincident_item.form.php : lier un actif" "$1" \
+    "$(code -d "add=1&plugin_grcmanager_securityincidents_id=$incident&itemtype=Computer&items_id=$(id computer_A)&_glpi_csrf_token=$(csrf)" "$P/securityincident_item.form.php")"
+  expect "front/securityincidentcost.form.php : ajouter un cout" "$1" \
+    "$(code -d "add=1&plugin_grcmanager_securityincidents_id=$incident&name=cout&cost_fixed=10&_glpi_csrf_token=$(csrf)" "$P/securityincidentcost.form.php")"
+  expect "front/securityincidenttask.form.php : ajouter une tache" "$1" \
+    "$(code -d "add=1&plugin_grcmanager_securityincidents_id=$incident&content=tache&_glpi_csrf_token=$(csrf)" "$P/securityincidenttask.form.php")"
+}
+
+if [ "$ROLE" = none ]; then
+  for p in $READABLE; do expect "$p : sans droit" 403 "$(code "$BASE/plugins/grcmanager/$p")"; done
+  for p in "risk.form.php?id=$(id risk)" "control.form.php?id=$(id control)" "securityincident.form.php?id=$(id incident_A)" \
+           "accessreview.form.php?id=$(id campaign_A)" "supplierrisk.form.php?id=$(id supplierrisk)"; do
+    expect "front/$p : sans droit" 403 "$(code "$P/$p")"
+  done
+  # Page des responsables de revue : ouverte a toute session, ne montre que leurs propres lignes.
+  contains "front/accessreview.mine.php : aucune campagne d'autrui" "Campagne securite" non "$(curl -s -c "$JAR" -b "$JAR" "$P/accessreview.mine.php")"
+  create_attempts 403 404
+  rm -f "$JAR"; exit $FAIL
+fi
+
 if [ "$ROLE" = reader ]; then
+  for p in $READABLE; do expect "$p : en lecture" 200 "$(code "$BASE/plugins/grcmanager/$p")"; done
+  for p in "risk.form.php?id=$(id risk)" "control.form.php?id=$(id control)" "securityincident.form.php?id=$(id incident_A)" \
+           "accessreview.form.php?id=$(id campaign_A)" "supplierrisk.form.php?id=$(id supplierrisk)"; do
+    expect "front/$p : en lecture" 200 "$(code "$P/$p")"
+  done
   expect "s'assigner un incident en lecture seule" 403 \
     "$(code -d "addme_assign=1&plugin_grcmanager_securityincidents_id=$(id incident_A)&_glpi_csrf_token=$(csrf)" "$P/securityincident.form.php")"
+  create_attempts 403 403
   rm -f "$JAR"; exit $FAIL
+fi
+
+if [ "$ROLE" = admin ]; then
+  for p in $READABLE; do expect "$p : super-admin" 200 "$(code "$BASE/plugins/grcmanager/$p")"; done
 fi
 
 expect "incident, entite A"            200    "$(code "$P/securityincident.form.php?id=$(id incident_A)")"

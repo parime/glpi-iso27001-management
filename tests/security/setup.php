@@ -46,6 +46,18 @@ if ($mode === 'risk-links') {
     exit(0);
 }
 
+if ($mode === 'counts') {
+    // Nombre de lignes de chaque table du plugin : un lecteur ne doit rien créer ni supprimer.
+    $counts = [];
+    foreach ($DB->listTables('glpi_plugin_grcmanager_%') as $table) {
+        $name = $table['TABLE_NAME'];
+        $counts[$name] = countElementsInTable($name);
+    }
+    ksort($counts);
+    echo json_encode($counts), "\n";
+    exit(0);
+}
+
 if ($mode === 'soa-approvers') {
     $last = $DB->request([
         'SELECT' => ['MAX' => 'id AS id'],
@@ -120,6 +132,12 @@ $reader = $userId('iso-lecteur', $a, $profileId('Securite ISO - lecteur A', [
     'plugin_grcmanager'                  => READ,
     'plugin_grcmanager_securityincident' => CommonITILObject::READALL,
     'computer' => READ, 'contract' => READ, 'supplier' => READ, 'user' => READ,
+]));
+
+// Sans droit : aucun droit sur le plugin, chaque page doit lui être refusée.
+$noRight = $userId('iso-sans-droit', $a, $profileId('Securite ISO - sans droit', [
+    'plugin_grcmanager'                  => 0,
+    'plugin_grcmanager_securityincident' => 0,
 ]));
 
 $control = $DB->request([

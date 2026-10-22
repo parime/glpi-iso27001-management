@@ -32,7 +32,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 - CI : actions GitHub et image Gitleaks épinglées par empreinte, Semgrep à nouveau bloquant (le job
   ne pouvait jamais échouer), règles Semgrep propres au projet, contrôle d'autorisation obligatoire
   sur chaque point d'entrée, `dependency-review` sur les PR, et test de contrôle d'accès de bout en
-  bout (profils limités à une entité, puis super-admin). L'archive de release n'embarque plus les
+  bout couvrant les 48 pages (profil sans droit, lecteur, gestionnaire limité à une entité, puis
+  super-admin), dont la CI vérifie la couverture. L'archive de release n'embarque plus les
   tests ni la configuration de développement.
 
 ## [2.4.0] - 2026-10-19

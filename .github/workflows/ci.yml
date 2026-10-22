@@ -103,6 +103,10 @@ jobs:
       # figurer avec sa justification dans .github/security-entrypoints-allowlist.txt.
       - name: Points d'entree - controle d'autorisation present
         run: sh .github/scripts/check-entrypoints-auth.sh
+      # Chaque page front/ doit figurer dans la matrice d'acces de bout en bout
+      # (tests/security/access-matrix.sh), ou etre justifiee dans tests/security/not-covered.txt.
+      - name: Matrice d'acces - toutes les pages couvertes
+        run: sh .github/scripts/check-security-matrix-coverage.sh
 
   # Bloque une PR qui ajoute ou met a jour une dependance (composer, actions) ayant un avis de
   # securite connu - avant la fusion, la ou Dependabot ne previent qu'apres coup.
@@ -359,7 +363,12 @@ jobs:
           jq -e --argjson me "$(jq -r .manager <<< "$ids")" '.approvers | index($me) == null' <<< "$approvers" > /dev/null \
             || { echo "::error::le demandeur s'est designe approbateur de sa propre SoA : $approvers"; exit 1; }
           echo "OK  liens du risque conserves ($links), demandeur absent des approbateurs ($approvers)"
+          counts_before=$(setup counts)
+          bash tests/security/access-matrix.sh http://localhost:8080 none iso-sans-droit 'Secrev#2026' "$ids"
           bash tests/security/access-matrix.sh http://localhost:8080 reader iso-lecteur 'Secrev#2026' "$ids"
+          counts_after=$(setup counts)
+          [ "$counts_before" = "$counts_after" ] || { echo "::error::un profil sans droit ou en lecture seule a cree ou supprime des donnees"; echo "avant : $counts_before"; echo "apres : $counts_after"; exit 1; }
+          echo "OK  aucune ligne creee ni supprimee par les profils sans droit et lecteur"
           bash tests/security/access-matrix.sh http://localhost:8080 admin glpi glpi "$ids"
 
       - name: Logs GLPI (en cas d'echec)
