@@ -197,10 +197,25 @@ class PluginGrcmanagerSoaVersion extends SoaVersionBase
     {
         global $DB;
 
+        // Séparation des tâches : celui qui fige et soumet la version ne peut pas l'approuver lui-même,
+        // sinon l'approbation (preuve d'audit ISO 27001, clause 6.1.3 d) se réduirait à une signature
+        // de sa propre main.
+        $requesterId = (int) Session::getLoginUserID();
         $approverIds = array_values(array_unique(array_filter(
             array_map('intval', $approverIds),
             static fn (int $id): bool => $id > 0
         )));
+        if (in_array($requesterId, $approverIds, true)) {
+            $approverIds = array_values(array_diff($approverIds, [$requesterId]));
+            Session::addMessageAfterRedirect(
+                __(
+                    'Vous ne pouvez pas approuver votre propre demande : vous avez été retiré des approbateurs.',
+                    'grcmanager'
+                ),
+                false,
+                WARNING
+            );
+        }
         if ($approverIds === []) {
             Session::addMessageAfterRedirect(__('Choisissez au moins un approbateur.', 'grcmanager'), false, ERROR);
 

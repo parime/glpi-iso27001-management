@@ -189,6 +189,11 @@ class PluginGrcmanagerSupplierAssessment extends CommonGLPI
         global $DB;
 
         $contracts = [];
+        // Contrats natifs GLPI : droit `contract` et entités de la session, comme la liste native
+        // (le fournisseur évalué est partagé entre entités, ses contrats non).
+        if (!Contract::canView()) {
+            return $contracts;
+        }
         $rows = $DB->request([
             'SELECT'     => [Contract::getTable() . '.*'],
             'FROM'       => Contract::getTable(),
@@ -200,7 +205,7 @@ class PluginGrcmanagerSupplierAssessment extends CommonGLPI
             'WHERE'      => [
                 Contract_Supplier::getTable() . '.suppliers_id' => $suppliersId,
                 Contract::getTable() . '.is_deleted'            => 0,
-            ],
+            ] + getEntitiesRestrictCriteria(Contract::getTable(), '', '', true),
             'ORDER'      => Contract::getTable() . '.name',
         ]);
         foreach ($rows as $row) {

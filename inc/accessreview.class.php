@@ -143,11 +143,14 @@ class PluginGrcmanagerAccessReview extends AccessReviewBase
                 ),
             ];
         }
-        if ($item instanceof PluginGrcmanagerControl && !$item->isNewItem()) {
+        // Le contrôle est global à l'instance, les campagnes non : droit de lecture sur les revues
+        // d'accès exigé, et seules les campagnes des entités de la session sont comptées/listées.
+        if ($item instanceof PluginGrcmanagerControl && !$item->isNewItem() && self::canView()) {
             $count = $DB->request([
                 'COUNT' => 'cpt',
                 'FROM'  => self::getTable(),
-                'WHERE' => ['plugin_grcmanager_controls_id' => $item->getID()],
+                'WHERE' => ['plugin_grcmanager_controls_id' => $item->getID()]
+                    + getEntitiesRestrictCriteria(self::getTable(), '', '', true),
             ])->current()['cpt'] ?? 0;
 
             return [
@@ -166,6 +169,9 @@ class PluginGrcmanagerAccessReview extends AccessReviewBase
             return true;
         }
         if ($item instanceof PluginGrcmanagerControl) {
+            if (!self::canView()) {
+                return false;
+            }
             self::showForControl($item);
 
             return true;
@@ -634,7 +640,9 @@ class PluginGrcmanagerAccessReview extends AccessReviewBase
         ) {
             return __('Cette ligne n\'appartient pas à une campagne en cours.', 'grcmanager');
         }
-        if ((int) $line['reviewers_id'] !== $actorId && !Session::haveRight(self::RIGHTNAME, UPDATE)) {
+        // Gestionnaire des campagnes : droit UPDATE sur CETTE campagne (donc sur son entité), pas le
+        // seul droit global — sinon une ligne d'une campagne d'une autre entité serait modifiable.
+        if ((int) $line['reviewers_id'] !== $actorId && !$campaign->can($campaign->getID(), UPDATE)) {
             return __('Cette ligne est confiée à un autre responsable.', 'grcmanager');
         }
         if (!AccessReviewLogic::isDecision($decision)) {
@@ -863,7 +871,8 @@ class PluginGrcmanagerAccessReview extends AccessReviewBase
         $campaigns = [];
         $rows = $DB->request([
             'FROM'  => self::getTable(),
-            'WHERE' => ['plugin_grcmanager_controls_id' => $control->getID()],
+            'WHERE' => ['plugin_grcmanager_controls_id' => $control->getID()]
+                + getEntitiesRestrictCriteria(self::getTable(), '', '', true),
             'ORDER' => 'date_start DESC',
         ]);
         foreach ($rows as $row) {

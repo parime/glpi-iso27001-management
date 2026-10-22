@@ -68,7 +68,9 @@ if (isset($_POST['add'])) {
         $_POST['plugin_grcmanager_securityincidents_id']
     ));
 } elseif (isset($_POST['addme_assign'])) {
-    $securityIncident->check($_POST['plugin_grcmanager_securityincidents_id'], READ);
+    // UPDATE, pas READ : s'assigner un incident donne ensuite le droit de le résoudre (canSolve()
+    // accepte READMY + assigné) — un simple lecteur ne doit pas pouvoir se l'octroyer.
+    $securityIncident->check($_POST['plugin_grcmanager_securityincidents_id'], UPDATE);
     (new PluginGrcmanagerSecurityIncident_User())->add([
         'plugin_grcmanager_securityincidents_id' => $_POST['plugin_grcmanager_securityincidents_id'],
         'users_id' => Session::getLoginUserID(),

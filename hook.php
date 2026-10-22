@@ -16,8 +16,7 @@
  */
 
 use GlpiPlugin\Grcmanager\Install\Installer;
-use GlpiPlugin\Grcmanager\Services\Dashboard\DashboardCardService;
-use GlpiPlugin\Grcmanager\Services\Dashboard\SecurityIncidentCardProvider;
+use GlpiPlugin\Grcmanager\Services\Dashboard\SecuredDashboardCards;
 use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentModuleConfig;
 
 /**
@@ -47,172 +46,172 @@ function plugin_grcmanager_dashboard_cards(?array $cards = null): array
             'widgettype' => ['bigNumber'],
             'label' => __('Risques ouverts', 'grcmanager'),
             'group' => $group,
-            'provider' => DashboardCardService::class . '::openRisksCount',
+            'provider' => SecuredDashboardCards::class . '::openRisksCount',
         ],
         'grcmanager_risks_by_level' => [
             'widgettype' => ['multipleNumber', 'pie', 'donut', 'bar', 'hbar'],
             'label' => __('Risques par niveau', 'grcmanager'),
             'group' => $group,
-            'provider' => DashboardCardService::class . '::risksByLevel',
+            'provider' => SecuredDashboardCards::class . '::risksByLevel',
         ],
         'grcmanager_risks_by_category' => [
             'widgettype' => ['multipleNumber', 'pie', 'donut', 'bar', 'hbar'],
             'label' => __('Risques par catégorie', 'grcmanager'),
             'group' => $group,
-            'provider' => DashboardCardService::class . '::risksByCategory',
+            'provider' => SecuredDashboardCards::class . '::risksByCategory',
         ],
         'grcmanager_risks_pending_review' => [
             'widgettype' => ['bigNumber'],
             'label' => __('Risques en attente de revue', 'grcmanager'),
             'group' => $group,
-            'provider' => DashboardCardService::class . '::risksPendingReviewCount',
+            'provider' => SecuredDashboardCards::class . '::risksPendingReviewCount',
         ],
         // Sprint 3 (SoA, clause 6.1.3).
         'grcmanager_soa_reviewed' => [
             'widgettype' => ['bigNumber'],
             'label' => __('Contrôles SoA revus', 'grcmanager'),
             'group' => $group,
-            'provider' => DashboardCardService::class . '::soaReviewedCount',
+            'provider' => SecuredDashboardCards::class . '::soaReviewedCount',
         ],
         'grcmanager_soa_by_applicability' => [
             'widgettype' => ['multipleNumber', 'pie', 'donut', 'bar', 'hbar'],
             'label' => __('Contrôles SoA par applicabilité', 'grcmanager'),
             'group' => $group,
-            'provider' => DashboardCardService::class . '::soaByApplicability',
+            'provider' => SecuredDashboardCards::class . '::soaByApplicability',
         ],
         'grcmanager_soa_by_implementation_status' => [
             'widgettype' => ['multipleNumber', 'pie', 'donut', 'bar', 'hbar'],
             'label' => __('Contrôles SoA par état de mise en œuvre', 'grcmanager'),
             'group' => $group,
-            'provider' => DashboardCardService::class . '::soaByImplementationStatus',
+            'provider' => SecuredDashboardCards::class . '::soaByImplementationStatus',
         ],
         // Sprint 4 (audits internes et CAPA, clause 9.2/10.2).
         'grcmanager_open_nonconformities' => [
             'widgettype' => ['bigNumber'],
             'label' => __('Non-conformités ouvertes', 'grcmanager'),
             'group' => $group,
-            'provider' => DashboardCardService::class . '::openNonconformitiesCount',
+            'provider' => SecuredDashboardCards::class . '::openNonconformitiesCount',
         ],
         'grcmanager_overdue_capa' => [
             'widgettype' => ['bigNumber'],
             'label' => __('Actions correctives/préventives en retard', 'grcmanager'),
             'group' => $group,
-            'provider' => DashboardCardService::class . '::overdueCapaCount',
+            'provider' => SecuredDashboardCards::class . '::overdueCapaCount',
         ],
         'grcmanager_audits_by_status' => [
             'widgettype' => ['multipleNumber', 'pie', 'donut', 'bar', 'hbar'],
             'label' => __('Audits internes par statut', 'grcmanager'),
             'group' => $group,
-            'provider' => DashboardCardService::class . '::auditsByStatus',
+            'provider' => SecuredDashboardCards::class . '::auditsByStatus',
         ],
         // Sprint 5 (risques fournisseurs/tiers).
         'grcmanager_supplierrisks_by_level' => [
             'widgettype' => ['multipleNumber', 'pie', 'donut', 'bar', 'hbar'],
             'label' => __('Risques fournisseurs par niveau', 'grcmanager'),
             'group' => $group,
-            'provider' => DashboardCardService::class . '::supplierRisksByLevel',
+            'provider' => SecuredDashboardCards::class . '::supplierRisksByLevel',
         ],
         'grcmanager_suppliers_with_high_risk' => [
             'widgettype' => ['bigNumber'],
             'label' => __('Fournisseurs avec au moins un risque élevé/critique ouvert', 'grcmanager'),
             'group' => $group,
-            'provider' => DashboardCardService::class . '::suppliersWithHighRiskCount',
+            'provider' => SecuredDashboardCards::class . '::suppliersWithHighRiskCount',
         ],
         // Sprint 6 (formations et revues de direction, clauses 7.2/7.3/9.3).
         'grcmanager_training_completion_rate' => [
             'widgettype' => ['bigNumber'],
             'label' => __('Taux de réalisation des formations', 'grcmanager'),
             'group' => $group,
-            'provider' => DashboardCardService::class . '::trainingCompletionRate',
+            'provider' => SecuredDashboardCards::class . '::trainingCompletionRate',
         ],
         'grcmanager_training_pass_rate' => [
             'widgettype' => ['bigNumber'],
             'label' => __('Taux de réussite des formations évaluées', 'grcmanager'),
             'group' => $group,
-            'provider' => DashboardCardService::class . '::trainingPassRate',
+            'provider' => SecuredDashboardCards::class . '::trainingPassRate',
         ],
         'grcmanager_training_overdue_renewal' => [
             'widgettype' => ['bigNumber'],
             'label' => __('Participants en retard de renouvellement de formation', 'grcmanager'),
             'group' => $group,
-            'provider' => DashboardCardService::class . '::trainingOverdueRenewalCount',
+            'provider' => SecuredDashboardCards::class . '::trainingOverdueRenewalCount',
         ],
         'grcmanager_management_reviews_by_status' => [
             'widgettype' => ['multipleNumber', 'pie', 'donut', 'bar', 'hbar'],
             'label' => __('Revues de direction par statut', 'grcmanager'),
             'group' => $group,
-            'provider' => DashboardCardService::class . '::managementReviewsByStatus',
+            'provider' => SecuredDashboardCards::class . '::managementReviewsByStatus',
         ],
         // Issue #28 (bibliothèque de politiques de sécurité versionnées, A.5.1).
         'grcmanager_policies_pending_review' => [
             'widgettype' => ['bigNumber'],
             'label' => __('Politiques en attente de revue', 'grcmanager'),
             'group' => $group,
-            'provider' => DashboardCardService::class . '::policiesPendingReviewCount',
+            'provider' => SecuredDashboardCards::class . '::policiesPendingReviewCount',
         ],
         'grcmanager_policies_by_status' => [
             'widgettype' => ['multipleNumber', 'pie', 'donut', 'bar', 'hbar'],
             'label' => __('Politiques de sécurité par statut', 'grcmanager'),
             'group' => $group,
-            'provider' => DashboardCardService::class . '::policiesByStatus',
+            'provider' => SecuredDashboardCards::class . '::policiesByStatus',
         ],
         // Issue #30 (registre des obligations légales/réglementaires/contractuelles, clause 4.2).
         'grcmanager_obligations_non_compliant' => [
             'widgettype' => ['bigNumber'],
             'label' => __('Obligations non conformes', 'grcmanager'),
             'group' => $group,
-            'provider' => DashboardCardService::class . '::obligationsNonCompliantCount',
+            'provider' => SecuredDashboardCards::class . '::obligationsNonCompliantCount',
         ],
         'grcmanager_obligations_pending_review' => [
             'widgettype' => ['bigNumber'],
             'label' => __('Obligations en attente de revue', 'grcmanager'),
             'group' => $group,
-            'provider' => DashboardCardService::class . '::obligationsPendingReviewCount',
+            'provider' => SecuredDashboardCards::class . '::obligationsPendingReviewCount',
         ],
         'grcmanager_obligations_by_type' => [
             'widgettype' => ['multipleNumber', 'pie', 'donut', 'bar', 'hbar'],
             'label' => __('Obligations par type', 'grcmanager'),
             'group' => $group,
-            'provider' => DashboardCardService::class . '::obligationsByType',
+            'provider' => SecuredDashboardCards::class . '::obligationsByType',
         ],
         'grcmanager_obligations_by_compliance_status' => [
             'widgettype' => ['multipleNumber', 'pie', 'donut', 'bar', 'hbar'],
             'label' => __('Obligations par statut de conformité', 'grcmanager'),
             'group' => $group,
-            'provider' => DashboardCardService::class . '::obligationsByComplianceStatus',
+            'provider' => SecuredDashboardCards::class . '::obligationsByComplianceStatus',
         ],
         // Issue #32 (objectifs ISMS et suivi de KPI dans le temps, clause 6.2).
         'grcmanager_objectives_by_status' => [
             'widgettype' => ['multipleNumber', 'pie', 'donut', 'bar', 'hbar'],
             'label' => __('Objectifs ISMS par statut', 'grcmanager'),
             'group' => $group,
-            'provider' => DashboardCardService::class . '::objectivesByStatus',
+            'provider' => SecuredDashboardCards::class . '::objectivesByStatus',
         ],
         // Issue #29 (registre des incidents de sécurité de l'information, A.5.24-27).
         'grcmanager_security_incidents_by_status' => [
             'widgettype' => ['multipleNumber', 'pie', 'donut', 'bar', 'hbar'],
             'label' => __('Incidents de sécurité par statut', 'grcmanager'),
             'group' => $group,
-            'provider' => DashboardCardService::class . '::securityIncidentsByStatus',
+            'provider' => SecuredDashboardCards::class . '::securityIncidentsByStatus',
         ],
         'grcmanager_security_incidents_by_severity' => [
             'widgettype' => ['multipleNumber', 'pie', 'donut', 'bar', 'hbar'],
             'label' => __('Incidents de sécurité par sévérité', 'grcmanager'),
             'group' => $group,
-            'provider' => DashboardCardService::class . '::securityIncidentsBySeverity',
+            'provider' => SecuredDashboardCards::class . '::securityIncidentsBySeverity',
         ],
         // Issue #31 (plan d'action de traitement des risques, clause 8.3/6.1.3).
         'grcmanager_overdue_treatment_actions' => [
             'widgettype' => ['bigNumber'],
             'label' => __('Actions de traitement de risque en retard', 'grcmanager'),
             'group' => $group,
-            'provider' => DashboardCardService::class . '::overdueTreatmentActionsCount',
+            'provider' => SecuredDashboardCards::class . '::overdueTreatmentActionsCount',
         ],
         'grcmanager_risks_missing_treatment_plan' => [
             'widgettype' => ['bigNumber'],
             'label' => __('Risques à mitiger/transférer sans plan de traitement', 'grcmanager'),
             'group' => $group,
-            'provider' => DashboardCardService::class . '::risksMissingTreatmentPlanCount',
+            'provider' => SecuredDashboardCards::class . '::risksMissingTreatmentPlanCount',
         ],
     ];
 
@@ -248,7 +247,7 @@ function plugin_grcmanager_dashboard_cards(?array $cards = null): array
                 'itemtype'   => "\\{$itilItemtype}",
                 'label'      => _x('security incidents', 'Open', 'grcmanager'),
                 'group'      => $group,
-                'provider'   => SecurityIncidentCardProvider::class . '::open',
+                'provider'   => SecuredDashboardCards::class . '::open',
                 'filters'    => $itilFilters,
             ],
             'securityincidents_by_entity' => [
@@ -275,7 +274,7 @@ function plugin_grcmanager_dashboard_cards(?array $cards = null): array
                 'widgettype' => ['bigNumber'],
                 'label' => __('Délai moyen de réponse aux incidents (heures)', 'grcmanager'),
                 'group' => $group,
-                'provider' => DashboardCardService::class . '::securityIncidentResponseTimeHours',
+                'provider' => SecuredDashboardCards::class . '::securityIncidentResponseTimeHours',
             ],
         ];
     }

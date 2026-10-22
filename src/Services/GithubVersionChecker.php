@@ -29,6 +29,17 @@ final class GithubVersionChecker
     {
         global $GLPI_CACHE;
 
+        // Opt-in : aucun appel sortant tant que l'action automatique native « checkupdate » de GLPI
+        // (Configuration > Actions automatiques, désactivée par défaut) n'est pas activée — refuser
+        // la vérification de mise à jour de GLPI lui-même refuse aussi celle-ci.
+        $checkUpdate = new \CronTask();
+        if (
+            !$checkUpdate->getFromDBbyName('CronTask', 'checkupdate')
+            || (int) $checkUpdate->fields['state'] === \CronTask::STATE_DISABLE
+        ) {
+            return null;
+        }
+
         $cacheKey = 'plugin_grcmanager_latest_github_version';
         $cached = $GLPI_CACHE->get($cacheKey);
         if ($cached !== null) {
@@ -36,7 +47,7 @@ final class GithubVersionChecker
         }
 
         $error = '';
-        $url = 'https://api.github.com/repos/parime/glpi-grc-manager/releases/latest';
+        $url = 'https://api.github.com/repos/parime/glpi-iso27001-management/releases/latest';
         $json = Http::getContent($url, $error);
         $version = null;
         if (!empty($json)) {

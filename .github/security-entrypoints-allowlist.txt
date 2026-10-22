@@ -1,0 +1,5 @@
+# Points d'entree autorises sans Session::checkRight()/checkLoginUser()/->check(), lus par
+# .github/scripts/check-entrypoints-auth.sh. Format : chemin : justification (obligatoire).
+front/securityincident_item.form.php : delegue au controleur generique du coeur front/commonitilobject_item.form.php, qui fait $item_obj->check(-1, CREATE, $_POST)
+front/securityincidentcost.form.php : delegue au controleur generique du coeur front/commonitilcost.form.php, qui fait $cost->check() sur chaque action
+front/securityincidenttask.form.php : delegue au controleur generique du coeur front/commonitiltask.form.php, qui fait $task->check() sur chaque action

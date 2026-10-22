@@ -2308,3 +2308,7 @@ msgstr "Decision and comment"
 
 msgid "Commentaire (obligatoire pour modifier ou retirer)"
 msgstr "Comment (required to change or remove)"
+
+#: inc/soaversion.class.php
+msgid "Vous ne pouvez pas approuver votre propre demande : vous avez été retiré des approbateurs."
+msgstr "You cannot approve your own request: you have been removed from the approvers."
