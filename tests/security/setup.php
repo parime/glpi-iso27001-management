@@ -46,6 +46,68 @@ if ($mode === 'risk-links') {
     exit(0);
 }
 
+if ($mode === 'xss') {
+    // Charge piégée dans chaque champ texte libre : un objet de chaque type est créé, et les objets
+    // du jeu de données sont piégés aussi. tests/security/xss-check.sh vérifie qu'aucune page ne
+    // la restitue telle quelle. Usage : setup.php xss '<json du mode normal>' ; affiche les ids.
+    $ids = json_decode((string) ($argv[2] ?? ''), true);
+    if (!is_array($ids)) {
+        fwrite(STDERR, "Usage : setup.php xss '<json du mode normal>'\n");
+        exit(1);
+    }
+    $canary = "<svg/onload=alert('xss-canary')>";
+    $insert = static function (string $table, array $row) use ($DB): int {
+        $DB->insert('glpi_plugin_grcmanager_' . $table, $row);
+        return (int) $DB->insertId();
+    };
+    $update = static function (string $table, array $row, int $id) use ($DB): void {
+        $DB->update('glpi_plugin_grcmanager_' . $table, $row, ['id' => $id]);
+    };
+    $out = [];
+    $out['audit'] = $insert('audits', ['title' => $canary, 'scope' => $canary, 'conclusion' => $canary]);
+    $out['obligation'] = $insert('complianceobligations', [
+        'title' => $canary, 'description' => $canary, 'reference_source' => $canary,
+    ]);
+    $out['review'] = $insert('managementreviews', ['title' => $canary, 'agenda' => $canary, 'decisions' => $canary]);
+    $out['nonconformity'] = $insert('nonconformities', [
+        'title' => $canary, 'description' => $canary, 'corrective_action' => $canary,
+        'root_cause' => $canary, 'preventive_action' => $canary,
+    ]);
+    $out['objective'] = $insert('objectives', [
+        'title' => $canary, 'description' => $canary, 'target_description' => $canary,
+    ]);
+    $insert('objectivemeasurements', ['plugin_grcmanager_objectives_id' => $out['objective'], 'comment' => $canary]);
+    $out['policy'] = $insert('policies', ['title' => $canary, 'description' => $canary]);
+    $out['training'] = $insert('trainings', [
+        'title' => $canary, 'description' => $canary, 'target_audience' => $canary,
+    ]);
+    $out['product'] = $insert('canonicalproducts', ['manufacturer' => $canary, 'product' => $canary]);
+    $insert('cpereferences', ['plugin_grcmanager_canonicalproducts_id' => $out['product'], 'cpe' => $canary]);
+    $insert('productaliases', ['plugin_grcmanager_canonicalproducts_id' => $out['product'], 'alias' => $canary]);
+    $insert('risktreatmentactions', ['plugin_grcmanager_risks_id' => (int) $ids['risk'], 'description' => $canary]);
+    $update('risks', ['title' => $canary, 'description' => $canary, 'justification' => $canary], (int) $ids['risk']);
+    $update('controls', ['justification' => $canary], (int) $ids['control']);
+    $update('supplierrisks', [
+        'title' => $canary, 'description' => $canary, 'justification' => $canary,
+    ], (int) $ids['supplierrisk']);
+    $update('accessreviews', ['name' => $canary, 'comment' => $canary], (int) $ids['campaign_A']);
+    $update('securityincidents', [
+        'name' => $canary, 'content' => $canary, 'root_cause' => $canary, 'lessons_learned' => $canary,
+        'regulatory_alerts' => $canary, 'impact_content' => $canary, 'control_list_content' => $canary,
+        'rollback_plan_content' => $canary,
+    ], (int) $ids['incident_A']);
+    $insert('securityincidentcosts', [
+        'plugin_grcmanager_securityincidents_id' => (int) $ids['incident_A'], 'name' => $canary, 'comment' => $canary,
+    ]);
+    $insert('securityincidenttasks', [
+        'plugin_grcmanager_securityincidents_id' => (int) $ids['incident_A'], 'content' => $canary,
+    ]);
+    $DB->update('glpi_plugin_grcmanager_ismsrequirements', ['comment' => $canary], ['id' => ['>', 0]]);
+    $DB->update('glpi_computers', ['name' => $canary], ['id' => (int) $ids['computer_A']]);
+    echo json_encode($out), "\n";
+    exit(0);
+}
+
 if ($mode === 'counts') {
     // Nombre de lignes de chaque table du plugin : un lecteur ne doit rien créer ni supprimer.
     $counts = [];

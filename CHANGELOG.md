@@ -33,7 +33,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   ne pouvait jamais échouer), règles Semgrep propres au projet, contrôle d'autorisation obligatoire
   sur chaque point d'entrée, `dependency-review` sur les PR, et test de contrôle d'accès de bout en
   bout couvrant les 48 pages (profil sans droit, lecteur, gestionnaire limité à une entité, puis
-  super-admin), dont la CI vérifie la couverture. L'archive de release n'embarque plus les
+  super-admin), dont la CI vérifie la couverture, et test XSS de bout en bout (charge piégée dans
+  chaque champ texte libre, restituée échappée sur 25 pages). L'archive de release n'embarque plus les
   tests ni la configuration de développement.
 
 ## [2.4.0] - 2026-10-19
