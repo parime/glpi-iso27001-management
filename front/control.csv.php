@@ -42,14 +42,19 @@ if (($_GET['action'] ?? '') === 'export') {
     fwrite($out, "\xEF\xBB\xBF"); // BOM UTF-8, pour qu'Excel affiche correctement les accents.
     fputcsv($out, $csvHeader, ';');
 
+    // Justification saisie librement : une cellule commencant par = + - @ (ou tabulation/retour)
+    // serait executee comme formule a l'ouverture du fichier dans un tableur.
+    $csvText = static fn (?string $value): string => preg_match('/^[=+\-@\t\r]/', (string) $value)
+        ? "'" . $value
+        : (string) $value;
     foreach ($DB->request(['FROM' => PluginGrcmanagerControl::getTable(), 'ORDER' => 'code ASC']) as $row) {
         fputcsv($out, [
-            $row['code'],
-            $themes[$row['theme']] ?? $row['theme'],
-            $titles[$row['code']] ?? $row['code'],
-            $applicabilities[$row['applicability']] ?? $row['applicability'],
-            $implementationStatuses[$row['implementation_status']] ?? $row['implementation_status'],
-            $row['justification'],
+            $csvText($row['code']),
+            $themes[$row['theme']] ?? $csvText($row['theme']),
+            $titles[$row['code']] ?? $csvText($row['code']),
+            $applicabilities[$row['applicability']] ?? $csvText($row['applicability']),
+            $implementationStatuses[$row['implementation_status']] ?? $csvText($row['implementation_status']),
+            $csvText($row['justification']),
         ], ';');
     }
 

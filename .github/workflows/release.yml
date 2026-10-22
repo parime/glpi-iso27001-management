@@ -29,9 +29,13 @@ jobs:
       contents: write
       pull-requests: write
       actions: write
+      # Attestation de provenance de l'archive (actions/attest-build-provenance) : jeton OIDC pour
+      # la signature Sigstore, et écriture de l'attestation dans le dépôt.
+      id-token: write
+      attestations: write
     steps:
       - name: Récupère le code du plugin
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7 (SHA pinned)
 
       - name: Vérifie que le tag correspond à PLUGIN_GRCMANAGER_VERSION
         # Empêche une release qui ne correspondrait pas à la version réellement écrite dans le
@@ -47,7 +51,7 @@ jobs:
           fi
 
       - name: Installe PHP
-        uses: shivammathur/setup-php@v2
+        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # v2 (SHA pinned)
         with:
           php-version: "8.2"
           coverage: none
@@ -146,6 +150,18 @@ jobs:
         if: failure()
         run: docker logs glpi --tail 200
 
+      # Intégrité de l'archive publiée : somme SHA-256 jointe à la release, et attestation de
+      # provenance signée par GitHub (Sigstore) qui prouve que l'archive a été construite par ce
+      # workflow, depuis ce dépôt et ce tag. Vérification : sha256sum -c, ou
+      # gh attestation verify <archive> --repo parime/glpi-iso27001-management
+      - name: Somme de contrôle SHA-256 de l'archive
+        run: sha256sum "$ARCHIVE_NAME" > "$ARCHIVE_NAME.sha256"
+
+      - name: Attestation de provenance de l'archive
+        uses: actions/attest-build-provenance@4d101475d8b20a2381f78447822ac1eab6504dd8 # v4.2.2 (SHA pinned)
+        with:
+          subject-path: ${{ env.ARCHIVE_NAME }}
+
       - name: Publie la GitHub Release
         # --generate-notes : changelog automatique à partir des titres des Pull Requests
         # fusionnées depuis le tag précédent (fonctionnalité native GitHub) plutôt qu'un script
@@ -153,7 +169,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release create "$GITHUB_REF_NAME" "$ARCHIVE_NAME" \
+          gh release create "$GITHUB_REF_NAME" "$ARCHIVE_NAME" "$ARCHIVE_NAME.sha256" \
             --title "$GITHUB_REF_NAME" \
             --generate-notes
 

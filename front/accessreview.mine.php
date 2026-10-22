@@ -45,7 +45,11 @@ if (isset($_POST['save_decisions'])) {
         if ($error === '') {
             $saved++;
         } else {
-            $name = $current !== null ? getUserName((int) $current['users_id']) : '#' . (int) $lineId;
+            // Nom du compte seulement pour une ligne confiée à cet utilisateur : sinon l'erreur
+            // révélerait l'identité d'un compte d'une campagne à laquelle il n'a pas accès.
+            $name = $current !== null && (int) $current['reviewers_id'] === $usersId
+                ? getUserName((int) $current['users_id'])
+                : '#' . (int) $lineId;
             Session::addMessageAfterRedirect(htmlescape($name . ' : ' . $error), false, ERROR);
         }
     }

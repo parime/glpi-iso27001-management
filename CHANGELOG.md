@@ -7,6 +7,38 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.4.1] - 2026-10-22
+
+### Security
+
+- **Audit de sécurité (contrôle d'accès)**, aligné sur les revues de la marketplace GLPI des plugins
+  jumeaux :
+  - incidents de sécurité : s'assigner un incident exige le droit de modification (un simple
+    lecteur pouvait s'assigner un incident, puis le résoudre) ;
+  - revues d'accès : l'onglet d'un contrôle ne liste plus que les campagnes des entités de
+    l'utilisateur, et une décision n'est acceptée que du responsable désigné ou d'un gestionnaire
+    de la campagne elle-même (son entité) ;
+  - fournisseurs : l'onglet « Contrats du fournisseur » exige le droit de lecture sur les contrats
+    et ne liste que ceux des entités de l'utilisateur ;
+  - risques : la liste des actifs à lier, les actifs liés affichés et la classification C/I/D ne
+    concernent plus que les actifs visibles par l'utilisateur ; enregistrer un risque ne supprime
+    plus les liens vers des actifs qu'il ne voit pas ;
+  - classification C/I/D : impossible pour un actif hors du périmètre de l'utilisateur ;
+  - Déclaration d'applicabilité : le demandeur ne peut plus se désigner approbateur de sa propre
+    demande (séparation des tâches) ;
+  - tableaux de bord : chaque carte vérifie le droit de lecture de l'objet compté, et les cartes
+    d'incidents ne comptent que ceux des entités de l'utilisateur, hors corbeille ;
+  - export CSV de la SoA : neutralisation des cellules interprétables comme formules.
+- La vérification de la dernière version sur GitHub ne contacte plus api.github.com que si l'action
+  automatique native « checkupdate » de GLPI est activée (désactivée par défaut), avec un délai total.
+- CI : actions GitHub et image Gitleaks épinglées par empreinte, Semgrep à nouveau bloquant (le job
+  ne pouvait jamais échouer), règles Semgrep propres au projet, contrôle d'autorisation obligatoire
+  sur chaque point d'entrée, `dependency-review` sur les PR, et test de contrôle d'accès de bout en
+  bout couvrant les 48 pages (profil sans droit, lecteur, gestionnaire limité à une entité, puis
+  super-admin), dont la CI vérifie la couverture, et test XSS de bout en bout (charge piégée dans
+  chaque champ texte libre, restituée échappée sur 25 pages). L'archive de release n'embarque plus les
+  tests ni la configuration de développement.
+
 ## [2.4.0] - 2026-10-19
 
 ### Added
