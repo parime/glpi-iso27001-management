@@ -404,7 +404,7 @@ class PluginGrcmanagerRisk extends RiskBase
         $linkedIdsByType = $this->isNewID($ID) ? [] : self::getLinkedAssetIdsByType((int) $ID);
 
         foreach (self::getLinkableItemtypes() as $itemtype) {
-            if (!is_a($itemtype, CommonDBTM::class, true)) {
+            if (!is_a($itemtype, CommonDBTM::class, true) || !$itemtype::canView()) {
                 continue;
             }
 
@@ -416,8 +416,22 @@ class PluginGrcmanagerRisk extends RiskBase
             // paginée (voir TECH_DEBT.md, limitation assumée depuis l'issue #25).
             $classificationsByItemsId = PluginGrcmanagerAssetClassification::getByItemtype($itemtype);
 
+            // Le risque est global, les actifs non : seulement ceux que l'utilisateur voit (entités
+            // de la session), hors corbeille et gabarits — sinon la liste exposait le nom et la
+            // classification C/I/D des actifs de toutes les entités.
+            $prototype = new $itemtype();
+            $table     = $itemtype::getTable();
+            $where     = getEntitiesRestrictCriteria($table, '', '', $prototype->maybeRecursive())
+                + $itemtype::getSystemSQLCriteria($table);
+            if ($prototype->isField('is_deleted')) {
+                $where["$table.is_deleted"] = 0;
+            }
+            if ($prototype->isField('is_template')) {
+                $where["$table.is_template"] = 0;
+            }
+
             $options = [];
-            foreach ($DB->request(['FROM' => $itemtype::getTable(), 'ORDER' => 'name']) as $row) {
+            foreach ($DB->request(['FROM' => $table, 'WHERE' => $where, 'ORDER' => 'name']) as $row) {
                 $itemsId = (int) $row['id'];
                 $label   = $row['name'] !== '' ? $row['name'] : sprintf('#%d', $itemsId);
 
@@ -642,7 +656,13 @@ class PluginGrcmanagerRisk extends RiskBase
             }
 
             $item = new $itemtype();
-            $name = $item->getFromDB($itemsId)
+            $exists = $item->getFromDB($itemsId);
+            // Le risque est global à l'instance, ses actifs liés non : un actif d'une entité hors
+            // du périmètre de l'utilisateur n'est pas affiché (ni son nom, ni son lien).
+            if ($exists && !$item->canViewItem()) {
+                continue;
+            }
+            $name = $exists
                 ? $item->getName()
                 : sprintf(__('%1$s #%2$d (supprimé)', 'grcmanager'), $itemtype::getTypeName(1), $itemsId);
 
@@ -763,15 +783,39 @@ class PluginGrcmanagerRisk extends RiskBase
     {
         global $DB;
 
-        $DB->delete(self::ITEMS_LINK_TABLE, ['plugin_grcmanager_risks_id' => $riskId]);
-
         $allowed = self::getLinkableItemtypes();
+
+        // Le formulaire ne propose que les actifs visibles par l'utilisateur (ses entités) : il ne
+        // remplace donc que ces liens-là. Les liens vers des actifs qu'il ne voit pas (posés par
+        // quelqu'un d'une autre entité) sont conservés, au lieu d'être effacés en silence.
+        $kept = [];
+        $links = $DB->request([
+            'FROM'  => self::ITEMS_LINK_TABLE,
+            'WHERE' => ['plugin_grcmanager_risks_id' => $riskId],
+        ]);
+        foreach ($links as $row) {
+            $itemtype = (string) $row['itemtype'];
+            $item = is_a($itemtype, CommonDBTM::class, true) ? new $itemtype() : null;
+            if ($item !== null && $item->getFromDB((int) $row['items_id']) && !$item->canViewItem()) {
+                $kept[$itemtype . ':' . (int) $row['items_id']] = true;
+                continue;
+            }
+            $DB->delete(self::ITEMS_LINK_TABLE, ['id' => (int) $row['id']]);
+        }
 
         foreach ($pairs as $pair) {
             $itemtype = (string) ($pair['itemtype'] ?? '');
             $itemsId  = (int) ($pair['items_id'] ?? 0);
 
-            if (!RiskItemLinkNormalizer::isLinkable($itemtype, $itemsId, $allowed)) {
+            if (
+                !RiskItemLinkNormalizer::isLinkable($itemtype, $itemsId, $allowed)
+                || isset($kept[$itemtype . ':' . $itemsId])
+            ) {
+                continue;
+            }
+            // Jamais un actif invisible pour l'utilisateur (id forgé dans le POST).
+            $item = new $itemtype(); // nosemgrep
+            if (!$item->can($itemsId, READ)) {
                 continue;
             }
 

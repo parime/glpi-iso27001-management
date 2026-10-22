@@ -28,7 +28,7 @@ jobs:
       has_composer: ${{ steps.check.outputs.has_composer }}
       has_lockfiles: ${{ steps.check.outputs.has_lockfiles }}
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7 (SHA pinned)
 
       - name: Detect presence of PHP/JS manifests
         id: check
@@ -48,7 +48,7 @@ jobs:
     name: Repository hygiene
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7 (SHA pinned)
 
       - name: Validate plugin.json is valid JSON
         run: python3 -c "import json; json.load(open('plugin.json'))"
@@ -76,12 +76,12 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7 (SHA pinned)
         with:
           fetch-depth: 0
       - name: Scanne les secrets sur la plage de commits de la PR
         run: |
-          docker run --rm -v "$(pwd):/repo" zricethezav/gitleaks:latest detect --source /repo --log-opts="${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }}" --redact --exit-code 1
+          docker run --rm -v "$(pwd):/repo" zricethezav/gitleaks:v8.30.1@sha256:c00b6bd0aeb3071cbcb79009cb16a60dd9e0a7c60e2be9ab65d25e6bc8abbb7f detect --source /repo --log-opts="${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }}" --redact --exit-code 1
 
   sast-scan:
     name: Static security analysis (Semgrep)
@@ -89,11 +89,32 @@ jobs:
     container:
       image: semgrep/semgrep
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7 (SHA pinned)
+      # Pas de `continue-on-error` : avec, ce job restait vert quoi que Semgrep trouve (meme erreur
+      # deja corrigee sur les plugins jumeaux).
       - run: semgrep ci --config auto
         env:
           SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
-        continue-on-error: true
+      # Regles propres aux plugins GLPI (.semgrep/) : droit global vs droit + entite, entites lues
+      # dans la requete, |raw Twig. Bloquant (--error), local : sans token ni registre en ligne.
+      - name: Semgrep - regles securite GLPI du projet
+        run: semgrep scan --config .semgrep/ --error --metrics=off
+      # Chaque point d'entree front/ajax doit appeler un controle d'autorisation explicite, ou
+      # figurer avec sa justification dans .github/security-entrypoints-allowlist.txt.
+      - name: Points d'entree - controle d'autorisation present
+        run: sh .github/scripts/check-entrypoints-auth.sh
+
+  # Bloque une PR qui ajoute ou met a jour une dependance (composer, actions) ayant un avis de
+  # securite connu - avant la fusion, la ou Dependabot ne previent qu'apres coup.
+  dependency-review:
+    name: Dependency Review
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7 (SHA pinned)
+      - uses: actions/dependency-review-action@a1d282b36b6f3519aa1f3fc636f609c47dddb294 # v5.0.0 (SHA pinned)
+        with:
+          fail-on-severity: moderate
 
   php-quality:
     name: PHP quality (syntax, PHPStan, PHPCS)
@@ -101,10 +122,10 @@ jobs:
     if: needs.detect.outputs.has_composer == 'true'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7 (SHA pinned)
 
       - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # v2 (SHA pinned)
         with:
           php-version: "8.2"
           coverage: none
@@ -135,10 +156,10 @@ jobs:
     # not address. Regenerates the .pot from the current code (vendor/bin/extract-locales, same
     # tool a human contributor would run by hand) rather than a hand-rolled regex.
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7 (SHA pinned)
 
       - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # v2 (SHA pinned)
         with:
           php-version: "8.2"
           coverage: none
@@ -178,10 +199,10 @@ jobs:
     if: needs.detect.outputs.has_composer == 'true'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7 (SHA pinned)
 
       - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # v2 (SHA pinned)
         with:
           php-version: "8.2"
           coverage: none
@@ -198,8 +219,8 @@ jobs:
     if: needs.detect.outputs.has_lockfiles == 'true'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
-      - uses: aquasecurity/trivy-action@master
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7 (SHA pinned)
+      - uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0 (SHA pinned, pas @master)
         with:
           scan-type: fs
           scan-ref: .
@@ -217,7 +238,7 @@ jobs:
     env:
       GLPI_IMAGE: glpi/glpi:11.0.11
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7 (SHA pinned)
 
       - name: Demarre MariaDB
         run: |
@@ -237,7 +258,7 @@ jobs:
 
       - name: Demarre GLPI (auto-installation via l'image officielle)
         run: |
-          docker run -d --name glpi --network grcmanager-ci \
+          docker run -d --name glpi --network grcmanager-ci -p 8080:80 \
             -e TIMEZONE=Europe/Paris \
             -e GLPI_DB_HOST=mariadb \
             -e GLPI_DB_PORT=3306 \
@@ -318,6 +339,29 @@ jobs:
             php vendor/bin/phpunit -c phpunit-integration.xml.dist
           '
 
+      # Test de controle d'acces de bout en bout (vraies requetes HTTP, vraie session) : un
+      # gestionnaire et un lecteur limites a l'entite A ne doivent rien lire ni modifier de
+      # l'entite B (incidents, revues d'acces, contrats, actifs), le lecteur ne peut pas s'assigner
+      # un incident, enregistrer un risque ne doit pas effacer ses liens vers des actifs que
+      # l'utilisateur ne voit pas, et un demandeur ne peut pas approuver sa propre SoA. Le
+      # super-admin garde l'acces a tout.
+      - name: Matrice de controle d'acces (profils limites a une entite, puis super-admin)
+        run: |
+          # bin/console tourne en root plus haut : rend files/ a Apache (www-data).
+          docker exec -u root glpi chown -R www-data:www-data /var/glpi/files
+          setup() { docker exec -u www-data glpi php /var/www/glpi/plugins/grcmanager/tests/security/setup.php "$@" | tail -1; }
+          ids=$(setup); echo "$ids"
+          bash tests/security/access-matrix.sh http://localhost:8080 limited iso-gestionnaire 'Secrev#2026' "$ids"
+          links=$(setup risk-links "$(jq -r .risk <<< "$ids")")
+          jq -e --arg b "Computer:$(jq -r .computer_B <<< "$ids")" 'index($b) != null' <<< "$links" > /dev/null \
+            || { echo "::error::enregistrer le risque a efface le lien vers un actif invisible pour l'utilisateur : $links"; exit 1; }
+          approvers=$(setup soa-approvers)
+          jq -e --argjson me "$(jq -r .manager <<< "$ids")" '.approvers | index($me) == null' <<< "$approvers" > /dev/null \
+            || { echo "::error::le demandeur s'est designe approbateur de sa propre SoA : $approvers"; exit 1; }
+          echo "OK  liens du risque conserves ($links), demandeur absent des approbateurs ($approvers)"
+          bash tests/security/access-matrix.sh http://localhost:8080 reader iso-lecteur 'Secrev#2026' "$ids"
+          bash tests/security/access-matrix.sh http://localhost:8080 admin glpi glpi "$ids"
+
       - name: Logs GLPI (en cas d'echec)
         if: failure()
         run: docker logs glpi --tail 200
@@ -332,7 +376,7 @@ jobs:
     # chaque propriete redeclaree a sa propre valeur sans toucher au coeur.
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7 (SHA pinned)
 
       - name: Extrait le code de GLPI 11 et GLPI 12 des images officielles
         run: |
@@ -366,7 +410,7 @@ jobs:
     env:
       GLPI12_IMAGE: glpi/glpi:12.0.0
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7 (SHA pinned)
 
       - name: Demarre MariaDB
         run: |

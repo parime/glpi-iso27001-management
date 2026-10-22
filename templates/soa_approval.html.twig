@@ -50,7 +50,7 @@
         <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
         <div class="mb-2">
           <label class="form-label">{{ __('Approbateurs', 'grcmanager') }}</label>
-          {{ approver_field|raw }}
+          {{ approver_dropdown|raw }}
         </div>
         <div class="mb-2">
           <label class="form-label" for="grcmanager-request-comment">{{ __('Message aux approbateurs (facultatif)', 'grcmanager') }}</label>

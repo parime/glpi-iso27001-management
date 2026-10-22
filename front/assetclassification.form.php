@@ -38,8 +38,11 @@ if (!RiskItemLinkNormalizer::isLinkable($itemtype, $itemsId, PluginGrcmanagerRis
     throw new \Glpi\Exception\Http\NotFoundHttpException();
 }
 
-$target = new $itemtype();
-if (!$target->getFromDB($itemsId)) {
+// $itemtype est borné juste au-dessus par la liste blanche des actifs liables (isLinkable()), d'où le
+// nosemgrep. can() et non getFromDB() : l'actif doit être visible par l'utilisateur (droit ET entité),
+// sinon on classerait un actif d'une entité hors de son périmètre.
+$target = new $itemtype(); // nosemgrep
+if (!$target->can($itemsId, READ)) {
     throw new \Glpi\Exception\Http\NotFoundHttpException();
 }
 
