@@ -48,7 +48,8 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/control.php front/ismsrequirement.php front/managementreview.php front/nonconformity.php
   front/objective.php front/policy.php front/risk.php front/securityincident.php front/supplierrisk.php
   front/training.php front/referentiels.php front/riskheatmap.php front/soaapproval.php front/config.php
-  front/audit.report.php front/control.report.php front/risk.report.php front/control.csv.php?action=export"
+  front/audit.report.php front/control.report.php front/risk.report.php front/control.csv.php?action=export
+  front/evidence.php"
 # Creations : refusees sans droit comme en lecture seule (etat en base compare par la CI).
 create_attempts() { # code attendu, code attendu pour la classification (404 sans droit sur l'actif)
   local incident; incident=$(id incident_A)
@@ -72,6 +73,8 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
     "$(code -d "add=1&plugin_grcmanager_securityincidents_id=$incident&name=cout&cost_fixed=10&_glpi_csrf_token=$(csrf)" "$P/securityincidentcost.form.php")"
   expect "front/securityincidenttask.form.php : ajouter une tache" "$1" \
     "$(code -d "add=1&plugin_grcmanager_securityincidents_id=$incident&content=tache&_glpi_csrf_token=$(csrf)" "$P/securityincidenttask.form.php")"
+  expect "front/evidence.form.php : date de validite d'une preuve" "$1" \
+    "$(code -d "save=1&itemtype=PluginGrcmanagerPolicy&items_id=$(id policy_A)&documents_id=$(id document_A)&valid_until=2030-01-01&_glpi_csrf_token=$(csrf)" "$P/evidence.form.php")"
 }
 
 if [ "$ROLE" = none ]; then
@@ -122,6 +125,17 @@ expect "classification d'un actif de A" 302 \
   "$(code -d "save=1&itemtype=Computer&items_id=$(id computer_A)&confidentiality=high&integrity=high&availability=high&_glpi_csrf_token=$(csrf)" "$P/assetclassification.form.php")"
 expect "classification d'un actif de B" "$([ "$ROLE" = admin ] && echo 302 || echo 404)" \
   "$(code -d "save=1&itemtype=Computer&items_id=$(id computer_B)&confidentiality=low&integrity=low&availability=low&_glpi_csrf_token=$(csrf)" "$P/assetclassification.form.php")"
+
+# Issue #145 : preuves datées, uniquement celles de ses entités.
+evidences=$(curl -s -c "$JAR" -b "$JAR" "$P/evidence.php")
+contains "liste des preuves : preuve de A" "Preuve securite A" oui    "$evidences"
+contains "liste des preuves : preuve de B" "Preuve securite B" $SEE_B "$evidences"
+expect "date de validite d'une preuve de A" 302 \
+  "$(code -d "save=1&itemtype=PluginGrcmanagerPolicy&items_id=$(id policy_A)&documents_id=$(id document_A)&valid_until=2030-01-01&_glpi_csrf_token=$(csrf)" "$P/evidence.form.php")"
+expect "date de validite d'une preuve de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
+  "$(code -d "save=1&itemtype=PluginGrcmanagerPolicy&items_id=$(id policy_B)&documents_id=$(id document_B)&valid_until=2030-01-01&_glpi_csrf_token=$(csrf)" "$P/evidence.form.php")"
+expect "date de validite : document d'une autre politique" 404 \
+  "$(code -d "save=1&itemtype=PluginGrcmanagerPolicy&items_id=$(id policy_A)&documents_id=$(id document_B)&valid_until=2030-01-01&_glpi_csrf_token=$(csrf)" "$P/evidence.form.php")"
 
 if [ "$ROLE" = limited ]; then
   # Enregistre le risque (objet global) avec l'actif de A : le lien vers B, invisible pour lui,

@@ -19,6 +19,7 @@ parameters:
         - src/Services/Compliance
         - src/Services/Incident
         - src/Services/Cve
+        - src/Services/Evidence
     excludePaths:
         # Depends on GLPI's legacy global-namespace CommonDBTM classes (PluginGrcmanager*), not
         # available for static analysis, see above. src/Install/ is entirely GLPI-dependent and

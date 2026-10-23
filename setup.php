@@ -115,6 +115,8 @@ function plugin_init_grcmanager(): void
             // Issue #126 : campagnes de revue périodique des accès.
             PluginGrcmanagerAccessReview::class,
             PluginGrcmanagerPolicy::class,
+            // Issue #145 : preuves datées, expirées ou à renouveler.
+            PluginGrcmanagerEvidence::class,
             PluginGrcmanagerObjective::class,
             // Corrélation CPE des CVE avec le parc GLPI (cf. ROADMAP.md) : un seul menu entry pour
             // le catalogue de correspondance (le produit canonique) — ses deux tables satellites
@@ -201,6 +203,12 @@ function plugin_init_grcmanager(): void
     // PluginGrcmanagerAssetClassification::getTabNameForItem()/displayTabContentForItem()).
     Plugin::registerClass(PluginGrcmanagerAssetClassification::class, [
         'addtabon' => PluginGrcmanagerRisk::getLinkableItemtypes(),
+    ]);
+
+    // Issue #145 : onglet « Validités des preuves » sur les éléments dont les documents prouvent
+    // quelque chose pour une durée limitée (mesures, risques fournisseurs, audits, politiques).
+    Plugin::registerClass(PluginGrcmanagerEvidence::class, [
+        'addtabon' => \GlpiPlugin\Grcmanager\Services\Evidence\EvidenceValidity::ITEMTYPES,
     ]);
 
     // Issue #128 : qualifier un ticket en incident de sécurité (onglet sur les deux objets) ; les

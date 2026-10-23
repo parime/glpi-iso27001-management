@@ -118,6 +118,35 @@ final class DashboardCardService
     }
 
     /**
+     * Issue #145 : preuves expirées ou expirant dans EvidenceValidity::WARNING_DAYS jours, dans
+     * les entités de l'utilisateur ; lien vers la liste triée par date de validité.
+     *
+     * @param array<string, mixed> $params
+     * @return array<string, mixed>
+     */
+    public static function evidencesToRenewCount(array $params = []): array
+    {
+        global $DB, $CFG_GLPI;
+
+        $limit = date('Y-m-d', strtotime('+' . \GlpiPlugin\Grcmanager\Services\Evidence\EvidenceValidity::WARNING_DAYS . ' days'));
+        $count = (int) $DB->request([
+            'COUNT' => 'c',
+            'FROM'  => 'glpi_plugin_grcmanager_evidences',
+            'WHERE' => [
+                ['NOT' => ['valid_until' => null]],
+                ['valid_until' => ['<=', $limit]],
+            ] + \getEntitiesRestrictCriteria('glpi_plugin_grcmanager_evidences', '', '', true),
+        ])->current()['c'];
+
+        return [
+            'number' => $count,
+            'url'    => $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/evidence.php',
+            'label'  => $params['label'] ?? __('Preuves expirées ou à renouveler', 'grcmanager'),
+            'icon'   => 'ti ti-calendar-time',
+        ];
+    }
+
+    /**
      * SoA completion progress (Sprint 3, clause 6.1.3): "X/93 contrôles revus", a control counts
      * as reviewed as soon as it has been explicitly saved once through the form (see
      * PluginGrcmanagerControl::validateAndMarkReviewed()), regardless of the applicability chosen.

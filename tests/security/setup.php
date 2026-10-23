@@ -188,7 +188,7 @@ $b = $entityId('Securite ISO B');
 $manager = $userId('iso-gestionnaire', $a, $profileId('Securite ISO - gestionnaire A', [
     'plugin_grcmanager'                  => ALLSTANDARDRIGHT,
     'plugin_grcmanager_securityincident' => ALLSTANDARDRIGHT | CommonITILObject::READALL | CommonITILObject::READMY,
-    'computer' => READ, 'contract' => READ, 'supplier' => READ, 'user' => READ,
+    'computer' => READ, 'contract' => READ, 'supplier' => READ, 'user' => READ, 'document' => READ,
 ]));
 $reader = $userId('iso-lecteur', $a, $profileId('Securite ISO - lecteur A', [
     'plugin_grcmanager'                  => READ,
@@ -239,6 +239,16 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
     ]);
     $add(new Contract_Supplier(), ['contracts_id' => $contract, 'suppliers_id' => $supplier]);
     $ids['computer_' . $suffix] = $add(new Computer(), ['name' => 'PC securite ' . $suffix, 'entities_id' => $entity]);
+    // Issue #145 : politique (globale) avec un document de preuve daté de l'entité.
+    $ids['policy_' . $suffix] = $add(new PluginGrcmanagerPolicy(), ['title' => 'Politique securite ' . $suffix, 'entities_id' => $entity]);
+    $ids['document_' . $suffix] = $add(new Document(), ['name' => 'Preuve securite ' . $suffix, 'entities_id' => $entity]);
+    $add(new Document_Item(), [
+        'documents_id' => $ids['document_' . $suffix], 'itemtype' => PluginGrcmanagerPolicy::class, 'items_id' => $ids['policy_' . $suffix],
+    ]);
+    $add(new PluginGrcmanagerEvidence(), [
+        'itemtype' => PluginGrcmanagerPolicy::class, 'items_id' => $ids['policy_' . $suffix],
+        'documents_id' => $ids['document_' . $suffix], 'valid_until' => date('Y-m-d', strtotime('+10 days')),
+    ]);
 }
 $ids['supplierrisk'] = $add(new PluginGrcmanagerSupplierRisk(), [
     'title' => 'Risque fournisseur securite', 'suppliers_id' => $supplier,

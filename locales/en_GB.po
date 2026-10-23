@@ -2325,3 +2325,69 @@ msgstr "%1$d / %2$d (%3$d %%)"
 
 msgid "Voir les campagnes"
 msgstr "View campaigns"
+
+msgid "Validité de preuve"
+msgid_plural "Validités des preuves"
+msgstr[0] "Evidence validity"
+msgstr[1] "Evidence validities"
+
+msgid "Document introuvable sur cet élément."
+msgstr "Document not found on this item."
+
+msgid "Expirée"
+msgstr "Expired"
+
+msgid "À renouveler"
+msgstr "To renew"
+
+msgid "Valide"
+msgstr "Valid"
+
+msgid "Sans date de validité"
+msgstr "No validity date"
+
+#, php-format
+msgid "Indiquez jusqu'à quand chaque document prouve quelque chose (certificat, rapport, attestation). Le responsable est prévenu %d jours avant l'échéance, puis un ticket « Renouveler la preuve » est ouvert ; le statut de l'élément ne change jamais."
+msgstr "State until when each document proves something (certificate, report, certification). The owner is notified %d days before the due date, then a \"Renew the evidence\" ticket is opened; the item's status never changes."
+
+msgid "Aucun document rattaché : ajoutez d'abord les preuves dans l'onglet Documents."
+msgstr "No linked document: first add the evidence in the Documents tab."
+
+msgid "Document"
+msgstr "Document"
+
+msgid "Valide jusqu'au"
+msgstr "Valid until"
+
+msgid "Responsable du renouvellement"
+msgstr "Renewal owner"
+
+#, php-format
+msgid "Ticket de renouvellement n°%d"
+msgstr "Renewal ticket #%d"
+
+msgid "Retirer la date de validité"
+msgstr "Remove the validity date"
+
+msgid "Élément"
+msgstr "Item"
+
+msgid "Ticket de renouvellement"
+msgstr "Renewal ticket"
+
+msgid "Prévient le responsable avant l'expiration d'une preuve, puis ouvre un ticket de renouvellement"
+msgstr "Notifies the owner before evidence expires, then opens a renewal ticket"
+
+#, php-format
+msgid "La preuve « %1$s » de %2$s « %3$s » n'est plus valide depuis le %4$s. Renouvelez le document (nouveau certificat, rapport ou attestation) puis mettez à jour sa date de validité."
+msgstr "The evidence \"%1$s\" of %2$s \"%3$s\" has not been valid since %4$s. Renew the document (new certificate, report or certification) then update its validity date."
+
+#, php-format
+msgid "Renouveler la preuve « %s »"
+msgstr "Renew the evidence \"%s\""
+
+msgid "Preuve à renouveler"
+msgstr "Evidence to renew"
+
+msgid "Preuves expirées ou à renouveler"
+msgstr "Expired evidence or evidence to renew"

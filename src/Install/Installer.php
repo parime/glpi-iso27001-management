@@ -174,6 +174,8 @@ final class Installer
     // RISK_MATRIX_CONFIG_TABLE ci-dessus (voir SecurityIncidentModuleConfig). Ne pilote jamais de
     // DDL - seulement l'enregistrement des hooks/menus/onglets à l'exécution.
     private const SECURITY_INCIDENT_CONFIG_TABLE = 'glpi_plugin_grcmanager_securityincidentconfig';
+    // Issue #145 : validité des documents de preuve, voir PluginGrcmanagerEvidence.
+    private const EVIDENCES_TABLE = 'glpi_plugin_grcmanager_evidences';
 
     public function install(Migration $migration): bool
     {
@@ -966,6 +968,32 @@ final class Installer
         // `PluginGrcmanagerNonconformity.plugin_grcmanager_audits_id` (TECH_DEBT.md Sprint 4).
         // `value` nullable : une mesure sur un objectif purement qualitatif peut n'avoir aucune
         // valeur chiffrée, voir ObjectiveMeasurementValidator ci-dessus.
+        // Issue #145 : une ligne par (élément du plugin, document rattaché) qui porte une date de
+        // validité. Entité reprise de l'élément porteur (restriction d'entité de la liste).
+        if (!$DB->tableExists(self::EVIDENCES_TABLE)) {
+            $query = "CREATE TABLE `" . self::EVIDENCES_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `itemtype` varchar(100) NOT NULL,
+                `items_id` int {$keySign} NOT NULL DEFAULT 0,
+                `documents_id` int {$keySign} NOT NULL DEFAULT 0,
+                `entities_id` int {$keySign} NOT NULL DEFAULT 0,
+                `is_recursive` tinyint NOT NULL DEFAULT 0,
+                `valid_until` date DEFAULT NULL,
+                `users_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Responsable du renouvellement',
+                `date_notified` timestamp NULL DEFAULT NULL,
+                `tickets_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Ticket de renouvellement ouvert a expiration',
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity` (`itemtype`, `items_id`, `documents_id`),
+                KEY `documents_id` (`documents_id`),
+                KEY `entities_id` (`entities_id`),
+                KEY `valid_until` (`valid_until`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+        }
+
         if (!$DB->tableExists(self::OBJECTIVE_MEASUREMENTS_TABLE)) {
             $query = "CREATE TABLE `" . self::OBJECTIVE_MEASUREMENTS_TABLE . "` (
                 `id` int {$keySign} NOT NULL AUTO_INCREMENT,
@@ -1462,6 +1490,7 @@ final class Installer
         $this->seedPolicyReviewReminderNotification();
         $this->seedTreatmentActionOverdueNotification();
         $this->seedAccessReviewNotifications();
+        $this->seedEvidenceExpiringNotification();
 
         // Issue #126 : relance hebdomadaire des responsables en retard sur une revue des accès.
         CronTask::Register(
@@ -1608,6 +1637,19 @@ final class Installer
             [
                 'comment' => 'Notifie le responsable de chaque action de traitement de risque dont '
                     . 'l\'échéance est dépassée',
+                'mode'    => CronTask::MODE_EXTERNAL,
+            ]
+        );
+
+        // Issue #145 : rappel avant l'expiration d'une preuve, puis ticket de renouvellement
+        // (PluginGrcmanagerEvidence::cronEvidencereminder()).
+        CronTask::Register(
+            'PluginGrcmanagerEvidence',
+            'evidencereminder',
+            DAY_TIMESTAMP,
+            [
+                'comment' => 'Prévient le responsable avant l\'expiration d\'une preuve, puis ouvre '
+                    . 'un ticket de renouvellement',
                 'mode'    => CronTask::MODE_EXTERNAL,
             ]
         );
@@ -1853,6 +1895,67 @@ final class Installer
      * one of them itself, unconditionally, regardless of any configured target row (see its own
      * docblock).
      */
+    /**
+     * Issue #145 : rappel au responsable du renouvellement d'une preuve qui arrive à échéance
+     * (PluginGrcmanagerEvidence::runReminders(), inc/notificationtargetevidence.class.php), avec sa
+     * cible « Responsable du renouvellement ». Idempotent, comme les autres notifications seedées.
+     */
+    private function seedEvidenceExpiringNotification(): void
+    {
+        global $DB;
+
+        $itemtype = 'PluginGrcmanagerEvidence';
+        $event    = 'evidence_expiring';
+
+        if ($DB->request(['FROM' => 'glpi_notifications', 'WHERE' => ['itemtype' => $itemtype, 'event' => $event]])->count() > 0) {
+            return;
+        }
+
+        $templateId = (new NotificationTemplate())->add([
+            'name'     => 'GRC Manager - Preuve à renouveler',
+            'itemtype' => $itemtype,
+            'comment'  => 'Notification envoyée par la tâche automatique GRC Manager lorsqu\'un document '
+                . 'de preuve arrive à la fin de sa validité.',
+        ]);
+
+        $DB->insert('glpi_notificationtemplatetranslations', [
+            'notificationtemplates_id' => $templateId,
+            'language'                 => '',
+            'subject'                  => '##evidence.action## : ##evidence.document##',
+            'content_text'             => "##evidence.action## : ##evidence.document##\n\n"
+                . "Élément : ##evidence.item##\n"
+                . "Valide jusqu'au : ##evidence.validuntil##\n\n"
+                . "Renouvelez le document (nouveau certificat, rapport ou attestation) puis mettez à jour sa "
+                . "date de validité. Un ticket de renouvellement sera ouvert si la preuve expire.\n\n"
+                . "Voir l'élément : ##evidence.url##",
+            'content_html'             => '<p><strong>##evidence.action## : ##evidence.document##</strong></p>'
+                . '<p>Élément : ##evidence.item##<br>Valide jusqu\'au : ##evidence.validuntil##</p>'
+                . '<p>Renouvelez le document (nouveau certificat, rapport ou attestation) puis mettez à jour '
+                . 'sa date de validité. Un ticket de renouvellement sera ouvert si la preuve expire.</p>'
+                . '<p><a href="##evidence.url##">Voir l\'élément</a></p>',
+        ]);
+
+        $notificationId = (new Notification())->add([
+            'name'         => 'GRC Manager - Preuve à renouveler',
+            'entities_id'  => 0,
+            'is_recursive' => 1,
+            'itemtype'     => $itemtype,
+            'event'        => $event,
+            'is_active'    => 1,
+        ]);
+
+        $DB->insert('glpi_notifications_notificationtemplates', [
+            'notifications_id'         => $notificationId,
+            'mode'                     => 'mailing',
+            'notificationtemplates_id' => $templateId,
+        ]);
+        $DB->insert('glpi_notificationtargets', [
+            'notifications_id' => $notificationId,
+            'type'             => Notification::USER_TYPE,
+            'items_id'         => \PluginGrcmanagerNotificationTargetEvidence::TARGET_RESPONSIBLE,
+        ]);
+    }
+
     private function seedTrainingRenewalNotification(): void
     {
         global $DB;
@@ -2455,6 +2558,7 @@ final class Installer
         $this->unseedNotification('PluginGrcmanagerTraining');
         $this->unseedNotification('PluginGrcmanagerPolicy');
         $this->unseedNotification('PluginGrcmanagerRiskTreatmentAction');
+        $this->unseedNotification('PluginGrcmanagerEvidence');
         $this->unseedNotification(PluginGrcmanagerSecurityIncident::class);
         $this->unseedNotification('PluginGrcmanagerAccessReview');
 
@@ -2501,6 +2605,7 @@ final class Installer
         $migration->dropTable(self::COMPLIANCE_OBLIGATIONS_TABLE);
         $migration->dropTable(self::MANAGEMENT_REVIEWS_OBJECTIVES_TABLE);
         $migration->dropTable(self::OBJECTIVE_MEASUREMENTS_TABLE);
+        $migration->dropTable(self::EVIDENCES_TABLE);
         $migration->dropTable(self::ACCESS_REVIEWS_USERS_TABLE);
         $migration->dropTable(self::ACCESS_REVIEWS_TABLE);
         $migration->dropTable(self::OBJECTIVES_TABLE);
