@@ -2312,3 +2312,16 @@ msgstr "Commentaire (obligatoire pour modifier ou retirer)"
 #: inc/soaversion.class.php
 msgid "Vous ne pouvez pas approuver votre propre demande : vous avez été retiré des approbateurs."
 msgstr "Vous ne pouvez pas approuver votre propre demande : vous avez été retiré des approbateurs."
+
+msgid "Charte informatique signée"
+msgstr "Charte informatique signée"
+
+msgid "aucune campagne de charte lancée"
+msgstr "aucune campagne de charte lancée"
+
+#, php-format
+msgid "%1$d / %2$d (%3$d %%)"
+msgstr "%1$d / %2$d (%3$d %%)"
+
+msgid "Voir les campagnes"
+msgstr "Voir les campagnes"
