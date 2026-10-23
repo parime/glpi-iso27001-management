@@ -2312,3 +2312,16 @@ msgstr "Comment (required to change or remove)"
 #: inc/soaversion.class.php
 msgid "Vous ne pouvez pas approuver votre propre demande : vous avez été retiré des approbateurs."
 msgstr "You cannot approve your own request: you have been removed from the approvers."
+
+msgid "Charte informatique signée"
+msgstr "Signed IT charter"
+
+msgid "aucune campagne de charte lancée"
+msgstr "no charter campaign launched"
+
+#, php-format
+msgid "%1$d / %2$d (%3$d %%)"
+msgstr "%1$d / %2$d (%3$d %%)"
+
+msgid "Voir les campagnes"
+msgstr "View campaigns"

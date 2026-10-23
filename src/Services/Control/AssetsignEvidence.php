@@ -103,4 +103,55 @@ final class AssetsignEvidence
 
         return $summary;
     }
+
+    /*
+     * Issue assetsign #204 : charte informatique signée par chaque personne (campagnes de type
+     * « charte » d'assetsign), preuve de sensibilisation pour A.5.10 (utilisation correcte) et
+     * A.6.3 (sensibilisation, formation). Valeurs recopiées de GlpiPlugin\Assetsign\CampaignLogic,
+     * stockées en base et figées par assetsign.
+     */
+    public const CAMPAIGNS_TABLE       = 'glpi_plugin_assetsign_campaigns';
+    public const ATTESTATIONS_TABLE    = 'glpi_plugin_assetsign_attestations';
+    public const CAMPAIGN_TYPE_CHARTER = 1;
+    public const ATTESTATION_SIGNED    = 1;
+    public const CHARTER_CONTROLS      = ['A.5.10', 'A.6.3'];
+
+    public static function isCharterControl(string $code): bool
+    {
+        return in_array($code, self::CHARTER_CONTROLS, true);
+    }
+
+    /**
+     * Taux de signature de la charte par entité, d'après la campagne de charte la plus récente de
+     * chaque entité (une campagne plus ancienne ne prouve plus rien une fois renouvelée).
+     *
+     * @param iterable<array{
+     *     entities_id: int|string, name: string, date_creation: string|null, total: int|string,
+     *     signed: int|string|null
+     * }> $rows
+     *        une ligne par campagne de charte, de la plus récente à la plus ancienne
+     * @return list<array{entities_id: int, campaign: string, date: string|null, signed: int, total: int, rate: int}>
+     */
+    public static function summarizeCharter(iterable $rows): array
+    {
+        $latest = [];
+        foreach ($rows as $row) {
+            $entity = (int) $row['entities_id'];
+            if (isset($latest[$entity])) {
+                continue;
+            }
+            $total = (int) $row['total'];
+            $signed = (int) $row['signed'];
+            $latest[$entity] = [
+                'entities_id' => $entity,
+                'campaign'    => (string) $row['name'],
+                'date'        => $row['date_creation'],
+                'signed'      => $signed,
+                'total'       => $total,
+                'rate'        => $total === 0 ? 0 : (int) round(100 * $signed / $total),
+            ];
+        }
+
+        return array_values($latest);
+    }
 }

@@ -539,6 +539,46 @@ class PluginGrcmanagerControl extends ControlBase
     }
 
     /**
+     * Issue assetsign #204 : taux de signature de la charte informatique, une ligne par entité
+     * (campagne de charte la plus récente), avec lien vers les campagnes si l'utilisateur a le
+     * droit de lecture assetsign.
+     *
+     * @param list<array{
+     *     entities_id: int, campaign: string, date: string|null, signed: int, total: int, rate: int
+     * }> $lines
+     */
+    private static function assetsignCharterLines(array $lines): string
+    {
+        $html = '<div class="mb-1"><strong>' . htmlescape(__('Charte informatique signée', 'grcmanager'))
+            . '</strong> : ';
+        if ($lines === []) {
+            return $html . '<span class="text-muted">'
+                . htmlescape(__('aucune campagne de charte lancée', 'grcmanager')) . '</span></div>';
+        }
+        $html .= '</div><ul class="mb-1">';
+        foreach ($lines as $line) {
+            $class = $line['rate'] >= 90 ? 'bg-green-lt' : ($line['rate'] >= 60 ? 'bg-yellow-lt' : 'bg-red-lt');
+            $html .= '<li>' . htmlescape(\Dropdown::getDropdownName('glpi_entities', $line['entities_id'])) . ' : '
+                . '<span class="badge ' . $class . ' me-1">'
+                . htmlescape(sprintf(
+                    __('%1$d / %2$d (%3$d %%)', 'grcmanager'),
+                    $line['signed'],
+                    $line['total'],
+                    $line['rate']
+                ))
+                . '</span><span class="text-muted">' . htmlescape($line['campaign']) . '</span></li>';
+        }
+        $html .= '</ul>';
+
+        $url = AssetsignEvidenceProvider::campaignsUrl();
+        if ($url !== null) {
+            $html .= '<a href="' . htmlescape($url) . '">' . __('Voir les campagnes', 'grcmanager') . '</a>';
+        }
+
+        return $html;
+    }
+
+    /**
      * @return array<int, string> risk id => title, for every risk linked to this control.
      */
     public static function getLinkedRisks(int $controlId): array
@@ -734,14 +774,23 @@ class PluginGrcmanagerControl extends ControlBase
         }
 
         // Issue #109 : preuves agrégées issues d'assetsign (fiches de remise/restitution signées)
-        // pour A.5.9/A.5.10/A.5.11 — ligne absente si assetsign n'est pas installé et actif.
-        if (AssetsignEvidence::isRelevantControl((string) $code)) {
-            $summary = AssetsignEvidenceProvider::fetchSummary();
-            if ($summary !== null) {
+        // pour A.5.9/A.5.10/A.5.11, et taux de signature de la charte informatique pour A.5.10 et
+        // A.6.3 (issue assetsign #204) — ligne absente si assetsign n'est pas installé et actif.
+        $isSheetControl = AssetsignEvidence::isRelevantControl((string) $code);
+        $isCharterControl = AssetsignEvidence::isCharterControl((string) $code);
+        if ($isSheetControl || $isCharterControl) {
+            $summary = $isSheetControl ? AssetsignEvidenceProvider::fetchSummary() : null;
+            $charter = $isCharterControl ? AssetsignEvidenceProvider::fetchCharterSummary() : null;
+            if ($summary !== null || $charter !== null) {
                 echo '<tr class="tab_bg_1"><td><i class="ti ti-signature me-1"></i>'
                     . __('Preuves assetsign', 'grcmanager') . '</td><td colspan="3">';
-                foreach (AssetsignEvidence::CONTROL_TYPES[(string) $code] as $type) {
-                    echo self::assetsignEvidenceLine($type, $summary[$type]);
+                if ($summary !== null) {
+                    foreach (AssetsignEvidence::CONTROL_TYPES[(string) $code] as $type) {
+                        echo self::assetsignEvidenceLine($type, $summary[$type]);
+                    }
+                }
+                if ($charter !== null) {
+                    echo self::assetsignCharterLines($charter);
                 }
                 echo '<small class="form-hint d-block mt-1">' . __(
                     'Compteurs calculés en direct depuis le plugin assetsign, sur vos entités actives.',
