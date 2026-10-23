@@ -50,7 +50,7 @@ for url in \
   "canonicalproduct.form.php?id=$(xid product)" \
   risk.php control.php supplierrisk.php securityincident.php accessreview.php audit.php complianceobligation.php \
   managementreview.php nonconformity.php objective.php policy.php training.php canonicalproduct.php \
-  ismsrequirement.php referentiels.php riskheatmap.php soaapproval.php config.php; do
+  ismsrequirement.php referentiels.php riskheatmap.php soaapproval.php config.php evidence.php; do
   check "front/$url" "$P/$url"
 done
 check "onglet risques d'un ordinateur"        "$(tab Computer 'PluginGrcmanagerRisk$1' "$(id computer_A)")"
@@ -62,6 +62,7 @@ check "onglet couts d'un incident"            "$(tab PluginGrcmanagerSecurityInc
 check "onglet mesures d'un objectif"          "$(tab PluginGrcmanagerObjective 'PluginGrcmanagerObjectiveMeasurement$1' "$(xid objective)")"
 check "onglet references CPE d'un produit"    "$(tab PluginGrcmanagerCanonicalProduct 'PluginGrcmanagerCpeReference$1' "$(xid product)")"
 check "onglet alias d'un produit"             "$(tab PluginGrcmanagerCanonicalProduct 'PluginGrcmanagerProductAlias$1' "$(xid product)")"
+check "onglet validites des preuves"          "$(tab PluginGrcmanagerPolicy 'PluginGrcmanagerEvidence$1' "$(id policy_A)")"
 
 rm -f "$JAR"
 if [ "$RENDERED" -lt 10 ]; then
