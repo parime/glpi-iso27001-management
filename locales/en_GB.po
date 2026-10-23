@@ -2391,3 +2391,6 @@ msgstr "Evidence to renew"
 
 msgid "Preuves expirées ou à renouveler"
 msgstr "Expired evidence or evidence to renew"
+
+msgid "Une date de validité se saisit depuis l'onglet « Validités des preuves » d'une mesure, d'un risque fournisseur, d'un audit ou d'une politique, pour chaque document rattaché."
+msgstr "A validity date is entered from the \"Evidence validity\" tab of a control, supplier risk, audit or policy, for each attached document."
