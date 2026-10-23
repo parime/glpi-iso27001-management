@@ -29,6 +29,13 @@ Html::header(
     PluginGrcmanagerEvidence::class
 );
 
+echo '<div class="alert alert-info d-flex align-items-center"><i class="ti ti-info-circle me-2"></i>'
+    . htmlescape(__(
+        'Une date de validité se saisit depuis l\'onglet « Validités des preuves » d\'une mesure, d\'un '
+            . 'risque fournisseur, d\'un audit ou d\'une politique, pour chaque document rattaché.',
+        'grcmanager'
+    )) . '</div>';
+
 if (!isset($_GET['sort'])) {
     $_GET['sort'] = 4;
     $_GET['order'] = 'ASC';

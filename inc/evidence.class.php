@@ -97,6 +97,16 @@ class PluginGrcmanagerEvidence extends EvidenceBase
             && self::canReadDocument((int) $this->fields['documents_id']);
     }
 
+    /**
+     * Une validité se saisit depuis l'onglet « Validités des preuves » de l'élément porteur
+     * (front/evidence.form.php, droit vérifié sur cet élément), jamais comme un objet autonome :
+     * sans cela, GLPI affichait sur la liste un bouton « Ajouter » menant à une page introuvable.
+     */
+    public static function canCreate(): bool
+    {
+        return false;
+    }
+
     public function canCreateItem(): bool
     {
         return $this->canUpdateItem();

@@ -2391,3 +2391,6 @@ msgstr "Preuve à renouveler"
 
 msgid "Preuves expirées ou à renouveler"
 msgstr "Preuves expirées ou à renouveler"
+
+msgid "Une date de validité se saisit depuis l'onglet « Validités des preuves » d'une mesure, d'un risque fournisseur, d'un audit ou d'une politique, pour chaque document rattaché."
+msgstr "Une date de validité se saisit depuis l'onglet « Validités des preuves » d'une mesure, d'un risque fournisseur, d'un audit ou d'une politique, pour chaque document rattaché."

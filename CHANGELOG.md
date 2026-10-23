@@ -25,6 +25,11 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   sans dépendance de code ; absent si assetsign n'est pas actif ou ne gère pas encore les
   campagnes de charte (assetsign 2.12.0 et suivantes).
 
+### Fixed
+
+- **Liste « Validités des preuves »** : le bouton « Ajouter » de GLPI menait à une page introuvable ;
+  il n'est plus proposé et la liste indique où saisir une date de validité (onglet de l'élément).
+
 ## [2.4.1] - 2026-10-22
 
 ### Security
