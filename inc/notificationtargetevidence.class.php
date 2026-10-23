@@ -54,7 +54,12 @@ class PluginGrcmanagerNotificationTargetEvidence extends NotificationTarget
         }
         $this->addToRecipientsList([
             'language' => $user->fields['language'] ?: ($GLOBALS['CFG_GLPI']['language'] ?? 'en_GB'),
-            'name'     => formatUserName(0, $user->fields['name'], $user->fields['realname'], $user->fields['firstname']),
+            'name'     => formatUserName(
+                0,
+                $user->fields['name'],
+                $user->fields['realname'],
+                $user->fields['firstname']
+            ),
             'email'    => $email,
             'users_id' => $usersId,
         ]);
@@ -70,10 +75,15 @@ class PluginGrcmanagerNotificationTargetEvidence extends NotificationTarget
 
         $this->data['##evidence.action##']     = $events[$event] ?? '';
         $this->data['##evidence.document##']   = $evidence->getDocumentName();
-        $this->data['##evidence.item##']       = $parent !== null ? $parent::getTypeName(1) . ' — ' . $parent->getName() : '';
+        $this->data['##evidence.item##']       = $parent !== null
+            ? $parent::getTypeName(1) . ' — ' . $parent->getName()
+            : '';
         $this->data['##evidence.validuntil##'] = (string) Html::convDate($evidence->fields['valid_until'] ?? null);
         $this->data['##evidence.url##']        = $parent !== null
-            ? $this->formatURL($options['additionnaloption']['usertype'] ?? self::GLPI_USER, $parent->getType() . '_' . $parent->getID())
+            ? $this->formatURL(
+                $options['additionnaloption']['usertype'] ?? self::GLPI_USER,
+                $parent->getType() . '_' . $parent->getID()
+            )
             : '';
 
         $this->getTags();

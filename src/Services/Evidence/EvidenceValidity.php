@@ -64,7 +64,8 @@ final class EvidenceValidity
     /** Responsable à prévenir : la preuve arrive à échéance et il ne l'a pas encore été. */
     public static function reminderDue(?string $validUntil, ?string $notifiedAt, string $today): bool
     {
-        return self::status($validUntil, $today) === self::STATUS_EXPIRING && ($notifiedAt === null || $notifiedAt === '');
+        return self::status($validUntil, $today) === self::STATUS_EXPIRING
+            && ($notifiedAt === null || $notifiedAt === '');
     }
 
     /** Ticket de renouvellement : une seule fois, une fois la preuve expirée. */

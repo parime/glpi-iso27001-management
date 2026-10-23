@@ -128,7 +128,8 @@ final class DashboardCardService
     {
         global $DB, $CFG_GLPI;
 
-        $limit = date('Y-m-d', strtotime('+' . \GlpiPlugin\Grcmanager\Services\Evidence\EvidenceValidity::WARNING_DAYS . ' days'));
+        $warningDays = \GlpiPlugin\Grcmanager\Services\Evidence\EvidenceValidity::WARNING_DAYS;
+        $limit = date('Y-m-d', strtotime('+' . $warningDays . ' days'));
         $count = (int) $DB->request([
             'COUNT' => 'c',
             'FROM'  => 'glpi_plugin_grcmanager_evidences',

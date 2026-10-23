@@ -1907,7 +1907,11 @@ final class Installer
         $itemtype = 'PluginGrcmanagerEvidence';
         $event    = 'evidence_expiring';
 
-        if ($DB->request(['FROM' => 'glpi_notifications', 'WHERE' => ['itemtype' => $itemtype, 'event' => $event]])->count() > 0) {
+        $existing = $DB->request([
+            'FROM'  => 'glpi_notifications',
+            'WHERE' => ['itemtype' => $itemtype, 'event' => $event],
+        ]);
+        if ($existing->count() > 0) {
             return;
         }
 

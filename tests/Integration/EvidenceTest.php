@@ -19,14 +19,22 @@ final class EvidenceTest extends GrcmanagerIntegrationTestCase
         $entityId = $this->createTestEntity(0, 'PHPUnit preuves ' . random_int(1000, 9999));
         $policy = new PluginGrcmanagerPolicy();
         $policy->getFromDB((int) $policy->add(['title' => 'PHPUnit politique preuves', 'entities_id' => $entityId]));
-        $documentsId = (int) (new \Document())->add(['name' => 'PHPUnit certificat ISO fournisseur', 'entities_id' => $entityId]);
-        (new \Document_Item())->add(['documents_id' => $documentsId, 'itemtype' => PluginGrcmanagerPolicy::class, 'items_id' => $policy->getID()]);
+        $documentsId = (int) (new \Document())->add([
+            'name' => 'PHPUnit certificat ISO fournisseur', 'entities_id' => $entityId,
+        ]);
+        (new \Document_Item())->add([
+            'documents_id' => $documentsId, 'itemtype' => PluginGrcmanagerPolicy::class, 'items_id' => $policy->getID(),
+        ]);
 
         return [$policy, $documentsId];
     }
 
-    private function evidence(PluginGrcmanagerPolicy $policy, int $documentsId, string $validUntil, int $usersId = 0): PluginGrcmanagerEvidence
-    {
+    private function evidence(
+        PluginGrcmanagerPolicy $policy,
+        int $documentsId,
+        string $validUntil,
+        int $usersId = 0
+    ): PluginGrcmanagerEvidence {
         $evidence = new PluginGrcmanagerEvidence();
         $evidence->getFromDB((int) $evidence->add([
             'itemtype' => PluginGrcmanagerPolicy::class, 'items_id' => $policy->getID(), 'documents_id' => $documentsId,
@@ -42,7 +50,8 @@ final class EvidenceTest extends GrcmanagerIntegrationTestCase
         $unlinked = (int) (new \Document())->add(['name' => 'PHPUnit document non rattaché', 'entities_id' => 0]);
 
         $this->assertFalse((new PluginGrcmanagerEvidence())->add([
-            'itemtype' => PluginGrcmanagerPolicy::class, 'items_id' => $policy->getID(), 'documents_id' => $unlinked, 'valid_until' => '2027-01-01',
+            'itemtype' => PluginGrcmanagerPolicy::class, 'items_id' => $policy->getID(),
+            'documents_id' => $unlinked, 'valid_until' => '2027-01-01',
         ]));
         $this->assertFalse((new PluginGrcmanagerEvidence())->add([
             'itemtype' => 'Computer', 'items_id' => 1, 'documents_id' => $documentsId, 'valid_until' => '2027-01-01',
@@ -51,7 +60,11 @@ final class EvidenceTest extends GrcmanagerIntegrationTestCase
         $evidence = $this->evidence($policy, $documentsId, '2027-01-01');
         $document = new \Document();
         $document->getFromDB($documentsId);
-        $this->assertSame((int) $document->fields['entities_id'], (int) $evidence->fields['entities_id'], 'Entité reprise du document (les éléments porteurs sont globaux).');
+        $this->assertSame(
+            (int) $document->fields['entities_id'],
+            (int) $evidence->fields['entities_id'],
+            'Entité reprise du document (les éléments porteurs sont globaux).'
+        );
         $this->assertCount(1, PluginGrcmanagerEvidence::getDocumentsFor($policy));
     }
 
@@ -85,7 +98,11 @@ final class EvidenceTest extends GrcmanagerIntegrationTestCase
         $ticket = new \Ticket();
         $this->assertTrue($ticket->getFromDB((int) $evidence->fields['tickets_id']));
         $this->assertStringContainsString('PHPUnit certificat ISO fournisseur', (string) $ticket->fields['name']);
-        $this->assertSame((int) $evidence->fields['entities_id'], (int) $ticket->fields['entities_id'], 'Ticket dans l\'entité du document.');
+        $this->assertSame(
+            (int) $evidence->fields['entities_id'],
+            (int) $ticket->fields['entities_id'],
+            'Ticket dans l\'entité du document.'
+        );
 
         $policy->getFromDB($policy->getID());
         $this->assertSame($statusBefore, $policy->fields['status'], 'Jamais de changement de statut de l\'élément.');

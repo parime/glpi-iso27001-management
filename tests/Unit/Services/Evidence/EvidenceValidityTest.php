@@ -11,20 +11,22 @@ final class EvidenceValidityTest extends TestCase
 {
     public function testStatusAroundTheWarningWindowAndTheExpiryDate(): void
     {
-        self::assertSame(EvidenceValidity::STATUS_NONE, EvidenceValidity::status(null, '2026-10-23'));
-        self::assertSame(EvidenceValidity::STATUS_VALID, EvidenceValidity::status('2026-12-31', '2026-10-23'));
-        self::assertSame(EvidenceValidity::STATUS_EXPIRING, EvidenceValidity::status('2026-11-22', '2026-10-23'), '30 jours avant.');
-        self::assertSame(EvidenceValidity::STATUS_VALID, EvidenceValidity::status('2026-11-23', '2026-10-23'), '31 jours avant.');
-        self::assertSame(EvidenceValidity::STATUS_EXPIRING, EvidenceValidity::status('2026-10-23', '2026-10-23'), 'Valide le jour même.');
-        self::assertSame(EvidenceValidity::STATUS_EXPIRED, EvidenceValidity::status('2026-10-22', '2026-10-23'));
+        $status = static fn (?string $validUntil): string => EvidenceValidity::status($validUntil, '2026-10-23');
+        self::assertSame(EvidenceValidity::STATUS_NONE, $status(null));
+        self::assertSame(EvidenceValidity::STATUS_VALID, $status('2026-12-31'));
+        self::assertSame(EvidenceValidity::STATUS_EXPIRING, $status('2026-11-22'), '30 jours avant.');
+        self::assertSame(EvidenceValidity::STATUS_VALID, $status('2026-11-23'), '31 jours avant.');
+        self::assertSame(EvidenceValidity::STATUS_EXPIRING, $status('2026-10-23'), 'Valide le jour même.');
+        self::assertSame(EvidenceValidity::STATUS_EXPIRED, $status('2026-10-22'));
     }
 
     public function testTheResponsibleIsWarnedOnceBeforeExpiry(): void
     {
-        self::assertTrue(EvidenceValidity::reminderDue('2026-11-10', null, '2026-10-23'));
-        self::assertFalse(EvidenceValidity::reminderDue('2026-11-10', '2026-10-20 08:00:00', '2026-10-23'), 'Déjà prévenu.');
-        self::assertFalse(EvidenceValidity::reminderDue('2027-06-01', null, '2026-10-23'), 'Trop tôt.');
-        self::assertFalse(EvidenceValidity::reminderDue('2026-10-01', null, '2026-10-23'), 'Expirée : ticket, plus de rappel.');
+        $today = '2026-10-23';
+        self::assertTrue(EvidenceValidity::reminderDue('2026-11-10', null, $today));
+        self::assertFalse(EvidenceValidity::reminderDue('2026-11-10', '2026-10-20 08:00:00', $today), 'Déjà prévenu.');
+        self::assertFalse(EvidenceValidity::reminderDue('2027-06-01', null, $today), 'Trop tôt.');
+        self::assertFalse(EvidenceValidity::reminderDue('2026-10-01', null, $today), 'Expirée : plus de rappel.');
     }
 
     public function testOneRenewalTicketOnceExpired(): void
