@@ -125,7 +125,10 @@ final class AssetsignEvidence
      * Taux de signature de la charte par entité, d'après la campagne de charte la plus récente de
      * chaque entité (une campagne plus ancienne ne prouve plus rien une fois renouvelée).
      *
-     * @param iterable<array{entities_id: int|string, name: string, date_creation: string|null, total: int|string, signed: int|string|null}> $rows
+     * @param iterable<array{
+     *     entities_id: int|string, name: string, date_creation: string|null, total: int|string,
+     *     signed: int|string|null
+     * }> $rows
      *        une ligne par campagne de charte, de la plus récente à la plus ancienne
      * @return list<array{entities_id: int, campaign: string, date: string|null, signed: int, total: int, rate: int}>
      */

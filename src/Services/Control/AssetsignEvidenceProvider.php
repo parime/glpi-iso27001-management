@@ -67,7 +67,9 @@ final class AssetsignEvidenceProvider
      * charte la plus récente de chacune des entités actives de l'utilisateur), ou null si
      * assetsign est absent ou antérieur aux campagnes de charte.
      *
-     * @return list<array{entities_id: int, campaign: string, date: string|null, signed: int, total: int, rate: int}>|null
+     * @return list<array{
+     *     entities_id: int, campaign: string, date: string|null, signed: int, total: int, rate: int
+     * }>|null
      */
     public static function fetchCharterSummary(): ?array
     {

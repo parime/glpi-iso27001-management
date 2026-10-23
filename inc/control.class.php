@@ -543,11 +543,14 @@ class PluginGrcmanagerControl extends ControlBase
      * (campagne de charte la plus récente), avec lien vers les campagnes si l'utilisateur a le
      * droit de lecture assetsign.
      *
-     * @param list<array{entities_id: int, campaign: string, date: string|null, signed: int, total: int, rate: int}> $lines
+     * @param list<array{
+     *     entities_id: int, campaign: string, date: string|null, signed: int, total: int, rate: int
+     * }> $lines
      */
     private static function assetsignCharterLines(array $lines): string
     {
-        $html = '<div class="mb-1"><strong>' . htmlescape(__('Charte informatique signée', 'grcmanager')) . '</strong> : ';
+        $html = '<div class="mb-1"><strong>' . htmlescape(__('Charte informatique signée', 'grcmanager'))
+            . '</strong> : ';
         if ($lines === []) {
             return $html . '<span class="text-muted">'
                 . htmlescape(__('aucune campagne de charte lancée', 'grcmanager')) . '</span></div>';
@@ -557,7 +560,12 @@ class PluginGrcmanagerControl extends ControlBase
             $class = $line['rate'] >= 90 ? 'bg-green-lt' : ($line['rate'] >= 60 ? 'bg-yellow-lt' : 'bg-red-lt');
             $html .= '<li>' . htmlescape(\Dropdown::getDropdownName('glpi_entities', $line['entities_id'])) . ' : '
                 . '<span class="badge ' . $class . ' me-1">'
-                . htmlescape(sprintf(__('%1$d / %2$d (%3$d %%)', 'grcmanager'), $line['signed'], $line['total'], $line['rate']))
+                . htmlescape(sprintf(
+                    __('%1$d / %2$d (%3$d %%)', 'grcmanager'),
+                    $line['signed'],
+                    $line['total'],
+                    $line['rate']
+                ))
                 . '</span><span class="text-muted">' . htmlescape($line['campaign']) . '</span></li>';
         }
         $html .= '</ul>';

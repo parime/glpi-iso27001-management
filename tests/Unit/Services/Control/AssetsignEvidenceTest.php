@@ -83,17 +83,23 @@ final class AssetsignEvidenceTest extends TestCase
 
     public function testCharterRateKeepsOnlyTheLatestCampaignOfEachEntity(): void
     {
+        $row = static fn (int $entity, string $name, string $date, int $total, int|string|null $signed): array => [
+            'entities_id' => $entity, 'name' => $name, 'date_creation' => $date, 'total' => $total, 'signed' => $signed,
+        ];
         $rows = [
-            ['entities_id' => 1, 'name' => 'Charte 2026', 'date_creation' => '2026-10-01 08:00:00', 'total' => 40, 'signed' => '30'],
-            ['entities_id' => 2, 'name' => 'Charte B', 'date_creation' => '2026-09-01 08:00:00', 'total' => 0, 'signed' => null],
-            ['entities_id' => 1, 'name' => 'Charte 2025', 'date_creation' => '2025-10-01 08:00:00', 'total' => 40, 'signed' => 40],
+            $row(1, 'Charte 2026', '2026-10-01 08:00:00', 40, '30'),
+            $row(2, 'Charte B', '2026-09-01 08:00:00', 0, null),
+            $row(1, 'Charte 2025', '2025-10-01 08:00:00', 40, 40),
         ];
 
         $summary = AssetsignEvidence::summarizeCharter($rows);
 
         self::assertCount(2, $summary);
         self::assertSame(
-            ['entities_id' => 1, 'campaign' => 'Charte 2026', 'date' => '2026-10-01 08:00:00', 'signed' => 30, 'total' => 40, 'rate' => 75],
+            [
+                'entities_id' => 1, 'campaign' => 'Charte 2026', 'date' => '2026-10-01 08:00:00',
+                'signed' => 30, 'total' => 40, 'rate' => 75,
+            ],
             $summary[0]
         );
         self::assertSame(0, $summary[1]['rate'], 'Campagne sans personne : taux nul, sans division par zéro.');
