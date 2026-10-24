@@ -9,6 +9,20 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Matrice des flux réseau** (issue #144), menu GRC & Conformité > Matrice des flux (A.8.20 à A.8.22).
+  - Un flux relie une source et une destination (un actif GLPI et/ou un réseau, une zone, une adresse),
+    avec un type (interne, publication sur Internet, sortant, tunnel entre sites ou vers un partenaire,
+    administration, sauvegarde), un protocole, des ports, une justification, un propriétaire et une date
+    de fin éventuelle ; historique des modifications.
+  - Contrôles automatiques affichés sur la fiche, dans la liste et en synthèse : sans justification,
+    sans propriétaire, expiré ou expirant sous 30 jours, service d'administration (SSH, RDP, SMB, bases de
+    données…) ou tous les ports publiés sur Internet. Le plugin ne modifie jamais un flux.
+  - Import CSV (séparateur « ; » ou « , », en-têtes français ou anglais) avec simulation préalable, lignes
+    invalides signalées par leur numéro, aucun doublon en cas de réimport.
+  - La revue périodique « matrice des flux » (#141) renvoie vers cet écran.
+
+### Added
+
 - **Revues périodiques du SMSI** (issue #141), menu GRC & Conformité > Revues périodiques.
   - Onze revues proposées : droits d'accès, comptes à privilèges, matrice des flux, registre des
     risques, risques fournisseurs, politiques, SoA, obligations légales, test de restauration des

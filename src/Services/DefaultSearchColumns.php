@@ -40,6 +40,8 @@ final class DefaultSearchColumns
         // convention.
         'PluginGrcmanagerPolicy'           => [8, 1, 2, 3, 4, 5, 6],
         'PluginGrcmanagerEvidence'         => [2, 3, 4, 5, 6, 80],
+        // Issue #144 : nom, type, source, destination, protocole, ports, propriétaire, fin, contrôles.
+        'PluginGrcmanagerNetworkFlow'      => [1, 2, 3, 4, 5, 6, 8, 9, 11],
         // Issue #30 (registre des obligations légales/réglementaires/contractuelles), same
         // "id first" convention.
         'PluginGrcmanagerComplianceObligation' => [9, 1, 2, 3, 4, 5, 6, 7],

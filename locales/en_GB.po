@@ -2620,3 +2620,192 @@ msgstr "Technician"
 
 msgid "Groupe"
 msgstr "Group"
+
+msgid "Flux interne"
+msgstr "Internal flow"
+
+msgid "Publication sur Internet (entrant)"
+msgstr "Published on the Internet (inbound)"
+
+msgid "Accès à Internet (sortant)"
+msgstr "Internet access (outbound)"
+
+msgid "Tunnel entre sites"
+msgstr "Site-to-site tunnel"
+
+msgid "Tunnel vers un partenaire"
+msgstr "Tunnel to a partner"
+
+msgid "Accès d'administration"
+msgstr "Administration access"
+
+msgid "Sauvegarde"
+msgstr "Backup"
+
+msgid "Tous"
+msgstr "All"
+
+msgid "Sans justification"
+msgstr "No justification"
+
+msgid "Sans propriétaire"
+msgstr "No owner"
+
+msgid "Expiré"
+msgstr "Expired"
+
+msgid "Expire bientôt"
+msgstr "Expires soon"
+
+msgid "Administration exposée sur Internet"
+msgstr "Administration exposed on the Internet"
+
+msgid "Tous les ports ouverts depuis Internet"
+msgstr "All ports open from the Internet"
+
+msgid "Ports invalides : saisissez des numéros ou des plages séparés par des virgules (ex. 80, 443, 8000-8100), ou laissez vide pour tous les ports."
+msgstr "Invalid ports: enter numbers or ranges separated by commas (e.g. 80, 443, 8000-8100), or leave empty for all ports."
+
+msgid "Indiquez la source et la destination du flux : un actif GLPI, ou un réseau, une zone ou une adresse."
+msgstr "Enter the source and destination of the flow: a GLPI asset, or a network, zone or address."
+
+msgid "Actif introuvable ou non autorisé."
+msgstr "Asset not found or not allowed."
+
+msgid "Nom"
+msgstr "Name"
+
+msgid "Source"
+msgstr "Source"
+
+msgid "Destination"
+msgstr "Destination"
+
+msgid "Protocole"
+msgstr "Protocol"
+
+msgid "Ports"
+msgstr "Ports"
+
+msgid "Date de fin"
+msgstr "End date"
+
+msgid "Actif"
+msgstr "Active"
+
+msgid "Contrôles"
+msgstr "Checks"
+
+msgid "Commentaires"
+msgstr "Comments"
+
+msgid "Actif non visible"
+msgstr "Asset not visible"
+
+msgid "Laissé vide, il est construit à partir de la source et de la destination."
+msgstr "If left empty, it is built from the source and destination."
+
+msgid "Actif GLPI (facultatif)."
+msgstr "GLPI asset (optional)."
+
+msgid "Réseau, zone ou adresse"
+msgstr "Network, zone or address"
+
+msgid "Ex. « Internet », « VLAN serveurs », « 10.0.0.0/24 », « Partenaire X »."
+msgstr "E.g. \"Internet\", \"Server VLAN\", \"10.0.0.0/24\", \"Partner X\"."
+
+msgid "Vide : tous les ports."
+msgstr "Empty: all ports."
+
+msgid "Pourquoi ce flux est nécessaire : application, besoin métier, demande ou ticket d'origine."
+msgstr "Why this flow is needed: application, business need, originating request or ticket."
+
+msgid "Pour un flux temporaire (migration, prestataire)."
+msgstr "For a temporary flow (migration, contractor)."
+
+msgid "Importer un fichier CSV"
+msgstr "Import a CSV file"
+
+#, php-format
+msgid "Propriétaire « %s » introuvable : flux importé sans propriétaire."
+msgstr "Owner \"%s\" not found: flow imported without an owner."
+
+msgid "En-tête sans colonnes « source » et « destination »."
+msgstr "Header without \"source\" and \"destination\" columns."
+
+msgid "Fichier vide."
+msgstr "Empty file."
+
+msgid "Source ou destination manquante : ligne ignorée."
+msgstr "Missing source or destination: line skipped."
+
+msgid "Ports invalides : ligne ignorée."
+msgstr "Invalid ports: line skipped."
+
+msgid "Date de fin invalide : ligne ignorée."
+msgstr "Invalid end date: line skipped."
+
+msgid "Flux réseau"
+msgid_plural "Matrice des flux"
+msgstr[0] "Network flow"
+msgstr[1] "Network flow matrix"
+
+#, php-format
+msgid "%d flux actif"
+msgid_plural "%d flux actifs"
+msgstr[0] "%d active flow"
+msgstr[1] "%d active flows"
+
+msgid "Choisissez un fichier CSV de 2 Mo au plus."
+msgstr "Choose a CSV file of at most 2 MB."
+
+msgid "Importer une matrice des flux"
+msgstr "Import a network flow matrix"
+
+msgid "Fichier CSV séparé par des points-virgules ou des virgules, avec une ligne d'en-tête. Colonnes reconnues : nom, type, source, destination, protocole, ports, justification, proprietaire (identifiant GLPI), date_fin. Seules source et destination sont obligatoires."
+msgstr "CSV file separated by semicolons or commas, with a header line. Recognised columns: name, type, source, destination, protocol, ports, justification, owner (GLPI login), date_end (French column names also accepted). Only source and destination are required."
+
+msgid "Site public;publication;Internet;Serveur web;tcp;443;Site vitrine;;"
+msgstr "Public website;publication;Internet;Web server;tcp;443;Company website;;"
+
+msgid "Sauvegarde;sauvegarde;Site principal;Site de secours;tcp;10000;Réplication nocturne;;"
+msgstr "Backup;backup;Main site;Recovery site;tcp;10000;Nightly replication;;"
+
+msgid "Types : interne, publication, sortant, tunnel, partenaire, administration, sauvegarde, autre. Un flux déjà présent (mêmes source, destination, protocole et ports) n'est pas recréé : réimporter le même fichier ne crée pas de doublon."
+msgstr "Types: internal, publication, outbound, tunnel, partner, admin, backup, other. A flow already present (same source, destination, protocol and ports) is not created again: importing the same file twice creates no duplicate."
+
+msgid "Simulation (rien n'est enregistré)"
+msgstr "Simulation (nothing is saved)"
+
+msgid "Analyser le fichier"
+msgstr "Analyse the file"
+
+msgid "Retour à la matrice des flux"
+msgstr "Back to the network flow matrix"
+
+#, php-format
+msgid "Simulation : %1$d flux seraient créés, %2$d existent déjà."
+msgstr "Simulation: %1$d flows would be created, %2$d already exist."
+
+#, php-format
+msgid "Import terminé : %1$d flux créés, %2$d existaient déjà."
+msgstr "Import finished: %1$d flows created, %2$d already existed."
+
+msgid "Décochez « Simulation » et analysez à nouveau le fichier pour l'importer."
+msgstr "Untick \"Simulation\" and analyse the file again to import it."
+
+#, php-format
+msgid "Ligne %1$d : %2$s"
+msgstr "Line %1$d: %2$s"
+
+msgid "Ligne"
+msgstr "Line"
+
+msgid "Déjà présent"
+msgstr "Already present"
+
+msgid "À créer"
+msgstr "To create"
+
+msgid "Créé"
+msgstr "Created"
