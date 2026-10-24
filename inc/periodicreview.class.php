@@ -254,8 +254,9 @@ class PluginGrcmanagerPeriodicReview extends PeriodicReviewBase
     public function deactivate(): bool
     {
         $recurrent = new TicketRecurrent();
-        if ((int) $this->fields['ticketrecurrents_id'] > 0 && $recurrent->getFromDB((int) $this->fields['ticketrecurrents_id'])) {
-            $recurrent->update(['id' => $recurrent->getID(), 'is_active' => 0]);
+        $recurrentsId = (int) $this->fields['ticketrecurrents_id'];
+        if ($recurrentsId > 0 && $recurrent->getFromDB($recurrentsId)) {
+            $recurrent->update(['id' => $recurrentsId, 'is_active' => 0]);
         }
 
         return $this->update(['id' => $this->getID(), 'is_active' => 0]);
@@ -274,17 +275,20 @@ class PluginGrcmanagerPeriodicReview extends PeriodicReviewBase
         global $CFG_GLPI;
 
         $key = $this->getKey();
-        $html = '<p>' . htmlescape(sprintf(
-            __('Revue périodique à réaliser : %s. Une fois la revue faite, résolvez ce ticket : sa date sert de preuve de revue.', 'grcmanager'),
-            self::getLabel($key)
-        )) . '</p>';
+        $intro = __(
+            'Revue périodique à réaliser : %s. Une fois la revue faite, résolvez ce ticket : '
+                . 'sa date sert de preuve de revue.',
+            'grcmanager'
+        );
+        $html = '<p>' . htmlescape(sprintf($intro, self::getLabel($key))) . '</p>';
         $items = self::getChecklist($key);
         if ($items !== []) {
             $html .= '<ul><li>' . implode('</li><li>', array_map('htmlescape', $items)) . '</li></ul>';
         }
         $controls = PeriodicReviewCatalog::controls($key);
         if ($controls !== []) {
-            $html .= '<p>' . htmlescape(sprintf(__('Exigences concernées : %s', 'grcmanager'), implode(', ', $controls))) . '</p>';
+            $requirements = sprintf(__('Exigences concernées : %s', 'grcmanager'), implode(', ', $controls));
+            $html .= '<p>' . htmlescape($requirements) . '</p>';
         }
         $path = self::getScreenPath($key);
         if ($path !== null) {
@@ -359,7 +363,8 @@ class PluginGrcmanagerPeriodicReview extends PeriodicReviewBase
     public static function onTicketUpdate(Ticket $ticket): void
     {
         $done = [CommonITILObject::SOLVED, CommonITILObject::CLOSED];
-        if (!in_array('status', $ticket->updates ?? [], true) || !in_array((int) $ticket->fields['status'], $done, true)) {
+        $status = (int) $ticket->fields['status'];
+        if (!in_array('status', $ticket->updates ?? [], true) || !in_array($status, $done, true)) {
             return;
         }
         $review = new self();
@@ -367,10 +372,10 @@ class PluginGrcmanagerPeriodicReview extends PeriodicReviewBase
             return;
         }
         $solved = (string) ($ticket->fields['solvedate'] ?? '') ?: (string) ($ticket->fields['closedate'] ?? '');
-        $review->update([
-            'id'               => $review->getID(),
-            'last_review_date' => substr($solved !== '' ? $solved : ($_SESSION['glpi_currenttime'] ?? date('Y-m-d H:i:s')), 0, 10),
-        ]);
+        if ($solved === '') {
+            $solved = $_SESSION['glpi_currenttime'] ?? date('Y-m-d H:i:s');
+        }
+        $review->update(['id' => $review->getID(), 'last_review_date' => substr($solved, 0, 10)]);
     }
 
     /**
@@ -406,24 +411,28 @@ class PluginGrcmanagerPeriodicReview extends PeriodicReviewBase
 
         $canManage = self::canManage();
         $today = date('Y-m-d');
-        $action = self::getSearchURL();
 
         echo '<div class="card"><div class="card-body">';
         echo '<p class="text-muted mb-3"><i class="ti ti-info-circle me-1"></i>' . htmlescape(__(
-            'Chaque revue activée devient un ticket récurrent natif de GLPI (Assistance > Tickets récurrents), créé à la fréquence choisie et attribué au responsable. Résoudre le ticket date la revue : c\'est la preuve attendue par l\'auditeur.',
+            'Chaque revue activée devient un ticket récurrent natif de GLPI (Assistance > Tickets récurrents), '
+                . 'créé à la fréquence choisie et attribué au responsable. Résoudre le ticket date la revue : '
+                . 'c\'est la preuve attendue par l\'auditeur.',
             'grcmanager'
         )) . '</p>';
         if (!$canManage) {
             echo '<div class="alert alert-info">' . htmlescape(__(
-                'Lecture seule : activer une revue demande le droit de modification du plugin et le droit de créer des tickets récurrents et des gabarits de tickets.',
+                'Lecture seule : activer une revue demande le droit de modification du plugin et le droit de '
+                    . 'créer des tickets récurrents et des gabarits de tickets.',
                 'grcmanager'
             )) . '</div>';
         }
-        echo '<div class="table-responsive"><table class="table table-hover align-middle">';
-        echo '<thead><tr><th>' . htmlescape(__('Revue', 'grcmanager')) . '</th><th>' . htmlescape(__('Fréquence', 'grcmanager'))
-            . '</th><th>' . htmlescape(__('Responsable', 'grcmanager')) . '</th><th>' . htmlescape(__('État', 'grcmanager'))
-            . '</th><th>' . htmlescape(__('Dernière revue', 'grcmanager')) . '</th><th>' . htmlescape(__('Prochain ticket', 'grcmanager'))
-            . '</th><th></th></tr></thead><tbody>';
+        echo '<div class="table-responsive"><table class="table table-hover align-middle"><thead><tr>';
+        $headers = [__('Revue', 'grcmanager'), __('Fréquence', 'grcmanager'), __('Responsable', 'grcmanager'),
+            __('État', 'grcmanager'), __('Dernière revue', 'grcmanager'), __('Prochain ticket', 'grcmanager'), ''];
+        foreach ($headers as $header) {
+            echo '<th>' . htmlescape($header) . '</th>';
+        }
+        echo '</tr></thead><tbody>';
 
         $rows = iterator_to_array($DB->request(['FROM' => self::getTable()]), false);
         $byKey = array_column($rows, null, 'review_key');
@@ -433,102 +442,133 @@ class PluginGrcmanagerPeriodicReview extends PeriodicReviewBase
             }
             $review = new self();
             $review->getFromDB((int) $byKey[$key]['id']);
-            $form = 'grc-review-' . $review->getID();
-            echo '<tr>';
-            echo '<td><strong>' . htmlescape(self::getLabel($key)) . '</strong><div class="small text-muted">';
-            foreach (PeriodicReviewCatalog::controls($key) as $control) {
-                echo '<span class="badge bg-secondary-lt me-1">' . htmlescape($control) . '</span>';
-            }
-            echo '</div></td>';
-
-            echo '<td>';
-            if ($canManage) {
-                echo '<select name="frequency_months" form="' . $form . '" class="form-select form-select-sm" style="min-width: 170px;"'
-                    . ' aria-label="' . htmlescape(__('Fréquence', 'grcmanager')) . '">';
-                foreach (PeriodicReviewCatalog::FREQUENCIES as $months) {
-                    $selected = $months === (int) $review->fields['frequency_months'] ? ' selected' : '';
-                    echo '<option value="' . $months . '"' . $selected . '>' . htmlescape(self::frequencyLabel($months)) . '</option>';
-                }
-                echo '</select>';
-            } else {
-                echo htmlescape(self::frequencyLabel((int) $review->fields['frequency_months']));
-            }
-            echo '</td>';
-
-            echo '<td style="min-width: 240px;">';
-            if ($canManage) {
-                echo '<div class="small text-muted">' . htmlescape(__('Technicien', 'grcmanager')) . '</div>';
-                User::dropdown([
-                    'name'   => 'users_id_assign',
-                    'value'  => (int) $review->fields['users_id_assign'],
-                    'right'  => 'own_ticket',
-                    'addicon' => false,
-                    'width'  => '100%',
-                    'rand'   => mt_rand(),
-                    'specific_tags' => ['form' => $form],
-                ]);
-                echo '<div class="small text-muted mt-1">' . htmlescape(__('Groupe', 'grcmanager')) . '</div><div>';
-                Group::dropdown([
-                    'name'      => 'groups_id_assign',
-                    'value'     => (int) $review->fields['groups_id_assign'],
-                    'condition' => ['is_assign' => 1],
-                    'addicon'   => false,
-                    'width'     => '100%',
-                    'rand'      => mt_rand(),
-                    'specific_tags' => ['form' => $form],
-                ]);
-                echo '</div>';
-            } else {
-                echo htmlescape(trim(getUserName((int) $review->fields['users_id_assign']) . ' '
-                    . Dropdown::getDropdownName('glpi_groups', (int) $review->fields['groups_id_assign'])));
-            }
-            echo '</td>';
-
-            echo '<td>';
-            if (!$review->isActive()) {
-                echo '<span class="badge bg-secondary-lt"><i class="ti ti-player-pause me-1"></i>' . htmlescape(__('Inactive', 'grcmanager')) . '</span>';
-            } elseif ($review->isOverdue($today)) {
-                echo '<span class="badge bg-danger-lt"><i class="ti ti-alert-triangle me-1"></i>' . htmlescape(__('En retard', 'grcmanager')) . '</span>';
-            } else {
-                echo '<span class="badge bg-success-lt"><i class="ti ti-check me-1"></i>' . htmlescape(__('Active', 'grcmanager')) . '</span>';
-            }
-            echo '</td>';
-
-            echo '<td>';
-            echo htmlescape($review->fields['last_review_date'] ? Html::convDate($review->fields['last_review_date']) : __('Jamais', 'grcmanager'));
-            if ((int) $review->fields['last_tickets_id'] > 0) {
-                echo ' <a href="' . htmlescape(Ticket::getFormURLWithID((int) $review->fields['last_tickets_id'])) . '" class="small">'
-                    . '<i class="ti ti-ticket me-1"></i>' . htmlescape(sprintf(__('Ticket n°%d', 'grcmanager'), (int) $review->fields['last_tickets_id'])) . '</a>';
-            }
-            echo '</td>';
-
-            $next = $review->getNextCreationDate();
-            echo '<td>' . htmlescape($next !== null ? Html::convDateTime($next) : '—');
-            if ((int) $review->fields['ticketrecurrents_id'] > 0) {
-                echo ' <a href="' . htmlescape(TicketRecurrent::getFormURLWithID((int) $review->fields['ticketrecurrents_id']))
-                    . '" class="small" title="' . htmlescape(__('Ouvrir le ticket récurrent', 'grcmanager')) . '"><i class="ti ti-external-link"></i></a>';
-            }
-            echo '</td>';
-
-            echo '<td class="text-end text-nowrap">';
-            if ($canManage) {
-                echo '<form id="' . $form . '" method="post" action="' . htmlescape($action) . '" class="d-inline">';
-                echo '<input type="hidden" name="_glpi_csrf_token" value="' . htmlescape(Session::getNewCSRFToken()) . '">';
-                echo '<input type="hidden" name="id" value="' . $review->getID() . '">';
-                if ($review->isActive()) {
-                    echo '<button type="submit" name="activate" value="1" class="btn btn-sm btn-primary me-1"><i class="ti ti-device-floppy me-1"></i>'
-                        . htmlescape(__('Enregistrer', 'grcmanager')) . '</button>';
-                    echo '<button type="submit" name="deactivate" value="1" class="btn btn-sm btn-outline-secondary"><i class="ti ti-player-pause me-1"></i>'
-                        . htmlescape(__('Désactiver', 'grcmanager')) . '</button>';
-                } else {
-                    echo '<button type="submit" name="activate" value="1" class="btn btn-sm btn-success"><i class="ti ti-player-play me-1"></i>'
-                        . htmlescape(__('Activer', 'grcmanager')) . '</button>';
-                }
-                echo '</form>';
-            }
-            echo '</td></tr>';
+            $review->showRow($canManage, $today);
         }
         echo '</tbody></table></div></div></div>';
+    }
+
+    private function showRow(bool $canManage, string $today): void
+    {
+        $key = $this->getKey();
+        $form = 'grc-review-' . $this->getID();
+        echo '<tr><td><strong>' . htmlescape(self::getLabel($key)) . '</strong><div class="small text-muted">';
+        foreach (PeriodicReviewCatalog::controls($key) as $control) {
+            echo '<span class="badge bg-secondary-lt me-1">' . htmlescape($control) . '</span>';
+        }
+        echo '</div></td>';
+
+        echo '<td>';
+        $months = (int) $this->fields['frequency_months'];
+        if ($canManage) {
+            echo '<select name="frequency_months" form="' . $form . '" class="form-select form-select-sm"'
+                . ' style="min-width: 170px;" aria-label="' . htmlescape(__('Fréquence', 'grcmanager')) . '">';
+            foreach (PeriodicReviewCatalog::FREQUENCIES as $option) {
+                echo '<option value="' . $option . '"' . ($option === $months ? ' selected' : '') . '>'
+                    . htmlescape(self::frequencyLabel($option)) . '</option>';
+            }
+            echo '</select>';
+        } else {
+            echo htmlescape(self::frequencyLabel($months));
+        }
+        echo '</td>';
+
+        echo '<td style="min-width: 240px;">';
+        $this->showOwner($canManage, $form);
+        echo '</td>';
+
+        echo '<td>';
+        if (!$this->isActive()) {
+            echo self::badge('bg-secondary-lt', 'ti-player-pause', __('Inactive', 'grcmanager'));
+        } elseif ($this->isOverdue($today)) {
+            echo self::badge('bg-danger-lt', 'ti-alert-triangle', __('En retard', 'grcmanager'));
+        } else {
+            echo self::badge('bg-success-lt', 'ti-check', __('Active', 'grcmanager'));
+        }
+        echo '</td>';
+
+        $last = (string) ($this->fields['last_review_date'] ?? '');
+        echo '<td>' . htmlescape($last !== '' ? (string) Html::convDate($last) : __('Jamais', 'grcmanager'));
+        $ticketsId = (int) $this->fields['last_tickets_id'];
+        if ($ticketsId > 0) {
+            echo ' <a href="' . htmlescape(Ticket::getFormURLWithID($ticketsId)) . '" class="small">'
+                . '<i class="ti ti-ticket me-1"></i>'
+                . htmlescape(sprintf(__('Ticket n°%d', 'grcmanager'), $ticketsId)) . '</a>';
+        }
+        echo '</td>';
+
+        $next = $this->getNextCreationDate();
+        echo '<td>' . htmlescape($next !== null ? (string) Html::convDateTime($next) : '—');
+        $recurrentsId = (int) $this->fields['ticketrecurrents_id'];
+        if ($recurrentsId > 0) {
+            echo ' <a href="' . htmlescape(TicketRecurrent::getFormURLWithID($recurrentsId)) . '" class="small"'
+                . ' title="' . htmlescape(__('Ouvrir le ticket récurrent', 'grcmanager')) . '">'
+                . '<i class="ti ti-external-link"></i></a>';
+        }
+        echo '</td>';
+
+        echo '<td class="text-end text-nowrap">';
+        if ($canManage) {
+            $this->showActions($form);
+        }
+        echo '</td></tr>';
+    }
+
+    private function showOwner(bool $canManage, string $form): void
+    {
+        if (!$canManage) {
+            echo htmlescape(trim(getUserName((int) $this->fields['users_id_assign']) . ' '
+                . Dropdown::getDropdownName('glpi_groups', (int) $this->fields['groups_id_assign'])));
+            return;
+        }
+        echo '<div class="small text-muted">' . htmlescape(__('Technicien', 'grcmanager')) . '</div>';
+        User::dropdown([
+            'name'          => 'users_id_assign',
+            'value'         => (int) $this->fields['users_id_assign'],
+            'right'         => 'own_ticket',
+            'addicon'       => false,
+            'width'         => '100%',
+            'rand'          => mt_rand(),
+            'specific_tags' => ['form' => $form],
+        ]);
+        echo '<div class="small text-muted mt-1">' . htmlescape(__('Groupe', 'grcmanager')) . '</div><div>';
+        Group::dropdown([
+            'name'          => 'groups_id_assign',
+            'value'         => (int) $this->fields['groups_id_assign'],
+            'condition'     => ['is_assign' => 1],
+            'addicon'       => false,
+            'width'         => '100%',
+            'rand'          => mt_rand(),
+            'specific_tags' => ['form' => $form],
+        ]);
+        echo '</div>';
+    }
+
+    private function showActions(string $form): void
+    {
+        echo '<form id="' . $form . '" method="post" action="' . htmlescape(self::getSearchURL()) . '"'
+            . ' class="d-inline">';
+        echo '<input type="hidden" name="_glpi_csrf_token" value="' . htmlescape(Session::getNewCSRFToken()) . '">';
+        echo '<input type="hidden" name="id" value="' . $this->getID() . '">';
+        if ($this->isActive()) {
+            echo self::button('activate', 'btn-primary me-1', 'ti-device-floppy', __('Enregistrer', 'grcmanager'));
+            $label = __('Désactiver', 'grcmanager');
+            echo self::button('deactivate', 'btn-outline-secondary', 'ti-player-pause', $label);
+        } else {
+            echo self::button('activate', 'btn-success', 'ti-player-play', __('Activer', 'grcmanager'));
+        }
+        echo '</form>';
+    }
+
+    private static function badge(string $class, string $icon, string $label): string
+    {
+        return '<span class="badge ' . $class . '"><i class="ti ' . $icon . ' me-1"></i>'
+            . htmlescape($label) . '</span>';
+    }
+
+    private static function button(string $name, string $class, string $icon, string $label): string
+    {
+        return '<button type="submit" name="' . $name . '" value="1" class="btn btn-sm ' . $class . '">'
+            . '<i class="ti ' . $icon . ' me-1"></i>' . htmlescape($label) . '</button>';
     }
 
     public static function frequencyLabel(int $months): string

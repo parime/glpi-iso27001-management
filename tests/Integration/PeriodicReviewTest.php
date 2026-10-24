@@ -35,7 +35,8 @@ final class PeriodicReviewTest extends GrcmanagerIntegrationTestCase
         $this->assertSame(1, (int) $recurrent->fields['is_active']);
         $this->assertSame((int) $review->fields['tickettemplates_id'], (int) $recurrent->fields['tickettemplates_id']);
 
-        $predefined = (new \TicketTemplatePredefinedField())->getPredefinedFields((int) $review->fields['tickettemplates_id']);
+        $templatesId = (int) $review->fields['tickettemplates_id'];
+        $predefined = (new \TicketTemplatePredefinedField())->getPredefinedFields($templatesId);
         $this->assertSame($owner, (int) $predefined['_users_id_assign']);
         $this->assertStringContainsString('A.5.15', $predefined['content']);
 
@@ -55,7 +56,16 @@ final class PeriodicReviewTest extends GrcmanagerIntegrationTestCase
     public function testTheGeneratedTicketIsFollowedAndItsResolutionDatesTheReview(): void
     {
         $owner = $this->createTestUser('Admin', 'Sauvegardes');
+        global $DB;
+
         $review = $this->review('backup_restore_test');
+        // Instance partagée : repartir d'une revue jamais faite (annulé par le rollback).
+        $DB->update(
+            $review->getTable(),
+            ['last_review_date' => null, 'last_tickets_id' => 0],
+            ['id' => $review->getID()]
+        );
+        $review->getFromDB($review->getID());
         $review->activate(6, $owner, 0);
         $review->getFromDB($review->getID());
 
@@ -65,7 +75,8 @@ final class PeriodicReviewTest extends GrcmanagerIntegrationTestCase
         $ticket = null;
         $this->assertTrue($recurrent->createItem([], $ticket));
         $this->assertInstanceOf(\Ticket::class, $ticket);
-        $this->assertStringContainsString('restauration', $ticket->fields['name']);
+        // Libellé traduit : la CI tourne en anglais, l'instance de développement en français.
+        $this->assertSame($review->getRecurrentName(), $ticket->fields['name']);
 
         $review->getFromDB($review->getID());
         $this->assertSame($ticket->getID(), (int) $review->fields['last_tickets_id']);

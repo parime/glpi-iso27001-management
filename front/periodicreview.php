@@ -40,7 +40,10 @@ if (isset($_POST['activate']) || isset($_POST['deactivate'])) {
         )
     ) {
         Session::addMessageAfterRedirect(htmlescape(sprintf(
-            __('Revue enregistrée : %s. Le ticket récurrent est visible dans Assistance > Tickets récurrents.', 'grcmanager'),
+            __(
+                'Revue enregistrée : %s. Le ticket récurrent est visible dans Assistance > Tickets récurrents.',
+                'grcmanager'
+            ),
             $label
         )));
     } else {
