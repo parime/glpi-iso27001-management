@@ -7,6 +7,24 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Added
+
+- **Vulnérabilités du parc** (issue #160, phase 1), menu GRC & Conformité > Vulnérabilités du parc :
+  - écran **« Logiciels à surveiller »** : les logiciels installés, les plus exposés (navigateurs,
+    accès distant, VPN, bureautique, lecteurs PDF) et les plus répandus d'abord. « Chercher le CPE »
+    propose les correspondances du dictionnaire NVD ; « Confirmer » alimente le catalogue de
+    corrélation existant (produit, CPE, alias) sans ressaisie. Un logiciel sans enjeu s'ignore ;
+  - pour chaque version installée d'un logiciel surveillé, NVD renvoie exactement les CVE qui la
+    touchent (recherche par version). Une tâche planifiée horaire en vérifie quelques-unes à chaque
+    passage, dans la limite publique de NVD, puis met à jour le catalogue CISA KEV (vulnérabilités
+    activement exploitées) et les scores FIRST EPSS (probabilité d'exploitation) ;
+  - écran **« Vulnérabilités du parc »** : CVE, logiciel, versions touchées, nombre de machines,
+    CVSS, EPSS, badges KEV et rançongiciel. Les vulnérabilités exploitées et prioritaires (KEV,
+    CVSS ≥ 9 ou EPSS ≥ 50 %) passent en premier. Une version au numéro illisible dans l'inventaire
+    est comptée « à vérifier à la main », jamais déclarée saine ;
+  - tout appel sortant dépend du réglage « Activer l'enrichissement NVD » (désactivé par défaut).
+    Rien n'est modifié dans le parc ; les tickets automatiques sont la phase 2.
+
 ## [2.6.0] - 2026-10-24
 
 ### Added

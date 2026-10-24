@@ -90,6 +90,9 @@ parameters:
         # CpeIdentity.php et CpeVersionMatch.php dans le même dossier restent dans le périmètre :
         # purs PHP, aucune dépendance GLPI.
         - src/Services/Cve/InventoryCveMatcher.php
+        # Issue #160 : veille des vulnérabilités du parc (base, NVD, Config de GLPI), même
+        # rationale. ParkVulnerabilityRules.php reste analysé : pur PHP.
+        - src/Services/Cve/ParkVulnerabilitySync.php
         # GLPI 11/12 compatibility layer: depends on GLPI's runtime GLPI_VERSION constant and on
         # \Toolbox / Glpi\Toolbox\HttpClient (each only present in one GLPI version), same
         # rationale as RiskMatrixConfig.php above. Base/ holds the parents of the inc/ classes,

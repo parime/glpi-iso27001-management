@@ -183,6 +183,11 @@ final class Installer
     private const NETWORK_FLOWS_TABLE = 'glpi_plugin_grcmanager_networkflows';
     // Issue #142 : evenements du calendrier de conformite, voir PluginGrcmanagerComplianceEvent.
     private const COMPLIANCE_EVENTS_TABLE = 'glpi_plugin_grcmanager_complianceevents';
+    // Issue #160 : vulnérabilités du parc, voir GlpiPlugin\Grcmanager\Services\Cve\ParkVulnerabilitySync.
+    private const IGNORED_SOFTWARES_TABLE = 'glpi_plugin_grcmanager_ignoredsoftwares';
+    private const PARK_VERSION_CHECKS_TABLE = 'glpi_plugin_grcmanager_parkversionchecks';
+    private const PARK_CVES_TABLE = 'glpi_plugin_grcmanager_parkcves';
+    private const CVE_SIGNALS_TABLE = 'glpi_plugin_grcmanager_cvesignals';
 
     public function install(Migration $migration): bool
     {
@@ -1063,6 +1068,71 @@ final class Installer
             $DB->doQuery($query) or die($DB->error());
         }
 
+        // Issue #160 : logiciels du parc écartés de la veille (sans enjeu de sécurité).
+        if (!$DB->tableExists(self::IGNORED_SOFTWARES_TABLE)) {
+            $query = "CREATE TABLE `" . self::IGNORED_SOFTWARES_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `name` varchar(255) NOT NULL,
+                `users_id` int {$keySign} NOT NULL DEFAULT 0,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity_name` (`name`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+        }
+
+        // Issue #160 : dernière interrogation de NVD pour une version installée d'un produit.
+        if (!$DB->tableExists(self::PARK_VERSION_CHECKS_TABLE)) {
+            $query = "CREATE TABLE `" . self::PARK_VERSION_CHECKS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_canonicalproducts_id` int {$keySign} NOT NULL,
+                `version` varchar(100) NOT NULL,
+                `status` varchar(20) NOT NULL DEFAULT 'ok' COMMENT 'ok ou error',
+                `cve_count` int NOT NULL DEFAULT 0,
+                `checked_at` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity_version` (`plugin_grcmanager_canonicalproducts_id`, `version`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+        }
+
+        // Issue #160 : CVE touchant une version installée (réponse de NVD à la dernière vérification).
+        if (!$DB->tableExists(self::PARK_CVES_TABLE)) {
+            $query = "CREATE TABLE `" . self::PARK_CVES_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_canonicalproducts_id` int {$keySign} NOT NULL,
+                `version` varchar(100) NOT NULL,
+                `cve_id` varchar(20) NOT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity_cve` (`plugin_grcmanager_canonicalproducts_id`, `version`, `cve_id`),
+                KEY `cve_id` (`cve_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+        }
+
+        // Issue #160 : signaux d'exploitation par CVE (CISA KEV, FIRST EPSS).
+        if (!$DB->tableExists(self::CVE_SIGNALS_TABLE)) {
+            $query = "CREATE TABLE `" . self::CVE_SIGNALS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `cve_id` varchar(20) NOT NULL,
+                `is_kev` tinyint NOT NULL DEFAULT 0,
+                `kev_date_added` date DEFAULT NULL,
+                `kev_due_date` date DEFAULT NULL,
+                `kev_ransomware` tinyint NOT NULL DEFAULT 0,
+                `epss` decimal(6,5) DEFAULT NULL,
+                `epss_percentile` decimal(6,5) DEFAULT NULL,
+                `epss_date` date DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity_cve` (`cve_id`),
+                KEY `is_kev` (`is_kev`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+        }
+
         if (!$DB->tableExists(self::PERIODIC_REVIEWS_TABLE)) {
             $query = "CREATE TABLE `" . self::PERIODIC_REVIEWS_TABLE . "` (
                 `id` int {$keySign} NOT NULL AUTO_INCREMENT,
@@ -1745,6 +1815,21 @@ final class Installer
                 'comment' => 'Notifie le responsable de chaque action de traitement de risque dont '
                     . 'l\'échéance est dépassée',
                 'mode'    => CronTask::MODE_EXTERNAL,
+            ]
+        );
+
+        // Issue #160 : vulnérabilités du parc. Toutes les heures, quelques versions installées
+        // vérifiées auprès de NVD (limite publique de 5 requêtes par 30 s), puis CISA KEV et
+        // FIRST EPSS. Sans effet tant que l'enrichissement NVD n'est pas activé.
+        CronTask::Register(
+            'PluginGrcmanagerParkVulnerability',
+            'parkvulnerabilitysync',
+            HOUR_TIMESTAMP,
+            [
+                'comment' => 'Vérifie les versions installées des logiciels surveillés auprès de NVD, '
+                    . 'CISA KEV et FIRST EPSS',
+                'mode'    => CronTask::MODE_EXTERNAL,
+                'param'   => 20,
             ]
         );
 
@@ -2720,6 +2805,10 @@ final class Installer
         $migration->dropTable(self::PERIODIC_REVIEWS_TABLE);
         $migration->dropTable(self::NETWORK_FLOWS_TABLE);
         $migration->dropTable(self::COMPLIANCE_EVENTS_TABLE);
+        $migration->dropTable(self::IGNORED_SOFTWARES_TABLE);
+        $migration->dropTable(self::PARK_VERSION_CHECKS_TABLE);
+        $migration->dropTable(self::PARK_CVES_TABLE);
+        $migration->dropTable(self::CVE_SIGNALS_TABLE);
         $migration->dropTable(self::ACCESS_REVIEWS_USERS_TABLE);
         $migration->dropTable(self::ACCESS_REVIEWS_TABLE);
         $migration->dropTable(self::OBJECTIVES_TABLE);

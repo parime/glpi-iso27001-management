@@ -3001,3 +3001,193 @@ msgid "Événement de conformité"
 msgid_plural "Événements de conformité"
 msgstr[0] "Compliance event"
 msgstr[1] "Compliance events"
+
+msgid "Vulnérabilités du parc"
+msgstr "Fleet vulnerabilities"
+
+msgid "À examiner"
+msgstr "To review"
+
+msgid "Exposés à examiner"
+msgstr "Exposed, to review"
+
+msgid "Surveillés"
+msgstr "Watched"
+
+msgid "Ignorés"
+msgstr "Ignored"
+
+msgid "Vulnérabilités du parc : interroge NVD, CISA KEV et FIRST EPSS"
+msgstr "Fleet vulnerabilities: queries NVD, CISA KEV and FIRST EPSS"
+
+msgid "Versions vérifiées par passage"
+msgstr "Versions checked per run"
+
+msgid "Choisissez une suggestion ou saisissez un CPE 2.3 valide (cpe:2.3:a:éditeur:produit)."
+msgstr "Pick a suggestion or enter a valid CPE 2.3 (cpe:2.3:a:vendor:product)."
+
+#, php-format
+msgid "« %s » est maintenant surveillé."
+msgstr "\"%s\" is now watched."
+
+msgid "Sa version la plus installée vient d'être vérifiée ; les autres le seront par la tâche planifiée."
+msgstr "Its most installed version has just been checked; the automatic action will check the others."
+
+#, php-format
+msgid "%d version(s) vérifiée(s) auprès de NVD."
+msgstr "%d version(s) checked against NVD."
+
+msgid "Logiciels à surveiller"
+msgstr "Software to watch"
+
+msgid "Choisissez les logiciels du parc à surveiller. Pour chacun, cherchez son identifiant CPE (le nom officiel utilisé par la base de vulnérabilités NVD), puis confirmez. Commencez par les logiciels exposés : navigateurs, accès distant, VPN, bureautique, lecteurs PDF."
+msgstr "Choose the installed software to watch. For each one, look up its CPE identifier (the official name used by the NVD vulnerability database), then confirm. Start with exposed software: browsers, remote access, VPN, office suites, PDF readers."
+
+msgid "L'interrogation de NVD est désactivée : les suggestions de CPE et la vérification des versions ne fonctionnent pas encore."
+msgstr "NVD queries are disabled: CPE suggestions and version checks do not work yet."
+
+msgid "Activer l'enrichissement NVD dans la configuration du plugin"
+msgstr "Enable NVD enrichment in the plugin configuration"
+
+msgid "Rechercher un logiciel"
+msgstr "Search software"
+
+msgid "Rechercher"
+msgstr "Search"
+
+msgid "Aucun logiciel dans cette liste."
+msgstr "No software in this list."
+
+msgid "Logiciel"
+msgstr "Software"
+
+msgid "Installations"
+msgstr "Installations"
+
+msgid "Versions"
+msgstr "Versions"
+
+msgid "Produit surveillé"
+msgstr "Watched product"
+
+msgid "Actions"
+msgstr "Actions"
+
+msgid "Logiciel souvent exposé (contenus venant d'Internet ou accès distant)"
+msgstr "Often exposed software (content from the Internet or remote access)"
+
+msgid "Exposé"
+msgstr "Exposed"
+
+msgid "Surveillé"
+msgstr "Watched"
+
+msgid "Ignoré"
+msgstr "Ignored"
+
+msgid "Chercher le CPE"
+msgstr "Look up the CPE"
+
+msgid "Ne plus ignorer"
+msgstr "Stop ignoring"
+
+msgid "Logiciel sans enjeu de sécurité (pilote, utilitaire interne...)"
+msgstr "Software with no security stake (driver, internal tool...)"
+
+msgid "Ignorer"
+msgstr "Ignore"
+
+msgid "NVD ne répond pas pour le moment. Réessayez dans une minute, ou saisissez le CPE ci-dessous."
+msgstr "NVD is not responding right now. Try again in a minute, or enter the CPE below."
+
+msgid "Suggestions du dictionnaire NVD :"
+msgstr "Suggestions from the NVD dictionary:"
+
+msgid "Aucune suggestion trouvée : saisissez le CPE ci-dessous, ou ignorez ce logiciel."
+msgstr "No suggestion found: enter the CPE below, or ignore this software."
+
+msgid "CPE saisi à la main"
+msgstr "CPE entered manually"
+
+msgid "Confirmer"
+msgstr "Confirm"
+
+msgid "Chercher sur le site de NVD"
+msgstr "Search on the NVD website"
+
+msgid "Vérifie tout de suite deux versions en attente ; la tâche planifiée vérifie les autres."
+msgstr "Checks two pending versions right away; the automatic action checks the others."
+
+msgid "Vérifier maintenant"
+msgstr "Check now"
+
+msgid "L'interrogation de NVD est désactivée : aucune version n'est vérifiée."
+msgstr "NVD queries are disabled: no version is checked."
+
+msgid "Logiciels surveillés"
+msgstr "Watched software"
+
+msgid "Versions installées vérifiées"
+msgstr "Installed versions checked"
+
+msgid "Numéro de version illisible dans l'inventaire : à vérifier à la main."
+msgstr "Unreadable version number in the inventory: check it manually."
+
+msgid "Versions à vérifier à la main"
+msgstr "Versions to check manually"
+
+msgid "Catalogue CISA KEV mis à jour"
+msgstr "CISA KEV catalog updated"
+
+msgid "Toutes"
+msgstr "All"
+
+msgid "Prioritaires"
+msgstr "Priority"
+
+#, php-format
+msgid "Prioritaire : exploitée activement (CISA KEV), CVSS d'au moins 9 ou probabilité d'exploitation (EPSS) d'au moins 50 %."
+msgstr "Priority: actively exploited (CISA KEV), CVSS of at least 9 or exploitation probability (EPSS) of at least 50%."
+
+msgid "Commencez par choisir les logiciels à surveiller."
+msgstr "Start by choosing the software to watch."
+
+msgid "Voir les logiciels exposés"
+msgstr "See exposed software"
+
+msgid "Aucune vulnérabilité connue pour les versions déjà vérifiées."
+msgstr "No known vulnerability for the versions already checked."
+
+msgid "Versions touchées"
+msgstr "Affected versions"
+
+msgid "Machines"
+msgstr "Machines"
+
+msgid "CVSS"
+msgstr "CVSS"
+
+msgid "EPSS"
+msgstr "EPSS"
+
+msgid "Exploitée"
+msgstr "Exploited"
+
+msgid "Publication"
+msgstr "Published"
+
+msgid "Prioritaire"
+msgstr "Priority"
+
+msgid "n. c."
+msgstr "n/a"
+
+msgid "Catalogue CISA des vulnérabilités activement exploitées"
+msgstr "CISA catalog of known exploited vulnerabilities"
+
+msgid "Rançongiciel"
+msgstr "Ransomware"
+
+#, php-format
+msgid "%1$d vulnérabilités : les %2$d plus prioritaires sont affichées."
+msgstr "%1$d vulnerabilities: the %2$d highest-priority ones are shown."
