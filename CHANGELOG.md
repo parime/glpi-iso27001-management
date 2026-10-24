@@ -7,6 +7,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.6.0] - 2026-10-24
+
 ### Added
 
 - **Calendrier de conformité** (issue #142), menu GRC & Conformité > Calendrier de conformité :
