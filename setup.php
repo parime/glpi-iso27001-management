@@ -131,6 +131,8 @@ function plugin_init_grcmanager(): void
             // (CpeReference, ProductAlias) n'ont pas d'entrée propre, gérées en ligne sur le
             // formulaire du produit, même convention que PluginGrcmanagerObjectiveMeasurement.
             PluginGrcmanagerCanonicalProduct::class,
+            // Issue #160 : vulnérabilités du parc (et logiciels à surveiller).
+            PluginGrcmanagerParkVulnerability::class,
             // Bibliothèque de contrôles étendue (ROADMAP.md "Version 2.2") : dernier ajouté, ancre
             // sans CommonDBTM vers l'écran de consultation NIST CSF/CIS Controls, même convention
             // que PluginGrcmanagerMenu ci-dessus.

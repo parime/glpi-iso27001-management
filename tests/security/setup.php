@@ -191,11 +191,12 @@ $manager = $userId('iso-gestionnaire', $a, $profileId('Securite ISO - gestionnai
     'plugin_grcmanager'                  => ALLSTANDARDRIGHT,
     'plugin_grcmanager_securityincident' => ALLSTANDARDRIGHT | CommonITILObject::READALL | CommonITILObject::READMY,
     'computer' => READ, 'contract' => READ, 'supplier' => READ, 'user' => READ, 'document' => READ,
+    'software' => READ,
 ]));
 $reader = $userId('iso-lecteur', $a, $profileId('Securite ISO - lecteur A', [
     'plugin_grcmanager'                  => READ,
     'plugin_grcmanager_securityincident' => CommonITILObject::READALL,
-    'computer' => READ, 'contract' => READ, 'supplier' => READ, 'user' => READ,
+    'computer' => READ, 'contract' => READ, 'supplier' => READ, 'user' => READ, 'software' => READ,
 ]));
 
 // Sans droit : aucun droit sur le plugin, chaque page doit lui être refusée.

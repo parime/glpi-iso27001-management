@@ -50,7 +50,8 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/training.php front/referentiels.php front/riskheatmap.php front/soaapproval.php front/config.php
   front/audit.report.php front/control.report.php front/risk.report.php front/control.csv.php?action=export
   front/evidence.php front/periodicreview.php front/networkflow.php front/accounthygiene.php
-  front/compliancecalendar.php front/compliancecalendar.php?ics=1 front/complianceevent.php"
+  front/compliancecalendar.php front/compliancecalendar.php?ics=1 front/complianceevent.php
+  front/parkvulnerability.php front/softwarewatch.php"
 # Creations : refusees sans droit comme en lecture seule (etat en base compare par la CI).
 create_attempts() { # code attendu, code attendu pour la classification (404 sans droit sur l'actif)
   local incident; incident=$(id incident_A)
@@ -81,6 +82,9 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
   # Issue #142 : evenement du calendrier de conformite.
   expect "front/complianceevent.form.php : creation d'un evenement" "$1" \
     "$(code -d "add=1&name=securite&date_begin=2030-01-01+09:00:00&_glpi_csrf_token=$(csrf)" "$P/complianceevent.form.php")"
+  # Issue #160 : surveiller un logiciel cree un produit, un CPE et un alias (compare en base).
+  expect "front/softwarewatch.php : surveiller un logiciel" "$1"     "$(code -d "confirm=1&software=securite&cpe=cpe:2.3:a:securite:securite&_glpi_csrf_token=$(csrf)" "$P/softwarewatch.php")"
+  expect "front/softwarewatch.php : ignorer un logiciel" "$1"     "$(code -d "ignore=1&software=securite&_glpi_csrf_token=$(csrf)" "$P/softwarewatch.php")"
   # Issue #184 : ticket de revue des comptes (exige aussi le droit natif de creer un ticket).
   expect "front/accounthygiene.php : ticket de revue" "$1" \
     "$(code -d "create_ticket=1&users_id[]=2&_glpi_csrf_token=$(csrf)" "$P/accounthygiene.php")"
