@@ -356,6 +356,26 @@ function plugin_grcmanager_purge_security_incident_links(CommonDBTM $item): void
     }
 }
 
+/**
+ * Issue #141 : Hooks::ITEM_ADD sur Ticket (setup.php), voir PluginGrcmanagerPeriodicReview::onTicketAdd().
+ */
+function plugin_grcmanager_periodic_review_ticket_add(CommonDBTM $item): void
+{
+    if ($item instanceof Ticket) {
+        PluginGrcmanagerPeriodicReview::onTicketAdd($item);
+    }
+}
+
+/**
+ * Issue #141 : Hooks::ITEM_UPDATE sur Ticket (setup.php), voir PluginGrcmanagerPeriodicReview::onTicketUpdate().
+ */
+function plugin_grcmanager_periodic_review_ticket_update(CommonDBTM $item): void
+{
+    if ($item instanceof Ticket) {
+        PluginGrcmanagerPeriodicReview::onTicketUpdate($item);
+    }
+}
+
 function plugin_grcmanager_install(): bool
 {
     $migration = new Migration(PLUGIN_GRCMANAGER_VERSION);

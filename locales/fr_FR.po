@@ -2394,3 +2394,229 @@ msgstr "Preuves expirées ou à renouveler"
 
 msgid "Une date de validité se saisit depuis l'onglet « Validités des preuves » d'une mesure, d'un risque fournisseur, d'un audit ou d'une politique, pour chaque document rattaché."
 msgstr "Une date de validité se saisit depuis l'onglet « Validités des preuves » d'une mesure, d'un risque fournisseur, d'un audit ou d'une politique, pour chaque document rattaché."
+
+msgid "Revue périodique"
+msgid_plural "Revues périodiques"
+msgstr[0] "Revue périodique"
+msgstr[1] "Revues périodiques"
+
+#, php-format
+msgid "Tous les %d mois"
+msgid_plural "Tous les %d mois"
+msgstr[0] "Tous les %d mois"
+msgstr[1] "Tous les %d mois"
+
+msgid "Revue des comptes et des droits d'accès"
+msgstr "Revue des comptes et des droits d'accès"
+
+msgid "Revue des comptes à privilèges et des comptes de service"
+msgstr "Revue des comptes à privilèges et des comptes de service"
+
+msgid "Revue de la matrice des flux (règles de pare-feu)"
+msgstr "Revue de la matrice des flux (règles de pare-feu)"
+
+msgid "Revue du registre des risques"
+msgstr "Revue du registre des risques"
+
+msgid "Revue des risques fournisseurs"
+msgstr "Revue des risques fournisseurs"
+
+msgid "Revue des politiques de sécurité"
+msgstr "Revue des politiques de sécurité"
+
+msgid "Revue de la Déclaration d'Applicabilité"
+msgstr "Revue de la Déclaration d'Applicabilité"
+
+msgid "Revue des obligations légales et contractuelles"
+msgstr "Revue des obligations légales et contractuelles"
+
+msgid "Test de restauration des sauvegardes"
+msgstr "Test de restauration des sauvegardes"
+
+msgid "Test du plan de continuité et de reprise (PCA / PRA)"
+msgstr "Test du plan de continuité et de reprise (PCA / PRA)"
+
+msgid "Revue des journaux de sécurité"
+msgstr "Revue des journaux de sécurité"
+
+msgid "Lancer ou clôturer la campagne de revue des accès"
+msgstr "Lancer ou clôturer la campagne de revue des accès"
+
+msgid "Vérifier les comptes des personnes parties ou ayant changé de poste"
+msgstr "Vérifier les comptes des personnes parties ou ayant changé de poste"
+
+msgid "Ouvrir un ticket pour chaque droit à retirer ou modifier"
+msgstr "Ouvrir un ticket pour chaque droit à retirer ou modifier"
+
+msgid "Lister les comptes administrateurs et les comptes de service"
+msgstr "Lister les comptes administrateurs et les comptes de service"
+
+msgid "Confirmer pour chacun le besoin et son responsable"
+msgstr "Confirmer pour chacun le besoin et son responsable"
+
+msgid "Vérifier la rotation des mots de passe et l'authentification forte"
+msgstr "Vérifier la rotation des mots de passe et l'authentification forte"
+
+msgid "Exporter les règles des pare-feu"
+msgstr "Exporter les règles des pare-feu"
+
+msgid "Vérifier que chaque flux a une justification et un propriétaire"
+msgstr "Vérifier que chaque flux a une justification et un propriétaire"
+
+msgid "Supprimer les règles inutiles ou expirées (par ticket)"
+msgstr "Supprimer les règles inutiles ou expirées (par ticket)"
+
+msgid "Réévaluer la probabilité et l'impact des risques"
+msgstr "Réévaluer la probabilité et l'impact des risques"
+
+msgid "Vérifier l'avancement des plans de traitement"
+msgstr "Vérifier l'avancement des plans de traitement"
+
+msgid "Ajouter les nouveaux risques identifiés"
+msgstr "Ajouter les nouveaux risques identifiés"
+
+msgid "Réévaluer les fournisseurs critiques"
+msgstr "Réévaluer les fournisseurs critiques"
+
+msgid "Vérifier les échéances des contrats et des attestations"
+msgstr "Vérifier les échéances des contrats et des attestations"
+
+msgid "Relire chaque politique et dater la revue"
+msgstr "Relire chaque politique et dater la revue"
+
+msgid "Publier les nouvelles versions et informer les personnes concernées"
+msgstr "Publier les nouvelles versions et informer les personnes concernées"
+
+msgid "Vérifier l'applicabilité et la justification de chaque mesure"
+msgstr "Vérifier l'applicabilité et la justification de chaque mesure"
+
+msgid "Mettre à jour l'état de mise en œuvre"
+msgstr "Mettre à jour l'état de mise en œuvre"
+
+msgid "Demander une nouvelle approbation si la SoA a changé"
+msgstr "Demander une nouvelle approbation si la SoA a changé"
+
+msgid "Recenser les nouvelles obligations (lois, contrats, clients)"
+msgstr "Recenser les nouvelles obligations (lois, contrats, clients)"
+
+msgid "Vérifier la conformité de chaque obligation suivie"
+msgstr "Vérifier la conformité de chaque obligation suivie"
+
+msgid "Restaurer un échantillon de fichiers et une base de données"
+msgstr "Restaurer un échantillon de fichiers et une base de données"
+
+msgid "Mesurer la durée de restauration et la comparer à l'objectif"
+msgstr "Mesurer la durée de restauration et la comparer à l'objectif"
+
+msgid "Joindre le compte rendu du test à ce ticket"
+msgstr "Joindre le compte rendu du test à ce ticket"
+
+msgid "Dérouler un scénario de reprise (exercice sur table ou réel)"
+msgstr "Dérouler un scénario de reprise (exercice sur table ou réel)"
+
+msgid "Vérifier les contacts et les procédures d'urgence"
+msgstr "Vérifier les contacts et les procédures d'urgence"
+
+msgid "Joindre le compte rendu et les actions d'amélioration"
+msgstr "Joindre le compte rendu et les actions d'amélioration"
+
+msgid "Consulter les alertes et les journaux de sécurité de la période"
+msgstr "Consulter les alertes et les journaux de sécurité de la période"
+
+msgid "Ouvrir un incident de sécurité pour chaque anomalie avérée"
+msgstr "Ouvrir un incident de sécurité pour chaque anomalie avérée"
+
+msgid "Créé par GLPI GRC Manager (revues périodiques)."
+msgstr "Créé par GLPI GRC Manager (revues périodiques)."
+
+#, php-format
+msgid "Revue périodique : %s"
+msgstr "Revue périodique : %s"
+
+#, php-format
+msgid "Revue périodique à réaliser : %s. Une fois la revue faite, résolvez ce ticket : sa date sert de preuve de revue."
+msgstr "Revue périodique à réaliser : %s. Une fois la revue faite, résolvez ce ticket : sa date sert de preuve de revue."
+
+#, php-format
+msgid "Exigences concernées : %s"
+msgstr "Exigences concernées : %s"
+
+#, php-format
+msgid "GRC : %s"
+msgstr "GRC : %s"
+
+msgid "Chaque revue activée devient un ticket récurrent natif de GLPI (Assistance > Tickets récurrents), créé à la fréquence choisie et attribué au responsable. Résoudre le ticket date la revue : c'est la preuve attendue par l'auditeur."
+msgstr "Chaque revue activée devient un ticket récurrent natif de GLPI (Assistance > Tickets récurrents), créé à la fréquence choisie et attribué au responsable. Résoudre le ticket date la revue : c'est la preuve attendue par l'auditeur."
+
+msgid "Lecture seule : activer une revue demande le droit de modification du plugin et le droit de créer des tickets récurrents et des gabarits de tickets."
+msgstr "Lecture seule : activer une revue demande le droit de modification du plugin et le droit de créer des tickets récurrents et des gabarits de tickets."
+
+msgid "Revue"
+msgstr "Revue"
+
+msgid "État"
+msgstr "État"
+
+msgid "Dernière revue"
+msgstr "Dernière revue"
+
+msgid "Prochain ticket"
+msgstr "Prochain ticket"
+
+msgid "Inactive"
+msgstr "Inactive"
+
+msgid "Active"
+msgstr "Active"
+
+msgid "Jamais"
+msgstr "Jamais"
+
+#, php-format
+msgid "Ticket n°%d"
+msgstr "Ticket n°%d"
+
+msgid "Ouvrir le ticket récurrent"
+msgstr "Ouvrir le ticket récurrent"
+
+msgid "Enregistrer"
+msgstr "Enregistrer"
+
+msgid "Désactiver"
+msgstr "Désactiver"
+
+msgid "Activer"
+msgstr "Activer"
+
+msgid "Tous les mois"
+msgstr "Tous les mois"
+
+msgid "Tous les trimestres"
+msgstr "Tous les trimestres"
+
+msgid "Tous les six mois"
+msgstr "Tous les six mois"
+
+msgid "Tous les ans"
+msgstr "Tous les ans"
+
+msgid "Tous les deux ans"
+msgstr "Tous les deux ans"
+
+#, php-format
+msgid "Revue désactivée : %s"
+msgstr "Revue désactivée : %s"
+
+#, php-format
+msgid "Revue enregistrée : %s. Le ticket récurrent est visible dans Assistance > Tickets récurrents."
+msgstr "Revue enregistrée : %s. Le ticket récurrent est visible dans Assistance > Tickets récurrents."
+
+#, php-format
+msgid "La revue n'a pas pu être activée : %s"
+msgstr "La revue n'a pas pu être activée : %s"
+
+msgid "Technicien"
+msgstr "Technicien"
+
+msgid "Groupe"
+msgstr "Groupe"

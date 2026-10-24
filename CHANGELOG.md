@@ -7,6 +7,21 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Added
+
+- **Revues périodiques du SMSI** (issue #141), menu GRC & Conformité > Revues périodiques.
+  - Onze revues proposées : droits d'accès, comptes à privilèges, matrice des flux, registre des
+    risques, risques fournisseurs, politiques, SoA, obligations légales, test de restauration des
+    sauvegardes, test du PCA/PRA, journaux de sécurité ; chacune avec une fréquence par défaut et
+    les exigences qu'elle couvre.
+  - Activer une revue crée un gabarit et un ticket récurrent natifs de GLPI (Assistance > Tickets
+    récurrents) : titre, check-list, exigences concernées et lien vers l'écran du plugin, attribué
+    au technicien ou au groupe choisi.
+  - Le ticket résolu date la revue (« Dernière revue ») ; une revue active sans revue sur la
+    dernière période est signalée « En retard ». Le plugin ne modifie jamais le ticket.
+  - Activer une revue exige le droit de modification du plugin et les droits natifs de créer des
+    tickets récurrents et des gabarits.
+
 ## [2.5.0] - 2026-10-24
 
 ### Added

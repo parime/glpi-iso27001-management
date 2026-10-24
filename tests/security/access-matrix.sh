@@ -49,7 +49,7 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/objective.php front/policy.php front/risk.php front/securityincident.php front/supplierrisk.php
   front/training.php front/referentiels.php front/riskheatmap.php front/soaapproval.php front/config.php
   front/audit.report.php front/control.report.php front/risk.report.php front/control.csv.php?action=export
-  front/evidence.php"
+  front/evidence.php front/periodicreview.php"
 # Creations : refusees sans droit comme en lecture seule (etat en base compare par la CI).
 create_attempts() { # code attendu, code attendu pour la classification (404 sans droit sur l'actif)
   local incident; incident=$(id incident_A)
@@ -73,6 +73,9 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
     "$(code -d "add=1&plugin_grcmanager_securityincidents_id=$incident&name=cout&cost_fixed=10&_glpi_csrf_token=$(csrf)" "$P/securityincidentcost.form.php")"
   expect "front/securityincidenttask.form.php : ajouter une tache" "$1" \
     "$(code -d "add=1&plugin_grcmanager_securityincidents_id=$incident&content=tache&_glpi_csrf_token=$(csrf)" "$P/securityincidenttask.form.php")"
+  # Issue #141 : activer une revue cree un gabarit et un ticket recurrent (compare en base).
+  expect "front/periodicreview.php : activer une revue" "$1" \
+    "$(code -d "activate=1&id=1&frequency_months=6&_glpi_csrf_token=$(csrf)" "$P/periodicreview.php")"
   expect "front/evidence.form.php : date de validite d'une preuve" "$1" \
     "$(code -d "save=1&itemtype=PluginGrcmanagerPolicy&items_id=$(id policy_A)&documents_id=$(id document_A)&valid_until=2030-01-01&_glpi_csrf_token=$(csrf)" "$P/evidence.form.php")"
 }

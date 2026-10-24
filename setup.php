@@ -114,6 +114,8 @@ function plugin_init_grcmanager(): void
             PluginGrcmanagerManagementReview::class,
             // Issue #126 : campagnes de revue périodique des accès.
             PluginGrcmanagerAccessReview::class,
+            // Issue #141 : revues périodiques (tickets récurrents natifs).
+            PluginGrcmanagerPeriodicReview::class,
             PluginGrcmanagerPolicy::class,
             // Issue #145 : preuves datées, expirées ou à renouveler.
             PluginGrcmanagerEvidence::class,
@@ -216,6 +218,10 @@ function plugin_init_grcmanager(): void
     Plugin::registerClass(PluginGrcmanagerSecurityIncidentTicket::class, [
         'addtabon' => ['Ticket', PluginGrcmanagerSecurityIncident::class],
     ]);
+    // Issue #141 : le ticket créé par le ticket récurrent d'une revue devient son ticket en cours ;
+    // sa résolution date la revue (PluginGrcmanagerPeriodicReview::onTicketAdd()/onTicketUpdate()).
+    $PLUGIN_HOOKS[Hooks::ITEM_ADD]['grcmanager'] = ['Ticket' => 'plugin_grcmanager_periodic_review_ticket_add'];
+    $PLUGIN_HOOKS[Hooks::ITEM_UPDATE]['grcmanager'] = ['Ticket' => 'plugin_grcmanager_periodic_review_ticket_update'];
     $PLUGIN_HOOKS[Hooks::ITEM_PURGE]['grcmanager'] = [
         'Ticket'                                => 'plugin_grcmanager_purge_security_incident_links',
         PluginGrcmanagerSecurityIncident::class => 'plugin_grcmanager_purge_security_incident_links',
