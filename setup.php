@@ -116,6 +116,8 @@ function plugin_init_grcmanager(): void
             PluginGrcmanagerAccessReview::class,
             // Issue #141 : revues périodiques (tickets récurrents natifs).
             PluginGrcmanagerPeriodicReview::class,
+            // Issue #144 : matrice des flux réseau.
+            PluginGrcmanagerNetworkFlow::class,
             PluginGrcmanagerPolicy::class,
             // Issue #145 : preuves datées, expirées ou à renouveler.
             PluginGrcmanagerEvidence::class,

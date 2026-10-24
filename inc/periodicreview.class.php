@@ -144,6 +144,7 @@ class PluginGrcmanagerPeriodicReview extends PeriodicReviewBase
     {
         return match ($key) {
             'access_rights', 'privileged_accounts' => '/plugins/grcmanager/front/accessreview.php',
+            'network_flows'     => '/plugins/grcmanager/front/networkflow.php',
             'risk_register'     => '/plugins/grcmanager/front/risk.php',
             'supplier_risks'    => '/plugins/grcmanager/front/supplierrisk.php',
             'policies'          => '/plugins/grcmanager/front/policy.php',

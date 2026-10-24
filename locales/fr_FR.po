@@ -2620,3 +2620,192 @@ msgstr "Technicien"
 
 msgid "Groupe"
 msgstr "Groupe"
+
+msgid "Flux interne"
+msgstr "Flux interne"
+
+msgid "Publication sur Internet (entrant)"
+msgstr "Publication sur Internet (entrant)"
+
+msgid "Accès à Internet (sortant)"
+msgstr "Accès à Internet (sortant)"
+
+msgid "Tunnel entre sites"
+msgstr "Tunnel entre sites"
+
+msgid "Tunnel vers un partenaire"
+msgstr "Tunnel vers un partenaire"
+
+msgid "Accès d'administration"
+msgstr "Accès d'administration"
+
+msgid "Sauvegarde"
+msgstr "Sauvegarde"
+
+msgid "Tous"
+msgstr "Tous"
+
+msgid "Sans justification"
+msgstr "Sans justification"
+
+msgid "Sans propriétaire"
+msgstr "Sans propriétaire"
+
+msgid "Expiré"
+msgstr "Expiré"
+
+msgid "Expire bientôt"
+msgstr "Expire bientôt"
+
+msgid "Administration exposée sur Internet"
+msgstr "Administration exposée sur Internet"
+
+msgid "Tous les ports ouverts depuis Internet"
+msgstr "Tous les ports ouverts depuis Internet"
+
+msgid "Ports invalides : saisissez des numéros ou des plages séparés par des virgules (ex. 80, 443, 8000-8100), ou laissez vide pour tous les ports."
+msgstr "Ports invalides : saisissez des numéros ou des plages séparés par des virgules (ex. 80, 443, 8000-8100), ou laissez vide pour tous les ports."
+
+msgid "Indiquez la source et la destination du flux : un actif GLPI, ou un réseau, une zone ou une adresse."
+msgstr "Indiquez la source et la destination du flux : un actif GLPI, ou un réseau, une zone ou une adresse."
+
+msgid "Actif introuvable ou non autorisé."
+msgstr "Actif introuvable ou non autorisé."
+
+msgid "Nom"
+msgstr "Nom"
+
+msgid "Source"
+msgstr "Source"
+
+msgid "Destination"
+msgstr "Destination"
+
+msgid "Protocole"
+msgstr "Protocole"
+
+msgid "Ports"
+msgstr "Ports"
+
+msgid "Date de fin"
+msgstr "Date de fin"
+
+msgid "Actif"
+msgstr "Actif"
+
+msgid "Contrôles"
+msgstr "Contrôles"
+
+msgid "Commentaires"
+msgstr "Commentaires"
+
+msgid "Actif non visible"
+msgstr "Actif non visible"
+
+msgid "Laissé vide, il est construit à partir de la source et de la destination."
+msgstr "Laissé vide, il est construit à partir de la source et de la destination."
+
+msgid "Actif GLPI (facultatif)."
+msgstr "Actif GLPI (facultatif)."
+
+msgid "Réseau, zone ou adresse"
+msgstr "Réseau, zone ou adresse"
+
+msgid "Ex. « Internet », « VLAN serveurs », « 10.0.0.0/24 », « Partenaire X »."
+msgstr "Ex. « Internet », « VLAN serveurs », « 10.0.0.0/24 », « Partenaire X »."
+
+msgid "Vide : tous les ports."
+msgstr "Vide : tous les ports."
+
+msgid "Pourquoi ce flux est nécessaire : application, besoin métier, demande ou ticket d'origine."
+msgstr "Pourquoi ce flux est nécessaire : application, besoin métier, demande ou ticket d'origine."
+
+msgid "Pour un flux temporaire (migration, prestataire)."
+msgstr "Pour un flux temporaire (migration, prestataire)."
+
+msgid "Importer un fichier CSV"
+msgstr "Importer un fichier CSV"
+
+#, php-format
+msgid "Propriétaire « %s » introuvable : flux importé sans propriétaire."
+msgstr "Propriétaire « %s » introuvable : flux importé sans propriétaire."
+
+msgid "En-tête sans colonnes « source » et « destination »."
+msgstr "En-tête sans colonnes « source » et « destination »."
+
+msgid "Fichier vide."
+msgstr "Fichier vide."
+
+msgid "Source ou destination manquante : ligne ignorée."
+msgstr "Source ou destination manquante : ligne ignorée."
+
+msgid "Ports invalides : ligne ignorée."
+msgstr "Ports invalides : ligne ignorée."
+
+msgid "Date de fin invalide : ligne ignorée."
+msgstr "Date de fin invalide : ligne ignorée."
+
+msgid "Flux réseau"
+msgid_plural "Matrice des flux"
+msgstr[0] "Flux réseau"
+msgstr[1] "Matrice des flux"
+
+#, php-format
+msgid "%d flux actif"
+msgid_plural "%d flux actifs"
+msgstr[0] "%d flux actif"
+msgstr[1] "%d flux actifs"
+
+msgid "Choisissez un fichier CSV de 2 Mo au plus."
+msgstr "Choisissez un fichier CSV de 2 Mo au plus."
+
+msgid "Importer une matrice des flux"
+msgstr "Importer une matrice des flux"
+
+msgid "Fichier CSV séparé par des points-virgules ou des virgules, avec une ligne d'en-tête. Colonnes reconnues : nom, type, source, destination, protocole, ports, justification, proprietaire (identifiant GLPI), date_fin. Seules source et destination sont obligatoires."
+msgstr "Fichier CSV séparé par des points-virgules ou des virgules, avec une ligne d'en-tête. Colonnes reconnues : nom, type, source, destination, protocole, ports, justification, proprietaire (identifiant GLPI), date_fin. Seules source et destination sont obligatoires."
+
+msgid "Site public;publication;Internet;Serveur web;tcp;443;Site vitrine;;"
+msgstr "Site public;publication;Internet;Serveur web;tcp;443;Site vitrine;;"
+
+msgid "Sauvegarde;sauvegarde;Site principal;Site de secours;tcp;10000;Réplication nocturne;;"
+msgstr "Sauvegarde;sauvegarde;Site principal;Site de secours;tcp;10000;Réplication nocturne;;"
+
+msgid "Types : interne, publication, sortant, tunnel, partenaire, administration, sauvegarde, autre. Un flux déjà présent (mêmes source, destination, protocole et ports) n'est pas recréé : réimporter le même fichier ne crée pas de doublon."
+msgstr "Types : interne, publication, sortant, tunnel, partenaire, administration, sauvegarde, autre. Un flux déjà présent (mêmes source, destination, protocole et ports) n'est pas recréé : réimporter le même fichier ne crée pas de doublon."
+
+msgid "Simulation (rien n'est enregistré)"
+msgstr "Simulation (rien n'est enregistré)"
+
+msgid "Analyser le fichier"
+msgstr "Analyser le fichier"
+
+msgid "Retour à la matrice des flux"
+msgstr "Retour à la matrice des flux"
+
+#, php-format
+msgid "Simulation : %1$d flux seraient créés, %2$d existent déjà."
+msgstr "Simulation : %1$d flux seraient créés, %2$d existent déjà."
+
+#, php-format
+msgid "Import terminé : %1$d flux créés, %2$d existaient déjà."
+msgstr "Import terminé : %1$d flux créés, %2$d existaient déjà."
+
+msgid "Décochez « Simulation » et analysez à nouveau le fichier pour l'importer."
+msgstr "Décochez « Simulation » et analysez à nouveau le fichier pour l'importer."
+
+#, php-format
+msgid "Ligne %1$d : %2$s"
+msgstr "Ligne %1$d : %2$s"
+
+msgid "Ligne"
+msgstr "Ligne"
+
+msgid "Déjà présent"
+msgstr "Déjà présent"
+
+msgid "À créer"
+msgstr "À créer"
+
+msgid "Créé"
+msgstr "Créé"
