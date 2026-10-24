@@ -154,6 +154,43 @@ class PluginGrcmanagerSecurityIncidentTicket extends CommonGLPI
     }
 
     /**
+     * Issue #165 : action groupée « Qualifier en incident de sécurité » sur la liste des tickets
+     * (plugin_grcmanager_MassiveActions()). Aucun réglage : un bouton de confirmation.
+     */
+    public static function showMassiveActionsSubForm(MassiveAction $ma)
+    {
+        echo Html::submit(__('Qualifier en incident de sécurité', 'grcmanager'), ['name' => 'massiveaction']);
+
+        return true;
+    }
+
+    /**
+     * Même contrôle que l'onglet du ticket : droit de créer un incident, et lecture de chaque ticket.
+     *
+     * @param array<int, mixed> $ids
+     */
+    public static function processMassiveActionsForOneItemtype(MassiveAction $ma, CommonDBTM $item, array $ids)
+    {
+        foreach ($ids as $id) {
+            $ticket = new Ticket();
+            if (
+                $ma->getAction() !== 'qualify'
+                || !PluginGrcmanagerSecurityIncident::canCreate()
+                || !$ticket->getFromDB((int) $id)
+                || !$ticket->can((int) $id, READ)
+            ) {
+                $ma->itemDone(Ticket::class, $id, MassiveAction::ACTION_NORIGHT);
+                continue;
+            }
+            $ma->itemDone(
+                Ticket::class,
+                $id,
+                self::qualify($ticket) > 0 ? MassiveAction::ACTION_OK : MassiveAction::ACTION_KO
+            );
+        }
+    }
+
+    /**
      * Crée l'incident de sécurité à partir du ticket et les relie. Un ticket déjà qualifié renvoie
      * son incident existant (pas de doublon).
      *

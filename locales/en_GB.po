@@ -2876,3 +2876,18 @@ msgstr "Review ticket #%d created."
 
 msgid "Cochez au moins un compte à vérifier."
 msgstr "Tick at least one account to check."
+
+msgid "Sécurité"
+msgstr "Security"
+
+msgid "Ce ticket est qualifié en incident de sécurité :"
+msgstr "This ticket is qualified as a security incident:"
+
+msgid "Créer un incident de sécurité à partir de ce ticket ? Le ticket garde son statut et son attribution."
+msgstr "Create a security incident from this ticket? The ticket keeps its status and assignment."
+
+msgid "Escalader en incident de sécurité"
+msgstr "Escalate to a security incident"
+
+msgid "Ex. clic sur un lien suspect, mot de passe divulgué, poste infecté. L'incident reprend le titre, la description, le demandeur et les éléments liés."
+msgstr "E.g. clicked a suspicious link, disclosed password, infected computer. The incident takes over the title, description, requester and linked items."

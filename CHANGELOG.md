@@ -9,6 +9,12 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Escalader un ticket en incident de sécurité depuis le ticket** (issue #165) : section
+  « Sécurité » dans le panneau principal de chaque ticket, avec le bouton « Escalader en incident de
+  sécurité » (confirmation demandée) ou, une fois qualifié, le lien vers l'incident. Aussi en action
+  groupée « Qualifier en incident de sécurité » sur la liste des tickets. Même action que l'onglet du
+  ticket (#128) : le ticket garde son statut et son attribution, un ticket déjà qualifié n'en crée
+  pas un second.
 - **Hygiène des comptes** (issue #184), menu GRC & Conformité > Hygiène des comptes (A.5.16, A.5.18,
   A.8.2) : comptes GLPI actifs à vérifier dans les entités visibles — supprimés de l'annuaire
   (synchronisation LDAP native), date de fin dépassée, sans connexion depuis N jours (30 à 365) ou
