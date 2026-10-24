@@ -2891,3 +2891,113 @@ msgstr "Escalate to a security incident"
 
 msgid "Ex. clic sur un lien suspect, mot de passe divulgué, poste infecté. L'incident reprend le titre, la description, le demandeur et les éléments liés."
 msgstr "E.g. clicked a suspicious link, disclosed password, infected computer. The incident takes over the title, description, requester and linked items."
+
+msgid "Calendrier de conformité"
+msgstr "Compliance calendar"
+
+msgid "Audit de certification"
+msgstr "Certification audit"
+
+msgid "Audit de surveillance"
+msgstr "Surveillance audit"
+
+msgid "Test d'intrusion"
+msgstr "Penetration test"
+
+msgid "Exercice de crise"
+msgstr "Crisis exercise"
+
+msgid "Renouvellement de certificat"
+msgstr "Certificate renewal"
+
+msgid "Réalisé"
+msgstr "Done"
+
+msgid "Événement"
+msgstr "Event"
+
+msgid "Revue de politique"
+msgstr "Policy review"
+
+msgid "Revue d'obligation"
+msgstr "Obligation review"
+
+msgid "Fin de validité d'une preuve"
+msgstr "Evidence expiry"
+
+msgid "Indiquez la date de début de l'événement."
+msgstr "Enter the start date of the event."
+
+msgid "Prestataire"
+msgstr "Provider"
+
+msgid "Laissé vide, le type sert de nom."
+msgstr "If left empty, the type is used as the name."
+
+msgid "Vide : la journée du début."
+msgstr "Empty: the day of the start."
+
+msgid "L'événement apparaît dans son planning GLPI."
+msgstr "The event appears in their GLPI planning."
+
+msgid "Toutes les échéances"
+msgstr "All deadlines"
+
+msgid "Mes échéances"
+msgstr "My deadlines"
+
+msgid "Ajouter un événement"
+msgstr "Add an event"
+
+msgid "Exporter (iCal)"
+msgstr "Export (iCal)"
+
+msgid "Événements saisis et échéances des autres registres (audits, revues de direction, revues des accès, revues périodiques, politiques, obligations, preuves). Chaque échéance apparaît aussi dans le planning GLPI de son responsable."
+msgstr "Events entered here and deadlines from the other registers (audits, management reviews, access reviews, periodic reviews, policies, obligations, evidence). Each deadline also appears in the GLPI planning of its owner."
+
+msgid "Aucune échéance sur la période."
+msgstr "No deadline in this period."
+
+msgid "Échéance passée"
+msgstr "Deadline passed"
+
+msgid "Janvier"
+msgstr "January"
+
+msgid "Février"
+msgstr "February"
+
+msgid "Mars"
+msgstr "March"
+
+msgid "Avril"
+msgstr "April"
+
+msgid "Mai"
+msgstr "May"
+
+msgid "Juin"
+msgstr "June"
+
+msgid "Juillet"
+msgstr "July"
+
+msgid "Août"
+msgstr "August"
+
+msgid "Septembre"
+msgstr "September"
+
+msgid "Octobre"
+msgstr "October"
+
+msgid "Novembre"
+msgstr "November"
+
+msgid "Décembre"
+msgstr "December"
+
+msgid "Événement de conformité"
+msgid_plural "Événements de conformité"
+msgstr[0] "Compliance event"
+msgstr[1] "Compliance events"

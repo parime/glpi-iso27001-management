@@ -120,6 +120,8 @@ function plugin_init_grcmanager(): void
             PluginGrcmanagerPeriodicReview::class,
             // Issue #144 : matrice des flux réseau.
             PluginGrcmanagerNetworkFlow::class,
+            // Issue #142 : calendrier de conformite (aussi dans le planning GLPI, ci-dessous).
+            PluginGrcmanagerComplianceEvent::class,
             PluginGrcmanagerPolicy::class,
             // Issue #145 : preuves datées, expirées ou à renouveler.
             PluginGrcmanagerEvidence::class,
@@ -172,6 +174,10 @@ function plugin_init_grcmanager(): void
     // Issue #126 : rapport PDF de clôture d'une revue des accès, sur la campagne et sur la mesure.
     $CFG_GLPI['document_types'][] = PluginGrcmanagerAccessReview::class;
     $CFG_GLPI['document_types'][] = PluginGrcmanagerControl::class;
+    // Issue #142 : documents d'un evenement de conformite (rapport d'audit, de pentest...).
+    $CFG_GLPI['document_types'][] = PluginGrcmanagerComplianceEvent::class;
+    // Echeances de conformite dans le planning GLPI de chaque responsable (lecture seule).
+    $CFG_GLPI['planning_types'][] = PluginGrcmanagerComplianceEvent::class;
 
     // Sprint 2 (matrice de risque administrable, front/config.php) : reachable via
     // Configuration > Plugins > wrench icon on this plugin's row, same minimal-footprint pattern
