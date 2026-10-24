@@ -6,7 +6,7 @@
 > GLPI.
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE)
-[![Status](https://img.shields.io/badge/status-stable%20%E2%80%94%20v2.2.0-brightgreen)](ROADMAP.md)
+[![Release](https://img.shields.io/github/v/release/parime/glpi-iso27001-management?label=version)](https://github.com/parime/glpi-iso27001-management/releases/latest)
 [![GLPI](https://img.shields.io/badge/GLPI-11%20%7C%2012-green)](docs/design/DEVELOPMENT_PLAN.md)
 
 [🇫🇷 Français](README.md) | 🇬🇧 **English**
@@ -27,35 +27,60 @@ classification fields merged directly onto it.
 
 ## What the plugin brings (see ROADMAP.md)
 
+**Risks**
 - **Generic risk register**: category (people/process/physical/third-party/technical),
   probability, impact, computed risk level, treatment decision (accept/mitigate/transfer/avoid),
-  owner, justification, review date.
-- **Statement of Applicability (SoA)**: the 93 ISO 27001:2022 Annex A controls (clause 6.1.3).
+  owner, justification, review date; administrable probability x impact matrix and interactive
+  heatmap.
+- **Supplier/third-party risk register**, with a **security assessment questionnaire** (score,
+  the supplier's GLPI contracts, evidence, reassessment ticket when due).
+
+**Compliance**
+- **Statement of Applicability (SoA)**: the 93 ISO 27001:2022 Annex A controls (clause 6.1.3),
+  PDF export.
 - **Management approval of the SoA**: frozen, dated version (PDF kept in GLPI documents with its
   SHA-256 fingerprint), designated approvers who approve from GLPI, version history; any later
   change to the SoA requires a new version.
 - **ISMS requirements (clauses 4 to 10)**: the 30 sub-clauses 4.1 to 10.2, with status, owner,
   evidence (linked GLPI documents), a link to the module that already covers them and a
   completeness rate, included in the PDF export.
+- **NIS2** (Directive (EU) 2022/2555) and the **ANSSI IT hygiene guide** frameworks, mapped to
+  Annex A.
+- **Evidence with an expiry date**: renewal owner, reminder before the due date, "Renew the
+  evidence" ticket on expiry.
+
+**Audit and improvement**
 - **Internal audit program**: non-conformities, corrective and preventive actions (CAPA).
-- **Supplier/third-party risk register.**
-- **Security awareness training tracking.**
 - **Management reviews.**
-- **Security incidents**: a full ITIL object in the Assistance menu (actors, workflow, tasks,
-  notifications, CVE tracking), with ISO 27001 classification (category, severity, root cause/
-  lessons learned required at closure) merged onto it (Annex A A.5.24-27). Each part of the module
-  can be enabled/disabled independently (Configuration > Plugins).
+
+**People and access**
+- **Security awareness training tracking**, including the assessment pass rate.
+- **Periodic access review**: campaigns approved by managers, one ticket per requested change or
+  removal, PDF report archived on control A.5.18.
+- With the [assetsign](https://github.com/parime/assetsign-glpi) plugin: signed equipment
+  handovers and returns as evidence for controls A.5.9 to A.5.11, and the IT charter signature
+  rate on A.5.10 and A.6.3.
+
+**Security incidents**
+- A full ITIL object in the Assistance menu (actors, workflow, tasks, notifications, CVE
+  tracking), with ISO 27001 classification (category, severity, root cause/lessons learned
+  required at closure) merged onto it (Annex A A.5.24-27).
+- Turning a ticket into a security incident, and **NIS2 (24 h, 72 h, 1 month) and GDPR (72 h)
+  notification deadlines** tracked by a scheduled task.
+- Each part of the module can be enabled/disabled independently (Configuration > Plugins).
+
+**Steering**
+- Default ISMS dashboard and KPIs to add to GLPI dashboards.
+
+**Common principle**: the plugin never changes a status, a right or an assignment by itself. It
+creates the ticket or the notification, and the team decides.
 
 ## Project status
 
-**Stable v2.2.0**, published and installable right now: generic risk register (administrable
-probability x impact matrix, interactive heatmap, filters, review reminders), Statement of
-Applicability (93 ISO/IEC 27001:2022 Annex A controls), internal audit program with
-non-conformities and CAPA, supplier/third-party risk register, security awareness training
-tracking (including assessment pass rate) and management reviews, a full Security Incidents module
-(ITIL object, CVE tracking, absorbed from the sibling plugin `glpi-security-incidents` in v2.0.0),
-and a complete ISMS dashboard. See [ROADMAP.md](ROADMAP.md) for what's planned next and
-[CHANGELOG.md](CHANGELOG.md) for the full history of published versions.
+**Stable**, published and installable right now, for GLPI 11 and 12: see the
+[latest release](https://github.com/parime/glpi-iso27001-management/releases/latest) and the
+[CHANGELOG](CHANGELOG.md) for the full history. Next steps (periodic reviews through recurring
+tickets, network flow matrix, compliance calendar…): see [ROADMAP.md](ROADMAP.md).
 
 ## Installation
 

@@ -297,9 +297,51 @@ function plugin_grcmanager_dashboard_cards(?array $cards = null): array
  * "Classification ISO 27001" (catégorie/sévérité/impact C/I/D/cause racine/enseignements tirés/
  * risque lié, the fields merged from the plugin's former lightweight compliance register).
  */
+/**
+ * Issue #165 : section « Sécurité » dans le panneau principal d'un ticket existant — l'incident de
+ * sécurité lié, ou le bouton « Escalader en incident de sécurité » (même action que l'onglet du
+ * ticket, front/securityincidentticket.form.php). Rien si le module est désactivé ou sans droit.
+ */
+function plugin_grcmanager_ticket_security_section(Ticket $ticket): void
+{
+    global $CFG_GLPI;
+
+    if (
+        $ticket->isNewItem()
+        || !SecurityIncidentModuleConfig::load()['securityincident_enabled']
+        || !PluginGrcmanagerSecurityIncident::canView()
+    ) {
+        return;
+    }
+
+    $incidents = [];
+    foreach (PluginGrcmanagerSecurityIncidentTicket::getIncidentIdsForTicket((int) $ticket->getID()) as $id) {
+        $incident = new PluginGrcmanagerSecurityIncident();
+        if ($incident->getFromDB($id) && $incident->canViewItem()) {
+            $incidents[] = [
+                'id'     => $id,
+                'name'   => (string) $incident->fields['name'],
+                'url'    => PluginGrcmanagerSecurityIncident::getFormURLWithID($id),
+                'status' => PluginGrcmanagerSecurityIncident::getStatus((int) $incident->fields['status']),
+            ];
+        }
+    }
+
+    Glpi\Application\View\TemplateRenderer::getInstance()->display('@grcmanager/ticket_security_section.html.twig', [
+        'incidents'  => $incidents,
+        'can_create' => PluginGrcmanagerSecurityIncident::canCreate() && $ticket->can($ticket->getID(), READ),
+        'action'     => $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/securityincidentticket.form.php',
+        'tickets_id' => (int) $ticket->getID(),
+    ]);
+}
+
 function plugin_grcmanager_post_itil_info_section(array $params): void
 {
     $item = $params['item'] ?? null;
+    if ($item instanceof Ticket) {
+        plugin_grcmanager_ticket_security_section($item);
+        return;
+    }
     if (!($item instanceof PluginGrcmanagerSecurityIncident)) {
         return;
     }
@@ -354,6 +396,48 @@ function plugin_grcmanager_purge_security_incident_links(CommonDBTM $item): void
     if ($DB->tableExists(PluginGrcmanagerSecurityIncidentTicket::TABLE)) {
         $DB->delete(PluginGrcmanagerSecurityIncidentTicket::TABLE, [$field => (int) $item->getID()]);
     }
+}
+
+/**
+ * Issue #141 : Hooks::ITEM_ADD sur Ticket (setup.php), voir PluginGrcmanagerPeriodicReview::onTicketAdd().
+ */
+function plugin_grcmanager_periodic_review_ticket_add(CommonDBTM $item): void
+{
+    if ($item instanceof Ticket) {
+        PluginGrcmanagerPeriodicReview::onTicketAdd($item);
+    }
+}
+
+/**
+ * Issue #141 : Hooks::ITEM_UPDATE sur Ticket (setup.php), voir PluginGrcmanagerPeriodicReview::onTicketUpdate().
+ */
+function plugin_grcmanager_periodic_review_ticket_update(CommonDBTM $item): void
+{
+    if ($item instanceof Ticket) {
+        PluginGrcmanagerPeriodicReview::onTicketUpdate($item);
+    }
+}
+
+/**
+ * Issue #165 : action groupée « Qualifier en incident de sécurité » sur la liste des tickets
+ * (Hooks::USE_MASSIVE_ACTION, setup.php), si le module est actif et la personne peut créer un incident.
+ *
+ * @return array<string, string>
+ */
+function plugin_grcmanager_MassiveActions(string $itemtype): array
+{
+    if (
+        $itemtype !== Ticket::class
+        || !SecurityIncidentModuleConfig::load()['securityincident_enabled']
+        || !PluginGrcmanagerSecurityIncident::canCreate()
+    ) {
+        return [];
+    }
+
+    return [
+        PluginGrcmanagerSecurityIncidentTicket::class . MassiveAction::CLASS_ACTION_SEPARATOR . 'qualify'
+            => '<i class="ti ti-shield-plus"></i>' . htmlescape(__('Qualifier en incident de sécurité', 'grcmanager')),
+    ];
 }
 
 function plugin_grcmanager_install(): bool

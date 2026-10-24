@@ -7,6 +7,57 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.6.0] - 2026-10-24
+
+### Added
+
+- **Calendrier de conformité** (issue #142), menu GRC & Conformité > Calendrier de conformité :
+  événements datés saisis (audit de certification ou de surveillance, test d'intrusion, exercice de
+  crise, renouvellement de certificat…, avec prestataire, périmètre, responsable, documents) et
+  échéances des autres registres, sans recopie : audits internes, revues de direction, campagnes de
+  revue des accès, prochain ticket des revues périodiques, revues des politiques et des obligations,
+  fin de validité des preuves. Vue par mois (toutes les échéances ou les miennes), export iCal, et
+  affichage dans le planning GLPI de chaque responsable (lecture seule). Rien n'est modifié par le
+  calendrier.
+- **Escalader un ticket en incident de sécurité depuis le ticket** (issue #165) : section
+  « Sécurité » dans le panneau principal de chaque ticket, avec le bouton « Escalader en incident de
+  sécurité » (confirmation demandée) ou, une fois qualifié, le lien vers l'incident. Aussi en action
+  groupée « Qualifier en incident de sécurité » sur la liste des tickets. Même action que l'onglet du
+  ticket (#128) : le ticket garde son statut et son attribution, un ticket déjà qualifié n'en crée
+  pas un second.
+- **Hygiène des comptes** (issue #184), menu GRC & Conformité > Hygiène des comptes (A.5.16, A.5.18,
+  A.8.2) : comptes GLPI actifs à vérifier dans les entités visibles — supprimés de l'annuaire
+  (synchronisation LDAP native), date de fin dépassée, sans connexion depuis N jours (30 à 365) ou
+  jamais utilisés, adresse e-mail ou prénom et nom en double. Un ticket de revue s'ouvre pour les
+  comptes cochés ; aucun compte n'est désactivé automatiquement. Exige aussi le droit natif de
+  lecture des utilisateurs. La revue périodique « comptes à privilèges » (#141) renvoie vers cet écran.
+- **Matrice des flux réseau** (issue #144), menu GRC & Conformité > Matrice des flux (A.8.20 à A.8.22).
+  - Un flux relie une source et une destination (un actif GLPI et/ou un réseau, une zone, une adresse),
+    avec un type (interne, publication sur Internet, sortant, tunnel entre sites ou vers un partenaire,
+    administration, sauvegarde), un protocole, des ports, une justification, un propriétaire et une date
+    de fin éventuelle ; historique des modifications.
+  - Contrôles automatiques affichés sur la fiche, dans la liste et en synthèse : sans justification,
+    sans propriétaire, expiré ou expirant sous 30 jours, service d'administration (SSH, RDP, SMB, bases de
+    données…) ou tous les ports publiés sur Internet. Le plugin ne modifie jamais un flux.
+  - Import CSV (séparateur « ; » ou « , », en-têtes français ou anglais) avec simulation préalable, lignes
+    invalides signalées par leur numéro, aucun doublon en cas de réimport.
+  - La revue périodique « matrice des flux » (#141) renvoie vers cet écran.
+
+### Added
+
+- **Revues périodiques du SMSI** (issue #141), menu GRC & Conformité > Revues périodiques.
+  - Onze revues proposées : droits d'accès, comptes à privilèges, matrice des flux, registre des
+    risques, risques fournisseurs, politiques, SoA, obligations légales, test de restauration des
+    sauvegardes, test du PCA/PRA, journaux de sécurité ; chacune avec une fréquence par défaut et
+    les exigences qu'elle couvre.
+  - Activer une revue crée un gabarit et un ticket récurrent natifs de GLPI (Assistance > Tickets
+    récurrents) : titre, check-list, exigences concernées et lien vers l'écran du plugin, attribué
+    au technicien ou au groupe choisi.
+  - Le ticket résolu date la revue (« Dernière revue ») ; une revue active sans revue sur la
+    dernière période est signalée « En retard ». Le plugin ne modifie jamais le ticket.
+  - Activer une revue exige le droit de modification du plugin et les droits natifs de créer des
+    tickets récurrents et des gabarits.
+
 ## [2.5.0] - 2026-10-24
 
 ### Added

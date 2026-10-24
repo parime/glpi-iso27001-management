@@ -13,6 +13,7 @@ use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
 use GlpiPlugin\Grcmanager\Services\Incident\LegacySecurityIncidentMigrator;
 use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentModuleConfig;
 use GlpiPlugin\Grcmanager\Services\Cve\NvdConfigDefaults;
+use GlpiPlugin\Grcmanager\Services\Review\PeriodicReviewCatalog;
 use GlpiPlugin\Grcmanager\Services\Risk\RiskMatrixDefaults;
 use Migration;
 use Notification;
@@ -176,6 +177,12 @@ final class Installer
     private const SECURITY_INCIDENT_CONFIG_TABLE = 'glpi_plugin_grcmanager_securityincidentconfig';
     // Issue #145 : validité des documents de preuve, voir PluginGrcmanagerEvidence.
     private const EVIDENCES_TABLE = 'glpi_plugin_grcmanager_evidences';
+    // Issue #141 : revues périodiques du SMSI, voir PluginGrcmanagerPeriodicReview.
+    private const PERIODIC_REVIEWS_TABLE = 'glpi_plugin_grcmanager_periodicreviews';
+    // Issue #144 : matrice des flux réseau, voir PluginGrcmanagerNetworkFlow.
+    private const NETWORK_FLOWS_TABLE = 'glpi_plugin_grcmanager_networkflows';
+    // Issue #142 : evenements du calendrier de conformite, voir PluginGrcmanagerComplianceEvent.
+    private const COMPLIANCE_EVENTS_TABLE = 'glpi_plugin_grcmanager_complianceevents';
 
     public function install(Migration $migration): bool
     {
@@ -992,6 +999,106 @@ final class Installer
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
             $DB->doQuery($query) or die($DB->error());
+        }
+
+        // Issue #141 : une ligne par revue du catalogue (PeriodicReviewCatalog), créée inactive ici
+        // et à chaque mise à jour du plugin (nouvelles revues du catalogue) : l'écran ne crée rien.
+        // Issue #144 : un flux relie une source et une destination (actif GLPI et/ou libellé libre :
+        // réseau, zone, adresse). Registre global, comme les autres registres du plugin.
+        // Issue #142 : evenements dates du calendrier de conformite (audit de certification, pentest,
+        // exercice de crise...). Registre global, comme les autres registres du plugin.
+        if (!$DB->tableExists(self::COMPLIANCE_EVENTS_TABLE)) {
+            $query = "CREATE TABLE `" . self::COMPLIANCE_EVENTS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `name` varchar(255) NOT NULL DEFAULT '',
+                `event_type` varchar(32) NOT NULL DEFAULT 'other' COMMENT 'Voir ComplianceCalendarRules',
+                `date_begin` timestamp NULL DEFAULT NULL,
+                `date_end` timestamp NULL DEFAULT NULL,
+                `status` varchar(16) NOT NULL DEFAULT 'planned' COMMENT 'planned, done, cancelled',
+                `users_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Responsable',
+                `suppliers_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Prestataire',
+                `scope` text,
+                `comment` text,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `date_begin` (`date_begin`),
+                KEY `users_id` (`users_id`),
+                KEY `suppliers_id` (`suppliers_id`),
+                KEY `status` (`status`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+        }
+
+        if (!$DB->tableExists(self::NETWORK_FLOWS_TABLE)) {
+            $query = "CREATE TABLE `" . self::NETWORK_FLOWS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `name` varchar(255) NOT NULL DEFAULT '',
+                `flow_type` varchar(32) NOT NULL DEFAULT 'internal' COMMENT 'Voir NetworkFlowRules::TYPES',
+                `source_itemtype` varchar(100) NOT NULL DEFAULT '',
+                `source_items_id` int {$keySign} NOT NULL DEFAULT 0,
+                `source_label` varchar(255) NOT NULL DEFAULT '',
+                `destination_itemtype` varchar(100) NOT NULL DEFAULT '',
+                `destination_items_id` int {$keySign} NOT NULL DEFAULT 0,
+                `destination_label` varchar(255) NOT NULL DEFAULT '',
+                `protocol` varchar(16) NOT NULL DEFAULT 'tcp' COMMENT 'tcp, udp, tcp_udp, icmp, ipsec, any',
+                `ports` varchar(255) NOT NULL DEFAULT 'any' COMMENT 'Forme canonique : 80,443,8000-8100 ou any',
+                `justification` text,
+                `users_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Propriétaire du flux',
+                `date_end` date DEFAULT NULL,
+                `is_active` tinyint NOT NULL DEFAULT 1,
+                `comment` text,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `flow_type` (`flow_type`),
+                KEY `users_id` (`users_id`),
+                KEY `date_end` (`date_end`),
+                KEY `is_active` (`is_active`),
+                KEY `source_item` (`source_itemtype`, `source_items_id`),
+                KEY `destination_item` (`destination_itemtype`, `destination_items_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+        }
+
+        if (!$DB->tableExists(self::PERIODIC_REVIEWS_TABLE)) {
+            $query = "CREATE TABLE `" . self::PERIODIC_REVIEWS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `review_key` varchar(64) NOT NULL,
+                `entities_id` int {$keySign} NOT NULL DEFAULT 0,
+                `is_active` tinyint NOT NULL DEFAULT 0,
+                `frequency_months` int NOT NULL DEFAULT 12,
+                `users_id_assign` int {$keySign} NOT NULL DEFAULT 0,
+                `groups_id_assign` int {$keySign} NOT NULL DEFAULT 0,
+                `tickettemplates_id` int {$keySign} NOT NULL DEFAULT 0,
+                `ticketrecurrents_id` int {$keySign} NOT NULL DEFAULT 0,
+                `last_tickets_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Dernier ticket créé par la revue',
+                `last_review_date` date DEFAULT NULL COMMENT 'Résolution du dernier ticket',
+                `date_activation` date DEFAULT NULL,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `review_key` (`review_key`),
+                KEY `tickettemplates_id` (`tickettemplates_id`),
+                KEY `last_tickets_id` (`last_tickets_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+        }
+        $existingReviews = [];
+        foreach ($DB->request(['SELECT' => ['review_key'], 'FROM' => self::PERIODIC_REVIEWS_TABLE]) as $row) {
+            $existingReviews[] = $row['review_key'];
+        }
+        foreach (PeriodicReviewCatalog::keys() as $reviewKey) {
+            if (!in_array($reviewKey, $existingReviews, true)) {
+                $DB->insert(self::PERIODIC_REVIEWS_TABLE, [
+                    'review_key'       => $reviewKey,
+                    'frequency_months' => PeriodicReviewCatalog::defaultMonths($reviewKey),
+                    'date_creation'    => date('Y-m-d H:i:s'),
+                ]);
+            }
         }
 
         if (!$DB->tableExists(self::OBJECTIVE_MEASUREMENTS_TABLE)) {
@@ -2610,6 +2717,9 @@ final class Installer
         $migration->dropTable(self::MANAGEMENT_REVIEWS_OBJECTIVES_TABLE);
         $migration->dropTable(self::OBJECTIVE_MEASUREMENTS_TABLE);
         $migration->dropTable(self::EVIDENCES_TABLE);
+        $migration->dropTable(self::PERIODIC_REVIEWS_TABLE);
+        $migration->dropTable(self::NETWORK_FLOWS_TABLE);
+        $migration->dropTable(self::COMPLIANCE_EVENTS_TABLE);
         $migration->dropTable(self::ACCESS_REVIEWS_USERS_TABLE);
         $migration->dropTable(self::ACCESS_REVIEWS_TABLE);
         $migration->dropTable(self::OBJECTIVES_TABLE);

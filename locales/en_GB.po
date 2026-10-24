@@ -2394,3 +2394,610 @@ msgstr "Expired evidence or evidence to renew"
 
 msgid "Une date de validité se saisit depuis l'onglet « Validités des preuves » d'une mesure, d'un risque fournisseur, d'un audit ou d'une politique, pour chaque document rattaché."
 msgstr "A validity date is entered from the \"Evidence validity\" tab of a control, supplier risk, audit or policy, for each attached document."
+
+msgid "Revue périodique"
+msgid_plural "Revues périodiques"
+msgstr[0] "Periodic review"
+msgstr[1] "Periodic reviews"
+
+#, php-format
+msgid "Tous les %d mois"
+msgid_plural "Tous les %d mois"
+msgstr[0] "Every %d months"
+msgstr[1] "Every %d months"
+
+msgid "Revue des comptes et des droits d'accès"
+msgstr "Review of accounts and access rights"
+
+msgid "Revue des comptes à privilèges et des comptes de service"
+msgstr "Review of privileged and service accounts"
+
+msgid "Revue de la matrice des flux (règles de pare-feu)"
+msgstr "Review of the network flow matrix (firewall rules)"
+
+msgid "Revue du registre des risques"
+msgstr "Risk register review"
+
+msgid "Revue des risques fournisseurs"
+msgstr "Supplier risk review"
+
+msgid "Revue des politiques de sécurité"
+msgstr "Security policy review"
+
+msgid "Revue de la Déclaration d'Applicabilité"
+msgstr "Statement of Applicability review"
+
+msgid "Revue des obligations légales et contractuelles"
+msgstr "Review of legal and contractual obligations"
+
+msgid "Test de restauration des sauvegardes"
+msgstr "Backup restore test"
+
+msgid "Test du plan de continuité et de reprise (PCA / PRA)"
+msgstr "Business continuity and disaster recovery test (BCP / DRP)"
+
+msgid "Revue des journaux de sécurité"
+msgstr "Security log review"
+
+msgid "Lancer ou clôturer la campagne de revue des accès"
+msgstr "Launch or close the access review campaign"
+
+msgid "Vérifier les comptes des personnes parties ou ayant changé de poste"
+msgstr "Check the accounts of people who left or changed jobs"
+
+msgid "Ouvrir un ticket pour chaque droit à retirer ou modifier"
+msgstr "Open a ticket for each right to remove or change"
+
+msgid "Lister les comptes administrateurs et les comptes de service"
+msgstr "List administrator and service accounts"
+
+msgid "Confirmer pour chacun le besoin et son responsable"
+msgstr "Confirm the need and the owner of each one"
+
+msgid "Vérifier la rotation des mots de passe et l'authentification forte"
+msgstr "Check password rotation and strong authentication"
+
+msgid "Exporter les règles des pare-feu"
+msgstr "Export the firewall rules"
+
+msgid "Vérifier que chaque flux a une justification et un propriétaire"
+msgstr "Check that each flow has a justification and an owner"
+
+msgid "Supprimer les règles inutiles ou expirées (par ticket)"
+msgstr "Remove unneeded or expired rules (through a ticket)"
+
+msgid "Réévaluer la probabilité et l'impact des risques"
+msgstr "Reassess the likelihood and impact of the risks"
+
+msgid "Vérifier l'avancement des plans de traitement"
+msgstr "Check the progress of the treatment plans"
+
+msgid "Ajouter les nouveaux risques identifiés"
+msgstr "Add newly identified risks"
+
+msgid "Réévaluer les fournisseurs critiques"
+msgstr "Reassess the critical suppliers"
+
+msgid "Vérifier les échéances des contrats et des attestations"
+msgstr "Check contract and certificate expiry dates"
+
+msgid "Relire chaque politique et dater la revue"
+msgstr "Reread each policy and date the review"
+
+msgid "Publier les nouvelles versions et informer les personnes concernées"
+msgstr "Publish the new versions and inform the people concerned"
+
+msgid "Vérifier l'applicabilité et la justification de chaque mesure"
+msgstr "Check the applicability and justification of each control"
+
+msgid "Mettre à jour l'état de mise en œuvre"
+msgstr "Update the implementation status"
+
+msgid "Demander une nouvelle approbation si la SoA a changé"
+msgstr "Request a new approval if the SoA changed"
+
+msgid "Recenser les nouvelles obligations (lois, contrats, clients)"
+msgstr "List new obligations (laws, contracts, customers)"
+
+msgid "Vérifier la conformité de chaque obligation suivie"
+msgstr "Check compliance with each tracked obligation"
+
+msgid "Restaurer un échantillon de fichiers et une base de données"
+msgstr "Restore a sample of files and a database"
+
+msgid "Mesurer la durée de restauration et la comparer à l'objectif"
+msgstr "Measure the restore time and compare it with the objective"
+
+msgid "Joindre le compte rendu du test à ce ticket"
+msgstr "Attach the test report to this ticket"
+
+msgid "Dérouler un scénario de reprise (exercice sur table ou réel)"
+msgstr "Run a recovery scenario (tabletop or live exercise)"
+
+msgid "Vérifier les contacts et les procédures d'urgence"
+msgstr "Check the emergency contacts and procedures"
+
+msgid "Joindre le compte rendu et les actions d'amélioration"
+msgstr "Attach the report and the improvement actions"
+
+msgid "Consulter les alertes et les journaux de sécurité de la période"
+msgstr "Review the security alerts and logs for the period"
+
+msgid "Ouvrir un incident de sécurité pour chaque anomalie avérée"
+msgstr "Open a security incident for each confirmed anomaly"
+
+msgid "Créé par GLPI GRC Manager (revues périodiques)."
+msgstr "Created by GLPI GRC Manager (periodic reviews)."
+
+#, php-format
+msgid "Revue périodique : %s"
+msgstr "Periodic review: %s"
+
+#, php-format
+msgid "Revue périodique à réaliser : %s. Une fois la revue faite, résolvez ce ticket : sa date sert de preuve de revue."
+msgstr "Periodic review to carry out: %s. Once the review is done, solve this ticket: its date is the evidence of the review."
+
+#, php-format
+msgid "Exigences concernées : %s"
+msgstr "Related requirements: %s"
+
+#, php-format
+msgid "GRC : %s"
+msgstr "GRC: %s"
+
+msgid "Chaque revue activée devient un ticket récurrent natif de GLPI (Assistance > Tickets récurrents), créé à la fréquence choisie et attribué au responsable. Résoudre le ticket date la revue : c'est la preuve attendue par l'auditeur."
+msgstr "Each enabled review becomes a native GLPI recurrent ticket (Assistance > Recurrent tickets), created at the chosen frequency and assigned to the owner. Solving the ticket dates the review: this is the evidence the auditor expects."
+
+msgid "Lecture seule : activer une revue demande le droit de modification du plugin et le droit de créer des tickets récurrents et des gabarits de tickets."
+msgstr "Read only: enabling a review requires the plugin update right and the right to create recurrent tickets and ticket templates."
+
+msgid "Revue"
+msgstr "Review"
+
+msgid "État"
+msgstr "Status"
+
+msgid "Dernière revue"
+msgstr "Last review"
+
+msgid "Prochain ticket"
+msgstr "Next ticket"
+
+msgid "Inactive"
+msgstr "Inactive"
+
+msgid "Active"
+msgstr "Active"
+
+msgid "Jamais"
+msgstr "Never"
+
+#, php-format
+msgid "Ticket n°%d"
+msgstr "Ticket #%d"
+
+msgid "Ouvrir le ticket récurrent"
+msgstr "Open the recurrent ticket"
+
+msgid "Enregistrer"
+msgstr "Save"
+
+msgid "Désactiver"
+msgstr "Disable"
+
+msgid "Activer"
+msgstr "Enable"
+
+msgid "Tous les mois"
+msgstr "Monthly"
+
+msgid "Tous les trimestres"
+msgstr "Quarterly"
+
+msgid "Tous les six mois"
+msgstr "Every six months"
+
+msgid "Tous les ans"
+msgstr "Yearly"
+
+msgid "Tous les deux ans"
+msgstr "Every two years"
+
+#, php-format
+msgid "Revue désactivée : %s"
+msgstr "Review disabled: %s"
+
+#, php-format
+msgid "Revue enregistrée : %s. Le ticket récurrent est visible dans Assistance > Tickets récurrents."
+msgstr "Review saved: %s. The recurrent ticket is listed under Assistance > Recurrent tickets."
+
+#, php-format
+msgid "La revue n'a pas pu être activée : %s"
+msgstr "The review could not be enabled: %s"
+
+msgid "Technicien"
+msgstr "Technician"
+
+msgid "Groupe"
+msgstr "Group"
+
+msgid "Flux interne"
+msgstr "Internal flow"
+
+msgid "Publication sur Internet (entrant)"
+msgstr "Published on the Internet (inbound)"
+
+msgid "Accès à Internet (sortant)"
+msgstr "Internet access (outbound)"
+
+msgid "Tunnel entre sites"
+msgstr "Site-to-site tunnel"
+
+msgid "Tunnel vers un partenaire"
+msgstr "Tunnel to a partner"
+
+msgid "Accès d'administration"
+msgstr "Administration access"
+
+msgid "Sauvegarde"
+msgstr "Backup"
+
+msgid "Tous"
+msgstr "All"
+
+msgid "Sans justification"
+msgstr "No justification"
+
+msgid "Sans propriétaire"
+msgstr "No owner"
+
+msgid "Expiré"
+msgstr "Expired"
+
+msgid "Expire bientôt"
+msgstr "Expires soon"
+
+msgid "Administration exposée sur Internet"
+msgstr "Administration exposed on the Internet"
+
+msgid "Tous les ports ouverts depuis Internet"
+msgstr "All ports open from the Internet"
+
+msgid "Ports invalides : saisissez des numéros ou des plages séparés par des virgules (ex. 80, 443, 8000-8100), ou laissez vide pour tous les ports."
+msgstr "Invalid ports: enter numbers or ranges separated by commas (e.g. 80, 443, 8000-8100), or leave empty for all ports."
+
+msgid "Indiquez la source et la destination du flux : un actif GLPI, ou un réseau, une zone ou une adresse."
+msgstr "Enter the source and destination of the flow: a GLPI asset, or a network, zone or address."
+
+msgid "Actif introuvable ou non autorisé."
+msgstr "Asset not found or not allowed."
+
+msgid "Nom"
+msgstr "Name"
+
+msgid "Source"
+msgstr "Source"
+
+msgid "Destination"
+msgstr "Destination"
+
+msgid "Protocole"
+msgstr "Protocol"
+
+msgid "Ports"
+msgstr "Ports"
+
+msgid "Date de fin"
+msgstr "End date"
+
+msgid "Actif"
+msgstr "Active"
+
+msgid "Contrôles"
+msgstr "Checks"
+
+msgid "Commentaires"
+msgstr "Comments"
+
+msgid "Actif non visible"
+msgstr "Asset not visible"
+
+msgid "Laissé vide, il est construit à partir de la source et de la destination."
+msgstr "If left empty, it is built from the source and destination."
+
+msgid "Actif GLPI (facultatif)."
+msgstr "GLPI asset (optional)."
+
+msgid "Réseau, zone ou adresse"
+msgstr "Network, zone or address"
+
+msgid "Ex. « Internet », « VLAN serveurs », « 10.0.0.0/24 », « Partenaire X »."
+msgstr "E.g. \"Internet\", \"Server VLAN\", \"10.0.0.0/24\", \"Partner X\"."
+
+msgid "Vide : tous les ports."
+msgstr "Empty: all ports."
+
+msgid "Pourquoi ce flux est nécessaire : application, besoin métier, demande ou ticket d'origine."
+msgstr "Why this flow is needed: application, business need, originating request or ticket."
+
+msgid "Pour un flux temporaire (migration, prestataire)."
+msgstr "For a temporary flow (migration, contractor)."
+
+msgid "Importer un fichier CSV"
+msgstr "Import a CSV file"
+
+#, php-format
+msgid "Propriétaire « %s » introuvable : flux importé sans propriétaire."
+msgstr "Owner \"%s\" not found: flow imported without an owner."
+
+msgid "En-tête sans colonnes « source » et « destination »."
+msgstr "Header without \"source\" and \"destination\" columns."
+
+msgid "Fichier vide."
+msgstr "Empty file."
+
+msgid "Source ou destination manquante : ligne ignorée."
+msgstr "Missing source or destination: line skipped."
+
+msgid "Ports invalides : ligne ignorée."
+msgstr "Invalid ports: line skipped."
+
+msgid "Date de fin invalide : ligne ignorée."
+msgstr "Invalid end date: line skipped."
+
+msgid "Flux réseau"
+msgid_plural "Matrice des flux"
+msgstr[0] "Network flow"
+msgstr[1] "Network flow matrix"
+
+#, php-format
+msgid "%d flux actif"
+msgid_plural "%d flux actifs"
+msgstr[0] "%d active flow"
+msgstr[1] "%d active flows"
+
+msgid "Choisissez un fichier CSV de 2 Mo au plus."
+msgstr "Choose a CSV file of at most 2 MB."
+
+msgid "Importer une matrice des flux"
+msgstr "Import a network flow matrix"
+
+msgid "Fichier CSV séparé par des points-virgules ou des virgules, avec une ligne d'en-tête. Colonnes reconnues : nom, type, source, destination, protocole, ports, justification, proprietaire (identifiant GLPI), date_fin. Seules source et destination sont obligatoires."
+msgstr "CSV file separated by semicolons or commas, with a header line. Recognised columns: name, type, source, destination, protocol, ports, justification, owner (GLPI login), date_end (French column names also accepted). Only source and destination are required."
+
+msgid "Site public;publication;Internet;Serveur web;tcp;443;Site vitrine;;"
+msgstr "Public website;publication;Internet;Web server;tcp;443;Company website;;"
+
+msgid "Sauvegarde;sauvegarde;Site principal;Site de secours;tcp;10000;Réplication nocturne;;"
+msgstr "Backup;backup;Main site;Recovery site;tcp;10000;Nightly replication;;"
+
+msgid "Types : interne, publication, sortant, tunnel, partenaire, administration, sauvegarde, autre. Un flux déjà présent (mêmes source, destination, protocole et ports) n'est pas recréé : réimporter le même fichier ne crée pas de doublon."
+msgstr "Types: internal, publication, outbound, tunnel, partner, admin, backup, other. A flow already present (same source, destination, protocol and ports) is not created again: importing the same file twice creates no duplicate."
+
+msgid "Simulation (rien n'est enregistré)"
+msgstr "Simulation (nothing is saved)"
+
+msgid "Analyser le fichier"
+msgstr "Analyse the file"
+
+msgid "Retour à la matrice des flux"
+msgstr "Back to the network flow matrix"
+
+#, php-format
+msgid "Simulation : %1$d flux seraient créés, %2$d existent déjà."
+msgstr "Simulation: %1$d flows would be created, %2$d already exist."
+
+#, php-format
+msgid "Import terminé : %1$d flux créés, %2$d existaient déjà."
+msgstr "Import finished: %1$d flows created, %2$d already existed."
+
+msgid "Décochez « Simulation » et analysez à nouveau le fichier pour l'importer."
+msgstr "Untick \"Simulation\" and analyse the file again to import it."
+
+#, php-format
+msgid "Ligne %1$d : %2$s"
+msgstr "Line %1$d: %2$s"
+
+msgid "Ligne"
+msgstr "Line"
+
+msgid "Déjà présent"
+msgstr "Already present"
+
+msgid "À créer"
+msgstr "To create"
+
+msgid "Créé"
+msgstr "Created"
+
+msgid "Hygiène des comptes"
+msgstr "Account hygiene"
+
+msgid "Supprimé de l'annuaire"
+msgstr "Deleted from the directory"
+
+msgid "Date de fin dépassée"
+msgstr "End date passed"
+
+#, php-format
+msgid "Sans connexion depuis plus de %d jours"
+msgstr "No login for more than %d days"
+
+#, php-format
+msgid "Jamais utilisé (créé il y a plus de %d jours)"
+msgstr "Never used (created more than %d days ago)"
+
+msgid "Adresse e-mail en double"
+msgstr "Duplicate email address"
+
+msgid "Prénom et nom en double"
+msgstr "Duplicate first and last name"
+
+msgid "Comptes GLPI actifs à vérifier (écran « Hygiène des comptes »). Pour chacun : confirmer le besoin, ou désactiver le compte et retirer ses habilitations. Rien n'a été modifié automatiquement."
+msgstr "Active GLPI accounts to check (\"Account hygiene\" screen). For each one: confirm the need, or disable the account and remove its authorizations. Nothing was changed automatically."
+
+msgid "Utilisateur"
+msgstr "User"
+
+msgid "Identifiant"
+msgstr "Login"
+
+msgid "Points à vérifier"
+msgstr "Points to check"
+
+msgid "Comptes actifs des entités que vous voyez, qui méritent une vérification. Rien n'est désactivé automatiquement : cochez les comptes et ouvrez un ticket de revue, ou traitez-les dans une campagne de revue des accès."
+msgstr "Active accounts in the entities you can see that deserve a check. Nothing is disabled automatically: tick the accounts and open a review ticket, or handle them in an access review campaign."
+
+msgid "Inactivité au-delà de"
+msgstr "Inactivity beyond"
+
+#, php-format
+msgid "%d jours"
+msgstr "%d days"
+
+msgid "Aucun compte à vérifier."
+msgstr "No account to check."
+
+msgid "Dernière connexion"
+msgstr "Last login"
+
+msgid "Ouvrir un ticket de revue pour les comptes cochés"
+msgstr "Open a review ticket for the ticked accounts"
+
+#, php-format
+msgid "Hygiène des comptes : %d compte à vérifier"
+msgid_plural "Hygiène des comptes : %d comptes à vérifier"
+msgstr[0] "Account hygiene: %d account to check"
+msgstr[1] "Account hygiene: %d accounts to check"
+
+#, php-format
+msgid "Ticket de revue n°%d créé."
+msgstr "Review ticket #%d created."
+
+msgid "Cochez au moins un compte à vérifier."
+msgstr "Tick at least one account to check."
+
+msgid "Sécurité"
+msgstr "Security"
+
+msgid "Ce ticket est qualifié en incident de sécurité :"
+msgstr "This ticket is qualified as a security incident:"
+
+msgid "Créer un incident de sécurité à partir de ce ticket ? Le ticket garde son statut et son attribution."
+msgstr "Create a security incident from this ticket? The ticket keeps its status and assignment."
+
+msgid "Escalader en incident de sécurité"
+msgstr "Escalate to a security incident"
+
+msgid "Ex. clic sur un lien suspect, mot de passe divulgué, poste infecté. L'incident reprend le titre, la description, le demandeur et les éléments liés."
+msgstr "E.g. clicked a suspicious link, disclosed password, infected computer. The incident takes over the title, description, requester and linked items."
+
+msgid "Calendrier de conformité"
+msgstr "Compliance calendar"
+
+msgid "Audit de certification"
+msgstr "Certification audit"
+
+msgid "Audit de surveillance"
+msgstr "Surveillance audit"
+
+msgid "Test d'intrusion"
+msgstr "Penetration test"
+
+msgid "Exercice de crise"
+msgstr "Crisis exercise"
+
+msgid "Renouvellement de certificat"
+msgstr "Certificate renewal"
+
+msgid "Réalisé"
+msgstr "Done"
+
+msgid "Événement"
+msgstr "Event"
+
+msgid "Revue de politique"
+msgstr "Policy review"
+
+msgid "Revue d'obligation"
+msgstr "Obligation review"
+
+msgid "Fin de validité d'une preuve"
+msgstr "Evidence expiry"
+
+msgid "Indiquez la date de début de l'événement."
+msgstr "Enter the start date of the event."
+
+msgid "Prestataire"
+msgstr "Provider"
+
+msgid "Laissé vide, le type sert de nom."
+msgstr "If left empty, the type is used as the name."
+
+msgid "Vide : la journée du début."
+msgstr "Empty: the day of the start."
+
+msgid "L'événement apparaît dans son planning GLPI."
+msgstr "The event appears in their GLPI planning."
+
+msgid "Toutes les échéances"
+msgstr "All deadlines"
+
+msgid "Mes échéances"
+msgstr "My deadlines"
+
+msgid "Ajouter un événement"
+msgstr "Add an event"
+
+msgid "Exporter (iCal)"
+msgstr "Export (iCal)"
+
+msgid "Événements saisis et échéances des autres registres (audits, revues de direction, revues des accès, revues périodiques, politiques, obligations, preuves). Chaque échéance apparaît aussi dans le planning GLPI de son responsable."
+msgstr "Events entered here and deadlines from the other registers (audits, management reviews, access reviews, periodic reviews, policies, obligations, evidence). Each deadline also appears in the GLPI planning of its owner."
+
+msgid "Aucune échéance sur la période."
+msgstr "No deadline in this period."
+
+msgid "Échéance passée"
+msgstr "Deadline passed"
+
+msgid "Janvier"
+msgstr "January"
+
+msgid "Février"
+msgstr "February"
+
+msgid "Mars"
+msgstr "March"
+
+msgid "Avril"
+msgstr "April"
+
+msgid "Mai"
+msgstr "May"
+
+msgid "Juin"
+msgstr "June"
+
+msgid "Juillet"
+msgstr "July"
+
+msgid "Août"
+msgstr "August"
+
+msgid "Septembre"
+msgstr "September"
+
+msgid "Octobre"
+msgstr "October"
+
+msgid "Novembre"
+msgstr "November"
+
+msgid "Décembre"
+msgstr "December"
+
+msgid "Événement de conformité"
+msgid_plural "Événements de conformité"
+msgstr[0] "Compliance event"
+msgstr[1] "Compliance events"

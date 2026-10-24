@@ -1,0 +1,54 @@
+{# Issue #165 : section « Sécurité » du panneau principal d'un ticket — l'incident de sécurité lié,
+   ou le bouton pour qualifier le ticket, sans passer par l'onglet. Rendu dans le formulaire du
+   ticket : le bouton crée son propre envoi (un formulaire ne peut pas en contenir un autre). #}
+<section class="accordion-item" aria-label="{{ __('Sécurité', 'grcmanager') }}">
+   <div class="accordion-header" id="grcmanager-ticket-security-heading">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#grcmanager-ticket-security" aria-expanded="true" aria-controls="grcmanager-ticket-security">
+         <i class="ti ti-shield-lock"></i>
+         <span class="item-title">{{ __('Sécurité', 'grcmanager') }}</span>
+         {% if incidents is not empty %}
+            <span class="badge bg-red text-red-fg ms-2">{{ incidents|length }}</span>
+         {% endif %}
+      </button>
+   </div>
+   <div id="grcmanager-ticket-security" class="accordion-collapse collapse show" aria-labelledby="grcmanager-ticket-security-heading">
+      <div class="accordion-body">
+         {% if incidents is not empty %}
+            <div class="alert alert-danger mb-0 py-2">
+               <i class="ti ti-shield-lock me-1"></i>{{ __('Ce ticket est qualifié en incident de sécurité :', 'grcmanager') }}
+               {% for incident in incidents %}
+                  <div><a href="{{ incident.url }}" class="fw-bold">{{ incident.name }} ({{ incident.id }})</a> — {{ incident.status }}</div>
+               {% endfor %}
+            </div>
+         {% elseif can_create %}
+            <button type="button" class="btn btn-outline-danger w-100" id="grcmanager-qualify-{{ tickets_id }}"
+                    data-action="{{ action }}" data-token="{{ csrf_token() }}" data-ticket="{{ tickets_id }}"
+                    data-confirm="{{ __('Créer un incident de sécurité à partir de ce ticket ? Le ticket garde son statut et son attribution.', 'grcmanager') }}">
+               <i class="ti ti-shield-plus me-1"></i>{{ __('Escalader en incident de sécurité', 'grcmanager') }}
+            </button>
+            <div class="form-text">{{ __('Ex. clic sur un lien suspect, mot de passe divulgué, poste infecté. L\'incident reprend le titre, la description, le demandeur et les éléments liés.', 'grcmanager') }}</div>
+            <script>
+               document.getElementById('grcmanager-qualify-{{ tickets_id }}').addEventListener('click', function () {
+                  if (!window.confirm(this.dataset.confirm)) {
+                     return;
+                  }
+                  const form = document.createElement('form');
+                  form.method = 'post';
+                  form.action = this.dataset.action;
+                  for (const [name, value] of [['qualify', '1'], ['tickets_id', this.dataset.ticket], ['_glpi_csrf_token', this.dataset.token]]) {
+                     const input = document.createElement('input');
+                     input.type = 'hidden';
+                     input.name = name;
+                     input.value = value;
+                     form.appendChild(input);
+                  }
+                  document.body.appendChild(form);
+                  form.submit();
+               });
+            </script>
+         {% else %}
+            <p class="text-muted mb-0">{{ __('Ce ticket n\'est lié à aucun incident de sécurité.', 'grcmanager') }}</p>
+         {% endif %}
+      </div>
+   </div>
+</section>

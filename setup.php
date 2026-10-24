@@ -25,7 +25,7 @@ use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentModuleConfig;
 // must bundle vendor/, see .github/workflows/release.yml.
 require_once __DIR__ . '/vendor/autoload.php';
 
-define('PLUGIN_GRCMANAGER_VERSION', '2.5.0');
+define('PLUGIN_GRCMANAGER_VERSION', '2.6.0');
 define('PLUGIN_GRCMANAGER_MIN_GLPI', '11.0.0');
 // GLPI 11 and 12 from a single code base (see src/Compatibility/).
 define('PLUGIN_GRCMANAGER_MAX_GLPI', '12.99.99');
@@ -114,6 +114,14 @@ function plugin_init_grcmanager(): void
             PluginGrcmanagerManagementReview::class,
             // Issue #126 : campagnes de revue périodique des accès.
             PluginGrcmanagerAccessReview::class,
+            // Issue #184 : comptes actifs a verifier (annuaire, inactivite, doublons).
+            PluginGrcmanagerAccountHygiene::class,
+            // Issue #141 : revues périodiques (tickets récurrents natifs).
+            PluginGrcmanagerPeriodicReview::class,
+            // Issue #144 : matrice des flux réseau.
+            PluginGrcmanagerNetworkFlow::class,
+            // Issue #142 : calendrier de conformite (aussi dans le planning GLPI, ci-dessous).
+            PluginGrcmanagerComplianceEvent::class,
             PluginGrcmanagerPolicy::class,
             // Issue #145 : preuves datées, expirées ou à renouveler.
             PluginGrcmanagerEvidence::class,
@@ -166,6 +174,10 @@ function plugin_init_grcmanager(): void
     // Issue #126 : rapport PDF de clôture d'une revue des accès, sur la campagne et sur la mesure.
     $CFG_GLPI['document_types'][] = PluginGrcmanagerAccessReview::class;
     $CFG_GLPI['document_types'][] = PluginGrcmanagerControl::class;
+    // Issue #142 : documents d'un evenement de conformite (rapport d'audit, de pentest...).
+    $CFG_GLPI['document_types'][] = PluginGrcmanagerComplianceEvent::class;
+    // Echeances de conformite dans le planning GLPI de chaque responsable (lecture seule).
+    $CFG_GLPI['planning_types'][] = PluginGrcmanagerComplianceEvent::class;
 
     // Sprint 2 (matrice de risque administrable, front/config.php) : reachable via
     // Configuration > Plugins > wrench icon on this plugin's row, same minimal-footprint pattern
@@ -216,6 +228,10 @@ function plugin_init_grcmanager(): void
     Plugin::registerClass(PluginGrcmanagerSecurityIncidentTicket::class, [
         'addtabon' => ['Ticket', PluginGrcmanagerSecurityIncident::class],
     ]);
+    // Issue #141 : le ticket créé par le ticket récurrent d'une revue devient son ticket en cours ;
+    // sa résolution date la revue (PluginGrcmanagerPeriodicReview::onTicketAdd()/onTicketUpdate()).
+    $PLUGIN_HOOKS[Hooks::ITEM_ADD]['grcmanager'] = ['Ticket' => 'plugin_grcmanager_periodic_review_ticket_add'];
+    $PLUGIN_HOOKS[Hooks::ITEM_UPDATE]['grcmanager'] = ['Ticket' => 'plugin_grcmanager_periodic_review_ticket_update'];
     $PLUGIN_HOOKS[Hooks::ITEM_PURGE]['grcmanager'] = [
         'Ticket'                                => 'plugin_grcmanager_purge_security_incident_links',
         PluginGrcmanagerSecurityIncident::class => 'plugin_grcmanager_purge_security_incident_links',
@@ -247,6 +263,10 @@ function plugin_init_grcmanager(): void
     // hook, appelé à la toute fin de ce même panneau, est le point d'extension réel confirmé cette
     // session pour obtenir le même rendu visuel sans patcher le cœur.
     $PLUGIN_HOOKS[Hooks::POST_ITIL_INFO_SECTION]['grcmanager'] = 'plugin_grcmanager_post_itil_info_section';
+
+    // Issue #165 : « Qualifier en incident de sécurité » aussi en action groupée sur les tickets
+    // (plugin_grcmanager_MassiveActions(), hook.php).
+    $PLUGIN_HOOKS[Hooks::USE_MASSIVE_ACTION]['grcmanager'] = 1;
 }
 
 /**
