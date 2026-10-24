@@ -133,6 +133,11 @@ Objectif : une plateforme GRC/ISO 27001 générique fonctionnelle de bout en bou
 - **Évaluation des fournisseurs** : questionnaire de sécurité avec score, contrats GLPI du fournisseur, preuves, ticket de réévaluation à l'échéance, issue #127.
 - **Revue périodique des accès** : campagnes validées par les responsables, ticket pour chaque modification ou retrait (aucun droit modifié), relances, rapport PDF archivé sur la mesure A.5.18, issue #126.
 
+## Version 2.5 (livrée)
+
+- **Date de validité des preuves** : échéance et responsable du renouvellement pour chaque document de preuve, rappel 30 jours avant, ticket « Renouveler la preuve » à l'expiration, issue #145.
+- **Taux de signature de la charte informatique (assetsign)** sur les mesures A.5.10 et A.6.3, par entité.
+
 ## Suivi
 
 L'avancement réel (issues, PR, jalons) est suivi sur le
