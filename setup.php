@@ -114,6 +114,8 @@ function plugin_init_grcmanager(): void
             PluginGrcmanagerManagementReview::class,
             // Issue #126 : campagnes de revue périodique des accès.
             PluginGrcmanagerAccessReview::class,
+            // Issue #184 : comptes actifs a verifier (annuaire, inactivite, doublons).
+            PluginGrcmanagerAccountHygiene::class,
             // Issue #141 : revues périodiques (tickets récurrents natifs).
             PluginGrcmanagerPeriodicReview::class,
             // Issue #144 : matrice des flux réseau.

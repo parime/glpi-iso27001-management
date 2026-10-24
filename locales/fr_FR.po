@@ -2809,3 +2809,70 @@ msgstr "À créer"
 
 msgid "Créé"
 msgstr "Créé"
+
+msgid "Hygiène des comptes"
+msgstr "Hygiène des comptes"
+
+msgid "Supprimé de l'annuaire"
+msgstr "Supprimé de l'annuaire"
+
+msgid "Date de fin dépassée"
+msgstr "Date de fin dépassée"
+
+#, php-format
+msgid "Sans connexion depuis plus de %d jours"
+msgstr "Sans connexion depuis plus de %d jours"
+
+#, php-format
+msgid "Jamais utilisé (créé il y a plus de %d jours)"
+msgstr "Jamais utilisé (créé il y a plus de %d jours)"
+
+msgid "Adresse e-mail en double"
+msgstr "Adresse e-mail en double"
+
+msgid "Prénom et nom en double"
+msgstr "Prénom et nom en double"
+
+msgid "Comptes GLPI actifs à vérifier (écran « Hygiène des comptes »). Pour chacun : confirmer le besoin, ou désactiver le compte et retirer ses habilitations. Rien n'a été modifié automatiquement."
+msgstr "Comptes GLPI actifs à vérifier (écran « Hygiène des comptes »). Pour chacun : confirmer le besoin, ou désactiver le compte et retirer ses habilitations. Rien n'a été modifié automatiquement."
+
+msgid "Utilisateur"
+msgstr "Utilisateur"
+
+msgid "Identifiant"
+msgstr "Identifiant"
+
+msgid "Points à vérifier"
+msgstr "Points à vérifier"
+
+msgid "Comptes actifs des entités que vous voyez, qui méritent une vérification. Rien n'est désactivé automatiquement : cochez les comptes et ouvrez un ticket de revue, ou traitez-les dans une campagne de revue des accès."
+msgstr "Comptes actifs des entités que vous voyez, qui méritent une vérification. Rien n'est désactivé automatiquement : cochez les comptes et ouvrez un ticket de revue, ou traitez-les dans une campagne de revue des accès."
+
+msgid "Inactivité au-delà de"
+msgstr "Inactivité au-delà de"
+
+#, php-format
+msgid "%d jours"
+msgstr "%d jours"
+
+msgid "Aucun compte à vérifier."
+msgstr "Aucun compte à vérifier."
+
+msgid "Dernière connexion"
+msgstr "Dernière connexion"
+
+msgid "Ouvrir un ticket de revue pour les comptes cochés"
+msgstr "Ouvrir un ticket de revue pour les comptes cochés"
+
+#, php-format
+msgid "Hygiène des comptes : %d compte à vérifier"
+msgid_plural "Hygiène des comptes : %d comptes à vérifier"
+msgstr[0] "Hygiène des comptes : %d compte à vérifier"
+msgstr[1] "Hygiène des comptes : %d comptes à vérifier"
+
+#, php-format
+msgid "Ticket de revue n°%d créé."
+msgstr "Ticket de revue n°%d créé."
+
+msgid "Cochez au moins un compte à vérifier."
+msgstr "Cochez au moins un compte à vérifier."
