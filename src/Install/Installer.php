@@ -13,6 +13,7 @@ use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
 use GlpiPlugin\Grcmanager\Services\Incident\LegacySecurityIncidentMigrator;
 use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentModuleConfig;
 use GlpiPlugin\Grcmanager\Services\Cve\NvdConfigDefaults;
+use GlpiPlugin\Grcmanager\Services\Review\PeriodicReviewCatalog;
 use GlpiPlugin\Grcmanager\Services\Risk\RiskMatrixDefaults;
 use Migration;
 use Notification;
@@ -176,6 +177,8 @@ final class Installer
     private const SECURITY_INCIDENT_CONFIG_TABLE = 'glpi_plugin_grcmanager_securityincidentconfig';
     // Issue #145 : validité des documents de preuve, voir PluginGrcmanagerEvidence.
     private const EVIDENCES_TABLE = 'glpi_plugin_grcmanager_evidences';
+    // Issue #141 : revues périodiques du SMSI, voir PluginGrcmanagerPeriodicReview.
+    private const PERIODIC_REVIEWS_TABLE = 'glpi_plugin_grcmanager_periodicreviews';
 
     public function install(Migration $migration): bool
     {
@@ -992,6 +995,46 @@ final class Installer
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
             $DB->doQuery($query) or die($DB->error());
+        }
+
+        // Issue #141 : une ligne par revue du catalogue (PeriodicReviewCatalog), créée inactive ici
+        // et à chaque mise à jour du plugin (nouvelles revues du catalogue) : l'écran ne crée rien.
+        if (!$DB->tableExists(self::PERIODIC_REVIEWS_TABLE)) {
+            $query = "CREATE TABLE `" . self::PERIODIC_REVIEWS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `review_key` varchar(64) NOT NULL,
+                `entities_id` int {$keySign} NOT NULL DEFAULT 0,
+                `is_active` tinyint NOT NULL DEFAULT 0,
+                `frequency_months` int NOT NULL DEFAULT 12,
+                `users_id_assign` int {$keySign} NOT NULL DEFAULT 0,
+                `groups_id_assign` int {$keySign} NOT NULL DEFAULT 0,
+                `tickettemplates_id` int {$keySign} NOT NULL DEFAULT 0,
+                `ticketrecurrents_id` int {$keySign} NOT NULL DEFAULT 0,
+                `last_tickets_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Dernier ticket créé par la revue',
+                `last_review_date` date DEFAULT NULL COMMENT 'Résolution du dernier ticket',
+                `date_activation` date DEFAULT NULL,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `review_key` (`review_key`),
+                KEY `tickettemplates_id` (`tickettemplates_id`),
+                KEY `last_tickets_id` (`last_tickets_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+        }
+        $existingReviews = [];
+        foreach ($DB->request(['SELECT' => ['review_key'], 'FROM' => self::PERIODIC_REVIEWS_TABLE]) as $row) {
+            $existingReviews[] = $row['review_key'];
+        }
+        foreach (PeriodicReviewCatalog::keys() as $reviewKey) {
+            if (!in_array($reviewKey, $existingReviews, true)) {
+                $DB->insert(self::PERIODIC_REVIEWS_TABLE, [
+                    'review_key'       => $reviewKey,
+                    'frequency_months' => PeriodicReviewCatalog::defaultMonths($reviewKey),
+                    'date_creation'    => date('Y-m-d H:i:s'),
+                ]);
+            }
         }
 
         if (!$DB->tableExists(self::OBJECTIVE_MEASUREMENTS_TABLE)) {
@@ -2610,6 +2653,7 @@ final class Installer
         $migration->dropTable(self::MANAGEMENT_REVIEWS_OBJECTIVES_TABLE);
         $migration->dropTable(self::OBJECTIVE_MEASUREMENTS_TABLE);
         $migration->dropTable(self::EVIDENCES_TABLE);
+        $migration->dropTable(self::PERIODIC_REVIEWS_TABLE);
         $migration->dropTable(self::ACCESS_REVIEWS_USERS_TABLE);
         $migration->dropTable(self::ACCESS_REVIEWS_TABLE);
         $migration->dropTable(self::OBJECTIVES_TABLE);
