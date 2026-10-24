@@ -9,6 +9,12 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Hygiène des comptes** (issue #184), menu GRC & Conformité > Hygiène des comptes (A.5.16, A.5.18,
+  A.8.2) : comptes GLPI actifs à vérifier dans les entités visibles — supprimés de l'annuaire
+  (synchronisation LDAP native), date de fin dépassée, sans connexion depuis N jours (30 à 365) ou
+  jamais utilisés, adresse e-mail ou prénom et nom en double. Un ticket de revue s'ouvre pour les
+  comptes cochés ; aucun compte n'est désactivé automatiquement. Exige aussi le droit natif de
+  lecture des utilisateurs. La revue périodique « comptes à privilèges » (#141) renvoie vers cet écran.
 - **Matrice des flux réseau** (issue #144), menu GRC & Conformité > Matrice des flux (A.8.20 à A.8.22).
   - Un flux relie une source et une destination (un actif GLPI et/ou un réseau, une zone, une adresse),
     avec un type (interne, publication sur Internet, sortant, tunnel entre sites ou vers un partenaire,

@@ -143,7 +143,8 @@ class PluginGrcmanagerPeriodicReview extends PeriodicReviewBase
     public static function getScreenPath(string $key): ?string
     {
         return match ($key) {
-            'access_rights', 'privileged_accounts' => '/plugins/grcmanager/front/accessreview.php',
+            'access_rights'       => '/plugins/grcmanager/front/accessreview.php',
+            'privileged_accounts' => '/plugins/grcmanager/front/accounthygiene.php',
             'network_flows'     => '/plugins/grcmanager/front/networkflow.php',
             'risk_register'     => '/plugins/grcmanager/front/risk.php',
             'supplier_risks'    => '/plugins/grcmanager/front/supplierrisk.php',

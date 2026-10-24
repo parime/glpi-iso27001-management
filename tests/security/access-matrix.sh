@@ -49,7 +49,7 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/objective.php front/policy.php front/risk.php front/securityincident.php front/supplierrisk.php
   front/training.php front/referentiels.php front/riskheatmap.php front/soaapproval.php front/config.php
   front/audit.report.php front/control.report.php front/risk.report.php front/control.csv.php?action=export
-  front/evidence.php front/periodicreview.php front/networkflow.php"
+  front/evidence.php front/periodicreview.php front/networkflow.php front/accounthygiene.php"
 # Creations : refusees sans droit comme en lecture seule (etat en base compare par la CI).
 create_attempts() { # code attendu, code attendu pour la classification (404 sans droit sur l'actif)
   local incident; incident=$(id incident_A)
@@ -77,6 +77,9 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
   expect "front/networkflow.form.php : creation d'un flux" "$1" \
     "$(code -d "add=1&source_label=securite&destination_label=securite&ports=22&_glpi_csrf_token=$(csrf)" "$P/networkflow.form.php")"
   expect "front/networkflow.import.php : import CSV" "$1" "$(code "$P/networkflow.import.php")"
+  # Issue #184 : ticket de revue des comptes (exige aussi le droit natif de creer un ticket).
+  expect "front/accounthygiene.php : ticket de revue" "$1" \
+    "$(code -d "create_ticket=1&users_id[]=2&_glpi_csrf_token=$(csrf)" "$P/accounthygiene.php")"
   # Issue #141 : activer une revue cree un gabarit et un ticket recurrent (compare en base).
   expect "front/periodicreview.php : activer une revue" "$1" \
     "$(code -d "activate=1&id=1&frequency_months=6&_glpi_csrf_token=$(csrf)" "$P/periodicreview.php")"
