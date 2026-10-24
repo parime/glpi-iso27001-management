@@ -181,6 +181,8 @@ final class Installer
     private const PERIODIC_REVIEWS_TABLE = 'glpi_plugin_grcmanager_periodicreviews';
     // Issue #144 : matrice des flux réseau, voir PluginGrcmanagerNetworkFlow.
     private const NETWORK_FLOWS_TABLE = 'glpi_plugin_grcmanager_networkflows';
+    // Issue #142 : evenements du calendrier de conformite, voir PluginGrcmanagerComplianceEvent.
+    private const COMPLIANCE_EVENTS_TABLE = 'glpi_plugin_grcmanager_complianceevents';
 
     public function install(Migration $migration): bool
     {
@@ -1003,6 +1005,32 @@ final class Installer
         // et à chaque mise à jour du plugin (nouvelles revues du catalogue) : l'écran ne crée rien.
         // Issue #144 : un flux relie une source et une destination (actif GLPI et/ou libellé libre :
         // réseau, zone, adresse). Registre global, comme les autres registres du plugin.
+        // Issue #142 : evenements dates du calendrier de conformite (audit de certification, pentest,
+        // exercice de crise...). Registre global, comme les autres registres du plugin.
+        if (!$DB->tableExists(self::COMPLIANCE_EVENTS_TABLE)) {
+            $query = "CREATE TABLE `" . self::COMPLIANCE_EVENTS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `name` varchar(255) NOT NULL DEFAULT '',
+                `event_type` varchar(32) NOT NULL DEFAULT 'other' COMMENT 'Voir ComplianceCalendarRules',
+                `date_begin` timestamp NULL DEFAULT NULL,
+                `date_end` timestamp NULL DEFAULT NULL,
+                `status` varchar(16) NOT NULL DEFAULT 'planned' COMMENT 'planned, done, cancelled',
+                `users_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Responsable',
+                `suppliers_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Prestataire',
+                `scope` text,
+                `comment` text,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `date_begin` (`date_begin`),
+                KEY `users_id` (`users_id`),
+                KEY `suppliers_id` (`suppliers_id`),
+                KEY `status` (`status`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+        }
+
         if (!$DB->tableExists(self::NETWORK_FLOWS_TABLE)) {
             $query = "CREATE TABLE `" . self::NETWORK_FLOWS_TABLE . "` (
                 `id` int {$keySign} NOT NULL AUTO_INCREMENT,
@@ -2691,6 +2719,7 @@ final class Installer
         $migration->dropTable(self::EVIDENCES_TABLE);
         $migration->dropTable(self::PERIODIC_REVIEWS_TABLE);
         $migration->dropTable(self::NETWORK_FLOWS_TABLE);
+        $migration->dropTable(self::COMPLIANCE_EVENTS_TABLE);
         $migration->dropTable(self::ACCESS_REVIEWS_USERS_TABLE);
         $migration->dropTable(self::ACCESS_REVIEWS_TABLE);
         $migration->dropTable(self::OBJECTIVES_TABLE);

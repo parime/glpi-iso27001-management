@@ -9,6 +9,14 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Calendrier de conformité** (issue #142), menu GRC & Conformité > Calendrier de conformité :
+  événements datés saisis (audit de certification ou de surveillance, test d'intrusion, exercice de
+  crise, renouvellement de certificat…, avec prestataire, périmètre, responsable, documents) et
+  échéances des autres registres, sans recopie : audits internes, revues de direction, campagnes de
+  revue des accès, prochain ticket des revues périodiques, revues des politiques et des obligations,
+  fin de validité des preuves. Vue par mois (toutes les échéances ou les miennes), export iCal, et
+  affichage dans le planning GLPI de chaque responsable (lecture seule). Rien n'est modifié par le
+  calendrier.
 - **Escalader un ticket en incident de sécurité depuis le ticket** (issue #165) : section
   « Sécurité » dans le panneau principal de chaque ticket, avec le bouton « Escalader en incident de
   sécurité » (confirmation demandée) ou, une fois qualifié, le lien vers l'incident. Aussi en action

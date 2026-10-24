@@ -2891,3 +2891,113 @@ msgstr "Escalader en incident de sécurité"
 
 msgid "Ex. clic sur un lien suspect, mot de passe divulgué, poste infecté. L'incident reprend le titre, la description, le demandeur et les éléments liés."
 msgstr "Ex. clic sur un lien suspect, mot de passe divulgué, poste infecté. L'incident reprend le titre, la description, le demandeur et les éléments liés."
+
+msgid "Calendrier de conformité"
+msgstr "Calendrier de conformité"
+
+msgid "Audit de certification"
+msgstr "Audit de certification"
+
+msgid "Audit de surveillance"
+msgstr "Audit de surveillance"
+
+msgid "Test d'intrusion"
+msgstr "Test d'intrusion"
+
+msgid "Exercice de crise"
+msgstr "Exercice de crise"
+
+msgid "Renouvellement de certificat"
+msgstr "Renouvellement de certificat"
+
+msgid "Réalisé"
+msgstr "Réalisé"
+
+msgid "Événement"
+msgstr "Événement"
+
+msgid "Revue de politique"
+msgstr "Revue de politique"
+
+msgid "Revue d'obligation"
+msgstr "Revue d'obligation"
+
+msgid "Fin de validité d'une preuve"
+msgstr "Fin de validité d'une preuve"
+
+msgid "Indiquez la date de début de l'événement."
+msgstr "Indiquez la date de début de l'événement."
+
+msgid "Prestataire"
+msgstr "Prestataire"
+
+msgid "Laissé vide, le type sert de nom."
+msgstr "Laissé vide, le type sert de nom."
+
+msgid "Vide : la journée du début."
+msgstr "Vide : la journée du début."
+
+msgid "L'événement apparaît dans son planning GLPI."
+msgstr "L'événement apparaît dans son planning GLPI."
+
+msgid "Toutes les échéances"
+msgstr "Toutes les échéances"
+
+msgid "Mes échéances"
+msgstr "Mes échéances"
+
+msgid "Ajouter un événement"
+msgstr "Ajouter un événement"
+
+msgid "Exporter (iCal)"
+msgstr "Exporter (iCal)"
+
+msgid "Événements saisis et échéances des autres registres (audits, revues de direction, revues des accès, revues périodiques, politiques, obligations, preuves). Chaque échéance apparaît aussi dans le planning GLPI de son responsable."
+msgstr "Événements saisis et échéances des autres registres (audits, revues de direction, revues des accès, revues périodiques, politiques, obligations, preuves). Chaque échéance apparaît aussi dans le planning GLPI de son responsable."
+
+msgid "Aucune échéance sur la période."
+msgstr "Aucune échéance sur la période."
+
+msgid "Échéance passée"
+msgstr "Échéance passée"
+
+msgid "Janvier"
+msgstr "Janvier"
+
+msgid "Février"
+msgstr "Février"
+
+msgid "Mars"
+msgstr "Mars"
+
+msgid "Avril"
+msgstr "Avril"
+
+msgid "Mai"
+msgstr "Mai"
+
+msgid "Juin"
+msgstr "Juin"
+
+msgid "Juillet"
+msgstr "Juillet"
+
+msgid "Août"
+msgstr "Août"
+
+msgid "Septembre"
+msgstr "Septembre"
+
+msgid "Octobre"
+msgstr "Octobre"
+
+msgid "Novembre"
+msgstr "Novembre"
+
+msgid "Décembre"
+msgstr "Décembre"
+
+msgid "Événement de conformité"
+msgid_plural "Événements de conformité"
+msgstr[0] "Événement de conformité"
+msgstr[1] "Événements de conformité"
