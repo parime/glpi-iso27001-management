@@ -66,6 +66,13 @@ function plugin_grcmanager_dashboard_cards(?array $cards = null): array
             'group' => $group,
             'provider' => SecuredDashboardCards::class . '::risksPendingReviewCount',
         ],
+        // Issue #145 : preuves expirées ou expirant sous 30 jours.
+        'grcmanager_evidences_to_renew' => [
+            'widgettype' => ['bigNumber'],
+            'label' => __('Preuves expirées ou à renouveler', 'grcmanager'),
+            'group' => $group,
+            'provider' => SecuredDashboardCards::class . '::evidencesToRenewCount',
+        ],
         // Sprint 3 (SoA, clause 6.1.3).
         'grcmanager_soa_reviewed' => [
             'widgettype' => ['bigNumber'],

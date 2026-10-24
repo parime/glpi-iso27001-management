@@ -7,6 +7,31 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.5.0] - 2026-10-24
+
+### Added
+
+- **Date de validité des preuves et alerte avant expiration** (issue #145).
+  - Onglet « Validités des preuves » sur les mesures de l'Annexe A, les risques fournisseurs, les
+    audits et les politiques : pour chaque document rattaché, une date de fin de validité et un
+    responsable du renouvellement.
+  - Tâche planifiée quotidienne « evidencereminder » : notification au responsable 30 jours avant
+    l'échéance, puis un ticket « Renouveler la preuve » à l'expiration (un seul de chaque). Une
+    nouvelle date réarme le rappel. Le statut de l'élément ne change jamais.
+  - Liste des preuves datées et carte de tableau de bord « Preuves expirées ou à renouveler ».
+  - Une validité suit l'entité de son document : la lire ou la modifier exige le droit sur
+    l'élément et la lecture du document, jamais le seul droit global du plugin.
+- **Taux de signature de la charte informatique (assetsign)** sur les mesures A.5.10 et A.6.3,
+  par entité (« Entité racine : 45 / 50 (90 %) »), depuis la campagne de charte la plus récente.
+  Badge vert dès 90 %, orange dès 60 %, rouge en dessous. Lecture seule de chiffres agrégés,
+  sans dépendance de code ; absent si assetsign n'est pas actif ou ne gère pas encore les
+  campagnes de charte (assetsign 2.12.0 et suivantes).
+
+### Fixed
+
+- **Liste « Validités des preuves »** : le bouton « Ajouter » de GLPI menait à une page introuvable ;
+  il n'est plus proposé et la liste indique où saisir une date de validité (onglet de l'élément).
+
 ## [2.4.1] - 2026-10-22
 
 ### Security

@@ -2312,3 +2312,85 @@ msgstr "Commentaire (obligatoire pour modifier ou retirer)"
 #: inc/soaversion.class.php
 msgid "Vous ne pouvez pas approuver votre propre demande : vous avez été retiré des approbateurs."
 msgstr "Vous ne pouvez pas approuver votre propre demande : vous avez été retiré des approbateurs."
+
+msgid "Charte informatique signée"
+msgstr "Charte informatique signée"
+
+msgid "aucune campagne de charte lancée"
+msgstr "aucune campagne de charte lancée"
+
+#, php-format
+msgid "%1$d / %2$d (%3$d %%)"
+msgstr "%1$d / %2$d (%3$d %%)"
+
+msgid "Voir les campagnes"
+msgstr "Voir les campagnes"
+
+msgid "Validité de preuve"
+msgid_plural "Validités des preuves"
+msgstr[0] "Validité de preuve"
+msgstr[1] "Validités des preuves"
+
+msgid "Document introuvable sur cet élément."
+msgstr "Document introuvable sur cet élément."
+
+msgid "Expirée"
+msgstr "Expirée"
+
+msgid "À renouveler"
+msgstr "À renouveler"
+
+msgid "Valide"
+msgstr "Valide"
+
+msgid "Sans date de validité"
+msgstr "Sans date de validité"
+
+#, php-format
+msgid "Indiquez jusqu'à quand chaque document prouve quelque chose (certificat, rapport, attestation). Le responsable est prévenu %d jours avant l'échéance, puis un ticket « Renouveler la preuve » est ouvert ; le statut de l'élément ne change jamais."
+msgstr "Indiquez jusqu'à quand chaque document prouve quelque chose (certificat, rapport, attestation). Le responsable est prévenu %d jours avant l'échéance, puis un ticket « Renouveler la preuve » est ouvert ; le statut de l'élément ne change jamais."
+
+msgid "Aucun document rattaché : ajoutez d'abord les preuves dans l'onglet Documents."
+msgstr "Aucun document rattaché : ajoutez d'abord les preuves dans l'onglet Documents."
+
+msgid "Document"
+msgstr "Document"
+
+msgid "Valide jusqu'au"
+msgstr "Valide jusqu'au"
+
+msgid "Responsable du renouvellement"
+msgstr "Responsable du renouvellement"
+
+#, php-format
+msgid "Ticket de renouvellement n°%d"
+msgstr "Ticket de renouvellement n°%d"
+
+msgid "Retirer la date de validité"
+msgstr "Retirer la date de validité"
+
+msgid "Élément"
+msgstr "Élément"
+
+msgid "Ticket de renouvellement"
+msgstr "Ticket de renouvellement"
+
+msgid "Prévient le responsable avant l'expiration d'une preuve, puis ouvre un ticket de renouvellement"
+msgstr "Prévient le responsable avant l'expiration d'une preuve, puis ouvre un ticket de renouvellement"
+
+#, php-format
+msgid "La preuve « %1$s » de %2$s « %3$s » n'est plus valide depuis le %4$s. Renouvelez le document (nouveau certificat, rapport ou attestation) puis mettez à jour sa date de validité."
+msgstr "La preuve « %1$s » de %2$s « %3$s » n'est plus valide depuis le %4$s. Renouvelez le document (nouveau certificat, rapport ou attestation) puis mettez à jour sa date de validité."
+
+#, php-format
+msgid "Renouveler la preuve « %s »"
+msgstr "Renouveler la preuve « %s »"
+
+msgid "Preuve à renouveler"
+msgstr "Preuve à renouveler"
+
+msgid "Preuves expirées ou à renouveler"
+msgstr "Preuves expirées ou à renouveler"
+
+msgid "Une date de validité se saisit depuis l'onglet « Validités des preuves » d'une mesure, d'un risque fournisseur, d'un audit ou d'une politique, pour chaque document rattaché."
+msgstr "Une date de validité se saisit depuis l'onglet « Validités des preuves » d'une mesure, d'un risque fournisseur, d'un audit ou d'une politique, pour chaque document rattaché."
