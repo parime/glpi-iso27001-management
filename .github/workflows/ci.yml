@@ -146,6 +146,11 @@ jobs:
       - name: PHP_CodeSniffer
         run: vendor/bin/phpcs
 
+      # Exigences de revue du Marketplace GLPI : pas de SQL brut hors installation, et HTML ecrit en
+      # PHP qui ne peut que baisser (les nouveaux ecrans s'ecrivent en Twig). Voir le script.
+      - name: "Marketplace GLPI : SQL brut et Twig"
+        run: php .github/scripts/check-marketplace-readiness.php
+
   locales:
     name: Locale completeness
     needs: detect
