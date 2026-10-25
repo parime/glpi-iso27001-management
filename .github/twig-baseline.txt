@@ -16,7 +16,7 @@ inc/audit.class.php 6
 inc/complianceevent.class.php 69
 inc/complianceobligation.class.php 10
 inc/control.class.php 104
-inc/evidence.class.php 45
+inc/evidence.class.php 7
 inc/ismsrequirement.class.php 10
 inc/managementreview.class.php 4
 inc/networkflow.class.php 61
