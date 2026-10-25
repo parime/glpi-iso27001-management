@@ -15,6 +15,7 @@
  * -------------------------------------------------------------------------
  */
 
+use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\SupplierRiskBase;
 use GlpiPlugin\Grcmanager\Services\Risk\ReviewReminderService;
 use GlpiPlugin\Grcmanager\Traits\RiskAssessmentTrait;
@@ -288,98 +289,22 @@ class PluginGrcmanagerSupplierRisk extends SupplierRiskBase
     public function showForm($ID, array $options = []): bool
     {
         $this->initForm($ID, $options);
-        $this->showFormHeader($options);
-
-        echo '<tr class="tab_bg_1"><td>' . __('Titre', 'grcmanager') . '</td>';
-        echo '<td colspan="3">';
-        echo Html::input('title', ['value' => $this->fields['title'] ?? '', 'size' => 80]);
-        echo '</td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . Supplier::getTypeName(1) . '</td><td>';
-        Supplier::dropdown([
-            'name'  => 'suppliers_id',
-            'value' => $this->fields['suppliers_id'] ?? 0,
-        ]);
-        echo '<small class="form-hint">' . __(
-            'Obligatoire : ce registre est dédié aux risques liés à un fournisseur.',
-            'grcmanager'
-        ) . '</small>';
-        echo '</td>';
-
-        echo '<td>' . __('Catégorie', 'grcmanager') . '</td><td>';
-        Dropdown::showFromArray('category', self::getCategories(), [
-            'value' => $this->fields['category'] ?? 'third_party',
-        ]);
-        echo '</td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . __('Propriétaire', 'grcmanager') . '</td><td>';
-        User::dropdown([
-            'name'  => 'users_id',
-            'value' => $this->fields['users_id'] ?? 0,
-            'right' => 'all',
-        ]);
-        echo '</td>';
-
-        echo '<td>' . __('Probabilité', 'grcmanager') . '</td><td>';
-        Dropdown::showFromArray('probability', self::getProbabilities(), [
-            'value' => $this->fields['probability'] ?? 'possible',
-        ]);
-        echo '</td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . __('Impact', 'grcmanager') . '</td><td>';
-        Dropdown::showFromArray('impact', self::getImpacts(), [
-            'value' => $this->fields['impact'] ?? 'medium',
-        ]);
-        echo '</td>';
-
-        if ($this->isNewID($ID) === false) {
-            echo '<td>' . __('Niveau de risque', 'grcmanager') . '</td><td>';
-            echo self::riskLevelBadge($this->fields['risk_level'] ?? null);
-            echo '</td></tr>';
-
-            echo '<tr class="tab_bg_1"><td>' . __('Score', 'grcmanager') . '</td><td>';
-            echo htmlescape((string) ($this->fields['computed_score'] ?? '0'));
-            echo '</td><td colspan="2"></td></tr>';
-        } else {
-            echo '<td colspan="2"></td></tr>';
-        }
-
-        echo '<tr class="tab_bg_1"><td>' . __('Traitement', 'grcmanager') . '</td><td>';
-        Dropdown::showFromArray('treatment', self::getTreatments(), [
-            'value' => $this->fields['treatment'] ?? '',
-        ]);
-        echo '</td>';
-
-        echo '<td>' . __('Statut', 'grcmanager') . '</td><td>';
-        Dropdown::showFromArray('status', self::getStatuses(), [
-            'value' => $this->fields['status'] ?? 'identified',
-        ]);
-        echo '</td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . __('Date de revue', 'grcmanager') . '</td><td>';
-        Html::showDateField('review_date', ['value' => $this->fields['review_date'] ?? '']);
-        echo '</td><td>' . __('Ticket de réévaluation', 'grcmanager') . '</td><td>';
-        // Issue #127 : ticket ouvert par la tâche de rappel à l'échéance de la revue.
         $reviewTicket = (int) ($this->fields['review_tickets_id'] ?? 0);
-        echo $reviewTicket > 0
-            ? '<a href="' . htmlescape(Ticket::getFormURLWithID($reviewTicket)) . '"><i class="ti ti-ticket me-1"></i>'
-                . htmlescape(sprintf(__('Ticket n° %d', 'grcmanager'), $reviewTicket)) . '</a>'
-            : '—';
-        echo '</td></tr>';
 
-        echo '<tr class="tab_bg_1"><td>' . __('Description', 'grcmanager') . '</td>';
-        echo '<td colspan="3">';
-        echo '<textarea name="description" class="form-control" rows="4">'
-            . htmlescape($this->fields['description'] ?? '') . '</textarea>';
-        echo '</td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . __('Justification', 'grcmanager') . '</td>';
-        echo '<td colspan="3">';
-        echo '<textarea name="justification" class="form-control" rows="4">'
-            . htmlescape($this->fields['justification'] ?? '') . '</textarea>';
-        echo '</td></tr>';
-
-        $this->showFormButtons($options);
+        TemplateRenderer::getInstance()->display('@grcmanager/supplier_risk_form.html.twig', [
+            'item'              => $this,
+            'params'            => $options,
+            'is_new'            => $this->isNewID($ID),
+            'supplier_label'    => Supplier::getTypeName(1),
+            'categories'        => self::getCategories(),
+            'probabilities'     => self::getProbabilities(),
+            'impacts'           => self::getImpacts(),
+            'treatments'        => self::getTreatments(),
+            'statuses'          => self::getStatuses(),
+            'risk_level_badge'  => self::riskLevelBadge($this->fields['risk_level'] ?? null),
+            'review_ticket_id'  => $reviewTicket,
+            'review_ticket_url' => $reviewTicket > 0 ? Ticket::getFormURLWithID($reviewTicket) : '',
+        ]);
 
         return true;
     }
