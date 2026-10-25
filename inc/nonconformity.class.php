@@ -17,7 +17,12 @@
 
 use GlpiPlugin\Grcmanager\Compatibility\Base\NonconformityBase;
 use GlpiPlugin\Grcmanager\Services\Capa\CapaRequirementService;
+use GlpiPlugin\Grcmanager\Services\Capa\CveCapaRules;
 use GlpiPlugin\Grcmanager\Services\Capa\OverdueCapaService;
+use GlpiPlugin\Grcmanager\Services\Cve\InventoryCveMatcher;
+use GlpiPlugin\Grcmanager\Services\Cve\NvdCveEnrichmentService;
+use GlpiPlugin\Grcmanager\Services\Cve\ParkVulnerabilitySync;
+use Glpi\Application\View\TemplateRenderer;
 
 /**
  * A finding (non-conformity or observation) raised during an internal audit
@@ -56,6 +61,15 @@ class PluginGrcmanagerNonconformity extends NonconformityBase
     public static function getTable($classname = null)
     {
         return 'glpi_plugin_grcmanager_nonconformities';
+    }
+
+    /**
+     * Le titre tient lieu de nom : sans cela, l'en-tête de la fiche et les listes déroulantes
+     * affichaient « N/A » (même correctif que PluginGrcmanagerPolicy::getNameField()).
+     */
+    public static function getNameField()
+    {
+        return 'title';
     }
 
     public static function getTypeName($nb = 0)
@@ -163,6 +177,18 @@ class PluginGrcmanagerNonconformity extends NonconformityBase
             );
 
             return false;
+        }
+
+        // Issue #163 : origine incident/CVE, jamais une valeur libre.
+        if (isset($input['plugin_grcmanager_securityincidents_id'])) {
+            $input['plugin_grcmanager_securityincidents_id'] = max(
+                0,
+                (int) $input['plugin_grcmanager_securityincidents_id']
+            );
+        }
+        if (isset($input['cve_id'])) {
+            $cve = strtoupper(trim((string) $input['cve_id']));
+            $input['cve_id'] = preg_match('/^CVE-\d{4}-\d{4,}$/', $cve) === 1 ? $cve : '';
         }
 
         $verificationDate = $input['closure_verification_date']
@@ -437,99 +463,175 @@ class PluginGrcmanagerNonconformity extends NonconformityBase
         global $DB;
 
         $this->initForm($ID, $options);
-        $this->showFormHeader($options);
+        // Issue #163 : « Proposer un plan d'action » depuis l'onglet CVE d'un incident pré-remplit
+        // une nouvelle fiche, relue avant tout enregistrement.
+        if ($this->isNewItem() && (int) ($options['from_incident'] ?? 0) > 0) {
+            $this->fields = self::presetFromCve(
+                (int) $options['from_incident'],
+                (string) ($options['cve'] ?? '')
+            ) + $this->fields;
+        }
 
-        echo '<tr class="tab_bg_1"><td>' . __('Titre', 'grcmanager') . '</td>';
-        echo '<td colspan="3">';
-        echo Html::input('title', ['value' => $this->fields['title'] ?? '', 'size' => 80]);
-        echo '</td></tr>';
-
-        // Issue #27 : premier champ apres le titre, avant meme l'audit/severite, puisqu'il
-        // conditionne si l'action corrective plus bas dans ce formulaire est obligatoire ou non
-        // (voir CapaRequirementService et le hint affiche sous le champ "Action corrective").
-        echo '<tr class="tab_bg_1"><td>' . __('Type de constat', 'grcmanager') . '</td>';
-        echo '<td colspan="3">';
-        Dropdown::showFromArray('finding_type', self::getFindingTypes(), [
-            'value' => $this->fields['finding_type'] ?? 'nonconformity',
-        ]);
-        echo '</td></tr>';
-
-        $auditTitles = [];
+        $auditTitles = [0 => Dropdown::EMPTY_VALUE];
         foreach ($DB->request(['SELECT' => ['id', 'title'], 'FROM' => PluginGrcmanagerAudit::getTable()]) as $row) {
             $auditTitles[(int) $row['id']] = $row['title'];
         }
-
-        echo '<tr class="tab_bg_1"><td>' . PluginGrcmanagerAudit::getTypeName(1) . '</td><td>';
-        Dropdown::showFromArray('plugin_grcmanager_audits_id', $auditTitles, [
-            'value' => $this->fields['plugin_grcmanager_audits_id'] ?? 0,
-        ]);
-        echo '</td>';
-
-        echo '<td>' . __('Sévérité', 'grcmanager') . '</td><td>';
-        Dropdown::showFromArray('severity', self::getSeverities(), [
-            'value' => $this->fields['severity'] ?? 'minor',
-        ]);
-        echo '</td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . __('Responsable', 'grcmanager') . '</td><td>';
-        User::dropdown([
-            'name'  => 'users_id',
-            'value' => $this->fields['users_id'] ?? 0,
-            'right' => 'all',
-        ]);
-        echo '</td>';
-
-        echo '<td>' . __('Statut', 'grcmanager') . '</td><td>';
-        Dropdown::showFromArray('status', self::getStatuses(), [
-            'value' => $this->fields['status'] ?? 'open',
-        ]);
-        echo '</td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . __('Échéance', 'grcmanager') . '</td><td>';
-        Html::showDateField('due_date', ['value' => $this->fields['due_date'] ?? '']);
-        echo '</td>';
-
-        echo '<td>' . __('Date de vérification de clôture', 'grcmanager') . '</td><td>';
-        Html::showDateField('closure_verification_date', [
-            'value' => $this->fields['closure_verification_date'] ?? '',
-        ]);
-        echo '</td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . __('Description', 'grcmanager') . '</td>';
-        echo '<td colspan="3">';
-        echo '<textarea name="description" class="form-control" rows="3">'
-            . htmlescape($this->fields['description'] ?? '') . '</textarea>';
-        echo '</td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . __('Cause racine', 'grcmanager') . '</td>';
-        echo '<td colspan="3">';
-        echo '<textarea name="root_cause" class="form-control" rows="3">'
-            . htmlescape($this->fields['root_cause'] ?? '') . '</textarea>';
-        echo '</td></tr>';
+        $incident = null;
+        $incidentId = (int) ($this->fields['plugin_grcmanager_securityincidents_id'] ?? 0);
+        $source = new PluginGrcmanagerSecurityIncident();
+        if ($incidentId > 0 && $source->getFromDB($incidentId) && $source->canViewItem()) {
+            $incident = [
+                'id'   => $incidentId,
+                'name' => (string) $source->fields['name'],
+                'url'  => PluginGrcmanagerSecurityIncident::getFormURLWithID($incidentId),
+            ];
+        }
 
         // Issue #27 : le hint reflete la meme regle que CapaRequirementService::isCapaMandatory()
         // cote serveur, jamais un second endroit ou cette regle pourrait diverger.
         $findingType = (string) ($this->fields['finding_type'] ?? 'nonconformity');
-        $correctiveActionHint = CapaRequirementService::isCapaMandatory($findingType)
-            ? __('Obligatoire pour clôturer ou vérifier cette non-conformité.', 'grcmanager')
-            : __('Optionnelle pour une observation : peut néanmoins être renseignée si besoin.', 'grcmanager');
-
-        echo '<tr class="tab_bg_1"><td>' . __('Action corrective', 'grcmanager') . '</td>';
-        echo '<td colspan="3">';
-        echo '<textarea name="corrective_action" class="form-control" rows="3">'
-            . htmlescape($this->fields['corrective_action'] ?? '') . '</textarea>';
-        echo '<small class="form-hint">' . $correctiveActionHint . '</small>';
-        echo '</td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . __('Action préventive', 'grcmanager') . '</td>';
-        echo '<td colspan="3">';
-        echo '<textarea name="preventive_action" class="form-control" rows="3">'
-            . htmlescape($this->fields['preventive_action'] ?? '') . '</textarea>';
-        echo '</td></tr>';
-
-        $this->showFormButtons($options);
+        TemplateRenderer::getInstance()->display('@grcmanager/nonconformity_form.html.twig', [
+            'item'            => $this,
+            'params'          => $options,
+            'incident'        => $incident,
+            'finding_types'   => self::getFindingTypes(),
+            'severities'      => self::getSeverities(),
+            'statuses'        => self::getStatuses(),
+            'audits'          => $auditTitles,
+            'audit_label'     => PluginGrcmanagerAudit::getTypeName(1),
+            'corrective_hint' => CapaRequirementService::isCapaMandatory($findingType)
+                ? __('Obligatoire pour clôturer ou vérifier cette non-conformité.', 'grcmanager')
+                : __('Optionnelle pour une observation : peut néanmoins être renseignée si besoin.', 'grcmanager'),
+        ]);
 
         return true;
+    }
+
+    /**
+     * Issue #163 : non-conformité déjà ouverte pour cette CVE de cet incident (0 sinon).
+     */
+    public static function findForIncidentCve(int $incidentId, string $cveId): int
+    {
+        $found = (new self())->find([
+            'plugin_grcmanager_securityincidents_id' => $incidentId,
+            'cve_id'                                 => $cveId,
+        ], ['id DESC'], 1);
+
+        return $found === [] ? 0 : (int) array_key_first($found);
+    }
+
+    /**
+     * Issue #163 : plan d'action proposé pour une CVE d'un incident, à partir de NVD (correctifs,
+     * avis de l'éditeur), du catalogue CISA KEV et des actifs de l'inventaire qui la portent.
+     * Vide si l'incident n'est pas visible ou si la CVE ne lui est pas rattachée.
+     *
+     * @return array<string, mixed>
+     */
+    public static function presetFromCve(int $incidentId, string $cveId): array
+    {
+        $incident = new PluginGrcmanagerSecurityIncident();
+        if (
+            !$incident->getFromDB($incidentId) || !$incident->canViewItem()
+            || countElementsInTable(PluginGrcmanagerSecurityIncidentCve::getTable(), [
+                'plugin_grcmanager_securityincidents_id' => $incidentId,
+                'cve_id'                                 => $cveId,
+            ]) === 0
+        ) {
+            return [];
+        }
+        $enrichment = NvdCveEnrichmentService::getForCve($cveId);
+        $signal = ParkVulnerabilitySync::signalsFor([$cveId])[$cveId] ?? null;
+        $cvss = $enrichment['cvss_score'] ?? null;
+        $isKev = (bool) ($signal['is_kev'] ?? false);
+        $kevDue = (string) ($signal['kev_due'] ?? '');
+        $severity = CveCapaRules::severity($cvss, $isKev);
+        $links = CveCapaRules::groupLinks($enrichment['patch_links'] ?? []);
+        $assets = $enrichment !== null && $enrichment['affected_cpes'] !== []
+            ? InventoryCveMatcher::findMatchingAssets($enrichment['affected_cpes'])
+            : [];
+
+        $corrective = [];
+        foreach ($links['patch'] as $url) {
+            $corrective[] = sprintf(__('Appliquer le correctif de l\'éditeur : %s', 'grcmanager'), $url);
+        }
+        if ($links['patch'] === []) {
+            $corrective[] = __(
+                'Rechercher et appliquer le correctif de l\'éditeur (aucun lien de correctif publié dans NVD '
+                    . 'pour l\'instant).',
+                'grcmanager'
+            );
+        }
+        foreach ($links['advisory'] as $url) {
+            $corrective[] = sprintf(__('Suivre l\'avis de sécurité de l\'éditeur : %s', 'grcmanager'), $url);
+        }
+        if ($assets !== []) {
+            $names = array_values(array_unique(array_column($assets, 'item_name')));
+            $shown = array_slice($names, 0, 20);
+            $corrective[] = sprintf(
+                __('Mettre à jour les actifs concernés (%1$d) : %2$s', 'grcmanager'),
+                count($names),
+                implode(', ', $shown) . (count($names) > 20 ? ' (…)' : '')
+            );
+        } else {
+            $corrective[] = __(
+                'Identifier les actifs concernés (aucun actif correspondant trouvé dans l\'inventaire).',
+                'grcmanager'
+            );
+        }
+        if ($isKev && $kevDue !== '') {
+            $corrective[] = sprintf(
+                __(
+                    'Vulnérabilité activement exploitée : échéance de correction fixée par la CISA au %s.',
+                    'grcmanager'
+                ),
+                Html::convDate($kevDue)
+            );
+        }
+        $corrective[] = __(
+            'Contrôler l\'efficacité : vérifier que la vulnérabilité n\'apparaît plus sur les actifs (onglet CVE de '
+                . 'l\'incident ou « Vulnérabilités du parc »).',
+            'grcmanager'
+        );
+
+        $description = sprintf(
+            __('Plan d\'action proposé pour %1$s, relevée sur l\'incident de sécurité « %2$s ».', 'grcmanager'),
+            $cveId,
+            $incident->fields['name']
+        );
+        if ($cvss !== null) {
+            $description .= ' CVSS ' . $cvss . '.';
+        }
+        if (($enrichment['description'] ?? '') !== '') {
+            $description .= "\n\n" . mb_substr((string) $enrichment['description'], 0, 600);
+        }
+
+        return [
+            'title'                                  => mb_substr(sprintf(
+                __('Corriger %1$s (incident « %2$s »)', 'grcmanager'),
+                $cveId,
+                $incident->fields['name']
+            ), 0, 255),
+            'finding_type'                           => 'nonconformity',
+            'severity'                               => $severity,
+            'status'                                 => 'open',
+            'due_date'                               => CveCapaRules::dueDate($severity, $kevDue, date('Y-m-d')),
+            'description'                            => $description,
+            'corrective_action'                      => implode("\n", array_map(
+                static fn (string $line, int $i): string => ($i + 1) . '. ' . $line,
+                $corrective,
+                array_keys($corrective)
+            )),
+            'preventive_action'                      => implode("\n", [
+                '- ' . __(
+                    'Surveiller le logiciel concerné dans « Logiciels à surveiller » pour être alerté des '
+                        . 'prochaines vulnérabilités.',
+                    'grcmanager'
+                ),
+                '- ' . __('Intégrer ce logiciel au cycle régulier d\'application des correctifs.', 'grcmanager'),
+            ]),
+            'plugin_grcmanager_securityincidents_id' => $incidentId,
+            'cve_id'                                 => $cveId,
+        ];
     }
 
     /**

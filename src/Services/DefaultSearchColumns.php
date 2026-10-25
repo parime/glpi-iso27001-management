@@ -42,6 +42,10 @@ final class DefaultSearchColumns
         'PluginGrcmanagerEvidence'         => [2, 3, 4, 5, 6, 80],
         // Issue #144 : nom, type, source, destination, protocole, ports, propriétaire, fin, contrôles.
         'PluginGrcmanagerNetworkFlow'      => [1, 2, 3, 4, 5, 6, 8, 9, 11],
+        // Issue #170 : nom, statut, date de fin, responsable, mesure, politique.
+        'PluginGrcmanagerWaiver'           => [1, 3, 4, 5, 6, 7],
+        // Issue #164 : nom, type d'actif, catégorie de document, mesure, exigence, active.
+        'PluginGrcmanagerCoverageRule'     => [1, 3, 4, 5, 6, 7],
         // Issue #142 : nom, type, debut, fin, statut, responsable, prestataire.
         'PluginGrcmanagerComplianceEvent'  => [1, 2, 3, 4, 5, 6, 7],
         // Issue #30 (registre des obligations légales/réglementaires/contractuelles), same

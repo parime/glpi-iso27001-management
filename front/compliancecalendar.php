@@ -36,6 +36,8 @@ Html::header(
     'grcmanager',
     PluginGrcmanagerComplianceEvent::class
 );
+// Encadré « À quoi sert cette page ? ».
+PluginGrcmanagerPageHelp::show('compliancecalendar');
 
 PluginGrcmanagerComplianceEvent::showCalendar($mine);
 

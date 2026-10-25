@@ -36,6 +36,8 @@ Html::header(
     'grcmanager',
     PluginGrcmanagerControl::class
 );
+// Encadré « À quoi sert cette page ? ».
+PluginGrcmanagerPageHelp::show('referentiels');
 
 $titles = PluginGrcmanagerControl::getControlTitles();
 $themes = PluginGrcmanagerControl::getThemes();

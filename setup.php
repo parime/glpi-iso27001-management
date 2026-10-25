@@ -25,7 +25,7 @@ use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentModuleConfig;
 // must bundle vendor/, see .github/workflows/release.yml.
 require_once __DIR__ . '/vendor/autoload.php';
 
-define('PLUGIN_GRCMANAGER_VERSION', '2.6.0');
+define('PLUGIN_GRCMANAGER_VERSION', '2.7.0');
 define('PLUGIN_GRCMANAGER_MIN_GLPI', '11.0.0');
 // GLPI 11 and 12 from a single code base (see src/Compatibility/).
 define('PLUGIN_GRCMANAGER_MAX_GLPI', '12.99.99');
@@ -125,12 +125,22 @@ function plugin_init_grcmanager(): void
             PluginGrcmanagerPolicy::class,
             // Issue #145 : preuves datées, expirées ou à renouveler.
             PluginGrcmanagerEvidence::class,
+            // Issue #170 : dérogations de sécurité.
+            PluginGrcmanagerWaiver::class,
+            // Issue #164 : couverture des preuves (actifs ayant le document requis).
+            PluginGrcmanagerCoverageRule::class,
+            // Issue #177 : points de défaillance uniques (analyse d'impact d'une panne).
+            PluginGrcmanagerImpactAnalysis::class,
+            // Issue #171 : effet domino entre risques et incidents.
+            PluginGrcmanagerCausalLink::class,
             PluginGrcmanagerObjective::class,
             // Corrélation CPE des CVE avec le parc GLPI (cf. ROADMAP.md) : un seul menu entry pour
             // le catalogue de correspondance (le produit canonique) — ses deux tables satellites
             // (CpeReference, ProductAlias) n'ont pas d'entrée propre, gérées en ligne sur le
             // formulaire du produit, même convention que PluginGrcmanagerObjectiveMeasurement.
             PluginGrcmanagerCanonicalProduct::class,
+            // Issue #160 : vulnérabilités du parc (et logiciels à surveiller).
+            PluginGrcmanagerParkVulnerability::class,
             // Bibliothèque de contrôles étendue (ROADMAP.md "Version 2.2") : dernier ajouté, ancre
             // sans CommonDBTM vers l'écran de consultation NIST CSF/CIS Controls, même convention
             // que PluginGrcmanagerMenu ci-dessus.
@@ -167,6 +177,8 @@ function plugin_init_grcmanager(): void
     // polymorphe CommonDBTM::cleanDBonPurge()) - ignorerait cette politique.
     global $CFG_GLPI;
     $CFG_GLPI['document_types'][] = PluginGrcmanagerPolicy::class;
+    // Issue #170 : validation signée d'une dérogation, analyse de risque jointe.
+    $CFG_GLPI['document_types'][] = PluginGrcmanagerWaiver::class;
     // Issue #113 : preuves des exigences du SMSI, même mécanisme.
     $CFG_GLPI['document_types'][] = PluginGrcmanagerIsmsRequirement::class;
     // Issue #127 : preuves de l'évaluation d'un fournisseur (questionnaire signé, certificats).
@@ -219,6 +231,33 @@ function plugin_init_grcmanager(): void
 
     // Issue #145 : onglet « Validités des preuves » sur les éléments dont les documents prouvent
     // quelque chose pour une durée limitée (mesures, risques fournisseurs, audits, politiques).
+    // Issue #170 : onglet « Dérogations » sur les actifs, les mesures et les politiques.
+    Plugin::registerClass(PluginGrcmanagerWaiver::class, [
+        'addtabon' => array_merge(
+            PluginGrcmanagerRisk::getLinkableItemtypes(),
+            [PluginGrcmanagerControl::class, PluginGrcmanagerPolicy::class]
+        ),
+    ]);
+
+    // Issue #160, phase 2 : onglet « Vulnérabilités » sur les éléments qui portent des logiciels.
+    Plugin::registerClass(PluginGrcmanagerParkVulnerability::class, [
+        'addtabon' => $CFG_GLPI['software_types'] ?? ['Computer'],
+    ]);
+
+    // Issue #177 : onglet « Impact d'une panne » sur les actifs.
+    // Issue #171 : onglet « Effet domino » sur les risques, risques fournisseurs et incidents.
+    Plugin::registerClass(PluginGrcmanagerCausalLink::class, [
+        'addtabon' => PluginGrcmanagerCausalLink::getLinkableItemtypes(),
+    ]);
+    Plugin::registerClass(PluginGrcmanagerImpactAnalysis::class, [
+        'addtabon' => PluginGrcmanagerRisk::getLinkableItemtypes(),
+    ]);
+
+    // Issue #164 : onglet « Couverture des preuves » sur les mesures et les exigences du SMSI.
+    Plugin::registerClass(PluginGrcmanagerCoverageRule::class, [
+        'addtabon' => [PluginGrcmanagerControl::class, PluginGrcmanagerIsmsRequirement::class],
+    ]);
+
     Plugin::registerClass(PluginGrcmanagerEvidence::class, [
         'addtabon' => \GlpiPlugin\Grcmanager\Services\Evidence\EvidenceValidity::ITEMTYPES,
     ]);

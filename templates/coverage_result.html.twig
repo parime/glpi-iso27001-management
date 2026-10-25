@@ -1,0 +1,25 @@
+{# Issue #164 : taux de couverture d'une règle, et actifs sans le document requis #}
+{% set colors = {'full': 'bg-green', 'partial': 'bg-orange', 'low': 'bg-red', 'none': 'bg-secondary'} %}
+<div class="container-fluid">
+   {% if coverage.total == 0 %}
+      <div class="alert alert-info"><i class="ti ti-info-circle me-1"></i>{{ __('Aucun actif de ce type dans vos entités : rien à couvrir.', 'grcmanager') }}</div>
+   {% else %}
+      <div class="d-flex align-items-center gap-3 mb-3">
+         <div class="h1 mb-0">{{ coverage.rate }} %</div>
+         <div class="flex-grow-1">
+            <div class="progress progress-lg"><div class="progress-bar {{ colors[coverage.level] }}" style="width: {{ coverage.rate }}%"></div></div>
+            <div class="text-muted small mt-1">{{ __('%1$d actif(s) couvert(s) sur %2$d', 'grcmanager')|format(coverage.covered, coverage.total) }}</div>
+         </div>
+      </div>
+      {% if coverage.uncovered is empty %}
+         <div class="text-muted"><i class="ti ti-circle-check text-green me-1"></i>{{ __('Tous les actifs ont le document requis.', 'grcmanager') }}</div>
+      {% else %}
+         <h4>{{ __('Actifs sans le document requis', 'grcmanager') }}</h4>
+         <p class="text-muted small">{{ __('Chaque lien ouvre l\'onglet Documents de l\'actif, pour y joindre le document.', 'grcmanager') }}</p>
+         <ul class="list-inline">
+            {% for asset in coverage.uncovered %}<li class="list-inline-item mb-1"><a class="badge bg-red-lt" href="{{ asset.url }}">{{ asset.name }}</a></li>{% endfor %}
+         </ul>
+         {% if coverage.truncated %}<div class="text-muted small">{{ __('Seuls les premiers actifs sont listés.', 'grcmanager') }}</div>{% endif %}
+      {% endif %}
+   {% endif %}
+</div>

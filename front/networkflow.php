@@ -29,6 +29,8 @@ Html::header(
     'grcmanager',
     PluginGrcmanagerNetworkFlow::class
 );
+// Encadré « À quoi sert cette page ? ».
+PluginGrcmanagerPageHelp::show('networkflow');
 
 PluginGrcmanagerNetworkFlow::showSummary();
 

@@ -29,6 +29,8 @@ Html::header(
     'grcmanager',
     PluginGrcmanagerControl::class
 );
+// Encadré « À quoi sert cette page ? ».
+PluginGrcmanagerPageHelp::show('control');
 
 // Self-explanatory intro for a non-technical reader landing on a bare "Contrôles Annexe A" list:
 // names the ISO clause and the SoA acronym once, up front, rather than nowhere at all.

@@ -50,7 +50,10 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/training.php front/referentiels.php front/riskheatmap.php front/soaapproval.php front/config.php
   front/audit.report.php front/control.report.php front/risk.report.php front/control.csv.php?action=export
   front/evidence.php front/periodicreview.php front/networkflow.php front/accounthygiene.php
-  front/compliancecalendar.php front/compliancecalendar.php?ics=1 front/complianceevent.php"
+  front/compliancecalendar.php front/compliancecalendar.php?ics=1 front/complianceevent.php
+  front/parkvulnerability.php front/softwarewatch.php front/riskcatalog.php front/waiver.php
+  front/coveragerule.php front/impactanalysis.php front/causalgraph.php
+  front/impactanalysis.php?export=continuity"
 # Creations : refusees sans droit comme en lecture seule (etat en base compare par la CI).
 create_attempts() { # code attendu, code attendu pour la classification (404 sans droit sur l'actif)
   local incident; incident=$(id incident_A)
@@ -59,7 +62,8 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
     front/nonconformity.form.php front/objective.form.php front/objectivemeasurement.form.php \
     front/policy.form.php front/risk.form.php front/risktreatmentaction.form.php front/supplierrisk.form.php \
     front/training.form.php front/securityincident.form.php front/securityincidentticket.form.php \
-    front/securityincidentcve.form.php front/cpereference.form.php front/productalias.form.php; do
+    front/securityincidentcve.form.php front/cpereference.form.php front/productalias.form.php \
+    front/waiver.form.php front/coveragerule.form.php; do
     expect "$form : creation" "$1" "$(code -d "add=1&name=securite&title=securite&_glpi_csrf_token=$(csrf)" "$BASE/plugins/grcmanager/$form")"
   done
   expect "front/ismsrequirement.form.php : modification" "$1" \
@@ -81,6 +85,21 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
   # Issue #142 : evenement du calendrier de conformite.
   expect "front/complianceevent.form.php : creation d'un evenement" "$1" \
     "$(code -d "add=1&name=securite&date_begin=2030-01-01+09:00:00&_glpi_csrf_token=$(csrf)" "$P/complianceevent.form.php")"
+  # Issue #160 : ticket de correction a la demande (compare en base).
+  expect "front/parkvulnerability.php : creer un ticket" "$1" \
+    "$(code -d "create_ticket=1&canonical_id=1&_glpi_csrf_token=$(csrf)" "$P/parkvulnerability.php")"
+  # Issue #171 : relier deux elements de l'effet domino (compare en base).
+  expect "front/causallink.form.php : relier" "$1" \
+    "$(code -d "add=1&item_key=PluginGrcmanagerRisk:1&other=PluginGrcmanagerRisk:2&direction=effect&_glpi_csrf_token=$(csrf)" "$P/causallink.form.php")"
+  # Issue #177 : creer le risque d'un point de defaillance unique (compare en base).
+  expect "front/impactanalysis.php : creer le risque" "$1" \
+    "$(code -d "create_risk=1&itemtype=Computer&items_id=$(id computer_A)&_glpi_csrf_token=$(csrf)" "$P/impactanalysis.php")"
+  # Issue #178 : importer un risque type cree un risque et ses liens (compare en base).
+  expect "front/riskcatalog.php : importer un risque type" "$1" \
+    "$(code -d "import=1&keys[]=admin_exposed&_glpi_csrf_token=$(csrf)" "$P/riskcatalog.php")"
+  # Issue #160 : surveiller un logiciel cree un produit, un CPE et un alias (compare en base).
+  expect "front/softwarewatch.php : surveiller un logiciel" "$1"     "$(code -d "confirm=1&software=securite&cpe=cpe:2.3:a:securite:securite&_glpi_csrf_token=$(csrf)" "$P/softwarewatch.php")"
+  expect "front/softwarewatch.php : ignorer un logiciel" "$1"     "$(code -d "ignore=1&software=securite&_glpi_csrf_token=$(csrf)" "$P/softwarewatch.php")"
   # Issue #184 : ticket de revue des comptes (exige aussi le droit natif de creer un ticket).
   expect "front/accounthygiene.php : ticket de revue" "$1" \
     "$(code -d "create_ticket=1&users_id[]=2&_glpi_csrf_token=$(csrf)" "$P/accounthygiene.php")"
@@ -132,7 +151,8 @@ contracts_tab=$(tab PluginGrcmanagerSupplierRisk 'PluginGrcmanagerSupplierAssess
 contains "onglet contrats du fournisseur : contrat A" "Contrat securite A" oui     "$contracts_tab"
 contains "onglet contrats du fournisseur : contrat B" "Contrat securite B" $SEE_B  "$contracts_tab"
 
-risk_page=$(curl -s -c "$JAR" -b "$JAR" "$P/risk.form.php?id=$(id risk)")
+# Issue #171 : la fiche du risque s'affiche avec onglets, le formulaire est le premier onglet.
+risk_page=$(tab PluginGrcmanagerRisk 'PluginGrcmanagerRisk$main' "$(id risk)")
 contains "actif lie d'une autre entite affiche sur le risque" "PC securite B" $SEE_B "$risk_page"
 
 expect "classification d'un actif de A" 302 \

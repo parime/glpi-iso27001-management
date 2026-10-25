@@ -28,6 +28,8 @@ Html::header(
     'grcmanager',
     PluginGrcmanagerNonconformity::class
 );
+// Encadré « À quoi sert cette page ? ».
+PluginGrcmanagerPageHelp::show('nonconformity');
 
 // Owner-scoped default view (same "Mes ..." shortcut already offered by front/risk.php): a
 // one-click link to this same list pre-filtered on the "Responsable" search option (id 4, see

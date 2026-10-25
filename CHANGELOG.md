@@ -7,6 +7,150 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.7.0] - 2026-10-25
+
+### Added
+
+- **Encadré « À quoi sert cette page ? »** en tête des 30 écrans du menu GRC & Conformité : à quoi
+  sert l'écran, ce qui est attendu de l'utilisateur, et la référence ISO 27001 (numéro de chapitre
+  ou de mesure). Repliable ; le choix est retenu par le navigateur, page par page.
+- **Objectifs de reprise et plan de continuité** (issue #177, phase 2) :
+  - onglet **Classification C/I/D** d'un actif : **RTO** (durée maximale d'interruption) et **RPO**
+    (perte de données maximale), de 1 heure à 1 semaine. L'onglet passe en Twig ;
+  - onglet **« Impact d'une panne »** :
+    - **graphe** de l'actif et de ce qui en dépend, coloré par disponibilité et libellé avec le RTO ;
+    - colonne RTO dans la liste des éléments touchés ;
+    - alerte **« Objectifs de reprise incohérents »** quand un élément doit reprendre plus vite que
+      ce dont il dépend (« l'application doit reprendre en 4 heures, mais dépend du stockage dont
+      l'objectif est 24 heures ») ;
+  - page « Points de défaillance uniques » : bouton **« Exporter pour le plan de continuité
+    (CSV) »**. L'export liste les actifs classés en disponibilité ou dotés d'objectifs, avec leur
+    disponibilité, RTO, RPO, leurs dépendances, le nombre d'éléments touchés, les points de
+    défaillance unique et les risques liés.
+- **Effet domino** (issue #171) : liens « cause → conséquence » entre risques, risques
+  fournisseurs et incidents de sécurité (« Hameçonnage réussi » → « Compromission de compte » →
+  « Fuite de données ») :
+  - onglet **« Effet domino »** sur chacun : graphe des causes et conséquences sur 4 niveaux,
+    liste des liens directs (retrait possible), et ajout « peut entraîner… » ou « peut être
+    provoqué par… ». Un lien qui fermerait une boucle est refusé, tout comme un doublon ;
+  - page **GRC & Conformité > Effet domino** : le graphe d'ensemble. Cliquer sur un élément
+    l'ouvre ; un élément que la personne ne peut pas voir est compté sans être nommé ;
+  - graphe Cytoscape, déjà fourni par GLPI pour son analyse d'impact (aucune bibliothèque
+    ajoutée). C'est une représentation : aucune probabilité combinée n'est calculée.
+- **Veille de sécurité des fournisseurs et avis du CERT-FR** (issue #167, phase 3 de #160) :
+  - la tâche des vulnérabilités du parc lit aussi les **avis et alertes du CERT-FR** (flux RSS
+    publics, toutes les 6 heures, conservés 180 jours), sous le même réglage « Activer
+    l'enrichissement NVD » ;
+  - onglet **« Veille sécurité »** sur chaque risque fournisseur : les avis des 90 derniers jours
+    qui citent le fournisseur (raison sociale sans mentions juridiques ; « Dell Technologies
+    France » est cherché comme « dell »), et les vulnérabilités de ses logiciels dans le parc
+    (CVE, prioritaires, exploitées, machines). Le nombre d'avis des 30 derniers jours s'affiche
+    sur l'onglet ;
+  - **notification** au propriétaire du risque fournisseur pour chaque nouvel avis qui cite son
+    fournisseur, une seule fois par avis (« Nouvel avis de sécurité concernant le fournisseur »,
+    installée par défaut). Rien n'est modifié dans le registre ;
+  - écran « Vulnérabilités du parc » : badge **CERT-FR** sur un logiciel cité par un avis des 30
+    derniers jours (son nom, ou « les produits » de son éditeur), avec le lien vers l'avis.
+- **Plan d'action (CAPA) proposé à partir d'une CVE** (issue #163) : sur l'onglet CVE d'un
+  incident de sécurité, « Proposer un plan d'action » ouvre une non-conformité pré-remplie :
+  - action corrective numérotée : correctif de l'éditeur et avis de sécurité (liens NVD), mise à
+    jour des actifs de l'inventaire qui portent la vulnérabilité, échéance CISA si elle est
+    activement exploitée, contrôle d'efficacité ;
+  - action préventive : surveillance du logiciel et cycle de correctifs ;
+  - sévérité selon le CVSS et le catalogue KEV. L'échéance est de 7, 30 ou 90 jours, ou celle de
+    la CISA si elle est plus proche ;
+  - rien n'est créé avant que l'utilisateur relise et clique sur « Ajouter ». La fiche garde
+    l'origine (incident et CVE), et l'onglet CVE affiche ensuite « Plan d'action n° … ».
+- **Exploitation des CVE des incidents de sécurité** (issue #172) :
+  - l'onglet CVE d'un incident affiche le badge **KEV**, avec l'échéance CISA, et le score **EPSS**
+    (probabilité d'exploitation dans les 30 jours). Le score est en rouge au-delà de 50 % ;
+  - la tâche quotidienne des vulnérabilités met à jour l'EPSS des CVE rattachées aux incidents, en
+    plus de celles du parc ;
+  - un **suivi privé** est ajouté à l'incident ouvert dans deux cas : quand une de ses CVE figure au
+    catalogue KEV, et quand son EPSS franchit 50 % puis à chaque hausse de 20 points. La priorité
+    de l'incident n'est jamais modifiée : le suivi invite l'équipe à la revoir.
+- **Tickets des vulnérabilités du parc** (issue #160, phase 2) :
+  - **un ticket par logiciel à mettre à jour** (« Mettre à jour Mozilla Firefox : 12 vulnérabilité(s),
+    3 machine(s) »). Il détaille les vulnérabilités les plus graves (CVE, CVSS, EPSS, KEV et
+    échéance CISA) et compte les autres. Les machines touchées y sont liées (50 au plus). L'urgence
+    est très haute pour une vulnérabilité exploitée ou un CVSS ≥ 9 ;
+  - création automatique par la tâche planifiée, **désactivée par défaut**. Elle se règle dans la
+    configuration du plugin : vulnérabilité exploitée (KEV), CVSS minimal, EPSS minimal. Chaque
+    passage crée 10 tickets au plus, les plus graves d'abord ;
+  - un suivi est ajouté au ticket ouvert quand plus de machines sont touchées, quand une
+    vulnérabilité devient activement exploitée, ou quand plus aucune machine n'est vulnérable. Le
+    ticket n'est jamais fermé, et son statut ou sa priorité ne sont jamais modifiés. Une fois le
+    ticket résolu ou clos, une nouvelle vulnérabilité ouvre un nouveau ticket ;
+  - bouton **ticket** sur chaque ligne de l'écran « Vulnérabilités du parc », pour une création à la
+    demande sans doublon ;
+  - onglet **« Vulnérabilités »** sur les ordinateurs et les autres éléments qui portent des
+    logiciels. Il liste les CVE connues des logiciels surveillés installés, avec le lien vers le
+    ticket.
+- **Vulnérabilités du parc** (issue #160, phase 1), menu GRC & Conformité > Vulnérabilités du parc :
+  - écran **« Logiciels à surveiller »** : les logiciels installés, les plus exposés (navigateurs,
+    accès distant, VPN, bureautique, lecteurs PDF) et les plus répandus d'abord. « Chercher le CPE »
+    propose les correspondances du dictionnaire NVD ; « Confirmer » alimente le catalogue de
+    corrélation existant (produit, CPE, alias) sans ressaisie. Un logiciel sans enjeu s'ignore ;
+  - pour chaque version installée d'un logiciel surveillé, NVD renvoie exactement les CVE qui la
+    touchent (recherche par version). Une tâche planifiée horaire en vérifie quelques-unes à chaque
+    passage, dans la limite publique de NVD, puis met à jour le catalogue CISA KEV (vulnérabilités
+    activement exploitées) et les scores FIRST EPSS (probabilité d'exploitation) ;
+  - écran **« Vulnérabilités du parc »** : CVE, logiciel, versions touchées, nombre de machines,
+    CVSS, EPSS, badges KEV et rançongiciel. Les vulnérabilités exploitées et prioritaires (KEV,
+    CVSS ≥ 9 ou EPSS ≥ 50 %) passent en premier. Une version au numéro illisible dans l'inventaire
+    est comptée « à vérifier à la main », jamais déclarée saine ;
+  - tout appel sortant dépend du réglage « Activer l'enrichissement NVD » (désactivé par défaut).
+    Rien n'est modifié dans le parc ; les tickets automatiques sont la phase 2.
+- **Catalogue de risques types d'infrastructure** (issue #178), bouton « Catalogue de risques types »
+  au-dessus du registre des risques : douze risques qui se repèrent sur un schéma réseau (service
+  d'administration exposé sur Internet, cartes iLO/iDRAC/IPMI joignables, réseaux qui se chevauchent
+  avec un partenaire relié par VPN, réseau invités mal isolé, réseau à plat, points de défaillance
+  unique — alimentation, hyperviseur, lien opérateur, annuaire —, sauvegardes sur le même site,
+  schéma non tenu à jour, journaux non consultés). Chacun a sa description, ses menaces, ses mesures
+  de l'Annexe A et des questions pour savoir s'il s'applique. Les risques cochés sont créés dans le
+  registre au statut « Identifié », liés à leurs mesures, à évaluer ; un risque déjà importé n'est
+  pas recréé.
+- **Registre des dérogations de sécurité** (issue #170), menu GRC & Conformité > Dérogations : une
+  exception temporaire à une politique ou à une mesure de l'Annexe A (un serveur qui ne peut pas
+  encore être mis à jour, par exemple), avec justification, mesures compensatoires, responsable qui
+  accepte le risque, dates de début et de fin (obligatoire) et actifs concernés. Statut demandée,
+  validée (qui et quand sont enregistrés), refusée ou close ; état « en cours », « bientôt échue »
+  ou « échue » d'après la date de fin. Le responsable est prévenu 15 jours avant la fin ; à
+  l'échéance, un ticket de réévaluation est ouvert, lié aux actifs. Rien n'est prolongé ni clos
+  automatiquement ; une nouvelle date de fin ouvre un nouveau cycle. Onglet « Dérogations » sur les
+  actifs, les mesures et les politiques, avec « Nouvelle dérogation pour cet élément » ; documents
+  joints (validation signée, analyse de risque).
+- **Couverture des preuves** (issue #164), menu GRC & Conformité > Couverture des preuves : une
+  règle relie un type d'actif (avec un sous-type facultatif, par exemple les seuls pare-feu parmi
+  les matériels réseau) à une catégorie de document GLPI requise et à la mesure de l'Annexe A ou à
+  l'exigence du SMSI qu'elle prouve. Onglet « Taux de couverture » : pourcentage d'actifs qui ont un
+  document de cette catégorie, et liste des actifs non couverts, chacun avec un lien vers son
+  onglet Documents. Les mesures et les exigences affichent leurs règles et leur jauge dans un onglet
+  « Couverture des preuves ». Les actifs comptés sont ceux des entités actives.
+- **Analyse d'impact d'une panne** (issue #177, phase 1), à partir de l'analyse d'impact native de
+  GLPI : onglet « Impact d'une panne » sur chaque actif, qui liste tout ce qui en dépend
+  (directement ou non), la disponibilité classée de chaque élément et les risques du registre
+  concernés. Un élément à disponibilité haute qui ne dépend que d'une seule source signale un
+  **point de défaillance unique** ; le bouton « Créer le risque correspondant » l'ajoute au
+  registre, lié à l'actif, sans jamais le faire automatiquement. Page GRC & Conformité > Points de
+  défaillance uniques pour toute l'instance.
+
+### Changed
+
+- La fiche d'un risque s'affiche avec une barre d'onglets, comme celle d'un risque fournisseur
+  (nécessaire à l'onglet « Effet domino »).
+- Le formulaire des non-conformités passe en Twig (champs inchangés). Après « Ajouter », la fiche
+  créée s'ouvre directement.
+
+- Les boutons au-dessus du registre des risques sont rendus en Twig (exigence du Marketplace GLPI).
+
+### Fixed
+
+- L'en-tête des fiches de risque, de risque fournisseur, de non-conformité et d'audit affichait
+  « N/A » au lieu de leur titre.
+- Dérogations (#170) : les listes « Mesure de l'Annexe A » et « Politique » ne se chargeaient pas
+  (ces registres n'ont pas de champ « nom ») ; elles proposent désormais les mesures et politiques.
+
 ## [2.6.0] - 2026-10-24
 
 ### Added

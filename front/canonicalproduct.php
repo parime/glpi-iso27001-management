@@ -28,6 +28,8 @@ Html::header(
     'grcmanager',
     PluginGrcmanagerCanonicalProduct::class
 );
+// Encadré « À quoi sert cette page ? ».
+PluginGrcmanagerPageHelp::show('canonicalproduct');
 
 // Same URL-driven search fix as front/risk.php/front/objective.php, see front/risk.php's own
 // docblock for the full rationale.

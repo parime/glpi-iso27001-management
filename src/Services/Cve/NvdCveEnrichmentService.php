@@ -122,7 +122,23 @@ final class NvdCveEnrichmentService
             return;
         }
 
+        self::storeEntry($entry, $cveId);
+    }
+
+    /**
+     * Enregistre une entree CVE deja recue de NVD (issue #160 : la recherche par version installee
+     * renvoie les CVE completes, sans second appel par CVE).
+     *
+     * @param array<string, mixed> $entry Element `vulnerabilities[].cve` de la reponse NVD.
+     * @return string|null L'identifiant de la CVE enregistree, ou null si l'entree n'en a pas.
+     */
+    public static function storeEntry(array $entry, ?string $cveId = null): ?string
+    {
         $parsed = NvdCveParser::parse($entry);
+        $cveId ??= $parsed['cve_id'];
+        if ($cveId === '') {
+            return null;
+        }
 
         self::upsert($cveId, [
             'cvss_score'    => $parsed['cvss_score'],
@@ -134,6 +150,8 @@ final class NvdCveEnrichmentService
             'published_at'  => $parsed['published_at'],
             'fetch_status'  => 'ok',
         ]);
+
+        return $cveId;
     }
 
     /**

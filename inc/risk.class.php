@@ -68,6 +68,15 @@ class PluginGrcmanagerRisk extends RiskBase
         return 'glpi_plugin_grcmanager_risks';
     }
 
+    /**
+     * Le titre tient lieu de nom : sans cela, l'en-tête de la fiche et les listes déroulantes
+     * affichaient « N/A » (même correctif que PluginGrcmanagerPolicy::getNameField()).
+     */
+    public static function getNameField()
+    {
+        return 'title';
+    }
+
     public static function getTypeName($nb = 0)
     {
         return _n('Risque', 'Risques', $nb, 'grcmanager');
@@ -284,6 +293,18 @@ class PluginGrcmanagerRisk extends RiskBase
         }
 
         return parent::getSpecificValueToSelect($field, $name, $values, $options);
+    }
+
+    /**
+     * Issue #171 : le risque s'affiche avec ses onglets (formulaire, puis ceux enregistrés par
+     * d'autres classes, comme « Effet domino »).
+     */
+    public function defineTabs($options = [])
+    {
+        $tabs = [];
+        $this->addDefaultFormTab($tabs);
+
+        return $tabs;
     }
 
     public function showForm($ID, array $options = []): bool

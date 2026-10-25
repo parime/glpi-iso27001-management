@@ -183,6 +183,24 @@ final class Installer
     private const NETWORK_FLOWS_TABLE = 'glpi_plugin_grcmanager_networkflows';
     // Issue #142 : evenements du calendrier de conformite, voir PluginGrcmanagerComplianceEvent.
     private const COMPLIANCE_EVENTS_TABLE = 'glpi_plugin_grcmanager_complianceevents';
+    // Issue #160 : vulnérabilités du parc, voir GlpiPlugin\Grcmanager\Services\Cve\ParkVulnerabilitySync.
+    private const IGNORED_SOFTWARES_TABLE = 'glpi_plugin_grcmanager_ignoredsoftwares';
+    private const PARK_VERSION_CHECKS_TABLE = 'glpi_plugin_grcmanager_parkversionchecks';
+    private const PARK_CVES_TABLE = 'glpi_plugin_grcmanager_parkcves';
+    private const CVE_SIGNALS_TABLE = 'glpi_plugin_grcmanager_cvesignals';
+    // Issue #160, phase 2 : ticket ouvert par produit du catalogue (logiciel à mettre à jour).
+    private const CERTFR_NOTICES_TABLE = 'glpi_plugin_grcmanager_certfrnotices';
+    // Issue #171 : liens cause → conséquence entre risques et incidents (effet domino).
+    private const CAUSAL_LINKS_TABLE = 'glpi_plugin_grcmanager_causallinks';
+    private const CERTFR_NOTIFIED_TABLE = 'glpi_plugin_grcmanager_certfrnotices_supplierrisks';
+    private const PARK_CVE_TICKETS_TABLE = 'glpi_plugin_grcmanager_parkcvetickets';
+    // Issue #178 : risques types importés depuis le catalogue, voir PluginGrcmanagerRiskCatalog.
+    private const RISK_CATALOG_IMPORTS_TABLE = 'glpi_plugin_grcmanager_riskcatalogimports';
+    // Issue #170 : dérogations de sécurité, voir PluginGrcmanagerWaiver.
+    private const WAIVERS_TABLE = 'glpi_plugin_grcmanager_waivers';
+    private const WAIVERS_ITEMS_TABLE = 'glpi_plugin_grcmanager_waivers_items';
+    // Issue #164 : règles de couverture des preuves, voir PluginGrcmanagerCoverageRule.
+    private const COVERAGE_RULES_TABLE = 'glpi_plugin_grcmanager_coveragerules';
 
     public function install(Migration $migration): bool
     {
@@ -558,10 +576,14 @@ final class Installer
                 `status` varchar(16) NOT NULL DEFAULT 'open'
                     COMMENT 'open, in_progress, closed, verified',
                 `closure_verification_date` date DEFAULT NULL,
+                `plugin_grcmanager_securityincidents_id` int {$keySign} NOT NULL DEFAULT 0
+                    COMMENT 'Issue #163 : incident de sécurité à l origine du plan d action',
+                `cve_id` varchar(255) NOT NULL DEFAULT '',
                 `date_creation` timestamp NULL DEFAULT NULL,
                 `date_mod` timestamp NULL DEFAULT NULL,
                 PRIMARY KEY (`id`),
                 KEY `plugin_grcmanager_audits_id` (`plugin_grcmanager_audits_id`),
+                KEY `plugin_grcmanager_securityincidents_id` (`plugin_grcmanager_securityincidents_id`),
                 KEY `finding_type` (`finding_type`),
                 KEY `severity` (`severity`),
                 KEY `status` (`status`),
@@ -600,6 +622,23 @@ final class Installer
                 ]
             );
             $migration->addKey(self::NONCONFORMITIES_TABLE, 'finding_type', 'finding_type');
+            $migration->migrationOneTable(self::NONCONFORMITIES_TABLE);
+        }
+
+        // Issue #163 : plan d'action proposé à partir d'une CVE d'incident.
+        if (!$DB->fieldExists(self::NONCONFORMITIES_TABLE, 'plugin_grcmanager_securityincidents_id')) {
+            $migration->addField(self::NONCONFORMITIES_TABLE, 'plugin_grcmanager_securityincidents_id', 'fkey', [
+                'after' => 'closure_verification_date',
+            ]);
+            $migration->addField(self::NONCONFORMITIES_TABLE, 'cve_id', 'string', [
+                'value' => '',
+                'after' => 'plugin_grcmanager_securityincidents_id',
+            ]);
+            $migration->addKey(
+                self::NONCONFORMITIES_TABLE,
+                'plugin_grcmanager_securityincidents_id',
+                'plugin_grcmanager_securityincidents_id'
+            );
             $migration->migrationOneTable(self::NONCONFORMITIES_TABLE);
         }
 
@@ -1063,6 +1102,234 @@ final class Installer
             $DB->doQuery($query) or die($DB->error());
         }
 
+        // Issue #164 : couverture des preuves (type d'actif × catégorie de document requise).
+        if (!$DB->tableExists(self::COVERAGE_RULES_TABLE)) {
+            $query = "CREATE TABLE `" . self::COVERAGE_RULES_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `name` varchar(255) NOT NULL DEFAULT '',
+                `itemtype` varchar(255) NOT NULL DEFAULT '',
+                `types_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Sous-type facultatif',
+                `documentcategories_id` int {$keySign} NOT NULL DEFAULT 0,
+                `plugin_grcmanager_controls_id` int {$keySign} NOT NULL DEFAULT 0,
+                `plugin_grcmanager_ismsrequirements_id` int {$keySign} NOT NULL DEFAULT 0,
+                `is_active` tinyint NOT NULL DEFAULT 1,
+                `comment` text,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `controls_id` (`plugin_grcmanager_controls_id`),
+                KEY `ismsrequirements_id` (`plugin_grcmanager_ismsrequirements_id`),
+                KEY `is_active` (`is_active`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+        }
+
+        // Issue #170 : dérogations de sécurité (exception temporaire à une politique ou à une mesure).
+        if (!$DB->tableExists(self::WAIVERS_TABLE)) {
+            $query = "CREATE TABLE `" . self::WAIVERS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `name` varchar(255) NOT NULL DEFAULT '',
+                `status` varchar(16) NOT NULL DEFAULT 'requested'
+                    COMMENT 'requested, approved, rejected, closed',
+                `users_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Responsable qui accepte le risque',
+                `users_id_approver` int {$keySign} NOT NULL DEFAULT 0,
+                `date_approval` timestamp NULL DEFAULT NULL,
+                `date_begin` date DEFAULT NULL,
+                `date_end` date DEFAULT NULL,
+                `plugin_grcmanager_controls_id` int {$keySign} NOT NULL DEFAULT 0,
+                `plugin_grcmanager_policies_id` int {$keySign} NOT NULL DEFAULT 0,
+                `description` text COMMENT 'Justification',
+                `compensating_measures` text,
+                `date_notified` timestamp NULL DEFAULT NULL,
+                `tickets_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Ticket de réévaluation',
+                `is_deleted` tinyint NOT NULL DEFAULT 0,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `status` (`status`),
+                KEY `users_id` (`users_id`),
+                KEY `date_end` (`date_end`),
+                KEY `controls_id` (`plugin_grcmanager_controls_id`),
+                KEY `policies_id` (`plugin_grcmanager_policies_id`),
+                KEY `is_deleted` (`is_deleted`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+        }
+
+        if (!$DB->tableExists(self::WAIVERS_ITEMS_TABLE)) {
+            $query = "CREATE TABLE `" . self::WAIVERS_ITEMS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_waivers_id` int {$keySign} NOT NULL,
+                `itemtype` varchar(255) NOT NULL,
+                `items_id` int {$keySign} NOT NULL,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity_link` (`plugin_grcmanager_waivers_id`, `itemtype`, `items_id`),
+                KEY `item` (`itemtype`, `items_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+        }
+
+        // Issue #178 : risque créé pour chaque risque type du catalogue (un import par clé).
+        if (!$DB->tableExists(self::RISK_CATALOG_IMPORTS_TABLE)) {
+            $query = "CREATE TABLE `" . self::RISK_CATALOG_IMPORTS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `catalog_key` varchar(64) NOT NULL,
+                `plugin_grcmanager_risks_id` int {$keySign} NOT NULL,
+                `users_id` int {$keySign} NOT NULL DEFAULT 0,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity_key` (`catalog_key`),
+                KEY `risks_id` (`plugin_grcmanager_risks_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+        }
+
+        // Issue #160 : logiciels du parc écartés de la veille (sans enjeu de sécurité).
+        if (!$DB->tableExists(self::IGNORED_SOFTWARES_TABLE)) {
+            $query = "CREATE TABLE `" . self::IGNORED_SOFTWARES_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `name` varchar(255) NOT NULL,
+                `users_id` int {$keySign} NOT NULL DEFAULT 0,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity_name` (`name`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+        }
+
+        // Issue #160 : dernière interrogation de NVD pour une version installée d'un produit.
+        if (!$DB->tableExists(self::PARK_VERSION_CHECKS_TABLE)) {
+            $query = "CREATE TABLE `" . self::PARK_VERSION_CHECKS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_canonicalproducts_id` int {$keySign} NOT NULL,
+                `version` varchar(100) NOT NULL,
+                `status` varchar(20) NOT NULL DEFAULT 'ok' COMMENT 'ok ou error',
+                `cve_count` int NOT NULL DEFAULT 0,
+                `checked_at` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity_version` (`plugin_grcmanager_canonicalproducts_id`, `version`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+        }
+
+        // Issue #160 : CVE touchant une version installée (réponse de NVD à la dernière vérification).
+        if (!$DB->tableExists(self::PARK_CVES_TABLE)) {
+            $query = "CREATE TABLE `" . self::PARK_CVES_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_canonicalproducts_id` int {$keySign} NOT NULL,
+                `version` varchar(100) NOT NULL,
+                `cve_id` varchar(20) NOT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity_cve` (`plugin_grcmanager_canonicalproducts_id`, `version`, `cve_id`),
+                KEY `cve_id` (`cve_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+        }
+
+        // Issue #160, phase 2 : un ticket par produit, et l'état connu au dernier suivi.
+        if (!$DB->tableExists(self::PARK_CVE_TICKETS_TABLE)) {
+            $query = "CREATE TABLE `" . self::PARK_CVE_TICKETS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_canonicalproducts_id` int {$keySign} NOT NULL,
+                `tickets_id` int {$keySign} NOT NULL DEFAULT 0,
+                `machines` int NOT NULL DEFAULT 0,
+                `is_kev` tinyint NOT NULL DEFAULT 0,
+                `resolved_notified` tinyint NOT NULL DEFAULT 0,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity` (`plugin_grcmanager_canonicalproducts_id`),
+                KEY `tickets_id` (`tickets_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+        }
+
+        // Issue #177, phase 2 : objectifs de reprise (heures, 0 : non défini) sur la classification.
+        if (!$DB->fieldExists(self::ASSET_CLASSIFICATIONS_TABLE, 'rto_hours')) {
+            $migration->addField(self::ASSET_CLASSIFICATIONS_TABLE, 'rto_hours', 'integer', ['value' => 0]);
+            $migration->addField(self::ASSET_CLASSIFICATIONS_TABLE, 'rpo_hours', 'integer', ['value' => 0]);
+            $migration->migrationOneTable(self::ASSET_CLASSIFICATIONS_TABLE);
+        }
+
+        // Issue #171 : effet domino, un lien par couple cause → conséquence.
+        if (!$DB->tableExists(self::CAUSAL_LINKS_TABLE)) {
+            $query = "CREATE TABLE `" . self::CAUSAL_LINKS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `itemtype_cause` varchar(100) NOT NULL,
+                `items_id_cause` int {$keySign} NOT NULL DEFAULT 0,
+                `itemtype_effect` varchar(100) NOT NULL,
+                `items_id_effect` int {$keySign} NOT NULL DEFAULT 0,
+                `comment` text,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity` (`itemtype_cause`, `items_id_cause`, `itemtype_effect`, `items_id_effect`),
+                KEY `effect` (`itemtype_effect`, `items_id_effect`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+        }
+
+        // Issue #167 : avis et alertes du CERT-FR, et avis déjà signalés par risque fournisseur.
+        if (!$DB->tableExists(self::CERTFR_NOTICES_TABLE)) {
+            $query = "CREATE TABLE `" . self::CERTFR_NOTICES_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `ref` varchar(32) NOT NULL,
+                `kind` varchar(10) NOT NULL DEFAULT 'avis',
+                `title` varchar(255) NOT NULL DEFAULT '',
+                `link` varchar(255) NOT NULL DEFAULT '',
+                `summary` text,
+                `published` timestamp NULL DEFAULT NULL,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `ref` (`ref`),
+                KEY `published` (`published`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+        }
+        if (!$DB->tableExists(self::CERTFR_NOTIFIED_TABLE)) {
+            $query = "CREATE TABLE `" . self::CERTFR_NOTIFIED_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_certfrnotices_id` int {$keySign} NOT NULL DEFAULT 0,
+                `plugin_grcmanager_supplierrisks_id` int {$keySign} NOT NULL DEFAULT 0,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity` (`plugin_grcmanager_certfrnotices_id`, `plugin_grcmanager_supplierrisks_id`),
+                KEY `plugin_grcmanager_supplierrisks_id` (`plugin_grcmanager_supplierrisks_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+        }
+
+        // Issue #160 : signaux d'exploitation par CVE (CISA KEV, FIRST EPSS).
+        if (!$DB->tableExists(self::CVE_SIGNALS_TABLE)) {
+            $query = "CREATE TABLE `" . self::CVE_SIGNALS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `cve_id` varchar(20) NOT NULL,
+                `is_kev` tinyint NOT NULL DEFAULT 0,
+                `kev_date_added` date DEFAULT NULL,
+                `kev_due_date` date DEFAULT NULL,
+                `kev_ransomware` tinyint NOT NULL DEFAULT 0,
+                `epss` decimal(6,5) DEFAULT NULL,
+                `epss_percentile` decimal(6,5) DEFAULT NULL,
+                `epss_date` date DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity_cve` (`cve_id`),
+                KEY `is_kev` (`is_kev`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+        }
+
         if (!$DB->tableExists(self::PERIODIC_REVIEWS_TABLE)) {
             $query = "CREATE TABLE `" . self::PERIODIC_REVIEWS_TABLE . "` (
                 `id` int {$keySign} NOT NULL AUTO_INCREMENT,
@@ -1330,6 +1597,8 @@ final class Installer
                 `id` int {$keySign} NOT NULL AUTO_INCREMENT,
                 `plugin_grcmanager_securityincidents_id` int {$keySign} NOT NULL DEFAULT 0,
                 `cve_id` varchar(20) NOT NULL DEFAULT '',
+                `epss_alerted` int NOT NULL DEFAULT 0,
+                `kev_alerted` tinyint NOT NULL DEFAULT 0,
                 `date_creation` timestamp NULL DEFAULT NULL,
                 `date_mod` timestamp NULL DEFAULT NULL,
                 PRIMARY KEY (`id`),
@@ -1337,6 +1606,16 @@ final class Installer
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
             $DB->doQuery($query) or die($DB->error());
+        }
+        // Issue #172 : EPSS (en %) et passage KEV déjà signalés sur l'incident, pour ne pas répéter.
+        if (!$DB->fieldExists(self::SECURITY_INCIDENT_CVES_TABLE, 'epss_alerted')) {
+            $migration->addField(self::SECURITY_INCIDENT_CVES_TABLE, 'epss_alerted', 'integer', [
+                'after' => 'cve_id',
+            ]);
+            $migration->addField(self::SECURITY_INCIDENT_CVES_TABLE, 'kev_alerted', 'bool', [
+                'after' => 'epss_alerted',
+            ]);
+            $migration->migrationOneTable(self::SECURITY_INCIDENT_CVES_TABLE);
         }
 
         if (!$DB->tableExists(self::SECURITY_INCIDENT_COSTS_TABLE)) {
@@ -1593,11 +1872,13 @@ final class Installer
             ['type' => 'Type', 'status' => 'Statut de conformité']
         );
         $this->seedCapaOverdueNotification();
+        $this->seedSecurityWatchNotification();
         $this->seedTrainingRenewalNotification();
         $this->seedPolicyReviewReminderNotification();
         $this->seedTreatmentActionOverdueNotification();
         $this->seedAccessReviewNotifications();
         $this->seedEvidenceExpiringNotification();
+        $this->seedWaiverExpiringNotification();
 
         // Issue #126 : relance hebdomadaire des responsables en retard sur une revue des accès.
         CronTask::Register(
@@ -1745,6 +2026,33 @@ final class Installer
                 'comment' => 'Notifie le responsable de chaque action de traitement de risque dont '
                     . 'l\'échéance est dépassée',
                 'mode'    => CronTask::MODE_EXTERNAL,
+            ]
+        );
+
+        // Issue #170 : rappel avant la fin d'une dérogation, puis ticket de réévaluation.
+        CronTask::Register(
+            'PluginGrcmanagerWaiver',
+            'waiverreminder',
+            DAY_TIMESTAMP,
+            [
+                'comment' => 'Prévient le responsable avant la fin d\'une dérogation, puis ouvre un '
+                    . 'ticket de réévaluation',
+                'mode'    => CronTask::MODE_EXTERNAL,
+            ]
+        );
+
+        // Issue #160 : vulnérabilités du parc. Toutes les heures, quelques versions installées
+        // vérifiées auprès de NVD (limite publique de 5 requêtes par 30 s), puis CISA KEV et
+        // FIRST EPSS. Sans effet tant que l'enrichissement NVD n'est pas activé.
+        CronTask::Register(
+            'PluginGrcmanagerParkVulnerability',
+            'parkvulnerabilitysync',
+            HOUR_TIMESTAMP,
+            [
+                'comment' => 'Vérifie les versions installées des logiciels surveillés auprès de NVD, '
+                    . 'CISA KEV et FIRST EPSS',
+                'mode'    => CronTask::MODE_EXTERNAL,
+                'param'   => 20,
             ]
         );
 
@@ -1991,6 +2299,68 @@ final class Installer
     }
 
     /**
+     * Issue #167 : nouvel avis du CERT-FR qui cite le fournisseur d'un risque (événement
+     * 'security_watch', voir PluginGrcmanagerSecurityWatch::notifyOwners()), adressé au
+     * propriétaire du risque. Idempotent, même structure que seedCapaOverdueNotification().
+     */
+    private function seedSecurityWatchNotification(): void
+    {
+        global $DB;
+
+        $itemtype = 'PluginGrcmanagerSupplierRisk';
+        $event    = 'security_watch';
+
+        if (
+            $DB->request([
+                'FROM'  => 'glpi_notifications',
+                'WHERE' => ['itemtype' => $itemtype, 'event' => $event],
+            ])->count() > 0
+        ) {
+            return;
+        }
+
+        $templateId = (new NotificationTemplate())->add([
+            'name'     => 'GRC Manager - Avis de sécurité concernant un fournisseur',
+            'itemtype' => $itemtype,
+            'comment'  => 'Notification envoyée par la tâche des vulnérabilités du parc lorsqu\'un nouvel '
+                . 'avis du CERT-FR cite le fournisseur d\'un risque du registre.',
+        ]);
+
+        $DB->insert('glpi_notificationtemplatetranslations', [
+            'notificationtemplates_id' => $templateId,
+            'language'                 => '',
+            'subject'                  => '##supplierrisk.action## : ##supplierrisk.supplier##',
+            // Texte seul : la liste des avis est déjà une liste de lignes, et un modèle HTML écrit
+            // ici ajouterait du HTML en PHP (exigence Marketplace, voir check-marketplace-readiness).
+            'content_text'             => "##supplierrisk.action## : ##supplierrisk.supplier##\n\n"
+                . "##supplierrisk.notices##\n\n"
+                . "Risque fournisseur : ##supplierrisk.title##\n"
+                . "Voir le risque fournisseur (onglet Veille sécurité) : ##supplierrisk.url##",
+        ]);
+
+        $notificationId = (new Notification())->add([
+            'name'         => 'GRC Manager - Avis de sécurité concernant un fournisseur',
+            'entities_id'  => 0,
+            'is_recursive' => 1,
+            'itemtype'     => $itemtype,
+            'event'        => $event,
+            'is_active'    => 1,
+        ]);
+
+        $DB->insert('glpi_notifications_notificationtemplates', [
+            'notifications_id'         => $notificationId,
+            'mode'                     => 'mailing',
+            'notificationtemplates_id' => $templateId,
+        ]);
+
+        $DB->insert('glpi_notificationtargets', [
+            'items_id'         => Notification::ITEM_USER,
+            'type'             => Notification::USER_TYPE,
+            'notifications_id' => $notificationId,
+        ]);
+    }
+
+    /**
      * Same structure as seedCapaOverdueNotification() above, for the Sprint 6 training-renewal Cron
      * task (PluginGrcmanagerTraining::cronRenewaldue(), event 'training_renewal_due', see
      * inc/notificationtargettraining.class.php). Idempotent for the same reason.
@@ -2064,6 +2434,61 @@ final class Installer
             'notifications_id' => $notificationId,
             'type'             => Notification::USER_TYPE,
             'items_id'         => \PluginGrcmanagerNotificationTargetEvidence::TARGET_RESPONSIBLE,
+        ]);
+    }
+
+    /**
+     * Issue #170 : avis au responsable d'une dérogation 15 jours avant sa fin. Le contenu HTML est
+     * dérivé du texte (aucun gabarit HTML écrit en PHP, cf. exigences du Marketplace GLPI).
+     */
+    private function seedWaiverExpiringNotification(): void
+    {
+        global $DB;
+
+        $itemtype = 'PluginGrcmanagerWaiver';
+        $event    = 'waiver_expiring';
+        $where = ['itemtype' => $itemtype, 'event' => $event];
+        if ($DB->request(['FROM' => 'glpi_notifications', 'WHERE' => $where])->count() > 0) {
+            return;
+        }
+
+        $templateId = (new NotificationTemplate())->add([
+            'name'     => 'GRC Manager - Dérogation bientôt échue',
+            'itemtype' => $itemtype,
+            'comment'  => 'Notification envoyée par la tâche automatique GRC Manager 15 jours avant la fin '
+                . 'd\'une dérogation de sécurité.',
+        ]);
+        $text = "##waiver.action## : ##waiver.name##\n\n"
+            . "Date de fin : ##waiver.dateend##\n\n"
+            . "Réévaluez la dérogation : prolongez-la avec une nouvelle date de fin si l'exception est toujours "
+            . "nécessaire, ou close-la une fois la situation régularisée. Un ticket de réévaluation sera ouvert "
+            . "à l'échéance.\n\n"
+            . "Voir la dérogation : ##waiver.url##";
+        $DB->insert('glpi_notificationtemplatetranslations', [
+            'notificationtemplates_id' => $templateId,
+            'language'                 => '',
+            'subject'                  => '##waiver.action## : ##waiver.name##',
+            'content_text'             => $text,
+            'content_html'             => nl2br(htmlescape($text)),
+        ]);
+
+        $notificationId = (new Notification())->add([
+            'name'         => 'GRC Manager - Dérogation bientôt échue',
+            'entities_id'  => 0,
+            'is_recursive' => 1,
+            'itemtype'     => $itemtype,
+            'event'        => $event,
+            'is_active'    => 1,
+        ]);
+        $DB->insert('glpi_notifications_notificationtemplates', [
+            'notifications_id'         => $notificationId,
+            'mode'                     => 'mailing',
+            'notificationtemplates_id' => $templateId,
+        ]);
+        $DB->insert('glpi_notificationtargets', [
+            'notifications_id' => $notificationId,
+            'type'             => Notification::USER_TYPE,
+            'items_id'         => \PluginGrcmanagerNotificationTargetWaiver::TARGET_RESPONSIBLE,
         ]);
     }
 
@@ -2670,6 +3095,7 @@ final class Installer
         $this->unseedNotification('PluginGrcmanagerPolicy');
         $this->unseedNotification('PluginGrcmanagerRiskTreatmentAction');
         $this->unseedNotification('PluginGrcmanagerEvidence');
+        $this->unseedNotification('PluginGrcmanagerWaiver');
         $this->unseedNotification(PluginGrcmanagerSecurityIncident::class);
         $this->unseedNotification('PluginGrcmanagerAccessReview');
 
@@ -2720,6 +3146,18 @@ final class Installer
         $migration->dropTable(self::PERIODIC_REVIEWS_TABLE);
         $migration->dropTable(self::NETWORK_FLOWS_TABLE);
         $migration->dropTable(self::COMPLIANCE_EVENTS_TABLE);
+        $migration->dropTable(self::IGNORED_SOFTWARES_TABLE);
+        $migration->dropTable(self::PARK_VERSION_CHECKS_TABLE);
+        $migration->dropTable(self::PARK_CVES_TABLE);
+        $migration->dropTable(self::CVE_SIGNALS_TABLE);
+        $migration->dropTable(self::PARK_CVE_TICKETS_TABLE);
+        $migration->dropTable(self::CERTFR_NOTICES_TABLE);
+        $migration->dropTable(self::CAUSAL_LINKS_TABLE);
+        $migration->dropTable(self::CERTFR_NOTIFIED_TABLE);
+        $migration->dropTable(self::RISK_CATALOG_IMPORTS_TABLE);
+        $migration->dropTable(self::WAIVERS_TABLE);
+        $migration->dropTable(self::WAIVERS_ITEMS_TABLE);
+        $migration->dropTable(self::COVERAGE_RULES_TABLE);
         $migration->dropTable(self::ACCESS_REVIEWS_USERS_TABLE);
         $migration->dropTable(self::ACCESS_REVIEWS_TABLE);
         $migration->dropTable(self::OBJECTIVES_TABLE);

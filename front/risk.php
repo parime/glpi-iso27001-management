@@ -15,6 +15,7 @@
  * -------------------------------------------------------------------------
  */
 
+use Glpi\Application\View\TemplateRenderer;
 use Glpi\Search\Input\QueryBuilder;
 use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
 
@@ -32,6 +33,8 @@ Html::header(
     'grcmanager',
     PluginGrcmanagerRisk::class
 );
+// Encadré « À quoi sert cette page ? ».
+PluginGrcmanagerPageHelp::show('risk');
 
 // Owner-scoped default view (Sprint 2): a one-click shortcut to the same list pre-filtered on the
 // "Propriétaire" search option (id 7, see PluginGrcmanagerRisk::rawSearchOptions()) to the
@@ -53,19 +56,17 @@ $myRisksURL = PluginGrcmanagerRisk::getSearchURL() . '?' . http_build_query([
 // l'icône de configuration du plugin), ce bouton est donc le seul point d'entrée de ce nouvel
 // écran depuis la navigation normale.
 $riskHeatmapURL = $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/riskheatmap.php';
-echo '<div class="d-flex justify-content-end mb-2 gap-2">';
-echo '<a href="' . htmlescape($riskHeatmapURL) . '" class="btn btn-outline-secondary btn-sm">';
-echo '<i class="ti ti-grid-dots me-1"></i>' . __('Cartographie des risques', 'grcmanager');
-echo '</a>';
-echo '<a href="' . htmlescape($myRisksURL) . '" class="btn btn-outline-secondary btn-sm">';
-echo '<i class="ti ti-user-check me-1"></i>' . __('Mes risques', 'grcmanager');
-echo '</a>';
 // ROADMAP.md "Version 1.5" (rapports exportables pour audit externe) : export PDF mis en forme
 // (résumé + détail), en complément de l'export CSV/XLSX déjà natif de Search::showList() ci-dessous.
 $riskReportURL = $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/risk.report.php';
-echo '<a href="' . htmlescape($riskReportURL) . '" class="btn btn-outline-secondary btn-sm" target="_blank">';
-echo '<i class="ti ti-file-type-pdf me-1"></i>' . __('Export PDF', 'grcmanager');
-echo '</a></div>';
+// Issue #178 : catalogue de risques types, proposé à qui peut créer des risques.
+TemplateRenderer::getInstance()->display('@grcmanager/risk_list_actions.html.twig', [
+    'catalog_url'  => Session::haveRight(PluginGrcmanagerRisk::$rightname, CREATE)
+        ? PluginGrcmanagerRiskCatalog::getSearchURL() : '',
+    'heatmap_url'  => $riskHeatmapURL,
+    'my_risks_url' => $myRisksURL,
+    'report_url'   => $riskReportURL,
+]);
 
 // Sprint 1 passed an empty array here, which silently discarded any criteria/sort/pagination in
 // the URL: Search::showList() -> SearchEngine::showOutput() uses $params exactly as given, unlike

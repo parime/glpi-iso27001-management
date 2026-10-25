@@ -1,0 +1,124 @@
+{# Issue #160 : vulnérabilités du parc — CVE touchant les versions installées des logiciels surveillés #}
+<div class="container-fluid">
+   <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+      <h2 class="mb-0"><i class="ti ti-bug me-1"></i>{{ __('Vulnérabilités du parc', 'grcmanager') }}</h2>
+      <a class="btn btn-outline-primary ms-auto" href="{{ watch_url }}"><i class="ti ti-radar me-1"></i>{{ __('Logiciels à surveiller', 'grcmanager') }}</a>
+      {% if can_update and summary.enabled %}
+         <form method="post" action="{{ action }}" class="d-inline">
+            <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+            <button type="submit" name="sync_now" value="1" class="btn btn-outline-secondary" title="{{ __('Vérifie tout de suite deux versions en attente ; la tâche planifiée vérifie les autres.', 'grcmanager') }}"><i class="ti ti-refresh me-1"></i>{{ __('Vérifier maintenant', 'grcmanager') }}</button>
+         </form>
+      {% endif %}
+   </div>
+
+   {% if not summary.enabled %}
+      <div class="alert alert-warning">
+         <i class="ti ti-plug-connected-x me-1"></i>{{ __('L\'interrogation de NVD est désactivée : aucune version n\'est vérifiée.', 'grcmanager') }}
+         <a href="{{ config_url }}">{{ __('Activer l\'enrichissement NVD dans la configuration du plugin', 'grcmanager') }}</a>
+      </div>
+   {% endif %}
+
+   <div class="row row-cards mb-3">
+      <div class="col-sm-6 col-lg-3"><div class="card card-sm"><div class="card-body">
+         <div class="text-muted">{{ __('Logiciels surveillés', 'grcmanager') }}</div>
+         <div class="h2 mb-0">{{ summary.watched }}</div>
+      </div></div></div>
+      <div class="col-sm-6 col-lg-3"><div class="card card-sm"><div class="card-body">
+         <div class="text-muted">{{ __('Versions installées vérifiées', 'grcmanager') }}</div>
+         <div class="h2 mb-0">{{ summary.checked }} / {{ summary.versions - summary.unqueryable }}</div>
+      </div></div></div>
+      <div class="col-sm-6 col-lg-3"><div class="card card-sm"><div class="card-body">
+         <div class="text-muted" title="{{ __('Numéro de version illisible dans l\'inventaire : à vérifier à la main.', 'grcmanager') }}">{{ __('Versions à vérifier à la main', 'grcmanager') }}</div>
+         <div class="h2 mb-0">{{ summary.unqueryable }}</div>
+      </div></div></div>
+      <div class="col-sm-6 col-lg-3"><div class="card card-sm"><div class="card-body">
+         <div class="text-muted">{{ __('Catalogue CISA KEV mis à jour', 'grcmanager') }}</div>
+         <div class="h2 mb-0">{{ summary.kev_refreshed ? summary.kev_refreshed|formatted_datetime : __('Jamais', 'grcmanager') }}</div>
+      </div></div></div>
+   </div>
+
+   <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+      <div class="btn-group" role="group">
+         <a class="btn {{ priority_only ? 'btn-outline-primary' : 'btn-primary' }}" href="{{ action }}">{{ __('Toutes', 'grcmanager') }}</a>
+         <a class="btn {{ priority_only ? 'btn-primary' : 'btn-outline-primary' }}" href="{{ action }}?priority=1">{{ __('Prioritaires', 'grcmanager') }}</a>
+      </div>
+      <span class="text-muted small">{{ __('Prioritaire : exploitée activement (CISA KEV), CVSS d\'au moins 9 ou probabilité d\'exploitation (EPSS) d\'au moins 50 %.', 'grcmanager') }}</span>
+   </div>
+
+   {% if total > rows|length %}
+      <div class="alert alert-secondary py-2">
+         <i class="ti ti-list-numbers me-1"></i>{{ __('%1$d vulnérabilités : les %2$d plus prioritaires sont affichées.', 'grcmanager')|format(total, rows|length) }}
+      </div>
+   {% endif %}
+
+   <div class="card">
+      {% if rows is empty %}
+         <div class="card-body text-muted">
+            {% if summary.watched == 0 %}
+               <i class="ti ti-arrow-right me-1"></i>{{ __('Commencez par choisir les logiciels à surveiller.', 'grcmanager') }}
+               <a href="{{ watch_url }}?filter=exposed">{{ __('Voir les logiciels exposés', 'grcmanager') }}</a>
+            {% else %}
+               <i class="ti ti-circle-check me-1 text-green"></i>{{ __('Aucune vulnérabilité connue pour les versions déjà vérifiées.', 'grcmanager') }}
+            {% endif %}
+         </div>
+      {% else %}
+         <div class="table-responsive">
+            <table class="table table-vcenter card-table">
+               <thead>
+                  <tr>
+                     <th>{{ __('CVE', 'grcmanager') }}</th>
+                     <th>{{ __('Logiciel', 'grcmanager') }}</th>
+                     <th>{{ __('Versions touchées', 'grcmanager') }}</th>
+                     <th class="text-end">{{ __('Machines', 'grcmanager') }}</th>
+                     <th>{{ __('CVSS', 'grcmanager') }}</th>
+                     <th>{{ __('EPSS', 'grcmanager') }}</th>
+                     <th>{{ __('Exploitée', 'grcmanager') }}</th>
+                     <th>{{ __('Publication', 'grcmanager') }}</th>
+                     <th>{{ __('Ticket', 'grcmanager') }}</th>
+                  </tr>
+               </thead>
+               <tbody>
+               {% for row in rows %}
+                  {% set cvss_class = row.cvss is null ? 'bg-secondary-lt' : (row.cvss >= 9 ? 'bg-red text-white' : (row.cvss >= 7 ? 'bg-orange text-white' : (row.cvss >= 4 ? 'bg-yellow text-dark' : 'bg-green-lt'))) %}
+                  <tr>
+                     <td class="text-nowrap">
+                        {% if row.priority %}<i class="ti ti-alert-triangle text-red me-1" title="{{ __('Prioritaire', 'grcmanager') }}"></i>{% endif %}
+                        <a href="https://nvd.nist.gov/vuln/detail/{{ row.cve_id }}" target="_blank" rel="noopener">{{ row.cve_id }}</a>
+                     </td>
+                     <td>
+                        {{ row.product }}
+                        {% if row.certfr %}<a href="{{ row.certfr.link }}" target="_blank" rel="noopener" class="badge bg-orange-lt ms-1" title="{{ row.certfr.title }}"><i class="ti ti-alert-octagon me-1"></i>CERT-FR</a>{% endif %}
+                        {% if row.description %}<div class="text-muted small text-truncate" style="max-width: 22rem" title="{{ row.description }}">{{ row.description }}</div>{% endif %}
+                     </td>
+                     <td>{% for v in row.versions %}<span class="badge bg-azure-lt me-1">{{ v }}</span>{% endfor %}</td>
+                     <td class="text-end"><strong>{{ row.machines }}</strong></td>
+                     <td><span class="badge {{ cvss_class }}">{{ row.cvss is null ? __('n. c.', 'grcmanager') : row.cvss|number_format(1, ',') }}</span></td>
+                     <td class="text-nowrap">{{ row.epss is null ? '—' : (row.epss * 100)|number_format(1, ',') ~ ' %' }}</td>
+                     <td class="text-nowrap">
+                        {% if row.is_kev %}
+                           <span class="badge bg-red text-white" title="{{ __('Catalogue CISA des vulnérabilités activement exploitées', 'grcmanager') }}"><i class="ti ti-flame me-1"></i>KEV</span>
+                           {% if row.ransomware %}<span class="badge bg-dark text-white ms-1">{{ __('Rançongiciel', 'grcmanager') }}</span>{% endif %}
+                        {% else %}
+                           <span class="text-muted">—</span>
+                        {% endif %}
+                     </td>
+                     <td class="text-nowrap">{{ row.published ? row.published|formatted_date : '' }}</td>
+                     <td class="text-nowrap">
+                        {% if row.tickets_id %}
+                           <a href="{{ config('root_doc') }}/front/ticket.form.php?id={{ row.tickets_id }}">#{{ row.tickets_id }}</a>
+                        {% elseif can_ticket %}
+                           <form method="post" action="{{ action }}" class="d-inline">
+                              <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                              <input type="hidden" name="canonical_id" value="{{ row.canonical_id }}">
+                              <button type="submit" name="create_ticket" value="1" class="btn btn-sm btn-outline-secondary" title="{{ __('Créer le ticket de mise à jour du logiciel', 'grcmanager') }}"><i class="ti ti-ticket"></i></button>
+                           </form>
+                        {% endif %}
+                     </td>
+                  </tr>
+               {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      {% endif %}
+   </div>
+</div>

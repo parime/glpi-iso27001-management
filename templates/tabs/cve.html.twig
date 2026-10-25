@@ -44,7 +44,28 @@
                 </span>
               {% endif %}
             {% endif %}
+
+            {# Issue #172 : signaux d'exploitation, mis à jour chaque jour par la tâche des vulnérabilités du parc. #}
+            {% set signal = signals_by_cve_id[cve.cve_id]|default(null) %}
+            {% if signal and signal.is_kev %}
+              <span class="badge bg-red text-white" title="{{ __('Activement exploitée (catalogue CISA KEV)', 'grcmanager') }}">
+                <i class="ti ti-flame me-1"></i>KEV{% if signal.kev_due %} — {{ __('échéance CISA', 'grcmanager') }} {{ signal.kev_due|formatted_date }}{% endif %}
+              </span>
+            {% endif %}
+            {% if signal and signal.epss is not null %}
+              <span class="badge {{ signal.epss >= epss_priority ? 'bg-red-lt' : 'bg-secondary-lt' }}" title="{{ __('Probabilité d\'exploitation dans les 30 jours (FIRST EPSS)', 'grcmanager') }}">
+                EPSS {{ (signal.epss * 100)|number_format(1, ',') }} %
+              </span>
+            {% endif %}
           </div>
+
+          {# Issue #163 : plan d'action (CAPA) proposé à partir de la CVE, relu avant création. #}
+          {% set capa_id = capa_by_cve_id[cve.cve_id]|default(0) %}
+          {% if capa_id %}
+            <a href="{{ capa_url }}?id={{ capa_id }}" class="btn btn-sm btn-outline-success"><i class="ti ti-checklist me-1"></i>{{ __('Plan d\'action n° %d', 'grcmanager')|format(capa_id) }}</a>
+          {% elseif can_capa %}
+            <a href="{{ capa_url }}?from_incident={{ item.getID() }}&cve={{ cve.cve_id|url_encode }}" class="btn btn-sm btn-outline-primary"><i class="ti ti-bulb me-1"></i>{{ __('Proposer un plan d\'action', 'grcmanager') }}</a>
+          {% endif %}
 
           {% if can_edit %}
             <div class="d-flex gap-1">

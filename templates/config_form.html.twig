@@ -85,6 +85,28 @@
         <div class="form-hint">{{ __('Une CVE avec un score égal ou supérieur est mise en avant comme urgente.', 'grcmanager') }}</div>
       </div>
 
+      {# Issue #160, phase 2 : tickets automatiques des vulnérabilités du parc. #}
+      <h5 class="mt-3">{{ __('Tickets des vulnérabilités du parc', 'grcmanager') }}</h5>
+      <div class="form-check form-switch mb-2">
+        <input class="form-check-input" type="checkbox" role="switch" id="park_tickets_enabled" name="park_tickets_enabled" value="1" {{ park_thresholds.enabled ? 'checked' : '' }}>
+        <label class="form-check-label" for="park_tickets_enabled">{{ __('Créer automatiquement un ticket par vulnérabilité qui dépasse un seuil', 'grcmanager') }}</label>
+      </div>
+      <div class="form-check mb-2">
+        <input class="form-check-input" type="checkbox" id="park_ticket_kev" name="park_ticket_kev" value="1" {{ park_thresholds.kev ? 'checked' : '' }}>
+        <label class="form-check-label" for="park_ticket_kev">{{ __('Vulnérabilité activement exploitée (catalogue CISA KEV)', 'grcmanager') }}</label>
+      </div>
+      <div class="d-flex flex-wrap gap-3 mb-2">
+        <div style="max-width: 220px;">
+          <label class="form-label" for="park_ticket_cvss">{{ __('ou CVSS d\'au moins', 'grcmanager') }}</label>
+          <input type="number" class="form-control" id="park_ticket_cvss" name="park_ticket_cvss" min="0" max="10" step="0.1" value="{{ park_thresholds.cvss }}">
+        </div>
+        <div style="max-width: 220px;">
+          <label class="form-label" for="park_ticket_epss_percent">{{ __('ou probabilité d\'exploitation (EPSS, %) d\'au moins', 'grcmanager') }}</label>
+          <input type="number" class="form-control" id="park_ticket_epss_percent" name="park_ticket_epss_percent" min="0" max="100" step="1" value="{{ (park_thresholds.epss * 100)|round }}">
+        </div>
+      </div>
+      <div class="form-hint mb-2">{{ __('Un seul ticket ouvert par logiciel, qui détaille ses vulnérabilités et est lié aux machines touchées. Au plus %d tickets sont créés par passage, les plus graves d\'abord. Un suivi est ajouté quand plus de machines sont touchées, quand une vulnérabilité devient activement exploitée, ou quand plus aucune machine n\'est vulnérable. Le ticket n\'est jamais fermé ni sa priorité modifiée automatiquement.', 'grcmanager')|format(max_tickets) }}</div>
+
       <div class="d-flex gap-2 mt-2">
         <button type="submit" name="update_nvd_config" class="btn btn-primary">{{ __('Enregistrer') }}</button>
       </div>

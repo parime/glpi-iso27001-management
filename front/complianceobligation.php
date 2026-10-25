@@ -28,6 +28,8 @@ Html::header(
     'grcmanager',
     PluginGrcmanagerComplianceObligation::class
 );
+// Encadré « À quoi sert cette page ? ».
+PluginGrcmanagerPageHelp::show('complianceobligation');
 
 // Same URL-driven search fix already applied to every list of this plugin (see
 // front/risk.php's own docblock for the full explanation): Search::showList() needs $_GET merged
