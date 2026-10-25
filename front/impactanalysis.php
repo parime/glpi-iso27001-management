@@ -25,6 +25,8 @@ Session::checkRight(PluginGrcmanagerImpactAnalysis::RIGHTNAME, READ);
 if (isset($_POST['create_risk'])) {
     Session::checkRight(PluginGrcmanagerRisk::$rightname, CREATE);
     $itemtype = (string) ($_POST['itemtype'] ?? '');
+    // $itemtype est borne par la liste blanche des actifs liables juste avant l'instanciation.
+    // nosemgrep: php.lang.security.injection.tainted-object-instantiation.tainted-object-instantiation
     $item = in_array($itemtype, PluginGrcmanagerRisk::getLinkableItemtypes(), true) ? new $itemtype() : null;
     if ($item === null || !$item->getFromDB((int) ($_POST['items_id'] ?? 0)) || !$item->canViewItem()) {
         throw new \Glpi\Exception\Http\NotFoundHttpException();
