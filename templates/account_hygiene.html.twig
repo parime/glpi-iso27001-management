@@ -1,0 +1,49 @@
+{# Issue #184 : hygiène des comptes (issue #199 : affichage passé de PHP à Twig) #}
+<div class="card"><div class="card-body">
+   <p class="text-muted"><i class="ti ti-info-circle me-1"></i>{{ __('Comptes actifs des entités que vous voyez, qui méritent une vérification. Rien n\'est désactivé automatiquement : cochez les comptes et ouvrez un ticket de revue, ou traitez-les dans une campagne de revue des accès.', 'grcmanager') }}</p>
+
+   <form method="get" class="d-flex align-items-center gap-2 mb-3">
+      <label for="grc-hygiene-days" class="mb-0">{{ __('Inactivité au-delà de', 'grcmanager') }}</label>
+      <select id="grc-hygiene-days" name="days" class="form-select form-select-sm" style="width: auto;" onchange="this.form.submit()">
+         {% for option in day_options %}
+            <option value="{{ option }}" {{ option == days ? 'selected' }}>{{ __('%d jours', 'grcmanager')|format(option) }}</option>
+         {% endfor %}
+      </select>
+   </form>
+
+   {% if accounts is empty %}
+      <div class="alert alert-success mb-0"><i class="ti ti-circle-check me-1"></i>{{ __('Aucun compte à vérifier.', 'grcmanager') }}</div>
+   {% else %}
+      <div class="d-flex flex-wrap gap-2 mb-3">
+         {% for c in by_check %}
+            <span class="badge {{ c.serious ? 'bg-red-lt' : 'bg-yellow-lt' }}">{{ c.label }} : {{ c.count }}</span>
+         {% endfor %}
+      </div>
+
+      <form method="post" action="{{ action }}">
+         <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+         <input type="hidden" name="days" value="{{ days }}">
+         <div class="table-responsive">
+            <table class="table table-hover align-middle">
+               <thead><tr><th></th><th>{{ __('Utilisateur', 'grcmanager') }}</th><th>{{ __('Identifiant', 'grcmanager') }}</th><th>{{ __('Dernière connexion', 'grcmanager') }}</th><th>{{ __('Points à vérifier', 'grcmanager') }}</th></tr></thead>
+               <tbody>
+                  {% for a in accounts %}
+                     <tr>
+                        <td><input type="checkbox" class="form-check-input" name="users_id[]" value="{{ a.id }}" aria-label="{{ a.fullname }}"></td>
+                        <td><a href="{{ a.url }}">{{ a.fullname }}</a></td>
+                        <td>{{ a.name }}</td>
+                        <td>{{ a.last_login is not null ? a.last_login|formatted_datetime : __('Jamais', 'grcmanager') }}</td>
+                        <td>
+                           {% for c in a.checks %}<span class="badge {{ c.serious ? 'bg-red-lt' : 'bg-yellow-lt' }} me-1">{{ c.label }}</span>{% endfor %}
+                        </td>
+                     </tr>
+                  {% endfor %}
+               </tbody>
+            </table>
+         </div>
+         {% if can_ticket %}
+            <button type="submit" name="create_ticket" value="1" class="btn btn-primary"><i class="ti ti-ticket me-1"></i>{{ __('Ouvrir un ticket de revue pour les comptes cochés', 'grcmanager') }}</button>
+         {% endif %}
+      </form>
+   {% endif %}
+</div></div>
