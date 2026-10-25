@@ -124,6 +124,13 @@ function plugin_grcmanager_dashboard_cards(?array $cards = null): array
             'group' => $group,
             'provider' => SecuredDashboardCards::class . '::suppliersWithHighRiskCount',
         ],
+        // Issue #166 : score de maturité cyber (0 à 100), détail sur la page « Score de maturité ».
+        'grcmanager_maturity_score' => [
+            'widgettype' => ['bigNumber'],
+            'label' => __('Score de maturité', 'grcmanager'),
+            'group' => $group,
+            'provider' => SecuredDashboardCards::class . '::maturityScore',
+        ],
         // Sprint 6 (formations et revues de direction, clauses 7.2/7.3/9.3).
         'grcmanager_training_completion_rate' => [
             'widgettype' => ['bigNumber'],

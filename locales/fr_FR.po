@@ -4171,3 +4171,700 @@ msgstr "À quoi sert cette page ?"
 
 msgid "Ce qui est attendu"
 msgstr "Ce qui est attendu"
+
+msgid "Score de maturité"
+msgstr "Score de maturité"
+
+msgid "Mesures de l'Annexe A mises en œuvre (SoA)"
+msgstr "Mesures de l'Annexe A mises en œuvre (SoA)"
+
+msgid "Exigences du SMSI (articles 4 à 10) conformes"
+msgstr "Exigences du SMSI (articles 4 à 10) conformes"
+
+msgid "Preuves en cours de validité"
+msgstr "Preuves en cours de validité"
+
+msgid "Audit interne réalisé dans les 12 derniers mois"
+msgstr "Audit interne réalisé dans les 12 derniers mois"
+
+msgid "Formations réalisées"
+msgstr "Formations réalisées"
+
+msgid "Initial"
+msgstr "Initial"
+
+msgid "Reproductible"
+msgstr "Reproductible"
+
+msgid "Défini"
+msgstr "Défini"
+
+msgid "Géré"
+msgstr "Géré"
+
+msgid "Optimisé"
+msgstr "Optimisé"
+
+msgid "Score de maturité : enregistre le score du mois"
+msgstr "Score de maturité : enregistre le score du mois"
+
+msgid "Le score de maturité cyber (0 à 100) : une vue d'ensemble de l'avancement de votre système de management de la sécurité, calculée à partir de vos données."
+msgstr "Le score de maturité cyber (0 à 100) : une vue d'ensemble de l'avancement de votre système de management de la sécurité, calculée à partir de vos données."
+
+msgid "Présentez-le en revue de direction ; le détail du calcul montre quelles composantes améliorer en priorité."
+msgstr "Présentez-le en revue de direction ; le détail du calcul montre quelles composantes améliorer en priorité."
+
+#, php-format
+msgid "Niveau %1$d : %2$s"
+msgstr "Niveau %1$d : %2$s"
+
+msgid "Niveaux : 1 Initial (0-19), 2 Reproductible (20-39), 3 Défini (40-59), 4 Géré (60-79), 5 Optimisé (80-100)."
+msgstr "Niveaux : 1 Initial (0-19), 2 Reproductible (20-39), 3 Défini (40-59), 4 Géré (60-79), 5 Optimisé (80-100)."
+
+msgid "Détail du calcul"
+msgstr "Détail du calcul"
+
+msgid "Composante"
+msgstr "Composante"
+
+msgid "Poids"
+msgstr "Poids"
+
+msgid "Apport"
+msgstr "Apport"
+
+msgid "sans données"
+msgstr "sans données"
+
+msgid "Sous-total"
+msgstr "Sous-total"
+
+#, php-format
+msgid "Pénalités : %1$d action(s) corrective(s) en retard, %2$d incident(s) de sécurité non résolu(s)"
+msgstr "Pénalités : %1$d action(s) corrective(s) en retard, %2$d incident(s) de sécurité non résolu(s)"
+
+msgid "Une composante sans données (module non utilisé) est écartée et son poids réparti sur les autres. Une mesure « en cours » compte pour moitié. Chaque retard ou incident ouvert retire 2 points, au plus 10 par catégorie."
+msgstr "Une composante sans données (module non utilisé) est écartée et son poids réparti sur les autres. Une mesure « en cours » compte pour moitié. Chaque retard ou incident ouvert retire 2 points, au plus 10 par catégorie."
+
+msgid "Mise en œuvre de l'Annexe A par thème"
+msgstr "Mise en œuvre de l'Annexe A par thème"
+
+msgid "Aucune mesure déclarée applicable dans la SoA."
+msgstr "Aucune mesure déclarée applicable dans la SoA."
+
+msgid "Évolution mensuelle"
+msgstr "Évolution mensuelle"
+
+msgid "L'historique se construit mois après mois : la tâche planifiée enregistre le score chaque jour pour le mois en cours."
+msgstr "L'historique se construit mois après mois : la tâche planifiée enregistre le score chaque jour pour le mois en cours."
+
+msgid "Score de maturité (sur 100)"
+msgstr "Score de maturité (sur 100)"
+
+msgid "Rapport post-incident"
+msgstr "Rapport post-incident"
+
+msgid "Déclaration"
+msgstr "Déclaration"
+
+msgid "Changement de statut"
+msgstr "Changement de statut"
+
+msgid "Suivi privé"
+msgstr "Suivi privé"
+
+msgid "Suivi"
+msgstr "Suivi"
+
+msgid "Tâche"
+msgstr "Tâche"
+
+msgid "Solution"
+msgstr "Solution"
+
+#, php-format
+msgid "Rapport post-incident : %s"
+msgstr "Rapport post-incident : %s"
+
+#, php-format
+msgid "Rapport post-incident - %s"
+msgstr "Rapport post-incident - %s"
+
+msgid "Rapport post-incident archivé dans les documents de l'incident."
+msgstr "Rapport post-incident archivé dans les documents de l'incident."
+
+msgid "Le rapport n'a pas pu être généré."
+msgstr "Le rapport n'a pas pu être généré."
+
+msgid "Tenue"
+msgstr "Tenue"
+
+msgid "Non notifiée"
+msgstr "Non notifiée"
+
+msgid "L'incident n'est pas clos : le rapport sera marqué provisoire. Renseignez la cause racine et les enseignements tirés avant la clôture."
+msgstr "L'incident n'est pas clos : le rapport sera marqué provisoire. Renseignez la cause racine et les enseignements tirés avant la clôture."
+
+msgid "Chronologie"
+msgstr "Chronologie"
+
+#, php-format
+msgid "… et %d autres événements, tous dans le rapport."
+msgstr "… et %d autres événements, tous dans le rapport."
+
+msgid "Contenu du rapport"
+msgstr "Contenu du rapport"
+
+msgid "Éléments touchés"
+msgstr "Éléments touchés"
+
+msgid "Coût total"
+msgstr "Coût total"
+
+msgid "à renseigner"
+msgstr "à renseigner"
+
+msgid "Actions décidées"
+msgstr "Actions décidées"
+
+msgid "Générer le rapport PDF"
+msgstr "Générer le rapport PDF"
+
+msgid "Le PDF est archivé dans les documents de l'incident et proposé comme preuve sur la mesure A.5.27 de la SoA."
+msgstr "Le PDF est archivé dans les documents de l'incident et proposé comme preuve sur la mesure A.5.27 de la SoA."
+
+msgid "Incident"
+msgstr "Incident"
+
+msgid "rapport provisoire, incident non clos"
+msgstr "rapport provisoire, incident non clos"
+
+msgid "Catégorie / sévérité"
+msgstr "Catégorie / sévérité"
+
+msgid "Déclaré le"
+msgstr "Déclaré le"
+
+msgid "Résolu / clos le"
+msgstr "Résolu / clos le"
+
+msgid "Durée jusqu'à la résolution"
+msgstr "Durée jusqu'à la résolution"
+
+msgid "Détail"
+msgstr "Détail"
+
+msgid "Date limite"
+msgstr "Date limite"
+
+msgid "Notifiée le"
+msgstr "Notifiée le"
+
+msgid "Résultat"
+msgstr "Résultat"
+
+msgid "Non renseignée."
+msgstr "Non renseignée."
+
+msgid "Non renseignés."
+msgstr "Non renseignés."
+
+msgid "Aucun plan d'action (non-conformité) rattaché à l'incident."
+msgstr "Aucun plan d'action (non-conformité) rattaché à l'incident."
+
+msgid "Action"
+msgstr "Action"
+
+msgid "Exercices de crise"
+msgstr "Exercices de crise"
+
+msgid "Attaque par rançongiciel"
+msgstr "Attaque par rançongiciel"
+
+msgid "Des postes et un serveur de fichiers sont chiffrés, une demande de rançon s'affiche. L'équipe doit isoler, évaluer, restaurer depuis les sauvegardes et communiquer."
+msgstr "Des postes et un serveur de fichiers sont chiffrés, une demande de rançon s'affiche. L'équipe doit isoler, évaluer, restaurer depuis les sauvegardes et communiquer."
+
+msgid "Fuite de données personnelles"
+msgstr "Fuite de données personnelles"
+
+msgid "Un fichier de clients est publié sur un forum. L'équipe doit contenir la fuite, identifier les données touchées et décider de la notification à l'autorité."
+msgstr "Un fichier de clients est publié sur un forum. L'équipe doit contenir la fuite, identifier les données touchées et décider de la notification à l'autorité."
+
+msgid "Panne majeure du système d'information"
+msgstr "Panne majeure du système d'information"
+
+msgid "La salle serveur (ou l'hébergeur principal) est indisponible. L'équipe doit activer le plan de continuité et basculer sur le site de secours."
+msgstr "La salle serveur (ou l'hébergeur principal) est indisponible. L'équipe doit activer le plan de continuité et basculer sur le site de secours."
+
+msgid "Confirmer l'alerte et qualifier l'incident"
+msgstr "Confirmer l'alerte et qualifier l'incident"
+
+msgid "Isoler du réseau les machines touchées"
+msgstr "Isoler du réseau les machines touchées"
+
+msgid "Réunir la cellule de crise"
+msgstr "Réunir la cellule de crise"
+
+msgid "Informer la direction"
+msgstr "Informer la direction"
+
+msgid "Évaluer l'étendue : systèmes et données touchés"
+msgstr "Évaluer l'étendue : systèmes et données touchés"
+
+msgid "Restaurer une sauvegarde de test"
+msgstr "Restaurer une sauvegarde de test"
+
+msgid "Préparer la communication interne et externe"
+msgstr "Préparer la communication interne et externe"
+
+msgid "Valider le retour à la normale"
+msgstr "Valider le retour à la normale"
+
+msgid "Contenir la fuite (retrait, comptes, accès)"
+msgstr "Contenir la fuite (retrait, comptes, accès)"
+
+msgid "Identifier les données et les personnes concernées"
+msgstr "Identifier les données et les personnes concernées"
+
+msgid "Informer le délégué à la protection des données"
+msgstr "Informer le délégué à la protection des données"
+
+msgid "Décider de la notification à l'autorité (RGPD, NIS2)"
+msgstr "Décider de la notification à l'autorité (RGPD, NIS2)"
+
+msgid "Activer le plan de continuité"
+msgstr "Activer le plan de continuité"
+
+msgid "Prévenir les utilisateurs"
+msgstr "Prévenir les utilisateurs"
+
+msgid "Basculer sur le site ou le service de secours"
+msgstr "Basculer sur le site ou le service de secours"
+
+#, php-format
+msgid "[EXERCICE] %s"
+msgstr "[EXERCICE] %s"
+
+msgid "Ceci est un exercice de crise : aucun incident réel n'est en cours."
+msgstr "Ceci est un exercice de crise : aucun incident réel n'est en cours."
+
+#, php-format
+msgid "Objectif : %d min après le début de l'exercice."
+msgstr "Objectif : %d min après le début de l'exercice."
+
+#, php-format
+msgid "Rapport d'exercice de crise : %s"
+msgstr "Rapport d'exercice de crise : %s"
+
+#, php-format
+msgid "Rapport d'exercice de crise - %s"
+msgstr "Rapport d'exercice de crise - %s"
+
+msgid "L'exercice n'a pas pu être lancé."
+msgstr "L'exercice n'a pas pu être lancé."
+
+msgid "Exercice terminé : le rapport est archivé dans les documents de l'incident d'exercice."
+msgstr "Exercice terminé : le rapport est archivé dans les documents de l'incident d'exercice."
+
+msgid "Les exercices de crise : simuler un incident (rançongiciel, fuite de données, panne) pour vérifier que l'équipe sait réagir et que le plan de continuité fonctionne."
+msgstr "Les exercices de crise : simuler un incident (rançongiciel, fuite de données, panne) pour vérifier que l'équipe sait réagir et que le plan de continuité fonctionne."
+
+msgid "Lancez un scénario : un incident fictif « EXERCICE » est créé avec une tâche par étape. Dans la salle de crise, cochez chaque étape dès qu'elle est faite ; à la fin, le rapport mesure les temps de réaction et sert de preuve pour l'audit. Au moins un exercice par an."
+msgstr "Lancez un scénario : un incident fictif « EXERCICE » est créé avec une tâche par étape. Dans la salle de crise, cochez chaque étape dès qu'elle est faite ; à la fin, le rapport mesure les temps de réaction et sert de preuve pour l'audit. Au moins un exercice par an."
+
+msgid "ISO 27001, Annexe A 5.29 et 5.30"
+msgstr "ISO 27001, Annexe A 5.29 et 5.30"
+
+msgid "Lancer un exercice de crise"
+msgstr "Lancer un exercice de crise"
+
+msgid "Lancer l'exercice maintenant ? Un incident fictif « EXERCICE » sera créé et le chronomètre démarrera."
+msgstr "Lancer l'exercice maintenant ? Un incident fictif « EXERCICE » sera créé et le chronomètre démarrera."
+
+msgid "Lancer l'exercice"
+msgstr "Lancer l'exercice"
+
+msgid "Exercices réalisés"
+msgstr "Exercices réalisés"
+
+msgid "Aucun exercice pour l'instant. La norme demande de tester les plans de continuité à intervalles planifiés : lancez un premier exercice ci-dessus."
+msgstr "Aucun exercice pour l'instant. La norme demande de tester les plans de continuité à intervalles planifiés : lancez un premier exercice ci-dessus."
+
+msgid "Scénario"
+msgstr "Scénario"
+
+msgid "Durée"
+msgstr "Durée"
+
+msgid "Étapes dans le délai"
+msgstr "Étapes dans le délai"
+
+msgid "Temps de réaction moyen"
+msgstr "Temps de réaction moyen"
+
+msgid "Ouvrir"
+msgstr "Ouvrir"
+
+msgid "Dans le délai"
+msgstr "Dans le délai"
+
+msgid "Non faite"
+msgstr "Non faite"
+
+msgid "EXERCICE"
+msgstr "EXERCICE"
+
+msgid "aucun incident réel n'est en cours. Les étapes sont aussi des tâches de l'incident d'exercice."
+msgstr "aucun incident réel n'est en cours. Les étapes sont aussi des tâches de l'incident d'exercice."
+
+msgid "Incident d'exercice"
+msgstr "Incident d'exercice"
+
+msgid "Tous les exercices"
+msgstr "Tous les exercices"
+
+#, php-format
+msgid "Lancé le %1$s par %2$s."
+msgstr "Lancé le %1$s par %2$s."
+
+msgid "Étape"
+msgstr "Étape"
+
+msgid "Objectif"
+msgstr "Objectif"
+
+msgid "Faite à"
+msgstr "Faite à"
+
+msgid "Bilan"
+msgstr "Bilan"
+
+msgid "Étapes faites"
+msgstr "Étapes faites"
+
+msgid "Ouvrir le rapport d'exercice"
+msgstr "Ouvrir le rapport d'exercice"
+
+msgid "Régénérer le rapport"
+msgstr "Régénérer le rapport"
+
+msgid "Renseignez les enseignements tirés sur l'incident d'exercice, puis régénérez le rapport pour les y faire figurer."
+msgstr "Renseignez les enseignements tirés sur l'incident d'exercice, puis régénérez le rapport pour les y faire figurer."
+
+msgid "Terminer l'exercice ? Les étapes non faites seront comptées comme manquées."
+msgstr "Terminer l'exercice ? Les étapes non faites seront comptées comme manquées."
+
+msgid "Terminer l'exercice et générer le rapport"
+msgstr "Terminer l'exercice et générer le rapport"
+
+msgid "Le rapport PDF est archivé sur l'incident d'exercice et comme preuve sur les mesures A.5.29 et A.5.30 de la SoA."
+msgstr "Le rapport PDF est archivé sur l'incident d'exercice et comme preuve sur les mesures A.5.29 et A.5.30 de la SoA."
+
+msgid "ce rapport porte sur un incident fictif, simulé pour tester le plan de continuité."
+msgstr "ce rapport porte sur un incident fictif, simulé pour tester le plan de continuité."
+
+msgid "Organisé par"
+msgstr "Organisé par"
+
+msgid "Début / fin"
+msgstr "Début / fin"
+
+msgid "Déroulé"
+msgstr "Déroulé"
+
+msgid "Par"
+msgstr "Par"
+
+msgid "Non renseignés : complétez-les sur l'incident d'exercice et régénérez le rapport."
+msgstr "Non renseignés : complétez-les sur l'incident d'exercice et régénérez le rapport."
+
+#, php-format
+msgid "Objectif : %d min après l'activation de la cellule de crise."
+msgstr "Objectif : %d min après l'activation de la cellule de crise."
+
+#, php-format
+msgid "Rapport de cellule de crise : %s"
+msgstr "Rapport de cellule de crise : %s"
+
+#, php-format
+msgid "Rapport de cellule de crise - %s"
+msgstr "Rapport de cellule de crise - %s"
+
+msgid "Cellule de crise"
+msgstr "Cellule de crise"
+
+msgid "La cellule de crise n'a pas pu être activée."
+msgstr "La cellule de crise n'a pas pu être activée."
+
+msgid "Terminé : le rapport est archivé dans les documents de l'incident."
+msgstr "Terminé : le rapport est archivé dans les documents de l'incident."
+
+#, php-format
+msgid "Active depuis %d min"
+msgstr "Active depuis %d min"
+
+msgid "Éléments rétablis"
+msgstr "Éléments rétablis"
+
+msgid "Ouvrir la salle de crise"
+msgstr "Ouvrir la salle de crise"
+
+msgid "Aucune salle de crise pour cet incident d'exercice."
+msgstr "Aucune salle de crise pour cet incident d'exercice."
+
+msgid "Pour un incident majeur, la cellule de crise suit le plan de réponse étape par étape (avec un objectif de délai pour chacune), la reprise des éléments touchés face à leur RTO, et tient le journal chronologique de la crise."
+msgstr "Pour un incident majeur, la cellule de crise suit le plan de réponse étape par étape (avec un objectif de délai pour chacune), la reprise des éléments touchés face à leur RTO, et tient le journal chronologique de la crise."
+
+msgid "Activer la cellule de crise maintenant ? Le chronomètre démarre et une tâche est créée par étape du plan."
+msgstr "Activer la cellule de crise maintenant ? Le chronomètre démarre et une tâche est créée par étape du plan."
+
+msgid "Plan de réponse"
+msgstr "Plan de réponse"
+
+msgid "Activer la cellule de crise"
+msgstr "Activer la cellule de crise"
+
+msgid "Liez d'abord à l'incident les éléments touchés (onglet « Éléments ») : la salle de crise suivra leur reprise et celle de ce qui en dépend."
+msgstr "Liez d'abord à l'incident les éléments touchés (onglet « Éléments ») : la salle de crise suivra leur reprise et celle de ce qui en dépend."
+
+msgid "Rétabli dans le RTO"
+msgstr "Rétabli dans le RTO"
+
+msgid "Rétabli après le RTO"
+msgstr "Rétabli après le RTO"
+
+msgid "Rétabli"
+msgstr "Rétabli"
+
+msgid "En cours de reprise"
+msgstr "En cours de reprise"
+
+msgid "RTO dépassé"
+msgstr "RTO dépassé"
+
+msgid "RTO non défini"
+msgstr "RTO non défini"
+
+msgid "CELLULE DE CRISE"
+msgstr "CELLULE DE CRISE"
+
+msgid "incident réel. Les étapes sont des tâches de l'incident, le journal est enregistré dans ses suivis."
+msgstr "incident réel. Les étapes sont des tâches de l'incident, le journal est enregistré dans ses suivis."
+
+msgid "Étapes du plan"
+msgstr "Étapes du plan"
+
+msgid "Reprise des éléments touchés"
+msgstr "Reprise des éléments touchés"
+
+msgid "Aucun élément lié à l'incident. Ajoutez les éléments touchés dans l'onglet « Éléments » de l'incident : leur reprise, et celle de ce qui en dépend, sera suivie ici face à leur RTO."
+msgstr "Aucun élément lié à l'incident. Ajoutez les éléments touchés dans l'onglet « Éléments » de l'incident : leur reprise, et celle de ce qui en dépend, sera suivie ici face à leur RTO."
+
+msgid "Touché par l'incident"
+msgstr "Touché par l'incident"
+
+msgid "Dépend d'un élément touché"
+msgstr "Dépend d'un élément touché"
+
+#, php-format
+msgid "rétabli par %s"
+msgstr "rétabli par %s"
+
+msgid "Le RTO se règle dans l'onglet « Classification » de chaque élément ; il est compté depuis l'ouverture de la salle de crise."
+msgstr "Le RTO se règle dans l'onglet « Classification » de chaque élément ; il est compté depuis l'ouverture de la salle de crise."
+
+msgid "Journal de crise"
+msgstr "Journal de crise"
+
+msgid "Décision, constat, appel passé… (horodaté automatiquement)"
+msgstr "Décision, constat, appel passé… (horodaté automatiquement)"
+
+msgid "Nouvelle entrée du journal"
+msgstr "Nouvelle entrée du journal"
+
+msgid "Ajouter"
+msgstr "Ajouter"
+
+msgid "Aucune entrée pour l'instant."
+msgstr "Aucune entrée pour l'instant."
+
+msgid "Privé"
+msgstr "Privé"
+
+msgid "RTO dépassés"
+msgstr "RTO dépassés"
+
+msgid "Ouvrir le rapport de crise"
+msgstr "Ouvrir le rapport de crise"
+
+msgid "Renseignez les enseignements tirés sur l'incident, puis régénérez le rapport pour les y faire figurer."
+msgstr "Renseignez les enseignements tirés sur l'incident, puis régénérez le rapport pour les y faire figurer."
+
+msgid "Fermer la cellule de crise ? Le chronomètre s'arrête ; l'incident lui-même reste ouvert."
+msgstr "Fermer la cellule de crise ? Le chronomètre s'arrête ; l'incident lui-même reste ouvert."
+
+msgid "Fermer la cellule de crise et générer le rapport"
+msgstr "Fermer la cellule de crise et générer le rapport"
+
+msgid "Le rapport PDF est archivé sur l'incident et comme preuve sur les mesures A.5.26 et A.5.29 de la SoA."
+msgstr "Le rapport PDF est archivé sur l'incident et comme preuve sur les mesures A.5.26 et A.5.29 de la SoA."
+
+msgid "Cellule activée par"
+msgstr "Cellule activée par"
+
+msgid "Rétabli le"
+msgstr "Rétabli le"
+
+msgid "dépendant"
+msgstr "dépendant"
+
+msgid "Auteur"
+msgstr "Auteur"
+
+msgid "Entrée"
+msgstr "Entrée"
+
+msgid "Non renseignés : complétez-les sur l'incident et régénérez le rapport."
+msgstr "Non renseignés : complétez-les sur l'incident et régénérez le rapport."
+
+msgid "Audit de conformité technique"
+msgstr "Audit de conformité technique"
+
+msgid "Postes sans antivirus actif et à jour"
+msgstr "Postes sans antivirus actif et à jour"
+
+msgid "D'après l'inventaire (onglet « Antivirus » des ordinateurs) : aucun antivirus, ou antivirus inactif, pas à jour ou expiré."
+msgstr "D'après l'inventaire (onglet « Antivirus » des ordinateurs) : aucun antivirus, ou antivirus inactif, pas à jour ou expiré."
+
+msgid "Postes avec un disque non chiffré"
+msgstr "Postes avec un disque non chiffré"
+
+msgid "D'après l'inventaire des volumes : au moins un disque non chiffré ou partiellement chiffré. Seuls les ordinateurs dont les volumes sont inventoriés sont comptés."
+msgstr "D'après l'inventaire des volumes : au moins un disque non chiffré ou partiellement chiffré. Seuls les ordinateurs dont les volumes sont inventoriés sont comptés."
+
+#, php-format
+msgid "Postes non inventoriés depuis plus de %d jours"
+msgstr "Postes non inventoriés depuis plus de %d jours"
+
+msgid "Ordinateurs remontés par l'agent d'inventaire dont la dernière remontée est ancienne : l'inventaire des actifs n'est plus fiable pour eux."
+msgstr "Ordinateurs remontés par l'agent d'inventaire dont la dernière remontée est ancienne : l'inventaire des actifs n'est plus fiable pour eux."
+
+msgid "Changements résolus ou clos depuis un an dont les validations approuvées sont moins nombreuses que le nombre exigé."
+msgstr "Changements résolus ou clos depuis un an dont les validations approuvées sont moins nombreuses que le nombre exigé."
+
+msgid "Comptes à vérifier"
+msgstr "Comptes à vérifier"
+
+#, php-format
+msgid "Comptes actifs supprimés de l'annuaire, expirés, en doublon ou sans connexion depuis %d jours (écran « Hygiène des comptes »)."
+msgstr "Comptes actifs supprimés de l'annuaire, expirés, en doublon ou sans connexion depuis %d jours (écran « Hygiène des comptes »)."
+
+msgid "RGPD"
+msgstr "RGPD"
+
+msgid "Antivirus inactif, pas à jour ou expiré"
+msgstr "Antivirus inactif, pas à jour ou expiré"
+
+msgid "Aucun antivirus inventorié"
+msgstr "Aucun antivirus inventorié"
+
+#, php-format
+msgid "Non chiffré : %s"
+msgstr "Non chiffré : %s"
+
+msgid "Jamais inventorié"
+msgstr "Jamais inventorié"
+
+#, php-format
+msgid "Dernier inventaire : %s"
+msgstr "Dernier inventaire : %s"
+
+#, php-format
+msgid "%1$d validation(s) approuvée(s) sur %2$d exigée(s)"
+msgstr "%1$d validation(s) approuvée(s) sur %2$d exigée(s)"
+
+#, php-format
+msgid "Mise en conformité : %1$s (%2$d)"
+msgstr "Mise en conformité : %1$s (%2$d)"
+
+msgid "Changements clos sans validation approuvée"
+msgid_plural "Changements clos sans %d validations approuvées"
+msgstr[0] "Changements clos sans validation approuvée"
+msgstr[1] "Changements clos sans %d validations approuvées"
+
+msgid "Aucun écart à traiter : le ticket n'a pas été créé."
+msgstr "Aucun écart à traiter : le ticket n'a pas été créé."
+
+msgid "L'audit de conformité technique : des contrôles automatiques sur les données de GLPI (antivirus, chiffrement des disques, inventaire, validation des changements, comptes), avec un score par référentiel."
+msgstr "L'audit de conformité technique : des contrôles automatiques sur les données de GLPI (antivirus, chiffrement des disques, inventaire, validation des changements, comptes), avec un score par référentiel."
+
+msgid "Consultez les écarts de chaque contrôle et créez le ticket de mise en conformité ; une fois les éléments corrigés, le score remonte. Présentez les scores en revue de direction."
+msgstr "Consultez les écarts de chaque contrôle et créez le ticket de mise en conformité ; une fois les éléments corrigés, le score remonte. Présentez les scores en revue de direction."
+
+msgid "ISO 27001, 9.1 ; NIS2, article 21 ; RGPD, article 32"
+msgstr "ISO 27001, 9.1 ; NIS2, article 21 ; RGPD, article 32"
+
+#, php-format
+msgid "Moyenne de %d contrôle(s) technique(s)"
+msgstr "Moyenne de %d contrôle(s) technique(s)"
+
+msgid "Aucun contrôle évaluable"
+msgstr "Aucun contrôle évaluable"
+
+msgid "Ce score ne mesure que les contrôles techniques ci-dessous, à partir des données de GLPI. L'avancement organisationnel se suit dans la déclaration d'applicabilité (SoA) et le score de maturité."
+msgstr "Ce score ne mesure que les contrôles techniques ci-dessous, à partir des données de GLPI. L'avancement organisationnel se suit dans la déclaration d'applicabilité (SoA) et le score de maturité."
+
+msgid "Mesures de l'Annexe A"
+msgstr "Mesures de l'Annexe A"
+
+msgid "Validations exigées par changement"
+msgstr "Validations exigées par changement"
+
+msgid "2 (double validation)"
+msgstr "2 (double validation)"
+
+msgid "Appliquer"
+msgstr "Appliquer"
+
+msgid "Non évalué"
+msgstr "Non évalué"
+
+msgid "Votre profil ne permet pas de lire les éléments concernés : ce contrôle n'entre pas dans le score."
+msgstr "Votre profil ne permet pas de lire les éléments concernés : ce contrôle n'entre pas dans le score."
+
+msgid "Aucun élément concerné dans vos entités."
+msgstr "Aucun élément concerné dans vos entités."
+
+#, php-format
+msgid "… et %d autres."
+msgstr "… et %d autres."
+
+msgid "Revoir ces comptes (hygiène des comptes)"
+msgstr "Revoir ces comptes (hygiène des comptes)"
+
+#, php-format
+msgid "Ticket de mise en conformité en cours (#%d)"
+msgstr "Ticket de mise en conformité en cours (#%d)"
+
+msgid "Créer le ticket de mise en conformité"
+msgstr "Créer le ticket de mise en conformité"
+
+msgid "Un seul ticket, avec les éléments concernés liés. Rien n'est modifié automatiquement."
+msgstr "Un seul ticket, avec les éléments concernés liés. Rien n'est modifié automatiquement."
+
+#, php-format
+msgid "Écarts relevés par l'audit de conformité technique (GRC & Conformité) : %s."
+msgstr "Écarts relevés par l'audit de conformité technique (GRC & Conformité) : %s."
+
+msgid "Références"
+msgstr "Références"
+
+msgid "Écart"
+msgstr "Écart"
+
+#, php-format
+msgid "… et %d autres, visibles dans l'audit de conformité technique."
+msgstr "… et %d autres, visibles dans l'audit de conformité technique."
+
+msgid "Corrigez chaque élément, puis relancez l'audit pour vérifier. Rien n'a été modifié automatiquement."
+msgstr "Corrigez chaque élément, puis relancez l'audit pour vérifier. Rien n'a été modifié automatiquement."

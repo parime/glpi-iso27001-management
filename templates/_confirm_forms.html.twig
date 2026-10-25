@@ -1,0 +1,10 @@
+{# Demande de confirmation avant l'envoi des formulaires portant data-grc-confirm (texte échappé). #}
+<script>
+   document.querySelectorAll('form[data-grc-confirm]').forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+         if (!window.confirm(form.dataset.grcConfirm)) {
+            event.preventDefault();
+         }
+      });
+   });
+</script>

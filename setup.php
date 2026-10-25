@@ -25,7 +25,7 @@ use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentModuleConfig;
 // must bundle vendor/, see .github/workflows/release.yml.
 require_once __DIR__ . '/vendor/autoload.php';
 
-define('PLUGIN_GRCMANAGER_VERSION', '2.7.0');
+define('PLUGIN_GRCMANAGER_VERSION', '2.8.0');
 define('PLUGIN_GRCMANAGER_MIN_GLPI', '11.0.0');
 // GLPI 11 and 12 from a single code base (see src/Compatibility/).
 define('PLUGIN_GRCMANAGER_MAX_GLPI', '12.99.99');
@@ -133,6 +133,12 @@ function plugin_init_grcmanager(): void
             PluginGrcmanagerImpactAnalysis::class,
             // Issue #171 : effet domino entre risques et incidents.
             PluginGrcmanagerCausalLink::class,
+            // Issue #166 : score de maturité cyber.
+            PluginGrcmanagerMaturity::class,
+            // Issue #162 : audit de conformité technique (ISO 27001, NIS2, RGPD).
+            PluginGrcmanagerComplianceAudit::class,
+            // Issue #168 : exercices de crise (test des plans de continuité).
+            PluginGrcmanagerCrisisExercise::class,
             PluginGrcmanagerObjective::class,
             // Corrélation CPE des CVE avec le parc GLPI (cf. ROADMAP.md) : un seul menu entry pour
             // le catalogue de correspondance (le produit canonique) — ses deux tables satellites
@@ -244,11 +250,20 @@ function plugin_init_grcmanager(): void
         'addtabon' => $CFG_GLPI['software_types'] ?? ['Computer'],
     ]);
 
-    // Issue #177 : onglet « Impact d'une panne » sur les actifs.
+    // Issue #169 : onglet « Rapport post-incident » sur les incidents de sécurité.
+    Plugin::registerClass(PluginGrcmanagerSecurityIncidentPostMortem::class, [
+        'addtabon' => [PluginGrcmanagerSecurityIncident::class],
+    ]);
+    // Issue #185 : onglet « Cellule de crise » de l'incident.
+    Plugin::registerClass(PluginGrcmanagerCrisisExercise::class, [
+        'addtabon' => [PluginGrcmanagerSecurityIncident::class],
+    ]);
+
     // Issue #171 : onglet « Effet domino » sur les risques, risques fournisseurs et incidents.
     Plugin::registerClass(PluginGrcmanagerCausalLink::class, [
         'addtabon' => PluginGrcmanagerCausalLink::getLinkableItemtypes(),
     ]);
+    // Issue #177 : onglet « Impact d'une panne » sur les actifs.
     Plugin::registerClass(PluginGrcmanagerImpactAnalysis::class, [
         'addtabon' => PluginGrcmanagerRisk::getLinkableItemtypes(),
     ]);

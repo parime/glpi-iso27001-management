@@ -1,0 +1,42 @@
+{# Issue #185 : onglet « Cellule de crise » d'un incident de sécurité #}
+<div class="container-fluid">
+   {% if cell %}
+      <div class="d-flex flex-wrap align-items-center gap-3 mb-2">
+         <h4 class="mb-0"><i class="ti ti-alarm me-1 text-danger"></i>{{ cell.exercise.scenario }}</h4>
+         {% if cell.exercise.ended %}
+            <span class="badge bg-green-lt"><i class="ti ti-flag-check me-1"></i>{{ __('Terminé', 'grcmanager') }} — {{ cell.exercise.duration }} min</span>
+         {% else %}
+            <span class="badge bg-red-lt"><i class="ti ti-clock me-1"></i>{{ __('Active depuis %d min', 'grcmanager')|format(cell.exercise.duration) }}</span>
+         {% endif %}
+      </div>
+      <p class="mb-2">
+         {{ __('Étapes faites', 'grcmanager') }} : <strong>{{ cell.summary.done }} / {{ cell.summary.total }}</strong>
+         {% if cell.recovery is not empty %}
+            — {{ __('Éléments rétablis', 'grcmanager') }} : <strong>{{ cell.recovery|filter(r => r.restored_at)|length }} / {{ cell.recovery|length }}</strong>
+         {% endif %}
+      </p>
+      <a href="{{ room_url }}" class="btn btn-primary"><i class="ti ti-door-enter me-1"></i>{{ __('Ouvrir la salle de crise', 'grcmanager') }}</a>
+      {% if cell.exercise.document_url %}
+         <a href="{{ cell.exercise.document_url }}" class="btn btn-outline-secondary ms-2"><i class="ti ti-file-type-pdf me-1"></i>{{ __('Rapport', 'grcmanager') }}</a>
+      {% endif %}
+   {% elseif drill %}
+      <p class="text-muted">{{ __('Aucune salle de crise pour cet incident d\'exercice.', 'grcmanager') }}</p>
+   {% else %}
+      <p>{{ __('Pour un incident majeur, la cellule de crise suit le plan de réponse étape par étape (avec un objectif de délai pour chacune), la reprise des éléments touchés face à leur RTO, et tient le journal chronologique de la crise.', 'grcmanager') }}</p>
+      {% if can_activate %}
+         <form method="post" action="{{ action }}" class="d-flex flex-wrap align-items-end gap-2" data-grc-confirm="{{ __('Activer la cellule de crise maintenant ? Le chronomètre démarre et une tâche est créée par étape du plan.', 'grcmanager') }}">
+            <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="incident" value="{{ incident_id }}">
+            <div>
+               <label class="form-label" for="grc-crisis-scenario">{{ __('Plan de réponse', 'grcmanager') }}</label>
+               <select class="form-select" id="grc-crisis-scenario" name="scenario">
+                  {% for key, label in scenarios %}<option value="{{ key }}">{{ label }}</option>{% endfor %}
+               </select>
+            </div>
+            <button type="submit" name="activate" value="1" class="btn btn-danger"><i class="ti ti-alarm me-1"></i>{{ __('Activer la cellule de crise', 'grcmanager') }}</button>
+         </form>
+         <div class="form-hint">{{ __('Liez d\'abord à l\'incident les éléments touchés (onglet « Éléments ») : la salle de crise suivra leur reprise et celle de ce qui en dépend.', 'grcmanager') }}</div>
+         {% include '@grcmanager/_confirm_forms.html.twig' %}
+      {% endif %}
+   {% endif %}
+</div>

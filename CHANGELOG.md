@@ -7,6 +7,56 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.8.0] - 2026-10-25
+
+### Added
+
+- **Audit de conformité technique** (issue #162) : menu GRC & Conformité > « Audit de conformité
+  technique ». Un score par référentiel (ISO/IEC 27001, NIS2, RGPD), calculé à partir de cinq
+  contrôles sur les données de GLPI : postes sans antivirus actif et à jour, disques non chiffrés,
+  postes non inventoriés depuis 30 jours, changements clos sans validation approuvée (1 ou 2
+  exigées), comptes à vérifier. Chaque contrôle liste ses écarts avec leurs références (mesure,
+  article) ; « Créer le ticket de mise en conformité » ouvre un seul ticket par contrôle, avec les
+  éléments liés, réutilisé tant qu'il est ouvert. Rien n'est modifié automatiquement ; un contrôle
+  dont la personne ne peut pas lire les éléments n'est pas évalué.
+- **Cellule de crise sur un incident réel** (issue #185) : onglet « Cellule de crise » sur chaque
+  incident de sécurité. « Activer la cellule de crise » ouvre la salle de crise avec le plan de
+  réponse choisi (étapes chronométrées) et ajoute :
+  - la **reprise des éléments touchés** et de ce qui en dépend (analyse d'impact de GLPI), face à
+    leur RTO : échéance, bouton « Rétabli », temps de reprise mesuré, « RTO dépassé » ;
+  - le **journal de crise** chronologique (enregistré dans les suivis de l'incident) ;
+  - la fermeture produit le rapport PDF (étapes, reprise, journal sans les suivis privés),
+    archivé sur l'incident et comme preuve sur les mesures A.5.26 et A.5.29.
+- **Exercices de crise** (issue #168) : menu GRC & Conformité > « Exercices de crise ». Trois
+  scénarios prêts à l'emploi (rançongiciel, fuite de données personnelles, panne majeure) :
+  - « Lancer l'exercice » crée un incident de sécurité fictif « [EXERCICE] » avec une tâche par étape ;
+  - la salle de crise affiche le chronomètre, le délai visé de chaque étape et le bouton « Fait » ;
+    une tâche passée à « Fait » depuis l'incident compte aussi ;
+  - « Terminer l'exercice » produit le rapport PDF (temps de réaction, étapes dans le délai,
+    participants, enseignements), archivé sur l'incident et comme preuve sur les mesures A.5.29 et
+    A.5.30 de la SoA ;
+  - les incidents d'exercice sont exclus du tableau de bord et du score de maturité, et filtrables
+    dans la liste des incidents (critère « Exercice de crise »).
+- **Rapport post-incident** (issue #169) : onglet « Rapport post-incident » sur chaque incident
+  de sécurité, et bouton « Générer le rapport PDF » :
+  - chronologie (déclaration, changements de statut, suivis, tâches, solution), éléments touchés,
+    CVE, tickets liés, coût total ;
+  - notifications réglementaires NIS2 / RGPD : tenues, en retard ou non notifiées ;
+  - cause racine, enseignements tirés et actions décidées (plans d'action rattachés) ;
+  - le PDF est archivé dans les documents de l'incident et comme preuve sur la mesure A.5.27 de la
+    SoA. Un incident non clos produit un rapport marqué provisoire.
+- **Score de maturité cyber** (issue #166), menu GRC & Conformité > Score de maturité, et carte
+  du tableau de bord :
+  - score de 0 à 100 et niveau de 1 (Initial) à 5 (Optimisé) ;
+  - **calcul entièrement détaillé** : mesures de l'Annexe A mises en œuvre (40 %), exigences du
+    SMSI conformes (25 %), preuves valides (15 %), audit interne dans les 12 derniers mois (10 %),
+    formations réalisées (10 %) ; une mesure « en cours » compte pour moitié ; une composante sans
+    données est écartée et son poids réparti sur les autres ;
+  - pénalités : 2 points par action corrective en retard et par incident de sécurité non résolu,
+    au plus 10 par catégorie ;
+  - radar de mise en œuvre de l'Annexe A par thème, et évolution mensuelle (tâche planifiée
+    quotidienne qui enregistre le score du mois) pour la revue de direction.
+
 ## [2.7.0] - 2026-10-25
 
 ### Added

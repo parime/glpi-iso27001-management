@@ -190,6 +190,8 @@ final class Installer
     private const CVE_SIGNALS_TABLE = 'glpi_plugin_grcmanager_cvesignals';
     // Issue #160, phase 2 : ticket ouvert par produit du catalogue (logiciel à mettre à jour).
     private const CERTFR_NOTICES_TABLE = 'glpi_plugin_grcmanager_certfrnotices';
+    // Issue #166 : score de maturité enregistré chaque mois.
+    private const MATURITY_SNAPSHOTS_TABLE = 'glpi_plugin_grcmanager_maturitysnapshots';
     // Issue #171 : liens cause → conséquence entre risques et incidents (effet domino).
     private const CAUSAL_LINKS_TABLE = 'glpi_plugin_grcmanager_causallinks';
     private const CERTFR_NOTIFIED_TABLE = 'glpi_plugin_grcmanager_certfrnotices_supplierrisks';
@@ -201,6 +203,13 @@ final class Installer
     private const WAIVERS_ITEMS_TABLE = 'glpi_plugin_grcmanager_waivers_items';
     // Issue #164 : règles de couverture des preuves, voir PluginGrcmanagerCoverageRule.
     private const COVERAGE_RULES_TABLE = 'glpi_plugin_grcmanager_coveragerules';
+    // Issue #168 : exercices de crise et leurs étapes chronométrées.
+    private const CRISIS_EXERCISES_TABLE = 'glpi_plugin_grcmanager_crisisexercises';
+    private const CRISIS_EXERCISE_STEPS_TABLE = 'glpi_plugin_grcmanager_crisisexercisesteps';
+    // Issue #185 : éléments rétablis pendant une crise (temps de reprise mesuré face au RTO).
+    private const CRISIS_RECOVERIES_TABLE = 'glpi_plugin_grcmanager_crisisrecoveries';
+    // Issue #162 : ticket de mise en conformité ouvert par contrôle technique et par entité.
+    private const COMPLIANCE_AUDIT_TICKETS_TABLE = 'glpi_plugin_grcmanager_complianceaudittickets';
 
     public function install(Migration $migration): bool
     {
@@ -1259,6 +1268,22 @@ final class Installer
             $migration->migrationOneTable(self::ASSET_CLASSIFICATIONS_TABLE);
         }
 
+        // Issue #166 : score de maturité, un enregistrement par mois.
+        if (!$DB->tableExists(self::MATURITY_SNAPSHOTS_TABLE)) {
+            $query = "CREATE TABLE `" . self::MATURITY_SNAPSHOTS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `month` char(7) NOT NULL,
+                `score` int NOT NULL DEFAULT 0,
+                `level` int NOT NULL DEFAULT 1,
+                `details` text,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `month` (`month`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+        }
+
         // Issue #171 : effet domino, un lien par couple cause → conséquence.
         if (!$DB->tableExists(self::CAUSAL_LINKS_TABLE)) {
             $query = "CREATE TABLE `" . self::CAUSAL_LINKS_TABLE . "` (
@@ -1483,6 +1508,7 @@ final class Installer
                 `nis2_final_report_at` timestamp NULL DEFAULT NULL,
                 `gdpr_notification_at` timestamp NULL DEFAULT NULL,
                 `regulatory_alerts` text COMMENT 'Alertes deja envoyees, echeance:statut (issue #128)',
+                `is_exercise` tinyint NOT NULL DEFAULT 0 COMMENT 'Incident fictif d exercice de crise (issue #168)',
                 PRIMARY KEY (`id`),
                 KEY `entities_id` (`entities_id`),
                 KEY `is_recursive` (`is_recursive`),
@@ -1765,6 +1791,73 @@ final class Installer
         if (!$DB->fieldExists(self::SECURITY_INCIDENTS_TABLE, 'regulatory_alerts')) {
             $migration->addField(self::SECURITY_INCIDENTS_TABLE, 'regulatory_alerts', 'text');
         }
+        if (!$DB->fieldExists(self::SECURITY_INCIDENTS_TABLE, 'is_exercise')) {
+            $migration->addField(self::SECURITY_INCIDENTS_TABLE, 'is_exercise', 'bool', ['value' => 0]);
+        }
+        // Issue #168 : un exercice = un incident fictif, ses étapes = des tâches de l'incident.
+        if (!$DB->tableExists(self::CRISIS_EXERCISES_TABLE)) {
+            $query = "CREATE TABLE `" . self::CRISIS_EXERCISES_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `entities_id` int {$keySign} NOT NULL DEFAULT 0,
+                `plugin_grcmanager_securityincidents_id` int {$keySign} NOT NULL DEFAULT 0,
+                `scenario` varchar(50) NOT NULL DEFAULT '',
+                `users_id` int {$keySign} NOT NULL DEFAULT 0,
+                `started_at` timestamp NULL DEFAULT NULL,
+                `ended_at` timestamp NULL DEFAULT NULL,
+                `documents_id` int {$keySign} NOT NULL DEFAULT 0,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `entities_id` (`entities_id`),
+                KEY `plugin_grcmanager_securityincidents_id` (`plugin_grcmanager_securityincidents_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+        }
+        if (!$DB->tableExists(self::CRISIS_EXERCISE_STEPS_TABLE)) {
+            $query = "CREATE TABLE `" . self::CRISIS_EXERCISE_STEPS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_crisisexercises_id` int {$keySign} NOT NULL DEFAULT 0,
+                `step` varchar(50) NOT NULL DEFAULT '',
+                `rank` int NOT NULL DEFAULT 0,
+                `target_minutes` int NOT NULL DEFAULT 0,
+                `plugin_grcmanager_securityincidenttasks_id` int {$keySign} NOT NULL DEFAULT 0,
+                `done_at` timestamp NULL DEFAULT NULL,
+                `users_id_done` int {$keySign} NOT NULL DEFAULT 0,
+                PRIMARY KEY (`id`),
+                KEY `plugin_grcmanager_crisisexercises_id` (`plugin_grcmanager_crisisexercises_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+        }
+        if (!$DB->tableExists(self::COMPLIANCE_AUDIT_TICKETS_TABLE)) {
+            $query = "CREATE TABLE `" . self::COMPLIANCE_AUDIT_TICKETS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `check_key` varchar(50) NOT NULL DEFAULT '',
+                `entities_id` int {$keySign} NOT NULL DEFAULT 0,
+                `tickets_id` int {$keySign} NOT NULL DEFAULT 0,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `check_key` (`check_key`, `entities_id`),
+                KEY `tickets_id` (`tickets_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+        }
+        if (!$DB->tableExists(self::CRISIS_RECOVERIES_TABLE)) {
+            $query = "CREATE TABLE `" . self::CRISIS_RECOVERIES_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_crisisexercises_id` int {$keySign} NOT NULL DEFAULT 0,
+                `itemtype` varchar(100) NOT NULL DEFAULT '',
+                `items_id` int {$keySign} NOT NULL DEFAULT 0,
+                `restored_at` timestamp NULL DEFAULT NULL,
+                `users_id` int {$keySign} NOT NULL DEFAULT 0,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity` (`plugin_grcmanager_crisisexercises_id`, `itemtype`, `items_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+        }
         if (!$DB->tableExists(self::SECURITY_INCIDENTS_TICKETS_TABLE)) {
             $query = "CREATE TABLE `" . self::SECURITY_INCIDENTS_TICKETS_TABLE . "` (
                 `id` int {$keySign} NOT NULL AUTO_INCREMENT,
@@ -2025,6 +2118,17 @@ final class Installer
             [
                 'comment' => 'Notifie le responsable de chaque action de traitement de risque dont '
                     . 'l\'échéance est dépassée',
+                'mode'    => CronTask::MODE_EXTERNAL,
+            ]
+        );
+
+        // Issue #166 : score de maturité du mois, enregistré chaque jour pour l'historique.
+        CronTask::Register(
+            'PluginGrcmanagerMaturity',
+            'maturitysnapshot',
+            DAY_TIMESTAMP,
+            [
+                'comment' => 'Enregistre le score de maturité du mois pour l\'historique de la revue de direction',
                 'mode'    => CronTask::MODE_EXTERNAL,
             ]
         );
@@ -3153,11 +3257,16 @@ final class Installer
         $migration->dropTable(self::PARK_CVE_TICKETS_TABLE);
         $migration->dropTable(self::CERTFR_NOTICES_TABLE);
         $migration->dropTable(self::CAUSAL_LINKS_TABLE);
+        $migration->dropTable(self::MATURITY_SNAPSHOTS_TABLE);
         $migration->dropTable(self::CERTFR_NOTIFIED_TABLE);
         $migration->dropTable(self::RISK_CATALOG_IMPORTS_TABLE);
         $migration->dropTable(self::WAIVERS_TABLE);
         $migration->dropTable(self::WAIVERS_ITEMS_TABLE);
         $migration->dropTable(self::COVERAGE_RULES_TABLE);
+        $migration->dropTable(self::CRISIS_RECOVERIES_TABLE);
+        $migration->dropTable(self::COMPLIANCE_AUDIT_TICKETS_TABLE);
+        $migration->dropTable(self::CRISIS_EXERCISE_STEPS_TABLE);
+        $migration->dropTable(self::CRISIS_EXERCISES_TABLE);
         $migration->dropTable(self::ACCESS_REVIEWS_USERS_TABLE);
         $migration->dropTable(self::ACCESS_REVIEWS_TABLE);
         $migration->dropTable(self::OBJECTIVES_TABLE);

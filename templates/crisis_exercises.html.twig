@@ -1,0 +1,51 @@
+{# Issue #168 : choix du scénario et historique des exercices de crise #}
+<div class="container-fluid">
+   <h3 class="mt-2"><i class="ti ti-player-play me-1"></i>{{ __('Lancer un exercice de crise', 'grcmanager') }}</h3>
+   <div class="row g-3 mb-4">
+      {% for s in scenarios %}
+         <div class="col-lg-4">
+            <div class="card h-100">
+               <div class="card-header"><h4 class="card-title mb-0"><i class="ti ti-alarm me-1 text-danger"></i>{{ s.label }}</h4></div>
+               <div class="card-body">
+                  <p>{{ s.description }}</p>
+                  <ol class="small mb-0">
+                     {% for step in s.steps %}
+                        <li>{{ step.label }} <span class="badge bg-secondary-lt">T+{{ step.target }} min</span></li>
+                     {% endfor %}
+                  </ol>
+               </div>
+               {% if can_launch %}
+                  <div class="card-footer">
+                     <form method="post" action="{{ action }}" data-grc-confirm="{{ __('Lancer l\'exercice maintenant ? Un incident fictif « EXERCICE » sera créé et le chronomètre démarrera.', 'grcmanager') }}">
+                        <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                        <button type="submit" name="launch" value="{{ s.key }}" class="btn btn-danger"><i class="ti ti-player-play me-1"></i>{{ __('Lancer l\'exercice', 'grcmanager') }}</button>
+                     </form>
+                  </div>
+               {% endif %}
+            </div>
+         </div>
+      {% endfor %}
+   </div>
+
+   <h3><i class="ti ti-history me-1"></i>{{ __('Exercices réalisés', 'grcmanager') }}</h3>
+   {% if history is empty %}
+      <div class="alert alert-info"><i class="ti ti-info-circle me-1"></i>{{ __('Aucun exercice pour l\'instant. La norme demande de tester les plans de continuité à intervalles planifiés : lancez un premier exercice ci-dessus.', 'grcmanager') }}</div>
+   {% else %}
+      <table class="table table-hover card-table">
+         <thead><tr><th>{{ __('Scénario', 'grcmanager') }}</th><th>{{ __('Début', 'grcmanager') }}</th><th>{{ __('Durée', 'grcmanager') }}</th><th>{{ __('Étapes dans le délai', 'grcmanager') }}</th><th>{{ __('Temps de réaction moyen', 'grcmanager') }}</th><th>{{ __('Rapport', 'grcmanager') }}</th></tr></thead>
+         <tbody>
+            {% for e in history %}
+               <tr>
+                  <td><a href="{{ e.url }}">{{ e.scenario }}</a>{% if not e.ended %} <span class="badge bg-orange-lt">{{ __('En cours', 'grcmanager') }}</span>{% endif %}</td>
+                  <td>{{ e.started_at|formatted_datetime }}</td>
+                  <td>{{ e.duration }} min</td>
+                  <td><span class="badge {{ e.summary.rate >= 80 ? 'bg-green-lt' : (e.summary.rate >= 50 ? 'bg-orange-lt' : 'bg-red-lt') }}">{{ e.summary.on_time }} / {{ e.summary.total }} ({{ e.summary.rate }} %)</span></td>
+                  <td>{{ e.summary.average is null ? '—' : e.summary.average ~ ' min' }}</td>
+                  <td>{% if e.document_url %}<a href="{{ e.document_url }}"><i class="ti ti-file-type-pdf me-1"></i>{{ __('Ouvrir', 'grcmanager') }}</a>{% else %}—{% endif %}</td>
+               </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+   {% endif %}
+</div>
+{% include '@grcmanager/_confirm_forms.html.twig' %}

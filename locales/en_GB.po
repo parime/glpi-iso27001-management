@@ -4171,3 +4171,700 @@ msgstr "What is this page for?"
 
 msgid "Ce qui est attendu"
 msgstr "What is expected"
+
+msgid "Score de maturité"
+msgstr "Maturity score"
+
+msgid "Mesures de l'Annexe A mises en œuvre (SoA)"
+msgstr "Annex A controls implemented (SoA)"
+
+msgid "Exigences du SMSI (articles 4 à 10) conformes"
+msgstr "ISMS requirements (clauses 4 to 10) met"
+
+msgid "Preuves en cours de validité"
+msgstr "Evidence still valid"
+
+msgid "Audit interne réalisé dans les 12 derniers mois"
+msgstr "Internal audit completed in the last 12 months"
+
+msgid "Formations réalisées"
+msgstr "Training completed"
+
+msgid "Initial"
+msgstr "Initial"
+
+msgid "Reproductible"
+msgstr "Repeatable"
+
+msgid "Défini"
+msgstr "Defined"
+
+msgid "Géré"
+msgstr "Managed"
+
+msgid "Optimisé"
+msgstr "Optimised"
+
+msgid "Score de maturité : enregistre le score du mois"
+msgstr "Maturity score: records the score of the month"
+
+msgid "Le score de maturité cyber (0 à 100) : une vue d'ensemble de l'avancement de votre système de management de la sécurité, calculée à partir de vos données."
+msgstr "The cyber maturity score (0 to 100): an overview of the progress of your security management system, computed from your data."
+
+msgid "Présentez-le en revue de direction ; le détail du calcul montre quelles composantes améliorer en priorité."
+msgstr "Present it in management reviews; the calculation details show which components to improve first."
+
+#, php-format
+msgid "Niveau %1$d : %2$s"
+msgstr "Level %1$d: %2$s"
+
+msgid "Niveaux : 1 Initial (0-19), 2 Reproductible (20-39), 3 Défini (40-59), 4 Géré (60-79), 5 Optimisé (80-100)."
+msgstr "Levels: 1 Initial (0-19), 2 Repeatable (20-39), 3 Defined (40-59), 4 Managed (60-79), 5 Optimised (80-100)."
+
+msgid "Détail du calcul"
+msgstr "Calculation details"
+
+msgid "Composante"
+msgstr "Component"
+
+msgid "Poids"
+msgstr "Weight"
+
+msgid "Apport"
+msgstr "Contribution"
+
+msgid "sans données"
+msgstr "no data"
+
+msgid "Sous-total"
+msgstr "Subtotal"
+
+#, php-format
+msgid "Pénalités : %1$d action(s) corrective(s) en retard, %2$d incident(s) de sécurité non résolu(s)"
+msgstr "Penalties: %1$d overdue corrective action(s), %2$d unresolved security incident(s)"
+
+msgid "Une composante sans données (module non utilisé) est écartée et son poids réparti sur les autres. Une mesure « en cours » compte pour moitié. Chaque retard ou incident ouvert retire 2 points, au plus 10 par catégorie."
+msgstr "A component without data (unused module) is left out and its weight spread over the others. A control \"in progress\" counts for half. Each overdue action or open incident removes 2 points, at most 10 per category."
+
+msgid "Mise en œuvre de l'Annexe A par thème"
+msgstr "Annex A implementation by theme"
+
+msgid "Aucune mesure déclarée applicable dans la SoA."
+msgstr "No control declared applicable in the SoA."
+
+msgid "Évolution mensuelle"
+msgstr "Monthly trend"
+
+msgid "L'historique se construit mois après mois : la tâche planifiée enregistre le score chaque jour pour le mois en cours."
+msgstr "The history builds up month after month: the scheduled task records the score every day for the current month."
+
+msgid "Score de maturité (sur 100)"
+msgstr "Maturity score (out of 100)"
+
+msgid "Rapport post-incident"
+msgstr "Post-incident report"
+
+msgid "Déclaration"
+msgstr "Declaration"
+
+msgid "Changement de statut"
+msgstr "Status change"
+
+msgid "Suivi privé"
+msgstr "Private followup"
+
+msgid "Suivi"
+msgstr "Followup"
+
+msgid "Tâche"
+msgstr "Task"
+
+msgid "Solution"
+msgstr "Solution"
+
+#, php-format
+msgid "Rapport post-incident : %s"
+msgstr "Post-incident report: %s"
+
+#, php-format
+msgid "Rapport post-incident - %s"
+msgstr "Post-incident report - %s"
+
+msgid "Rapport post-incident archivé dans les documents de l'incident."
+msgstr "Post-incident report archived in the incident documents."
+
+msgid "Le rapport n'a pas pu être généré."
+msgstr "The report could not be generated."
+
+msgid "Tenue"
+msgstr "Met"
+
+msgid "Non notifiée"
+msgstr "Not notified"
+
+msgid "L'incident n'est pas clos : le rapport sera marqué provisoire. Renseignez la cause racine et les enseignements tirés avant la clôture."
+msgstr "The incident is not closed: the report will be marked as provisional. Fill in the root cause and the lessons learned before closing."
+
+msgid "Chronologie"
+msgstr "Timeline"
+
+#, php-format
+msgid "… et %d autres événements, tous dans le rapport."
+msgstr "… and %d other events, all in the report."
+
+msgid "Contenu du rapport"
+msgstr "Report contents"
+
+msgid "Éléments touchés"
+msgstr "Affected items"
+
+msgid "Coût total"
+msgstr "Total cost"
+
+msgid "à renseigner"
+msgstr "to fill in"
+
+msgid "Actions décidées"
+msgstr "Decided actions"
+
+msgid "Générer le rapport PDF"
+msgstr "Generate the PDF report"
+
+msgid "Le PDF est archivé dans les documents de l'incident et proposé comme preuve sur la mesure A.5.27 de la SoA."
+msgstr "The PDF is archived in the incident documents and offered as evidence on SoA control A.5.27."
+
+msgid "Incident"
+msgstr "Incident"
+
+msgid "rapport provisoire, incident non clos"
+msgstr "provisional report, incident not closed"
+
+msgid "Catégorie / sévérité"
+msgstr "Category / severity"
+
+msgid "Déclaré le"
+msgstr "Declared on"
+
+msgid "Résolu / clos le"
+msgstr "Solved / closed on"
+
+msgid "Durée jusqu'à la résolution"
+msgstr "Time to resolution"
+
+msgid "Détail"
+msgstr "Detail"
+
+msgid "Date limite"
+msgstr "Deadline"
+
+msgid "Notifiée le"
+msgstr "Notified on"
+
+msgid "Résultat"
+msgstr "Outcome"
+
+msgid "Non renseignée."
+msgstr "Not filled in."
+
+msgid "Non renseignés."
+msgstr "Not filled in."
+
+msgid "Aucun plan d'action (non-conformité) rattaché à l'incident."
+msgstr "No action plan (nonconformity) linked to the incident."
+
+msgid "Action"
+msgstr "Action"
+
+msgid "Exercices de crise"
+msgstr "Crisis exercises"
+
+msgid "Attaque par rançongiciel"
+msgstr "Ransomware attack"
+
+msgid "Des postes et un serveur de fichiers sont chiffrés, une demande de rançon s'affiche. L'équipe doit isoler, évaluer, restaurer depuis les sauvegardes et communiquer."
+msgstr "Workstations and a file server are encrypted and a ransom note is displayed. The team must isolate, assess, restore from backups and communicate."
+
+msgid "Fuite de données personnelles"
+msgstr "Personal data leak"
+
+msgid "Un fichier de clients est publié sur un forum. L'équipe doit contenir la fuite, identifier les données touchées et décider de la notification à l'autorité."
+msgstr "A customer file is published on a forum. The team must contain the leak, identify the affected data and decide whether to notify the authority."
+
+msgid "Panne majeure du système d'information"
+msgstr "Major information system outage"
+
+msgid "La salle serveur (ou l'hébergeur principal) est indisponible. L'équipe doit activer le plan de continuité et basculer sur le site de secours."
+msgstr "The server room (or the main hosting provider) is unavailable. The team must activate the continuity plan and switch to the backup site."
+
+msgid "Confirmer l'alerte et qualifier l'incident"
+msgstr "Confirm the alert and qualify the incident"
+
+msgid "Isoler du réseau les machines touchées"
+msgstr "Isolate the affected machines from the network"
+
+msgid "Réunir la cellule de crise"
+msgstr "Convene the crisis team"
+
+msgid "Informer la direction"
+msgstr "Inform management"
+
+msgid "Évaluer l'étendue : systèmes et données touchés"
+msgstr "Assess the scope: affected systems and data"
+
+msgid "Restaurer une sauvegarde de test"
+msgstr "Restore a test backup"
+
+msgid "Préparer la communication interne et externe"
+msgstr "Prepare internal and external communication"
+
+msgid "Valider le retour à la normale"
+msgstr "Confirm the return to normal"
+
+msgid "Contenir la fuite (retrait, comptes, accès)"
+msgstr "Contain the leak (takedown, accounts, access)"
+
+msgid "Identifier les données et les personnes concernées"
+msgstr "Identify the data and the people concerned"
+
+msgid "Informer le délégué à la protection des données"
+msgstr "Inform the data protection officer"
+
+msgid "Décider de la notification à l'autorité (RGPD, NIS2)"
+msgstr "Decide on notifying the authority (GDPR, NIS2)"
+
+msgid "Activer le plan de continuité"
+msgstr "Activate the continuity plan"
+
+msgid "Prévenir les utilisateurs"
+msgstr "Warn users"
+
+msgid "Basculer sur le site ou le service de secours"
+msgstr "Switch to the backup site or service"
+
+#, php-format
+msgid "[EXERCICE] %s"
+msgstr "[EXERCISE] %s"
+
+msgid "Ceci est un exercice de crise : aucun incident réel n'est en cours."
+msgstr "This is a crisis exercise: no real incident is in progress."
+
+#, php-format
+msgid "Objectif : %d min après le début de l'exercice."
+msgstr "Target: %d min after the start of the exercise."
+
+#, php-format
+msgid "Rapport d'exercice de crise : %s"
+msgstr "Crisis exercise report: %s"
+
+#, php-format
+msgid "Rapport d'exercice de crise - %s"
+msgstr "Crisis exercise report - %s"
+
+msgid "L'exercice n'a pas pu être lancé."
+msgstr "The exercise could not be started."
+
+msgid "Exercice terminé : le rapport est archivé dans les documents de l'incident d'exercice."
+msgstr "Exercise finished: the report is archived in the exercise incident documents."
+
+msgid "Les exercices de crise : simuler un incident (rançongiciel, fuite de données, panne) pour vérifier que l'équipe sait réagir et que le plan de continuité fonctionne."
+msgstr "Crisis exercises: simulate an incident (ransomware, data leak, outage) to check that the team knows how to react and that the continuity plan works."
+
+msgid "Lancez un scénario : un incident fictif « EXERCICE » est créé avec une tâche par étape. Dans la salle de crise, cochez chaque étape dès qu'elle est faite ; à la fin, le rapport mesure les temps de réaction et sert de preuve pour l'audit. Au moins un exercice par an."
+msgstr "Start a scenario: a fictitious \"EXERCISE\" incident is created with one task per step. In the crisis room, tick each step as soon as it is done; at the end, the report measures reaction times and serves as audit evidence. At least one exercise per year."
+
+msgid "ISO 27001, Annexe A 5.29 et 5.30"
+msgstr "ISO 27001, Annex A 5.29 and 5.30"
+
+msgid "Lancer un exercice de crise"
+msgstr "Start a crisis exercise"
+
+msgid "Lancer l'exercice maintenant ? Un incident fictif « EXERCICE » sera créé et le chronomètre démarrera."
+msgstr "Start the exercise now? A fictitious \"EXERCISE\" incident will be created and the timer will start."
+
+msgid "Lancer l'exercice"
+msgstr "Start the exercise"
+
+msgid "Exercices réalisés"
+msgstr "Exercises carried out"
+
+msgid "Aucun exercice pour l'instant. La norme demande de tester les plans de continuité à intervalles planifiés : lancez un premier exercice ci-dessus."
+msgstr "No exercise yet. The standard requires testing continuity plans at planned intervals: start a first exercise above."
+
+msgid "Scénario"
+msgstr "Scenario"
+
+msgid "Durée"
+msgstr "Duration"
+
+msgid "Étapes dans le délai"
+msgstr "Steps on time"
+
+msgid "Temps de réaction moyen"
+msgstr "Average reaction time"
+
+msgid "Ouvrir"
+msgstr "Open"
+
+msgid "Dans le délai"
+msgstr "On time"
+
+msgid "Non faite"
+msgstr "Not done"
+
+msgid "EXERCICE"
+msgstr "EXERCISE"
+
+msgid "aucun incident réel n'est en cours. Les étapes sont aussi des tâches de l'incident d'exercice."
+msgstr "no real incident is in progress. The steps are also tasks of the exercise incident."
+
+msgid "Incident d'exercice"
+msgstr "Exercise incident"
+
+msgid "Tous les exercices"
+msgstr "All exercises"
+
+#, php-format
+msgid "Lancé le %1$s par %2$s."
+msgstr "Started on %1$s by %2$s."
+
+msgid "Étape"
+msgstr "Step"
+
+msgid "Objectif"
+msgstr "Target"
+
+msgid "Faite à"
+msgstr "Done at"
+
+msgid "Bilan"
+msgstr "Outcome"
+
+msgid "Étapes faites"
+msgstr "Steps done"
+
+msgid "Ouvrir le rapport d'exercice"
+msgstr "Open the exercise report"
+
+msgid "Régénérer le rapport"
+msgstr "Regenerate the report"
+
+msgid "Renseignez les enseignements tirés sur l'incident d'exercice, puis régénérez le rapport pour les y faire figurer."
+msgstr "Fill in the lessons learned on the exercise incident, then regenerate the report to include them."
+
+msgid "Terminer l'exercice ? Les étapes non faites seront comptées comme manquées."
+msgstr "Finish the exercise? Steps not done will be counted as missed."
+
+msgid "Terminer l'exercice et générer le rapport"
+msgstr "Finish the exercise and generate the report"
+
+msgid "Le rapport PDF est archivé sur l'incident d'exercice et comme preuve sur les mesures A.5.29 et A.5.30 de la SoA."
+msgstr "The PDF report is archived on the exercise incident and as evidence on SoA controls A.5.29 and A.5.30."
+
+msgid "ce rapport porte sur un incident fictif, simulé pour tester le plan de continuité."
+msgstr "this report covers a fictitious incident, simulated to test the continuity plan."
+
+msgid "Organisé par"
+msgstr "Organised by"
+
+msgid "Début / fin"
+msgstr "Start / end"
+
+msgid "Déroulé"
+msgstr "Course of the exercise"
+
+msgid "Par"
+msgstr "By"
+
+msgid "Non renseignés : complétez-les sur l'incident d'exercice et régénérez le rapport."
+msgstr "Not filled in: complete them on the exercise incident and regenerate the report."
+
+#, php-format
+msgid "Objectif : %d min après l'activation de la cellule de crise."
+msgstr "Target: %d min after the crisis team was activated."
+
+#, php-format
+msgid "Rapport de cellule de crise : %s"
+msgstr "Crisis team report: %s"
+
+#, php-format
+msgid "Rapport de cellule de crise - %s"
+msgstr "Crisis team report - %s"
+
+msgid "Cellule de crise"
+msgstr "Crisis team"
+
+msgid "La cellule de crise n'a pas pu être activée."
+msgstr "The crisis team could not be activated."
+
+msgid "Terminé : le rapport est archivé dans les documents de l'incident."
+msgstr "Finished: the report is archived in the incident documents."
+
+#, php-format
+msgid "Active depuis %d min"
+msgstr "Active for %d min"
+
+msgid "Éléments rétablis"
+msgstr "Items restored"
+
+msgid "Ouvrir la salle de crise"
+msgstr "Open the crisis room"
+
+msgid "Aucune salle de crise pour cet incident d'exercice."
+msgstr "No crisis room for this exercise incident."
+
+msgid "Pour un incident majeur, la cellule de crise suit le plan de réponse étape par étape (avec un objectif de délai pour chacune), la reprise des éléments touchés face à leur RTO, et tient le journal chronologique de la crise."
+msgstr "For a major incident, the crisis team follows the response plan step by step (each with a target time), tracks the recovery of affected items against their RTO, and keeps the chronological crisis log."
+
+msgid "Activer la cellule de crise maintenant ? Le chronomètre démarre et une tâche est créée par étape du plan."
+msgstr "Activate the crisis team now? The timer starts and one task is created per plan step."
+
+msgid "Plan de réponse"
+msgstr "Response plan"
+
+msgid "Activer la cellule de crise"
+msgstr "Activate the crisis team"
+
+msgid "Liez d'abord à l'incident les éléments touchés (onglet « Éléments ») : la salle de crise suivra leur reprise et celle de ce qui en dépend."
+msgstr "First link the affected items to the incident (\"Items\" tab): the crisis room will track their recovery and that of what depends on them."
+
+msgid "Rétabli dans le RTO"
+msgstr "Restored within RTO"
+
+msgid "Rétabli après le RTO"
+msgstr "Restored after RTO"
+
+msgid "Rétabli"
+msgstr "Restored"
+
+msgid "En cours de reprise"
+msgstr "Recovery in progress"
+
+msgid "RTO dépassé"
+msgstr "RTO exceeded"
+
+msgid "RTO non défini"
+msgstr "RTO not set"
+
+msgid "CELLULE DE CRISE"
+msgstr "CRISIS TEAM"
+
+msgid "incident réel. Les étapes sont des tâches de l'incident, le journal est enregistré dans ses suivis."
+msgstr "real incident. The steps are incident tasks and the log is saved in its followups."
+
+msgid "Étapes du plan"
+msgstr "Plan steps"
+
+msgid "Reprise des éléments touchés"
+msgstr "Recovery of affected items"
+
+msgid "Aucun élément lié à l'incident. Ajoutez les éléments touchés dans l'onglet « Éléments » de l'incident : leur reprise, et celle de ce qui en dépend, sera suivie ici face à leur RTO."
+msgstr "No item linked to the incident. Add the affected items in the incident's \"Items\" tab: their recovery, and that of what depends on them, will be tracked here against their RTO."
+
+msgid "Touché par l'incident"
+msgstr "Affected by the incident"
+
+msgid "Dépend d'un élément touché"
+msgstr "Depends on an affected item"
+
+#, php-format
+msgid "rétabli par %s"
+msgstr "restored by %s"
+
+msgid "Le RTO se règle dans l'onglet « Classification » de chaque élément ; il est compté depuis l'ouverture de la salle de crise."
+msgstr "The RTO is set in each item's \"Classification\" tab; it is counted from the opening of the crisis room."
+
+msgid "Journal de crise"
+msgstr "Crisis log"
+
+msgid "Décision, constat, appel passé… (horodaté automatiquement)"
+msgstr "Decision, finding, call made… (timestamped automatically)"
+
+msgid "Nouvelle entrée du journal"
+msgstr "New log entry"
+
+msgid "Ajouter"
+msgstr "Add"
+
+msgid "Aucune entrée pour l'instant."
+msgstr "No entry yet."
+
+msgid "Privé"
+msgstr "Private"
+
+msgid "RTO dépassés"
+msgstr "RTOs exceeded"
+
+msgid "Ouvrir le rapport de crise"
+msgstr "Open the crisis report"
+
+msgid "Renseignez les enseignements tirés sur l'incident, puis régénérez le rapport pour les y faire figurer."
+msgstr "Fill in the lessons learned on the incident, then regenerate the report to include them."
+
+msgid "Fermer la cellule de crise ? Le chronomètre s'arrête ; l'incident lui-même reste ouvert."
+msgstr "Close the crisis team? The timer stops; the incident itself stays open."
+
+msgid "Fermer la cellule de crise et générer le rapport"
+msgstr "Close the crisis team and generate the report"
+
+msgid "Le rapport PDF est archivé sur l'incident et comme preuve sur les mesures A.5.26 et A.5.29 de la SoA."
+msgstr "The PDF report is archived on the incident and as evidence on SoA controls A.5.26 and A.5.29."
+
+msgid "Cellule activée par"
+msgstr "Crisis team activated by"
+
+msgid "Rétabli le"
+msgstr "Restored on"
+
+msgid "dépendant"
+msgstr "dependent"
+
+msgid "Auteur"
+msgstr "Author"
+
+msgid "Entrée"
+msgstr "Entry"
+
+msgid "Non renseignés : complétez-les sur l'incident et régénérez le rapport."
+msgstr "Not filled in: complete them on the incident and regenerate the report."
+
+msgid "Audit de conformité technique"
+msgstr "Technical compliance audit"
+
+msgid "Postes sans antivirus actif et à jour"
+msgstr "Computers without an active, up-to-date antivirus"
+
+msgid "D'après l'inventaire (onglet « Antivirus » des ordinateurs) : aucun antivirus, ou antivirus inactif, pas à jour ou expiré."
+msgstr "From the inventory (\"Antivirus\" tab of computers): no antivirus, or an antivirus that is inactive, out of date or expired."
+
+msgid "Postes avec un disque non chiffré"
+msgstr "Computers with an unencrypted disk"
+
+msgid "D'après l'inventaire des volumes : au moins un disque non chiffré ou partiellement chiffré. Seuls les ordinateurs dont les volumes sont inventoriés sont comptés."
+msgstr "From the volume inventory: at least one unencrypted or partially encrypted disk. Only computers whose volumes are inventoried are counted."
+
+#, php-format
+msgid "Postes non inventoriés depuis plus de %d jours"
+msgstr "Computers not inventoried for more than %d days"
+
+msgid "Ordinateurs remontés par l'agent d'inventaire dont la dernière remontée est ancienne : l'inventaire des actifs n'est plus fiable pour eux."
+msgstr "Computers reported by the inventory agent whose last report is old: the asset inventory is no longer reliable for them."
+
+msgid "Changements résolus ou clos depuis un an dont les validations approuvées sont moins nombreuses que le nombre exigé."
+msgstr "Changes solved or closed within the last year with fewer approved validations than required."
+
+msgid "Comptes à vérifier"
+msgstr "Accounts to review"
+
+#, php-format
+msgid "Comptes actifs supprimés de l'annuaire, expirés, en doublon ou sans connexion depuis %d jours (écran « Hygiène des comptes »)."
+msgstr "Active accounts deleted from the directory, expired, duplicated or without login for %d days (\"Account hygiene\" screen)."
+
+msgid "RGPD"
+msgstr "GDPR"
+
+msgid "Antivirus inactif, pas à jour ou expiré"
+msgstr "Antivirus inactive, out of date or expired"
+
+msgid "Aucun antivirus inventorié"
+msgstr "No antivirus inventoried"
+
+#, php-format
+msgid "Non chiffré : %s"
+msgstr "Not encrypted: %s"
+
+msgid "Jamais inventorié"
+msgstr "Never inventoried"
+
+#, php-format
+msgid "Dernier inventaire : %s"
+msgstr "Last inventory: %s"
+
+#, php-format
+msgid "%1$d validation(s) approuvée(s) sur %2$d exigée(s)"
+msgstr "%1$d approved validation(s) out of %2$d required"
+
+#, php-format
+msgid "Mise en conformité : %1$s (%2$d)"
+msgstr "Compliance remediation: %1$s (%2$d)"
+
+msgid "Changements clos sans validation approuvée"
+msgid_plural "Changements clos sans %d validations approuvées"
+msgstr[0] "Closed changes without an approved validation"
+msgstr[1] "Closed changes without %d approved validations"
+
+msgid "Aucun écart à traiter : le ticket n'a pas été créé."
+msgstr "No gap to handle: the ticket was not created."
+
+msgid "L'audit de conformité technique : des contrôles automatiques sur les données de GLPI (antivirus, chiffrement des disques, inventaire, validation des changements, comptes), avec un score par référentiel."
+msgstr "The technical compliance audit: automatic checks on GLPI data (antivirus, disk encryption, inventory, change validation, accounts), with a score per framework."
+
+msgid "Consultez les écarts de chaque contrôle et créez le ticket de mise en conformité ; une fois les éléments corrigés, le score remonte. Présentez les scores en revue de direction."
+msgstr "Review the gaps of each check and create the remediation ticket; once the items are fixed, the score goes up. Present the scores at the management review."
+
+msgid "ISO 27001, 9.1 ; NIS2, article 21 ; RGPD, article 32"
+msgstr "ISO 27001, 9.1; NIS2, article 21; GDPR, article 32"
+
+#, php-format
+msgid "Moyenne de %d contrôle(s) technique(s)"
+msgstr "Average of %d technical check(s)"
+
+msgid "Aucun contrôle évaluable"
+msgstr "No check can be evaluated"
+
+msgid "Ce score ne mesure que les contrôles techniques ci-dessous, à partir des données de GLPI. L'avancement organisationnel se suit dans la déclaration d'applicabilité (SoA) et le score de maturité."
+msgstr "This score only measures the technical checks below, from GLPI data. Organisational progress is tracked in the Statement of Applicability (SoA) and the maturity score."
+
+msgid "Mesures de l'Annexe A"
+msgstr "Annex A controls"
+
+msgid "Validations exigées par changement"
+msgstr "Validations required per change"
+
+msgid "2 (double validation)"
+msgstr "2 (double validation)"
+
+msgid "Appliquer"
+msgstr "Apply"
+
+msgid "Non évalué"
+msgstr "Not evaluated"
+
+msgid "Votre profil ne permet pas de lire les éléments concernés : ce contrôle n'entre pas dans le score."
+msgstr "Your profile cannot read the items concerned: this check is not part of the score."
+
+msgid "Aucun élément concerné dans vos entités."
+msgstr "No item concerned in your entities."
+
+#, php-format
+msgid "… et %d autres."
+msgstr "… and %d others."
+
+msgid "Revoir ces comptes (hygiène des comptes)"
+msgstr "Review these accounts (account hygiene)"
+
+#, php-format
+msgid "Ticket de mise en conformité en cours (#%d)"
+msgstr "Remediation ticket in progress (#%d)"
+
+msgid "Créer le ticket de mise en conformité"
+msgstr "Create the remediation ticket"
+
+msgid "Un seul ticket, avec les éléments concernés liés. Rien n'est modifié automatiquement."
+msgstr "A single ticket, with the items concerned linked. Nothing is changed automatically."
+
+#, php-format
+msgid "Écarts relevés par l'audit de conformité technique (GRC & Conformité) : %s."
+msgstr "Gaps found by the technical compliance audit (GRC & Compliance): %s."
+
+msgid "Références"
+msgstr "References"
+
+msgid "Écart"
+msgstr "Gap"
+
+#, php-format
+msgid "… et %d autres, visibles dans l'audit de conformité technique."
+msgstr "… and %d others, visible in the technical compliance audit."
+
+msgid "Corrigez chaque élément, puis relancez l'audit pour vérifier. Rien n'a été modifié automatiquement."
+msgstr "Fix each item, then run the audit again to check. Nothing was changed automatically."

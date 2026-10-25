@@ -1,0 +1,60 @@
+{# Issue #168 : rapport d'exercice de crise (A.5.29 / A.5.30), archivé comme preuve #}
+{# Issue #185 : même rapport pour une cellule de crise réelle (A.5.26 / A.5.29), avec reprise et journal #}
+{% include '@grcmanager/pdf/_pdf_style.html.twig' %}
+{% set statuses = {'on_time': __('Dans le délai', 'grcmanager'), 'late': __('En retard', 'grcmanager'), 'pending': __('À faire', 'grcmanager'), 'missed': __('Non faite', 'grcmanager')} %}
+{% set recovery_states = {'restored_on_time': __('Rétabli dans le RTO', 'grcmanager'), 'restored_late': __('Rétabli après le RTO', 'grcmanager'), 'restored': __('Rétabli', 'grcmanager'), 'running': __('En cours de reprise', 'grcmanager'), 'overdue': __('RTO dépassé', 'grcmanager'), 'no_rto': __('RTO non défini', 'grcmanager')} %}
+
+{% if drill %}
+<p><strong>{{ __('EXERCICE', 'grcmanager') }}</strong> — {{ __('ce rapport porte sur un incident fictif, simulé pour tester le plan de continuité.', 'grcmanager') }}</p>
+{% endif %}
+
+<h2>{{ __('Résumé', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-summary">
+  <tr><td>{{ drill ? __('Scénario', 'grcmanager') : __('Plan de réponse', 'grcmanager') }}</td><td>{{ exercise.scenario }}</td></tr>
+  <tr><td>{{ drill ? __('Incident d\'exercice', 'grcmanager') : __('Incident', 'grcmanager') }}</td><td>#{{ incident.id }} — {{ incident.name }}</td></tr>
+  <tr><td>{{ drill ? __('Organisé par', 'grcmanager') : __('Cellule activée par', 'grcmanager') }}</td><td>{{ exercise.organizer }}</td></tr>
+  <tr><td>{{ __('Début / fin', 'grcmanager') }}</td><td>{{ exercise.started_at }} / {{ exercise.ended_at ?: '—' }}</td></tr>
+  <tr><td>{{ __('Durée', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ exercise.duration }} min</td></tr>
+  <tr><td>{{ __('Étapes faites', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ summary.done }} / {{ summary.total }}</td></tr>
+  <tr><td>{{ __('Étapes dans le délai', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ summary.on_time }} ({{ summary.rate }} %)</td></tr>
+  <tr><td>{{ __('Temps de réaction moyen', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ summary.average is null ? '—' : summary.average ~ ' min' }}</td></tr>
+  {% if recovery is not empty %}
+  <tr><td>{{ __('Éléments rétablis', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ recovery|filter(r => r.restored_at)|length }} / {{ recovery|length }}</td></tr>
+  {% endif %}
+  <tr><td>{{ __('Participants', 'grcmanager') }}</td><td>{{ participants is empty ? '—' : participants|join(', ') }}</td></tr>
+</table>
+
+<h2>{{ __('Déroulé', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-table">
+  <thead><tr><th>#</th><th>{{ __('Étape', 'grcmanager') }}</th><th>{{ __('Objectif', 'grcmanager') }}</th><th>{{ __('Faite à', 'grcmanager') }}</th><th>{{ __('Par', 'grcmanager') }}</th><th>{{ __('Résultat', 'grcmanager') }}</th></tr></thead>
+  <tbody>
+    {% for s in steps %}
+      <tr><td>{{ loop.index }}</td><td>{{ s.label }}</td><td>T+{{ s.target }} min</td><td>{{ s.minutes is null ? '—' : 'T+' ~ s.minutes ~ ' min' }}</td><td>{{ s.by ?: '—' }}</td><td>{{ statuses[s.status] }}</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% if recovery is not empty %}
+<h2>{{ __('Reprise des éléments touchés', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-table">
+  <thead><tr><th>{{ __('Élément', 'grcmanager') }}</th><th>RTO</th><th>{{ __('Rétabli le', 'grcmanager') }}</th><th>{{ __('Durée', 'grcmanager') }}</th><th>{{ __('Résultat', 'grcmanager') }}</th></tr></thead>
+  <tbody>
+    {% for r in recovery %}
+      <tr><td>{{ r.label }}{% if r.depth > 0 %} ({{ __('dépendant', 'grcmanager') }}){% endif %}</td><td>{{ r.rto > 0 ? r.rto ~ ' h' : '—' }}</td><td>{{ r.restored_at ?: '—' }}</td><td>{{ r.hours is null ? '—' : r.hours ~ ' h' }}</td><td>{{ recovery_states[r.state] }}</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+
+{% if journal is not empty %}
+<h2>{{ __('Journal de crise', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-table">
+  <thead><tr><th>{{ __('Date', 'grcmanager') }}</th><th>{{ __('Auteur', 'grcmanager') }}</th><th>{{ __('Entrée', 'grcmanager') }}</th></tr></thead>
+  <tbody>
+    {% for j in journal %}<tr><td>{{ j.date }}</td><td>{{ j.author }}</td><td>{{ j.text|nl2br }}</td></tr>{% endfor %}
+  </tbody>
+</table>
+{% endif %}
+
+<h2>{{ __('Enseignements tirés', 'grcmanager') }}</h2>
+<p>{{ incident.lessons ? incident.lessons|nl2br : __('Non renseignés : complétez-les sur l\'incident et régénérez le rapport.', 'grcmanager') }}</p>

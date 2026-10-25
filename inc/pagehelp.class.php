@@ -30,6 +30,46 @@ class PluginGrcmanagerPageHelp
     public static function texts(): array
     {
         return [
+            'maturity' => [
+                'purpose'  => __(
+                    'Le score de maturité cyber (0 à 100) : une vue d\'ensemble de l\'avancement de votre système de '
+                        . 'management de la sécurité, calculée à partir de vos données.',
+                    'grcmanager'
+                ),
+                'expected' => __(
+                    'Présentez-le en revue de direction ; le détail du calcul montre quelles composantes '
+                        . 'améliorer en priorité.',
+                    'grcmanager'
+                ),
+            ],
+            'complianceaudit' => [
+                'purpose'   => __(
+                    'L\'audit de conformité technique : des contrôles automatiques sur les données de GLPI '
+                        . '(antivirus, chiffrement des disques, inventaire, validation des changements, comptes), '
+                        . 'avec un score par référentiel.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Consultez les écarts de chaque contrôle et créez le ticket de mise en conformité ; une fois '
+                        . 'les éléments corrigés, le score remonte. Présentez les scores en revue de direction.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO 27001, 9.1 ; NIS2, article 21 ; RGPD, article 32', 'grcmanager'),
+            ],
+            'crisisexercise' => [
+                'purpose'   => __(
+                    'Les exercices de crise : simuler un incident (rançongiciel, fuite de données, panne) pour '
+                        . 'vérifier que l\'équipe sait réagir et que le plan de continuité fonctionne.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Lancez un scénario : un incident fictif « EXERCICE » est créé avec une tâche par étape. '
+                        . 'Dans la salle de crise, cochez chaque étape dès qu\'elle est faite ; à la fin, le rapport '
+                        . 'mesure les temps de réaction et sert de preuve pour l\'audit. Au moins un exercice par an.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO 27001, Annexe A 5.29 et 5.30', 'grcmanager'),
+            ],
             'risk' => [
                 'purpose'   => __(
                     'Le registre des risques de sécurité de l\'information : chaque risque est évalué (probabilité '
