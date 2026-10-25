@@ -7,6 +7,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.10.0] - 2026-10-25
+
 ### Added
 
 - **Menu GRC & Conformité > Tableau de bord** (issue #247) : première entrée du menu, comme
