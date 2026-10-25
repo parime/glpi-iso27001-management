@@ -1,0 +1,51 @@
+{# Issue #144 : import CSV de la matrice des flux, simulation d'abord (issue #199 : passé de PHP à Twig) #}
+<div class="card mb-3"><div class="card-body">
+   <h3 class="card-title"><i class="ti ti-file-import me-1"></i>{{ title }}</h3>
+   <p>{{ __('Fichier CSV séparé par des points-virgules ou des virgules, avec une ligne d\'en-tête. Colonnes reconnues : nom, type, source, destination, protocole, ports, justification, proprietaire (identifiant GLPI), date_fin. Seules source et destination sont obligatoires.', 'grcmanager') }}</p>
+   <pre class="bg-light p-2 small mb-3">{{ example }}</pre>
+   <p class="text-muted small">{{ __('Types : interne, publication, sortant, tunnel, partenaire, administration, sauvegarde, autre. Un flux déjà présent (mêmes source, destination, protocole et ports) n\'est pas recréé : réimporter le même fichier ne crée pas de doublon.', 'grcmanager') }}</p>
+   <form method="post" enctype="multipart/form-data" action="{{ action }}" class="d-flex flex-wrap align-items-center gap-3">
+      <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+      <input type="file" name="csv_file" accept=".csv,text/csv" class="form-control" style="max-width: 420px;" required aria-label="{{ __('Fichier CSV', 'grcmanager') }}">
+      <label class="form-check mb-0"><input type="checkbox" class="form-check-input" name="simulate" value="1" {{ simulate ? 'checked' }}><span class="form-check-label">{{ __('Simulation (rien n\'est enregistré)', 'grcmanager') }}</span></label>
+      <button type="submit" name="import" value="1" class="btn btn-primary"><i class="ti ti-upload me-1"></i>{{ __('Analyser le fichier', 'grcmanager') }}</button>
+      <a href="{{ list_url }}" class="btn btn-outline-secondary">{{ __('Retour à la matrice des flux', 'grcmanager') }}</a>
+   </form>
+</div></div>
+
+{% if result %}
+   <div class="card"><div class="card-body">
+      <div class="alert {{ simulate ? 'alert-info' : 'alert-success' }}">
+         {{ (simulate ? __('Simulation : %1$d flux seraient créés, %2$d existent déjà.', 'grcmanager') : __('Import terminé : %1$d flux créés, %2$d existaient déjà.', 'grcmanager'))|format(result.created, result.skipped) }}
+         {% if simulate and result.created > 0 %}<br>{{ __('Décochez « Simulation » et analysez à nouveau le fichier pour l\'importer.', 'grcmanager') }}{% endif %}
+      </div>
+      {% if result.errors is not empty %}
+         <div class="alert alert-warning"><ul class="mb-0">
+            {% for error in result.errors %}<li>{{ __('Ligne %1$d : %2$s', 'grcmanager')|format(error.line, error.message) }}</li>{% endfor %}
+         </ul></div>
+      {% endif %}
+      {% if rows is not empty %}
+         <div class="table-responsive">
+            <table class="table table-sm align-middle">
+               <thead><tr><th>{{ __('Ligne', 'grcmanager') }}</th><th>{{ __('Nom', 'grcmanager') }}</th><th>{{ __('Type', 'grcmanager') }}</th><th>{{ __('Source', 'grcmanager') }}</th><th>{{ __('Destination', 'grcmanager') }}</th><th>{{ __('Ports', 'grcmanager') }}</th><th>{{ __('Contrôles', 'grcmanager') }}</th><th></th></tr></thead>
+               <tbody>
+                  {% for row in rows %}
+                     {% set type_html = row.type_html %}
+                     {% set checks_html = row.checks_html %}
+                     <tr>
+                        <td>{{ row.line }}</td>
+                        <td>{{ row.name }}</td>
+                        <td>{{ type_html|raw }}</td>
+                        <td>{{ row.source_label }}</td>
+                        <td>{{ row.destination_label }}</td>
+                        <td>{{ row.ports_label }}</td>
+                        <td>{{ checks_html|raw }}</td>
+                        <td><span class="badge {{ row.state_class }}">{{ row.state_label }}</span></td>
+                     </tr>
+                  {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      {% endif %}
+   </div></div>
+{% endif %}
