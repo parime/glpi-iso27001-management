@@ -1,0 +1,60 @@
+{# Issue #171 : graphe de l'effet domino (Cytoscape, fourni par GLPI). Paramètres : elements, height. #}
+{% set cy_id = 'grc-causal-' ~ random() %}
+<div id="{{ cy_id }}" class="border rounded bg-white" style="height: {{ height|default('420px') }}; width: 100%;" data-elements="{{ elements|json_encode }}"></div>
+<div class="d-flex flex-wrap gap-3 small text-muted mt-1">
+   <span><span class="badge" style="background:#f59f00">&nbsp;</span> {{ __('Risque', 'grcmanager') }}</span>
+   <span><span class="badge" style="background:#ae3ec9">&nbsp;</span> {{ __('Risque fournisseur', 'grcmanager') }}</span>
+   <span><span class="badge" style="background:#d63939">&nbsp;</span> {{ __('Incident de sécurité', 'grcmanager') }}</span>
+   <span><i class="ti ti-arrow-right"></i> {{ __('cause → conséquence ; cliquer sur un élément l\'ouvre', 'grcmanager') }}</span>
+</div>
+<script>
+   (function () {
+      // Données passées par un attribut échappé, jamais injectées telles quelles dans le script.
+      const elements = JSON.parse(document.getElementById('{{ cy_id }}').dataset.elements);
+      const render = function () {
+         const cy = window.cytoscape({
+            container: document.getElementById('{{ cy_id }}'),
+            elements: elements,
+            wheelSensitivity: 0.2,
+            maxZoom: 1.3,
+            style: [
+               {selector: 'node', style: {
+                  'label': 'data(label)', 'text-wrap': 'wrap', 'text-max-width': 130, 'font-size': 11,
+                  'text-valign': 'bottom', 'text-margin-y': 6, 'width': 26, 'height': 26,
+                  'background-color': '#868e96', 'color': '#1d273b'
+               }},
+               {selector: 'node.risk', style: {'background-color': '#f59f00', 'shape': 'round-rectangle'}},
+               {selector: 'node.supplierrisk', style: {'background-color': '#ae3ec9', 'shape': 'round-rectangle'}},
+               {selector: 'node.incident', style: {'background-color': '#d63939', 'shape': 'diamond'}},
+               {selector: 'node.level-high, node.level-critical', style: {'border-width': 3, 'border-color': '#d63939'}},
+               {selector: 'node.center', style: {'width': 38, 'height': 38, 'font-weight': 'bold'}},
+               {selector: 'edge', style: {
+                  'width': 2, 'line-color': '#adb5bd', 'target-arrow-color': '#adb5bd',
+                  'target-arrow-shape': 'triangle', 'curve-style': 'bezier'
+               }}
+            ],
+            layout: {name: 'preset'}
+         });
+         // Disposition hiérarchique (extension dagre fournie avec GLPI), sinon en largeur.
+         try {
+            cy.layout({name: 'dagre', rankDir: 'LR', nodeSep: 40, rankSep: 190, padding: 20}).run();
+         } catch (e) {
+            cy.layout({name: 'breadthfirst', directed: true, padding: 20, spacingFactor: 1.2}).run();
+         }
+         cy.on('tap', 'node', function (event) {
+            const url = event.target.data('url');
+            if (url) {
+               window.location.href = url;
+            }
+         });
+      };
+      if (typeof window.cytoscape === 'undefined') {
+         const script = document.createElement('script');
+         script.src = '{{ config('root_doc') }}/lib/cytoscape.min.js';
+         script.onload = render;
+         document.head.appendChild(script);
+      } else {
+         render();
+      }
+   })();
+</script>

@@ -3816,3 +3816,57 @@ msgstr "Aucun logiciel surveillé de ce fournisseur n'a de vulnérabilité connu
 
 msgid "Exploitées"
 msgstr "Exploitées"
+
+msgid "Effet domino"
+msgstr "Effet domino"
+
+msgid "Ce lien existe déjà."
+msgstr "Ce lien existe déjà."
+
+msgid "Ce lien fermerait une boucle : la conséquence mène déjà à la cause."
+msgstr "Ce lien fermerait une boucle : la conséquence mène déjà à la cause."
+
+msgid "Lien ajouté."
+msgstr "Lien ajouté."
+
+msgid "Aucun lien pour l'instant. Reliez cet élément à ce qu'il peut entraîner, ou à ce qui peut le provoquer, pour voir l'effet domino d'une attaque."
+msgstr "Aucun lien pour l'instant. Reliez cet élément à ce qu'il peut entraîner, ou à ce qui peut le provoquer, pour voir l'effet domino d'une attaque."
+
+msgid "Peut être provoqué par"
+msgstr "Peut être provoqué par"
+
+msgid "Peut entraîner"
+msgstr "Peut entraîner"
+
+msgid "Retirer ce lien"
+msgstr "Retirer ce lien"
+
+msgid "Cet élément"
+msgstr "Cet élément"
+
+msgid "peut entraîner…"
+msgstr "peut entraîner…"
+
+msgid "peut être provoqué par…"
+msgstr "peut être provoqué par…"
+
+msgid "Élément lié"
+msgstr "Élément lié"
+
+msgid "Relier"
+msgstr "Relier"
+
+msgid "Voir tout l'effet domino"
+msgstr "Voir tout l'effet domino"
+
+msgid "Chaînes de causes et de conséquences entre risques, risques fournisseurs et incidents de sécurité. Les liens se créent depuis l'onglet « Effet domino » de chacun. C'est une représentation : aucune probabilité n'est calculée."
+msgstr "Chaînes de causes et de conséquences entre risques, risques fournisseurs et incidents de sécurité. Les liens se créent depuis l'onglet « Effet domino » de chacun. C'est une représentation : aucune probabilité n'est calculée."
+
+msgid "Aucun lien pour l'instant."
+msgstr "Aucun lien pour l'instant."
+
+msgid "Ouvrir le registre des risques"
+msgstr "Ouvrir le registre des risques"
+
+msgid "cause → conséquence ; cliquer sur un élément l'ouvre"
+msgstr "cause → conséquence ; cliquer sur un élément l'ouvre"

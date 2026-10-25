@@ -295,6 +295,18 @@ class PluginGrcmanagerRisk extends RiskBase
         return parent::getSpecificValueToSelect($field, $name, $values, $options);
     }
 
+    /**
+     * Issue #171 : le risque s'affiche avec ses onglets (formulaire, puis ceux enregistrés par
+     * d'autres classes, comme « Effet domino »).
+     */
+    public function defineTabs($options = [])
+    {
+        $tabs = [];
+        $this->addDefaultFormTab($tabs);
+
+        return $tabs;
+    }
+
     public function showForm($ID, array $options = []): bool
     {
         global $DB;

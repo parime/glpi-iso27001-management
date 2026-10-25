@@ -36,22 +36,11 @@ if (isset($_POST['add'])) {
     $item->update($_POST);
     Html::back();
 } else {
-    Session::checkRight(PluginGrcmanagerRisk::$rightname, READ);
-
-    Html::header(
-        PluginGrcmanagerRisk::getTypeName(1),
-        $_SERVER['PHP_SELF'],
-        'grcmanager',
-        PluginGrcmanagerRisk::class
+    // Issue #171 : affichage avec onglets (formulaire, « Effet domino »...), comme les risques
+    // fournisseurs ; showForm() seul ne rend pas la barre d'onglets. Les droits (READ, ou CREATE
+    // pour un nouvel élément) sont vérifiés par $item->can().
+    PluginGrcmanagerRisk::displayFullPageForItem(
+        $_GET['id'] ?? 0,
+        ['central' => ['grcmanager', PluginGrcmanagerRisk::class], 'helpdesk' => []]
     );
-
-    $id = (int) ($_GET['id'] ?? 0);
-
-    if ($id > 0) {
-        $item->getFromDB($id);
-    }
-
-    $item->showForm($id);
-
-    Html::footer();
 }

@@ -131,6 +131,8 @@ function plugin_init_grcmanager(): void
             PluginGrcmanagerCoverageRule::class,
             // Issue #177 : points de défaillance uniques (analyse d'impact d'une panne).
             PluginGrcmanagerImpactAnalysis::class,
+            // Issue #171 : effet domino entre risques et incidents.
+            PluginGrcmanagerCausalLink::class,
             PluginGrcmanagerObjective::class,
             // Corrélation CPE des CVE avec le parc GLPI (cf. ROADMAP.md) : un seul menu entry pour
             // le catalogue de correspondance (le produit canonique) — ses deux tables satellites
@@ -243,6 +245,10 @@ function plugin_init_grcmanager(): void
     ]);
 
     // Issue #177 : onglet « Impact d'une panne » sur les actifs.
+    // Issue #171 : onglet « Effet domino » sur les risques, risques fournisseurs et incidents.
+    Plugin::registerClass(PluginGrcmanagerCausalLink::class, [
+        'addtabon' => PluginGrcmanagerCausalLink::getLinkableItemtypes(),
+    ]);
     Plugin::registerClass(PluginGrcmanagerImpactAnalysis::class, [
         'addtabon' => PluginGrcmanagerRisk::getLinkableItemtypes(),
     ]);

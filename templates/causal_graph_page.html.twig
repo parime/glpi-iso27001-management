@@ -1,0 +1,17 @@
+{# Issue #171 : effet domino de l'ensemble des risques et incidents reliés #}
+<div class="container-fluid my-3">
+   <div class="card">
+      <div class="card-header">
+         <h3 class="card-title"><i class="ti ti-hierarchy-3 me-2"></i>{{ __('Effet domino', 'grcmanager') }}</h3>
+      </div>
+      <div class="card-body">
+         <p class="text-muted">{{ __('Chaînes de causes et de conséquences entre risques, risques fournisseurs et incidents de sécurité. Les liens se créent depuis l\'onglet « Effet domino » de chacun. C\'est une représentation : aucune probabilité n\'est calculée.', 'grcmanager') }}</p>
+         {% if elements is empty %}
+            <div class="alert alert-info"><i class="ti ti-info-circle me-1"></i>{{ __('Aucun lien pour l\'instant.', 'grcmanager') }}
+               <a href="{{ risk_url }}">{{ __('Ouvrir le registre des risques', 'grcmanager') }}</a></div>
+         {% else %}
+            {% include '@grcmanager/_causal_graph.html.twig' with {'elements': elements, 'height': '640px'} %}
+         {% endif %}
+      </div>
+   </div>
+</div>

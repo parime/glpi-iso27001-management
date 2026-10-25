@@ -52,7 +52,7 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/evidence.php front/periodicreview.php front/networkflow.php front/accounthygiene.php
   front/compliancecalendar.php front/compliancecalendar.php?ics=1 front/complianceevent.php
   front/parkvulnerability.php front/softwarewatch.php front/riskcatalog.php front/waiver.php
-  front/coveragerule.php front/impactanalysis.php"
+  front/coveragerule.php front/impactanalysis.php front/causalgraph.php"
 # Creations : refusees sans droit comme en lecture seule (etat en base compare par la CI).
 create_attempts() { # code attendu, code attendu pour la classification (404 sans droit sur l'actif)
   local incident; incident=$(id incident_A)
@@ -87,6 +87,9 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
   # Issue #160 : ticket de correction a la demande (compare en base).
   expect "front/parkvulnerability.php : creer un ticket" "$1" \
     "$(code -d "create_ticket=1&canonical_id=1&_glpi_csrf_token=$(csrf)" "$P/parkvulnerability.php")"
+  # Issue #171 : relier deux elements de l'effet domino (compare en base).
+  expect "front/causallink.form.php : relier" "$1" \
+    "$(code -d "add=1&item_key=PluginGrcmanagerRisk:1&other=PluginGrcmanagerRisk:2&direction=effect&_glpi_csrf_token=$(csrf)" "$P/causallink.form.php")"
   # Issue #177 : creer le risque d'un point de defaillance unique (compare en base).
   expect "front/impactanalysis.php : creer le risque" "$1" \
     "$(code -d "create_risk=1&itemtype=Computer&items_id=$(id computer_A)&_glpi_csrf_token=$(csrf)" "$P/impactanalysis.php")"
@@ -147,7 +150,8 @@ contracts_tab=$(tab PluginGrcmanagerSupplierRisk 'PluginGrcmanagerSupplierAssess
 contains "onglet contrats du fournisseur : contrat A" "Contrat securite A" oui     "$contracts_tab"
 contains "onglet contrats du fournisseur : contrat B" "Contrat securite B" $SEE_B  "$contracts_tab"
 
-risk_page=$(curl -s -c "$JAR" -b "$JAR" "$P/risk.form.php?id=$(id risk)")
+# Issue #171 : la fiche du risque s'affiche avec onglets, le formulaire est le premier onglet.
+risk_page=$(tab PluginGrcmanagerRisk 'PluginGrcmanagerRisk$main' "$(id risk)")
 contains "actif lie d'une autre entite affiche sur le risque" "PC securite B" $SEE_B "$risk_page"
 
 expect "classification d'un actif de A" 302 \

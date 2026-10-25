@@ -9,6 +9,16 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Effet domino** (issue #171) : liens « cause → conséquence » entre risques, risques
+  fournisseurs et incidents de sécurité (« Hameçonnage réussi » → « Compromission de compte » →
+  « Fuite de données ») :
+  - onglet **« Effet domino »** sur chacun : graphe des causes et conséquences sur 4 niveaux,
+    liste des liens directs (retrait possible), et ajout « peut entraîner… » ou « peut être
+    provoqué par… ». Un lien qui fermerait une boucle est refusé, tout comme un doublon ;
+  - page **GRC & Conformité > Effet domino** : le graphe d'ensemble. Cliquer sur un élément
+    l'ouvre ; un élément que la personne ne peut pas voir est compté sans être nommé ;
+  - graphe Cytoscape, déjà fourni par GLPI pour son analyse d'impact (aucune bibliothèque
+    ajoutée). C'est une représentation : aucune probabilité combinée n'est calculée.
 - **Veille de sécurité des fournisseurs et avis du CERT-FR** (issue #167, phase 3 de #160) :
   - la tâche des vulnérabilités du parc lit aussi les **avis et alertes du CERT-FR** (flux RSS
     publics, toutes les 6 heures, conservés 180 jours), sous le même réglage « Activer
@@ -109,6 +119,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Changed
 
+- La fiche d'un risque s'affiche avec une barre d'onglets, comme celle d'un risque fournisseur
+  (nécessaire à l'onglet « Effet domino »).
 - Le formulaire des non-conformités passe en Twig (champs inchangés). Après « Ajouter », la fiche
   créée s'ouvre directement.
 
