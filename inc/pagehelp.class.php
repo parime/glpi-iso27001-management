@@ -42,6 +42,20 @@ class PluginGrcmanagerPageHelp
                     'grcmanager'
                 ),
             ],
+            'crisisexercise' => [
+                'purpose'   => __(
+                    'Les exercices de crise : simuler un incident (rançongiciel, fuite de données, panne) pour '
+                        . 'vérifier que l\'équipe sait réagir et que le plan de continuité fonctionne.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Lancez un scénario : un incident fictif « EXERCICE » est créé avec une tâche par étape. '
+                        . 'Dans la salle de crise, cochez chaque étape dès qu\'elle est faite ; à la fin, le rapport '
+                        . 'mesure les temps de réaction et sert de preuve pour l\'audit. Au moins un exercice par an.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO 27001, Annexe A 5.29 et 5.30', 'grcmanager'),
+            ],
             'risk' => [
                 'purpose'   => __(
                     'Le registre des risques de sécurité de l\'information : chaque risque est évalué (probabilité '

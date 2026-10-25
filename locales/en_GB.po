@@ -4374,3 +4374,206 @@ msgstr "No action plan (nonconformity) linked to the incident."
 
 msgid "Action"
 msgstr "Action"
+
+msgid "Exercices de crise"
+msgstr "Crisis exercises"
+
+msgid "Attaque par rançongiciel"
+msgstr "Ransomware attack"
+
+msgid "Des postes et un serveur de fichiers sont chiffrés, une demande de rançon s'affiche. L'équipe doit isoler, évaluer, restaurer depuis les sauvegardes et communiquer."
+msgstr "Workstations and a file server are encrypted and a ransom note is displayed. The team must isolate, assess, restore from backups and communicate."
+
+msgid "Fuite de données personnelles"
+msgstr "Personal data leak"
+
+msgid "Un fichier de clients est publié sur un forum. L'équipe doit contenir la fuite, identifier les données touchées et décider de la notification à l'autorité."
+msgstr "A customer file is published on a forum. The team must contain the leak, identify the affected data and decide whether to notify the authority."
+
+msgid "Panne majeure du système d'information"
+msgstr "Major information system outage"
+
+msgid "La salle serveur (ou l'hébergeur principal) est indisponible. L'équipe doit activer le plan de continuité et basculer sur le site de secours."
+msgstr "The server room (or the main hosting provider) is unavailable. The team must activate the continuity plan and switch to the backup site."
+
+msgid "Confirmer l'alerte et qualifier l'incident"
+msgstr "Confirm the alert and qualify the incident"
+
+msgid "Isoler du réseau les machines touchées"
+msgstr "Isolate the affected machines from the network"
+
+msgid "Réunir la cellule de crise"
+msgstr "Convene the crisis team"
+
+msgid "Informer la direction"
+msgstr "Inform management"
+
+msgid "Évaluer l'étendue : systèmes et données touchés"
+msgstr "Assess the scope: affected systems and data"
+
+msgid "Restaurer une sauvegarde de test"
+msgstr "Restore a test backup"
+
+msgid "Préparer la communication interne et externe"
+msgstr "Prepare internal and external communication"
+
+msgid "Valider le retour à la normale"
+msgstr "Confirm the return to normal"
+
+msgid "Contenir la fuite (retrait, comptes, accès)"
+msgstr "Contain the leak (takedown, accounts, access)"
+
+msgid "Identifier les données et les personnes concernées"
+msgstr "Identify the data and the people concerned"
+
+msgid "Informer le délégué à la protection des données"
+msgstr "Inform the data protection officer"
+
+msgid "Décider de la notification à l'autorité (RGPD, NIS2)"
+msgstr "Decide on notifying the authority (GDPR, NIS2)"
+
+msgid "Activer le plan de continuité"
+msgstr "Activate the continuity plan"
+
+msgid "Prévenir les utilisateurs"
+msgstr "Warn users"
+
+msgid "Basculer sur le site ou le service de secours"
+msgstr "Switch to the backup site or service"
+
+#, php-format
+msgid "[EXERCICE] %s"
+msgstr "[EXERCISE] %s"
+
+msgid "Ceci est un exercice de crise : aucun incident réel n'est en cours."
+msgstr "This is a crisis exercise: no real incident is in progress."
+
+#, php-format
+msgid "Objectif : %d min après le début de l'exercice."
+msgstr "Target: %d min after the start of the exercise."
+
+#, php-format
+msgid "Rapport d'exercice de crise : %s"
+msgstr "Crisis exercise report: %s"
+
+#, php-format
+msgid "Rapport d'exercice de crise - %s"
+msgstr "Crisis exercise report - %s"
+
+msgid "L'exercice n'a pas pu être lancé."
+msgstr "The exercise could not be started."
+
+msgid "Exercice terminé : le rapport est archivé dans les documents de l'incident d'exercice."
+msgstr "Exercise finished: the report is archived in the exercise incident documents."
+
+msgid "Les exercices de crise : simuler un incident (rançongiciel, fuite de données, panne) pour vérifier que l'équipe sait réagir et que le plan de continuité fonctionne."
+msgstr "Crisis exercises: simulate an incident (ransomware, data leak, outage) to check that the team knows how to react and that the continuity plan works."
+
+msgid "Lancez un scénario : un incident fictif « EXERCICE » est créé avec une tâche par étape. Dans la salle de crise, cochez chaque étape dès qu'elle est faite ; à la fin, le rapport mesure les temps de réaction et sert de preuve pour l'audit. Au moins un exercice par an."
+msgstr "Start a scenario: a fictitious \"EXERCISE\" incident is created with one task per step. In the crisis room, tick each step as soon as it is done; at the end, the report measures reaction times and serves as audit evidence. At least one exercise per year."
+
+msgid "ISO 27001, Annexe A 5.29 et 5.30"
+msgstr "ISO 27001, Annex A 5.29 and 5.30"
+
+msgid "Lancer un exercice de crise"
+msgstr "Start a crisis exercise"
+
+msgid "Lancer l'exercice maintenant ? Un incident fictif « EXERCICE » sera créé et le chronomètre démarrera."
+msgstr "Start the exercise now? A fictitious \"EXERCISE\" incident will be created and the timer will start."
+
+msgid "Lancer l'exercice"
+msgstr "Start the exercise"
+
+msgid "Exercices réalisés"
+msgstr "Exercises carried out"
+
+msgid "Aucun exercice pour l'instant. La norme demande de tester les plans de continuité à intervalles planifiés : lancez un premier exercice ci-dessus."
+msgstr "No exercise yet. The standard requires testing continuity plans at planned intervals: start a first exercise above."
+
+msgid "Scénario"
+msgstr "Scenario"
+
+msgid "Durée"
+msgstr "Duration"
+
+msgid "Étapes dans le délai"
+msgstr "Steps on time"
+
+msgid "Temps de réaction moyen"
+msgstr "Average reaction time"
+
+msgid "Ouvrir"
+msgstr "Open"
+
+msgid "Dans le délai"
+msgstr "On time"
+
+msgid "Non faite"
+msgstr "Not done"
+
+msgid "EXERCICE"
+msgstr "EXERCISE"
+
+msgid "aucun incident réel n'est en cours. Les étapes sont aussi des tâches de l'incident d'exercice."
+msgstr "no real incident is in progress. The steps are also tasks of the exercise incident."
+
+msgid "Incident d'exercice"
+msgstr "Exercise incident"
+
+msgid "Tous les exercices"
+msgstr "All exercises"
+
+#, php-format
+msgid "Lancé le %1$s par %2$s."
+msgstr "Started on %1$s by %2$s."
+
+msgid "Étape"
+msgstr "Step"
+
+msgid "Objectif"
+msgstr "Target"
+
+msgid "Faite à"
+msgstr "Done at"
+
+msgid "Bilan"
+msgstr "Outcome"
+
+msgid "Étapes faites"
+msgstr "Steps done"
+
+msgid "Ouvrir le rapport d'exercice"
+msgstr "Open the exercise report"
+
+msgid "Régénérer le rapport"
+msgstr "Regenerate the report"
+
+msgid "Renseignez les enseignements tirés sur l'incident d'exercice, puis régénérez le rapport pour les y faire figurer."
+msgstr "Fill in the lessons learned on the exercise incident, then regenerate the report to include them."
+
+msgid "Terminer l'exercice ? Les étapes non faites seront comptées comme manquées."
+msgstr "Finish the exercise? Steps not done will be counted as missed."
+
+msgid "Terminer l'exercice et générer le rapport"
+msgstr "Finish the exercise and generate the report"
+
+msgid "Le rapport PDF est archivé sur l'incident d'exercice et comme preuve sur les mesures A.5.29 et A.5.30 de la SoA."
+msgstr "The PDF report is archived on the exercise incident and as evidence on SoA controls A.5.29 and A.5.30."
+
+msgid "ce rapport porte sur un incident fictif, simulé pour tester le plan de continuité."
+msgstr "this report covers a fictitious incident, simulated to test the continuity plan."
+
+msgid "Organisé par"
+msgstr "Organised by"
+
+msgid "Début / fin"
+msgstr "Start / end"
+
+msgid "Déroulé"
+msgstr "Course of the exercise"
+
+msgid "Par"
+msgstr "By"
+
+msgid "Non renseignés : complétez-les sur l'incident d'exercice et régénérez le rapport."
+msgstr "Not filled in: complete them on the exercise incident and regenerate the report."

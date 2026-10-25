@@ -46,8 +46,10 @@ final class SecurityIncidentCardProvider
         );
 
         $where = [
-            'is_deleted' => 0,
-            'NOT'        => ['status' => $closedStatuses],
+            'is_deleted'  => 0,
+            // Issue #168 : sans les incidents fictifs des exercices de crise.
+            'is_exercise' => 0,
+            'NOT'         => ['status' => $closedStatuses],
         ] + \getEntitiesRestrictCriteria($table, '', '', true);
 
         $count = (int) $DB->request([
