@@ -31,7 +31,7 @@ final class PilotageCardsTest extends GrcmanagerIntegrationTestCase
     public function testEveryCardReturnsAUsableValue(): void
     {
         $framework = SecuredDashboardCards::complianceByFramework();
-        $this->assertSame(['ISO 27001', 'NIS2', 'ANSSI'], array_column($framework['data'], 'label'));
+        $this->assertSame(['ISO 27001', 'NIS2', 'ANSSI', 'NIST CSF 2.0'], array_column($framework['data'], 'label'));
         foreach ($framework['data'] as $entry) {
             $this->assertGreaterThanOrEqual(0, $entry['number']);
             $this->assertLessThanOrEqual(100, $entry['number']);

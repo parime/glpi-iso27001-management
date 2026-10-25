@@ -21,6 +21,7 @@ namespace GlpiPlugin\Grcmanager\Services\Dashboard;
 
 use GlpiPlugin\Grcmanager\Services\Access\AccessReviewLogic;
 use GlpiPlugin\Grcmanager\Services\Control\AnssiHygieneCatalogDefaults;
+use GlpiPlugin\Grcmanager\Services\Control\ControlCrosswalkDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\Nis2CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Incident\RegulatoryDeadlines;
 use GlpiPlugin\Grcmanager\Services\Maturity\MaturityScore;
@@ -35,7 +36,9 @@ final class PilotageCards
     /**
      * Taux de mise en œuvre des mesures applicables de l'Annexe A liées à chaque référentiel :
      * toutes pour ISO 27001, celles qui répondent à une exigence NIS2 ou à une mesure du guide
-     * d'hygiène de l'ANSSI pour les deux autres (correspondances indicatives du plugin).
+     * d'hygiène de l'ANSSI (correspondances indicatives du plugin), et celles que le NIST relie
+     * lui-même au CSF 2.0 (correspondance officielle, ControlCrosswalkDefaults). Pas de CIS
+     * Controls : aucune correspondance officielle librement disponible (voir ce même fichier).
      *
      * @param array<string, array{applicability: string, implementation_status: string}> $controls code => ligne
      * @return array<string, ?float> référentiel => taux (null si aucune mesure concernée)
@@ -43,10 +46,13 @@ final class PilotageCards
     public static function frameworkRates(array $controls): array
     {
         $filters = [
-            'ISO 27001' => static fn (string $code): bool => true,
-            'NIS2'      => static fn (string $code): bool => Nis2CatalogDefaults::requirementsForControl($code) !== [],
-            'ANSSI'     => static fn (string $code): bool
+            'ISO 27001'    => static fn (string $code): bool => true,
+            'NIS2'         => static fn (string $code): bool
+                => Nis2CatalogDefaults::requirementsForControl($code) !== [],
+            'ANSSI'        => static fn (string $code): bool
                 => AnssiHygieneCatalogDefaults::measuresForControl($code) !== [],
+            'NIST CSF 2.0' => static fn (string $code): bool
+                => (ControlCrosswalkDefaults::CROSSWALK[preg_replace('/^A\./', '', $code)]['nist_csf'] ?? []) !== [],
         ];
         $rates = [];
         foreach ($filters as $framework => $covers) {
