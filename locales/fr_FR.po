@@ -3401,3 +3401,79 @@ msgid "%d risque ajouté au registre, à évaluer."
 msgid_plural "%d risques ajoutés au registre, à évaluer."
 msgstr[0] "%d risque ajouté au registre, à évaluer."
 msgstr[1] "%d risques ajoutés au registre, à évaluer."
+
+msgid "Validée"
+msgstr "Validée"
+
+msgid "Close"
+msgstr "Close"
+
+msgid "Bientôt échue"
+msgstr "Bientôt échue"
+
+msgid "Échue"
+msgstr "Échue"
+
+msgid "Donnez un nom à la dérogation."
+msgstr "Donnez un nom à la dérogation."
+
+msgid "Une dérogation est temporaire : sa date de fin est obligatoire."
+msgstr "Une dérogation est temporaire : sa date de fin est obligatoire."
+
+msgid "La date de fin précède la date de début."
+msgstr "La date de fin précède la date de début."
+
+msgid "Responsable (accepte le risque)"
+msgstr "Responsable (accepte le risque)"
+
+msgid "Mesure de l'Annexe A"
+msgstr "Mesure de l'Annexe A"
+
+msgid "Mesures compensatoires"
+msgstr "Mesures compensatoires"
+
+msgid "Prévient le responsable avant la fin d'une dérogation, puis ouvre un ticket de réévaluation"
+msgstr "Prévient le responsable avant la fin d'une dérogation, puis ouvre un ticket de réévaluation"
+
+#, php-format
+msgid "Réévaluer la dérogation « %s »"
+msgstr "Réévaluer la dérogation « %s »"
+
+msgid "Dérogation bientôt échue"
+msgstr "Dérogation bientôt échue"
+
+msgid "La personne qui accepte le risque de la dérogation, prévenue avant sa fin."
+msgstr "La personne qui accepte le risque de la dérogation, prévenue avant sa fin."
+
+msgid "Une dérogation est temporaire. Le responsable est prévenu 15 jours avant ; à l'échéance, un ticket de réévaluation est ouvert. Rien n'est prolongé ni clos automatiquement."
+msgstr "Une dérogation est temporaire. Le responsable est prévenu 15 jours avant ; à l'échéance, un ticket de réévaluation est ouvert. Rien n'est prolongé ni clos automatiquement."
+
+msgid "Validée par"
+msgstr "Validée par"
+
+msgid "Pourquoi l'exception est nécessaire (ex. application qui ne fonctionne que sur un système en fin de support)."
+msgstr "Pourquoi l'exception est nécessaire (ex. application qui ne fonctionne que sur un système en fin de support)."
+
+msgid "Ce qui réduit le risque pendant la dérogation (isolement réseau, surveillance renforcée, accès restreint...)."
+msgstr "Ce qui réduit le risque pendant la dérogation (isolement réseau, surveillance renforcée, accès restreint...)."
+
+msgid "Actifs concernés"
+msgstr "Actifs concernés"
+
+msgid "Nouvelle dérogation pour cet élément"
+msgstr "Nouvelle dérogation pour cet élément"
+
+msgid "Aucune dérogation."
+msgstr "Aucune dérogation."
+
+#, php-format
+msgid "La dérogation « %1$s » est arrivée à échéance le %2$s."
+msgstr "La dérogation « %1$s » est arrivée à échéance le %2$s."
+
+msgid "Réévaluez-la : prolongez-la avec une nouvelle date de fin si l'exception est toujours nécessaire, ou close-la une fois la situation régularisée. Aucune modification n'a été faite automatiquement."
+msgstr "Réévaluez-la : prolongez-la avec une nouvelle date de fin si l'exception est toujours nécessaire, ou close-la une fois la situation régularisée. Aucune modification n'a été faite automatiquement."
+
+msgid "Dérogation"
+msgid_plural "Dérogations"
+msgstr[0] "Dérogation"
+msgstr[1] "Dérogations"

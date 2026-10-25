@@ -190,6 +190,9 @@ final class Installer
     private const CVE_SIGNALS_TABLE = 'glpi_plugin_grcmanager_cvesignals';
     // Issue #178 : risques types importés depuis le catalogue, voir PluginGrcmanagerRiskCatalog.
     private const RISK_CATALOG_IMPORTS_TABLE = 'glpi_plugin_grcmanager_riskcatalogimports';
+    // Issue #170 : dérogations de sécurité, voir PluginGrcmanagerWaiver.
+    private const WAIVERS_TABLE = 'glpi_plugin_grcmanager_waivers';
+    private const WAIVERS_ITEMS_TABLE = 'glpi_plugin_grcmanager_waivers_items';
 
     public function install(Migration $migration): bool
     {
@@ -1070,6 +1073,54 @@ final class Installer
             $DB->doQuery($query) or die($DB->error());
         }
 
+        // Issue #170 : dérogations de sécurité (exception temporaire à une politique ou à une mesure).
+        if (!$DB->tableExists(self::WAIVERS_TABLE)) {
+            $query = "CREATE TABLE `" . self::WAIVERS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `name` varchar(255) NOT NULL DEFAULT '',
+                `status` varchar(16) NOT NULL DEFAULT 'requested'
+                    COMMENT 'requested, approved, rejected, closed',
+                `users_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Responsable qui accepte le risque',
+                `users_id_approver` int {$keySign} NOT NULL DEFAULT 0,
+                `date_approval` timestamp NULL DEFAULT NULL,
+                `date_begin` date DEFAULT NULL,
+                `date_end` date DEFAULT NULL,
+                `plugin_grcmanager_controls_id` int {$keySign} NOT NULL DEFAULT 0,
+                `plugin_grcmanager_policies_id` int {$keySign} NOT NULL DEFAULT 0,
+                `description` text COMMENT 'Justification',
+                `compensating_measures` text,
+                `date_notified` timestamp NULL DEFAULT NULL,
+                `tickets_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Ticket de réévaluation',
+                `is_deleted` tinyint NOT NULL DEFAULT 0,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `status` (`status`),
+                KEY `users_id` (`users_id`),
+                KEY `date_end` (`date_end`),
+                KEY `controls_id` (`plugin_grcmanager_controls_id`),
+                KEY `policies_id` (`plugin_grcmanager_policies_id`),
+                KEY `is_deleted` (`is_deleted`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+        }
+
+        if (!$DB->tableExists(self::WAIVERS_ITEMS_TABLE)) {
+            $query = "CREATE TABLE `" . self::WAIVERS_ITEMS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_waivers_id` int {$keySign} NOT NULL,
+                `itemtype` varchar(255) NOT NULL,
+                `items_id` int {$keySign} NOT NULL,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity_link` (`plugin_grcmanager_waivers_id`, `itemtype`, `items_id`),
+                KEY `item` (`itemtype`, `items_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+        }
+
         // Issue #178 : risque créé pour chaque risque type du catalogue (un import par clé).
         if (!$DB->tableExists(self::RISK_CATALOG_IMPORTS_TABLE)) {
             $query = "CREATE TABLE `" . self::RISK_CATALOG_IMPORTS_TABLE . "` (
@@ -1686,6 +1737,7 @@ final class Installer
         $this->seedTreatmentActionOverdueNotification();
         $this->seedAccessReviewNotifications();
         $this->seedEvidenceExpiringNotification();
+        $this->seedWaiverExpiringNotification();
 
         // Issue #126 : relance hebdomadaire des responsables en retard sur une revue des accès.
         CronTask::Register(
@@ -1832,6 +1884,18 @@ final class Installer
             [
                 'comment' => 'Notifie le responsable de chaque action de traitement de risque dont '
                     . 'l\'échéance est dépassée',
+                'mode'    => CronTask::MODE_EXTERNAL,
+            ]
+        );
+
+        // Issue #170 : rappel avant la fin d'une dérogation, puis ticket de réévaluation.
+        CronTask::Register(
+            'PluginGrcmanagerWaiver',
+            'waiverreminder',
+            DAY_TIMESTAMP,
+            [
+                'comment' => 'Prévient le responsable avant la fin d\'une dérogation, puis ouvre un '
+                    . 'ticket de réévaluation',
                 'mode'    => CronTask::MODE_EXTERNAL,
             ]
         );
@@ -2167,6 +2231,61 @@ final class Installer
             'notifications_id' => $notificationId,
             'type'             => Notification::USER_TYPE,
             'items_id'         => \PluginGrcmanagerNotificationTargetEvidence::TARGET_RESPONSIBLE,
+        ]);
+    }
+
+    /**
+     * Issue #170 : avis au responsable d'une dérogation 15 jours avant sa fin. Le contenu HTML est
+     * dérivé du texte (aucun gabarit HTML écrit en PHP, cf. exigences du Marketplace GLPI).
+     */
+    private function seedWaiverExpiringNotification(): void
+    {
+        global $DB;
+
+        $itemtype = 'PluginGrcmanagerWaiver';
+        $event    = 'waiver_expiring';
+        $where = ['itemtype' => $itemtype, 'event' => $event];
+        if ($DB->request(['FROM' => 'glpi_notifications', 'WHERE' => $where])->count() > 0) {
+            return;
+        }
+
+        $templateId = (new NotificationTemplate())->add([
+            'name'     => 'GRC Manager - Dérogation bientôt échue',
+            'itemtype' => $itemtype,
+            'comment'  => 'Notification envoyée par la tâche automatique GRC Manager 15 jours avant la fin '
+                . 'd\'une dérogation de sécurité.',
+        ]);
+        $text = "##waiver.action## : ##waiver.name##\n\n"
+            . "Date de fin : ##waiver.dateend##\n\n"
+            . "Réévaluez la dérogation : prolongez-la avec une nouvelle date de fin si l'exception est toujours "
+            . "nécessaire, ou close-la une fois la situation régularisée. Un ticket de réévaluation sera ouvert "
+            . "à l'échéance.\n\n"
+            . "Voir la dérogation : ##waiver.url##";
+        $DB->insert('glpi_notificationtemplatetranslations', [
+            'notificationtemplates_id' => $templateId,
+            'language'                 => '',
+            'subject'                  => '##waiver.action## : ##waiver.name##',
+            'content_text'             => $text,
+            'content_html'             => nl2br(htmlescape($text)),
+        ]);
+
+        $notificationId = (new Notification())->add([
+            'name'         => 'GRC Manager - Dérogation bientôt échue',
+            'entities_id'  => 0,
+            'is_recursive' => 1,
+            'itemtype'     => $itemtype,
+            'event'        => $event,
+            'is_active'    => 1,
+        ]);
+        $DB->insert('glpi_notifications_notificationtemplates', [
+            'notifications_id'         => $notificationId,
+            'mode'                     => 'mailing',
+            'notificationtemplates_id' => $templateId,
+        ]);
+        $DB->insert('glpi_notificationtargets', [
+            'notifications_id' => $notificationId,
+            'type'             => Notification::USER_TYPE,
+            'items_id'         => \PluginGrcmanagerNotificationTargetWaiver::TARGET_RESPONSIBLE,
         ]);
     }
 
@@ -2773,6 +2892,7 @@ final class Installer
         $this->unseedNotification('PluginGrcmanagerPolicy');
         $this->unseedNotification('PluginGrcmanagerRiskTreatmentAction');
         $this->unseedNotification('PluginGrcmanagerEvidence');
+        $this->unseedNotification('PluginGrcmanagerWaiver');
         $this->unseedNotification(PluginGrcmanagerSecurityIncident::class);
         $this->unseedNotification('PluginGrcmanagerAccessReview');
 
@@ -2828,6 +2948,8 @@ final class Installer
         $migration->dropTable(self::PARK_CVES_TABLE);
         $migration->dropTable(self::CVE_SIGNALS_TABLE);
         $migration->dropTable(self::RISK_CATALOG_IMPORTS_TABLE);
+        $migration->dropTable(self::WAIVERS_TABLE);
+        $migration->dropTable(self::WAIVERS_ITEMS_TABLE);
         $migration->dropTable(self::ACCESS_REVIEWS_USERS_TABLE);
         $migration->dropTable(self::ACCESS_REVIEWS_TABLE);
         $migration->dropTable(self::OBJECTIVES_TABLE);

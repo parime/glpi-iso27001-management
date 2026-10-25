@@ -33,6 +33,16 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   de l'Annexe A et des questions pour savoir s'il s'applique. Les risques cochés sont créés dans le
   registre au statut « Identifié », liés à leurs mesures, à évaluer ; un risque déjà importé n'est
   pas recréé.
+- **Registre des dérogations de sécurité** (issue #170), menu GRC & Conformité > Dérogations : une
+  exception temporaire à une politique ou à une mesure de l'Annexe A (un serveur qui ne peut pas
+  encore être mis à jour, par exemple), avec justification, mesures compensatoires, responsable qui
+  accepte le risque, dates de début et de fin (obligatoire) et actifs concernés. Statut demandée,
+  validée (qui et quand sont enregistrés), refusée ou close ; état « en cours », « bientôt échue »
+  ou « échue » d'après la date de fin. Le responsable est prévenu 15 jours avant la fin ; à
+  l'échéance, un ticket de réévaluation est ouvert, lié aux actifs. Rien n'est prolongé ni clos
+  automatiquement ; une nouvelle date de fin ouvre un nouveau cycle. Onglet « Dérogations » sur les
+  actifs, les mesures et les politiques, avec « Nouvelle dérogation pour cet élément » ; documents
+  joints (validation signée, analyse de risque).
 
 ### Changed
 
