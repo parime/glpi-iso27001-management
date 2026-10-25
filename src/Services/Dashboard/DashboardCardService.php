@@ -17,6 +17,22 @@ use Glpi\DBAL\QueryExpression;
  */
 final class DashboardCardService
 {
+    /**
+     * Issue #166 : score de maturité cyber, sur 100.
+     *
+     * @param array<string, mixed> $params
+     * @return array<string, mixed>
+     */
+    public static function maturityScore(array $params = []): array
+    {
+        return [
+            'number' => \PluginGrcmanagerMaturity::current()['score'],
+            'label'  => $params['label'] ?? __('Score de maturité (sur 100)', 'grcmanager'),
+            'icon'   => 'ti ti-gauge',
+            'url'    => \PluginGrcmanagerMaturity::getSearchURL(),
+        ];
+    }
+
     public static function openRisksCount(array $params = []): array
     {
         global $DB;

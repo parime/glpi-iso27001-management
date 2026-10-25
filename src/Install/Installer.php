@@ -190,6 +190,8 @@ final class Installer
     private const CVE_SIGNALS_TABLE = 'glpi_plugin_grcmanager_cvesignals';
     // Issue #160, phase 2 : ticket ouvert par produit du catalogue (logiciel à mettre à jour).
     private const CERTFR_NOTICES_TABLE = 'glpi_plugin_grcmanager_certfrnotices';
+    // Issue #166 : score de maturité enregistré chaque mois.
+    private const MATURITY_SNAPSHOTS_TABLE = 'glpi_plugin_grcmanager_maturitysnapshots';
     // Issue #171 : liens cause → conséquence entre risques et incidents (effet domino).
     private const CAUSAL_LINKS_TABLE = 'glpi_plugin_grcmanager_causallinks';
     private const CERTFR_NOTIFIED_TABLE = 'glpi_plugin_grcmanager_certfrnotices_supplierrisks';
@@ -1259,6 +1261,22 @@ final class Installer
             $migration->migrationOneTable(self::ASSET_CLASSIFICATIONS_TABLE);
         }
 
+        // Issue #166 : score de maturité, un enregistrement par mois.
+        if (!$DB->tableExists(self::MATURITY_SNAPSHOTS_TABLE)) {
+            $query = "CREATE TABLE `" . self::MATURITY_SNAPSHOTS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `month` char(7) NOT NULL,
+                `score` int NOT NULL DEFAULT 0,
+                `level` int NOT NULL DEFAULT 1,
+                `details` text,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `month` (`month`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+        }
+
         // Issue #171 : effet domino, un lien par couple cause → conséquence.
         if (!$DB->tableExists(self::CAUSAL_LINKS_TABLE)) {
             $query = "CREATE TABLE `" . self::CAUSAL_LINKS_TABLE . "` (
@@ -2025,6 +2043,17 @@ final class Installer
             [
                 'comment' => 'Notifie le responsable de chaque action de traitement de risque dont '
                     . 'l\'échéance est dépassée',
+                'mode'    => CronTask::MODE_EXTERNAL,
+            ]
+        );
+
+        // Issue #166 : score de maturité du mois, enregistré chaque jour pour l'historique.
+        CronTask::Register(
+            'PluginGrcmanagerMaturity',
+            'maturitysnapshot',
+            DAY_TIMESTAMP,
+            [
+                'comment' => 'Enregistre le score de maturité du mois pour l\'historique de la revue de direction',
                 'mode'    => CronTask::MODE_EXTERNAL,
             ]
         );
@@ -3153,6 +3182,7 @@ final class Installer
         $migration->dropTable(self::PARK_CVE_TICKETS_TABLE);
         $migration->dropTable(self::CERTFR_NOTICES_TABLE);
         $migration->dropTable(self::CAUSAL_LINKS_TABLE);
+        $migration->dropTable(self::MATURITY_SNAPSHOTS_TABLE);
         $migration->dropTable(self::CERTFR_NOTIFIED_TABLE);
         $migration->dropTable(self::RISK_CATALOG_IMPORTS_TABLE);
         $migration->dropTable(self::WAIVERS_TABLE);

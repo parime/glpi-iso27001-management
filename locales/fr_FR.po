@@ -4171,3 +4171,92 @@ msgstr "À quoi sert cette page ?"
 
 msgid "Ce qui est attendu"
 msgstr "Ce qui est attendu"
+
+msgid "Score de maturité"
+msgstr "Score de maturité"
+
+msgid "Mesures de l'Annexe A mises en œuvre (SoA)"
+msgstr "Mesures de l'Annexe A mises en œuvre (SoA)"
+
+msgid "Exigences du SMSI (articles 4 à 10) conformes"
+msgstr "Exigences du SMSI (articles 4 à 10) conformes"
+
+msgid "Preuves en cours de validité"
+msgstr "Preuves en cours de validité"
+
+msgid "Audit interne réalisé dans les 12 derniers mois"
+msgstr "Audit interne réalisé dans les 12 derniers mois"
+
+msgid "Formations réalisées"
+msgstr "Formations réalisées"
+
+msgid "Initial"
+msgstr "Initial"
+
+msgid "Reproductible"
+msgstr "Reproductible"
+
+msgid "Défini"
+msgstr "Défini"
+
+msgid "Géré"
+msgstr "Géré"
+
+msgid "Optimisé"
+msgstr "Optimisé"
+
+msgid "Score de maturité : enregistre le score du mois"
+msgstr "Score de maturité : enregistre le score du mois"
+
+msgid "Le score de maturité cyber (0 à 100) : une vue d'ensemble de l'avancement de votre système de management de la sécurité, calculée à partir de vos données."
+msgstr "Le score de maturité cyber (0 à 100) : une vue d'ensemble de l'avancement de votre système de management de la sécurité, calculée à partir de vos données."
+
+msgid "Présentez-le en revue de direction ; le détail du calcul montre quelles composantes améliorer en priorité."
+msgstr "Présentez-le en revue de direction ; le détail du calcul montre quelles composantes améliorer en priorité."
+
+#, php-format
+msgid "Niveau %1$d : %2$s"
+msgstr "Niveau %1$d : %2$s"
+
+msgid "Niveaux : 1 Initial (0-19), 2 Reproductible (20-39), 3 Défini (40-59), 4 Géré (60-79), 5 Optimisé (80-100)."
+msgstr "Niveaux : 1 Initial (0-19), 2 Reproductible (20-39), 3 Défini (40-59), 4 Géré (60-79), 5 Optimisé (80-100)."
+
+msgid "Détail du calcul"
+msgstr "Détail du calcul"
+
+msgid "Composante"
+msgstr "Composante"
+
+msgid "Poids"
+msgstr "Poids"
+
+msgid "Apport"
+msgstr "Apport"
+
+msgid "sans données"
+msgstr "sans données"
+
+msgid "Sous-total"
+msgstr "Sous-total"
+
+#, php-format
+msgid "Pénalités : %1$d action(s) corrective(s) en retard, %2$d incident(s) de sécurité non résolu(s)"
+msgstr "Pénalités : %1$d action(s) corrective(s) en retard, %2$d incident(s) de sécurité non résolu(s)"
+
+msgid "Une composante sans données (module non utilisé) est écartée et son poids réparti sur les autres. Une mesure « en cours » compte pour moitié. Chaque retard ou incident ouvert retire 2 points, au plus 10 par catégorie."
+msgstr "Une composante sans données (module non utilisé) est écartée et son poids réparti sur les autres. Une mesure « en cours » compte pour moitié. Chaque retard ou incident ouvert retire 2 points, au plus 10 par catégorie."
+
+msgid "Mise en œuvre de l'Annexe A par thème"
+msgstr "Mise en œuvre de l'Annexe A par thème"
+
+msgid "Aucune mesure déclarée applicable dans la SoA."
+msgstr "Aucune mesure déclarée applicable dans la SoA."
+
+msgid "Évolution mensuelle"
+msgstr "Évolution mensuelle"
+
+msgid "L'historique se construit mois après mois : la tâche planifiée enregistre le score chaque jour pour le mois en cours."
+msgstr "L'historique se construit mois après mois : la tâche planifiée enregistre le score chaque jour pour le mois en cours."
+
+msgid "Score de maturité (sur 100)"
+msgstr "Score de maturité (sur 100)"

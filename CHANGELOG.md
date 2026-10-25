@@ -7,6 +7,20 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Added
+
+- **Score de maturité cyber** (issue #166), menu GRC & Conformité > Score de maturité, et carte
+  du tableau de bord :
+  - score de 0 à 100 et niveau de 1 (Initial) à 5 (Optimisé) ;
+  - **calcul entièrement détaillé** : mesures de l'Annexe A mises en œuvre (40 %), exigences du
+    SMSI conformes (25 %), preuves valides (15 %), audit interne dans les 12 derniers mois (10 %),
+    formations réalisées (10 %) ; une mesure « en cours » compte pour moitié ; une composante sans
+    données est écartée et son poids réparti sur les autres ;
+  - pénalités : 2 points par action corrective en retard et par incident de sécurité non résolu,
+    au plus 10 par catégorie ;
+  - radar de mise en œuvre de l'Annexe A par thème, et évolution mensuelle (tâche planifiée
+    quotidienne qui enregistre le score du mois) pour la revue de direction.
+
 ## [2.7.0] - 2026-10-25
 
 ### Added

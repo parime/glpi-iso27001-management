@@ -30,6 +30,18 @@ class PluginGrcmanagerPageHelp
     public static function texts(): array
     {
         return [
+            'maturity' => [
+                'purpose'  => __(
+                    'Le score de maturité cyber (0 à 100) : une vue d\'ensemble de l\'avancement de votre système de '
+                        . 'management de la sécurité, calculée à partir de vos données.',
+                    'grcmanager'
+                ),
+                'expected' => __(
+                    'Présentez-le en revue de direction ; le détail du calcul montre quelles composantes '
+                        . 'améliorer en priorité.',
+                    'grcmanager'
+                ),
+            ],
             'risk' => [
                 'purpose'   => __(
                     'Le registre des risques de sécurité de l\'information : chaque risque est évalué (probabilité '
