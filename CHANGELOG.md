@@ -21,6 +21,9 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   tendance mensuelle, échéances, preuves à renouveler, fournisseurs critiques non évalués, revues
   périodiques en retard.
 - Nouvelles cartes (issue #143) :
+  - **Mesures mises en œuvre par référentiel** : ajout du **NIST CSF 2.0**, d'après la
+    correspondance officielle publiée par le NIST (les CIS Controls ne sont pas inclus : aucune
+    correspondance officielle librement disponible) ;
   - **Risques et non-conformités par mois** : courbe des 12 derniers mois pour la revue de
     direction. Chaque mois est enregistré avec le score de maturité (tâche automatique mensuelle).
     La courbe commence donc au mois de la mise à jour ;
