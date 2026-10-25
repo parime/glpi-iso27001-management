@@ -52,7 +52,7 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/evidence.php front/periodicreview.php front/networkflow.php front/accounthygiene.php
   front/compliancecalendar.php front/compliancecalendar.php?ics=1 front/complianceevent.php
   front/parkvulnerability.php front/softwarewatch.php front/riskcatalog.php front/waiver.php
-  front/coveragerule.php"
+  front/coveragerule.php front/impactanalysis.php"
 # Creations : refusees sans droit comme en lecture seule (etat en base compare par la CI).
 create_attempts() { # code attendu, code attendu pour la classification (404 sans droit sur l'actif)
   local incident; incident=$(id incident_A)
@@ -84,6 +84,9 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
   # Issue #142 : evenement du calendrier de conformite.
   expect "front/complianceevent.form.php : creation d'un evenement" "$1" \
     "$(code -d "add=1&name=securite&date_begin=2030-01-01+09:00:00&_glpi_csrf_token=$(csrf)" "$P/complianceevent.form.php")"
+  # Issue #177 : creer le risque d'un point de defaillance unique (compare en base).
+  expect "front/impactanalysis.php : creer le risque" "$1" \
+    "$(code -d "create_risk=1&itemtype=Computer&items_id=$(id computer_A)&_glpi_csrf_token=$(csrf)" "$P/impactanalysis.php")"
   # Issue #178 : importer un risque type cree un risque et ses liens (compare en base).
   expect "front/riskcatalog.php : importer un risque type" "$1" \
     "$(code -d "import=1&keys[]=admin_exposed&_glpi_csrf_token=$(csrf)" "$P/riskcatalog.php")"
