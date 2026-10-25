@@ -162,6 +162,18 @@ function plugin_grcmanager_dashboard_cards(?array $cards = null): array
             'group' => $group,
             'provider' => SecuredDashboardCards::class . '::periodicReviewsOverdue',
         ],
+        'grcmanager_critical_suppliers_without_assessment' => [
+            'widgettype' => ['bigNumber'],
+            'label' => __('Fournisseurs critiques non évalués', 'grcmanager'),
+            'group' => $group,
+            'provider' => SecuredDashboardCards::class . '::criticalSuppliersWithoutAssessment',
+        ],
+        'grcmanager_monthly_trend' => [
+            'widgettype' => ['lines', 'areas'],
+            'label' => __('Risques et non-conformités par mois', 'grcmanager'),
+            'group' => $group,
+            'provider' => SecuredDashboardCards::class . '::monthlyTrend',
+        ],
         // Issue #166 : score de maturité cyber (0 à 100), détail sur la page « Score de maturité ».
         'grcmanager_maturity_score' => [
             'widgettype' => ['bigNumber'],

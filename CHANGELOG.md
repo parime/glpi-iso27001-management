@@ -15,6 +15,22 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   ajout et déplacement des cartes, partage, plein écran). Cliquer sur le titre du menu y mène
   aussi. Si le tableau de bord n'est pas partagé avec le profil, la page explique comment le
   partager.
+- **Tableau de bord « GRC Manager - Direction »** (issue #143) : une vue simplifiée pour le comité
+  de direction, à choisir dans la liste des tableaux de bord : score de maturité, risques et
+  non-conformités ouverts, actions en retard, délais NIS2 / RGPD, conformité par référentiel,
+  tendance mensuelle, échéances, preuves à renouveler, fournisseurs critiques non évalués, revues
+  périodiques en retard.
+- Nouvelles cartes (issue #143) :
+  - **Risques et non-conformités par mois** : courbe des 12 derniers mois pour la revue de
+    direction. Chaque mois est enregistré avec le score de maturité (tâche automatique mensuelle).
+    La courbe commence donc au mois de la mise à jour ;
+  - **Fournisseurs critiques non évalués** : fournisseurs ayant un risque élevé ou critique ouvert
+    et dont le questionnaire de sécurité n'a jamais été rempli.
+
+### Fixed
+
+- Carte « Score fournisseurs moyen » : les fournisseurs dont le questionnaire n'a jamais été rempli
+  comptaient pour 0 dans la moyenne.
 
 ## [2.9.0] - 2026-10-25
 

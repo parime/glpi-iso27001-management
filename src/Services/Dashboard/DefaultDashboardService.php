@@ -59,7 +59,28 @@ final class DefaultDashboardService
 {
     public const KEY = 'grcmanager-isms-overview';
 
+    /**
+     * Issue #143 : tableau de bord « Direction », simplifié, en plus de la vue RSSI ci-dessus.
+     */
+    public const DIRECTION_KEY = 'grcmanager-direction';
+
     public static function seed(): void
+    {
+        self::upsert(self::KEY, __("GRC Manager - Vue d'ensemble ISMS", 'grcmanager'), self::getItems());
+        self::upsert(self::DIRECTION_KEY, __('GRC Manager - Direction', 'grcmanager'), self::getDirectionItems());
+    }
+
+    public static function remove(): void
+    {
+        foreach ([self::KEY, self::DIRECTION_KEY] as $key) {
+            (new Dashboard())->delete(['key' => $key], true);
+        }
+    }
+
+    /**
+     * @param list<array<string, mixed>> $items
+     */
+    private static function upsert(string $key, string $name, array $items): void
     {
         global $DB;
 
@@ -73,23 +94,82 @@ final class DefaultDashboardService
         $DB->updateOrInsert(
             Dashboard::getTable(),
             [
-                'key'      => self::KEY,
-                'name'     => __("GRC Manager - Vue d'ensemble ISMS", 'grcmanager'),
+                'key'      => $key,
+                'name'     => $name,
                 'context'  => 'core',
                 'users_id' => 0,
             ],
-            ['key' => self::KEY]
+            ['key' => $key]
         );
 
         $dashboard = new Dashboard();
-        if ($dashboard->getFromDB(self::KEY)) {
-            $dashboard->saveItems(self::getItems());
+        if ($dashboard->getFromDB($key)) {
+            $dashboard->saveItems($items);
         }
     }
 
-    public static function remove(): void
+    /**
+     * Une carte graphique (barres, courbes) : mêmes options que les répartitions ci-dessous.
+     *
+     * @return array<string, mixed>
+     */
+    private static function chart(string $cardId, string $widget, int $x, int $y, int $width, int $height): array
     {
-        (new Dashboard())->delete(['key' => self::KEY], true);
+        return [
+            'gridstack_id' => $cardId . '_default',
+            'card_id'      => $cardId,
+            'x'            => $x,
+            'y'            => $y,
+            'width'        => $width,
+            'height'       => $height,
+            'card_options' => [
+                'color'        => '#f9fafb',
+                'widgettype'   => $widget,
+                'use_gradient' => '1',
+            ],
+        ];
+    }
+
+    /**
+     * Vue « Direction » (issue #143) : peu de cartes, les plus parlantes pour un comité de direction
+     * (score de maturité, conformité par référentiel, tendance des risques et non-conformités,
+     * échéances et retards), sur trois rangées.
+     *
+     * @return list<array<string, mixed>>
+     */
+    private static function getDirectionItems(): array
+    {
+        $isms = [];
+        foreach (self::getItems() as $item) {
+            $isms[$item['card_id']] = $item;
+        }
+        $bigNumber = static function (string $cardId, int $x, int $y, int $width = 4) use ($isms): array {
+            $color = $isms[$cardId]['card_options']['color'] ?? '#0e87a0';
+
+            return [
+                'gridstack_id' => $cardId . '_direction',
+                'card_id'      => $cardId,
+                'x'            => $x,
+                'y'            => $y,
+                'width'        => $width,
+                'height'       => 2,
+                'card_options' => ['color' => $color, 'widgettype' => 'bigNumber', 'use_gradient' => '0'],
+            ];
+        };
+
+        return [
+            $bigNumber('grcmanager_maturity_score', 0, 0),
+            $bigNumber('grcmanager_open_risks', 4, 0),
+            $bigNumber('grcmanager_open_nonconformities', 8, 0, 5),
+            $bigNumber('grcmanager_overdue_capa', 13, 0, 5),
+            $bigNumber('grcmanager_security_incident_regulatory_deadlines', 18, 0, 6),
+            self::chart('grcmanager_compliance_by_framework', 'hbar', 0, 2, 12, 6),
+            self::chart('grcmanager_monthly_trend', 'lines', 12, 2, 12, 6),
+            $bigNumber('grcmanager_upcoming_compliance_deadlines', 0, 8, 6),
+            $bigNumber('grcmanager_evidences_to_renew', 6, 8, 6),
+            $bigNumber('grcmanager_critical_suppliers_without_assessment', 12, 8, 6),
+            $bigNumber('grcmanager_periodic_reviews_overdue', 18, 8, 6),
+        ];
     }
 
     /**
@@ -181,24 +261,15 @@ final class DefaultDashboardService
             $bigNumber('grcmanager_risks_missing_treatment_plan', 16, 16, '#f8911f'),
             // Rangée 7 (y=20) : cartes de pilotage (issue #143), conformité par référentiel puis
             // échéances, revue des accès, délais réglementaires et revues périodiques.
-            [
-                'gridstack_id' => 'grcmanager_compliance_by_framework_default',
-                'card_id'      => 'grcmanager_compliance_by_framework',
-                'x'            => 0,
-                'y'            => 20,
-                'width'        => 8,
-                'height'       => 4,
-                'card_options' => [
-                    'color'        => '#f9fafb',
-                    'widgettype'   => 'hbar',
-                    'use_gradient' => '1',
-                ],
-            ],
+            self::chart('grcmanager_compliance_by_framework', 'hbar', 0, 20, 8, 4),
             $bigNumber('grcmanager_upcoming_compliance_deadlines', 8, 20, '#0e87a0'),
             $bigNumber('grcmanager_access_review_progress', 12, 20, '#27ab3c'),
             $bigNumber('grcmanager_security_incident_regulatory_deadlines', 16, 20, '#cc2936'),
             $bigNumber('grcmanager_periodic_reviews_overdue', 20, 20, '#f8911f'),
             $bigNumber('grcmanager_supplier_questionnaire_average', 8, 22, '#8e5ea2'),
+            $bigNumber('grcmanager_critical_suppliers_without_assessment', 12, 22, '#cc2936'),
+            // Rangée 8 (y=24) : tendance mensuelle pour la revue de direction (issue #143).
+            self::chart('grcmanager_monthly_trend', 'lines', 0, 24, 12, 6),
         ];
     }
 }

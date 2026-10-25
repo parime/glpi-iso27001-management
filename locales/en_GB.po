@@ -4906,3 +4906,12 @@ msgstr "The GRC dashboard is not available for your profile."
 
 msgid "Un administrateur peut le partager avec ce profil depuis Accueil, menu du tableau de bord « GRC Manager - Vue d'ensemble ISMS », puis « Partager ou intégrer ce tableau de bord »."
 msgstr "An administrator can share it with this profile from Home, in the menu of the \"GRC Manager - ISMS overview\" dashboard, then \"Share or embed this dashboard\"."
+
+msgid "Fournisseurs critiques non évalués"
+msgstr "Critical suppliers not assessed"
+
+msgid "Risques et non-conformités par mois"
+msgstr "Risks and non-conformities by month"
+
+msgid "GRC Manager - Direction"
+msgstr "GRC Manager - Management"

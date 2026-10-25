@@ -175,6 +175,10 @@ final class PilotageCards
         ];
     }
 
+    /**
+     * Questionnaires remplis seulement : questionnaire_score vaut 0 par défaut, c'est la date du
+     * questionnaire qui indique qu'il a été rempli.
+     */
     public static function supplierQuestionnaireAverage(array $params = []): array
     {
         global $DB;
@@ -182,7 +186,7 @@ final class PilotageCards
         $row = $DB->request([
             'SELECT' => [new \Glpi\DBAL\QueryExpression('AVG(`questionnaire_score`) AS avg_score')],
             'FROM'   => \PluginGrcmanagerSupplierRisk::getTable(),
-            'WHERE'  => [['NOT' => ['questionnaire_score' => null]]],
+            'WHERE'  => [['NOT' => ['questionnaire_date' => null]], ['NOT' => ['questionnaire_score' => null]]],
         ])->current();
 
         return [
@@ -190,6 +194,104 @@ final class PilotageCards
             'url'    => \PluginGrcmanagerSupplierRisk::getSearchURL(),
             'label'  => $params['label'] ?? __('Score fournisseurs moyen', 'grcmanager'),
             'icon'   => 'ti ti-building-store',
+        ];
+    }
+
+    /**
+     * Fournisseurs ayant un risque ouvert élevé ou critique (même définition que
+     * DashboardCardService::suppliersWithHighRiskCount()) dont le questionnaire de sécurité n'a
+     * jamais été rempli.
+     */
+    public static function criticalSuppliersWithoutAssessment(array $params = []): array
+    {
+        global $DB;
+
+        $count = (int) $DB->request([
+            'SELECT' => [new \Glpi\DBAL\QueryExpression('COUNT(DISTINCT `suppliers_id`) AS c')],
+            'FROM'   => \PluginGrcmanagerSupplierRisk::getTable(),
+            'WHERE'  => [
+                'risk_level'          => ['high', 'critical'],
+                'status'              => ['identified', 'in_treatment'],
+                'questionnaire_date'  => null,
+                ['suppliers_id' => ['>', 0]],
+            ],
+        ])->current()['c'];
+
+        return [
+            'number' => $count,
+            'url'    => \PluginGrcmanagerSupplierRisk::getSearchURL(),
+            'label'  => $params['label'] ?? __('Fournisseurs critiques non évalués', 'grcmanager'),
+            'icon'   => 'ti ti-building-warehouse',
+        ];
+    }
+
+    /**
+     * Indicateurs suivis mois par mois pour la revue de direction, enregistrés avec le score de
+     * maturité (tâche automatique mensuelle « maturitysnapshot »).
+     *
+     * @return array{open_risks: int, open_nonconformities: int}
+     */
+    public static function currentIndicators(): array
+    {
+        return [
+            'open_risks'           => (int) DashboardCardService::openRisksCount()['number'],
+            'open_nonconformities' => (int) DashboardCardService::openNonconformitiesCount()['number'],
+        ];
+    }
+
+    /**
+     * Séries de la courbe de tendance : les 12 derniers mois enregistrés. Un mois enregistré avant
+     * l'issue #143 (sans indicateurs) est ignoré.
+     *
+     * @param array<string, ?array<string, int>> $byMonth mois (AAAA-MM) => indicateurs
+     * @return array{labels: list<string>, series: list<array{name: string, data: list<int>}>}
+     */
+    public static function trendSeries(array $byMonth): array
+    {
+        $byMonth = array_filter($byMonth, static fn (?array $indicators): bool => $indicators !== null);
+        ksort($byMonth);
+        $byMonth = array_slice($byMonth, -12, null, true);
+        $names = [
+            'open_risks'           => __('Risques ouverts', 'grcmanager'),
+            'open_nonconformities' => __('Non-conformités ouvertes', 'grcmanager'),
+        ];
+        $result = ['labels' => array_map('strval', array_keys($byMonth)), 'series' => []];
+        foreach ($names as $key => $name) {
+            $data = [];
+            foreach ($byMonth as $indicators) {
+                $data[] = (int) ($indicators[$key] ?? 0);
+            }
+            $result['series'][] = ['name' => $name, 'data' => $data];
+        }
+
+        return $result;
+    }
+
+    /**
+     * Le mois en cours est toujours recalculé, les mois passés viennent des enregistrements.
+     */
+    public static function monthlyTrend(array $params = []): array
+    {
+        global $DB;
+
+        $byMonth = [];
+        foreach (
+            $DB->request([
+                'SELECT' => ['month', 'indicators'],
+                'FROM'   => \PluginGrcmanagerMaturity::SNAPSHOTS_TABLE,
+                'ORDER'  => 'month DESC',
+                'LIMIT'  => 12,
+            ]) as $row
+        ) {
+            $decoded = json_decode((string) $row['indicators'], true);
+            $byMonth[(string) $row['month']] = is_array($decoded) ? $decoded : null;
+        }
+        $byMonth[date('Y-m')] = self::currentIndicators();
+
+        return [
+            'data'  => self::trendSeries($byMonth),
+            'label' => $params['label'] ?? __('Risques et non-conformités par mois', 'grcmanager'),
+            'icon'  => 'ti ti-chart-line',
         ];
     }
 
