@@ -1252,6 +1252,13 @@ final class Installer
             $DB->doQuery($query) or die($DB->error());
         }
 
+        // Issue #177, phase 2 : objectifs de reprise (heures, 0 : non défini) sur la classification.
+        if (!$DB->fieldExists(self::ASSET_CLASSIFICATIONS_TABLE, 'rto_hours')) {
+            $migration->addField(self::ASSET_CLASSIFICATIONS_TABLE, 'rto_hours', 'integer', ['value' => 0]);
+            $migration->addField(self::ASSET_CLASSIFICATIONS_TABLE, 'rpo_hours', 'integer', ['value' => 0]);
+            $migration->migrationOneTable(self::ASSET_CLASSIFICATIONS_TABLE);
+        }
+
         // Issue #171 : effet domino, un lien par couple cause → conséquence.
         if (!$DB->tableExists(self::CAUSAL_LINKS_TABLE)) {
             $query = "CREATE TABLE `" . self::CAUSAL_LINKS_TABLE . "` (

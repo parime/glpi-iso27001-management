@@ -3870,3 +3870,67 @@ msgstr "Ouvrir le registre des risques"
 
 msgid "cause → conséquence ; cliquer sur un élément l'ouvre"
 msgstr "cause → conséquence ; cliquer sur un élément l'ouvre"
+
+msgid "RTO (durée maximale d'interruption)"
+msgstr "RTO (durée maximale d'interruption)"
+
+msgid "RPO (perte de données maximale)"
+msgstr "RPO (perte de données maximale)"
+
+msgid "1 heure"
+msgstr "1 heure"
+
+msgid "4 heures"
+msgstr "4 heures"
+
+msgid "8 heures"
+msgstr "8 heures"
+
+msgid "24 heures (1 jour)"
+msgstr "24 heures (1 jour)"
+
+msgid "48 heures (2 jours)"
+msgstr "48 heures (2 jours)"
+
+msgid "72 heures (3 jours)"
+msgstr "72 heures (3 jours)"
+
+msgid "1 semaine"
+msgstr "1 semaine"
+
+msgid "Dépend de"
+msgstr "Dépend de"
+
+msgid "Point de défaillance unique pour"
+msgstr "Point de défaillance unique pour"
+
+msgid "Non défini"
+msgstr "Non défini"
+
+msgid "Délai au-delà duquel l'arrêt de cet actif devient inacceptable."
+msgstr "Délai au-delà duquel l'arrêt de cet actif devient inacceptable."
+
+msgid "Ancienneté maximale acceptable des données restaurées (fréquence des sauvegardes)."
+msgstr "Ancienneté maximale acceptable des données restaurées (fréquence des sauvegardes)."
+
+msgid "Objectifs de reprise incohérents"
+msgstr "Objectifs de reprise incohérents"
+
+#, php-format
+msgid "%1$s doit reprendre en %2$s, mais dépend de %3$s dont l'objectif est %4$s."
+msgstr "%1$s doit reprendre en %2$s, mais dépend de %3$s dont l'objectif est %4$s."
+
+msgid "non défini"
+msgstr "non défini"
+
+msgid "Disponibilité élevée"
+msgstr "Disponibilité élevée"
+
+msgid "Disponibilité moyenne"
+msgstr "Disponibilité moyenne"
+
+msgid "une panne de la source touche l'élément pointé"
+msgstr "une panne de la source touche l'élément pointé"
+
+msgid "Exporter pour le plan de continuité (CSV)"
+msgstr "Exporter pour le plan de continuité (CSV)"

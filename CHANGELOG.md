@@ -9,6 +9,19 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Objectifs de reprise et plan de continuité** (issue #177, phase 2) :
+  - onglet **Classification C/I/D** d'un actif : **RTO** (durée maximale d'interruption) et **RPO**
+    (perte de données maximale), de 1 heure à 1 semaine. L'onglet passe en Twig ;
+  - onglet **« Impact d'une panne »** :
+    - **graphe** de l'actif et de ce qui en dépend, coloré par disponibilité et libellé avec le RTO ;
+    - colonne RTO dans la liste des éléments touchés ;
+    - alerte **« Objectifs de reprise incohérents »** quand un élément doit reprendre plus vite que
+      ce dont il dépend (« l'application doit reprendre en 4 heures, mais dépend du stockage dont
+      l'objectif est 24 heures ») ;
+  - page « Points de défaillance uniques » : bouton **« Exporter pour le plan de continuité
+    (CSV) »**. L'export liste les actifs classés en disponibilité ou dotés d'objectifs, avec leur
+    disponibilité, RTO, RPO, leurs dépendances, le nombre d'éléments touchés, les points de
+    défaillance unique et les risques liés.
 - **Effet domino** (issue #171) : liens « cause → conséquence » entre risques, risques
   fournisseurs et incidents de sécurité (« Hameçonnage réussi » → « Compromission de compte » →
   « Fuite de données ») :

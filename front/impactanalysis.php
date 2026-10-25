@@ -43,6 +43,23 @@ if (isset($_POST['create_risk'])) {
     Html::back();
 }
 
+// Issue #177, phase 2 : export pour le plan de continuité (CSV, séparateur « ; » pour les tableurs).
+if (($_GET['export'] ?? '') === 'continuity') {
+    header('Content-Type: text/csv; charset=UTF-8');
+    header('Content-Disposition: attachment; filename="plan-de-continuite-' . date('Y-m-d') . '.csv"');
+    $out = fopen('php://output', 'w');
+    fwrite($out, "\xEF\xBB\xBF");
+    foreach (PluginGrcmanagerImpactAnalysis::continuityRows() as $line) {
+        // Une cellule commençant par = + - @ serait interprétée comme une formule par le tableur.
+        fputcsv($out, array_map(
+            static fn (string $cell): string => preg_match('/^[=+\-@\t\r]/', $cell) === 1 ? "'" . $cell : $cell,
+            $line
+        ), ';', '"', '');
+    }
+    fclose($out);
+    exit;
+}
+
 Html::header(
     PluginGrcmanagerImpactAnalysis::getTypeName(),
     PluginGrcmanagerImpactAnalysis::getSearchURL(),
@@ -54,6 +71,7 @@ TemplateRenderer::getInstance()->display('@grcmanager/impact_spof.html.twig', [
     'points'     => PluginGrcmanagerImpactAnalysis::allSinglePoints(),
     'action'     => PluginGrcmanagerImpactAnalysis::getSearchURL(),
     'can_create' => Session::haveRight(PluginGrcmanagerRisk::$rightname, CREATE),
+    'export_url' => PluginGrcmanagerImpactAnalysis::getSearchURL() . '?export=continuity',
 ]);
 
 Html::footer();
