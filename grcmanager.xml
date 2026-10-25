@@ -6,8 +6,8 @@
     <logo>https://raw.githubusercontent.com/parime/glpi-iso27001-management/main/logo.png</logo>
     <description>
         <short>
-            <fr>SMSI ISO 27001 et GRC dans GLPI : risques, SoA, preuves, revues périodiques, revues des accès, audits, incidents de sécurité, calendrier de conformité.</fr>
-            <en>ISO 27001 ISMS and GRC inside GLPI: risks, SoA, evidence, periodic reviews, access reviews, audits, security incidents, compliance calendar.</en>
+            <fr>SMSI ISO 27001 et GRC dans GLPI : risques, SoA, preuves, audit de conformité NIS2/RGPD, vulnérabilités, gestion de crise, audits, incidents.</fr>
+            <en>ISO 27001 ISMS and GRC inside GLPI: risks, SoA, evidence, NIS2/GDPR compliance audit, vulnerabilities, crisis management, audits, incidents.</en>
         </short>
         <long>
             <fr>
@@ -20,7 +20,10 @@ déjà. Compatible GLPI 11 et 12.
 - Registre de risques (humain, processus, physique, tiers, technique), matrice probabilité x impact
   administrable, cartographie, plans de traitement, lien avec les actifs GLPI et leur
   classification C/I/D.
-- Risques fournisseurs avec questionnaire d'évaluation, contrats et preuves.
+- Risques fournisseurs avec questionnaire d'évaluation, contrats, preuves et veille de sécurité
+  (avis du CERT-FR qui citent le fournisseur).
+- Catalogue de risques types d'infrastructure, dérogations de sécurité limitées dans le temps,
+  effet domino entre risques et incidents.
 
 **Conformité**
 - Déclaration d'Applicabilité : les 93 mesures de l'Annexe A ISO/IEC 27001:2022, approbation
@@ -37,13 +40,30 @@ déjà. Compatible GLPI 11 et 12.
   iCal.
 - Audits internes, non-conformités et actions correctives (CAPA), revues de direction, objectifs
   et indicateurs, tableau de bord.
+- Score de maturité cyber (0 à 100) avec le détail du calcul et son historique mensuel.
+- Cartes de pilotage : conformité par référentiel (ISO 27001, NIS2, ANSSI), échéances à 90 jours,
+  revue des accès, délais NIS2 / RGPD en alerte, revues périodiques en retard.
+- Audit de conformité technique : score ISO 27001, NIS2 et RGPD calculé sur les données de GLPI
+  (antivirus, chiffrement des disques, inventaire, validation des changements, comptes) et ticket
+  de mise en conformité par contrôle.
 
 **Accès et sécurité opérationnelle**
 - Campagnes de revue des accès par les responsables, hygiène des comptes (comptes supprimés de
   l'annuaire, inactifs, doublons).
 - Matrice des flux réseau avec contrôles automatiques et import CSV.
 - Incidents de sécurité (objet ITIL complet dans le menu Assistance), escalade d'un ticket en un
-  clic, délais NIS2 et RGPD, suivi des CVE.
+  clic, délais NIS2 et RGPD, suivi des CVE avec exploitation réelle (KEV, EPSS) et plan d'action
+  proposé.
+- Vulnérabilités du parc : CVE des logiciels installés, avis du CERT-FR, un ticket de mise à jour
+  par logiciel, onglet « Vulnérabilités » sur les ordinateurs.
+- Impact d'une panne, points de défaillance uniques, objectifs de reprise RTO/RPO et export pour le
+  plan de continuité.
+- Exercices de crise (rançongiciel, fuite de données, panne) avec salle de crise chronométrée, et
+  cellule de crise sur un incident réel : reprise des éléments touchés face à leur RTO, journal de
+  crise, rapport archivé comme preuve.
+- Rapport post-incident en PDF (chronologie, notifications NIS2/RGPD, enseignements tirés).
+
+Chaque écran explique à quoi il sert et ce qui est attendu.
 
 Le plugin ne change jamais un statut, un droit ou une affectation de lui-même : il crée un ticket ou
 une notification. Il exige les droits natifs de GLPI pour toute action sensible.
@@ -57,7 +77,10 @@ follow-up over time, without leaving the tool your teams already use. Compatible
 **Risks**
 - Risk register (people, process, physical, third party, technical), administrable probability x
   impact matrix, heat map, treatment plans, links to GLPI assets and their C/I/A classification.
-- Supplier risks with an assessment questionnaire, contracts and evidence.
+- Supplier risks with an assessment questionnaire, contracts, evidence and security watch
+  (CERT-FR advisories naming the supplier).
+- Typical infrastructure risk catalogue, time-limited security exemptions, domino effect between
+  risks and incidents.
 
 **Compliance**
 - Statement of Applicability: the 93 ISO/IEC 27001:2022 Annex A controls, dated management
@@ -73,13 +96,29 @@ follow-up over time, without leaving the tool your teams already use. Compatible
 - Compliance calendar (audits, pentests, exercises, deadlines) in the GLPI planning, iCal export.
 - Internal audits, non-conformities and corrective actions (CAPA), management reviews, objectives
   and indicators, dashboard.
+- Cyber maturity score (0 to 100) with the calculation details and its monthly history.
+- Steering cards: compliance by framework (ISO 27001, NIS2, ANSSI), deadlines within 90 days,
+  access review, NIS2 / GDPR deadlines at risk, overdue periodic reviews.
+- Technical compliance audit: ISO 27001, NIS2 and GDPR score computed from GLPI data (antivirus,
+  disk encryption, inventory, change validation, accounts) and one remediation ticket per check.
 
 **Access and operational security**
 - Access review campaigns by managers, account hygiene (accounts deleted from the directory,
   inactive, duplicates).
 - Network flow matrix with automatic checks and CSV import.
 - Security incidents (full ITIL object in the Assistance menu), one-click escalation from a
-  ticket, NIS2 and GDPR deadlines, CVE tracking.
+  ticket, NIS2 and GDPR deadlines, CVE tracking with real-world exploitation (KEV, EPSS) and a
+  proposed action plan.
+- Fleet vulnerabilities: CVEs of installed software, CERT-FR advisories, one update ticket per
+  software, "Vulnerabilities" tab on computers.
+- Outage impact, single points of failure, RTO/RPO recovery objectives and an export for the
+  business continuity plan.
+- Crisis exercises (ransomware, data leak, outage) with a timed crisis room, and a crisis team on a
+  real incident: recovery of affected items against their RTO, crisis log, report archived as
+  evidence.
+- Post-incident report as a PDF (timeline, NIS2/GDPR notifications, lessons learned).
+
+Every screen explains what it is for and what is expected.
 
 The plugin never changes a status, a right or an assignment on its own: it creates a ticket or a
 notification. Every sensitive action requires the native GLPI rights.
@@ -95,6 +134,24 @@ notification. Every sensitive action requires the native GLPI rights.
         <author>Vincent GUILLOTTE</author>
     </authors>
     <versions>
+        <version>
+            <num>2.9.0</num>
+            <compatibility>~11.0</compatibility>
+            <compatibility>~12.0</compatibility>
+            <download_url>https://github.com/parime/glpi-iso27001-management/releases/download/v2.9.0/glpi-iso27001-management-2.9.0.zip</download_url>
+        </version>
+        <version>
+            <num>2.8.0</num>
+            <compatibility>~11.0</compatibility>
+            <compatibility>~12.0</compatibility>
+            <download_url>https://github.com/parime/glpi-iso27001-management/releases/download/v2.8.0/glpi-iso27001-management-2.8.0.zip</download_url>
+        </version>
+        <version>
+            <num>2.7.0</num>
+            <compatibility>~11.0</compatibility>
+            <compatibility>~12.0</compatibility>
+            <download_url>https://github.com/parime/glpi-iso27001-management/releases/download/v2.7.0/glpi-iso27001-management-2.7.0.zip</download_url>
+        </version>
         <version>
             <num>2.6.0</num>
             <compatibility>~11.0</compatibility>
