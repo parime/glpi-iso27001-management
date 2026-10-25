@@ -4868,3 +4868,6 @@ msgstr "… and %d others, visible in the technical compliance audit."
 
 msgid "Corrigez chaque élément, puis relancez l'audit pour vérifier. Rien n'a été modifié automatiquement."
 msgstr "Fix each item, then run the audit again to check. Nothing was changed automatically."
+
+msgid "Fichier CSV"
+msgstr "CSV file"
