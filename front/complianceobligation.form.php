@@ -22,6 +22,10 @@ $item = new PluginGrcmanagerComplianceObligation();
 if (isset($_POST['add'])) {
     Session::checkRight(PluginGrcmanagerComplianceObligation::$rightname, CREATE);
     $newID = $item->add($_POST);
+    // Comme les formulaires natifs : retour sur l'élément créé si la préférence est active.
+    if ($newID && $_SESSION['glpibackcreated']) {
+        Html::redirect($item->getLinkURL());
+    }
     Html::back();
 } elseif (isset($_POST['delete'])) {
     Session::checkRight(PluginGrcmanagerComplianceObligation::$rightname, DELETE);
