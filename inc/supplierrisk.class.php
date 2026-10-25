@@ -49,6 +49,15 @@ class PluginGrcmanagerSupplierRisk extends SupplierRiskBase
         return 'glpi_plugin_grcmanager_supplierrisks';
     }
 
+    /**
+     * Le titre tient lieu de nom : sans cela, l'en-tête de la fiche et les listes déroulantes
+     * affichaient « N/A » (même correctif que PluginGrcmanagerPolicy::getNameField()).
+     */
+    public static function getNameField()
+    {
+        return 'title';
+    }
+
     public static function getTypeName($nb = 0)
     {
         return _n('Risque fournisseur', 'Risques fournisseurs', $nb, 'grcmanager');
@@ -78,6 +87,8 @@ class PluginGrcmanagerSupplierRisk extends SupplierRiskBase
         $tabs = [];
         $this->addDefaultFormTab($tabs)
             ->addStandardTab(PluginGrcmanagerSupplierAssessment::class, $tabs, $options)
+            // Issue #167 : avis du CERT-FR et vulnérabilités du parc qui citent le fournisseur.
+            ->addStandardTab(PluginGrcmanagerSecurityWatch::class, $tabs, $options)
             ->addStandardTab(Document_Item::class, $tabs, $options)
             ->addStandardTab(Log::class, $tabs, $options);
 

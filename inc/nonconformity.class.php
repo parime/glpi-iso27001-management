@@ -63,6 +63,15 @@ class PluginGrcmanagerNonconformity extends NonconformityBase
         return 'glpi_plugin_grcmanager_nonconformities';
     }
 
+    /**
+     * Le titre tient lieu de nom : sans cela, l'en-tête de la fiche et les listes déroulantes
+     * affichaient « N/A » (même correctif que PluginGrcmanagerPolicy::getNameField()).
+     */
+    public static function getNameField()
+    {
+        return 'title';
+    }
+
     public static function getTypeName($nb = 0)
     {
         return _n('Non-conformité', 'Non-conformités', $nb, 'grcmanager');

@@ -9,6 +9,20 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Veille de sécurité des fournisseurs et avis du CERT-FR** (issue #167, phase 3 de #160) :
+  - la tâche des vulnérabilités du parc lit aussi les **avis et alertes du CERT-FR** (flux RSS
+    publics, toutes les 6 heures, conservés 180 jours), sous le même réglage « Activer
+    l'enrichissement NVD » ;
+  - onglet **« Veille sécurité »** sur chaque risque fournisseur : les avis des 90 derniers jours
+    qui citent le fournisseur (raison sociale sans mentions juridiques ; « Dell Technologies
+    France » est cherché comme « dell »), et les vulnérabilités de ses logiciels dans le parc
+    (CVE, prioritaires, exploitées, machines). Le nombre d'avis des 30 derniers jours s'affiche
+    sur l'onglet ;
+  - **notification** au propriétaire du risque fournisseur pour chaque nouvel avis qui cite son
+    fournisseur, une seule fois par avis (« Nouvel avis de sécurité concernant le fournisseur »,
+    installée par défaut). Rien n'est modifié dans le registre ;
+  - écran « Vulnérabilités du parc » : badge **CERT-FR** sur un logiciel cité par un avis des 30
+    derniers jours (son nom, ou « les produits » de son éditeur), avec le lien vers l'avis.
 - **Plan d'action (CAPA) proposé à partir d'une CVE** (issue #163) : sur l'onglet CVE d'un
   incident de sécurité, « Proposer un plan d'action » ouvre une non-conformité pré-remplie :
   - action corrective numérotée : correctif de l'éditeur et avis de sécurité (liens NVD), mise à
@@ -102,6 +116,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Fixed
 
+- L'en-tête des fiches de risque, de risque fournisseur, de non-conformité et d'audit affichait
+  « N/A » au lieu de leur titre.
 - Dérogations (#170) : les listes « Mesure de l'Annexe A » et « Politique » ne se chargeaient pas
   (ces registres n'ont pas de champ « nom ») ; elles proposent désormais les mesures et politiques.
 

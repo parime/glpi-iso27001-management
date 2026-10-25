@@ -3769,3 +3769,50 @@ msgstr "Plan d'action n° %d"
 
 msgid "Proposer un plan d'action"
 msgstr "Proposer un plan d'action"
+
+msgid "Veille sécurité"
+msgstr "Veille sécurité"
+
+msgid "Nouvel avis de sécurité concernant le fournisseur"
+msgstr "Nouvel avis de sécurité concernant le fournisseur"
+
+msgid "Avis de sécurité"
+msgstr "Avis de sécurité"
+
+msgid "Choisissez le fournisseur de ce risque pour suivre les avis de sécurité qui le concernent."
+msgstr "Choisissez le fournisseur de ce risque pour suivre les avis de sécurité qui le concernent."
+
+msgid "Noms recherchés"
+msgstr "Noms recherchés"
+
+msgid "La veille consulte le CERT-FR une fois l'option « Activer l'enrichissement NVD » cochée dans la configuration du plugin."
+msgstr "La veille consulte le CERT-FR une fois l'option « Activer l'enrichissement NVD » cochée dans la configuration du plugin."
+
+#, php-format
+msgid "Avis et alertes du CERT-FR (%d derniers jours)"
+msgstr "Avis et alertes du CERT-FR (%d derniers jours)"
+
+msgid "Aucun avis ne cite ce fournisseur."
+msgstr "Aucun avis ne cite ce fournisseur."
+
+#, php-format
+msgid "Dernière consultation du CERT-FR : %s."
+msgstr "Dernière consultation du CERT-FR : %s."
+
+msgid "Date"
+msgstr "Date"
+
+msgid "Référence"
+msgstr "Référence"
+
+msgid "Alerte"
+msgstr "Alerte"
+
+msgid "Vulnérabilités de ses logiciels dans le parc"
+msgstr "Vulnérabilités de ses logiciels dans le parc"
+
+msgid "Aucun logiciel surveillé de ce fournisseur n'a de vulnérabilité connue."
+msgstr "Aucun logiciel surveillé de ce fournisseur n'a de vulnérabilité connue."
+
+msgid "Exploitées"
+msgstr "Exploitées"

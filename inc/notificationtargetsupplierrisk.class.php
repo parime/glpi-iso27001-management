@@ -34,6 +34,11 @@ class PluginGrcmanagerNotificationTargetSupplierRisk extends NotificationTarget
                 'Revue de risque fournisseur à échéance',
                 'grcmanager'
             ),
+            // Issue #167 : nouvel avis du CERT-FR qui cite le fournisseur.
+            PluginGrcmanagerSecurityWatch::NOTIFY_EVENT => __(
+                'Nouvel avis de sécurité concernant le fournisseur',
+                'grcmanager'
+            ),
         ];
     }
 
@@ -70,6 +75,11 @@ class PluginGrcmanagerNotificationTargetSupplierRisk extends NotificationTarget
             PluginGrcmanagerSupplierRisk::class . '_' . $risk->getID()
         );
 
+        $this->data['##supplierrisk.notices##'] = implode("\n", array_map(
+            static fn (array $notice): string => $notice['ref'] . ' — ' . $notice['title'] . ' — ' . $notice['link'],
+            $options['notices'] ?? []
+        ));
+
         $this->getTags();
         foreach ($this->tag_descriptions[NotificationTarget::TAG_LANGUAGE] as $tag => $values) {
             if (!isset($this->data[$tag])) {
@@ -89,6 +99,7 @@ class PluginGrcmanagerNotificationTargetSupplierRisk extends NotificationTarget
             'supplierrisk.risklevel'  => __('Niveau de risque', 'grcmanager'),
             'supplierrisk.reviewdate' => __('Date de revue', 'grcmanager'),
             'supplierrisk.url'        => __('URL'),
+            'supplierrisk.notices'    => __('Avis de sécurité', 'grcmanager'),
         ];
 
         foreach ($tags as $tag => $label) {

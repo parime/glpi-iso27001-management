@@ -3769,3 +3769,50 @@ msgstr "Action plan #%d"
 
 msgid "Proposer un plan d'action"
 msgstr "Propose an action plan"
+
+msgid "Veille sécurité"
+msgstr "Security watch"
+
+msgid "Nouvel avis de sécurité concernant le fournisseur"
+msgstr "New security advisory about the supplier"
+
+msgid "Avis de sécurité"
+msgstr "Security advisories"
+
+msgid "Choisissez le fournisseur de ce risque pour suivre les avis de sécurité qui le concernent."
+msgstr "Choose this risk's supplier to follow the security advisories about it."
+
+msgid "Noms recherchés"
+msgstr "Searched names"
+
+msgid "La veille consulte le CERT-FR une fois l'option « Activer l'enrichissement NVD » cochée dans la configuration du plugin."
+msgstr "The watch queries CERT-FR once the \"Enable NVD enrichment\" option is checked in the plugin configuration."
+
+#, php-format
+msgid "Avis et alertes du CERT-FR (%d derniers jours)"
+msgstr "CERT-FR advisories and alerts (last %d days)"
+
+msgid "Aucun avis ne cite ce fournisseur."
+msgstr "No advisory mentions this supplier."
+
+#, php-format
+msgid "Dernière consultation du CERT-FR : %s."
+msgstr "Last CERT-FR check: %s."
+
+msgid "Date"
+msgstr "Date"
+
+msgid "Référence"
+msgstr "Reference"
+
+msgid "Alerte"
+msgstr "Alert"
+
+msgid "Vulnérabilités de ses logiciels dans le parc"
+msgstr "Vulnerabilities of its software in the fleet"
+
+msgid "Aucun logiciel surveillé de ce fournisseur n'a de vulnérabilité connue."
+msgstr "No watched software from this supplier has a known vulnerability."
+
+msgid "Exploitées"
+msgstr "Exploited"
