@@ -248,9 +248,12 @@ function plugin_init_grcmanager(): void
         'addtabon' => $CFG_GLPI['software_types'] ?? ['Computer'],
     ]);
 
-    // Issue #177 : onglet « Impact d'une panne » sur les actifs.
     // Issue #169 : onglet « Rapport post-incident » sur les incidents de sécurité.
     Plugin::registerClass(PluginGrcmanagerSecurityIncidentPostMortem::class, [
+        'addtabon' => [PluginGrcmanagerSecurityIncident::class],
+    ]);
+    // Issue #185 : onglet « Cellule de crise » de l'incident.
+    Plugin::registerClass(PluginGrcmanagerCrisisExercise::class, [
         'addtabon' => [PluginGrcmanagerSecurityIncident::class],
     ]);
 
@@ -258,6 +261,7 @@ function plugin_init_grcmanager(): void
     Plugin::registerClass(PluginGrcmanagerCausalLink::class, [
         'addtabon' => PluginGrcmanagerCausalLink::getLinkableItemtypes(),
     ]);
+    // Issue #177 : onglet « Impact d'une panne » sur les actifs.
     Plugin::registerClass(PluginGrcmanagerImpactAnalysis::class, [
         'addtabon' => PluginGrcmanagerRisk::getLinkableItemtypes(),
     ]);

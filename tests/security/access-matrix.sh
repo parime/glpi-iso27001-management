@@ -94,6 +94,9 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
   # Issue #168 : lancer un exercice de crise (cree un incident fictif, compare en base).
   expect "front/crisisexercise.php : lancer" "$1" \
     "$(code -d "launch=ransomware&_glpi_csrf_token=$(csrf)" "$P/crisisexercise.php")"
+  # Issue #185 : activer la cellule de crise sur un incident reel (compare en base).
+  expect "front/crisisexercise.form.php : activer la cellule de crise" "$1" \
+    "$(code -d "activate=1&incident=$(id incident_A)&scenario=ransomware&_glpi_csrf_token=$(csrf)" "$P/crisisexercise.form.php")"
   # Issue #171 : relier deux elements de l'effet domino (compare en base).
   expect "front/causallink.form.php : relier" "$1" \
     "$(code -d "add=1&item_key=PluginGrcmanagerRisk:1&other=PluginGrcmanagerRisk:2&direction=effect&_glpi_csrf_token=$(csrf)" "$P/causallink.form.php")"

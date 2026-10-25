@@ -4577,3 +4577,152 @@ msgstr "By"
 
 msgid "Non renseignés : complétez-les sur l'incident d'exercice et régénérez le rapport."
 msgstr "Not filled in: complete them on the exercise incident and regenerate the report."
+
+#, php-format
+msgid "Objectif : %d min après l'activation de la cellule de crise."
+msgstr "Target: %d min after the crisis team was activated."
+
+#, php-format
+msgid "Rapport de cellule de crise : %s"
+msgstr "Crisis team report: %s"
+
+#, php-format
+msgid "Rapport de cellule de crise - %s"
+msgstr "Crisis team report - %s"
+
+msgid "Cellule de crise"
+msgstr "Crisis team"
+
+msgid "La cellule de crise n'a pas pu être activée."
+msgstr "The crisis team could not be activated."
+
+msgid "Terminé : le rapport est archivé dans les documents de l'incident."
+msgstr "Finished: the report is archived in the incident documents."
+
+#, php-format
+msgid "Active depuis %d min"
+msgstr "Active for %d min"
+
+msgid "Éléments rétablis"
+msgstr "Items restored"
+
+msgid "Ouvrir la salle de crise"
+msgstr "Open the crisis room"
+
+msgid "Aucune salle de crise pour cet incident d'exercice."
+msgstr "No crisis room for this exercise incident."
+
+msgid "Pour un incident majeur, la cellule de crise suit le plan de réponse étape par étape (avec un objectif de délai pour chacune), la reprise des éléments touchés face à leur RTO, et tient le journal chronologique de la crise."
+msgstr "For a major incident, the crisis team follows the response plan step by step (each with a target time), tracks the recovery of affected items against their RTO, and keeps the chronological crisis log."
+
+msgid "Activer la cellule de crise maintenant ? Le chronomètre démarre et une tâche est créée par étape du plan."
+msgstr "Activate the crisis team now? The timer starts and one task is created per plan step."
+
+msgid "Plan de réponse"
+msgstr "Response plan"
+
+msgid "Activer la cellule de crise"
+msgstr "Activate the crisis team"
+
+msgid "Liez d'abord à l'incident les éléments touchés (onglet « Éléments ») : la salle de crise suivra leur reprise et celle de ce qui en dépend."
+msgstr "First link the affected items to the incident (\"Items\" tab): the crisis room will track their recovery and that of what depends on them."
+
+msgid "Rétabli dans le RTO"
+msgstr "Restored within RTO"
+
+msgid "Rétabli après le RTO"
+msgstr "Restored after RTO"
+
+msgid "Rétabli"
+msgstr "Restored"
+
+msgid "En cours de reprise"
+msgstr "Recovery in progress"
+
+msgid "RTO dépassé"
+msgstr "RTO exceeded"
+
+msgid "RTO non défini"
+msgstr "RTO not set"
+
+msgid "CELLULE DE CRISE"
+msgstr "CRISIS TEAM"
+
+msgid "incident réel. Les étapes sont des tâches de l'incident, le journal est enregistré dans ses suivis."
+msgstr "real incident. The steps are incident tasks and the log is saved in its followups."
+
+msgid "Étapes du plan"
+msgstr "Plan steps"
+
+msgid "Reprise des éléments touchés"
+msgstr "Recovery of affected items"
+
+msgid "Aucun élément lié à l'incident. Ajoutez les éléments touchés dans l'onglet « Éléments » de l'incident : leur reprise, et celle de ce qui en dépend, sera suivie ici face à leur RTO."
+msgstr "No item linked to the incident. Add the affected items in the incident's \"Items\" tab: their recovery, and that of what depends on them, will be tracked here against their RTO."
+
+msgid "Touché par l'incident"
+msgstr "Affected by the incident"
+
+msgid "Dépend d'un élément touché"
+msgstr "Depends on an affected item"
+
+#, php-format
+msgid "rétabli par %s"
+msgstr "restored by %s"
+
+msgid "Le RTO se règle dans l'onglet « Classification » de chaque élément ; il est compté depuis l'ouverture de la salle de crise."
+msgstr "The RTO is set in each item's \"Classification\" tab; it is counted from the opening of the crisis room."
+
+msgid "Journal de crise"
+msgstr "Crisis log"
+
+msgid "Décision, constat, appel passé… (horodaté automatiquement)"
+msgstr "Decision, finding, call made… (timestamped automatically)"
+
+msgid "Nouvelle entrée du journal"
+msgstr "New log entry"
+
+msgid "Ajouter"
+msgstr "Add"
+
+msgid "Aucune entrée pour l'instant."
+msgstr "No entry yet."
+
+msgid "Privé"
+msgstr "Private"
+
+msgid "RTO dépassés"
+msgstr "RTOs exceeded"
+
+msgid "Ouvrir le rapport de crise"
+msgstr "Open the crisis report"
+
+msgid "Renseignez les enseignements tirés sur l'incident, puis régénérez le rapport pour les y faire figurer."
+msgstr "Fill in the lessons learned on the incident, then regenerate the report to include them."
+
+msgid "Fermer la cellule de crise ? Le chronomètre s'arrête ; l'incident lui-même reste ouvert."
+msgstr "Close the crisis team? The timer stops; the incident itself stays open."
+
+msgid "Fermer la cellule de crise et générer le rapport"
+msgstr "Close the crisis team and generate the report"
+
+msgid "Le rapport PDF est archivé sur l'incident et comme preuve sur les mesures A.5.26 et A.5.29 de la SoA."
+msgstr "The PDF report is archived on the incident and as evidence on SoA controls A.5.26 and A.5.29."
+
+msgid "Cellule activée par"
+msgstr "Crisis team activated by"
+
+msgid "Rétabli le"
+msgstr "Restored on"
+
+msgid "dépendant"
+msgstr "dependent"
+
+msgid "Auteur"
+msgstr "Author"
+
+msgid "Entrée"
+msgstr "Entry"
+
+msgid "Non renseignés : complétez-les sur l'incident et régénérez le rapport."
+msgstr "Not filled in: complete them on the incident and regenerate the report."
