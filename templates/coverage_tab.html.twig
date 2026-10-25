@@ -1,0 +1,28 @@
+{# Issue #164 : couverture des preuves d'une mesure ou d'une exigence #}
+{% set colors = {'full': 'bg-green', 'partial': 'bg-orange', 'low': 'bg-red', 'none': 'bg-secondary'} %}
+<div class="container-fluid">
+   {% if new_url %}
+      <div class="mb-2"><a class="btn btn-outline-primary btn-sm" href="{{ new_url }}"><i class="ti ti-plus me-1"></i>{{ __('Nouvelle règle de couverture', 'grcmanager') }}</a></div>
+   {% endif %}
+   {% if rules is empty %}
+      <div class="text-muted">{{ __('Aucune règle de couverture pour cet élément.', 'grcmanager') }}</div>
+   {% else %}
+      <table class="table table-card">
+         <tbody>
+         {% for rule in rules %}
+            <tr>
+               <td><a href="{{ rule.url }}">{{ rule.name }}</a></td>
+               <td style="width: 45%">
+                  {% if rule.coverage.rate is null %}
+                     <span class="text-muted">{{ __('Aucun actif à couvrir', 'grcmanager') }}</span>
+                  {% else %}
+                     <div class="progress"><div class="progress-bar {{ colors[rule.coverage.level] }}" style="width: {{ rule.coverage.rate }}%"></div></div>
+                  {% endif %}
+               </td>
+               <td class="text-nowrap">{% if rule.coverage.rate is not null %}<strong>{{ rule.coverage.rate }} %</strong> ({{ rule.coverage.covered }} / {{ rule.coverage.total }}){% endif %}</td>
+            </tr>
+         {% endfor %}
+         </tbody>
+      </table>
+   {% endif %}
+</div>

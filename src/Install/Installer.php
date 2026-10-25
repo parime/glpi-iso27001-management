@@ -193,6 +193,8 @@ final class Installer
     // Issue #170 : dérogations de sécurité, voir PluginGrcmanagerWaiver.
     private const WAIVERS_TABLE = 'glpi_plugin_grcmanager_waivers';
     private const WAIVERS_ITEMS_TABLE = 'glpi_plugin_grcmanager_waivers_items';
+    // Issue #164 : règles de couverture des preuves, voir PluginGrcmanagerCoverageRule.
+    private const COVERAGE_RULES_TABLE = 'glpi_plugin_grcmanager_coveragerules';
 
     public function install(Migration $migration): bool
     {
@@ -1068,6 +1070,29 @@ final class Installer
                 KEY `is_active` (`is_active`),
                 KEY `source_item` (`source_itemtype`, `source_items_id`),
                 KEY `destination_item` (`destination_itemtype`, `destination_items_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+        }
+
+        // Issue #164 : couverture des preuves (type d'actif × catégorie de document requise).
+        if (!$DB->tableExists(self::COVERAGE_RULES_TABLE)) {
+            $query = "CREATE TABLE `" . self::COVERAGE_RULES_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `name` varchar(255) NOT NULL DEFAULT '',
+                `itemtype` varchar(255) NOT NULL DEFAULT '',
+                `types_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Sous-type facultatif',
+                `documentcategories_id` int {$keySign} NOT NULL DEFAULT 0,
+                `plugin_grcmanager_controls_id` int {$keySign} NOT NULL DEFAULT 0,
+                `plugin_grcmanager_ismsrequirements_id` int {$keySign} NOT NULL DEFAULT 0,
+                `is_active` tinyint NOT NULL DEFAULT 1,
+                `comment` text,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `controls_id` (`plugin_grcmanager_controls_id`),
+                KEY `ismsrequirements_id` (`plugin_grcmanager_ismsrequirements_id`),
+                KEY `is_active` (`is_active`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
             $DB->doQuery($query) or die($DB->error());
@@ -2950,6 +2975,7 @@ final class Installer
         $migration->dropTable(self::RISK_CATALOG_IMPORTS_TABLE);
         $migration->dropTable(self::WAIVERS_TABLE);
         $migration->dropTable(self::WAIVERS_ITEMS_TABLE);
+        $migration->dropTable(self::COVERAGE_RULES_TABLE);
         $migration->dropTable(self::ACCESS_REVIEWS_USERS_TABLE);
         $migration->dropTable(self::ACCESS_REVIEWS_TABLE);
         $migration->dropTable(self::OBJECTIVES_TABLE);

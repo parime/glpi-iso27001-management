@@ -3477,3 +3477,69 @@ msgid "Dérogation"
 msgid_plural "Dérogations"
 msgstr[0] "Waiver"
 msgstr[1] "Waivers"
+
+msgid "Donnez un nom à la règle."
+msgstr "Give the rule a name."
+
+msgid "Choisissez le type d'actif à couvrir."
+msgstr "Choose the asset type to cover."
+
+msgid "Choisissez la catégorie du document requis."
+msgstr "Choose the category of the required document."
+
+msgid "Taux de couverture"
+msgstr "Coverage rate"
+
+msgid "Catégorie du document requis"
+msgstr "Required document category"
+
+msgid "Exigence du SMSI"
+msgstr "ISMS requirement"
+
+msgid "Exemple : « Politique de filtrage des pare-feu »."
+msgstr "Example: \"Firewall filtering policy\"."
+
+msgid "Sous-type (facultatif)"
+msgstr "Subtype (optional)"
+
+msgid "Pour ne compter qu'une partie des actifs, par exemple les seuls pare-feu parmi les matériels réseau."
+msgstr "To count only part of the assets, for example only the firewalls among network devices."
+
+msgid "Enregistrez la règle pour choisir un sous-type, si ce type d'actif en a."
+msgstr "Save the rule to choose a subtype, if this asset type has any."
+
+msgid "Un actif est couvert s'il a au moins un document de cette catégorie dans son onglet Documents."
+msgstr "An asset is covered if it has at least one document of this category in its Documents tab."
+
+msgid "Aucun actif de ce type dans vos entités : rien à couvrir."
+msgstr "No asset of this type in your entities: nothing to cover."
+
+#, php-format
+msgid "%1$d actif(s) couvert(s) sur %2$d"
+msgstr "%1$d of %2$d asset(s) covered"
+
+msgid "Tous les actifs ont le document requis."
+msgstr "All assets have the required document."
+
+msgid "Actifs sans le document requis"
+msgstr "Assets without the required document"
+
+msgid "Chaque lien ouvre l'onglet Documents de l'actif, pour y joindre le document."
+msgstr "Each link opens the asset's Documents tab, to attach the document."
+
+msgid "Seuls les premiers actifs sont listés."
+msgstr "Only the first assets are listed."
+
+msgid "Nouvelle règle de couverture"
+msgstr "New coverage rule"
+
+msgid "Aucune règle de couverture pour cet élément."
+msgstr "No coverage rule for this item."
+
+msgid "Aucun actif à couvrir"
+msgstr "No asset to cover"
+
+msgid "Couverture des preuves"
+msgid_plural "Couverture des preuves"
+msgstr[0] "Evidence coverage"
+msgstr[1] "Evidence coverage"

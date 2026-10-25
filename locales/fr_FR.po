@@ -3477,3 +3477,69 @@ msgid "Dérogation"
 msgid_plural "Dérogations"
 msgstr[0] "Dérogation"
 msgstr[1] "Dérogations"
+
+msgid "Donnez un nom à la règle."
+msgstr "Donnez un nom à la règle."
+
+msgid "Choisissez le type d'actif à couvrir."
+msgstr "Choisissez le type d'actif à couvrir."
+
+msgid "Choisissez la catégorie du document requis."
+msgstr "Choisissez la catégorie du document requis."
+
+msgid "Taux de couverture"
+msgstr "Taux de couverture"
+
+msgid "Catégorie du document requis"
+msgstr "Catégorie du document requis"
+
+msgid "Exigence du SMSI"
+msgstr "Exigence du SMSI"
+
+msgid "Exemple : « Politique de filtrage des pare-feu »."
+msgstr "Exemple : « Politique de filtrage des pare-feu »."
+
+msgid "Sous-type (facultatif)"
+msgstr "Sous-type (facultatif)"
+
+msgid "Pour ne compter qu'une partie des actifs, par exemple les seuls pare-feu parmi les matériels réseau."
+msgstr "Pour ne compter qu'une partie des actifs, par exemple les seuls pare-feu parmi les matériels réseau."
+
+msgid "Enregistrez la règle pour choisir un sous-type, si ce type d'actif en a."
+msgstr "Enregistrez la règle pour choisir un sous-type, si ce type d'actif en a."
+
+msgid "Un actif est couvert s'il a au moins un document de cette catégorie dans son onglet Documents."
+msgstr "Un actif est couvert s'il a au moins un document de cette catégorie dans son onglet Documents."
+
+msgid "Aucun actif de ce type dans vos entités : rien à couvrir."
+msgstr "Aucun actif de ce type dans vos entités : rien à couvrir."
+
+#, php-format
+msgid "%1$d actif(s) couvert(s) sur %2$d"
+msgstr "%1$d actif(s) couvert(s) sur %2$d"
+
+msgid "Tous les actifs ont le document requis."
+msgstr "Tous les actifs ont le document requis."
+
+msgid "Actifs sans le document requis"
+msgstr "Actifs sans le document requis"
+
+msgid "Chaque lien ouvre l'onglet Documents de l'actif, pour y joindre le document."
+msgstr "Chaque lien ouvre l'onglet Documents de l'actif, pour y joindre le document."
+
+msgid "Seuls les premiers actifs sont listés."
+msgstr "Seuls les premiers actifs sont listés."
+
+msgid "Nouvelle règle de couverture"
+msgstr "Nouvelle règle de couverture"
+
+msgid "Aucune règle de couverture pour cet élément."
+msgstr "Aucune règle de couverture pour cet élément."
+
+msgid "Aucun actif à couvrir"
+msgstr "Aucun actif à couvrir"
+
+msgid "Couverture des preuves"
+msgid_plural "Couverture des preuves"
+msgstr[0] "Couverture des preuves"
+msgstr[1] "Couverture des preuves"

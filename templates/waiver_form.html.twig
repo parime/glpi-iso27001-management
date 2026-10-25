@@ -18,8 +18,8 @@
       'helper': __('Une dérogation est temporaire. Le responsable est prévenu 15 jours avant ; à l\'échéance, un ticket de réévaluation est ouvert. Rien n\'est prolongé ni clos automatiquement.', 'grcmanager'),
    }) }}
 
-   {{ fields.dropdownField('PluginGrcmanagerControl', 'plugin_grcmanager_controls_id', item.fields['plugin_grcmanager_controls_id'], __('Mesure de l\'Annexe A', 'grcmanager')) }}
-   {{ fields.dropdownField('PluginGrcmanagerPolicy', 'plugin_grcmanager_policies_id', item.fields['plugin_grcmanager_policies_id'], __('Politique', 'grcmanager')) }}
+   {{ fields.dropdownArrayField('plugin_grcmanager_controls_id', item.fields['plugin_grcmanager_controls_id'], controls, __('Mesure de l\'Annexe A', 'grcmanager')) }}
+   {{ fields.dropdownArrayField('plugin_grcmanager_policies_id', item.fields['plugin_grcmanager_policies_id'], policies, __('Politique', 'grcmanager')) }}
 
    {% if approver %}
       {{ fields.htmlField('', approver|e ~ ' — ' ~ item.fields['date_approval']|formatted_datetime, __('Validée par', 'grcmanager')) }}
