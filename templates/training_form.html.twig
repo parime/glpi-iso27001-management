@@ -1,0 +1,51 @@
+{# Formation / sensibilisation, A.6.3 (issue #199 : formulaire passé de PHP à Twig) #}
+{% extends 'generic_show_form.html.twig' %}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+
+{% block form_fields %}
+   {{ fields.textField('title', item.fields['title'], __('Titre', 'grcmanager'), {'full_width': true}) }}
+   {{ fields.dropdownArrayField('format', item.fields['format'] ?: 'in_person', formats, __('Format', 'grcmanager')) }}
+   {{ fields.dateField('date_delivered', item.fields['date_delivered'], __('Date de réalisation', 'grcmanager')) }}
+   {{ fields.textField('target_audience', item.fields['target_audience'], __('Public cible', 'grcmanager'), {
+      'full_width': true,
+      'helper': __('Texte libre (ex. "Tout le personnel", "Équipe technique", nom d\'un groupe ou service).', 'grcmanager'),
+   }) }}
+   {{ fields.checkboxField('is_mandatory', is_mandatory, __('Obligatoire', 'grcmanager')) }}
+   {{ fields.numberField('renewal_period_months', item.fields['renewal_period_months'] ?: 0, __('Renouvellement (mois)', 'grcmanager'), {
+      'min': 0,
+      'helper': __('0 = pas de renouvellement requis.', 'grcmanager'),
+   }) }}
+   {{ fields.textareaField('description', item.fields['description'], __('Description', 'grcmanager'), {'full_width': true}) }}
+   {{ fields.dropdownField('User', 'participants', participant_ids, __('Participants', 'grcmanager'), {
+      'multiple': true,
+      'right': 'all',
+      'full_width': true,
+      'helper': __('Enregistrez pour ajouter les nouveaux participants sélectionnés : leur suivi individuel apparaît ci-dessous après enregistrement.', 'grcmanager'),
+   }) }}
+
+   {% if participants is not empty %}
+      <div class="col-12 mb-3">
+         <table class="table card-table">
+            <thead><tr><th>{{ user_label }}</th><th>{{ __('Statut de réalisation', 'grcmanager') }}</th><th>{{ __('Date de réalisation', 'grcmanager') }}</th><th>{{ __('Évaluation', 'grcmanager') }}</th></tr></thead>
+            <tbody>
+               {% for p in participants %}
+                  <tr>
+                     <td>{{ p.name }}</td>
+                     <td>
+                        <select name="participant_status[{{ p.users_id }}]" class="form-select" aria-label="{{ __('Statut de réalisation', 'grcmanager') }} — {{ p.name }}">
+                           {% for value, label in completion_statuses %}<option value="{{ value }}" {{ value == p.completion_status ? 'selected' }}>{{ label }}</option>{% endfor %}
+                        </select>
+                     </td>
+                     <td><input type="date" name="participant_date[{{ p.users_id }}]" value="{{ p.completion_date ? p.completion_date|slice(0, 10) }}" class="form-control" aria-label="{{ __('Date de réalisation', 'grcmanager') }} — {{ p.name }}"></td>
+                     <td>
+                        <select name="participant_result[{{ p.users_id }}]" class="form-select" aria-label="{{ __('Évaluation', 'grcmanager') }} — {{ p.name }}">
+                           {% for value, label in assessment_results %}<option value="{{ value }}" {{ value == p.assessment_result ? 'selected' }}>{{ label }}</option>{% endfor %}
+                        </select>
+                     </td>
+                  </tr>
+               {% endfor %}
+            </tbody>
+         </table>
+      </div>
+   {% endif %}
+{% endblock %}
