@@ -4260,3 +4260,117 @@ msgstr "L'historique se construit mois après mois : la tâche planifiée enregi
 
 msgid "Score de maturité (sur 100)"
 msgstr "Score de maturité (sur 100)"
+
+msgid "Rapport post-incident"
+msgstr "Rapport post-incident"
+
+msgid "Déclaration"
+msgstr "Déclaration"
+
+msgid "Changement de statut"
+msgstr "Changement de statut"
+
+msgid "Suivi privé"
+msgstr "Suivi privé"
+
+msgid "Suivi"
+msgstr "Suivi"
+
+msgid "Tâche"
+msgstr "Tâche"
+
+msgid "Solution"
+msgstr "Solution"
+
+#, php-format
+msgid "Rapport post-incident : %s"
+msgstr "Rapport post-incident : %s"
+
+#, php-format
+msgid "Rapport post-incident - %s"
+msgstr "Rapport post-incident - %s"
+
+msgid "Rapport post-incident archivé dans les documents de l'incident."
+msgstr "Rapport post-incident archivé dans les documents de l'incident."
+
+msgid "Le rapport n'a pas pu être généré."
+msgstr "Le rapport n'a pas pu être généré."
+
+msgid "Tenue"
+msgstr "Tenue"
+
+msgid "Non notifiée"
+msgstr "Non notifiée"
+
+msgid "L'incident n'est pas clos : le rapport sera marqué provisoire. Renseignez la cause racine et les enseignements tirés avant la clôture."
+msgstr "L'incident n'est pas clos : le rapport sera marqué provisoire. Renseignez la cause racine et les enseignements tirés avant la clôture."
+
+msgid "Chronologie"
+msgstr "Chronologie"
+
+#, php-format
+msgid "… et %d autres événements, tous dans le rapport."
+msgstr "… et %d autres événements, tous dans le rapport."
+
+msgid "Contenu du rapport"
+msgstr "Contenu du rapport"
+
+msgid "Éléments touchés"
+msgstr "Éléments touchés"
+
+msgid "Coût total"
+msgstr "Coût total"
+
+msgid "à renseigner"
+msgstr "à renseigner"
+
+msgid "Actions décidées"
+msgstr "Actions décidées"
+
+msgid "Générer le rapport PDF"
+msgstr "Générer le rapport PDF"
+
+msgid "Le PDF est archivé dans les documents de l'incident et proposé comme preuve sur la mesure A.5.27 de la SoA."
+msgstr "Le PDF est archivé dans les documents de l'incident et proposé comme preuve sur la mesure A.5.27 de la SoA."
+
+msgid "Incident"
+msgstr "Incident"
+
+msgid "rapport provisoire, incident non clos"
+msgstr "rapport provisoire, incident non clos"
+
+msgid "Catégorie / sévérité"
+msgstr "Catégorie / sévérité"
+
+msgid "Déclaré le"
+msgstr "Déclaré le"
+
+msgid "Résolu / clos le"
+msgstr "Résolu / clos le"
+
+msgid "Durée jusqu'à la résolution"
+msgstr "Durée jusqu'à la résolution"
+
+msgid "Détail"
+msgstr "Détail"
+
+msgid "Date limite"
+msgstr "Date limite"
+
+msgid "Notifiée le"
+msgstr "Notifiée le"
+
+msgid "Résultat"
+msgstr "Résultat"
+
+msgid "Non renseignée."
+msgstr "Non renseignée."
+
+msgid "Non renseignés."
+msgstr "Non renseignés."
+
+msgid "Aucun plan d'action (non-conformité) rattaché à l'incident."
+msgstr "Aucun plan d'action (non-conformité) rattaché à l'incident."
+
+msgid "Action"
+msgstr "Action"

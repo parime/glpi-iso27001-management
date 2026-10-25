@@ -247,6 +247,11 @@ function plugin_init_grcmanager(): void
     ]);
 
     // Issue #177 : onglet « Impact d'une panne » sur les actifs.
+    // Issue #169 : onglet « Rapport post-incident » sur les incidents de sécurité.
+    Plugin::registerClass(PluginGrcmanagerSecurityIncidentPostMortem::class, [
+        'addtabon' => [PluginGrcmanagerSecurityIncident::class],
+    ]);
+
     // Issue #171 : onglet « Effet domino » sur les risques, risques fournisseurs et incidents.
     Plugin::registerClass(PluginGrcmanagerCausalLink::class, [
         'addtabon' => PluginGrcmanagerCausalLink::getLinkableItemtypes(),

@@ -9,6 +9,14 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Rapport post-incident** (issue #169) : onglet « Rapport post-incident » sur chaque incident
+  de sécurité, et bouton « Générer le rapport PDF » :
+  - chronologie (déclaration, changements de statut, suivis, tâches, solution), éléments touchés,
+    CVE, tickets liés, coût total ;
+  - notifications réglementaires NIS2 / RGPD : tenues, en retard ou non notifiées ;
+  - cause racine, enseignements tirés et actions décidées (plans d'action rattachés) ;
+  - le PDF est archivé dans les documents de l'incident et comme preuve sur la mesure A.5.27 de la
+    SoA. Un incident non clos produit un rapport marqué provisoire.
 - **Score de maturité cyber** (issue #166), menu GRC & Conformité > Score de maturité, et carte
   du tableau de bord :
   - score de 0 à 100 et niveau de 1 (Initial) à 5 (Optimisé) ;
