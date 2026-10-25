@@ -43,10 +43,22 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   automatiquement ; une nouvelle date de fin ouvre un nouveau cycle. Onglet « Dérogations » sur les
   actifs, les mesures et les politiques, avec « Nouvelle dérogation pour cet élément » ; documents
   joints (validation signée, analyse de risque).
+- **Couverture des preuves** (issue #164), menu GRC & Conformité > Couverture des preuves : une
+  règle relie un type d'actif (avec un sous-type facultatif, par exemple les seuls pare-feu parmi
+  les matériels réseau) à une catégorie de document GLPI requise et à la mesure de l'Annexe A ou à
+  l'exigence du SMSI qu'elle prouve. Onglet « Taux de couverture » : pourcentage d'actifs qui ont un
+  document de cette catégorie, et liste des actifs non couverts, chacun avec un lien vers son
+  onglet Documents. Les mesures et les exigences affichent leurs règles et leur jauge dans un onglet
+  « Couverture des preuves ». Les actifs comptés sont ceux des entités actives.
 
 ### Changed
 
 - Les boutons au-dessus du registre des risques sont rendus en Twig (exigence du Marketplace GLPI).
+
+### Fixed
+
+- Dérogations (#170) : les listes « Mesure de l'Annexe A » et « Politique » ne se chargeaient pas
+  (ces registres n'ont pas de champ « nom ») ; elles proposent désormais les mesures et politiques.
 
 ## [2.6.0] - 2026-10-24
 

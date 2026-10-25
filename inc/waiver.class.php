@@ -144,11 +144,29 @@ class PluginGrcmanagerWaiver extends WaiverBase
                 $this->fields['date_end'] ?? null
             ),
             'groups'   => $groups,
+            'controls' => PluginGrcmanagerAccessReview::getControlChoices(),
+            'policies' => self::getPolicyChoices(),
             'approver' => (int) ($this->fields['users_id_approver'] ?? 0) > 0
                 ? getUserName((int) $this->fields['users_id_approver']) : '',
         ]);
 
         return true;
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    public static function getPolicyChoices(): array
+    {
+        global $DB;
+
+        $choices = [0 => Dropdown::EMPTY_VALUE];
+        foreach ($DB->request(['SELECT' => ['id', 'title'], 'FROM' => PluginGrcmanagerPolicy::getTable()]) as $row) {
+            $choices[(int) $row['id']] = (string) $row['title'];
+        }
+        asort($choices);
+
+        return $choices;
     }
 
     public function prepareInputForAdd($input)

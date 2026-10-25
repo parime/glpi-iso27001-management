@@ -127,6 +127,8 @@ function plugin_init_grcmanager(): void
             PluginGrcmanagerEvidence::class,
             // Issue #170 : dérogations de sécurité.
             PluginGrcmanagerWaiver::class,
+            // Issue #164 : couverture des preuves (actifs ayant le document requis).
+            PluginGrcmanagerCoverageRule::class,
             PluginGrcmanagerObjective::class,
             // Corrélation CPE des CVE avec le parc GLPI (cf. ROADMAP.md) : un seul menu entry pour
             // le catalogue de correspondance (le produit canonique) — ses deux tables satellites
@@ -231,6 +233,11 @@ function plugin_init_grcmanager(): void
             PluginGrcmanagerRisk::getLinkableItemtypes(),
             [PluginGrcmanagerControl::class, PluginGrcmanagerPolicy::class]
         ),
+    ]);
+
+    // Issue #164 : onglet « Couverture des preuves » sur les mesures et les exigences du SMSI.
+    Plugin::registerClass(PluginGrcmanagerCoverageRule::class, [
+        'addtabon' => [PluginGrcmanagerControl::class, PluginGrcmanagerIsmsRequirement::class],
     ]);
 
     Plugin::registerClass(PluginGrcmanagerEvidence::class, [
