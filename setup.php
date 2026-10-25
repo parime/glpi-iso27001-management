@@ -135,6 +135,8 @@ function plugin_init_grcmanager(): void
             PluginGrcmanagerCausalLink::class,
             // Issue #166 : score de maturité cyber.
             PluginGrcmanagerMaturity::class,
+            // Issue #162 : audit de conformité technique (ISO 27001, NIS2, RGPD).
+            PluginGrcmanagerComplianceAudit::class,
             // Issue #168 : exercices de crise (test des plans de continuité).
             PluginGrcmanagerCrisisExercise::class,
             PluginGrcmanagerObjective::class,

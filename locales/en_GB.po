@@ -4726,3 +4726,145 @@ msgstr "Entry"
 
 msgid "Non renseignés : complétez-les sur l'incident et régénérez le rapport."
 msgstr "Not filled in: complete them on the incident and regenerate the report."
+
+msgid "Audit de conformité technique"
+msgstr "Technical compliance audit"
+
+msgid "Postes sans antivirus actif et à jour"
+msgstr "Computers without an active, up-to-date antivirus"
+
+msgid "D'après l'inventaire (onglet « Antivirus » des ordinateurs) : aucun antivirus, ou antivirus inactif, pas à jour ou expiré."
+msgstr "From the inventory (\"Antivirus\" tab of computers): no antivirus, or an antivirus that is inactive, out of date or expired."
+
+msgid "Postes avec un disque non chiffré"
+msgstr "Computers with an unencrypted disk"
+
+msgid "D'après l'inventaire des volumes : au moins un disque non chiffré ou partiellement chiffré. Seuls les ordinateurs dont les volumes sont inventoriés sont comptés."
+msgstr "From the volume inventory: at least one unencrypted or partially encrypted disk. Only computers whose volumes are inventoried are counted."
+
+#, php-format
+msgid "Postes non inventoriés depuis plus de %d jours"
+msgstr "Computers not inventoried for more than %d days"
+
+msgid "Ordinateurs remontés par l'agent d'inventaire dont la dernière remontée est ancienne : l'inventaire des actifs n'est plus fiable pour eux."
+msgstr "Computers reported by the inventory agent whose last report is old: the asset inventory is no longer reliable for them."
+
+msgid "Changements résolus ou clos depuis un an dont les validations approuvées sont moins nombreuses que le nombre exigé."
+msgstr "Changes solved or closed within the last year with fewer approved validations than required."
+
+msgid "Comptes à vérifier"
+msgstr "Accounts to review"
+
+#, php-format
+msgid "Comptes actifs supprimés de l'annuaire, expirés, en doublon ou sans connexion depuis %d jours (écran « Hygiène des comptes »)."
+msgstr "Active accounts deleted from the directory, expired, duplicated or without login for %d days (\"Account hygiene\" screen)."
+
+msgid "RGPD"
+msgstr "GDPR"
+
+msgid "Antivirus inactif, pas à jour ou expiré"
+msgstr "Antivirus inactive, out of date or expired"
+
+msgid "Aucun antivirus inventorié"
+msgstr "No antivirus inventoried"
+
+#, php-format
+msgid "Non chiffré : %s"
+msgstr "Not encrypted: %s"
+
+msgid "Jamais inventorié"
+msgstr "Never inventoried"
+
+#, php-format
+msgid "Dernier inventaire : %s"
+msgstr "Last inventory: %s"
+
+#, php-format
+msgid "%1$d validation(s) approuvée(s) sur %2$d exigée(s)"
+msgstr "%1$d approved validation(s) out of %2$d required"
+
+#, php-format
+msgid "Mise en conformité : %1$s (%2$d)"
+msgstr "Compliance remediation: %1$s (%2$d)"
+
+msgid "Changements clos sans validation approuvée"
+msgid_plural "Changements clos sans %d validations approuvées"
+msgstr[0] "Closed changes without an approved validation"
+msgstr[1] "Closed changes without %d approved validations"
+
+msgid "Aucun écart à traiter : le ticket n'a pas été créé."
+msgstr "No gap to handle: the ticket was not created."
+
+msgid "L'audit de conformité technique : des contrôles automatiques sur les données de GLPI (antivirus, chiffrement des disques, inventaire, validation des changements, comptes), avec un score par référentiel."
+msgstr "The technical compliance audit: automatic checks on GLPI data (antivirus, disk encryption, inventory, change validation, accounts), with a score per framework."
+
+msgid "Consultez les écarts de chaque contrôle et créez le ticket de mise en conformité ; une fois les éléments corrigés, le score remonte. Présentez les scores en revue de direction."
+msgstr "Review the gaps of each check and create the remediation ticket; once the items are fixed, the score goes up. Present the scores at the management review."
+
+msgid "ISO 27001, 9.1 ; NIS2, article 21 ; RGPD, article 32"
+msgstr "ISO 27001, 9.1; NIS2, article 21; GDPR, article 32"
+
+#, php-format
+msgid "Moyenne de %d contrôle(s) technique(s)"
+msgstr "Average of %d technical check(s)"
+
+msgid "Aucun contrôle évaluable"
+msgstr "No check can be evaluated"
+
+msgid "Ce score ne mesure que les contrôles techniques ci-dessous, à partir des données de GLPI. L'avancement organisationnel se suit dans la déclaration d'applicabilité (SoA) et le score de maturité."
+msgstr "This score only measures the technical checks below, from GLPI data. Organisational progress is tracked in the Statement of Applicability (SoA) and the maturity score."
+
+msgid "Mesures de l'Annexe A"
+msgstr "Annex A controls"
+
+msgid "Validations exigées par changement"
+msgstr "Validations required per change"
+
+msgid "2 (double validation)"
+msgstr "2 (double validation)"
+
+msgid "Appliquer"
+msgstr "Apply"
+
+msgid "Non évalué"
+msgstr "Not evaluated"
+
+msgid "Votre profil ne permet pas de lire les éléments concernés : ce contrôle n'entre pas dans le score."
+msgstr "Your profile cannot read the items concerned: this check is not part of the score."
+
+msgid "Aucun élément concerné dans vos entités."
+msgstr "No item concerned in your entities."
+
+#, php-format
+msgid "… et %d autres."
+msgstr "… and %d others."
+
+msgid "Revoir ces comptes (hygiène des comptes)"
+msgstr "Review these accounts (account hygiene)"
+
+#, php-format
+msgid "Ticket de mise en conformité en cours (#%d)"
+msgstr "Remediation ticket in progress (#%d)"
+
+msgid "Créer le ticket de mise en conformité"
+msgstr "Create the remediation ticket"
+
+msgid "Un seul ticket, avec les éléments concernés liés. Rien n'est modifié automatiquement."
+msgstr "A single ticket, with the items concerned linked. Nothing is changed automatically."
+
+#, php-format
+msgid "Écarts relevés par l'audit de conformité technique (GRC & Conformité) : %s."
+msgstr "Gaps found by the technical compliance audit (GRC & Compliance): %s."
+
+msgid "Références"
+msgstr "References"
+
+msgid "Écart"
+msgstr "Gap"
+
+#, php-format
+msgid "… et %d autres, visibles dans l'audit de conformité technique."
+msgstr "… and %d others, visible in the technical compliance audit."
+
+msgid "Corrigez chaque élément, puis relancez l'audit pour vérifier. Rien n'a été modifié automatiquement."
+msgstr "Fix each item, then run the audit again to check. Nothing was changed automatically."
