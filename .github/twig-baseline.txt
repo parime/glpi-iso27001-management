@@ -8,7 +8,6 @@ front/evidence.php 2
 front/ismsrequirement.php 17
 front/networkflow.import.php 50
 front/nonconformity.php 4
-front/risk.php 10
 front/supplierrisk.php 4
 hook.php 1
 inc/accessreview.class.php 41

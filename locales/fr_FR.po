@@ -3191,3 +3191,213 @@ msgstr "Rançongiciel"
 #, php-format
 msgid "%1$d vulnérabilités : les %2$d plus prioritaires sont affichées."
 msgstr "%1$d vulnérabilités : les %2$d plus prioritaires sont affichées."
+
+msgid "Catalogue de risques types"
+msgstr "Catalogue de risques types"
+
+msgid "Service d'administration exposé sur Internet"
+msgstr "Service d'administration exposé sur Internet"
+
+msgid "Une interface d'administration (SSH, bureau à distance, console d'un pare-feu, tableau de bord d'un proxy ou d'un hyperviseur) est joignable depuis Internet."
+msgstr "Une interface d'administration (SSH, bureau à distance, console d'un pare-feu, tableau de bord d'un proxy ou d'un hyperviseur) est joignable depuis Internet."
+
+msgid "Attaque par force brute ou par mots de passe volés, exploitation d'une faille publiée avant la mise à jour, prise de contrôle de l'équipement."
+msgstr "Attaque par force brute ou par mots de passe volés, exploitation d'une faille publiée avant la mise à jour, prise de contrôle de l'équipement."
+
+msgid "Une règle du pare-feu publie-t-elle un port d'administration vers Internet ?"
+msgstr "Une règle du pare-feu publie-t-elle un port d'administration vers Internet ?"
+
+msgid "L'accès d'administration passe-t-il par un VPN ou un bastion avec authentification forte ?"
+msgstr "L'accès d'administration passe-t-il par un VPN ou un bastion avec authentification forte ?"
+
+msgid "Cartes de gestion à distance des serveurs joignables hors du réseau d'administration"
+msgstr "Cartes de gestion à distance des serveurs joignables hors du réseau d'administration"
+
+msgid "Les interfaces iLO, iDRAC, IPMI ou équivalentes sont sur le même réseau que les postes ou les serveurs, voire publiées."
+msgstr "Les interfaces iLO, iDRAC, IPMI ou équivalentes sont sur le même réseau que les postes ou les serveurs, voire publiées."
+
+msgid "Prise de contrôle matérielle du serveur (console, alimentation, montage d'images) qui contourne le système d'exploitation et ses protections."
+msgstr "Prise de contrôle matérielle du serveur (console, alimentation, montage d'images) qui contourne le système d'exploitation et ses protections."
+
+msgid "Les cartes de gestion sont-elles sur un réseau dédié, filtré ?"
+msgstr "Les cartes de gestion sont-elles sur un réseau dédié, filtré ?"
+
+msgid "Leurs mots de passe par défaut ont-ils été changés et leur micrologiciel mis à jour ?"
+msgstr "Leurs mots de passe par défaut ont-ils été changés et leur micrologiciel mis à jour ?"
+
+msgid "Réseaux qui se chevauchent avec un partenaire relié par VPN"
+msgstr "Réseaux qui se chevauchent avec un partenaire relié par VPN"
+
+msgid "Un partenaire, un client ou un prestataire relié par VPN utilise la même plage d'adresses qu'un de vos sites."
+msgstr "Un partenaire, un client ou un prestataire relié par VPN utilise la même plage d'adresses qu'un de vos sites."
+
+msgid "Flux mal routés ou bloqués, contournements improvisés (traduction d'adresses ajoutée dans l'urgence, règles trop larges) qui ouvrent plus que nécessaire."
+msgstr "Flux mal routés ou bloqués, contournements improvisés (traduction d'adresses ajoutée dans l'urgence, règles trop larges) qui ouvrent plus que nécessaire."
+
+msgid "Des tunnels VPN relient-ils vos réseaux à ceux de tiers ?"
+msgstr "Des tunnels VPN relient-ils vos réseaux à ceux de tiers ?"
+
+msgid "Les plages de chaque côté sont-elles documentées et distinctes ?"
+msgstr "Les plages de chaque côté sont-elles documentées et distinctes ?"
+
+msgid "Réseau invités insuffisamment isolé"
+msgstr "Réseau invités insuffisamment isolé"
+
+msgid "Le Wi-Fi invités ou le réseau des visiteurs peut joindre des équipements internes."
+msgstr "Le Wi-Fi invités ou le réseau des visiteurs peut joindre des équipements internes."
+
+msgid "Un appareil inconnu ou compromis atteint les postes, les imprimantes ou les serveurs ; écoute du trafic interne."
+msgstr "Un appareil inconnu ou compromis atteint les postes, les imprimantes ou les serveurs ; écoute du trafic interne."
+
+msgid "Le réseau invités n'a-t-il accès qu'à Internet ?"
+msgstr "Le réseau invités n'a-t-il accès qu'à Internet ?"
+
+msgid "L'isolation a-t-elle été vérifiée par un test depuis un appareil invité ?"
+msgstr "L'isolation a-t-elle été vérifiée par un test depuis un appareil invité ?"
+
+msgid "Réseau interne à plat, sans segmentation"
+msgstr "Réseau interne à plat, sans segmentation"
+
+msgid "Postes, serveurs, imprimantes, téléphonie et équipements industriels partagent le même réseau."
+msgstr "Postes, serveurs, imprimantes, téléphonie et équipements industriels partagent le même réseau."
+
+msgid "Un poste compromis (rançongiciel, cheval de Troie) se propage librement vers les serveurs et les sauvegardes."
+msgstr "Un poste compromis (rançongiciel, cheval de Troie) se propage librement vers les serveurs et les sauvegardes."
+
+msgid "Les usages ont-ils chacun leur réseau ou VLAN, avec un filtrage entre eux ?"
+msgstr "Les usages ont-ils chacun leur réseau ou VLAN, avec un filtrage entre eux ?"
+
+msgid "Les flux autorisés entre réseaux sont-ils listés dans la matrice des flux ?"
+msgstr "Les flux autorisés entre réseaux sont-ils listés dans la matrice des flux ?"
+
+msgid "Point de défaillance unique : alimentation électrique"
+msgstr "Point de défaillance unique : alimentation électrique"
+
+msgid "La salle serveurs ou le local réseau dépend d'un seul onduleur, d'une seule arrivée électrique ou d'une seule alimentation par équipement."
+msgstr "La salle serveurs ou le local réseau dépend d'un seul onduleur, d'une seule arrivée électrique ou d'une seule alimentation par équipement."
+
+msgid "Coupure générale lors d'une panne d'onduleur ou d'une intervention électrique ; matériel endommagé par un arrêt brutal."
+msgstr "Coupure générale lors d'une panne d'onduleur ou d'une intervention électrique ; matériel endommagé par un arrêt brutal."
+
+msgid "Les équipements critiques ont-ils deux alimentations, sur deux circuits ?"
+msgstr "Les équipements critiques ont-ils deux alimentations, sur deux circuits ?"
+
+msgid "L'autonomie des onduleurs est-elle testée et suffisante pour un arrêt propre ?"
+msgstr "L'autonomie des onduleurs est-elle testée et suffisante pour un arrêt propre ?"
+
+msgid "Point de défaillance unique : hyperviseur ou stockage partagé"
+msgstr "Point de défaillance unique : hyperviseur ou stockage partagé"
+
+msgid "Plusieurs serveurs virtuels critiques reposent sur un seul hôte de virtualisation ou une seule baie de stockage."
+msgstr "Plusieurs serveurs virtuels critiques reposent sur un seul hôte de virtualisation ou une seule baie de stockage."
+
+msgid "Arrêt simultané de toutes les applications hébergées en cas de panne matérielle ou de mise à jour ratée."
+msgstr "Arrêt simultané de toutes les applications hébergées en cas de panne matérielle ou de mise à jour ratée."
+
+msgid "Un second hôte peut-il reprendre les machines virtuelles critiques ?"
+msgstr "Un second hôte peut-il reprendre les machines virtuelles critiques ?"
+
+msgid "Le délai de reprise a-t-il été mesuré lors d'un test ?"
+msgstr "Le délai de reprise a-t-il été mesuré lors d'un test ?"
+
+msgid "Point de défaillance unique : lien opérateur"
+msgstr "Point de défaillance unique : lien opérateur"
+
+msgid "Un site, ou l'accès aux services en ligne, dépend d'un seul lien Internet ou d'un seul opérateur."
+msgstr "Un site, ou l'accès aux services en ligne, dépend d'un seul lien Internet ou d'un seul opérateur."
+
+msgid "Site isolé pendant une coupure (travaux, panne opérateur), téléphonie et applications hébergées inaccessibles."
+msgstr "Site isolé pendant une coupure (travaux, panne opérateur), téléphonie et applications hébergées inaccessibles."
+
+msgid "Existe-t-il un second lien, chez un autre opérateur et par un autre chemin physique ?"
+msgstr "Existe-t-il un second lien, chez un autre opérateur et par un autre chemin physique ?"
+
+msgid "La bascule a-t-elle été testée ?"
+msgstr "La bascule a-t-elle été testée ?"
+
+msgid "Point de défaillance unique : annuaire (contrôleur de domaine)"
+msgstr "Point de défaillance unique : annuaire (contrôleur de domaine)"
+
+msgid "Un site n'a qu'un seul contrôleur de domaine, ou l'annuaire n'a qu'un seul serveur."
+msgstr "Un site n'a qu'un seul contrôleur de domaine, ou l'annuaire n'a qu'un seul serveur."
+
+msgid "Plus aucune connexion ni accès aux partages en cas de panne ; restauration longue et délicate de l'annuaire."
+msgstr "Plus aucune connexion ni accès aux partages en cas de panne ; restauration longue et délicate de l'annuaire."
+
+msgid "Chaque site a-t-il au moins deux contrôleurs de domaine, ou un accès fiable à un second ?"
+msgstr "Chaque site a-t-il au moins deux contrôleurs de domaine, ou un accès fiable à un second ?"
+
+msgid "La restauration de l'annuaire a-t-elle déjà été testée ?"
+msgstr "La restauration de l'annuaire a-t-elle déjà été testée ?"
+
+msgid "Sauvegardes sur le même site que les données"
+msgstr "Sauvegardes sur le même site que les données"
+
+msgid "Les sauvegardes sont stockées dans la même salle, le même bâtiment ou le même domaine d'administration que les données qu'elles protègent."
+msgstr "Les sauvegardes sont stockées dans la même salle, le même bâtiment ou le même domaine d'administration que les données qu'elles protègent."
+
+msgid "Perte simultanée des données et des sauvegardes lors d'un incendie, d'un dégât des eaux ou d'un rançongiciel qui chiffre aussi les sauvegardes."
+msgstr "Perte simultanée des données et des sauvegardes lors d'un incendie, d'un dégât des eaux ou d'un rançongiciel qui chiffre aussi les sauvegardes."
+
+msgid "Une copie est-elle conservée hors site ou hors ligne, non modifiable ?"
+msgstr "Une copie est-elle conservée hors site ou hors ligne, non modifiable ?"
+
+msgid "Une restauration complète est-elle testée régulièrement ?"
+msgstr "Une restauration complète est-elle testée régulièrement ?"
+
+msgid "Schéma réseau et plan d'adressage non tenus à jour"
+msgstr "Schéma réseau et plan d'adressage non tenus à jour"
+
+msgid "Le schéma réseau, le plan d'adressage et la liste des flux ne reflètent plus l'existant."
+msgstr "Le schéma réseau, le plan d'adressage et la liste des flux ne reflètent plus l'existant."
+
+msgid "Décisions prises sur une vision fausse, incident plus long à diagnostiquer, équipements oubliés hors de toute surveillance."
+msgstr "Décisions prises sur une vision fausse, incident plus long à diagnostiquer, équipements oubliés hors de toute surveillance."
+
+msgid "La date de la dernière mise à jour du schéma est-elle connue ?"
+msgstr "La date de la dernière mise à jour du schéma est-elle connue ?"
+
+msgid "Une revue périodique du schéma et des flux est-elle planifiée ?"
+msgstr "Une revue périodique du schéma et des flux est-elle planifiée ?"
+
+msgid "Journaux de sécurité ni centralisés ni consultés"
+msgstr "Journaux de sécurité ni centralisés ni consultés"
+
+msgid "Les journaux des pare-feu, de l'annuaire et des serveurs restent sur chaque équipement, sans alerte ni revue."
+msgstr "Les journaux des pare-feu, de l'annuaire et des serveurs restent sur chaque équipement, sans alerte ni revue."
+
+msgid "Intrusion détectée tard, ou jamais ; journaux effacés par l'attaquant ; impossibilité de reconstituer un incident."
+msgstr "Intrusion détectée tard, ou jamais ; journaux effacés par l'attaquant ; impossibilité de reconstituer un incident."
+
+msgid "Les journaux sont-ils centralisés et conservés assez longtemps ?"
+msgstr "Les journaux sont-ils centralisés et conservés assez longtemps ?"
+
+msgid "Des alertes ou une revue régulière existent-elles ?"
+msgstr "Des alertes ou une revue régulière existent-elles ?"
+
+msgid "Menaces :"
+msgstr "Menaces :"
+
+msgid "Questions pour savoir s'il s'applique :"
+msgstr "Questions pour savoir s'il s'applique :"
+
+msgid "Cochez au moins un risque qui n'est pas encore dans le registre."
+msgstr "Cochez au moins un risque qui n'est pas encore dans le registre."
+
+msgid "Ces risques reviennent d'une infrastructure à l'autre et se repèrent sur un simple schéma réseau. Lisez les questions de chacun, cochez ceux qui vous concernent : ils sont ajoutés au registre au statut « Identifié », avec leurs mesures de l'Annexe A, pour être évalués comme les autres. Rien n'est coté à votre place."
+msgstr "Ces risques reviennent d'une infrastructure à l'autre et se repèrent sur un simple schéma réseau. Lisez les questions de chacun, cochez ceux qui vous concernent : ils sont ajoutés au registre au statut « Identifié », avec leurs mesures de l'Annexe A, pour être évalués comme les autres. Rien n'est coté à votre place."
+
+msgid "Déjà dans le registre"
+msgstr "Déjà dans le registre"
+
+msgid "Voir le risque"
+msgstr "Voir le risque"
+
+msgid "Ajouter au registre les risques cochés"
+msgstr "Ajouter au registre les risques cochés"
+
+#, php-format
+msgid "%d risque ajouté au registre, à évaluer."
+msgid_plural "%d risques ajoutés au registre, à évaluer."
+msgstr[0] "%d risque ajouté au registre, à évaluer."
+msgstr[1] "%d risques ajoutés au registre, à évaluer."

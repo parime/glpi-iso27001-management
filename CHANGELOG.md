@@ -24,6 +24,19 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
     est comptée « à vérifier à la main », jamais déclarée saine ;
   - tout appel sortant dépend du réglage « Activer l'enrichissement NVD » (désactivé par défaut).
     Rien n'est modifié dans le parc ; les tickets automatiques sont la phase 2.
+- **Catalogue de risques types d'infrastructure** (issue #178), bouton « Catalogue de risques types »
+  au-dessus du registre des risques : douze risques qui se repèrent sur un schéma réseau (service
+  d'administration exposé sur Internet, cartes iLO/iDRAC/IPMI joignables, réseaux qui se chevauchent
+  avec un partenaire relié par VPN, réseau invités mal isolé, réseau à plat, points de défaillance
+  unique — alimentation, hyperviseur, lien opérateur, annuaire —, sauvegardes sur le même site,
+  schéma non tenu à jour, journaux non consultés). Chacun a sa description, ses menaces, ses mesures
+  de l'Annexe A et des questions pour savoir s'il s'applique. Les risques cochés sont créés dans le
+  registre au statut « Identifié », liés à leurs mesures, à évaluer ; un risque déjà importé n'est
+  pas recréé.
+
+### Changed
+
+- Les boutons au-dessus du registre des risques sont rendus en Twig (exigence du Marketplace GLPI).
 
 ## [2.6.0] - 2026-10-24
 

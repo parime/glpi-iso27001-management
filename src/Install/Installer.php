@@ -188,6 +188,8 @@ final class Installer
     private const PARK_VERSION_CHECKS_TABLE = 'glpi_plugin_grcmanager_parkversionchecks';
     private const PARK_CVES_TABLE = 'glpi_plugin_grcmanager_parkcves';
     private const CVE_SIGNALS_TABLE = 'glpi_plugin_grcmanager_cvesignals';
+    // Issue #178 : risques types importés depuis le catalogue, voir PluginGrcmanagerRiskCatalog.
+    private const RISK_CATALOG_IMPORTS_TABLE = 'glpi_plugin_grcmanager_riskcatalogimports';
 
     public function install(Migration $migration): bool
     {
@@ -1063,6 +1065,22 @@ final class Installer
                 KEY `is_active` (`is_active`),
                 KEY `source_item` (`source_itemtype`, `source_items_id`),
                 KEY `destination_item` (`destination_itemtype`, `destination_items_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+        }
+
+        // Issue #178 : risque créé pour chaque risque type du catalogue (un import par clé).
+        if (!$DB->tableExists(self::RISK_CATALOG_IMPORTS_TABLE)) {
+            $query = "CREATE TABLE `" . self::RISK_CATALOG_IMPORTS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `catalog_key` varchar(64) NOT NULL,
+                `plugin_grcmanager_risks_id` int {$keySign} NOT NULL,
+                `users_id` int {$keySign} NOT NULL DEFAULT 0,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity_key` (`catalog_key`),
+                KEY `risks_id` (`plugin_grcmanager_risks_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
             $DB->doQuery($query) or die($DB->error());
@@ -2809,6 +2827,7 @@ final class Installer
         $migration->dropTable(self::PARK_VERSION_CHECKS_TABLE);
         $migration->dropTable(self::PARK_CVES_TABLE);
         $migration->dropTable(self::CVE_SIGNALS_TABLE);
+        $migration->dropTable(self::RISK_CATALOG_IMPORTS_TABLE);
         $migration->dropTable(self::ACCESS_REVIEWS_USERS_TABLE);
         $migration->dropTable(self::ACCESS_REVIEWS_TABLE);
         $migration->dropTable(self::OBJECTIVES_TABLE);
