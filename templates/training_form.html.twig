@@ -1,6 +1,7 @@
 {# Formation / sensibilisation, A.6.3 (issue #199 : formulaire passé de PHP à Twig) #}
 {% extends 'generic_show_form.html.twig' %}
 {% import 'components/form/fields_macros.html.twig' as fields %}
+{% import '@grcmanager/_hint.html.twig' as hints %}
 
 {% block form_fields %}
    {{ fields.textField('title', item.fields['title'], __('Titre', 'grcmanager'), {'full_width': true}) }}
@@ -8,19 +9,19 @@
    {{ fields.dateField('date_delivered', item.fields['date_delivered'], __('Date de réalisation', 'grcmanager')) }}
    {{ fields.textField('target_audience', item.fields['target_audience'], __('Public cible', 'grcmanager'), {
       'full_width': true,
-      'helper': __('Texte libre (ex. "Tout le personnel", "Équipe technique", nom d\'un groupe ou service).', 'grcmanager'),
+      'add_field_html': hints.hint(__('Texte libre (ex. "Tout le personnel", "Équipe technique", nom d\'un groupe ou service).', 'grcmanager')),
    }) }}
    {{ fields.checkboxField('is_mandatory', is_mandatory, __('Obligatoire', 'grcmanager')) }}
    {{ fields.numberField('renewal_period_months', item.fields['renewal_period_months'] ?: 0, __('Renouvellement (mois)', 'grcmanager'), {
       'min': 0,
-      'helper': __('0 = pas de renouvellement requis.', 'grcmanager'),
+      'add_field_html': hints.hint(__('0 = pas de renouvellement requis.', 'grcmanager')),
    }) }}
    {{ fields.textareaField('description', item.fields['description'], __('Description', 'grcmanager'), {'full_width': true}) }}
    {{ fields.dropdownField('User', 'participants', participant_ids, __('Participants', 'grcmanager'), {
       'multiple': true,
       'right': 'all',
       'full_width': true,
-      'helper': __('Enregistrez pour ajouter les nouveaux participants sélectionnés : leur suivi individuel apparaît ci-dessous après enregistrement.', 'grcmanager'),
+      'add_field_html': hints.hint(__('Enregistrez pour ajouter les nouveaux participants sélectionnés : leur suivi individuel apparaît ci-dessous après enregistrement.', 'grcmanager')),
    }) }}
 
    {% if participants is not empty %}

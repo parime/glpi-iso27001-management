@@ -1,6 +1,7 @@
 {# Registre des risques, 6.1.2 / 8.2 (issue #199 : formulaire passé de PHP à Twig) #}
 {% extends 'generic_show_form.html.twig' %}
 {% import 'components/form/fields_macros.html.twig' as fields %}
+{% import '@grcmanager/_hint.html.twig' as hints %}
 
 {% block form_fields %}
    {{ fields.textField('title', item.fields['title'], __('Titre', 'grcmanager'), {'full_width': true}) }}
@@ -9,7 +10,7 @@
    {{ fields.dropdownArrayField('probability', item.fields['probability'] ?: 'possible', probabilities, __('Probabilité', 'grcmanager')) }}
    {# Issue #26 : simple signal quand un actif lié porte une classification C/I/D élevée ; ne change jamais la valeur. #}
    {{ fields.dropdownArrayField('impact', item.fields['impact'] ?: 'medium', impacts, __('Impact', 'grcmanager'), high_classification ? {
-      'helper': __('Un actif lié porte une classification C/I/D élevée : vérifiez l\'impact de ce risque.', 'grcmanager'),
+      'add_field_html': hints.hint(__('Un actif lié porte une classification C/I/D élevée : vérifiez l\'impact de ce risque.', 'grcmanager')),
    } : {}) }}
    {% if not is_new %}
       {{ fields.htmlField('', risk_level_badge, __('Niveau de risque', 'grcmanager')) }}
@@ -17,7 +18,7 @@
    {% endif %}
    {# Issue #31 : le choix implique un plan de traitement, plus bas sur la fiche. #}
    {{ fields.dropdownArrayField('treatment', item.fields['treatment'], treatments, __('Traitement', 'grcmanager'), plan_relevant ? {
-      'helper': __('Un plan de traitement (une ou plusieurs actions concrètes) est attendu pour ce choix, voir plus bas sur cette fiche.', 'grcmanager'),
+      'add_field_html': hints.hint(__('Un plan de traitement (une ou plusieurs actions concrètes) est attendu pour ce choix, voir plus bas sur cette fiche.', 'grcmanager')),
    } : {}) }}
    {{ fields.dropdownArrayField('status', item.fields['status'] ?: 'identified', statuses, __('Statut', 'grcmanager')) }}
    {{ fields.dateField('review_date', item.fields['review_date'], __('Date de revue', 'grcmanager')) }}

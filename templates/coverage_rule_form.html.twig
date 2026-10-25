@@ -1,11 +1,12 @@
 {# Issue #164 : règle de couverture des preuves #}
 {% extends 'generic_show_form.html.twig' %}
 {% import 'components/form/fields_macros.html.twig' as fields %}
+{% import '@grcmanager/_hint.html.twig' as hints %}
 
 {% block form_fields %}
    {{ fields.textField('name', item.fields['name'], __('Nom'), {
       'required': true,
-      'helper': __('Exemple : « Politique de filtrage des pare-feu ».', 'grcmanager'),
+      'add_field_html': hints.hint(__('Exemple : « Politique de filtrage des pare-feu ».', 'grcmanager')),
    }) }}
    {{ fields.checkboxField('is_active', item.isNewItem() ? 1 : item.fields['is_active'], __('Active')) }}
 
@@ -15,7 +16,7 @@
    }) }}
    {% if type_class %}
       {{ fields.dropdownField(type_class, 'types_id', item.fields['types_id'], __('Sous-type (facultatif)', 'grcmanager'), {
-         'helper': __('Pour ne compter qu\'une partie des actifs, par exemple les seuls pare-feu parmi les matériels réseau.', 'grcmanager'),
+         'add_field_html': hints.hint(__('Pour ne compter qu\'une partie des actifs, par exemple les seuls pare-feu parmi les matériels réseau.', 'grcmanager')),
       }) }}
    {% else %}
       {{ fields.htmlField('', '<span class="text-muted">' ~ __('Enregistrez la règle pour choisir un sous-type, si ce type d\'actif en a.', 'grcmanager')|e ~ '</span>', __('Sous-type (facultatif)', 'grcmanager')) }}
@@ -23,7 +24,7 @@
 
    {{ fields.dropdownField('DocumentCategory', 'documentcategories_id', item.fields['documentcategories_id'], __('Catégorie du document requis', 'grcmanager'), {
       'required': true,
-      'helper': __('Un actif est couvert s\'il a au moins un document de cette catégorie dans son onglet Documents.', 'grcmanager'),
+      'add_field_html': hints.hint(__('Un actif est couvert s\'il a au moins un document de cette catégorie dans son onglet Documents.', 'grcmanager')),
    }) }}
    {{ fields.dropdownArrayField('plugin_grcmanager_controls_id', item.fields['plugin_grcmanager_controls_id'], controls, __('Mesure de l\'Annexe A', 'grcmanager')) }}
    {{ fields.dropdownArrayField('plugin_grcmanager_ismsrequirements_id', item.fields['plugin_grcmanager_ismsrequirements_id'], requirements, __('Exigence du SMSI', 'grcmanager')) }}

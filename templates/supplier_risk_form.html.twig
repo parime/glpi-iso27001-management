@@ -1,11 +1,12 @@
 {# Risque fournisseur, A.5.19 à A.5.22 (issue #199 : formulaire passé de PHP à Twig) #}
 {% extends 'generic_show_form.html.twig' %}
 {% import 'components/form/fields_macros.html.twig' as fields %}
+{% import '@grcmanager/_hint.html.twig' as hints %}
 
 {% block form_fields %}
    {{ fields.textField('title', item.fields['title'], __('Titre', 'grcmanager'), {'full_width': true}) }}
    {{ fields.dropdownField('Supplier', 'suppliers_id', item.fields['suppliers_id'], supplier_label, {
-      'helper': __('Obligatoire : ce registre est dédié aux risques liés à un fournisseur.', 'grcmanager'),
+      'add_field_html': hints.hint(__('Obligatoire : ce registre est dédié aux risques liés à un fournisseur.', 'grcmanager')),
    }) }}
    {{ fields.dropdownArrayField('category', item.fields['category'] ?: 'third_party', categories, __('Catégorie', 'grcmanager')) }}
    {{ fields.dropdownField('User', 'users_id', item.fields['users_id'], __('Propriétaire', 'grcmanager'), {'right': 'all'}) }}

@@ -1,10 +1,11 @@
 {# Produit du catalogue de correspondance CPE (issue #199 : formulaire passé de PHP à Twig) #}
 {% extends 'generic_show_form.html.twig' %}
 {% import 'components/form/fields_macros.html.twig' as fields %}
+{% import '@grcmanager/_hint.html.twig' as hints %}
 
 {% block form_fields %}
    {{ fields.textField('manufacturer', item.fields['manufacturer'], __('Éditeur / fabricant', 'grcmanager'), {
-      'helper': __('Nom court, ex. "Apache", "Microsoft" — sert uniquement d\'étiquette, pas de comparaison.', 'grcmanager'),
+      'add_field_html': hints.hint(__('Nom court, ex. "Apache", "Microsoft" — sert uniquement d\'étiquette, pas de comparaison.', 'grcmanager')),
    }) }}
    {{ fields.textField('product', item.fields['product'], __('Produit', 'grcmanager')) }}
 {% endblock %}
