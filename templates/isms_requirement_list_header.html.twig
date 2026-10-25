@@ -1,0 +1,15 @@
+{# Issue #113 : en-tête et barre de complétude du SMSI, articles 4 à 10 (issue #199 : passé de PHP à Twig) #}
+<div class="card mb-2"><div class="card-body">
+   <div class="d-flex align-items-center justify-content-between mb-2">
+      <div><i class="ti ti-info-circle me-2"></i>{{ __('Exigences du système de management - articles 4 à 10 ISO/IEC 27001:2022 (références et titres courts uniquement).', 'grcmanager') }}</div>
+      <a href="{{ report_url }}" class="btn btn-outline-secondary btn-sm" target="_blank"><i class="ti ti-file-type-pdf me-1"></i>{{ __('Export PDF', 'grcmanager') }}</a>
+   </div>
+   <div class="mb-1"><strong>{{ __('Complétude du SMSI : %1$d %% (%2$d / %3$d exigences conformes)', 'grcmanager')|format(completion.percent, completion.compliant, completion.total) }}</strong></div>
+   <div class="progress progress-separated mb-2" style="height: 12px">
+      {% for bar in bars %}<div class="progress-bar {{ bar.color }}" role="progressbar" style="width: {{ bar.width }}%" aria-label="{{ bar.label }}"></div>{% endfor %}
+   </div>
+   {% for s in statuses %}
+      {% set badge_html = s.badge_html %}
+      {{ badge_html|raw }} <span class="me-3">{{ s.count }}</span>
+   {% endfor %}
+</div></div>

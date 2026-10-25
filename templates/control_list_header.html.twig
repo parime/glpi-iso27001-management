@@ -1,0 +1,19 @@
+{# En-tête de la liste des mesures de l'Annexe A : SoA, exports, approbation (issue #199 : passé de PHP à Twig) #}
+<div class="alert alert-info d-flex align-items-center justify-content-between mb-2">
+   <div><i class="ti ti-info-circle me-2"></i>{{ __('Déclaration d\'applicabilité (SoA) - clause 6.1.3 ISO/IEC 27001:2022, Annexe A (93 mesures).', 'grcmanager') }}</div>
+   <div class="d-flex gap-2">
+      {# ROADMAP « Version 1.5 » : export PDF mis en forme, en plus de l'export natif de la liste. #}
+      <a href="{{ report_url }}" class="btn btn-outline-secondary btn-sm" target="_blank"><i class="ti ti-file-type-pdf me-1"></i>{{ __('Export PDF', 'grcmanager') }}</a>
+      {# ROADMAP « Version 1.5 » : CSV réimportable après modification dans un tableur. #}
+      <a href="{{ csv_url }}" class="btn btn-outline-secondary btn-sm"><i class="ti ti-file-spreadsheet me-1"></i>{{ __('Import/export CSV', 'grcmanager') }}</a>
+      {# Issue #112 : approbation de la SoA par la direction (versions figées). #}
+      <a href="{{ approval_url }}" class="btn btn-outline-primary btn-sm"><i class="ti ti-signature me-1"></i>{{ __('Approbation par la direction', 'grcmanager') }}</a>
+   </div>
+</div>
+{# Issue #112 : version qui attend la réponse de la personne, ou SoA modifiée depuis la dernière version approuvée. #}
+{% if pending_version %}
+   <div class="alert alert-primary"><i class="ti ti-signature me-2"></i>{{ __('La version %d de la SoA attend votre approbation.', 'grcmanager')|format(pending_version) }} <a href="{{ approval_url }}">{{ __('Répondre', 'grcmanager') }}</a></div>
+{% endif %}
+{% if changed_since %}
+   <div class="alert alert-warning"><i class="ti ti-alert-triangle me-2"></i>{{ __('La SoA a changé depuis la version %d approuvée : une nouvelle approbation est nécessaire.', 'grcmanager')|format(changed_since) }} <a href="{{ approval_url }}">{{ __('Approbation par la direction', 'grcmanager') }}</a></div>
+{% endif %}
