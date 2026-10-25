@@ -59,6 +59,14 @@
             {% endif %}
           </div>
 
+          {# Issue #163 : plan d'action (CAPA) proposé à partir de la CVE, relu avant création. #}
+          {% set capa_id = capa_by_cve_id[cve.cve_id]|default(0) %}
+          {% if capa_id %}
+            <a href="{{ capa_url }}?id={{ capa_id }}" class="btn btn-sm btn-outline-success"><i class="ti ti-checklist me-1"></i>{{ __('Plan d\'action n° %d', 'grcmanager')|format(capa_id) }}</a>
+          {% elseif can_capa %}
+            <a href="{{ capa_url }}?from_incident={{ item.getID() }}&cve={{ cve.cve_id|url_encode }}" class="btn btn-sm btn-outline-primary"><i class="ti ti-bulb me-1"></i>{{ __('Proposer un plan d\'action', 'grcmanager') }}</a>
+          {% endif %}
+
           {% if can_edit %}
             <div class="d-flex gap-1">
               {% if nvd_enrichment_enabled %}

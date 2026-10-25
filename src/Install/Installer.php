@@ -572,10 +572,14 @@ final class Installer
                 `status` varchar(16) NOT NULL DEFAULT 'open'
                     COMMENT 'open, in_progress, closed, verified',
                 `closure_verification_date` date DEFAULT NULL,
+                `plugin_grcmanager_securityincidents_id` int {$keySign} NOT NULL DEFAULT 0
+                    COMMENT 'Issue #163 : incident de sécurité à l origine du plan d action',
+                `cve_id` varchar(255) NOT NULL DEFAULT '',
                 `date_creation` timestamp NULL DEFAULT NULL,
                 `date_mod` timestamp NULL DEFAULT NULL,
                 PRIMARY KEY (`id`),
                 KEY `plugin_grcmanager_audits_id` (`plugin_grcmanager_audits_id`),
+                KEY `plugin_grcmanager_securityincidents_id` (`plugin_grcmanager_securityincidents_id`),
                 KEY `finding_type` (`finding_type`),
                 KEY `severity` (`severity`),
                 KEY `status` (`status`),
@@ -614,6 +618,23 @@ final class Installer
                 ]
             );
             $migration->addKey(self::NONCONFORMITIES_TABLE, 'finding_type', 'finding_type');
+            $migration->migrationOneTable(self::NONCONFORMITIES_TABLE);
+        }
+
+        // Issue #163 : plan d'action proposé à partir d'une CVE d'incident.
+        if (!$DB->fieldExists(self::NONCONFORMITIES_TABLE, 'plugin_grcmanager_securityincidents_id')) {
+            $migration->addField(self::NONCONFORMITIES_TABLE, 'plugin_grcmanager_securityincidents_id', 'fkey', [
+                'after' => 'closure_verification_date',
+            ]);
+            $migration->addField(self::NONCONFORMITIES_TABLE, 'cve_id', 'string', [
+                'value' => '',
+                'after' => 'plugin_grcmanager_securityincidents_id',
+            ]);
+            $migration->addKey(
+                self::NONCONFORMITIES_TABLE,
+                'plugin_grcmanager_securityincidents_id',
+                'plugin_grcmanager_securityincidents_id'
+            );
             $migration->migrationOneTable(self::NONCONFORMITIES_TABLE);
         }
 

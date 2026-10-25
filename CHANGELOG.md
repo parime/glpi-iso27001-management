@@ -9,6 +9,16 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Plan d'action (CAPA) proposé à partir d'une CVE** (issue #163) : sur l'onglet CVE d'un
+  incident de sécurité, « Proposer un plan d'action » ouvre une non-conformité pré-remplie :
+  - action corrective numérotée : correctif de l'éditeur et avis de sécurité (liens NVD), mise à
+    jour des actifs de l'inventaire qui portent la vulnérabilité, échéance CISA si elle est
+    activement exploitée, contrôle d'efficacité ;
+  - action préventive : surveillance du logiciel et cycle de correctifs ;
+  - sévérité selon le CVSS et le catalogue KEV. L'échéance est de 7, 30 ou 90 jours, ou celle de
+    la CISA si elle est plus proche ;
+  - rien n'est créé avant que l'utilisateur relise et clique sur « Ajouter ». La fiche garde
+    l'origine (incident et CVE), et l'onglet CVE affiche ensuite « Plan d'action n° … ».
 - **Exploitation des CVE des incidents de sécurité** (issue #172) :
   - l'onglet CVE d'un incident affiche le badge **KEV**, avec l'échéance CISA, et le score **EPSS**
     (probabilité d'exploitation dans les 30 jours). Le score est en rouge au-delà de 50 % ;
@@ -84,6 +94,9 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   défaillance uniques pour toute l'instance.
 
 ### Changed
+
+- Le formulaire des non-conformités passe en Twig (champs inchangés). Après « Ajouter », la fiche
+  créée s'ouvre directement.
 
 - Les boutons au-dessus du registre des risques sont rendus en Twig (exigence du Marketplace GLPI).
 

@@ -1,0 +1,39 @@
+{# Formulaire d'une non-conformité ou observation (CAPA). Issue #163 : origine incident/CVE. #}
+{% extends 'generic_show_form.html.twig' %}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+
+{% block form_fields %}
+   {% if incident %}
+      <input type="hidden" name="plugin_grcmanager_securityincidents_id" value="{{ incident.id }}">
+      <input type="hidden" name="cve_id" value="{{ item.fields['cve_id'] }}">
+      {{ fields.htmlField('', '<a href="' ~ incident.url|e ~ '"><i class="ti ti-shield-exclamation me-1"></i>' ~ incident.name|e ~ '</a>'
+         ~ (item.fields['cve_id'] ? ' — <a href="https://nvd.nist.gov/vuln/detail/' ~ item.fields['cve_id']|e ~ '" target="_blank" rel="noopener">' ~ item.fields['cve_id']|e ~ '</a>' : ''),
+         __('Origine', 'grcmanager')) }}
+      {% if item.isNewItem() %}
+         <div class="col-12 mb-2">
+            <div class="alert alert-info mb-0"><i class="ti ti-bulb me-1"></i>{{ __('Plan d\'action proposé à partir de la CVE : relisez et adaptez chaque champ, puis cliquez sur « Ajouter ». Rien n\'est créé avant.', 'grcmanager') }}</div>
+         </div>
+      {% endif %}
+   {% endif %}
+
+   {{ fields.textField('title', item.fields['title'], __('Titre', 'grcmanager'), {'full_width': true}) }}
+   {{ fields.dropdownArrayField('finding_type', item.fields['finding_type'] ?: 'nonconformity', finding_types, __('Type de constat', 'grcmanager')) }}
+   {{ fields.dropdownArrayField('plugin_grcmanager_audits_id', item.fields['plugin_grcmanager_audits_id'], audits, audit_label) }}
+   {{ fields.dropdownArrayField('severity', item.fields['severity'] ?: 'minor', severities, __('Sévérité', 'grcmanager')) }}
+   {{ fields.dropdownField('User', 'users_id', item.fields['users_id'], __('Responsable', 'grcmanager'), {'right': 'all'}) }}
+   {{ fields.dropdownArrayField('status', item.fields['status'] ?: 'open', statuses, __('Statut', 'grcmanager')) }}
+   {{ fields.dateField('due_date', item.fields['due_date'], __('Échéance', 'grcmanager')) }}
+   {{ fields.dateField('closure_verification_date', item.fields['closure_verification_date'], __('Date de vérification de clôture', 'grcmanager')) }}
+
+   {{ fields.textareaField('description', item.fields['description'], __('Description', 'grcmanager'), {'full_width': true}) }}
+   {{ fields.textareaField('root_cause', item.fields['root_cause'], __('Cause racine', 'grcmanager'), {'full_width': true}) }}
+   {{ fields.textareaField('corrective_action', item.fields['corrective_action'], __('Action corrective', 'grcmanager'), {
+      'full_width': true,
+      'rows': 8,
+      'helper': corrective_hint,
+   }) }}
+   {{ fields.textareaField('preventive_action', item.fields['preventive_action'], __('Action préventive', 'grcmanager'), {
+      'full_width': true,
+      'rows': 4,
+   }) }}
+{% endblock %}

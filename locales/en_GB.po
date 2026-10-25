@@ -3717,3 +3717,55 @@ msgstr "Actively exploited (CISA KEV catalog)"
 
 msgid "Probabilité d'exploitation dans les 30 jours (FIRST EPSS)"
 msgstr "Probability of exploitation within 30 days (FIRST EPSS)"
+
+#, php-format
+msgid "Appliquer le correctif de l'éditeur : %s"
+msgstr "Apply the vendor patch: %s"
+
+msgid "Rechercher et appliquer le correctif de l'éditeur (aucun lien de correctif publié dans NVD pour l'instant)."
+msgstr "Find and apply the vendor patch (no patch link published in NVD yet)."
+
+#, php-format
+msgid "Suivre l'avis de sécurité de l'éditeur : %s"
+msgstr "Follow the vendor security advisory: %s"
+
+#, php-format
+msgid "Mettre à jour les actifs concernés (%1$d) : %2$s"
+msgstr "Update the affected assets (%1$d): %2$s"
+
+msgid "Identifier les actifs concernés (aucun actif correspondant trouvé dans l'inventaire)."
+msgstr "Identify the affected assets (no matching asset found in the inventory)."
+
+#, php-format
+msgid "Vulnérabilité activement exploitée : échéance de correction fixée par la CISA au %s."
+msgstr "Actively exploited vulnerability: remediation due date set by CISA on %s."
+
+msgid "Contrôler l'efficacité : vérifier que la vulnérabilité n'apparaît plus sur les actifs (onglet CVE de l'incident ou « Vulnérabilités du parc »)."
+msgstr "Check effectiveness: verify that the vulnerability no longer appears on the assets (incident CVE tab or \"Fleet vulnerabilities\")."
+
+#, php-format
+msgid "Plan d'action proposé pour %1$s, relevée sur l'incident de sécurité « %2$s »."
+msgstr "Action plan proposed for %1$s, found on the security incident \"%2$s\"."
+
+#, php-format
+msgid "Corriger %1$s (incident « %2$s »)"
+msgstr "Fix %1$s (incident \"%2$s\")"
+
+msgid "Surveiller le logiciel concerné dans « Logiciels à surveiller » pour être alerté des prochaines vulnérabilités."
+msgstr "Watch the affected software in \"Software to watch\" to be alerted of future vulnerabilities."
+
+msgid "Intégrer ce logiciel au cycle régulier d'application des correctifs."
+msgstr "Include this software in the regular patching cycle."
+
+msgid "Origine"
+msgstr "Origin"
+
+msgid "Plan d'action proposé à partir de la CVE : relisez et adaptez chaque champ, puis cliquez sur « Ajouter ». Rien n'est créé avant."
+msgstr "Action plan proposed from the CVE: review and adapt each field, then click \"Add\". Nothing is created before."
+
+#, php-format
+msgid "Plan d'action n° %d"
+msgstr "Action plan #%d"
+
+msgid "Proposer un plan d'action"
+msgstr "Propose an action plan"

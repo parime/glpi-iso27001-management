@@ -22,6 +22,10 @@ $item = new PluginGrcmanagerNonconformity();
 if (isset($_POST['add'])) {
     Session::checkRight(PluginGrcmanagerNonconformity::$rightname, CREATE);
     $newID = $item->add($_POST);
+    // Issue #163 : après création (notamment depuis un plan d'action proposé), ouvrir la fiche créée.
+    if ($newID) {
+        Html::redirect(PluginGrcmanagerNonconformity::getFormURLWithID((int) $newID));
+    }
     Html::back();
 } elseif (isset($_POST['delete'])) {
     Session::checkRight(PluginGrcmanagerNonconformity::$rightname, DELETE);
@@ -51,7 +55,10 @@ if (isset($_POST['add'])) {
         $item->getFromDB($id);
     }
 
-    $item->showForm($id);
+    $item->showForm($id, [
+        'from_incident' => (int) ($_GET['from_incident'] ?? 0),
+        'cve'           => (string) ($_GET['cve'] ?? ''),
+    ]);
 
     Html::footer();
 }
