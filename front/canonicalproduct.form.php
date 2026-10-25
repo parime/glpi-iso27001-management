@@ -21,7 +21,11 @@ $item = new PluginGrcmanagerCanonicalProduct();
 
 if (isset($_POST['add'])) {
     Session::checkRight(PluginGrcmanagerCanonicalProduct::$rightname, CREATE);
-    $item->add($_POST);
+    $newID = $item->add($_POST);
+    // Comme les formulaires natifs : retour sur le produit créé pour y ajouter CPE et alias.
+    if ($newID && $_SESSION['glpibackcreated']) {
+        Html::redirect($item->getLinkURL());
+    }
     Html::back();
 } elseif (isset($_POST['delete'])) {
     Session::checkRight(PluginGrcmanagerCanonicalProduct::$rightname, DELETE);

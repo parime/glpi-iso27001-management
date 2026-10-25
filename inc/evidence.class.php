@@ -15,6 +15,7 @@
  * -------------------------------------------------------------------------
  */
 
+use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\EvidenceBase;
 use GlpiPlugin\Grcmanager\Services\Evidence\EvidenceValidity;
 
@@ -282,93 +283,61 @@ class PluginGrcmanagerEvidence extends EvidenceBase
         return true;
     }
 
-    public static function statusBadge(?string $validUntil): string
+    /**
+     * @return array{0: string, 1: string} classe du badge, libellé
+     */
+    private static function statusInfo(?string $validUntil): array
     {
-        [$class, $label] = match (EvidenceValidity::status($validUntil, date('Y-m-d'))) {
+        return match (EvidenceValidity::status($validUntil, date('Y-m-d'))) {
             EvidenceValidity::STATUS_EXPIRED  => ['bg-red-lt', __('Expirée', 'grcmanager')],
             EvidenceValidity::STATUS_EXPIRING => ['bg-orange-lt', __('À renouveler', 'grcmanager')],
             EvidenceValidity::STATUS_VALID    => ['bg-green-lt', __('Valide', 'grcmanager')],
             default                           => ['bg-secondary-lt', __('Sans date de validité', 'grcmanager')],
         };
+    }
+
+    public static function statusBadge(?string $validUntil): string
+    {
+        [$class, $label] = self::statusInfo($validUntil);
 
         return '<span class="badge ' . $class . '">' . htmlescape($label) . '</span>';
     }
 
     private static function showForParent(CommonDBTM $parent): void
     {
-        $canEdit = $parent->can($parent->getID(), UPDATE);
-        $documents = self::getDocumentsFor($parent);
         global $CFG_GLPI;
-        $action = $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/evidence.form.php';
 
-        echo '<div class="mb-2 text-muted">' . htmlescape(sprintf(
-            __(
-                'Indiquez jusqu\'à quand chaque document prouve quelque chose (certificat, rapport, '
-                . 'attestation). Le responsable est prévenu %d jours avant l\'échéance, puis un ticket '
-                . '« Renouveler la preuve » est ouvert ; le statut de l\'élément ne change jamais.',
-                'grcmanager'
-            ),
-            EvidenceValidity::WARNING_DAYS
-        )) . '</div>';
-
-        if ($documents === []) {
-            echo '<div class="alert alert-info">' . htmlescape(__(
-                'Aucun document rattaché : ajoutez d\'abord les preuves dans l\'onglet Documents.',
-                'grcmanager'
-            )) . '</div>';
-            return;
+        $canEdit = $parent->can($parent->getID(), UPDATE);
+        $documents = [];
+        foreach (self::getDocumentsFor($parent) as $doc) {
+            [$class, $label] = self::statusInfo($doc['valid_until']);
+            $documents[] = $doc + [
+                'url'          => Document::getFormURLWithID($doc['documents_id']),
+                'ticket_url'   => $doc['tickets_id'] > 0 ? Ticket::getFormURLWithID($doc['tickets_id']) : '',
+                'status_class' => $class,
+                'status_label' => $label,
+                'user_name'    => $doc['users_id'] > 0 ? getUserName($doc['users_id']) : '',
+                // Liste déroulante native de GLPI, rattachée au formulaire de la ligne.
+                'user_dropdown_safe_html' => $canEdit ? User::dropdown([
+                    'name'          => 'users_id',
+                    'value'         => $doc['users_id'],
+                    'right'         => 'all',
+                    'entity'        => (int) ($parent->fields['entities_id'] ?? 0),
+                    'display'       => false,
+                    'rand'          => $doc['documents_id'],
+                    'specific_tags' => ['form' => 'grcmanager-evidence-' . $doc['documents_id']],
+                ]) : '',
+            ];
         }
 
-        echo '<table class="table table-sm align-middle"><thead><tr>'
-            . '<th>' . htmlescape(__('Document', 'grcmanager')) . '</th>'
-            . '<th>' . htmlescape(__('Statut', 'grcmanager')) . '</th>'
-            . '<th>' . htmlescape(__('Valide jusqu\'au', 'grcmanager')) . '</th>'
-            . '<th>' . htmlescape(__('Responsable du renouvellement', 'grcmanager')) . '</th>'
-            . '<th></th></tr></thead><tbody>';
-        foreach ($documents as $doc) {
-            $formId = 'grcmanager-evidence-' . $doc['documents_id'];
-            echo '<tr><td><a href="' . htmlescape(Document::getFormURLWithID($doc['documents_id'])) . '">'
-                . htmlescape($doc['name']) . '</a>';
-            if ($doc['tickets_id'] > 0) {
-                echo '<div class="small"><a href="' . htmlescape(Ticket::getFormURLWithID($doc['tickets_id'])) . '">'
-                    . '<i class="ti ti-ticket me-1"></i>'
-                    . htmlescape(sprintf(__('Ticket de renouvellement n°%d', 'grcmanager'), $doc['tickets_id']))
-                    . '</a></div>';
-            }
-            echo '</td><td>' . self::statusBadge($doc['valid_until']) . '</td>';
-            if (!$canEdit) {
-                echo '<td>' . htmlescape((string) Html::convDate($doc['valid_until'])) . '</td>'
-                    . '<td>' . htmlescape($doc['users_id'] > 0 ? getUserName($doc['users_id']) : '') . '</td>'
-                    . '<td></td></tr>';
-                continue;
-            }
-            echo '<td><input type="date" class="form-control form-control-sm" name="valid_until"'
-                . ' form="' . $formId . '" value="' . htmlescape((string) $doc['valid_until']) . '"></td>';
-            echo '<td>' . User::dropdown([
-                'name'    => 'users_id',
-                'value'   => $doc['users_id'],
-                'right'   => 'all',
-                'entity'  => (int) ($parent->fields['entities_id'] ?? 0),
-                'display' => false,
-                'rand'    => $doc['documents_id'],
-                'specific_tags' => ['form' => $formId],
-            ]) . '</td>';
-            echo '<td class="text-nowrap">'
-                . '<form method="post" action="' . htmlescape($action) . '" id="' . $formId . '">'
-                . Html::hidden('_glpi_csrf_token', ['value' => Session::getNewCSRFToken()])
-                . Html::hidden('itemtype', ['value' => $parent->getType()])
-                . Html::hidden('items_id', ['value' => $parent->getID()])
-                . Html::hidden('documents_id', ['value' => $doc['documents_id']])
-                . '<button type="submit" name="save" value="1" class="btn btn-sm btn-primary">'
-                . '<i class="ti ti-device-floppy"></i></button>';
-            if ($doc['evidence_id'] > 0) {
-                echo ' <button type="submit" name="purge" value="1" class="btn btn-sm btn-outline-danger"'
-                    . ' title="' . htmlescape(__('Retirer la date de validité', 'grcmanager')) . '">'
-                    . '<i class="ti ti-x"></i></button>';
-            }
-            echo '</form></td></tr>';
-        }
-        echo '</tbody></table>';
+        TemplateRenderer::getInstance()->display('@grcmanager/evidence_tab.html.twig', [
+            'documents'    => $documents,
+            'can_edit'     => $canEdit,
+            'warning_days' => EvidenceValidity::WARNING_DAYS,
+            'action'       => $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/evidence.form.php',
+            'itemtype'     => $parent->getType(),
+            'items_id'     => $parent->getID(),
+        ]);
     }
 
     public function rawSearchOptions()

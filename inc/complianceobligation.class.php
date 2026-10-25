@@ -15,6 +15,7 @@
  * -------------------------------------------------------------------------
  */
 
+use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\ComplianceObligationBase;
 use GlpiPlugin\Grcmanager\Services\Compliance\ComplianceObligationRules;
 use GlpiPlugin\Grcmanager\Services\Risk\ReviewReminderService;
@@ -339,75 +340,24 @@ class PluginGrcmanagerComplianceObligation extends ComplianceObligationBase
         global $DB;
 
         $this->initForm($ID, $options);
-        $this->showFormHeader($options);
-
-        echo '<tr class="tab_bg_1"><td>' . __('Titre', 'grcmanager') . '</td>';
-        echo '<td colspan="3">';
-        echo Html::input('title', ['value' => $this->fields['title'] ?? '', 'size' => 80]);
-        echo '</td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . __('Type', 'grcmanager') . '</td><td>';
-        Dropdown::showFromArray('type', self::getTypes(), [
-            'value' => $this->fields['type'] ?? ComplianceObligationRules::DEFAULT_TYPE,
-        ]);
-        echo '</td>';
-
-        echo '<td>' . __('Référence / source', 'grcmanager') . '</td><td>';
-        echo Html::input('reference_source', [
-            'value' => $this->fields['reference_source'] ?? '',
-            'size'  => 40,
-        ]);
-        echo '<small class="form-hint">' . __(
-            'Ex. « RGPD », « Contrat client Acme SA », « Loi n°... ».',
-            'grcmanager'
-        ) . '</small>';
-        echo '</td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . __('Statut de conformité', 'grcmanager') . '</td><td>';
-        Dropdown::showFromArray('compliance_status', self::getComplianceStatuses(), [
-            'value' => $this->fields['compliance_status'] ?? ComplianceObligationRules::DEFAULT_STATUS,
-        ]);
-        echo '</td>';
-
-        echo '<td>' . __('Propriétaire', 'grcmanager') . '</td><td>';
-        User::dropdown([
-            'name'  => 'users_id',
-            'value' => $this->fields['users_id'] ?? 0,
-            'right' => 'all',
-        ]);
-        echo '</td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . __('Date de revue', 'grcmanager') . '</td><td>';
-        Html::showDateField('review_date', ['value' => $this->fields['review_date'] ?? '']);
-        echo '</td>';
 
         // Lien optionnel zéro-ou-un vers un risque du registre (issue #30 : "si le non-respect de
         // cette obligation constitue un risque identifié"), colonne directe (voir docblock de
-        // classe), un simple Dropdown::showFromArray non-multiple avec une option "Aucun" (id 0),
-        // jamais de logique JS conditionnelle (TECH_DEBT.md, "showForm() en HTML/PHP manuel").
+        // classe) avec une option "Aucun" (id 0).
         $riskTitles = [0 => Dropdown::EMPTY_VALUE];
         foreach ($DB->request(['SELECT' => ['id', 'title'], 'FROM' => PluginGrcmanagerRisk::getTable()]) as $row) {
             $riskTitles[(int) $row['id']] = $row['title'];
         }
 
-        echo '<td>' . __('Risque lié (optionnel)', 'grcmanager') . '</td><td>';
-        Dropdown::showFromArray('plugin_grcmanager_risks_id', $riskTitles, [
-            'value' => $this->fields['plugin_grcmanager_risks_id'] ?? 0,
+        TemplateRenderer::getInstance()->display('@grcmanager/compliance_obligation_form.html.twig', [
+            'item'           => $this,
+            'params'         => $options,
+            'types'          => self::getTypes(),
+            'statuses'       => self::getComplianceStatuses(),
+            'risks'          => $riskTitles,
+            'default_type'   => ComplianceObligationRules::DEFAULT_TYPE,
+            'default_status' => ComplianceObligationRules::DEFAULT_STATUS,
         ]);
-        echo '<small class="form-hint">' . __(
-            'À renseigner uniquement si le non-respect de cette obligation constitue un risque '
-                . 'identifié dans le registre de risques.',
-            'grcmanager'
-        ) . '</small>';
-        echo '</td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . __('Description / notes', 'grcmanager') . '</td>';
-        echo '<td colspan="3">';
-        echo '<textarea name="description" class="form-control" rows="4">'
-            . htmlescape($this->fields['description'] ?? '') . '</textarea>';
-        echo '</td></tr>';
-
-        $this->showFormButtons($options);
 
         return true;
     }

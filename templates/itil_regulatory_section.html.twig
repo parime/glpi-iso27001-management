@@ -2,6 +2,7 @@
    dans le panneau principal de l'objet ITIL (plugin_grcmanager_post_itil_info_section()). Les dates
    « notifié le » sont saisies par l'équipe : le plugin n'envoie jamais rien à une autorité. #}
 {% import 'components/form/fields_macros.html.twig' as fields %}
+{% import '@grcmanager/_hint.html.twig' as hints %}
 
 {% set badge_class = {'done': 'bg-green-lt', 'overdue': 'bg-red-lt', 'due_soon': 'bg-orange-lt', 'pending': 'bg-blue-lt'} %}
 {% set badge_icon = {'done': 'ti-circle-check', 'overdue': 'ti-alert-octagon', 'due_soon': 'ti-clock-exclamation', 'pending': 'ti-clock'} %}
@@ -29,13 +30,13 @@
             'nis2_applicable',
             item.fields['nis2_applicable']|default(0),
             __('Soumis à NIS2', 'grcmanager'),
-            {'full_width': true, 'disabled': not item.canUpdateItem(), 'rand': rand, 'helper': __('Entité essentielle ou importante, incident significatif : alerte précoce sous 24 h, notification sous 72 h, rapport final sous un mois.', 'grcmanager')}
+            {'full_width': true, 'disabled': not item.canUpdateItem(), 'rand': rand, 'add_field_html': hints.hint(__('Entité essentielle ou importante, incident significatif : alerte précoce sous 24 h, notification sous 72 h, rapport final sous un mois.', 'grcmanager'))}
          ) }}
          {{ fields.checkboxField(
             'personal_data_breach',
             item.fields['personal_data_breach']|default(0),
             __('Violation de données personnelles', 'grcmanager'),
-            {'full_width': true, 'disabled': not item.canUpdateItem(), 'rand': rand, 'helper': __('RGPD : notification à l\'autorité de contrôle (la CNIL en France) sous 72 h.', 'grcmanager')}
+            {'full_width': true, 'disabled': not item.canUpdateItem(), 'rand': rand, 'add_field_html': hints.hint(__('RGPD : notification à l\'autorité de contrôle (la CNIL en France) sous 72 h.', 'grcmanager'))}
          ) }}
 
          {% if deadlines|length %}

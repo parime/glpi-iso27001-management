@@ -1,0 +1,45 @@
+{# Issue #145 : onglet « Validités des preuves » d'un élément (issue #199 : passé de PHP à Twig) #}
+<div class="mb-2 text-muted">{{ __('Indiquez jusqu\'à quand chaque document prouve quelque chose (certificat, rapport, attestation). Le responsable est prévenu %d jours avant l\'échéance, puis un ticket « Renouveler la preuve » est ouvert ; le statut de l\'élément ne change jamais.', 'grcmanager')|format(warning_days) }}</div>
+
+{% if documents is empty %}
+   <div class="alert alert-info">{{ __('Aucun document rattaché : ajoutez d\'abord les preuves dans l\'onglet Documents.', 'grcmanager') }}</div>
+{% else %}
+   <table class="table table-sm align-middle">
+      <thead><tr><th>{{ __('Document', 'grcmanager') }}</th><th>{{ __('Statut', 'grcmanager') }}</th><th>{{ __('Valide jusqu\'au', 'grcmanager') }}</th><th>{{ __('Responsable du renouvellement', 'grcmanager') }}</th><th></th></tr></thead>
+      <tbody>
+         {% for doc in documents %}
+            {% set form_id = 'grcmanager-evidence-' ~ doc.documents_id %}
+            <tr>
+               <td>
+                  <a href="{{ doc.url }}">{{ doc.name }}</a>
+                  {% if doc.ticket_url %}
+                     <div class="small"><a href="{{ doc.ticket_url }}"><i class="ti ti-ticket me-1"></i>{{ __('Ticket de renouvellement n°%d', 'grcmanager')|format(doc.tickets_id) }}</a></div>
+                  {% endif %}
+               </td>
+               <td><span class="badge {{ doc.status_class }}">{{ doc.status_label }}</span></td>
+               {% if can_edit %}
+                  <td><input type="date" class="form-control form-control-sm" name="valid_until" form="{{ form_id }}" value="{{ doc.valid_until }}" aria-label="{{ __('Valide jusqu\'au', 'grcmanager') }} — {{ doc.name }}"></td>
+                  {% set user_dropdown = doc.user_dropdown_safe_html %}
+                  <td>{{ user_dropdown|raw }}</td>
+                  <td class="text-nowrap">
+                     <form method="post" action="{{ action }}" id="{{ form_id }}">
+                        <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                        <input type="hidden" name="itemtype" value="{{ itemtype }}">
+                        <input type="hidden" name="items_id" value="{{ items_id }}">
+                        <input type="hidden" name="documents_id" value="{{ doc.documents_id }}">
+                        <button type="submit" name="save" value="1" class="btn btn-sm btn-primary" aria-label="{{ __('Enregistrer') }}"><i class="ti ti-device-floppy"></i></button>
+                        {% if doc.evidence_id > 0 %}
+                           <button type="submit" name="purge" value="1" class="btn btn-sm btn-outline-danger" title="{{ __('Retirer la date de validité', 'grcmanager') }}" aria-label="{{ __('Retirer la date de validité', 'grcmanager') }}"><i class="ti ti-x"></i></button>
+                        {% endif %}
+                     </form>
+                  </td>
+               {% else %}
+                  <td>{{ doc.valid_until ? doc.valid_until|formatted_date }}</td>
+                  <td>{{ doc.user_name }}</td>
+                  <td></td>
+               {% endif %}
+            </tr>
+         {% endfor %}
+      </tbody>
+   </table>
+{% endif %}

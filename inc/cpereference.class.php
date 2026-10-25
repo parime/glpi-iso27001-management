@@ -63,6 +63,27 @@ class PluginGrcmanagerCpeReference extends CpeReferenceBase
         }
 
         global $DB;
+        // Ligne restée sans produit (produit supprimé avant que sa suppression n'efface ses
+        // identifiants) : elle ne doit pas bloquer une nouvelle saisie sur la clé unique.
+        $orphans = $DB->request([
+            'SELECT'    => [self::getTable() . '.id'],
+            'FROM'      => self::getTable(),
+            'LEFT JOIN' => [
+                PluginGrcmanagerCanonicalProduct::getTable() => [
+                    'FKEY' => [
+                        self::getTable() => 'plugin_grcmanager_canonicalproducts_id',
+                        PluginGrcmanagerCanonicalProduct::getTable() => 'id',
+                    ],
+                ],
+            ],
+            'WHERE'     => [
+                self::getTable() . '.cpe'                    => $cpe,
+                PluginGrcmanagerCanonicalProduct::getTable() . '.id' => null,
+            ],
+        ]);
+        foreach ($orphans as $orphan) {
+            $DB->delete(self::getTable(), ['id' => (int) $orphan['id']]);
+        }
         $existing = $DB->request([
             'SELECT' => ['manufacturer', 'product'],
             'FROM'   => PluginGrcmanagerCanonicalProduct::getTable(),

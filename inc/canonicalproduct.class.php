@@ -15,6 +15,7 @@
  * -------------------------------------------------------------------------
  */
 
+use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\CanonicalProductBase;
 
 /**
@@ -144,147 +145,80 @@ class PluginGrcmanagerCanonicalProduct extends CanonicalProductBase
         return $tab;
     }
 
+    /**
+     * Les identifiants CPE et alias du produit disparaissent avec lui : restés orphelins, ils
+     * bloquaient une nouvelle saisie du même identifiant (clé unique, erreur 500).
+     */
+    public function cleanDBonPurge()
+    {
+        foreach ([new PluginGrcmanagerCpeReference(), new PluginGrcmanagerProductAlias()] as $child) {
+            $child->deleteByCriteria(['plugin_grcmanager_canonicalproducts_id' => $this->getID()], true);
+        }
+    }
+
     public function showForm($ID, array $options = []): bool
     {
+        global $CFG_GLPI;
+
         $this->initForm($ID, $options);
-        $this->showFormHeader($options);
-
-        echo '<tr class="tab_bg_1"><td>' . __('Éditeur / fabricant', 'grcmanager') . '</td><td>';
-        echo Html::input('manufacturer', ['value' => $this->fields['manufacturer'] ?? '', 'size' => 40]);
-        echo '<small class="form-hint">' . __(
-            'Nom court, ex. "Apache", "Microsoft" — sert uniquement d\'étiquette, pas de comparaison.',
-            'grcmanager'
-        ) . '</small>';
-        echo '</td>';
-
-        echo '<td>' . __('Produit', 'grcmanager') . '</td><td>';
-        echo Html::input('product', ['value' => $this->fields['product'] ?? '', 'size' => 40]);
-        echo '</td></tr>';
-
-        $this->showFormButtons($options);
+        TemplateRenderer::getInstance()->display('@grcmanager/canonical_product_form.html.twig', [
+            'item'   => $this,
+            'params' => $options,
+        ]);
 
         // Comme PluginGrcmanagerObjective::showMeasurementHistory() : les deux listes satellites
         // n'ont de sens que pour un produit déjà enregistré (il leur faut un id réel).
-        if (!$this->isNewID($ID)) {
-            $this->showCpeReferences((int) $ID);
-            $this->showProductAliases((int) $ID);
+        if ($this->isNewID($ID)) {
+            return true;
         }
+        $front = $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/';
+        TemplateRenderer::getInstance()->display('@grcmanager/canonical_product_lists.html.twig', [
+            'product_id' => (int) $ID,
+            'can_edit'   => Session::haveRight(self::$rightname, UPDATE),
+            'lists'      => [
+                // Plusieurs CPE peuvent pointer vers le même produit canonique (le NVD référence
+                // souvent le même logiciel avec des identifiants légèrement différents).
+                [
+                    'title'       => __('Identifiants CPE', 'grcmanager'),
+                    'help'        => __(
+                        'Un identifiant CPE tel que rapporté par le NVD pour ce produit (ex. '
+                        . '"cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*"). Plusieurs identifiants peuvent pointer '
+                        . 'vers le même produit.',
+                        'grcmanager'
+                    ),
+                    'url'         => $front . 'cpereference.form.php',
+                    'field'       => 'cpe',
+                    'placeholder' => 'cpe:2.3:a:vendor:product:*:*:*:*:*:*:*:*',
+                    'code'        => true,
+                    'empty'       => __('Aucun identifiant CPE pour l\'instant.', 'grcmanager'),
+                    'rows'        => array_map(
+                        static fn (array $row): array => ['id' => (int) $row['id'], 'value' => (string) $row['cpe']],
+                        PluginGrcmanagerCpeReference::getForCanonicalProduct((int) $ID)
+                    ),
+                ],
+                // Le nom EXACT tel qu'il apparaît dans l'inventaire (glpi_softwares.name), jamais
+                // une correspondance approximative : voir Services\Cve\InventoryCveMatcher.
+                [
+                    'title'       => __('Alias de logiciels (parc GLPI)', 'grcmanager'),
+                    'help'        => __(
+                        'Le nom exact tel qu\'il apparaît dans votre inventaire GLPI (fiche Logiciel), pour que '
+                        . 'la corrélation puisse reconnaître ce produit sur vos actifs. Aucune correspondance '
+                        . 'approximative n\'est faite automatiquement.',
+                        'grcmanager'
+                    ),
+                    'url'         => $front . 'productalias.form.php',
+                    'field'       => 'alias',
+                    'placeholder' => 'ex. Apache Log4j',
+                    'code'        => false,
+                    'empty'       => __('Aucun alias pour l\'instant.', 'grcmanager'),
+                    'rows'        => array_map(
+                        static fn (array $row): array => ['id' => (int) $row['id'], 'value' => (string) $row['alias']],
+                        PluginGrcmanagerProductAlias::getForCanonicalProduct((int) $ID)
+                    ),
+                ],
+            ],
+        ]);
 
         return true;
-    }
-
-    /**
-     * Mini formulaire d'ajout suivi de la liste des identifiants CPE déjà rattachés à ce produit —
-     * plusieurs CPE peuvent pointer vers le même produit canonique (le NVD référence souvent le
-     * même logiciel avec des identifiants CPE légèrement différents selon les versions).
-     */
-    private function showCpeReferences(int $canonicalProductId): void
-    {
-        global $CFG_GLPI;
-
-        $canEdit = Session::haveRight(self::$rightname, UPDATE);
-        $formUrl = $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/cpereference.form.php';
-
-        echo '<div class="card mt-3"><div class="card-body">';
-        echo '<h3>' . __('Identifiants CPE', 'grcmanager') . '</h3>';
-        echo '<p class="text-muted">' . __(
-            'Un identifiant CPE tel que rapporté par le NVD pour ce produit (ex. '
-            . '"cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*"). Plusieurs identifiants peuvent pointer '
-            . 'vers le même produit.',
-            'grcmanager'
-        ) . '</p>';
-
-        if ($canEdit) {
-            echo '<form method="post" action="' . htmlescape($formUrl) . '" class="mb-3 d-flex gap-2">';
-            echo Html::hidden('plugin_grcmanager_canonicalproducts_id', ['value' => $canonicalProductId]);
-            echo Html::hidden('_glpi_csrf_token', ['value' => Session::getNewCSRFToken()]);
-            echo '<input type="text" name="cpe" class="form-control" style="max-width: 480px;" '
-                . 'placeholder="cpe:2.3:a:vendor:product:*:*:*:*:*:*:*:*">';
-            echo Html::submit(__('Ajouter'), ['name' => 'add']);
-            echo '</form>';
-        }
-
-        echo '<table class="table"><tbody>';
-        $references = PluginGrcmanagerCpeReference::getForCanonicalProduct($canonicalProductId);
-
-        if (count($references) === 0) {
-            echo '<tr><td class="text-muted">'
-                . __('Aucun identifiant CPE pour l\'instant.', 'grcmanager') . '</td></tr>';
-        }
-
-        foreach ($references as $reference) {
-            echo '<tr><td><code>' . htmlescape($reference['cpe']) . '</code></td>';
-            if ($canEdit) {
-                echo '<td class="text-end">';
-                echo '<form method="post" action="' . htmlescape($formUrl) . '" '
-                    . 'onsubmit="return confirm(\'' . __('Confirmer la suppression ?', 'grcmanager') . '\');">';
-                echo Html::hidden('id', ['value' => $reference['id']]);
-                echo Html::hidden('plugin_grcmanager_canonicalproducts_id', ['value' => $canonicalProductId]);
-                echo Html::hidden('_glpi_csrf_token', ['value' => Session::getNewCSRFToken()]);
-                echo '<button type="submit" name="purge" class="btn btn-sm btn-outline-danger">'
-                    . '<i class="ti ti-trash"></i></button>';
-                echo '</form></td>';
-            }
-            echo '</tr>';
-        }
-        echo '</tbody></table>';
-        echo '</div></div>';
-    }
-
-    /**
-     * Même schéma que showCpeReferences() ci-dessus, pour les alias de logiciels GLPI : l'admin
-     * saisit ici le nom EXACT tel qu'il apparaît dans l'inventaire (glpi_softwares.name) — jamais
-     * une correspondance approximative, voir GlpiPlugin\Grcmanager\Services\Cve\InventoryCveMatcher.
-     */
-    private function showProductAliases(int $canonicalProductId): void
-    {
-        global $CFG_GLPI;
-
-        $canEdit = Session::haveRight(self::$rightname, UPDATE);
-        $formUrl = $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/productalias.form.php';
-
-        echo '<div class="card mt-3"><div class="card-body">';
-        echo '<h3>' . __('Alias de logiciels (parc GLPI)', 'grcmanager') . '</h3>';
-        echo '<p class="text-muted">' . __(
-            'Le nom exact tel qu\'il apparaît dans votre inventaire GLPI (fiche Logiciel), pour que '
-            . 'la corrélation puisse reconnaître ce produit sur vos actifs. Aucune correspondance '
-            . 'approximative n\'est faite automatiquement.',
-            'grcmanager'
-        ) . '</p>';
-
-        if ($canEdit) {
-            echo '<form method="post" action="' . htmlescape($formUrl) . '" class="mb-3 d-flex gap-2">';
-            echo Html::hidden('plugin_grcmanager_canonicalproducts_id', ['value' => $canonicalProductId]);
-            echo Html::hidden('_glpi_csrf_token', ['value' => Session::getNewCSRFToken()]);
-            echo '<input type="text" name="alias" class="form-control" style="max-width: 480px;" '
-                . 'placeholder="ex. Apache Log4j">';
-            echo Html::submit(__('Ajouter'), ['name' => 'add']);
-            echo '</form>';
-        }
-
-        echo '<table class="table"><tbody>';
-        $aliases = PluginGrcmanagerProductAlias::getForCanonicalProduct($canonicalProductId);
-
-        if (count($aliases) === 0) {
-            echo '<tr><td class="text-muted">' . __('Aucun alias pour l\'instant.', 'grcmanager') . '</td></tr>';
-        }
-
-        foreach ($aliases as $alias) {
-            echo '<tr><td>' . htmlescape($alias['alias']) . '</td>';
-            if ($canEdit) {
-                echo '<td class="text-end">';
-                echo '<form method="post" action="' . htmlescape($formUrl) . '" '
-                    . 'onsubmit="return confirm(\'' . __('Confirmer la suppression ?', 'grcmanager') . '\');">';
-                echo Html::hidden('id', ['value' => $alias['id']]);
-                echo Html::hidden('plugin_grcmanager_canonicalproducts_id', ['value' => $canonicalProductId]);
-                echo Html::hidden('_glpi_csrf_token', ['value' => Session::getNewCSRFToken()]);
-                echo '<button type="submit" name="purge" class="btn btn-sm btn-outline-danger">'
-                    . '<i class="ti ti-trash"></i></button>';
-                echo '</form></td>';
-            }
-            echo '</tr>';
-        }
-        echo '</tbody></table>';
-        echo '</div></div>';
     }
 }

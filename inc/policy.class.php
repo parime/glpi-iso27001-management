@@ -15,6 +15,7 @@
  * -------------------------------------------------------------------------
  */
 
+use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\PolicyBase;
 use GlpiPlugin\Grcmanager\Services\Policy\PolicyLifecycle;
 use GlpiPlugin\Grcmanager\Services\Policy\PolicyReviewReminderService;
@@ -295,50 +296,12 @@ class PluginGrcmanagerPolicy extends PolicyBase
     public function showForm($ID, array $options = []): bool
     {
         $this->initForm($ID, $options);
-        $this->showFormHeader($options);
-
-        echo '<tr class="tab_bg_1"><td>' . __('Titre', 'grcmanager') . '</td>';
-        echo '<td colspan="3">';
-        echo Html::input('title', ['value' => $this->fields['title'] ?? '', 'size' => 80]);
-        echo '</td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . __('Version', 'grcmanager') . '</td><td>';
-        echo Html::input('version', ['value' => $this->fields['version'] ?? '1.0', 'size' => 10]);
-        echo '</td>';
-
-        echo '<td>' . __('Propriétaire', 'grcmanager') . '</td><td>';
-        User::dropdown([
-            'name'  => 'users_id',
-            'value' => $this->fields['users_id'] ?? 0,
-            'right' => 'all',
+        TemplateRenderer::getInstance()->display('@grcmanager/policy_form.html.twig', [
+            'item'           => $this,
+            'params'         => $options,
+            'statuses'       => self::getStatuses(),
+            'default_status' => PolicyLifecycle::STATUS_DRAFT,
         ]);
-        echo '</td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . __('Statut', 'grcmanager') . '</td><td>';
-        Dropdown::showFromArray('status', self::getStatuses(), [
-            'value' => $this->fields['status'] ?? PolicyLifecycle::STATUS_DRAFT,
-        ]);
-        echo '<small class="form-hint">' . __(
-            'Une date d\'approbation est obligatoire pour passer au statut "Approuvée".',
-            'grcmanager'
-        ) . '</small>';
-        echo '</td><td colspan="2"></td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . __('Date d\'approbation', 'grcmanager') . '</td><td>';
-        Html::showDateField('approval_date', ['value' => $this->fields['approval_date'] ?? '']);
-        echo '</td>';
-
-        echo '<td>' . __('Prochaine revue', 'grcmanager') . '</td><td>';
-        Html::showDateField('next_review_date', ['value' => $this->fields['next_review_date'] ?? '']);
-        echo '</td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . __('Description', 'grcmanager') . '</td>';
-        echo '<td colspan="3">';
-        echo '<textarea name="description" class="form-control" rows="4">'
-            . htmlescape($this->fields['description'] ?? '') . '</textarea>';
-        echo '</td></tr>';
-
-        $this->showFormButtons($options);
 
         return true;
     }

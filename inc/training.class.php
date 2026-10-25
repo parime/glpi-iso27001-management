@@ -15,6 +15,7 @@
  * -------------------------------------------------------------------------
  */
 
+use Glpi\Application\View\TemplateRenderer;
 use Glpi\DBAL\QueryExpression;
 use GlpiPlugin\Grcmanager\Compatibility\Base\TrainingBase;
 use GlpiPlugin\Grcmanager\Services\Training\TrainingRenewalService;
@@ -484,112 +485,20 @@ class PluginGrcmanagerTraining extends TrainingBase
     public function showForm($ID, array $options = []): bool
     {
         $this->initForm($ID, $options);
-        $this->showFormHeader($options);
-
-        echo '<tr class="tab_bg_1"><td>' . __('Titre', 'grcmanager') . '</td>';
-        echo '<td colspan="3">';
-        echo Html::input('title', ['value' => $this->fields['title'] ?? '', 'size' => 80]);
-        echo '</td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . __('Format', 'grcmanager') . '</td><td>';
-        Dropdown::showFromArray('format', self::getFormats(), [
-            'value' => $this->fields['format'] ?? 'in_person',
-        ]);
-        echo '</td>';
-
-        echo '<td>' . __('Date de réalisation', 'grcmanager') . '</td><td>';
-        Html::showDateField('date_delivered', ['value' => $this->fields['date_delivered'] ?? '']);
-        echo '</td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . __('Public cible', 'grcmanager') . '</td>';
-        echo '<td colspan="3">';
-        echo Html::input('target_audience', [
-            'value' => $this->fields['target_audience'] ?? '',
-            'size'  => 80,
-        ]);
-        echo '<small class="form-hint">' . __(
-            'Texte libre (ex. "Tout le personnel", "Équipe technique", nom d\'un groupe ou service).',
-            'grcmanager'
-        ) . '</small>';
-        echo '</td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . __('Obligatoire', 'grcmanager') . '</td><td>';
-        Html::showCheckbox([
-            'name'    => 'is_mandatory',
-            'checked' => (bool) ($this->fields['is_mandatory'] ?? true),
-        ]);
-        echo '</td>';
-
-        echo '<td>' . __('Renouvellement (mois)', 'grcmanager') . '</td><td>';
-        echo Html::input('renewal_period_months', [
-            'value' => $this->fields['renewal_period_months'] ?? 0,
-            'size'  => 5,
-        ]);
-        echo '<small class="form-hint">' . __('0 = pas de renouvellement requis.', 'grcmanager') . '</small>';
-        echo '</td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . __('Description', 'grcmanager') . '</td>';
-        echo '<td colspan="3">';
-        echo '<textarea name="description" class="form-control" rows="3">'
-            . htmlescape($this->fields['description'] ?? '') . '</textarea>';
-        echo '</td></tr>';
 
         $participants = $this->isNewID($ID) ? [] : self::getParticipants((int) $ID);
-
-        echo '<tr class="tab_bg_1"><td>' . __('Participants', 'grcmanager') . '</td>';
-        echo '<td colspan="3">';
-        // Unlike Dropdown::showFromArray() (see PluginGrcmanagerAudit::showForm()'s own
-        // Dropdown::showFromArray() calls for `linked_controls`/`risk_categories`), User::dropdown()
-        // reads the multi-select's preselected values from the singular `value` option, not
-        // `values`: it internally overwrites 'values' with 'value' as soon as 'multiple' is true
-        // (`$p['values'] = $p['value'] ?? [];`, see GLPI core src/User.php), so passing 'values'
-        // here silently produced an empty string instead of an array and crashed
-        // Html::jsAjaxDropdown() with a TypeError, confirmed live against GLPI 11 real.
-        User::dropdown([
-            'name'     => 'participants',
-            'value'    => array_column($participants, 'users_id'),
-            'multiple' => true,
-            'width'    => '100%',
-            'right'    => 'all',
+        TemplateRenderer::getInstance()->display('@grcmanager/training_form.html.twig', [
+            'item'                => $this,
+            'params'              => $options,
+            'formats'             => self::getFormats(),
+            // Nouvelle formation : obligatoire par défaut, comme la valeur par défaut en base.
+            'is_mandatory'        => $this->isNewItem() || !empty($this->fields['is_mandatory']),
+            'participant_ids'     => array_column($participants, 'users_id'),
+            'participants'        => $participants,
+            'user_label'          => User::getTypeName(1),
+            'completion_statuses' => self::getCompletionStatuses(),
+            'assessment_results'  => self::getAssessmentResults(),
         ]);
-        echo '<small class="form-hint">' . __(
-            'Enregistrez pour ajouter les nouveaux participants sélectionnés : leur suivi '
-            . 'individuel apparaît ci-dessous après enregistrement.',
-            'grcmanager'
-        ) . '</small>';
-        echo '</td></tr>';
-
-        if ($participants !== []) {
-            echo '<tr class="tab_bg_1"><td colspan="4">';
-            echo '<table class="table card-table"><thead><tr>';
-            echo '<th>' . User::getTypeName(1) . '</th>';
-            echo '<th>' . __('Statut de réalisation', 'grcmanager') . '</th>';
-            echo '<th>' . __('Date de réalisation', 'grcmanager') . '</th>';
-            echo '<th>' . __('Évaluation', 'grcmanager') . '</th>';
-            echo '</tr></thead><tbody>';
-
-            foreach ($participants as $participant) {
-                $userId = $participant['users_id'];
-                echo '<tr><td>' . htmlescape($participant['name']) . '</td><td>';
-                Dropdown::showFromArray("participant_status[{$userId}]", self::getCompletionStatuses(), [
-                    'value' => $participant['completion_status'],
-                ]);
-                echo '</td><td>';
-                Html::showDateField("participant_date[{$userId}]", [
-                    'value' => $participant['completion_date'] ?? '',
-                ]);
-                echo '</td><td>';
-                Dropdown::showFromArray("participant_result[{$userId}]", self::getAssessmentResults(), [
-                    'value' => $participant['assessment_result'],
-                ]);
-                echo '</td></tr>';
-            }
-
-            echo '</tbody></table>';
-            echo '</td></tr>';
-        }
-
-        $this->showFormButtons($options);
 
         return true;
     }

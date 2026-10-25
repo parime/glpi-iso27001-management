@@ -15,6 +15,7 @@
  * -------------------------------------------------------------------------
  */
 
+use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\ManagementReviewBase;
 
 /**
@@ -384,59 +385,8 @@ class PluginGrcmanagerManagementReview extends ManagementReviewBase
         global $DB;
 
         $this->initForm($ID, $options);
-        $this->showFormHeader($options);
 
-        echo '<tr class="tab_bg_1"><td>' . __('Titre', 'grcmanager') . '</td>';
-        echo '<td colspan="3">';
-        echo Html::input('title', ['value' => $this->fields['title'] ?? '', 'size' => 80]);
-        echo '</td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . __('Statut', 'grcmanager') . '</td><td>';
-        Dropdown::showFromArray('status', self::getStatuses(), [
-            'value' => $this->fields['status'] ?? 'planned',
-        ]);
-        echo '</td>';
-
-        echo '<td>' . __('Date de revue', 'grcmanager') . '</td><td>';
-        Html::showDateField('review_date', ['value' => $this->fields['review_date'] ?? '']);
-        echo '</td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . __('Participants', 'grcmanager') . '</td>';
-        echo '<td colspan="3">';
-        // See PluginGrcmanagerTraining::showForm()'s own docblock on this same call shape:
-        // User::dropdown() reads a multi-select's preselected values from 'value', not 'values'
-        // (unlike Dropdown::showFromArray()), confirmed live against GLPI 11 real.
-        User::dropdown([
-            'name'     => 'attendees',
-            'value'    => $this->isNewID($ID) ? [] : self::getAttendeeIds((int) $ID),
-            'multiple' => true,
-            'width'    => '100%',
-            'right'    => 'all',
-        ]);
-        echo '</td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . __('Ordre du jour', 'grcmanager') . '</td>';
-        echo '<td colspan="3">';
-        echo '<textarea name="agenda" class="form-control" rows="4">'
-            . htmlescape($this->fields['agenda'] ?? '') . '</textarea>';
-        echo '<small class="form-hint">' . __(
-            'Sujets réellement abordés (état des actions précédentes, changements du contexte, '
-            . 'retours des parties intéressées, résultats d\'audits, non-conformités, '
-            . 'opportunités d\'amélioration...).',
-            'grcmanager'
-        ) . '</small>';
-        echo '</td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . __('Décisions et actions', 'grcmanager') . '</td>';
-        echo '<td colspan="3">';
-        echo '<textarea name="decisions" class="form-control" rows="4">'
-            . htmlescape($this->fields['decisions'] ?? '') . '</textarea>';
-        echo '</td></tr>';
-
-        // Issue #32 (clause 6.2/9.3) : objectifs ISMS effectivement abordés lors de cette revue,
-        // même widget multi-select que PluginGrcmanagerControl::showForm() pour ses risques liés
-        // (Dropdown::showFromArray(..., ['multiple' => true]), pas Attribute-riche
-        // showSelectItemFromItemtypes(), même raisonnement TECH_DEBT.md issue #25).
+        // Issue #32 (clause 6.2/9.3) : objectifs ISMS effectivement abordés lors de cette revue.
         $objectiveTitles = [];
         foreach (
             $DB->request(['SELECT' => ['id', 'title'], 'FROM' => PluginGrcmanagerObjective::getTable()]) as $row
@@ -444,20 +394,14 @@ class PluginGrcmanagerManagementReview extends ManagementReviewBase
             $objectiveTitles[(int) $row['id']] = $row['title'];
         }
 
-        echo '<tr class="tab_bg_1"><td>' . __('Objectifs ISMS abordés', 'grcmanager') . '</td>';
-        echo '<td colspan="3">';
-        Dropdown::showFromArray('linked_objectives', $objectiveTitles, [
-            'values'   => $this->isNewID($ID) ? [] : self::getLinkedObjectiveIds((int) $ID),
-            'multiple' => true,
-            'width'    => '100%',
+        TemplateRenderer::getInstance()->display('@grcmanager/management_review_form.html.twig', [
+            'item'              => $this,
+            'params'            => $options,
+            'statuses'          => self::getStatuses(),
+            'attendees'         => $this->isNewID($ID) ? [] : self::getAttendeeIds((int) $ID),
+            'objectives'        => $objectiveTitles,
+            'linked_objectives' => $this->isNewID($ID) ? [] : self::getLinkedObjectiveIds((int) $ID),
         ]);
-        echo '<small class="form-hint">' . __(
-            'Objectif(s) ISO 27001 clause 6.2 dont la progression a été examinée lors de cette revue.',
-            'grcmanager'
-        ) . '</small>';
-        echo '</td></tr>';
-
-        $this->showFormButtons($options);
 
         return true;
     }

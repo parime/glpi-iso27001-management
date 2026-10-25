@@ -1,0 +1,13 @@
+{# Issue #144 : synthèse en tête de la matrice des flux (issue #199 : passé de PHP à Twig) #}
+<div class="card mb-3"><div class="card-body d-flex flex-wrap align-items-center gap-2">
+   <span class="me-2"><i class="ti ti-arrows-exchange me-1"></i>{{ active_label }}</span>
+   {% if checks is empty and active > 0 %}
+      <span class="badge bg-green-lt"><i class="ti ti-circle-check me-1"></i>{{ __('Conforme', 'grcmanager') }}</span>
+   {% endif %}
+   {% for c in checks %}
+      <span class="badge {{ c.blocking ? 'bg-red-lt' : 'bg-yellow-lt' }}">{{ c.label }} : {{ c.count }}</span>
+   {% endfor %}
+   {% if can_import %}
+      <a class="btn btn-sm btn-outline-primary ms-auto" href="{{ import_url }}"><i class="ti ti-file-import me-1"></i>{{ __('Importer un fichier CSV', 'grcmanager') }}</a>
+   {% endif %}
+</div></div>

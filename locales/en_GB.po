@@ -4868,3 +4868,26 @@ msgstr "… and %d others, visible in the technical compliance audit."
 
 msgid "Corrigez chaque élément, puis relancez l'audit pour vérifier. Rien n'a été modifié automatiquement."
 msgstr "Fix each item, then run the audit again to check. Nothing was changed automatically."
+
+msgid "Fichier CSV"
+msgstr "CSV file"
+
+#, php-format
+msgid "Mesures mises en œuvre par référentiel (%)"
+msgstr "Implemented controls by framework (%)"
+
+msgid "Échéances à 90 jours"
+msgstr "Deadlines within 90 days"
+
+#, php-format
+msgid "Revue des accès : % revus"
+msgstr "Access review: % reviewed"
+
+msgid "Délais NIS2 / RGPD en alerte"
+msgstr "NIS2 / GDPR deadlines at risk"
+
+msgid "Score fournisseurs moyen"
+msgstr "Average supplier score"
+
+msgid "Revues périodiques en retard"
+msgstr "Overdue periodic reviews"

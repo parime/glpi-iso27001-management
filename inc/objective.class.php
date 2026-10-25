@@ -15,6 +15,7 @@
  * -------------------------------------------------------------------------
  */
 
+use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\ObjectiveBase;
 use GlpiPlugin\Grcmanager\Services\Objective\ObjectiveStatuses;
 
@@ -262,168 +263,30 @@ class PluginGrcmanagerObjective extends ObjectiveBase
 
     public function showForm($ID, array $options = []): bool
     {
+        global $CFG_GLPI;
+
         $this->initForm($ID, $options);
-        $this->showFormHeader($options);
-
-        echo '<tr class="tab_bg_1"><td>' . __('Titre', 'grcmanager') . '</td>';
-        echo '<td colspan="3">';
-        echo Html::input('title', ['value' => $this->fields['title'] ?? '', 'size' => 80]);
-        echo '</td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . __('Propriétaire', 'grcmanager') . '</td><td>';
-        User::dropdown([
-            'name'  => 'users_id',
-            'value' => $this->fields['users_id'] ?? 0,
-            'right' => 'all',
+        TemplateRenderer::getInstance()->display('@grcmanager/objective_form.html.twig', [
+            'item'           => $this,
+            'params'         => $options,
+            'statuses'       => self::getStatuses(),
+            'default_status' => ObjectiveStatuses::NOT_STARTED,
         ]);
-        echo '</td>';
-
-        echo '<td>' . __('Statut', 'grcmanager') . '</td><td>';
-        Dropdown::showFromArray('status', self::getStatuses(), [
-            'value' => $this->fields['status'] ?? ObjectiveStatuses::NOT_STARTED,
-        ]);
-        echo '</td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . __('Échéance', 'grcmanager') . '</td><td>';
-        Html::showDateField('target_date', ['value' => $this->fields['target_date'] ?? '']);
-        echo '</td>';
-
-        echo '<td>' . __('Valeur cible', 'grcmanager') . '</td><td>';
-        echo Html::input('target_value', [
-            'value' => $this->fields['target_value'] ?? '',
-            'size'  => 10,
-        ]);
-        echo '<small class="form-hint">' . __(
-            'Laisser vide si cet objectif n\'a pas d\'indicateur chiffré (objectif purement qualitatif).',
-            'grcmanager'
-        ) . '</small>';
-        echo '</td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . __('Cible qualitative', 'grcmanager') . '</td>';
-        echo '<td colspan="3">';
-        echo '<textarea name="target_description" class="form-control" rows="2">'
-            . htmlescape($this->fields['target_description'] ?? '') . '</textarea>';
-        echo '<small class="form-hint">' . __(
-            'Description libre de la cible visée, en complément ou à la place d\'une valeur chiffrée '
-            . '(ex. "obtenir la certification ISO 27001", "déployer le MFA sur tous les comptes à '
-            . 'privilèges").',
-            'grcmanager'
-        ) . '</small>';
-        echo '</td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . __('Description', 'grcmanager') . '</td>';
-        echo '<td colspan="3">';
-        echo '<textarea name="description" class="form-control" rows="3">'
-            . htmlescape($this->fields['description'] ?? '') . '</textarea>';
-        echo '</td></tr>';
-
-        $this->showFormButtons($options);
 
         // La saisie de mesures n'a de sens que pour un objectif déjà enregistré (il lui faut un id
-        // réel auquel rattacher glpi_plugin_grcmanager_objectivemeasurements) : jamais affichée sur
-        // le formulaire de création, avant le premier enregistrement.
+        // réel auquel rattacher glpi_plugin_grcmanager_objectivemeasurements). Historique simple,
+        // sans dépendance de graphique (voir le docblock de cette classe).
         if (!$this->isNewID($ID)) {
-            $this->showMeasurementHistory((int) $ID);
+            TemplateRenderer::getInstance()->display('@grcmanager/objective_measurements.html.twig', [
+                'objective_id' => (int) $ID,
+                'can_edit'     => Session::haveRight(self::$rightname, UPDATE),
+                'action'       => $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/objectivemeasurement.form.php',
+                'today'        => date('Y-m-d'),
+                'numeric'      => $this->hasNumericTarget(),
+                'measurements' => PluginGrcmanagerObjectiveMeasurement::getMeasurements((int) $ID),
+            ]);
         }
 
         return true;
-    }
-
-    /**
-     * Mini formulaire d'ajout (date + valeur + commentaire, voir
-     * front/objectivemeasurement.form.php) suivi de l'historique chronologique des mesures déjà
-     * enregistrées : un tableau simple, honnête, montre la trajectoire sans nécessiter de
-     * dépendance de graphique supplémentaire (voir le docblock de cette classe).
-     *
-     * En dehors de `showFormHeader()`/`showFormButtons()` ci-dessus (donc en dehors du <form>
-     * qu'ils ouvrent/ferment) : un <form> HTML ne peut pas en contenir un second, et ce mini
-     * formulaire poste vers un contrôleur différent (front/objectivemeasurement.form.php) que celui
-     * de l'objectif lui-même.
-     */
-    private function showMeasurementHistory(int $objectiveId): void
-    {
-        global $CFG_GLPI;
-
-        $canEdit = Session::haveRight(self::$rightname, UPDATE);
-
-        echo '<div class="card mt-3"><div class="card-body">';
-        echo '<h3>' . __('Historique des mesures', 'grcmanager') . '</h3>';
-
-        if ($canEdit) {
-            $formUrl = $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/objectivemeasurement.form.php';
-            echo '<form method="post" action="' . htmlescape($formUrl) . '" class="mb-3">';
-            echo Html::hidden('plugin_grcmanager_objectives_id', ['value' => $objectiveId]);
-            echo Html::hidden('_glpi_csrf_token', ['value' => Session::getNewCSRFToken()]);
-
-            echo '<table class="table">';
-            echo '<tr>';
-            echo '<td>' . __('Date de la mesure', 'grcmanager') . '</td>';
-            echo '<td>' . __('Valeur', 'grcmanager') . '</td>';
-            echo '<td>' . __('Commentaire', 'grcmanager') . '</td>';
-            echo '<td></td>';
-            echo '</tr>';
-            echo '<tr>';
-            echo '<td>';
-            Html::showDateField('measurement_date', ['value' => date('Y-m-d')]);
-            echo '</td>';
-            echo '<td>' . Html::input('value', ['size' => 8]) . '</td>';
-            echo '<td><input type="text" name="comment" class="form-control"></td>';
-            echo '<td>' . Html::submit(__('Ajouter'), ['name' => 'add']) . '</td>';
-            echo '</tr>';
-            echo '</table>';
-
-            echo '<small class="form-hint">' . ($this->hasNumericTarget()
-                ? __('Une valeur numérique est obligatoire pour cet objectif chiffré.', 'grcmanager')
-                : __(
-                    'Objectif qualitatif : la valeur reste optionnelle, mais un commentaire est alors '
-                    . 'obligatoire.',
-                    'grcmanager'
-                )) . '</small>';
-            echo '</form>';
-        }
-
-        echo '<table class="table">';
-        echo '<thead><tr>';
-        echo '<th>' . __('Date de la mesure', 'grcmanager') . '</th>';
-        echo '<th>' . __('Valeur', 'grcmanager') . '</th>';
-        echo '<th>' . __('Commentaire', 'grcmanager') . '</th>';
-        if ($canEdit) {
-            echo '<th></th>';
-        }
-        echo '</tr></thead><tbody>';
-
-        $measurements = PluginGrcmanagerObjectiveMeasurement::getMeasurements($objectiveId);
-
-        if (count($measurements) === 0) {
-            $colspan = $canEdit ? 4 : 3;
-            echo '<tr><td colspan="' . $colspan . '" class="text-muted">'
-                . __('Aucune mesure enregistrée pour le moment.', 'grcmanager') . '</td></tr>';
-        }
-
-        foreach ($measurements as $measurement) {
-            echo '<tr>';
-            echo '<td>' . htmlescape(Html::convDate($measurement['measurement_date'] ?? '')) . '</td>';
-            echo '<td>' . ($measurement['value'] === null ? '' : htmlescape((string) $measurement['value'])) . '</td>';
-            echo '<td>' . htmlescape((string) ($measurement['comment'] ?? '')) . '</td>';
-
-            if ($canEdit) {
-                echo '<td>';
-                $deleteUrl = $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/objectivemeasurement.form.php';
-                echo '<form method="post" action="' . htmlescape($deleteUrl) . '" '
-                    . 'onsubmit="return confirm(\'' . __('Confirmer la suppression ?', 'grcmanager') . '\');">';
-                echo Html::hidden('id', ['value' => $measurement['id']]);
-                echo Html::hidden('plugin_grcmanager_objectives_id', ['value' => $objectiveId]);
-                echo Html::hidden('_glpi_csrf_token', ['value' => Session::getNewCSRFToken()]);
-                echo '<button type="submit" name="purge" class="btn btn-sm btn-outline-danger">'
-                    . '<i class="ti ti-trash"></i></button>';
-                echo '</form>';
-                echo '</td>';
-            }
-
-            echo '</tr>';
-        }
-
-        echo '</tbody></table>';
-        echo '</div></div>';
     }
 }

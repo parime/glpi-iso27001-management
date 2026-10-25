@@ -1,0 +1,21 @@
+{# Exigence du SMSI, articles 4 à 10 (issue #199 : formulaire passé de PHP à Twig) #}
+{% extends 'generic_show_form.html.twig' %}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+{% import '@grcmanager/_hint.html.twig' as hints %}
+
+{% block form_fields %}
+   {{ fields.htmlField('', '<strong>' ~ code|e ~ '</strong> - ' ~ code_title|e, __('Exigence', 'grcmanager')) }}
+   {{ fields.htmlField('', '<span class="badge bg-azure-lt">' ~ (clause ~ ' ' ~ clause_title)|e ~ '</span>', __('Article', 'grcmanager')) }}
+   {{ fields.dropdownArrayField('status', item.fields['status'] ?: default_status, statuses, __('Statut')) }}
+   {{ fields.dropdownField('User', 'users_id', item.fields['users_id'], __('Responsable', 'grcmanager'), {'right': 'all'}) }}
+   {{ fields.textareaField('comment', item.fields['comment'], __('Commentaire', 'grcmanager'), {
+      'full_width': true,
+      'add_field_html': hints.hint(__('Comment l\'exigence est satisfaite, où trouver les preuves. Joignez les documents dans l\'onglet Documents.', 'grcmanager')),
+   }) }}
+   {% if module %}
+      {{ fields.htmlField('', '<i class="ti ti-link me-1"></i><a href="' ~ module.url|e ~ '">' ~ module.label|e ~ '</a> <span class="badge bg-blue-lt">' ~ (__('%d enregistrement(s)', 'grcmanager')|format(module.count))|e ~ '</span>', __('Module lié', 'grcmanager'), {
+         'full_width': true,
+         'add_field_html': hints.hint(__('Ce module du plugin produit déjà des preuves pour cette exigence.', 'grcmanager')),
+      }) }}
+   {% endif %}
+{% endblock %}

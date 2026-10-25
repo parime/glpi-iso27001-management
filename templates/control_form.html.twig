@@ -1,0 +1,79 @@
+{# Mesure de l'Annexe A dans la SoA (issue #199 : formulaire passé de PHP à Twig) #}
+{% extends 'generic_show_form.html.twig' %}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+{% import '@grcmanager/_hint.html.twig' as hints %}
+
+{% macro referentials_hint(text, url) %}
+   <small class="form-hint d-block mt-1">{{ text }} <a href="{{ url }}">{{ __('l\'écran Référentiels', 'grcmanager') }}</a> {{ __('pour le détail.', 'grcmanager') }}</small>
+{% endmacro %}
+
+{% block form_fields %}
+   {{ fields.htmlField('', '<strong>' ~ code|e ~ '</strong>', __('Contrôle', 'grcmanager')) }}
+   {{ fields.htmlField('', theme_badge, __('Thème', 'grcmanager')) }}
+   {{ fields.htmlField('', title|e, __('Intitulé', 'grcmanager'), {'full_width': true}) }}
+   {{ fields.dropdownArrayField('applicability', item.fields['applicability'] ?: 'yes', applicabilities, __('Applicabilité', 'grcmanager')) }}
+   {{ fields.dropdownArrayField('implementation_status', item.fields['implementation_status'] ?: 'not_started', implementation_statuses, __('État de mise en œuvre', 'grcmanager')) }}
+   {{ fields.textareaField('justification', item.fields['justification'], __('Justification', 'grcmanager'), {
+      'full_width': true,
+      'add_field_html': hints.hint(__('Obligatoire si le contrôle n\'est pas pleinement applicable.', 'grcmanager')),
+   }) }}
+   {{ fields.dropdownArrayField('linked_risks', null, risks, __('Risques liés', 'grcmanager'), {
+      'multiple': true,
+      'values': linked_risks,
+      'full_width': true,
+      'add_field_html': hints.hint(__('Risque(s) du registre justifiant ou pilotant la mise en œuvre de ce contrôle.', 'grcmanager')),
+   }) }}
+
+   {# Correspondance publiée par le NIST (ROADMAP « Version 2.2 ») : ligne absente si le NIST n'en publie aucune. #}
+   {% if nist is not empty %}
+      {% set nist_html %}
+         {% for c in nist %}<span class="badge bg-blue-lt me-1">NIST CSF {{ c }}</span>{% endfor %}
+         {{ _self.referentials_hint(__('Correspondance publiée par le NIST — voir', 'grcmanager'), referentials_url) }}
+      {% endset %}
+      {{ fields.htmlField('', nist_html, __('Référentiels équivalents', 'grcmanager'), {'full_width': true}) }}
+   {% endif %}
+   {# Issues #110 et #111 : correspondances indicatives établies par ce projet. #}
+   {% if nis2 is not empty %}
+      {% set nis2_html %}
+         {% for c in nis2 %}<span class="badge bg-purple-lt me-1">NIS2 {{ c }}</span>{% endfor %}
+         {{ _self.referentials_hint(__('Correspondance indicative, établie par ce projet — voir', 'grcmanager'), referentials_url) }}
+      {% endset %}
+      {{ fields.htmlField('', nis2_html, __('Exigences NIS2', 'grcmanager'), {'full_width': true}) }}
+   {% endif %}
+   {% if anssi is not empty %}
+      {% set anssi_html %}
+         {% for m in anssi %}<span class="badge bg-teal-lt me-1" title="{{ m.title }}">{{ __('Mesure %d', 'grcmanager')|format(m.number) }}</span>{% endfor %}
+         {{ _self.referentials_hint(__('Correspondance indicative, établie par ce projet — voir', 'grcmanager'), referentials_url) }}
+      {% endset %}
+      {{ fields.htmlField('', anssi_html, __('Hygiène ANSSI', 'grcmanager'), {'full_width': true}) }}
+   {% endif %}
+
+   {# Issue #109 et assetsign #204 : preuves issues d'assetsign, ligne absente si le plugin n'est pas actif. #}
+   {% if assetsign_sheets is not empty or assetsign_charter is not null %}
+      {% set assetsign_html %}
+         {% for s in assetsign_sheets %}
+            <div class="mb-1"><strong>{{ s.label }}</strong> :
+               <span class="badge bg-green-lt me-1"><i class="ti ti-check me-1"></i>{{ __('%d signée(s)', 'grcmanager')|format(s.signed) }}</span>
+               <span class="badge bg-yellow-lt me-1"><i class="ti ti-hourglass me-1"></i>{{ __('%d en attente', 'grcmanager')|format(s.pending) }}</span>
+               <span class="badge bg-red-lt me-1"><i class="ti ti-clock-x me-1"></i>{{ __('%d expirée(s)', 'grcmanager')|format(s.expired) }}</span>
+               {% if s.url %} <a href="{{ s.url }}">{{ __('Voir les fiches', 'grcmanager') }}</a>{% endif %}
+            </div>
+         {% endfor %}
+         {% if assetsign_charter is not null %}
+            <div class="mb-1"><strong>{{ __('Charte informatique signée', 'grcmanager') }}</strong> :
+               {% if assetsign_charter is empty %}<span class="text-muted">{{ __('aucune campagne de charte lancée', 'grcmanager') }}</span>{% endif %}
+            </div>
+            {% if assetsign_charter is not empty %}
+               <ul class="mb-1">
+                  {% for line in assetsign_charter %}
+                     <li>{{ line.entity }} : <span class="badge {{ line.rate >= 90 ? 'bg-green-lt' : (line.rate >= 60 ? 'bg-yellow-lt' : 'bg-red-lt') }} me-1">{{ __('%1$d / %2$d (%3$d %%)', 'grcmanager')|format(line.signed, line.total, line.rate) }}</span><span class="text-muted">{{ line.campaign }}</span></li>
+                  {% endfor %}
+               </ul>
+               {% if campaigns_url %}<a href="{{ campaigns_url }}">{{ __('Voir les campagnes', 'grcmanager') }}</a>{% endif %}
+            {% endif %}
+         {% endif %}
+         <small class="form-hint d-block mt-1">{{ __('Compteurs calculés en direct depuis le plugin assetsign, sur vos entités actives.', 'grcmanager') }}</small>
+      {% endset %}
+      {{ fields.htmlField('', assetsign_html, __('Preuves assetsign', 'grcmanager'), {'full_width': true}) }}
+   {% endif %}
+{% endblock %}

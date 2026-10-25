@@ -7,6 +7,38 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.9.0] - 2026-10-25
+
+### Added
+
+- **Cartes de pilotage du tableau de bord** (issue #143) : six nouvelles cartes, ajoutées au tableau
+  de bord « GRC Manager - Vue d'ensemble ISMS » et disponibles dans l'éditeur de tableaux de bord
+  de GLPI : mesures mises en œuvre par référentiel (ISO/IEC 27001, NIS2, guide d'hygiène de
+  l'ANSSI, d'après les correspondances indicatives du plugin), échéances de conformité à 90 jours,
+  avancement de la revue des accès en cours, délais NIS2 / RGPD proches ou dépassés, score moyen
+  des questionnaires fournisseurs, revues périodiques en retard. Chaque carte ouvre la liste
+  correspondante et respecte les droits du profil.
+
+### Changed
+
+- **Écrans en Twig** (issue #199, exigence du Marketplace GLPI) : tous les formulaires, onglets et
+  écrans du plugin sont rendus par des gabarits Twig (risques, mesures de l'Annexe A, exigences du
+  SMSI, risques fournisseurs, audits, revues de direction, objectifs et mesures, formations,
+  politiques, obligations, revue des accès, hygiène des comptes, validités des preuves, calendrier
+  de conformité, revues périodiques, matrice des flux et son import, catalogue de produits). Le HTML
+  écrit en PHP passe de 1226 à 241 chaînes.
+- **Aides des formulaires visibles** sous chaque champ, et non plus derrière un « ? » à survoler.
+
+### Fixed
+
+- Après « Ajouter », la fiche de l'élément créé s'ouvre au lieu d'un formulaire vide (audits,
+  obligations, mesures, revues de direction, objectifs, politiques, risques, risques fournisseurs,
+  formations, catalogue de produits).
+- Catalogue de produits : supprimer un produit efface ses CPE et alias ; un identifiant orphelin ne
+  provoque plus d'erreur 500 à la saisie.
+- Une nouvelle formation est cochée « Obligatoire » par défaut.
+- Fiche d'une exigence du SMSI : le libellé « Module lié » n'affiche plus de HTML en texte.
+
 ## [2.8.0] - 2026-10-25
 
 ### Added

@@ -1,0 +1,16 @@
+{# Politique de sécurité versionnée, A.5.1 (issue #199 : formulaire passé de PHP à Twig) #}
+{% extends 'generic_show_form.html.twig' %}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+{% import '@grcmanager/_hint.html.twig' as hints %}
+
+{% block form_fields %}
+   {{ fields.textField('title', item.fields['title'], __('Titre', 'grcmanager'), {'full_width': true}) }}
+   {{ fields.textField('version', item.fields['version'] ?: '1.0', __('Version', 'grcmanager')) }}
+   {{ fields.dropdownField('User', 'users_id', item.fields['users_id'], __('Propriétaire', 'grcmanager'), {'right': 'all'}) }}
+   {{ fields.dropdownArrayField('status', item.fields['status'] ?: default_status, statuses, __('Statut', 'grcmanager'), {
+      'add_field_html': hints.hint(__('Une date d\'approbation est obligatoire pour passer au statut "Approuvée".', 'grcmanager')),
+   }) }}
+   {{ fields.dateField('approval_date', item.fields['approval_date'], __('Date d\'approbation', 'grcmanager')) }}
+   {{ fields.dateField('next_review_date', item.fields['next_review_date'], __('Prochaine revue', 'grcmanager')) }}
+   {{ fields.textareaField('description', item.fields['description'], __('Description', 'grcmanager'), {'full_width': true}) }}
+{% endblock %}

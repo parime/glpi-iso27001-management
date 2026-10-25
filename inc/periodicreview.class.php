@@ -15,6 +15,7 @@
  * -------------------------------------------------------------------------
  */
 
+use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\PeriodicReviewBase;
 use GlpiPlugin\Grcmanager\Services\Review\PeriodicReviewCatalog;
 
@@ -413,29 +414,12 @@ class PluginGrcmanagerPeriodicReview extends PeriodicReviewBase
 
         $canManage = self::canManage();
         $today = date('Y-m-d');
-
-        echo '<div class="card"><div class="card-body">';
-        echo '<p class="text-muted mb-3"><i class="ti ti-info-circle me-1"></i>' . htmlescape(__(
-            'Chaque revue activée devient un ticket récurrent natif de GLPI (Assistance > Tickets récurrents), '
-                . 'créé à la fréquence choisie et attribué au responsable. Résoudre le ticket date la revue : '
-                . 'c\'est la preuve attendue par l\'auditeur.',
-            'grcmanager'
-        )) . '</p>';
-        if (!$canManage) {
-            echo '<div class="alert alert-info">' . htmlescape(__(
-                'Lecture seule : activer une revue demande le droit de modification du plugin et le droit de '
-                    . 'créer des tickets récurrents et des gabarits de tickets.',
-                'grcmanager'
-            )) . '</div>';
+        $frequencies = [];
+        foreach (PeriodicReviewCatalog::FREQUENCIES as $months) {
+            $frequencies[$months] = self::frequencyLabel($months);
         }
-        echo '<div class="table-responsive"><table class="table table-hover align-middle"><thead><tr>';
-        $headers = [__('Revue', 'grcmanager'), __('Fréquence', 'grcmanager'), __('Responsable', 'grcmanager'),
-            __('État', 'grcmanager'), __('Dernière revue', 'grcmanager'), __('Prochain ticket', 'grcmanager'), ''];
-        foreach ($headers as $header) {
-            echo '<th>' . htmlescape($header) . '</th>';
-        }
-        echo '</tr></thead><tbody>';
 
+        $reviews = [];
         $rows = iterator_to_array($DB->request(['FROM' => self::getTable()]), false);
         $byKey = array_column($rows, null, 'review_key');
         foreach (PeriodicReviewCatalog::keys() as $key) {
@@ -444,133 +428,65 @@ class PluginGrcmanagerPeriodicReview extends PeriodicReviewBase
             }
             $review = new self();
             $review->getFromDB((int) $byKey[$key]['id']);
-            $review->showRow($canManage, $today);
+            $reviews[] = $review->rowData($canManage, $today);
         }
-        echo '</tbody></table></div></div></div>';
+
+        TemplateRenderer::getInstance()->display('@grcmanager/periodic_reviews.html.twig', [
+            'reviews'     => $reviews,
+            'can_manage'  => $canManage,
+            'frequencies' => $frequencies,
+            'action'      => self::getSearchURL(),
+        ]);
     }
 
-    private function showRow(bool $canManage, string $today): void
+    /**
+     * @return array<string, mixed>
+     */
+    private function rowData(bool $canManage, string $today): array
     {
         $key = $this->getKey();
         $form = 'grc-review-' . $this->getID();
-        echo '<tr><td><strong>' . htmlescape(self::getLabel($key)) . '</strong><div class="small text-muted">';
-        foreach (PeriodicReviewCatalog::controls($key) as $control) {
-            echo '<span class="badge bg-secondary-lt me-1">' . htmlescape($control) . '</span>';
-        }
-        echo '</div></td>';
-
-        echo '<td>';
         $months = (int) $this->fields['frequency_months'];
-        if ($canManage) {
-            echo '<select name="frequency_months" form="' . $form . '" class="form-select form-select-sm"'
-                . ' style="min-width: 170px;" aria-label="' . htmlescape(__('Fréquence', 'grcmanager')) . '">';
-            foreach (PeriodicReviewCatalog::FREQUENCIES as $option) {
-                echo '<option value="' . $option . '"' . ($option === $months ? ' selected' : '') . '>'
-                    . htmlescape(self::frequencyLabel($option)) . '</option>';
-            }
-            echo '</select>';
-        } else {
-            echo htmlescape(self::frequencyLabel($months));
-        }
-        echo '</td>';
-
-        echo '<td style="min-width: 240px;">';
-        $this->showOwner($canManage, $form);
-        echo '</td>';
-
-        echo '<td>';
-        if (!$this->isActive()) {
-            echo self::badge('bg-secondary-lt', 'ti-player-pause', __('Inactive', 'grcmanager'));
-        } elseif ($this->isOverdue($today)) {
-            echo self::badge('bg-danger-lt', 'ti-alert-triangle', __('En retard', 'grcmanager'));
-        } else {
-            echo self::badge('bg-success-lt', 'ti-check', __('Active', 'grcmanager'));
-        }
-        echo '</td>';
-
-        $last = (string) ($this->fields['last_review_date'] ?? '');
-        echo '<td>' . htmlescape($last !== '' ? (string) Html::convDate($last) : __('Jamais', 'grcmanager'));
         $ticketsId = (int) $this->fields['last_tickets_id'];
-        if ($ticketsId > 0) {
-            echo ' <a href="' . htmlescape(Ticket::getFormURLWithID($ticketsId)) . '" class="small">'
-                . '<i class="ti ti-ticket me-1"></i>'
-                . htmlescape(sprintf(__('Ticket n°%d', 'grcmanager'), $ticketsId)) . '</a>';
-        }
-        echo '</td>';
-
-        $next = $this->getNextCreationDate();
-        echo '<td>' . htmlescape($next !== null ? (string) Html::convDateTime($next) : '—');
         $recurrentsId = (int) $this->fields['ticketrecurrents_id'];
-        if ($recurrentsId > 0) {
-            echo ' <a href="' . htmlescape(TicketRecurrent::getFormURLWithID($recurrentsId)) . '" class="small"'
-                . ' title="' . htmlescape(__('Ouvrir le ticket récurrent', 'grcmanager')) . '">'
-                . '<i class="ti ti-external-link"></i></a>';
-        }
-        echo '</td>';
+        $state = !$this->isActive() ? 'inactive' : ($this->isOverdue($today) ? 'overdue' : 'active');
 
-        echo '<td class="text-end text-nowrap">';
-        if ($canManage) {
-            $this->showActions($form);
-        }
-        echo '</td></tr>';
-    }
-
-    private function showOwner(bool $canManage, string $form): void
-    {
-        if (!$canManage) {
-            echo htmlescape(trim(getUserName((int) $this->fields['users_id_assign']) . ' '
-                . Dropdown::getDropdownName('glpi_groups', (int) $this->fields['groups_id_assign'])));
-            return;
-        }
-        echo '<div class="small text-muted">' . htmlescape(__('Technicien', 'grcmanager')) . '</div>';
-        User::dropdown([
-            'name'          => 'users_id_assign',
-            'value'         => (int) $this->fields['users_id_assign'],
-            'right'         => 'own_ticket',
-            'addicon'       => false,
-            'width'         => '100%',
-            'rand'          => mt_rand(),
-            'specific_tags' => ['form' => $form],
-        ]);
-        echo '<div class="small text-muted mt-1">' . htmlescape(__('Groupe', 'grcmanager')) . '</div><div>';
-        Group::dropdown([
-            'name'          => 'groups_id_assign',
-            'value'         => (int) $this->fields['groups_id_assign'],
-            'condition'     => ['is_assign' => 1],
-            'addicon'       => false,
-            'width'         => '100%',
-            'rand'          => mt_rand(),
-            'specific_tags' => ['form' => $form],
-        ]);
-        echo '</div>';
-    }
-
-    private function showActions(string $form): void
-    {
-        echo '<form id="' . $form . '" method="post" action="' . htmlescape(self::getSearchURL()) . '"'
-            . ' class="d-inline">';
-        echo '<input type="hidden" name="_glpi_csrf_token" value="' . htmlescape(Session::getNewCSRFToken()) . '">';
-        echo '<input type="hidden" name="id" value="' . $this->getID() . '">';
-        if ($this->isActive()) {
-            echo self::button('activate', 'btn-primary me-1', 'ti-device-floppy', __('Enregistrer', 'grcmanager'));
-            $label = __('Désactiver', 'grcmanager');
-            echo self::button('deactivate', 'btn-outline-secondary', 'ti-player-pause', $label);
-        } else {
-            echo self::button('activate', 'btn-success', 'ti-player-play', __('Activer', 'grcmanager'));
-        }
-        echo '</form>';
-    }
-
-    private static function badge(string $class, string $icon, string $label): string
-    {
-        return '<span class="badge ' . $class . '"><i class="ti ' . $icon . ' me-1"></i>'
-            . htmlescape($label) . '</span>';
-    }
-
-    private static function button(string $name, string $class, string $icon, string $label): string
-    {
-        return '<button type="submit" name="' . $name . '" value="1" class="btn btn-sm ' . $class . '">'
-            . '<i class="ti ' . $icon . ' me-1"></i>' . htmlescape($label) . '</button>';
+        return [
+            'id'              => $this->getID(),
+            'label'           => self::getLabel($key),
+            'controls'        => PeriodicReviewCatalog::controls($key),
+            'months'          => $months,
+            'frequency_label' => self::frequencyLabel($months),
+            'state'           => $state,
+            'last_review'     => (string) ($this->fields['last_review_date'] ?? ''),
+            'tickets_id'      => $ticketsId,
+            'ticket_url'      => $ticketsId > 0 ? Ticket::getFormURLWithID($ticketsId) : '',
+            'next'            => (string) ($this->getNextCreationDate() ?? ''),
+            'recurrent_url'   => $recurrentsId > 0 ? TicketRecurrent::getFormURLWithID($recurrentsId) : '',
+            'owner'           => trim(getUserName((int) $this->fields['users_id_assign']) . ' '
+                . Dropdown::getDropdownName('glpi_groups', (int) $this->fields['groups_id_assign'])),
+            // Listes natives de GLPI, rattachées au formulaire de la ligne (attribut form).
+            'user_dropdown'   => $canManage ? User::dropdown([
+                'name'          => 'users_id_assign',
+                'value'         => (int) $this->fields['users_id_assign'],
+                'right'         => 'own_ticket',
+                'addicon'       => false,
+                'width'         => '100%',
+                'rand'          => mt_rand(),
+                'display'       => false,
+                'specific_tags' => ['form' => $form],
+            ]) : '',
+            'group_dropdown'  => $canManage ? Group::dropdown([
+                'name'          => 'groups_id_assign',
+                'value'         => (int) $this->fields['groups_id_assign'],
+                'condition'     => ['is_assign' => 1],
+                'addicon'       => false,
+                'width'         => '100%',
+                'rand'          => mt_rand(),
+                'display'       => false,
+                'specific_tags' => ['form' => $form],
+            ]) : '',
+        ];
     }
 
     public static function frequencyLabel(int $months): string

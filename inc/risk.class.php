@@ -15,6 +15,7 @@
  * -------------------------------------------------------------------------
  */
 
+use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\RiskBase;
 use GlpiPlugin\Grcmanager\Services\Classification\ClassificationLevels;
 use GlpiPlugin\Grcmanager\Services\Risk\LinkableItemtypes;
@@ -309,137 +310,26 @@ class PluginGrcmanagerRisk extends RiskBase
 
     public function showForm($ID, array $options = []): bool
     {
-        global $DB;
+        global $DB, $CFG_GLPI;
 
         $this->initForm($ID, $options);
-        $this->showFormHeader($options);
-
-        echo '<tr class="tab_bg_1"><td>' . __('Titre', 'grcmanager') . '</td>';
-        echo '<td colspan="3">';
-        echo Html::input('title', ['value' => $this->fields['title'] ?? '', 'size' => 80]);
-        echo '</td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . __('Catégorie', 'grcmanager') . '</td><td>';
-        Dropdown::showFromArray('category', self::getCategories(), [
-            'value' => $this->fields['category'] ?? 'process',
-        ]);
-        echo '</td>';
-
-        echo '<td>' . __('Propriétaire', 'grcmanager') . '</td><td>';
-        User::dropdown([
-            'name'  => 'users_id',
-            'value' => $this->fields['users_id'] ?? 0,
-            'right' => 'all',
-        ]);
-        echo '</td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . __('Probabilité', 'grcmanager') . '</td><td>';
-        Dropdown::showFromArray('probability', self::getProbabilities(), [
-            'value' => $this->fields['probability'] ?? 'possible',
-        ]);
-        echo '</td>';
-
-        echo '<td>' . __('Impact', 'grcmanager') . '</td><td>';
-        Dropdown::showFromArray('impact', self::getImpacts(), [
-            'value' => $this->fields['impact'] ?? 'medium',
-        ]);
-
-        // Issue #26 : suggestion non-bloquante uniquement, ne modifie jamais la valeur choisie par
-        // l'utilisateur (voir ClassificationLevels::hasHighAxis()) - un simple signal visuel quand
-        // au moins un actif déjà lié porte une classification C/I/D élevée, pour orienter la
-        // décision sans jamais la prendre à sa place. Reste dans la structure existante de
-        // showForm() (pas de logique JS conditionnelle, cohérent avec TECH_DEBT.md).
-        if (!$this->isNewID($ID) && self::hasHighClassificationAmongLinkedAssets((int) $ID)) {
-            $hint = __(
-                'Un actif lié porte une classification C/I/D élevée : vérifiez l\'impact de ce risque.',
-                'grcmanager'
-            );
-            echo '<div class="form-hint text-warning mt-1">'
-                . '<i class="ti ti-alert-triangle me-1"></i>' . $hint
-                . '</div>';
-        }
-
-        echo '</td></tr>';
-
-        if ($this->isNewID($ID) === false) {
-            echo '<tr class="tab_bg_1"><td>' . __('Niveau de risque', 'grcmanager') . '</td><td>';
-            echo self::riskLevelBadge($this->fields['risk_level'] ?? null);
-            echo '</td>';
-
-            echo '<td>' . __('Score', 'grcmanager') . '</td><td>';
-            echo htmlescape((string) ($this->fields['computed_score'] ?? '0'));
-            echo '</td></tr>';
-        }
-
-        echo '<tr class="tab_bg_1"><td>' . __('Traitement', 'grcmanager') . '</td><td>';
+        $isNew = $this->isNewID($ID);
         $treatment = (string) ($this->fields['treatment'] ?? '');
-        Dropdown::showFromArray('treatment', self::getTreatments(), [
-            'value' => $treatment,
-        ]);
-        // Issue #31 : signal precoce, au plus pres de la decision elle-meme, que ce choix
-        // implique un plan de traitement plus bas dans ce meme formulaire (voir
-        // showTreatmentPlan() ci-dessous) - meme "form-hint" texte simple que le reste de ce
-        // plugin (TECH_DEBT.md "showForm() en HTML/PHP manuel"), jamais de bascule JS.
-        if (TreatmentPlanRules::isTreatmentPlanRelevant($treatment)) {
-            echo '<br><small class="form-hint">' . __(
-                'Un plan de traitement (une ou plusieurs actions concrètes) est attendu pour ce '
-                . 'choix, voir plus bas sur cette fiche.',
-                'grcmanager'
-            ) . '</small>';
-        }
-        echo '</td>';
+        $planRelevant = TreatmentPlanRules::isTreatmentPlanRelevant($treatment);
 
-        echo '<td>' . __('Statut', 'grcmanager') . '</td><td>';
-        Dropdown::showFromArray('status', self::getStatuses(), [
-            'value' => $this->fields['status'] ?? 'identified',
-        ]);
-        echo '</td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . __('Date de revue', 'grcmanager') . '</td><td>';
-        Html::showDateField('review_date', ['value' => $this->fields['review_date'] ?? '']);
-        echo '</td><td colspan="2"></td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . __('Description', 'grcmanager') . '</td>';
-        echo '<td colspan="3">';
-        echo '<textarea name="description" class="form-control" rows="4">'
-            . htmlescape($this->fields['description'] ?? '') . '</textarea>';
-        echo '</td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . __('Justification', 'grcmanager') . '</td>';
-        echo '<td colspan="3">';
-        echo '<textarea name="justification" class="form-control" rows="4">'
-            . htmlescape($this->fields['justification'] ?? '') . '</textarea>';
-        echo '</td></tr>';
-
-        // Issue #25 (lien registre de risques <-> actifs GLPI/CMDB) : un multi-select PAR itemtype
-        // liable (jamais un unique widget polymorphe façon Dropdown::showSelectItemFromItemtypes(),
-        // qui exige de la JS conditionnelle absente de ce formulaire, voir TECH_DEBT.md "showForm()
-        // en HTML/PHP manuel") — même widget Dropdown::showFromArray(..., ['multiple' => true]) que
-        // PluginGrcmanagerControl::showForm() pour son propre lien vers les risques, un par type
-        // pour couvrir plusieurs itemtypes cibles à la fois. Un type sans aucun enregistrement dans
-        // cette instance GLPI n'affiche aucune ligne, pour ne pas encombrer le formulaire avec des
-        // listes vides.
-        echo '<tr class="tab_bg_1"><td colspan="4"><strong>'
-            . __('Actifs liés (CMDB)', 'grcmanager') . '</strong></td></tr>';
-
-        $linkedIdsByType = $this->isNewID($ID) ? [] : self::getLinkedAssetIdsByType((int) $ID);
-
+        // Issue #25 : une sélection multiple par type d'actif liable, seulement pour les types qui
+        // ont des actifs visibles. Issue #26 : chaque option porte sa classification C/I/D (lecture
+        // seule, l'édition reste sur l'onglet « Classification C/I/D » de l'actif).
+        $linkedIdsByType = $isNew ? [] : self::getLinkedAssetIdsByType((int) $ID);
+        $assetGroups = [];
         foreach (self::getLinkableItemtypes() as $itemtype) {
             if (!is_a($itemtype, CommonDBTM::class, true) || !$itemtype::canView()) {
                 continue;
             }
-
-            // Issue #26 : annote chaque option avec sa classification C/I/D existante quand elle en
-            // a une (ex. "web-server-01 (C: Élevé, I: Élevé, D: Moyen)"), en lecture seule - l'édition
-            // reste exclusivement sur l'onglet "Classification C/I/D" propre à l'actif
-            // (PluginGrcmanagerAssetClassification), jamais dupliquée ici. Une seule requête par
-            // itemtype (getByItemtype()), pas une par actif, pour ne pas alourdir une liste déjà non
-            // paginée (voir TECH_DEBT.md, limitation assumée depuis l'issue #25).
             $classificationsByItemsId = PluginGrcmanagerAssetClassification::getByItemtype($itemtype);
 
             // Le risque est global, les actifs non : seulement ceux que l'utilisateur voit (entités
-            // de la session), hors corbeille et gabarits — sinon la liste exposait le nom et la
-            // classification C/I/D des actifs de toutes les entités.
+            // de la session), hors corbeille et gabarits.
             $prototype = new $itemtype();
             $table     = $itemtype::getTable();
             $where     = getEntitiesRestrictCriteria($table, '', '', $prototype->maybeRecursive())
@@ -451,7 +341,7 @@ class PluginGrcmanagerRisk extends RiskBase
                 $where["$table.is_template"] = 0;
             }
 
-            $options = [];
+            $assetOptions = [];
             foreach ($DB->request(['FROM' => $table, 'WHERE' => $where, 'ORDER' => 'name']) as $row) {
                 $itemsId = (int) $row['id'];
                 $label   = $row['name'] !== '' ? $row['name'] : sprintf('#%d', $itemsId);
@@ -465,167 +355,72 @@ class PluginGrcmanagerRisk extends RiskBase
                         self::classificationLevelLabel($classification['availability'] ?? null)
                     );
                 }
-
-                $options[$itemsId] = $label;
+                $assetOptions[$itemsId] = $label;
             }
-
-            if ($options === []) {
+            if ($assetOptions === []) {
                 continue;
             }
-
-            echo '<tr class="tab_bg_1"><td>' . htmlescape($itemtype::getTypeName(2)) . '</td>';
-            echo '<td colspan="3">';
-            Dropdown::showFromArray(self::linkedAssetFieldName($itemtype), $options, [
-                'values'   => $linkedIdsByType[$itemtype] ?? [],
-                'multiple' => true,
-                'width'    => '100%',
-            ]);
-            echo '</td></tr>';
+            $assetGroups[] = [
+                'field'   => self::linkedAssetFieldName($itemtype),
+                'label'   => $itemtype::getTypeName(2),
+                'options' => $assetOptions,
+                'values'  => $linkedIdsByType[$itemtype] ?? [],
+            ];
         }
 
-        $this->showFormButtons($options);
+        TemplateRenderer::getInstance()->display('@grcmanager/risk_form.html.twig', [
+            'item'                => $this,
+            'params'              => $options,
+            'is_new'              => $isNew,
+            'categories'          => self::getCategories(),
+            'probabilities'       => self::getProbabilities(),
+            'impacts'             => self::getImpacts(),
+            'treatments'          => self::getTreatments(),
+            'statuses'            => self::getStatuses(),
+            'risk_level_badge'    => self::riskLevelBadge($this->fields['risk_level'] ?? null),
+            'high_classification' => !$isNew && self::hasHighClassificationAmongLinkedAssets((int) $ID),
+            'plan_relevant'       => $planRelevant,
+            'asset_groups'        => $assetGroups,
+        ]);
 
-        // Issue #31 (plan d'action de traitement des risques, clause 8.3/6.1.3 ISO 27001) : placé
-        // en DEHORS de showFormHeader()/showFormButtons() ci-dessus (donc en dehors du <form>
-        // qu'ils ouvrent/ferment), exactement comme PluginGrcmanagerObjective::
-        // showMeasurementHistory() - le précédent le plus proche pour un vrai enfant one-to-many
-        // avec sa propre identité/cycle de vie par ligne (ajout/mise à jour de statut/suppression
-        // indépendants dans le temps), par opposition au multi-select "Actifs liés (CMDB)" plus
-        // haut sur cette même fiche (issue #25), qui soumet ses valeurs dans le MÊME formulaire que
-        // le risque lui-même et n'a donc pas cette contrainte. Un <form> HTML ne peut pas en
-        // contenir un second : ce mini formulaire poste vers un contrôleur différent
-        // (front/risktreatmentaction.form.php) de celui du risque, il ne peut donc pas être imbriqué
-        // plus haut "juste après Justification" comme le sont les sections issue #25/#26, malgré la
-        // ressemblance visuelle recherchée - voir la description de la Pull Request pour ce
-        // raisonnement complet.
-        if (!$this->isNewID($ID) && TreatmentPlanRules::isTreatmentPlanRelevant($treatment)) {
-            $this->showTreatmentPlan((int) $ID);
-        } elseif ($this->isNewID($ID) && TreatmentPlanRules::isTreatmentPlanRelevant($treatment)) {
-            echo '<div class="alert alert-info mt-3">' . __(
-                'Enregistrez d\'abord ce risque pour pouvoir renseigner son plan de traitement.',
-                'grcmanager'
-            ) . '</div>';
+        // Issue #31 : le plan de traitement est un vrai enfant (ajout, statut, suppression par
+        // ligne) qui poste vers front/risktreatmentaction.form.php, donc hors du formulaire du risque.
+        if ($planRelevant) {
+            $actions = [];
+            if (!$isNew) {
+                foreach (PluginGrcmanagerRiskTreatmentAction::getActionsForRisk((int) $ID) as $action) {
+                    $actions[] = [
+                        'id'              => (int) $action['id'],
+                        'description'     => (string) ($action['description'] ?? ''),
+                        'user'            => getUserName((int) $action['users_id']),
+                        'due_date'        => (string) ($action['due_date'] ?? ''),
+                        'completion_date' => (string) ($action['completion_date'] ?? ''),
+                        'status'          => $action['status'] ?? TreatmentPlanRules::DEFAULT_STATUS,
+                        'status_html'     => PluginGrcmanagerRiskTreatmentAction::statusBadge(
+                            $action['status'] ?? null
+                        ),
+                        'overdue'         => TreatmentPlanRules::isOverdue(
+                            $action['due_date'] ?? null,
+                            (string) $action['status']
+                        ),
+                    ];
+                }
+            }
+            $canEdit = Session::haveRight(self::$rightname, UPDATE);
+            TemplateRenderer::getInstance()->display('@grcmanager/risk_treatment_plan.html.twig', [
+                'saved'           => !$isNew,
+                'risk_id'         => (int) $ID,
+                'can_edit'        => $canEdit,
+                'action'          => $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/risktreatmentaction.form.php',
+                'actions'         => $actions,
+                'action_statuses' => PluginGrcmanagerRiskTreatmentAction::getStatuses(),
+                'user_dropdown'   => $canEdit && !$isNew
+                    ? User::dropdown(['name' => 'users_id', 'value' => 0, 'right' => 'all', 'display' => false])
+                    : '',
+            ]);
         }
 
         return true;
-    }
-
-    /**
-     * Mini formulaire d'ajout (description + responsable + échéance, voir
-     * front/risktreatmentaction.form.php) suivi de la liste des actions déjà enregistrées, chacune
-     * avec son propre mini formulaire de mise à jour de statut et son bouton de suppression - même
-     * structure que PluginGrcmanagerObjective::showMeasurementHistory() (issue #32), adaptée pour
-     * porter un statut/une échéance par ligne plutôt qu'un simple historique chronologique en
-     * lecture continue.
-     */
-    private function showTreatmentPlan(int $riskId): void
-    {
-        global $CFG_GLPI;
-
-        $canEdit = Session::haveRight(self::$rightname, UPDATE);
-        $formUrl = $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/risktreatmentaction.form.php';
-
-        echo '<div class="card mt-3"><div class="card-body">';
-        echo '<h3>' . __('Plan de traitement du risque', 'grcmanager') . '</h3>';
-        echo '<small class="form-hint d-block mb-2">' . __(
-            'Actions concrètes mises en œuvre pour appliquer la décision de traitement (clause '
-            . '8.3/6.1.3 ISO 27001) : chacune a son propre responsable, sa propre échéance et son '
-            . 'propre statut.',
-            'grcmanager'
-        ) . '</small>';
-
-        if ($canEdit) {
-            echo '<form method="post" action="' . htmlescape($formUrl) . '" class="mb-3">';
-            echo Html::hidden('plugin_grcmanager_risks_id', ['value' => $riskId]);
-            echo Html::hidden('_glpi_csrf_token', ['value' => Session::getNewCSRFToken()]);
-
-            echo '<table class="table">';
-            echo '<tr>';
-            echo '<td>' . __('Description de l\'action', 'grcmanager') . '</td>';
-            echo '<td>' . __('Responsable', 'grcmanager') . '</td>';
-            echo '<td>' . __('Échéance', 'grcmanager') . '</td>';
-            echo '<td></td>';
-            echo '</tr>';
-            echo '<tr>';
-            echo '<td><input type="text" name="description" class="form-control"></td>';
-            echo '<td>';
-            User::dropdown(['name' => 'users_id', 'value' => 0, 'right' => 'all']);
-            echo '</td>';
-            echo '<td>';
-            Html::showDateField('due_date', ['value' => '']);
-            echo '</td>';
-            echo '<td>' . Html::submit(__('Ajouter'), ['name' => 'add']) . '</td>';
-            echo '</tr>';
-            echo '</table>';
-            echo '</form>';
-        }
-
-        echo '<table class="table">';
-        echo '<thead><tr>';
-        echo '<th>' . __('Description de l\'action', 'grcmanager') . '</th>';
-        echo '<th>' . __('Responsable', 'grcmanager') . '</th>';
-        echo '<th>' . __('Échéance', 'grcmanager') . '</th>';
-        echo '<th>' . __('Statut', 'grcmanager') . '</th>';
-        echo '<th>' . __('Date de réalisation', 'grcmanager') . '</th>';
-        if ($canEdit) {
-            echo '<th></th>';
-        }
-        echo '</tr></thead><tbody>';
-
-        $actions = PluginGrcmanagerRiskTreatmentAction::getActionsForRisk($riskId);
-
-        if (count($actions) === 0) {
-            $colspan = $canEdit ? 6 : 5;
-            echo '<tr><td colspan="' . $colspan . '" class="text-muted">'
-                . __('Aucune action de traitement enregistrée pour le moment.', 'grcmanager') . '</td></tr>';
-        }
-
-        foreach ($actions as $action) {
-            $isOverdue = TreatmentPlanRules::isOverdue($action['due_date'] ?? null, (string) $action['status']);
-
-            echo '<tr' . ($isOverdue ? ' class="table-danger"' : '') . '>';
-            echo '<td>' . htmlescape((string) ($action['description'] ?? '')) . '</td>';
-            echo '<td>' . htmlescape(getUserName((int) $action['users_id'])) . '</td>';
-            echo '<td>' . htmlescape(Html::convDate($action['due_date'] ?? ''));
-            if ($isOverdue) {
-                echo ' <span class="badge bg-red-lt"><i class="ti ti-alert-triangle me-1"></i>'
-                    . __('En retard', 'grcmanager') . '</span>';
-            }
-            echo '</td>';
-            echo '<td>' . PluginGrcmanagerRiskTreatmentAction::statusBadge($action['status'] ?? null) . '</td>';
-            echo '<td>' . htmlescape(Html::convDate($action['completion_date'] ?? '')) . '</td>';
-
-            if ($canEdit) {
-                echo '<td class="d-flex gap-1">';
-
-                echo '<form method="post" action="' . htmlescape($formUrl) . '" '
-                    . 'class="d-flex gap-1 align-items-center mb-0">';
-                echo Html::hidden('id', ['value' => $action['id']]);
-                echo Html::hidden('plugin_grcmanager_risks_id', ['value' => $riskId]);
-                echo Html::hidden('_glpi_csrf_token', ['value' => Session::getNewCSRFToken()]);
-                Dropdown::showFromArray('status', PluginGrcmanagerRiskTreatmentAction::getStatuses(), [
-                    'value' => $action['status'] ?? TreatmentPlanRules::DEFAULT_STATUS,
-                ]);
-                echo Html::submit(__('Mettre à jour', 'grcmanager'), ['name' => 'update']);
-                echo '</form>';
-
-                echo '<form method="post" action="' . htmlescape($formUrl) . '" class="mb-0" '
-                    . 'onsubmit="return confirm(\'' . __('Confirmer la suppression ?', 'grcmanager') . '\');">';
-                echo Html::hidden('id', ['value' => $action['id']]);
-                echo Html::hidden('plugin_grcmanager_risks_id', ['value' => $riskId]);
-                echo Html::hidden('_glpi_csrf_token', ['value' => Session::getNewCSRFToken()]);
-                echo '<button type="submit" name="purge" class="btn btn-sm btn-outline-danger">'
-                    . '<i class="ti ti-trash"></i></button>';
-                echo '</form>';
-
-                echo '</td>';
-            }
-
-            echo '</tr>';
-        }
-
-        echo '</tbody></table>';
-        echo '</div></div>';
     }
 
     /**

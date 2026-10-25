@@ -15,6 +15,7 @@
  * -------------------------------------------------------------------------
  */
 
+use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\NetworkFlowBase;
 use GlpiPlugin\Grcmanager\Services\Network\NetworkFlowCsv;
 use GlpiPlugin\Grcmanager\Services\Network\NetworkFlowRules;
@@ -372,78 +373,41 @@ class PluginGrcmanagerNetworkFlow extends NetworkFlowBase
     public function showForm($ID, array $options = []): bool
     {
         $this->initForm($ID, $options);
-        $this->showFormHeader($options);
 
-        echo '<tr class="tab_bg_1"><td>' . htmlescape(__('Nom', 'grcmanager')) . '</td><td colspan="3">';
-        echo Html::input('name', ['value' => $this->fields['name'] ?? '', 'size' => 80]);
-        echo self::hint(__('Laissé vide, il est construit à partir de la source et de la destination.', 'grcmanager'));
-        echo '</td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . htmlescape(__('Type', 'grcmanager')) . '</td><td>';
-        Dropdown::showFromArray('flow_type', self::getTypes(), [
-            'value' => $this->fields['flow_type'] ?? NetworkFlowRules::DEFAULT_TYPE,
-        ]);
-        echo '</td><td>' . htmlescape(__('Actif', 'grcmanager')) . '</td><td>';
-        Dropdown::showYesNo('is_active', $this->isNewItem() ? 1 : (int) $this->fields['is_active']);
-        echo '</td></tr>';
-
-        $sides = ['source' => __('Source', 'grcmanager'), 'destination' => __('Destination', 'grcmanager')];
-        foreach ($sides as $side => $title) {
-            echo '<tr class="tab_bg_1"><td>' . htmlescape($title) . '</td><td>';
-            Dropdown::showSelectItemFromItemtypes([
-                'itemtype_name'    => $side . '_itemtype',
-                'items_id_name'    => $side . '_items_id',
-                'itemtypes'        => self::getEndpointItemtypes(),
-                'default_itemtype' => $this->fields[$side . '_itemtype'] ?: 0,
-                'default_items_id' => (int) ($this->fields[$side . '_items_id'] ?? 0),
-                'checkright'       => true,
-                'width'            => '100%',
-            ]);
-            echo self::hint(__('Actif GLPI (facultatif).', 'grcmanager'));
-            echo '</td><td>' . htmlescape(__('Réseau, zone ou adresse', 'grcmanager')) . '</td><td>';
-            echo Html::input($side . '_label', ['value' => $this->fields[$side . '_label'] ?? '', 'size' => 40]);
-            $example = __('Ex. « Internet », « VLAN serveurs », « 10.0.0.0/24 », « Partenaire X ».', 'grcmanager');
-            echo self::hint($example);
-            echo '</td></tr>';
+        $sides = [];
+        $titles = ['source' => __('Source', 'grcmanager'), 'destination' => __('Destination', 'grcmanager')];
+        foreach ($titles as $side => $title) {
+            $sides[] = [
+                'key'           => $side,
+                'title'         => $title,
+                // Sélecteur natif de GLPI (type d'actif puis actif).
+                'item_selector' => Dropdown::showSelectItemFromItemtypes([
+                    'itemtype_name'    => $side . '_itemtype',
+                    'items_id_name'    => $side . '_items_id',
+                    'itemtypes'        => self::getEndpointItemtypes(),
+                    'default_itemtype' => $this->fields[$side . '_itemtype'] ?: 0,
+                    'default_items_id' => (int) ($this->fields[$side . '_items_id'] ?? 0),
+                    'checkright'       => true,
+                    'width'            => '100%',
+                    'display'          => false,
+                ]),
+            ];
         }
-
-        echo '<tr class="tab_bg_1"><td>' . htmlescape(__('Protocole', 'grcmanager')) . '</td><td>';
-        Dropdown::showFromArray('protocol', self::getProtocols(), [
-            'value' => $this->fields['protocol'] ?? NetworkFlowRules::DEFAULT_PROTOCOL,
-        ]);
-        echo '</td><td>' . htmlescape(__('Ports', 'grcmanager')) . '</td><td>';
         $ports = (string) ($this->fields['ports'] ?? '');
-        echo Html::input('ports', ['value' => $ports === 'any' ? '' : $ports, 'size' => 30,
-            'placeholder' => '80, 443, 8000-8100']);
-        echo self::hint(__('Vide : tous les ports.', 'grcmanager'));
-        echo '</td></tr>';
 
-        echo '<tr class="tab_bg_1"><td>' . htmlescape(__('Justification', 'grcmanager')) . '</td><td colspan="3">';
-        echo '<textarea name="justification" class="form-control" rows="3">'
-            . htmlescape($this->fields['justification'] ?? '') . '</textarea>';
-        echo self::hint(__(
-            'Pourquoi ce flux est nécessaire : application, besoin métier, demande ou ticket d\'origine.',
-            'grcmanager'
-        ));
-        echo '</td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . htmlescape(__('Propriétaire', 'grcmanager')) . '</td><td>';
-        User::dropdown(['name' => 'users_id', 'value' => (int) ($this->fields['users_id'] ?? 0), 'right' => 'all']);
-        echo '</td><td>' . htmlescape(__('Date de fin', 'grcmanager')) . '</td><td>';
-        Html::showDateField('date_end', ['value' => $this->fields['date_end'] ?? '']);
-        echo self::hint(__('Pour un flux temporaire (migration, prestataire).', 'grcmanager'));
-        echo '</td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . htmlescape(__('Commentaires', 'grcmanager')) . '</td><td colspan="3">';
-        echo '<textarea name="comment" class="form-control" rows="2">' . htmlescape($this->fields['comment'] ?? '')
-            . '</textarea></td></tr>';
-
-        if (!$this->isNewItem()) {
-            echo '<tr class="tab_bg_1"><td>' . htmlescape(__('Contrôles', 'grcmanager')) . '</td><td colspan="3">'
-                . self::checksHtml($this->getChecks()) . '</td></tr>';
-        }
-
-        $this->showFormButtons($options);
+        TemplateRenderer::getInstance()->display('@grcmanager/network_flow_form.html.twig', [
+            'item'             => $this,
+            'params'           => $options,
+            'is_new'           => $this->isNewItem(),
+            'types'            => self::getTypes(),
+            'protocols'        => self::getProtocols(),
+            'default_type'     => NetworkFlowRules::DEFAULT_TYPE,
+            'default_protocol' => NetworkFlowRules::DEFAULT_PROTOCOL,
+            'is_active'        => $this->isNewItem() ? 1 : (int) $this->fields['is_active'],
+            'sides'            => $sides,
+            'ports'            => $ports === 'any' ? '' : $ports,
+            'checks'           => $this->isNewItem() ? '' : self::checksHtml($this->getChecks()),
+        ]);
 
         return true;
     }
@@ -461,36 +425,26 @@ class PluginGrcmanagerNetworkFlow extends NetworkFlowBase
         foreach ($DB->request(['FROM' => self::getTable(), 'WHERE' => ['is_active' => 1]]) as $row) {
             $active++;
             foreach (NetworkFlowRules::checks($row, $today) as $check) {
-                $byCheck[$check] = ($byCheck[$check] ?? 0) + 1;
+                $byCheck[$check] ??= [
+                    'label'    => self::getCheckLabel($check),
+                    'blocking' => NetworkFlowRules::isBlocking($check),
+                    'count'    => 0,
+                ];
+                $byCheck[$check]['count']++;
             }
         }
-        echo '<div class="card mb-3"><div class="card-body d-flex flex-wrap align-items-center gap-2">';
-        echo '<span class="me-2"><i class="ti ti-arrows-exchange me-1"></i>'
-            . htmlescape(sprintf(_n('%d flux actif', '%d flux actifs', $active, 'grcmanager'), $active)) . '</span>';
-        if ($byCheck === [] && $active > 0) {
-            echo self::checksHtml([]);
-        }
-        foreach ($byCheck as $check => $count) {
-            $class = NetworkFlowRules::isBlocking($check) ? 'bg-red-lt' : 'bg-yellow-lt';
-            echo '<span class="badge ' . $class . '">' . htmlescape(self::getCheckLabel($check))
-                . ' : ' . $count . '</span>';
-        }
-        if (Session::haveRight(self::RIGHTNAME, CREATE)) {
-            echo '<a class="btn btn-sm btn-outline-primary ms-auto" href="' . htmlescape(self::getImportURL()) . '">'
-                . '<i class="ti ti-file-import me-1"></i>'
-                . htmlescape(__('Importer un fichier CSV', 'grcmanager')) . '</a>';
-        }
-        echo '</div></div>';
+        TemplateRenderer::getInstance()->display('@grcmanager/network_flow_summary.html.twig', [
+            'active'       => $active,
+            'active_label' => sprintf(_n('%d flux actif', '%d flux actifs', $active, 'grcmanager'), $active),
+            'checks'       => array_values($byCheck),
+            'can_import'   => Session::haveRight(self::RIGHTNAME, CREATE),
+            'import_url'   => self::getImportURL(),
+        ]);
     }
 
     public static function portsLabel(string $ports): string
     {
         return $ports === 'any' || $ports === '' ? __('Tous', 'grcmanager') : str_replace(',', ', ', $ports);
-    }
-
-    private static function hint(string $text): string
-    {
-        return '<small class="form-hint">' . htmlescape($text) . '</small>';
     }
 
     public static function getImportURL(): string

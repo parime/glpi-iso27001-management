@@ -15,6 +15,7 @@
  * -------------------------------------------------------------------------
  */
 
+use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Services\Access\AccountHygieneRules;
 
 /**
@@ -193,22 +194,15 @@ class PluginGrcmanagerAccountHygiene extends CommonGLPI
             return 0;
         }
 
-        $rows = '';
-        foreach ($accounts as $account) {
-            $labels = array_map(
-                static fn (string $check): string => self::getCheckLabel($check, $days),
-                $account['checks']
-            );
-            $rows .= '<tr><td>' . htmlescape($account['fullname']) . '</td><td>' . htmlescape($account['name'])
-                . '</td><td>' . htmlescape(implode(', ', $labels)) . '</td></tr>';
-        }
-        $content = '<p>' . htmlescape(__(
-            'Comptes GLPI actifs à vérifier (écran « Hygiène des comptes »). Pour chacun : confirmer le besoin, '
-                . 'ou désactiver le compte et retirer ses habilitations. Rien n\'a été modifié automatiquement.',
-            'grcmanager'
-        )) . '</p><table border="1" cellpadding="4"><tr><th>' . htmlescape(__('Utilisateur', 'grcmanager'))
-            . '</th><th>' . htmlescape(__('Identifiant', 'grcmanager')) . '</th><th>'
-            . htmlescape(__('Points à vérifier', 'grcmanager')) . '</th></tr>' . $rows . '</table>';
+        $content = TemplateRenderer::getInstance()->render('@grcmanager/account_hygiene_ticket.html.twig', [
+            'accounts' => array_map(
+                static fn (array $account): array => $account + ['labels' => array_map(
+                    static fn (string $check): string => self::getCheckLabel($check, $days),
+                    $account['checks']
+                )],
+                $accounts
+            ),
+        ]);
 
         return (int) (new Ticket())->add([
             'name'        => sprintf(
@@ -228,76 +222,30 @@ class PluginGrcmanagerAccountHygiene extends CommonGLPI
 
     public static function showList(int $days): void
     {
-        $accounts = self::findAccounts($days);
-        $canTicket = Session::haveRight(Ticket::$rightname, CREATE);
+        $badge = static fn (string $check): array => [
+            'label'   => self::getCheckLabel($check, $days),
+            'serious' => self::isSerious($check),
+        ];
+        $accounts = [];
         $byCheck = [];
-        foreach ($accounts as $account) {
+        foreach (self::findAccounts($days) as $account) {
             foreach ($account['checks'] as $check) {
-                $byCheck[$check] = ($byCheck[$check] ?? 0) + 1;
+                $byCheck[$check] ??= $badge($check) + ['count' => 0];
+                $byCheck[$check]['count']++;
             }
+            $accounts[] = [
+                'url'    => User::getFormURLWithID($account['id']),
+                'checks' => array_map($badge, $account['checks']),
+            ] + $account;
         }
 
-        echo '<div class="card"><div class="card-body">';
-        echo '<p class="text-muted"><i class="ti ti-info-circle me-1"></i>' . htmlescape(__(
-            'Comptes actifs des entités que vous voyez, qui méritent une vérification. Rien n\'est désactivé '
-                . 'automatiquement : cochez les comptes et ouvrez un ticket de revue, ou traitez-les dans une '
-                . 'campagne de revue des accès.',
-            'grcmanager'
-        )) . '</p>';
-
-        echo '<form method="get" class="d-flex align-items-center gap-2 mb-3">';
-        echo '<label for="grc-hygiene-days" class="mb-0">' . htmlescape(__('Inactivité au-delà de', 'grcmanager'))
-            . '</label>';
-        echo '<select id="grc-hygiene-days" name="days" class="form-select form-select-sm" style="width: auto;"'
-            . ' onchange="this.form.submit()">';
-        foreach (AccountHygieneRules::INACTIVITY_DAYS as $option) {
-            echo '<option value="' . $option . '"' . ($option === $days ? ' selected' : '') . '>'
-                . htmlescape(sprintf(__('%d jours', 'grcmanager'), $option)) . '</option>';
-        }
-        echo '</select></form>';
-
-        if ($accounts === []) {
-            echo '<div class="alert alert-success mb-0"><i class="ti ti-circle-check me-1"></i>'
-                . htmlescape(__('Aucun compte à vérifier.', 'grcmanager')) . '</div></div></div>';
-            return;
-        }
-
-        echo '<div class="d-flex flex-wrap gap-2 mb-3">';
-        foreach ($byCheck as $check => $count) {
-            echo '<span class="badge ' . (self::isSerious($check) ? 'bg-red-lt' : 'bg-yellow-lt') . '">'
-                . htmlescape(self::getCheckLabel($check, $days)) . ' : ' . $count . '</span>';
-        }
-        echo '</div>';
-
-        echo '<form method="post" action="' . htmlescape(self::getSearchURL()) . '">';
-        echo '<input type="hidden" name="_glpi_csrf_token" value="' . htmlescape(Session::getNewCSRFToken()) . '">';
-        echo '<input type="hidden" name="days" value="' . $days . '">';
-        echo '<div class="table-responsive"><table class="table table-hover align-middle"><thead><tr><th></th><th>'
-            . htmlescape(__('Utilisateur', 'grcmanager')) . '</th><th>' . htmlescape(__('Identifiant', 'grcmanager'))
-            . '</th><th>' . htmlescape(__('Dernière connexion', 'grcmanager')) . '</th><th>'
-            . htmlescape(__('Points à vérifier', 'grcmanager')) . '</th></tr></thead><tbody>';
-        foreach ($accounts as $account) {
-            echo '<tr><td><input type="checkbox" class="form-check-input" name="users_id[]" value="' . $account['id']
-                . '" aria-label="' . htmlescape($account['fullname']) . '"></td>';
-            echo '<td><a href="' . htmlescape(User::getFormURLWithID($account['id'])) . '">'
-                . htmlescape($account['fullname']) . '</a></td>';
-            echo '<td>' . htmlescape($account['name']) . '</td>';
-            echo '<td>' . htmlescape($account['last_login'] !== null
-                ? (string) Html::convDateTime($account['last_login'])
-                : __('Jamais', 'grcmanager')) . '</td><td>';
-            foreach ($account['checks'] as $check) {
-                echo '<span class="badge ' . (self::isSerious($check) ? 'bg-red-lt' : 'bg-yellow-lt') . ' me-1">'
-                    . htmlescape(self::getCheckLabel($check, $days)) . '</span>';
-            }
-            echo '</td></tr>';
-        }
-        echo '</tbody></table></div>';
-        if ($canTicket) {
-            echo '<button type="submit" name="create_ticket" value="1" class="btn btn-primary">'
-                . '<i class="ti ti-ticket me-1"></i>'
-                . htmlescape(__('Ouvrir un ticket de revue pour les comptes cochés', 'grcmanager'))
-                . '</button>';
-        }
-        echo '</form></div></div>';
+        TemplateRenderer::getInstance()->display('@grcmanager/account_hygiene.html.twig', [
+            'accounts'    => $accounts,
+            'by_check'    => array_values($byCheck),
+            'days'        => $days,
+            'day_options' => AccountHygieneRules::INACTIVITY_DAYS,
+            'action'      => self::getSearchURL(),
+            'can_ticket'  => Session::haveRight(Ticket::$rightname, CREATE),
+        ]);
     }
 }
