@@ -38,7 +38,8 @@ final class PilotageCardsTest extends GrcmanagerIntegrationTestCase
         }
         foreach (
             ['upcomingComplianceDeadlines', 'accessReviewProgress', 'securityIncidentRegulatoryDeadlines',
-                'supplierQuestionnaireAverage', 'periodicReviewsOverdue', 'criticalSuppliersWithoutAssessment'] as $card
+                'supplierQuestionnaireAverage', 'periodicReviewsOverdue', 'criticalSuppliersWithoutAssessment',
+                'accessReviewLateReviewers', 'trainingRetakeParticipants'] as $card
         ) {
             $result = SecuredDashboardCards::$card();
             $this->assertIsInt($result['number'], $card);
@@ -113,6 +114,77 @@ final class PilotageCardsTest extends GrcmanagerIntegrationTestCase
         } finally {
             $risk->delete(['id' => $riskId], true);
             $supplier->delete(['id' => $supplierId], true);
+        }
+    }
+
+    public function testParticipantWhoFailedThenPassedTheSameTrainingIsNotToRetake(): void
+    {
+        $rows = [
+            ['users_id' => 1, 'title' => 'Hameçonnage', 'date' => '2026-03-01', 'result' => 'failed'],
+            ['users_id' => 1, 'title' => 'hameçonnage ', 'date' => '2026-06-01', 'result' => 'passed'],
+            ['users_id' => 2, 'title' => 'Hameçonnage', 'date' => '2026-06-01', 'result' => 'failed'],
+            ['users_id' => 3, 'title' => 'Mots de passe', 'date' => '2026-06-01', 'result' => 'passed'],
+            ['users_id' => 3, 'title' => 'Mots de passe', 'date' => '2026-09-01', 'result' => 'failed'],
+        ];
+        $this->assertSame([2, 3], PilotageCards::participantsToRetake($rows));
+    }
+
+    public function testPassRateBySessionAndLateReviewer(): void
+    {
+        global $DB;
+
+        $training = new \PluginGrcmanagerTraining();
+        $trainingId = (int) $training->add([
+            'title'          => 'PHPUnit session évaluée',
+            'date_delivered' => '2099-01-01',
+        ]);
+        $userIds = array_slice(array_column(iterator_to_array($DB->request([
+            'SELECT' => ['id'], 'FROM' => 'glpi_users', 'ORDER' => 'id', 'LIMIT' => 4,
+        ]), false), 'id'), 0, 4);
+        $results = ['passed', 'passed', 'passed', 'failed'];
+        foreach ($userIds as $i => $userId) {
+            $DB->insert('glpi_plugin_grcmanager_trainings_users', [
+                'plugin_grcmanager_trainings_id' => $trainingId,
+                'users_id'                       => $userId,
+                'completion_status'              => 'completed',
+                'assessment_result'              => $results[$i],
+                'completion_date'                => '2099-01-01',
+            ]);
+        }
+        $review = new \PluginGrcmanagerAccessReview();
+        $reviewId = 0;
+        try {
+            $sessions = SecuredDashboardCards::trainingPassRateBySession()['data'];
+            $last = end($sessions);
+            $this->assertStringStartsWith('PHPUnit session évaluée', $last['label']);
+            $this->assertSame(75, $last['number']);
+
+            $before = SecuredDashboardCards::accessReviewLateReviewers()['number'];
+            $reviewId = (int) $review->add([
+                'name'        => 'PHPUnit campagne en retard',
+                'entities_id' => 0,
+                'date_start'  => '2026-01-01',
+                'due_date'    => date('Y-m-d', strtotime('-3 days')),
+            ]);
+            $DB->update($review->getTable(), ['status' => 'open'], ['id' => $reviewId]);
+            $reviewerId = (int) $userIds[0] + 100000;
+            $DB->insert(\PluginGrcmanagerAccessReview::LINES_TABLE, [
+                'plugin_grcmanager_accessreviews_id' => $reviewId,
+                'users_id'                           => $userIds[1],
+                'reviewers_id'                       => $reviewerId,
+                'decision'                           => 'pending',
+            ]);
+            $this->assertSame($before + 1, SecuredDashboardCards::accessReviewLateReviewers()['number']);
+        } finally {
+            $DB->delete('glpi_plugin_grcmanager_trainings_users', ['plugin_grcmanager_trainings_id' => $trainingId]);
+            $training->delete(['id' => $trainingId], true);
+            if ($reviewId > 0) {
+                $DB->delete(
+                    \PluginGrcmanagerAccessReview::LINES_TABLE,
+                    ['plugin_grcmanager_accessreviews_id' => $reviewId]
+                );
+                $review->delete(['id' => $reviewId], true);
+            }
         }
     }
 

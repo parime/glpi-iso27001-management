@@ -141,6 +141,151 @@ final class PilotageCards
     }
 
     /**
+     * Responsables (réviseurs) ayant encore des comptes à revoir dans une campagne ouverte dont
+     * l'échéance est dépassée.
+     */
+    public static function accessReviewLateReviewers(array $params = []): array
+    {
+        global $DB;
+
+        $lines = \PluginGrcmanagerAccessReview::LINES_TABLE;
+        $campaigns = \PluginGrcmanagerAccessReview::getTable();
+        $reviewer = $DB->quoteName($lines . '.reviewers_id');
+        $count = (int) $DB->request([
+            'SELECT'     => [new \Glpi\DBAL\QueryExpression('COUNT(DISTINCT ' . $reviewer . ') AS c')],
+            'FROM'       => $lines,
+            'INNER JOIN' => [
+                $campaigns => ['FKEY' => [$lines => 'plugin_grcmanager_accessreviews_id', $campaigns => 'id']],
+            ],
+            'WHERE'      => [
+                $campaigns . '.status'   => AccessReviewLogic::STATUS_OPEN,
+                $lines . '.decision'     => AccessReviewLogic::DECISION_PENDING,
+                [$campaigns . '.due_date' => ['<', date('Y-m-d')]],
+                [$lines . '.reviewers_id' => ['>', 0]],
+            ] + getEntitiesRestrictCriteria($campaigns, '', '', true),
+        ])->current()['c'];
+
+        return [
+            'number' => $count,
+            'url'    => \PluginGrcmanagerAccessReview::getSearchURL(),
+            'label'  => $params['label'] ?? __('Responsables en retard (accès)', 'grcmanager'),
+            'icon'   => 'ti ti-user-exclamation',
+        ];
+    }
+
+    /**
+     * Participants dont la dernière évaluation d'une formation (même intitulé) est échouée : une
+     * réussite à une session plus récente de la même formation les retire de la liste.
+     *
+     * @param list<array{users_id: int, title: string, date: string, result: string}> $rows
+     * @return list<int> identifiants des participants à repasser
+     */
+    public static function participantsToRetake(array $rows): array
+    {
+        usort($rows, static fn (array $a, array $b): int => strcmp($a['date'], $b['date']));
+        $latest = [];
+        foreach ($rows as $row) {
+            $latest[$row['users_id'] . '|' . mb_strtolower(trim($row['title']))] = $row;
+        }
+        $users = [];
+        foreach ($latest as $row) {
+            if ($row['result'] === 'failed') {
+                $users[$row['users_id']] = $row['users_id'];
+            }
+        }
+
+        return array_values($users);
+    }
+
+    /**
+     * @return list<array{users_id: int, title: string, date: string, result: string, training: int}>
+     */
+    private static function assessedParticipations(): array
+    {
+        global $DB;
+
+        $rows = [];
+        foreach (
+            $DB->request([
+                'SELECT'     => [
+                    'links.users_id', 'links.assessment_result', 'links.completion_date',
+                    't.id AS training', 't.title', 't.date_delivered',
+                ],
+                'FROM'       => 'glpi_plugin_grcmanager_trainings_users AS links',
+                'INNER JOIN' => [
+                    'glpi_plugin_grcmanager_trainings AS t' => [
+                        'FKEY' => ['links' => 'plugin_grcmanager_trainings_id', 't' => 'id'],
+                    ],
+                ],
+                'WHERE'      => ['links.assessment_result' => ['passed', 'failed']],
+            ]) as $row
+        ) {
+            $rows[] = [
+                'users_id' => (int) $row['users_id'],
+                'title'    => (string) $row['title'],
+                'date'     => (string) ($row['completion_date'] ?? $row['date_delivered'] ?? ''),
+                'result'   => (string) $row['assessment_result'],
+                'training' => (int) $row['training'],
+            ];
+        }
+
+        return $rows;
+    }
+
+    public static function trainingRetakeParticipants(array $params = []): array
+    {
+        return [
+            'number' => count(self::participantsToRetake(self::assessedParticipations())),
+            'url'    => \PluginGrcmanagerTraining::getSearchURL(),
+            'label'  => $params['label'] ?? __('Participants à repasser', 'grcmanager'),
+            'icon'   => 'ti ti-repeat',
+        ];
+    }
+
+    /**
+     * Taux de réussite des 8 dernières sessions évaluées.
+     */
+    public static function trainingPassRateBySession(array $params = []): array
+    {
+        global $DB;
+
+        $sessions = [];
+        foreach (self::assessedParticipations() as $row) {
+            $sessions[$row['training']] ??= ['passed' => 0, 'total' => 0];
+            $sessions[$row['training']]['total']++;
+            if ($row['result'] === 'passed') {
+                $sessions[$row['training']]['passed']++;
+            }
+        }
+        $data = [];
+        if ($sessions !== []) {
+            foreach (
+                $DB->request([
+                    'SELECT' => ['id', 'title', 'date_delivered'],
+                    'FROM'   => \PluginGrcmanagerTraining::getTable(),
+                    'WHERE'  => ['id' => array_keys($sessions)],
+                    'ORDER'  => ['date_delivered DESC', 'id DESC'],
+                    'LIMIT'  => 8,
+                ]) as $training
+            ) {
+                $counts = $sessions[(int) $training['id']];
+                $delivered = (string) $training['date_delivered'];
+                $date = $delivered !== '' ? ' (' . \Html::convDate($delivered) . ')' : '';
+                $data[] = [
+                    'label'  => $training['title'] . $date,
+                    'number' => (int) round($counts['passed'] / $counts['total'] * 100),
+                ];
+            }
+        }
+
+        return [
+            'data'  => array_reverse($data),
+            'label' => $params['label'] ?? __('Réussite par session de formation (%)', 'grcmanager'),
+            'icon'  => 'ti ti-certificate',
+        ];
+    }
+
+    /**
      * Le nom contient « securityincident » : SecuredDashboardCards applique le droit des incidents.
      */
     public static function securityIncidentRegulatoryDeadlines(array $params = []): array
