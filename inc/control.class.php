@@ -15,6 +15,7 @@
  * -------------------------------------------------------------------------
  */
 
+use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\ControlBase;
 use GlpiPlugin\Grcmanager\Services\Control\AnssiHygieneCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\AssetsignEvidence;
@@ -511,74 +512,6 @@ class PluginGrcmanagerControl extends ControlBase
     }
 
     /**
-     * Issue #109 : une ligne de compteurs assetsign (remises ou restitutions), avec lien vers la
-     * liste filtrée seulement si l'utilisateur a le droit de lecture assetsign.
-     *
-     * @param array{signed: int, pending: int, expired: int} $counts
-     */
-    private static function assetsignEvidenceLine(int $type, array $counts): string
-    {
-        $label = $type === AssetsignEvidence::TYPE_RETURN
-            ? __('Restitutions', 'grcmanager')
-            : __('Remises', 'grcmanager');
-
-        $html = '<div class="mb-1"><strong>' . htmlescape($label) . '</strong> : '
-            . '<span class="badge bg-green-lt me-1"><i class="ti ti-check me-1"></i>'
-            . htmlescape(sprintf(__('%d signée(s)', 'grcmanager'), $counts['signed'])) . '</span>'
-            . '<span class="badge bg-yellow-lt me-1"><i class="ti ti-hourglass me-1"></i>'
-            . htmlescape(sprintf(__('%d en attente', 'grcmanager'), $counts['pending'])) . '</span>'
-            . '<span class="badge bg-red-lt me-1"><i class="ti ti-clock-x me-1"></i>'
-            . htmlescape(sprintf(__('%d expirée(s)', 'grcmanager'), $counts['expired'])) . '</span>';
-
-        $url = AssetsignEvidenceProvider::listUrl($type);
-        if ($url !== null) {
-            $html .= ' <a href="' . htmlescape($url) . '">' . __('Voir les fiches', 'grcmanager') . '</a>';
-        }
-
-        return $html . '</div>';
-    }
-
-    /**
-     * Issue assetsign #204 : taux de signature de la charte informatique, une ligne par entité
-     * (campagne de charte la plus récente), avec lien vers les campagnes si l'utilisateur a le
-     * droit de lecture assetsign.
-     *
-     * @param list<array{
-     *     entities_id: int, campaign: string, date: string|null, signed: int, total: int, rate: int
-     * }> $lines
-     */
-    private static function assetsignCharterLines(array $lines): string
-    {
-        $html = '<div class="mb-1"><strong>' . htmlescape(__('Charte informatique signée', 'grcmanager'))
-            . '</strong> : ';
-        if ($lines === []) {
-            return $html . '<span class="text-muted">'
-                . htmlescape(__('aucune campagne de charte lancée', 'grcmanager')) . '</span></div>';
-        }
-        $html .= '</div><ul class="mb-1">';
-        foreach ($lines as $line) {
-            $class = $line['rate'] >= 90 ? 'bg-green-lt' : ($line['rate'] >= 60 ? 'bg-yellow-lt' : 'bg-red-lt');
-            $html .= '<li>' . htmlescape(\Dropdown::getDropdownName('glpi_entities', $line['entities_id'])) . ' : '
-                . '<span class="badge ' . $class . ' me-1">'
-                . htmlescape(sprintf(
-                    __('%1$d / %2$d (%3$d %%)', 'grcmanager'),
-                    $line['signed'],
-                    $line['total'],
-                    $line['rate']
-                ))
-                . '</span><span class="text-muted">' . htmlescape($line['campaign']) . '</span></li>';
-        }
-        $html .= '</ul>';
-
-        $url = AssetsignEvidenceProvider::campaignsUrl();
-        if ($url !== null) {
-            $html .= '<a href="' . htmlescape($url) . '">' . __('Voir les campagnes', 'grcmanager') . '</a>';
-        }
-
-        return $html;
-    }
-
-    /**
      * @return array<int, string> risk id => title, for every risk linked to this control.
      */
     public static function getLinkedRisks(int $controlId): array
@@ -651,43 +584,10 @@ class PluginGrcmanagerControl extends ControlBase
 
     public function showForm($ID, array $options = []): bool
     {
-        global $DB;
+        global $DB, $CFG_GLPI;
 
         $this->initForm($ID, $options);
-        $this->showFormHeader($options);
-
-        $code  = $this->fields['code'] ?? '';
-        $theme = $this->fields['theme'] ?? '';
-
-        echo '<tr class="tab_bg_1"><td>' . __('Contrôle', 'grcmanager') . '</td>';
-        echo '<td><strong>' . htmlescape((string) $code) . '</strong></td>';
-        echo '<td>' . __('Thème', 'grcmanager') . '</td>';
-        echo '<td>' . self::themeBadge((string) $theme) . '</td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . __('Intitulé', 'grcmanager') . '</td>';
-        echo '<td colspan="3">' . htmlescape(self::getControlTitle((string) $code)) . '</td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . __('Applicabilité', 'grcmanager') . '</td><td>';
-        Dropdown::showFromArray('applicability', self::getApplicabilities(), [
-            'value' => $this->fields['applicability'] ?? 'yes',
-        ]);
-        echo '</td>';
-
-        echo '<td>' . __('État de mise en œuvre', 'grcmanager') . '</td><td>';
-        Dropdown::showFromArray('implementation_status', self::getImplementationStatuses(), [
-            'value' => $this->fields['implementation_status'] ?? 'not_started',
-        ]);
-        echo '</td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . __('Justification', 'grcmanager') . '</td>';
-        echo '<td colspan="3">';
-        echo '<textarea name="justification" class="form-control" rows="4">'
-            . htmlescape($this->fields['justification'] ?? '') . '</textarea>';
-        echo '<small class="form-hint">' . __(
-            'Obligatoire si le contrôle n\'est pas pleinement applicable.',
-            'grcmanager'
-        ) . '</small>';
-        echo '</td></tr>';
+        $code = (string) ($this->fields['code'] ?? '');
 
         // Many-to-many link to the risk(s) this control's implementation addresses or is driven
         // by (glpi_plugin_grcmanager_controls_risks), synced in post_updateItem() above.
@@ -696,114 +596,59 @@ class PluginGrcmanagerControl extends ControlBase
             $riskTitles[(int) $row['id']] = $row['title'];
         }
 
-        echo '<tr class="tab_bg_1"><td>' . __('Risques liés', 'grcmanager') . '</td>';
-        echo '<td colspan="3">';
-        Dropdown::showFromArray('linked_risks', $riskTitles, [
-            'values'   => $this->isNewID($ID) ? [] : self::getLinkedRiskIds((int) $ID),
-            'multiple' => true,
-            'width'    => '100%',
+        // Issue #111 : mesures du guide d'hygiène ANSSI, intitulé dans la langue de la session.
+        $anssiLang = str_starts_with((string) ($_SESSION['glpilanguage'] ?? 'fr_FR'), 'fr') ? 'fr' : 'en';
+        $anssi = [];
+        foreach (AnssiHygieneCatalogDefaults::measuresForControl($code) as $measureNumber) {
+            $anssi[] = [
+                'number' => $measureNumber,
+                'title'  => AnssiHygieneCatalogDefaults::MEASURES[$measureNumber][$anssiLang],
+            ];
+        }
+
+        // Issue #109 : preuves agrégées d'assetsign (fiches signées) pour A.5.9/A.5.10/A.5.11, et
+        // taux de signature de la charte (assetsign #204) pour A.5.10 et A.6.3.
+        $sheets = [];
+        $summary = AssetsignEvidence::isRelevantControl($code) ? AssetsignEvidenceProvider::fetchSummary() : null;
+        if ($summary !== null) {
+            foreach (AssetsignEvidence::CONTROL_TYPES[$code] as $type) {
+                $sheets[] = $summary[$type] + [
+                    'label' => $type === AssetsignEvidence::TYPE_RETURN
+                        ? __('Restitutions', 'grcmanager')
+                        : __('Remises', 'grcmanager'),
+                    'url'   => AssetsignEvidenceProvider::listUrl($type),
+                ];
+            }
+        }
+        $charter = AssetsignEvidence::isCharterControl($code) ? AssetsignEvidenceProvider::fetchCharterSummary() : null;
+        if ($charter !== null) {
+            $charter = array_map(static fn (array $line): array => $line + [
+                'entity' => Dropdown::getDropdownName('glpi_entities', $line['entities_id']),
+            ], $charter);
+        }
+
+        TemplateRenderer::getInstance()->display('@grcmanager/control_form.html.twig', [
+            'item'                    => $this,
+            // Les 93 mesures sont un catalogue fixe semé à l'installation : jamais supprimées.
+            'params'                  => $options + ['candel' => false],
+            'code'                    => $code,
+            'title'                   => self::getControlTitle($code),
+            'theme_badge'             => self::themeBadge((string) ($this->fields['theme'] ?? '')),
+            'applicabilities'         => self::getApplicabilities(),
+            'implementation_statuses' => self::getImplementationStatuses(),
+            'risks'                   => $riskTitles,
+            'linked_risks'            => $this->isNewID($ID) ? [] : self::getLinkedRiskIds((int) $ID),
+            'nist'                    => ControlCrosswalkDefaults::CROSSWALK[substr($code, 2)]['nist_csf'] ?? [],
+            'nis2'                    => array_map(
+                static fn (string $nis2Code): string => Nis2CatalogDefaults::reference($nis2Code),
+                Nis2CatalogDefaults::requirementsForControl($code)
+            ),
+            'anssi'                   => $anssi,
+            'assetsign_sheets'        => $sheets,
+            'assetsign_charter'       => $charter,
+            'campaigns_url'           => $charter !== null ? AssetsignEvidenceProvider::campaignsUrl() : null,
+            'referentials_url'        => $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/referentiels.php',
         ]);
-        echo '<small class="form-hint">' . __(
-            'Risque(s) du registre justifiant ou pilotant la mise en œuvre de ce contrôle.',
-            'grcmanager'
-        ) . '</small>';
-        echo '</td></tr>';
-
-        // ROADMAP.md "Version 2.2" (bibliothèque de contrôles étendue) : correspondance publiée
-        // par le NIST vers ce contrôle Annexe A précis, voir ControlCrosswalkDefaults — absente
-        // silencieusement (pas de ligne vide) si le NIST n'en publie aucune pour ce code, jamais
-        // une case "aucune correspondance" trompeuse (voir docblock de ControlCrosswalkDefaults).
-        $nistMatches = ControlCrosswalkDefaults::CROSSWALK[substr((string) $code, 2)]['nist_csf'] ?? [];
-
-        if ($nistMatches !== []) {
-            echo '<tr class="tab_bg_1"><td>' . __('Référentiels équivalents', 'grcmanager') . '</td>';
-            echo '<td colspan="3">';
-            foreach ($nistMatches as $nistCode) {
-                echo '<span class="badge bg-blue-lt me-1">NIST CSF ' . htmlescape($nistCode) . '</span>';
-            }
-            global $CFG_GLPI;
-            $referentialsUrl = $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/referentiels.php';
-            echo '<small class="form-hint d-block mt-1">';
-            echo __('Correspondance publiée par le NIST — voir', 'grcmanager') . ' ';
-            echo '<a href="' . htmlescape($referentialsUrl) . '">';
-            echo __('l\'écran Référentiels', 'grcmanager') . '</a> ' . __('pour le détail.', 'grcmanager');
-            echo '</small>';
-            echo '</td></tr>';
-        }
-
-        // Issue #110 : exigences NIS2 renvoyant à ce contrôle (correspondance indicative, établie
-        // par ce projet, voir Nis2CatalogDefaults) — ligne absente si aucune.
-        $nis2Matches = Nis2CatalogDefaults::requirementsForControl((string) $code);
-
-        if ($nis2Matches !== []) {
-            echo '<tr class="tab_bg_1"><td>' . __('Exigences NIS2', 'grcmanager') . '</td>';
-            echo '<td colspan="3">';
-            foreach ($nis2Matches as $nis2Code) {
-                echo '<span class="badge bg-purple-lt me-1">NIS2 '
-                    . htmlescape(Nis2CatalogDefaults::reference($nis2Code)) . '</span>';
-            }
-            global $CFG_GLPI;
-            echo '<small class="form-hint d-block mt-1">';
-            echo __('Correspondance indicative, établie par ce projet — voir', 'grcmanager') . ' ';
-            echo '<a href="' . htmlescape($CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/referentiels.php') . '">';
-            echo __('l\'écran Référentiels', 'grcmanager') . '</a> ' . __('pour le détail.', 'grcmanager');
-            echo '</small>';
-            echo '</td></tr>';
-        }
-
-        // Issue #111 : mesures du guide d'hygiène informatique ANSSI renvoyant à ce contrôle
-        // (correspondance indicative, voir AnssiHygieneCatalogDefaults) — ligne absente si aucune.
-        $anssiMatches = AnssiHygieneCatalogDefaults::measuresForControl((string) $code);
-
-        if ($anssiMatches !== []) {
-            echo '<tr class="tab_bg_1"><td>' . __('Hygiène ANSSI', 'grcmanager') . '</td>';
-            echo '<td colspan="3">';
-            $anssiLang = str_starts_with((string) ($_SESSION['glpilanguage'] ?? 'fr_FR'), 'fr') ? 'fr' : 'en';
-            foreach ($anssiMatches as $measureNumber) {
-                $measureTitle = AnssiHygieneCatalogDefaults::MEASURES[$measureNumber][$anssiLang];
-                echo '<span class="badge bg-teal-lt me-1" title="' . htmlescape($measureTitle) . '">'
-                    . sprintf(__('Mesure %d', 'grcmanager'), $measureNumber) . '</span>';
-            }
-            global $CFG_GLPI;
-            echo '<small class="form-hint d-block mt-1">';
-            echo __('Correspondance indicative, établie par ce projet — voir', 'grcmanager') . ' ';
-            echo '<a href="' . htmlescape($CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/referentiels.php') . '">';
-            echo __('l\'écran Référentiels', 'grcmanager') . '</a> ' . __('pour le détail.', 'grcmanager');
-            echo '</small>';
-            echo '</td></tr>';
-        }
-
-        // Issue #109 : preuves agrégées issues d'assetsign (fiches de remise/restitution signées)
-        // pour A.5.9/A.5.10/A.5.11, et taux de signature de la charte informatique pour A.5.10 et
-        // A.6.3 (issue assetsign #204) — ligne absente si assetsign n'est pas installé et actif.
-        $isSheetControl = AssetsignEvidence::isRelevantControl((string) $code);
-        $isCharterControl = AssetsignEvidence::isCharterControl((string) $code);
-        if ($isSheetControl || $isCharterControl) {
-            $summary = $isSheetControl ? AssetsignEvidenceProvider::fetchSummary() : null;
-            $charter = $isCharterControl ? AssetsignEvidenceProvider::fetchCharterSummary() : null;
-            if ($summary !== null || $charter !== null) {
-                echo '<tr class="tab_bg_1"><td><i class="ti ti-signature me-1"></i>'
-                    . __('Preuves assetsign', 'grcmanager') . '</td><td colspan="3">';
-                if ($summary !== null) {
-                    foreach (AssetsignEvidence::CONTROL_TYPES[(string) $code] as $type) {
-                        echo self::assetsignEvidenceLine($type, $summary[$type]);
-                    }
-                }
-                if ($charter !== null) {
-                    echo self::assetsignCharterLines($charter);
-                }
-                echo '<small class="form-hint d-block mt-1">' . __(
-                    'Compteurs calculés en direct depuis le plugin assetsign, sur vos entités actives.',
-                    'grcmanager'
-                ) . '</small>';
-                echo '</td></tr>';
-            }
-        }
-
-        // No delete/purge buttons: the 93 controls are a fixed catalog seeded at install (see
-        // Installer::seedControls()), removing one would break the SoA's own completeness
-        // invariant ("93/93 controls"), matching how a real GRC tool would forbid it too.
-        $this->showFormButtons($options + ['candel' => false]);
 
         return true;
     }
