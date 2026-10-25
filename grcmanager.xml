@@ -41,6 +41,8 @@ déjà. Compatible GLPI 11 et 12.
 - Audits internes, non-conformités et actions correctives (CAPA), revues de direction, objectifs
   et indicateurs, tableau de bord.
 - Score de maturité cyber (0 à 100) avec le détail du calcul et son historique mensuel.
+- Cartes de pilotage : conformité par référentiel (ISO 27001, NIS2, ANSSI), échéances à 90 jours,
+  revue des accès, délais NIS2 / RGPD en alerte, revues périodiques en retard.
 - Audit de conformité technique : score ISO 27001, NIS2 et RGPD calculé sur les données de GLPI
   (antivirus, chiffrement des disques, inventaire, validation des changements, comptes) et ticket
   de mise en conformité par contrôle.
@@ -95,6 +97,8 @@ follow-up over time, without leaving the tool your teams already use. Compatible
 - Internal audits, non-conformities and corrective actions (CAPA), management reviews, objectives
   and indicators, dashboard.
 - Cyber maturity score (0 to 100) with the calculation details and its monthly history.
+- Steering cards: compliance by framework (ISO 27001, NIS2, ANSSI), deadlines within 90 days,
+  access review, NIS2 / GDPR deadlines at risk, overdue periodic reviews.
 - Technical compliance audit: ISO 27001, NIS2 and GDPR score computed from GLPI data (antivirus,
   disk encryption, inventory, change validation, accounts) and one remediation ticket per check.
 
