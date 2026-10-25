@@ -32,6 +32,8 @@ Html::header(
     'grcmanager',
     PluginGrcmanagerAudit::class
 );
+// Encadré « À quoi sert cette page ? ».
+PluginGrcmanagerPageHelp::show('audit');
 
 // ROADMAP.md "Version 1.5" (rapports exportables pour audit externe) : export PDF mis en forme
 // (audits + non-conformités/CAPA), en complément de l'export CSV/XLSX déjà natif de

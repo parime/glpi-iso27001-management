@@ -28,6 +28,8 @@ Html::header(
     'grcmanager',
     PluginGrcmanagerAccessReview::class
 );
+// Encadré « À quoi sert cette page ? ».
+PluginGrcmanagerPageHelp::show('accessreview');
 
 echo '<div class="d-flex justify-content-end mb-2">';
 echo '<a href="' . htmlescape(PluginGrcmanagerAccessReview::getMineURL())

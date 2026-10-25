@@ -50,6 +50,8 @@ Html::header(
     'grcmanager',
     PluginGrcmanagerRisk::class
 );
+// Encadré « À quoi sert cette page ? ».
+PluginGrcmanagerPageHelp::show('riskcatalog');
 
 $controlIds = [];
 foreach ((new PluginGrcmanagerControl())->find() as $control) {

@@ -45,6 +45,8 @@ Html::header(
     'grcmanager',
     PluginGrcmanagerAccountHygiene::class
 );
+// Encadré « À quoi sert cette page ? ».
+PluginGrcmanagerPageHelp::show('accounthygiene');
 
 PluginGrcmanagerAccountHygiene::showList($days);
 

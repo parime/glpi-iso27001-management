@@ -28,6 +28,8 @@ Html::header(
     'grcmanager',
     PluginGrcmanagerPolicy::class
 );
+// Encadré « À quoi sert cette page ? ».
+PluginGrcmanagerPageHelp::show('policy');
 
 // Same $_GET merge as front/risk.php: Search::showList() (unlike Search::show()) doesn't merge
 // $_GET itself, needed here too so sort/pagination/filter links on this list actually work, see

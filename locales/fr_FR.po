@@ -3934,3 +3934,240 @@ msgstr "une panne de la source touche l'élément pointé"
 
 msgid "Exporter pour le plan de continuité (CSV)"
 msgstr "Exporter pour le plan de continuité (CSV)"
+
+msgid "Le registre des risques de sécurité de l'information : chaque risque est évalué (probabilité × impact), relié aux actifs qu'il menace et aux mesures qui le réduisent."
+msgstr "Le registre des risques de sécurité de l'information : chaque risque est évalué (probabilité × impact), relié aux actifs qu'il menace et aux mesures qui le réduisent."
+
+msgid "Identifiez les risques, évaluez-les, décidez d'un traitement (réduire, accepter, transférer, éviter) et fixez une date de revue. Le propriétaire est prévenu à l'échéance."
+msgstr "Identifiez les risques, évaluez-les, décidez d'un traitement (réduire, accepter, transférer, éviter) et fixez une date de revue. Le propriétaire est prévenu à l'échéance."
+
+msgid "ISO 27001, 6.1.2 et 6.1.3 ; 8.2 et 8.3"
+msgstr "ISO 27001, 6.1.2 et 6.1.3 ; 8.2 et 8.3"
+
+msgid "La carte de chaleur des risques : leur répartition par probabilité et impact, pour voir d'un coup d'œil où se concentrent les risques élevés."
+msgstr "La carte de chaleur des risques : leur répartition par probabilité et impact, pour voir d'un coup d'œil où se concentrent les risques élevés."
+
+msgid "Consultez-la en revue de direction ; cliquez sur une case pour ouvrir les risques correspondants."
+msgstr "Consultez-la en revue de direction ; cliquez sur une case pour ouvrir les risques correspondants."
+
+msgid "Des risques types d'infrastructure (service d'administration exposé, réseau à plat, Wi-Fi invités mal isolé...), prêts à être ajoutés au registre."
+msgstr "Des risques types d'infrastructure (service d'administration exposé, réseau à plat, Wi-Fi invités mal isolé...), prêts à être ajoutés au registre."
+
+msgid "Cochez ceux qui vous concernent et importez-les, puis évaluez-les dans le registre. Rien n'est importé sans votre choix."
+msgstr "Cochez ceux qui vous concernent et importez-les, puis évaluez-les dans le registre. Rien n'est importé sans votre choix."
+
+msgid "Les risques liés à vos fournisseurs et prestataires : dépendance, accès à vos données, sécurité de leurs services."
+msgstr "Les risques liés à vos fournisseurs et prestataires : dépendance, accès à vos données, sécurité de leurs services."
+
+msgid "Créez un risque par fournisseur important, faites remplir le questionnaire de sécurité, suivez ses contrats et l'onglet « Veille sécurité »."
+msgstr "Créez un risque par fournisseur important, faites remplir le questionnaire de sécurité, suivez ses contrats et l'onglet « Veille sécurité »."
+
+msgid "ISO 27001, Annexe A 5.19 à 5.22"
+msgstr "ISO 27001, Annexe A 5.19 à 5.22"
+
+msgid "La déclaration d'applicabilité (SoA) : les 93 mesures de l'Annexe A, chacune déclarée applicable ou non, avec sa justification et son état de mise en œuvre."
+msgstr "La déclaration d'applicabilité (SoA) : les 93 mesures de l'Annexe A, chacune déclarée applicable ou non, avec sa justification et son état de mise en œuvre."
+
+msgid "Pour chaque mesure, indiquez si elle s'applique, pourquoi, et où en est sa mise en œuvre. Faites ensuite approuver la SoA."
+msgstr "Pour chaque mesure, indiquez si elle s'applique, pourquoi, et où en est sa mise en œuvre. Faites ensuite approuver la SoA."
+
+msgid "ISO 27001, 6.1.3 d)"
+msgstr "ISO 27001, 6.1.3 d)"
+
+msgid "Les versions approuvées de la déclaration d'applicabilité, avec l'approbateur et la date."
+msgstr "Les versions approuvées de la déclaration d'applicabilité, avec l'approbateur et la date."
+
+msgid "Demandez l'approbation après chaque évolution notable de la SoA ; l'approbateur ne peut pas être le demandeur."
+msgstr "Demandez l'approbation après chaque évolution notable de la SoA ; l'approbateur ne peut pas être le demandeur."
+
+msgid "Les exigences des articles 4 à 10 de la norme (contexte, leadership, planification, support, fonctionnement, évaluation, amélioration) et la preuve de leur respect."
+msgstr "Les exigences des articles 4 à 10 de la norme (contexte, leadership, planification, support, fonctionnement, évaluation, amélioration) et la preuve de leur respect."
+
+msgid "Pour chaque exigence, indiquez son état et joignez ou liez la preuve (document, revue, procédure)."
+msgstr "Pour chaque exigence, indiquez son état et joignez ou liez la preuve (document, revue, procédure)."
+
+msgid "ISO 27001, articles 4 à 10"
+msgstr "ISO 27001, articles 4 à 10"
+
+msgid "Vos obligations légales, réglementaires et contractuelles en sécurité (RGPD, NIS2, clauses clients...)."
+msgstr "Vos obligations légales, réglementaires et contractuelles en sécurité (RGPD, NIS2, clauses clients...)."
+
+msgid "Recensez-les avec leur source et leur responsable, et fixez une date de revue pour vérifier qu'elles sont toujours respectées."
+msgstr "Recensez-les avec leur source et leur responsable, et fixez une date de revue pour vérifier qu'elles sont toujours respectées."
+
+msgid "ISO 27001, 4.2 ; Annexe A 5.31"
+msgstr "ISO 27001, 4.2 ; Annexe A 5.31"
+
+msgid "Le programme d'audits internes : périmètre, dates, auditeurs, rapport et constats."
+msgstr "Le programme d'audits internes : périmètre, dates, auditeurs, rapport et constats."
+
+msgid "Planifiez les audits de l'année, saisissez le rapport et les constats ; chaque non-conformité ouvre un plan d'action."
+msgstr "Planifiez les audits de l'année, saisissez le rapport et les constats ; chaque non-conformité ouvre un plan d'action."
+
+msgid "ISO 27001, 9.2"
+msgstr "ISO 27001, 9.2"
+
+msgid "Les non-conformités et observations, avec leurs actions correctives et préventives (CAPA)."
+msgstr "Les non-conformités et observations, avec leurs actions correctives et préventives (CAPA)."
+
+msgid "Analysez la cause, décrivez l'action corrective, désignez un responsable et une échéance, puis vérifiez l'efficacité avant de clôturer."
+msgstr "Analysez la cause, décrivez l'action corrective, désignez un responsable et une échéance, puis vérifiez l'efficacité avant de clôturer."
+
+msgid "ISO 27001, 10.2"
+msgstr "ISO 27001, 10.2"
+
+msgid "Les formations et actions de sensibilisation à la sécurité, avec les participants et leurs résultats."
+msgstr "Les formations et actions de sensibilisation à la sécurité, avec les participants et leurs résultats."
+
+msgid "Enregistrez chaque session, ses participants et sa date de renouvellement ; un rappel est envoyé à l'échéance."
+msgstr "Enregistrez chaque session, ses participants et sa date de renouvellement ; un rappel est envoyé à l'échéance."
+
+msgid "ISO 27001, 7.2 et 7.3"
+msgstr "ISO 27001, 7.2 et 7.3"
+
+msgid "Les revues de direction : le bilan périodique du système de management de la sécurité par la direction."
+msgstr "Les revues de direction : le bilan périodique du système de management de la sécurité par la direction."
+
+msgid "Au moins une fois par an, préparez la revue (indicateurs, audits, incidents, risques), notez les décisions et les actions qui en découlent."
+msgstr "Au moins une fois par an, préparez la revue (indicateurs, audits, incidents, risques), notez les décisions et les actions qui en découlent."
+
+msgid "ISO 27001, 9.3"
+msgstr "ISO 27001, 9.3"
+
+msgid "Les objectifs de sécurité et leurs indicateurs mesurés dans le temps."
+msgstr "Les objectifs de sécurité et leurs indicateurs mesurés dans le temps."
+
+msgid "Définissez des objectifs mesurables, saisissez les mesures à chaque période et suivez l'atteinte de la cible."
+msgstr "Définissez des objectifs mesurables, saisissez les mesures à chaque période et suivez l'atteinte de la cible."
+
+msgid "ISO 27001, 6.2 et 9.1"
+msgstr "ISO 27001, 6.2 et 9.1"
+
+msgid "Les campagnes de revue des droits d'accès : chaque responsable confirme ou retire les droits de son équipe."
+msgstr "Les campagnes de revue des droits d'accès : chaque responsable confirme ou retire les droits de son équipe."
+
+msgid "Lancez une campagne, les responsables se prononcent ligne par ligne ; un retrait de droit ouvre un ticket, il n'est jamais appliqué automatiquement."
+msgstr "Lancez une campagne, les responsables se prononcent ligne par ligne ; un retrait de droit ouvre un ticket, il n'est jamais appliqué automatiquement."
+
+msgid "ISO 27001, Annexe A 5.18"
+msgstr "ISO 27001, Annexe A 5.18"
+
+msgid "Les comptes à vérifier : comptes inactifs, absents de l'annuaire, en double ou jamais connectés."
+msgstr "Les comptes à vérifier : comptes inactifs, absents de l'annuaire, en double ou jamais connectés."
+
+msgid "Passez la liste en revue et ouvrez un ticket pour chaque compte à désactiver ; rien n'est désactivé automatiquement."
+msgstr "Passez la liste en revue et ouvrez un ticket pour chaque compte à désactiver ; rien n'est désactivé automatiquement."
+
+msgid "Les revues périodiques (sauvegardes, journaux, droits, plan de continuité...) programmées comme des tickets récurrents."
+msgstr "Les revues périodiques (sauvegardes, journaux, droits, plan de continuité...) programmées comme des tickets récurrents."
+
+msgid "Activez les revues utiles et leur fréquence ; un ticket est créé à chaque échéance pour la personne en charge."
+msgstr "Activez les revues utiles et leur fréquence ; un ticket est créé à chaque échéance pour la personne en charge."
+
+msgid "La matrice des flux réseau autorisés : qui parle à qui, sur quel port, et pourquoi."
+msgstr "La matrice des flux réseau autorisés : qui parle à qui, sur quel port, et pourquoi."
+
+msgid "Décrivez chaque flux avec sa justification et son responsable, ou importez l'export de votre pare-feu, puis revoyez la matrice régulièrement."
+msgstr "Décrivez chaque flux avec sa justification et son responsable, ou importez l'export de votre pare-feu, puis revoyez la matrice régulièrement."
+
+msgid "ISO 27001, Annexe A 8.20 à 8.22"
+msgstr "ISO 27001, Annexe A 8.20 à 8.22"
+
+msgid "Le calendrier de conformité : toutes les échéances (revues, audits, renouvellements, obligations) au même endroit, aussi visibles dans le planning GLPI."
+msgstr "Le calendrier de conformité : toutes les échéances (revues, audits, renouvellements, obligations) au même endroit, aussi visibles dans le planning GLPI."
+
+msgid "Consultez-le pour anticiper les échéances ; abonnez votre agenda avec le lien iCal."
+msgstr "Consultez-le pour anticiper les échéances ; abonnez votre agenda avec le lien iCal."
+
+msgid "Les événements de conformité ponctuels à ajouter au calendrier (contrôle d'un régulateur, exercice de crise, échéance contractuelle...)."
+msgstr "Les événements de conformité ponctuels à ajouter au calendrier (contrôle d'un régulateur, exercice de crise, échéance contractuelle...)."
+
+msgid "Ajoutez l'événement avec sa date et son responsable ; il apparaît dans le calendrier de conformité."
+msgstr "Ajoutez l'événement avec sa date et son responsable ; il apparaît dans le calendrier de conformité."
+
+msgid "La bibliothèque des politiques de sécurité, versionnées, avec leur date de revue et leur taux de lecture."
+msgstr "La bibliothèque des politiques de sécurité, versionnées, avec leur date de revue et leur taux de lecture."
+
+msgid "Déposez chaque politique, faites-la valider, diffusez-la et revoyez-la à l'échéance."
+msgstr "Déposez chaque politique, faites-la valider, diffusez-la et revoyez-la à l'échéance."
+
+msgid "ISO 27001, 5.2 ; Annexe A 5.1"
+msgstr "ISO 27001, 5.2 ; Annexe A 5.1"
+
+msgid "Les preuves datées (rapports, attestations, certificats) et leur validité."
+msgstr "Les preuves datées (rapports, attestations, certificats) et leur validité."
+
+msgid "Indiquez jusqu'à quand chaque preuve est valable ; un ticket de renouvellement est ouvert quand elle expire."
+msgstr "Indiquez jusqu'à quand chaque preuve est valable ; un ticket de renouvellement est ouvert quand elle expire."
+
+msgid "Les règles de couverture : quels actifs doivent avoir quel document (par exemple, chaque serveur doit avoir sa fiche d'exploitation)."
+msgstr "Les règles de couverture : quels actifs doivent avoir quel document (par exemple, chaque serveur doit avoir sa fiche d'exploitation)."
+
+msgid "Créez une règle par exigence ; le résultat liste les actifs couverts et ceux à compléter."
+msgstr "Créez une règle par exigence ; le résultat liste les actifs couverts et ceux à compléter."
+
+msgid "Les dérogations de sécurité : les exceptions acceptées à une politique ou à une mesure, limitées dans le temps et compensées."
+msgstr "Les dérogations de sécurité : les exceptions acceptées à une politique ou à une mesure, limitées dans le temps et compensées."
+
+msgid "Justifiez chaque dérogation, décrivez les mesures compensatoires, faites-la valider et fixez sa date de fin ; elle est réévaluée à l'échéance."
+msgstr "Justifiez chaque dérogation, décrivez les mesures compensatoires, faites-la valider et fixez sa date de fin ; elle est réévaluée à l'échéance."
+
+msgid "ISO 27001, 6.1.3 ; Annexe A 5.36"
+msgstr "ISO 27001, 6.1.3 ; Annexe A 5.36"
+
+msgid "Les points de défaillance uniques : les éléments critiques qui ne dépendent que d'une seule source, d'après l'analyse d'impact de GLPI."
+msgstr "Les points de défaillance uniques : les éléments critiques qui ne dépendent que d'une seule source, d'après l'analyse d'impact de GLPI."
+
+msgid "Créez le risque correspondant ou ajoutez une redondance ; exportez la liste pour votre plan de continuité."
+msgstr "Créez le risque correspondant ou ajoutez une redondance ; exportez la liste pour votre plan de continuité."
+
+msgid "ISO 27001, Annexe A 5.29, 5.30 et 8.14"
+msgstr "ISO 27001, Annexe A 5.29, 5.30 et 8.14"
+
+msgid "L'effet domino : comment un incident ou un risque peut en entraîner d'autres."
+msgstr "L'effet domino : comment un incident ou un risque peut en entraîner d'autres."
+
+msgid "Reliez les éléments depuis l'onglet « Effet domino » d'un risque ou d'un incident ; cette page montre l'ensemble."
+msgstr "Reliez les éléments depuis l'onglet « Effet domino » d'un risque ou d'un incident ; cette page montre l'ensemble."
+
+msgid "Les incidents de sécurité : qualification, actifs touchés, CVE, coûts, notifications réglementaires (CNIL, NIS2)."
+msgstr "Les incidents de sécurité : qualification, actifs touchés, CVE, coûts, notifications réglementaires (CNIL, NIS2)."
+
+msgid "Déclarez l'incident, qualifiez-le, suivez les actions et respectez les délais de notification rappelés sur la fiche."
+msgstr "Déclarez l'incident, qualifiez-le, suivez les actions et respectez les délais de notification rappelés sur la fiche."
+
+msgid "ISO 27001, Annexe A 5.24 à 5.28"
+msgstr "ISO 27001, Annexe A 5.24 à 5.28"
+
+msgid "Les vulnérabilités connues (CVE) des logiciels installés sur votre parc, avec leur exploitation réelle (KEV, EPSS) et les avis du CERT-FR."
+msgstr "Les vulnérabilités connues (CVE) des logiciels installés sur votre parc, avec leur exploitation réelle (KEV, EPSS) et les avis du CERT-FR."
+
+msgid "Traitez d'abord les vulnérabilités exploitées et prioritaires ; ouvrez un ticket de mise à jour par logiciel."
+msgstr "Traitez d'abord les vulnérabilités exploitées et prioritaires ; ouvrez un ticket de mise à jour par logiciel."
+
+msgid "ISO 27001, Annexe A 8.8"
+msgstr "ISO 27001, Annexe A 8.8"
+
+msgid "Les logiciels du parc à rapprocher d'une référence CPE pour que leurs vulnérabilités soient suivies."
+msgstr "Les logiciels du parc à rapprocher d'une référence CPE pour que leurs vulnérabilités soient suivies."
+
+msgid "Commencez par les plus exposés (navigateurs, accès distant, VPN) : cherchez le CPE, confirmez-le, ou ignorez un logiciel sans enjeu."
+msgstr "Commencez par les plus exposés (navigateurs, accès distant, VPN) : cherchez le CPE, confirmez-le, ou ignorez un logiciel sans enjeu."
+
+msgid "Le catalogue de corrélation : les produits de référence, leurs CPE et les noms sous lesquels ils apparaissent dans l'inventaire."
+msgstr "Le catalogue de corrélation : les produits de référence, leurs CPE et les noms sous lesquels ils apparaissent dans l'inventaire."
+
+msgid "Il se remplit depuis « Logiciels à surveiller » ; corrigez ici un alias ou un CPE si besoin."
+msgstr "Il se remplit depuis « Logiciels à surveiller » ; corrigez ici un alias ou un CPE si besoin."
+
+msgid "Les correspondances entre l'Annexe A et d'autres référentiels, pour réutiliser votre travail sur plusieurs normes."
+msgstr "Les correspondances entre l'Annexe A et d'autres référentiels, pour réutiliser votre travail sur plusieurs normes."
+
+msgid "Consultez les correspondances avant un audit portant sur un autre référentiel."
+msgstr "Consultez les correspondances avant un audit portant sur un autre référentiel."
+
+msgid "À quoi sert cette page ?"
+msgstr "À quoi sert cette page ?"
+
+msgid "Ce qui est attendu"
+msgstr "Ce qui est attendu"

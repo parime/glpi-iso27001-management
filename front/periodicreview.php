@@ -62,6 +62,8 @@ Html::header(
     'grcmanager',
     PluginGrcmanagerPeriodicReview::class
 );
+// Encadré « À quoi sert cette page ? ».
+PluginGrcmanagerPageHelp::show('periodicreview');
 
 PluginGrcmanagerPeriodicReview::showList();
 

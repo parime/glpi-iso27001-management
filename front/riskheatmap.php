@@ -27,6 +27,8 @@ Html::header(
     'grcmanager',
     PluginGrcmanagerRisk::class
 );
+// Encadré « À quoi sert cette page ? ».
+PluginGrcmanagerPageHelp::show('riskheatmap');
 
 // Each cell links to the risk list, pre-filtered on that exact probability/impact combination
 // (search option ids 3/4, see PluginGrcmanagerRisk::rawSearchOptions()) - the "interactive" half

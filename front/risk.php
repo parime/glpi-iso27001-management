@@ -33,6 +33,8 @@ Html::header(
     'grcmanager',
     PluginGrcmanagerRisk::class
 );
+// Encadré « À quoi sert cette page ? ».
+PluginGrcmanagerPageHelp::show('risk');
 
 // Owner-scoped default view (Sprint 2): a one-click shortcut to the same list pre-filtered on the
 // "Propriétaire" search option (id 7, see PluginGrcmanagerRisk::rawSearchOptions()) to the

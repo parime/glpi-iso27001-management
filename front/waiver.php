@@ -29,6 +29,8 @@ Html::header(
     'grcmanager',
     PluginGrcmanagerWaiver::class
 );
+// Encadré « À quoi sert cette page ? ».
+PluginGrcmanagerPageHelp::show('waiver');
 
 $params = QueryBuilder::manageParams(PluginGrcmanagerWaiver::class, $_GET);
 

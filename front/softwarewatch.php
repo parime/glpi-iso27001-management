@@ -76,6 +76,8 @@ Html::header(
     'grcmanager',
     PluginGrcmanagerParkVulnerability::class
 );
+// Encadré « À quoi sert cette page ? ».
+PluginGrcmanagerPageHelp::show('softwarewatch');
 
 TemplateRenderer::getInstance()->display('@grcmanager/software_watch.html.twig', [
     'action'        => PluginGrcmanagerParkVulnerability::getWatchURL(),
