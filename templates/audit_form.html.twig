@@ -1,0 +1,26 @@
+{# Audit interne, clause 9.2 (issue #199 : formulaire passé de PHP à Twig) #}
+{% extends 'generic_show_form.html.twig' %}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+
+{% block form_fields %}
+   {{ fields.textField('title', item.fields['title'], __('Titre', 'grcmanager'), {'full_width': true}) }}
+   {{ fields.dropdownField('User', 'users_id', item.fields['users_id'], __('Auditeur', 'grcmanager'), {'right': 'all'}) }}
+   {{ fields.dropdownArrayField('status', item.fields['status'] ?: 'planned', statuses, __('Statut', 'grcmanager')) }}
+   {{ fields.dateField('planned_date', item.fields['planned_date'], __('Date planifiée', 'grcmanager')) }}
+   {{ fields.dateField('actual_date', item.fields['actual_date'], __('Date réalisée', 'grcmanager')) }}
+   {{ fields.textareaField('scope', item.fields['scope'], __('Périmètre', 'grcmanager'), {
+      'full_width': true,
+      'helper': __('Description libre du périmètre audité (processus, sites, systèmes...).', 'grcmanager'),
+   }) }}
+   {{ fields.dropdownArrayField('risk_categories', null, categories, __('Catégories de risque couvertes', 'grcmanager'), {
+      'multiple': true,
+      'values': risk_categories,
+      'full_width': true,
+   }) }}
+   {{ fields.dropdownArrayField('linked_controls', null, controls, __('Contrôles Annexe A couverts', 'grcmanager'), {
+      'multiple': true,
+      'values': linked_controls,
+      'full_width': true,
+   }) }}
+   {{ fields.textareaField('conclusion', item.fields['conclusion'], __('Conclusion', 'grcmanager'), {'full_width': true}) }}
+{% endblock %}

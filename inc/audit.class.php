@@ -15,6 +15,7 @@
  * -------------------------------------------------------------------------
  */
 
+use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\AuditBase;
 
 /**
@@ -383,55 +384,6 @@ class PluginGrcmanagerAudit extends AuditBase
         global $DB;
 
         $this->initForm($ID, $options);
-        $this->showFormHeader($options);
-
-        echo '<tr class="tab_bg_1"><td>' . __('Titre', 'grcmanager') . '</td>';
-        echo '<td colspan="3">';
-        echo Html::input('title', ['value' => $this->fields['title'] ?? '', 'size' => 80]);
-        echo '</td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . __('Auditeur', 'grcmanager') . '</td><td>';
-        User::dropdown([
-            'name'  => 'users_id',
-            'value' => $this->fields['users_id'] ?? 0,
-            'right' => 'all',
-        ]);
-        echo '</td>';
-
-        echo '<td>' . __('Statut', 'grcmanager') . '</td><td>';
-        Dropdown::showFromArray('status', self::getStatuses(), [
-            'value' => $this->fields['status'] ?? 'planned',
-        ]);
-        echo '</td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . __('Date planifiée', 'grcmanager') . '</td><td>';
-        Html::showDateField('planned_date', ['value' => $this->fields['planned_date'] ?? '']);
-        echo '</td>';
-
-        echo '<td>' . __('Date réalisée', 'grcmanager') . '</td><td>';
-        Html::showDateField('actual_date', ['value' => $this->fields['actual_date'] ?? '']);
-        echo '</td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . __('Périmètre', 'grcmanager') . '</td>';
-        echo '<td colspan="3">';
-        echo '<textarea name="scope" class="form-control" rows="3">'
-            . htmlescape($this->fields['scope'] ?? '') . '</textarea>';
-        echo '<small class="form-hint">' . __(
-            'Description libre du périmètre audité (processus, sites, systèmes...).',
-            'grcmanager'
-        ) . '</small>';
-        echo '</td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . __('Catégories de risque couvertes', 'grcmanager') . '</td>';
-        echo '<td colspan="3">';
-        Dropdown::showFromArray('risk_categories', PluginGrcmanagerRisk::getCategories(), [
-            'values'   => $this->isNewID($ID)
-                ? []
-                : self::splitRiskCategories((string) ($this->fields['risk_categories'] ?? '')),
-            'multiple' => true,
-            'width'    => '100%',
-        ]);
-        echo '</td></tr>';
 
         $controlTitles = [];
         $controlRows   = $DB->request(['SELECT' => ['id', 'code'], 'FROM' => PluginGrcmanagerControl::getTable()]);
@@ -441,22 +393,17 @@ class PluginGrcmanagerAudit extends AuditBase
         }
         asort($controlTitles);
 
-        echo '<tr class="tab_bg_1"><td>' . __('Contrôles Annexe A couverts', 'grcmanager') . '</td>';
-        echo '<td colspan="3">';
-        Dropdown::showFromArray('linked_controls', $controlTitles, [
-            'values'   => $this->isNewID($ID) ? [] : self::getLinkedControlIds((int) $ID),
-            'multiple' => true,
-            'width'    => '100%',
+        TemplateRenderer::getInstance()->display('@grcmanager/audit_form.html.twig', [
+            'item'            => $this,
+            'params'          => $options,
+            'statuses'        => self::getStatuses(),
+            'categories'      => PluginGrcmanagerRisk::getCategories(),
+            'risk_categories' => $this->isNewID($ID)
+                ? []
+                : self::splitRiskCategories((string) ($this->fields['risk_categories'] ?? '')),
+            'controls'        => $controlTitles,
+            'linked_controls' => $this->isNewID($ID) ? [] : self::getLinkedControlIds((int) $ID),
         ]);
-        echo '</td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . __('Conclusion', 'grcmanager') . '</td>';
-        echo '<td colspan="3">';
-        echo '<textarea name="conclusion" class="form-control" rows="4">'
-            . htmlescape($this->fields['conclusion'] ?? '') . '</textarea>';
-        echo '</td></tr>';
-
-        $this->showFormButtons($options);
 
         return true;
     }
