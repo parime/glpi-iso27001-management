@@ -1,0 +1,35 @@
+{# Identifiants CPE et alias de logiciels d'un produit du catalogue (issue #199 : passé de PHP à Twig) #}
+{% for list in lists %}
+   <div class="card mt-3"><div class="card-body">
+      <h3>{{ list.title }}</h3>
+      <p class="text-muted">{{ list.help }}</p>
+      {% if can_edit %}
+         <form method="post" action="{{ list.url }}" class="mb-3 d-flex gap-2">
+            <input type="hidden" name="plugin_grcmanager_canonicalproducts_id" value="{{ product_id }}">
+            <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+            <input type="text" name="{{ list.field }}" class="form-control" style="max-width: 480px;" placeholder="{{ list.placeholder }}">
+            <button type="submit" name="add" value="1" class="btn btn-primary">{{ __('Ajouter') }}</button>
+         </form>
+      {% endif %}
+      <table class="table"><tbody>
+         {% for row in list.rows %}
+            <tr>
+               <td>{% if list.code %}<code>{{ row.value }}</code>{% else %}{{ row.value }}{% endif %}</td>
+               {% if can_edit %}
+                  <td class="text-end">
+                     <form method="post" action="{{ list.url }}" data-grc-confirm="{{ __('Confirmer la suppression ?', 'grcmanager') }}">
+                        <input type="hidden" name="id" value="{{ row.id }}">
+                        <input type="hidden" name="plugin_grcmanager_canonicalproducts_id" value="{{ product_id }}">
+                        <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                        <button type="submit" name="purge" value="1" class="btn btn-sm btn-outline-danger" aria-label="{{ __('Supprimer') }}"><i class="ti ti-trash"></i></button>
+                     </form>
+                  </td>
+               {% endif %}
+            </tr>
+         {% else %}
+            <tr><td class="text-muted">{{ list.empty }}</td></tr>
+         {% endfor %}
+      </tbody></table>
+   </div></div>
+{% endfor %}
+{% include '@grcmanager/_confirm_forms.html.twig' %}
