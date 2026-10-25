@@ -1,6 +1,6 @@
 {# Issue #171 : graphe de l'effet domino (Cytoscape, fourni par GLPI). Paramètres : elements, height. #}
 {% set cy_id = 'grc-causal-' ~ random() %}
-<div id="{{ cy_id }}" class="border rounded bg-white" style="height: {{ height|default('420px') }}; width: 100%;"></div>
+<div id="{{ cy_id }}" class="border rounded bg-white" style="height: {{ height|default('420px') }}; width: 100%;" data-elements="{{ elements|json_encode }}"></div>
 <div class="d-flex flex-wrap gap-3 small text-muted mt-1">
    <span><span class="badge" style="background:#f59f00">&nbsp;</span> {{ __('Risque', 'grcmanager') }}</span>
    <span><span class="badge" style="background:#ae3ec9">&nbsp;</span> {{ __('Risque fournisseur', 'grcmanager') }}</span>
@@ -9,7 +9,8 @@
 </div>
 <script>
    (function () {
-      const elements = {{ elements|json_encode(15)|raw }};
+      // Données passées par un attribut échappé, jamais injectées telles quelles dans le script.
+      const elements = JSON.parse(document.getElementById('{{ cy_id }}').dataset.elements);
       const render = function () {
          const cy = window.cytoscape({
             container: document.getElementById('{{ cy_id }}'),

@@ -150,7 +150,8 @@ contracts_tab=$(tab PluginGrcmanagerSupplierRisk 'PluginGrcmanagerSupplierAssess
 contains "onglet contrats du fournisseur : contrat A" "Contrat securite A" oui     "$contracts_tab"
 contains "onglet contrats du fournisseur : contrat B" "Contrat securite B" $SEE_B  "$contracts_tab"
 
-risk_page=$(curl -s -c "$JAR" -b "$JAR" "$P/risk.form.php?id=$(id risk)")
+# Issue #171 : la fiche du risque s'affiche avec onglets, le formulaire est le premier onglet.
+risk_page=$(tab PluginGrcmanagerRisk 'PluginGrcmanagerRisk$main' "$(id risk)")
 contains "actif lie d'une autre entite affiche sur le risque" "PC securite B" $SEE_B "$risk_page"
 
 expect "classification d'un actif de A" 302 \
