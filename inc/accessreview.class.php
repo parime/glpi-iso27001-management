@@ -374,70 +374,31 @@ class PluginGrcmanagerAccessReview extends AccessReviewBase
     public function showForm($ID, array $options = []): bool
     {
         $this->initForm($ID, $options);
-        $this->showFormHeader($options);
         $isNew = $this->isNewID($ID);
+        $status = (string) ($this->fields['status'] ?? '') ?: AccessReviewLogic::STATUS_DRAFT;
 
-        echo '<tr class="tab_bg_1"><td>' . __('Nom') . '</td><td colspan="3">';
-        echo Html::input('name', [
-            'value' => $this->fields['name'] ?? '',
-            'size'  => 80,
-            'placeholder' => __('Ex. : Revue des accès T4 2026', 'grcmanager'),
-        ]);
-        echo '</td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . __('Fréquence', 'grcmanager') . '</td><td>';
-        Dropdown::showFromArray('frequency', self::getFrequencies(), [
-            'value' => $this->fields['frequency'] ?? 'annual',
-        ]);
-        echo '</td><td>' . __('Statut', 'grcmanager') . '</td><td>';
-        $status = (string) ($this->fields['status'] ?? AccessReviewLogic::STATUS_DRAFT);
-        $badge = [
-            AccessReviewLogic::STATUS_DRAFT  => 'bg-secondary-lt',
-            AccessReviewLogic::STATUS_OPEN   => 'bg-blue-lt',
-            AccessReviewLogic::STATUS_CLOSED => 'bg-green-lt',
-        ][$status] ?? 'bg-secondary-lt';
-        echo '<span class="badge ' . $badge . '">' . htmlescape(self::getStatuses()[$status] ?? $status) . '</span>';
-        echo '</td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . __('Date de début', 'grcmanager') . '</td><td>';
-        Html::showDateField('date_start', ['value' => $isNew ? date('Y-m-d') : ($this->fields['date_start'] ?? '')]);
-        echo '</td><td>' . __('Échéance', 'grcmanager') . '</td><td>';
-        Html::showDateField('due_date', [
-            'value' => $isNew ? date('Y-m-d', (int) strtotime('+30 days')) : ($this->fields['due_date'] ?? ''),
-        ]);
-        echo '</td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . __('Pilote', 'grcmanager') . '</td><td>';
-        User::dropdown([
-            'name'  => 'users_id',
-            'value' => $isNew ? Session::getLoginUserID() : ($this->fields['users_id'] ?? 0),
-            'right' => 'all',
-        ]);
-        echo '</td><td>' . __('Mesure de la SoA', 'grcmanager') . '</td><td>';
-        Dropdown::showFromArray('plugin_grcmanager_controls_id', self::getControlChoices(), [
-            'value' => $isNew
+        TemplateRenderer::getInstance()->display('@grcmanager/access_review_form.html.twig', [
+            'item'         => $this,
+            'params'       => $options,
+            'is_new'       => $isNew,
+            'frequencies'  => self::getFrequencies(),
+            'status_label' => self::getStatuses()[$status] ?? $status,
+            'status_class' => [
+                AccessReviewLogic::STATUS_DRAFT  => 'bg-secondary-lt',
+                AccessReviewLogic::STATUS_OPEN   => 'bg-blue-lt',
+                AccessReviewLogic::STATUS_CLOSED => 'bg-green-lt',
+            ][$status] ?? 'bg-secondary-lt',
+            // Nouvelle campagne : du jour à J+30, pilotée par la personne qui la crée.
+            'date_start'   => $isNew ? date('Y-m-d') : ($this->fields['date_start'] ?? ''),
+            'due_date'     => $isNew
+                ? date('Y-m-d', (int) strtotime('+30 days'))
+                : ($this->fields['due_date'] ?? ''),
+            'pilot'        => $isNew ? Session::getLoginUserID() : ($this->fields['users_id'] ?? 0),
+            'controls'     => self::getControlChoices(),
+            'control_id'   => $isNew
                 ? self::getDefaultControlId()
                 : (int) ($this->fields['plugin_grcmanager_controls_id'] ?? 0),
-            'width' => '100%',
         ]);
-        echo '</td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . __('Commentaire', 'grcmanager') . '</td><td colspan="3">';
-        echo '<textarea name="comment" class="form-control" rows="3">'
-            . htmlescape($this->fields['comment'] ?? '') . '</textarea>';
-        echo '</td></tr>';
-
-        if ($isNew) {
-            echo '<tr class="tab_bg_1"><td colspan="4"><small class="text-muted"><i class="ti ti-info-circle me-1"></i>'
-                . htmlescape(__(
-                    'Après l\'enregistrement, ouvrez l\'onglet « Comptes à revoir » pour lancer la campagne. '
-                        . 'Les responsables sont prévenus par notification ; '
-                        . 'aucun droit n\'est modifié par le plugin.',
-                    'grcmanager'
-                )) . '</small></td></tr>';
-        }
-
-        $this->showFormButtons($options);
 
         return true;
     }
