@@ -9,6 +9,14 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Exploitation des CVE des incidents de sécurité** (issue #172) :
+  - l'onglet CVE d'un incident affiche le badge **KEV**, avec l'échéance CISA, et le score **EPSS**
+    (probabilité d'exploitation dans les 30 jours). Le score est en rouge au-delà de 50 % ;
+  - la tâche quotidienne des vulnérabilités met à jour l'EPSS des CVE rattachées aux incidents, en
+    plus de celles du parc ;
+  - un **suivi privé** est ajouté à l'incident ouvert dans deux cas : quand une de ses CVE figure au
+    catalogue KEV, et quand son EPSS franchit 50 % puis à chaque hausse de 20 points. La priorité
+    de l'incident n'est jamais modifiée : le suivi invite l'équipe à la revoir.
 - **Tickets des vulnérabilités du parc** (issue #160, phase 2) :
   - **un ticket par logiciel à mettre à jour** (« Mettre à jour Mozilla Firefox : 12 vulnérabilité(s),
     3 machine(s) »). Il détaille les vulnérabilités les plus graves (CVE, CVSS, EPSS, KEV et

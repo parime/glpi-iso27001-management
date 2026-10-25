@@ -1514,6 +1514,8 @@ final class Installer
                 `id` int {$keySign} NOT NULL AUTO_INCREMENT,
                 `plugin_grcmanager_securityincidents_id` int {$keySign} NOT NULL DEFAULT 0,
                 `cve_id` varchar(20) NOT NULL DEFAULT '',
+                `epss_alerted` int NOT NULL DEFAULT 0,
+                `kev_alerted` tinyint NOT NULL DEFAULT 0,
                 `date_creation` timestamp NULL DEFAULT NULL,
                 `date_mod` timestamp NULL DEFAULT NULL,
                 PRIMARY KEY (`id`),
@@ -1521,6 +1523,16 @@ final class Installer
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
             $DB->doQuery($query) or die($DB->error());
+        }
+        // Issue #172 : EPSS (en %) et passage KEV déjà signalés sur l'incident, pour ne pas répéter.
+        if (!$DB->fieldExists(self::SECURITY_INCIDENT_CVES_TABLE, 'epss_alerted')) {
+            $migration->addField(self::SECURITY_INCIDENT_CVES_TABLE, 'epss_alerted', 'integer', [
+                'after' => 'cve_id',
+            ]);
+            $migration->addField(self::SECURITY_INCIDENT_CVES_TABLE, 'kev_alerted', 'bool', [
+                'after' => 'epss_alerted',
+            ]);
+            $migration->migrationOneTable(self::SECURITY_INCIDENT_CVES_TABLE);
         }
 
         if (!$DB->tableExists(self::SECURITY_INCIDENT_COSTS_TABLE)) {

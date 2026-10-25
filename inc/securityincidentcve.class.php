@@ -19,6 +19,8 @@ use GlpiPlugin\Grcmanager\Compatibility\Base\SecurityIncidentCveBase;
 use GlpiPlugin\Grcmanager\Services\Cve\InventoryCveMatcher;
 use GlpiPlugin\Grcmanager\Services\Cve\NvdCveEnrichmentService;
 use GlpiPlugin\Grcmanager\Services\Cve\NvdConfig;
+use GlpiPlugin\Grcmanager\Services\Cve\ParkVulnerabilityRules;
+use GlpiPlugin\Grcmanager\Services\Cve\ParkVulnerabilitySync;
 
 /**
  * One CVE reference associated to a PluginGrcmanagerSecurityIncident — several per
@@ -109,6 +111,95 @@ class PluginGrcmanagerSecurityIncidentCve extends SecurityIncidentCveBase
         return self::createTabEntry(_n('CVE', 'CVEs', $count, 'grcmanager'), $count, $item::class);
     }
 
+    /**
+     * Issue #172 : suivi privé sur les incidents ouverts dont une CVE devient activement exploitée
+     * (catalogue CISA KEV) ou dont la probabilité d'exploitation (EPSS) grimpe. La priorité de
+     * l'incident n'est jamais modifiée : l'équipe décide.
+     *
+     * @return int Suivis ajoutés.
+     */
+    public static function alertExploitation(): int
+    {
+        global $DB;
+
+        $table = self::getTable();
+        $incidents = PluginGrcmanagerSecurityIncident::getTable();
+        $rows = iterator_to_array($DB->request([
+            'SELECT'     => [
+                "$table.id", "$table.cve_id", "$table.epss_alerted", "$table.kev_alerted",
+                "$table.plugin_grcmanager_securityincidents_id",
+            ],
+            'FROM'       => $table,
+            'INNER JOIN' => [
+                $incidents => ['FKEY' => [$table => 'plugin_grcmanager_securityincidents_id', $incidents => 'id']],
+            ],
+            'WHERE'      => [
+                "$incidents.is_deleted" => 0,
+                'NOT'                   => ["$incidents.status" => array_merge(
+                    PluginGrcmanagerSecurityIncident::getSolvedStatusArray(),
+                    PluginGrcmanagerSecurityIncident::getClosedStatusArray()
+                )],
+            ],
+        ]), false);
+        $signals = ParkVulnerabilitySync::signalsFor(array_values(array_unique(array_column($rows, 'cve_id'))));
+        $added = 0;
+        foreach ($rows as $row) {
+            $signal = $signals[(string) $row['cve_id']] ?? null;
+            if ($signal === null) {
+                continue;
+            }
+            $alerts = ParkVulnerabilityRules::exploitationAlerts(
+                $signal['epss'],
+                (int) $row['epss_alerted'],
+                $signal['is_kev'],
+                (bool) $row['kev_alerted']
+            );
+            if ($alerts === []) {
+                continue;
+            }
+            $lines = [];
+            if (in_array('kev', $alerts, true)) {
+                $lines[] = sprintf(
+                    __('%s figure au catalogue CISA KEV : elle est activement exploitée.', 'grcmanager'),
+                    $row['cve_id']
+                ) . ($signal['kev_due'] !== '' ? ' ' . sprintf(
+                    __('Échéance de correction fixée par la CISA : %s.', 'grcmanager'),
+                    Html::convDate($signal['kev_due'])
+                ) : '');
+            }
+            if (in_array('epss', $alerts, true)) {
+                $lines[] = sprintf(
+                    __(
+                        'Probabilité d\'exploitation de %1$s dans les 30 jours (FIRST EPSS) : %2$d %%.',
+                        'grcmanager'
+                    ),
+                    $row['cve_id'],
+                    (int) round((float) $signal['epss'] * 100)
+                );
+            }
+            $lines[] = __(
+                'Revoyez la priorité de l\'incident : elle n\'est pas modifiée automatiquement.',
+                'grcmanager'
+            );
+            $added += (new ITILFollowup())->add([
+                'itemtype'   => PluginGrcmanagerSecurityIncident::class,
+                'items_id'   => (int) $row['plugin_grcmanager_securityincidents_id'],
+                'is_private' => 1,
+                'content'    => Glpi\Application\View\TemplateRenderer::getInstance()->render(
+                    '@grcmanager/incident_exploitation_followup.html.twig',
+                    ['lines' => $lines]
+                ),
+            ]) ? 1 : 0;
+            $DB->update($table, [
+                'epss_alerted' => in_array('epss', $alerts, true)
+                    ? (int) round((float) $signal['epss'] * 100) : (int) $row['epss_alerted'],
+                'kev_alerted'  => (int) ($signal['is_kev'] || (bool) $row['kev_alerted']),
+            ], ['id' => (int) $row['id']]);
+        }
+
+        return $added;
+    }
+
     public static function displayTabContentForItem(CommonGLPI $item, $tabnum = 1, $withtemplate = 0)
     {
         if (!($item instanceof PluginGrcmanagerSecurityIncident)) {
@@ -136,6 +227,9 @@ class PluginGrcmanagerSecurityIncidentCve extends SecurityIncidentCveBase
         $nvdConfig = NvdConfig::load();
 
         Glpi\Application\View\TemplateRenderer::getInstance()->display('@grcmanager/tabs/cve.html.twig', [
+           // Issue #172 : badges KEV et EPSS, mis à jour par la tâche des vulnérabilités du parc.
+           'signals_by_cve_id' => ParkVulnerabilitySync::signalsFor(array_values(array_column($cves, 'cve_id'))),
+           'epss_priority'     => ParkVulnerabilityRules::PRIORITY_EPSS,
            'item' => $item,
            'cves' => $cves,
            'can_edit' => $item->canUpdateItem(),
