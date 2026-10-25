@@ -11,7 +11,6 @@ front/nonconformity.php 4
 front/supplierrisk.php 4
 hook.php 1
 inc/accessreview.class.php 41
-inc/accounthygiene.class.php 50
 inc/assetclassification.class.php 4
 inc/audit.class.php 44
 inc/canonicalproduct.class.php 50
