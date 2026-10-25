@@ -10,7 +10,7 @@ front/networkflow.import.php 50
 front/nonconformity.php 4
 front/supplierrisk.php 4
 hook.php 1
-inc/accessreview.class.php 41
+inc/accessreview.class.php 14
 inc/assetclassification.class.php 4
 inc/audit.class.php 6
 inc/complianceevent.class.php 69
