@@ -23,7 +23,7 @@ inc/networkflow.class.php 61
 inc/nonconformity.class.php 14
 inc/objective.class.php 91
 inc/periodicreview.class.php 62
-inc/policy.class.php 31
+inc/policy.class.php 4
 inc/risk.class.php 134
 inc/risktreatmentaction.class.php 4
 inc/securityincident.class.php 15
