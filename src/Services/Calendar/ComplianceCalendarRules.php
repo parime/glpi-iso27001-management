@@ -82,6 +82,32 @@ final class ComplianceCalendarRules
         return $begin < $rangeEnd && $end > $rangeBegin;
     }
 
+    /** Issue #142 : le responsable est prévenu 15 jours avant le début de l'événement. */
+    public const REMINDER_DAYS = 15;
+
+    /**
+     * Rappel dû : événement planifié, avec un responsable, qui commence dans les 15 prochains
+     * jours (ou aujourd'hui) et pour lequel aucun rappel n'a encore été envoyé.
+     */
+    public static function reminderDue(
+        string $status,
+        ?string $dateBegin,
+        int $usersId,
+        ?string $notifiedAt,
+        string $today
+    ): bool {
+        if ($status !== 'planned' || $usersId <= 0 || ($notifiedAt !== null && $notifiedAt !== '')) {
+            return false;
+        }
+        if ($dateBegin === null || $dateBegin === '') {
+            return false;
+        }
+        $day = substr($dateBegin, 0, 10);
+        $limit = date('Y-m-d', (int) strtotime($today . ' +' . self::REMINDER_DAYS . ' days'));
+
+        return $day >= $today && $day <= $limit;
+    }
+
     /**
      * @param list<array{begin: string}> $events
      * @return list<array{begin: string}>

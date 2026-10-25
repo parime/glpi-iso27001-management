@@ -37,6 +37,9 @@ class PluginGrcmanagerComplianceEvent extends ComplianceEventBase
 {
     public const RIGHTNAME = 'plugin_grcmanager';
 
+    /** Issue #142 : événement de notification, voir inc/notificationtargetcomplianceevent.class.php. */
+    public const REMINDER_EVENT = 'complianceevent_reminder';
+
     public static function getTable($classname = null)
     {
         return 'glpi_plugin_grcmanager_complianceevents';
@@ -182,6 +185,10 @@ class PluginGrcmanagerComplianceEvent extends ComplianceEventBase
                 return false;
             }
             [$input['date_begin'], $input['date_end']] = $range;
+            // Issue #142 : événement déplacé, le responsable sera de nouveau prévenu.
+            if (!$this->isNewItem() && $input['date_begin'] !== ($this->fields['date_begin'] ?? null)) {
+                $input['date_notified'] = 'NULL';
+            }
         }
         if (trim((string) ($input['name'] ?? $this->fields['name'] ?? '')) === '') {
             $input['name'] = self::getEventTypes()[$input['event_type'] ?? $this->fields['event_type'] ?? 'other']
@@ -700,5 +707,56 @@ class PluginGrcmanagerComplianceEvent extends ComplianceEventBase
         $name = __('Calendrier de conformité', 'grcmanager');
 
         return ComplianceCalendarRules::toIcs($events, $name, date('Y-m-d H:i:s'));
+    }
+
+    /**
+     * @return array{description: string}|array{}
+     */
+    public static function cronInfo($name)
+    {
+        return $name === 'complianceeventreminder'
+            ? ['description' => __('Prévient le responsable 15 jours avant un événement du calendrier de conformité', 'grcmanager')]
+            : [];
+    }
+
+    public static function cronComplianceeventreminder(CronTask $task): int
+    {
+        $notified = self::runReminders(date('Y-m-d'));
+        $task->addVolume($notified);
+        $task->log(sprintf('%d rappel(s) d\'événement de conformité.', $notified));
+
+        return $notified > 0 ? 1 : 0;
+    }
+
+    /**
+     * Issue #142, phase 2 : un rappel par événement saisi (audit externe, pentest, certification…),
+     * sans aucune action automatique sur l'événement. Les échéances des autres registres ont déjà
+     * leurs propres rappels.
+     */
+    public static function runReminders(string $today): int
+    {
+        global $DB;
+
+        $notified = 0;
+        foreach (
+            $DB->request([
+                'FROM'  => self::getTable(),
+                'WHERE' => ['status' => 'planned', 'date_notified' => null, ['users_id' => ['>', 0]]],
+            ]) as $row
+        ) {
+            $dateBegin = $row['date_begin'] !== null ? (string) $row['date_begin'] : null;
+            if (!ComplianceCalendarRules::reminderDue('planned', $dateBegin, (int) $row['users_id'], null, $today)) {
+                continue;
+            }
+            $event = new self();
+            if (!$event->getFromDB((int) $row['id'])) {
+                continue;
+            }
+            NotificationEvent::raiseEvent(self::REMINDER_EVENT, $event);
+            $DB->update(self::getTable(), ['date_notified' => date('Y-m-d H:i:s')], ['id' => $event->getID()]);
+            $notified++;
+        }
+
+        return $notified;
     }
 }

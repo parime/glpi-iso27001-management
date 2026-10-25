@@ -1101,6 +1101,11 @@ final class Installer
 
             $DB->doQuery($query) or die($DB->error());
         }
+        // Issue #142, phase 2 : date du rappel envoyé au responsable avant l'événement.
+        if (!$DB->fieldExists(self::COMPLIANCE_EVENTS_TABLE, 'date_notified')) {
+            $migration->addField(self::COMPLIANCE_EVENTS_TABLE, 'date_notified', 'timestamp', ['after' => 'comment']);
+            $migration->migrationOneTable(self::COMPLIANCE_EVENTS_TABLE);
+        }
 
         if (!$DB->tableExists(self::NETWORK_FLOWS_TABLE)) {
             $query = "CREATE TABLE `" . self::NETWORK_FLOWS_TABLE . "` (
