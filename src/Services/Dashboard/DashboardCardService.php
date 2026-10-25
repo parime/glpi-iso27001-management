@@ -738,7 +738,8 @@ final class DashboardCardService
             'SELECT' => ['status', new QueryExpression('COUNT(*) AS c')],
             'FROM' => 'glpi_plugin_grcmanager_securityincidents',
             // Incidents rattachés à une entité : seulement celles de la session, hors corbeille.
-            'WHERE' => ['is_deleted' => 0]
+            // Issue #168 : sans les incidents fictifs des exercices de crise.
+            'WHERE' => ['is_deleted' => 0, 'is_exercise' => 0]
                 + getEntitiesRestrictCriteria('glpi_plugin_grcmanager_securityincidents', '', '', true),
             'GROUPBY' => 'status',
         ]);
@@ -775,7 +776,8 @@ final class DashboardCardService
         $rows = $DB->request([
             'SELECT' => ['severity', new QueryExpression('COUNT(*) AS c')],
             'FROM' => 'glpi_plugin_grcmanager_securityincidents',
-            'WHERE' => ['is_deleted' => 0]
+            // Issue #168 : sans les incidents fictifs des exercices de crise.
+            'WHERE' => ['is_deleted' => 0, 'is_exercise' => 0]
                 + getEntitiesRestrictCriteria('glpi_plugin_grcmanager_securityincidents', '', '', true),
             'GROUPBY' => 'severity',
         ]);
@@ -820,7 +822,8 @@ final class DashboardCardService
             'FROM'  => 'glpi_plugin_grcmanager_securityincidents',
             'WHERE' => [
                 new QueryExpression('solvedate IS NOT NULL'),
-                'is_deleted' => 0,
+                'is_deleted'  => 0,
+                'is_exercise' => 0,
             ] + getEntitiesRestrictCriteria('glpi_plugin_grcmanager_securityincidents', '', '', true),
         ])->current();
 

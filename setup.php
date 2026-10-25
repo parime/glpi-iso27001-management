@@ -135,6 +135,8 @@ function plugin_init_grcmanager(): void
             PluginGrcmanagerCausalLink::class,
             // Issue #166 : score de maturité cyber.
             PluginGrcmanagerMaturity::class,
+            // Issue #168 : exercices de crise (test des plans de continuité).
+            PluginGrcmanagerCrisisExercise::class,
             PluginGrcmanagerObjective::class,
             // Corrélation CPE des CVE avec le parc GLPI (cf. ROADMAP.md) : un seul menu entry pour
             // le catalogue de correspondance (le produit canonique) — ses deux tables satellites

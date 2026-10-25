@@ -1,0 +1,31 @@
+{# Issue #168 : rapport d'exercice de crise (A.5.29 / A.5.30), archivé comme preuve #}
+{% include '@grcmanager/pdf/_pdf_style.html.twig' %}
+{% set statuses = {'on_time': __('Dans le délai', 'grcmanager'), 'late': __('En retard', 'grcmanager'), 'pending': __('À faire', 'grcmanager'), 'missed': __('Non faite', 'grcmanager')} %}
+
+<p><strong>{{ __('EXERCICE', 'grcmanager') }}</strong> — {{ __('ce rapport porte sur un incident fictif, simulé pour tester le plan de continuité.', 'grcmanager') }}</p>
+
+<h2>{{ __('Résumé', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-summary">
+  <tr><td>{{ __('Scénario', 'grcmanager') }}</td><td>{{ exercise.scenario }}</td></tr>
+  <tr><td>{{ __('Incident d\'exercice', 'grcmanager') }}</td><td>#{{ incident.id }} — {{ incident.name }}</td></tr>
+  <tr><td>{{ __('Organisé par', 'grcmanager') }}</td><td>{{ exercise.organizer }}</td></tr>
+  <tr><td>{{ __('Début / fin', 'grcmanager') }}</td><td>{{ exercise.started_at }} / {{ exercise.ended_at ?: '—' }}</td></tr>
+  <tr><td>{{ __('Durée', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ exercise.duration }} min</td></tr>
+  <tr><td>{{ __('Étapes faites', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ summary.done }} / {{ summary.total }}</td></tr>
+  <tr><td>{{ __('Étapes dans le délai', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ summary.on_time }} ({{ summary.rate }} %)</td></tr>
+  <tr><td>{{ __('Temps de réaction moyen', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ summary.average is null ? '—' : summary.average ~ ' min' }}</td></tr>
+  <tr><td>{{ __('Participants', 'grcmanager') }}</td><td>{{ participants is empty ? '—' : participants|join(', ') }}</td></tr>
+</table>
+
+<h2>{{ __('Déroulé', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-table">
+  <thead><tr><th>#</th><th>{{ __('Étape', 'grcmanager') }}</th><th>{{ __('Objectif', 'grcmanager') }}</th><th>{{ __('Faite à', 'grcmanager') }}</th><th>{{ __('Par', 'grcmanager') }}</th><th>{{ __('Résultat', 'grcmanager') }}</th></tr></thead>
+  <tbody>
+    {% for s in steps %}
+      <tr><td>{{ loop.index }}</td><td>{{ s.label }}</td><td>T+{{ s.target }} min</td><td>{{ s.minutes is null ? '—' : 'T+' ~ s.minutes ~ ' min' }}</td><td>{{ s.by ?: '—' }}</td><td>{{ statuses[s.status] }}</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h2>{{ __('Enseignements tirés', 'grcmanager') }}</h2>
+<p>{{ incident.lessons ? incident.lessons|nl2br : __('Non renseignés : complétez-les sur l\'incident d\'exercice et régénérez le rapport.', 'grcmanager') }}</p>

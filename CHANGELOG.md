@@ -9,6 +9,16 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Exercices de crise** (issue #168) : menu GRC & Conformité > « Exercices de crise ». Trois
+  scénarios prêts à l'emploi (rançongiciel, fuite de données personnelles, panne majeure) :
+  - « Lancer l'exercice » crée un incident de sécurité fictif « [EXERCICE] » avec une tâche par étape ;
+  - la salle de crise affiche le chronomètre, le délai visé de chaque étape et le bouton « Fait » ;
+    une tâche passée à « Fait » depuis l'incident compte aussi ;
+  - « Terminer l'exercice » produit le rapport PDF (temps de réaction, étapes dans le délai,
+    participants, enseignements), archivé sur l'incident et comme preuve sur les mesures A.5.29 et
+    A.5.30 de la SoA ;
+  - les incidents d'exercice sont exclus du tableau de bord et du score de maturité, et filtrables
+    dans la liste des incidents (critère « Exercice de crise »).
 - **Rapport post-incident** (issue #169) : onglet « Rapport post-incident » sur chaque incident
   de sécurité, et bouton « Générer le rapport PDF » :
   - chronologie (déclaration, changements de statut, suivis, tâches, solution), éléments touchés,

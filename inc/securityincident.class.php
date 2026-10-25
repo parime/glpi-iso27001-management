@@ -425,7 +425,7 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
 
         // Issue #128 : cases « Soumis à NIS2 » / « Violation de données personnelles » et dates
         // auxquelles l'équipe a effectivement notifié (vide = pas encore).
-        foreach (['nis2_applicable', 'personal_data_breach'] as $flag) {
+        foreach (['nis2_applicable', 'personal_data_breach', 'is_exercise'] as $flag) {
             if (array_key_exists($flag, $input)) {
                 $input[$flag] = empty($input[$flag]) ? 0 : 1;
             }
@@ -550,6 +550,14 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
                 'datatype' => 'datetime',
             ];
         }
+        // Issue #168 : incident fictif créé par un exercice de crise.
+        $tab[] = [
+            'id'       => 232,
+            'table'    => $this->getTable(),
+            'field'    => 'is_exercise',
+            'name'     => __('Exercice de crise', 'grcmanager'),
+            'datatype' => 'bool',
+        ];
 
         return $tab;
     }

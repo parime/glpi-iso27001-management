@@ -168,8 +168,9 @@ class PluginGrcmanagerMaturity extends CommonGLPI
             'due_date' => ['<', $today],
         ]);
         $incidentsOpen = countElementsInTable(PluginGrcmanagerSecurityIncident::getTable(), [
-            'is_deleted' => 0,
-            'NOT'        => ['status' => array_merge(
+            'is_deleted'  => 0,
+            'is_exercise' => 0,
+            'NOT'         => ['status' => array_merge(
                 PluginGrcmanagerSecurityIncident::getSolvedStatusArray(),
                 PluginGrcmanagerSecurityIncident::getClosedStatusArray()
             )],
