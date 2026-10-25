@@ -1,0 +1,3 @@
+{# Aide visible sous un champ de formulaire (l'option « helper » de GLPI la cache derrière un « ? »).
+   Usage : {% import '@grcmanager/_hint.html.twig' as hints %} puis 'add_field_html': hints.hint(texte) #}
+{% macro hint(text) %}<div class="form-hint">{{ text }}</div>{% endmacro %}

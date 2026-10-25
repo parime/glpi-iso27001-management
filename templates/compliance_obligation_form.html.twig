@@ -1,18 +1,19 @@
 {# Obligation légale, réglementaire ou contractuelle (issue #199 : formulaire passé de PHP à Twig) #}
 {% extends 'generic_show_form.html.twig' %}
 {% import 'components/form/fields_macros.html.twig' as fields %}
+{% import '@grcmanager/_hint.html.twig' as hints %}
 
 {% block form_fields %}
    {{ fields.textField('title', item.fields['title'], __('Titre', 'grcmanager'), {'full_width': true}) }}
    {{ fields.dropdownArrayField('type', item.fields['type'] ?: default_type, types, __('Type', 'grcmanager')) }}
    {{ fields.textField('reference_source', item.fields['reference_source'], __('Référence / source', 'grcmanager'), {
-      'helper': __('Ex. « RGPD », « Contrat client Acme SA », « Loi n°... ».', 'grcmanager'),
+      'add_field_html': hints.hint(__('Ex. « RGPD », « Contrat client Acme SA », « Loi n°... ».', 'grcmanager')),
    }) }}
    {{ fields.dropdownArrayField('compliance_status', item.fields['compliance_status'] ?: default_status, statuses, __('Statut de conformité', 'grcmanager')) }}
    {{ fields.dropdownField('User', 'users_id', item.fields['users_id'], __('Propriétaire', 'grcmanager'), {'right': 'all'}) }}
    {{ fields.dateField('review_date', item.fields['review_date'], __('Date de revue', 'grcmanager')) }}
    {{ fields.dropdownArrayField('plugin_grcmanager_risks_id', item.fields['plugin_grcmanager_risks_id'], risks, __('Risque lié (optionnel)', 'grcmanager'), {
-      'helper': __('À renseigner uniquement si le non-respect de cette obligation constitue un risque identifié dans le registre de risques.', 'grcmanager'),
+      'add_field_html': hints.hint(__('À renseigner uniquement si le non-respect de cette obligation constitue un risque identifié dans le registre de risques.', 'grcmanager')),
    }) }}
    {{ fields.textareaField('description', item.fields['description'], __('Description / notes', 'grcmanager'), {'full_width': true}) }}
 {% endblock %}

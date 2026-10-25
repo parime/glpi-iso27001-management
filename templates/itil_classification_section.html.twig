@@ -3,6 +3,7 @@
    absorbé de glpi-security-incidents (ROADMAP.md "Version 2.0") — voir
    plugin_grcmanager_post_itil_info_section() dans hook.php. #}
 {% import 'components/form/fields_macros.html.twig' as fields %}
+{% import '@grcmanager/_hint.html.twig' as hints %}
 
 {% set classification_fields = ['category', 'severity', 'cia_impact', 'root_cause', 'lessons_learned', 'plugin_grcmanager_risks_id'] %}
 {% set nb_classification = 0 %}
@@ -67,7 +68,7 @@
             'root_cause',
             item.fields['root_cause'],
             __('Cause racine', 'grcmanager'),
-            {'full_width': true, 'is_horizontal': false, 'enable_richtext': false, 'disabled': not item.canUpdateItem(), 'rand': rand, 'helper': __('Obligatoire, avec les enseignements tirés, pour clôturer cet incident.', 'grcmanager')}
+            {'full_width': true, 'is_horizontal': false, 'enable_richtext': false, 'disabled': not item.canUpdateItem(), 'rand': rand, 'add_field_html': hints.hint(__('Obligatoire, avec les enseignements tirés, pour clôturer cet incident.', 'grcmanager'))}
          ) }}
 
          {{ fields.textareaField(

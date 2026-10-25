@@ -1,6 +1,7 @@
 {# Revue de direction, clause 9.3 (issue #199 : formulaire passé de PHP à Twig) #}
 {% extends 'generic_show_form.html.twig' %}
 {% import 'components/form/fields_macros.html.twig' as fields %}
+{% import '@grcmanager/_hint.html.twig' as hints %}
 
 {% block form_fields %}
    {{ fields.textField('title', item.fields['title'], __('Titre', 'grcmanager'), {'full_width': true}) }}
@@ -13,13 +14,13 @@
    }) }}
    {{ fields.textareaField('agenda', item.fields['agenda'], __('Ordre du jour', 'grcmanager'), {
       'full_width': true,
-      'helper': __('Sujets réellement abordés (état des actions précédentes, changements du contexte, retours des parties intéressées, résultats d\'audits, non-conformités, opportunités d\'amélioration...).', 'grcmanager'),
+      'add_field_html': hints.hint(__('Sujets réellement abordés (état des actions précédentes, changements du contexte, retours des parties intéressées, résultats d\'audits, non-conformités, opportunités d\'amélioration...).', 'grcmanager')),
    }) }}
    {{ fields.textareaField('decisions', item.fields['decisions'], __('Décisions et actions', 'grcmanager'), {'full_width': true}) }}
    {{ fields.dropdownArrayField('linked_objectives', null, objectives, __('Objectifs ISMS abordés', 'grcmanager'), {
       'multiple': true,
       'values': linked_objectives,
       'full_width': true,
-      'helper': __('Objectif(s) ISO 27001 clause 6.2 dont la progression a été examinée lors de cette revue.', 'grcmanager'),
+      'add_field_html': hints.hint(__('Objectif(s) ISO 27001 clause 6.2 dont la progression a été examinée lors de cette revue.', 'grcmanager')),
    }) }}
 {% endblock %}

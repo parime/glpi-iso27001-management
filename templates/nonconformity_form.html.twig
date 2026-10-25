@@ -1,6 +1,7 @@
 {# Formulaire d'une non-conformité ou observation (CAPA). Issue #163 : origine incident/CVE. #}
 {% extends 'generic_show_form.html.twig' %}
 {% import 'components/form/fields_macros.html.twig' as fields %}
+{% import '@grcmanager/_hint.html.twig' as hints %}
 
 {% block form_fields %}
    {% if incident %}
@@ -30,7 +31,7 @@
    {{ fields.textareaField('corrective_action', item.fields['corrective_action'], __('Action corrective', 'grcmanager'), {
       'full_width': true,
       'rows': 8,
-      'helper': corrective_hint,
+      'add_field_html': hints.hint(corrective_hint),
    }) }}
    {{ fields.textareaField('preventive_action', item.fields['preventive_action'], __('Action préventive', 'grcmanager'), {
       'full_width': true,
