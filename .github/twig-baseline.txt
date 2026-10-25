@@ -23,7 +23,7 @@ inc/nonconformity.class.php 14
 inc/objective.class.php 4
 inc/periodicreview.class.php 9
 inc/policy.class.php 4
-inc/risk.class.php 134
+inc/risk.class.php 12
 inc/risktreatmentaction.class.php 4
 inc/securityincident.class.php 15
 inc/securityincidentticket.class.php 3
