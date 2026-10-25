@@ -1,0 +1,36 @@
+{# Issue #142 : calendrier de conformité, échéances groupées par mois (issue #199 : passé de PHP à Twig) #}
+<div class="card"><div class="card-body">
+   <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+      <div class="btn-group">
+         <a class="btn btn-sm {{ mine ? 'btn-outline-secondary' : 'btn-secondary' }}" href="{{ url }}">{{ __('Toutes les échéances', 'grcmanager') }}</a>
+         <a class="btn btn-sm {{ mine ? 'btn-secondary' : 'btn-outline-secondary' }}" href="{{ url }}?mine=1">{{ __('Mes échéances', 'grcmanager') }}</a>
+      </div>
+      {% if can_create %}
+         <a class="btn btn-sm btn-primary" href="{{ form_url }}"><i class="ti ti-plus me-1"></i>{{ __('Ajouter un événement', 'grcmanager') }}</a>
+      {% endif %}
+      <a class="btn btn-sm btn-outline-primary ms-auto" href="{{ ics_url }}"><i class="ti ti-calendar-down me-1"></i>{{ __('Exporter (iCal)', 'grcmanager') }}</a>
+   </div>
+   <p class="text-muted small"><i class="ti ti-info-circle me-1"></i>{{ __('Événements saisis et échéances des autres registres (audits, revues de direction, revues des accès, revues périodiques, politiques, obligations, preuves). Chaque échéance apparaît aussi dans le planning GLPI de son responsable.', 'grcmanager') }}</p>
+
+   {% for month in months %}
+      <h3 class="mt-3">{{ month.label }}</h3>
+      <div class="table-responsive">
+         <table class="table table-sm table-hover align-middle"><tbody>
+            {% for e in month.events %}
+               <tr>
+                  <td class="text-nowrap" style="width: 9rem;">{{ e.date|formatted_date }}</td>
+                  <td style="width: 16rem;"><span class="badge bg-blue-lt"><i class="ti {{ e.icon }} me-1"></i>{{ e.label }}</span></td>
+                  <td>
+                     <a href="{{ e.url }}">{{ e.name }}</a>
+                     {% if e.done %} <span class="badge bg-green-lt">{{ __('Réalisé', 'grcmanager') }}</span>{% endif %}
+                     {% if e.late %} <span class="badge bg-red-lt">{{ __('Échéance passée', 'grcmanager') }}</span>{% endif %}
+                  </td>
+                  <td class="text-muted">{{ e.owner }}</td>
+               </tr>
+            {% endfor %}
+         </tbody></table>
+      </div>
+   {% else %}
+      <div class="alert alert-info mb-0">{{ __('Aucune échéance sur la période.', 'grcmanager') }}</div>
+   {% endfor %}
+</div></div>

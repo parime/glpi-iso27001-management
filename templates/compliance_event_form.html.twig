@@ -1,0 +1,22 @@
+{# Événement du calendrier de conformité, issue #142 (issue #199 : formulaire passé de PHP à Twig) #}
+{% extends 'generic_show_form.html.twig' %}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+
+{% block form_fields %}
+   {{ fields.dropdownArrayField('event_type', item.fields['event_type'] ?: default_type, types, __('Type', 'grcmanager')) }}
+   {{ fields.textField('name', item.fields['name'], __('Nom', 'grcmanager'), {
+      'helper': __('Laissé vide, le type sert de nom.', 'grcmanager'),
+   }) }}
+   {{ fields.datetimeField('date_begin', item.fields['date_begin'], __('Début', 'grcmanager'), {'required': true}) }}
+   {{ fields.datetimeField('date_end', item.fields['date_end'], __('Fin', 'grcmanager'), {
+      'helper': __('Vide : la journée du début.', 'grcmanager'),
+   }) }}
+   {{ fields.dropdownField('User', 'users_id', item.fields['users_id'], __('Responsable', 'grcmanager'), {
+      'right': 'all',
+      'helper': __('L\'événement apparaît dans son planning GLPI.', 'grcmanager'),
+   }) }}
+   {{ fields.dropdownArrayField('status', item.fields['status'] ?: default_status, statuses, __('Statut', 'grcmanager')) }}
+   {{ fields.dropdownField('Supplier', 'suppliers_id', item.fields['suppliers_id'], __('Prestataire', 'grcmanager')) }}
+   {{ fields.textareaField('scope', item.fields['scope'], __('Périmètre', 'grcmanager')) }}
+   {{ fields.textareaField('comment', item.fields['comment'], __('Commentaires', 'grcmanager'), {'full_width': true}) }}
+{% endblock %}

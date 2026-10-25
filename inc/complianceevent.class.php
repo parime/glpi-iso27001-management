@@ -15,6 +15,7 @@
  * -------------------------------------------------------------------------
  */
 
+use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\ComplianceEventBase;
 use GlpiPlugin\Grcmanager\Services\Calendar\ComplianceCalendarRules;
 
@@ -247,44 +248,14 @@ class PluginGrcmanagerComplianceEvent extends ComplianceEventBase
     public function showForm($ID, array $options = []): bool
     {
         $this->initForm($ID, $options);
-        $this->showFormHeader($options);
-
-        echo '<tr class="tab_bg_1"><td>' . htmlescape(__('Type', 'grcmanager')) . '</td><td>';
-        Dropdown::showFromArray('event_type', self::getEventTypes(), [
-            'value' => $this->fields['event_type'] ?? ComplianceCalendarRules::DEFAULT_EVENT_TYPE,
+        TemplateRenderer::getInstance()->display('@grcmanager/compliance_event_form.html.twig', [
+            'item'           => $this,
+            'params'         => $options,
+            'types'          => self::getEventTypes(),
+            'statuses'       => self::getStatuses(),
+            'default_type'   => ComplianceCalendarRules::DEFAULT_EVENT_TYPE,
+            'default_status' => ComplianceCalendarRules::DEFAULT_STATUS,
         ]);
-        echo '</td><td>' . htmlescape(__('Nom', 'grcmanager')) . '</td><td>';
-        echo Html::input('name', ['value' => $this->fields['name'] ?? '', 'size' => 40]);
-        echo '<small class="form-hint">' . htmlescape(__('Laissé vide, le type sert de nom.', 'grcmanager'))
-            . '</small></td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . htmlescape(__('Début', 'grcmanager')) . '</td><td>';
-        Html::showDateTimeField('date_begin', ['value' => $this->fields['date_begin'] ?? '', 'maybeempty' => false]);
-        echo '</td><td>' . htmlescape(__('Fin', 'grcmanager')) . '</td><td>';
-        Html::showDateTimeField('date_end', ['value' => $this->fields['date_end'] ?? '']);
-        echo '<small class="form-hint">' . htmlescape(__('Vide : la journée du début.', 'grcmanager'))
-            . '</small></td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . htmlescape(__('Responsable', 'grcmanager')) . '</td><td>';
-        User::dropdown(['name' => 'users_id', 'value' => (int) ($this->fields['users_id'] ?? 0), 'right' => 'all']);
-        echo '<small class="form-hint">' . htmlescape(__('L\'événement apparaît dans son planning GLPI.', 'grcmanager'))
-            . '</small></td><td>' . htmlescape(__('Statut', 'grcmanager')) . '</td><td>';
-        Dropdown::showFromArray('status', self::getStatuses(), [
-            'value' => $this->fields['status'] ?? ComplianceCalendarRules::DEFAULT_STATUS,
-        ]);
-        echo '</td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . htmlescape(__('Prestataire', 'grcmanager')) . '</td><td>';
-        Supplier::dropdown(['name' => 'suppliers_id', 'value' => (int) ($this->fields['suppliers_id'] ?? 0)]);
-        echo '</td><td>' . htmlescape(__('Périmètre', 'grcmanager')) . '</td><td>';
-        echo '<textarea name="scope" class="form-control" rows="2">' . htmlescape($this->fields['scope'] ?? '')
-            . '</textarea></td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . htmlescape(__('Commentaires', 'grcmanager')) . '</td><td colspan="3">';
-        echo '<textarea name="comment" class="form-control" rows="3">' . htmlescape($this->fields['comment'] ?? '')
-            . '</textarea></td></tr>';
-
-        $this->showFormButtons($options);
 
         return true;
     }
@@ -658,69 +629,33 @@ class PluginGrcmanagerComplianceEvent extends ComplianceEventBase
     {
         $begin = date('Y-m-01 00:00:00', (int) strtotime('-1 month'));
         $end = date('Y-m-01 00:00:00', (int) strtotime('+12 months'));
-        $events = self::collect($begin, $end, $mine ? Session::getLoginUserID() : null);
         $sources = self::getSources();
         $today = date('Y-m-d');
-        $url = self::getCalendarURL();
-
-        echo '<div class="card"><div class="card-body">';
-        echo '<div class="d-flex flex-wrap align-items-center gap-2 mb-3">';
-        echo '<div class="btn-group">';
-        echo '<a class="btn btn-sm ' . ($mine ? 'btn-outline-secondary' : 'btn-secondary') . '"'
-            . ' href="' . htmlescape($url) . '">' . htmlescape(__('Toutes les échéances', 'grcmanager')) . '</a>';
-        echo '<a class="btn btn-sm ' . ($mine ? 'btn-secondary' : 'btn-outline-secondary') . '" href="'
-            . htmlescape($url . '?mine=1') . '">' . htmlescape(__('Mes échéances', 'grcmanager')) . '</a>';
-        echo '</div>';
-        if (self::canCreate()) {
-            echo '<a class="btn btn-sm btn-primary" href="' . htmlescape(self::getFormURL()) . '">'
-                . '<i class="ti ti-plus me-1"></i>' . htmlescape(__('Ajouter un événement', 'grcmanager')) . '</a>';
-        }
-        echo '<a class="btn btn-sm btn-outline-primary ms-auto" href="' . htmlescape(self::getIcsURL($mine)) . '">'
-            . '<i class="ti ti-calendar-down me-1"></i>' . htmlescape(__('Exporter (iCal)', 'grcmanager')) . '</a>';
-        echo '</div>';
-        echo '<p class="text-muted small"><i class="ti ti-info-circle me-1"></i>' . htmlescape(__(
-            'Événements saisis et échéances des autres registres (audits, revues de direction, revues des accès, '
-                . 'revues périodiques, politiques, obligations, preuves). Chaque échéance apparaît aussi dans le '
-                . 'planning GLPI de son responsable.',
-            'grcmanager'
-        )) . '</p>';
-
-        if ($events === []) {
-            echo '<div class="alert alert-info mb-0">' . htmlescape(__('Aucune échéance sur la période.', 'grcmanager'))
-                . '</div></div></div>';
-            return;
+        $months = [];
+        foreach (self::collect($begin, $end, $mine ? Session::getLoginUserID() : null) as $event) {
+            $month = substr($event['begin'], 0, 7);
+            $months[$month] ??= ['label' => self::monthLabel($month), 'events' => []];
+            $months[$month]['events'][] = [
+                'date'  => substr($event['begin'], 0, 10),
+                'icon'  => $sources[$event['source']][1],
+                'label' => $event['label'],
+                'url'   => $event['url'],
+                'name'  => $event['name'],
+                'done'  => $event['done'],
+                // Une échéance d'un registre non réalisée et dépassée ; un événement saisi n'est jamais « en retard ».
+                'late'  => !$event['done'] && substr($event['end'], 0, 10) <= $today && $event['source'] !== 'event',
+                'owner' => $event['users_id'] > 0 ? (string) getUserName($event['users_id']) : '',
+            ];
         }
 
-        $month = '';
-        foreach ($events as $event) {
-            $eventMonth = substr($event['begin'], 0, 7);
-            if ($eventMonth !== $month) {
-                echo $month === '' ? '' : '</tbody></table></div>';
-                $month = $eventMonth;
-                echo '<h3 class="mt-3">' . htmlescape(self::monthLabel($eventMonth)) . '</h3>';
-                echo '<div class="table-responsive"><table class="table table-sm table-hover align-middle"><tbody>';
-            }
-            $label = $event['label'];
-            $icon = $sources[$event['source']][1];
-            $late = !$event['done'] && substr($event['end'], 0, 10) <= $today && $event['source'] !== 'event';
-            $date = (string) Html::convDate(substr($event['begin'], 0, 10));
-            $badges = '';
-            if ($event['done']) {
-                $badges .= ' <span class="badge bg-green-lt">' . htmlescape(__('Réalisé', 'grcmanager')) . '</span>';
-            }
-            if ($late) {
-                $badges .= ' <span class="badge bg-red-lt">' . htmlescape(__('Échéance passée', 'grcmanager'))
-                    . '</span>';
-            }
-            $owner = $event['users_id'] > 0 ? (string) getUserName($event['users_id']) : '';
-            echo '<tr><td class="text-nowrap" style="width: 9rem;">' . htmlescape($date) . '</td>'
-                . '<td style="width: 16rem;"><span class="badge bg-blue-lt"><i class="ti ' . $icon . ' me-1"></i>'
-                . htmlescape($label) . '</span></td>'
-                . '<td><a href="' . htmlescape($event['url']) . '">' . htmlescape($event['name']) . '</a>'
-                . $badges . '</td>'
-                . '<td class="text-muted">' . htmlescape($owner) . '</td></tr>';
-        }
-        echo '</tbody></table></div></div></div>';
+        TemplateRenderer::getInstance()->display('@grcmanager/compliance_calendar.html.twig', [
+            'months'     => array_values($months),
+            'mine'       => $mine,
+            'url'        => self::getCalendarURL(),
+            'form_url'   => self::getFormURL(),
+            'ics_url'    => self::getIcsURL($mine),
+            'can_create' => self::canCreate(),
+        ]);
     }
 
     private static function monthLabel(string $yearMonth): string

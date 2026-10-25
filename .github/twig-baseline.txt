@@ -13,7 +13,7 @@ hook.php 1
 inc/accessreview.class.php 14
 inc/assetclassification.class.php 4
 inc/audit.class.php 6
-inc/complianceevent.class.php 69
+inc/complianceevent.class.php 3
 inc/complianceobligation.class.php 10
 inc/control.class.php 104
 inc/evidence.class.php 7
