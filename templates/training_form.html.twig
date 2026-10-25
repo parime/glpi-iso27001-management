@@ -1,9 +1,17 @@
-{# Formation / sensibilisation, A.6.3 (issue #199 : formulaire passé de PHP à Twig) #}
+{# Formation / sensibilisation, A.6.3 (issue #199 : formulaire passé de PHP à Twig ; issue #139 : notes et seuil de réussite) #}
 {% extends 'generic_show_form.html.twig' %}
 {% import 'components/form/fields_macros.html.twig' as fields %}
 {% import '@grcmanager/_hint.html.twig' as hints %}
 
 {% block form_fields %}
+   {% if is_retake %}
+      <div class="col-12 mb-3">
+         <div class="alert alert-info mb-0">
+            <i class="ti ti-repeat me-1"></i>
+            {{ __('Session de rattrapage proposée : les participants qui ont échoué sont présélectionnés. Vérifiez la date et la liste, puis cliquez sur « Ajouter ». Rien n\'est enregistré avant.', 'grcmanager') }}
+         </div>
+      </div>
+   {% endif %}
    {{ fields.textField('title', item.fields['title'], __('Titre', 'grcmanager'), {'full_width': true}) }}
    {{ fields.dropdownArrayField('format', item.fields['format'] ?: 'in_person', formats, __('Format', 'grcmanager')) }}
    {{ fields.dateField('date_delivered', item.fields['date_delivered'], __('Date de réalisation', 'grcmanager')) }}
@@ -16,6 +24,15 @@
       'min': 0,
       'add_field_html': hints.hint(__('0 = pas de renouvellement requis.', 'grcmanager')),
    }) }}
+   {{ fields.numberField('max_score', item.fields['max_score'] ?: 0, __('Note maximale du quiz', 'grcmanager'), {
+      'min': 0,
+      'add_field_html': hints.hint(__('Ex. 40 pour un quiz noté sur 40. 0 = pas de note.', 'grcmanager')),
+   }) }}
+   {{ fields.numberField('pass_threshold', item.fields['pass_threshold'] ?: 0, __('Seuil de réussite (%)', 'grcmanager'), {
+      'min': 0,
+      'max': 100,
+      'add_field_html': hints.hint(__('Ex. 80 : réussite à partir de 80 % de la note maximale. Avec une note maximale et un seuil, le résultat de chaque participant est calculé depuis sa note.', 'grcmanager')),
+   }) }}
    {{ fields.textareaField('description', item.fields['description'], __('Description', 'grcmanager'), {'full_width': true}) }}
    {{ fields.dropdownField('User', 'participants', participant_ids, __('Participants', 'grcmanager'), {
       'multiple': true,
@@ -25,9 +42,30 @@
    }) }}
 
    {% if participants is not empty %}
+      <div class="col-12 mb-2 d-flex flex-wrap align-items-center gap-2">
+         {% if session_rate.rate is not null %}
+            <span class="badge {{ session_rate.rate >= 80 ? 'bg-green-lt' : (session_rate.rate >= 50 ? 'bg-yellow-lt' : 'bg-red-lt') }} fs-4">
+               <i class="ti ti-certificate me-1"></i>
+               {{ __('Taux de réussite de la session : %1$s sur %2$s (%3$s %%)', 'grcmanager')|format(session_rate.passed, session_rate.assessed, session_rate.rate) }}
+            </span>
+         {% endif %}
+         {% if retake_count > 0 %}
+            <a href="{{ retake_url }}" class="btn btn-outline-primary btn-sm">
+               <i class="ti ti-repeat me-1"></i>{{ _n('Préparer une session de rattrapage (%s participant)', 'Préparer une session de rattrapage (%s participants)', retake_count, 'grcmanager')|format(retake_count) }}
+            </a>
+         {% endif %}
+      </div>
       <div class="col-12 mb-3">
          <table class="table card-table">
-            <thead><tr><th>{{ user_label }}</th><th>{{ __('Statut de réalisation', 'grcmanager') }}</th><th>{{ __('Date de réalisation', 'grcmanager') }}</th><th>{{ __('Évaluation', 'grcmanager') }}</th></tr></thead>
+            <thead>
+               <tr>
+                  <th>{{ user_label }}</th>
+                  <th>{{ __('Statut de réalisation', 'grcmanager') }}</th>
+                  <th>{{ __('Date de réalisation', 'grcmanager') }}</th>
+                  {% if is_scored %}<th>{{ __('Note', 'grcmanager') }}</th>{% endif %}
+                  <th>{{ __('Évaluation', 'grcmanager') }}</th>
+               </tr>
+            </thead>
             <tbody>
                {% for p in participants %}
                   <tr>
@@ -38,11 +76,32 @@
                         </select>
                      </td>
                      <td><input type="date" name="participant_date[{{ p.users_id }}]" value="{{ p.completion_date ? p.completion_date|slice(0, 10) }}" class="form-control" aria-label="{{ __('Date de réalisation', 'grcmanager') }} — {{ p.name }}"></td>
-                     <td>
-                        <select name="participant_result[{{ p.users_id }}]" class="form-select" aria-label="{{ __('Évaluation', 'grcmanager') }} — {{ p.name }}">
-                           {% for value, label in assessment_results %}<option value="{{ value }}" {{ value == p.assessment_result ? 'selected' }}>{{ label }}</option>{% endfor %}
-                        </select>
-                     </td>
+                     {% if is_scored %}
+                        <td style="min-width: 170px;">
+                           <div class="input-group">
+                              <input type="text" inputmode="decimal" name="participant_score[{{ p.users_id }}]" value="{{ p.score_input }}" class="form-control" style="max-width: 90px;" aria-label="{{ __('Note', 'grcmanager') }} — {{ p.name }}">
+                              <span class="input-group-text">/ {{ item.fields['max_score'] }}</span>
+                           </div>
+                           {% if p.score_label %}<div class="text-muted small mt-1">{{ p.score_label }}</div>{% endif %}
+                        </td>
+                        <td>
+                           {# Calculé depuis la note : le choix manuel est conservé si aucune note n'est saisie. #}
+                           <input type="hidden" name="participant_result[{{ p.users_id }}]" value="{{ p.assessment_result }}">
+                           {% if p.assessment_result == 'passed' %}
+                              <span class="badge bg-green-lt"><i class="ti ti-check me-1"></i>{{ assessment_results['passed'] }}</span>
+                           {% elseif p.assessment_result == 'failed' %}
+                              <span class="badge bg-red-lt"><i class="ti ti-repeat me-1"></i>{{ __('À repasser', 'grcmanager') }}</span>
+                           {% else %}
+                              <span class="text-muted">{{ __('Saisissez la note', 'grcmanager') }}</span>
+                           {% endif %}
+                        </td>
+                     {% else %}
+                        <td>
+                           <select name="participant_result[{{ p.users_id }}]" class="form-select" aria-label="{{ __('Évaluation', 'grcmanager') }} — {{ p.name }}">
+                              {% for value, label in assessment_results %}<option value="{{ value }}" {{ value == p.assessment_result ? 'selected' }}>{{ label }}</option>{% endfor %}
+                           </select>
+                        </td>
+                     {% endif %}
                   </tr>
                {% endfor %}
             </tbody>

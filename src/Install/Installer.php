@@ -821,6 +821,29 @@ final class Installer
             $migration->addKey(self::TRAININGS_USERS_TABLE, 'assessment_result');
         }
 
+        // Issue #139 : note de chaque participant et seuil de réussite de la formation. Avec une
+        // note maximale et un seuil renseignés, le résultat (réussie / à repasser) est calculé
+        // depuis la note.
+        if (!$DB->fieldExists(self::TRAININGS_TABLE, 'max_score')) {
+            $migration->addField(self::TRAININGS_TABLE, 'max_score', 'integer', [
+                'value'   => 0,
+                'comment' => 'Note maximale du quiz, 0 = pas de note',
+                'after'   => 'renewal_period_months',
+            ]);
+            $migration->addField(self::TRAININGS_TABLE, 'pass_threshold', 'integer', [
+                'value'   => 0,
+                'comment' => 'Seuil de réussite en %, 0 = pas de seuil',
+                'after'   => 'max_score',
+            ]);
+            $migration->migrationOneTable(self::TRAININGS_TABLE);
+        }
+        if (!$DB->fieldExists(self::TRAININGS_USERS_TABLE, 'score')) {
+            $migration->addField(self::TRAININGS_USERS_TABLE, 'score', 'decimal(6,2) DEFAULT NULL', [
+                'after' => 'assessment_result',
+            ]);
+            $migration->migrationOneTable(self::TRAININGS_USERS_TABLE);
+        }
+
         // Sprint 6 (revues de direction, clause 9.3) : une ligne par revue de direction realisee ou
         // planifiee, avec l'ordre du jour et les decisions/actions en texte libre (pas un lien
         // fort vers le mecanisme CAPA existant, voir PluginGrcmanagerManagementReview pour le

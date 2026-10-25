@@ -190,6 +190,8 @@ function plugin_init_grcmanager(): void
     $CFG_GLPI['document_types'][] = PluginGrcmanagerPolicy::class;
     // Issue #170 : validation signée d'une dérogation, analyse de risque jointe.
     $CFG_GLPI['document_types'][] = PluginGrcmanagerWaiver::class;
+    // Issue #139 : feuille d'émargement, support et quiz d'une session de formation.
+    $CFG_GLPI['document_types'][] = PluginGrcmanagerTraining::class;
     // Issue #113 : preuves des exigences du SMSI, même mécanisme.
     $CFG_GLPI['document_types'][] = PluginGrcmanagerIsmsRequirement::class;
     // Issue #127 : preuves de l'évaluation d'un fournisseur (questionnaire signé, certificats).

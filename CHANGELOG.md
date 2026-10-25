@@ -31,6 +31,16 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   - **Participants à repasser** : personnes dont la dernière évaluation d'une formation est
     échouée (une réussite à une session plus récente de la même formation les retire) ;
   - **Réussite par session de formation (%)** : taux de réussite des 8 dernières sessions évaluées.
+- **Formations : notes et seuil de réussite** (issue #139) :
+  - nouveaux champs « Note maximale du quiz » et « Seuil de réussite (%) ». Avec les deux, on
+    saisit la note de chaque participant (ex. 32 / 40, virgule acceptée), affichée « 32/40
+    (80 %) ». Le résultat (réussie / à repasser) est calculé depuis la note ; une note hors barème
+    est ignorée ;
+  - taux de réussite de la session affiché sur la fiche (« 8 sur 10 (80 %) ») ;
+  - bouton **« Préparer une session de rattrapage »** : formulaire de nouvelle session pré-rempli
+    avec les participants à repasser. Rien n'est enregistré avant « Ajouter » ;
+  - onglets **Documents** (feuille d'émargement, support, quiz de la session) et **Historique** sur
+    la fiche d'une formation.
 
 ### Fixed
 

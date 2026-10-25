@@ -4925,3 +4925,43 @@ msgstr "Participants to retake"
 #, php-format
 msgid "Réussite par session de formation (%)"
 msgstr "Pass rate by training session (%)"
+
+#, php-format
+msgid "%s - rattrapage"
+msgstr "%s - retake"
+
+msgid "Session de rattrapage proposée : les participants qui ont échoué sont présélectionnés. Vérifiez la date et la liste, puis cliquez sur « Ajouter ». Rien n'est enregistré avant."
+msgstr "Proposed retake session: participants who failed are preselected. Check the date and the list, then click \"Add\". Nothing is saved before that."
+
+msgid "Note maximale du quiz"
+msgstr "Maximum quiz score"
+
+msgid "Ex. 40 pour un quiz noté sur 40. 0 = pas de note."
+msgstr "E.g. 40 for a quiz scored out of 40. 0 = no score."
+
+#, php-format
+msgid "Seuil de réussite (%)"
+msgstr "Pass threshold (%)"
+
+#, php-format
+msgid "Ex. 80 : réussite à partir de 80 % de la note maximale. Avec une note maximale et un seuil, le résultat de chaque participant est calculé depuis sa note."
+msgstr "E.g. 80: passed from 80% of the maximum score. With a maximum score and a threshold, each participant's result is computed from their score."
+
+#, php-format
+msgid "Taux de réussite de la session : %1$s sur %2$s (%3$s %%)"
+msgstr "Session pass rate: %1$s out of %2$s (%3$s %%)"
+
+msgid "Note"
+msgstr "Score"
+
+msgid "À repasser"
+msgstr "To retake"
+
+msgid "Saisissez la note"
+msgstr "Enter the score"
+
+#, php-format
+msgid "Préparer une session de rattrapage (%s participant)"
+msgid_plural "Préparer une session de rattrapage (%s participants)"
+msgstr[0] "Prepare a retake session (%s participant)"
+msgstr[1] "Prepare a retake session (%s participants)"
