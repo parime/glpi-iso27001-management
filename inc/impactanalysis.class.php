@@ -18,6 +18,7 @@
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Services\Classification\ClassificationLevels;
 use GlpiPlugin\Grcmanager\Services\Impact\ImpactGraph;
+use GlpiPlugin\Grcmanager\Services\Impact\RecoveryObjectives;
 
 /**
  * Issue #177 : analyse d'impact d'une panne (A.5.29, A.5.30, A.8.14), à partir de l'analyse
@@ -103,37 +104,158 @@ class PluginGrcmanagerImpactAnalysis extends CommonGLPI
     }
 
     /**
-     * @return array{label: string, url: string, visible: bool, availability: string}
+     * @return array{label: string, url: string, visible: bool, availability: string, rto: int, rpo: int}
      */
     public static function describe(string $key): array
     {
         [$itemtype, $itemsId] = ImpactGraph::split($key);
         $classification = PluginGrcmanagerAssetClassification::getByItem($itemtype, $itemsId);
-        $availability = (string) ($classification['availability'] ?? '');
+        $base = [
+            'availability' => (string) ($classification['availability'] ?? ''),
+            // Issue #177, phase 2 : objectifs de reprise, en heures (0 : non définis).
+            'rto'          => (int) ($classification['rto_hours'] ?? 0),
+            'rpo'          => (int) ($classification['rpo_hours'] ?? 0),
+        ];
         if (!is_a($itemtype, CommonDBTM::class, true)) {
-            return ['label' => $itemtype, 'url' => '', 'visible' => false, 'availability' => $availability];
+            return ['label' => $itemtype, 'url' => '', 'visible' => false] + $base;
         }
         $item = new $itemtype();
         if (!$item->getFromDB($itemsId) || !$item->canViewItem()) {
-            return [
-                'label'        => __('Élément non visible', 'grcmanager'),
-                'url'          => '',
-                'visible'      => false,
-                'availability' => $availability,
-            ];
+            return ['label' => __('Élément non visible', 'grcmanager'), 'url' => '', 'visible' => false] + $base;
         }
 
         return [
-            'label'        => $itemtype::getTypeName(1) . ' ' . $item->getName(),
-            'url'          => $item->getLinkURL(),
-            'visible'      => true,
-            'availability' => $availability,
-        ];
+            'label'   => $itemtype::getTypeName(1) . ' ' . $item->getName(),
+            'url'     => $item->getLinkURL(),
+            'visible' => true,
+        ] + $base;
+    }
+
+    /**
+     * Issue #177, phase 2 : RTO de chaque élément classé.
+     *
+     * @return array<string, int>
+     */
+    public static function rtoByKey(): array
+    {
+        global $DB;
+
+        $rto = [];
+        foreach (
+            $DB->request([
+                'SELECT' => ['itemtype', 'items_id', 'rto_hours'],
+                'FROM'   => PluginGrcmanagerAssetClassification::getTable(),
+                'WHERE'  => ['rto_hours' => ['>', 0]],
+            ]) as $row
+        ) {
+            $rto[ImpactGraph::key((string) $row['itemtype'], (int) $row['items_id'])] = (int) $row['rto_hours'];
+        }
+
+        return $rto;
+    }
+
+    /**
+     * Issue #177, phase 2 : éléments Cytoscape de l'impact d'une panne (l'élément et ce qui en
+     * dépend), libellés avec leur RTO.
+     *
+     * @param list<array{0: string, 1: string}> $edges
+     * @param array<string, int> $nodes clé => profondeur
+     * @return list<array{data: array<string, mixed>, classes?: string}>
+     */
+    public static function graphElements(array $edges, array $nodes, string $start): array
+    {
+        $labels = PluginGrcmanagerAssetClassification::getRecoveryOptions();
+        $elements = [];
+        foreach (array_keys($nodes) as $key) {
+            $node = self::describe($key);
+            $rto = $node['rto'] > 0 ? "\nRTO " . ($labels[$node['rto']] ?? $node['rto'] . ' h') : '';
+            $label = $node['label'] . $rto;
+            $elements[] = [
+                'data'    => ['id' => $key, 'label' => $label, 'url' => $node['url']],
+                'classes' => trim('asset availability-' . $node['availability'] . ($key === $start ? ' center' : '')),
+            ];
+        }
+        foreach ($edges as [$source, $impacted]) {
+            if (isset($nodes[$source], $nodes[$impacted])) {
+                $elements[] = ['data' => [
+                    'id'     => $source . '>' . $impacted,
+                    'source' => $source,
+                    'target' => $impacted,
+                ]];
+            }
+        }
+
+        return $elements;
+    }
+
+    /**
+     * Issue #177, phase 2 : export pour le plan de continuité (CSV) — actifs classés en
+     * disponibilité ou dotés d'objectifs de reprise, avec leurs dépendances.
+     *
+     * @return list<list<string>>
+     */
+    public static function continuityRows(): array
+    {
+        global $DB;
+
+        $edges = self::loadEdges();
+        $sources = [];
+        foreach ($edges as [$source, $impacted]) {
+            $sources[$impacted][] = $source;
+        }
+        $spof = [];
+        foreach (ImpactGraph::singlePointsOfFailure($edges, self::criticalKeys()) as $point) {
+            $spof[$point['source']][] = $point['critical'];
+        }
+        $levels = PluginGrcmanagerAssetClassification::getLevels();
+        $labels = PluginGrcmanagerAssetClassification::getRecoveryOptions();
+        $rows = [[
+            __('Élément', 'grcmanager'),
+            __('Disponibilité', 'grcmanager'),
+            'RTO',
+            'RPO',
+            __('Dépend de', 'grcmanager'),
+            __('Éléments touchés par une panne', 'grcmanager'),
+            __('Point de défaillance unique pour', 'grcmanager'),
+            __('Risques liés', 'grcmanager'),
+        ]];
+        foreach (
+            $DB->request([
+                'FROM'  => PluginGrcmanagerAssetClassification::getTable(),
+                'WHERE' => ['OR' => ['availability' => ['<>', ''], 'rto_hours' => ['>', 0], 'rpo_hours' => ['>', 0]]],
+            ]) as $row
+        ) {
+            $key = ImpactGraph::key((string) $row['itemtype'], (int) $row['items_id']);
+            $node = self::describe($key);
+            if (!$node['visible']) {
+                continue;
+            }
+            $names = static fn (array $keys): string => implode(', ', array_map(
+                static fn (string $k): string => self::describe($k)['label'],
+                $keys
+            ));
+            $rows[] = [
+                $node['label'],
+                $levels[$node['availability']] ?? '',
+                $labels[$node['rto']] ?? '',
+                $labels[$node['rpo']] ?? '',
+                $names($sources[$key] ?? []),
+                (string) count(ImpactGraph::downstream($edges, $key)),
+                $names($spof[$key] ?? []),
+                (string) count(PluginGrcmanagerRisk::getRisksLinkedToItem(
+                    (string) $row['itemtype'],
+                    (int) $row['items_id']
+                )),
+            ];
+        }
+
+        return $rows;
     }
 
     /**
      * @return array{downstream: list<array<string, mixed>>, risks: list<array<string, mixed>>,
-     *     spof_for: list<array<string, mixed>>, has_relations: bool}
+     *     spof_for: list<array<string, mixed>>, has_relations: bool, recovery: list<array<string, mixed>>,
+     *     graph: list<array<string, mixed>>}
      */
     public static function analyze(CommonDBTM $item): array
     {
@@ -171,11 +293,24 @@ class PluginGrcmanagerImpactAnalysis extends CommonGLPI
             }
         }
 
+        // Issue #177, phase 2 : objectifs de reprise incohérents autour de cet élément.
+        $recovery = [];
+        foreach (RecoveryObjectives::inconsistencies($edges, self::rtoByKey()) as $issue) {
+            if ($issue['source'] === $start || $issue['impacted'] === $start) {
+                $recovery[] = $issue + [
+                    'source_node'   => self::describe($issue['source']),
+                    'impacted_node' => self::describe($issue['impacted']),
+                ];
+            }
+        }
+
         return [
             'downstream'    => $downstream,
             'risks'         => array_values($risks),
             'spof_for'      => $spofFor,
             'has_relations' => $hasRelations,
+            'recovery'      => $recovery,
+            'graph'         => self::graphElements($edges, $nodes, $start),
         ];
     }
 
@@ -257,6 +392,7 @@ class PluginGrcmanagerImpactAnalysis extends CommonGLPI
             'items_id'   => $item->getID(),
             'can_create' => Session::haveRight(PluginGrcmanagerRisk::$rightname, CREATE),
             'impact_url' => $item->getLinkURL() . '&forcetab=Impact$1',
+            'recovery_labels' => PluginGrcmanagerAssetClassification::getRecoveryOptions(),
         ]);
 
         return true;

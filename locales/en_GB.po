@@ -3870,3 +3870,67 @@ msgstr "Open the risk register"
 
 msgid "cause → conséquence ; cliquer sur un élément l'ouvre"
 msgstr "cause → consequence; click an item to open it"
+
+msgid "RTO (durée maximale d'interruption)"
+msgstr "RTO (maximum downtime)"
+
+msgid "RPO (perte de données maximale)"
+msgstr "RPO (maximum data loss)"
+
+msgid "1 heure"
+msgstr "1 hour"
+
+msgid "4 heures"
+msgstr "4 hours"
+
+msgid "8 heures"
+msgstr "8 hours"
+
+msgid "24 heures (1 jour)"
+msgstr "24 hours (1 day)"
+
+msgid "48 heures (2 jours)"
+msgstr "48 hours (2 days)"
+
+msgid "72 heures (3 jours)"
+msgstr "72 hours (3 days)"
+
+msgid "1 semaine"
+msgstr "1 week"
+
+msgid "Dépend de"
+msgstr "Depends on"
+
+msgid "Point de défaillance unique pour"
+msgstr "Single point of failure for"
+
+msgid "Non défini"
+msgstr "Not defined"
+
+msgid "Délai au-delà duquel l'arrêt de cet actif devient inacceptable."
+msgstr "Time beyond which an outage of this asset becomes unacceptable."
+
+msgid "Ancienneté maximale acceptable des données restaurées (fréquence des sauvegardes)."
+msgstr "Maximum acceptable age of restored data (backup frequency)."
+
+msgid "Objectifs de reprise incohérents"
+msgstr "Inconsistent recovery objectives"
+
+#, php-format
+msgid "%1$s doit reprendre en %2$s, mais dépend de %3$s dont l'objectif est %4$s."
+msgstr "%1$s must recover within %2$s, but depends on %3$s whose objective is %4$s."
+
+msgid "non défini"
+msgstr "not defined"
+
+msgid "Disponibilité élevée"
+msgstr "High availability"
+
+msgid "Disponibilité moyenne"
+msgstr "Medium availability"
+
+msgid "une panne de la source touche l'élément pointé"
+msgstr "an outage of the source affects the item pointed to"
+
+msgid "Exporter pour le plan de continuité (CSV)"
+msgstr "Export for the business continuity plan (CSV)"

@@ -52,6 +52,9 @@ $levels = [
     'confidentiality' => $_POST['confidentiality'] ?? '',
     'integrity'       => $_POST['integrity'] ?? '',
     'availability'    => $_POST['availability'] ?? '',
+    // Issue #177, phase 2 : objectifs de reprise (filtrés par prepareInputFor*()).
+    'rto_hours'       => $_POST['rto_hours'] ?? 0,
+    'rpo_hours'       => $_POST['rpo_hours'] ?? 0,
 ];
 
 $classification = new PluginGrcmanagerAssetClassification();

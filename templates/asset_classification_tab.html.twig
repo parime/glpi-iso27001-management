@@ -1,0 +1,57 @@
+{# Classification C/I/D d'un actif ; issue #177, phase 2 : objectifs de reprise RTO et RPO. #}
+{% set badges = {'high': 'bg-orange-lt', 'medium': 'bg-yellow-lt', 'low': 'bg-green-lt'} %}
+<div class="container-fluid">
+   {% if classified %}
+      <p>
+         {% for axis, label in {'confidentiality': __('Confidentialité', 'grcmanager'), 'integrity': __('Intégrité', 'grcmanager'), 'availability': __('Disponibilité', 'grcmanager')} %}
+            {{ label }} :
+            {% set value = classification[axis]|default('') %}
+            {% if value %}<span class="badge {{ badges[value]|default('bg-secondary-lt') }} me-2">{{ levels[value]|default(value) }}</span>{% else %}<span class="text-muted me-2">{{ __('Non classifié', 'grcmanager') }}</span>{% endif %}
+         {% endfor %}
+      </p>
+   {% else %}
+      <p class="text-muted">{{ __('Cet actif n\'a pas encore été classifié (confidentialité/intégrité/disponibilité).', 'grcmanager') }}</p>
+   {% endif %}
+   {% if classification.rto_hours|default(0) or classification.rpo_hours|default(0) %}
+      <p>
+         <i class="ti ti-clock-hour-4 me-1"></i>RTO : <strong>{{ recovery[classification.rto_hours]|default('—') }}</strong>
+         <span class="ms-3"><i class="ti ti-database me-1"></i>RPO : <strong>{{ recovery[classification.rpo_hours]|default('—') }}</strong></span>
+      </p>
+   {% endif %}
+
+   {% if can_edit %}
+      <form method="post" action="{{ action }}" class="row g-3">
+         <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+         <input type="hidden" name="itemtype" value="{{ itemtype }}">
+         <input type="hidden" name="items_id" value="{{ items_id }}">
+         {% for axis, label in {'confidentiality': __('Confidentialité', 'grcmanager'), 'integrity': __('Intégrité', 'grcmanager'), 'availability': __('Disponibilité', 'grcmanager')} %}
+            <div class="col-md-4">
+               <label class="form-label" for="grc-classif-{{ axis }}">{{ label }}</label>
+               <select name="{{ axis }}" id="grc-classif-{{ axis }}" class="form-select">
+                  <option value="">-----</option>
+                  {% for key, name in levels %}<option value="{{ key }}" {{ classification[axis]|default('') == key ? 'selected' : '' }}>{{ name }}</option>{% endfor %}
+               </select>
+            </div>
+         {% endfor %}
+         <div class="col-md-6">
+            <label class="form-label" for="grc-classif-rto">{{ __('RTO (durée maximale d\'interruption)', 'grcmanager') }}</label>
+            <select name="rto_hours" id="grc-classif-rto" class="form-select">
+               <option value="0">{{ __('Non défini', 'grcmanager') }}</option>
+               {% for hours, name in recovery %}<option value="{{ hours }}" {{ classification.rto_hours|default(0) == hours ? 'selected' : '' }}>{{ name }}</option>{% endfor %}
+            </select>
+            <div class="form-hint">{{ __('Délai au-delà duquel l\'arrêt de cet actif devient inacceptable.', 'grcmanager') }}</div>
+         </div>
+         <div class="col-md-6">
+            <label class="form-label" for="grc-classif-rpo">{{ __('RPO (perte de données maximale)', 'grcmanager') }}</label>
+            <select name="rpo_hours" id="grc-classif-rpo" class="form-select">
+               <option value="0">{{ __('Non défini', 'grcmanager') }}</option>
+               {% for hours, name in recovery %}<option value="{{ hours }}" {{ classification.rpo_hours|default(0) == hours ? 'selected' : '' }}>{{ name }}</option>{% endfor %}
+            </select>
+            <div class="form-hint">{{ __('Ancienneté maximale acceptable des données restaurées (fréquence des sauvegardes).', 'grcmanager') }}</div>
+         </div>
+         <div class="col-12">
+            <button type="submit" name="save" value="1" class="btn btn-primary"><i class="ti ti-device-floppy me-1"></i>{{ __('Enregistrer') }}</button>
+         </div>
+      </form>
+   {% endif %}
+</div>

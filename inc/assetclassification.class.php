@@ -15,8 +15,10 @@
  * -------------------------------------------------------------------------
  */
 
+use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\AssetClassificationBase;
 use GlpiPlugin\Grcmanager\Services\Classification\ClassificationLevels;
+use GlpiPlugin\Grcmanager\Services\Impact\RecoveryObjectives;
 
 /**
  * Confidentialité/Intégrité/Disponibilité (C/I/D) classification register (issue #26, ISO/IEC
@@ -107,6 +109,22 @@ class PluginGrcmanagerAssetClassification extends AssetClassificationBase
             'datatype' => 'specific',
         ];
 
+        $tab[] = [
+            'id'       => 5,
+            'table'    => $this->getTable(),
+            'field'    => 'rto_hours',
+            'name'     => __('RTO (durée maximale d\'interruption)', 'grcmanager'),
+            'datatype' => 'specific',
+        ];
+
+        $tab[] = [
+            'id'       => 6,
+            'table'    => $this->getTable(),
+            'field'    => 'rpo_hours',
+            'name'     => __('RPO (perte de données maximale)', 'grcmanager'),
+            'datatype' => 'specific',
+        ];
+
         return $tab;
     }
 
@@ -118,6 +136,9 @@ class PluginGrcmanagerAssetClassification extends AssetClassificationBase
 
         if (in_array($field, ClassificationLevels::AXES, true)) {
             return self::levelBadge($values[$field] ?? null);
+        }
+        if (in_array($field, ['rto_hours', 'rpo_hours'], true)) {
+            return htmlescape(self::getRecoveryOptions()[(int) ($values[$field] ?? 0)] ?? '');
         }
 
         return parent::getSpecificValueToDisplay($field, $values, $options);
@@ -161,6 +182,12 @@ class PluginGrcmanagerAssetClassification extends AssetClassificationBase
         foreach (ClassificationLevels::AXES as $axis) {
             if (array_key_exists($axis, $input)) {
                 $input[$axis] = ClassificationLevels::sanitize($input[$axis]) ?? '';
+            }
+        }
+        // Issue #177, phase 2 : objectifs de reprise, uniquement parmi les durées proposées.
+        foreach (['rto_hours', 'rpo_hours'] as $field) {
+            if (array_key_exists($field, $input)) {
+                $input[$field] = RecoveryObjectives::sanitize($input[$field]);
             }
         }
 
@@ -257,75 +284,36 @@ class PluginGrcmanagerAssetClassification extends AssetClassificationBase
     {
         global $CFG_GLPI;
 
-        $itemtype = $item->getType();
-        $itemsId  = (int) $item->getID();
-
-        $classification = self::getByItem($itemtype, $itemsId);
-
-        echo '<div class="p-2">';
-
-        if (ClassificationLevels::isClassified($classification)) {
-            $summary = __(
-                'Classification actuelle : Confidentialité %1$s / Intégrité %2$s / Disponibilité %3$s',
-                'grcmanager'
-            );
-            echo '<p>' . sprintf(
-                $summary,
-                self::levelBadge($classification['confidentiality'] ?? null),
-                self::levelBadge($classification['integrity'] ?? null),
-                self::levelBadge($classification['availability'] ?? null)
-            ) . '</p>';
-        } else {
-            echo '<p class="text-muted">'
-                . __('Cet actif n\'a pas encore été classifié (confidentialité/intégrité/disponibilité).', 'grcmanager')
-                . '</p>';
-        }
-
-        // Lecture seule au-delà de ce point si l'utilisateur n'a pas le droit de modifier : montrer
-        // le formulaire sans pouvoir l'enregistrer serait trompeur (le POST échouerait de toute
-        // façon côté serveur, voir front/assetclassification.form.php, mais autant ne pas l'afficher).
-        if (!Session::haveRight(self::$rightname, UPDATE)) {
-            echo '</div>';
-            return true;
-        }
-
-        $formUrl = $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/assetclassification.form.php';
-        echo '<form method="post" action="' . htmlescape($formUrl) . '">';
-        echo Html::hidden('itemtype', ['value' => $itemtype]);
-        echo Html::hidden('items_id', ['value' => $itemsId]);
-        echo Html::hidden('_glpi_csrf_token', ['value' => Session::getNewCSRFToken()]);
-
-        echo '<table class="table">';
-
-        echo '<tr><td>' . __('Confidentialité', 'grcmanager') . '</td><td>';
-        Dropdown::showFromArray('confidentiality', self::getLevels(), [
-            'value'               => $classification['confidentiality'] ?? '',
-            'display_emptychoice' => true,
+        $classification = self::getByItem($item->getType(), (int) $item->getID());
+        TemplateRenderer::getInstance()->display('@grcmanager/asset_classification_tab.html.twig', [
+            'itemtype'       => $item->getType(),
+            'items_id'       => (int) $item->getID(),
+            'classification' => $classification ?? [],
+            'classified'     => ClassificationLevels::isClassified($classification),
+            'levels'         => self::getLevels(),
+            'recovery'       => self::getRecoveryOptions(),
+            'can_edit'       => Session::haveRight(self::$rightname, UPDATE),
+            'action'         => $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/assetclassification.form.php',
         ]);
-        echo '</td></tr>';
-
-        echo '<tr><td>' . __('Intégrité', 'grcmanager') . '</td><td>';
-        Dropdown::showFromArray('integrity', self::getLevels(), [
-            'value'               => $classification['integrity'] ?? '',
-            'display_emptychoice' => true,
-        ]);
-        echo '</td></tr>';
-
-        echo '<tr><td>' . __('Disponibilité', 'grcmanager') . '</td><td>';
-        Dropdown::showFromArray('availability', self::getLevels(), [
-            'value'               => $classification['availability'] ?? '',
-            'display_emptychoice' => true,
-        ]);
-        echo '</td></tr>';
-
-        echo '</table>';
-
-        echo '<div class="mt-2">';
-        echo Html::submit(__('Enregistrer'), ['name' => 'save']);
-        echo '</div>';
-        echo '</form>';
-        echo '</div>';
 
         return true;
+    }
+
+    /**
+     * Issue #177, phase 2 : durées proposées pour les objectifs de reprise (RTO, RPO).
+     *
+     * @return array<int, string> heures => libellé
+     */
+    public static function getRecoveryOptions(): array
+    {
+        return [
+            1   => __('1 heure', 'grcmanager'),
+            4   => __('4 heures', 'grcmanager'),
+            8   => __('8 heures', 'grcmanager'),
+            24  => __('24 heures (1 jour)', 'grcmanager'),
+            48  => __('48 heures (2 jours)', 'grcmanager'),
+            72  => __('72 heures (3 jours)', 'grcmanager'),
+            168 => __('1 semaine', 'grcmanager'),
+        ];
     }
 }

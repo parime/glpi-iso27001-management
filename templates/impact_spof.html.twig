@@ -2,6 +2,8 @@
 <div class="container-fluid">
    <div class="d-flex align-items-center mb-3">
       <h2 class="mb-0"><i class="ti ti-sitemap me-1"></i>{{ __('Points de défaillance uniques', 'grcmanager') }}</h2>
+      {# Issue #177, phase 2 : export pour le plan de continuité. #}
+      <a href="{{ export_url }}" class="btn btn-outline-secondary ms-auto"><i class="ti ti-file-spreadsheet me-1"></i>{{ __('Exporter pour le plan de continuité (CSV)', 'grcmanager') }}</a>
    </div>
    <div class="alert alert-info">
       <i class="ti ti-info-circle me-1"></i>{{ __('Un élément dont la disponibilité est classée « haute » et qui ne dépend que d\'une seule source (d\'après l\'analyse d\'impact de GLPI) : la panne de cette source l\'arrête. Le risque est proposé, jamais créé automatiquement.', 'grcmanager') }}

@@ -63,4 +63,62 @@ final class ImpactAnalysisTest extends GrcmanagerIntegrationTestCase
         // Libellé traduit : la CI tourne en anglais.
         $this->assertContains(\Computer::getTypeName(1) . ' HV-DEMO-01', $sources);
     }
+
+    /**
+     * Issue #177, phase 2 : objectifs de reprise, graphe et export pour le plan de continuité.
+     */
+    public function testRecoveryObjectivesGraphAndContinuityExport(): void
+    {
+        global $DB;
+
+        $make = static fn (string $name): int => (int) (new \Computer())->add(['name' => $name, 'entities_id' => 0]);
+        $storage = $make('SAN-DEMO-RTO');
+        $app = $make('APP-DEMO-RTO');
+        $DB->insert('glpi_impactrelations', [
+            'itemtype_source' => 'Computer', 'items_id_source' => $storage,
+            'itemtype_impacted' => 'Computer', 'items_id_impacted' => $app,
+        ]);
+        $classification = new \PluginGrcmanagerAssetClassification();
+        $classification->add(['itemtype' => 'Computer', 'items_id' => $storage, 'rto_hours' => 24]);
+        $classification->add([
+            'itemtype'     => 'Computer',
+            'items_id'     => $app,
+            'availability' => 'high',
+            'rto_hours'    => 4,
+            'rpo_hours'    => '7',
+        ]);
+        $row = \PluginGrcmanagerAssetClassification::getByItem('Computer', $app);
+        $this->assertSame(4, (int) $row['rto_hours']);
+        $this->assertSame(0, (int) $row['rpo_hours'], 'Durée hors liste refusée.');
+
+        $computer = new \Computer();
+        $computer->getFromDB($storage);
+        $analysis = \PluginGrcmanagerImpactAnalysis::analyze($computer);
+        $this->assertCount(1, $analysis['recovery'], 'L\'application exige 4 h, le stockage 24 h.');
+        $this->assertSame(4, $analysis['recovery'][0]['required']);
+        $this->assertSame(24, $analysis['recovery'][0]['actual']);
+        $this->assertCount(3, $analysis['graph'], 'Deux nœuds et un lien.');
+        $this->assertStringContainsString('center', $analysis['graph'][0]['classes']);
+
+        ob_start();
+        \PluginGrcmanagerImpactAnalysis::displayTabContentForItem($computer);
+        $html = (string) ob_get_clean();
+        $this->assertStringContainsString('data-elements=', $html);
+        $this->assertStringContainsString('APP-DEMO-RTO', $html);
+
+        $rows = \PluginGrcmanagerImpactAnalysis::continuityRows();
+        $label = \Computer::getTypeName(1) . ' APP-DEMO-RTO';
+        $this->assertContains($label, array_column($rows, 0));
+        $line = $rows[(int) array_search($label, array_column($rows, 0), true)];
+        $this->assertSame(\Computer::getTypeName(1) . ' SAN-DEMO-RTO', $line[4], 'Dépend du stockage.');
+
+        // Onglet de classification en Twig, avec les objectifs.
+        $appItem = new \Computer();
+        $appItem->getFromDB($app);
+        ob_start();
+        \PluginGrcmanagerAssetClassification::displayTabContentForItem($appItem);
+        $tab = (string) ob_get_clean();
+        $this->assertStringContainsString('name="rto_hours"', $tab);
+        $this->assertStringContainsString('value="4" selected', $tab);
+    }
 }
