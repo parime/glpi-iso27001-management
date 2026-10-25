@@ -125,6 +125,8 @@ function plugin_init_grcmanager(): void
             PluginGrcmanagerPolicy::class,
             // Issue #145 : preuves datées, expirées ou à renouveler.
             PluginGrcmanagerEvidence::class,
+            // Issue #170 : dérogations de sécurité.
+            PluginGrcmanagerWaiver::class,
             PluginGrcmanagerObjective::class,
             // Corrélation CPE des CVE avec le parc GLPI (cf. ROADMAP.md) : un seul menu entry pour
             // le catalogue de correspondance (le produit canonique) — ses deux tables satellites
@@ -169,6 +171,8 @@ function plugin_init_grcmanager(): void
     // polymorphe CommonDBTM::cleanDBonPurge()) - ignorerait cette politique.
     global $CFG_GLPI;
     $CFG_GLPI['document_types'][] = PluginGrcmanagerPolicy::class;
+    // Issue #170 : validation signée d'une dérogation, analyse de risque jointe.
+    $CFG_GLPI['document_types'][] = PluginGrcmanagerWaiver::class;
     // Issue #113 : preuves des exigences du SMSI, même mécanisme.
     $CFG_GLPI['document_types'][] = PluginGrcmanagerIsmsRequirement::class;
     // Issue #127 : preuves de l'évaluation d'un fournisseur (questionnaire signé, certificats).
@@ -221,6 +225,14 @@ function plugin_init_grcmanager(): void
 
     // Issue #145 : onglet « Validités des preuves » sur les éléments dont les documents prouvent
     // quelque chose pour une durée limitée (mesures, risques fournisseurs, audits, politiques).
+    // Issue #170 : onglet « Dérogations » sur les actifs, les mesures et les politiques.
+    Plugin::registerClass(PluginGrcmanagerWaiver::class, [
+        'addtabon' => array_merge(
+            PluginGrcmanagerRisk::getLinkableItemtypes(),
+            [PluginGrcmanagerControl::class, PluginGrcmanagerPolicy::class]
+        ),
+    ]);
+
     Plugin::registerClass(PluginGrcmanagerEvidence::class, [
         'addtabon' => \GlpiPlugin\Grcmanager\Services\Evidence\EvidenceValidity::ITEMTYPES,
     ]);

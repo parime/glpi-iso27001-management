@@ -3401,3 +3401,79 @@ msgid "%d risque ajouté au registre, à évaluer."
 msgid_plural "%d risques ajoutés au registre, à évaluer."
 msgstr[0] "%d risk added to the register, to be assessed."
 msgstr[1] "%d risks added to the register, to be assessed."
+
+msgid "Validée"
+msgstr "Approved"
+
+msgid "Close"
+msgstr "Closed"
+
+msgid "Bientôt échue"
+msgstr "Ending soon"
+
+msgid "Échue"
+msgstr "Expired"
+
+msgid "Donnez un nom à la dérogation."
+msgstr "Give the waiver a name."
+
+msgid "Une dérogation est temporaire : sa date de fin est obligatoire."
+msgstr "A waiver is temporary: its end date is required."
+
+msgid "La date de fin précède la date de début."
+msgstr "The end date is before the start date."
+
+msgid "Responsable (accepte le risque)"
+msgstr "Owner (accepts the risk)"
+
+msgid "Mesure de l'Annexe A"
+msgstr "Annex A control"
+
+msgid "Mesures compensatoires"
+msgstr "Compensating controls"
+
+msgid "Prévient le responsable avant la fin d'une dérogation, puis ouvre un ticket de réévaluation"
+msgstr "Warns the owner before a waiver ends, then opens a re-assessment ticket"
+
+#, php-format
+msgid "Réévaluer la dérogation « %s »"
+msgstr "Re-assess the waiver \"%s\""
+
+msgid "Dérogation bientôt échue"
+msgstr "Waiver ending soon"
+
+msgid "La personne qui accepte le risque de la dérogation, prévenue avant sa fin."
+msgstr "The person who accepts the waiver's risk, warned before it ends."
+
+msgid "Une dérogation est temporaire. Le responsable est prévenu 15 jours avant ; à l'échéance, un ticket de réévaluation est ouvert. Rien n'est prolongé ni clos automatiquement."
+msgstr "A waiver is temporary. The owner is warned 15 days before; when it ends, a re-assessment ticket is opened. Nothing is extended or closed automatically."
+
+msgid "Validée par"
+msgstr "Approved by"
+
+msgid "Pourquoi l'exception est nécessaire (ex. application qui ne fonctionne que sur un système en fin de support)."
+msgstr "Why the exception is needed (e.g. an application that only runs on an end-of-support system)."
+
+msgid "Ce qui réduit le risque pendant la dérogation (isolement réseau, surveillance renforcée, accès restreint...)."
+msgstr "What reduces the risk during the waiver (network isolation, closer monitoring, restricted access...)."
+
+msgid "Actifs concernés"
+msgstr "Assets concerned"
+
+msgid "Nouvelle dérogation pour cet élément"
+msgstr "New waiver for this item"
+
+msgid "Aucune dérogation."
+msgstr "No waiver."
+
+#, php-format
+msgid "La dérogation « %1$s » est arrivée à échéance le %2$s."
+msgstr "The waiver \"%1$s\" ended on %2$s."
+
+msgid "Réévaluez-la : prolongez-la avec une nouvelle date de fin si l'exception est toujours nécessaire, ou close-la une fois la situation régularisée. Aucune modification n'a été faite automatiquement."
+msgstr "Re-assess it: extend it with a new end date if the exception is still needed, or close it once the situation is resolved. Nothing was changed automatically."
+
+msgid "Dérogation"
+msgid_plural "Dérogations"
+msgstr[0] "Waiver"
+msgstr[1] "Waivers"
