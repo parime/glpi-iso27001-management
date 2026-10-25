@@ -21,7 +21,7 @@ inc/ismsrequirement.class.php 10
 inc/managementreview.class.php 4
 inc/networkflow.class.php 61
 inc/nonconformity.class.php 14
-inc/objective.class.php 91
+inc/objective.class.php 4
 inc/periodicreview.class.php 62
 inc/policy.class.php 4
 inc/risk.class.php 134
