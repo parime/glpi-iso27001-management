@@ -98,7 +98,11 @@ final class TrainingScoreTest extends GrcmanagerIntegrationTestCase
             (new \PluginGrcmanagerTraining())->showForm(0, ['retake_of' => $id]);
             $html = (string) ob_get_clean();
 
-            $this->assertStringContainsString('PHPUnit session source - rattrapage', $html);
+            // La CI tourne en anglais : comparer au titre traduit.
+            $this->assertStringContainsString(
+                htmlspecialchars(sprintf(__('%s - rattrapage', 'grcmanager'), 'PHPUnit session source')),
+                $html
+            );
             $this->assertStringContainsString('name="max_score"', $html);
             $this->assertSame($count, countElementsInTable($training->getTable()), 'Rien n\'est enregistré.');
         } finally {
