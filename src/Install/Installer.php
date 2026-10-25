@@ -190,6 +190,8 @@ final class Installer
     private const CVE_SIGNALS_TABLE = 'glpi_plugin_grcmanager_cvesignals';
     // Issue #160, phase 2 : ticket ouvert par produit du catalogue (logiciel à mettre à jour).
     private const CERTFR_NOTICES_TABLE = 'glpi_plugin_grcmanager_certfrnotices';
+    // Issue #171 : liens cause → conséquence entre risques et incidents (effet domino).
+    private const CAUSAL_LINKS_TABLE = 'glpi_plugin_grcmanager_causallinks';
     private const CERTFR_NOTIFIED_TABLE = 'glpi_plugin_grcmanager_certfrnotices_supplierrisks';
     private const PARK_CVE_TICKETS_TABLE = 'glpi_plugin_grcmanager_parkcvetickets';
     // Issue #178 : risques types importés depuis le catalogue, voir PluginGrcmanagerRiskCatalog.
@@ -1245,6 +1247,25 @@ final class Installer
                 PRIMARY KEY (`id`),
                 UNIQUE KEY `unicity` (`plugin_grcmanager_canonicalproducts_id`),
                 KEY `tickets_id` (`tickets_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+        }
+
+        // Issue #171 : effet domino, un lien par couple cause → conséquence.
+        if (!$DB->tableExists(self::CAUSAL_LINKS_TABLE)) {
+            $query = "CREATE TABLE `" . self::CAUSAL_LINKS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `itemtype_cause` varchar(100) NOT NULL,
+                `items_id_cause` int {$keySign} NOT NULL DEFAULT 0,
+                `itemtype_effect` varchar(100) NOT NULL,
+                `items_id_effect` int {$keySign} NOT NULL DEFAULT 0,
+                `comment` text,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity` (`itemtype_cause`, `items_id_cause`, `itemtype_effect`, `items_id_effect`),
+                KEY `effect` (`itemtype_effect`, `items_id_effect`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
             $DB->doQuery($query) or die($DB->error());
@@ -3124,6 +3145,7 @@ final class Installer
         $migration->dropTable(self::CVE_SIGNALS_TABLE);
         $migration->dropTable(self::PARK_CVE_TICKETS_TABLE);
         $migration->dropTable(self::CERTFR_NOTICES_TABLE);
+        $migration->dropTable(self::CAUSAL_LINKS_TABLE);
         $migration->dropTable(self::CERTFR_NOTIFIED_TABLE);
         $migration->dropTable(self::RISK_CATALOG_IMPORTS_TABLE);
         $migration->dropTable(self::WAIVERS_TABLE);

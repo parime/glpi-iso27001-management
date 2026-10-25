@@ -1,0 +1,63 @@
+{# Issue #171 : onglet « Effet domino » d'un risque, risque fournisseur ou incident #}
+<div class="container-fluid">
+   {% if elements|length <= 1 %}
+      <div class="alert alert-info"><i class="ti ti-info-circle me-1"></i>{{ __('Aucun lien pour l\'instant. Reliez cet élément à ce qu\'il peut entraîner, ou à ce qui peut le provoquer, pour voir l\'effet domino d\'une attaque.', 'grcmanager') }}</div>
+   {% else %}
+      {% include '@grcmanager/_causal_graph.html.twig' with {'elements': elements, 'height': '380px'} %}
+   {% endif %}
+
+   <div class="row mt-3">
+      {% for side, rows in direct %}
+         <div class="col-md-6">
+            <h4><i class="ti {{ side == 'causes' ? 'ti-arrow-big-left-lines' : 'ti-arrow-big-right-lines' }} me-1"></i>{{ side == 'causes' ? __('Peut être provoqué par', 'grcmanager') : __('Peut entraîner', 'grcmanager') }}</h4>
+            {% if rows is empty %}
+               <p class="text-muted">—</p>
+            {% else %}
+               <ul class="list-unstyled">
+                  {% for r in rows %}
+                     <li class="d-flex align-items-center gap-2 mb-1">
+                        {% if r.node.visible %}<a href="{{ r.node.url }}">{{ r.node.label }}</a>{% else %}<span class="text-muted">{{ r.node.label }}</span>{% endif %}
+                        {% if can_edit %}
+                           <form method="post" action="{{ form_url }}" class="d-inline">
+                              <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                              <input type="hidden" name="id" value="{{ r.id }}">
+                              <button type="submit" name="purge" value="1" class="btn btn-sm btn-ghost-danger" title="{{ __('Retirer ce lien', 'grcmanager') }}"><i class="ti ti-unlink"></i></button>
+                           </form>
+                        {% endif %}
+                     </li>
+                  {% endfor %}
+               </ul>
+            {% endif %}
+         </div>
+      {% endfor %}
+   </div>
+
+   {% if can_edit and choices is not empty %}
+      <form method="post" action="{{ form_url }}" class="row g-2 align-items-end mt-2">
+         <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+         <input type="hidden" name="item_key" value="{{ item_key }}">
+         <div class="col-md-3">
+            <label class="form-label" for="grc-causal-direction">{{ __('Cet élément', 'grcmanager') }}</label>
+            <select name="direction" id="grc-causal-direction" class="form-select">
+               <option value="effect">{{ __('peut entraîner…', 'grcmanager') }}</option>
+               <option value="cause">{{ __('peut être provoqué par…', 'grcmanager') }}</option>
+            </select>
+         </div>
+         <div class="col-md-6">
+            <label class="form-label" for="grc-causal-other">{{ __('Élément lié', 'grcmanager') }}</label>
+            <select name="other" id="grc-causal-other" class="form-select">
+               {% for group, options in choices %}
+                  <optgroup label="{{ group }}">
+                     {% for key, label in options %}<option value="{{ key }}">{{ label }}</option>{% endfor %}
+                  </optgroup>
+               {% endfor %}
+            </select>
+         </div>
+         <div class="col-md-3">
+            <button type="submit" name="add" value="1" class="btn btn-primary"><i class="ti ti-link me-1"></i>{{ __('Relier', 'grcmanager') }}</button>
+         </div>
+      </form>
+   {% endif %}
+
+   <a href="{{ graph_url }}" class="btn btn-sm btn-outline-secondary mt-3"><i class="ti ti-hierarchy-3 me-1"></i>{{ __('Voir tout l\'effet domino', 'grcmanager') }}</a>
+</div>

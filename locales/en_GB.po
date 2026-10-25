@@ -3816,3 +3816,57 @@ msgstr "No watched software from this supplier has a known vulnerability."
 
 msgid "Exploitées"
 msgstr "Exploited"
+
+msgid "Effet domino"
+msgstr "Domino effect"
+
+msgid "Ce lien existe déjà."
+msgstr "This link already exists."
+
+msgid "Ce lien fermerait une boucle : la conséquence mène déjà à la cause."
+msgstr "This link would close a loop: the consequence already leads to the cause."
+
+msgid "Lien ajouté."
+msgstr "Link added."
+
+msgid "Aucun lien pour l'instant. Reliez cet élément à ce qu'il peut entraîner, ou à ce qui peut le provoquer, pour voir l'effet domino d'une attaque."
+msgstr "No link yet. Link this item to what it can lead to, or to what can cause it, to see the domino effect of an attack."
+
+msgid "Peut être provoqué par"
+msgstr "Can be caused by"
+
+msgid "Peut entraîner"
+msgstr "Can lead to"
+
+msgid "Retirer ce lien"
+msgstr "Remove this link"
+
+msgid "Cet élément"
+msgstr "This item"
+
+msgid "peut entraîner…"
+msgstr "can lead to…"
+
+msgid "peut être provoqué par…"
+msgstr "can be caused by…"
+
+msgid "Élément lié"
+msgstr "Linked item"
+
+msgid "Relier"
+msgstr "Link"
+
+msgid "Voir tout l'effet domino"
+msgstr "See the whole domino effect"
+
+msgid "Chaînes de causes et de conséquences entre risques, risques fournisseurs et incidents de sécurité. Les liens se créent depuis l'onglet « Effet domino » de chacun. C'est une représentation : aucune probabilité n'est calculée."
+msgstr "Chains of causes and consequences between risks, supplier risks and security incidents. Links are created from the \"Domino effect\" tab of each one. This is a representation: no probability is computed."
+
+msgid "Aucun lien pour l'instant."
+msgstr "No link yet."
+
+msgid "Ouvrir le registre des risques"
+msgstr "Open the risk register"
+
+msgid "cause → conséquence ; cliquer sur un élément l'ouvre"
+msgstr "cause → consequence; click an item to open it"
