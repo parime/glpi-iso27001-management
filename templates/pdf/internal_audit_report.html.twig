@@ -1,0 +1,60 @@
+{# Issue #140 : rapport d'un audit interne, archivé en document à sa clôture (clause 9.2) #}
+{% include '@grcmanager/pdf/_pdf_style.html.twig' %}
+
+<h2>{{ __('Résumé', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-summary">
+  <tr><td>{{ __('Auditeur', 'grcmanager') }}</td><td>{{ auditor }}</td></tr>
+  <tr><td>{{ __('Statut', 'grcmanager') }}</td><td>{{ status }}</td></tr>
+  <tr><td>{{ __('Date prévue / réalisée', 'grcmanager') }}</td><td>{{ planned_date }} / {{ actual_date }}</td></tr>
+  {% if categories is not empty %}<tr><td>{{ __('Catégories de risque', 'grcmanager') }}</td><td>{{ categories|join(', ') }}</td></tr>{% endif %}
+  <tr><td>{{ __('Constats', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ findings|length }}</td></tr>
+</table>
+
+{% if audit.scope %}
+  <h2>{{ __('Périmètre', 'grcmanager') }}</h2>
+  <p>{{ audit.scope|nl2br }}</p>
+{% endif %}
+
+{% if controls is not empty %}
+  <h2>{{ __('Mesures auditées', 'grcmanager') }}</h2>
+  <ul>
+    {% for control in controls %}<li>{{ control }}</li>{% endfor %}
+  </ul>
+{% endif %}
+
+<h2>{{ __('Constats', 'grcmanager') }}</h2>
+{% if findings is empty %}
+  <p>{{ __('Aucun constat pour cet audit.', 'grcmanager') }}</p>
+{% else %}
+  <table class="grcmanager-pdf-table">
+    <thead>
+      <tr>
+        <th>{{ __('Titre', 'grcmanager') }}</th>
+        <th>{{ __('Type de constat', 'grcmanager') }}</th>
+        <th>{{ __('Sévérité', 'grcmanager') }}</th>
+        <th>{{ __('Statut', 'grcmanager') }}</th>
+        <th>{{ __('Action corrective', 'grcmanager') }}</th>
+        <th>{{ __('Responsable', 'grcmanager') }}</th>
+        <th>{{ __('Échéance', 'grcmanager') }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for f in findings %}
+        <tr>
+          <td>{{ f.title }}</td>
+          <td>{{ f.type }}</td>
+          <td>{{ f.severity }}</td>
+          <td>{{ f.status }}</td>
+          <td>{{ f.corrective_action }}</td>
+          <td>{{ f.owner }}</td>
+          <td>{{ f.due_date }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}
+
+{% if audit.conclusion %}
+  <h2>{{ __('Conclusion', 'grcmanager') }}</h2>
+  <p>{{ audit.conclusion|nl2br }}</p>
+{% endif %}

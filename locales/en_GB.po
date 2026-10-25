@@ -4965,3 +4965,35 @@ msgid "Préparer une session de rattrapage (%s participant)"
 msgid_plural "Préparer une session de rattrapage (%s participants)"
 msgstr[0] "Prepare a retake session (%s participant)"
 msgstr[1] "Prepare a retake session (%s participants)"
+
+#, php-format
+msgid "Rapport d'audit interne : %s"
+msgstr "Internal audit report: %s"
+
+#, php-format
+msgid "Rapport d'audit interne - %s"
+msgstr "Internal audit report - %s"
+
+msgid "Le rapport d'audit a été archivé dans l'onglet Documents."
+msgstr "The audit report has been archived in the Documents tab."
+
+msgid "Constats"
+msgstr "Findings"
+
+msgid "Non-conformités et observations relevées pendant cet audit. À la clôture de l'audit (statut « Terminé »), le rapport PDF est archivé dans l'onglet Documents."
+msgstr "Non-conformities and observations raised during this audit. When the audit is closed (status \"Completed\"), the PDF report is archived in the Documents tab."
+
+msgid "Ajouter un constat"
+msgstr "Add a finding"
+
+msgid "Aucun constat pour cet audit."
+msgstr "No finding for this audit."
+
+msgid "Date prévue / réalisée"
+msgstr "Planned / actual date"
+
+msgid "Catégories de risque"
+msgstr "Risk categories"
+
+msgid "Mesures auditées"
+msgstr "Audited controls"

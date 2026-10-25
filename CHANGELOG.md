@@ -41,6 +41,13 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
     avec les participants à repasser. Rien n'est enregistré avant « Ajouter » ;
   - onglets **Documents** (feuille d'émargement, support, quiz de la session) et **Historique** sur
     la fiche d'une formation.
+- **Audits internes : constats, documents et rapport archivé** (issue #140) :
+  - la fiche d'un audit a maintenant des onglets **Constats** (non-conformités et observations de
+    l'audit, avec « Ajouter un constat » qui rattache directement le constat à l'audit),
+    **Documents** (plan d'audit, preuves collectées, rapport signé) et **Historique** ;
+  - onglets **Documents** et **Historique** aussi sur la fiche d'une non-conformité ;
+  - quand l'audit passe au statut « Terminé », le **rapport d'audit PDF** (périmètre, mesures
+    auditées, constats, conclusion) est archivé automatiquement dans son onglet Documents.
 
 ### Fixed
 
