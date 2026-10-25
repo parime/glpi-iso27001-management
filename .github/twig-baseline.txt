@@ -29,6 +29,6 @@ inc/risktreatmentaction.class.php 4
 inc/securityincident.class.php 15
 inc/securityincidentticket.class.php 3
 inc/supplierrisk.class.php 58
-inc/training.class.php 62
+inc/training.class.php 8
 src/Install/Installer.php 46
 src/Traits/RiskAssessmentTrait.php 9
