@@ -439,7 +439,106 @@ class PluginGrcmanagerNetworkFlow extends NetworkFlowBase
             'checks'       => array_values($byCheck),
             'can_import'   => Session::haveRight(self::RIGHTNAME, CREATE),
             'import_url'   => self::getImportURL(),
+            'report_url'   => self::getReportURL(),
         ]);
+    }
+
+    public static function getReportURL(): string
+    {
+        global $CFG_GLPI;
+
+        return $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/networkflow.report.php';
+    }
+
+    /**
+     * Source ou destination en texte, pour le rapport PDF.
+     */
+    public static function endpointText(string $itemtype, int $itemsId, string $label): string
+    {
+        $parts = [];
+        if ($itemtype !== '' && $itemsId > 0) {
+            $item = getItemForItemtype($itemtype);
+            $parts[] = $item instanceof CommonDBTM && $item->getFromDB($itemsId) && $item->canViewItem()
+                ? $item::getTypeName(1) . ' ' . $item->getName()
+                : __('Actif non visible', 'grcmanager');
+        }
+        if ($label !== '') {
+            $parts[] = $label;
+        }
+
+        return implode(' — ', $parts);
+    }
+
+    /**
+     * Issue #144, phase 2 : contenu du rapport PDF pour l'auditeur (flux actifs par type, écarts,
+     * plan d'adressage à partir des réseaux IP de GLPI).
+     *
+     * @return array<string, mixed>
+     */
+    public static function reportData(): array
+    {
+        global $DB;
+
+        $today = date('Y-m-d');
+        $types = self::getTypes();
+        $protocols = self::getProtocols();
+        $groups = [];
+        $byCheck = [];
+        $active = 0;
+        $inactive = 0;
+        foreach ($DB->request(['FROM' => self::getTable(), 'ORDER' => ['flow_type', 'name']]) as $row) {
+            if (!(int) $row['is_active']) {
+                $inactive++;
+                continue;
+            }
+            $active++;
+            $checks = NetworkFlowRules::checks($row, $today);
+            foreach ($checks as $check) {
+                $byCheck[$check] ??= ['label' => self::getCheckLabel($check), 'count' => 0];
+                $byCheck[$check]['count']++;
+            }
+            $type = (string) $row['flow_type'];
+            $groups[$type] ??= ['label' => $types[$type] ?? $type, 'flows' => []];
+            $groups[$type]['flows'][] = [
+                'name'          => (string) $row['name'],
+                'source'        => self::endpointText((string) $row['source_itemtype'], (int) $row['source_items_id'], (string) $row['source_label']),
+                'destination'   => self::endpointText(
+                    (string) $row['destination_itemtype'],
+                    (int) $row['destination_items_id'],
+                    (string) $row['destination_label']
+                ),
+                'service'       => ($protocols[$row['protocol']] ?? $row['protocol']) . ' ' . self::portsLabel((string) $row['ports']),
+                'justification' => (string) $row['justification'],
+                'owner'         => $row['users_id'] ? getUserName((int) $row['users_id']) : '',
+                'date_end'      => $row['date_end'] ? Html::convDate($row['date_end']) : '',
+                'checks'        => array_map([self::class, 'getCheckLabel'], $checks),
+            ];
+        }
+
+        $networks = [];
+        foreach (
+            $DB->request([
+                'SELECT' => ['completename', 'address', 'netmask', 'gateway', 'entities_id'],
+                'FROM'   => IPNetwork::getTable(),
+                'WHERE'  => getEntitiesRestrictCriteria(IPNetwork::getTable(), '', '', true),
+                'ORDER'  => 'completename',
+            ]) as $row
+        ) {
+            $networks[] = [
+                'name'    => (string) $row['completename'],
+                'address' => $row['address'] . '/' . $row['netmask'],
+                'gateway' => (string) $row['gateway'],
+                'entity'  => Dropdown::getDropdownName(Entity::getTable(), (int) $row['entities_id']),
+            ];
+        }
+
+        return [
+            'active'   => $active,
+            'inactive' => $inactive,
+            'checks'   => array_values($byCheck),
+            'groups'   => array_values($groups),
+            'networks' => $networks,
+        ];
     }
 
     public static function portsLabel(string $ports): string
