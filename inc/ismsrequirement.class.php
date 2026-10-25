@@ -15,6 +15,7 @@
  * -------------------------------------------------------------------------
  */
 
+use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\IsmsRequirementBase;
 use GlpiPlugin\Grcmanager\Services\Clause\IsmsClauseCatalog;
 
@@ -349,53 +350,21 @@ class PluginGrcmanagerIsmsRequirement extends IsmsRequirementBase
     public function showForm($ID, array $options = []): bool
     {
         $this->initForm($ID, $options);
-        $this->showFormHeader($options);
 
         $code   = (string) ($this->fields['code'] ?? '');
         $clause = (string) ($this->fields['clause'] ?? '');
-
-        echo '<tr class="tab_bg_1"><td>' . __('Exigence', 'grcmanager') . '</td>';
-        echo '<td><strong>' . htmlescape($code) . '</strong> - ' . htmlescape(self::getClauseTitle($code)) . '</td>';
-        echo '<td>' . __('Article', 'grcmanager') . '</td>';
-        echo '<td><span class="badge bg-azure-lt">' . htmlescape($clause . ' ' . self::getClauseTitle($clause))
-            . '</span></td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . __('Statut') . '</td><td>';
-        Dropdown::showFromArray('status', self::getStatuses(), [
-            'value' => $this->fields['status'] ?? IsmsClauseCatalog::STATUS_NOT_STARTED,
+        TemplateRenderer::getInstance()->display('@grcmanager/isms_requirement_form.html.twig', [
+            'item'           => $this,
+            // Exigences du catalogue de la norme : jamais supprimées depuis la fiche.
+            'params'         => $options + ['candel' => false],
+            'code'           => $code,
+            'code_title'     => self::getClauseTitle($code),
+            'clause'         => $clause,
+            'clause_title'   => self::getClauseTitle($clause),
+            'statuses'       => self::getStatuses(),
+            'default_status' => IsmsClauseCatalog::STATUS_NOT_STARTED,
+            'module'         => self::getLinkedModule($code),
         ]);
-        echo '</td>';
-        echo '<td>' . __('Responsable', 'grcmanager') . '</td><td>';
-        User::dropdown([
-            'name'  => 'users_id',
-            'value' => $this->fields['users_id'] ?? 0,
-            'right' => 'all',
-        ]);
-        echo '</td></tr>';
-
-        echo '<tr class="tab_bg_1"><td>' . __('Commentaire', 'grcmanager') . '</td>';
-        echo '<td colspan="3"><textarea name="comment" class="form-control" rows="4">'
-            . htmlescape($this->fields['comment'] ?? '') . '</textarea>';
-        echo '<small class="form-hint">' . __(
-            'Comment l\'exigence est satisfaite, où trouver les preuves. '
-                . 'Joignez les documents dans l\'onglet Documents.',
-            'grcmanager'
-        ) . '</small></td></tr>';
-
-        $module = self::getLinkedModule($code);
-        if ($module !== null) {
-            echo '<tr class="tab_bg_1"><td><i class="ti ti-link me-1"></i>' . __('Module lié', 'grcmanager') . '</td>';
-            echo '<td colspan="3"><a href="' . htmlescape($module['url']) . '">'
-                . htmlescape($module['label']) . '</a> ';
-            echo '<span class="badge bg-blue-lt">'
-                . htmlescape(sprintf(__('%d enregistrement(s)', 'grcmanager'), $module['count'])) . '</span>';
-            echo '<small class="form-hint d-block mt-1">' . __(
-                'Ce module du plugin produit déjà des preuves pour cette exigence.',
-                'grcmanager'
-            ) . '</small></td></tr>';
-        }
-
-        $this->showFormButtons($options + ['candel' => false]);
 
         return true;
     }
