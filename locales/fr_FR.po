@@ -4915,3 +4915,13 @@ msgstr "Risques et non-conformités par mois"
 
 msgid "GRC Manager - Direction"
 msgstr "GRC Manager - Direction"
+
+msgid "Responsables en retard (accès)"
+msgstr "Responsables en retard (accès)"
+
+msgid "Participants à repasser"
+msgstr "Participants à repasser"
+
+#, php-format
+msgid "Réussite par session de formation (%)"
+msgstr "Réussite par session de formation (%)"

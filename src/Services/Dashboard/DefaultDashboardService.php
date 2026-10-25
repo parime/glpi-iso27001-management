@@ -268,8 +268,12 @@ final class DefaultDashboardService
             $bigNumber('grcmanager_periodic_reviews_overdue', 20, 20, '#f8911f'),
             $bigNumber('grcmanager_supplier_questionnaire_average', 8, 22, '#8e5ea2'),
             $bigNumber('grcmanager_critical_suppliers_without_assessment', 12, 22, '#cc2936'),
-            // Rangée 8 (y=24) : tendance mensuelle pour la revue de direction (issue #143).
+            $bigNumber('grcmanager_access_review_late_reviewers', 16, 22, '#f8911f'),
+            $bigNumber('grcmanager_training_retake_participants', 20, 22, '#ffdc64'),
+            // Rangée 8 (y=24) : tendance mensuelle pour la revue de direction et réussite par
+            // session de formation (issue #143).
             self::chart('grcmanager_monthly_trend', 'lines', 0, 24, 12, 6),
+            self::chart('grcmanager_training_pass_rate_by_session', 'hbar', 12, 24, 12, 6),
         ];
     }
 }

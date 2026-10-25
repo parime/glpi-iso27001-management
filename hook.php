@@ -174,6 +174,24 @@ function plugin_grcmanager_dashboard_cards(?array $cards = null): array
             'group' => $group,
             'provider' => SecuredDashboardCards::class . '::monthlyTrend',
         ],
+        'grcmanager_access_review_late_reviewers' => [
+            'widgettype' => ['bigNumber'],
+            'label' => __('Responsables en retard (accès)', 'grcmanager'),
+            'group' => $group,
+            'provider' => SecuredDashboardCards::class . '::accessReviewLateReviewers',
+        ],
+        'grcmanager_training_retake_participants' => [
+            'widgettype' => ['bigNumber'],
+            'label' => __('Participants à repasser', 'grcmanager'),
+            'group' => $group,
+            'provider' => SecuredDashboardCards::class . '::trainingRetakeParticipants',
+        ],
+        'grcmanager_training_pass_rate_by_session' => [
+            'widgettype' => ['hbar', 'bar'],
+            'label' => __('Réussite par session de formation (%)', 'grcmanager'),
+            'group' => $group,
+            'provider' => SecuredDashboardCards::class . '::trainingPassRateBySession',
+        ],
         // Issue #166 : score de maturité cyber (0 à 100), détail sur la page « Score de maturité ».
         'grcmanager_maturity_score' => [
             'widgettype' => ['bigNumber'],

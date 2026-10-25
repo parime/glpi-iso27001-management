@@ -25,7 +25,12 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
     direction. Chaque mois est enregistré avec le score de maturité (tâche automatique mensuelle).
     La courbe commence donc au mois de la mise à jour ;
   - **Fournisseurs critiques non évalués** : fournisseurs ayant un risque élevé ou critique ouvert
-    et dont le questionnaire de sécurité n'a jamais été rempli.
+    et dont le questionnaire de sécurité n'a jamais été rempli ;
+  - **Responsables en retard (accès)** : réviseurs qui ont encore des comptes à revoir dans une
+    campagne de revue des accès dont l'échéance est dépassée ;
+  - **Participants à repasser** : personnes dont la dernière évaluation d'une formation est
+    échouée (une réussite à une session plus récente de la même formation les retire) ;
+  - **Réussite par session de formation (%)** : taux de réussite des 8 dernières sessions évaluées.
 
 ### Fixed
 
