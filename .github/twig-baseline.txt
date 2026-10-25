@@ -18,7 +18,7 @@ inc/complianceobligation.class.php 10
 inc/control.class.php 104
 inc/evidence.class.php 45
 inc/ismsrequirement.class.php 39
-inc/managementreview.class.php 38
+inc/managementreview.class.php 4
 inc/networkflow.class.php 61
 inc/nonconformity.class.php 14
 inc/objective.class.php 91
