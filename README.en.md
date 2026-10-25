@@ -87,7 +87,9 @@ classification fields merged directly onto it.
   evidence (A.5.27).
 
 **Steering**
-- Default ISMS dashboard and KPIs to add to GLPI dashboards.
+- Default ISMS dashboard and KPIs to add to GLPI dashboards, including compliance by framework
+  (ISO 27001, NIS2, ANSSI), deadlines within 90 days, access review progress and NIS2 / GDPR
+  deadlines at risk.
 - Cyber **maturity score** (0 to 100) with the calculation details and its monthly history.
 - **Technical compliance audit**: ISO 27001, NIS2 and GDPR score from GLPI data (antivirus,
   encryption, inventory, change validation, accounts) and one remediation ticket per check.
