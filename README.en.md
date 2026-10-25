@@ -69,8 +69,20 @@ classification fields merged directly onto it.
   notification deadlines** tracked by a scheduled task.
 - Each part of the module can be enabled/disabled independently (Configuration > Plugins).
 
+**Vulnerabilities and continuity**
+- **Fleet vulnerabilities**: CVEs of installed software (NVD), real-world exploitation (CISA KEV,
+  FIRST EPSS), CERT-FR advisories, one update ticket per software (automatic creation off by
+  default), "Vulnerabilities" tab on computers.
+- EPSS/KEV tracking of incident CVEs, and an **action plan (CAPA) proposed** from a CVE.
+- **Outage impact** (GLPI impact analysis), single points of failure, **RTO/RPO** recovery
+  objectives and an export for the business continuity plan.
+- **Evidence coverage**: which assets must have which document.
+- **Supplier security watch** (CERT-FR advisories naming the supplier), **typical infrastructure
+  risk catalogue**, **domino effect** between risks and incidents, **security exemptions**.
+
 **Steering**
 - Default ISMS dashboard and KPIs to add to GLPI dashboards.
+- Every menu screen explains what it is for and what is expected.
 
 **Common principle**: the plugin never changes a status, a right or an assignment by itself. It
 creates the ticket or the notification, and the team decides.
@@ -79,8 +91,7 @@ creates the ticket or the notification, and the team decides.
 
 **Stable**, published and installable right now, for GLPI 11 and 12: see the
 [latest release](https://github.com/parime/glpi-iso27001-management/releases/latest) and the
-[CHANGELOG](CHANGELOG.md) for the full history. Next steps (periodic reviews through recurring
-tickets, network flow matrix, compliance calendar…): see [ROADMAP.md](ROADMAP.md).
+[CHANGELOG](CHANGELOG.md) for the full history. Next steps: see [ROADMAP.md](ROADMAP.md).
 
 ## Installation
 
