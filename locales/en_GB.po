@@ -3191,3 +3191,213 @@ msgstr "Ransomware"
 #, php-format
 msgid "%1$d vulnérabilités : les %2$d plus prioritaires sont affichées."
 msgstr "%1$d vulnerabilities: the %2$d highest-priority ones are shown."
+
+msgid "Catalogue de risques types"
+msgstr "Catalog of typical risks"
+
+msgid "Service d'administration exposé sur Internet"
+msgstr "Administration service exposed to the Internet"
+
+msgid "Une interface d'administration (SSH, bureau à distance, console d'un pare-feu, tableau de bord d'un proxy ou d'un hyperviseur) est joignable depuis Internet."
+msgstr "An administration interface (SSH, remote desktop, firewall console, proxy or hypervisor dashboard) can be reached from the Internet."
+
+msgid "Attaque par force brute ou par mots de passe volés, exploitation d'une faille publiée avant la mise à jour, prise de contrôle de l'équipement."
+msgstr "Brute-force or stolen-password attack, exploitation of a published flaw before the update, takeover of the device."
+
+msgid "Une règle du pare-feu publie-t-elle un port d'administration vers Internet ?"
+msgstr "Does a firewall rule publish an administration port to the Internet?"
+
+msgid "L'accès d'administration passe-t-il par un VPN ou un bastion avec authentification forte ?"
+msgstr "Does administrative access go through a VPN or a bastion with strong authentication?"
+
+msgid "Cartes de gestion à distance des serveurs joignables hors du réseau d'administration"
+msgstr "Server remote management cards reachable outside the administration network"
+
+msgid "Les interfaces iLO, iDRAC, IPMI ou équivalentes sont sur le même réseau que les postes ou les serveurs, voire publiées."
+msgstr "iLO, iDRAC, IPMI or similar interfaces are on the same network as workstations or servers, or even published."
+
+msgid "Prise de contrôle matérielle du serveur (console, alimentation, montage d'images) qui contourne le système d'exploitation et ses protections."
+msgstr "Hardware-level takeover of the server (console, power, image mounting) that bypasses the operating system and its protections."
+
+msgid "Les cartes de gestion sont-elles sur un réseau dédié, filtré ?"
+msgstr "Are the management cards on a dedicated, filtered network?"
+
+msgid "Leurs mots de passe par défaut ont-ils été changés et leur micrologiciel mis à jour ?"
+msgstr "Have their default passwords been changed and their firmware updated?"
+
+msgid "Réseaux qui se chevauchent avec un partenaire relié par VPN"
+msgstr "Networks overlapping with a partner connected by VPN"
+
+msgid "Un partenaire, un client ou un prestataire relié par VPN utilise la même plage d'adresses qu'un de vos sites."
+msgstr "A partner, customer or provider connected by VPN uses the same address range as one of your sites."
+
+msgid "Flux mal routés ou bloqués, contournements improvisés (traduction d'adresses ajoutée dans l'urgence, règles trop larges) qui ouvrent plus que nécessaire."
+msgstr "Misrouted or blocked traffic, improvised workarounds (address translation added in a hurry, overly broad rules) that open more than needed."
+
+msgid "Des tunnels VPN relient-ils vos réseaux à ceux de tiers ?"
+msgstr "Do VPN tunnels connect your networks to third parties' networks?"
+
+msgid "Les plages de chaque côté sont-elles documentées et distinctes ?"
+msgstr "Are the ranges on each side documented and distinct?"
+
+msgid "Réseau invités insuffisamment isolé"
+msgstr "Insufficiently isolated guest network"
+
+msgid "Le Wi-Fi invités ou le réseau des visiteurs peut joindre des équipements internes."
+msgstr "The guest Wi-Fi or visitor network can reach internal devices."
+
+msgid "Un appareil inconnu ou compromis atteint les postes, les imprimantes ou les serveurs ; écoute du trafic interne."
+msgstr "An unknown or compromised device reaches workstations, printers or servers; internal traffic is eavesdropped."
+
+msgid "Le réseau invités n'a-t-il accès qu'à Internet ?"
+msgstr "Does the guest network only have access to the Internet?"
+
+msgid "L'isolation a-t-elle été vérifiée par un test depuis un appareil invité ?"
+msgstr "Has the isolation been checked by a test from a guest device?"
+
+msgid "Réseau interne à plat, sans segmentation"
+msgstr "Flat internal network, without segmentation"
+
+msgid "Postes, serveurs, imprimantes, téléphonie et équipements industriels partagent le même réseau."
+msgstr "Workstations, servers, printers, telephony and industrial equipment share the same network."
+
+msgid "Un poste compromis (rançongiciel, cheval de Troie) se propage librement vers les serveurs et les sauvegardes."
+msgstr "A compromised workstation (ransomware, Trojan) spreads freely to servers and backups."
+
+msgid "Les usages ont-ils chacun leur réseau ou VLAN, avec un filtrage entre eux ?"
+msgstr "Does each use have its own network or VLAN, with filtering between them?"
+
+msgid "Les flux autorisés entre réseaux sont-ils listés dans la matrice des flux ?"
+msgstr "Are the flows allowed between networks listed in the network flow matrix?"
+
+msgid "Point de défaillance unique : alimentation électrique"
+msgstr "Single point of failure: power supply"
+
+msgid "La salle serveurs ou le local réseau dépend d'un seul onduleur, d'une seule arrivée électrique ou d'une seule alimentation par équipement."
+msgstr "The server room or network closet depends on a single UPS, a single power feed or a single power supply per device."
+
+msgid "Coupure générale lors d'une panne d'onduleur ou d'une intervention électrique ; matériel endommagé par un arrêt brutal."
+msgstr "Total outage during a UPS failure or electrical work; equipment damaged by a sudden shutdown."
+
+msgid "Les équipements critiques ont-ils deux alimentations, sur deux circuits ?"
+msgstr "Do critical devices have two power supplies, on two circuits?"
+
+msgid "L'autonomie des onduleurs est-elle testée et suffisante pour un arrêt propre ?"
+msgstr "Is the UPS runtime tested and sufficient for a clean shutdown?"
+
+msgid "Point de défaillance unique : hyperviseur ou stockage partagé"
+msgstr "Single point of failure: hypervisor or shared storage"
+
+msgid "Plusieurs serveurs virtuels critiques reposent sur un seul hôte de virtualisation ou une seule baie de stockage."
+msgstr "Several critical virtual servers rely on a single virtualization host or a single storage array."
+
+msgid "Arrêt simultané de toutes les applications hébergées en cas de panne matérielle ou de mise à jour ratée."
+msgstr "Simultaneous outage of all hosted applications after a hardware failure or a failed update."
+
+msgid "Un second hôte peut-il reprendre les machines virtuelles critiques ?"
+msgstr "Can a second host take over the critical virtual machines?"
+
+msgid "Le délai de reprise a-t-il été mesuré lors d'un test ?"
+msgstr "Has the recovery time been measured during a test?"
+
+msgid "Point de défaillance unique : lien opérateur"
+msgstr "Single point of failure: carrier link"
+
+msgid "Un site, ou l'accès aux services en ligne, dépend d'un seul lien Internet ou d'un seul opérateur."
+msgstr "A site, or access to online services, depends on a single Internet link or a single carrier."
+
+msgid "Site isolé pendant une coupure (travaux, panne opérateur), téléphonie et applications hébergées inaccessibles."
+msgstr "Site cut off during an outage (works, carrier failure), telephony and hosted applications unavailable."
+
+msgid "Existe-t-il un second lien, chez un autre opérateur et par un autre chemin physique ?"
+msgstr "Is there a second link, with another carrier and over another physical path?"
+
+msgid "La bascule a-t-elle été testée ?"
+msgstr "Has the failover been tested?"
+
+msgid "Point de défaillance unique : annuaire (contrôleur de domaine)"
+msgstr "Single point of failure: directory (domain controller)"
+
+msgid "Un site n'a qu'un seul contrôleur de domaine, ou l'annuaire n'a qu'un seul serveur."
+msgstr "A site has only one domain controller, or the directory has only one server."
+
+msgid "Plus aucune connexion ni accès aux partages en cas de panne ; restauration longue et délicate de l'annuaire."
+msgstr "No more logons or access to shares after a failure; long and tricky directory restore."
+
+msgid "Chaque site a-t-il au moins deux contrôleurs de domaine, ou un accès fiable à un second ?"
+msgstr "Does each site have at least two domain controllers, or reliable access to a second one?"
+
+msgid "La restauration de l'annuaire a-t-elle déjà été testée ?"
+msgstr "Has the directory restore ever been tested?"
+
+msgid "Sauvegardes sur le même site que les données"
+msgstr "Backups on the same site as the data"
+
+msgid "Les sauvegardes sont stockées dans la même salle, le même bâtiment ou le même domaine d'administration que les données qu'elles protègent."
+msgstr "Backups are stored in the same room, building or administration domain as the data they protect."
+
+msgid "Perte simultanée des données et des sauvegardes lors d'un incendie, d'un dégât des eaux ou d'un rançongiciel qui chiffre aussi les sauvegardes."
+msgstr "Simultaneous loss of data and backups in a fire, a flood or a ransomware attack that also encrypts the backups."
+
+msgid "Une copie est-elle conservée hors site ou hors ligne, non modifiable ?"
+msgstr "Is a copy kept off-site or offline, immutable?"
+
+msgid "Une restauration complète est-elle testée régulièrement ?"
+msgstr "Is a full restore tested regularly?"
+
+msgid "Schéma réseau et plan d'adressage non tenus à jour"
+msgstr "Network diagram and address plan not kept up to date"
+
+msgid "Le schéma réseau, le plan d'adressage et la liste des flux ne reflètent plus l'existant."
+msgstr "The network diagram, the address plan and the list of flows no longer reflect reality."
+
+msgid "Décisions prises sur une vision fausse, incident plus long à diagnostiquer, équipements oubliés hors de toute surveillance."
+msgstr "Decisions made on a wrong picture, longer incident diagnosis, forgotten devices outside any monitoring."
+
+msgid "La date de la dernière mise à jour du schéma est-elle connue ?"
+msgstr "Is the date of the last diagram update known?"
+
+msgid "Une revue périodique du schéma et des flux est-elle planifiée ?"
+msgstr "Is a periodic review of the diagram and flows scheduled?"
+
+msgid "Journaux de sécurité ni centralisés ni consultés"
+msgstr "Security logs neither centralized nor reviewed"
+
+msgid "Les journaux des pare-feu, de l'annuaire et des serveurs restent sur chaque équipement, sans alerte ni revue."
+msgstr "Firewall, directory and server logs stay on each device, with no alert or review."
+
+msgid "Intrusion détectée tard, ou jamais ; journaux effacés par l'attaquant ; impossibilité de reconstituer un incident."
+msgstr "Intrusion detected late, or never; logs wiped by the attacker; impossible to reconstruct an incident."
+
+msgid "Les journaux sont-ils centralisés et conservés assez longtemps ?"
+msgstr "Are logs centralized and kept long enough?"
+
+msgid "Des alertes ou une revue régulière existent-elles ?"
+msgstr "Are there alerts or a regular review?"
+
+msgid "Menaces :"
+msgstr "Threats:"
+
+msgid "Questions pour savoir s'il s'applique :"
+msgstr "Questions to tell whether it applies:"
+
+msgid "Cochez au moins un risque qui n'est pas encore dans le registre."
+msgstr "Tick at least one risk that is not in the register yet."
+
+msgid "Ces risques reviennent d'une infrastructure à l'autre et se repèrent sur un simple schéma réseau. Lisez les questions de chacun, cochez ceux qui vous concernent : ils sont ajoutés au registre au statut « Identifié », avec leurs mesures de l'Annexe A, pour être évalués comme les autres. Rien n'est coté à votre place."
+msgstr "These risks recur from one infrastructure to another and can be spotted on a simple network diagram. Read the questions for each one and tick those that apply to you: they are added to the register with the \"Identified\" status and their Annex A controls, to be assessed like the others. Nothing is rated for you."
+
+msgid "Déjà dans le registre"
+msgstr "Already in the register"
+
+msgid "Voir le risque"
+msgstr "View the risk"
+
+msgid "Ajouter au registre les risques cochés"
+msgstr "Add the ticked risks to the register"
+
+#, php-format
+msgid "%d risque ajouté au registre, à évaluer."
+msgid_plural "%d risques ajoutés au registre, à évaluer."
+msgstr[0] "%d risk added to the register, to be assessed."
+msgstr[1] "%d risks added to the register, to be assessed."
