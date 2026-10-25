@@ -30,6 +30,8 @@ use GlpiPlugin\Grcmanager\Services\Exercise\CrisisExercise;
  */
 class PluginGrcmanagerCrisisExercise extends CrisisExerciseBase
 {
+    public const RIGHTNAME = PluginGrcmanagerSecurityIncident::RIGHTNAME;
+
     public const STEPS_TABLE = 'glpi_plugin_grcmanager_crisisexercisesteps';
 
     /** Mesures de l'Annexe A auxquelles le rapport sert de preuve. */

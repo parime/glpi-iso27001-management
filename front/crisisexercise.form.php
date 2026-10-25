@@ -20,9 +20,10 @@ use Glpi\Application\View\TemplateRenderer;
 include('../../../inc/includes.php');
 
 // Issue #168 : salle de crise d'un exercice (étapes chronométrées, fin et rapport).
-if (!PluginGrcmanagerCrisisExercise::canView()) {
-    Html::displayRightError();
-}
+Session::checkRightsOr(
+    PluginGrcmanagerCrisisExercise::RIGHTNAME,
+    [PluginGrcmanagerSecurityIncident::READALL, PluginGrcmanagerSecurityIncident::READMY]
+);
 $exercise = new PluginGrcmanagerCrisisExercise();
 $id = (int) ($_POST['id'] ?? $_GET['id'] ?? 0);
 $incident = $exercise->getFromDB($id) ? $exercise->getIncident() : null;

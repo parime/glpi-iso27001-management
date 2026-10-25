@@ -21,9 +21,10 @@ use GlpiPlugin\Grcmanager\Services\Exercise\CrisisExercise;
 include('../../../inc/includes.php');
 
 // Issue #168 : choix du scénario, lancement et historique des exercices de crise.
-if (!PluginGrcmanagerCrisisExercise::canView()) {
-    Html::displayRightError();
-}
+Session::checkRightsOr(
+    PluginGrcmanagerCrisisExercise::RIGHTNAME,
+    [PluginGrcmanagerSecurityIncident::READALL, PluginGrcmanagerSecurityIncident::READMY]
+);
 
 if (isset($_POST['launch'])) {
     if (!PluginGrcmanagerCrisisExercise::canCreate()) {
