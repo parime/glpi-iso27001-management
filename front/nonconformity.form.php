@@ -42,23 +42,14 @@ if (isset($_POST['add'])) {
 } else {
     Session::checkRight(PluginGrcmanagerNonconformity::$rightname, READ);
 
-    Html::header(
-        PluginGrcmanagerNonconformity::getTypeName(1),
-        $_SERVER['PHP_SELF'],
-        'grcmanager',
-        PluginGrcmanagerNonconformity::class
+    // Issue #140 : affichage avec onglets (Documents, Historique).
+    PluginGrcmanagerNonconformity::displayFullPageForItem(
+        (int) ($_GET['id'] ?? 0),
+        ['central' => ['grcmanager', PluginGrcmanagerNonconformity::class], 'helpdesk' => []],
+        [
+            'from_incident' => (int) ($_GET['from_incident'] ?? 0),
+            'cve'           => (string) ($_GET['cve'] ?? ''),
+            'audit'         => (int) ($_GET['audit'] ?? 0),
+        ]
     );
-
-    $id = (int) ($_GET['id'] ?? 0);
-
-    if ($id > 0) {
-        $item->getFromDB($id);
-    }
-
-    $item->showForm($id, [
-        'from_incident' => (int) ($_GET['from_incident'] ?? 0),
-        'cve'           => (string) ($_GET['cve'] ?? ''),
-    ]);
-
-    Html::footer();
 }

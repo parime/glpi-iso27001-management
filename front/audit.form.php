@@ -42,20 +42,9 @@ if (isset($_POST['add'])) {
 } else {
     Session::checkRight(PluginGrcmanagerAudit::$rightname, READ);
 
-    Html::header(
-        PluginGrcmanagerAudit::getTypeName(1),
-        $_SERVER['PHP_SELF'],
-        'grcmanager',
-        PluginGrcmanagerAudit::class
+    // Issue #140 : affichage avec onglets (Constats, Documents, Historique).
+    PluginGrcmanagerAudit::displayFullPageForItem(
+        (int) ($_GET['id'] ?? 0),
+        ['central' => ['grcmanager', PluginGrcmanagerAudit::class], 'helpdesk' => []]
     );
-
-    $id = (int) ($_GET['id'] ?? 0);
-
-    if ($id > 0) {
-        $item->getFromDB($id);
-    }
-
-    $item->showForm($id);
-
-    Html::footer();
 }

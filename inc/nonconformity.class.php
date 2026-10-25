@@ -458,6 +458,48 @@ class PluginGrcmanagerNonconformity extends NonconformityBase
         return '';
     }
 
+    public function defineTabs($options = [])
+    {
+        $tabs = [];
+        // Issue #140 : preuves du constat (captures, extraits, rapport de vérification).
+        $this->addDefaultFormTab($tabs)
+            ->addStandardTab(Document_Item::class, $tabs, $options)
+            ->addStandardTab(Log::class, $tabs, $options);
+
+        return $tabs;
+    }
+
+    /**
+     * Issue #140 : onglet « Constats » de la fiche d'un audit.
+     */
+    public function getTabNameForItem(CommonGLPI $item, $withtemplate = 0)
+    {
+        if (!$item instanceof PluginGrcmanagerAudit || $item->isNewItem() || !self::canView()) {
+            return '';
+        }
+        $count = countElementsInTable(self::getTable(), ['plugin_grcmanager_audits_id' => $item->getID()]);
+
+        return self::createTabEntry(__('Constats', 'grcmanager'), $count, null, self::getIcon());
+    }
+
+    public static function displayTabContentForItem(CommonGLPI $item, $tabnum = 1, $withtemplate = 0)
+    {
+        if (!$item instanceof PluginGrcmanagerAudit) {
+            return false;
+        }
+        $findings = PluginGrcmanagerAudit::getFindings($item->getID());
+        foreach ($findings as &$finding) {
+            $finding['url'] = self::getFormURLWithID($finding['id']);
+        }
+        unset($finding);
+        TemplateRenderer::getInstance()->display('@grcmanager/audit_findings_tab.html.twig', [
+            'findings' => $findings,
+            'add_url'  => self::canCreate() ? self::getFormURL() . '?audit=' . $item->getID() : '',
+        ]);
+
+        return true;
+    }
+
     public function showForm($ID, array $options = []): bool
     {
         global $DB;
@@ -470,6 +512,10 @@ class PluginGrcmanagerNonconformity extends NonconformityBase
                 (int) $options['from_incident'],
                 (string) ($options['cve'] ?? '')
             ) + $this->fields;
+        }
+        // Issue #140 : « Ajouter un constat » depuis l'onglet Constats d'un audit.
+        if ($this->isNewItem() && (int) ($options['audit'] ?? 0) > 0) {
+            $this->fields['plugin_grcmanager_audits_id'] = (int) $options['audit'];
         }
 
         $auditTitles = [0 => Dropdown::EMPTY_VALUE];

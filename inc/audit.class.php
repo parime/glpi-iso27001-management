@@ -377,6 +377,120 @@ class PluginGrcmanagerAudit extends AuditBase
         if (array_key_exists('linked_controls', $this->input)) {
             self::syncLinkedControls((int) $this->fields['id'], (array) $this->input['linked_controls']);
         }
+
+        // Issue #140 : à la clôture (passage à « Terminé »), le rapport d'audit est archivé en
+        // document sur l'audit.
+        if (in_array('status', $this->updates, true) && $this->fields['status'] === 'completed') {
+            $this->archiveReport();
+        }
+    }
+
+    public function defineTabs($options = [])
+    {
+        $tabs = [];
+        // Issue #140 : plan d'audit, preuves collectées, rapport signé.
+        $this->addDefaultFormTab($tabs)
+            ->addStandardTab(PluginGrcmanagerNonconformity::class, $tabs, $options)
+            ->addStandardTab(Document_Item::class, $tabs, $options)
+            ->addStandardTab(Log::class, $tabs, $options);
+
+        return $tabs;
+    }
+
+    /**
+     * Constats (non-conformités et observations) rattachés à l'audit.
+     *
+     * @return list<array<string, mixed>>
+     */
+    public static function getFindings(int $auditId): array
+    {
+        global $DB;
+
+        $types = PluginGrcmanagerNonconformity::getFindingTypes();
+        $severities = PluginGrcmanagerNonconformity::getSeverities();
+        $statuses = PluginGrcmanagerNonconformity::getStatuses();
+        $findings = [];
+        foreach (
+            $DB->request([
+                'FROM'  => PluginGrcmanagerNonconformity::getTable(),
+                'WHERE' => ['plugin_grcmanager_audits_id' => $auditId],
+                'ORDER' => 'id',
+            ]) as $row
+        ) {
+            $findings[] = [
+                'id'                => (int) $row['id'],
+                'title'             => (string) $row['title'],
+                'type'              => $types[$row['finding_type']] ?? (string) $row['finding_type'],
+                'severity'          => $severities[$row['severity']] ?? (string) $row['severity'],
+                'status'            => $statuses[$row['status']] ?? (string) $row['status'],
+                'corrective_action' => (string) ($row['corrective_action'] ?? ''),
+                'due_date'          => Html::convDate($row['due_date']),
+                'owner'             => $row['users_id'] ? getUserName((int) $row['users_id']) : '',
+            ];
+        }
+
+        return $findings;
+    }
+
+    public static function renderReport(self $audit): string
+    {
+        $categories = PluginGrcmanagerRisk::getCategories();
+
+        return TemplateRenderer::getInstance()->render('@grcmanager/pdf/internal_audit_report.html.twig', [
+            'report_title'       => sprintf(__('Rapport d\'audit interne : %s', 'grcmanager'), $audit->fields['title']),
+            'generated_at_label' => sprintf(__('Généré le %s', 'grcmanager'), Html::convDateTime(date('Y-m-d H:i:s'))),
+            'audit'              => $audit->fields,
+            'auditor'            => $audit->fields['users_id'] ? getUserName((int) $audit->fields['users_id']) : '',
+            'status'             => self::getStatuses()[$audit->fields['status']] ?? $audit->fields['status'],
+            'planned_date'       => Html::convDate($audit->fields['planned_date']),
+            'actual_date'        => Html::convDate($audit->fields['actual_date']),
+            'categories'         => array_map(
+                static fn (string $key): string => $categories[$key] ?? $key,
+                self::splitRiskCategories((string) ($audit->fields['risk_categories'] ?? ''))
+            ),
+            'controls'           => array_values(self::getLinkedControls($audit->getID())),
+            'findings'           => self::getFindings($audit->getID()),
+        ]);
+    }
+
+    /**
+     * Génère le PDF du rapport et le joint à l'audit. Renvoie l'identifiant du document (0 en cas
+     * d'échec, la clôture de l'audit n'est jamais bloquée).
+     */
+    public function archiveReport(): int
+    {
+        $fileName = sprintf('rapport-audit-%d-%s.pdf', $this->getID(), date('Ymd-His'));
+        try {
+            $pdf = \GlpiPlugin\Grcmanager\Pdf\PdfRenderer::renderHtmlToPdf(self::renderReport($this));
+        } catch (\Throwable $e) {
+            return 0;
+        }
+        if (file_put_contents(GLPI_TMP_DIR . '/' . $fileName, $pdf) === false) {
+            return 0;
+        }
+
+        // Document::add() empile des messages techniques sans intérêt pour l'utilisateur.
+        $messagesBefore = $_SESSION['MESSAGE_AFTER_REDIRECT'] ?? [];
+        $documentsId = (int) (new Document())->add([
+            'name'          => sprintf(__('Rapport d\'audit interne - %s', 'grcmanager'), $this->fields['title']),
+            'entities_id'   => (int) ($_SESSION['glpiactive_entity'] ?? 0),
+            'is_recursive'  => 1,
+            '_filename'     => [$fileName],
+            '_tag_filename' => [$fileName],
+        ]);
+        $_SESSION['MESSAGE_AFTER_REDIRECT'] = $messagesBefore;
+        if ($documentsId > 0) {
+            (new Document_Item())->add([
+                'documents_id' => $documentsId,
+                'itemtype'     => self::class,
+                'items_id'     => $this->getID(),
+            ]);
+            Session::addMessageAfterRedirect(
+                __('Le rapport d\'audit a été archivé dans l\'onglet Documents.', 'grcmanager')
+            );
+        }
+
+        return $documentsId;
     }
 
     public function showForm($ID, array $options = []): bool
