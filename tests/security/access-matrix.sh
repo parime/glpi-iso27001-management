@@ -53,7 +53,7 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/compliancecalendar.php front/compliancecalendar.php?ics=1 front/complianceevent.php
   front/parkvulnerability.php front/softwarewatch.php front/riskcatalog.php front/waiver.php
   front/coveragerule.php front/impactanalysis.php front/causalgraph.php
-  front/impactanalysis.php?export=continuity"
+  front/impactanalysis.php?export=continuity front/maturity.php"
 # Creations : refusees sans droit comme en lecture seule (etat en base compare par la CI).
 create_attempts() { # code attendu, code attendu pour la classification (404 sans droit sur l'actif)
   local incident; incident=$(id incident_A)

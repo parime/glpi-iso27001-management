@@ -4171,3 +4171,92 @@ msgstr "What is this page for?"
 
 msgid "Ce qui est attendu"
 msgstr "What is expected"
+
+msgid "Score de maturité"
+msgstr "Maturity score"
+
+msgid "Mesures de l'Annexe A mises en œuvre (SoA)"
+msgstr "Annex A controls implemented (SoA)"
+
+msgid "Exigences du SMSI (articles 4 à 10) conformes"
+msgstr "ISMS requirements (clauses 4 to 10) met"
+
+msgid "Preuves en cours de validité"
+msgstr "Evidence still valid"
+
+msgid "Audit interne réalisé dans les 12 derniers mois"
+msgstr "Internal audit completed in the last 12 months"
+
+msgid "Formations réalisées"
+msgstr "Training completed"
+
+msgid "Initial"
+msgstr "Initial"
+
+msgid "Reproductible"
+msgstr "Repeatable"
+
+msgid "Défini"
+msgstr "Defined"
+
+msgid "Géré"
+msgstr "Managed"
+
+msgid "Optimisé"
+msgstr "Optimised"
+
+msgid "Score de maturité : enregistre le score du mois"
+msgstr "Maturity score: records the score of the month"
+
+msgid "Le score de maturité cyber (0 à 100) : une vue d'ensemble de l'avancement de votre système de management de la sécurité, calculée à partir de vos données."
+msgstr "The cyber maturity score (0 to 100): an overview of the progress of your security management system, computed from your data."
+
+msgid "Présentez-le en revue de direction ; le détail du calcul montre quelles composantes améliorer en priorité."
+msgstr "Present it in management reviews; the calculation details show which components to improve first."
+
+#, php-format
+msgid "Niveau %1$d : %2$s"
+msgstr "Level %1$d: %2$s"
+
+msgid "Niveaux : 1 Initial (0-19), 2 Reproductible (20-39), 3 Défini (40-59), 4 Géré (60-79), 5 Optimisé (80-100)."
+msgstr "Levels: 1 Initial (0-19), 2 Repeatable (20-39), 3 Defined (40-59), 4 Managed (60-79), 5 Optimised (80-100)."
+
+msgid "Détail du calcul"
+msgstr "Calculation details"
+
+msgid "Composante"
+msgstr "Component"
+
+msgid "Poids"
+msgstr "Weight"
+
+msgid "Apport"
+msgstr "Contribution"
+
+msgid "sans données"
+msgstr "no data"
+
+msgid "Sous-total"
+msgstr "Subtotal"
+
+#, php-format
+msgid "Pénalités : %1$d action(s) corrective(s) en retard, %2$d incident(s) de sécurité non résolu(s)"
+msgstr "Penalties: %1$d overdue corrective action(s), %2$d unresolved security incident(s)"
+
+msgid "Une composante sans données (module non utilisé) est écartée et son poids réparti sur les autres. Une mesure « en cours » compte pour moitié. Chaque retard ou incident ouvert retire 2 points, au plus 10 par catégorie."
+msgstr "A component without data (unused module) is left out and its weight spread over the others. A control \"in progress\" counts for half. Each overdue action or open incident removes 2 points, at most 10 per category."
+
+msgid "Mise en œuvre de l'Annexe A par thème"
+msgstr "Annex A implementation by theme"
+
+msgid "Aucune mesure déclarée applicable dans la SoA."
+msgstr "No control declared applicable in the SoA."
+
+msgid "Évolution mensuelle"
+msgstr "Monthly trend"
+
+msgid "L'historique se construit mois après mois : la tâche planifiée enregistre le score chaque jour pour le mois en cours."
+msgstr "The history builds up month after month: the scheduled task records the score every day for the current month."
+
+msgid "Score de maturité (sur 100)"
+msgstr "Maturity score (out of 100)"

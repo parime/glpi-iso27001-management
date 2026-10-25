@@ -1,0 +1,112 @@
+{# Issue #166 : score de maturité cyber, avec le détail du calcul. #}
+{% set level_colors = {1: '#d63939', 2: '#f76707', 3: '#f59f00', 4: '#74b816', 5: '#2fb344'} %}
+<div class="container-fluid my-2">
+   <div class="row g-3">
+      <div class="col-lg-4">
+         <div class="card h-100">
+            <div class="card-header"><h3 class="card-title"><i class="ti ti-gauge me-2"></i>{{ __('Score de maturité', 'grcmanager') }}</h3></div>
+            <div class="card-body text-center">
+               <div id="grc-maturity-gauge" style="height: 220px;" data-score="{{ score }}" data-color="{{ level_colors[level] }}"></div>
+               <div class="fs-2 fw-bold" style="color: {{ level_colors[level] }}">{{ score }} / 100</div>
+               <span class="badge text-white" style="background: {{ level_colors[level] }}">{{ __('Niveau %1$d : %2$s', 'grcmanager')|format(level, level_labels[level]) }}</span>
+               <p class="text-muted small mt-2 mb-0">{{ __('Niveaux : 1 Initial (0-19), 2 Reproductible (20-39), 3 Défini (40-59), 4 Géré (60-79), 5 Optimisé (80-100).', 'grcmanager') }}</p>
+            </div>
+         </div>
+      </div>
+      <div class="col-lg-8">
+         <div class="card h-100">
+            <div class="card-header"><h3 class="card-title"><i class="ti ti-math-function me-2"></i>{{ __('Détail du calcul', 'grcmanager') }}</h3></div>
+            <div class="card-body">
+               <table class="table table-sm table-vcenter">
+                  <thead><tr><th>{{ __('Composante', 'grcmanager') }}</th><th class="text-end text-nowrap">{{ __('Valeur', 'grcmanager') }}</th><th class="text-end text-nowrap">{{ __('Poids', 'grcmanager') }}</th><th class="text-end text-nowrap">{{ __('Apport', 'grcmanager') }}</th></tr></thead>
+                  <tbody>
+                  {% for key, c in components %}
+                     <tr>
+                        <td>{{ component_labels[key] }}</td>
+                        <td class="text-end text-nowrap">{{ c.value is null ? __('sans données', 'grcmanager') : c.value|number_format(1, ',') ~ ' %' }}</td>
+                        <td class="text-end text-nowrap">{{ c.value is null ? '—' : c.effective_weight|number_format(1, ',') ~ ' %' }}</td>
+                        <td class="text-end text-nowrap">{{ c.value is null ? '—' : (c.value * c.effective_weight / 100)|number_format(1, ',') }}</td>
+                     </tr>
+                  {% endfor %}
+                  <tr class="fw-bold"><td>{{ __('Sous-total', 'grcmanager') }}</td><td></td><td></td><td class="text-end text-nowrap">{{ base|number_format(1, ',') }}</td></tr>
+                  <tr>
+                     <td>{{ __('Pénalités : %1$d action(s) corrective(s) en retard, %2$d incident(s) de sécurité non résolu(s)', 'grcmanager')|format(penalties.capa_overdue, penalties.incidents_open) }}</td>
+                     <td></td><td></td><td class="text-end text-danger">− {{ penalty }}</td>
+                  </tr>
+                  </tbody>
+               </table>
+               <p class="text-muted small mb-0"><i class="ti ti-info-circle me-1"></i>{{ __('Une composante sans données (module non utilisé) est écartée et son poids réparti sur les autres. Une mesure « en cours » compte pour moitié. Chaque retard ou incident ouvert retire 2 points, au plus 10 par catégorie.', 'grcmanager') }}</p>
+            </div>
+         </div>
+      </div>
+
+      <div class="col-lg-6">
+         <div class="card h-100">
+            <div class="card-header"><h3 class="card-title"><i class="ti ti-chart-radar me-2"></i>{{ __('Mise en œuvre de l\'Annexe A par thème', 'grcmanager') }}</h3></div>
+            <div class="card-body">
+               {% if themes is empty %}
+                  <p class="text-muted">{{ __('Aucune mesure déclarée applicable dans la SoA.', 'grcmanager') }}</p>
+               {% else %}
+                  <div id="grc-maturity-radar" style="height: 300px;" data-themes="{{ themes|json_encode }}"></div>
+               {% endif %}
+            </div>
+         </div>
+      </div>
+      <div class="col-lg-6">
+         <div class="card h-100">
+            <div class="card-header"><h3 class="card-title"><i class="ti ti-chart-line me-2"></i>{{ __('Évolution mensuelle', 'grcmanager') }}</h3></div>
+            <div class="card-body">
+               {% if history|length < 2 %}
+                  <p class="text-muted">{{ __('L\'historique se construit mois après mois : la tâche planifiée enregistre le score chaque jour pour le mois en cours.', 'grcmanager') }}</p>
+               {% endif %}
+               {% if history is not empty %}
+                  <div id="grc-maturity-history" style="height: 260px;" data-history="{{ history|json_encode }}"></div>
+               {% endif %}
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<script>
+   (function () {
+      const draw = function () {
+         const gauge = document.getElementById('grc-maturity-gauge');
+         window.echarts.init(gauge).setOption({
+            series: [{
+               type: 'gauge', min: 0, max: 100, startAngle: 210, endAngle: -30,
+               progress: {show: true, width: 14, itemStyle: {color: gauge.dataset.color}},
+               axisLine: {lineStyle: {width: 14}}, pointer: {show: false},
+               axisTick: {show: false}, splitLine: {show: false}, axisLabel: {show: false},
+               detail: {show: false}, data: [{value: Number(gauge.dataset.score)}]
+            }]
+         });
+         const radar = document.getElementById('grc-maturity-radar');
+         if (radar) {
+            const themes = JSON.parse(radar.dataset.themes);
+            window.echarts.init(radar).setOption({
+               radar: {indicator: themes.map(function (t) { return {name: t.label, max: 100}; })},
+               series: [{type: 'radar', areaStyle: {opacity: 0.25}, data: [{value: themes.map(function (t) { return t.value; })}]}]
+            });
+         }
+         const history = document.getElementById('grc-maturity-history');
+         if (history) {
+            const points = JSON.parse(history.dataset.history);
+            window.echarts.init(history).setOption({
+               grid: {left: 40, right: 20, top: 20, bottom: 30},
+               xAxis: {type: 'category', data: points.map(function (p) { return p.month; })},
+               yAxis: {type: 'value', min: 0, max: 100},
+               tooltip: {trigger: 'axis'},
+               series: [{type: 'line', smooth: true, data: points.map(function (p) { return p.score; })}]
+            });
+         }
+      };
+      if (typeof window.echarts === 'undefined') {
+         const script = document.createElement('script');
+         script.src = '{{ config('root_doc') }}/lib/echarts.min.js';
+         script.onload = draw;
+         document.head.appendChild(script);
+      } else {
+         draw();
+      }
+   })();
+</script>

@@ -133,6 +133,8 @@ function plugin_init_grcmanager(): void
             PluginGrcmanagerImpactAnalysis::class,
             // Issue #171 : effet domino entre risques et incidents.
             PluginGrcmanagerCausalLink::class,
+            // Issue #166 : score de maturité cyber.
+            PluginGrcmanagerMaturity::class,
             PluginGrcmanagerObjective::class,
             // Corrélation CPE des CVE avec le parc GLPI (cf. ROADMAP.md) : un seul menu entry pour
             // le catalogue de correspondance (le produit canonique) — ses deux tables satellites
