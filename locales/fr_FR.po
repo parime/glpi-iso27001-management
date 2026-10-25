@@ -3018,9 +3018,6 @@ msgstr "Surveillés"
 msgid "Ignorés"
 msgstr "Ignorés"
 
-msgid "Vulnérabilités du parc : interroge NVD, CISA KEV et FIRST EPSS"
-msgstr "Vulnérabilités du parc : interroge NVD, CISA KEV et FIRST EPSS"
-
 msgid "Versions vérifiées par passage"
 msgstr "Versions vérifiées par passage"
 
@@ -3696,3 +3693,27 @@ msgstr "Et %d autres vulnérabilités."
 #, php-format
 msgid "%1$d vulnérabilités affichées sur %2$d, les plus graves d'abord."
 msgstr "%1$d vulnérabilités affichées sur %2$d, les plus graves d'abord."
+
+#, php-format
+msgid "%s figure au catalogue CISA KEV : elle est activement exploitée."
+msgstr "%s figure au catalogue CISA KEV : elle est activement exploitée."
+
+#, php-format
+msgid "Échéance de correction fixée par la CISA : %s."
+msgstr "Échéance de correction fixée par la CISA : %s."
+
+#, php-format
+msgid "Probabilité d'exploitation de %1$s dans les 30 jours (FIRST EPSS) : %2$d %%."
+msgstr "Probabilité d'exploitation de %1$s dans les 30 jours (FIRST EPSS) : %2$d %%."
+
+msgid "Revoyez la priorité de l'incident : elle n'est pas modifiée automatiquement."
+msgstr "Revoyez la priorité de l'incident : elle n'est pas modifiée automatiquement."
+
+msgid "Vulnérabilités du parc et des incidents : interroge NVD, CISA KEV et FIRST EPSS"
+msgstr "Vulnérabilités du parc et des incidents : interroge NVD, CISA KEV et FIRST EPSS"
+
+msgid "Activement exploitée (catalogue CISA KEV)"
+msgstr "Activement exploitée (catalogue CISA KEV)"
+
+msgid "Probabilité d'exploitation dans les 30 jours (FIRST EPSS)"
+msgstr "Probabilité d'exploitation dans les 30 jours (FIRST EPSS)"
