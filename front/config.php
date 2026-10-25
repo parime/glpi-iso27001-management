@@ -71,6 +71,8 @@ if (isset($_POST['update_nvd_config'])) {
                 ? (float) $_POST['cvss_alert_threshold']
                 : \GlpiPlugin\Grcmanager\Services\Cve\NvdConfigDefaults::CVSS_ALERT_THRESHOLD,
     ]);
+    // Issue #160, phase 2 : seuils des tickets automatiques des vulnérabilités du parc.
+    PluginGrcmanagerParkVulnerability::saveTicketThresholds($_POST);
 
     Html::back();
 }
@@ -91,6 +93,8 @@ Html::header(
     'latest_github_version' => GithubVersionChecker::getLatestGithubVersion(),
     'securityincident_modules' => SecurityIncidentModuleConfig::load(),
     'nvd_config'                => NvdConfig::load(),
+    'park_thresholds'           => PluginGrcmanagerParkVulnerability::getTicketThresholds(),
+    'max_tickets'               => PluginGrcmanagerParkVulnerability::MAX_TICKETS_PER_RUN,
 ]);
 
 Html::footer();

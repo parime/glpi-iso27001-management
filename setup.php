@@ -237,6 +237,11 @@ function plugin_init_grcmanager(): void
         ),
     ]);
 
+    // Issue #160, phase 2 : onglet « Vulnérabilités » sur les éléments qui portent des logiciels.
+    Plugin::registerClass(PluginGrcmanagerParkVulnerability::class, [
+        'addtabon' => $CFG_GLPI['software_types'] ?? ['Computer'],
+    ]);
+
     // Issue #177 : onglet « Impact d'une panne » sur les actifs.
     Plugin::registerClass(PluginGrcmanagerImpactAnalysis::class, [
         'addtabon' => PluginGrcmanagerRisk::getLinkableItemtypes(),

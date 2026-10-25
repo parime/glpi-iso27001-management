@@ -1,0 +1,23 @@
+{# Issue #160, phase 2 : contenu du ticket de mise à jour d'un logiciel vulnérable du parc #}
+<p><strong>{{ product }}</strong> — {{ __('versions', 'grcmanager') }} {{ versions|join(', ') }}</p>
+<ul>
+   <li>{{ __('Machines touchées', 'grcmanager') }} : {{ machines }}</li>
+   {% if kev %}<li><strong>{{ __('Vulnérabilités activement exploitées (catalogue CISA KEV)', 'grcmanager') }} : {{ kev }}</strong></li>{% endif %}
+</ul>
+<table>
+   <tr><th>CVE</th><th>CVSS</th><th>EPSS</th><th>{{ __('Exploitée', 'grcmanager') }}</th></tr>
+   {% for c in cves %}
+   <tr>
+      <td><a href="https://nvd.nist.gov/vuln/detail/{{ c.cve_id }}">{{ c.cve_id }}</a></td>
+      <td>{{ c.cvss is null ? '—' : c.cvss }}</td>
+      <td>{{ c.epss is null ? '—' : (c.epss * 100)|round(1) ~ ' %' }}</td>
+      <td>{% if c.is_kev %}KEV{% if c.kev_due %} ({{ __('échéance CISA', 'grcmanager') }} {{ c.kev_due }}){% endif %}{% endif %}</td>
+   </tr>
+   {% endfor %}
+</table>
+{% if others > 0 %}<p>{{ __('Et %d autres vulnérabilités.', 'grcmanager')|format(others) }}</p>{% endif %}
+{% if links is not empty %}
+<p><strong>{{ __('Correctifs et avis', 'grcmanager') }}</strong></p>
+<ul>{% for l in links %}<li><a href="{{ l.url }}">{{ l.url }}</a></li>{% endfor %}</ul>
+{% endif %}
+<p>{{ __('Ticket ouvert par la veille des vulnérabilités du parc. Les machines touchées sont liées au ticket (50 au plus) ; la liste complète est sur', 'grcmanager') }} <a href="{{ park_url }}">{{ park_url }}</a>.</p>
