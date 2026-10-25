@@ -4871,3 +4871,23 @@ msgstr "Fix each item, then run the audit again to check. Nothing was changed au
 
 msgid "Fichier CSV"
 msgstr "CSV file"
+
+#, php-format
+msgid "Mesures mises en œuvre par référentiel (%)"
+msgstr "Implemented controls by framework (%)"
+
+msgid "Échéances à 90 jours"
+msgstr "Deadlines within 90 days"
+
+#, php-format
+msgid "Revue des accès : % revus"
+msgstr "Access review: % reviewed"
+
+msgid "Délais NIS2 / RGPD en alerte"
+msgstr "NIS2 / GDPR deadlines at risk"
+
+msgid "Score fournisseurs moyen"
+msgstr "Average supplier score"
+
+msgid "Revues périodiques en retard"
+msgstr "Overdue periodic reviews"

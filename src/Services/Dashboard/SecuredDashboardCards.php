@@ -27,6 +27,9 @@ final class SecuredDashboardCards
             $provider = DashboardCardService::class;
         } elseif (method_exists(SecurityIncidentCardProvider::class, $name)) {
             $provider = SecurityIncidentCardProvider::class;
+        } elseif (method_exists(PilotageCards::class, $name)) {
+            // Issue #143 : cartes de pilotage.
+            $provider = PilotageCards::class;
         } else {
             throw new \BadMethodCallException(sprintf('Unknown dashboard card provider "%s".', $name));
         }

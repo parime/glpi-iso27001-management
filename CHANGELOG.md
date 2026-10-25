@@ -7,6 +7,16 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Added
+
+- **Cartes de pilotage du tableau de bord** (issue #143) : six nouvelles cartes, ajoutées au tableau
+  de bord « GRC Manager - Vue d'ensemble ISMS » et disponibles dans l'éditeur de tableaux de bord
+  de GLPI : mesures mises en œuvre par référentiel (ISO/IEC 27001, NIS2, guide d'hygiène de
+  l'ANSSI, d'après les correspondances indicatives du plugin), échéances de conformité à 90 jours,
+  avancement de la revue des accès en cours, délais NIS2 / RGPD proches ou dépassés, score moyen
+  des questionnaires fournisseurs, revues périodiques en retard. Chaque carte ouvre la liste
+  correspondante et respecte les droits du profil.
+
 ## [2.8.0] - 2026-10-25
 
 ### Added
