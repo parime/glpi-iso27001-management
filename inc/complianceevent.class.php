@@ -715,7 +715,10 @@ class PluginGrcmanagerComplianceEvent extends ComplianceEventBase
     public static function cronInfo($name)
     {
         return $name === 'complianceeventreminder'
-            ? ['description' => __('Prévient le responsable 15 jours avant un événement du calendrier de conformité', 'grcmanager')]
+            ? ['description' => __(
+                'Prévient le responsable 15 jours avant un événement du calendrier de conformité',
+                'grcmanager'
+            )]
             : [];
     }
 

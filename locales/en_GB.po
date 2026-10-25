@@ -4997,3 +4997,20 @@ msgstr "Risk categories"
 
 msgid "Mesures auditées"
 msgstr "Audited controls"
+
+msgid "Prévient le responsable 15 jours avant un événement du calendrier de conformité"
+msgstr "Notifies the owner 15 days before a compliance calendar event"
+
+msgid "Événement de conformité à venir"
+msgstr "Upcoming compliance event"
+
+msgid "Responsable de l'événement"
+msgstr "Event owner"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Event"
+msgid_plural "Events"
+msgstr[0] "Event"
+msgstr[1] "Events"

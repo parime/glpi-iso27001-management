@@ -71,12 +71,13 @@ class PluginGrcmanagerNotificationTargetComplianceEvent extends NotificationTarg
         $events = $this->getAllEvents();
         /** @var PluginGrcmanagerComplianceEvent $complianceEvent */
         $complianceEvent = $this->obj;
+        $fields = $complianceEvent->fields;
         $types = PluginGrcmanagerComplianceEvent::getEventTypes();
 
         $this->data['##complianceevent.action##'] = $events[$event] ?? '';
-        $this->data['##complianceevent.name##']   = (string) ($complianceEvent->fields['name'] ?? '');
-        $this->data['##complianceevent.type##']   = (string) ($types[$complianceEvent->fields['event_type'] ?? ''] ?? '');
-        $this->data['##complianceevent.begin##']  = (string) Html::convDateTime($complianceEvent->fields['date_begin'] ?? null);
+        $this->data['##complianceevent.name##']   = (string) ($fields['name'] ?? '');
+        $this->data['##complianceevent.type##']   = (string) ($types[$fields['event_type'] ?? ''] ?? '');
+        $this->data['##complianceevent.begin##']  = (string) Html::convDateTime($fields['date_begin'] ?? null);
         $this->data['##complianceevent.scope##']  = (string) ($complianceEvent->fields['scope'] ?? '');
         $this->data['##complianceevent.url##']    = $this->formatURL(
             $options['additionnaloption']['usertype'] ?? self::GLPI_USER,

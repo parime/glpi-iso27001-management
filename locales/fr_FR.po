@@ -4997,3 +4997,20 @@ msgstr "Catégories de risque"
 
 msgid "Mesures auditées"
 msgstr "Mesures auditées"
+
+msgid "Prévient le responsable 15 jours avant un événement du calendrier de conformité"
+msgstr "Prévient le responsable 15 jours avant un événement du calendrier de conformité"
+
+msgid "Événement de conformité à venir"
+msgstr "Événement de conformité à venir"
+
+msgid "Responsable de l'événement"
+msgstr "Responsable de l'événement"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Event"
+msgid_plural "Events"
+msgstr[0] "Event"
+msgstr[1] "Events"
