@@ -87,6 +87,7 @@
                      </td>
                      <td>
                         {{ row.product }}
+                        {% if row.certfr %}<a href="{{ row.certfr.link }}" target="_blank" rel="noopener" class="badge bg-orange-lt ms-1" title="{{ row.certfr.title }}"><i class="ti ti-alert-octagon me-1"></i>CERT-FR</a>{% endif %}
                         {% if row.description %}<div class="text-muted small text-truncate" style="max-width: 22rem" title="{{ row.description }}">{{ row.description }}</div>{% endif %}
                      </td>
                      <td>{% for v in row.versions %}<span class="badge bg-azure-lt me-1">{{ v }}</span>{% endfor %}</td>

@@ -189,6 +189,8 @@ final class Installer
     private const PARK_CVES_TABLE = 'glpi_plugin_grcmanager_parkcves';
     private const CVE_SIGNALS_TABLE = 'glpi_plugin_grcmanager_cvesignals';
     // Issue #160, phase 2 : ticket ouvert par produit du catalogue (logiciel à mettre à jour).
+    private const CERTFR_NOTICES_TABLE = 'glpi_plugin_grcmanager_certfrnotices';
+    private const CERTFR_NOTIFIED_TABLE = 'glpi_plugin_grcmanager_certfrnotices_supplierrisks';
     private const PARK_CVE_TICKETS_TABLE = 'glpi_plugin_grcmanager_parkcvetickets';
     // Issue #178 : risques types importés depuis le catalogue, voir PluginGrcmanagerRiskCatalog.
     private const RISK_CATALOG_IMPORTS_TABLE = 'glpi_plugin_grcmanager_riskcatalogimports';
@@ -1248,6 +1250,38 @@ final class Installer
             $DB->doQuery($query) or die($DB->error());
         }
 
+        // Issue #167 : avis et alertes du CERT-FR, et avis déjà signalés par risque fournisseur.
+        if (!$DB->tableExists(self::CERTFR_NOTICES_TABLE)) {
+            $query = "CREATE TABLE `" . self::CERTFR_NOTICES_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `ref` varchar(32) NOT NULL,
+                `kind` varchar(10) NOT NULL DEFAULT 'avis',
+                `title` varchar(255) NOT NULL DEFAULT '',
+                `link` varchar(255) NOT NULL DEFAULT '',
+                `summary` text,
+                `published` timestamp NULL DEFAULT NULL,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `ref` (`ref`),
+                KEY `published` (`published`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+        }
+        if (!$DB->tableExists(self::CERTFR_NOTIFIED_TABLE)) {
+            $query = "CREATE TABLE `" . self::CERTFR_NOTIFIED_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_certfrnotices_id` int {$keySign} NOT NULL DEFAULT 0,
+                `plugin_grcmanager_supplierrisks_id` int {$keySign} NOT NULL DEFAULT 0,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity` (`plugin_grcmanager_certfrnotices_id`, `plugin_grcmanager_supplierrisks_id`),
+                KEY `plugin_grcmanager_supplierrisks_id` (`plugin_grcmanager_supplierrisks_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+        }
+
         // Issue #160 : signaux d'exploitation par CVE (CISA KEV, FIRST EPSS).
         if (!$DB->tableExists(self::CVE_SIGNALS_TABLE)) {
             $query = "CREATE TABLE `" . self::CVE_SIGNALS_TABLE . "` (
@@ -1810,6 +1844,7 @@ final class Installer
             ['type' => 'Type', 'status' => 'Statut de conformité']
         );
         $this->seedCapaOverdueNotification();
+        $this->seedSecurityWatchNotification();
         $this->seedTrainingRenewalNotification();
         $this->seedPolicyReviewReminderNotification();
         $this->seedTreatmentActionOverdueNotification();
@@ -2228,6 +2263,68 @@ final class Installer
 
         // Default recipient: the non-conformity's own responsible owner (`users_id`), same
         // generic resolution as seedReviewReminderNotification() above.
+        $DB->insert('glpi_notificationtargets', [
+            'items_id'         => Notification::ITEM_USER,
+            'type'             => Notification::USER_TYPE,
+            'notifications_id' => $notificationId,
+        ]);
+    }
+
+    /**
+     * Issue #167 : nouvel avis du CERT-FR qui cite le fournisseur d'un risque (événement
+     * 'security_watch', voir PluginGrcmanagerSecurityWatch::notifyOwners()), adressé au
+     * propriétaire du risque. Idempotent, même structure que seedCapaOverdueNotification().
+     */
+    private function seedSecurityWatchNotification(): void
+    {
+        global $DB;
+
+        $itemtype = 'PluginGrcmanagerSupplierRisk';
+        $event    = 'security_watch';
+
+        if (
+            $DB->request([
+                'FROM'  => 'glpi_notifications',
+                'WHERE' => ['itemtype' => $itemtype, 'event' => $event],
+            ])->count() > 0
+        ) {
+            return;
+        }
+
+        $templateId = (new NotificationTemplate())->add([
+            'name'     => 'GRC Manager - Avis de sécurité concernant un fournisseur',
+            'itemtype' => $itemtype,
+            'comment'  => 'Notification envoyée par la tâche des vulnérabilités du parc lorsqu\'un nouvel '
+                . 'avis du CERT-FR cite le fournisseur d\'un risque du registre.',
+        ]);
+
+        $DB->insert('glpi_notificationtemplatetranslations', [
+            'notificationtemplates_id' => $templateId,
+            'language'                 => '',
+            'subject'                  => '##supplierrisk.action## : ##supplierrisk.supplier##',
+            // Texte seul : la liste des avis est déjà une liste de lignes, et un modèle HTML écrit
+            // ici ajouterait du HTML en PHP (exigence Marketplace, voir check-marketplace-readiness).
+            'content_text'             => "##supplierrisk.action## : ##supplierrisk.supplier##\n\n"
+                . "##supplierrisk.notices##\n\n"
+                . "Risque fournisseur : ##supplierrisk.title##\n"
+                . "Voir le risque fournisseur (onglet Veille sécurité) : ##supplierrisk.url##",
+        ]);
+
+        $notificationId = (new Notification())->add([
+            'name'         => 'GRC Manager - Avis de sécurité concernant un fournisseur',
+            'entities_id'  => 0,
+            'is_recursive' => 1,
+            'itemtype'     => $itemtype,
+            'event'        => $event,
+            'is_active'    => 1,
+        ]);
+
+        $DB->insert('glpi_notifications_notificationtemplates', [
+            'notifications_id'         => $notificationId,
+            'mode'                     => 'mailing',
+            'notificationtemplates_id' => $templateId,
+        ]);
+
         $DB->insert('glpi_notificationtargets', [
             'items_id'         => Notification::ITEM_USER,
             'type'             => Notification::USER_TYPE,
@@ -3026,6 +3123,8 @@ final class Installer
         $migration->dropTable(self::PARK_CVES_TABLE);
         $migration->dropTable(self::CVE_SIGNALS_TABLE);
         $migration->dropTable(self::PARK_CVE_TICKETS_TABLE);
+        $migration->dropTable(self::CERTFR_NOTICES_TABLE);
+        $migration->dropTable(self::CERTFR_NOTIFIED_TABLE);
         $migration->dropTable(self::RISK_CATALOG_IMPORTS_TABLE);
         $migration->dropTable(self::WAIVERS_TABLE);
         $migration->dropTable(self::WAIVERS_ITEMS_TABLE);
