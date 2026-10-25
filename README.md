@@ -34,7 +34,11 @@ archivé), avec ses champs de classification ISO 27001 fusionnés dessus.
   transférer/éviter), propriétaire, justification, date de revue ; matrice probabilité x impact
   administrable et cartographie interactive.
 - **Registre de risques fournisseurs/tiers**, avec **questionnaire d'évaluation de sécurité**
-  (score, contrats GLPI du fournisseur, preuves, ticket de réévaluation à l'échéance).
+  (score, contrats GLPI du fournisseur, preuves, ticket de réévaluation à l'échéance) et
+  **veille de sécurité** (avis du CERT-FR qui citent le fournisseur, notification au propriétaire).
+- **Catalogue de risques types d'infrastructure**, à importer dans le registre.
+- **Effet domino** : liens cause → conséquence entre risques et incidents, en graphe.
+- **Dérogations de sécurité** : exceptions limitées dans le temps, validées et réévaluées.
 
 **Conformité**
 - **Déclaration d'Applicabilité (SoA)** : les 93 contrôles de l'Annexe A ISO 27001:2022 (clause
@@ -70,8 +74,18 @@ archivé), avec ses champs de classification ISO 27001 fusionnés dessus.
   72 h, 1 mois) et RGPD (72 h)** suivis par une tâche planifiée.
 - Chaque partie du module est activable/désactivable indépendamment (Configuration > Plugins).
 
+**Vulnérabilités et continuité**
+- **Vulnérabilités du parc** : CVE des logiciels installés (NVD), exploitation réelle (CISA KEV,
+  FIRST EPSS), avis du CERT-FR, un ticket de mise à jour par logiciel (création automatique
+  désactivée par défaut), onglet « Vulnérabilités » sur les ordinateurs.
+- Suivi EPSS/KEV des CVE des incidents, et **plan d'action (CAPA) proposé** à partir d'une CVE.
+- **Impact d'une panne** (analyse d'impact de GLPI), points de défaillance uniques, objectifs de
+  reprise **RTO/RPO** et export pour le plan de continuité.
+- **Couverture des preuves** : quels actifs doivent avoir quel document.
+
 **Pilotage**
 - Tableau de bord ISMS par défaut et indicateurs à ajouter aux tableaux de bord GLPI.
+- Chaque écran du menu explique à quoi il sert et ce qui est attendu.
 
 **Principe commun** : le plugin ne modifie jamais lui-même un statut, un droit ni une
 affectation. Il crée le ticket ou la notification, et l'équipe décide.
@@ -80,8 +94,8 @@ affectation. Il crée le ticket ou la notification, et l'équipe décide.
 
 **Stable**, publié et installable dès maintenant, pour GLPI 11 et 12 : voir la
 [dernière version](https://github.com/parime/glpi-iso27001-management/releases/latest) et le
-[CHANGELOG](CHANGELOG.md) pour l'historique complet. Prochaines étapes (revues périodiques par
-tickets récurrents, matrice des flux, calendrier de conformité…) : voir [ROADMAP.md](ROADMAP.md).
+[CHANGELOG](CHANGELOG.md) pour l'historique complet. Prochaines étapes : voir
+[ROADMAP.md](ROADMAP.md).
 
 ## Installation
 
