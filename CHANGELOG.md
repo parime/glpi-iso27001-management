@@ -7,6 +7,15 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Added
+
+- **Menu GRC & Conformité > Tableau de bord** (issue #247) : première entrée du menu, comme
+  Parc > Tableau de bord et Assistance > Tableau de bord. Elle affiche le tableau de bord
+  « GRC Manager - Vue d'ensemble ISMS » avec les outils natifs de GLPI (choix du tableau de bord,
+  ajout et déplacement des cartes, partage, plein écran). Cliquer sur le titre du menu y mène
+  aussi. Si le tableau de bord n'est pas partagé avec le profil, la page explique comment le
+  partager.
+
 ## [2.9.0] - 2026-10-25
 
 ### Added

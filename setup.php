@@ -38,7 +38,7 @@ define('PLUGIN_GRCMANAGER_MIN_PHP', '8.2.0');
  */
 function plugin_init_grcmanager(): void
 {
-    global $PLUGIN_HOOKS;
+    global $PLUGIN_HOOKS, $CFG_GLPI;
 
     $PLUGIN_HOOKS['csrf_compliant']['grcmanager'] = true;
 
@@ -102,6 +102,8 @@ function plugin_init_grcmanager(): void
     $menuToAdd = [
         'grcmanager' => [
             PluginGrcmanagerMenu::class,
+            // Issue #247 : tableau de bord en tête du menu, comme dans Parc et Assistance.
+            PluginGrcmanagerDashboard::class,
             PluginGrcmanagerRisk::class,
             PluginGrcmanagerSupplierRisk::class,
             PluginGrcmanagerControl::class,
@@ -168,6 +170,9 @@ function plugin_init_grcmanager(): void
     }
 
     $PLUGIN_HOOKS[Hooks::MENU_TOADD]['grcmanager'] = $menuToAdd;
+    // Issue #247 : Html::header() ne charge la grille et les graphiques des tableaux de bord que
+    // pour les pages déclarées ici (même mécanisme que Parc > Tableau de bord ; clé en minuscules).
+    $CFG_GLPI['javascript']['grcmanager'][strtolower(PluginGrcmanagerDashboard::class)] = ['dashboard'];
 
     // Issue #28 (bibliothèque de politiques de sécurité versionnées, A.5.1) : le fichier joint
     // (PDF, Word...) d'une politique est stocké via le mécanisme natif GLPI Document/Document_Item,
