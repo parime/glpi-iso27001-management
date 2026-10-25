@@ -82,9 +82,19 @@ archivé), avec ses champs de classification ISO 27001 fusionnés dessus.
 - **Impact d'une panne** (analyse d'impact de GLPI), points de défaillance uniques, objectifs de
   reprise **RTO/RPO** et export pour le plan de continuité.
 - **Couverture des preuves** : quels actifs doivent avoir quel document.
+- **Exercices de crise** (rançongiciel, fuite de données, panne) : incident fictif, étapes
+  chronométrées, rapport d'exercice archivé comme preuve (A.5.29, A.5.30).
+- **Cellule de crise** sur un incident réel : plan de réponse, reprise des éléments touchés face à
+  leur RTO, journal de crise et rapport.
+- **Rapport post-incident** en PDF (chronologie, notifications NIS2/RGPD, enseignements), archivé
+  comme preuve (A.5.27).
 
 **Pilotage**
 - Tableau de bord ISMS par défaut et indicateurs à ajouter aux tableaux de bord GLPI.
+- **Score de maturité** cyber (0 à 100) avec le détail du calcul et son historique mensuel.
+- **Audit de conformité technique** : score ISO 27001, NIS2 et RGPD à partir des données de GLPI
+  (antivirus, chiffrement, inventaire, validation des changements, comptes) et ticket de mise en
+  conformité par contrôle.
 - Chaque écran du menu explique à quoi il sert et ce qui est attendu.
 
 **Principe commun** : le plugin ne modifie jamais lui-même un statut, un droit ni une

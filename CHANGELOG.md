@@ -7,6 +7,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.8.0] - 2026-10-25
+
 ### Added
 
 - **Audit de conformité technique** (issue #162) : menu GRC & Conformité > « Audit de conformité
