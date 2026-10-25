@@ -48,6 +48,11 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   - onglets **Documents** et **Historique** aussi sur la fiche d'une non-conformité ;
   - quand l'audit passe au statut « Terminé », le **rapport d'audit PDF** (périmètre, mesures
     auditées, constats, conclusion) est archivé automatiquement dans son onglet Documents.
+- **Calendrier de conformité : rappel avant un événement** (issue #142) : le responsable d'un
+  événement planifié (audit externe, pentest, certification, exercice…) reçoit une notification
+  15 jours avant son début (tâche automatique quotidienne « complianceeventreminder »,
+  notification « GRC Manager - Événement de conformité à venir »). Un seul rappel par événement,
+  renvoyé si l'événement est déplacé ; rien n'est modifié automatiquement.
 
 ### Fixed
 
