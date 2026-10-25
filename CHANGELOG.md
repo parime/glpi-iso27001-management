@@ -50,6 +50,13 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   document de cette catégorie, et liste des actifs non couverts, chacun avec un lien vers son
   onglet Documents. Les mesures et les exigences affichent leurs règles et leur jauge dans un onglet
   « Couverture des preuves ». Les actifs comptés sont ceux des entités actives.
+- **Analyse d'impact d'une panne** (issue #177, phase 1), à partir de l'analyse d'impact native de
+  GLPI : onglet « Impact d'une panne » sur chaque actif, qui liste tout ce qui en dépend
+  (directement ou non), la disponibilité classée de chaque élément et les risques du registre
+  concernés. Un élément à disponibilité haute qui ne dépend que d'une seule source signale un
+  **point de défaillance unique** ; le bouton « Créer le risque correspondant » l'ajoute au
+  registre, lié à l'actif, sans jamais le faire automatiquement. Page GRC & Conformité > Points de
+  défaillance uniques pour toute l'instance.
 
 ### Changed
 

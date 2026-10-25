@@ -129,6 +129,8 @@ function plugin_init_grcmanager(): void
             PluginGrcmanagerWaiver::class,
             // Issue #164 : couverture des preuves (actifs ayant le document requis).
             PluginGrcmanagerCoverageRule::class,
+            // Issue #177 : points de défaillance uniques (analyse d'impact d'une panne).
+            PluginGrcmanagerImpactAnalysis::class,
             PluginGrcmanagerObjective::class,
             // Corrélation CPE des CVE avec le parc GLPI (cf. ROADMAP.md) : un seul menu entry pour
             // le catalogue de correspondance (le produit canonique) — ses deux tables satellites
@@ -233,6 +235,11 @@ function plugin_init_grcmanager(): void
             PluginGrcmanagerRisk::getLinkableItemtypes(),
             [PluginGrcmanagerControl::class, PluginGrcmanagerPolicy::class]
         ),
+    ]);
+
+    // Issue #177 : onglet « Impact d'une panne » sur les actifs.
+    Plugin::registerClass(PluginGrcmanagerImpactAnalysis::class, [
+        'addtabon' => PluginGrcmanagerRisk::getLinkableItemtypes(),
     ]);
 
     // Issue #164 : onglet « Couverture des preuves » sur les mesures et les exigences du SMSI.
