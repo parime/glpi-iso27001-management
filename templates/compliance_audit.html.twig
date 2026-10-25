@@ -1,0 +1,73 @@
+{# Issue #162 : audit de conformité technique, score par référentiel et écarts #}
+{% macro score_class(score) %}{{ score is null ? 'bg-secondary-lt' : (score >= 90 ? 'bg-green-lt' : (score >= 70 ? 'bg-orange-lt' : 'bg-red-lt')) }}{% endmacro %}
+<div class="container-fluid">
+   <div class="row g-3 mb-3">
+      {% for s in scores %}
+         <div class="col-md-4">
+            <div class="card">
+               <div class="card-body d-flex align-items-center gap-3">
+                  <span class="badge {{ _self.score_class(s.score) }} fs-1 px-3 py-2">{{ s.score is null ? '—' : s.score ~ ' %' }}</span>
+                  <div>
+                     <div class="h3 mb-0">{{ s.label }}</div>
+                     <div class="text-muted small">{{ s.checks > 0 ? __('Moyenne de %d contrôle(s) technique(s)', 'grcmanager')|format(s.checks) : __('Aucun contrôle évaluable', 'grcmanager') }}</div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      {% endfor %}
+   </div>
+   <p class="text-muted"><i class="ti ti-info-circle me-1"></i>{{ __('Ce score ne mesure que les contrôles techniques ci-dessous, à partir des données de GLPI. L\'avancement organisationnel se suit dans la déclaration d\'applicabilité (SoA) et le score de maturité.', 'grcmanager') }}
+      <a href="{{ soa_url }}">{{ __('Mesures de l\'Annexe A', 'grcmanager') }}</a> · <a href="{{ maturity_url }}">{{ __('Score de maturité', 'grcmanager') }}</a></p>
+
+   <form method="get" action="{{ action }}" class="d-flex align-items-center gap-2 mb-3">
+      <label class="form-label mb-0" for="grc-audit-approvals">{{ __('Validations exigées par changement', 'grcmanager') }}</label>
+      <select class="form-select w-auto" id="grc-audit-approvals" name="approvals" onchange="this.form.submit()">
+         <option value="1" {{ approvals == 1 ? 'selected' }}>1</option>
+         <option value="2" {{ approvals == 2 ? 'selected' }}>{{ __('2 (double validation)', 'grcmanager') }}</option>
+      </select>
+      <noscript><button type="submit" class="btn btn-outline-secondary btn-sm">{{ __('Appliquer', 'grcmanager') }}</button></noscript>
+   </form>
+
+   {% for c in checks %}
+      <div class="card mb-3">
+         <div class="card-header d-flex flex-wrap align-items-center gap-2">
+            {% if not c.evaluated %}
+               <span class="badge bg-secondary-lt"><i class="ti ti-lock me-1"></i>{{ __('Non évalué', 'grcmanager') }}</span>
+            {% elseif c.rate is null %}
+               <span class="badge bg-secondary-lt"><i class="ti ti-minus me-1"></i>{{ __('Sans objet', 'grcmanager') }}</span>
+            {% elseif c.gap_count == 0 %}
+               <span class="badge bg-green-lt"><i class="ti ti-circle-check me-1"></i>{{ __('Conforme', 'grcmanager') }}</span>
+            {% else %}
+               <span class="badge {{ _self.score_class(c.rate) }}"><i class="ti ti-alert-triangle me-1"></i>{{ c.gap_count }} / {{ c.total }}</span>
+            {% endif %}
+            <h4 class="card-title mb-0">{{ c.label }}</h4>
+            <span class="ms-auto small text-muted">{{ c.references|join(' · ') }}</span>
+         </div>
+         <div class="card-body">
+            <p class="text-muted small mb-2">{{ c.help }}</p>
+            {% if not c.evaluated %}
+               <p class="mb-0">{{ __('Votre profil ne permet pas de lire les éléments concernés : ce contrôle n\'entre pas dans le score.', 'grcmanager') }}</p>
+            {% elseif c.rate is null %}
+               <p class="mb-0">{{ __('Aucun élément concerné dans vos entités.', 'grcmanager') }}</p>
+            {% elseif c.gap_count > 0 %}
+               <ul class="mb-2">
+                  {% for g in c.gaps %}<li><a href="{{ g.url }}">{{ g.name }}</a> — <span class="text-muted">{{ g.detail }}</span></li>{% endfor %}
+               </ul>
+               {% if c.gap_count > c.gaps|length %}<p class="text-muted small">{{ __('… et %d autres.', 'grcmanager')|format(c.gap_count - c.gaps|length) }}</p>{% endif %}
+               {% if c.key == 'accounts' %}
+                  <a href="{{ hygiene_url }}" class="btn btn-outline-primary btn-sm"><i class="ti ti-user-search me-1"></i>{{ __('Revoir ces comptes (hygiène des comptes)', 'grcmanager') }}</a>
+               {% elseif c.ticket_url %}
+                  <a href="{{ c.ticket_url }}" class="btn btn-outline-primary btn-sm"><i class="ti ti-ticket me-1"></i>{{ __('Ticket de mise en conformité en cours (#%d)', 'grcmanager')|format(c.ticket_id) }}</a>
+               {% elseif can_ticket %}
+                  <form method="post" action="{{ action }}" class="d-inline">
+                     <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                     <input type="hidden" name="approvals" value="{{ approvals }}">
+                     <button type="submit" name="create_ticket" value="{{ c.key }}" class="btn btn-primary btn-sm"><i class="ti ti-ticket me-1"></i>{{ __('Créer le ticket de mise en conformité', 'grcmanager') }}</button>
+                  </form>
+                  <span class="form-hint ms-2">{{ __('Un seul ticket, avec les éléments concernés liés. Rien n\'est modifié automatiquement.', 'grcmanager') }}</span>
+               {% endif %}
+            {% endif %}
+         </div>
+      </div>
+   {% endfor %}
+</div>

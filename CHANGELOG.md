@@ -9,6 +9,14 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Audit de conformité technique** (issue #162) : menu GRC & Conformité > « Audit de conformité
+  technique ». Un score par référentiel (ISO/IEC 27001, NIS2, RGPD), calculé à partir de cinq
+  contrôles sur les données de GLPI : postes sans antivirus actif et à jour, disques non chiffrés,
+  postes non inventoriés depuis 30 jours, changements clos sans validation approuvée (1 ou 2
+  exigées), comptes à vérifier. Chaque contrôle liste ses écarts avec leurs références (mesure,
+  article) ; « Créer le ticket de mise en conformité » ouvre un seul ticket par contrôle, avec les
+  éléments liés, réutilisé tant qu'il est ouvert. Rien n'est modifié automatiquement ; un contrôle
+  dont la personne ne peut pas lire les éléments n'est pas évalué.
 - **Cellule de crise sur un incident réel** (issue #185) : onglet « Cellule de crise » sur chaque
   incident de sécurité. « Activer la cellule de crise » ouvre la salle de crise avec le plan de
   réponse choisi (étapes chronométrées) et ajoute :

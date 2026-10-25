@@ -53,7 +53,7 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/compliancecalendar.php front/compliancecalendar.php?ics=1 front/complianceevent.php
   front/parkvulnerability.php front/softwarewatch.php front/riskcatalog.php front/waiver.php
   front/coveragerule.php front/impactanalysis.php front/causalgraph.php
-  front/impactanalysis.php?export=continuity front/maturity.php front/crisisexercise.php"
+  front/impactanalysis.php?export=continuity front/maturity.php front/crisisexercise.php front/complianceaudit.php"
 # Creations : refusees sans droit comme en lecture seule (etat en base compare par la CI).
 create_attempts() { # code attendu, code attendu pour la classification (404 sans droit sur l'actif)
   local incident; incident=$(id incident_A)
@@ -97,6 +97,9 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
   # Issue #185 : activer la cellule de crise sur un incident reel (compare en base).
   expect "front/crisisexercise.form.php : activer la cellule de crise" "$1" \
     "$(code -d "activate=1&incident=$(id incident_A)&scenario=ransomware&_glpi_csrf_token=$(csrf)" "$P/crisisexercise.form.php")"
+  # Issue #162 : ticket de mise en conformite d'un controle technique (compare en base).
+  expect "front/complianceaudit.php : ticket de mise en conformite" "$1" \
+    "$(code -d "create_ticket=antivirus&_glpi_csrf_token=$(csrf)" "$P/complianceaudit.php")"
   # Issue #171 : relier deux elements de l'effet domino (compare en base).
   expect "front/causallink.form.php : relier" "$1" \
     "$(code -d "add=1&item_key=PluginGrcmanagerRisk:1&other=PluginGrcmanagerRisk:2&direction=effect&_glpi_csrf_token=$(csrf)" "$P/causallink.form.php")"

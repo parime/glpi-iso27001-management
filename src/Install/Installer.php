@@ -208,6 +208,8 @@ final class Installer
     private const CRISIS_EXERCISE_STEPS_TABLE = 'glpi_plugin_grcmanager_crisisexercisesteps';
     // Issue #185 : éléments rétablis pendant une crise (temps de reprise mesuré face au RTO).
     private const CRISIS_RECOVERIES_TABLE = 'glpi_plugin_grcmanager_crisisrecoveries';
+    // Issue #162 : ticket de mise en conformité ouvert par contrôle technique et par entité.
+    private const COMPLIANCE_AUDIT_TICKETS_TABLE = 'glpi_plugin_grcmanager_complianceaudittickets';
 
     public function install(Migration $migration): bool
     {
@@ -1828,6 +1830,20 @@ final class Installer
 
             $DB->doQuery($query) or die($DB->error());
         }
+        if (!$DB->tableExists(self::COMPLIANCE_AUDIT_TICKETS_TABLE)) {
+            $query = "CREATE TABLE `" . self::COMPLIANCE_AUDIT_TICKETS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `check_key` varchar(50) NOT NULL DEFAULT '',
+                `entities_id` int {$keySign} NOT NULL DEFAULT 0,
+                `tickets_id` int {$keySign} NOT NULL DEFAULT 0,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `check_key` (`check_key`, `entities_id`),
+                KEY `tickets_id` (`tickets_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+        }
         if (!$DB->tableExists(self::CRISIS_RECOVERIES_TABLE)) {
             $query = "CREATE TABLE `" . self::CRISIS_RECOVERIES_TABLE . "` (
                 `id` int {$keySign} NOT NULL AUTO_INCREMENT,
@@ -3248,6 +3264,7 @@ final class Installer
         $migration->dropTable(self::WAIVERS_ITEMS_TABLE);
         $migration->dropTable(self::COVERAGE_RULES_TABLE);
         $migration->dropTable(self::CRISIS_RECOVERIES_TABLE);
+        $migration->dropTable(self::COMPLIANCE_AUDIT_TICKETS_TABLE);
         $migration->dropTable(self::CRISIS_EXERCISE_STEPS_TABLE);
         $migration->dropTable(self::CRISIS_EXERCISES_TABLE);
         $migration->dropTable(self::ACCESS_REVIEWS_USERS_TABLE);

@@ -42,6 +42,20 @@ class PluginGrcmanagerPageHelp
                     'grcmanager'
                 ),
             ],
+            'complianceaudit' => [
+                'purpose'   => __(
+                    'L\'audit de conformité technique : des contrôles automatiques sur les données de GLPI '
+                        . '(antivirus, chiffrement des disques, inventaire, validation des changements, comptes), '
+                        . 'avec un score par référentiel.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Consultez les écarts de chaque contrôle et créez le ticket de mise en conformité ; une fois '
+                        . 'les éléments corrigés, le score remonte. Présentez les scores en revue de direction.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO 27001, 9.1 ; NIS2, article 21 ; RGPD, article 32', 'grcmanager'),
+            ],
             'crisisexercise' => [
                 'purpose'   => __(
                     'Les exercices de crise : simuler un incident (rançongiciel, fuite de données, panne) pour '
