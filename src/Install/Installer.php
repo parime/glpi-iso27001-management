@@ -1283,6 +1283,11 @@ final class Installer
 
             $DB->doQuery($query) or die($DB->error());
         }
+        // Issue #143 : indicateurs du mois (risques et non-conformités ouverts) pour la tendance.
+        if (!$DB->fieldExists(self::MATURITY_SNAPSHOTS_TABLE, 'indicators')) {
+            $migration->addField(self::MATURITY_SNAPSHOTS_TABLE, 'indicators', 'text', ['after' => 'details']);
+            $migration->migrationOneTable(self::MATURITY_SNAPSHOTS_TABLE);
+        }
 
         // Issue #171 : effet domino, un lien par couple cause → conséquence.
         if (!$DB->tableExists(self::CAUSAL_LINKS_TABLE)) {

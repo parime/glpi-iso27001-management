@@ -19,6 +19,8 @@ declare(strict_types=1);
 
 namespace GlpiPlugin\Grcmanager\Tests\Integration;
 
+use GlpiPlugin\Grcmanager\Services\Dashboard\DefaultDashboardService;
+use GlpiPlugin\Grcmanager\Services\Dashboard\PilotageCards;
 use GlpiPlugin\Grcmanager\Services\Dashboard\SecuredDashboardCards;
 
 /**
@@ -36,11 +38,98 @@ final class PilotageCardsTest extends GrcmanagerIntegrationTestCase
         }
         foreach (
             ['upcomingComplianceDeadlines', 'accessReviewProgress', 'securityIncidentRegulatoryDeadlines',
-                'supplierQuestionnaireAverage', 'periodicReviewsOverdue'] as $card
+                'supplierQuestionnaireAverage', 'periodicReviewsOverdue', 'criticalSuppliersWithoutAssessment'] as $card
         ) {
             $result = SecuredDashboardCards::$card();
             $this->assertIsInt($result['number'], $card);
             $this->assertNotSame('', $result['label'], $card);
+        }
+    }
+
+    public function testTrendKeepsTheLastTwelveRecordedMonthsInOrder(): void
+    {
+        // 13 mois avec indicateurs (2025-01 à 2026-01), un mois plus récent sans indicateurs.
+        $byMonth = ['2026-02' => null];
+        for ($i = 0; $i < 13; $i++) {
+            $month = date('Y-m', mktime(0, 0, 0, 1 + $i, 1, 2025));
+            $byMonth[$month] = ['open_risks' => $i, 'open_nonconformities' => 20 - $i];
+        }
+        $trend = PilotageCards::trendSeries($byMonth);
+
+        $this->assertSame('2025-02', $trend['labels'][0], 'Les 12 derniers mois enregistrés seulement.');
+        $this->assertSame('2026-01', end($trend['labels']), 'Le mois sans indicateurs est ignoré.');
+        $this->assertSame(range(1, 12), $trend['series'][0]['data']);
+        $this->assertSame(range(19, 8), $trend['series'][1]['data']);
+    }
+
+    public function testMonthlyTrendShowsTheCurrentMonthAndSnapshotStoresIndicators(): void
+    {
+        global $DB;
+
+        $trend = SecuredDashboardCards::monthlyTrend()['data'];
+        $this->assertSame(date('Y-m'), end($trend['labels']));
+        $this->assertSame(
+            PilotageCards::currentIndicators()['open_risks'],
+            end($trend['series'][0]['data'])
+        );
+
+        \PluginGrcmanagerMaturity::snapshot();
+        $row = $DB->request([
+            'FROM'  => \PluginGrcmanagerMaturity::SNAPSHOTS_TABLE,
+            'WHERE' => ['month' => date('Y-m')],
+        ])->current();
+        $this->assertSame(PilotageCards::currentIndicators(), json_decode((string) $row['indicators'], true));
+    }
+
+    public function testCriticalSupplierWithoutQuestionnaireIsCounted(): void
+    {
+        $supplier = new \Supplier();
+        $supplierId = (int) $supplier->add(['name' => 'PHPUnit fournisseur critique', 'entities_id' => 0]);
+        $before = SecuredDashboardCards::criticalSuppliersWithoutAssessment()['number'];
+        $risk = new \PluginGrcmanagerSupplierRisk();
+        $riskId = (int) $risk->add([
+            'suppliers_id' => $supplierId,
+            'title'        => 'PHPUnit dépendance critique',
+            'probability'  => 'certain',
+            'impact'       => 'critical',
+            'status'       => 'identified',
+        ]);
+        try {
+            $risk->getFromDB($riskId);
+            $this->assertContains($risk->fields['risk_level'], ['high', 'critical']);
+            $this->assertSame($before + 1, SecuredDashboardCards::criticalSuppliersWithoutAssessment()['number']);
+            // Un questionnaire jamais rempli (score 0 par défaut) ne compte pas dans la moyenne.
+            $average = SecuredDashboardCards::supplierQuestionnaireAverage()['number'];
+            $risk->update(['id' => $riskId, 'questionnaire_score' => 0]);
+            $this->assertSame($average, SecuredDashboardCards::supplierQuestionnaireAverage()['number']);
+
+            global $DB;
+            $DB->update(
+                \PluginGrcmanagerSupplierRisk::getTable(),
+                ['questionnaire_score' => 90, 'questionnaire_date' => date('Y-m-d H:i:s')],
+                ['id' => $riskId]
+            );
+            $this->assertSame($before, SecuredDashboardCards::criticalSuppliersWithoutAssessment()['number']);
+        } finally {
+            $risk->delete(['id' => $riskId], true);
+            $supplier->delete(['id' => $supplierId], true);
+        }
+    }
+
+    public function testDirectionDashboardIsSeededWithKnownCards(): void
+    {
+        global $DB;
+
+        $dashboard = new \Glpi\Dashboard\Dashboard(DefaultDashboardService::DIRECTION_KEY);
+        $this->assertTrue($dashboard->canViewCurrent());
+        $cards = (new \Glpi\Dashboard\Grid())->getAllDasboardCards(true);
+        $items = iterator_to_array($DB->request([
+            'FROM'  => \Glpi\Dashboard\Item::getTable(),
+            'WHERE' => ['dashboards_dashboards_id' => $dashboard->fields['id']],
+        ]), false);
+        $this->assertCount(11, $items);
+        foreach ($items as $item) {
+            $this->assertArrayHasKey($item['card_id'], $cards, $item['card_id']);
         }
     }
 

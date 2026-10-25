@@ -4906,3 +4906,12 @@ msgstr "Le tableau de bord GRC n'est pas disponible pour votre profil."
 
 msgid "Un administrateur peut le partager avec ce profil depuis Accueil, menu du tableau de bord « GRC Manager - Vue d'ensemble ISMS », puis « Partager ou intégrer ce tableau de bord »."
 msgstr "Un administrateur peut le partager avec ce profil depuis Accueil, menu du tableau de bord « GRC Manager - Vue d'ensemble ISMS », puis « Partager ou intégrer ce tableau de bord »."
+
+msgid "Fournisseurs critiques non évalués"
+msgstr "Fournisseurs critiques non évalués"
+
+msgid "Risques et non-conformités par mois"
+msgstr "Risques et non-conformités par mois"
+
+msgid "GRC Manager - Direction"
+msgstr "GRC Manager - Direction"
