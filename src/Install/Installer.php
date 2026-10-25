@@ -206,6 +206,8 @@ final class Installer
     // Issue #168 : exercices de crise et leurs étapes chronométrées.
     private const CRISIS_EXERCISES_TABLE = 'glpi_plugin_grcmanager_crisisexercises';
     private const CRISIS_EXERCISE_STEPS_TABLE = 'glpi_plugin_grcmanager_crisisexercisesteps';
+    // Issue #185 : éléments rétablis pendant une crise (temps de reprise mesuré face au RTO).
+    private const CRISIS_RECOVERIES_TABLE = 'glpi_plugin_grcmanager_crisisrecoveries';
 
     public function install(Migration $migration): bool
     {
@@ -1826,6 +1828,20 @@ final class Installer
 
             $DB->doQuery($query) or die($DB->error());
         }
+        if (!$DB->tableExists(self::CRISIS_RECOVERIES_TABLE)) {
+            $query = "CREATE TABLE `" . self::CRISIS_RECOVERIES_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_crisisexercises_id` int {$keySign} NOT NULL DEFAULT 0,
+                `itemtype` varchar(100) NOT NULL DEFAULT '',
+                `items_id` int {$keySign} NOT NULL DEFAULT 0,
+                `restored_at` timestamp NULL DEFAULT NULL,
+                `users_id` int {$keySign} NOT NULL DEFAULT 0,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity` (`plugin_grcmanager_crisisexercises_id`, `itemtype`, `items_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+        }
         if (!$DB->tableExists(self::SECURITY_INCIDENTS_TICKETS_TABLE)) {
             $query = "CREATE TABLE `" . self::SECURITY_INCIDENTS_TICKETS_TABLE . "` (
                 `id` int {$keySign} NOT NULL AUTO_INCREMENT,
@@ -3231,6 +3247,7 @@ final class Installer
         $migration->dropTable(self::WAIVERS_TABLE);
         $migration->dropTable(self::WAIVERS_ITEMS_TABLE);
         $migration->dropTable(self::COVERAGE_RULES_TABLE);
+        $migration->dropTable(self::CRISIS_RECOVERIES_TABLE);
         $migration->dropTable(self::CRISIS_EXERCISE_STEPS_TABLE);
         $migration->dropTable(self::CRISIS_EXERCISES_TABLE);
         $migration->dropTable(self::ACCESS_REVIEWS_USERS_TABLE);

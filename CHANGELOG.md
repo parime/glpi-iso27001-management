@@ -9,6 +9,14 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Cellule de crise sur un incident réel** (issue #185) : onglet « Cellule de crise » sur chaque
+  incident de sécurité. « Activer la cellule de crise » ouvre la salle de crise avec le plan de
+  réponse choisi (étapes chronométrées) et ajoute :
+  - la **reprise des éléments touchés** et de ce qui en dépend (analyse d'impact de GLPI), face à
+    leur RTO : échéance, bouton « Rétabli », temps de reprise mesuré, « RTO dépassé » ;
+  - le **journal de crise** chronologique (enregistré dans les suivis de l'incident) ;
+  - la fermeture produit le rapport PDF (étapes, reprise, journal sans les suivis privés),
+    archivé sur l'incident et comme preuve sur les mesures A.5.26 et A.5.29.
 - **Exercices de crise** (issue #168) : menu GRC & Conformité > « Exercices de crise ». Trois
   scénarios prêts à l'emploi (rançongiciel, fuite de données personnelles, panne majeure) :
   - « Lancer l'exercice » crée un incident de sécurité fictif « [EXERCICE] » avec une tâche par étape ;
