@@ -1,0 +1,64 @@
+{# Issue #169 : rapport post-incident (enseignements tirés, A.5.27), archivé comme preuve #}
+{% include '@grcmanager/pdf/_pdf_style.html.twig' %}
+{% set outcomes = {'met': __('Tenue', 'grcmanager'), 'late': __('En retard', 'grcmanager'), 'missing': __('Non notifiée', 'grcmanager')} %}
+
+<h2>{{ __('Résumé', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-summary">
+  <tr><td>{{ __('Incident', 'grcmanager') }}</td><td>#{{ incident.id }} — {{ incident.name }}</td></tr>
+  <tr><td>{{ __('Statut', 'grcmanager') }}</td><td>{{ incident.status }}{% if not incident.closed %} — {{ __('rapport provisoire, incident non clos', 'grcmanager') }}{% endif %}</td></tr>
+  <tr><td>{{ __('Catégorie / sévérité', 'grcmanager') }}</td><td>{{ incident.category }} / {{ incident.severity }}</td></tr>
+  <tr><td>{{ __('Déclaré le', 'grcmanager') }}</td><td>{{ incident.opened }}</td></tr>
+  <tr><td>{{ __('Résolu / clos le', 'grcmanager') }}</td><td>{{ incident.solved ?: '—' }} / {{ incident.closed_at ?: '—' }}</td></tr>
+  {% if incident.hours is not null %}<tr><td>{{ __('Durée jusqu\'à la résolution', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ incident.hours }} h</td></tr>{% endif %}
+  <tr><td>{{ __('Coût total', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ cost|number_format(2, ',', ' ') }}</td></tr>
+</table>
+
+<h2>{{ __('Description', 'grcmanager') }}</h2>
+<p>{{ incident.description|nl2br }}</p>
+
+<h2>{{ __('Chronologie', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-table">
+  <thead><tr><th>{{ __('Date', 'grcmanager') }}</th><th>{{ __('Événement', 'grcmanager') }}</th><th>{{ __('Détail', 'grcmanager') }}</th></tr></thead>
+  <tbody>
+    {% for e in timeline %}
+      <tr><td>{{ e.date }}</td><td>{{ e.kind }}</td><td>{{ e.text|nl2br }}</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h2>{{ __('Périmètre', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-summary">
+  <tr><td>{{ __('Éléments touchés', 'grcmanager') }}</td><td>{{ assets is empty ? '—' : assets|join(', ') }}</td></tr>
+  <tr><td>CVE</td><td>{{ cves is empty ? '—' : cves|join(', ') }}</td></tr>
+  <tr><td>{{ __('Tickets liés', 'grcmanager') }}</td><td>{{ tickets is empty ? '—' : '#' ~ tickets|join(', #') }}</td></tr>
+</table>
+
+{% if deadlines is not empty %}
+<h2>{{ __('Notifications réglementaires', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-table">
+  <thead><tr><th>{{ __('Échéance', 'grcmanager') }}</th><th>{{ __('Date limite', 'grcmanager') }}</th><th>{{ __('Notifiée le', 'grcmanager') }}</th><th>{{ __('Résultat', 'grcmanager') }}</th></tr></thead>
+  <tbody>
+    {% for d in deadlines %}
+      <tr><td>{{ d.label }}</td><td>{{ d.due }}</td><td>{{ d.done_at ?: '—' }}</td><td>{{ outcomes[d.outcome] }}</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+
+<h2>{{ __('Cause racine', 'grcmanager') }}</h2>
+<p>{{ incident.root_cause ? incident.root_cause|nl2br : __('Non renseignée.', 'grcmanager') }}</p>
+
+<h2>{{ __('Enseignements tirés', 'grcmanager') }}</h2>
+<p>{{ incident.lessons ? incident.lessons|nl2br : __('Non renseignés.', 'grcmanager') }}</p>
+
+<h2>{{ __('Actions décidées', 'grcmanager') }}</h2>
+{% if actions is empty %}
+  <p>{{ __('Aucun plan d\'action (non-conformité) rattaché à l\'incident.', 'grcmanager') }}</p>
+{% else %}
+<table class="grcmanager-pdf-table">
+  <thead><tr><th>{{ __('Action', 'grcmanager') }}</th><th>{{ __('Statut', 'grcmanager') }}</th><th>{{ __('Échéance', 'grcmanager') }}</th></tr></thead>
+  <tbody>
+    {% for a in actions %}<tr><td>{{ a.title }}</td><td>{{ a.status }}</td><td>{{ a.due ?: '—' }}</td></tr>{% endfor %}
+  </tbody>
+</table>
+{% endif %}

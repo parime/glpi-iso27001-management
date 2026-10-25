@@ -88,6 +88,9 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
   # Issue #160 : ticket de correction a la demande (compare en base).
   expect "front/parkvulnerability.php : creer un ticket" "$1" \
     "$(code -d "create_ticket=1&canonical_id=1&_glpi_csrf_token=$(csrf)" "$P/parkvulnerability.php")"
+  # Issue #169 : rapport post-incident (cree un Document, compare en base).
+  expect "front/securityincident.postmortem.php : generer" "$1" \
+    "$(code -d "generate=1&id=$(id incident_A)&_glpi_csrf_token=$(csrf)" "$P/securityincident.postmortem.php")"
   # Issue #171 : relier deux elements de l'effet domino (compare en base).
   expect "front/causallink.form.php : relier" "$1" \
     "$(code -d "add=1&item_key=PluginGrcmanagerRisk:1&other=PluginGrcmanagerRisk:2&direction=effect&_glpi_csrf_token=$(csrf)" "$P/causallink.form.php")"
