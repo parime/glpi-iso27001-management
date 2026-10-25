@@ -93,6 +93,8 @@ Html::header(
     'grcmanager',
     PluginGrcmanagerControl::class
 );
+// Encadré « À quoi sert cette page ? ».
+PluginGrcmanagerPageHelp::show('soaapproval');
 
 global $DB, $CFG_GLPI;
 

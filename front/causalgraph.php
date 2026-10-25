@@ -31,6 +31,8 @@ Html::header(
     'grcmanager',
     PluginGrcmanagerCausalLink::class
 );
+// Encadré « À quoi sert cette page ? ».
+PluginGrcmanagerPageHelp::show('causalgraph');
 TemplateRenderer::getInstance()->display('@grcmanager/causal_graph_page.html.twig', [
     'elements' => PluginGrcmanagerCausalLink::cytoscapeElements(['nodes' => $nodes, 'edges' => $edges]),
     'risk_url' => PluginGrcmanagerRisk::getSearchURL(),

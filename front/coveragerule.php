@@ -29,6 +29,8 @@ Html::header(
     'grcmanager',
     PluginGrcmanagerCoverageRule::class
 );
+// Encadré « À quoi sert cette page ? ».
+PluginGrcmanagerPageHelp::show('coveragerule');
 
 $params = QueryBuilder::manageParams(PluginGrcmanagerCoverageRule::class, $_GET);
 

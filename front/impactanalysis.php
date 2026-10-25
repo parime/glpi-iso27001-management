@@ -66,6 +66,8 @@ Html::header(
     'grcmanager',
     PluginGrcmanagerImpactAnalysis::class
 );
+// Encadré « À quoi sert cette page ? ».
+PluginGrcmanagerPageHelp::show('impactanalysis');
 
 TemplateRenderer::getInstance()->display('@grcmanager/impact_spof.html.twig', [
     'points'     => PluginGrcmanagerImpactAnalysis::allSinglePoints(),

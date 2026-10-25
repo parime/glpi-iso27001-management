@@ -28,6 +28,8 @@ Html::header(
     'grcmanager',
     PluginGrcmanagerIsmsRequirement::class
 );
+// Encadré « À quoi sert cette page ? ».
+PluginGrcmanagerPageHelp::show('ismsrequirement');
 
 // Issue #113 : en-tête explicatif + barre de complétude du SMSI (articles 4 à 10), au-dessus de la
 // liste standard. Une seule barre empilée : conforme / en cours / non commencé.

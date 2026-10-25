@@ -9,6 +9,9 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Encadré « À quoi sert cette page ? »** en tête des 30 écrans du menu GRC & Conformité : à quoi
+  sert l'écran, ce qui est attendu de l'utilisateur, et la référence ISO 27001 (numéro de chapitre
+  ou de mesure). Repliable ; le choix est retenu par le navigateur, page par page.
 - **Objectifs de reprise et plan de continuité** (issue #177, phase 2) :
   - onglet **Classification C/I/D** d'un actif : **RTO** (durée maximale d'interruption) et **RPO**
     (perte de données maximale), de 1 heure à 1 semaine. L'onglet passe en Twig ;

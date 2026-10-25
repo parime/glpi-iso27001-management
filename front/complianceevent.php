@@ -29,6 +29,8 @@ Html::header(
     'grcmanager',
     PluginGrcmanagerComplianceEvent::class
 );
+// Encadré « À quoi sert cette page ? ».
+PluginGrcmanagerPageHelp::show('complianceevent');
 
 $calendarUrl = PluginGrcmanagerComplianceEvent::getCalendarURL();
 echo '<div class="d-flex justify-content-end mb-2"><a href="' . htmlescape($calendarUrl) . '"'

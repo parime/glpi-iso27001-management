@@ -28,6 +28,8 @@ Html::header(
     'grcmanager',
     PluginGrcmanagerObjective::class
 );
+// Encadré « À quoi sert cette page ? ».
+PluginGrcmanagerPageHelp::show('objective');
 
 // Same URL-driven search fix as front/risk.php/front/audit.php (Search::showList()'s $params must
 // be pre-merged with $_GET via QueryBuilder::manageParams(), unlike Search::show() which does this

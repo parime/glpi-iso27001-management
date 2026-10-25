@@ -31,6 +31,8 @@ Html::header(
     'helpdesk',
     PluginGrcmanagerSecurityIncident::class
 );
+// Encadré « À quoi sert cette page ? ».
+PluginGrcmanagerPageHelp::show('securityincident');
 
 Search::show(PluginGrcmanagerSecurityIncident::class);
 

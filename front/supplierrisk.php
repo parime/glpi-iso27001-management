@@ -28,6 +28,8 @@ Html::header(
     'grcmanager',
     PluginGrcmanagerSupplierRisk::class
 );
+// Encadré « À quoi sert cette page ? ».
+PluginGrcmanagerPageHelp::show('supplierrisk');
 
 // Owner-scoped default view, same shortcut as front/risk.php (search option id 8, see
 // PluginGrcmanagerSupplierRisk::rawSearchOptions()).

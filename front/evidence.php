@@ -28,6 +28,8 @@ Html::header(
     'grcmanager',
     PluginGrcmanagerEvidence::class
 );
+// Encadré « À quoi sert cette page ? ».
+PluginGrcmanagerPageHelp::show('evidence');
 
 echo '<div class="alert alert-info d-flex align-items-center"><i class="ti ti-info-circle me-2"></i>'
     . htmlescape(__(
