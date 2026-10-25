@@ -74,6 +74,7 @@
                      <th>{{ __('EPSS', 'grcmanager') }}</th>
                      <th>{{ __('Exploitée', 'grcmanager') }}</th>
                      <th>{{ __('Publication', 'grcmanager') }}</th>
+                     <th>{{ __('Ticket', 'grcmanager') }}</th>
                   </tr>
                </thead>
                <tbody>
@@ -101,6 +102,17 @@
                         {% endif %}
                      </td>
                      <td class="text-nowrap">{{ row.published ? row.published|formatted_date : '' }}</td>
+                     <td class="text-nowrap">
+                        {% if row.tickets_id %}
+                           <a href="{{ config('root_doc') }}/front/ticket.form.php?id={{ row.tickets_id }}">#{{ row.tickets_id }}</a>
+                        {% elseif can_ticket %}
+                           <form method="post" action="{{ action }}" class="d-inline">
+                              <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                              <input type="hidden" name="canonical_id" value="{{ row.canonical_id }}">
+                              <button type="submit" name="create_ticket" value="1" class="btn btn-sm btn-outline-secondary" title="{{ __('Créer le ticket de mise à jour du logiciel', 'grcmanager') }}"><i class="ti ti-ticket"></i></button>
+                           </form>
+                        {% endif %}
+                     </td>
                   </tr>
                {% endfor %}
                </tbody>

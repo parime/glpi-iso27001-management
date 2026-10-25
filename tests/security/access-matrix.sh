@@ -84,6 +84,9 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
   # Issue #142 : evenement du calendrier de conformite.
   expect "front/complianceevent.form.php : creation d'un evenement" "$1" \
     "$(code -d "add=1&name=securite&date_begin=2030-01-01+09:00:00&_glpi_csrf_token=$(csrf)" "$P/complianceevent.form.php")"
+  # Issue #160 : ticket de correction a la demande (compare en base).
+  expect "front/parkvulnerability.php : creer un ticket" "$1" \
+    "$(code -d "create_ticket=1&canonical_id=1&_glpi_csrf_token=$(csrf)" "$P/parkvulnerability.php")"
   # Issue #177 : creer le risque d'un point de defaillance unique (compare en base).
   expect "front/impactanalysis.php : creer le risque" "$1" \
     "$(code -d "create_risk=1&itemtype=Computer&items_id=$(id computer_A)&_glpi_csrf_token=$(csrf)" "$P/impactanalysis.php")"

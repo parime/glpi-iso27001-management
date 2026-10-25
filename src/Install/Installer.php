@@ -188,6 +188,8 @@ final class Installer
     private const PARK_VERSION_CHECKS_TABLE = 'glpi_plugin_grcmanager_parkversionchecks';
     private const PARK_CVES_TABLE = 'glpi_plugin_grcmanager_parkcves';
     private const CVE_SIGNALS_TABLE = 'glpi_plugin_grcmanager_cvesignals';
+    // Issue #160, phase 2 : ticket ouvert par produit du catalogue (logiciel à mettre à jour).
+    private const PARK_CVE_TICKETS_TABLE = 'glpi_plugin_grcmanager_parkcvetickets';
     // Issue #178 : risques types importés depuis le catalogue, voir PluginGrcmanagerRiskCatalog.
     private const RISK_CATALOG_IMPORTS_TABLE = 'glpi_plugin_grcmanager_riskcatalogimports';
     // Issue #170 : dérogations de sécurité, voir PluginGrcmanagerWaiver.
@@ -1202,6 +1204,24 @@ final class Installer
                 PRIMARY KEY (`id`),
                 UNIQUE KEY `unicity_cve` (`plugin_grcmanager_canonicalproducts_id`, `version`, `cve_id`),
                 KEY `cve_id` (`cve_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query) or die($DB->error());
+        }
+
+        // Issue #160, phase 2 : un ticket par produit, et l'état connu au dernier suivi.
+        if (!$DB->tableExists(self::PARK_CVE_TICKETS_TABLE)) {
+            $query = "CREATE TABLE `" . self::PARK_CVE_TICKETS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_canonicalproducts_id` int {$keySign} NOT NULL,
+                `tickets_id` int {$keySign} NOT NULL DEFAULT 0,
+                `machines` int NOT NULL DEFAULT 0,
+                `is_kev` tinyint NOT NULL DEFAULT 0,
+                `resolved_notified` tinyint NOT NULL DEFAULT 0,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity` (`plugin_grcmanager_canonicalproducts_id`),
+                KEY `tickets_id` (`tickets_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
             $DB->doQuery($query) or die($DB->error());
@@ -2972,6 +2992,7 @@ final class Installer
         $migration->dropTable(self::PARK_VERSION_CHECKS_TABLE);
         $migration->dropTable(self::PARK_CVES_TABLE);
         $migration->dropTable(self::CVE_SIGNALS_TABLE);
+        $migration->dropTable(self::PARK_CVE_TICKETS_TABLE);
         $migration->dropTable(self::RISK_CATALOG_IMPORTS_TABLE);
         $migration->dropTable(self::WAIVERS_TABLE);
         $migration->dropTable(self::WAIVERS_ITEMS_TABLE);

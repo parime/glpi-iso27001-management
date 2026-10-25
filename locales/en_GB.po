@@ -1,10 +1,11 @@
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: grcmanager\n"
+"Language: en_GB\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: en_GB\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Risque"
@@ -3623,3 +3624,75 @@ msgstr "Critical items depending on it"
 
 msgid "Voir l'impact"
 msgstr "See the impact"
+
+#, php-format
+msgid "Plus de machines touchées : %d désormais."
+msgstr "More machines affected: %d now."
+
+msgid "Plus aucune machine vulnérable n'est inventoriée : vérifiez puis clôturez le ticket."
+msgstr "No vulnerable machine is inventoried anymore: check, then close the ticket."
+
+msgid "Vulnérabilités"
+msgstr "Vulnerabilities"
+
+msgid "Vulnérabilité introuvable."
+msgstr "Vulnerability not found."
+
+msgid "Tickets des vulnérabilités du parc"
+msgstr "Fleet vulnerability tickets"
+
+msgid "Créer automatiquement un ticket par vulnérabilité qui dépasse un seuil"
+msgstr "Automatically create a ticket for each vulnerability above a threshold"
+
+msgid "Vulnérabilité activement exploitée (catalogue CISA KEV)"
+msgstr "Actively exploited vulnerability (CISA KEV catalog)"
+
+msgid "ou CVSS d'au moins"
+msgstr "or CVSS of at least"
+
+#, php-format
+msgid "ou probabilité d'exploitation (EPSS, %) d'au moins"
+msgstr "or exploitation probability (EPSS, %) of at least"
+
+msgid "versions"
+msgstr "versions"
+
+msgid "Machines touchées"
+msgstr "Affected machines"
+
+msgid "échéance CISA"
+msgstr "CISA due date"
+
+msgid "Correctifs et avis"
+msgstr "Patches and advisories"
+
+msgid "Ticket ouvert par la veille des vulnérabilités du parc. Les machines touchées sont liées au ticket (50 au plus) ; la liste complète est sur"
+msgstr "Ticket opened by the fleet vulnerability watch. Affected machines are linked to the ticket (50 at most); the full list is on"
+
+msgid "Aucune vulnérabilité connue pour les logiciels surveillés installés ici."
+msgstr "No known vulnerability for the watched software installed here."
+
+#, php-format
+msgid "Mettre à jour %1$s : %2$d vulnérabilité(s), %3$d machine(s)"
+msgstr "Update %1$s: %2$d vulnerability(ies), %3$d machine(s)"
+
+msgid "Une vulnérabilité de ce logiciel est maintenant au catalogue CISA KEV : elle est activement exploitée."
+msgstr "A vulnerability of this software is now in the CISA KEV catalog: it is actively exploited."
+
+#, php-format
+msgid "Un seul ticket ouvert par logiciel, qui détaille ses vulnérabilités et est lié aux machines touchées. Au plus %d tickets sont créés par passage, les plus graves d'abord. Un suivi est ajouté quand plus de machines sont touchées, quand une vulnérabilité devient activement exploitée, ou quand plus aucune machine n'est vulnérable. Le ticket n'est jamais fermé ni sa priorité modifiée automatiquement."
+msgstr "A single open ticket per software, detailing its vulnerabilities and linked to the affected machines. At most %d tickets are created per run, most severe first. A followup is added when more machines are affected, when a vulnerability becomes actively exploited, or when no machine is vulnerable anymore. The ticket is never closed and its priority never changed automatically."
+
+msgid "Créer le ticket de mise à jour du logiciel"
+msgstr "Create the software update ticket"
+
+msgid "Vulnérabilités activement exploitées (catalogue CISA KEV)"
+msgstr "Actively exploited vulnerabilities (CISA KEV catalog)"
+
+#, php-format
+msgid "Et %d autres vulnérabilités."
+msgstr "And %d other vulnerabilities."
+
+#, php-format
+msgid "%1$d vulnérabilités affichées sur %2$d, les plus graves d'abord."
+msgstr "%1$d of %2$d vulnerabilities shown, most severe first."

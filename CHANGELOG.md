@@ -9,6 +9,23 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Tickets des vulnérabilités du parc** (issue #160, phase 2) :
+  - **un ticket par logiciel à mettre à jour** (« Mettre à jour Mozilla Firefox : 12 vulnérabilité(s),
+    3 machine(s) »). Il détaille les vulnérabilités les plus graves (CVE, CVSS, EPSS, KEV et
+    échéance CISA) et compte les autres. Les machines touchées y sont liées (50 au plus). L'urgence
+    est très haute pour une vulnérabilité exploitée ou un CVSS ≥ 9 ;
+  - création automatique par la tâche planifiée, **désactivée par défaut**. Elle se règle dans la
+    configuration du plugin : vulnérabilité exploitée (KEV), CVSS minimal, EPSS minimal. Chaque
+    passage crée 10 tickets au plus, les plus graves d'abord ;
+  - un suivi est ajouté au ticket ouvert quand plus de machines sont touchées, quand une
+    vulnérabilité devient activement exploitée, ou quand plus aucune machine n'est vulnérable. Le
+    ticket n'est jamais fermé, et son statut ou sa priorité ne sont jamais modifiés. Une fois le
+    ticket résolu ou clos, une nouvelle vulnérabilité ouvre un nouveau ticket ;
+  - bouton **ticket** sur chaque ligne de l'écran « Vulnérabilités du parc », pour une création à la
+    demande sans doublon ;
+  - onglet **« Vulnérabilités »** sur les ordinateurs et les autres éléments qui portent des
+    logiciels. Il liste les CVE connues des logiciels surveillés installés, avec le lien vers le
+    ticket.
 - **Vulnérabilités du parc** (issue #160, phase 1), menu GRC & Conformité > Vulnérabilités du parc :
   - écran **« Logiciels à surveiller »** : les logiciels installés, les plus exposés (navigateurs,
     accès distant, VPN, bureautique, lecteurs PDF) et les plus répandus d'abord. « Chercher le CPE »
