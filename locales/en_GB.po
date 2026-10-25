@@ -5014,3 +5014,39 @@ msgid "Event"
 msgid_plural "Events"
 msgstr[0] "Event"
 msgstr[1] "Events"
+
+msgid "Matrice des flux réseau"
+msgstr "Network flow matrix"
+
+msgid "Flux actifs"
+msgstr "Active flows"
+
+msgid "Flux désactivés"
+msgstr "Disabled flows"
+
+msgid "Aucun écart sur les flux actifs."
+msgstr "No gap on active flows."
+
+msgid "Protocole et ports"
+msgstr "Protocol and ports"
+
+msgid "Écarts"
+msgstr "Gaps"
+
+msgid "Aucun flux actif."
+msgstr "No active flow."
+
+msgid "Plan d'adressage"
+msgstr "Addressing plan"
+
+msgid "Aucun réseau IP déclaré dans GLPI."
+msgstr "No IP network declared in GLPI."
+
+msgid "Réseau"
+msgstr "Network"
+
+msgid "Adresse"
+msgstr "Address"
+
+msgid "Passerelle"
+msgstr "Gateway"

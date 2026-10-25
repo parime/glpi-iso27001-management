@@ -501,13 +501,18 @@ class PluginGrcmanagerNetworkFlow extends NetworkFlowBase
             $groups[$type] ??= ['label' => $types[$type] ?? $type, 'flows' => []];
             $groups[$type]['flows'][] = [
                 'name'          => (string) $row['name'],
-                'source'        => self::endpointText((string) $row['source_itemtype'], (int) $row['source_items_id'], (string) $row['source_label']),
+                'source'        => self::endpointText(
+                    (string) $row['source_itemtype'],
+                    (int) $row['source_items_id'],
+                    (string) $row['source_label']
+                ),
                 'destination'   => self::endpointText(
                     (string) $row['destination_itemtype'],
                     (int) $row['destination_items_id'],
                     (string) $row['destination_label']
                 ),
-                'service'       => ($protocols[$row['protocol']] ?? $row['protocol']) . ' ' . self::portsLabel((string) $row['ports']),
+                'service'       => ($protocols[$row['protocol']] ?? $row['protocol']) . ' '
+                    . self::portsLabel((string) $row['ports']),
                 'justification' => (string) $row['justification'],
                 'owner'         => $row['users_id'] ? getUserName((int) $row['users_id']) : '',
                 'date_end'      => $row['date_end'] ? Html::convDate($row['date_end']) : '',

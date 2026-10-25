@@ -56,6 +56,10 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   15 jours avant son début (tâche automatique quotidienne « complianceeventreminder »,
   notification « GRC Manager - Événement de conformité à venir »). Un seul rappel par événement,
   renvoyé si l'événement est déplacé ; rien n'est modifié automatiquement.
+- **Matrice des flux : rapport PDF** (issue #144) : bouton « Rapport PDF » en tête de la liste. Le
+  rapport, pour l'auditeur, reprend les flux actifs par type avec leurs écarts (sans
+  justification, administration exposée…), le nombre de flux désactivés et le plan d'adressage
+  (réseaux IP déclarés dans GLPI).
 
 ### Fixed
 
