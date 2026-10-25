@@ -15,6 +15,7 @@
  * -------------------------------------------------------------------------
  */
 
+use Glpi\Application\View\TemplateRenderer;
 use Glpi\Search\Input\QueryBuilder;
 use GlpiPlugin\Grcmanager\Services\Control\SoaApprovalLogic;
 use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
@@ -32,64 +33,23 @@ Html::header(
 // Encadré « À quoi sert cette page ? ».
 PluginGrcmanagerPageHelp::show('control');
 
-// Self-explanatory intro for a non-technical reader landing on a bare "Contrôles Annexe A" list:
-// names the ISO clause and the SoA acronym once, up front, rather than nowhere at all.
-echo '<div class="alert alert-info d-flex align-items-center justify-content-between mb-2">';
-echo '<div><i class="ti ti-info-circle me-2"></i>';
-echo __(
-    'Déclaration d\'applicabilité (SoA) - clause 6.1.3 ISO/IEC 27001:2022, Annexe A (93 mesures).',
-    'grcmanager'
-);
-echo '</div>';
-// ROADMAP.md "Version 1.5" (rapports exportables pour audit externe) : export PDF mis en forme
-// (résumé + détail), en complément de l'export CSV/XLSX déjà natif de Search::showList() ci-dessous
-// (menu "Exporter" au-dessus de la liste, aucun code plugin nécessaire pour celui-ci).
+// Intro, exports et rappels d'approbation de la SoA (issue #112).
 global $CFG_GLPI;
-echo '<div class="d-flex gap-2">';
-echo '<a href="' . htmlescape($CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/control.report.php') . '" '
-    . 'class="btn btn-outline-secondary btn-sm" target="_blank">';
-echo '<i class="ti ti-file-type-pdf me-1"></i>' . __('Export PDF', 'grcmanager') . '</a>';
-// ROADMAP.md "Version 1.5" (import/export de la SoA au format standard) : CSV dédié
-// (code/applicabilité/statut/justification), pensé pour être réimporté tel quel après
-// modification dans un tableur — distinct de l'export brut de Search::showList() ci-dessous.
-echo '<a href="' . htmlescape($CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/control.csv.php') . '" '
-    . 'class="btn btn-outline-secondary btn-sm">';
-echo '<i class="ti ti-file-spreadsheet me-1"></i>' . __('Import/export CSV', 'grcmanager') . '</a>';
-// Issue #112 : approbation de la SoA par la direction (versions figées).
-echo '<a href="' . htmlescape($CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/soaapproval.php') . '" '
-    . 'class="btn btn-outline-primary btn-sm">';
-echo '<i class="ti ti-signature me-1"></i>' . __('Approbation par la direction', 'grcmanager') . '</a>';
-echo '</div>';
-echo '</div>';
-
-// Issue #112 : rappel visible dès la SoA — version qui attend la réponse de l'utilisateur, ou SoA
-// modifiée depuis la dernière version approuvée.
-$soaApprovalUrl = $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/soaapproval.php';
+$front = $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/';
 $myPendingVersions = PluginGrcmanagerSoaVersion::pendingForUser((int) Session::getLoginUserID());
-if ($myPendingVersions !== []) {
-    echo '<div class="alert alert-primary"><i class="ti ti-signature me-2"></i>';
-    echo htmlescape(sprintf(
-        __('La version %d de la SoA attend votre approbation.', 'grcmanager'),
-        (int) $myPendingVersions[0]['version']
-    ));
-    echo ' <a href="' . htmlescape($soaApprovalUrl) . '">' . __('Répondre', 'grcmanager') . '</a></div>';
-}
 $lastApprovedVersion = PluginGrcmanagerSoaVersion::latest(SoaApprovalLogic::VERSION_APPROVED);
-if (
-    $lastApprovedVersion !== null
+$changedSince = $lastApprovedVersion !== null
     && SoaApprovalLogic::currentState(
         (string) $lastApprovedVersion['fingerprint'],
         PluginGrcmanagerSoaVersion::currentFingerprint()
-    ) === 'changed'
-) {
-    echo '<div class="alert alert-warning"><i class="ti ti-alert-triangle me-2"></i>';
-    echo htmlescape(sprintf(
-        __('La SoA a changé depuis la version %d approuvée : une nouvelle approbation est nécessaire.', 'grcmanager'),
-        (int) $lastApprovedVersion['version']
-    ));
-    echo ' <a href="' . htmlescape($soaApprovalUrl) . '">'
-        . __('Approbation par la direction', 'grcmanager') . '</a></div>';
-}
+    ) === 'changed';
+TemplateRenderer::getInstance()->display('@grcmanager/control_list_header.html.twig', [
+    'report_url'      => $front . 'control.report.php',
+    'csv_url'         => $front . 'control.csv.php',
+    'approval_url'    => $front . 'soaapproval.php',
+    'pending_version' => $myPendingVersions !== [] ? (int) $myPendingVersions[0]['version'] : 0,
+    'changed_since'   => $changedSince ? (int) $lastApprovedVersion['version'] : 0,
+]);
 
 // Same URL-driven search fix as front/risk.php (Search::showList()'s $params must be pre-merged
 // with $_GET via QueryBuilder::manageParams(), unlike Search::show() which does this internally),
