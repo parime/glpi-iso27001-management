@@ -4871,3 +4871,23 @@ msgstr "Corrigez chaque élément, puis relancez l'audit pour vérifier. Rien n'
 
 msgid "Fichier CSV"
 msgstr "Fichier CSV"
+
+#, php-format
+msgid "Mesures mises en œuvre par référentiel (%)"
+msgstr "Mesures mises en œuvre par référentiel (%)"
+
+msgid "Échéances à 90 jours"
+msgstr "Échéances à 90 jours"
+
+#, php-format
+msgid "Revue des accès : % revus"
+msgstr "Revue des accès : % revus"
+
+msgid "Délais NIS2 / RGPD en alerte"
+msgstr "Délais NIS2 / RGPD en alerte"
+
+msgid "Score fournisseurs moyen"
+msgstr "Score fournisseurs moyen"
+
+msgid "Revues périodiques en retard"
+msgstr "Revues périodiques en retard"

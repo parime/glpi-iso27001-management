@@ -124,6 +124,44 @@ function plugin_grcmanager_dashboard_cards(?array $cards = null): array
             'group' => $group,
             'provider' => SecuredDashboardCards::class . '::suppliersWithHighRiskCount',
         ],
+        // Issue #143 : cartes de pilotage (conformité par référentiel, échéances, revue des accès,
+        // délais réglementaires, fournisseurs, revues périodiques).
+        'grcmanager_compliance_by_framework' => [
+            'widgettype' => ['hbar', 'bar'],
+            'label' => __('Mesures mises en œuvre par référentiel (%)', 'grcmanager'),
+            'group' => $group,
+            'provider' => SecuredDashboardCards::class . '::complianceByFramework',
+        ],
+        'grcmanager_upcoming_compliance_deadlines' => [
+            'widgettype' => ['bigNumber'],
+            'label' => __('Échéances à 90 jours', 'grcmanager'),
+            'group' => $group,
+            'provider' => SecuredDashboardCards::class . '::upcomingComplianceDeadlines',
+        ],
+        'grcmanager_access_review_progress' => [
+            'widgettype' => ['bigNumber'],
+            'label' => __('Revue des accès : % revus', 'grcmanager'),
+            'group' => $group,
+            'provider' => SecuredDashboardCards::class . '::accessReviewProgress',
+        ],
+        'grcmanager_security_incident_regulatory_deadlines' => [
+            'widgettype' => ['bigNumber'],
+            'label' => __('Délais NIS2 / RGPD en alerte', 'grcmanager'),
+            'group' => $group,
+            'provider' => SecuredDashboardCards::class . '::securityIncidentRegulatoryDeadlines',
+        ],
+        'grcmanager_supplier_questionnaire_average' => [
+            'widgettype' => ['bigNumber'],
+            'label' => __('Score fournisseurs moyen', 'grcmanager'),
+            'group' => $group,
+            'provider' => SecuredDashboardCards::class . '::supplierQuestionnaireAverage',
+        ],
+        'grcmanager_periodic_reviews_overdue' => [
+            'widgettype' => ['bigNumber'],
+            'label' => __('Revues périodiques en retard', 'grcmanager'),
+            'group' => $group,
+            'provider' => SecuredDashboardCards::class . '::periodicReviewsOverdue',
+        ],
         // Issue #166 : score de maturité cyber (0 à 100), détail sur la page « Score de maturité ».
         'grcmanager_maturity_score' => [
             'widgettype' => ['bigNumber'],

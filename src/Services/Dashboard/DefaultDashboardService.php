@@ -179,6 +179,26 @@ final class DefaultDashboardService
             $pie('grcmanager_security_incidents_by_severity', 6, 16),
             $bigNumber('grcmanager_overdue_treatment_actions', 12, 16, '#cc2936'),
             $bigNumber('grcmanager_risks_missing_treatment_plan', 16, 16, '#f8911f'),
+            // Rangée 7 (y=20) : cartes de pilotage (issue #143), conformité par référentiel puis
+            // échéances, revue des accès, délais réglementaires et revues périodiques.
+            [
+                'gridstack_id' => 'grcmanager_compliance_by_framework_default',
+                'card_id'      => 'grcmanager_compliance_by_framework',
+                'x'            => 0,
+                'y'            => 20,
+                'width'        => 8,
+                'height'       => 4,
+                'card_options' => [
+                    'color'        => '#f9fafb',
+                    'widgettype'   => 'hbar',
+                    'use_gradient' => '1',
+                ],
+            ],
+            $bigNumber('grcmanager_upcoming_compliance_deadlines', 8, 20, '#0e87a0'),
+            $bigNumber('grcmanager_access_review_progress', 12, 20, '#27ab3c'),
+            $bigNumber('grcmanager_security_incident_regulatory_deadlines', 16, 20, '#cc2936'),
+            $bigNumber('grcmanager_periodic_reviews_overdue', 20, 20, '#f8911f'),
+            $bigNumber('grcmanager_supplier_questionnaire_average', 8, 22, '#8e5ea2'),
         ];
     }
 }
