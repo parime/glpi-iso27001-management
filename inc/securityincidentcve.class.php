@@ -286,7 +286,7 @@ class PluginGrcmanagerSecurityIncidentCve extends SecurityIncidentCveBase
 
         if ($alreadyLinked) {
             Session::addMessageAfterRedirect(
-                sprintf(__('%s est déjà référencée sur cet incident.', 'grcmanager'), $input['cve_id']),
+                sprintf(__('%s est déjà référencée sur cet incident.', 'grcmanager'), htmlescape($input['cve_id'])),
                 false,
                 ERROR
             );

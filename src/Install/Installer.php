@@ -3097,6 +3097,7 @@ final class Installer
             'rapport-post-incident-%'   => [PluginGrcmanagerSecurityIncident::class, true],
             'rapport-cellule-crise-%'   => [PluginGrcmanagerSecurityIncident::class, true],
             'rapport-exercice-crise-%'  => [PluginGrcmanagerSecurityIncident::class, false],
+            'soa-version-%'             => ['PluginGrcmanagerSoaVersion', false],
         ];
         foreach ($sources as $pattern => [$itemtype, $unlinkControls]) {
             $rows = $DB->request([
