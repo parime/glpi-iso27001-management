@@ -41,8 +41,12 @@ déjà. Compatible GLPI 11 et 12.
 - Audits internes, non-conformités et actions correctives (CAPA), revues de direction, objectifs
   et indicateurs, tableau de bord.
 - Score de maturité cyber (0 à 100) avec le détail du calcul et son historique mensuel.
-- Cartes de pilotage : conformité par référentiel (ISO 27001, NIS2, ANSSI), échéances à 90 jours,
-  revue des accès, délais NIS2 / RGPD en alerte, revues périodiques en retard.
+- Menu Tableau de bord avec une vue RSSI et une vue Direction : conformité par référentiel
+  (ISO 27001, NIS2, ANSSI, NIST CSF 2.0), échéances, revue des accès, délais NIS2 / RGPD,
+  tendance mensuelle des risques et non-conformités.
+- Formations notées (seuil de réussite, rattrapage) ; audits internes avec constats, documents et
+  rapport PDF archivé à la clôture ; rappel avant les événements du calendrier de conformité ;
+  rapport PDF de la matrice des flux.
 - Audit de conformité technique : score ISO 27001, NIS2 et RGPD calculé sur les données de GLPI
   (antivirus, chiffrement des disques, inventaire, validation des changements, comptes) et ticket
   de mise en conformité par contrôle.
@@ -97,8 +101,12 @@ follow-up over time, without leaving the tool your teams already use. Compatible
 - Internal audits, non-conformities and corrective actions (CAPA), management reviews, objectives
   and indicators, dashboard.
 - Cyber maturity score (0 to 100) with the calculation details and its monthly history.
-- Steering cards: compliance by framework (ISO 27001, NIS2, ANSSI), deadlines within 90 days,
-  access review, NIS2 / GDPR deadlines at risk, overdue periodic reviews.
+- Dashboard menu with a CISO view and a Management view: compliance by framework (ISO 27001,
+  NIS2, ANSSI, NIST CSF 2.0), deadlines, access review, NIS2 / GDPR deadlines, monthly trend of
+  risks and non-conformities.
+- Scored trainings (pass threshold, retake); internal audits with findings, documents and a PDF
+  report archived on closure; reminder before compliance calendar events; network flow matrix
+  PDF report.
 - Technical compliance audit: ISO 27001, NIS2 and GDPR score computed from GLPI data (antivirus,
   disk encryption, inventory, change validation, accounts) and one remediation ticket per check.
 
