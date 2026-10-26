@@ -1,0 +1,5 @@
+{# Issue #141 : contenu du ticket de revue périodique ; issue #199 : passé de PHP à Twig. #}
+<p>{{ intro }}</p>
+{% if items is not empty %}<ul>{% for i in items %}<li>{{ i }}</li>{% endfor %}</ul>{% endif %}
+{% if requirements %}<p>{{ requirements }}</p>{% endif %}
+{% if url %}<p><a href="{{ url }}">{{ url }}</a></p>{% endif %}
