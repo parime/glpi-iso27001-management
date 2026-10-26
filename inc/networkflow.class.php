@@ -18,6 +18,7 @@
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\NetworkFlowBase;
 use GlpiPlugin\Grcmanager\Services\Network\NetworkFlowCsv;
+use GlpiPlugin\Grcmanager\Services\Network\NetworkFlowPfsense;
 use GlpiPlugin\Grcmanager\Services\Network\NetworkFlowRules;
 
 /**
@@ -568,7 +569,10 @@ class PluginGrcmanagerNetworkFlow extends NetworkFlowBase
      */
     public static function importCsv(string $content, bool $simulate): array
     {
-        $parsed = NetworkFlowCsv::parse($content);
+        // Issue #144, phase 2 : une sauvegarde pfSense (config.xml) est reconnue à son contenu.
+        $parsed = str_starts_with(ltrim(preg_replace('/^\xEF\xBB\xBF/', '', $content) ?? $content), '<')
+            ? NetworkFlowPfsense::parse($content)
+            : NetworkFlowCsv::parse($content);
         $result = ['created' => 0, 'skipped' => 0, 'errors' => [], 'rows' => []];
         foreach ($parsed['errors'] as $error) {
             $result['errors'][] = ['line' => $error['line'], 'message' => self::csvErrorLabel($error['message'])];
@@ -626,6 +630,8 @@ class PluginGrcmanagerNetworkFlow extends NetworkFlowBase
             'missing_endpoint' => __('Source ou destination manquante : ligne ignorée.', 'grcmanager'),
             'invalid_ports'    => __('Ports invalides : ligne ignorée.', 'grcmanager'),
             'invalid_date'     => __('Date de fin invalide : ligne ignorée.', 'grcmanager'),
+            'not_pfsense'      => __('Fichier XML qui n\'est pas une sauvegarde pfSense (config.xml).', 'grcmanager'),
+            'no_rule'          => __('Aucune règle de filtrage dans la sauvegarde pfSense.', 'grcmanager'),
             default            => $code,
         };
     }
