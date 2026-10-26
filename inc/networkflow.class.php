@@ -103,7 +103,10 @@ class PluginGrcmanagerNetworkFlow extends NetworkFlowBase
             NetworkFlowRules::CHECK_EXPIRING          => __('Expire bientôt', 'grcmanager'),
             NetworkFlowRules::CHECK_ADMIN_EXPOSED     => __('Administration exposée sur Internet', 'grcmanager'),
             NetworkFlowRules::CHECK_ANY_PORT_INTERNET => __('Tous les ports ouverts depuis Internet', 'grcmanager'),
-            NetworkFlowRules::CHECK_PARTNER_OVERLAP   => __('Réseau partenaire en conflit avec un réseau interne', 'grcmanager'),
+            NetworkFlowRules::CHECK_PARTNER_OVERLAP   => __(
+                'Réseau partenaire en conflit avec un réseau interne',
+                'grcmanager'
+            ),
             default                                   => $check,
         };
     }

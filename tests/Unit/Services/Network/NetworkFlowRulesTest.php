@@ -90,7 +90,10 @@ final class NetworkFlowRulesTest extends TestCase
             'destination_label' => 'Partenaire logistique 10.10.20.0/24',
         ];
         self::assertSame(['10.10.0.0/16'], NetworkFlowRules::partnerOverlaps($flow, $internal));
-        self::assertContains(NetworkFlowRules::CHECK_PARTNER_OVERLAP, NetworkFlowRules::checks($flow, '2026-10-26', $internal));
+        self::assertContains(
+            NetworkFlowRules::CHECK_PARTNER_OVERLAP,
+            NetworkFlowRules::checks($flow, '2026-10-26', $internal)
+        );
         self::assertTrue(NetworkFlowRules::isBlocking(NetworkFlowRules::CHECK_PARTNER_OVERLAP));
 
         $flow['destination_label'] = 'Partenaire 172.16.5.0/24';
@@ -106,7 +109,10 @@ final class NetworkFlowRulesTest extends TestCase
 
     public function testExtractNetworksIgnoresInvalidAddresses(): void
     {
-        self::assertSame([[ip2long('10.0.0.0'), 8]], NetworkFlowRules::extractNetworks('LAN 10.1.2.3/8 et 999.1.1.1'));
+        self::assertSame(
+            [[ip2long('10.0.0.0'), 8]],
+            NetworkFlowRules::extractNetworks('LAN 10.1.2.3/8 et 999.1.1.1')
+        );
         self::assertTrue(NetworkFlowRules::networksOverlap([ip2long('10.0.0.0'), 8], [ip2long('10.200.0.0'), 16]));
         self::assertFalse(NetworkFlowRules::networksOverlap([ip2long('10.0.0.0'), 16], [ip2long('10.1.0.0'), 16]));
     }
