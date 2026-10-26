@@ -60,6 +60,13 @@ final class TrainingScoreTest extends GrcmanagerIntegrationTestCase
 
             $this->assertSame([$users[1]], \PluginGrcmanagerTraining::getRetakeParticipantIds($id));
 
+            // Issue #139, phase 2 : rapport PDF de la session.
+            $training->getFromDB($id);
+            $report = \PluginGrcmanagerTraining::renderSessionReport($training);
+            $this->assertStringContainsString('32/40 (80 %)', $report);
+            $this->assertStringContainsString(__('À repasser', 'grcmanager'), $report);
+            $this->assertStringStartsWith('%PDF', \GlpiPlugin\Grcmanager\Pdf\PdfRenderer::renderHtmlToPdf($report));
+
             // Une note hors barème est ignorée, jamais enregistrée.
             $training->update([
                 'id'                 => $id,

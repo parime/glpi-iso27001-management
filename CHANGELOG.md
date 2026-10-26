@@ -19,6 +19,10 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   dont l'adresse ou la plage (ex. « 10.10.20.0/24 » dans la source ou la destination) chevauche un
   réseau IP déclaré dans GLPI est signalé comme écart bloquant : les deux côtés ne pourraient pas
   se joindre sans traduction d'adresses (NAT).
+- **Formations : rapport PDF de session** (issue #139) : bouton « Rapport PDF de la session » sur
+  la fiche d'une formation. Le rapport reprend la session (format, date, public, seuil), la feuille
+  d'émargement avec une colonne de signature, la note et le résultat de chaque participant, et le
+  taux de réussite.
 
 ### Added
 

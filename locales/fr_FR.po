@@ -5065,3 +5065,26 @@ msgstr "Pare-feu pfSense : importez directement la sauvegarde de sa configuratio
 
 msgid "Réseau partenaire en conflit avec un réseau interne"
 msgstr "Réseau partenaire en conflit avec un réseau interne"
+
+#, php-format
+msgid "Session de formation : %s"
+msgstr "Session de formation : %s"
+
+msgid "Rapport PDF de la session"
+msgstr "Rapport PDF de la session"
+
+#, php-format
+msgid "note maximale : %s"
+msgstr "note maximale : %s"
+
+msgid "Taux de réussite"
+msgstr "Taux de réussite"
+
+msgid "Émargement et résultats"
+msgstr "Émargement et résultats"
+
+msgid "Participant"
+msgstr "Participant"
+
+msgid "Aucun participant."
+msgstr "Aucun participant."

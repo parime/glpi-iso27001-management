@@ -5065,3 +5065,26 @@ msgstr "pfSense firewall: import its configuration backup directly (Diagnostics 
 
 msgid "Réseau partenaire en conflit avec un réseau interne"
 msgstr "Partner network conflicting with an internal network"
+
+#, php-format
+msgid "Session de formation : %s"
+msgstr "Training session: %s"
+
+msgid "Rapport PDF de la session"
+msgstr "Session PDF report"
+
+#, php-format
+msgid "note maximale : %s"
+msgstr "maximum score: %s"
+
+msgid "Taux de réussite"
+msgstr "Pass rate"
+
+msgid "Émargement et résultats"
+msgstr "Attendance and results"
+
+msgid "Participant"
+msgstr "Participant"
+
+msgid "Aucun participant."
+msgstr "No participant."
