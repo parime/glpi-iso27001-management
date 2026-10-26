@@ -95,8 +95,24 @@ final class PeriodicReviewTest extends GrcmanagerIntegrationTestCase
         $recurrent = new \TicketRecurrent();
         $recurrent->getFromDB((int) $review->fields['ticketrecurrents_id']);
         $_SESSION['glpiactive_entity'] ??= 0; // Ticket::getDefaultValues(), comme sous le cron.
+
+        // Un ticket saisi à la main avec le gabarit de la revue ne devient pas son ticket.
+        $manual = new \Ticket();
+        $manual->add([
+            'name' => 'PHPUnit ticket manuel', 'content' => 'x', 'entities_id' => 0,
+            'tickettemplates_id' => (int) $review->fields['tickettemplates_id'],
+        ]);
+        $review->getFromDB($review->getID());
+        $this->assertSame(0, (int) $review->fields['last_tickets_id'], 'Ticket manuel ignoré.');
+
+        // Création par l'action automatique des tickets récurrents (Session::isCron()).
+        $_SESSION['glpicronuserrunning'] = 'cron_ticketrecurrent';
         $ticket = null;
-        $this->assertTrue($recurrent->createItem([], $ticket));
+        try {
+            $this->assertTrue($recurrent->createItem([], $ticket));
+        } finally {
+            unset($_SESSION['glpicronuserrunning']);
+        }
         $this->assertInstanceOf(\Ticket::class, $ticket);
         // Libellé traduit : la CI tourne en anglais, l'instance de développement en français.
         $this->assertSame($review->getRecurrentName(), $ticket->fields['name']);

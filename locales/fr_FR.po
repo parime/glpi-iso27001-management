@@ -5119,3 +5119,9 @@ msgstr "Participants en retard de renouvellement"
 
 msgid "Le PDF est archivé dans les documents de l'incident, lisible par les seules personnes qui voient l'incident."
 msgstr "Le PDF est archivé dans les documents de l'incident, lisible par les seules personnes qui voient l'incident."
+
+msgid "Demandée par"
+msgstr "Demandée par"
+
+msgid "Vous ne pouvez pas approuver une dérogation que vous avez demandée."
+msgstr "Vous ne pouvez pas approuver une dérogation que vous avez demandée."

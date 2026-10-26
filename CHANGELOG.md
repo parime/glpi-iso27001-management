@@ -7,6 +7,15 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Security
+
+- **Dérogations : séparation des tâches**. Le demandeur d'une dérogation (enregistré à sa
+  création) ne peut plus l'approuver lui-même, comme pour la SoA. Il est affiché sur la fiche
+  (« Demandée par »). Les dérogations existantes n'ont pas de demandeur connu.
+- **Revues périodiques** : seul un ticket créé par l'action automatique des tickets récurrents
+  devient le ticket d'une revue. Un ticket saisi à la main avec le même gabarit ne peut plus dater
+  la revue.
+
 ## [2.12.0] - 2026-10-26
 
 ### Changed

@@ -63,9 +63,22 @@ final class WaiverTest extends GrcmanagerIntegrationTestCase
         $computer->getFromDB($computerId);
         $this->assertCount(1, \PluginGrcmanagerWaiver::getForItem($computer));
 
-        $this->assertTrue($waiver->update(['id' => $id, 'status' => 'approved']));
+        // Séparation des tâches : le demandeur (session de la suite, glpi = 2) n'approuve pas.
         $waiver->getFromDB($id);
-        $this->assertSame(2, (int) $waiver->fields['users_id_approver']);
+        $this->assertSame(2, (int) $waiver->fields['users_id_requester']);
+        $this->assertFalse($waiver->update(['id' => $id, 'status' => 'approved']));
+        $waiver->getFromDB($id);
+        $this->assertSame('requested', $waiver->fields['status']);
+
+        $approverId = (int) (new \User())->add(['name' => 'phpunit.approbateur.' . random_int(1000, 9999)]);
+        $_SESSION['glpiID'] = $approverId;
+        try {
+            $this->assertTrue($waiver->update(['id' => $id, 'status' => 'approved']));
+        } finally {
+            $_SESSION['glpiID'] = 2;
+        }
+        $waiver->getFromDB($id);
+        $this->assertSame($approverId, (int) $waiver->fields['users_id_approver']);
         $this->assertNotEmpty($waiver->fields['date_approval']);
 
         // Une mise à jour sans les listes d'actifs ne touche pas aux liens.
@@ -81,12 +94,13 @@ final class WaiverTest extends GrcmanagerIntegrationTestCase
         $waiver = new \PluginGrcmanagerWaiver();
         $id = (int) $waiver->add([
             'name'                           => 'Dérogation de démonstration',
-            'status'                         => 'approved',
             'date_end'                       => '2026-11-01',
             'users_id'                       => 2,
             '_linked_items_Computer_defined' => 1,
             'linked_items_Computer'          => [$computerId],
         ]);
+        // Approuvée par un tiers (le demandeur ne peut pas l'approuver, voir le test ci-dessus).
+        $DB->update('glpi_plugin_grcmanager_waivers', ['status' => 'approved'], ['id' => $id]);
 
         $first = \PluginGrcmanagerWaiver::runReminders('2026-10-25');
         $this->assertGreaterThanOrEqual(1, $first['notified']);

@@ -5119,3 +5119,9 @@ msgstr "Participants overdue for renewal"
 
 msgid "Le PDF est archivé dans les documents de l'incident, lisible par les seules personnes qui voient l'incident."
 msgstr "The PDF is archived in the incident's documents, readable only by people who can see the incident."
+
+msgid "Demandée par"
+msgstr "Requested by"
+
+msgid "Vous ne pouvez pas approuver une dérogation que vous avez demandée."
+msgstr "You cannot approve a waiver you requested."

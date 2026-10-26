@@ -22,6 +22,9 @@
    {{ fields.dropdownArrayField('plugin_grcmanager_controls_id', item.fields['plugin_grcmanager_controls_id'], controls, __('Mesure de l\'Annexe A', 'grcmanager')) }}
    {{ fields.dropdownArrayField('plugin_grcmanager_policies_id', item.fields['plugin_grcmanager_policies_id'], policies, __('Politique', 'grcmanager')) }}
 
+   {% if requester %}
+      {{ fields.htmlField('', requester|e, __('Demandée par', 'grcmanager')) }}
+   {% endif %}
    {% if approver %}
       {{ fields.htmlField('', approver|e ~ ' — ' ~ item.fields['date_approval']|formatted_datetime, __('Validée par', 'grcmanager')) }}
    {% endif %}
