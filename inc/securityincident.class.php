@@ -21,6 +21,7 @@ use GlpiPlugin\Grcmanager\Services\Incident\RegulatoryDeadlines;
 use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentModuleConfig;
 use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentParameters;
 use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentRules;
+use GlpiPlugin\Grcmanager\Services\Ui\Badge;
 
 /**
  * A security incident (unauthorized access, data leak, malware, phishing...), as its own native
@@ -708,8 +709,7 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
 
         [$class, $icon, $label] = $map[$value] ?? ['bg-secondary-lt', 'ti-help', (string) $value];
 
-        return '<span class="badge ' . $class . '"><i class="ti ' . $icon . ' me-1"></i>'
-            . htmlescape($label) . '</span>';
+        return Badge::html($class, $icon, $label);
     }
 
     private static function severityBadge(?string $value): string
@@ -722,8 +722,7 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
 
         [$class, $icon, $label] = $map[$value] ?? ['bg-secondary-lt', 'ti-help', (string) $value];
 
-        return '<span class="badge ' . $class . '"><i class="ti ' . $icon . ' me-1"></i>'
-            . htmlescape($label) . '</span>';
+        return Badge::html($class, $icon, $label);
     }
 
     private static function ciaImpactBadges(string $csv): string

@@ -18,6 +18,7 @@
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\EvidenceBase;
 use GlpiPlugin\Grcmanager\Services\Evidence\EvidenceValidity;
+use GlpiPlugin\Grcmanager\Services\Ui\Badge;
 
 /**
  * Issue #145 : date de validité d'un document de preuve rattaché (onglet Documents natif, donc
@@ -300,7 +301,7 @@ class PluginGrcmanagerEvidence extends EvidenceBase
     {
         [$class, $label] = self::statusInfo($validUntil);
 
-        return '<span class="badge ' . $class . '">' . htmlescape($label) . '</span>';
+        return Badge::html($class, null, $label);
     }
 
     private static function showForParent(CommonDBTM $parent): void
