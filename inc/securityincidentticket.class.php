@@ -104,6 +104,12 @@ class PluginGrcmanagerSecurityIncidentTicket extends CommonGLPI
     {
         global $CFG_GLPI;
 
+        // ajax/common.tabs.php sert le contenu sans passer par getTabNameForItem() : même contrôle
+        // ici (trouvé par le contrôle commun des onglets, parime/glpi-plugin-security).
+        if (!PluginGrcmanagerSecurityIncident::canView()) {
+            return false;
+        }
+
         if ($item instanceof Ticket) {
             $rows = [];
             foreach (self::getIncidentIdsForTicket((int) $item->getID()) as $id) {

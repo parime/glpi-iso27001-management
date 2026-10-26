@@ -399,7 +399,9 @@ class PluginGrcmanagerWaiver extends WaiverBase
 
     public static function displayTabContentForItem(CommonGLPI $item, $tabnum = 1, $withtemplate = 0)
     {
-        if (!$item instanceof CommonDBTM) {
+        // ajax/common.tabs.php sert le contenu sans passer par getTabNameForItem() : même contrôle
+        // ici (trouvé par le contrôle commun des onglets, parime/glpi-plugin-security).
+        if (!$item instanceof CommonDBTM || !Session::haveRight(self::RIGHTNAME, READ)) {
             return false;
         }
         $newUrl = '';

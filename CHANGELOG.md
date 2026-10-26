@@ -24,8 +24,9 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   - **Inventaire et vulnérabilités** : les actifs potentiellement vulnérables (onglet CVE, plan
     d'action pré-rempli) et le ticket de mise à jour créé à la demande se limitent aux actifs et aux
     entités de l'utilisateur, hors corbeille et gabarits.
-  - **Onglets sur les actifs** (impact d'une panne, classification C/I/D, vulnérabilités, risques)
-    et onglet Effet domino : contenu refusé sans le droit du plugin, même demandé directement.
+  - **Onglets sur les actifs** (impact d'une panne, classification C/I/D, vulnérabilités, risques,
+    dérogations), onglet Effet domino et onglet Incidents de sécurité des tickets : contenu refusé
+    sans le droit du plugin, même demandé directement.
   - **Dérogations** : un lien n'est accepté (et un actif présélectionné) que vers un actif lisible ;
     les liens vers des actifs invisibles pour l'utilisateur sont conservés.
   - **Revues périodiques** : activation réservée à qui a accès à l'entité racine (où sont créés le
