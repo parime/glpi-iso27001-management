@@ -4891,3 +4891,162 @@ msgstr "Score fournisseurs moyen"
 
 msgid "Revues périodiques en retard"
 msgstr "Revues périodiques en retard"
+
+msgid "Tableau de bord"
+msgstr "Tableau de bord"
+
+msgid "Le tableau de bord du système de management de la sécurité : risques, mesures, incidents, échéances et revues en un coup d'œil."
+msgstr "Le tableau de bord du système de management de la sécurité : risques, mesures, incidents, échéances et revues en un coup d'œil."
+
+msgid "Cliquez sur une carte pour ouvrir la liste correspondante. Le menu du tableau de bord permet d'ajouter ou de déplacer des cartes, et de le partager avec d'autres profils."
+msgstr "Cliquez sur une carte pour ouvrir la liste correspondante. Le menu du tableau de bord permet d'ajouter ou de déplacer des cartes, et de le partager avec d'autres profils."
+
+msgid "Le tableau de bord GRC n'est pas disponible pour votre profil."
+msgstr "Le tableau de bord GRC n'est pas disponible pour votre profil."
+
+msgid "Un administrateur peut le partager avec ce profil depuis Accueil, menu du tableau de bord « GRC Manager - Vue d'ensemble ISMS », puis « Partager ou intégrer ce tableau de bord »."
+msgstr "Un administrateur peut le partager avec ce profil depuis Accueil, menu du tableau de bord « GRC Manager - Vue d'ensemble ISMS », puis « Partager ou intégrer ce tableau de bord »."
+
+msgid "Fournisseurs critiques non évalués"
+msgstr "Fournisseurs critiques non évalués"
+
+msgid "Risques et non-conformités par mois"
+msgstr "Risques et non-conformités par mois"
+
+msgid "GRC Manager - Direction"
+msgstr "GRC Manager - Direction"
+
+msgid "Responsables en retard (accès)"
+msgstr "Responsables en retard (accès)"
+
+msgid "Participants à repasser"
+msgstr "Participants à repasser"
+
+#, php-format
+msgid "Réussite par session de formation (%)"
+msgstr "Réussite par session de formation (%)"
+
+#, php-format
+msgid "%s - rattrapage"
+msgstr "%s - rattrapage"
+
+msgid "Session de rattrapage proposée : les participants qui ont échoué sont présélectionnés. Vérifiez la date et la liste, puis cliquez sur « Ajouter ». Rien n'est enregistré avant."
+msgstr "Session de rattrapage proposée : les participants qui ont échoué sont présélectionnés. Vérifiez la date et la liste, puis cliquez sur « Ajouter ». Rien n'est enregistré avant."
+
+msgid "Note maximale du quiz"
+msgstr "Note maximale du quiz"
+
+msgid "Ex. 40 pour un quiz noté sur 40. 0 = pas de note."
+msgstr "Ex. 40 pour un quiz noté sur 40. 0 = pas de note."
+
+#, php-format
+msgid "Seuil de réussite (%)"
+msgstr "Seuil de réussite (%)"
+
+#, php-format
+msgid "Ex. 80 : réussite à partir de 80 % de la note maximale. Avec une note maximale et un seuil, le résultat de chaque participant est calculé depuis sa note."
+msgstr "Ex. 80 : réussite à partir de 80 % de la note maximale. Avec une note maximale et un seuil, le résultat de chaque participant est calculé depuis sa note."
+
+#, php-format
+msgid "Taux de réussite de la session : %1$s sur %2$s (%3$s %%)"
+msgstr "Taux de réussite de la session : %1$s sur %2$s (%3$s %%)"
+
+msgid "Note"
+msgstr "Note"
+
+msgid "À repasser"
+msgstr "À repasser"
+
+msgid "Saisissez la note"
+msgstr "Saisissez la note"
+
+#, php-format
+msgid "Préparer une session de rattrapage (%s participant)"
+msgid_plural "Préparer une session de rattrapage (%s participants)"
+msgstr[0] "Préparer une session de rattrapage (%s participant)"
+msgstr[1] "Préparer une session de rattrapage (%s participants)"
+
+#, php-format
+msgid "Rapport d'audit interne : %s"
+msgstr "Rapport d'audit interne : %s"
+
+#, php-format
+msgid "Rapport d'audit interne - %s"
+msgstr "Rapport d'audit interne - %s"
+
+msgid "Le rapport d'audit a été archivé dans l'onglet Documents."
+msgstr "Le rapport d'audit a été archivé dans l'onglet Documents."
+
+msgid "Constats"
+msgstr "Constats"
+
+msgid "Non-conformités et observations relevées pendant cet audit. À la clôture de l'audit (statut « Terminé »), le rapport PDF est archivé dans l'onglet Documents."
+msgstr "Non-conformités et observations relevées pendant cet audit. À la clôture de l'audit (statut « Terminé »), le rapport PDF est archivé dans l'onglet Documents."
+
+msgid "Ajouter un constat"
+msgstr "Ajouter un constat"
+
+msgid "Aucun constat pour cet audit."
+msgstr "Aucun constat pour cet audit."
+
+msgid "Date prévue / réalisée"
+msgstr "Date prévue / réalisée"
+
+msgid "Catégories de risque"
+msgstr "Catégories de risque"
+
+msgid "Mesures auditées"
+msgstr "Mesures auditées"
+
+msgid "Prévient le responsable 15 jours avant un événement du calendrier de conformité"
+msgstr "Prévient le responsable 15 jours avant un événement du calendrier de conformité"
+
+msgid "Événement de conformité à venir"
+msgstr "Événement de conformité à venir"
+
+msgid "Responsable de l'événement"
+msgstr "Responsable de l'événement"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Event"
+msgid_plural "Events"
+msgstr[0] "Event"
+msgstr[1] "Events"
+
+msgid "Matrice des flux réseau"
+msgstr "Matrice des flux réseau"
+
+msgid "Flux actifs"
+msgstr "Flux actifs"
+
+msgid "Flux désactivés"
+msgstr "Flux désactivés"
+
+msgid "Aucun écart sur les flux actifs."
+msgstr "Aucun écart sur les flux actifs."
+
+msgid "Protocole et ports"
+msgstr "Protocole et ports"
+
+msgid "Écarts"
+msgstr "Écarts"
+
+msgid "Aucun flux actif."
+msgstr "Aucun flux actif."
+
+msgid "Plan d'adressage"
+msgstr "Plan d'adressage"
+
+msgid "Aucun réseau IP déclaré dans GLPI."
+msgstr "Aucun réseau IP déclaré dans GLPI."
+
+msgid "Réseau"
+msgstr "Réseau"
+
+msgid "Adresse"
+msgstr "Adresse"
+
+msgid "Passerelle"
+msgstr "Passerelle"

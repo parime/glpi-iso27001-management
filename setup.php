@@ -25,7 +25,7 @@ use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentModuleConfig;
 // must bundle vendor/, see .github/workflows/release.yml.
 require_once __DIR__ . '/vendor/autoload.php';
 
-define('PLUGIN_GRCMANAGER_VERSION', '2.9.0');
+define('PLUGIN_GRCMANAGER_VERSION', '2.10.0');
 define('PLUGIN_GRCMANAGER_MIN_GLPI', '11.0.0');
 // GLPI 11 and 12 from a single code base (see src/Compatibility/).
 define('PLUGIN_GRCMANAGER_MAX_GLPI', '12.99.99');
@@ -38,7 +38,7 @@ define('PLUGIN_GRCMANAGER_MIN_PHP', '8.2.0');
  */
 function plugin_init_grcmanager(): void
 {
-    global $PLUGIN_HOOKS;
+    global $PLUGIN_HOOKS, $CFG_GLPI;
 
     $PLUGIN_HOOKS['csrf_compliant']['grcmanager'] = true;
 
@@ -102,6 +102,8 @@ function plugin_init_grcmanager(): void
     $menuToAdd = [
         'grcmanager' => [
             PluginGrcmanagerMenu::class,
+            // Issue #247 : tableau de bord en tête du menu, comme dans Parc et Assistance.
+            PluginGrcmanagerDashboard::class,
             PluginGrcmanagerRisk::class,
             PluginGrcmanagerSupplierRisk::class,
             PluginGrcmanagerControl::class,
@@ -168,6 +170,9 @@ function plugin_init_grcmanager(): void
     }
 
     $PLUGIN_HOOKS[Hooks::MENU_TOADD]['grcmanager'] = $menuToAdd;
+    // Issue #247 : Html::header() ne charge la grille et les graphiques des tableaux de bord que
+    // pour les pages déclarées ici (même mécanisme que Parc > Tableau de bord ; clé en minuscules).
+    $CFG_GLPI['javascript']['grcmanager'][strtolower(PluginGrcmanagerDashboard::class)] = ['dashboard'];
 
     // Issue #28 (bibliothèque de politiques de sécurité versionnées, A.5.1) : le fichier joint
     // (PDF, Word...) d'une politique est stocké via le mécanisme natif GLPI Document/Document_Item,
@@ -185,6 +190,11 @@ function plugin_init_grcmanager(): void
     $CFG_GLPI['document_types'][] = PluginGrcmanagerPolicy::class;
     // Issue #170 : validation signée d'une dérogation, analyse de risque jointe.
     $CFG_GLPI['document_types'][] = PluginGrcmanagerWaiver::class;
+    // Issue #139 : feuille d'émargement, support et quiz d'une session de formation.
+    $CFG_GLPI['document_types'][] = PluginGrcmanagerTraining::class;
+    // Issue #140 : pièces d'un audit interne et de ses constats.
+    $CFG_GLPI['document_types'][] = PluginGrcmanagerAudit::class;
+    $CFG_GLPI['document_types'][] = PluginGrcmanagerNonconformity::class;
     // Issue #113 : preuves des exigences du SMSI, même mécanisme.
     $CFG_GLPI['document_types'][] = PluginGrcmanagerIsmsRequirement::class;
     // Issue #127 : preuves de l'évaluation d'un fournisseur (questionnaire signé, certificats).

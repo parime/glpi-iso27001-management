@@ -47,11 +47,24 @@ final class PilotageCardsTest extends TestCase
         ]);
         $this->assertSame(50.0, $rates['ISO 27001'], 'Les mesures non applicables ne comptent pas.');
         $this->assertSame(100.0, $rates['NIS2'], 'Seules les mesures liées à NIS2 comptent.');
-        $this->assertSame([], array_diff(['ISO 27001', 'NIS2', 'ANSSI'], array_keys($rates)));
+        $this->assertSame([], array_diff(['ISO 27001', 'NIS2', 'ANSSI', 'NIST CSF 2.0'], array_keys($rates)));
     }
 
     public function testFrameworkRatesWithoutControls(): void
     {
-        $this->assertSame(['ISO 27001' => null, 'NIS2' => null, 'ANSSI' => null], PilotageCards::frameworkRates([]));
+        $this->assertSame(
+            ['ISO 27001' => null, 'NIS2' => null, 'ANSSI' => null, 'NIST CSF 2.0' => null],
+            PilotageCards::frameworkRates([])
+        );
+    }
+
+    public function testNistCsfUsesTheOfficialCrosswalkOnly(): void
+    {
+        // A.5.1 a une correspondance NIST publiée ; A.5.6 n'en a pas dans ControlCrosswalkDefaults.
+        $rates = PilotageCards::frameworkRates([
+            'A.5.1' => ['applicability' => 'yes', 'implementation_status' => 'implemented'],
+            'A.5.6' => ['applicability' => 'yes', 'implementation_status' => 'not_started'],
+        ]);
+        $this->assertSame(100.0, $rates['NIST CSF 2.0']);
     }
 }

@@ -30,6 +30,18 @@ class PluginGrcmanagerPageHelp
     public static function texts(): array
     {
         return [
+            'dashboard' => [
+                'purpose'  => __(
+                    'Le tableau de bord du système de management de la sécurité : risques, mesures, incidents, '
+                        . 'échéances et revues en un coup d\'œil.',
+                    'grcmanager'
+                ),
+                'expected' => __(
+                    'Cliquez sur une carte pour ouvrir la liste correspondante. Le menu du tableau de bord permet '
+                        . 'd\'ajouter ou de déplacer des cartes, et de le partager avec d\'autres profils.',
+                    'grcmanager'
+                ),
+            ],
             'maturity' => [
                 'purpose'  => __(
                     'Le score de maturité cyber (0 à 100) : une vue d\'ensemble de l\'avancement de votre système de '

@@ -821,6 +821,29 @@ final class Installer
             $migration->addKey(self::TRAININGS_USERS_TABLE, 'assessment_result');
         }
 
+        // Issue #139 : note de chaque participant et seuil de réussite de la formation. Avec une
+        // note maximale et un seuil renseignés, le résultat (réussie / à repasser) est calculé
+        // depuis la note.
+        if (!$DB->fieldExists(self::TRAININGS_TABLE, 'max_score')) {
+            $migration->addField(self::TRAININGS_TABLE, 'max_score', 'integer', [
+                'value'   => 0,
+                'comment' => 'Note maximale du quiz, 0 = pas de note',
+                'after'   => 'renewal_period_months',
+            ]);
+            $migration->addField(self::TRAININGS_TABLE, 'pass_threshold', 'integer', [
+                'value'   => 0,
+                'comment' => 'Seuil de réussite en %, 0 = pas de seuil',
+                'after'   => 'max_score',
+            ]);
+            $migration->migrationOneTable(self::TRAININGS_TABLE);
+        }
+        if (!$DB->fieldExists(self::TRAININGS_USERS_TABLE, 'score')) {
+            $migration->addField(self::TRAININGS_USERS_TABLE, 'score', 'decimal(6,2) DEFAULT NULL', [
+                'after' => 'assessment_result',
+            ]);
+            $migration->migrationOneTable(self::TRAININGS_USERS_TABLE);
+        }
+
         // Sprint 6 (revues de direction, clause 9.3) : une ligne par revue de direction realisee ou
         // planifiee, avec l'ordre du jour et les decisions/actions en texte libre (pas un lien
         // fort vers le mecanisme CAPA existant, voir PluginGrcmanagerManagementReview pour le
@@ -1078,6 +1101,11 @@ final class Installer
 
             $DB->doQuery($query) or die($DB->error());
         }
+        // Issue #142, phase 2 : date du rappel envoyé au responsable avant l'événement.
+        if (!$DB->fieldExists(self::COMPLIANCE_EVENTS_TABLE, 'date_notified')) {
+            $migration->addField(self::COMPLIANCE_EVENTS_TABLE, 'date_notified', 'timestamp', ['after' => 'comment']);
+            $migration->migrationOneTable(self::COMPLIANCE_EVENTS_TABLE);
+        }
 
         if (!$DB->tableExists(self::NETWORK_FLOWS_TABLE)) {
             $query = "CREATE TABLE `" . self::NETWORK_FLOWS_TABLE . "` (
@@ -1282,6 +1310,11 @@ final class Installer
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
             $DB->doQuery($query) or die($DB->error());
+        }
+        // Issue #143 : indicateurs du mois (risques et non-conformités ouverts) pour la tendance.
+        if (!$DB->fieldExists(self::MATURITY_SNAPSHOTS_TABLE, 'indicators')) {
+            $migration->addField(self::MATURITY_SNAPSHOTS_TABLE, 'indicators', 'text', ['after' => 'details']);
+            $migration->migrationOneTable(self::MATURITY_SNAPSHOTS_TABLE);
         }
 
         // Issue #171 : effet domino, un lien par couple cause → conséquence.
@@ -1972,6 +2005,7 @@ final class Installer
         $this->seedAccessReviewNotifications();
         $this->seedEvidenceExpiringNotification();
         $this->seedWaiverExpiringNotification();
+        $this->seedComplianceEventReminderNotification();
 
         // Issue #126 : relance hebdomadaire des responsables en retard sur une revue des accès.
         CronTask::Register(
@@ -2141,6 +2175,17 @@ final class Installer
             [
                 'comment' => 'Prévient le responsable avant la fin d\'une dérogation, puis ouvre un '
                     . 'ticket de réévaluation',
+                'mode'    => CronTask::MODE_EXTERNAL,
+            ]
+        );
+
+        // Issue #142, phase 2 : rappel au responsable 15 jours avant un événement de conformité.
+        CronTask::Register(
+            'PluginGrcmanagerComplianceEvent',
+            'complianceeventreminder',
+            DAY_TIMESTAMP,
+            [
+                'comment' => 'Prévient le responsable 15 jours avant un événement du calendrier de conformité',
                 'mode'    => CronTask::MODE_EXTERNAL,
             ]
         );
@@ -2545,6 +2590,62 @@ final class Installer
      * Issue #170 : avis au responsable d'une dérogation 15 jours avant sa fin. Le contenu HTML est
      * dérivé du texte (aucun gabarit HTML écrit en PHP, cf. exigences du Marketplace GLPI).
      */
+    /**
+     * Issue #142, phase 2 : rappel au responsable 15 jours avant un événement du calendrier de
+     * conformité. Le contenu HTML est dérivé du texte, comme pour les dérogations.
+     */
+    private function seedComplianceEventReminderNotification(): void
+    {
+        global $DB;
+
+        $itemtype = 'PluginGrcmanagerComplianceEvent';
+        $event    = 'complianceevent_reminder';
+        $where = ['itemtype' => $itemtype, 'event' => $event];
+        if ($DB->request(['FROM' => 'glpi_notifications', 'WHERE' => $where])->count() > 0) {
+            return;
+        }
+
+        $templateId = (new NotificationTemplate())->add([
+            'name'     => 'GRC Manager - Événement de conformité à venir',
+            'itemtype' => $itemtype,
+            'comment'  => 'Notification envoyée par la tâche automatique GRC Manager 15 jours avant un '
+                . 'événement du calendrier de conformité (audit, pentest, certification...).',
+        ]);
+        $text = "##complianceevent.action## : ##complianceevent.name##\n\n"
+            . "Type : ##complianceevent.type##\n"
+            . "Début : ##complianceevent.begin##\n"
+            . "Périmètre : ##complianceevent.scope##\n\n"
+            . "Préparez l'événement : convocations, documents attendus, accès du prestataire. Rien n'est "
+            . "modifié automatiquement.\n\n"
+            . "Voir l'événement : ##complianceevent.url##";
+        $DB->insert('glpi_notificationtemplatetranslations', [
+            'notificationtemplates_id' => $templateId,
+            'language'                 => '',
+            'subject'                  => '##complianceevent.action## : ##complianceevent.name##',
+            'content_text'             => $text,
+            'content_html'             => nl2br(htmlescape($text)),
+        ]);
+
+        $notificationId = (new Notification())->add([
+            'name'         => 'GRC Manager - Événement de conformité à venir',
+            'entities_id'  => 0,
+            'is_recursive' => 1,
+            'itemtype'     => $itemtype,
+            'event'        => $event,
+            'is_active'    => 1,
+        ]);
+        $DB->insert('glpi_notifications_notificationtemplates', [
+            'notifications_id'         => $notificationId,
+            'mode'                     => 'mailing',
+            'notificationtemplates_id' => $templateId,
+        ]);
+        $DB->insert('glpi_notificationtargets', [
+            'notifications_id' => $notificationId,
+            'type'             => Notification::USER_TYPE,
+            'items_id'         => \PluginGrcmanagerNotificationTargetComplianceEvent::TARGET_RESPONSIBLE,
+        ]);
+    }
+
     private function seedWaiverExpiringNotification(): void
     {
         global $DB;
@@ -3200,6 +3301,7 @@ final class Installer
         $this->unseedNotification('PluginGrcmanagerRiskTreatmentAction');
         $this->unseedNotification('PluginGrcmanagerEvidence');
         $this->unseedNotification('PluginGrcmanagerWaiver');
+        $this->unseedNotification('PluginGrcmanagerComplianceEvent');
         $this->unseedNotification(PluginGrcmanagerSecurityIncident::class);
         $this->unseedNotification('PluginGrcmanagerAccessReview');
 

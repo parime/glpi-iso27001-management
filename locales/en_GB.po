@@ -4891,3 +4891,162 @@ msgstr "Average supplier score"
 
 msgid "Revues périodiques en retard"
 msgstr "Overdue periodic reviews"
+
+msgid "Tableau de bord"
+msgstr "Dashboard"
+
+msgid "Le tableau de bord du système de management de la sécurité : risques, mesures, incidents, échéances et revues en un coup d'œil."
+msgstr "The information security management system dashboard: risks, controls, incidents, deadlines and reviews at a glance."
+
+msgid "Cliquez sur une carte pour ouvrir la liste correspondante. Le menu du tableau de bord permet d'ajouter ou de déplacer des cartes, et de le partager avec d'autres profils."
+msgstr "Click a card to open the matching list. The dashboard menu lets you add or move cards, and share it with other profiles."
+
+msgid "Le tableau de bord GRC n'est pas disponible pour votre profil."
+msgstr "The GRC dashboard is not available for your profile."
+
+msgid "Un administrateur peut le partager avec ce profil depuis Accueil, menu du tableau de bord « GRC Manager - Vue d'ensemble ISMS », puis « Partager ou intégrer ce tableau de bord »."
+msgstr "An administrator can share it with this profile from Home, in the menu of the \"GRC Manager - ISMS overview\" dashboard, then \"Share or embed this dashboard\"."
+
+msgid "Fournisseurs critiques non évalués"
+msgstr "Critical suppliers not assessed"
+
+msgid "Risques et non-conformités par mois"
+msgstr "Risks and non-conformities by month"
+
+msgid "GRC Manager - Direction"
+msgstr "GRC Manager - Management"
+
+msgid "Responsables en retard (accès)"
+msgstr "Late reviewers (access)"
+
+msgid "Participants à repasser"
+msgstr "Participants to retake"
+
+#, php-format
+msgid "Réussite par session de formation (%)"
+msgstr "Pass rate by training session (%)"
+
+#, php-format
+msgid "%s - rattrapage"
+msgstr "%s - retake"
+
+msgid "Session de rattrapage proposée : les participants qui ont échoué sont présélectionnés. Vérifiez la date et la liste, puis cliquez sur « Ajouter ». Rien n'est enregistré avant."
+msgstr "Proposed retake session: participants who failed are preselected. Check the date and the list, then click \"Add\". Nothing is saved before that."
+
+msgid "Note maximale du quiz"
+msgstr "Maximum quiz score"
+
+msgid "Ex. 40 pour un quiz noté sur 40. 0 = pas de note."
+msgstr "E.g. 40 for a quiz scored out of 40. 0 = no score."
+
+#, php-format
+msgid "Seuil de réussite (%)"
+msgstr "Pass threshold (%)"
+
+#, php-format
+msgid "Ex. 80 : réussite à partir de 80 % de la note maximale. Avec une note maximale et un seuil, le résultat de chaque participant est calculé depuis sa note."
+msgstr "E.g. 80: passed from 80% of the maximum score. With a maximum score and a threshold, each participant's result is computed from their score."
+
+#, php-format
+msgid "Taux de réussite de la session : %1$s sur %2$s (%3$s %%)"
+msgstr "Session pass rate: %1$s out of %2$s (%3$s %%)"
+
+msgid "Note"
+msgstr "Score"
+
+msgid "À repasser"
+msgstr "To retake"
+
+msgid "Saisissez la note"
+msgstr "Enter the score"
+
+#, php-format
+msgid "Préparer une session de rattrapage (%s participant)"
+msgid_plural "Préparer une session de rattrapage (%s participants)"
+msgstr[0] "Prepare a retake session (%s participant)"
+msgstr[1] "Prepare a retake session (%s participants)"
+
+#, php-format
+msgid "Rapport d'audit interne : %s"
+msgstr "Internal audit report: %s"
+
+#, php-format
+msgid "Rapport d'audit interne - %s"
+msgstr "Internal audit report - %s"
+
+msgid "Le rapport d'audit a été archivé dans l'onglet Documents."
+msgstr "The audit report has been archived in the Documents tab."
+
+msgid "Constats"
+msgstr "Findings"
+
+msgid "Non-conformités et observations relevées pendant cet audit. À la clôture de l'audit (statut « Terminé »), le rapport PDF est archivé dans l'onglet Documents."
+msgstr "Non-conformities and observations raised during this audit. When the audit is closed (status \"Completed\"), the PDF report is archived in the Documents tab."
+
+msgid "Ajouter un constat"
+msgstr "Add a finding"
+
+msgid "Aucun constat pour cet audit."
+msgstr "No finding for this audit."
+
+msgid "Date prévue / réalisée"
+msgstr "Planned / actual date"
+
+msgid "Catégories de risque"
+msgstr "Risk categories"
+
+msgid "Mesures auditées"
+msgstr "Audited controls"
+
+msgid "Prévient le responsable 15 jours avant un événement du calendrier de conformité"
+msgstr "Notifies the owner 15 days before a compliance calendar event"
+
+msgid "Événement de conformité à venir"
+msgstr "Upcoming compliance event"
+
+msgid "Responsable de l'événement"
+msgstr "Event owner"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Event"
+msgid_plural "Events"
+msgstr[0] "Event"
+msgstr[1] "Events"
+
+msgid "Matrice des flux réseau"
+msgstr "Network flow matrix"
+
+msgid "Flux actifs"
+msgstr "Active flows"
+
+msgid "Flux désactivés"
+msgstr "Disabled flows"
+
+msgid "Aucun écart sur les flux actifs."
+msgstr "No gap on active flows."
+
+msgid "Protocole et ports"
+msgstr "Protocol and ports"
+
+msgid "Écarts"
+msgstr "Gaps"
+
+msgid "Aucun flux actif."
+msgstr "No active flow."
+
+msgid "Plan d'adressage"
+msgstr "Addressing plan"
+
+msgid "Aucun réseau IP déclaré dans GLPI."
+msgstr "No IP network declared in GLPI."
+
+msgid "Réseau"
+msgstr "Network"
+
+msgid "Adresse"
+msgstr "Address"
+
+msgid "Passerelle"
+msgstr "Gateway"

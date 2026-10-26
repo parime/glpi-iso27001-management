@@ -79,4 +79,23 @@ final class ComplianceCalendarRulesTest extends TestCase
         $summary = preg_replace(['/^.*SUMMARY:/s', "/\r\n /", "/\r\n.*$/s"], ['', '', ''], $ics);
         self::assertSame(str_repeat('é', 60), $summary);
     }
+
+    public function testReminderDueFifteenDaysBeforeAPlannedEventOnlyOnce(): void
+    {
+        $today = '2026-10-25';
+        self::assertTrue(ComplianceCalendarRules::reminderDue('planned', '2026-11-09 09:00:00', 4, null, $today));
+        self::assertTrue(ComplianceCalendarRules::reminderDue('planned', '2026-10-25 14:00:00', 4, '', $today));
+        self::assertFalse(
+            ComplianceCalendarRules::reminderDue('planned', '2026-11-10 09:00:00', 4, null, $today),
+            'Plus de 15 jours avant.'
+        );
+        self::assertFalse(ComplianceCalendarRules::reminderDue('planned', '2026-10-24 09:00:00', 4, null, $today));
+        self::assertFalse(
+            ComplianceCalendarRules::reminderDue('planned', '2026-11-01 09:00:00', 4, '2026-10-20 08:00:00', $today),
+            'Déjà prévenu.'
+        );
+        self::assertFalse(ComplianceCalendarRules::reminderDue('done', '2026-11-01 09:00:00', 4, null, $today));
+        self::assertFalse(ComplianceCalendarRules::reminderDue('planned', '2026-11-01 09:00:00', 0, null, $today));
+        self::assertFalse(ComplianceCalendarRules::reminderDue('planned', null, 4, null, $today));
+    }
 }

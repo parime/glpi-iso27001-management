@@ -7,6 +7,67 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.10.0] - 2026-10-26
+
+### Added
+
+- **Menu GRC & Conformité > Tableau de bord** (issue #247) : première entrée du menu, comme
+  Parc > Tableau de bord et Assistance > Tableau de bord. Elle affiche le tableau de bord
+  « GRC Manager - Vue d'ensemble ISMS » avec les outils natifs de GLPI (choix du tableau de bord,
+  ajout et déplacement des cartes, partage, plein écran). Cliquer sur le titre du menu y mène
+  aussi. Si le tableau de bord n'est pas partagé avec le profil, la page explique comment le
+  partager.
+- **Tableau de bord « GRC Manager - Direction »** (issue #143) : une vue simplifiée pour le comité
+  de direction, à choisir dans la liste des tableaux de bord : score de maturité, risques et
+  non-conformités ouverts, actions en retard, délais NIS2 / RGPD, conformité par référentiel,
+  tendance mensuelle, échéances, preuves à renouveler, fournisseurs critiques non évalués, revues
+  périodiques en retard.
+- Nouvelles cartes (issue #143) :
+  - **Mesures mises en œuvre par référentiel** : ajout du **NIST CSF 2.0**, d'après la
+    correspondance officielle publiée par le NIST (les CIS Controls ne sont pas inclus : aucune
+    correspondance officielle librement disponible) ;
+  - **Risques et non-conformités par mois** : courbe des 12 derniers mois pour la revue de
+    direction. Chaque mois est enregistré avec le score de maturité (tâche automatique mensuelle).
+    La courbe commence donc au mois de la mise à jour ;
+  - **Fournisseurs critiques non évalués** : fournisseurs ayant un risque élevé ou critique ouvert
+    et dont le questionnaire de sécurité n'a jamais été rempli ;
+  - **Responsables en retard (accès)** : réviseurs qui ont encore des comptes à revoir dans une
+    campagne de revue des accès dont l'échéance est dépassée ;
+  - **Participants à repasser** : personnes dont la dernière évaluation d'une formation est
+    échouée (une réussite à une session plus récente de la même formation les retire) ;
+  - **Réussite par session de formation (%)** : taux de réussite des 8 dernières sessions évaluées.
+- **Formations : notes et seuil de réussite** (issue #139) :
+  - nouveaux champs « Note maximale du quiz » et « Seuil de réussite (%) ». Avec les deux, on
+    saisit la note de chaque participant (ex. 32 / 40, virgule acceptée), affichée « 32/40
+    (80 %) ». Le résultat (réussie / à repasser) est calculé depuis la note ; une note hors barème
+    est ignorée ;
+  - taux de réussite de la session affiché sur la fiche (« 8 sur 10 (80 %) ») ;
+  - bouton **« Préparer une session de rattrapage »** : formulaire de nouvelle session pré-rempli
+    avec les participants à repasser. Rien n'est enregistré avant « Ajouter » ;
+  - onglets **Documents** (feuille d'émargement, support, quiz de la session) et **Historique** sur
+    la fiche d'une formation.
+- **Audits internes : constats, documents et rapport archivé** (issue #140) :
+  - la fiche d'un audit a maintenant des onglets **Constats** (non-conformités et observations de
+    l'audit, avec « Ajouter un constat » qui rattache directement le constat à l'audit),
+    **Documents** (plan d'audit, preuves collectées, rapport signé) et **Historique** ;
+  - onglets **Documents** et **Historique** aussi sur la fiche d'une non-conformité ;
+  - quand l'audit passe au statut « Terminé », le **rapport d'audit PDF** (périmètre, mesures
+    auditées, constats, conclusion) est archivé automatiquement dans son onglet Documents.
+- **Calendrier de conformité : rappel avant un événement** (issue #142) : le responsable d'un
+  événement planifié (audit externe, pentest, certification, exercice…) reçoit une notification
+  15 jours avant son début (tâche automatique quotidienne « complianceeventreminder »,
+  notification « GRC Manager - Événement de conformité à venir »). Un seul rappel par événement,
+  renvoyé si l'événement est déplacé ; rien n'est modifié automatiquement.
+- **Matrice des flux : rapport PDF** (issue #144) : bouton « Rapport PDF » en tête de la liste. Le
+  rapport, pour l'auditeur, reprend les flux actifs par type avec leurs écarts (sans
+  justification, administration exposée…), le nombre de flux désactivés et le plan d'adressage
+  (réseaux IP déclarés dans GLPI).
+
+### Fixed
+
+- Carte « Score fournisseurs moyen » : les fournisseurs dont le questionnaire n'a jamais été rempli
+  comptaient pour 0 dans la moyenne.
+
 ## [2.9.0] - 2026-10-25
 
 ### Added

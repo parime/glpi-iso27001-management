@@ -19,6 +19,7 @@ use Glpi\Application\View\TemplateRenderer;
 use Glpi\DBAL\QueryExpression;
 use GlpiPlugin\Grcmanager\Compatibility\Base\TrainingBase;
 use GlpiPlugin\Grcmanager\Services\Training\TrainingRenewalService;
+use GlpiPlugin\Grcmanager\Services\Training\TrainingScore;
 
 /**
  * Security awareness training tracking (ISO 27001 clauses 7.2 "competence" and 7.3 "awareness"):
@@ -145,7 +146,26 @@ class PluginGrcmanagerTraining extends TrainingBase
             $input['is_mandatory'] = empty($input['is_mandatory']) ? 0 : 1;
         }
 
+        // Issue #139 : note maximale du quiz et seuil de réussite (en %).
+        if (isset($input['max_score'])) {
+            $input['max_score'] = max(0, (int) $input['max_score']);
+        }
+        if (isset($input['pass_threshold'])) {
+            $input['pass_threshold'] = min(100, max(0, (int) $input['pass_threshold']));
+        }
+
         return $input;
+    }
+
+    public function defineTabs($options = [])
+    {
+        $tabs = [];
+        // Issue #139 : feuille d'émargement, support et quiz de la session.
+        $this->addDefaultFormTab($tabs)
+            ->addStandardTab(Document_Item::class, $tabs, $options)
+            ->addStandardTab(Log::class, $tabs, $options);
+
+        return $tabs;
     }
 
     public function post_addItem()
@@ -206,6 +226,9 @@ class PluginGrcmanagerTraining extends TrainingBase
         $statuses = (array) ($this->input['participant_status'] ?? []);
         $dates    = (array) ($this->input['participant_date'] ?? []);
         $results  = (array) ($this->input['participant_result'] ?? []);
+        $scores   = (array) ($this->input['participant_score'] ?? []);
+        $maxScore = (int) ($this->fields['max_score'] ?? 0);
+        $threshold = (int) ($this->fields['pass_threshold'] ?? 0);
 
         foreach (array_intersect($selectedIds, $existingIds) as $userId) {
             if (!isset($statuses[$userId])) {
@@ -223,10 +246,18 @@ class PluginGrcmanagerTraining extends TrainingBase
                 $date = date('Y-m-d');
             }
 
+            // Issue #139 : formation notée, le résultat se déduit de la note et du seuil.
+            $score = null;
+            if (TrainingScore::isScored($maxScore, $threshold)) {
+                $score = TrainingScore::parse((string) ($scores[$userId] ?? ''), $maxScore);
+                $result = TrainingScore::result($score, $maxScore, $threshold) ?? 'not_applicable';
+            }
+
             $DB->update(self::PARTICIPANTS_TABLE, [
                 'completion_status' => $status,
                 'completion_date'   => $date !== '' ? $date : null,
                 'assessment_result' => $result,
+                'score'             => $score,
             ], [
                 'plugin_grcmanager_trainings_id' => $trainingId,
                 'users_id'                       => $userId,
@@ -258,7 +289,7 @@ class PluginGrcmanagerTraining extends TrainingBase
     /**
      * @return array<int, array{
      *     users_id: int, name: string, completion_status: string, completion_date: ?string,
-     *     assessment_result: string,
+     *     assessment_result: string, score: ?float,
      * }>
      */
     public static function getParticipants(int $trainingId): array
@@ -270,7 +301,7 @@ class PluginGrcmanagerTraining extends TrainingBase
         $rows = $DB->request([
             'SELECT'     => [
                 'links.users_id', 'links.completion_status', 'links.completion_date',
-                'links.assessment_result', 'u.name',
+                'links.assessment_result', 'links.score', 'u.name',
             ],
             'FROM'       => self::PARTICIPANTS_TABLE . ' AS links',
             'INNER JOIN' => [
@@ -289,6 +320,7 @@ class PluginGrcmanagerTraining extends TrainingBase
                 'completion_status' => (string) $row['completion_status'],
                 'completion_date'   => $row['completion_date'] !== null ? (string) $row['completion_date'] : null,
                 'assessment_result' => (string) ($row['assessment_result'] ?? 'not_applicable'),
+                'score'             => $row['score'] !== null ? (float) $row['score'] : null,
             ];
         }
 
@@ -482,22 +514,79 @@ class PluginGrcmanagerTraining extends TrainingBase
             . htmlescape($label) . '</span>';
     }
 
+    /**
+     * Participants ayant échoué à cette session (issue #139), proposés pour une session de
+     * rattrapage.
+     *
+     * @return list<int>
+     */
+    public static function getRetakeParticipantIds(int $trainingId): array
+    {
+        global $DB;
+
+        if ($trainingId <= 0) {
+            return [];
+        }
+        $ids = [];
+        foreach (
+            $DB->request([
+                'SELECT' => ['users_id'],
+                'FROM'   => self::PARTICIPANTS_TABLE,
+                'WHERE'  => ['plugin_grcmanager_trainings_id' => $trainingId, 'assessment_result' => 'failed'],
+            ]) as $row
+        ) {
+            $ids[] = (int) $row['users_id'];
+        }
+
+        return $ids;
+    }
+
     public function showForm($ID, array $options = []): bool
     {
         $this->initForm($ID, $options);
 
         $participants = $this->isNewID($ID) ? [] : self::getParticipants((int) $ID);
+        $participantIds = array_column($participants, 'users_id');
+        // Issue #139 : session de rattrapage proposée, rien n'est enregistré avant « Ajouter ».
+        $retakeOf = $this->isNewItem() ? (int) ($options['retake_of'] ?? 0) : 0;
+        if ($retakeOf > 0 && ($source = new self())->getFromDB($retakeOf)) {
+            $copied = [
+                'title', 'format', 'target_audience', 'is_mandatory', 'renewal_period_months',
+                'max_score', 'pass_threshold',
+            ];
+            foreach ($copied as $field) {
+                $this->fields[$field] = $source->fields[$field];
+            }
+            $this->fields['title'] = sprintf(__('%s - rattrapage', 'grcmanager'), $source->fields['title']);
+            $participantIds = self::getRetakeParticipantIds($retakeOf);
+        }
+        $maxScore = (int) ($this->fields['max_score'] ?? 0);
+        foreach ($participants as &$participant) {
+            $hasScore = $participant['score'] !== null && $maxScore > 0;
+            $participant['score_label'] = $hasScore ? TrainingScore::format($participant['score'], $maxScore) : '';
+            $participant['score_input'] = $participant['score'] !== null
+                ? TrainingScore::formatValue($participant['score'])
+                : '';
+        }
+        unset($participant);
+
         TemplateRenderer::getInstance()->display('@grcmanager/training_form.html.twig', [
             'item'                => $this,
             'params'              => $options,
             'formats'             => self::getFormats(),
             // Nouvelle formation : obligatoire par défaut, comme la valeur par défaut en base.
-            'is_mandatory'        => $this->isNewItem() || !empty($this->fields['is_mandatory']),
-            'participant_ids'     => array_column($participants, 'users_id'),
+            'is_mandatory'        => $this->isNewItem() ? ($retakeOf <= 0 || !empty($this->fields['is_mandatory']))
+                : !empty($this->fields['is_mandatory']),
+            'participant_ids'     => $participantIds,
             'participants'        => $participants,
             'user_label'          => User::getTypeName(1),
             'completion_statuses' => self::getCompletionStatuses(),
             'assessment_results'  => self::getAssessmentResults(),
+            'is_scored'           => TrainingScore::isScored($maxScore, (int) ($this->fields['pass_threshold'] ?? 0)),
+            'session_rate'        => TrainingScore::sessionRate(array_column($participants, 'assessment_result')),
+            'retake_count'        => count(self::getRetakeParticipantIds((int) $ID)),
+            'retake_url'          => self::getFormURL() . '?retake_of=' . (int) $ID,
+            'is_retake'           => $retakeOf > 0,
         ]);
 
         return true;

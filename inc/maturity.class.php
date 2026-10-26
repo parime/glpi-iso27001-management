@@ -16,6 +16,7 @@
  */
 
 use GlpiPlugin\Grcmanager\Services\Clause\IsmsClauseCatalog;
+use GlpiPlugin\Grcmanager\Services\Dashboard\PilotageCards;
 use GlpiPlugin\Grcmanager\Services\Maturity\MaturityScore;
 
 /**
@@ -225,6 +226,8 @@ class PluginGrcmanagerMaturity extends CommonGLPI
             'score'      => $current['score'],
             'level'      => $current['level'],
             'details'    => json_encode($current['components']),
+            // Issue #143 : tendance mensuelle des risques et non-conformités ouverts.
+            'indicators' => json_encode(PilotageCards::currentIndicators()),
             'date_mod'   => date('Y-m-d H:i:s'),
         ];
         if ($DB->request(['FROM' => self::SNAPSHOTS_TABLE, 'WHERE' => ['month' => $month]])->count() > 0) {

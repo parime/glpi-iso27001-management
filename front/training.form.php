@@ -42,20 +42,11 @@ if (isset($_POST['add'])) {
 } else {
     Session::checkRight(PluginGrcmanagerTraining::$rightname, READ);
 
-    Html::header(
-        PluginGrcmanagerTraining::getTypeName(1),
-        $_SERVER['PHP_SELF'],
-        'grcmanager',
-        PluginGrcmanagerTraining::class
+    // Issue #139 : affichage avec onglets (Documents de la session, Historique). `retake_of`
+    // pré-remplit une session de rattrapage, rien n'est enregistré avant « Ajouter ».
+    PluginGrcmanagerTraining::displayFullPageForItem(
+        (int) ($_GET['id'] ?? 0),
+        ['central' => ['grcmanager', PluginGrcmanagerTraining::class], 'helpdesk' => []],
+        ['retake_of' => (int) ($_GET['retake_of'] ?? 0)]
     );
-
-    $id = (int) ($_GET['id'] ?? 0);
-
-    if ($id > 0) {
-        $item->getFromDB($id);
-    }
-
-    $item->showForm($id);
-
-    Html::footer();
 }

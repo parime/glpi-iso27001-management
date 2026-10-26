@@ -36,19 +36,15 @@ class PluginGrcmanagerMenu extends CommonGLPI
     }
 
     /**
-     * Pointe vers le registre des risques (premier écran attendu par un RSSI, voir setup.php),
-     * pas vers le tableau de bord ISMS : `Glpi\Controller\CentralController` n'honore le paramètre
-     * `dashboard` que combiné à `embed` (rendu anonyme sans en-tête/menu, cf. son propre code
-     * source) - un lien `/front/central.php?dashboard=...` sans `embed` est silencieusement ignoré
-     * et affiche le dernier tableau de bord "Central" utilisé, pas celui-ci (confirmé en réel :
-     * atterrissait sur l'accueil au lieu du tableau de bord ISMS). Cette classe ne porte aucune
-     * donnée propre, un lien vers un vrai écran du plugin reste plus utile qu'un lien mort.
+     * Pointe vers la page « Tableau de bord » du plugin (issue #247), comme le titre des menus
+     * Parc et Assistance. Un lien `/front/central.php?dashboard=...` ne
+     * convenait pas : `Glpi\Controller\CentralController` n'honore ce paramètre qu'avec `embed`.
      */
     public static function getMenuContent()
     {
         return [
             'title' => self::getMenuName(),
-            'page'  => PluginGrcmanagerRisk::getSearchURL(false),
+            'page'  => PluginGrcmanagerDashboard::getSearchURL(false),
             'icon'  => self::getIcon(),
         ];
     }
