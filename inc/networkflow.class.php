@@ -325,8 +325,17 @@ class PluginGrcmanagerNetworkFlow extends NetworkFlowBase
         [$class, $icon] = $map[$type] ?? $map['other'];
         $label = self::getTypes()[$type] ?? $type;
 
-        return '<span class="badge ' . $class . '"><i class="ti ' . $icon . ' me-1"></i>'
-            . htmlescape($label) . '</span>';
+        return self::renderBadges(['kind' => 'type', 'class' => $class, 'icon' => $icon, 'label' => $label]);
+    }
+
+    /**
+     * Issue #199 : badges rendus par templates/_network_flow_badges.html.twig.
+     *
+     * @param array<string, mixed> $vars
+     */
+    private static function renderBadges(array $vars): string
+    {
+        return trim(TemplateRenderer::getInstance()->render('@grcmanager/_network_flow_badges.html.twig', $vars));
     }
 
     /**
@@ -334,18 +343,12 @@ class PluginGrcmanagerNetworkFlow extends NetworkFlowBase
      */
     public static function checksHtml(array $checks): string
     {
-        if ($checks === []) {
-            return '<span class="badge bg-green-lt"><i class="ti ti-circle-check me-1"></i>'
-                . htmlescape(__('Conforme', 'grcmanager')) . '</span>';
-        }
-        $html = '';
+        $items = [];
         foreach ($checks as $check) {
-            $class = NetworkFlowRules::isBlocking($check) ? 'bg-red-lt' : 'bg-yellow-lt';
-            $html .= '<span class="badge ' . $class . ' me-1"><i class="ti ti-alert-triangle me-1"></i>'
-                . htmlescape(self::getCheckLabel($check)) . '</span>';
+            $items[] = ['label' => self::getCheckLabel($check), 'blocking' => NetworkFlowRules::isBlocking($check)];
         }
 
-        return $html;
+        return self::renderBadges(['kind' => 'checks', 'checks' => $items]);
     }
 
     /**
@@ -353,21 +356,17 @@ class PluginGrcmanagerNetworkFlow extends NetworkFlowBase
      */
     public static function endpointHtml(string $itemtype, int $itemsId, string $label): string
     {
-        $parts = [];
+        $linked = null;
         if ($itemtype !== '' && $itemsId > 0) {
             $item = getItemForItemtype($itemtype);
-            if ($item instanceof CommonDBTM && $item->getFromDB($itemsId) && $item->canViewItem()) {
-                $parts[] = '<a href="' . htmlescape($item::getFormURLWithID($itemsId)) . '"><i class="'
-                    . htmlescape($item::getIcon()) . ' me-1"></i>' . htmlescape($item->getName()) . '</a>';
-            } else {
-                $parts[] = '<span class="text-muted">' . htmlescape(__('Actif non visible', 'grcmanager')) . '</span>';
-            }
-        }
-        if ($label !== '') {
-            $parts[] = htmlescape($label);
+            $visible = $item instanceof CommonDBTM && $item->getFromDB($itemsId) && $item->canViewItem();
+            $linked = $visible
+                ? ['visible' => true, 'url' => $item::getFormURLWithID($itemsId), 'icon' => $item::getIcon(),
+                    'name' => $item->getName()]
+                : ['visible' => false];
         }
 
-        return implode(' — ', $parts);
+        return self::renderBadges(['kind' => 'endpoint', 'item' => $linked, 'label' => $label]);
     }
 
     public function getChecks(): array
