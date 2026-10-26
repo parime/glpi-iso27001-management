@@ -92,7 +92,10 @@ archivé), avec ses champs de classification ISO 27001 fusionnés dessus.
 **Pilotage**
 - Tableau de bord ISMS par défaut et indicateurs à ajouter aux tableaux de bord GLPI, dont la
   conformité par référentiel (ISO 27001, NIS2, ANSSI), les échéances à 90 jours, la revue des accès
-  et les délais NIS2 / RGPD en alerte.
+  et les délais NIS2 / RGPD en alerte ; menu GRC & Conformité > Tableau de bord, vues ISMS et
+  Direction, tendance mensuelle.
+- **Formations notées** (note, seuil de réussite, rattrapage) et **audits internes** avec constats,
+  documents et rapport PDF archivé à la clôture.
 - **Score de maturité** cyber (0 à 100) avec le détail du calcul et son historique mensuel.
 - **Audit de conformité technique** : score ISO 27001, NIS2 et RGPD à partir des données de GLPI
   (antivirus, chiffrement, inventaire, validation des changements, comptes) et ticket de mise en
