@@ -1186,6 +1186,11 @@ final class Installer
             $DB->doQuery($query);
         }
 
+        // Séparation des tâches (revue 2.11.0, remarque « Quality ») : demandeur d'une dérogation,
+        // qui ne peut pas l'approuver. Inconnu (0) pour les dérogations antérieures.
+        if ($DB->tableExists(self::WAIVERS_TABLE) && !$DB->fieldExists(self::WAIVERS_TABLE, 'users_id_requester')) {
+            $migration->addField(self::WAIVERS_TABLE, 'users_id_requester', 'fkey', ['after' => 'users_id']);
+        }
         // Issue #170 : dérogations de sécurité (exception temporaire à une politique ou à une mesure).
         if (!$DB->tableExists(self::WAIVERS_TABLE)) {
             $query = "CREATE TABLE `" . self::WAIVERS_TABLE . "` (
@@ -1194,6 +1199,7 @@ final class Installer
                 `status` varchar(16) NOT NULL DEFAULT 'requested'
                     COMMENT 'requested, approved, rejected, closed',
                 `users_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Responsable qui accepte le risque',
+                `users_id_requester` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Demandeur (jamais approbateur)',
                 `users_id_approver` int {$keySign} NOT NULL DEFAULT 0,
                 `date_approval` timestamp NULL DEFAULT NULL,
                 `date_begin` date DEFAULT NULL,

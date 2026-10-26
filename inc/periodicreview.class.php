@@ -378,11 +378,16 @@ class PluginGrcmanagerPeriodicReview extends PeriodicReviewBase
     /**
      * Hook ITEM_ADD sur Ticket : un ticket créé par le ticket récurrent d'une revue (son gabarit
      * est dans l'input, cf. CommonITILRecurrent::createItem()) devient le ticket en cours de la revue.
+     *
+     * GLPI ne transmet pas l'id du ticket récurrent au ticket créé : seuls un ticket créé par une
+     * action automatique (Session::isCron()) et marqué « _auto_import » (comme le fait
+     * createItem()) comptent. Un ticket saisi à la main avec le même gabarit ne peut donc plus
+     * dater la revue (revue de sécurité 2.11.0, remarque « Quality »).
      */
     public static function onTicketAdd(Ticket $ticket): void
     {
         $templatesId = (int) ($ticket->input['tickettemplates_id'] ?? 0);
-        if ($templatesId <= 0) {
+        if ($templatesId <= 0 || empty($ticket->input['_auto_import']) || !Session::isCron()) {
             return;
         }
         $review = new self();
