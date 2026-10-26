@@ -23,6 +23,7 @@ use GlpiPlugin\Grcmanager\Services\Control\AssetsignEvidenceProvider;
 use GlpiPlugin\Grcmanager\Services\Control\ControlCrosswalkDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\Nis2CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Ui\Badge;
+use GlpiPlugin\Grcmanager\Services\Ui\Fragment;
 
 /**
  * Declaration of Applicability (SoA, ISO 27001:2022 clause 6.1.3): the 93 ISO/IEC 27001:2022
@@ -414,20 +415,18 @@ class PluginGrcmanagerControl extends ControlBase
                     return '';
                 }
 
-                $label = '<strong>' . htmlescape((string) $code) . '</strong> - '
-                    . htmlescape(self::getControlTitle((string) $code));
-
                 // Same "a list with no way back to showForm() is not self-explanatory" lesson as
                 // the rest of this plugin family — but here the fix is making this column (the
                 // one a user actually reads and clicks) the link, not adding a separate one: this
                 // column already had a custom 'specific' display, and a bare numeric "ID" column
                 // was the only clickable way back to a control's own form. Real user feedback.
-                $id = $values['id'] ?? null;
-                if ($id !== null && (int) $id > 0) {
-                    return '<a href="' . htmlescape(self::getFormURLWithID((int) $id)) . '">' . $label . '</a>';
-                }
+                $id = (int) ($values['id'] ?? 0);
 
-                return $label;
+                return Fragment::link(
+                    $id > 0 ? self::getFormURLWithID($id) : '',
+                    self::getControlTitle((string) $code),
+                    (string) $code
+                );
 
             case 'theme':
                 return self::themeBadge($values[$field] ?? null);
@@ -480,7 +479,7 @@ class PluginGrcmanagerControl extends ControlBase
             return '';
         }
 
-        return '<span class="badge bg-azure-lt">' . htmlescape($label) . '</span>';
+        return Badge::html('bg-azure-lt', null, $label);
     }
 
     private static function applicabilityBadge(?string $value): string

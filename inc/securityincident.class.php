@@ -22,6 +22,7 @@ use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentModuleConfig;
 use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentParameters;
 use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentRules;
 use GlpiPlugin\Grcmanager\Services\Ui\Badge;
+use GlpiPlugin\Grcmanager\Services\Ui\Fragment;
 
 /**
  * A security incident (unauthorized access, data leak, malware, phishing...), as its own native
@@ -626,15 +627,18 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
                     'itemtype'   => self::class,
                     'items_id'   => (int) $row['id'],
                     'is_private' => 1,
-                    'content'    => '<p>' . htmlescape(sprintf(
-                        $message,
-                        $labels[$deadline['key']] ?? $deadline['key'],
-                        Html::convDateTime($deadline['due'])
-                    )) . '</p><p>' . htmlescape(__(
-                        'Rien n\'est envoyé automatiquement à l\'autorité : faites la notification, puis renseignez sa '
-                            . 'date dans « Notifications réglementaires » sur l\'incident.',
-                        'grcmanager'
-                    )) . '</p>',
+                    'content'    => Fragment::ticketContent([
+                        sprintf(
+                            $message,
+                            $labels[$deadline['key']] ?? $deadline['key'],
+                            Html::convDateTime($deadline['due'])
+                        ),
+                        __(
+                            'Rien n\'est envoyé automatiquement à l\'autorité : faites la notification, puis renseignez '
+                                . 'sa date dans « Notifications réglementaires » sur l\'incident.',
+                            'grcmanager'
+                        ),
+                    ]),
                 ]);
                 $alerted[] = $deadline['key'] . ':' . $deadline['status'];
                 $count++;
@@ -737,7 +741,7 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
         $badges = [];
 
         foreach ($axes as $axis) {
-            $badges[] = '<span class="badge bg-azure-lt">' . htmlescape($labels[$axis] ?? $axis) . '</span>';
+            $badges[] = Badge::html('bg-azure-lt', null, $labels[$axis] ?? $axis);
         }
 
         return implode(' ', $badges);
@@ -754,7 +758,6 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
             return '';
         }
 
-        return '<a href="' . htmlescape($risk->getFormURLWithID($riskId)) . '">'
-            . htmlescape($risk->fields['title']) . '</a>';
+        return Fragment::link($risk->getFormURLWithID($riskId), (string) $risk->fields['title']);
     }
 }

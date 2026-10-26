@@ -19,6 +19,7 @@ use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\EvidenceBase;
 use GlpiPlugin\Grcmanager\Services\Evidence\EvidenceValidity;
 use GlpiPlugin\Grcmanager\Services\Ui\Badge;
+use GlpiPlugin\Grcmanager\Services\Ui\Fragment;
 
 /**
  * Issue #145 : date de validité d'un document de preuve rattaché (onglet Documents natif, donc
@@ -410,8 +411,10 @@ class PluginGrcmanagerEvidence extends EvidenceBase
             if ($parent === null) {
                 return '';
             }
-            return '<a href="' . htmlescape($parent::getFormURLWithID($parent->getID())) . '">'
-                . htmlescape($parent::getTypeName(1) . ' — ' . $parent->getName()) . '</a>';
+            return Fragment::link(
+                $parent::getFormURLWithID($parent->getID()),
+                $parent::getTypeName(1) . ' — ' . $parent->getName()
+            );
         }
 
         return parent::getSpecificValueToDisplay($field, $values, $options);
@@ -483,7 +486,7 @@ class PluginGrcmanagerEvidence extends EvidenceBase
         global $CFG_GLPI;
         $parentUrl = rtrim((string) ($CFG_GLPI['url_base'] ?? ''), '/')
             . $parent::getFormURLWithID($parent->getID(), false);
-        $content = '<p>' . htmlescape(sprintf(
+        $content = Fragment::ticketContent([sprintf(
             __(
                 'La preuve « %1$s » de %2$s « %3$s » n\'est plus valide depuis le %4$s. Renouvelez le '
                 . 'document (nouveau certificat, rapport ou attestation) puis mettez à jour sa date de '
@@ -494,7 +497,7 @@ class PluginGrcmanagerEvidence extends EvidenceBase
             $parent::getTypeName(1),
             $parent->getName(),
             Html::convDate($this->fields['valid_until'])
-        )) . '</p><p><a href="' . htmlescape($parentUrl) . '">' . htmlescape($parentUrl) . '</a></p>';
+        )], $parentUrl);
         $input = [
             'name'        => sprintf(__('Renouveler la preuve « %s »', 'grcmanager'), $this->getDocumentName()),
             'content'     => $content,

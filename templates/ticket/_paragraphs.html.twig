@@ -1,0 +1,3 @@
+{# Issue #199 : contenu de ticket ou de suivi généré par le plugin : paragraphes puis lien éventuel. #}
+{% for p in paragraphs %}<p>{{ p }}</p>{% endfor %}
+{% if link is defined and link.url is not empty %}<p><a href="{{ link.url }}">{{ link.label ?? link.url }}</a></p>{% endif %}
