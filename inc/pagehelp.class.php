@@ -318,8 +318,8 @@ class PluginGrcmanagerPageHelp
             ],
             'policy' => [
                 'purpose'   => __(
-                    'La bibliothèque des politiques de sécurité, versionnées, avec leur date de revue et leur taux '
-                    . 'de lecture.',
+                    'La bibliothèque des politiques de sécurité, versionnées, avec leur approbation et leur date de '
+                    . 'revue.',
                     'grcmanager'
                 ),
                 'expected'  => __(

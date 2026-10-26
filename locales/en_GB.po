@@ -5111,3 +5111,6 @@ msgstr "… and %d more, visible in the automated technical checks."
 
 msgid "Corrigez chaque élément, puis relancez les contrôles pour vérifier. Rien n'a été modifié automatiquement."
 msgstr "Fix each item, then run the checks again to verify. Nothing was changed automatically."
+
+msgid "La bibliothèque des politiques de sécurité, versionnées, avec leur approbation et leur date de revue."
+msgstr "The library of security policies, versioned, with their approval and review date."
