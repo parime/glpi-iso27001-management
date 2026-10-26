@@ -257,7 +257,7 @@ rapport PDF est joint à la campagne et à la mesure de l'Annexe A concernée.
 Sur une mesure, un risque fournisseur, un audit ou une politique, l'onglet **Validités des
 preuves** donne une date de fin de validité à chaque document rattaché (certificat, rapport,
 attestation). Le responsable est prévenu 30 jours avant ; à l'expiration, un ticket « Renouveler la
-preuve » est ouvert. **GRC & Conformité > Validités des preuves** les rassemble toutes.
+preuve » est ouvert. **GRC & Conformité > Preuves** les rassemble toutes.
 
 ![Liste des preuves datées](screenshots/tutorial/44-evidence-validity-list.png)
 
@@ -288,7 +288,7 @@ fichier ne crée pas de doublon.
 
 ### Étape 16 : Vérifier l'hygiène des comptes
 
-**GRC & Conformité > Hygiène des comptes** liste les comptes actifs à vérifier : supprimés de
+**GRC & Conformité > Revues des accès > Hygiène des comptes** liste les comptes actifs à vérifier : supprimés de
 l'annuaire, date de fin dépassée, sans connexion depuis N jours ou jamais utilisés, en double.
 Cochez les comptes et ouvrez un ticket de revue ; aucun compte n'est désactivé automatiquement.
 
@@ -564,8 +564,8 @@ the campaign and to the related Annex A control.
 
 On a control, a supplier risk, an audit or a policy, the **Validités des preuves** tab gives an
 expiry date to each attached document (certificate, report, attestation). The owner is warned 30
-days before; at expiry, a "renew the evidence" ticket is opened. **GRC & Conformité > Validités des
-preuves** lists them all.
+days before; at expiry, a "renew the evidence" ticket is opened. **GRC & Conformité > Preuves**
+lists them all.
 
 ![Dated evidence list](screenshots/tutorial/44-evidence-validity-list.png)
 
@@ -595,7 +595,7 @@ same file again creates no duplicate.
 
 ### Step 16: Check account hygiene
 
-**GRC & Conformité > Hygiène des comptes** lists the active accounts to check: deleted from the
+**GRC & Conformité > Revues des accès > Hygiène des comptes** lists the active accounts to check: deleted from the
 directory, end date passed, no login for N days or never used, duplicates. Tick the accounts and
 open a review ticket; no account is ever disabled automatically.
 

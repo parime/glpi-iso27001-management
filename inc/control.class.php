@@ -60,6 +60,12 @@ class PluginGrcmanagerControl extends ControlBase
         return 'ti ti-checklist';
     }
 
+    /** Rubrique « Contrôles Annexe A » : la SoA et ses correspondances (Référentiels). */
+    public static function getMenuContent()
+    {
+        return PluginGrcmanagerMenu::withSubPages(self::class, parent::getMenuContent());
+    }
+
     /**
      * @return array<string, string>
      */

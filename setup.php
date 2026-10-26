@@ -99,60 +99,46 @@ function plugin_init_grcmanager(): void
     // from IT rather than from the first functional screen (PluginGrcmanagerRisk) - GLPI core fills
     // an unknown category's title/icon from the first entry in its MENU_TOADD array whose
     // getMenuContent()/getIcon() supply one, see PluginGrcmanagerMenu's own docblock.
+    //
+    // Ordre du menu : le cycle du SMSI, du pilotage aux opérations puis à la direction. Les écrans
+    // d'un même travail sont regroupés en une rubrique (une entrée, les autres en sous-pages avec
+    // une barre d'onglets commune) : voir PluginGrcmanagerMenu::sections(). Les sous-pages
+    // (score de maturité, effet domino, référentiels, couverture des preuves, hygiène des comptes,
+    // logiciels à surveiller, catalogue de produits) n'ont donc pas d'entrée ici.
     $menuToAdd = [
         'grcmanager' => [
             PluginGrcmanagerMenu::class,
-            // Issue #247 : tableau de bord en tête du menu, comme dans Parc et Assistance.
+            // Pilotage. Issue #247 : tableau de bord en tête, comme dans Parc et Assistance.
             PluginGrcmanagerDashboard::class,
+            // Risques.
             PluginGrcmanagerRisk::class,
             PluginGrcmanagerSupplierRisk::class,
+            PluginGrcmanagerImpactAnalysis::class,
+            // Conformité : SoA, exigences du SMSI (articles 4 à 10), obligations, politiques,
+            // dérogations, preuves.
             PluginGrcmanagerControl::class,
-            // Issue #113 : exigences du SMSI (articles 4 à 10), juste après la SoA (Annexe A).
             PluginGrcmanagerIsmsRequirement::class,
             PluginGrcmanagerComplianceObligation::class,
+            PluginGrcmanagerPolicy::class,
+            PluginGrcmanagerWaiver::class,
+            PluginGrcmanagerEvidence::class,
+            // Contrôle et amélioration : audits internes, non-conformités (CAPA), contrôles
+            // techniques automatiques.
             PluginGrcmanagerAudit::class,
             PluginGrcmanagerNonconformity::class,
-            PluginGrcmanagerTraining::class,
-            PluginGrcmanagerManagementReview::class,
-            // Issue #126 : campagnes de revue périodique des accès.
-            PluginGrcmanagerAccessReview::class,
-            // Issue #184 : comptes actifs a verifier (annuaire, inactivite, doublons).
-            PluginGrcmanagerAccountHygiene::class,
-            // Issue #141 : revues périodiques (tickets récurrents natifs).
-            PluginGrcmanagerPeriodicReview::class,
-            // Issue #144 : matrice des flux réseau.
-            PluginGrcmanagerNetworkFlow::class,
-            // Issue #142 : calendrier de conformite (aussi dans le planning GLPI, ci-dessous).
-            PluginGrcmanagerComplianceEvent::class,
-            PluginGrcmanagerPolicy::class,
-            // Issue #145 : preuves datées, expirées ou à renouveler.
-            PluginGrcmanagerEvidence::class,
-            // Issue #170 : dérogations de sécurité.
-            PluginGrcmanagerWaiver::class,
-            // Issue #164 : couverture des preuves (actifs ayant le document requis).
-            PluginGrcmanagerCoverageRule::class,
-            // Issue #177 : points de défaillance uniques (analyse d'impact d'une panne).
-            PluginGrcmanagerImpactAnalysis::class,
-            // Issue #171 : effet domino entre risques et incidents.
-            PluginGrcmanagerCausalLink::class,
-            // Issue #166 : score de maturité cyber.
-            PluginGrcmanagerMaturity::class,
-            // Issue #162 : audit de conformité technique (ISO 27001, NIS2, RGPD).
             PluginGrcmanagerComplianceAudit::class,
-            // Issue #168 : exercices de crise (test des plans de continuité).
+            // Opérations : accès, revues périodiques et calendrier, personnes, continuité,
+            // réseau, vulnérabilités.
+            PluginGrcmanagerAccessReview::class,
+            PluginGrcmanagerPeriodicReview::class,
+            PluginGrcmanagerComplianceEvent::class,
+            PluginGrcmanagerTraining::class,
             PluginGrcmanagerCrisisExercise::class,
-            PluginGrcmanagerObjective::class,
-            // Corrélation CPE des CVE avec le parc GLPI (cf. ROADMAP.md) : un seul menu entry pour
-            // le catalogue de correspondance (le produit canonique) — ses deux tables satellites
-            // (CpeReference, ProductAlias) n'ont pas d'entrée propre, gérées en ligne sur le
-            // formulaire du produit, même convention que PluginGrcmanagerObjectiveMeasurement.
-            PluginGrcmanagerCanonicalProduct::class,
-            // Issue #160 : vulnérabilités du parc (et logiciels à surveiller).
+            PluginGrcmanagerNetworkFlow::class,
             PluginGrcmanagerParkVulnerability::class,
-            // Bibliothèque de contrôles étendue (ROADMAP.md "Version 2.2") : dernier ajouté, ancre
-            // sans CommonDBTM vers l'écran de consultation NIST CSF/CIS Controls, même convention
-            // que PluginGrcmanagerMenu ci-dessus.
-            PluginGrcmanagerReferentials::class,
+            // Direction : objectifs et revues de direction.
+            PluginGrcmanagerObjective::class,
+            PluginGrcmanagerManagementReview::class,
         ],
     ];
 

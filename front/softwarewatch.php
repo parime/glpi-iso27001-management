@@ -71,12 +71,15 @@ if ($suggestFor !== '' && ParkVulnerabilitySync::isEnabled()) {
 }
 
 Html::header(
-    PluginGrcmanagerParkVulnerability::getTypeName(),
+    __('Logiciels à surveiller', 'grcmanager'),
     PluginGrcmanagerParkVulnerability::getSearchURL(),
     'grcmanager',
-    PluginGrcmanagerParkVulnerability::class
+    PluginGrcmanagerParkVulnerability::class,
+    PluginGrcmanagerMenu::SOFTWARE_WATCH
 );
 // Encadré « À quoi sert cette page ? ».
+// Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
+PluginGrcmanagerMenu::showSection(PluginGrcmanagerParkVulnerability::class, PluginGrcmanagerMenu::SOFTWARE_WATCH);
 PluginGrcmanagerPageHelp::show('softwarewatch');
 
 TemplateRenderer::getInstance()->display('@grcmanager/software_watch.html.twig', [

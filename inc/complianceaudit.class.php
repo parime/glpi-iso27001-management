@@ -48,7 +48,7 @@ class PluginGrcmanagerComplianceAudit extends CommonGLPI
 
     public static function getTypeName($nb = 0)
     {
-        return __('Audit de conformité technique', 'grcmanager');
+        return __('Contrôles techniques automatiques', 'grcmanager');
     }
 
     public static function getIcon()

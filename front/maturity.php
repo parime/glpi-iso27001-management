@@ -35,9 +35,12 @@ Html::header(
     PluginGrcmanagerMaturity::getTypeName(),
     PluginGrcmanagerMaturity::getSearchURL(),
     'grcmanager',
+    PluginGrcmanagerDashboard::class,
     PluginGrcmanagerMaturity::class
 );
 // Encadré « À quoi sert cette page ? ».
+// Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
+PluginGrcmanagerMenu::showSection(PluginGrcmanagerDashboard::class, PluginGrcmanagerMaturity::class);
 PluginGrcmanagerPageHelp::show('maturity');
 TemplateRenderer::getInstance()->display('@grcmanager/maturity.html.twig', [
     'score'            => $current['score'],

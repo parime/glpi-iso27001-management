@@ -56,7 +56,7 @@ class PluginGrcmanagerPageHelp
             ],
             'complianceaudit' => [
                 'purpose'   => __(
-                    'L\'audit de conformité technique : des contrôles automatiques sur les données de GLPI '
+                    'Les contrôles techniques automatiques : des vérifications calculées sur les données de GLPI '
                         . '(antivirus, chiffrement des disques, inventaire, validation des changements, comptes), '
                         . 'avec un score par référentiel.',
                     'grcmanager'

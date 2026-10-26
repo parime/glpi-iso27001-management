@@ -31,6 +31,8 @@ Html::header(
     PluginGrcmanagerEvidence::class
 );
 // Encadré « À quoi sert cette page ? ».
+// Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
+PluginGrcmanagerMenu::showSection(PluginGrcmanagerEvidence::class, PluginGrcmanagerEvidence::class);
 PluginGrcmanagerPageHelp::show('evidence');
 
 TemplateRenderer::getInstance()->display('@grcmanager/_list_toolbar.html.twig', ['notice' => __(

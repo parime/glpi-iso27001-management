@@ -50,11 +50,12 @@ class PluginGrcmanagerDashboard extends CommonGLPI
 
     public static function getMenuContent()
     {
-        return [
+        // Rubrique « Tableau de bord » : avec le score de maturité.
+        return PluginGrcmanagerMenu::withSubPages(self::class, [
             'title' => self::getTypeName(),
             'page'  => self::getSearchURL(false),
             'icon'  => self::getIcon(),
-        ];
+        ]);
     }
 
     public static function getDashboardKey(): string

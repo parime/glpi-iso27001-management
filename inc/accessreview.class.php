@@ -60,6 +60,12 @@ class PluginGrcmanagerAccessReview extends AccessReviewBase
         return 'ti ti-user-check';
     }
 
+    /** Rubrique « Revues des accès » : les campagnes et l'hygiène des comptes. */
+    public static function getMenuContent()
+    {
+        return PluginGrcmanagerMenu::withSubPages(self::class, parent::getMenuContent());
+    }
+
     /**
      * @return array<string, string>
      */

@@ -7,6 +7,21 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Changed
+
+- **Menu GRC & Conformité réorganisé** : 22 entrées au lieu de 28, dans l'ordre du cycle du SMSI
+  (pilotage, risques, conformité, contrôle et amélioration, opérations, direction). Les écrans
+  d'un même travail forment une rubrique : une seule entrée de menu, et une barre d'onglets
+  commune en tête de chaque page de la rubrique (fil d'Ariane « Rubrique > Page ») :
+  - **Tableau de bord** : avec le score de maturité ;
+  - **Analyse d'impact** : points de défaillance uniques et effet domino ;
+  - **Contrôles Annexe A** : la SoA et les référentiels (correspondances NIS2, NIST, CIS) ;
+  - **Preuves** : validités des preuves et couverture des preuves ;
+  - **Revues des accès** : campagnes et hygiène des comptes ;
+  - **Vulnérabilités du parc** : logiciels à surveiller et catalogue de produits (corrélation CVE).
+- « Audit de conformité technique » devient **Contrôles techniques automatiques**, pour ne plus le
+  confondre avec les audits internes (programme d'audits, ISO 27001 9.2).
+
 ## [2.11.0] - 2026-10-26
 
 ### Added
