@@ -31,7 +31,7 @@
                <input type="hidden" name="id" value="{{ incident.id }}">
                <button type="submit" name="generate" value="1" class="btn btn-primary"><i class="ti ti-file-type-pdf me-1"></i>{{ __('Générer le rapport PDF', 'grcmanager') }}</button>
             </form>
-            <div class="form-hint">{{ __('Le PDF est archivé dans les documents de l\'incident et proposé comme preuve sur la mesure A.5.27 de la SoA.', 'grcmanager') }}</div>
+            <div class="form-hint">{{ __('Le PDF est archivé dans les documents de l\'incident, lisible par les seules personnes qui voient l\'incident.', 'grcmanager') }}</div>
          {% endif %}
       </div>
    </div>

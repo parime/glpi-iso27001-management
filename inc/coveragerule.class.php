@@ -220,19 +220,24 @@ class PluginGrcmanagerCoverageRule extends CoverageRuleBase
             'FROM'   => $table,
             'WHERE'  => $where + ['AND' => ["$table.id" => $documented]],
         ]));
+        // Les noms des actifs non couverts ne sont listés qu'à qui peut lire ce type d'actif ; les
+        // autres ne voient que les nombres (revue de sécurité 2.11.0).
+        $canListNames = $itemtype::canView();
         $uncovered = [];
-        $rows = $DB->request([
-            'SELECT' => ["$table.id", "$table.name"],
-            'FROM'   => $table,
-            'WHERE'  => $where + ['NOT' => ["$table.id" => $documented]],
-            'ORDER'  => "$table.name",
-            'LIMIT'  => self::MAX_UNCOVERED,
-        ]);
-        foreach ($rows as $row) {
-            $uncovered[] = [
-                'name' => (string) ($row['name'] ?: '#' . $row['id']),
-                'url'  => $itemtype::getFormURLWithID((int) $row['id']) . '&forcetab=Document_Item$1',
-            ];
+        if ($canListNames) {
+            $rows = $DB->request([
+                'SELECT' => ["$table.id", "$table.name"],
+                'FROM'   => $table,
+                'WHERE'  => $where + ['NOT' => ["$table.id" => $documented]],
+                'ORDER'  => "$table.name",
+                'LIMIT'  => self::MAX_UNCOVERED,
+            ]);
+            foreach ($rows as $row) {
+                $uncovered[] = [
+                    'name' => (string) ($row['name'] ?: '#' . $row['id']),
+                    'url'  => $itemtype::getFormURLWithID((int) $row['id']) . '&forcetab=Document_Item$1',
+                ];
+            }
         }
         $rate = CoverageRules::rate($covered, $total);
 
@@ -242,7 +247,7 @@ class PluginGrcmanagerCoverageRule extends CoverageRuleBase
             'rate'      => $rate,
             'level'     => CoverageRules::level($rate),
             'uncovered' => $uncovered,
-            'truncated' => $total - $covered > count($uncovered),
+            'truncated' => $canListNames && $total - $covered > count($uncovered),
         ];
     }
 

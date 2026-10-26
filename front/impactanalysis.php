@@ -69,6 +69,8 @@ Html::header(
     PluginGrcmanagerImpactAnalysis::class
 );
 // Encadré « À quoi sert cette page ? ».
+// Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
+PluginGrcmanagerMenu::showSection(PluginGrcmanagerImpactAnalysis::class, PluginGrcmanagerImpactAnalysis::class);
 PluginGrcmanagerPageHelp::show('impactanalysis');
 
 TemplateRenderer::getInstance()->display('@grcmanager/impact_spof.html.twig', [

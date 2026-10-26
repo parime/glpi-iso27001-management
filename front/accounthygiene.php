@@ -43,9 +43,12 @@ Html::header(
     PluginGrcmanagerAccountHygiene::getTypeName(),
     PluginGrcmanagerAccountHygiene::getSearchURL(),
     'grcmanager',
+    PluginGrcmanagerAccessReview::class,
     PluginGrcmanagerAccountHygiene::class
 );
 // Encadré « À quoi sert cette page ? ».
+// Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
+PluginGrcmanagerMenu::showSection(PluginGrcmanagerAccessReview::class, PluginGrcmanagerAccountHygiene::class);
 PluginGrcmanagerPageHelp::show('accounthygiene');
 
 PluginGrcmanagerAccountHygiene::showList($days);

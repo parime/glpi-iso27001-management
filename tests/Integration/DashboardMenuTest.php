@@ -38,6 +38,30 @@ final class DashboardMenuTest extends GrcmanagerIntegrationTestCase
         $this->assertSame(\PluginGrcmanagerDashboard::class, $entries[1], 'Juste après le titre du menu.');
     }
 
+    /**
+     * Rubriques regroupant plusieurs écrans d'un même travail : une seule entrée de menu, les
+     * autres écrans en sous-pages (options GLPI) de la rubrique.
+     */
+    public function testGroupedScreensAreSubPagesOfASingleEntry(): void
+    {
+        global $PLUGIN_HOOKS;
+
+        $entries = $PLUGIN_HOOKS['menu_toadd']['grcmanager']['grcmanager'];
+        $this->assertSame(count($entries), count(array_unique($entries)), 'Aucune entrée en double.');
+        foreach (\PluginGrcmanagerMenu::sections() as $parent => $children) {
+            $this->assertContains($parent, $entries, "$parent : la rubrique a son entrée.");
+            $options = $parent::getMenuContent()['options'] ?? [];
+            foreach ($children as $child) {
+                $this->assertNotContains($child, $entries, "$child : pas d'entrée propre.");
+                $this->assertArrayHasKey($child, $options, "$child : sous-page de $parent.");
+            }
+        }
+        $this->assertSame(
+            __('Contrôles techniques automatiques', 'grcmanager'),
+            \PluginGrcmanagerComplianceAudit::getTypeName()
+        );
+    }
+
     public function testDefaultDashboardIsVisibleToTheAdministrator(): void
     {
         $dashboard = new Dashboard(\PluginGrcmanagerDashboard::getDashboardKey());

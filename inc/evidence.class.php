@@ -59,6 +59,21 @@ class PluginGrcmanagerEvidence extends EvidenceBase
     }
 
     /**
+     * Rubrique « Preuves » du menu : validité des documents de preuve et règles de couverture
+     * (PluginGrcmanagerCoverageRule). L'onglet garde le nom « Validités des preuves ».
+     */
+    public static function getMenuContent()
+    {
+        $menu = parent::getMenuContent();
+        if (is_array($menu) && $menu !== []) {
+            $menu['section_label'] = $menu['title'];
+            $menu['title'] = __('Preuves', 'grcmanager');
+        }
+
+        return PluginGrcmanagerMenu::withSubPages(self::class, $menu);
+    }
+
+    /**
      * Élément porteur chargé, ou null si le type n'est pas pris en charge ou l'élément introuvable.
      */
     public static function loadParent(string $itemtype, int $itemsId): ?CommonDBTM

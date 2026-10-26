@@ -34,9 +34,12 @@ Html::header(
     __('Référentiels', 'grcmanager'),
     $_SERVER['PHP_SELF'],
     'grcmanager',
-    PluginGrcmanagerControl::class
+    PluginGrcmanagerControl::class,
+    PluginGrcmanagerReferentials::class
 );
 // Encadré « À quoi sert cette page ? ».
+// Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
+PluginGrcmanagerMenu::showSection(PluginGrcmanagerControl::class, PluginGrcmanagerReferentials::class);
 PluginGrcmanagerPageHelp::show('referentiels');
 
 $titles = PluginGrcmanagerControl::getControlTitles();

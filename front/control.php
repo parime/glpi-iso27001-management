@@ -31,6 +31,8 @@ Html::header(
     PluginGrcmanagerControl::class
 );
 // Encadré « À quoi sert cette page ? ».
+// Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
+PluginGrcmanagerMenu::showSection(PluginGrcmanagerControl::class, PluginGrcmanagerControl::class);
 PluginGrcmanagerPageHelp::show('control');
 
 // Intro, exports et rappels d'approbation de la SoA (issue #112).

@@ -30,6 +30,8 @@ Html::header(
     PluginGrcmanagerAccessReview::class
 );
 // Encadré « À quoi sert cette page ? ».
+// Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
+PluginGrcmanagerMenu::showSection(PluginGrcmanagerAccessReview::class, PluginGrcmanagerAccessReview::class);
 PluginGrcmanagerPageHelp::show('accessreview');
 
 TemplateRenderer::getInstance()->display('@grcmanager/_list_toolbar.html.twig', [

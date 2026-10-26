@@ -31,6 +31,8 @@ Html::header(
     PluginGrcmanagerDashboard::class
 );
 // Encadré « À quoi sert cette page ? ».
+// Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
+PluginGrcmanagerMenu::showSection(PluginGrcmanagerDashboard::class, PluginGrcmanagerDashboard::class);
 PluginGrcmanagerPageHelp::show('dashboard');
 
 $key = PluginGrcmanagerDashboard::getDashboardKey();

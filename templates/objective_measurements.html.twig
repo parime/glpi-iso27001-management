@@ -27,14 +27,14 @@
       </form>
    {% endif %}
    <table class="table">
-      <thead><tr><th>{{ __('Date de la mesure', 'grcmanager') }}</th><th>{{ __('Valeur', 'grcmanager') }}</th><th>{{ __('Commentaire', 'grcmanager') }}</th>{% if can_edit %}<th></th>{% endif %}</tr></thead>
+      <thead><tr><th>{{ __('Date de la mesure', 'grcmanager') }}</th><th>{{ __('Valeur', 'grcmanager') }}</th><th>{{ __('Commentaire', 'grcmanager') }}</th>{% if can_purge %}<th></th>{% endif %}</tr></thead>
       <tbody>
          {% for m in measurements %}
             <tr>
                <td>{{ m.measurement_date|formatted_date }}</td>
                <td>{{ m.value ?? '' }}</td>
                <td>{{ m.comment ?? '' }}</td>
-               {% if can_edit %}
+               {% if can_purge %}
                   <td>
                      <form method="post" action="{{ action }}" data-grc-confirm="{{ __('Confirmer la suppression ?', 'grcmanager') }}">
                         <input type="hidden" name="id" value="{{ m.id }}">
@@ -46,7 +46,7 @@
                {% endif %}
             </tr>
          {% else %}
-            <tr><td colspan="{{ can_edit ? 4 : 3 }}" class="text-muted">{{ __('Aucune mesure enregistrée pour le moment.', 'grcmanager') }}</td></tr>
+            <tr><td colspan="{{ can_purge ? 4 : 3 }}" class="text-muted">{{ __('Aucune mesure enregistrée pour le moment.', 'grcmanager') }}</td></tr>
          {% endfor %}
       </tbody>
    </table>

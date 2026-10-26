@@ -23,14 +23,11 @@ use GlpiPlugin\Grcmanager\Services\Incident\RegulatoryDeadlines;
 
 /**
  * Issue #169 : rapport post-incident (enseignements tirés, mesure A.5.27). L'onglet de l'incident
- * en présente le contenu ; le bouton produit le PDF, archivé en Document sur l'incident et sur la
- * mesure A.5.27 de la SoA.
+ * en présente le contenu ; le bouton produit le PDF, archivé en Document sur l'incident (et non
+ * sur la mesure A.5.27 de la SoA, lisible de toutes les entités).
  */
 class PluginGrcmanagerSecurityIncidentPostMortem extends CommonGLPI
 {
-    /** Mesure de l'Annexe A à laquelle le rapport sert de preuve. */
-    private const CONTROL_CODE = 'A.5.27';
-
     public static function getTypeName($nb = 0)
     {
         return __('Rapport post-incident', 'grcmanager');
@@ -49,13 +46,33 @@ class PluginGrcmanagerSecurityIncidentPostMortem extends CommonGLPI
     }
 
     /**
-     * Contenu du rapport.
+     * Contenu du rapport. Les suivis et tâches privés n'y figurent que pour qui peut les voir
+     * (droit « voir les éléments privés », ou leur auteur / technicien) et jamais dans le PDF
+     * archivé ($forArchive), dont l'audience dépasse celle de l'incident.
      *
      * @return array<string, mixed>
      */
-    public static function collect(PluginGrcmanagerSecurityIncident $incident): array
+    public static function collect(PluginGrcmanagerSecurityIncident $incident, bool $forArchive = false): array
     {
         global $DB;
+
+        $me = (int) Session::getLoginUserID();
+        $seePrivateFollowups = !$forArchive && Session::haveRight('followup', ITILFollowup::SEEPRIVATE);
+        $seePrivateTasks = !$forArchive && Session::haveRight('task', CommonITILTask::SEEPRIVATE);
+        $visible = static function (array $row, bool $seePrivate, array $ownerFields) use ($forArchive, $me): bool {
+            if (!(int) ($row['is_private'] ?? 0) || $seePrivate) {
+                return true;
+            }
+            if ($forArchive || $me <= 0) {
+                return false;
+            }
+            foreach ($ownerFields as $field) {
+                if ((int) ($row[$field] ?? 0) === $me) {
+                    return true;
+                }
+            }
+            return false;
+        };
 
         $id = $incident->getID();
         $fields = $incident->fields;
@@ -83,6 +100,9 @@ class PluginGrcmanagerSecurityIncidentPostMortem extends CommonGLPI
             ];
         }
         foreach ((new ITILFollowup())->find($own) as $row) {
+            if (!$visible($row, $seePrivateFollowups, ['users_id'])) {
+                continue;
+            }
             $events[] = [
                 'date' => (string) $row['date'],
                 'kind' => $row['is_private'] ? __('Suivi privé', 'grcmanager') : __('Suivi', 'grcmanager'),
@@ -91,6 +111,9 @@ class PluginGrcmanagerSecurityIncidentPostMortem extends CommonGLPI
             ];
         }
         foreach ((new PluginGrcmanagerSecurityIncidentTask())->find($byIncident) as $row) {
+            if (!$visible($row, $seePrivateTasks, ['users_id', 'users_id_tech'])) {
+                continue;
+            }
             $events[] = [
                 'date' => (string) ($row['begin'] ?: $row['date']),
                 'kind' => __('Tâche', 'grcmanager'),
@@ -190,7 +213,7 @@ class PluginGrcmanagerSecurityIncidentPostMortem extends CommonGLPI
     {
         return PdfRenderer::renderHtmlToPdf(TemplateRenderer::getInstance()->render(
             '@grcmanager/pdf/postmortem_report.html.twig',
-            self::collect($incident) + [
+            self::collect($incident, true) + [
                 'report_title'       => sprintf(
                     __('Rapport post-incident : %s', 'grcmanager'),
                     $incident->fields['name']
@@ -204,12 +227,13 @@ class PluginGrcmanagerSecurityIncidentPostMortem extends CommonGLPI
     }
 
     /**
-     * Produit le PDF et l'archive en Document sur l'incident et sur la mesure A.5.27.
+     * Produit le PDF et l'archive en Document sur l'incident seulement : le document se lit avec
+     * les mêmes droits que l'incident. Le lier à la mesure A.5.27 (globale) le rendrait
+     * téléchargeable par tout lecteur de la SoA, de toute entité (Document::canViewFileFromItem()
+     * ignore l'entité du document) ; non récursif pour la même raison.
      */
     public static function archive(PluginGrcmanagerSecurityIncident $incident): int
     {
-        global $DB;
-
         $fileName = sprintf('rapport-post-incident-%d-%s.pdf', $incident->getID(), date('Ymd-His'));
         if (file_put_contents(GLPI_TMP_DIR . '/' . $fileName, self::renderPdf($incident)) === false) {
             return 0;
@@ -219,7 +243,7 @@ class PluginGrcmanagerSecurityIncidentPostMortem extends CommonGLPI
         $documentsId = (int) (new Document())->add([
             'name'          => sprintf(__('Rapport post-incident - %s', 'grcmanager'), $incident->fields['name']),
             'entities_id'   => (int) $incident->fields['entities_id'],
-            'is_recursive'  => 1,
+            'is_recursive'  => 0,
             '_filename'     => [$fileName],
             '_tag_filename' => [$fileName],
         ]);
@@ -227,22 +251,12 @@ class PluginGrcmanagerSecurityIncidentPostMortem extends CommonGLPI
         if ($documentsId <= 0) {
             return 0;
         }
-        $targets = [[PluginGrcmanagerSecurityIncident::class, $incident->getID()]];
-        $control = $DB->request([
-            'SELECT' => ['id'],
-            'FROM'   => PluginGrcmanagerControl::getTable(),
-            'WHERE'  => ['code' => self::CONTROL_CODE],
-        ])->current();
-        if ($control !== null) {
-            $targets[] = [PluginGrcmanagerControl::class, (int) $control['id']];
-        }
-        foreach ($targets as [$itemtype, $itemsId]) {
-            (new Document_Item())->add([
-                'documents_id' => $documentsId,
-                'itemtype'     => $itemtype,
-                'items_id'     => $itemsId,
-            ]);
-        }
+        (new Document_Item())->add([
+            'documents_id' => $documentsId,
+            'itemtype'     => PluginGrcmanagerSecurityIncident::class,
+            'items_id'     => $incident->getID(),
+        ]);
+        PluginGrcmanagerRestrictedDocument::register($documentsId, $incident);
 
         return $documentsId;
     }
@@ -263,7 +277,7 @@ class PluginGrcmanagerSecurityIncidentPostMortem extends CommonGLPI
         }
         TemplateRenderer::getInstance()->display('@grcmanager/postmortem_tab.html.twig', self::collect($item) + [
             'action'   => self::getFormURL(),
-            'can_make' => $item->canViewItem() && Session::haveRight('document', CREATE),
+            'can_make' => $item->canUpdateItem() && Session::haveRight('document', CREATE),
         ]);
 
         return true;

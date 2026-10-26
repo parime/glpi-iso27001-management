@@ -31,6 +31,17 @@ final class CertFrRules
         'alerte' => 'https://www.cert.ssi.gouv.fr/alerte/feed/',
     ];
 
+    /** Hôtes des avis : ancien domaine et domaine actuel (redirection depuis 2026). */
+    public const NOTICE_HOSTS = [
+        'www.cert.ssi.gouv.fr', 'cert.ssi.gouv.fr', 'www.cert.cyber.gouv.fr', 'cert.cyber.gouv.fr',
+    ];
+
+    /** Lien d'avis affichable : https, sur un hôte du CERT-FR (revue de sécurité 2.11.0). */
+    public static function isNoticeLink(string $link): bool
+    {
+        return SafeUrl::isWebUrl($link, true, self::NOTICE_HOSTS);
+    }
+
     /** Mentions juridiques et mots trop génériques retirés d'un nom de fournisseur. */
     private const NOISE_WORDS = [
         'sas', 'sasu', 'sa', 'sarl', 'eurl', 'sca', 'snc', 'inc', 'ltd', 'llc', 'gmbh', 'ag', 'se', 'bv',
@@ -58,7 +69,7 @@ final class CertFrRules
         $items = [];
         foreach ($doc->channel->item as $item) {
             $link = trim((string) $item->link);
-            if (preg_match('/CERTFR-\d{4}-(?:AVI|ALE)-\d+/', $link, $match) !== 1) {
+            if (!self::isNoticeLink($link) || preg_match('/CERTFR-\d{4}-(?:AVI|ALE)-\d+/', $link, $match) !== 1) {
                 continue;
             }
             $timestamp = strtotime((string) $item->pubDate);

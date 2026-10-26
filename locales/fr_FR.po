@@ -5088,3 +5088,34 @@ msgstr "Participant"
 
 msgid "Aucun participant."
 msgstr "Aucun participant."
+
+msgid "Contrôles techniques automatiques"
+msgstr "Contrôles techniques automatiques"
+
+msgid "Preuves"
+msgstr "Preuves"
+
+msgid "Analyse d'impact"
+msgstr "Analyse d'impact"
+
+msgid "Les contrôles techniques automatiques : des vérifications calculées sur les données de GLPI (antivirus, chiffrement des disques, inventaire, validation des changements, comptes), avec un score par référentiel."
+msgstr "Les contrôles techniques automatiques : des vérifications calculées sur les données de GLPI (antivirus, chiffrement des disques, inventaire, validation des changements, comptes), avec un score par référentiel."
+
+#, php-format
+msgid "Écarts relevés par les contrôles techniques automatiques (GRC & Conformité) : %s."
+msgstr "Écarts relevés par les contrôles techniques automatiques (GRC & Conformité) : %s."
+
+#, php-format
+msgid "… et %d autres, visibles dans les contrôles techniques automatiques."
+msgstr "… et %d autres, visibles dans les contrôles techniques automatiques."
+
+msgid "Corrigez chaque élément, puis relancez les contrôles pour vérifier. Rien n'a été modifié automatiquement."
+msgstr "Corrigez chaque élément, puis relancez les contrôles pour vérifier. Rien n'a été modifié automatiquement."
+
+msgid "La bibliothèque des politiques de sécurité, versionnées, avec leur approbation et leur date de revue."
+msgstr "La bibliothèque des politiques de sécurité, versionnées, avec leur approbation et leur date de revue."
+msgid "Participants en retard de renouvellement"
+msgstr "Participants en retard de renouvellement"
+
+msgid "Le PDF est archivé dans les documents de l'incident, lisible par les seules personnes qui voient l'incident."
+msgstr "Le PDF est archivé dans les documents de l'incident, lisible par les seules personnes qui voient l'incident."

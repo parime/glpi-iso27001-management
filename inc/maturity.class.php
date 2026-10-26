@@ -53,6 +53,11 @@ class PluginGrcmanagerMaturity extends CommonGLPI
 
     public static function getMenuContent()
     {
+        // Pas d'entrée de menu vers une page qui refuserait l'accès.
+        if (!Session::haveRight('plugin_grcmanager', READ)) {
+            return false;
+        }
+
         return [
             'title' => self::getTypeName(),
             'page'  => self::getSearchURL(false),

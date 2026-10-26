@@ -127,6 +127,11 @@ final class InventoryCveMatcher
     }
 
     /**
+     * Logiciels installés sur les actifs que l'utilisateur courant peut voir : types d'actifs
+     * qu'il a le droit de lire, dans ses entités actives, hors corbeille et gabarits. Les deux
+     * appelants (onglet CVE d'un incident, plan d'action pré-rempli) nomment ces actifs à
+     * l'écran ou dans une fiche enregistrée (revue de sécurité 2.11.0).
+     *
      * @return list<array{itemtype: string, items_id: int, item_name: string, software_name: string, version: string}>
      */
     private static function installedSoftware(): array
@@ -136,11 +141,21 @@ final class InventoryCveMatcher
         $installed = [];
 
         foreach ($CFG_GLPI['software_types'] ?? [] as $itemtype) {
-            if (!is_string($itemtype) || !class_exists($itemtype)) {
+            if (!is_string($itemtype) || !is_a($itemtype, \CommonDBTM::class, true) || !$itemtype::canView()) {
                 continue;
             }
 
             $itemTable = $itemtype::getTable();
+            $assetCriteria = [];
+            if ($DB->fieldExists($itemTable, 'entities_id')) {
+                $recursive = $DB->fieldExists($itemTable, 'is_recursive');
+                $assetCriteria += getEntitiesRestrictCriteria($itemTable, '', '', $recursive);
+            }
+            foreach (['is_deleted', 'is_template'] as $flag) {
+                if ($DB->fieldExists($itemTable, $flag)) {
+                    $assetCriteria["{$itemTable}.{$flag}"] = 0;
+                }
+            }
 
             $rows = $DB->request([
                 'SELECT'     => [
@@ -167,7 +182,7 @@ final class InventoryCveMatcher
                 'WHERE'      => [
                     'glpi_items_softwareversions.itemtype'   => $itemtype,
                     'glpi_items_softwareversions.is_deleted' => 0,
-                ],
+                ] + $assetCriteria,
             ]);
 
             foreach ($rows as $row) {

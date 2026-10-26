@@ -95,9 +95,10 @@ classification fields merged directly onto it.
 - **Network flow matrix**: pfSense backup import, partner networks conflicting with an internal
   network, PDF report for the auditor.
 - Cyber **maturity score** (0 to 100) with the calculation details and its monthly history.
-- **Technical compliance audit**: ISO 27001, NIS2 and GDPR score from GLPI data (antivirus,
+- **Automated technical checks**: ISO 27001, NIS2 and GDPR score from GLPI data (antivirus,
   encryption, inventory, change validation, accounts) and one remediation ticket per check.
-- Every menu screen explains what it is for and what is expected.
+- Every menu screen explains what it is for and what is expected. Screens that belong to the same
+  task are grouped into sections (one menu entry, shared tabs), in the order of the ISMS cycle.
 
 **Common principle**: the plugin never changes a status, a right or an assignment by itself. It
 creates the ticket or the notification, and the team decides.
