@@ -46,7 +46,8 @@ déjà. Compatible GLPI 11 et 12.
   tendance mensuelle des risques et non-conformités.
 - Formations notées (seuil de réussite, rattrapage) ; audits internes avec constats, documents et
   rapport PDF archivé à la clôture ; rappel avant les événements du calendrier de conformité ;
-  rapport PDF de la matrice des flux.
+  rapport PDF de la matrice des flux ; import d'une sauvegarde pfSense et réseaux partenaires en
+  conflit avec un réseau interne ; rapport PDF de session de formation avec émargement.
 - Audit de conformité technique : score ISO 27001, NIS2 et RGPD calculé sur les données de GLPI
   (antivirus, chiffrement des disques, inventaire, validation des changements, comptes) et ticket
   de mise en conformité par contrôle.
@@ -106,7 +107,8 @@ follow-up over time, without leaving the tool your teams already use. Compatible
   risks and non-conformities.
 - Scored trainings (pass threshold, retake); internal audits with findings, documents and a PDF
   report archived on closure; reminder before compliance calendar events; network flow matrix
-  PDF report.
+  PDF report; pfSense backup import and partner networks conflicting with an internal network;
+  training session PDF report with attendance sheet.
 - Technical compliance audit: ISO 27001, NIS2 and GDPR score computed from GLPI data (antivirus,
   disk encryption, inventory, change validation, accounts) and one remediation ticket per check.
 
