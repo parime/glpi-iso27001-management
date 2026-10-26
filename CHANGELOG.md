@@ -7,7 +7,7 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
-## [2.10.0] - 2026-10-26
+## [2.11.0] - 2026-10-26
 
 ### Added
 
@@ -33,6 +33,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   revue périodique, les raccourcis et avertissements au-dessus des listes, ainsi que les liens
   des listes et les contenus des tickets et suivis générés. Le HTML écrit en PHP passe de 241 à
   46 chaînes, toutes dans les modèles de notifications créés à l'installation.
+
+## [2.10.0] - 2026-10-26
 
 ### Added
 
