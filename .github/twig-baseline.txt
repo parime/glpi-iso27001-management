@@ -1,11 +1,5 @@
 # Chaines HTML ecrites en PHP, par fichier (genere par check-marketplace-readiness.php).
 # Ces nombres ne peuvent que baisser : les nouveaux ecrans s'ecrivent en Twig (templates/).
-front/accessreview.php 4
-front/audit.php 4
-front/complianceevent.php 3
-front/evidence.php 2
-front/nonconformity.php 4
-front/supplierrisk.php 4
 hook.php 1
 inc/assetclassification.class.php 2
 inc/audit.class.php 2

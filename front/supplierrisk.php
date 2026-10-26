@@ -15,6 +15,7 @@
  * -------------------------------------------------------------------------
  */
 
+use Glpi\Application\View\TemplateRenderer;
 use Glpi\Search\Input\QueryBuilder;
 use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
 
@@ -38,10 +39,13 @@ $myRisksURL = PluginGrcmanagerSupplierRisk::getSearchURL() . '?' . http_build_qu
         ['field' => 8, 'searchtype' => 'equals', 'value' => Session::getLoginUserID()],
     ],
 ]);
-echo '<div class="d-flex justify-content-end mb-2">';
-echo '<a href="' . htmlescape($myRisksURL) . '" class="btn btn-outline-secondary btn-sm">';
-echo '<i class="ti ti-user-check me-1"></i>' . __('Mes risques fournisseurs', 'grcmanager');
-echo '</a></div>';
+TemplateRenderer::getInstance()->display('@grcmanager/_list_toolbar.html.twig', [
+    'buttons' => [[
+        'url'   => $myRisksURL,
+        'icon'  => 'ti-user-check',
+        'label' => __('Mes risques fournisseurs', 'grcmanager'),
+    ]],
+]);
 
 // Same URL-driven search fix as front/risk.php (Search::showList() does not merge $_GET on its
 // own, unlike Search::show()), see its own docblock for the full rationale.

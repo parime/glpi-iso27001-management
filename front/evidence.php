@@ -15,6 +15,8 @@
  * -------------------------------------------------------------------------
  */
 
+use Glpi\Application\View\TemplateRenderer;
+
 include('../../../inc/includes.php');
 
 // Issue #145 : liste des preuves datées, de la plus proche de l'expiration à la plus lointaine.
@@ -31,12 +33,11 @@ Html::header(
 // Encadré « À quoi sert cette page ? ».
 PluginGrcmanagerPageHelp::show('evidence');
 
-echo '<div class="alert alert-info d-flex align-items-center"><i class="ti ti-info-circle me-2"></i>'
-    . htmlescape(__(
-        'Une date de validité se saisit depuis l\'onglet « Validités des preuves » d\'une mesure, d\'un '
-            . 'risque fournisseur, d\'un audit ou d\'une politique, pour chaque document rattaché.',
-        'grcmanager'
-    )) . '</div>';
+TemplateRenderer::getInstance()->display('@grcmanager/_list_toolbar.html.twig', ['notice' => __(
+    'Une date de validité se saisit depuis l\'onglet « Validités des preuves » d\'une mesure, d\'un '
+        . 'risque fournisseur, d\'un audit ou d\'une politique, pour chaque document rattaché.',
+    'grcmanager'
+)]);
 
 if (!isset($_GET['sort'])) {
     $_GET['sort'] = 4;

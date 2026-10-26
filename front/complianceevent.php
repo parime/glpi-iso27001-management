@@ -15,6 +15,7 @@
  * -------------------------------------------------------------------------
  */
 
+use Glpi\Application\View\TemplateRenderer;
 use Glpi\Search\Input\QueryBuilder;
 use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
 
@@ -33,9 +34,13 @@ Html::header(
 PluginGrcmanagerPageHelp::show('complianceevent');
 
 $calendarUrl = PluginGrcmanagerComplianceEvent::getCalendarURL();
-echo '<div class="d-flex justify-content-end mb-2"><a href="' . htmlescape($calendarUrl) . '"'
-    . ' class="btn btn-outline-secondary btn-sm"><i class="ti ti-calendar me-1"></i>'
-    . htmlescape(__('Calendrier de conformité', 'grcmanager')) . '</a></div>';
+TemplateRenderer::getInstance()->display('@grcmanager/_list_toolbar.html.twig', [
+    'buttons' => [[
+        'url'   => $calendarUrl,
+        'icon'  => 'ti-calendar',
+        'label' => __('Calendrier de conformité', 'grcmanager'),
+    ]],
+]);
 
 $params = QueryBuilder::manageParams(PluginGrcmanagerComplianceEvent::class, $_GET);
 
