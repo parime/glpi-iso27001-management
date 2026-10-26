@@ -753,26 +753,17 @@ class PluginGrcmanagerRisk extends RiskBase
      */
     public static function displayTabContentForItem(CommonGLPI $item, $tabnum = 1, $withtemplate = 0)
     {
-        $risks = self::getRisksLinkedToItem($item->getType(), (int) $item->getID());
-
-        if ($risks === []) {
-            echo '<p class="p-2 text-muted">' . __('Aucun risque lié à cet actif.', 'grcmanager') . '</p>';
-            return true;
+        $rows = [];
+        foreach (self::getRisksLinkedToItem($item->getType(), (int) $item->getID()) as $risk) {
+            $rows[] = [
+                'url'        => self::getFormURLWithID($risk['id']),
+                'title'      => $risk['title'],
+                // Badge déjà échappé, rendu par Services\Ui\Badge.
+                'level_html' => self::riskLevelBadge($risk['risk_level']),
+            ];
         }
-
-        $riskItem = new self();
-
-        echo '<table class="table table-striped">';
-        echo '<thead><tr><th>' . __('Titre', 'grcmanager') . '</th>'
-            . '<th>' . __('Niveau de risque', 'grcmanager') . '</th></tr></thead><tbody>';
-
-        foreach ($risks as $risk) {
-            echo '<tr><td><a href="' . htmlescape($riskItem->getFormURLWithID($risk['id'])) . '">'
-                . htmlescape($risk['title']) . '</a></td>';
-            echo '<td>' . self::riskLevelBadge($risk['risk_level']) . '</td></tr>';
-        }
-
-        echo '</tbody></table>';
+        // Issue #199 : onglet passé de PHP à Twig.
+        TemplateRenderer::getInstance()->display('@grcmanager/risk_asset_tab.html.twig', ['risks' => $rows]);
 
         return true;
     }

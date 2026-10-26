@@ -283,23 +283,18 @@ class PluginGrcmanagerPeriodicReview extends PeriodicReviewBase
                 . 'sa date sert de preuve de revue.',
             'grcmanager'
         );
-        $html = '<p>' . htmlescape(sprintf($intro, self::getLabel($key))) . '</p>';
-        $items = self::getChecklist($key);
-        if ($items !== []) {
-            $html .= '<ul><li>' . implode('</li><li>', array_map('htmlescape', $items)) . '</li></ul>';
-        }
         $controls = PeriodicReviewCatalog::controls($key);
-        if ($controls !== []) {
-            $requirements = sprintf(__('Exigences concernées : %s', 'grcmanager'), implode(', ', $controls));
-            $html .= '<p>' . htmlescape($requirements) . '</p>';
-        }
         $path = self::getScreenPath($key);
-        if ($path !== null) {
-            $url = rtrim((string) ($CFG_GLPI['url_base'] ?? ''), '/') . $path;
-            $html .= '<p><a href="' . htmlescape($url) . '">' . htmlescape($url) . '</a></p>';
-        }
 
-        return $html;
+        // Issue #199 : contenu du ticket rendu par Twig.
+        return TemplateRenderer::getInstance()->render('@grcmanager/ticket/periodic_review.html.twig', [
+            'intro'        => sprintf($intro, self::getLabel($key)),
+            'items'        => self::getChecklist($key),
+            'requirements' => $controls !== []
+                ? sprintf(__('Exigences concernées : %s', 'grcmanager'), implode(', ', $controls))
+                : '',
+            'url'          => $path !== null ? rtrim((string) ($CFG_GLPI['url_base'] ?? ''), '/') . $path : '',
+        ]);
     }
 
     /**

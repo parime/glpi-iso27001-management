@@ -652,24 +652,14 @@ class PluginGrcmanagerAccessReview extends AccessReviewBase
         $title = $decision === AccessReviewLogic::DECISION_REMOVE
             ? __('Revue des accès : retirer les accès de %s', 'grcmanager')
             : __('Revue des accès : modifier les accès de %s', 'grcmanager');
-        $list = static fn (array $items): string => $items === []
-            ? '—'
-            : '<ul><li>' . implode('</li><li>', array_map('htmlescape', $items)) . '</li></ul>';
-        $content = '<p>' . htmlescape(sprintf(
-            __('Demande issue de la campagne « %1$s », par %2$s.', 'grcmanager'),
-            (string) $campaign->fields['name'],
-            getUserName($actorId)
-        )) . '</p>'
-            . '<p><strong>' . htmlescape(__('Demande', 'grcmanager')) . '</strong> : '
-            . nl2br(htmlescape($comment)) . '</p>'
-            . '<p><strong>' . htmlescape(__('Profils au lancement', 'grcmanager')) . '</strong></p>'
-            . $list($line['profiles_list'])
-            . '<p><strong>' . htmlescape(__('Groupes au lancement', 'grcmanager')) . '</strong></p>'
-            . $list($line['groups_list'])
-            . '<p>' . htmlescape(__(
-                'Le plugin GRC ne modifie aucun droit : appliquez la demande puis résolvez ce ticket.',
-                'grcmanager'
-            )) . '</p>';
+        // Issue #199 : contenu du ticket rendu par Twig.
+        $content = TemplateRenderer::getInstance()->render('@grcmanager/ticket/access_review_request.html.twig', [
+            'campaign' => (string) $campaign->fields['name'],
+            'actor'    => getUserName($actorId),
+            'comment'  => $comment,
+            'profiles' => $line['profiles_list'],
+            'groups'   => $line['groups_list'],
+        ]);
 
         $ticket = new Ticket();
 

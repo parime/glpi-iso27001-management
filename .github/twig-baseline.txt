@@ -7,7 +7,6 @@ front/evidence.php 2
 front/nonconformity.php 4
 front/supplierrisk.php 4
 hook.php 1
-inc/accessreview.class.php 14
 inc/assetclassification.class.php 2
 inc/audit.class.php 2
 inc/complianceevent.class.php 3
@@ -16,8 +15,6 @@ inc/control.class.php 6
 inc/evidence.class.php 5
 inc/ismsrequirement.class.php 6
 inc/nonconformity.class.php 2
-inc/periodicreview.class.php 9
-inc/risk.class.php 12
 inc/securityincident.class.php 7
 inc/securityincidentticket.class.php 3
 inc/supplierrisk.class.php 4
