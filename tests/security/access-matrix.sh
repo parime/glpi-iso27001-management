@@ -129,6 +129,7 @@ if [ "$ROLE" = none ]; then
            "accessreview.form.php?id=$(id campaign_A)" "supplierrisk.form.php?id=$(id supplierrisk)"; do
     expect "front/$p : sans droit" 403 "$(code "$P/$p")"
   done
+  expect "front/training.report.php : sans droit" 403 "$(code "$P/training.report.php?id=$(id training)")"
   # Page des responsables de revue : ouverte a toute session, ne montre que leurs propres lignes.
   contains "front/accessreview.mine.php : aucune campagne d'autrui" "Campagne securite" non "$(curl -s -c "$JAR" -b "$JAR" "$P/accessreview.mine.php")"
   # Issue #168 : la salle de crise refuse avant meme de chercher l'exercice.
@@ -144,6 +145,7 @@ if [ "$ROLE" = reader ]; then
            "accessreview.form.php?id=$(id campaign_A)" "supplierrisk.form.php?id=$(id supplierrisk)"; do
     expect "front/$p : en lecture" 200 "$(code "$P/$p")"
   done
+  expect "front/training.report.php : en lecture" 200 "$(code "$P/training.report.php?id=$(id training)")"
   expect "s'assigner un incident en lecture seule" 403 \
     "$(code -d "addme_assign=1&plugin_grcmanager_securityincidents_id=$(id incident_A)&_glpi_csrf_token=$(csrf)" "$P/securityincident.form.php")"
   create_attempts 403 403

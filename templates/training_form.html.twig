@@ -49,6 +49,7 @@
                {{ __('Taux de réussite de la session : %1$s sur %2$s (%3$s %%)', 'grcmanager')|format(session_rate.passed, session_rate.assessed, session_rate.rate) }}
             </span>
          {% endif %}
+         <a href="{{ report_url }}" class="btn btn-outline-secondary btn-sm"><i class="ti ti-file-type-pdf me-1"></i>{{ __('Rapport PDF de la session', 'grcmanager') }}</a>
          {% if retake_count > 0 %}
             <a href="{{ retake_url }}" class="btn btn-outline-primary btn-sm">
                <i class="ti ti-repeat me-1"></i>{{ _n('Préparer une session de rattrapage (%s participant)', 'Préparer une session de rattrapage (%s participants)', retake_count, 'grcmanager')|format(retake_count) }}
