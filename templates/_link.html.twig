@@ -1,0 +1,3 @@
+{# Issue #199 : lien vers une fiche, avec un code en gras optionnel (« A.5.1 - Politiques ») ; sans URL, le libellé seul. #}
+{% set text %}{% if code is defined and code is not empty %}<strong>{{ code }}</strong> - {% endif %}{{ label }}{% endset %}
+{% if url %}<a href="{{ url }}">{{ text }}</a>{% else %}{{ text }}{% endif %}

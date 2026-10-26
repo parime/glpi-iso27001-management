@@ -19,6 +19,7 @@ use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\SupplierRiskBase;
 use GlpiPlugin\Grcmanager\Services\Risk\ReviewReminderService;
 use GlpiPlugin\Grcmanager\Traits\RiskAssessmentTrait;
+use GlpiPlugin\Grcmanager\Services\Ui\Fragment;
 
 /**
  * Supplier/third-party risk register (ISO 27001 clause 6.1.2/8.2 applied specifically to
@@ -370,16 +371,22 @@ class PluginGrcmanagerSupplierRisk extends SupplierRiskBase
             $supplier = Dropdown::getDropdownName(Supplier::getTable(), (int) $row['suppliers_id']);
             $input = [
                 'name'        => sprintf(__('Réévaluer le fournisseur %s', 'grcmanager'), $supplier),
-                'content'     => '<p>' . htmlescape(sprintf(
-                    __('La revue du risque fournisseur « %1$s » était prévue le %2$s.', 'grcmanager'),
-                    (string) $row['title'],
-                    Html::convDate((string) $row['review_date'])
-                )) . '</p><p>' . htmlescape(__(
-                    'Mettez à jour le questionnaire de sécurité, vérifiez les contrats et les preuves, '
-                        . 'puis la date de la prochaine revue.',
-                    'grcmanager'
-                )) . '</p><p><a href="' . htmlescape(self::getFormURLWithID((int) $row['id'])) . '">'
-                    . htmlescape(__('Ouvrir le risque fournisseur', 'grcmanager')) . '</a></p>',
+                'content'     => Fragment::ticketContent(
+                    [
+                        sprintf(
+                            __('La revue du risque fournisseur « %1$s » était prévue le %2$s.', 'grcmanager'),
+                            (string) $row['title'],
+                            Html::convDate((string) $row['review_date'])
+                        ),
+                        __(
+                            'Mettez à jour le questionnaire de sécurité, vérifiez les contrats et les preuves, '
+                                . 'puis la date de la prochaine revue.',
+                            'grcmanager'
+                        ),
+                    ],
+                    self::getFormURLWithID((int) $row['id']),
+                    __('Ouvrir le risque fournisseur', 'grcmanager')
+                ),
                 'type'        => Ticket::DEMAND_TYPE,
                 'entities_id' => 0,
             ];
