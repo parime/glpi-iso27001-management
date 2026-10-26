@@ -31,7 +31,7 @@ if (isset($_POST['import'])) {
     $uploaded = is_array($file) && ($file['error'] ?? UPLOAD_ERR_NO_FILE) === UPLOAD_ERR_OK
         && is_uploaded_file((string) $file['tmp_name']) && (int) $file['size'] <= 2 * 1024 * 1024;
     if (!$uploaded) {
-        $message = __('Choisissez un fichier CSV de 2 Mo au plus.', 'grcmanager');
+        $message = __('Choisissez un fichier CSV ou une sauvegarde pfSense (XML) de 2 Mo au plus.', 'grcmanager');
         Session::addMessageAfterRedirect(htmlescape($message), false, ERROR);
         Html::redirect(PluginGrcmanagerNetworkFlow::getImportURL());
     }

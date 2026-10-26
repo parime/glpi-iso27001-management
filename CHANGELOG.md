@@ -11,6 +11,13 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Matrice des flux : import d'une sauvegarde pfSense** (issue #144) : l'écran d'import accepte
+  aussi le fichier config.xml d'un pare-feu pfSense. Les règles actives qui autorisent un flux
+  deviennent des flux (alias d'hôtes, de réseaux et de ports résolus, type déduit de l'interface),
+  après simulation et sans doublon. Justification et propriétaire restent à renseigner.
+
+### Added
+
 - **Menu GRC & Conformité > Tableau de bord** (issue #247) : première entrée du menu, comme
   Parc > Tableau de bord et Assistance > Tableau de bord. Elle affiche le tableau de bord
   « GRC Manager - Vue d'ensemble ISMS » avec les outils natifs de GLPI (choix du tableau de bord,
