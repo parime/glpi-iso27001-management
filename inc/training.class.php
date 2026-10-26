@@ -564,7 +564,9 @@ class PluginGrcmanagerTraining extends TrainingBase
                 'name'         => getUserName($p['users_id']),
                 'status_label' => $statuses[$p['completion_status']] ?? $p['completion_status'],
                 'date_label'   => $p['completion_date'] !== null ? Html::convDate($p['completion_date']) : '',
-                'score_label'  => $p['score'] !== null && $maxScore > 0 ? TrainingScore::format($p['score'], $maxScore) : '',
+                'score_label'  => $p['score'] !== null && $maxScore > 0
+                    ? TrainingScore::format($p['score'], $maxScore)
+                    : '',
                 'result_label' => $p['assessment_result'] === 'failed'
                     ? __('À repasser', 'grcmanager')
                     : ($results[$p['assessment_result']] ?? ''),
@@ -577,7 +579,10 @@ class PluginGrcmanagerTraining extends TrainingBase
             'training'           => $training->fields,
             'format'             => self::getFormats()[$training->fields['format']] ?? '',
             'date_delivered'     => Html::convDate($training->fields['date_delivered']),
-            'is_scored'          => TrainingScore::isScored($maxScore, (int) ($training->fields['pass_threshold'] ?? 0)),
+            'is_scored'          => TrainingScore::isScored(
+                $maxScore,
+                (int) ($training->fields['pass_threshold'] ?? 0)
+            ),
             'participants'       => $rows,
             'session_rate'       => TrainingScore::sessionRate(array_column($participants, 'assessment_result')),
         ]);
