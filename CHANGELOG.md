@@ -7,6 +7,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.12.0] - 2026-10-26
+
 ### Changed
 
 - **Menu GRC & Conformité réorganisé** : 22 entrées au lieu de 28, dans l'ordre du cycle du SMSI

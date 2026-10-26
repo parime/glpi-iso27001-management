@@ -102,7 +102,9 @@ archivé), avec ses champs de classification ISO 27001 fusionnés dessus.
 - **Contrôles techniques automatiques** : score ISO 27001, NIS2 et RGPD à partir des données de GLPI
   (antivirus, chiffrement, inventaire, validation des changements, comptes) et ticket de mise en
   conformité par contrôle.
-- Chaque écran du menu explique à quoi il sert et ce qui est attendu.
+- Chaque écran du menu explique à quoi il sert et ce qui est attendu. Les écrans d'un même travail
+  sont regroupés en rubriques (une entrée de menu, une barre d'onglets commune), dans l'ordre du
+  cycle du SMSI.
 
 **Principe commun** : le plugin ne modifie jamais lui-même un statut, un droit ni une
 affectation. Il crée le ticket ou la notification, et l'équipe décide.
