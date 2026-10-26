@@ -104,7 +104,8 @@ final class NetworkFlowRulesTest extends TestCase
 
         $flow['flow_type'] = 'internal';
         self::assertSame([], NetworkFlowRules::partnerOverlaps($flow, $internal), 'Seuls les tunnels partenaires.');
-        self::assertNotContains(NetworkFlowRules::CHECK_PARTNER_OVERLAP, NetworkFlowRules::checks($flow, '2026-10-26', []));
+        $checks = NetworkFlowRules::checks($flow, '2026-10-26', []);
+        self::assertNotContains(NetworkFlowRules::CHECK_PARTNER_OVERLAP, $checks);
     }
 
     public function testExtractNetworksIgnoresInvalidAddresses(): void
