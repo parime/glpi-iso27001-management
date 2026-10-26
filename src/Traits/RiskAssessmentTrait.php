@@ -7,6 +7,7 @@ namespace GlpiPlugin\Grcmanager\Traits;
 use Dropdown;
 use GlpiPlugin\Grcmanager\Services\Risk\RiskMatrixConfig;
 use GlpiPlugin\Grcmanager\Services\Risk\RiskScoringService;
+use GlpiPlugin\Grcmanager\Services\Ui\Badge;
 
 /**
  * Shared probability x impact risk-assessment fields (category/probability/impact/risk_level/
@@ -195,7 +196,7 @@ trait RiskAssessmentTrait
             return '';
         }
 
-        return '<span class="badge ' . $class . '">' . htmlescape($label) . '</span>';
+        return Badge::html($class, null, $label);
     }
 
     /**
@@ -211,11 +212,9 @@ trait RiskAssessmentTrait
         ];
 
         [$class, $label] = $levels[$value] ?? ['bg-secondary-lt', (string) $value];
-        $icon = in_array($value, ['high', 'critical'], true)
-            ? '<i class="ti ti-alert-triangle me-1"></i>'
-            : '';
+        $icon = in_array($value, ['high', 'critical'], true) ? 'ti-alert-triangle' : null;
 
-        return '<span class="badge ' . $class . '">' . $icon . htmlescape($label) . '</span>';
+        return Badge::html($class, $icon, $label);
     }
 
     private static function statusBadge(?string $value): string
@@ -229,7 +228,6 @@ trait RiskAssessmentTrait
 
         [$class, $icon, $label] = $map[$value] ?? ['bg-secondary-lt', 'ti-help', (string) $value];
 
-        return '<span class="badge ' . $class . '"><i class="ti ' . $icon . ' me-1"></i>'
-            . htmlescape($label) . '</span>';
+        return Badge::html($class, $icon, $label);
     }
 }

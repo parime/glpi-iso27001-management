@@ -18,6 +18,7 @@
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\ComplianceEventBase;
 use GlpiPlugin\Grcmanager\Services\Calendar\ComplianceCalendarRules;
+use GlpiPlugin\Grcmanager\Services\Ui\Fragment;
 
 /**
  * Issue #142 : calendrier de conformité. Deux choses à la fois :
@@ -624,8 +625,7 @@ class PluginGrcmanagerComplianceEvent extends ComplianceEventBase
      */
     public static function displayPlanningItem(array $val, $who, $type = '', $complete = false): string
     {
-        return '<a href="' . htmlescape((string) ($val['url'] ?? '')) . '"><i class="ti ti-shield-check me-1"></i>'
-            . htmlescape((string) ($val['name'] ?? '')) . '</a>';
+        return Fragment::link((string) ($val['url'] ?? ''), (string) ($val['name'] ?? ''), '', 'ti-shield-check');
     }
 
     /**

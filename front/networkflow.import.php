@@ -31,7 +31,7 @@ if (isset($_POST['import'])) {
     $uploaded = is_array($file) && ($file['error'] ?? UPLOAD_ERR_NO_FILE) === UPLOAD_ERR_OK
         && is_uploaded_file((string) $file['tmp_name']) && (int) $file['size'] <= 2 * 1024 * 1024;
     if (!$uploaded) {
-        $message = __('Choisissez un fichier CSV de 2 Mo au plus.', 'grcmanager');
+        $message = __('Choisissez un fichier CSV ou une sauvegarde pfSense (XML) de 2 Mo au plus.', 'grcmanager');
         Session::addMessageAfterRedirect(htmlescape($message), false, ERROR);
         Html::redirect(PluginGrcmanagerNetworkFlow::getImportURL());
     }
@@ -47,7 +47,11 @@ $rows = [];
 $today = date('Y-m-d');
 foreach ($result['rows'] ?? [] as $row) {
     // Propriétaire non encore résolu en simulation : seul le fait qu'il soit renseigné compte.
-    $checks = NetworkFlowRules::checks($row + ['users_id' => $row['owner'] !== '' ? 1 : 0], $today);
+    $checks = NetworkFlowRules::checks(
+        $row + ['users_id' => $row['owner'] !== '' ? 1 : 0],
+        $today,
+        PluginGrcmanagerNetworkFlow::internalNetworks()
+    );
     if ($row['status'] === 'skipped') {
         $state = ['bg-secondary-lt', __('Déjà présent', 'grcmanager')];
     } else {

@@ -7,6 +7,33 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.11.0] - 2026-10-26
+
+### Added
+
+- **Matrice des flux : import d'une sauvegarde pfSense** (issue #144) : l'écran d'import accepte
+  aussi le fichier config.xml d'un pare-feu pfSense. Les règles actives qui autorisent un flux
+  deviennent des flux (alias d'hôtes, de réseaux et de ports résolus, type déduit de l'interface),
+  après simulation et sans doublon. Justification et propriétaire restent à renseigner.
+- **Matrice des flux : réseau partenaire en conflit** (issue #144) : un tunnel vers un partenaire
+  dont l'adresse ou la plage (ex. « 10.10.20.0/24 » dans la source ou la destination) chevauche un
+  réseau IP déclaré dans GLPI est signalé comme écart bloquant : les deux côtés ne pourraient pas
+  se joindre sans traduction d'adresses (NAT).
+- **Formations : rapport PDF de session** (issue #139) : bouton « Rapport PDF de la session » sur
+  la fiche d'une formation. Le rapport reprend la session (format, date, public, seuil), la feuille
+  d'émargement avec une colonne de signature, la note et le résultat de chaque participant, et le
+  taux de réussite.
+
+### Changed
+
+- **Écrans en Twig** (issue #199) : les badges de la matrice des flux (type, écarts, actif lié) sont
+  rendus par un gabarit Twig, ainsi que tous les badges de statut, de niveau et de type des listes
+  et fiches (risques, mesures, non-conformités, audits, politiques, formations, incidents…), via un
+  gabarit commun, l'onglet « Risques » des actifs et le contenu des tickets de revue des accès et de
+  revue périodique, les raccourcis et avertissements au-dessus des listes, ainsi que les liens
+  des listes et les contenus des tickets et suivis générés. Le HTML écrit en PHP passe de 241 à
+  46 chaînes, toutes dans les modèles de notifications créés à l'installation.
+
 ## [2.10.0] - 2026-10-26
 
 ### Added

@@ -15,6 +15,7 @@
  * -------------------------------------------------------------------------
  */
 
+use Glpi\Application\View\TemplateRenderer;
 use Glpi\Search\Input\QueryBuilder;
 use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
 
@@ -31,11 +32,13 @@ Html::header(
 // Encadré « À quoi sert cette page ? ».
 PluginGrcmanagerPageHelp::show('accessreview');
 
-echo '<div class="d-flex justify-content-end mb-2">';
-echo '<a href="' . htmlescape(PluginGrcmanagerAccessReview::getMineURL())
-    . '" class="btn btn-outline-secondary btn-sm">';
-echo '<i class="ti ti-list-check me-1"></i>' . __('Mes revues d\'accès', 'grcmanager');
-echo '</a></div>';
+TemplateRenderer::getInstance()->display('@grcmanager/_list_toolbar.html.twig', [
+    'buttons' => [[
+        'url'   => PluginGrcmanagerAccessReview::getMineURL(),
+        'icon'  => 'ti-list-check',
+        'label' => __('Mes revues d\'accès', 'grcmanager'),
+    ]],
+]);
 
 $params = QueryBuilder::manageParams(PluginGrcmanagerAccessReview::class, $_GET);
 

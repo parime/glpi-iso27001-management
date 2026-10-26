@@ -17,6 +17,7 @@
 
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\AuditBase;
+use GlpiPlugin\Grcmanager\Services\Ui\Badge;
 
 /**
  * Internal audit program (ISO 27001 clause 9.2): one row per planned/performed internal audit.
@@ -274,8 +275,7 @@ class PluginGrcmanagerAudit extends AuditBase
 
         [$class, $icon, $label] = $map[$value] ?? ['bg-secondary-lt', 'ti-help', (string) $value];
 
-        return '<span class="badge ' . $class . '"><i class="ti ' . $icon . ' me-1"></i>'
-            . htmlescape($label) . '</span>';
+        return Badge::html($class, $icon, $label);
     }
 
     private static function riskCategoriesBadges(string $csv): string
@@ -291,7 +291,7 @@ class PluginGrcmanagerAudit extends AuditBase
 
         foreach ($categories as $category) {
             $label    = $labels[$category] ?? $category;
-            $badges[] = '<span class="badge bg-azure-lt">' . htmlescape($label) . '</span>';
+            $badges[] = Badge::html('bg-azure-lt', null, $label);
         }
 
         return implode(' ', $badges);

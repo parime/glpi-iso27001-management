@@ -18,6 +18,8 @@
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\IsmsRequirementBase;
 use GlpiPlugin\Grcmanager\Services\Clause\IsmsClauseCatalog;
+use GlpiPlugin\Grcmanager\Services\Ui\Badge;
+use GlpiPlugin\Grcmanager\Services\Ui\Fragment;
 
 /**
  * Issue #113 : suivi des exigences du système de management (ISO/IEC 27001:2022, articles 4 à
@@ -143,8 +145,7 @@ class PluginGrcmanagerIsmsRequirement extends IsmsRequirementBase
         [$class, $icon] = $map[$value] ?? ['bg-secondary-lt', 'ti-help'];
         $label = self::getStatuses()[$value] ?? (string) $value;
 
-        return '<span class="badge ' . $class . '"><i class="ti ' . $icon . ' me-1"></i>'
-            . htmlescape($label) . '</span>';
+        return Badge::html($class, $icon, $label);
     }
 
     /**
@@ -299,20 +300,16 @@ class PluginGrcmanagerIsmsRequirement extends IsmsRequirementBase
                 if ($code === '') {
                     return '';
                 }
-                $label = '<strong>' . htmlescape($code) . '</strong> - ' . htmlescape(self::getClauseTitle($code));
-                $id    = (int) ($values['id'] ?? 0);
+                $id = (int) ($values['id'] ?? 0);
 
-                return $id > 0
-                    ? '<a href="' . htmlescape(self::getFormURLWithID($id)) . '">' . $label . '</a>'
-                    : $label;
+                return Fragment::link($id > 0 ? self::getFormURLWithID($id) : '', self::getClauseTitle($code), $code);
 
             case 'clause':
                 $clause = (string) ($values[$field] ?? '');
 
                 return $clause === ''
                     ? ''
-                    : '<span class="badge bg-azure-lt">' . htmlescape($clause . ' ' . self::getClauseTitle($clause))
-                        . '</span>';
+                    : Badge::html('bg-azure-lt', null, $clause . ' ' . self::getClauseTitle($clause));
 
             case 'status':
                 return self::statusBadge($values[$field] ?? null);

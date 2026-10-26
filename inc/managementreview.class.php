@@ -17,6 +17,7 @@
 
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\ManagementReviewBase;
+use GlpiPlugin\Grcmanager\Services\Ui\Badge;
 
 /**
  * Management review record (ISO 27001 clause 9.3): evidence that top management periodically
@@ -376,8 +377,7 @@ class PluginGrcmanagerManagementReview extends ManagementReviewBase
 
         [$class, $icon, $label] = $map[$value] ?? ['bg-secondary-lt', 'ti-help', (string) $value];
 
-        return '<span class="badge ' . $class . '"><i class="ti ' . $icon . ' me-1"></i>'
-            . htmlescape($label) . '</span>';
+        return Badge::html($class, $icon, $label);
     }
 
     public function showForm($ID, array $options = []): bool

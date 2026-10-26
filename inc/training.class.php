@@ -20,6 +20,7 @@ use Glpi\DBAL\QueryExpression;
 use GlpiPlugin\Grcmanager\Compatibility\Base\TrainingBase;
 use GlpiPlugin\Grcmanager\Services\Training\TrainingRenewalService;
 use GlpiPlugin\Grcmanager\Services\Training\TrainingScore;
+use GlpiPlugin\Grcmanager\Services\Ui\Badge;
 
 /**
  * Security awareness training tracking (ISO 27001 clauses 7.2 "competence" and 7.3 "awareness"):
@@ -496,8 +497,7 @@ class PluginGrcmanagerTraining extends TrainingBase
 
         [$class, $icon, $label] = $map[$value] ?? ['bg-secondary-lt', 'ti-help', (string) $value];
 
-        return '<span class="badge ' . $class . '"><i class="ti ' . $icon . ' me-1"></i>'
-            . htmlescape($label) . '</span>';
+        return Badge::html($class, $icon, $label);
     }
 
     public static function completionStatusBadge(?string $value): string
@@ -510,8 +510,7 @@ class PluginGrcmanagerTraining extends TrainingBase
 
         [$class, $icon, $label] = $map[$value] ?? ['bg-secondary-lt', 'ti-help', (string) $value];
 
-        return '<span class="badge ' . $class . '"><i class="ti ' . $icon . ' me-1"></i>'
-            . htmlescape($label) . '</span>';
+        return Badge::html($class, $icon, $label);
     }
 
     /**
@@ -539,6 +538,53 @@ class PluginGrcmanagerTraining extends TrainingBase
         }
 
         return $ids;
+    }
+
+    public static function getReportURL(int $id): string
+    {
+        global $CFG_GLPI;
+
+        return $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/training.report.php?id=' . $id;
+    }
+
+    /**
+     * Issue #139, phase 2 : rapport PDF d'une session (émargement avec une colonne de signature,
+     * notes, résultats et taux de réussite).
+     */
+    public static function renderSessionReport(self $training): string
+    {
+        $maxScore = (int) ($training->fields['max_score'] ?? 0);
+        $statuses = self::getCompletionStatuses();
+        $results = self::getAssessmentResults();
+        $participants = self::getParticipants($training->getID());
+        $rows = [];
+        foreach ($participants as $p) {
+            $rows[] = [
+                'name'         => getUserName($p['users_id']),
+                'status_label' => $statuses[$p['completion_status']] ?? $p['completion_status'],
+                'date_label'   => $p['completion_date'] !== null ? Html::convDate($p['completion_date']) : '',
+                'score_label'  => $p['score'] !== null && $maxScore > 0
+                    ? TrainingScore::format($p['score'], $maxScore)
+                    : '',
+                'result_label' => $p['assessment_result'] === 'failed'
+                    ? __('À repasser', 'grcmanager')
+                    : ($results[$p['assessment_result']] ?? ''),
+            ];
+        }
+
+        return TemplateRenderer::getInstance()->render('@grcmanager/pdf/training_session_report.html.twig', [
+            'report_title'       => sprintf(__('Session de formation : %s', 'grcmanager'), $training->fields['title']),
+            'generated_at_label' => sprintf(__('Généré le %s', 'grcmanager'), Html::convDateTime(date('Y-m-d H:i:s'))),
+            'training'           => $training->fields,
+            'format'             => self::getFormats()[$training->fields['format']] ?? '',
+            'date_delivered'     => Html::convDate($training->fields['date_delivered']),
+            'is_scored'          => TrainingScore::isScored(
+                $maxScore,
+                (int) ($training->fields['pass_threshold'] ?? 0)
+            ),
+            'participants'       => $rows,
+            'session_rate'       => TrainingScore::sessionRate(array_column($participants, 'assessment_result')),
+        ]);
     }
 
     public function showForm($ID, array $options = []): bool
@@ -587,6 +633,7 @@ class PluginGrcmanagerTraining extends TrainingBase
             'retake_count'        => count(self::getRetakeParticipantIds((int) $ID)),
             'retake_url'          => self::getFormURL() . '?retake_of=' . (int) $ID,
             'is_retake'           => $retakeOf > 0,
+            'report_url'          => self::getReportURL((int) $ID),
         ]);
 
         return true;

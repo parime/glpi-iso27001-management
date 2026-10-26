@@ -18,6 +18,7 @@
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\NetworkFlowBase;
 use GlpiPlugin\Grcmanager\Services\Network\NetworkFlowCsv;
+use GlpiPlugin\Grcmanager\Services\Network\NetworkFlowPfsense;
 use GlpiPlugin\Grcmanager\Services\Network\NetworkFlowRules;
 
 /**
@@ -102,6 +103,10 @@ class PluginGrcmanagerNetworkFlow extends NetworkFlowBase
             NetworkFlowRules::CHECK_EXPIRING          => __('Expire bientôt', 'grcmanager'),
             NetworkFlowRules::CHECK_ADMIN_EXPOSED     => __('Administration exposée sur Internet', 'grcmanager'),
             NetworkFlowRules::CHECK_ANY_PORT_INTERNET => __('Tous les ports ouverts depuis Internet', 'grcmanager'),
+            NetworkFlowRules::CHECK_PARTNER_OVERLAP   => __(
+                'Réseau partenaire en conflit avec un réseau interne',
+                'grcmanager'
+            ),
             default                                   => $check,
         };
     }
@@ -282,7 +287,7 @@ class PluginGrcmanagerNetworkFlow extends NetworkFlowBase
                 );
             case 'id':
                 if (array_key_exists('flow_type', $values)) {
-                    return self::checksHtml(NetworkFlowRules::checks($values, date('Y-m-d')));
+                    return self::checksHtml(NetworkFlowRules::checks($values, date('Y-m-d'), self::internalNetworks()));
                 }
                 break;
         }
@@ -320,8 +325,17 @@ class PluginGrcmanagerNetworkFlow extends NetworkFlowBase
         [$class, $icon] = $map[$type] ?? $map['other'];
         $label = self::getTypes()[$type] ?? $type;
 
-        return '<span class="badge ' . $class . '"><i class="ti ' . $icon . ' me-1"></i>'
-            . htmlescape($label) . '</span>';
+        return self::renderBadges(['kind' => 'type', 'class' => $class, 'icon' => $icon, 'label' => $label]);
+    }
+
+    /**
+     * Issue #199 : badges rendus par templates/_network_flow_badges.html.twig.
+     *
+     * @param array<string, mixed> $vars
+     */
+    private static function renderBadges(array $vars): string
+    {
+        return trim(TemplateRenderer::getInstance()->render('@grcmanager/_network_flow_badges.html.twig', $vars));
     }
 
     /**
@@ -329,18 +343,12 @@ class PluginGrcmanagerNetworkFlow extends NetworkFlowBase
      */
     public static function checksHtml(array $checks): string
     {
-        if ($checks === []) {
-            return '<span class="badge bg-green-lt"><i class="ti ti-circle-check me-1"></i>'
-                . htmlescape(__('Conforme', 'grcmanager')) . '</span>';
-        }
-        $html = '';
+        $items = [];
         foreach ($checks as $check) {
-            $class = NetworkFlowRules::isBlocking($check) ? 'bg-red-lt' : 'bg-yellow-lt';
-            $html .= '<span class="badge ' . $class . ' me-1"><i class="ti ti-alert-triangle me-1"></i>'
-                . htmlescape(self::getCheckLabel($check)) . '</span>';
+            $items[] = ['label' => self::getCheckLabel($check), 'blocking' => NetworkFlowRules::isBlocking($check)];
         }
 
-        return $html;
+        return self::renderBadges(['kind' => 'checks', 'checks' => $items]);
     }
 
     /**
@@ -348,26 +356,22 @@ class PluginGrcmanagerNetworkFlow extends NetworkFlowBase
      */
     public static function endpointHtml(string $itemtype, int $itemsId, string $label): string
     {
-        $parts = [];
+        $linked = null;
         if ($itemtype !== '' && $itemsId > 0) {
             $item = getItemForItemtype($itemtype);
-            if ($item instanceof CommonDBTM && $item->getFromDB($itemsId) && $item->canViewItem()) {
-                $parts[] = '<a href="' . htmlescape($item::getFormURLWithID($itemsId)) . '"><i class="'
-                    . htmlescape($item::getIcon()) . ' me-1"></i>' . htmlescape($item->getName()) . '</a>';
-            } else {
-                $parts[] = '<span class="text-muted">' . htmlescape(__('Actif non visible', 'grcmanager')) . '</span>';
-            }
-        }
-        if ($label !== '') {
-            $parts[] = htmlescape($label);
+            $visible = $item instanceof CommonDBTM && $item->getFromDB($itemsId) && $item->canViewItem();
+            $linked = $visible
+                ? ['visible' => true, 'url' => $item::getFormURLWithID($itemsId), 'icon' => $item::getIcon(),
+                    'name' => $item->getName()]
+                : ['visible' => false];
         }
 
-        return implode(' — ', $parts);
+        return self::renderBadges(['kind' => 'endpoint', 'item' => $linked, 'label' => $label]);
     }
 
     public function getChecks(): array
     {
-        return NetworkFlowRules::checks($this->fields, date('Y-m-d'));
+        return NetworkFlowRules::checks($this->fields, date('Y-m-d'), self::internalNetworks());
     }
 
     public function showForm($ID, array $options = []): bool
@@ -424,7 +428,7 @@ class PluginGrcmanagerNetworkFlow extends NetworkFlowBase
         $today = date('Y-m-d');
         foreach ($DB->request(['FROM' => self::getTable(), 'WHERE' => ['is_active' => 1]]) as $row) {
             $active++;
-            foreach (NetworkFlowRules::checks($row, $today) as $check) {
+            foreach (NetworkFlowRules::checks($row, $today, self::internalNetworks()) as $check) {
                 $byCheck[$check] ??= [
                     'label'    => self::getCheckLabel($check),
                     'blocking' => NetworkFlowRules::isBlocking($check),
@@ -441,6 +445,37 @@ class PluginGrcmanagerNetworkFlow extends NetworkFlowBase
             'import_url'   => self::getImportURL(),
             'report_url'   => self::getReportURL(),
         ]);
+    }
+
+    /**
+     * Issue #144 : réseaux IP déclarés dans GLPI (IPv4), pour repérer un réseau partenaire qui
+     * chevaucherait un réseau interne. Lus une seule fois par requête.
+     *
+     * @return list<string> « 10.0.0.0/16 »
+     */
+    public static function internalNetworks(): array
+    {
+        global $DB;
+        static $networks = null;
+
+        if ($networks === null) {
+            $networks = [];
+            foreach (
+                $DB->request([
+                    'SELECT' => ['address', 'netmask'],
+                    'FROM'   => IPNetwork::getTable(),
+                    'WHERE'  => ['version' => 4],
+                ]) as $row
+            ) {
+                $mask = ip2long((string) $row['netmask']);
+                if ($mask === false || ip2long((string) $row['address']) === false) {
+                    continue;
+                }
+                $networks[] = $row['address'] . '/' . substr_count(decbin($mask), '1');
+            }
+        }
+
+        return $networks;
     }
 
     public static function getReportURL(): string
@@ -492,7 +527,7 @@ class PluginGrcmanagerNetworkFlow extends NetworkFlowBase
                 continue;
             }
             $active++;
-            $checks = NetworkFlowRules::checks($row, $today);
+            $checks = NetworkFlowRules::checks($row, $today, self::internalNetworks());
             foreach ($checks as $check) {
                 $byCheck[$check] ??= ['label' => self::getCheckLabel($check), 'count' => 0];
                 $byCheck[$check]['count']++;
@@ -568,7 +603,10 @@ class PluginGrcmanagerNetworkFlow extends NetworkFlowBase
      */
     public static function importCsv(string $content, bool $simulate): array
     {
-        $parsed = NetworkFlowCsv::parse($content);
+        // Issue #144, phase 2 : une sauvegarde pfSense (config.xml) est reconnue à son contenu.
+        $parsed = str_starts_with(ltrim(preg_replace('/^\xEF\xBB\xBF/', '', $content) ?? $content), '<')
+            ? NetworkFlowPfsense::parse($content)
+            : NetworkFlowCsv::parse($content);
         $result = ['created' => 0, 'skipped' => 0, 'errors' => [], 'rows' => []];
         foreach ($parsed['errors'] as $error) {
             $result['errors'][] = ['line' => $error['line'], 'message' => self::csvErrorLabel($error['message'])];
@@ -626,6 +664,8 @@ class PluginGrcmanagerNetworkFlow extends NetworkFlowBase
             'missing_endpoint' => __('Source ou destination manquante : ligne ignorée.', 'grcmanager'),
             'invalid_ports'    => __('Ports invalides : ligne ignorée.', 'grcmanager'),
             'invalid_date'     => __('Date de fin invalide : ligne ignorée.', 'grcmanager'),
+            'not_pfsense'      => __('Fichier XML qui n\'est pas une sauvegarde pfSense (config.xml).', 'grcmanager'),
+            'no_rule'          => __('Aucune règle de filtrage dans la sauvegarde pfSense.', 'grcmanager'),
             default            => $code,
         };
     }

@@ -261,6 +261,7 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
 $ids['supplierrisk'] = $add(new PluginGrcmanagerSupplierRisk(), [
     'title' => 'Risque fournisseur securite', 'suppliers_id' => $supplier,
 ]);
+$ids['training'] = $add(new PluginGrcmanagerTraining(), ['title' => 'Formation securite']);
 $ids['risk'] = $add(new PluginGrcmanagerRisk(), [
     'title' => 'Risque securite', 'linked_items_Computer' => [$ids['computer_B']],
 ]);

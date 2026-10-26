@@ -1,0 +1,20 @@
+{# Issue #199 : badges de la matrice des flux (type, écarts, extrémité), passés de PHP à Twig. #}
+{% if kind == 'type' %}
+   <span class="badge {{ class }}"><i class="ti {{ icon }} me-1"></i>{{ label }}</span>
+{%- elseif kind == 'checks' %}
+   {% for c in checks %}
+      <span class="badge {{ c.blocking ? 'bg-red-lt' : 'bg-yellow-lt' }} me-1"><i class="ti ti-alert-triangle me-1"></i>{{ c.label }}</span>
+   {%- else %}
+      <span class="badge bg-green-lt"><i class="ti ti-circle-check me-1"></i>{{ __('Conforme', 'grcmanager') }}</span>
+   {%- endfor %}
+{%- elseif kind == 'endpoint' %}
+   {%- if item is not null -%}
+      {%- if item.visible -%}
+         <a href="{{ item.url }}"><i class="{{ item.icon }} me-1"></i>{{ item.name }}</a>
+      {%- else -%}
+         <span class="text-muted">{{ __('Actif non visible', 'grcmanager') }}</span>
+      {%- endif -%}
+      {%- if label %} — {% endif -%}
+   {%- endif -%}
+   {{ label }}
+{%- endif %}

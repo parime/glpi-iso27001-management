@@ -16,6 +16,7 @@
  */
 
 use Glpi\Application\View\TemplateRenderer;
+use GlpiPlugin\Grcmanager\Services\Ui\Fragment;
 
 /**
  * Issue #128 : qualifier un ticket GLPI en incident de sécurité, et lien dans les deux sens.
@@ -246,17 +247,18 @@ class PluginGrcmanagerSecurityIncidentTicket extends CommonGLPI
             'itemtype'   => Ticket::class,
             'items_id'   => (int) $ticket->getID(),
             'is_private' => 1,
-            'content'    => '<p>' . htmlescape(sprintf(
-                __(
-                    'Ce ticket a été qualifié en incident de sécurité n° %d : la suite de son traitement de '
-                        . 'sécurité (gravité, impact, délais de notification NIS2 / RGPD) se fait sur l\'incident.',
-                    'grcmanager'
-                ),
-                $incidentsId
-            )) . '</p><p><a href="'
-                . htmlescape(PluginGrcmanagerSecurityIncident::getFormURLWithID($incidentsId)) . '">'
-                . htmlescape(sprintf(__('Ouvrir l\'incident de sécurité n° %d', 'grcmanager'), $incidentsId))
-                . '</a></p>',
+            'content'    => Fragment::ticketContent(
+                [sprintf(
+                    __(
+                        'Ce ticket a été qualifié en incident de sécurité n° %d : la suite de son traitement de '
+                            . 'sécurité (gravité, impact, délais de notification NIS2 / RGPD) se fait sur l\'incident.',
+                        'grcmanager'
+                    ),
+                    $incidentsId
+                )],
+                PluginGrcmanagerSecurityIncident::getFormURLWithID($incidentsId),
+                sprintf(__('Ouvrir l\'incident de sécurité n° %d', 'grcmanager'), $incidentsId)
+            ),
         ]);
 
         return $incidentsId;

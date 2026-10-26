@@ -5050,3 +5050,41 @@ msgstr "Adresse"
 
 msgid "Passerelle"
 msgstr "Passerelle"
+
+msgid "Fichier XML qui n'est pas une sauvegarde pfSense (config.xml)."
+msgstr "Fichier XML qui n'est pas une sauvegarde pfSense (config.xml)."
+
+msgid "Aucune règle de filtrage dans la sauvegarde pfSense."
+msgstr "Aucune règle de filtrage dans la sauvegarde pfSense."
+
+msgid "Choisissez un fichier CSV ou une sauvegarde pfSense (XML) de 2 Mo au plus."
+msgstr "Choisissez un fichier CSV ou une sauvegarde pfSense (XML) de 2 Mo au plus."
+
+msgid "Pare-feu pfSense : importez directement la sauvegarde de sa configuration (Diagnostics > Backup & Restore, fichier config.xml). Les règles actives qui autorisent un flux sont reprises, avec leurs alias résolus ; les règles de blocage et les règles désactivées sont ignorées. Dans ce cas, le numéro de ligne affiché est celui de la règle. Justification et propriétaire restent à compléter dans la matrice."
+msgstr "Pare-feu pfSense : importez directement la sauvegarde de sa configuration (Diagnostics > Backup & Restore, fichier config.xml). Les règles actives qui autorisent un flux sont reprises, avec leurs alias résolus ; les règles de blocage et les règles désactivées sont ignorées. Dans ce cas, le numéro de ligne affiché est celui de la règle. Justification et propriétaire restent à compléter dans la matrice."
+
+msgid "Réseau partenaire en conflit avec un réseau interne"
+msgstr "Réseau partenaire en conflit avec un réseau interne"
+
+#, php-format
+msgid "Session de formation : %s"
+msgstr "Session de formation : %s"
+
+msgid "Rapport PDF de la session"
+msgstr "Rapport PDF de la session"
+
+#, php-format
+msgid "note maximale : %s"
+msgstr "note maximale : %s"
+
+msgid "Taux de réussite"
+msgstr "Taux de réussite"
+
+msgid "Émargement et résultats"
+msgstr "Émargement et résultats"
+
+msgid "Participant"
+msgstr "Participant"
+
+msgid "Aucun participant."
+msgstr "Aucun participant."
