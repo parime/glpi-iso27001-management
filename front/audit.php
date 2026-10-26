@@ -15,6 +15,7 @@
  * -------------------------------------------------------------------------
  */
 
+use Glpi\Application\View\TemplateRenderer;
 use Glpi\Search\Input\QueryBuilder;
 use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
 
@@ -39,10 +40,14 @@ PluginGrcmanagerPageHelp::show('audit');
 // (audits + non-conformités/CAPA), en complément de l'export CSV/XLSX déjà natif de
 // Search::showList() ci-dessous.
 $auditReportURL = $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/audit.report.php';
-echo '<div class="d-flex justify-content-end mb-2">';
-echo '<a href="' . htmlescape($auditReportURL) . '" class="btn btn-outline-secondary btn-sm" target="_blank">';
-echo '<i class="ti ti-file-type-pdf me-1"></i>' . __('Export PDF', 'grcmanager');
-echo '</a></div>';
+TemplateRenderer::getInstance()->display('@grcmanager/_list_toolbar.html.twig', [
+    'buttons' => [[
+        'url'   => $auditReportURL,
+        'icon'  => 'ti-file-type-pdf',
+        'label' => __('Export PDF', 'grcmanager'),
+        'new_tab' => true,
+    ]],
+]);
 
 // Same URL-driven search fix as front/risk.php/front/control.php (Search::showList()'s $params
 // must be pre-merged with $_GET via QueryBuilder::manageParams(), unlike Search::show() which does

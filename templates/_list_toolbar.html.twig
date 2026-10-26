@@ -1,0 +1,11 @@
+{# Issue #199 : raccourci ou avertissement affiché au-dessus d'une liste du plugin (passé de PHP à Twig). #}
+{% if notice is defined and notice %}
+   <div class="alert alert-info d-flex align-items-center"><i class="ti ti-info-circle me-2"></i>{{ notice }}</div>
+{% endif %}
+{% if buttons is defined and buttons is not empty %}
+   <div class="d-flex justify-content-end mb-2 gap-2">
+      {% for b in buttons %}
+         <a href="{{ b.url }}" class="btn btn-outline-secondary btn-sm"{% if b.new_tab ?? false %} target="_blank"{% endif %}><i class="ti {{ b.icon }} me-1"></i>{{ b.label }}</a>
+      {% endfor %}
+   </div>
+{% endif %}

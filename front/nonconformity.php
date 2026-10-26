@@ -15,6 +15,7 @@
  * -------------------------------------------------------------------------
  */
 
+use Glpi\Application\View\TemplateRenderer;
 use Glpi\Search\Input\QueryBuilder;
 use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
 
@@ -39,10 +40,13 @@ $myCapaURL = PluginGrcmanagerNonconformity::getSearchURL() . '?' . http_build_qu
         ['field' => 4, 'searchtype' => 'equals', 'value' => Session::getLoginUserID()],
     ],
 ]);
-echo '<div class="d-flex justify-content-end mb-2">';
-echo '<a href="' . htmlescape($myCapaURL) . '" class="btn btn-outline-secondary btn-sm">';
-echo '<i class="ti ti-user-check me-1"></i>' . __('Mes actions correctives/préventives', 'grcmanager');
-echo '</a></div>';
+TemplateRenderer::getInstance()->display('@grcmanager/_list_toolbar.html.twig', [
+    'buttons' => [[
+        'url'   => $myCapaURL,
+        'icon'  => 'ti-user-check',
+        'label' => __('Mes actions correctives/préventives', 'grcmanager'),
+    ]],
+]);
 
 // Same URL-driven search fix as front/risk.php/front/control.php/front/audit.php.
 $params = QueryBuilder::manageParams(PluginGrcmanagerNonconformity::class, $_GET);
