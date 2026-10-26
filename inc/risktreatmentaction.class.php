@@ -18,6 +18,7 @@
 use GlpiPlugin\Grcmanager\Compatibility\Base\RiskTreatmentActionBase;
 use GlpiPlugin\Grcmanager\Services\Risk\OverdueTreatmentActionService;
 use GlpiPlugin\Grcmanager\Services\Risk\TreatmentPlanRules;
+use GlpiPlugin\Grcmanager\Services\Ui\Badge;
 
 /**
  * One concrete action carrying out a risk's `mitigate`/`transfer` treatment decision (issue #31,
@@ -156,8 +157,7 @@ class PluginGrcmanagerRiskTreatmentAction extends RiskTreatmentActionBase
 
         [$class, $icon, $label] = $map[$value] ?? ['bg-secondary-lt', 'ti-help', (string) $value];
 
-        return '<span class="badge ' . $class . '"><i class="ti ' . $icon . ' me-1"></i>'
-            . htmlescape($label) . '</span>';
+        return Badge::html($class, $icon, $label);
     }
 
     /**

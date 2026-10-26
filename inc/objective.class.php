@@ -18,6 +18,7 @@
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\ObjectiveBase;
 use GlpiPlugin\Grcmanager\Services\Objective\ObjectiveStatuses;
+use GlpiPlugin\Grcmanager\Services\Ui\Badge;
 
 /**
  * ISMS security objective (issue #32, ISO 27001 clause 6.2): the plugin's 15-card dashboard
@@ -257,8 +258,7 @@ class PluginGrcmanagerObjective extends ObjectiveBase
 
         [$class, $icon, $label] = $map[$value] ?? ['bg-secondary-lt', 'ti-help', (string) $value];
 
-        return '<span class="badge ' . $class . '"><i class="ti ' . $icon . ' me-1"></i>'
-            . htmlescape($label) . '</span>';
+        return Badge::html($class, $icon, $label);
     }
 
     public function showForm($ID, array $options = []): bool

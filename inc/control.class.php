@@ -22,6 +22,7 @@ use GlpiPlugin\Grcmanager\Services\Control\AssetsignEvidence;
 use GlpiPlugin\Grcmanager\Services\Control\AssetsignEvidenceProvider;
 use GlpiPlugin\Grcmanager\Services\Control\ControlCrosswalkDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\Nis2CatalogDefaults;
+use GlpiPlugin\Grcmanager\Services\Ui\Badge;
 
 /**
  * Declaration of Applicability (SoA, ISO 27001:2022 clause 6.1.3): the 93 ISO/IEC 27001:2022
@@ -492,8 +493,7 @@ class PluginGrcmanagerControl extends ControlBase
 
         [$class, $icon, $label] = $map[$value] ?? ['bg-secondary-lt', 'ti-help', (string) $value];
 
-        return '<span class="badge ' . $class . '"><i class="ti ' . $icon . ' me-1"></i>'
-            . htmlescape($label) . '</span>';
+        return Badge::html($class, $icon, $label);
     }
 
     private static function implementationStatusBadge(?string $value): string
@@ -507,8 +507,7 @@ class PluginGrcmanagerControl extends ControlBase
 
         [$class, $icon, $label] = $map[$value] ?? ['bg-secondary-lt', 'ti-help', (string) $value];
 
-        return '<span class="badge ' . $class . '"><i class="ti ' . $icon . ' me-1"></i>'
-            . htmlescape($label) . '</span>';
+        return Badge::html($class, $icon, $label);
     }
 
     /**

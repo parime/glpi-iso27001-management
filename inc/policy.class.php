@@ -19,6 +19,7 @@ use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\PolicyBase;
 use GlpiPlugin\Grcmanager\Services\Policy\PolicyLifecycle;
 use GlpiPlugin\Grcmanager\Services\Policy\PolicyReviewReminderService;
+use GlpiPlugin\Grcmanager\Services\Ui\Badge;
 
 /**
  * Security policy library (issue #28, ISO/IEC 27001:2022 A.5.1/A.5.1.1/A.5.1.2): the control
@@ -236,8 +237,7 @@ class PluginGrcmanagerPolicy extends PolicyBase
 
         [$class, $icon, $label] = $map[$value] ?? ['bg-secondary-lt', 'ti-help', (string) $value];
 
-        return '<span class="badge ' . $class . '"><i class="ti ' . $icon . ' me-1"></i>'
-            . htmlescape($label) . '</span>';
+        return Badge::html($class, $icon, $label);
     }
 
     /**

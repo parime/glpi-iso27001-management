@@ -20,6 +20,7 @@ use Glpi\DBAL\QueryExpression;
 use GlpiPlugin\Grcmanager\Compatibility\Base\TrainingBase;
 use GlpiPlugin\Grcmanager\Services\Training\TrainingRenewalService;
 use GlpiPlugin\Grcmanager\Services\Training\TrainingScore;
+use GlpiPlugin\Grcmanager\Services\Ui\Badge;
 
 /**
  * Security awareness training tracking (ISO 27001 clauses 7.2 "competence" and 7.3 "awareness"):
@@ -496,8 +497,7 @@ class PluginGrcmanagerTraining extends TrainingBase
 
         [$class, $icon, $label] = $map[$value] ?? ['bg-secondary-lt', 'ti-help', (string) $value];
 
-        return '<span class="badge ' . $class . '"><i class="ti ' . $icon . ' me-1"></i>'
-            . htmlescape($label) . '</span>';
+        return Badge::html($class, $icon, $label);
     }
 
     public static function completionStatusBadge(?string $value): string
@@ -510,8 +510,7 @@ class PluginGrcmanagerTraining extends TrainingBase
 
         [$class, $icon, $label] = $map[$value] ?? ['bg-secondary-lt', 'ti-help', (string) $value];
 
-        return '<span class="badge ' . $class . '"><i class="ti ' . $icon . ' me-1"></i>'
-            . htmlescape($label) . '</span>';
+        return Badge::html($class, $icon, $label);
     }
 
     /**

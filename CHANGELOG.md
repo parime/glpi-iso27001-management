@@ -27,7 +27,9 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 ### Changed
 
 - **Écrans en Twig** (issue #199) : les badges de la matrice des flux (type, écarts, actif lié) sont
-  rendus par un gabarit Twig. Le HTML écrit en PHP passe de 241 à 226 chaînes.
+  rendus par un gabarit Twig, ainsi que tous les badges de statut, de niveau et de type des listes
+  et fiches (risques, mesures, non-conformités, audits, politiques, formations, incidents…), via un
+  gabarit commun. Le HTML écrit en PHP passe de 241 à 145 chaînes.
 
 ### Added
 

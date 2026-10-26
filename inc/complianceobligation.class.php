@@ -19,6 +19,7 @@ use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\ComplianceObligationBase;
 use GlpiPlugin\Grcmanager\Services\Compliance\ComplianceObligationRules;
 use GlpiPlugin\Grcmanager\Services\Risk\ReviewReminderService;
+use GlpiPlugin\Grcmanager\Services\Ui\Badge;
 
 /**
  * Registre des obligations légales, réglementaires et contractuelles (issue #30, ISO 27001 clause
@@ -301,8 +302,7 @@ class PluginGrcmanagerComplianceObligation extends ComplianceObligationBase
 
         [$class, $icon, $label] = $map[$value] ?? ['bg-secondary-lt', 'ti-help', (string) $value];
 
-        return '<span class="badge ' . $class . '"><i class="ti ' . $icon . ' me-1"></i>'
-            . htmlescape($label) . '</span>';
+        return Badge::html($class, $icon, $label);
     }
 
     private static function complianceStatusBadge(?string $value): string
@@ -316,8 +316,7 @@ class PluginGrcmanagerComplianceObligation extends ComplianceObligationBase
 
         [$class, $icon, $label] = $map[$value] ?? ['bg-secondary-lt', 'ti-help', (string) $value];
 
-        return '<span class="badge ' . $class . '"><i class="ti ' . $icon . ' me-1"></i>'
-            . htmlescape($label) . '</span>';
+        return Badge::html($class, $icon, $label);
     }
 
     private static function riskLink(int $riskId): string

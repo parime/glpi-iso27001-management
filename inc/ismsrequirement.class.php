@@ -18,6 +18,7 @@
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\IsmsRequirementBase;
 use GlpiPlugin\Grcmanager\Services\Clause\IsmsClauseCatalog;
+use GlpiPlugin\Grcmanager\Services\Ui\Badge;
 
 /**
  * Issue #113 : suivi des exigences du système de management (ISO/IEC 27001:2022, articles 4 à
@@ -143,8 +144,7 @@ class PluginGrcmanagerIsmsRequirement extends IsmsRequirementBase
         [$class, $icon] = $map[$value] ?? ['bg-secondary-lt', 'ti-help'];
         $label = self::getStatuses()[$value] ?? (string) $value;
 
-        return '<span class="badge ' . $class . '"><i class="ti ' . $icon . ' me-1"></i>'
-            . htmlescape($label) . '</span>';
+        return Badge::html($class, $icon, $label);
     }
 
     /**

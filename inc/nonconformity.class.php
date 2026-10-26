@@ -23,6 +23,7 @@ use GlpiPlugin\Grcmanager\Services\Cve\InventoryCveMatcher;
 use GlpiPlugin\Grcmanager\Services\Cve\NvdCveEnrichmentService;
 use GlpiPlugin\Grcmanager\Services\Cve\ParkVulnerabilitySync;
 use Glpi\Application\View\TemplateRenderer;
+use GlpiPlugin\Grcmanager\Services\Ui\Badge;
 
 /**
  * A finding (non-conformity or observation) raised during an internal audit
@@ -387,8 +388,7 @@ class PluginGrcmanagerNonconformity extends NonconformityBase
 
         [$class, $icon, $label] = $map[$value] ?? ['bg-secondary-lt', 'ti-help', (string) $value];
 
-        return '<span class="badge ' . $class . '"><i class="ti ' . $icon . ' me-1"></i>'
-            . htmlescape($label) . '</span>';
+        return Badge::html($class, $icon, $label);
     }
 
     private static function severityBadge(?string $value): string
@@ -401,8 +401,7 @@ class PluginGrcmanagerNonconformity extends NonconformityBase
 
         [$class, $icon, $label] = $map[$value] ?? ['bg-secondary-lt', 'ti-help', (string) $value];
 
-        return '<span class="badge ' . $class . '"><i class="ti ' . $icon . ' me-1"></i>'
-            . htmlescape($label) . '</span>';
+        return Badge::html($class, $icon, $label);
     }
 
     private static function statusBadge(?string $value): string
@@ -416,8 +415,7 @@ class PluginGrcmanagerNonconformity extends NonconformityBase
 
         [$class, $icon, $label] = $map[$value] ?? ['bg-secondary-lt', 'ti-help', (string) $value];
 
-        return '<span class="badge ' . $class . '"><i class="ti ' . $icon . ' me-1"></i>'
-            . htmlescape($label) . '</span>';
+        return Badge::html($class, $icon, $label);
     }
 
     private static function auditLink(int $auditId): string

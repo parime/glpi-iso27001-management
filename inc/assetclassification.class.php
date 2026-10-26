@@ -19,6 +19,7 @@ use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\AssetClassificationBase;
 use GlpiPlugin\Grcmanager\Services\Classification\ClassificationLevels;
 use GlpiPlugin\Grcmanager\Services\Impact\RecoveryObjectives;
+use GlpiPlugin\Grcmanager\Services\Ui\Badge;
 
 /**
  * Confidentialité/Intégrité/Disponibilité (C/I/D) classification register (issue #26, ISO/IEC
@@ -164,7 +165,7 @@ class PluginGrcmanagerAssetClassification extends AssetClassificationBase
 
         [$class, $label] = $levels[$value];
 
-        return '<span class="badge ' . $class . '">' . htmlescape($label) . '</span>';
+        return Badge::html($class, null, $label);
     }
 
     /**
