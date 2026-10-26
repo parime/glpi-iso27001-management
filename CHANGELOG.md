@@ -24,6 +24,11 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   d'émargement avec une colonne de signature, la note et le résultat de chaque participant, et le
   taux de réussite.
 
+### Changed
+
+- **Écrans en Twig** (issue #199) : les badges de la matrice des flux (type, écarts, actif lié) sont
+  rendus par un gabarit Twig. Le HTML écrit en PHP passe de 241 à 226 chaînes.
+
 ### Added
 
 - **Menu GRC & Conformité > Tableau de bord** (issue #247) : première entrée du menu, comme
