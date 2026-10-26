@@ -73,12 +73,18 @@ final class NetworkFlowPfsense
             }
             $protocol = NetworkFlowRules::normalizeProtocol((string) ($rule->protocol ?? '') ?: 'any');
             $description = trim((string) $rule->descr);
+            $flowType = self::flowType($interface, $source, $destination);
+            // « any » : Internet du côté extérieur du pare-feu, « Tous » sinon.
+            $source = $source === 'any' ? ($interface === 'wan' ? 'Internet' : 'Tous') : $source;
+            $destination = $destination === 'any'
+                ? ($flowType === 'internet_outbound' ? 'Internet' : 'Tous')
+                : $destination;
             $rows[] = [
                 'line'              => $number,
                 'name'              => $description !== ''
                     ? $description
                     : sprintf('pfSense %s : %s → %s', strtoupper($interface), $source, $destination),
-                'flow_type'         => self::flowType($interface, $source, $destination),
+                'flow_type'         => $flowType,
                 'source_label'      => $source,
                 'destination_label' => $destination,
                 'protocol'          => $protocol,

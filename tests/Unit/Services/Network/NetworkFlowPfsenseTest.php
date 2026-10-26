@@ -39,9 +39,11 @@ final class NetworkFlowPfsenseTest extends TestCase
     <rule><type>pass</type><interface>lan</interface><protocol>tcp/udp</protocol>
       <source><network>lan</network></source><destination><any/></destination></rule>
     <rule><type>block</type><interface>wan</interface><source><any/></source><destination><any/></destination></rule>
-    <rule><type>pass</type><disabled/><interface>lan</interface><source><any/></source><destination><any/></destination></rule>
+    <rule><type>pass</type><disabled/><interface>lan</interface>
+      <source><any/></source><destination><any/></destination></rule>
     <rule><type>pass</type><interface>lan</interface><protocol>tcp</protocol>
-      <source><network>lan</network></source><destination><network>opt1ip</network><port>8000:8080</port></destination></rule>
+      <source><network>lan</network></source>
+      <destination><network>opt1ip</network><port>8000:8080</port></destination></rule>
     <rule><type>pass</type><interface>lan</interface><protocol>tcp</protocol>
       <source><any/></source><destination><address>10.0.0.5</address><port>MISSING_ALIAS</port></destination></rule>
   </filter>
@@ -56,13 +58,14 @@ XML;
         [$web, $outbound, $internal] = $result['rows'];
         $this->assertSame('Site vitrine', $web['name']);
         $this->assertSame('internet_publication', $web['flow_type']);
-        $this->assertSame('any', $web['source_label']);
+        $this->assertSame('Internet', $web['source_label']);
         $this->assertSame('SRV_WEB (192.0.2.10)', $web['destination_label']);
         $this->assertSame('80,443', $web['ports']);
         $this->assertSame('', $web['justification'], 'La justification reste à renseigner.');
 
         $this->assertSame('internet_outbound', $outbound['flow_type']);
         $this->assertSame('Réseau LAN', $outbound['source_label']);
+        $this->assertSame('Internet', $outbound['destination_label']);
         $this->assertSame('tcp_udp', $outbound['protocol']);
         $this->assertSame('any', $outbound['ports']);
 
