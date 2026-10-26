@@ -107,17 +107,20 @@ if (isset($_POST['import'])) {
             $implementationStatuses
         );
 
+        // Par CommonDBTM::update() et non un UPDATE brut : l'historique de chaque mesure garde qui
+        // a changé l'applicabilité ou la justification par l'import (preuve d'audit de la SoA).
         foreach ($result['valid'] as $validRow) {
-            $DB->update(
-                PluginGrcmanagerControl::getTable(),
-                [
-                    'applicability'         => $validRow['applicability'],
-                    'implementation_status' => $validRow['implementation_status'],
-                    'justification'         => $validRow['justification'],
-                    'is_reviewed'           => 1,
-                ],
-                ['code' => $validRow['code']]
-            );
+            $control = new PluginGrcmanagerControl();
+            if (!$control->getFromDBByCrit(['code' => $validRow['code']])) {
+                continue;
+            }
+            $control->update([
+                'id'                    => $control->getID(),
+                'applicability'         => $validRow['applicability'],
+                'implementation_status' => $validRow['implementation_status'],
+                'justification'         => $validRow['justification'],
+                'is_reviewed'           => 1,
+            ]);
         }
 
         $reasonLabels = [

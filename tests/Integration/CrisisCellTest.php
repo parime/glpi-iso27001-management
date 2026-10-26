@@ -110,8 +110,13 @@ final class CrisisCellTest extends GrcmanagerIntegrationTestCase
                     'glpi_documents_items.itemtype'     => \PluginGrcmanagerControl::class,
                 ],
             ])), 'code');
-            sort($controls);
-            $this->assertSame(['A.5.26', 'A.5.29'], $controls);
+            // Revue de sécurité 2.11.0 : le rapport d'une crise réelle n'est lié à aucune mesure
+            // (globale, lisible de toutes les entités), et il n'est pas récursif.
+            $this->assertSame([], $controls);
+            $document = new \Document();
+            $this->assertTrue($document->getFromDB($documentsId));
+            $this->assertSame(0, (int) $document->fields['is_recursive']);
+            $this->assertNotNull(\PluginGrcmanagerRestrictedDocument::sourceOf($documentsId));
             $this->assertNotContains(
                 $cellId,
                 array_column(Cell::history(), 'id'),

@@ -175,7 +175,11 @@ final class NvdCveParser
         $links      = [];
 
         foreach ($references as $reference) {
-            if (!is_array($reference) || !isset($reference['url']) || !is_string($reference['url'])) {
+            // Lien affiché dans un href : URL http(s) seulement (revue de sécurité 2.11.0).
+            if (
+                !is_array($reference) || !isset($reference['url']) || !is_string($reference['url'])
+                || !SafeUrl::isWebUrl($reference['url'])
+            ) {
                 continue;
             }
 

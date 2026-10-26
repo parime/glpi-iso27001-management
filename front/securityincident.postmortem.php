@@ -23,6 +23,10 @@ $incident = new PluginGrcmanagerSecurityIncident();
 if (!isset($_POST['generate']) || !$incident->getFromDB((int) ($_POST['id'] ?? 0)) || !$incident->canViewItem()) {
     throw new \Glpi\Exception\Http\NotFoundHttpException();
 }
+// Archiver le rapport ajoute un document à l'incident : droit de modification sur l'incident.
+if (!$incident->canUpdateItem()) {
+    throw new \Glpi\Exception\Http\AccessDeniedHttpException();
+}
 
 $documentsId = PluginGrcmanagerSecurityIncidentPostMortem::archive($incident);
 if ($documentsId > 0) {

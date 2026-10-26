@@ -5114,3 +5114,8 @@ msgstr "Corrigez chaque élément, puis relancez les contrôles pour vérifier. 
 
 msgid "La bibliothèque des politiques de sécurité, versionnées, avec leur approbation et leur date de revue."
 msgstr "La bibliothèque des politiques de sécurité, versionnées, avec leur approbation et leur date de revue."
+msgid "Participants en retard de renouvellement"
+msgstr "Participants en retard de renouvellement"
+
+msgid "Le PDF est archivé dans les documents de l'incident, lisible par les seules personnes qui voient l'incident."
+msgstr "Le PDF est archivé dans les documents de l'incident, lisible par les seules personnes qui voient l'incident."

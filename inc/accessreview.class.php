@@ -744,7 +744,11 @@ class PluginGrcmanagerAccessReview extends AccessReviewBase
         $documentsId = (int) (new Document())->add([
             'name'          => sprintf(__('Rapport de revue des accès - %s', 'grcmanager'), $this->fields['name']),
             'entities_id'   => (int) $this->fields['entities_id'],
-            'is_recursive'  => 1,
+            // Comptes, profils et justifications d'une seule entité : pas de récursivité, et aucun
+            // lien vers la mesure A.5.18 (globale, lisible de toutes les entités ; le document
+            // serait téléchargeable par tout lecteur de la SoA). La campagne reste listée sur
+            // l'onglet de la mesure pour qui peut la voir.
+            'is_recursive'  => 0,
             '_filename'     => [$fileName],
             '_tag_filename' => [$fileName],
         ]);
@@ -752,18 +756,12 @@ class PluginGrcmanagerAccessReview extends AccessReviewBase
         if ($documentsId <= 0) {
             return 0;
         }
-        $targets = [self::class => $this->getID()];
-        $controlId = (int) $this->fields['plugin_grcmanager_controls_id'];
-        if ($controlId > 0) {
-            $targets[PluginGrcmanagerControl::class] = $controlId;
-        }
-        foreach ($targets as $itemtype => $itemsId) {
-            (new Document_Item())->add([
-                'documents_id' => $documentsId,
-                'itemtype'     => $itemtype,
-                'items_id'     => $itemsId,
-            ]);
-        }
+        (new Document_Item())->add([
+            'documents_id' => $documentsId,
+            'itemtype'     => self::class,
+            'items_id'     => $this->getID(),
+        ]);
+        PluginGrcmanagerRestrictedDocument::register($documentsId, $this);
 
         return $documentsId;
     }

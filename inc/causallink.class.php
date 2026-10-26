@@ -123,8 +123,10 @@ class PluginGrcmanagerCausalLink extends CausalLinkBase
         if (!in_array($itemtype, self::getLinkableItemtypes(), true)) {
             return $node;
         }
+        // can() contrôle le droit du type ET l'élément : canViewItem() seul vaut vrai pour les
+        // registres sans entité (risques, risques fournisseurs).
         $item = new $itemtype();
-        if (!$item->getFromDB((int) $id) || !$item->canViewItem()) {
+        if (!$item->can((int) $id, READ)) {
             return $node;
         }
         $kinds = [
@@ -254,7 +256,8 @@ class PluginGrcmanagerCausalLink extends CausalLinkBase
     {
         global $DB, $CFG_GLPI;
 
-        if (!$item instanceof CommonDBTM) {
+        // ajax/common.tabs.php sert le contenu sans passer par getTabNameForItem().
+        if (!$item instanceof CommonDBTM || !self::canView()) {
             return false;
         }
         $key = self::key($item::class, $item->getID());

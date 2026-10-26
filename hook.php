@@ -475,6 +475,33 @@ function plugin_grcmanager_purge_security_incident_links(CommonDBTM $item): void
 }
 
 /**
+ * Hooks::ITEM_CAN sur Document (setup.php), voir PluginGrcmanagerRestrictedDocument::itemCan().
+ */
+function plugin_grcmanager_restricted_document_can(CommonDBTM $item): void
+{
+    PluginGrcmanagerRestrictedDocument::itemCan($item);
+}
+
+/**
+ * Hooks::ADD_DEFAULT_WHERE (setup.php), voir PluginGrcmanagerRestrictedDocument::addDefaultWhere().
+ *
+ * @param array{0: string, 1: array<mixed>} $params
+ * @return array{0: string, 1: array<mixed>}
+ */
+function plugin_grcmanager_restricted_documents_where(array $params): array
+{
+    return PluginGrcmanagerRestrictedDocument::addDefaultWhere($params);
+}
+
+/**
+ * Hooks::ITEM_PURGE sur Document (setup.php) : le registre ne garde pas de document disparu.
+ */
+function plugin_grcmanager_forget_restricted_document(CommonDBTM $item): void
+{
+    PluginGrcmanagerRestrictedDocument::forget($item);
+}
+
+/**
  * Issue #141 : Hooks::ITEM_ADD sur Ticket (setup.php), voir PluginGrcmanagerPeriodicReview::onTicketAdd().
  */
 function plugin_grcmanager_periodic_review_ticket_add(CommonDBTM $item): void

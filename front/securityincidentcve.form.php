@@ -55,9 +55,10 @@ if (isset($_POST['add'])) {
     // Manual per-row control (in addition to the daily Cron and the automatic fetch on add) : an
     // admin can always ask for an immediate re-check rather than wait for the next scheduled
     // pass — e.g. right after NVD finishes analyzing a CVE that was still 'pending'/'not_found'.
-    $item->check($_POST['id'], READ);
-    Session::checkRight(PluginGrcmanagerSecurityIncidentCve::$rightname, UPDATE);
-    $item->getFromDB($_POST['id']);
+    // Droit de modification sur l'incident de la référence (canUpdateItem()). Le bit READ du
+    // droit des incidents n'existe pas (READALL / READMY), il refusait tout profil sauf le
+    // super-admin.
+    $item->check($_POST['id'], UPDATE);
     \GlpiPlugin\Grcmanager\Services\Cve\NvdCveEnrichmentService::fetchForCve($item->fields['cve_id']);
 }
 

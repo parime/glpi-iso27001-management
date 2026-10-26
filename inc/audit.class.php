@@ -473,8 +473,11 @@ class PluginGrcmanagerAudit extends AuditBase
         $messagesBefore = $_SESSION['MESSAGE_AFTER_REDIRECT'] ?? [];
         $documentsId = (int) (new Document())->add([
             'name'          => sprintf(__('Rapport d\'audit interne - %s', 'grcmanager'), $this->fields['title']),
+            // L'audit est global : le document ne se lit qu'avec le droit de lire l'audit
+            // (PluginGrcmanagerRestrictedDocument), jamais avec le seul droit Documents d'une
+            // entité ; non récursif pour ne pas descendre dans les sous-entités.
             'entities_id'   => (int) ($_SESSION['glpiactive_entity'] ?? 0),
-            'is_recursive'  => 1,
+            'is_recursive'  => 0,
             '_filename'     => [$fileName],
             '_tag_filename' => [$fileName],
         ]);
@@ -485,6 +488,7 @@ class PluginGrcmanagerAudit extends AuditBase
                 'itemtype'     => self::class,
                 'items_id'     => $this->getID(),
             ]);
+            PluginGrcmanagerRestrictedDocument::register($documentsId, $this);
             Session::addMessageAfterRedirect(
                 __('Le rapport d\'audit a été archivé dans l\'onglet Documents.', 'grcmanager')
             );

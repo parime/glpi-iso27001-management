@@ -71,7 +71,11 @@ final class NvdCveEnrichmentService
                 'cvss_vector'   => $row['cvss_vector'],
                 'severity'      => $row['severity'],
                 'description'   => $row['description'],
-                'patch_links'   => is_array($decodedLinks) ? $decodedLinks : [],
+                // Lignes enrichies avant le contrôle de NvdCveParser::patchLinks() : refiltrées.
+                'patch_links'   => is_array($decodedLinks) ? array_values(array_filter(
+                    $decodedLinks,
+                    static fn ($link): bool => is_array($link) && SafeUrl::isWebUrl((string) ($link['url'] ?? ''))
+                )) : [],
                 'affected_cpes' => is_array($decodedCpes) ? $decodedCpes : [],
                 'published_at'  => $row['published_at'],
                 'fetch_status'  => $row['fetch_status'],

@@ -37,7 +37,7 @@ final class SecurityWatchTest extends GrcmanagerIntegrationTestCase
             'ref'       => 'CERTFR-2099-AVI-' . random_int(1000, 9999),
             'kind'      => 'avis',
             'title'     => 'Multiples vulnérabilités dans ' . $this->vendor . ' Viewer (fictif)',
-            'link'      => 'https://cert.example/avis/fictif/',
+            'link'      => 'https://www.cert.cyber.gouv.fr/avis/fictif/',
             'summary'   => 'Avis fictif de démonstration.',
             'published' => date('Y-m-d H:i:s', strtotime('-2 days')),
         ]]);
@@ -105,7 +105,7 @@ final class SecurityWatchTest extends GrcmanagerIntegrationTestCase
             'ref'       => 'CERTFR-2099-AVI-' . random_int(10000, 99999),
             'kind'      => 'avis',
             'title'     => 'Vulnérabilité dans les produits ' . $vendor . ' (fictif)',
-            'link'      => 'https://cert.example/avis/gamme/',
+            'link'      => 'https://www.cert.cyber.gouv.fr/avis/gamme/',
             'summary'   => '',
             'published' => date('Y-m-d H:i:s', strtotime('-1 day')),
         ]]);

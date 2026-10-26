@@ -236,8 +236,18 @@ class PluginGrcmanagerTraining extends TrainingBase
                 continue;
             }
 
+            // Statut et date validés comme le résultat : un statut inconnu fausserait les taux
+            // (maturité, tableau de bord) et une date invalide ferait échouer l'enregistrement en
+            // mode SQL strict.
             $status = (string) $statuses[$userId];
+            if (!array_key_exists($status, self::getCompletionStatuses())) {
+                continue;
+            }
             $date   = trim((string) ($dates[$userId] ?? ''));
+            $parsed = \DateTime::createFromFormat('!Y-m-d', $date);
+            if ($date !== '' && ($parsed === false || $parsed->format('Y-m-d') !== $date)) {
+                $date = '';
+            }
             $result = (string) ($results[$userId] ?? 'not_applicable');
             if (!array_key_exists($result, self::getAssessmentResults())) {
                 $result = 'not_applicable';
