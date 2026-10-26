@@ -86,13 +86,20 @@ final class SecurityIncidentPostMortemTest extends GrcmanagerIntegrationTestCase
                 'itemtype'     => Incident::class,
                 'items_id'     => $incidentId,
             ]));
-            $this->assertSame(1, countElementsInTable('glpi_documents_items', [
+            // Revue de sécurité 2.11.0 : pas de lien vers la mesure A.5.27 (globale), pas de
+            // récursivité, lecture réservée à qui lit l'incident.
+            $this->assertSame(0, countElementsInTable('glpi_documents_items', [
                 'documents_id' => $documentsId,
                 'itemtype'     => \PluginGrcmanagerControl::class,
-            ]), 'Preuve sur la mesure A.5.27.');
+            ]));
             $document = new \Document();
             $document->getFromDB($documentsId);
             $this->assertSame('application/pdf', $document->fields['mime']);
+            $this->assertSame(0, (int) $document->fields['is_recursive']);
+            $this->assertSame(
+                ['itemtype' => Incident::class, 'items_id' => $incidentId],
+                \PluginGrcmanagerRestrictedDocument::sourceOf($documentsId)
+            );
         } finally {
             (new \Document())->delete(['id' => $documentsId], true);
             (new \PluginGrcmanagerNonconformity())->delete(['id' => $ncId], true);

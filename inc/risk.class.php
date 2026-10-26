@@ -753,6 +753,11 @@ class PluginGrcmanagerRisk extends RiskBase
      */
     public static function displayTabContentForItem(CommonGLPI $item, $tabnum = 1, $withtemplate = 0)
     {
+        // ajax/common.tabs.php sert le contenu sans passer par getTabNameForItem() : même contrôle
+        // ici (revue de sécurité 2.11.0, trouvé par la matrice d'accès de bout en bout).
+        if (!Session::haveRight(self::$rightname, READ)) {
+            return false;
+        }
         $rows = [];
         foreach (self::getRisksLinkedToItem($item->getType(), (int) $item->getID()) as $risk) {
             $rows[] = [

@@ -199,10 +199,14 @@ $reader = $userId('iso-lecteur', $a, $profileId('Securite ISO - lecteur A', [
     'computer' => READ, 'contract' => READ, 'supplier' => READ, 'user' => READ, 'software' => READ,
 ]));
 
-// Sans droit : aucun droit sur le plugin, chaque page doit lui être refusée.
+// Sans droit : aucun droit sur le plugin, chaque page doit lui être refusée. Il lit les
+// ordinateurs, comme un technicien : les onglets du plugin sur un ordinateur ne lui montrent rien
+// (revue de sécurité 2.11.0, contenu d'onglet demandé directement).
 $noRight = $userId('iso-sans-droit', $a, $profileId('Securite ISO - sans droit', [
     'plugin_grcmanager'                  => 0,
     'plugin_grcmanager_securityincident' => 0,
+    'computer'                           => READ,
+    'software'                           => READ,
 ]));
 
 $control = $DB->request([

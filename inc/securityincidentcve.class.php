@@ -263,6 +263,11 @@ class PluginGrcmanagerSecurityIncidentCve extends SecurityIncidentCveBase
      */
     public function prepareInputForAdd($input)
     {
+        // Revue de sécurité 2.11.0 : avant toute autre vérification (le message « déjà
+        // référencée » révélerait les CVE d'un incident d'une autre entité).
+        if (!self::canEditIncident((int) ($input['plugin_grcmanager_securityincidents_id'] ?? 0))) {
+            return false;
+        }
         $input = $this->prepareInput($input);
 
         if ($input === false) {
@@ -294,7 +299,44 @@ class PluginGrcmanagerSecurityIncidentCve extends SecurityIncidentCveBase
 
     public function prepareInputForUpdate($input)
     {
+        // L'incident d'une référence ne change jamais.
+        unset($input['plugin_grcmanager_securityincidents_id']);
+
         return $this->prepareInput($input);
+    }
+
+    /**
+     * Revue de sécurité 2.11.0 : la table n'a pas d'entité, et le droit des incidents seul ne dit
+     * rien de l'incident visé. Ajouter, retirer ou rafraîchir une référence exige de pouvoir
+     * modifier son incident (entité, et acteur pour un droit « mes incidents »).
+     */
+    public static function canEditIncident(int $incidentsId): bool
+    {
+        $incident = new PluginGrcmanagerSecurityIncident();
+
+        return $incidentsId > 0 && $incident->can($incidentsId, UPDATE);
+    }
+
+    public function canViewItem(): bool
+    {
+        $incident = new PluginGrcmanagerSecurityIncident();
+
+        return $incident->can((int) ($this->fields['plugin_grcmanager_securityincidents_id'] ?? 0), READ);
+    }
+
+    public function canCreateItem(): bool
+    {
+        return self::canEditIncident((int) ($this->input['plugin_grcmanager_securityincidents_id'] ?? 0));
+    }
+
+    public function canUpdateItem(): bool
+    {
+        return self::canEditIncident((int) ($this->fields['plugin_grcmanager_securityincidents_id'] ?? 0));
+    }
+
+    public function canPurgeItem(): bool
+    {
+        return $this->canUpdateItem();
     }
 
     /**
@@ -322,7 +364,8 @@ class PluginGrcmanagerSecurityIncidentCve extends SecurityIncidentCveBase
                 Session::addMessageAfterRedirect(
                     sprintf(
                         __('"%s" is not a valid CVE identifier (expected format: CVE-YYYY-NNNN).', 'grcmanager'),
-                        $input['cve_id']
+                        // Message affiché sans échappement par GLPI : la saisie refusée est échappée.
+                        htmlescape((string) $input['cve_id'])
                     ),
                     false,
                     ERROR

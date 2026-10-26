@@ -90,11 +90,16 @@ class PluginGrcmanagerSecurityWatch extends CommonGLPI
     {
         global $DB;
 
-        return iterator_to_array($DB->request([
-            'FROM'  => ParkVulnerabilitySync::CERTFR_TABLE,
-            'WHERE' => ['published' => ['>=', date('Y-m-d H:i:s', strtotime('-' . $days . ' days'))]],
-            'ORDER' => 'published DESC',
-        ]), false);
+        // Lignes enregistrées avant le contrôle de CertFrRules::parseFeed() : un lien qui n'est
+        // pas https sur le site du CERT-FR n'atteint jamais un href.
+        return array_values(array_filter(
+            iterator_to_array($DB->request([
+                'FROM'  => ParkVulnerabilitySync::CERTFR_TABLE,
+                'WHERE' => ['published' => ['>=', date('Y-m-d H:i:s', strtotime('-' . $days . ' days'))]],
+                'ORDER' => 'published DESC',
+            ]), false),
+            static fn (array $notice): bool => CertFrRules::isNoticeLink((string) $notice['link'])
+        ));
     }
 
     /**

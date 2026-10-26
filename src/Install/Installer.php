@@ -177,6 +177,8 @@ final class Installer
     private const SECURITY_INCIDENT_CONFIG_TABLE = 'glpi_plugin_grcmanager_securityincidentconfig';
     // Issue #145 : validité des documents de preuve, voir PluginGrcmanagerEvidence.
     private const EVIDENCES_TABLE = 'glpi_plugin_grcmanager_evidences';
+    // Voir \PluginGrcmanagerRestrictedDocument::TABLE.
+    private const RESTRICTED_DOCUMENTS_TABLE = 'glpi_plugin_grcmanager_restricteddocuments';
     // Issue #141 : revues périodiques du SMSI, voir PluginGrcmanagerPeriodicReview.
     private const PERIODIC_REVIEWS_TABLE = 'glpi_plugin_grcmanager_periodicreviews';
     // Issue #144 : matrice des flux réseau, voir PluginGrcmanagerNetworkFlow.
@@ -211,6 +213,12 @@ final class Installer
     // Issue #162 : ticket de mise en conformité ouvert par contrôle technique et par entité.
     private const COMPLIANCE_AUDIT_TICKETS_TABLE = 'glpi_plugin_grcmanager_complianceaudittickets';
 
+    /**
+     * Création et mise à jour du schéma. Les ordres DDL passent par $DB->doQuery(), qui lève une
+     * RuntimeException en cas d'erreur : GLPI arrête alors proprement l'installation et
+     * l'administrateur peut la relancer (toutes les créations sont idempotentes). Plus de
+     * « or die($DB->error()) », qui coupait la migration en affichant l'erreur brute.
+     */
     public function install(Migration $migration): bool
     {
         global $DB;
@@ -251,7 +259,7 @@ final class Installer
                 KEY `users_id` (`users_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
 
         // Sprint 2 (TECH_DEBT.md "Matrice de risque fixe, non administrable") : matrice
@@ -267,7 +275,7 @@ final class Installer
                 PRIMARY KEY (`id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
 
             $DB->insert(self::RISK_MATRIX_CONFIG_TABLE, [
                 'matrix'   => json_encode(RiskMatrixDefaults::MATRIX),
@@ -288,7 +296,7 @@ final class Installer
                 PRIMARY KEY (`id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
 
             $DB->insert(self::NVD_CONFIG_TABLE, [
                 'enable_nvd_enrichment' => (int) NvdConfigDefaults::ENABLE_NVD_ENRICHMENT,
@@ -323,7 +331,7 @@ final class Installer
                 UNIQUE KEY `unicity_cve` (`cve_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         } elseif (!$DB->fieldExists(self::CVE_ENRICHMENTS_TABLE, 'affected_cpes')) {
             // Corrélation CPE avec le parc (cf. ROADMAP.md) : ajoutée après la première version de
             // cette table (enrichissement NVD seul) - une instance déjà installée doit recevoir la
@@ -370,7 +378,7 @@ final class Installer
                 UNIQUE KEY `unicity_product` (`manufacturer`, `product`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
 
         if (!$DB->tableExists(self::CPE_REFERENCES_TABLE)) {
@@ -384,7 +392,7 @@ final class Installer
                 KEY `canonicalproducts_id` (`plugin_grcmanager_canonicalproducts_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
 
         if (!$DB->tableExists(self::PRODUCT_ALIASES_TABLE)) {
@@ -398,7 +406,7 @@ final class Installer
                 KEY `canonicalproducts_id` (`plugin_grcmanager_canonicalproducts_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
 
         // Sprint 3 (SoA, clause 6.1.3) : les 93 mesures Annexe A ISO/IEC 27001:2022, une ligne par
@@ -427,7 +435,7 @@ final class Installer
                 KEY `implementation_status` (`implementation_status`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
 
         // Issue #113 : une ligne par sous-article des articles 4 à 10 (numéro seul, titres courts
@@ -457,7 +465,7 @@ final class Installer
                 KEY `documents_id` (`documents_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
 
         if (!$DB->tableExists(self::SOA_VERSIONS_USERS_TABLE)) {
@@ -475,7 +483,7 @@ final class Installer
                 KEY `users_id` (`users_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
 
         if (!$DB->tableExists(self::ISMS_REQUIREMENTS_TABLE)) {
@@ -496,7 +504,7 @@ final class Installer
                 KEY `users_id` (`users_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
 
         // Many-to-many : risque(s) du registre justifiant ou pilotant la mise en oeuvre d'une
@@ -513,7 +521,7 @@ final class Installer
                 KEY `risks_id` (`plugin_grcmanager_risks_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
 
         // Sprint 4 (audits internes, clause 9.2) : un audit peut couvrir un ou plusieurs contrôles
@@ -541,7 +549,7 @@ final class Installer
                 KEY `users_id` (`users_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
 
         // Many-to-many : contrôle(s) Annexe A dans le périmètre d'un audit (voir
@@ -559,7 +567,7 @@ final class Installer
                 KEY `controls_id` (`plugin_grcmanager_controls_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
 
         // Sprint 4 (non-conformités et CAPA, clause 10.2) : un constat (finding) rattaché à un
@@ -600,7 +608,7 @@ final class Installer
                 KEY `due_date` (`due_date`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
 
         // Issue #27 (distinguer non-conformité et observation/remarque, vocabulaire ISO 19011) :
@@ -692,7 +700,7 @@ final class Installer
                 KEY `users_id` (`users_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
 
         // Sprint 6 (suivi des formations de sensibilisation, clauses 7.2/7.3) : une ligne par
@@ -716,7 +724,7 @@ final class Installer
                 KEY `format` (`format`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
 
         // Many-to-many + suivi individuel : un participant (vrai `User` natif de GLPI) par ligne,
@@ -740,7 +748,7 @@ final class Installer
                 KEY `completion_status` (`completion_status`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
 
         // Issue #126 : campagnes de revue des accès et leurs lignes (un compte par ligne, profils et
@@ -769,7 +777,7 @@ final class Installer
                 KEY `plugin_grcmanager_controls_id` (`plugin_grcmanager_controls_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
         if (!$DB->tableExists(self::ACCESS_REVIEWS_USERS_TABLE)) {
             $query = "CREATE TABLE `" . self::ACCESS_REVIEWS_USERS_TABLE . "` (
@@ -794,7 +802,7 @@ final class Installer
                 KEY `decision` (`decision`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
 
         // Indicateur manquant identifié lors de l'audit complet du plugin (recherche des bonnes
@@ -862,7 +870,7 @@ final class Installer
                 KEY `status` (`status`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
 
         // Many-to-many : participants (vrais `User` natifs de GLPI) d'une revue de direction, meme
@@ -880,7 +888,7 @@ final class Installer
                 KEY `users_id` (`users_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
 
         // Issue #25 (lien registre de risques <-> actifs GLPI/CMDB) : table de liaison
@@ -907,7 +915,7 @@ final class Installer
                 KEY `item` (`itemtype`, `items_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
 
         // Issue #26 (classification C/I/D des actifs, ISO/IEC 27001:2022 A.5.9/A.5.12/A.8.2) :
@@ -939,7 +947,7 @@ final class Installer
                 UNIQUE KEY `unicity_item` (`itemtype`, `items_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
 
         // Issue #28 (bibliothèque de politiques de sécurité versionnées, A.5.1/A.5.1.1/A.5.1.2) :
@@ -967,7 +975,7 @@ final class Installer
                 KEY `users_id` (`users_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
 
         // Issue #30 (registre des obligations légales/réglementaires/contractuelles, clause 4.2
@@ -1002,7 +1010,7 @@ final class Installer
                 KEY `plugin_grcmanager_risks_id` (`plugin_grcmanager_risks_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
 
         // Issue #32 (objectifs ISMS et suivi de KPI dans le temps, clause 6.2) : `target_value` et
@@ -1034,7 +1042,7 @@ final class Installer
                 KEY `users_id` (`users_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
 
         // Historique de mesures manuel (issue #32) : une ligne par point de mesure dans le temps
@@ -1069,7 +1077,23 @@ final class Installer
                 KEY `valid_until` (`valid_until`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
+        }
+
+        // Revue de sécurité 2.11.0 : rapports générés lisibles par la seule audience de leur
+        // objet source (PluginGrcmanagerRestrictedDocument).
+        if (!$DB->tableExists(self::RESTRICTED_DOCUMENTS_TABLE)) {
+            $query = "CREATE TABLE `" . self::RESTRICTED_DOCUMENTS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `documents_id` int {$keySign} NOT NULL DEFAULT 0,
+                `itemtype` varchar(100) NOT NULL,
+                `items_id` int {$keySign} NOT NULL DEFAULT 0,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `documents_id` (`documents_id`),
+                KEY `item` (`itemtype`, `items_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query);
         }
 
         // Issue #141 : une ligne par revue du catalogue (PeriodicReviewCatalog), créée inactive ici
@@ -1099,7 +1123,7 @@ final class Installer
                 KEY `status` (`status`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
         // Issue #142, phase 2 : date du rappel envoyé au responsable avant l'événement.
         if (!$DB->fieldExists(self::COMPLIANCE_EVENTS_TABLE, 'date_notified')) {
@@ -1136,7 +1160,7 @@ final class Installer
                 KEY `destination_item` (`destination_itemtype`, `destination_items_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
 
         // Issue #164 : couverture des preuves (type d'actif × catégorie de document requise).
@@ -1159,7 +1183,7 @@ final class Installer
                 KEY `is_active` (`is_active`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
 
         // Issue #170 : dérogations de sécurité (exception temporaire à une politique ou à une mesure).
@@ -1192,7 +1216,7 @@ final class Installer
                 KEY `is_deleted` (`is_deleted`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
 
         if (!$DB->tableExists(self::WAIVERS_ITEMS_TABLE)) {
@@ -1207,7 +1231,7 @@ final class Installer
                 KEY `item` (`itemtype`, `items_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
 
         // Issue #178 : risque créé pour chaque risque type du catalogue (un import par clé).
@@ -1223,7 +1247,7 @@ final class Installer
                 KEY `risks_id` (`plugin_grcmanager_risks_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
 
         // Issue #160 : logiciels du parc écartés de la veille (sans enjeu de sécurité).
@@ -1237,7 +1261,7 @@ final class Installer
                 UNIQUE KEY `unicity_name` (`name`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
 
         // Issue #160 : dernière interrogation de NVD pour une version installée d'un produit.
@@ -1253,7 +1277,7 @@ final class Installer
                 UNIQUE KEY `unicity_version` (`plugin_grcmanager_canonicalproducts_id`, `version`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
 
         // Issue #160 : CVE touchant une version installée (réponse de NVD à la dernière vérification).
@@ -1268,7 +1292,7 @@ final class Installer
                 KEY `cve_id` (`cve_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
 
         // Issue #160, phase 2 : un ticket par produit, et l'état connu au dernier suivi.
@@ -1286,7 +1310,7 @@ final class Installer
                 KEY `tickets_id` (`tickets_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
 
         // Issue #177, phase 2 : objectifs de reprise (heures, 0 : non défini) sur la classification.
@@ -1309,7 +1333,7 @@ final class Installer
                 UNIQUE KEY `month` (`month`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
         // Issue #143 : indicateurs du mois (risques et non-conformités ouverts) pour la tendance.
         if (!$DB->fieldExists(self::MATURITY_SNAPSHOTS_TABLE, 'indicators')) {
@@ -1333,7 +1357,7 @@ final class Installer
                 KEY `effect` (`itemtype_effect`, `items_id_effect`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
 
         // Issue #167 : avis et alertes du CERT-FR, et avis déjà signalés par risque fournisseur.
@@ -1352,7 +1376,7 @@ final class Installer
                 KEY `published` (`published`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
         if (!$DB->tableExists(self::CERTFR_NOTIFIED_TABLE)) {
             $query = "CREATE TABLE `" . self::CERTFR_NOTIFIED_TABLE . "` (
@@ -1365,7 +1389,7 @@ final class Installer
                 KEY `plugin_grcmanager_supplierrisks_id` (`plugin_grcmanager_supplierrisks_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
 
         // Issue #160 : signaux d'exploitation par CVE (CISA KEV, FIRST EPSS).
@@ -1385,7 +1409,7 @@ final class Installer
                 KEY `is_kev` (`is_kev`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
 
         if (!$DB->tableExists(self::PERIODIC_REVIEWS_TABLE)) {
@@ -1410,7 +1434,7 @@ final class Installer
                 KEY `last_tickets_id` (`last_tickets_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
         $existingReviews = [];
         foreach ($DB->request(['SELECT' => ['review_key'], 'FROM' => self::PERIODIC_REVIEWS_TABLE]) as $row) {
@@ -1440,7 +1464,7 @@ final class Installer
                 KEY `measurement_date` (`measurement_date`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
 
         // Many-to-many : objectif(s) ISMS abordés lors d'une revue de direction (issue #32, lien
@@ -1462,7 +1486,7 @@ final class Installer
                 KEY `objectives_id` (`plugin_grcmanager_objectives_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
 
         // Issue #29 (registre des incidents de sécurité de l'information, ISO/IEC 27001:2022
@@ -1555,7 +1579,7 @@ final class Installer
                 KEY `plugin_grcmanager_risks_id` (`plugin_grcmanager_risks_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
 
         if (!$DB->tableExists(self::SECURITY_INCIDENTS_USERS_TABLE)) {
@@ -1572,7 +1596,7 @@ final class Installer
                 KEY `type` (`type`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
 
         if (!$DB->tableExists(self::SECURITY_INCIDENTS_GROUPS_TABLE)) {
@@ -1587,7 +1611,7 @@ final class Installer
                 KEY `type` (`type`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
 
         if (!$DB->tableExists(self::SECURITY_INCIDENTS_SUPPLIERS_TABLE)) {
@@ -1604,7 +1628,7 @@ final class Installer
                 KEY `type` (`type`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
 
         if (!$DB->tableExists(self::SECURITY_INCIDENTS_ITEMS_TABLE)) {
@@ -1618,7 +1642,7 @@ final class Installer
                 KEY `item` (`itemtype`,`items_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
 
         if (!$DB->tableExists(self::SECURITY_INCIDENT_TASKS_TABLE)) {
@@ -1648,7 +1672,7 @@ final class Installer
                 KEY `users_id_tech` (`users_id_tech`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
 
         if (!$DB->tableExists(self::SECURITY_INCIDENT_CVES_TABLE)) {
@@ -1664,7 +1688,7 @@ final class Installer
                 UNIQUE KEY `unicity` (`plugin_grcmanager_securityincidents_id`,`cve_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
         // Issue #172 : EPSS (en %) et passage KEV déjà signalés sur l'incident, pour ne pas répéter.
         if (!$DB->fieldExists(self::SECURITY_INCIDENT_CVES_TABLE, 'epss_alerted')) {
@@ -1697,7 +1721,7 @@ final class Installer
                 KEY `entities_id` (`entities_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
         // GLPI 12 : CommonITILCost lit aussi date_creation, date_mod, users_id et
         // users_id_lastupdater (comme glpi_ticketcosts) ; sans elles, l'onglet « Coûts » d'un
@@ -1726,7 +1750,7 @@ final class Installer
                 KEY `entities_id` (`entities_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
 
         foreach (
@@ -1750,7 +1774,7 @@ final class Installer
                 KEY `securityincidenttemplates_id` (`securityincidenttemplates_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
 
         // Colonnes requises par convention GLPI core (dérivées de strtolower(static::class) pour
@@ -1845,7 +1869,7 @@ final class Installer
                 KEY `plugin_grcmanager_securityincidents_id` (`plugin_grcmanager_securityincidents_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
         if (!$DB->tableExists(self::CRISIS_EXERCISE_STEPS_TABLE)) {
             $query = "CREATE TABLE `" . self::CRISIS_EXERCISE_STEPS_TABLE . "` (
@@ -1861,7 +1885,7 @@ final class Installer
                 KEY `plugin_grcmanager_crisisexercises_id` (`plugin_grcmanager_crisisexercises_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
         if (!$DB->tableExists(self::COMPLIANCE_AUDIT_TICKETS_TABLE)) {
             $query = "CREATE TABLE `" . self::COMPLIANCE_AUDIT_TICKETS_TABLE . "` (
@@ -1875,7 +1899,7 @@ final class Installer
                 KEY `tickets_id` (`tickets_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
         if (!$DB->tableExists(self::CRISIS_RECOVERIES_TABLE)) {
             $query = "CREATE TABLE `" . self::CRISIS_RECOVERIES_TABLE . "` (
@@ -1889,7 +1913,7 @@ final class Installer
                 UNIQUE KEY `unicity` (`plugin_grcmanager_crisisexercises_id`, `itemtype`, `items_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
         if (!$DB->tableExists(self::SECURITY_INCIDENTS_TICKETS_TABLE)) {
             $query = "CREATE TABLE `" . self::SECURITY_INCIDENTS_TICKETS_TABLE . "` (
@@ -1902,7 +1926,7 @@ final class Installer
                 KEY `tickets_id` (`tickets_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
 
         $migration->executeMigration();
@@ -1914,6 +1938,7 @@ final class Installer
         if ($hasLegacySecurityIncidents && $DB->tableExists(self::SECURITY_INCIDENTS_LEGACY_TABLE)) {
             $this->migrateLegacySecurityIncidents();
         }
+        $this->restrictGeneratedReports();
 
         // Issue #31 (plan d'action de traitement des risques, clause 8.3/6.1.3) : PLUSIEURS
         // actions concrètes par risque (contrairement au CAPA d'une non-conformité, qui n'a
@@ -1945,7 +1970,7 @@ final class Installer
                 KEY `due_date` (`due_date`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
         }
 
         // Absorption de glpi-security-incidents (ROADMAP.md "Version 2.0") : interrupteurs
@@ -1964,7 +1989,7 @@ final class Installer
                 PRIMARY KEY (`id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
-            $DB->doQuery($query) or die($DB->error());
+            $DB->doQuery($query);
 
             $DB->insert(self::SECURITY_INCIDENT_CONFIG_TABLE, array_merge(
                 array_map(static fn (bool $v): int => $v ? 1 : 0, SecurityIncidentModuleConfig::DEFAULTS),
@@ -2006,6 +2031,7 @@ final class Installer
         $this->seedEvidenceExpiringNotification();
         $this->seedWaiverExpiringNotification();
         $this->seedComplianceEventReminderNotification();
+        $this->migrateResponsibleTargets();
 
         // Issue #126 : relance hebdomadaire des responsables en retard sur une revue des accès.
         CronTask::Register(
@@ -2750,6 +2776,11 @@ final class Installer
             'mode'                     => 'mailing',
             'notificationtemplates_id' => $templateId,
         ]);
+        $DB->insert('glpi_notificationtargets', [
+            'notifications_id' => $notificationId,
+            'type'             => Notification::USER_TYPE,
+            'items_id'         => \PluginGrcmanagerNotificationTargetTraining::TARGET_OVERDUE_PARTICIPANTS,
+        ]);
     }
 
     /**
@@ -2969,6 +3000,140 @@ final class Installer
                     'items_id'         => $targetItemsId,
                     'type'             => Notification::USER_TYPE,
                 ]);
+            }
+        }
+    }
+
+    /**
+     * Revue de sécurité 2.11.0 : la cible « Responsable » des rappels de preuve, d'événement de
+     * conformité et de dérogation valait 1, l'identifiant de l'administrateur global dans GLPI ;
+     * le rappel partait à l'adresse de l'administrateur. Les notifications installées par les
+     * versions précédentes passent au nouvel identifiant. Idempotent.
+     */
+    private function migrateResponsibleTargets(): void
+    {
+        global $DB;
+
+        $targets = [
+            'PluginGrcmanagerEvidence'        => \PluginGrcmanagerNotificationTargetEvidence::TARGET_RESPONSIBLE,
+            'PluginGrcmanagerComplianceEvent' => \PluginGrcmanagerNotificationTargetComplianceEvent::TARGET_RESPONSIBLE,
+            'PluginGrcmanagerWaiver'          => \PluginGrcmanagerNotificationTargetWaiver::TARGET_RESPONSIBLE,
+        ];
+        foreach ($targets as $itemtype => $targetId) {
+            $notifications = array_column(iterator_to_array($DB->request([
+                'SELECT' => 'id',
+                'FROM'   => 'glpi_notifications',
+                'WHERE'  => ['itemtype' => $itemtype],
+            ]), false), 'id');
+            if ($notifications === []) {
+                continue;
+            }
+            $DB->update('glpi_notificationtargets', ['items_id' => $targetId], [
+                'notifications_id' => $notifications,
+                'type'             => Notification::USER_TYPE,
+                'items_id'         => Notification::GLOBAL_ADMINISTRATOR,
+            ]);
+        }
+
+        // Rappel de formation installé sans aucune cible par les versions précédentes : on lui
+        // donne les participants en retard, sauf si un administrateur a déjà choisi des cibles.
+        $trainingNotifications = $DB->request([
+            'SELECT' => 'id',
+            'FROM'   => 'glpi_notifications',
+            'WHERE'  => ['itemtype' => 'PluginGrcmanagerTraining', 'event' => 'training_renewal_due'],
+        ]);
+        foreach ($trainingNotifications as $row) {
+            if (countElementsInTable('glpi_notificationtargets', ['notifications_id' => (int) $row['id']]) === 0) {
+                $DB->insert('glpi_notificationtargets', [
+                    'notifications_id' => (int) $row['id'],
+                    'type'             => Notification::USER_TYPE,
+                    'items_id'         => \PluginGrcmanagerNotificationTargetTraining::TARGET_OVERDUE_PARTICIPANTS,
+                ]);
+            }
+        }
+    }
+
+    /**
+     * Revue de sécurité 2.11.0 : la désinstallation retire aussi les lignes des tables du cœur
+     * rattachées aux objets du plugin (suivis et solutions des incidents, liens de documents,
+     * notes, historique, recherches enregistrées, règles des incidents). Suivis, solutions, liens
+     * et règles passent par leur classe, pour que leurs propres nettoyages s'exécutent.
+     */
+    private function purgeCoreRows(): void
+    {
+        global $DB;
+
+        $pluginItemtype = ['LIKE', 'PluginGrcmanager%'];
+        // Rapports générés (audit, revue des accès, post-incident, crise) : sans le plugin, plus
+        // rien ne limiterait leur lecture à l'audience de l'objet source, qui disparaît.
+        if ($DB->tableExists(self::RESTRICTED_DOCUMENTS_TABLE)) {
+            foreach ($DB->request(['SELECT' => 'documents_id', 'FROM' => self::RESTRICTED_DOCUMENTS_TABLE]) as $row) {
+                (new \Document())->delete(['id' => (int) $row['documents_id']], true);
+            }
+        }
+        foreach ([\ITILFollowup::class, \ITILSolution::class, \Document_Item::class, \Item_Ticket::class] as $class) {
+            (new $class())->deleteByCriteria(['itemtype' => $pluginItemtype], true);
+        }
+        (new \Rule())->deleteByCriteria(['sub_type' => ['LIKE', 'RulePluginGrcmanager%']], true);
+        $DB->delete('glpi_notepads', ['itemtype' => $pluginItemtype]);
+        $DB->delete('glpi_savedsearches', ['itemtype' => $pluginItemtype]);
+        $DB->delete('glpi_logs', ['OR' => [['itemtype' => $pluginItemtype], ['itemtype_link' => $pluginItemtype]]]);
+    }
+
+    /**
+     * Revue de sécurité 2.11.0 : rapports déjà générés par une version antérieure. Ils étaient
+     * récursifs et, pour la revue des accès et les crises réelles, liés aux mesures globales de
+     * la SoA. Ils passent au registre des documents restreints, non récursifs, sans ces liens
+     * (seuls les rapports d'exercice, sur un incident fictif, restent liés aux mesures).
+     * Idempotent : un document déjà au registre est ignoré.
+     */
+    private function restrictGeneratedReports(): void
+    {
+        global $DB;
+
+        $sources = [
+            'rapport-audit-%'           => ['PluginGrcmanagerAudit', false],
+            'revue-acces-%'             => ['PluginGrcmanagerAccessReview', true],
+            'rapport-post-incident-%'   => [PluginGrcmanagerSecurityIncident::class, true],
+            'rapport-cellule-crise-%'   => [PluginGrcmanagerSecurityIncident::class, true],
+            'rapport-exercice-crise-%'  => [PluginGrcmanagerSecurityIncident::class, false],
+        ];
+        foreach ($sources as $pattern => [$itemtype, $unlinkControls]) {
+            $rows = $DB->request([
+                'SELECT'     => ['glpi_documents.id AS documents_id', 'glpi_documents_items.items_id'],
+                'FROM'       => 'glpi_documents',
+                'INNER JOIN' => [
+                    'glpi_documents_items' => ['FKEY' => [
+                        'glpi_documents_items' => 'documents_id',
+                        'glpi_documents'       => 'id',
+                    ]],
+                ],
+                'LEFT JOIN'  => [
+                    self::RESTRICTED_DOCUMENTS_TABLE => ['FKEY' => [
+                        self::RESTRICTED_DOCUMENTS_TABLE => 'documents_id',
+                        'glpi_documents'                 => 'id',
+                    ]],
+                ],
+                'WHERE'      => [
+                    'glpi_documents.filename'        => ['LIKE', $pattern],
+                    'glpi_documents_items.itemtype'  => $itemtype,
+                    self::RESTRICTED_DOCUMENTS_TABLE . '.id' => null,
+                ],
+            ]);
+            foreach ($rows as $row) {
+                $documentsId = (int) $row['documents_id'];
+                $DB->insert(self::RESTRICTED_DOCUMENTS_TABLE, [
+                    'documents_id' => $documentsId,
+                    'itemtype'     => $itemtype,
+                    'items_id'     => (int) $row['items_id'],
+                ]);
+                $DB->update('glpi_documents', ['is_recursive' => 0], ['id' => $documentsId]);
+                if ($unlinkControls) {
+                    $DB->delete('glpi_documents_items', [
+                        'documents_id' => $documentsId,
+                        'itemtype'     => 'PluginGrcmanagerControl',
+                    ]);
+                }
             }
         }
     }
@@ -3318,6 +3483,8 @@ final class Installer
         // DefaultDashboardService::seed() ci-dessus, avant que ses tables ne disparaissent.
         DefaultDashboardService::remove();
 
+        $this->purgeCoreRows();
+
         // GLPI 11 forbids $DB->query() for direct queries ("Executing direct queries is not
         // allowed!"), same lesson learned live on the sibling plugin glpi-vulnerability-manager,
         // see its TECH_DEBT.md. Migration's own dropTable() is the sanctioned way to drop a table
@@ -3349,6 +3516,7 @@ final class Installer
         $migration->dropTable(self::MANAGEMENT_REVIEWS_OBJECTIVES_TABLE);
         $migration->dropTable(self::OBJECTIVE_MEASUREMENTS_TABLE);
         $migration->dropTable(self::EVIDENCES_TABLE);
+        $migration->dropTable(self::RESTRICTED_DOCUMENTS_TABLE);
         $migration->dropTable(self::PERIODIC_REVIEWS_TABLE);
         $migration->dropTable(self::NETWORK_FLOWS_TABLE);
         $migration->dropTable(self::COMPLIANCE_EVENTS_TABLE);

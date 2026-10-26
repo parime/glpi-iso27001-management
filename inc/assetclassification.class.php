@@ -286,6 +286,11 @@ class PluginGrcmanagerAssetClassification extends AssetClassificationBase
     {
         global $CFG_GLPI;
 
+        // ajax/common.tabs.php sert le contenu sans passer par getTabNameForItem().
+        if (!Session::haveRight(self::$rightname, READ)) {
+            return false;
+        }
+
         $classification = self::getByItem($item->getType(), (int) $item->getID());
         TemplateRenderer::getInstance()->display('@grcmanager/asset_classification_tab.html.twig', [
             'itemtype'       => $item->getType(),

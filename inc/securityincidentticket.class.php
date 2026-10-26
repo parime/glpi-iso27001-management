@@ -108,7 +108,8 @@ class PluginGrcmanagerSecurityIncidentTicket extends CommonGLPI
             $rows = [];
             foreach (self::getIncidentIdsForTicket((int) $item->getID()) as $id) {
                 $incident = new PluginGrcmanagerSecurityIncident();
-                if ($incident->getFromDB($id)) {
+                // Un incident n'est listé qu'à qui peut le lire (entité, acteur pour « mes incidents »).
+                if ($incident->can($id, READ)) {
                     $rows[] = [
                         'id'       => $id,
                         'name'     => (string) $incident->fields['name'],
@@ -134,7 +135,8 @@ class PluginGrcmanagerSecurityIncidentTicket extends CommonGLPI
             $rows = [];
             foreach (self::getTicketIdsForIncident((int) $item->getID()) as $id) {
                 $ticket = new Ticket();
-                if ($ticket->getFromDB($id)) {
+                // Un ticket lié n'est listé qu'à qui peut le lire.
+                if ($ticket->can($id, READ)) {
                     $rows[] = [
                         'id'     => $id,
                         'name'   => (string) $ticket->fields['name'],

@@ -13,7 +13,8 @@ use Session;
  * tout utilisateur qui voit ce tableau de bord, sans contrôle de droit propre à la carte. Sans ce
  * filtre, un profil sans aucun droit sur le registre des risques, la SoA ou les incidents en lirait
  * quand même les volumes. Ici, chaque appel vérifie le droit de lecture de l'objet compté ; s'il
- * manque, la carte garde sa forme (pour ne pas casser le rendu) mais ses valeurs sont mises à zéro.
+ * manque, la carte garde sa forme (pour ne pas casser le rendu) mais perd toutes ses données,
+ * voir zeroed().
  */
 final class SecuredDashboardCards
 {
@@ -46,25 +47,31 @@ final class SecuredDashboardCards
         return $allowed ? $card : self::zeroed($card);
     }
 
+    /** Clés de présentation conservées sur une carte vidée : aucune ne porte de donnée. */
+    private const PRESENTATION_KEYS = ['label', 'icon', 'color', 'alt'];
+
     /**
+     * Carte sans aucune donnée tirée des tables du plugin, quelle que soit la forme du widget
+     * (revue de sécurité 2.11.0 : remettre à zéro les seules clés « number » laissait passer les
+     * séries d'une courbe et les libellés d'une liste). Liste blanche : seules les clés de
+     * présentation sont gardées ; un nombre devient 0, une série ou une liste devient vide.
+     *
      * @param array<string, mixed> $card
      * @return array<string, mixed>
      */
     public static function zeroed(array $card): array
     {
+        $empty = array_intersect_key($card, array_flip(self::PRESENTATION_KEYS));
         if (array_key_exists('number', $card)) {
-            $card['number'] = 0;
+            $empty['number'] = 0;
         }
-        if (isset($card['data']) && is_array($card['data'])) {
-            foreach ($card['data'] as $key => $entry) {
-                if (is_array($entry) && array_key_exists('number', $entry)) {
-                    $card['data'][$key]['number'] = 0;
-                } elseif (is_numeric($entry)) {
-                    $card['data'][$key] = 0;
-                }
-            }
+        if (array_key_exists('data', $card)) {
+            $data = is_array($card['data']) ? $card['data'] : [];
+            $empty['data'] = array_key_exists('labels', $data) || array_key_exists('series', $data)
+                ? ['labels' => [], 'series' => []]
+                : [];
         }
 
-        return $card;
+        return $empty;
     }
 }

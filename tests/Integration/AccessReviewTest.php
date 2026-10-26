@@ -166,7 +166,7 @@ final class AccessReviewTest extends GrcmanagerIntegrationTestCase
         $this->assertSame(2, PluginGrcmanagerAccessReview::sendReminders(date('Y-m-d', strtotime('+7 days'))));
     }
 
-    public function testClosingArchivesTheReportOnTheCampaignAndTheControl(): void
+    public function testClosingArchivesTheReportOnTheCampaignOnly(): void
     {
         $campaign = $this->createCampaign();
         $campaign->launch();
@@ -181,10 +181,19 @@ final class AccessReviewTest extends GrcmanagerIntegrationTestCase
             'itemtype'     => PluginGrcmanagerAccessReview::class,
             'items_id'     => $campaign->getID(),
         ]));
-        $this->assertSame(1, countElementsInTable(Document_Item::getTable(), [
+        // Revue de sécurité 2.11.0 : jamais lié à la mesure A.5.18 (globale), non récursif, et
+        // lisible avec les seuls droits de la campagne.
+        $this->assertSame(0, countElementsInTable(Document_Item::getTable(), [
             'documents_id' => $documentsId,
             'itemtype'     => PluginGrcmanagerControl::class,
         ]));
+        $document = new \Document();
+        $this->assertTrue($document->getFromDB($documentsId));
+        $this->assertSame(0, (int) $document->fields['is_recursive']);
+        $this->assertSame(
+            ['itemtype' => PluginGrcmanagerAccessReview::class, 'items_id' => $campaign->getID()],
+            \PluginGrcmanagerRestrictedDocument::sourceOf($documentsId)
+        );
         $this->assertFalse($campaign->close());
 
         $nextId = $campaign->prepareNext();

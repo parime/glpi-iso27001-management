@@ -5088,3 +5088,9 @@ msgstr "Participant"
 
 msgid "Aucun participant."
 msgstr "No participant."
+
+msgid "Participants en retard de renouvellement"
+msgstr "Participants overdue for renewal"
+
+msgid "Le PDF est archivé dans les documents de l'incident, lisible par les seules personnes qui voient l'incident."
+msgstr "The PDF is archived in the incident's documents, readable only by people who can see the incident."

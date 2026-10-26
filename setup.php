@@ -299,7 +299,12 @@ function plugin_init_grcmanager(): void
     $PLUGIN_HOOKS[Hooks::ITEM_PURGE]['grcmanager'] = [
         'Ticket'                                => 'plugin_grcmanager_purge_security_incident_links',
         PluginGrcmanagerSecurityIncident::class => 'plugin_grcmanager_purge_security_incident_links',
+        'Document'                              => 'plugin_grcmanager_forget_restricted_document',
     ];
+    // Rapports générés (audit, revue des accès, post-incident, cellule de crise) : lisibles par
+    // les seules personnes qui lisent leur objet source, voir PluginGrcmanagerRestrictedDocument.
+    $PLUGIN_HOOKS[Hooks::ITEM_CAN]['grcmanager'] = ['Document' => 'plugin_grcmanager_restricted_document_can'];
+    $PLUGIN_HOOKS[Hooks::ADD_DEFAULT_WHERE]['grcmanager'] = 'plugin_grcmanager_restricted_documents_where';
 
     // Dashboard KPI cards, kept accumulator-safe from the start (?array $cards = null, merged
     // onto rather than replacing): a bare no-argument signature returning only this plugin's own

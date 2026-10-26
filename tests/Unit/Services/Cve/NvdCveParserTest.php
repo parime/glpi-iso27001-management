@@ -212,6 +212,25 @@ final class NvdCveParserTest extends TestCase
         self::assertSame('Patch', $tagsByUrl[self::MICROSOFT_ADVISORY_URL]);
     }
 
+    public function testDropsPatchLinksThatAreNotHttpUrls(): void
+    {
+        // Revue de sécurité 2.11.0 : une référence NVD altérée ne doit jamais atteindre un href.
+        $payload = $this->log4shellPayload();
+        $payload['references'][] = [
+            'url' => 'javascript:alert(document.domain)', 'tags' => ['Patch'],
+        ];
+        $payload['references'][] = [
+            'url' => 'data:text/html,<script>alert(1)</script>', 'tags' => ['Vendor Advisory'],
+        ];
+
+        $urls = array_column(NvdCveParser::parse($payload)['patch_links'], 'url');
+
+        self::assertCount(2, $urls);
+        foreach ($urls as $url) {
+            self::assertStringStartsWith('https://', $url);
+        }
+    }
+
     public function testParsesThePublicationDateIntoAMysqlCompatibleTimestamp(): void
     {
         $result = NvdCveParser::parse($this->log4shellPayload());

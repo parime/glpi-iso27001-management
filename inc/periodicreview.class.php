@@ -174,13 +174,45 @@ class PluginGrcmanagerPeriodicReview extends PeriodicReviewBase
 
     /**
      * Activer une revue demande le droit du plugin ET celui de créer des tickets récurrents : le
-     * plugin ne doit pas permettre ce que GLPI refuserait à la même personne.
+     * plugin ne doit pas permettre ce que GLPI refuserait à la même personne. Le gabarit et le
+     * ticket récurrent sont créés à l'entité racine (récursifs) : il faut aussi y avoir accès,
+     * comme dans les formulaires de GLPI (revue de sécurité 2.11.0).
      */
     public static function canManage(): bool
     {
         return Session::haveRight(self::RIGHTNAME, UPDATE)
             && Session::haveRight(TicketRecurrent::$rightname, CREATE)
-            && Session::haveRight(TicketTemplate::$rightname, CREATE);
+            && Session::haveRight(TicketTemplate::$rightname, CREATE)
+            && Session::haveAccessToEntity(0);
+    }
+
+    /**
+     * Attribution acceptée seulement pour ce que proposent les listes du formulaire : un
+     * utilisateur actif qui peut se voir attribuer des tickets à la racine, un groupe
+     * « attribuable » ; 0 sinon.
+     *
+     * @return array{0: int, 1: int}
+     */
+    public static function validAssignees(int $usersId, int $groupsId): array
+    {
+        $user = new User();
+        if (
+            $usersId > 0
+            && !(
+                $user->getFromDB($usersId)
+                && (int) $user->fields['is_active'] === 1
+                && (int) $user->fields['is_deleted'] === 0
+                && Profile::haveUserRight($usersId, Ticket::$rightname, Ticket::OWN, 0)
+            )
+        ) {
+            $usersId = 0;
+        }
+        $group = new Group();
+        if ($groupsId > 0 && !($group->getFromDB($groupsId) && (int) $group->fields['is_assign'] === 1)) {
+            $groupsId = 0;
+        }
+
+        return [max(0, $usersId), max(0, $groupsId)];
     }
 
     /**
@@ -189,7 +221,11 @@ class PluginGrcmanagerPeriodicReview extends PeriodicReviewBase
      */
     public function activate(int $months, int $usersId, int $groupsId): bool
     {
+        if (!self::canManage()) {
+            return false;
+        }
         $months = PeriodicReviewCatalog::normalizeMonths($months);
+        [$usersId, $groupsId] = self::validAssignees($usersId, $groupsId);
         $wasActive = $this->isActive();
         $this->update([
             'id'               => $this->getID(),

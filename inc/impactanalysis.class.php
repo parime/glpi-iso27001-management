@@ -120,7 +120,7 @@ class PluginGrcmanagerImpactAnalysis extends CommonGLPI
             return ['label' => $itemtype, 'url' => '', 'visible' => false] + $base;
         }
         $item = new $itemtype();
-        if (!$item->getFromDB($itemsId) || !$item->canViewItem()) {
+        if (!$item->can($itemsId, READ)) {
             return ['label' => __('Élément non visible', 'grcmanager'), 'url' => '', 'visible' => false] + $base;
         }
 
@@ -381,7 +381,8 @@ class PluginGrcmanagerImpactAnalysis extends CommonGLPI
 
     public static function displayTabContentForItem(CommonGLPI $item, $tabnum = 1, $withtemplate = 0)
     {
-        if (!$item instanceof CommonDBTM) {
+        // ajax/common.tabs.php sert le contenu sans passer par getTabNameForItem().
+        if (!$item instanceof CommonDBTM || !self::canView()) {
             return false;
         }
         TemplateRenderer::getInstance()->display('@grcmanager/impact_tab.html.twig', [
