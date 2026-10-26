@@ -634,8 +634,8 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
                             Html::convDateTime($deadline['due'])
                         ),
                         __(
-                            'Rien n\'est envoyé automatiquement à l\'autorité : faites la notification, puis renseignez '
-                                . 'sa date dans « Notifications réglementaires » sur l\'incident.',
+                            'Rien n\'est envoyé automatiquement à l\'autorité : faites la notification, puis '
+                                . 'renseignez sa date dans « Notifications réglementaires » sur l\'incident.',
                             'grcmanager'
                         ),
                     ]),

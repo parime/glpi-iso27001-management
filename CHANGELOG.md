@@ -30,8 +30,9 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   rendus par un gabarit Twig, ainsi que tous les badges de statut, de niveau et de type des listes
   et fiches (risques, mesures, non-conformités, audits, politiques, formations, incidents…), via un
   gabarit commun, l'onglet « Risques » des actifs et le contenu des tickets de revue des accès et de
-  revue périodique, ainsi que les raccourcis et avertissements au-dessus des listes. Le HTML
-  écrit en PHP passe de 241 à 89 chaînes.
+  revue périodique, les raccourcis et avertissements au-dessus des listes, ainsi que les liens
+  des listes et les contenus des tickets et suivis générés. Le HTML écrit en PHP passe de 241 à
+  61 chaînes.
 
 ### Added
 
