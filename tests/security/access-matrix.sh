@@ -51,7 +51,7 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/audit.report.php front/control.report.php front/risk.report.php front/control.csv.php?action=export
   front/evidence.php front/periodicreview.php front/networkflow.php front/accounthygiene.php
   front/compliancecalendar.php front/compliancecalendar.php?ics=1 front/complianceevent.php
-  front/parkvulnerability.php front/softwarewatch.php front/riskcatalog.php front/waiver.php
+  front/parkvulnerability.php front/parkmachines.php front/softwarewatch.php front/riskcatalog.php front/waiver.php
   front/coveragerule.php front/impactanalysis.php front/causalgraph.php
   front/impactanalysis.php?export=continuity front/maturity.php front/crisisexercise.php front/complianceaudit.php
   front/dashboard.php front/networkflow.report.php"

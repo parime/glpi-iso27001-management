@@ -425,6 +425,19 @@ class PluginGrcmanagerPageHelp
                     'grcmanager'
                 ),
             ],
+            'parkmachines' => [
+                'purpose'  => __(
+                    'Les machines les plus exposées aux vulnérabilités connues de leurs logiciels surveillés, '
+                    . 'pour savoir par où commencer les mises à jour.',
+                    'grcmanager'
+                ),
+                'expected' => __(
+                    'Traitez d\'abord les machines du haut de la liste ; l\'onglet « Vulnérabilités » de chacune '
+                    . 'détaille les CVE et le ticket de mise à jour.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO 27001, Annexe A 8.8', 'grcmanager'),
+            ],
             'canonicalproduct' => [
                 'purpose'  => __(
                     'Le catalogue de corrélation : les produits de référence, leurs CPE et les noms sous lesquels '

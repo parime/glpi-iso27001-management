@@ -7,6 +7,14 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Added
+
+- **Machines les plus exposées** (issue #181), rubrique Vulnérabilités du parc : classement des
+  machines par score d'exposition (vulnérabilité la plus grave, 10 si activement exploitée, pour
+  70 % ; vulnérabilités prioritaires pour 30 %), avec le nombre de vulnérabilités exploitées (KEV),
+  prioritaires et au total, le CVSS et l'EPSS maximum. Lien direct vers l'onglet Vulnérabilités de
+  chaque machine. Seulement les machines des entités de l'utilisateur, d'un type qu'il peut lire.
+
 ### Security
 
 - **Dérogations : séparation des tâches**. Le demandeur d'une dérogation (enregistré à sa
