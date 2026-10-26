@@ -28,14 +28,28 @@ use Glpi\Application\View\TemplateRenderer;
 final class Fragment
 {
     /**
-     * Lien vers une fiche ; $code (ex. « A.5.1 ») est affiché en gras devant le libellé.
+     * Lien vers une fiche ; $code (ex. « A.5.1 ») est affiché en gras devant le libellé, $icon
+     * (icône Tabler, ex. « ti-shield-check ») avant.
      */
-    public static function link(string $url, string $label, string $code = ''): string
+    public static function link(string $url, string $label, string $code = '', ?string $icon = null): string
     {
         return trim(TemplateRenderer::getInstance()->render('@grcmanager/_link.html.twig', [
             'url'   => $url,
             'label' => $label,
             'code'  => $code,
+            'icon'  => $icon,
+        ]));
+    }
+
+    /**
+     * Texte court : icône optionnelle devant, et/ou classe CSS (ex. « text-muted »).
+     */
+    public static function text(string $label, ?string $icon = null, ?string $class = null): string
+    {
+        return trim(TemplateRenderer::getInstance()->render('@grcmanager/_text.html.twig', [
+            'label' => $label,
+            'icon'  => $icon,
+            'class' => $class,
         ]));
     }
 
