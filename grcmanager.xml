@@ -135,6 +135,12 @@ notification. Every sensitive action requires the native GLPI rights.
     </authors>
     <versions>
         <version>
+            <num>2.10.0</num>
+            <compatibility>~11.0</compatibility>
+            <compatibility>~12.0</compatibility>
+            <download_url>https://github.com/parime/glpi-iso27001-management/releases/download/v2.10.0/glpi-iso27001-management-2.10.0.zip</download_url>
+        </version>
+        <version>
             <num>2.9.0</num>
             <compatibility>~11.0</compatibility>
             <compatibility>~12.0</compatibility>
