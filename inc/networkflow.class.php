@@ -103,6 +103,10 @@ class PluginGrcmanagerNetworkFlow extends NetworkFlowBase
             NetworkFlowRules::CHECK_EXPIRING          => __('Expire bientôt', 'grcmanager'),
             NetworkFlowRules::CHECK_ADMIN_EXPOSED     => __('Administration exposée sur Internet', 'grcmanager'),
             NetworkFlowRules::CHECK_ANY_PORT_INTERNET => __('Tous les ports ouverts depuis Internet', 'grcmanager'),
+            NetworkFlowRules::CHECK_PARTNER_OVERLAP   => __(
+                'Réseau partenaire en conflit avec un réseau interne',
+                'grcmanager'
+            ),
             default                                   => $check,
         };
     }
@@ -283,7 +287,7 @@ class PluginGrcmanagerNetworkFlow extends NetworkFlowBase
                 );
             case 'id':
                 if (array_key_exists('flow_type', $values)) {
-                    return self::checksHtml(NetworkFlowRules::checks($values, date('Y-m-d')));
+                    return self::checksHtml(NetworkFlowRules::checks($values, date('Y-m-d'), self::internalNetworks()));
                 }
                 break;
         }
@@ -368,7 +372,7 @@ class PluginGrcmanagerNetworkFlow extends NetworkFlowBase
 
     public function getChecks(): array
     {
-        return NetworkFlowRules::checks($this->fields, date('Y-m-d'));
+        return NetworkFlowRules::checks($this->fields, date('Y-m-d'), self::internalNetworks());
     }
 
     public function showForm($ID, array $options = []): bool
@@ -425,7 +429,7 @@ class PluginGrcmanagerNetworkFlow extends NetworkFlowBase
         $today = date('Y-m-d');
         foreach ($DB->request(['FROM' => self::getTable(), 'WHERE' => ['is_active' => 1]]) as $row) {
             $active++;
-            foreach (NetworkFlowRules::checks($row, $today) as $check) {
+            foreach (NetworkFlowRules::checks($row, $today, self::internalNetworks()) as $check) {
                 $byCheck[$check] ??= [
                     'label'    => self::getCheckLabel($check),
                     'blocking' => NetworkFlowRules::isBlocking($check),
@@ -442,6 +446,37 @@ class PluginGrcmanagerNetworkFlow extends NetworkFlowBase
             'import_url'   => self::getImportURL(),
             'report_url'   => self::getReportURL(),
         ]);
+    }
+
+    /**
+     * Issue #144 : réseaux IP déclarés dans GLPI (IPv4), pour repérer un réseau partenaire qui
+     * chevaucherait un réseau interne. Lus une seule fois par requête.
+     *
+     * @return list<string> « 10.0.0.0/16 »
+     */
+    public static function internalNetworks(): array
+    {
+        global $DB;
+        static $networks = null;
+
+        if ($networks === null) {
+            $networks = [];
+            foreach (
+                $DB->request([
+                    'SELECT' => ['address', 'netmask'],
+                    'FROM'   => IPNetwork::getTable(),
+                    'WHERE'  => ['version' => 4],
+                ]) as $row
+            ) {
+                $mask = ip2long((string) $row['netmask']);
+                if ($mask === false || ip2long((string) $row['address']) === false) {
+                    continue;
+                }
+                $networks[] = $row['address'] . '/' . substr_count(decbin($mask), '1');
+            }
+        }
+
+        return $networks;
     }
 
     public static function getReportURL(): string
@@ -493,7 +528,7 @@ class PluginGrcmanagerNetworkFlow extends NetworkFlowBase
                 continue;
             }
             $active++;
-            $checks = NetworkFlowRules::checks($row, $today);
+            $checks = NetworkFlowRules::checks($row, $today, self::internalNetworks());
             foreach ($checks as $check) {
                 $byCheck[$check] ??= ['label' => self::getCheckLabel($check), 'count' => 0];
                 $byCheck[$check]['count']++;

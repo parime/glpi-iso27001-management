@@ -15,6 +15,10 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   aussi le fichier config.xml d'un pare-feu pfSense. Les règles actives qui autorisent un flux
   deviennent des flux (alias d'hôtes, de réseaux et de ports résolus, type déduit de l'interface),
   après simulation et sans doublon. Justification et propriétaire restent à renseigner.
+- **Matrice des flux : réseau partenaire en conflit** (issue #144) : un tunnel vers un partenaire
+  dont l'adresse ou la plage (ex. « 10.10.20.0/24 » dans la source ou la destination) chevauche un
+  réseau IP déclaré dans GLPI est signalé comme écart bloquant : les deux côtés ne pourraient pas
+  se joindre sans traduction d'adresses (NAT).
 
 ### Added
 

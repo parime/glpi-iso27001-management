@@ -5062,3 +5062,6 @@ msgstr "Choisissez un fichier CSV ou une sauvegarde pfSense (XML) de 2 Mo au plu
 
 msgid "Pare-feu pfSense : importez directement la sauvegarde de sa configuration (Diagnostics > Backup & Restore, fichier config.xml). Les règles actives qui autorisent un flux sont reprises, avec leurs alias résolus ; les règles de blocage et les règles désactivées sont ignorées. Dans ce cas, le numéro de ligne affiché est celui de la règle. Justification et propriétaire restent à compléter dans la matrice."
 msgstr "Pare-feu pfSense : importez directement la sauvegarde de sa configuration (Diagnostics > Backup & Restore, fichier config.xml). Les règles actives qui autorisent un flux sont reprises, avec leurs alias résolus ; les règles de blocage et les règles désactivées sont ignorées. Dans ce cas, le numéro de ligne affiché est celui de la règle. Justification et propriétaire restent à compléter dans la matrice."
+
+msgid "Réseau partenaire en conflit avec un réseau interne"
+msgstr "Réseau partenaire en conflit avec un réseau interne"

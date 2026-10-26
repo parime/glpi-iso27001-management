@@ -45,6 +45,7 @@ final class NetworkFlowRules
     public const CHECK_EXPIRING = 'expiring';
     public const CHECK_ADMIN_EXPOSED = 'admin_exposed';
     public const CHECK_ANY_PORT_INTERNET = 'any_port_internet';
+    public const CHECK_PARTNER_OVERLAP = 'partner_overlap';
 
     public static function normalizeType(mixed $value): string
     {
@@ -108,10 +109,11 @@ final class NetworkFlowRules
      * Contrôles automatiques d'un flux actif.
      *
      * @param array{flow_type?: mixed, ports?: mixed, justification?: mixed, users_id?: mixed,
-     *     date_end?: mixed, is_active?: mixed} $flow
+     *     date_end?: mixed, is_active?: mixed, source_label?: mixed, destination_label?: mixed} $flow
+     * @param list<string> $internalNetworks réseaux internes (« 10.0.0.0/16 »), voir partnerOverlaps()
      * @return list<string> clés CHECK_*
      */
-    public static function checks(array $flow, string $today): array
+    public static function checks(array $flow, string $today, array $internalNetworks = []): array
     {
         if (isset($flow['is_active']) && (int) $flow['is_active'] === 0) {
             return [];
@@ -139,7 +141,71 @@ final class NetworkFlowRules
                 $checks[] = self::CHECK_ADMIN_EXPOSED;
             }
         }
+        if (self::partnerOverlaps($flow, $internalNetworks) !== []) {
+            $checks[] = self::CHECK_PARTNER_OVERLAP;
+        }
         return $checks;
+    }
+
+    /**
+     * Issue #144 : tunnel vers un partenaire dont un réseau (adresse ou plage CIDR écrite dans la
+     * source ou la destination) chevauche un réseau interne. Les deux côtés ne pourraient pas se
+     * joindre sans traduction d'adresses (NAT).
+     *
+     * @param list<string> $internalNetworks
+     * @return list<string> réseaux internes en conflit
+     */
+    public static function partnerOverlaps(array $flow, array $internalNetworks): array
+    {
+        if ($internalNetworks === [] || self::normalizeType($flow['flow_type'] ?? '') !== 'partner_tunnel') {
+            return [];
+        }
+        $label = (string) ($flow['source_label'] ?? '') . ' ' . (string) ($flow['destination_label'] ?? '');
+        $conflicts = [];
+        foreach (self::extractNetworks($label) as $partner) {
+            foreach ($internalNetworks as $internal) {
+                $range = self::extractNetworks($internal)[0] ?? null;
+                if ($range !== null && self::networksOverlap($partner, $range)) {
+                    $conflicts[] = $internal;
+                }
+            }
+        }
+
+        return array_values(array_unique($conflicts));
+    }
+
+    /**
+     * Adresses IPv4 et plages CIDR d'un texte libre (une adresse seule vaut /32).
+     *
+     * @return list<array{0: int, 1: int}> [adresse réseau, longueur du préfixe]
+     */
+    public static function extractNetworks(string $text): array
+    {
+        preg_match_all('/\b(\d{1,3}(?:\.\d{1,3}){3})(?:\/(\d{1,2}))?\b/', $text, $matches, PREG_SET_ORDER);
+        $networks = [];
+        foreach ($matches as $m) {
+            $address = ip2long($m[1]);
+            $prefix = isset($m[2]) ? (int) $m[2] : 32;
+            if ($address === false || $prefix > 32) {
+                continue;
+            }
+            $mask = $prefix === 0 ? 0 : (~0 << (32 - $prefix)) & 0xFFFFFFFF;
+            $networks[] = [$address & $mask, $prefix];
+        }
+
+        return $networks;
+    }
+
+    /**
+     * @param array{0: int, 1: int} $a
+     * @param array{0: int, 1: int} $b
+     */
+    public static function networksOverlap(array $a, array $b): bool
+    {
+        $prefix = min($a[1], $b[1]);
+        $mask = $prefix === 0 ? 0 : (~0 << (32 - $prefix)) & 0xFFFFFFFF;
+
+        return ($a[0] & $mask) === ($b[0] & $mask);
     }
 
     /**
@@ -157,6 +223,6 @@ final class NetworkFlowRules
     public static function isBlocking(string $check): bool
     {
         return in_array($check, [self::CHECK_NO_JUSTIFICATION, self::CHECK_EXPIRED, self::CHECK_ADMIN_EXPOSED,
-            self::CHECK_ANY_PORT_INTERNET], true);
+            self::CHECK_ANY_PORT_INTERNET, self::CHECK_PARTNER_OVERLAP], true);
     }
 }

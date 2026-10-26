@@ -47,7 +47,11 @@ $rows = [];
 $today = date('Y-m-d');
 foreach ($result['rows'] ?? [] as $row) {
     // Propriétaire non encore résolu en simulation : seul le fait qu'il soit renseigné compte.
-    $checks = NetworkFlowRules::checks($row + ['users_id' => $row['owner'] !== '' ? 1 : 0], $today);
+    $checks = NetworkFlowRules::checks(
+        $row + ['users_id' => $row['owner'] !== '' ? 1 : 0],
+        $today,
+        PluginGrcmanagerNetworkFlow::internalNetworks()
+    );
     if ($row['status'] === 'skipped') {
         $state = ['bg-secondary-lt', __('Déjà présent', 'grcmanager')];
     } else {
