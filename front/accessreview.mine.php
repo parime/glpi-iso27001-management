@@ -38,7 +38,15 @@ if (isset($_POST['save_decisions'])) {
             'FROM'  => PluginGrcmanagerAccessReview::LINES_TABLE,
             'WHERE' => ['id' => (int) $lineId],
         ])->current();
-        if ($current !== null && $current['decision'] === $decision && (string) $current['comment'] === $comment) {
+        // Ligne inchangée ignorée seulement si elle est confiée à cet utilisateur : sinon, l'absence
+        // d'erreur révélerait la décision d'une ligne d'une autre campagne. decide() contrôle les
+        // autres cas (gestionnaire de la campagne, refus).
+        if (
+            $current !== null
+            && (int) $current['reviewers_id'] === $usersId
+            && $current['decision'] === $decision
+            && (string) $current['comment'] === $comment
+        ) {
             continue;
         }
         $error = PluginGrcmanagerAccessReview::decide((int) $lineId, (string) $decision, $comment, $usersId);

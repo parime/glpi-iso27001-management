@@ -330,8 +330,11 @@ class PluginGrcmanagerSoaVersion extends SoaVersionBase
         $document = new Document();
         $documentsId = (int) $document->add([
             'name'          => sprintf(__('Déclaration d\'Applicabilité - version %d', 'grcmanager'), $versionNumber),
+            // Lisible avec le seul droit de lire la SoA (PluginGrcmanagerRestrictedDocument), jamais
+            // avec le droit Documents des sous-entités (trouvé par le contrôle commun,
+            // parime/glpi-plugin-security).
             'entities_id'   => 0,
-            'is_recursive'  => 1,
+            'is_recursive'  => 0,
             '_filename'     => [$fileName],
             '_tag_filename' => [$fileName],
         ]);
@@ -342,6 +345,10 @@ class PluginGrcmanagerSoaVersion extends SoaVersionBase
                 'itemtype'     => self::class,
                 'items_id'     => $versionId,
             ]);
+            $version = new self();
+            if ($version->getFromDB($versionId)) {
+                PluginGrcmanagerRestrictedDocument::register($documentsId, $version);
+            }
         }
 
         return $documentsId;

@@ -42,9 +42,12 @@ class PluginGrcmanagerCrisisExercise extends CrisisExerciseBase
     public const STEPS_TABLE = 'glpi_plugin_grcmanager_crisisexercisesteps';
     public const RECOVERIES_TABLE = 'glpi_plugin_grcmanager_crisisrecoveries';
 
-    /** Mesures de l'Annexe A auxquelles le rapport sert de preuve : exercice, crise réelle. */
+    /**
+     * Mesures de l'Annexe A auxquelles le rapport d'un exercice (incident fictif) sert de preuve.
+     * Le rapport d'une crise réelle n'y est jamais lié : les mesures sont globales, et le
+     * document serait téléchargeable par tout lecteur de la SoA, sans droit sur l'incident.
+     */
     private const DRILL_CONTROL_CODES = ['A.5.29', 'A.5.30'];
-    private const CRISIS_CONTROL_CODES = ['A.5.26', 'A.5.29'];
 
     public static function getTypeName($nb = 0)
     {
@@ -609,7 +612,8 @@ class PluginGrcmanagerCrisisExercise extends CrisisExerciseBase
                 $scenario
             ),
             'entities_id'   => (int) $this->fields['entities_id'],
-            'is_recursive'  => 1,
+            // Lisible dans l'entité de l'incident seulement, comme l'incident.
+            'is_recursive'  => 0,
             '_filename'     => [$fileName],
             '_tag_filename' => [$fileName],
         ]);
@@ -621,14 +625,16 @@ class PluginGrcmanagerCrisisExercise extends CrisisExerciseBase
             PluginGrcmanagerSecurityIncident::class,
             (int) $this->fields['plugin_grcmanager_securityincidents_id'],
         ]];
-        foreach (
-            $DB->request([
-                'SELECT' => ['id'],
-                'FROM'   => PluginGrcmanagerControl::getTable(),
-                'WHERE'  => ['code' => $drill ? self::DRILL_CONTROL_CODES : self::CRISIS_CONTROL_CODES],
-            ]) as $control
-        ) {
-            $targets[] = [PluginGrcmanagerControl::class, (int) $control['id']];
+        if ($drill) {
+            foreach (
+                $DB->request([
+                    'SELECT' => ['id'],
+                    'FROM'   => PluginGrcmanagerControl::getTable(),
+                    'WHERE'  => ['code' => self::DRILL_CONTROL_CODES],
+                ]) as $control
+            ) {
+                $targets[] = [PluginGrcmanagerControl::class, (int) $control['id']];
+            }
         }
         foreach ($targets as [$itemtype, $itemsId]) {
             (new Document_Item())->add([
@@ -636,6 +642,10 @@ class PluginGrcmanagerCrisisExercise extends CrisisExerciseBase
                 'itemtype'     => $itemtype,
                 'items_id'     => $itemsId,
             ]);
+        }
+        $incident = new PluginGrcmanagerSecurityIncident();
+        if ($incident->getFromDB((int) $this->fields['plugin_grcmanager_securityincidents_id'])) {
+            PluginGrcmanagerRestrictedDocument::register($documentsId, $incident);
         }
         $this->update(['id' => $this->getID(), 'documents_id' => $documentsId]);
 

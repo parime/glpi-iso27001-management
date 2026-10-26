@@ -137,7 +137,7 @@ final class ComplianceCalendarRules
         foreach ($events as $event) {
             $allDay = str_ends_with($event['begin'], '00:00:00') && str_ends_with($event['end'], '00:00:00');
             $lines[] = 'BEGIN:VEVENT';
-            $lines[] = 'UID:' . $event['uid'];
+            $lines[] = 'UID:' . self::singleLine((string) $event['uid']);
             $lines[] = 'DTSTAMP:' . $stamp;
             if ($allDay) {
                 $lines[] = 'DTSTART;VALUE=DATE:' . date('Ymd', (int) strtotime($event['begin']));
@@ -151,7 +151,7 @@ final class ComplianceCalendarRules
                 $lines[] = 'DESCRIPTION:' . self::escape((string) $event['description']);
             }
             if (($event['url'] ?? '') !== '') {
-                $lines[] = 'URL:' . $event['url'];
+                $lines[] = 'URL:' . self::singleLine((string) $event['url']);
             }
             $lines[] = 'END:VEVENT';
         }
@@ -160,9 +160,22 @@ final class ComplianceCalendarRules
         return implode("\r\n", array_map([self::class, 'fold'], $lines)) . "\r\n";
     }
 
+    /**
+     * Texte d'une propriété : retours à la ligne (y compris un \r isolé) encodés, autres
+     * caractères de contrôle retirés, pour qu'aucun texte ne termine la propriété et n'injecte
+     * de ligne iCalendar.
+     */
     private static function escape(string $text): string
     {
-        return str_replace(["\\", ';', ',', "\r\n", "\n"], ["\\\\", '\;', '\,', '\n', '\n'], $text);
+        $text = str_replace(["\\", ';', ',', "\r\n", "\r", "\n"], ["\\\\", '\;', '\,', '\n', '\n', '\n'], $text);
+
+        return (string) preg_replace('/[\x00-\x08\x0b-\x1f\x7f]/', '', $text);
+    }
+
+    /** Valeur d'UID ou d'URL : jamais de caractère de contrôle (ni CR ni LF). */
+    private static function singleLine(string $value): string
+    {
+        return (string) preg_replace('/[\x00-\x1f\x7f]/', '', $value);
     }
 
     /**

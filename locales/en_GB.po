@@ -5088,3 +5088,34 @@ msgstr "Participant"
 
 msgid "Aucun participant."
 msgstr "No participant."
+
+msgid "Contrôles techniques automatiques"
+msgstr "Automated technical checks"
+
+msgid "Preuves"
+msgstr "Evidence"
+
+msgid "Analyse d'impact"
+msgstr "Impact analysis"
+
+msgid "Les contrôles techniques automatiques : des vérifications calculées sur les données de GLPI (antivirus, chiffrement des disques, inventaire, validation des changements, comptes), avec un score par référentiel."
+msgstr "Automated technical checks: checks computed from GLPI data (antivirus, disk encryption, inventory, change validation, accounts), with a score per framework."
+
+#, php-format
+msgid "Écarts relevés par les contrôles techniques automatiques (GRC & Conformité) : %s."
+msgstr "Gaps found by the automated technical checks (GRC & Compliance): %s."
+
+#, php-format
+msgid "… et %d autres, visibles dans les contrôles techniques automatiques."
+msgstr "… and %d more, visible in the automated technical checks."
+
+msgid "Corrigez chaque élément, puis relancez les contrôles pour vérifier. Rien n'a été modifié automatiquement."
+msgstr "Fix each item, then run the checks again to verify. Nothing was changed automatically."
+
+msgid "La bibliothèque des politiques de sécurité, versionnées, avec leur approbation et leur date de revue."
+msgstr "The library of security policies, versioned, with their approval and review date."
+msgid "Participants en retard de renouvellement"
+msgstr "Participants overdue for renewal"
+
+msgid "Le PDF est archivé dans les documents de l'incident, lisible par les seules personnes qui voient l'incident."
+msgstr "The PDF is archived in the incident's documents, readable only by people who can see the incident."

@@ -25,13 +25,19 @@
  * Unlike every other NotificationTarget in this plugin (which resolve a single recipient from the
  * item's own `users_id` "owner" field via Notification::ITEM_USER), a training has no single
  * owner: it has a set of participants, of which zero, one or several can be overdue for renewal
- * at once. addAdditionalTargets() below resolves that set explicitly (same technique GLPI core
- * itself uses for a Ticket's multiple assigned technicians/observers) rather than relying on the
- * generic item-owner target, and calls addTarget() once per overdue participant so a single
- * training with several overdue participants sends one notification to every one of them.
+ * at once. A single target, « Participants en retard de renouvellement », resolves that set when
+ * the notification is sent (addSpecificTargets()), so a training with several overdue
+ * participants sends one notification to every one of them.
+ *
+ * Revue de sécurité 2.11.0 : une cible était auparavant déclarée par participant, avec l'id de
+ * l'utilisateur comme id de cible. Rien ne la résolvait (aucun destinataire), et un id égal à une
+ * constante du cœur (1 = administrateur global, 2 = administrateur d'entité…) était traité comme
+ * cette constante. L'id de la cible est hors de la plage du cœur.
  */
 class PluginGrcmanagerNotificationTargetTraining extends NotificationTarget
 {
+    public const TARGET_OVERDUE_PARTICIPANTS = 1170;
+
     #[Override]
     public function getEvents()
     {
@@ -46,14 +52,36 @@ class PluginGrcmanagerNotificationTargetTraining extends NotificationTarget
     #[Override]
     public function addAdditionalTargets($event = '')
     {
-        $trainingId = (int) ($this->obj->fields['id'] ?? 0);
+        $this->addTarget(
+            self::TARGET_OVERDUE_PARTICIPANTS,
+            __('Participants en retard de renouvellement', 'grcmanager')
+        );
+    }
 
-        if ($trainingId <= 0) {
+    #[Override]
+    public function addSpecificTargets($data, $options)
+    {
+        $trainingId = (int) ($this->obj->fields['id'] ?? 0);
+        if ((int) ($data['items_id'] ?? 0) !== self::TARGET_OVERDUE_PARTICIPANTS || $trainingId <= 0) {
             return;
         }
-
-        foreach (PluginGrcmanagerTraining::getOverdueParticipants($trainingId) as $userId => $name) {
-            $this->addTarget($userId, sprintf(__('Participant : %s', 'grcmanager'), $name));
+        foreach (array_keys(PluginGrcmanagerTraining::getOverdueParticipants($trainingId)) as $usersId) {
+            $user = new User();
+            $email = UserEmail::getDefaultForUser((int) $usersId);
+            if (!$user->getFromDB((int) $usersId) || empty($email)) {
+                continue;
+            }
+            $this->addToRecipientsList([
+                'language' => $user->fields['language'] ?: ($GLOBALS['CFG_GLPI']['language'] ?? 'en_GB'),
+                'name'     => formatUserName(
+                    0,
+                    $user->fields['name'],
+                    $user->fields['realname'],
+                    $user->fields['firstname']
+                ),
+                'email'    => $email,
+                'users_id' => (int) $usersId,
+            ]);
         }
     }
 

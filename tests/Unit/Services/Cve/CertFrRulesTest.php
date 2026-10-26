@@ -28,12 +28,13 @@ final class CertFrRulesTest extends TestCase
 <?xml version='1.0' encoding='UTF-8'?>
 <rss version="2.0"><channel><title>Flux fictif</title>
 <item><title>Multiples vulnérabilités dans Démo Navigateur (1 janvier 2099)</title>
-<link>https://cert.example/avis/CERTFR-2099-AVI-0001/</link>
+<link>https://www.cert.cyber.gouv.fr/avis/CERTFR-2099-AVI-0001/</link>
 <description>De multiples vulnérabilités ont été découvertes dans Démo Navigateur.</description>
 <pubDate>Thu, 01 Jan 2099 00:00:00 +0000</pubDate></item>
-<item><title>Bulletin sans référence</title><link>https://cert.example/actualite/</link></item>
+<item><title>Bulletin sans référence</title><link>https://www.cert.cyber.gouv.fr/actualite/</link></item>
 <item><title>Vulnérabilité dans Fournidémo Pare-feu (2 janvier 2099)</title>
-<link>https://cert.example/alerte/CERTFR-2099-ALE-0002/</link><pubDate>Fri, 02 Jan 2099 08:30:00 +0000</pubDate></item>
+<link>https://www.cert.cyber.gouv.fr/alerte/CERTFR-2099-ALE-0002/</link>
+<pubDate>Fri, 02 Jan 2099 08:30:00 +0000</pubDate></item>
 </channel></rss>
 XML;
 
@@ -45,6 +46,20 @@ XML;
         $this->assertStringContainsString('Démo Navigateur', $items[0]['summary']);
         $this->assertSame([], CertFrRules::parseFeed('<html>302 Found</html>', 'avis'));
         $this->assertSame([], CertFrRules::parseFeed('', 'avis'));
+    }
+
+    public function testParseFeedRejectsLinksThatAreNotHttpsOnTheCertFrSite(): void
+    {
+        // Revue de sécurité 2.11.0 : un lien contenant seulement la référence ne suffit plus.
+        $feed = "<?xml version='1.0'?><rss version=\"2.0\"><channel>"
+            . "<item><title>A</title><link>javascript:alert(1)//CERTFR-2099-AVI-0003</link></item>"
+            . "<item><title>B</title><link>http://www.cert.cyber.gouv.fr/avis/CERTFR-2099-AVI-0004/</link></item>"
+            . "<item><title>C</title><link>https://evil.example/avis/CERTFR-2099-AVI-0005/</link></item>"
+            . "<item><title>D</title><link>https://www.cert.ssi.gouv.fr/avis/CERTFR-2099-AVI-0006/</link></item>"
+            . '</channel></rss>';
+
+        $this->assertSame(['CERTFR-2099-AVI-0006'], array_column(CertFrRules::parseFeed($feed, 'avis'), 'ref'));
+        $this->assertFalse(CertFrRules::isNoticeLink('data:text/html,CERTFR-2099-AVI-0007'));
     }
 
     public function testMentionsIsAccentInsensitiveAndWholeWord(): void

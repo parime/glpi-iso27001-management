@@ -369,6 +369,12 @@ class PluginGrcmanagerSupplierRisk extends SupplierRiskBase
                 continue;
             }
             $supplier = Dropdown::getDropdownName(Supplier::getTable(), (int) $row['suppliers_id']);
+            // Ticket dans l'entité du fournisseur (et non à la racine, visible de tous les
+            // techniciens de la racine) : seuls ceux qui voient le fournisseur voient la revue.
+            $supplierItem = new Supplier();
+            $entityId = $supplierItem->getFromDB((int) $row['suppliers_id'])
+                ? (int) $supplierItem->fields['entities_id']
+                : 0;
             $input = [
                 'name'        => sprintf(__('Réévaluer le fournisseur %s', 'grcmanager'), $supplier),
                 'content'     => Fragment::ticketContent(
@@ -388,7 +394,7 @@ class PluginGrcmanagerSupplierRisk extends SupplierRiskBase
                     __('Ouvrir le risque fournisseur', 'grcmanager')
                 ),
                 'type'        => Ticket::DEMAND_TYPE,
-                'entities_id' => 0,
+                'entities_id' => $entityId,
             ];
             if ((int) $row['users_id'] > 0) {
                 $input['_users_id_requester'] = (int) $row['users_id'];

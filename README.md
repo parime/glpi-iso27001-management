@@ -99,7 +99,7 @@ archivé), avec ses champs de classification ISO 27001 fusionnés dessus.
 - **Matrice des flux** : import d'une sauvegarde pfSense, réseaux partenaires en conflit avec un
   réseau interne, rapport PDF pour l'auditeur.
 - **Score de maturité** cyber (0 à 100) avec le détail du calcul et son historique mensuel.
-- **Audit de conformité technique** : score ISO 27001, NIS2 et RGPD à partir des données de GLPI
+- **Contrôles techniques automatiques** : score ISO 27001, NIS2 et RGPD à partir des données de GLPI
   (antivirus, chiffrement, inventaire, validation des changements, comptes) et ticket de mise en
   conformité par contrôle.
 - Chaque écran du menu explique à quoi il sert et ce qui est attendu.

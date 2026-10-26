@@ -114,13 +114,17 @@ class PluginGrcmanagerWaiver extends WaiverBase
 
         $linked = [];
         foreach (self::getWaiverItems((int) $ID) as $link) {
-            $linked[$link['itemtype']][] = $link['items_id'];
+            // Un actif invisible pour l'utilisateur n'est jamais nommé par la liste déroulante.
+            if (self::canSeeLinkedItem($link['itemtype'], $link['items_id'])) {
+                $linked[$link['itemtype']][] = $link['items_id'];
+            }
         }
         // Issue #170 : « Nouvelle dérogation » depuis l'onglet d'un actif le présélectionne (options
         // transmises par front/waiver.form.php à l'onglet, chargé à part).
         $preset = (string) ($options['link_itemtype'] ?? '');
-        if ($this->isNewItem() && in_array($preset, self::getLinkableItemtypes(), true)) {
-            $linked[$preset][] = (int) ($options['link_items_id'] ?? 0);
+        $presetId = (int) ($options['link_items_id'] ?? 0);
+        if ($this->isNewItem() && self::canSeeLinkedItem($preset, $presetId)) {
+            $linked[$preset][] = $presetId;
         }
         $groups = [];
         foreach (self::getLinkableItemtypes() as $itemtype) {
@@ -254,8 +258,26 @@ class PluginGrcmanagerWaiver extends WaiverBase
     }
 
     /**
+     * L'utilisateur courant peut-il lire cet actif (droit du type, entité) ? Un lien vers un
+     * actif qu'il ne voit pas n'est ni créé, ni affiché, ni retiré par lui.
+     */
+    public static function canSeeLinkedItem(string $itemtype, int $itemsId): bool
+    {
+        if ($itemsId <= 0 || !in_array($itemtype, self::getLinkableItemtypes(), true)) {
+            return false;
+        }
+        // Type validé par la liste blanche getLinkableItemtypes() ci-dessus.
+        // nosemgrep: php.lang.security.injection.tainted-object-instantiation.tainted-object-instantiation
+        $item = new $itemtype();
+
+        return $item instanceof CommonDBTM && $item->can($itemsId, READ);
+    }
+
+    /**
      * Les listes d'actifs du formulaire envoient un champ « _<nom>_defined » même vides : seul le
-     * vrai formulaire remplace les liens, jamais un appel qui ne les connaît pas.
+     * vrai formulaire remplace les liens, jamais un appel qui ne les connaît pas. Seuls les
+     * actifs que l'utilisateur peut lire sont acceptés ; les liens existants vers des actifs
+     * qu'il ne voit pas restent en place (revue de sécurité 2.11.0).
      */
     private function syncLinkedItemsFromInput(): void
     {
@@ -270,7 +292,7 @@ class PluginGrcmanagerWaiver extends WaiverBase
             }
             $submitted = true;
             foreach ((array) ($this->input[$field] ?? []) as $itemsId) {
-                if ((int) $itemsId > 0) {
+                if (self::canSeeLinkedItem($itemtype, (int) $itemsId)) {
                     $pairs[$itemtype . ':' . (int) $itemsId] = ['itemtype' => $itemtype, 'items_id' => (int) $itemsId];
                 }
             }
@@ -280,7 +302,20 @@ class PluginGrcmanagerWaiver extends WaiverBase
         }
 
         $waiverId = (int) $this->fields['id'];
-        $DB->delete(self::ITEMS_TABLE, ['plugin_grcmanager_waivers_id' => $waiverId]);
+        foreach (self::getWaiverItems($waiverId) as $existing) {
+            $key = $existing['itemtype'] . ':' . $existing['items_id'];
+            if (isset($pairs[$key])) {
+                unset($pairs[$key]);
+                continue;
+            }
+            if (self::canSeeLinkedItem($existing['itemtype'], $existing['items_id'])) {
+                $DB->delete(self::ITEMS_TABLE, [
+                    'plugin_grcmanager_waivers_id' => $waiverId,
+                    'itemtype'                     => $existing['itemtype'],
+                    'items_id'                     => $existing['items_id'],
+                ]);
+            }
+        }
         foreach ($pairs as $pair) {
             $DB->insert(self::ITEMS_TABLE, [
                 'plugin_grcmanager_waivers_id' => $waiverId,
@@ -364,7 +399,9 @@ class PluginGrcmanagerWaiver extends WaiverBase
 
     public static function displayTabContentForItem(CommonGLPI $item, $tabnum = 1, $withtemplate = 0)
     {
-        if (!$item instanceof CommonDBTM) {
+        // ajax/common.tabs.php sert le contenu sans passer par getTabNameForItem() : même contrôle
+        // ici (trouvé par le contrôle commun des onglets, parime/glpi-plugin-security).
+        if (!$item instanceof CommonDBTM || !Session::haveRight(self::RIGHTNAME, READ)) {
             return false;
         }
         $newUrl = '';

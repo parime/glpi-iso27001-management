@@ -45,6 +45,7 @@ if (isset($_POST['add'])) {
         PluginGrcmanagerCoverageRule::getTypeName(1),
         $_SERVER['PHP_SELF'],
         'grcmanager',
+        PluginGrcmanagerEvidence::class,
         PluginGrcmanagerCoverageRule::class
     );
 

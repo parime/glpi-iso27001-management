@@ -423,6 +423,17 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
             $input['plugin_grcmanager_risks_id'] = SecurityIncidentRules::normalizeLinkedRiskId(
                 $input['plugin_grcmanager_risks_id']
             );
+            // Un utilisateur ne lie qu'un risque qu'il peut lire : sinon le titre relu dans la
+            // liste des incidents énumérerait le registre (revue de sécurité 2.11.0). La valeur
+            // enregistrée reste inchangée.
+            $riskId = (int) $input['plugin_grcmanager_risks_id'];
+            if (
+                $riskId > 0
+                && Session::getLoginUserID() !== false
+                && !(new PluginGrcmanagerRisk())->can($riskId, READ)
+            ) {
+                unset($input['plugin_grcmanager_risks_id']);
+            }
         }
 
         // Issue #128 : cases « Soumis à NIS2 » / « Violation de données personnelles » et dates
@@ -753,8 +764,9 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
             return '';
         }
 
+        // Titre du risque seulement pour qui peut lire le registre des risques.
         $risk = new PluginGrcmanagerRisk();
-        if (!$risk->getFromDB($riskId)) {
+        if (!$risk->can($riskId, READ)) {
             return '';
         }
 

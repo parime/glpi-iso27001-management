@@ -48,7 +48,7 @@ class PluginGrcmanagerComplianceAudit extends CommonGLPI
 
     public static function getTypeName($nb = 0)
     {
-        return __('Audit de conformité technique', 'grcmanager');
+        return __('Contrôles techniques automatiques', 'grcmanager');
     }
 
     public static function getIcon()
@@ -166,7 +166,12 @@ class PluginGrcmanagerComplianceAudit extends CommonGLPI
             'antivirus'         => $computers === null ? self::notEvaluated() : self::antivirus($computers, $now),
             'encryption'        => $computers === null ? self::notEvaluated() : self::encryption($computers),
             'inventory'         => $computers === null ? self::notEvaluated() : self::inventory($computers, $now),
-            'change_validation' => Change::canView() ? self::changeValidation($approvals, $now) : self::notEvaluated(),
+            // Liste (et lie au ticket) tous les changements des entités : réservé à qui voit tous
+            // les changements. Change::canView() est vrai aussi avec « mes changements » ou un
+            // droit de validation (revue de sécurité 2.11.0).
+            'change_validation' => Session::haveRight(Change::$rightname, Change::READALL)
+                ? self::changeValidation($approvals, $now)
+                : self::notEvaluated(),
             'accounts'          => PluginGrcmanagerAccountHygiene::canView()
                 ? self::accounts($now)
                 : self::notEvaluated(),

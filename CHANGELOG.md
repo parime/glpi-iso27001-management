@@ -7,6 +7,66 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Changed
+
+- **Menu GRC & Conformité réorganisé** : 22 entrées au lieu de 28, dans l'ordre du cycle du SMSI
+  (pilotage, risques, conformité, contrôle et amélioration, opérations, direction). Les écrans
+  d'un même travail forment une rubrique : une seule entrée de menu, et une barre d'onglets
+  commune en tête de chaque page de la rubrique (fil d'Ariane « Rubrique > Page ») :
+  - **Tableau de bord** : avec le score de maturité ;
+  - **Analyse d'impact** : points de défaillance uniques et effet domino ;
+  - **Contrôles Annexe A** : la SoA et les référentiels (correspondances NIS2, NIST, CIS) ;
+  - **Preuves** : validités des preuves et couverture des preuves ;
+  - **Revues des accès** : campagnes et hygiène des comptes ;
+  - **Vulnérabilités du parc** : logiciels à surveiller et catalogue de produits (corrélation CVE).
+- « Audit de conformité technique » devient **Contrôles techniques automatiques**, pour ne plus le
+  confondre avec les audits internes (programme d'audits, ISO 27001 9.2).
+
+### Security
+
+- **Revue de sécurité de la marketplace GLPI (2.11.0, issue #280)** : les 31 points corrigés.
+  - **Rapports générés** (post-incident, cellule de crise réelle, revue des accès, audit interne) :
+    lisibles par les seules personnes qui peuvent lire leur objet source, jamais avec le seul droit
+    Documents d'une entité. Ils ne sont plus récursifs, plus liés aux mesures globales de la SoA
+    (A.5.18, A.5.26, A.5.27, A.5.29), et n'apparaissent plus dans Gestion > Documents. Les rapports
+    existants sont corrigés à la mise à jour. Le rapport post-incident n'inclut les suivis et tâches
+    privés que pour qui peut les voir, jamais dans le PDF archivé, et l'archiver exige le droit de
+    modifier l'incident.
+  - **Incidents de sécurité** : ajouter, retirer ou rafraîchir une référence CVE exige de pouvoir
+    modifier l'incident ; un risque lié n'est affiché ou accepté que pour qui lit le registre ; les
+    onglets ticket ↔ incident ne listent que ce que l'utilisateur peut lire ; identifiant CVE refusé
+    échappé dans le message.
+  - **Inventaire et vulnérabilités** : les actifs potentiellement vulnérables (onglet CVE, plan
+    d'action pré-rempli) et le ticket de mise à jour créé à la demande se limitent aux actifs et aux
+    entités de l'utilisateur, hors corbeille et gabarits.
+  - **Onglets sur les actifs** (impact d'une panne, classification C/I/D, vulnérabilités, risques,
+    dérogations), onglet Effet domino et onglet Incidents de sécurité des tickets : contenu refusé
+    sans le droit du plugin, même demandé directement.
+  - **Dérogations** : un lien n'est accepté (et un actif présélectionné) que vers un actif lisible ;
+    les liens vers des actifs invisibles pour l'utilisateur sont conservés.
+  - **Revues périodiques** : activation réservée à qui a accès à l'entité racine (où sont créés le
+    gabarit et le ticket récurrent), responsable validé comme dans la liste du formulaire.
+  - **Audit de conformité, règles de couverture** : liste des changements réservée au droit « voir
+    tous les changements » ; noms des actifs non couverts réservés au droit de lecture du type.
+  - **Tableaux de bord** : une carte affichée sans le droit ne porte plus aucune donnée (séries des
+    courbes et libellés compris).
+  - **Liens externes** (références NVD, avis du CERT-FR) : seules les URL http(s), et https sur le
+    site du CERT-FR, sont gardées et affichées.
+  - Désinstallation : suivis, solutions, liens de documents, notes, historique, recherches et
+    règles du plugin retirés des tables du cœur, rapports générés supprimés. Installation : plus de
+    `die()` sur une erreur SQL. Descripteur : lien de la version 1.0.0 corrigé.
+
+### Fixed
+
+- **Notifications** : les rappels de preuve, d'événement de conformité et de dérogation partaient
+  à l'administrateur global au lieu du responsable (identifiant de cible du cœur réutilisé) ; le
+  rappel de renouvellement de formation n'atteignait aucun participant. Les notifications
+  installées sont corrigées à la mise à jour.
+- Import CSV de la SoA tracé dans l'historique de chaque mesure ; validation du statut et de la
+  date des participants d'une formation ; export iCal protégé contre les retours à la ligne ; ticket
+  de revue d'un fournisseur créé dans l'entité du fournisseur ; entrée de menu Maturité masquée sans
+  droit ; formulaires des mesures d'objectif alignés sur les droits ajouter / supprimer.
+
 ## [2.11.0] - 2026-10-26
 
 ### Added

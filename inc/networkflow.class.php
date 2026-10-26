@@ -359,7 +359,7 @@ class PluginGrcmanagerNetworkFlow extends NetworkFlowBase
         $linked = null;
         if ($itemtype !== '' && $itemsId > 0) {
             $item = getItemForItemtype($itemtype);
-            $visible = $item instanceof CommonDBTM && $item->getFromDB($itemsId) && $item->canViewItem();
+            $visible = $item instanceof CommonDBTM && $item->can($itemsId, READ);
             $linked = $visible
                 ? ['visible' => true, 'url' => $item::getFormURLWithID($itemsId), 'icon' => $item::getIcon(),
                     'name' => $item->getName()]
@@ -493,7 +493,7 @@ class PluginGrcmanagerNetworkFlow extends NetworkFlowBase
         $parts = [];
         if ($itemtype !== '' && $itemsId > 0) {
             $item = getItemForItemtype($itemtype);
-            $parts[] = $item instanceof CommonDBTM && $item->getFromDB($itemsId) && $item->canViewItem()
+            $parts[] = $item instanceof CommonDBTM && $item->can($itemsId, READ)
                 ? $item::getTypeName(1) . ' ' . $item->getName()
                 : __('Actif non visible', 'grcmanager');
         }

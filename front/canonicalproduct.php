@@ -26,9 +26,12 @@ Html::header(
     PluginGrcmanagerCanonicalProduct::getTypeName(2),
     $_SERVER['PHP_SELF'],
     'grcmanager',
+    PluginGrcmanagerParkVulnerability::class,
     PluginGrcmanagerCanonicalProduct::class
 );
 // Encadré « À quoi sert cette page ? ».
+// Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
+PluginGrcmanagerMenu::showSection(PluginGrcmanagerParkVulnerability::class, PluginGrcmanagerCanonicalProduct::class);
 PluginGrcmanagerPageHelp::show('canonicalproduct');
 
 // Same URL-driven search fix as front/risk.php/front/objective.php, see front/risk.php's own

@@ -1,10 +1,10 @@
 {# Issue #162 : contenu du ticket de mise en conformité d'un contrôle technique #}
-<p>{{ __('Écarts relevés par l\'audit de conformité technique (GRC & Conformité) : %s.', 'grcmanager')|format(label) }}</p>
+<p>{{ __('Écarts relevés par les contrôles techniques automatiques (GRC & Conformité) : %s.', 'grcmanager')|format(label) }}</p>
 <p>{{ help }}</p>
 <p>{{ __('Références', 'grcmanager') }} : {{ references|join(', ') }}</p>
 <table border="1" cellpadding="4">
    <tr><th>{{ __('Élément', 'grcmanager') }}</th><th>{{ __('Écart', 'grcmanager') }}</th></tr>
    {% for g in gaps %}<tr><td>{{ g.name }}</td><td>{{ g.detail }}</td></tr>{% endfor %}
 </table>
-{% if more > 0 %}<p>{{ __('… et %d autres, visibles dans l\'audit de conformité technique.', 'grcmanager')|format(more) }}</p>{% endif %}
-<p>{{ __('Corrigez chaque élément, puis relancez l\'audit pour vérifier. Rien n\'a été modifié automatiquement.', 'grcmanager') }}</p>
+{% if more > 0 %}<p>{{ __('… et %d autres, visibles dans les contrôles techniques automatiques.', 'grcmanager')|format(more) }}</p>{% endif %}
+<p>{{ __('Corrigez chaque élément, puis relancez les contrôles pour vérifier. Rien n\'a été modifié automatiquement.', 'grcmanager') }}</p>

@@ -2,9 +2,8 @@
 <div class="container-fluid">
    <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
       <h2 class="mb-0"><i class="ti ti-bug me-1"></i>{{ __('Vulnérabilités du parc', 'grcmanager') }}</h2>
-      <a class="btn btn-outline-primary ms-auto" href="{{ watch_url }}"><i class="ti ti-radar me-1"></i>{{ __('Logiciels à surveiller', 'grcmanager') }}</a>
       {% if can_update and summary.enabled %}
-         <form method="post" action="{{ action }}" class="d-inline">
+         <form method="post" action="{{ action }}" class="d-inline ms-auto">
             <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
             <button type="submit" name="sync_now" value="1" class="btn btn-outline-secondary" title="{{ __('Vérifie tout de suite deux versions en attente ; la tâche planifiée vérifie les autres.', 'grcmanager') }}"><i class="ti ti-refresh me-1"></i>{{ __('Vérifier maintenant', 'grcmanager') }}</button>
          </form>

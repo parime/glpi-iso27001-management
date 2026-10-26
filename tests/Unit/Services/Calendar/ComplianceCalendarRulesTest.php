@@ -69,6 +69,22 @@ final class ComplianceCalendarRulesTest extends TestCase
         }
     }
 
+    public function testNoTextCanInjectAnICalendarLine(): void
+    {
+        // Revue de sécurité 2.11.0 : \r isolé dans le nom, CR/LF dans l'UID et l'URL.
+        $ics = ComplianceCalendarRules::toIcs([[
+            'uid' => "x@grc\r\nATTENDEE:mailto:a@b", 'name' => "Audit\rATTENDEE:mailto:c@d",
+            'begin' => '2026-11-03 00:00:00', 'end' => '2026-11-04 00:00:00',
+            'url' => "https://glpi.example/a\nATTENDEE:mailto:e@f",
+        ]], 'Calendrier', '2026-10-24 12:00:00');
+
+        foreach (explode("\r\n", $ics) as $line) {
+            self::assertStringStartsNotWith('ATTENDEE', $line);
+        }
+        self::assertStringNotContainsString("\r\r", $ics);
+        self::assertSame(1, substr_count($ics, 'SUMMARY:'));
+    }
+
     public function testLongLinesAreFoldedWithoutBreakingCharacters(): void
     {
         $ics = ComplianceCalendarRules::toIcs([

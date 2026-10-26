@@ -18,9 +18,32 @@ final class PeriodicReviewTest extends GrcmanagerIntegrationTestCase
         return $review;
     }
 
+    /** Utilisateur que la liste « Attribué à » propose : profil Technicien à la racine. */
+    private function technician(string $firstname, string $realname): int
+    {
+        global $DB;
+
+        $usersId = $this->createTestUser($firstname, $realname);
+        $DB->insert(\Profile_User::getTable(), [
+            'users_id' => $usersId, 'profiles_id' => 6, 'entities_id' => 0, 'is_recursive' => 1,
+        ]);
+
+        return $usersId;
+    }
+
+    public function testAnAssigneeTheFormWouldNotOfferIsDropped(): void
+    {
+        // Revue de sécurité 2.11.0 : id d'utilisateur posté sans droit de recevoir des tickets.
+        $review = $this->review('privileged_accounts');
+        $this->assertTrue($review->activate(6, $this->createTestUser('Sans', 'Profil'), 0));
+        $review->getFromDB($review->getID());
+        $this->assertSame(0, (int) $review->fields['users_id_assign']);
+        $review->deactivate();
+    }
+
     public function testActivationCreatesANativeTemplateAndRecurrentTicket(): void
     {
-        $owner = $this->createTestUser('Rssi', 'Revues');
+        $owner = $this->technician('Rssi', 'Revues');
         $review = $this->review('access_rights');
         $this->assertTrue($review->activate(3, $owner, 0));
         $review->getFromDB($review->getID());
@@ -55,7 +78,7 @@ final class PeriodicReviewTest extends GrcmanagerIntegrationTestCase
 
     public function testTheGeneratedTicketIsFollowedAndItsResolutionDatesTheReview(): void
     {
-        $owner = $this->createTestUser('Admin', 'Sauvegardes');
+        $owner = $this->technician('Admin', 'Sauvegardes');
         global $DB;
 
         $review = $this->review('backup_restore_test');

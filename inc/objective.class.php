@@ -279,7 +279,10 @@ class PluginGrcmanagerObjective extends ObjectiveBase
         if (!$this->isNewID($ID)) {
             TemplateRenderer::getInstance()->display('@grcmanager/objective_measurements.html.twig', [
                 'objective_id' => (int) $ID,
-                'can_edit'     => Session::haveRight(self::$rightname, UPDATE),
+                // Mêmes droits que front/objectivemeasurement.form.php : ajouter = CREATE,
+                // supprimer = PURGE.
+                'can_edit'     => Session::haveRight(self::$rightname, CREATE),
+                'can_purge'    => Session::haveRight(self::$rightname, PURGE),
                 'action'       => $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/objectivemeasurement.form.php',
                 'today'        => date('Y-m-d'),
                 'numeric'      => $this->hasNumericTarget(),

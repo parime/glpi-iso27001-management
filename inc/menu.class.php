@@ -48,4 +48,111 @@ class PluginGrcmanagerMenu extends CommonGLPI
             'icon'  => self::getIcon(),
         ];
     }
+
+    /** Pseudo-élément de « Vulnérabilités du parc » : page sans classe propre. */
+    public const SOFTWARE_WATCH = 'softwarewatch';
+
+    /**
+     * Rubriques du menu qui regroupent plusieurs écrans d'un même travail : une seule entrée de
+     * menu (le parent), les autres écrans en sous-pages (options GLPI : fil d'Ariane « Parent >
+     * Sous-page ») et une barre d'onglets commune en tête de chaque page (showSection()).
+     *
+     * @return array<class-string, list<string>>
+     */
+    public static function sections(): array
+    {
+        return [
+            PluginGrcmanagerDashboard::class         => [PluginGrcmanagerMaturity::class],
+            PluginGrcmanagerImpactAnalysis::class    => [PluginGrcmanagerCausalLink::class],
+            PluginGrcmanagerControl::class           => [PluginGrcmanagerReferentials::class],
+            PluginGrcmanagerEvidence::class          => [PluginGrcmanagerCoverageRule::class],
+            PluginGrcmanagerAccessReview::class      => [PluginGrcmanagerAccountHygiene::class],
+            PluginGrcmanagerParkVulnerability::class => [self::SOFTWARE_WATCH, PluginGrcmanagerCanonicalProduct::class],
+        ];
+    }
+
+    /** Écran rattaché à une rubrique : il n'a pas d'entrée de menu propre (setup.php). */
+    public static function isSubPage(string $class): bool
+    {
+        return in_array($class, array_merge(...array_values(self::sections())), true);
+    }
+
+    /**
+     * Entrée de menu d'une sous-page, telle que l'écran la déclare (droits compris), ou null si
+     * l'utilisateur ne peut pas la voir.
+     *
+     * @return array<string, mixed>|null
+     */
+    private static function subPageMenu(string $child): ?array
+    {
+        if ($child === self::SOFTWARE_WATCH) {
+            return PluginGrcmanagerParkVulnerability::canView() ? [
+                'title' => __('Logiciels à surveiller', 'grcmanager'),
+                'page'  => '/plugins/grcmanager/front/softwarewatch.php',
+                'icon'  => 'ti ti-radar',
+            ] : null;
+        }
+        $menu = $child::getMenuContent();
+
+        return is_array($menu) && $menu !== [] ? $menu : null;
+    }
+
+    /**
+     * Ajoute les sous-pages de la rubrique $parent à son entrée de menu.
+     *
+     * @param array<string, mixed>|false $menu
+     * @return array<string, mixed>|false
+     */
+    public static function withSubPages(string $parent, $menu)
+    {
+        if (!is_array($menu) || $menu === []) {
+            return $menu;
+        }
+        foreach (self::sections()[$parent] ?? [] as $child) {
+            $childMenu = self::subPageMenu($child);
+            if ($childMenu !== null) {
+                $menu['options'][$child] = $childMenu;
+            }
+        }
+
+        return $menu;
+    }
+
+    /**
+     * Barre d'onglets de la rubrique de $parent, $active étant la page affichée (le parent
+     * lui-même ou l'une de ses sous-pages). Rien si l'utilisateur ne voit qu'une seule page.
+     */
+    public static function showSection(string $parent, string $active): void
+    {
+        global $CFG_GLPI;
+
+        $parentMenu = $parent::getMenuContent();
+        if (!is_array($parentMenu) || $parentMenu === []) {
+            return;
+        }
+        $pages = [$parent => $parentMenu];
+        foreach (self::sections()[$parent] ?? [] as $child) {
+            $childMenu = self::subPageMenu($child);
+            if ($childMenu !== null) {
+                $pages[$child] = $childMenu;
+            }
+        }
+        if (count($pages) < 2) {
+            return;
+        }
+        $tabs = [];
+        foreach ($pages as $key => $page) {
+            $tabs[] = [
+                // Le parent peut porter un nom de rubrique distinct du nom de sa page.
+                'label'  => (string) ($page['section_label'] ?? $page['title']),
+                'icon'   => (string) ($page['icon'] ?? ''),
+                'url'    => $CFG_GLPI['root_doc'] . $page['page'],
+                'active' => $key === $active,
+            ];
+        }
+        Glpi\Application\View\TemplateRenderer::getInstance()->display(
+            '@grcmanager/_section_nav.html.twig',
+            ['tabs' => $tabs]
+        );
+    }
 }

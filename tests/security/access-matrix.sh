@@ -135,7 +135,13 @@ if [ "$ROLE" = none ]; then
   # Issue #168 : la salle de crise refuse avant meme de chercher l'exercice.
   expect "front/crisisexercise.form.php : terminer sans droit" 403 \
     "$(code -d "finish=1&id=1&_glpi_csrf_token=$(csrf)" "$P/crisisexercise.form.php")"
-  create_attempts 403 404
+  # Revue de securite 2.11.0 : contenu des onglets du plugin demande directement sur un
+  # ordinateur lisible, sans le droit du plugin (GLPI ne consulte pas getTabNameForItem()).
+  for t in 'PluginGrcmanagerImpactAnalysis$1' 'PluginGrcmanagerAssetClassification$1' \
+           'PluginGrcmanagerParkVulnerability$1' 'PluginGrcmanagerRisk$1'; do
+    contains "onglet $t d'un ordinateur : sans droit" "plugins/grcmanager" non "$(tab Computer "$t" "$(id computer_A)")"
+  done
+  create_attempts 403 403
   rm -f "$JAR"; exit $FAIL
 fi
 
@@ -158,6 +164,9 @@ fi
 
 expect "incident, entite A"            200    "$(code "$P/securityincident.form.php?id=$(id incident_A)")"
 expect "incident, entite B"            $DENY  "$(code "$P/securityincident.form.php?id=$(id incident_B)")"
+# Revue de securite 2.11.0 : une reference CVE exige de pouvoir modifier son incident.
+expect "reference CVE sur un incident de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
+  "$(code -d "add=1&plugin_grcmanager_securityincidents_id=$(id incident_B)&cve_id=CVE-2099-0001&_glpi_csrf_token=$(csrf)" "$P/securityincidentcve.form.php")"
 expect "campagne de revue, entite A"   200    "$(code "$P/accessreview.form.php?id=$(id campaign_A)")"
 expect "campagne de revue, entite B"   $DENY  "$(code "$P/accessreview.form.php?id=$(id campaign_B)")"
 
