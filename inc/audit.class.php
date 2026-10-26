@@ -291,7 +291,7 @@ class PluginGrcmanagerAudit extends AuditBase
 
         foreach ($categories as $category) {
             $label    = $labels[$category] ?? $category;
-            $badges[] = '<span class="badge bg-azure-lt">' . htmlescape($label) . '</span>';
+            $badges[] = Badge::html('bg-azure-lt', null, $label);
         }
 
         return implode(' ', $badges);

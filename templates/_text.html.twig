@@ -1,0 +1,2 @@
+{# Issue #199 : texte court avec icône ou style optionnels (libellé d'action, valeur absente). #}
+{% if class %}<span class="{{ class }}">{% endif %}{% if icon %}<i class="ti {{ icon }}"></i>{% endif %}{{ label }}{% if class %}</span>{% endif %}

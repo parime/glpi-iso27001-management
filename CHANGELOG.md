@@ -32,7 +32,7 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   gabarit commun, l'onglet « Risques » des actifs et le contenu des tickets de revue des accès et de
   revue périodique, les raccourcis et avertissements au-dessus des listes, ainsi que les liens
   des listes et les contenus des tickets et suivis générés. Le HTML écrit en PHP passe de 241 à
-  61 chaînes.
+  46 chaînes, toutes dans les modèles de notifications créés à l'installation.
 
 ### Added
 

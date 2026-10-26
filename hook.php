@@ -18,6 +18,7 @@
 use GlpiPlugin\Grcmanager\Install\Installer;
 use GlpiPlugin\Grcmanager\Services\Dashboard\SecuredDashboardCards;
 use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentModuleConfig;
+use GlpiPlugin\Grcmanager\Services\Ui\Fragment;
 
 /**
  * Hooks::DASHBOARD_CARDS callback (registered in setup.php).
@@ -511,7 +512,7 @@ function plugin_grcmanager_MassiveActions(string $itemtype): array
 
     return [
         PluginGrcmanagerSecurityIncidentTicket::class . MassiveAction::CLASS_ACTION_SEPARATOR . 'qualify'
-            => '<i class="ti ti-shield-plus"></i>' . htmlescape(__('Qualifier en incident de sécurité', 'grcmanager')),
+            => Fragment::text(__('Qualifier en incident de sécurité', 'grcmanager'), 'ti-shield-plus'),
     ];
 }
 

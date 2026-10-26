@@ -34,6 +34,19 @@ final class FragmentTest extends GrcmanagerIntegrationTestCase
         );
         $this->assertSame('<a href="/f?id=2">Risque</a>', Fragment::link('/f?id=2', 'Risque'));
         $this->assertSame('<strong>4.1</strong> - Contexte', Fragment::link('', 'Contexte', '4.1'));
+        $this->assertSame(
+            '<a href="/c"><i class="ti ti-shield-check me-1"></i>Pentest</a>',
+            Fragment::link('/c', 'Pentest', '', 'ti-shield-check')
+        );
+    }
+
+    public function testText(): void
+    {
+        $this->assertSame('<i class="ti ti-shield-plus"></i>Qualifier', Fragment::text('Qualifier', 'ti-shield-plus'));
+        $this->assertSame(
+            '<span class="text-muted">Non classifié</span>',
+            Fragment::text('Non classifié', null, 'text-muted')
+        );
     }
 
     public function testTicketContent(): void

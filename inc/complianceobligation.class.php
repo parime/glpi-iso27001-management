@@ -20,6 +20,7 @@ use GlpiPlugin\Grcmanager\Compatibility\Base\ComplianceObligationBase;
 use GlpiPlugin\Grcmanager\Services\Compliance\ComplianceObligationRules;
 use GlpiPlugin\Grcmanager\Services\Risk\ReviewReminderService;
 use GlpiPlugin\Grcmanager\Services\Ui\Badge;
+use GlpiPlugin\Grcmanager\Services\Ui\Fragment;
 
 /**
  * Registre des obligations légales, réglementaires et contractuelles (issue #30, ISO 27001 clause
@@ -330,8 +331,7 @@ class PluginGrcmanagerComplianceObligation extends ComplianceObligationBase
             return '';
         }
 
-        return '<a href="' . htmlescape($risk->getFormURLWithID($riskId)) . '">'
-            . htmlescape($risk->fields['title']) . '</a>';
+        return Fragment::link($risk->getFormURLWithID($riskId), (string) $risk->fields['title']);
     }
 
     public function showForm($ID, array $options = []): bool

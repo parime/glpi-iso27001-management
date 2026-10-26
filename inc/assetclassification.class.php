@@ -20,6 +20,7 @@ use GlpiPlugin\Grcmanager\Compatibility\Base\AssetClassificationBase;
 use GlpiPlugin\Grcmanager\Services\Classification\ClassificationLevels;
 use GlpiPlugin\Grcmanager\Services\Impact\RecoveryObjectives;
 use GlpiPlugin\Grcmanager\Services\Ui\Badge;
+use GlpiPlugin\Grcmanager\Services\Ui\Fragment;
 
 /**
  * Confidentialité/Intégrité/Disponibilité (C/I/D) classification register (issue #26, ISO/IEC
@@ -160,7 +161,7 @@ class PluginGrcmanagerAssetClassification extends AssetClassificationBase
         ];
 
         if (!ClassificationLevels::isValid($value)) {
-            return '<span class="text-muted">' . __('Non classifié', 'grcmanager') . '</span>';
+            return Fragment::text(__('Non classifié', 'grcmanager'), null, 'text-muted');
         }
 
         [$class, $label] = $levels[$value];
