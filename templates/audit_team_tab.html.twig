@@ -1,0 +1,54 @@
+{# Issue #140 : équipe d'un audit interne, seule audience de ses documents. #}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+<p class="text-muted">
+  {{ __('Seuls les membres de l\'équipe lisent les documents de l\'audit et de ses constats, même avec le droit Documents de GLPI. Les audités les lisent sans pouvoir rien ajouter.', 'grcmanager') }}
+  {% if ciso_group %}
+    {{ __('Le groupe RSSI (%s) y accède aussi.', 'grcmanager')|format(ciso_group) }}
+  {% else %}
+    {{ __('Aucun groupe RSSI n\'est défini dans la configuration du plugin.', 'grcmanager') }}
+  {% endif %}
+</p>
+<table class="table table-hover card-table mb-3">
+  <thead>
+    <tr>
+      <th>{{ __('Membre', 'grcmanager') }}</th>
+      <th>{{ __('Rôle', 'grcmanager') }}</th>
+      {% if can_edit %}<th></th>{% endif %}
+    </tr>
+  </thead>
+  <tbody>
+    {% for row in rows %}
+      <tr>
+        <td>{{ row.name }}</td>
+        <td>{{ row.role }}{% if row.from_form %} <span class="text-muted">({{ __('fiche de l\'audit', 'grcmanager') }})</span>{% endif %}</td>
+        {% if can_edit %}
+          <td class="text-end">
+            {% if not row.from_form %}
+              <form method="post" action="{{ action }}" class="d-inline">
+                <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="plugin_grcmanager_audits_id" value="{{ audit.getID() }}">
+                <input type="hidden" name="members_id" value="{{ row.id }}">
+                <button type="submit" name="remove" class="btn btn-sm btn-ghost-danger">
+                  <i class="ti ti-trash me-1"></i>{{ __('Retirer', 'grcmanager') }}
+                </button>
+              </form>
+            {% endif %}
+          </td>
+        {% endif %}
+      </tr>
+    {% else %}
+      <tr><td colspan="3" class="text-muted">{{ __('Aucun membre : renseignez l\'auditeur ou le responsable sur la fiche.', 'grcmanager') }}</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% if can_edit %}
+  <form method="post" action="{{ action }}" class="row g-2 align-items-end">
+    <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+    <input type="hidden" name="plugin_grcmanager_audits_id" value="{{ audit.getID() }}">
+    {{ fields.dropdownField('User', 'users_id', 0, __('Membre', 'grcmanager'), {'right': 'all', 'field_class': 'col-md-5'}) }}
+    {{ fields.dropdownArrayField('role', 'auditor', roles, __('Rôle', 'grcmanager'), {'field_class': 'col-md-4'}) }}
+    <div class="col-md-3">
+      <button type="submit" name="add" class="btn btn-primary"><i class="ti ti-user-plus me-1"></i>{{ __('Ajouter', 'grcmanager') }}</button>
+    </div>
+  </form>
+{% endif %}

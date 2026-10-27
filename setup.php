@@ -25,7 +25,7 @@ use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentModuleConfig;
 // must bundle vendor/, see .github/workflows/release.yml.
 require_once __DIR__ . '/vendor/autoload.php';
 
-define('PLUGIN_GRCMANAGER_VERSION', '2.13.0');
+define('PLUGIN_GRCMANAGER_VERSION', '2.14.0');
 define('PLUGIN_GRCMANAGER_MIN_GLPI', '11.0.0');
 // GLPI 11 and 12 from a single code base (see src/Compatibility/).
 define('PLUGIN_GRCMANAGER_MAX_GLPI', '12.99.99');
@@ -75,44 +75,18 @@ function plugin_init_grcmanager(): void
     require_once __DIR__ . '/inc/rulesecurityincident.class.php';
     require_once __DIR__ . '/inc/rulesecurityincidentcollection.class.php';
 
-    // Single entry point (matches the "used daily by the RSSI" intent of the plugin: the generic
-    // risk register is the first screen a compliance officer needs).
-    // Format confirmed against the sibling plugins of this same author (glpi-vulnerability-manager,
-    // assetsign-glpi): a flat array of classes per menu category, keyed by GLPI's internal
-    // category key, not by its translated display label. Originally keyed by the native 'tools'
-    // category ("Outils"), which is where every entry below lived up to and including v1.1.1.
-    // Sprint 3 (SoA, clause 6.1.3) adds PluginGrcmanagerControl alongside the risk register, same
-    // category. Sprint 4 (audits internes et CAPA, clause 9.2/10.2) adds
-    // PluginGrcmanagerAudit and PluginGrcmanagerNonconformity the same way. Sprint 5 (risques
-    // fournisseurs/tiers) adds PluginGrcmanagerSupplierRisk right after the generic risk register
-    // it mirrors. Sprint 6 (formations et revues de direction, clauses 7.2/7.3/9.3) adds
-    // PluginGrcmanagerTraining and PluginGrcmanagerManagementReview. Issue #28 (bibliothèque de
-    // politiques de sécurité versionnées, clause A.5.1) adds PluginGrcmanagerPolicy. Issue #30
-    // (registre des obligations légales/réglementaires/contractuelles, clause 4.2/A.5.31-36) adds
-    // PluginGrcmanagerComplianceObligation right after the SoA it complements. Issue #32
-    // (objectifs ISMS et suivi de KPI dans le temps, clause 6.2) adds PluginGrcmanagerObjective
-    // last: the dashboard (Sprint 7) shows the ISMS's current state, this screen is where an admin
-    // sets and tracks measurable objectives over time, a natural final entry in this same menu.
-    // PluginGrcmanagerObjectiveMeasurement (the per-objective measurement history) deliberately
-    // has NO menu entry of its own: it is only ever added/removed inline from its parent
-    // objective's own form (see PluginGrcmanagerObjective::showMeasurementHistory()), same
-    // "no menu entry for a pure link/child table" convention as every many-to-many link in this
-    // plugin family.
-    // Dedicated first-level menu "GRC & Conformité" (as opposed to a native GLPI category such as
-    // 'tools'): using ANY category key not recognised as a native GLPI sector makes
-    // Html::generateMenuSession() (GLPI core) create a brand-new top-level sidebar entry for it,
-    // sitting alongside Parc/Assistance/Gestion/Outils/Administration/Configuration - the growing
-    // list of 11 screens above had made "Outils" cluttered, and none of them are really generic
-    // GLPI tools. PluginGrcmanagerMenu (inc/menu.class.php) is a lightweight CommonGLPI anchor with
-    // no table of its own, placed FIRST in the array below purely so the sector's title/icon come
-    // from IT rather than from the first functional screen (PluginGrcmanagerRisk) - GLPI core fills
-    // an unknown category's title/icon from the first entry in its MENU_TOADD array whose
-    // getMenuContent()/getIcon() supply one, see PluginGrcmanagerMenu's own docblock.
+    // Menu « GRC & Conformité » : un secteur de premier niveau dédié. Une clé de catégorie inconnue
+    // des secteurs natifs fait créer par Html::generateMenuSession() (cœur de GLPI) une nouvelle
+    // entrée de la barre latérale. PluginGrcmanagerMenu (inc/menu.class.php), ancre sans table, est
+    // placée EN TÊTE du tableau pour que le titre et l'icône du secteur soient les siens et non ceux
+    // du premier écran fonctionnel ; plugin_grcmanager_redefine_menus() retire ensuite sa ligne.
     //
     // Six rubriques, dans l'ordre du cycle du SMSI : pilotage, risques, conformité, audits et
     // amélioration, opérations, sécurité technique. Chaque rubrique est une seule entrée de menu ;
     // les autres écrans de la rubrique sont ses sous-pages, avec une barre d'onglets commune
-    // (PluginGrcmanagerMenu::sections()) et le fil d'Ariane « Rubrique > Page ».
+    // (PluginGrcmanagerMenu::sections()) et le fil d'Ariane « Rubrique > Page ». Les objets enfants
+    // (mesures d'un objectif, actions de traitement d'un risque…) n'ont pas d'entrée : ils se gèrent
+    // depuis la fiche de leur parent.
     $menuToAdd = [
         'grcmanager' => [
             PluginGrcmanagerMenu::class,
@@ -262,11 +236,19 @@ function plugin_init_grcmanager(): void
     Plugin::registerClass(PluginGrcmanagerSecurityIncidentTicket::class, [
         'addtabon' => ['Ticket', PluginGrcmanagerSecurityIncident::class],
     ]);
+    // Issue #139 : « Mes formations » dans les préférences (résultats et copies de quiz de
+    // l'utilisateur, sans droit sur le plugin).
+    Plugin::registerClass(PluginGrcmanagerTrainingQuiz::class, ['addtabon' => [Preference::class]]);
     // Onglet « GRC Manager » des profils : attribuer les droits du plugin sans passer par la base.
     Plugin::registerClass(PluginGrcmanagerProfile::class, ['addtabon' => [Profile::class]]);
     // Issue #141 : le ticket créé par le ticket récurrent d'une revue devient son ticket en cours ;
     // sa résolution date la revue (PluginGrcmanagerPeriodicReview::onTicketAdd()/onTicketUpdate()).
-    $PLUGIN_HOOKS[Hooks::ITEM_ADD]['grcmanager'] = ['Ticket' => 'plugin_grcmanager_periodic_review_ticket_add'];
+    // Issue #140 : un document joint à un audit, ou à un constat d'audit, est réservé à l'équipe
+    // de l'audit (PluginGrcmanagerRestrictedDocument::onDocumentItemAdd()).
+    $PLUGIN_HOOKS[Hooks::ITEM_ADD]['grcmanager'] = [
+        'Ticket'        => 'plugin_grcmanager_periodic_review_ticket_add',
+        'Document_Item' => 'plugin_grcmanager_restricted_document_item_add',
+    ];
     $PLUGIN_HOOKS[Hooks::ITEM_UPDATE]['grcmanager'] = ['Ticket' => 'plugin_grcmanager_periodic_review_ticket_update'];
     $PLUGIN_HOOKS[Hooks::ITEM_PURGE]['grcmanager'] = [
         'Ticket'                                => 'plugin_grcmanager_purge_security_incident_links',

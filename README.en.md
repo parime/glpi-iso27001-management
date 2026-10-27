@@ -90,8 +90,10 @@ classification fields merged directly onto it.
 - Default ISMS dashboard and KPIs to add to GLPI dashboards, including compliance by framework
   (ISO 27001, NIS2, ANSSI), deadlines within 90 days, access review progress and NIS2 / GDPR
   deadlines at risk; GRC & Compliance > Dashboard menu, ISMS and Management views, monthly trend.
-- **Scored trainings** (score, pass threshold, retake, session PDF report with attendance sheet) and
-  **internal audits** with findings, documents and a PDF report archived on closure.
+- **Scored trainings**, in one or several sessions (trainer, location, score, pass threshold, retake,
+  PDF report with attendance sheet, each participant's quiz copy restricted to the participant, the
+  trainer and the CISO), and **internal audits** with findings, working notes, audit team, documents
+  restricted to the team (downloads logged) and a PDF report archived on closure.
 - **Network flow matrix**: pfSense backup import, partner networks conflicting with an internal
   network, PDF report for the auditor.
 - Cyber **maturity score** (0 to 100) with the calculation details and its monthly history.

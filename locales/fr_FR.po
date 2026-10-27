@@ -5211,3 +5211,135 @@ msgstr "Sécurité technique"
 
 msgid "Conformité"
 msgstr "Conformité"
+
+msgid "Audité (lecture seule)"
+msgstr "Audité (lecture seule)"
+
+msgid "Équipe"
+msgstr "Équipe"
+
+msgid "Responsable de l'audit"
+msgstr "Responsable de l'audit"
+
+msgid "Accès aux documents"
+msgstr "Accès aux documents"
+
+msgid "Choisissez un membre et un rôle."
+msgstr "Choisissez un membre et un rôle."
+
+msgid "Seuls les membres de l'équipe lisent les documents de l'audit et de ses constats, même avec le droit Documents de GLPI. Les audités les lisent sans pouvoir rien ajouter."
+msgstr "Seuls les membres de l'équipe lisent les documents de l'audit et de ses constats, même avec le droit Documents de GLPI. Les audités les lisent sans pouvoir rien ajouter."
+
+#, php-format
+msgid "Le groupe RSSI (%s) y accède aussi."
+msgstr "Le groupe RSSI (%s) y accède aussi."
+
+msgid "Aucun groupe RSSI n'est défini dans la configuration du plugin."
+msgstr "Aucun groupe RSSI n'est défini dans la configuration du plugin."
+
+msgid "Membre"
+msgstr "Membre"
+
+msgid "Rôle"
+msgstr "Rôle"
+
+msgid "fiche de l'audit"
+msgstr "fiche de l'audit"
+
+msgid "Retirer"
+msgstr "Retirer"
+
+msgid "Aucun membre : renseignez l'auditeur ou le responsable sur la fiche."
+msgstr "Aucun membre : renseignez l'auditeur ou le responsable sur la fiche."
+
+msgid "Chaque téléchargement d'un document de l'audit ou de ses constats, par un membre de l'équipe ou du groupe RSSI."
+msgstr "Chaque téléchargement d'un document de l'audit ou de ses constats, par un membre de l'équipe ou du groupe RSSI."
+
+msgid "Aucun document de cet audit n'a encore été téléchargé."
+msgstr "Aucun document de cet audit n'a encore été téléchargé."
+
+msgid "Les documents d'un audit ne se lisent que par son équipe (auditeurs, responsable, audités) et par les membres de ce groupe, même avec le droit Documents de GLPI."
+msgstr "Les documents d'un audit ne se lisent que par son équipe (auditeurs, responsable, audités) et par les membres de ce groupe, même avec le droit Documents de GLPI."
+
+msgid "Groupe RSSI"
+msgstr "Groupe RSSI"
+
+msgid "Aucune (formation principale)"
+msgstr "Aucune (formation principale)"
+
+msgid "Formateur"
+msgstr "Formateur"
+
+msgid "Lieu ou lien"
+msgstr "Lieu ou lien"
+
+msgid "Sessions"
+msgstr "Sessions"
+
+msgid "Nouvelle session de cette formation : renseignez sa date, son formateur, son lieu et ses participants, puis cliquez sur « Ajouter ». Rien n'est enregistré avant."
+msgstr "Nouvelle session de cette formation : renseignez sa date, son formateur, son lieu et ses participants, puis cliquez sur « Ajouter ». Rien n'est enregistré avant."
+
+msgid "Session de la formation"
+msgstr "Session de la formation"
+
+msgid "Voir la formation"
+msgstr "Voir la formation"
+
+msgid "Salle, adresse ou lien de la visioconférence / du module en ligne."
+msgstr "Salle, adresse ou lien de la visioconférence / du module en ligne."
+
+msgid "Chaque session a sa date, son formateur, son lieu, ses participants et ses documents (feuille d'émargement, support, quiz)."
+msgstr "Chaque session a sa date, son formateur, son lieu, ses participants et ses documents (feuille d'émargement, support, quiz)."
+
+msgid "Ajouter une session"
+msgstr "Ajouter une session"
+
+#, php-format
+msgid "Taux de réussite de la formation, toutes sessions : %1$s sur %2$s (%3$s %%)"
+msgstr "Taux de réussite de la formation, toutes sessions : %1$s sur %2$s (%3$s %%)"
+
+msgid "Aucune autre session pour cette formation."
+msgstr "Aucune autre session pour cette formation."
+
+msgid "Session"
+msgstr "Session"
+
+#, php-format
+msgid "Copie de quiz - %1$s - %2$s"
+msgstr "Copie de quiz - %1$s - %2$s"
+
+msgid "Mes formations"
+msgstr "Mes formations"
+
+msgid "Copies de quiz"
+msgstr "Copies de quiz"
+
+msgid "Choisissez le fichier de la copie."
+msgstr "Choisissez le fichier de la copie."
+
+msgid "La copie n'a pas pu être jointe (type de fichier non autorisé ?)."
+msgstr "La copie n'a pas pu être jointe (type de fichier non autorisé ?)."
+
+msgid "Chaque copie ne se lit que par son participant, le formateur de la session et le groupe RSSI."
+msgstr "Chaque copie ne se lit que par son participant, le formateur de la session et le groupe RSSI."
+
+msgid "Aucun participant pour cette session."
+msgstr "Aucun participant pour cette session."
+
+msgid "Copie de quiz"
+msgstr "Copie de quiz"
+
+msgid "Télécharger"
+msgstr "Télécharger"
+
+msgid "Jointe (accès réservé)"
+msgstr "Jointe (accès réservé)"
+
+msgid "Aucune"
+msgstr "Aucune"
+
+msgid "Retirer la copie"
+msgstr "Retirer la copie"
+
+msgid "Vous n'êtes inscrit à aucune formation."
+msgstr "Vous n'êtes inscrit à aucune formation."

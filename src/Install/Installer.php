@@ -179,6 +179,10 @@ final class Installer
     private const EVIDENCES_TABLE = 'glpi_plugin_grcmanager_evidences';
     // Voir \PluginGrcmanagerRestrictedDocument::TABLE.
     private const RESTRICTED_DOCUMENTS_TABLE = 'glpi_plugin_grcmanager_restricteddocuments';
+    // Issue #140 : équipe d'audit (auditeurs supplémentaires, audités), voir PluginGrcmanagerAuditTeam.
+    private const AUDITS_USERS_TABLE = 'glpi_plugin_grcmanager_audits_users';
+    // Issue #140 : téléchargements des documents restreints, voir PluginGrcmanagerDocumentAccess.
+    private const DOCUMENT_ACCESSES_TABLE = 'glpi_plugin_grcmanager_documentaccesses';
     // Issue #141 : revues périodiques du SMSI, voir PluginGrcmanagerPeriodicReview.
     private const PERIODIC_REVIEWS_TABLE = 'glpi_plugin_grcmanager_periodicreviews';
     // Issue #144 : matrice des flux réseau, voir PluginGrcmanagerNetworkFlow.
@@ -537,6 +541,7 @@ final class Installer
                 `planned_date` date DEFAULT NULL,
                 `actual_date` date DEFAULT NULL,
                 `users_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Auditeur',
+                `users_id_responsible` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Responsable',
                 `status` varchar(16) NOT NULL DEFAULT 'planned'
                     COMMENT 'planned, in_progress, completed, cancelled',
                 `conclusion` text,
@@ -546,6 +551,28 @@ final class Installer
                 `date_mod` timestamp NULL DEFAULT NULL,
                 PRIMARY KEY (`id`),
                 KEY `status` (`status`),
+                KEY `users_id` (`users_id`),
+                KEY `users_id_responsible` (`users_id_responsible`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query);
+        }
+        // Issue #140 : responsable de l'audit, membre de droit de l'équipe d'audit.
+        if (!$DB->fieldExists(self::AUDITS_TABLE, 'users_id_responsible')) {
+            $migration->addField(self::AUDITS_TABLE, 'users_id_responsible', 'fkey', ['after' => 'users_id']);
+            $migration->addKey(self::AUDITS_TABLE, 'users_id_responsible');
+        }
+        // Issue #140 : équipe d'audit. Rôle « auditor » (auditeur supplémentaire) ou « auditee »
+        // (audité, lecture seule des documents de l'audit).
+        if (!$DB->tableExists(self::AUDITS_USERS_TABLE)) {
+            $query = "CREATE TABLE `" . self::AUDITS_USERS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_audits_id` int {$keySign} NOT NULL DEFAULT 0,
+                `users_id` int {$keySign} NOT NULL DEFAULT 0,
+                `role` varchar(16) NOT NULL DEFAULT 'auditor' COMMENT 'auditor, auditee',
+                `date_creation` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity` (`plugin_grcmanager_audits_id`, `users_id`),
                 KEY `users_id` (`users_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
@@ -718,10 +745,16 @@ final class Installer
                 `is_mandatory` tinyint NOT NULL DEFAULT 1,
                 `renewal_period_months` int NOT NULL DEFAULT 0
                     COMMENT '0 = pas de renouvellement requis',
+                `plugin_grcmanager_trainings_id` int {$keySign} NOT NULL DEFAULT 0
+                    COMMENT 'Formation principale de cette session, 0 = formation principale',
+                `users_id_trainer` int {$keySign} NOT NULL DEFAULT 0,
+                `location` varchar(255) DEFAULT NULL COMMENT 'Lieu ou lien de la session',
                 `date_creation` timestamp NULL DEFAULT NULL,
                 `date_mod` timestamp NULL DEFAULT NULL,
                 PRIMARY KEY (`id`),
-                KEY `format` (`format`)
+                KEY `format` (`format`),
+                KEY `plugin_grcmanager_trainings_id` (`plugin_grcmanager_trainings_id`),
+                KEY `users_id_trainer` (`users_id_trainer`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
             $DB->doQuery($query);
@@ -851,6 +884,31 @@ final class Installer
             ]);
             $migration->migrationOneTable(self::TRAININGS_USERS_TABLE);
         }
+        // Issue #139 : copie de quiz corrigée du participant (document restreint au participant, au
+        // formateur et au groupe RSSI, voir PluginGrcmanagerTrainingQuiz).
+        if (!$DB->fieldExists(self::TRAININGS_USERS_TABLE, 'documents_id')) {
+            $migration->addField(self::TRAININGS_USERS_TABLE, 'documents_id', 'fkey', ['after' => 'score']);
+            $migration->addKey(self::TRAININGS_USERS_TABLE, 'documents_id');
+            $migration->migrationOneTable(self::TRAININGS_USERS_TABLE);
+        }
+        // Issue #139 : une formation peut avoir plusieurs sessions (chaque session est une ligne
+        // rattachée à sa formation principale), avec son formateur et son lieu ou lien.
+        if (!$DB->fieldExists(self::TRAININGS_TABLE, 'plugin_grcmanager_trainings_id')) {
+            $migration->addField(self::TRAININGS_TABLE, 'plugin_grcmanager_trainings_id', 'fkey', [
+                'after' => 'renewal_period_months',
+            ]);
+            $migration->addKey(self::TRAININGS_TABLE, 'plugin_grcmanager_trainings_id');
+        }
+        if (!$DB->fieldExists(self::TRAININGS_TABLE, 'users_id_trainer')) {
+            $migration->addField(self::TRAININGS_TABLE, 'users_id_trainer', 'fkey', [
+                'after' => 'plugin_grcmanager_trainings_id',
+            ]);
+            $migration->addKey(self::TRAININGS_TABLE, 'users_id_trainer');
+        }
+        if (!$DB->fieldExists(self::TRAININGS_TABLE, 'location')) {
+            $migration->addField(self::TRAININGS_TABLE, 'location', 'string', ['after' => 'users_id_trainer']);
+        }
+        $migration->migrationOneTable(self::TRAININGS_TABLE);
 
         // Sprint 6 (revues de direction, clause 9.3) : une ligne par revue de direction realisee ou
         // planifiee, avec l'ordre du jour et les decisions/actions en texte libre (pas un lien
@@ -1086,6 +1144,24 @@ final class Installer
                 KEY `documents_id` (`documents_id`),
                 KEY `entities_id` (`entities_id`),
                 KEY `valid_until` (`valid_until`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query);
+        }
+
+        // Issue #140 : qui a téléchargé quel document restreint, et quand.
+        if (!$DB->tableExists(self::DOCUMENT_ACCESSES_TABLE)) {
+            $query = "CREATE TABLE `" . self::DOCUMENT_ACCESSES_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `documents_id` int {$keySign} NOT NULL DEFAULT 0,
+                `itemtype` varchar(100) NOT NULL DEFAULT '',
+                `items_id` int {$keySign} NOT NULL DEFAULT 0,
+                `users_id` int {$keySign} NOT NULL DEFAULT 0,
+                `date_access` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `item` (`itemtype`, `items_id`),
+                KEY `documents_id` (`documents_id`),
+                KEY `users_id` (`users_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
             $DB->doQuery($query);
@@ -1956,6 +2032,7 @@ final class Installer
             $this->migrateLegacySecurityIncidents();
         }
         $this->restrictGeneratedReports();
+        $this->restrictAuditDocuments();
 
         // Issue #31 (plan d'action de traitement des risques, clause 8.3/6.1.3) : PLUSIEURS
         // actions concrètes par risque (contrairement au CAPA d'une non-conformité, qui n'a
@@ -2275,7 +2352,11 @@ final class Installer
         // install without a second manual step, same lesson learned live on the sibling plugins
         // of this same author (glpi-vulnerability-manager, assetsign-glpi, Configuration-glpi-auto).
         foreach ($DB->request(['FROM' => 'glpi_profiles', 'WHERE' => ['name' => 'Super-Admin']]) as $profileRow) {
-            ProfileRight::updateProfileRights((int) $profileRow['id'], [self::RIGHT_NAME => ALLSTANDARDRIGHT]);
+            // Issue #140 : notes de travail (onglet Notes de l'audit), en plus des droits standards.
+            ProfileRight::updateProfileRights(
+                (int) $profileRow['id'],
+                [self::RIGHT_NAME => ALLSTANDARDRIGHT | READNOTE | UPDATENOTE]
+            );
         }
 
         // Absorption de glpi-security-incidents (ROADMAP.md "Version 2.0") : contrairement au reste
@@ -3088,13 +3169,67 @@ final class Installer
                 (new \Document())->delete(['id' => (int) $row['documents_id']], true);
             }
         }
-        foreach ([\ITILFollowup::class, \ITILSolution::class, \Document_Item::class, \Item_Ticket::class] as $class) {
+        // QueuedNotification : messages en attente d'envoi sur un objet du plugin (incident…).
+        $classes = [
+            \ITILFollowup::class, \ITILSolution::class, \Document_Item::class, \Item_Ticket::class,
+            \QueuedNotification::class,
+        ];
+        foreach ($classes as $class) {
             (new $class())->deleteByCriteria(['itemtype' => $pluginItemtype], true);
         }
         (new \Rule())->deleteByCriteria(['sub_type' => ['LIKE', 'RulePluginGrcmanager%']], true);
         $DB->delete('glpi_notepads', ['itemtype' => $pluginItemtype]);
         $DB->delete('glpi_savedsearches', ['itemtype' => $pluginItemtype]);
+        // Réglages du plugin (groupe RSSI, dates de synchronisation KEV et CERT-FR…).
+        $DB->delete('glpi_configs', ['context' => 'plugin:grcmanager']);
         $DB->delete('glpi_logs', ['OR' => [['itemtype' => $pluginItemtype], ['itemtype_link' => $pluginItemtype]]]);
+    }
+
+    /**
+     * Issue #140 : documents déjà joints à un audit, ou à un constat d'audit, avant que leur
+     * accès ne soit réservé à l'équipe de l'audit. Ils passent au registre des documents
+     * restreints, avec l'audit pour source. Idempotent : un document déjà au registre est ignoré.
+     */
+    private function restrictAuditDocuments(): void
+    {
+        global $DB;
+
+        $rows = $DB->request([
+            'SELECT'    => [
+                'glpi_documents_items.documents_id',
+                'glpi_documents_items.itemtype',
+                'glpi_documents_items.items_id',
+            ],
+            'FROM'      => 'glpi_documents_items',
+            'LEFT JOIN' => [
+                self::RESTRICTED_DOCUMENTS_TABLE => ['FKEY' => [
+                    self::RESTRICTED_DOCUMENTS_TABLE => 'documents_id',
+                    'glpi_documents_items'           => 'documents_id',
+                ]],
+            ],
+            'WHERE'     => [
+                'glpi_documents_items.itemtype'          => ['PluginGrcmanagerAudit', 'PluginGrcmanagerNonconformity'],
+                self::RESTRICTED_DOCUMENTS_TABLE . '.id' => null,
+            ],
+        ]);
+        foreach ($rows as $row) {
+            $auditId = (int) $row['items_id'];
+            if ($row['itemtype'] === 'PluginGrcmanagerNonconformity') {
+                $finding = $DB->request([
+                    'SELECT' => 'plugin_grcmanager_audits_id',
+                    'FROM'   => self::NONCONFORMITIES_TABLE,
+                    'WHERE'  => ['id' => $auditId],
+                ])->current();
+                $auditId = (int) ($finding['plugin_grcmanager_audits_id'] ?? 0);
+            }
+            if ($auditId > 0) {
+                $DB->updateOrInsert(
+                    self::RESTRICTED_DOCUMENTS_TABLE,
+                    ['itemtype' => 'PluginGrcmanagerAudit', 'items_id' => $auditId],
+                    ['documents_id' => (int) $row['documents_id']]
+                );
+            }
+        }
     }
 
     /**
@@ -3535,6 +3670,8 @@ final class Installer
         $migration->dropTable(self::OBJECTIVE_MEASUREMENTS_TABLE);
         $migration->dropTable(self::EVIDENCES_TABLE);
         $migration->dropTable(self::RESTRICTED_DOCUMENTS_TABLE);
+        $migration->dropTable(self::AUDITS_USERS_TABLE);
+        $migration->dropTable(self::DOCUMENT_ACCESSES_TABLE);
         $migration->dropTable(self::PERIODIC_REVIEWS_TABLE);
         $migration->dropTable(self::NETWORK_FLOWS_TABLE);
         $migration->dropTable(self::COMPLIANCE_EVENTS_TABLE);

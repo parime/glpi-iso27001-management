@@ -21,14 +21,15 @@ fois l'installation et l'activation terminées.
 
 ![Liste des plugins avec GLPI GRC Manager activé](screenshots/tutorial/01-plugin-list.png)
 
-Le plugin ajoute ses sept écrans (Risques, Risques fournisseurs, Contrôles Annexe A, Audits
-internes, Non-conformités, Formations, Revues de direction) dans le menu **Outils**.
+Le plugin ajoute son propre menu **GRC & Conformité**, en six rubriques (Tableau de bord, Risques,
+Conformité, Audits et amélioration, Opérations, Sécurité technique) ; les écrans d'une même rubrique
+sont réunis par une barre d'onglets. Les incidents de sécurité sont dans le menu **Assistance**.
 
-![Menu Outils avec les écrans du plugin](screenshots/tutorial/02-menu-outils.png)
+![Menu du plugin](screenshots/tutorial/02-menu-outils.png)
 
 ### Étape 2 : Créer un risque dans le registre générique
 
-Depuis **Outils > Risques**, la liste est vide tant qu'aucun risque n'a été créé.
+Depuis **GRC & Conformité > Risques**, la liste est vide tant qu'aucun risque n'a été créé.
 
 ![Registre de risques vide](screenshots/tutorial/03-risk-list-empty.png)
 
@@ -68,7 +69,7 @@ modifiée.
 
 ### Étape 4 : Parcourir la Déclaration d'Applicabilité (SoA)
 
-Depuis **Outils > Contrôles Annexe A**, les 93 mesures réelles de l'Annexe A ISO/IEC 27001:2022
+Depuis **GRC & Conformité > Conformité**, les 93 mesures réelles de l'Annexe A ISO/IEC 27001:2022
 sont listées, préchargées à l'installation et marquées "Applicable" par défaut (clause 6.1.3).
 
 ![Liste complète des 93 contrôles Annexe A](screenshots/tutorial/10-control-list.png)
@@ -99,7 +100,7 @@ Une fois la justification renseignée, l'enregistrement réussit.
 
 ### Étape 5 : Créer un audit et une non-conformité, jusqu'à la clôture CAPA
 
-Depuis **Outils > Audits internes**, la liste est vide tant qu'aucun audit n'existe.
+Depuis **GRC & Conformité > Audits et amélioration**, la liste est vide tant qu'aucun audit n'existe.
 
 ![Liste des audits internes vide](screenshots/tutorial/17-audit-list-empty.png)
 
@@ -109,7 +110,14 @@ Un audit se définit par un titre, un statut, une date planifiée et un périmè
 
 ![Audit enregistré](screenshots/tutorial/19-audit-saved.png)
 
-Depuis **Outils > Non-conformités**, une non-conformité peut être liée à cet audit interne, avec
+Les documents de l'audit (plan d'audit, preuves collectées, rapport signé) et de ses constats ne se
+lisent que par son **équipe** : l'auditeur et le responsable de la fiche, les membres ajoutés dans
+l'onglet **Équipe** (auditeurs, ou audités en lecture seule) et le **groupe RSSI** choisi dans la
+configuration du plugin. Le droit Documents de GLPI ne suffit pas. L'onglet **Accès aux documents**
+liste chaque téléchargement (date, utilisateur, document) et l'onglet **Notes** garde les notes de
+travail datées, avec leur auteur.
+
+Depuis l'onglet **Non-conformités** de la rubrique, une non-conformité peut être liée à cet audit interne, avec
 une sévérité, une échéance, une description et une cause racine.
 
 ![Liste des non-conformités vide](screenshots/tutorial/20-nonconformity-list-empty.png)
@@ -149,7 +157,7 @@ registre.
 
 ### Étape 7 : Créer un risque dans le registre fournisseurs/tiers
 
-Depuis **Outils > Risques fournisseurs**, la liste affiche les risques fournisseurs déjà
+Depuis **GRC & Conformité > Risques > Risques fournisseurs**, la liste affiche les risques fournisseurs déjà
 enregistrés sur cette instance.
 
 ![Registre de risques fournisseurs](screenshots/tutorial/28-supplierrisk-list.png)
@@ -180,7 +188,7 @@ badges colorés que le registre générique.
 
 ### Étape 8 : Suivre une formation et la réalisation par participant
 
-Depuis **Outils > Formations**, la liste affiche les sessions déjà enregistrées.
+Depuis **GRC & Conformité > Opérations > Formations**, la liste affiche les sessions déjà enregistrées.
 
 ![Liste des formations](screenshots/tutorial/34-training-list.png)
 
@@ -190,6 +198,17 @@ de renouvellement en mois (clauses 7.2 « compétence » et 7.3 « sensibilisati
 participants, de vrais utilisateurs GLPI, sont sélectionnés dans le même formulaire.
 
 ![Formulaire de création d'une formation avec participants sélectionnés](screenshots/tutorial/35-training-form-filled.png)
+
+Une formation donnée plusieurs fois a plusieurs **sessions** : depuis l'onglet **Sessions** de la
+formation, « Ajouter une session » ouvre un formulaire prérempli (titre, format, note maximale,
+seuil) où l'on renseigne la date, le formateur, le lieu ou le lien et les participants. Chaque
+session garde ses propres documents (feuille d'émargement, support, quiz) ; l'onglet liste les
+sessions avec leur taux de réussite, et le taux de réussite de la formation, toutes sessions.
+
+L'onglet **Copies de quiz** d'une session reçoit la copie corrigée de chaque participant. Une copie
+est une donnée personnelle : seuls le participant, le formateur de la session et le groupe RSSI la
+lisent, et chaque téléchargement est historisé. Le participant retrouve ses formations, ses notes et
+ses copies dans l'onglet **Mes formations** de ses préférences, sans droit sur le plugin.
 
 Une fois enregistrée, un tableau de suivi individuel apparaît sous le formulaire : un statut de
 réalisation (en attente/terminée/dispensé) et une date par participant.
@@ -204,7 +223,7 @@ affiché au tableau de bord (voir étape 10).
 
 ### Étape 9 : Enregistrer une revue de direction
 
-Depuis **Outils > Revues de direction**, la liste affiche les revues déjà enregistrées.
+Depuis **GRC & Conformité > Audits et amélioration > Revues de direction**, la liste affiche les revues déjà enregistrées.
 
 ![Liste des revues de direction](screenshots/tutorial/38-managementreview-list.png)
 
@@ -336,14 +355,15 @@ Manager" row shows an "Activé" status once installation and activation are comp
 
 ![Plugin list with GLPI GRC Manager activated](screenshots/tutorial/01-plugin-list.png)
 
-The plugin adds its seven screens (Risks, Supplier risks, Annex A Controls, Internal audits,
-Non-conformities, Trainings, Management reviews) to the **Outils** menu.
+The plugin adds its own **GRC & Conformité** menu, with six sections (Dashboard, Risks, Compliance,
+Audits and improvement, Operations, Technical security); the screens of a section share a tab bar.
+Security incidents are in the **Assistance** menu.
 
-![Outils menu with the plugin's screens](screenshots/tutorial/02-menu-outils.png)
+![The plugin's menu](screenshots/tutorial/02-menu-outils.png)
 
 ### Step 2: Create a risk in the generic register
 
-From **Outils > Risques**, the list is empty until a risk has been created.
+From **GRC & Conformité > Risques**, the list is empty until a risk has been created.
 
 ![Empty risk register](screenshots/tutorial/03-risk-list-empty.png)
 
@@ -381,7 +401,7 @@ level until the grid is edited.
 
 ### Step 4: Browse the Statement of Applicability (SoA)
 
-From **Outils > Contrôles Annexe A**, the 93 real ISO/IEC 27001:2022 Annex A controls are
+From **GRC & Conformité > Conformité**, the 93 real ISO/IEC 27001:2022 Annex A controls are
 listed, seeded at install time and marked "Applicable" by default (clause 6.1.3).
 
 ![Full list of the 93 Annex A controls](screenshots/tutorial/10-control-list.png)
@@ -412,7 +432,7 @@ Once the justification is filled in, the save succeeds.
 
 ### Step 5: Create an audit and a non-conformity, through to CAPA closure
 
-From **Outils > Audits internes**, the list is empty until an audit exists.
+From **GRC & Conformité > Audits et amélioration**, the list is empty until an audit exists.
 
 ![Empty internal audit list](screenshots/tutorial/17-audit-list-empty.png)
 
@@ -422,7 +442,13 @@ An audit is defined by a title, a status, a planned date and a free-text scope.
 
 ![Saved audit](screenshots/tutorial/19-audit-saved.png)
 
-From **Outils > Non-conformités**, a non-conformity can be linked to this internal audit, with a
+The documents of the audit (audit plan, collected evidence, signed report) and of its findings can
+only be read by its **team**: the auditor and the owner set on the form, the members added in the
+**Équipe** tab (auditors, or read-only auditees) and the **CISO group** chosen in the plugin
+configuration. The GLPI Documents right is not enough. The **Accès aux documents** tab lists every
+download (date, user, document) and the **Notes** tab keeps dated working notes with their author.
+
+From the section's **Non-conformités** tab, a non-conformity can be linked to this internal audit, with a
 severity, a due date, a description and a root cause.
 
 ![Empty non-conformity list](screenshots/tutorial/20-nonconformity-list-empty.png)
@@ -461,7 +487,7 @@ Once added, the card shows the real data, here the number of open risks in the r
 
 ### Step 7: Create a risk in the supplier/third-party register
 
-From **Outils > Risques fournisseurs**, the list shows the supplier risks already recorded on
+From **GRC & Conformité > Risques > Risques fournisseurs**, the list shows the supplier risks already recorded on
 this instance.
 
 ![Supplier risk register](screenshots/tutorial/28-supplierrisk-list.png)
@@ -491,7 +517,7 @@ badges as the generic register.
 
 ### Step 8: Record a training session and a participant's completion
 
-From **Outils > Formations**, the list shows the sessions already recorded.
+From **GRC & Conformité > Opérations > Formations**, the list shows the sessions already recorded.
 
 ![Training list](screenshots/tutorial/34-training-list.png)
 
@@ -501,6 +527,17 @@ target audience, whether it's mandatory, and, where relevant, a renewal period i
 the same form.
 
 ![Training creation form with participants selected](screenshots/tutorial/35-training-form-filled.png)
+
+A training delivered several times has several **sessions**: from the training's **Sessions** tab,
+"Ajouter une session" opens a pre-filled form (title, format, maximum score, pass threshold) where
+you set the date, the trainer, the location or link and the participants. Each session keeps its
+own documents (attendance sheet, slides, quiz); the tab lists the sessions with their pass rate,
+and the pass rate of the whole training across sessions.
+
+A session's **Copies de quiz** tab receives each participant's marked quiz copy. A copy is personal
+data: only the participant, the session's trainer and the CISO group can read it, and every download
+is logged. Participants find their trainings, scores and copies in the **Mes formations** tab of
+their preferences, without any right on the plugin.
 
 Once saved, a per-participant tracking table appears below the form: a completion status
 (pending/completed/exempted) and a date for each participant.
@@ -515,7 +552,7 @@ the completion rate shown on the dashboard (see step 10).
 
 ### Step 9: Record a management review
 
-From **Outils > Revues de direction**, the list shows the reviews already recorded.
+From **GRC & Conformité > Audits et amélioration > Revues de direction**, the list shows the reviews already recorded.
 
 ![Management review list](screenshots/tutorial/38-managementreview-list.png)
 

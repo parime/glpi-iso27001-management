@@ -1,0 +1,33 @@
+# Issue #146 : analyse statique de TOUT le plugin (inc/, front/, src/, setup.php, hook.php), avec
+# les sources de GLPI. phpstan.neon.dist ne couvre que les services en PHP pur, analysables sans
+# GLPI ; cette configuration tourne dans le conteneur GLPI de la CI (job « Installation reelle sur
+# GLPI »), où le plugin est dans plugins/grcmanager.
+#
+# Les signalements existants à la création (annotations de type de tableaux, delete($input, 1)…,
+# aucun bogue réel trouvé) sont dans phpstan-glpi-baseline.neon : tout nouveau signalement fait
+# échouer la CI. Régénérer la base seulement après avoir corrigé ou justifié chaque nouvelle entrée.
+includes:
+    - phpstan-glpi-baseline.neon
+
+parameters:
+    level: 5
+    tmpDir: .phpstan-glpi-cache
+    paths:
+        - inc
+        - front
+        - src
+        - setup.php
+        - hook.php
+    excludePaths:
+        # Une classe par version de GLPI (11 et 12) dans chaque fichier : la branche de l'autre
+        # version est forcément fausse pour PHPStan. Couvert par le job de compatibilité PHP x GLPI.
+        - src/Compatibility/Base
+    scanDirectories:
+        - ../../src
+        - ../../inc
+    bootstrapFiles:
+        - ../../vendor/autoload.php
+        - ../../src/autoload/constants.php
+        - .phpstan/glpi-runtime-constants.php
+        - vendor/autoload.php
+    treatPhpDocTypesAsCertain: false

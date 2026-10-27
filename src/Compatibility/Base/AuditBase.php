@@ -20,10 +20,14 @@ if (GlpiVersion::isAtLeast12()) {
     abstract class AuditBase extends CommonDBTM
     {
         public static string $rightname = PluginGrcmanagerAudit::RIGHTNAME;
+        // Issue #140 : onglet Notes (notes de travail datées, auteur conservé).
+        protected bool $usenotepad = true;
     }
 } else {
     abstract class AuditBase extends CommonDBTM
     {
         public static $rightname = PluginGrcmanagerAudit::RIGHTNAME;
+        // Issue #140 : onglet Notes (notes de travail datées, auteur conservé).
+        protected $usenotepad = true;
     }
 }

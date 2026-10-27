@@ -97,12 +97,6 @@ class PluginGrcmanagerMenu extends CommonGLPI
         ];
     }
 
-    /** Écran rattaché à une rubrique : il n'a pas d'entrée de menu propre (setup.php). */
-    public static function isSubPage(string $class): bool
-    {
-        return in_array($class, array_merge(...array_values(self::sections())), true);
-    }
-
     /**
      * Entrée de menu d'une sous-page, telle que l'écran la déclare (droits compris), ou null si
      * l'utilisateur ne peut pas la voir.

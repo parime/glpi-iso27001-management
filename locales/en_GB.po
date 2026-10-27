@@ -5211,3 +5211,135 @@ msgstr "Technical security"
 
 msgid "Conformité"
 msgstr "Compliance"
+
+msgid "Audité (lecture seule)"
+msgstr "Auditee (read only)"
+
+msgid "Équipe"
+msgstr "Team"
+
+msgid "Responsable de l'audit"
+msgstr "Audit owner"
+
+msgid "Accès aux documents"
+msgstr "Document access"
+
+msgid "Choisissez un membre et un rôle."
+msgstr "Choose a member and a role."
+
+msgid "Seuls les membres de l'équipe lisent les documents de l'audit et de ses constats, même avec le droit Documents de GLPI. Les audités les lisent sans pouvoir rien ajouter."
+msgstr "Only team members can read the documents of the audit and its findings, even with the GLPI Documents right. Auditees can read them but cannot add anything."
+
+#, php-format
+msgid "Le groupe RSSI (%s) y accède aussi."
+msgstr "The CISO group (%s) can access them too."
+
+msgid "Aucun groupe RSSI n'est défini dans la configuration du plugin."
+msgstr "No CISO group is set in the plugin configuration."
+
+msgid "Membre"
+msgstr "Member"
+
+msgid "Rôle"
+msgstr "Role"
+
+msgid "fiche de l'audit"
+msgstr "audit form"
+
+msgid "Retirer"
+msgstr "Remove"
+
+msgid "Aucun membre : renseignez l'auditeur ou le responsable sur la fiche."
+msgstr "No member: set the auditor or the owner on the form."
+
+msgid "Chaque téléchargement d'un document de l'audit ou de ses constats, par un membre de l'équipe ou du groupe RSSI."
+msgstr "Every download of a document of the audit or its findings, by a team member or the CISO group."
+
+msgid "Aucun document de cet audit n'a encore été téléchargé."
+msgstr "No document of this audit has been downloaded yet."
+
+msgid "Les documents d'un audit ne se lisent que par son équipe (auditeurs, responsable, audités) et par les membres de ce groupe, même avec le droit Documents de GLPI."
+msgstr "The documents of an audit can only be read by its team (auditors, owner, auditees) and by the members of this group, even with the GLPI Documents right."
+
+msgid "Groupe RSSI"
+msgstr "CISO group"
+
+msgid "Aucune (formation principale)"
+msgstr "None (main training)"
+
+msgid "Formateur"
+msgstr "Trainer"
+
+msgid "Lieu ou lien"
+msgstr "Location or link"
+
+msgid "Sessions"
+msgstr "Sessions"
+
+msgid "Nouvelle session de cette formation : renseignez sa date, son formateur, son lieu et ses participants, puis cliquez sur « Ajouter ». Rien n'est enregistré avant."
+msgstr "New session of this training: fill in its date, trainer, location and participants, then click \"Add\". Nothing is saved before."
+
+msgid "Session de la formation"
+msgstr "Session of the training"
+
+msgid "Voir la formation"
+msgstr "View the training"
+
+msgid "Salle, adresse ou lien de la visioconférence / du module en ligne."
+msgstr "Room, address or link to the video call / online module."
+
+msgid "Chaque session a sa date, son formateur, son lieu, ses participants et ses documents (feuille d'émargement, support, quiz)."
+msgstr "Each session has its own date, trainer, location, participants and documents (attendance sheet, slides, quiz)."
+
+msgid "Ajouter une session"
+msgstr "Add a session"
+
+#, php-format
+msgid "Taux de réussite de la formation, toutes sessions : %1$s sur %2$s (%3$s %%)"
+msgstr "Training pass rate, all sessions: %1$s out of %2$s (%3$s %%)"
+
+msgid "Aucune autre session pour cette formation."
+msgstr "No other session for this training."
+
+msgid "Session"
+msgstr "Session"
+
+#, php-format
+msgid "Copie de quiz - %1$s - %2$s"
+msgstr "Quiz copy - %1$s - %2$s"
+
+msgid "Mes formations"
+msgstr "My trainings"
+
+msgid "Copies de quiz"
+msgstr "Quiz copies"
+
+msgid "Choisissez le fichier de la copie."
+msgstr "Choose the file of the copy."
+
+msgid "La copie n'a pas pu être jointe (type de fichier non autorisé ?)."
+msgstr "The copy could not be attached (file type not allowed?)."
+
+msgid "Chaque copie ne se lit que par son participant, le formateur de la session et le groupe RSSI."
+msgstr "Each copy can only be read by its participant, the session's trainer and the CISO group."
+
+msgid "Aucun participant pour cette session."
+msgstr "No participant in this session."
+
+msgid "Copie de quiz"
+msgstr "Quiz copy"
+
+msgid "Télécharger"
+msgstr "Download"
+
+msgid "Jointe (accès réservé)"
+msgstr "Attached (restricted access)"
+
+msgid "Aucune"
+msgstr "None"
+
+msgid "Retirer la copie"
+msgstr "Remove the copy"
+
+msgid "Vous n'êtes inscrit à aucune formation."
+msgstr "You are not enrolled in any training."
