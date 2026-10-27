@@ -5303,3 +5303,43 @@ msgstr "No other session for this training."
 
 msgid "Session"
 msgstr "Session"
+
+#, php-format
+msgid "Copie de quiz - %1$s - %2$s"
+msgstr "Quiz copy - %1$s - %2$s"
+
+msgid "Mes formations"
+msgstr "My trainings"
+
+msgid "Copies de quiz"
+msgstr "Quiz copies"
+
+msgid "Choisissez le fichier de la copie."
+msgstr "Choose the file of the copy."
+
+msgid "La copie n'a pas pu être jointe (type de fichier non autorisé ?)."
+msgstr "The copy could not be attached (file type not allowed?)."
+
+msgid "Chaque copie ne se lit que par son participant, le formateur de la session et le groupe RSSI."
+msgstr "Each copy can only be read by its participant, the session's trainer and the CISO group."
+
+msgid "Aucun participant pour cette session."
+msgstr "No participant in this session."
+
+msgid "Copie de quiz"
+msgstr "Quiz copy"
+
+msgid "Télécharger"
+msgstr "Download"
+
+msgid "Jointe (accès réservé)"
+msgstr "Attached (restricted access)"
+
+msgid "Aucune"
+msgstr "None"
+
+msgid "Retirer la copie"
+msgstr "Remove the copy"
+
+msgid "Vous n'êtes inscrit à aucune formation."
+msgstr "You are not enrolled in any training."

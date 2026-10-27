@@ -1,0 +1,29 @@
+{# Issue #139 : « Mes formations », dans les préférences de l'utilisateur connecté. #}
+{% if rows is empty %}
+  <div class="alert alert-info">{{ __('Vous n\'êtes inscrit à aucune formation.', 'grcmanager') }}</div>
+{% else %}
+  <table class="table table-hover card-table">
+    <thead>
+      <tr>
+        <th>{{ __('Formation', 'grcmanager') }}</th>
+        <th>{{ __('Date de réalisation', 'grcmanager') }}</th>
+        <th>{{ __('Statut de réalisation', 'grcmanager') }}</th>
+        <th>{{ __('Note', 'grcmanager') }}</th>
+        <th>{{ __('Évaluation', 'grcmanager') }}</th>
+        <th>{{ __('Copie de quiz', 'grcmanager') }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in rows %}
+        <tr>
+          <td>{{ row.title }}</td>
+          <td>{{ row.date }}</td>
+          <td>{{ row.status }}</td>
+          <td>{{ row.score }}</td>
+          <td>{{ row.result }}</td>
+          <td>{% if row.url %}<a href="{{ row.url }}"><i class="ti ti-download me-1"></i>{{ __('Télécharger', 'grcmanager') }}</a>{% endif %}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}

@@ -1,0 +1,48 @@
+{# Issue #139 : copies de quiz des participants, lisibles par le participant, le formateur et le groupe RSSI. #}
+<p class="text-muted">{{ __('Chaque copie ne se lit que par son participant, le formateur de la session et le groupe RSSI.', 'grcmanager') }}</p>
+{% if rows is empty %}
+  <div class="alert alert-info">{{ __('Aucun participant pour cette session.', 'grcmanager') }}</div>
+{% else %}
+  <table class="table table-hover card-table">
+    <thead>
+      <tr>
+        <th>{{ __('Participant', 'grcmanager') }}</th>
+        <th>{{ __('Note', 'grcmanager') }}</th>
+        <th>{{ __('Copie de quiz', 'grcmanager') }}</th>
+        {% if can_edit %}<th></th>{% endif %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in rows %}
+        <tr>
+          <td>{{ row.name }}</td>
+          <td>{{ row.score }}</td>
+          <td>
+            {% if row.has_copy %}
+              {% if row.can_read %}
+                <a href="{{ row.url }}"><i class="ti ti-download me-1"></i>{{ __('Télécharger', 'grcmanager') }}</a>
+              {% else %}
+                <span class="text-muted"><i class="ti ti-lock me-1"></i>{{ __('Jointe (accès réservé)', 'grcmanager') }}</span>
+              {% endif %}
+            {% else %}
+              <span class="text-muted">{{ __('Aucune', 'grcmanager') }}</span>
+            {% endif %}
+          </td>
+          {% if can_edit %}
+            <td>
+              <form method="post" action="{{ action }}" enctype="multipart/form-data" class="d-flex gap-2 align-items-center">
+                <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="participations_id" value="{{ row.id }}">
+                <input type="file" name="quiz" class="form-control form-control-sm" aria-label="{{ __('Copie de quiz', 'grcmanager') }} — {{ row.name }}">
+                <button type="submit" name="upload" class="btn btn-sm btn-primary"><i class="ti ti-upload"></i></button>
+                {% if row.has_copy %}
+                  <button type="submit" name="remove" class="btn btn-sm btn-ghost-danger" title="{{ __('Retirer la copie', 'grcmanager') }}"><i class="ti ti-trash"></i></button>
+                {% endif %}
+              </form>
+            </td>
+          {% endif %}
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}

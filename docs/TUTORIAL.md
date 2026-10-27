@@ -204,6 +204,11 @@ seuil) où l'on renseigne la date, le formateur, le lieu ou le lien et les parti
 session garde ses propres documents (feuille d'émargement, support, quiz) ; l'onglet liste les
 sessions avec leur taux de réussite, et le taux de réussite de la formation, toutes sessions.
 
+L'onglet **Copies de quiz** d'une session reçoit la copie corrigée de chaque participant. Une copie
+est une donnée personnelle : seuls le participant, le formateur de la session et le groupe RSSI la
+lisent, et chaque téléchargement est historisé. Le participant retrouve ses formations, ses notes et
+ses copies dans l'onglet **Mes formations** de ses préférences, sans droit sur le plugin.
+
 Une fois enregistrée, un tableau de suivi individuel apparaît sous le formulaire : un statut de
 réalisation (en attente/terminée/dispensé) et une date par participant.
 
@@ -526,6 +531,11 @@ A training delivered several times has several **sessions**: from the training's
 you set the date, the trainer, the location or link and the participants. Each session keeps its
 own documents (attendance sheet, slides, quiz); the tab lists the sessions with their pass rate,
 and the pass rate of the whole training across sessions.
+
+A session's **Copies de quiz** tab receives each participant's marked quiz copy. A copy is personal
+data: only the participant, the session's trainer and the CISO group can read it, and every download
+is logged. Participants find their trainings, scores and copies in the **Mes formations** tab of
+their preferences, without any right on the plugin.
 
 Once saved, a per-participant tracking table appears below the form: a completion status
 (pending/completed/exempted) and a date for each participant.

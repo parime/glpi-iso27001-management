@@ -265,7 +265,12 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
 $ids['supplierrisk'] = $add(new PluginGrcmanagerSupplierRisk(), [
     'title' => 'Risque fournisseur securite', 'suppliers_id' => $supplier,
 ]);
-$ids['training'] = $add(new PluginGrcmanagerTraining(), ['title' => 'Formation securite']);
+$ids['training'] = $add(new PluginGrcmanagerTraining(), ['title' => 'Formation securite', 'participants' => [2]]);
+// Issue #139 : copie de quiz de glpi, lisible par lui seul (ni formateur ni groupe RSSI ici).
+$ids['quiz'] = PluginGrcmanagerTrainingQuiz::getParticipationId($ids['training'], 2);
+$quizPrefix = uniqid('', true);
+file_put_contents(GLPI_TMP_DIR . '/' . $quizPrefix . 'copie-quiz.txt', "Copie de quiz securite\n");
+PluginGrcmanagerTrainingQuiz::attach($ids['quiz'], $quizPrefix . 'copie-quiz.txt', $quizPrefix);
 $ids['risk'] = $add(new PluginGrcmanagerRisk(), [
     'title' => 'Risque securite', 'linked_items_Computer' => [$ids['computer_B']],
 ]);

@@ -273,6 +273,9 @@ class PluginGrcmanagerTraining extends TrainingBase
         $DB->update(self::getTable(), ['plugin_grcmanager_trainings_id' => 0], [
             'plugin_grcmanager_trainings_id' => $this->getID(),
         ]);
+        foreach (self::getParticipantIds($this->getID()) as $usersId) {
+            PluginGrcmanagerTrainingQuiz::deleteCopyOf($this->getID(), $usersId);
+        }
     }
 
     public function defineTabs($options = [])
@@ -281,6 +284,7 @@ class PluginGrcmanagerTraining extends TrainingBase
         // Issue #139 : feuille d'émargement, support et quiz de la session.
         $this->addDefaultFormTab($tabs)
             ->addStandardTab(PluginGrcmanagerTrainingSession::class, $tabs, $options)
+            ->addStandardTab(PluginGrcmanagerTrainingQuiz::class, $tabs, $options)
             ->addStandardTab(Document_Item::class, $tabs, $options)
             ->addStandardTab(Log::class, $tabs, $options);
 
@@ -326,6 +330,7 @@ class PluginGrcmanagerTraining extends TrainingBase
         $existingIds = self::getParticipantIds($trainingId);
 
         foreach (array_diff($existingIds, $selectedIds) as $removedId) {
+            PluginGrcmanagerTrainingQuiz::deleteCopyOf($trainingId, $removedId);
             $DB->delete(self::PARTICIPANTS_TABLE, [
                 'plugin_grcmanager_trainings_id' => $trainingId,
                 'users_id'                       => $removedId,

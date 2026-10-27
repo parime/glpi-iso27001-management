@@ -34,6 +34,9 @@ use Glpi\DBAL\QuerySubQuery;
  * registre avec l'audit pour source. Ils ne se lisent que par l'équipe de l'audit et le groupe
  * RSSI (PluginGrcmanagerAuditTeam), et chaque téléchargement est historisé
  * (PluginGrcmanagerDocumentAccess).
+ *
+ * Issue #139 : les copies de quiz des participants ont pour source leur ligne de participation
+ * (PluginGrcmanagerTrainingQuiz) : le participant, le formateur de la session et le groupe RSSI.
  */
 class PluginGrcmanagerRestrictedDocument
 {
@@ -46,12 +49,26 @@ class PluginGrcmanagerRestrictedDocument
     {
         global $DB;
 
-        if ($documentsId <= 0 || $source->isNewItem()) {
+        if ($source->isNewItem()) {
+            return;
+        }
+        self::registerFor($documentsId, $source->getType(), $source->getID());
+    }
+
+    /**
+     * Comme register(), pour une source qui n'est pas un objet GLPI (ligne de participation à
+     * une formation, pour une copie de quiz).
+     */
+    public static function registerFor(int $documentsId, string $itemtype, int $itemsId): void
+    {
+        global $DB;
+
+        if ($documentsId <= 0 || $itemsId <= 0) {
             return;
         }
         $DB->updateOrInsert(
             self::TABLE,
-            ['itemtype' => $source->getType(), 'items_id' => $source->getID()],
+            ['itemtype' => $itemtype, 'items_id' => $itemsId],
             ['documents_id' => $documentsId]
         );
         unset(self::$cache[$documentsId]);
@@ -132,6 +149,10 @@ class PluginGrcmanagerRestrictedDocument
         // Issue #140 : l'équipe de l'audit (audités compris) et le groupe RSSI, et personne d'autre.
         if ($itemtype === PluginGrcmanagerAudit::class) {
             return PluginGrcmanagerAuditTeam::canAccessDocuments($source['items_id']);
+        }
+        // Issue #139 : copie de quiz, au participant, au formateur et au groupe RSSI.
+        if ($itemtype === PluginGrcmanagerTrainingQuiz::class) {
+            return PluginGrcmanagerTrainingQuiz::canRead($source['items_id']);
         }
         if (!is_a($itemtype, CommonDBTM::class, true)) {
             return false;
