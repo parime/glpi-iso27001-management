@@ -5166,3 +5166,7 @@ msgstr "Subscription link for your calendar (Outlook, Thunderbird, Google Calend
 
 msgid "Lien personnel : il donne accès à vos échéances avec vos droits, sans mot de passe. Ne le partagez pas. Pour le révoquer, régénérez votre jeton personnel dans vos préférences."
 msgstr "Personal link: it gives access to your deadlines with your rights, without a password. Do not share it. To revoke it, regenerate your personal token in your preferences."
+
+#, php-format
+msgid "Groupes modifiés depuis moins de %d jours, profils non revus"
+msgstr "Groups changed less than %d days ago, profiles not reviewed"

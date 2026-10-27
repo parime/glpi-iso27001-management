@@ -57,6 +57,24 @@ final class AccountHygieneRulesTest extends TestCase
         self::assertArrayNotHasKey(4, $result, 'Sans prénom : jamais un doublon de nom.');
     }
 
+    public function testGroupChangeWithoutProfileReview(): void
+    {
+        $now = '2026-10-27 10:00:00';
+        $old = '2024-01-01 09:00:00';
+        $check = static fn (?string $group, ?string $profile, ?string $created = null): bool
+            => AccountHygieneRules::groupChangedWithoutProfileReview($group, $profile, $created ?? $old, $now, 90);
+
+        self::assertTrue($check('2026-10-20 08:00:00', '2025-03-01 08:00:00'), 'Groupes changés, profils anciens.');
+        self::assertTrue($check('2026-10-20 08:00:00', null), 'Aucun profil revu.');
+        self::assertFalse($check('2026-10-20 08:00:00', '2026-10-21 08:00:00'), 'Profils revus après.');
+        self::assertFalse($check('2026-01-01 08:00:00', null), 'Hors de la période de 90 jours.');
+        self::assertFalse($check(null, null), 'Jamais de changement de groupe.');
+        self::assertFalse(
+            $check('2026-10-20 08:00:10', null, '2026-10-20 08:00:00'),
+            'Groupes posés à la création du compte.'
+        );
+    }
+
     public function testInactivityPeriodIsAProposedValue(): void
     {
         self::assertSame(180, AccountHygieneRules::normalizeDays('180'));
