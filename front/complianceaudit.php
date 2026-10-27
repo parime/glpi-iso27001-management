@@ -25,6 +25,14 @@ Session::checkRight(PluginGrcmanagerComplianceAudit::RIGHTNAME, READ);
 
 $approvals = (int) ($_POST['approvals'] ?? $_GET['approvals'] ?? 1) === 2 ? 2 : 1;
 
+// Issue #305 : statuts d'ordinateur exclus des contrôles (réformé, en stock…).
+if (isset($_POST['update_excluded_states'])) {
+    Session::checkRight(PluginGrcmanagerComplianceAudit::RIGHTNAME, UPDATE);
+    $states = $_POST['excluded_states'] ?? [];
+    PluginGrcmanagerComplianceAudit::setExcludedStateIds(is_array($states) ? $states : []);
+    Html::back();
+}
+
 if (isset($_POST['create_ticket'])) {
     Session::checkRight(PluginGrcmanagerComplianceAudit::RIGHTNAME, UPDATE);
     Session::checkRight(Ticket::$rightname, CREATE);
@@ -40,6 +48,7 @@ if (isset($_POST['create_ticket'])) {
     Html::back();
 }
 
+$excludedStates = PluginGrcmanagerComplianceAudit::getExcludedStateIds();
 $results = PluginGrcmanagerComplianceAudit::run($approvals);
 $labels = PluginGrcmanagerComplianceAudit::getCheckLabels($approvals);
 $frameworks = PluginGrcmanagerComplianceAudit::getFrameworkLabels();
@@ -93,6 +102,9 @@ TemplateRenderer::getInstance()->display('@grcmanager/compliance_audit.html.twig
     'action'       => PluginGrcmanagerComplianceAudit::getSearchURL(),
     'can_ticket'   => Session::haveRight(PluginGrcmanagerComplianceAudit::RIGHTNAME, UPDATE)
         && Session::haveRight(Ticket::$rightname, CREATE),
+    'can_update'      => Session::haveRight(PluginGrcmanagerComplianceAudit::RIGHTNAME, UPDATE),
+    'excluded_states' => $excludedStates,
+    'excluded_names'  => array_map(static fn (int $id): string => Dropdown::getDropdownName(State::getTable(), $id), $excludedStates),
     'hygiene_url'  => PluginGrcmanagerAccountHygiene::getSearchURL(),
     'maturity_url' => PluginGrcmanagerMaturity::getSearchURL(),
     'soa_url'      => PluginGrcmanagerControl::getSearchURL(),

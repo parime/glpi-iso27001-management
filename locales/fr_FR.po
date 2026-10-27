@@ -5370,3 +5370,15 @@ msgstr "Risque fournisseur n° %d"
 #, php-format
 msgid "%1$s exporte : %2$s"
 msgstr "%1$s exporte : %2$s"
+
+
+msgid "Statuts d'ordinateur exclus des contrôles"
+msgstr "Statuts d'ordinateur exclus des contrôles"
+
+
+msgid "Par exemple « Réformé » ou « En stock » : ces postes ne sont comptés ni dans les écarts ni dans les scores."
+msgstr "Par exemple « Réformé » ou « En stock » : ces postes ne sont comptés ni dans les écarts ni dans les scores."
+
+#, php-format
+msgid "Postes exclus des contrôles (statut) : %s"
+msgstr "Postes exclus des contrôles (statut) : %s"
