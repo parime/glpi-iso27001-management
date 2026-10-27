@@ -17,6 +17,7 @@
 
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\PolicyBase;
+use GlpiPlugin\Grcmanager\Services\Policy\CharterSignature;
 use GlpiPlugin\Grcmanager\Services\Policy\PolicyLifecycle;
 use GlpiPlugin\Grcmanager\Services\Policy\PolicyReviewReminderService;
 use GlpiPlugin\Grcmanager\Services\Ui\Badge;
@@ -289,6 +290,9 @@ class PluginGrcmanagerPolicy extends PolicyBase
         }
 
         $input['status'] = $status;
+        if (array_key_exists('is_it_charter', $input)) {
+            $input['is_it_charter'] = empty($input['is_it_charter']) ? 0 : 1;
+        }
 
         return $input;
     }
@@ -302,8 +306,39 @@ class PluginGrcmanagerPolicy extends PolicyBase
             'statuses'       => self::getStatuses(),
             'default_status' => PolicyLifecycle::STATUS_DRAFT,
         ]);
+        if (!$this->isNewItem() && !empty($this->fields['is_it_charter'])) {
+            $this->showCharterSignatures();
+        }
 
         return true;
+    }
+
+    /**
+     * Issue #283 : signatures de la charte (campagnes de charte d'assetsign, lecture seule, comme
+     * pour les mesures A.5.10 et A.6.3) et invitation à relancer une campagne quand la version
+     * approuvée est plus récente que la dernière campagne d'une entité. Rien n'est lancé
+     * automatiquement.
+     */
+    private function showCharterSignatures(): void
+    {
+        $summary = \GlpiPlugin\Grcmanager\Services\Control\AssetsignEvidenceProvider::fetchCharterSummary();
+        $rows = [];
+        foreach ($summary ?? [] as $row) {
+            $rows[] = $row + [
+                'entity'  => Dropdown::getDropdownName('glpi_entities', $row['entities_id']),
+                'outdated' => CharterSignature::needsNewCampaign(
+                    (string) ($this->fields['status'] ?? ''),
+                    $this->fields['approval_date'] ?? null,
+                    $row['date']
+                ),
+            ];
+        }
+        TemplateRenderer::getInstance()->display('@grcmanager/policy_charter_signatures.html.twig', [
+            'available'     => $summary !== null,
+            'rows'          => $rows,
+            'version'       => (string) ($this->fields['version'] ?? ''),
+            'campaigns_url' => \GlpiPlugin\Grcmanager\Services\Control\AssetsignEvidenceProvider::campaignsUrl(),
+        ]);
     }
 
     /**

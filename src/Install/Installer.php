@@ -968,6 +968,7 @@ final class Installer
                 `next_review_date` date DEFAULT NULL,
                 `users_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Policy owner',
                 `description` text,
+                `is_it_charter` tinyint NOT NULL DEFAULT 0 COMMENT 'Charte informatique signee via assetsign',
                 `date_creation` timestamp NULL DEFAULT NULL,
                 `date_mod` timestamp NULL DEFAULT NULL,
                 PRIMARY KEY (`id`),
@@ -976,6 +977,16 @@ final class Installer
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
             $DB->doQuery($query);
+        }
+        // Issue #283 : la politique « Charte informatique », référence de version pour les campagnes
+        // de charte d'assetsign (qui lit cette colonne, avec status et approval_date).
+        if (!$DB->fieldExists(self::POLICIES_TABLE, 'is_it_charter')) {
+            $migration->addField(
+                self::POLICIES_TABLE,
+                'is_it_charter',
+                'bool',
+                ['value' => 0, 'after' => 'description']
+            );
         }
 
         // Issue #30 (registre des obligations légales/réglementaires/contractuelles, clause 4.2
