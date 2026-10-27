@@ -9,6 +9,12 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Fixed
 
+- Audit de conformité technique, contrôle « Postes avec un disque non chiffré » : tous les postes
+  Windows chiffrés avec BitLocker étaient signalés (#308). L'agent inventorie aussi les volumes sans
+  lettre (partition EFI, récupération, « Réservé au système ») que BitLocker ne chiffre jamais. Seuls
+  comptent désormais les lecteurs à lettre sous Windows et les points de montage hors `/boot` et
+  pseudo-systèmes sous Linux et macOS ; les partages réseau, supports optiques et partitions FAT
+  (clés USB, EFI) sont ignorés.
 - Sans le dossier `vendor/` (archive incomplète, clone sans `composer install --no-dev`), le plugin
   refuse de s'installer avec un message clair au lieu de provoquer une erreur fatale sur chaque page de
   GLPI (note de la revue de sécurité de la marketplace).

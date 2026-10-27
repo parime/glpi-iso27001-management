@@ -54,6 +54,8 @@ final class ComplianceAuditTest extends GrcmanagerIntegrationTestCase
         $disk = ['itemtype' => \Computer::class, 'name' => 'Disque PHPUnit', 'is_deleted' => 0];
         $DB->insert('glpi_items_disks', $disk + ['items_id' => $bare, 'mountpoint' => 'C:', 'encryption_status' => 0]);
         $DB->insert('glpi_items_disks', $disk + ['items_id' => $safe, 'mountpoint' => 'C:', 'encryption_status' => 1]);
+        // Issue #308 : la partition de récupération (sans lettre) d'un poste BitLocker n'est pas un écart.
+        $DB->insert('glpi_items_disks', $disk + ['items_id' => $safe, 'mountpoint' => 'Récupération', 'encryption_status' => 0]);
         $change = ['entities_id' => 0, 'status' => \CommonITILObject::CLOSED, 'date' => $now, 'closedate' => $now];
         $DB->insert('glpi_changes', $change + ['name' => 'PHPUnit changement sans validation']);
         $unvalidated = (int) $DB->insertId();

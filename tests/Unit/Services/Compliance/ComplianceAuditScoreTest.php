@@ -24,6 +24,29 @@ use PHPUnit\Framework\TestCase;
 
 final class ComplianceAuditScoreTest extends TestCase
 {
+    public function testEncryptableVolumes(): void
+    {
+        // Issue #308 : volumes d'un poste Windows chiffré avec BitLocker.
+        $this->assertTrue(Score::isEncryptableVolume('C:', 'NTFS', 512000));
+        $this->assertTrue(Score::isEncryptableVolume('D:\\', 'NTFS', 900000));
+        $this->assertFalse(Score::isEncryptableVolume('Récupération', 'NTFS', 750), 'Partition sans lettre.');
+        $this->assertFalse(Score::isEncryptableVolume('\\\\?\\Volume{1234}\\', 'NTFS', 100));
+        $this->assertFalse(Score::isEncryptableVolume('', 'FAT32', 100), 'Partition EFI.');
+        $this->assertFalse(Score::isEncryptableVolume('E:', 'FAT32', 16000), 'Clé USB.');
+        $this->assertFalse(Score::isEncryptableVolume('H:', 'CIFS', 1000000), 'Lecteur réseau.');
+        $this->assertFalse(Score::isEncryptableVolume('F:', '', 0), 'Lecteur optique vide.');
+        $this->assertTrue(Score::isEncryptableVolume('C:', '', 0, false), 'Disque saisi à la main, sans détail.');
+        // Linux et macOS.
+        $this->assertTrue(Score::isEncryptableVolume('/', 'ext4', 100000));
+        $this->assertTrue(Score::isEncryptableVolume('/home', 'xfs', 100000));
+        $this->assertTrue(Score::isEncryptableVolume('/System/Volumes/Data', 'apfs', 100000));
+        $this->assertFalse(Score::isEncryptableVolume('/boot', 'ext4', 1000));
+        $this->assertFalse(Score::isEncryptableVolume('/boot/efi', 'vfat', 500));
+        $this->assertFalse(Score::isEncryptableVolume('/run/user/1000', 'tmpfs', 800));
+        $this->assertFalse(Score::isEncryptableVolume('/snap/core/1', 'squashfs', 100));
+        $this->assertFalse(Score::isEncryptableVolume('/System/Volumes/Preboot', 'apfs', 100000));
+    }
+
     public function testRate(): void
     {
         $this->assertSame(85, Score::rate(15, 100));

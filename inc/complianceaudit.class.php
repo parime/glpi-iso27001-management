@@ -100,7 +100,9 @@ class PluginGrcmanagerComplianceAudit extends CommonGLPI
                 'label' => __('Postes avec un disque non chiffré', 'grcmanager'),
                 'help'  => __(
                     'D\'après l\'inventaire des volumes : au moins un disque non chiffré ou partiellement chiffré. '
-                        . 'Seuls les ordinateurs dont les volumes sont inventoriés sont comptés.',
+                        . 'Seuls les ordinateurs dont les volumes sont inventoriés sont comptés. Sont ignorés les '
+                        . 'volumes sans lettre de lecteur (EFI, récupération), les partages réseau, les supports '
+                        . 'optiques, les partitions FAT et, sous Linux, /boot et les pseudo-systèmes.',
                     'grcmanager'
                 ),
             ],
@@ -278,15 +280,38 @@ class PluginGrcmanagerComplianceAudit extends CommonGLPI
         if ($computers !== []) {
             foreach (
                 $DB->request([
-                    'SELECT' => ['items_id', 'name', 'mountpoint', 'encryption_status'],
-                    'FROM'   => 'glpi_items_disks',
-                    'WHERE'  => [
-                        'itemtype'   => Computer::class,
-                        'items_id'   => array_keys($computers),
-                        'is_deleted' => 0,
+                    'SELECT'    => [
+                        'glpi_items_disks.items_id',
+                        'glpi_items_disks.name',
+                        'glpi_items_disks.mountpoint',
+                        'glpi_items_disks.totalsize',
+                        'glpi_items_disks.is_dynamic',
+                        'glpi_items_disks.encryption_status',
+                        'glpi_filesystems.name AS filesystem',
+                    ],
+                    'FROM'      => 'glpi_items_disks',
+                    'LEFT JOIN' => [
+                        'glpi_filesystems' => [
+                            'ON' => ['glpi_items_disks' => 'filesystems_id', 'glpi_filesystems' => 'id'],
+                        ],
+                    ],
+                    'WHERE'     => [
+                        'glpi_items_disks.itemtype'   => Computer::class,
+                        'glpi_items_disks.items_id'   => array_keys($computers),
+                        'glpi_items_disks.is_deleted' => 0,
                     ],
                 ]) as $row
             ) {
+                if (
+                    !ComplianceAuditScore::isEncryptableVolume(
+                        (string) $row['mountpoint'],
+                        (string) $row['filesystem'],
+                        (int) $row['totalsize'],
+                        (bool) $row['is_dynamic']
+                    )
+                ) {
+                    continue;
+                }
                 $id = (int) $row['items_id'];
                 $withDisks[$id] = true;
                 if ((int) $row['encryption_status'] !== Item_Disk::ENCRYPTION_STATUS_YES) {

@@ -4739,8 +4739,8 @@ msgstr "D'après l'inventaire (onglet « Antivirus » des ordinateurs) : aucun a
 msgid "Postes avec un disque non chiffré"
 msgstr "Postes avec un disque non chiffré"
 
-msgid "D'après l'inventaire des volumes : au moins un disque non chiffré ou partiellement chiffré. Seuls les ordinateurs dont les volumes sont inventoriés sont comptés."
-msgstr "D'après l'inventaire des volumes : au moins un disque non chiffré ou partiellement chiffré. Seuls les ordinateurs dont les volumes sont inventoriés sont comptés."
+msgid "D'après l'inventaire des volumes : au moins un disque non chiffré ou partiellement chiffré. Seuls les ordinateurs dont les volumes sont inventoriés sont comptés. Sont ignorés les volumes sans lettre de lecteur (EFI, récupération), les partages réseau, les supports optiques, les partitions FAT et, sous Linux, /boot et les pseudo-systèmes."
+msgstr "D'après l'inventaire des volumes : au moins un disque non chiffré ou partiellement chiffré. Seuls les ordinateurs dont les volumes sont inventoriés sont comptés. Sont ignorés les volumes sans lettre de lecteur (EFI, récupération), les partages réseau, les supports optiques, les partitions FAT et, sous Linux, /boot et les pseudo-systèmes."
 
 #, php-format
 msgid "Postes non inventoriés depuis plus de %d jours"
