@@ -19,6 +19,30 @@
 
 {# Issue #140 : groupe RSSI, qui lit les documents de tous les audits internes. #}
 {% import 'components/form/fields_macros.html.twig' as fields %}
+{# Registres sensibles : contenu des e-mails des risques, risques fournisseurs et actions de traitement. #}
+<div class="card mb-3">
+  <div class="card-body">
+    <h4>{{ __('Registres sensibles', 'grcmanager') }}</h4>
+    <p class="text-muted">
+      {{ __('Le registre des risques, les vulnérabilités du parc et la matrice des flux décrivent les points faibles de l\'organisation. Ils ont leur propre droit (onglet GRC Manager des profils) : donnez-le seulement au RSSI et aux propriétaires de risques.', 'grcmanager') }}
+    </p>
+    <form method="post" action="{{ config('root_doc') }}/plugins/grcmanager/front/config.php">
+      <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
+      <div class="form-check form-switch">
+        <input type="hidden" name="notifications_minimal" value="0">
+        <input type="checkbox" class="form-check-input" id="grc-notifications-minimal" name="notifications_minimal" value="1" {{ notifications_minimal ? 'checked' }} {{ can_edit_sensitive ? '' : 'disabled' }}>
+        <label class="form-check-label" for="grc-notifications-minimal">{{ __('E-mails sans détail : « Risque n° X » et le lien vers la fiche, sans titre, catégorie, niveau ni fournisseur', 'grcmanager') }}</label>
+      </div>
+      <p class="text-muted small mt-1 mb-0">{{ __('Un e-mail circule en clair et reste dans les boîtes et les archives. Le destinataire lit le détail dans GLPI, avec ses droits.', 'grcmanager') }}</p>
+      {% if can_edit_sensitive %}
+        <div class="d-flex gap-2 mt-2">
+          <button type="submit" name="update_sensitive_config" class="btn btn-primary">{{ __('Enregistrer') }}</button>
+        </div>
+      {% endif %}
+    </form>
+  </div>
+</div>
+
 <div class="card mb-3">
   <div class="card-body">
     <h4>{{ __('Audits internes', 'grcmanager') }}</h4>

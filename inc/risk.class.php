@@ -43,7 +43,8 @@ class PluginGrcmanagerRisk extends RiskBase
 {
     use RiskAssessmentTrait;
 
-    public const RIGHTNAME = 'plugin_grcmanager';
+    // Registre sensible : droit dédié, voir Installer::SENSITIVE_RIGHT.
+    public const RIGHTNAME = 'plugin_grcmanager_sensitive';
 
     /**
      * GLPI notification event name (see inc/notificationtargetrisk.class.php and
@@ -312,7 +313,9 @@ class PluginGrcmanagerRisk extends RiskBase
     public function defineTabs($options = [])
     {
         $tabs = [];
-        $this->addDefaultFormTab($tabs);
+        $this->addDefaultFormTab($tabs)
+            // Registre sensible : modifications historisées.
+            ->addStandardTab(Log::class, $tabs, $options);
 
         return $tabs;
     }

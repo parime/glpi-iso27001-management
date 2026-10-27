@@ -79,6 +79,18 @@ class PluginGrcmanagerNotificationTargetSupplierRisk extends NotificationTarget
             static fn (array $notice): string => $notice['ref'] . ' — ' . $notice['title'] . ' — ' . $notice['link'],
             $options['notices'] ?? []
         ));
+        // Registre sensible : e-mail sans détail par défaut (SensitiveNotification).
+        if (\GlpiPlugin\Grcmanager\Services\Notification\SensitiveNotification::isMinimal()) {
+            $this->data = \GlpiPlugin\Grcmanager\Services\Notification\SensitiveNotification::reduce($this->data, [
+                '##supplierrisk.title##' => sprintf(
+                    __('Risque fournisseur n° %d', 'grcmanager'),
+                    (int) ($risk->fields['id'] ?? 0)
+                ),
+            ], [
+                '##supplierrisk.supplier##', '##supplierrisk.category##', '##supplierrisk.risklevel##',
+                '##supplierrisk.notices##',
+            ]);
+        }
 
         $this->getTags();
         foreach ($this->tag_descriptions[NotificationTarget::TAG_LANGUAGE] as $tag => $values) {

@@ -77,6 +77,19 @@ class PluginGrcmanagerProfile extends CommonGLPI
                 'field'    => Installer::RIGHT_NAME,
             ],
             [
+                // Registres sensibles : registre des risques et risques fournisseurs, plans de
+                // traitement, analyse d'impact, effet domino, vulnérabilités du parc, matrice des flux.
+                'rights'   => [
+                    READ   => __('Read'),
+                    UPDATE => __('Update'),
+                    CREATE => __('Create'),
+                    DELETE => _x('button', 'Put in trashbin'),
+                    PURGE  => ['short' => __('Purge'), 'long' => _x('button', 'Delete permanently')],
+                ],
+                'label'    => __('Registres sensibles (risques, vulnérabilités, flux réseau)', 'grcmanager'),
+                'field'    => Installer::SENSITIVE_RIGHT,
+            ],
+            [
                 'itemtype' => PluginGrcmanagerSecurityIncident::class,
                 'label'    => PluginGrcmanagerSecurityIncident::getTypeName(Session::getPluralNumber()),
                 'field'    => Installer::SECURITY_INCIDENT_RIGHT,

@@ -36,7 +36,8 @@ use GlpiPlugin\Grcmanager\Services\Network\NetworkFlowRules;
  */
 class PluginGrcmanagerNetworkFlow extends NetworkFlowBase
 {
-    public const RIGHTNAME = 'plugin_grcmanager';
+    // Registre sensible : droit dédié, voir Installer::SENSITIVE_RIGHT.
+    public const RIGHTNAME = 'plugin_grcmanager_sensitive';
 
     public static function getTable($classname = null)
     {

@@ -39,6 +39,11 @@ final class Installer
 
     public const SECURITY_INCIDENT_RULE_RIGHT = 'rule_grcmanager_securityincident';
 
+    // Registres sensibles (registre des risques et risques fournisseurs, plans de traitement,
+    // vulnérabilités du parc, matrice des flux réseau) : la « carte au trésor » d'un attaquant,
+    // séparée du droit général du SMSI pour ne la donner qu'au RSSI et aux propriétaires de risques.
+    public const SENSITIVE_RIGHT = 'plugin_grcmanager_sensitive';
+
     // Table-name derivation confirmed against a real GLPI 11 instance by the sibling plugins of
     // this same author (glpi-vulnerability-manager, assetsign-glpi): the class-name suffix is
     // lowercased and concatenated as one block (no underscore inserted at camelCase boundaries).
@@ -2345,6 +2350,20 @@ final class Installer
         if ($DB->request(['FROM' => 'glpi_profilerights', 'WHERE' => ['name' => self::RIGHT_NAME]])->count() === 0) {
             ProfileRight::addProfileRights([self::RIGHT_NAME]);
         }
+        // Registres sensibles : à sa création, le droit reprend pour chaque profil la valeur du droit
+        // général (READ à PURGE) ; rien ne change pour personne tant que l'administrateur ne le
+        // restreint pas dans l'onglet GRC Manager des profils.
+        $sensitiveRows = $DB->request(['FROM' => 'glpi_profilerights', 'WHERE' => ['name' => self::SENSITIVE_RIGHT]]);
+        if ($sensitiveRows->count() === 0) {
+            ProfileRight::addProfileRights([self::SENSITIVE_RIGHT]);
+            foreach ($DB->request(['FROM' => 'glpi_profilerights', 'WHERE' => ['name' => self::RIGHT_NAME]]) as $row) {
+                $DB->update(
+                    'glpi_profilerights',
+                    ['rights' => (int) $row['rights'] & ALLSTANDARDRIGHT],
+                    ['profiles_id' => (int) $row['profiles_id'], 'name' => self::SENSITIVE_RIGHT]
+                );
+            }
+        }
 
         // addProfileRights() above inserts every profile at rights=0 (GLPI core's own default),
         // an admin is expected to grant it explicitly per profile via Administration > Profils,
@@ -2355,7 +2374,10 @@ final class Installer
             // Issue #140 : notes de travail (onglet Notes de l'audit), en plus des droits standards.
             ProfileRight::updateProfileRights(
                 (int) $profileRow['id'],
-                [self::RIGHT_NAME => ALLSTANDARDRIGHT | READNOTE | UPDATENOTE]
+                [
+                    self::RIGHT_NAME      => ALLSTANDARDRIGHT | READNOTE | UPDATENOTE,
+                    self::SENSITIVE_RIGHT => ALLSTANDARDRIGHT,
+                ]
             );
         }
 
@@ -3599,7 +3621,7 @@ final class Installer
     {
         global $DB;
 
-        ProfileRight::deleteProfileRights([self::RIGHT_NAME]);
+        ProfileRight::deleteProfileRights([self::RIGHT_NAME, self::SENSITIVE_RIGHT]);
         ProfileRight::deleteProfileRights([self::SECURITY_INCIDENT_RIGHT, self::SECURITY_INCIDENT_RULE_RIGHT]);
 
         $DB->delete('glpi_displaypreferences', ['itemtype' => array_keys(DefaultSearchColumns::COLUMNS)]);

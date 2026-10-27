@@ -40,11 +40,26 @@ final class SecuredDashboardCards
         /** @var array<string, mixed> $card */
         $card = $provider::$name(...$arguments);
 
-        $allowed = $isIncidentCard
-            ? \PluginGrcmanagerSecurityIncident::canView()
-            : Session::haveRight('plugin_grcmanager', READ);
+        if ($isIncidentCard) {
+            $allowed = \PluginGrcmanagerSecurityIncident::canView();
+        } elseif (self::isSensitiveCard($name)) {
+            // Registres sensibles (risques, risques fournisseurs, plans de traitement, tendances) :
+            // leur droit dédié, pas le seul droit général du SMSI.
+            $allowed = Session::haveRight('plugin_grcmanager_sensitive', READ);
+        } else {
+            $allowed = Session::haveRight('plugin_grcmanager', READ);
+        }
 
         return $allowed ? $card : self::zeroed($card);
+    }
+
+    /**
+     * Carte tirée des registres sensibles : risques, risques fournisseurs, plans de traitement, et
+     * tendances / indicateurs qui comptent les risques ouverts.
+     */
+    public static function isSensitiveCard(string $name): bool
+    {
+        return preg_match('/risk|supplier|trend|indicators/i', $name) === 1;
     }
 
     /** Clés de présentation conservées sur une carte vidée : aucune ne porte de donnée. */
