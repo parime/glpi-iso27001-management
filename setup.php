@@ -262,6 +262,8 @@ function plugin_init_grcmanager(): void
     Plugin::registerClass(PluginGrcmanagerSecurityIncidentTicket::class, [
         'addtabon' => ['Ticket', PluginGrcmanagerSecurityIncident::class],
     ]);
+    // Onglet « GRC Manager » des profils : attribuer les droits du plugin sans passer par la base.
+    Plugin::registerClass(PluginGrcmanagerProfile::class, ['addtabon' => [Profile::class]]);
     // Issue #141 : le ticket créé par le ticket récurrent d'une revue devient son ticket en cours ;
     // sa résolution date la revue (PluginGrcmanagerPeriodicReview::onTicketAdd()/onTicketUpdate()).
     $PLUGIN_HOOKS[Hooks::ITEM_ADD]['grcmanager'] = ['Ticket' => 'plugin_grcmanager_periodic_review_ticket_add'];

@@ -18,6 +18,11 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Onglet « GRC Manager » dans les profils GLPI** (Administration > Profils) : matrice des droits
+  du plugin (gouvernance de la sécurité, incidents de sécurité, règles d'affectation des incidents).
+  Jusqu'ici seul le Super-Admin recevait ces droits à l'installation, sans moyen de les donner à un
+  autre profil depuis l'interface. Visible avec le droit « Profils » du cœur, profils en interface
+  standard uniquement.
 - **Machines les plus exposées** (issue #181), rubrique Vulnérabilités du parc : classement des
   machines par score d'exposition (vulnérabilité la plus grave, 10 si activement exploitée, pour
   70 % ; vulnérabilités prioritaires pour 30 %), avec le nombre de vulnérabilités exploitées (KEV),
