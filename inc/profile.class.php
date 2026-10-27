@@ -23,16 +23,14 @@ use GlpiPlugin\Grcmanager\Install\Installer;
  *
  * Jusqu'ici, seuls les droits du Super-Admin étaient posés à l'installation ; pour tout autre
  * profil il fallait écrire en base. La matrice est celle du cœur (Profile::displayRightsChoiceMatrix)
- * et le formulaire est envoyé à front/profile.form.php, qui enregistre lui-même les droits : le
- * droit « profile » du cœur protège donc la lecture comme la modification.
+ * et le formulaire est envoyé à front/profile.form.php, qui enregistre lui-même les droits avec
+ * le contrôle du droit « profile » du cœur.
  */
 class PluginGrcmanagerProfile extends CommonGLPI
 {
-    public static $rightname = 'profile';
-
     public function getTabNameForItem(CommonGLPI $item, $withtemplate = 0)
     {
-        if (!self::isCentralProfile($item) || !Profile::canView()) {
+        if (!self::canManage($item)) {
             return '';
         }
 
@@ -42,7 +40,7 @@ class PluginGrcmanagerProfile extends CommonGLPI
     public static function displayTabContentForItem(CommonGLPI $item, $tabnum = 1, $withtemplate = 0)
     {
         // ajax/common.tabs.php sert le contenu sans passer par getTabNameForItem().
-        if (!self::isCentralProfile($item) || !Profile::canView()) {
+        if (!self::canManage($item)) {
             return false;
         }
         TemplateRenderer::getInstance()->display('@grcmanager/profile_rights.html.twig', [
@@ -89,11 +87,15 @@ class PluginGrcmanagerProfile extends CommonGLPI
     }
 
     /**
-     * Un profil « interface simplifiée » n'a accès à aucun écran du plugin.
+     * Droit « profile » du cœur pour lire et enregistrer la matrice, et accès au module GRC : on
+     * ne délègue pas des droits sur un module qu'on ne voit pas. Un profil « interface simplifiée »
+     * n'a accès à aucun écran du plugin.
      */
-    private static function isCentralProfile(CommonGLPI $item): bool
+    private static function canManage(CommonGLPI $item): bool
     {
         return $item instanceof Profile && !$item->isNewItem()
-            && ($item->fields['interface'] ?? '') === 'central';
+            && ($item->fields['interface'] ?? '') === 'central'
+            && Profile::canView()
+            && Session::haveRight(Installer::RIGHT_NAME, READ);
     }
 }

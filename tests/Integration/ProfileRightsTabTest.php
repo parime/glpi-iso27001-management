@@ -72,6 +72,22 @@ final class ProfileRightsTabTest extends GrcmanagerIntegrationTestCase
         }
     }
 
+    public function testTabIsHiddenWithoutAccessToThePlugin(): void
+    {
+        $profile = $this->profile('central');
+        $saved = $_SESSION['glpiactiveprofile'][Installer::RIGHT_NAME] ?? 0;
+        $_SESSION['glpiactiveprofile'][Installer::RIGHT_NAME] = 0;
+        try {
+            $this->assertSame('', (new \PluginGrcmanagerProfile())->getTabNameForItem($profile));
+            ob_start();
+            $shown = \PluginGrcmanagerProfile::displayTabContentForItem($profile);
+            $this->assertSame('', (string) ob_get_clean());
+            $this->assertFalse($shown);
+        } finally {
+            $_SESSION['glpiactiveprofile'][Installer::RIGHT_NAME] = $saved;
+        }
+    }
+
     private function profile(string $interface): \Profile
     {
         $profile = new \Profile();
