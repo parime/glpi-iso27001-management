@@ -188,7 +188,7 @@ badges colorés que le registre générique.
 
 ### Étape 8 : Suivre une formation et la réalisation par participant
 
-Depuis **Outils > Formations**, la liste affiche les sessions déjà enregistrées.
+Depuis **GRC & Conformité > Opérations > Formations**, la liste affiche les sessions déjà enregistrées.
 
 ![Liste des formations](screenshots/tutorial/34-training-list.png)
 
@@ -198,6 +198,12 @@ de renouvellement en mois (clauses 7.2 « compétence » et 7.3 « sensibilisati
 participants, de vrais utilisateurs GLPI, sont sélectionnés dans le même formulaire.
 
 ![Formulaire de création d'une formation avec participants sélectionnés](screenshots/tutorial/35-training-form-filled.png)
+
+Une formation donnée plusieurs fois a plusieurs **sessions** : depuis l'onglet **Sessions** de la
+formation, « Ajouter une session » ouvre un formulaire prérempli (titre, format, note maximale,
+seuil) où l'on renseigne la date, le formateur, le lieu ou le lien et les participants. Chaque
+session garde ses propres documents (feuille d'émargement, support, quiz) ; l'onglet liste les
+sessions avec leur taux de réussite, et le taux de réussite de la formation, toutes sessions.
 
 Une fois enregistrée, un tableau de suivi individuel apparaît sous le formulaire : un statut de
 réalisation (en attente/terminée/dispensé) et une date par participant.
@@ -506,7 +512,7 @@ badges as the generic register.
 
 ### Step 8: Record a training session and a participant's completion
 
-From **Outils > Formations**, the list shows the sessions already recorded.
+From **GRC & Conformité > Opérations > Formations**, the list shows the sessions already recorded.
 
 ![Training list](screenshots/tutorial/34-training-list.png)
 
@@ -516,6 +522,12 @@ target audience, whether it's mandatory, and, where relevant, a renewal period i
 the same form.
 
 ![Training creation form with participants selected](screenshots/tutorial/35-training-form-filled.png)
+
+A training delivered several times has several **sessions**: from the training's **Sessions** tab,
+"Ajouter une session" opens a pre-filled form (title, format, maximum score, pass threshold) where
+you set the date, the trainer, the location or link and the participants. Each session keeps its
+own documents (attendance sheet, slides, quiz); the tab lists the sessions with their pass rate,
+and the pass rate of the whole training across sessions.
 
 Once saved, a per-participant tracking table appears below the form: a completion status
 (pending/completed/exempted) and a date for each participant.

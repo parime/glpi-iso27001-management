@@ -32,6 +32,13 @@ final class AuditDocumentAccessTest extends GrcmanagerIntegrationTestCase
 {
     private const SESSION_USER = 2;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+        // Indépendant du groupe RSSI de l'instance (annulé avec la transaction du test).
+        PluginGrcmanagerAuditTeam::setCisoGroupId(0);
+    }
+
     private function audit(int $auditorId): int
     {
         $id = (int) (new PluginGrcmanagerAudit())->add(['title' => 'Audit #140', 'users_id' => $auditorId]);

@@ -7,6 +7,9 @@
 /.gitignore export-ignore
 /phpstan.neon.dist export-ignore
 /phpstan.glpi12.neon export-ignore
+/phpstan.glpi.neon export-ignore
+/phpstan-glpi-baseline.neon export-ignore
+/.phpstan export-ignore
 /phpunit.xml.dist export-ignore
 /phpunit-integration.xml.dist export-ignore
 /phpcs.xml.dist export-ignore

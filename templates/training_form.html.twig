@@ -12,7 +12,22 @@
          </div>
       </div>
    {% endif %}
+   {% if is_new_session %}
+      <div class="col-12 mb-3">
+         <div class="alert alert-info mb-0">
+            <i class="ti ti-calendar-plus me-1"></i>
+            {{ __('Nouvelle session de cette formation : renseignez sa date, son formateur, son lieu et ses participants, puis cliquez sur « Ajouter ». Rien n\'est enregistré avant.', 'grcmanager') }}
+         </div>
+      </div>
+   {% endif %}
    {{ fields.textField('title', item.fields['title'], __('Titre', 'grcmanager'), {'full_width': true}) }}
+   {{ fields.dropdownArrayField('plugin_grcmanager_trainings_id', item.fields['plugin_grcmanager_trainings_id'] ?: 0, main_trainings, __('Session de la formation', 'grcmanager'), {
+      'add_field_html': main_url ? '<a href="' ~ main_url|e('html_attr') ~ '" class="ms-2"><i class="ti ti-arrow-up-right"></i> ' ~ __('Voir la formation', 'grcmanager')|e ~ '</a>' : '',
+   }) }}
+   {{ fields.dropdownField('User', 'users_id_trainer', item.fields['users_id_trainer'], __('Formateur', 'grcmanager'), {'right': 'all'}) }}
+   {{ fields.textField('location', item.fields['location'], __('Lieu ou lien', 'grcmanager'), {
+      'add_field_html': hints.hint(__('Salle, adresse ou lien de la visioconférence / du module en ligne.', 'grcmanager')),
+   }) }}
    {{ fields.dropdownArrayField('format', item.fields['format'] ?: 'in_person', formats, __('Format', 'grcmanager')) }}
    {{ fields.dateField('date_delivered', item.fields['date_delivered'], __('Date de réalisation', 'grcmanager')) }}
    {{ fields.textField('target_audience', item.fields['target_audience'], __('Public cible', 'grcmanager'), {

@@ -155,7 +155,124 @@ class PluginGrcmanagerTraining extends TrainingBase
             $input['pass_threshold'] = min(100, max(0, (int) $input['pass_threshold']));
         }
 
+        // Issue #139 : une session se rattache à une formation principale, jamais à elle-même ni à
+        // une autre session (on remonte alors à la formation principale de celle-ci).
+        if (isset($input['plugin_grcmanager_trainings_id'])) {
+            $input['plugin_grcmanager_trainings_id'] = self::mainTrainingId(
+                (int) $input['plugin_grcmanager_trainings_id'],
+                (int) ($input['id'] ?? ($this->fields['id'] ?? 0))
+            );
+        }
+
         return $input;
+    }
+
+    /**
+     * Formation principale à laquelle rattacher une session : $parentId, ou sa propre formation
+     * principale si c'est déjà une session ; 0 si invalide ou si c'est la formation elle-même.
+     */
+    public static function mainTrainingId(int $parentId, int $selfId = 0): int
+    {
+        $parent = new self();
+        if ($parentId <= 0 || $parentId === $selfId || !$parent->getFromDB($parentId)) {
+            return 0;
+        }
+        $grandParent = (int) ($parent->fields['plugin_grcmanager_trainings_id'] ?? 0);
+        if ($grandParent > 0) {
+            return $grandParent === $selfId ? 0 : $grandParent;
+        }
+        // Une formation qui a déjà des sessions reste une formation principale.
+        if ($selfId > 0 && countElementsInTable(self::getTable(), ['plugin_grcmanager_trainings_id' => $selfId]) > 0) {
+            return 0;
+        }
+
+        return $parentId;
+    }
+
+    /**
+     * Formations principales, pour le choix du rattachement d'une session.
+     *
+     * @return array<int, string>
+     */
+    public static function getMainTrainings(int $excludeId = 0): array
+    {
+        global $DB;
+
+        $trainings = [0 => __('Aucune (formation principale)', 'grcmanager')];
+        foreach (
+            $DB->request([
+                'SELECT' => ['id', 'title'],
+                'FROM'   => self::getTable(),
+                'WHERE'  => ['plugin_grcmanager_trainings_id' => 0, ['NOT' => ['id' => $excludeId]]],
+                'ORDER'  => 'title',
+            ]) as $row
+        ) {
+            $trainings[(int) $row['id']] = (string) $row['title'];
+        }
+
+        return $trainings;
+    }
+
+    /**
+     * Sessions rattachées à une formation principale.
+     *
+     * @return list<array<string, mixed>>
+     */
+    public static function getSessions(int $mainId): array
+    {
+        global $DB;
+
+        $sessions = [];
+        foreach (
+            $DB->request([
+                'FROM'  => self::getTable(),
+                'WHERE' => ['plugin_grcmanager_trainings_id' => $mainId],
+                'ORDER' => ['date_delivered', 'id'],
+            ]) as $row
+        ) {
+            $participants = self::getParticipants((int) $row['id']);
+            $sessions[] = [
+                'id'           => (int) $row['id'],
+                'title'        => (string) $row['title'],
+                'date'         => $row['date_delivered'] ? Html::convDate($row['date_delivered']) : '',
+                'trainer'      => $row['users_id_trainer'] ? getUserName((int) $row['users_id_trainer']) : '',
+                'location'     => (string) ($row['location'] ?? ''),
+                'participants' => count($participants),
+                'rate'         => TrainingScore::sessionRate(array_column($participants, 'assessment_result')),
+                'url'          => self::getFormURLWithID((int) $row['id']),
+            ];
+        }
+
+        return $sessions;
+    }
+
+    /**
+     * Taux de réussite de la formation : participants évalués de la formation principale et de
+     * toutes ses sessions.
+     *
+     * @return array{passed: int, assessed: int, rate: ?int}
+     */
+    public static function getProgramRate(int $mainId): array
+    {
+        $results = array_column(self::getParticipants($mainId), 'assessment_result');
+        foreach (self::getSessions($mainId) as $session) {
+            $results = array_merge($results, array_column(self::getParticipants($session['id']), 'assessment_result'));
+        }
+
+        return TrainingScore::sessionRate($results);
+    }
+
+    /**
+     * Issue #139 : une formation principale supprimée définitivement libère ses sessions, qui
+     * deviennent des formations principales.
+     */
+    public function cleanDBonPurge()
+    {
+        global $DB;
+
+        $DB->update(self::getTable(), ['plugin_grcmanager_trainings_id' => 0], [
+            'plugin_grcmanager_trainings_id' => $this->getID(),
+        ]);
     }
 
     public function defineTabs($options = [])
@@ -163,6 +280,7 @@ class PluginGrcmanagerTraining extends TrainingBase
         $tabs = [];
         // Issue #139 : feuille d'émargement, support et quiz de la session.
         $this->addDefaultFormTab($tabs)
+            ->addStandardTab(PluginGrcmanagerTrainingSession::class, $tabs, $options)
             ->addStandardTab(Document_Item::class, $tabs, $options)
             ->addStandardTab(Log::class, $tabs, $options);
 
@@ -458,6 +576,24 @@ class PluginGrcmanagerTraining extends TrainingBase
             'itemtype' => self::class,
         ];
 
+        // Issue #139 : formateur et lieu de la session.
+        $tab[] = [
+            'id'        => 9,
+            'table'     => 'glpi_users',
+            'field'     => 'name',
+            'linkfield' => 'users_id_trainer',
+            'name'      => __('Formateur', 'grcmanager'),
+            'datatype'  => 'dropdown',
+            'right'     => 'all',
+        ];
+        $tab[] = [
+            'id'       => 10,
+            'table'    => $this->getTable(),
+            'field'    => 'location',
+            'name'     => __('Lieu ou lien', 'grcmanager'),
+            'datatype' => 'string',
+        ];
+
         return $tab;
     }
 
@@ -603,7 +739,21 @@ class PluginGrcmanagerTraining extends TrainingBase
             }
             $this->fields['title'] = sprintf(__('%s - rattrapage', 'grcmanager'), $source->fields['title']);
             $participantIds = self::getRetakeParticipantIds($retakeOf);
+            $this->fields['plugin_grcmanager_trainings_id'] = self::mainTrainingId($retakeOf);
         }
+        // Issue #139 : nouvelle session d'une formation, rien n'est enregistré avant « Ajouter ».
+        $sessionOf = $this->isNewItem() ? (int) ($options['session_of'] ?? 0) : 0;
+        if ($sessionOf > 0 && ($main = new self())->getFromDB($sessionOf)) {
+            $copied = [
+                'title', 'format', 'target_audience', 'is_mandatory', 'renewal_period_months',
+                'max_score', 'pass_threshold', 'description',
+            ];
+            foreach ($copied as $field) {
+                $this->fields[$field] = $main->fields[$field];
+            }
+            $this->fields['plugin_grcmanager_trainings_id'] = self::mainTrainingId($sessionOf);
+        }
+        $mainId = (int) ($this->fields['plugin_grcmanager_trainings_id'] ?? 0);
         $maxScore = (int) ($this->fields['max_score'] ?? 0);
         foreach ($participants as &$participant) {
             $hasScore = $participant['score'] !== null && $maxScore > 0;
@@ -619,7 +769,8 @@ class PluginGrcmanagerTraining extends TrainingBase
             'params'              => $options,
             'formats'             => self::getFormats(),
             // Nouvelle formation : obligatoire par défaut, comme la valeur par défaut en base.
-            'is_mandatory'        => $this->isNewItem() ? ($retakeOf <= 0 || !empty($this->fields['is_mandatory']))
+            'is_mandatory'        => $this->isNewItem()
+                ? (($retakeOf <= 0 && $sessionOf <= 0) || !empty($this->fields['is_mandatory']))
                 : !empty($this->fields['is_mandatory']),
             'participant_ids'     => $participantIds,
             'participants'        => $participants,
@@ -631,6 +782,9 @@ class PluginGrcmanagerTraining extends TrainingBase
             'retake_count'        => count(self::getRetakeParticipantIds((int) $ID)),
             'retake_url'          => self::getFormURL() . '?retake_of=' . (int) $ID,
             'is_retake'           => $retakeOf > 0,
+            'is_new_session'      => $sessionOf > 0,
+            'main_trainings'      => self::getMainTrainings((int) $ID),
+            'main_url'            => $mainId > 0 ? self::getFormURLWithID($mainId) : '',
             'report_url'          => self::getReportURL((int) $ID),
         ]);
 
