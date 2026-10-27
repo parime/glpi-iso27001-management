@@ -5212,6 +5212,58 @@ msgstr "Sécurité technique"
 msgid "Conformité"
 msgstr "Conformité"
 
+msgid "Audité (lecture seule)"
+msgstr "Audité (lecture seule)"
+
+msgid "Équipe"
+msgstr "Équipe"
+
+msgid "Responsable de l'audit"
+msgstr "Responsable de l'audit"
+
+msgid "Accès aux documents"
+msgstr "Accès aux documents"
+
+msgid "Choisissez un membre et un rôle."
+msgstr "Choisissez un membre et un rôle."
+
+msgid "Seuls les membres de l'équipe lisent les documents de l'audit et de ses constats, même avec le droit Documents de GLPI. Les audités les lisent sans pouvoir rien ajouter."
+msgstr "Seuls les membres de l'équipe lisent les documents de l'audit et de ses constats, même avec le droit Documents de GLPI. Les audités les lisent sans pouvoir rien ajouter."
+
+#, php-format
+msgid "Le groupe RSSI (%s) y accède aussi."
+msgstr "Le groupe RSSI (%s) y accède aussi."
+
+msgid "Aucun groupe RSSI n'est défini dans la configuration du plugin."
+msgstr "Aucun groupe RSSI n'est défini dans la configuration du plugin."
+
+msgid "Membre"
+msgstr "Membre"
+
+msgid "Rôle"
+msgstr "Rôle"
+
+msgid "fiche de l'audit"
+msgstr "fiche de l'audit"
+
+msgid "Retirer"
+msgstr "Retirer"
+
+msgid "Aucun membre : renseignez l'auditeur ou le responsable sur la fiche."
+msgstr "Aucun membre : renseignez l'auditeur ou le responsable sur la fiche."
+
+msgid "Chaque téléchargement d'un document de l'audit ou de ses constats, par un membre de l'équipe ou du groupe RSSI."
+msgstr "Chaque téléchargement d'un document de l'audit ou de ses constats, par un membre de l'équipe ou du groupe RSSI."
+
+msgid "Aucun document de cet audit n'a encore été téléchargé."
+msgstr "Aucun document de cet audit n'a encore été téléchargé."
+
+msgid "Les documents d'un audit ne se lisent que par son équipe (auditeurs, responsable, audités) et par les membres de ce groupe, même avec le droit Documents de GLPI."
+msgstr "Les documents d'un audit ne se lisent que par son équipe (auditeurs, responsable, audités) et par les membres de ce groupe, même avec le droit Documents de GLPI."
+
+msgid "Groupe RSSI"
+msgstr "Groupe RSSI"
+
 msgid "Aucune (formation principale)"
 msgstr "Aucune (formation principale)"
 

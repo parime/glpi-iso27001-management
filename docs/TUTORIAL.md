@@ -99,7 +99,7 @@ Une fois la justification renseignée, l'enregistrement réussit.
 
 ### Étape 5 : Créer un audit et une non-conformité, jusqu'à la clôture CAPA
 
-Depuis **Outils > Audits internes**, la liste est vide tant qu'aucun audit n'existe.
+Depuis **GRC & Conformité > Audits et amélioration**, la liste est vide tant qu'aucun audit n'existe.
 
 ![Liste des audits internes vide](screenshots/tutorial/17-audit-list-empty.png)
 
@@ -109,7 +109,14 @@ Un audit se définit par un titre, un statut, une date planifiée et un périmè
 
 ![Audit enregistré](screenshots/tutorial/19-audit-saved.png)
 
-Depuis **Outils > Non-conformités**, une non-conformité peut être liée à cet audit interne, avec
+Les documents de l'audit (plan d'audit, preuves collectées, rapport signé) et de ses constats ne se
+lisent que par son **équipe** : l'auditeur et le responsable de la fiche, les membres ajoutés dans
+l'onglet **Équipe** (auditeurs, ou audités en lecture seule) et le **groupe RSSI** choisi dans la
+configuration du plugin. Le droit Documents de GLPI ne suffit pas. L'onglet **Accès aux documents**
+liste chaque téléchargement (date, utilisateur, document) et l'onglet **Notes** garde les notes de
+travail datées, avec leur auteur.
+
+Depuis l'onglet **Non-conformités** de la rubrique, une non-conformité peut être liée à cet audit interne, avec
 une sévérité, une échéance, une description et une cause racine.
 
 ![Liste des non-conformités vide](screenshots/tutorial/20-nonconformity-list-empty.png)
@@ -418,7 +425,7 @@ Once the justification is filled in, the save succeeds.
 
 ### Step 5: Create an audit and a non-conformity, through to CAPA closure
 
-From **Outils > Audits internes**, the list is empty until an audit exists.
+From **GRC & Conformité > Audits et amélioration**, the list is empty until an audit exists.
 
 ![Empty internal audit list](screenshots/tutorial/17-audit-list-empty.png)
 
@@ -428,7 +435,13 @@ An audit is defined by a title, a status, a planned date and a free-text scope.
 
 ![Saved audit](screenshots/tutorial/19-audit-saved.png)
 
-From **Outils > Non-conformités**, a non-conformity can be linked to this internal audit, with a
+The documents of the audit (audit plan, collected evidence, signed report) and of its findings can
+only be read by its **team**: the auditor and the owner set on the form, the members added in the
+**Équipe** tab (auditors, or read-only auditees) and the **CISO group** chosen in the plugin
+configuration. The GLPI Documents right is not enough. The **Accès aux documents** tab lists every
+download (date, user, document) and the **Notes** tab keeps dated working notes with their author.
+
+From the section's **Non-conformités** tab, a non-conformity can be linked to this internal audit, with a
 severity, a due date, a description and a root cause.
 
 ![Empty non-conformity list](screenshots/tutorial/20-nonconformity-list-empty.png)
