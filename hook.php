@@ -483,6 +483,17 @@ function plugin_grcmanager_restricted_document_can(CommonDBTM $item): void
 }
 
 /**
+ * Hooks::ITEM_ADD sur Document_Item (setup.php), voir
+ * PluginGrcmanagerRestrictedDocument::onDocumentItemAdd().
+ */
+function plugin_grcmanager_restricted_document_item_add(CommonDBTM $item): void
+{
+    if ($item instanceof Document_Item) {
+        PluginGrcmanagerRestrictedDocument::onDocumentItemAdd($item);
+    }
+}
+
+/**
  * Hooks::ADD_DEFAULT_WHERE (setup.php), voir PluginGrcmanagerRestrictedDocument::addDefaultWhere().
  *
  * @param array{0: string, 1: array<mixed>} $params

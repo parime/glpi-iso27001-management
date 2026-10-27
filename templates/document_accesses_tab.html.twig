@@ -1,0 +1,24 @@
+{# Issue #140 : historique des téléchargements des documents de l'audit et de ses constats. #}
+<p class="text-muted">{{ __('Chaque téléchargement d\'un document de l\'audit ou de ses constats, par un membre de l\'équipe ou du groupe RSSI.', 'grcmanager') }}</p>
+{% if accesses is empty %}
+  <div class="alert alert-info">{{ __('Aucun document de cet audit n\'a encore été téléchargé.', 'grcmanager') }}</div>
+{% else %}
+  <table class="table table-hover card-table">
+    <thead>
+      <tr>
+        <th>{{ __('Date', 'grcmanager') }}</th>
+        <th>{{ __('Utilisateur', 'grcmanager') }}</th>
+        <th>{{ __('Document', 'grcmanager') }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for access in accesses %}
+        <tr>
+          <td>{{ access.date }}</td>
+          <td>{{ access.user }}</td>
+          <td>{{ access.document ?: '#' ~ access.documents_id }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}

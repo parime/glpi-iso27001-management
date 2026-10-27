@@ -6,6 +6,7 @@
 {% block form_fields %}
    {{ fields.textField('title', item.fields['title'], __('Titre', 'grcmanager'), {'full_width': true}) }}
    {{ fields.dropdownField('User', 'users_id', item.fields['users_id'], __('Auditeur', 'grcmanager'), {'right': 'all'}) }}
+   {{ fields.dropdownField('User', 'users_id_responsible', item.fields['users_id_responsible'], __('Responsable de l\'audit', 'grcmanager'), {'right': 'all'}) }}
    {{ fields.dropdownArrayField('status', item.fields['status'] ?: 'planned', statuses, __('Statut', 'grcmanager')) }}
    {{ fields.dateField('planned_date', item.fields['planned_date'], __('Date planifiée', 'grcmanager')) }}
    {{ fields.dateField('actual_date', item.fields['actual_date'], __('Date réalisée', 'grcmanager')) }}

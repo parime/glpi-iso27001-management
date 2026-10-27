@@ -5211,3 +5211,55 @@ msgstr "Technical security"
 
 msgid "Conformité"
 msgstr "Compliance"
+
+msgid "Audité (lecture seule)"
+msgstr "Auditee (read only)"
+
+msgid "Équipe"
+msgstr "Team"
+
+msgid "Responsable de l'audit"
+msgstr "Audit owner"
+
+msgid "Accès aux documents"
+msgstr "Document access"
+
+msgid "Choisissez un membre et un rôle."
+msgstr "Choose a member and a role."
+
+msgid "Seuls les membres de l'équipe lisent les documents de l'audit et de ses constats, même avec le droit Documents de GLPI. Les audités les lisent sans pouvoir rien ajouter."
+msgstr "Only team members can read the documents of the audit and its findings, even with the GLPI Documents right. Auditees can read them but cannot add anything."
+
+#, php-format
+msgid "Le groupe RSSI (%s) y accède aussi."
+msgstr "The CISO group (%s) can access them too."
+
+msgid "Aucun groupe RSSI n'est défini dans la configuration du plugin."
+msgstr "No CISO group is set in the plugin configuration."
+
+msgid "Membre"
+msgstr "Member"
+
+msgid "Rôle"
+msgstr "Role"
+
+msgid "fiche de l'audit"
+msgstr "audit form"
+
+msgid "Retirer"
+msgstr "Remove"
+
+msgid "Aucun membre : renseignez l'auditeur ou le responsable sur la fiche."
+msgstr "No member: set the auditor or the owner on the form."
+
+msgid "Chaque téléchargement d'un document de l'audit ou de ses constats, par un membre de l'équipe ou du groupe RSSI."
+msgstr "Every download of a document of the audit or its findings, by a team member or the CISO group."
+
+msgid "Aucun document de cet audit n'a encore été téléchargé."
+msgstr "No document of this audit has been downloaded yet."
+
+msgid "Les documents d'un audit ne se lisent que par son équipe (auditeurs, responsable, audités) et par les membres de ce groupe, même avec le droit Documents de GLPI."
+msgstr "The documents of an audit can only be read by its team (auditors, owner, auditees) and by the members of this group, even with the GLPI Documents right."
+
+msgid "Groupe RSSI"
+msgstr "CISO group"

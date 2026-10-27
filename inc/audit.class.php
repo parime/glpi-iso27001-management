@@ -38,6 +38,10 @@ class PluginGrcmanagerAudit extends AuditBase
 
     private const LINK_TABLE = 'glpi_plugin_grcmanager_audits_controls';
 
+    // Issue #140 : onglet Notes (notes de travail datées, auteur conservé), droits READNOTE et
+    // UPDATENOTE du droit du plugin (onglet GRC Manager des profils).
+    protected $usenotepad = true;
+
     public static function getTable($classname = null)
     {
         return 'glpi_plugin_grcmanager_audits';
@@ -375,6 +379,15 @@ class PluginGrcmanagerAudit extends AuditBase
         }
     }
 
+    /**
+     * Issue #140 : équipe et historique des téléchargements disparaissent avec l'audit.
+     */
+    public function cleanDBonPurge()
+    {
+        PluginGrcmanagerAuditTeam::purgeAudit($this->getID());
+        PluginGrcmanagerDocumentAccess::purgeItem(self::class, $this->getID());
+    }
+
     public function post_addItem()
     {
         parent::post_addItem();
@@ -405,7 +418,10 @@ class PluginGrcmanagerAudit extends AuditBase
         // Issue #140 : plan d'audit, preuves collectées, rapport signé.
         $this->addDefaultFormTab($tabs)
             ->addStandardTab(PluginGrcmanagerNonconformity::class, $tabs, $options)
+            ->addStandardTab(PluginGrcmanagerAuditTeam::class, $tabs, $options)
             ->addStandardTab(Document_Item::class, $tabs, $options)
+            ->addStandardTab(PluginGrcmanagerDocumentAccess::class, $tabs, $options)
+            ->addStandardTab(Notepad::class, $tabs, $options)
             ->addStandardTab(Log::class, $tabs, $options);
 
         return $tabs;

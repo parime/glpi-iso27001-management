@@ -57,6 +57,15 @@ if (isset($_POST['update_securityincident_modules'])) {
     Html::back();
 }
 
+// Issue #140 : groupe RSSI, audience des documents de tous les audits.
+if (isset($_POST['update_audit_config'])) {
+    Session::checkRight(PluginGrcmanagerRisk::$rightname, UPDATE);
+
+    PluginGrcmanagerAuditTeam::setCisoGroupId((int) ($_POST['ciso_groups_id'] ?? 0));
+
+    Html::back();
+}
+
 if (isset($_POST['update_nvd_config'])) {
     Session::checkRight(PluginGrcmanagerRisk::$rightname, UPDATE);
 
@@ -95,6 +104,7 @@ Html::header(
     'nvd_config'                => NvdConfig::load(),
     'park_thresholds'           => PluginGrcmanagerParkVulnerability::getTicketThresholds(),
     'max_tickets'               => PluginGrcmanagerParkVulnerability::MAX_TICKETS_PER_RUN,
+    'ciso_groups_id'            => PluginGrcmanagerAuditTeam::getCisoGroupId(),
 ]);
 
 Html::footer();
