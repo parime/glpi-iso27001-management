@@ -27,8 +27,11 @@ Html::header(
     PluginGrcmanagerNonconformity::getTypeName(2),
     $_SERVER['PHP_SELF'],
     'grcmanager',
+    PluginGrcmanagerAudit::class,
     PluginGrcmanagerNonconformity::class
 );
+// Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
+PluginGrcmanagerMenu::showSection(PluginGrcmanagerAudit::class, PluginGrcmanagerNonconformity::class);
 // Encadré « À quoi sert cette page ? ».
 PluginGrcmanagerPageHelp::show('nonconformity');
 

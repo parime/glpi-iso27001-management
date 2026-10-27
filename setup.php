@@ -25,7 +25,7 @@ use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentModuleConfig;
 // must bundle vendor/, see .github/workflows/release.yml.
 require_once __DIR__ . '/vendor/autoload.php';
 
-define('PLUGIN_GRCMANAGER_VERSION', '2.12.0');
+define('PLUGIN_GRCMANAGER_VERSION', '2.13.0');
 define('PLUGIN_GRCMANAGER_MIN_GLPI', '11.0.0');
 // GLPI 11 and 12 from a single code base (see src/Compatibility/).
 define('PLUGIN_GRCMANAGER_MAX_GLPI', '12.99.99');
@@ -45,6 +45,15 @@ function plugin_init_grcmanager(): void
     if (!Plugin::isPluginActive('grcmanager')) {
         return;
     }
+
+    // Issue #142, phase 2 : le flux iCal d'abonnement est lu par un agenda externe, sans session.
+    // Seule page du plugin ainsi ouverte : elle s'authentifie elle-même par le jeton personnel de
+    // l'utilisateur (voir front/compliancecalendar.ics.php).
+    \Glpi\Http\Firewall::addPluginStrategyForLegacyScripts(
+        'grcmanager',
+        '#^/front/compliancecalendar\.ics\.php$#',
+        \Glpi\Http\Firewall::STRATEGY_NO_CHECK
+    );
 
     // GLPI's own legacy `inc/{name}.class.php` autoloader (src/autoload/legacy-autoloader.php,
     // glpi_autoload()) only fires for a classname that itself STARTS WITH "Plugin" (or the PSR-4
@@ -100,45 +109,20 @@ function plugin_init_grcmanager(): void
     // an unknown category's title/icon from the first entry in its MENU_TOADD array whose
     // getMenuContent()/getIcon() supply one, see PluginGrcmanagerMenu's own docblock.
     //
-    // Ordre du menu : le cycle du SMSI, du pilotage aux opérations puis à la direction. Les écrans
-    // d'un même travail sont regroupés en une rubrique (une entrée, les autres en sous-pages avec
-    // une barre d'onglets commune) : voir PluginGrcmanagerMenu::sections(). Les sous-pages
-    // (score de maturité, effet domino, référentiels, couverture des preuves, hygiène des comptes,
-    // logiciels à surveiller, catalogue de produits) n'ont donc pas d'entrée ici.
+    // Six rubriques, dans l'ordre du cycle du SMSI : pilotage, risques, conformité, audits et
+    // amélioration, opérations, sécurité technique. Chaque rubrique est une seule entrée de menu ;
+    // les autres écrans de la rubrique sont ses sous-pages, avec une barre d'onglets commune
+    // (PluginGrcmanagerMenu::sections()) et le fil d'Ariane « Rubrique > Page ».
     $menuToAdd = [
         'grcmanager' => [
             PluginGrcmanagerMenu::class,
-            // Pilotage. Issue #247 : tableau de bord en tête, comme dans Parc et Assistance.
+            // Issue #247 : tableau de bord en tête, comme dans Parc et Assistance.
             PluginGrcmanagerDashboard::class,
-            // Risques.
             PluginGrcmanagerRisk::class,
-            PluginGrcmanagerSupplierRisk::class,
-            PluginGrcmanagerImpactAnalysis::class,
-            // Conformité : SoA, exigences du SMSI (articles 4 à 10), obligations, politiques,
-            // dérogations, preuves.
             PluginGrcmanagerControl::class,
-            PluginGrcmanagerIsmsRequirement::class,
-            PluginGrcmanagerComplianceObligation::class,
-            PluginGrcmanagerPolicy::class,
-            PluginGrcmanagerWaiver::class,
-            PluginGrcmanagerEvidence::class,
-            // Contrôle et amélioration : audits internes, non-conformités (CAPA), contrôles
-            // techniques automatiques.
             PluginGrcmanagerAudit::class,
-            PluginGrcmanagerNonconformity::class,
-            PluginGrcmanagerComplianceAudit::class,
-            // Opérations : accès, revues périodiques et calendrier, personnes, continuité,
-            // réseau, vulnérabilités.
             PluginGrcmanagerAccessReview::class,
-            PluginGrcmanagerPeriodicReview::class,
-            PluginGrcmanagerComplianceEvent::class,
-            PluginGrcmanagerTraining::class,
-            PluginGrcmanagerCrisisExercise::class,
-            PluginGrcmanagerNetworkFlow::class,
-            PluginGrcmanagerParkVulnerability::class,
-            // Direction : objectifs et revues de direction.
-            PluginGrcmanagerObjective::class,
-            PluginGrcmanagerManagementReview::class,
+            PluginGrcmanagerComplianceAudit::class,
         ],
     ];
 
@@ -278,6 +262,8 @@ function plugin_init_grcmanager(): void
     Plugin::registerClass(PluginGrcmanagerSecurityIncidentTicket::class, [
         'addtabon' => ['Ticket', PluginGrcmanagerSecurityIncident::class],
     ]);
+    // Onglet « GRC Manager » des profils : attribuer les droits du plugin sans passer par la base.
+    Plugin::registerClass(PluginGrcmanagerProfile::class, ['addtabon' => [Profile::class]]);
     // Issue #141 : le ticket créé par le ticket récurrent d'une revue devient son ticket en cours ;
     // sa résolution date la revue (PluginGrcmanagerPeriodicReview::onTicketAdd()/onTicketUpdate()).
     $PLUGIN_HOOKS[Hooks::ITEM_ADD]['grcmanager'] = ['Ticket' => 'plugin_grcmanager_periodic_review_ticket_add'];

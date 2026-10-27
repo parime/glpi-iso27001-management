@@ -89,6 +89,15 @@ class PluginGrcmanagerRisk extends RiskBase
     }
 
     /**
+     * Rubrique « Risques » du menu : risques fournisseurs, analyse d'impact, effet domino et
+     * dérogations en sous-pages (PluginGrcmanagerMenu::sections()).
+     */
+    public static function getMenuContent()
+    {
+        return PluginGrcmanagerMenu::withSubPages(self::class, parent::getMenuContent());
+    }
+
+    /**
      * The one validation this class adds on top of RiskAssessmentTrait's shared scoring (issue #31,
      * ISO 27001 clause 8.3/6.1.3) : a risk being closed while its decision is `mitigate`/`transfer`
      * (see TreatmentPlanRules::isTreatmentPlanRelevant()) must have at least one recorded treatment

@@ -1,0 +1,44 @@
+{# Issue #181 : machines les plus exposées aux vulnérabilités de leurs logiciels surveillés #}
+<div class="container-fluid">
+   {% if rows is empty %}
+      <div class="alert alert-info">
+         <i class="ti ti-info-circle me-1"></i>{{ __('Aucune machine ne porte de vulnérabilité connue parmi les logiciels surveillés.', 'grcmanager') }}
+      </div>
+   {% else %}
+      <p class="text-muted">
+         {{ __('Score d\'exposition de 0 à 100 : la vulnérabilité la plus grave (10 si elle est activement exploitée) compte pour 70 %, le nombre de vulnérabilités prioritaires pour 30 %. C\'est un ordre de traitement, pas une mesure normalisée.', 'grcmanager') }}
+      </p>
+      <table class="table table-sm table-hover align-middle">
+         <thead>
+            <tr>
+               <th>{{ __('Machine', 'grcmanager') }}</th>
+               <th>{{ __('Type', 'grcmanager') }}</th>
+               <th class="text-end">{{ __('Score', 'grcmanager') }}</th>
+               <th class="text-end">{{ __('Exploitées (KEV)', 'grcmanager') }}</th>
+               <th class="text-end">{{ __('Prioritaires', 'grcmanager') }}</th>
+               <th class="text-end">{{ __('Vulnérabilités', 'grcmanager') }}</th>
+               <th class="text-end">{{ __('CVSS max', 'grcmanager') }}</th>
+               <th class="text-end">{{ __('EPSS max', 'grcmanager') }}</th>
+            </tr>
+         </thead>
+         <tbody>
+            {% for r in rows %}
+               {% set color = r.score >= 80 ? 'bg-red-lt' : (r.score >= 50 ? 'bg-orange-lt' : 'bg-secondary-lt') %}
+               <tr>
+                  <td><a href="{{ r.url }}">{{ r.name }}</a></td>
+                  <td>{{ r.type }}</td>
+                  <td class="text-end"><span class="badge {{ color }}">{{ r.score }}</span></td>
+                  <td class="text-end">{% if r.kev > 0 %}<span class="badge bg-red-lt">{{ r.kev }}</span>{% else %}0{% endif %}</td>
+                  <td class="text-end">{{ r.priority }}</td>
+                  <td class="text-end">{{ r.cves }}</td>
+                  <td class="text-end">{{ r.max_cvss is not null ? r.max_cvss|number_format(1) : '—' }}</td>
+                  <td class="text-end">{{ r.max_epss is not null ? (r.max_epss * 100)|round ~ ' %' : '—' }}</td>
+               </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+      {% if total > rows|length %}
+         <p class="text-muted small">{{ __('%1$d machines affichées sur %2$d machines exposées.', 'grcmanager')|format(rows|length, total) }}</p>
+      {% endif %}
+   {% endif %}
+</div>

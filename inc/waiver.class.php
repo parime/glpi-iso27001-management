@@ -152,6 +152,8 @@ class PluginGrcmanagerWaiver extends WaiverBase
             'policies' => self::getPolicyChoices(),
             'approver' => (int) ($this->fields['users_id_approver'] ?? 0) > 0
                 ? getUserName((int) $this->fields['users_id_approver']) : '',
+            'requester' => (int) ($this->fields['users_id_requester'] ?? 0) > 0
+                ? getUserName((int) $this->fields['users_id_requester']) : '',
         ]);
 
         return true;
@@ -175,11 +177,16 @@ class PluginGrcmanagerWaiver extends WaiverBase
 
     public function prepareInputForAdd($input)
     {
+        // Le demandeur est la personne qui crée la dérogation, jamais une valeur saisie.
+        $input['users_id_requester'] = (int) Session::getLoginUserID();
+
         return $this->checkInput($input);
     }
 
     public function prepareInputForUpdate($input)
     {
+        unset($input['users_id_requester']);
+
         return $this->checkInput($input);
     }
 
@@ -217,6 +224,17 @@ class PluginGrcmanagerWaiver extends WaiverBase
         // Validation : qui l'a donnée et quand, pour l'auditeur.
         $wasApproved = ($this->fields['status'] ?? '') === WaiverRules::STATUS_APPROVED;
         if (($input['status'] ?? null) === WaiverRules::STATUS_APPROVED && !$wasApproved) {
+            // Séparation des tâches : une dérogation accepte formellement un risque, son
+            // demandeur ne peut pas l'approuver lui-même (comme pour la SoA).
+            $requester = (int) ($input['users_id_requester'] ?? $this->fields['users_id_requester'] ?? 0);
+            if ($requester > 0 && $requester === (int) Session::getLoginUserID()) {
+                Session::addMessageAfterRedirect(htmlescape(__(
+                    'Vous ne pouvez pas approuver une dérogation que vous avez demandée.',
+                    'grcmanager'
+                )), false, ERROR);
+
+                return false;
+            }
             $input['users_id_approver'] = (int) Session::getLoginUserID();
             $input['date_approval'] = date('Y-m-d H:i:s');
         }

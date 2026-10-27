@@ -5119,3 +5119,95 @@ msgstr "Participants overdue for renewal"
 
 msgid "Le PDF est archivé dans les documents de l'incident, lisible par les seules personnes qui voient l'incident."
 msgstr "The PDF is archived in the incident's documents, readable only by people who can see the incident."
+
+msgid "Demandée par"
+msgstr "Requested by"
+
+msgid "Vous ne pouvez pas approuver une dérogation que vous avez demandée."
+msgstr "You cannot approve a waiver you requested."
+
+msgid "Machines les plus exposées"
+msgstr "Most exposed machines"
+
+msgid "Les machines les plus exposées aux vulnérabilités connues de leurs logiciels surveillés, pour savoir par où commencer les mises à jour."
+msgstr "The machines most exposed to the known vulnerabilities of their watched software, to know where to start updating."
+
+msgid "Traitez d'abord les machines du haut de la liste ; l'onglet « Vulnérabilités » de chacune détaille les CVE et le ticket de mise à jour."
+msgstr "Handle the machines at the top of the list first; the \"Vulnerabilities\" tab of each one details the CVEs and the update ticket."
+
+msgid "Aucune machine ne porte de vulnérabilité connue parmi les logiciels surveillés."
+msgstr "No machine has a known vulnerability among the watched software."
+
+msgid "Machine"
+msgstr "Machine"
+
+msgid "Exploitées (KEV)"
+msgstr "Exploited (KEV)"
+
+msgid "CVSS max"
+msgstr "Max CVSS"
+
+msgid "EPSS max"
+msgstr "Max EPSS"
+
+#, php-format
+msgid "%1$d machines affichées sur %2$d machines exposées."
+msgstr "%1$d machines shown out of %2$d exposed machines."
+
+#, php-format
+msgid "Score d'exposition de 0 à 100 : la vulnérabilité la plus grave (10 si elle est activement exploitée) compte pour 70 %, le nombre de vulnérabilités prioritaires pour 30 %. C'est un ordre de traitement, pas une mesure normalisée."
+msgstr "Exposure score from 0 to 100: the most severe vulnerability (10 if it is actively exploited) counts for 70%, the number of priority vulnerabilities for 30%. It is an order of treatment, not a standardised measure."
+
+msgid "S'abonner"
+msgstr "Subscribe"
+
+msgid "Lien d'abonnement pour votre agenda (Outlook, Thunderbird, Google Agenda…)"
+msgstr "Subscription link for your calendar (Outlook, Thunderbird, Google Calendar…)"
+
+msgid "Lien personnel : il donne accès à vos échéances avec vos droits, sans mot de passe. Ne le partagez pas. Pour le révoquer, régénérez votre jeton personnel dans vos préférences."
+msgstr "Personal link: it gives access to your deadlines with your rights, without a password. Do not share it. To revoke it, regenerate your personal token in your preferences."
+
+#, php-format
+msgid "Groupes modifiés depuis moins de %d jours, profils non revus"
+msgstr "Groups changed less than %d days ago, profiles not reviewed"
+
+msgid "Charte informatique"
+msgstr "IT charter"
+
+msgid "Version de référence des campagnes de charte d'assetsign : la version approuvée la plus récente y figure, et une nouvelle version approuvée appelle une nouvelle signature."
+msgstr "Reference version for assetsign charter campaigns: the most recent approved version is shown in them, and a new approved version calls for a new signature."
+
+msgid "Signatures de la charte"
+msgstr "Charter signatures"
+
+msgid "Les signatures sont suivies par les campagnes de charte du plugin assetsign, qui n'est pas installé ou pas à jour."
+msgstr "Signatures are tracked by the charter campaigns of the assetsign plugin, which is not installed or not up to date."
+
+#, php-format
+msgid "Aucune campagne de charte dans vos entités : lancez-en une dans assetsign pour faire signer la version %s."
+msgstr "No charter campaign in your entities: start one in assetsign to have version %s signed."
+
+msgid "Dernière campagne"
+msgstr "Latest campaign"
+
+#, php-format
+msgid "Version %s approuvée après cette campagne : à faire signer"
+msgstr "Version %s approved after this campaign: to be signed"
+
+msgid "Campagnes de charte (assetsign)"
+msgstr "Charter campaigns (assetsign)"
+
+msgid "Gouvernance de la sécurité (SMSI)"
+msgstr "Security governance (ISMS)"
+
+msgid "Audits et amélioration"
+msgstr "Audits and improvement"
+
+msgid "Opérations"
+msgstr "Operations"
+
+msgid "Sécurité technique"
+msgstr "Technical security"
+
+msgid "Conformité"
+msgstr "Compliance"

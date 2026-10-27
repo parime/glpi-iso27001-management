@@ -64,13 +64,12 @@ class PluginGrcmanagerImpactAnalysis extends CommonGLPI
             return false;
         }
 
-        // Rubrique « Analyse d'impact » : points de défaillance uniques et effet domino.
-        return PluginGrcmanagerMenu::withSubPages(self::class, [
-            'title'         => __('Analyse d\'impact', 'grcmanager'),
-            'section_label' => self::getTypeName(),
-            'page'          => self::getSearchURL(false),
-            'icon'          => self::getIcon(),
-        ]);
+        // Sous-page de la rubrique « Risques » (PluginGrcmanagerMenu::sections()).
+        return [
+            'title' => __('Analyse d\'impact', 'grcmanager'),
+            'page'  => self::getSearchURL(false),
+            'icon'  => self::getIcon(),
+        ];
     }
 
     /**

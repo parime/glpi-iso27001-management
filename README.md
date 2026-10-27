@@ -109,6 +109,24 @@ archivé), avec ses champs de classification ISO 27001 fusionnés dessus.
 **Principe commun** : le plugin ne modifie jamais lui-même un statut, un droit ni une
 affectation. Il crée le ticket ou la notification, et l'équipe décide.
 
+## Organisation du menu
+
+Le menu **GRC & Conformité** compte six rubriques, dans l'ordre du cycle du SMSI. Chaque rubrique
+ouvre sa première page ; les autres pages de la rubrique sont accessibles par la barre d'onglets en
+tête de page et par le fil d'Ariane.
+
+| Rubrique | Pages |
+|---|---|
+| Tableau de bord | Tableau de bord, Score de maturité, Calendrier de conformité |
+| Risques | Risques, Risques fournisseurs, Analyse d'impact, Effet domino, Dérogations |
+| Conformité | Contrôles Annexe A (SoA), Référentiels, Exigences SMSI, Obligations, Politiques, Preuves, Couverture des preuves |
+| Audits et amélioration | Audits internes, Non-conformités, Objectifs ISMS, Revues de direction |
+| Opérations | Revues des accès, Hygiène des comptes, Revues périodiques, Formations, Exercices de crise |
+| Sécurité technique | Contrôles techniques automatiques, Vulnérabilités du parc, Machines les plus exposées, Logiciels à surveiller, Produits, Matrice des flux |
+
+Les incidents de sécurité sont dans **Assistance**, à côté des tickets. Les droits du plugin se
+donnent à n'importe quel profil depuis l'onglet **GRC Manager** d'Administration > Profils.
+
 ## État du projet
 
 **Stable**, publié et installable dès maintenant, pour GLPI 11 et 12 : voir la

@@ -3,3 +3,4 @@
 front/securityincident_item.form.php : delegue au controleur generique du coeur front/commonitilobject_item.form.php, qui fait $item_obj->check(-1, CREATE, $_POST)
 front/securityincidentcost.form.php : delegue au controleur generique du coeur front/commonitilcost.form.php, qui fait $cost->check() sur chaque action
 front/securityincidenttask.form.php : delegue au controleur generique du coeur front/commonitiltask.form.php, qui fait $task->check() sur chaque action
+front/compliancecalendar.ics.php : flux iCal sans session, authentifié par le jeton personnel de l'utilisateur (Session::authWithToken, comme front/planning.php?genical=1 du cœur), puis droit de lecture du plugin vérifié avec son profil et ses entités

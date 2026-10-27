@@ -45,6 +45,7 @@ if (isset($_POST['add'])) {
         PluginGrcmanagerNetworkFlow::getTypeName(1),
         $_SERVER['PHP_SELF'],
         'grcmanager',
+        PluginGrcmanagerComplianceAudit::class,
         PluginGrcmanagerNetworkFlow::class
     );
 

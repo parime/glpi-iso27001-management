@@ -89,6 +89,10 @@ class PluginGrcmanagerAccountHygiene extends CommonGLPI
             ),
             AccountHygieneRules::DUPLICATE_EMAIL   => __('Adresse e-mail en double', 'grcmanager'),
             AccountHygieneRules::DUPLICATE_NAME    => __('Prénom et nom en double', 'grcmanager'),
+            AccountHygieneRules::GROUP_CHANGED     => sprintf(
+                __('Groupes modifiés depuis moins de %d jours, profils non revus', 'grcmanager'),
+                $days
+            ),
             default                                => $check,
         };
     }
@@ -152,9 +156,48 @@ class PluginGrcmanagerAccountHygiene extends CommonGLPI
             $users
         )));
 
+        // Issue #184, phase 2 : derniers changements de groupe et de profil, d'après l'historique
+        // de GLPI (ajout ou retrait d'un groupe ; ajout, modification ou retrait d'une habilitation).
+        $lastChange = static function (string $linked, array $actions) use ($DB, $users): array {
+            $dates = [];
+            foreach (
+                $DB->request([
+                    'SELECT' => ['items_id', 'MAX' => 'date_mod AS last'],
+                    'FROM'   => 'glpi_logs',
+                    'WHERE'  => [
+                        'itemtype'      => 'User',
+                        'items_id'      => array_keys($users),
+                        'itemtype_link' => $linked,
+                        'linked_action' => $actions,
+                    ],
+                    'GROUPBY' => 'items_id',
+                ]) as $row
+            ) {
+                $dates[(int) $row['items_id']] = (string) $row['last'];
+            }
+
+            return $dates;
+        };
+        $groupChanges = $lastChange('Group', [Log::HISTORY_ADD_RELATION, Log::HISTORY_DEL_RELATION]);
+        $profileChanges = $lastChange(
+            'Profile',
+            [Log::HISTORY_ADD_SUBITEM, Log::HISTORY_UPDATE_SUBITEM, Log::HISTORY_DELETE_SUBITEM]
+        );
+
         $accounts = [];
         foreach ($users as $id => $user) {
             $checks = array_merge(AccountHygieneRules::checks($user, $now, $days), $duplicates[$id] ?? []);
+            if (
+                AccountHygieneRules::groupChangedWithoutProfileReview(
+                    $groupChanges[$id] ?? null,
+                    $profileChanges[$id] ?? null,
+                    $user['date_creation'] ?? null,
+                    $now,
+                    $days
+                )
+            ) {
+                $checks[] = AccountHygieneRules::GROUP_CHANGED;
+            }
             if ($checks === []) {
                 continue;
             }

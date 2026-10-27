@@ -87,6 +87,7 @@ Html::header(
     $exercise->isDrill() ? PluginGrcmanagerCrisisExercise::getTypeName(1) : __('Cellule de crise', 'grcmanager'),
     PluginGrcmanagerCrisisExercise::getSearchURL(),
     'grcmanager',
+    PluginGrcmanagerAccessReview::class,
     PluginGrcmanagerCrisisExercise::class
 );
 TemplateRenderer::getInstance()->display('@grcmanager/crisis_room.html.twig', $exercise->collect() + [

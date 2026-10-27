@@ -5119,3 +5119,95 @@ msgstr "Participants en retard de renouvellement"
 
 msgid "Le PDF est archivé dans les documents de l'incident, lisible par les seules personnes qui voient l'incident."
 msgstr "Le PDF est archivé dans les documents de l'incident, lisible par les seules personnes qui voient l'incident."
+
+msgid "Demandée par"
+msgstr "Demandée par"
+
+msgid "Vous ne pouvez pas approuver une dérogation que vous avez demandée."
+msgstr "Vous ne pouvez pas approuver une dérogation que vous avez demandée."
+
+msgid "Machines les plus exposées"
+msgstr "Machines les plus exposées"
+
+msgid "Les machines les plus exposées aux vulnérabilités connues de leurs logiciels surveillés, pour savoir par où commencer les mises à jour."
+msgstr "Les machines les plus exposées aux vulnérabilités connues de leurs logiciels surveillés, pour savoir par où commencer les mises à jour."
+
+msgid "Traitez d'abord les machines du haut de la liste ; l'onglet « Vulnérabilités » de chacune détaille les CVE et le ticket de mise à jour."
+msgstr "Traitez d'abord les machines du haut de la liste ; l'onglet « Vulnérabilités » de chacune détaille les CVE et le ticket de mise à jour."
+
+msgid "Aucune machine ne porte de vulnérabilité connue parmi les logiciels surveillés."
+msgstr "Aucune machine ne porte de vulnérabilité connue parmi les logiciels surveillés."
+
+msgid "Machine"
+msgstr "Machine"
+
+msgid "Exploitées (KEV)"
+msgstr "Exploitées (KEV)"
+
+msgid "CVSS max"
+msgstr "CVSS max"
+
+msgid "EPSS max"
+msgstr "EPSS max"
+
+#, php-format
+msgid "%1$d machines affichées sur %2$d machines exposées."
+msgstr "%1$d machines affichées sur %2$d machines exposées."
+
+#, php-format
+msgid "Score d'exposition de 0 à 100 : la vulnérabilité la plus grave (10 si elle est activement exploitée) compte pour 70 %, le nombre de vulnérabilités prioritaires pour 30 %. C'est un ordre de traitement, pas une mesure normalisée."
+msgstr "Score d'exposition de 0 à 100 : la vulnérabilité la plus grave (10 si elle est activement exploitée) compte pour 70 %, le nombre de vulnérabilités prioritaires pour 30 %. C'est un ordre de traitement, pas une mesure normalisée."
+
+msgid "S'abonner"
+msgstr "S'abonner"
+
+msgid "Lien d'abonnement pour votre agenda (Outlook, Thunderbird, Google Agenda…)"
+msgstr "Lien d'abonnement pour votre agenda (Outlook, Thunderbird, Google Agenda…)"
+
+msgid "Lien personnel : il donne accès à vos échéances avec vos droits, sans mot de passe. Ne le partagez pas. Pour le révoquer, régénérez votre jeton personnel dans vos préférences."
+msgstr "Lien personnel : il donne accès à vos échéances avec vos droits, sans mot de passe. Ne le partagez pas. Pour le révoquer, régénérez votre jeton personnel dans vos préférences."
+
+#, php-format
+msgid "Groupes modifiés depuis moins de %d jours, profils non revus"
+msgstr "Groupes modifiés depuis moins de %d jours, profils non revus"
+
+msgid "Charte informatique"
+msgstr "Charte informatique"
+
+msgid "Version de référence des campagnes de charte d'assetsign : la version approuvée la plus récente y figure, et une nouvelle version approuvée appelle une nouvelle signature."
+msgstr "Version de référence des campagnes de charte d'assetsign : la version approuvée la plus récente y figure, et une nouvelle version approuvée appelle une nouvelle signature."
+
+msgid "Signatures de la charte"
+msgstr "Signatures de la charte"
+
+msgid "Les signatures sont suivies par les campagnes de charte du plugin assetsign, qui n'est pas installé ou pas à jour."
+msgstr "Les signatures sont suivies par les campagnes de charte du plugin assetsign, qui n'est pas installé ou pas à jour."
+
+#, php-format
+msgid "Aucune campagne de charte dans vos entités : lancez-en une dans assetsign pour faire signer la version %s."
+msgstr "Aucune campagne de charte dans vos entités : lancez-en une dans assetsign pour faire signer la version %s."
+
+msgid "Dernière campagne"
+msgstr "Dernière campagne"
+
+#, php-format
+msgid "Version %s approuvée après cette campagne : à faire signer"
+msgstr "Version %s approuvée après cette campagne : à faire signer"
+
+msgid "Campagnes de charte (assetsign)"
+msgstr "Campagnes de charte (assetsign)"
+
+msgid "Gouvernance de la sécurité (SMSI)"
+msgstr "Gouvernance de la sécurité (SMSI)"
+
+msgid "Audits et amélioration"
+msgstr "Audits et amélioration"
+
+msgid "Opérations"
+msgstr "Opérations"
+
+msgid "Sécurité technique"
+msgstr "Sécurité technique"
+
+msgid "Conformité"
+msgstr "Conformité"

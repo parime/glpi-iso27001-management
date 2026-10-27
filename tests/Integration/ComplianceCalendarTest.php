@@ -98,4 +98,19 @@ final class ComplianceCalendarTest extends GrcmanagerIntegrationTestCase
         $this->assertStringContainsString('PHPUnit pentest annuel', $ics);
         $this->assertSame(1, substr_count($ics, 'BEGIN:VEVENT'), 'Seulement ses échéances.');
     }
+
+    /** Issue #142, phase 2 : lien d'abonnement avec le jeton personnel de l'utilisateur. */
+    public function testSubscriptionUrlCarriesThePersonalToken(): void
+    {
+        $user = new \User();
+        $user->getFromDB(2);
+        $token = (string) $user->getAuthToken('personal_token');
+
+        $all = PluginGrcmanagerComplianceEvent::getSubscriptionURL(false);
+        $mine = PluginGrcmanagerComplianceEvent::getSubscriptionURL(true);
+        $this->assertStringContainsString('/plugins/grcmanager/front/compliancecalendar.ics.php?', $all);
+        $this->assertStringContainsString('token=' . $token, $all);
+        $this->assertStringNotContainsString('mine=', $all);
+        $this->assertStringContainsString('mine=1', $mine);
+    }
 }

@@ -61,9 +61,19 @@ class PluginGrcmanagerAccessReview extends AccessReviewBase
     }
 
     /** Rubrique « Revues des accès » : les campagnes et l'hygiène des comptes. */
+    /**
+     * Rubrique « Opérations » : revues des accès, hygiène des comptes, revues périodiques,
+     * formations et exercices de crise (PluginGrcmanagerMenu::sections()).
+     */
     public static function getMenuContent()
     {
-        return PluginGrcmanagerMenu::withSubPages(self::class, parent::getMenuContent());
+        $menu = parent::getMenuContent();
+        if (is_array($menu) && $menu !== []) {
+            $menu['section_label'] = $menu['title'];
+            $menu['title'] = __('Opérations', 'grcmanager');
+        }
+
+        return PluginGrcmanagerMenu::withSubPages(self::class, $menu);
     }
 
     /**

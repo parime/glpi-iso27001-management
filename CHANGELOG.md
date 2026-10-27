@@ -7,6 +7,55 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.13.0] - 2026-10-27
+
+### Changed
+
+- **Menu regroupé en six rubriques** au lieu de vingt-deux entrées : Tableau de bord, Risques,
+  Conformité, Audits et amélioration, Opérations, Sécurité technique. Les pages d'une rubrique
+  sont réunies par une barre d'onglets commune et le fil d'Ariane « Rubrique > Page » ; aucune page
+  n'est supprimée. Les vulnérabilités du parc (qui exigent aussi la lecture des logiciels) sont une
+  sous-page de « Sécurité technique », dont la page d'accueil (contrôles techniques automatiques)
+  ne demande que le droit du plugin. Voir « Organisation du menu » dans le README.
+
+### Added
+
+- **Onglet « GRC Manager » dans les profils GLPI** (Administration > Profils) : matrice des droits
+  du plugin (gouvernance de la sécurité, incidents de sécurité, règles d'affectation des incidents).
+  Jusqu'ici seul le Super-Admin recevait ces droits à l'installation, sans moyen de les donner à un
+  autre profil depuis l'interface. Visible avec le droit « Profils » du cœur, profils en interface
+  standard uniquement.
+- **Machines les plus exposées** (issue #181), rubrique Vulnérabilités du parc : classement des
+  machines par score d'exposition (vulnérabilité la plus grave, 10 si activement exploitée, pour
+  70 % ; vulnérabilités prioritaires pour 30 %), avec le nombre de vulnérabilités exploitées (KEV),
+  prioritaires et au total, le CVSS et l'EPSS maximum. Lien direct vers l'onglet Vulnérabilités de
+  chaque machine. Seulement les machines des entités de l'utilisateur, d'un type qu'il peut lire.
+- **Abonnement au calendrier de conformité** (issue #142) : bouton « S'abonner » qui donne un lien
+  personnel à coller dans Outlook, Thunderbird ou Google Agenda (toutes les échéances, ou les
+  siennes). Le flux est lu sans session, avec le jeton personnel de l'utilisateur (comme le flux du
+  planning de GLPI), et ne contient que ce qu'il voit ; régénérer son jeton révoque le lien.
+- **Hygiène des comptes : changement de service** (issue #184) : nouveau contrôle « Groupes
+  modifiés, profils non revus ». Les groupes du compte (dont ceux synchronisés depuis l'annuaire)
+  ont changé pendant la période choisie et ses habilitations GLPI n'ont pas été revues depuis :
+  ses anciens droits sont peut-être restés. D'après l'historique de GLPI ; les groupes posés le
+  jour de la création du compte ne comptent pas. Un compte désactivé dans Active Directory est déjà
+  signalé « Supprimé de l'annuaire » quand le filtre de synchronisation LDAP de GLPI exclut les
+  comptes désactivés.
+- **Charte informatique** (issue #283) : case « Charte informatique » sur une politique de
+  sécurité. Sa fiche montre les signatures (dernière campagne de charte d'assetsign de chaque
+  entité, signées / total) et signale les entités dont la dernière campagne précède la version
+  approuvée (« à faire signer »). Avec assetsign ≥ la version qui le prend en charge, la version
+  approuvée la plus récente figure dans les campagnes de charte. Rien n'est lancé automatiquement.
+
+### Security
+
+- **Dérogations : séparation des tâches**. Le demandeur d'une dérogation (enregistré à sa
+  création) ne peut plus l'approuver lui-même, comme pour la SoA. Il est affiché sur la fiche
+  (« Demandée par »). Les dérogations existantes n'ont pas de demandeur connu.
+- **Revues périodiques** : seul un ticket créé par l'action automatique des tickets récurrents
+  devient le ticket d'une revue. Un ticket saisi à la main avec le même gabarit ne peut plus dater
+  la revue.
+
 ## [2.12.0] - 2026-10-26
 
 ### Changed
