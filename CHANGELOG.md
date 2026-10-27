@@ -7,6 +7,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.14.0] - 2026-10-27
+
 ### Added
 
 - **Plusieurs sessions par formation** (issue #139) : une session est rattachée à sa formation
@@ -32,6 +34,14 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   « Lire les notes » et « Modifier les notes » dans l'onglet GRC Manager des profils, donnés au
   Super-Admin à la mise à jour.
 - Champ **Responsable de l'audit** sur la fiche.
+
+### Changed
+
+- **Analyse statique de tout le plugin** (issue #146) : PHPStan niveau 5 sur `inc/`, `front/` et
+  `src/` avec les sources de GLPI, dans la CI (jusqu'ici seuls les services en PHP pur de `src/`
+  étaient analysés). Aucun bogue réel trouvé ; les signalements existants sont dans une base de
+  référence, tout nouveau fait échouer la CI. Code mort retiré, commentaire de menu obsolète
+  réécrit, chemins de menu du tutoriel mis à jour.
 
 ### Fixed
 
