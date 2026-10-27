@@ -23,7 +23,11 @@ use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentModuleConfig;
 // instance by the sibling plugins of this same author, see docs/design/DEVELOPMENT_PLAN.md
 // "Sprint 1"). `composer install --no-dev` must be run after cloning, and any release package
 // must bundle vendor/, see .github/workflows/release.yml.
-require_once __DIR__ . '/vendor/autoload.php';
+// Sans vendor/ (archive incomplète, clone sans `composer install --no-dev`), le plugin refuse de
+// s'installer avec un message (check_prerequisites) au lieu d'une erreur fatale à chaque page.
+if (is_readable(__DIR__ . '/vendor/autoload.php')) {
+    require_once __DIR__ . '/vendor/autoload.php';
+}
 
 define('PLUGIN_GRCMANAGER_VERSION', '2.15.0');
 define('PLUGIN_GRCMANAGER_MIN_GLPI', '11.0.0');
@@ -332,6 +336,11 @@ function plugin_version_grcmanager(): array
  */
 function plugin_grcmanager_check_prerequisites(): bool
 {
+    if (!is_readable(__DIR__ . '/vendor/autoload.php')) {
+        echo 'Dépendances manquantes : exécutez « composer install --no-dev » dans le dossier du plugin.';
+        return false;
+    }
+
     $checker = new RequirementChecker();
 
     if (!$checker->isPhpVersionSupported(PHP_VERSION, PLUGIN_GRCMANAGER_MIN_PHP)) {

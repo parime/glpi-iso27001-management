@@ -7,6 +7,12 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Fixed
+
+- Sans le dossier `vendor/` (archive incomplète, clone sans `composer install --no-dev`), le plugin
+  refuse de s'installer avec un message clair au lieu de provoquer une erreur fatale sur chaque page de
+  GLPI (note de la revue de sécurité de la marketplace).
+
 ## [2.15.0] - 2026-10-27
 
 ### Security
