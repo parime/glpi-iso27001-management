@@ -5211,3 +5211,43 @@ msgstr "Sécurité technique"
 
 msgid "Conformité"
 msgstr "Conformité"
+
+msgid "Aucune (formation principale)"
+msgstr "Aucune (formation principale)"
+
+msgid "Formateur"
+msgstr "Formateur"
+
+msgid "Lieu ou lien"
+msgstr "Lieu ou lien"
+
+msgid "Sessions"
+msgstr "Sessions"
+
+msgid "Nouvelle session de cette formation : renseignez sa date, son formateur, son lieu et ses participants, puis cliquez sur « Ajouter ». Rien n'est enregistré avant."
+msgstr "Nouvelle session de cette formation : renseignez sa date, son formateur, son lieu et ses participants, puis cliquez sur « Ajouter ». Rien n'est enregistré avant."
+
+msgid "Session de la formation"
+msgstr "Session de la formation"
+
+msgid "Voir la formation"
+msgstr "Voir la formation"
+
+msgid "Salle, adresse ou lien de la visioconférence / du module en ligne."
+msgstr "Salle, adresse ou lien de la visioconférence / du module en ligne."
+
+msgid "Chaque session a sa date, son formateur, son lieu, ses participants et ses documents (feuille d'émargement, support, quiz)."
+msgstr "Chaque session a sa date, son formateur, son lieu, ses participants et ses documents (feuille d'émargement, support, quiz)."
+
+msgid "Ajouter une session"
+msgstr "Ajouter une session"
+
+#, php-format
+msgid "Taux de réussite de la formation, toutes sessions : %1$s sur %2$s (%3$s %%)"
+msgstr "Taux de réussite de la formation, toutes sessions : %1$s sur %2$s (%3$s %%)"
+
+msgid "Aucune autre session pour cette formation."
+msgstr "Aucune autre session pour cette formation."
+
+msgid "Session"
+msgstr "Session"

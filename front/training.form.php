@@ -43,13 +43,17 @@ if (isset($_POST['add'])) {
     Session::checkRight(PluginGrcmanagerTraining::$rightname, READ);
 
     // Issue #139 : affichage avec onglets (Documents de la session, Historique). `retake_of`
-    // pré-remplit une session de rattrapage, rien n'est enregistré avant « Ajouter ».
+    // pré-remplit une session de rattrapage, `session_of` une nouvelle session de la formation :
+    // rien n'est enregistré avant « Ajouter ».
     PluginGrcmanagerTraining::displayFullPageForItem(
         (int) ($_GET['id'] ?? 0),
         [
             'central'  => ['grcmanager', PluginGrcmanagerAccessReview::class, PluginGrcmanagerTraining::class],
             'helpdesk' => [],
         ],
-        ['retake_of' => (int) ($_GET['retake_of'] ?? 0)]
+        [
+            'retake_of'  => (int) ($_GET['retake_of'] ?? 0),
+            'session_of' => (int) ($_GET['session_of'] ?? 0),
+        ]
     );
 }

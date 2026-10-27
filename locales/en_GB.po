@@ -5211,3 +5211,43 @@ msgstr "Technical security"
 
 msgid "Conformité"
 msgstr "Compliance"
+
+msgid "Aucune (formation principale)"
+msgstr "None (main training)"
+
+msgid "Formateur"
+msgstr "Trainer"
+
+msgid "Lieu ou lien"
+msgstr "Location or link"
+
+msgid "Sessions"
+msgstr "Sessions"
+
+msgid "Nouvelle session de cette formation : renseignez sa date, son formateur, son lieu et ses participants, puis cliquez sur « Ajouter ». Rien n'est enregistré avant."
+msgstr "New session of this training: fill in its date, trainer, location and participants, then click \"Add\". Nothing is saved before."
+
+msgid "Session de la formation"
+msgstr "Session of the training"
+
+msgid "Voir la formation"
+msgstr "View the training"
+
+msgid "Salle, adresse ou lien de la visioconférence / du module en ligne."
+msgstr "Room, address or link to the video call / online module."
+
+msgid "Chaque session a sa date, son formateur, son lieu, ses participants et ses documents (feuille d'émargement, support, quiz)."
+msgstr "Each session has its own date, trainer, location, participants and documents (attendance sheet, slides, quiz)."
+
+msgid "Ajouter une session"
+msgstr "Add a session"
+
+#, php-format
+msgid "Taux de réussite de la formation, toutes sessions : %1$s sur %2$s (%3$s %%)"
+msgstr "Training pass rate, all sessions: %1$s out of %2$s (%3$s %%)"
+
+msgid "Aucune autre session pour cette formation."
+msgstr "No other session for this training."
+
+msgid "Session"
+msgstr "Session"

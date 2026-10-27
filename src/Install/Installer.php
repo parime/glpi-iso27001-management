@@ -718,10 +718,16 @@ final class Installer
                 `is_mandatory` tinyint NOT NULL DEFAULT 1,
                 `renewal_period_months` int NOT NULL DEFAULT 0
                     COMMENT '0 = pas de renouvellement requis',
+                `plugin_grcmanager_trainings_id` int {$keySign} NOT NULL DEFAULT 0
+                    COMMENT 'Formation principale de cette session, 0 = formation principale',
+                `users_id_trainer` int {$keySign} NOT NULL DEFAULT 0,
+                `location` varchar(255) DEFAULT NULL COMMENT 'Lieu ou lien de la session',
                 `date_creation` timestamp NULL DEFAULT NULL,
                 `date_mod` timestamp NULL DEFAULT NULL,
                 PRIMARY KEY (`id`),
-                KEY `format` (`format`)
+                KEY `format` (`format`),
+                KEY `plugin_grcmanager_trainings_id` (`plugin_grcmanager_trainings_id`),
+                KEY `users_id_trainer` (`users_id_trainer`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
             $DB->doQuery($query);
@@ -851,6 +857,24 @@ final class Installer
             ]);
             $migration->migrationOneTable(self::TRAININGS_USERS_TABLE);
         }
+        // Issue #139 : une formation peut avoir plusieurs sessions (chaque session est une ligne
+        // rattachée à sa formation principale), avec son formateur et son lieu ou lien.
+        if (!$DB->fieldExists(self::TRAININGS_TABLE, 'plugin_grcmanager_trainings_id')) {
+            $migration->addField(self::TRAININGS_TABLE, 'plugin_grcmanager_trainings_id', 'fkey', [
+                'after' => 'renewal_period_months',
+            ]);
+            $migration->addKey(self::TRAININGS_TABLE, 'plugin_grcmanager_trainings_id');
+        }
+        if (!$DB->fieldExists(self::TRAININGS_TABLE, 'users_id_trainer')) {
+            $migration->addField(self::TRAININGS_TABLE, 'users_id_trainer', 'fkey', [
+                'after' => 'plugin_grcmanager_trainings_id',
+            ]);
+            $migration->addKey(self::TRAININGS_TABLE, 'users_id_trainer');
+        }
+        if (!$DB->fieldExists(self::TRAININGS_TABLE, 'location')) {
+            $migration->addField(self::TRAININGS_TABLE, 'location', 'string', ['after' => 'users_id_trainer']);
+        }
+        $migration->migrationOneTable(self::TRAININGS_TABLE);
 
         // Sprint 6 (revues de direction, clause 9.3) : une ligne par revue de direction realisee ou
         // planifiee, avec l'ordre du jour et les decisions/actions en texte libre (pas un lien

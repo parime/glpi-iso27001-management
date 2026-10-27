@@ -7,6 +7,15 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Added
+
+- **Plusieurs sessions par formation** (issue #139) : une session est rattachée à sa formation
+  principale, avec son **formateur** et son **lieu ou lien**, ses participants, ses notes et ses
+  documents. Onglet **Sessions** de la formation : liste des sessions, taux de réussite de chacune
+  et de la formation toutes sessions, bouton « Ajouter une session » (formulaire prérempli, rien
+  n'est enregistré avant « Ajouter »). Une session de rattrapage est rattachée à la même formation.
+  Formateur et lieu sont aussi des colonnes de la liste des formations.
+
 ## [2.13.0] - 2026-10-27
 
 ### Changed
