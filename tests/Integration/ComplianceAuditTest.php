@@ -108,6 +108,38 @@ final class ComplianceAuditTest extends GrcmanagerIntegrationTestCase
         $this->assertNull(Audit::openTicket('antivirus'));
     }
 
+    /**
+     * Issue #305 : un poste au statut exclu (réformé) n'est compté dans aucun contrôle.
+     */
+    public function testExcludedStatesAreIgnored(): void
+    {
+        global $DB;
+
+        $retired = (int) (new \State())->add(['name' => 'PHPUnit Réformé', 'entities_id' => 0, 'is_recursive' => 1]);
+        $active = (int) (new \State())->add(['name' => 'PHPUnit En service', 'entities_id' => 0, 'is_recursive' => 1]);
+        $computer = ['entities_id' => 0];
+        $old = (int) (new \Computer())->add($computer + ['name' => 'PHPUnit poste réformé', 'states_id' => $retired]);
+        $used = (int) (new \Computer())->add($computer + ['name' => 'PHPUnit poste actif', 'states_id' => $active]);
+        $none = (int) (new \Computer())->add(['name' => 'PHPUnit poste sans statut', 'entities_id' => 0]);
+
+        try {
+            Audit::setExcludedStateIds([(string) $retired, 'x', -3, 999999999, $retired]);
+            $this->assertSame([$retired], Audit::getExcludedStateIds(), 'Statuts inexistants et doublons écartés.');
+
+            $gaps = self::gapIds(Audit::run(), 'antivirus');
+            $this->assertNotContains($old, $gaps);
+            $this->assertContains($used, $gaps);
+            $this->assertContains($none, $gaps, 'Un poste sans statut reste contrôlé.');
+
+            Audit::setExcludedStateIds([]);
+            $this->assertContains($old, self::gapIds(Audit::run(), 'antivirus'));
+        } finally {
+            Audit::setExcludedStateIds([]);
+            $DB->delete('glpi_computers', ['id' => [$old, $used, $none]]);
+            $DB->delete('glpi_states', ['id' => [$retired, $active]]);
+        }
+    }
+
     public function testCheckIsNotEvaluatedWithoutNativeRight(): void
     {
         $computerRight = $_SESSION['glpiactiveprofile']['computer'] ?? 0;

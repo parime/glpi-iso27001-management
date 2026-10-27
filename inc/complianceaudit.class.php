@@ -37,6 +37,9 @@ class PluginGrcmanagerComplianceAudit extends CommonGLPI
     /** Un poste non inventorié depuis ce nombre de jours est un écart. */
     public const INVENTORY_DAYS = 30;
 
+    /** Clé de configuration (contexte plugin:grcmanager) : statuts exclus, liste JSON d'identifiants. */
+    public const EXCLUDED_STATES_KEY = 'compliance_excluded_states';
+
     /** Changements clos sur cette période (jours) contrôlés. */
     public const CHANGE_PERIOD_DAYS = 365;
 
@@ -194,7 +197,52 @@ class PluginGrcmanagerComplianceAudit extends CommonGLPI
     }
 
     /**
-     * Ordinateurs visibles (entités actives, hors corbeille et gabarits).
+     * Issue #305 : statuts d'ordinateur exclus des contrôles techniques (réformé, en stock…).
+     *
+     * @return list<int>
+     */
+    public static function getExcludedStateIds(): array
+    {
+        $values = Config::getConfigurationValues(
+            PluginGrcmanagerAuditTeam::CONFIG_CONTEXT,
+            [self::EXCLUDED_STATES_KEY]
+        );
+        $ids = json_decode((string) ($values[self::EXCLUDED_STATES_KEY] ?? ''), true);
+
+        if (!is_array($ids)) {
+            return [];
+        }
+
+        return array_values(array_filter(array_map('intval', $ids), static fn (int $id): bool => $id > 0));
+    }
+
+    /**
+     * @param array<mixed> $ids statuts soumis par le formulaire ; seuls les statuts existants sont gardés
+     */
+    public static function setExcludedStateIds(array $ids): void
+    {
+        global $DB;
+
+        $ids = array_values(array_unique(array_filter(
+            array_map('intval', array_filter($ids, 'is_scalar')),
+            static fn (int $id): bool => $id > 0
+        )));
+        $existing = [];
+        if ($ids !== []) {
+            foreach ($DB->request(['SELECT' => 'id', 'FROM' => State::getTable(), 'WHERE' => ['id' => $ids]]) as $row) {
+                $existing[] = (int) $row['id'];
+            }
+            sort($existing);
+        }
+        $ids = $existing;
+        Config::setConfigurationValues(
+            PluginGrcmanagerAuditTeam::CONFIG_CONTEXT,
+            [self::EXCLUDED_STATES_KEY => json_encode($ids)]
+        );
+    }
+
+    /**
+     * Ordinateurs visibles (entités actives, hors corbeille, gabarits et statuts exclus).
      *
      * @return array<int, array<string, mixed>>
      */
@@ -202,13 +250,17 @@ class PluginGrcmanagerComplianceAudit extends CommonGLPI
     {
         global $DB;
 
+        $where = ['is_deleted' => 0, 'is_template' => 0];
+        $excluded = self::getExcludedStateIds();
+        if ($excluded !== []) {
+            $where['NOT'] = ['states_id' => $excluded];
+        }
         $computers = [];
         foreach (
             $DB->request([
                 'SELECT' => ['id', 'name', 'is_dynamic', 'last_inventory_update'],
                 'FROM'   => Computer::getTable(),
-                'WHERE'  => ['is_deleted' => 0, 'is_template' => 0]
-                    + getEntitiesRestrictCriteria(Computer::getTable(), '', '', true),
+                'WHERE'  => $where + getEntitiesRestrictCriteria(Computer::getTable(), '', '', true),
                 'ORDER'  => 'name',
             ]) as $row
         ) {
