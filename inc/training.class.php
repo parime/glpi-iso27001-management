@@ -510,18 +510,6 @@ class PluginGrcmanagerTraining extends TrainingBase
         return Badge::html($class, $icon, $label);
     }
 
-    public static function completionStatusBadge(?string $value): string
-    {
-        $map = [
-            'pending'   => ['bg-yellow-lt', 'ti-clock', __('En attente', 'grcmanager')],
-            'completed' => ['bg-green-lt', 'ti-check', __('Terminée', 'grcmanager')],
-            'exempted'  => ['bg-secondary-lt', 'ti-forbid-2', __('Dispensé', 'grcmanager')],
-        ];
-
-        [$class, $icon, $label] = $map[$value] ?? ['bg-secondary-lt', 'ti-help', (string) $value];
-
-        return Badge::html($class, $icon, $label);
-    }
 
     /**
      * Participants ayant échoué à cette session (issue #139), proposés pour une session de
