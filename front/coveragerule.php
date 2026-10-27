@@ -27,12 +27,12 @@ Html::header(
     PluginGrcmanagerCoverageRule::getTypeName(Session::getPluralNumber()),
     $_SERVER['PHP_SELF'],
     'grcmanager',
-    PluginGrcmanagerEvidence::class,
+    PluginGrcmanagerControl::class,
     PluginGrcmanagerCoverageRule::class
 );
 // Encadré « À quoi sert cette page ? ».
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(PluginGrcmanagerEvidence::class, PluginGrcmanagerCoverageRule::class);
+PluginGrcmanagerMenu::showSection(PluginGrcmanagerControl::class, PluginGrcmanagerCoverageRule::class);
 PluginGrcmanagerPageHelp::show('coveragerule');
 
 $params = QueryBuilder::manageParams(PluginGrcmanagerCoverageRule::class, $_GET);

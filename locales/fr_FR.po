@@ -5199,3 +5199,15 @@ msgstr "Campagnes de charte (assetsign)"
 
 msgid "Gouvernance de la sécurité (SMSI)"
 msgstr "Gouvernance de la sécurité (SMSI)"
+
+msgid "Audits et amélioration"
+msgstr "Audits et amélioration"
+
+msgid "Opérations"
+msgstr "Opérations"
+
+msgid "Sécurité technique"
+msgstr "Sécurité technique"
+
+msgid "Conformité"
+msgstr "Conformité"

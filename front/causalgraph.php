@@ -29,12 +29,12 @@ Html::header(
     PluginGrcmanagerCausalLink::getTypeName(2),
     PluginGrcmanagerCausalLink::getSearchURL(),
     'grcmanager',
-    PluginGrcmanagerImpactAnalysis::class,
+    PluginGrcmanagerRisk::class,
     PluginGrcmanagerCausalLink::class
 );
 // Encadré « À quoi sert cette page ? ».
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(PluginGrcmanagerImpactAnalysis::class, PluginGrcmanagerCausalLink::class);
+PluginGrcmanagerMenu::showSection(PluginGrcmanagerRisk::class, PluginGrcmanagerCausalLink::class);
 PluginGrcmanagerPageHelp::show('causalgraph');
 TemplateRenderer::getInstance()->display('@grcmanager/causal_graph_page.html.twig', [
     'elements' => PluginGrcmanagerCausalLink::cytoscapeElements(['nodes' => $nodes, 'edges' => $edges]),

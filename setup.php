@@ -109,45 +109,20 @@ function plugin_init_grcmanager(): void
     // an unknown category's title/icon from the first entry in its MENU_TOADD array whose
     // getMenuContent()/getIcon() supply one, see PluginGrcmanagerMenu's own docblock.
     //
-    // Ordre du menu : le cycle du SMSI, du pilotage aux opérations puis à la direction. Les écrans
-    // d'un même travail sont regroupés en une rubrique (une entrée, les autres en sous-pages avec
-    // une barre d'onglets commune) : voir PluginGrcmanagerMenu::sections(). Les sous-pages
-    // (score de maturité, effet domino, référentiels, couverture des preuves, hygiène des comptes,
-    // logiciels à surveiller, catalogue de produits) n'ont donc pas d'entrée ici.
+    // Six rubriques, dans l'ordre du cycle du SMSI : pilotage, risques, conformité, audits et
+    // amélioration, opérations, sécurité technique. Chaque rubrique est une seule entrée de menu ;
+    // les autres écrans de la rubrique sont ses sous-pages, avec une barre d'onglets commune
+    // (PluginGrcmanagerMenu::sections()) et le fil d'Ariane « Rubrique > Page ».
     $menuToAdd = [
         'grcmanager' => [
             PluginGrcmanagerMenu::class,
-            // Pilotage. Issue #247 : tableau de bord en tête, comme dans Parc et Assistance.
+            // Issue #247 : tableau de bord en tête, comme dans Parc et Assistance.
             PluginGrcmanagerDashboard::class,
-            // Risques.
             PluginGrcmanagerRisk::class,
-            PluginGrcmanagerSupplierRisk::class,
-            PluginGrcmanagerImpactAnalysis::class,
-            // Conformité : SoA, exigences du SMSI (articles 4 à 10), obligations, politiques,
-            // dérogations, preuves.
             PluginGrcmanagerControl::class,
-            PluginGrcmanagerIsmsRequirement::class,
-            PluginGrcmanagerComplianceObligation::class,
-            PluginGrcmanagerPolicy::class,
-            PluginGrcmanagerWaiver::class,
-            PluginGrcmanagerEvidence::class,
-            // Contrôle et amélioration : audits internes, non-conformités (CAPA), contrôles
-            // techniques automatiques.
             PluginGrcmanagerAudit::class,
-            PluginGrcmanagerNonconformity::class,
-            PluginGrcmanagerComplianceAudit::class,
-            // Opérations : accès, revues périodiques et calendrier, personnes, continuité,
-            // réseau, vulnérabilités.
             PluginGrcmanagerAccessReview::class,
-            PluginGrcmanagerPeriodicReview::class,
-            PluginGrcmanagerComplianceEvent::class,
-            PluginGrcmanagerTraining::class,
-            PluginGrcmanagerCrisisExercise::class,
-            PluginGrcmanagerNetworkFlow::class,
-            PluginGrcmanagerParkVulnerability::class,
-            // Direction : objectifs et revues de direction.
-            PluginGrcmanagerObjective::class,
-            PluginGrcmanagerManagementReview::class,
+            PluginGrcmanagerComplianceAudit::class,
         ],
     ];
 

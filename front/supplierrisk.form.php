@@ -45,6 +45,9 @@ if (isset($_POST['add'])) {
     // Les droits (READ, ou CREATE pour un nouvel élément) sont vérifiés par $item->can().
     PluginGrcmanagerSupplierRisk::displayFullPageForItem(
         $_GET['id'] ?? 0,
-        ['central' => ['grcmanager', PluginGrcmanagerSupplierRisk::class], 'helpdesk' => []]
+        [
+            'central'  => ['grcmanager', PluginGrcmanagerRisk::class, PluginGrcmanagerSupplierRisk::class],
+            'helpdesk' => [],
+        ]
     );
 }

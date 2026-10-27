@@ -61,9 +61,19 @@ class PluginGrcmanagerControl extends ControlBase
     }
 
     /** Rubrique « Contrôles Annexe A » : la SoA et ses correspondances (Référentiels). */
+    /**
+     * Rubrique « Conformité » : SoA, référentiels, exigences du SMSI, obligations, politiques et
+     * preuves (PluginGrcmanagerMenu::sections()).
+     */
     public static function getMenuContent()
     {
-        return PluginGrcmanagerMenu::withSubPages(self::class, parent::getMenuContent());
+        $menu = parent::getMenuContent();
+        if (is_array($menu) && $menu !== []) {
+            $menu['section_label'] = $menu['title'];
+            $menu['title'] = __('Conformité', 'grcmanager');
+        }
+
+        return PluginGrcmanagerMenu::withSubPages(self::class, $menu);
     }
 
     /**

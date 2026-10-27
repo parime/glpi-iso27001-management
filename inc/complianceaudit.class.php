@@ -68,13 +68,18 @@ class PluginGrcmanagerComplianceAudit extends CommonGLPI
         return Session::haveRight(self::RIGHTNAME, READ);
     }
 
+    /**
+     * Rubrique « Sécurité technique » : contrôles automatiques, vulnérabilités du parc et matrice
+     * des flux (PluginGrcmanagerMenu::sections()).
+     */
     public static function getMenuContent()
     {
-        return [
-            'title' => self::getTypeName(),
-            'page'  => self::getSearchURL(false),
-            'icon'  => self::getIcon(),
-        ];
+        return PluginGrcmanagerMenu::withSubPages(self::class, [
+            'title'         => __('Sécurité technique', 'grcmanager'),
+            'section_label' => self::getTypeName(),
+            'page'          => self::getSearchURL(false),
+            'icon'          => self::getIcon(),
+        ]);
     }
 
     /**

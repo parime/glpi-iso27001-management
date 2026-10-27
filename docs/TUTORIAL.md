@@ -244,7 +244,7 @@ cas d'écart et vert lorsque l'instance est à jour.
 
 ### Étape 12 : Lancer une campagne de revue des accès
 
-Depuis **GRC & Conformité > Revues des accès**, une campagne liste les comptes à revoir et les
+Depuis **GRC & Conformité > Opérations > Revues des accès**, une campagne liste les comptes à revoir et les
 confie à leurs responsables (supérieur hiérarchique, responsable de groupe ou pilote). Chaque
 responsable traite ses lignes depuis **Mes revues d'accès** : conserver, modifier ou retirer. Un
 droit à retirer devient un ticket ; le plugin ne retire jamais un droit lui-même. À la clôture, un
@@ -257,13 +257,13 @@ rapport PDF est joint à la campagne et à la mesure de l'Annexe A concernée.
 Sur une mesure, un risque fournisseur, un audit ou une politique, l'onglet **Validités des
 preuves** donne une date de fin de validité à chaque document rattaché (certificat, rapport,
 attestation). Le responsable est prévenu 30 jours avant ; à l'expiration, un ticket « Renouveler la
-preuve » est ouvert. **GRC & Conformité > Preuves** les rassemble toutes.
+preuve » est ouvert. **GRC & Conformité > Conformité > Preuves** les rassemble toutes.
 
 ![Liste des preuves datées](screenshots/tutorial/44-evidence-validity-list.png)
 
 ### Étape 14 : Planifier les revues périodiques
 
-**GRC & Conformité > Revues périodiques** propose onze revues (droits d'accès, comptes à
+**GRC & Conformité > Opérations > Revues périodiques** propose onze revues (droits d'accès, comptes à
 privilèges, matrice des flux, registre des risques, fournisseurs, politiques, SoA, obligations,
 tests de restauration et de PCA, journaux de sécurité). **Activer** une revue crée un ticket
 récurrent GLPI attribué au responsable choisi, avec sa check-list. Quand le ticket est résolu, la
@@ -274,7 +274,7 @@ sur sa période passe « En retard ».
 
 ### Étape 15 : Tenir la matrice des flux réseau
 
-**GRC & Conformité > Matrice des flux** recense les flux autorisés : source et destination (un
+**GRC & Conformité > Sécurité technique > Matrice des flux** recense les flux autorisés : source et destination (un
 actif GLPI ou un réseau, une zone, une adresse), protocole, ports, justification, propriétaire et
 date de fin. Les contrôles automatiques signalent les flux sans justification ou sans propriétaire,
 expirés, et les services d'administration publiés sur Internet.
@@ -288,7 +288,7 @@ fichier ne crée pas de doublon.
 
 ### Étape 16 : Vérifier l'hygiène des comptes
 
-**GRC & Conformité > Revues des accès > Hygiène des comptes** liste les comptes actifs à vérifier : supprimés de
+**GRC & Conformité > Opérations > Hygiène des comptes** liste les comptes actifs à vérifier : supprimés de
 l'annuaire, date de fin dépassée, sans connexion depuis N jours ou jamais utilisés, en double.
 Cochez les comptes et ouvrez un ticket de revue ; aucun compte n'est désactivé automatiquement.
 
@@ -306,7 +306,7 @@ des tickets.
 
 ### Étape 18 : Suivre le calendrier de conformité
 
-**GRC & Conformité > Calendrier de conformité** réunit les événements saisis (audit de
+**GRC & Conformité > Tableau de bord > Calendrier de conformité** réunit les événements saisis (audit de
 certification ou de surveillance, test d'intrusion, exercice de crise…) et les échéances des autres
 registres : audits, revues de direction, revues des accès, revues périodiques, politiques,
 obligations, preuves. Il s'exporte en iCal.
@@ -552,7 +552,7 @@ green one once the instance is up to date.
 
 ### Step 12: Run an access review campaign
 
-From **GRC & Conformité > Revues des accès** (access reviews), a campaign lists the accounts to
+From **GRC & Conformité > Opérations > Revues des accès** (access reviews), a campaign lists the accounts to
 review and assigns them to their reviewers (manager, group owner or campaign owner). Each reviewer
 handles their own lines from **Mes revues d'accès**: keep, change or remove. A right to remove
 becomes a ticket; the plugin never removes a right itself. At closure, a PDF report is attached to
@@ -564,14 +564,14 @@ the campaign and to the related Annex A control.
 
 On a control, a supplier risk, an audit or a policy, the **Validités des preuves** tab gives an
 expiry date to each attached document (certificate, report, attestation). The owner is warned 30
-days before; at expiry, a "renew the evidence" ticket is opened. **GRC & Conformité > Preuves**
+days before; at expiry, a "renew the evidence" ticket is opened. **GRC & Conformité > Conformité > Preuves**
 lists them all.
 
 ![Dated evidence list](screenshots/tutorial/44-evidence-validity-list.png)
 
 ### Step 14: Schedule periodic reviews
 
-**GRC & Conformité > Revues périodiques** offers eleven reviews (access rights, privileged
+**GRC & Conformité > Opérations > Revues périodiques** offers eleven reviews (access rights, privileged
 accounts, network flow matrix, risk register, suppliers, policies, SoA, obligations, restore and
 BCP tests, security logs). **Enabling** a review creates a GLPI recurrent ticket assigned to the
 chosen owner, with its checklist. When the ticket is solved, the last review date is shown: this is
@@ -581,7 +581,7 @@ the evidence the auditor expects. A review not done within its period turns "ove
 
 ### Step 15: Maintain the network flow matrix
 
-**GRC & Conformité > Matrice des flux** records the allowed flows: source and destination (a GLPI
+**GRC & Conformité > Sécurité technique > Matrice des flux** records the allowed flows: source and destination (a GLPI
 asset or a network, zone or address), protocol, ports, justification, owner and end date.
 Automatic checks flag flows without a justification or owner, expired flows, and administration
 services published on the Internet.
@@ -595,7 +595,7 @@ same file again creates no duplicate.
 
 ### Step 16: Check account hygiene
 
-**GRC & Conformité > Revues des accès > Hygiène des comptes** lists the active accounts to check: deleted from the
+**GRC & Conformité > Opérations > Hygiène des comptes** lists the active accounts to check: deleted from the
 directory, end date passed, no login for N days or never used, duplicates. Tick the accounts and
 open a review ticket; no account is ever disabled automatically.
 
@@ -612,7 +612,7 @@ the incident. The action is also available as a massive action on the ticket lis
 
 ### Step 18: Follow the compliance calendar
 
-**GRC & Conformité > Calendrier de conformité** brings together the events you enter
+**GRC & Conformité > Tableau de bord > Calendrier de conformité** brings together the events you enter
 (certification or surveillance audit, penetration test, crisis exercise…) and the deadlines of the
 other registers: audits, management reviews, access reviews, periodic reviews, policies,
 obligations, evidence. It can be exported to iCal.

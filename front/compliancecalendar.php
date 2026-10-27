@@ -34,8 +34,11 @@ Html::header(
     __('Calendrier de conformité', 'grcmanager'),
     PluginGrcmanagerComplianceEvent::getCalendarURL(),
     'grcmanager',
+    PluginGrcmanagerDashboard::class,
     PluginGrcmanagerComplianceEvent::class
 );
+// Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
+PluginGrcmanagerMenu::showSection(PluginGrcmanagerDashboard::class, PluginGrcmanagerComplianceEvent::class);
 // Encadré « À quoi sert cette page ? ».
 PluginGrcmanagerPageHelp::show('compliancecalendar');
 

@@ -26,8 +26,11 @@ Html::header(
     PluginGrcmanagerManagementReview::getTypeName(2),
     $_SERVER['PHP_SELF'],
     'grcmanager',
+    PluginGrcmanagerAudit::class,
     PluginGrcmanagerManagementReview::class
 );
+// Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
+PluginGrcmanagerMenu::showSection(PluginGrcmanagerAudit::class, PluginGrcmanagerManagementReview::class);
 // Encadré « À quoi sert cette page ? ».
 PluginGrcmanagerPageHelp::show('managementreview');
 

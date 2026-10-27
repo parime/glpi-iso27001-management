@@ -46,7 +46,7 @@ if (isset($_POST['add'])) {
         PluginGrcmanagerCanonicalProduct::getTypeName(1),
         $_SERVER['PHP_SELF'],
         'grcmanager',
-        PluginGrcmanagerParkVulnerability::class,
+        PluginGrcmanagerComplianceAudit::class,
         PluginGrcmanagerCanonicalProduct::class
     );
 

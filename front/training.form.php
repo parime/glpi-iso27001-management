@@ -46,7 +46,10 @@ if (isset($_POST['add'])) {
     // pré-remplit une session de rattrapage, rien n'est enregistré avant « Ajouter ».
     PluginGrcmanagerTraining::displayFullPageForItem(
         (int) ($_GET['id'] ?? 0),
-        ['central' => ['grcmanager', PluginGrcmanagerTraining::class], 'helpdesk' => []],
+        [
+            'central'  => ['grcmanager', PluginGrcmanagerAccessReview::class, PluginGrcmanagerTraining::class],
+            'helpdesk' => [],
+        ],
         ['retake_of' => (int) ($_GET['retake_of'] ?? 0)]
     );
 }

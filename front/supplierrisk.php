@@ -27,8 +27,11 @@ Html::header(
     PluginGrcmanagerSupplierRisk::getTypeName(2),
     $_SERVER['PHP_SELF'],
     'grcmanager',
+    PluginGrcmanagerRisk::class,
     PluginGrcmanagerSupplierRisk::class
 );
+// Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
+PluginGrcmanagerMenu::showSection(PluginGrcmanagerRisk::class, PluginGrcmanagerSupplierRisk::class);
 // Encadré « À quoi sert cette page ? ».
 PluginGrcmanagerPageHelp::show('supplierrisk');
 

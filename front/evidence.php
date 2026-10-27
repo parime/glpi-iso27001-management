@@ -28,11 +28,12 @@ Html::header(
     PluginGrcmanagerEvidence::getTypeName(Session::getPluralNumber()),
     $_SERVER['PHP_SELF'],
     'grcmanager',
+    PluginGrcmanagerControl::class,
     PluginGrcmanagerEvidence::class
 );
 // Encadré « À quoi sert cette page ? ».
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(PluginGrcmanagerEvidence::class, PluginGrcmanagerEvidence::class);
+PluginGrcmanagerMenu::showSection(PluginGrcmanagerControl::class, PluginGrcmanagerEvidence::class);
 PluginGrcmanagerPageHelp::show('evidence');
 
 TemplateRenderer::getInstance()->display('@grcmanager/_list_toolbar.html.twig', ['notice' => __(

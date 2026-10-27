@@ -45,6 +45,7 @@ if (isset($_POST['add'])) {
         PluginGrcmanagerComplianceEvent::getTypeName(1),
         $_SERVER['PHP_SELF'],
         'grcmanager',
+        PluginGrcmanagerDashboard::class,
         PluginGrcmanagerComplianceEvent::class
     );
 

@@ -26,8 +26,11 @@ Html::header(
     PluginGrcmanagerTraining::getTypeName(2),
     $_SERVER['PHP_SELF'],
     'grcmanager',
+    PluginGrcmanagerAccessReview::class,
     PluginGrcmanagerTraining::class
 );
+// Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
+PluginGrcmanagerMenu::showSection(PluginGrcmanagerAccessReview::class, PluginGrcmanagerTraining::class);
 // Encadré « À quoi sert cette page ? ».
 PluginGrcmanagerPageHelp::show('training');
 
