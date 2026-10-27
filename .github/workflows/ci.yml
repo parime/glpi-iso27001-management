@@ -381,6 +381,8 @@ jobs:
           counts_before=$(setup counts)
           bash tests/security/access-matrix.sh http://localhost:8080 none iso-sans-droit 'Secrev#2026' "$ids"
           bash tests/security/access-matrix.sh http://localhost:8080 reader iso-lecteur 'Secrev#2026' "$ids"
+          # Registres sensibles : droit general du SMSI sans le droit dedie.
+          bash tests/security/access-matrix.sh http://localhost:8080 general iso-general 'Secrev#2026' "$ids"
           counts_after=$(setup counts)
           [ "$counts_before" = "$counts_after" ] || { echo "::error::un profil sans droit ou en lecture seule a cree ou supprime des donnees"; echo "avant : $counts_before"; echo "apres : $counts_after"; exit 1; }
           echo "OK  aucune ligne creee ni supprimee par les profils sans droit et lecteur"

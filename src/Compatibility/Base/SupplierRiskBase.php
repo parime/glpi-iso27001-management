@@ -20,10 +20,14 @@ if (GlpiVersion::isAtLeast12()) {
     abstract class SupplierRiskBase extends CommonDBTM
     {
         public static string $rightname = PluginGrcmanagerSupplierRisk::RIGHTNAME;
+        // Registre sensible : qui a modifié quoi, et quand (onglet Historique).
+        public bool $dohistory = true;
     }
 } else {
     abstract class SupplierRiskBase extends CommonDBTM
     {
         public static $rightname = PluginGrcmanagerSupplierRisk::RIGHTNAME;
+        // Registre sensible : qui a modifié quoi, et quand (onglet Historique).
+        public $dohistory = true;
     }
 }

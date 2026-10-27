@@ -34,7 +34,8 @@ class PluginGrcmanagerSupplierRisk extends SupplierRiskBase
 {
     use RiskAssessmentTrait;
 
-    public const RIGHTNAME = 'plugin_grcmanager';
+    // Registre sensible : droit dédié, voir Installer::SENSITIVE_RIGHT.
+    public const RIGHTNAME = 'plugin_grcmanager_sensitive';
 
     /**
      * GLPI notification event name (see inc/notificationtargetsupplierrisk.class.php and

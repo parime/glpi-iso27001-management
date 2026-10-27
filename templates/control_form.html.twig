@@ -17,12 +17,15 @@
       'full_width': true,
       'add_field_html': hints.hint(__('Obligatoire si le contrôle n\'est pas pleinement applicable.', 'grcmanager')),
    }) }}
+   {# Registre sensible : champ absent sans son droit (les liens existants sont conservés). #}
+   {% if can_view_risks %}
    {{ fields.dropdownArrayField('linked_risks', null, risks, __('Risques liés', 'grcmanager'), {
       'multiple': true,
       'values': linked_risks,
       'full_width': true,
       'add_field_html': hints.hint(__('Risque(s) du registre justifiant ou pilotant la mise en œuvre de ce contrôle.', 'grcmanager')),
    }) }}
+   {% endif %}
 
    {# Correspondance publiée par le NIST (ROADMAP « Version 2.2 ») : ligne absente si le NIST n'en publie aucune. #}
    {% if nist is not empty %}

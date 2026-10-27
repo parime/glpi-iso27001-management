@@ -153,6 +153,25 @@ if [ "$ROLE" = none ]; then
   rm -f "$JAR"; exit $FAIL
 fi
 
+# Registres sensibles : tout le SMSI, mais pas le droit dedie. Risques, vulnerabilites du parc,
+# flux reseau et analyse d'impact lui sont refuses, et aucun titre de risque n'apparait ailleurs.
+if [ "$ROLE" = general ]; then
+  for p in front/risk.php front/supplierrisk.php front/riskheatmap.php front/risk.report.php \
+           front/networkflow.php front/networkflow.report.php front/parkvulnerability.php \
+           front/impactanalysis.php front/causalgraph.php; do
+    expect "$p : sans le droit des registres sensibles" 403 "$(code "$BASE/plugins/grcmanager/$p")"
+  done
+  expect "front/risk.form.php : sans le droit des registres sensibles" 403 "$(code "$P/risk.form.php?id=$(id risk)")"
+  for p in front/control.php front/policy.php front/audit.php front/training.php front/complianceobligation.php; do
+    expect "$p : droit general du SMSI" 200 "$(code "$BASE/plugins/grcmanager/$p")"
+  done
+  contains "fiche d'un controle : aucun titre de risque lie" "Risque securite" non \
+    "$(tab PluginGrcmanagerControl 'PluginGrcmanagerControl$main' "$(id control)")"
+  contains "onglet Risques d'un ordinateur : rien" "Risque securite" non \
+    "$(tab Computer 'PluginGrcmanagerRisk$1' "$(id computer_A)")"
+  rm -f "$JAR"; exit $FAIL
+fi
+
 if [ "$ROLE" = reader ]; then
   for p in $READABLE; do expect "$p : en lecture" 200 "$(code "$BASE/plugins/grcmanager/$p")"; done
   for p in "risk.form.php?id=$(id risk)" "control.form.php?id=$(id control)" "securityincident.form.php?id=$(id incident_A)" \

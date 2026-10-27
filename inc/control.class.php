@@ -591,7 +591,8 @@ class PluginGrcmanagerControl extends ControlBase
     {
         parent::post_updateItem($history);
 
-        if (array_key_exists('linked_risks', $this->input)) {
+        // Registre sensible : un formulaire forgé sans son droit ne modifie pas les liens.
+        if (array_key_exists('linked_risks', $this->input) && PluginGrcmanagerRisk::canView()) {
             self::syncLinkedRisks((int) $this->fields['id'], (array) $this->input['linked_risks']);
         }
     }
@@ -605,9 +606,15 @@ class PluginGrcmanagerControl extends ControlBase
 
         // Many-to-many link to the risk(s) this control's implementation addresses or is driven
         // by (glpi_plugin_grcmanager_controls_risks), synced in post_updateItem() above.
+        // Registre sensible : titres des risques seulement avec son droit. Sans le champ,
+        // l'enregistrement ne touche pas aux liens (post_updateItem() ne synchronise que si
+        // linked_risks est envoyé).
+        $canViewRisks = PluginGrcmanagerRisk::canView();
         $riskTitles = [];
-        foreach ($DB->request(['SELECT' => ['id', 'title'], 'FROM' => PluginGrcmanagerRisk::getTable()]) as $row) {
-            $riskTitles[(int) $row['id']] = $row['title'];
+        if ($canViewRisks) {
+            foreach ($DB->request(['SELECT' => ['id', 'title'], 'FROM' => PluginGrcmanagerRisk::getTable()]) as $row) {
+                $riskTitles[(int) $row['id']] = $row['title'];
+            }
         }
 
         // Issue #111 : mesures du guide d'hygiène ANSSI, intitulé dans la langue de la session.
@@ -651,7 +658,8 @@ class PluginGrcmanagerControl extends ControlBase
             'applicabilities'         => self::getApplicabilities(),
             'implementation_statuses' => self::getImplementationStatuses(),
             'risks'                   => $riskTitles,
-            'linked_risks'            => $this->isNewID($ID) ? [] : self::getLinkedRiskIds((int) $ID),
+            'linked_risks'            => $this->isNewID($ID) || !$canViewRisks ? [] : self::getLinkedRiskIds((int) $ID),
+            'can_view_risks'          => $canViewRisks,
             'nist'                    => ControlCrosswalkDefaults::CROSSWALK[substr($code, 2)]['nist_csf'] ?? [],
             'nis2'                    => array_map(
                 static fn (string $nis2Code): string => Nis2CatalogDefaults::reference($nis2Code),

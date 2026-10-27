@@ -5343,3 +5343,30 @@ msgstr "Retirer la copie"
 
 msgid "Vous n'êtes inscrit à aucune formation."
 msgstr "Vous n'êtes inscrit à aucune formation."
+
+msgid "Registres sensibles (risques, vulnérabilités, flux réseau)"
+msgstr "Registres sensibles (risques, vulnérabilités, flux réseau)"
+
+msgid "Registres sensibles"
+msgstr "Registres sensibles"
+
+msgid "Le registre des risques, les vulnérabilités du parc et la matrice des flux décrivent les points faibles de l'organisation. Ils ont leur propre droit (onglet GRC Manager des profils) : donnez-le seulement au RSSI et aux propriétaires de risques."
+msgstr "Le registre des risques, les vulnérabilités du parc et la matrice des flux décrivent les points faibles de l'organisation. Ils ont leur propre droit (onglet GRC Manager des profils) : donnez-le seulement au RSSI et aux propriétaires de risques."
+
+msgid "E-mails sans détail : « Risque n° X » et le lien vers la fiche, sans titre, catégorie, niveau ni fournisseur"
+msgstr "E-mails sans détail : « Risque n° X » et le lien vers la fiche, sans titre, catégorie, niveau ni fournisseur"
+
+msgid "Un e-mail circule en clair et reste dans les boîtes et les archives. Le destinataire lit le détail dans GLPI, avec ses droits."
+msgstr "Un e-mail circule en clair et reste dans les boîtes et les archives. Le destinataire lit le détail dans GLPI, avec ses droits."
+
+#, php-format
+msgid "Risque n° %d"
+msgstr "Risque n° %d"
+
+#, php-format
+msgid "Risque fournisseur n° %d"
+msgstr "Risque fournisseur n° %d"
+
+#, php-format
+msgid "%1$s exporte : %2$s"
+msgstr "%1$s exporte : %2$s"

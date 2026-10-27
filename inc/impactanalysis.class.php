@@ -34,7 +34,9 @@ use GlpiPlugin\Grcmanager\Services\Impact\RecoveryObjectives;
  */
 class PluginGrcmanagerImpactAnalysis extends CommonGLPI
 {
-    public const RIGHTNAME = 'plugin_grcmanager';
+    // Carte des dépendances et des points de défaillance : registre sensible, voir
+    // Installer::SENSITIVE_RIGHT.
+    public const RIGHTNAME = 'plugin_grcmanager_sensitive';
 
     public static function getTypeName($nb = 0)
     {

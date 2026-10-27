@@ -22,6 +22,11 @@ include('../../../inc/includes.php');
 
 // Issue #144, phase 2 : rapport PDF de la matrice des flux, généré à la demande (jamais persisté).
 Session::checkRight(PluginGrcmanagerNetworkFlow::$rightname, READ);
+// Registre sensible : chaque export est tracé (Administration > Journaux).
+\GlpiPlugin\Grcmanager\Services\Notification\SensitiveNotification::logExport(
+    'PluginGrcmanagerNetworkFlow',
+    __('Matrice des flux réseau', 'grcmanager') . ' (PDF)'
+);
 
 $html = TemplateRenderer::getInstance()->render('@grcmanager/pdf/network_flow_report.html.twig', [
     'report_title'       => __('Matrice des flux réseau', 'grcmanager'),

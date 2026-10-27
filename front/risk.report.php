@@ -22,6 +22,11 @@ include('../../../inc/includes.php');
 
 // Export à la demande, jamais persisté (pas de Document GLPI créé) — ROADMAP.md "Version 1.5".
 Session::checkRight(PluginGrcmanagerRisk::$rightname, READ);
+// Registre sensible : chaque export est tracé (Administration > Journaux).
+\GlpiPlugin\Grcmanager\Services\Notification\SensitiveNotification::logExport(
+    'PluginGrcmanagerRisk',
+    __('Registre des risques', 'grcmanager') . ' (PDF)'
+);
 
 global $DB;
 

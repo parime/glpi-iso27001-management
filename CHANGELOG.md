@@ -7,6 +7,24 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Security
+
+- **Registres sensibles** : le registre des risques et les risques fournisseurs, les plans de
+  traitement, l'analyse d'impact, l'effet domino, les vulnérabilités du parc et la matrice des flux
+  ont leur propre droit, « Registres sensibles », distinct du droit général du SMSI (onglet GRC
+  Manager des profils). À la mise à jour, il reprend la valeur du droit général pour chaque profil :
+  rien ne change avant que l'administrateur ne le restreigne. Sans ce droit, aucune donnée de ces
+  registres n'apparaît ailleurs : titres des risques liés (fiches Contrôle et Obligation, colonne de
+  recherche), cartes du tableau de bord, vulnérabilités dans la veille CERT-FR d'un fournisseur ; un
+  formulaire forgé ne modifie pas les liens vers les risques.
+- **Historique** des modifications des risques, risques fournisseurs et actions de traitement
+  (onglet Historique), et **trace des exports** PDF du registre des risques et de la matrice des
+  flux dans le journal des événements de GLPI (Administration > Journaux).
+- **E-mails sans détail** par défaut pour les risques, risques fournisseurs et actions de
+  traitement : « Risque n° X » et le lien vers la fiche, sans titre, catégorie, niveau, fournisseur
+  ni description. Réglable dans la configuration du plugin (« Registres sensibles »).
+- La veille CERT-FR d'un risque fournisseur vérifie le droit de lire la fiche.
+
 ## [2.14.0] - 2026-10-27
 
 ### Added

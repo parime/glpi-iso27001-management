@@ -132,7 +132,10 @@ class PluginGrcmanagerSecurityWatch extends CommonGLPI
 
     public function getTabNameForItem(CommonGLPI $item, $withtemplate = 0)
     {
-        if (!$item instanceof PluginGrcmanagerSupplierRisk || $item->isNewItem()) {
+        if (
+            !$item instanceof PluginGrcmanagerSupplierRisk || $item->isNewItem()
+            || !PluginGrcmanagerSupplierRisk::canView()
+        ) {
             return '';
         }
 
@@ -146,7 +149,8 @@ class PluginGrcmanagerSecurityWatch extends CommonGLPI
     {
         global $CFG_GLPI;
 
-        if (!$item instanceof PluginGrcmanagerSupplierRisk) {
+        // ajax/common.tabs.php sert le contenu sans passer par getTabNameForItem().
+        if (!$item instanceof PluginGrcmanagerSupplierRisk || !$item->can($item->getID(), READ)) {
             return false;
         }
         $keywords = self::keywordsFor($item);
@@ -154,7 +158,7 @@ class PluginGrcmanagerSecurityWatch extends CommonGLPI
             'keywords'     => $keywords,
             'notices'      => self::noticesFor($keywords, self::TAB_DAYS),
             'days'         => self::TAB_DAYS,
-            'park'         => self::parkFor($keywords),
+            'park'         => PluginGrcmanagerParkVulnerability::canView() ? self::parkFor($keywords) : [],
             'park_url'     => PluginGrcmanagerParkVulnerability::getSearchURL(),
             'enabled'      => ParkVulnerabilitySync::isEnabled(),
             'last_refresh' => ParkVulnerabilitySync::lastCertFrRefresh(),

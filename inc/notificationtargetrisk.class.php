@@ -62,6 +62,12 @@ class PluginGrcmanagerNotificationTargetRisk extends NotificationTarget
             $options['additionnaloption']['usertype'] ?? self::GLPI_USER,
             PluginGrcmanagerRisk::class . '_' . $risk->getID()
         );
+        // Registre sensible : e-mail sans détail par défaut (SensitiveNotification).
+        if (\GlpiPlugin\Grcmanager\Services\Notification\SensitiveNotification::isMinimal()) {
+            $this->data = \GlpiPlugin\Grcmanager\Services\Notification\SensitiveNotification::reduce($this->data, [
+                '##risk.title##' => sprintf(__('Risque n° %d', 'grcmanager'), (int) ($risk->fields['id'] ?? 0)),
+            ], ['##risk.category##', '##risk.risklevel##']);
+        }
 
         $this->getTags();
         foreach ($this->tag_descriptions[NotificationTarget::TAG_LANGUAGE] as $tag => $values) {
