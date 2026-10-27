@@ -5370,3 +5370,15 @@ msgstr "Supplier risk no. %d"
 #, php-format
 msgid "%1$s exporte : %2$s"
 msgstr "%1$s exports: %2$s"
+
+
+msgid "Statuts d'ordinateur exclus des contrôles"
+msgstr "Computer statuses excluded from the checks"
+
+
+msgid "Par exemple « Réformé » ou « En stock » : ces postes ne sont comptés ni dans les écarts ni dans les scores."
+msgstr "For example \"Retired\" or \"In stock\": these computers are counted neither in the gaps nor in the scores."
+
+#, php-format
+msgid "Postes exclus des contrôles (statut) : %s"
+msgstr "Computers excluded from the checks (status): %s"

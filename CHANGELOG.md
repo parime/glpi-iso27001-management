@@ -7,6 +7,13 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Added
+
+- Contrôles techniques automatiques : statuts d'ordinateur exclus des contrôles (#305). Un poste
+  « Réformé » ou « En stock » n'apparaît plus en écart (antivirus, chiffrement, inventaire) ni dans
+  les scores. Réglage sur la page des contrôles, réservé au droit de modification du plugin ; aucun
+  statut exclu par défaut.
+
 ### Fixed
 
 - Sans le dossier `vendor/` (archive incomplète, clone sans `composer install --no-dev`), le plugin
