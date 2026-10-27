@@ -38,10 +38,6 @@ class PluginGrcmanagerAudit extends AuditBase
 
     private const LINK_TABLE = 'glpi_plugin_grcmanager_audits_controls';
 
-    // Issue #140 : onglet Notes (notes de travail datées, auteur conservé), droits READNOTE et
-    // UPDATENOTE du droit du plugin (onglet GRC Manager des profils).
-    protected $usenotepad = true;
-
     public static function getTable($classname = null)
     {
         return 'glpi_plugin_grcmanager_audits';
