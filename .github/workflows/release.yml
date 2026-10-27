@@ -209,3 +209,4 @@ jobs:
           # explicitement la CI pour que les verifications requises s'executent reellement au
           # lieu de rester en attente.
           gh workflow run ci.yml --ref "$BRANCH"
+          gh workflow run security.yml --ref "$BRANCH"
