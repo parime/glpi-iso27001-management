@@ -207,7 +207,11 @@ class PluginGrcmanagerComplianceAudit extends CommonGLPI
         );
         $ids = json_decode((string) ($values[self::EXCLUDED_STATES_KEY] ?? ''), true);
 
-        return is_array($ids) ? array_values(array_filter(array_map('intval', $ids), static fn (int $id): bool => $id > 0)) : [];
+        if (!is_array($ids)) {
+            return [];
+        }
+
+        return array_values(array_filter(array_map('intval', $ids), static fn (int $id): bool => $id > 0));
     }
 
     /**

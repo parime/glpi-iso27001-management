@@ -104,7 +104,10 @@ TemplateRenderer::getInstance()->display('@grcmanager/compliance_audit.html.twig
         && Session::haveRight(Ticket::$rightname, CREATE),
     'can_update'      => Session::haveRight(PluginGrcmanagerComplianceAudit::RIGHTNAME, UPDATE),
     'excluded_states' => $excludedStates,
-    'excluded_names'  => array_map(static fn (int $id): string => Dropdown::getDropdownName(State::getTable(), $id), $excludedStates),
+    'excluded_names'  => array_map(
+        static fn (int $id): string => Dropdown::getDropdownName(State::getTable(), $id),
+        $excludedStates
+    ),
     'hygiene_url'  => PluginGrcmanagerAccountHygiene::getSearchURL(),
     'maturity_url' => PluginGrcmanagerMaturity::getSearchURL(),
     'soa_url'      => PluginGrcmanagerControl::getSearchURL(),
