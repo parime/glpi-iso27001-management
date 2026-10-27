@@ -125,6 +125,9 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
     "$(code -d "add=1&plugin_grcmanager_audits_id=$(id audit)&users_id=2&role=auditee&_glpi_csrf_token=$(csrf)" "$P/auditteam.form.php")"
   expect "front/evidence.form.php : date de validite d'une preuve" "$1" \
     "$(code -d "save=1&itemtype=PluginGrcmanagerPolicy&items_id=$(id policy_A)&documents_id=$(id document_A)&valid_until=2030-01-01&_glpi_csrf_token=$(csrf)" "$P/evidence.form.php")"
+  # Issue #139 : joindre ou retirer une copie de quiz exige de pouvoir modifier la session.
+  expect "front/trainingquiz.form.php : retirer une copie" "$1" \
+    "$(code -d "remove=1&participations_id=$(id quiz)&_glpi_csrf_token=$(csrf)" "$P/trainingquiz.form.php")"
 }
 
 if [ "$ROLE" = none ]; then
@@ -134,6 +137,7 @@ if [ "$ROLE" = none ]; then
     expect "front/$p : sans droit" 403 "$(code "$P/$p")"
   done
   expect "front/training.report.php : sans droit" 403 "$(code "$P/training.report.php?id=$(id training)")"
+  expect "front/trainingquiz.send.php : copie d'un autre, sans droit" 403 "$(code "$P/trainingquiz.send.php?id=$(id quiz)")"
   # Page des responsables de revue : ouverte a toute session, ne montre que leurs propres lignes.
   contains "front/accessreview.mine.php : aucune campagne d'autrui" "Campagne securite" non "$(curl -s -c "$JAR" -b "$JAR" "$P/accessreview.mine.php")"
   # Issue #168 : la salle de crise refuse avant meme de chercher l'exercice.
@@ -156,6 +160,7 @@ if [ "$ROLE" = reader ]; then
     expect "front/$p : en lecture" 200 "$(code "$P/$p")"
   done
   expect "front/training.report.php : en lecture" 200 "$(code "$P/training.report.php?id=$(id training)")"
+  expect "front/trainingquiz.send.php : copie d'un autre, en lecture" 403 "$(code "$P/trainingquiz.send.php?id=$(id quiz)")"
   expect "s'assigner un incident en lecture seule" 403 \
     "$(code -d "addme_assign=1&plugin_grcmanager_securityincidents_id=$(id incident_A)&_glpi_csrf_token=$(csrf)" "$P/securityincident.form.php")"
   create_attempts 403 403
@@ -175,6 +180,9 @@ expect "reference CVE sur un incident de B" "$([ "$ROLE" = admin ] && echo 302 |
 # jamais avec le seul droit Documents de GLPI ou le droit du plugin.
 expect "document d'audit (equipe de l'audit seulement)" "$([ "$ROLE" = admin ] && echo 200 || echo 403)" \
   "$(code "$BASE/front/document.send.php?docid=$(id audit_document)")"
+# Issue #139 : la copie de quiz de glpi ne se lit que par lui (ni formateur ni groupe RSSI ici).
+expect "front/trainingquiz.send.php : copie d'un autre" "$([ "$ROLE" = admin ] && echo 200 || echo 403)" \
+  "$(code "$P/trainingquiz.send.php?id=$(id quiz)")"
 # Issue #142 : le flux iCal d'abonnement ignore la session et n'accepte qu'un jeton personnel valide.
 expect "front/compliancecalendar.ics.php : sans jeton" 403    "$(curl -s -o /dev/null -w '%{http_code}' "$P/compliancecalendar.ics.php")"
 expect "front/compliancecalendar.ics.php : jeton invalide" 403    "$(code "$P/compliancecalendar.ics.php?token=jeton-invalide")"

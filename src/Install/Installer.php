@@ -884,6 +884,13 @@ final class Installer
             ]);
             $migration->migrationOneTable(self::TRAININGS_USERS_TABLE);
         }
+        // Issue #139 : copie de quiz corrigée du participant (document restreint au participant, au
+        // formateur et au groupe RSSI, voir PluginGrcmanagerTrainingQuiz).
+        if (!$DB->fieldExists(self::TRAININGS_USERS_TABLE, 'documents_id')) {
+            $migration->addField(self::TRAININGS_USERS_TABLE, 'documents_id', 'fkey', ['after' => 'score']);
+            $migration->addKey(self::TRAININGS_USERS_TABLE, 'documents_id');
+            $migration->migrationOneTable(self::TRAININGS_USERS_TABLE);
+        }
         // Issue #139 : une formation peut avoir plusieurs sessions (chaque session est une ligne
         // rattachée à sa formation principale), avec son formateur et son lieu ou lien.
         if (!$DB->fieldExists(self::TRAININGS_TABLE, 'plugin_grcmanager_trainings_id')) {

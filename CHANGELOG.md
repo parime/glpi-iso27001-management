@@ -15,6 +15,12 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   et de la formation toutes sessions, bouton « Ajouter une session » (formulaire prérempli, rien
   n'est enregistré avant « Ajouter »). Une session de rattrapage est rattachée à la même formation.
   Formateur et lieu sont aussi des colonnes de la liste des formations.
+- **Copie de quiz de chaque participant** (issue #139) : onglet **Copies de quiz** de la session pour
+  joindre ou retirer la copie corrigée. Elle ne se lit que par le participant, le formateur de la
+  session et le groupe RSSI (registre des documents restreints), même avec le droit Documents de
+  GLPI ; chaque téléchargement est historisé. Onglet **Mes formations** dans les préférences : le
+  participant y voit ses formations, ses notes et ses copies, sans droit sur le plugin. La copie
+  disparaît avec le participant ou la session.
 - **Documents d'audit réservés à l'équipe de l'audit** (issue #140) : les documents joints à un
   audit interne ou à l'un de ses constats (et le rapport PDF archivé) ne se lisent que par
   l'auditeur et le responsable de l'audit, les membres de l'onglet **Équipe** (auditeurs, ou audités

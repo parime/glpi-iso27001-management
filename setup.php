@@ -262,6 +262,9 @@ function plugin_init_grcmanager(): void
     Plugin::registerClass(PluginGrcmanagerSecurityIncidentTicket::class, [
         'addtabon' => ['Ticket', PluginGrcmanagerSecurityIncident::class],
     ]);
+    // Issue #139 : « Mes formations » dans les préférences (résultats et copies de quiz de
+    // l'utilisateur, sans droit sur le plugin).
+    Plugin::registerClass(PluginGrcmanagerTrainingQuiz::class, ['addtabon' => [Preference::class]]);
     // Onglet « GRC Manager » des profils : attribuer les droits du plugin sans passer par la base.
     Plugin::registerClass(PluginGrcmanagerProfile::class, ['addtabon' => [Profile::class]]);
     // Issue #141 : le ticket créé par le ticket récurrent d'une revue devient son ticket en cours ;

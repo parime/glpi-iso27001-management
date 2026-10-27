@@ -5303,3 +5303,43 @@ msgstr "Aucune autre session pour cette formation."
 
 msgid "Session"
 msgstr "Session"
+
+#, php-format
+msgid "Copie de quiz - %1$s - %2$s"
+msgstr "Copie de quiz - %1$s - %2$s"
+
+msgid "Mes formations"
+msgstr "Mes formations"
+
+msgid "Copies de quiz"
+msgstr "Copies de quiz"
+
+msgid "Choisissez le fichier de la copie."
+msgstr "Choisissez le fichier de la copie."
+
+msgid "La copie n'a pas pu être jointe (type de fichier non autorisé ?)."
+msgstr "La copie n'a pas pu être jointe (type de fichier non autorisé ?)."
+
+msgid "Chaque copie ne se lit que par son participant, le formateur de la session et le groupe RSSI."
+msgstr "Chaque copie ne se lit que par son participant, le formateur de la session et le groupe RSSI."
+
+msgid "Aucun participant pour cette session."
+msgstr "Aucun participant pour cette session."
+
+msgid "Copie de quiz"
+msgstr "Copie de quiz"
+
+msgid "Télécharger"
+msgstr "Télécharger"
+
+msgid "Jointe (accès réservé)"
+msgstr "Jointe (accès réservé)"
+
+msgid "Aucune"
+msgstr "Aucune"
+
+msgid "Retirer la copie"
+msgstr "Retirer la copie"
+
+msgid "Vous n'êtes inscrit à aucune formation."
+msgstr "Vous n'êtes inscrit à aucune formation."
