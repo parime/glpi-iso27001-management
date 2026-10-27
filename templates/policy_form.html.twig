@@ -13,4 +13,7 @@
    {{ fields.dateField('approval_date', item.fields['approval_date'], __('Date d\'approbation', 'grcmanager')) }}
    {{ fields.dateField('next_review_date', item.fields['next_review_date'], __('Prochaine revue', 'grcmanager')) }}
    {{ fields.textareaField('description', item.fields['description'], __('Description', 'grcmanager'), {'full_width': true}) }}
+   {{ fields.checkboxField('is_it_charter', item.fields['is_it_charter'] ?? 0, __('Charte informatique', 'grcmanager'), {
+      'add_field_html': hints.hint(__('Version de référence des campagnes de charte d\'assetsign : la version approuvée la plus récente y figure, et une nouvelle version approuvée appelle une nouvelle signature.', 'grcmanager')),
+   }) }}
 {% endblock %}

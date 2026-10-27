@@ -18,6 +18,18 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   personnel à coller dans Outlook, Thunderbird ou Google Agenda (toutes les échéances, ou les
   siennes). Le flux est lu sans session, avec le jeton personnel de l'utilisateur (comme le flux du
   planning de GLPI), et ne contient que ce qu'il voit ; régénérer son jeton révoque le lien.
+- **Hygiène des comptes : changement de service** (issue #184) : nouveau contrôle « Groupes
+  modifiés, profils non revus ». Les groupes du compte (dont ceux synchronisés depuis l'annuaire)
+  ont changé pendant la période choisie et ses habilitations GLPI n'ont pas été revues depuis :
+  ses anciens droits sont peut-être restés. D'après l'historique de GLPI ; les groupes posés le
+  jour de la création du compte ne comptent pas. Un compte désactivé dans Active Directory est déjà
+  signalé « Supprimé de l'annuaire » quand le filtre de synchronisation LDAP de GLPI exclut les
+  comptes désactivés.
+- **Charte informatique** (issue #283) : case « Charte informatique » sur une politique de
+  sécurité. Sa fiche montre les signatures (dernière campagne de charte d'assetsign de chaque
+  entité, signées / total) et signale les entités dont la dernière campagne précède la version
+  approuvée (« à faire signer »). Avec assetsign ≥ la version qui le prend en charge, la version
+  approuvée la plus récente figure dans les campagnes de charte. Rien n'est lancé automatiquement.
 
 ### Security
 

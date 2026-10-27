@@ -17,6 +17,7 @@ final class AccountHygieneRules
     public const NEVER_USED = 'never_used';
     public const DUPLICATE_EMAIL = 'duplicate_email';
     public const DUPLICATE_NAME = 'duplicate_name';
+    public const GROUP_CHANGED = 'group_changed';
 
     /** Durées d'inactivité proposées, en jours. */
     public const INACTIVITY_DAYS = [30, 60, 90, 180, 365];
@@ -55,6 +56,36 @@ final class AccountHygieneRules
         }
 
         return $checks;
+    }
+
+    /**
+     * Issue #184, phase 2 : changement de service. Les groupes du compte (dont ceux synchronisés
+     * depuis l'annuaire) ont changé pendant la période, et ses profils GLPI n'ont pas été revus
+     * depuis : ses anciens droits sont peut-être restés. Les groupes posés le jour de la création
+     * du compte ne comptent pas (compte neuf, pas un changement de service).
+     */
+    public static function groupChangedWithoutProfileReview(
+        ?string $lastGroupChange,
+        ?string $lastProfileChange,
+        ?string $created,
+        string $now,
+        int $days
+    ): bool {
+        if ($lastGroupChange === null || $lastGroupChange === '') {
+            return false;
+        }
+        $since = date('Y-m-d H:i:s', (int) strtotime($now . ' -' . $days . ' days'));
+        if ($lastGroupChange < $since) {
+            return false;
+        }
+        if ($created !== null && $created !== '') {
+            $settling = date('Y-m-d H:i:s', (int) strtotime($created . ' +1 day'));
+            if ($lastGroupChange <= $settling) {
+                return false;
+            }
+        }
+
+        return $lastProfileChange === null || $lastProfileChange === '' || $lastProfileChange < $lastGroupChange;
     }
 
     /**

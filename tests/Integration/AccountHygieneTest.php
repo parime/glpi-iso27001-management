@@ -87,6 +87,41 @@ final class AccountHygieneTest extends GrcmanagerIntegrationTestCase
         $this->assertArrayNotHasKey($idle, $this->checksById(365), 'Sous le seuil choisi.');
     }
 
+    /** Issue #184, phase 2 : changement de groupe sans revue des profils. */
+    public function testAGroupChangeWithoutProfileReviewIsReported(): void
+    {
+        global $DB;
+
+        $entity = $this->createTestEntity(0, 'PHPUnit hygiène C ' . random_int(1000, 9999));
+        $now = date('Y-m-d H:i:s');
+        $moved = $this->userIn($entity, 'Mute', [
+            'last_login' => $now, 'date_creation' => date('Y-m-d H:i:s', strtotime('-400 days')),
+        ]);
+        $reviewed = $this->userIn($entity, 'Revu', [
+            'last_login' => $now, 'date_creation' => date('Y-m-d H:i:s', strtotime('-400 days')),
+        ]);
+        // Habilitations posées à la création : datées comme le compte (historique ancien).
+        $DB->update('glpi_logs', ['date_mod' => date('Y-m-d H:i:s', strtotime('-400 days'))], [
+            'itemtype' => 'User', 'items_id' => [$moved, $reviewed],
+        ]);
+        $group = (int) (new \Group())->add(['name' => 'PHPUnit Comptabilité', 'entities_id' => 0]);
+        foreach ([$moved, $reviewed] as $usersId) {
+            (new \Group_User())->add(['users_id' => $usersId, 'groups_id' => $group]);
+        }
+        // L'un voit ses profils revus après son changement de groupe.
+        $DB->update('glpi_logs', ['date_mod' => date('Y-m-d H:i:s', strtotime('-1 hour'))], [
+            'itemtype' => 'User', 'items_id' => [$moved, $reviewed], 'itemtype_link' => 'Group',
+        ]);
+        (new \Profile_User())->add(['users_id' => $reviewed, 'profiles_id' => 2, 'entities_id' => $entity]);
+
+        $_SESSION['glpiactiveentities'] = [$entity];
+        $_SESSION['glpiactiveentities_string'] = (string) $entity;
+        $checks = $this->checksById();
+
+        $this->assertSame([AccountHygieneRules::GROUP_CHANGED], $checks[$moved]);
+        $this->assertArrayNotHasKey($reviewed, $checks, 'Profils revus après le changement de groupe.');
+    }
+
     public function testTheReviewTicketListsTheCheckedAccountsAndChangesNothing(): void
     {
         $entity = $this->createTestEntity(0, 'PHPUnit hygiène C ' . random_int(1000, 9999));

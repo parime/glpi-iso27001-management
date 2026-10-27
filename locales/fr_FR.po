@@ -5166,3 +5166,33 @@ msgstr "Lien d'abonnement pour votre agenda (Outlook, Thunderbird, Google Agenda
 
 msgid "Lien personnel : il donne accès à vos échéances avec vos droits, sans mot de passe. Ne le partagez pas. Pour le révoquer, régénérez votre jeton personnel dans vos préférences."
 msgstr "Lien personnel : il donne accès à vos échéances avec vos droits, sans mot de passe. Ne le partagez pas. Pour le révoquer, régénérez votre jeton personnel dans vos préférences."
+
+#, php-format
+msgid "Groupes modifiés depuis moins de %d jours, profils non revus"
+msgstr "Groupes modifiés depuis moins de %d jours, profils non revus"
+
+msgid "Charte informatique"
+msgstr "Charte informatique"
+
+msgid "Version de référence des campagnes de charte d'assetsign : la version approuvée la plus récente y figure, et une nouvelle version approuvée appelle une nouvelle signature."
+msgstr "Version de référence des campagnes de charte d'assetsign : la version approuvée la plus récente y figure, et une nouvelle version approuvée appelle une nouvelle signature."
+
+msgid "Signatures de la charte"
+msgstr "Signatures de la charte"
+
+msgid "Les signatures sont suivies par les campagnes de charte du plugin assetsign, qui n'est pas installé ou pas à jour."
+msgstr "Les signatures sont suivies par les campagnes de charte du plugin assetsign, qui n'est pas installé ou pas à jour."
+
+#, php-format
+msgid "Aucune campagne de charte dans vos entités : lancez-en une dans assetsign pour faire signer la version %s."
+msgstr "Aucune campagne de charte dans vos entités : lancez-en une dans assetsign pour faire signer la version %s."
+
+msgid "Dernière campagne"
+msgstr "Dernière campagne"
+
+#, php-format
+msgid "Version %s approuvée après cette campagne : à faire signer"
+msgstr "Version %s approuvée après cette campagne : à faire signer"
+
+msgid "Campagnes de charte (assetsign)"
+msgstr "Campagnes de charte (assetsign)"
