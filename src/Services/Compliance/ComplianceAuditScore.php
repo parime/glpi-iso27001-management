@@ -126,7 +126,10 @@ final class ComplianceAuditScore
         $filesystem = strtolower(trim($filesystem));
         // Lecteur optique ou de cartes vide remonté par l'agent : ni taille ni système de fichiers
         // (un disque saisi à la main sans ces détails reste compté).
-        if (($isDynamic && $totalsize <= 0 && $filesystem === '') || in_array($filesystem, self::UNENCRYPTABLE_FILESYSTEMS, true)) {
+        if (
+            ($isDynamic && $totalsize <= 0 && $filesystem === '')
+            || in_array($filesystem, self::UNENCRYPTABLE_FILESYSTEMS, true)
+        ) {
             return false;
         }
         if (!str_starts_with($mountpoint, '/')) {
