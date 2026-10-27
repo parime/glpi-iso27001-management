@@ -7,6 +7,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.15.0] - 2026-10-27
+
 ### Security
 
 - **Registres sensibles** : le registre des risques et les risques fournisseurs, les plans de
