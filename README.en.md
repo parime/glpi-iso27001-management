@@ -123,6 +123,16 @@ page and through the breadcrumb.
 Security incidents live in **Assistance**, next to tickets. Plugin rights are granted to any profile
 from the **GRC Manager** tab of Administration > Profiles.
 
+## Sensitive registers
+
+The risk register, fleet vulnerabilities and network flow matrix describe the organisation's weak
+points: an ideal map for an attacker. The plugin protects them at its own level:
+
+- a **dedicated right**, "Registres sensibles", separate from the general ISMS right: give it to the
+  CISO and risk owners only (Administration > Profiles, GRC Manager tab). Without it, these registers
+  appear nowhere, neither in other records nor in the dashboard;
+- **history** of risk changes, and a **trace of register exports** in GLPI's event log;
+- **e-mails without details** by default ("Risk no. X" and the link to the record).
 ## Project status
 
 **Stable**, published and installable right now, for GLPI 11 and 12: see the

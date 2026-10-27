@@ -189,12 +189,14 @@ $b = $entityId('Securite ISO B');
 // Gestionnaire : tous les droits du plugin ; lecteur : lecture seule. Tous deux limités à A.
 $manager = $userId('iso-gestionnaire', $a, $profileId('Securite ISO - gestionnaire A', [
     'plugin_grcmanager'                  => ALLSTANDARDRIGHT,
+    'plugin_grcmanager_sensitive'        => ALLSTANDARDRIGHT,
     'plugin_grcmanager_securityincident' => ALLSTANDARDRIGHT | CommonITILObject::READALL | CommonITILObject::READMY,
     'computer' => READ, 'contract' => READ, 'supplier' => READ, 'user' => READ, 'document' => READ,
     'software' => READ,
 ]));
 $reader = $userId('iso-lecteur', $a, $profileId('Securite ISO - lecteur A', [
     'plugin_grcmanager'                  => READ,
+    'plugin_grcmanager_sensitive'        => READ,
     'plugin_grcmanager_securityincident' => CommonITILObject::READALL,
     'computer' => READ, 'contract' => READ, 'supplier' => READ, 'user' => READ, 'software' => READ,
 ]));
@@ -204,9 +206,19 @@ $reader = $userId('iso-lecteur', $a, $profileId('Securite ISO - lecteur A', [
 // (revue de sécurité 2.11.0, contenu d'onglet demandé directement).
 $noRight = $userId('iso-sans-droit', $a, $profileId('Securite ISO - sans droit', [
     'plugin_grcmanager'                  => 0,
+    'plugin_grcmanager_sensitive'        => 0,
     'plugin_grcmanager_securityincident' => 0,
     'computer'                           => READ,
     'software'                           => READ,
+]));
+
+// Registres sensibles : tout le SMSI en gestion, mais pas le droit dédié (risques, vulnérabilités du
+// parc, flux réseau, analyse d'impact) : ces écrans, cartes et titres de risques lui sont refusés.
+$general = $userId('iso-general', $a, $profileId('Securite ISO - sans registres sensibles', [
+    'plugin_grcmanager'                  => ALLSTANDARDRIGHT,
+    'plugin_grcmanager_sensitive'        => 0,
+    'plugin_grcmanager_securityincident' => 0,
+    'computer' => READ, 'software' => READ, 'supplier' => READ, 'contract' => READ, 'user' => READ,
 ]));
 
 $control = $DB->request([
@@ -274,6 +286,12 @@ PluginGrcmanagerTrainingQuiz::attach($ids['quiz'], $quizPrefix . 'copie-quiz.txt
 $ids['risk'] = $add(new PluginGrcmanagerRisk(), [
     'title' => 'Risque securite', 'linked_items_Computer' => [$ids['computer_B']],
 ]);
+// Registres sensibles : la fiche du contrôle, lisible sans le droit dédié, ne doit pas montrer ce
+// risque lié.
+$linkWhere = ['plugin_grcmanager_controls_id' => $controlId, 'plugin_grcmanager_risks_id' => (int) $ids['risk']];
+if (countElementsInTable('glpi_plugin_grcmanager_controls_risks', $linkWhere) === 0) {
+    $DB->insert('glpi_plugin_grcmanager_controls_risks', $linkWhere + ['date_creation' => date('Y-m-d H:i:s')]);
+}
 // Issue #140 : audit avec équipe, document restreint, note, groupe RSSI et accès historisé, pour
 // que le contrôle des restes après désinstallation porte aussi sur ces données.
 $ids['audit'] = $add(new PluginGrcmanagerAudit(), ['title' => 'Audit securite', 'users_id' => 2]);

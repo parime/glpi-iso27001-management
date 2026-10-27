@@ -15,17 +15,19 @@
  * -------------------------------------------------------------------------
  */
 
+use GlpiPlugin\Grcmanager\Install\Installer;
 use GlpiPlugin\Grcmanager\Services\Cve\NvdConfig;
 use GlpiPlugin\Grcmanager\Services\GithubVersionChecker;
 use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentModuleConfig;
+use GlpiPlugin\Grcmanager\Services\Notification\SensitiveNotification;
 use GlpiPlugin\Grcmanager\Services\Risk\RiskMatrixConfig;
 
 include('../../../inc/includes.php');
 
-Session::checkRight(PluginGrcmanagerRisk::$rightname, READ);
+Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, READ);
 
 if (isset($_POST['update_risk_matrix'])) {
-    Session::checkRight(PluginGrcmanagerRisk::$rightname, UPDATE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
 
     $probabilities = array_keys(PluginGrcmanagerRisk::getProbabilities());
     $impacts       = array_keys(PluginGrcmanagerRisk::getImpacts());
@@ -45,7 +47,7 @@ if (isset($_POST['update_risk_matrix'])) {
 }
 
 if (isset($_POST['update_securityincident_modules'])) {
-    Session::checkRight(PluginGrcmanagerRisk::$rightname, UPDATE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
 
     SecurityIncidentModuleConfig::save([
         'securityincident_enabled'           => isset($_POST['securityincident_enabled']),
@@ -58,8 +60,19 @@ if (isset($_POST['update_securityincident_modules'])) {
 }
 
 // Issue #140 : groupe RSSI, audience des documents de tous les audits.
+// Registres sensibles : contenu des notifications (risques, risques fournisseurs, actions de
+// traitement). Réglage réservé à qui gère ces registres.
+if (isset($_POST['update_sensitive_config'])) {
+    Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::SENSITIVE_RIGHT, UPDATE);
+
+    SensitiveNotification::setMinimal(!empty($_POST['notifications_minimal']));
+
+    Html::back();
+}
+
 if (isset($_POST['update_audit_config'])) {
-    Session::checkRight(PluginGrcmanagerRisk::$rightname, UPDATE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
 
     PluginGrcmanagerAuditTeam::setCisoGroupId((int) ($_POST['ciso_groups_id'] ?? 0));
 
@@ -67,7 +80,7 @@ if (isset($_POST['update_audit_config'])) {
 }
 
 if (isset($_POST['update_nvd_config'])) {
-    Session::checkRight(PluginGrcmanagerRisk::$rightname, UPDATE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
 
     NvdConfig::save([
         'enable_nvd_enrichment' => isset($_POST['enable_nvd_enrichment']),
@@ -105,6 +118,8 @@ Html::header(
     'park_thresholds'           => PluginGrcmanagerParkVulnerability::getTicketThresholds(),
     'max_tickets'               => PluginGrcmanagerParkVulnerability::MAX_TICKETS_PER_RUN,
     'ciso_groups_id'            => PluginGrcmanagerAuditTeam::getCisoGroupId(),
+    'notifications_minimal'     => SensitiveNotification::isMinimal(),
+    'can_edit_sensitive'        => Session::haveRight(Installer::SENSITIVE_RIGHT, UPDATE),
 ]);
 
 Html::footer();

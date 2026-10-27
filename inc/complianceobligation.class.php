@@ -147,6 +147,10 @@ class PluginGrcmanagerComplianceObligation extends ComplianceObligationBase
             );
         }
 
+        // Registre sensible : un formulaire forgé sans son droit ne modifie pas le risque lié.
+        if (array_key_exists('plugin_grcmanager_risks_id', $input) && !PluginGrcmanagerRisk::canView()) {
+            unset($input['plugin_grcmanager_risks_id']);
+        }
         if (array_key_exists('plugin_grcmanager_risks_id', $input)) {
             $input['plugin_grcmanager_risks_id'] = ComplianceObligationRules::normalizeLinkedRiskId(
                 $input['plugin_grcmanager_risks_id']
@@ -322,7 +326,8 @@ class PluginGrcmanagerComplianceObligation extends ComplianceObligationBase
 
     private static function riskLink(int $riskId): string
     {
-        if (!ComplianceObligationRules::isLinkedToRisk($riskId)) {
+        // Registre sensible : le titre du risque lié n'apparaît pas dans la liste sans son droit.
+        if (!ComplianceObligationRules::isLinkedToRisk($riskId) || !PluginGrcmanagerRisk::canView()) {
             return '';
         }
 
@@ -343,9 +348,14 @@ class PluginGrcmanagerComplianceObligation extends ComplianceObligationBase
         // Lien optionnel zéro-ou-un vers un risque du registre (issue #30 : "si le non-respect de
         // cette obligation constitue un risque identifié"), colonne directe (voir docblock de
         // classe) avec une option "Aucun" (id 0).
+        // Registre sensible : titres des risques seulement avec son droit ; sans le champ, le lien
+        // existant n'est pas modifié à l'enregistrement.
+        $canViewRisks = PluginGrcmanagerRisk::canView();
         $riskTitles = [0 => Dropdown::EMPTY_VALUE];
-        foreach ($DB->request(['SELECT' => ['id', 'title'], 'FROM' => PluginGrcmanagerRisk::getTable()]) as $row) {
-            $riskTitles[(int) $row['id']] = $row['title'];
+        if ($canViewRisks) {
+            foreach ($DB->request(['SELECT' => ['id', 'title'], 'FROM' => PluginGrcmanagerRisk::getTable()]) as $row) {
+                $riskTitles[(int) $row['id']] = $row['title'];
+            }
         }
 
         TemplateRenderer::getInstance()->display('@grcmanager/compliance_obligation_form.html.twig', [
@@ -354,6 +364,7 @@ class PluginGrcmanagerComplianceObligation extends ComplianceObligationBase
             'types'          => self::getTypes(),
             'statuses'       => self::getComplianceStatuses(),
             'risks'          => $riskTitles,
+            'can_view_risks' => $canViewRisks,
             'default_type'   => ComplianceObligationRules::DEFAULT_TYPE,
             'default_status' => ComplianceObligationRules::DEFAULT_STATUS,
         ]);

@@ -130,6 +130,17 @@ tête de page et par le fil d'Ariane.
 Les incidents de sécurité sont dans **Assistance**, à côté des tickets. Les droits du plugin se
 donnent à n'importe quel profil depuis l'onglet **GRC Manager** d'Administration > Profils.
 
+## Registres sensibles
+
+Le registre des risques, les vulnérabilités du parc et la matrice des flux décrivent les points
+faibles de l'organisation : la carte idéale pour un attaquant. Le plugin les protège à son niveau :
+
+- un **droit dédié**, « Registres sensibles », distinct du droit général du SMSI : donnez-le au RSSI
+  et aux propriétaires de risques seulement (Administration > Profils, onglet GRC Manager). Sans lui,
+  ces registres n'apparaissent nulle part, ni dans les autres fiches, ni dans le tableau de bord ;
+- l'**historique** des modifications des risques, et la **trace des exports** du registre dans le
+  journal des événements de GLPI ;
+- des **e-mails sans détail** par défaut (« Risque n° X » et le lien vers la fiche).
 ## État du projet
 
 **Stable**, publié et installable dès maintenant, pour GLPI 11 et 12 : voir la
