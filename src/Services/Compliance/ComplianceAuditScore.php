@@ -97,4 +97,46 @@ final class ComplianceAuditScore
             && !empty($antivirus['is_uptodate'])
             && ($expiration === '' || substr($expiration, 0, 10) >= $today);
     }
+
+    /**
+     * Systèmes de fichiers jamais chiffrés par BitLocker, LUKS ou FileVault au niveau du volume :
+     * partages réseau, supports optiques, FAT (partition EFI, clés USB), pseudo-systèmes Linux.
+     */
+    private const UNENCRYPTABLE_FILESYSTEMS = [
+        'cifs', 'smbfs', 'smb', 'nfs', 'nfs4', 'afpfs', 'webdav', 'hgfs', 'fuse.sshfs',
+        'cdfs', 'udf', 'iso9660',
+        'fat', 'fat16', 'fat32', 'vfat', 'msdos', 'exfat',
+        'tmpfs', 'devtmpfs', 'ramfs', 'squashfs', 'overlay', 'efivarfs', 'proc', 'sysfs', 'autofs',
+    ];
+
+    /**
+     * Issue #308 : volume à prendre en compte dans le contrôle de chiffrement. Sous Windows, l'agent
+     * inventorie aussi les volumes sans lettre (partition EFI, récupération, « Réservé au
+     * système ») que BitLocker ne chiffre jamais : ils marquaient tous les postes comme non chiffrés.
+     * Restent les lecteurs à lettre sous Windows et les points de montage hors démarrage et
+     * pseudo-systèmes sous Linux et macOS.
+     */
+    public static function isEncryptableVolume(
+        string $mountpoint,
+        string $filesystem,
+        int $totalsize,
+        bool $isDynamic = true
+    ): bool {
+        $mountpoint = trim($mountpoint);
+        $filesystem = strtolower(trim($filesystem));
+        // Lecteur optique ou de cartes vide remonté par l'agent : ni taille ni système de fichiers
+        // (un disque saisi à la main sans ces détails reste compté).
+        if (
+            ($isDynamic && $totalsize <= 0 && $filesystem === '')
+            || in_array($filesystem, self::UNENCRYPTABLE_FILESYSTEMS, true)
+        ) {
+            return false;
+        }
+        if (!str_starts_with($mountpoint, '/')) {
+            return preg_match('/^[A-Za-z]:\\\\?$/', $mountpoint) === 1;
+        }
+
+        return preg_match('#^/(boot|snap|run|dev|proc|sys)(/|$)#', $mountpoint) !== 1
+            && (!str_starts_with($mountpoint, '/System/Volumes/') || $mountpoint === '/System/Volumes/Data');
+    }
 }
