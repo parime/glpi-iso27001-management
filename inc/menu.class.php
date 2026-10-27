@@ -49,8 +49,9 @@ class PluginGrcmanagerMenu extends CommonGLPI
         ];
     }
 
-    /** Pseudo-élément de « Vulnérabilités du parc » : page sans classe propre. */
+    /** Pseudo-éléments de « Vulnérabilités du parc » : pages sans classe propre. */
     public const SOFTWARE_WATCH = 'softwarewatch';
+    public const MACHINE_RANKING = 'parkmachines';
 
     /**
      * Rubriques du menu qui regroupent plusieurs écrans d'un même travail : une seule entrée de
@@ -67,7 +68,9 @@ class PluginGrcmanagerMenu extends CommonGLPI
             PluginGrcmanagerControl::class           => [PluginGrcmanagerReferentials::class],
             PluginGrcmanagerEvidence::class          => [PluginGrcmanagerCoverageRule::class],
             PluginGrcmanagerAccessReview::class      => [PluginGrcmanagerAccountHygiene::class],
-            PluginGrcmanagerParkVulnerability::class => [self::SOFTWARE_WATCH, PluginGrcmanagerCanonicalProduct::class],
+            PluginGrcmanagerParkVulnerability::class => [
+                self::MACHINE_RANKING, self::SOFTWARE_WATCH, PluginGrcmanagerCanonicalProduct::class,
+            ],
         ];
     }
 
@@ -90,6 +93,13 @@ class PluginGrcmanagerMenu extends CommonGLPI
                 'title' => __('Logiciels à surveiller', 'grcmanager'),
                 'page'  => '/plugins/grcmanager/front/softwarewatch.php',
                 'icon'  => 'ti ti-radar',
+            ] : null;
+        }
+        if ($child === self::MACHINE_RANKING) {
+            return PluginGrcmanagerParkVulnerability::canView() ? [
+                'title' => __('Machines les plus exposées', 'grcmanager'),
+                'page'  => PluginGrcmanagerParkVulnerability::getRankingURL(false),
+                'icon'  => 'ti ti-device-desktop-exclamation',
             ] : null;
         }
         $menu = $child::getMenuContent();

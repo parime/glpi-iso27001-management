@@ -5125,3 +5125,35 @@ msgstr "Requested by"
 
 msgid "Vous ne pouvez pas approuver une dérogation que vous avez demandée."
 msgstr "You cannot approve a waiver you requested."
+
+msgid "Machines les plus exposées"
+msgstr "Most exposed machines"
+
+msgid "Les machines les plus exposées aux vulnérabilités connues de leurs logiciels surveillés, pour savoir par où commencer les mises à jour."
+msgstr "The machines most exposed to the known vulnerabilities of their watched software, to know where to start updating."
+
+msgid "Traitez d'abord les machines du haut de la liste ; l'onglet « Vulnérabilités » de chacune détaille les CVE et le ticket de mise à jour."
+msgstr "Handle the machines at the top of the list first; the \"Vulnerabilities\" tab of each one details the CVEs and the update ticket."
+
+msgid "Aucune machine ne porte de vulnérabilité connue parmi les logiciels surveillés."
+msgstr "No machine has a known vulnerability among the watched software."
+
+msgid "Machine"
+msgstr "Machine"
+
+msgid "Exploitées (KEV)"
+msgstr "Exploited (KEV)"
+
+msgid "CVSS max"
+msgstr "Max CVSS"
+
+msgid "EPSS max"
+msgstr "Max EPSS"
+
+#, php-format
+msgid "%1$d machines affichées sur %2$d machines exposées."
+msgstr "%1$d machines shown out of %2$d exposed machines."
+
+#, php-format
+msgid "Score d'exposition de 0 à 100 : la vulnérabilité la plus grave (10 si elle est activement exploitée) compte pour 70 %, le nombre de vulnérabilités prioritaires pour 30 %. C'est un ordre de traitement, pas une mesure normalisée."
+msgstr "Exposure score from 0 to 100: the most severe vulnerability (10 if it is actively exploited) counts for 70%, the number of priority vulnerabilities for 30%. It is an order of treatment, not a standardised measure."
