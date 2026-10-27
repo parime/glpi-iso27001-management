@@ -124,7 +124,8 @@ tête de page et par le fil d'Ariane.
 | Opérations | Revues des accès, Hygiène des comptes, Revues périodiques, Formations, Exercices de crise |
 | Sécurité technique | Contrôles techniques automatiques, Vulnérabilités du parc, Machines les plus exposées, Logiciels à surveiller, Produits, Matrice des flux |
 
-Les incidents de sécurité sont dans **Assistance**, à côté des tickets.
+Les incidents de sécurité sont dans **Assistance**, à côté des tickets. Les droits du plugin se
+donnent à n'importe quel profil depuis l'onglet **GRC Manager** d'Administration > Profils.
 
 ## État du projet
 
