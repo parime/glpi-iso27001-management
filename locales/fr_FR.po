@@ -5196,3 +5196,6 @@ msgstr "Version %s approuvée après cette campagne : à faire signer"
 
 msgid "Campagnes de charte (assetsign)"
 msgstr "Campagnes de charte (assetsign)"
+
+msgid "Gouvernance de la sécurité (SMSI)"
+msgstr "Gouvernance de la sécurité (SMSI)"

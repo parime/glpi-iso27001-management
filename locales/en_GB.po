@@ -5196,3 +5196,6 @@ msgstr "Version %s approved after this campaign: to be signed"
 
 msgid "Campagnes de charte (assetsign)"
 msgstr "Charter campaigns (assetsign)"
+
+msgid "Gouvernance de la sécurité (SMSI)"
+msgstr "Security governance (ISMS)"
