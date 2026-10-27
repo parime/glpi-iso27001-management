@@ -52,8 +52,11 @@ Html::header(
     PluginGrcmanagerCrisisExercise::getTypeName(Session::getPluralNumber()),
     PluginGrcmanagerCrisisExercise::getSearchURL(),
     'grcmanager',
+    PluginGrcmanagerAccessReview::class,
     PluginGrcmanagerCrisisExercise::class
 );
+// Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
+PluginGrcmanagerMenu::showSection(PluginGrcmanagerAccessReview::class, PluginGrcmanagerCrisisExercise::class);
 // Encadré « À quoi sert cette page ? ».
 PluginGrcmanagerPageHelp::show('crisisexercise');
 TemplateRenderer::getInstance()->display('@grcmanager/crisis_exercises.html.twig', [

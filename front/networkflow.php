@@ -27,8 +27,11 @@ Html::header(
     PluginGrcmanagerNetworkFlow::getTypeName(2),
     PluginGrcmanagerNetworkFlow::getSearchURL(),
     'grcmanager',
+    PluginGrcmanagerComplianceAudit::class,
     PluginGrcmanagerNetworkFlow::class
 );
+// Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
+PluginGrcmanagerMenu::showSection(PluginGrcmanagerComplianceAudit::class, PluginGrcmanagerNetworkFlow::class);
 // Encadré « À quoi sert cette page ? ».
 PluginGrcmanagerPageHelp::show('networkflow');
 

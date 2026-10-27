@@ -27,8 +27,11 @@ Html::header(
     PluginGrcmanagerIsmsRequirement::getTypeName(2),
     $_SERVER['PHP_SELF'],
     'grcmanager',
+    PluginGrcmanagerControl::class,
     PluginGrcmanagerIsmsRequirement::class
 );
+// Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
+PluginGrcmanagerMenu::showSection(PluginGrcmanagerControl::class, PluginGrcmanagerIsmsRequirement::class);
 // Encadré « À quoi sert cette page ? ».
 PluginGrcmanagerPageHelp::show('ismsrequirement');
 

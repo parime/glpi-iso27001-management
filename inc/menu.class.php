@@ -63,13 +63,36 @@ class PluginGrcmanagerMenu extends CommonGLPI
     public static function sections(): array
     {
         return [
-            PluginGrcmanagerDashboard::class         => [PluginGrcmanagerMaturity::class],
-            PluginGrcmanagerImpactAnalysis::class    => [PluginGrcmanagerCausalLink::class],
-            PluginGrcmanagerControl::class           => [PluginGrcmanagerReferentials::class],
-            PluginGrcmanagerEvidence::class          => [PluginGrcmanagerCoverageRule::class],
-            PluginGrcmanagerAccessReview::class      => [PluginGrcmanagerAccountHygiene::class],
-            PluginGrcmanagerParkVulnerability::class => [
-                self::MACHINE_RANKING, self::SOFTWARE_WATCH, PluginGrcmanagerCanonicalProduct::class,
+            // Pilotage.
+            PluginGrcmanagerDashboard::class => [
+                PluginGrcmanagerMaturity::class, PluginGrcmanagerComplianceEvent::class,
+            ],
+            // Appréciation et traitement des risques.
+            PluginGrcmanagerRisk::class => [
+                PluginGrcmanagerSupplierRisk::class, PluginGrcmanagerImpactAnalysis::class,
+                PluginGrcmanagerCausalLink::class, PluginGrcmanagerWaiver::class,
+            ],
+            // Conformité : SoA, référentiels, exigences du SMSI, obligations, politiques, preuves.
+            PluginGrcmanagerControl::class => [
+                PluginGrcmanagerReferentials::class, PluginGrcmanagerIsmsRequirement::class,
+                PluginGrcmanagerComplianceObligation::class, PluginGrcmanagerPolicy::class,
+                PluginGrcmanagerEvidence::class, PluginGrcmanagerCoverageRule::class,
+            ],
+            // Contrôle et amélioration continue (ISO 27001 chapitres 9 et 10).
+            PluginGrcmanagerAudit::class => [
+                PluginGrcmanagerNonconformity::class, PluginGrcmanagerObjective::class,
+                PluginGrcmanagerManagementReview::class,
+            ],
+            // Opérations récurrentes : accès, revues, personnes, continuité.
+            PluginGrcmanagerAccessReview::class => [
+                PluginGrcmanagerAccountHygiene::class, PluginGrcmanagerPeriodicReview::class,
+                PluginGrcmanagerTraining::class, PluginGrcmanagerCrisisExercise::class,
+            ],
+            // Sécurité technique. Le parent ne demande que le droit du plugin : les vulnérabilités
+            // (qui exigent aussi la lecture des logiciels) restent une sous-page parmi d'autres.
+            PluginGrcmanagerComplianceAudit::class => [
+                PluginGrcmanagerParkVulnerability::class, self::MACHINE_RANKING, self::SOFTWARE_WATCH,
+                PluginGrcmanagerCanonicalProduct::class, PluginGrcmanagerNetworkFlow::class,
             ],
         ];
     }
@@ -153,8 +176,8 @@ class PluginGrcmanagerMenu extends CommonGLPI
         $tabs = [];
         foreach ($pages as $key => $page) {
             $tabs[] = [
-                // Le parent peut porter un nom de rubrique distinct du nom de sa page.
-                'label'  => (string) ($page['section_label'] ?? $page['title']),
+                // Le parent peut porter, dans sa barre, un nom de page distinct du nom de la rubrique.
+                'label'  => (string) ($key === $parent ? ($page['section_label'] ?? $page['title']) : $page['title']),
                 'icon'   => (string) ($page['icon'] ?? ''),
                 'url'    => $CFG_GLPI['root_doc'] . $page['page'],
                 'active' => $key === $active,

@@ -33,6 +33,8 @@ Html::header(
     'grcmanager',
     PluginGrcmanagerRisk::class
 );
+// Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
+PluginGrcmanagerMenu::showSection(PluginGrcmanagerRisk::class, PluginGrcmanagerRisk::class);
 // Encadré « À quoi sert cette page ? ».
 PluginGrcmanagerPageHelp::show('risk');
 

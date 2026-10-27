@@ -27,8 +27,11 @@ Html::header(
     PluginGrcmanagerWaiver::getTypeName(Session::getPluralNumber()),
     $_SERVER['PHP_SELF'],
     'grcmanager',
+    PluginGrcmanagerRisk::class,
     PluginGrcmanagerWaiver::class
 );
+// Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
+PluginGrcmanagerMenu::showSection(PluginGrcmanagerRisk::class, PluginGrcmanagerWaiver::class);
 // Encadré « À quoi sert cette page ? ».
 PluginGrcmanagerPageHelp::show('waiver');
 

@@ -82,6 +82,8 @@ Html::header(
     'grcmanager',
     PluginGrcmanagerComplianceAudit::class
 );
+// Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
+PluginGrcmanagerMenu::showSection(PluginGrcmanagerComplianceAudit::class, PluginGrcmanagerComplianceAudit::class);
 // Encadré « À quoi sert cette page ? ».
 PluginGrcmanagerPageHelp::show('complianceaudit');
 TemplateRenderer::getInstance()->display('@grcmanager/compliance_audit.html.twig', [

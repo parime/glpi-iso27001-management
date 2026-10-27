@@ -63,6 +63,20 @@ class PluginGrcmanagerAudit extends AuditBase
     }
 
     /**
+     * Rubrique « Audits et amélioration » : audits internes, non-conformités, objectifs et revues
+     * de direction (PluginGrcmanagerMenu::sections()).
+     */
+    public static function getMenuContent()
+    {
+        $menu = parent::getMenuContent();
+        if (is_array($menu) && $menu !== []) {
+            $menu['section_label'] = $menu['title'];
+            $menu['title'] = __('Audits et amélioration', 'grcmanager');
+        }
+
+        return PluginGrcmanagerMenu::withSubPages(self::class, $menu);
+    }
+    /**
      * @return array<string, string>
      */
     public static function getStatuses(): array

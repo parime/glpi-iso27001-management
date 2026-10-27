@@ -66,11 +66,12 @@ Html::header(
     PluginGrcmanagerImpactAnalysis::getTypeName(),
     PluginGrcmanagerImpactAnalysis::getSearchURL(),
     'grcmanager',
+    PluginGrcmanagerRisk::class,
     PluginGrcmanagerImpactAnalysis::class
 );
 // Encadré « À quoi sert cette page ? ».
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(PluginGrcmanagerImpactAnalysis::class, PluginGrcmanagerImpactAnalysis::class);
+PluginGrcmanagerMenu::showSection(PluginGrcmanagerRisk::class, PluginGrcmanagerImpactAnalysis::class);
 PluginGrcmanagerPageHelp::show('impactanalysis');
 
 TemplateRenderer::getInstance()->display('@grcmanager/impact_spof.html.twig', [

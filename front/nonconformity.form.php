@@ -45,7 +45,10 @@ if (isset($_POST['add'])) {
     // Issue #140 : affichage avec onglets (Documents, Historique).
     PluginGrcmanagerNonconformity::displayFullPageForItem(
         (int) ($_GET['id'] ?? 0),
-        ['central' => ['grcmanager', PluginGrcmanagerNonconformity::class], 'helpdesk' => []],
+        [
+            'central'  => ['grcmanager', PluginGrcmanagerAudit::class, PluginGrcmanagerNonconformity::class],
+            'helpdesk' => [],
+        ],
         [
             'from_incident' => (int) ($_GET['from_incident'] ?? 0),
             'cve'           => (string) ($_GET['cve'] ?? ''),

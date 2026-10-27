@@ -7,6 +7,15 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Changed
+
+- **Menu regroupé en six rubriques** au lieu de vingt-deux entrées : Tableau de bord, Risques,
+  Conformité, Audits et amélioration, Opérations, Sécurité technique. Les pages d'une rubrique
+  sont réunies par une barre d'onglets commune et le fil d'Ariane « Rubrique > Page » ; aucune page
+  n'est supprimée. Les vulnérabilités du parc (qui exigent aussi la lecture des logiciels) sont une
+  sous-page de « Sécurité technique », dont la page d'accueil (contrôles techniques automatiques)
+  ne demande que le droit du plugin. Voir « Organisation du menu » dans le README.
+
 ### Added
 
 - **Machines les plus exposées** (issue #181), rubrique Vulnérabilités du parc : classement des

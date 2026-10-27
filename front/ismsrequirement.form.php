@@ -30,6 +30,9 @@ if (isset($_POST['update'])) {
     // nécessaire ici pour l'onglet natif Documents (preuves), même raison que front/policy.form.php.
     PluginGrcmanagerIsmsRequirement::displayFullPageForItem(
         $_GET['id'] ?? 0,
-        ['central' => ['grcmanager', PluginGrcmanagerIsmsRequirement::class], 'helpdesk' => []]
+        [
+            'central'  => ['grcmanager', PluginGrcmanagerControl::class, PluginGrcmanagerIsmsRequirement::class],
+            'helpdesk' => [],
+        ]
     );
 }

@@ -26,8 +26,11 @@ Html::header(
     PluginGrcmanagerComplianceObligation::getTypeName(2),
     $_SERVER['PHP_SELF'],
     'grcmanager',
+    PluginGrcmanagerControl::class,
     PluginGrcmanagerComplianceObligation::class
 );
+// Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
+PluginGrcmanagerMenu::showSection(PluginGrcmanagerControl::class, PluginGrcmanagerComplianceObligation::class);
 // Encadré « À quoi sert cette page ? ».
 PluginGrcmanagerPageHelp::show('complianceobligation');
 

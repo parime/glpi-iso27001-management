@@ -5196,3 +5196,15 @@ msgstr "Version %s approved after this campaign: to be signed"
 
 msgid "Campagnes de charte (assetsign)"
 msgstr "Charter campaigns (assetsign)"
+
+msgid "Audits et amélioration"
+msgstr "Audits and improvement"
+
+msgid "Opérations"
+msgstr "Operations"
+
+msgid "Sécurité technique"
+msgstr "Technical security"
+
+msgid "Conformité"
+msgstr "Compliance"

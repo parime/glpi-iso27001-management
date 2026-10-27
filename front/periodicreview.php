@@ -60,8 +60,11 @@ Html::header(
     PluginGrcmanagerPeriodicReview::getTypeName(2),
     PluginGrcmanagerPeriodicReview::getSearchURL(),
     'grcmanager',
+    PluginGrcmanagerAccessReview::class,
     PluginGrcmanagerPeriodicReview::class
 );
+// Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
+PluginGrcmanagerMenu::showSection(PluginGrcmanagerAccessReview::class, PluginGrcmanagerPeriodicReview::class);
 // Encadré « À quoi sert cette page ? ».
 PluginGrcmanagerPageHelp::show('periodicreview');
 
