@@ -5,7 +5,8 @@
  * analyse statique : valeurs factices, seulement pour phpstan.glpi.neon.
  */
 
-foreach (['GLPI_TMP_DIR', 'GLPI_DOC_DIR', 'GLPI_VAR_DIR', 'GLPI_CACHE_DIR', 'GLPI_PLUGIN_DOC_DIR', 'GLPI_LOG_DIR'] as $constant) {
+$constants = ['GLPI_TMP_DIR', 'GLPI_DOC_DIR', 'GLPI_VAR_DIR', 'GLPI_CACHE_DIR', 'GLPI_PLUGIN_DOC_DIR', 'GLPI_LOG_DIR'];
+foreach ($constants as $constant) {
     if (!defined($constant)) {
         define($constant, sys_get_temp_dir());
     }
