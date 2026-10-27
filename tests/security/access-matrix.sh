@@ -119,6 +119,10 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
   # Issue #141 : activer une revue cree un gabarit et un ticket recurrent (compare en base).
   expect "front/periodicreview.php : activer une revue" "$1" \
     "$(code -d "activate=1&id=1&frequency_months=6&_glpi_csrf_token=$(csrf)" "$P/periodicreview.php")"
+  # Issue #140 : l'equipe d'un audit (audience de ses documents) ne change qu'avec le droit de
+  # modifier l'audit.
+  expect "front/auditteam.form.php : ajouter un membre" "$1" \
+    "$(code -d "add=1&plugin_grcmanager_audits_id=$(id audit)&users_id=2&role=auditee&_glpi_csrf_token=$(csrf)" "$P/auditteam.form.php")"
   expect "front/evidence.form.php : date de validite d'une preuve" "$1" \
     "$(code -d "save=1&itemtype=PluginGrcmanagerPolicy&items_id=$(id policy_A)&documents_id=$(id document_A)&valid_until=2030-01-01&_glpi_csrf_token=$(csrf)" "$P/evidence.form.php")"
 }
@@ -167,6 +171,10 @@ expect "incident, entite B"            $DENY  "$(code "$P/securityincident.form.
 # Revue de securite 2.11.0 : une reference CVE exige de pouvoir modifier son incident.
 expect "reference CVE sur un incident de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
   "$(code -d "add=1&plugin_grcmanager_securityincidents_id=$(id incident_B)&cve_id=CVE-2099-0001&_glpi_csrf_token=$(csrf)" "$P/securityincidentcve.form.php")"
+# Issue #140 : un document d'audit ne se lit que par l'equipe de l'audit (glpi en fait partie),
+# jamais avec le seul droit Documents de GLPI ou le droit du plugin.
+expect "document d'audit (equipe de l'audit seulement)" "$([ "$ROLE" = admin ] && echo 200 || echo 403)" \
+  "$(code "$BASE/front/document.send.php?docid=$(id audit_document)")"
 # Issue #142 : le flux iCal d'abonnement ignore la session et n'accepte qu'un jeton personnel valide.
 expect "front/compliancecalendar.ics.php : sans jeton" 403    "$(curl -s -o /dev/null -w '%{http_code}' "$P/compliancecalendar.ics.php")"
 expect "front/compliancecalendar.ics.php : jeton invalide" 403    "$(code "$P/compliancecalendar.ics.php?token=jeton-invalide")"

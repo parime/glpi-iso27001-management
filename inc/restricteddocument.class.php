@@ -29,6 +29,11 @@ use Glpi\DBAL\QuerySubQuery;
  *   (Document::canViewFile() passe par Document::can()) ;
  * - Hooks::ADD_DEFAULT_WHERE retire ces documents de la liste Gestion > Documents : ils restent
  *   accessibles depuis l'onglet Documents de leur objet, avec les droits de cet objet.
+ *
+ * Issue #140 : les documents joints à un audit interne, ou à l'un de ses constats, rejoignent le
+ * registre avec l'audit pour source. Ils ne se lisent que par l'équipe de l'audit et le groupe
+ * RSSI (PluginGrcmanagerAuditTeam), et chaque téléchargement est historisé
+ * (PluginGrcmanagerDocumentAccess).
  */
 class PluginGrcmanagerRestrictedDocument
 {
@@ -50,6 +55,46 @@ class PluginGrcmanagerRestrictedDocument
             ['documents_id' => $documentsId]
         );
         unset(self::$cache[$documentsId]);
+    }
+
+    /**
+     * Comme register(), sans changer la source d'un document déjà au registre (un rapport
+     * d'incident joint ensuite à un audit garde l'audience de l'incident).
+     */
+    public static function registerIfAbsent(int $documentsId, CommonDBTM $source): void
+    {
+        if (self::sourceOf($documentsId) === null) {
+            self::register($documentsId, $source);
+        }
+    }
+
+    /**
+     * Hooks::ITEM_ADD sur Document_Item : un document joint à un audit, ou à un constat d'audit,
+     * est réservé à l'équipe de l'audit.
+     */
+    public static function onDocumentItemAdd(Document_Item $link): void
+    {
+        $audit = self::auditOf((string) ($link->fields['itemtype'] ?? ''), (int) ($link->fields['items_id'] ?? 0));
+        if ($audit !== null) {
+            self::registerIfAbsent((int) $link->fields['documents_id'], $audit);
+        }
+    }
+
+    private static function auditOf(string $itemtype, int $itemsId): ?PluginGrcmanagerAudit
+    {
+        if ($itemtype === PluginGrcmanagerNonconformity::class) {
+            $finding = new PluginGrcmanagerNonconformity();
+            if (!$finding->getFromDB($itemsId)) {
+                return null;
+            }
+            $itemtype = PluginGrcmanagerAudit::class;
+            $itemsId = (int) ($finding->fields['plugin_grcmanager_audits_id'] ?? 0);
+        }
+        $audit = new PluginGrcmanagerAudit();
+
+        $found = $itemtype === PluginGrcmanagerAudit::class && $itemsId > 0 && $audit->getFromDB($itemsId);
+
+        return $found ? $audit : null;
     }
 
     /**
@@ -84,6 +129,10 @@ class PluginGrcmanagerRestrictedDocument
             return true;
         }
         $itemtype = $source['itemtype'];
+        // Issue #140 : l'équipe de l'audit (audités compris) et le groupe RSSI, et personne d'autre.
+        if ($itemtype === PluginGrcmanagerAudit::class) {
+            return PluginGrcmanagerAuditTeam::canAccessDocuments($source['items_id']);
+        }
         if (!is_a($itemtype, CommonDBTM::class, true)) {
             return false;
         }
@@ -104,6 +153,13 @@ class PluginGrcmanagerRestrictedDocument
         }
         if (!self::canReadSource($document->getID())) {
             $document->right = 0;
+
+            return;
+        }
+        // Issue #140 : téléchargement autorisé par le plugin, historisé s'il aboutit.
+        $source = self::sourceOf($document->getID());
+        if ($source !== null && PluginGrcmanagerDocumentAccess::isDownloadOf($document->getID())) {
+            PluginGrcmanagerDocumentAccess::logWhenSent($document->getID(), $source['itemtype'], $source['items_id']);
         }
     }
 

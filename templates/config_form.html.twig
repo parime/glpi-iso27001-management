@@ -17,6 +17,24 @@
   </div>
 </div>
 
+{# Issue #140 : groupe RSSI, qui lit les documents de tous les audits internes. #}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+<div class="card mb-3">
+  <div class="card-body">
+    <h4>{{ __('Audits internes', 'grcmanager') }}</h4>
+    <p class="text-muted">
+      {{ __('Les documents d\'un audit ne se lisent que par son équipe (auditeurs, responsable, audités) et par les membres de ce groupe, même avec le droit Documents de GLPI.', 'grcmanager') }}
+    </p>
+    <form method="post" action="{{ config('root_doc') }}/plugins/grcmanager/front/config.php">
+      <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
+      {{ fields.dropdownField('Group', 'ciso_groups_id', ciso_groups_id, __('Groupe RSSI', 'grcmanager'), {'entity': -1}) }}
+      <div class="d-flex gap-2 mt-2">
+        <button type="submit" name="update_audit_config" class="btn btn-primary">{{ __('Enregistrer') }}</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 {# Absorption de glpi-security-incidents (ROADMAP.md "Version 2.0") : interrupteurs
    module/CVE/modèles/tableau de bord, un par fonctionnalité plutôt qu'un seul bouton global
    (voir front/config.php, SecurityIncidentModuleConfig). Le sous-module technique

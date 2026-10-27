@@ -69,6 +69,9 @@ class PluginGrcmanagerProfile extends CommonGLPI
                     CREATE => __('Create'),
                     DELETE => _x('button', 'Put in trashbin'),
                     PURGE  => ['short' => __('Purge'), 'long' => _x('button', 'Delete permanently')],
+                    // Issue #140 : notes de travail des audits.
+                    READNOTE   => ['short' => __('Read notes'), 'long' => __('Read the item\'s notes')],
+                    UPDATENOTE => ['short' => __('Update notes'), 'long' => __('Update the item\'s notes')],
                 ],
                 'label'    => __('Gouvernance de la sécurité (SMSI)', 'grcmanager'),
                 'field'    => Installer::RIGHT_NAME,

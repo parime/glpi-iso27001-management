@@ -266,7 +266,12 @@ function plugin_init_grcmanager(): void
     Plugin::registerClass(PluginGrcmanagerProfile::class, ['addtabon' => [Profile::class]]);
     // Issue #141 : le ticket créé par le ticket récurrent d'une revue devient son ticket en cours ;
     // sa résolution date la revue (PluginGrcmanagerPeriodicReview::onTicketAdd()/onTicketUpdate()).
-    $PLUGIN_HOOKS[Hooks::ITEM_ADD]['grcmanager'] = ['Ticket' => 'plugin_grcmanager_periodic_review_ticket_add'];
+    // Issue #140 : un document joint à un audit, ou à un constat d'audit, est réservé à l'équipe
+    // de l'audit (PluginGrcmanagerRestrictedDocument::onDocumentItemAdd()).
+    $PLUGIN_HOOKS[Hooks::ITEM_ADD]['grcmanager'] = [
+        'Ticket'        => 'plugin_grcmanager_periodic_review_ticket_add',
+        'Document_Item' => 'plugin_grcmanager_restricted_document_item_add',
+    ];
     $PLUGIN_HOOKS[Hooks::ITEM_UPDATE]['grcmanager'] = ['Ticket' => 'plugin_grcmanager_periodic_review_ticket_update'];
     $PLUGIN_HOOKS[Hooks::ITEM_PURGE]['grcmanager'] = [
         'Ticket'                                => 'plugin_grcmanager_purge_security_incident_links',
