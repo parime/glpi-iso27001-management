@@ -21,14 +21,15 @@ fois l'installation et l'activation terminées.
 
 ![Liste des plugins avec GLPI GRC Manager activé](screenshots/tutorial/01-plugin-list.png)
 
-Le plugin ajoute ses sept écrans (Risques, Risques fournisseurs, Contrôles Annexe A, Audits
-internes, Non-conformités, Formations, Revues de direction) dans le menu **Outils**.
+Le plugin ajoute son propre menu **GRC & Conformité**, en six rubriques (Tableau de bord, Risques,
+Conformité, Audits et amélioration, Opérations, Sécurité technique) ; les écrans d'une même rubrique
+sont réunis par une barre d'onglets. Les incidents de sécurité sont dans le menu **Assistance**.
 
-![Menu Outils avec les écrans du plugin](screenshots/tutorial/02-menu-outils.png)
+![Menu du plugin](screenshots/tutorial/02-menu-outils.png)
 
 ### Étape 2 : Créer un risque dans le registre générique
 
-Depuis **Outils > Risques**, la liste est vide tant qu'aucun risque n'a été créé.
+Depuis **GRC & Conformité > Risques**, la liste est vide tant qu'aucun risque n'a été créé.
 
 ![Registre de risques vide](screenshots/tutorial/03-risk-list-empty.png)
 
@@ -68,7 +69,7 @@ modifiée.
 
 ### Étape 4 : Parcourir la Déclaration d'Applicabilité (SoA)
 
-Depuis **Outils > Contrôles Annexe A**, les 93 mesures réelles de l'Annexe A ISO/IEC 27001:2022
+Depuis **GRC & Conformité > Conformité**, les 93 mesures réelles de l'Annexe A ISO/IEC 27001:2022
 sont listées, préchargées à l'installation et marquées "Applicable" par défaut (clause 6.1.3).
 
 ![Liste complète des 93 contrôles Annexe A](screenshots/tutorial/10-control-list.png)
@@ -156,7 +157,7 @@ registre.
 
 ### Étape 7 : Créer un risque dans le registre fournisseurs/tiers
 
-Depuis **Outils > Risques fournisseurs**, la liste affiche les risques fournisseurs déjà
+Depuis **GRC & Conformité > Risques > Risques fournisseurs**, la liste affiche les risques fournisseurs déjà
 enregistrés sur cette instance.
 
 ![Registre de risques fournisseurs](screenshots/tutorial/28-supplierrisk-list.png)
@@ -222,7 +223,7 @@ affiché au tableau de bord (voir étape 10).
 
 ### Étape 9 : Enregistrer une revue de direction
 
-Depuis **Outils > Revues de direction**, la liste affiche les revues déjà enregistrées.
+Depuis **GRC & Conformité > Audits et amélioration > Revues de direction**, la liste affiche les revues déjà enregistrées.
 
 ![Liste des revues de direction](screenshots/tutorial/38-managementreview-list.png)
 
@@ -354,14 +355,15 @@ Manager" row shows an "Activé" status once installation and activation are comp
 
 ![Plugin list with GLPI GRC Manager activated](screenshots/tutorial/01-plugin-list.png)
 
-The plugin adds its seven screens (Risks, Supplier risks, Annex A Controls, Internal audits,
-Non-conformities, Trainings, Management reviews) to the **Outils** menu.
+The plugin adds its own **GRC & Conformité** menu, with six sections (Dashboard, Risks, Compliance,
+Audits and improvement, Operations, Technical security); the screens of a section share a tab bar.
+Security incidents are in the **Assistance** menu.
 
-![Outils menu with the plugin's screens](screenshots/tutorial/02-menu-outils.png)
+![The plugin's menu](screenshots/tutorial/02-menu-outils.png)
 
 ### Step 2: Create a risk in the generic register
 
-From **Outils > Risques**, the list is empty until a risk has been created.
+From **GRC & Conformité > Risques**, the list is empty until a risk has been created.
 
 ![Empty risk register](screenshots/tutorial/03-risk-list-empty.png)
 
@@ -399,7 +401,7 @@ level until the grid is edited.
 
 ### Step 4: Browse the Statement of Applicability (SoA)
 
-From **Outils > Contrôles Annexe A**, the 93 real ISO/IEC 27001:2022 Annex A controls are
+From **GRC & Conformité > Conformité**, the 93 real ISO/IEC 27001:2022 Annex A controls are
 listed, seeded at install time and marked "Applicable" by default (clause 6.1.3).
 
 ![Full list of the 93 Annex A controls](screenshots/tutorial/10-control-list.png)
@@ -485,7 +487,7 @@ Once added, the card shows the real data, here the number of open risks in the r
 
 ### Step 7: Create a risk in the supplier/third-party register
 
-From **Outils > Risques fournisseurs**, the list shows the supplier risks already recorded on
+From **GRC & Conformité > Risques > Risques fournisseurs**, the list shows the supplier risks already recorded on
 this instance.
 
 ![Supplier risk register](screenshots/tutorial/28-supplierrisk-list.png)
@@ -550,7 +552,7 @@ the completion rate shown on the dashboard (see step 10).
 
 ### Step 9: Record a management review
 
-From **Outils > Revues de direction**, the list shows the reviews already recorded.
+From **GRC & Conformité > Audits et amélioration > Revues de direction**, the list shows the reviews already recorded.
 
 ![Management review list](screenshots/tutorial/38-managementreview-list.png)
 
