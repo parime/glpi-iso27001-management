@@ -103,6 +103,24 @@ classification fields merged directly onto it.
 **Common principle**: the plugin never changes a status, a right or an assignment by itself. It
 creates the ticket or the notification, and the team decides.
 
+## Menu layout
+
+The **GRC & Conformité** menu has six sections, in the order of the ISMS cycle. Each section opens
+its first page; the other pages of the section are reached through the tab bar at the top of the
+page and through the breadcrumb.
+
+| Section | Pages |
+|---|---|
+| Dashboard | Dashboard, Maturity score, Compliance calendar |
+| Risks | Risks, Supplier risks, Impact analysis, Domino effect, Waivers |
+| Compliance | Annex A controls (SoA), Reference frameworks, ISMS requirements, Obligations, Policies, Evidence, Evidence coverage |
+| Audits and improvement | Internal audits, Non-conformities, ISMS objectives, Management reviews |
+| Operations | Access reviews, Account hygiene, Periodic reviews, Trainings, Crisis exercises |
+| Technical security | Automated technical checks, Fleet vulnerabilities, Most exposed machines, Software to watch, Products, Network flow matrix |
+
+Security incidents live in **Assistance**, next to tickets. Plugin rights are granted to any profile
+from the **GRC Manager** tab of Administration > Profiles.
+
 ## Project status
 
 **Stable**, published and installable right now, for GLPI 11 and 12: see the
