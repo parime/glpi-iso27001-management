@@ -114,7 +114,7 @@ final class ComplianceAuditTest extends GrcmanagerIntegrationTestCase
         $active = (int) (new \State())->add(['name' => 'PHPUnit En service', 'entities_id' => 0, 'is_recursive' => 1]);
         $computer = ['entities_id' => 0];
         $old = (int) (new \Computer())->add($computer + ['name' => 'PHPUnit poste réformé', 'states_id' => $retired]);
-        $used = (int) (new \Computer())->add($computer + ['name' => 'PHPUnit poste en service', 'states_id' => $active]);
+        $used = (int) (new \Computer())->add($computer + ['name' => 'PHPUnit poste actif', 'states_id' => $active]);
         $none = (int) (new \Computer())->add(['name' => 'PHPUnit poste sans statut', 'entities_id' => 0]);
 
         try {
