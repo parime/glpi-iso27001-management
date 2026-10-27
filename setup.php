@@ -46,6 +46,15 @@ function plugin_init_grcmanager(): void
         return;
     }
 
+    // Issue #142, phase 2 : le flux iCal d'abonnement est lu par un agenda externe, sans session.
+    // Seule page du plugin ainsi ouverte : elle s'authentifie elle-même par le jeton personnel de
+    // l'utilisateur (voir front/compliancecalendar.ics.php).
+    \Glpi\Http\Firewall::addPluginStrategyForLegacyScripts(
+        'grcmanager',
+        '#^/front/compliancecalendar\.ics\.php$#',
+        \Glpi\Http\Firewall::STRATEGY_NO_CHECK
+    );
+
     // GLPI's own legacy `inc/{name}.class.php` autoloader (src/autoload/legacy-autoloader.php,
     // glpi_autoload()) only fires for a classname that itself STARTS WITH "Plugin" (or the PSR-4
     // namespace prefix) -- confirmed by reading that function directly. GLPI core's own rule-engine

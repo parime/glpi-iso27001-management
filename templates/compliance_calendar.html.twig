@@ -9,7 +9,17 @@
          <a class="btn btn-sm btn-primary" href="{{ form_url }}"><i class="ti ti-plus me-1"></i>{{ __('Ajouter un événement', 'grcmanager') }}</a>
       {% endif %}
       <a class="btn btn-sm btn-outline-primary ms-auto" href="{{ ics_url }}"><i class="ti ti-calendar-down me-1"></i>{{ __('Exporter (iCal)', 'grcmanager') }}</a>
+      {% if subscription_url %}
+         <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#grcmanager-ical-subscription"><i class="ti ti-calendar-share me-1"></i>{{ __('S\'abonner', 'grcmanager') }}</button>
+      {% endif %}
    </div>
+   {% if subscription_url %}
+      <div class="collapse mb-3" id="grcmanager-ical-subscription">
+         <label class="form-label" for="grcmanager-ical-url">{{ __('Lien d\'abonnement pour votre agenda (Outlook, Thunderbird, Google Agenda…)', 'grcmanager') }}</label>
+         <input type="text" class="form-control" id="grcmanager-ical-url" readonly value="{{ subscription_url }}" onfocus="this.select()">
+         <div class="form-hint">{{ __('Lien personnel : il donne accès à vos échéances avec vos droits, sans mot de passe. Ne le partagez pas. Pour le révoquer, régénérez votre jeton personnel dans vos préférences.', 'grcmanager') }}</div>
+      </div>
+   {% endif %}
    <p class="text-muted small"><i class="ti ti-info-circle me-1"></i>{{ __('Événements saisis et échéances des autres registres (audits, revues de direction, revues des accès, revues périodiques, politiques, obligations, preuves). Chaque échéance apparaît aussi dans le planning GLPI de son responsable.', 'grcmanager') }}</p>
 
    {% for month in months %}

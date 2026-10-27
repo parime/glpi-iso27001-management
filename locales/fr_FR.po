@@ -5157,3 +5157,12 @@ msgstr "%1$d machines affichées sur %2$d machines exposées."
 #, php-format
 msgid "Score d'exposition de 0 à 100 : la vulnérabilité la plus grave (10 si elle est activement exploitée) compte pour 70 %, le nombre de vulnérabilités prioritaires pour 30 %. C'est un ordre de traitement, pas une mesure normalisée."
 msgstr "Score d'exposition de 0 à 100 : la vulnérabilité la plus grave (10 si elle est activement exploitée) compte pour 70 %, le nombre de vulnérabilités prioritaires pour 30 %. C'est un ordre de traitement, pas une mesure normalisée."
+
+msgid "S'abonner"
+msgstr "S'abonner"
+
+msgid "Lien d'abonnement pour votre agenda (Outlook, Thunderbird, Google Agenda…)"
+msgstr "Lien d'abonnement pour votre agenda (Outlook, Thunderbird, Google Agenda…)"
+
+msgid "Lien personnel : il donne accès à vos échéances avec vos droits, sans mot de passe. Ne le partagez pas. Pour le révoquer, régénérez votre jeton personnel dans vos préférences."
+msgstr "Lien personnel : il donne accès à vos échéances avec vos droits, sans mot de passe. Ne le partagez pas. Pour le révoquer, régénérez votre jeton personnel dans vos préférences."

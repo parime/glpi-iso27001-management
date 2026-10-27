@@ -661,6 +661,7 @@ class PluginGrcmanagerComplianceEvent extends ComplianceEventBase
             'url'        => self::getCalendarURL(),
             'form_url'   => self::getFormURL(),
             'ics_url'    => self::getIcsURL($mine),
+            'subscription_url' => self::getSubscriptionURL($mine),
             'can_create' => self::canCreate(),
         ]);
     }
@@ -673,6 +674,26 @@ class PluginGrcmanagerComplianceEvent extends ComplianceEventBase
             __('Novembre', 'grcmanager'), __('Décembre', 'grcmanager')];
 
         return $months[(int) substr($yearMonth, 5, 2) - 1] . ' ' . substr($yearMonth, 0, 4);
+    }
+
+    /**
+     * Issue #142, phase 2 : lien d'abonnement pour un agenda externe, sans session GLPI. Il porte
+     * le jeton personnel de l'utilisateur (le même que le flux iCal du planning de GLPI), et le
+     * flux se calcule avec ses droits et ses entités. Régénérer ce jeton dans ses préférences
+     * invalide le lien.
+     */
+    public static function getSubscriptionURL(bool $mine): string
+    {
+        global $CFG_GLPI;
+
+        $token = User::getToken((int) Session::getLoginUserID(), 'personal_token');
+        if (!is_string($token) || $token === '') {
+            return '';
+        }
+
+        return rtrim((string) ($CFG_GLPI['url_base'] ?? ''), '/')
+            . '/plugins/grcmanager/front/compliancecalendar.ics.php?'
+            . http_build_query(['token' => $token] + ($mine ? ['mine' => 1] : []));
     }
 
     public static function getIcsURL(bool $mine): string

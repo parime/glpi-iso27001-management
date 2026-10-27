@@ -167,6 +167,9 @@ expect "incident, entite B"            $DENY  "$(code "$P/securityincident.form.
 # Revue de securite 2.11.0 : une reference CVE exige de pouvoir modifier son incident.
 expect "reference CVE sur un incident de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
   "$(code -d "add=1&plugin_grcmanager_securityincidents_id=$(id incident_B)&cve_id=CVE-2099-0001&_glpi_csrf_token=$(csrf)" "$P/securityincidentcve.form.php")"
+# Issue #142 : le flux iCal d'abonnement ignore la session et n'accepte qu'un jeton personnel valide.
+expect "front/compliancecalendar.ics.php : sans jeton" 403    "$(curl -s -o /dev/null -w '%{http_code}' "$P/compliancecalendar.ics.php")"
+expect "front/compliancecalendar.ics.php : jeton invalide" 403    "$(code "$P/compliancecalendar.ics.php?token=jeton-invalide")"
 expect "campagne de revue, entite A"   200    "$(code "$P/accessreview.form.php?id=$(id campaign_A)")"
 expect "campagne de revue, entite B"   $DENY  "$(code "$P/accessreview.form.php?id=$(id campaign_B)")"
 

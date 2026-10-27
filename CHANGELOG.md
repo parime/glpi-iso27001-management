@@ -14,6 +14,10 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   70 % ; vulnérabilités prioritaires pour 30 %), avec le nombre de vulnérabilités exploitées (KEV),
   prioritaires et au total, le CVSS et l'EPSS maximum. Lien direct vers l'onglet Vulnérabilités de
   chaque machine. Seulement les machines des entités de l'utilisateur, d'un type qu'il peut lire.
+- **Abonnement au calendrier de conformité** (issue #142) : bouton « S'abonner » qui donne un lien
+  personnel à coller dans Outlook, Thunderbird ou Google Agenda (toutes les échéances, ou les
+  siennes). Le flux est lu sans session, avec le jeton personnel de l'utilisateur (comme le flux du
+  planning de GLPI), et ne contient que ce qu'il voit ; régénérer son jeton révoque le lien.
 
 ### Security
 
