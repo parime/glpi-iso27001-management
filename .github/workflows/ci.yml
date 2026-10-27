@@ -348,6 +348,16 @@ jobs:
             php vendor/bin/phpunit -c phpunit-integration.xml.dist
           '
 
+      # Issue #146 : PHPStan sur TOUT le plugin (inc/, front/, src/), avec les sources de GLPI de
+      # ce conteneur ; le job « PHP quality » n'analyse que les services en PHP pur. Les
+      # signalements existants sont dans phpstan-glpi-baseline.neon : tout nouveau fait echouer.
+      - name: PHPStan sur tout le plugin, avec GLPI
+        run: |
+          docker exec glpi sh -c '
+            cd /var/www/glpi/plugins/grcmanager
+            php vendor/bin/phpstan analyse -c phpstan.glpi.neon --no-progress --memory-limit=3G
+          '
+
       # Test de controle d'acces de bout en bout (vraies requetes HTTP, vraie session) : un
       # gestionnaire et un lecteur limites a l'entite A ne doivent rien lire ni modifier de
       # l'entite B (incidents, revues d'acces, contrats, actifs), le lecteur ne peut pas s'assigner

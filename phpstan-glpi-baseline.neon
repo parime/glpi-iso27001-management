@@ -1,0 +1,253 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Parameter \#2 \$force of method CommonDBTM\:\:delete\(\) expects bool, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: front/accessreview.form.php
+
+		-
+			message: '#^Parameter \#2 \$force of method CommonDBTM\:\:delete\(\) expects bool, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: front/audit.form.php
+
+		-
+			message: '#^Parameter \#2 \$force of method CommonDBTM\:\:delete\(\) expects bool, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: front/canonicalproduct.form.php
+
+		-
+			message: '#^Parameter \#2 \$force of method CommonDBTM\:\:delete\(\) expects bool, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: front/complianceevent.form.php
+
+		-
+			message: '#^Parameter \#2 \$force of method CommonDBTM\:\:delete\(\) expects bool, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: front/complianceobligation.form.php
+
+		-
+			message: '#^Parameter \#2 \$force of method CommonDBTM\:\:delete\(\) expects bool, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: front/control.form.php
+
+		-
+			message: '#^Parameter \#2 \$force of method CommonDBTM\:\:delete\(\) expects bool, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: front/coveragerule.form.php
+
+		-
+			message: '#^Parameter \#2 \$force of method CommonDBTM\:\:delete\(\) expects bool, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: front/cpereference.form.php
+
+		-
+			message: '#^Parameter \#2 \$force of method CommonDBTM\:\:delete\(\) expects bool, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: front/managementreview.form.php
+
+		-
+			message: '#^Parameter \#2 \$force of method CommonDBTM\:\:delete\(\) expects bool, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: front/networkflow.form.php
+
+		-
+			message: '#^Parameter \#2 \$force of method CommonDBTM\:\:delete\(\) expects bool, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: front/nonconformity.form.php
+
+		-
+			message: '#^Parameter \#2 \$force of method CommonDBTM\:\:delete\(\) expects bool, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: front/objective.form.php
+
+		-
+			message: '#^Parameter \#2 \$force of method CommonDBTM\:\:delete\(\) expects bool, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: front/objectivemeasurement.form.php
+
+		-
+			message: '#^Parameter \#2 \$force of method CommonDBTM\:\:delete\(\) expects bool, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: front/policy.form.php
+
+		-
+			message: '#^Parameter \#2 \$force of method CommonDBTM\:\:delete\(\) expects bool, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: front/productalias.form.php
+
+		-
+			message: '#^Parameter \#2 \$force of method CommonDBTM\:\:delete\(\) expects bool, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: front/risk.form.php
+
+		-
+			message: '#^Parameter \#2 \$force of method CommonDBTM\:\:delete\(\) expects bool, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: front/risktreatmentaction.form.php
+
+		-
+			message: '#^Parameter \#2 \$force of method CommonDBTM\:\:delete\(\) expects bool, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: front/supplierrisk.form.php
+
+		-
+			message: '#^Parameter \#2 \$force of method CommonDBTM\:\:delete\(\) expects bool, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: front/training.form.php
+
+		-
+			message: '#^Parameter \#2 \$force of method CommonDBTM\:\:delete\(\) expects bool, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: front/waiver.form.php
+
+		-
+			message: '#^Call to an undefined method CommonGLPI\:\:getID\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: inc/assetclassification.class.php
+
+		-
+			message: '#^Method PluginGrcmanagerComplianceEvent\:\:collect\(\) should return list\<array\{uid\: string, source\: string, name\: string, begin\: string, end\: string, users_id\: int, url\: string, done\: bool, \.\.\.\}\> but returns list\<array\{begin\: string\}\>\.$#'
+			identifier: return.type
+			count: 1
+			path: inc/complianceevent.class.php
+
+		-
+			message: '#^Method PluginGrcmanagerIsmsRequirement\:\:getClauseTitles\(\) should return array\<string, string\> but returns array\<int\|string, string\>\.$#'
+			identifier: return.type
+			count: 1
+			path: inc/ismsrequirement.class.php
+
+		-
+			message: '#^Call to an undefined method CommonGLPI\:\:getID\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: inc/notificationtargetaccessreview.class.php
+
+		-
+			message: '#^Call to an undefined method CommonGLPI\:\:getID\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: inc/notificationtargetcomplianceobligation.class.php
+
+		-
+			message: '#^Call to an undefined method CommonGLPI\:\:getID\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: inc/notificationtargetnonconformity.class.php
+
+		-
+			message: '#^Call to an undefined method CommonGLPI\:\:getID\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: inc/notificationtargetpolicy.class.php
+
+		-
+			message: '#^Call to an undefined method CommonGLPI\:\:getID\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: inc/notificationtargetrisk.class.php
+
+		-
+			message: '#^Call to an undefined method CommonGLPI\:\:getID\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: inc/notificationtargetsoaversion.class.php
+
+		-
+			message: '#^Call to an undefined method CommonGLPI\:\:getID\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: inc/notificationtargetsupplierrisk.class.php
+
+		-
+			message: '#^Call to an undefined method CommonGLPI\:\:getID\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: inc/notificationtargettraining.class.php
+
+		-
+			message: '#^Method PluginGrcmanagerParkVulnerability\:\:getVulnerabilityRows\(\) should return list\<array\{cve_id\: string, product\: string, versions\: list\<string\>, machines\: int, cvss\: float\|null, severity\: string, description\: string, published\: string, \.\.\.\}\> but returns list\<array\{is_kev\: bool, cvss\: float\|null, epss\: float\|null, machines\: int, cve_id\: string\}\>\.$#'
+			identifier: return.type
+			count: 1
+			path: inc/parkvulnerability.class.php
+
+		-
+			message: '#^Offset ''canonical_id'' does not exist on array\{cve_id\: string, product\: string, versions\: list\<string\>, machines\: int, cvss\: float\|null, severity\: string, description\: string, published\: string, \.\.\.\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 2
+			path: inc/parkvulnerability.class.php
+
+		-
+			message: '#^Offset ''canonical_id'' does not exist on array\{is_kev\: bool, cvss\: float\|null, epss\: float\|null, machines\: int, cve_id\: string\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: inc/parkvulnerability.class.php
+
+		-
+			message: '#^Offset ''items_id'' does not exist on array\{score\: int, kev\: int, priority\: int, cves\: int, name\: string\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 2
+			path: inc/parkvulnerability.class.php
+
+		-
+			message: '#^Offset ''itemtype'' does not exist on array\{score\: int, kev\: int, priority\: int, cves\: int, name\: string\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: inc/parkvulnerability.class.php
+
+		-
+			message: '#^Offset ''product'' does not exist on array\{is_kev\: bool, cvss\: float\|null, epss\: float\|null, machines\: int, cve_id\: string\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 2
+			path: inc/parkvulnerability.class.php
+
+		-
+			message: '#^Property CommonDBTM\:\:\$updates \(list\<string\>\) on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.property
+			count: 1
+			path: inc/periodicreview.class.php
+
+		-
+			message: '#^Call to an undefined method CommonGLPI\:\:getID\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: inc/risk.class.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\{\}\) to function array_values is empty, call has no effect\.$#'
+			identifier: arrayValues.empty
+			count: 1
+			path: inc/securitywatch.class.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\{0\: 8\|9, 1\: 1, 2\: 2, 3\: 3, 4\: 4, 5\: 5, 6\: 6, 7\?\: 7\}\|array\{1, 2, 3, 4, 5, 6, 7\|80\}\|array\{1, 2, 3, 4, 5, 6, 8, 9, \.\.\.\}\|array\{1, 2, 3, 4, 7\}\|array\{1, 2\}\|array\{1, 3, 4, 5, 6, 7\}\|array\{10, 1, 2, 5, 3, 4, 6, 7, \.\.\.\}\|array\{11, 1, 2, 3, 6, 4, 5, 7, \.\.\.\}\|array\{12, 1, 13, 2, 3, 4, 5, 7\}\|array\{13, 1, 2, 3, 4, 5, 6\}\|array\{2, 3, 4, 5, 6, 80\}\|array\{6, 1, 2, 3, 4, 5\}\|array\{8, 1, 2, 3, 4, 6\}\|array\{8, 2, 1, 3, 4, 6, 7\}\) of array_values is already a list, call has no effect\.$#'
+			identifier: arrayValues.list
+			count: 1
+			path: src/Install/Installer.php
+
+		-
+			message: '#^Ternary operator condition is always true\.$#'
+			identifier: ternary.alwaysTrue
+			count: 1
+			path: src/Install/Installer.php
