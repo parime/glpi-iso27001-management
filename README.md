@@ -94,8 +94,11 @@ archivé), avec ses champs de classification ISO 27001 fusionnés dessus.
   conformité par référentiel (ISO 27001, NIS2, ANSSI), les échéances à 90 jours, la revue des accès
   et les délais NIS2 / RGPD en alerte ; menu GRC & Conformité > Tableau de bord, vues ISMS et
   Direction, tendance mensuelle.
-- **Formations notées** (note, seuil de réussite, rattrapage, rapport PDF de session avec
-  émargement) et **audits internes** avec constats, documents et rapport PDF archivé à la clôture.
+- **Formations notées**, en une ou plusieurs sessions (formateur, lieu, note, seuil de réussite,
+  rattrapage, rapport PDF avec émargement, copie de quiz de chaque participant réservée au
+  participant, au formateur et au RSSI), et **audits internes** avec constats, notes de travail,
+  équipe d'audit, documents réservés à l'équipe (téléchargements historisés) et rapport PDF archivé
+  à la clôture.
 - **Matrice des flux** : import d'une sauvegarde pfSense, réseaux partenaires en conflit avec un
   réseau interne, rapport PDF pour l'auditeur.
 - **Score de maturité** cyber (0 à 100) avec le détail du calcul et son historique mensuel.
