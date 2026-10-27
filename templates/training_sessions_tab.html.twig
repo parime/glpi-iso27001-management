@@ -1,0 +1,43 @@
+{# Issue #139 : sessions d'une formation et taux de réussite de l'ensemble. #}
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-2">
+  <p class="text-muted mb-0">{{ __('Chaque session a sa date, son formateur, son lieu, ses participants et ses documents (feuille d\'émargement, support, quiz).', 'grcmanager') }}</p>
+  {% if add_url %}
+    <a href="{{ add_url }}" class="btn btn-primary btn-sm"><i class="ti ti-calendar-plus me-1"></i>{{ __('Ajouter une session', 'grcmanager') }}</a>
+  {% endif %}
+</div>
+{% if program_rate.rate is not null %}
+  <p>
+    <span class="badge {{ program_rate.rate >= 80 ? 'bg-green-lt' : (program_rate.rate >= 50 ? 'bg-yellow-lt' : 'bg-red-lt') }} fs-4">
+      <i class="ti ti-certificate me-1"></i>
+      {{ __('Taux de réussite de la formation, toutes sessions : %1$s sur %2$s (%3$s %%)', 'grcmanager')|format(program_rate.passed, program_rate.assessed, program_rate.rate) }}
+    </span>
+  </p>
+{% endif %}
+{% if sessions is empty %}
+  <div class="alert alert-info">{{ __('Aucune autre session pour cette formation.', 'grcmanager') }}</div>
+{% else %}
+  <table class="table table-hover card-table">
+    <thead>
+      <tr>
+        <th>{{ __('Session', 'grcmanager') }}</th>
+        <th>{{ __('Date de réalisation', 'grcmanager') }}</th>
+        <th>{{ __('Formateur', 'grcmanager') }}</th>
+        <th>{{ __('Lieu ou lien', 'grcmanager') }}</th>
+        <th>{{ __('Participants', 'grcmanager') }}</th>
+        <th>{{ __('Taux de réussite', 'grcmanager') }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for s in sessions %}
+        <tr>
+          <td><a href="{{ s.url }}">{{ s.title }}</a></td>
+          <td>{{ s.date }}</td>
+          <td>{{ s.trainer }}</td>
+          <td>{{ s.location }}</td>
+          <td>{{ s.participants }}</td>
+          <td>{% if s.rate.rate is not null %}{{ s.rate.passed }} / {{ s.rate.assessed }} ({{ s.rate.rate }} %){% endif %}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}

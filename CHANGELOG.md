@@ -9,6 +9,12 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Plusieurs sessions par formation** (issue #139) : une session est rattachée à sa formation
+  principale, avec son **formateur** et son **lieu ou lien**, ses participants, ses notes et ses
+  documents. Onglet **Sessions** de la formation : liste des sessions, taux de réussite de chacune
+  et de la formation toutes sessions, bouton « Ajouter une session » (formulaire prérempli, rien
+  n'est enregistré avant « Ajouter »). Une session de rattrapage est rattachée à la même formation.
+  Formateur et lieu sont aussi des colonnes de la liste des formations.
 - **Documents d'audit réservés à l'équipe de l'audit** (issue #140) : les documents joints à un
   audit interne ou à l'un de ses constats (et le rapport PDF archivé) ne se lisent que par
   l'auditeur et le responsable de l'audit, les membres de l'onglet **Équipe** (auditeurs, ou audités
