@@ -25,21 +25,21 @@ include('../../../inc/includes.php');
 // visible qu'après une déclaration globale explicite.
 global $CFG_GLPI;
 
-Session::checkRight(PluginGrcmanagerRisk::$rightname, READ);
+Session::checkRight(\GlpiPlugin\Grcmanager\Risk::$rightname, READ);
 
 Html::header(
-    PluginGrcmanagerRisk::getTypeName(2),
+    \GlpiPlugin\Grcmanager\Risk::getTypeName(2),
     $_SERVER['PHP_SELF'],
     'grcmanager',
-    PluginGrcmanagerRisk::class
+    \GlpiPlugin\Grcmanager\Risk::class
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(PluginGrcmanagerRisk::class, PluginGrcmanagerRisk::class);
+PluginGrcmanagerMenu::showSection(\GlpiPlugin\Grcmanager\Risk::class, \GlpiPlugin\Grcmanager\Risk::class);
 // Encadré « À quoi sert cette page ? ».
 PluginGrcmanagerPageHelp::show('risk');
 
 // Owner-scoped default view (Sprint 2): a one-click shortcut to the same list pre-filtered on the
-// "Propriétaire" search option (id 7, see PluginGrcmanagerRisk::rawSearchOptions()) to the
+// "Propriétaire" search option (id 7, see \GlpiPlugin\Grcmanager\Risk::rawSearchOptions()) to the
 // logged-in user's own ID. A first version tried GLPI's 'myself' criterion value (used by
 // Ticket.php's own default views) but that string is resolved by Ticket/Change/Project's own
 // bespoke search logic, NOT generically by the search engine for an arbitrary dropdown-typed
@@ -47,7 +47,7 @@ PluginGrcmanagerPageHelp::show('risk');
 // list) rather than an error, so it had to be caught by actually clicking the link against real
 // data, not by reading the code alone. Session::getLoginUserID() is resolved here instead, in
 // plain PHP, which is what every dropdown-typed search option actually compares against.
-$myRisksURL = PluginGrcmanagerRisk::getSearchURL() . '?' . http_build_query([
+$myRisksURL = \GlpiPlugin\Grcmanager\Risk::getSearchURL() . '?' . http_build_query([
     'criteria' => [
         ['field' => 7, 'searchtype' => 'equals', 'value' => Session::getLoginUserID()],
     ],
@@ -63,7 +63,7 @@ $riskHeatmapURL = $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/riskheatmap
 $riskReportURL = $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/risk.report.php';
 // Issue #178 : catalogue de risques types, proposé à qui peut créer des risques.
 TemplateRenderer::getInstance()->display('@grcmanager/risk_list_actions.html.twig', [
-    'catalog_url'  => Session::haveRight(PluginGrcmanagerRisk::$rightname, CREATE)
+    'catalog_url'  => Session::haveRight(\GlpiPlugin\Grcmanager\Risk::$rightname, CREATE)
         ? PluginGrcmanagerRiskCatalog::getSearchURL() : '',
     'heatmap_url'  => $riskHeatmapURL,
     'my_risks_url' => $myRisksURL,
@@ -78,12 +78,12 @@ TemplateRenderer::getInstance()->display('@grcmanager/risk_list_actions.html.twi
 // unfiltered first page regardless of its query string. Replicating that same merge here keeps
 // showList()'s $forcedisplay argument (the reason Sprint 1 used showList() over show() in the
 // first place, see DefaultSearchColumns.php), while restoring URL-driven search behaviour.
-$params = QueryBuilder::manageParams(PluginGrcmanagerRisk::class, $_GET);
+$params = QueryBuilder::manageParams(\GlpiPlugin\Grcmanager\Risk::class, $_GET);
 
 Search::showList(
-    PluginGrcmanagerRisk::class,
+    \GlpiPlugin\Grcmanager\Risk::class,
     $params,
-    DefaultSearchColumns::COLUMNS[PluginGrcmanagerRisk::class]
+    DefaultSearchColumns::COLUMNS[\GlpiPlugin\Grcmanager\Risk::class]
 );
 
 Html::footer();

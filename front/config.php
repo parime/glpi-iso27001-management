@@ -29,8 +29,8 @@ Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, READ);
 if (isset($_POST['update_risk_matrix'])) {
     Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
 
-    $probabilities = array_keys(PluginGrcmanagerRisk::getProbabilities());
-    $impacts       = array_keys(PluginGrcmanagerRisk::getImpacts());
+    $probabilities = array_keys(\GlpiPlugin\Grcmanager\Risk::getProbabilities());
+    $impacts       = array_keys(\GlpiPlugin\Grcmanager\Risk::getImpacts());
 
     $matrix = [];
     foreach ($probabilities as $probability) {
@@ -103,13 +103,13 @@ Html::header(
     __('Configuration', 'grcmanager'),
     $_SERVER['PHP_SELF'],
     'tools',
-    PluginGrcmanagerRisk::class
+    \GlpiPlugin\Grcmanager\Risk::class
 );
 
 \Glpi\Application\View\TemplateRenderer::getInstance()->display('@grcmanager/config_form.html.twig', [
     'risk_matrix'        => RiskMatrixConfig::load(),
-    'risk_probabilities' => PluginGrcmanagerRisk::getProbabilities(),
-    'risk_impacts'       => PluginGrcmanagerRisk::getImpacts(),
+    'risk_probabilities' => \GlpiPlugin\Grcmanager\Risk::getProbabilities(),
+    'risk_impacts'       => \GlpiPlugin\Grcmanager\Risk::getImpacts(),
     'csrf_token'         => Session::getNewCSRFToken(),
     'installed_version'     => PLUGIN_GRCMANAGER_VERSION,
     'latest_github_version' => GithubVersionChecker::getLatestGithubVersion(),

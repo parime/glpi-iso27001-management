@@ -182,7 +182,7 @@ class Policy extends PolicyBase
         ];
 
         // Row link, same "a list with no way back to showForm() is not self-explanatory" lesson
-        // already applied throughout this plugin family, see PluginGrcmanagerRisk::rawSearchOptions().
+        // already applied throughout this plugin family, see Risk::rawSearchOptions().
         $tab[] = [
             'id'       => 8,
             'table'    => $this->getTable(),
@@ -197,7 +197,7 @@ class Policy extends PolicyBase
 
     /**
      * Translates the raw `status` DB value into a color-coded Tabler badge, same UX convention as
-     * every other enum column in this plugin (see PluginGrcmanagerRisk::getSpecificValueToDisplay()).
+     * every other enum column in this plugin (see Risk::getSpecificValueToDisplay()).
      */
     public static function getSpecificValueToDisplay($field, $values, array $options = [])
     {
@@ -214,7 +214,7 @@ class Policy extends PolicyBase
 
     /**
      * Real `<select>` filter widget for `status`, same lesson (and same reason) as
-     * PluginGrcmanagerRisk::getSpecificValueToSelect(): 'specific' falls through to a free-text
+     * Risk::getSpecificValueToSelect(): 'specific' falls through to a free-text
      * box by default, not self-explanatory for a non-technical user.
      */
     public static function getSpecificValueToSelect($field, $name = '', $values = '', array $options = [])
@@ -346,7 +346,7 @@ class Policy extends PolicyBase
 
     /**
      * GLPI Cron entry point, registered via CronTask::Register() in the plugin installer
-     * (src/Install/Installer.php), same structure as PluginGrcmanagerRisk::cronReviewreminder().
+     * (src/Install/Installer.php), same structure as Risk::cronReviewreminder().
      * Finds policies whose next review date has passed or is within the reminder window and
      * raises a real GLPI Notification for each (see PolicyReviewReminderService,
      * inc/notificationtargetpolicy.class.php).

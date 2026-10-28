@@ -543,7 +543,7 @@ final class Installer
         // Sprint 4 (audits internes, clause 9.2) : un audit peut couvrir un ou plusieurs contrôles
         // Annexe A (lien many-to-many, voir PluginGrcmanagerAudit::getLinkedControls()/
         // syncLinkedControls()) et/ou une ou plusieurs catégories de risque (liste séparée par des
-        // virgules, résolue via PluginGrcmanagerRisk::getCategories(), jamais une seconde
+        // virgules, résolue via \GlpiPlugin\Grcmanager\Risk::getCategories(), jamais une seconde
         // définition de cette énumération).
         if (!$DB->tableExists(self::AUDITS_TABLE)) {
             $query = "CREATE TABLE `" . self::AUDITS_TABLE . "` (
@@ -558,7 +558,7 @@ final class Installer
                     COMMENT 'planned, in_progress, completed, cancelled',
                 `conclusion` text,
                 `risk_categories` varchar(255) NOT NULL DEFAULT ''
-                    COMMENT 'Liste de categories PluginGrcmanagerRisk separees par des virgules',
+                    COMMENT 'Liste de categories GlpiPlugin\\Grcmanager\\Risk separees par des virgules',
                 `date_creation` timestamp NULL DEFAULT NULL,
                 `date_mod` timestamp NULL DEFAULT NULL,
                 PRIMARY KEY (`id`),
@@ -971,7 +971,7 @@ final class Installer
         // n'est pas une relation obligatoire, contrairement à `users_id` (propriétaire) sur
         // RISKS_TABLE ci-dessus qui, elle, est bien une colonne directe (relation 1-vers-1
         // implicite avec un `User`, toujours renseignée). Voir
-        // PluginGrcmanagerRisk::getLinkedAssets()/syncLinkedAssets()/getRisksLinkedToItem().
+        // \GlpiPlugin\Grcmanager\Risk::getLinkedAssets()/syncLinkedAssets()/getRisksLinkedToItem().
         if (!$DB->tableExists(self::RISKS_ITEMS_TABLE)) {
             $query = "CREATE TABLE `" . self::RISKS_ITEMS_TABLE . "` (
                 `id` int {$keySign} NOT NULL AUTO_INCREMENT,
@@ -997,7 +997,7 @@ final class Installer
         // second membre de relation (`plugin_grcmanager_risks_id`) : ici l'actif EST l'entité
         // classifiée, pas un lien entre deux entités. Les trois axes sont chacun un varchar
         // optionnel avec défaut '' ("non classifié sur cet axe"), même convention que
-        // `PluginGrcmanagerRisk.treatment` ci-dessus ("empty = no decision yet") : une
+        // `\GlpiPlugin\Grcmanager\Risk.treatment` ci-dessus ("empty = no decision yet") : une
         // classification partielle (un seul axe renseigné) est un état valide, pas une exigence
         // tout-ou-rien (voir ClassificationLevels::isClassified()).
         if (!$DB->tableExists(self::ASSET_CLASSIFICATIONS_TABLE)) {
@@ -2058,7 +2058,7 @@ final class Installer
         // `plugin_grcmanager_risks_id` n'est pas une vraie clé étrangère GLPI (pas de ON DELETE
         // CASCADE natif ici), même simplification assumée que
         // `PluginGrcmanagerObjectiveMeasurement.plugin_grcmanager_objectives_id` ci-dessus, mais
-        // voir PluginGrcmanagerRisk::post_purgeItem() pour le nettoyage explicite ajouté malgré
+        // voir \GlpiPlugin\Grcmanager\Risk::post_purgeItem() pour le nettoyage explicite ajouté malgré
         // tout (coût marginal nul, ce hook existe déjà pour RISKS_ITEMS_TABLE).
         if (!$DB->tableExists(self::RISK_TREATMENT_ACTIONS_TABLE)) {
             $query = "CREATE TABLE `" . self::RISK_TREATMENT_ACTIONS_TABLE . "` (
@@ -2113,13 +2113,13 @@ final class Installer
         $this->seedSecurityIncidentNotifications();
 
         $this->seedReviewReminderNotification(
-            'PluginGrcmanagerRisk',
+            'GlpiPlugin\\Grcmanager\\Risk',
             'risk',
             'Revue de risque à échéance',
             'risque'
         );
         $this->seedReviewReminderNotification(
-            'PluginGrcmanagerSupplierRisk',
+            'GlpiPlugin\\Grcmanager\\SupplierRisk',
             'supplierrisk',
             'Revue de risque fournisseur à échéance',
             'risque fournisseur'
@@ -2155,9 +2155,9 @@ final class Installer
 
         // Sprint 2 (rappels de date de revue) : évalue chaque jour les risques dont la date de
         // revue est dépassée ou approche, et déclenche la notification GLPI seedée ci-dessus (voir
-        // PluginGrcmanagerRisk::cronReviewreminder(), src/Services/Risk/ReviewReminderService.php).
+        // \GlpiPlugin\Grcmanager\Risk::cronReviewreminder(), src/Services/Risk/ReviewReminderService.php).
         CronTask::Register(
-            'PluginGrcmanagerRisk',
+            'GlpiPlugin\\Grcmanager\\Risk',
             'reviewreminder',
             DAY_TIMESTAMP,
             [
@@ -2189,9 +2189,9 @@ final class Installer
         // partagée par les deux tâches Cron), mais une tâche dédiée : le modèle de tâche Cron de
         // GLPI enregistre/déclenche un point d'entrée statique par itemtype, une seule tâche ne
         // peut donc pas couvrir les deux tables elle-même (voir
-        // PluginGrcmanagerSupplierRisk::cronReviewreminder()).
+        // \GlpiPlugin\Grcmanager\SupplierRisk::cronReviewreminder()).
         CronTask::Register(
-            'PluginGrcmanagerSupplierRisk',
+            'GlpiPlugin\\Grcmanager\\SupplierRisk',
             'reviewreminder',
             DAY_TIMESTAMP,
             [
@@ -2278,10 +2278,10 @@ final class Installer
         // Issue #31 (plan d'action de traitement des risques, clause 8.3/6.1.3) : évalue chaque
         // jour les actions de traitement dont l'échéance est dépassée et qui ne sont pas encore
         // réalisées, et déclenche la notification GLPI seedée ci-dessus (voir
-        // PluginGrcmanagerRiskTreatmentAction::cronOverduetreatmentaction(),
+        // \GlpiPlugin\Grcmanager\RiskTreatmentAction::cronOverduetreatmentaction(),
         // src/Services/Risk/OverdueTreatmentActionService.php).
         CronTask::Register(
-            'PluginGrcmanagerRiskTreatmentAction',
+            'GlpiPlugin\\Grcmanager\\RiskTreatmentAction',
             'overduetreatmentaction',
             DAY_TIMESTAMP,
             [
@@ -2430,18 +2430,18 @@ final class Installer
 
     /**
      * Seeds the Notification/NotificationTemplate/translation/target rows a review-date reminder
-     * Cron task (PluginGrcmanagerRisk::cronReviewreminder(), and since Sprint 5
-     * PluginGrcmanagerSupplierRisk::cronReviewreminder(), and since issue #30
+     * Cron task (\GlpiPlugin\Grcmanager\Risk::cronReviewreminder(), and since Sprint 5
+     * \GlpiPlugin\Grcmanager\SupplierRisk::cronReviewreminder(), and since issue #30
      * \GlpiPlugin\Grcmanager\ComplianceObligation::cronReviewreminder()) needs to actually send something
      * via NotificationEvent::raiseEvent('review_due', ...), see inc/notificationtargetrisk.class.php /
      * inc/notificationtargetsupplierrisk.class.php / inc/notificationtargetcomplianceobligation.class.php
      * for the NotificationTarget classes and their tag lists. Idempotent per itemtype: skipped
      * entirely if a Notification for that itemtype/event already exists (an admin may have edited
      * the template's wording since, never overwritten here). Generalized at Sprint 5 (was
-     * PluginGrcmanagerRisk-only before) so every review-reminder itemtype is seeded from the exact
+     * \GlpiPlugin\Grcmanager\Risk-only before) so every review-reminder itemtype is seeded from the exact
      * same implementation, only their tag prefix/wording differ.
      *
-     * @param string $itemtype    'PluginGrcmanagerRisk', 'PluginGrcmanagerSupplierRisk' or
+     * @param string $itemtype    '\GlpiPlugin\Grcmanager\Risk', '\GlpiPlugin\Grcmanager\SupplierRisk' or
      *                            '\GlpiPlugin\Grcmanager\ComplianceObligation'.
      * @param string $tagPrefix   Matches the NotificationTarget's own tag prefix
      *                            ('risk'/'supplierrisk'/'complianceobligation').
@@ -2450,7 +2450,7 @@ final class Installer
      *                            ('risque'/'risque fournisseur'/'obligation').
      * @param array<string, string> $detailLines Tag suffix => French label for the two body lines
      *                            between the title and the review date. Defaults to
-     *                            category/risklevel (PluginGrcmanagerRisk/PluginGrcmanagerSupplierRisk's
+     *                            category/risklevel (\GlpiPlugin\Grcmanager\Risk/\GlpiPlugin\Grcmanager\SupplierRisk's
      *                            own tags, unchanged since Sprint 2/5) so existing callers see no
      *                            behaviour change; issue #30 passes type/status instead, matching
      *                            \GlpiPlugin\Grcmanager\ComplianceObligation's own fields (no
@@ -2618,7 +2618,7 @@ final class Installer
     {
         global $DB;
 
-        $itemtype = 'PluginGrcmanagerSupplierRisk';
+        $itemtype = 'GlpiPlugin\\Grcmanager\\SupplierRisk';
         $event    = 'security_watch';
 
         if (
@@ -3012,7 +3012,7 @@ final class Installer
 
     /**
      * Same structure as seedCapaOverdueNotification() above, for the issue #31 overdue treatment
-     * action Cron task (PluginGrcmanagerRiskTreatmentAction::cronOverduetreatmentaction(), event
+     * action Cron task (\GlpiPlugin\Grcmanager\RiskTreatmentAction::cronOverduetreatmentaction(), event
      * 'treatment_action_overdue', see inc/notificationtargetrisktreatmentaction.class.php).
      * Idempotent for the same reason.
      */
@@ -3020,7 +3020,7 @@ final class Installer
     {
         global $DB;
 
-        $itemtype = 'PluginGrcmanagerRiskTreatmentAction';
+        $itemtype = 'GlpiPlugin\\Grcmanager\\RiskTreatmentAction';
         $event    = 'treatment_action_overdue';
 
         $alreadySeeded = $DB->request([
@@ -3678,14 +3678,14 @@ final class Installer
         // les tâches Cron enregistrées par ce plugin.
         CronTask::Unregister('grcmanager');
 
-        $this->unseedNotification('PluginGrcmanagerRisk');
+        $this->unseedNotification('GlpiPlugin\\Grcmanager\\Risk');
         $this->unseedNotification('PluginGrcmanagerSoaVersion');
-        $this->unseedNotification('PluginGrcmanagerSupplierRisk');
+        $this->unseedNotification('GlpiPlugin\\Grcmanager\\SupplierRisk');
         $this->unseedNotification('GlpiPlugin\\Grcmanager\\ComplianceObligation');
         $this->unseedNotification('PluginGrcmanagerNonconformity');
         $this->unseedNotification('PluginGrcmanagerTraining');
         $this->unseedNotification('GlpiPlugin\\Grcmanager\\Policy');
-        $this->unseedNotification('PluginGrcmanagerRiskTreatmentAction');
+        $this->unseedNotification('GlpiPlugin\\Grcmanager\\RiskTreatmentAction');
         $this->unseedNotification('GlpiPlugin\\Grcmanager\\Evidence');
         $this->unseedNotification('GlpiPlugin\\Grcmanager\\Waiver');
         $this->unseedNotification('GlpiPlugin\\Grcmanager\\ComplianceEvent');

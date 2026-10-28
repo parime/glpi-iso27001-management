@@ -48,7 +48,7 @@ final class RiskCatalogTest extends GrcmanagerIntegrationTestCase
         $created = \PluginGrcmanagerRiskCatalog::import(['spof_power', 'backups_same_site', 'inconnu']);
         $this->assertCount(2, $created);
 
-        $risk = new \PluginGrcmanagerRisk();
+        $risk = new \GlpiPlugin\Grcmanager\Risk();
         $this->assertTrue($risk->getFromDB($created[0]));
         $this->assertSame('physical', $risk->fields['category']);
         $this->assertSame('identified', $risk->fields['status']);

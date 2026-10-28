@@ -15,16 +15,20 @@
  * -------------------------------------------------------------------------
  */
 
+namespace GlpiPlugin\Grcmanager;
+
+use CronTask;
 use GlpiPlugin\Grcmanager\Compatibility\Base\RiskTreatmentActionBase;
 use GlpiPlugin\Grcmanager\Services\Risk\OverdueTreatmentActionService;
 use GlpiPlugin\Grcmanager\Services\Risk\TreatmentPlanRules;
 use GlpiPlugin\Grcmanager\Services\Ui\Badge;
+use Session;
 
 /**
  * One concrete action carrying out a risk's `mitigate`/`transfer` treatment decision (issue #31,
  * ISO 27001 clause 8.3/6.1.3: the treatment plan must actually be IMPLEMENTED and TRACKED, not just
  * decided). A real child itemtype/table (glpi_plugin_grcmanager_risktreatmentactions), not a flat
- * set of fields on PluginGrcmanagerRisk itself: unlike a non-conformity's CAPA (exactly one
+ * set of fields on Risk itself: unlike a non-conformity's CAPA (exactly one
  * corrective action + one preventive action, see PluginGrcmanagerNonconformity), a real risk
  * treatment plan is very often more than one action ("patch the system" AND "add monitoring" AND
  * "train staff"), each independently tracked to completion with its own owner/due date/status - a
@@ -36,18 +40,18 @@ use GlpiPlugin\Grcmanager\Services\Ui\Badge;
  * `plugin_grcmanager_risks_id` is not a real GLPI foreign key (no native `ON DELETE CASCADE` here),
  * same simplification assumed for PluginGrcmanagerObjectiveMeasurement's own
  * `plugin_grcmanager_objectives_id` (see TECH_DEBT.md issue #32) - EXCEPT that
- * PluginGrcmanagerRisk::post_purgeItem() already exists (issue #25, cleaning up
+ * Risk::post_purgeItem() already exists (issue #25, cleaning up
  * glpi_plugin_grcmanager_risks_items) and is extended here to also delete this itemtype's own rows,
  * since the marginal cost is a single extra $DB->delete() call and, unlike a measurement history
  * kept for its own sake, an orphaned treatment action would otherwise never be visible or
  * cleanable again (no menu entry, no own search screen).
  *
  * A treatment plan is only relevant for `treatment` = `mitigate`/`transfer` (see
- * TreatmentPlanRules::isTreatmentPlanRelevant(), and PluginGrcmanagerRisk::showForm()/
+ * TreatmentPlanRules::isTreatmentPlanRelevant(), and Risk::showForm()/
  * showTreatmentPlan() for where this itemtype is actually surfaced): `accept` has no treatment plan
  * by definition, `avoid` eliminates the risk source entirely, nothing ongoing to track either.
  */
-class PluginGrcmanagerRiskTreatmentAction extends RiskTreatmentActionBase
+class RiskTreatmentAction extends RiskTreatmentActionBase
 {
     // Registre sensible : droit dédié, voir Installer::SENSITIVE_RIGHT.
     public const RIGHTNAME = 'plugin_grcmanager_sensitive';
@@ -119,7 +123,7 @@ class PluginGrcmanagerRiskTreatmentAction extends RiskTreatmentActionBase
     {
         $riskId = (int) ($input['plugin_grcmanager_risks_id'] ?? ($this->fields['plugin_grcmanager_risks_id'] ?? 0));
 
-        $risk = new PluginGrcmanagerRisk();
+        $risk = new Risk();
         if ($riskId <= 0 || !$risk->getFromDB($riskId)) {
             Session::addMessageAfterRedirect(__('Risk not found.', 'grcmanager'), false, ERROR);
 
@@ -163,7 +167,7 @@ class PluginGrcmanagerRiskTreatmentAction extends RiskTreatmentActionBase
 
     /**
      * @return array<int, array<string, mixed>> raw DB rows for every treatment action of one risk,
-     *         soonest due date first, for PluginGrcmanagerRisk::showTreatmentPlan().
+     *         soonest due date first, for Risk::showTreatmentPlan().
      */
     public static function getActionsForRisk(int $riskId): array
     {
@@ -184,7 +188,7 @@ class PluginGrcmanagerRiskTreatmentAction extends RiskTreatmentActionBase
     }
 
     /**
-     * Used by PluginGrcmanagerRisk's own closure validation (a risk being mitigated/transferred
+     * Used by Risk's own closure validation (a risk being mitigated/transferred
      * cannot be closed with zero recorded treatment actions, see its own docblock) - a plain COUNT
      * rather than getActionsForRisk() to avoid fetching every row just to check "at least one".
      */

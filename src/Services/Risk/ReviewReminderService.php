@@ -5,17 +5,17 @@ declare(strict_types=1);
 namespace GlpiPlugin\Grcmanager\Services\Risk;
 
 use NotificationEvent;
-use PluginGrcmanagerRisk;
+use GlpiPlugin\Grcmanager\Risk;
 
 /**
  * Finds risks whose review date has passed or is approaching, and raises GLPI's native
  * NotificationEvent for each one (see inc/notificationtargetrisk.class.php for the
  * NotificationTarget, and src/Install/Installer.php for the seeded Notification/
  * NotificationTemplate rows). Driven by the daily Cron task
- * PluginGrcmanagerRisk::cronReviewreminder() (see issue tracked in
+ * \GlpiPlugin\Grcmanager\Risk::cronReviewreminder() (see issue tracked in
  * docs/design/DEVELOPMENT_PLAN.md, Sprint 2).
  *
- * Sprint 5 generalized this service to also drive PluginGrcmanagerSupplierRisk's own
+ * Sprint 5 generalized this service to also drive \GlpiPlugin\Grcmanager\SupplierRisk's own
  * cronReviewreminder(): both itemtypes share the exact same `status`/`review_date` columns and the
  * exact same "review due" semantics (see RiskAssessmentTrait), only the itemtype/table differ, so
  * a single `$itemtype` constructor argument was enough, no second copy of this query/notify logic.
@@ -29,12 +29,12 @@ use PluginGrcmanagerRisk;
  * that has no `status` column at all (it has `compliance_status`, which grades compliance, not
  * whether the obligation is still being tracked) - the previously-hardcoded
  * `'status' => ['<>', 'closed']` exclusion is now the optional `$excludeCriteria` constructor
- * argument below, defaulting to that exact same criterion so PluginGrcmanagerRisk and
- * PluginGrcmanagerSupplierRisk see no behaviour change; \GlpiPlugin\Grcmanager\ComplianceObligation's own
+ * argument below, defaulting to that exact same criterion so \GlpiPlugin\Grcmanager\Risk and
+ * \GlpiPlugin\Grcmanager\SupplierRisk see no behaviour change; \GlpiPlugin\Grcmanager\ComplianceObligation's own
  * cronReviewreminder() passes an empty array instead.
  *
- * NOTE: depends on GLPI's legacy global-namespace CommonDBTM classes (PluginGrcmanagerRisk and,
- * dynamically, PluginGrcmanagerSupplierRisk) and the NotificationEvent core class, not
+ * NOTE: depends on GLPI's legacy global-namespace CommonDBTM classes (\GlpiPlugin\Grcmanager\Risk and,
+ * dynamically, \GlpiPlugin\Grcmanager\SupplierRisk) and the NotificationEvent core class, not
  * unit-tested in isolation, same exclusion rationale as the sibling plugin
  * glpi-vulnerability-manager, see phpstan.neon.dist.
  */
@@ -53,19 +53,19 @@ final class ReviewReminderService
     /**
      * @param class-string $itemtype A CommonDBTM class with a `review_date` column and a
      *                                `review_due` NotificationEvent target, defaults to
-     *                                PluginGrcmanagerRisk for backward compatibility with Sprint 2
+     *                                \GlpiPlugin\Grcmanager\Risk for backward compatibility with Sprint 2
      *                                callers that never passed an argument.
      * @param array<int|string, mixed> $excludeCriteria Additional CommonDBTM::find() criteria
      *                                merged into the base review_date window, e.g. to exclude a
      *                                terminal status value. Defaults to the exact criterion this
      *                                service always applied before issue #30
-     *                                (`status <> closed`), matching PluginGrcmanagerRisk's and
-     *                                PluginGrcmanagerSupplierRisk's own `status` enum. Pass an
+     *                                (`status <> closed`), matching \GlpiPlugin\Grcmanager\Risk's and
+     *                                \GlpiPlugin\Grcmanager\SupplierRisk's own `status` enum. Pass an
      *                                empty array for an itemtype with no such column (see class
      *                                docblock, issue #30).
      */
     public function __construct(
-        private readonly string $itemtype = PluginGrcmanagerRisk::class,
+        private readonly string $itemtype = \GlpiPlugin\Grcmanager\Risk::class,
         private readonly array $excludeCriteria = ['status' => ['<>', 'closed']]
     ) {
     }

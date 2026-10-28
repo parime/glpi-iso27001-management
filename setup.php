@@ -98,7 +98,7 @@ function plugin_init_grcmanager(): void
             PluginGrcmanagerMenu::class,
             // Issue #247 : tableau de bord en tête, comme dans Parc et Assistance.
             PluginGrcmanagerDashboard::class,
-            PluginGrcmanagerRisk::class,
+            \GlpiPlugin\Grcmanager\Risk::class,
             PluginGrcmanagerControl::class,
             PluginGrcmanagerAudit::class,
             PluginGrcmanagerAccessReview::class,
@@ -148,7 +148,7 @@ function plugin_init_grcmanager(): void
     // Issue #113 : preuves des exigences du SMSI, même mécanisme.
     $CFG_GLPI['document_types'][] = PluginGrcmanagerIsmsRequirement::class;
     // Issue #127 : preuves de l'évaluation d'un fournisseur (questionnaire signé, certificats).
-    $CFG_GLPI['document_types'][] = PluginGrcmanagerSupplierRisk::class;
+    $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\SupplierRisk::class;
     // Issue #126 : rapport PDF de clôture d'une revue des accès, sur la campagne et sur la mesure.
     $CFG_GLPI['document_types'][] = PluginGrcmanagerAccessReview::class;
     $CFG_GLPI['document_types'][] = PluginGrcmanagerControl::class;
@@ -167,7 +167,7 @@ function plugin_init_grcmanager(): void
 
     // Issue #25 (lien registre de risques <-> actifs GLPI/CMDB) : onglet "Risques" en lecture
     // seule sur la fiche de chaque actif potentiellement lié (voir
-    // PluginGrcmanagerRisk::getTabNameForItem()/displayTabContentForItem()), même mécanisme
+    // \GlpiPlugin\Grcmanager\Risk::getTabNameForItem()/displayTabContentForItem()), même mécanisme
     // Plugin::registerClass()/addtabon que le plugin jumeau assetsign-glpi pour ses propres
     // onglets (voir son setup.php).
     //
@@ -175,15 +175,15 @@ function plugin_init_grcmanager(): void
     // ce qui privait tout actif personnalisé créé par un autre plugin (Configuration-glpi-auto :
     // Vehicule, Serveur, Local...) de cet onglet sur sa propre fiche, même si le lien
     // registre-de-risques/actif restait fonctionnel depuis le formulaire du risque lui-même.
-    // PluginGrcmanagerRisk::getLinkableItemtypes() interroge déjà directement la table SQL
+    // \GlpiPlugin\Grcmanager\Risk::getLinkableItemtypes() interroge déjà directement la table SQL
     // glpi_assets_assetdefinitions (voir son docblock) plutôt que
     // Glpi\Asset\AssetDefinitionManager::getInstance()->getDefinitions() (qui renverrait un
     // tableau vide ici : ce hook s'exécute pendant le listener InitializePlugins, avant
     // CustomObjectsBoot) — exactement le même contournement, déjà éprouvé en production, que
     // Config::getAllManageableItemtypes() du plugin jumeau assetsign-glpi, qui l'appelle lui
     // aussi directement depuis son propre plugin_init() pour construire ses listes d'addtabon.
-    Plugin::registerClass(PluginGrcmanagerRisk::class, [
-        'addtabon' => PluginGrcmanagerRisk::getLinkableItemtypes(),
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\Risk::class, [
+        'addtabon' => \GlpiPlugin\Grcmanager\Risk::getLinkableItemtypes(),
     ]);
 
     // Issue #26 (classification Confidentialité/Intégrité/Disponibilité des actifs) : même
@@ -192,7 +192,7 @@ function plugin_init_grcmanager(): void
     // la fiche de chaque actif liable pour consulter/éditer sa classification C/I/D (voir
     // PluginGrcmanagerAssetClassification::getTabNameForItem()/displayTabContentForItem()).
     Plugin::registerClass(PluginGrcmanagerAssetClassification::class, [
-        'addtabon' => PluginGrcmanagerRisk::getLinkableItemtypes(),
+        'addtabon' => \GlpiPlugin\Grcmanager\Risk::getLinkableItemtypes(),
     ]);
 
     // Issue #145 : onglet « Validités des preuves » sur les éléments dont les documents prouvent
@@ -200,7 +200,7 @@ function plugin_init_grcmanager(): void
     // Issue #170 : onglet « Dérogations » sur les actifs, les mesures et les politiques.
     Plugin::registerClass(\GlpiPlugin\Grcmanager\Waiver::class, [
         'addtabon' => array_merge(
-            PluginGrcmanagerRisk::getLinkableItemtypes(),
+            \GlpiPlugin\Grcmanager\Risk::getLinkableItemtypes(),
             [PluginGrcmanagerControl::class, \GlpiPlugin\Grcmanager\Policy::class]
         ),
     ]);
@@ -220,12 +220,12 @@ function plugin_init_grcmanager(): void
     ]);
 
     // Issue #171 : onglet « Effet domino » sur les risques, risques fournisseurs et incidents.
-    Plugin::registerClass(PluginGrcmanagerCausalLink::class, [
-        'addtabon' => PluginGrcmanagerCausalLink::getLinkableItemtypes(),
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\CausalLink::class, [
+        'addtabon' => \GlpiPlugin\Grcmanager\CausalLink::getLinkableItemtypes(),
     ]);
     // Issue #177 : onglet « Impact d'une panne » sur les actifs.
-    Plugin::registerClass(PluginGrcmanagerImpactAnalysis::class, [
-        'addtabon' => PluginGrcmanagerRisk::getLinkableItemtypes(),
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\ImpactAnalysis::class, [
+        'addtabon' => \GlpiPlugin\Grcmanager\Risk::getLinkableItemtypes(),
     ]);
 
     // Issue #164 : onglet « Couverture des preuves » sur les mesures et les exigences du SMSI.

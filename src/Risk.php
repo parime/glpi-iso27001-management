@@ -15,6 +15,11 @@
  * -------------------------------------------------------------------------
  */
 
+namespace GlpiPlugin\Grcmanager;
+
+use CommonDBTM;
+use CommonGLPI;
+use CronTask;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\RiskBase;
 use GlpiPlugin\Grcmanager\Services\Classification\ClassificationLevels;
@@ -23,6 +28,12 @@ use GlpiPlugin\Grcmanager\Services\Risk\ReviewReminderService;
 use GlpiPlugin\Grcmanager\Services\Risk\RiskItemLinkNormalizer;
 use GlpiPlugin\Grcmanager\Services\Risk\TreatmentPlanRules;
 use GlpiPlugin\Grcmanager\Traits\RiskAssessmentTrait;
+use Log;
+use PluginGrcmanagerAssetClassification;
+use PluginGrcmanagerMenu;
+use GlpiPlugin\Grcmanager\RiskTreatmentAction;
+use Session;
+use User;
 
 /**
  * Generic organizational risk register (ISO 27001 clause 6.1.2/8.2), see issue #89 on the sibling
@@ -31,15 +42,15 @@ use GlpiPlugin\Grcmanager\Traits\RiskAssessmentTrait;
  * people, process, physical, third-party or technical risk, not just a scored vulnerability.
  *
  * The probability x impact scoring, treatment/status enums and their badge rendering are shared
- * with the Sprint 5 supplier/third-party risk register (PluginGrcmanagerSupplierRisk) via
+ * with the Sprint 5 supplier/third-party risk register (SupplierRisk) via
  * RiskAssessmentTrait, see its own docblock: one implementation, never two that could drift apart.
  *
  * Issue #31 (plan d'action de traitement des risques, clause 8.3/6.1.3) adds a genuine, trackable
  * treatment plan for a `mitigate`/`transfer` decision (see TreatmentPlanRules,
- * PluginGrcmanagerRiskTreatmentAction, showTreatmentPlan() below) - `treatment` and `justification`
+ * RiskTreatmentAction, showTreatmentPlan() below) - `treatment` and `justification`
  * alone only ever recorded the DECISION, never whether it was actually carried out.
  */
-class PluginGrcmanagerRisk extends RiskBase
+class Risk extends RiskBase
 {
     use RiskAssessmentTrait;
 
@@ -72,7 +83,7 @@ class PluginGrcmanagerRisk extends RiskBase
 
     /**
      * Le titre tient lieu de nom : sans cela, l'en-tête de la fiche et les listes déroulantes
-     * affichaient « N/A » (même correctif que \GlpiPlugin\Grcmanager\Policy::getNameField()).
+     * affichaient « N/A » (même correctif que Policy::getNameField()).
      */
     public static function getNameField()
     {
@@ -106,7 +117,7 @@ class PluginGrcmanagerRisk extends RiskBase
      * close/verify" pattern (CapaRequirementService::isCapaMandatory()), applied here to closing a
      * risk instead of closing a non-conformity. Delegates the actual probability x impact scoring
      * to the trait's own computeRiskLevel() so this override never duplicates that logic, same
-     * pattern as PluginGrcmanagerSupplierRisk::validateSupplierAndComputeRiskLevel().
+     * pattern as SupplierRisk::validateSupplierAndComputeRiskLevel().
      *
      * @param array<string, mixed> $input
      * @return array<string, mixed>|false
@@ -138,7 +149,7 @@ class PluginGrcmanagerRisk extends RiskBase
         if (
             $status === 'closed'
             && TreatmentPlanRules::isTreatmentPlanRelevant($treatment)
-            && ($riskId <= 0 || PluginGrcmanagerRiskTreatmentAction::countForRisk($riskId) === 0)
+            && ($riskId <= 0 || RiskTreatmentAction::countForRisk($riskId) === 0)
         ) {
             Session::addMessageAfterRedirect(
                 __(
@@ -400,7 +411,7 @@ class PluginGrcmanagerRisk extends RiskBase
         if ($planRelevant) {
             $actions = [];
             if (!$isNew) {
-                foreach (PluginGrcmanagerRiskTreatmentAction::getActionsForRisk((int) $ID) as $action) {
+                foreach (RiskTreatmentAction::getActionsForRisk((int) $ID) as $action) {
                     $actions[] = [
                         'id'              => (int) $action['id'],
                         'description'     => (string) ($action['description'] ?? ''),
@@ -408,7 +419,7 @@ class PluginGrcmanagerRisk extends RiskBase
                         'due_date'        => (string) ($action['due_date'] ?? ''),
                         'completion_date' => (string) ($action['completion_date'] ?? ''),
                         'status'          => $action['status'] ?? TreatmentPlanRules::DEFAULT_STATUS,
-                        'status_html'     => PluginGrcmanagerRiskTreatmentAction::statusBadge(
+                        'status_html'     => RiskTreatmentAction::statusBadge(
                             $action['status'] ?? null
                         ),
                         'overdue'         => TreatmentPlanRules::isOverdue(
@@ -425,7 +436,7 @@ class PluginGrcmanagerRisk extends RiskBase
                 'can_edit'        => $canEdit,
                 'action'          => $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/risktreatmentaction.form.php',
                 'actions'         => $actions,
-                'action_statuses' => PluginGrcmanagerRiskTreatmentAction::getStatuses(),
+                'action_statuses' => RiskTreatmentAction::getStatuses(),
                 'user_dropdown'   => $canEdit && !$isNew
                     ? User::dropdown(['name' => 'users_id', 'value' => 0, 'right' => 'all', 'display' => false])
                     : '',
@@ -728,7 +739,7 @@ class PluginGrcmanagerRisk extends RiskBase
         // est nul, et une action de traitement orpheline ne serait, elle, plus jamais visible ni
         // supprimable (aucun menu, aucun écran de recherche propre à cet itemtype).
         $DB->delete(
-            PluginGrcmanagerRiskTreatmentAction::getTable(),
+            RiskTreatmentAction::getTable(),
             ['plugin_grcmanager_risks_id' => $this->fields['id']]
         );
     }

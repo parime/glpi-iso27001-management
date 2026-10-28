@@ -44,22 +44,28 @@ final class ImpactAnalysisTest extends GrcmanagerIntegrationTestCase
 
         $computer = new \Computer();
         $computer->getFromDB($hypervisor);
-        $analysis = \PluginGrcmanagerImpactAnalysis::analyze($computer);
+        $analysis = \GlpiPlugin\Grcmanager\ImpactAnalysis::analyze($computer);
         $this->assertTrue($analysis['has_relations']);
         $this->assertSame([1, 2], array_column($analysis['downstream'], 'depth'));
         $this->assertSame('high', $analysis['downstream'][0]['availability']);
         $this->assertCount(1, $analysis['spof_for'], 'Seul hyperviseur de la VM critique.');
 
-        $riskId = \PluginGrcmanagerImpactAnalysis::createSinglePointRisk($computer, $analysis['spof_for']);
+        $riskId = \GlpiPlugin\Grcmanager\ImpactAnalysis::createSinglePointRisk($computer, $analysis['spof_for']);
         $this->assertGreaterThan(0, $riskId);
-        $again = \PluginGrcmanagerImpactAnalysis::createSinglePointRisk($computer, $analysis['spof_for']);
+        $again = \GlpiPlugin\Grcmanager\ImpactAnalysis::createSinglePointRisk($computer, $analysis['spof_for']);
         $this->assertSame(0, $again, 'Pas de doublon.');
-        $this->assertCount(1, \PluginGrcmanagerRisk::getRisksLinkedToItem('Computer', $hypervisor));
+        $this->assertCount(1, \GlpiPlugin\Grcmanager\Risk::getRisksLinkedToItem('Computer', $hypervisor));
 
         // Le risque apparaît aussi dans l'analyse de l'hyperviseur.
-        $this->assertSame([$riskId], array_column(\PluginGrcmanagerImpactAnalysis::analyze($computer)['risks'], 'id'));
+        $this->assertSame(
+            [$riskId],
+            array_column(\GlpiPlugin\Grcmanager\ImpactAnalysis::analyze($computer)['risks'], 'id')
+        );
 
-        $sources = array_column(array_column(\PluginGrcmanagerImpactAnalysis::allSinglePoints(), 'source'), 'label');
+        $sources = array_column(
+            array_column(\GlpiPlugin\Grcmanager\ImpactAnalysis::allSinglePoints(), 'source'),
+            'label'
+        );
         // Libellé traduit : la CI tourne en anglais.
         $this->assertContains(\Computer::getTypeName(1) . ' HV-DEMO-01', $sources);
     }
@@ -93,7 +99,7 @@ final class ImpactAnalysisTest extends GrcmanagerIntegrationTestCase
 
         $computer = new \Computer();
         $computer->getFromDB($storage);
-        $analysis = \PluginGrcmanagerImpactAnalysis::analyze($computer);
+        $analysis = \GlpiPlugin\Grcmanager\ImpactAnalysis::analyze($computer);
         $this->assertCount(1, $analysis['recovery'], 'L\'application exige 4 h, le stockage 24 h.');
         $this->assertSame(4, $analysis['recovery'][0]['required']);
         $this->assertSame(24, $analysis['recovery'][0]['actual']);
@@ -101,12 +107,12 @@ final class ImpactAnalysisTest extends GrcmanagerIntegrationTestCase
         $this->assertStringContainsString('center', $analysis['graph'][0]['classes']);
 
         ob_start();
-        \PluginGrcmanagerImpactAnalysis::displayTabContentForItem($computer);
+        \GlpiPlugin\Grcmanager\ImpactAnalysis::displayTabContentForItem($computer);
         $html = (string) ob_get_clean();
         $this->assertStringContainsString('data-elements=', $html);
         $this->assertStringContainsString('APP-DEMO-RTO', $html);
 
-        $rows = \PluginGrcmanagerImpactAnalysis::continuityRows();
+        $rows = \GlpiPlugin\Grcmanager\ImpactAnalysis::continuityRows();
         $label = \Computer::getTypeName(1) . ' APP-DEMO-RTO';
         $this->assertContains($label, array_column($rows, 0));
         $line = $rows[(int) array_search($label, array_column($rows, 0), true)];

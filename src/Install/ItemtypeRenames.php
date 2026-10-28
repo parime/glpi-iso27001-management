@@ -47,6 +47,18 @@ final class ItemtypeRenames
             => \GlpiPlugin\Grcmanager\NotificationTargetComplianceEvent::class,
         'PluginGrcmanagerEvidence'                 => \GlpiPlugin\Grcmanager\Evidence::class,
         'PluginGrcmanagerNotificationTargetEvidence' => \GlpiPlugin\Grcmanager\NotificationTargetEvidence::class,
+        // Risques : registre, plan de traitement, fournisseurs, analyse d'impact, liens de causalité.
+        'PluginGrcmanagerRisk'                     => \GlpiPlugin\Grcmanager\Risk::class,
+        'PluginGrcmanagerNotificationTargetRisk'   => \GlpiPlugin\Grcmanager\NotificationTargetRisk::class,
+        'PluginGrcmanagerRiskTreatmentAction'      => \GlpiPlugin\Grcmanager\RiskTreatmentAction::class,
+        'PluginGrcmanagerNotificationTargetRiskTreatmentAction'
+            => \GlpiPlugin\Grcmanager\NotificationTargetRiskTreatmentAction::class,
+        'PluginGrcmanagerSupplierRisk'             => \GlpiPlugin\Grcmanager\SupplierRisk::class,
+        'PluginGrcmanagerNotificationTargetSupplierRisk'
+            => \GlpiPlugin\Grcmanager\NotificationTargetSupplierRisk::class,
+        'PluginGrcmanagerSupplierAssessment'       => \GlpiPlugin\Grcmanager\SupplierAssessment::class,
+        'PluginGrcmanagerImpactAnalysis'           => \GlpiPlugin\Grcmanager\ImpactAnalysis::class,
+        'PluginGrcmanagerCausalLink'               => \GlpiPlugin\Grcmanager\CausalLink::class,
     ];
 
     /**

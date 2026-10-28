@@ -336,13 +336,13 @@ final class PilotageCards
 
         $row = $DB->request([
             'SELECT' => [new \Glpi\DBAL\QueryExpression('AVG(`questionnaire_score`) AS avg_score')],
-            'FROM'   => \PluginGrcmanagerSupplierRisk::getTable(),
+            'FROM'   => \GlpiPlugin\Grcmanager\SupplierRisk::getTable(),
             'WHERE'  => [['NOT' => ['questionnaire_date' => null]], ['NOT' => ['questionnaire_score' => null]]],
         ])->current();
 
         return [
             'number' => $row['avg_score'] !== null ? (int) round((float) $row['avg_score']) : 0,
-            'url'    => \PluginGrcmanagerSupplierRisk::getSearchURL(),
+            'url'    => \GlpiPlugin\Grcmanager\SupplierRisk::getSearchURL(),
             'label'  => $params['label'] ?? __('Average supplier score', 'grcmanager'),
             'icon'   => 'ti ti-building-store',
         ];
@@ -359,7 +359,7 @@ final class PilotageCards
 
         $count = (int) $DB->request([
             'SELECT' => [new \Glpi\DBAL\QueryExpression('COUNT(DISTINCT `suppliers_id`) AS c')],
-            'FROM'   => \PluginGrcmanagerSupplierRisk::getTable(),
+            'FROM'   => \GlpiPlugin\Grcmanager\SupplierRisk::getTable(),
             'WHERE'  => [
                 'risk_level'          => ['high', 'critical'],
                 'status'              => ['identified', 'in_treatment'],
@@ -370,7 +370,7 @@ final class PilotageCards
 
         return [
             'number' => $count,
-            'url'    => \PluginGrcmanagerSupplierRisk::getSearchURL(),
+            'url'    => \GlpiPlugin\Grcmanager\SupplierRisk::getSearchURL(),
             'label'  => $params['label'] ?? __('Critical suppliers not assessed', 'grcmanager'),
             'icon'   => 'ti ti-building-warehouse',
         ];

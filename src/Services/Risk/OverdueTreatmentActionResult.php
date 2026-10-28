@@ -6,7 +6,7 @@ namespace GlpiPlugin\Grcmanager\Services\Risk;
 
 /**
  * Outcome of one OverdueTreatmentActionService::notify() run, reported by
- * PluginGrcmanagerRiskTreatmentAction::cronOverduetreatmentaction() (inc/risktreatmentaction.class.php)
+ * \GlpiPlugin\Grcmanager\RiskTreatmentAction::cronOverduetreatmentaction() (inc/risktreatmentaction.class.php)
  * to the GLPI Cron log. Same shape as the sibling
  * GlpiPlugin\Grcmanager\Services\Capa\OverdueCapaResult.
  */

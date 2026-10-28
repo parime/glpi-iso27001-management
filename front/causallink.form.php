@@ -18,9 +18,9 @@
 include('../../../inc/includes.php');
 
 // Issue #171 : lien cause → conséquence (onglet « Effet domino »).
-$link = new PluginGrcmanagerCausalLink();
+$link = new \GlpiPlugin\Grcmanager\CausalLink();
 if (isset($_POST['add'])) {
-    Session::checkRight(PluginGrcmanagerCausalLink::$rightname, CREATE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\CausalLink::$rightname, CREATE);
     $key = (string) ($_POST['item_key'] ?? '');
     $other = (string) ($_POST['other'] ?? '');
     $isEffect = ($_POST['direction'] ?? 'effect') === 'effect';
@@ -34,4 +34,4 @@ if (isset($_POST['purge'])) {
     $link->delete(['id' => (int) $_POST['id']], true);
     Html::back();
 }
-Html::redirect(PluginGrcmanagerCausalLink::getSearchURL());
+Html::redirect(\GlpiPlugin\Grcmanager\CausalLink::getSearchURL());

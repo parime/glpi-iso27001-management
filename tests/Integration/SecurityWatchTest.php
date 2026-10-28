@@ -43,10 +43,10 @@ final class SecurityWatchTest extends GrcmanagerIntegrationTestCase
         ]]);
     }
 
-    private function supplierRisk(int $ownerId): \PluginGrcmanagerSupplierRisk
+    private function supplierRisk(int $ownerId): \GlpiPlugin\Grcmanager\SupplierRisk
     {
         $supplierId = (int) (new \Supplier())->add(['name' => $this->vendor . ' SAS', 'entities_id' => 0]);
-        $risk = new \PluginGrcmanagerSupplierRisk();
+        $risk = new \GlpiPlugin\Grcmanager\SupplierRisk();
         $risk->getFromDB((int) $risk->add([
             'title'        => 'PHPUnit dépendance ' . $this->vendor,
             'suppliers_id' => $supplierId,
@@ -79,7 +79,7 @@ final class SecurityWatchTest extends GrcmanagerIntegrationTestCase
         $this->assertSame(1, countElementsInTable(\PluginGrcmanagerSecurityWatch::NOTIFIED_TABLE, $links), 'Une fois.');
 
         $this->assertSame(1, countElementsInTable('glpi_notifications', [
-            'itemtype' => \PluginGrcmanagerSupplierRisk::class,
+            'itemtype' => \GlpiPlugin\Grcmanager\SupplierRisk::class,
             'event'    => \PluginGrcmanagerSecurityWatch::NOTIFY_EVENT,
         ]), 'Notification installée.');
         $DB->delete(\PluginGrcmanagerSecurityWatch::NOTIFIED_TABLE, $links);

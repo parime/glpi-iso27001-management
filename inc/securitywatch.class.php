@@ -52,7 +52,7 @@ class PluginGrcmanagerSecurityWatch extends CommonGLPI
      *
      * @return list<string>
      */
-    public static function keywordsFor(PluginGrcmanagerSupplierRisk $risk): array
+    public static function keywordsFor(\GlpiPlugin\Grcmanager\SupplierRisk $risk): array
     {
         $supplier = new Supplier();
         if (!$supplier->getFromDB((int) ($risk->fields['suppliers_id'] ?? 0))) {
@@ -134,8 +134,8 @@ class PluginGrcmanagerSecurityWatch extends CommonGLPI
     public function getTabNameForItem(CommonGLPI $item, $withtemplate = 0)
     {
         if (
-            !$item instanceof PluginGrcmanagerSupplierRisk || $item->isNewItem()
-            || !PluginGrcmanagerSupplierRisk::canView()
+            !$item instanceof \GlpiPlugin\Grcmanager\SupplierRisk || $item->isNewItem()
+            || !\GlpiPlugin\Grcmanager\SupplierRisk::canView()
         ) {
             return '';
         }
@@ -151,7 +151,7 @@ class PluginGrcmanagerSecurityWatch extends CommonGLPI
         global $CFG_GLPI;
 
         // ajax/common.tabs.php sert le contenu sans passer par getTabNameForItem().
-        if (!$item instanceof PluginGrcmanagerSupplierRisk || !$item->can($item->getID(), READ)) {
+        if (!$item instanceof \GlpiPlugin\Grcmanager\SupplierRisk || !$item->can($item->getID(), READ)) {
             return false;
         }
         $keywords = self::keywordsFor($item);
@@ -183,7 +183,7 @@ class PluginGrcmanagerSecurityWatch extends CommonGLPI
             return 0;
         }
         $sent = 0;
-        $risk = new PluginGrcmanagerSupplierRisk();
+        $risk = new \GlpiPlugin\Grcmanager\SupplierRisk();
         foreach ($risk->find(['users_id' => ['>', 0]]) as $row) {
             $risk->getFromDB((int) $row['id']);
             $notices = self::noticesFor(self::keywordsFor($risk), self::RECENT_DAYS);

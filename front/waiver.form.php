@@ -45,7 +45,7 @@ if (isset($_POST['add'])) {
         \GlpiPlugin\Grcmanager\Waiver::getTypeName(1),
         $_SERVER['PHP_SELF'],
         'grcmanager',
-        PluginGrcmanagerRisk::class,
+        \GlpiPlugin\Grcmanager\Risk::class,
         \GlpiPlugin\Grcmanager\Waiver::class
     );
 

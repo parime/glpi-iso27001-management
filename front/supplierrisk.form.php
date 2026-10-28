@@ -17,10 +17,10 @@
 
 include('../../../inc/includes.php');
 
-$item = new PluginGrcmanagerSupplierRisk();
+$item = new \GlpiPlugin\Grcmanager\SupplierRisk();
 
 if (isset($_POST['add'])) {
-    Session::checkRight(PluginGrcmanagerSupplierRisk::$rightname, CREATE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\SupplierRisk::$rightname, CREATE);
     $newID = $item->add($_POST);
     // Comme les formulaires natifs : retour sur l'élément créé si la préférence est active.
     if ($newID && $_SESSION['glpibackcreated']) {
@@ -28,25 +28,29 @@ if (isset($_POST['add'])) {
     }
     Html::back();
 } elseif (isset($_POST['delete'])) {
-    Session::checkRight(PluginGrcmanagerSupplierRisk::$rightname, DELETE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\SupplierRisk::$rightname, DELETE);
     $item->delete($_POST);
-    Html::redirect(PluginGrcmanagerSupplierRisk::getSearchURL());
+    Html::redirect(\GlpiPlugin\Grcmanager\SupplierRisk::getSearchURL());
 } elseif (isset($_POST['purge'])) {
-    Session::checkRight(PluginGrcmanagerSupplierRisk::$rightname, PURGE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\SupplierRisk::$rightname, PURGE);
     $item->delete($_POST, true);
-    Html::redirect(PluginGrcmanagerSupplierRisk::getSearchURL());
+    Html::redirect(\GlpiPlugin\Grcmanager\SupplierRisk::getSearchURL());
 } elseif (isset($_POST['update'])) {
-    Session::checkRight(PluginGrcmanagerSupplierRisk::$rightname, UPDATE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\SupplierRisk::$rightname, UPDATE);
     $item->update($_POST);
     Html::back();
 } else {
     // Issue #127 : displayFullPageForItem() (comme front/policy.form.php) affiche la barre
     // d'onglets (questionnaire, contrats, documents, historique) ; showForm() seul ne la rend pas.
     // Les droits (READ, ou CREATE pour un nouvel élément) sont vérifiés par $item->can().
-    PluginGrcmanagerSupplierRisk::displayFullPageForItem(
+    \GlpiPlugin\Grcmanager\SupplierRisk::displayFullPageForItem(
         $_GET['id'] ?? 0,
         [
-            'central'  => ['grcmanager', PluginGrcmanagerRisk::class, PluginGrcmanagerSupplierRisk::class],
+            'central'  => [
+                'grcmanager',
+                \GlpiPlugin\Grcmanager\Risk::class,
+                \GlpiPlugin\Grcmanager\SupplierRisk::class,
+            ],
             'helpdesk' => [],
         ]
     );

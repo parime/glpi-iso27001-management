@@ -33,7 +33,7 @@ use NotificationEvent;
 use PluginGrcmanagerAccessReview;
 use PluginGrcmanagerControl;
 use GlpiPlugin\Grcmanager\Policy;
-use PluginGrcmanagerRisk;
+use GlpiPlugin\Grcmanager\Risk;
 use Session;
 use Ticket;
 
@@ -126,7 +126,7 @@ class Waiver extends WaiverBase
      */
     public static function getLinkableItemtypes(): array
     {
-        return PluginGrcmanagerRisk::getLinkableItemtypes();
+        return Risk::getLinkableItemtypes();
     }
 
     public function showForm($ID, array $options = [])

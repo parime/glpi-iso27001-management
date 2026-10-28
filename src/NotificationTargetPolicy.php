@@ -45,7 +45,7 @@ class NotificationTargetPolicy extends NotificationTarget
      * Default recipient: the policy's own owner (`users_id`), same generic "item owner"
      * resolution GLPI core uses for any CommonDBTM with a `users_id` field
      * (NotificationTarget::addItemOwner()), same convention as
-     * PluginGrcmanagerNotificationTargetRisk::addAdditionalTargets().
+     * NotificationTargetRisk::addAdditionalTargets().
      */
     #[Override]
     public function addAdditionalTargets($event = '')

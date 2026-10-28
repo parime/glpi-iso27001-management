@@ -9,7 +9,7 @@ namespace GlpiPlugin\Grcmanager\Services\Incident;
  * A.5.24-27 classification fields ("planification et préparation, évaluation et décision, réponse,
  * apprentissage des incidents de sécurité de l'information") : category/severity normalization,
  * the `cia_impact` comma-separated axis list, the optional zero-or-one link to a
- * PluginGrcmanagerRisk, and the root_cause/lessons_learned-required-before-closed validation
+ * \GlpiPlugin\Grcmanager\Risk, and the root_cause/lessons_learned-required-before-closed validation
  * (clause A.5.27). Kept GLPI-independent (no $DB, no CommonDBTM, no __()) so every branch is unit
  * tested directly, the same split already used throughout this plugin between pure decision logic
  * and the thin CommonDBTM/$DB wrapper that calls it (see ComplianceObligationRules,

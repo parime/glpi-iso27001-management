@@ -274,7 +274,7 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
         'documents_id' => $ids['document_' . $suffix], 'valid_until' => date('Y-m-d', strtotime('+10 days')),
     ]);
 }
-$ids['supplierrisk'] = $add(new PluginGrcmanagerSupplierRisk(), [
+$ids['supplierrisk'] = $add(new \GlpiPlugin\Grcmanager\SupplierRisk(), [
     'title' => 'Risque fournisseur securite', 'suppliers_id' => $supplier,
 ]);
 $ids['training'] = $add(new PluginGrcmanagerTraining(), ['title' => 'Formation securite', 'participants' => [2]]);
@@ -283,7 +283,7 @@ $ids['quiz'] = PluginGrcmanagerTrainingQuiz::getParticipationId($ids['training']
 $quizPrefix = uniqid('', true);
 file_put_contents(GLPI_TMP_DIR . '/' . $quizPrefix . 'copie-quiz.txt', "Copie de quiz securite\n");
 PluginGrcmanagerTrainingQuiz::attach($ids['quiz'], $quizPrefix . 'copie-quiz.txt', $quizPrefix);
-$ids['risk'] = $add(new PluginGrcmanagerRisk(), [
+$ids['risk'] = $add(new \GlpiPlugin\Grcmanager\Risk(), [
     'title' => 'Risque securite', 'linked_items_Computer' => [$ids['computer_B']],
 ]);
 // Registres sensibles : la fiche du contrôle, lisible sans le droit dédié, ne doit pas montrer ce

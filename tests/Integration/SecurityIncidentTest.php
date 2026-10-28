@@ -202,7 +202,7 @@ final class SecurityIncidentTest extends GrcmanagerIntegrationTestCase
     public function testLinkedRiskIdCanBeSetAndCleared(): void
     {
         $entityId = $this->createTestEntity(0, 'PHPUnit Risk Link Entity');
-        $risk = new \PluginGrcmanagerRisk();
+        $risk = new \GlpiPlugin\Grcmanager\Risk();
         $riskId = $risk->add(['title' => 'PHPUnit test risk', 'entities_id' => $entityId]);
         $this->assertGreaterThan(0, $riskId);
 

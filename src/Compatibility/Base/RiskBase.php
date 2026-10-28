@@ -6,10 +6,10 @@ namespace GlpiPlugin\Grcmanager\Compatibility\Base;
 
 use CommonDBTM;
 use GlpiPlugin\Grcmanager\Compatibility\GlpiVersion;
-use PluginGrcmanagerRisk;
+use GlpiPlugin\Grcmanager\Risk;
 
 /*
- * Parent of \PluginGrcmanagerRisk.
+ * Parent of \\GlpiPlugin\Grcmanager\Risk.
  *
  * Redeclares the GLPI core properties that class overrides: untyped on GLPI 11, typed on GLPI 12
  * (see GlpiVersion). A class, not a trait: on PHP 8.2-8.4 a trait cannot redeclare an inherited
@@ -19,14 +19,14 @@ use PluginGrcmanagerRisk;
 if (GlpiVersion::isAtLeast12()) {
     abstract class RiskBase extends CommonDBTM
     {
-        public static string $rightname = PluginGrcmanagerRisk::RIGHTNAME;
+        public static string $rightname = \GlpiPlugin\Grcmanager\Risk::RIGHTNAME;
         // Registre sensible : qui a modifié quoi, et quand (onglet Historique).
         public bool $dohistory = true;
     }
 } else {
     abstract class RiskBase extends CommonDBTM
     {
-        public static $rightname = PluginGrcmanagerRisk::RIGHTNAME;
+        public static $rightname = \GlpiPlugin\Grcmanager\Risk::RIGHTNAME;
         // Registre sensible : qui a modifié quoi, et quand (onglet Historique).
         public $dohistory = true;
     }

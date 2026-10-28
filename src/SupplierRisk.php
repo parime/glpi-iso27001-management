@@ -15,11 +15,24 @@
  * -------------------------------------------------------------------------
  */
 
+namespace GlpiPlugin\Grcmanager;
+
+use CommonITILObject;
+use CronTask;
+use Document_Item;
+use Dropdown;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\SupplierRiskBase;
 use GlpiPlugin\Grcmanager\Services\Risk\ReviewReminderService;
-use GlpiPlugin\Grcmanager\Traits\RiskAssessmentTrait;
 use GlpiPlugin\Grcmanager\Services\Ui\Fragment;
+use GlpiPlugin\Grcmanager\Traits\RiskAssessmentTrait;
+use Html;
+use Log;
+use PluginGrcmanagerSecurityWatch;
+use GlpiPlugin\Grcmanager\SupplierAssessment;
+use Session;
+use Supplier;
+use Ticket;
 
 /**
  * Supplier/third-party risk register (ISO 27001 clause 6.1.2/8.2 applied specifically to
@@ -27,10 +40,10 @@ use GlpiPlugin\Grcmanager\Services\Ui\Fragment;
  * one risk tied to a real GLPI core `Supplier` (`suppliers_id`, GLPI's own native supplier
  * itemtype, never a parallel supplier concept of this plugin's own), with the exact same
  * probability x impact scoring and accept/mitigate/transfer/avoid treatment workflow as the
- * generic risk register (PluginGrcmanagerRisk): both share RiskAssessmentTrait so that scoring can
+ * generic risk register (Risk): both share RiskAssessmentTrait so that scoring can
  * never drift between the two registers, see its docblock.
  */
-class PluginGrcmanagerSupplierRisk extends SupplierRiskBase
+class SupplierRisk extends SupplierRiskBase
 {
     use RiskAssessmentTrait;
 
@@ -40,7 +53,7 @@ class PluginGrcmanagerSupplierRisk extends SupplierRiskBase
     /**
      * GLPI notification event name (see inc/notificationtargetsupplierrisk.class.php and
      * src/Services/Risk/ReviewReminderService.php), same single-source-of-truth pattern as
-     * PluginGrcmanagerRisk::REVIEW_DUE_EVENT. Deliberately the same event name as the generic risk
+     * Risk::REVIEW_DUE_EVENT. Deliberately the same event name as the generic risk
      * register: both itemtypes raise 'review_due' on their own NotificationTarget class, GLPI
      * dispatches by the notified item's own get_class(), so reusing the string is safe and keeps a
      * single vocabulary ("review due") across both registers rather than inventing a second one.
@@ -54,7 +67,7 @@ class PluginGrcmanagerSupplierRisk extends SupplierRiskBase
 
     /**
      * Le titre tient lieu de nom : sans cela, l'en-tête de la fiche et les listes déroulantes
-     * affichaient « N/A » (même correctif que \GlpiPlugin\Grcmanager\Policy::getNameField()).
+     * affichaient « N/A » (même correctif que Policy::getNameField()).
      */
     public static function getNameField()
     {
@@ -75,7 +88,7 @@ class PluginGrcmanagerSupplierRisk extends SupplierRiskBase
      * The one validation this class adds on top of RiskAssessmentTrait's shared scoring: a
      * supplier risk without a linked Supplier would defeat the whole point of a dedicated
      * register (it would just be a generic risk with a "third_party" category, already possible
-     * on PluginGrcmanagerRisk since Sprint 1). Delegates the actual probability x impact scoring
+     * on Risk since Sprint 1). Delegates the actual probability x impact scoring
      * to the trait's own computeRiskLevel() so this override never duplicates that logic.
      *
      * @param array<string, mixed> $input
@@ -83,13 +96,13 @@ class PluginGrcmanagerSupplierRisk extends SupplierRiskBase
      */
     /**
      * Issue #127 : questionnaire de sécurité et contrats du fournisseur
-     * (PluginGrcmanagerSupplierAssessment), preuves (Documents) et historique.
+     * (SupplierAssessment), preuves (Documents) et historique.
      */
     public function defineTabs($options = [])
     {
         $tabs = [];
         $this->addDefaultFormTab($tabs)
-            ->addStandardTab(PluginGrcmanagerSupplierAssessment::class, $tabs, $options)
+            ->addStandardTab(SupplierAssessment::class, $tabs, $options)
             // Issue #167 : avis du CERT-FR et vulnérabilités du parc qui citent le fournisseur.
             ->addStandardTab(PluginGrcmanagerSecurityWatch::class, $tabs, $options)
             ->addStandardTab(Document_Item::class, $tabs, $options)
@@ -232,7 +245,7 @@ class PluginGrcmanagerSupplierRisk extends SupplierRiskBase
         ];
 
         // Row link, same "a list with no way back to showForm() is not self-explanatory" lesson
-        // already applied throughout this plugin family, see PluginGrcmanagerRisk::rawSearchOptions().
+        // already applied throughout this plugin family, see Risk::rawSearchOptions().
         $tab[] = [
             'id'       => 11,
             'table'    => $this->getTable(),
@@ -266,7 +279,7 @@ class PluginGrcmanagerSupplierRisk extends SupplierRiskBase
     }
 
     /**
-     * Same dispatch as PluginGrcmanagerRisk::getSpecificValueToSelect(), see
+     * Same dispatch as Risk::getSpecificValueToSelect(), see
      * RiskAssessmentTrait::commonValueToSelect(). `suppliers_id` is left to GLPI core's own default
      * for a `datatype => 'dropdown'` search option (a real supplier picker), not overridden here.
      */
@@ -312,9 +325,9 @@ class PluginGrcmanagerSupplierRisk extends SupplierRiskBase
     }
 
     /**
-     * GLPI Cron entry point, same structure as PluginGrcmanagerRisk::cronReviewreminder() and
+     * GLPI Cron entry point, same structure as Risk::cronReviewreminder() and
      * registered the same way in src/Install/Installer.php (a second dedicated CronTask entry,
-     * `PluginGrcmanagerSupplierRisk`/`reviewreminder`: GLPI's Cron task model registers/dispatches
+     * `SupplierRisk`/`reviewreminder`: GLPI's Cron task model registers/dispatches
      * one static entry point per itemtype, so a single task cannot itself cover two different
      * itemtypes, see ReviewReminderService's own docblock for why the underlying query/notify logic
      * is shared instead of duplicated).

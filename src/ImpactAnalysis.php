@@ -15,10 +15,16 @@
  * -------------------------------------------------------------------------
  */
 
+namespace GlpiPlugin\Grcmanager;
+
+use CommonDBTM;
+use CommonGLPI;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Services\Classification\ClassificationLevels;
 use GlpiPlugin\Grcmanager\Services\Impact\ImpactGraph;
 use GlpiPlugin\Grcmanager\Services\Impact\RecoveryObjectives;
+use PluginGrcmanagerAssetClassification;
+use Session;
 
 /**
  * Issue #177 : analyse d'impact d'une panne (A.5.29, A.5.30, A.8.14), à partir de l'analyse
@@ -32,7 +38,7 @@ use GlpiPlugin\Grcmanager\Services\Impact\RecoveryObjectives;
  *
  * Un élément que la personne ne peut pas voir dans GLPI est compté sans être nommé.
  */
-class PluginGrcmanagerImpactAnalysis extends CommonGLPI
+class ImpactAnalysis extends CommonGLPI
 {
     // Carte des dépendances et des points de défaillance : registre sensible, voir
     // Installer::SENSITIVE_RIGHT.
@@ -249,7 +255,7 @@ class PluginGrcmanagerImpactAnalysis extends CommonGLPI
                 $names($sources[$key] ?? []),
                 (string) count(ImpactGraph::downstream($edges, $key)),
                 $names($spof[$key] ?? []),
-                (string) count(PluginGrcmanagerRisk::getRisksLinkedToItem(
+                (string) count(Risk::getRisksLinkedToItem(
                     (string) $row['itemtype'],
                     (int) $row['items_id']
                 )),
@@ -273,8 +279,8 @@ class PluginGrcmanagerImpactAnalysis extends CommonGLPI
         $nodes = [$start => 0] + ImpactGraph::downstream($edges, $start);
         foreach ($nodes as $key => $depth) {
             [$itemtype, $itemsId] = ImpactGraph::split($key);
-            foreach (PluginGrcmanagerRisk::getRisksLinkedToItem($itemtype, $itemsId) as $risk) {
-                $url = PluginGrcmanagerRisk::getFormURLWithID((int) $risk['id']);
+            foreach (Risk::getRisksLinkedToItem($itemtype, $itemsId) as $risk) {
+                $url = Risk::getFormURLWithID((int) $risk['id']);
                 $risks[(int) $risk['id']] = $risk + ['url' => $url];
             }
             if ($depth > 0) {
@@ -347,7 +353,7 @@ class PluginGrcmanagerImpactAnalysis extends CommonGLPI
     public static function createSinglePointRisk(CommonDBTM $item, array $critical): int
     {
         $title = sprintf(__('Single point of failure: %s', 'grcmanager'), $item->getName());
-        foreach (PluginGrcmanagerRisk::getRisksLinkedToItem($item::class, (int) $item->getID()) as $risk) {
+        foreach (Risk::getRisksLinkedToItem($item::class, (int) $item->getID()) as $risk) {
             if ($risk['title'] === $title) {
                 return 0;
             }
@@ -361,7 +367,7 @@ class PluginGrcmanagerImpactAnalysis extends CommonGLPI
             );
         $field = 'linked_items_' . str_replace('\\', '_', $item::class);
 
-        return (int) (new PluginGrcmanagerRisk())->add([
+        return (int) (new Risk())->add([
             'title'       => $title,
             'description' => $description,
             'category'    => 'technical',
@@ -377,7 +383,7 @@ class PluginGrcmanagerImpactAnalysis extends CommonGLPI
     {
         if (
             !$item instanceof CommonDBTM || $item->isNewItem() || !self::canView()
-            || !in_array($item::class, PluginGrcmanagerRisk::getLinkableItemtypes(), true)
+            || !in_array($item::class, Risk::getLinkableItemtypes(), true)
         ) {
             return '';
         }
@@ -397,7 +403,7 @@ class PluginGrcmanagerImpactAnalysis extends CommonGLPI
             'action'     => self::getSearchURL(),
             'itemtype'   => $item::class,
             'items_id'   => $item->getID(),
-            'can_create' => Session::haveRight(PluginGrcmanagerRisk::$rightname, CREATE),
+            'can_create' => Session::haveRight(Risk::$rightname, CREATE),
             'impact_url' => $item->getLinkURL() . '&forcetab=Impact$1',
             'recovery_labels' => PluginGrcmanagerAssetClassification::getRecoveryOptions(),
         ]);

@@ -833,7 +833,7 @@ final class DashboardCardService
     /**
      * Issue #31 (plan d'action de traitement des risques, clause 8.3/6.1.3) : même définition "en
      * retard" que GlpiPlugin\Grcmanager\Services\Risk\TreatmentPlanRules::isOverdue() et la tâche
-     * Cron PluginGrcmanagerRiskTreatmentAction::cronOverduetreatmentaction() (échéance dépassée,
+     * Cron \GlpiPlugin\Grcmanager\RiskTreatmentAction::cronOverduetreatmentaction() (échéance dépassée,
      * statut différent de "done"), pour que cette carte et le rappel automatique ne divergent
      * jamais sur ce qui compte comme "en retard", même schéma que overdueCapaCount() ci-dessus.
      */
@@ -863,7 +863,7 @@ final class DashboardCardService
      * dont la décision de traitement est "mitiger"/"transférer" (donc censée être mise en œuvre,
      * voir TreatmentPlanRules::isTreatmentPlanRelevant()) mais qui n'a encore AUCUNE action de
      * traitement enregistrée : une décision prise, sans plan derrière. Un risque déjà `closed` est
-     * exclu (voir PluginGrcmanagerRisk::validateTreatmentPlanAndComputeRiskLevel(), qui empêche
+     * exclu (voir \GlpiPlugin\Grcmanager\Risk::validateTreatmentPlanAndComputeRiskLevel(), qui empêche
      * désormais de clôturer un tel risque sans au moins une action, donc plus rien à signaler ici
      * une fois clôturé), même définition "ouvert" que openRisksCount() ci-dessus.
      */
