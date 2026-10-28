@@ -15,8 +15,18 @@
  * -------------------------------------------------------------------------
  */
 
+namespace GlpiPlugin\Grcmanager;
+
+use CommonGLPI;
+use Document;
+use Dropdown;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Services\Training\TrainingScore;
+use Html;
+use PluginGrcmanagerRestrictedDocument;
+use GlpiPlugin\Grcmanager\Training;
+use Preference;
+use Session;
 
 /**
  * Issue #139 : copie de quiz corrigée de chaque participant d'une session de formation.
@@ -30,7 +40,7 @@ use GlpiPlugin\Grcmanager\Services\Training\TrainingScore;
  * copie depuis l'onglet « Mes formations » de ses préférences, et la télécharge par
  * front/trainingquiz.send.php, qui vérifie l'audience et historise l'accès.
  */
-class PluginGrcmanagerTrainingQuiz extends CommonGLPI
+class TrainingQuiz extends CommonGLPI
 {
     public const TABLE = 'glpi_plugin_grcmanager_trainings_users';
 
@@ -50,7 +60,7 @@ class PluginGrcmanagerTrainingQuiz extends CommonGLPI
             ],
             'FROM'       => self::TABLE . ' AS links',
             'INNER JOIN' => [
-                PluginGrcmanagerTraining::getTable() . ' AS t' => [
+                Training::getTable() . ' AS t' => [
                     'FKEY' => ['links' => 'plugin_grcmanager_trainings_id', 't' => 'id'],
                 ],
             ],
@@ -92,7 +102,7 @@ class PluginGrcmanagerTrainingQuiz extends CommonGLPI
 
         return $usersId === $participation['users_id']
             || ($participation['trainer'] > 0 && $usersId === $participation['trainer'])
-            || \GlpiPlugin\Grcmanager\AuditTeam::isCiso($usersId);
+            || AuditTeam::isCiso($usersId);
     }
 
     /**
@@ -112,7 +122,7 @@ class PluginGrcmanagerTrainingQuiz extends CommonGLPI
             'name'              => sprintf(
                 __('Quiz copy - %1$s - %2$s', 'grcmanager'),
                 getUserName($participation['users_id']),
-                Dropdown::getDropdownName(PluginGrcmanagerTraining::getTable(), $participation['trainings_id'])
+                Dropdown::getDropdownName(Training::getTable(), $participation['trainings_id'])
             ),
             'entities_id'       => 0,
             'is_recursive'      => 0,
@@ -170,7 +180,7 @@ class PluginGrcmanagerTrainingQuiz extends CommonGLPI
         if ($item instanceof Preference) {
             return self::createTabEntry(__('My trainings', 'grcmanager'), 0, null, 'ti ti-school');
         }
-        if (!$item instanceof PluginGrcmanagerTraining || $item->isNewItem() || !PluginGrcmanagerTraining::canView()) {
+        if (!$item instanceof Training || $item->isNewItem() || !Training::canView()) {
             return '';
         }
 
@@ -185,14 +195,14 @@ class PluginGrcmanagerTrainingQuiz extends CommonGLPI
 
             return true;
         }
-        if (!$item instanceof PluginGrcmanagerTraining || !$item->can($item->getID(), READ)) {
+        if (!$item instanceof Training || !$item->can($item->getID(), READ)) {
             return false;
         }
         global $CFG_GLPI;
 
         $maxScore = (int) ($item->fields['max_score'] ?? 0);
         $rows = [];
-        foreach (PluginGrcmanagerTraining::getParticipants($item->getID()) as $participant) {
+        foreach (Training::getParticipants($item->getID()) as $participant) {
             $participationId = self::getParticipationId($item->getID(), $participant['users_id']);
             $participation = self::getParticipation($participationId);
             $canRead = self::canRead($participationId);
@@ -224,8 +234,8 @@ class PluginGrcmanagerTrainingQuiz extends CommonGLPI
     {
         global $DB;
 
-        $results = PluginGrcmanagerTraining::getAssessmentResults();
-        $statuses = PluginGrcmanagerTraining::getCompletionStatuses();
+        $results = Training::getAssessmentResults();
+        $statuses = Training::getCompletionStatuses();
         $rows = [];
         foreach (
             $DB->request([
@@ -235,7 +245,7 @@ class PluginGrcmanagerTrainingQuiz extends CommonGLPI
                 ],
                 'FROM'       => self::TABLE . ' AS links',
                 'INNER JOIN' => [
-                    PluginGrcmanagerTraining::getTable() . ' AS t' => [
+                    Training::getTable() . ' AS t' => [
                         'FKEY' => ['links' => 'plugin_grcmanager_trainings_id', 't' => 'id'],
                     ],
                 ],

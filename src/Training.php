@@ -15,12 +15,20 @@
  * -------------------------------------------------------------------------
  */
 
+namespace GlpiPlugin\Grcmanager;
+
+use CronTask;
+use Document_Item;
+use Dropdown;
 use Glpi\Application\View\TemplateRenderer;
 use Glpi\DBAL\QueryExpression;
 use GlpiPlugin\Grcmanager\Compatibility\Base\TrainingBase;
 use GlpiPlugin\Grcmanager\Services\Training\TrainingRenewalService;
 use GlpiPlugin\Grcmanager\Services\Training\TrainingScore;
 use GlpiPlugin\Grcmanager\Services\Ui\Badge;
+use Html;
+use Log;
+use User;
 
 /**
  * Security awareness training tracking (ISO 27001 clauses 7.2 "competence" and 7.3 "awareness"):
@@ -38,7 +46,7 @@ use GlpiPlugin\Grcmanager\Services\Ui\Badge;
  * by the dashboard card (DashboardCardService::trainingOverdueRenewalCount()) and the daily Cron
  * reminder below (cronRenewaldue()), so the two can never drift apart on what counts as overdue.
  */
-class PluginGrcmanagerTraining extends TrainingBase
+class Training extends TrainingBase
 {
     public const RIGHTNAME = 'plugin_grcmanager';
 
@@ -47,7 +55,7 @@ class PluginGrcmanagerTraining extends TrainingBase
     /**
      * GLPI notification event name (see inc/notificationtargettraining.class.php and
      * src/Services/Training/TrainingRenewalService.php), same single-source-of-truth pattern as
-     * \GlpiPlugin\Grcmanager\Risk::REVIEW_DUE_EVENT.
+     * Risk::REVIEW_DUE_EVENT.
      */
     public const RENEWAL_DUE_EVENT = 'training_renewal_due';
 
@@ -112,9 +120,9 @@ class PluginGrcmanagerTraining extends TrainingBase
     /**
      * Normalizes `renewal_period_months`/`is_mandatory` posted from the form, and syncs the
      * participant set + per-participant completion status/date the same "single normalize
-     * function called from both prepare hooks" convention as \GlpiPlugin\Grcmanager\Audit's own
+     * function called from both prepare hooks" convention as Audit's own
      * normalizeInput(). The actual sync happens in post_addItem()/post_updateItem() below, once a
-     * real ID exists, not here (mirrors \GlpiPlugin\Grcmanager\Audit::syncLinkedControls() timing exactly).
+     * real ID exists, not here (mirrors Audit::syncLinkedControls() timing exactly).
      *
      * @param array<string, mixed> $input
      * @return array<string, mixed>
@@ -274,7 +282,7 @@ class PluginGrcmanagerTraining extends TrainingBase
             'plugin_grcmanager_trainings_id' => $this->getID(),
         ]);
         foreach (self::getParticipantIds($this->getID()) as $usersId) {
-            PluginGrcmanagerTrainingQuiz::deleteCopyOf($this->getID(), $usersId);
+            TrainingQuiz::deleteCopyOf($this->getID(), $usersId);
         }
     }
 
@@ -283,8 +291,8 @@ class PluginGrcmanagerTraining extends TrainingBase
         $tabs = [];
         // Issue #139 : feuille d'émargement, support et quiz de la session.
         $this->addDefaultFormTab($tabs)
-            ->addStandardTab(PluginGrcmanagerTrainingSession::class, $tabs, $options)
-            ->addStandardTab(PluginGrcmanagerTrainingQuiz::class, $tabs, $options)
+            ->addStandardTab(TrainingSession::class, $tabs, $options)
+            ->addStandardTab(TrainingQuiz::class, $tabs, $options)
             ->addStandardTab(Document_Item::class, $tabs, $options)
             ->addStandardTab(Log::class, $tabs, $options);
 
@@ -311,7 +319,7 @@ class PluginGrcmanagerTraining extends TrainingBase
      * already linked before this save, see showForm()) in one pass: newly selected users are
      * inserted as "pending", deselected users are removed (their completion history is lost, a
      * deliberate simplification documented in TECH_DEBT.md Sprint 6, same spirit as
-     * \GlpiPlugin\Grcmanager\Audit's own syncLinkedControls() delete-then-reinsert approach), and every
+     * Audit's own syncLinkedControls() delete-then-reinsert approach), and every
      * remaining participant's status/date is updated from the posted arrays when present.
      */
     private function syncParticipants(int $trainingId): void
@@ -330,7 +338,7 @@ class PluginGrcmanagerTraining extends TrainingBase
         $existingIds = self::getParticipantIds($trainingId);
 
         foreach (array_diff($existingIds, $selectedIds) as $removedId) {
-            PluginGrcmanagerTrainingQuiz::deleteCopyOf($trainingId, $removedId);
+            TrainingQuiz::deleteCopyOf($trainingId, $removedId);
             $DB->delete(self::PARTICIPANTS_TABLE, [
                 'plugin_grcmanager_trainings_id' => $trainingId,
                 'users_id'                       => $removedId,
@@ -618,7 +626,7 @@ class PluginGrcmanagerTraining extends TrainingBase
 
     /**
      * Real `<select>` filter widget for `format`, same lesson as every other fixed-enum column in
-     * this plugin family (see \GlpiPlugin\Grcmanager\Audit::getSpecificValueToSelect()).
+     * this plugin family (see Audit::getSpecificValueToSelect()).
      */
     public static function getSpecificValueToSelect($field, $name = '', $values = '', array $options = [])
     {
@@ -800,10 +808,10 @@ class PluginGrcmanagerTraining extends TrainingBase
     }
 
     /**
-     * GLPI Cron entry point, same structure as \GlpiPlugin\Grcmanager\Risk::cronReviewreminder(). One
+     * GLPI Cron entry point, same structure as Risk::cronReviewreminder(). One
      * NotificationEvent per training that currently has at least one participant overdue for
      * renewal (see TrainingRenewalService, inc/notificationtargettraining.class.php, which resolves
-     * the actual per-training recipient list from PluginGrcmanagerTraining::getOverdueParticipants()).
+     * the actual per-training recipient list from Training::getOverdueParticipants()).
      *
      * @return int 0 if no training had an overdue participant, 1 otherwise
      */

@@ -15,7 +15,11 @@
  * -------------------------------------------------------------------------
  */
 
+namespace GlpiPlugin\Grcmanager;
+
+use CommonGLPI;
 use Glpi\Application\View\TemplateRenderer;
+use GlpiPlugin\Grcmanager\Training;
 
 /**
  * Issue #139 : onglet « Sessions » d'une formation principale. Chaque session est une formation
@@ -23,12 +27,12 @@ use Glpi\Application\View\TemplateRenderer;
  * participants, ses documents et son taux de réussite ; l'onglet en donne la liste et le taux de
  * réussite de l'ensemble.
  */
-class PluginGrcmanagerTrainingSession extends CommonGLPI
+class TrainingSession extends CommonGLPI
 {
     public function getTabNameForItem(CommonGLPI $item, $withtemplate = 0)
     {
         if (
-            !$item instanceof PluginGrcmanagerTraining || $item->isNewItem() || !PluginGrcmanagerTraining::canView()
+            !$item instanceof Training || $item->isNewItem() || !Training::canView()
             || (int) ($item->fields['plugin_grcmanager_trainings_id'] ?? 0) > 0
         ) {
             return '';
@@ -36,7 +40,7 @@ class PluginGrcmanagerTrainingSession extends CommonGLPI
 
         return self::createTabEntry(
             __('Sessions', 'grcmanager'),
-            count(PluginGrcmanagerTraining::getSessions($item->getID())),
+            count(Training::getSessions($item->getID())),
             null,
             'ti ti-calendar-event'
         );
@@ -45,16 +49,16 @@ class PluginGrcmanagerTrainingSession extends CommonGLPI
     public static function displayTabContentForItem(CommonGLPI $item, $tabnum = 1, $withtemplate = 0)
     {
         // ajax/common.tabs.php sert le contenu sans passer par getTabNameForItem().
-        if (!$item instanceof PluginGrcmanagerTraining || !$item->can($item->getID(), READ)) {
+        if (!$item instanceof Training || !$item->can($item->getID(), READ)) {
             return false;
         }
         $mainId = (int) ($item->fields['plugin_grcmanager_trainings_id'] ?? 0) ?: $item->getID();
 
         TemplateRenderer::getInstance()->display('@grcmanager/training_sessions_tab.html.twig', [
-            'sessions'     => PluginGrcmanagerTraining::getSessions($mainId),
-            'program_rate' => PluginGrcmanagerTraining::getProgramRate($mainId),
-            'add_url'      => PluginGrcmanagerTraining::canCreate()
-                ? PluginGrcmanagerTraining::getFormURL() . '?session_of=' . $mainId
+            'sessions'     => Training::getSessions($mainId),
+            'program_rate' => Training::getProgramRate($mainId),
+            'add_url'      => Training::canCreate()
+                ? Training::getFormURL() . '?session_of=' . $mainId
                 : '',
         ]);
 

@@ -12,6 +12,7 @@ use GlpiPlugin\Grcmanager\Evidence;
 use GlpiPlugin\Grcmanager\Nonconformity;
 use GlpiPlugin\Grcmanager\NotificationTargetComplianceEvent;
 use GlpiPlugin\Grcmanager\NotificationTargetEvidence;
+use GlpiPlugin\Grcmanager\NotificationTargetTraining;
 use GlpiPlugin\Grcmanager\NotificationTargetWaiver;
 use GlpiPlugin\Grcmanager\Services\Clause\IsmsClauseCatalog;
 use GlpiPlugin\Grcmanager\Services\Control\ControlCatalogDefaults;
@@ -746,7 +747,7 @@ final class Installer
 
         // Sprint 6 (suivi des formations de sensibilisation, clauses 7.2/7.3) : une ligne par
         // session/campagne de formation. `renewal_period_months` = 0 signifie qu'aucun
-        // renouvellement periodique n'est requis (voir PluginGrcmanagerTraining::getOverdueParticipants()).
+        // renouvellement periodique n'est requis (voir \GlpiPlugin\Grcmanager\Training::getOverdueParticipants()).
         if (!$DB->tableExists(self::TRAININGS_TABLE)) {
             $query = "CREATE TABLE `" . self::TRAININGS_TABLE . "` (
                 `id` int {$keySign} NOT NULL AUTO_INCREMENT,
@@ -778,7 +779,7 @@ final class Installer
         // avec son propre statut/date de realisation (pas seulement un lien, contrairement aux
         // liens controle<->risque/audit<->controle des Sprints 3-4 : un auditeur ISO 27001 doit
         // pouvoir voir qui a precisement termine quelle formation et quand, pas seulement un
-        // decompte agrege), voir PluginGrcmanagerTraining::syncParticipants()/getParticipants().
+        // decompte agrege), voir \GlpiPlugin\Grcmanager\Training::syncParticipants()/getParticipants().
         if (!$DB->tableExists(self::TRAININGS_USERS_TABLE)) {
             $query = "CREATE TABLE `" . self::TRAININGS_USERS_TABLE . "` (
                 `id` int {$keySign} NOT NULL AUTO_INCREMENT,
@@ -899,7 +900,7 @@ final class Installer
             $migration->migrationOneTable(self::TRAININGS_USERS_TABLE);
         }
         // Issue #139 : copie de quiz corrigée du participant (document restreint au participant, au
-        // formateur et au groupe RSSI, voir PluginGrcmanagerTrainingQuiz).
+        // formateur et au groupe RSSI, voir \GlpiPlugin\Grcmanager\TrainingQuiz).
         if (!$DB->fieldExists(self::TRAININGS_USERS_TABLE, 'documents_id')) {
             $migration->addField(self::TRAININGS_USERS_TABLE, 'documents_id', 'fkey', ['after' => 'score']);
             $migration->addKey(self::TRAININGS_USERS_TABLE, 'documents_id');
@@ -2146,7 +2147,7 @@ final class Installer
 
         // Issue #126 : relance hebdomadaire des responsables en retard sur une revue des accès.
         CronTask::Register(
-            'PluginGrcmanagerAccessReview',
+            'GlpiPlugin\\Grcmanager\\AccessReview',
             'accessreviewreminder',
             DAY_TIMESTAMP,
             [
@@ -2235,10 +2236,10 @@ final class Installer
 
         // Sprint 6 (formations, clauses 7.2/7.3) : évalue chaque jour les formations ayant au
         // moins un participant en retard de renouvellement, et déclenche la notification GLPI
-        // seedée ci-dessus (voir PluginGrcmanagerTraining::cronRenewaldue(),
+        // seedée ci-dessus (voir \GlpiPlugin\Grcmanager\Training::cronRenewaldue(),
         // src/Services/Training/TrainingRenewalService.php).
         CronTask::Register(
-            'PluginGrcmanagerTraining',
+            'GlpiPlugin\\Grcmanager\\Training',
             'renewaldue',
             DAY_TIMESTAMP,
             [
@@ -2675,13 +2676,13 @@ final class Installer
 
     /**
      * Same structure as seedCapaOverdueNotification() above, for the Sprint 6 training-renewal Cron
-     * task (PluginGrcmanagerTraining::cronRenewaldue(), event 'training_renewal_due', see
+     * task (\GlpiPlugin\Grcmanager\Training::cronRenewaldue(), event 'training_renewal_due', see
      * inc/notificationtargettraining.class.php). Idempotent for the same reason.
      *
      * Deliberately does NOT insert a `glpi_notificationtargets` row (unlike every notification
      * seeded above): a training has no single "item owner" field to resolve a default recipient
      * from, its recipients are the (possibly several) overdue participants,
-     * PluginGrcmanagerNotificationTargetTraining::addAdditionalTargets() resolves and adds every
+     * \GlpiPlugin\Grcmanager\NotificationTargetTraining::addAdditionalTargets() resolves and adds every
      * one of them itself, unconditionally, regardless of any configured target row (see its own
      * docblock).
      */
@@ -2872,7 +2873,7 @@ final class Installer
     {
         global $DB;
 
-        $itemtype = 'PluginGrcmanagerTraining';
+        $itemtype = 'GlpiPlugin\\Grcmanager\\Training';
         $event    = 'training_renewal_due';
 
         $alreadySeeded = $DB->request([
@@ -2928,7 +2929,7 @@ final class Installer
         $DB->insert('glpi_notificationtargets', [
             'notifications_id' => $notificationId,
             'type'             => Notification::USER_TYPE,
-            'items_id'         => \PluginGrcmanagerNotificationTargetTraining::TARGET_OVERDUE_PARTICIPANTS,
+            'items_id'         => NotificationTargetTraining::TARGET_OVERDUE_PARTICIPANTS,
         ]);
     }
 
@@ -3198,14 +3199,14 @@ final class Installer
         $trainingNotifications = $DB->request([
             'SELECT' => 'id',
             'FROM'   => 'glpi_notifications',
-            'WHERE'  => ['itemtype' => 'PluginGrcmanagerTraining', 'event' => 'training_renewal_due'],
+            'WHERE'  => ['itemtype' => 'GlpiPlugin\\Grcmanager\\Training', 'event' => 'training_renewal_due'],
         ]);
         foreach ($trainingNotifications as $row) {
             if (countElementsInTable('glpi_notificationtargets', ['notifications_id' => (int) $row['id']]) === 0) {
                 $DB->insert('glpi_notificationtargets', [
                     'notifications_id' => (int) $row['id'],
                     'type'             => Notification::USER_TYPE,
-                    'items_id'         => \PluginGrcmanagerNotificationTargetTraining::TARGET_OVERDUE_PARTICIPANTS,
+                    'items_id'         => NotificationTargetTraining::TARGET_OVERDUE_PARTICIPANTS,
                 ]);
             }
         }
@@ -3311,7 +3312,7 @@ final class Installer
 
         $sources = [
             'rapport-audit-%'           => ['GlpiPlugin\\Grcmanager\\Audit', false],
-            'revue-acces-%'             => ['PluginGrcmanagerAccessReview', true],
+            'revue-acces-%'             => ['GlpiPlugin\\Grcmanager\\AccessReview', true],
             'rapport-post-incident-%'   => [PluginGrcmanagerSecurityIncident::class, true],
             'rapport-cellule-crise-%'   => [PluginGrcmanagerSecurityIncident::class, true],
             'rapport-exercice-crise-%'  => [PluginGrcmanagerSecurityIncident::class, false],
@@ -3558,7 +3559,7 @@ final class Installer
     {
         global $DB;
 
-        $itemtype = 'PluginGrcmanagerAccessReview';
+        $itemtype = 'GlpiPlugin\\Grcmanager\\AccessReview';
         $events = [
             'access_review_request'  => [
                 'name' => 'GRC Manager - Revue des accès à réaliser',
@@ -3633,7 +3634,7 @@ final class Installer
                 'notificationtemplates_id' => $templateId,
             ]);
             $DB->insert('glpi_notificationtargets', [
-                'items_id'         => \PluginGrcmanagerNotificationTargetAccessReview::REVIEWERS_TARGET,
+                'items_id'         => \GlpiPlugin\Grcmanager\NotificationTargetAccessReview::REVIEWERS_TARGET,
                 'type'             => Notification::USER_TYPE,
                 'notifications_id' => $notificationId,
             ]);
@@ -3685,14 +3686,14 @@ final class Installer
         $this->unseedNotification('GlpiPlugin\\Grcmanager\\SupplierRisk');
         $this->unseedNotification('GlpiPlugin\\Grcmanager\\ComplianceObligation');
         $this->unseedNotification('GlpiPlugin\\Grcmanager\\Nonconformity');
-        $this->unseedNotification('PluginGrcmanagerTraining');
+        $this->unseedNotification('GlpiPlugin\\Grcmanager\\Training');
         $this->unseedNotification('GlpiPlugin\\Grcmanager\\Policy');
         $this->unseedNotification('GlpiPlugin\\Grcmanager\\RiskTreatmentAction');
         $this->unseedNotification('GlpiPlugin\\Grcmanager\\Evidence');
         $this->unseedNotification('GlpiPlugin\\Grcmanager\\Waiver');
         $this->unseedNotification('GlpiPlugin\\Grcmanager\\ComplianceEvent');
         $this->unseedNotification(PluginGrcmanagerSecurityIncident::class);
-        $this->unseedNotification('PluginGrcmanagerAccessReview');
+        $this->unseedNotification('GlpiPlugin\\Grcmanager\\AccessReview');
 
         // Absorption de glpi-security-incidents (ROADMAP.md "Version 2.0") : colonnes ajoutées sur
         // les tables cœur pour la gestion de modèles - même dérivation que le plugin absorbé

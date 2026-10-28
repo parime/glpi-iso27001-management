@@ -36,7 +36,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   conformité (politiques, obligations, calendrier de conformité, preuves), risques (registre,
   actions de traitement, risques fournisseurs et questionnaire, analyse d'impact, liens de
   causalité), audits (audits internes, équipe d'audit, audit de conformité technique,
-  non-conformités, revue de direction). Par exemple
+  non-conformités, revue de direction), opérations (revues des accès, hygiène des comptes,
+  formations, quiz et sessions, exercices de crise). Par exemple
   `PluginGrcmanagerWaiver` devient `GlpiPlugin\Grcmanager\Waiver`. La mise à jour renomme les
   types stockés en base (notifications, modèles, préférences d'affichage, tâche planifiée,
   documents, journaux, recherches enregistrées) ; l'ancien nom reste utilisable comme alias.

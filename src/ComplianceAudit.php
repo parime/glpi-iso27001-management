@@ -29,7 +29,7 @@ use GlpiPlugin\Grcmanager\Services\Compliance\ComplianceAuditScore;
 use Html;
 use Item_Disk;
 use Item_Ticket;
-use PluginGrcmanagerAccountHygiene;
+use GlpiPlugin\Grcmanager\AccountHygiene;
 use PluginGrcmanagerMenu;
 use Session;
 use State;
@@ -199,7 +199,7 @@ class ComplianceAudit extends CommonGLPI
             'change_validation' => Session::haveRight(Change::$rightname, Change::READALL)
                 ? self::changeValidation($approvals, $now)
                 : self::notEvaluated(),
-            'accounts'          => PluginGrcmanagerAccountHygiene::canView()
+            'accounts'          => AccountHygiene::canView()
                 ? self::accounts($now)
                 : self::notEvaluated(),
         ];
@@ -495,9 +495,9 @@ class ComplianceAudit extends CommonGLPI
                 + getEntitiesRestrictCriteria('glpi_profiles_users', '', '', true),
         ])->current()['cpt'];
         $gaps = [];
-        foreach (PluginGrcmanagerAccountHygiene::findAccounts(self::ACCOUNT_DAYS, $now) as $account) {
+        foreach (AccountHygiene::findAccounts(self::ACCOUNT_DAYS, $now) as $account) {
             $gaps[] = self::gap(User::class, $account['id'], $account['fullname'], implode(', ', array_map(
-                static fn (string $check): string => PluginGrcmanagerAccountHygiene::getCheckLabel(
+                static fn (string $check): string => AccountHygiene::getCheckLabel(
                     $check,
                     self::ACCOUNT_DAYS
                 ),

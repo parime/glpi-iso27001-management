@@ -17,22 +17,22 @@
 
 include('../../../inc/includes.php');
 
-$item = new PluginGrcmanagerAccessReview();
+$item = new \GlpiPlugin\Grcmanager\AccessReview();
 
 if (isset($_POST['add'])) {
     $item->check(-1, CREATE, $_POST);
     $newID = (int) $item->add($_POST);
     Html::redirect($newID > 0
-        ? PluginGrcmanagerAccessReview::getFormURLWithID($newID)
-        : PluginGrcmanagerAccessReview::getSearchURL());
+        ? \GlpiPlugin\Grcmanager\AccessReview::getFormURLWithID($newID)
+        : \GlpiPlugin\Grcmanager\AccessReview::getSearchURL());
 } elseif (isset($_POST['delete'])) {
     $item->check((int) $_POST['id'], DELETE);
     $item->delete($_POST);
-    Html::redirect(PluginGrcmanagerAccessReview::getSearchURL());
+    Html::redirect(\GlpiPlugin\Grcmanager\AccessReview::getSearchURL());
 } elseif (isset($_POST['purge'])) {
     $item->check((int) $_POST['id'], PURGE);
     $item->delete($_POST, true);
-    Html::redirect(PluginGrcmanagerAccessReview::getSearchURL());
+    Html::redirect(\GlpiPlugin\Grcmanager\AccessReview::getSearchURL());
 } elseif (isset($_POST['update'])) {
     $item->check((int) $_POST['id'], UPDATE);
     $item->update($_POST);
@@ -59,13 +59,13 @@ if (isset($_POST['add'])) {
     $item->check((int) $_POST['id'], UPDATE);
     $nextID = $item->prepareNext();
     Html::redirect($nextID > 0
-        ? PluginGrcmanagerAccessReview::getFormURLWithID($nextID)
-        : PluginGrcmanagerAccessReview::getSearchURL());
+        ? \GlpiPlugin\Grcmanager\AccessReview::getFormURLWithID($nextID)
+        : \GlpiPlugin\Grcmanager\AccessReview::getSearchURL());
 } else {
     // displayFullPageForItem() (comme front/policy.form.php) affiche la barre d'onglets ; les
     // droits (READ, ou CREATE pour un nouvel élément) sont vérifiés par $item->can().
-    PluginGrcmanagerAccessReview::displayFullPageForItem(
+    \GlpiPlugin\Grcmanager\AccessReview::displayFullPageForItem(
         $_GET['id'] ?? 0,
-        ['central' => ['grcmanager', PluginGrcmanagerAccessReview::class], 'helpdesk' => []]
+        ['central' => ['grcmanager', \GlpiPlugin\Grcmanager\AccessReview::class], 'helpdesk' => []]
     );
 }

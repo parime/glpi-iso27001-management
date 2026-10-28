@@ -27,7 +27,7 @@ use GlpiPlugin\Grcmanager\Services\Ui\Fragment;
 use Log;
 use NotificationEvent;
 use Planning;
-use PluginGrcmanagerAccessReview;
+use GlpiPlugin\Grcmanager\AccessReview;
 use GlpiPlugin\Grcmanager\Audit;
 use GlpiPlugin\Grcmanager\Evidence;
 use GlpiPlugin\Grcmanager\ManagementReview;
@@ -149,7 +149,7 @@ class ComplianceEvent extends ComplianceEventBase
             'event'             => [__('Event', 'grcmanager'), 'ti-calendar-event'],
             'audit'             => [Audit::getTypeName(1), 'ti-clipboard-check'],
             'management_review' => [ManagementReview::getTypeName(1), 'ti-presentation'],
-            'access_review'     => [PluginGrcmanagerAccessReview::getTypeName(1), 'ti-user-check'],
+            'access_review'     => [AccessReview::getTypeName(1), 'ti-user-check'],
             'periodic_review'   => [PluginGrcmanagerPeriodicReview::getTypeName(1), 'ti-calendar-repeat'],
             'policy'            => [__('Policy review', 'grcmanager'), 'ti-file-certificate'],
             'obligation'        => [__('Obligation review', 'grcmanager'), 'ti-gavel'],
@@ -462,10 +462,10 @@ class ComplianceEvent extends ComplianceEventBase
     {
         global $DB;
 
-        if (!PluginGrcmanagerAccessReview::canView()) {
+        if (!AccessReview::canView()) {
             return [];
         }
-        $table = PluginGrcmanagerAccessReview::getTable();
+        $table = AccessReview::getTable();
         $list = [];
         $rows = $DB->request([
             'FROM'  => $table,
@@ -479,7 +479,7 @@ class ComplianceEvent extends ComplianceEventBase
                 (string) $row['name'],
                 ComplianceCalendarRules::dayRange($row['due_date']),
                 (int) $row['users_id'],
-                PluginGrcmanagerAccessReview::getFormURLWithID($id)
+                AccessReview::getFormURLWithID($id)
             );
         }
 

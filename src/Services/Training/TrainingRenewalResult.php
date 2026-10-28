@@ -6,7 +6,7 @@ namespace GlpiPlugin\Grcmanager\Services\Training;
 
 /**
  * Outcome of one TrainingRenewalService::notify() run, reported by
- * PluginGrcmanagerTraining::cronRenewaldue() (inc/training.class.php) to the GLPI Cron log. Same
+ * \GlpiPlugin\Grcmanager\Training::cronRenewaldue() (inc/training.class.php) to the GLPI Cron log. Same
  * shape as the sibling GlpiPlugin\Grcmanager\Services\Capa\OverdueCapaResult.
  */
 final class TrainingRenewalResult

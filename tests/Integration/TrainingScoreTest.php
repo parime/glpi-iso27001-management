@@ -33,7 +33,7 @@ final class TrainingScoreTest extends GrcmanagerIntegrationTestCase
         ]), false), 'id'));
         $this->assertCount(3, $users);
 
-        $training = new \PluginGrcmanagerTraining();
+        $training = new \GlpiPlugin\Grcmanager\Training();
         $id = (int) $training->add([
             'title'          => 'PHPUnit quiz hameçonnage',
             'max_score'      => 40,
@@ -50,7 +50,7 @@ final class TrainingScoreTest extends GrcmanagerIntegrationTestCase
                 'participant_result' => array_fill_keys($users, 'passed'),
             ]));
 
-            $byUser = array_column(\PluginGrcmanagerTraining::getParticipants($id), null, 'users_id');
+            $byUser = array_column(\GlpiPlugin\Grcmanager\Training::getParticipants($id), null, 'users_id');
             $this->assertSame('passed', $byUser[$users[0]]['assessment_result'], '32/40 = 80 %.');
             $this->assertSame(32.0, $byUser[$users[0]]['score']);
             $this->assertSame('failed', $byUser[$users[1]]['assessment_result']);
@@ -58,11 +58,11 @@ final class TrainingScoreTest extends GrcmanagerIntegrationTestCase
             $this->assertSame('not_applicable', $byUser[$users[2]]['assessment_result'], 'Pas encore noté.');
             $this->assertNull($byUser[$users[2]]['score']);
 
-            $this->assertSame([$users[1]], \PluginGrcmanagerTraining::getRetakeParticipantIds($id));
+            $this->assertSame([$users[1]], \GlpiPlugin\Grcmanager\Training::getRetakeParticipantIds($id));
 
             // Issue #139, phase 2 : rapport PDF de la session.
             $training->getFromDB($id);
-            $report = \PluginGrcmanagerTraining::renderSessionReport($training);
+            $report = \GlpiPlugin\Grcmanager\Training::renderSessionReport($training);
             $this->assertStringContainsString('32/40 (80 %)', $report);
             $this->assertStringContainsString(__('To retake', 'grcmanager'), $report);
             $this->assertStringStartsWith('%PDF', \GlpiPlugin\Grcmanager\Pdf\PdfRenderer::renderHtmlToPdf($report));
@@ -74,7 +74,7 @@ final class TrainingScoreTest extends GrcmanagerIntegrationTestCase
                 'participant_status' => array_fill_keys($users, 'completed'),
                 'participant_score'  => [$users[0] => '45'],
             ]);
-            $byUser = array_column(\PluginGrcmanagerTraining::getParticipants($id), null, 'users_id');
+            $byUser = array_column(\GlpiPlugin\Grcmanager\Training::getParticipants($id), null, 'users_id');
             $this->assertNull($byUser[$users[0]]['score']);
             $this->assertSame('not_applicable', $byUser[$users[0]]['assessment_result']);
         } finally {
@@ -90,7 +90,7 @@ final class TrainingScoreTest extends GrcmanagerIntegrationTestCase
         $users = array_map('intval', array_column(iterator_to_array($DB->request([
             'SELECT' => ['id'], 'FROM' => 'glpi_users', 'WHERE' => ['is_deleted' => 0], 'ORDER' => 'id', 'LIMIT' => 2,
         ]), false), 'id'));
-        $training = new \PluginGrcmanagerTraining();
+        $training = new \GlpiPlugin\Grcmanager\Training();
         $id = (int) $training->add(['title' => 'PHPUnit session source', 'max_score' => 20, 'pass_threshold' => 50]);
         $DB->insert('glpi_plugin_grcmanager_trainings_users', [
             'plugin_grcmanager_trainings_id' => $id,
@@ -102,7 +102,7 @@ final class TrainingScoreTest extends GrcmanagerIntegrationTestCase
         $count = countElementsInTable($training->getTable());
         try {
             ob_start();
-            (new \PluginGrcmanagerTraining())->showForm(0, ['retake_of' => $id]);
+            (new \GlpiPlugin\Grcmanager\Training())->showForm(0, ['retake_of' => $id]);
             $html = (string) ob_get_clean();
 
             // La CI tourne en anglais : comparer au titre traduit.

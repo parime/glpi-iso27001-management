@@ -101,7 +101,7 @@ function plugin_init_grcmanager(): void
             \GlpiPlugin\Grcmanager\Risk::class,
             PluginGrcmanagerControl::class,
             \GlpiPlugin\Grcmanager\Audit::class,
-            PluginGrcmanagerAccessReview::class,
+            \GlpiPlugin\Grcmanager\AccessReview::class,
             \GlpiPlugin\Grcmanager\ComplianceAudit::class,
         ],
     ];
@@ -141,7 +141,7 @@ function plugin_init_grcmanager(): void
     // Issue #170 : validation signée d'une dérogation, analyse de risque jointe.
     $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\Waiver::class;
     // Issue #139 : feuille d'émargement, support et quiz d'une session de formation.
-    $CFG_GLPI['document_types'][] = PluginGrcmanagerTraining::class;
+    $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\Training::class;
     // Issue #140 : pièces d'un audit interne et de ses constats.
     $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\Audit::class;
     $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\Nonconformity::class;
@@ -150,7 +150,7 @@ function plugin_init_grcmanager(): void
     // Issue #127 : preuves de l'évaluation d'un fournisseur (questionnaire signé, certificats).
     $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\SupplierRisk::class;
     // Issue #126 : rapport PDF de clôture d'une revue des accès, sur la campagne et sur la mesure.
-    $CFG_GLPI['document_types'][] = PluginGrcmanagerAccessReview::class;
+    $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\AccessReview::class;
     $CFG_GLPI['document_types'][] = PluginGrcmanagerControl::class;
     // Issue #142 : documents d'un evenement de conformite (rapport d'audit, de pentest...).
     $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\ComplianceEvent::class;
@@ -215,7 +215,7 @@ function plugin_init_grcmanager(): void
         'addtabon' => [PluginGrcmanagerSecurityIncident::class],
     ]);
     // Issue #185 : onglet « Cellule de crise » de l'incident.
-    Plugin::registerClass(PluginGrcmanagerCrisisExercise::class, [
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\CrisisExercise::class, [
         'addtabon' => [PluginGrcmanagerSecurityIncident::class],
     ]);
 
@@ -244,7 +244,7 @@ function plugin_init_grcmanager(): void
     ]);
     // Issue #139 : « Mes formations » dans les préférences (résultats et copies de quiz de
     // l'utilisateur, sans droit sur le plugin).
-    Plugin::registerClass(PluginGrcmanagerTrainingQuiz::class, ['addtabon' => [Preference::class]]);
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\TrainingQuiz::class, ['addtabon' => [Preference::class]]);
     // Onglet « GRC Manager » des profils : attribuer les droits du plugin sans passer par la base.
     Plugin::registerClass(PluginGrcmanagerProfile::class, ['addtabon' => [Profile::class]]);
     // Issue #141 : le ticket créé par le ticket récurrent d'une revue devient son ticket en cours ;

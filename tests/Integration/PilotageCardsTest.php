@@ -133,7 +133,7 @@ final class PilotageCardsTest extends GrcmanagerIntegrationTestCase
     {
         global $DB;
 
-        $training = new \PluginGrcmanagerTraining();
+        $training = new \GlpiPlugin\Grcmanager\Training();
         $trainingId = (int) $training->add([
             'title'          => 'PHPUnit session évaluée',
             'date_delivered' => '2099-01-01',
@@ -151,7 +151,7 @@ final class PilotageCardsTest extends GrcmanagerIntegrationTestCase
                 'completion_date'                => '2099-01-01',
             ]);
         }
-        $review = new \PluginGrcmanagerAccessReview();
+        $review = new \GlpiPlugin\Grcmanager\AccessReview();
         $reviewId = 0;
         try {
             $sessions = SecuredDashboardCards::trainingPassRateBySession()['data'];
@@ -168,7 +168,7 @@ final class PilotageCardsTest extends GrcmanagerIntegrationTestCase
             ]);
             $DB->update($review->getTable(), ['status' => 'open'], ['id' => $reviewId]);
             $reviewerId = (int) $userIds[0] + 100000;
-            $DB->insert(\PluginGrcmanagerAccessReview::LINES_TABLE, [
+            $DB->insert(\GlpiPlugin\Grcmanager\AccessReview::LINES_TABLE, [
                 'plugin_grcmanager_accessreviews_id' => $reviewId,
                 'users_id'                           => $userIds[1],
                 'reviewers_id'                       => $reviewerId,
@@ -180,7 +180,7 @@ final class PilotageCardsTest extends GrcmanagerIntegrationTestCase
             $training->delete(['id' => $trainingId], true);
             if ($reviewId > 0) {
                 $DB->delete(
-                    \PluginGrcmanagerAccessReview::LINES_TABLE,
+                    \GlpiPlugin\Grcmanager\AccessReview::LINES_TABLE,
                     ['plugin_grcmanager_accessreviews_id' => $reviewId]
                 );
                 $review->delete(['id' => $reviewId], true);

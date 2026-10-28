@@ -15,13 +15,27 @@
  * -------------------------------------------------------------------------
  */
 
+namespace GlpiPlugin\Grcmanager;
+
+use CommonGLPI;
+use Document;
+use Document_Item;
 use Glpi\Application\View\TemplateRenderer;
 use Glpi\RichText\RichText;
 use GlpiPlugin\Grcmanager\Compatibility\Base\CrisisExerciseBase;
 use GlpiPlugin\Grcmanager\Pdf\PdfRenderer;
-use GlpiPlugin\Grcmanager\Services\Exercise\CrisisExercise;
+use GlpiPlugin\Grcmanager\Services\Exercise\CrisisExercise as ExerciseRules;
 use GlpiPlugin\Grcmanager\Services\Exercise\RecoveryTracker;
 use GlpiPlugin\Grcmanager\Services\Impact\ImpactGraph;
+use Html;
+use ITILFollowup;
+use Planning;
+use PluginGrcmanagerControl;
+use PluginGrcmanagerRestrictedDocument;
+use PluginGrcmanagerSecurityIncident;
+use PluginGrcmanagerSecurityIncident_Item;
+use PluginGrcmanagerSecurityIncidentTask;
+use Session;
 
 /**
  * Issue #168 : exercice de crise (test des plans de continuité, A.5.29 / A.5.30). Le lancement
@@ -35,7 +49,7 @@ use GlpiPlugin\Grcmanager\Services\Impact\ImpactGraph;
  * ce qui en dépend comparée à leur RTO, journal chronologique. Son rapport sert de preuve sur les
  * mesures A.5.26 et A.5.29.
  */
-class PluginGrcmanagerCrisisExercise extends CrisisExerciseBase
+class CrisisExercise extends CrisisExerciseBase
 {
     public const RIGHTNAME = PluginGrcmanagerSecurityIncident::RIGHTNAME;
 
@@ -158,11 +172,11 @@ class PluginGrcmanagerCrisisExercise extends CrisisExerciseBase
     public static function launch(string $scenario): int
     {
         $scenarios = self::getScenarios();
-        if (!isset($scenarios[$scenario], CrisisExercise::SCENARIOS[$scenario])) {
+        if (!isset($scenarios[$scenario], ExerciseRules::SCENARIOS[$scenario])) {
             return 0;
         }
         $now = Session::getCurrentTime();
-        $definition = CrisisExercise::SCENARIOS[$scenario];
+        $definition = ExerciseRules::SCENARIOS[$scenario];
         $incidentId = (int) (new PluginGrcmanagerSecurityIncident())->add([
             'name'        => sprintf(__('[EXERCISE] %s', 'grcmanager'), $scenarios[$scenario]['label']),
             'content'     => self::richText([
@@ -192,7 +206,7 @@ class PluginGrcmanagerCrisisExercise extends CrisisExerciseBase
     public static function activate(PluginGrcmanagerSecurityIncident $incident, string $scenario): int
     {
         if (
-            !isset(CrisisExercise::SCENARIOS[$scenario])
+            !isset(ExerciseRules::SCENARIOS[$scenario])
             || !empty($incident->fields['is_exercise'])
             || self::forIncident($incident->getID()) !== null
         ) {
@@ -234,7 +248,7 @@ class PluginGrcmanagerCrisisExercise extends CrisisExerciseBase
         $objective = $drill
             ? __('Target: %d min after the start of the exercise.', 'grcmanager')
             : __('Target: %d min after the crisis team was activated.', 'grcmanager');
-        foreach (CrisisExercise::orderedSteps($scenario) as $rank => [$step, $target]) {
+        foreach (ExerciseRules::orderedSteps($scenario) as $rank => [$step, $target]) {
             $taskId = (int) (new PluginGrcmanagerSecurityIncidentTask())->add([
                 'plugin_grcmanager_securityincidents_id' => $incident->getID(),
                 'content'                                => self::richText([
@@ -304,7 +318,7 @@ class PluginGrcmanagerCrisisExercise extends CrisisExerciseBase
         if ($scope === []) {
             return [];
         }
-        $edges = \GlpiPlugin\Grcmanager\ImpactAnalysis::loadEdges();
+        $edges = ImpactAnalysis::loadEdges();
         foreach (array_keys($scope) as $start) {
             foreach (ImpactGraph::downstream($edges, $start) as $key => $depth) {
                 $scope[$key] = min($scope[$key] ?? PHP_INT_MAX, $depth);
@@ -360,7 +374,7 @@ class PluginGrcmanagerCrisisExercise extends CrisisExerciseBase
         $now = empty($this->fields['ended_at']) ? Session::getCurrentTime() : (string) $this->fields['ended_at'];
         $rows = [];
         foreach ($this->recoveryScope() as $key => $depth) {
-            $node = \GlpiPlugin\Grcmanager\ImpactAnalysis::describe($key);
+            $node = ImpactAnalysis::describe($key);
             if (!$node['visible']) {
                 continue;
             }
@@ -522,7 +536,7 @@ class PluginGrcmanagerCrisisExercise extends CrisisExerciseBase
                 'ORDER' => 'rank',
             ]) as $row
         ) {
-            $minutes = CrisisExercise::minutesSince($started, $row['done_at']);
+            $minutes = ExerciseRules::minutesSince($started, $row['done_at']);
             $doneBy = (int) $row['users_id_done'];
             if ($doneBy > 0) {
                 $participants[$doneBy] = getUserName($doneBy);
@@ -534,7 +548,7 @@ class PluginGrcmanagerCrisisExercise extends CrisisExerciseBase
                 'done_at' => (string) ($row['done_at'] ?? ''),
                 'by'      => $doneBy > 0 ? $participants[$doneBy] : '',
                 'minutes' => $minutes,
-                'status'  => CrisisExercise::stepStatus($minutes, (int) $row['target_minutes'], $ended),
+                'status'  => ExerciseRules::stepStatus($minutes, (int) $row['target_minutes'], $ended),
             ];
         }
         $incident = $this->getIncident();
@@ -548,7 +562,7 @@ class PluginGrcmanagerCrisisExercise extends CrisisExerciseBase
                 'started_ts'   => (int) strtotime($started),
                 'ended_at'     => (string) ($this->fields['ended_at'] ?? ''),
                 'ended'        => $ended,
-                'duration'     => CrisisExercise::minutesSince($started, $endTime),
+                'duration'     => ExerciseRules::minutesSince($started, $endTime),
                 'organizer'    => getUserName((int) $this->fields['users_id']),
                 'documents_id' => (int) $this->fields['documents_id'],
                 'document_url' => (int) $this->fields['documents_id'] > 0
@@ -565,7 +579,7 @@ class PluginGrcmanagerCrisisExercise extends CrisisExerciseBase
                 'lessons' => self::plain((string) ($incident?->fields['lessons_learned'] ?? '')),
             ],
             'steps'        => $steps,
-            'summary'      => CrisisExercise::summary($steps),
+            'summary'      => ExerciseRules::summary($steps),
             'participants' => array_values($participants),
         ];
     }

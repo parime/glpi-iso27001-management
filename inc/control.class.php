@@ -259,7 +259,7 @@ class PluginGrcmanagerControl extends ControlBase
     {
         $tabs = [];
         $this->addDefaultFormTab($tabs)
-            ->addStandardTab(PluginGrcmanagerAccessReview::class, $tabs, $options)
+            ->addStandardTab(\GlpiPlugin\Grcmanager\AccessReview::class, $tabs, $options)
             ->addStandardTab(Document_Item::class, $tabs, $options);
 
         return $tabs;

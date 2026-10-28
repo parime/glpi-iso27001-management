@@ -57,7 +57,7 @@ check "onglet risques d'un ordinateur"        "$(tab Computer 'GlpiPlugin%5CGrcm
 check "onglet classification d'un ordinateur" "$(tab Computer 'PluginGrcmanagerAssetClassification$1' "$(id computer_A)")"
 check "onglet questionnaire fournisseur"      "$(tab GlpiPlugin%5CGrcmanager%5CSupplierRisk 'GlpiPlugin%5CGrcmanager%5CSupplierAssessment$1' "$(id supplierrisk)")"
 check "onglet contrats fournisseur"           "$(tab GlpiPlugin%5CGrcmanager%5CSupplierRisk 'GlpiPlugin%5CGrcmanager%5CSupplierAssessment$2' "$(id supplierrisk)")"
-check "onglet revues d'acces d'un controle"   "$(tab PluginGrcmanagerControl 'PluginGrcmanagerAccessReview$2' "$(id control)")"
+check "onglet revues d'acces d'un controle"   "$(tab PluginGrcmanagerControl 'GlpiPlugin%5CGrcmanager%5CAccessReview$2' "$(id control)")"
 check "onglet couts d'un incident"            "$(tab PluginGrcmanagerSecurityIncident 'PluginGrcmanagerSecurityIncidentCost$1' "$(id incident_A)")"
 check "onglet mesures d'un objectif"          "$(tab PluginGrcmanagerObjective 'PluginGrcmanagerObjectiveMeasurement$1' "$(xid objective)")"
 check "onglet references CPE d'un produit"    "$(tab PluginGrcmanagerCanonicalProduct 'PluginGrcmanagerCpeReference$1' "$(xid product)")"

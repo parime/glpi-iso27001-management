@@ -117,16 +117,16 @@ final class PilotageCards
     {
         global $DB;
 
-        $campaigns = \PluginGrcmanagerAccessReview::getTable();
+        $campaigns = \GlpiPlugin\Grcmanager\AccessReview::getTable();
         $decisions = [];
         foreach (
             $DB->request([
-                'SELECT'     => [\PluginGrcmanagerAccessReview::LINES_TABLE . '.decision'],
-                'FROM'       => \PluginGrcmanagerAccessReview::LINES_TABLE,
+                'SELECT'     => [\GlpiPlugin\Grcmanager\AccessReview::LINES_TABLE . '.decision'],
+                'FROM'       => \GlpiPlugin\Grcmanager\AccessReview::LINES_TABLE,
                 'INNER JOIN' => [
                     $campaigns => [
                         'FKEY' => [
-                            \PluginGrcmanagerAccessReview::LINES_TABLE => 'plugin_grcmanager_accessreviews_id',
+                            \GlpiPlugin\Grcmanager\AccessReview::LINES_TABLE => 'plugin_grcmanager_accessreviews_id',
                             $campaigns                                 => 'id',
                         ],
                     ],
@@ -140,7 +140,7 @@ final class PilotageCards
 
         return [
             'number' => AccessReviewLogic::progress($decisions)['percent'],
-            'url'    => \PluginGrcmanagerAccessReview::getSearchURL(),
+            'url'    => \GlpiPlugin\Grcmanager\AccessReview::getSearchURL(),
             'label'  => $params['label'] ?? __('Access review: % reviewed', 'grcmanager'),
             'icon'   => 'ti ti-user-check',
         ];
@@ -154,8 +154,8 @@ final class PilotageCards
     {
         global $DB;
 
-        $lines = \PluginGrcmanagerAccessReview::LINES_TABLE;
-        $campaigns = \PluginGrcmanagerAccessReview::getTable();
+        $lines = \GlpiPlugin\Grcmanager\AccessReview::LINES_TABLE;
+        $campaigns = \GlpiPlugin\Grcmanager\AccessReview::getTable();
         $reviewer = $DB->quoteName($lines . '.reviewers_id');
         $count = (int) $DB->request([
             'SELECT'     => [new \Glpi\DBAL\QueryExpression('COUNT(DISTINCT ' . $reviewer . ') AS c')],
@@ -173,7 +173,7 @@ final class PilotageCards
 
         return [
             'number' => $count,
-            'url'    => \PluginGrcmanagerAccessReview::getSearchURL(),
+            'url'    => \GlpiPlugin\Grcmanager\AccessReview::getSearchURL(),
             'label'  => $params['label'] ?? __('Late reviewers (access)', 'grcmanager'),
             'icon'   => 'ti ti-user-exclamation',
         ];
@@ -242,7 +242,7 @@ final class PilotageCards
     {
         return [
             'number' => count(self::participantsToRetake(self::assessedParticipations())),
-            'url'    => \PluginGrcmanagerTraining::getSearchURL(),
+            'url'    => \GlpiPlugin\Grcmanager\Training::getSearchURL(),
             'label'  => $params['label'] ?? __('Participants to retake', 'grcmanager'),
             'icon'   => 'ti ti-repeat',
         ];
@@ -268,7 +268,7 @@ final class PilotageCards
             foreach (
                 $DB->request([
                     'SELECT' => ['id', 'title', 'date_delivered'],
-                    'FROM'   => \PluginGrcmanagerTraining::getTable(),
+                    'FROM'   => \GlpiPlugin\Grcmanager\Training::getTable(),
                     'WHERE'  => ['id' => array_keys($sessions)],
                     'ORDER'  => ['date_delivered DESC', 'id DESC'],
                     'LIMIT'  => 8,

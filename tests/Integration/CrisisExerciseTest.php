@@ -21,7 +21,7 @@ namespace GlpiPlugin\Grcmanager\Tests\Integration;
 
 use GlpiPlugin\Grcmanager\Services\Dashboard\SecurityIncidentCardProvider;
 use GlpiPlugin\Grcmanager\Services\Exercise\CrisisExercise;
-use PluginGrcmanagerCrisisExercise as Exercise;
+use GlpiPlugin\Grcmanager\CrisisExercise as Exercise;
 use PluginGrcmanagerSecurityIncident as Incident;
 use PluginGrcmanagerSecurityIncidentTask as Task;
 

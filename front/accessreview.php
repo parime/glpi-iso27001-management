@@ -21,33 +21,36 @@ use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
 
 include('../../../inc/includes.php');
 
-Session::checkRight(PluginGrcmanagerAccessReview::$rightname, READ);
+Session::checkRight(\GlpiPlugin\Grcmanager\AccessReview::$rightname, READ);
 
 Html::header(
-    PluginGrcmanagerAccessReview::getTypeName(2),
-    PluginGrcmanagerAccessReview::getSearchURL(),
+    \GlpiPlugin\Grcmanager\AccessReview::getTypeName(2),
+    \GlpiPlugin\Grcmanager\AccessReview::getSearchURL(),
     'grcmanager',
-    PluginGrcmanagerAccessReview::class
+    \GlpiPlugin\Grcmanager\AccessReview::class
 );
 // Encadré « À quoi sert cette page ? ».
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(PluginGrcmanagerAccessReview::class, PluginGrcmanagerAccessReview::class);
+PluginGrcmanagerMenu::showSection(
+    \GlpiPlugin\Grcmanager\AccessReview::class,
+    \GlpiPlugin\Grcmanager\AccessReview::class
+);
 PluginGrcmanagerPageHelp::show('accessreview');
 
 TemplateRenderer::getInstance()->display('@grcmanager/_list_toolbar.html.twig', [
     'buttons' => [[
-        'url'   => PluginGrcmanagerAccessReview::getMineURL(),
+        'url'   => \GlpiPlugin\Grcmanager\AccessReview::getMineURL(),
         'icon'  => 'ti-list-check',
         'label' => __('My access reviews', 'grcmanager'),
     ]],
 ]);
 
-$params = QueryBuilder::manageParams(PluginGrcmanagerAccessReview::class, $_GET);
+$params = QueryBuilder::manageParams(\GlpiPlugin\Grcmanager\AccessReview::class, $_GET);
 
 Search::showList(
-    PluginGrcmanagerAccessReview::class,
+    \GlpiPlugin\Grcmanager\AccessReview::class,
     $params,
-    DefaultSearchColumns::COLUMNS[PluginGrcmanagerAccessReview::class]
+    DefaultSearchColumns::COLUMNS[\GlpiPlugin\Grcmanager\AccessReview::class]
 );
 
 Html::footer();

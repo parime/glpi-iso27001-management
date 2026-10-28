@@ -32,10 +32,10 @@ final class DefaultSearchColumns
         // \GlpiPlugin\Grcmanager\Risk above.
         'GlpiPlugin\\Grcmanager\\SupplierRisk'  => [11, 1, 2, 3, 6, 4, 5, 7, 8, 9],
         // Sprint 6 (formations et revues de direction), same "id first" convention.
-        'PluginGrcmanagerTraining'         => [8, 1, 2, 3, 4, 5, 6],
+        'GlpiPlugin\\Grcmanager\\Training'         => [8, 1, 2, 3, 4, 5, 6],
         'GlpiPlugin\\Grcmanager\\ManagementReview' => [6, 1, 2, 3, 4, 5],
         // Issue #126 : campagne (lien), statut, fréquence, dates, pilote, entité.
-        'PluginGrcmanagerAccessReview'     => [1, 2, 3, 4, 5, 6, 80],
+        'GlpiPlugin\\Grcmanager\\AccessReview'     => [1, 2, 3, 4, 5, 6, 80],
         // Issue #28 (bibliothèque de politiques de sécurité versionnées, A.5.1), same "id first"
         // convention.
         'GlpiPlugin\\Grcmanager\\Policy'           => [8, 1, 2, 3, 4, 5, 6],

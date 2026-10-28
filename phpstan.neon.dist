@@ -52,7 +52,7 @@ parameters:
         # directory stays in scope: pure PHP with no GLPI dependency.
         - src/Services/Capa/OverdueCapaService.php
         # Sprint 6: depends on GLPI's runtime global $DB and core classes
-        # NotificationEvent/PluginGrcmanagerTraining, same rationale as OverdueCapaService above.
+        # NotificationEvent/GlpiPlugin\\Grcmanager\\Training, same rationale as OverdueCapaService above.
         # TrainingRenewalResult.php in the same directory stays in scope: pure PHP with no GLPI
         # dependency.
         - src/Services/Training/TrainingRenewalService.php
