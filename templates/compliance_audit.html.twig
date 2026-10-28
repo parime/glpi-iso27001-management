@@ -28,6 +28,23 @@
       <noscript><button type="submit" class="btn btn-outline-secondary btn-sm">{{ __('Appliquer', 'grcmanager') }}</button></noscript>
    </form>
 
+   {# Issue #305 : les postes réformés ou en stock ne sont pas en écart. #}
+   {% if can_update %}
+      {% import 'components/form/fields_macros.html.twig' as fields %}
+      <form method="post" action="{{ action }}" class="mb-3">
+         <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+         <input type="hidden" name="approvals" value="{{ approvals }}">
+         {{ fields.dropdownField('State', 'excluded_states', excluded_states, __('Statuts d\'ordinateur exclus des contrôles', 'grcmanager'), {
+            'multiple': true,
+            'entity': -1,
+            'helper': __('Par exemple « Réformé » ou « En stock » : ces postes ne sont comptés ni dans les écarts ni dans les scores.', 'grcmanager'),
+         }) }}
+         <button type="submit" name="update_excluded_states" class="btn btn-outline-primary btn-sm">{{ __('Enregistrer') }}</button>
+      </form>
+   {% elseif excluded_names is not empty %}
+      <p class="text-muted small">{{ __('Postes exclus des contrôles (statut) : %s', 'grcmanager')|format(excluded_names|join(', ')) }}</p>
+   {% endif %}
+
    {% for c in checks %}
       <div class="card mb-3">
          <div class="card-header d-flex flex-wrap align-items-center gap-2">

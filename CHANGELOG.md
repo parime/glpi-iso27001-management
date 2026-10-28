@@ -7,6 +7,27 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.16.0] - 2026-10-27
+
+### Added
+
+- Contrôles techniques automatiques : statuts d'ordinateur exclus des contrôles (#305). Un poste
+  « Réformé » ou « En stock » n'apparaît plus en écart (antivirus, chiffrement, inventaire) ni dans
+  les scores. Réglage sur la page des contrôles, réservé au droit de modification du plugin ; aucun
+  statut exclu par défaut.
+
+### Fixed
+
+- Audit de conformité technique, contrôle « Postes avec un disque non chiffré » : tous les postes
+  Windows chiffrés avec BitLocker étaient signalés (#308). L'agent inventorie aussi les volumes sans
+  lettre (partition EFI, récupération, « Réservé au système ») que BitLocker ne chiffre jamais. Seuls
+  comptent désormais les lecteurs à lettre sous Windows et les points de montage hors `/boot` et
+  pseudo-systèmes sous Linux et macOS ; les partages réseau, supports optiques et partitions FAT
+  (clés USB, EFI) sont ignorés.
+- Sans le dossier `vendor/` (archive incomplète, clone sans `composer install --no-dev`), le plugin
+  refuse de s'installer avec un message clair au lieu de provoquer une erreur fatale sur chaque page de
+  GLPI (note de la revue de sécurité de la marketplace).
+
 ## [2.15.0] - 2026-10-27
 
 ### Security
