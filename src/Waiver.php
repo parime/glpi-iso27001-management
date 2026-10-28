@@ -15,10 +15,28 @@
  * -------------------------------------------------------------------------
  */
 
+
+namespace GlpiPlugin\Grcmanager;
+
+use CommonDBTM;
+use CommonGLPI;
+use CronTask;
+use Document_Item;
+use Dropdown;
 use Glpi\Application\View\TemplateRenderer;
 use Glpi\DBAL\QuerySubQuery;
 use GlpiPlugin\Grcmanager\Compatibility\Base\WaiverBase;
 use GlpiPlugin\Grcmanager\Services\Waiver\WaiverRules;
+use Html;
+use Item_Ticket;
+use Log;
+use NotificationEvent;
+use PluginGrcmanagerAccessReview;
+use PluginGrcmanagerControl;
+use PluginGrcmanagerPolicy;
+use PluginGrcmanagerRisk;
+use Session;
+use Ticket;
 
 /**
  * Issue #170 : registre des dérogations de sécurité. Une dérogation accepte, pour un temps limité,
@@ -31,7 +49,7 @@ use GlpiPlugin\Grcmanager\Services\Waiver\WaiverRules;
  * l'équipe qui décide. Registre global, comme les autres registres du plugin ; un actif lié n'est
  * nommé qu'à qui peut le voir dans GLPI.
  */
-class PluginGrcmanagerWaiver extends WaiverBase
+class Waiver extends WaiverBase
 {
     public const RIGHTNAME = 'plugin_grcmanager';
 

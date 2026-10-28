@@ -28,6 +28,10 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   les 1 712 textes de l'interface sont écrits en anglais dans le code, le français est une
   traduction (`locales/fr_FR.po`). Aucun changement à l'écran en français : les accords et les
   synonymes sont conservés par des contextes de traduction.
+- Classes dans `src/` (convention GLPI, #293, étape 2), en commençant par les dérogations :
+  `PluginGrcmanagerWaiver` devient `GlpiPlugin\Grcmanager\Waiver`. La mise à jour renomme les
+  types stockés en base (notifications, modèles, préférences d'affichage, tâche planifiée,
+  documents, journaux, recherches enregistrées) ; l'ancien nom reste utilisable comme alias.
 
 ### Fixed
 
