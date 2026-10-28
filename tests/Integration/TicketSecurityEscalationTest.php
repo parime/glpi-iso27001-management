@@ -3,7 +3,7 @@
 namespace GlpiPlugin\Grcmanager\Tests\Integration;
 
 use MassiveAction;
-use PluginGrcmanagerSecurityIncidentTicket;
+use GlpiPlugin\Grcmanager\SecurityIncidentTicket;
 
 /**
  * Issue #165 : escalade d'un ticket en incident de sécurité depuis le panneau principal du ticket
@@ -35,7 +35,7 @@ final class TicketSecurityEscalationTest extends GrcmanagerIntegrationTestCase
         $html = $this->section($ticket);
         $this->assertStringContainsString('grcmanager-qualify-' . $ticket->getID(), $html, 'Bouton d\'escalade.');
 
-        $incidentsId = PluginGrcmanagerSecurityIncidentTicket::qualify($ticket);
+        $incidentsId = \GlpiPlugin\Grcmanager\SecurityIncidentTicket::qualify($ticket);
         $html = $this->section($ticket);
         $this->assertStringNotContainsString('grcmanager-qualify-' . $ticket->getID(), $html);
         $this->assertStringContainsString('(' . $incidentsId . ')', $html, 'Lien vers l\'incident.');
@@ -67,7 +67,7 @@ final class TicketSecurityEscalationTest extends GrcmanagerIntegrationTestCase
             }
         };
 
-        PluginGrcmanagerSecurityIncidentTicket::processMassiveActionsForOneItemtype(
+        \GlpiPlugin\Grcmanager\SecurityIncidentTicket::processMassiveActionsForOneItemtype(
             $ma,
             new \Ticket(),
             [$first->getID(), $second->getID(), 999999999]
@@ -76,14 +76,14 @@ final class TicketSecurityEscalationTest extends GrcmanagerIntegrationTestCase
         $this->assertSame(MassiveAction::ACTION_OK, $ma->log[$first->getID()]);
         $this->assertSame(MassiveAction::ACTION_OK, $ma->log[$second->getID()]);
         $this->assertSame(MassiveAction::ACTION_NORIGHT, $ma->log[999999999], 'Ticket inexistant.');
-        $this->assertCount(1, PluginGrcmanagerSecurityIncidentTicket::getIncidentIdsForTicket($first->getID()));
+        $this->assertCount(1, \GlpiPlugin\Grcmanager\SecurityIncidentTicket::getIncidentIdsForTicket($first->getID()));
 
-        PluginGrcmanagerSecurityIncidentTicket::processMassiveActionsForOneItemtype(
+        \GlpiPlugin\Grcmanager\SecurityIncidentTicket::processMassiveActionsForOneItemtype(
             $ma,
             new \Ticket(),
             [$first->getID()]
         );
-        $incidents = PluginGrcmanagerSecurityIncidentTicket::getIncidentIdsForTicket($first->getID());
+        $incidents = \GlpiPlugin\Grcmanager\SecurityIncidentTicket::getIncidentIdsForTicket($first->getID());
         $this->assertCount(1, $incidents, 'Pas de doublon.');
         $first->getFromDB($first->getID());
         $this->assertSame($statusBefore, (int) $first->fields['status'], 'Le ticket garde son statut.');
@@ -93,7 +93,7 @@ final class TicketSecurityEscalationTest extends GrcmanagerIntegrationTestCase
     {
         $actions = plugin_grcmanager_MassiveActions(\Ticket::class);
         $this->assertArrayHasKey(
-            PluginGrcmanagerSecurityIncidentTicket::class . MassiveAction::CLASS_ACTION_SEPARATOR . 'qualify',
+            \GlpiPlugin\Grcmanager\SecurityIncidentTicket::class . MassiveAction::CLASS_ACTION_SEPARATOR . 'qualify',
             $actions
         );
         $this->assertSame([], plugin_grcmanager_MassiveActions(\Computer::class));

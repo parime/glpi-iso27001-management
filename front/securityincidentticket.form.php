@@ -27,7 +27,7 @@ if (!isset($_POST['qualify']) || !$ticket->getFromDB($ticketsId) || !$ticket->ca
     Html::back();
 }
 
-$incidentsId = PluginGrcmanagerSecurityIncidentTicket::qualify($ticket);
+$incidentsId = \GlpiPlugin\Grcmanager\SecurityIncidentTicket::qualify($ticket);
 if ($incidentsId <= 0) {
     Session::addMessageAfterRedirect(__('The security incident could not be created.', 'grcmanager'), false, ERROR);
     Html::back();

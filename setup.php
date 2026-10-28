@@ -211,7 +211,7 @@ function plugin_init_grcmanager(): void
     ]);
 
     // Issue #169 : onglet « Rapport post-incident » sur les incidents de sécurité.
-    Plugin::registerClass(PluginGrcmanagerSecurityIncidentPostMortem::class, [
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\SecurityIncidentPostMortem::class, [
         'addtabon' => [PluginGrcmanagerSecurityIncident::class],
     ]);
     // Issue #185 : onglet « Cellule de crise » de l'incident.
@@ -239,7 +239,7 @@ function plugin_init_grcmanager(): void
 
     // Issue #128 : qualifier un ticket en incident de sécurité (onglet sur les deux objets) ; les
     // liens disparaissent avec le ticket ou l'incident supprimé définitivement.
-    Plugin::registerClass(PluginGrcmanagerSecurityIncidentTicket::class, [
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\SecurityIncidentTicket::class, [
         'addtabon' => ['Ticket', PluginGrcmanagerSecurityIncident::class],
     ]);
     // Issue #139 : « Mes formations » dans les préférences (résultats et copies de quiz de

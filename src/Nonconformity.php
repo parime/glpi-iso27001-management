@@ -34,7 +34,7 @@ use GlpiPlugin\Grcmanager\Services\Ui\Fragment;
 use Html;
 use Log;
 use PluginGrcmanagerSecurityIncident;
-use PluginGrcmanagerSecurityIncidentCve;
+use GlpiPlugin\Grcmanager\SecurityIncidentCve;
 use Session;
 
 /**
@@ -584,7 +584,7 @@ class Nonconformity extends NonconformityBase
         $incident = new PluginGrcmanagerSecurityIncident();
         if (
             !$incident->getFromDB($incidentId) || !$incident->canViewItem()
-            || countElementsInTable(PluginGrcmanagerSecurityIncidentCve::getTable(), [
+            || countElementsInTable(SecurityIncidentCve::getTable(), [
                 'plugin_grcmanager_securityincidents_id' => $incidentId,
                 'cve_id'                                 => $cveId,
             ]) === 0

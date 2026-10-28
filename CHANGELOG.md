@@ -38,7 +38,9 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   causalité), audits (audits internes, équipe d'audit, audit de conformité technique,
   non-conformités, revue de direction), opérations (revues des accès, hygiène des comptes,
   formations, quiz et sessions, exercices de crise), sécurité technique (veille, vulnérabilités du
-  parc, produits et références CPE, flux réseau, classification des actifs). Par exemple
+  parc, produits et références CPE, flux réseau, classification des actifs), incidents de sécurité
+  hors objet ITIL (CVE liées, rapport post-incident, lien avec les tickets). L'incident lui-même
+  et ses classes ITIL gardent leur nom historique : GLPI en dérive les balises des e-mails. Par exemple
   `PluginGrcmanagerWaiver` devient `GlpiPlugin\Grcmanager\Waiver`. La mise à jour renomme les
   types stockés en base (notifications, modèles, préférences d'affichage, tâche planifiée,
   documents, journaux, recherches enregistrées) ; l'ancien nom reste utilisable comme alias.

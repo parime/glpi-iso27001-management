@@ -1,5 +1,5 @@
 {# Absorbé depuis glpi-security-incidents (ROADMAP.md "Version 2.0") — voir
-   PluginGrcmanagerSecurityIncidentCve::displayTabContentForItem(). #}
+   GlpiPlugin\\Grcmanager\\SecurityIncidentCve::displayTabContentForItem(). #}
 {% if can_edit %}
 <form method="post" action="{{ path('/plugins/grcmanager/front/securityincidentcve.form.php') }}" class="mb-3 d-flex gap-2 align-items-end">
   <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">

@@ -166,7 +166,7 @@ final class NvdCveEnrichmentService
      * successful fetch is older than $staleAfterDays (a CVE can sit in NVD's "awaiting analysis"
      * queue and only receive its CVSS score later — see the sibling plugin's own NvdConnector
      * docblock for the same transition). $trackedCveIds is supplied by the caller (the Cron entry
-     * point on PluginGrcmanagerSecurityIncidentCve, which owns the "which CVEs actually exist in
+     * point on \GlpiPlugin\Grcmanager\SecurityIncidentCve, which owns the "which CVEs actually exist in
      * this instance" list) rather than looked up here, keeping this service decoupled from that
      * itemtype. Paces itself between requests since this can process many rows in one pass, unlike
      * fetchForCve() called alone for a single freshly-added reference.

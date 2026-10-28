@@ -22,7 +22,7 @@ namespace GlpiPlugin\Grcmanager\Tests\Integration;
 use GlpiPlugin\Grcmanager\Services\Cve\ParkVulnerabilitySync;
 use GlpiPlugin\Grcmanager\Nonconformity;
 use PluginGrcmanagerSecurityIncident;
-use PluginGrcmanagerSecurityIncidentCve;
+use GlpiPlugin\Grcmanager\SecurityIncidentCve;
 
 /**
  * Issue #163 : plan d'action (CAPA) proposé à partir d'une CVE d'incident, sans appel réseau.
@@ -39,7 +39,7 @@ final class NonconformityFromCveTest extends GrcmanagerIntegrationTestCase
             'entities_id' => 0,
             'content'     => 'x',
         ]);
-        $DB->insert(PluginGrcmanagerSecurityIncidentCve::getTable(), [
+        $DB->insert(\GlpiPlugin\Grcmanager\SecurityIncidentCve::getTable(), [
             'plugin_grcmanager_securityincidents_id' => $incidentId,
             'cve_id'                                 => $cve,
         ]);
@@ -88,7 +88,7 @@ final class NonconformityFromCveTest extends GrcmanagerIntegrationTestCase
             $incident = new PluginGrcmanagerSecurityIncident();
             $incident->getFromDB($incidentId);
             ob_start();
-            PluginGrcmanagerSecurityIncidentCve::displayTabContentForItem($incident);
+            \GlpiPlugin\Grcmanager\SecurityIncidentCve::displayTabContentForItem($incident);
             $this->assertStringContainsString('nonconformity.form.php?id=' . $ncId, (string) ob_get_clean());
         } finally {
             ParkVulnerabilitySync::storeKev([]);

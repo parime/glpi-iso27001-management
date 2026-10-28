@@ -21,7 +21,7 @@ namespace GlpiPlugin\Grcmanager\Tests\Integration;
 
 use GlpiPlugin\Grcmanager\Services\Incident\PostMortem;
 use PluginGrcmanagerSecurityIncident as Incident;
-use PluginGrcmanagerSecurityIncidentPostMortem as Report;
+use GlpiPlugin\Grcmanager\SecurityIncidentPostMortem as Report;
 
 /**
  * Issue #169 : rapport post-incident d'un incident fictif.

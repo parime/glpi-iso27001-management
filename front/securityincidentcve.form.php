@@ -17,7 +17,7 @@
 
 // A tab-embedded child, not a standalone item with its own form page — add/purge only, always
 // redirecting back to the parent SecurityIncident's own "CVE" tab.
-$item = new PluginGrcmanagerSecurityIncidentCve();
+$item = new \GlpiPlugin\Grcmanager\SecurityIncidentCve();
 
 if (isset($_POST['add'])) {
     $item->check(-1, CREATE, $_POST);
@@ -28,11 +28,11 @@ if (isset($_POST['add'])) {
     // message) rather than silently accepted or aborting the whole batch. `cve_id` (singular)
     // stays supported for a single identifier, unchanged from before this feature existed.
     if (isset($_POST['cve_ids'])) {
-        $uniqueIds = PluginGrcmanagerSecurityIncidentCve::splitIdentifiers((string) $_POST['cve_ids']);
+        $uniqueIds = \GlpiPlugin\Grcmanager\SecurityIncidentCve::splitIdentifiers((string) $_POST['cve_ids']);
 
         $added = 0;
         foreach ($uniqueIds as $cveId) {
-            $row = new PluginGrcmanagerSecurityIncidentCve();
+            $row = new \GlpiPlugin\Grcmanager\SecurityIncidentCve();
             if ($row->add(array_merge($_POST, ['cve_id' => $cveId]))) {
                 $added++;
             }
