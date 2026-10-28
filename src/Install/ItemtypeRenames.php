@@ -81,7 +81,11 @@ final class ItemtypeRenames
                 ]);
                 foreach ($searches as $row) {
                     $DB->update('glpi_savedsearches', [
-                        'query' => str_replace([$old, urlencode($old)], [$new, urlencode($new)], (string) $row['query']),
+                        'query' => str_replace(
+                            [$old, urlencode($old)],
+                            [$new, urlencode($new)],
+                            (string) $row['query']
+                        ),
                     ], ['id' => $row['id']]);
                 }
             }

@@ -6,7 +6,7 @@ namespace GlpiPlugin\Grcmanager\Compatibility\Base;
 
 use CommonDBTM;
 use GlpiPlugin\Grcmanager\Compatibility\GlpiVersion;
-use \GlpiPlugin\Grcmanager\Waiver;
+use GlpiPlugin\Grcmanager\Waiver;
 
 /*
  * Propriété statique typée sur GLPI 12, non typée sur GLPI 11 (même schéma que EvidenceBase).

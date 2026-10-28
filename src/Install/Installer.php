@@ -6,6 +6,7 @@ namespace GlpiPlugin\Grcmanager\Install;
 
 use CronTask;
 use DBConnection;
+use GlpiPlugin\Grcmanager\NotificationTargetWaiver;
 use GlpiPlugin\Grcmanager\Services\Clause\IsmsClauseCatalog;
 use GlpiPlugin\Grcmanager\Services\Control\ControlCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Dashboard\DefaultDashboardService;
@@ -15,6 +16,7 @@ use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentModuleConfig;
 use GlpiPlugin\Grcmanager\Services\Cve\NvdConfigDefaults;
 use GlpiPlugin\Grcmanager\Services\Review\PeriodicReviewCatalog;
 use GlpiPlugin\Grcmanager\Services\Risk\RiskMatrixDefaults;
+use GlpiPlugin\Grcmanager\Waiver;
 use Migration;
 use Notification;
 use NotificationTemplate;
@@ -3140,7 +3142,7 @@ final class Installer
         $targets = [
             'PluginGrcmanagerEvidence'        => \PluginGrcmanagerNotificationTargetEvidence::TARGET_RESPONSIBLE,
             'PluginGrcmanagerComplianceEvent' => \PluginGrcmanagerNotificationTargetComplianceEvent::TARGET_RESPONSIBLE,
-            'GlpiPlugin\\Grcmanager\\Waiver'          => \GlpiPlugin\Grcmanager\NotificationTargetWaiver::TARGET_RESPONSIBLE,
+            Waiver::class                     => NotificationTargetWaiver::TARGET_RESPONSIBLE,
         ];
         foreach ($targets as $itemtype => $targetId) {
             $notifications = array_column(iterator_to_array($DB->request([

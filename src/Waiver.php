@@ -15,7 +15,6 @@
  * -------------------------------------------------------------------------
  */
 
-
 namespace GlpiPlugin\Grcmanager;
 
 use CommonDBTM;
