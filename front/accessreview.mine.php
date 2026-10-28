@@ -35,7 +35,7 @@ if (isset($_POST['save_decisions'])) {
     foreach ($decisions as $lineId => $decision) {
         $comment = trim((string) ($comments[$lineId] ?? ''));
         $current = $DB->request([
-            'FROM'  => PluginGrcmanagerAccessReview::LINES_TABLE,
+            'FROM'  => \GlpiPlugin\Grcmanager\AccessReview::LINES_TABLE,
             'WHERE' => ['id' => (int) $lineId],
         ])->current();
         // Ligne inchangée ignorée seulement si elle est confiée à cet utilisateur : sinon, l'absence
@@ -49,7 +49,7 @@ if (isset($_POST['save_decisions'])) {
         ) {
             continue;
         }
-        $error = PluginGrcmanagerAccessReview::decide((int) $lineId, (string) $decision, $comment, $usersId);
+        $error = \GlpiPlugin\Grcmanager\AccessReview::decide((int) $lineId, (string) $decision, $comment, $usersId);
         if ($error === '') {
             $saved++;
         } else {
@@ -62,20 +62,20 @@ if (isset($_POST['save_decisions'])) {
         }
     }
     if ($saved > 0) {
-        Session::addMessageAfterRedirect(sprintf(__('%d décision(s) enregistrée(s).', 'grcmanager'), $saved));
+        Session::addMessageAfterRedirect(sprintf(__('%d decision(s) saved.', 'grcmanager'), $saved));
     }
     Html::back();
 }
 
 Html::header(
-    __('Mes revues d\'accès', 'grcmanager'),
-    PluginGrcmanagerAccessReview::getMineURL(),
+    __('My access reviews', 'grcmanager'),
+    \GlpiPlugin\Grcmanager\AccessReview::getMineURL(),
     'grcmanager',
-    PluginGrcmanagerAccessReview::class
+    \GlpiPlugin\Grcmanager\AccessReview::class
 );
 
 $campaigns = [];
-foreach (PluginGrcmanagerAccessReview::getLinesForReviewer($usersId) as $line) {
+foreach (\GlpiPlugin\Grcmanager\AccessReview::getLinesForReviewer($usersId) as $line) {
     $campaignId = (int) $line['plugin_grcmanager_accessreviews_id'];
     $campaigns[$campaignId] ??= [
         'name'     => (string) $line['campaign_name'],
@@ -92,9 +92,9 @@ unset($campaign);
 
 TemplateRenderer::getInstance()->display('@grcmanager/access_review_mine.html.twig', [
     'campaigns' => array_values($campaigns),
-    'decisions' => PluginGrcmanagerAccessReview::getDecisionLabels(),
-    'sources'   => PluginGrcmanagerAccessReview::getSourceLabels(),
-    'action'    => PluginGrcmanagerAccessReview::getMineURL(),
+    'decisions' => \GlpiPlugin\Grcmanager\AccessReview::getDecisionLabels(),
+    'sources'   => \GlpiPlugin\Grcmanager\AccessReview::getSourceLabels(),
+    'action'    => \GlpiPlugin\Grcmanager\AccessReview::getMineURL(),
 ]);
 
 Html::footer();

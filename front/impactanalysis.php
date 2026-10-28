@@ -20,25 +20,28 @@ use Glpi\Application\View\TemplateRenderer;
 include('../../../inc/includes.php');
 
 // Issue #177 : points de défaillance uniques, et création du risque correspondant à la demande.
-Session::checkRight(PluginGrcmanagerImpactAnalysis::RIGHTNAME, READ);
+Session::checkRight(\GlpiPlugin\Grcmanager\ImpactAnalysis::RIGHTNAME, READ);
 
 if (isset($_POST['create_risk'])) {
-    Session::checkRight(PluginGrcmanagerRisk::$rightname, CREATE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\Risk::$rightname, CREATE);
     $itemtype = (string) ($_POST['itemtype'] ?? '');
     // $itemtype est borne par la liste blanche des actifs liables juste avant l'instanciation.
     // nosemgrep: php.lang.security.injection.tainted-object-instantiation.tainted-object-instantiation
-    $item = in_array($itemtype, PluginGrcmanagerRisk::getLinkableItemtypes(), true) ? new $itemtype() : null;
+    $item = in_array($itemtype, \GlpiPlugin\Grcmanager\Risk::getLinkableItemtypes(), true) ? new $itemtype() : null;
     if ($item === null || !$item->getFromDB((int) ($_POST['items_id'] ?? 0)) || !$item->canViewItem()) {
         throw new \Glpi\Exception\Http\NotFoundHttpException();
     }
-    $analysis = PluginGrcmanagerImpactAnalysis::analyze($item);
-    $riskId = PluginGrcmanagerImpactAnalysis::createSinglePointRisk($item, $analysis['spof_for']);
+    $analysis = \GlpiPlugin\Grcmanager\ImpactAnalysis::analyze($item);
+    $riskId = \GlpiPlugin\Grcmanager\ImpactAnalysis::createSinglePointRisk($item, $analysis['spof_for']);
     if ($riskId > 0) {
-        Session::addMessageAfterRedirect(htmlescape(__('Risque créé dans le registre, à évaluer.', 'grcmanager')));
-        Html::redirect(PluginGrcmanagerRisk::getFormURLWithID($riskId));
+        Session::addMessageAfterRedirect(htmlescape(__(
+            'Risk created in the register, to be assessed.',
+            'grcmanager'
+        )));
+        Html::redirect(\GlpiPlugin\Grcmanager\Risk::getFormURLWithID($riskId));
     }
     Session::addMessageAfterRedirect(
-        htmlescape(__('Ce risque existe déjà pour cet élément.', 'grcmanager')),
+        htmlescape(__('This risk already exists for this item.', 'grcmanager')),
         false,
         WARNING
     );
@@ -51,7 +54,7 @@ if (($_GET['export'] ?? '') === 'continuity') {
     header('Content-Disposition: attachment; filename="plan-de-continuite-' . date('Y-m-d') . '.csv"');
     $out = fopen('php://output', 'w');
     fwrite($out, "\xEF\xBB\xBF");
-    foreach (PluginGrcmanagerImpactAnalysis::continuityRows() as $line) {
+    foreach (\GlpiPlugin\Grcmanager\ImpactAnalysis::continuityRows() as $line) {
         // Une cellule commençant par = + - @ serait interprétée comme une formule par le tableur.
         fputcsv($out, array_map(
             static fn (string $cell): string => preg_match('/^[=+\-@\t\r]/', $cell) === 1 ? "'" . $cell : $cell,
@@ -63,22 +66,25 @@ if (($_GET['export'] ?? '') === 'continuity') {
 }
 
 Html::header(
-    PluginGrcmanagerImpactAnalysis::getTypeName(),
-    PluginGrcmanagerImpactAnalysis::getSearchURL(),
+    \GlpiPlugin\Grcmanager\ImpactAnalysis::getTypeName(),
+    \GlpiPlugin\Grcmanager\ImpactAnalysis::getSearchURL(),
     'grcmanager',
-    PluginGrcmanagerRisk::class,
-    PluginGrcmanagerImpactAnalysis::class
+    \GlpiPlugin\Grcmanager\Risk::class,
+    \GlpiPlugin\Grcmanager\ImpactAnalysis::class
 );
 // Encadré « À quoi sert cette page ? ».
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(PluginGrcmanagerRisk::class, PluginGrcmanagerImpactAnalysis::class);
-PluginGrcmanagerPageHelp::show('impactanalysis');
+\GlpiPlugin\Grcmanager\Menu::showSection(
+    \GlpiPlugin\Grcmanager\Risk::class,
+    \GlpiPlugin\Grcmanager\ImpactAnalysis::class
+);
+\GlpiPlugin\Grcmanager\PageHelp::show('impactanalysis');
 
 TemplateRenderer::getInstance()->display('@grcmanager/impact_spof.html.twig', [
-    'points'     => PluginGrcmanagerImpactAnalysis::allSinglePoints(),
-    'action'     => PluginGrcmanagerImpactAnalysis::getSearchURL(),
-    'can_create' => Session::haveRight(PluginGrcmanagerRisk::$rightname, CREATE),
-    'export_url' => PluginGrcmanagerImpactAnalysis::getSearchURL() . '?export=continuity',
+    'points'     => \GlpiPlugin\Grcmanager\ImpactAnalysis::allSinglePoints(),
+    'action'     => \GlpiPlugin\Grcmanager\ImpactAnalysis::getSearchURL(),
+    'can_create' => Session::haveRight(\GlpiPlugin\Grcmanager\Risk::$rightname, CREATE),
+    'export_url' => \GlpiPlugin\Grcmanager\ImpactAnalysis::getSearchURL() . '?export=continuity',
 ]);
 
 Html::footer();

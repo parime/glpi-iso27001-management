@@ -103,7 +103,7 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
     "$(code -d "create_ticket=antivirus&_glpi_csrf_token=$(csrf)" "$P/complianceaudit.php")"
   # Issue #171 : relier deux elements de l'effet domino (compare en base).
   expect "front/causallink.form.php : relier" "$1" \
-    "$(code -d "add=1&item_key=PluginGrcmanagerRisk:1&other=PluginGrcmanagerRisk:2&direction=effect&_glpi_csrf_token=$(csrf)" "$P/causallink.form.php")"
+    "$(code -d "add=1&item_key=GlpiPlugin%5CGrcmanager%5CRisk:1&other=GlpiPlugin%5CGrcmanager%5CRisk:2&direction=effect&_glpi_csrf_token=$(csrf)" "$P/causallink.form.php")"
   # Issue #177 : creer le risque d'un point de defaillance unique (compare en base).
   expect "front/impactanalysis.php : creer le risque" "$1" \
     "$(code -d "create_risk=1&itemtype=Computer&items_id=$(id computer_A)&_glpi_csrf_token=$(csrf)" "$P/impactanalysis.php")"
@@ -124,7 +124,7 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
   expect "front/auditteam.form.php : ajouter un membre" "$1" \
     "$(code -d "add=1&plugin_grcmanager_audits_id=$(id audit)&users_id=2&role=auditee&_glpi_csrf_token=$(csrf)" "$P/auditteam.form.php")"
   expect "front/evidence.form.php : date de validite d'une preuve" "$1" \
-    "$(code -d "save=1&itemtype=PluginGrcmanagerPolicy&items_id=$(id policy_A)&documents_id=$(id document_A)&valid_until=2030-01-01&_glpi_csrf_token=$(csrf)" "$P/evidence.form.php")"
+    "$(code -d "save=1&itemtype=GlpiPlugin%5CGrcmanager%5CPolicy&items_id=$(id policy_A)&documents_id=$(id document_A)&valid_until=2030-01-01&_glpi_csrf_token=$(csrf)" "$P/evidence.form.php")"
   # Issue #139 : joindre ou retirer une copie de quiz exige de pouvoir modifier la session.
   expect "front/trainingquiz.form.php : retirer une copie" "$1" \
     "$(code -d "remove=1&participations_id=$(id quiz)&_glpi_csrf_token=$(csrf)" "$P/trainingquiz.form.php")"
@@ -145,8 +145,8 @@ if [ "$ROLE" = none ]; then
     "$(code -d "finish=1&id=1&_glpi_csrf_token=$(csrf)" "$P/crisisexercise.form.php")"
   # Revue de securite 2.11.0 : contenu des onglets du plugin demande directement sur un
   # ordinateur lisible, sans le droit du plugin (GLPI ne consulte pas getTabNameForItem()).
-  for t in 'PluginGrcmanagerImpactAnalysis$1' 'PluginGrcmanagerAssetClassification$1' \
-           'PluginGrcmanagerParkVulnerability$1' 'PluginGrcmanagerRisk$1'; do
+  for t in 'GlpiPlugin%5CGrcmanager%5CImpactAnalysis$1' 'GlpiPlugin%5CGrcmanager%5CAssetClassification$1' \
+           'GlpiPlugin%5CGrcmanager%5CParkVulnerability$1' 'GlpiPlugin%5CGrcmanager%5CRisk$1'; do
     contains "onglet $t d'un ordinateur : sans droit" "plugins/grcmanager" non "$(tab Computer "$t" "$(id computer_A)")"
   done
   create_attempts 403 403
@@ -166,9 +166,9 @@ if [ "$ROLE" = general ]; then
     expect "$p : droit general du SMSI" 200 "$(code "$BASE/plugins/grcmanager/$p")"
   done
   contains "fiche d'un controle : aucun titre de risque lie" "Risque securite" non \
-    "$(tab PluginGrcmanagerControl 'PluginGrcmanagerControl$main' "$(id control)")"
+    "$(tab GlpiPlugin%5CGrcmanager%5CControl 'GlpiPlugin%5CGrcmanager%5CControl$main' "$(id control)")"
   contains "onglet Risques d'un ordinateur : rien" "Risque securite" non \
-    "$(tab Computer 'PluginGrcmanagerRisk$1' "$(id computer_A)")"
+    "$(tab Computer 'GlpiPlugin%5CGrcmanager%5CRisk$1' "$(id computer_A)")"
   rm -f "$JAR"; exit $FAIL
 fi
 
@@ -208,16 +208,16 @@ expect "front/compliancecalendar.ics.php : jeton invalide" 403    "$(code "$P/co
 expect "campagne de revue, entite A"   200    "$(code "$P/accessreview.form.php?id=$(id campaign_A)")"
 expect "campagne de revue, entite B"   $DENY  "$(code "$P/accessreview.form.php?id=$(id campaign_B)")"
 
-control_tab=$(tab PluginGrcmanagerControl 'PluginGrcmanagerAccessReview$2' "$(id control)")
+control_tab=$(tab GlpiPlugin%5CGrcmanager%5CControl 'GlpiPlugin%5CGrcmanager%5CAccessReview$2' "$(id control)")
 contains "onglet revues d'acces d'un controle : campagne A" "Campagne securite A" oui     "$control_tab"
 contains "onglet revues d'acces d'un controle : campagne B" "Campagne securite B" $SEE_B  "$control_tab"
 
-contracts_tab=$(tab PluginGrcmanagerSupplierRisk 'PluginGrcmanagerSupplierAssessment$2' "$(id supplierrisk)")
+contracts_tab=$(tab GlpiPlugin%5CGrcmanager%5CSupplierRisk 'GlpiPlugin%5CGrcmanager%5CSupplierAssessment$2' "$(id supplierrisk)")
 contains "onglet contrats du fournisseur : contrat A" "Contrat securite A" oui     "$contracts_tab"
 contains "onglet contrats du fournisseur : contrat B" "Contrat securite B" $SEE_B  "$contracts_tab"
 
 # Issue #171 : la fiche du risque s'affiche avec onglets, le formulaire est le premier onglet.
-risk_page=$(tab PluginGrcmanagerRisk 'PluginGrcmanagerRisk$main' "$(id risk)")
+risk_page=$(tab GlpiPlugin%5CGrcmanager%5CRisk 'GlpiPlugin%5CGrcmanager%5CRisk$main' "$(id risk)")
 contains "actif lie d'une autre entite affiche sur le risque" "PC securite B" $SEE_B "$risk_page"
 
 expect "classification d'un actif de A" 302 \
@@ -230,11 +230,11 @@ evidences=$(curl -s -c "$JAR" -b "$JAR" "$P/evidence.php")
 contains "liste des preuves : preuve de A" "Preuve securite A" oui    "$evidences"
 contains "liste des preuves : preuve de B" "Preuve securite B" $SEE_B "$evidences"
 expect "date de validite d'une preuve de A" 302 \
-  "$(code -d "save=1&itemtype=PluginGrcmanagerPolicy&items_id=$(id policy_A)&documents_id=$(id document_A)&valid_until=2030-01-01&_glpi_csrf_token=$(csrf)" "$P/evidence.form.php")"
+  "$(code -d "save=1&itemtype=GlpiPlugin%5CGrcmanager%5CPolicy&items_id=$(id policy_A)&documents_id=$(id document_A)&valid_until=2030-01-01&_glpi_csrf_token=$(csrf)" "$P/evidence.form.php")"
 expect "date de validite d'une preuve de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
-  "$(code -d "save=1&itemtype=PluginGrcmanagerPolicy&items_id=$(id policy_B)&documents_id=$(id document_B)&valid_until=2030-01-01&_glpi_csrf_token=$(csrf)" "$P/evidence.form.php")"
+  "$(code -d "save=1&itemtype=GlpiPlugin%5CGrcmanager%5CPolicy&items_id=$(id policy_B)&documents_id=$(id document_B)&valid_until=2030-01-01&_glpi_csrf_token=$(csrf)" "$P/evidence.form.php")"
 expect "date de validite : document d'une autre politique" 404 \
-  "$(code -d "save=1&itemtype=PluginGrcmanagerPolicy&items_id=$(id policy_A)&documents_id=$(id document_B)&valid_until=2030-01-01&_glpi_csrf_token=$(csrf)" "$P/evidence.form.php")"
+  "$(code -d "save=1&itemtype=GlpiPlugin%5CGrcmanager%5CPolicy&items_id=$(id policy_A)&documents_id=$(id document_B)&valid_until=2030-01-01&_glpi_csrf_token=$(csrf)" "$P/evidence.form.php")"
 
 if [ "$ROLE" = limited ]; then
   # Enregistre le risque (objet global) avec l'actif de A : le lien vers B, invisible pour lui,

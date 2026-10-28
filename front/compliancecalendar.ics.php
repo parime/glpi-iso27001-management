@@ -35,10 +35,10 @@ if ($profiles === []) {
     throw new \Glpi\Exception\Http\AccessDeniedHttpException();
 }
 Session::changeProfile(isset($profiles[$user->fields['profiles_id']]) ? $user->fields['profiles_id'] : key($profiles));
-if (!Session::haveRight(PluginGrcmanagerComplianceEvent::$rightname, READ)) {
+if (!Session::haveRight(\GlpiPlugin\Grcmanager\ComplianceEvent::$rightname, READ)) {
     throw new \Glpi\Exception\Http\AccessDeniedHttpException();
 }
 
 header('Content-Type: text/calendar; charset=utf-8');
 header('Content-Disposition: inline; filename="calendrier-conformite.ics"');
-echo PluginGrcmanagerComplianceEvent::exportIcs(!empty($_GET['mine']));
+echo \GlpiPlugin\Grcmanager\ComplianceEvent::exportIcs(!empty($_GET['mine']));

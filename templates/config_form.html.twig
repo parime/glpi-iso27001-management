@@ -4,12 +4,12 @@
   <div class="card-body d-flex align-items-center gap-3">
     <i class="ti ti-brand-github fs-1 text-muted"></i>
     <div>
-      <div class="fw-bold">{{ __('Version du plugin', 'grcmanager') }}</div>
+      <div class="fw-bold">{{ __('Plugin version', 'grcmanager') }}</div>
       <div class="text-muted small">
-        {{ __('Version installée', 'grcmanager') }}
+        {{ __('Installed version', 'grcmanager') }}
         <span class="badge bg-blue-lt">v{{ installed_version }}</span>
         {% if latest_github_version %}
-          {{ __('Dernière version sur GitHub', 'grcmanager') }}
+          {{ __('Latest version on GitHub', 'grcmanager') }}
           <span class="badge {{ latest_github_version != installed_version ? 'bg-orange-lt' : 'bg-green-lt' }}">v{{ latest_github_version }}</span>
         {% endif %}
       </div>
@@ -22,18 +22,18 @@
 {# Registres sensibles : contenu des e-mails des risques, risques fournisseurs et actions de traitement. #}
 <div class="card mb-3">
   <div class="card-body">
-    <h4>{{ __('Registres sensibles', 'grcmanager') }}</h4>
+    <h4>{{ __('Sensitive registers', 'grcmanager') }}</h4>
     <p class="text-muted">
-      {{ __('Le registre des risques, les vulnérabilités du parc et la matrice des flux décrivent les points faibles de l\'organisation. Ils ont leur propre droit (onglet GRC Manager des profils) : donnez-le seulement au RSSI et aux propriétaires de risques.', 'grcmanager') }}
+      {{ __('The risk register, fleet vulnerabilities and network flow matrix describe the organisation\'s weak points. They have their own right (GRC Manager tab of profiles): give it only to the CISO and risk owners.', 'grcmanager') }}
     </p>
     <form method="post" action="{{ config('root_doc') }}/plugins/grcmanager/front/config.php">
       <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
       <div class="form-check form-switch">
         <input type="hidden" name="notifications_minimal" value="0">
         <input type="checkbox" class="form-check-input" id="grc-notifications-minimal" name="notifications_minimal" value="1" {{ notifications_minimal ? 'checked' }} {{ can_edit_sensitive ? '' : 'disabled' }}>
-        <label class="form-check-label" for="grc-notifications-minimal">{{ __('E-mails sans détail : « Risque n° X » et le lien vers la fiche, sans titre, catégorie, niveau ni fournisseur', 'grcmanager') }}</label>
+        <label class="form-check-label" for="grc-notifications-minimal">{{ __('E-mails without details: "Risk no. X" and the link to the record, without title, category, level or supplier', 'grcmanager') }}</label>
       </div>
-      <p class="text-muted small mt-1 mb-0">{{ __('Un e-mail circule en clair et reste dans les boîtes et les archives. Le destinataire lit le détail dans GLPI, avec ses droits.', 'grcmanager') }}</p>
+      <p class="text-muted small mt-1 mb-0">{{ __('An e-mail travels in clear text and stays in mailboxes and archives. The recipient reads the details in GLPI, with their own rights.', 'grcmanager') }}</p>
       {% if can_edit_sensitive %}
         <div class="d-flex gap-2 mt-2">
           <button type="submit" name="update_sensitive_config" class="btn btn-primary">{{ __('Enregistrer') }}</button>
@@ -45,13 +45,13 @@
 
 <div class="card mb-3">
   <div class="card-body">
-    <h4>{{ __('Audits internes', 'grcmanager') }}</h4>
+    <h4>{{ __('Internal audits', 'grcmanager') }}</h4>
     <p class="text-muted">
-      {{ __('Les documents d\'un audit ne se lisent que par son équipe (auditeurs, responsable, audités) et par les membres de ce groupe, même avec le droit Documents de GLPI.', 'grcmanager') }}
+      {{ __('The documents of an audit can only be read by its team (auditors, owner, auditees) and by the members of this group, even with the GLPI Documents right.', 'grcmanager') }}
     </p>
     <form method="post" action="{{ config('root_doc') }}/plugins/grcmanager/front/config.php">
       <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
-      {{ fields.dropdownField('Group', 'ciso_groups_id', ciso_groups_id, __('Groupe RSSI', 'grcmanager'), {'entity': -1}) }}
+      {{ fields.dropdownField('Group', 'ciso_groups_id', ciso_groups_id, __('CISO group', 'grcmanager'), {'entity': -1}) }}
       <div class="d-flex gap-2 mt-2">
         <button type="submit" name="update_audit_config" class="btn btn-primary">{{ __('Enregistrer') }}</button>
       </div>
@@ -67,9 +67,9 @@
    effet visible. #}
 <div class="card mb-3">
   <div class="card-body">
-    <h4>{{ __('Incidents de sécurité', 'grcmanager') }}</h4>
+    <h4>{{ __('Security incidents', 'grcmanager') }}</h4>
     <p class="text-muted">
-      {{ __('Active ou désactive chaque partie du module de gestion des incidents de sécurité (objet ITIL dédié, visible dans le menu Assistance).', 'grcmanager') }}
+      {{ __('Enables or disables each part of the security incident management module (dedicated ITIL object, visible in the Assistance menu).', 'grcmanager') }}
     </p>
 
     <form method="post" action="{{ config('root_doc') }}/plugins/grcmanager/front/config.php">
@@ -77,21 +77,21 @@
 
       <div class="form-check form-switch mb-2">
         <input class="form-check-input" type="checkbox" role="switch" id="securityincident_enabled" name="securityincident_enabled" {{ securityincident_modules.securityincident_enabled ? 'checked' : '' }}>
-        <label class="form-check-label" for="securityincident_enabled">{{ __('Module Incidents de sécurité (menu Assistance)', 'grcmanager') }}</label>
+        <label class="form-check-label" for="securityincident_enabled">{{ __('Security incidents module (Assistance menu)', 'grcmanager') }}</label>
       </div>
 
       <div class="ms-4">
         <div class="form-check form-switch mb-2">
           <input class="form-check-input" type="checkbox" role="switch" id="securityincident_cve_enabled" name="securityincident_cve_enabled" {{ securityincident_modules.securityincident_cve_enabled ? 'checked' : '' }}>
-          <label class="form-check-label" for="securityincident_cve_enabled">{{ __('Suivi des CVE', 'grcmanager') }}</label>
+          <label class="form-check-label" for="securityincident_cve_enabled">{{ __('CVE tracking', 'grcmanager') }}</label>
         </div>
         <div class="form-check form-switch mb-2">
           <input class="form-check-input" type="checkbox" role="switch" id="securityincident_templates_enabled" name="securityincident_templates_enabled" {{ securityincident_modules.securityincident_templates_enabled ? 'checked' : '' }}>
-          <label class="form-check-label" for="securityincident_templates_enabled">{{ __('Modèles d\'incident', 'grcmanager') }}</label>
+          <label class="form-check-label" for="securityincident_templates_enabled">{{ __('Incident templates', 'grcmanager') }}</label>
         </div>
         <div class="form-check form-switch mb-2">
           <input class="form-check-input" type="checkbox" role="switch" id="securityincident_dashboard_enabled" name="securityincident_dashboard_enabled" {{ securityincident_modules.securityincident_dashboard_enabled ? 'checked' : '' }}>
-          <label class="form-check-label" for="securityincident_dashboard_enabled">{{ __('Cartes de tableau de bord', 'grcmanager') }}</label>
+          <label class="form-check-label" for="securityincident_dashboard_enabled">{{ __('Dashboard cards', 'grcmanager') }}</label>
         </div>
       </div>
 
@@ -108,9 +108,9 @@
    au premier upgrade). #}
 <div class="card mb-3">
   <div class="card-body">
-    <h4>{{ __('Enrichissement CVE (NVD)', 'grcmanager') }}</h4>
+    <h4>{{ __('CVE enrichment (NVD)', 'grcmanager') }}</h4>
     <p class="text-muted">
-      {{ __('Récupère automatiquement le score CVSS, la sévérité, la description et les liens de correctif de chaque CVE suivie, depuis la base publique NVD (National Vulnerability Database). Aucune donnée n\'est inventée : si le NVD n\'a pas encore analysé une CVE, rien ne s\'affiche tant que ce n\'est pas le cas.', 'grcmanager') }}
+      {{ __('Automatically retrieves the CVSS score, severity, description and patch links for each tracked CVE, from the public NVD (National Vulnerability Database). No data is ever invented: if the NVD hasn\'t analyzed a CVE yet, nothing is shown until it has.', 'grcmanager') }}
     </p>
 
     <form method="post" action="{{ config('root_doc') }}/plugins/grcmanager/front/config.php">
@@ -118,36 +118,36 @@
 
       <div class="form-check form-switch mb-2">
         <input class="form-check-input" type="checkbox" role="switch" id="enable_nvd_enrichment" name="enable_nvd_enrichment" {{ nvd_config.enable_nvd_enrichment ? 'checked' : '' }}>
-        <label class="form-check-label" for="enable_nvd_enrichment">{{ __('Activer l\'enrichissement NVD', 'grcmanager') }}</label>
+        <label class="form-check-label" for="enable_nvd_enrichment">{{ __('Enable NVD enrichment', 'grcmanager') }}</label>
       </div>
 
       <div class="mb-2" style="max-width: 220px;">
-        <label class="form-label" for="cvss_alert_threshold">{{ __('Seuil d\'alerte (score CVSS)', 'grcmanager') }}</label>
+        <label class="form-label" for="cvss_alert_threshold">{{ __('Alert threshold (CVSS score)', 'grcmanager') }}</label>
         <input type="number" class="form-control" id="cvss_alert_threshold" name="cvss_alert_threshold" min="0" max="10" step="0.1" value="{{ nvd_config.cvss_alert_threshold }}">
-        <div class="form-hint">{{ __('Une CVE avec un score égal ou supérieur est mise en avant comme urgente.', 'grcmanager') }}</div>
+        <div class="form-hint">{{ __('A CVE with an equal or higher score is highlighted as urgent.', 'grcmanager') }}</div>
       </div>
 
       {# Issue #160, phase 2 : tickets automatiques des vulnérabilités du parc. #}
-      <h5 class="mt-3">{{ __('Tickets des vulnérabilités du parc', 'grcmanager') }}</h5>
+      <h5 class="mt-3">{{ __('Fleet vulnerability tickets', 'grcmanager') }}</h5>
       <div class="form-check form-switch mb-2">
         <input class="form-check-input" type="checkbox" role="switch" id="park_tickets_enabled" name="park_tickets_enabled" value="1" {{ park_thresholds.enabled ? 'checked' : '' }}>
-        <label class="form-check-label" for="park_tickets_enabled">{{ __('Créer automatiquement un ticket par vulnérabilité qui dépasse un seuil', 'grcmanager') }}</label>
+        <label class="form-check-label" for="park_tickets_enabled">{{ __('Automatically create a ticket for each vulnerability above a threshold', 'grcmanager') }}</label>
       </div>
       <div class="form-check mb-2">
         <input class="form-check-input" type="checkbox" id="park_ticket_kev" name="park_ticket_kev" value="1" {{ park_thresholds.kev ? 'checked' : '' }}>
-        <label class="form-check-label" for="park_ticket_kev">{{ __('Vulnérabilité activement exploitée (catalogue CISA KEV)', 'grcmanager') }}</label>
+        <label class="form-check-label" for="park_ticket_kev">{{ __('Actively exploited vulnerability (CISA KEV catalog)', 'grcmanager') }}</label>
       </div>
       <div class="d-flex flex-wrap gap-3 mb-2">
         <div style="max-width: 220px;">
-          <label class="form-label" for="park_ticket_cvss">{{ __('ou CVSS d\'au moins', 'grcmanager') }}</label>
+          <label class="form-label" for="park_ticket_cvss">{{ __('or CVSS of at least', 'grcmanager') }}</label>
           <input type="number" class="form-control" id="park_ticket_cvss" name="park_ticket_cvss" min="0" max="10" step="0.1" value="{{ park_thresholds.cvss }}">
         </div>
         <div style="max-width: 220px;">
-          <label class="form-label" for="park_ticket_epss_percent">{{ __('ou probabilité d\'exploitation (EPSS, %) d\'au moins', 'grcmanager') }}</label>
+          <label class="form-label" for="park_ticket_epss_percent">{{ __('or exploitation probability (EPSS, %) of at least', 'grcmanager') }}</label>
           <input type="number" class="form-control" id="park_ticket_epss_percent" name="park_ticket_epss_percent" min="0" max="100" step="1" value="{{ (park_thresholds.epss * 100)|round }}">
         </div>
       </div>
-      <div class="form-hint mb-2">{{ __('Un seul ticket ouvert par logiciel, qui détaille ses vulnérabilités et est lié aux machines touchées. Au plus %d tickets sont créés par passage, les plus graves d\'abord. Un suivi est ajouté quand plus de machines sont touchées, quand une vulnérabilité devient activement exploitée, ou quand plus aucune machine n\'est vulnérable. Le ticket n\'est jamais fermé ni sa priorité modifiée automatiquement.', 'grcmanager')|format(max_tickets) }}</div>
+      <div class="form-hint mb-2">{{ __('A single open ticket per software, detailing its vulnerabilities and linked to the affected machines. At most %d tickets are created per run, most severe first. A followup is added when more machines are affected, when a vulnerability becomes actively exploited, or when no machine is vulnerable anymore. The ticket is never closed and its priority never changed automatically.', 'grcmanager')|format(max_tickets) }}</div>
 
       <div class="d-flex gap-2 mt-2">
         <button type="submit" name="update_nvd_config" class="btn btn-primary">{{ __('Enregistrer') }}</button>
@@ -162,9 +162,9 @@
    onglets si un futur sprint ajoute d'autres réglages ici. #}
 <div class="card">
   <div class="card-body">
-    <h4>{{ __('Matrice de risque', 'grcmanager') }}</h4>
+    <h4>{{ __('Risk matrix', 'grcmanager') }}</h4>
     <p class="text-muted">
-      {{ __('Détermine automatiquement le niveau d\'un risque (faible/moyen/élevé/critique) à partir de sa probabilité et de son impact. Les valeurs par défaut ci-dessous reproduisent exactement le comportement du registre avant que cet écran n\'existe : aucun risque existant ne change de niveau tant que vous ne modifiez pas la grille.', 'grcmanager') }}
+      {{ __('Automatically determines a risk\'s level (low/medium/high/critical) from its probability and impact. The default values below reproduce exactly the register\'s behaviour before this screen existed: no existing risk changes level until you edit the grid.', 'grcmanager') }}
     </p>
 
     <form method="post" action="{{ config('root_doc') }}/plugins/grcmanager/front/config.php">
@@ -174,7 +174,7 @@
         <table class="table table-bordered align-middle grcmanager-risk-matrix" style="max-width: 720px;">
           <thead>
             <tr>
-              <th>{{ __('Probabilité', 'grcmanager') }} \ {{ __('Impact', 'grcmanager') }}</th>
+              <th>{{ __('Probability', 'grcmanager') }} \ {{ __('Impact', 'grcmanager') }}</th>
               {% for impact_key, impact_label in risk_impacts %}<th>{{ impact_label }}</th>{% endfor %}
             </tr>
           </thead>
@@ -206,7 +206,7 @@
 </div>
 
 {# Color-coded matrix cells (same low/medium/high/critical -> green/yellow/orange/red convention
-   as PluginGrcmanagerRisk::riskLevelBadge(), inc/risk.class.php), so a non-technical admin sees
+   as GlpiPlugin\\Grcmanager\\Risk::riskLevelBadge(), inc/risk.class.php), so a non-technical admin sees
    at a glance which combinations are severe without reading every select's value. Updates live on
    change, not just on page load, so the visual stays true after an edit and before saving. #}
 <style>

@@ -1,27 +1,27 @@
 {# Issue #126 : rapport de clôture d'une campagne de revue des accès, archivé comme preuve #}
 {% include '@grcmanager/pdf/_pdf_style.html.twig' %}
 
-<h2>{{ __('Résumé', 'grcmanager') }}</h2>
+<h2>{{ __('Summary', 'grcmanager') }}</h2>
 <table class="grcmanager-pdf-summary">
-  <tr><td>{{ __('Entité', 'grcmanager') }}</td><td>{{ entity }}{{ campaign.is_recursive ? ' ' ~ __('(et sous-entités)', 'grcmanager') : '' }}</td></tr>
-  <tr><td>{{ __('Pilote', 'grcmanager') }}</td><td>{{ owner }}</td></tr>
-  <tr><td>{{ __('Fréquence', 'grcmanager') }}</td><td>{{ frequency }}</td></tr>
-  {% if control %}<tr><td>{{ __('Mesure de la SoA', 'grcmanager') }}</td><td>{{ control }}</td></tr>{% endif %}
-  <tr><td>{{ __('Début / échéance', 'grcmanager') }}</td><td>{{ dates.start }} / {{ dates.due }}</td></tr>
-  <tr><td>{{ __('Lancée le', 'grcmanager') }}</td><td>{{ dates.launch }}</td></tr>
-  <tr><td>{{ __('Clôturée le', 'grcmanager') }}</td><td>{{ dates.close }}</td></tr>
-  <tr><td>{{ __('Comptes revus', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ progress.done }} / {{ progress.total }} ({{ progress.percent }} %)</td></tr>
+  <tr><td>{{ __('Entity', 'grcmanager') }}</td><td>{{ entity }}{{ campaign.is_recursive ? ' ' ~ __('(and sub-entities)', 'grcmanager') : '' }}</td></tr>
+  <tr><td>{{ _x('process pilot', 'Owner', 'grcmanager') }}</td><td>{{ owner }}</td></tr>
+  <tr><td>{{ __('Frequency', 'grcmanager') }}</td><td>{{ frequency }}</td></tr>
+  {% if control %}<tr><td>{{ __('SoA control', 'grcmanager') }}</td><td>{{ control }}</td></tr>{% endif %}
+  <tr><td>{{ __('Start / due date', 'grcmanager') }}</td><td>{{ dates.start }} / {{ dates.due }}</td></tr>
+  <tr><td>{{ __('Launched on', 'grcmanager') }}</td><td>{{ dates.launch }}</td></tr>
+  <tr><td>{{ __('Closed on', 'grcmanager') }}</td><td>{{ dates.close }}</td></tr>
+  <tr><td>{{ __('Accounts reviewed', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ progress.done }} / {{ progress.total }} ({{ progress.percent }} %)</td></tr>
 </table>
 
-<h2>{{ __('Décisions par compte', 'grcmanager') }}</h2>
+<h2>{{ __('Decisions per account', 'grcmanager') }}</h2>
 <table class="grcmanager-pdf-table">
   <thead>
     <tr>
-      <th>{{ __('Compte', 'grcmanager') }}</th>
-      <th>{{ __('Profils et groupes au lancement', 'grcmanager') }}</th>
-      <th>{{ __('Responsable', 'grcmanager') }}</th>
-      <th>{{ __('Décision', 'grcmanager') }}</th>
-      <th>{{ __('Commentaire', 'grcmanager') }}</th>
+      <th>{{ __('Account', 'grcmanager') }}</th>
+      <th>{{ __('Profiles and groups at launch', 'grcmanager') }}</th>
+      <th>{{ __('Owner', 'grcmanager') }}</th>
+      <th>{{ __('Decision', 'grcmanager') }}</th>
+      <th>{{ __('Comment', 'grcmanager') }}</th>
       <th>{{ __('Ticket', 'grcmanager') }}</th>
     </tr>
   </thead>
@@ -35,7 +35,7 @@
         </td>
         <td>{{ line.reviewer_name }}</td>
         <td>
-          {{ line.decision == 'pending' ? __('Non revu', 'grcmanager') : decisions[line.decision] }}
+          {{ line.decision == 'pending' ? __('Not reviewed', 'grcmanager') : decisions[line.decision] }}
           {% if line.decided_by_name %}<br><small>{{ line.decided_by_name }}, {{ line.date_decision }}</small>{% endif %}
         </td>
         <td>{{ line.comment }}</td>

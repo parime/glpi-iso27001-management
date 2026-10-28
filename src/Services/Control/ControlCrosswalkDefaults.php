@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace GlpiPlugin\Grcmanager\Services\Control;
 
 /**
- * Correspondances entre l'Annexe A ISO 27001 (PluginGrcmanagerControl, code sans le préfixe
+ * Correspondances entre l'Annexe A ISO 27001 (\GlpiPlugin\Grcmanager\Control, code sans le préfixe
  * "A.") et le NIST CSF 2.0 — tableau CREUX : seuls les 67 contrôles Annexe A pour lesquels le
  * NIST publie lui-même une correspondance explicite ont une entrée ici (aucune correspondance
  * approximée). Sourcé sur les "Informative References" officielles du NIST CSF 2.0 Reference

@@ -7,18 +7,18 @@
 {% set badge_class = {'done': 'bg-green-lt', 'overdue': 'bg-red-lt', 'due_soon': 'bg-orange-lt', 'pending': 'bg-blue-lt'} %}
 {% set badge_icon = {'done': 'ti-circle-check', 'overdue': 'ti-alert-octagon', 'due_soon': 'ti-clock-exclamation', 'pending': 'ti-clock'} %}
 {% set status_labels = {
-   'done': __('Fait', 'grcmanager'),
-   'overdue': __('Dépassé', 'grcmanager'),
-   'due_soon': __('Bientôt', 'grcmanager'),
-   'pending': __('À faire', 'grcmanager')
+   'done': _x('task', 'Done', 'grcmanager'),
+   'overdue': _x('deadline passed', 'Overdue', 'grcmanager'),
+   'due_soon': __('Due soon', 'grcmanager'),
+   'pending': __('To do', 'grcmanager')
 } %}
 {% set nb_alerts = deadlines|filter(d => d.status in ['overdue', 'due_soon'])|length %}
 
-<section class="accordion-item" aria-label="{{ __('Notifications réglementaires', 'grcmanager') }}">
+<section class="accordion-item" aria-label="{{ __('Regulatory notifications', 'grcmanager') }}">
    <div class="accordion-header" id="grcmanager-regulatory-heading">
       <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#grcmanager-regulatory" aria-expanded="true" aria-controls="grcmanager-regulatory">
          <i class="ti ti-building-bank"></i>
-         <span class="item-title">{{ __('Notifications réglementaires', 'grcmanager') }}</span>
+         <span class="item-title">{{ __('Regulatory notifications', 'grcmanager') }}</span>
          {% if nb_alerts > 0 %}
             <span class="badge bg-red text-red-fg ms-2">{{ nb_alerts }}</span>
          {% endif %}
@@ -29,28 +29,28 @@
          {{ fields.checkboxField(
             'nis2_applicable',
             item.fields['nis2_applicable']|default(0),
-            __('Soumis à NIS2', 'grcmanager'),
-            {'full_width': true, 'disabled': not item.canUpdateItem(), 'rand': rand, 'add_field_html': hints.hint(__('Entité essentielle ou importante, incident significatif : alerte précoce sous 24 h, notification sous 72 h, rapport final sous un mois.', 'grcmanager'))}
+            __('Subject to NIS2', 'grcmanager'),
+            {'full_width': true, 'disabled': not item.canUpdateItem(), 'rand': rand, 'add_field_html': hints.hint(__('Essential or important entity, significant incident: early warning within 24 h, notification within 72 h, final report within one month.', 'grcmanager'))}
          ) }}
          {{ fields.checkboxField(
             'personal_data_breach',
             item.fields['personal_data_breach']|default(0),
-            __('Violation de données personnelles', 'grcmanager'),
-            {'full_width': true, 'disabled': not item.canUpdateItem(), 'rand': rand, 'add_field_html': hints.hint(__('RGPD : notification à l\'autorité de contrôle (la CNIL en France) sous 72 h.', 'grcmanager'))}
+            __('Personal data breach', 'grcmanager'),
+            {'full_width': true, 'disabled': not item.canUpdateItem(), 'rand': rand, 'add_field_html': hints.hint(__('GDPR: notification to the supervisory authority (the CNIL in France) within 72 h.', 'grcmanager'))}
          ) }}
 
          {% if deadlines|length %}
             <div class="col-12 mt-2">
-               <p class="text-muted small mb-2">{{ __('Échéances calculées depuis la date d\'ouverture de l\'incident. Rien n\'est envoyé automatiquement : faites la notification, puis renseignez sa date ici.', 'grcmanager') }}</p>
+               <p class="text-muted small mb-2">{{ __('Deadlines computed from the incident\'s opening date. Nothing is sent automatically: make the notification, then enter its date here.', 'grcmanager') }}</p>
             </div>
             {% for d in deadlines %}
                {% set notified_field %}
                   <div class="d-flex flex-wrap align-items-center gap-2">
                      <span class="badge {{ badge_class[d.status] }}"><i class="ti {{ badge_icon[d.status] }} me-1"></i>{{ status_labels[d.status] }}</span>
-                     <span class="text-muted small">{{ __('au plus tard le %s', 'grcmanager')|format(d.due|formatted_datetime) }}</span>
+                     <span class="text-muted small">{{ __('no later than %s', 'grcmanager')|format(d.due|formatted_datetime) }}</span>
                      <input type="datetime-local" class="form-control form-control-sm" style="max-width: 220px;"
                         name="{{ done_fields[d.key] }}" value="{{ d.done_at ? d.done_at|date('Y-m-d\\TH:i') : '' }}"
-                        aria-label="{{ __('Notifié le', 'grcmanager') }}"
+                        aria-label="{{ __('Notified on', 'grcmanager') }}"
                         {{ not item.canUpdateItem() ? 'disabled' : '' }}>
                   </div>
                {% endset %}

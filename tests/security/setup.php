@@ -243,7 +243,7 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
         'content'     => 'Test de controle d acces',
         'entities_id' => $entity,
     ]);
-    $ids['campaign_' . $suffix] = $add(new PluginGrcmanagerAccessReview(), [
+    $ids['campaign_' . $suffix] = $add(new \GlpiPlugin\Grcmanager\AccessReview(), [
         'name'                          => 'Campagne securite ' . $suffix,
         'entities_id'                   => $entity,
         'plugin_grcmanager_controls_id' => $controlId,
@@ -259,7 +259,7 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
     $add(new Contract_Supplier(), ['contracts_id' => $contract, 'suppliers_id' => $supplier]);
     $ids['computer_' . $suffix] = $add(new Computer(), ['name' => 'PC securite ' . $suffix, 'entities_id' => $entity]);
     // Issue #145 : politique (globale) avec un document de preuve daté de l'entité.
-    $ids['policy_' . $suffix] = $add(new PluginGrcmanagerPolicy(), [
+    $ids['policy_' . $suffix] = $add(new \GlpiPlugin\Grcmanager\Policy(), [
         'title' => 'Politique securite ' . $suffix, 'entities_id' => $entity,
     ]);
     $ids['document_' . $suffix] = $add(new Document(), [
@@ -267,23 +267,26 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
     ]);
     $add(new Document_Item(), [
         'documents_id' => $ids['document_' . $suffix],
-        'itemtype' => PluginGrcmanagerPolicy::class, 'items_id' => $ids['policy_' . $suffix],
+        'itemtype' => \GlpiPlugin\Grcmanager\Policy::class, 'items_id' => $ids['policy_' . $suffix],
     ]);
-    $add(new PluginGrcmanagerEvidence(), [
-        'itemtype' => PluginGrcmanagerPolicy::class, 'items_id' => $ids['policy_' . $suffix],
+    $add(new \GlpiPlugin\Grcmanager\Evidence(), [
+        'itemtype' => \GlpiPlugin\Grcmanager\Policy::class, 'items_id' => $ids['policy_' . $suffix],
         'documents_id' => $ids['document_' . $suffix], 'valid_until' => date('Y-m-d', strtotime('+10 days')),
     ]);
 }
-$ids['supplierrisk'] = $add(new PluginGrcmanagerSupplierRisk(), [
+$ids['supplierrisk'] = $add(new \GlpiPlugin\Grcmanager\SupplierRisk(), [
     'title' => 'Risque fournisseur securite', 'suppliers_id' => $supplier,
 ]);
-$ids['training'] = $add(new PluginGrcmanagerTraining(), ['title' => 'Formation securite', 'participants' => [2]]);
+$ids['training'] = $add(
+    new \GlpiPlugin\Grcmanager\Training(),
+    ['title' => 'Formation securite', 'participants' => [2]]
+);
 // Issue #139 : copie de quiz de glpi, lisible par lui seul (ni formateur ni groupe RSSI ici).
-$ids['quiz'] = PluginGrcmanagerTrainingQuiz::getParticipationId($ids['training'], 2);
+$ids['quiz'] = \GlpiPlugin\Grcmanager\TrainingQuiz::getParticipationId($ids['training'], 2);
 $quizPrefix = uniqid('', true);
 file_put_contents(GLPI_TMP_DIR . '/' . $quizPrefix . 'copie-quiz.txt', "Copie de quiz securite\n");
-PluginGrcmanagerTrainingQuiz::attach($ids['quiz'], $quizPrefix . 'copie-quiz.txt', $quizPrefix);
-$ids['risk'] = $add(new PluginGrcmanagerRisk(), [
+\GlpiPlugin\Grcmanager\TrainingQuiz::attach($ids['quiz'], $quizPrefix . 'copie-quiz.txt', $quizPrefix);
+$ids['risk'] = $add(new \GlpiPlugin\Grcmanager\Risk(), [
     'title' => 'Risque securite', 'linked_items_Computer' => [$ids['computer_B']],
 ]);
 // Registres sensibles : la fiche du contrôle, lisible sans le droit dédié, ne doit pas montrer ce
@@ -294,7 +297,7 @@ if (countElementsInTable('glpi_plugin_grcmanager_controls_risks', $linkWhere) ==
 }
 // Issue #140 : audit avec équipe, document restreint, note, groupe RSSI et accès historisé, pour
 // que le contrôle des restes après désinstallation porte aussi sur ces données.
-$ids['audit'] = $add(new PluginGrcmanagerAudit(), ['title' => 'Audit securite', 'users_id' => 2]);
+$ids['audit'] = $add(new \GlpiPlugin\Grcmanager\Audit(), ['title' => 'Audit securite', 'users_id' => 2]);
 // Vrai fichier : document.send.php répond 404 avant tout contrôle d'accès sans lui.
 $auditFile = 'plan-audit-securite-' . uniqid() . '.txt';
 file_put_contents(GLPI_TMP_DIR . '/' . $auditFile, "Plan d'audit securite\n");
@@ -303,14 +306,21 @@ $ids['audit_document'] = $add(new Document(), [
     '_filename' => [$auditFile], '_tag_filename' => [$auditFile],
 ]);
 $add(new Document_Item(), [
-    'documents_id' => $ids['audit_document'], 'itemtype' => PluginGrcmanagerAudit::class, 'items_id' => $ids['audit'],
+    'documents_id' => $ids['audit_document'],
+    'itemtype'     => \GlpiPlugin\Grcmanager\Audit::class,
+    'items_id'     => $ids['audit'],
 ]);
-PluginGrcmanagerAuditTeam::addMember($ids['audit'], 2, PluginGrcmanagerAuditTeam::ROLE_AUDITEE);
+\GlpiPlugin\Grcmanager\AuditTeam::addMember($ids['audit'], 2, \GlpiPlugin\Grcmanager\AuditTeam::ROLE_AUDITEE);
 $ids['ciso_group'] = $add(new Group(), ['name' => 'RSSI securite', 'entities_id' => 0, 'is_recursive' => 1]);
-PluginGrcmanagerAuditTeam::setCisoGroupId($ids['ciso_group']);
+\GlpiPlugin\Grcmanager\AuditTeam::setCisoGroupId($ids['ciso_group']);
 $add(new Notepad(), [
-    'itemtype' => PluginGrcmanagerAudit::class, 'items_id' => $ids['audit'], 'content' => 'Note de travail',
+    'itemtype' => \GlpiPlugin\Grcmanager\Audit::class, 'items_id' => $ids['audit'], 'content' => 'Note de travail',
 ]);
-PluginGrcmanagerDocumentAccess::log($ids['audit_document'], PluginGrcmanagerAudit::class, $ids['audit'], 2);
+\GlpiPlugin\Grcmanager\DocumentAccess::log(
+    $ids['audit_document'],
+    \GlpiPlugin\Grcmanager\Audit::class,
+    $ids['audit'],
+    2
+);
 
 echo json_encode($ids), "\n";

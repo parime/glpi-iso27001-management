@@ -19,9 +19,9 @@ declare(strict_types=1);
 
 namespace GlpiPlugin\Grcmanager\Tests\Integration;
 
-use PluginGrcmanagerCanonicalProduct as Product;
-use PluginGrcmanagerCpeReference as Cpe;
-use PluginGrcmanagerProductAlias as Alias;
+use GlpiPlugin\Grcmanager\CanonicalProduct as Product;
+use GlpiPlugin\Grcmanager\CpeReference as Cpe;
+use GlpiPlugin\Grcmanager\ProductAlias as Alias;
 
 /**
  * Supprimer un produit du catalogue laissait ses CPE et alias orphelins, qui bloquaient ensuite

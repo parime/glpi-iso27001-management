@@ -2,25 +2,25 @@
 <div class="card"><div class="card-body">
    <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
       <div class="btn-group">
-         <a class="btn btn-sm {{ mine ? 'btn-outline-secondary' : 'btn-secondary' }}" href="{{ url }}">{{ __('Toutes les échéances', 'grcmanager') }}</a>
-         <a class="btn btn-sm {{ mine ? 'btn-secondary' : 'btn-outline-secondary' }}" href="{{ url }}?mine=1">{{ __('Mes échéances', 'grcmanager') }}</a>
+         <a class="btn btn-sm {{ mine ? 'btn-outline-secondary' : 'btn-secondary' }}" href="{{ url }}">{{ __('All deadlines', 'grcmanager') }}</a>
+         <a class="btn btn-sm {{ mine ? 'btn-secondary' : 'btn-outline-secondary' }}" href="{{ url }}?mine=1">{{ __('My deadlines', 'grcmanager') }}</a>
       </div>
       {% if can_create %}
-         <a class="btn btn-sm btn-primary" href="{{ form_url }}"><i class="ti ti-plus me-1"></i>{{ __('Ajouter un événement', 'grcmanager') }}</a>
+         <a class="btn btn-sm btn-primary" href="{{ form_url }}"><i class="ti ti-plus me-1"></i>{{ __('Add an event', 'grcmanager') }}</a>
       {% endif %}
-      <a class="btn btn-sm btn-outline-primary ms-auto" href="{{ ics_url }}"><i class="ti ti-calendar-down me-1"></i>{{ __('Exporter (iCal)', 'grcmanager') }}</a>
+      <a class="btn btn-sm btn-outline-primary ms-auto" href="{{ ics_url }}"><i class="ti ti-calendar-down me-1"></i>{{ __('Export (iCal)', 'grcmanager') }}</a>
       {% if subscription_url %}
-         <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#grcmanager-ical-subscription"><i class="ti ti-calendar-share me-1"></i>{{ __('S\'abonner', 'grcmanager') }}</button>
+         <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#grcmanager-ical-subscription"><i class="ti ti-calendar-share me-1"></i>{{ __('Subscribe', 'grcmanager') }}</button>
       {% endif %}
    </div>
    {% if subscription_url %}
       <div class="collapse mb-3" id="grcmanager-ical-subscription">
-         <label class="form-label" for="grcmanager-ical-url">{{ __('Lien d\'abonnement pour votre agenda (Outlook, Thunderbird, Google Agenda…)', 'grcmanager') }}</label>
+         <label class="form-label" for="grcmanager-ical-url">{{ __('Subscription link for your calendar (Outlook, Thunderbird, Google Calendar…)', 'grcmanager') }}</label>
          <input type="text" class="form-control" id="grcmanager-ical-url" readonly value="{{ subscription_url }}" onfocus="this.select()">
-         <div class="form-hint">{{ __('Lien personnel : il donne accès à vos échéances avec vos droits, sans mot de passe. Ne le partagez pas. Pour le révoquer, régénérez votre jeton personnel dans vos préférences.', 'grcmanager') }}</div>
+         <div class="form-hint">{{ __('Personal link: it gives access to your deadlines with your rights, without a password. Do not share it. To revoke it, regenerate your personal token in your preferences.', 'grcmanager') }}</div>
       </div>
    {% endif %}
-   <p class="text-muted small"><i class="ti ti-info-circle me-1"></i>{{ __('Événements saisis et échéances des autres registres (audits, revues de direction, revues des accès, revues périodiques, politiques, obligations, preuves). Chaque échéance apparaît aussi dans le planning GLPI de son responsable.', 'grcmanager') }}</p>
+   <p class="text-muted small"><i class="ti ti-info-circle me-1"></i>{{ __('Events entered here and deadlines from the other registers (audits, management reviews, access reviews, periodic reviews, policies, obligations, evidence). Each deadline also appears in the GLPI planning of its owner.', 'grcmanager') }}</p>
 
    {% for month in months %}
       <h3 class="mt-3">{{ month.label }}</h3>
@@ -32,8 +32,8 @@
                   <td style="width: 16rem;"><span class="badge bg-blue-lt"><i class="ti {{ e.icon }} me-1"></i>{{ e.label }}</span></td>
                   <td>
                      <a href="{{ e.url }}">{{ e.name }}</a>
-                     {% if e.done %} <span class="badge bg-green-lt">{{ __('Réalisé', 'grcmanager') }}</span>{% endif %}
-                     {% if e.late %} <span class="badge bg-red-lt">{{ __('Échéance passée', 'grcmanager') }}</span>{% endif %}
+                     {% if e.done %} <span class="badge bg-green-lt">{{ _x('masculine', 'Done', 'grcmanager') }}</span>{% endif %}
+                     {% if e.late %} <span class="badge bg-red-lt">{{ __('Deadline passed', 'grcmanager') }}</span>{% endif %}
                   </td>
                   <td class="text-muted">{{ e.owner }}</td>
                </tr>
@@ -41,6 +41,6 @@
          </tbody></table>
       </div>
    {% else %}
-      <div class="alert alert-info mb-0">{{ __('Aucune échéance sur la période.', 'grcmanager') }}</div>
+      <div class="alert alert-info mb-0">{{ __('No deadline in this period.', 'grcmanager') }}</div>
    {% endfor %}
 </div></div>

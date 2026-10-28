@@ -4,48 +4,48 @@
    <div class="row g-3">
       <div class="col-lg-4">
          <div class="card h-100">
-            <div class="card-header"><h3 class="card-title"><i class="ti ti-gauge me-2"></i>{{ __('Score de maturité', 'grcmanager') }}</h3></div>
+            <div class="card-header"><h3 class="card-title"><i class="ti ti-gauge me-2"></i>{{ __('Maturity score', 'grcmanager') }}</h3></div>
             <div class="card-body text-center">
                <div id="grc-maturity-gauge" style="height: 220px;" data-score="{{ score }}" data-color="{{ level_colors[level] }}"></div>
                <div class="fs-2 fw-bold" style="color: {{ level_colors[level] }}">{{ score }} / 100</div>
-               <span class="badge text-white" style="background: {{ level_colors[level] }}">{{ __('Niveau %1$d : %2$s', 'grcmanager')|format(level, level_labels[level]) }}</span>
-               <p class="text-muted small mt-2 mb-0">{{ __('Niveaux : 1 Initial (0-19), 2 Reproductible (20-39), 3 Défini (40-59), 4 Géré (60-79), 5 Optimisé (80-100).', 'grcmanager') }}</p>
+               <span class="badge text-white" style="background: {{ level_colors[level] }}">{{ __('Level %1$d: %2$s', 'grcmanager')|format(level, level_labels[level]) }}</span>
+               <p class="text-muted small mt-2 mb-0">{{ __('Levels: 1 Initial (0-19), 2 Repeatable (20-39), 3 Defined (40-59), 4 Managed (60-79), 5 Optimised (80-100).', 'grcmanager') }}</p>
             </div>
          </div>
       </div>
       <div class="col-lg-8">
          <div class="card h-100">
-            <div class="card-header"><h3 class="card-title"><i class="ti ti-math-function me-2"></i>{{ __('Détail du calcul', 'grcmanager') }}</h3></div>
+            <div class="card-header"><h3 class="card-title"><i class="ti ti-math-function me-2"></i>{{ __('Calculation details', 'grcmanager') }}</h3></div>
             <div class="card-body">
                <table class="table table-sm table-vcenter">
-                  <thead><tr><th>{{ __('Composante', 'grcmanager') }}</th><th class="text-end text-nowrap">{{ __('Valeur', 'grcmanager') }}</th><th class="text-end text-nowrap">{{ __('Poids', 'grcmanager') }}</th><th class="text-end text-nowrap">{{ __('Apport', 'grcmanager') }}</th></tr></thead>
+                  <thead><tr><th>{{ __('Component', 'grcmanager') }}</th><th class="text-end text-nowrap">{{ __('Value', 'grcmanager') }}</th><th class="text-end text-nowrap">{{ __('Weight', 'grcmanager') }}</th><th class="text-end text-nowrap">{{ __('Contribution', 'grcmanager') }}</th></tr></thead>
                   <tbody>
                   {% for key, c in components %}
                      <tr>
                         <td>{{ component_labels[key] }}</td>
-                        <td class="text-end text-nowrap">{{ c.value is null ? __('sans données', 'grcmanager') : c.value|number_format(1, ',') ~ ' %' }}</td>
+                        <td class="text-end text-nowrap">{{ c.value is null ? __('no data', 'grcmanager') : c.value|number_format(1, ',') ~ ' %' }}</td>
                         <td class="text-end text-nowrap">{{ c.value is null ? '—' : c.effective_weight|number_format(1, ',') ~ ' %' }}</td>
                         <td class="text-end text-nowrap">{{ c.value is null ? '—' : (c.value * c.effective_weight / 100)|number_format(1, ',') }}</td>
                      </tr>
                   {% endfor %}
-                  <tr class="fw-bold"><td>{{ __('Sous-total', 'grcmanager') }}</td><td></td><td></td><td class="text-end text-nowrap">{{ base|number_format(1, ',') }}</td></tr>
+                  <tr class="fw-bold"><td>{{ __('Subtotal', 'grcmanager') }}</td><td></td><td></td><td class="text-end text-nowrap">{{ base|number_format(1, ',') }}</td></tr>
                   <tr>
-                     <td>{{ __('Pénalités : %1$d action(s) corrective(s) en retard, %2$d incident(s) de sécurité non résolu(s)', 'grcmanager')|format(penalties.capa_overdue, penalties.incidents_open) }}</td>
+                     <td>{{ __('Penalties: %1$d overdue corrective action(s), %2$d unresolved security incident(s)', 'grcmanager')|format(penalties.capa_overdue, penalties.incidents_open) }}</td>
                      <td></td><td></td><td class="text-end text-danger">− {{ penalty }}</td>
                   </tr>
                   </tbody>
                </table>
-               <p class="text-muted small mb-0"><i class="ti ti-info-circle me-1"></i>{{ __('Une composante sans données (module non utilisé) est écartée et son poids réparti sur les autres. Une mesure « en cours » compte pour moitié. Chaque retard ou incident ouvert retire 2 points, au plus 10 par catégorie.', 'grcmanager') }}</p>
+               <p class="text-muted small mb-0"><i class="ti ti-info-circle me-1"></i>{{ __('A component without data (unused module) is left out and its weight spread over the others. A control "in progress" counts for half. Each overdue action or open incident removes 2 points, at most 10 per category.', 'grcmanager') }}</p>
             </div>
          </div>
       </div>
 
       <div class="col-lg-6">
          <div class="card h-100">
-            <div class="card-header"><h3 class="card-title"><i class="ti ti-chart-radar me-2"></i>{{ __('Mise en œuvre de l\'Annexe A par thème', 'grcmanager') }}</h3></div>
+            <div class="card-header"><h3 class="card-title"><i class="ti ti-chart-radar me-2"></i>{{ __('Annex A implementation by theme', 'grcmanager') }}</h3></div>
             <div class="card-body">
                {% if themes is empty %}
-                  <p class="text-muted">{{ __('Aucune mesure déclarée applicable dans la SoA.', 'grcmanager') }}</p>
+                  <p class="text-muted">{{ __('No control declared applicable in the SoA.', 'grcmanager') }}</p>
                {% else %}
                   <div id="grc-maturity-radar" style="height: 300px;" data-themes="{{ themes|json_encode }}"></div>
                {% endif %}
@@ -54,10 +54,10 @@
       </div>
       <div class="col-lg-6">
          <div class="card h-100">
-            <div class="card-header"><h3 class="card-title"><i class="ti ti-chart-line me-2"></i>{{ __('Évolution mensuelle', 'grcmanager') }}</h3></div>
+            <div class="card-header"><h3 class="card-title"><i class="ti ti-chart-line me-2"></i>{{ __('Monthly trend', 'grcmanager') }}</h3></div>
             <div class="card-body">
                {% if history|length < 2 %}
-                  <p class="text-muted">{{ __('L\'historique se construit mois après mois : la tâche planifiée enregistre le score chaque jour pour le mois en cours.', 'grcmanager') }}</p>
+                  <p class="text-muted">{{ __('The history builds up month after month: the scheduled task records the score every day for the current month.', 'grcmanager') }}</p>
                {% endif %}
                {% if history is not empty %}
                   <div id="grc-maturity-history" style="height: 260px;" data-history="{{ history|json_encode }}"></div>

@@ -6,10 +6,10 @@ namespace GlpiPlugin\Grcmanager\Compatibility\Base;
 
 use CommonDBTM;
 use GlpiPlugin\Grcmanager\Compatibility\GlpiVersion;
-use PluginGrcmanagerIsmsRequirement;
+use GlpiPlugin\Grcmanager\IsmsRequirement;
 
 /*
- * Parent of \PluginGrcmanagerIsmsRequirement.
+ * Parent of \\GlpiPlugin\Grcmanager\IsmsRequirement.
  *
  * Redeclares the GLPI core properties that class overrides: untyped on GLPI 11, typed on GLPI 12
  * (see GlpiVersion). A class, not a trait: on PHP 8.2-8.4 a trait cannot redeclare an inherited
@@ -19,11 +19,11 @@ use PluginGrcmanagerIsmsRequirement;
 if (GlpiVersion::isAtLeast12()) {
     abstract class IsmsRequirementBase extends CommonDBTM
     {
-        public static string $rightname = PluginGrcmanagerIsmsRequirement::RIGHTNAME;
+        public static string $rightname = \GlpiPlugin\Grcmanager\IsmsRequirement::RIGHTNAME;
     }
 } else {
     abstract class IsmsRequirementBase extends CommonDBTM
     {
-        public static $rightname = PluginGrcmanagerIsmsRequirement::RIGHTNAME;
+        public static $rightname = \GlpiPlugin\Grcmanager\IsmsRequirement::RIGHTNAME;
     }
 }

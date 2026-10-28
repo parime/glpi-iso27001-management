@@ -18,12 +18,12 @@
 include('../../../inc/includes.php');
 
 // Issue #142 : calendrier de conformité (écran et export iCal).
-Session::checkRight(PluginGrcmanagerComplianceEvent::$rightname, READ);
+Session::checkRight(\GlpiPlugin\Grcmanager\ComplianceEvent::$rightname, READ);
 
 $mine = !empty($_GET['mine']);
 
 if (!empty($_GET['ics'])) {
-    $ics = PluginGrcmanagerComplianceEvent::exportIcs($mine);
+    $ics = \GlpiPlugin\Grcmanager\ComplianceEvent::exportIcs($mine);
     header('Content-Type: text/calendar; charset=utf-8');
     header('Content-Disposition: attachment; filename="calendrier-conformite.ics"');
     echo $ics;
@@ -31,17 +31,20 @@ if (!empty($_GET['ics'])) {
 }
 
 Html::header(
-    __('Calendrier de conformité', 'grcmanager'),
-    PluginGrcmanagerComplianceEvent::getCalendarURL(),
+    __('Compliance calendar', 'grcmanager'),
+    \GlpiPlugin\Grcmanager\ComplianceEvent::getCalendarURL(),
     'grcmanager',
-    PluginGrcmanagerDashboard::class,
-    PluginGrcmanagerComplianceEvent::class
+    \GlpiPlugin\Grcmanager\Dashboard::class,
+    \GlpiPlugin\Grcmanager\ComplianceEvent::class
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(PluginGrcmanagerDashboard::class, PluginGrcmanagerComplianceEvent::class);
+\GlpiPlugin\Grcmanager\Menu::showSection(
+    \GlpiPlugin\Grcmanager\Dashboard::class,
+    \GlpiPlugin\Grcmanager\ComplianceEvent::class
+);
 // Encadré « À quoi sert cette page ? ».
-PluginGrcmanagerPageHelp::show('compliancecalendar');
+\GlpiPlugin\Grcmanager\PageHelp::show('compliancecalendar');
 
-PluginGrcmanagerComplianceEvent::showCalendar($mine);
+\GlpiPlugin\Grcmanager\ComplianceEvent::showCalendar($mine);
 
 Html::footer();

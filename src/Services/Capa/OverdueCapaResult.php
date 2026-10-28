@@ -6,7 +6,7 @@ namespace GlpiPlugin\Grcmanager\Services\Capa;
 
 /**
  * Outcome of one OverdueCapaService::notify() run, reported by
- * PluginGrcmanagerNonconformity::cronOverduecapa() (inc/nonconformity.class.php) to the GLPI Cron
+ * \GlpiPlugin\Grcmanager\Nonconformity::cronOverduecapa() (inc/nonconformity.class.php) to the GLPI Cron
  * log. Same shape as the sibling GlpiPlugin\Grcmanager\Services\Risk\ReviewReminderResult.
  */
 final class OverdueCapaResult

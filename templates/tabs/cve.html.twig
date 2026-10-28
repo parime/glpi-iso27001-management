@@ -1,13 +1,13 @@
 {# Absorbé depuis glpi-security-incidents (ROADMAP.md "Version 2.0") — voir
-   PluginGrcmanagerSecurityIncidentCve::displayTabContentForItem(). #}
+   GlpiPlugin\\Grcmanager\\SecurityIncidentCve::displayTabContentForItem(). #}
 {% if can_edit %}
 <form method="post" action="{{ path('/plugins/grcmanager/front/securityincidentcve.form.php') }}" class="mb-3 d-flex gap-2 align-items-end">
   <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
   <input type="hidden" name="plugin_grcmanager_securityincidents_id" value="{{ item.getID() }}">
   <div class="flex-fill">
-    <label class="form-label">{{ __('Identifiant(s) CVE', 'grcmanager') }}</label>
+    <label class="form-label">{{ __('CVE identifier(s)', 'grcmanager') }}</label>
     <textarea name="cve_ids" class="form-control" rows="2" placeholder="CVE-2026-12345&#10;CVE-2026-67890" required></textarea>
-    <div class="form-hint">{{ __('Un par ligne, ou séparés par des virgules — plusieurs à la fois sont pris en charge.', 'grcmanager') }}</div>
+    <div class="form-hint">{{ __('One per line, or comma-separated — several at once are supported.', 'grcmanager') }}</div>
   </div>
   <button type="submit" name="add" class="btn btn-primary">
     <i class="ti ti-plus"></i> {{ __('Ajouter') }}
@@ -16,7 +16,7 @@
 {% endif %}
 
 {% if cves is empty %}
-  <p class="text-muted">{{ __('Aucune référence CVE associée à cet incident pour l\'instant.', 'grcmanager') }}</p>
+  <p class="text-muted">{{ __('No CVE reference associated with this incident yet.', 'grcmanager') }}</p>
 {% else %}
   {% for cve in cves %}
     {% set enrichment = enrichment_by_cve_id[cve.cve_id]|default(null) %}
@@ -29,11 +29,11 @@
 
             {% if nvd_enrichment_enabled %}
               {% if enrichment is null or enrichment.fetch_status == 'pending' %}
-                <span class="badge bg-secondary-lt">{{ __('Récupération en cours…', 'grcmanager') }}</span>
+                <span class="badge bg-secondary-lt">{{ __('Fetching…', 'grcmanager') }}</span>
               {% elseif enrichment.fetch_status == 'not_found' %}
-                <span class="badge bg-secondary-lt">{{ __('Non trouvée dans le NVD', 'grcmanager') }}</span>
+                <span class="badge bg-secondary-lt">{{ __('Not found in the NVD', 'grcmanager') }}</span>
               {% elseif enrichment.fetch_status == 'error' %}
-                <span class="badge bg-secondary-lt">{{ __('Échec de la récupération, nouvel essai automatique prochainement', 'grcmanager') }}</span>
+                <span class="badge bg-secondary-lt">{{ __('Fetch failed, automatic retry coming soon', 'grcmanager') }}</span>
               {% elseif enrichment.cvss_score is not null %}
                 {% set severity_class = {
                   'LOW': 'bg-green-lt', 'MEDIUM': 'bg-yellow-lt', 'HIGH': 'bg-orange-lt', 'CRITICAL': 'bg-red-lt'
@@ -48,12 +48,12 @@
             {# Issue #172 : signaux d'exploitation, mis à jour chaque jour par la tâche des vulnérabilités du parc. #}
             {% set signal = signals_by_cve_id[cve.cve_id]|default(null) %}
             {% if signal and signal.is_kev %}
-              <span class="badge bg-red text-white" title="{{ __('Activement exploitée (catalogue CISA KEV)', 'grcmanager') }}">
-                <i class="ti ti-flame me-1"></i>KEV{% if signal.kev_due %} — {{ __('échéance CISA', 'grcmanager') }} {{ signal.kev_due|formatted_date }}{% endif %}
+              <span class="badge bg-red text-white" title="{{ __('Actively exploited (CISA KEV catalog)', 'grcmanager') }}">
+                <i class="ti ti-flame me-1"></i>KEV{% if signal.kev_due %} — {{ __('CISA due date', 'grcmanager') }} {{ signal.kev_due|formatted_date }}{% endif %}
               </span>
             {% endif %}
             {% if signal and signal.epss is not null %}
-              <span class="badge {{ signal.epss >= epss_priority ? 'bg-red-lt' : 'bg-secondary-lt' }}" title="{{ __('Probabilité d\'exploitation dans les 30 jours (FIRST EPSS)', 'grcmanager') }}">
+              <span class="badge {{ signal.epss >= epss_priority ? 'bg-red-lt' : 'bg-secondary-lt' }}" title="{{ __('Probability of exploitation within 30 days (FIRST EPSS)', 'grcmanager') }}">
                 EPSS {{ (signal.epss * 100)|number_format(1, ',') }} %
               </span>
             {% endif %}
@@ -62,9 +62,9 @@
           {# Issue #163 : plan d'action (CAPA) proposé à partir de la CVE, relu avant création. #}
           {% set capa_id = capa_by_cve_id[cve.cve_id]|default(0) %}
           {% if capa_id %}
-            <a href="{{ capa_url }}?id={{ capa_id }}" class="btn btn-sm btn-outline-success"><i class="ti ti-checklist me-1"></i>{{ __('Plan d\'action n° %d', 'grcmanager')|format(capa_id) }}</a>
+            <a href="{{ capa_url }}?id={{ capa_id }}" class="btn btn-sm btn-outline-success"><i class="ti ti-checklist me-1"></i>{{ __('Action plan #%d', 'grcmanager')|format(capa_id) }}</a>
           {% elseif can_capa %}
-            <a href="{{ capa_url }}?from_incident={{ item.getID() }}&cve={{ cve.cve_id|url_encode }}" class="btn btn-sm btn-outline-primary"><i class="ti ti-bulb me-1"></i>{{ __('Proposer un plan d\'action', 'grcmanager') }}</a>
+            <a href="{{ capa_url }}?from_incident={{ item.getID() }}&cve={{ cve.cve_id|url_encode }}" class="btn btn-sm btn-outline-primary"><i class="ti ti-bulb me-1"></i>{{ __('Propose an action plan', 'grcmanager') }}</a>
           {% endif %}
 
           {% if can_edit %}
@@ -73,7 +73,7 @@
                 <form method="post" action="{{ path('/plugins/grcmanager/front/securityincidentcve.form.php') }}">
                   <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
                   <input type="hidden" name="id" value="{{ cve.id }}">
-                  <button type="submit" name="refresh_nvd" class="btn btn-sm btn-ghost-secondary" title="{{ __('Rafraîchir depuis le NVD', 'grcmanager') }}">
+                  <button type="submit" name="refresh_nvd" class="btn btn-sm btn-ghost-secondary" title="{{ __('Refresh from the NVD', 'grcmanager') }}">
                     <i class="ti ti-refresh"></i>
                   </button>
                 </form>
@@ -95,7 +95,7 @@
           {% endif %}
           {% if enrichment.patch_links is not empty %}
             <div class="small mt-1">
-              <strong>{{ __('Correctifs / avis éditeur :', 'grcmanager') }}</strong>
+              <strong>{{ __('Patches / vendor advisories:', 'grcmanager') }}</strong>
               {% for link in enrichment.patch_links %}
                 <a href="{{ link.url }}" target="_blank" rel="noopener" class="ms-1">{{ link.tag }}</a>{% if not loop.last %},{% endif %}
               {% endfor %}
@@ -108,7 +108,7 @@
             <div class="small mt-2">
               <a href="#" data-bs-toggle="collapse" data-bs-target="#{{ details_id }}">
                 <i class="ti ti-alert-triangle me-1 text-danger"></i>
-                {{ __('%d actif(s) potentiellement concerné(s) de votre parc', 'grcmanager')|format(matched_assets|length) }}
+                {{ __('%d potentially affected asset(s) in your inventory', 'grcmanager')|format(matched_assets|length) }}
               </a>
               <div id="{{ details_id }}" class="collapse mt-1">
                 <ul class="mb-0">
@@ -119,7 +119,7 @@
                       </a>
                       — {{ asset.software_name }} {{ asset.version }}
                       {% if asset.state == 'unknown' %}
-                        <span class="text-muted">({{ __('version non vérifiable', 'grcmanager') }})</span>
+                        <span class="text-muted">({{ __('version not verifiable', 'grcmanager') }})</span>
                       {% endif %}
                     </li>
                   {% endfor %}

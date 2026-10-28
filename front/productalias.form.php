@@ -21,16 +21,16 @@ include('../../../inc/includes.php');
 // logiciel pour un produit donné puis revenir sur le formulaire de ce produit, même esprit que
 // front/objectivemeasurement.form.php.
 $canonicalProductId = (int) ($_POST['plugin_grcmanager_canonicalproducts_id'] ?? 0);
-$redirectUrl = PluginGrcmanagerCanonicalProduct::getFormURLWithID($canonicalProductId);
+$redirectUrl = \GlpiPlugin\Grcmanager\CanonicalProduct::getFormURLWithID($canonicalProductId);
 
-$item = new PluginGrcmanagerProductAlias();
+$item = new \GlpiPlugin\Grcmanager\ProductAlias();
 
 if (isset($_POST['add'])) {
-    Session::checkRight(PluginGrcmanagerCanonicalProduct::$rightname, UPDATE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\CanonicalProduct::$rightname, UPDATE);
     $item->add($_POST);
 } elseif (isset($_POST['purge'])) {
-    Session::checkRight(PluginGrcmanagerCanonicalProduct::$rightname, UPDATE);
-    $item->delete($_POST, 1);
+    Session::checkRight(\GlpiPlugin\Grcmanager\CanonicalProduct::$rightname, UPDATE);
+    $item->delete($_POST, true);
 }
 
 Html::redirect($redirectUrl);

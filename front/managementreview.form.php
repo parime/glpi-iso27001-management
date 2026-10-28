@@ -17,10 +17,10 @@
 
 include('../../../inc/includes.php');
 
-$item = new PluginGrcmanagerManagementReview();
+$item = new \GlpiPlugin\Grcmanager\ManagementReview();
 
 if (isset($_POST['add'])) {
-    Session::checkRight(PluginGrcmanagerManagementReview::$rightname, CREATE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\ManagementReview::$rightname, CREATE);
     $newID = $item->add($_POST);
     // Comme les formulaires natifs : retour sur l'élément créé si la préférence est active.
     if ($newID && $_SESSION['glpibackcreated']) {
@@ -28,26 +28,26 @@ if (isset($_POST['add'])) {
     }
     Html::back();
 } elseif (isset($_POST['delete'])) {
-    Session::checkRight(PluginGrcmanagerManagementReview::$rightname, DELETE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\ManagementReview::$rightname, DELETE);
     $item->delete($_POST);
-    Html::redirect(PluginGrcmanagerManagementReview::getSearchURL());
+    Html::redirect(\GlpiPlugin\Grcmanager\ManagementReview::getSearchURL());
 } elseif (isset($_POST['purge'])) {
-    Session::checkRight(PluginGrcmanagerManagementReview::$rightname, PURGE);
-    $item->delete($_POST, 1);
-    Html::redirect(PluginGrcmanagerManagementReview::getSearchURL());
+    Session::checkRight(\GlpiPlugin\Grcmanager\ManagementReview::$rightname, PURGE);
+    $item->delete($_POST, true);
+    Html::redirect(\GlpiPlugin\Grcmanager\ManagementReview::getSearchURL());
 } elseif (isset($_POST['update'])) {
-    Session::checkRight(PluginGrcmanagerManagementReview::$rightname, UPDATE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\ManagementReview::$rightname, UPDATE);
     $item->update($_POST);
     Html::back();
 } else {
-    Session::checkRight(PluginGrcmanagerManagementReview::$rightname, READ);
+    Session::checkRight(\GlpiPlugin\Grcmanager\ManagementReview::$rightname, READ);
 
     Html::header(
-        PluginGrcmanagerManagementReview::getTypeName(1),
+        \GlpiPlugin\Grcmanager\ManagementReview::getTypeName(1),
         $_SERVER['PHP_SELF'],
         'grcmanager',
-        PluginGrcmanagerAudit::class,
-        PluginGrcmanagerManagementReview::class
+        \GlpiPlugin\Grcmanager\Audit::class,
+        \GlpiPlugin\Grcmanager\ManagementReview::class
     );
 
     $id = (int) ($_GET['id'] ?? 0);

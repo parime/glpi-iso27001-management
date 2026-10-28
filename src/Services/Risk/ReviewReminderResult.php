@@ -6,7 +6,7 @@ namespace GlpiPlugin\Grcmanager\Services\Risk;
 
 /**
  * Outcome of one ReviewReminderService::notify() run, reported by
- * PluginGrcmanagerRisk::cronReviewreminder() (inc/risk.class.php) to the GLPI Cron log.
+ * \GlpiPlugin\Grcmanager\Risk::cronReviewreminder() (inc/risk.class.php) to the GLPI Cron log.
  */
 final class ReviewReminderResult
 {

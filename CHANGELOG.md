@@ -7,6 +7,53 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.17.0] - 2026-10-28
+
+### Added
+
+- **Sécurité des systèmes d'IA, ISO/IEC 27090:2026** :
+  - page Référentiels : sections 5.2 à 7.8 de la norme (gouvernance de l'IA, chaîne
+    d'approvisionnement, empoisonnement, évasion, inférence, exfiltration, inversion, sorties
+    sensibles, injection de prompt, journalisation, filtrage, limitation d'usage…), chacune
+    reliée aux mesures de l'Annexe A ISO 27001 ;
+  - catalogue de risques : groupe « Systèmes d'IA » avec 7 risques types à importer dans le
+    registre (données saisies dans des services d'IA publics, assistant détourné par injection de
+    prompt, système qui révèle des données, modèle ou service tiers compromis, données ou modèle
+    altérés, vol d'un modèle maison, systèmes d'IA non inventoriés), avec leurs sections
+    ISO/IEC 27090 et leurs mesures de l'Annexe A.
+  Texte de la norme protégé : seuls les numéros de section sont repris, résumés et
+  correspondances sont rédigés par ce projet. Traduit dans les 6 langues.
+- Quatre nouvelles langues : allemand (`de_DE`), espagnol (`es_ES`), italien (`it_IT`) et
+  portugais du Brésil (`pt_BR`), en plus du français et de l'anglais.
+
+### Changed
+
+- Chaînes source en anglais (convention GLPI, remarque de la revue de la marketplace, #293) :
+  les 1 712 textes de l'interface sont écrits en anglais dans le code, le français est une
+  traduction (`locales/fr_FR.po`). Aucun changement à l'écran en français : les accords et les
+  synonymes sont conservés par des contextes de traduction.
+- Plus aucun HTML écrit en PHP (#199) : les modèles de notification créés à l'installation
+  (non-conformités, preuves, formations, politiques, actions de traitement, revues, incidents de
+  sécurité, approbation de la SoA, revue des accès) passent par un gabarit Twig. Le contenu est
+  le même, à l'encodage près des apostrophes et guillemets (`&#039;`, `&quot;`).
+- Classes dans `src/` (convention GLPI, #293) : 60 classes changent de nom, par exemple
+  `PluginGrcmanagerRisk` devient `GlpiPlugin\Grcmanager\Risk`. Rien ne change à l'écran.
+  - La mise à jour renomme les types stockés en base : notifications et modèles, préférences
+    d'affichage, tâches planifiées, documents liés, historique, journal des événements,
+    recherches enregistrées. Les tables gardent leur nom et aucune donnée n'est perdue (une
+    ligne présente sous les deux noms ne garde que sa version au nouveau nom).
+  - L'ancien nom reste utilisable comme alias (scripts, autres plugins), pour une durée
+    limitée : passez au nouveau nom.
+  - L'incident de sécurité et ses classes ITIL (acteurs, tâches, coûts, gabarits, règles,
+    notifications) gardent leur nom historique : GLPI en dérive les balises des modèles
+    d'e-mail, les modèles personnalisés continuent donc de fonctionner.
+
+### Fixed
+
+- Libellés « Event » / « Events » affichés en anglais dans l'interface française : traduits
+  « Événement » / « Événements ».
+- Aide de la page des politiques de sécurité : texte non traduit en anglais.
+
 ## [2.16.0] - 2026-10-27
 
 ### Added

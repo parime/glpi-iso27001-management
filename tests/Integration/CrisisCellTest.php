@@ -21,7 +21,7 @@ namespace GlpiPlugin\Grcmanager\Tests\Integration;
 
 use GlpiPlugin\Grcmanager\Services\Exercise\RecoveryTracker;
 use GlpiPlugin\Grcmanager\Services\Impact\ImpactGraph;
-use PluginGrcmanagerCrisisExercise as Cell;
+use GlpiPlugin\Grcmanager\CrisisExercise as Cell;
 use PluginGrcmanagerSecurityIncident as Incident;
 
 /**
@@ -43,7 +43,7 @@ final class CrisisCellTest extends GrcmanagerIntegrationTestCase
             'itemtype_impacted' => \Computer::class,
             'items_id_impacted' => $app,
         ]);
-        $DB->insert(\PluginGrcmanagerAssetClassification::getTable(), [
+        $DB->insert(\GlpiPlugin\Grcmanager\AssetClassification::getTable(), [
             'itemtype'  => \Computer::class,
             'items_id'  => $server,
             'rto_hours' => 4,
@@ -107,7 +107,7 @@ final class CrisisCellTest extends GrcmanagerIntegrationTestCase
                 ],
                 'WHERE'      => [
                     'glpi_documents_items.documents_id' => $documentsId,
-                    'glpi_documents_items.itemtype'     => \PluginGrcmanagerControl::class,
+                    'glpi_documents_items.itemtype'     => \GlpiPlugin\Grcmanager\Control::class,
                 ],
             ])), 'code');
             // Revue de sécurité 2.11.0 : le rapport d'une crise réelle n'est lié à aucune mesure
@@ -116,7 +116,7 @@ final class CrisisCellTest extends GrcmanagerIntegrationTestCase
             $document = new \Document();
             $this->assertTrue($document->getFromDB($documentsId));
             $this->assertSame(0, (int) $document->fields['is_recursive']);
-            $this->assertNotNull(\PluginGrcmanagerRestrictedDocument::sourceOf($documentsId));
+            $this->assertNotNull(\GlpiPlugin\Grcmanager\RestrictedDocument::sourceOf($documentsId));
             $this->assertNotContains(
                 $cellId,
                 array_column(Cell::history(), 'id'),

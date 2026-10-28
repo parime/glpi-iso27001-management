@@ -17,10 +17,10 @@
 
 include('../../../inc/includes.php');
 
-$item = new PluginGrcmanagerObjective();
+$item = new \GlpiPlugin\Grcmanager\Objective();
 
 if (isset($_POST['add'])) {
-    Session::checkRight(PluginGrcmanagerObjective::$rightname, CREATE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\Objective::$rightname, CREATE);
     $newID = $item->add($_POST);
     // Comme les formulaires natifs : retour sur l'élément créé si la préférence est active.
     if ($newID && $_SESSION['glpibackcreated']) {
@@ -28,26 +28,26 @@ if (isset($_POST['add'])) {
     }
     Html::back();
 } elseif (isset($_POST['delete'])) {
-    Session::checkRight(PluginGrcmanagerObjective::$rightname, DELETE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\Objective::$rightname, DELETE);
     $item->delete($_POST);
-    Html::redirect(PluginGrcmanagerObjective::getSearchURL());
+    Html::redirect(\GlpiPlugin\Grcmanager\Objective::getSearchURL());
 } elseif (isset($_POST['purge'])) {
-    Session::checkRight(PluginGrcmanagerObjective::$rightname, PURGE);
-    $item->delete($_POST, 1);
-    Html::redirect(PluginGrcmanagerObjective::getSearchURL());
+    Session::checkRight(\GlpiPlugin\Grcmanager\Objective::$rightname, PURGE);
+    $item->delete($_POST, true);
+    Html::redirect(\GlpiPlugin\Grcmanager\Objective::getSearchURL());
 } elseif (isset($_POST['update'])) {
-    Session::checkRight(PluginGrcmanagerObjective::$rightname, UPDATE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\Objective::$rightname, UPDATE);
     $item->update($_POST);
     Html::back();
 } else {
-    Session::checkRight(PluginGrcmanagerObjective::$rightname, READ);
+    Session::checkRight(\GlpiPlugin\Grcmanager\Objective::$rightname, READ);
 
     Html::header(
-        PluginGrcmanagerObjective::getTypeName(1),
+        \GlpiPlugin\Grcmanager\Objective::getTypeName(1),
         $_SERVER['PHP_SELF'],
         'grcmanager',
-        PluginGrcmanagerAudit::class,
-        PluginGrcmanagerObjective::class
+        \GlpiPlugin\Grcmanager\Audit::class,
+        \GlpiPlugin\Grcmanager\Objective::class
     );
 
     $id = (int) ($_GET['id'] ?? 0);

@@ -2,10 +2,10 @@
 {% set cy_id = 'grc-causal-' ~ random() %}
 <div id="{{ cy_id }}" class="border rounded bg-white" style="height: {{ height|default('420px') }}; width: 100%;" data-elements="{{ elements|json_encode }}"></div>
 <div class="d-flex flex-wrap gap-3 small text-muted mt-1">
-   <span><span class="badge" style="background:#f59f00">&nbsp;</span> {{ __('Risque', 'grcmanager') }}</span>
-   <span><span class="badge" style="background:#ae3ec9">&nbsp;</span> {{ __('Risque fournisseur', 'grcmanager') }}</span>
-   <span><span class="badge" style="background:#d63939">&nbsp;</span> {{ __('Incident de sécurité', 'grcmanager') }}</span>
-   <span><i class="ti ti-arrow-right"></i> {{ __('cause → conséquence ; cliquer sur un élément l\'ouvre', 'grcmanager') }}</span>
+   <span><span class="badge" style="background:#f59f00">&nbsp;</span> {{ __('Risk', 'grcmanager') }}</span>
+   <span><span class="badge" style="background:#ae3ec9">&nbsp;</span> {{ __('Supplier risk', 'grcmanager') }}</span>
+   <span><span class="badge" style="background:#d63939">&nbsp;</span> {{ __('Security incident', 'grcmanager') }}</span>
+   <span><i class="ti ti-arrow-right"></i> {{ __('cause → consequence; click an item to open it', 'grcmanager') }}</span>
 </div>
 <script>
    (function () {

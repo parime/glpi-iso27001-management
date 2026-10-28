@@ -19,7 +19,7 @@ declare(strict_types=1);
 
 namespace GlpiPlugin\Grcmanager\Tests\Integration;
 
-use PluginGrcmanagerTraining;
+use GlpiPlugin\Grcmanager\Training;
 
 /**
  * Issue #139 (phase 2) : plusieurs sessions par formation, taux de réussite de l'ensemble.
@@ -28,7 +28,7 @@ final class TrainingSessionTest extends GrcmanagerIntegrationTestCase
 {
     private function training(array $input): int
     {
-        $id = (int) (new PluginGrcmanagerTraining())->add($input + ['title' => 'Sensibilisation hameçonnage']);
+        $id = (int) (new \GlpiPlugin\Grcmanager\Training())->add($input + ['title' => 'Sensibilisation hameçonnage']);
         $this->assertGreaterThan(0, $id);
 
         return $id;
@@ -58,19 +58,19 @@ final class TrainingSessionTest extends GrcmanagerIntegrationTestCase
         // Rattachée à une session : remonte à la formation principale.
         $other = $this->training(['plugin_grcmanager_trainings_id' => $session]);
 
-        $training = new PluginGrcmanagerTraining();
+        $training = new \GlpiPlugin\Grcmanager\Training();
         $this->assertTrue($training->getFromDB($other));
         $this->assertSame($main, (int) $training->fields['plugin_grcmanager_trainings_id']);
 
         // Jamais à elle-même, et une formation qui a des sessions reste principale.
-        $this->assertSame(0, PluginGrcmanagerTraining::mainTrainingId($main, $main));
+        $this->assertSame(0, \GlpiPlugin\Grcmanager\Training::mainTrainingId($main, $main));
         $alone = $this->training([]);
-        $this->assertSame(0, PluginGrcmanagerTraining::mainTrainingId($alone, $main));
-        $this->assertSame($main, PluginGrcmanagerTraining::mainTrainingId($main, $alone));
+        $this->assertSame(0, \GlpiPlugin\Grcmanager\Training::mainTrainingId($alone, $main));
+        $this->assertSame($main, \GlpiPlugin\Grcmanager\Training::mainTrainingId($main, $alone));
 
-        $this->assertSame([$session, $other], array_column(PluginGrcmanagerTraining::getSessions($main), 'id'));
-        $this->assertArrayNotHasKey($main, PluginGrcmanagerTraining::getMainTrainings($main));
-        $this->assertArrayNotHasKey($session, PluginGrcmanagerTraining::getMainTrainings());
+        $this->assertSame([$session, $other], array_column(\GlpiPlugin\Grcmanager\Training::getSessions($main), 'id'));
+        $this->assertArrayNotHasKey($main, \GlpiPlugin\Grcmanager\Training::getMainTrainings($main));
+        $this->assertArrayNotHasKey($session, \GlpiPlugin\Grcmanager\Training::getMainTrainings());
     }
 
     public function testProgramRateCoversTheMainTrainingAndEverySession(): void
@@ -88,9 +88,9 @@ final class TrainingSessionTest extends GrcmanagerIntegrationTestCase
 
         $this->assertSame(
             ['passed' => 3, 'assessed' => 5, 'rate' => 60],
-            PluginGrcmanagerTraining::getProgramRate($main)
+            \GlpiPlugin\Grcmanager\Training::getProgramRate($main)
         );
-        $sessions = PluginGrcmanagerTraining::getSessions($main);
+        $sessions = \GlpiPlugin\Grcmanager\Training::getSessions($main);
         $this->assertSame(3, $sessions[0]['participants']);
         $this->assertSame(67, $sessions[0]['rate']['rate']);
     }
@@ -100,9 +100,9 @@ final class TrainingSessionTest extends GrcmanagerIntegrationTestCase
         $main = $this->training([]);
         $session = $this->training(['plugin_grcmanager_trainings_id' => $main]);
 
-        (new PluginGrcmanagerTraining())->delete(['id' => $main], true);
+        (new \GlpiPlugin\Grcmanager\Training())->delete(['id' => $main], true);
 
-        $training = new PluginGrcmanagerTraining();
+        $training = new \GlpiPlugin\Grcmanager\Training();
         $this->assertTrue($training->getFromDB($session));
         $this->assertSame(0, (int) $training->fields['plugin_grcmanager_trainings_id']);
     }
@@ -110,10 +110,10 @@ final class TrainingSessionTest extends GrcmanagerIntegrationTestCase
     public function testNewSessionFormIsPrefilledButNothingIsSaved(): void
     {
         $main = $this->training(['max_score' => 40, 'pass_threshold' => 80]);
-        $count = countElementsInTable(PluginGrcmanagerTraining::getTable());
+        $count = countElementsInTable(\GlpiPlugin\Grcmanager\Training::getTable());
 
         ob_start();
-        (new PluginGrcmanagerTraining())->showForm(0, ['session_of' => $main]);
+        (new \GlpiPlugin\Grcmanager\Training())->showForm(0, ['session_of' => $main]);
         $html = (string) ob_get_clean();
 
         $this->assertMatchesRegularExpression(
@@ -121,7 +121,7 @@ final class TrainingSessionTest extends GrcmanagerIntegrationTestCase
             $html
         );
         $this->assertStringContainsString('name="users_id_trainer"', $html);
-        $saved = countElementsInTable(PluginGrcmanagerTraining::getTable());
+        $saved = countElementsInTable(\GlpiPlugin\Grcmanager\Training::getTable());
         $this->assertSame($count, $saved, 'Rien n\'est enregistré.');
     }
 
@@ -129,16 +129,16 @@ final class TrainingSessionTest extends GrcmanagerIntegrationTestCase
     {
         $main = $this->training([]);
         $session = $this->training(['plugin_grcmanager_trainings_id' => $main, 'location' => 'Salle Turing']);
-        $tab = new \PluginGrcmanagerTrainingSession();
+        $tab = new \GlpiPlugin\Grcmanager\TrainingSession();
 
-        $mainItem = new PluginGrcmanagerTraining();
+        $mainItem = new \GlpiPlugin\Grcmanager\Training();
         $this->assertTrue($mainItem->getFromDB($main));
         $this->assertNotSame('', $tab->getTabNameForItem($mainItem));
         ob_start();
-        \PluginGrcmanagerTrainingSession::displayTabContentForItem($mainItem);
+        \GlpiPlugin\Grcmanager\TrainingSession::displayTabContentForItem($mainItem);
         $this->assertStringContainsString('Salle Turing', (string) ob_get_clean());
 
-        $sessionItem = new PluginGrcmanagerTraining();
+        $sessionItem = new \GlpiPlugin\Grcmanager\Training();
         $this->assertTrue($sessionItem->getFromDB($session));
         $this->assertSame('', $tab->getTabNameForItem($sessionItem));
     }

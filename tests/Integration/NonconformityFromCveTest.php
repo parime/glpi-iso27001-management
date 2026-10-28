@@ -20,9 +20,9 @@ declare(strict_types=1);
 namespace GlpiPlugin\Grcmanager\Tests\Integration;
 
 use GlpiPlugin\Grcmanager\Services\Cve\ParkVulnerabilitySync;
-use PluginGrcmanagerNonconformity;
+use GlpiPlugin\Grcmanager\Nonconformity;
 use PluginGrcmanagerSecurityIncident;
-use PluginGrcmanagerSecurityIncidentCve;
+use GlpiPlugin\Grcmanager\SecurityIncidentCve;
 
 /**
  * Issue #163 : plan d'action (CAPA) proposé à partir d'une CVE d'incident, sans appel réseau.
@@ -39,7 +39,7 @@ final class NonconformityFromCveTest extends GrcmanagerIntegrationTestCase
             'entities_id' => 0,
             'content'     => 'x',
         ]);
-        $DB->insert(PluginGrcmanagerSecurityIncidentCve::getTable(), [
+        $DB->insert(\GlpiPlugin\Grcmanager\SecurityIncidentCve::getTable(), [
             'plugin_grcmanager_securityincidents_id' => $incidentId,
             'cve_id'                                 => $cve,
         ]);
@@ -61,10 +61,10 @@ final class NonconformityFromCveTest extends GrcmanagerIntegrationTestCase
         ]);
 
         try {
-            $unrelated = PluginGrcmanagerNonconformity::presetFromCve($incidentId, 'CVE-2099-0000');
+            $unrelated = \GlpiPlugin\Grcmanager\Nonconformity::presetFromCve($incidentId, 'CVE-2099-0000');
             $this->assertSame([], $unrelated, 'CVE non rattachée.');
 
-            $preset = PluginGrcmanagerNonconformity::presetFromCve($incidentId, $cve);
+            $preset = \GlpiPlugin\Grcmanager\Nonconformity::presetFromCve($incidentId, $cve);
             $this->assertSame('critical', $preset['severity'], 'Activement exploitée.');
             $this->assertSame($due, $preset['due_date'], 'Échéance CISA plus proche que 7 jours.');
             $this->assertStringContainsString('https://editeur.example/correctif', $preset['corrective_action']);
@@ -73,22 +73,22 @@ final class NonconformityFromCveTest extends GrcmanagerIntegrationTestCase
             $this->assertSame($incidentId, $preset['plugin_grcmanager_securityincidents_id']);
 
             // Rien n'est créé tant que l'utilisateur n'a pas validé le formulaire pré-rempli.
-            $this->assertSame(0, PluginGrcmanagerNonconformity::findForIncidentCve($incidentId, $cve));
+            $this->assertSame(0, \GlpiPlugin\Grcmanager\Nonconformity::findForIncidentCve($incidentId, $cve));
             ob_start();
-            (new PluginGrcmanagerNonconformity())->showForm(0, ['from_incident' => $incidentId, 'cve' => $cve]);
+            (new \GlpiPlugin\Grcmanager\Nonconformity())->showForm(0, ['from_incident' => $incidentId, 'cve' => $cve]);
             $html = (string) ob_get_clean();
             $this->assertStringContainsString('PHPUnit incident navigateur', $html);
             $this->assertStringContainsString('name="cve_id" value="' . $cve . '"', $html);
             $this->assertStringContainsString('editeur.example/correctif', $html);
 
-            $ncId = (int) (new PluginGrcmanagerNonconformity())->add($preset);
-            $this->assertSame($ncId, PluginGrcmanagerNonconformity::findForIncidentCve($incidentId, $cve));
+            $ncId = (int) (new \GlpiPlugin\Grcmanager\Nonconformity())->add($preset);
+            $this->assertSame($ncId, \GlpiPlugin\Grcmanager\Nonconformity::findForIncidentCve($incidentId, $cve));
 
             // L'onglet CVE de l'incident montre le lien vers le plan d'action.
             $incident = new PluginGrcmanagerSecurityIncident();
             $incident->getFromDB($incidentId);
             ob_start();
-            PluginGrcmanagerSecurityIncidentCve::displayTabContentForItem($incident);
+            \GlpiPlugin\Grcmanager\SecurityIncidentCve::displayTabContentForItem($incident);
             $this->assertStringContainsString('nonconformity.form.php?id=' . $ncId, (string) ob_get_clean());
         } finally {
             ParkVulnerabilitySync::storeKev([]);
@@ -97,7 +97,7 @@ final class NonconformityFromCveTest extends GrcmanagerIntegrationTestCase
 
     public function testOriginIsNormalized(): void
     {
-        $nc = new PluginGrcmanagerNonconformity();
+        $nc = new \GlpiPlugin\Grcmanager\Nonconformity();
         $id = (int) $nc->add([
             'title'                                  => 'PHPUnit origine',
             'plugin_grcmanager_securityincidents_id' => '-4',

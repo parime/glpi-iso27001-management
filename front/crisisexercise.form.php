@@ -22,7 +22,7 @@ include('../../../inc/includes.php');
 // Issue #168 : salle de crise d'un exercice (étapes chronométrées, fin et rapport).
 // Issue #185 : la même salle sert de cellule de crise sur un incident réel.
 Session::checkRightsOr(
-    PluginGrcmanagerCrisisExercise::RIGHTNAME,
+    \GlpiPlugin\Grcmanager\CrisisExercise::RIGHTNAME,
     [PluginGrcmanagerSecurityIncident::READALL, PluginGrcmanagerSecurityIncident::READMY]
 );
 
@@ -34,19 +34,19 @@ if (isset($_POST['activate'])) {
     if (!$incident->canUpdateItem()) {
         Html::displayRightError();
     }
-    $cellId = PluginGrcmanagerCrisisExercise::activate($incident, (string) ($_POST['scenario'] ?? ''));
+    $cellId = \GlpiPlugin\Grcmanager\CrisisExercise::activate($incident, (string) ($_POST['scenario'] ?? ''));
     if ($cellId > 0) {
-        Html::redirect(PluginGrcmanagerCrisisExercise::getFormURLWithID($cellId));
+        Html::redirect(\GlpiPlugin\Grcmanager\CrisisExercise::getFormURLWithID($cellId));
     }
     Session::addMessageAfterRedirect(
-        htmlescape(__('La cellule de crise n\'a pas pu être activée.', 'grcmanager')),
+        htmlescape(__('The crisis team could not be activated.', 'grcmanager')),
         false,
         ERROR
     );
     Html::back();
 }
 
-$exercise = new PluginGrcmanagerCrisisExercise();
+$exercise = new \GlpiPlugin\Grcmanager\CrisisExercise();
 $id = (int) ($_POST['id'] ?? $_GET['id'] ?? 0);
 $incident = $exercise->getFromDB($id) ? $exercise->getIncident() : null;
 if ($incident === null || !$incident->canViewItem()) {
@@ -63,37 +63,37 @@ if (isset($_POST['step_done']) || isset($_POST['finish']) || isset($_POST['resto
         $exercise->markRestored((string) $_POST['restored']);
     } elseif ($exercise->finish() > 0) {
         Session::addMessageAfterRedirect(htmlescape(__(
-            'Terminé : le rapport est archivé dans les documents de l\'incident.',
+            'Finished: the report is archived in the incident documents.',
             'grcmanager'
         )));
     } else {
         Session::addMessageAfterRedirect(
-            htmlescape(__('Le rapport n\'a pas pu être généré.', 'grcmanager')),
+            htmlescape(__('The report could not be generated.', 'grcmanager')),
             false,
             ERROR
         );
     }
-    Html::redirect(PluginGrcmanagerCrisisExercise::getFormURLWithID($id));
+    Html::redirect(\GlpiPlugin\Grcmanager\CrisisExercise::getFormURLWithID($id));
 }
 if (isset($_POST['journal'])) {
     if (!$incident->canAddFollowups()) {
         Html::displayRightError();
     }
     $exercise->addJournalEntry((string) $_POST['journal']);
-    Html::redirect(PluginGrcmanagerCrisisExercise::getFormURLWithID($id) . '#grc-crisis-journal');
+    Html::redirect(\GlpiPlugin\Grcmanager\CrisisExercise::getFormURLWithID($id) . '#grc-crisis-journal');
 }
 
 Html::header(
-    $exercise->isDrill() ? PluginGrcmanagerCrisisExercise::getTypeName(1) : __('Cellule de crise', 'grcmanager'),
-    PluginGrcmanagerCrisisExercise::getSearchURL(),
+    $exercise->isDrill() ? \GlpiPlugin\Grcmanager\CrisisExercise::getTypeName(1) : __('Crisis team', 'grcmanager'),
+    \GlpiPlugin\Grcmanager\CrisisExercise::getSearchURL(),
     'grcmanager',
-    PluginGrcmanagerAccessReview::class,
-    PluginGrcmanagerCrisisExercise::class
+    \GlpiPlugin\Grcmanager\AccessReview::class,
+    \GlpiPlugin\Grcmanager\CrisisExercise::class
 );
 TemplateRenderer::getInstance()->display('@grcmanager/crisis_room.html.twig', $exercise->collect() + [
     'can_act'     => $incident->canUpdateItem(),
     'can_journal' => $incident->canAddFollowups(),
-    'action'      => PluginGrcmanagerCrisisExercise::getFormURL(),
-    'list_url'    => PluginGrcmanagerCrisisExercise::getSearchURL(),
+    'action'      => \GlpiPlugin\Grcmanager\CrisisExercise::getFormURL(),
+    'list_url'    => \GlpiPlugin\Grcmanager\CrisisExercise::getSearchURL(),
 ]);
 Html::footer();

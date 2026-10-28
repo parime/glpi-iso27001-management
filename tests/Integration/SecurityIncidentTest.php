@@ -4,7 +4,7 @@ namespace GlpiPlugin\Grcmanager\Tests\Integration;
 
 use PluginGrcmanagerSecurityIncident;
 use PluginGrcmanagerSecurityIncident_Item;
-use PluginGrcmanagerSecurityIncidentCve;
+use GlpiPlugin\Grcmanager\SecurityIncidentCve;
 
 /**
  * Ported and extended from the absorbed glpi-security-incidents plugin's own
@@ -202,7 +202,7 @@ final class SecurityIncidentTest extends GrcmanagerIntegrationTestCase
     public function testLinkedRiskIdCanBeSetAndCleared(): void
     {
         $entityId = $this->createTestEntity(0, 'PHPUnit Risk Link Entity');
-        $risk = new \PluginGrcmanagerRisk();
+        $risk = new \GlpiPlugin\Grcmanager\Risk();
         $riskId = $risk->add(['title' => 'PHPUnit test risk', 'entities_id' => $entityId]);
         $this->assertGreaterThan(0, $riskId);
 
@@ -231,11 +231,11 @@ final class SecurityIncidentTest extends GrcmanagerIntegrationTestCase
         $incident = new PluginGrcmanagerSecurityIncident();
         $id = $incident->add(['name' => 'Test — CVE', 'entities_id' => $entityId, 'content' => 'x']);
 
-        $cve = new PluginGrcmanagerSecurityIncidentCve();
+        $cve = new \GlpiPlugin\Grcmanager\SecurityIncidentCve();
         $cveId = $cve->add(['plugin_grcmanager_securityincidents_id' => $id, 'cve_id' => 'cve-2026-12345']);
 
         $this->assertGreaterThan(0, $cveId);
-        $reloaded = new PluginGrcmanagerSecurityIncidentCve();
+        $reloaded = new \GlpiPlugin\Grcmanager\SecurityIncidentCve();
         $reloaded->getFromDB($cveId);
         $this->assertSame('CVE-2026-12345', $reloaded->fields['cve_id']);
     }
@@ -246,7 +246,7 @@ final class SecurityIncidentTest extends GrcmanagerIntegrationTestCase
         $incident = new PluginGrcmanagerSecurityIncident();
         $id = $incident->add(['name' => 'Test — bad CVE', 'entities_id' => $entityId, 'content' => 'x']);
 
-        $cve = new PluginGrcmanagerSecurityIncidentCve();
+        $cve = new \GlpiPlugin\Grcmanager\SecurityIncidentCve();
         $cveId = $cve->add(['plugin_grcmanager_securityincidents_id' => $id, 'cve_id' => 'not-a-cve']);
 
         $this->assertFalse($cveId);
@@ -258,13 +258,13 @@ final class SecurityIncidentTest extends GrcmanagerIntegrationTestCase
 
         $this->assertSame(
             ['CVE-2026-11111', 'CVE-2026-22222', 'CVE-2026-33333'],
-            PluginGrcmanagerSecurityIncidentCve::splitIdentifiers($raw)
+            \GlpiPlugin\Grcmanager\SecurityIncidentCve::splitIdentifiers($raw)
         );
     }
 
     public function testSplitIdentifiersOnBlankInputReturnsEmptyArray(): void
     {
-        $this->assertSame([], PluginGrcmanagerSecurityIncidentCve::splitIdentifiers("  \n \t "));
+        $this->assertSame([], \GlpiPlugin\Grcmanager\SecurityIncidentCve::splitIdentifiers("  \n \t "));
     }
 
     /**

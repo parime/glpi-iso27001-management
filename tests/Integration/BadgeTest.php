@@ -41,7 +41,7 @@ final class BadgeTest extends GrcmanagerIntegrationTestCase
 
     public function testRiskLevelBadgeKeepsItsIconForHighLevels(): void
     {
-        $this->assertStringContainsString('ti-alert-triangle', \PluginGrcmanagerRisk::riskLevelBadge('critical'));
-        $this->assertStringNotContainsString('<i ', \PluginGrcmanagerRisk::riskLevelBadge('low'));
+        $this->assertStringContainsString('ti-alert-triangle', \GlpiPlugin\Grcmanager\Risk::riskLevelBadge('critical'));
+        $this->assertStringNotContainsString('<i ', \GlpiPlugin\Grcmanager\Risk::riskLevelBadge('low'));
     }
 }

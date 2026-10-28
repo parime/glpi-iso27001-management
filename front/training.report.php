@@ -21,14 +21,14 @@ include('../../../inc/includes.php');
 
 // Issue #139, phase 2 : rapport PDF d'une session (émargement, notes, taux de réussite),
 // généré à la demande pour l'auditeur.
-Session::checkRight(PluginGrcmanagerTraining::$rightname, READ);
+Session::checkRight(\GlpiPlugin\Grcmanager\Training::$rightname, READ);
 
-$training = new PluginGrcmanagerTraining();
+$training = new \GlpiPlugin\Grcmanager\Training();
 if (!$training->getFromDB((int) ($_GET['id'] ?? 0)) || !$training->canViewItem()) {
     Html::displayNotFoundError();
 }
 
-$pdf = PdfRenderer::renderHtmlToPdf(PluginGrcmanagerTraining::renderSessionReport($training));
+$pdf = PdfRenderer::renderHtmlToPdf(\GlpiPlugin\Grcmanager\Training::renderSessionReport($training));
 
 header('Content-Type: application/pdf');
 header('Content-Disposition: attachment; filename="session-formation-' . $training->getID() . '.pdf"');

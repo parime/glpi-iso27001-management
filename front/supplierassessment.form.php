@@ -19,16 +19,16 @@
  * Issue #127 : enregistrement du questionnaire de sécurité d'un risque fournisseur.
  */
 
-Session::checkRight(PluginGrcmanagerSupplierRisk::RIGHTNAME, UPDATE);
+Session::checkRight(\GlpiPlugin\Grcmanager\SupplierRisk::RIGHTNAME, UPDATE);
 
-$risk = new PluginGrcmanagerSupplierRisk();
+$risk = new \GlpiPlugin\Grcmanager\SupplierRisk();
 $id = (int) ($_POST['id'] ?? 0);
 if (!isset($_POST['save_questionnaire']) || !$risk->getFromDB($id) || !$risk->can($id, UPDATE)) {
     Html::back();
 }
 
 $answers = is_array($_POST['answers'] ?? null) ? $_POST['answers'] : [];
-if (PluginGrcmanagerSupplierAssessment::save($risk, $answers)) {
-    Session::addMessageAfterRedirect(__('Questionnaire de sécurité enregistré.', 'grcmanager'));
+if (\GlpiPlugin\Grcmanager\SupplierAssessment::save($risk, $answers)) {
+    Session::addMessageAfterRedirect(__('Security questionnaire saved.', 'grcmanager'));
 }
 Html::back();

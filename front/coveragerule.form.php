@@ -17,36 +17,36 @@
 
 include('../../../inc/includes.php');
 
-$item = new PluginGrcmanagerCoverageRule();
+$item = new \GlpiPlugin\Grcmanager\CoverageRule();
 
 if (isset($_POST['add'])) {
-    Session::checkRight(PluginGrcmanagerCoverageRule::$rightname, CREATE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\CoverageRule::$rightname, CREATE);
     $newID = $item->add($_POST);
     if ($newID && $_SESSION['glpibackcreated']) {
         Html::redirect($item->getLinkURL());
     }
     Html::back();
 } elseif (isset($_POST['delete'])) {
-    Session::checkRight(PluginGrcmanagerCoverageRule::$rightname, DELETE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\CoverageRule::$rightname, DELETE);
     $item->delete($_POST);
-    Html::redirect(PluginGrcmanagerCoverageRule::getSearchURL());
+    Html::redirect(\GlpiPlugin\Grcmanager\CoverageRule::getSearchURL());
 } elseif (isset($_POST['purge'])) {
-    Session::checkRight(PluginGrcmanagerCoverageRule::$rightname, PURGE);
-    $item->delete($_POST, 1);
-    Html::redirect(PluginGrcmanagerCoverageRule::getSearchURL());
+    Session::checkRight(\GlpiPlugin\Grcmanager\CoverageRule::$rightname, PURGE);
+    $item->delete($_POST, true);
+    Html::redirect(\GlpiPlugin\Grcmanager\CoverageRule::getSearchURL());
 } elseif (isset($_POST['update'])) {
-    Session::checkRight(PluginGrcmanagerCoverageRule::$rightname, UPDATE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\CoverageRule::$rightname, UPDATE);
     $item->update($_POST);
     Html::back();
 } else {
-    Session::checkRight(PluginGrcmanagerCoverageRule::$rightname, READ);
+    Session::checkRight(\GlpiPlugin\Grcmanager\CoverageRule::$rightname, READ);
 
     Html::header(
-        PluginGrcmanagerCoverageRule::getTypeName(1),
+        \GlpiPlugin\Grcmanager\CoverageRule::getTypeName(1),
         $_SERVER['PHP_SELF'],
         'grcmanager',
-        PluginGrcmanagerControl::class,
-        PluginGrcmanagerCoverageRule::class
+        \GlpiPlugin\Grcmanager\Control::class,
+        \GlpiPlugin\Grcmanager\CoverageRule::class
     );
 
     $item->display(['id' => (int) ($_GET['id'] ?? 0)]);

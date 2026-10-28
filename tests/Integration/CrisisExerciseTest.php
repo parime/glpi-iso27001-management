@@ -21,7 +21,7 @@ namespace GlpiPlugin\Grcmanager\Tests\Integration;
 
 use GlpiPlugin\Grcmanager\Services\Dashboard\SecurityIncidentCardProvider;
 use GlpiPlugin\Grcmanager\Services\Exercise\CrisisExercise;
-use PluginGrcmanagerCrisisExercise as Exercise;
+use GlpiPlugin\Grcmanager\CrisisExercise as Exercise;
 use PluginGrcmanagerSecurityIncident as Incident;
 use PluginGrcmanagerSecurityIncidentTask as Task;
 
@@ -44,7 +44,7 @@ final class CrisisExerciseTest extends GrcmanagerIntegrationTestCase
         $this->assertSame(1, (int) $incident->fields['is_exercise']);
         // Libellé traduit : la CI tourne en anglais, l'instance de développement en français.
         $this->assertSame(
-            sprintf(__('[EXERCICE] %s', 'grcmanager'), Exercise::getScenarios()['ransomware']['label']),
+            sprintf(__('[EXERCISE] %s', 'grcmanager'), Exercise::getScenarios()['ransomware']['label']),
             $incident->fields['name']
         );
         $this->assertSame('malware', $incident->fields['category']);
@@ -94,7 +94,7 @@ final class CrisisExerciseTest extends GrcmanagerIntegrationTestCase
             ]));
             $this->assertSame(2, countElementsInTable('glpi_documents_items', [
                 'documents_id' => $documentsId,
-                'itemtype'     => \PluginGrcmanagerControl::class,
+                'itemtype'     => \GlpiPlugin\Grcmanager\Control::class,
             ]), 'Preuve sur A.5.29 et A.5.30.');
             $document = new \Document();
             $document->getFromDB($documentsId);

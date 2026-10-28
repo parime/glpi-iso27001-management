@@ -1,7 +1,7 @@
 {# Issue #171 : onglet « Effet domino » d'un risque, risque fournisseur ou incident #}
 <div class="container-fluid">
    {% if elements|length <= 1 %}
-      <div class="alert alert-info"><i class="ti ti-info-circle me-1"></i>{{ __('Aucun lien pour l\'instant. Reliez cet élément à ce qu\'il peut entraîner, ou à ce qui peut le provoquer, pour voir l\'effet domino d\'une attaque.', 'grcmanager') }}</div>
+      <div class="alert alert-info"><i class="ti ti-info-circle me-1"></i>{{ __('No link yet. Link this item to what it can lead to, or to what can cause it, to see the domino effect of an attack.', 'grcmanager') }}</div>
    {% else %}
       {% include '@grcmanager/_causal_graph.html.twig' with {'elements': elements, 'height': '380px'} %}
    {% endif %}
@@ -9,7 +9,7 @@
    <div class="row mt-3">
       {% for side, rows in direct %}
          <div class="col-md-6">
-            <h4><i class="ti {{ side == 'causes' ? 'ti-arrow-big-left-lines' : 'ti-arrow-big-right-lines' }} me-1"></i>{{ side == 'causes' ? __('Peut être provoqué par', 'grcmanager') : __('Peut entraîner', 'grcmanager') }}</h4>
+            <h4><i class="ti {{ side == 'causes' ? 'ti-arrow-big-left-lines' : 'ti-arrow-big-right-lines' }} me-1"></i>{{ side == 'causes' ? __('Can be caused by', 'grcmanager') : __('Can lead to', 'grcmanager') }}</h4>
             {% if rows is empty %}
                <p class="text-muted">—</p>
             {% else %}
@@ -21,7 +21,7 @@
                            <form method="post" action="{{ form_url }}" class="d-inline">
                               <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
                               <input type="hidden" name="id" value="{{ r.id }}">
-                              <button type="submit" name="purge" value="1" class="btn btn-sm btn-ghost-danger" title="{{ __('Retirer ce lien', 'grcmanager') }}"><i class="ti ti-unlink"></i></button>
+                              <button type="submit" name="purge" value="1" class="btn btn-sm btn-ghost-danger" title="{{ __('Remove this link', 'grcmanager') }}"><i class="ti ti-unlink"></i></button>
                            </form>
                         {% endif %}
                      </li>
@@ -37,14 +37,14 @@
          <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
          <input type="hidden" name="item_key" value="{{ item_key }}">
          <div class="col-md-3">
-            <label class="form-label" for="grc-causal-direction">{{ __('Cet élément', 'grcmanager') }}</label>
+            <label class="form-label" for="grc-causal-direction">{{ __('This item', 'grcmanager') }}</label>
             <select name="direction" id="grc-causal-direction" class="form-select">
-               <option value="effect">{{ __('peut entraîner…', 'grcmanager') }}</option>
-               <option value="cause">{{ __('peut être provoqué par…', 'grcmanager') }}</option>
+               <option value="effect">{{ __('can lead to…', 'grcmanager') }}</option>
+               <option value="cause">{{ __('can be caused by…', 'grcmanager') }}</option>
             </select>
          </div>
          <div class="col-md-6">
-            <label class="form-label" for="grc-causal-other">{{ __('Élément lié', 'grcmanager') }}</label>
+            <label class="form-label" for="grc-causal-other">{{ __('Linked item', 'grcmanager') }}</label>
             <select name="other" id="grc-causal-other" class="form-select">
                {% for group, options in choices %}
                   <optgroup label="{{ group }}">
@@ -54,10 +54,10 @@
             </select>
          </div>
          <div class="col-md-3">
-            <button type="submit" name="add" value="1" class="btn btn-primary"><i class="ti ti-link me-1"></i>{{ __('Relier', 'grcmanager') }}</button>
+            <button type="submit" name="add" value="1" class="btn btn-primary"><i class="ti ti-link me-1"></i>{{ __('Link', 'grcmanager') }}</button>
          </div>
       </form>
    {% endif %}
 
-   <a href="{{ graph_url }}" class="btn btn-sm btn-outline-secondary mt-3"><i class="ti ti-hierarchy-3 me-1"></i>{{ __('Voir tout l\'effet domino', 'grcmanager') }}</a>
+   <a href="{{ graph_url }}" class="btn btn-sm btn-outline-secondary mt-3"><i class="ti ti-hierarchy-3 me-1"></i>{{ __('See the whole domino effect', 'grcmanager') }}</a>
 </div>

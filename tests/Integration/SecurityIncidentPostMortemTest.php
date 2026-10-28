@@ -21,7 +21,7 @@ namespace GlpiPlugin\Grcmanager\Tests\Integration;
 
 use GlpiPlugin\Grcmanager\Services\Incident\PostMortem;
 use PluginGrcmanagerSecurityIncident as Incident;
-use PluginGrcmanagerSecurityIncidentPostMortem as Report;
+use GlpiPlugin\Grcmanager\SecurityIncidentPostMortem as Report;
 
 /**
  * Issue #169 : rapport post-incident d'un incident fictif.
@@ -56,7 +56,7 @@ final class SecurityIncidentPostMortemTest extends GrcmanagerIntegrationTestCase
             'cost_fixed'    => 20,
             'cost_material' => 0,
         ]);
-        $ncId = (int) (new \PluginGrcmanagerNonconformity())->add([
+        $ncId = (int) (new \GlpiPlugin\Grcmanager\Nonconformity())->add([
             'title'                                  => 'PHPUnit déployer la MFA',
             'plugin_grcmanager_securityincidents_id' => $incidentId,
         ]);
@@ -90,7 +90,7 @@ final class SecurityIncidentPostMortemTest extends GrcmanagerIntegrationTestCase
             // récursivité, lecture réservée à qui lit l'incident.
             $this->assertSame(0, countElementsInTable('glpi_documents_items', [
                 'documents_id' => $documentsId,
-                'itemtype'     => \PluginGrcmanagerControl::class,
+                'itemtype'     => \GlpiPlugin\Grcmanager\Control::class,
             ]));
             $document = new \Document();
             $document->getFromDB($documentsId);
@@ -98,11 +98,11 @@ final class SecurityIncidentPostMortemTest extends GrcmanagerIntegrationTestCase
             $this->assertSame(0, (int) $document->fields['is_recursive']);
             $this->assertSame(
                 ['itemtype' => Incident::class, 'items_id' => $incidentId],
-                \PluginGrcmanagerRestrictedDocument::sourceOf($documentsId)
+                \GlpiPlugin\Grcmanager\RestrictedDocument::sourceOf($documentsId)
             );
         } finally {
             (new \Document())->delete(['id' => $documentsId], true);
-            (new \PluginGrcmanagerNonconformity())->delete(['id' => $ncId], true);
+            (new \GlpiPlugin\Grcmanager\Nonconformity())->delete(['id' => $ncId], true);
         }
     }
 }

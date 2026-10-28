@@ -22,22 +22,22 @@ include('../../../inc/includes.php');
  * de la session). Il faut pouvoir modifier la session.
  */
 
-Session::checkRight(PluginGrcmanagerTraining::RIGHTNAME, UPDATE);
+Session::checkRight(\GlpiPlugin\Grcmanager\Training::RIGHTNAME, UPDATE);
 
-$participation = PluginGrcmanagerTrainingQuiz::getParticipation((int) ($_POST['participations_id'] ?? 0));
+$participation = \GlpiPlugin\Grcmanager\TrainingQuiz::getParticipation((int) ($_POST['participations_id'] ?? 0));
 if ($participation === null) {
     Html::back();
 }
-(new PluginGrcmanagerTraining())->check($participation['trainings_id'], UPDATE);
+(new \GlpiPlugin\Grcmanager\Training())->check($participation['trainings_id'], UPDATE);
 
 if (isset($_POST['remove'])) {
-    PluginGrcmanagerTrainingQuiz::deleteCopy($participation['id']);
+    \GlpiPlugin\Grcmanager\TrainingQuiz::deleteCopy($participation['id']);
     Html::back();
 }
 
 $file = $_FILES['quiz'] ?? null;
 if (!isset($_POST['upload']) || !is_array($file) || ($file['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_OK) {
-    Session::addMessageAfterRedirect(__('Choisissez le fichier de la copie.', 'grcmanager'), false, ERROR);
+    Session::addMessageAfterRedirect(__('Choose the file of the copy.', 'grcmanager'), false, ERROR);
     Html::back();
 }
 
@@ -48,9 +48,9 @@ $tmpName = $prefix . preg_replace('/[^A-Za-z0-9._-]/', '_', basename((string) $f
 if (!move_uploaded_file((string) $file['tmp_name'], GLPI_TMP_DIR . '/' . $tmpName)) {
     Html::back();
 }
-if (PluginGrcmanagerTrainingQuiz::attach($participation['id'], $tmpName, $prefix) <= 0) {
+if (\GlpiPlugin\Grcmanager\TrainingQuiz::attach($participation['id'], $tmpName, $prefix) <= 0) {
     Session::addMessageAfterRedirect(
-        __('La copie n\'a pas pu être jointe (type de fichier non autorisé ?).', 'grcmanager'),
+        __('The copy could not be attached (file type not allowed?).', 'grcmanager'),
         false,
         ERROR
     );

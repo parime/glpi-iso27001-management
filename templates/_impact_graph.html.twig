@@ -2,9 +2,9 @@
 {% set cy_id = 'grc-impact-' ~ random() %}
 <div id="{{ cy_id }}" class="border rounded bg-white mb-1" style="height: 340px; width: 100%;" data-elements="{{ elements|json_encode }}"></div>
 <div class="d-flex flex-wrap gap-3 small text-muted mb-2">
-   <span><span class="badge" style="background:#d63939">&nbsp;</span> {{ __('Disponibilité élevée', 'grcmanager') }}</span>
-   <span><span class="badge" style="background:#f59f00">&nbsp;</span> {{ __('Disponibilité moyenne', 'grcmanager') }}</span>
-   <span><i class="ti ti-arrow-right"></i> {{ __('une panne de la source touche l\'élément pointé', 'grcmanager') }}</span>
+   <span><span class="badge" style="background:#d63939">&nbsp;</span> {{ __('High availability', 'grcmanager') }}</span>
+   <span><span class="badge" style="background:#f59f00">&nbsp;</span> {{ __('Medium availability', 'grcmanager') }}</span>
+   <span><i class="ti ti-arrow-right"></i> {{ __('an outage of the source affects the item pointed to', 'grcmanager') }}</span>
 </div>
 <script>
    (function () {

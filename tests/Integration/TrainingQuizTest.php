@@ -19,10 +19,10 @@ declare(strict_types=1);
 
 namespace GlpiPlugin\Grcmanager\Tests\Integration;
 
-use PluginGrcmanagerAuditTeam;
-use PluginGrcmanagerRestrictedDocument;
-use PluginGrcmanagerTraining;
-use PluginGrcmanagerTrainingQuiz;
+use GlpiPlugin\Grcmanager\AuditTeam;
+use GlpiPlugin\Grcmanager\RestrictedDocument;
+use GlpiPlugin\Grcmanager\Training;
+use GlpiPlugin\Grcmanager\TrainingQuiz;
 
 /**
  * Issue #139 (phase 2) : copie de quiz de chaque participant, lisible par le participant, le
@@ -34,7 +34,7 @@ final class TrainingQuizTest extends GrcmanagerIntegrationTestCase
     {
         parent::setUp();
         // Indépendant du groupe RSSI de l'instance (annulé avec la transaction du test).
-        PluginGrcmanagerAuditTeam::setCisoGroupId(0);
+        \GlpiPlugin\Grcmanager\AuditTeam::setCisoGroupId(0);
     }
 
     /**
@@ -44,12 +44,12 @@ final class TrainingQuizTest extends GrcmanagerIntegrationTestCase
     {
         $participant = $this->createTestUser('Michel', 'Participant');
         $trainer = $this->createTestUser('Fanny', 'Formatrice');
-        $training = (int) (new PluginGrcmanagerTraining())->add([
+        $training = (int) (new \GlpiPlugin\Grcmanager\Training())->add([
             'title'            => 'Quiz hameçonnage',
             'users_id_trainer' => $trainer,
             'participants'     => [$participant],
         ]);
-        $participation = PluginGrcmanagerTrainingQuiz::getParticipationId($training, $participant);
+        $participation = \GlpiPlugin\Grcmanager\TrainingQuiz::getParticipationId($training, $participant);
         $this->assertGreaterThan(0, $participation);
 
         return [
@@ -65,21 +65,21 @@ final class TrainingQuizTest extends GrcmanagerIntegrationTestCase
         $prefix = uniqid('', true);
         file_put_contents(GLPI_TMP_DIR . '/' . $prefix . 'copie.txt', "Copie de quiz\n");
 
-        return PluginGrcmanagerTrainingQuiz::attach($participation, $prefix . 'copie.txt', $prefix);
+        return \GlpiPlugin\Grcmanager\TrainingQuiz::attach($participation, $prefix . 'copie.txt', $prefix);
     }
 
     public function testCopyIsReadableByTheParticipantTheTrainerAndTheCisoGroupOnly(): void
     {
         $s = $this->session();
-        $this->assertTrue(PluginGrcmanagerTrainingQuiz::canRead($s['participation'], $s['participant']));
-        $this->assertTrue(PluginGrcmanagerTrainingQuiz::canRead($s['participation'], $s['trainer']));
+        $this->assertTrue(\GlpiPlugin\Grcmanager\TrainingQuiz::canRead($s['participation'], $s['participant']));
+        $this->assertTrue(\GlpiPlugin\Grcmanager\TrainingQuiz::canRead($s['participation'], $s['trainer']));
         // Super-Admin, ni participant ni formateur : refusé.
-        $this->assertFalse(PluginGrcmanagerTrainingQuiz::canRead($s['participation'], 2));
+        $this->assertFalse(\GlpiPlugin\Grcmanager\TrainingQuiz::canRead($s['participation'], 2));
 
         $groupsId = (int) (new \Group())->add(['name' => 'RSSI #139', 'entities_id' => 0]);
         (new \Group_User())->add(['groups_id' => $groupsId, 'users_id' => 2]);
-        PluginGrcmanagerAuditTeam::setCisoGroupId($groupsId);
-        $this->assertTrue(PluginGrcmanagerTrainingQuiz::canRead($s['participation'], 2));
+        \GlpiPlugin\Grcmanager\AuditTeam::setCisoGroupId($groupsId);
+        $this->assertTrue(\GlpiPlugin\Grcmanager\TrainingQuiz::canRead($s['participation'], 2));
     }
 
     public function testAttachedCopyIsRestrictedAndReplacesThePreviousOne(): void
@@ -88,14 +88,14 @@ final class TrainingQuizTest extends GrcmanagerIntegrationTestCase
         $first = $this->attachCopy($s['participation']);
         $this->assertGreaterThan(0, $first);
         $this->assertSame(
-            ['itemtype' => PluginGrcmanagerTrainingQuiz::class, 'items_id' => $s['participation']],
-            PluginGrcmanagerRestrictedDocument::sourceOf($first)
+            ['itemtype' => \GlpiPlugin\Grcmanager\TrainingQuiz::class, 'items_id' => $s['participation']],
+            \GlpiPlugin\Grcmanager\RestrictedDocument::sourceOf($first)
         );
         // La session connectée (Super-Admin) n'est ni participante ni formatrice.
-        $this->assertFalse(PluginGrcmanagerRestrictedDocument::canReadSource($first));
+        $this->assertFalse(\GlpiPlugin\Grcmanager\RestrictedDocument::canReadSource($first));
 
         $second = $this->attachCopy($s['participation']);
-        $participation = PluginGrcmanagerTrainingQuiz::getParticipation($s['participation']);
+        $participation = \GlpiPlugin\Grcmanager\TrainingQuiz::getParticipation($s['participation']);
         $this->assertSame($second, $participation['documents_id'] ?? 0);
         $this->assertFalse((new \Document())->getFromDB($first), 'La copie remplacée est supprimée.');
     }
@@ -105,12 +105,12 @@ final class TrainingQuizTest extends GrcmanagerIntegrationTestCase
         $s = $this->session();
         $documentsId = $this->attachCopy($s['participation']);
 
-        (new PluginGrcmanagerTraining())->update(['id' => $s['training'], 'participants' => []]);
+        (new \GlpiPlugin\Grcmanager\Training())->update(['id' => $s['training'], 'participants' => []]);
         $this->assertFalse((new \Document())->getFromDB($documentsId));
 
         $s = $this->session();
         $documentsId = $this->attachCopy($s['participation']);
-        (new PluginGrcmanagerTraining())->delete(['id' => $s['training']], true);
+        (new \GlpiPlugin\Grcmanager\Training())->delete(['id' => $s['training']], true);
         $this->assertFalse((new \Document())->getFromDB($documentsId));
     }
 
@@ -122,14 +122,14 @@ final class TrainingQuizTest extends GrcmanagerIntegrationTestCase
         try {
             $_SESSION['glpiID'] = $s['participant'];
             ob_start();
-            PluginGrcmanagerTrainingQuiz::displayTabContentForItem(new \Preference());
+            \GlpiPlugin\Grcmanager\TrainingQuiz::displayTabContentForItem(new \Preference());
             $html = (string) ob_get_clean();
             $this->assertStringContainsString('Quiz hameçonnage', $html);
             $this->assertStringContainsString('trainingquiz.send.php?id=' . $s['participation'], $html);
 
             $_SESSION['glpiID'] = $s['trainer'];
             ob_start();
-            PluginGrcmanagerTrainingQuiz::displayTabContentForItem(new \Preference());
+            \GlpiPlugin\Grcmanager\TrainingQuiz::displayTabContentForItem(new \Preference());
             $this->assertStringNotContainsString('Quiz hameçonnage', (string) ob_get_clean());
         } finally {
             $_SESSION['glpiID'] = $saved;

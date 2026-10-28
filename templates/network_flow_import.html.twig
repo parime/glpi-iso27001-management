@@ -1,34 +1,34 @@
 {# Issue #144 : import CSV de la matrice des flux, simulation d'abord (issue #199 : passé de PHP à Twig) #}
 <div class="card mb-3"><div class="card-body">
    <h3 class="card-title"><i class="ti ti-file-import me-1"></i>{{ title }}</h3>
-   <p>{{ __('Fichier CSV séparé par des points-virgules ou des virgules, avec une ligne d\'en-tête. Colonnes reconnues : nom, type, source, destination, protocole, ports, justification, proprietaire (identifiant GLPI), date_fin. Seules source et destination sont obligatoires.', 'grcmanager') }}</p>
+   <p>{{ __('CSV file separated by semicolons or commas, with a header line. Recognised columns: name, type, source, destination, protocol, ports, justification, owner (GLPI login), date_end (French column names also accepted). Only source and destination are required.', 'grcmanager') }}</p>
    <pre class="bg-light p-2 small mb-3">{{ example }}</pre>
-   <p><i class="ti ti-brick-wall me-1"></i>{{ __('Pare-feu pfSense : importez directement la sauvegarde de sa configuration (Diagnostics > Backup & Restore, fichier config.xml). Les règles actives qui autorisent un flux sont reprises, avec leurs alias résolus ; les règles de blocage et les règles désactivées sont ignorées. Dans ce cas, le numéro de ligne affiché est celui de la règle. Justification et propriétaire restent à compléter dans la matrice.', 'grcmanager') }}</p>
-   <p class="text-muted small">{{ __('Types : interne, publication, sortant, tunnel, partenaire, administration, sauvegarde, autre. Un flux déjà présent (mêmes source, destination, protocole et ports) n\'est pas recréé : réimporter le même fichier ne crée pas de doublon.', 'grcmanager') }}</p>
+   <p><i class="ti ti-brick-wall me-1"></i>{{ __('pfSense firewall: import its configuration backup directly (Diagnostics > Backup & Restore, config.xml file). Enabled rules that allow a flow are imported with their aliases resolved; block rules and disabled rules are ignored. In that case, the line number shown is the rule number. Justification and owner remain to be filled in the matrix.', 'grcmanager') }}</p>
+   <p class="text-muted small">{{ __('Types: internal, publication, outbound, tunnel, partner, admin, backup, other. A flow already present (same source, destination, protocol and ports) is not created again: importing the same file twice creates no duplicate.', 'grcmanager') }}</p>
    <form method="post" enctype="multipart/form-data" action="{{ action }}" class="d-flex flex-wrap align-items-center gap-3">
       <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
-      <input type="file" name="csv_file" accept=".csv,text/csv,.xml,text/xml" class="form-control" style="max-width: 420px;" required aria-label="{{ __('Fichier CSV', 'grcmanager') }}">
-      <label class="form-check mb-0"><input type="checkbox" class="form-check-input" name="simulate" value="1" {{ simulate ? 'checked' }}><span class="form-check-label">{{ __('Simulation (rien n\'est enregistré)', 'grcmanager') }}</span></label>
-      <button type="submit" name="import" value="1" class="btn btn-primary"><i class="ti ti-upload me-1"></i>{{ __('Analyser le fichier', 'grcmanager') }}</button>
-      <a href="{{ list_url }}" class="btn btn-outline-secondary">{{ __('Retour à la matrice des flux', 'grcmanager') }}</a>
+      <input type="file" name="csv_file" accept=".csv,text/csv,.xml,text/xml" class="form-control" style="max-width: 420px;" required aria-label="{{ __('CSV file', 'grcmanager') }}">
+      <label class="form-check mb-0"><input type="checkbox" class="form-check-input" name="simulate" value="1" {{ simulate ? 'checked' }}><span class="form-check-label">{{ __('Simulation (nothing is saved)', 'grcmanager') }}</span></label>
+      <button type="submit" name="import" value="1" class="btn btn-primary"><i class="ti ti-upload me-1"></i>{{ __('Analyse the file', 'grcmanager') }}</button>
+      <a href="{{ list_url }}" class="btn btn-outline-secondary">{{ __('Back to the network flow matrix', 'grcmanager') }}</a>
    </form>
 </div></div>
 
 {% if result %}
    <div class="card"><div class="card-body">
       <div class="alert {{ simulate ? 'alert-info' : 'alert-success' }}">
-         {{ (simulate ? __('Simulation : %1$d flux seraient créés, %2$d existent déjà.', 'grcmanager') : __('Import terminé : %1$d flux créés, %2$d existaient déjà.', 'grcmanager'))|format(result.created, result.skipped) }}
-         {% if simulate and result.created > 0 %}<br>{{ __('Décochez « Simulation » et analysez à nouveau le fichier pour l\'importer.', 'grcmanager') }}{% endif %}
+         {{ (simulate ? __('Simulation: %1$d flows would be created, %2$d already exist.', 'grcmanager') : __('Import finished: %1$d flows created, %2$d already existed.', 'grcmanager'))|format(result.created, result.skipped) }}
+         {% if simulate and result.created > 0 %}<br>{{ __('Untick "Simulation" and analyse the file again to import it.', 'grcmanager') }}{% endif %}
       </div>
       {% if result.errors is not empty %}
          <div class="alert alert-warning"><ul class="mb-0">
-            {% for error in result.errors %}<li>{{ __('Ligne %1$d : %2$s', 'grcmanager')|format(error.line, error.message) }}</li>{% endfor %}
+            {% for error in result.errors %}<li>{{ __('Line %1$d: %2$s', 'grcmanager')|format(error.line, error.message) }}</li>{% endfor %}
          </ul></div>
       {% endif %}
       {% if rows is not empty %}
          <div class="table-responsive">
             <table class="table table-sm align-middle">
-               <thead><tr><th>{{ __('Ligne', 'grcmanager') }}</th><th>{{ __('Nom', 'grcmanager') }}</th><th>{{ __('Type', 'grcmanager') }}</th><th>{{ __('Source', 'grcmanager') }}</th><th>{{ __('Destination', 'grcmanager') }}</th><th>{{ __('Ports', 'grcmanager') }}</th><th>{{ __('Contrôles', 'grcmanager') }}</th><th></th></tr></thead>
+               <thead><tr><th>{{ __('Line', 'grcmanager') }}</th><th>{{ __('Name', 'grcmanager') }}</th><th>{{ __('Type', 'grcmanager') }}</th><th>{{ __('Source', 'grcmanager') }}</th><th>{{ __('Destination', 'grcmanager') }}</th><th>{{ __('Ports', 'grcmanager') }}</th><th>{{ __('Checks', 'grcmanager') }}</th><th></th></tr></thead>
                <tbody>
                   {% for row in rows %}
                      {% set type_html = row.type_html %}

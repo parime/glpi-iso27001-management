@@ -30,12 +30,12 @@ final class ProfileRightsTabTest extends GrcmanagerIntegrationTestCase
     public function testTabShowsTheThreePluginRightsOnACentralProfile(): void
     {
         $profile = $this->profile('central');
-        $tab = new \PluginGrcmanagerProfile();
+        $tab = new \GlpiPlugin\Grcmanager\Profile();
 
         $this->assertNotSame('', $tab->getTabNameForItem($profile));
 
         ob_start();
-        $shown = \PluginGrcmanagerProfile::displayTabContentForItem($profile);
+        $shown = \GlpiPlugin\Grcmanager\Profile::displayTabContentForItem($profile);
         $html = (string) ob_get_clean();
 
         $this->assertTrue($shown);
@@ -51,8 +51,8 @@ final class ProfileRightsTabTest extends GrcmanagerIntegrationTestCase
     {
         $profile = $this->profile('helpdesk');
 
-        $this->assertSame('', (new \PluginGrcmanagerProfile())->getTabNameForItem($profile));
-        $this->assertFalse(\PluginGrcmanagerProfile::displayTabContentForItem($profile));
+        $this->assertSame('', (new \GlpiPlugin\Grcmanager\Profile())->getTabNameForItem($profile));
+        $this->assertFalse(\GlpiPlugin\Grcmanager\Profile::displayTabContentForItem($profile));
     }
 
     public function testTabIsHiddenWithoutTheCoreProfileRight(): void
@@ -61,10 +61,10 @@ final class ProfileRightsTabTest extends GrcmanagerIntegrationTestCase
         $saved = $_SESSION['glpiactiveprofile']['profile'] ?? 0;
         $_SESSION['glpiactiveprofile']['profile'] = 0;
         try {
-            $this->assertSame('', (new \PluginGrcmanagerProfile())->getTabNameForItem($profile));
+            $this->assertSame('', (new \GlpiPlugin\Grcmanager\Profile())->getTabNameForItem($profile));
             // ajax/common.tabs.php appelle directement le contenu : il doit refuser lui aussi.
             ob_start();
-            $shown = \PluginGrcmanagerProfile::displayTabContentForItem($profile);
+            $shown = \GlpiPlugin\Grcmanager\Profile::displayTabContentForItem($profile);
             $this->assertSame('', (string) ob_get_clean());
             $this->assertFalse($shown);
         } finally {
@@ -78,9 +78,9 @@ final class ProfileRightsTabTest extends GrcmanagerIntegrationTestCase
         $saved = $_SESSION['glpiactiveprofile'][Installer::RIGHT_NAME] ?? 0;
         $_SESSION['glpiactiveprofile'][Installer::RIGHT_NAME] = 0;
         try {
-            $this->assertSame('', (new \PluginGrcmanagerProfile())->getTabNameForItem($profile));
+            $this->assertSame('', (new \GlpiPlugin\Grcmanager\Profile())->getTabNameForItem($profile));
             ob_start();
-            $shown = \PluginGrcmanagerProfile::displayTabContentForItem($profile);
+            $shown = \GlpiPlugin\Grcmanager\Profile::displayTabContentForItem($profile);
             $this->assertSame('', (string) ob_get_clean());
             $this->assertFalse($shown);
         } finally {

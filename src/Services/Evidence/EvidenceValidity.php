@@ -23,7 +23,7 @@ namespace GlpiPlugin\Grcmanager\Services\Evidence;
  * Issue #145 : règles pures (sans GLPI) de validité des documents de preuve — un certificat ISO
  * fournisseur, un rapport de pentest ou une attestation d'assurance expirés ne prouvent plus rien.
  * Aucune décision ici ne change un statut : la tâche planifiée prévient le responsable, puis ouvre
- * un ticket « Renouveler la preuve » (PluginGrcmanagerEvidence::cronEvidencereminder()).
+ * un ticket « Renouveler la preuve » (\GlpiPlugin\Grcmanager\Evidence::cronEvidencereminder()).
  */
 final class EvidenceValidity
 {
@@ -39,10 +39,10 @@ final class EvidenceValidity
      * Éléments du plugin dont les documents peuvent porter une date de validité.
      */
     public const ITEMTYPES = [
-        'PluginGrcmanagerControl',
-        'PluginGrcmanagerSupplierRisk',
-        'PluginGrcmanagerAudit',
-        'PluginGrcmanagerPolicy',
+        'GlpiPlugin\\Grcmanager\\Control',
+        'GlpiPlugin\\Grcmanager\\SupplierRisk',
+        'GlpiPlugin\\Grcmanager\\Audit',
+        'GlpiPlugin\\Grcmanager\\Policy',
     ];
 
     /**

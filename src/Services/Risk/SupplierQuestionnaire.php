@@ -22,7 +22,7 @@ final class SupplierQuestionnaire
     /** @var array<string, float> réponse => points */
     private const POINTS = [self::ANSWER_YES => 1.0, self::ANSWER_PARTIAL => 0.5, self::ANSWER_NO => 0.0];
 
-    /** Clés des questions, dans l'ordre d'affichage (libellés : PluginGrcmanagerSupplierAssessment). */
+    /** Clés des questions, dans l'ordre d'affichage (libellés : \GlpiPlugin\Grcmanager\SupplierAssessment). */
     public const QUESTIONS = [
         'certification',
         'security_policy',

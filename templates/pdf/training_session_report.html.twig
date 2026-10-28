@@ -1,18 +1,18 @@
 {# Issue #139, phase 2 : rapport d'une session de formation (A.6.3, clauses 7.2 et 7.3) #}
 {% include '@grcmanager/pdf/_pdf_style.html.twig' %}
 
-<h2>{{ __('Résumé', 'grcmanager') }}</h2>
+<h2>{{ __('Summary', 'grcmanager') }}</h2>
 <table class="grcmanager-pdf-summary">
   <tr><td>{{ __('Format', 'grcmanager') }}</td><td>{{ format }}</td></tr>
-  <tr><td>{{ __('Date de réalisation', 'grcmanager') }}</td><td>{{ date_delivered }}</td></tr>
-  <tr><td>{{ __('Public cible', 'grcmanager') }}</td><td>{{ training.target_audience }}</td></tr>
-  <tr><td>{{ __('Obligatoire', 'grcmanager') }}</td><td>{{ training.is_mandatory ? __('Oui', 'grcmanager') : __('Non', 'grcmanager') }}</td></tr>
+  <tr><td>{{ __('Completion date', 'grcmanager') }}</td><td>{{ date_delivered }}</td></tr>
+  <tr><td>{{ __('Target audience', 'grcmanager') }}</td><td>{{ training.target_audience }}</td></tr>
+  <tr><td>{{ __('Mandatory', 'grcmanager') }}</td><td>{{ training.is_mandatory ? __('Yes', 'grcmanager') : __('No', 'grcmanager') }}</td></tr>
   {% if is_scored %}
-    <tr><td>{{ __('Seuil de réussite (%)', 'grcmanager') }}</td><td>{{ training.pass_threshold }} % ({{ __('note maximale : %s', 'grcmanager')|format(training.max_score) }})</td></tr>
+    <tr><td>{{ __('Pass threshold (%)', 'grcmanager') }}</td><td>{{ training.pass_threshold }} % ({{ __('maximum score: %s', 'grcmanager')|format(training.max_score) }})</td></tr>
   {% endif %}
   <tr><td>{{ __('Participants', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ participants|length }}</td></tr>
   {% if session_rate.rate is not null %}
-    <tr><td>{{ __('Taux de réussite', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ session_rate.passed }} / {{ session_rate.assessed }} ({{ session_rate.rate }} %)</td></tr>
+    <tr><td>{{ __('Pass rate', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ session_rate.passed }} / {{ session_rate.assessed }} ({{ session_rate.rate }} %)</td></tr>
   {% endif %}
 </table>
 
@@ -21,15 +21,15 @@
   <p>{{ training.description|nl2br }}</p>
 {% endif %}
 
-<h2>{{ __('Émargement et résultats', 'grcmanager') }}</h2>
+<h2>{{ __('Attendance and results', 'grcmanager') }}</h2>
 <table class="grcmanager-pdf-table">
   <thead>
     <tr>
       <th>{{ __('Participant', 'grcmanager') }}</th>
-      <th>{{ __('Statut de réalisation', 'grcmanager') }}</th>
-      <th>{{ __('Date de réalisation', 'grcmanager') }}</th>
-      {% if is_scored %}<th>{{ __('Note', 'grcmanager') }}</th>{% endif %}
-      <th>{{ __('Évaluation', 'grcmanager') }}</th>
+      <th>{{ __('Completion status', 'grcmanager') }}</th>
+      <th>{{ __('Completion date', 'grcmanager') }}</th>
+      {% if is_scored %}<th>{{ __('Score', 'grcmanager') }}</th>{% endif %}
+      <th>{{ __('Assessment', 'grcmanager') }}</th>
       <th style="width: 22%;">{{ __('Signature', 'grcmanager') }}</th>
     </tr>
   </thead>
@@ -44,7 +44,7 @@
         <td style="height: 28px;"></td>
       </tr>
     {% else %}
-      <tr><td colspan="{{ is_scored ? 6 : 5 }}">{{ __('Aucun participant.', 'grcmanager') }}</td></tr>
+      <tr><td colspan="{{ is_scored ? 6 : 5 }}">{{ __('No participant.', 'grcmanager') }}</td></tr>
     {% endfor %}
   </tbody>
 </table>

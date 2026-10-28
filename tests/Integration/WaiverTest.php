@@ -29,22 +29,22 @@ final class WaiverTest extends GrcmanagerIntegrationTestCase
     {
         // Colonnes par défaut de la liste : chaque jointure doit viser une vraie colonne.
         $data = \Glpi\Search\SearchEngine::getData(
-            \PluginGrcmanagerWaiver::class,
+            \GlpiPlugin\Grcmanager\Waiver::class,
             ['criteria' => []],
-            \GlpiPlugin\Grcmanager\Services\DefaultSearchColumns::COLUMNS[\PluginGrcmanagerWaiver::class]
+            \GlpiPlugin\Grcmanager\Services\DefaultSearchColumns::COLUMNS[\GlpiPlugin\Grcmanager\Waiver::class]
         );
         $this->assertArrayHasKey('data', $data);
     }
 
     public function testDateEndIsRequired(): void
     {
-        $this->assertFalse((new \PluginGrcmanagerWaiver())->add(['name' => 'Sans fin']));
+        $this->assertFalse((new \GlpiPlugin\Grcmanager\Waiver())->add(['name' => 'Sans fin']));
     }
 
     public function testApprovalIsStampedAndAssetsAreLinked(): void
     {
         $computerId = (int) (new \Computer())->add(['name' => 'SRV-DEMO-2012', 'entities_id' => 0]);
-        $waiver = new \PluginGrcmanagerWaiver();
+        $waiver = new \GlpiPlugin\Grcmanager\Waiver();
         $id = (int) $waiver->add([
             'name'                         => 'Serveur applicatif en fin de support',
             'date_begin'                   => '2026-10-01',
@@ -56,12 +56,12 @@ final class WaiverTest extends GrcmanagerIntegrationTestCase
         $this->assertGreaterThan(0, $id);
         $this->assertSame(
             [['itemtype' => 'Computer', 'items_id' => $computerId]],
-            \PluginGrcmanagerWaiver::getWaiverItems($id)
+            \GlpiPlugin\Grcmanager\Waiver::getWaiverItems($id)
         );
 
         $computer = new \Computer();
         $computer->getFromDB($computerId);
-        $this->assertCount(1, \PluginGrcmanagerWaiver::getForItem($computer));
+        $this->assertCount(1, \GlpiPlugin\Grcmanager\Waiver::getForItem($computer));
 
         // Séparation des tâches : le demandeur (session de la suite, glpi = 2) n'approuve pas.
         $waiver->getFromDB($id);
@@ -83,7 +83,7 @@ final class WaiverTest extends GrcmanagerIntegrationTestCase
 
         // Une mise à jour sans les listes d'actifs ne touche pas aux liens.
         $waiver->update(['id' => $id, 'compensating_measures' => 'Isolé dans un VLAN dédié']);
-        $this->assertCount(1, \PluginGrcmanagerWaiver::getWaiverItems($id));
+        $this->assertCount(1, \GlpiPlugin\Grcmanager\Waiver::getWaiverItems($id));
     }
 
     public function testReminderThenReevaluationTicketWithoutChangingStatus(): void
@@ -91,7 +91,7 @@ final class WaiverTest extends GrcmanagerIntegrationTestCase
         global $DB;
 
         $computerId = (int) (new \Computer())->add(['name' => 'SRV-DEMO-ECHUE', 'entities_id' => 0]);
-        $waiver = new \PluginGrcmanagerWaiver();
+        $waiver = new \GlpiPlugin\Grcmanager\Waiver();
         $id = (int) $waiver->add([
             'name'                           => 'Dérogation de démonstration',
             'date_end'                       => '2026-11-01',
@@ -102,17 +102,17 @@ final class WaiverTest extends GrcmanagerIntegrationTestCase
         // Approuvée par un tiers (le demandeur ne peut pas l'approuver, voir le test ci-dessus).
         $DB->update('glpi_plugin_grcmanager_waivers', ['status' => 'approved'], ['id' => $id]);
 
-        $first = \PluginGrcmanagerWaiver::runReminders('2026-10-25');
+        $first = \GlpiPlugin\Grcmanager\Waiver::runReminders('2026-10-25');
         $this->assertGreaterThanOrEqual(1, $first['notified']);
         $waiver->getFromDB($id);
         $notifiedAt = $waiver->fields['date_notified'];
         $this->assertNotEmpty($notifiedAt);
         $DB->update('glpi_plugin_grcmanager_waivers', ['date_notified' => '2026-10-25 06:00:00'], ['id' => $id]);
-        \PluginGrcmanagerWaiver::runReminders('2026-10-26');
+        \GlpiPlugin\Grcmanager\Waiver::runReminders('2026-10-26');
         $waiver->getFromDB($id);
         $this->assertSame('2026-10-25 06:00:00', $waiver->fields['date_notified'], 'Un seul rappel.');
 
-        \PluginGrcmanagerWaiver::runReminders('2026-11-02');
+        \GlpiPlugin\Grcmanager\Waiver::runReminders('2026-11-02');
         $waiver->getFromDB($id);
         $ticketsId = (int) $waiver->fields['tickets_id'];
         $this->assertGreaterThan(0, $ticketsId);

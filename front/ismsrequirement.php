@@ -21,25 +21,28 @@ use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
 
 include('../../../inc/includes.php');
 
-Session::checkRight(PluginGrcmanagerIsmsRequirement::$rightname, READ);
+Session::checkRight(\GlpiPlugin\Grcmanager\IsmsRequirement::$rightname, READ);
 
 Html::header(
-    PluginGrcmanagerIsmsRequirement::getTypeName(2),
+    \GlpiPlugin\Grcmanager\IsmsRequirement::getTypeName(2),
     $_SERVER['PHP_SELF'],
     'grcmanager',
-    PluginGrcmanagerControl::class,
-    PluginGrcmanagerIsmsRequirement::class
+    \GlpiPlugin\Grcmanager\Control::class,
+    \GlpiPlugin\Grcmanager\IsmsRequirement::class
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(PluginGrcmanagerControl::class, PluginGrcmanagerIsmsRequirement::class);
+\GlpiPlugin\Grcmanager\Menu::showSection(
+    \GlpiPlugin\Grcmanager\Control::class,
+    \GlpiPlugin\Grcmanager\IsmsRequirement::class
+);
 // Encadré « À quoi sert cette page ? ».
-PluginGrcmanagerPageHelp::show('ismsrequirement');
+\GlpiPlugin\Grcmanager\PageHelp::show('ismsrequirement');
 
 // Issue #113 : en-tête explicatif + barre de complétude du SMSI (articles 4 à 10), au-dessus de la
 // liste standard. Une seule barre empilée : conforme / en cours / non commencé.
-$completion = PluginGrcmanagerIsmsRequirement::getCompletion();
+$completion = \GlpiPlugin\Grcmanager\IsmsRequirement::getCompletion();
 $total      = max(1, $completion['total']);
-$statusLabels = PluginGrcmanagerIsmsRequirement::getStatuses();
+$statusLabels = \GlpiPlugin\Grcmanager\IsmsRequirement::getStatuses();
 $bars = [];
 $barColors = ['compliant' => 'bg-green', 'in_progress' => 'bg-blue', 'not_started' => 'bg-secondary'];
 foreach ($barColors as $status => $color) {
@@ -52,7 +55,7 @@ foreach ($barColors as $status => $color) {
 $statuses = [];
 foreach (array_keys($statusLabels) as $status) {
     $statuses[] = [
-        'badge_html' => PluginGrcmanagerIsmsRequirement::statusBadge($status),
+        'badge_html' => \GlpiPlugin\Grcmanager\IsmsRequirement::statusBadge($status),
         'count'      => $completion[$status],
     ];
 }
@@ -64,12 +67,12 @@ TemplateRenderer::getInstance()->display('@grcmanager/isms_requirement_list_head
     'statuses'   => $statuses,
 ]);
 
-$params = QueryBuilder::manageParams(PluginGrcmanagerIsmsRequirement::class, $_GET);
+$params = QueryBuilder::manageParams(\GlpiPlugin\Grcmanager\IsmsRequirement::class, $_GET);
 
 Search::showList(
-    PluginGrcmanagerIsmsRequirement::class,
+    \GlpiPlugin\Grcmanager\IsmsRequirement::class,
     $params,
-    DefaultSearchColumns::COLUMNS[PluginGrcmanagerIsmsRequirement::class]
+    DefaultSearchColumns::COLUMNS[\GlpiPlugin\Grcmanager\IsmsRequirement::class]
 );
 
 Html::footer();

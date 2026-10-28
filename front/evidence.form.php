@@ -20,28 +20,28 @@ include('../../../inc/includes.php');
 // Issue #145 : enregistre ou retire la date de validité d'un document de preuve, depuis l'onglet
 // « Validités des preuves » de l'élément porteur, puis revient sur sa fiche. Droit de modification
 // sur CET élément (entité comprise), jamais le seul droit global du plugin.
-Session::checkRight(PluginGrcmanagerEvidence::RIGHTNAME, UPDATE);
+Session::checkRight(\GlpiPlugin\Grcmanager\Evidence::RIGHTNAME, UPDATE);
 
 $itemtype = (string) ($_POST['itemtype'] ?? '');
 $itemsId = (int) ($_POST['items_id'] ?? 0);
 $documentsId = (int) ($_POST['documents_id'] ?? 0);
 
-$parent = PluginGrcmanagerEvidence::loadParent($itemtype, $itemsId);
+$parent = \GlpiPlugin\Grcmanager\Evidence::loadParent($itemtype, $itemsId);
 if ($parent === null) {
     throw new \Glpi\Exception\Http\NotFoundHttpException();
 }
 if (!$parent->can($itemsId, UPDATE)) {
     throw new \Glpi\Exception\Http\AccessDeniedHttpException();
 }
-if (!PluginGrcmanagerEvidence::isDocumentLinked($itemtype, $itemsId, $documentsId)) {
+if (!\GlpiPlugin\Grcmanager\Evidence::isDocumentLinked($itemtype, $itemsId, $documentsId)) {
     throw new \Glpi\Exception\Http\NotFoundHttpException();
 }
 // L'élément porteur est global, le document de preuve appartient à une entité.
-if (!PluginGrcmanagerEvidence::canReadDocument($documentsId)) {
+if (!\GlpiPlugin\Grcmanager\Evidence::canReadDocument($documentsId)) {
     throw new \Glpi\Exception\Http\AccessDeniedHttpException();
 }
 
-$evidence = new PluginGrcmanagerEvidence();
+$evidence = new \GlpiPlugin\Grcmanager\Evidence();
 $exists = $evidence->getFromDBByCrit(['itemtype' => $itemtype, 'items_id' => $itemsId, 'documents_id' => $documentsId]);
 
 if (isset($_POST['purge'])) {

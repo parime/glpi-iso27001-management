@@ -20,7 +20,7 @@ use GlpiPlugin\Grcmanager\Services\Access\AccountHygieneRules;
 include('../../../inc/includes.php');
 
 // Issue #184 : hygiène des comptes (droit du plugin + lecture native des utilisateurs).
-Session::checkRight(PluginGrcmanagerAccountHygiene::RIGHTNAME, READ);
+Session::checkRight(\GlpiPlugin\Grcmanager\AccountHygiene::RIGHTNAME, READ);
 Session::checkRight(User::$rightname, READ);
 
 $days = AccountHygieneRules::normalizeDays($_REQUEST['days'] ?? AccountHygieneRules::DEFAULT_INACTIVITY_DAYS);
@@ -28,29 +28,32 @@ $days = AccountHygieneRules::normalizeDays($_REQUEST['days'] ?? AccountHygieneRu
 if (isset($_POST['create_ticket'])) {
     Session::checkRight(Ticket::$rightname, CREATE);
     $usersIds = array_values(array_map('intval', (array) ($_POST['users_id'] ?? [])));
-    $ticketsId = PluginGrcmanagerAccountHygiene::createReviewTicket($usersIds, $days);
+    $ticketsId = \GlpiPlugin\Grcmanager\AccountHygiene::createReviewTicket($usersIds, $days);
     if ($ticketsId > 0) {
-        $message = sprintf(__('Ticket de revue n°%d créé.', 'grcmanager'), $ticketsId);
+        $message = sprintf(__('Review ticket #%d created.', 'grcmanager'), $ticketsId);
         Session::addMessageAfterRedirect(htmlescape($message));
         Html::redirect(Ticket::getFormURLWithID($ticketsId));
     }
-    $message = __('Cochez au moins un compte à vérifier.', 'grcmanager');
+    $message = __('Tick at least one account to check.', 'grcmanager');
     Session::addMessageAfterRedirect(htmlescape($message), false, WARNING);
-    Html::redirect(PluginGrcmanagerAccountHygiene::getSearchURL() . '?days=' . $days);
+    Html::redirect(\GlpiPlugin\Grcmanager\AccountHygiene::getSearchURL() . '?days=' . $days);
 }
 
 Html::header(
-    PluginGrcmanagerAccountHygiene::getTypeName(),
-    PluginGrcmanagerAccountHygiene::getSearchURL(),
+    \GlpiPlugin\Grcmanager\AccountHygiene::getTypeName(),
+    \GlpiPlugin\Grcmanager\AccountHygiene::getSearchURL(),
     'grcmanager',
-    PluginGrcmanagerAccessReview::class,
-    PluginGrcmanagerAccountHygiene::class
+    \GlpiPlugin\Grcmanager\AccessReview::class,
+    \GlpiPlugin\Grcmanager\AccountHygiene::class
 );
 // Encadré « À quoi sert cette page ? ».
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(PluginGrcmanagerAccessReview::class, PluginGrcmanagerAccountHygiene::class);
-PluginGrcmanagerPageHelp::show('accounthygiene');
+\GlpiPlugin\Grcmanager\Menu::showSection(
+    \GlpiPlugin\Grcmanager\AccessReview::class,
+    \GlpiPlugin\Grcmanager\AccountHygiene::class
+);
+\GlpiPlugin\Grcmanager\PageHelp::show('accounthygiene');
 
-PluginGrcmanagerAccountHygiene::showList($days);
+\GlpiPlugin\Grcmanager\AccountHygiene::showList($days);
 
 Html::footer();

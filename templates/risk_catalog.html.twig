@@ -1,18 +1,26 @@
 {# Issue #178 : catalogue de risques types d'infrastructure, à importer dans le registre #}
 <div class="container-fluid">
    <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
-      <h2 class="mb-0"><i class="ti ti-books me-1"></i>{{ __('Catalogue de risques types', 'grcmanager') }}</h2>
-      <a class="btn btn-outline-secondary ms-auto" href="{{ risks_url }}"><i class="ti ti-list me-1"></i>{{ __('Registre des risques', 'grcmanager') }}</a>
+      <h2 class="mb-0"><i class="ti ti-books me-1"></i>{{ __('Catalog of typical risks', 'grcmanager') }}</h2>
+      <a class="btn btn-outline-secondary ms-auto" href="{{ risks_url }}"><i class="ti ti-list me-1"></i>{{ __('Risk register', 'grcmanager') }}</a>
    </div>
 
-   <div class="alert alert-info">
-      <i class="ti ti-info-circle me-1"></i>{{ __('Ces risques reviennent d\'une infrastructure à l\'autre et se repèrent sur un simple schéma réseau. Lisez les questions de chacun, cochez ceux qui vous concernent : ils sont ajoutés au registre au statut « Identifié », avec leurs mesures de l\'Annexe A, pour être évalués comme les autres. Rien n\'est coté à votre place.', 'grcmanager') }}
-   </div>
 
    <form method="post" action="{{ action }}">
       <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+      {% for group, group_label in groups %}
+      <h3 class="mt-3 mb-2">{{ group_label }}</h3>
+      {% if group == 'infrastructure' %}
+         <div class="alert alert-info">
+            <i class="ti ti-info-circle me-1"></i>{{ __('These risks recur from one infrastructure to another and can be spotted on a simple network diagram. Read the questions for each one and tick those that apply to you: they are added to the register with the "Identified" status and their Annex A controls, to be assessed like the others. Nothing is rated for you.', 'grcmanager') }}
+         </div>
+      {% endif %}
+      {% if group == 'ai' %}
+         <p class="text-muted small">{{ __('Typical risks for an organization that uses AI more than it develops it. The badges refer to the sections of ISO/IEC 27090:2026.', 'grcmanager') }}
+            <a href="{{ path('/plugins/grcmanager/front/referentiels.php') }}#grcmanager-iso27090-body">{{ __('See the ISO/IEC 27090 framework', 'grcmanager') }}</a></p>
+      {% endif %}
       <div class="row row-cards">
-         {% for key, entry in entries %}
+         {% for key, entry in entries|filter((entry, key) => group_of[key] == group) %}
             {% set done = imported[key] is defined %}
             <div class="col-md-6 col-xl-4">
                <div class="card h-100 {{ done ? 'bg-light' : '' }}">
@@ -30,27 +38,31 @@
                         {% for code, url in controls[key] %}
                            {% if url %}<a class="badge bg-azure-lt me-1" href="{{ url }}">{{ code }}</a>{% else %}<span class="badge bg-azure-lt me-1">{{ code }}</span>{% endif %}
                         {% endfor %}
+                        {% for section in iso27090[key] %}
+                           <span class="badge bg-purple-lt me-1" title="ISO/IEC 27090:2026">27090 §{{ section }}</span>
+                        {% endfor %}
                      </div>
                      <p>{{ entry.description }}</p>
-                     <p class="text-muted small"><strong>{{ __('Menaces :', 'grcmanager') }}</strong> {{ entry.threats }}</p>
-                     <div class="small fw-bold">{{ __('Questions pour savoir s\'il s\'applique :', 'grcmanager') }}</div>
+                     <p class="text-muted small"><strong>{{ __('Threats:', 'grcmanager') }}</strong> {{ entry.threats }}</p>
+                     <div class="small fw-bold">{{ __('Questions to tell whether it applies:', 'grcmanager') }}</div>
                      <ul class="small mb-0">
                         {% for question in entry.questions %}<li>{{ question }}</li>{% endfor %}
                      </ul>
                   </div>
                   {% if done %}
                      <div class="card-footer">
-                        <i class="ti ti-circle-check text-green me-1"></i>{{ __('Déjà dans le registre', 'grcmanager') }}
-                        <a href="{{ risk_url }}?id={{ imported[key] }}">{{ __('Voir le risque', 'grcmanager') }}</a>
+                        <i class="ti ti-circle-check text-green me-1"></i>{{ __('Already in the register', 'grcmanager') }}
+                        <a href="{{ risk_url }}?id={{ imported[key] }}">{{ __('View the risk', 'grcmanager') }}</a>
                      </div>
                   {% endif %}
                </div>
             </div>
          {% endfor %}
       </div>
+      {% endfor %}
       {% if can_create %}
          <div class="mt-3">
-            <button type="submit" name="import" value="1" class="btn btn-primary"><i class="ti ti-playlist-add me-1"></i>{{ __('Ajouter au registre les risques cochés', 'grcmanager') }}</button>
+            <button type="submit" name="import" value="1" class="btn btn-primary"><i class="ti ti-playlist-add me-1"></i>{{ __('Add the ticked risks to the register', 'grcmanager') }}</button>
          </div>
       {% endif %}
    </form>

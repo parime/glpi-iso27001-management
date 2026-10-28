@@ -22,23 +22,23 @@ include('../../../inc/includes.php');
 // Issue #145 : liste des preuves datées, de la plus proche de l'expiration à la plus lointaine.
 // Search::show() applique la restriction d'entité de la table (entities_id/is_recursive, repris de
 // l'élément porteur à la création).
-Session::checkRight(PluginGrcmanagerEvidence::RIGHTNAME, READ);
+Session::checkRight(\GlpiPlugin\Grcmanager\Evidence::RIGHTNAME, READ);
 
 Html::header(
-    PluginGrcmanagerEvidence::getTypeName(Session::getPluralNumber()),
+    \GlpiPlugin\Grcmanager\Evidence::getTypeName(Session::getPluralNumber()),
     $_SERVER['PHP_SELF'],
     'grcmanager',
-    PluginGrcmanagerControl::class,
-    PluginGrcmanagerEvidence::class
+    \GlpiPlugin\Grcmanager\Control::class,
+    \GlpiPlugin\Grcmanager\Evidence::class
 );
 // Encadré « À quoi sert cette page ? ».
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(PluginGrcmanagerControl::class, PluginGrcmanagerEvidence::class);
-PluginGrcmanagerPageHelp::show('evidence');
+\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\Control::class, \GlpiPlugin\Grcmanager\Evidence::class);
+\GlpiPlugin\Grcmanager\PageHelp::show('evidence');
 
 TemplateRenderer::getInstance()->display('@grcmanager/_list_toolbar.html.twig', ['notice' => __(
-    'Une date de validité se saisit depuis l\'onglet « Validités des preuves » d\'une mesure, d\'un '
-        . 'risque fournisseur, d\'un audit ou d\'une politique, pour chaque document rattaché.',
+    'A validity date is entered from the "Evidence validity" tab of a control, supplier risk, audit or policy, for '
+        . 'each attached document.',
     'grcmanager'
 )]);
 
@@ -46,6 +46,6 @@ if (!isset($_GET['sort'])) {
     $_GET['sort'] = 4;
     $_GET['order'] = 'ASC';
 }
-Search::show(PluginGrcmanagerEvidence::class);
+Search::show(\GlpiPlugin\Grcmanager\Evidence::class);
 
 Html::footer();

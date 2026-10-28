@@ -182,16 +182,16 @@ jobs:
       - name: Regenerate .pot from current code
         run: |
           vendor/bin/extract-locales
-          # extract-locales' own last step overwrites en_GB.po from scratch via msginit (French
-          # msgid copied as a placeholder msgstr for every string, wiping real English
-          # translations) - undo that so en_GB.po is checked the same way as fr_FR.po, not
-          # blindly regenerated.
+          # extract-locales' own last step overwrites en_GB.po from scratch via msginit (msgid
+          # copied as msgstr for every string) - undo that so en_GB.po is checked the same way
+          # as every other language, not blindly regenerated.
           git checkout -- locales/en_GB.po
 
       - name: Check every language has a translation for every extracted string
         run: |
           status=0
-          for lang in fr_FR en_GB; do
+          for po in locales/*.po; do
+            lang=$(basename "$po" .po)
             msgmerge --no-fuzzy-matching --quiet -o /tmp/merged_${lang}.po locales/${lang}.po locales/grcmanager.pot
             missing=$(msgattrib --untranslated /tmp/merged_${lang}.po | grep -c '^msgid "[^"]' || true)
             if [ "$missing" -gt 0 ]; then
@@ -349,8 +349,8 @@ jobs:
           '
 
       # Issue #146 : PHPStan sur TOUT le plugin (inc/, front/, src/), avec les sources de GLPI de
-      # ce conteneur ; le job « PHP quality » n'analyse que les services en PHP pur. Les
-      # signalements existants sont dans phpstan-glpi-baseline.neon : tout nouveau fait echouer.
+      # ce conteneur ; le job « PHP quality » n'analyse que les services en PHP pur. Sans base
+      # d'exceptions : tout signalement fait echouer.
       - name: PHPStan sur tout le plugin, avec GLPI
         run: |
           docker exec glpi sh -c '

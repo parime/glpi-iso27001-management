@@ -6,7 +6,7 @@ namespace GlpiPlugin\Grcmanager\Compatibility\Base;
 
 use CommonDBTM;
 use GlpiPlugin\Grcmanager\Compatibility\GlpiVersion;
-use PluginGrcmanagerWaiver;
+use GlpiPlugin\Grcmanager\Waiver;
 
 /*
  * Propriété statique typée sur GLPI 12, non typée sur GLPI 11 (même schéma que EvidenceBase).
@@ -14,13 +14,13 @@ use PluginGrcmanagerWaiver;
 if (GlpiVersion::isAtLeast12()) {
     abstract class WaiverBase extends CommonDBTM
     {
-        public static string $rightname = PluginGrcmanagerWaiver::RIGHTNAME;
+        public static string $rightname = \GlpiPlugin\Grcmanager\Waiver::RIGHTNAME;
         public bool $dohistory = true;
     }
 } else {
     abstract class WaiverBase extends CommonDBTM
     {
-        public static $rightname = PluginGrcmanagerWaiver::RIGHTNAME;
+        public static $rightname = \GlpiPlugin\Grcmanager\Waiver::RIGHTNAME;
         public $dohistory = true;
     }
 }

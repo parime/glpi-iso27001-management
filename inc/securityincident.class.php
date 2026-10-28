@@ -32,7 +32,7 @@ use GlpiPlugin\Grcmanager\Services\Ui\Fragment;
  * glpi-security-incidents (ROADMAP.md "Version 2.0", now archived) into this plugin as one merged
  * object: the operational ITIL workflow (actors, tasks, notifications, CVE tracking) AND the
  * ISO/IEC 27001:2022 Annexe A A.5.24-27 compliance fields (`category`/`severity`/`cia_impact`/
- * `root_cause`/`lessons_learned`/link to a PluginGrcmanagerRisk) that used to live on a separate,
+ * `root_cause`/`lessons_learned`/link to a \GlpiPlugin\Grcmanager\Risk) that used to live on a separate,
  * lightweight `PluginGrcmanagerSecurityIncident` CommonDBTM register (issue #29) — ONE record per
  * real-world incident now, not two that could drift apart or be double-entered. The ISO
  * classification fields render in their own accordion via `Hooks::POST_ITIL_INFO_SECTION` (see
@@ -45,7 +45,12 @@ use GlpiPlugin\Grcmanager\Services\Ui\Fragment;
  * several GLPI core mechanisms that a `CommonITILObject` subclass must hook into derive internal
  * identifiers straight from `strtolower(static::class)` with no namespace-awareness (confirmed the
  * hard way on the original plugin — `CommonITILObject::getITILTemplateToUse()` tried to `SELECT` a
- * column literally named after the PSR-4 namespace when this class was namespaced).
+ * column literally named after the PSR-4 namespace when this class was namespaced). Issue #293
+ * confirmed a second one: NotificationTargetCommonITILObject builds the template tags from
+ * `strtolower($this->obj::class)` (`##plugingrcmanagersecurityincident.title##`), and the
+ * `##IF…##`/`##FOREACH…##` parser only accepts `[a-z-0-9._]` — a namespaced name would break
+ * every incident e-mail, customised templates included. Its ITIL satellites (actors, tasks, costs,
+ * templates and their fields, notification target, rules) stay in inc/ for the same reason.
  *
  * Which parts of this object are exposed is controlled by `SecurityIncidentModuleConfig` (see
  * front/config.php): the ISO classification fields and the base ITIL object itself are never
@@ -82,11 +87,11 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
     public static function getCategories(): array
     {
         return [
-            'data_breach'         => __('Violation de données', 'grcmanager'),
-            'malware'             => __('Logiciel malveillant', 'grcmanager'),
-            'unauthorized_access' => __('Accès non autorisé', 'grcmanager'),
-            'availability'        => __('Indisponibilité / déni de service', 'grcmanager'),
-            'other'               => __('Autre', 'grcmanager'),
+            'data_breach'         => __('Data breach', 'grcmanager'),
+            'malware'             => __('Malware', 'grcmanager'),
+            'unauthorized_access' => __('Unauthorized access', 'grcmanager'),
+            'availability'        => __('Unavailability / denial of service', 'grcmanager'),
+            'other'               => __('Other', 'grcmanager'),
         ];
     }
 
@@ -96,9 +101,9 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
     public static function getSeverities(): array
     {
         return [
-            'minor'    => __('Mineure', 'grcmanager'),
-            'major'    => __('Majeure', 'grcmanager'),
-            'critical' => __('Critique', 'grcmanager'),
+            'minor'    => __('Minor', 'grcmanager'),
+            'major'    => __('Major', 'grcmanager'),
+            'critical' => __('Critical', 'grcmanager'),
         ];
     }
 
@@ -108,9 +113,9 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
     public static function getCiaAxisLabels(): array
     {
         return [
-            'confidentiality' => __('Confidentialité', 'grcmanager'),
-            'integrity'       => __('Intégrité', 'grcmanager'),
-            'availability'    => __('Disponibilité', 'grcmanager'),
+            'confidentiality' => __('Confidentiality', 'grcmanager'),
+            'integrity'       => __('Integrity', 'grcmanager'),
+            'availability'    => __('Availability', 'grcmanager'),
         ];
     }
 
@@ -314,7 +319,7 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
         $this->addDefaultFormTab($tabs);
 
         if (SecurityIncidentModuleConfig::load()['securityincident_cve_enabled']) {
-            $this->addStandardTab(PluginGrcmanagerSecurityIncidentCve::class, $tabs, $options);
+            $this->addStandardTab(\GlpiPlugin\Grcmanager\SecurityIncidentCve::class, $tabs, $options);
         }
 
         $this->addStandardTab(PluginGrcmanagerSecurityIncident_Item::class, $tabs, $options);
@@ -333,7 +338,7 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
 
         $this->deleteChildrenAndRelationsFromDb([
             PluginGrcmanagerSecurityIncident_Item::class,
-            PluginGrcmanagerSecurityIncidentCve::class,
+            \GlpiPlugin\Grcmanager\SecurityIncidentCve::class,
             PluginGrcmanagerSecurityIncidentCost::class,
         ]);
 
@@ -430,7 +435,7 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
             if (
                 $riskId > 0
                 && Session::getLoginUserID() !== false
-                && !(new PluginGrcmanagerRisk())->can($riskId, READ)
+                && !(new \GlpiPlugin\Grcmanager\Risk())->can($riskId, READ)
             ) {
                 unset($input['plugin_grcmanager_risks_id']);
             }
@@ -466,11 +471,7 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
 
             if (SecurityIncidentRules::isClosureDocumentationMissing($rootCause, $lessonsLearned)) {
                 Session::addMessageAfterRedirect(
-                    __(
-                        'La cause racine et les enseignements tirés sont obligatoires pour clôturer un '
-                            . 'incident de sécurité.',
-                        'grcmanager'
-                    ),
+                    __('The root cause and lessons learned are required to close a security incident.', 'grcmanager'),
                     false,
                     ERROR
                 );
@@ -494,7 +495,7 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
             'id'       => 220,
             'table'    => $this->getTable(),
             'field'    => 'category',
-            'name'     => __('Catégorie', 'grcmanager'),
+            'name'     => __('Category', 'grcmanager'),
             'datatype' => 'specific',
         ];
 
@@ -502,7 +503,7 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
             'id'       => 221,
             'table'    => $this->getTable(),
             'field'    => 'severity',
-            'name'     => __('Sévérité', 'grcmanager'),
+            'name'     => __('Severity', 'grcmanager'),
             'datatype' => 'specific',
         ];
 
@@ -510,7 +511,7 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
             'id'       => 222,
             'table'    => $this->getTable(),
             'field'    => 'cia_impact',
-            'name'     => __('Impact C/I/D', 'grcmanager'),
+            'name'     => __('CIA impact', 'grcmanager'),
             'datatype' => 'specific',
         ];
 
@@ -518,7 +519,7 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
             'id'       => 223,
             'table'    => $this->getTable(),
             'field'    => 'root_cause',
-            'name'     => __('Cause racine', 'grcmanager'),
+            'name'     => __('Root cause', 'grcmanager'),
             'datatype' => 'text',
         ];
 
@@ -526,7 +527,7 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
             'id'       => 224,
             'table'    => $this->getTable(),
             'field'    => 'lessons_learned',
-            'name'     => __('Enseignements tirés', 'grcmanager'),
+            'name'     => __('Lessons learned', 'grcmanager'),
             'datatype' => 'text',
         ];
 
@@ -534,7 +535,7 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
             'id'       => 225,
             'table'    => $this->getTable(),
             'field'    => 'plugin_grcmanager_risks_id',
-            'name'     => PluginGrcmanagerRisk::getTypeName(1),
+            'name'     => \GlpiPlugin\Grcmanager\Risk::getTypeName(1),
             'datatype' => 'specific',
         ];
 
@@ -543,14 +544,14 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
             'id'       => 226,
             'table'    => $this->getTable(),
             'field'    => 'nis2_applicable',
-            'name'     => __('Soumis à NIS2', 'grcmanager'),
+            'name'     => __('Subject to NIS2', 'grcmanager'),
             'datatype' => 'bool',
         ];
         $tab[] = [
             'id'       => 227,
             'table'    => $this->getTable(),
             'field'    => 'personal_data_breach',
-            'name'     => __('Violation de données personnelles', 'grcmanager'),
+            'name'     => __('Personal data breach', 'grcmanager'),
             'datatype' => 'bool',
         ];
         $id = 228;
@@ -559,7 +560,7 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
                 'id'       => $id++,
                 'table'    => $this->getTable(),
                 'field'    => RegulatoryDeadlines::DEADLINES[$key][2],
-                'name'     => sprintf(__('%s : notifié le', 'grcmanager'), $label),
+                'name'     => sprintf(__('%s: notified on', 'grcmanager'), $label),
                 'datatype' => 'datetime',
             ];
         }
@@ -568,7 +569,7 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
             'id'       => 232,
             'table'    => $this->getTable(),
             'field'    => 'is_exercise',
-            'name'     => __('Exercice de crise', 'grcmanager'),
+            'name'     => __('Crisis exercise', 'grcmanager'),
             'datatype' => 'bool',
         ];
 
@@ -583,10 +584,10 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
     public static function getRegulatoryLabels(): array
     {
         return [
-            'nis2_early_warning' => __('NIS2 — alerte précoce (24 h)', 'grcmanager'),
-            'nis2_notification'  => __('NIS2 — notification d\'incident (72 h)', 'grcmanager'),
-            'nis2_final_report'  => __('NIS2 — rapport final (1 mois)', 'grcmanager'),
-            'gdpr_notification'  => __('RGPD — notification à l\'autorité de contrôle (72 h)', 'grcmanager'),
+            'nis2_early_warning' => __('NIS2 — early warning (24 h)', 'grcmanager'),
+            'nis2_notification'  => __('NIS2 — incident notification (72 h)', 'grcmanager'),
+            'nis2_final_report'  => __('NIS2 — final report (1 month)', 'grcmanager'),
+            'gdpr_notification'  => __('GDPR — notification to the supervisory authority (72 h)', 'grcmanager'),
         ];
     }
 
@@ -597,7 +598,7 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
     {
         return $name === 'regulatorydeadlines'
             ? ['description' => __(
-                'Signale par un suivi les délais de notification NIS2 / RGPD proches ou dépassés',
+                'Reports NIS2 / GDPR notification deadlines that are near or past with a follow-up',
                 'grcmanager'
             )]
             : [];
@@ -632,8 +633,8 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
             }
             foreach ($toAlert as $deadline) {
                 $message = $deadline['status'] === RegulatoryDeadlines::STATUS_OVERDUE
-                    ? __('Échéance dépassée : « %1$s » devait être faite au plus tard le %2$s.', 'grcmanager')
-                    : __('Échéance proche : « %1$s » doit être faite au plus tard le %2$s.', 'grcmanager');
+                    ? __('Deadline passed: “%1$s” was due no later than %2$s.', 'grcmanager')
+                    : __('Deadline approaching: “%1$s” is due no later than %2$s.', 'grcmanager');
                 (new ITILFollowup())->add([
                     'itemtype'   => self::class,
                     'items_id'   => (int) $row['id'],
@@ -645,8 +646,8 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
                             Html::convDateTime($deadline['due'])
                         ),
                         __(
-                            'Rien n\'est envoyé automatiquement à l\'autorité : faites la notification, puis '
-                                . 'renseignez sa date dans « Notifications réglementaires » sur l\'incident.',
+                            'Nothing is sent to the authority automatically: make the notification, then enter its '
+                                . 'date in “Regulatory notifications” on the incident.',
                             'grcmanager'
                         ),
                     ]),
@@ -711,15 +712,15 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
     private static function categoryBadge(?string $value): string
     {
         $map = [
-            'data_breach'         => ['bg-red-lt', 'ti-file-shredder', __('Violation de données', 'grcmanager')],
-            'malware'             => ['bg-orange-lt', 'ti-virus', __('Logiciel malveillant', 'grcmanager')],
-            'unauthorized_access' => ['bg-purple-lt', 'ti-lock-open', __('Accès non autorisé', 'grcmanager')],
+            'data_breach'         => ['bg-red-lt', 'ti-file-shredder', __('Data breach', 'grcmanager')],
+            'malware'             => ['bg-orange-lt', 'ti-virus', __('Malware', 'grcmanager')],
+            'unauthorized_access' => ['bg-purple-lt', 'ti-lock-open', __('Unauthorized access', 'grcmanager')],
             'availability'        => [
                 'bg-yellow-lt',
                 'ti-plug-connected-x',
-                __('Indisponibilité / déni de service', 'grcmanager'),
+                __('Unavailability / denial of service', 'grcmanager'),
             ],
-            'other'               => ['bg-secondary-lt', 'ti-dots', __('Autre', 'grcmanager')],
+            'other'               => ['bg-secondary-lt', 'ti-dots', __('Other', 'grcmanager')],
         ];
 
         [$class, $icon, $label] = $map[$value] ?? ['bg-secondary-lt', 'ti-help', (string) $value];
@@ -730,9 +731,9 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
     private static function severityBadge(?string $value): string
     {
         $map = [
-            'minor'    => ['bg-yellow-lt', 'ti-alert-circle', __('Mineure', 'grcmanager')],
-            'major'    => ['bg-orange-lt', 'ti-alert-triangle', __('Majeure', 'grcmanager')],
-            'critical' => ['bg-red-lt', 'ti-alert-octagon', __('Critique', 'grcmanager')],
+            'minor'    => ['bg-yellow-lt', 'ti-alert-circle', __('Minor', 'grcmanager')],
+            'major'    => ['bg-orange-lt', 'ti-alert-triangle', __('Major', 'grcmanager')],
+            'critical' => ['bg-red-lt', 'ti-alert-octagon', __('Critical', 'grcmanager')],
         ];
 
         [$class, $icon, $label] = $map[$value] ?? ['bg-secondary-lt', 'ti-help', (string) $value];
@@ -765,7 +766,7 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
         }
 
         // Titre du risque seulement pour qui peut lire le registre des risques.
-        $risk = new PluginGrcmanagerRisk();
+        $risk = new \GlpiPlugin\Grcmanager\Risk();
         if (!$risk->can($riskId, READ)) {
             return '';
         }

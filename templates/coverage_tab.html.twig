@@ -2,10 +2,10 @@
 {% set colors = {'full': 'bg-green', 'partial': 'bg-orange', 'low': 'bg-red', 'none': 'bg-secondary'} %}
 <div class="container-fluid">
    {% if new_url %}
-      <div class="mb-2"><a class="btn btn-outline-primary btn-sm" href="{{ new_url }}"><i class="ti ti-plus me-1"></i>{{ __('Nouvelle règle de couverture', 'grcmanager') }}</a></div>
+      <div class="mb-2"><a class="btn btn-outline-primary btn-sm" href="{{ new_url }}"><i class="ti ti-plus me-1"></i>{{ __('New coverage rule', 'grcmanager') }}</a></div>
    {% endif %}
    {% if rules is empty %}
-      <div class="text-muted">{{ __('Aucune règle de couverture pour cet élément.', 'grcmanager') }}</div>
+      <div class="text-muted">{{ __('No coverage rule for this item.', 'grcmanager') }}</div>
    {% else %}
       <table class="table table-card">
          <tbody>
@@ -14,7 +14,7 @@
                <td><a href="{{ rule.url }}">{{ rule.name }}</a></td>
                <td style="width: 45%">
                   {% if rule.coverage.rate is null %}
-                     <span class="text-muted">{{ __('Aucun actif à couvrir', 'grcmanager') }}</span>
+                     <span class="text-muted">{{ __('No asset to cover', 'grcmanager') }}</span>
                   {% else %}
                      <div class="progress"><div class="progress-bar {{ colors[rule.coverage.level] }}" style="width: {{ rule.coverage.rate }}%"></div></div>
                   {% endif %}

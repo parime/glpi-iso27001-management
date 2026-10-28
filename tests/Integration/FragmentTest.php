@@ -60,8 +60,8 @@ final class FragmentTest extends GrcmanagerIntegrationTestCase
 
     public function testControlListShowsTheCodeAsALink(): void
     {
-        $html = \PluginGrcmanagerControl::getSpecificValueToDisplay('code', ['code' => 'A.5.1', 'id' => 7]);
+        $html = \GlpiPlugin\Grcmanager\Control::getSpecificValueToDisplay('code', ['code' => 'A.5.1', 'id' => 7]);
         $this->assertStringContainsString('<strong>A.5.1</strong> - ', $html);
-        $this->assertStringContainsString(\PluginGrcmanagerControl::getFormURLWithID(7), $html);
+        $this->assertStringContainsString(\GlpiPlugin\Grcmanager\Control::getFormURLWithID(7), $html);
     }
 }

@@ -6,15 +6,25 @@ namespace GlpiPlugin\Grcmanager\Install;
 
 use CronTask;
 use DBConnection;
+use GlpiPlugin\Grcmanager\Audit;
+use GlpiPlugin\Grcmanager\ComplianceEvent;
+use GlpiPlugin\Grcmanager\Evidence;
+use GlpiPlugin\Grcmanager\Nonconformity;
+use GlpiPlugin\Grcmanager\NotificationTargetComplianceEvent;
+use GlpiPlugin\Grcmanager\NotificationTargetEvidence;
+use GlpiPlugin\Grcmanager\NotificationTargetTraining;
+use GlpiPlugin\Grcmanager\NotificationTargetWaiver;
 use GlpiPlugin\Grcmanager\Services\Clause\IsmsClauseCatalog;
 use GlpiPlugin\Grcmanager\Services\Control\ControlCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Dashboard\DefaultDashboardService;
 use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
 use GlpiPlugin\Grcmanager\Services\Incident\LegacySecurityIncidentMigrator;
 use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentModuleConfig;
+use GlpiPlugin\Grcmanager\Services\Notification\NotificationHtml;
 use GlpiPlugin\Grcmanager\Services\Cve\NvdConfigDefaults;
 use GlpiPlugin\Grcmanager\Services\Review\PeriodicReviewCatalog;
 use GlpiPlugin\Grcmanager\Services\Risk\RiskMatrixDefaults;
+use GlpiPlugin\Grcmanager\Waiver;
 use Migration;
 use Notification;
 use NotificationTemplate;
@@ -62,7 +72,7 @@ final class Installer
     private const CVE_ENRICHMENTS_TABLE = 'glpi_plugin_grcmanager_cveenrichments';
 
     // Corrélation CPE des CVE avec le parc GLPI : catalogue de correspondance produit (cf.
-    // ROADMAP.md, PluginGrcmanagerCanonicalProduct et ses deux tables satellites ci-dessous).
+    // ROADMAP.md, \GlpiPlugin\Grcmanager\CanonicalProduct et ses deux tables satellites ci-dessous).
     private const CANONICAL_PRODUCTS_TABLE = 'glpi_plugin_grcmanager_canonicalproducts';
 
     private const CPE_REFERENCES_TABLE = 'glpi_plugin_grcmanager_cpereferences';
@@ -180,19 +190,19 @@ final class Installer
     // RISK_MATRIX_CONFIG_TABLE ci-dessus (voir SecurityIncidentModuleConfig). Ne pilote jamais de
     // DDL - seulement l'enregistrement des hooks/menus/onglets à l'exécution.
     private const SECURITY_INCIDENT_CONFIG_TABLE = 'glpi_plugin_grcmanager_securityincidentconfig';
-    // Issue #145 : validité des documents de preuve, voir PluginGrcmanagerEvidence.
+    // Issue #145 : validité des documents de preuve, voir \GlpiPlugin\Grcmanager\Evidence.
     private const EVIDENCES_TABLE = 'glpi_plugin_grcmanager_evidences';
-    // Voir \PluginGrcmanagerRestrictedDocument::TABLE.
+    // Voir \\GlpiPlugin\Grcmanager\RestrictedDocument::TABLE.
     private const RESTRICTED_DOCUMENTS_TABLE = 'glpi_plugin_grcmanager_restricteddocuments';
-    // Issue #140 : équipe d'audit (auditeurs supplémentaires, audités), voir PluginGrcmanagerAuditTeam.
+    // Issue #140 : équipe d'audit (auditeurs supplémentaires, audités), voir \GlpiPlugin\Grcmanager\AuditTeam.
     private const AUDITS_USERS_TABLE = 'glpi_plugin_grcmanager_audits_users';
-    // Issue #140 : téléchargements des documents restreints, voir PluginGrcmanagerDocumentAccess.
+    // Issue #140 : téléchargements des documents restreints, voir \GlpiPlugin\Grcmanager\DocumentAccess.
     private const DOCUMENT_ACCESSES_TABLE = 'glpi_plugin_grcmanager_documentaccesses';
-    // Issue #141 : revues périodiques du SMSI, voir PluginGrcmanagerPeriodicReview.
+    // Issue #141 : revues périodiques du SMSI, voir \GlpiPlugin\Grcmanager\PeriodicReview.
     private const PERIODIC_REVIEWS_TABLE = 'glpi_plugin_grcmanager_periodicreviews';
-    // Issue #144 : matrice des flux réseau, voir PluginGrcmanagerNetworkFlow.
+    // Issue #144 : matrice des flux réseau, voir \GlpiPlugin\Grcmanager\NetworkFlow.
     private const NETWORK_FLOWS_TABLE = 'glpi_plugin_grcmanager_networkflows';
-    // Issue #142 : evenements du calendrier de conformite, voir PluginGrcmanagerComplianceEvent.
+    // Issue #142 : evenements du calendrier de conformite, voir \GlpiPlugin\Grcmanager\ComplianceEvent.
     private const COMPLIANCE_EVENTS_TABLE = 'glpi_plugin_grcmanager_complianceevents';
     // Issue #160 : vulnérabilités du parc, voir GlpiPlugin\Grcmanager\Services\Cve\ParkVulnerabilitySync.
     private const IGNORED_SOFTWARES_TABLE = 'glpi_plugin_grcmanager_ignoredsoftwares';
@@ -207,12 +217,12 @@ final class Installer
     private const CAUSAL_LINKS_TABLE = 'glpi_plugin_grcmanager_causallinks';
     private const CERTFR_NOTIFIED_TABLE = 'glpi_plugin_grcmanager_certfrnotices_supplierrisks';
     private const PARK_CVE_TICKETS_TABLE = 'glpi_plugin_grcmanager_parkcvetickets';
-    // Issue #178 : risques types importés depuis le catalogue, voir PluginGrcmanagerRiskCatalog.
+    // Issue #178 : risques types importés depuis le catalogue, voir \GlpiPlugin\Grcmanager\RiskCatalog.
     private const RISK_CATALOG_IMPORTS_TABLE = 'glpi_plugin_grcmanager_riskcatalogimports';
-    // Issue #170 : dérogations de sécurité, voir PluginGrcmanagerWaiver.
+    // Issue #170 : dérogations de sécurité, voir GlpiPlugin\Grcmanager\Waiver.
     private const WAIVERS_TABLE = 'glpi_plugin_grcmanager_waivers';
     private const WAIVERS_ITEMS_TABLE = 'glpi_plugin_grcmanager_waivers_items';
-    // Issue #164 : règles de couverture des preuves, voir PluginGrcmanagerCoverageRule.
+    // Issue #164 : règles de couverture des preuves, voir \GlpiPlugin\Grcmanager\CoverageRule.
     private const COVERAGE_RULES_TABLE = 'glpi_plugin_grcmanager_coveragerules';
     // Issue #168 : exercices de crise et leurs étapes chronométrées.
     private const CRISIS_EXERCISES_TABLE = 'glpi_plugin_grcmanager_crisisexercises';
@@ -371,7 +381,7 @@ final class Installer
         }
 
         // Corrélation CPE des CVE avec le parc GLPI (cf. ROADMAP.md) : catalogue de correspondance
-        // produit, voir PluginGrcmanagerCanonicalProduct/CpeReference/ProductAlias et
+        // produit, voir \GlpiPlugin\Grcmanager\CanonicalProduct/CpeReference/ProductAlias et
         // GlpiPlugin\Grcmanager\Services\Cve\InventoryCveMatcher. Le produit canonique est le seul
         // des trois avec une entree de menu ; les deux tables satellites sont gerees en ligne sur
         // son propre formulaire, meme convention que OBJECTIVE_MEASUREMENTS_TABLE ci-dessus (pas
@@ -420,7 +430,7 @@ final class Installer
 
         // Sprint 3 (SoA, clause 6.1.3) : les 93 mesures Annexe A ISO/IEC 27001:2022, une ligne par
         // mesure. Seule la donnée stable (code, thème) est seedée, jamais l'intitulé traduit (voir
-        // PluginGrcmanagerControl::getControlTitles()), sur le même principe que les enums
+        // \GlpiPlugin\Grcmanager\Control::getControlTitles()), sur le même principe que les enums
         // catégorie/probabilité/impact du registre de risques.
         if (!$DB->tableExists(self::CONTROLS_TABLE)) {
             $query = "CREATE TABLE `" . self::CONTROLS_TABLE . "` (
@@ -430,7 +440,7 @@ final class Installer
                     COMMENT 'organizational, people, physical, technological',
                 `applicability` varchar(16) NOT NULL DEFAULT 'yes' COMMENT 'yes, no, partial',
                 `justification` text
-                    COMMENT 'Obligatoire si applicability != yes, voir PluginGrcmanagerControl',
+                    COMMENT 'Obligatoire si applicability != yes, voir GlpiPlugin\\Grcmanager\\Control',
                 `implementation_status` varchar(16) NOT NULL DEFAULT 'not_started'
                     COMMENT 'not_started, in_progress, implemented, verified',
                 `is_reviewed` tinyint NOT NULL DEFAULT 0
@@ -448,7 +458,7 @@ final class Installer
         }
 
         // Issue #113 : une ligne par sous-article des articles 4 à 10 (numéro seul, titres courts
-        // résolus par PluginGrcmanagerIsmsRequirement::getClauseTitles(), jamais stockés), seedée par
+        // résolus par \GlpiPlugin\Grcmanager\IsmsRequirement::getClauseTitles(), jamais stockés), seedée par
         // seedClauses() ci-dessous ; preuves = Documents GLPI liés (Document_Item).
         // Issue #112 : une ligne par version figée de la SoA soumise à approbation (PDF = Document
         // GLPI lié, `pdf_sha256` = empreinte du fichier, `fingerprint` = empreinte du contenu, voir
@@ -517,7 +527,7 @@ final class Installer
         }
 
         // Many-to-many : risque(s) du registre justifiant ou pilotant la mise en oeuvre d'une
-        // mesure Annexe A (voir PluginGrcmanagerControl::getLinkedRisks()/syncLinkedRisks()).
+        // mesure Annexe A (voir \GlpiPlugin\Grcmanager\Control::getLinkedRisks()/syncLinkedRisks()).
         if (!$DB->tableExists(self::CONTROLS_RISKS_TABLE)) {
             $query = "CREATE TABLE `" . self::CONTROLS_RISKS_TABLE . "` (
                 `id` int {$keySign} NOT NULL AUTO_INCREMENT,
@@ -534,9 +544,9 @@ final class Installer
         }
 
         // Sprint 4 (audits internes, clause 9.2) : un audit peut couvrir un ou plusieurs contrôles
-        // Annexe A (lien many-to-many, voir PluginGrcmanagerAudit::getLinkedControls()/
+        // Annexe A (lien many-to-many, voir \GlpiPlugin\Grcmanager\Audit::getLinkedControls()/
         // syncLinkedControls()) et/ou une ou plusieurs catégories de risque (liste séparée par des
-        // virgules, résolue via PluginGrcmanagerRisk::getCategories(), jamais une seconde
+        // virgules, résolue via \GlpiPlugin\Grcmanager\Risk::getCategories(), jamais une seconde
         // définition de cette énumération).
         if (!$DB->tableExists(self::AUDITS_TABLE)) {
             $query = "CREATE TABLE `" . self::AUDITS_TABLE . "` (
@@ -551,7 +561,7 @@ final class Installer
                     COMMENT 'planned, in_progress, completed, cancelled',
                 `conclusion` text,
                 `risk_categories` varchar(255) NOT NULL DEFAULT ''
-                    COMMENT 'Liste de categories PluginGrcmanagerRisk separees par des virgules',
+                    COMMENT 'Liste de categories GlpiPlugin\\Grcmanager\\Risk separees par des virgules',
                 `date_creation` timestamp NULL DEFAULT NULL,
                 `date_mod` timestamp NULL DEFAULT NULL,
                 PRIMARY KEY (`id`),
@@ -585,7 +595,7 @@ final class Installer
         }
 
         // Many-to-many : contrôle(s) Annexe A dans le périmètre d'un audit (voir
-        // PluginGrcmanagerAudit::getLinkedControls()/syncLinkedControls()), même convention que
+        // \GlpiPlugin\Grcmanager\Audit::getLinkedControls()/syncLinkedControls()), même convention que
         // CONTROLS_RISKS_TABLE ci-dessus.
         if (!$DB->tableExists(self::AUDITS_CONTROLS_TABLE)) {
             $query = "CREATE TABLE `" . self::AUDITS_CONTROLS_TABLE . "` (
@@ -606,7 +616,7 @@ final class Installer
         // audit, avec le cycle complet cause racine -> action corrective -> action préventive ->
         // clôture vérifiée que la clause 10.2 impose. `plugin_grcmanager_audits_id` n'est pas une
         // vraie clé étrangère GLPI (pas de ON DELETE CASCADE natif ici), résolue par
-        // PluginGrcmanagerNonconformity elle-même, même simplification assumée que le lien
+        // \GlpiPlugin\Grcmanager\Nonconformity elle-même, même simplification assumée que le lien
         // contrôle <-> risque du Sprint 3 (voir TECH_DEBT.md).
         if (!$DB->tableExists(self::NONCONFORMITIES_TABLE)) {
             $query = "CREATE TABLE `" . self::NONCONFORMITIES_TABLE . "` (
@@ -645,7 +655,7 @@ final class Installer
 
         // Issue #27 (distinguer non-conformité et observation/remarque, vocabulaire ISO 19011) :
         // deuxième axe independant de `severity` (voir TECH_DEBT.md Sprint 4, résolu, et le
-        // docblock de PluginGrcmanagerNonconformity). `finding_type` est deja dans le CREATE TABLE
+        // docblock de \GlpiPlugin\Grcmanager\Nonconformity). `finding_type` est deja dans le CREATE TABLE
         // ci-dessus pour une installation neuve ; ce bloc gere le meme ajout pour une installation
         // existante d'avant l'issue #27, premiere migration de champ de ce fichier (v1.0 n'avait
         // encore jamais eu besoin d'en ajouter une sur une table deja creee), suivant exactement la
@@ -737,7 +747,7 @@ final class Installer
 
         // Sprint 6 (suivi des formations de sensibilisation, clauses 7.2/7.3) : une ligne par
         // session/campagne de formation. `renewal_period_months` = 0 signifie qu'aucun
-        // renouvellement periodique n'est requis (voir PluginGrcmanagerTraining::getOverdueParticipants()).
+        // renouvellement periodique n'est requis (voir \GlpiPlugin\Grcmanager\Training::getOverdueParticipants()).
         if (!$DB->tableExists(self::TRAININGS_TABLE)) {
             $query = "CREATE TABLE `" . self::TRAININGS_TABLE . "` (
                 `id` int {$keySign} NOT NULL AUTO_INCREMENT,
@@ -769,7 +779,7 @@ final class Installer
         // avec son propre statut/date de realisation (pas seulement un lien, contrairement aux
         // liens controle<->risque/audit<->controle des Sprints 3-4 : un auditeur ISO 27001 doit
         // pouvoir voir qui a precisement termine quelle formation et quand, pas seulement un
-        // decompte agrege), voir PluginGrcmanagerTraining::syncParticipants()/getParticipants().
+        // decompte agrege), voir \GlpiPlugin\Grcmanager\Training::syncParticipants()/getParticipants().
         if (!$DB->tableExists(self::TRAININGS_USERS_TABLE)) {
             $query = "CREATE TABLE `" . self::TRAININGS_USERS_TABLE . "` (
                 `id` int {$keySign} NOT NULL AUTO_INCREMENT,
@@ -890,7 +900,7 @@ final class Installer
             $migration->migrationOneTable(self::TRAININGS_USERS_TABLE);
         }
         // Issue #139 : copie de quiz corrigée du participant (document restreint au participant, au
-        // formateur et au groupe RSSI, voir PluginGrcmanagerTrainingQuiz).
+        // formateur et au groupe RSSI, voir \GlpiPlugin\Grcmanager\TrainingQuiz).
         if (!$DB->fieldExists(self::TRAININGS_USERS_TABLE, 'documents_id')) {
             $migration->addField(self::TRAININGS_USERS_TABLE, 'documents_id', 'fkey', ['after' => 'score']);
             $migration->addKey(self::TRAININGS_USERS_TABLE, 'documents_id');
@@ -917,7 +927,7 @@ final class Installer
 
         // Sprint 6 (revues de direction, clause 9.3) : une ligne par revue de direction realisee ou
         // planifiee, avec l'ordre du jour et les decisions/actions en texte libre (pas un lien
-        // fort vers le mecanisme CAPA existant, voir PluginGrcmanagerManagementReview pour le
+        // fort vers le mecanisme CAPA existant, voir \GlpiPlugin\Grcmanager\ManagementReview pour le
         // raisonnement, et TECH_DEBT.md).
         if (!$DB->tableExists(self::MANAGEMENT_REVIEWS_TABLE)) {
             $query = "CREATE TABLE `" . self::MANAGEMENT_REVIEWS_TABLE . "` (
@@ -938,7 +948,7 @@ final class Installer
 
         // Many-to-many : participants (vrais `User` natifs de GLPI) d'une revue de direction, meme
         // convention "lien simple en acces direct $DB" que AUDITS_CONTROLS_TABLE ci-dessus (voir
-        // PluginGrcmanagerManagementReview::getAttendees()/syncAttendees()).
+        // \GlpiPlugin\Grcmanager\ManagementReview::getAttendees()/syncAttendees()).
         if (!$DB->tableExists(self::MANAGEMENT_REVIEWS_USERS_TABLE)) {
             $query = "CREATE TABLE `" . self::MANAGEMENT_REVIEWS_USERS_TABLE . "` (
                 `id` int {$keySign} NOT NULL AUTO_INCREMENT,
@@ -964,7 +974,7 @@ final class Installer
         // n'est pas une relation obligatoire, contrairement à `users_id` (propriétaire) sur
         // RISKS_TABLE ci-dessus qui, elle, est bien une colonne directe (relation 1-vers-1
         // implicite avec un `User`, toujours renseignée). Voir
-        // PluginGrcmanagerRisk::getLinkedAssets()/syncLinkedAssets()/getRisksLinkedToItem().
+        // \GlpiPlugin\Grcmanager\Risk::getLinkedAssets()/syncLinkedAssets()/getRisksLinkedToItem().
         if (!$DB->tableExists(self::RISKS_ITEMS_TABLE)) {
             $query = "CREATE TABLE `" . self::RISKS_ITEMS_TABLE . "` (
                 `id` int {$keySign} NOT NULL AUTO_INCREMENT,
@@ -984,13 +994,13 @@ final class Installer
         // Issue #26 (classification C/I/D des actifs, ISO/IEC 27001:2022 A.5.9/A.5.12/A.8.2) :
         // registre INDÉPENDANT du lien risque <-> actif de l'issue #25 ci-dessus (RISKS_ITEMS_TABLE)
         // — une classification est une propriété de l'actif lui-même, pas d'un risque particulier
-        // qui le mentionne, voir PluginGrcmanagerAssetClassification. Clé composite unique
+        // qui le mentionne, voir \GlpiPlugin\Grcmanager\AssetClassification. Clé composite unique
         // itemtype/items_id (une seule ligne par actif réel, jamais deux classifications
         // concurrentes pour le même actif), même modèle polymorphe que RISKS_ITEMS_TABLE mais SANS
         // second membre de relation (`plugin_grcmanager_risks_id`) : ici l'actif EST l'entité
         // classifiée, pas un lien entre deux entités. Les trois axes sont chacun un varchar
         // optionnel avec défaut '' ("non classifié sur cet axe"), même convention que
-        // `PluginGrcmanagerRisk.treatment` ci-dessus ("empty = no decision yet") : une
+        // `\GlpiPlugin\Grcmanager\Risk.treatment` ci-dessus ("empty = no decision yet") : une
         // classification partielle (un seul axe renseigné) est un état valide, pas une exigence
         // tout-ou-rien (voir ClassificationLevels::isClassified()).
         if (!$DB->tableExists(self::ASSET_CLASSIFICATIONS_TABLE)) {
@@ -1020,7 +1030,7 @@ final class Installer
         // sur `next_review_date` (voir PolicyReviewReminderService, calqué sur
         // ReviewReminderService du registre de risques). Le document lui-même (PDF, Word...) n'est
         // PAS stocké ici : attaché via le mécanisme natif GLPI Document/Document_Item (voir
-        // setup.php, $CFG_GLPI['document_types'], et PluginGrcmanagerPolicy::defineTabs()).
+        // setup.php, $CFG_GLPI['document_types'], et \GlpiPlugin\Grcmanager\Policy::defineTabs()).
         if (!$DB->tableExists(self::POLICIES_TABLE)) {
             $query = "CREATE TABLE `" . self::POLICIES_TABLE . "` (
                 `id` int {$keySign} NOT NULL AUTO_INCREMENT,
@@ -1056,7 +1066,7 @@ final class Installer
         // ISO 27001 "parties intéressées et leurs exigences", Annexe A A.5.31-36) : lien optionnel
         // zéro-ou-un vers un risque du registre en colonne DIRECTE (`plugin_grcmanager_risks_id`),
         // pas une table de liaison many-to-many comme CONTROLS_RISKS_TABLE ci-dessus - voir le
-        // docblock de PluginGrcmanagerComplianceObligation pour le raisonnement complet (cardinalité
+        // docblock de \GlpiPlugin\Grcmanager\ComplianceObligation pour le raisonnement complet (cardinalité
         // plus simple que le lien risque <-> actifs CMDB de l'issue #25, même choix déjà fait pour
         // `users_id`/propriétaire sur chaque autre registre de ce plugin).
         if (!$DB->tableExists(self::COMPLIANCE_OBLIGATIONS_TABLE)) {
@@ -1092,7 +1102,7 @@ final class Installer
         // qu'une seule colonne numérique obligatoire — certains objectifs ont une vraie cible
         // chiffrée ("réduire de 20%"), d'autres sont purement qualitatifs ("obtenir la
         // certification ISO 27001") et n'ont rien de sensé à mettre dans une colonne numérique
-        // obligatoire (voir PluginGrcmanagerObjective::hasNumericTarget() et
+        // obligatoire (voir \GlpiPlugin\Grcmanager\Objective::hasNumericTarget() et
         // GlpiPlugin\Grcmanager\Services\Objective\ObjectiveMeasurementValidator, qui utilisent
         // cette même distinction pour savoir si une mesure doit obligatoirement porter une valeur
         // chiffrée).
@@ -1125,7 +1135,7 @@ final class Installer
         // philosophie "version minimale et testée" que le reste de ce plugin (voir TECH_DEBT.md
         // Sprint 2). `plugin_grcmanager_objectives_id` n'est pas une vraie clé étrangère GLPI
         // (pas de ON DELETE CASCADE natif ici), même simplification assumée que
-        // `PluginGrcmanagerNonconformity.plugin_grcmanager_audits_id` (TECH_DEBT.md Sprint 4).
+        // `\GlpiPlugin\Grcmanager\Nonconformity.plugin_grcmanager_audits_id` (TECH_DEBT.md Sprint 4).
         // `value` nullable : une mesure sur un objectif purement qualitatif peut n'avoir aucune
         // valeur chiffrée, voir ObjectiveMeasurementValidator ci-dessus.
         // Issue #145 : une ligne par (élément du plugin, document rattaché) qui porte une date de
@@ -1173,7 +1183,7 @@ final class Installer
         }
 
         // Revue de sécurité 2.11.0 : rapports générés lisibles par la seule audience de leur
-        // objet source (PluginGrcmanagerRestrictedDocument).
+        // objet source (\GlpiPlugin\Grcmanager\RestrictedDocument).
         if (!$DB->tableExists(self::RESTRICTED_DOCUMENTS_TABLE)) {
             $query = "CREATE TABLE `" . self::RESTRICTED_DOCUMENTS_TABLE . "` (
                 `id` int {$keySign} NOT NULL AUTO_INCREMENT,
@@ -1569,7 +1579,7 @@ final class Installer
         // léger demandé par l'issue elle-même : "le comité de direction voit une trajectoire...
         // lors des revues de direction, qui référencent déjà ces objectifs"), même convention
         // "lien simple en accès direct $DB" que CONTROLS_RISKS_TABLE/MANAGEMENT_REVIEWS_USERS_TABLE
-        // ci-dessus (voir PluginGrcmanagerManagementReview::getLinkedObjectives()/
+        // ci-dessus (voir \GlpiPlugin\Grcmanager\ManagementReview::getLinkedObjectives()/
         // syncLinkedObjectives()).
         if (!$DB->tableExists(self::MANAGEMENT_REVIEWS_OBJECTIVES_TABLE)) {
             $query = "CREATE TABLE `" . self::MANAGEMENT_REVIEWS_OBJECTIVES_TABLE . "` (
@@ -2029,6 +2039,9 @@ final class Installer
 
         $migration->executeMigration();
 
+        // Issue #293 : noms de classe stockés en base pour les classes passées dans src/.
+        ItemtypeRenames::migrate($migration);
+
         // Migration légère->fusionnée (voir le commentaire au-dessus de la création de
         // SECURITY_INCIDENTS_TABLE) : ne s'exécute qu'une seule fois, tant que la table renommée
         // existe encore - une fois migrée et supprimée ci-dessous, ce bloc devient un no-op
@@ -2047,8 +2060,8 @@ final class Installer
         // ses propres données : description, responsable, échéance, statut, date de réalisation).
         // `plugin_grcmanager_risks_id` n'est pas une vraie clé étrangère GLPI (pas de ON DELETE
         // CASCADE natif ici), même simplification assumée que
-        // `PluginGrcmanagerObjectiveMeasurement.plugin_grcmanager_objectives_id` ci-dessus, mais
-        // voir PluginGrcmanagerRisk::post_purgeItem() pour le nettoyage explicite ajouté malgré
+        // `\GlpiPlugin\Grcmanager\ObjectiveMeasurement.plugin_grcmanager_objectives_id` ci-dessus, mais
+        // voir \GlpiPlugin\Grcmanager\Risk::post_purgeItem() pour le nettoyage explicite ajouté malgré
         // tout (coût marginal nul, ce hook existe déjà pour RISKS_ITEMS_TABLE).
         if (!$DB->tableExists(self::RISK_TREATMENT_ACTIONS_TABLE)) {
             $query = "CREATE TABLE `" . self::RISK_TREATMENT_ACTIONS_TABLE . "` (
@@ -2091,7 +2104,7 @@ final class Installer
             $DB->doQuery($query);
 
             $DB->insert(self::SECURITY_INCIDENT_CONFIG_TABLE, array_merge(
-                array_map(static fn (bool $v): int => $v ? 1 : 0, SecurityIncidentModuleConfig::DEFAULTS),
+                array_map(static fn (bool $v): int => (int) $v, SecurityIncidentModuleConfig::DEFAULTS),
                 ['date_mod' => date('Y-m-d H:i:s')]
             ));
         }
@@ -2103,19 +2116,19 @@ final class Installer
         $this->seedSecurityIncidentNotifications();
 
         $this->seedReviewReminderNotification(
-            'PluginGrcmanagerRisk',
+            'GlpiPlugin\\Grcmanager\\Risk',
             'risk',
             'Revue de risque à échéance',
             'risque'
         );
         $this->seedReviewReminderNotification(
-            'PluginGrcmanagerSupplierRisk',
+            'GlpiPlugin\\Grcmanager\\SupplierRisk',
             'supplierrisk',
             'Revue de risque fournisseur à échéance',
             'risque fournisseur'
         );
         $this->seedReviewReminderNotification(
-            'PluginGrcmanagerComplianceObligation',
+            'GlpiPlugin\\Grcmanager\\ComplianceObligation',
             'complianceobligation',
             'Revue d\'obligation à échéance',
             'obligation',
@@ -2134,7 +2147,7 @@ final class Installer
 
         // Issue #126 : relance hebdomadaire des responsables en retard sur une revue des accès.
         CronTask::Register(
-            'PluginGrcmanagerAccessReview',
+            'GlpiPlugin\\Grcmanager\\AccessReview',
             'accessreviewreminder',
             DAY_TIMESTAMP,
             [
@@ -2145,9 +2158,9 @@ final class Installer
 
         // Sprint 2 (rappels de date de revue) : évalue chaque jour les risques dont la date de
         // revue est dépassée ou approche, et déclenche la notification GLPI seedée ci-dessus (voir
-        // PluginGrcmanagerRisk::cronReviewreminder(), src/Services/Risk/ReviewReminderService.php).
+        // \GlpiPlugin\Grcmanager\Risk::cronReviewreminder(), src/Services/Risk/ReviewReminderService.php).
         CronTask::Register(
-            'PluginGrcmanagerRisk',
+            'GlpiPlugin\\Grcmanager\\Risk',
             'reviewreminder',
             DAY_TIMESTAMP,
             [
@@ -2162,9 +2175,9 @@ final class Installer
         // fonctionnalité) et rafraîchit celles dont la dernière récupération date de plus de 7
         // jours (une CVE encore "en cours d'analyse" chez NVD peut recevoir son score plus tard,
         // voir NvdCveEnrichmentService::refreshDue()). No-op silencieux si l'enrichissement est
-        // désactivé (voir PluginGrcmanagerSecurityIncidentCve::cronRefreshNvdData()).
+        // désactivé (voir \GlpiPlugin\Grcmanager\SecurityIncidentCve::cronRefreshNvdData()).
         CronTask::Register(
-            'PluginGrcmanagerSecurityIncidentCve',
+            'GlpiPlugin\\Grcmanager\\SecurityIncidentCve',
             'refreshnvddata',
             DAY_TIMESTAMP,
             [
@@ -2179,9 +2192,9 @@ final class Installer
         // partagée par les deux tâches Cron), mais une tâche dédiée : le modèle de tâche Cron de
         // GLPI enregistre/déclenche un point d'entrée statique par itemtype, une seule tâche ne
         // peut donc pas couvrir les deux tables elle-même (voir
-        // PluginGrcmanagerSupplierRisk::cronReviewreminder()).
+        // \GlpiPlugin\Grcmanager\SupplierRisk::cronReviewreminder()).
         CronTask::Register(
-            'PluginGrcmanagerSupplierRisk',
+            'GlpiPlugin\\Grcmanager\\SupplierRisk',
             'reviewreminder',
             DAY_TIMESTAMP,
             [
@@ -2194,9 +2207,9 @@ final class Installer
         // Issue #30 (obligations légales/réglementaires/contractuelles) : même mécanisme de
         // rappel de revue que les deux registres de risques ci-dessus (ReviewReminderService
         // généralisé par cette issue avec un $excludeCriteria vide, voir
-        // PluginGrcmanagerComplianceObligation::cronReviewreminder()).
+        // \GlpiPlugin\Grcmanager\ComplianceObligation::cronReviewreminder()).
         CronTask::Register(
-            'PluginGrcmanagerComplianceObligation',
+            'GlpiPlugin\\Grcmanager\\ComplianceObligation',
             'reviewreminder',
             DAY_TIMESTAMP,
             [
@@ -2208,10 +2221,10 @@ final class Installer
 
         // Sprint 4 (CAPA en retard) : évalue chaque jour les non-conformités dont l'échéance est
         // dépassée et qui ne sont ni clôturées ni vérifiées, et déclenche la notification GLPI
-        // seedée ci-dessus (voir PluginGrcmanagerNonconformity::cronOverduecapa(),
+        // seedée ci-dessus (voir \GlpiPlugin\Grcmanager\Nonconformity::cronOverduecapa(),
         // src/Services/Capa/OverdueCapaService.php).
         CronTask::Register(
-            'PluginGrcmanagerNonconformity',
+            'GlpiPlugin\\Grcmanager\\Nonconformity',
             'overduecapa',
             DAY_TIMESTAMP,
             [
@@ -2223,10 +2236,10 @@ final class Installer
 
         // Sprint 6 (formations, clauses 7.2/7.3) : évalue chaque jour les formations ayant au
         // moins un participant en retard de renouvellement, et déclenche la notification GLPI
-        // seedée ci-dessus (voir PluginGrcmanagerTraining::cronRenewaldue(),
+        // seedée ci-dessus (voir \GlpiPlugin\Grcmanager\Training::cronRenewaldue(),
         // src/Services/Training/TrainingRenewalService.php).
         CronTask::Register(
-            'PluginGrcmanagerTraining',
+            'GlpiPlugin\\Grcmanager\\Training',
             'renewaldue',
             DAY_TIMESTAMP,
             [
@@ -2239,10 +2252,10 @@ final class Installer
         // Issue #28 (bibliothèque de politiques de sécurité versionnées, A.5.1) : évalue chaque
         // jour les politiques dont la prochaine date de revue est dépassée ou approche, et
         // déclenche la notification GLPI seedée ci-dessus (voir
-        // PluginGrcmanagerPolicy::cronReviewreminder(),
+        // \GlpiPlugin\Grcmanager\Policy::cronReviewreminder(),
         // src/Services/Policy/PolicyReviewReminderService.php).
         CronTask::Register(
-            'PluginGrcmanagerPolicy',
+            'GlpiPlugin\\Grcmanager\\Policy',
             'reviewreminder',
             DAY_TIMESTAMP,
             [
@@ -2268,10 +2281,10 @@ final class Installer
         // Issue #31 (plan d'action de traitement des risques, clause 8.3/6.1.3) : évalue chaque
         // jour les actions de traitement dont l'échéance est dépassée et qui ne sont pas encore
         // réalisées, et déclenche la notification GLPI seedée ci-dessus (voir
-        // PluginGrcmanagerRiskTreatmentAction::cronOverduetreatmentaction(),
+        // \GlpiPlugin\Grcmanager\RiskTreatmentAction::cronOverduetreatmentaction(),
         // src/Services/Risk/OverdueTreatmentActionService.php).
         CronTask::Register(
-            'PluginGrcmanagerRiskTreatmentAction',
+            'GlpiPlugin\\Grcmanager\\RiskTreatmentAction',
             'overduetreatmentaction',
             DAY_TIMESTAMP,
             [
@@ -2283,7 +2296,7 @@ final class Installer
 
         // Issue #166 : score de maturité du mois, enregistré chaque jour pour l'historique.
         CronTask::Register(
-            'PluginGrcmanagerMaturity',
+            'GlpiPlugin\\Grcmanager\\Maturity',
             'maturitysnapshot',
             DAY_TIMESTAMP,
             [
@@ -2294,7 +2307,7 @@ final class Installer
 
         // Issue #170 : rappel avant la fin d'une dérogation, puis ticket de réévaluation.
         CronTask::Register(
-            'PluginGrcmanagerWaiver',
+            'GlpiPlugin\\Grcmanager\\Waiver',
             'waiverreminder',
             DAY_TIMESTAMP,
             [
@@ -2306,7 +2319,7 @@ final class Installer
 
         // Issue #142, phase 2 : rappel au responsable 15 jours avant un événement de conformité.
         CronTask::Register(
-            'PluginGrcmanagerComplianceEvent',
+            'GlpiPlugin\\Grcmanager\\ComplianceEvent',
             'complianceeventreminder',
             DAY_TIMESTAMP,
             [
@@ -2319,7 +2332,7 @@ final class Installer
         // vérifiées auprès de NVD (limite publique de 5 requêtes par 30 s), puis CISA KEV et
         // FIRST EPSS. Sans effet tant que l'enrichissement NVD n'est pas activé.
         CronTask::Register(
-            'PluginGrcmanagerParkVulnerability',
+            'GlpiPlugin\\Grcmanager\\ParkVulnerability',
             'parkvulnerabilitysync',
             HOUR_TIMESTAMP,
             [
@@ -2331,9 +2344,9 @@ final class Installer
         );
 
         // Issue #145 : rappel avant l'expiration d'une preuve, puis ticket de renouvellement
-        // (PluginGrcmanagerEvidence::cronEvidencereminder()).
+        // (\GlpiPlugin\Grcmanager\Evidence::cronEvidencereminder()).
         CronTask::Register(
-            'PluginGrcmanagerEvidence',
+            'GlpiPlugin\\Grcmanager\\Evidence',
             'evidencereminder',
             DAY_TIMESTAMP,
             [
@@ -2420,19 +2433,19 @@ final class Installer
 
     /**
      * Seeds the Notification/NotificationTemplate/translation/target rows a review-date reminder
-     * Cron task (PluginGrcmanagerRisk::cronReviewreminder(), and since Sprint 5
-     * PluginGrcmanagerSupplierRisk::cronReviewreminder(), and since issue #30
-     * PluginGrcmanagerComplianceObligation::cronReviewreminder()) needs to actually send something
+     * Cron task (\GlpiPlugin\Grcmanager\Risk::cronReviewreminder(), and since Sprint 5
+     * \GlpiPlugin\Grcmanager\SupplierRisk::cronReviewreminder(), and since issue #30
+     * \GlpiPlugin\Grcmanager\ComplianceObligation::cronReviewreminder()) needs to actually send something
      * via NotificationEvent::raiseEvent('review_due', ...), see inc/notificationtargetrisk.class.php /
      * inc/notificationtargetsupplierrisk.class.php / inc/notificationtargetcomplianceobligation.class.php
      * for the NotificationTarget classes and their tag lists. Idempotent per itemtype: skipped
      * entirely if a Notification for that itemtype/event already exists (an admin may have edited
      * the template's wording since, never overwritten here). Generalized at Sprint 5 (was
-     * PluginGrcmanagerRisk-only before) so every review-reminder itemtype is seeded from the exact
+     * \GlpiPlugin\Grcmanager\Risk-only before) so every review-reminder itemtype is seeded from the exact
      * same implementation, only their tag prefix/wording differ.
      *
-     * @param string $itemtype    'PluginGrcmanagerRisk', 'PluginGrcmanagerSupplierRisk' or
-     *                            'PluginGrcmanagerComplianceObligation'.
+     * @param string $itemtype    '\GlpiPlugin\Grcmanager\Risk', '\GlpiPlugin\Grcmanager\SupplierRisk' or
+     *                            '\GlpiPlugin\Grcmanager\ComplianceObligation'.
      * @param string $tagPrefix   Matches the NotificationTarget's own tag prefix
      *                            ('risk'/'supplierrisk'/'complianceobligation').
      * @param string $name        Human-readable Notification/NotificationTemplate name suffix.
@@ -2440,10 +2453,10 @@ final class Installer
      *                            ('risque'/'risque fournisseur'/'obligation').
      * @param array<string, string> $detailLines Tag suffix => French label for the two body lines
      *                            between the title and the review date. Defaults to
-     *                            category/risklevel (PluginGrcmanagerRisk/PluginGrcmanagerSupplierRisk's
+     *                            category/risklevel (\GlpiPlugin\Grcmanager\Risk/\GlpiPlugin\Grcmanager\SupplierRisk's
      *                            own tags, unchanged since Sprint 2/5) so existing callers see no
      *                            behaviour change; issue #30 passes type/status instead, matching
-     *                            PluginGrcmanagerComplianceObligation's own fields (no
+     *                            \GlpiPlugin\Grcmanager\ComplianceObligation's own fields (no
      *                            category/risklevel on that itemtype).
      */
     private function seedReviewReminderNotification(
@@ -2475,11 +2488,12 @@ final class Installer
         ]);
 
         $detailText = '';
-        $detailHtml = '';
+        $detailLinesHtml = [];
         foreach ($detailLines as $tagSuffix => $label) {
             $detailText .= "{$label} : ##{$tagPrefix}.{$tagSuffix}##\n";
-            $detailHtml .= "{$label} : ##{$tagPrefix}.{$tagSuffix}##<br>";
+            $detailLinesHtml[] = "{$label} : ##{$tagPrefix}.{$tagSuffix}##";
         }
+        $detailLinesHtml[] = "Date de revue : ##{$tagPrefix}.reviewdate##";
 
         $DB->insert('glpi_notificationtemplatetranslations', [
             'notificationtemplates_id' => $templateId,
@@ -2489,10 +2503,11 @@ final class Installer
                 . $detailText
                 . "Date de revue : ##{$tagPrefix}.reviewdate##\n\n"
                 . "Voir le " . $noun . " : ##{$tagPrefix}.url##",
-            'content_html'             => "<p><strong>##{$tagPrefix}.action## : ##{$tagPrefix}.title##</strong></p>"
-                . '<p>' . $detailHtml
-                . 'Date de revue : ' . "##{$tagPrefix}.reviewdate##</p>"
-                . "<p><a href=\"##{$tagPrefix}.url##\">Voir le " . $noun . '</a></p>',
+            'content_html'             => NotificationHtml::render([
+                NotificationHtml::strong("##{$tagPrefix}.action## : ##{$tagPrefix}.title##"),
+                NotificationHtml::lines($detailLinesHtml),
+                NotificationHtml::link("##{$tagPrefix}.url##", 'Voir le ' . $noun),
+            ]),
         ]);
 
         $notification = new Notification();
@@ -2525,14 +2540,14 @@ final class Installer
 
     /**
      * Same structure as seedReviewReminderNotification() above, for the Sprint 4 overdue-CAPA Cron
-     * task (PluginGrcmanagerNonconformity::cronOverduecapa(), event 'capa_overdue', see
+     * task (\GlpiPlugin\Grcmanager\Nonconformity::cronOverduecapa(), event 'capa_overdue', see
      * inc/notificationtargetnonconformity.class.php). Idempotent for the same reason.
      */
     private function seedCapaOverdueNotification(): void
     {
         global $DB;
 
-        $itemtype = 'PluginGrcmanagerNonconformity';
+        $itemtype = 'GlpiPlugin\\Grcmanager\\Nonconformity';
         $event    = 'capa_overdue';
 
         $alreadySeeded = $DB->request([
@@ -2561,11 +2576,15 @@ final class Installer
                 . "Sévérité : ##nc.severity##\n"
                 . "Échéance : ##nc.duedate##\n\n"
                 . "Voir la non-conformité : ##nc.url##",
-            'content_html'             => '<p><strong>##nc.action## : ##nc.title##</strong></p>'
-                . '<p>Audit : ##nc.audit##<br>'
-                . 'Sévérité : ##nc.severity##<br>'
-                . 'Échéance : ##nc.duedate##</p>'
-                . '<p><a href="##nc.url##">Voir la non-conformité</a></p>',
+            'content_html'             => NotificationHtml::render([
+                NotificationHtml::strong('##nc.action## : ##nc.title##'),
+                NotificationHtml::lines([
+                    'Audit : ##nc.audit##',
+                    'Sévérité : ##nc.severity##',
+                    'Échéance : ##nc.duedate##',
+                ]),
+                NotificationHtml::link('##nc.url##', 'Voir la non-conformité'),
+            ]),
         ]);
 
         $notification = new Notification();
@@ -2595,14 +2614,14 @@ final class Installer
 
     /**
      * Issue #167 : nouvel avis du CERT-FR qui cite le fournisseur d'un risque (événement
-     * 'security_watch', voir PluginGrcmanagerSecurityWatch::notifyOwners()), adressé au
+     * 'security_watch', voir \GlpiPlugin\Grcmanager\SecurityWatch::notifyOwners()), adressé au
      * propriétaire du risque. Idempotent, même structure que seedCapaOverdueNotification().
      */
     private function seedSecurityWatchNotification(): void
     {
         global $DB;
 
-        $itemtype = 'PluginGrcmanagerSupplierRisk';
+        $itemtype = 'GlpiPlugin\\Grcmanager\\SupplierRisk';
         $event    = 'security_watch';
 
         if (
@@ -2657,26 +2676,26 @@ final class Installer
 
     /**
      * Same structure as seedCapaOverdueNotification() above, for the Sprint 6 training-renewal Cron
-     * task (PluginGrcmanagerTraining::cronRenewaldue(), event 'training_renewal_due', see
+     * task (\GlpiPlugin\Grcmanager\Training::cronRenewaldue(), event 'training_renewal_due', see
      * inc/notificationtargettraining.class.php). Idempotent for the same reason.
      *
      * Deliberately does NOT insert a `glpi_notificationtargets` row (unlike every notification
      * seeded above): a training has no single "item owner" field to resolve a default recipient
      * from, its recipients are the (possibly several) overdue participants,
-     * PluginGrcmanagerNotificationTargetTraining::addAdditionalTargets() resolves and adds every
+     * \GlpiPlugin\Grcmanager\NotificationTargetTraining::addAdditionalTargets() resolves and adds every
      * one of them itself, unconditionally, regardless of any configured target row (see its own
      * docblock).
      */
     /**
      * Issue #145 : rappel au responsable du renouvellement d'une preuve qui arrive à échéance
-     * (PluginGrcmanagerEvidence::runReminders(), inc/notificationtargetevidence.class.php), avec sa
+     * (\GlpiPlugin\Grcmanager\Evidence::runReminders(), inc/notificationtargetevidence.class.php), avec sa
      * cible « Responsable du renouvellement ». Idempotent, comme les autres notifications seedées.
      */
     private function seedEvidenceExpiringNotification(): void
     {
         global $DB;
 
-        $itemtype = 'PluginGrcmanagerEvidence';
+        $itemtype = 'GlpiPlugin\\Grcmanager\\Evidence';
         $event    = 'evidence_expiring';
 
         $existing = $DB->request([
@@ -2704,11 +2723,18 @@ final class Installer
                 . "Renouvelez le document (nouveau certificat, rapport ou attestation) puis mettez à jour sa "
                 . "date de validité. Un ticket de renouvellement sera ouvert si la preuve expire.\n\n"
                 . "Voir l'élément : ##evidence.url##",
-            'content_html'             => '<p><strong>##evidence.action## : ##evidence.document##</strong></p>'
-                . '<p>Élément : ##evidence.item##<br>Valide jusqu\'au : ##evidence.validuntil##</p>'
-                . '<p>Renouvelez le document (nouveau certificat, rapport ou attestation) puis mettez à jour '
-                . 'sa date de validité. Un ticket de renouvellement sera ouvert si la preuve expire.</p>'
-                . '<p><a href="##evidence.url##">Voir l\'élément</a></p>',
+            'content_html'             => NotificationHtml::render([
+                NotificationHtml::strong('##evidence.action## : ##evidence.document##'),
+                NotificationHtml::lines([
+                    'Élément : ##evidence.item##',
+                    'Valide jusqu\'au : ##evidence.validuntil##',
+                ]),
+                NotificationHtml::lines([
+                    'Renouvelez le document (nouveau certificat, rapport ou attestation) puis mettez à jour '
+                        . 'sa date de validité. Un ticket de renouvellement sera ouvert si la preuve expire.',
+                ]),
+                NotificationHtml::link('##evidence.url##', 'Voir l\'élément'),
+            ]),
         ]);
 
         $notificationId = (new Notification())->add([
@@ -2728,7 +2754,7 @@ final class Installer
         $DB->insert('glpi_notificationtargets', [
             'notifications_id' => $notificationId,
             'type'             => Notification::USER_TYPE,
-            'items_id'         => \PluginGrcmanagerNotificationTargetEvidence::TARGET_RESPONSIBLE,
+            'items_id'         => \GlpiPlugin\Grcmanager\NotificationTargetEvidence::TARGET_RESPONSIBLE,
         ]);
     }
 
@@ -2744,7 +2770,7 @@ final class Installer
     {
         global $DB;
 
-        $itemtype = 'PluginGrcmanagerComplianceEvent';
+        $itemtype = 'GlpiPlugin\\Grcmanager\\ComplianceEvent';
         $event    = 'complianceevent_reminder';
         $where = ['itemtype' => $itemtype, 'event' => $event];
         if ($DB->request(['FROM' => 'glpi_notifications', 'WHERE' => $where])->count() > 0) {
@@ -2788,7 +2814,7 @@ final class Installer
         $DB->insert('glpi_notificationtargets', [
             'notifications_id' => $notificationId,
             'type'             => Notification::USER_TYPE,
-            'items_id'         => \PluginGrcmanagerNotificationTargetComplianceEvent::TARGET_RESPONSIBLE,
+            'items_id'         => \GlpiPlugin\Grcmanager\NotificationTargetComplianceEvent::TARGET_RESPONSIBLE,
         ]);
     }
 
@@ -2796,7 +2822,7 @@ final class Installer
     {
         global $DB;
 
-        $itemtype = 'PluginGrcmanagerWaiver';
+        $itemtype = 'GlpiPlugin\\Grcmanager\\Waiver';
         $event    = 'waiver_expiring';
         $where = ['itemtype' => $itemtype, 'event' => $event];
         if ($DB->request(['FROM' => 'glpi_notifications', 'WHERE' => $where])->count() > 0) {
@@ -2839,7 +2865,7 @@ final class Installer
         $DB->insert('glpi_notificationtargets', [
             'notifications_id' => $notificationId,
             'type'             => Notification::USER_TYPE,
-            'items_id'         => \PluginGrcmanagerNotificationTargetWaiver::TARGET_RESPONSIBLE,
+            'items_id'         => \GlpiPlugin\Grcmanager\NotificationTargetWaiver::TARGET_RESPONSIBLE,
         ]);
     }
 
@@ -2847,7 +2873,7 @@ final class Installer
     {
         global $DB;
 
-        $itemtype = 'PluginGrcmanagerTraining';
+        $itemtype = 'GlpiPlugin\\Grcmanager\\Training';
         $event    = 'training_renewal_due';
 
         $alreadySeeded = $DB->request([
@@ -2875,10 +2901,14 @@ final class Installer
                 . "Format : ##training.format##\n"
                 . "Renouvellement (mois) : ##training.renewalmonths##\n\n"
                 . "Voir la formation : ##training.url##",
-            'content_html'             => '<p><strong>##training.action## : ##training.title##</strong></p>'
-                . '<p>Format : ' . "##training.format##<br>"
-                . 'Renouvellement (mois) : ' . "##training.renewalmonths##</p>"
-                . '<p><a href="##training.url##">Voir la formation</a></p>',
+            'content_html'             => NotificationHtml::render([
+                NotificationHtml::strong('##training.action## : ##training.title##'),
+                NotificationHtml::lines([
+                    'Format : ##training.format##',
+                    'Renouvellement (mois) : ##training.renewalmonths##',
+                ]),
+                NotificationHtml::link('##training.url##', 'Voir la formation'),
+            ]),
         ]);
 
         $notification = new Notification();
@@ -2899,13 +2929,13 @@ final class Installer
         $DB->insert('glpi_notificationtargets', [
             'notifications_id' => $notificationId,
             'type'             => Notification::USER_TYPE,
-            'items_id'         => \PluginGrcmanagerNotificationTargetTraining::TARGET_OVERDUE_PARTICIPANTS,
+            'items_id'         => NotificationTargetTraining::TARGET_OVERDUE_PARTICIPANTS,
         ]);
     }
 
     /**
      * Same structure as seedReviewReminderNotification() above, for the issue #28 policy
-     * review-reminder Cron task (PluginGrcmanagerPolicy::cronReviewreminder(), event
+     * review-reminder Cron task (\GlpiPlugin\Grcmanager\Policy::cronReviewreminder(), event
      * 'policy_review_due', see inc/notificationtargetpolicy.class.php). Idempotent for the same
      * reason. Kept as its own dedicated method rather than a third call to
      * seedReviewReminderNotification(): that method's event is hardcoded to 'review_due' and its
@@ -2918,7 +2948,7 @@ final class Installer
     {
         global $DB;
 
-        $itemtype = 'PluginGrcmanagerPolicy';
+        $itemtype = 'GlpiPlugin\\Grcmanager\\Policy';
         $event    = 'policy_review_due';
 
         $alreadySeeded = $DB->request([
@@ -2947,11 +2977,15 @@ final class Installer
                 . "Statut : ##policy.status##\n"
                 . "Prochaine revue : ##policy.reviewdate##\n\n"
                 . "Voir la politique : ##policy.url##",
-            'content_html'             => '<p><strong>##policy.action## : ##policy.title##</strong></p>'
-                . '<p>Version : ' . "##policy.version##<br>"
-                . 'Statut : ' . "##policy.status##<br>"
-                . 'Prochaine revue : ' . "##policy.reviewdate##</p>"
-                . '<p><a href="##policy.url##">Voir la politique</a></p>',
+            'content_html'             => NotificationHtml::render([
+                NotificationHtml::strong('##policy.action## : ##policy.title##'),
+                NotificationHtml::lines([
+                    'Version : ##policy.version##',
+                    'Statut : ##policy.status##',
+                    'Prochaine revue : ##policy.reviewdate##',
+                ]),
+                NotificationHtml::link('##policy.url##', 'Voir la politique'),
+            ]),
         ]);
 
         $notification = new Notification();
@@ -2981,7 +3015,7 @@ final class Installer
 
     /**
      * Same structure as seedCapaOverdueNotification() above, for the issue #31 overdue treatment
-     * action Cron task (PluginGrcmanagerRiskTreatmentAction::cronOverduetreatmentaction(), event
+     * action Cron task (\GlpiPlugin\Grcmanager\RiskTreatmentAction::cronOverduetreatmentaction(), event
      * 'treatment_action_overdue', see inc/notificationtargetrisktreatmentaction.class.php).
      * Idempotent for the same reason.
      */
@@ -2989,7 +3023,7 @@ final class Installer
     {
         global $DB;
 
-        $itemtype = 'PluginGrcmanagerRiskTreatmentAction';
+        $itemtype = 'GlpiPlugin\\Grcmanager\\RiskTreatmentAction';
         $event    = 'treatment_action_overdue';
 
         $alreadySeeded = $DB->request([
@@ -3017,11 +3051,14 @@ final class Installer
                 . "Action : ##treatmentaction.description##\n"
                 . "Échéance : ##treatmentaction.duedate##\n\n"
                 . "Voir le risque : ##treatmentaction.url##",
-            'content_html'             => '<p><strong>##treatmentaction.action## : '
-                . '##treatmentaction.risktitle##</strong></p>'
-                . '<p>Action : ##treatmentaction.description##<br>'
-                . 'Échéance : ##treatmentaction.duedate##</p>'
-                . '<p><a href="##treatmentaction.url##">Voir le risque</a></p>',
+            'content_html'             => NotificationHtml::render([
+                NotificationHtml::strong('##treatmentaction.action## : ##treatmentaction.risktitle##'),
+                NotificationHtml::lines([
+                    'Action : ##treatmentaction.description##',
+                    'Échéance : ##treatmentaction.duedate##',
+                ]),
+                NotificationHtml::link('##treatmentaction.url##', 'Voir le risque'),
+            ]),
         ]);
 
         $notification = new Notification();
@@ -3078,9 +3115,11 @@ final class Installer
                 'content_text'             => "##{$tag}.action## ##{$tag}.title##\n\n"
                     . "##{$tag}.url##\n\n"
                     . "##{$tag}.content##",
-                'content_html'             => "<p>##{$tag}.action## ##{$tag}.title##</p>"
-                    . "<p><a href=\"##{$tag}.url##\">##{$tag}.url##</a></p>"
-                    . "<p>##{$tag}.content##</p>",
+                'content_html'             => NotificationHtml::render([
+                    NotificationHtml::lines(["##{$tag}.action## ##{$tag}.title##"]),
+                    NotificationHtml::link("##{$tag}.url##", "##{$tag}.url##"),
+                    NotificationHtml::lines(["##{$tag}.content##"]),
+                ]),
             ]);
         } else {
             $templateId = (int) $template->getID();
@@ -3135,9 +3174,9 @@ final class Installer
         global $DB;
 
         $targets = [
-            'PluginGrcmanagerEvidence'        => \PluginGrcmanagerNotificationTargetEvidence::TARGET_RESPONSIBLE,
-            'PluginGrcmanagerComplianceEvent' => \PluginGrcmanagerNotificationTargetComplianceEvent::TARGET_RESPONSIBLE,
-            'PluginGrcmanagerWaiver'          => \PluginGrcmanagerNotificationTargetWaiver::TARGET_RESPONSIBLE,
+            Evidence::class        => NotificationTargetEvidence::TARGET_RESPONSIBLE,
+            ComplianceEvent::class => NotificationTargetComplianceEvent::TARGET_RESPONSIBLE,
+            Waiver::class          => NotificationTargetWaiver::TARGET_RESPONSIBLE,
         ];
         foreach ($targets as $itemtype => $targetId) {
             $notifications = array_column(iterator_to_array($DB->request([
@@ -3160,14 +3199,14 @@ final class Installer
         $trainingNotifications = $DB->request([
             'SELECT' => 'id',
             'FROM'   => 'glpi_notifications',
-            'WHERE'  => ['itemtype' => 'PluginGrcmanagerTraining', 'event' => 'training_renewal_due'],
+            'WHERE'  => ['itemtype' => 'GlpiPlugin\\Grcmanager\\Training', 'event' => 'training_renewal_due'],
         ]);
         foreach ($trainingNotifications as $row) {
             if (countElementsInTable('glpi_notificationtargets', ['notifications_id' => (int) $row['id']]) === 0) {
                 $DB->insert('glpi_notificationtargets', [
                     'notifications_id' => (int) $row['id'],
                     'type'             => Notification::USER_TYPE,
-                    'items_id'         => \PluginGrcmanagerNotificationTargetTraining::TARGET_OVERDUE_PARTICIPANTS,
+                    'items_id'         => NotificationTargetTraining::TARGET_OVERDUE_PARTICIPANTS,
                 ]);
             }
         }
@@ -3183,7 +3222,13 @@ final class Installer
     {
         global $DB;
 
-        $pluginItemtype = ['LIKE', 'PluginGrcmanager%'];
+        // Types du plugin : anciens noms PluginGrcmanagerX et classes passées dans src/ (#293),
+        // listées exactement (un LIKE sur « GlpiPlugin\Grcmanager\ » dépendrait de l'échappement
+        // de l'antislash, caractère d'échappement de LIKE).
+        $byItemtype = static fn (string $column): array => ['OR' => [
+            [$column => ['LIKE', 'PluginGrcmanager%']],
+            [$column => array_values(ItemtypeRenames::MAP)],
+        ]];
         // Rapports générés (audit, revue des accès, post-incident, crise) : sans le plugin, plus
         // rien ne limiterait leur lecture à l'audience de l'objet source, qui disparaît.
         if ($DB->tableExists(self::RESTRICTED_DOCUMENTS_TABLE)) {
@@ -3197,14 +3242,14 @@ final class Installer
             \QueuedNotification::class,
         ];
         foreach ($classes as $class) {
-            (new $class())->deleteByCriteria(['itemtype' => $pluginItemtype], true);
+            (new $class())->deleteByCriteria($byItemtype('itemtype'), true);
         }
         (new \Rule())->deleteByCriteria(['sub_type' => ['LIKE', 'RulePluginGrcmanager%']], true);
-        $DB->delete('glpi_notepads', ['itemtype' => $pluginItemtype]);
-        $DB->delete('glpi_savedsearches', ['itemtype' => $pluginItemtype]);
+        $DB->delete('glpi_notepads', $byItemtype('itemtype'));
+        $DB->delete('glpi_savedsearches', $byItemtype('itemtype'));
         // Réglages du plugin (groupe RSSI, dates de synchronisation KEV et CERT-FR…).
         $DB->delete('glpi_configs', ['context' => 'plugin:grcmanager']);
-        $DB->delete('glpi_logs', ['OR' => [['itemtype' => $pluginItemtype], ['itemtype_link' => $pluginItemtype]]]);
+        $DB->delete('glpi_logs', ['OR' => [$byItemtype('itemtype'), $byItemtype('itemtype_link')]]);
     }
 
     /**
@@ -3230,13 +3275,13 @@ final class Installer
                 ]],
             ],
             'WHERE'     => [
-                'glpi_documents_items.itemtype'          => ['PluginGrcmanagerAudit', 'PluginGrcmanagerNonconformity'],
+                'glpi_documents_items.itemtype'          => [Audit::class, Nonconformity::class],
                 self::RESTRICTED_DOCUMENTS_TABLE . '.id' => null,
             ],
         ]);
         foreach ($rows as $row) {
             $auditId = (int) $row['items_id'];
-            if ($row['itemtype'] === 'PluginGrcmanagerNonconformity') {
+            if ($row['itemtype'] === Nonconformity::class) {
                 $finding = $DB->request([
                     'SELECT' => 'plugin_grcmanager_audits_id',
                     'FROM'   => self::NONCONFORMITIES_TABLE,
@@ -3247,7 +3292,7 @@ final class Installer
             if ($auditId > 0) {
                 $DB->updateOrInsert(
                     self::RESTRICTED_DOCUMENTS_TABLE,
-                    ['itemtype' => 'PluginGrcmanagerAudit', 'items_id' => $auditId],
+                    ['itemtype' => Audit::class, 'items_id' => $auditId],
                     ['documents_id' => (int) $row['documents_id']]
                 );
             }
@@ -3266,12 +3311,12 @@ final class Installer
         global $DB;
 
         $sources = [
-            'rapport-audit-%'           => ['PluginGrcmanagerAudit', false],
-            'revue-acces-%'             => ['PluginGrcmanagerAccessReview', true],
+            'rapport-audit-%'           => ['GlpiPlugin\\Grcmanager\\Audit', false],
+            'revue-acces-%'             => ['GlpiPlugin\\Grcmanager\\AccessReview', true],
             'rapport-post-incident-%'   => [PluginGrcmanagerSecurityIncident::class, true],
             'rapport-cellule-crise-%'   => [PluginGrcmanagerSecurityIncident::class, true],
             'rapport-exercice-crise-%'  => [PluginGrcmanagerSecurityIncident::class, false],
-            'soa-version-%'             => ['PluginGrcmanagerSoaVersion', false],
+            'soa-version-%'             => ['GlpiPlugin\\Grcmanager\\SoaVersion', false],
         ];
         foreach ($sources as $pattern => [$itemtype, $unlinkControls]) {
             $rows = $DB->request([
@@ -3306,7 +3351,7 @@ final class Installer
                 if ($unlinkControls) {
                     $DB->delete('glpi_documents_items', [
                         'documents_id' => $documentsId,
-                        'itemtype'     => 'PluginGrcmanagerControl',
+                        'itemtype'     => 'GlpiPlugin\\Grcmanager\\Control',
                     ]);
                 }
             }
@@ -3424,13 +3469,13 @@ final class Installer
 
     /**
      * Issue #112 : prévient les approbateurs désignés qu'une version de la SoA attend leur
-     * approbation (cible « Approbateurs désignés », voir PluginGrcmanagerNotificationTargetSoaVersion).
+     * approbation (cible « Approbateurs désignés », voir \GlpiPlugin\Grcmanager\NotificationTargetSoaVersion).
      */
     private function seedSoaApprovalNotification(): void
     {
         global $DB;
 
-        $itemtype = 'PluginGrcmanagerSoaVersion';
+        $itemtype = 'GlpiPlugin\\Grcmanager\\SoaVersion';
         $event    = 'soa_approval_request';
 
         $alreadySeeded = $DB->request([
@@ -3475,8 +3520,11 @@ final class Installer
                 'subject'                  => $t['subject'],
                 'content_text'             => $t['ask'] . "\n\n##soa.comment##\n\n"
                     . $t['link'] . $t['sep'] . '##soa.url##',
-                'content_html'             => '<p>' . $t['ask'] . '</p><p>##soa.comment##</p>'
-                    . '<p><a href="##soa.url##">' . $t['link'] . '</a></p>',
+                'content_html'             => NotificationHtml::render([
+                    NotificationHtml::lines([$t['ask']]),
+                    NotificationHtml::lines(['##soa.comment##']),
+                    NotificationHtml::link('##soa.url##', $t['link']),
+                ]),
             ]);
         }
 
@@ -3497,7 +3545,7 @@ final class Installer
         ]);
 
         $DB->insert('glpi_notificationtargets', [
-            'items_id'         => \PluginGrcmanagerNotificationTargetSoaVersion::APPROVERS_TARGET,
+            'items_id'         => \GlpiPlugin\Grcmanager\NotificationTargetSoaVersion::APPROVERS_TARGET,
             'type'             => Notification::USER_TYPE,
             'notifications_id' => $notificationId,
         ]);
@@ -3511,7 +3559,7 @@ final class Installer
     {
         global $DB;
 
-        $itemtype = 'PluginGrcmanagerAccessReview';
+        $itemtype = 'GlpiPlugin\\Grcmanager\\AccessReview';
         $events = [
             'access_review_request'  => [
                 'name' => 'GRC Manager - Revue des accès à réaliser',
@@ -3565,8 +3613,10 @@ final class Installer
                     'language'                 => $language,
                     'subject'                  => $subject,
                     'content_text'             => $text . "\n\n" . $link . ' : ##accessreview.url##',
-                    'content_html'             => '<p>' . $text . '</p><p><a href="##accessreview.url##">'
-                        . $link . '</a></p>',
+                    'content_html'             => NotificationHtml::render([
+                        NotificationHtml::lines([$text]),
+                        NotificationHtml::link('##accessreview.url##', $link),
+                    ]),
                 ]);
             }
 
@@ -3584,7 +3634,7 @@ final class Installer
                 'notificationtemplates_id' => $templateId,
             ]);
             $DB->insert('glpi_notificationtargets', [
-                'items_id'         => \PluginGrcmanagerNotificationTargetAccessReview::REVIEWERS_TARGET,
+                'items_id'         => \GlpiPlugin\Grcmanager\NotificationTargetAccessReview::REVIEWERS_TARGET,
                 'type'             => Notification::USER_TYPE,
                 'notifications_id' => $notificationId,
             ]);
@@ -3605,7 +3655,7 @@ final class Installer
                 continue;
             }
 
-            foreach (array_values($columns) as $index => $searchOptionId) {
+            foreach ($columns as $index => $searchOptionId) {
                 $DB->insert('glpi_displaypreferences', [
                     'itemtype' => $itemtype,
                     'num' => $searchOptionId,
@@ -3631,19 +3681,19 @@ final class Installer
         // les tâches Cron enregistrées par ce plugin.
         CronTask::Unregister('grcmanager');
 
-        $this->unseedNotification('PluginGrcmanagerRisk');
-        $this->unseedNotification('PluginGrcmanagerSoaVersion');
-        $this->unseedNotification('PluginGrcmanagerSupplierRisk');
-        $this->unseedNotification('PluginGrcmanagerComplianceObligation');
-        $this->unseedNotification('PluginGrcmanagerNonconformity');
-        $this->unseedNotification('PluginGrcmanagerTraining');
-        $this->unseedNotification('PluginGrcmanagerPolicy');
-        $this->unseedNotification('PluginGrcmanagerRiskTreatmentAction');
-        $this->unseedNotification('PluginGrcmanagerEvidence');
-        $this->unseedNotification('PluginGrcmanagerWaiver');
-        $this->unseedNotification('PluginGrcmanagerComplianceEvent');
+        $this->unseedNotification('GlpiPlugin\\Grcmanager\\Risk');
+        $this->unseedNotification('GlpiPlugin\\Grcmanager\\SoaVersion');
+        $this->unseedNotification('GlpiPlugin\\Grcmanager\\SupplierRisk');
+        $this->unseedNotification('GlpiPlugin\\Grcmanager\\ComplianceObligation');
+        $this->unseedNotification('GlpiPlugin\\Grcmanager\\Nonconformity');
+        $this->unseedNotification('GlpiPlugin\\Grcmanager\\Training');
+        $this->unseedNotification('GlpiPlugin\\Grcmanager\\Policy');
+        $this->unseedNotification('GlpiPlugin\\Grcmanager\\RiskTreatmentAction');
+        $this->unseedNotification('GlpiPlugin\\Grcmanager\\Evidence');
+        $this->unseedNotification('GlpiPlugin\\Grcmanager\\Waiver');
+        $this->unseedNotification('GlpiPlugin\\Grcmanager\\ComplianceEvent');
         $this->unseedNotification(PluginGrcmanagerSecurityIncident::class);
-        $this->unseedNotification('PluginGrcmanagerAccessReview');
+        $this->unseedNotification('GlpiPlugin\\Grcmanager\\AccessReview');
 
         // Absorption de glpi-security-incidents (ROADMAP.md "Version 2.0") : colonnes ajoutées sur
         // les tables cœur pour la gestion de modèles - même dérivation que le plugin absorbé
@@ -3747,7 +3797,7 @@ final class Installer
      * glpi_notificationtargets and glpi_notificationtemplatetranslations (confirmed by reading
      * GLPI 11 core, src/Notification.php and src/NotificationTemplate.php), so nothing is
      * orphaned. Generalized from Sprint 2's single-itemtype version to also cover Sprint 4's
-     * PluginGrcmanagerNonconformity notification, called once per itemtype above.
+     * \GlpiPlugin\Grcmanager\Nonconformity notification, called once per itemtype above.
      */
     private function unseedNotification(string $itemtype): void
     {

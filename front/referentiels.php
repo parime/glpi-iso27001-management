@@ -19,35 +19,39 @@ use GlpiPlugin\Grcmanager\Services\Control\AnssiHygieneCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\CisControlsCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\ControlCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\ControlCrosswalkDefaults;
+use GlpiPlugin\Grcmanager\Services\Control\Iso27090CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\Nis2CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\NistCsfCatalogDefaults;
 
 include('../../../inc/includes.php');
 
-// Reuses PluginGrcmanagerControl's own right rather than a dedicated one: this screen only
+// Reuses \GlpiPlugin\Grcmanager\Control's own right rather than a dedicated one: this screen only
 // displays the same Annexe A catalog (plus two purely-consultative reference libraries), no
-// meaningful access boundary of its own — same reasoning as PluginGrcmanagerSecurityIncidentCve
+// meaningful access boundary of its own — same reasoning as \GlpiPlugin\Grcmanager\SecurityIncidentCve
 // reusing PluginGrcmanagerSecurityIncident's right.
-Session::checkRight(PluginGrcmanagerControl::$rightname, READ);
+Session::checkRight(\GlpiPlugin\Grcmanager\Control::$rightname, READ);
 
 Html::header(
-    __('Référentiels', 'grcmanager'),
+    __('Reference frameworks', 'grcmanager'),
     $_SERVER['PHP_SELF'],
     'grcmanager',
-    PluginGrcmanagerControl::class,
-    PluginGrcmanagerReferentials::class
+    \GlpiPlugin\Grcmanager\Control::class,
+    \GlpiPlugin\Grcmanager\Referentials::class
 );
 // Encadré « À quoi sert cette page ? ».
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(PluginGrcmanagerControl::class, PluginGrcmanagerReferentials::class);
-PluginGrcmanagerPageHelp::show('referentiels');
+\GlpiPlugin\Grcmanager\Menu::showSection(
+    \GlpiPlugin\Grcmanager\Control::class,
+    \GlpiPlugin\Grcmanager\Referentials::class
+);
+\GlpiPlugin\Grcmanager\PageHelp::show('referentiels');
 
-$titles = PluginGrcmanagerControl::getControlTitles();
-$themes = PluginGrcmanagerControl::getThemes();
+$titles = \GlpiPlugin\Grcmanager\Control::getControlTitles();
+$themes = \GlpiPlugin\Grcmanager\Control::getThemes();
 
 global $DB;
 $idsByCode = [];
-foreach ($DB->request(['SELECT' => ['id', 'code'], 'FROM' => PluginGrcmanagerControl::getTable()]) as $row) {
+foreach ($DB->request(['SELECT' => ['id', 'code'], 'FROM' => \GlpiPlugin\Grcmanager\Control::getTable()]) as $row) {
     $idsByCode[$row['code']] = (int) $row['id'];
 }
 
@@ -139,7 +143,27 @@ foreach (AnssiHygieneCatalogDefaults::THEMES as $themeCode => $themeTitle) {
     $anssi[] = ['code' => $themeCode, 'title' => $themeTitle[$nis2Lang], 'measures' => $measures];
 }
 
+// ISO/IEC 27090:2026 (sécurité des systèmes d'IA) : numéros de section et objet résumé par ce
+// projet (texte de la norme protégé), correspondance Annexe A indicative.
+$iso27090 = [];
+foreach (Iso27090CatalogDefaults::CHAPTERS as $chapter => $chapterTitle) {
+    $topics = [];
+    foreach (Iso27090CatalogDefaults::TOPICS as $code => $topic) {
+        if ($topic['chapter'] !== (string) $chapter) {
+            continue;
+        }
+        $controls = [];
+        foreach ($topic['annex_a'] as $annexACode) {
+            $controls[] = ['code' => $annexACode, 'id' => $idsByCode[$annexACode] ?? null];
+        }
+        $topics[] = ['code' => (string) $code, 'text' => $topic[$nis2Lang], 'controls' => $controls];
+    }
+    $iso27090[] = ['chapter' => (string) $chapter, 'title' => $chapterTitle[$nis2Lang], 'topics' => $topics];
+}
+
 \Glpi\Application\View\TemplateRenderer::getInstance()->display('@grcmanager/referentiels.html.twig', [
+    'iso27090'        => $iso27090,
+    'iso27090_source' => Iso27090CatalogDefaults::SOURCE_URL,
     'annex_a'      => $annexA,
     'nist_csf'     => $nistCsf,
     'cis_controls' => $cisControls,

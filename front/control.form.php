@@ -17,10 +17,10 @@
 
 include('../../../inc/includes.php');
 
-$item = new PluginGrcmanagerControl();
+$item = new \GlpiPlugin\Grcmanager\Control();
 
 if (isset($_POST['add'])) {
-    Session::checkRight(PluginGrcmanagerControl::$rightname, CREATE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\Control::$rightname, CREATE);
     $newID = $item->add($_POST);
     // Comme les formulaires natifs : retour sur l'élément créé si la préférence est active.
     if ($newID && $_SESSION['glpibackcreated']) {
@@ -28,22 +28,22 @@ if (isset($_POST['add'])) {
     }
     Html::back();
 } elseif (isset($_POST['delete'])) {
-    Session::checkRight(PluginGrcmanagerControl::$rightname, DELETE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\Control::$rightname, DELETE);
     $item->delete($_POST);
-    Html::redirect(PluginGrcmanagerControl::getSearchURL());
+    Html::redirect(\GlpiPlugin\Grcmanager\Control::getSearchURL());
 } elseif (isset($_POST['purge'])) {
-    Session::checkRight(PluginGrcmanagerControl::$rightname, PURGE);
-    $item->delete($_POST, 1);
-    Html::redirect(PluginGrcmanagerControl::getSearchURL());
+    Session::checkRight(\GlpiPlugin\Grcmanager\Control::$rightname, PURGE);
+    $item->delete($_POST, true);
+    Html::redirect(\GlpiPlugin\Grcmanager\Control::getSearchURL());
 } elseif (isset($_POST['update'])) {
-    Session::checkRight(PluginGrcmanagerControl::$rightname, UPDATE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\Control::$rightname, UPDATE);
     $item->update($_POST);
     Html::back();
 } else {
     // Issue #126 : displayFullPageForItem() (comme front/policy.form.php) affiche la barre
     // d'onglets (revues des accès, documents) ; showForm() seul ne la rend pas.
-    PluginGrcmanagerControl::displayFullPageForItem(
+    \GlpiPlugin\Grcmanager\Control::displayFullPageForItem(
         $_GET['id'] ?? 0,
-        ['central' => ['grcmanager', PluginGrcmanagerControl::class], 'helpdesk' => []]
+        ['central' => ['grcmanager', \GlpiPlugin\Grcmanager\Control::class], 'helpdesk' => []]
     );
 }

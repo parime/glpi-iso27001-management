@@ -4,26 +4,26 @@
    pensé pour être réimporté tel quel après modification dans un tableur. #}
 
 <p class="text-muted">
-  {{ __('Exportez l\'état actuel de la Déclaration d\'Applicabilité, modifiez-le dans un tableur, puis réimportez le fichier pour appliquer les changements en une fois.', 'grcmanager') }}
+  {{ __('Export the current state of the Statement of Applicability, edit it in a spreadsheet, then re-import the file to apply the changes at once.', 'grcmanager') }}
 </p>
 
 <a href="{{ path('/plugins/grcmanager/front/control.csv.php') }}?action=export" class="btn btn-outline-secondary mb-3">
-  <i class="ti ti-download me-1"></i>{{ __('Télécharger le CSV actuel', 'grcmanager') }}
+  <i class="ti ti-download me-1"></i>{{ __('Download the current CSV', 'grcmanager') }}
 </a>
 
 {% if import_result %}
   {% if import_result.no_rows_found %}
     <div class="alert alert-danger">
-      {{ __('Aucune ligne exploitable trouvée dans ce fichier — vérifiez qu\'il s\'agit bien d\'un CSV exporté depuis cet écran (colonnes séparées par des points-virgules).', 'grcmanager') }}
+      {{ __('No usable row was found in this file — check that it is really a CSV exported from this screen (semicolon-separated columns).', 'grcmanager') }}
     </div>
   {% else %}
     <div class="alert {{ import_result.rejected_count > 0 ? 'alert-warning' : 'alert-success' }}">
-      {{ __('%d contrôle(s) mis à jour.', 'grcmanager')|format(import_result.updated_count) }}
+      {{ __('%d control(s) updated.', 'grcmanager')|format(import_result.updated_count) }}
       {% if import_result.rejected_count > 0 %}
-        {{ __('%d ligne(s) rejetée(s) :', 'grcmanager')|format(import_result.rejected_count) }}
+        {{ __('%d row(s) rejected:', 'grcmanager')|format(import_result.rejected_count) }}
         <ul class="mb-0">
           {% for rejection in import_result.rejected %}
-            <li><strong>{{ rejection.code|default(__('(ligne vide)', 'grcmanager')) }}</strong> — {{ rejection.reason }}</li>
+            <li><strong>{{ rejection.code|default(__('(empty row)', 'grcmanager')) }}</strong> — {{ rejection.reason }}</li>
           {% endfor %}
         </ul>
       {% endif %}
@@ -34,14 +34,14 @@
 {% if can_edit %}
   <form method="post" action="{{ path('/plugins/grcmanager/front/control.csv.php') }}" enctype="multipart/form-data" class="card">
     <div class="card-body">
-      <h3 class="card-title">{{ __('Importer un CSV modifié', 'grcmanager') }}</h3>
+      <h3 class="card-title">{{ __('Import a modified CSV', 'grcmanager') }}</h3>
       <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
       <input type="file" name="soa_file" accept=".csv" class="form-control mb-2" required>
       <small class="form-hint d-block mb-2">
-        {{ __('Fichier attendu : celui téléchargé ci-dessus, éventuellement modifié (colonnes séparées par des points-virgules). Seules les colonnes applicabilite, etat_mise_en_oeuvre et justification sont appliquées, identifiées par le code du contrôle. Aucune ligne n\'est jamais créée ni supprimée.', 'grcmanager') }}
+        {{ __('Expected file: the one downloaded above, possibly edited (semicolon-separated columns). Only the applicabilite, etat_mise_en_oeuvre and justification columns are applied, matched by the control\'s code. No row is ever created or deleted.', 'grcmanager') }}
       </small>
       <button type="submit" name="import" class="btn btn-primary">
-        <i class="ti ti-upload me-1"></i>{{ __('Importer', 'grcmanager') }}
+        <i class="ti ti-upload me-1"></i>{{ __('Import', 'grcmanager') }}
       </button>
     </div>
   </form>

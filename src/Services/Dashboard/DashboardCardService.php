@@ -26,10 +26,10 @@ final class DashboardCardService
     public static function maturityScore(array $params = []): array
     {
         return [
-            'number' => \PluginGrcmanagerMaturity::current()['score'],
-            'label'  => $params['label'] ?? __('Score de maturité (sur 100)', 'grcmanager'),
+            'number' => \GlpiPlugin\Grcmanager\Maturity::current()['score'],
+            'label'  => $params['label'] ?? __('Maturity score (out of 100)', 'grcmanager'),
             'icon'   => 'ti ti-gauge',
-            'url'    => \PluginGrcmanagerMaturity::getSearchURL(),
+            'url'    => \GlpiPlugin\Grcmanager\Maturity::getSearchURL(),
         ];
     }
 
@@ -45,7 +45,7 @@ final class DashboardCardService
 
         return [
             'number' => $count,
-            'label' => $params['label'] ?? __('Risques ouverts', 'grcmanager'),
+            'label' => $params['label'] ?? __('Open risks', 'grcmanager'),
             'icon' => 'ti ti-shield-exclamation',
         ];
     }
@@ -75,7 +75,7 @@ final class DashboardCardService
 
         return [
             'data' => $data,
-            'label' => $params['label'] ?? __('Risques par niveau', 'grcmanager'),
+            'label' => $params['label'] ?? __('Risks by level', 'grcmanager'),
             'icon' => 'ti ti-chart-pie',
         ];
     }
@@ -108,7 +108,7 @@ final class DashboardCardService
 
         return [
             'data' => $data,
-            'label' => $params['label'] ?? __('Risques par catégorie', 'grcmanager'),
+            'label' => $params['label'] ?? __('Risks by category', 'grcmanager'),
             'icon' => 'ti ti-chart-pie',
         ];
     }
@@ -128,7 +128,7 @@ final class DashboardCardService
 
         return [
             'number' => $count,
-            'label' => $params['label'] ?? __('Risques en attente de revue', 'grcmanager'),
+            'label' => $params['label'] ?? __('Risks pending review', 'grcmanager'),
             'icon' => 'ti ti-calendar-due',
         ];
     }
@@ -158,7 +158,7 @@ final class DashboardCardService
         return [
             'number' => $count,
             'url'    => $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/evidence.php',
-            'label'  => $params['label'] ?? __('Preuves expirées ou à renouveler', 'grcmanager'),
+            'label'  => $params['label'] ?? __('Expired evidence or evidence to renew', 'grcmanager'),
             'icon'   => 'ti ti-calendar-time',
         ];
     }
@@ -166,7 +166,7 @@ final class DashboardCardService
     /**
      * SoA completion progress (Sprint 3, clause 6.1.3): "X/93 contrôles revus", a control counts
      * as reviewed as soon as it has been explicitly saved once through the form (see
-     * PluginGrcmanagerControl::validateAndMarkReviewed()), regardless of the applicability chosen.
+     * \GlpiPlugin\Grcmanager\Control::validateAndMarkReviewed()), regardless of the applicability chosen.
      */
     public static function soaReviewedCount(array $params = []): array
     {
@@ -186,7 +186,7 @@ final class DashboardCardService
         return [
             'number' => $reviewed,
             'label' => $params['label'] ?? sprintf(
-                __('Contrôles SoA revus (%d au total)', 'grcmanager'),
+                __('SoA controls reviewed (%d total)', 'grcmanager'),
                 $total
             ),
             'icon' => 'ti ti-checklist',
@@ -218,7 +218,7 @@ final class DashboardCardService
 
         return [
             'data' => $data,
-            'label' => $params['label'] ?? __('Contrôles SoA par applicabilité', 'grcmanager'),
+            'label' => $params['label'] ?? __('SoA controls by applicability', 'grcmanager'),
             'icon' => 'ti ti-chart-pie',
         ];
     }
@@ -251,7 +251,7 @@ final class DashboardCardService
 
         return [
             'data' => $data,
-            'label' => $params['label'] ?? __('Contrôles SoA par état de mise en œuvre', 'grcmanager'),
+            'label' => $params['label'] ?? __('SoA controls by implementation status', 'grcmanager'),
             'icon' => 'ti ti-chart-pie',
         ];
     }
@@ -280,7 +280,7 @@ final class DashboardCardService
 
         return [
             'number' => $count,
-            'label' => $params['label'] ?? __('Non-conformités ouvertes', 'grcmanager'),
+            'label' => $params['label'] ?? __('Open non-conformities', 'grcmanager'),
             'icon' => 'ti ti-alert-hexagon',
         ];
     }
@@ -307,7 +307,7 @@ final class DashboardCardService
 
         return [
             'number' => $count,
-            'label' => $params['label'] ?? __('Actions correctives/préventives en retard', 'grcmanager'),
+            'label' => $params['label'] ?? __('Overdue corrective/preventive actions', 'grcmanager'),
             'icon' => 'ti ti-calendar-due',
         ];
     }
@@ -340,7 +340,7 @@ final class DashboardCardService
 
         return [
             'data' => $data,
-            'label' => $params['label'] ?? __('Audits internes par statut', 'grcmanager'),
+            'label' => $params['label'] ?? __('Internal audits by status', 'grcmanager'),
             'icon' => 'ti ti-chart-pie',
         ];
     }
@@ -374,7 +374,7 @@ final class DashboardCardService
 
         return [
             'data' => $data,
-            'label' => $params['label'] ?? __('Risques fournisseurs par niveau', 'grcmanager'),
+            'label' => $params['label'] ?? __('Supplier risks by level', 'grcmanager'),
             'icon' => 'ti ti-chart-pie',
         ];
     }
@@ -402,10 +402,7 @@ final class DashboardCardService
 
         return [
             'number' => $count,
-            'label' => $params['label'] ?? __(
-                'Fournisseurs avec au moins un risque élevé/critique ouvert',
-                'grcmanager'
-            ),
+            'label' => $params['label'] ?? __('Suppliers with at least one open high/critical risk', 'grcmanager'),
             'icon' => 'ti ti-building-warehouse',
         ];
     }
@@ -436,7 +433,7 @@ final class DashboardCardService
 
         return [
             'number' => $rate,
-            'label' => $params['label'] ?? __('Taux de réalisation des formations', 'grcmanager'),
+            'label' => $params['label'] ?? __('Training completion rate', 'grcmanager'),
             'icon' => 'ti ti-school',
         ];
     }
@@ -447,7 +444,7 @@ final class DashboardCardService
      * la présence/participation, pas la réussite d'une évaluation. Calculé uniquement sur les
      * participants avec une évaluation renseignée (`assessment_result` != 'not_applicable') : une
      * formation sans évaluation ne doit ni compter comme réussie ni comme échouée, elle est hors
-     * périmètre de cet indicateur (voir `PluginGrcmanagerTraining::getAssessmentResults()`).
+     * périmètre de cet indicateur (voir `\GlpiPlugin\Grcmanager\Training::getAssessmentResults()`).
      */
     public static function trainingPassRate(array $params = []): array
     {
@@ -469,15 +466,15 @@ final class DashboardCardService
 
         return [
             'number' => $rate,
-            'label' => $params['label'] ?? __('Taux de réussite des formations évaluées', 'grcmanager'),
+            'label' => $params['label'] ?? __('Pass rate of assessed training sessions', 'grcmanager'),
             'icon' => 'ti ti-certificate',
         ];
     }
 
     /**
      * Nombre de participants distincts en retard de renouvellement, même définition partagée par
-     * PluginGrcmanagerTraining::getOverdueParticipants() et la tâche Cron
-     * PluginGrcmanagerTraining::cronRenewaldue(), pour que la carte de tableau de bord et le rappel
+     * \GlpiPlugin\Grcmanager\Training::getOverdueParticipants() et la tâche Cron
+     * \GlpiPlugin\Grcmanager\Training::cronRenewaldue(), pour que la carte de tableau de bord et le rappel
      * automatique ne divergent jamais sur ce qui compte comme "en retard".
      */
     public static function trainingOverdueRenewalCount(array $params = []): array
@@ -503,10 +500,7 @@ final class DashboardCardService
 
         return [
             'number' => $count,
-            'label' => $params['label'] ?? __(
-                'Participants en retard de renouvellement de formation',
-                'grcmanager'
-            ),
+            'label' => $params['label'] ?? __('Participants overdue for training renewal', 'grcmanager'),
             'icon' => 'ti ti-calendar-due',
         ];
     }
@@ -540,7 +534,7 @@ final class DashboardCardService
 
         return [
             'data' => $data,
-            'label' => $params['label'] ?? __('Revues de direction par statut', 'grcmanager'),
+            'label' => $params['label'] ?? __('Management reviews by status', 'grcmanager'),
             'icon' => 'ti ti-chart-pie',
         ];
     }
@@ -550,7 +544,7 @@ final class DashboardCardService
      * prochaine date de revue est dépassée ou approche, même définition "dû" que
      * GlpiPlugin\Grcmanager\Services\Policy\PolicyReviewReminderWindow (fenêtre de 30 jours,
      * `archived` exclu), pour que cette carte et la tâche Cron
-     * PluginGrcmanagerPolicy::cronReviewreminder() ne divergent jamais sur ce qui compte comme "en
+     * \GlpiPlugin\Grcmanager\Policy::cronReviewreminder() ne divergent jamais sur ce qui compte comme "en
      * attente de revue".
      */
     public static function policiesPendingReviewCount(array $params = []): array
@@ -569,7 +563,7 @@ final class DashboardCardService
 
         return [
             'number' => $count,
-            'label' => $params['label'] ?? __('Politiques en attente de revue', 'grcmanager'),
+            'label' => $params['label'] ?? __('Policies pending review', 'grcmanager'),
             'icon' => 'ti ti-calendar-due',
         ];
     }
@@ -599,7 +593,7 @@ final class DashboardCardService
 
         return [
             'data' => $data,
-            'label' => $params['label'] ?? __('Politiques de sécurité par statut', 'grcmanager'),
+            'label' => $params['label'] ?? __('Security policies by status', 'grcmanager'),
             'icon' => 'ti ti-chart-pie',
         ];
     }
@@ -621,7 +615,7 @@ final class DashboardCardService
 
         return [
             'number' => $count,
-            'label' => $params['label'] ?? __('Obligations non conformes', 'grcmanager'),
+            'label' => $params['label'] ?? __('Non-compliant obligations', 'grcmanager'),
             'icon' => 'ti ti-gavel',
         ];
     }
@@ -629,7 +623,7 @@ final class DashboardCardService
     /**
      * Obligations dont la date de revue est dépassée ou approche, même définition (fenêtre de 30
      * jours) que GlpiPlugin\Grcmanager\Services\Compliance\ComplianceObligationRules::isReviewDue()
-     * et la tâche Cron PluginGrcmanagerComplianceObligation::cronReviewreminder(), pour que la
+     * et la tâche Cron \GlpiPlugin\Grcmanager\ComplianceObligation::cronReviewreminder(), pour que la
      * carte de tableau de bord et le rappel automatique ne divergent jamais sur ce qui compte comme
      * "en attente de revue". Contrairement à risksPendingReviewCount() ci-dessus, aucune exclusion
      * de statut : `compliance_status` ne dit rien sur si l'obligation est encore suivie, voir
@@ -650,7 +644,7 @@ final class DashboardCardService
 
         return [
             'number' => $count,
-            'label' => $params['label'] ?? __('Obligations en attente de revue', 'grcmanager'),
+            'label' => $params['label'] ?? __('Obligations pending review', 'grcmanager'),
             'icon' => 'ti ti-calendar-due',
         ];
     }
@@ -680,7 +674,7 @@ final class DashboardCardService
 
         return [
             'data' => $data,
-            'label' => $params['label'] ?? __('Obligations par type', 'grcmanager'),
+            'label' => $params['label'] ?? __('Obligations by type', 'grcmanager'),
             'icon' => 'ti ti-chart-pie',
         ];
     }
@@ -713,7 +707,7 @@ final class DashboardCardService
 
         return [
             'data' => $data,
-            'label' => $params['label'] ?? __('Obligations par statut de conformité', 'grcmanager'),
+            'label' => $params['label'] ?? __('Obligations by compliance status', 'grcmanager'),
             'icon' => 'ti ti-chart-pie',
         ];
     }
@@ -757,14 +751,14 @@ final class DashboardCardService
 
         return [
             'data' => $data,
-            'label' => $params['label'] ?? __('Incidents de sécurité par statut', 'grcmanager'),
+            'label' => $params['label'] ?? __('Security incidents by status', 'grcmanager'),
             'icon' => 'ti ti-chart-pie',
         ];
     }
 
     /**
      * Issue #29 : répartition par sévérité (mineure/majeure/critique), même échelle que
-     * PluginGrcmanagerNonconformity::getSeverities() et même schéma de carte que
+     * \GlpiPlugin\Grcmanager\Nonconformity::getSeverities() et même schéma de carte que
      * risksByLevel()/supplierRisksByLevel() ci-dessus.
      */
     public static function securityIncidentsBySeverity(array $params = []): array
@@ -795,7 +789,7 @@ final class DashboardCardService
 
         return [
             'data' => $data,
-            'label' => $params['label'] ?? __('Incidents de sécurité par sévérité', 'grcmanager'),
+            'label' => $params['label'] ?? __('Security incidents by severity', 'grcmanager'),
             'icon' => 'ti ti-chart-pie',
         ];
     }
@@ -831,7 +825,7 @@ final class DashboardCardService
 
         return [
             'number' => $avgHours,
-            'label'  => $params['label'] ?? __('Délai moyen de réponse aux incidents (heures)', 'grcmanager'),
+            'label'  => $params['label'] ?? __('Average incident response time (hours)', 'grcmanager'),
             'icon'   => 'ti ti-clock-hour-4',
         ];
     }
@@ -839,7 +833,7 @@ final class DashboardCardService
     /**
      * Issue #31 (plan d'action de traitement des risques, clause 8.3/6.1.3) : même définition "en
      * retard" que GlpiPlugin\Grcmanager\Services\Risk\TreatmentPlanRules::isOverdue() et la tâche
-     * Cron PluginGrcmanagerRiskTreatmentAction::cronOverduetreatmentaction() (échéance dépassée,
+     * Cron \GlpiPlugin\Grcmanager\RiskTreatmentAction::cronOverduetreatmentaction() (échéance dépassée,
      * statut différent de "done"), pour que cette carte et le rappel automatique ne divergent
      * jamais sur ce qui compte comme "en retard", même schéma que overdueCapaCount() ci-dessus.
      */
@@ -859,7 +853,7 @@ final class DashboardCardService
 
         return [
             'number' => $count,
-            'label' => $params['label'] ?? __('Actions de traitement de risque en retard', 'grcmanager'),
+            'label' => $params['label'] ?? __('Overdue risk treatment actions', 'grcmanager'),
             'icon' => 'ti ti-calendar-due',
         ];
     }
@@ -869,7 +863,7 @@ final class DashboardCardService
      * dont la décision de traitement est "mitiger"/"transférer" (donc censée être mise en œuvre,
      * voir TreatmentPlanRules::isTreatmentPlanRelevant()) mais qui n'a encore AUCUNE action de
      * traitement enregistrée : une décision prise, sans plan derrière. Un risque déjà `closed` est
-     * exclu (voir PluginGrcmanagerRisk::validateTreatmentPlanAndComputeRiskLevel(), qui empêche
+     * exclu (voir \GlpiPlugin\Grcmanager\Risk::validateTreatmentPlanAndComputeRiskLevel(), qui empêche
      * désormais de clôturer un tel risque sans au moins une action, donc plus rien à signaler ici
      * une fois clôturé), même définition "ouvert" que openRisksCount() ci-dessus.
      */
@@ -894,10 +888,7 @@ final class DashboardCardService
 
         return [
             'number' => $count,
-            'label' => $params['label'] ?? __(
-                'Risques à mitiger/transférer sans plan de traitement',
-                'grcmanager'
-            ),
+            'label' => $params['label'] ?? __('Risks to mitigate/transfer with no treatment plan', 'grcmanager'),
             'icon' => 'ti ti-list-details',
         ];
     }
@@ -939,7 +930,7 @@ final class DashboardCardService
 
         return [
             'data' => $data,
-            'label' => $params['label'] ?? __('Objectifs ISMS par statut', 'grcmanager'),
+            'label' => $params['label'] ?? __('ISMS objectives by status', 'grcmanager'),
             'icon' => 'ti ti-chart-pie',
         ];
     }

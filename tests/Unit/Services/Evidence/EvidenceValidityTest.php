@@ -39,8 +39,8 @@ final class EvidenceValidityTest extends TestCase
 
     public function testSupportedItemtypes(): void
     {
-        self::assertTrue(EvidenceValidity::isSupportedItemtype('PluginGrcmanagerControl'));
-        self::assertTrue(EvidenceValidity::isSupportedItemtype('PluginGrcmanagerPolicy'));
+        self::assertTrue(EvidenceValidity::isSupportedItemtype('GlpiPlugin\\Grcmanager\\Control'));
+        self::assertTrue(EvidenceValidity::isSupportedItemtype('GlpiPlugin\\Grcmanager\\Policy'));
         self::assertFalse(EvidenceValidity::isSupportedItemtype('Computer'));
     }
 }

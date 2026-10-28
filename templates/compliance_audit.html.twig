@@ -9,23 +9,23 @@
                   <span class="badge {{ _self.score_class(s.score) }} fs-1 px-3 py-2">{{ s.score is null ? '—' : s.score ~ ' %' }}</span>
                   <div>
                      <div class="h3 mb-0">{{ s.label }}</div>
-                     <div class="text-muted small">{{ s.checks > 0 ? __('Moyenne de %d contrôle(s) technique(s)', 'grcmanager')|format(s.checks) : __('Aucun contrôle évaluable', 'grcmanager') }}</div>
+                     <div class="text-muted small">{{ s.checks > 0 ? __('Average of %d technical check(s)', 'grcmanager')|format(s.checks) : __('No check can be evaluated', 'grcmanager') }}</div>
                   </div>
                </div>
             </div>
          </div>
       {% endfor %}
    </div>
-   <p class="text-muted"><i class="ti ti-info-circle me-1"></i>{{ __('Ce score ne mesure que les contrôles techniques ci-dessous, à partir des données de GLPI. L\'avancement organisationnel se suit dans la déclaration d\'applicabilité (SoA) et le score de maturité.', 'grcmanager') }}
-      <a href="{{ soa_url }}">{{ __('Mesures de l\'Annexe A', 'grcmanager') }}</a> · <a href="{{ maturity_url }}">{{ __('Score de maturité', 'grcmanager') }}</a></p>
+   <p class="text-muted"><i class="ti ti-info-circle me-1"></i>{{ __('This score only measures the technical checks below, from GLPI data. Organisational progress is tracked in the Statement of Applicability (SoA) and the maturity score.', 'grcmanager') }}
+      <a href="{{ soa_url }}">{{ _x('measures', 'Annex A controls', 'grcmanager') }}</a> · <a href="{{ maturity_url }}">{{ __('Maturity score', 'grcmanager') }}</a></p>
 
    <form method="get" action="{{ action }}" class="d-flex align-items-center gap-2 mb-3">
-      <label class="form-label mb-0" for="grc-audit-approvals">{{ __('Validations exigées par changement', 'grcmanager') }}</label>
+      <label class="form-label mb-0" for="grc-audit-approvals">{{ __('Validations required per change', 'grcmanager') }}</label>
       <select class="form-select w-auto" id="grc-audit-approvals" name="approvals" onchange="this.form.submit()">
          <option value="1" {{ approvals == 1 ? 'selected' }}>1</option>
          <option value="2" {{ approvals == 2 ? 'selected' }}>{{ __('2 (double validation)', 'grcmanager') }}</option>
       </select>
-      <noscript><button type="submit" class="btn btn-outline-secondary btn-sm">{{ __('Appliquer', 'grcmanager') }}</button></noscript>
+      <noscript><button type="submit" class="btn btn-outline-secondary btn-sm">{{ __('Apply', 'grcmanager') }}</button></noscript>
    </form>
 
    {# Issue #305 : les postes réformés ou en stock ne sont pas en écart. #}
@@ -34,26 +34,26 @@
       <form method="post" action="{{ action }}" class="mb-3">
          <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
          <input type="hidden" name="approvals" value="{{ approvals }}">
-         {{ fields.dropdownField('State', 'excluded_states', excluded_states, __('Statuts d\'ordinateur exclus des contrôles', 'grcmanager'), {
+         {{ fields.dropdownField('State', 'excluded_states', excluded_states, __('Computer statuses excluded from the checks', 'grcmanager'), {
             'multiple': true,
             'entity': -1,
-            'helper': __('Par exemple « Réformé » ou « En stock » : ces postes ne sont comptés ni dans les écarts ni dans les scores.', 'grcmanager'),
+            'helper': __('For example "Retired" or "In stock": these computers are counted neither in the gaps nor in the scores.', 'grcmanager'),
          }) }}
          <button type="submit" name="update_excluded_states" class="btn btn-outline-primary btn-sm">{{ __('Enregistrer') }}</button>
       </form>
    {% elseif excluded_names is not empty %}
-      <p class="text-muted small">{{ __('Postes exclus des contrôles (statut) : %s', 'grcmanager')|format(excluded_names|join(', ')) }}</p>
+      <p class="text-muted small">{{ __('Computers excluded from the checks (status): %s', 'grcmanager')|format(excluded_names|join(', ')) }}</p>
    {% endif %}
 
    {% for c in checks %}
       <div class="card mb-3">
          <div class="card-header d-flex flex-wrap align-items-center gap-2">
             {% if not c.evaluated %}
-               <span class="badge bg-secondary-lt"><i class="ti ti-lock me-1"></i>{{ __('Non évalué', 'grcmanager') }}</span>
+               <span class="badge bg-secondary-lt"><i class="ti ti-lock me-1"></i>{{ __('Not evaluated', 'grcmanager') }}</span>
             {% elseif c.rate is null %}
-               <span class="badge bg-secondary-lt"><i class="ti ti-minus me-1"></i>{{ __('Sans objet', 'grcmanager') }}</span>
+               <span class="badge bg-secondary-lt"><i class="ti ti-minus me-1"></i>{{ _x('nothing to assess', 'Not applicable', 'grcmanager') }}</span>
             {% elseif c.gap_count == 0 %}
-               <span class="badge bg-green-lt"><i class="ti ti-circle-check me-1"></i>{{ __('Conforme', 'grcmanager') }}</span>
+               <span class="badge bg-green-lt"><i class="ti ti-circle-check me-1"></i>{{ __('Compliant', 'grcmanager') }}</span>
             {% else %}
                <span class="badge {{ _self.score_class(c.rate) }}"><i class="ti ti-alert-triangle me-1"></i>{{ c.gap_count }} / {{ c.total }}</span>
             {% endif %}
@@ -63,25 +63,25 @@
          <div class="card-body">
             <p class="text-muted small mb-2">{{ c.help }}</p>
             {% if not c.evaluated %}
-               <p class="mb-0">{{ __('Votre profil ne permet pas de lire les éléments concernés : ce contrôle n\'entre pas dans le score.', 'grcmanager') }}</p>
+               <p class="mb-0">{{ __('Your profile cannot read the items concerned: this check is not part of the score.', 'grcmanager') }}</p>
             {% elseif c.rate is null %}
-               <p class="mb-0">{{ __('Aucun élément concerné dans vos entités.', 'grcmanager') }}</p>
+               <p class="mb-0">{{ __('No item concerned in your entities.', 'grcmanager') }}</p>
             {% elseif c.gap_count > 0 %}
                <ul class="mb-2">
                   {% for g in c.gaps %}<li><a href="{{ g.url }}">{{ g.name }}</a> — <span class="text-muted">{{ g.detail }}</span></li>{% endfor %}
                </ul>
-               {% if c.gap_count > c.gaps|length %}<p class="text-muted small">{{ __('… et %d autres.', 'grcmanager')|format(c.gap_count - c.gaps|length) }}</p>{% endif %}
+               {% if c.gap_count > c.gaps|length %}<p class="text-muted small">{{ __('… and %d others.', 'grcmanager')|format(c.gap_count - c.gaps|length) }}</p>{% endif %}
                {% if c.key == 'accounts' %}
-                  <a href="{{ hygiene_url }}" class="btn btn-outline-primary btn-sm"><i class="ti ti-user-search me-1"></i>{{ __('Revoir ces comptes (hygiène des comptes)', 'grcmanager') }}</a>
+                  <a href="{{ hygiene_url }}" class="btn btn-outline-primary btn-sm"><i class="ti ti-user-search me-1"></i>{{ __('Review these accounts (account hygiene)', 'grcmanager') }}</a>
                {% elseif c.ticket_url %}
-                  <a href="{{ c.ticket_url }}" class="btn btn-outline-primary btn-sm"><i class="ti ti-ticket me-1"></i>{{ __('Ticket de mise en conformité en cours (#%d)', 'grcmanager')|format(c.ticket_id) }}</a>
+                  <a href="{{ c.ticket_url }}" class="btn btn-outline-primary btn-sm"><i class="ti ti-ticket me-1"></i>{{ __('Remediation ticket in progress (#%d)', 'grcmanager')|format(c.ticket_id) }}</a>
                {% elseif can_ticket %}
                   <form method="post" action="{{ action }}" class="d-inline">
                      <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
                      <input type="hidden" name="approvals" value="{{ approvals }}">
-                     <button type="submit" name="create_ticket" value="{{ c.key }}" class="btn btn-primary btn-sm"><i class="ti ti-ticket me-1"></i>{{ __('Créer le ticket de mise en conformité', 'grcmanager') }}</button>
+                     <button type="submit" name="create_ticket" value="{{ c.key }}" class="btn btn-primary btn-sm"><i class="ti ti-ticket me-1"></i>{{ __('Create the remediation ticket', 'grcmanager') }}</button>
                   </form>
-                  <span class="form-hint ms-2">{{ __('Un seul ticket, avec les éléments concernés liés. Rien n\'est modifié automatiquement.', 'grcmanager') }}</span>
+                  <span class="form-hint ms-2">{{ __('A single ticket, with the items concerned linked. Nothing is changed automatically.', 'grcmanager') }}</span>
                {% endif %}
             {% endif %}
          </div>

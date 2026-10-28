@@ -5,19 +5,19 @@
 
 {% block form_fields %}
    {{ fields.dropdownArrayField('event_type', item.fields['event_type'] ?: default_type, types, __('Type', 'grcmanager')) }}
-   {{ fields.textField('name', item.fields['name'], __('Nom', 'grcmanager'), {
-      'add_field_html': hints.hint(__('Laissé vide, le type sert de nom.', 'grcmanager')),
+   {{ fields.textField('name', item.fields['name'], __('Name', 'grcmanager'), {
+      'add_field_html': hints.hint(__('If left empty, the type is used as the name.', 'grcmanager')),
    }) }}
-   {{ fields.datetimeField('date_begin', item.fields['date_begin'], __('Début', 'grcmanager'), {'required': true}) }}
-   {{ fields.datetimeField('date_end', item.fields['date_end'], __('Fin', 'grcmanager'), {
-      'add_field_html': hints.hint(__('Vide : la journée du début.', 'grcmanager')),
+   {{ fields.datetimeField('date_begin', item.fields['date_begin'], __('Start', 'grcmanager'), {'required': true}) }}
+   {{ fields.datetimeField('date_end', item.fields['date_end'], __('End', 'grcmanager'), {
+      'add_field_html': hints.hint(__('Empty: the day of the start.', 'grcmanager')),
    }) }}
-   {{ fields.dropdownField('User', 'users_id', item.fields['users_id'], __('Responsable', 'grcmanager'), {
+   {{ fields.dropdownField('User', 'users_id', item.fields['users_id'], __('Owner', 'grcmanager'), {
       'right': 'all',
-      'add_field_html': hints.hint(__('L\'événement apparaît dans son planning GLPI.', 'grcmanager')),
+      'add_field_html': hints.hint(__('The event appears in their GLPI planning.', 'grcmanager')),
    }) }}
-   {{ fields.dropdownArrayField('status', item.fields['status'] ?: default_status, statuses, __('Statut', 'grcmanager')) }}
-   {{ fields.dropdownField('Supplier', 'suppliers_id', item.fields['suppliers_id'], __('Prestataire', 'grcmanager')) }}
-   {{ fields.textareaField('scope', item.fields['scope'], __('Périmètre', 'grcmanager')) }}
-   {{ fields.textareaField('comment', item.fields['comment'], __('Commentaires', 'grcmanager'), {'full_width': true}) }}
+   {{ fields.dropdownArrayField('status', item.fields['status'] ?: default_status, statuses, __('Status', 'grcmanager')) }}
+   {{ fields.dropdownField('Supplier', 'suppliers_id', item.fields['suppliers_id'], __('Provider', 'grcmanager')) }}
+   {{ fields.textareaField('scope', item.fields['scope'], __('Scope', 'grcmanager')) }}
+   {{ fields.textareaField('comment', item.fields['comment'], __('Comments', 'grcmanager'), {'full_width': true}) }}
 {% endblock %}

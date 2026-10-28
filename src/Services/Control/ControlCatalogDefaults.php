@@ -12,9 +12,9 @@ namespace GlpiPlugin\Grcmanager\Services\Control;
  * Deliberately pure PHP with no GLPI dependency (unlike inc/control.class.php, which is the real
  * CommonDBTM this data seeds, see src/Install/Installer.php): only the stable ISO identifier and
  * theme travel here, not the (translatable) title, same separation already used for
- * PluginGrcmanagerRisk's own category/probability/impact enums, whose *labels* live only in
+ * \GlpiPlugin\Grcmanager\Risk's own category/probability/impact enums, whose *labels* live only in
  * inc/risk.class.php's static getters (__() calls), never baked into the database. See
- * PluginGrcmanagerControl::getControlTitles() for the corresponding translated titles, and this
+ * \GlpiPlugin\Grcmanager\Control::getControlTitles() for the corresponding translated titles, and this
  * class' own unit test for the exhaustive count/theme verification (93 total, 37/8/14/34 per
  * theme, matching the real published standard, not an invented placeholder list).
  */

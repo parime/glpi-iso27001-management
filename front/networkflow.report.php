@@ -21,17 +21,17 @@ use GlpiPlugin\Grcmanager\Pdf\PdfRenderer;
 include('../../../inc/includes.php');
 
 // Issue #144, phase 2 : rapport PDF de la matrice des flux, généré à la demande (jamais persisté).
-Session::checkRight(PluginGrcmanagerNetworkFlow::$rightname, READ);
+Session::checkRight(\GlpiPlugin\Grcmanager\NetworkFlow::$rightname, READ);
 // Registre sensible : chaque export est tracé (Administration > Journaux).
 \GlpiPlugin\Grcmanager\Services\Notification\SensitiveNotification::logExport(
-    'PluginGrcmanagerNetworkFlow',
-    __('Matrice des flux réseau', 'grcmanager') . ' (PDF)'
+    'GlpiPlugin\\Grcmanager\\NetworkFlow',
+    __('Network flow matrix', 'grcmanager') . ' (PDF)'
 );
 
 $html = TemplateRenderer::getInstance()->render('@grcmanager/pdf/network_flow_report.html.twig', [
-    'report_title'       => __('Matrice des flux réseau', 'grcmanager'),
-    'generated_at_label' => sprintf(__('Généré le %s', 'grcmanager'), Html::convDateTime(date('Y-m-d H:i:s'))),
-] + PluginGrcmanagerNetworkFlow::reportData());
+    'report_title'       => __('Network flow matrix', 'grcmanager'),
+    'generated_at_label' => sprintf(__('Generated on %s', 'grcmanager'), Html::convDateTime(date('Y-m-d H:i:s'))),
+] + \GlpiPlugin\Grcmanager\NetworkFlow::reportData());
 
 $pdf = PdfRenderer::renderHtmlToPdf($html);
 

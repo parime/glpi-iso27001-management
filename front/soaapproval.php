@@ -23,13 +23,13 @@ global $CFG_GLPI;
 
 // Issue #112 : approbation de la Déclaration d'Applicabilité par la direction. Lecture : même
 // droit que la SoA ; demander une approbation : droit de modification ; répondre : être
-// approbateur désigné de la version (vérifié par PluginGrcmanagerSoaVersion::answer()). Un
+// approbateur désigné de la version (vérifié par \GlpiPlugin\Grcmanager\SoaVersion::answer()). Un
 // membre de la direction n'a souvent aucun droit sur le plugin : un approbateur qui a une version
 // en attente accède quand même à cette page, limitée à ses propres versions à approuver.
-$canRead   = Session::haveRight(PluginGrcmanagerSoaVersion::$rightname, READ);
-$myPending = PluginGrcmanagerSoaVersion::pendingForUser((int) Session::getLoginUserID());
+$canRead   = Session::haveRight(\GlpiPlugin\Grcmanager\SoaVersion::$rightname, READ);
+$myPending = \GlpiPlugin\Grcmanager\SoaVersion::pendingForUser((int) Session::getLoginUserID());
 if (!$canRead && $myPending === []) {
-    Session::checkRight(PluginGrcmanagerSoaVersion::$rightname, READ);
+    Session::checkRight(\GlpiPlugin\Grcmanager\SoaVersion::$rightname, READ);
 }
 
 // PDF figé servi par cette page (et non par front/document.send.php, qui exige des droits sur
@@ -37,7 +37,7 @@ if (!$canRead && $myPending === []) {
 if (isset($_GET['pdf'])) {
     $versionId = (int) $_GET['pdf'];
     $allowed   = $canRead || in_array($versionId, array_map('intval', array_column($myPending, 'id')), true);
-    $version   = new PluginGrcmanagerSoaVersion();
+    $version   = new \GlpiPlugin\Grcmanager\SoaVersion();
     $document  = new Document();
     if (
         !$allowed
@@ -54,13 +54,13 @@ if (isset($_GET['pdf'])) {
 }
 
 if (isset($_POST['request_approval'])) {
-    Session::checkRight(PluginGrcmanagerSoaVersion::$rightname, UPDATE);
-    $id = PluginGrcmanagerSoaVersion::requestApproval(
+    Session::checkRight(\GlpiPlugin\Grcmanager\SoaVersion::$rightname, UPDATE);
+    $id = \GlpiPlugin\Grcmanager\SoaVersion::requestApproval(
         array_map('intval', (array) ($_POST['approvers'] ?? [])),
         trim((string) ($_POST['comment'] ?? ''))
     );
     if ($id > 0) {
-        Session::addMessageAfterRedirect(__('Version figée et envoyée aux approbateurs.', 'grcmanager'));
+        Session::addMessageAfterRedirect(__('Version frozen and sent to the approvers.', 'grcmanager'));
     }
     Html::redirect($CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/soaapproval.php');
 }
@@ -69,9 +69,9 @@ if (isset($_POST['answer'])) {
     $approve = ($_POST['decision'] ?? '') === 'approve';
     $comment = trim((string) ($_POST['comment'] ?? ''));
     if (!$approve && $comment === '') {
-        Session::addMessageAfterRedirect(__('Indiquez la raison du refus.', 'grcmanager'), false, ERROR);
+        Session::addMessageAfterRedirect(__('Please give the reason for the rejection.', 'grcmanager'), false, ERROR);
     } elseif (
-        PluginGrcmanagerSoaVersion::answer(
+        \GlpiPlugin\Grcmanager\SoaVersion::answer(
             (int) ($_POST['versions_id'] ?? 0),
             (int) Session::getLoginUserID(),
             $approve,
@@ -79,43 +79,43 @@ if (isset($_POST['answer'])) {
         )
     ) {
         Session::addMessageAfterRedirect($approve
-            ? __('Approbation enregistrée.', 'grcmanager')
-            : __('Refus enregistré.', 'grcmanager'));
+            ? __('Approval recorded.', 'grcmanager')
+            : __('Rejection recorded.', 'grcmanager'));
     } else {
-        Session::addMessageAfterRedirect(__('Cette version n\'attend pas votre réponse.', 'grcmanager'), false, ERROR);
+        Session::addMessageAfterRedirect(__('This version is not awaiting your answer.', 'grcmanager'), false, ERROR);
     }
     Html::redirect($CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/soaapproval.php');
 }
 
 Html::header(
-    __('Approbation de la SoA', 'grcmanager'),
+    __('SoA approval', 'grcmanager'),
     $_SERVER['PHP_SELF'],
     'grcmanager',
-    PluginGrcmanagerControl::class
+    \GlpiPlugin\Grcmanager\Control::class
 );
 // Encadré « À quoi sert cette page ? ».
-PluginGrcmanagerPageHelp::show('soaapproval');
+\GlpiPlugin\Grcmanager\PageHelp::show('soaapproval');
 
 global $DB, $CFG_GLPI;
 
-$lastApproved = PluginGrcmanagerSoaVersion::latest(SoaApprovalLogic::VERSION_APPROVED);
-$pending      = PluginGrcmanagerSoaVersion::latest(SoaApprovalLogic::VERSION_PENDING);
+$lastApproved = \GlpiPlugin\Grcmanager\SoaVersion::latest(SoaApprovalLogic::VERSION_APPROVED);
+$pending      = \GlpiPlugin\Grcmanager\SoaVersion::latest(SoaApprovalLogic::VERSION_PENDING);
 $state        = SoaApprovalLogic::currentState(
     $lastApproved !== null ? (string) $lastApproved['fingerprint'] : null,
-    PluginGrcmanagerSoaVersion::currentFingerprint()
+    \GlpiPlugin\Grcmanager\SoaVersion::currentFingerprint()
 );
 
-$statuses = PluginGrcmanagerSoaVersion::getStatuses();
-$answers  = PluginGrcmanagerSoaVersion::getAnswerLabels();
+$statuses = \GlpiPlugin\Grcmanager\SoaVersion::getStatuses();
+$answers  = \GlpiPlugin\Grcmanager\SoaVersion::getAnswerLabels();
 $selfUrl  = $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/soaapproval.php';
 $history  = [];
 // Historique et état de la SoA : réservés aux lecteurs de la SoA (un approbateur sans droit ne
 // voit que ses propres versions à approuver).
 $historyRows = $canRead
-    ? $DB->request(['FROM' => PluginGrcmanagerSoaVersion::getTable(), 'ORDER' => 'version DESC'])
+    ? $DB->request(['FROM' => \GlpiPlugin\Grcmanager\SoaVersion::getTable(), 'ORDER' => 'version DESC'])
     : [];
 foreach ($historyRows as $row) {
-    $approvers = PluginGrcmanagerSoaVersion::getApprovers((int) $row['id']);
+    $approvers = \GlpiPlugin\Grcmanager\SoaVersion::getApprovers((int) $row['id']);
     foreach ($approvers as &$approver) {
         $approver['status_label']  = $answers[$approver['status']] ?? $approver['status'];
         $approver['date_answered'] = Html::convDateTime($approver['date_answered']);
@@ -136,7 +136,7 @@ foreach ($historyRows as $row) {
     ];
 }
 
-$canRequest = Session::haveRight(PluginGrcmanagerSoaVersion::$rightname, UPDATE);
+$canRequest = Session::haveRight(\GlpiPlugin\Grcmanager\SoaVersion::$rightname, UPDATE);
 
 \Glpi\Application\View\TemplateRenderer::getInstance()->display('@grcmanager/soa_approval.html.twig', [
     'state'          => $state,
@@ -164,7 +164,7 @@ $canRequest = Session::haveRight(PluginGrcmanagerSoaVersion::$rightname, UPDATE)
         'display'  => false,
     ]) : '',
     'csrf_token'     => Session::getNewCSRFToken(),
-    'soa_url'        => PluginGrcmanagerControl::getSearchURL(),
+    'soa_url'        => \GlpiPlugin\Grcmanager\Control::getSearchURL(),
 ]);
 
 Html::footer();

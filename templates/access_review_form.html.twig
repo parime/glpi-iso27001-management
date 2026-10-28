@@ -5,16 +5,16 @@
 {% block form_fields %}
    {{ fields.textField('name', item.fields['name'], __('Nom'), {
       'full_width': true,
-      'additional_attributes': {'placeholder': __('Ex. : Revue des accès T4 2026', 'grcmanager')},
+      'additional_attributes': {'placeholder': __('E.g.: Access review Q4 2026', 'grcmanager')},
    }) }}
-   {{ fields.dropdownArrayField('frequency', item.fields['frequency'] ?: 'annual', frequencies, __('Fréquence', 'grcmanager')) }}
-   {{ fields.htmlField('', '<span class="badge ' ~ status_class ~ '">' ~ status_label|e ~ '</span>', __('Statut', 'grcmanager')) }}
-   {{ fields.dateField('date_start', date_start, __('Date de début', 'grcmanager')) }}
-   {{ fields.dateField('due_date', due_date, __('Échéance', 'grcmanager')) }}
-   {{ fields.dropdownField('User', 'users_id', pilot, __('Pilote', 'grcmanager'), {'right': 'all'}) }}
-   {{ fields.dropdownArrayField('plugin_grcmanager_controls_id', control_id, controls, __('Mesure de la SoA', 'grcmanager')) }}
-   {{ fields.textareaField('comment', item.fields['comment'], __('Commentaire', 'grcmanager'), {'full_width': true}) }}
+   {{ fields.dropdownArrayField('frequency', item.fields['frequency'] ?: 'annual', frequencies, __('Frequency', 'grcmanager')) }}
+   {{ fields.htmlField('', '<span class="badge ' ~ status_class ~ '">' ~ status_label|e ~ '</span>', __('Status', 'grcmanager')) }}
+   {{ fields.dateField('date_start', date_start, __('Start date', 'grcmanager')) }}
+   {{ fields.dateField('due_date', due_date, __('Due date', 'grcmanager')) }}
+   {{ fields.dropdownField('User', 'users_id', pilot, _x('process pilot', 'Owner', 'grcmanager'), {'right': 'all'}) }}
+   {{ fields.dropdownArrayField('plugin_grcmanager_controls_id', control_id, controls, __('SoA control', 'grcmanager')) }}
+   {{ fields.textareaField('comment', item.fields['comment'], __('Comment', 'grcmanager'), {'full_width': true}) }}
    {% if is_new %}
-      <div class="col-12 mb-3 text-muted small"><i class="ti ti-info-circle me-1"></i>{{ __('Après l\'enregistrement, ouvrez l\'onglet « Comptes à revoir » pour lancer la campagne. Les responsables sont prévenus par notification ; aucun droit n\'est modifié par le plugin.', 'grcmanager') }}</div>
+      <div class="col-12 mb-3 text-muted small"><i class="ti ti-info-circle me-1"></i>{{ __('Once saved, open the "Accounts to review" tab to launch the campaign. Reviewers are notified; the plugin never changes any right.', 'grcmanager') }}</div>
    {% endif %}
 {% endblock %}

@@ -17,36 +17,36 @@
 
 include('../../../inc/includes.php');
 
-$item = new PluginGrcmanagerWaiver();
+$item = new \GlpiPlugin\Grcmanager\Waiver();
 
 if (isset($_POST['add'])) {
-    Session::checkRight(PluginGrcmanagerWaiver::$rightname, CREATE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\Waiver::$rightname, CREATE);
     $newID = $item->add($_POST);
     if ($newID && $_SESSION['glpibackcreated']) {
         Html::redirect($item->getLinkURL());
     }
     Html::back();
 } elseif (isset($_POST['delete'])) {
-    Session::checkRight(PluginGrcmanagerWaiver::$rightname, DELETE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\Waiver::$rightname, DELETE);
     $item->delete($_POST);
-    Html::redirect(PluginGrcmanagerWaiver::getSearchURL());
+    Html::redirect(\GlpiPlugin\Grcmanager\Waiver::getSearchURL());
 } elseif (isset($_POST['purge'])) {
-    Session::checkRight(PluginGrcmanagerWaiver::$rightname, PURGE);
-    $item->delete($_POST, 1);
-    Html::redirect(PluginGrcmanagerWaiver::getSearchURL());
+    Session::checkRight(\GlpiPlugin\Grcmanager\Waiver::$rightname, PURGE);
+    $item->delete($_POST, true);
+    Html::redirect(\GlpiPlugin\Grcmanager\Waiver::getSearchURL());
 } elseif (isset($_POST['update'])) {
-    Session::checkRight(PluginGrcmanagerWaiver::$rightname, UPDATE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\Waiver::$rightname, UPDATE);
     $item->update($_POST);
     Html::back();
 } else {
-    Session::checkRight(PluginGrcmanagerWaiver::$rightname, READ);
+    Session::checkRight(\GlpiPlugin\Grcmanager\Waiver::$rightname, READ);
 
     Html::header(
-        PluginGrcmanagerWaiver::getTypeName(1),
+        \GlpiPlugin\Grcmanager\Waiver::getTypeName(1),
         $_SERVER['PHP_SELF'],
         'grcmanager',
-        PluginGrcmanagerRisk::class,
-        PluginGrcmanagerWaiver::class
+        \GlpiPlugin\Grcmanager\Risk::class,
+        \GlpiPlugin\Grcmanager\Waiver::class
     );
 
     $item->display([

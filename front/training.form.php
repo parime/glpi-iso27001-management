@@ -17,10 +17,10 @@
 
 include('../../../inc/includes.php');
 
-$item = new PluginGrcmanagerTraining();
+$item = new \GlpiPlugin\Grcmanager\Training();
 
 if (isset($_POST['add'])) {
-    Session::checkRight(PluginGrcmanagerTraining::$rightname, CREATE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\Training::$rightname, CREATE);
     $newID = $item->add($_POST);
     // Comme les formulaires natifs : retour sur l'élément créé si la préférence est active.
     if ($newID && $_SESSION['glpibackcreated']) {
@@ -28,27 +28,31 @@ if (isset($_POST['add'])) {
     }
     Html::back();
 } elseif (isset($_POST['delete'])) {
-    Session::checkRight(PluginGrcmanagerTraining::$rightname, DELETE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\Training::$rightname, DELETE);
     $item->delete($_POST);
-    Html::redirect(PluginGrcmanagerTraining::getSearchURL());
+    Html::redirect(\GlpiPlugin\Grcmanager\Training::getSearchURL());
 } elseif (isset($_POST['purge'])) {
-    Session::checkRight(PluginGrcmanagerTraining::$rightname, PURGE);
-    $item->delete($_POST, 1);
-    Html::redirect(PluginGrcmanagerTraining::getSearchURL());
+    Session::checkRight(\GlpiPlugin\Grcmanager\Training::$rightname, PURGE);
+    $item->delete($_POST, true);
+    Html::redirect(\GlpiPlugin\Grcmanager\Training::getSearchURL());
 } elseif (isset($_POST['update'])) {
-    Session::checkRight(PluginGrcmanagerTraining::$rightname, UPDATE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\Training::$rightname, UPDATE);
     $item->update($_POST);
     Html::back();
 } else {
-    Session::checkRight(PluginGrcmanagerTraining::$rightname, READ);
+    Session::checkRight(\GlpiPlugin\Grcmanager\Training::$rightname, READ);
 
     // Issue #139 : affichage avec onglets (Documents de la session, Historique). `retake_of`
     // pré-remplit une session de rattrapage, `session_of` une nouvelle session de la formation :
     // rien n'est enregistré avant « Ajouter ».
-    PluginGrcmanagerTraining::displayFullPageForItem(
+    \GlpiPlugin\Grcmanager\Training::displayFullPageForItem(
         (int) ($_GET['id'] ?? 0),
         [
-            'central'  => ['grcmanager', PluginGrcmanagerAccessReview::class, PluginGrcmanagerTraining::class],
+            'central'  => [
+                'grcmanager',
+                \GlpiPlugin\Grcmanager\AccessReview::class,
+                \GlpiPlugin\Grcmanager\Training::class,
+            ],
             'helpdesk' => [],
         ],
         [

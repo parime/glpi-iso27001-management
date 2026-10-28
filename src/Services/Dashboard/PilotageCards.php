@@ -77,7 +77,7 @@ final class PilotageCards
         foreach (
             $DB->request([
                 'SELECT' => ['code', 'applicability', 'implementation_status'],
-                'FROM'   => \PluginGrcmanagerControl::getTable(),
+                'FROM'   => \GlpiPlugin\Grcmanager\Control::getTable(),
             ]) as $row
         ) {
             $controls[(string) $row['code']] = [
@@ -92,14 +92,14 @@ final class PilotageCards
 
         return [
             'data'  => $data,
-            'label' => $params['label'] ?? __('Mesures mises en œuvre par référentiel (%)', 'grcmanager'),
+            'label' => $params['label'] ?? __('Implemented controls by framework (%)', 'grcmanager'),
             'icon'  => 'ti ti-shield-check',
         ];
     }
 
     public static function upcomingComplianceDeadlines(array $params = []): array
     {
-        $events = \PluginGrcmanagerComplianceEvent::collect(
+        $events = \GlpiPlugin\Grcmanager\ComplianceEvent::collect(
             date('Y-m-d 00:00:00'),
             date('Y-m-d 23:59:59', (int) strtotime('+90 days'))
         );
@@ -107,8 +107,8 @@ final class PilotageCards
 
         return [
             'number' => count($pending),
-            'url'    => \PluginGrcmanagerComplianceEvent::getCalendarURL(),
-            'label'  => $params['label'] ?? __('Échéances à 90 jours', 'grcmanager'),
+            'url'    => \GlpiPlugin\Grcmanager\ComplianceEvent::getCalendarURL(),
+            'label'  => $params['label'] ?? __('Deadlines within 90 days', 'grcmanager'),
             'icon'   => 'ti ti-calendar-event',
         ];
     }
@@ -117,16 +117,16 @@ final class PilotageCards
     {
         global $DB;
 
-        $campaigns = \PluginGrcmanagerAccessReview::getTable();
+        $campaigns = \GlpiPlugin\Grcmanager\AccessReview::getTable();
         $decisions = [];
         foreach (
             $DB->request([
-                'SELECT'     => [\PluginGrcmanagerAccessReview::LINES_TABLE . '.decision'],
-                'FROM'       => \PluginGrcmanagerAccessReview::LINES_TABLE,
+                'SELECT'     => [\GlpiPlugin\Grcmanager\AccessReview::LINES_TABLE . '.decision'],
+                'FROM'       => \GlpiPlugin\Grcmanager\AccessReview::LINES_TABLE,
                 'INNER JOIN' => [
                     $campaigns => [
                         'FKEY' => [
-                            \PluginGrcmanagerAccessReview::LINES_TABLE => 'plugin_grcmanager_accessreviews_id',
+                            \GlpiPlugin\Grcmanager\AccessReview::LINES_TABLE => 'plugin_grcmanager_accessreviews_id',
                             $campaigns                                 => 'id',
                         ],
                     ],
@@ -140,8 +140,8 @@ final class PilotageCards
 
         return [
             'number' => AccessReviewLogic::progress($decisions)['percent'],
-            'url'    => \PluginGrcmanagerAccessReview::getSearchURL(),
-            'label'  => $params['label'] ?? __('Revue des accès : % revus', 'grcmanager'),
+            'url'    => \GlpiPlugin\Grcmanager\AccessReview::getSearchURL(),
+            'label'  => $params['label'] ?? __('Access review: % reviewed', 'grcmanager'),
             'icon'   => 'ti ti-user-check',
         ];
     }
@@ -154,8 +154,8 @@ final class PilotageCards
     {
         global $DB;
 
-        $lines = \PluginGrcmanagerAccessReview::LINES_TABLE;
-        $campaigns = \PluginGrcmanagerAccessReview::getTable();
+        $lines = \GlpiPlugin\Grcmanager\AccessReview::LINES_TABLE;
+        $campaigns = \GlpiPlugin\Grcmanager\AccessReview::getTable();
         $reviewer = $DB->quoteName($lines . '.reviewers_id');
         $count = (int) $DB->request([
             'SELECT'     => [new \Glpi\DBAL\QueryExpression('COUNT(DISTINCT ' . $reviewer . ') AS c')],
@@ -173,8 +173,8 @@ final class PilotageCards
 
         return [
             'number' => $count,
-            'url'    => \PluginGrcmanagerAccessReview::getSearchURL(),
-            'label'  => $params['label'] ?? __('Responsables en retard (accès)', 'grcmanager'),
+            'url'    => \GlpiPlugin\Grcmanager\AccessReview::getSearchURL(),
+            'label'  => $params['label'] ?? __('Late reviewers (access)', 'grcmanager'),
             'icon'   => 'ti ti-user-exclamation',
         ];
     }
@@ -242,8 +242,8 @@ final class PilotageCards
     {
         return [
             'number' => count(self::participantsToRetake(self::assessedParticipations())),
-            'url'    => \PluginGrcmanagerTraining::getSearchURL(),
-            'label'  => $params['label'] ?? __('Participants à repasser', 'grcmanager'),
+            'url'    => \GlpiPlugin\Grcmanager\Training::getSearchURL(),
+            'label'  => $params['label'] ?? __('Participants to retake', 'grcmanager'),
             'icon'   => 'ti ti-repeat',
         ];
     }
@@ -268,7 +268,7 @@ final class PilotageCards
             foreach (
                 $DB->request([
                     'SELECT' => ['id', 'title', 'date_delivered'],
-                    'FROM'   => \PluginGrcmanagerTraining::getTable(),
+                    'FROM'   => \GlpiPlugin\Grcmanager\Training::getTable(),
                     'WHERE'  => ['id' => array_keys($sessions)],
                     'ORDER'  => ['date_delivered DESC', 'id DESC'],
                     'LIMIT'  => 8,
@@ -286,7 +286,7 @@ final class PilotageCards
 
         return [
             'data'  => array_reverse($data),
-            'label' => $params['label'] ?? __('Réussite par session de formation (%)', 'grcmanager'),
+            'label' => $params['label'] ?? __('Pass rate by training session (%)', 'grcmanager'),
             'icon'  => 'ti ti-certificate',
         ];
     }
@@ -321,7 +321,7 @@ final class PilotageCards
         return [
             'number' => $count,
             'url'    => \PluginGrcmanagerSecurityIncident::getSearchURL(),
-            'label'  => $params['label'] ?? __('Délais NIS2 / RGPD en alerte', 'grcmanager'),
+            'label'  => $params['label'] ?? __('NIS2 / GDPR deadlines at risk', 'grcmanager'),
             'icon'   => 'ti ti-alarm',
         ];
     }
@@ -336,14 +336,14 @@ final class PilotageCards
 
         $row = $DB->request([
             'SELECT' => [new \Glpi\DBAL\QueryExpression('AVG(`questionnaire_score`) AS avg_score')],
-            'FROM'   => \PluginGrcmanagerSupplierRisk::getTable(),
+            'FROM'   => \GlpiPlugin\Grcmanager\SupplierRisk::getTable(),
             'WHERE'  => [['NOT' => ['questionnaire_date' => null]], ['NOT' => ['questionnaire_score' => null]]],
         ])->current();
 
         return [
             'number' => $row['avg_score'] !== null ? (int) round((float) $row['avg_score']) : 0,
-            'url'    => \PluginGrcmanagerSupplierRisk::getSearchURL(),
-            'label'  => $params['label'] ?? __('Score fournisseurs moyen', 'grcmanager'),
+            'url'    => \GlpiPlugin\Grcmanager\SupplierRisk::getSearchURL(),
+            'label'  => $params['label'] ?? __('Average supplier score', 'grcmanager'),
             'icon'   => 'ti ti-building-store',
         ];
     }
@@ -359,7 +359,7 @@ final class PilotageCards
 
         $count = (int) $DB->request([
             'SELECT' => [new \Glpi\DBAL\QueryExpression('COUNT(DISTINCT `suppliers_id`) AS c')],
-            'FROM'   => \PluginGrcmanagerSupplierRisk::getTable(),
+            'FROM'   => \GlpiPlugin\Grcmanager\SupplierRisk::getTable(),
             'WHERE'  => [
                 'risk_level'          => ['high', 'critical'],
                 'status'              => ['identified', 'in_treatment'],
@@ -370,8 +370,8 @@ final class PilotageCards
 
         return [
             'number' => $count,
-            'url'    => \PluginGrcmanagerSupplierRisk::getSearchURL(),
-            'label'  => $params['label'] ?? __('Fournisseurs critiques non évalués', 'grcmanager'),
+            'url'    => \GlpiPlugin\Grcmanager\SupplierRisk::getSearchURL(),
+            'label'  => $params['label'] ?? __('Critical suppliers not assessed', 'grcmanager'),
             'icon'   => 'ti ti-building-warehouse',
         ];
     }
@@ -403,8 +403,8 @@ final class PilotageCards
         ksort($byMonth);
         $byMonth = array_slice($byMonth, -12, null, true);
         $names = [
-            'open_risks'           => __('Risques ouverts', 'grcmanager'),
-            'open_nonconformities' => __('Non-conformités ouvertes', 'grcmanager'),
+            'open_risks'           => __('Open risks', 'grcmanager'),
+            'open_nonconformities' => __('Open non-conformities', 'grcmanager'),
         ];
         $result = ['labels' => array_map('strval', array_keys($byMonth)), 'series' => []];
         foreach ($names as $key => $name) {
@@ -429,7 +429,7 @@ final class PilotageCards
         foreach (
             $DB->request([
                 'SELECT' => ['month', 'indicators'],
-                'FROM'   => \PluginGrcmanagerMaturity::SNAPSHOTS_TABLE,
+                'FROM'   => \GlpiPlugin\Grcmanager\Maturity::SNAPSHOTS_TABLE,
                 'ORDER'  => 'month DESC',
                 'LIMIT'  => 12,
             ]) as $row
@@ -441,7 +441,7 @@ final class PilotageCards
 
         return [
             'data'  => self::trendSeries($byMonth),
-            'label' => $params['label'] ?? __('Risques et non-conformités par mois', 'grcmanager'),
+            'label' => $params['label'] ?? __('Risks and non-conformities by month', 'grcmanager'),
             'icon'  => 'ti ti-chart-line',
         ];
     }
@@ -452,8 +452,8 @@ final class PilotageCards
 
         $today = date('Y-m-d');
         $count = 0;
-        foreach ($DB->request(['FROM' => \PluginGrcmanagerPeriodicReview::getTable()]) as $row) {
-            $review = new \PluginGrcmanagerPeriodicReview();
+        foreach ($DB->request(['FROM' => \GlpiPlugin\Grcmanager\PeriodicReview::getTable()]) as $row) {
+            $review = new \GlpiPlugin\Grcmanager\PeriodicReview();
             $review->getFromResultSet($row);
             if ($review->isOverdue($today)) {
                 $count++;
@@ -462,8 +462,8 @@ final class PilotageCards
 
         return [
             'number' => $count,
-            'url'    => \PluginGrcmanagerPeriodicReview::getSearchURL(),
-            'label'  => $params['label'] ?? __('Revues périodiques en retard', 'grcmanager'),
+            'url'    => \GlpiPlugin\Grcmanager\PeriodicReview::getSearchURL(),
+            'label'  => $params['label'] ?? __('Overdue periodic reviews', 'grcmanager'),
             'icon'   => 'ti ti-clock-exclamation',
         ];
     }

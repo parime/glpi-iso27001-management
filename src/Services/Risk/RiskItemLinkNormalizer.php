@@ -6,14 +6,14 @@ namespace GlpiPlugin\Grcmanager\Services\Risk;
 
 /**
  * Pure validation/lookup logic behind the risk <-> CMDB item polymorphic link (issue #25,
- * glpi_plugin_grcmanager_risks_items), see PluginGrcmanagerRisk::syncLinkedAssets()/
+ * glpi_plugin_grcmanager_risks_items), see \GlpiPlugin\Grcmanager\Risk::syncLinkedAssets()/
  * getRisksLinkedToItem(). Kept GLPI-independent (no $DB, no CommonDBTM) so the zero/one/multiple
  * link and reverse-lookup scenarios can be unit tested directly (see
  * tests/Unit/Services/Risk/RiskItemLinkNormalizerTest.php), the same split already used for the
  * risk-scoring logic (RiskAssessmentTrait) and the risk matrix defaults (RiskMatrixDefaults vs
  * RiskMatrixConfig): pure decision logic here, thin $DB wrapper on the CommonDBTM class itself.
  *
- * The actual insert/delete/join methods on PluginGrcmanagerRisk are NOT unit tested beyond what
+ * The actual insert/delete/join methods on \GlpiPlugin\Grcmanager\Risk are NOT unit tested beyond what
  * this class covers: every other simple link table in this plugin (controls_risks,
  * audits_controls, trainings_users, managementreviews_users) has the same gap, validated instead
  * against a real GLPI instance (see docs/design/DEVELOPMENT_PLAN.md, "Environnement de
@@ -24,7 +24,7 @@ final class RiskItemLinkNormalizer
 {
     /**
      * A link is only ever created for a strictly positive items_id, on an itemtype explicitly
-     * allowed for this plugin (see PluginGrcmanagerRisk::getLinkableItemtypes()). Silent rejection
+     * allowed for this plugin (see \GlpiPlugin\Grcmanager\Risk::getLinkableItemtypes()). Silent rejection
      * (no exception): a risk ending up with zero valid links is the expected, non-error baseline
      * this issue asks for (e.g. a purely organizational risk such as "processus de recrutement"),
      * not a failure case.

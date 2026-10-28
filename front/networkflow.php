@@ -21,28 +21,31 @@ use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
 include('../../../inc/includes.php');
 
 // Issue #144 : matrice des flux réseau.
-Session::checkRight(PluginGrcmanagerNetworkFlow::$rightname, READ);
+Session::checkRight(\GlpiPlugin\Grcmanager\NetworkFlow::$rightname, READ);
 
 Html::header(
-    PluginGrcmanagerNetworkFlow::getTypeName(2),
-    PluginGrcmanagerNetworkFlow::getSearchURL(),
+    \GlpiPlugin\Grcmanager\NetworkFlow::getTypeName(2),
+    \GlpiPlugin\Grcmanager\NetworkFlow::getSearchURL(),
     'grcmanager',
-    PluginGrcmanagerComplianceAudit::class,
-    PluginGrcmanagerNetworkFlow::class
+    \GlpiPlugin\Grcmanager\ComplianceAudit::class,
+    \GlpiPlugin\Grcmanager\NetworkFlow::class
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(PluginGrcmanagerComplianceAudit::class, PluginGrcmanagerNetworkFlow::class);
+\GlpiPlugin\Grcmanager\Menu::showSection(
+    \GlpiPlugin\Grcmanager\ComplianceAudit::class,
+    \GlpiPlugin\Grcmanager\NetworkFlow::class
+);
 // Encadré « À quoi sert cette page ? ».
-PluginGrcmanagerPageHelp::show('networkflow');
+\GlpiPlugin\Grcmanager\PageHelp::show('networkflow');
 
-PluginGrcmanagerNetworkFlow::showSummary();
+\GlpiPlugin\Grcmanager\NetworkFlow::showSummary();
 
-$params = QueryBuilder::manageParams(PluginGrcmanagerNetworkFlow::class, $_GET);
+$params = QueryBuilder::manageParams(\GlpiPlugin\Grcmanager\NetworkFlow::class, $_GET);
 
 Search::showList(
-    PluginGrcmanagerNetworkFlow::class,
+    \GlpiPlugin\Grcmanager\NetworkFlow::class,
     $params,
-    DefaultSearchColumns::COLUMNS[PluginGrcmanagerNetworkFlow::class]
+    DefaultSearchColumns::COLUMNS[\GlpiPlugin\Grcmanager\NetworkFlow::class]
 );
 
 Html::footer();

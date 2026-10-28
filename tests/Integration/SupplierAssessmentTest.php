@@ -3,8 +3,8 @@
 namespace GlpiPlugin\Grcmanager\Tests\Integration;
 
 use CommonITILObject;
-use PluginGrcmanagerSupplierAssessment;
-use PluginGrcmanagerSupplierRisk;
+use GlpiPlugin\Grcmanager\SupplierAssessment;
+use GlpiPlugin\Grcmanager\SupplierRisk;
 use Supplier;
 use Ticket;
 
@@ -14,10 +14,10 @@ use Ticket;
  */
 final class SupplierAssessmentTest extends GrcmanagerIntegrationTestCase
 {
-    private function createRisk(string $reviewDate): PluginGrcmanagerSupplierRisk
+    private function createRisk(string $reviewDate): \GlpiPlugin\Grcmanager\SupplierRisk
     {
         $suppliersId = (int) (new Supplier())->add(['name' => 'PHPUnit Hébergeur', 'entities_id' => 0]);
-        $risk = new PluginGrcmanagerSupplierRisk();
+        $risk = new \GlpiPlugin\Grcmanager\SupplierRisk();
         $id = (int) $risk->add([
             'suppliers_id' => $suppliersId,
             'title'        => 'PHPUnit hébergement des données',
@@ -35,7 +35,7 @@ final class SupplierAssessmentTest extends GrcmanagerIntegrationTestCase
         $risk = $this->createRisk(date('Y-m-d', strtotime('+1 year')));
         $level = $risk->fields['risk_level'];
 
-        $this->assertTrue(PluginGrcmanagerSupplierAssessment::save($risk, [
+        $this->assertTrue(\GlpiPlugin\Grcmanager\SupplierAssessment::save($risk, [
             'certification' => 'yes',
             'encryption'    => 'partial',
             'mfa'           => 'no',
@@ -58,7 +58,7 @@ final class SupplierAssessmentTest extends GrcmanagerIntegrationTestCase
         $risk = $this->createRisk(date('Y-m-d', strtotime('-1 day')));
         $status = $risk->fields['status'];
 
-        PluginGrcmanagerSupplierRisk::openReviewTickets();
+        \GlpiPlugin\Grcmanager\SupplierRisk::openReviewTickets();
         $risk->getFromDB($risk->getID());
         $ticketsId = (int) $risk->fields['review_tickets_id'];
         $this->assertGreaterThan(0, $ticketsId);
@@ -67,12 +67,12 @@ final class SupplierAssessmentTest extends GrcmanagerIntegrationTestCase
         $this->assertStringContainsString('PHPUnit Hébergeur', $ticket->fields['name']);
         $this->assertSame($status, $risk->fields['status'], 'statut du risque inchangé');
 
-        PluginGrcmanagerSupplierRisk::openReviewTickets();
+        \GlpiPlugin\Grcmanager\SupplierRisk::openReviewTickets();
         $risk->getFromDB($risk->getID());
         $this->assertSame($ticketsId, (int) $risk->fields['review_tickets_id'], 'pas de second ticket');
 
         $ticket->update(['id' => $ticketsId, 'status' => CommonITILObject::SOLVED]);
-        PluginGrcmanagerSupplierRisk::openReviewTickets();
+        \GlpiPlugin\Grcmanager\SupplierRisk::openReviewTickets();
         $risk->getFromDB($risk->getID());
         $this->assertNotSame($ticketsId, (int) $risk->fields['review_tickets_id'], 'nouveau ticket une fois résolu');
     }
@@ -81,7 +81,7 @@ final class SupplierAssessmentTest extends GrcmanagerIntegrationTestCase
     {
         $risk = $this->createRisk(date('Y-m-d', strtotime('+10 days')));
 
-        PluginGrcmanagerSupplierRisk::openReviewTickets();
+        \GlpiPlugin\Grcmanager\SupplierRisk::openReviewTickets();
 
         $risk->getFromDB($risk->getID());
         $this->assertSame(0, (int) $risk->fields['review_tickets_id']);

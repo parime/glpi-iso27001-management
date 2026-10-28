@@ -6,7 +6,7 @@ namespace GlpiPlugin\Grcmanager\Services\Risk;
 
 /**
  * Fixed default set of GLPI CMDB itemtypes a risk can be linked to (issue #25, "Lien registre de
- * risques <-> actifs GLPI (CMDB)"), see PluginGrcmanagerRisk::getLinkableItemtypes(). Mirrors the
+ * risques <-> actifs GLPI (CMDB)"), see \GlpiPlugin\Grcmanager\Risk::getLinkableItemtypes(). Mirrors the
  * sibling plugin assetsign-glpi's own PLUGIN_ASSETSIGN_DEFAULT_ITEMTYPES convention
  * (src/GlpiPlugin/Assetsign/Config.php) for consistency between the two plugins of this same
  * author: a plain constant list of GLPI's own managed asset itemtypes.

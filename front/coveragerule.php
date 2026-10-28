@@ -21,26 +21,29 @@ use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
 include('../../../inc/includes.php');
 
 // Issue #164 : règles de couverture des preuves.
-Session::checkRight(PluginGrcmanagerCoverageRule::$rightname, READ);
+Session::checkRight(\GlpiPlugin\Grcmanager\CoverageRule::$rightname, READ);
 
 Html::header(
-    PluginGrcmanagerCoverageRule::getTypeName(Session::getPluralNumber()),
+    \GlpiPlugin\Grcmanager\CoverageRule::getTypeName(Session::getPluralNumber()),
     $_SERVER['PHP_SELF'],
     'grcmanager',
-    PluginGrcmanagerControl::class,
-    PluginGrcmanagerCoverageRule::class
+    \GlpiPlugin\Grcmanager\Control::class,
+    \GlpiPlugin\Grcmanager\CoverageRule::class
 );
 // Encadré « À quoi sert cette page ? ».
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(PluginGrcmanagerControl::class, PluginGrcmanagerCoverageRule::class);
-PluginGrcmanagerPageHelp::show('coveragerule');
+\GlpiPlugin\Grcmanager\Menu::showSection(
+    \GlpiPlugin\Grcmanager\Control::class,
+    \GlpiPlugin\Grcmanager\CoverageRule::class
+);
+\GlpiPlugin\Grcmanager\PageHelp::show('coveragerule');
 
-$params = QueryBuilder::manageParams(PluginGrcmanagerCoverageRule::class, $_GET);
+$params = QueryBuilder::manageParams(\GlpiPlugin\Grcmanager\CoverageRule::class, $_GET);
 
 Search::showList(
-    PluginGrcmanagerCoverageRule::class,
+    \GlpiPlugin\Grcmanager\CoverageRule::class,
     $params,
-    DefaultSearchColumns::COLUMNS[PluginGrcmanagerCoverageRule::class]
+    DefaultSearchColumns::COLUMNS[\GlpiPlugin\Grcmanager\CoverageRule::class]
 );
 
 Html::footer();

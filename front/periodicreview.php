@@ -18,20 +18,20 @@
 include('../../../inc/includes.php');
 
 // Issue #141 : revues périodiques du SMSI (activation = ticket récurrent natif de GLPI).
-Session::checkRight(PluginGrcmanagerPeriodicReview::$rightname, READ);
+Session::checkRight(\GlpiPlugin\Grcmanager\PeriodicReview::$rightname, READ);
 
 if (isset($_POST['activate']) || isset($_POST['deactivate'])) {
-    if (!PluginGrcmanagerPeriodicReview::canManage()) {
+    if (!\GlpiPlugin\Grcmanager\PeriodicReview::canManage()) {
         Html::displayRightError();
     }
-    $review = new PluginGrcmanagerPeriodicReview();
+    $review = new \GlpiPlugin\Grcmanager\PeriodicReview();
     if (!$review->getFromDB((int) ($_POST['id'] ?? 0))) {
         Html::displayNotFoundError();
     }
-    $label = PluginGrcmanagerPeriodicReview::getLabel($review->getKey());
+    $label = \GlpiPlugin\Grcmanager\PeriodicReview::getLabel($review->getKey());
     if (isset($_POST['deactivate'])) {
         $review->deactivate();
-        Session::addMessageAfterRedirect(htmlescape(sprintf(__('Revue désactivée : %s', 'grcmanager'), $label)));
+        Session::addMessageAfterRedirect(htmlescape(sprintf(__('Review disabled: %s', 'grcmanager'), $label)));
     } elseif (
         $review->activate(
             (int) ($_POST['frequency_months'] ?? 0),
@@ -40,34 +40,34 @@ if (isset($_POST['activate']) || isset($_POST['deactivate'])) {
         )
     ) {
         Session::addMessageAfterRedirect(htmlescape(sprintf(
-            __(
-                'Revue enregistrée : %s. Le ticket récurrent est visible dans Assistance > Tickets récurrents.',
-                'grcmanager'
-            ),
+            __('Review saved: %s. The recurrent ticket is listed under Assistance > Recurrent tickets.', 'grcmanager'),
             $label
         )));
     } else {
         Session::addMessageAfterRedirect(
-            htmlescape(sprintf(__('La revue n\'a pas pu être activée : %s', 'grcmanager'), $label)),
+            htmlescape(sprintf(__('The review could not be enabled: %s', 'grcmanager'), $label)),
             false,
             ERROR
         );
     }
-    Html::redirect(PluginGrcmanagerPeriodicReview::getSearchURL());
+    Html::redirect(\GlpiPlugin\Grcmanager\PeriodicReview::getSearchURL());
 }
 
 Html::header(
-    PluginGrcmanagerPeriodicReview::getTypeName(2),
-    PluginGrcmanagerPeriodicReview::getSearchURL(),
+    \GlpiPlugin\Grcmanager\PeriodicReview::getTypeName(2),
+    \GlpiPlugin\Grcmanager\PeriodicReview::getSearchURL(),
     'grcmanager',
-    PluginGrcmanagerAccessReview::class,
-    PluginGrcmanagerPeriodicReview::class
+    \GlpiPlugin\Grcmanager\AccessReview::class,
+    \GlpiPlugin\Grcmanager\PeriodicReview::class
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(PluginGrcmanagerAccessReview::class, PluginGrcmanagerPeriodicReview::class);
+\GlpiPlugin\Grcmanager\Menu::showSection(
+    \GlpiPlugin\Grcmanager\AccessReview::class,
+    \GlpiPlugin\Grcmanager\PeriodicReview::class
+);
 // Encadré « À quoi sert cette page ? ».
-PluginGrcmanagerPageHelp::show('periodicreview');
+\GlpiPlugin\Grcmanager\PageHelp::show('periodicreview');
 
-PluginGrcmanagerPeriodicReview::showList();
+\GlpiPlugin\Grcmanager\PeriodicReview::showList();
 
 Html::footer();

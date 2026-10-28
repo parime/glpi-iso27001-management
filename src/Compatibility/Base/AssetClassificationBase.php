@@ -6,10 +6,10 @@ namespace GlpiPlugin\Grcmanager\Compatibility\Base;
 
 use CommonDBTM;
 use GlpiPlugin\Grcmanager\Compatibility\GlpiVersion;
-use PluginGrcmanagerAssetClassification;
+use GlpiPlugin\Grcmanager\AssetClassification;
 
 /*
- * Parent of \PluginGrcmanagerAssetClassification.
+ * Parent of \\GlpiPlugin\Grcmanager\AssetClassification.
  *
  * Redeclares the GLPI core properties that class overrides: untyped on GLPI 11, typed on GLPI 12
  * (see GlpiVersion). A class, not a trait: on PHP 8.2-8.4 a trait cannot redeclare an inherited
@@ -19,11 +19,11 @@ use PluginGrcmanagerAssetClassification;
 if (GlpiVersion::isAtLeast12()) {
     abstract class AssetClassificationBase extends CommonDBTM
     {
-        public static string $rightname = PluginGrcmanagerAssetClassification::RIGHTNAME;
+        public static string $rightname = \GlpiPlugin\Grcmanager\AssetClassification::RIGHTNAME;
     }
 } else {
     abstract class AssetClassificationBase extends CommonDBTM
     {
-        public static $rightname = PluginGrcmanagerAssetClassification::RIGHTNAME;
+        public static $rightname = \GlpiPlugin\Grcmanager\AssetClassification::RIGHTNAME;
     }
 }

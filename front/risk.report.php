@@ -21,24 +21,24 @@ use GlpiPlugin\Grcmanager\Services\Dashboard\DashboardCardService;
 include('../../../inc/includes.php');
 
 // Export à la demande, jamais persisté (pas de Document GLPI créé) — ROADMAP.md "Version 1.5".
-Session::checkRight(PluginGrcmanagerRisk::$rightname, READ);
+Session::checkRight(\GlpiPlugin\Grcmanager\Risk::$rightname, READ);
 // Registre sensible : chaque export est tracé (Administration > Journaux).
 \GlpiPlugin\Grcmanager\Services\Notification\SensitiveNotification::logExport(
-    'PluginGrcmanagerRisk',
-    __('Registre des risques', 'grcmanager') . ' (PDF)'
+    'GlpiPlugin\\Grcmanager\\Risk',
+    __('Risk register', 'grcmanager') . ' (PDF)'
 );
 
 global $DB;
 
-$categories = PluginGrcmanagerRisk::getCategories();
-$treatments = PluginGrcmanagerRisk::getTreatments();
-$statuses   = PluginGrcmanagerRisk::getStatuses();
-$levels     = PluginGrcmanagerRisk::getImpacts(); // shared low/medium/high/critical scale
+$categories = \GlpiPlugin\Grcmanager\Risk::getCategories();
+$treatments = \GlpiPlugin\Grcmanager\Risk::getTreatments();
+$statuses   = \GlpiPlugin\Grcmanager\Risk::getStatuses();
+$levels     = \GlpiPlugin\Grcmanager\Risk::getImpacts(); // shared low/medium/high/critical scale
 
 $risks = [];
 foreach (
     $DB->request([
-        'FROM'  => PluginGrcmanagerRisk::getTable(),
+        'FROM'  => \GlpiPlugin\Grcmanager\Risk::getTable(),
         'ORDER' => 'title ASC',
     ]) as $row
 ) {
@@ -62,9 +62,9 @@ unset($entry);
 $html = \Glpi\Application\View\TemplateRenderer::getInstance()->render(
     '@grcmanager/pdf/risk_register_report.html.twig',
     [
-        'report_title'       => __('Registre des risques', 'grcmanager'),
+        'report_title'       => __('Risk register', 'grcmanager'),
         'generated_at_label' => sprintf(
-            __('Généré le %s', 'grcmanager'),
+            __('Generated on %s', 'grcmanager'),
             Html::convDateTime(date('Y-m-d H:i:s'))
         ),
         'risks'              => $risks,

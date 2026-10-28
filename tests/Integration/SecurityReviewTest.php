@@ -2,6 +2,7 @@
 
 namespace GlpiPlugin\Grcmanager\Tests\Integration;
 
+use GlpiPlugin\Grcmanager\SecurityIncidentCve;
 use PluginGrcmanagerSecurityIncident as Incident;
 
 /**
@@ -43,7 +44,7 @@ final class SecurityReviewTest extends GrcmanagerIntegrationTestCase
         $incident = new Incident();
         $this->assertTrue($incident->getFromDB($incidentId));
         $documentsId = (int) (new \Document())->add(['name' => 'PHPUnit rapport restreint', 'entities_id' => $entity]);
-        \PluginGrcmanagerRestrictedDocument::register($documentsId, $incident);
+        \GlpiPlugin\Grcmanager\RestrictedDocument::register($documentsId, $incident);
 
         $documentReader = ['document' => READ];
         $this->assertFalse(
@@ -56,9 +57,9 @@ final class SecurityReviewTest extends GrcmanagerIntegrationTestCase
             static fn () => (new \Document())->can($documentsId, READ)
         ));
 
-        [, $criteria] = \PluginGrcmanagerRestrictedDocument::addDefaultWhere([\Document::class, []]);
+        [, $criteria] = \GlpiPlugin\Grcmanager\RestrictedDocument::addDefaultWhere([\Document::class, []]);
         $this->assertCount(1, $criteria, 'Retiré de la liste Gestion > Documents.');
-        [, $untouched] = \PluginGrcmanagerRestrictedDocument::addDefaultWhere([\Computer::class, []]);
+        [, $untouched] = \GlpiPlugin\Grcmanager\RestrictedDocument::addDefaultWhere([\Computer::class, []]);
         $this->assertSame([], $untouched);
     }
 
@@ -70,22 +71,22 @@ final class SecurityReviewTest extends GrcmanagerIntegrationTestCase
         $incidentB = (int) (new Incident())->add(['name' => 'PHPUnit incident de B', 'entities_id' => $b]);
         $analyst = [Incident::$rightname => CREATE | UPDATE | PURGE | Incident::READALL];
 
-        $added = $this->asProfile($analyst, [$a], static fn () => (new \PluginGrcmanagerSecurityIncidentCve())->add([
+        $added = $this->asProfile($analyst, [$a], static fn () => (new SecurityIncidentCve())->add([
             'plugin_grcmanager_securityincidents_id' => $incidentB, 'cve_id' => 'CVE-2099-0001',
         ]));
         $this->assertFalse($added, 'Incident d\'une autre entité.');
-        $this->assertSame(0, countElementsInTable(\PluginGrcmanagerSecurityIncidentCve::getTable(), [
+        $this->assertSame(0, countElementsInTable(SecurityIncidentCve::getTable(), [
             'plugin_grcmanager_securityincidents_id' => $incidentB,
         ]));
 
-        $id = (int) (new \PluginGrcmanagerSecurityIncidentCve())->add([
+        $id = (int) (new SecurityIncidentCve())->add([
             'plugin_grcmanager_securityincidents_id' => $incidentB, 'cve_id' => 'CVE-2099-0002',
         ]);
         $this->assertGreaterThan(0, $id);
         $this->assertFalse($this->asProfile(
             $analyst,
             [$a],
-            static fn () => (new \PluginGrcmanagerSecurityIncidentCve())->can($id, PURGE)
+            static fn () => (new SecurityIncidentCve())->can($id, PURGE)
         ));
     }
 
@@ -94,7 +95,7 @@ final class SecurityReviewTest extends GrcmanagerIntegrationTestCase
     {
         $incidentId = (int) (new Incident())->add(['name' => 'PHPUnit incident CVE', 'entities_id' => 0]);
         $_SESSION['MESSAGE_AFTER_REDIRECT'] = [];
-        (new \PluginGrcmanagerSecurityIncidentCve())->add([
+        (new SecurityIncidentCve())->add([
             'plugin_grcmanager_securityincidents_id' => $incidentId, 'cve_id' => '<img src=x onerror=alert(1)>',
         ]);
         $messages = implode(' ', array_merge(...array_values($_SESSION['MESSAGE_AFTER_REDIRECT'] ?? [[]])));
@@ -107,16 +108,16 @@ final class SecurityReviewTest extends GrcmanagerIntegrationTestCase
     {
         $computer = new \Computer();
         $computer->getFromDB((int) $computer->add(['name' => 'PHPUnit poste onglets', 'entities_id' => 0]));
-        $risk = new \PluginGrcmanagerRisk();
+        $risk = new \GlpiPlugin\Grcmanager\Risk();
         $risk->getFromDB((int) $risk->add(['title' => 'PHPUnit risque onglet']));
         $technician = ['computer' => READ, 'software' => READ, Incident::$rightname => Incident::READALL];
 
         foreach (
             [
-                [\PluginGrcmanagerImpactAnalysis::class, $computer],
-                [\PluginGrcmanagerAssetClassification::class, $computer],
-                [\PluginGrcmanagerParkVulnerability::class, $computer],
-                [\PluginGrcmanagerCausalLink::class, $risk],
+                [\GlpiPlugin\Grcmanager\ImpactAnalysis::class, $computer],
+                [\GlpiPlugin\Grcmanager\AssetClassification::class, $computer],
+                [\GlpiPlugin\Grcmanager\ParkVulnerability::class, $computer],
+                [\GlpiPlugin\Grcmanager\CausalLink::class, $risk],
             ] as [$tab, $host]
         ) {
             ob_start();
@@ -134,8 +135,8 @@ final class SecurityReviewTest extends GrcmanagerIntegrationTestCase
         $b = $this->createTestEntity(0, 'PHPUnit revue B ' . random_int(1000, 9999));
         $inA = (int) (new \Computer())->add(['name' => 'PHPUnit poste A', 'entities_id' => $a]);
         $inB = (int) (new \Computer())->add(['name' => 'PHPUnit poste B', 'entities_id' => $b]);
-        $field = \PluginGrcmanagerWaiver::linkedFieldName(\Computer::class);
-        $waiver = new \PluginGrcmanagerWaiver();
+        $field = \GlpiPlugin\Grcmanager\Waiver::linkedFieldName(\Computer::class);
+        $waiver = new \GlpiPlugin\Grcmanager\Waiver();
         $waiverId = (int) $waiver->add([
             'name' => 'PHPUnit dérogation', 'date_begin' => date('Y-m-d'),
             'date_end' => date('Y-m-d', strtotime('+30 days')), $field => [$inB],
@@ -143,11 +144,11 @@ final class SecurityReviewTest extends GrcmanagerIntegrationTestCase
         $this->assertGreaterThan(0, $waiverId);
 
         $gestionnaire = ['plugin_grcmanager' => ALLSTANDARDRIGHT, 'computer' => READ];
-        $this->asProfile($gestionnaire, [$a], static fn () => (new \PluginGrcmanagerWaiver())->update([
+        $this->asProfile($gestionnaire, [$a], static fn () => (new \GlpiPlugin\Grcmanager\Waiver())->update([
             'id' => $waiverId, $field => [$inA, $inB + 100000],
         ]));
 
-        $linked = array_column(\PluginGrcmanagerWaiver::getWaiverItems($waiverId), 'items_id');
+        $linked = array_column(\GlpiPlugin\Grcmanager\Waiver::getWaiverItems($waiverId), 'items_id');
         sort($linked);
         $expected = [$inA, $inB];
         sort($expected);
@@ -163,7 +164,7 @@ final class SecurityReviewTest extends GrcmanagerIntegrationTestCase
             'ticketrecurrent'   => ALLSTANDARDRIGHT,
             'itiltemplate'      => ALLSTANDARDRIGHT,
         ];
-        $canManage = static fn (): bool => \PluginGrcmanagerPeriodicReview::canManage();
+        $canManage = static fn (): bool => \GlpiPlugin\Grcmanager\PeriodicReview::canManage();
         $this->assertFalse($this->asProfile($rights, [$sub], $canManage));
         $this->assertTrue($this->asProfile($rights, [0, $sub], $canManage));
     }
@@ -174,15 +175,23 @@ final class SecurityReviewTest extends GrcmanagerIntegrationTestCase
      */
     public function testPluginNotificationTargetsStayOutOfTheCoreRange(): void
     {
-        foreach (glob(dirname(__DIR__, 2) . '/inc/notificationtarget*.class.php') ?: [] as $file) {
-            $class = 'PluginGrcmanagerNotificationTarget' . ucfirst((string) preg_replace(
+        // Les deux conventions (#293 : les classes passent de inc/ à src/ famille par famille).
+        $root = dirname(__DIR__, 2);
+        $classes = [];
+        foreach (glob($root . '/inc/notificationtarget*.class.php') ?: [] as $file) {
+            $classes[] = 'PluginGrcmanagerNotificationTarget' . ucfirst((string) preg_replace(
                 '/^notificationtarget(.*)\.class\.php$/',
                 '$1',
                 basename($file)
             ));
-            if (!class_exists($class)) {
-                continue;
-            }
+        }
+        foreach (glob($root . '/src/NotificationTarget*.php') ?: [] as $file) {
+            $classes[] = 'GlpiPlugin\\Grcmanager\\' . basename($file, '.php');
+        }
+        // Une classe introuvable ne doit pas sortir du contrôle sans bruit.
+        $this->assertGreaterThanOrEqual(13, count($classes));
+        foreach ($classes as $class) {
+            $this->assertTrue(class_exists($class), $class);
             // Constantes de cible propres au plugin : hors de la plage du cœur.
             $own = [];
             $reflection = new \ReflectionClass($class);

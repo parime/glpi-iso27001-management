@@ -26,12 +26,12 @@ final class TwigContentTest extends GrcmanagerIntegrationTestCase
 {
     public function testPeriodicReviewTicketContentListsTheChecklistAndTheScreen(): void
     {
-        $review = \PluginGrcmanagerPeriodicReview::getByKey('risk_register');
+        $review = \GlpiPlugin\Grcmanager\PeriodicReview::getByKey('risk_register');
         $this->assertNotNull($review);
         $content = $review->buildTicketContent();
 
         $this->assertStringContainsString('<ul><li>', $content);
-        foreach (\PluginGrcmanagerPeriodicReview::getChecklist('risk_register') as $item) {
+        foreach (\GlpiPlugin\Grcmanager\PeriodicReview::getChecklist('risk_register') as $item) {
             $this->assertStringContainsString(htmlspecialchars($item, ENT_QUOTES), $content);
         }
         $this->assertStringContainsString('/plugins/grcmanager/front/risk.php</a>', $content);
@@ -41,7 +41,7 @@ final class TwigContentTest extends GrcmanagerIntegrationTestCase
     {
         $computer = new \Computer();
         $computerId = (int) $computer->add(['name' => 'PHPUnit serveur de fichiers', 'entities_id' => 0]);
-        $risk = new \PluginGrcmanagerRisk();
+        $risk = new \GlpiPlugin\Grcmanager\Risk();
         $riskId = (int) $risk->add([
             'title'                 => 'PHPUnit panne du serveur de fichiers',
             'probability'           => 'certain',
@@ -51,7 +51,7 @@ final class TwigContentTest extends GrcmanagerIntegrationTestCase
         try {
             $computer->getFromDB($computerId);
             ob_start();
-            \PluginGrcmanagerRisk::displayTabContentForItem($computer);
+            \GlpiPlugin\Grcmanager\Risk::displayTabContentForItem($computer);
             $html = (string) ob_get_clean();
             $this->assertStringContainsString('PHPUnit panne du serveur de fichiers</a>', $html);
             $this->assertStringContainsString('ti-alert-triangle', $html, 'Badge de niveau rendu tel quel.');

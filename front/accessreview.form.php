@@ -17,22 +17,22 @@
 
 include('../../../inc/includes.php');
 
-$item = new PluginGrcmanagerAccessReview();
+$item = new \GlpiPlugin\Grcmanager\AccessReview();
 
 if (isset($_POST['add'])) {
     $item->check(-1, CREATE, $_POST);
     $newID = (int) $item->add($_POST);
     Html::redirect($newID > 0
-        ? PluginGrcmanagerAccessReview::getFormURLWithID($newID)
-        : PluginGrcmanagerAccessReview::getSearchURL());
+        ? \GlpiPlugin\Grcmanager\AccessReview::getFormURLWithID($newID)
+        : \GlpiPlugin\Grcmanager\AccessReview::getSearchURL());
 } elseif (isset($_POST['delete'])) {
     $item->check((int) $_POST['id'], DELETE);
     $item->delete($_POST);
-    Html::redirect(PluginGrcmanagerAccessReview::getSearchURL());
+    Html::redirect(\GlpiPlugin\Grcmanager\AccessReview::getSearchURL());
 } elseif (isset($_POST['purge'])) {
     $item->check((int) $_POST['id'], PURGE);
-    $item->delete($_POST, 1);
-    Html::redirect(PluginGrcmanagerAccessReview::getSearchURL());
+    $item->delete($_POST, true);
+    Html::redirect(\GlpiPlugin\Grcmanager\AccessReview::getSearchURL());
 } elseif (isset($_POST['update'])) {
     $item->check((int) $_POST['id'], UPDATE);
     $item->update($_POST);
@@ -42,7 +42,7 @@ if (isset($_POST['add'])) {
     $count = $item->launch();
     if ($count > 0) {
         Session::addMessageAfterRedirect(sprintf(
-            __('Campagne lancée : %d compte(s) à revoir, les responsables sont prévenus.', 'grcmanager'),
+            __('Campaign launched: %d account(s) to review, reviewers have been notified.', 'grcmanager'),
             $count
         ));
     }
@@ -51,7 +51,7 @@ if (isset($_POST['add'])) {
     $item->check((int) $_POST['id'], UPDATE);
     if ($item->close()) {
         Session::addMessageAfterRedirect(
-            __('Campagne clôturée, rapport PDF archivé dans les documents.', 'grcmanager')
+            __('Campaign closed, PDF report archived in the documents.', 'grcmanager')
         );
     }
     Html::back();
@@ -59,13 +59,13 @@ if (isset($_POST['add'])) {
     $item->check((int) $_POST['id'], UPDATE);
     $nextID = $item->prepareNext();
     Html::redirect($nextID > 0
-        ? PluginGrcmanagerAccessReview::getFormURLWithID($nextID)
-        : PluginGrcmanagerAccessReview::getSearchURL());
+        ? \GlpiPlugin\Grcmanager\AccessReview::getFormURLWithID($nextID)
+        : \GlpiPlugin\Grcmanager\AccessReview::getSearchURL());
 } else {
     // displayFullPageForItem() (comme front/policy.form.php) affiche la barre d'onglets ; les
     // droits (READ, ou CREATE pour un nouvel élément) sont vérifiés par $item->can().
-    PluginGrcmanagerAccessReview::displayFullPageForItem(
+    \GlpiPlugin\Grcmanager\AccessReview::displayFullPageForItem(
         $_GET['id'] ?? 0,
-        ['central' => ['grcmanager', PluginGrcmanagerAccessReview::class], 'helpdesk' => []]
+        ['central' => ['grcmanager', \GlpiPlugin\Grcmanager\AccessReview::class], 'helpdesk' => []]
     );
 }

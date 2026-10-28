@@ -17,10 +17,10 @@
 
 include('../../../inc/includes.php');
 
-$item = new PluginGrcmanagerAudit();
+$item = new \GlpiPlugin\Grcmanager\Audit();
 
 if (isset($_POST['add'])) {
-    Session::checkRight(PluginGrcmanagerAudit::$rightname, CREATE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\Audit::$rightname, CREATE);
     $newID = $item->add($_POST);
     // Comme les formulaires natifs : retour sur l'élément créé si la préférence est active.
     if ($newID && $_SESSION['glpibackcreated']) {
@@ -28,23 +28,23 @@ if (isset($_POST['add'])) {
     }
     Html::back();
 } elseif (isset($_POST['delete'])) {
-    Session::checkRight(PluginGrcmanagerAudit::$rightname, DELETE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\Audit::$rightname, DELETE);
     $item->delete($_POST);
-    Html::redirect(PluginGrcmanagerAudit::getSearchURL());
+    Html::redirect(\GlpiPlugin\Grcmanager\Audit::getSearchURL());
 } elseif (isset($_POST['purge'])) {
-    Session::checkRight(PluginGrcmanagerAudit::$rightname, PURGE);
-    $item->delete($_POST, 1);
-    Html::redirect(PluginGrcmanagerAudit::getSearchURL());
+    Session::checkRight(\GlpiPlugin\Grcmanager\Audit::$rightname, PURGE);
+    $item->delete($_POST, true);
+    Html::redirect(\GlpiPlugin\Grcmanager\Audit::getSearchURL());
 } elseif (isset($_POST['update'])) {
-    Session::checkRight(PluginGrcmanagerAudit::$rightname, UPDATE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\Audit::$rightname, UPDATE);
     $item->update($_POST);
     Html::back();
 } else {
-    Session::checkRight(PluginGrcmanagerAudit::$rightname, READ);
+    Session::checkRight(\GlpiPlugin\Grcmanager\Audit::$rightname, READ);
 
     // Issue #140 : affichage avec onglets (Constats, Documents, Historique).
-    PluginGrcmanagerAudit::displayFullPageForItem(
+    \GlpiPlugin\Grcmanager\Audit::displayFullPageForItem(
         (int) ($_GET['id'] ?? 0),
-        ['central' => ['grcmanager', PluginGrcmanagerAudit::class], 'helpdesk' => []]
+        ['central' => ['grcmanager', \GlpiPlugin\Grcmanager\Audit::class], 'helpdesk' => []]
     );
 }

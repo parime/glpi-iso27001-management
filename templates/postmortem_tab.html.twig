@@ -1,37 +1,37 @@
 {# Issue #169 : aperçu du rapport post-incident et génération du PDF #}
-{% set outcomes = {'met': ['bg-green-lt', __('Tenue', 'grcmanager')], 'late': ['bg-red-lt', __('En retard', 'grcmanager')], 'missing': ['bg-orange-lt', __('Non notifiée', 'grcmanager')]} %}
+{% set outcomes = {'met': ['bg-green-lt', __('Met', 'grcmanager')], 'late': ['bg-red-lt', __('Overdue', 'grcmanager')], 'missing': ['bg-orange-lt', __('Not notified', 'grcmanager')]} %}
 <div class="container-fluid">
    {% if not incident.closed %}
-      <div class="alert alert-info"><i class="ti ti-info-circle me-1"></i>{{ __('L\'incident n\'est pas clos : le rapport sera marqué provisoire. Renseignez la cause racine et les enseignements tirés avant la clôture.', 'grcmanager') }}</div>
+      <div class="alert alert-info"><i class="ti ti-info-circle me-1"></i>{{ __('The incident is not closed: the report will be marked as provisional. Fill in the root cause and the lessons learned before closing.', 'grcmanager') }}</div>
    {% endif %}
    <div class="row g-3">
       <div class="col-lg-6">
-         <h4><i class="ti ti-timeline me-1"></i>{{ __('Chronologie', 'grcmanager') }} ({{ timeline|length }})</h4>
+         <h4><i class="ti ti-timeline me-1"></i>{{ __('Timeline', 'grcmanager') }} ({{ timeline|length }})</h4>
          <ul class="list-unstyled small">
             {% for e in timeline|slice(0, 12) %}
                <li class="mb-1"><i class="ti {{ e.icon }} me-1 text-muted"></i><span class="text-muted">{{ e.date|formatted_datetime }}</span> — <strong>{{ e.kind }}</strong> : {{ e.text|u.truncate(120, '…') }}</li>
             {% endfor %}
-            {% if timeline|length > 12 %}<li class="text-muted">{{ __('… et %d autres événements, tous dans le rapport.', 'grcmanager')|format(timeline|length - 12) }}</li>{% endif %}
+            {% if timeline|length > 12 %}<li class="text-muted">{{ __('… and %d other events, all in the report.', 'grcmanager')|format(timeline|length - 12) }}</li>{% endif %}
          </ul>
       </div>
       <div class="col-lg-6">
-         <h4><i class="ti ti-list-check me-1"></i>{{ __('Contenu du rapport', 'grcmanager') }}</h4>
+         <h4><i class="ti ti-list-check me-1"></i>{{ __('Report contents', 'grcmanager') }}</h4>
          <ul class="list-unstyled">
-            <li>{{ __('Éléments touchés', 'grcmanager') }} : <strong>{{ assets|length }}</strong> ; CVE : <strong>{{ cves|length }}</strong> ; {{ __('Coût total', 'grcmanager') }} : <strong>{{ cost|number_format(2, ',', ' ') }}</strong></li>
+            <li>{{ __('Affected items', 'grcmanager') }} : <strong>{{ assets|length }}</strong> ; CVE : <strong>{{ cves|length }}</strong> ; {{ __('Total cost', 'grcmanager') }} : <strong>{{ cost|number_format(2, ',', ' ') }}</strong></li>
             {% for d in deadlines %}
                <li>{{ d.label }} : <span class="badge {{ outcomes[d.outcome][0] }}">{{ outcomes[d.outcome][1] }}</span></li>
             {% endfor %}
-            <li>{{ __('Cause racine', 'grcmanager') }} : {% if incident.root_cause %}<i class="ti ti-check text-green"></i>{% else %}<span class="badge bg-orange-lt">{{ __('à renseigner', 'grcmanager') }}</span>{% endif %}</li>
-            <li>{{ __('Enseignements tirés', 'grcmanager') }} : {% if incident.lessons %}<i class="ti ti-check text-green"></i>{% else %}<span class="badge bg-orange-lt">{{ __('à renseigner', 'grcmanager') }}</span>{% endif %}</li>
-            <li>{{ __('Actions décidées', 'grcmanager') }} : <strong>{{ actions|length }}</strong></li>
+            <li>{{ __('Root cause', 'grcmanager') }} : {% if incident.root_cause %}<i class="ti ti-check text-green"></i>{% else %}<span class="badge bg-orange-lt">{{ __('to fill in', 'grcmanager') }}</span>{% endif %}</li>
+            <li>{{ __('Lessons learned', 'grcmanager') }} : {% if incident.lessons %}<i class="ti ti-check text-green"></i>{% else %}<span class="badge bg-orange-lt">{{ __('to fill in', 'grcmanager') }}</span>{% endif %}</li>
+            <li>{{ __('Decided actions', 'grcmanager') }} : <strong>{{ actions|length }}</strong></li>
          </ul>
          {% if can_make %}
             <form method="post" action="{{ action }}">
                <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
                <input type="hidden" name="id" value="{{ incident.id }}">
-               <button type="submit" name="generate" value="1" class="btn btn-primary"><i class="ti ti-file-type-pdf me-1"></i>{{ __('Générer le rapport PDF', 'grcmanager') }}</button>
+               <button type="submit" name="generate" value="1" class="btn btn-primary"><i class="ti ti-file-type-pdf me-1"></i>{{ __('Generate the PDF report', 'grcmanager') }}</button>
             </form>
-            <div class="form-hint">{{ __('Le PDF est archivé dans les documents de l\'incident, lisible par les seules personnes qui voient l\'incident.', 'grcmanager') }}</div>
+            <div class="form-hint">{{ __('The PDF is archived in the incident\'s documents, readable only by people who can see the incident.', 'grcmanager') }}</div>
          {% endif %}
       </div>
    </div>

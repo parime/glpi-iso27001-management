@@ -6,27 +6,27 @@
 {% block form_fields %}
    {{ fields.textField('name', item.fields['name'], __('Nom'), {
       'required': true,
-      'add_field_html': hints.hint(__('Exemple : « Politique de filtrage des pare-feu ».', 'grcmanager')),
+      'add_field_html': hints.hint(__('Example: "Firewall filtering policy".', 'grcmanager')),
    }) }}
    {{ fields.checkboxField('is_active', item.isNewItem() ? 1 : item.fields['is_active'], __('Active')) }}
 
-   {{ fields.dropdownArrayField('itemtype', item.fields['itemtype'], itemtypes, __('Type d\'actif', 'grcmanager'), {
+   {{ fields.dropdownArrayField('itemtype', item.fields['itemtype'], itemtypes, __('Asset type', 'grcmanager'), {
       'display_emptychoice': true,
       'required': true,
    }) }}
    {% if type_class %}
-      {{ fields.dropdownField(type_class, 'types_id', item.fields['types_id'], __('Sous-type (facultatif)', 'grcmanager'), {
-         'add_field_html': hints.hint(__('Pour ne compter qu\'une partie des actifs, par exemple les seuls pare-feu parmi les matériels réseau.', 'grcmanager')),
+      {{ fields.dropdownField(type_class, 'types_id', item.fields['types_id'], __('Subtype (optional)', 'grcmanager'), {
+         'add_field_html': hints.hint(__('To count only part of the assets, for example only the firewalls among network devices.', 'grcmanager')),
       }) }}
    {% else %}
-      {{ fields.htmlField('', '<span class="text-muted">' ~ __('Enregistrez la règle pour choisir un sous-type, si ce type d\'actif en a.', 'grcmanager')|e ~ '</span>', __('Sous-type (facultatif)', 'grcmanager')) }}
+      {{ fields.htmlField('', '<span class="text-muted">' ~ __('Save the rule to choose a subtype, if this asset type has any.', 'grcmanager')|e ~ '</span>', __('Subtype (optional)', 'grcmanager')) }}
    {% endif %}
 
-   {{ fields.dropdownField('DocumentCategory', 'documentcategories_id', item.fields['documentcategories_id'], __('Catégorie du document requis', 'grcmanager'), {
+   {{ fields.dropdownField('DocumentCategory', 'documentcategories_id', item.fields['documentcategories_id'], __('Required document category', 'grcmanager'), {
       'required': true,
-      'add_field_html': hints.hint(__('Un actif est couvert s\'il a au moins un document de cette catégorie dans son onglet Documents.', 'grcmanager')),
+      'add_field_html': hints.hint(__('An asset is covered if it has at least one document of this category in its Documents tab.', 'grcmanager')),
    }) }}
-   {{ fields.dropdownArrayField('plugin_grcmanager_controls_id', item.fields['plugin_grcmanager_controls_id'], controls, __('Mesure de l\'Annexe A', 'grcmanager')) }}
-   {{ fields.dropdownArrayField('plugin_grcmanager_ismsrequirements_id', item.fields['plugin_grcmanager_ismsrequirements_id'], requirements, __('Exigence du SMSI', 'grcmanager')) }}
+   {{ fields.dropdownArrayField('plugin_grcmanager_controls_id', item.fields['plugin_grcmanager_controls_id'], controls, _x('measure', 'Annex A control', 'grcmanager')) }}
+   {{ fields.dropdownArrayField('plugin_grcmanager_ismsrequirements_id', item.fields['plugin_grcmanager_ismsrequirements_id'], requirements, __('ISMS requirement', 'grcmanager')) }}
    {{ fields.textareaField('comment', item.fields['comment'], __('Commentaire'), {'full_width': true}) }}
 {% endblock %}

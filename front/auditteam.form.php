@@ -22,9 +22,9 @@ include('../../../inc/includes.php');
  * pouvoir modifier l'audit.
  */
 
-Session::checkRight(PluginGrcmanagerAudit::RIGHTNAME, UPDATE);
+Session::checkRight(\GlpiPlugin\Grcmanager\Audit::RIGHTNAME, UPDATE);
 
-$audit = new PluginGrcmanagerAudit();
+$audit = new \GlpiPlugin\Grcmanager\Audit();
 $auditsId = (int) ($_POST['plugin_grcmanager_audits_id'] ?? 0);
 $audit->check($auditsId, UPDATE);
 
@@ -32,11 +32,11 @@ if (isset($_POST['add'])) {
     $usersId = (int) ($_POST['users_id'] ?? 0);
     $user = new User();
     $role = (string) ($_POST['role'] ?? '');
-    if (!$user->getFromDB($usersId) || !PluginGrcmanagerAuditTeam::addMember($auditsId, $usersId, $role)) {
-        Session::addMessageAfterRedirect(__('Choisissez un membre et un rôle.', 'grcmanager'), false, ERROR);
+    if (!$user->getFromDB($usersId) || !\GlpiPlugin\Grcmanager\AuditTeam::addMember($auditsId, $usersId, $role)) {
+        Session::addMessageAfterRedirect(__('Choose a member and a role.', 'grcmanager'), false, ERROR);
     }
 } elseif (isset($_POST['remove'])) {
-    PluginGrcmanagerAuditTeam::removeMember($auditsId, (int) ($_POST['members_id'] ?? 0));
+    \GlpiPlugin\Grcmanager\AuditTeam::removeMember($auditsId, (int) ($_POST['members_id'] ?? 0));
 }
 
 Html::back();

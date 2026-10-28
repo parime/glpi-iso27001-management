@@ -4,16 +4,16 @@
 {% import '@grcmanager/_hint.html.twig' as hints %}
 
 {% block form_fields %}
-   {{ fields.textField('title', item.fields['title'], __('Titre', 'grcmanager'), {'full_width': true}) }}
-   {{ fields.dropdownField('User', 'users_id', item.fields['users_id'], __('Propriétaire', 'grcmanager'), {'right': 'all'}) }}
-   {{ fields.dropdownArrayField('status', item.fields['status'] ?: default_status, statuses, __('Statut', 'grcmanager')) }}
-   {{ fields.dateField('target_date', item.fields['target_date'], __('Échéance', 'grcmanager')) }}
-   {{ fields.textField('target_value', item.fields['target_value'], __('Valeur cible', 'grcmanager'), {
-      'add_field_html': hints.hint(__('Laisser vide si cet objectif n\'a pas d\'indicateur chiffré (objectif purement qualitatif).', 'grcmanager')),
+   {{ fields.textField('title', item.fields['title'], __('Title', 'grcmanager'), {'full_width': true}) }}
+   {{ fields.dropdownField('User', 'users_id', item.fields['users_id'], _x('owner', 'Owner', 'grcmanager'), {'right': 'all'}) }}
+   {{ fields.dropdownArrayField('status', item.fields['status'] ?: default_status, statuses, __('Status', 'grcmanager')) }}
+   {{ fields.dateField('target_date', item.fields['target_date'], __('Due date', 'grcmanager')) }}
+   {{ fields.textField('target_value', item.fields['target_value'], __('Target value', 'grcmanager'), {
+      'add_field_html': hints.hint(__('Leave empty if this objective has no numeric indicator (purely qualitative objective).', 'grcmanager')),
    }) }}
-   {{ fields.textareaField('target_description', item.fields['target_description'], __('Cible qualitative', 'grcmanager'), {
+   {{ fields.textareaField('target_description', item.fields['target_description'], __('Qualitative target', 'grcmanager'), {
       'full_width': true,
-      'add_field_html': hints.hint(__('Description libre de la cible visée, en complément ou à la place d\'une valeur chiffrée (ex. "obtenir la certification ISO 27001", "déployer le MFA sur tous les comptes à privilèges").', 'grcmanager')),
+      'add_field_html': hints.hint(__('Free-text description of the target aimed for, in addition to or instead of a numeric value (e.g. "obtain ISO 27001 certification", "roll out MFA on every privileged account").', 'grcmanager')),
    }) }}
    {{ fields.textareaField('description', item.fields['description'], __('Description', 'grcmanager'), {'full_width': true}) }}
 {% endblock %}

@@ -27,9 +27,11 @@ use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentModuleConfig;
 // s'installer avec un message (check_prerequisites) au lieu d'une erreur fatale à chaque page.
 if (is_readable(__DIR__ . '/vendor/autoload.php')) {
     require_once __DIR__ . '/vendor/autoload.php';
+    // Issue #293 : anciens noms PluginGrcmanagerX des classes passées dans src/.
+    \GlpiPlugin\Grcmanager\Install\ItemtypeRenames::registerAliases();
 }
 
-define('PLUGIN_GRCMANAGER_VERSION', '2.16.0');
+define('PLUGIN_GRCMANAGER_VERSION', '2.17.0');
 define('PLUGIN_GRCMANAGER_MIN_GLPI', '11.0.0');
 // GLPI 11 and 12 from a single code base (see src/Compatibility/).
 define('PLUGIN_GRCMANAGER_MAX_GLPI', '12.99.99');
@@ -81,26 +83,26 @@ function plugin_init_grcmanager(): void
 
     // Menu « GRC & Conformité » : un secteur de premier niveau dédié. Une clé de catégorie inconnue
     // des secteurs natifs fait créer par Html::generateMenuSession() (cœur de GLPI) une nouvelle
-    // entrée de la barre latérale. PluginGrcmanagerMenu (inc/menu.class.php), ancre sans table, est
+    // entrée de la barre latérale. \GlpiPlugin\Grcmanager\Menu (inc/menu.class.php), ancre sans table, est
     // placée EN TÊTE du tableau pour que le titre et l'icône du secteur soient les siens et non ceux
     // du premier écran fonctionnel ; plugin_grcmanager_redefine_menus() retire ensuite sa ligne.
     //
     // Six rubriques, dans l'ordre du cycle du SMSI : pilotage, risques, conformité, audits et
     // amélioration, opérations, sécurité technique. Chaque rubrique est une seule entrée de menu ;
     // les autres écrans de la rubrique sont ses sous-pages, avec une barre d'onglets commune
-    // (PluginGrcmanagerMenu::sections()) et le fil d'Ariane « Rubrique > Page ». Les objets enfants
+    // (\GlpiPlugin\Grcmanager\Menu::sections()) et le fil d'Ariane « Rubrique > Page ». Les objets enfants
     // (mesures d'un objectif, actions de traitement d'un risque…) n'ont pas d'entrée : ils se gèrent
     // depuis la fiche de leur parent.
     $menuToAdd = [
         'grcmanager' => [
-            PluginGrcmanagerMenu::class,
+            \GlpiPlugin\Grcmanager\Menu::class,
             // Issue #247 : tableau de bord en tête, comme dans Parc et Assistance.
-            PluginGrcmanagerDashboard::class,
-            PluginGrcmanagerRisk::class,
-            PluginGrcmanagerControl::class,
-            PluginGrcmanagerAudit::class,
-            PluginGrcmanagerAccessReview::class,
-            PluginGrcmanagerComplianceAudit::class,
+            \GlpiPlugin\Grcmanager\Dashboard::class,
+            \GlpiPlugin\Grcmanager\Risk::class,
+            \GlpiPlugin\Grcmanager\Control::class,
+            \GlpiPlugin\Grcmanager\Audit::class,
+            \GlpiPlugin\Grcmanager\AccessReview::class,
+            \GlpiPlugin\Grcmanager\ComplianceAudit::class,
         ],
     ];
 
@@ -120,7 +122,7 @@ function plugin_init_grcmanager(): void
     $PLUGIN_HOOKS[Hooks::MENU_TOADD]['grcmanager'] = $menuToAdd;
     // Issue #247 : Html::header() ne charge la grille et les graphiques des tableaux de bord que
     // pour les pages déclarées ici (même mécanisme que Parc > Tableau de bord ; clé en minuscules).
-    $CFG_GLPI['javascript']['grcmanager'][strtolower(PluginGrcmanagerDashboard::class)] = ['dashboard'];
+    $CFG_GLPI['javascript']['grcmanager'][strtolower(\GlpiPlugin\Grcmanager\Dashboard::class)] = ['dashboard'];
 
     // Issue #28 (bibliothèque de politiques de sécurité versionnées, A.5.1) : le fichier joint
     // (PDF, Word...) d'une politique est stocké via le mécanisme natif GLPI Document/Document_Item,
@@ -129,31 +131,31 @@ function plugin_init_grcmanager(): void
     // src/Glpi/Asset/Capacity/HasDocumentsCapacity::enable(), qui fait exactement ce push pour les
     // actifs personnalisés dotés de la capacité "Documents", et src/autoload/CFG_GLPI.php pour la
     // liste figée des itemtypes cœur), en plus de l'appel explicite à
-    // addStandardTab(Document_Item::class, ...) fait dans PluginGrcmanagerPolicy::defineTabs().
+    // addStandardTab(Document_Item::class, ...) fait dans \GlpiPlugin\Grcmanager\Policy::defineTabs().
     // Sans cette ligne, l'onglet s'afficherait quand même (Document_Item::getTabNameForItem() ne
     // vérifie que Document::canView(), pas getItemtypesThatCanHave()), mais
     // Document::getItemtypesThatCanHave() - utilisée ailleurs dans GLPI core (API, nettoyage
     // polymorphe CommonDBTM::cleanDBonPurge()) - ignorerait cette politique.
     global $CFG_GLPI;
-    $CFG_GLPI['document_types'][] = PluginGrcmanagerPolicy::class;
+    $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\Policy::class;
     // Issue #170 : validation signée d'une dérogation, analyse de risque jointe.
-    $CFG_GLPI['document_types'][] = PluginGrcmanagerWaiver::class;
+    $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\Waiver::class;
     // Issue #139 : feuille d'émargement, support et quiz d'une session de formation.
-    $CFG_GLPI['document_types'][] = PluginGrcmanagerTraining::class;
+    $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\Training::class;
     // Issue #140 : pièces d'un audit interne et de ses constats.
-    $CFG_GLPI['document_types'][] = PluginGrcmanagerAudit::class;
-    $CFG_GLPI['document_types'][] = PluginGrcmanagerNonconformity::class;
+    $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\Audit::class;
+    $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\Nonconformity::class;
     // Issue #113 : preuves des exigences du SMSI, même mécanisme.
-    $CFG_GLPI['document_types'][] = PluginGrcmanagerIsmsRequirement::class;
+    $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\IsmsRequirement::class;
     // Issue #127 : preuves de l'évaluation d'un fournisseur (questionnaire signé, certificats).
-    $CFG_GLPI['document_types'][] = PluginGrcmanagerSupplierRisk::class;
+    $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\SupplierRisk::class;
     // Issue #126 : rapport PDF de clôture d'une revue des accès, sur la campagne et sur la mesure.
-    $CFG_GLPI['document_types'][] = PluginGrcmanagerAccessReview::class;
-    $CFG_GLPI['document_types'][] = PluginGrcmanagerControl::class;
+    $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\AccessReview::class;
+    $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\Control::class;
     // Issue #142 : documents d'un evenement de conformite (rapport d'audit, de pentest...).
-    $CFG_GLPI['document_types'][] = PluginGrcmanagerComplianceEvent::class;
+    $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\ComplianceEvent::class;
     // Echeances de conformite dans le planning GLPI de chaque responsable (lecture seule).
-    $CFG_GLPI['planning_types'][] = PluginGrcmanagerComplianceEvent::class;
+    $CFG_GLPI['planning_types'][] = \GlpiPlugin\Grcmanager\ComplianceEvent::class;
 
     // Sprint 2 (matrice de risque administrable, front/config.php) : reachable via
     // Configuration > Plugins > wrench icon on this plugin's row, same minimal-footprint pattern
@@ -165,7 +167,7 @@ function plugin_init_grcmanager(): void
 
     // Issue #25 (lien registre de risques <-> actifs GLPI/CMDB) : onglet "Risques" en lecture
     // seule sur la fiche de chaque actif potentiellement lié (voir
-    // PluginGrcmanagerRisk::getTabNameForItem()/displayTabContentForItem()), même mécanisme
+    // \GlpiPlugin\Grcmanager\Risk::getTabNameForItem()/displayTabContentForItem()), même mécanisme
     // Plugin::registerClass()/addtabon que le plugin jumeau assetsign-glpi pour ses propres
     // onglets (voir son setup.php).
     //
@@ -173,82 +175,82 @@ function plugin_init_grcmanager(): void
     // ce qui privait tout actif personnalisé créé par un autre plugin (Configuration-glpi-auto :
     // Vehicule, Serveur, Local...) de cet onglet sur sa propre fiche, même si le lien
     // registre-de-risques/actif restait fonctionnel depuis le formulaire du risque lui-même.
-    // PluginGrcmanagerRisk::getLinkableItemtypes() interroge déjà directement la table SQL
+    // \GlpiPlugin\Grcmanager\Risk::getLinkableItemtypes() interroge déjà directement la table SQL
     // glpi_assets_assetdefinitions (voir son docblock) plutôt que
     // Glpi\Asset\AssetDefinitionManager::getInstance()->getDefinitions() (qui renverrait un
     // tableau vide ici : ce hook s'exécute pendant le listener InitializePlugins, avant
     // CustomObjectsBoot) — exactement le même contournement, déjà éprouvé en production, que
     // Config::getAllManageableItemtypes() du plugin jumeau assetsign-glpi, qui l'appelle lui
     // aussi directement depuis son propre plugin_init() pour construire ses listes d'addtabon.
-    Plugin::registerClass(PluginGrcmanagerRisk::class, [
-        'addtabon' => PluginGrcmanagerRisk::getLinkableItemtypes(),
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\Risk::class, [
+        'addtabon' => \GlpiPlugin\Grcmanager\Risk::getLinkableItemtypes(),
     ]);
 
     // Issue #26 (classification Confidentialité/Intégrité/Disponibilité des actifs) : même
     // mécanisme qu'immédiatement ci-dessus pour l'onglet "Risques" de l'issue #25 (voir son
     // commentaire, y compris pour le correctif de l'issue #88), un second onglet indépendant sur
     // la fiche de chaque actif liable pour consulter/éditer sa classification C/I/D (voir
-    // PluginGrcmanagerAssetClassification::getTabNameForItem()/displayTabContentForItem()).
-    Plugin::registerClass(PluginGrcmanagerAssetClassification::class, [
-        'addtabon' => PluginGrcmanagerRisk::getLinkableItemtypes(),
+    // \GlpiPlugin\Grcmanager\AssetClassification::getTabNameForItem()/displayTabContentForItem()).
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\AssetClassification::class, [
+        'addtabon' => \GlpiPlugin\Grcmanager\Risk::getLinkableItemtypes(),
     ]);
 
     // Issue #145 : onglet « Validités des preuves » sur les éléments dont les documents prouvent
     // quelque chose pour une durée limitée (mesures, risques fournisseurs, audits, politiques).
     // Issue #170 : onglet « Dérogations » sur les actifs, les mesures et les politiques.
-    Plugin::registerClass(PluginGrcmanagerWaiver::class, [
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\Waiver::class, [
         'addtabon' => array_merge(
-            PluginGrcmanagerRisk::getLinkableItemtypes(),
-            [PluginGrcmanagerControl::class, PluginGrcmanagerPolicy::class]
+            \GlpiPlugin\Grcmanager\Risk::getLinkableItemtypes(),
+            [\GlpiPlugin\Grcmanager\Control::class, \GlpiPlugin\Grcmanager\Policy::class]
         ),
     ]);
 
     // Issue #160, phase 2 : onglet « Vulnérabilités » sur les éléments qui portent des logiciels.
-    Plugin::registerClass(PluginGrcmanagerParkVulnerability::class, [
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\ParkVulnerability::class, [
         'addtabon' => $CFG_GLPI['software_types'] ?? ['Computer'],
     ]);
 
     // Issue #169 : onglet « Rapport post-incident » sur les incidents de sécurité.
-    Plugin::registerClass(PluginGrcmanagerSecurityIncidentPostMortem::class, [
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\SecurityIncidentPostMortem::class, [
         'addtabon' => [PluginGrcmanagerSecurityIncident::class],
     ]);
     // Issue #185 : onglet « Cellule de crise » de l'incident.
-    Plugin::registerClass(PluginGrcmanagerCrisisExercise::class, [
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\CrisisExercise::class, [
         'addtabon' => [PluginGrcmanagerSecurityIncident::class],
     ]);
 
     // Issue #171 : onglet « Effet domino » sur les risques, risques fournisseurs et incidents.
-    Plugin::registerClass(PluginGrcmanagerCausalLink::class, [
-        'addtabon' => PluginGrcmanagerCausalLink::getLinkableItemtypes(),
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\CausalLink::class, [
+        'addtabon' => \GlpiPlugin\Grcmanager\CausalLink::getLinkableItemtypes(),
     ]);
     // Issue #177 : onglet « Impact d'une panne » sur les actifs.
-    Plugin::registerClass(PluginGrcmanagerImpactAnalysis::class, [
-        'addtabon' => PluginGrcmanagerRisk::getLinkableItemtypes(),
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\ImpactAnalysis::class, [
+        'addtabon' => \GlpiPlugin\Grcmanager\Risk::getLinkableItemtypes(),
     ]);
 
     // Issue #164 : onglet « Couverture des preuves » sur les mesures et les exigences du SMSI.
-    Plugin::registerClass(PluginGrcmanagerCoverageRule::class, [
-        'addtabon' => [PluginGrcmanagerControl::class, PluginGrcmanagerIsmsRequirement::class],
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\CoverageRule::class, [
+        'addtabon' => [\GlpiPlugin\Grcmanager\Control::class, \GlpiPlugin\Grcmanager\IsmsRequirement::class],
     ]);
 
-    Plugin::registerClass(PluginGrcmanagerEvidence::class, [
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\Evidence::class, [
         'addtabon' => \GlpiPlugin\Grcmanager\Services\Evidence\EvidenceValidity::ITEMTYPES,
     ]);
 
     // Issue #128 : qualifier un ticket en incident de sécurité (onglet sur les deux objets) ; les
     // liens disparaissent avec le ticket ou l'incident supprimé définitivement.
-    Plugin::registerClass(PluginGrcmanagerSecurityIncidentTicket::class, [
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\SecurityIncidentTicket::class, [
         'addtabon' => ['Ticket', PluginGrcmanagerSecurityIncident::class],
     ]);
     // Issue #139 : « Mes formations » dans les préférences (résultats et copies de quiz de
     // l'utilisateur, sans droit sur le plugin).
-    Plugin::registerClass(PluginGrcmanagerTrainingQuiz::class, ['addtabon' => [Preference::class]]);
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\TrainingQuiz::class, ['addtabon' => [Preference::class]]);
     // Onglet « GRC Manager » des profils : attribuer les droits du plugin sans passer par la base.
-    Plugin::registerClass(PluginGrcmanagerProfile::class, ['addtabon' => [Profile::class]]);
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\Profile::class, ['addtabon' => [Profile::class]]);
     // Issue #141 : le ticket créé par le ticket récurrent d'une revue devient son ticket en cours ;
-    // sa résolution date la revue (PluginGrcmanagerPeriodicReview::onTicketAdd()/onTicketUpdate()).
+    // sa résolution date la revue (\GlpiPlugin\Grcmanager\PeriodicReview::onTicketAdd()/onTicketUpdate()).
     // Issue #140 : un document joint à un audit, ou à un constat d'audit, est réservé à l'équipe
-    // de l'audit (PluginGrcmanagerRestrictedDocument::onDocumentItemAdd()).
+    // de l'audit (\GlpiPlugin\Grcmanager\RestrictedDocument::onDocumentItemAdd()).
     $PLUGIN_HOOKS[Hooks::ITEM_ADD]['grcmanager'] = [
         'Ticket'        => 'plugin_grcmanager_periodic_review_ticket_add',
         'Document_Item' => 'plugin_grcmanager_restricted_document_item_add',
@@ -260,7 +262,7 @@ function plugin_init_grcmanager(): void
         'Document'                              => 'plugin_grcmanager_forget_restricted_document',
     ];
     // Rapports générés (audit, revue des accès, post-incident, cellule de crise) : lisibles par
-    // les seules personnes qui lisent leur objet source, voir PluginGrcmanagerRestrictedDocument.
+    // les seules personnes qui lisent leur objet source, voir \GlpiPlugin\Grcmanager\RestrictedDocument.
     $PLUGIN_HOOKS[Hooks::ITEM_CAN]['grcmanager'] = ['Document' => 'plugin_grcmanager_restricted_document_can'];
     $PLUGIN_HOOKS[Hooks::ADD_DEFAULT_WHERE]['grcmanager'] = 'plugin_grcmanager_restricted_documents_where';
 
@@ -271,7 +273,7 @@ function plugin_init_grcmanager(): void
     // be discarded when this plugin runs earlier in that chain. See hook.php.
     $PLUGIN_HOOKS[Hooks::DASHBOARD_CARDS]['grcmanager'] = 'plugin_grcmanager_dashboard_cards';
 
-    // Strips PluginGrcmanagerMenu's own row from the "GRC & Conformité" submenu (v1.1.4): it must
+    // Strips \GlpiPlugin\Grcmanager\Menu's own row from the "GRC & Conformité" submenu (v1.1.4): it must
     // stay in the MENU_TOADD array above, FIRST, so Html::generateMenuSession() (GLPI core) still
     // picks up its title/icon for the whole sector - but once that title/icon are set, its own
     // clickable row is a pure visual duplicate of the sector header just above it ("GRC &
@@ -302,7 +304,7 @@ function plugin_init_grcmanager(): void
  */
 function plugin_grcmanager_redefine_menus(array $menu): array
 {
-    unset($menu['grcmanager']['content'][strtolower(PluginGrcmanagerMenu::class)]);
+    unset($menu['grcmanager']['content'][strtolower(\GlpiPlugin\Grcmanager\Menu::class)]);
 
     return $menu;
 }

@@ -1,22 +1,22 @@
-{# Issue #127 : questionnaire de sécurité du fournisseur (PluginGrcmanagerSupplierAssessment) #}
+{# Issue #127 : questionnaire de sécurité du fournisseur (GlpiPlugin\\Grcmanager\\SupplierAssessment) #}
 {% set level_class = {'good': 'bg-green-lt', 'fair': 'bg-orange-lt', 'poor': 'bg-red-lt'} %}
 {% set level_labels = {
-   'good': __('Bon niveau', 'grcmanager'),
-   'fair': __('Niveau à améliorer', 'grcmanager'),
-   'poor': __('Niveau insuffisant', 'grcmanager')
+   'good': __('Good level', 'grcmanager'),
+   'fair': __('Needs improvement', 'grcmanager'),
+   'poor': __('Insufficient level', 'grcmanager')
 } %}
 <div class="card">
    <div class="card-header d-flex flex-wrap align-items-center gap-2">
-      <h3 class="card-title mb-0"><i class="ti ti-checklist me-1"></i>{{ __('Questionnaire de sécurité', 'grcmanager') }}</h3>
+      <h3 class="card-title mb-0"><i class="ti ti-checklist me-1"></i>{{ __('Security questionnaire', 'grcmanager') }}</h3>
       {% if score is not null %}
-         <span class="badge {{ level_class[level] }} ms-2">{{ __('Score : %d %%', 'grcmanager')|format(score) }} — {{ level_labels[level] }}</span>
+         <span class="badge {{ level_class[level] }} ms-2">{{ __('Score: %d %%', 'grcmanager')|format(score) }} — {{ level_labels[level] }}</span>
       {% endif %}
       {% if date %}
-         <span class="text-muted small ms-auto">{{ __('Rempli le %1$s par %2$s', 'grcmanager')|format(date|formatted_datetime, author) }}</span>
+         <span class="text-muted small ms-auto">{{ __('Filled in on %1$s by %2$s', 'grcmanager')|format(date|formatted_datetime, author) }}</span>
       {% endif %}
    </div>
    <div class="card-body">
-      <p class="text-muted">{{ __('Oui = 1 point, partiel = ½, non = 0 ; « sans objet » ne compte pas. Le score éclaire l\'évaluation, il ne modifie pas le niveau de risque saisi. Joignez les preuves (questionnaire signé, certificats) dans l\'onglet Documents.', 'grcmanager') }}</p>
+      <p class="text-muted">{{ __('Yes = 1 point, partial = ½, no = 0; "not applicable" is not counted. The score informs the assessment; it does not change the risk level entered. Attach the evidence (signed questionnaire, certificates) in the Documents tab.', 'grcmanager') }}</p>
       <form method="post" action="{{ action }}">
          <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
          <input type="hidden" name="id" value="{{ item.fields.id }}">
@@ -39,7 +39,7 @@
             </tbody>
          </table>
          {% if can_edit %}
-            <button type="submit" name="save_questionnaire" value="1" class="btn btn-primary"><i class="ti ti-device-floppy me-1"></i>{{ __('Enregistrer le questionnaire', 'grcmanager') }}</button>
+            <button type="submit" name="save_questionnaire" value="1" class="btn btn-primary"><i class="ti ti-device-floppy me-1"></i>{{ __('Save questionnaire', 'grcmanager') }}</button>
          {% endif %}
       </form>
    </div>

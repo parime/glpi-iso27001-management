@@ -17,36 +17,36 @@
 
 include('../../../inc/includes.php');
 
-$item = new PluginGrcmanagerComplianceEvent();
+$item = new \GlpiPlugin\Grcmanager\ComplianceEvent();
 
 if (isset($_POST['add'])) {
-    Session::checkRight(PluginGrcmanagerComplianceEvent::$rightname, CREATE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\ComplianceEvent::$rightname, CREATE);
     $newID = $item->add($_POST);
     if ($newID && $_SESSION['glpibackcreated']) {
         Html::redirect($item->getLinkURL());
     }
     Html::back();
 } elseif (isset($_POST['delete'])) {
-    Session::checkRight(PluginGrcmanagerComplianceEvent::$rightname, DELETE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\ComplianceEvent::$rightname, DELETE);
     $item->delete($_POST);
-    Html::redirect(PluginGrcmanagerComplianceEvent::getSearchURL());
+    Html::redirect(\GlpiPlugin\Grcmanager\ComplianceEvent::getSearchURL());
 } elseif (isset($_POST['purge'])) {
-    Session::checkRight(PluginGrcmanagerComplianceEvent::$rightname, PURGE);
-    $item->delete($_POST, 1);
-    Html::redirect(PluginGrcmanagerComplianceEvent::getSearchURL());
+    Session::checkRight(\GlpiPlugin\Grcmanager\ComplianceEvent::$rightname, PURGE);
+    $item->delete($_POST, true);
+    Html::redirect(\GlpiPlugin\Grcmanager\ComplianceEvent::getSearchURL());
 } elseif (isset($_POST['update'])) {
-    Session::checkRight(PluginGrcmanagerComplianceEvent::$rightname, UPDATE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\ComplianceEvent::$rightname, UPDATE);
     $item->update($_POST);
     Html::back();
 } else {
-    Session::checkRight(PluginGrcmanagerComplianceEvent::$rightname, READ);
+    Session::checkRight(\GlpiPlugin\Grcmanager\ComplianceEvent::$rightname, READ);
 
     Html::header(
-        PluginGrcmanagerComplianceEvent::getTypeName(1),
+        \GlpiPlugin\Grcmanager\ComplianceEvent::getTypeName(1),
         $_SERVER['PHP_SELF'],
         'grcmanager',
-        PluginGrcmanagerDashboard::class,
-        PluginGrcmanagerComplianceEvent::class
+        \GlpiPlugin\Grcmanager\Dashboard::class,
+        \GlpiPlugin\Grcmanager\ComplianceEvent::class
     );
 
     $item->display(['id' => (int) ($_GET['id'] ?? 0)]);

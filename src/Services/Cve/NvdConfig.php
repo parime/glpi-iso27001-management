@@ -7,7 +7,7 @@ namespace GlpiPlugin\Grcmanager\Services\Cve;
 /**
  * Loads/saves the NVD-enrichment settings from `glpi_plugin_grcmanager_nvdconfig` (a single row,
  * id=1, seeded at install with NvdConfigDefaults, see src/Install/Installer.php). Used by both
- * front/config.php (the admin screen) and PluginGrcmanagerSecurityIncidentCve (to decide whether to
+ * front/config.php (the admin screen) and \GlpiPlugin\Grcmanager\SecurityIncidentCve (to decide whether to
  * fetch, and what score counts as urgent) — same single-source-of-truth reasoning as
  * RiskMatrixConfig for the probability x impact matrix.
  *

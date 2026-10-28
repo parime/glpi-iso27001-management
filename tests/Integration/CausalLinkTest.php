@@ -19,7 +19,7 @@ declare(strict_types=1);
 
 namespace GlpiPlugin\Grcmanager\Tests\Integration;
 
-use PluginGrcmanagerCausalLink as Link;
+use GlpiPlugin\Grcmanager\CausalLink as Link;
 
 /**
  * Issue #171 : effet domino entre un incident fictif et des risques fictifs.
@@ -28,14 +28,14 @@ final class CausalLinkTest extends GrcmanagerIntegrationTestCase
 {
     private function risk(string $title): string
     {
-        $id = (int) (new \PluginGrcmanagerRisk())->add([
+        $id = (int) (new \GlpiPlugin\Grcmanager\Risk())->add([
             'title'       => $title,
             'probability' => 'possible',
             'impact'      => 'high',
             'entities_id' => 0,
         ]);
 
-        return Link::key(\PluginGrcmanagerRisk::class, $id);
+        return Link::key(\GlpiPlugin\Grcmanager\Risk::class, $id);
     }
 
     public function testDominoChainCycleAndTab(): void
@@ -56,7 +56,7 @@ final class CausalLinkTest extends GrcmanagerIntegrationTestCase
         $this->assertFalse((new Link())->add(['cause' => $leak, 'effect' => 'Computer:1']), 'Type non reliable.');
 
         // Onglet de la compromission : une cause, une conséquence, et le graphe autour.
-        $risk = new \PluginGrcmanagerRisk();
+        $risk = new \GlpiPlugin\Grcmanager\Risk();
         $risk->getFromDB((int) explode(':', $account)[1]);
         $this->assertStringContainsString('2', (string) (new Link())->getTabNameForItem($risk));
         ob_start();
@@ -77,8 +77,8 @@ final class CausalLinkTest extends GrcmanagerIntegrationTestCase
 
     public function testHiddenNodeIsCountedWithoutBeingNamed(): void
     {
-        $node = Link::describe(\PluginGrcmanagerRisk::class . ':999999999');
+        $node = Link::describe(\GlpiPlugin\Grcmanager\Risk::class . ':999999999');
         $this->assertFalse($node['visible']);
-        $this->assertSame(__('Élément non visible', 'grcmanager'), $node['label']);
+        $this->assertSame(__('Item not visible', 'grcmanager'), $node['label']);
     }
 }

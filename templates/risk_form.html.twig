@@ -4,29 +4,29 @@
 {% import '@grcmanager/_hint.html.twig' as hints %}
 
 {% block form_fields %}
-   {{ fields.textField('title', item.fields['title'], __('Titre', 'grcmanager'), {'full_width': true}) }}
-   {{ fields.dropdownArrayField('category', item.fields['category'] ?: 'process', categories, __('Catégorie', 'grcmanager')) }}
-   {{ fields.dropdownField('User', 'users_id', item.fields['users_id'], __('Propriétaire', 'grcmanager'), {'right': 'all'}) }}
-   {{ fields.dropdownArrayField('probability', item.fields['probability'] ?: 'possible', probabilities, __('Probabilité', 'grcmanager')) }}
+   {{ fields.textField('title', item.fields['title'], __('Title', 'grcmanager'), {'full_width': true}) }}
+   {{ fields.dropdownArrayField('category', item.fields['category'] ?: 'process', categories, __('Category', 'grcmanager')) }}
+   {{ fields.dropdownField('User', 'users_id', item.fields['users_id'], _x('owner', 'Owner', 'grcmanager'), {'right': 'all'}) }}
+   {{ fields.dropdownArrayField('probability', item.fields['probability'] ?: 'possible', probabilities, __('Probability', 'grcmanager')) }}
    {# Issue #26 : simple signal quand un actif lié porte une classification C/I/D élevée ; ne change jamais la valeur. #}
    {{ fields.dropdownArrayField('impact', item.fields['impact'] ?: 'medium', impacts, __('Impact', 'grcmanager'), high_classification ? {
-      'add_field_html': hints.hint(__('Un actif lié porte une classification C/I/D élevée : vérifiez l\'impact de ce risque.', 'grcmanager')),
+      'add_field_html': hints.hint(__('A linked asset carries a high C/I/A classification: check this risk\'s impact.', 'grcmanager')),
    } : {}) }}
    {% if not is_new %}
-      {{ fields.htmlField('', risk_level_badge, __('Niveau de risque', 'grcmanager')) }}
-      {{ fields.htmlField('', item.fields['computed_score']|default('0')|e, __('Score', 'grcmanager')) }}
+      {{ fields.htmlField('', risk_level_badge, __('Risk level', 'grcmanager')) }}
+      {{ fields.htmlField('', item.fields['computed_score']|default('0')|e, _x('score', 'Score', 'grcmanager')) }}
    {% endif %}
    {# Issue #31 : le choix implique un plan de traitement, plus bas sur la fiche. #}
-   {{ fields.dropdownArrayField('treatment', item.fields['treatment'], treatments, __('Traitement', 'grcmanager'), plan_relevant ? {
-      'add_field_html': hints.hint(__('Un plan de traitement (une ou plusieurs actions concrètes) est attendu pour ce choix, voir plus bas sur cette fiche.', 'grcmanager')),
+   {{ fields.dropdownArrayField('treatment', item.fields['treatment'], treatments, __('Treatment', 'grcmanager'), plan_relevant ? {
+      'add_field_html': hints.hint(__('A treatment plan (one or more concrete actions) is expected for this choice, see further down this record.', 'grcmanager')),
    } : {}) }}
-   {{ fields.dropdownArrayField('status', item.fields['status'] ?: 'identified', statuses, __('Statut', 'grcmanager')) }}
-   {{ fields.dateField('review_date', item.fields['review_date'], __('Date de revue', 'grcmanager')) }}
+   {{ fields.dropdownArrayField('status', item.fields['status'] ?: 'identified', statuses, __('Status', 'grcmanager')) }}
+   {{ fields.dateField('review_date', item.fields['review_date'], __('Review date', 'grcmanager')) }}
    {{ fields.textareaField('description', item.fields['description'], __('Description', 'grcmanager'), {'full_width': true}) }}
    {{ fields.textareaField('justification', item.fields['justification'], __('Justification', 'grcmanager'), {'full_width': true}) }}
 
    {# Issue #25 : une sélection multiple par type d'actif liable (seulement les types qui ont des actifs visibles). #}
-   {{ fields.smallTitle(__('Actifs liés (CMDB)', 'grcmanager'), 'ti ti-device-desktop') }}
+   {{ fields.smallTitle(__('Linked assets (CMDB)', 'grcmanager'), 'ti ti-device-desktop') }}
    {% for group in asset_groups %}
       {{ fields.dropdownArrayField(group.field, null, group.options, group.label, {
          'multiple': true,

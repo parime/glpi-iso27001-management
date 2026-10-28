@@ -1,9 +1,9 @@
 {% include '@grcmanager/pdf/_pdf_style.html.twig' %}
 
-<h2>{{ __('Résumé', 'grcmanager') }}</h2>
+<h2>{{ __('Summary', 'grcmanager') }}</h2>
 <table class="grcmanager-pdf-summary">
   <tr>
-    <td>{{ __('Audits internes', 'grcmanager') }}</td>
+    <td>{{ __('Internal audits', 'grcmanager') }}</td>
     <td class="grcmanager-pdf-summary-number">{{ total_audits }}</td>
   </tr>
   <tr>
@@ -22,15 +22,15 @@
   {% endfor %}
 </table>
 
-<h2>{{ __('Audits internes', 'grcmanager') }}</h2>
+<h2>{{ __('Internal audits', 'grcmanager') }}</h2>
 <table class="grcmanager-pdf-table">
   <thead>
     <tr>
-      <th>{{ __('Titre', 'grcmanager') }}</th>
-      <th>{{ __('Auditeur', 'grcmanager') }}</th>
-      <th>{{ __('Statut', 'grcmanager') }}</th>
-      <th>{{ __('Date planifiée', 'grcmanager') }}</th>
-      <th>{{ __('Date réalisée', 'grcmanager') }}</th>
+      <th>{{ __('Title', 'grcmanager') }}</th>
+      <th>{{ __('Auditor', 'grcmanager') }}</th>
+      <th>{{ __('Status', 'grcmanager') }}</th>
+      <th>{{ __('Planned date', 'grcmanager') }}</th>
+      <th>{{ __('Actual date', 'grcmanager') }}</th>
     </tr>
   </thead>
   <tbody>
@@ -46,16 +46,16 @@
   </tbody>
 </table>
 
-<h2>{{ __('Non-conformités, observations et CAPA', 'grcmanager') }}</h2>
+<h2>{{ __('Nonconformities, observations and CAPA', 'grcmanager') }}</h2>
 <table class="grcmanager-pdf-table">
   <thead>
     <tr>
-      <th>{{ __('Titre', 'grcmanager') }}</th>
-      <th>{{ __('Type de constat', 'grcmanager') }}</th>
-      <th>{{ __('Sévérité', 'grcmanager') }}</th>
-      <th>{{ __('Statut', 'grcmanager') }}</th>
-      <th>{{ __('Responsable', 'grcmanager') }}</th>
-      <th>{{ __('Échéance', 'grcmanager') }}</th>
+      <th>{{ __('Title', 'grcmanager') }}</th>
+      <th>{{ __('Finding type', 'grcmanager') }}</th>
+      <th>{{ __('Severity', 'grcmanager') }}</th>
+      <th>{{ __('Status', 'grcmanager') }}</th>
+      <th>{{ __('Owner', 'grcmanager') }}</th>
+      <th>{{ __('Due date', 'grcmanager') }}</th>
     </tr>
   </thead>
   <tbody>

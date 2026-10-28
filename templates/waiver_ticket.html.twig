@@ -1,6 +1,6 @@
 {# Issue #170 : contenu du ticket de réévaluation d'une dérogation échue #}
-<p>{{ __('La dérogation « %1$s » est arrivée à échéance le %2$s.', 'grcmanager')|format(name, date_end) }}</p>
-<p>{{ __('Réévaluez-la : prolongez-la avec une nouvelle date de fin si l\'exception est toujours nécessaire, ou close-la une fois la situation régularisée. Aucune modification n\'a été faite automatiquement.', 'grcmanager') }}</p>
+<p>{{ __('The waiver "%1$s" ended on %2$s.', 'grcmanager')|format(name, date_end) }}</p>
+<p>{{ __('Re-assess it: extend it with a new end date if the exception is still needed, or close it once the situation is resolved. Nothing was changed automatically.', 'grcmanager') }}</p>
 {% if justification %}<p><strong>{{ __('Justification', 'grcmanager') }} :</strong> {{ justification }}</p>{% endif %}
-{% if measures %}<p><strong>{{ __('Mesures compensatoires', 'grcmanager') }} :</strong> {{ measures }}</p>{% endif %}
+{% if measures %}<p><strong>{{ __('Compensating controls', 'grcmanager') }} :</strong> {{ measures }}</p>{% endif %}
 <p><a href="{{ url }}">{{ url }}</a></p>

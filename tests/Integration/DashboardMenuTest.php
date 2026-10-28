@@ -30,12 +30,12 @@ final class DashboardMenuTest extends GrcmanagerIntegrationTestCase
     {
         global $PLUGIN_HOOKS;
 
-        $url = \PluginGrcmanagerDashboard::getSearchURL(false);
+        $url = \GlpiPlugin\Grcmanager\Dashboard::getSearchURL(false);
         $this->assertSame('/plugins/grcmanager/front/dashboard.php', $url);
-        $this->assertSame($url, \PluginGrcmanagerMenu::getMenuContent()['page']);
+        $this->assertSame($url, \GlpiPlugin\Grcmanager\Menu::getMenuContent()['page']);
 
         $entries = $PLUGIN_HOOKS['menu_toadd']['grcmanager']['grcmanager'];
-        $this->assertSame(\PluginGrcmanagerDashboard::class, $entries[1], 'Juste après le titre du menu.');
+        $this->assertSame(\GlpiPlugin\Grcmanager\Dashboard::class, $entries[1], 'Juste après le titre du menu.');
     }
 
     /**
@@ -48,7 +48,7 @@ final class DashboardMenuTest extends GrcmanagerIntegrationTestCase
 
         $entries = $PLUGIN_HOOKS['menu_toadd']['grcmanager']['grcmanager'];
         $this->assertSame(count($entries), count(array_unique($entries)), 'Aucune entrée en double.');
-        foreach (\PluginGrcmanagerMenu::sections() as $parent => $children) {
+        foreach (\GlpiPlugin\Grcmanager\Menu::sections() as $parent => $children) {
             $this->assertContains($parent, $entries, "$parent : la rubrique a son entrée.");
             $options = $parent::getMenuContent()['options'] ?? [];
             foreach ($children as $child) {
@@ -57,14 +57,14 @@ final class DashboardMenuTest extends GrcmanagerIntegrationTestCase
             }
         }
         $this->assertSame(
-            __('Contrôles techniques automatiques', 'grcmanager'),
-            \PluginGrcmanagerComplianceAudit::getTypeName()
+            __('Automated technical checks', 'grcmanager'),
+            \GlpiPlugin\Grcmanager\ComplianceAudit::getTypeName()
         );
     }
 
     public function testDefaultDashboardIsVisibleToTheAdministrator(): void
     {
-        $dashboard = new Dashboard(\PluginGrcmanagerDashboard::getDashboardKey());
+        $dashboard = new Dashboard(\GlpiPlugin\Grcmanager\Dashboard::getDashboardKey());
         $this->assertTrue($dashboard->canViewCurrent());
     }
 }

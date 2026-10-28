@@ -29,8 +29,8 @@ Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, READ);
 if (isset($_POST['update_risk_matrix'])) {
     Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
 
-    $probabilities = array_keys(PluginGrcmanagerRisk::getProbabilities());
-    $impacts       = array_keys(PluginGrcmanagerRisk::getImpacts());
+    $probabilities = array_keys(\GlpiPlugin\Grcmanager\Risk::getProbabilities());
+    $impacts       = array_keys(\GlpiPlugin\Grcmanager\Risk::getImpacts());
 
     $matrix = [];
     foreach ($probabilities as $probability) {
@@ -74,7 +74,7 @@ if (isset($_POST['update_sensitive_config'])) {
 if (isset($_POST['update_audit_config'])) {
     Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
 
-    PluginGrcmanagerAuditTeam::setCisoGroupId((int) ($_POST['ciso_groups_id'] ?? 0));
+    \GlpiPlugin\Grcmanager\AuditTeam::setCisoGroupId((int) ($_POST['ciso_groups_id'] ?? 0));
 
     Html::back();
 }
@@ -94,7 +94,7 @@ if (isset($_POST['update_nvd_config'])) {
                 : \GlpiPlugin\Grcmanager\Services\Cve\NvdConfigDefaults::CVSS_ALERT_THRESHOLD,
     ]);
     // Issue #160, phase 2 : seuils des tickets automatiques des vulnérabilités du parc.
-    PluginGrcmanagerParkVulnerability::saveTicketThresholds($_POST);
+    \GlpiPlugin\Grcmanager\ParkVulnerability::saveTicketThresholds($_POST);
 
     Html::back();
 }
@@ -103,21 +103,21 @@ Html::header(
     __('Configuration', 'grcmanager'),
     $_SERVER['PHP_SELF'],
     'tools',
-    PluginGrcmanagerRisk::class
+    \GlpiPlugin\Grcmanager\Risk::class
 );
 
 \Glpi\Application\View\TemplateRenderer::getInstance()->display('@grcmanager/config_form.html.twig', [
     'risk_matrix'        => RiskMatrixConfig::load(),
-    'risk_probabilities' => PluginGrcmanagerRisk::getProbabilities(),
-    'risk_impacts'       => PluginGrcmanagerRisk::getImpacts(),
+    'risk_probabilities' => \GlpiPlugin\Grcmanager\Risk::getProbabilities(),
+    'risk_impacts'       => \GlpiPlugin\Grcmanager\Risk::getImpacts(),
     'csrf_token'         => Session::getNewCSRFToken(),
     'installed_version'     => PLUGIN_GRCMANAGER_VERSION,
     'latest_github_version' => GithubVersionChecker::getLatestGithubVersion(),
     'securityincident_modules' => SecurityIncidentModuleConfig::load(),
     'nvd_config'                => NvdConfig::load(),
-    'park_thresholds'           => PluginGrcmanagerParkVulnerability::getTicketThresholds(),
-    'max_tickets'               => PluginGrcmanagerParkVulnerability::MAX_TICKETS_PER_RUN,
-    'ciso_groups_id'            => PluginGrcmanagerAuditTeam::getCisoGroupId(),
+    'park_thresholds'           => \GlpiPlugin\Grcmanager\ParkVulnerability::getTicketThresholds(),
+    'max_tickets'               => \GlpiPlugin\Grcmanager\ParkVulnerability::MAX_TICKETS_PER_RUN,
+    'ciso_groups_id'            => \GlpiPlugin\Grcmanager\AuditTeam::getCisoGroupId(),
     'notifications_minimal'     => SensitiveNotification::isMinimal(),
     'can_edit_sensitive'        => Session::haveRight(Installer::SENSITIVE_RIGHT, UPDATE),
 ]);

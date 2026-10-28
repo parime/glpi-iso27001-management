@@ -1,22 +1,22 @@
 {# Issue #140 : constats (non-conformités et observations) d'un audit interne. #}
 <div class="d-flex justify-content-between align-items-center mb-2">
-  <p class="text-muted mb-0">{{ __('Non-conformités et observations relevées pendant cet audit. À la clôture de l\'audit (statut « Terminé »), le rapport PDF est archivé dans l\'onglet Documents.', 'grcmanager') }}</p>
+  <p class="text-muted mb-0">{{ __('Non-conformities and observations raised during this audit. When the audit is closed (status "Completed"), the PDF report is archived in the Documents tab.', 'grcmanager') }}</p>
   {% if add_url %}
-    <a href="{{ add_url }}" class="btn btn-primary btn-sm"><i class="ti ti-plus me-1"></i>{{ __('Ajouter un constat', 'grcmanager') }}</a>
+    <a href="{{ add_url }}" class="btn btn-primary btn-sm"><i class="ti ti-plus me-1"></i>{{ __('Add a finding', 'grcmanager') }}</a>
   {% endif %}
 </div>
 {% if findings is empty %}
-  <div class="alert alert-info">{{ __('Aucun constat pour cet audit.', 'grcmanager') }}</div>
+  <div class="alert alert-info">{{ __('No finding for this audit.', 'grcmanager') }}</div>
 {% else %}
   <table class="table table-hover card-table">
     <thead>
       <tr>
-        <th>{{ __('Titre', 'grcmanager') }}</th>
-        <th>{{ __('Type de constat', 'grcmanager') }}</th>
-        <th>{{ __('Sévérité', 'grcmanager') }}</th>
-        <th>{{ __('Statut', 'grcmanager') }}</th>
-        <th>{{ __('Responsable', 'grcmanager') }}</th>
-        <th>{{ __('Échéance', 'grcmanager') }}</th>
+        <th>{{ __('Title', 'grcmanager') }}</th>
+        <th>{{ __('Finding type', 'grcmanager') }}</th>
+        <th>{{ __('Severity', 'grcmanager') }}</th>
+        <th>{{ __('Status', 'grcmanager') }}</th>
+        <th>{{ __('Owner', 'grcmanager') }}</th>
+        <th>{{ __('Due date', 'grcmanager') }}</th>
       </tr>
     </thead>
     <tbody>

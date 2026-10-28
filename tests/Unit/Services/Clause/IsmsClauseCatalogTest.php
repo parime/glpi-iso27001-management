@@ -42,18 +42,20 @@ final class IsmsClauseCatalogTest extends TestCase
             if ($subclause['module'] === null) {
                 continue;
             }
-            $shortName = strtolower(substr($subclause['module'], strlen('PluginGrcmanager')));
-            $file      = $root . '/inc/' . $shortName . '.class.php';
+            // Classe déjà passée dans src/ (#293) ou encore dans inc/.
+            $file = str_starts_with($subclause['module'], 'GlpiPlugin\\Grcmanager\\')
+                ? $root . '/src/' . substr($subclause['module'], strlen('GlpiPlugin\\Grcmanager\\')) . '.php'
+                : $root . '/inc/' . strtolower(substr($subclause['module'], strlen('PluginGrcmanager'))) . '.class.php';
             self::assertFileExists($file, (string) $code);
         }
     }
 
     public function testKeyRequirementsLinkToTheirModule(): void
     {
-        self::assertSame('PluginGrcmanagerRisk', IsmsClauseCatalog::SUBCLAUSES['6.1.2']['module']);
-        self::assertSame('PluginGrcmanagerControl', IsmsClauseCatalog::SUBCLAUSES['6.1.3']['module']);
-        self::assertSame('PluginGrcmanagerAudit', IsmsClauseCatalog::SUBCLAUSES['9.2.2']['module']);
-        self::assertSame('PluginGrcmanagerNonconformity', IsmsClauseCatalog::SUBCLAUSES['10.2']['module']);
+        self::assertSame('GlpiPlugin\\Grcmanager\\Risk', IsmsClauseCatalog::SUBCLAUSES['6.1.2']['module']);
+        self::assertSame('GlpiPlugin\\Grcmanager\\Control', IsmsClauseCatalog::SUBCLAUSES['6.1.3']['module']);
+        self::assertSame('GlpiPlugin\\Grcmanager\\Audit', IsmsClauseCatalog::SUBCLAUSES['9.2.2']['module']);
+        self::assertSame('GlpiPlugin\\Grcmanager\\Nonconformity', IsmsClauseCatalog::SUBCLAUSES['10.2']['module']);
     }
 
     public function testCompletion(): void

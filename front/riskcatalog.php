@@ -21,19 +21,19 @@ use GlpiPlugin\Grcmanager\Services\Risk\InfrastructureRiskCatalog;
 include('../../../inc/includes.php');
 
 // Issue #178 : catalogue de risques types d'infrastructure.
-Session::checkRight(PluginGrcmanagerRisk::$rightname, READ);
+Session::checkRight(\GlpiPlugin\Grcmanager\Risk::$rightname, READ);
 
 if (isset($_POST['import'])) {
-    Session::checkRight(PluginGrcmanagerRisk::$rightname, CREATE);
-    $created = PluginGrcmanagerRiskCatalog::import((array) ($_POST['keys'] ?? []));
+    Session::checkRight(\GlpiPlugin\Grcmanager\Risk::$rightname, CREATE);
+    $created = \GlpiPlugin\Grcmanager\RiskCatalog::import((array) ($_POST['keys'] ?? []));
     if ($created === []) {
-        $message = __('Cochez au moins un risque qui n\'est pas encore dans le registre.', 'grcmanager');
+        $message = __('Tick at least one risk that is not in the register yet.', 'grcmanager');
         Session::addMessageAfterRedirect(htmlescape($message), false, WARNING);
     } else {
         $message = sprintf(
             _n(
-                '%d risque ajouté au registre, à évaluer.',
-                '%d risques ajoutés au registre, à évaluer.',
+                '%d risk added to the register, to be assessed.',
+                '%d risks added to the register, to be assessed.',
                 count($created),
                 'grcmanager'
             ),
@@ -41,44 +41,56 @@ if (isset($_POST['import'])) {
         );
         Session::addMessageAfterRedirect(htmlescape($message));
     }
-    Html::redirect(PluginGrcmanagerRiskCatalog::getSearchURL());
+    Html::redirect(\GlpiPlugin\Grcmanager\RiskCatalog::getSearchURL());
 }
 
 Html::header(
-    PluginGrcmanagerRiskCatalog::getTypeName(),
-    PluginGrcmanagerRisk::getSearchURL(),
+    \GlpiPlugin\Grcmanager\RiskCatalog::getTypeName(),
+    \GlpiPlugin\Grcmanager\Risk::getSearchURL(),
     'grcmanager',
-    PluginGrcmanagerRisk::class
+    \GlpiPlugin\Grcmanager\Risk::class
 );
 // Encadré « À quoi sert cette page ? ».
-PluginGrcmanagerPageHelp::show('riskcatalog');
+\GlpiPlugin\Grcmanager\PageHelp::show('riskcatalog');
 
 $controlIds = [];
-foreach ((new PluginGrcmanagerControl())->find() as $control) {
+foreach ((new \GlpiPlugin\Grcmanager\Control())->find() as $control) {
     $controlIds[(string) $control['code']] = (int) $control['id'];
 }
 $controls = [];
 foreach (InfrastructureRiskCatalog::keys() as $key) {
     foreach (InfrastructureRiskCatalog::controls($key) as $code) {
         $controls[$key][$code] = isset($controlIds[$code])
-            ? PluginGrcmanagerControl::getFormURLWithID($controlIds[$code])
+            ? \GlpiPlugin\Grcmanager\Control::getFormURLWithID($controlIds[$code])
             : '';
     }
 }
 
 TemplateRenderer::getInstance()->display('@grcmanager/risk_catalog.html.twig', [
-    'action'     => PluginGrcmanagerRiskCatalog::getSearchURL(),
-    'risks_url'  => PluginGrcmanagerRisk::getSearchURL(),
-    'entries'    => PluginGrcmanagerRiskCatalog::getEntries(),
+    'action'     => \GlpiPlugin\Grcmanager\RiskCatalog::getSearchURL(),
+    'risks_url'  => \GlpiPlugin\Grcmanager\Risk::getSearchURL(),
+    'entries'    => \GlpiPlugin\Grcmanager\RiskCatalog::getEntries(),
     'categories' => array_combine(
         InfrastructureRiskCatalog::keys(),
         array_map([InfrastructureRiskCatalog::class, 'category'], InfrastructureRiskCatalog::keys())
     ),
-    'labels'     => PluginGrcmanagerRisk::getCategories(),
-    'controls'   => $controls,
-    'imported'   => PluginGrcmanagerRiskCatalog::importedRisks(),
-    'risk_url'   => PluginGrcmanagerRisk::getFormURL(),
-    'can_create' => Session::haveRight(PluginGrcmanagerRisk::$rightname, CREATE),
+    'labels'     => \GlpiPlugin\Grcmanager\Risk::getCategories(),
+    // Infrastructure puis systèmes d'IA (sections ISO/IEC 27090:2026).
+    'groups'     => [
+        InfrastructureRiskCatalog::GROUP_INFRASTRUCTURE => __('Infrastructure', 'grcmanager'),
+        InfrastructureRiskCatalog::GROUP_AI             => __('AI systems (ISO/IEC 27090)', 'grcmanager'),
+    ],
+    'group_of'   => array_combine(
+        InfrastructureRiskCatalog::keys(),
+        array_map([InfrastructureRiskCatalog::class, 'group'], InfrastructureRiskCatalog::keys())
+    ),
+    'iso27090'   => array_combine(
+        InfrastructureRiskCatalog::keys(),
+        array_map([InfrastructureRiskCatalog::class, 'iso27090'], InfrastructureRiskCatalog::keys())
+    ),    'controls'   => $controls,
+    'imported'   => \GlpiPlugin\Grcmanager\RiskCatalog::importedRisks(),
+    'risk_url'   => \GlpiPlugin\Grcmanager\Risk::getFormURL(),
+    'can_create' => Session::haveRight(\GlpiPlugin\Grcmanager\Risk::$rightname, CREATE),
 ]);
 
 Html::footer();

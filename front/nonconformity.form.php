@@ -17,36 +17,40 @@
 
 include('../../../inc/includes.php');
 
-$item = new PluginGrcmanagerNonconformity();
+$item = new \GlpiPlugin\Grcmanager\Nonconformity();
 
 if (isset($_POST['add'])) {
-    Session::checkRight(PluginGrcmanagerNonconformity::$rightname, CREATE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\Nonconformity::$rightname, CREATE);
     $newID = $item->add($_POST);
     // Issue #163 : après création (notamment depuis un plan d'action proposé), ouvrir la fiche créée.
     if ($newID) {
-        Html::redirect(PluginGrcmanagerNonconformity::getFormURLWithID((int) $newID));
+        Html::redirect(\GlpiPlugin\Grcmanager\Nonconformity::getFormURLWithID((int) $newID));
     }
     Html::back();
 } elseif (isset($_POST['delete'])) {
-    Session::checkRight(PluginGrcmanagerNonconformity::$rightname, DELETE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\Nonconformity::$rightname, DELETE);
     $item->delete($_POST);
-    Html::redirect(PluginGrcmanagerNonconformity::getSearchURL());
+    Html::redirect(\GlpiPlugin\Grcmanager\Nonconformity::getSearchURL());
 } elseif (isset($_POST['purge'])) {
-    Session::checkRight(PluginGrcmanagerNonconformity::$rightname, PURGE);
-    $item->delete($_POST, 1);
-    Html::redirect(PluginGrcmanagerNonconformity::getSearchURL());
+    Session::checkRight(\GlpiPlugin\Grcmanager\Nonconformity::$rightname, PURGE);
+    $item->delete($_POST, true);
+    Html::redirect(\GlpiPlugin\Grcmanager\Nonconformity::getSearchURL());
 } elseif (isset($_POST['update'])) {
-    Session::checkRight(PluginGrcmanagerNonconformity::$rightname, UPDATE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\Nonconformity::$rightname, UPDATE);
     $item->update($_POST);
     Html::back();
 } else {
-    Session::checkRight(PluginGrcmanagerNonconformity::$rightname, READ);
+    Session::checkRight(\GlpiPlugin\Grcmanager\Nonconformity::$rightname, READ);
 
     // Issue #140 : affichage avec onglets (Documents, Historique).
-    PluginGrcmanagerNonconformity::displayFullPageForItem(
+    \GlpiPlugin\Grcmanager\Nonconformity::displayFullPageForItem(
         (int) ($_GET['id'] ?? 0),
         [
-            'central'  => ['grcmanager', PluginGrcmanagerAudit::class, PluginGrcmanagerNonconformity::class],
+            'central'  => [
+                'grcmanager',
+                \GlpiPlugin\Grcmanager\Audit::class,
+                \GlpiPlugin\Grcmanager\Nonconformity::class,
+            ],
             'helpdesk' => [],
         ],
         [

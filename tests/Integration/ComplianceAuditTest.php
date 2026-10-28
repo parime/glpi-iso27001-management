@@ -19,7 +19,7 @@ declare(strict_types=1);
 
 namespace GlpiPlugin\Grcmanager\Tests\Integration;
 
-use PluginGrcmanagerComplianceAudit as Audit;
+use GlpiPlugin\Grcmanager\ComplianceAudit as Audit;
 
 /**
  * Issue #162 : audit de conformité technique sur des éléments fictifs.

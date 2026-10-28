@@ -20,7 +20,7 @@ use GlpiPlugin\Grcmanager\Services\Risk\RiskItemLinkNormalizer;
 include('../../../inc/includes.php');
 
 // Pas de $_GET['id'] classique : ce contrôleur n'a pas de formulaire propre (voir
-// PluginGrcmanagerAssetClassification::displayTabContentForItem(), le seul écran qui poste ici),
+// \GlpiPlugin\Grcmanager\AssetClassification::displayTabContentForItem(), le seul écran qui poste ici),
 // il est toujours atteint depuis l'onglet "Classification C/I/D" d'un actif réel, identifié par
 // itemtype/items_id (clé composite de ce registre, voir issue #26).
 if (!isset($_POST['save'])) {
@@ -30,11 +30,11 @@ if (!isset($_POST['save'])) {
 $itemtype = (string) ($_POST['itemtype'] ?? '');
 $itemsId  = (int) ($_POST['items_id'] ?? 0);
 
-// Même validation défensive que PluginGrcmanagerRisk::syncLinkedAssets() pour son propre lien
+// Même validation défensive que \GlpiPlugin\Grcmanager\Risk::syncLinkedAssets() pour son propre lien
 // polymorphe (issue #25) : rejette silencieusement un itemtype/items_id qui ne correspond à aucun
 // actif réellement liable par ce plugin, plutôt que de faire confiance à un POST forgé pointant
 // vers un itemtype arbitraire (ex. `User`, jamais dans la liste des actifs classifiables).
-if (!RiskItemLinkNormalizer::isLinkable($itemtype, $itemsId, PluginGrcmanagerRisk::getLinkableItemtypes())) {
+if (!RiskItemLinkNormalizer::isLinkable($itemtype, $itemsId, \GlpiPlugin\Grcmanager\Risk::getLinkableItemtypes())) {
     throw new \Glpi\Exception\Http\NotFoundHttpException();
 }
 
@@ -46,7 +46,7 @@ if (!$target->can($itemsId, READ)) {
     throw new \Glpi\Exception\Http\NotFoundHttpException();
 }
 
-$existing = PluginGrcmanagerAssetClassification::getByItem($itemtype, $itemsId);
+$existing = \GlpiPlugin\Grcmanager\AssetClassification::getByItem($itemtype, $itemsId);
 
 $levels = [
     'confidentiality' => $_POST['confidentiality'] ?? '',
@@ -57,13 +57,13 @@ $levels = [
     'rpo_hours'       => $_POST['rpo_hours'] ?? 0,
 ];
 
-$classification = new PluginGrcmanagerAssetClassification();
+$classification = new \GlpiPlugin\Grcmanager\AssetClassification();
 
 if ($existing !== null) {
-    Session::checkRight(PluginGrcmanagerAssetClassification::$rightname, UPDATE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\AssetClassification::$rightname, UPDATE);
     $classification->update(array_merge(['id' => $existing['id']], $levels));
 } else {
-    Session::checkRight(PluginGrcmanagerAssetClassification::$rightname, CREATE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\AssetClassification::$rightname, CREATE);
     $classification->add(array_merge(['itemtype' => $itemtype, 'items_id' => $itemsId], $levels));
 }
 

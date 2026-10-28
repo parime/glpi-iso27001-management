@@ -2,23 +2,23 @@
 <div class="container-fluid">
    {% if rows is empty %}
       <div class="alert alert-info">
-         <i class="ti ti-info-circle me-1"></i>{{ __('Aucune machine ne porte de vulnérabilité connue parmi les logiciels surveillés.', 'grcmanager') }}
+         <i class="ti ti-info-circle me-1"></i>{{ __('No machine has a known vulnerability among the watched software.', 'grcmanager') }}
       </div>
    {% else %}
       <p class="text-muted">
-         {{ __('Score d\'exposition de 0 à 100 : la vulnérabilité la plus grave (10 si elle est activement exploitée) compte pour 70 %, le nombre de vulnérabilités prioritaires pour 30 %. C\'est un ordre de traitement, pas une mesure normalisée.', 'grcmanager') }}
+         {{ __('Exposure score from 0 to 100: the most severe vulnerability (10 if it is actively exploited) counts for 70%, the number of priority vulnerabilities for 30%. It is an order of treatment, not a standardised measure.', 'grcmanager') }}
       </p>
       <table class="table table-sm table-hover align-middle">
          <thead>
             <tr>
                <th>{{ __('Machine', 'grcmanager') }}</th>
                <th>{{ __('Type', 'grcmanager') }}</th>
-               <th class="text-end">{{ __('Score', 'grcmanager') }}</th>
-               <th class="text-end">{{ __('Exploitées (KEV)', 'grcmanager') }}</th>
-               <th class="text-end">{{ __('Prioritaires', 'grcmanager') }}</th>
-               <th class="text-end">{{ __('Vulnérabilités', 'grcmanager') }}</th>
-               <th class="text-end">{{ __('CVSS max', 'grcmanager') }}</th>
-               <th class="text-end">{{ __('EPSS max', 'grcmanager') }}</th>
+               <th class="text-end">{{ _x('score', 'Score', 'grcmanager') }}</th>
+               <th class="text-end">{{ __('Exploited (KEV)', 'grcmanager') }}</th>
+               <th class="text-end">{{ __('Priority', 'grcmanager') }}</th>
+               <th class="text-end">{{ __('Vulnerabilities', 'grcmanager') }}</th>
+               <th class="text-end">{{ __('Max CVSS', 'grcmanager') }}</th>
+               <th class="text-end">{{ __('Max EPSS', 'grcmanager') }}</th>
             </tr>
          </thead>
          <tbody>
@@ -38,7 +38,7 @@
          </tbody>
       </table>
       {% if total > rows|length %}
-         <p class="text-muted small">{{ __('%1$d machines affichées sur %2$d machines exposées.', 'grcmanager')|format(rows|length, total) }}</p>
+         <p class="text-muted small">{{ __('%1$d machines shown out of %2$d exposed machines.', 'grcmanager')|format(rows|length, total) }}</p>
       {% endif %}
    {% endif %}
 </div>

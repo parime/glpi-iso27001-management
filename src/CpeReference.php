@@ -1,0 +1,144 @@
+<?php
+
+/**
+ * -------------------------------------------------------------------------
+ * GLPI GRC Manager plugin for GLPI
+ * Copyright (C) 2026 Vincent GUILLOTTE
+ * https://github.com/parime/glpi-grc-manager
+ * -------------------------------------------------------------------------
+ * LICENSE
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version. See LICENSE for the full text.
+ * -------------------------------------------------------------------------
+ */
+
+namespace GlpiPlugin\Grcmanager;
+
+use GlpiPlugin\Grcmanager\Compatibility\Base\CpeReferenceBase;
+use Session;
+
+/**
+ * One CPE identifier manually declared as belonging to a CanonicalProduct —
+ * several per product, managed inline on that product's own form (see
+ * CanonicalProduct::showCpeReferences()), no menu/search screen of its own, same
+ * convention as ObjectiveMeasurement.
+ *
+ * Uses CanonicalProduct's own right rather than a dedicated one: a CPE reference
+ * has no meaningful access boundary of its own, separate from the product it documents.
+ */
+class CpeReference extends CpeReferenceBase
+{
+    public const RIGHTNAME = 'plugin_grcmanager';
+
+    public static function getTable($classname = null)
+    {
+        return 'glpi_plugin_grcmanager_cpereferences';
+    }
+
+    public static function getTypeName($nb = 0)
+    {
+        return _n('CPE identifier', 'CPE identifiers', $nb, 'grcmanager');
+    }
+
+    /**
+     * `cpe` is UNIQUE in the database (one CPE identifier can only ever point to one canonical
+     * product, see Installer.php) — without this check, a duplicate submission reaches
+     * CommonDBTM::add()'s raw INSERT and surfaces as an uncaught RuntimeException (HTTP 500,
+     * confirmed live against a real GLPI instance) instead of the normal
+     * Session::addMessageAfterRedirect() error flow every other validation failure in this plugin
+     * uses.
+     */
+    public function prepareInputForAdd($input)
+    {
+        $cpe = trim((string) ($input['cpe'] ?? ''));
+
+        if ($cpe === '') {
+            Session::addMessageAfterRedirect(
+                __('Please enter a CPE identifier.', 'grcmanager'),
+                false,
+                ERROR
+            );
+
+            return false;
+        }
+
+        global $DB;
+        // Ligne restée sans produit (produit supprimé avant que sa suppression n'efface ses
+        // identifiants) : elle ne doit pas bloquer une nouvelle saisie sur la clé unique.
+        $orphans = $DB->request([
+            'SELECT'    => [self::getTable() . '.id'],
+            'FROM'      => self::getTable(),
+            'LEFT JOIN' => [
+                CanonicalProduct::getTable() => [
+                    'FKEY' => [
+                        self::getTable() => 'plugin_grcmanager_canonicalproducts_id',
+                        CanonicalProduct::getTable() => 'id',
+                    ],
+                ],
+            ],
+            'WHERE'     => [
+                self::getTable() . '.cpe'                    => $cpe,
+                CanonicalProduct::getTable() . '.id' => null,
+            ],
+        ]);
+        foreach ($orphans as $orphan) {
+            $DB->delete(self::getTable(), ['id' => (int) $orphan['id']]);
+        }
+        $existing = $DB->request([
+            'SELECT' => ['manufacturer', 'product'],
+            'FROM'   => CanonicalProduct::getTable(),
+            'INNER JOIN' => [
+                self::getTable() => [
+                    'FKEY' => [
+                        self::getTable() => 'plugin_grcmanager_canonicalproducts_id',
+                        CanonicalProduct::getTable() => 'id',
+                    ],
+                ],
+            ],
+            'WHERE' => [self::getTable() . '.cpe' => $cpe],
+        ])->current();
+
+        if ($existing !== null) {
+            Session::addMessageAfterRedirect(
+                sprintf(
+                    __('This CPE identifier is already attached to product "%s / %s".', 'grcmanager'),
+                    $existing['manufacturer'],
+                    $existing['product']
+                ),
+                false,
+                ERROR
+            );
+
+            return false;
+        }
+
+        $input['cpe'] = $cpe;
+
+        return $input;
+    }
+
+    /**
+     * @return list<array{id: int, cpe: string}>
+     */
+    public static function getForCanonicalProduct(int $canonicalProductId): array
+    {
+        global $DB;
+
+        $rows = [];
+        foreach (
+            $DB->request([
+                'SELECT' => ['id', 'cpe'],
+                'FROM'   => self::getTable(),
+                'WHERE'  => ['plugin_grcmanager_canonicalproducts_id' => $canonicalProductId],
+                'ORDER'  => 'cpe ASC',
+            ]) as $row
+        ) {
+            $rows[] = ['id' => (int) $row['id'], 'cpe' => (string) $row['cpe']];
+        }
+
+        return $rows;
+    }
+}

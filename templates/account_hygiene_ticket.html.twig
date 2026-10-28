@@ -1,6 +1,6 @@
 {# Issue #184 : contenu du ticket de revue des comptes (issue #199 : passé de PHP à Twig) #}
-<p>{{ __('Comptes GLPI actifs à vérifier (écran « Hygiène des comptes »). Pour chacun : confirmer le besoin, ou désactiver le compte et retirer ses habilitations. Rien n\'a été modifié automatiquement.', 'grcmanager') }}</p>
+<p>{{ __('Active GLPI accounts to check ("Account hygiene" screen). For each one: confirm the need, or disable the account and remove its authorizations. Nothing was changed automatically.', 'grcmanager') }}</p>
 <table border="1" cellpadding="4">
-   <tr><th>{{ __('Utilisateur', 'grcmanager') }}</th><th>{{ __('Identifiant', 'grcmanager') }}</th><th>{{ __('Points à vérifier', 'grcmanager') }}</th></tr>
+   <tr><th>{{ __('User', 'grcmanager') }}</th><th>{{ __('Login', 'grcmanager') }}</th><th>{{ __('Points to check', 'grcmanager') }}</th></tr>
    {% for a in accounts %}<tr><td>{{ a.fullname }}</td><td>{{ a.name }}</td><td>{{ a.labels|join(', ') }}</td></tr>{% endfor %}
 </table>

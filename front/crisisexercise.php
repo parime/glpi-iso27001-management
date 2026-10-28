@@ -22,25 +22,25 @@ include('../../../inc/includes.php');
 
 // Issue #168 : choix du scénario, lancement et historique des exercices de crise.
 Session::checkRightsOr(
-    PluginGrcmanagerCrisisExercise::RIGHTNAME,
+    \GlpiPlugin\Grcmanager\CrisisExercise::RIGHTNAME,
     [PluginGrcmanagerSecurityIncident::READALL, PluginGrcmanagerSecurityIncident::READMY]
 );
 
 if (isset($_POST['launch'])) {
-    if (!PluginGrcmanagerCrisisExercise::canCreate()) {
+    if (!\GlpiPlugin\Grcmanager\CrisisExercise::canCreate()) {
         Html::displayRightError();
     }
-    $exerciseId = PluginGrcmanagerCrisisExercise::launch((string) $_POST['launch']);
+    $exerciseId = \GlpiPlugin\Grcmanager\CrisisExercise::launch((string) $_POST['launch']);
     if ($exerciseId > 0) {
-        Html::redirect(PluginGrcmanagerCrisisExercise::getFormURLWithID($exerciseId));
+        Html::redirect(\GlpiPlugin\Grcmanager\CrisisExercise::getFormURLWithID($exerciseId));
     }
-    Session::addMessageAfterRedirect(htmlescape(__('L\'exercice n\'a pas pu être lancé.', 'grcmanager')), false, ERROR);
+    Session::addMessageAfterRedirect(htmlescape(__('The exercise could not be started.', 'grcmanager')), false, ERROR);
     Html::back();
 }
 
-$labels = PluginGrcmanagerCrisisExercise::getStepLabels();
+$labels = \GlpiPlugin\Grcmanager\CrisisExercise::getStepLabels();
 $scenarios = [];
-foreach (PluginGrcmanagerCrisisExercise::getScenarios() as $key => $scenario) {
+foreach (\GlpiPlugin\Grcmanager\CrisisExercise::getScenarios() as $key => $scenario) {
     $steps = [];
     foreach (CrisisExercise::orderedSteps($key) as [$step, $target]) {
         $steps[] = ['label' => $labels[$step] ?? $step, 'target' => $target];
@@ -49,20 +49,23 @@ foreach (PluginGrcmanagerCrisisExercise::getScenarios() as $key => $scenario) {
 }
 
 Html::header(
-    PluginGrcmanagerCrisisExercise::getTypeName(Session::getPluralNumber()),
-    PluginGrcmanagerCrisisExercise::getSearchURL(),
+    \GlpiPlugin\Grcmanager\CrisisExercise::getTypeName(Session::getPluralNumber()),
+    \GlpiPlugin\Grcmanager\CrisisExercise::getSearchURL(),
     'grcmanager',
-    PluginGrcmanagerAccessReview::class,
-    PluginGrcmanagerCrisisExercise::class
+    \GlpiPlugin\Grcmanager\AccessReview::class,
+    \GlpiPlugin\Grcmanager\CrisisExercise::class
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(PluginGrcmanagerAccessReview::class, PluginGrcmanagerCrisisExercise::class);
+\GlpiPlugin\Grcmanager\Menu::showSection(
+    \GlpiPlugin\Grcmanager\AccessReview::class,
+    \GlpiPlugin\Grcmanager\CrisisExercise::class
+);
 // Encadré « À quoi sert cette page ? ».
-PluginGrcmanagerPageHelp::show('crisisexercise');
+\GlpiPlugin\Grcmanager\PageHelp::show('crisisexercise');
 TemplateRenderer::getInstance()->display('@grcmanager/crisis_exercises.html.twig', [
     'scenarios'  => $scenarios,
-    'history'    => PluginGrcmanagerCrisisExercise::history(),
-    'can_launch' => PluginGrcmanagerCrisisExercise::canCreate(),
-    'action'     => PluginGrcmanagerCrisisExercise::getSearchURL(),
+    'history'    => \GlpiPlugin\Grcmanager\CrisisExercise::history(),
+    'can_launch' => \GlpiPlugin\Grcmanager\CrisisExercise::canCreate(),
+    'action'     => \GlpiPlugin\Grcmanager\CrisisExercise::getSearchURL(),
 ]);
 Html::footer();

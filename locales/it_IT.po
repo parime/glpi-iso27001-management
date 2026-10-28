@@ -1,0 +1,5546 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: grcmanager\n"
+"Language: it_IT\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Risk"
+msgid_plural "Risks"
+msgstr[0] "Rischio"
+msgstr[1] "Rischi"
+
+msgid "GRC Manager"
+msgstr "GRC Manager"
+
+msgid "Open risks"
+msgstr "Rischi aperti"
+
+msgid "Risks by level"
+msgstr "Rischi per livello"
+
+msgid "Risks by category"
+msgstr "Rischi per categoria"
+
+msgid "Risks pending review"
+msgstr "Rischi in attesa di riesame"
+
+msgid "People"
+msgstr "Persone"
+
+msgid "Process"
+msgstr "Processo"
+
+msgid "Physical"
+msgstr "Fisico"
+
+msgid "Third party / supplier"
+msgstr "Terza parte / fornitore"
+
+msgid "Technical"
+msgstr "Tecnico"
+
+msgid "Rare"
+msgstr "Rara"
+
+msgid "Possible"
+msgstr "Possibile"
+
+msgid "Probable"
+msgstr "Probabile"
+
+msgid "Almost certain"
+msgstr "Quasi certa"
+
+msgid "Low"
+msgstr "Basso"
+
+msgid "Medium"
+msgstr "Medio"
+
+msgid "High"
+msgstr "Alto"
+
+msgid "Critical"
+msgstr "Critico"
+
+msgid "No decision"
+msgstr "Nessuna decisione"
+
+msgid "Accept"
+msgstr "Accettare"
+
+msgid "Mitigate"
+msgstr "Mitigare"
+
+msgid "Transfer"
+msgstr "Trasferire"
+
+msgid "Avoid"
+msgstr "Evitare"
+
+msgid "Identified"
+msgstr "Identificato"
+
+msgid "In treatment"
+msgstr "In trattamento"
+
+msgid "Accepted"
+msgstr "Accettato"
+
+msgctxt "masculine"
+msgid "Closed"
+msgstr "Chiuso"
+
+msgid "Title"
+msgstr "Titolo"
+
+msgid "Category"
+msgstr "Categoria"
+
+msgid "Probability"
+msgstr "Probabilità"
+
+msgid "Impact"
+msgstr "Impatto"
+
+msgid "Risk level"
+msgstr "Livello di rischio"
+
+msgid "Treatment"
+msgstr "Trattamento"
+
+msgctxt "owner"
+msgid "Owner"
+msgstr "Titolare"
+
+msgid "Status"
+msgstr "Stato"
+
+msgid "Review date"
+msgstr "Data di riesame"
+
+msgctxt "score"
+msgid "Score"
+msgstr "Punteggio"
+
+msgid "Description"
+msgstr "Descrizione"
+
+msgid "Justification"
+msgstr "Giustificazione"
+
+msgid "Configuration"
+msgstr "Configurazione"
+
+msgid "Risk matrix"
+msgstr "Matrice dei rischi"
+
+msgid "Automatically determines a risk's level (low/medium/high/critical) from its probability and impact. The default values below reproduce exactly the register's behaviour before this screen existed: no existing risk changes level until you edit the grid."
+msgstr "Determina automaticamente il livello di un rischio (basso/medio/alto/critico) in base alla sua probabilità e al suo impatto. I valori predefiniti riportati di seguito riproducono esattamente il comportamento del registro prima dell'esistenza di questa schermata: nessun rischio esistente cambia livello finché non si modifica la griglia."
+
+msgid "My risks"
+msgstr "I miei rischi"
+
+msgid "Risk owner"
+msgstr "Titolare del rischio"
+
+msgid "Risk review due"
+msgstr "Riesame del rischio in scadenza"
+
+msgid "Annex A control"
+msgid_plural "Annex A controls"
+msgstr[0] "Controllo dell'Allegato A"
+msgstr[1] "Controlli dell'Allegato A"
+
+msgid "Organizational"
+msgstr "Organizzativo"
+
+msgid "Technological"
+msgstr "Tecnologico"
+
+msgid "Applicable"
+msgstr "Applicabile"
+
+msgid "Not applicable"
+msgstr "Non applicabile"
+
+msgid "Partially applicable"
+msgstr "Parzialmente applicabile"
+
+msgid "Not started"
+msgstr "Non avviato"
+
+msgid "In progress"
+msgstr "In corso"
+
+msgid "Implemented"
+msgstr "Attuato"
+
+msgid "Verified"
+msgstr "Verificato"
+
+msgid "A justification is required whenever a control is not fully applicable."
+msgstr "È richiesta una giustificazione quando un controllo non è pienamente applicabile."
+
+msgid "Control"
+msgstr "Controllo"
+
+msgid "Theme"
+msgstr "Tema"
+
+msgid "Applicability"
+msgstr "Applicabilità"
+
+msgid "Implementation status"
+msgstr "Stato di attuazione"
+
+msgid "Reviewed"
+msgstr "Riesaminato"
+
+msgid "Last update"
+msgstr "Ultimo aggiornamento"
+
+msgctxt "label"
+msgid "Title"
+msgstr "Denominazione"
+
+msgid "Required if the control is not fully applicable."
+msgstr "Obbligatorio se il controllo non è pienamente applicabile."
+
+msgid "Linked risks"
+msgstr "Rischi collegati"
+
+msgid "Risk(s) from the register justifying or driving this control's implementation."
+msgstr "Rischio/i del registro che giustificano o guidano l'attuazione di questo controllo."
+
+msgid "Statement of Applicability (SoA) - ISO/IEC 27001:2022 clause 6.1.3, Annex A (93 controls)."
+msgstr "Dichiarazione di applicabilità (SoA) - ISO/IEC 27001:2022 punto 6.1.3, Allegato A (93 controlli)."
+
+msgid "SoA controls reviewed (%d total)"
+msgstr "Controlli SoA riesaminati (%d in totale)"
+
+msgid "SoA controls by applicability"
+msgstr "Controlli SoA per applicabilità"
+
+msgid "SoA controls by implementation status"
+msgstr "Controlli SoA per stato di attuazione"
+
+msgid "SoA controls reviewed"
+msgstr "Controlli SoA riesaminati"
+
+msgid "Policies for information security"
+msgstr "Politiche per la sicurezza delle informazioni"
+
+msgid "Information security roles and responsibilities"
+msgstr "Ruoli e responsabilità per la sicurezza delle informazioni"
+
+msgid "Segregation of duties"
+msgstr "Separazione dei compiti"
+
+msgid "Management responsibilities"
+msgstr "Responsabilità della direzione"
+
+msgid "Contact with authorities"
+msgstr "Contatti con le autorità"
+
+msgid "Contact with special interest groups"
+msgstr "Contatti con gruppi specialistici"
+
+msgid "Threat intelligence"
+msgstr "Threat intelligence"
+
+msgid "Information security in project management"
+msgstr "Sicurezza delle informazioni nella gestione dei progetti"
+
+msgid "Inventory of information and other associated assets"
+msgstr "Inventario delle informazioni e degli altri beni associati"
+
+msgid "Acceptable use of information and other associated assets"
+msgstr "Utilizzo accettabile delle informazioni e degli altri beni associati"
+
+msgid "Return of assets"
+msgstr "Restituzione dei beni"
+
+msgid "Classification of information"
+msgstr "Classificazione delle informazioni"
+
+msgid "Labelling of information"
+msgstr "Etichettatura delle informazioni"
+
+msgid "Information transfer"
+msgstr "Trasferimento delle informazioni"
+
+msgid "Access control"
+msgstr "Controllo degli accessi"
+
+msgid "Identity management"
+msgstr "Gestione delle identità"
+
+msgid "Authentication information"
+msgstr "Informazioni di autenticazione"
+
+msgid "Access rights"
+msgstr "Diritti di accesso"
+
+msgid "Information security in supplier relationships"
+msgstr "Sicurezza delle informazioni nei rapporti con i fornitori"
+
+msgid "Addressing information security within supplier agreements"
+msgstr "Indirizzare la sicurezza delle informazioni negli accordi con i fornitori"
+
+msgid "Managing information security in the ICT supply chain"
+msgstr "Gestione della sicurezza delle informazioni nella filiera ICT"
+
+msgid "Monitoring, review and change management of supplier services"
+msgstr "Monitoraggio, riesame e gestione dei cambiamenti dei servizi dei fornitori"
+
+msgid "Information security for use of cloud services"
+msgstr "Sicurezza delle informazioni per l'utilizzo di servizi cloud"
+
+msgid "Information security incident management planning and preparation"
+msgstr "Pianificazione e preparazione della gestione degli incidenti relativi alla sicurezza delle informazioni"
+
+msgid "Assessment and decision on information security events"
+msgstr "Valutazione e decisione sugli eventi relativi alla sicurezza delle informazioni"
+
+msgid "Response to information security incidents"
+msgstr "Risposta agli incidenti relativi alla sicurezza delle informazioni"
+
+msgid "Learning from information security incidents"
+msgstr "Apprendimento dagli incidenti relativi alla sicurezza delle informazioni"
+
+msgid "Collection of evidence"
+msgstr "Raccolta delle evidenze"
+
+msgid "Information security during disruption"
+msgstr "Sicurezza delle informazioni durante un'interruzione"
+
+msgid "ICT readiness for business continuity"
+msgstr "Preparazione dell'ICT per la continuità operativa"
+
+msgid "Legal, statutory, regulatory and contractual requirements"
+msgstr "Requisiti legali, statutari, regolamentari e contrattuali"
+
+msgid "Intellectual property rights"
+msgstr "Diritti di proprietà intellettuale"
+
+msgid "Protection of records"
+msgstr "Protezione delle registrazioni"
+
+msgid "Privacy and protection of PII"
+msgstr "Privacy e protezione dei dati personali (PII)"
+
+msgid "Independent review of information security"
+msgstr "Riesame indipendente della sicurezza delle informazioni"
+
+msgid "Compliance with policies, rules and standards for information security"
+msgstr "Conformità a politiche, regole e standard per la sicurezza delle informazioni"
+
+msgid "Documented operating procedures"
+msgstr "Procedure operative documentate"
+
+msgid "Screening"
+msgstr "Screening"
+
+msgid "Terms and conditions of employment"
+msgstr "Termini e condizioni di impiego"
+
+msgid "Information security awareness, education and training"
+msgstr "Consapevolezza, istruzione e formazione sulla sicurezza delle informazioni"
+
+msgid "Disciplinary process"
+msgstr "Processo disciplinare"
+
+msgid "Responsibilities after termination or change of employment"
+msgstr "Responsabilità dopo la cessazione o la variazione del rapporto di lavoro"
+
+msgid "Confidentiality or non-disclosure agreements"
+msgstr "Accordi di riservatezza o di non divulgazione"
+
+msgid "Remote working"
+msgstr "Lavoro da remoto"
+
+msgid "Information security event reporting"
+msgstr "Segnalazione degli eventi relativi alla sicurezza delle informazioni"
+
+msgid "Physical security perimeters"
+msgstr "Perimetri di sicurezza fisica"
+
+msgid "Physical entry"
+msgstr "Ingressi fisici"
+
+msgid "Securing offices, rooms and facilities"
+msgstr "Rendere sicuri uffici, locali e strutture"
+
+msgid "Physical security monitoring"
+msgstr "Monitoraggio della sicurezza fisica"
+
+msgid "Protecting against physical and environmental threats"
+msgstr "Protezione dalle minacce fisiche e ambientali"
+
+msgid "Working in secure areas"
+msgstr "Lavoro in aree sicure"
+
+msgid "Clear desk and clear screen"
+msgstr "Scrivania pulita e schermo pulito"
+
+msgid "Equipment siting and protection"
+msgstr "Collocazione e protezione delle apparecchiature"
+
+msgid "Security of assets off-premises"
+msgstr "Sicurezza dei beni all'esterno delle sedi"
+
+msgid "Storage media"
+msgstr "Supporti di memorizzazione"
+
+msgid "Supporting utilities"
+msgstr "Servizi di supporto"
+
+msgid "Cabling security"
+msgstr "Sicurezza dei cablaggi"
+
+msgid "Equipment maintenance"
+msgstr "Manutenzione delle apparecchiature"
+
+msgid "Secure disposal or re-use of equipment"
+msgstr "Dismissione sicura o riutilizzo delle apparecchiature"
+
+msgid "User endpoint devices"
+msgstr "Dispositivi endpoint degli utenti"
+
+msgid "Privileged access rights"
+msgstr "Diritti di accesso privilegiato"
+
+msgid "Information access restriction"
+msgstr "Limitazione dell'accesso alle informazioni"
+
+msgid "Access to source code"
+msgstr "Accesso al codice sorgente"
+
+msgid "Secure authentication"
+msgstr "Autenticazione sicura"
+
+msgid "Capacity management"
+msgstr "Gestione della capacità"
+
+msgid "Protection against malware"
+msgstr "Protezione contro il malware"
+
+msgid "Management of technical vulnerabilities"
+msgstr "Gestione delle vulnerabilità tecniche"
+
+msgid "Configuration management"
+msgstr "Gestione della configurazione"
+
+msgid "Information deletion"
+msgstr "Cancellazione delle informazioni"
+
+msgid "Data masking"
+msgstr "Mascheramento dei dati"
+
+msgid "Data leakage prevention"
+msgstr "Prevenzione della fuga di dati"
+
+msgid "Information backup"
+msgstr "Backup delle informazioni"
+
+msgid "Redundancy of information processing facilities"
+msgstr "Ridondanza delle strutture per l'elaborazione delle informazioni"
+
+msgid "Logging"
+msgstr "Logging"
+
+msgid "Monitoring activities"
+msgstr "Attività di monitoraggio"
+
+msgid "Clock synchronization"
+msgstr "Sincronizzazione degli orologi"
+
+msgid "Use of privileged utility programs"
+msgstr "Uso di programmi di utilità privilegiati"
+
+msgid "Installation of software on operational systems"
+msgstr "Installazione del software sui sistemi in esercizio"
+
+msgid "Networks security"
+msgstr "Sicurezza delle reti"
+
+msgid "Security of network services"
+msgstr "Sicurezza dei servizi di rete"
+
+msgid "Segregation of networks"
+msgstr "Segregazione delle reti"
+
+msgid "Web filtering"
+msgstr "Filtraggio web"
+
+msgid "Use of cryptography"
+msgstr "Uso della crittografia"
+
+msgid "Secure development life cycle"
+msgstr "Ciclo di vita dello sviluppo sicuro"
+
+msgid "Application security requirements"
+msgstr "Requisiti di sicurezza delle applicazioni"
+
+msgid "Secure system architecture and engineering principles"
+msgstr "Principi di architettura e ingegneria dei sistemi sicuri"
+
+msgid "Secure coding"
+msgstr "Codifica sicura"
+
+msgid "Security testing in development and acceptance"
+msgstr "Test di sicurezza nello sviluppo e nell'accettazione"
+
+msgid "Outsourced development"
+msgstr "Sviluppo affidato all'esterno"
+
+msgid "Separation of development, test and production environments"
+msgstr "Separazione degli ambienti di sviluppo, test e produzione"
+
+msgid "Change management"
+msgstr "Gestione dei cambiamenti"
+
+msgid "Test information"
+msgstr "Informazioni di test"
+
+msgid "Protection of information systems during audit testing"
+msgstr "Protezione dei sistemi informativi durante i test di audit"
+
+msgid "Internal audit"
+msgid_plural "Internal audits"
+msgstr[0] "Audit interno"
+msgstr[1] "Audit interni"
+
+msgctxt "masculine"
+msgid "Planned"
+msgstr "Pianificato"
+
+msgid "Completed"
+msgstr "Completato"
+
+msgid "Cancelled"
+msgstr "Annullato"
+
+msgid "Auditor"
+msgstr "Auditor"
+
+msgid "Planned date"
+msgstr "Data pianificata"
+
+msgid "Actual date"
+msgstr "Data effettiva"
+
+msgid "Risk categories covered"
+msgstr "Categorie di rischio coperte"
+
+msgid "Scope"
+msgstr "Ambito"
+
+msgid "Conclusion"
+msgstr "Conclusione"
+
+msgid "Annex A controls covered"
+msgstr "Controlli dell'Allegato A coperti"
+
+msgid "Free-text description of the audited scope (processes, sites, systems...)."
+msgstr "Descrizione libera dell'ambito sottoposto ad audit (processi, sedi, sistemi...)."
+
+msgid "Non-conformity"
+msgid_plural "Non-conformities"
+msgstr[0] "Non conformità"
+msgstr[1] "Non conformità"
+
+msgid "Minor"
+msgstr "Minore"
+
+msgid "Major"
+msgstr "Maggiore"
+
+msgid "Open"
+msgstr "Aperta"
+
+msgid "Closed"
+msgstr "Chiusa"
+
+msgctxt "feminine"
+msgid "Verified"
+msgstr "Verificata"
+
+msgid "Severity"
+msgstr "Gravità"
+
+msgid "Owner"
+msgstr "Responsabile"
+
+msgid "Due date"
+msgstr "Scadenza"
+
+msgid "Closure verification date"
+msgstr "Data di verifica della chiusura"
+
+msgid "A corrective action is required to close or verify a non-conformity."
+msgstr "È richiesta un'azione correttiva per chiudere o verificare una non conformità."
+
+msgid "Required to close or verify this non-conformity."
+msgstr "Obbligatoria per chiudere o verificare questa non conformità."
+
+msgid "Finding type"
+msgstr "Tipo di rilievo"
+
+msgid "Observation / remark"
+msgstr "Osservazione / nota"
+
+msgid "Optional for an observation: it may still be filled in if useful."
+msgstr "Facoltativa per un'osservazione: può comunque essere compilata se utile."
+
+msgid "Non-conformity owner"
+msgstr "Responsabile della non conformità"
+
+msgid "Overdue corrective/preventive action"
+msgstr "Azione correttiva/preventiva in ritardo"
+
+msgid "Open non-conformities"
+msgstr "Non conformità aperte"
+
+msgid "Overdue corrective/preventive actions"
+msgstr "Azioni correttive/preventive in ritardo"
+
+msgid "Internal audits by status"
+msgstr "Audit interni per stato"
+
+msgid "My corrective/preventive actions"
+msgstr "Le mie azioni correttive/preventive"
+
+msgid "Supplier risk"
+msgid_plural "Supplier risks"
+msgstr[0] "Rischio fornitore"
+msgstr[1] "Rischi fornitore"
+
+msgid "Required: this register is dedicated to supplier-related risks."
+msgstr "Obbligatorio: questo registro è dedicato ai rischi relativi ai fornitori."
+
+msgid "A supplier is required for a supplier risk."
+msgstr "Per un rischio fornitore è obbligatorio indicare un fornitore."
+
+msgid "My supplier risks"
+msgstr "I miei rischi fornitore"
+
+msgid "Supplier risk review due"
+msgstr "Riesame del rischio fornitore in scadenza"
+
+msgid "Supplier risk owner"
+msgstr "Titolare del rischio fornitore"
+
+msgid "Supplier risks by level"
+msgstr "Rischi fornitore per livello"
+
+msgid "Suppliers with at least one open high/critical risk"
+msgstr "Fornitori con almeno un rischio alto/critico aperto"
+
+msgid "Training"
+msgid_plural "Trainings"
+msgstr[0] "Formazione"
+msgstr[1] "Formazioni"
+
+msgid "Management review"
+msgid_plural "Management reviews"
+msgstr[0] "Riesame della direzione"
+msgstr[1] "Riesami della direzione"
+
+msgid "In person"
+msgstr "In presenza"
+
+msgid "E-learning"
+msgstr "E-learning"
+
+msgid "Other"
+msgstr "Altro"
+
+msgid "Pending"
+msgstr "In attesa"
+
+msgctxt "feminine"
+msgid "Completed"
+msgstr "Completata"
+
+msgid "Exempted"
+msgstr "Esonerato"
+
+msgid "Format"
+msgstr "Formato"
+
+msgid "Target audience"
+msgstr "Destinatari"
+
+msgid "Completion date"
+msgstr "Data di completamento"
+
+msgid "Mandatory"
+msgstr "Obbligatoria"
+
+msgid "Renewal (months)"
+msgstr "Rinnovo (mesi)"
+
+msgid "Completion status"
+msgstr "Stato di completamento"
+
+msgid "Participants"
+msgstr "Partecipanti"
+
+msgid "Free text (e.g. \"All staff\", \"Technical team\", the name of a group or department)."
+msgstr "Testo libero (es. \"Tutto il personale\", \"Team tecnico\", il nome di un gruppo o reparto)."
+
+msgid "Save to add the newly selected participants: their individual tracking appears below once saved."
+msgstr "Salvare per aggiungere i nuovi partecipanti selezionati: il loro monitoraggio individuale compare qui sotto dopo il salvataggio."
+
+msgid "0 = no renewal required."
+msgstr "0 = nessun rinnovo richiesto."
+
+msgid "Planned"
+msgstr "Pianificato"
+
+msgid "Agenda"
+msgstr "Ordine del giorno"
+
+msgid "Decisions and actions"
+msgstr "Decisioni e azioni"
+
+msgid "Topics actually covered (status of previous actions, changes in context, feedback from interested parties, audit results, nonconformities, opportunities for improvement...)."
+msgstr "Argomenti effettivamente trattati (stato delle azioni precedenti, cambiamenti del contesto, feedback delle parti interessate, risultati degli audit, non conformità, opportunità di miglioramento...)."
+
+msgid "Training renewal overdue"
+msgstr "Rinnovo della formazione scaduto"
+
+msgid "Participant: %s"
+msgstr "Partecipante: %s"
+
+msgid "Training completion rate"
+msgstr "Tasso di completamento della formazione"
+
+msgid "Participants overdue for training renewal"
+msgstr "Partecipanti con rinnovo della formazione scaduto"
+
+msgid "Management reviews by status"
+msgstr "Riesami della direzione per stato"
+
+msgid "GRC Manager - ISMS overview"
+msgstr "GRC Manager - Panoramica SGSI"
+
+msgid "Plugin version"
+msgstr "Versione del plugin"
+
+msgid "Installed version"
+msgstr "Versione installata"
+
+msgid "Latest version on GitHub"
+msgstr "Ultima versione su GitHub"
+
+msgid "Linked assets (CMDB)"
+msgstr "Asset collegati (CMDB)"
+
+msgid "%1$s #%2$d (deleted)"
+msgstr "%1$s #%2$d (eliminato)"
+
+msgid "No risk linked to this asset."
+msgstr "Nessun rischio collegato a questo asset."
+
+msgid "C/I/A classification"
+msgid_plural "C/I/A classifications"
+msgstr[0] "Classificazione R/I/D"
+msgstr[1] "Classificazioni R/I/D"
+
+msgid "Asset type"
+msgstr "Tipo di asset"
+
+msgid "Confidentiality"
+msgstr "Riservatezza"
+
+msgid "Integrity"
+msgstr "Integrità"
+
+msgid "Availability"
+msgstr "Disponibilità"
+
+msgid "Not classified"
+msgstr "Non classificato"
+
+msgid "Current classification: Confidentiality %1$s / Integrity %2$s / Availability %3$s"
+msgstr "Classificazione attuale: Riservatezza %1$s / Integrità %2$s / Disponibilità %3$s"
+
+msgid "This asset has not been classified yet (confidentiality/integrity/availability)."
+msgstr "Questo asset non è ancora stato classificato (riservatezza/integrità/disponibilità)."
+
+msgid "A linked asset carries a high C/I/A classification: check this risk's impact."
+msgstr "Un asset collegato ha una classificazione R/I/D elevata: verificare l'impatto di questo rischio."
+
+msgid "(C: %1$s, I: %2$s, A: %3$s)"
+msgstr "(R: %1$s, I: %2$s, D: %3$s)"
+
+msgid "Security policy"
+msgid_plural "Security policies"
+msgstr[0] "Politica di sicurezza"
+msgstr[1] "Politiche di sicurezza"
+
+msgid "Draft"
+msgstr "Bozza"
+
+msgid "Approved"
+msgstr "Approvata"
+
+msgid "Archived"
+msgstr "Archiviata"
+
+msgid "Version"
+msgstr "Versione"
+
+msgid "Approval date"
+msgstr "Data di approvazione"
+
+msgid "Next review"
+msgstr "Prossimo riesame"
+
+msgid "An approval date is required to mark a policy as approved."
+msgstr "Per contrassegnare una politica come approvata è obbligatoria una data di approvazione."
+
+msgid "An approval date is required to switch to the \"Approved\" status."
+msgstr "Per passare allo stato \"Approvata\" è obbligatoria una data di approvazione."
+
+msgid "Policy review due"
+msgstr "Riesame della politica in scadenza"
+
+msgid "Policy owner"
+msgstr "Titolare della politica"
+
+msgid "Policies pending review"
+msgstr "Politiche in attesa di riesame"
+
+msgid "Security policies by status"
+msgstr "Politiche di sicurezza per stato"
+
+msgid "Legal, regulatory or contractual obligation"
+msgid_plural "Legal, regulatory and contractual obligations"
+msgstr[0] "Obbligo legale, regolamentare o contrattuale"
+msgstr[1] "Obblighi legali, regolamentari e contrattuali"
+
+msgid "Legal"
+msgstr "Legale"
+
+msgid "Regulatory"
+msgstr "Regolamentare"
+
+msgid "Contractual"
+msgstr "Contrattuale"
+
+msgid "Compliant"
+msgstr "Conforme"
+
+msgid "Partially compliant"
+msgstr "Parzialmente conforme"
+
+msgid "Non-compliant"
+msgstr "Non conforme"
+
+msgid "Not assessed"
+msgstr "Non valutato"
+
+msgid "Type"
+msgstr "Tipo"
+
+msgid "Reference / source"
+msgstr "Riferimento / fonte"
+
+msgid "Compliance status"
+msgstr "Stato di conformità"
+
+msgid "Description / notes"
+msgstr "Descrizione / note"
+
+msgid "Linked risk (optional)"
+msgstr "Rischio collegato (facoltativo)"
+
+msgid "Only fill in if failing to meet this obligation constitutes a risk identified in the risk register."
+msgstr "Compilare solo se il mancato rispetto di questo obbligo costituisce un rischio identificato nel registro dei rischi."
+
+msgid "E.g. \"GDPR\", \"Client contract Acme Ltd\", \"Act No. ...\"."
+msgstr "Es. \"GDPR\", \"Contratto cliente Acme S.p.A.\", \"Legge n. ...\"."
+
+msgid "Obligation review due"
+msgstr "Riesame dell'obbligo in scadenza"
+
+msgid "Obligation owner"
+msgstr "Titolare dell'obbligo"
+
+msgid "Non-compliant obligations"
+msgstr "Obblighi non conformi"
+
+msgid "Obligations pending review"
+msgstr "Obblighi in attesa di riesame"
+
+msgid "Obligations by type"
+msgstr "Obblighi per tipo"
+
+msgid "Obligations by compliance status"
+msgstr "Obblighi per stato di conformità"
+
+msgid "ISMS objective"
+msgid_plural "ISMS objectives"
+msgstr[0] "Obiettivo SGSI"
+msgstr[1] "Obiettivi SGSI"
+
+msgid "On track"
+msgstr "In linea"
+
+msgid "At risk"
+msgstr "A rischio"
+
+msgid "Achieved"
+msgstr "Raggiunto"
+
+msgid "Missed"
+msgstr "Mancato"
+
+msgid "Target value"
+msgstr "Valore obiettivo"
+
+msgid "Qualitative target"
+msgstr "Obiettivo qualitativo"
+
+msgid "Leave empty if this objective has no numeric indicator (purely qualitative objective)."
+msgstr "Lasciare vuoto se questo obiettivo non ha un indicatore numerico (obiettivo puramente qualitativo)."
+
+msgid "Free-text description of the target aimed for, in addition to or instead of a numeric value (e.g. \"obtain ISO 27001 certification\", \"roll out MFA on every privileged account\")."
+msgstr "Descrizione libera del traguardo perseguito, in aggiunta o in alternativa a un valore numerico (es. \"ottenere la certificazione ISO 27001\", \"attivare la MFA su tutti gli account privilegiati\")."
+
+msgid "Measurement history"
+msgstr "Storico delle misurazioni"
+
+msgid "Measurement date"
+msgstr "Data della misurazione"
+
+msgid "Value"
+msgstr "Valore"
+
+msgid "Comment"
+msgstr "Commento"
+
+msgid "A numeric value is required for this quantitative objective."
+msgstr "Per questo obiettivo quantitativo è obbligatorio un valore numerico."
+
+msgid "Qualitative objective: the value stays optional, but a comment is then required."
+msgstr "Obiettivo qualitativo: il valore resta facoltativo, ma in tal caso è obbligatorio un commento."
+
+msgid "No measurement recorded yet."
+msgstr "Nessuna misurazione ancora registrata."
+
+msgid "Confirm deletion?"
+msgstr "Confermare l'eliminazione?"
+
+msgid "ISMS objective measurement"
+msgid_plural "ISMS objective measurements"
+msgstr[0] "Misurazione dell'obiettivo SGSI"
+msgstr[1] "Misurazioni degli obiettivi SGSI"
+
+msgid "Objective not found."
+msgstr "Obiettivo non trovato."
+
+msgid "A numeric value is required for a measurement of this quantitative objective."
+msgstr "Per una misurazione di questo obiettivo quantitativo è obbligatorio un valore numerico."
+
+msgid "A comment is required for a measurement with no numeric value (qualitative objective)."
+msgstr "Per una misurazione senza valore numerico (obiettivo qualitativo) è obbligatorio un commento."
+
+msgid "ISMS objectives discussed"
+msgstr "Obiettivi SGSI discussi"
+
+msgid "ISO 27001 clause 6.2 objective(s) whose progress was reviewed at this meeting."
+msgstr "Obiettivo/i ISO 27001 punto 6.2 il cui avanzamento è stato esaminato in questa riunione."
+
+msgid "ISMS objectives by status"
+msgstr "Obiettivi SGSI per stato"
+
+msgid "Security incident"
+msgid_plural "Security incidents"
+msgstr[0] "Incidente di sicurezza"
+msgstr[1] "Incidenti di sicurezza"
+
+msgid "Data breach"
+msgstr "Violazione di dati"
+
+msgid "Malware"
+msgstr "Malware"
+
+msgid "Unauthorized access"
+msgstr "Accesso non autorizzato"
+
+msgid "Unavailability / denial of service"
+msgstr "Indisponibilità / negazione del servizio"
+
+msgctxt "masculine"
+msgid "Open"
+msgstr "Aperto"
+
+msgid "Investigating"
+msgstr "In analisi"
+
+msgid "Contained"
+msgstr "Contenuto"
+
+msgid "Incident date"
+msgstr "Data dell'incidente"
+
+msgid "CIA impact"
+msgstr "Impatto R/I/D"
+
+msgid "Linked Ticket/Problem"
+msgstr "Ticket/Problema collegato"
+
+msgid "Root cause"
+msgstr "Causa radice"
+
+msgid "Lessons learned"
+msgstr "Lezioni apprese"
+
+msgid "The root cause and lessons learned are required to close a security incident."
+msgstr "Per chiudere un incidente di sicurezza sono obbligatorie la causa radice e le lezioni apprese."
+
+msgid "Confidentiality/integrity/availability axis/axes affected by this incident."
+msgstr "Dimensione/i di riservatezza/integrità/disponibilità interessate da questo incidente."
+
+msgid "Linked item type"
+msgstr "Tipo di elemento collegato"
+
+msgid "Linked Ticket/Problem (optional)"
+msgstr "Ticket/Problema collegato (facoltativo)"
+
+msgid "Choose a type on the left first to filter the list."
+msgstr "Scegliere prima un tipo a sinistra per filtrare l'elenco."
+
+msgid "Fill in if this incident highlighted a risk already identified in the risk register (or revealed a new one)."
+msgstr "Compilare se questo incidente ha evidenziato un rischio già identificato nel registro dei rischi (o ne ha rivelato uno nuovo)."
+
+msgid "Required, together with the lessons learned below, to close this incident."
+msgstr "Obbligatoria, insieme alle lezioni apprese riportate di seguito, per chiudere questo incidente."
+
+msgid "What was learned from this incident (clause A.5.27): to be documented before closure."
+msgstr "Cosa si è appreso da questo incidente (punto A.5.27): da documentare prima della chiusura."
+
+msgid "Security incidents by status"
+msgstr "Incidenti di sicurezza per stato"
+
+msgid "Security incidents by severity"
+msgstr "Incidenti di sicurezza per gravità"
+
+msgid "Risk treatment action"
+msgid_plural "Risk treatment actions"
+msgstr[0] "Azione di trattamento del rischio"
+msgstr[1] "Azioni di trattamento del rischio"
+
+msgid "Done"
+msgstr "Completata"
+
+msgid "Risk not found."
+msgstr "Rischio non trovato."
+
+msgid "Overdue risk treatment action"
+msgstr "Azione di trattamento del rischio in ritardo"
+
+msgid "Action owner"
+msgstr "Responsabile dell'azione"
+
+msgid "Action description"
+msgstr "Descrizione dell'azione"
+
+msgid "A treatment plan (one or more concrete actions) is expected for this choice, see further down this record."
+msgstr "Per questa scelta è previsto un piano di trattamento (una o più azioni concrete), vedere più in basso in questa scheda."
+
+msgid "A treatment plan (at least one action) is required to close a risk being mitigated or transferred."
+msgstr "Per chiudere un rischio da mitigare o trasferire è richiesto un piano di trattamento (almeno un'azione)."
+
+msgid "Save this risk first to be able to fill in its treatment plan."
+msgstr "Salvare prima questo rischio per poterne compilare il piano di trattamento."
+
+msgid "Risk treatment plan"
+msgstr "Piano di trattamento del rischio"
+
+msgid "Concrete actions implementing the treatment decision (ISO 27001 clause 8.3/6.1.3): each has its own owner, its own due date and its own status."
+msgstr "Azioni concrete che attuano la decisione di trattamento (ISO 27001 punto 8.3/6.1.3): ciascuna ha un proprio responsabile, una propria scadenza e un proprio stato."
+
+msgid "No treatment action recorded yet."
+msgstr "Nessuna azione di trattamento ancora registrata."
+
+msgid "Overdue"
+msgstr "In ritardo"
+
+msgid "Update"
+msgstr "Aggiorna"
+
+msgid "Overdue risk treatment actions"
+msgstr "Azioni di trattamento del rischio in ritardo"
+
+msgid "Risks to mitigate/transfer with no treatment plan"
+msgstr "Rischi da mitigare/trasferire senza piano di trattamento"
+
+msgid "Risk heatmap"
+msgstr "Mappa di calore dei rischi"
+
+msgid "Click a cell to see the matching list of risks."
+msgstr "Fare clic su una cella per visualizzare l'elenco dei rischi corrispondenti."
+
+msgid "Back to the risk list"
+msgstr "Torna all'elenco dei rischi"
+
+msgid "Security incident item"
+msgid_plural "Security incident items"
+msgstr[0] "Elemento dell'incidente di sicurezza"
+msgstr[1] "Elementi dell'incidente di sicurezza"
+
+msgid "Security incident task"
+msgid_plural "Security incident tasks"
+msgstr[0] "Attività dell'incidente di sicurezza"
+msgstr[1] "Attività dell'incidente di sicurezza"
+
+msgid "Security incident template"
+msgid_plural "Security incident templates"
+msgstr[0] "Modello di incidente di sicurezza"
+msgstr[1] "Modelli di incidente di sicurezza"
+
+msgid "CVE reference"
+msgid_plural "CVE references"
+msgstr[0] "Riferimento CVE"
+msgstr[1] "Riferimenti CVE"
+
+msgid "CVE"
+msgid_plural "CVEs"
+msgstr[0] "CVE"
+msgstr[1] "CVE"
+
+msgid "%d CVE reference added."
+msgid_plural "%d CVE references added."
+msgstr[0] "%d riferimento CVE aggiunto."
+msgstr[1] "%d riferimenti CVE aggiunti."
+
+msgid "New security incident"
+msgstr "Nuovo incidente di sicurezza"
+
+msgid "Update of a security incident"
+msgstr "Aggiornamento di un incidente di sicurezza"
+
+msgid "Security incident solved"
+msgstr "Incidente di sicurezza risolto"
+
+msgid "Security incident closed"
+msgstr "Incidente di sicurezza chiuso"
+
+msgid "Business rules for security incidents"
+msgstr "Regole di business per gli incidenti di sicurezza"
+
+msgid "\"%s\" is not a valid CVE identifier (expected format: CVE-YYYY-NNNN)."
+msgstr "\"%s\" non è un identificatore CVE valido (formato atteso: CVE-AAAA-NNNN)."
+
+msgid "Average incident response time (hours)"
+msgstr "Tempo medio di risposta agli incidenti (ore)"
+
+msgid "Pass rate of assessed training sessions"
+msgstr "Tasso di superamento delle sessioni formative valutate"
+
+msgid "GRC & Compliance"
+msgstr "GRC e conformità"
+
+msgid "Corrective action"
+msgstr "Azione correttiva"
+
+msgid "Preventive action"
+msgstr "Azione preventiva"
+
+msgctxt "no assessment"
+msgid "Not assessed"
+msgstr "Senza valutazione"
+
+msgid "Passed"
+msgstr "Superata"
+
+msgid "Failed"
+msgstr "Non superata"
+
+msgid "Assessment"
+msgstr "Valutazione"
+
+msgid "ISO 27001 Classification"
+msgstr "Classificazione ISO 27001"
+
+msgid "Required, along with lessons learned, to close this incident."
+msgstr "Obbligatoria, insieme alle lezioni apprese, per chiudere questo incidente."
+
+msgid "CVE identifier(s)"
+msgstr "Identificatore/i CVE"
+
+msgid "No CVE reference associated with this incident yet."
+msgstr "Nessun riferimento CVE ancora associato a questo incidente."
+
+msgid "CVE identifier"
+msgstr "Identificatore CVE"
+
+msgid "Security incidents"
+msgstr "Incidenti di sicurezza"
+
+msgid "Security incidents module (Assistance menu)"
+msgstr "Modulo Incidenti di sicurezza (menu Assistenza)"
+
+msgid "CVE tracking"
+msgstr "Monitoraggio delle CVE"
+
+msgid "Incident templates"
+msgstr "Modelli di incidente"
+
+msgid "Dashboard cards"
+msgstr "Schede del cruscotto"
+
+msgid "Controls applied / to apply"
+msgstr "Controlli applicati / da applicare"
+
+msgid "Rollback / containment plan"
+msgstr "Piano di rollback / contenimento"
+
+msgid "Analysis"
+msgstr "Analisi"
+
+msgid "Security incidents by entity"
+msgstr "Incidenti di sicurezza per entità"
+
+msgid "Security incidents by GLPI category"
+msgstr "Incidenti di sicurezza per categoria GLPI"
+
+msgctxt "security incidents"
+msgid "Open"
+msgstr "Aperti"
+
+msgid "Fetching…"
+msgstr "Recupero in corso…"
+
+msgid "Not found in the NVD"
+msgstr "Non trovata nel NVD"
+
+msgid "Fetch failed, automatic retry coming soon"
+msgstr "Recupero non riuscito, nuovo tentativo automatico a breve"
+
+msgid "Refresh from the NVD"
+msgstr "Aggiorna dal NVD"
+
+msgid "Patches / vendor advisories:"
+msgstr "Patch / avvisi del fornitore:"
+
+msgid "CVE enrichment (NVD)"
+msgstr "Arricchimento CVE (NVD)"
+
+msgid "Enable NVD enrichment"
+msgstr "Abilita l'arricchimento NVD"
+
+msgid "Alert threshold (CVSS score)"
+msgstr "Soglia di allerta (punteggio CVSS)"
+
+#, php-format
+msgid "%d potentially affected asset(s) in your inventory"
+msgstr "%d asset potenzialmente interessato/i nel tuo inventario"
+
+msgid "version not verifiable"
+msgstr "versione non verificabile"
+
+msgid "Product (CVE correlation)"
+msgid_plural "Products (CVE correlation)"
+msgstr[0] "Prodotto (correlazione CVE)"
+msgstr[1] "Prodotti (correlazione CVE)"
+
+msgid "Vendor / manufacturer"
+msgstr "Fornitore / produttore"
+
+msgid "Product"
+msgstr "Prodotto"
+
+msgid "CPE identifiers"
+msgstr "Identificatori CPE"
+
+msgid "No CPE identifier yet."
+msgstr "Nessun identificatore CPE."
+
+msgid "Software aliases (GLPI inventory)"
+msgstr "Alias software (inventario GLPI)"
+
+msgid "No alias yet."
+msgstr "Nessun alias."
+
+msgid "Software alias"
+msgid_plural "Software aliases"
+msgstr[0] "Alias software"
+msgstr[1] "Alias software"
+
+msgid "CPE identifier"
+msgid_plural "CPE identifiers"
+msgstr[0] "Identificatore CPE"
+msgstr[1] "Identificatori CPE"
+
+msgid "Short name, e.g. \"Apache\", \"Microsoft\" — used only as a label, never for matching."
+msgstr "Nome breve, es. \"Apache\", \"Microsoft\" — usato solo come etichetta, mai per la corrispondenza."
+
+msgid "A CPE identifier as reported by the NVD for this product (e.g. \"cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point to the same product."
+msgstr "Un identificatore CPE così come riportato dal NVD per questo prodotto (es. \"cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*\"). Più identificatori possono puntare allo stesso prodotto."
+
+msgid "The exact name as it appears in your GLPI inventory (Software record), so the correlation can recognize this product on your assets. No approximate matching is ever done automatically."
+msgstr "Il nome esatto così come compare nell'inventario GLPI (scheda Software), affinché la correlazione possa riconoscere questo prodotto sui tuoi asset. Non viene mai eseguita automaticamente alcuna corrispondenza approssimativa."
+
+msgid "Consultable reference libraries, alongside your Statement of Applicability (ISO 27001 Annex A)."
+msgstr "Librerie di riferimento consultabili, a complemento della Dichiarazione di applicabilità (ISO 27001 Allegato A)."
+
+msgid "ISO 27001 Annex A / ISO 27002"
+msgstr "ISO 27001 Allegato A / ISO 27002"
+
+msgid "Filter…"
+msgstr "Filtra…"
+
+msgid "Equivalent NIST CSF 2.0"
+msgstr "Equivalente NIST CSF 2.0"
+
+msgid "NIST Cybersecurity Framework (CSF) 2.0"
+msgstr "NIST Cybersecurity Framework (CSF) 2.0"
+
+msgid "CIS Controls v8"
+msgstr "CIS Controls v8"
+
+msgid "Reference frameworks"
+msgstr "Framework di riferimento"
+
+msgid "Equivalent reference frameworks"
+msgstr "Framework di riferimento equivalenti"
+
+msgid "Mapping published by NIST — see"
+msgstr "Corrispondenza pubblicata dal NIST — vedere"
+
+msgid "the Reference frameworks screen"
+msgstr "la schermata Framework di riferimento"
+
+msgid "for details."
+msgstr "per i dettagli."
+
+msgid "Summary"
+msgstr "Riepilogo"
+
+msgid "Internal audits"
+msgstr "Audit interni"
+
+msgid "Audits"
+msgstr "Audit"
+
+msgid "Nonconformities, observations and CAPA"
+msgstr "Non conformità, osservazioni e CAPA"
+
+msgid "Annex A controls"
+msgstr "Controlli dell'Allegato A"
+
+msgid "Reviewed controls"
+msgstr "Controlli riesaminati"
+
+msgid "By applicability"
+msgstr "Per applicabilità"
+
+msgid "By implementation status"
+msgstr "Per stato di attuazione"
+
+msgid "Control details"
+msgstr "Dettaglio dei controlli"
+
+msgid "Risks in the register"
+msgstr "Rischi nel registro"
+
+msgid "Level"
+msgstr "Livello"
+
+msgid "Risk details"
+msgstr "Dettaglio dei rischi"
+
+msgid "Statement of Applicability — ISO/IEC 27001:2022 Annex A"
+msgstr "Dichiarazione di applicabilità — ISO/IEC 27001:2022 Allegato A"
+
+#, php-format
+msgid "Generated on %s"
+msgstr "Generato il %s"
+
+msgid "Export PDF"
+msgstr "Esporta PDF"
+
+msgid "Risk register"
+msgstr "Registro dei rischi"
+
+msgid "Internal audit program and CAPA"
+msgstr "Programma di audit interno e CAPA"
+
+msgid "Export the current state of the Statement of Applicability, edit it in a spreadsheet, then re-import the file to apply the changes at once."
+msgstr "Esportare lo stato attuale della Dichiarazione di applicabilità, modificarlo in un foglio di calcolo, quindi reimportare il file per applicare le modifiche in un'unica operazione."
+
+msgid "Download the current CSV"
+msgstr "Scarica il CSV attuale"
+
+#, php-format
+msgid "%d control(s) updated."
+msgstr "%d controllo/i aggiornato/i."
+
+#, php-format
+msgid "%d row(s) rejected:"
+msgstr "%d riga/e rifiutata/e:"
+
+msgid "(empty row)"
+msgstr "(riga vuota)"
+
+msgid "Import a modified CSV"
+msgstr "Importa un CSV modificato"
+
+msgid "Only the applicabilite, etat_mise_en_oeuvre and justification columns are applied, matched by the control's code. No row is ever created or deleted."
+msgstr "Vengono applicate solo le colonne applicabilite, etat_mise_en_oeuvre e justification, abbinate tramite il codice del controllo. Nessuna riga viene mai creata o eliminata."
+
+msgid "Import"
+msgstr "Importa"
+
+msgid "No valid file was uploaded."
+msgstr "Non è stato caricato alcun file valido."
+
+msgid "Code unknown in the Annex A catalogue."
+msgstr "Codice sconosciuto nel catalogo dell'Allegato A."
+
+msgid "Unrecognized applicability value."
+msgstr "Valore di applicabilità non riconosciuto."
+
+msgid "Unrecognized implementation status value."
+msgstr "Valore dello stato di attuazione non riconosciuto."
+
+msgid "Justification required: this control is not fully applicable."
+msgstr "Giustificazione obbligatoria: questo controllo non è pienamente applicabile."
+
+msgid "CSV import/export — Annex A"
+msgstr "Importazione/esportazione CSV — Allegato A"
+
+msgid "CSV import/export"
+msgstr "Importazione/esportazione CSV"
+
+msgid "One per line, or comma-separated — several at once are supported."
+msgstr "Uno per riga o separati da virgole — è possibile inserirne più di uno alla volta."
+
+msgid "Enables or disables each part of the security incident management module (dedicated ITIL object, visible in the Assistance menu)."
+msgstr "Abilita o disabilita ciascuna parte del modulo di gestione degli incidenti di sicurezza (oggetto ITIL dedicato, visibile nel menu Assistenza)."
+
+msgid "Automatically retrieves the CVSS score, severity, description and patch links for each tracked CVE, from the public NVD (National Vulnerability Database). No data is ever invented: if the NVD hasn't analyzed a CVE yet, nothing is shown until it has."
+msgstr "Recupera automaticamente il punteggio CVSS, la gravità, la descrizione e i link alle patch di ogni CVE monitorata dal database pubblico NVD (National Vulnerability Database). Nessun dato viene mai inventato: se il NVD non ha ancora analizzato una CVE, non viene mostrato nulla finché non lo avrà fatto."
+
+msgid "A CVE with an equal or higher score is highlighted as urgent."
+msgstr "Una CVE con punteggio uguale o superiore viene evidenziata come urgente."
+
+msgid "No usable row was found in this file — check that it is really a CSV exported from this screen (semicolon-separated columns)."
+msgstr "Nessuna riga utilizzabile trovata in questo file — verificare che sia effettivamente un CSV esportato da questa schermata (colonne separate da punto e virgola)."
+
+msgid "Expected file: the one downloaded above, possibly edited (semicolon-separated columns). Only the applicabilite, etat_mise_en_oeuvre and justification columns are applied, matched by the control's code. No row is ever created or deleted."
+msgstr "File atteso: quello scaricato sopra, eventualmente modificato (colonne separate da punto e virgola). Vengono applicate solo le colonne applicabilite, etat_mise_en_oeuvre e justification, abbinate tramite il codice del controllo. Nessuna riga viene mai creata o eliminata."
+
+msgid "Vendor/manufacturer and product are both required."
+msgstr "Fornitore/produttore e prodotto sono entrambi obbligatori."
+
+#, php-format
+msgid "A product \"%s / %s\" already exists."
+msgstr "Esiste già un prodotto \"%s / %s\"."
+
+msgid "Please enter an alias."
+msgstr "Inserire un alias."
+
+#, php-format
+msgid "This alias is already attached to product \"%s / %s\"."
+msgstr "Questo alias è già associato al prodotto \"%s / %s\"."
+
+msgid "Please enter a CPE identifier."
+msgstr "Inserire un identificatore CPE."
+
+#, php-format
+msgid "This CPE identifier is already attached to product \"%s / %s\"."
+msgstr "Questo identificatore CPE è già associato al prodotto \"%s / %s\"."
+
+#, php-format
+msgid "%s is already referenced on this incident."
+msgstr "%s è già referenziata in questo incidente."
+
+msgid "Source: CIS Critical Security Controls® v8, © Center for Internet Security, Inc., titles reproduced unmodified under the CC BY-NC-ND 4.0 license. This project is not affiliated with or endorsed by CIS."
+msgstr "Fonte: CIS Critical Security Controls® v8, © Center for Internet Security, Inc., titoli riprodotti senza modifiche secondo la licenza CC BY-NC-ND 4.0. Questo progetto non è affiliato al CIS né da esso approvato."
+
+msgid "assetsign evidence"
+msgstr "Evidenze assetsign"
+
+msgid "Counters computed live from the assetsign plugin, on your active entities."
+msgstr "Contatori calcolati in tempo reale dal plugin assetsign, sulle entità attive."
+
+msgid "Returns"
+msgstr "Restituzioni"
+
+msgid "Handovers"
+msgstr "Consegne"
+
+#, php-format
+msgid "%d signed"
+msgstr "%d firmato/i"
+
+#, php-format
+msgid "%d pending"
+msgstr "%d in attesa"
+
+#, php-format
+msgid "%d expired"
+msgstr "%d scaduto/i"
+
+msgid "View forms"
+msgstr "Visualizza i moduli"
+
+msgid "assetsign evidence (A.5.9, A.5.10, A.5.11)"
+msgstr "Evidenze assetsign (A.5.9, A.5.10, A.5.11)"
+
+msgid "Signed"
+msgstr "Firmati"
+
+msgid "Expired"
+msgstr "Scaduti"
+
+msgid "Handovers (A.5.9, A.5.10)"
+msgstr "Consegne (A.5.9, A.5.10)"
+
+msgid "Returns (A.5.11)"
+msgstr "Restituzioni (A.5.11)"
+
+msgid "NIS2 Directive (EU) 2022/2555"
+msgstr "Direttiva NIS2 (UE) 2022/2555"
+
+msgid "Article"
+msgstr "Articolo"
+
+msgid "summary"
+msgstr "riepilogo"
+
+msgid "Source: Directive (EU) 2022/2555 (NIS2), © European Union, EUR-Lex. Mapping to ISO 27001 Annex A is indicative and made by this project."
+msgstr "Fonte: Direttiva (UE) 2022/2555 (NIS2), © Unione europea, EUR-Lex. La corrispondenza con l'Allegato A della ISO 27001 è indicativa ed è stata elaborata da questo progetto."
+
+msgid "NIS2 requirements"
+msgstr "Requisiti NIS2"
+
+msgid "Indicative mapping made by this project — see"
+msgstr "Corrispondenza indicativa elaborata da questo progetto — vedere"
+
+msgid "ANSSI hygiene"
+msgstr "Igiene ANSSI"
+
+#, php-format
+msgid "Measure %d"
+msgstr "Misura %d"
+
+msgid "ANSSI IT hygiene guide (42 measures)"
+msgstr "Guida all'igiene informatica ANSSI (42 misure)"
+
+msgid "ISO 27001 §6.1 (outside Annex A)"
+msgstr "ISO 27001 §6.1 (al di fuori dell'Allegato A)"
+
+msgid "Source: ANSSI, Guide d'hygiène informatique (IT hygiene guide), version 2.0, September 2017, Licence Ouverte / Open Licence (Etalab). Mapping to ISO 27001 Annex A is indicative and made by this project."
+msgstr "Fonte: ANSSI, Guide d'hygiène informatique (guida all'igiene informatica), versione 2.0, settembre 2017, Licence Ouverte / Open Licence (Etalab). La corrispondenza con l'Allegato A della ISO 27001 è indicativa ed è stata elaborata da questo progetto."
+
+msgid "Indicative English translation made by this project."
+msgstr "Traduzione indicativa elaborata da questo progetto."
+
+msgid "ISMS requirement (clauses 4 to 10)"
+msgid_plural "ISMS requirements (clauses 4 to 10)"
+msgstr[0] "Requisito del SGSI (punti da 4 a 10)"
+msgstr[1] "Requisiti del SGSI (punti da 4 a 10)"
+
+msgid "Context of the organization"
+msgstr "Contesto dell'organizzazione"
+
+msgid "Organization and its context"
+msgstr "L'organizzazione e il suo contesto"
+
+msgid "Interested parties"
+msgstr "Parti interessate"
+
+msgid "ISMS scope"
+msgstr "Campo di applicazione del SGSI"
+
+msgid "Information security management system"
+msgstr "Sistema di gestione per la sicurezza delle informazioni"
+
+msgid "Leadership"
+msgstr "Leadership"
+
+msgid "Leadership and commitment"
+msgstr "Leadership e impegno"
+
+msgid "Policy"
+msgstr "Politica"
+
+msgid "Roles, responsibilities and authorities"
+msgstr "Ruoli, responsabilità e autorità"
+
+msgid "Planning"
+msgstr "Pianificazione"
+
+msgid "Risks and opportunities: general"
+msgstr "Rischi e opportunità: generalità"
+
+msgid "Risk assessment"
+msgstr "Valutazione del rischio"
+
+msgid "Risk treatment"
+msgstr "Trattamento del rischio"
+
+msgid "Information security objectives"
+msgstr "Obiettivi per la sicurezza delle informazioni"
+
+msgid "Planning of changes"
+msgstr "Pianificazione delle modifiche"
+
+msgid "Support"
+msgstr "Supporto"
+
+msgid "Resources"
+msgstr "Risorse"
+
+msgid "Competence"
+msgstr "Competenza"
+
+msgid "Awareness"
+msgstr "Consapevolezza"
+
+msgid "Communication"
+msgstr "Comunicazione"
+
+msgid "Documented information: general"
+msgstr "Informazioni documentate: generalità"
+
+msgid "Creating and updating"
+msgstr "Creazione e aggiornamento"
+
+msgid "Control of documented information"
+msgstr "Controllo delle informazioni documentate"
+
+msgid "Operation"
+msgstr "Attività operative"
+
+msgid "Operational planning and control"
+msgstr "Pianificazione e controllo operativi"
+
+msgid "Risk assessment (performing)"
+msgstr "Valutazione del rischio (esecuzione)"
+
+msgid "Risk treatment (implementing)"
+msgstr "Trattamento del rischio (attuazione)"
+
+msgid "Performance evaluation"
+msgstr "Valutazione delle prestazioni"
+
+msgid "Monitoring, measurement, analysis and evaluation"
+msgstr "Monitoraggio, misurazione, analisi e valutazione"
+
+msgid "Internal audit: general"
+msgstr "Audit interno: generalità"
+
+msgid "Internal audit programme"
+msgstr "Programma di audit interno"
+
+msgid "Management review: general"
+msgstr "Riesame della direzione: generalità"
+
+msgid "Management review inputs"
+msgstr "Input del riesame della direzione"
+
+msgid "Management review results"
+msgstr "Risultati del riesame della direzione"
+
+msgid "Improvement"
+msgstr "Miglioramento"
+
+msgid "Continual improvement"
+msgstr "Miglioramento continuo"
+
+msgid "Nonconformity and corrective action"
+msgstr "Non conformità e azioni correttive"
+
+msgctxt "not begun"
+msgid "Not started"
+msgstr "Non iniziato"
+
+msgid "Invalid status."
+msgstr "Stato non valido."
+
+msgid "Requirement"
+msgstr "Requisito"
+
+msgid "How the requirement is met and where to find the evidence. Attach the files in the Documents tab."
+msgstr "Come viene soddisfatto il requisito e dove trovare le evidenze. Allegare i file nella scheda Documenti."
+
+msgid "Linked module"
+msgstr "Modulo collegato"
+
+#, php-format
+msgid "%d record(s)"
+msgstr "%d record"
+
+msgid "This plugin module already produces evidence for this requirement."
+msgstr "Questo modulo del plugin produce già evidenze per questo requisito."
+
+msgid "Management system requirements - ISO/IEC 27001:2022 clauses 4 to 10 (references and short titles only)."
+msgstr "Requisiti del sistema di gestione - ISO/IEC 27001:2022 punti da 4 a 10 (solo riferimenti e titoli brevi)."
+
+#, php-format
+msgid "ISMS completeness: %1$d %% (%2$d / %3$d requirements compliant)"
+msgstr "Completezza del SGSI: %1$d %% (%2$d / %3$d requisiti conformi)"
+
+msgid "ISMS requirements (clauses 4 to 10)"
+msgstr "Requisiti del SGSI (punti da 4 a 10)"
+
+msgid "Approved SoA version"
+msgid_plural "Approved SoA versions"
+msgstr[0] "Versione approvata della SoA"
+msgstr[1] "Versioni approvate della SoA"
+
+msgid "Awaiting approval"
+msgstr "In attesa di approvazione"
+
+msgid "Rejected"
+msgstr "Rifiutata"
+
+msgid "Obsolete"
+msgstr "Obsoleta"
+
+msgctxt "masculine"
+msgid "Approved"
+msgstr "Approvato"
+
+msgctxt "masculine"
+msgid "Rejected"
+msgstr "Rifiutato"
+
+msgid "Choose at least one approver."
+msgstr "Scegliere almeno un approvatore."
+
+#, php-format
+msgid "Statement of Applicability - version %d"
+msgstr "Dichiarazione di applicabilità - versione %d"
+
+msgid "SoA approval requested"
+msgstr "Approvazione della SoA richiesta"
+
+msgid "Designated approvers"
+msgstr "Approvatori designati"
+
+msgid "Requester"
+msgstr "Richiedente"
+
+msgid "Request date"
+msgstr "Data della richiesta"
+
+msgid "Content fingerprint (SHA-256)"
+msgstr "Impronta del contenuto (SHA-256)"
+
+msgid "Version frozen and sent to the approvers."
+msgstr "Versione congelata e inviata agli approvatori."
+
+msgid "Please give the reason for the rejection."
+msgstr "Indicare il motivo del rifiuto."
+
+msgid "Approval recorded."
+msgstr "Approvazione registrata."
+
+msgid "Rejection recorded."
+msgstr "Rifiuto registrato."
+
+msgid "This version is not awaiting your answer."
+msgstr "Questa versione non è in attesa della tua risposta."
+
+msgid "SoA approval"
+msgstr "Approvazione della SoA"
+
+msgid "Management approval"
+msgstr "Approvazione della direzione"
+
+#, php-format
+msgid "Version %d of the SoA is awaiting your approval."
+msgstr "La versione %d della SoA è in attesa della tua approvazione."
+
+msgid "Answer"
+msgstr "Rispondi"
+
+#, php-format
+msgid "The SoA has changed since approved version %d: a new approval is required."
+msgstr "La SoA è cambiata dopo la versione approvata %d: è necessaria una nuova approvazione."
+
+msgid "SoA approved"
+msgstr "SoA approvata"
+
+#, php-format
+msgid "Version %1$d approved on %2$s; the SoA has not changed since."
+msgstr "Versione %1$d approvata il %2$s; da allora la SoA non è cambiata."
+
+msgid "SoA changed"
+msgstr "SoA modificata"
+
+msgid "Never approved"
+msgstr "Mai approvata"
+
+msgid "No version of the SoA has been approved by management yet."
+msgstr "Nessuna versione della SoA è ancora stata approvata dalla direzione."
+
+#, php-format
+msgid "Version %d awaiting approval"
+msgstr "Versione %d in attesa di approvazione"
+
+#, php-format
+msgid "Version %d is awaiting your approval"
+msgstr "La versione %d è in attesa della tua approvazione"
+
+#, php-format
+msgid "Requested by %s."
+msgstr "Richiesta da %s."
+
+msgid "Read the frozen version (PDF)"
+msgstr "Leggi la versione congelata (PDF)"
+
+msgid "Comment (required to reject)"
+msgstr "Commento (obbligatorio in caso di rifiuto)"
+
+msgid "I approve this version"
+msgstr "Approvo questa versione"
+
+msgid "Reject"
+msgstr "Rifiuta"
+
+msgid "Have the SoA approved by management"
+msgstr "Far approvare la SoA dalla direzione"
+
+msgid "Freezes the current SoA into a dated PDF (kept in GLPI documents with its SHA-256 fingerprint), then sends it to the chosen approvers. Each approves from their own GLPI session; the PDF also includes a handwritten signature block. Any later change to the SoA will require a new version."
+msgstr "Congela la SoA attuale in un PDF datato (conservato nei documenti GLPI con la sua impronta SHA-256), quindi lo invia agli approvatori scelti. Ciascuno approva dalla propria sessione GLPI; il PDF include anche un riquadro per la firma autografa. Qualsiasi modifica successiva della SoA richiederà una nuova versione."
+
+msgid "Approvers"
+msgstr "Approvatori"
+
+msgid "Message to the approvers (optional)"
+msgstr "Messaggio agli approvatori (facoltativo)"
+
+msgid "Freeze and send for approval"
+msgstr "Congela e invia per l'approvazione"
+
+msgid "Review the SoA first"
+msgstr "Riesaminare prima la SoA"
+
+msgid "Version history"
+msgstr "Cronologia delle versioni"
+
+msgid "No version yet."
+msgstr "Nessuna versione."
+
+msgid "Requested"
+msgstr "Richiesta"
+
+msgid "Frozen PDF"
+msgstr "PDF congelato"
+
+msgid "Version submitted for approval"
+msgstr "Versione sottoposta ad approvazione"
+
+#, php-format
+msgid "Version %d"
+msgstr "Versione %d"
+
+#, php-format
+msgid "Requested on %1$s by %2$s"
+msgstr "Richiesta il %1$s da %2$s"
+
+msgid "Approver"
+msgstr "Approvatore"
+
+msgid "Signature"
+msgstr "Firma"
+
+msgid "This ticket is not linked to any security incident."
+msgstr "Questo ticket non è collegato ad alcun incidente di sicurezza."
+
+msgid "Qualify as a security incident"
+msgstr "Qualifica come incidente di sicurezza"
+
+msgid "Creates a security incident from this ticket (title, description, date, requester, linked items) and links them. The ticket is not changed: it keeps its status and assignment, and receives a private follow-up with the link."
+msgstr "Crea un incidente di sicurezza a partire da questo ticket (titolo, descrizione, data, richiedente, elementi collegati) e li collega. Il ticket non viene modificato: mantiene il suo stato e la sua assegnazione e riceve un follow-up privato con il collegamento."
+
+msgid "No ticket has been qualified as this incident. From a ticket, the “Security incident” tab does it."
+msgstr "Nessun ticket è stato qualificato come questo incidente. Da un ticket, è possibile farlo dalla scheda “Incidente di sicurezza”."
+
+msgctxt "task"
+msgid "Done"
+msgstr "Fatto"
+
+msgctxt "deadline passed"
+msgid "Overdue"
+msgstr "Scaduto"
+
+msgid "Due soon"
+msgstr "In scadenza"
+
+msgid "To do"
+msgstr "Da fare"
+
+msgid "Regulatory notifications"
+msgstr "Notifiche normative"
+
+msgid "Subject to NIS2"
+msgstr "Soggetto a NIS2"
+
+msgid "Personal data breach"
+msgstr "Violazione di dati personali"
+
+msgid "Essential or important entity, significant incident: early warning within 24 h, notification within 72 h, final report within one month."
+msgstr "Soggetto essenziale o importante, incidente significativo: preallarme entro 24 h, notifica entro 72 h, relazione finale entro un mese."
+
+msgid "GDPR: notification to the supervisory authority (the CNIL in France) within 72 h."
+msgstr "GDPR: notifica all'autorità di controllo (il Garante per la protezione dei dati personali in Italia) entro 72 h."
+
+msgid "Deadlines computed from the incident's opening date. Nothing is sent automatically: make the notification, then enter its date here."
+msgstr "Scadenze calcolate dalla data di apertura dell'incidente. Nulla viene inviato automaticamente: effettuare la notifica, quindi inserirne qui la data."
+
+#, php-format
+msgid "no later than %s"
+msgstr "entro il %s"
+
+msgid "Notified on"
+msgstr "Notificato il"
+
+msgid "The security incident could not be created."
+msgstr "Impossibile creare l'incidente di sicurezza."
+
+#, php-format
+msgid "Ticket qualified as security incident no. %d."
+msgstr "Ticket qualificato come incidente di sicurezza n. %d."
+
+#, php-format
+msgid "%s: notified on"
+msgstr "%s: notificato il"
+
+msgid "NIS2 — early warning (24 h)"
+msgstr "NIS2 — preallarme (24 h)"
+
+msgid "NIS2 — incident notification (72 h)"
+msgstr "NIS2 — notifica dell'incidente (72 h)"
+
+msgid "NIS2 — final report (1 month)"
+msgstr "NIS2 — relazione finale (1 mese)"
+
+msgid "GDPR — notification to the supervisory authority (72 h)"
+msgstr "GDPR — notifica all'autorità di controllo (72 h)"
+
+msgid "Reports NIS2 / GDPR notification deadlines that are near or past with a follow-up"
+msgstr "Segnala con un follow-up le scadenze di notifica NIS2 / GDPR imminenti o superate"
+
+#, php-format
+msgid "Deadline passed: “%1$s” was due no later than %2$s."
+msgstr "Scadenza superata: “%1$s” doveva essere effettuata entro il %2$s."
+
+#, php-format
+msgid "Deadline approaching: “%1$s” is due no later than %2$s."
+msgstr "Scadenza imminente: “%1$s” deve essere effettuata entro il %2$s."
+
+msgid "Nothing is sent to the authority automatically: make the notification, then enter its date in “Regulatory notifications” on the incident."
+msgstr "Nulla viene inviato automaticamente all'autorità: effettuare la notifica, quindi inserirne la data in “Notifiche normative” nell'incidente."
+
+msgid "Linked tickets"
+msgstr "Ticket collegati"
+
+#, php-format
+msgid "This ticket was qualified as security incident no. %d: its security handling (severity, impact, NIS2 / GDPR notification deadlines) continues on the incident."
+msgstr "Questo ticket è stato qualificato come incidente di sicurezza n. %d: la sua gestione di sicurezza (gravità, impatto, scadenze di notifica NIS2 / GDPR) prosegue nell'incidente."
+
+#, php-format
+msgid "Open security incident no. %d"
+msgstr "Apri l'incidente di sicurezza n. %d"
+
+msgid "Reassessment ticket"
+msgstr "Ticket di rivalutazione"
+
+#, php-format
+msgid "Ticket #%d"
+msgstr "Ticket n. %d"
+
+#, php-format
+msgid "Reassess supplier %s"
+msgstr "Rivalutare il fornitore %s"
+
+#, php-format
+msgid "The review of supplier risk \"%1$s\" was due on %2$s."
+msgstr "Il riesame del rischio fornitore \"%1$s\" era previsto per il %2$s."
+
+msgid "Update the security questionnaire, check the contracts and evidence, then set the next review date."
+msgstr "Aggiornare il questionario di sicurezza, verificare i contratti e le evidenze, quindi impostare la data del prossimo riesame."
+
+msgid "Open the supplier risk"
+msgstr "Apri il rischio fornitore"
+
+msgid "Security questionnaire"
+msgstr "Questionario di sicurezza"
+
+msgid "The supplier holds a valid security certification (ISO 27001, SOC 2, HDS…)."
+msgstr "Il fornitore possiede una certificazione di sicurezza valida (ISO 27001, SOC 2, HDS…)."
+
+msgid "It has a formal, up-to-date information security policy."
+msgstr "Dispone di una politica per la sicurezza delle informazioni formalizzata e aggiornata."
+
+msgid "Our data is hosted and processed in the European Union."
+msgstr "I nostri dati sono ospitati e trattati nell'Unione europea."
+
+msgid "Our data is encrypted at rest and in transit."
+msgstr "I nostri dati sono cifrati a riposo e in transito."
+
+msgid "Access to our data requires multi-factor authentication."
+msgstr "L'accesso ai nostri dati richiede l'autenticazione a più fattori."
+
+msgid "Its list of subcontractors is shared with us and our requirements are passed on to them."
+msgstr "L'elenco dei suoi subfornitori ci viene comunicato e i nostri requisiti vengono loro trasferiti."
+
+msgid "It commits to notifying us of its security incidents within a contractual deadline."
+msgstr "Si impegna a notificarci i propri incidenti di sicurezza entro un termine contrattuale."
+
+msgid "Its backups are tested and it has a business continuity plan."
+msgstr "I suoi backup vengono testati e dispone di un piano di continuità operativa."
+
+msgid "It performs regular audits or penetration tests, or agrees to be audited."
+msgstr "Esegue audit o penetration test periodici, oppure accetta di essere sottoposto ad audit."
+
+msgid "It manages its vulnerabilities and applies patches within defined timeframes."
+msgstr "Gestisce le proprie vulnerabilità e applica le patch entro tempi definiti."
+
+msgid "The return and deletion of our data at the end of the contract are provided for."
+msgstr "La restituzione e la cancellazione dei nostri dati al termine del contratto sono previste."
+
+msgid "The contract includes security and confidentiality clauses."
+msgstr "Il contratto include clausole di sicurezza e riservatezza."
+
+msgid "Yes"
+msgstr "Sì"
+
+msgid "Partial"
+msgstr "Parziale"
+
+msgid "No"
+msgstr "No"
+
+msgctxt "nothing to assess"
+msgid "Not applicable"
+msgstr "Non pertinente"
+
+msgid "Supplier contracts"
+msgstr "Contratti del fornitore"
+
+msgid "Security questionnaire saved."
+msgstr "Questionario di sicurezza salvato."
+
+msgid "No GLPI contract is linked to this supplier (Management > Contracts, Suppliers tab)."
+msgstr "Nessun contratto GLPI è collegato a questo fornitore (Gestione > Contratti, scheda Fornitori)."
+
+msgid "Contract"
+msgstr "Contratto"
+
+msgid "Start"
+msgstr "Inizio"
+
+msgid "End"
+msgstr "Fine"
+
+msgctxt "due date passed"
+msgid "Expired"
+msgstr "Scaduto"
+
+msgid "Good level"
+msgstr "Livello buono"
+
+msgid "Needs improvement"
+msgstr "Da migliorare"
+
+msgid "Insufficient level"
+msgstr "Livello insufficiente"
+
+#, php-format
+msgid "Score: %d %%"
+msgstr "Punteggio: %d %%"
+
+#, php-format
+msgid "Filled in on %1$s by %2$s"
+msgstr "Compilato il %1$s da %2$s"
+
+msgid "Yes = 1 point, partial = ½, no = 0; \"not applicable\" is not counted. The score informs the assessment; it does not change the risk level entered. Attach the evidence (signed questionnaire, certificates) in the Documents tab."
+msgstr "Sì = 1 punto, parziale = ½, no = 0; \"non pertinente\" non viene conteggiato. Il punteggio orienta la valutazione; non modifica il livello di rischio inserito. Allegare le evidenze (questionario firmato, certificati) nella scheda Documenti."
+
+msgid "Save questionnaire"
+msgstr "Salva il questionario"
+
+msgid "For each account in your team, approve its access or request a change or removal, stating what to change. A request creates a ticket for the support team: no right is changed automatically."
+msgstr "Per ogni account del tuo team, approvane gli accessi oppure richiedi una modifica o una rimozione, specificando cosa cambiare. Una richiesta crea un ticket per il team di supporto: nessun diritto viene modificato automaticamente."
+
+msgid "No access review is waiting for you."
+msgstr "Nessun riesame degli accessi in attesa."
+
+#, php-format
+msgid "Due: %s"
+msgstr "Scadenza: %s"
+
+#, php-format
+msgid "%1$d of %2$d account(s) reviewed"
+msgstr "%1$d account riesaminati su %2$d"
+
+msgid "Save decisions"
+msgstr "Salva le decisioni"
+
+msgid "Entity"
+msgstr "Entità"
+
+msgid "(and sub-entities)"
+msgstr "(e sotto-entità)"
+
+msgctxt "process pilot"
+msgid "Owner"
+msgstr "Responsabile"
+
+msgid "Frequency"
+msgstr "Frequenza"
+
+msgid "SoA control"
+msgstr "Controllo della SoA"
+
+msgid "Start / due date"
+msgstr "Inizio / scadenza"
+
+msgid "Launched on"
+msgstr "Avviata il"
+
+msgid "Closed on"
+msgstr "Chiusa il"
+
+msgid "Accounts reviewed"
+msgstr "Account riesaminati"
+
+msgid "Decisions per account"
+msgstr "Decisioni per account"
+
+msgid "Account"
+msgstr "Account"
+
+msgid "Profiles and groups at launch"
+msgstr "Profili e gruppi all'avvio"
+
+msgid "Decision"
+msgstr "Decisione"
+
+msgid "Ticket"
+msgstr "Ticket"
+
+msgid "Not reviewed"
+msgstr "Non riesaminato"
+
+msgid "No access review campaign is linked to this control."
+msgstr "Nessuna campagna di riesame degli accessi è collegata a questo controllo."
+
+msgid "Prepare a campaign"
+msgstr "Prepara una campagna"
+
+msgid "Campaign"
+msgstr "Campagna"
+
+msgid "Start date"
+msgstr "Data di inizio"
+
+msgid "Report"
+msgstr "Report"
+
+msgid "PDF report"
+msgstr "Report PDF"
+
+msgid "Launching lists the entity's active accounts with their GLPI profiles and groups, assigns their reviewer (line manager, otherwise group manager, otherwise the campaign owner) and notifies them."
+msgstr "L'avvio elenca gli account attivi dell'entità con i relativi profili e gruppi GLPI, assegna il revisore (responsabile gerarchico, altrimenti responsabile del gruppo, altrimenti il responsabile della campagna) e lo avvisa tramite notifica."
+
+msgid "Launch the campaign"
+msgstr "Avvia la campagna"
+
+msgid "Deadline passed: late reviewers are reminded every week."
+msgstr "Scadenza superata: ai revisori in ritardo viene inviato un sollecito ogni settimana."
+
+msgid "My access reviews"
+msgstr "I miei riesami degli accessi"
+
+msgid "Close the campaign? Accounts not reviewed will remain \"Not reviewed\" in the report."
+msgstr "Chiudere la campagna? Gli account non riesaminati resteranno \"Non riesaminato\" nel report."
+
+msgid "Close and archive the report"
+msgstr "Chiudi e archivia il report"
+
+msgid "Prepare the next campaign"
+msgstr "Prepara la campagna successiva"
+
+msgid "Profiles and groups"
+msgstr "Profili e gruppi"
+
+msgid "Required to change or remove"
+msgstr "Obbligatorio per modificare o rimuovere"
+
+#, php-format
+msgid "%d decision(s) saved."
+msgstr "%d decisione/i salvata/e."
+
+#, php-format
+msgid "Campaign launched: %d account(s) to review, reviewers have been notified."
+msgstr "Campagna avviata: %d account da riesaminare, i revisori sono stati avvisati."
+
+msgid "Campaign closed, PDF report archived in the documents."
+msgstr "Campagna chiusa, report PDF archiviato nei documenti."
+
+msgid "In preparation"
+msgstr "In preparazione"
+
+msgid "Quarterly"
+msgstr "Trimestrale"
+
+msgid "Half-yearly"
+msgstr "Semestrale"
+
+msgid "Yearly"
+msgstr "Annuale"
+
+msgctxt "to review"
+msgid "To review"
+msgstr "Da riesaminare"
+
+msgid "Access approved"
+msgstr "Accessi approvati"
+
+msgid "To change"
+msgstr "Da modificare"
+
+msgid "To remove"
+msgstr "Da rimuovere"
+
+msgid "line manager"
+msgstr "responsabile gerarchico"
+
+msgid "group manager"
+msgstr "responsabile del gruppo"
+
+msgid "owner (no manager)"
+msgstr "responsabile della campagna (nessun responsabile)"
+
+msgid "Accounts to review"
+msgstr "Account da riesaminare"
+
+msgid "The campaign name is required."
+msgstr "Il nome della campagna è obbligatorio."
+
+msgid "Closing date"
+msgstr "Data di chiusura"
+
+msgid "E.g.: Access review Q4 2026"
+msgstr "Es.: Riesame degli accessi T4 2026"
+
+msgid "Once saved, open the \"Accounts to review\" tab to launch the campaign. Reviewers are notified; the plugin never changes any right."
+msgstr "Dopo il salvataggio, aprire la scheda \"Account da riesaminare\" per avviare la campagna. I revisori vengono avvisati; il plugin non modifica mai alcun diritto."
+
+msgid "No active account has a profile in this entity."
+msgstr "Nessun account attivo ha un profilo in questa entità."
+
+msgid "This line does not belong to an ongoing campaign."
+msgstr "Questa riga non appartiene a una campagna in corso."
+
+msgid "This line is assigned to another reviewer."
+msgstr "Questa riga è assegnata a un altro revisore."
+
+msgid "Unknown decision."
+msgstr "Decisione sconosciuta."
+
+msgid "A ticket has already been created for this account: the decision can no longer change."
+msgstr "È già stato creato un ticket per questo account: la decisione non può più essere modificata."
+
+msgid "State what must be changed or removed."
+msgstr "Specificare cosa deve essere modificato o rimosso."
+
+#, php-format
+msgid "Access review: remove the access of %s"
+msgstr "Riesame degli accessi: rimuovere gli accessi di %s"
+
+#, php-format
+msgid "Access review: change the access of %s"
+msgstr "Riesame degli accessi: modificare gli accessi di %s"
+
+#, php-format
+msgid "Request from campaign \"%1$s\", by %2$s."
+msgstr "Richiesta dalla campagna \"%1$s\", da parte di %2$s."
+
+msgid "Request"
+msgstr "Richiesta"
+
+msgid "Profiles at launch"
+msgstr "Profili all'avvio"
+
+msgid "Groups at launch"
+msgstr "Gruppi all'avvio"
+
+msgid "The GRC plugin changes no right: apply the request, then solve this ticket."
+msgstr "Il plugin GRC non modifica alcun diritto: applicare la richiesta, quindi risolvere questo ticket."
+
+#, php-format
+msgid "Access review: %s"
+msgstr "Riesame degli accessi: %s"
+
+#, php-format
+msgid "Access review report - %s"
+msgstr "Report del riesame degli accessi - %s"
+
+#, php-format
+msgid "Access review of %s"
+msgstr "Riesame degli accessi del %s"
+
+msgid "Reminds reviewers who are late on an access review"
+msgstr "Invia un sollecito ai revisori in ritardo su un riesame degli accessi"
+
+msgid "Access review to complete"
+msgstr "Riesame degli accessi da completare"
+
+msgid "Access review reminder"
+msgstr "Sollecito per il riesame degli accessi"
+
+msgid "Reviewers with accounts to review"
+msgstr "Revisori con account da riesaminare"
+
+msgid "Access review"
+msgid_plural "Access reviews"
+msgstr[0] "Riesame degli accessi"
+msgstr[1] "Riesami degli accessi"
+
+msgid "Decision and comment"
+msgstr "Decisione e commento"
+
+msgid "Comment (required to change or remove)"
+msgstr "Commento (obbligatorio per modificare o rimuovere)"
+
+msgid "You cannot approve your own request: you have been removed from the approvers."
+msgstr "Non puoi approvare la tua stessa richiesta: sei stato rimosso dagli approvatori."
+
+msgid "Signed IT charter"
+msgstr "Regolamento informatico firmato"
+
+msgid "no charter campaign launched"
+msgstr "nessuna campagna sul regolamento informatico avviata"
+
+#, php-format
+msgid "%1$d / %2$d (%3$d %%)"
+msgstr "%1$d / %2$d (%3$d %%)"
+
+msgid "View campaigns"
+msgstr "Visualizza le campagne"
+
+msgid "Evidence validity"
+msgid_plural "Evidence validities"
+msgstr[0] "Validità dell'evidenza"
+msgstr[1] "Validità delle evidenze"
+
+msgid "Document not found on this item."
+msgstr "Documento non trovato su questo elemento."
+
+msgctxt "feminine"
+msgid "Expired"
+msgstr "Scaduta"
+
+msgid "To renew"
+msgstr "Da rinnovare"
+
+msgid "Valid"
+msgstr "Valida"
+
+msgid "No validity date"
+msgstr "Nessuna data di validità"
+
+#, php-format
+msgid "State until when each document proves something (certificate, report, certification). The owner is notified %d days before the due date, then a \"Renew the evidence\" ticket is opened; the item's status never changes."
+msgstr "Indicare fino a quando ciascun documento costituisce una prova (certificato, report, certificazione). Il responsabile viene avvisato %d giorni prima della scadenza, poi viene aperto un ticket \"Rinnova l'evidenza\"; lo stato dell'elemento non cambia mai."
+
+msgid "No linked document: first add the evidence in the Documents tab."
+msgstr "Nessun documento collegato: aggiungere prima le evidenze nella scheda Documenti."
+
+msgid "Document"
+msgstr "Documento"
+
+msgid "Valid until"
+msgstr "Valido fino al"
+
+msgid "Renewal owner"
+msgstr "Responsabile del rinnovo"
+
+#, php-format
+msgid "Renewal ticket #%d"
+msgstr "Ticket di rinnovo n. %d"
+
+msgid "Remove the validity date"
+msgstr "Rimuovi la data di validità"
+
+msgid "Item"
+msgstr "Elemento"
+
+msgid "Renewal ticket"
+msgstr "Ticket di rinnovo"
+
+msgid "Notifies the owner before evidence expires, then opens a renewal ticket"
+msgstr "Avvisa il responsabile prima della scadenza di un'evidenza, poi apre un ticket di rinnovo"
+
+#, php-format
+msgid "The evidence \"%1$s\" of %2$s \"%3$s\" has not been valid since %4$s. Renew the document (new certificate, report or certification) then update its validity date."
+msgstr "L'evidenza \"%1$s\" di %2$s \"%3$s\" non è più valida dal %4$s. Rinnovare il documento (nuovo certificato, report o certificazione), quindi aggiornarne la data di validità."
+
+#, php-format
+msgid "Renew the evidence \"%s\""
+msgstr "Rinnova l'evidenza \"%s\""
+
+msgid "Evidence to renew"
+msgstr "Evidenza da rinnovare"
+
+msgid "Expired evidence or evidence to renew"
+msgstr "Evidenze scadute o da rinnovare"
+
+msgid "A validity date is entered from the \"Evidence validity\" tab of a control, supplier risk, audit or policy, for each attached document."
+msgstr "La data di validità si inserisce dalla scheda \"Validità dell'evidenza\" di un controllo, rischio fornitore, audit o politica, per ciascun documento allegato."
+
+msgid "Periodic review"
+msgid_plural "Periodic reviews"
+msgstr[0] "Riesame periodico"
+msgstr[1] "Riesami periodici"
+
+#, php-format
+msgid "Every %d months"
+msgid_plural "Every %d months"
+msgstr[0] "Ogni %d mese"
+msgstr[1] "Ogni %d mesi"
+
+msgid "Review of accounts and access rights"
+msgstr "Riesame degli account e dei diritti di accesso"
+
+msgid "Review of privileged and service accounts"
+msgstr "Riesame degli account privilegiati e di servizio"
+
+msgid "Review of the network flow matrix (firewall rules)"
+msgstr "Riesame della matrice dei flussi di rete (regole firewall)"
+
+msgid "Risk register review"
+msgstr "Riesame del registro dei rischi"
+
+msgid "Supplier risk review"
+msgstr "Riesame dei rischi fornitore"
+
+msgid "Security policy review"
+msgstr "Riesame delle politiche di sicurezza"
+
+msgid "Statement of Applicability review"
+msgstr "Riesame della Dichiarazione di applicabilità"
+
+msgid "Review of legal and contractual obligations"
+msgstr "Riesame degli obblighi legali e contrattuali"
+
+msgid "Backup restore test"
+msgstr "Test di ripristino dei backup"
+
+msgid "Business continuity and disaster recovery test (BCP / DRP)"
+msgstr "Test di continuità operativa e disaster recovery (BCP / DRP)"
+
+msgid "Security log review"
+msgstr "Riesame dei log di sicurezza"
+
+msgid "Launch or close the access review campaign"
+msgstr "Avviare o chiudere la campagna di riesame degli accessi"
+
+msgid "Check the accounts of people who left or changed jobs"
+msgstr "Verificare gli account delle persone che hanno lasciato l'organizzazione o cambiato ruolo"
+
+msgid "Open a ticket for each right to remove or change"
+msgstr "Aprire un ticket per ogni diritto da rimuovere o modificare"
+
+msgid "List administrator and service accounts"
+msgstr "Elencare gli account amministratore e di servizio"
+
+msgid "Confirm the need and the owner of each one"
+msgstr "Confermare la necessità e il titolare di ciascuno"
+
+msgid "Check password rotation and strong authentication"
+msgstr "Verificare la rotazione delle password e l'autenticazione forte"
+
+msgid "Export the firewall rules"
+msgstr "Esportare le regole del firewall"
+
+msgid "Check that each flow has a justification and an owner"
+msgstr "Verificare che ogni flusso abbia una giustificazione e un titolare"
+
+msgid "Remove unneeded or expired rules (through a ticket)"
+msgstr "Rimuovere le regole non necessarie o scadute (tramite ticket)"
+
+msgid "Reassess the likelihood and impact of the risks"
+msgstr "Rivalutare la probabilità e l'impatto dei rischi"
+
+msgid "Check the progress of the treatment plans"
+msgstr "Verificare l'avanzamento dei piani di trattamento"
+
+msgid "Add newly identified risks"
+msgstr "Aggiungere i nuovi rischi identificati"
+
+msgid "Reassess the critical suppliers"
+msgstr "Rivalutare i fornitori critici"
+
+msgid "Check contract and certificate expiry dates"
+msgstr "Verificare le scadenze di contratti e certificati"
+
+msgid "Reread each policy and date the review"
+msgstr "Rileggere ogni politica e datare il riesame"
+
+msgid "Publish the new versions and inform the people concerned"
+msgstr "Pubblicare le nuove versioni e informare le persone interessate"
+
+msgid "Check the applicability and justification of each control"
+msgstr "Verificare l'applicabilità e la giustificazione di ciascun controllo"
+
+msgid "Update the implementation status"
+msgstr "Aggiornare lo stato di attuazione"
+
+msgid "Request a new approval if the SoA changed"
+msgstr "Richiedere una nuova approvazione se la SoA è cambiata"
+
+msgid "List new obligations (laws, contracts, customers)"
+msgstr "Censire i nuovi obblighi (leggi, contratti, clienti)"
+
+msgid "Check compliance with each tracked obligation"
+msgstr "Verificare la conformità a ciascun obbligo monitorato"
+
+msgid "Restore a sample of files and a database"
+msgstr "Ripristinare un campione di file e un database"
+
+msgid "Measure the restore time and compare it with the objective"
+msgstr "Misurare il tempo di ripristino e confrontarlo con l'obiettivo"
+
+msgid "Attach the test report to this ticket"
+msgstr "Allegare il report del test a questo ticket"
+
+msgid "Run a recovery scenario (tabletop or live exercise)"
+msgstr "Eseguire uno scenario di ripristino (esercitazione a tavolino o reale)"
+
+msgid "Check the emergency contacts and procedures"
+msgstr "Verificare i contatti e le procedure di emergenza"
+
+msgid "Attach the report and the improvement actions"
+msgstr "Allegare il report e le azioni di miglioramento"
+
+msgid "Review the security alerts and logs for the period"
+msgstr "Esaminare gli allarmi e i log di sicurezza del periodo"
+
+msgid "Open a security incident for each confirmed anomaly"
+msgstr "Aprire un incidente di sicurezza per ogni anomalia confermata"
+
+msgid "Created by GLPI GRC Manager (periodic reviews)."
+msgstr "Creato da GLPI GRC Manager (riesami periodici)."
+
+#, php-format
+msgid "Periodic review: %s"
+msgstr "Riesame periodico: %s"
+
+#, php-format
+msgid "Periodic review to carry out: %s. Once the review is done, solve this ticket: its date is the evidence of the review."
+msgstr "Riesame periodico da eseguire: %s. Una volta completato il riesame, risolvere questo ticket: la sua data costituisce l'evidenza del riesame."
+
+#, php-format
+msgid "Related requirements: %s"
+msgstr "Requisiti correlati: %s"
+
+#, php-format
+msgid "GRC: %s"
+msgstr "GRC: %s"
+
+msgid "Each enabled review becomes a native GLPI recurrent ticket (Assistance > Recurrent tickets), created at the chosen frequency and assigned to the owner. Solving the ticket dates the review: this is the evidence the auditor expects."
+msgstr "Ogni riesame abilitato diventa un ticket ricorrente nativo di GLPI (Assistenza > Ticket ricorrenti), creato con la frequenza scelta e assegnato al responsabile. La risoluzione del ticket data il riesame: questa è l'evidenza attesa dall'auditor."
+
+msgid "Read only: enabling a review requires the plugin update right and the right to create recurrent tickets and ticket templates."
+msgstr "Sola lettura: per abilitare un riesame sono necessari il diritto di aggiornamento del plugin e il diritto di creare ticket ricorrenti e modelli di ticket."
+
+msgid "Review"
+msgstr "Riesame"
+
+msgctxt "state"
+msgid "Status"
+msgstr "Stato"
+
+msgid "Last review"
+msgstr "Ultimo riesame"
+
+msgid "Next ticket"
+msgstr "Prossimo ticket"
+
+msgid "Inactive"
+msgstr "Inattiva"
+
+msgctxt "feminine"
+msgid "Active"
+msgstr "Attiva"
+
+msgid "Never"
+msgstr "Mai"
+
+#, php-format
+msgctxt "compact"
+msgid "Ticket #%d"
+msgstr "Ticket n. %d"
+
+msgid "Open the recurrent ticket"
+msgstr "Apri il ticket ricorrente"
+
+msgid "Save"
+msgstr "Salva"
+
+msgid "Disable"
+msgstr "Disabilita"
+
+msgid "Enable"
+msgstr "Abilita"
+
+msgid "Monthly"
+msgstr "Mensile"
+
+msgctxt "every quarter"
+msgid "Quarterly"
+msgstr "Trimestrale"
+
+msgid "Every six months"
+msgstr "Ogni sei mesi"
+
+msgctxt "every year"
+msgid "Yearly"
+msgstr "Annuale"
+
+msgid "Every two years"
+msgstr "Ogni due anni"
+
+#, php-format
+msgid "Review disabled: %s"
+msgstr "Riesame disabilitato: %s"
+
+#, php-format
+msgid "Review saved: %s. The recurrent ticket is listed under Assistance > Recurrent tickets."
+msgstr "Riesame salvato: %s. Il ticket ricorrente è elencato in Assistenza > Ticket ricorrenti."
+
+#, php-format
+msgid "The review could not be enabled: %s"
+msgstr "Impossibile abilitare il riesame: %s"
+
+msgid "Technician"
+msgstr "Tecnico"
+
+msgid "Group"
+msgstr "Gruppo"
+
+msgid "Internal flow"
+msgstr "Flusso interno"
+
+msgid "Published on the Internet (inbound)"
+msgstr "Pubblicato su Internet (in ingresso)"
+
+msgid "Internet access (outbound)"
+msgstr "Accesso a Internet (in uscita)"
+
+msgid "Site-to-site tunnel"
+msgstr "Tunnel tra sedi"
+
+msgid "Tunnel to a partner"
+msgstr "Tunnel verso un partner"
+
+msgid "Administration access"
+msgstr "Accesso di amministrazione"
+
+msgid "Backup"
+msgstr "Backup"
+
+msgid "All"
+msgstr "Tutti"
+
+msgid "No justification"
+msgstr "Senza giustificazione"
+
+msgid "No owner"
+msgstr "Senza titolare"
+
+msgctxt "masculine"
+msgid "Expired"
+msgstr "Scaduto"
+
+msgid "Expires soon"
+msgstr "In scadenza"
+
+msgid "Administration exposed on the Internet"
+msgstr "Amministrazione esposta su Internet"
+
+msgid "All ports open from the Internet"
+msgstr "Tutte le porte aperte da Internet"
+
+msgid "Invalid ports: enter numbers or ranges separated by commas (e.g. 80, 443, 8000-8100), or leave empty for all ports."
+msgstr "Porte non valide: inserire numeri o intervalli separati da virgole (es. 80, 443, 8000-8100), oppure lasciare vuoto per tutte le porte."
+
+msgid "Enter the source and destination of the flow: a GLPI asset, or a network, zone or address."
+msgstr "Indicare l'origine e la destinazione del flusso: un asset GLPI oppure una rete, una zona o un indirizzo."
+
+msgid "Asset not found or not allowed."
+msgstr "Asset non trovato o non consentito."
+
+msgid "Name"
+msgstr "Nome"
+
+msgid "Source"
+msgstr "Origine"
+
+msgid "Destination"
+msgstr "Destinazione"
+
+msgid "Protocol"
+msgstr "Protocollo"
+
+msgid "Ports"
+msgstr "Porte"
+
+msgid "End date"
+msgstr "Data di fine"
+
+msgid "Active"
+msgstr "Attivo"
+
+msgid "Checks"
+msgstr "Verifiche"
+
+msgid "Comments"
+msgstr "Commenti"
+
+msgid "Asset not visible"
+msgstr "Asset non visibile"
+
+msgid "If left empty, it is built from the source and destination."
+msgstr "Se lasciato vuoto, viene composto a partire da origine e destinazione."
+
+msgid "GLPI asset (optional)."
+msgstr "Asset GLPI (facoltativo)."
+
+msgid "Network, zone or address"
+msgstr "Rete, zona o indirizzo"
+
+msgid "E.g. \"Internet\", \"Server VLAN\", \"10.0.0.0/24\", \"Partner X\"."
+msgstr "Es. \"Internet\", \"VLAN server\", \"10.0.0.0/24\", \"Partner X\"."
+
+msgid "Empty: all ports."
+msgstr "Vuoto: tutte le porte."
+
+msgid "Why this flow is needed: application, business need, originating request or ticket."
+msgstr "Perché questo flusso è necessario: applicazione, esigenza di business, richiesta o ticket di origine."
+
+msgid "For a temporary flow (migration, contractor)."
+msgstr "Per un flusso temporaneo (migrazione, fornitore esterno)."
+
+msgid "Import a CSV file"
+msgstr "Importa un file CSV"
+
+#, php-format
+msgid "Owner \"%s\" not found: flow imported without an owner."
+msgstr "Titolare \"%s\" non trovato: flusso importato senza titolare."
+
+msgid "Header without \"source\" and \"destination\" columns."
+msgstr "Intestazione senza le colonne \"source\" e \"destination\"."
+
+msgid "Empty file."
+msgstr "File vuoto."
+
+msgid "Missing source or destination: line skipped."
+msgstr "Origine o destinazione mancante: riga ignorata."
+
+msgid "Invalid ports: line skipped."
+msgstr "Porte non valide: riga ignorata."
+
+msgid "Invalid end date: line skipped."
+msgstr "Data di fine non valida: riga ignorata."
+
+msgid "Network flow"
+msgid_plural "Network flow matrix"
+msgstr[0] "Flusso di rete"
+msgstr[1] "Matrice dei flussi di rete"
+
+#, php-format
+msgid "%d active flow"
+msgid_plural "%d active flows"
+msgstr[0] "%d flusso attivo"
+msgstr[1] "%d flussi attivi"
+
+msgid "Choose a CSV file of at most 2 MB."
+msgstr "Scegliere un file CSV di massimo 2 MB."
+
+msgid "Import a network flow matrix"
+msgstr "Importa una matrice dei flussi di rete"
+
+msgid "CSV file separated by semicolons or commas, with a header line. Recognised columns: name, type, source, destination, protocol, ports, justification, owner (GLPI login), date_end (French column names also accepted). Only source and destination are required."
+msgstr "File CSV separato da punto e virgola o da virgole, con una riga di intestazione. Colonne riconosciute: name, type, source, destination, protocol, ports, justification, owner (login GLPI), date_end (sono accettati anche i nomi delle colonne in francese). Solo source e destination sono obbligatorie."
+
+msgid "Public website;publication;Internet;Web server;tcp;443;Company website;;"
+msgstr "Sito web pubblico;publication;Internet;Server web;tcp;443;Sito aziendale;;"
+
+msgid "Backup;backup;Main site;Recovery site;tcp;10000;Nightly replication;;"
+msgstr "Backup;backup;Sede principale;Sito di disaster recovery;tcp;10000;Replica notturna;;"
+
+msgid "Types: internal, publication, outbound, tunnel, partner, admin, backup, other. A flow already present (same source, destination, protocol and ports) is not created again: importing the same file twice creates no duplicate."
+msgstr "Tipi: internal, publication, outbound, tunnel, partner, admin, backup, other. Un flusso già presente (stessa origine, destinazione, protocollo e porte) non viene ricreato: importare due volte lo stesso file non crea duplicati."
+
+msgid "Simulation (nothing is saved)"
+msgstr "Simulazione (nulla viene salvato)"
+
+msgid "Analyse the file"
+msgstr "Analizza il file"
+
+msgid "Back to the network flow matrix"
+msgstr "Torna alla matrice dei flussi di rete"
+
+#, php-format
+msgid "Simulation: %1$d flows would be created, %2$d already exist."
+msgstr "Simulazione: verrebbero creati %1$d flussi, %2$d esistono già."
+
+#, php-format
+msgid "Import finished: %1$d flows created, %2$d already existed."
+msgstr "Importazione completata: %1$d flussi creati, %2$d esistevano già."
+
+msgid "Untick \"Simulation\" and analyse the file again to import it."
+msgstr "Deselezionare \"Simulazione\" e analizzare di nuovo il file per importarlo."
+
+#, php-format
+msgid "Line %1$d: %2$s"
+msgstr "Riga %1$d: %2$s"
+
+msgid "Line"
+msgstr "Riga"
+
+msgid "Already present"
+msgstr "Già presente"
+
+msgid "To create"
+msgstr "Da creare"
+
+msgid "Created"
+msgstr "Creato"
+
+msgid "Account hygiene"
+msgstr "Igiene degli account"
+
+msgid "Deleted from the directory"
+msgstr "Eliminato dalla directory"
+
+msgid "End date passed"
+msgstr "Data di fine superata"
+
+#, php-format
+msgid "No login for more than %d days"
+msgstr "Nessun accesso da più di %d giorni"
+
+#, php-format
+msgid "Never used (created more than %d days ago)"
+msgstr "Mai utilizzato (creato più di %d giorni fa)"
+
+msgid "Duplicate email address"
+msgstr "Indirizzo e-mail duplicato"
+
+msgid "Duplicate first and last name"
+msgstr "Nome e cognome duplicati"
+
+msgid "Active GLPI accounts to check (\"Account hygiene\" screen). For each one: confirm the need, or disable the account and remove its authorizations. Nothing was changed automatically."
+msgstr "Account GLPI attivi da verificare (schermata \"Igiene degli account\"). Per ciascuno: confermarne la necessità oppure disattivare l'account e rimuoverne le autorizzazioni. Nulla è stato modificato automaticamente."
+
+msgid "User"
+msgstr "Utente"
+
+msgid "Login"
+msgstr "Login"
+
+msgid "Points to check"
+msgstr "Punti da verificare"
+
+msgid "Active accounts in the entities you can see that deserve a check. Nothing is disabled automatically: tick the accounts and open a review ticket, or handle them in an access review campaign."
+msgstr "Account attivi nelle entità visibili che meritano una verifica. Nulla viene disattivato automaticamente: selezionare gli account e aprire un ticket di riesame, oppure gestirli in una campagna di riesame degli accessi."
+
+msgid "Inactivity beyond"
+msgstr "Inattività oltre"
+
+#, php-format
+msgid "%d days"
+msgstr "%d giorni"
+
+msgid "No account to check."
+msgstr "Nessun account da verificare."
+
+msgid "Last login"
+msgstr "Ultimo accesso"
+
+msgid "Open a review ticket for the ticked accounts"
+msgstr "Apri un ticket di riesame per gli account selezionati"
+
+#, php-format
+msgid "Account hygiene: %d account to check"
+msgid_plural "Account hygiene: %d accounts to check"
+msgstr[0] "Igiene degli account: %d account da verificare"
+msgstr[1] "Igiene degli account: %d account da verificare"
+
+#, php-format
+msgid "Review ticket #%d created."
+msgstr "Ticket di riesame n. %d creato."
+
+msgid "Tick at least one account to check."
+msgstr "Selezionare almeno un account da verificare."
+
+msgid "Security"
+msgstr "Sicurezza"
+
+msgid "This ticket is qualified as a security incident:"
+msgstr "Questo ticket è qualificato come incidente di sicurezza:"
+
+msgid "Create a security incident from this ticket? The ticket keeps its status and assignment."
+msgstr "Creare un incidente di sicurezza a partire da questo ticket? Il ticket mantiene il suo stato e la sua assegnazione."
+
+msgid "Escalate to a security incident"
+msgstr "Escala a incidente di sicurezza"
+
+msgid "E.g. clicked a suspicious link, disclosed password, infected computer. The incident takes over the title, description, requester and linked items."
+msgstr "Es. clic su un link sospetto, password divulgata, computer infetto. L'incidente riprende titolo, descrizione, richiedente ed elementi collegati."
+
+msgid "Compliance calendar"
+msgstr "Calendario della conformità"
+
+msgid "Certification audit"
+msgstr "Audit di certificazione"
+
+msgid "Surveillance audit"
+msgstr "Audit di sorveglianza"
+
+msgid "Penetration test"
+msgstr "Penetration test"
+
+msgid "Crisis exercise"
+msgstr "Esercitazione di crisi"
+
+msgid "Certificate renewal"
+msgstr "Rinnovo del certificato"
+
+msgctxt "masculine"
+msgid "Done"
+msgstr "Eseguito"
+
+msgid "Policy review"
+msgstr "Riesame della politica"
+
+msgid "Obligation review"
+msgstr "Riesame dell'obbligo"
+
+msgid "Evidence expiry"
+msgstr "Scadenza dell'evidenza"
+
+msgid "Enter the start date of the event."
+msgstr "Inserire la data di inizio dell'evento."
+
+msgid "Provider"
+msgstr "Fornitore di servizi"
+
+msgid "If left empty, the type is used as the name."
+msgstr "Se lasciato vuoto, il tipo viene usato come nome."
+
+msgid "Empty: the day of the start."
+msgstr "Vuoto: il giorno dell'inizio."
+
+msgid "The event appears in their GLPI planning."
+msgstr "L'evento compare nella sua pianificazione GLPI."
+
+msgid "All deadlines"
+msgstr "Tutte le scadenze"
+
+msgid "My deadlines"
+msgstr "Le mie scadenze"
+
+msgid "Add an event"
+msgstr "Aggiungi un evento"
+
+msgid "Export (iCal)"
+msgstr "Esporta (iCal)"
+
+msgid "Events entered here and deadlines from the other registers (audits, management reviews, access reviews, periodic reviews, policies, obligations, evidence). Each deadline also appears in the GLPI planning of its owner."
+msgstr "Eventi inseriti qui e scadenze degli altri registri (audit, riesami della direzione, riesami degli accessi, riesami periodici, politiche, obblighi, evidenze). Ogni scadenza compare anche nella pianificazione GLPI del rispettivo responsabile."
+
+msgid "No deadline in this period."
+msgstr "Nessuna scadenza in questo periodo."
+
+msgid "Deadline passed"
+msgstr "Scadenza superata"
+
+msgid "January"
+msgstr "Gennaio"
+
+msgid "February"
+msgstr "Febbraio"
+
+msgid "March"
+msgstr "Marzo"
+
+msgid "April"
+msgstr "Aprile"
+
+msgid "May"
+msgstr "Maggio"
+
+msgid "June"
+msgstr "Giugno"
+
+msgid "July"
+msgstr "Luglio"
+
+msgid "August"
+msgstr "Agosto"
+
+msgid "September"
+msgstr "Settembre"
+
+msgid "October"
+msgstr "Ottobre"
+
+msgid "November"
+msgstr "Novembre"
+
+msgid "December"
+msgstr "Dicembre"
+
+msgid "Compliance event"
+msgid_plural "Compliance events"
+msgstr[0] "Evento di conformità"
+msgstr[1] "Eventi di conformità"
+
+msgid "Fleet vulnerabilities"
+msgstr "Vulnerabilità del parco"
+
+msgid "To review"
+msgstr "Da esaminare"
+
+msgid "Exposed, to review"
+msgstr "Esposti, da esaminare"
+
+msgid "Watched"
+msgstr "Monitorati"
+
+msgid "Ignored"
+msgstr "Ignorati"
+
+msgid "Versions checked per run"
+msgstr "Versioni verificate per esecuzione"
+
+msgid "Pick a suggestion or enter a valid CPE 2.3 (cpe:2.3:a:vendor:product)."
+msgstr "Scegliere un suggerimento o inserire un CPE 2.3 valido (cpe:2.3:a:fornitore:prodotto)."
+
+#, php-format
+msgid "\"%s\" is now watched."
+msgstr "\"%s\" è ora monitorato."
+
+msgid "Its most installed version has just been checked; the automatic action will check the others."
+msgstr "La sua versione più installata è appena stata verificata; l'azione automatica verificherà le altre."
+
+#, php-format
+msgid "%d version(s) checked against NVD."
+msgstr "%d versione/i verificata/e su NVD."
+
+msgid "Software to watch"
+msgstr "Software da monitorare"
+
+msgid "Choose the installed software to watch. For each one, look up its CPE identifier (the official name used by the NVD vulnerability database), then confirm. Start with exposed software: browsers, remote access, VPN, office suites, PDF readers."
+msgstr "Scegliere il software installato da monitorare. Per ciascuno, cercare il relativo identificatore CPE (il nome ufficiale usato dal database delle vulnerabilità NVD), quindi confermare. Iniziare dal software esposto: browser, accesso remoto, VPN, suite per ufficio, lettori PDF."
+
+msgid "NVD queries are disabled: CPE suggestions and version checks do not work yet."
+msgstr "Le interrogazioni NVD sono disabilitate: i suggerimenti CPE e le verifiche delle versioni non funzionano ancora."
+
+msgid "Enable NVD enrichment in the plugin configuration"
+msgstr "Abilita l'arricchimento NVD nella configurazione del plugin"
+
+msgid "Search software"
+msgstr "Cerca software"
+
+msgid "Search"
+msgstr "Cerca"
+
+msgid "No software in this list."
+msgstr "Nessun software in questo elenco."
+
+msgid "Software"
+msgstr "Software"
+
+msgid "Installations"
+msgstr "Installazioni"
+
+msgid "Versions"
+msgstr "Versioni"
+
+msgid "Watched product"
+msgstr "Prodotto monitorato"
+
+msgid "Actions"
+msgstr "Azioni"
+
+msgid "Often exposed software (content from the Internet or remote access)"
+msgstr "Software spesso esposto (contenuti da Internet o accesso remoto)"
+
+msgid "Exposed"
+msgstr "Esposto"
+
+msgctxt "singular"
+msgid "Watched"
+msgstr "Monitorato"
+
+msgctxt "singular"
+msgid "Ignored"
+msgstr "Ignorato"
+
+msgid "Look up the CPE"
+msgstr "Cerca il CPE"
+
+msgid "Stop ignoring"
+msgstr "Non ignorare più"
+
+msgid "Software with no security stake (driver, internal tool...)"
+msgstr "Software senza rilevanza per la sicurezza (driver, strumento interno...)"
+
+msgid "Ignore"
+msgstr "Ignora"
+
+msgid "NVD is not responding right now. Try again in a minute, or enter the CPE below."
+msgstr "NVD non risponde al momento. Riprovare tra un minuto oppure inserire il CPE qui sotto."
+
+msgid "Suggestions from the NVD dictionary:"
+msgstr "Suggerimenti dal dizionario NVD:"
+
+msgid "No suggestion found: enter the CPE below, or ignore this software."
+msgstr "Nessun suggerimento trovato: inserire il CPE qui sotto oppure ignorare questo software."
+
+msgid "CPE entered manually"
+msgstr "CPE inserito manualmente"
+
+msgid "Confirm"
+msgstr "Conferma"
+
+msgid "Search on the NVD website"
+msgstr "Cerca sul sito di NVD"
+
+msgid "Checks two pending versions right away; the automatic action checks the others."
+msgstr "Verifica subito due versioni in attesa; l'azione automatica verifica le altre."
+
+msgid "Check now"
+msgstr "Verifica ora"
+
+msgid "NVD queries are disabled: no version is checked."
+msgstr "Le interrogazioni NVD sono disabilitate: nessuna versione viene verificata."
+
+msgid "Watched software"
+msgstr "Software monitorato"
+
+msgid "Installed versions checked"
+msgstr "Versioni installate verificate"
+
+msgid "Unreadable version number in the inventory: check it manually."
+msgstr "Numero di versione illeggibile nell'inventario: verificarlo manualmente."
+
+msgid "Versions to check manually"
+msgstr "Versioni da verificare manualmente"
+
+msgid "CISA KEV catalog updated"
+msgstr "Catalogo CISA KEV aggiornato"
+
+msgctxt "feminine"
+msgid "All"
+msgstr "Tutte"
+
+msgid "Priority"
+msgstr "Prioritarie"
+
+#, php-format
+msgid "Priority: actively exploited (CISA KEV), CVSS of at least 9 or exploitation probability (EPSS) of at least 50%."
+msgstr "Prioritaria: sfruttata attivamente (CISA KEV), CVSS di almeno 9 o probabilità di sfruttamento (EPSS) di almeno il 50%."
+
+msgid "Start by choosing the software to watch."
+msgstr "Iniziare scegliendo il software da monitorare."
+
+msgid "See exposed software"
+msgstr "Visualizza il software esposto"
+
+msgid "No known vulnerability for the versions already checked."
+msgstr "Nessuna vulnerabilità nota per le versioni già verificate."
+
+msgid "Affected versions"
+msgstr "Versioni interessate"
+
+msgid "Machines"
+msgstr "Macchine"
+
+msgid "CVSS"
+msgstr "CVSS"
+
+msgid "EPSS"
+msgstr "EPSS"
+
+msgid "Exploited"
+msgstr "Sfruttata"
+
+msgid "Published"
+msgstr "Pubblicazione"
+
+msgctxt "singular"
+msgid "Priority"
+msgstr "Prioritaria"
+
+msgid "n/a"
+msgstr "n.d."
+
+msgid "CISA catalog of known exploited vulnerabilities"
+msgstr "Catalogo CISA delle vulnerabilità sfruttate note"
+
+msgid "Ransomware"
+msgstr "Ransomware"
+
+#, php-format
+msgid "%1$d vulnerabilities: the %2$d highest-priority ones are shown."
+msgstr "%1$d vulnerabilità: vengono mostrate le %2$d più prioritarie."
+
+msgid "Catalog of typical risks"
+msgstr "Catalogo dei rischi tipici"
+
+msgid "Administration service exposed to the Internet"
+msgstr "Servizio di amministrazione esposto su Internet"
+
+msgid "An administration interface (SSH, remote desktop, firewall console, proxy or hypervisor dashboard) can be reached from the Internet."
+msgstr "Un'interfaccia di amministrazione (SSH, desktop remoto, console del firewall, dashboard di un proxy o di un hypervisor) è raggiungibile da Internet."
+
+msgid "Brute-force or stolen-password attack, exploitation of a published flaw before the update, takeover of the device."
+msgstr "Attacco di forza bruta o con password rubate, sfruttamento di una falla pubblicata prima dell'aggiornamento, presa di controllo del dispositivo."
+
+msgid "Does a firewall rule publish an administration port to the Internet?"
+msgstr "Una regola del firewall pubblica una porta di amministrazione verso Internet?"
+
+msgid "Does administrative access go through a VPN or a bastion with strong authentication?"
+msgstr "L'accesso amministrativo passa attraverso una VPN o un bastion host con autenticazione forte?"
+
+msgid "Server remote management cards reachable outside the administration network"
+msgstr "Schede di gestione remota dei server raggiungibili al di fuori della rete di amministrazione"
+
+msgid "iLO, iDRAC, IPMI or similar interfaces are on the same network as workstations or servers, or even published."
+msgstr "Le interfacce iLO, iDRAC, IPMI o simili si trovano sulla stessa rete delle postazioni di lavoro o dei server, o sono addirittura pubblicate."
+
+msgid "Hardware-level takeover of the server (console, power, image mounting) that bypasses the operating system and its protections."
+msgstr "Presa di controllo a livello hardware del server (console, alimentazione, montaggio di immagini) che aggira il sistema operativo e le sue protezioni."
+
+msgid "Are the management cards on a dedicated, filtered network?"
+msgstr "Le schede di gestione si trovano su una rete dedicata e filtrata?"
+
+msgid "Have their default passwords been changed and their firmware updated?"
+msgstr "Le password predefinite sono state cambiate e il firmware è stato aggiornato?"
+
+msgid "Networks overlapping with a partner connected by VPN"
+msgstr "Reti sovrapposte con un partner collegato tramite VPN"
+
+msgid "A partner, customer or provider connected by VPN uses the same address range as one of your sites."
+msgstr "Un partner, un cliente o un fornitore collegato tramite VPN utilizza lo stesso intervallo di indirizzi di una delle vostre sedi."
+
+msgid "Misrouted or blocked traffic, improvised workarounds (address translation added in a hurry, overly broad rules) that open more than needed."
+msgstr "Traffico instradato in modo errato o bloccato, soluzioni improvvisate (traduzione degli indirizzi aggiunta in fretta, regole troppo ampie) che aprono più del necessario."
+
+msgid "Do VPN tunnels connect your networks to third parties' networks?"
+msgstr "Esistono tunnel VPN che collegano le vostre reti a quelle di terzi?"
+
+msgid "Are the ranges on each side documented and distinct?"
+msgstr "Gli intervalli su ciascun lato sono documentati e distinti?"
+
+msgid "Insufficiently isolated guest network"
+msgstr "Rete ospiti non sufficientemente isolata"
+
+msgid "The guest Wi-Fi or visitor network can reach internal devices."
+msgstr "Il Wi-Fi ospiti o la rete per i visitatori può raggiungere dispositivi interni."
+
+msgid "An unknown or compromised device reaches workstations, printers or servers; internal traffic is eavesdropped."
+msgstr "Un dispositivo sconosciuto o compromesso raggiunge postazioni, stampanti o server; il traffico interno viene intercettato."
+
+msgid "Does the guest network only have access to the Internet?"
+msgstr "La rete ospiti ha accesso solo a Internet?"
+
+msgid "Has the isolation been checked by a test from a guest device?"
+msgstr "L'isolamento è stato verificato con un test da un dispositivo ospite?"
+
+msgid "Flat internal network, without segmentation"
+msgstr "Rete interna piatta, senza segmentazione"
+
+msgid "Workstations, servers, printers, telephony and industrial equipment share the same network."
+msgstr "Postazioni di lavoro, server, stampanti, telefonia e apparecchiature industriali condividono la stessa rete."
+
+msgid "A compromised workstation (ransomware, Trojan) spreads freely to servers and backups."
+msgstr "Una postazione compromessa (ransomware, trojan) si propaga liberamente verso i server e i backup."
+
+msgid "Does each use have its own network or VLAN, with filtering between them?"
+msgstr "Ogni utilizzo dispone di una propria rete o VLAN, con filtraggio tra di esse?"
+
+msgid "Are the flows allowed between networks listed in the network flow matrix?"
+msgstr "I flussi consentiti tra le reti sono elencati nella matrice dei flussi di rete?"
+
+msgid "Single point of failure: power supply"
+msgstr "Singolo punto di guasto: alimentazione elettrica"
+
+msgid "The server room or network closet depends on a single UPS, a single power feed or a single power supply per device."
+msgstr "La sala server o l'armadio di rete dipende da un unico UPS, da un'unica linea di alimentazione o da un unico alimentatore per dispositivo."
+
+msgid "Total outage during a UPS failure or electrical work; equipment damaged by a sudden shutdown."
+msgstr "Interruzione totale durante un guasto dell'UPS o un intervento elettrico; apparecchiature danneggiate da uno spegnimento improvviso."
+
+msgid "Do critical devices have two power supplies, on two circuits?"
+msgstr "I dispositivi critici dispongono di due alimentatori, su due circuiti?"
+
+msgid "Is the UPS runtime tested and sufficient for a clean shutdown?"
+msgstr "L'autonomia dell'UPS è testata e sufficiente per uno spegnimento controllato?"
+
+msgid "Single point of failure: hypervisor or shared storage"
+msgstr "Singolo punto di guasto: hypervisor o storage condiviso"
+
+msgid "Several critical virtual servers rely on a single virtualization host or a single storage array."
+msgstr "Diversi server virtuali critici si basano su un unico host di virtualizzazione o su un unico storage array."
+
+msgid "Simultaneous outage of all hosted applications after a hardware failure or a failed update."
+msgstr "Interruzione simultanea di tutte le applicazioni ospitate dopo un guasto hardware o un aggiornamento non riuscito."
+
+msgid "Can a second host take over the critical virtual machines?"
+msgstr "Un secondo host può subentrare per le macchine virtuali critiche?"
+
+msgid "Has the recovery time been measured during a test?"
+msgstr "Il tempo di ripristino è stato misurato durante un test?"
+
+msgid "Single point of failure: carrier link"
+msgstr "Singolo punto di guasto: collegamento dell'operatore"
+
+msgid "A site, or access to online services, depends on a single Internet link or a single carrier."
+msgstr "Una sede, o l'accesso ai servizi online, dipende da un unico collegamento Internet o da un unico operatore."
+
+msgid "Site cut off during an outage (works, carrier failure), telephony and hosted applications unavailable."
+msgstr "Sede isolata durante un'interruzione (lavori, guasto dell'operatore), telefonia e applicazioni ospitate non disponibili."
+
+msgid "Is there a second link, with another carrier and over another physical path?"
+msgstr "Esiste un secondo collegamento, con un altro operatore e su un altro percorso fisico?"
+
+msgid "Has the failover been tested?"
+msgstr "Il failover è stato testato?"
+
+msgid "Single point of failure: directory (domain controller)"
+msgstr "Singolo punto di guasto: directory (domain controller)"
+
+msgid "A site has only one domain controller, or the directory has only one server."
+msgstr "Una sede dispone di un solo domain controller, oppure la directory ha un solo server."
+
+msgid "No more logons or access to shares after a failure; long and tricky directory restore."
+msgstr "Nessun accesso né alle condivisioni dopo un guasto; ripristino della directory lungo e delicato."
+
+msgid "Does each site have at least two domain controllers, or reliable access to a second one?"
+msgstr "Ogni sede dispone di almeno due domain controller, o di un accesso affidabile a un secondo?"
+
+msgid "Has the directory restore ever been tested?"
+msgstr "Il ripristino della directory è mai stato testato?"
+
+msgid "Backups on the same site as the data"
+msgstr "Backup nella stessa sede dei dati"
+
+msgid "Backups are stored in the same room, building or administration domain as the data they protect."
+msgstr "I backup sono conservati nella stessa sala, nello stesso edificio o nello stesso dominio di amministrazione dei dati che proteggono."
+
+msgid "Simultaneous loss of data and backups in a fire, a flood or a ransomware attack that also encrypts the backups."
+msgstr "Perdita simultanea di dati e backup in caso di incendio, allagamento o attacco ransomware che cifra anche i backup."
+
+msgid "Is a copy kept off-site or offline, immutable?"
+msgstr "Una copia viene conservata fuori sede o offline, in forma immutabile?"
+
+msgid "Is a full restore tested regularly?"
+msgstr "Un ripristino completo viene testato regolarmente?"
+
+msgid "Network diagram and address plan not kept up to date"
+msgstr "Schema di rete e piano di indirizzamento non aggiornati"
+
+msgid "The network diagram, the address plan and the list of flows no longer reflect reality."
+msgstr "Lo schema di rete, il piano di indirizzamento e l'elenco dei flussi non rispecchiano più la realtà."
+
+msgid "Decisions made on a wrong picture, longer incident diagnosis, forgotten devices outside any monitoring."
+msgstr "Decisioni prese su un quadro errato, diagnosi degli incidenti più lunghe, dispositivi dimenticati al di fuori di qualsiasi monitoraggio."
+
+msgid "Is the date of the last diagram update known?"
+msgstr "È nota la data dell'ultimo aggiornamento dello schema?"
+
+msgid "Is a periodic review of the diagram and flows scheduled?"
+msgstr "È pianificato un riesame periodico dello schema e dei flussi?"
+
+msgid "Security logs neither centralized nor reviewed"
+msgstr "Log di sicurezza né centralizzati né esaminati"
+
+msgid "Firewall, directory and server logs stay on each device, with no alert or review."
+msgstr "I log di firewall, directory e server restano su ciascun dispositivo, senza allarmi né riesame."
+
+msgid "Intrusion detected late, or never; logs wiped by the attacker; impossible to reconstruct an incident."
+msgstr "Intrusione rilevata in ritardo, o mai; log cancellati dall'attaccante; impossibile ricostruire un incidente."
+
+msgid "Are logs centralized and kept long enough?"
+msgstr "I log sono centralizzati e conservati abbastanza a lungo?"
+
+msgid "Are there alerts or a regular review?"
+msgstr "Esistono allarmi o un riesame periodico?"
+
+msgid "Threats:"
+msgstr "Minacce:"
+
+msgid "Questions to tell whether it applies:"
+msgstr "Domande per capire se si applica:"
+
+msgid "Tick at least one risk that is not in the register yet."
+msgstr "Selezionare almeno un rischio non ancora presente nel registro."
+
+msgid "These risks recur from one infrastructure to another and can be spotted on a simple network diagram. Read the questions for each one and tick those that apply to you: they are added to the register with the \"Identified\" status and their Annex A controls, to be assessed like the others. Nothing is rated for you."
+msgstr "Questi rischi si ripresentano da un'infrastruttura all'altra e si individuano su un semplice schema di rete. Leggere le domande di ciascuno e selezionare quelli pertinenti: vengono aggiunti al registro con lo stato \"Identificato\" e con i relativi controlli dell'Allegato A, per essere valutati come gli altri. Nessuna valutazione viene effettuata al posto vostro."
+
+msgid "Already in the register"
+msgstr "Già nel registro"
+
+msgid "View the risk"
+msgstr "Visualizza il rischio"
+
+msgid "Add the ticked risks to the register"
+msgstr "Aggiungi al registro i rischi selezionati"
+
+#, php-format
+msgid "%d risk added to the register, to be assessed."
+msgid_plural "%d risks added to the register, to be assessed."
+msgstr[0] "%d rischio aggiunto al registro, da valutare."
+msgstr[1] "%d rischi aggiunti al registro, da valutare."
+
+msgctxt "validated"
+msgid "Approved"
+msgstr "Approvata"
+
+msgctxt "ended, feminine"
+msgid "Closed"
+msgstr "Chiusa"
+
+msgid "Ending soon"
+msgstr "In scadenza"
+
+msgctxt "due date passed, feminine"
+msgid "Expired"
+msgstr "Scaduta"
+
+msgid "Give the waiver a name."
+msgstr "Assegnare un nome alla deroga."
+
+msgid "A waiver is temporary: its end date is required."
+msgstr "Una deroga è temporanea: la data di fine è obbligatoria."
+
+msgid "The end date is before the start date."
+msgstr "La data di fine è precedente alla data di inizio."
+
+msgid "Owner (accepts the risk)"
+msgstr "Responsabile (accetta il rischio)"
+
+msgctxt "measure"
+msgid "Annex A control"
+msgstr "Controllo dell'Allegato A"
+
+msgid "Compensating controls"
+msgstr "Controlli compensativi"
+
+msgid "Warns the owner before a waiver ends, then opens a re-assessment ticket"
+msgstr "Avvisa il responsabile prima della fine di una deroga, poi apre un ticket di rivalutazione"
+
+#, php-format
+msgid "Re-assess the waiver \"%s\""
+msgstr "Rivalutare la deroga \"%s\""
+
+msgid "Waiver ending soon"
+msgstr "Deroga in scadenza"
+
+msgid "The person who accepts the waiver's risk, warned before it ends."
+msgstr "La persona che accetta il rischio della deroga, avvisata prima della sua scadenza."
+
+msgid "A waiver is temporary. The owner is warned 15 days before; when it ends, a re-assessment ticket is opened. Nothing is extended or closed automatically."
+msgstr "Una deroga è temporanea. Il responsabile viene avvisato 15 giorni prima; alla scadenza viene aperto un ticket di rivalutazione. Nulla viene prorogato o chiuso automaticamente."
+
+msgid "Approved by"
+msgstr "Approvata da"
+
+msgid "Why the exception is needed (e.g. an application that only runs on an end-of-support system)."
+msgstr "Perché è necessaria l'eccezione (es. un'applicazione che funziona solo su un sistema non più supportato)."
+
+msgid "What reduces the risk during the waiver (network isolation, closer monitoring, restricted access...)."
+msgstr "Cosa riduce il rischio durante la deroga (isolamento di rete, monitoraggio più stretto, accesso limitato...)."
+
+msgid "Assets concerned"
+msgstr "Asset interessati"
+
+msgid "New waiver for this item"
+msgstr "Nuova deroga per questo elemento"
+
+msgid "No waiver."
+msgstr "Nessuna deroga."
+
+#, php-format
+msgid "The waiver \"%1$s\" ended on %2$s."
+msgstr "La deroga \"%1$s\" è scaduta il %2$s."
+
+msgid "Re-assess it: extend it with a new end date if the exception is still needed, or close it once the situation is resolved. Nothing was changed automatically."
+msgstr "Rivalutarla: prorogarla con una nuova data di fine se l'eccezione è ancora necessaria, oppure chiuderla una volta risolta la situazione. Nulla è stato modificato automaticamente."
+
+msgid "Waiver"
+msgid_plural "Waivers"
+msgstr[0] "Deroga"
+msgstr[1] "Deroghe"
+
+msgid "Give the rule a name."
+msgstr "Assegnare un nome alla regola."
+
+msgid "Choose the asset type to cover."
+msgstr "Scegliere il tipo di asset da coprire."
+
+msgid "Choose the category of the required document."
+msgstr "Scegliere la categoria del documento richiesto."
+
+msgid "Coverage rate"
+msgstr "Tasso di copertura"
+
+msgid "Required document category"
+msgstr "Categoria del documento richiesto"
+
+msgid "ISMS requirement"
+msgstr "Requisito del SGSI"
+
+msgid "Example: \"Firewall filtering policy\"."
+msgstr "Esempio: \"Politica di filtraggio del firewall\"."
+
+msgid "Subtype (optional)"
+msgstr "Sottotipo (facoltativo)"
+
+msgid "To count only part of the assets, for example only the firewalls among network devices."
+msgstr "Per conteggiare solo una parte degli asset, ad esempio solo i firewall tra i dispositivi di rete."
+
+msgid "Save the rule to choose a subtype, if this asset type has any."
+msgstr "Salvare la regola per scegliere un sottotipo, se questo tipo di asset ne prevede."
+
+msgid "An asset is covered if it has at least one document of this category in its Documents tab."
+msgstr "Un asset è coperto se ha almeno un documento di questa categoria nella scheda Documenti."
+
+msgid "No asset of this type in your entities: nothing to cover."
+msgstr "Nessun asset di questo tipo nelle tue entità: nulla da coprire."
+
+#, php-format
+msgid "%1$d of %2$d asset(s) covered"
+msgstr "%1$d asset coperti su %2$d"
+
+msgid "All assets have the required document."
+msgstr "Tutti gli asset hanno il documento richiesto."
+
+msgid "Assets without the required document"
+msgstr "Asset privi del documento richiesto"
+
+msgid "Each link opens the asset's Documents tab, to attach the document."
+msgstr "Ogni link apre la scheda Documenti dell'asset, per allegare il documento."
+
+msgid "Only the first assets are listed."
+msgstr "Sono elencati solo i primi asset."
+
+msgid "New coverage rule"
+msgstr "Nuova regola di copertura"
+
+msgid "No coverage rule for this item."
+msgstr "Nessuna regola di copertura per questo elemento."
+
+msgid "No asset to cover"
+msgstr "Nessun asset da coprire"
+
+msgid "Evidence coverage"
+msgid_plural "Evidence coverage"
+msgstr[0] "Copertura delle evidenze"
+msgstr[1] "Copertura delle evidenze"
+
+msgid "Single points of failure"
+msgstr "Singoli punti di guasto"
+
+msgid "Item not visible"
+msgstr "Elemento non visibile"
+
+#, php-format
+msgid "Single point of failure: %s"
+msgstr "Singolo punto di guasto: %s"
+
+msgid "These high-availability items depend only on it:"
+msgstr "Questi elementi ad alta disponibilità dipendono solo da esso:"
+
+msgid "Plan for redundancy (second device, second power supply, second link) or accept the risk."
+msgstr "Prevedere una ridondanza (secondo dispositivo, secondo alimentatore, secondo collegamento) oppure accettare il rischio."
+
+msgid "Failure impact"
+msgstr "Impatto di un guasto"
+
+msgid "Risk created in the register, to be assessed."
+msgstr "Rischio creato nel registro, da valutare."
+
+msgid "This risk already exists for this item."
+msgstr "Questo rischio esiste già per questo elemento."
+
+msgid "No dependency declared for this item. Describe what depends on what in the GLPI \"Impact analysis\" tab (hypervisor, storage, virtual machines, applications...) to see the impact of a failure here."
+msgstr "Nessuna dipendenza dichiarata per questo elemento. Descrivere cosa dipende da cosa nella scheda \"Analisi d'impatto\" di GLPI (hypervisor, storage, macchine virtuali, applicazioni...) per visualizzare qui l'impatto di un guasto."
+
+msgid "Open the impact analysis"
+msgstr "Apri l'analisi d'impatto"
+
+msgid "Single point of failure"
+msgstr "Singolo punto di guasto"
+
+msgid "these high-availability items depend only on it."
+msgstr "questi elementi ad alta disponibilità dipendono solo da esso."
+
+msgid "Create the matching risk"
+msgstr "Crea il rischio corrispondente"
+
+msgid "Items affected by a failure"
+msgstr "Elementi interessati da un guasto"
+
+msgid "No item depends on this one."
+msgstr "Nessun elemento dipende da questo."
+
+msgid "Dependency"
+msgstr "Dipendenza"
+
+msgid "Direct"
+msgstr "Diretta"
+
+#, php-format
+msgid "Indirect (level %d)"
+msgstr "Indiretta (livello %d)"
+
+msgctxt "feminine"
+msgid "Not classified"
+msgstr "Non classificata"
+
+msgid "Related risks"
+msgstr "Rischi correlati"
+
+msgid "No register risk is linked to this item or to what depends on it."
+msgstr "Nessun rischio del registro è collegato a questo elemento o a ciò che ne dipende."
+
+msgid "An item whose availability is classified \"high\" and that depends on a single source only (according to the GLPI impact analysis): a failure of that source stops it. The risk is suggested, never created automatically."
+msgstr "Un elemento la cui disponibilità è classificata \"alta\" e che dipende da un'unica fonte (secondo l'analisi d'impatto di GLPI): un guasto di tale fonte lo arresta. Il rischio viene suggerito, mai creato automaticamente."
+
+msgid "No single point of failure detected. Classify the availability of critical assets and describe their dependencies for a complete analysis."
+msgstr "Nessun singolo punto di guasto rilevato. Classificare la disponibilità degli asset critici e descriverne le dipendenze per un'analisi completa."
+
+msgid "Single source"
+msgstr "Fonte unica"
+
+msgid "Critical items depending on it"
+msgstr "Elementi critici che ne dipendono"
+
+msgid "See the impact"
+msgstr "Visualizza l'impatto"
+
+#, php-format
+msgid "More machines affected: %d now."
+msgstr "Più macchine interessate: ora %d."
+
+msgid "No vulnerable machine is inventoried anymore: check, then close the ticket."
+msgstr "Non risulta più inventariata alcuna macchina vulnerabile: verificare, quindi chiudere il ticket."
+
+msgid "Vulnerabilities"
+msgstr "Vulnerabilità"
+
+msgid "Vulnerability not found."
+msgstr "Vulnerabilità non trovata."
+
+msgid "Fleet vulnerability tickets"
+msgstr "Ticket delle vulnerabilità del parco"
+
+msgid "Automatically create a ticket for each vulnerability above a threshold"
+msgstr "Crea automaticamente un ticket per ogni vulnerabilità oltre una soglia"
+
+msgid "Actively exploited vulnerability (CISA KEV catalog)"
+msgstr "Vulnerabilità sfruttata attivamente (catalogo CISA KEV)"
+
+msgid "or CVSS of at least"
+msgstr "oppure CVSS di almeno"
+
+#, php-format
+msgid "or exploitation probability (EPSS, %) of at least"
+msgstr "oppure probabilità di sfruttamento (EPSS, %) di almeno"
+
+msgid "versions"
+msgstr "versioni"
+
+msgid "Affected machines"
+msgstr "Macchine interessate"
+
+msgid "CISA due date"
+msgstr "Scadenza CISA"
+
+msgid "Patches and advisories"
+msgstr "Patch e avvisi"
+
+msgid "Ticket opened by the fleet vulnerability watch. Affected machines are linked to the ticket (50 at most); the full list is on"
+msgstr "Ticket aperto dal monitoraggio delle vulnerabilità del parco. Le macchine interessate sono collegate al ticket (al massimo 50); l'elenco completo è disponibile in"
+
+msgid "No known vulnerability for the watched software installed here."
+msgstr "Nessuna vulnerabilità nota per il software monitorato installato qui."
+
+#, php-format
+msgid "Update %1$s: %2$d vulnerability(ies), %3$d machine(s)"
+msgstr "Aggiornare %1$s: %2$d vulnerabilità, %3$d macchina/e"
+
+msgid "A vulnerability of this software is now in the CISA KEV catalog: it is actively exploited."
+msgstr "Una vulnerabilità di questo software è ora presente nel catalogo CISA KEV: è sfruttata attivamente."
+
+#, php-format
+msgid "A single open ticket per software, detailing its vulnerabilities and linked to the affected machines. At most %d tickets are created per run, most severe first. A followup is added when more machines are affected, when a vulnerability becomes actively exploited, or when no machine is vulnerable anymore. The ticket is never closed and its priority never changed automatically."
+msgstr "Un solo ticket aperto per software, con il dettaglio delle sue vulnerabilità e collegato alle macchine interessate. Vengono creati al massimo %d ticket per esecuzione, a partire dai più gravi. Viene aggiunto un follow-up quando sono interessate più macchine, quando una vulnerabilità diventa sfruttata attivamente o quando nessuna macchina è più vulnerabile. Il ticket non viene mai chiuso né la sua priorità modificata automaticamente."
+
+msgid "Create the software update ticket"
+msgstr "Crea il ticket di aggiornamento del software"
+
+msgid "Actively exploited vulnerabilities (CISA KEV catalog)"
+msgstr "Vulnerabilità sfruttate attivamente (catalogo CISA KEV)"
+
+#, php-format
+msgid "And %d other vulnerabilities."
+msgstr "E altre %d vulnerabilità."
+
+#, php-format
+msgid "%1$d of %2$d vulnerabilities shown, most severe first."
+msgstr "%1$d vulnerabilità mostrate su %2$d, a partire dalle più gravi."
+
+#, php-format
+msgid "%s is listed in the CISA KEV catalog: it is actively exploited."
+msgstr "%s è presente nel catalogo CISA KEV: è sfruttata attivamente."
+
+#, php-format
+msgid "Remediation due date set by CISA: %s."
+msgstr "Scadenza per la correzione fissata dalla CISA: %s."
+
+#, php-format
+msgid "Probability of exploitation of %1$s within 30 days (FIRST EPSS): %2$d %%."
+msgstr "Probabilità di sfruttamento di %1$s entro 30 giorni (FIRST EPSS): %2$d %%."
+
+msgid "Review the incident priority: it is not changed automatically."
+msgstr "Rivedere la priorità dell'incidente: non viene modificata automaticamente."
+
+msgid "Fleet and incident vulnerabilities: queries NVD, CISA KEV and FIRST EPSS"
+msgstr "Vulnerabilità del parco e degli incidenti: interroga NVD, CISA KEV e FIRST EPSS"
+
+msgid "Actively exploited (CISA KEV catalog)"
+msgstr "Sfruttata attivamente (catalogo CISA KEV)"
+
+msgid "Probability of exploitation within 30 days (FIRST EPSS)"
+msgstr "Probabilità di sfruttamento entro 30 giorni (FIRST EPSS)"
+
+#, php-format
+msgid "Apply the vendor patch: %s"
+msgstr "Applicare la patch del fornitore: %s"
+
+msgid "Find and apply the vendor patch (no patch link published in NVD yet)."
+msgstr "Trovare e applicare la patch del fornitore (nessun link a patch ancora pubblicato in NVD)."
+
+#, php-format
+msgid "Follow the vendor security advisory: %s"
+msgstr "Seguire l'avviso di sicurezza del fornitore: %s"
+
+#, php-format
+msgid "Update the affected assets (%1$d): %2$s"
+msgstr "Aggiornare gli asset interessati (%1$d): %2$s"
+
+msgid "Identify the affected assets (no matching asset found in the inventory)."
+msgstr "Identificare gli asset interessati (nessun asset corrispondente trovato nell'inventario)."
+
+#, php-format
+msgid "Actively exploited vulnerability: remediation due date set by CISA on %s."
+msgstr "Vulnerabilità sfruttata attivamente: scadenza per la correzione fissata dalla CISA al %s."
+
+msgid "Check effectiveness: verify that the vulnerability no longer appears on the assets (incident CVE tab or \"Fleet vulnerabilities\")."
+msgstr "Verificare l'efficacia: controllare che la vulnerabilità non compaia più sugli asset (scheda CVE dell'incidente o \"Vulnerabilità del parco\")."
+
+#, php-format
+msgid "Action plan proposed for %1$s, found on the security incident \"%2$s\"."
+msgstr "Piano d'azione proposto per %1$s, rilevata sull'incidente di sicurezza \"%2$s\"."
+
+#, php-format
+msgid "Fix %1$s (incident \"%2$s\")"
+msgstr "Correggere %1$s (incidente \"%2$s\")"
+
+msgid "Watch the affected software in \"Software to watch\" to be alerted of future vulnerabilities."
+msgstr "Monitorare il software interessato in \"Software da monitorare\" per essere avvisati delle future vulnerabilità."
+
+msgid "Include this software in the regular patching cycle."
+msgstr "Includere questo software nel ciclo regolare di applicazione delle patch."
+
+msgid "Origin"
+msgstr "Origine"
+
+msgid "Action plan proposed from the CVE: review and adapt each field, then click \"Add\". Nothing is created before."
+msgstr "Piano d'azione proposto a partire dalla CVE: rivedere e adattare ogni campo, quindi fare clic su \"Aggiungi\". Nulla viene creato prima."
+
+#, php-format
+msgid "Action plan #%d"
+msgstr "Piano d'azione n. %d"
+
+msgid "Propose an action plan"
+msgstr "Proponi un piano d'azione"
+
+msgid "Security watch"
+msgstr "Monitoraggio della sicurezza"
+
+msgid "New security advisory about the supplier"
+msgstr "Nuovo avviso di sicurezza relativo al fornitore"
+
+msgid "Security advisories"
+msgstr "Avvisi di sicurezza"
+
+msgid "Choose this risk's supplier to follow the security advisories about it."
+msgstr "Scegliere il fornitore di questo rischio per seguire gli avvisi di sicurezza che lo riguardano."
+
+msgid "Searched names"
+msgstr "Nomi cercati"
+
+msgid "The watch queries CERT-FR once the \"Enable NVD enrichment\" option is checked in the plugin configuration."
+msgstr "Il monitoraggio interroga il CERT-FR una volta selezionata l'opzione \"Abilita l'arricchimento NVD\" nella configurazione del plugin."
+
+#, php-format
+msgid "CERT-FR advisories and alerts (last %d days)"
+msgstr "Avvisi e allerte del CERT-FR (ultimi %d giorni)"
+
+msgid "No advisory mentions this supplier."
+msgstr "Nessun avviso menziona questo fornitore."
+
+#, php-format
+msgid "Last CERT-FR check: %s."
+msgstr "Ultima consultazione del CERT-FR: %s."
+
+msgid "Date"
+msgstr "Data"
+
+msgid "Reference"
+msgstr "Riferimento"
+
+msgid "Alert"
+msgstr "Allerta"
+
+msgid "Vulnerabilities of its software in the fleet"
+msgstr "Vulnerabilità del suo software nel parco"
+
+msgid "No watched software from this supplier has a known vulnerability."
+msgstr "Nessun software monitorato di questo fornitore presenta vulnerabilità note."
+
+msgctxt "plural"
+msgid "Exploited"
+msgstr "Sfruttate"
+
+msgid "Domino effect"
+msgstr "Effetto domino"
+
+msgid "This link already exists."
+msgstr "Questo collegamento esiste già."
+
+msgid "This link would close a loop: the consequence already leads to the cause."
+msgstr "Questo collegamento chiuderebbe un ciclo: la conseguenza porta già alla causa."
+
+msgid "Link added."
+msgstr "Collegamento aggiunto."
+
+msgid "No link yet. Link this item to what it can lead to, or to what can cause it, to see the domino effect of an attack."
+msgstr "Nessun collegamento. Collegare questo elemento a ciò che può provocare, o a ciò che può causarlo, per visualizzare l'effetto domino di un attacco."
+
+msgid "Can be caused by"
+msgstr "Può essere causato da"
+
+msgid "Can lead to"
+msgstr "Può portare a"
+
+msgid "Remove this link"
+msgstr "Rimuovi questo collegamento"
+
+msgid "This item"
+msgstr "Questo elemento"
+
+msgid "can lead to…"
+msgstr "può portare a…"
+
+msgid "can be caused by…"
+msgstr "può essere causato da…"
+
+msgid "Linked item"
+msgstr "Elemento collegato"
+
+msgid "Link"
+msgstr "Collega"
+
+msgid "See the whole domino effect"
+msgstr "Visualizza l'intero effetto domino"
+
+msgid "Chains of causes and consequences between risks, supplier risks and security incidents. Links are created from the \"Domino effect\" tab of each one. This is a representation: no probability is computed."
+msgstr "Catene di cause e conseguenze tra rischi, rischi fornitore e incidenti di sicurezza. I collegamenti si creano dalla scheda \"Effetto domino\" di ciascuno. Si tratta di una rappresentazione: non viene calcolata alcuna probabilità."
+
+msgid "No link yet."
+msgstr "Nessun collegamento."
+
+msgid "Open the risk register"
+msgstr "Apri il registro dei rischi"
+
+msgid "cause → consequence; click an item to open it"
+msgstr "causa → conseguenza; fare clic su un elemento per aprirlo"
+
+msgid "RTO (maximum downtime)"
+msgstr "RTO (tempo massimo di interruzione)"
+
+msgid "RPO (maximum data loss)"
+msgstr "RPO (perdita massima di dati)"
+
+msgid "1 hour"
+msgstr "1 ora"
+
+msgid "4 hours"
+msgstr "4 ore"
+
+msgid "8 hours"
+msgstr "8 ore"
+
+msgid "24 hours (1 day)"
+msgstr "24 ore (1 giorno)"
+
+msgid "48 hours (2 days)"
+msgstr "48 ore (2 giorni)"
+
+msgid "72 hours (3 days)"
+msgstr "72 ore (3 giorni)"
+
+msgid "1 week"
+msgstr "1 settimana"
+
+msgid "Depends on"
+msgstr "Dipende da"
+
+msgid "Single point of failure for"
+msgstr "Singolo punto di guasto per"
+
+msgid "Not defined"
+msgstr "Non definito"
+
+msgid "Time beyond which an outage of this asset becomes unacceptable."
+msgstr "Tempo oltre il quale un'interruzione di questo asset diventa inaccettabile."
+
+msgid "Maximum acceptable age of restored data (backup frequency)."
+msgstr "Età massima accettabile dei dati ripristinati (frequenza dei backup)."
+
+msgid "Inconsistent recovery objectives"
+msgstr "Obiettivi di ripristino incoerenti"
+
+#, php-format
+msgid "%1$s must recover within %2$s, but depends on %3$s whose objective is %4$s."
+msgstr "%1$s deve essere ripristinato entro %2$s, ma dipende da %3$s il cui obiettivo è %4$s."
+
+msgid "not defined"
+msgstr "non definito"
+
+msgid "High availability"
+msgstr "Disponibilità alta"
+
+msgid "Medium availability"
+msgstr "Disponibilità media"
+
+msgid "an outage of the source affects the item pointed to"
+msgstr "un guasto dell'origine colpisce l'elemento indicato"
+
+msgid "Export for the business continuity plan (CSV)"
+msgstr "Esporta per il piano di continuità operativa (CSV)"
+
+msgid "The information security risk register: each risk is assessed (likelihood × impact), linked to the assets it threatens and to the controls that reduce it."
+msgstr "Il registro dei rischi per la sicurezza delle informazioni: ogni rischio viene valutato (probabilità × impatto), collegato agli asset che minaccia e ai controlli che lo riducono."
+
+msgid "Identify risks, assess them, decide on a treatment (reduce, accept, transfer, avoid) and set a review date. The owner is notified when it is due."
+msgstr "Identificare i rischi, valutarli, decidere un trattamento (ridurre, accettare, trasferire, evitare) e fissare una data di riesame. Il titolare viene avvisato alla scadenza."
+
+msgid "ISO 27001, 6.1.2 and 6.1.3; 8.2 and 8.3"
+msgstr "ISO 27001, 6.1.2 e 6.1.3; 8.2 e 8.3"
+
+msgid "The risk heat map: how risks are spread by likelihood and impact, to see at a glance where high risks are concentrated."
+msgstr "La mappa di calore dei rischi: la distribuzione dei rischi per probabilità e impatto, per vedere a colpo d'occhio dove si concentrano i rischi elevati."
+
+msgid "Use it in management reviews; click a cell to open the matching risks."
+msgstr "Utilizzarla nei riesami della direzione; fare clic su una cella per aprire i rischi corrispondenti."
+
+msgid "Typical infrastructure risks (exposed administration service, flat network, poorly isolated guest Wi-Fi...), ready to be added to the register."
+msgstr "Rischi tipici dell'infrastruttura (servizio di amministrazione esposto, rete piatta, Wi-Fi ospiti poco isolato...), pronti per essere aggiunti al registro."
+
+msgid "Tick those that apply to you and import them, then assess them in the register. Nothing is imported without your choice."
+msgstr "Selezionare quelli pertinenti e importarli, quindi valutarli nel registro. Nulla viene importato senza la vostra scelta."
+
+msgid "Risks related to your suppliers and service providers: dependency, access to your data, security of their services."
+msgstr "I rischi relativi ai fornitori e ai prestatori di servizi: dipendenza, accesso ai vostri dati, sicurezza dei loro servizi."
+
+msgid "Create one risk per important supplier, have the security questionnaire filled in, follow its contracts and the \"Security watch\" tab."
+msgstr "Creare un rischio per ogni fornitore importante, far compilare il questionario di sicurezza, seguire i relativi contratti e la scheda \"Monitoraggio della sicurezza\"."
+
+msgid "ISO 27001, Annex A 5.19 to 5.22"
+msgstr "ISO 27001, Allegato A da 5.19 a 5.22"
+
+msgid "The Statement of Applicability (SoA): the 93 Annex A controls, each declared applicable or not, with its justification and implementation status."
+msgstr "La Dichiarazione di applicabilità (SoA): i 93 controlli dell'Allegato A, ciascuno dichiarato applicabile o meno, con la relativa giustificazione e lo stato di attuazione."
+
+msgid "For each control, state whether it applies, why, and how far its implementation has progressed. Then have the SoA approved."
+msgstr "Per ogni controllo, indicare se si applica, perché e a che punto è la sua attuazione. Quindi far approvare la SoA."
+
+msgid "ISO 27001, 6.1.3 d)"
+msgstr "ISO 27001, 6.1.3 d)"
+
+msgid "Approved versions of the Statement of Applicability, with the approver and the date."
+msgstr "Versioni approvate della Dichiarazione di applicabilità, con l'approvatore e la data."
+
+msgid "Request approval after every significant change to the SoA; the approver cannot be the requester."
+msgstr "Richiedere l'approvazione dopo ogni modifica significativa della SoA; l'approvatore non può essere il richiedente."
+
+msgid "The requirements of clauses 4 to 10 of the standard (context, leadership, planning, support, operation, evaluation, improvement) and the evidence that they are met."
+msgstr "I requisiti dei punti da 4 a 10 della norma (contesto, leadership, pianificazione, supporto, attività operative, valutazione, miglioramento) e le evidenze del loro soddisfacimento."
+
+msgid "For each requirement, state its status and attach or link the evidence (document, review, procedure)."
+msgstr "Per ogni requisito, indicarne lo stato e allegare o collegare l'evidenza (documento, riesame, procedura)."
+
+msgid "ISO 27001, clauses 4 to 10"
+msgstr "ISO 27001, punti da 4 a 10"
+
+msgid "Your legal, regulatory and contractual security obligations (GDPR, NIS2, customer clauses...)."
+msgstr "I vostri obblighi legali, regolamentari e contrattuali in materia di sicurezza (GDPR, NIS2, clausole dei clienti...)."
+
+msgid "List them with their source and owner, and set a review date to check they are still met."
+msgstr "Censirli con la relativa fonte e il titolare, e fissare una data di riesame per verificare che siano ancora rispettati."
+
+msgid "ISO 27001, 4.2; Annex A 5.31"
+msgstr "ISO 27001, 4.2; Allegato A 5.31"
+
+msgid "The internal audit programme: scope, dates, auditors, report and findings."
+msgstr "Il programma di audit interno: ambito, date, auditor, rapporto e rilievi."
+
+msgid "Plan the year's audits, enter the report and the findings; each nonconformity opens an action plan."
+msgstr "Pianificare gli audit dell'anno, inserire il rapporto e i rilievi; ogni non conformità apre un piano d'azione."
+
+msgid "ISO 27001, 9.2"
+msgstr "ISO 27001, 9.2"
+
+msgid "Nonconformities and observations, with their corrective and preventive actions (CAPA)."
+msgstr "Non conformità e osservazioni, con le relative azioni correttive e preventive (CAPA)."
+
+msgid "Analyse the cause, describe the corrective action, assign an owner and a due date, then check its effectiveness before closing."
+msgstr "Analizzare la causa, descrivere l'azione correttiva, assegnare un responsabile e una scadenza, quindi verificarne l'efficacia prima della chiusura."
+
+msgid "ISO 27001, 10.2"
+msgstr "ISO 27001, 10.2"
+
+msgid "Security training and awareness sessions, with their participants and results."
+msgstr "Sessioni di formazione e sensibilizzazione sulla sicurezza, con i partecipanti e i risultati."
+
+msgid "Record each session, its participants and its renewal date; a reminder is sent when it is due."
+msgstr "Registrare ogni sessione, i partecipanti e la data di rinnovo; alla scadenza viene inviato un promemoria."
+
+msgid "ISO 27001, 7.2 and 7.3"
+msgstr "ISO 27001, 7.2 e 7.3"
+
+msgid "Management reviews: the periodic review of the information security management system by top management."
+msgstr "Riesami della direzione: il riesame periodico del sistema di gestione per la sicurezza delle informazioni da parte dell'alta direzione."
+
+msgid "At least once a year, prepare the review (indicators, audits, incidents, risks), record the decisions and the resulting actions."
+msgstr "Almeno una volta all'anno, preparare il riesame (indicatori, audit, incidenti, rischi), registrare le decisioni e le azioni che ne derivano."
+
+msgid "ISO 27001, 9.3"
+msgstr "ISO 27001, 9.3"
+
+msgid "Security objectives and their indicators measured over time."
+msgstr "Obiettivi di sicurezza e relativi indicatori misurati nel tempo."
+
+msgid "Define measurable objectives, enter the measurements each period and track progress towards the target."
+msgstr "Definire obiettivi misurabili, inserire le misurazioni a ogni periodo e monitorare l'avanzamento verso il traguardo."
+
+msgid "ISO 27001, 6.2 and 9.1"
+msgstr "ISO 27001, 6.2 e 9.1"
+
+msgid "Access rights review campaigns: each manager confirms or removes the rights of their team."
+msgstr "Campagne di riesame dei diritti di accesso: ogni responsabile conferma o rimuove i diritti del proprio team."
+
+msgid "Start a campaign; managers decide line by line. Removing a right opens a ticket, it is never applied automatically."
+msgstr "Avviare una campagna; i responsabili decidono riga per riga. La rimozione di un diritto apre un ticket, non viene mai applicata automaticamente."
+
+msgid "ISO 27001, Annex A 5.18"
+msgstr "ISO 27001, Allegato A 5.18"
+
+msgid "Accounts to check: inactive accounts, accounts missing from the directory, duplicates or never used."
+msgstr "Account da verificare: account inattivi, assenti dalla directory, duplicati o mai utilizzati."
+
+msgid "Review the list and open a ticket for each account to disable; nothing is disabled automatically."
+msgstr "Esaminare l'elenco e aprire un ticket per ogni account da disattivare; nulla viene disattivato automaticamente."
+
+msgid "Periodic reviews (backups, logs, rights, continuity plan...) scheduled as recurring tickets."
+msgstr "Riesami periodici (backup, log, diritti, piano di continuità...) programmati come ticket ricorrenti."
+
+msgid "Enable the useful reviews and their frequency; a ticket is created at each due date for the person in charge."
+msgstr "Abilitare i riesami utili e la loro frequenza; a ogni scadenza viene creato un ticket per la persona incaricata."
+
+msgid "The matrix of authorised network flows: who talks to whom, on which port, and why."
+msgstr "La matrice dei flussi di rete autorizzati: chi comunica con chi, su quale porta e perché."
+
+msgid "Describe each flow with its justification and owner, or import your firewall export, then review the matrix regularly."
+msgstr "Descrivere ogni flusso con la sua giustificazione e il titolare, oppure importare l'esportazione del firewall, quindi riesaminare regolarmente la matrice."
+
+msgid "ISO 27001, Annex A 8.20 to 8.22"
+msgstr "ISO 27001, Allegato A da 8.20 a 8.22"
+
+msgid "The compliance calendar: all due dates (reviews, audits, renewals, obligations) in one place, also visible in the GLPI planning."
+msgstr "Il calendario della conformità: tutte le scadenze (riesami, audit, rinnovi, obblighi) in un unico posto, visibili anche nella pianificazione GLPI."
+
+msgid "Check it to anticipate due dates; subscribe your calendar with the iCal link."
+msgstr "Consultarlo per anticipare le scadenze; sottoscrivere il proprio calendario con il link iCal."
+
+msgid "One-off compliance events to add to the calendar (regulator inspection, crisis exercise, contractual deadline...)."
+msgstr "Eventi di conformità occasionali da aggiungere al calendario (ispezione di un'autorità, esercitazione di crisi, scadenza contrattuale...)."
+
+msgid "Add the event with its date and owner; it appears in the compliance calendar."
+msgstr "Aggiungere l'evento con la data e il responsabile; comparirà nel calendario della conformità."
+
+msgid "The library of versioned security policies, with their review date and read rate."
+msgstr "La raccolta delle politiche di sicurezza con versioni, data di riesame e tasso di lettura."
+
+msgid "Upload each policy, have it approved, distribute it and review it when due."
+msgstr "Caricare ogni politica, farla approvare, diffonderla e riesaminarla alla scadenza."
+
+msgid "ISO 27001, 5.2; Annex A 5.1"
+msgstr "ISO 27001, 5.2; Allegato A 5.1"
+
+msgid "Dated evidence (reports, attestations, certificates) and its validity."
+msgstr "Evidenze datate (report, attestazioni, certificati) e relativa validità."
+
+msgid "State how long each piece of evidence is valid; a renewal ticket is opened when it expires."
+msgstr "Indicare fino a quando è valida ciascuna evidenza; alla scadenza viene aperto un ticket di rinnovo."
+
+msgid "Coverage rules: which assets must have which document (for example, every server must have its operations sheet)."
+msgstr "Regole di copertura: quali asset devono avere quale documento (ad esempio, ogni server deve avere la propria scheda operativa)."
+
+msgid "Create one rule per requirement; the result lists the covered assets and those to complete."
+msgstr "Creare una regola per ogni requisito; il risultato elenca gli asset coperti e quelli da completare."
+
+msgid "Security exemptions: accepted exceptions to a policy or a control, limited in time and compensated."
+msgstr "Deroghe di sicurezza: eccezioni accettate a una politica o a un controllo, limitate nel tempo e compensate."
+
+msgid "Justify each exemption, describe the compensating measures, have it approved and set its end date; it is reassessed when due."
+msgstr "Giustificare ogni deroga, descrivere i controlli compensativi, farla approvare e fissarne la data di fine; alla scadenza viene rivalutata."
+
+msgid "ISO 27001, 6.1.3; Annex A 5.36"
+msgstr "ISO 27001, 6.1.3; Allegato A 5.36"
+
+msgid "Single points of failure: critical items that depend on a single source, according to GLPI's impact analysis."
+msgstr "Singoli punti di guasto: elementi critici che dipendono da un'unica fonte, secondo l'analisi d'impatto di GLPI."
+
+msgid "Create the matching risk or add redundancy; export the list for your business continuity plan."
+msgstr "Creare il rischio corrispondente o aggiungere una ridondanza; esportare l'elenco per il piano di continuità operativa."
+
+msgid "ISO 27001, Annex A 5.29, 5.30 and 8.14"
+msgstr "ISO 27001, Allegato A 5.29, 5.30 e 8.14"
+
+msgid "The domino effect: how one incident or risk can lead to others."
+msgstr "L'effetto domino: come un incidente o un rischio può portarne ad altri."
+
+msgid "Link items from the \"Domino effect\" tab of a risk or an incident; this page shows the whole picture."
+msgstr "Collegare gli elementi dalla scheda \"Effetto domino\" di un rischio o di un incidente; questa pagina mostra il quadro completo."
+
+msgid "Security incidents: qualification, affected assets, CVEs, costs, regulatory notifications (data protection authority, NIS2)."
+msgstr "Incidenti di sicurezza: qualificazione, asset interessati, CVE, costi, notifiche normative (autorità per la protezione dei dati, NIS2)."
+
+msgid "Declare the incident, qualify it, follow up the actions and meet the notification deadlines shown on the record."
+msgstr "Dichiarare l'incidente, qualificarlo, seguire le azioni e rispettare le scadenze di notifica indicate nella scheda."
+
+msgid "ISO 27001, Annex A 5.24 to 5.28"
+msgstr "ISO 27001, Allegato A da 5.24 a 5.28"
+
+msgid "Known vulnerabilities (CVEs) of the software installed on your fleet, with their real-world exploitation (KEV, EPSS) and CERT-FR advisories."
+msgstr "Vulnerabilità note (CVE) del software installato nel parco, con il loro sfruttamento reale (KEV, EPSS) e gli avvisi del CERT-FR."
+
+msgid "Handle exploited and priority vulnerabilities first; open one update ticket per software."
+msgstr "Gestire prima le vulnerabilità sfruttate e prioritarie; aprire un ticket di aggiornamento per software."
+
+msgid "ISO 27001, Annex A 8.8"
+msgstr "ISO 27001, Allegato A 8.8"
+
+msgid "Fleet software to match with a CPE reference so that its vulnerabilities are tracked."
+msgstr "Software del parco da associare a un riferimento CPE affinché le sue vulnerabilità vengano monitorate."
+
+msgid "Start with the most exposed (browsers, remote access, VPN): search for the CPE, confirm it, or ignore software with no stakes."
+msgstr "Iniziare dai più esposti (browser, accesso remoto, VPN): cercare il CPE, confermarlo oppure ignorare il software non rilevante."
+
+msgid "The correlation catalogue: reference products, their CPEs and the names under which they appear in the inventory."
+msgstr "Il catalogo di correlazione: i prodotti di riferimento, i relativi CPE e i nomi con cui compaiono nell'inventario."
+
+msgid "It is filled from \"Software to watch\"; correct an alias or a CPE here if needed."
+msgstr "Viene popolato da \"Software da monitorare\"; correggere qui un alias o un CPE se necessario."
+
+msgid "Mappings between Annex A and other frameworks, to reuse your work across several standards."
+msgstr "Corrispondenze tra l'Allegato A e altri framework, per riutilizzare il lavoro svolto su più standard."
+
+msgid "Check the mappings before an audit against another framework."
+msgstr "Consultare le corrispondenze prima di un audit rispetto a un altro framework."
+
+msgid "What is this page for?"
+msgstr "A cosa serve questa pagina?"
+
+msgid "What is expected"
+msgstr "Cosa è previsto"
+
+msgid "Maturity score"
+msgstr "Punteggio di maturità"
+
+msgid "Annex A controls implemented (SoA)"
+msgstr "Controlli dell'Allegato A attuati (SoA)"
+
+msgid "ISMS requirements (clauses 4 to 10) met"
+msgstr "Requisiti del SGSI (punti da 4 a 10) soddisfatti"
+
+msgid "Evidence still valid"
+msgstr "Evidenze ancora valide"
+
+msgid "Internal audit completed in the last 12 months"
+msgstr "Audit interno completato negli ultimi 12 mesi"
+
+msgid "Training completed"
+msgstr "Formazione completata"
+
+msgid "Initial"
+msgstr "Iniziale"
+
+msgid "Repeatable"
+msgstr "Ripetibile"
+
+msgid "Defined"
+msgstr "Definito"
+
+msgid "Managed"
+msgstr "Gestito"
+
+msgid "Optimised"
+msgstr "Ottimizzato"
+
+msgid "Maturity score: records the score of the month"
+msgstr "Punteggio di maturità: registra il punteggio del mese"
+
+msgid "The cyber maturity score (0 to 100): an overview of the progress of your security management system, computed from your data."
+msgstr "Il punteggio di maturità cyber (da 0 a 100): una panoramica dell'avanzamento del sistema di gestione della sicurezza, calcolata a partire dai vostri dati."
+
+msgid "Present it in management reviews; the calculation details show which components to improve first."
+msgstr "Presentarlo nei riesami della direzione; il dettaglio del calcolo mostra quali componenti migliorare per prime."
+
+#, php-format
+msgid "Level %1$d: %2$s"
+msgstr "Livello %1$d: %2$s"
+
+msgid "Levels: 1 Initial (0-19), 2 Repeatable (20-39), 3 Defined (40-59), 4 Managed (60-79), 5 Optimised (80-100)."
+msgstr "Livelli: 1 Iniziale (0-19), 2 Ripetibile (20-39), 3 Definito (40-59), 4 Gestito (60-79), 5 Ottimizzato (80-100)."
+
+msgid "Calculation details"
+msgstr "Dettaglio del calcolo"
+
+msgid "Component"
+msgstr "Componente"
+
+msgid "Weight"
+msgstr "Peso"
+
+msgid "Contribution"
+msgstr "Contributo"
+
+msgid "no data"
+msgstr "nessun dato"
+
+msgid "Subtotal"
+msgstr "Subtotale"
+
+#, php-format
+msgid "Penalties: %1$d overdue corrective action(s), %2$d unresolved security incident(s)"
+msgstr "Penalità: %1$d azione/i correttiva/e in ritardo, %2$d incidente/i di sicurezza non risolto/i"
+
+msgid "A component without data (unused module) is left out and its weight spread over the others. A control \"in progress\" counts for half. Each overdue action or open incident removes 2 points, at most 10 per category."
+msgstr "Una componente senza dati (modulo non utilizzato) viene esclusa e il suo peso ripartito sulle altre. Un controllo \"in corso\" conta per metà. Ogni azione in ritardo o incidente aperto sottrae 2 punti, al massimo 10 per categoria."
+
+msgid "Annex A implementation by theme"
+msgstr "Attuazione dell'Allegato A per tema"
+
+msgid "No control declared applicable in the SoA."
+msgstr "Nessun controllo dichiarato applicabile nella SoA."
+
+msgid "Monthly trend"
+msgstr "Andamento mensile"
+
+msgid "The history builds up month after month: the scheduled task records the score every day for the current month."
+msgstr "Lo storico si costruisce mese dopo mese: l'attività pianificata registra il punteggio ogni giorno per il mese in corso."
+
+msgid "Maturity score (out of 100)"
+msgstr "Punteggio di maturità (su 100)"
+
+msgid "Post-incident report"
+msgstr "Report post-incidente"
+
+msgid "Declaration"
+msgstr "Dichiarazione"
+
+msgid "Status change"
+msgstr "Cambio di stato"
+
+msgid "Private followup"
+msgstr "Follow-up privato"
+
+msgid "Followup"
+msgstr "Follow-up"
+
+msgid "Task"
+msgstr "Attività"
+
+msgid "Solution"
+msgstr "Soluzione"
+
+#, php-format
+msgid "Post-incident report: %s"
+msgstr "Report post-incidente: %s"
+
+#, php-format
+msgid "Post-incident report - %s"
+msgstr "Report post-incidente - %s"
+
+msgid "Post-incident report archived in the incident documents."
+msgstr "Report post-incidente archiviato nei documenti dell'incidente."
+
+msgid "The report could not be generated."
+msgstr "Impossibile generare il report."
+
+msgid "Met"
+msgstr "Rispettata"
+
+msgid "Not notified"
+msgstr "Non notificata"
+
+msgid "The incident is not closed: the report will be marked as provisional. Fill in the root cause and the lessons learned before closing."
+msgstr "L'incidente non è chiuso: il report sarà contrassegnato come provvisorio. Compilare la causa radice e le lezioni apprese prima della chiusura."
+
+msgid "Timeline"
+msgstr "Cronologia"
+
+#, php-format
+msgid "… and %d other events, all in the report."
+msgstr "… e altri %d eventi, tutti nel report."
+
+msgid "Report contents"
+msgstr "Contenuto del report"
+
+msgid "Affected items"
+msgstr "Elementi interessati"
+
+msgid "Total cost"
+msgstr "Costo totale"
+
+msgid "to fill in"
+msgstr "da compilare"
+
+msgid "Decided actions"
+msgstr "Azioni decise"
+
+msgid "Generate the PDF report"
+msgstr "Genera il report PDF"
+
+msgid "The PDF is archived in the incident documents and offered as evidence on SoA control A.5.27."
+msgstr "Il PDF viene archiviato nei documenti dell'incidente e proposto come evidenza per il controllo A.5.27 della SoA."
+
+msgid "Incident"
+msgstr "Incidente"
+
+msgid "provisional report, incident not closed"
+msgstr "report provvisorio, incidente non chiuso"
+
+msgid "Category / severity"
+msgstr "Categoria / gravità"
+
+msgid "Declared on"
+msgstr "Dichiarato il"
+
+msgid "Solved / closed on"
+msgstr "Risolto / chiuso il"
+
+msgid "Time to resolution"
+msgstr "Tempo di risoluzione"
+
+msgid "Detail"
+msgstr "Dettaglio"
+
+msgid "Deadline"
+msgstr "Termine"
+
+msgctxt "feminine"
+msgid "Notified on"
+msgstr "Notificata il"
+
+msgid "Outcome"
+msgstr "Esito"
+
+msgid "Not filled in."
+msgstr "Non compilata."
+
+msgctxt "plural"
+msgid "Not filled in."
+msgstr "Non compilati."
+
+msgid "No action plan (nonconformity) linked to the incident."
+msgstr "Nessun piano d'azione (non conformità) collegato all'incidente."
+
+msgid "Action"
+msgstr "Azione"
+
+msgid "Crisis exercises"
+msgstr "Esercitazioni di crisi"
+
+msgid "Ransomware attack"
+msgstr "Attacco ransomware"
+
+msgid "Workstations and a file server are encrypted and a ransom note is displayed. The team must isolate, assess, restore from backups and communicate."
+msgstr "Le postazioni di lavoro e un file server sono cifrati e viene visualizzata una richiesta di riscatto. Il team deve isolare, valutare, ripristinare dai backup e comunicare."
+
+msgid "Personal data leak"
+msgstr "Fuga di dati personali"
+
+msgid "A customer file is published on a forum. The team must contain the leak, identify the affected data and decide whether to notify the authority."
+msgstr "Un file di clienti viene pubblicato su un forum. Il team deve contenere la fuga, identificare i dati interessati e decidere se notificare l'autorità."
+
+msgid "Major information system outage"
+msgstr "Interruzione grave del sistema informativo"
+
+msgid "The server room (or the main hosting provider) is unavailable. The team must activate the continuity plan and switch to the backup site."
+msgstr "La sala server (o il principale fornitore di hosting) non è disponibile. Il team deve attivare il piano di continuità e passare al sito di disaster recovery."
+
+msgid "Confirm the alert and qualify the incident"
+msgstr "Confermare l'allerta e qualificare l'incidente"
+
+msgid "Isolate the affected machines from the network"
+msgstr "Isolare dalla rete le macchine interessate"
+
+msgid "Convene the crisis team"
+msgstr "Convocare l'unità di crisi"
+
+msgid "Inform management"
+msgstr "Informare la direzione"
+
+msgid "Assess the scope: affected systems and data"
+msgstr "Valutare la portata: sistemi e dati interessati"
+
+msgid "Restore a test backup"
+msgstr "Ripristinare un backup di prova"
+
+msgid "Prepare internal and external communication"
+msgstr "Preparare la comunicazione interna ed esterna"
+
+msgid "Confirm the return to normal"
+msgstr "Confermare il ritorno alla normalità"
+
+msgid "Contain the leak (takedown, accounts, access)"
+msgstr "Contenere la fuga (rimozione, account, accessi)"
+
+msgid "Identify the data and the people concerned"
+msgstr "Identificare i dati e le persone interessate"
+
+msgid "Inform the data protection officer"
+msgstr "Informare il responsabile della protezione dei dati"
+
+msgid "Decide on notifying the authority (GDPR, NIS2)"
+msgstr "Decidere sulla notifica all'autorità (GDPR, NIS2)"
+
+msgid "Activate the continuity plan"
+msgstr "Attivare il piano di continuità"
+
+msgid "Warn users"
+msgstr "Avvisare gli utenti"
+
+msgid "Switch to the backup site or service"
+msgstr "Passare al sito o servizio di disaster recovery"
+
+#, php-format
+msgid "[EXERCISE] %s"
+msgstr "[ESERCITAZIONE] %s"
+
+msgid "This is a crisis exercise: no real incident is in progress."
+msgstr "Questa è un'esercitazione di crisi: nessun incidente reale è in corso."
+
+#, php-format
+msgid "Target: %d min after the start of the exercise."
+msgstr "Obiettivo: %d min dall'inizio dell'esercitazione."
+
+#, php-format
+msgid "Crisis exercise report: %s"
+msgstr "Report dell'esercitazione di crisi: %s"
+
+#, php-format
+msgid "Crisis exercise report - %s"
+msgstr "Report dell'esercitazione di crisi - %s"
+
+msgid "The exercise could not be started."
+msgstr "Impossibile avviare l'esercitazione."
+
+msgid "Exercise finished: the report is archived in the exercise incident documents."
+msgstr "Esercitazione terminata: il report è archiviato nei documenti dell'incidente di esercitazione."
+
+msgid "Crisis exercises: simulate an incident (ransomware, data leak, outage) to check that the team knows how to react and that the continuity plan works."
+msgstr "Esercitazioni di crisi: simulare un incidente (ransomware, fuga di dati, interruzione) per verificare che il team sappia reagire e che il piano di continuità funzioni."
+
+msgid "Start a scenario: a fictitious \"EXERCISE\" incident is created with one task per step. In the crisis room, tick each step as soon as it is done; at the end, the report measures reaction times and serves as audit evidence. At least one exercise per year."
+msgstr "Avviare uno scenario: viene creato un incidente fittizio \"ESERCITAZIONE\" con un'attività per ogni fase. Nella sala di crisi, spuntare ogni fase non appena completata; al termine, il report misura i tempi di reazione e costituisce un'evidenza per l'audit. Almeno un'esercitazione all'anno."
+
+msgid "ISO 27001, Annex A 5.29 and 5.30"
+msgstr "ISO 27001, Allegato A 5.29 e 5.30"
+
+msgid "Start a crisis exercise"
+msgstr "Avvia un'esercitazione di crisi"
+
+msgid "Start the exercise now? A fictitious \"EXERCISE\" incident will be created and the timer will start."
+msgstr "Avviare ora l'esercitazione? Verrà creato un incidente fittizio \"ESERCITAZIONE\" e partirà il cronometro."
+
+msgid "Start the exercise"
+msgstr "Avvia l'esercitazione"
+
+msgid "Exercises carried out"
+msgstr "Esercitazioni svolte"
+
+msgid "No exercise yet. The standard requires testing continuity plans at planned intervals: start a first exercise above."
+msgstr "Nessuna esercitazione. La norma richiede di testare i piani di continuità a intervalli pianificati: avviare una prima esercitazione qui sopra."
+
+msgid "Scenario"
+msgstr "Scenario"
+
+msgid "Duration"
+msgstr "Durata"
+
+msgid "Steps on time"
+msgstr "Fasi nei tempi"
+
+msgid "Average reaction time"
+msgstr "Tempo medio di reazione"
+
+msgctxt "verb"
+msgid "Open"
+msgstr "Apri"
+
+msgid "On time"
+msgstr "Nei tempi"
+
+msgid "Not done"
+msgstr "Non eseguita"
+
+msgid "EXERCISE"
+msgstr "ESERCITAZIONE"
+
+msgid "no real incident is in progress. The steps are also tasks of the exercise incident."
+msgstr "nessun incidente reale è in corso. Le fasi sono anche attività dell'incidente di esercitazione."
+
+msgid "Exercise incident"
+msgstr "Incidente di esercitazione"
+
+msgid "All exercises"
+msgstr "Tutte le esercitazioni"
+
+#, php-format
+msgid "Started on %1$s by %2$s."
+msgstr "Avviata il %1$s da %2$s."
+
+msgid "Step"
+msgstr "Fase"
+
+msgid "Target"
+msgstr "Obiettivo"
+
+msgid "Done at"
+msgstr "Eseguita alle"
+
+msgctxt "summary"
+msgid "Outcome"
+msgstr "Bilancio"
+
+msgid "Steps done"
+msgstr "Fasi eseguite"
+
+msgid "Open the exercise report"
+msgstr "Apri il report dell'esercitazione"
+
+msgid "Regenerate the report"
+msgstr "Rigenera il report"
+
+msgid "Fill in the lessons learned on the exercise incident, then regenerate the report to include them."
+msgstr "Compilare le lezioni apprese nell'incidente di esercitazione, quindi rigenerare il report per includerle."
+
+msgid "Finish the exercise? Steps not done will be counted as missed."
+msgstr "Terminare l'esercitazione? Le fasi non eseguite verranno conteggiate come mancate."
+
+msgid "Finish the exercise and generate the report"
+msgstr "Termina l'esercitazione e genera il report"
+
+msgid "The PDF report is archived on the exercise incident and as evidence on SoA controls A.5.29 and A.5.30."
+msgstr "Il report PDF viene archiviato nell'incidente di esercitazione e come evidenza per i controlli A.5.29 e A.5.30 della SoA."
+
+msgid "this report covers a fictitious incident, simulated to test the continuity plan."
+msgstr "questo report riguarda un incidente fittizio, simulato per testare il piano di continuità."
+
+msgid "Organised by"
+msgstr "Organizzata da"
+
+msgid "Start / end"
+msgstr "Inizio / fine"
+
+msgid "Course of the exercise"
+msgstr "Svolgimento dell'esercitazione"
+
+msgid "By"
+msgstr "Da"
+
+msgid "Not filled in: complete them on the exercise incident and regenerate the report."
+msgstr "Non compilate: completarle nell'incidente di esercitazione e rigenerare il report."
+
+#, php-format
+msgid "Target: %d min after the crisis team was activated."
+msgstr "Obiettivo: %d min dall'attivazione dell'unità di crisi."
+
+#, php-format
+msgid "Crisis team report: %s"
+msgstr "Report dell'unità di crisi: %s"
+
+#, php-format
+msgid "Crisis team report - %s"
+msgstr "Report dell'unità di crisi - %s"
+
+msgid "Crisis team"
+msgstr "Unità di crisi"
+
+msgid "The crisis team could not be activated."
+msgstr "Impossibile attivare l'unità di crisi."
+
+msgid "Finished: the report is archived in the incident documents."
+msgstr "Terminato: il report è archiviato nei documenti dell'incidente."
+
+#, php-format
+msgid "Active for %d min"
+msgstr "Attiva da %d min"
+
+msgid "Items restored"
+msgstr "Elementi ripristinati"
+
+msgid "Open the crisis room"
+msgstr "Apri la sala di crisi"
+
+msgid "No crisis room for this exercise incident."
+msgstr "Nessuna sala di crisi per questo incidente di esercitazione."
+
+msgid "For a major incident, the crisis team follows the response plan step by step (each with a target time), tracks the recovery of affected items against their RTO, and keeps the chronological crisis log."
+msgstr "Per un incidente grave, l'unità di crisi segue il piano di risposta fase per fase (ciascuna con un tempo obiettivo), monitora il ripristino degli elementi interessati rispetto al loro RTO e tiene il registro cronologico della crisi."
+
+msgid "Activate the crisis team now? The timer starts and one task is created per plan step."
+msgstr "Attivare ora l'unità di crisi? Il cronometro parte e viene creata un'attività per ogni fase del piano."
+
+msgid "Response plan"
+msgstr "Piano di risposta"
+
+msgid "Activate the crisis team"
+msgstr "Attiva l'unità di crisi"
+
+msgid "First link the affected items to the incident (\"Items\" tab): the crisis room will track their recovery and that of what depends on them."
+msgstr "Collegare prima all'incidente gli elementi interessati (scheda \"Elementi\"): la sala di crisi monitorerà il loro ripristino e quello di ciò che ne dipende."
+
+msgid "Restored within RTO"
+msgstr "Ripristinato entro l'RTO"
+
+msgid "Restored after RTO"
+msgstr "Ripristinato oltre l'RTO"
+
+msgid "Restored"
+msgstr "Ripristinato"
+
+msgid "Recovery in progress"
+msgstr "Ripristino in corso"
+
+msgid "RTO exceeded"
+msgstr "RTO superato"
+
+msgid "RTO not set"
+msgstr "RTO non impostato"
+
+msgid "CRISIS TEAM"
+msgstr "UNITÀ DI CRISI"
+
+msgid "real incident. The steps are incident tasks and the log is saved in its followups."
+msgstr "incidente reale. Le fasi sono attività dell'incidente e il registro viene salvato nei suoi follow-up."
+
+msgid "Plan steps"
+msgstr "Fasi del piano"
+
+msgid "Recovery of affected items"
+msgstr "Ripristino degli elementi interessati"
+
+msgid "No item linked to the incident. Add the affected items in the incident's \"Items\" tab: their recovery, and that of what depends on them, will be tracked here against their RTO."
+msgstr "Nessun elemento collegato all'incidente. Aggiungere gli elementi interessati nella scheda \"Elementi\" dell'incidente: il loro ripristino, e quello di ciò che ne dipende, verrà monitorato qui rispetto al loro RTO."
+
+msgid "Affected by the incident"
+msgstr "Interessato dall'incidente"
+
+msgid "Depends on an affected item"
+msgstr "Dipende da un elemento interessato"
+
+#, php-format
+msgid "restored by %s"
+msgstr "ripristinato da %s"
+
+msgid "The RTO is set in each item's \"Classification\" tab; it is counted from the opening of the crisis room."
+msgstr "L'RTO si imposta nella scheda \"Classificazione\" di ciascun elemento; viene calcolato dall'apertura della sala di crisi."
+
+msgid "Crisis log"
+msgstr "Registro di crisi"
+
+msgid "Decision, finding, call made… (timestamped automatically)"
+msgstr "Decisione, rilievo, chiamata effettuata… (con data e ora automatiche)"
+
+msgid "New log entry"
+msgstr "Nuova voce di registro"
+
+msgid "Add"
+msgstr "Aggiungi"
+
+msgid "No entry yet."
+msgstr "Nessuna voce."
+
+msgid "Private"
+msgstr "Privato"
+
+msgid "RTOs exceeded"
+msgstr "RTO superati"
+
+msgid "Open the crisis report"
+msgstr "Apri il report di crisi"
+
+msgid "Fill in the lessons learned on the incident, then regenerate the report to include them."
+msgstr "Compilare le lezioni apprese nell'incidente, quindi rigenerare il report per includerle."
+
+msgid "Close the crisis team? The timer stops; the incident itself stays open."
+msgstr "Chiudere l'unità di crisi? Il cronometro si ferma; l'incidente resta aperto."
+
+msgid "Close the crisis team and generate the report"
+msgstr "Chiudi l'unità di crisi e genera il report"
+
+msgid "The PDF report is archived on the incident and as evidence on SoA controls A.5.26 and A.5.29."
+msgstr "Il report PDF viene archiviato nell'incidente e come evidenza per i controlli A.5.26 e A.5.29 della SoA."
+
+msgid "Crisis team activated by"
+msgstr "Unità di crisi attivata da"
+
+msgid "Restored on"
+msgstr "Ripristinato il"
+
+msgid "dependent"
+msgstr "dipendente"
+
+msgid "Author"
+msgstr "Autore"
+
+msgid "Entry"
+msgstr "Voce"
+
+msgid "Not filled in: complete them on the incident and regenerate the report."
+msgstr "Non compilate: completarle nell'incidente e rigenerare il report."
+
+msgid "Technical compliance audit"
+msgstr "Audit di conformità tecnica"
+
+msgid "Computers without an active, up-to-date antivirus"
+msgstr "Computer senza antivirus attivo e aggiornato"
+
+msgid "From the inventory (\"Antivirus\" tab of computers): no antivirus, or an antivirus that is inactive, out of date or expired."
+msgstr "In base all'inventario (scheda \"Antivirus\" dei computer): nessun antivirus, oppure antivirus inattivo, non aggiornato o scaduto."
+
+msgid "Computers with an unencrypted disk"
+msgstr "Computer con un disco non cifrato"
+
+msgid "From the volume inventory: at least one unencrypted or partially encrypted disk. Only computers whose volumes are inventoried are counted. Volumes without a drive letter (EFI, recovery), network shares, optical media, FAT partitions and, on Linux, /boot and pseudo-filesystems are ignored."
+msgstr "In base all'inventario dei volumi: almeno un disco non cifrato o cifrato parzialmente. Vengono conteggiati solo i computer i cui volumi sono inventariati. Vengono ignorati i volumi senza lettera di unità (EFI, ripristino), le condivisioni di rete, i supporti ottici, le partizioni FAT e, su Linux, /boot e gli pseudo-filesystem."
+
+#, php-format
+msgid "Computers not inventoried for more than %d days"
+msgstr "Computer non inventariati da più di %d giorni"
+
+msgid "Computers reported by the inventory agent whose last report is old: the asset inventory is no longer reliable for them."
+msgstr "Computer rilevati dall'agente di inventario il cui ultimo invio è datato: per questi l'inventario degli asset non è più affidabile."
+
+msgid "Changes solved or closed within the last year with fewer approved validations than required."
+msgstr "Cambiamenti risolti o chiusi nell'ultimo anno con meno validazioni approvate di quelle richieste."
+
+msgctxt "to check"
+msgid "Accounts to review"
+msgstr "Account da verificare"
+
+#, php-format
+msgid "Active accounts deleted from the directory, expired, duplicated or without login for %d days (\"Account hygiene\" screen)."
+msgstr "Account attivi eliminati dalla directory, scaduti, duplicati o senza accesso da %d giorni (schermata \"Igiene degli account\")."
+
+msgid "GDPR"
+msgstr "GDPR"
+
+msgid "Antivirus inactive, out of date or expired"
+msgstr "Antivirus inattivo, non aggiornato o scaduto"
+
+msgid "No antivirus inventoried"
+msgstr "Nessun antivirus inventariato"
+
+#, php-format
+msgid "Not encrypted: %s"
+msgstr "Non cifrato: %s"
+
+msgid "Never inventoried"
+msgstr "Mai inventariato"
+
+#, php-format
+msgid "Last inventory: %s"
+msgstr "Ultimo inventario: %s"
+
+#, php-format
+msgid "%1$d approved validation(s) out of %2$d required"
+msgstr "%1$d validazione/i approvata/e su %2$d richiesta/e"
+
+#, php-format
+msgid "Compliance remediation: %1$s (%2$d)"
+msgstr "Adeguamento alla conformità: %1$s (%2$d)"
+
+msgid "Closed changes without an approved validation"
+msgid_plural "Closed changes without %d approved validations"
+msgstr[0] "Cambiamenti chiusi senza una validazione approvata"
+msgstr[1] "Cambiamenti chiusi senza %d validazioni approvate"
+
+msgid "No gap to handle: the ticket was not created."
+msgstr "Nessuno scostamento da gestire: il ticket non è stato creato."
+
+msgid "The technical compliance audit: automatic checks on GLPI data (antivirus, disk encryption, inventory, change validation, accounts), with a score per framework."
+msgstr "L'audit di conformità tecnica: verifiche automatiche sui dati di GLPI (antivirus, cifratura dei dischi, inventario, validazione dei cambiamenti, account), con un punteggio per framework."
+
+msgid "Review the gaps of each check and create the remediation ticket; once the items are fixed, the score goes up. Present the scores at the management review."
+msgstr "Esaminare gli scostamenti di ogni verifica e creare il ticket di adeguamento; una volta corretti gli elementi, il punteggio sale. Presentare i punteggi nel riesame della direzione."
+
+msgid "ISO 27001, 9.1; NIS2, article 21; GDPR, article 32"
+msgstr "ISO 27001, 9.1; NIS2, articolo 21; GDPR, articolo 32"
+
+#, php-format
+msgid "Average of %d technical check(s)"
+msgstr "Media di %d verifica/che tecnica/che"
+
+msgid "No check can be evaluated"
+msgstr "Nessuna verifica valutabile"
+
+msgid "This score only measures the technical checks below, from GLPI data. Organisational progress is tracked in the Statement of Applicability (SoA) and the maturity score."
+msgstr "Questo punteggio misura solo le verifiche tecniche riportate di seguito, a partire dai dati di GLPI. L'avanzamento organizzativo si monitora nella Dichiarazione di applicabilità (SoA) e nel punteggio di maturità."
+
+msgctxt "measures"
+msgid "Annex A controls"
+msgstr "Controlli dell'Allegato A"
+
+msgid "Validations required per change"
+msgstr "Validazioni richieste per cambiamento"
+
+msgid "2 (double validation)"
+msgstr "2 (doppia validazione)"
+
+msgid "Apply"
+msgstr "Applica"
+
+msgid "Not evaluated"
+msgstr "Non valutato"
+
+msgid "Your profile cannot read the items concerned: this check is not part of the score."
+msgstr "Il tuo profilo non consente di leggere gli elementi interessati: questa verifica non rientra nel punteggio."
+
+msgid "No item concerned in your entities."
+msgstr "Nessun elemento interessato nelle tue entità."
+
+#, php-format
+msgid "… and %d others."
+msgstr "… e altri %d."
+
+msgid "Review these accounts (account hygiene)"
+msgstr "Riesamina questi account (igiene degli account)"
+
+#, php-format
+msgid "Remediation ticket in progress (#%d)"
+msgstr "Ticket di adeguamento in corso (#%d)"
+
+msgid "Create the remediation ticket"
+msgstr "Crea il ticket di adeguamento"
+
+msgid "A single ticket, with the items concerned linked. Nothing is changed automatically."
+msgstr "Un unico ticket, con gli elementi interessati collegati. Nulla viene modificato automaticamente."
+
+#, php-format
+msgid "Gaps found by the technical compliance audit (GRC & Compliance): %s."
+msgstr "Scostamenti rilevati dall'audit di conformità tecnica (GRC e conformità): %s."
+
+msgid "References"
+msgstr "Riferimenti"
+
+msgid "Gap"
+msgstr "Scostamento"
+
+#, php-format
+msgid "… and %d others, visible in the technical compliance audit."
+msgstr "… e altri %d, visibili nell'audit di conformità tecnica."
+
+msgid "Fix each item, then run the audit again to check. Nothing was changed automatically."
+msgstr "Correggere ogni elemento, quindi eseguire di nuovo l'audit per verificare. Nulla è stato modificato automaticamente."
+
+msgid "CSV file"
+msgstr "File CSV"
+
+#, php-format
+msgid "Implemented controls by framework (%)"
+msgstr "Controlli attuati per framework (%)"
+
+msgid "Deadlines within 90 days"
+msgstr "Scadenze entro 90 giorni"
+
+#, php-format
+msgid "Access review: % reviewed"
+msgstr "Riesame degli accessi: % riesaminati"
+
+msgid "NIS2 / GDPR deadlines at risk"
+msgstr "Scadenze NIS2 / GDPR a rischio"
+
+msgid "Average supplier score"
+msgstr "Punteggio medio dei fornitori"
+
+msgid "Overdue periodic reviews"
+msgstr "Riesami periodici in ritardo"
+
+msgid "Dashboard"
+msgstr "Cruscotto"
+
+msgid "The information security management system dashboard: risks, controls, incidents, deadlines and reviews at a glance."
+msgstr "Il cruscotto del sistema di gestione per la sicurezza delle informazioni: rischi, controlli, incidenti, scadenze e riesami a colpo d'occhio."
+
+msgid "Click a card to open the matching list. The dashboard menu lets you add or move cards, and share it with other profiles."
+msgstr "Fare clic su una scheda per aprire l'elenco corrispondente. Il menu del cruscotto consente di aggiungere o spostare schede e di condividerlo con altri profili."
+
+msgid "The GRC dashboard is not available for your profile."
+msgstr "Il cruscotto GRC non è disponibile per il tuo profilo."
+
+msgid "An administrator can share it with this profile from Home, in the menu of the \"GRC Manager - ISMS overview\" dashboard, then \"Share or embed this dashboard\"."
+msgstr "Un amministratore può condividerlo con questo profilo da Home, nel menu del cruscotto \"GRC Manager - Panoramica SGSI\", quindi \"Condividi o incorpora questo cruscotto\"."
+
+msgid "Critical suppliers not assessed"
+msgstr "Fornitori critici non valutati"
+
+msgid "Risks and non-conformities by month"
+msgstr "Rischi e non conformità per mese"
+
+msgid "GRC Manager - Management"
+msgstr "GRC Manager - Direzione"
+
+msgid "Late reviewers (access)"
+msgstr "Revisori in ritardo (accessi)"
+
+msgid "Participants to retake"
+msgstr "Partecipanti che devono ripetere la prova"
+
+#, php-format
+msgid "Pass rate by training session (%)"
+msgstr "Tasso di superamento per sessione formativa (%)"
+
+#, php-format
+msgid "%s - retake"
+msgstr "%s - recupero"
+
+msgid "Proposed retake session: participants who failed are preselected. Check the date and the list, then click \"Add\". Nothing is saved before that."
+msgstr "Sessione di recupero proposta: i partecipanti che non hanno superato la prova sono preselezionati. Verificare la data e l'elenco, quindi fare clic su \"Aggiungi\". Nulla viene salvato prima."
+
+msgid "Maximum quiz score"
+msgstr "Punteggio massimo del quiz"
+
+msgid "E.g. 40 for a quiz scored out of 40. 0 = no score."
+msgstr "Es. 40 per un quiz con punteggio su 40. 0 = nessun punteggio."
+
+#, php-format
+msgid "Pass threshold (%)"
+msgstr "Soglia di superamento (%)"
+
+#, php-format
+msgid "E.g. 80: passed from 80% of the maximum score. With a maximum score and a threshold, each participant's result is computed from their score."
+msgstr "Es. 80: superato a partire dall'80% del punteggio massimo. Con un punteggio massimo e una soglia, il risultato di ogni partecipante viene calcolato dal suo punteggio."
+
+#, php-format
+msgid "Session pass rate: %1$s out of %2$s (%3$s %%)"
+msgstr "Tasso di superamento della sessione: %1$s su %2$s (%3$s %%)"
+
+msgid "Score"
+msgstr "Voto"
+
+msgid "To retake"
+msgstr "Da ripetere"
+
+msgid "Enter the score"
+msgstr "Inserire il voto"
+
+#, php-format
+msgid "Prepare a retake session (%s participant)"
+msgid_plural "Prepare a retake session (%s participants)"
+msgstr[0] "Prepara una sessione di recupero (%s partecipante)"
+msgstr[1] "Prepara una sessione di recupero (%s partecipanti)"
+
+#, php-format
+msgid "Internal audit report: %s"
+msgstr "Rapporto di audit interno: %s"
+
+#, php-format
+msgid "Internal audit report - %s"
+msgstr "Rapporto di audit interno - %s"
+
+msgid "The audit report has been archived in the Documents tab."
+msgstr "Il rapporto di audit è stato archiviato nella scheda Documenti."
+
+msgid "Findings"
+msgstr "Rilievi"
+
+msgid "Non-conformities and observations raised during this audit. When the audit is closed (status \"Completed\"), the PDF report is archived in the Documents tab."
+msgstr "Non conformità e osservazioni emerse durante questo audit. Alla chiusura dell'audit (stato \"Completato\"), il rapporto PDF viene archiviato nella scheda Documenti."
+
+msgid "Add a finding"
+msgstr "Aggiungi un rilievo"
+
+msgid "No finding for this audit."
+msgstr "Nessun rilievo per questo audit."
+
+msgid "Planned / actual date"
+msgstr "Data pianificata / effettiva"
+
+msgid "Risk categories"
+msgstr "Categorie di rischio"
+
+msgid "Audited controls"
+msgstr "Controlli sottoposti ad audit"
+
+msgid "Notifies the owner 15 days before a compliance calendar event"
+msgstr "Avvisa il responsabile 15 giorni prima di un evento del calendario della conformità"
+
+msgid "Upcoming compliance event"
+msgstr "Evento di conformità imminente"
+
+msgid "Event owner"
+msgstr "Responsabile dell'evento"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Event"
+msgid_plural "Events"
+msgstr[0] "Evento"
+msgstr[1] "Eventi"
+
+msgid "Network flow matrix"
+msgstr "Matrice dei flussi di rete"
+
+msgid "Active flows"
+msgstr "Flussi attivi"
+
+msgid "Disabled flows"
+msgstr "Flussi disattivati"
+
+msgid "No gap on active flows."
+msgstr "Nessuno scostamento sui flussi attivi."
+
+msgid "Protocol and ports"
+msgstr "Protocollo e porte"
+
+msgid "Gaps"
+msgstr "Scostamenti"
+
+msgid "No active flow."
+msgstr "Nessun flusso attivo."
+
+msgid "Addressing plan"
+msgstr "Piano di indirizzamento"
+
+msgid "No IP network declared in GLPI."
+msgstr "Nessuna rete IP dichiarata in GLPI."
+
+msgid "Network"
+msgstr "Rete"
+
+msgid "Address"
+msgstr "Indirizzo"
+
+msgid "Gateway"
+msgstr "Gateway"
+
+msgid "XML file that is not a pfSense backup (config.xml)."
+msgstr "File XML che non è un backup di pfSense (config.xml)."
+
+msgid "No filter rule in the pfSense backup."
+msgstr "Nessuna regola di filtraggio nel backup di pfSense."
+
+msgid "Choose a CSV file or a pfSense backup (XML) of 2 MB at most."
+msgstr "Scegliere un file CSV o un backup di pfSense (XML) di massimo 2 MB."
+
+msgid "pfSense firewall: import its configuration backup directly (Diagnostics > Backup & Restore, config.xml file). Enabled rules that allow a flow are imported with their aliases resolved; block rules and disabled rules are ignored. In that case, the line number shown is the rule number. Justification and owner remain to be filled in the matrix."
+msgstr "Firewall pfSense: importarne direttamente il backup della configurazione (Diagnostics > Backup & Restore, file config.xml). Le regole attive che consentono un flusso vengono importate con gli alias risolti; le regole di blocco e quelle disattivate vengono ignorate. In questo caso, il numero di riga mostrato è il numero della regola. Giustificazione e titolare restano da compilare nella matrice."
+
+msgid "Partner network conflicting with an internal network"
+msgstr "Rete del partner in conflitto con una rete interna"
+
+#, php-format
+msgid "Training session: %s"
+msgstr "Sessione formativa: %s"
+
+msgid "Session PDF report"
+msgstr "Report PDF della sessione"
+
+#, php-format
+msgid "maximum score: %s"
+msgstr "punteggio massimo: %s"
+
+msgid "Pass rate"
+msgstr "Tasso di superamento"
+
+msgid "Attendance and results"
+msgstr "Presenze e risultati"
+
+msgid "Participant"
+msgstr "Partecipante"
+
+msgid "No participant."
+msgstr "Nessun partecipante."
+
+msgid "Automated technical checks"
+msgstr "Verifiche tecniche automatiche"
+
+msgid "Evidence"
+msgstr "Evidenze"
+
+msgid "Impact analysis"
+msgstr "Analisi d'impatto"
+
+msgid "Automated technical checks: checks computed from GLPI data (antivirus, disk encryption, inventory, change validation, accounts), with a score per framework."
+msgstr "Verifiche tecniche automatiche: verifiche calcolate sui dati di GLPI (antivirus, cifratura dei dischi, inventario, validazione dei cambiamenti, account), con un punteggio per framework."
+
+#, php-format
+msgid "Gaps found by the automated technical checks (GRC & Compliance): %s."
+msgstr "Scostamenti rilevati dalle verifiche tecniche automatiche (GRC e conformità): %s."
+
+#, php-format
+msgid "… and %d more, visible in the automated technical checks."
+msgstr "… e altri %d, visibili nelle verifiche tecniche automatiche."
+
+msgid "Fix each item, then run the checks again to verify. Nothing was changed automatically."
+msgstr "Correggere ogni elemento, quindi eseguire di nuovo le verifiche per controllare. Nulla è stato modificato automaticamente."
+
+msgid "Participants overdue for renewal"
+msgstr "Partecipanti con rinnovo scaduto"
+
+msgid "The PDF is archived in the incident's documents, readable only by people who can see the incident."
+msgstr "Il PDF viene archiviato nei documenti dell'incidente, leggibile solo dalle persone che possono vedere l'incidente."
+
+msgid "Requested by"
+msgstr "Richiesta da"
+
+msgid "You cannot approve a waiver you requested."
+msgstr "Non puoi approvare una deroga che hai richiesto tu."
+
+msgid "Most exposed machines"
+msgstr "Macchine più esposte"
+
+msgid "The machines most exposed to the known vulnerabilities of their watched software, to know where to start updating."
+msgstr "Le macchine più esposte alle vulnerabilità note del loro software monitorato, per sapere da dove iniziare gli aggiornamenti."
+
+msgid "Handle the machines at the top of the list first; the \"Vulnerabilities\" tab of each one details the CVEs and the update ticket."
+msgstr "Gestire prima le macchine in cima all'elenco; la scheda \"Vulnerabilità\" di ciascuna riporta il dettaglio delle CVE e il ticket di aggiornamento."
+
+msgid "No machine has a known vulnerability among the watched software."
+msgstr "Nessuna macchina presenta vulnerabilità note tra il software monitorato."
+
+msgid "Machine"
+msgstr "Macchina"
+
+msgid "Exploited (KEV)"
+msgstr "Sfruttate (KEV)"
+
+msgid "Max CVSS"
+msgstr "CVSS max"
+
+msgid "Max EPSS"
+msgstr "EPSS max"
+
+#, php-format
+msgid "%1$d machines shown out of %2$d exposed machines."
+msgstr "%1$d macchine mostrate su %2$d macchine esposte."
+
+#, php-format
+msgid "Exposure score from 0 to 100: the most severe vulnerability (10 if it is actively exploited) counts for 70%, the number of priority vulnerabilities for 30%. It is an order of treatment, not a standardised measure."
+msgstr "Punteggio di esposizione da 0 a 100: la vulnerabilità più grave (10 se sfruttata attivamente) conta per il 70%, il numero di vulnerabilità prioritarie per il 30%. È un ordine di trattamento, non una misura standardizzata."
+
+msgid "Subscribe"
+msgstr "Iscriviti"
+
+msgid "Subscription link for your calendar (Outlook, Thunderbird, Google Calendar…)"
+msgstr "Link di sottoscrizione per il tuo calendario (Outlook, Thunderbird, Google Calendar…)"
+
+msgid "Personal link: it gives access to your deadlines with your rights, without a password. Do not share it. To revoke it, regenerate your personal token in your preferences."
+msgstr "Link personale: dà accesso alle tue scadenze con i tuoi diritti, senza password. Non condividerlo. Per revocarlo, rigenera il tuo token personale nelle preferenze."
+
+#, php-format
+msgid "Groups changed less than %d days ago, profiles not reviewed"
+msgstr "Gruppi modificati da meno di %d giorni, profili non riesaminati"
+
+msgid "IT charter"
+msgstr "Regolamento informatico"
+
+msgid "Reference version for assetsign charter campaigns: the most recent approved version is shown in them, and a new approved version calls for a new signature."
+msgstr "Versione di riferimento per le campagne sul regolamento informatico di assetsign: vi compare la versione approvata più recente e una nuova versione approvata richiede una nuova firma."
+
+msgid "Charter signatures"
+msgstr "Firme del regolamento"
+
+msgid "Signatures are tracked by the charter campaigns of the assetsign plugin, which is not installed or not up to date."
+msgstr "Le firme sono gestite dalle campagne sul regolamento del plugin assetsign, che non è installato o non è aggiornato."
+
+#, php-format
+msgid "No charter campaign in your entities: start one in assetsign to have version %s signed."
+msgstr "Nessuna campagna sul regolamento nelle tue entità: avviane una in assetsign per far firmare la versione %s."
+
+msgid "Latest campaign"
+msgstr "Ultima campagna"
+
+#, php-format
+msgid "Version %s approved after this campaign: to be signed"
+msgstr "Versione %s approvata dopo questa campagna: da far firmare"
+
+msgid "Charter campaigns (assetsign)"
+msgstr "Campagne sul regolamento (assetsign)"
+
+msgid "Security governance (ISMS)"
+msgstr "Governance della sicurezza (SGSI)"
+
+msgid "Audits and improvement"
+msgstr "Audit e miglioramento"
+
+msgid "Operations"
+msgstr "Operatività"
+
+msgid "Technical security"
+msgstr "Sicurezza tecnica"
+
+msgid "Compliance"
+msgstr "Conformità"
+
+msgid "Auditee (read only)"
+msgstr "Soggetto sottoposto ad audit (sola lettura)"
+
+msgid "Team"
+msgstr "Team"
+
+msgid "Audit owner"
+msgstr "Responsabile dell'audit"
+
+msgid "Document access"
+msgstr "Accesso ai documenti"
+
+msgid "Choose a member and a role."
+msgstr "Scegliere un membro e un ruolo."
+
+msgid "Only team members can read the documents of the audit and its findings, even with the GLPI Documents right. Auditees can read them but cannot add anything."
+msgstr "Solo i membri del team possono leggere i documenti dell'audit e dei relativi rilievi, anche con il diritto Documenti di GLPI. I soggetti sottoposti ad audit possono leggerli ma non aggiungere nulla."
+
+#, php-format
+msgid "The CISO group (%s) can access them too."
+msgstr "Anche il gruppo CISO (%s) può accedervi."
+
+msgid "No CISO group is set in the plugin configuration."
+msgstr "Nessun gruppo CISO è impostato nella configurazione del plugin."
+
+msgid "Member"
+msgstr "Membro"
+
+msgid "Role"
+msgstr "Ruolo"
+
+msgid "audit form"
+msgstr "scheda dell'audit"
+
+msgid "Remove"
+msgstr "Rimuovi"
+
+msgid "No member: set the auditor or the owner on the form."
+msgstr "Nessun membro: impostare l'auditor o il responsabile nella scheda."
+
+msgid "Every download of a document of the audit or its findings, by a team member or the CISO group."
+msgstr "Ogni download di un documento dell'audit o dei relativi rilievi, da parte di un membro del team o del gruppo CISO."
+
+msgid "No document of this audit has been downloaded yet."
+msgstr "Nessun documento di questo audit è ancora stato scaricato."
+
+msgid "The documents of an audit can only be read by its team (auditors, owner, auditees) and by the members of this group, even with the GLPI Documents right."
+msgstr "I documenti di un audit possono essere letti solo dal relativo team (auditor, responsabile, soggetti sottoposti ad audit) e dai membri di questo gruppo, anche con il diritto Documenti di GLPI."
+
+msgid "CISO group"
+msgstr "Gruppo CISO"
+
+msgid "None (main training)"
+msgstr "Nessuna (formazione principale)"
+
+msgid "Trainer"
+msgstr "Formatore"
+
+msgid "Location or link"
+msgstr "Luogo o link"
+
+msgid "Sessions"
+msgstr "Sessioni"
+
+msgid "New session of this training: fill in its date, trainer, location and participants, then click \"Add\". Nothing is saved before."
+msgstr "Nuova sessione di questa formazione: compilare data, formatore, luogo e partecipanti, quindi fare clic su \"Aggiungi\". Nulla viene salvato prima."
+
+msgid "Session of the training"
+msgstr "Sessione della formazione"
+
+msgid "View the training"
+msgstr "Visualizza la formazione"
+
+msgid "Room, address or link to the video call / online module."
+msgstr "Aula, indirizzo o link alla videochiamata / al modulo online."
+
+msgid "Each session has its own date, trainer, location, participants and documents (attendance sheet, slides, quiz)."
+msgstr "Ogni sessione ha data, formatore, luogo, partecipanti e documenti propri (foglio presenze, slide, quiz)."
+
+msgid "Add a session"
+msgstr "Aggiungi una sessione"
+
+#, php-format
+msgid "Training pass rate, all sessions: %1$s out of %2$s (%3$s %%)"
+msgstr "Tasso di superamento della formazione, tutte le sessioni: %1$s su %2$s (%3$s %%)"
+
+msgid "No other session for this training."
+msgstr "Nessun'altra sessione per questa formazione."
+
+msgid "Session"
+msgstr "Sessione"
+
+#, php-format
+msgid "Quiz copy - %1$s - %2$s"
+msgstr "Elaborato del quiz - %1$s - %2$s"
+
+msgid "My trainings"
+msgstr "Le mie formazioni"
+
+msgid "Quiz copies"
+msgstr "Elaborati dei quiz"
+
+msgid "Choose the file of the copy."
+msgstr "Scegliere il file dell'elaborato."
+
+msgid "The copy could not be attached (file type not allowed?)."
+msgstr "Impossibile allegare l'elaborato (tipo di file non consentito?)."
+
+msgid "Each copy can only be read by its participant, the session's trainer and the CISO group."
+msgstr "Ogni elaborato può essere letto solo dal relativo partecipante, dal formatore della sessione e dal gruppo CISO."
+
+msgid "No participant in this session."
+msgstr "Nessun partecipante in questa sessione."
+
+msgid "Quiz copy"
+msgstr "Elaborato del quiz"
+
+msgid "Download"
+msgstr "Scarica"
+
+msgid "Attached (restricted access)"
+msgstr "Allegato (accesso riservato)"
+
+msgid "None"
+msgstr "Nessuno"
+
+msgid "Remove the copy"
+msgstr "Rimuovi l'elaborato"
+
+msgid "You are not enrolled in any training."
+msgstr "Non sei iscritto ad alcuna formazione."
+
+msgid "Sensitive registers (risks, vulnerabilities, network flows)"
+msgstr "Registri sensibili (rischi, vulnerabilità, flussi di rete)"
+
+msgid "Sensitive registers"
+msgstr "Registri sensibili"
+
+msgid "The risk register, fleet vulnerabilities and network flow matrix describe the organisation's weak points. They have their own right (GRC Manager tab of profiles): give it only to the CISO and risk owners."
+msgstr "Il registro dei rischi, le vulnerabilità del parco e la matrice dei flussi di rete descrivono i punti deboli dell'organizzazione. Hanno un diritto dedicato (scheda GRC Manager dei profili): assegnarlo solo al CISO e ai titolari dei rischi."
+
+msgid "E-mails without details: \"Risk no. X\" and the link to the record, without title, category, level or supplier"
+msgstr "E-mail senza dettagli: \"Rischio n. X\" e il link alla scheda, senza titolo, categoria, livello né fornitore"
+
+msgid "An e-mail travels in clear text and stays in mailboxes and archives. The recipient reads the details in GLPI, with their own rights."
+msgstr "Un'e-mail viaggia in chiaro e resta nelle caselle di posta e negli archivi. Il destinatario legge i dettagli in GLPI, con i propri diritti."
+
+#, php-format
+msgid "Risk no. %d"
+msgstr "Rischio n. %d"
+
+#, php-format
+msgid "Supplier risk no. %d"
+msgstr "Rischio fornitore n. %d"
+
+#, php-format
+msgid "%1$s exports: %2$s"
+msgstr "%1$s esporta: %2$s"
+
+msgid "Computer statuses excluded from the checks"
+msgstr "Stati dei computer esclusi dalle verifiche"
+
+msgid "For example \"Retired\" or \"In stock\": these computers are counted neither in the gaps nor in the scores."
+msgstr "Ad esempio \"Dismesso\" o \"In magazzino\": questi computer non vengono conteggiati né negli scostamenti né nei punteggi."
+
+#, php-format
+msgid "Computers excluded from the checks (status): %s"
+msgstr "Computer esclusi dalle verifiche (stato): %s"
+
+msgid "The library of security policies, versioned, with their approval and review date."
+msgstr "La raccolta delle politiche di sicurezza, con versioni, approvazione e data di riesame."
+
+msgid "ISO/IEC 27090:2026 — Security of AI systems"
+msgstr "ISO/IEC 27090:2026 — Sicurezza dei sistemi di IA"
+
+msgid "Guidance, not certifiable, to be applied alongside ISO/IEC 27001 and ISO/IEC 42001. The typical AI risks of the risk catalog refer to these sections."
+msgstr "Linee guida, non certificabili, da applicare insieme a ISO/IEC 27001 e ISO/IEC 42001. I rischi tipici di IA del catalogo dei rischi rimandano a queste sezioni."
+
+msgid "ISO/IEC 27090:2026 is protected by copyright: only its section numbers are used here; summaries and the mapping to ISO 27001 Annex A are written by this project, which is not affiliated with ISO or IEC."
+msgstr "ISO/IEC 27090:2026 è protetta dal diritto d'autore: qui sono usati solo i numeri di sezione; i riassunti e la corrispondenza con l'Allegato A della ISO 27001 sono redatti da questo progetto, che non è affiliato né a ISO né a IEC."
+
+msgid "Infrastructure"
+msgstr "Infrastruttura"
+
+msgid "AI systems (ISO/IEC 27090)"
+msgstr "Sistemi di IA (ISO/IEC 27090)"
+
+msgid "Typical risks for an organization that uses AI more than it develops it. The badges refer to the sections of ISO/IEC 27090:2026."
+msgstr "Rischi tipici per un'organizzazione che usa l'IA più di quanto la sviluppi. I badge rimandano alle sezioni di ISO/IEC 27090:2026."
+
+msgid "See the ISO/IEC 27090 framework"
+msgstr "Vedere il quadro ISO/IEC 27090"
+
+#, php-format
+msgid "ISO/IEC 27090 sections: %s"
+msgstr "Sezioni di ISO/IEC 27090: %s"
+
+msgid "Company data entered into public AI services"
+msgstr "Dati aziendali inseriti in servizi di IA pubblici"
+
+msgid "Staff paste documents, customer data or source code into public chatbots or AI tools that the organization has not approved."
+msgstr "Il personale incolla documenti, dati dei clienti o codice sorgente in chatbot o strumenti di IA pubblici che l'organizzazione non ha approvato."
+
+msgid "Leak of confidential or personal data, reuse of the data to train the service, breach of GDPR or of contracts."
+msgstr "Fuga di dati riservati o personali, riutilizzo dei dati per addestrare il servizio, violazione del GDPR o dei contratti."
+
+msgid "Is there a list of approved AI services and a rule on what data may be entered?"
+msgstr "Esiste un elenco dei servizi di IA approvati e una regola su quali dati si possono inserire?"
+
+msgid "Have staff been made aware of it?"
+msgstr "Il personale è stato sensibilizzato in merito?"
+
+msgid "AI assistant or agent diverted by prompt injection"
+msgstr "Assistente o agente di IA dirottato tramite prompt injection"
+
+msgid "An AI assistant reads e-mails, documents or web pages, or acts on tools (mailbox, tickets, files) on behalf of users."
+msgstr "Un assistente di IA legge e-mail, documenti o pagine web, o agisce su strumenti (posta, ticket, file) per conto degli utenti."
+
+msgid "Instructions hidden in the content it reads make it disclose data, perform unwanted actions or return a booby-trapped answer."
+msgstr "Istruzioni nascoste nel contenuto che legge gli fanno divulgare dati, eseguire azioni indesiderate o restituire una risposta trappola."
+
+msgid "Does the assistant have more rights than needed, or act without human validation?"
+msgstr "L'assistente ha più diritti del necessario o agisce senza convalida umana?"
+
+msgid "Is the content it processes filtered and are its actions logged?"
+msgstr "Il contenuto che elabora è filtrato e le sue azioni sono registrate?"
+
+msgid "AI system revealing confidential or personal data"
+msgstr "Sistema di IA che rivela dati riservati o personali"
+
+msgid "An internal assistant or model has access to documents or data broader than what each user is allowed to see."
+msgstr "Un assistente o modello interno ha accesso a documenti o dati più ampi di quelli che ogni utente può vedere."
+
+msgid "Disclosure through its answers of documents, personal data or training data to people who should not see them."
+msgstr "Divulgazione, tramite le sue risposte, di documenti, dati personali o dati di addestramento a persone che non dovrebbero vederli."
+
+msgid "Does the assistant respect the access rights of the person asking?"
+msgstr "L'assistente rispetta i diritti di accesso della persona che lo interroga?"
+
+msgid "Were personal data excluded or minimized in what it can access?"
+msgstr "I dati personali sono stati esclusi o ridotti al minimo in ciò a cui ha accesso?"
+
+msgid "Compromised third-party AI model, dataset or service"
+msgstr "Modello, set di dati o servizio di IA di terzi compromesso"
+
+msgid "The organization uses models, datasets, libraries or AI services supplied by third parties, sometimes downloaded from public repositories."
+msgstr "L'organizzazione usa modelli, set di dati, librerie o servizi di IA forniti da terzi, a volte scaricati da repository pubblici."
+
+msgid "Trapped model or library, unknown origin of data, provider changing its terms or its model without notice, dependency on a single provider."
+msgstr "Modello o libreria trappola, origine dei dati sconosciuta, fornitore che cambia condizioni o modello senza preavviso, dipendenza da un unico fornitore."
+
+msgid "Are the origin and version of each model and dataset known?"
+msgstr "L'origine e la versione di ogni modello e set di dati sono note?"
+
+msgid "Do contracts with AI providers cover data use, security and location?"
+msgstr "I contratti con i fornitori di IA coprono l'uso dei dati, la sicurezza e la localizzazione?"
+
+msgid "Training data or model tampered with"
+msgstr "Dati di addestramento o modello alterati"
+
+msgid "The organization trains or fine-tunes a model, or feeds an assistant with a document base that several people can modify."
+msgstr "L'organizzazione addestra o perfeziona un modello, o alimenta un assistente con una base documentale che più persone possono modificare."
+
+msgid "Altered data or parameters skew the answers or plant a hidden behaviour that is hard to detect."
+msgstr "Dati o parametri alterati falsano le risposte o impiantano un comportamento nascosto difficile da rilevare."
+
+msgid "Who can modify the training data, the document base or the model?"
+msgstr "Chi può modificare i dati di addestramento, la base documentale o il modello?"
+
+msgid "Are changes traced and the model tested before going into production?"
+msgstr "Le modifiche sono tracciate e il modello testato prima della messa in produzione?"
+
+msgid "Theft or extraction of an in-house model"
+msgstr "Furto o estrazione di un modello interno"
+
+msgid "A model developed or fine-tuned by the organization is exposed through an API or stored with the rest of the data."
+msgstr "Un modello sviluppato o perfezionato dall'organizzazione è esposto tramite un'API o archiviato con il resto dei dati."
+
+msgid "Copy of the model files, or reconstruction of the model through massive queries, and loss of the know-how it contains."
+msgstr "Copia dei file del modello, o ricostruzione del modello tramite interrogazioni massive, e perdita del know-how che contiene."
+
+msgid "Are access to the model files restricted and its use limited and monitored?"
+msgstr "L'accesso ai file del modello è limitato e il suo uso circoscritto e monitorato?"
+
+msgid "Is the number of queries per user limited?"
+msgstr "Il numero di interrogazioni per utente è limitato?"
+
+msgid "AI systems neither inventoried nor monitored"
+msgstr "Sistemi di IA né inventariati né monitorati"
+
+msgid "AI features are enabled in software, services or internal projects without anyone having a complete list of them."
+msgstr "Funzioni di IA vengono attivate in software, servizi o progetti interni senza che nessuno ne abbia l'elenco completo."
+
+msgid "Data processing and risks that nobody assesses, misuse or abuse noticed late, or never."
+msgstr "Trattamenti di dati e rischi che nessuno valuta, usi impropri o abusi notati tardi, o mai."
+
+msgid "Is there an inventory of AI systems with their owner and the data they use?"
+msgstr "Esiste un inventario dei sistemi di IA con il loro responsabile e i dati che utilizzano?"
+
+msgid "Is their use logged and reviewed?"
+msgstr "Il loro uso è registrato e riesaminato?"

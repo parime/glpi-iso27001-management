@@ -25,18 +25,18 @@ include('../../../inc/includes.php');
 // visible qu'après une déclaration globale explicite.
 global $CFG_GLPI;
 
-Session::checkRight(PluginGrcmanagerAudit::$rightname, READ);
+Session::checkRight(\GlpiPlugin\Grcmanager\Audit::$rightname, READ);
 
 Html::header(
-    PluginGrcmanagerAudit::getTypeName(2),
+    \GlpiPlugin\Grcmanager\Audit::getTypeName(2),
     $_SERVER['PHP_SELF'],
     'grcmanager',
-    PluginGrcmanagerAudit::class
+    \GlpiPlugin\Grcmanager\Audit::class
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(PluginGrcmanagerAudit::class, PluginGrcmanagerAudit::class);
+\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\Audit::class, \GlpiPlugin\Grcmanager\Audit::class);
 // Encadré « À quoi sert cette page ? ».
-PluginGrcmanagerPageHelp::show('audit');
+\GlpiPlugin\Grcmanager\PageHelp::show('audit');
 
 // ROADMAP.md "Version 1.5" (rapports exportables pour audit externe) : export PDF mis en forme
 // (audits + non-conformités/CAPA), en complément de l'export CSV/XLSX déjà natif de
@@ -54,12 +54,12 @@ TemplateRenderer::getInstance()->display('@grcmanager/_list_toolbar.html.twig', 
 // Same URL-driven search fix as front/risk.php/front/control.php (Search::showList()'s $params
 // must be pre-merged with $_GET via QueryBuilder::manageParams(), unlike Search::show() which does
 // this internally), see front/risk.php's own docblock for the full rationale.
-$params = QueryBuilder::manageParams(PluginGrcmanagerAudit::class, $_GET);
+$params = QueryBuilder::manageParams(\GlpiPlugin\Grcmanager\Audit::class, $_GET);
 
 Search::showList(
-    PluginGrcmanagerAudit::class,
+    \GlpiPlugin\Grcmanager\Audit::class,
     $params,
-    DefaultSearchColumns::COLUMNS[PluginGrcmanagerAudit::class]
+    DefaultSearchColumns::COLUMNS[\GlpiPlugin\Grcmanager\Audit::class]
 );
 
 Html::footer();

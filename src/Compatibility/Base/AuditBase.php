@@ -6,10 +6,10 @@ namespace GlpiPlugin\Grcmanager\Compatibility\Base;
 
 use CommonDBTM;
 use GlpiPlugin\Grcmanager\Compatibility\GlpiVersion;
-use PluginGrcmanagerAudit;
+use GlpiPlugin\Grcmanager\Audit;
 
 /*
- * Parent of \PluginGrcmanagerAudit.
+ * Parent of \\GlpiPlugin\Grcmanager\Audit.
  *
  * Redeclares the GLPI core properties that class overrides: untyped on GLPI 11, typed on GLPI 12
  * (see GlpiVersion). A class, not a trait: on PHP 8.2-8.4 a trait cannot redeclare an inherited
@@ -19,14 +19,14 @@ use PluginGrcmanagerAudit;
 if (GlpiVersion::isAtLeast12()) {
     abstract class AuditBase extends CommonDBTM
     {
-        public static string $rightname = PluginGrcmanagerAudit::RIGHTNAME;
+        public static string $rightname = \GlpiPlugin\Grcmanager\Audit::RIGHTNAME;
         // Issue #140 : onglet Notes (notes de travail datées, auteur conservé).
         protected bool $usenotepad = true;
     }
 } else {
     abstract class AuditBase extends CommonDBTM
     {
-        public static $rightname = PluginGrcmanagerAudit::RIGHTNAME;
+        public static $rightname = \GlpiPlugin\Grcmanager\Audit::RIGHTNAME;
         // Issue #140 : onglet Notes (notes de travail datées, auteur conservé).
         protected $usenotepad = true;
     }

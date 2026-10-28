@@ -6,7 +6,7 @@ namespace GlpiPlugin\Grcmanager\Services\Classification;
 
 /**
  * Pure validation/decision logic behind the C/I/D (Confidentialité/Intégrité/Disponibilité) asset
- * classification register (issue #26), see PluginGrcmanagerAssetClassification. Kept
+ * classification register (issue #26), see \GlpiPlugin\Grcmanager\AssetClassification. Kept
  * GLPI-independent (no $DB, no CommonDBTM, no __()) so every zero/some/all-axes-set scenario can
  * be unit tested directly (tests/Unit/Services/Classification/ClassificationLevelsTest.php), the
  * same split already used for the risk <-> CMDB item link (RiskItemLinkNormalizer, issue #25) and
@@ -55,7 +55,7 @@ final class ClassificationLevels
      * real value: partial classification (e.g. only `confidentiality` set for a HR database whose
      * integrity/availability sensitivity hasn't been assessed yet) is a valid, expected state, not
      * an all-or-nothing requirement. Drives the reverse tab's empty-state vs. summary rendering
-     * (PluginGrcmanagerAssetClassification::displayTabContentForItem()).
+     * (\GlpiPlugin\Grcmanager\AssetClassification::displayTabContentForItem()).
      *
      * @param array<string, mixed>|null $classification raw DB row (or null: no row at all yet).
      */
