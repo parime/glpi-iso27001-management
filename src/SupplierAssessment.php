@@ -15,8 +15,14 @@
  * -------------------------------------------------------------------------
  */
 
+namespace GlpiPlugin\Grcmanager;
+
+use CommonGLPI;
+use Contract;
+use Contract_Supplier;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Services\Risk\SupplierQuestionnaire;
+use Session;
 
 /**
  * Issue #127 : évaluation de la sécurité d'un fournisseur, en onglets du risque fournisseur.
@@ -29,7 +35,7 @@ use GlpiPlugin\Grcmanager\Services\Risk\SupplierQuestionnaire;
  * risque fournisseur. Simple fournisseur d'onglets (CommonGLPI) : les réponses sont stockées sur
  * le risque fournisseur lui-même, avec l'historique GLPI habituel.
  */
-class PluginGrcmanagerSupplierAssessment extends CommonGLPI
+class SupplierAssessment extends CommonGLPI
 {
     private const TAB_QUESTIONNAIRE = 1;
     private const TAB_CONTRACTS = 2;
@@ -90,7 +96,7 @@ class PluginGrcmanagerSupplierAssessment extends CommonGLPI
 
     public function getTabNameForItem(CommonGLPI $item, $withtemplate = 0)
     {
-        if (!$item instanceof PluginGrcmanagerSupplierRisk || $item->isNewItem()) {
+        if (!$item instanceof SupplierRisk || $item->isNewItem()) {
             return '';
         }
 
@@ -109,7 +115,7 @@ class PluginGrcmanagerSupplierAssessment extends CommonGLPI
     {
         global $CFG_GLPI;
 
-        if (!$item instanceof PluginGrcmanagerSupplierRisk) {
+        if (!$item instanceof SupplierRisk) {
             return false;
         }
 
@@ -145,7 +151,7 @@ class PluginGrcmanagerSupplierAssessment extends CommonGLPI
      *
      * @param array<mixed> $answers question => réponse
      */
-    public static function save(PluginGrcmanagerSupplierRisk $risk, array $answers): bool
+    public static function save(SupplierRisk $risk, array $answers): bool
     {
         $clean = SupplierQuestionnaire::sanitize($answers);
         $score = SupplierQuestionnaire::score($clean);

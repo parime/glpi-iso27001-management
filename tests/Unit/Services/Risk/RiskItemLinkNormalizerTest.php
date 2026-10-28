@@ -50,7 +50,7 @@ final class RiskItemLinkNormalizerTest extends TestCase
 
     /**
      * "Unlinking" is a delete-then-reinsert of the desired end state on the real $DB-backed
-     * method (PluginGrcmanagerRisk::syncLinkedAssets(), same convention as every other simple link
+     * method (\GlpiPlugin\Grcmanager\Risk::syncLinkedAssets(), same convention as every other simple link
      * table in this plugin, see its own docblock): simulated here as "the item is simply absent
      * from the next call's candidate pairs", which must never raise, on an already-empty set or
      * one that previously held the link.

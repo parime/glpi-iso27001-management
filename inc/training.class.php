@@ -47,7 +47,7 @@ class PluginGrcmanagerTraining extends TrainingBase
     /**
      * GLPI notification event name (see inc/notificationtargettraining.class.php and
      * src/Services/Training/TrainingRenewalService.php), same single-source-of-truth pattern as
-     * PluginGrcmanagerRisk::REVIEW_DUE_EVENT.
+     * \GlpiPlugin\Grcmanager\Risk::REVIEW_DUE_EVENT.
      */
     public const RENEWAL_DUE_EVENT = 'training_renewal_due';
 
@@ -800,7 +800,7 @@ class PluginGrcmanagerTraining extends TrainingBase
     }
 
     /**
-     * GLPI Cron entry point, same structure as PluginGrcmanagerRisk::cronReviewreminder(). One
+     * GLPI Cron entry point, same structure as \GlpiPlugin\Grcmanager\Risk::cronReviewreminder(). One
      * NotificationEvent per training that currently has at least one participant overdue for
      * renewal (see TrainingRenewalService, inc/notificationtargettraining.class.php, which resolves
      * the actual per-training recipient list from PluginGrcmanagerTraining::getOverdueParticipants()).

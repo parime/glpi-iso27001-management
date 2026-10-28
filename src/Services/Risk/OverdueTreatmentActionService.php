@@ -5,19 +5,19 @@ declare(strict_types=1);
 namespace GlpiPlugin\Grcmanager\Services\Risk;
 
 use NotificationEvent;
-use PluginGrcmanagerRiskTreatmentAction;
+use GlpiPlugin\Grcmanager\RiskTreatmentAction;
 
 /**
  * Finds risk treatment actions (issue #31, ISO 27001 clause 8.3/6.1.3) whose due date has passed
  * and that are not yet marked done, and raises GLPI's native NotificationEvent for each one (see
  * inc/notificationtargetrisktreatmentaction.class.php for the NotificationTarget, and
  * src/Install/Installer.php for the seeded Notification/NotificationTemplate rows). Driven by the
- * daily Cron task PluginGrcmanagerRiskTreatmentAction::cronOverduetreatmentaction(). Mirrors
+ * daily Cron task \GlpiPlugin\Grcmanager\RiskTreatmentAction::cronOverduetreatmentaction(). Mirrors
  * GlpiPlugin\Grcmanager\Services\Capa\OverdueCapaService's own structure exactly (same "one action
  * per row, own due date/status" shape as a non-conformity's CAPA, except a risk can have several).
  *
  * NOTE: depends on GLPI's legacy global-namespace CommonDBTM class
- * (PluginGrcmanagerRiskTreatmentAction) and the NotificationEvent core class, not unit-tested in
+ * (\GlpiPlugin\Grcmanager\RiskTreatmentAction) and the NotificationEvent core class, not unit-tested in
  * isolation, same exclusion rationale as OverdueCapaService, see phpstan.neon.dist.
  */
 final class OverdueTreatmentActionService
@@ -26,7 +26,7 @@ final class OverdueTreatmentActionService
 
     public function notify(): OverdueTreatmentActionResult
     {
-        $action = new PluginGrcmanagerRiskTreatmentAction();
+        $action = new \GlpiPlugin\Grcmanager\RiskTreatmentAction();
 
         $overdue = $action->find([
             'status'   => ['<>', TreatmentPlanRules::STATUS_DONE],
@@ -37,7 +37,7 @@ final class OverdueTreatmentActionService
         $notified = 0;
 
         foreach ($overdue as $row) {
-            $item = new PluginGrcmanagerRiskTreatmentAction();
+            $item = new \GlpiPlugin\Grcmanager\RiskTreatmentAction();
             if (!$item->getFromDB((int) $row['id'])) {
                 continue;
             }

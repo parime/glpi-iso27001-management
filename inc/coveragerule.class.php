@@ -68,7 +68,7 @@ class PluginGrcmanagerCoverageRule extends CoverageRuleBase
     public static function getItemtypeLabels(): array
     {
         $labels = [];
-        foreach (PluginGrcmanagerRisk::getLinkableItemtypes() as $itemtype) {
+        foreach (\GlpiPlugin\Grcmanager\Risk::getLinkableItemtypes() as $itemtype) {
             if (is_a($itemtype, CommonDBTM::class, true)) {
                 $labels[$itemtype] = $itemtype::getTypeName(Session::getPluralNumber());
             }

@@ -107,16 +107,16 @@ final class SecurityReviewTest extends GrcmanagerIntegrationTestCase
     {
         $computer = new \Computer();
         $computer->getFromDB((int) $computer->add(['name' => 'PHPUnit poste onglets', 'entities_id' => 0]));
-        $risk = new \PluginGrcmanagerRisk();
+        $risk = new \GlpiPlugin\Grcmanager\Risk();
         $risk->getFromDB((int) $risk->add(['title' => 'PHPUnit risque onglet']));
         $technician = ['computer' => READ, 'software' => READ, Incident::$rightname => Incident::READALL];
 
         foreach (
             [
-                [\PluginGrcmanagerImpactAnalysis::class, $computer],
+                [\GlpiPlugin\Grcmanager\ImpactAnalysis::class, $computer],
                 [\PluginGrcmanagerAssetClassification::class, $computer],
                 [\PluginGrcmanagerParkVulnerability::class, $computer],
-                [\PluginGrcmanagerCausalLink::class, $risk],
+                [\GlpiPlugin\Grcmanager\CausalLink::class, $risk],
             ] as [$tab, $host]
         ) {
             ob_start();

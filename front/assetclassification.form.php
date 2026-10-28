@@ -30,11 +30,11 @@ if (!isset($_POST['save'])) {
 $itemtype = (string) ($_POST['itemtype'] ?? '');
 $itemsId  = (int) ($_POST['items_id'] ?? 0);
 
-// Même validation défensive que PluginGrcmanagerRisk::syncLinkedAssets() pour son propre lien
+// Même validation défensive que \GlpiPlugin\Grcmanager\Risk::syncLinkedAssets() pour son propre lien
 // polymorphe (issue #25) : rejette silencieusement un itemtype/items_id qui ne correspond à aucun
 // actif réellement liable par ce plugin, plutôt que de faire confiance à un POST forgé pointant
 // vers un itemtype arbitraire (ex. `User`, jamais dans la liste des actifs classifiables).
-if (!RiskItemLinkNormalizer::isLinkable($itemtype, $itemsId, PluginGrcmanagerRisk::getLinkableItemtypes())) {
+if (!RiskItemLinkNormalizer::isLinkable($itemtype, $itemsId, \GlpiPlugin\Grcmanager\Risk::getLinkableItemtypes())) {
     throw new \Glpi\Exception\Http\NotFoundHttpException();
 }
 

@@ -52,7 +52,7 @@ final class IsmsClauseCatalogTest extends TestCase
 
     public function testKeyRequirementsLinkToTheirModule(): void
     {
-        self::assertSame('PluginGrcmanagerRisk', IsmsClauseCatalog::SUBCLAUSES['6.1.2']['module']);
+        self::assertSame('GlpiPlugin\\Grcmanager\\Risk', IsmsClauseCatalog::SUBCLAUSES['6.1.2']['module']);
         self::assertSame('PluginGrcmanagerControl', IsmsClauseCatalog::SUBCLAUSES['6.1.3']['module']);
         self::assertSame('PluginGrcmanagerAudit', IsmsClauseCatalog::SUBCLAUSES['9.2.2']['module']);
         self::assertSame('PluginGrcmanagerNonconformity', IsmsClauseCatalog::SUBCLAUSES['10.2']['module']);

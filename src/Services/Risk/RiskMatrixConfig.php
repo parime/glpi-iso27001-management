@@ -8,7 +8,7 @@ namespace GlpiPlugin\Grcmanager\Services\Risk;
  * Loads/saves the administrable probability x impact matrix from
  * `glpi_plugin_grcmanager_riskmatrixconfig` (a single row, id=1, seeded at install with
  * RiskMatrixDefaults::MATRIX, see src/Install/Installer.php). Used by both front/config.php (the
- * admin screen) and PluginGrcmanagerRisk::computeRiskLevel() (inc/risk.class.php) so the matrix
+ * admin screen) and \GlpiPlugin\Grcmanager\Risk::computeRiskLevel() (inc/risk.class.php) so the matrix
  * that actually scores a risk is always exactly what the admin screen shows/saves, not a second
  * copy of the loading logic drifting out of sync.
  *

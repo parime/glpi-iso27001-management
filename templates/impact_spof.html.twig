@@ -21,7 +21,7 @@
                   <td>{% for c in p.critical %}<span class="badge bg-red-lt me-1">{{ c.label }}</span>{% endfor %}</td>
                   <td class="text-end">
                      {% if can_create and p.source.visible %}
-                        <a class="btn btn-sm btn-outline-secondary" href="{{ p.source.url }}&forcetab=PluginGrcmanagerImpactAnalysis$1">{{ __('See the impact', 'grcmanager') }}</a>
+                        <a class="btn btn-sm btn-outline-secondary" href="{{ p.source.url }}&forcetab=GlpiPlugin\\Grcmanager\\ImpactAnalysis$1">{{ __('See the impact', 'grcmanager') }}</a>
                      {% endif %}
                   </td>
                </tr>

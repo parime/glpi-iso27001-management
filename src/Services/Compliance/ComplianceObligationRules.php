@@ -9,7 +9,7 @@ use DateTimeImmutable;
 /**
  * Pure decision logic behind \GlpiPlugin\Grcmanager\ComplianceObligation (issue #30, ISO 27001 clause 4.2
  * "parties intéressées et leurs exigences" / Annexe A A.5.31-36) : type/compliance_status
- * normalization, the optional zero-or-one link to a PluginGrcmanagerRisk, and the review-date
+ * normalization, the optional zero-or-one link to a \GlpiPlugin\Grcmanager\Risk, and the review-date
  * reminder window. Kept GLPI-independent (no $DB, no CommonDBTM, no __()) so all three are unit
  * tested directly, the same split already used throughout this plugin between pure decision logic
  * and the thin CommonDBTM/$DB wrapper that calls it (see RiskItemLinkNormalizer,
@@ -68,7 +68,7 @@ final class ComplianceObligationRules
      * other registry of this plugin, simpler than issue #25's polymorphic risk<->asset link (which
      * genuinely needed many-to-many). 0 is the canonical "no risk linked" value throughout this
      * plugin's schema (`users_id` defaults to 0 with the same meaning), never NULL: any strictly
-     * positive id is normalized as-is (existence against a real `PluginGrcmanagerRisk` row is
+     * positive id is normalized as-is (existence against a real `\GlpiPlugin\Grcmanager\Risk` row is
      * checked by the caller against $DB, out of scope for this pure class), anything else
      * (0, negative, non-numeric) collapses to "unlinked".
      */
@@ -91,7 +91,7 @@ final class ComplianceObligationRules
      * CommonDBTM::find() (`review_date <= today+30` AND `review_date IS NOT NULL`) — see
      * \GlpiPlugin\Grcmanager\ComplianceObligation::cronReviewreminder(), which reuses that same service
      * (generalized in this issue to accept obligations, whose `compliance_status` is not a
-     * terminal "closed" state the way PluginGrcmanagerRisk's own `status` is, so no exclusion
+     * terminal "closed" state the way \GlpiPlugin\Grcmanager\Risk's own `status` is, so no exclusion
      * criteria is passed for this itemtype: even a `compliant` obligation still needs its periodic
      * review). A missing/blank/unparsable review date is never due (an obligation with no review
      * date has no periodic-review commitment yet, nothing to remind about).

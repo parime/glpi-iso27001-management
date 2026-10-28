@@ -25,7 +25,7 @@ use GlpiPlugin\Grcmanager\Services\Compliance\ComplianceObligationRules;
 use GlpiPlugin\Grcmanager\Services\Risk\ReviewReminderService;
 use GlpiPlugin\Grcmanager\Services\Ui\Badge;
 use GlpiPlugin\Grcmanager\Services\Ui\Fragment;
-use PluginGrcmanagerRisk;
+use GlpiPlugin\Grcmanager\Risk;
 
 /**
  * Registre des obligations légales, réglementaires et contractuelles (issue #30, ISO 27001 clause
@@ -61,7 +61,7 @@ class ComplianceObligation extends ComplianceObligationBase
     /**
      * GLPI notification event name (see inc/notificationtargetcomplianceobligation.class.php and
      * cronReviewreminder() ci-dessous), même convention de source unique que
-     * PluginGrcmanagerRisk::REVIEW_DUE_EVENT (même chaîne d'événement 'review_due' que le registre
+     * Risk::REVIEW_DUE_EVENT (même chaîne d'événement 'review_due' que le registre
      * de risques et le registre de risques fournisseurs : GLPI distingue les destinataires par la
      * classe de l'objet notifié via NotificationEvent::raiseEvent(), pas par une chaîne
      * d'événement unique par itemtype, voir ReviewReminderService).
@@ -153,7 +153,7 @@ class ComplianceObligation extends ComplianceObligationBase
         }
 
         // Registre sensible : un formulaire forgé sans son droit ne modifie pas le risque lié.
-        if (array_key_exists('plugin_grcmanager_risks_id', $input) && !PluginGrcmanagerRisk::canView()) {
+        if (array_key_exists('plugin_grcmanager_risks_id', $input) && !Risk::canView()) {
             unset($input['plugin_grcmanager_risks_id']);
         }
         if (array_key_exists('plugin_grcmanager_risks_id', $input)) {
@@ -228,7 +228,7 @@ class ComplianceObligation extends ComplianceObligationBase
             'id'       => 7,
             'table'    => $this->getTable(),
             'field'    => 'plugin_grcmanager_risks_id',
-            'name'     => PluginGrcmanagerRisk::getTypeName(1),
+            'name'     => Risk::getTypeName(1),
             'datatype' => 'specific',
         ];
 
@@ -241,7 +241,7 @@ class ComplianceObligation extends ComplianceObligationBase
         ];
 
         // Row link, same "a list with no way back to showForm() is not self-explanatory" lesson
-        // already applied throughout this plugin family, see PluginGrcmanagerRisk::rawSearchOptions().
+        // already applied throughout this plugin family, see Risk::rawSearchOptions().
         $tab[] = [
             'id'       => 9,
             'table'    => $this->getTable(),
@@ -276,7 +276,7 @@ class ComplianceObligation extends ComplianceObligationBase
 
     /**
      * Real `<select>` filter widgets for type/compliance_status, same lesson as
-     * PluginGrcmanagerRisk::getSpecificValueToSelect(). `plugin_grcmanager_risks_id` is left to
+     * Risk::getSpecificValueToSelect(). `plugin_grcmanager_risks_id` is left to
      * the parent's default (free-text search on the raw numeric id), same choice already made for
      * `plugin_grcmanager_audits_id` on PluginGrcmanagerNonconformity (see its own
      * getSpecificValueToSelect(), TECH_DEBT.md Sprint 4).
@@ -332,11 +332,11 @@ class ComplianceObligation extends ComplianceObligationBase
     private static function riskLink(int $riskId): string
     {
         // Registre sensible : le titre du risque lié n'apparaît pas dans la liste sans son droit.
-        if (!ComplianceObligationRules::isLinkedToRisk($riskId) || !PluginGrcmanagerRisk::canView()) {
+        if (!ComplianceObligationRules::isLinkedToRisk($riskId) || !Risk::canView()) {
             return '';
         }
 
-        $risk = new PluginGrcmanagerRisk();
+        $risk = new Risk();
         if (!$risk->getFromDB($riskId)) {
             return '';
         }
@@ -355,10 +355,10 @@ class ComplianceObligation extends ComplianceObligationBase
         // classe) avec une option "Aucun" (id 0).
         // Registre sensible : titres des risques seulement avec son droit ; sans le champ, le lien
         // existant n'est pas modifié à l'enregistrement.
-        $canViewRisks = PluginGrcmanagerRisk::canView();
+        $canViewRisks = Risk::canView();
         $riskTitles = [0 => Dropdown::EMPTY_VALUE];
         if ($canViewRisks) {
-            foreach ($DB->request(['SELECT' => ['id', 'title'], 'FROM' => PluginGrcmanagerRisk::getTable()]) as $row) {
+            foreach ($DB->request(['SELECT' => ['id', 'title'], 'FROM' => Risk::getTable()]) as $row) {
                 $riskTitles[(int) $row['id']] = $row['title'];
             }
         }
@@ -378,11 +378,11 @@ class ComplianceObligation extends ComplianceObligationBase
     }
 
     /**
-     * GLPI Cron entry point, même structure que PluginGrcmanagerRisk::cronReviewreminder() /
-     * PluginGrcmanagerSupplierRisk::cronReviewreminder() (voir src/Install/Installer.php pour
+     * GLPI Cron entry point, même structure que Risk::cronReviewreminder() /
+     * SupplierRisk::cronReviewreminder() (voir src/Install/Installer.php pour
      * l'enregistrement CronTask::Register()). Réutilise ReviewReminderService (généralisé par
      * cette issue avec un second argument optionnel $excludeCriteria) sans exclusion de statut :
-     * contrairement à `PluginGrcmanagerRisk::status` (qui exclut 'closed'), `compliance_status` ne
+     * contrairement à `Risk::status` (qui exclut 'closed'), `compliance_status` ne
      * décrit pas si l'obligation elle-même est encore suivie, seulement son niveau de conformité -
      * même une obligation `compliant` reste due à sa date de revue.
      *

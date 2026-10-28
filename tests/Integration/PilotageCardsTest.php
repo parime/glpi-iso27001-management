@@ -87,7 +87,7 @@ final class PilotageCardsTest extends GrcmanagerIntegrationTestCase
         $supplier = new \Supplier();
         $supplierId = (int) $supplier->add(['name' => 'PHPUnit fournisseur critique', 'entities_id' => 0]);
         $before = SecuredDashboardCards::criticalSuppliersWithoutAssessment()['number'];
-        $risk = new \PluginGrcmanagerSupplierRisk();
+        $risk = new \GlpiPlugin\Grcmanager\SupplierRisk();
         $riskId = (int) $risk->add([
             'suppliers_id' => $supplierId,
             'title'        => 'PHPUnit dépendance critique',
@@ -106,7 +106,7 @@ final class PilotageCardsTest extends GrcmanagerIntegrationTestCase
 
             global $DB;
             $DB->update(
-                \PluginGrcmanagerSupplierRisk::getTable(),
+                \GlpiPlugin\Grcmanager\SupplierRisk::getTable(),
                 ['questionnaire_score' => 90, 'questionnaire_date' => date('Y-m-d H:i:s')],
                 ['id' => $riskId]
             );

@@ -21,10 +21,10 @@ use GlpiPlugin\Grcmanager\Services\Risk\InfrastructureRiskCatalog;
 include('../../../inc/includes.php');
 
 // Issue #178 : catalogue de risques types d'infrastructure.
-Session::checkRight(PluginGrcmanagerRisk::$rightname, READ);
+Session::checkRight(\GlpiPlugin\Grcmanager\Risk::$rightname, READ);
 
 if (isset($_POST['import'])) {
-    Session::checkRight(PluginGrcmanagerRisk::$rightname, CREATE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\Risk::$rightname, CREATE);
     $created = PluginGrcmanagerRiskCatalog::import((array) ($_POST['keys'] ?? []));
     if ($created === []) {
         $message = __('Tick at least one risk that is not in the register yet.', 'grcmanager');
@@ -46,9 +46,9 @@ if (isset($_POST['import'])) {
 
 Html::header(
     PluginGrcmanagerRiskCatalog::getTypeName(),
-    PluginGrcmanagerRisk::getSearchURL(),
+    \GlpiPlugin\Grcmanager\Risk::getSearchURL(),
     'grcmanager',
-    PluginGrcmanagerRisk::class
+    \GlpiPlugin\Grcmanager\Risk::class
 );
 // Encadré « À quoi sert cette page ? ».
 PluginGrcmanagerPageHelp::show('riskcatalog');
@@ -68,13 +68,13 @@ foreach (InfrastructureRiskCatalog::keys() as $key) {
 
 TemplateRenderer::getInstance()->display('@grcmanager/risk_catalog.html.twig', [
     'action'     => PluginGrcmanagerRiskCatalog::getSearchURL(),
-    'risks_url'  => PluginGrcmanagerRisk::getSearchURL(),
+    'risks_url'  => \GlpiPlugin\Grcmanager\Risk::getSearchURL(),
     'entries'    => PluginGrcmanagerRiskCatalog::getEntries(),
     'categories' => array_combine(
         InfrastructureRiskCatalog::keys(),
         array_map([InfrastructureRiskCatalog::class, 'category'], InfrastructureRiskCatalog::keys())
     ),
-    'labels'     => PluginGrcmanagerRisk::getCategories(),
+    'labels'     => \GlpiPlugin\Grcmanager\Risk::getCategories(),
     // Infrastructure puis systèmes d'IA (sections ISO/IEC 27090:2026).
     'groups'     => [
         InfrastructureRiskCatalog::GROUP_INFRASTRUCTURE => __('Infrastructure', 'grcmanager'),
@@ -89,8 +89,8 @@ TemplateRenderer::getInstance()->display('@grcmanager/risk_catalog.html.twig', [
         array_map([InfrastructureRiskCatalog::class, 'iso27090'], InfrastructureRiskCatalog::keys())
     ),    'controls'   => $controls,
     'imported'   => PluginGrcmanagerRiskCatalog::importedRisks(),
-    'risk_url'   => PluginGrcmanagerRisk::getFormURL(),
-    'can_create' => Session::haveRight(PluginGrcmanagerRisk::$rightname, CREATE),
+    'risk_url'   => \GlpiPlugin\Grcmanager\Risk::getFormURL(),
+    'can_create' => Session::haveRight(\GlpiPlugin\Grcmanager\Risk::$rightname, CREATE),
 ]);
 
 Html::footer();

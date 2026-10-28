@@ -12,8 +12,8 @@ use GlpiPlugin\Grcmanager\Services\Ui\Badge;
 /**
  * Shared probability x impact risk-assessment fields (category/probability/impact/risk_level/
  * computed_score/treatment/status) and their rendering, used by every risk-register itemtype in
- * this plugin: the generic register (PluginGrcmanagerRisk, Sprint 1-2) and the supplier/third-party
- * register (PluginGrcmanagerSupplierRisk, Sprint 5). Extracted here at Sprint 5 rather than left
+ * this plugin: the generic register (\GlpiPlugin\Grcmanager\Risk, Sprint 1-2) and the supplier/third-party
+ * register (\GlpiPlugin\Grcmanager\SupplierRisk, Sprint 5). Extracted here at Sprint 5 rather than left
  * duplicated across both classes, specifically so the probability x impact -> risk_level scoring
  * (computeRiskLevel() below) can never drift out of sync between the two registers: both always go
  * through the exact same RiskScoringService/RiskMatrixConfig call, one source of truth, one matrix
@@ -22,7 +22,7 @@ use GlpiPlugin\Grcmanager\Services\Ui\Badge;
  * A composing class only needs to provide its own `rawSearchOptions()` (its own field IDs) and its
  * own `getSpecificValueToDisplay()`/`getSpecificValueToSelect()` overrides that call into
  * commonValueToDisplay()/commonValueToSelect() below for these shared fields, falling through to
- * whatever class-specific fields it has (e.g. PluginGrcmanagerSupplierRisk's `suppliers_id`) and
+ * whatever class-specific fields it has (e.g. \GlpiPlugin\Grcmanager\SupplierRisk's `suppliers_id`) and
  * finally to `parent::`.
  *
  * NOTE: depends on GLPI's runtime global $DB indirectly via RiskMatrixConfig::load(), and on GLPI

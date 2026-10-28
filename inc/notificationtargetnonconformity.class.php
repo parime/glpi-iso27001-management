@@ -39,7 +39,7 @@ class PluginGrcmanagerNotificationTargetNonconformity extends NotificationTarget
 
     /**
      * Default recipient: the non-conformity's own responsible owner (`users_id`), same generic
-     * "item owner" resolution already used by PluginGrcmanagerNotificationTargetRisk.
+     * "item owner" resolution already used by \GlpiPlugin\Grcmanager\NotificationTargetRisk.
      */
     #[Override]
     public function addAdditionalTargets($event = '')

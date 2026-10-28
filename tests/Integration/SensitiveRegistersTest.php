@@ -45,9 +45,9 @@ final class SensitiveRegistersTest extends GrcmanagerIntegrationTestCase
     {
         foreach (
             [
-                \PluginGrcmanagerRisk::class, \PluginGrcmanagerSupplierRisk::class,
-                \PluginGrcmanagerRiskTreatmentAction::class, \PluginGrcmanagerImpactAnalysis::class,
-                \PluginGrcmanagerCausalLink::class, \PluginGrcmanagerParkVulnerability::class,
+                \GlpiPlugin\Grcmanager\Risk::class, \GlpiPlugin\Grcmanager\SupplierRisk::class,
+                \GlpiPlugin\Grcmanager\RiskTreatmentAction::class, \GlpiPlugin\Grcmanager\ImpactAnalysis::class,
+                \GlpiPlugin\Grcmanager\CausalLink::class, \PluginGrcmanagerParkVulnerability::class,
                 \PluginGrcmanagerNetworkFlow::class,
             ] as $class
         ) {
@@ -55,18 +55,18 @@ final class SensitiveRegistersTest extends GrcmanagerIntegrationTestCase
         }
         $this->assertSame(Installer::RIGHT_NAME, \PluginGrcmanagerControl::RIGHTNAME);
         $this->withoutSensitiveRight(function (): void {
-            $this->assertFalse(\PluginGrcmanagerImpactAnalysis::canView());
+            $this->assertFalse(\GlpiPlugin\Grcmanager\ImpactAnalysis::canView());
             $this->assertFalse(\PluginGrcmanagerNetworkFlow::canView());
         });
         $this->withoutSensitiveRight(function (): void {
-            $this->assertFalse(\PluginGrcmanagerRisk::canView());
+            $this->assertFalse(\GlpiPlugin\Grcmanager\Risk::canView());
             $this->assertTrue(\PluginGrcmanagerControl::canView());
         });
     }
 
     public function testControlFormNeitherShowsNorChangesRiskLinksWithoutTheRight(): void
     {
-        $riskId = (int) (new \PluginGrcmanagerRisk())->add(['title' => 'Risque tres sensible']);
+        $riskId = (int) (new \GlpiPlugin\Grcmanager\Risk())->add(['title' => 'Risque tres sensible']);
         global $DB;
 
         $control = new \PluginGrcmanagerControl();
@@ -91,7 +91,7 @@ final class SensitiveRegistersTest extends GrcmanagerIntegrationTestCase
 
     public function testRiskDashboardCardsAreEmptyWithoutTheRight(): void
     {
-        (new \PluginGrcmanagerRisk())->add(['title' => 'Risque compte', 'status' => 'identified']);
+        (new \GlpiPlugin\Grcmanager\Risk())->add(['title' => 'Risque compte', 'status' => 'identified']);
         $this->assertTrue(SecuredDashboardCards::isSensitiveCard('openRisksCount'));
         $this->assertTrue(SecuredDashboardCards::isSensitiveCard('supplierRisksByLevel'));
         $this->assertTrue(SecuredDashboardCards::isSensitiveCard('monthlyTrend'));
@@ -105,20 +105,20 @@ final class SensitiveRegistersTest extends GrcmanagerIntegrationTestCase
     public function testNotificationsCarryNoRiskDetailByDefault(): void
     {
         $this->assertTrue(SensitiveNotification::isMinimal());
-        $riskId = (int) (new \PluginGrcmanagerRisk())->add([
+        $riskId = (int) (new \GlpiPlugin\Grcmanager\Risk())->add([
             'title' => 'Faille du VPN', 'category' => 'technical', 'risk_level' => 'critical',
         ]);
-        $risk = new \PluginGrcmanagerRisk();
+        $risk = new \GlpiPlugin\Grcmanager\Risk();
         $this->assertTrue($risk->getFromDB($riskId));
 
-        $target = new \PluginGrcmanagerNotificationTargetRisk(0, 'review_due', $risk);
+        $target = new \GlpiPlugin\Grcmanager\NotificationTargetRisk(0, 'review_due', $risk);
         $target->addDataForTemplate('review_due');
         $this->assertSame(sprintf(__('Risk no. %d', 'grcmanager'), $riskId), $target->data['##risk.title##']);
         $this->assertSame('', $target->data['##risk.risklevel##']);
         $this->assertStringNotContainsString('Faille du VPN', implode(' ', array_map('strval', $target->data)));
 
         SensitiveNotification::setMinimal(false);
-        $target = new \PluginGrcmanagerNotificationTargetRisk(0, 'review_due', $risk);
+        $target = new \GlpiPlugin\Grcmanager\NotificationTargetRisk(0, 'review_due', $risk);
         $target->addDataForTemplate('review_due');
         $this->assertSame('Faille du VPN', $target->data['##risk.title##']);
     }

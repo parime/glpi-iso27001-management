@@ -47,7 +47,7 @@ class PluginGrcmanagerNonconformity extends NonconformityBase
     /**
      * GLPI notification event name (see inc/notificationtargetnonconformity.class.php and
      * src/Services/Capa/OverdueCapaService.php), same single-source-of-truth pattern as
-     * PluginGrcmanagerRisk::REVIEW_DUE_EVENT.
+     * \GlpiPlugin\Grcmanager\Risk::REVIEW_DUE_EVENT.
      */
     public const CAPA_OVERDUE_EVENT = 'capa_overdue';
 
@@ -348,7 +348,7 @@ class PluginGrcmanagerNonconformity extends NonconformityBase
 
     /**
      * Real `<select>` filter widgets for severity/status, same lesson as
-     * PluginGrcmanagerRisk::getSpecificValueToSelect(). `plugin_grcmanager_audits_id` is left to
+     * \GlpiPlugin\Grcmanager\Risk::getSpecificValueToSelect(). `plugin_grcmanager_audits_id` is left to
      * the parent's default (free-text search on the raw numeric ID): looking it up through a real
      * GLPI dropdown join was judged not worth the added complexity for a first version, see
      * TECH_DEBT.md Sprint 4.
@@ -668,7 +668,7 @@ class PluginGrcmanagerNonconformity extends NonconformityBase
     }
 
     /**
-     * GLPI Cron entry point, same structure as PluginGrcmanagerRisk::cronReviewreminder().
+     * GLPI Cron entry point, same structure as \GlpiPlugin\Grcmanager\Risk::cronReviewreminder().
      * Notifies the responsible owner of every non-conformity whose due date has passed and that
      * is not yet closed/verified (see OverdueCapaService, inc/notificationtargetnonconformity.class.php).
      *

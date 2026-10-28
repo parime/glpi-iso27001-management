@@ -41,7 +41,7 @@ final class TwigContentTest extends GrcmanagerIntegrationTestCase
     {
         $computer = new \Computer();
         $computerId = (int) $computer->add(['name' => 'PHPUnit serveur de fichiers', 'entities_id' => 0]);
-        $risk = new \PluginGrcmanagerRisk();
+        $risk = new \GlpiPlugin\Grcmanager\Risk();
         $riskId = (int) $risk->add([
             'title'                 => 'PHPUnit panne du serveur de fichiers',
             'probability'           => 'certain',
@@ -51,7 +51,7 @@ final class TwigContentTest extends GrcmanagerIntegrationTestCase
         try {
             $computer->getFromDB($computerId);
             ob_start();
-            \PluginGrcmanagerRisk::displayTabContentForItem($computer);
+            \GlpiPlugin\Grcmanager\Risk::displayTabContentForItem($computer);
             $html = (string) ob_get_clean();
             $this->assertStringContainsString('PHPUnit panne du serveur de fichiers</a>', $html);
             $this->assertStringContainsString('ti-alert-triangle', $html, 'Badge de niveau rendu tel quel.');

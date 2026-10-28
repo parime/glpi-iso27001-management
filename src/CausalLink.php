@@ -15,9 +15,15 @@
  * -------------------------------------------------------------------------
  */
 
+namespace GlpiPlugin\Grcmanager;
+
+use CommonDBTM;
+use CommonGLPI;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\CausalLinkBase;
 use GlpiPlugin\Grcmanager\Services\Risk\CausalGraph;
+use PluginGrcmanagerSecurityIncident;
+use Session;
 
 /**
  * Issue #171 : effet domino. Un lien relie une cause à sa conséquence parmi les risques, les
@@ -25,7 +31,7 @@ use GlpiPlugin\Grcmanager\Services\Risk\CausalGraph;
  * de compte » → « Fuite de données »). Onglet sur chacun, et graphe d'ensemble (Cytoscape, déjà
  * fourni par GLPI pour son analyse d'impact).
  */
-class PluginGrcmanagerCausalLink extends CausalLinkBase
+class CausalLink extends CausalLinkBase
 {
     // Carte des dépendances et des points de défaillance : registre sensible, voir
     // Installer::SENSITIVE_RIGHT.
@@ -74,8 +80,8 @@ class PluginGrcmanagerCausalLink extends CausalLinkBase
     public static function getLinkableItemtypes(): array
     {
         return [
-            PluginGrcmanagerRisk::class,
-            PluginGrcmanagerSupplierRisk::class,
+            Risk::class,
+            SupplierRisk::class,
             PluginGrcmanagerSecurityIncident::class,
         ];
     }
@@ -132,8 +138,8 @@ class PluginGrcmanagerCausalLink extends CausalLinkBase
             return $node;
         }
         $kinds = [
-            PluginGrcmanagerRisk::class             => 'risk',
-            PluginGrcmanagerSupplierRisk::class     => 'supplierrisk',
+            Risk::class             => 'risk',
+            SupplierRisk::class     => 'supplierrisk',
             PluginGrcmanagerSecurityIncident::class => 'incident',
         ];
 

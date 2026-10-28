@@ -15,28 +15,35 @@
  * -------------------------------------------------------------------------
  */
 
+namespace GlpiPlugin\Grcmanager;
+
+use Html;
+use Notification;
+use NotificationTarget;
+use Override;
+
 /**
- * GLPI notification target for PluginGrcmanagerRiskTreatmentAction (issue #31, overdue treatment
+ * GLPI notification target for RiskTreatmentAction (issue #31, overdue treatment
  * action reminders, see src/Services/Risk/OverdueTreatmentActionService.php and its Cron entry
- * point PluginGrcmanagerRiskTreatmentAction::cronOverduetreatmentaction()). Class name/file
+ * point RiskTreatmentAction::cronOverduetreatmentaction()). Class name/file
  * location follow the exact same GLPI core naming convention already confirmed live for the other
  * itemtypes of this plugin, see inc/notificationtargetrisk.class.php's own docblock: for a plugin
- * item "PluginGrcmanagerRiskTreatmentAction", GLPI expects a global class
- * "PluginGrcmanagerNotificationTargetRiskTreatmentAction" in
+ * item "RiskTreatmentAction", GLPI expects a global class
+ * "NotificationTargetRiskTreatmentAction" in
  * "inc/notificationtargetrisktreatmentaction.class.php".
  *
  * The notification's own URL (##treatmentaction.url##) points at the PARENT risk's form, not a
  * form of this itemtype's own: a treatment action has no own menu entry or form URL (see
  * inc/risktreatmentaction.class.php's docblock), it only ever appears inline on
- * PluginGrcmanagerRisk::showTreatmentPlan(), so that is where a notified user needs to land.
+ * Risk::showTreatmentPlan(), so that is where a notified user needs to land.
  */
-class PluginGrcmanagerNotificationTargetRiskTreatmentAction extends NotificationTarget
+class NotificationTargetRiskTreatmentAction extends NotificationTarget
 {
     #[Override]
     public function getEvents()
     {
         return [
-            PluginGrcmanagerRiskTreatmentAction::OVERDUE_EVENT => __('Overdue risk treatment action', 'grcmanager'),
+            RiskTreatmentAction::OVERDUE_EVENT => __('Overdue risk treatment action', 'grcmanager'),
         ];
     }
 
@@ -57,7 +64,7 @@ class PluginGrcmanagerNotificationTargetRiskTreatmentAction extends Notification
         $action = $this->obj;
 
         $riskId = (int) ($action->fields['plugin_grcmanager_risks_id'] ?? 0);
-        $risk   = new PluginGrcmanagerRisk();
+        $risk   = new Risk();
         $riskTitle = $risk->getFromDB($riskId) ? ($risk->fields['title'] ?? '') : '';
 
         $this->data['##treatmentaction.action##']     = $events[$event] ?? '';
@@ -66,7 +73,7 @@ class PluginGrcmanagerNotificationTargetRiskTreatmentAction extends Notification
         $this->data['##treatmentaction.duedate##']    = Html::convDate($action->fields['due_date'] ?? null);
         $this->data['##treatmentaction.url##']        = $this->formatURL(
             $options['additionnaloption']['usertype'] ?? self::GLPI_USER,
-            PluginGrcmanagerRisk::class . '_' . $riskId
+            Risk::class . '_' . $riskId
         );
         // Registre sensible : e-mail sans détail par défaut (SensitiveNotification).
         if (\GlpiPlugin\Grcmanager\Services\Notification\SensitiveNotification::isMinimal()) {
@@ -88,7 +95,7 @@ class PluginGrcmanagerNotificationTargetRiskTreatmentAction extends Notification
     {
         $tags = [
             'treatmentaction.action'      => _n('Event', 'Events', 1),
-            'treatmentaction.risktitle'   => PluginGrcmanagerRisk::getTypeName(1),
+            'treatmentaction.risktitle'   => Risk::getTypeName(1),
             'treatmentaction.description' => __('Action description', 'grcmanager'),
             'treatmentaction.duedate'     => __('Due date', 'grcmanager'),
             'treatmentaction.url'         => __('URL'),

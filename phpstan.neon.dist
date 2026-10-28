@@ -34,7 +34,7 @@ parameters:
         # RiskMatrixConfig.php/OverdueCapaService.php below.
         - src/Services/GithubVersionChecker.php
         # Sprint 2: reads GLPI's runtime global $DB (RiskMatrixConfig) or depends on GLPI core
-        # classes NotificationEvent/PluginGrcmanagerRisk (ReviewReminderService), same rationale.
+        # classes NotificationEvent/GlpiPlugin\Grcmanager\Risk (ReviewReminderService), same rationale.
         # RiskMatrixDefaults.php and ReviewReminderResult.php in the same directory stay in scope:
         # both are pure PHP with no GLPI dependency.
         - src/Services/Risk/RiskMatrixConfig.php
@@ -56,12 +56,12 @@ parameters:
         # TrainingRenewalResult.php in the same directory stays in scope: pure PHP with no GLPI
         # dependency.
         - src/Services/Training/TrainingRenewalService.php
-        # Issue #28: depends on GLPI core classes NotificationEvent/GlpiPlugin\\Grcmanager\\Policy, same
+        # Issue #28: depends on GLPI core classes NotificationEvent/GlpiPlugin\Grcmanager\Policy, same
         # rationale as ReviewReminderService above. PolicyLifecycle.php,
         # PolicyReviewReminderWindow.php and PolicyReviewReminderResult.php in the same directory
         # stay in scope: all three are pure PHP with no GLPI dependency.
         - src/Services/Policy/PolicyReviewReminderService.php
-        # Issue #31: depends on GLPI core classes NotificationEvent/PluginGrcmanagerRiskTreatmentAction,
+        # Issue #31: depends on GLPI core classes NotificationEvent/GlpiPlugin\Grcmanager\RiskTreatmentAction,
         # same rationale as OverdueCapaService above. TreatmentPlanRules.php and
         # OverdueTreatmentActionResult.php in the same directory stay in scope: both are pure PHP
         # with no GLPI dependency.

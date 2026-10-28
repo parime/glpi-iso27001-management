@@ -32,7 +32,7 @@ use GlpiPlugin\Grcmanager\Services\Ui\Fragment;
  * glpi-security-incidents (ROADMAP.md "Version 2.0", now archived) into this plugin as one merged
  * object: the operational ITIL workflow (actors, tasks, notifications, CVE tracking) AND the
  * ISO/IEC 27001:2022 Annexe A A.5.24-27 compliance fields (`category`/`severity`/`cia_impact`/
- * `root_cause`/`lessons_learned`/link to a PluginGrcmanagerRisk) that used to live on a separate,
+ * `root_cause`/`lessons_learned`/link to a \GlpiPlugin\Grcmanager\Risk) that used to live on a separate,
  * lightweight `PluginGrcmanagerSecurityIncident` CommonDBTM register (issue #29) — ONE record per
  * real-world incident now, not two that could drift apart or be double-entered. The ISO
  * classification fields render in their own accordion via `Hooks::POST_ITIL_INFO_SECTION` (see
@@ -430,7 +430,7 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
             if (
                 $riskId > 0
                 && Session::getLoginUserID() !== false
-                && !(new PluginGrcmanagerRisk())->can($riskId, READ)
+                && !(new \GlpiPlugin\Grcmanager\Risk())->can($riskId, READ)
             ) {
                 unset($input['plugin_grcmanager_risks_id']);
             }
@@ -530,7 +530,7 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
             'id'       => 225,
             'table'    => $this->getTable(),
             'field'    => 'plugin_grcmanager_risks_id',
-            'name'     => PluginGrcmanagerRisk::getTypeName(1),
+            'name'     => \GlpiPlugin\Grcmanager\Risk::getTypeName(1),
             'datatype' => 'specific',
         ];
 
@@ -761,7 +761,7 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
         }
 
         // Titre du risque seulement pour qui peut lire le registre des risques.
-        $risk = new PluginGrcmanagerRisk();
+        $risk = new \GlpiPlugin\Grcmanager\Risk();
         if (!$risk->can($riskId, READ)) {
             return '';
         }

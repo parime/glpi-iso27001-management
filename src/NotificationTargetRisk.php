@@ -15,22 +15,29 @@
  * -------------------------------------------------------------------------
  */
 
+namespace GlpiPlugin\Grcmanager;
+
+use Html;
+use Notification;
+use NotificationTarget;
+use Override;
+
 /**
- * GLPI notification target for PluginGrcmanagerRisk (Sprint 2 review-date reminders, see
+ * GLPI notification target for Risk (Sprint 2 review-date reminders, see
  * src/Services/Risk/ReviewReminderService.php and its Cron entry point
- * PluginGrcmanagerRisk::cronReviewreminder()). Class name/file location are dictated by GLPI core
- * (NotificationTarget::getInstanceClass()): for a plugin item "PluginGrcmanagerRisk", GLPI expects
- * a global class "PluginGrcmanagerNotificationTargetRisk" in "inc/notificationtargetrisk.class.php"
+ * Risk::cronReviewreminder()). Class name/file location are dictated by GLPI core
+ * (NotificationTarget::getInstanceClass()): for a plugin item "Risk", GLPI expects
+ * a global class "NotificationTargetRisk" in "inc/notificationtargetrisk.class.php"
  * (isPluginItemType()'s regex splits "Grcmanager"/"Risk", Toolbox's plugin filename resolution
  * lowercases the remainder), confirmed by reading GLPI 11 core (src/NotificationTarget.php,
  * src/autoload/misc-functions.php), no prior art for this in the sibling plugins of this author.
  */
-class PluginGrcmanagerNotificationTargetRisk extends NotificationTarget
+class NotificationTargetRisk extends NotificationTarget
 {
     #[Override]
     public function getEvents()
     {
-        return [PluginGrcmanagerRisk::REVIEW_DUE_EVENT => __('Risk review due', 'grcmanager')];
+        return [Risk::REVIEW_DUE_EVENT => __('Risk review due', 'grcmanager')];
     }
 
     /**
@@ -48,11 +55,11 @@ class PluginGrcmanagerNotificationTargetRisk extends NotificationTarget
     public function addDataForTemplate($event, $options = [])
     {
         $events = $this->getAllEvents();
-        /** @var PluginGrcmanagerRisk $risk */
+        /** @var Risk $risk */
         $risk   = $this->obj;
 
-        $categories = PluginGrcmanagerRisk::getCategories();
-        $levels     = PluginGrcmanagerRisk::getImpacts();
+        $categories = Risk::getCategories();
+        $levels     = Risk::getImpacts();
 
         $this->data['##risk.action##']     = $events[$event] ?? '';
         $this->data['##risk.title##']      = $risk->fields['title'] ?? '';
@@ -61,7 +68,7 @@ class PluginGrcmanagerNotificationTargetRisk extends NotificationTarget
         $this->data['##risk.reviewdate##'] = Html::convDate($risk->fields['review_date'] ?? null);
         $this->data['##risk.url##']        = $this->formatURL(
             $options['additionnaloption']['usertype'] ?? self::GLPI_USER,
-            PluginGrcmanagerRisk::class . '_' . $risk->getID()
+            Risk::class . '_' . $risk->getID()
         );
         // Registre sensible : e-mail sans détail par défaut (SensitiveNotification).
         if (\GlpiPlugin\Grcmanager\Services\Notification\SensitiveNotification::isMinimal()) {

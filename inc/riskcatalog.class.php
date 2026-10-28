@@ -46,7 +46,7 @@ class PluginGrcmanagerRiskCatalog extends CommonGLPI
 
     public static function canView(): bool
     {
-        return Session::haveRight(PluginGrcmanagerRisk::$rightname, READ);
+        return Session::haveRight(\GlpiPlugin\Grcmanager\Risk::$rightname, READ);
     }
 
     /**
@@ -393,7 +393,7 @@ class PluginGrcmanagerRiskCatalog extends CommonGLPI
     {
         global $DB;
 
-        $risks = PluginGrcmanagerRisk::getTable();
+        $risks = \GlpiPlugin\Grcmanager\Risk::getTable();
         $imported = [];
         foreach (
             $DB->request([
@@ -441,7 +441,7 @@ class PluginGrcmanagerRiskCatalog extends CommonGLPI
                 $description .= "\n\n"
                     . sprintf(__('ISO/IEC 27090 sections: %s', 'grcmanager'), implode(', ', $sections));
             }
-            $risksId = (int) (new PluginGrcmanagerRisk())->add([
+            $risksId = (int) (new \GlpiPlugin\Grcmanager\Risk())->add([
                 'title'       => $entry['title'],
                 'description' => $description,
                 'category'    => InfrastructureRiskCatalog::category($key),

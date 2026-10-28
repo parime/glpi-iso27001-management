@@ -7,7 +7,7 @@ namespace GlpiPlugin\Grcmanager\Services\Risk;
 use DateTimeImmutable;
 
 /**
- * Business rule behind `PluginGrcmanagerRiskTreatmentAction` (issue #31, ISO 27001 clause 8.3/6.1.3
+ * Business rule behind `\GlpiPlugin\Grcmanager\RiskTreatmentAction` (issue #31, ISO 27001 clause 8.3/6.1.3
  * "mise en œuvre effective du plan de traitement des risques"), extracted as pure PHP so it is
  * unit-testable without a running GLPI instance, same "logique pure-PHP testable sous
  * src/Services/" convention as GlpiPlugin\Grcmanager\Services\Capa\CapaRequirementService (the
@@ -15,7 +15,7 @@ use DateTimeImmutable;
  * field's requirement level") and GlpiPlugin\Grcmanager\Services\Compliance\ComplianceObligationRules.
  *
  * A risk's treatment plan (its concrete treatment actions) is only relevant/required-ish for two of
- * the four `treatment` values (see PluginGrcmanagerRisk::getTreatments() via RiskAssessmentTrait):
+ * the four `treatment` values (see \GlpiPlugin\Grcmanager\Risk::getTreatments() via RiskAssessmentTrait):
  * `accept` has, by definition, no treatment to plan (the organization knowingly keeps the risk as
  * is), and `avoid` means eliminating the risk source entirely, nothing ongoing to track either.
  * Only `mitigate` and `transfer` describe a decision that still needs to be CARRIED OUT through

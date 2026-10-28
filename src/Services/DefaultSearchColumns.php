@@ -16,7 +16,7 @@ namespace GlpiPlugin\Grcmanager\Services;
 final class DefaultSearchColumns
 {
     public const COLUMNS = [
-        'PluginGrcmanagerRisk'    => [10, 1, 2, 5, 3, 4, 6, 7, 8, 9],
+        'GlpiPlugin\\Grcmanager\\Risk'    => [10, 1, 2, 5, 3, 4, 6, 7, 8, 9],
         // Sprint 3 (SoA) : id-then-theme-then-code first, same "clickable row first" convention
         // as the risk register above.
         'PluginGrcmanagerControl' => [8, 2, 1, 3, 4, 6, 7],
@@ -29,8 +29,8 @@ final class DefaultSearchColumns
         'PluginGrcmanagerNonconformity' => [12, 1, 13, 2, 3, 4, 5, 7],
         // Sprint 5 (risques fournisseurs/tiers), same "id first" convention, supplier column
         // second (the whole point of this register) then the same scoring/treatment order as
-        // PluginGrcmanagerRisk above.
-        'PluginGrcmanagerSupplierRisk'  => [11, 1, 2, 3, 6, 4, 5, 7, 8, 9],
+        // \GlpiPlugin\Grcmanager\Risk above.
+        'GlpiPlugin\\Grcmanager\\SupplierRisk'  => [11, 1, 2, 3, 6, 4, 5, 7, 8, 9],
         // Sprint 6 (formations et revues de direction), same "id first" convention.
         'PluginGrcmanagerTraining'         => [8, 1, 2, 3, 4, 5, 6],
         'PluginGrcmanagerManagementReview' => [6, 1, 2, 3, 4, 5],

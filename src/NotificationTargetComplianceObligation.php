@@ -44,7 +44,7 @@ class NotificationTargetComplianceObligation extends NotificationTarget
 
     /**
      * Default recipient: the obligation's own owner (`users_id`), same generic "item owner"
-     * resolution already used by PluginGrcmanagerNotificationTargetRisk.
+     * resolution already used by NotificationTargetRisk.
      */
     #[Override]
     public function addAdditionalTargets($event = '')

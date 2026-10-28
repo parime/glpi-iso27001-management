@@ -25,7 +25,7 @@ use GlpiPlugin\Grcmanager\Services\Ui\Badge;
  * glpi_plugin_grcmanager_audits_controls, same "direct $DB access, not a real CommonDBRelation"
  * pattern PluginGrcmanagerControl already uses for its own link to the risk register, see
  * TECH_DEBT.md Sprint 3) and/or to one or more risk categories (stored as a comma-separated list
- * of PluginGrcmanagerRisk::getCategories() keys, resolved through the same enum, never a second
+ * of \GlpiPlugin\Grcmanager\Risk::getCategories() keys, resolved through the same enum, never a second
  * copy of the category list).
  *
  * Findings raised during an audit are recorded as PluginGrcmanagerNonconformity rows linked back
@@ -90,7 +90,7 @@ class PluginGrcmanagerAudit extends AuditBase
     }
 
     /**
-     * @param string $csv comma-separated PluginGrcmanagerRisk category keys, e.g. "people,technical"
+     * @param string $csv comma-separated \GlpiPlugin\Grcmanager\Risk category keys, e.g. "people,technical"
      * @return array<int, string>
      */
     public static function splitRiskCategories(string $csv): array
@@ -251,7 +251,7 @@ class PluginGrcmanagerAudit extends AuditBase
 
     /**
      * Real `<select>` filter widgets for status/risk_categories, same lesson as
-     * PluginGrcmanagerRisk::getSpecificValueToSelect()/PluginGrcmanagerControl::getSpecificValueToSelect().
+     * \GlpiPlugin\Grcmanager\Risk::getSpecificValueToSelect()/PluginGrcmanagerControl::getSpecificValueToSelect().
      * For `risk_categories` (a comma-separated column), the filter searches for a single category
      * key via GLPI's default "contains" search type, matching if that category is anywhere in the
      * stored list; not a genuine multi-value AND/OR filter, a deliberate simplification for a
@@ -272,7 +272,7 @@ class PluginGrcmanagerAudit extends AuditBase
                 return Dropdown::showFromArray($name, self::getStatuses(), $options);
 
             case 'risk_categories':
-                return Dropdown::showFromArray($name, PluginGrcmanagerRisk::getCategories(), $options);
+                return Dropdown::showFromArray($name, \GlpiPlugin\Grcmanager\Risk::getCategories(), $options);
         }
 
         return parent::getSpecificValueToSelect($field, $name, $values, $options);
@@ -300,7 +300,7 @@ class PluginGrcmanagerAudit extends AuditBase
             return '';
         }
 
-        $labels = PluginGrcmanagerRisk::getCategories();
+        $labels = \GlpiPlugin\Grcmanager\Risk::getCategories();
         $badges = [];
 
         foreach ($categories as $category) {
@@ -460,7 +460,7 @@ class PluginGrcmanagerAudit extends AuditBase
 
     public static function renderReport(self $audit): string
     {
-        $categories = PluginGrcmanagerRisk::getCategories();
+        $categories = \GlpiPlugin\Grcmanager\Risk::getCategories();
 
         return TemplateRenderer::getInstance()->render('@grcmanager/pdf/internal_audit_report.html.twig', [
             'report_title'       => sprintf(__('Internal audit report: %s', 'grcmanager'), $audit->fields['title']),
@@ -544,7 +544,7 @@ class PluginGrcmanagerAudit extends AuditBase
             'item'            => $this,
             'params'          => $options,
             'statuses'        => self::getStatuses(),
-            'categories'      => PluginGrcmanagerRisk::getCategories(),
+            'categories'      => \GlpiPlugin\Grcmanager\Risk::getCategories(),
             'risk_categories' => $this->isNewID($ID)
                 ? []
                 : self::splitRiskCategories((string) ($this->fields['risk_categories'] ?? '')),

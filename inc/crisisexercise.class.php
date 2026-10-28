@@ -304,7 +304,7 @@ class PluginGrcmanagerCrisisExercise extends CrisisExerciseBase
         if ($scope === []) {
             return [];
         }
-        $edges = PluginGrcmanagerImpactAnalysis::loadEdges();
+        $edges = \GlpiPlugin\Grcmanager\ImpactAnalysis::loadEdges();
         foreach (array_keys($scope) as $start) {
             foreach (ImpactGraph::downstream($edges, $start) as $key => $depth) {
                 $scope[$key] = min($scope[$key] ?? PHP_INT_MAX, $depth);
@@ -360,7 +360,7 @@ class PluginGrcmanagerCrisisExercise extends CrisisExerciseBase
         $now = empty($this->fields['ended_at']) ? Session::getCurrentTime() : (string) $this->fields['ended_at'];
         $rows = [];
         foreach ($this->recoveryScope() as $key => $depth) {
-            $node = PluginGrcmanagerImpactAnalysis::describe($key);
+            $node = \GlpiPlugin\Grcmanager\ImpactAnalysis::describe($key);
             if (!$node['visible']) {
                 continue;
             }

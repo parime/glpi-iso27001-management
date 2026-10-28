@@ -433,7 +433,7 @@ function plugin_grcmanager_post_itil_info_section(array $params): void
     global $DB;
 
     $risks = [0 => Dropdown::EMPTY_VALUE];
-    foreach ($DB->request(['SELECT' => ['id', 'title'], 'FROM' => PluginGrcmanagerRisk::getTable()]) as $row) {
+    foreach ($DB->request(['SELECT' => ['id', 'title'], 'FROM' => \GlpiPlugin\Grcmanager\Risk::getTable()]) as $row) {
         $risks[(int) $row['id']] = $row['title'];
     }
 
@@ -444,7 +444,7 @@ function plugin_grcmanager_post_itil_info_section(array $params): void
         'severities'     => PluginGrcmanagerSecurityIncident::getSeverities(),
         'cia_axes'       => PluginGrcmanagerSecurityIncident::getCiaAxisLabels(),
         'risks'          => $risks,
-        'risk_type_name' => PluginGrcmanagerRisk::getTypeName(1),
+        'risk_type_name' => \GlpiPlugin\Grcmanager\Risk::getTypeName(1),
     ]);
 
     // Issue #128 : délais de notification réglementaires (NIS2, RGPD).

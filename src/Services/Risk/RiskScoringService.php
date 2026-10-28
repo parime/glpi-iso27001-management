@@ -7,7 +7,7 @@ namespace GlpiPlugin\Grcmanager\Services\Risk;
 /**
  * Pure probability x impact risk-scoring logic (ISO 27001 clause 6.1.2/8.2 generic risk
  * assessment), kept free of any GLPI runtime dependency so it can be unit-tested without a
- * running GLPI instance. Reused by PluginGrcmanagerRisk::prepareInputForAdd()/prepareInputForUpdate()
+ * running GLPI instance. Reused by \GlpiPlugin\Grcmanager\Risk::prepareInputForAdd()/prepareInputForUpdate()
  * whenever probability/impact change, so `computed_score`/`risk_level` are never entered
  * manually and always stay consistent with the two source fields.
  *

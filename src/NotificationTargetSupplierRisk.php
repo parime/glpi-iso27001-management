@@ -15,22 +15,32 @@
  * -------------------------------------------------------------------------
  */
 
+namespace GlpiPlugin\Grcmanager;
+
+use Dropdown;
+use Html;
+use Notification;
+use NotificationTarget;
+use Override;
+use PluginGrcmanagerSecurityWatch;
+use Supplier;
+
 /**
- * GLPI notification target for PluginGrcmanagerSupplierRisk (Sprint 5 review-date reminders, see
+ * GLPI notification target for SupplierRisk (Sprint 5 review-date reminders, see
  * src/Services/Risk/ReviewReminderService.php and its Cron entry point
- * PluginGrcmanagerSupplierRisk::cronReviewreminder()). Class name/file location follow the exact
+ * SupplierRisk::cronReviewreminder()). Class name/file location follow the exact
  * same GLPI core convention already confirmed live for the generic risk register, see
- * inc/notificationtargetrisk.class.php's own docblock: for itemtype "PluginGrcmanagerSupplierRisk",
- * GLPI expects a global class "PluginGrcmanagerNotificationTargetSupplierRisk" in
+ * inc/notificationtargetrisk.class.php's own docblock: for itemtype "SupplierRisk",
+ * GLPI expects a global class "NotificationTargetSupplierRisk" in
  * "inc/notificationtargetsupplierrisk.class.php".
  */
-class PluginGrcmanagerNotificationTargetSupplierRisk extends NotificationTarget
+class NotificationTargetSupplierRisk extends NotificationTarget
 {
     #[Override]
     public function getEvents()
     {
         return [
-            PluginGrcmanagerSupplierRisk::REVIEW_DUE_EVENT => __('Supplier risk review due', 'grcmanager'),
+            SupplierRisk::REVIEW_DUE_EVENT => __('Supplier risk review due', 'grcmanager'),
             // Issue #167 : nouvel avis du CERT-FR qui cite le fournisseur.
             PluginGrcmanagerSecurityWatch::NOTIFY_EVENT => __(
                 'New security advisory about the supplier',
@@ -41,7 +51,7 @@ class PluginGrcmanagerNotificationTargetSupplierRisk extends NotificationTarget
 
     /**
      * Default recipient: the risk's own owner (`users_id`), same generic "item owner" resolution
-     * as PluginGrcmanagerNotificationTargetRisk::addAdditionalTargets().
+     * as NotificationTargetRisk::addAdditionalTargets().
      */
     #[Override]
     public function addAdditionalTargets($event = '')
@@ -53,11 +63,11 @@ class PluginGrcmanagerNotificationTargetSupplierRisk extends NotificationTarget
     public function addDataForTemplate($event, $options = [])
     {
         $events = $this->getAllEvents();
-        /** @var PluginGrcmanagerSupplierRisk $risk */
+        /** @var SupplierRisk $risk */
         $risk   = $this->obj;
 
-        $categories = PluginGrcmanagerSupplierRisk::getCategories();
-        $levels     = PluginGrcmanagerSupplierRisk::getImpacts();
+        $categories = SupplierRisk::getCategories();
+        $levels     = SupplierRisk::getImpacts();
 
         $this->data['##supplierrisk.action##']     = $events[$event] ?? '';
         $this->data['##supplierrisk.title##']      = $risk->fields['title'] ?? '';
@@ -70,7 +80,7 @@ class PluginGrcmanagerNotificationTargetSupplierRisk extends NotificationTarget
         $this->data['##supplierrisk.reviewdate##'] = Html::convDate($risk->fields['review_date'] ?? null);
         $this->data['##supplierrisk.url##']        = $this->formatURL(
             $options['additionnaloption']['usertype'] ?? self::GLPI_USER,
-            PluginGrcmanagerSupplierRisk::class . '_' . $risk->getID()
+            SupplierRisk::class . '_' . $risk->getID()
         );
 
         $this->data['##supplierrisk.notices##'] = implode("\n", array_map(
