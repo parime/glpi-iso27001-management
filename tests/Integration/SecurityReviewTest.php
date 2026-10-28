@@ -174,15 +174,23 @@ final class SecurityReviewTest extends GrcmanagerIntegrationTestCase
      */
     public function testPluginNotificationTargetsStayOutOfTheCoreRange(): void
     {
-        foreach (glob(dirname(__DIR__, 2) . '/inc/notificationtarget*.class.php') ?: [] as $file) {
-            $class = 'PluginGrcmanagerNotificationTarget' . ucfirst((string) preg_replace(
+        // Les deux conventions (#293 : les classes passent de inc/ à src/ famille par famille).
+        $root = dirname(__DIR__, 2);
+        $classes = [];
+        foreach (glob($root . '/inc/notificationtarget*.class.php') ?: [] as $file) {
+            $classes[] = 'PluginGrcmanagerNotificationTarget' . ucfirst((string) preg_replace(
                 '/^notificationtarget(.*)\.class\.php$/',
                 '$1',
                 basename($file)
             ));
-            if (!class_exists($class)) {
-                continue;
-            }
+        }
+        foreach (glob($root . '/src/NotificationTarget*.php') ?: [] as $file) {
+            $classes[] = 'GlpiPlugin\\Grcmanager\\' . basename($file, '.php');
+        }
+        // Une classe introuvable ne doit pas sortir du contrôle sans bruit.
+        $this->assertGreaterThanOrEqual(13, count($classes));
+        foreach ($classes as $class) {
+            $this->assertTrue(class_exists($class), $class);
             // Constantes de cible propres au plugin : hors de la plage du cœur.
             $own = [];
             $reflection = new \ReflectionClass($class);
