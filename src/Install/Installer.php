@@ -6,6 +6,7 @@ namespace GlpiPlugin\Grcmanager\Install;
 
 use CronTask;
 use DBConnection;
+use GlpiPlugin\Grcmanager\NotificationTargetWaiver;
 use GlpiPlugin\Grcmanager\Services\Clause\IsmsClauseCatalog;
 use GlpiPlugin\Grcmanager\Services\Control\ControlCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Dashboard\DefaultDashboardService;
@@ -16,6 +17,7 @@ use GlpiPlugin\Grcmanager\Services\Notification\NotificationHtml;
 use GlpiPlugin\Grcmanager\Services\Cve\NvdConfigDefaults;
 use GlpiPlugin\Grcmanager\Services\Review\PeriodicReviewCatalog;
 use GlpiPlugin\Grcmanager\Services\Risk\RiskMatrixDefaults;
+use GlpiPlugin\Grcmanager\Waiver;
 use Migration;
 use Notification;
 use NotificationTemplate;
@@ -210,7 +212,7 @@ final class Installer
     private const PARK_CVE_TICKETS_TABLE = 'glpi_plugin_grcmanager_parkcvetickets';
     // Issue #178 : risques types importés depuis le catalogue, voir PluginGrcmanagerRiskCatalog.
     private const RISK_CATALOG_IMPORTS_TABLE = 'glpi_plugin_grcmanager_riskcatalogimports';
-    // Issue #170 : dérogations de sécurité, voir PluginGrcmanagerWaiver.
+    // Issue #170 : dérogations de sécurité, voir GlpiPlugin\Grcmanager\Waiver.
     private const WAIVERS_TABLE = 'glpi_plugin_grcmanager_waivers';
     private const WAIVERS_ITEMS_TABLE = 'glpi_plugin_grcmanager_waivers_items';
     // Issue #164 : règles de couverture des preuves, voir PluginGrcmanagerCoverageRule.
@@ -2030,6 +2032,9 @@ final class Installer
 
         $migration->executeMigration();
 
+        // Issue #293 : noms de classe stockés en base pour les classes passées dans src/.
+        ItemtypeRenames::migrate($migration);
+
         // Migration légère->fusionnée (voir le commentaire au-dessus de la création de
         // SECURITY_INCIDENTS_TABLE) : ne s'exécute qu'une seule fois, tant que la table renommée
         // existe encore - une fois migrée et supprimée ci-dessous, ce bloc devient un no-op
@@ -2295,7 +2300,7 @@ final class Installer
 
         // Issue #170 : rappel avant la fin d'une dérogation, puis ticket de réévaluation.
         CronTask::Register(
-            'PluginGrcmanagerWaiver',
+            'GlpiPlugin\\Grcmanager\\Waiver',
             'waiverreminder',
             DAY_TIMESTAMP,
             [
@@ -2810,7 +2815,7 @@ final class Installer
     {
         global $DB;
 
-        $itemtype = 'PluginGrcmanagerWaiver';
+        $itemtype = 'GlpiPlugin\\Grcmanager\\Waiver';
         $event    = 'waiver_expiring';
         $where = ['itemtype' => $itemtype, 'event' => $event];
         if ($DB->request(['FROM' => 'glpi_notifications', 'WHERE' => $where])->count() > 0) {
@@ -2853,7 +2858,7 @@ final class Installer
         $DB->insert('glpi_notificationtargets', [
             'notifications_id' => $notificationId,
             'type'             => Notification::USER_TYPE,
-            'items_id'         => \PluginGrcmanagerNotificationTargetWaiver::TARGET_RESPONSIBLE,
+            'items_id'         => \GlpiPlugin\Grcmanager\NotificationTargetWaiver::TARGET_RESPONSIBLE,
         ]);
     }
 
@@ -3164,7 +3169,7 @@ final class Installer
         $targets = [
             'PluginGrcmanagerEvidence'        => \PluginGrcmanagerNotificationTargetEvidence::TARGET_RESPONSIBLE,
             'PluginGrcmanagerComplianceEvent' => \PluginGrcmanagerNotificationTargetComplianceEvent::TARGET_RESPONSIBLE,
-            'PluginGrcmanagerWaiver'          => \PluginGrcmanagerNotificationTargetWaiver::TARGET_RESPONSIBLE,
+            Waiver::class                     => NotificationTargetWaiver::TARGET_RESPONSIBLE,
         ];
         foreach ($targets as $itemtype => $targetId) {
             $notifications = array_column(iterator_to_array($DB->request([
@@ -3672,7 +3677,7 @@ final class Installer
         $this->unseedNotification('PluginGrcmanagerPolicy');
         $this->unseedNotification('PluginGrcmanagerRiskTreatmentAction');
         $this->unseedNotification('PluginGrcmanagerEvidence');
-        $this->unseedNotification('PluginGrcmanagerWaiver');
+        $this->unseedNotification('GlpiPlugin\\Grcmanager\\Waiver');
         $this->unseedNotification('PluginGrcmanagerComplianceEvent');
         $this->unseedNotification(PluginGrcmanagerSecurityIncident::class);
         $this->unseedNotification('PluginGrcmanagerAccessReview');

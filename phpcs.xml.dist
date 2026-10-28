@@ -27,6 +27,8 @@
         <exclude-pattern>setup.php</exclude-pattern>
         <exclude-pattern>hook.php</exclude-pattern>
         <exclude-pattern>inc/*</exclude-pattern>
+        <!-- Classes passées de inc/ à la racine de src/ (#293) : mêmes méthodes de CommonDBTM. -->
+        <exclude-pattern>src/[^/]+\.php$</exclude-pattern>
     </rule>
 
     <!-- setup.php necessarily mixes constant/function declarations with the conditional

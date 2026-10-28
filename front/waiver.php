@@ -21,26 +21,26 @@ use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
 include('../../../inc/includes.php');
 
 // Issue #170 : registre des dérogations de sécurité.
-Session::checkRight(PluginGrcmanagerWaiver::$rightname, READ);
+Session::checkRight(\GlpiPlugin\Grcmanager\Waiver::$rightname, READ);
 
 Html::header(
-    PluginGrcmanagerWaiver::getTypeName(Session::getPluralNumber()),
+    \GlpiPlugin\Grcmanager\Waiver::getTypeName(Session::getPluralNumber()),
     $_SERVER['PHP_SELF'],
     'grcmanager',
     PluginGrcmanagerRisk::class,
-    PluginGrcmanagerWaiver::class
+    \GlpiPlugin\Grcmanager\Waiver::class
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(PluginGrcmanagerRisk::class, PluginGrcmanagerWaiver::class);
+PluginGrcmanagerMenu::showSection(PluginGrcmanagerRisk::class, \GlpiPlugin\Grcmanager\Waiver::class);
 // Encadré « À quoi sert cette page ? ».
 PluginGrcmanagerPageHelp::show('waiver');
 
-$params = QueryBuilder::manageParams(PluginGrcmanagerWaiver::class, $_GET);
+$params = QueryBuilder::manageParams(\GlpiPlugin\Grcmanager\Waiver::class, $_GET);
 
 Search::showList(
-    PluginGrcmanagerWaiver::class,
+    \GlpiPlugin\Grcmanager\Waiver::class,
     $params,
-    DefaultSearchColumns::COLUMNS[PluginGrcmanagerWaiver::class]
+    DefaultSearchColumns::COLUMNS[\GlpiPlugin\Grcmanager\Waiver::class]
 );
 
 Html::footer();

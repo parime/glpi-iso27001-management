@@ -15,11 +15,19 @@
  * -------------------------------------------------------------------------
  */
 
+namespace GlpiPlugin\Grcmanager;
+
+use Html;
+use NotificationTarget;
+use Override;
+use User;
+use UserEmail;
+
 /**
  * Issue #170 : prévient le responsable qu'une dérogation arrive à sa fin
- * (PluginGrcmanagerWaiver::runReminders()).
+ * (GlpiPlugin\Grcmanager\Waiver::runReminders()).
  */
-class PluginGrcmanagerNotificationTargetWaiver extends NotificationTarget
+class NotificationTargetWaiver extends NotificationTarget
 {
     // Hors de la plage des cibles du cœur (1 = administrateur global) : sinon GLPI envoie à
     // l'administrateur et n'appelle jamais addSpecificTargets() (revue de sécurité 2.11.0).
@@ -29,7 +37,7 @@ class PluginGrcmanagerNotificationTargetWaiver extends NotificationTarget
     public function getEvents()
     {
         return [
-            PluginGrcmanagerWaiver::EXPIRING_EVENT => __('Waiver ending soon', 'grcmanager'),
+            \GlpiPlugin\Grcmanager\Waiver::EXPIRING_EVENT => __('Waiver ending soon', 'grcmanager'),
         ];
     }
 
@@ -71,7 +79,7 @@ class PluginGrcmanagerNotificationTargetWaiver extends NotificationTarget
     public function addDataForTemplate($event, $options = [])
     {
         $events = $this->getAllEvents();
-        /** @var PluginGrcmanagerWaiver $waiver */
+        /** @var Waiver $waiver */
         $waiver = $this->obj;
 
         $this->data['##waiver.action##']  = $events[$event] ?? '';
@@ -79,7 +87,7 @@ class PluginGrcmanagerNotificationTargetWaiver extends NotificationTarget
         $this->data['##waiver.dateend##'] = (string) Html::convDate($waiver->fields['date_end'] ?? null);
         $this->data['##waiver.url##']     = $this->formatURL(
             $options['additionnaloption']['usertype'] ?? self::GLPI_USER,
-            PluginGrcmanagerWaiver::class . '_' . $waiver->getID()
+            \GlpiPlugin\Grcmanager\Waiver::class . '_' . $waiver->getID()
         );
 
         $this->getTags();

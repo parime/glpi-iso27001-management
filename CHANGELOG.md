@@ -32,6 +32,10 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   (non-conformités, preuves, formations, politiques, actions de traitement, revues, incidents de
   sécurité, approbation de la SoA, revue des accès) passent par un gabarit Twig. Le contenu est
   le même, à l'encodage près des apostrophes et guillemets (`&#039;`, `&quot;`).
+- Classes dans `src/` (convention GLPI, #293, étape 2), en commençant par les dérogations :
+  `PluginGrcmanagerWaiver` devient `GlpiPlugin\Grcmanager\Waiver`. La mise à jour renomme les
+  types stockés en base (notifications, modèles, préférences d'affichage, tâche planifiée,
+  documents, journaux, recherches enregistrées) ; l'ancien nom reste utilisable comme alias.
 
 ### Fixed
 

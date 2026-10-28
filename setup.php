@@ -27,6 +27,8 @@ use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentModuleConfig;
 // s'installer avec un message (check_prerequisites) au lieu d'une erreur fatale à chaque page.
 if (is_readable(__DIR__ . '/vendor/autoload.php')) {
     require_once __DIR__ . '/vendor/autoload.php';
+    // Issue #293 : anciens noms PluginGrcmanagerX des classes passées dans src/.
+    \GlpiPlugin\Grcmanager\Install\ItemtypeRenames::registerAliases();
 }
 
 define('PLUGIN_GRCMANAGER_VERSION', '2.16.0');
@@ -137,7 +139,7 @@ function plugin_init_grcmanager(): void
     global $CFG_GLPI;
     $CFG_GLPI['document_types'][] = PluginGrcmanagerPolicy::class;
     // Issue #170 : validation signée d'une dérogation, analyse de risque jointe.
-    $CFG_GLPI['document_types'][] = PluginGrcmanagerWaiver::class;
+    $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\Waiver::class;
     // Issue #139 : feuille d'émargement, support et quiz d'une session de formation.
     $CFG_GLPI['document_types'][] = PluginGrcmanagerTraining::class;
     // Issue #140 : pièces d'un audit interne et de ses constats.
@@ -196,7 +198,7 @@ function plugin_init_grcmanager(): void
     // Issue #145 : onglet « Validités des preuves » sur les éléments dont les documents prouvent
     // quelque chose pour une durée limitée (mesures, risques fournisseurs, audits, politiques).
     // Issue #170 : onglet « Dérogations » sur les actifs, les mesures et les politiques.
-    Plugin::registerClass(PluginGrcmanagerWaiver::class, [
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\Waiver::class, [
         'addtabon' => array_merge(
             PluginGrcmanagerRisk::getLinkableItemtypes(),
             [PluginGrcmanagerControl::class, PluginGrcmanagerPolicy::class]

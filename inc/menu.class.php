@@ -70,7 +70,7 @@ class PluginGrcmanagerMenu extends CommonGLPI
             // Appréciation et traitement des risques.
             PluginGrcmanagerRisk::class => [
                 PluginGrcmanagerSupplierRisk::class, PluginGrcmanagerImpactAnalysis::class,
-                PluginGrcmanagerCausalLink::class, PluginGrcmanagerWaiver::class,
+                PluginGrcmanagerCausalLink::class, \GlpiPlugin\Grcmanager\Waiver::class,
             ],
             // Conformité : SoA, référentiels, exigences du SMSI, obligations, politiques, preuves.
             PluginGrcmanagerControl::class => [

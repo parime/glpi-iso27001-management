@@ -134,8 +134,8 @@ final class SecurityReviewTest extends GrcmanagerIntegrationTestCase
         $b = $this->createTestEntity(0, 'PHPUnit revue B ' . random_int(1000, 9999));
         $inA = (int) (new \Computer())->add(['name' => 'PHPUnit poste A', 'entities_id' => $a]);
         $inB = (int) (new \Computer())->add(['name' => 'PHPUnit poste B', 'entities_id' => $b]);
-        $field = \PluginGrcmanagerWaiver::linkedFieldName(\Computer::class);
-        $waiver = new \PluginGrcmanagerWaiver();
+        $field = \GlpiPlugin\Grcmanager\Waiver::linkedFieldName(\Computer::class);
+        $waiver = new \GlpiPlugin\Grcmanager\Waiver();
         $waiverId = (int) $waiver->add([
             'name' => 'PHPUnit dérogation', 'date_begin' => date('Y-m-d'),
             'date_end' => date('Y-m-d', strtotime('+30 days')), $field => [$inB],
@@ -143,11 +143,11 @@ final class SecurityReviewTest extends GrcmanagerIntegrationTestCase
         $this->assertGreaterThan(0, $waiverId);
 
         $gestionnaire = ['plugin_grcmanager' => ALLSTANDARDRIGHT, 'computer' => READ];
-        $this->asProfile($gestionnaire, [$a], static fn () => (new \PluginGrcmanagerWaiver())->update([
+        $this->asProfile($gestionnaire, [$a], static fn () => (new \GlpiPlugin\Grcmanager\Waiver())->update([
             'id' => $waiverId, $field => [$inA, $inB + 100000],
         ]));
 
-        $linked = array_column(\PluginGrcmanagerWaiver::getWaiverItems($waiverId), 'items_id');
+        $linked = array_column(\GlpiPlugin\Grcmanager\Waiver::getWaiverItems($waiverId), 'items_id');
         sort($linked);
         $expected = [$inA, $inB];
         sort($expected);
