@@ -145,8 +145,8 @@ if [ "$ROLE" = none ]; then
     "$(code -d "finish=1&id=1&_glpi_csrf_token=$(csrf)" "$P/crisisexercise.form.php")"
   # Revue de securite 2.11.0 : contenu des onglets du plugin demande directement sur un
   # ordinateur lisible, sans le droit du plugin (GLPI ne consulte pas getTabNameForItem()).
-  for t in 'GlpiPlugin%5CGrcmanager%5CImpactAnalysis$1' 'PluginGrcmanagerAssetClassification$1' \
-           'PluginGrcmanagerParkVulnerability$1' 'GlpiPlugin%5CGrcmanager%5CRisk$1'; do
+  for t in 'GlpiPlugin%5CGrcmanager%5CImpactAnalysis$1' 'GlpiPlugin%5CGrcmanager%5CAssetClassification$1' \
+           'GlpiPlugin%5CGrcmanager%5CParkVulnerability$1' 'GlpiPlugin%5CGrcmanager%5CRisk$1'; do
     contains "onglet $t d'un ordinateur : sans droit" "plugins/grcmanager" non "$(tab Computer "$t" "$(id computer_A)")"
   done
   create_attempts 403 403

@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace GlpiPlugin\Grcmanager\Services\Cve;
 
+use GlpiPlugin\Grcmanager\ProductAlias;
+
 /**
  * Correlates a CVE's `affected_cpes` (see NvdCveParser::affectedCpes()) against software actually
  * installed on this GLPI instance's own inventory, using the admin-declared catalog
- * (PluginGrcmanagerCanonicalProduct/CpeReference/ProductAlias) — never an automatic name/version
+ * (\GlpiPlugin\Grcmanager\CanonicalProduct/CpeReference/ProductAlias) — never an automatic name/version
  * guess, same "no invented correlation" principle as the rest of this plugin family.
  *
  * Computed on demand (called only when a human views a CVE's tab on a security incident), not by a
@@ -75,7 +77,7 @@ final class InventoryCveMatcher
         $unknown = [];
 
         foreach (self::installedSoftware() as $installed) {
-            $canonicalProductId = \PluginGrcmanagerProductAlias::resolveCanonicalProductId($installed['software_name']);
+            $canonicalProductId = ProductAlias::resolveCanonicalProductId($installed['software_name']);
 
             if ($canonicalProductId === null || !isset($affectedCpesByCanonicalProductId[$canonicalProductId])) {
                 continue;
@@ -117,7 +119,7 @@ final class InventoryCveMatcher
         foreach (
             $DB->request([
                 'SELECT' => ['cpe', 'plugin_grcmanager_canonicalproducts_id'],
-                'FROM'   => \PluginGrcmanagerCpeReference::getTable(),
+                'FROM'   => \GlpiPlugin\Grcmanager\CpeReference::getTable(),
             ]) as $row
         ) {
             $map[CpeIdentity::prefixOf((string) $row['cpe'])] = (int) $row['plugin_grcmanager_canonicalproducts_id'];

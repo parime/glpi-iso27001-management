@@ -94,7 +94,7 @@ if (isset($_POST['update_nvd_config'])) {
                 : \GlpiPlugin\Grcmanager\Services\Cve\NvdConfigDefaults::CVSS_ALERT_THRESHOLD,
     ]);
     // Issue #160, phase 2 : seuils des tickets automatiques des vulnérabilités du parc.
-    PluginGrcmanagerParkVulnerability::saveTicketThresholds($_POST);
+    \GlpiPlugin\Grcmanager\ParkVulnerability::saveTicketThresholds($_POST);
 
     Html::back();
 }
@@ -115,8 +115,8 @@ Html::header(
     'latest_github_version' => GithubVersionChecker::getLatestGithubVersion(),
     'securityincident_modules' => SecurityIncidentModuleConfig::load(),
     'nvd_config'                => NvdConfig::load(),
-    'park_thresholds'           => PluginGrcmanagerParkVulnerability::getTicketThresholds(),
-    'max_tickets'               => PluginGrcmanagerParkVulnerability::MAX_TICKETS_PER_RUN,
+    'park_thresholds'           => \GlpiPlugin\Grcmanager\ParkVulnerability::getTicketThresholds(),
+    'max_tickets'               => \GlpiPlugin\Grcmanager\ParkVulnerability::MAX_TICKETS_PER_RUN,
     'ciso_groups_id'            => \GlpiPlugin\Grcmanager\AuditTeam::getCisoGroupId(),
     'notifications_minimal'     => SensitiveNotification::isMinimal(),
     'can_edit_sensitive'        => Session::haveRight(Installer::SENSITIVE_RIGHT, UPDATE),

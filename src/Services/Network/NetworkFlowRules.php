@@ -10,7 +10,7 @@ namespace GlpiPlugin\Grcmanager\Services\Network;
  * justification ou sans propriétaire, flux expiré ou proche de sa date de fin, service
  * d'administration publié sur Internet.
  *
- * Les libellés sont traduits par l'appelant (PluginGrcmanagerNetworkFlow) : ce service ne porte
+ * Les libellés sont traduits par l'appelant (\GlpiPlugin\Grcmanager\NetworkFlow) : ce service ne porte
  * que les clés.
  */
 final class NetworkFlowRules

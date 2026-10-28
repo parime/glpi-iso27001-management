@@ -21,12 +21,12 @@ include('../../../inc/includes.php');
 
 // Issue #181 : machines les plus exposées (mêmes droits que les vulnérabilités du parc : droit du
 // plugin et lecture native des logiciels). Lecture seule.
-Session::checkRight(PluginGrcmanagerParkVulnerability::RIGHTNAME, READ);
+Session::checkRight(\GlpiPlugin\Grcmanager\ParkVulnerability::RIGHTNAME, READ);
 Session::checkRight(Software::$rightname, READ);
 
 Html::header(
     __('Most exposed machines', 'grcmanager'),
-    PluginGrcmanagerParkVulnerability::getRankingURL(),
+    \GlpiPlugin\Grcmanager\ParkVulnerability::getRankingURL(),
     'grcmanager',
     \GlpiPlugin\Grcmanager\ComplianceAudit::class,
     PluginGrcmanagerMenu::MACHINE_RANKING
@@ -36,11 +36,11 @@ PluginGrcmanagerMenu::showSection(\GlpiPlugin\Grcmanager\ComplianceAudit::class,
 // Encadré « À quoi sert cette page ? ».
 PluginGrcmanagerPageHelp::show('parkmachines');
 
-$ranking = PluginGrcmanagerParkVulnerability::getMachineRanking();
+$ranking = \GlpiPlugin\Grcmanager\ParkVulnerability::getMachineRanking();
 TemplateRenderer::getInstance()->display('@grcmanager/park_machines.html.twig', [
     'rows'  => $ranking['rows'],
     'total' => $ranking['total'],
-    'limit' => PluginGrcmanagerParkVulnerability::RANKING_LIMIT,
+    'limit' => \GlpiPlugin\Grcmanager\ParkVulnerability::RANKING_LIMIT,
 ]);
 
 Html::footer();

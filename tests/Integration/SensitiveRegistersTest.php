@@ -47,8 +47,8 @@ final class SensitiveRegistersTest extends GrcmanagerIntegrationTestCase
             [
                 \GlpiPlugin\Grcmanager\Risk::class, \GlpiPlugin\Grcmanager\SupplierRisk::class,
                 \GlpiPlugin\Grcmanager\RiskTreatmentAction::class, \GlpiPlugin\Grcmanager\ImpactAnalysis::class,
-                \GlpiPlugin\Grcmanager\CausalLink::class, \PluginGrcmanagerParkVulnerability::class,
-                \PluginGrcmanagerNetworkFlow::class,
+                \GlpiPlugin\Grcmanager\CausalLink::class, \GlpiPlugin\Grcmanager\ParkVulnerability::class,
+                \GlpiPlugin\Grcmanager\NetworkFlow::class,
             ] as $class
         ) {
             $this->assertSame(Installer::SENSITIVE_RIGHT, constant($class . '::RIGHTNAME'), $class);
@@ -56,7 +56,7 @@ final class SensitiveRegistersTest extends GrcmanagerIntegrationTestCase
         $this->assertSame(Installer::RIGHT_NAME, \PluginGrcmanagerControl::RIGHTNAME);
         $this->withoutSensitiveRight(function (): void {
             $this->assertFalse(\GlpiPlugin\Grcmanager\ImpactAnalysis::canView());
-            $this->assertFalse(\PluginGrcmanagerNetworkFlow::canView());
+            $this->assertFalse(\GlpiPlugin\Grcmanager\NetworkFlow::canView());
         });
         $this->withoutSensitiveRight(function (): void {
             $this->assertFalse(\GlpiPlugin\Grcmanager\Risk::canView());

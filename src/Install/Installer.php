@@ -72,7 +72,7 @@ final class Installer
     private const CVE_ENRICHMENTS_TABLE = 'glpi_plugin_grcmanager_cveenrichments';
 
     // Corrélation CPE des CVE avec le parc GLPI : catalogue de correspondance produit (cf.
-    // ROADMAP.md, PluginGrcmanagerCanonicalProduct et ses deux tables satellites ci-dessous).
+    // ROADMAP.md, \GlpiPlugin\Grcmanager\CanonicalProduct et ses deux tables satellites ci-dessous).
     private const CANONICAL_PRODUCTS_TABLE = 'glpi_plugin_grcmanager_canonicalproducts';
 
     private const CPE_REFERENCES_TABLE = 'glpi_plugin_grcmanager_cpereferences';
@@ -200,7 +200,7 @@ final class Installer
     private const DOCUMENT_ACCESSES_TABLE = 'glpi_plugin_grcmanager_documentaccesses';
     // Issue #141 : revues périodiques du SMSI, voir PluginGrcmanagerPeriodicReview.
     private const PERIODIC_REVIEWS_TABLE = 'glpi_plugin_grcmanager_periodicreviews';
-    // Issue #144 : matrice des flux réseau, voir PluginGrcmanagerNetworkFlow.
+    // Issue #144 : matrice des flux réseau, voir \GlpiPlugin\Grcmanager\NetworkFlow.
     private const NETWORK_FLOWS_TABLE = 'glpi_plugin_grcmanager_networkflows';
     // Issue #142 : evenements du calendrier de conformite, voir \GlpiPlugin\Grcmanager\ComplianceEvent.
     private const COMPLIANCE_EVENTS_TABLE = 'glpi_plugin_grcmanager_complianceevents';
@@ -381,7 +381,7 @@ final class Installer
         }
 
         // Corrélation CPE des CVE avec le parc GLPI (cf. ROADMAP.md) : catalogue de correspondance
-        // produit, voir PluginGrcmanagerCanonicalProduct/CpeReference/ProductAlias et
+        // produit, voir \GlpiPlugin\Grcmanager\CanonicalProduct/CpeReference/ProductAlias et
         // GlpiPlugin\Grcmanager\Services\Cve\InventoryCveMatcher. Le produit canonique est le seul
         // des trois avec une entree de menu ; les deux tables satellites sont gerees en ligne sur
         // son propre formulaire, meme convention que OBJECTIVE_MEASUREMENTS_TABLE ci-dessus (pas
@@ -994,7 +994,7 @@ final class Installer
         // Issue #26 (classification C/I/D des actifs, ISO/IEC 27001:2022 A.5.9/A.5.12/A.8.2) :
         // registre INDÉPENDANT du lien risque <-> actif de l'issue #25 ci-dessus (RISKS_ITEMS_TABLE)
         // — une classification est une propriété de l'actif lui-même, pas d'un risque particulier
-        // qui le mentionne, voir PluginGrcmanagerAssetClassification. Clé composite unique
+        // qui le mentionne, voir \GlpiPlugin\Grcmanager\AssetClassification. Clé composite unique
         // itemtype/items_id (une seule ligne par actif réel, jamais deux classifications
         // concurrentes pour le même actif), même modèle polymorphe que RISKS_ITEMS_TABLE mais SANS
         // second membre de relation (`plugin_grcmanager_risks_id`) : ici l'actif EST l'entité
@@ -2332,7 +2332,7 @@ final class Installer
         // vérifiées auprès de NVD (limite publique de 5 requêtes par 30 s), puis CISA KEV et
         // FIRST EPSS. Sans effet tant que l'enrichissement NVD n'est pas activé.
         CronTask::Register(
-            'PluginGrcmanagerParkVulnerability',
+            'GlpiPlugin\\Grcmanager\\ParkVulnerability',
             'parkvulnerabilitysync',
             HOUR_TIMESTAMP,
             [
@@ -2614,7 +2614,7 @@ final class Installer
 
     /**
      * Issue #167 : nouvel avis du CERT-FR qui cite le fournisseur d'un risque (événement
-     * 'security_watch', voir PluginGrcmanagerSecurityWatch::notifyOwners()), adressé au
+     * 'security_watch', voir \GlpiPlugin\Grcmanager\SecurityWatch::notifyOwners()), adressé au
      * propriétaire du risque. Idempotent, même structure que seedCapaOverdueNotification().
      */
     private function seedSecurityWatchNotification(): void

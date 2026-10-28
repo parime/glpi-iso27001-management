@@ -114,8 +114,8 @@ final class SecurityReviewTest extends GrcmanagerIntegrationTestCase
         foreach (
             [
                 [\GlpiPlugin\Grcmanager\ImpactAnalysis::class, $computer],
-                [\PluginGrcmanagerAssetClassification::class, $computer],
-                [\PluginGrcmanagerParkVulnerability::class, $computer],
+                [\GlpiPlugin\Grcmanager\AssetClassification::class, $computer],
+                [\GlpiPlugin\Grcmanager\ParkVulnerability::class, $computer],
                 [\GlpiPlugin\Grcmanager\CausalLink::class, $risk],
             ] as [$tab, $host]
         ) {

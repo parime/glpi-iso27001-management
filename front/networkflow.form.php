@@ -17,36 +17,36 @@
 
 include('../../../inc/includes.php');
 
-$item = new PluginGrcmanagerNetworkFlow();
+$item = new \GlpiPlugin\Grcmanager\NetworkFlow();
 
 if (isset($_POST['add'])) {
-    Session::checkRight(PluginGrcmanagerNetworkFlow::$rightname, CREATE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\NetworkFlow::$rightname, CREATE);
     $newID = $item->add($_POST);
     if ($newID && $_SESSION['glpibackcreated']) {
         Html::redirect($item->getLinkURL());
     }
     Html::back();
 } elseif (isset($_POST['delete'])) {
-    Session::checkRight(PluginGrcmanagerNetworkFlow::$rightname, DELETE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\NetworkFlow::$rightname, DELETE);
     $item->delete($_POST);
-    Html::redirect(PluginGrcmanagerNetworkFlow::getSearchURL());
+    Html::redirect(\GlpiPlugin\Grcmanager\NetworkFlow::getSearchURL());
 } elseif (isset($_POST['purge'])) {
-    Session::checkRight(PluginGrcmanagerNetworkFlow::$rightname, PURGE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\NetworkFlow::$rightname, PURGE);
     $item->delete($_POST, true);
-    Html::redirect(PluginGrcmanagerNetworkFlow::getSearchURL());
+    Html::redirect(\GlpiPlugin\Grcmanager\NetworkFlow::getSearchURL());
 } elseif (isset($_POST['update'])) {
-    Session::checkRight(PluginGrcmanagerNetworkFlow::$rightname, UPDATE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\NetworkFlow::$rightname, UPDATE);
     $item->update($_POST);
     Html::back();
 } else {
-    Session::checkRight(PluginGrcmanagerNetworkFlow::$rightname, READ);
+    Session::checkRight(\GlpiPlugin\Grcmanager\NetworkFlow::$rightname, READ);
 
     Html::header(
-        PluginGrcmanagerNetworkFlow::getTypeName(1),
+        \GlpiPlugin\Grcmanager\NetworkFlow::getTypeName(1),
         $_SERVER['PHP_SELF'],
         'grcmanager',
         \GlpiPlugin\Grcmanager\ComplianceAudit::class,
-        PluginGrcmanagerNetworkFlow::class
+        \GlpiPlugin\Grcmanager\NetworkFlow::class
     );
 
     $item->display(['id' => (int) ($_GET['id'] ?? 0)]);

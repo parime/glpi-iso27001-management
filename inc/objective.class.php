@@ -84,7 +84,7 @@ class PluginGrcmanagerObjective extends ObjectiveBase
 
     /**
      * Never trusts `status` from the request as-is, same defensive posture as
-     * PluginGrcmanagerAssetClassification::sanitizeLevels(): an invalid/tampered value always
+     * \GlpiPlugin\Grcmanager\AssetClassification::sanitizeLevels(): an invalid/tampered value always
      * falls back to the safe default rather than being stored as garbage.
      *
      * @param array<string, mixed> $input

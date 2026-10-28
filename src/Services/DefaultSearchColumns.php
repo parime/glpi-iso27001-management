@@ -41,7 +41,7 @@ final class DefaultSearchColumns
         'GlpiPlugin\\Grcmanager\\Policy'           => [8, 1, 2, 3, 4, 5, 6],
         'GlpiPlugin\\Grcmanager\\Evidence'         => [2, 3, 4, 5, 6, 80],
         // Issue #144 : nom, type, source, destination, protocole, ports, propriétaire, fin, contrôles.
-        'PluginGrcmanagerNetworkFlow'      => [1, 2, 3, 4, 5, 6, 8, 9, 11],
+        'GlpiPlugin\\Grcmanager\\NetworkFlow'      => [1, 2, 3, 4, 5, 6, 8, 9, 11],
         // Issue #170 : nom, statut, date de fin, responsable, mesure, politique.
         'GlpiPlugin\\Grcmanager\\Waiver'           => [1, 3, 4, 5, 6, 7],
         // Issue #164 : nom, type d'actif, catégorie de document, mesure, exigence, active.
@@ -61,6 +61,6 @@ final class DefaultSearchColumns
         // (éditeur, produit), pas de convention "id first" à respecter faute de colonne ID dédiée
         // — même choix que le CanonicalProduct du plugin jumeau glpi-vulnerability-manager, qui n'a
         // lui non plus pas de colonne de titre naturelle.
-        'PluginGrcmanagerCanonicalProduct' => [1, 2],
+        'GlpiPlugin\\Grcmanager\\CanonicalProduct' => [1, 2],
     ];
 }

@@ -38,7 +38,7 @@ final class ImpactAnalysisTest extends GrcmanagerIntegrationTestCase
                 'itemtype_impacted' => 'Computer', 'items_id_impacted' => $impacted,
             ]);
         }
-        $DB->insert(\PluginGrcmanagerAssetClassification::getTable(), [
+        $DB->insert(\GlpiPlugin\Grcmanager\AssetClassification::getTable(), [
             'itemtype' => 'Computer', 'items_id' => $vm, 'availability' => 'high',
         ]);
 
@@ -84,7 +84,7 @@ final class ImpactAnalysisTest extends GrcmanagerIntegrationTestCase
             'itemtype_source' => 'Computer', 'items_id_source' => $storage,
             'itemtype_impacted' => 'Computer', 'items_id_impacted' => $app,
         ]);
-        $classification = new \PluginGrcmanagerAssetClassification();
+        $classification = new \GlpiPlugin\Grcmanager\AssetClassification();
         $classification->add(['itemtype' => 'Computer', 'items_id' => $storage, 'rto_hours' => 24]);
         $classification->add([
             'itemtype'     => 'Computer',
@@ -93,7 +93,7 @@ final class ImpactAnalysisTest extends GrcmanagerIntegrationTestCase
             'rto_hours'    => 4,
             'rpo_hours'    => '7',
         ]);
-        $row = \PluginGrcmanagerAssetClassification::getByItem('Computer', $app);
+        $row = \GlpiPlugin\Grcmanager\AssetClassification::getByItem('Computer', $app);
         $this->assertSame(4, (int) $row['rto_hours']);
         $this->assertSame(0, (int) $row['rpo_hours'], 'Durée hors liste refusée.');
 
@@ -122,7 +122,7 @@ final class ImpactAnalysisTest extends GrcmanagerIntegrationTestCase
         $appItem = new \Computer();
         $appItem->getFromDB($app);
         ob_start();
-        \PluginGrcmanagerAssetClassification::displayTabContentForItem($appItem);
+        \GlpiPlugin\Grcmanager\AssetClassification::displayTabContentForItem($appItem);
         $tab = (string) ob_get_clean();
         $this->assertStringContainsString('name="rto_hours"', $tab);
         $this->assertStringContainsString('value="4" selected', $tab);

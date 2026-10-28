@@ -29,7 +29,7 @@ final class NetworkFlowReportTest extends GrcmanagerIntegrationTestCase
 {
     public function testReportListsActiveFlowsWithTheirGapsAndRendersAsPdf(): void
     {
-        $flow = new \PluginGrcmanagerNetworkFlow();
+        $flow = new \GlpiPlugin\Grcmanager\NetworkFlow();
         $id = (int) $flow->add([
             'name'              => 'PHPUnit RDP publié',
             'flow_type'         => 'internet_publication',
@@ -41,7 +41,7 @@ final class NetworkFlowReportTest extends GrcmanagerIntegrationTestCase
         ]);
         try {
             $this->assertGreaterThan(0, $id);
-            $data = \PluginGrcmanagerNetworkFlow::reportData();
+            $data = \GlpiPlugin\Grcmanager\NetworkFlow::reportData();
             $flows = [];
             foreach ($data['groups'] as $group) {
                 foreach ($group['flows'] as $row) {

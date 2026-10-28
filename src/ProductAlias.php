@@ -15,23 +15,26 @@
  * -------------------------------------------------------------------------
  */
 
+namespace GlpiPlugin\Grcmanager;
+
 use GlpiPlugin\Grcmanager\Compatibility\Base\ProductAliasBase;
+use Session;
 
 /**
  * One GLPI software name (the exact string as it appears in `glpi_softwares.name` on this
- * instance's inventory) manually declared as an alias of a PluginGrcmanagerCanonicalProduct —
+ * instance's inventory) manually declared as an alias of a CanonicalProduct —
  * several per product, managed inline on that product's own form (see
- * PluginGrcmanagerCanonicalProduct::showProductAliases()), no menu/search screen of its own, same
+ * CanonicalProduct::showProductAliases()), no menu/search screen of its own, same
  * convention as PluginGrcmanagerObjectiveMeasurement.
  *
  * Matched by GlpiPlugin\Grcmanager\Services\Cve\InventoryCveMatcher by exact string equality only
  * — never a fuzzy/normalized match, same "no invented correlation" principle as the rest of this
  * plugin family.
  *
- * Uses PluginGrcmanagerCanonicalProduct's own right rather than a dedicated one: a product alias
+ * Uses CanonicalProduct's own right rather than a dedicated one: a product alias
  * has no meaningful access boundary of its own, separate from the product it documents.
  */
-class PluginGrcmanagerProductAlias extends ProductAliasBase
+class ProductAlias extends ProductAliasBase
 {
     public const RIGHTNAME = 'plugin_grcmanager';
 
@@ -49,7 +52,7 @@ class PluginGrcmanagerProductAlias extends ProductAliasBase
      * `alias` is UNIQUE in the database (one GLPI software name can only ever point to one
      * canonical product, see Installer.php) — without this check, a duplicate submission reaches
      * CommonDBTM::add()'s raw INSERT and surfaces as an uncaught RuntimeException (HTTP 500,
-     * confirmed live against a real GLPI instance for the sibling PluginGrcmanagerCpeReference,
+     * confirmed live against a real GLPI instance for the sibling CpeReference,
      * same underlying issue here) instead of the normal Session::addMessageAfterRedirect() error
      * flow every other validation failure in this plugin uses.
      */
@@ -74,16 +77,16 @@ class PluginGrcmanagerProductAlias extends ProductAliasBase
             'SELECT'    => [self::getTable() . '.id'],
             'FROM'      => self::getTable(),
             'LEFT JOIN' => [
-                PluginGrcmanagerCanonicalProduct::getTable() => [
+                CanonicalProduct::getTable() => [
                     'FKEY' => [
                         self::getTable() => 'plugin_grcmanager_canonicalproducts_id',
-                        PluginGrcmanagerCanonicalProduct::getTable() => 'id',
+                        CanonicalProduct::getTable() => 'id',
                     ],
                 ],
             ],
             'WHERE'     => [
                 self::getTable() . '.alias'                    => $alias,
-                PluginGrcmanagerCanonicalProduct::getTable() . '.id' => null,
+                CanonicalProduct::getTable() . '.id' => null,
             ],
         ]);
         foreach ($orphans as $orphan) {
@@ -91,12 +94,12 @@ class PluginGrcmanagerProductAlias extends ProductAliasBase
         }
         $existing = $DB->request([
             'SELECT' => ['manufacturer', 'product'],
-            'FROM'   => PluginGrcmanagerCanonicalProduct::getTable(),
+            'FROM'   => CanonicalProduct::getTable(),
             'INNER JOIN' => [
                 self::getTable() => [
                     'FKEY' => [
                         self::getTable() => 'plugin_grcmanager_canonicalproducts_id',
-                        PluginGrcmanagerCanonicalProduct::getTable() => 'id',
+                        CanonicalProduct::getTable() => 'id',
                     ],
                 ],
             ],
