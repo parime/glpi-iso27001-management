@@ -1,0 +1,11 @@
+{# Corps HTML d'un modèle de notification créé à l'installation (NotificationHtml::render()) :
+   ligne de titre, lignes de détail, lien, dans l'ordre donné. Texte figé et balises ##…## de GLPI. #}
+{%- for block in blocks -%}
+  {%- if block.type == 'strong' -%}
+    <p><strong>{{ block.text }}</strong></p>
+  {%- elseif block.type == 'lines' -%}
+    <p>{% for line in block.lines %}{{ line }}{% if not loop.last %}<br>{% endif %}{% endfor %}</p>
+  {%- elseif block.type == 'link' -%}
+    <p><a href="{{ block.url }}">{{ block.text }}</a></p>
+  {%- endif -%}
+{%- endfor -%}

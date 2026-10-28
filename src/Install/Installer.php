@@ -12,6 +12,7 @@ use GlpiPlugin\Grcmanager\Services\Dashboard\DefaultDashboardService;
 use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
 use GlpiPlugin\Grcmanager\Services\Incident\LegacySecurityIncidentMigrator;
 use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentModuleConfig;
+use GlpiPlugin\Grcmanager\Services\Notification\NotificationHtml;
 use GlpiPlugin\Grcmanager\Services\Cve\NvdConfigDefaults;
 use GlpiPlugin\Grcmanager\Services\Review\PeriodicReviewCatalog;
 use GlpiPlugin\Grcmanager\Services\Risk\RiskMatrixDefaults;
@@ -2475,11 +2476,12 @@ final class Installer
         ]);
 
         $detailText = '';
-        $detailHtml = '';
+        $detailLinesHtml = [];
         foreach ($detailLines as $tagSuffix => $label) {
             $detailText .= "{$label} : ##{$tagPrefix}.{$tagSuffix}##\n";
-            $detailHtml .= "{$label} : ##{$tagPrefix}.{$tagSuffix}##<br>";
+            $detailLinesHtml[] = "{$label} : ##{$tagPrefix}.{$tagSuffix}##";
         }
+        $detailLinesHtml[] = "Date de revue : ##{$tagPrefix}.reviewdate##";
 
         $DB->insert('glpi_notificationtemplatetranslations', [
             'notificationtemplates_id' => $templateId,
@@ -2489,10 +2491,11 @@ final class Installer
                 . $detailText
                 . "Date de revue : ##{$tagPrefix}.reviewdate##\n\n"
                 . "Voir le " . $noun . " : ##{$tagPrefix}.url##",
-            'content_html'             => "<p><strong>##{$tagPrefix}.action## : ##{$tagPrefix}.title##</strong></p>"
-                . '<p>' . $detailHtml
-                . 'Date de revue : ' . "##{$tagPrefix}.reviewdate##</p>"
-                . "<p><a href=\"##{$tagPrefix}.url##\">Voir le " . $noun . '</a></p>',
+            'content_html'             => NotificationHtml::render([
+                NotificationHtml::strong("##{$tagPrefix}.action## : ##{$tagPrefix}.title##"),
+                NotificationHtml::lines($detailLinesHtml),
+                NotificationHtml::link("##{$tagPrefix}.url##", 'Voir le ' . $noun),
+            ]),
         ]);
 
         $notification = new Notification();
@@ -2561,11 +2564,15 @@ final class Installer
                 . "Sévérité : ##nc.severity##\n"
                 . "Échéance : ##nc.duedate##\n\n"
                 . "Voir la non-conformité : ##nc.url##",
-            'content_html'             => '<p><strong>##nc.action## : ##nc.title##</strong></p>'
-                . '<p>Audit : ##nc.audit##<br>'
-                . 'Sévérité : ##nc.severity##<br>'
-                . 'Échéance : ##nc.duedate##</p>'
-                . '<p><a href="##nc.url##">Voir la non-conformité</a></p>',
+            'content_html'             => NotificationHtml::render([
+                NotificationHtml::strong('##nc.action## : ##nc.title##'),
+                NotificationHtml::lines([
+                    'Audit : ##nc.audit##',
+                    'Sévérité : ##nc.severity##',
+                    'Échéance : ##nc.duedate##',
+                ]),
+                NotificationHtml::link('##nc.url##', 'Voir la non-conformité'),
+            ]),
         ]);
 
         $notification = new Notification();
@@ -2704,11 +2711,18 @@ final class Installer
                 . "Renouvelez le document (nouveau certificat, rapport ou attestation) puis mettez à jour sa "
                 . "date de validité. Un ticket de renouvellement sera ouvert si la preuve expire.\n\n"
                 . "Voir l'élément : ##evidence.url##",
-            'content_html'             => '<p><strong>##evidence.action## : ##evidence.document##</strong></p>'
-                . '<p>Élément : ##evidence.item##<br>Valide jusqu\'au : ##evidence.validuntil##</p>'
-                . '<p>Renouvelez le document (nouveau certificat, rapport ou attestation) puis mettez à jour '
-                . 'sa date de validité. Un ticket de renouvellement sera ouvert si la preuve expire.</p>'
-                . '<p><a href="##evidence.url##">Voir l\'élément</a></p>',
+            'content_html'             => NotificationHtml::render([
+                NotificationHtml::strong('##evidence.action## : ##evidence.document##'),
+                NotificationHtml::lines([
+                    'Élément : ##evidence.item##',
+                    'Valide jusqu\'au : ##evidence.validuntil##',
+                ]),
+                NotificationHtml::lines([
+                    'Renouvelez le document (nouveau certificat, rapport ou attestation) puis mettez à jour '
+                        . 'sa date de validité. Un ticket de renouvellement sera ouvert si la preuve expire.',
+                ]),
+                NotificationHtml::link('##evidence.url##', 'Voir l\'élément'),
+            ]),
         ]);
 
         $notificationId = (new Notification())->add([
@@ -2875,10 +2889,14 @@ final class Installer
                 . "Format : ##training.format##\n"
                 . "Renouvellement (mois) : ##training.renewalmonths##\n\n"
                 . "Voir la formation : ##training.url##",
-            'content_html'             => '<p><strong>##training.action## : ##training.title##</strong></p>'
-                . '<p>Format : ' . "##training.format##<br>"
-                . 'Renouvellement (mois) : ' . "##training.renewalmonths##</p>"
-                . '<p><a href="##training.url##">Voir la formation</a></p>',
+            'content_html'             => NotificationHtml::render([
+                NotificationHtml::strong('##training.action## : ##training.title##'),
+                NotificationHtml::lines([
+                    'Format : ##training.format##',
+                    'Renouvellement (mois) : ##training.renewalmonths##',
+                ]),
+                NotificationHtml::link('##training.url##', 'Voir la formation'),
+            ]),
         ]);
 
         $notification = new Notification();
@@ -2947,11 +2965,15 @@ final class Installer
                 . "Statut : ##policy.status##\n"
                 . "Prochaine revue : ##policy.reviewdate##\n\n"
                 . "Voir la politique : ##policy.url##",
-            'content_html'             => '<p><strong>##policy.action## : ##policy.title##</strong></p>'
-                . '<p>Version : ' . "##policy.version##<br>"
-                . 'Statut : ' . "##policy.status##<br>"
-                . 'Prochaine revue : ' . "##policy.reviewdate##</p>"
-                . '<p><a href="##policy.url##">Voir la politique</a></p>',
+            'content_html'             => NotificationHtml::render([
+                NotificationHtml::strong('##policy.action## : ##policy.title##'),
+                NotificationHtml::lines([
+                    'Version : ##policy.version##',
+                    'Statut : ##policy.status##',
+                    'Prochaine revue : ##policy.reviewdate##',
+                ]),
+                NotificationHtml::link('##policy.url##', 'Voir la politique'),
+            ]),
         ]);
 
         $notification = new Notification();
@@ -3017,11 +3039,14 @@ final class Installer
                 . "Action : ##treatmentaction.description##\n"
                 . "Échéance : ##treatmentaction.duedate##\n\n"
                 . "Voir le risque : ##treatmentaction.url##",
-            'content_html'             => '<p><strong>##treatmentaction.action## : '
-                . '##treatmentaction.risktitle##</strong></p>'
-                . '<p>Action : ##treatmentaction.description##<br>'
-                . 'Échéance : ##treatmentaction.duedate##</p>'
-                . '<p><a href="##treatmentaction.url##">Voir le risque</a></p>',
+            'content_html'             => NotificationHtml::render([
+                NotificationHtml::strong('##treatmentaction.action## : ##treatmentaction.risktitle##'),
+                NotificationHtml::lines([
+                    'Action : ##treatmentaction.description##',
+                    'Échéance : ##treatmentaction.duedate##',
+                ]),
+                NotificationHtml::link('##treatmentaction.url##', 'Voir le risque'),
+            ]),
         ]);
 
         $notification = new Notification();
@@ -3078,9 +3103,11 @@ final class Installer
                 'content_text'             => "##{$tag}.action## ##{$tag}.title##\n\n"
                     . "##{$tag}.url##\n\n"
                     . "##{$tag}.content##",
-                'content_html'             => "<p>##{$tag}.action## ##{$tag}.title##</p>"
-                    . "<p><a href=\"##{$tag}.url##\">##{$tag}.url##</a></p>"
-                    . "<p>##{$tag}.content##</p>",
+                'content_html'             => NotificationHtml::render([
+                    NotificationHtml::lines(["##{$tag}.action## ##{$tag}.title##"]),
+                    NotificationHtml::link("##{$tag}.url##", "##{$tag}.url##"),
+                    NotificationHtml::lines(["##{$tag}.content##"]),
+                ]),
             ]);
         } else {
             $templateId = (int) $template->getID();
@@ -3475,8 +3502,11 @@ final class Installer
                 'subject'                  => $t['subject'],
                 'content_text'             => $t['ask'] . "\n\n##soa.comment##\n\n"
                     . $t['link'] . $t['sep'] . '##soa.url##',
-                'content_html'             => '<p>' . $t['ask'] . '</p><p>##soa.comment##</p>'
-                    . '<p><a href="##soa.url##">' . $t['link'] . '</a></p>',
+                'content_html'             => NotificationHtml::render([
+                    NotificationHtml::lines([$t['ask']]),
+                    NotificationHtml::lines(['##soa.comment##']),
+                    NotificationHtml::link('##soa.url##', $t['link']),
+                ]),
             ]);
         }
 
@@ -3565,8 +3595,10 @@ final class Installer
                     'language'                 => $language,
                     'subject'                  => $subject,
                     'content_text'             => $text . "\n\n" . $link . ' : ##accessreview.url##',
-                    'content_html'             => '<p>' . $text . '</p><p><a href="##accessreview.url##">'
-                        . $link . '</a></p>',
+                    'content_html'             => NotificationHtml::render([
+                        NotificationHtml::lines([$text]),
+                        NotificationHtml::link('##accessreview.url##', $link),
+                    ]),
                 ]);
             }
 
