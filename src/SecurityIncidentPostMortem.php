@@ -30,12 +30,10 @@ use GlpiPlugin\Grcmanager\Services\Incident\RegulatoryDeadlines;
 use Html;
 use ITILFollowup;
 use ITILSolution;
-use GlpiPlugin\Grcmanager\RestrictedDocument;
 use PluginGrcmanagerSecurityIncident;
 use PluginGrcmanagerSecurityIncident_Item;
 use PluginGrcmanagerSecurityIncidentCost;
 use PluginGrcmanagerSecurityIncidentTask;
-use GlpiPlugin\Grcmanager\SecurityIncidentTicket;
 use Session;
 
 /**

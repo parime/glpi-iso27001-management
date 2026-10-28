@@ -28,7 +28,6 @@ use GlpiPlugin\Grcmanager\Services\Control\ControlCrosswalkDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\Nis2CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Ui\Badge;
 use GlpiPlugin\Grcmanager\Services\Ui\Fragment;
-use GlpiPlugin\Grcmanager\Menu;
 use Session;
 
 /**

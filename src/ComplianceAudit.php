@@ -29,8 +29,6 @@ use GlpiPlugin\Grcmanager\Services\Compliance\ComplianceAuditScore;
 use Html;
 use Item_Disk;
 use Item_Ticket;
-use GlpiPlugin\Grcmanager\AccountHygiene;
-use GlpiPlugin\Grcmanager\Menu;
 use Session;
 use State;
 use Ticket;

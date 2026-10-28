@@ -25,8 +25,6 @@ use GlpiPlugin\Grcmanager\Services\Control\SoaApprovalLogic;
 use GlpiPlugin\Grcmanager\Services\Control\SoaReportBuilder;
 use Html;
 use NotificationEvent;
-use GlpiPlugin\Grcmanager\Control;
-use GlpiPlugin\Grcmanager\RestrictedDocument;
 use Session;
 
 /**

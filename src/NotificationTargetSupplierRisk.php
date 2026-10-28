@@ -22,7 +22,6 @@ use Html;
 use Notification;
 use NotificationTarget;
 use Override;
-use GlpiPlugin\Grcmanager\SecurityWatch;
 use Supplier;
 
 /**

@@ -19,7 +19,6 @@ namespace GlpiPlugin\Grcmanager;
 
 use CommonGLPI;
 use GlpiPlugin\Grcmanager\Services\Dashboard\DefaultDashboardService;
-use GlpiPlugin\Grcmanager\Menu;
 use Session;
 
 /**

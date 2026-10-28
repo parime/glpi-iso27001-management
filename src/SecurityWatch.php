@@ -22,7 +22,6 @@ use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Services\Cve\CertFrRules;
 use GlpiPlugin\Grcmanager\Services\Cve\ParkVulnerabilitySync;
 use NotificationEvent;
-use GlpiPlugin\Grcmanager\ParkVulnerability;
 use Supplier;
 
 /**

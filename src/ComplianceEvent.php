@@ -27,11 +27,6 @@ use GlpiPlugin\Grcmanager\Services\Ui\Fragment;
 use Log;
 use NotificationEvent;
 use Planning;
-use GlpiPlugin\Grcmanager\AccessReview;
-use GlpiPlugin\Grcmanager\Audit;
-use GlpiPlugin\Grcmanager\Evidence;
-use GlpiPlugin\Grcmanager\ManagementReview;
-use GlpiPlugin\Grcmanager\PeriodicReview;
 use Session;
 use User;
 

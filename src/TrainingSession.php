@@ -19,7 +19,6 @@ namespace GlpiPlugin\Grcmanager;
 
 use CommonGLPI;
 use Glpi\Application\View\TemplateRenderer;
-use GlpiPlugin\Grcmanager\Training;
 
 /**
  * Issue #139 : onglet « Sessions » d'une formation principale. Chaque session est une formation

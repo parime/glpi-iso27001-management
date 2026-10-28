@@ -26,11 +26,6 @@ use GlpiPlugin\Grcmanager\Services\Ui\Badge;
 use Html;
 use Log;
 use Notepad;
-use GlpiPlugin\Grcmanager\Control;
-use GlpiPlugin\Grcmanager\DocumentAccess;
-use GlpiPlugin\Grcmanager\Menu;
-use GlpiPlugin\Grcmanager\Nonconformity;
-use GlpiPlugin\Grcmanager\RestrictedDocument;
 use Session;
 
 /**
