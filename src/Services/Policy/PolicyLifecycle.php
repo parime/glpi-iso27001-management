@@ -48,7 +48,7 @@ final class PolicyLifecycle
     /**
      * ISO 27001 A.5.1.1 requires a documented approval: a policy cannot be marked "approved"
      * without a recorded approval date, same server-side "field X required for state Y" pattern
-     * already enforced by PluginGrcmanagerControl::validateAndMarkReviewed() (justification
+     * already enforced by \GlpiPlugin\Grcmanager\Control::validateAndMarkReviewed() (justification
      * required unless fully applicable).
      */
     public static function requiresApprovalDate(string $status): bool

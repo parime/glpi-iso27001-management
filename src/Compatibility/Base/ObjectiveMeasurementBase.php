@@ -6,10 +6,10 @@ namespace GlpiPlugin\Grcmanager\Compatibility\Base;
 
 use CommonDBTM;
 use GlpiPlugin\Grcmanager\Compatibility\GlpiVersion;
-use PluginGrcmanagerObjectiveMeasurement;
+use GlpiPlugin\Grcmanager\ObjectiveMeasurement;
 
 /*
- * Parent of \PluginGrcmanagerObjectiveMeasurement.
+ * Parent of \\GlpiPlugin\Grcmanager\ObjectiveMeasurement.
  *
  * Redeclares the GLPI core properties that class overrides: untyped on GLPI 11, typed on GLPI 12
  * (see GlpiVersion). A class, not a trait: on PHP 8.2-8.4 a trait cannot redeclare an inherited
@@ -19,11 +19,11 @@ use PluginGrcmanagerObjectiveMeasurement;
 if (GlpiVersion::isAtLeast12()) {
     abstract class ObjectiveMeasurementBase extends CommonDBTM
     {
-        public static string $rightname = PluginGrcmanagerObjectiveMeasurement::RIGHTNAME;
+        public static string $rightname = \GlpiPlugin\Grcmanager\ObjectiveMeasurement::RIGHTNAME;
     }
 } else {
     abstract class ObjectiveMeasurementBase extends CommonDBTM
     {
-        public static $rightname = PluginGrcmanagerObjectiveMeasurement::RIGHTNAME;
+        public static $rightname = \GlpiPlugin\Grcmanager\ObjectiveMeasurement::RIGHTNAME;
     }
 }

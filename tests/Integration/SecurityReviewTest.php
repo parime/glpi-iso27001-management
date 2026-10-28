@@ -164,7 +164,7 @@ final class SecurityReviewTest extends GrcmanagerIntegrationTestCase
             'ticketrecurrent'   => ALLSTANDARDRIGHT,
             'itiltemplate'      => ALLSTANDARDRIGHT,
         ];
-        $canManage = static fn (): bool => \PluginGrcmanagerPeriodicReview::canManage();
+        $canManage = static fn (): bool => \GlpiPlugin\Grcmanager\PeriodicReview::canManage();
         $this->assertFalse($this->asProfile($rights, [$sub], $canManage));
         $this->assertTrue($this->asProfile($rights, [0, $sub], $canManage));
     }

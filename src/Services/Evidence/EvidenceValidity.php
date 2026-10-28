@@ -39,7 +39,7 @@ final class EvidenceValidity
      * Éléments du plugin dont les documents peuvent porter une date de validité.
      */
     public const ITEMTYPES = [
-        'PluginGrcmanagerControl',
+        'GlpiPlugin\\Grcmanager\\Control',
         'GlpiPlugin\\Grcmanager\\SupplierRisk',
         'GlpiPlugin\\Grcmanager\\Audit',
         'GlpiPlugin\\Grcmanager\\Policy',

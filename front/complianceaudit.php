@@ -112,7 +112,7 @@ TemplateRenderer::getInstance()->display('@grcmanager/compliance_audit.html.twig
         $excludedStates
     ),
     'hygiene_url'  => \GlpiPlugin\Grcmanager\AccountHygiene::getSearchURL(),
-    'maturity_url' => PluginGrcmanagerMaturity::getSearchURL(),
-    'soa_url'      => PluginGrcmanagerControl::getSearchURL(),
+    'maturity_url' => \GlpiPlugin\Grcmanager\Maturity::getSearchURL(),
+    'soa_url'      => \GlpiPlugin\Grcmanager\Control::getSearchURL(),
 ]);
 Html::footer();

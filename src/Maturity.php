@@ -15,15 +15,21 @@
  * -------------------------------------------------------------------------
  */
 
+namespace GlpiPlugin\Grcmanager;
+
+use CommonGLPI;
+use CronTask;
 use GlpiPlugin\Grcmanager\Services\Clause\IsmsClauseCatalog;
 use GlpiPlugin\Grcmanager\Services\Dashboard\PilotageCards;
 use GlpiPlugin\Grcmanager\Services\Maturity\MaturityScore;
+use PluginGrcmanagerSecurityIncident;
+use Session;
 
 /**
  * Issue #166 : score de maturité cyber (page, carte du tableau de bord et historique mensuel
  * pour la revue de direction). Le détail du calcul est toujours affiché : aucune boîte noire.
  */
-class PluginGrcmanagerMaturity extends CommonGLPI
+class Maturity extends CommonGLPI
 {
     public const RIGHTNAME = 'plugin_grcmanager';
 
@@ -106,7 +112,7 @@ class PluginGrcmanagerMaturity extends CommonGLPI
         foreach (
             $DB->request([
                 'SELECT'  => ['theme', 'implementation_status', 'COUNT' => '* AS c'],
-                'FROM'    => PluginGrcmanagerControl::getTable(),
+                'FROM'    => Control::getTable(),
                 'WHERE'   => ['applicability' => ['yes', 'partial']],
                 'GROUPBY' => ['theme', 'implementation_status'],
             ]) as $row
@@ -142,7 +148,7 @@ class PluginGrcmanagerMaturity extends CommonGLPI
         foreach (
             $DB->request([
                 'SELECT'  => ['status', 'COUNT' => '* AS c'],
-                'FROM'    => PluginGrcmanagerIsmsRequirement::getTable(),
+                'FROM'    => IsmsRequirement::getTable(),
                 'GROUPBY' => 'status',
             ]) as $row
         ) {
@@ -159,7 +165,7 @@ class PluginGrcmanagerMaturity extends CommonGLPI
             ['valid_until' => null],
             ['valid_until' => ['>=', $today]],
         ]]);
-        $recentAudits = countElementsInTable(\GlpiPlugin\Grcmanager\Audit::getTable(), [
+        $recentAudits = countElementsInTable(Audit::getTable(), [
             'status'      => 'completed',
             'actual_date' => ['>=', date('Y-m-d', strtotime('-12 months'))],
         ]);
@@ -169,8 +175,8 @@ class PluginGrcmanagerMaturity extends CommonGLPI
         $trainingDone = countElementsInTable('glpi_plugin_grcmanager_trainings_users', [
             'completion_status' => 'completed',
         ]);
-        $capaOverdue = countElementsInTable(\GlpiPlugin\Grcmanager\Nonconformity::getTable(), [
-            'NOT'      => ['status' => \GlpiPlugin\Grcmanager\Nonconformity::CLOSED_STATUSES],
+        $capaOverdue = countElementsInTable(Nonconformity::getTable(), [
+            'NOT'      => ['status' => Nonconformity::CLOSED_STATUSES],
             'due_date' => ['<', $today],
         ]);
         $incidentsOpen = countElementsInTable(PluginGrcmanagerSecurityIncident::getTable(), [

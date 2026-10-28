@@ -20,29 +20,29 @@ use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
 
 include('../../../inc/includes.php');
 
-Session::checkRight(PluginGrcmanagerObjective::$rightname, READ);
+Session::checkRight(\GlpiPlugin\Grcmanager\Objective::$rightname, READ);
 
 Html::header(
-    PluginGrcmanagerObjective::getTypeName(2),
+    \GlpiPlugin\Grcmanager\Objective::getTypeName(2),
     $_SERVER['PHP_SELF'],
     'grcmanager',
     \GlpiPlugin\Grcmanager\Audit::class,
-    PluginGrcmanagerObjective::class
+    \GlpiPlugin\Grcmanager\Objective::class
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(\GlpiPlugin\Grcmanager\Audit::class, PluginGrcmanagerObjective::class);
+PluginGrcmanagerMenu::showSection(\GlpiPlugin\Grcmanager\Audit::class, \GlpiPlugin\Grcmanager\Objective::class);
 // Encadré « À quoi sert cette page ? ».
 PluginGrcmanagerPageHelp::show('objective');
 
 // Same URL-driven search fix as front/risk.php/front/audit.php (Search::showList()'s $params must
 // be pre-merged with $_GET via QueryBuilder::manageParams(), unlike Search::show() which does this
 // internally), see front/risk.php's own docblock for the full rationale.
-$params = QueryBuilder::manageParams(PluginGrcmanagerObjective::class, $_GET);
+$params = QueryBuilder::manageParams(\GlpiPlugin\Grcmanager\Objective::class, $_GET);
 
 Search::showList(
-    PluginGrcmanagerObjective::class,
+    \GlpiPlugin\Grcmanager\Objective::class,
     $params,
-    DefaultSearchColumns::COLUMNS[PluginGrcmanagerObjective::class]
+    DefaultSearchColumns::COLUMNS[\GlpiPlugin\Grcmanager\Objective::class]
 );
 
 Html::footer();

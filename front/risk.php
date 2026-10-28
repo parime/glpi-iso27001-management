@@ -64,7 +64,7 @@ $riskReportURL = $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/risk.report.
 // Issue #178 : catalogue de risques types, proposé à qui peut créer des risques.
 TemplateRenderer::getInstance()->display('@grcmanager/risk_list_actions.html.twig', [
     'catalog_url'  => Session::haveRight(\GlpiPlugin\Grcmanager\Risk::$rightname, CREATE)
-        ? PluginGrcmanagerRiskCatalog::getSearchURL() : '',
+        ? \GlpiPlugin\Grcmanager\RiskCatalog::getSearchURL() : '',
     'heatmap_url'  => $riskHeatmapURL,
     'my_risks_url' => $myRisksURL,
     'report_url'   => $riskReportURL,

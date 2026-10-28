@@ -29,8 +29,8 @@ use Session;
  * identifier (CpeReference) and an admin-declared GLPI software name
  * (ProductAlias) point back to. Neither satellite table has a menu entry of its
  * own — same "no menu for a simple child record, managed inline from its parent's own form"
- * convention already used for PluginGrcmanagerObjectiveMeasurement (see
- * PluginGrcmanagerObjective::showMeasurementHistory()) — see showCpeReferences()/
+ * convention already used for ObjectiveMeasurement (see
+ * Objective::showMeasurementHistory()) — see showCpeReferences()/
  * showProductAliases() below.
  *
  * Deliberately NOT an automatic name/version-based guess: exactly like the plugin's own
@@ -171,7 +171,7 @@ class CanonicalProduct extends CanonicalProductBase
             'params' => $options,
         ]);
 
-        // Comme PluginGrcmanagerObjective::showMeasurementHistory() : les deux listes satellites
+        // Comme Objective::showMeasurementHistory() : les deux listes satellites
         // n'ont de sens que pour un produit déjà enregistré (il leur faut un id réel).
         if ($this->isNewID($ID)) {
             return true;

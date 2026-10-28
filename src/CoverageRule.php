@@ -15,10 +15,20 @@
  * -------------------------------------------------------------------------
  */
 
+namespace GlpiPlugin\Grcmanager;
+
+use CommonDBTM;
+use CommonDropdown;
+use CommonGLPI;
+use Dropdown;
 use Glpi\Application\View\TemplateRenderer;
 use Glpi\DBAL\QuerySubQuery;
 use GlpiPlugin\Grcmanager\Compatibility\Base\CoverageRuleBase;
 use GlpiPlugin\Grcmanager\Services\Evidence\CoverageRules;
+use Log;
+use GlpiPlugin\Grcmanager\Control;
+use GlpiPlugin\Grcmanager\IsmsRequirement;
+use Session;
 
 /**
  * Issue #164 : règle de couverture des preuves. « Tous les pare-feu doivent avoir leur politique de
@@ -30,7 +40,7 @@ use GlpiPlugin\Grcmanager\Services\Evidence\CoverageRules;
  * Registre global, comme les autres registres du plugin ; les actifs comptés sont ceux des entités
  * actives de la personne qui consulte.
  */
-class PluginGrcmanagerCoverageRule extends CoverageRuleBase
+class CoverageRule extends CoverageRuleBase
 {
     public const RIGHTNAME = 'plugin_grcmanager';
 
@@ -68,7 +78,7 @@ class PluginGrcmanagerCoverageRule extends CoverageRuleBase
     public static function getItemtypeLabels(): array
     {
         $labels = [];
-        foreach (\GlpiPlugin\Grcmanager\Risk::getLinkableItemtypes() as $itemtype) {
+        foreach (Risk::getLinkableItemtypes() as $itemtype) {
             if (is_a($itemtype, CommonDBTM::class, true)) {
                 $labels[$itemtype] = $itemtype::getTypeName(Session::getPluralNumber());
             }
@@ -105,7 +115,7 @@ class PluginGrcmanagerCoverageRule extends CoverageRuleBase
             'params'     => $options,
             'itemtypes'  => self::getItemtypeLabels(),
             'type_class' => $itemtype !== '' ? self::getSubtypeClass($itemtype) : null,
-            'controls'   => \GlpiPlugin\Grcmanager\AccessReview::getControlChoices(),
+            'controls'   => AccessReview::getControlChoices(),
             'requirements' => self::getRequirementChoices(),
         ]);
 
@@ -122,9 +132,9 @@ class PluginGrcmanagerCoverageRule extends CoverageRuleBase
     {
         global $DB;
 
-        $titles = PluginGrcmanagerIsmsRequirement::getClauseTitles();
+        $titles = IsmsRequirement::getClauseTitles();
         $choices = [];
-        $criteria = ['SELECT' => ['id', 'code'], 'FROM' => PluginGrcmanagerIsmsRequirement::getTable()];
+        $criteria = ['SELECT' => ['id', 'code'], 'FROM' => IsmsRequirement::getTable()];
         foreach ($DB->request($criteria) as $row) {
             $code = (string) $row['code'];
             $choices[(int) $row['id']] = $code . ' - ' . ($titles[$code] ?? '');
@@ -258,7 +268,7 @@ class PluginGrcmanagerCoverageRule extends CoverageRuleBase
      */
     public static function getForItem(CommonDBTM $item): array
     {
-        $field = $item instanceof PluginGrcmanagerControl
+        $field = $item instanceof Control
             ? 'plugin_grcmanager_controls_id'
             : 'plugin_grcmanager_ismsrequirements_id';
         $rules = [];
@@ -283,7 +293,7 @@ class PluginGrcmanagerCoverageRule extends CoverageRuleBase
         if ($item instanceof self) {
             return self::createTabEntry(__('Coverage rate', 'grcmanager'));
         }
-        if ($item instanceof PluginGrcmanagerControl || $item instanceof PluginGrcmanagerIsmsRequirement) {
+        if ($item instanceof Control || $item instanceof IsmsRequirement) {
             return self::createTabEntry(self::getTypeName(1), count(self::getForItem($item)));
         }
 
@@ -299,7 +309,7 @@ class PluginGrcmanagerCoverageRule extends CoverageRuleBase
 
             return true;
         }
-        if ($item instanceof PluginGrcmanagerControl || $item instanceof PluginGrcmanagerIsmsRequirement) {
+        if ($item instanceof Control || $item instanceof IsmsRequirement) {
             TemplateRenderer::getInstance()->display('@grcmanager/coverage_tab.html.twig', [
                 'rules'   => self::getForItem($item),
                 'new_url' => Session::haveRight(self::RIGHTNAME, CREATE) ? self::getFormURL() : '',
@@ -329,11 +339,11 @@ class PluginGrcmanagerCoverageRule extends CoverageRuleBase
             'name' => __('Required document category', 'grcmanager'), 'datatype' => 'dropdown',
         ];
         $tab[] = [
-            'id' => 5, 'table' => PluginGrcmanagerControl::getTable(), 'field' => 'code',
+            'id' => 5, 'table' => Control::getTable(), 'field' => 'code',
             'name' => _x('measure', 'Annex A control', 'grcmanager'), 'datatype' => 'dropdown',
         ];
         $tab[] = [
-            'id' => 6, 'table' => PluginGrcmanagerIsmsRequirement::getTable(), 'field' => 'code',
+            'id' => 6, 'table' => IsmsRequirement::getTable(), 'field' => 'code',
             'name' => __('ISMS requirement', 'grcmanager'), 'datatype' => 'dropdown',
         ];
         $tab[] = [

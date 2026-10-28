@@ -32,7 +32,7 @@ use Group_User;
 use Html;
 use Log;
 use NotificationEvent;
-use PluginGrcmanagerControl;
+use GlpiPlugin\Grcmanager\Control;
 use PluginGrcmanagerMenu;
 use PluginGrcmanagerRestrictedDocument;
 use Profile;
@@ -182,7 +182,7 @@ class AccessReview extends AccessReviewBase
         }
         // Le contrôle est global à l'instance, les campagnes non : droit de lecture sur les revues
         // d'accès exigé, et seules les campagnes des entités de la session sont comptées/listées.
-        if ($item instanceof PluginGrcmanagerControl && !$item->isNewItem() && self::canView()) {
+        if ($item instanceof Control && !$item->isNewItem() && self::canView()) {
             $count = $DB->request([
                 'COUNT' => 'cpt',
                 'FROM'  => self::getTable(),
@@ -205,7 +205,7 @@ class AccessReview extends AccessReviewBase
 
             return true;
         }
-        if ($item instanceof PluginGrcmanagerControl) {
+        if ($item instanceof Control) {
             if (!self::canView()) {
                 return false;
             }
@@ -277,7 +277,7 @@ class AccessReview extends AccessReviewBase
 
         $row = $DB->request([
             'SELECT' => ['id'],
-            'FROM'   => PluginGrcmanagerControl::getTable(),
+            'FROM'   => Control::getTable(),
             'WHERE'  => ['code' => AccessReviewLogic::DEFAULT_CONTROL_CODE],
             'LIMIT'  => 1,
         ])->current();
@@ -400,8 +400,8 @@ class AccessReview extends AccessReviewBase
         global $DB;
 
         $choices = [0 => Dropdown::EMPTY_VALUE];
-        foreach ($DB->request(['SELECT' => ['id', 'code'], 'FROM' => PluginGrcmanagerControl::getTable()]) as $row) {
-            $choices[(int) $row['id']] = $row['code'] . ' - ' . PluginGrcmanagerControl::getControlTitle($row['code']);
+        foreach ($DB->request(['SELECT' => ['id', 'code'], 'FROM' => Control::getTable()]) as $row) {
+            $choices[(int) $row['id']] = $row['code'] . ' - ' . Control::getControlTitle($row['code']);
         }
         asort($choices);
 
@@ -850,7 +850,7 @@ class AccessReview extends AccessReviewBase
         ]);
     }
 
-    private static function showForControl(PluginGrcmanagerControl $control): void
+    private static function showForControl(Control $control): void
     {
         global $DB, $CFG_GLPI;
 

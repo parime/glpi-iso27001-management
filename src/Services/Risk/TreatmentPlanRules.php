@@ -64,7 +64,7 @@ final class TreatmentPlanRules
     /**
      * @return string One of self::ALLOWED_STATUSES, self::DEFAULT_STATUS for anything else (unset,
      *         empty, or a value no longer/not yet valid), same defensive posture as
-     *         PluginGrcmanagerObjective::sanitizeStatus()/ObjectiveStatuses::isValid().
+     *         \GlpiPlugin\Grcmanager\Objective::sanitizeStatus()/ObjectiveStatuses::isValid().
      */
     public static function normalizeStatus(?string $value): string
     {

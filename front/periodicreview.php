@@ -18,17 +18,17 @@
 include('../../../inc/includes.php');
 
 // Issue #141 : revues périodiques du SMSI (activation = ticket récurrent natif de GLPI).
-Session::checkRight(PluginGrcmanagerPeriodicReview::$rightname, READ);
+Session::checkRight(\GlpiPlugin\Grcmanager\PeriodicReview::$rightname, READ);
 
 if (isset($_POST['activate']) || isset($_POST['deactivate'])) {
-    if (!PluginGrcmanagerPeriodicReview::canManage()) {
+    if (!\GlpiPlugin\Grcmanager\PeriodicReview::canManage()) {
         Html::displayRightError();
     }
-    $review = new PluginGrcmanagerPeriodicReview();
+    $review = new \GlpiPlugin\Grcmanager\PeriodicReview();
     if (!$review->getFromDB((int) ($_POST['id'] ?? 0))) {
         Html::displayNotFoundError();
     }
-    $label = PluginGrcmanagerPeriodicReview::getLabel($review->getKey());
+    $label = \GlpiPlugin\Grcmanager\PeriodicReview::getLabel($review->getKey());
     if (isset($_POST['deactivate'])) {
         $review->deactivate();
         Session::addMessageAfterRedirect(htmlescape(sprintf(__('Review disabled: %s', 'grcmanager'), $label)));
@@ -50,21 +50,24 @@ if (isset($_POST['activate']) || isset($_POST['deactivate'])) {
             ERROR
         );
     }
-    Html::redirect(PluginGrcmanagerPeriodicReview::getSearchURL());
+    Html::redirect(\GlpiPlugin\Grcmanager\PeriodicReview::getSearchURL());
 }
 
 Html::header(
-    PluginGrcmanagerPeriodicReview::getTypeName(2),
-    PluginGrcmanagerPeriodicReview::getSearchURL(),
+    \GlpiPlugin\Grcmanager\PeriodicReview::getTypeName(2),
+    \GlpiPlugin\Grcmanager\PeriodicReview::getSearchURL(),
     'grcmanager',
     \GlpiPlugin\Grcmanager\AccessReview::class,
-    PluginGrcmanagerPeriodicReview::class
+    \GlpiPlugin\Grcmanager\PeriodicReview::class
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(\GlpiPlugin\Grcmanager\AccessReview::class, PluginGrcmanagerPeriodicReview::class);
+PluginGrcmanagerMenu::showSection(
+    \GlpiPlugin\Grcmanager\AccessReview::class,
+    \GlpiPlugin\Grcmanager\PeriodicReview::class
+);
 // Encadré « À quoi sert cette page ? ».
 PluginGrcmanagerPageHelp::show('periodicreview');
 
-PluginGrcmanagerPeriodicReview::showList();
+\GlpiPlugin\Grcmanager\PeriodicReview::showList();
 
 Html::footer();

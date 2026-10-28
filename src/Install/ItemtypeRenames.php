@@ -94,6 +94,20 @@ final class ItemtypeRenames
         'PluginGrcmanagerSecurityIncidentPostMortem'
             => \GlpiPlugin\Grcmanager\SecurityIncidentPostMortem::class,
         'PluginGrcmanagerSecurityIncidentTicket'   => \GlpiPlugin\Grcmanager\SecurityIncidentTicket::class,
+        // SMSI : mesures et SoA, règles de couverture, exigences, objectifs, maturité, revues
+        // périodiques, référentiels, catalogue de risques.
+        'PluginGrcmanagerControl'                  => \GlpiPlugin\Grcmanager\Control::class,
+        'PluginGrcmanagerCoverageRule'             => \GlpiPlugin\Grcmanager\CoverageRule::class,
+        'PluginGrcmanagerIsmsRequirement'          => \GlpiPlugin\Grcmanager\IsmsRequirement::class,
+        'PluginGrcmanagerSoaVersion'               => \GlpiPlugin\Grcmanager\SoaVersion::class,
+        'PluginGrcmanagerNotificationTargetSoaVersion'
+            => \GlpiPlugin\Grcmanager\NotificationTargetSoaVersion::class,
+        'PluginGrcmanagerObjective'                => \GlpiPlugin\Grcmanager\Objective::class,
+        'PluginGrcmanagerObjectiveMeasurement'     => \GlpiPlugin\Grcmanager\ObjectiveMeasurement::class,
+        'PluginGrcmanagerMaturity'                 => \GlpiPlugin\Grcmanager\Maturity::class,
+        'PluginGrcmanagerPeriodicReview'           => \GlpiPlugin\Grcmanager\PeriodicReview::class,
+        'PluginGrcmanagerReferentials'             => \GlpiPlugin\Grcmanager\Referentials::class,
+        'PluginGrcmanagerRiskCatalog'              => \GlpiPlugin\Grcmanager\RiskCatalog::class,
     ];
 
     /**
@@ -134,8 +148,9 @@ final class ItemtypeRenames
             }
             // Recherches enregistrées : le type figure aussi dans la requête (itemtype=...), encodée
             // comme une URL (l'ancien nom n'a aucun caractère à encoder, le nouveau si : « \ »).
-            // Nom exact seulement : PluginGrcmanagerRisk ne doit pas toucher à
-            // PluginGrcmanagerRiskCatalog, resté dans inc/.
+            // Nom exact seulement : PluginGrcmanagerRisk ne doit pas toucher à un nom plus long qui
+            // commence pareil (PluginGrcmanagerRiskTreatmentAction a sa propre entrée, une classe
+            // restée dans inc/ ou d'un autre plugin n'en a pas).
             $exactName = '/' . preg_quote($old, '/') . '(?![A-Za-z0-9_])/';
             if ($DB->tableExists('glpi_savedsearches')) {
                 $searches = $DB->request([

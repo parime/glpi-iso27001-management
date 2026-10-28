@@ -24,7 +24,7 @@ use Session;
  * One CPE identifier manually declared as belonging to a CanonicalProduct —
  * several per product, managed inline on that product's own form (see
  * CanonicalProduct::showCpeReferences()), no menu/search screen of its own, same
- * convention as PluginGrcmanagerObjectiveMeasurement.
+ * convention as ObjectiveMeasurement.
  *
  * Uses CanonicalProduct's own right rather than a dedicated one: a CPE reference
  * has no meaningful access boundary of its own, separate from the product it documents.

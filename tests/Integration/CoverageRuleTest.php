@@ -51,9 +51,9 @@ final class CoverageRuleTest extends GrcmanagerIntegrationTestCase
     public function testSearchListRuns(): void
     {
         $data = \Glpi\Search\SearchEngine::getData(
-            \PluginGrcmanagerCoverageRule::class,
+            \GlpiPlugin\Grcmanager\CoverageRule::class,
             ['criteria' => []],
-            \GlpiPlugin\Grcmanager\Services\DefaultSearchColumns::COLUMNS[\PluginGrcmanagerCoverageRule::class]
+            \GlpiPlugin\Grcmanager\Services\DefaultSearchColumns::COLUMNS[\GlpiPlugin\Grcmanager\CoverageRule::class]
         );
         $this->assertArrayHasKey('data', $data);
     }
@@ -74,7 +74,7 @@ final class CoverageRuleTest extends GrcmanagerIntegrationTestCase
         }
         (new \NetworkEquipment())->add(['name' => 'SW-SANS-TYPE', 'entities_id' => $entityId]);
 
-        $rule = new \PluginGrcmanagerCoverageRule();
+        $rule = new \GlpiPlugin\Grcmanager\CoverageRule();
         $this->assertFalse($rule->add(['name' => 'Sans catégorie', 'itemtype' => 'NetworkEquipment']));
         $ruleId = (int) $rule->add([
             'name'                  => 'Politique de filtrage des pare-feu',
@@ -113,8 +113,8 @@ final class CoverageRuleTest extends GrcmanagerIntegrationTestCase
         $this->assertSame(['FW-C'], array_column($coverage['uncovered'], 'name'));
         $this->assertStringContainsString('forcetab=Document_Item', $coverage['uncovered'][0]['url']);
 
-        $control = new \PluginGrcmanagerControl();
+        $control = new \GlpiPlugin\Grcmanager\Control();
         $control->getFromDB(1);
-        $this->assertCount(1, \PluginGrcmanagerCoverageRule::getForItem($control));
+        $this->assertCount(1, \GlpiPlugin\Grcmanager\CoverageRule::getForItem($control));
     }
 }

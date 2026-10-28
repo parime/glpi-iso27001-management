@@ -26,11 +26,11 @@ Html::header(
     \GlpiPlugin\Grcmanager\Policy::getTypeName(2),
     $_SERVER['PHP_SELF'],
     'grcmanager',
-    PluginGrcmanagerControl::class,
+    \GlpiPlugin\Grcmanager\Control::class,
     \GlpiPlugin\Grcmanager\Policy::class
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(PluginGrcmanagerControl::class, \GlpiPlugin\Grcmanager\Policy::class);
+PluginGrcmanagerMenu::showSection(\GlpiPlugin\Grcmanager\Control::class, \GlpiPlugin\Grcmanager\Policy::class);
 // Encadré « À quoi sert cette page ? ».
 PluginGrcmanagerPageHelp::show('policy');
 

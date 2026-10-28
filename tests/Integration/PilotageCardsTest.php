@@ -74,9 +74,9 @@ final class PilotageCardsTest extends GrcmanagerIntegrationTestCase
             end($trend['series'][0]['data'])
         );
 
-        \PluginGrcmanagerMaturity::snapshot();
+        \GlpiPlugin\Grcmanager\Maturity::snapshot();
         $row = $DB->request([
-            'FROM'  => \PluginGrcmanagerMaturity::SNAPSHOTS_TABLE,
+            'FROM'  => \GlpiPlugin\Grcmanager\Maturity::SNAPSHOTS_TABLE,
             'WHERE' => ['month' => date('Y-m')],
         ])->current();
         $this->assertSame(PilotageCards::currentIndicators(), json_decode((string) $row['indicators'], true));

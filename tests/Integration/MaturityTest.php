@@ -19,6 +19,7 @@ declare(strict_types=1);
 
 namespace GlpiPlugin\Grcmanager\Tests\Integration;
 
+use GlpiPlugin\Grcmanager\Maturity;
 use GlpiPlugin\Grcmanager\Services\Maturity\MaturityScore;
 
 /**
@@ -30,7 +31,7 @@ final class MaturityTest extends GrcmanagerIntegrationTestCase
     {
         global $DB;
 
-        $before = \PluginGrcmanagerMaturity::current();
+        $before = Maturity::current();
         $this->assertSame(array_keys(MaturityScore::WEIGHTS), array_keys($before['components']));
         $this->assertGreaterThanOrEqual(0, $before['score']);
         $this->assertLessThanOrEqual(100, $before['score']);
@@ -43,29 +44,29 @@ final class MaturityTest extends GrcmanagerIntegrationTestCase
             'planned_date' => date('Y-m-d'),
         ]);
         try {
-            $after = \PluginGrcmanagerMaturity::current();
+            $after = Maturity::current();
             $this->assertSame(100.0, $after['components']['audit']['value']);
             $this->assertGreaterThanOrEqual($before['score'], $after['score']);
 
             // Instantané du mois : une seule ligne, mise à jour à chaque passage.
-            $score = \PluginGrcmanagerMaturity::snapshot();
-            \PluginGrcmanagerMaturity::snapshot();
-            $snapshots = countElementsInTable(\PluginGrcmanagerMaturity::SNAPSHOTS_TABLE, ['month' => date('Y-m')]);
+            $score = Maturity::snapshot();
+            Maturity::snapshot();
+            $snapshots = countElementsInTable(Maturity::SNAPSHOTS_TABLE, ['month' => date('Y-m')]);
             $this->assertSame(1, $snapshots);
-            $history = \PluginGrcmanagerMaturity::history();
+            $history = Maturity::history();
             $this->assertSame(['month' => date('Y-m'), 'score' => $score], end($history));
 
             $card = \GlpiPlugin\Grcmanager\Services\Dashboard\DashboardCardService::maturityScore();
             $this->assertSame($score, $card['number']);
         } finally {
             (new \GlpiPlugin\Grcmanager\Audit())->delete(['id' => $auditId], true);
-            $DB->delete(\PluginGrcmanagerMaturity::SNAPSHOTS_TABLE, ['month' => date('Y-m')]);
+            $DB->delete(Maturity::SNAPSHOTS_TABLE, ['month' => date('Y-m')]);
         }
     }
 
     public function testCronIsDescribed(): void
     {
-        $this->assertNotEmpty(\PluginGrcmanagerMaturity::cronInfo('maturitysnapshot'));
-        $this->assertSame([], \PluginGrcmanagerMaturity::cronInfo('autre'));
+        $this->assertNotEmpty(Maturity::cronInfo('maturitysnapshot'));
+        $this->assertSame([], Maturity::cronInfo('autre'));
     }
 }

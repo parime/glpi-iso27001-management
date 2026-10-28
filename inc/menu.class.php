@@ -65,7 +65,7 @@ class PluginGrcmanagerMenu extends CommonGLPI
         return [
             // Pilotage.
             PluginGrcmanagerDashboard::class => [
-                PluginGrcmanagerMaturity::class, \GlpiPlugin\Grcmanager\ComplianceEvent::class,
+                \GlpiPlugin\Grcmanager\Maturity::class, \GlpiPlugin\Grcmanager\ComplianceEvent::class,
             ],
             // Appréciation et traitement des risques.
             \GlpiPlugin\Grcmanager\Risk::class => [
@@ -73,19 +73,19 @@ class PluginGrcmanagerMenu extends CommonGLPI
                 \GlpiPlugin\Grcmanager\CausalLink::class, \GlpiPlugin\Grcmanager\Waiver::class,
             ],
             // Conformité : SoA, référentiels, exigences du SMSI, obligations, politiques, preuves.
-            PluginGrcmanagerControl::class => [
-                PluginGrcmanagerReferentials::class, PluginGrcmanagerIsmsRequirement::class,
+            \GlpiPlugin\Grcmanager\Control::class => [
+                \GlpiPlugin\Grcmanager\Referentials::class, \GlpiPlugin\Grcmanager\IsmsRequirement::class,
                 \GlpiPlugin\Grcmanager\ComplianceObligation::class, \GlpiPlugin\Grcmanager\Policy::class,
-                \GlpiPlugin\Grcmanager\Evidence::class, PluginGrcmanagerCoverageRule::class,
+                \GlpiPlugin\Grcmanager\Evidence::class, \GlpiPlugin\Grcmanager\CoverageRule::class,
             ],
             // Contrôle et amélioration continue (ISO 27001 chapitres 9 et 10).
             \GlpiPlugin\Grcmanager\Audit::class => [
-                \GlpiPlugin\Grcmanager\Nonconformity::class, PluginGrcmanagerObjective::class,
+                \GlpiPlugin\Grcmanager\Nonconformity::class, \GlpiPlugin\Grcmanager\Objective::class,
                 \GlpiPlugin\Grcmanager\ManagementReview::class,
             ],
             // Opérations récurrentes : accès, revues, personnes, continuité.
             \GlpiPlugin\Grcmanager\AccessReview::class => [
-                \GlpiPlugin\Grcmanager\AccountHygiene::class, PluginGrcmanagerPeriodicReview::class,
+                \GlpiPlugin\Grcmanager\AccountHygiene::class, \GlpiPlugin\Grcmanager\PeriodicReview::class,
                 \GlpiPlugin\Grcmanager\Training::class, \GlpiPlugin\Grcmanager\CrisisExercise::class,
             ],
             // Sécurité technique. Le parent ne demande que le droit du plugin : les vulnérabilités

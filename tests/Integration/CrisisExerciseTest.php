@@ -94,7 +94,7 @@ final class CrisisExerciseTest extends GrcmanagerIntegrationTestCase
             ]));
             $this->assertSame(2, countElementsInTable('glpi_documents_items', [
                 'documents_id' => $documentsId,
-                'itemtype'     => \PluginGrcmanagerControl::class,
+                'itemtype'     => \GlpiPlugin\Grcmanager\Control::class,
             ]), 'Preuve sur A.5.29 et A.5.30.');
             $document = new \Document();
             $document->getFromDB($documentsId);

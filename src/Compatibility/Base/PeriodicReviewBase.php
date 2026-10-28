@@ -6,7 +6,7 @@ namespace GlpiPlugin\Grcmanager\Compatibility\Base;
 
 use CommonDBTM;
 use GlpiPlugin\Grcmanager\Compatibility\GlpiVersion;
-use PluginGrcmanagerPeriodicReview;
+use GlpiPlugin\Grcmanager\PeriodicReview;
 
 /*
  * Propriété statique typée sur GLPI 12, non typée sur GLPI 11 (même schéma que EvidenceBase).
@@ -14,11 +14,11 @@ use PluginGrcmanagerPeriodicReview;
 if (GlpiVersion::isAtLeast12()) {
     abstract class PeriodicReviewBase extends CommonDBTM
     {
-        public static string $rightname = PluginGrcmanagerPeriodicReview::RIGHTNAME;
+        public static string $rightname = \GlpiPlugin\Grcmanager\PeriodicReview::RIGHTNAME;
     }
 } else {
     abstract class PeriodicReviewBase extends CommonDBTM
     {
-        public static $rightname = PluginGrcmanagerPeriodicReview::RIGHTNAME;
+        public static $rightname = \GlpiPlugin\Grcmanager\PeriodicReview::RIGHTNAME;
     }
 }

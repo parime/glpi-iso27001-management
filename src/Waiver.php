@@ -31,7 +31,7 @@ use Item_Ticket;
 use Log;
 use NotificationEvent;
 use GlpiPlugin\Grcmanager\AccessReview;
-use PluginGrcmanagerControl;
+use GlpiPlugin\Grcmanager\Control;
 use GlpiPlugin\Grcmanager\Policy;
 use GlpiPlugin\Grcmanager\Risk;
 use Session;
@@ -397,7 +397,7 @@ class Waiver extends WaiverBase
 
         $table = self::getTable();
         $where = match ($item::class) {
-            PluginGrcmanagerControl::class => ["$table.plugin_grcmanager_controls_id" => $item->getID()],
+            Control::class => ["$table.plugin_grcmanager_controls_id" => $item->getID()],
             Policy::class  => ["$table.plugin_grcmanager_policies_id" => $item->getID()],
             default                        => [
                 "$table.id" => new QuerySubQuery([
@@ -428,7 +428,7 @@ class Waiver extends WaiverBase
         }
         $supported = array_merge(
             self::getLinkableItemtypes(),
-            [PluginGrcmanagerControl::class, Policy::class]
+            [Control::class, Policy::class]
         );
         if (!in_array($item::class, $supported, true)) {
             return '';
@@ -480,7 +480,7 @@ class Waiver extends WaiverBase
             'name' => __('Owner (accepts the risk)', 'grcmanager'), 'datatype' => 'dropdown', 'right' => 'all',
         ];
         $tab[] = [
-            'id' => 6, 'table' => PluginGrcmanagerControl::getTable(), 'field' => 'code',
+            'id' => 6, 'table' => Control::getTable(), 'field' => 'code',
             'name' => _x('measure', 'Annex A control', 'grcmanager'), 'datatype' => 'dropdown',
         ];
         $tab[] = [

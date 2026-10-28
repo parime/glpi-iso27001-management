@@ -26,12 +26,12 @@ final class TwigContentTest extends GrcmanagerIntegrationTestCase
 {
     public function testPeriodicReviewTicketContentListsTheChecklistAndTheScreen(): void
     {
-        $review = \PluginGrcmanagerPeriodicReview::getByKey('risk_register');
+        $review = \GlpiPlugin\Grcmanager\PeriodicReview::getByKey('risk_register');
         $this->assertNotNull($review);
         $content = $review->buildTicketContent();
 
         $this->assertStringContainsString('<ul><li>', $content);
-        foreach (\PluginGrcmanagerPeriodicReview::getChecklist('risk_register') as $item) {
+        foreach (\GlpiPlugin\Grcmanager\PeriodicReview::getChecklist('risk_register') as $item) {
             $this->assertStringContainsString(htmlspecialchars($item, ENT_QUOTES), $content);
         }
         $this->assertStringContainsString('/plugins/grcmanager/front/risk.php</a>', $content);

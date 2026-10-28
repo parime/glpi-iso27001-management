@@ -15,6 +15,10 @@
  * -------------------------------------------------------------------------
  */
 
+namespace GlpiPlugin\Grcmanager;
+
+use Document_Item;
+use Dropdown;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\ControlBase;
 use GlpiPlugin\Grcmanager\Services\Control\AnssiHygieneCatalogDefaults;
@@ -24,6 +28,8 @@ use GlpiPlugin\Grcmanager\Services\Control\ControlCrosswalkDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\Nis2CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Ui\Badge;
 use GlpiPlugin\Grcmanager\Services\Ui\Fragment;
+use PluginGrcmanagerMenu;
+use Session;
 
 /**
  * Declaration of Applicability (SoA, ISO 27001:2022 clause 6.1.3): the 93 ISO/IEC 27001:2022
@@ -31,7 +37,7 @@ use GlpiPlugin\Grcmanager\Services\Ui\Fragment;
  * src/Install/Installer::seedControls(), src/Services/Control/ControlCatalogDefaults for the pure
  * code/theme data). Only the stable `code` (e.g. "A.5.1") and `theme` are seeded; the translated
  * title is never stored in the database, resolved instead from self::getControlTitles(), the same
- * separation \GlpiPlugin\Grcmanager\Risk already applies to its own category/probability/impact enums.
+ * separation Risk already applies to its own category/probability/impact enums.
  *
  * Per-control fields an admin actually edits: applicability (yes/no/partial), justification
  * (required by this class' own validation whenever applicability isn't "yes", per ISO 27001
@@ -39,7 +45,7 @@ use GlpiPlugin\Grcmanager\Services\Ui\Fragment;
  * control's implementation (many-to-many via glpi_plugin_grcmanager_controls_risks, see
  * getLinkedRiskIds()/syncLinkedRisks() below).
  */
-class PluginGrcmanagerControl extends ControlBase
+class Control extends ControlBase
 {
     public const RIGHTNAME = 'plugin_grcmanager';
 
@@ -259,7 +265,7 @@ class PluginGrcmanagerControl extends ControlBase
     {
         $tabs = [];
         $this->addDefaultFormTab($tabs)
-            ->addStandardTab(\GlpiPlugin\Grcmanager\AccessReview::class, $tabs, $options)
+            ->addStandardTab(AccessReview::class, $tabs, $options)
             ->addStandardTab(Document_Item::class, $tabs, $options);
 
         return $tabs;
@@ -380,7 +386,7 @@ class PluginGrcmanagerControl extends ControlBase
         ];
 
         // Row link, same "a list with no way back to showForm() is not self-explanatory" lesson
-        // already applied throughout this plugin family, see \GlpiPlugin\Grcmanager\Risk::rawSearchOptions().
+        // already applied throughout this plugin family, see Risk::rawSearchOptions().
         $tab[] = [
             'id'       => 8,
             'table'    => $this->getTable(),
@@ -435,7 +441,7 @@ class PluginGrcmanagerControl extends ControlBase
 
     /**
      * Real `<select>` filter widgets for theme/applicability/implementation_status, same lesson
-     * (and same reason) as \GlpiPlugin\Grcmanager\Risk::getSpecificValueToSelect(): 'specific' falls
+     * (and same reason) as Risk::getSpecificValueToSelect(): 'specific' falls
      * through to a free-text box by default, not self-explanatory for a non-technical user.
      */
     public static function getSpecificValueToSelect($field, $name = '', $values = '', array $options = [])
@@ -514,7 +520,7 @@ class PluginGrcmanagerControl extends ControlBase
             'SELECT' => ['risks.id', 'risks.title'],
             'FROM'   => self::LINK_TABLE . ' AS links',
             'INNER JOIN' => [
-                \GlpiPlugin\Grcmanager\Risk::getTable() . ' AS risks' => [
+                Risk::getTable() . ' AS risks' => [
                     'FKEY' => [
                         'links' => 'plugin_grcmanager_risks_id',
                         'risks' => 'id',
@@ -568,7 +574,7 @@ class PluginGrcmanagerControl extends ControlBase
         parent::post_updateItem($history);
 
         // Registre sensible : un formulaire forgé sans son droit ne modifie pas les liens.
-        if (array_key_exists('linked_risks', $this->input) && \GlpiPlugin\Grcmanager\Risk::canView()) {
+        if (array_key_exists('linked_risks', $this->input) && Risk::canView()) {
             self::syncLinkedRisks((int) $this->fields['id'], (array) $this->input['linked_risks']);
         }
     }
@@ -585,10 +591,10 @@ class PluginGrcmanagerControl extends ControlBase
         // Registre sensible : titres des risques seulement avec son droit. Sans le champ,
         // l'enregistrement ne touche pas aux liens (post_updateItem() ne synchronise que si
         // linked_risks est envoyé).
-        $canViewRisks = \GlpiPlugin\Grcmanager\Risk::canView();
+        $canViewRisks = Risk::canView();
         $riskTitles = [];
         if ($canViewRisks) {
-            $risks = $DB->request(['SELECT' => ['id', 'title'], 'FROM' => \GlpiPlugin\Grcmanager\Risk::getTable()]);
+            $risks = $DB->request(['SELECT' => ['id', 'title'], 'FROM' => Risk::getTable()]);
             foreach ($risks as $row) {
                 $riskTitles[(int) $row['id']] = $row['title'];
             }

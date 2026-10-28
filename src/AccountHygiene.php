@@ -32,7 +32,7 @@ use User;
  * doublons (même adresse e-mail, ou mêmes prénom et nom).
  *
  * Rien n'est désactivé ni modifié : la personne qui consulte peut ouvrir un ticket de revue pour
- * les comptes cochés (règle commune du plugin). Ancre sans table, comme PluginGrcmanagerReferentials.
+ * les comptes cochés (règle commune du plugin). Ancre sans table, comme Referentials.
  *
  * Seuls les comptes ayant une habilitation dans les entités actives de la personne sont lus, et
  * l'écran exige, en plus du droit du plugin, le droit natif de lecture des utilisateurs.

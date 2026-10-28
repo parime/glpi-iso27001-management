@@ -25,7 +25,7 @@ use Session;
  * instance's inventory) manually declared as an alias of a CanonicalProduct —
  * several per product, managed inline on that product's own form (see
  * CanonicalProduct::showProductAliases()), no menu/search screen of its own, same
- * convention as PluginGrcmanagerObjectiveMeasurement.
+ * convention as ObjectiveMeasurement.
  *
  * Matched by GlpiPlugin\Grcmanager\Services\Cve\InventoryCveMatcher by exact string equality only
  * — never a fuzzy/normalized match, same "no invented correlation" principle as the rest of this

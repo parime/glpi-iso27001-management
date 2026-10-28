@@ -19,9 +19,9 @@ final class DefaultSearchColumns
         'GlpiPlugin\\Grcmanager\\Risk'    => [10, 1, 2, 5, 3, 4, 6, 7, 8, 9],
         // Sprint 3 (SoA) : id-then-theme-then-code first, same "clickable row first" convention
         // as the risk register above.
-        'PluginGrcmanagerControl' => [8, 2, 1, 3, 4, 6, 7],
+        'GlpiPlugin\\Grcmanager\\Control' => [8, 2, 1, 3, 4, 6, 7],
         // Issue #113 : exigence (lien) puis article, statut, responsable, dernière modification.
-        'PluginGrcmanagerIsmsRequirement' => [1, 2, 3, 4, 7],
+        'GlpiPlugin\\Grcmanager\\IsmsRequirement' => [1, 2, 3, 4, 7],
         // Sprint 4 (audits internes et CAPA), same "id first" convention.
         'GlpiPlugin\\Grcmanager\\Audit'         => [9, 1, 2, 3, 4, 5, 6],
         // Issue #27 : id 13 (finding_type) juste apres le titre, avant severite (2), pour que le
@@ -45,7 +45,7 @@ final class DefaultSearchColumns
         // Issue #170 : nom, statut, date de fin, responsable, mesure, politique.
         'GlpiPlugin\\Grcmanager\\Waiver'           => [1, 3, 4, 5, 6, 7],
         // Issue #164 : nom, type d'actif, catégorie de document, mesure, exigence, active.
-        'PluginGrcmanagerCoverageRule'     => [1, 3, 4, 5, 6, 7],
+        'GlpiPlugin\\Grcmanager\\CoverageRule'     => [1, 3, 4, 5, 6, 7],
         // Issue #142 : nom, type, debut, fin, statut, responsable, prestataire.
         'GlpiPlugin\\Grcmanager\\ComplianceEvent'  => [1, 2, 3, 4, 5, 6, 7],
         // Issue #30 (registre des obligations légales/réglementaires/contractuelles), same
@@ -53,7 +53,7 @@ final class DefaultSearchColumns
         'GlpiPlugin\\Grcmanager\\ComplianceObligation' => [9, 1, 2, 3, 4, 5, 6, 7],
         // Issue #32 (objectifs ISMS et suivi de KPI dans le temps), same "id first" convention:
         // titre, statut, échéance, valeur cible, propriétaire.
-        'PluginGrcmanagerObjective' => [8, 1, 2, 3, 4, 6],
+        'GlpiPlugin\\Grcmanager\\Objective' => [8, 1, 2, 3, 4, 6],
         // Issue #29 (registre des incidents de sécurité de l'information, A.5.24-27), same
         // "id first" convention: titre, catégorie, sévérité, statut, date, responsable.
         'PluginGrcmanagerSecurityIncident' => [13, 1, 2, 3, 4, 5, 6],

@@ -6,10 +6,10 @@ namespace GlpiPlugin\Grcmanager\Compatibility\Base;
 
 use CommonDBTM;
 use GlpiPlugin\Grcmanager\Compatibility\GlpiVersion;
-use PluginGrcmanagerSoaVersion;
+use GlpiPlugin\Grcmanager\SoaVersion;
 
 /*
- * Parent of \PluginGrcmanagerSoaVersion.
+ * Parent of \\GlpiPlugin\Grcmanager\SoaVersion.
  *
  * Redeclares the GLPI core properties that class overrides: untyped on GLPI 11, typed on GLPI 12
  * (see GlpiVersion). A class, not a trait: on PHP 8.2-8.4 a trait cannot redeclare an inherited
@@ -19,11 +19,11 @@ use PluginGrcmanagerSoaVersion;
 if (GlpiVersion::isAtLeast12()) {
     abstract class SoaVersionBase extends CommonDBTM
     {
-        public static string $rightname = PluginGrcmanagerSoaVersion::RIGHTNAME;
+        public static string $rightname = \GlpiPlugin\Grcmanager\SoaVersion::RIGHTNAME;
     }
 } else {
     abstract class SoaVersionBase extends CommonDBTM
     {
-        public static $rightname = PluginGrcmanagerSoaVersion::RIGHTNAME;
+        public static $rightname = \GlpiPlugin\Grcmanager\SoaVersion::RIGHTNAME;
     }
 }

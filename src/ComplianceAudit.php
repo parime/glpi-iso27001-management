@@ -41,7 +41,7 @@ use User;
  * des processus de GLPI : postes sans antivirus à jour, disques non chiffrés, postes non
  * inventoriés, changements clos sans validation approuvée, comptes à vérifier. Chaque contrôle
  * liste ses écarts ; un ticket de mise en conformité est proposé, jamais créé automatiquement, et
- * un seul reste ouvert par contrôle et par entité. Ancre sans table, comme PluginGrcmanagerMaturity.
+ * un seul reste ouvert par contrôle et par entité. Ancre sans table, comme Maturity.
  *
  * Chaque contrôle n'est évalué que si la personne a le droit natif de lecture des éléments
  * concernés (ordinateurs, changements, utilisateurs).

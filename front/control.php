@@ -22,28 +22,28 @@ use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
 
 include('../../../inc/includes.php');
 
-Session::checkRight(PluginGrcmanagerControl::$rightname, READ);
+Session::checkRight(\GlpiPlugin\Grcmanager\Control::$rightname, READ);
 
 Html::header(
-    PluginGrcmanagerControl::getTypeName(2),
+    \GlpiPlugin\Grcmanager\Control::getTypeName(2),
     $_SERVER['PHP_SELF'],
     'grcmanager',
-    PluginGrcmanagerControl::class
+    \GlpiPlugin\Grcmanager\Control::class
 );
 // Encadré « À quoi sert cette page ? ».
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(PluginGrcmanagerControl::class, PluginGrcmanagerControl::class);
+PluginGrcmanagerMenu::showSection(\GlpiPlugin\Grcmanager\Control::class, \GlpiPlugin\Grcmanager\Control::class);
 PluginGrcmanagerPageHelp::show('control');
 
 // Intro, exports et rappels d'approbation de la SoA (issue #112).
 global $CFG_GLPI;
 $front = $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/';
-$myPendingVersions = PluginGrcmanagerSoaVersion::pendingForUser((int) Session::getLoginUserID());
-$lastApprovedVersion = PluginGrcmanagerSoaVersion::latest(SoaApprovalLogic::VERSION_APPROVED);
+$myPendingVersions = \GlpiPlugin\Grcmanager\SoaVersion::pendingForUser((int) Session::getLoginUserID());
+$lastApprovedVersion = \GlpiPlugin\Grcmanager\SoaVersion::latest(SoaApprovalLogic::VERSION_APPROVED);
 $changedSince = $lastApprovedVersion !== null
     && SoaApprovalLogic::currentState(
         (string) $lastApprovedVersion['fingerprint'],
-        PluginGrcmanagerSoaVersion::currentFingerprint()
+        \GlpiPlugin\Grcmanager\SoaVersion::currentFingerprint()
     ) === 'changed';
 TemplateRenderer::getInstance()->display('@grcmanager/control_list_header.html.twig', [
     'report_url'      => $front . 'control.report.php',
@@ -56,12 +56,12 @@ TemplateRenderer::getInstance()->display('@grcmanager/control_list_header.html.t
 // Same URL-driven search fix as front/risk.php (Search::showList()'s $params must be pre-merged
 // with $_GET via QueryBuilder::manageParams(), unlike Search::show() which does this internally),
 // see that file's own docblock for the full rationale.
-$params = QueryBuilder::manageParams(PluginGrcmanagerControl::class, $_GET);
+$params = QueryBuilder::manageParams(\GlpiPlugin\Grcmanager\Control::class, $_GET);
 
 Search::showList(
-    PluginGrcmanagerControl::class,
+    \GlpiPlugin\Grcmanager\Control::class,
     $params,
-    DefaultSearchColumns::COLUMNS[PluginGrcmanagerControl::class]
+    DefaultSearchColumns::COLUMNS[\GlpiPlugin\Grcmanager\Control::class]
 );
 
 Html::footer();

@@ -53,14 +53,14 @@ final class SensitiveRegistersTest extends GrcmanagerIntegrationTestCase
         ) {
             $this->assertSame(Installer::SENSITIVE_RIGHT, constant($class . '::RIGHTNAME'), $class);
         }
-        $this->assertSame(Installer::RIGHT_NAME, \PluginGrcmanagerControl::RIGHTNAME);
+        $this->assertSame(Installer::RIGHT_NAME, \GlpiPlugin\Grcmanager\Control::RIGHTNAME);
         $this->withoutSensitiveRight(function (): void {
             $this->assertFalse(\GlpiPlugin\Grcmanager\ImpactAnalysis::canView());
             $this->assertFalse(\GlpiPlugin\Grcmanager\NetworkFlow::canView());
         });
         $this->withoutSensitiveRight(function (): void {
             $this->assertFalse(\GlpiPlugin\Grcmanager\Risk::canView());
-            $this->assertTrue(\PluginGrcmanagerControl::canView());
+            $this->assertTrue(\GlpiPlugin\Grcmanager\Control::canView());
         });
     }
 
@@ -69,12 +69,12 @@ final class SensitiveRegistersTest extends GrcmanagerIntegrationTestCase
         $riskId = (int) (new \GlpiPlugin\Grcmanager\Risk())->add(['title' => 'Risque tres sensible']);
         global $DB;
 
-        $control = new \PluginGrcmanagerControl();
+        $control = new \GlpiPlugin\Grcmanager\Control();
         $row = $DB->request(['SELECT' => 'id', 'FROM' => $control->getTable(), 'LIMIT' => 1])->current();
         $controlId = (int) $row['id'];
         $this->assertTrue($control->getFromDB($controlId));
         $control->update(['id' => $controlId, 'linked_risks' => [$riskId]]);
-        $this->assertSame([$riskId], \PluginGrcmanagerControl::getLinkedRiskIds($controlId));
+        $this->assertSame([$riskId], \GlpiPlugin\Grcmanager\Control::getLinkedRiskIds($controlId));
 
         $this->withoutSensitiveRight(function () use ($control, $controlId): void {
             ob_start();
@@ -86,7 +86,7 @@ final class SensitiveRegistersTest extends GrcmanagerIntegrationTestCase
             // Formulaire forgé : les liens existants ne bougent pas.
             $control->update(['id' => $controlId, 'linked_risks' => []]);
         });
-        $this->assertSame([$riskId], \PluginGrcmanagerControl::getLinkedRiskIds($controlId));
+        $this->assertSame([$riskId], \GlpiPlugin\Grcmanager\Control::getLinkedRiskIds($controlId));
     }
 
     public function testRiskDashboardCardsAreEmptyWithoutTheRight(): void

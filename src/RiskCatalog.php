@@ -15,7 +15,11 @@
  * -------------------------------------------------------------------------
  */
 
+namespace GlpiPlugin\Grcmanager;
+
+use CommonGLPI;
 use GlpiPlugin\Grcmanager\Services\Risk\InfrastructureRiskCatalog;
+use Session;
 
 /**
  * Issue #178 : catalogue de risques types d'infrastructure. La personne coche ceux qui la
@@ -26,7 +30,7 @@ use GlpiPlugin\Grcmanager\Services\Risk\InfrastructureRiskCatalog;
  * Ancre sans table propre (CommonGLPI) ; le suivi des imports est dans
  * glpi_plugin_grcmanager_riskcatalogimports.
  */
-class PluginGrcmanagerRiskCatalog extends CommonGLPI
+class RiskCatalog extends CommonGLPI
 {
     public const IMPORTS_TABLE = 'glpi_plugin_grcmanager_riskcatalogimports';
 
@@ -46,7 +50,7 @@ class PluginGrcmanagerRiskCatalog extends CommonGLPI
 
     public static function canView(): bool
     {
-        return Session::haveRight(\GlpiPlugin\Grcmanager\Risk::$rightname, READ);
+        return Session::haveRight(Risk::$rightname, READ);
     }
 
     /**
@@ -393,7 +397,7 @@ class PluginGrcmanagerRiskCatalog extends CommonGLPI
     {
         global $DB;
 
-        $risks = \GlpiPlugin\Grcmanager\Risk::getTable();
+        $risks = Risk::getTable();
         $imported = [];
         foreach (
             $DB->request([
@@ -425,7 +429,7 @@ class PluginGrcmanagerRiskCatalog extends CommonGLPI
 
         $entries = self::getEntries();
         $controlIds = [];
-        foreach ($DB->request(['SELECT' => ['id', 'code'], 'FROM' => PluginGrcmanagerControl::getTable()]) as $row) {
+        foreach ($DB->request(['SELECT' => ['id', 'code'], 'FROM' => Control::getTable()]) as $row) {
             $controlIds[(string) $row['code']] = (int) $row['id'];
         }
 
@@ -441,7 +445,7 @@ class PluginGrcmanagerRiskCatalog extends CommonGLPI
                 $description .= "\n\n"
                     . sprintf(__('ISO/IEC 27090 sections: %s', 'grcmanager'), implode(', ', $sections));
             }
-            $risksId = (int) (new \GlpiPlugin\Grcmanager\Risk())->add([
+            $risksId = (int) (new Risk())->add([
                 'title'       => $entry['title'],
                 'description' => $description,
                 'category'    => InfrastructureRiskCatalog::category($key),

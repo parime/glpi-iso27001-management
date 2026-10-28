@@ -15,26 +15,30 @@
  * -------------------------------------------------------------------------
  */
 
+namespace GlpiPlugin\Grcmanager;
+
 use GlpiPlugin\Grcmanager\Compatibility\Base\ObjectiveMeasurementBase;
 use GlpiPlugin\Grcmanager\Services\Objective\ObjectiveMeasurementValidator;
+use GlpiPlugin\Grcmanager\Objective;
+use Session;
 
 /**
  * One manually-entered data point in an ISMS objective's progress-over-time history (issue #32,
- * ISO 27001 clause 6.2), see PluginGrcmanagerObjective's own docblock for the full rationale.
+ * ISO 27001 clause 6.2), see Objective's own docblock for the full rationale.
  * `plugin_grcmanager_objectives_id` is not a real GLPI foreign key (no native `ON DELETE CASCADE`
  * here, resolved by this class' own getMeasurements()/deleteAllForObjective()), same simplification
- * already assumed for \GlpiPlugin\Grcmanager\Nonconformity's own `plugin_grcmanager_audits_id` (see
+ * already assumed for Nonconformity's own `plugin_grcmanager_audits_id` (see
  * TECH_DEBT.md Sprint 4).
  *
  * Never surfaced through its own menu entry, search screen, or `showForm()`: it only ever exists
  * as a child row added/deleted inline from its parent objective's own form
- * (PluginGrcmanagerObjective::showMeasurementHistory(), front/objectivemeasurement.form.php),
- * exactly like \GlpiPlugin\Grcmanager\ManagementReview's attendees or \GlpiPlugin\Grcmanager\Training's
+ * (Objective::showMeasurementHistory(), front/objectivemeasurement.form.php),
+ * exactly like ManagementReview's attendees or Training's
  * participants, except those two are plain link tables while a measurement genuinely carries its
  * own data (date, value, comment) and so needs its own real itemtype/table rather than a link
  * table with no extra columns.
  */
-class PluginGrcmanagerObjectiveMeasurement extends ObjectiveMeasurementBase
+class ObjectiveMeasurement extends ObjectiveMeasurementBase
 {
     public const RIGHTNAME = 'plugin_grcmanager';
 
@@ -58,7 +62,7 @@ class PluginGrcmanagerObjectiveMeasurement extends ObjectiveMeasurementBase
      * (target_value set) needs a numeric value on every measurement, a qualitative-only objective
      * accepts a value-less measurement only if it carries a real comment. Never trusted from the
      * client alone (same posture as every other server-side validation in this plugin family, see
-     * PluginGrcmanagerControl::validateAndMarkReviewed()).
+     * Control::validateAndMarkReviewed()).
      *
      * @param array<string, mixed> $input
      * @return array<string, mixed>|false
@@ -67,7 +71,7 @@ class PluginGrcmanagerObjectiveMeasurement extends ObjectiveMeasurementBase
     {
         $objectiveId = (int) ($input['plugin_grcmanager_objectives_id'] ?? 0);
 
-        $objective = new PluginGrcmanagerObjective();
+        $objective = new Objective();
         if ($objectiveId <= 0 || !$objective->getFromDB($objectiveId)) {
             Session::addMessageAfterRedirect(
                 __('Objective not found.', 'grcmanager'),
@@ -108,7 +112,7 @@ class PluginGrcmanagerObjectiveMeasurement extends ObjectiveMeasurementBase
 
     /**
      * @return array<int, array<string, mixed>> raw DB rows for every measurement of one objective,
-     *         oldest first (chronological trajectory, see PluginGrcmanagerObjective::
+     *         oldest first (chronological trajectory, see Objective::
      *         showMeasurementHistory()).
      */
     public static function getMeasurements(int $objectiveId): array

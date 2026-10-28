@@ -99,7 +99,7 @@ function plugin_init_grcmanager(): void
             // Issue #247 : tableau de bord en tête, comme dans Parc et Assistance.
             PluginGrcmanagerDashboard::class,
             \GlpiPlugin\Grcmanager\Risk::class,
-            PluginGrcmanagerControl::class,
+            \GlpiPlugin\Grcmanager\Control::class,
             \GlpiPlugin\Grcmanager\Audit::class,
             \GlpiPlugin\Grcmanager\AccessReview::class,
             \GlpiPlugin\Grcmanager\ComplianceAudit::class,
@@ -146,12 +146,12 @@ function plugin_init_grcmanager(): void
     $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\Audit::class;
     $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\Nonconformity::class;
     // Issue #113 : preuves des exigences du SMSI, même mécanisme.
-    $CFG_GLPI['document_types'][] = PluginGrcmanagerIsmsRequirement::class;
+    $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\IsmsRequirement::class;
     // Issue #127 : preuves de l'évaluation d'un fournisseur (questionnaire signé, certificats).
     $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\SupplierRisk::class;
     // Issue #126 : rapport PDF de clôture d'une revue des accès, sur la campagne et sur la mesure.
     $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\AccessReview::class;
-    $CFG_GLPI['document_types'][] = PluginGrcmanagerControl::class;
+    $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\Control::class;
     // Issue #142 : documents d'un evenement de conformite (rapport d'audit, de pentest...).
     $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\ComplianceEvent::class;
     // Echeances de conformite dans le planning GLPI de chaque responsable (lecture seule).
@@ -201,7 +201,7 @@ function plugin_init_grcmanager(): void
     Plugin::registerClass(\GlpiPlugin\Grcmanager\Waiver::class, [
         'addtabon' => array_merge(
             \GlpiPlugin\Grcmanager\Risk::getLinkableItemtypes(),
-            [PluginGrcmanagerControl::class, \GlpiPlugin\Grcmanager\Policy::class]
+            [\GlpiPlugin\Grcmanager\Control::class, \GlpiPlugin\Grcmanager\Policy::class]
         ),
     ]);
 
@@ -229,8 +229,8 @@ function plugin_init_grcmanager(): void
     ]);
 
     // Issue #164 : onglet « Couverture des preuves » sur les mesures et les exigences du SMSI.
-    Plugin::registerClass(PluginGrcmanagerCoverageRule::class, [
-        'addtabon' => [PluginGrcmanagerControl::class, PluginGrcmanagerIsmsRequirement::class],
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\CoverageRule::class, [
+        'addtabon' => [\GlpiPlugin\Grcmanager\Control::class, \GlpiPlugin\Grcmanager\IsmsRequirement::class],
     ]);
 
     Plugin::registerClass(\GlpiPlugin\Grcmanager\Evidence::class, [
@@ -248,7 +248,7 @@ function plugin_init_grcmanager(): void
     // Onglet « GRC Manager » des profils : attribuer les droits du plugin sans passer par la base.
     Plugin::registerClass(PluginGrcmanagerProfile::class, ['addtabon' => [Profile::class]]);
     // Issue #141 : le ticket créé par le ticket récurrent d'une revue devient son ticket en cours ;
-    // sa résolution date la revue (PluginGrcmanagerPeriodicReview::onTicketAdd()/onTicketUpdate()).
+    // sa résolution date la revue (\GlpiPlugin\Grcmanager\PeriodicReview::onTicketAdd()/onTicketUpdate()).
     // Issue #140 : un document joint à un audit, ou à un constat d'audit, est réservé à l'équipe
     // de l'audit (PluginGrcmanagerRestrictedDocument::onDocumentItemAdd()).
     $PLUGIN_HOOKS[Hooks::ITEM_ADD]['grcmanager'] = [

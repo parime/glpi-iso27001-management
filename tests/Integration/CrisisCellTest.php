@@ -107,7 +107,7 @@ final class CrisisCellTest extends GrcmanagerIntegrationTestCase
                 ],
                 'WHERE'      => [
                     'glpi_documents_items.documents_id' => $documentsId,
-                    'glpi_documents_items.itemtype'     => \PluginGrcmanagerControl::class,
+                    'glpi_documents_items.itemtype'     => \GlpiPlugin\Grcmanager\Control::class,
                 ],
             ])), 'code');
             // Revue de sécurité 2.11.0 : le rapport d'une crise réelle n'est lié à aucune mesure

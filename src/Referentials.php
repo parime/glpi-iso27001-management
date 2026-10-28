@@ -15,13 +15,18 @@
  * -------------------------------------------------------------------------
  */
 
+namespace GlpiPlugin\Grcmanager;
+
+use CommonGLPI;
+use Session;
+
 /**
  * Simple ancre sans table ni CommonDBTM, même convention que PluginGrcmanagerMenu (voir son propre
  * docblock) : ne sert qu'à donner une entrée de menu propre à front/referentiels.php (ROADMAP.md
  * "Version 2.2", bibliothèque de contrôles étendue) — un écran purement consultatif, sans
  * CommonDBTM ni table qui lui soit propre.
  */
-class PluginGrcmanagerReferentials extends CommonGLPI
+class Referentials extends CommonGLPI
 {
     public static function getMenuName()
     {
@@ -35,7 +40,7 @@ class PluginGrcmanagerReferentials extends CommonGLPI
 
     public static function getMenuContent()
     {
-        if (!Session::haveRight(PluginGrcmanagerControl::$rightname, READ)) {
+        if (!Session::haveRight(Control::$rightname, READ)) {
             return false;
         }
 

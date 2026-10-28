@@ -54,7 +54,7 @@ if (isset($_POST['add'])) {
     \GlpiPlugin\Grcmanager\Policy::displayFullPageForItem(
         $_GET['id'] ?? 0,
         [
-            'central'  => ['grcmanager', PluginGrcmanagerControl::class, \GlpiPlugin\Grcmanager\Policy::class],
+            'central'  => ['grcmanager', \GlpiPlugin\Grcmanager\Control::class, \GlpiPlugin\Grcmanager\Policy::class],
             'helpdesk' => [],
         ]
     );

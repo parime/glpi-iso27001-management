@@ -31,21 +31,21 @@ use GlpiPlugin\Grcmanager\Risk;
  * Registre des obligations légales, réglementaires et contractuelles (issue #30, ISO 27001 clause
  * 4.2 "parties intéressées et leurs exigences", Annexe A A.5.31-36). Ces contrôles n'existaient
  * jusqu'ici que comme lignes à cocher dans la Déclaration d'Applicabilité
- * (PluginGrcmanagerControl, voir A.5.31/A.5.34) : ce registre couvre le besoin réel qu'un
+ * (Control, voir A.5.31/A.5.34) : ce registre couvre le besoin réel qu'un
  * RSSI/DPO finit souvent par gérer dans un tableur séparé - la liste concrète des obligations
  * qui s'appliquent (RGPD, contrat client avec clause de sécurité, réglementation sectorielle...)
  * et le suivi de leur statut de conformité dans le temps, indépendamment de la SoA.
  *
  * Mêmes conventions que les autres registres de ce plugin : enums en varchar avec commentaire SQL
  * (voir src/Install/Installer.php), badges colorés traduits (voir
- * PluginGrcmanagerControl::applicabilityBadge()/Nonconformity::severityBadge()),
+ * Control::applicabilityBadge()/Nonconformity::severityBadge()),
  * showForm() en HTML/PHP manuel (TECH_DEBT.md, choix assumé depuis le Sprint 1), rappel de revue
  * via le même Cron/NotificationTarget que le registre de risques (voir cronReviewreminder()
  * ci-dessous).
  *
  * Lien optionnel vers un risque (0 ou 1, jamais plus) : `plugin_grcmanager_risks_id` est une
  * colonne directe sur cette table, PAS une table de liaison many-to-many comme
- * glpi_plugin_grcmanager_controls_risks (voir PluginGrcmanagerControl::getLinkedRisks()/
+ * glpi_plugin_grcmanager_controls_risks (voir Control::getLinkedRisks()/
  * syncLinkedRisks(), TECH_DEBT.md Sprint 3, "simples méthodes statiques, pas une vraie classe
  * CommonDBRelation") : la cardinalité demandée par l'issue #30 ("une obligation correspond au
  * plus à une entrée de risque précise, si tant est qu'il y en ait une") est plus simple que celle
@@ -116,7 +116,7 @@ class ComplianceObligation extends ComplianceObligationBase
     /**
      * Normalise `type`/`compliance_status` via ComplianceObligationRules (jamais une valeur hors
      * énumération enregistrée en base) avant add()/update(), même endroit que
-     * PluginGrcmanagerControl::validateAndMarkReviewed()/Nonconformity::
+     * Control::validateAndMarkReviewed()/Nonconformity::
      * validateAndNormalize() pour la validation d'entrée de ce plugin.
      *
      * @param array<string, mixed> $input

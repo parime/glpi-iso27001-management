@@ -5,7 +5,7 @@ namespace GlpiPlugin\Grcmanager\Tests\Integration;
 use Document_Item;
 use Group;
 use GlpiPlugin\Grcmanager\AccessReview;
-use PluginGrcmanagerControl;
+use GlpiPlugin\Grcmanager\Control;
 use Profile_User;
 use Ticket;
 
@@ -190,7 +190,7 @@ final class AccessReviewTest extends GrcmanagerIntegrationTestCase
         // lisible avec les seuls droits de la campagne.
         $this->assertSame(0, countElementsInTable(Document_Item::getTable(), [
             'documents_id' => $documentsId,
-            'itemtype'     => PluginGrcmanagerControl::class,
+            'itemtype'     => \GlpiPlugin\Grcmanager\Control::class,
         ]));
         $document = new \Document();
         $this->assertTrue($document->getFromDB($documentsId));
