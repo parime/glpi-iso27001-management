@@ -105,7 +105,7 @@ class PluginGrcmanagerCoverageRule extends CoverageRuleBase
             'params'     => $options,
             'itemtypes'  => self::getItemtypeLabels(),
             'type_class' => $itemtype !== '' ? self::getSubtypeClass($itemtype) : null,
-            'controls'   => PluginGrcmanagerAccessReview::getControlChoices(),
+            'controls'   => \GlpiPlugin\Grcmanager\AccessReview::getControlChoices(),
             'requirements' => self::getRequirementChoices(),
         ]);
 

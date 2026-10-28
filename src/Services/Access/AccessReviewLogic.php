@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace GlpiPlugin\Grcmanager\Services\Access;
 
 /**
- * Issue #126 : règles pures de la campagne de revue des accès (PluginGrcmanagerAccessReview),
+ * Issue #126 : règles pures de la campagne de revue des accès (\GlpiPlugin\Grcmanager\AccessReview),
  * sans dépendance à GLPI pour être testées unitairement.
  *
  * Le plugin ne modifie jamais un droit, un compte ou un statut : une décision « modifier » ou

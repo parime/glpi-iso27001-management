@@ -84,9 +84,9 @@ class PluginGrcmanagerMenu extends CommonGLPI
                 \GlpiPlugin\Grcmanager\ManagementReview::class,
             ],
             // Opérations récurrentes : accès, revues, personnes, continuité.
-            PluginGrcmanagerAccessReview::class => [
-                PluginGrcmanagerAccountHygiene::class, PluginGrcmanagerPeriodicReview::class,
-                PluginGrcmanagerTraining::class, PluginGrcmanagerCrisisExercise::class,
+            \GlpiPlugin\Grcmanager\AccessReview::class => [
+                \GlpiPlugin\Grcmanager\AccountHygiene::class, PluginGrcmanagerPeriodicReview::class,
+                \GlpiPlugin\Grcmanager\Training::class, \GlpiPlugin\Grcmanager\CrisisExercise::class,
             ],
             // Sécurité technique. Le parent ne demande que le droit du plugin : les vulnérabilités
             // (qui exigent aussi la lecture des logiciels) restent une sous-page parmi d'autres.

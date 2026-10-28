@@ -29,7 +29,7 @@ use GlpiPlugin\Grcmanager\Services\Objective\ObjectiveMeasurementValidator;
  * Never surfaced through its own menu entry, search screen, or `showForm()`: it only ever exists
  * as a child row added/deleted inline from its parent objective's own form
  * (PluginGrcmanagerObjective::showMeasurementHistory(), front/objectivemeasurement.form.php),
- * exactly like \GlpiPlugin\Grcmanager\ManagementReview's attendees or PluginGrcmanagerTraining's
+ * exactly like \GlpiPlugin\Grcmanager\ManagementReview's attendees or \GlpiPlugin\Grcmanager\Training's
  * participants, except those two are plain link tables while a measurement genuinely carries its
  * own data (date, value, comment) and so needs its own real itemtype/table rather than a link
  * table with no extra columns.

@@ -29,10 +29,10 @@ include('../../../inc/includes.php');
 Session::checkLoginUser();
 
 $participationId = (int) ($_GET['id'] ?? 0);
-if (!PluginGrcmanagerTrainingQuiz::canRead($participationId)) {
+if (!\GlpiPlugin\Grcmanager\TrainingQuiz::canRead($participationId)) {
     throw new AccessDeniedHttpException();
 }
-$participation = PluginGrcmanagerTrainingQuiz::getParticipation($participationId);
+$participation = \GlpiPlugin\Grcmanager\TrainingQuiz::getParticipation($participationId);
 $document = new Document();
 if (
     $participation === null || $participation['documents_id'] <= 0
@@ -44,7 +44,7 @@ if (
 
 PluginGrcmanagerDocumentAccess::log(
     $document->getID(),
-    PluginGrcmanagerTrainingQuiz::class,
+    \GlpiPlugin\Grcmanager\TrainingQuiz::class,
     $participationId,
     (int) Session::getLoginUserID()
 );

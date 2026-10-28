@@ -67,6 +67,16 @@ final class ItemtypeRenames
         'PluginGrcmanagerNotificationTargetNonconformity'
             => \GlpiPlugin\Grcmanager\NotificationTargetNonconformity::class,
         'PluginGrcmanagerManagementReview'         => \GlpiPlugin\Grcmanager\ManagementReview::class,
+        // Opérations : revues des accès, hygiène des comptes, formations, exercices de crise.
+        'PluginGrcmanagerAccessReview'             => \GlpiPlugin\Grcmanager\AccessReview::class,
+        'PluginGrcmanagerNotificationTargetAccessReview'
+            => \GlpiPlugin\Grcmanager\NotificationTargetAccessReview::class,
+        'PluginGrcmanagerAccountHygiene'           => \GlpiPlugin\Grcmanager\AccountHygiene::class,
+        'PluginGrcmanagerTraining'                 => \GlpiPlugin\Grcmanager\Training::class,
+        'PluginGrcmanagerNotificationTargetTraining' => \GlpiPlugin\Grcmanager\NotificationTargetTraining::class,
+        'PluginGrcmanagerTrainingQuiz'             => \GlpiPlugin\Grcmanager\TrainingQuiz::class,
+        'PluginGrcmanagerTrainingSession'          => \GlpiPlugin\Grcmanager\TrainingSession::class,
+        'PluginGrcmanagerCrisisExercise'           => \GlpiPlugin\Grcmanager\CrisisExercise::class,
     ];
 
     /**

@@ -6,10 +6,10 @@ namespace GlpiPlugin\Grcmanager\Compatibility\Base;
 
 use CommonDBTM;
 use GlpiPlugin\Grcmanager\Compatibility\GlpiVersion;
-use PluginGrcmanagerAccessReview;
+use GlpiPlugin\Grcmanager\AccessReview;
 
 /*
- * Parent of \PluginGrcmanagerAccessReview.
+ * Parent of \\GlpiPlugin\Grcmanager\AccessReview.
  *
  * Redeclares the GLPI core properties that class overrides: untyped on GLPI 11, typed on GLPI 12
  * (see GlpiVersion). A class, not a trait: on PHP 8.2-8.4 a trait cannot redeclare an inherited
@@ -21,13 +21,13 @@ if (GlpiVersion::isAtLeast12()) {
     {
         public bool $dohistory = true;
 
-        public static string $rightname = PluginGrcmanagerAccessReview::RIGHTNAME;
+        public static string $rightname = \GlpiPlugin\Grcmanager\AccessReview::RIGHTNAME;
     }
 } else {
     abstract class AccessReviewBase extends CommonDBTM
     {
         public $dohistory = true;
 
-        public static $rightname = PluginGrcmanagerAccessReview::RIGHTNAME;
+        public static $rightname = \GlpiPlugin\Grcmanager\AccessReview::RIGHTNAME;
     }
 }

@@ -15,8 +15,15 @@
  * -------------------------------------------------------------------------
  */
 
+namespace GlpiPlugin\Grcmanager;
+
+use CommonGLPI;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Services\Access\AccountHygieneRules;
+use Log;
+use Session;
+use Ticket;
+use User;
 
 /**
  * Issue #184 : hygiène des comptes GLPI (A.5.16, A.5.18, A.8.2). Liste les comptes actifs qui
@@ -30,7 +37,7 @@ use GlpiPlugin\Grcmanager\Services\Access\AccountHygieneRules;
  * Seuls les comptes ayant une habilitation dans les entités actives de la personne sont lus, et
  * l'écran exige, en plus du droit du plugin, le droit natif de lecture des utilisateurs.
  */
-class PluginGrcmanagerAccountHygiene extends CommonGLPI
+class AccountHygiene extends CommonGLPI
 {
     public const RIGHTNAME = 'plugin_grcmanager';
 

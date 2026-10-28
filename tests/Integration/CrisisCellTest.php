@@ -21,7 +21,7 @@ namespace GlpiPlugin\Grcmanager\Tests\Integration;
 
 use GlpiPlugin\Grcmanager\Services\Exercise\RecoveryTracker;
 use GlpiPlugin\Grcmanager\Services\Impact\ImpactGraph;
-use PluginGrcmanagerCrisisExercise as Cell;
+use GlpiPlugin\Grcmanager\CrisisExercise as Cell;
 use PluginGrcmanagerSecurityIncident as Incident;
 
 /**

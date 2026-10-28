@@ -3,7 +3,7 @@
 namespace GlpiPlugin\Grcmanager\Tests\Integration;
 
 use GlpiPlugin\Grcmanager\Services\Access\AccountHygieneRules;
-use PluginGrcmanagerAccountHygiene;
+use GlpiPlugin\Grcmanager\AccountHygiene;
 
 /**
  * Issue #184 : comptes actifs à vérifier, limités aux entités de la personne, et ticket de revue
@@ -58,7 +58,7 @@ final class AccountHygieneTest extends GrcmanagerIntegrationTestCase
      */
     private function checksById(int $days = 90): array
     {
-        return array_column(PluginGrcmanagerAccountHygiene::findAccounts($days), 'checks', 'id');
+        return array_column(\GlpiPlugin\Grcmanager\AccountHygiene::findAccounts($days), 'checks', 'id');
     }
 
     public function testAccountsToCheckAreFoundOnlyInTheVisibleEntities(): void
@@ -130,10 +130,10 @@ final class AccountHygieneTest extends GrcmanagerIntegrationTestCase
         $_SESSION['glpiactiveentities_string'] = (string) $entity;
         $_SESSION['glpiactive_entity'] = $entity;
 
-        $this->assertSame(0, PluginGrcmanagerAccountHygiene::createReviewTicket([], 90), 'Rien de coché.');
-        $this->assertSame(0, PluginGrcmanagerAccountHygiene::createReviewTicket([2], 90), 'Compte hors liste.');
+        $this->assertSame(0, \GlpiPlugin\Grcmanager\AccountHygiene::createReviewTicket([], 90), 'Rien de coché.');
+        $this->assertSame(0, \GlpiPlugin\Grcmanager\AccountHygiene::createReviewTicket([2], 90), 'Compte hors liste.');
 
-        $ticketsId = PluginGrcmanagerAccountHygiene::createReviewTicket([$deleted], 90);
+        $ticketsId = \GlpiPlugin\Grcmanager\AccountHygiene::createReviewTicket([$deleted], 90);
         $this->assertGreaterThan(0, $ticketsId);
         $ticket = new \Ticket();
         $ticket->getFromDB($ticketsId);

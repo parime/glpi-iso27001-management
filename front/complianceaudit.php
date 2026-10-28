@@ -111,7 +111,7 @@ TemplateRenderer::getInstance()->display('@grcmanager/compliance_audit.html.twig
         static fn (int $id): string => Dropdown::getDropdownName(State::getTable(), $id),
         $excludedStates
     ),
-    'hygiene_url'  => PluginGrcmanagerAccountHygiene::getSearchURL(),
+    'hygiene_url'  => \GlpiPlugin\Grcmanager\AccountHygiene::getSearchURL(),
     'maturity_url' => PluginGrcmanagerMaturity::getSearchURL(),
     'soa_url'      => PluginGrcmanagerControl::getSearchURL(),
 ]);

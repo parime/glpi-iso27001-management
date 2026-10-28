@@ -15,10 +15,31 @@
  * -------------------------------------------------------------------------
  */
 
+namespace GlpiPlugin\Grcmanager;
+
+use CommonGLPI;
+use CronTask;
+use Document;
+use Document_Item;
+use Dropdown;
+use Entity;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\AccessReviewBase;
 use GlpiPlugin\Grcmanager\Pdf\PdfRenderer;
 use GlpiPlugin\Grcmanager\Services\Access\AccessReviewLogic;
+use Group;
+use Group_User;
+use Html;
+use Log;
+use NotificationEvent;
+use PluginGrcmanagerControl;
+use PluginGrcmanagerMenu;
+use PluginGrcmanagerRestrictedDocument;
+use Profile;
+use Profile_User;
+use Session;
+use Ticket;
+use User;
 
 /**
  * Issue #126 : campagne de revue périodique des accès (ISO 27001 A.5.18, droits d'accès).
@@ -33,7 +54,7 @@ use GlpiPlugin\Grcmanager\Services\Access\AccessReviewLogic;
  * - les responsables en retard sont relancés (tâche « accessreviewreminder ») ;
  * - la clôture archive un rapport PDF (Document GLPI) sur la campagne et sur la mesure de la SoA.
  */
-class PluginGrcmanagerAccessReview extends AccessReviewBase
+class AccessReview extends AccessReviewBase
 {
     public const RIGHTNAME = 'plugin_grcmanager';
 

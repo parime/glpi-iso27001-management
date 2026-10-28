@@ -243,7 +243,7 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
         'content'     => 'Test de controle d acces',
         'entities_id' => $entity,
     ]);
-    $ids['campaign_' . $suffix] = $add(new PluginGrcmanagerAccessReview(), [
+    $ids['campaign_' . $suffix] = $add(new \GlpiPlugin\Grcmanager\AccessReview(), [
         'name'                          => 'Campagne securite ' . $suffix,
         'entities_id'                   => $entity,
         'plugin_grcmanager_controls_id' => $controlId,
@@ -277,12 +277,15 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
 $ids['supplierrisk'] = $add(new \GlpiPlugin\Grcmanager\SupplierRisk(), [
     'title' => 'Risque fournisseur securite', 'suppliers_id' => $supplier,
 ]);
-$ids['training'] = $add(new PluginGrcmanagerTraining(), ['title' => 'Formation securite', 'participants' => [2]]);
+$ids['training'] = $add(
+    new \GlpiPlugin\Grcmanager\Training(),
+    ['title' => 'Formation securite', 'participants' => [2]]
+);
 // Issue #139 : copie de quiz de glpi, lisible par lui seul (ni formateur ni groupe RSSI ici).
-$ids['quiz'] = PluginGrcmanagerTrainingQuiz::getParticipationId($ids['training'], 2);
+$ids['quiz'] = \GlpiPlugin\Grcmanager\TrainingQuiz::getParticipationId($ids['training'], 2);
 $quizPrefix = uniqid('', true);
 file_put_contents(GLPI_TMP_DIR . '/' . $quizPrefix . 'copie-quiz.txt', "Copie de quiz securite\n");
-PluginGrcmanagerTrainingQuiz::attach($ids['quiz'], $quizPrefix . 'copie-quiz.txt', $quizPrefix);
+\GlpiPlugin\Grcmanager\TrainingQuiz::attach($ids['quiz'], $quizPrefix . 'copie-quiz.txt', $quizPrefix);
 $ids['risk'] = $add(new \GlpiPlugin\Grcmanager\Risk(), [
     'title' => 'Risque securite', 'linked_items_Computer' => [$ids['computer_B']],
 ]);

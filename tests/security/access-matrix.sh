@@ -208,7 +208,7 @@ expect "front/compliancecalendar.ics.php : jeton invalide" 403    "$(code "$P/co
 expect "campagne de revue, entite A"   200    "$(code "$P/accessreview.form.php?id=$(id campaign_A)")"
 expect "campagne de revue, entite B"   $DENY  "$(code "$P/accessreview.form.php?id=$(id campaign_B)")"
 
-control_tab=$(tab PluginGrcmanagerControl 'PluginGrcmanagerAccessReview$2' "$(id control)")
+control_tab=$(tab PluginGrcmanagerControl 'GlpiPlugin%5CGrcmanager%5CAccessReview$2' "$(id control)")
 contains "onglet revues d'acces d'un controle : campagne A" "Campagne securite A" oui     "$control_tab"
 contains "onglet revues d'acces d'un controle : campagne B" "Campagne securite B" $SEE_B  "$control_tab"
 

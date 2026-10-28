@@ -444,7 +444,7 @@ final class DashboardCardService
      * la présence/participation, pas la réussite d'une évaluation. Calculé uniquement sur les
      * participants avec une évaluation renseignée (`assessment_result` != 'not_applicable') : une
      * formation sans évaluation ne doit ni compter comme réussie ni comme échouée, elle est hors
-     * périmètre de cet indicateur (voir `PluginGrcmanagerTraining::getAssessmentResults()`).
+     * périmètre de cet indicateur (voir `\GlpiPlugin\Grcmanager\Training::getAssessmentResults()`).
      */
     public static function trainingPassRate(array $params = []): array
     {
@@ -473,8 +473,8 @@ final class DashboardCardService
 
     /**
      * Nombre de participants distincts en retard de renouvellement, même définition partagée par
-     * PluginGrcmanagerTraining::getOverdueParticipants() et la tâche Cron
-     * PluginGrcmanagerTraining::cronRenewaldue(), pour que la carte de tableau de bord et le rappel
+     * \GlpiPlugin\Grcmanager\Training::getOverdueParticipants() et la tâche Cron
+     * \GlpiPlugin\Grcmanager\Training::cronRenewaldue(), pour que la carte de tableau de bord et le rappel
      * automatique ne divergent jamais sur ce qui compte comme "en retard".
      */
     public static function trainingOverdueRenewalCount(array $params = []): array

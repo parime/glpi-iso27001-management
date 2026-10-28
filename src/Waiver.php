@@ -30,7 +30,7 @@ use Html;
 use Item_Ticket;
 use Log;
 use NotificationEvent;
-use PluginGrcmanagerAccessReview;
+use GlpiPlugin\Grcmanager\AccessReview;
 use PluginGrcmanagerControl;
 use GlpiPlugin\Grcmanager\Policy;
 use GlpiPlugin\Grcmanager\Risk;
@@ -173,7 +173,7 @@ class Waiver extends WaiverBase
                 $this->fields['date_end'] ?? null
             ),
             'groups'   => $groups,
-            'controls' => PluginGrcmanagerAccessReview::getControlChoices(),
+            'controls' => AccessReview::getControlChoices(),
             'policies' => self::getPolicyChoices(),
             'approver' => (int) ($this->fields['users_id_approver'] ?? 0) > 0
                 ? getUserName((int) $this->fields['users_id_approver']) : '',

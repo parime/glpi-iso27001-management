@@ -36,7 +36,7 @@ use Glpi\DBAL\QuerySubQuery;
  * (PluginGrcmanagerDocumentAccess).
  *
  * Issue #139 : les copies de quiz des participants ont pour source leur ligne de participation
- * (PluginGrcmanagerTrainingQuiz) : le participant, le formateur de la session et le groupe RSSI.
+ * (\GlpiPlugin\Grcmanager\TrainingQuiz) : le participant, le formateur de la session et le groupe RSSI.
  */
 class PluginGrcmanagerRestrictedDocument
 {
@@ -151,8 +151,8 @@ class PluginGrcmanagerRestrictedDocument
             return \GlpiPlugin\Grcmanager\AuditTeam::canAccessDocuments($source['items_id']);
         }
         // Issue #139 : copie de quiz, au participant, au formateur et au groupe RSSI.
-        if ($itemtype === PluginGrcmanagerTrainingQuiz::class) {
-            return PluginGrcmanagerTrainingQuiz::canRead($source['items_id']);
+        if ($itemtype === \GlpiPlugin\Grcmanager\TrainingQuiz::class) {
+            return \GlpiPlugin\Grcmanager\TrainingQuiz::canRead($source['items_id']);
         }
         if (!is_a($itemtype, CommonDBTM::class, true)) {
             return false;

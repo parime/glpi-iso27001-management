@@ -123,7 +123,7 @@ final class AuditDocumentAccessTest extends GrcmanagerIntegrationTestCase
     public function testAlreadyRestrictedDocumentKeepsItsSourceWhenJoinedToAnAudit(): void
     {
         $auditId = $this->audit(self::SESSION_USER);
-        $review = new \PluginGrcmanagerAccessReview();
+        $review = new \GlpiPlugin\Grcmanager\AccessReview();
         $reviewId = (int) $review->add(['name' => 'Revue #140', 'entities_id' => 0]);
         $documentsId = (int) (new \Document())->add(['name' => 'Rapport de revue', 'entities_id' => 0]);
         $this->assertTrue($review->getFromDB($reviewId));
@@ -136,7 +136,7 @@ final class AuditDocumentAccessTest extends GrcmanagerIntegrationTestCase
         ]);
 
         $source = PluginGrcmanagerRestrictedDocument::sourceOf($documentsId);
-        $this->assertSame(\PluginGrcmanagerAccessReview::class, $source['itemtype'] ?? null);
+        $this->assertSame(\GlpiPlugin\Grcmanager\AccessReview::class, $source['itemtype'] ?? null);
     }
 
     public function testDownloadsAreListedAndPurgedWithTheAudit(): void

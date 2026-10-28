@@ -4,7 +4,7 @@ namespace GlpiPlugin\Grcmanager\Tests\Integration;
 
 use Document_Item;
 use Group;
-use PluginGrcmanagerAccessReview;
+use GlpiPlugin\Grcmanager\AccessReview;
 use PluginGrcmanagerControl;
 use Profile_User;
 use Ticket;
@@ -18,7 +18,7 @@ final class AccessReviewTest extends GrcmanagerIntegrationTestCase
     /** @var array<string, int> */
     private array $ids = [];
 
-    private function createCampaign(): PluginGrcmanagerAccessReview
+    private function createCampaign(): \GlpiPlugin\Grcmanager\AccessReview
     {
         global $DB;
 
@@ -41,7 +41,7 @@ final class AccessReviewTest extends GrcmanagerIntegrationTestCase
         }
         $this->ids = compact('entityId', 'manager', 'chief', 'alice', 'bob', 'orphan', 'groupId');
 
-        $campaign = new PluginGrcmanagerAccessReview();
+        $campaign = new \GlpiPlugin\Grcmanager\AccessReview();
         $id = (int) $campaign->add([
             'name'         => 'PHPUnit revue T4',
             'entities_id'  => $entityId,
@@ -61,7 +61,7 @@ final class AccessReviewTest extends GrcmanagerIntegrationTestCase
     private function linesByUser(int $campaignId): array
     {
         $lines = [];
-        foreach (PluginGrcmanagerAccessReview::getLines($campaignId) as $line) {
+        foreach (\GlpiPlugin\Grcmanager\AccessReview::getLines($campaignId) as $line) {
             $lines[$line['users_id']] = $line;
         }
 
@@ -73,7 +73,7 @@ final class AccessReviewTest extends GrcmanagerIntegrationTestCase
         $campaign = $this->createCampaign();
         $this->assertSame('draft', $campaign->fields['status']);
         $this->assertSame(
-            PluginGrcmanagerAccessReview::getDefaultControlId(),
+            \GlpiPlugin\Grcmanager\AccessReview::getDefaultControlId(),
             (int) $campaign->fields['plugin_grcmanager_controls_id'],
             'mesure A.5.18 proposée par défaut'
         );
@@ -101,12 +101,17 @@ final class AccessReviewTest extends GrcmanagerIntegrationTestCase
 
         $this->assertNotSame(
             '',
-            PluginGrcmanagerAccessReview::decide($bobLine, 'remove', '', $this->ids['manager']),
+            \GlpiPlugin\Grcmanager\AccessReview::decide($bobLine, 'remove', '', $this->ids['manager']),
             'motif obligatoire'
         );
         $this->assertSame(
             '',
-            PluginGrcmanagerAccessReview::decide($bobLine, 'remove', 'A quitté le support', $this->ids['manager'])
+            \GlpiPlugin\Grcmanager\AccessReview::decide(
+                $bobLine,
+                'remove',
+                'A quitté le support',
+                $this->ids['manager']
+            )
         );
 
         $line = $this->linesByUser($campaign->getID())[$this->ids['bob']];
@@ -126,11 +131,11 @@ final class AccessReviewTest extends GrcmanagerIntegrationTestCase
         );
         $this->assertNotSame(
             '',
-            PluginGrcmanagerAccessReview::decide($bobLine, 'keep', '', $this->ids['manager']),
+            \GlpiPlugin\Grcmanager\AccessReview::decide($bobLine, 'keep', '', $this->ids['manager']),
             'ligne figée une fois le ticket créé'
         );
 
-        $this->assertSame('', PluginGrcmanagerAccessReview::decide(
+        $this->assertSame('', \GlpiPlugin\Grcmanager\AccessReview::decide(
             $lines[$this->ids['alice']]['id'],
             'keep',
             '',
@@ -150,7 +155,7 @@ final class AccessReviewTest extends GrcmanagerIntegrationTestCase
             ['due_date' => date('Y-m-d', strtotime('-2 days'))],
             ['id' => $campaign->getID()]
         );
-        PluginGrcmanagerAccessReview::decide(
+        \GlpiPlugin\Grcmanager\AccessReview::decide(
             $this->linesByUser($campaign->getID())[$this->ids['alice']]['id'],
             'keep',
             '',
@@ -159,11 +164,11 @@ final class AccessReviewTest extends GrcmanagerIntegrationTestCase
 
         $this->assertSame(
             2,
-            PluginGrcmanagerAccessReview::sendReminders(date('Y-m-d')),
+            \GlpiPlugin\Grcmanager\AccessReview::sendReminders(date('Y-m-d')),
             'Bob et Oscar restent à revoir'
         );
-        $this->assertSame(0, PluginGrcmanagerAccessReview::sendReminders(date('Y-m-d')));
-        $this->assertSame(2, PluginGrcmanagerAccessReview::sendReminders(date('Y-m-d', strtotime('+7 days'))));
+        $this->assertSame(0, \GlpiPlugin\Grcmanager\AccessReview::sendReminders(date('Y-m-d')));
+        $this->assertSame(2, \GlpiPlugin\Grcmanager\AccessReview::sendReminders(date('Y-m-d', strtotime('+7 days'))));
     }
 
     public function testClosingArchivesTheReportOnTheCampaignOnly(): void
@@ -178,7 +183,7 @@ final class AccessReviewTest extends GrcmanagerIntegrationTestCase
         $this->assertGreaterThan(0, $documentsId);
         $this->assertSame(1, countElementsInTable(Document_Item::getTable(), [
             'documents_id' => $documentsId,
-            'itemtype'     => PluginGrcmanagerAccessReview::class,
+            'itemtype'     => \GlpiPlugin\Grcmanager\AccessReview::class,
             'items_id'     => $campaign->getID(),
         ]));
         // Revue de sécurité 2.11.0 : jamais lié à la mesure A.5.18 (globale), non récursif, et
@@ -191,13 +196,13 @@ final class AccessReviewTest extends GrcmanagerIntegrationTestCase
         $this->assertTrue($document->getFromDB($documentsId));
         $this->assertSame(0, (int) $document->fields['is_recursive']);
         $this->assertSame(
-            ['itemtype' => PluginGrcmanagerAccessReview::class, 'items_id' => $campaign->getID()],
+            ['itemtype' => \GlpiPlugin\Grcmanager\AccessReview::class, 'items_id' => $campaign->getID()],
             \PluginGrcmanagerRestrictedDocument::sourceOf($documentsId)
         );
         $this->assertFalse($campaign->close());
 
         $nextId = $campaign->prepareNext();
-        $next = new PluginGrcmanagerAccessReview();
+        $next = new \GlpiPlugin\Grcmanager\AccessReview();
         $this->assertTrue($next->getFromDB($nextId));
         $this->assertSame('draft', $next->fields['status']);
         $this->assertSame(
