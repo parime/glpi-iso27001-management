@@ -7,6 +7,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.17.0] - 2026-10-28
+
 ### Added
 
 - **Sécurité des systèmes d'IA, ISO/IEC 27090:2026** :
@@ -21,6 +23,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
     ISO/IEC 27090 et leurs mesures de l'Annexe A.
   Texte de la norme protégé : seuls les numéros de section sont repris, résumés et
   correspondances sont rédigés par ce projet. Traduit dans les 6 langues.
+- Quatre nouvelles langues : allemand (`de_DE`), espagnol (`es_ES`), italien (`it_IT`) et
+  portugais du Brésil (`pt_BR`), en plus du français et de l'anglais.
 
 ### Changed
 
@@ -32,21 +36,17 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   (non-conformités, preuves, formations, politiques, actions de traitement, revues, incidents de
   sécurité, approbation de la SoA, revue des accès) passent par un gabarit Twig. Le contenu est
   le même, à l'encodage près des apostrophes et guillemets (`&#039;`, `&quot;`).
-- Classes dans `src/` (convention GLPI, #293, étape 2), par familles : dérogations, puis
-  conformité (politiques, obligations, calendrier de conformité, preuves), risques (registre,
-  actions de traitement, risques fournisseurs et questionnaire, analyse d'impact, liens de
-  causalité), audits (audits internes, équipe d'audit, audit de conformité technique,
-  non-conformités, revue de direction), opérations (revues des accès, hygiène des comptes,
-  formations, quiz et sessions, exercices de crise), sécurité technique (veille, vulnérabilités du
-  parc, produits et références CPE, flux réseau, classification des actifs), incidents de sécurité
-  hors objet ITIL (CVE liées, rapport post-incident, lien avec les tickets), SMSI (mesures et SoA,
-  règles de couverture, exigences, objectifs et mesures, maturité, revues périodiques,
-  référentiels, catalogue de risques), socle (menu, onglet des profils, aide des pages, tableau
-  de bord, documents restreints et journal de leurs téléchargements). L'incident lui-même
-  et ses classes ITIL gardent leur nom historique : GLPI en dérive les balises des e-mails. Par exemple
-  `PluginGrcmanagerWaiver` devient `GlpiPlugin\Grcmanager\Waiver`. La mise à jour renomme les
-  types stockés en base (notifications, modèles, préférences d'affichage, tâche planifiée,
-  documents, journaux, recherches enregistrées) ; l'ancien nom reste utilisable comme alias.
+- Classes dans `src/` (convention GLPI, #293) : 60 classes changent de nom, par exemple
+  `PluginGrcmanagerRisk` devient `GlpiPlugin\Grcmanager\Risk`. Rien ne change à l'écran.
+  - La mise à jour renomme les types stockés en base : notifications et modèles, préférences
+    d'affichage, tâches planifiées, documents liés, historique, journal des événements,
+    recherches enregistrées. Les tables gardent leur nom et aucune donnée n'est perdue (une
+    ligne présente sous les deux noms ne garde que sa version au nouveau nom).
+  - L'ancien nom reste utilisable comme alias (scripts, autres plugins), pour une durée
+    limitée : passez au nouveau nom.
+  - L'incident de sécurité et ses classes ITIL (acteurs, tâches, coûts, gabarits, règles,
+    notifications) gardent leur nom historique : GLPI en dérive les balises des modèles
+    d'e-mail, les modèles personnalisés continuent donc de fonctionner.
 
 ### Fixed
 
