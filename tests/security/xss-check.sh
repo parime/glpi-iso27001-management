@@ -62,7 +62,7 @@ check "onglet couts d'un incident"            "$(tab PluginGrcmanagerSecurityInc
 check "onglet mesures d'un objectif"          "$(tab PluginGrcmanagerObjective 'PluginGrcmanagerObjectiveMeasurement$1' "$(xid objective)")"
 check "onglet references CPE d'un produit"    "$(tab PluginGrcmanagerCanonicalProduct 'PluginGrcmanagerCpeReference$1' "$(xid product)")"
 check "onglet alias d'un produit"             "$(tab PluginGrcmanagerCanonicalProduct 'PluginGrcmanagerProductAlias$1' "$(xid product)")"
-check "onglet validites des preuves"          "$(tab PluginGrcmanagerPolicy 'PluginGrcmanagerEvidence$1' "$(id policy_A)")"
+check "onglet validites des preuves"          "$(tab 'GlpiPlugin%5CGrcmanager%5CPolicy' 'GlpiPlugin%5CGrcmanager%5CEvidence$1' "$(id policy_A)")"
 
 rm -f "$JAR"
 if [ "$RENDERED" -lt 10 ]; then

@@ -3219,7 +3219,13 @@ final class Installer
     {
         global $DB;
 
-        $pluginItemtype = ['LIKE', 'PluginGrcmanager%'];
+        // Types du plugin : anciens noms PluginGrcmanagerX et classes passées dans src/ (#293),
+        // listées exactement (un LIKE sur « GlpiPlugin\Grcmanager\ » dépendrait de l'échappement
+        // de l'antislash, caractère d'échappement de LIKE).
+        $byItemtype = static fn (string $column): array => ['OR' => [
+            [$column => ['LIKE', 'PluginGrcmanager%']],
+            [$column => array_values(ItemtypeRenames::MAP)],
+        ]];
         // Rapports générés (audit, revue des accès, post-incident, crise) : sans le plugin, plus
         // rien ne limiterait leur lecture à l'audience de l'objet source, qui disparaît.
         if ($DB->tableExists(self::RESTRICTED_DOCUMENTS_TABLE)) {
@@ -3233,14 +3239,14 @@ final class Installer
             \QueuedNotification::class,
         ];
         foreach ($classes as $class) {
-            (new $class())->deleteByCriteria(['itemtype' => $pluginItemtype], true);
+            (new $class())->deleteByCriteria($byItemtype('itemtype'), true);
         }
         (new \Rule())->deleteByCriteria(['sub_type' => ['LIKE', 'RulePluginGrcmanager%']], true);
-        $DB->delete('glpi_notepads', ['itemtype' => $pluginItemtype]);
-        $DB->delete('glpi_savedsearches', ['itemtype' => $pluginItemtype]);
+        $DB->delete('glpi_notepads', $byItemtype('itemtype'));
+        $DB->delete('glpi_savedsearches', $byItemtype('itemtype'));
         // Réglages du plugin (groupe RSSI, dates de synchronisation KEV et CERT-FR…).
         $DB->delete('glpi_configs', ['context' => 'plugin:grcmanager']);
-        $DB->delete('glpi_logs', ['OR' => [['itemtype' => $pluginItemtype], ['itemtype_link' => $pluginItemtype]]]);
+        $DB->delete('glpi_logs', ['OR' => [$byItemtype('itemtype'), $byItemtype('itemtype_link')]]);
     }
 
     /**
