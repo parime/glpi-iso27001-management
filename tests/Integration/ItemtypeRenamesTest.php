@@ -67,6 +67,18 @@ final class ItemtypeRenamesTest extends GrcmanagerIntegrationTestCase
             'new_value'        => 'PHPUnit migration',
         ]);
         $logId = (int) $DB->insertId();
+        $events = [];
+        foreach (['PluginGrcmanagerRisk', 'PluginGrcmanagerRiskCatalog', 'system'] as $type) {
+            $DB->insert('glpi_events', [
+                'items_id' => 1,
+                'type'     => $type,
+                'date'     => '2026-10-28 12:00:00',
+                'service'  => 'grcmanager',
+                'level'    => 4,
+                'message'  => 'PHPUnit migration',
+            ]);
+            $events[$type] = (int) $DB->insertId();
+        }
         $risk = $this->savedSearch('PluginGrcmanagerRisk');
         $action = $this->savedSearch('PluginGrcmanagerRiskTreatmentAction');
         // Classe restée dans inc/ dont le nom commence par un ancien nom : ne doit pas changer.
@@ -79,6 +91,17 @@ final class ItemtypeRenamesTest extends GrcmanagerIntegrationTestCase
         $log = $DB->request(['FROM' => 'glpi_logs', 'WHERE' => ['id' => $logId]])->current();
         $this->assertSame(\GlpiPlugin\Grcmanager\Risk::class, $log['itemtype']);
         $this->assertSame('PHPUnit migration', $log['new_value']);
+
+        // Journal des événements : seul le type renommé change.
+        $types = [];
+        foreach ($events as $old => $id) {
+            $types[$old] = $DB->request(['FROM' => 'glpi_events', 'WHERE' => ['id' => $id]])->current()['type'];
+        }
+        $this->assertSame([
+            'PluginGrcmanagerRisk'        => \GlpiPlugin\Grcmanager\Risk::class,
+            'PluginGrcmanagerRiskCatalog' => 'PluginGrcmanagerRiskCatalog',
+            'system'                      => 'system',
+        ], $types);
 
         $this->assertSame([
             'itemtype' => \GlpiPlugin\Grcmanager\Risk::class,
