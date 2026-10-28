@@ -197,7 +197,7 @@ final class AccessReviewTest extends GrcmanagerIntegrationTestCase
         $this->assertSame(0, (int) $document->fields['is_recursive']);
         $this->assertSame(
             ['itemtype' => \GlpiPlugin\Grcmanager\AccessReview::class, 'items_id' => $campaign->getID()],
-            \PluginGrcmanagerRestrictedDocument::sourceOf($documentsId)
+            \GlpiPlugin\Grcmanager\RestrictedDocument::sourceOf($documentsId)
         );
         $this->assertFalse($campaign->close());
 

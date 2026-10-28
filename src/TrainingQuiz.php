@@ -23,7 +23,7 @@ use Dropdown;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Services\Training\TrainingScore;
 use Html;
-use PluginGrcmanagerRestrictedDocument;
+use GlpiPlugin\Grcmanager\RestrictedDocument;
 use GlpiPlugin\Grcmanager\Training;
 use Preference;
 use Session;
@@ -33,7 +33,7 @@ use Session;
  *
  * Une copie est une donnée personnelle : elle ne se lit que par le participant lui-même, le
  * formateur de la session et le groupe RSSI (configuration du plugin). Le document est inscrit
- * au registre PluginGrcmanagerRestrictedDocument avec pour source la ligne de participation, et
+ * au registre RestrictedDocument avec pour source la ligne de participation, et
  * n'est rattaché à aucun objet : il n'apparaît dans aucune liste de documents.
  *
  * Un participant n'a en général ni le droit Documents de GLPI ni le droit du plugin : il lit sa
@@ -132,7 +132,7 @@ class TrainingQuiz extends CommonGLPI
         if ($documentsId <= 0) {
             return 0;
         }
-        PluginGrcmanagerRestrictedDocument::registerFor($documentsId, self::class, $participationId);
+        RestrictedDocument::registerFor($documentsId, self::class, $participationId);
         self::purgeDocument($participation['documents_id']);
         $DB->update(self::TABLE, ['documents_id' => $documentsId], ['id' => $participationId]);
 

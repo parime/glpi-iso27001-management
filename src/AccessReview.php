@@ -33,8 +33,8 @@ use Html;
 use Log;
 use NotificationEvent;
 use GlpiPlugin\Grcmanager\Control;
-use PluginGrcmanagerMenu;
-use PluginGrcmanagerRestrictedDocument;
+use GlpiPlugin\Grcmanager\Menu;
+use GlpiPlugin\Grcmanager\RestrictedDocument;
 use Profile;
 use Profile_User;
 use Session;
@@ -84,7 +84,7 @@ class AccessReview extends AccessReviewBase
     /** Rubrique « Revues des accès » : les campagnes et l'hygiène des comptes. */
     /**
      * Rubrique « Opérations » : revues des accès, hygiène des comptes, revues périodiques,
-     * formations et exercices de crise (PluginGrcmanagerMenu::sections()).
+     * formations et exercices de crise (Menu::sections()).
      */
     public static function getMenuContent()
     {
@@ -94,7 +94,7 @@ class AccessReview extends AccessReviewBase
             $menu['title'] = __('Operations', 'grcmanager');
         }
 
-        return PluginGrcmanagerMenu::withSubPages(self::class, $menu);
+        return Menu::withSubPages(self::class, $menu);
     }
 
     /**
@@ -792,7 +792,7 @@ class AccessReview extends AccessReviewBase
             'itemtype'     => self::class,
             'items_id'     => $this->getID(),
         ]);
-        PluginGrcmanagerRestrictedDocument::register($documentsId, $this);
+        RestrictedDocument::register($documentsId, $this);
 
         return $documentsId;
     }

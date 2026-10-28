@@ -40,8 +40,11 @@ Html::header(
 );
 // Encadré « À quoi sert cette page ? ».
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(\GlpiPlugin\Grcmanager\Control::class, \GlpiPlugin\Grcmanager\Referentials::class);
-PluginGrcmanagerPageHelp::show('referentiels');
+\GlpiPlugin\Grcmanager\Menu::showSection(
+    \GlpiPlugin\Grcmanager\Control::class,
+    \GlpiPlugin\Grcmanager\Referentials::class
+);
+\GlpiPlugin\Grcmanager\PageHelp::show('referentiels');
 
 $titles = \GlpiPlugin\Grcmanager\Control::getControlTitles();
 $themes = \GlpiPlugin\Grcmanager\Control::getThemes();

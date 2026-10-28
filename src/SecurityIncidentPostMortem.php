@@ -30,7 +30,7 @@ use GlpiPlugin\Grcmanager\Services\Incident\RegulatoryDeadlines;
 use Html;
 use ITILFollowup;
 use ITILSolution;
-use PluginGrcmanagerRestrictedDocument;
+use GlpiPlugin\Grcmanager\RestrictedDocument;
 use PluginGrcmanagerSecurityIncident;
 use PluginGrcmanagerSecurityIncident_Item;
 use PluginGrcmanagerSecurityIncidentCost;
@@ -273,7 +273,7 @@ class SecurityIncidentPostMortem extends CommonGLPI
             'itemtype'     => PluginGrcmanagerSecurityIncident::class,
             'items_id'     => $incident->getID(),
         ]);
-        PluginGrcmanagerRestrictedDocument::register($documentsId, $incident);
+        RestrictedDocument::register($documentsId, $incident);
 
         return $documentsId;
     }

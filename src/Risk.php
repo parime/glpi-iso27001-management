@@ -30,7 +30,7 @@ use GlpiPlugin\Grcmanager\Services\Risk\TreatmentPlanRules;
 use GlpiPlugin\Grcmanager\Traits\RiskAssessmentTrait;
 use Log;
 use GlpiPlugin\Grcmanager\AssetClassification;
-use PluginGrcmanagerMenu;
+use GlpiPlugin\Grcmanager\Menu;
 use GlpiPlugin\Grcmanager\RiskTreatmentAction;
 use Session;
 use User;
@@ -102,11 +102,11 @@ class Risk extends RiskBase
 
     /**
      * Rubrique « Risques » du menu : risques fournisseurs, analyse d'impact, effet domino et
-     * dérogations en sous-pages (PluginGrcmanagerMenu::sections()).
+     * dérogations en sous-pages (Menu::sections()).
      */
     public static function getMenuContent()
     {
-        return PluginGrcmanagerMenu::withSubPages(self::class, parent::getMenuContent());
+        return Menu::withSubPages(self::class, parent::getMenuContent());
     }
 
     /**

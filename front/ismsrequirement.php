@@ -31,9 +31,12 @@ Html::header(
     \GlpiPlugin\Grcmanager\IsmsRequirement::class
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(\GlpiPlugin\Grcmanager\Control::class, \GlpiPlugin\Grcmanager\IsmsRequirement::class);
+\GlpiPlugin\Grcmanager\Menu::showSection(
+    \GlpiPlugin\Grcmanager\Control::class,
+    \GlpiPlugin\Grcmanager\IsmsRequirement::class
+);
 // Encadré « À quoi sert cette page ? ».
-PluginGrcmanagerPageHelp::show('ismsrequirement');
+\GlpiPlugin\Grcmanager\PageHelp::show('ismsrequirement');
 
 // Issue #113 : en-tête explicatif + barre de complétude du SMSI (articles 4 à 10), au-dessus de la
 // liste standard. Une seule barre empilée : conforme / en cours / non commencé.

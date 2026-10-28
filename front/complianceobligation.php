@@ -30,12 +30,12 @@ Html::header(
     \GlpiPlugin\Grcmanager\ComplianceObligation::class
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(
+\GlpiPlugin\Grcmanager\Menu::showSection(
     \GlpiPlugin\Grcmanager\Control::class,
     \GlpiPlugin\Grcmanager\ComplianceObligation::class
 );
 // Encadré « À quoi sert cette page ? ».
-PluginGrcmanagerPageHelp::show('complianceobligation');
+\GlpiPlugin\Grcmanager\PageHelp::show('complianceobligation');
 
 // Same URL-driven search fix already applied to every list of this plugin (see
 // front/risk.php's own docblock for the full explanation): Search::showList() needs $_GET merged

@@ -15,8 +15,15 @@
  * -------------------------------------------------------------------------
  */
 
+namespace GlpiPlugin\Grcmanager;
+
+use CommonGLPI;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Install\Installer;
+use PluginGrcmanagerSecurityIncident;
+use Profile as GlpiProfile;
+use RulePluginGrcmanagerSecurityIncident;
+use Session;
 
 /**
  * Onglet « GRC Manager » des profils GLPI : donner les droits du plugin à un profil.
@@ -26,7 +33,7 @@ use GlpiPlugin\Grcmanager\Install\Installer;
  * et le formulaire est envoyé à front/profile.form.php, qui enregistre lui-même les droits avec
  * le contrôle du droit « profile » du cœur.
  */
-class PluginGrcmanagerProfile extends CommonGLPI
+class Profile extends CommonGLPI
 {
     public function getTabNameForItem(CommonGLPI $item, $withtemplate = 0)
     {
@@ -109,9 +116,10 @@ class PluginGrcmanagerProfile extends CommonGLPI
      */
     private static function canManage(CommonGLPI $item): bool
     {
-        return $item instanceof Profile && !$item->isNewItem()
+        // GlpiProfile : le profil du cœur et son droit « profile », pas cette classe (même nom court).
+        return $item instanceof GlpiProfile && !$item->isNewItem()
             && ($item->fields['interface'] ?? '') === 'central'
-            && Profile::canView()
+            && GlpiProfile::canView()
             && Session::haveRight(Installer::RIGHT_NAME, READ);
     }
 }

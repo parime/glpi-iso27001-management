@@ -30,9 +30,9 @@ Html::header(
     \GlpiPlugin\Grcmanager\Policy::class
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(\GlpiPlugin\Grcmanager\Control::class, \GlpiPlugin\Grcmanager\Policy::class);
+\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\Control::class, \GlpiPlugin\Grcmanager\Policy::class);
 // Encadré « À quoi sert cette page ? ».
-PluginGrcmanagerPageHelp::show('policy');
+\GlpiPlugin\Grcmanager\PageHelp::show('policy');
 
 // Same $_GET merge as front/risk.php: Search::showList() (unlike Search::show()) doesn't merge
 // $_GET itself, needed here too so sort/pagination/filter links on this list actually work, see

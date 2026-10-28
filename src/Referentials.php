@@ -21,7 +21,7 @@ use CommonGLPI;
 use Session;
 
 /**
- * Simple ancre sans table ni CommonDBTM, même convention que PluginGrcmanagerMenu (voir son propre
+ * Simple ancre sans table ni CommonDBTM, même convention que Menu (voir son propre
  * docblock) : ne sert qu'à donner une entrée de menu propre à front/referentiels.php (ROADMAP.md
  * "Version 2.2", bibliothèque de contrôles étendue) — un écran purement consultatif, sans
  * CommonDBTM ni table qui lui soit propre.

@@ -28,13 +28,16 @@ Html::header(
     \GlpiPlugin\Grcmanager\ComplianceEvent::getTypeName(2),
     \GlpiPlugin\Grcmanager\ComplianceEvent::getSearchURL(),
     'grcmanager',
-    PluginGrcmanagerDashboard::class,
+    \GlpiPlugin\Grcmanager\Dashboard::class,
     \GlpiPlugin\Grcmanager\ComplianceEvent::class
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(PluginGrcmanagerDashboard::class, \GlpiPlugin\Grcmanager\ComplianceEvent::class);
+\GlpiPlugin\Grcmanager\Menu::showSection(
+    \GlpiPlugin\Grcmanager\Dashboard::class,
+    \GlpiPlugin\Grcmanager\ComplianceEvent::class
+);
 // Encadré « À quoi sert cette page ? ».
-PluginGrcmanagerPageHelp::show('complianceevent');
+\GlpiPlugin\Grcmanager\PageHelp::show('complianceevent');
 
 $calendarUrl = \GlpiPlugin\Grcmanager\ComplianceEvent::getCalendarURL();
 TemplateRenderer::getInstance()->display('@grcmanager/_list_toolbar.html.twig', [

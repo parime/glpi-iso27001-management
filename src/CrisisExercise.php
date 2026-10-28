@@ -31,7 +31,7 @@ use Html;
 use ITILFollowup;
 use Planning;
 use GlpiPlugin\Grcmanager\Control;
-use PluginGrcmanagerRestrictedDocument;
+use GlpiPlugin\Grcmanager\RestrictedDocument;
 use PluginGrcmanagerSecurityIncident;
 use PluginGrcmanagerSecurityIncident_Item;
 use PluginGrcmanagerSecurityIncidentTask;
@@ -662,7 +662,7 @@ class CrisisExercise extends CrisisExerciseBase
         }
         $incident = new PluginGrcmanagerSecurityIncident();
         if ($incident->getFromDB((int) $this->fields['plugin_grcmanager_securityincidents_id'])) {
-            PluginGrcmanagerRestrictedDocument::register($documentsId, $incident);
+            RestrictedDocument::register($documentsId, $incident);
         }
         $this->update(['id' => $this->getID(), 'documents_id' => $documentsId]);
 

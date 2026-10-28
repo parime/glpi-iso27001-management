@@ -31,11 +31,11 @@ Html::header(
 );
 // Encadré « À quoi sert cette page ? ».
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(
+\GlpiPlugin\Grcmanager\Menu::showSection(
     \GlpiPlugin\Grcmanager\ComplianceAudit::class,
     \GlpiPlugin\Grcmanager\CanonicalProduct::class
 );
-PluginGrcmanagerPageHelp::show('canonicalproduct');
+\GlpiPlugin\Grcmanager\PageHelp::show('canonicalproduct');
 
 // Same URL-driven search fix as front/risk.php/front/objective.php, see front/risk.php's own
 // docblock for the full rationale.

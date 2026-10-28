@@ -51,7 +51,7 @@ Html::header(
     \GlpiPlugin\Grcmanager\Risk::class
 );
 // Encadré « À quoi sert cette page ? ».
-PluginGrcmanagerPageHelp::show('riskcatalog');
+\GlpiPlugin\Grcmanager\PageHelp::show('riskcatalog');
 
 $controlIds = [];
 foreach ((new \GlpiPlugin\Grcmanager\Control())->find() as $control) {

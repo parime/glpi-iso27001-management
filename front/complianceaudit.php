@@ -92,12 +92,12 @@ Html::header(
     \GlpiPlugin\Grcmanager\ComplianceAudit::class
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(
+\GlpiPlugin\Grcmanager\Menu::showSection(
     \GlpiPlugin\Grcmanager\ComplianceAudit::class,
     \GlpiPlugin\Grcmanager\ComplianceAudit::class
 );
 // Encadré « À quoi sert cette page ? ».
-PluginGrcmanagerPageHelp::show('complianceaudit');
+\GlpiPlugin\Grcmanager\PageHelp::show('complianceaudit');
 TemplateRenderer::getInstance()->display('@grcmanager/compliance_audit.html.twig', [
     'scores'       => $scores,
     'checks'       => $checks,

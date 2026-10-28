@@ -74,8 +74,11 @@ Html::header(
 );
 // Encadré « À quoi sert cette page ? ».
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(\GlpiPlugin\Grcmanager\Risk::class, \GlpiPlugin\Grcmanager\ImpactAnalysis::class);
-PluginGrcmanagerPageHelp::show('impactanalysis');
+\GlpiPlugin\Grcmanager\Menu::showSection(
+    \GlpiPlugin\Grcmanager\Risk::class,
+    \GlpiPlugin\Grcmanager\ImpactAnalysis::class
+);
+\GlpiPlugin\Grcmanager\PageHelp::show('impactanalysis');
 
 TemplateRenderer::getInstance()->display('@grcmanager/impact_spof.html.twig', [
     'points'     => \GlpiPlugin\Grcmanager\ImpactAnalysis::allSinglePoints(),

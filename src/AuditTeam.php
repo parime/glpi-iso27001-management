@@ -36,7 +36,7 @@ use Session;
  * - le groupe RSSI de la configuration du plugin, qui accède aux documents de tous les audits.
  *
  * Personne d'autre ne lit les documents de l'audit, même avec le droit Documents de GLPI
- * (PluginGrcmanagerRestrictedDocument).
+ * (RestrictedDocument).
  */
 class AuditTeam extends CommonGLPI
 {

@@ -21,8 +21,8 @@ namespace GlpiPlugin\Grcmanager\Tests\Integration;
 
 use GlpiPlugin\Grcmanager\Audit;
 use GlpiPlugin\Grcmanager\AuditTeam;
-use PluginGrcmanagerDocumentAccess;
-use PluginGrcmanagerRestrictedDocument;
+use GlpiPlugin\Grcmanager\DocumentAccess;
+use GlpiPlugin\Grcmanager\RestrictedDocument;
 
 /**
  * Issue #140 (phase 2) : documents d'audit réservés à l'équipe de l'audit et au groupe RSSI,
@@ -66,10 +66,10 @@ final class AuditDocumentAccessTest extends GrcmanagerIntegrationTestCase
 
         $this->assertSame(
             ['itemtype' => \GlpiPlugin\Grcmanager\Audit::class, 'items_id' => $auditId],
-            PluginGrcmanagerRestrictedDocument::sourceOf($documentsId)
+            \GlpiPlugin\Grcmanager\RestrictedDocument::sourceOf($documentsId)
         );
         // Super-Admin hors équipe : refusé malgré tous ses droits.
-        $this->assertFalse(PluginGrcmanagerRestrictedDocument::canReadSource($documentsId));
+        $this->assertFalse(\GlpiPlugin\Grcmanager\RestrictedDocument::canReadSource($documentsId));
 
         $this->assertTrue(
             \GlpiPlugin\Grcmanager\AuditTeam::addMember(
@@ -78,7 +78,7 @@ final class AuditDocumentAccessTest extends GrcmanagerIntegrationTestCase
                 \GlpiPlugin\Grcmanager\AuditTeam::ROLE_AUDITEE
             )
         );
-        $this->assertTrue(PluginGrcmanagerRestrictedDocument::canReadSource($documentsId));
+        $this->assertTrue(\GlpiPlugin\Grcmanager\RestrictedDocument::canReadSource($documentsId));
     }
 
     public function testAuditorAndResponsibleAreMembersFromTheForm(): void
@@ -103,7 +103,7 @@ final class AuditDocumentAccessTest extends GrcmanagerIntegrationTestCase
 
         $this->assertSame(
             ['itemtype' => \GlpiPlugin\Grcmanager\Audit::class, 'items_id' => $auditId],
-            PluginGrcmanagerRestrictedDocument::sourceOf($documentsId)
+            \GlpiPlugin\Grcmanager\RestrictedDocument::sourceOf($documentsId)
         );
     }
 
@@ -111,13 +111,13 @@ final class AuditDocumentAccessTest extends GrcmanagerIntegrationTestCase
     {
         $auditId = $this->audit($this->createTestUser('Alice', 'Auditrice'));
         $documentsId = $this->attach(\GlpiPlugin\Grcmanager\Audit::class, $auditId);
-        $this->assertFalse(PluginGrcmanagerRestrictedDocument::canReadSource($documentsId));
+        $this->assertFalse(\GlpiPlugin\Grcmanager\RestrictedDocument::canReadSource($documentsId));
 
         $groupsId = (int) (new \Group())->add(['name' => 'RSSI #140', 'entities_id' => 0]);
         (new \Group_User())->add(['groups_id' => $groupsId, 'users_id' => self::SESSION_USER]);
         \GlpiPlugin\Grcmanager\AuditTeam::setCisoGroupId($groupsId);
 
-        $this->assertTrue(PluginGrcmanagerRestrictedDocument::canReadSource($documentsId));
+        $this->assertTrue(\GlpiPlugin\Grcmanager\RestrictedDocument::canReadSource($documentsId));
     }
 
     public function testAlreadyRestrictedDocumentKeepsItsSourceWhenJoinedToAnAudit(): void
@@ -127,7 +127,7 @@ final class AuditDocumentAccessTest extends GrcmanagerIntegrationTestCase
         $reviewId = (int) $review->add(['name' => 'Revue #140', 'entities_id' => 0]);
         $documentsId = (int) (new \Document())->add(['name' => 'Rapport de revue', 'entities_id' => 0]);
         $this->assertTrue($review->getFromDB($reviewId));
-        PluginGrcmanagerRestrictedDocument::register($documentsId, $review);
+        \GlpiPlugin\Grcmanager\RestrictedDocument::register($documentsId, $review);
 
         (new \Document_Item())->add([
             'documents_id' => $documentsId,
@@ -135,7 +135,7 @@ final class AuditDocumentAccessTest extends GrcmanagerIntegrationTestCase
             'items_id'     => $auditId,
         ]);
 
-        $source = PluginGrcmanagerRestrictedDocument::sourceOf($documentsId);
+        $source = \GlpiPlugin\Grcmanager\RestrictedDocument::sourceOf($documentsId);
         $this->assertSame(\GlpiPlugin\Grcmanager\AccessReview::class, $source['itemtype'] ?? null);
     }
 
@@ -143,14 +143,14 @@ final class AuditDocumentAccessTest extends GrcmanagerIntegrationTestCase
     {
         $auditId = $this->audit(self::SESSION_USER);
         $documentsId = $this->attach(\GlpiPlugin\Grcmanager\Audit::class, $auditId);
-        PluginGrcmanagerDocumentAccess::log(
+        \GlpiPlugin\Grcmanager\DocumentAccess::log(
             $documentsId,
             \GlpiPlugin\Grcmanager\Audit::class,
             $auditId,
             self::SESSION_USER
         );
 
-        $accesses = PluginGrcmanagerDocumentAccess::getAccesses(\GlpiPlugin\Grcmanager\Audit::class, $auditId);
+        $accesses = \GlpiPlugin\Grcmanager\DocumentAccess::getAccesses(\GlpiPlugin\Grcmanager\Audit::class, $auditId);
         $this->assertCount(1, $accesses);
         $this->assertSame($documentsId, $accesses[0]['documents_id']);
 
@@ -159,7 +159,7 @@ final class AuditDocumentAccessTest extends GrcmanagerIntegrationTestCase
         (new \GlpiPlugin\Grcmanager\Audit())->delete(['id' => $auditId], true);
         $this->assertSame(
             [],
-            PluginGrcmanagerDocumentAccess::getAccesses(\GlpiPlugin\Grcmanager\Audit::class, $auditId)
+            \GlpiPlugin\Grcmanager\DocumentAccess::getAccesses(\GlpiPlugin\Grcmanager\Audit::class, $auditId)
         );
         $this->assertSame([], \GlpiPlugin\Grcmanager\AuditTeam::getMembers($auditId));
     }
@@ -170,10 +170,10 @@ final class AuditDocumentAccessTest extends GrcmanagerIntegrationTestCase
         try {
             $_SERVER['REQUEST_URI'] = '/front/document.send.php?docid=42';
             $_GET['docid'] = '42';
-            $this->assertTrue(PluginGrcmanagerDocumentAccess::isDownloadOf(42));
-            $this->assertFalse(PluginGrcmanagerDocumentAccess::isDownloadOf(43));
+            $this->assertTrue(\GlpiPlugin\Grcmanager\DocumentAccess::isDownloadOf(42));
+            $this->assertFalse(\GlpiPlugin\Grcmanager\DocumentAccess::isDownloadOf(43));
             $_SERVER['REQUEST_URI'] = '/front/document.form.php?id=42';
-            $this->assertFalse(PluginGrcmanagerDocumentAccess::isDownloadOf(42));
+            $this->assertFalse(\GlpiPlugin\Grcmanager\DocumentAccess::isDownloadOf(42));
         } finally {
             [$_SERVER['REQUEST_URI'], $_GET['docid']] = $saved;
         }
@@ -182,7 +182,7 @@ final class AuditDocumentAccessTest extends GrcmanagerIntegrationTestCase
     public function testAuditHasNotesAndTheProfileTabOffersNoteRights(): void
     {
         $this->assertArrayHasKey(READNOTE, (new \GlpiPlugin\Grcmanager\Audit())->getRights());
-        $rights = \PluginGrcmanagerProfile::getRightsMatrix()[0]['rights'];
+        $rights = \GlpiPlugin\Grcmanager\Profile::getRightsMatrix()[0]['rights'];
         $this->assertArrayHasKey(READNOTE, $rights);
         $this->assertArrayHasKey(UPDATENOTE, $rights);
     }

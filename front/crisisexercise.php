@@ -56,12 +56,12 @@ Html::header(
     \GlpiPlugin\Grcmanager\CrisisExercise::class
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(
+\GlpiPlugin\Grcmanager\Menu::showSection(
     \GlpiPlugin\Grcmanager\AccessReview::class,
     \GlpiPlugin\Grcmanager\CrisisExercise::class
 );
 // Encadré « À quoi sert cette page ? ».
-PluginGrcmanagerPageHelp::show('crisisexercise');
+\GlpiPlugin\Grcmanager\PageHelp::show('crisisexercise');
 TemplateRenderer::getInstance()->display('@grcmanager/crisis_exercises.html.twig', [
     'scenarios'  => $scenarios,
     'history'    => \GlpiPlugin\Grcmanager\CrisisExercise::history(),

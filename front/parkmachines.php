@@ -29,12 +29,15 @@ Html::header(
     \GlpiPlugin\Grcmanager\ParkVulnerability::getRankingURL(),
     'grcmanager',
     \GlpiPlugin\Grcmanager\ComplianceAudit::class,
-    PluginGrcmanagerMenu::MACHINE_RANKING
+    \GlpiPlugin\Grcmanager\Menu::MACHINE_RANKING
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(\GlpiPlugin\Grcmanager\ComplianceAudit::class, PluginGrcmanagerMenu::MACHINE_RANKING);
+\GlpiPlugin\Grcmanager\Menu::showSection(
+    \GlpiPlugin\Grcmanager\ComplianceAudit::class,
+    \GlpiPlugin\Grcmanager\Menu::MACHINE_RANKING
+);
 // Encadré « À quoi sert cette page ? ».
-PluginGrcmanagerPageHelp::show('parkmachines');
+\GlpiPlugin\Grcmanager\PageHelp::show('parkmachines');
 
 $ranking = \GlpiPlugin\Grcmanager\ParkVulnerability::getMachineRanking();
 TemplateRenderer::getInstance()->display('@grcmanager/park_machines.html.twig', [

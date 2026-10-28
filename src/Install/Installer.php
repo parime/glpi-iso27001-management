@@ -192,11 +192,11 @@ final class Installer
     private const SECURITY_INCIDENT_CONFIG_TABLE = 'glpi_plugin_grcmanager_securityincidentconfig';
     // Issue #145 : validité des documents de preuve, voir \GlpiPlugin\Grcmanager\Evidence.
     private const EVIDENCES_TABLE = 'glpi_plugin_grcmanager_evidences';
-    // Voir \PluginGrcmanagerRestrictedDocument::TABLE.
+    // Voir \\GlpiPlugin\Grcmanager\RestrictedDocument::TABLE.
     private const RESTRICTED_DOCUMENTS_TABLE = 'glpi_plugin_grcmanager_restricteddocuments';
     // Issue #140 : équipe d'audit (auditeurs supplémentaires, audités), voir \GlpiPlugin\Grcmanager\AuditTeam.
     private const AUDITS_USERS_TABLE = 'glpi_plugin_grcmanager_audits_users';
-    // Issue #140 : téléchargements des documents restreints, voir PluginGrcmanagerDocumentAccess.
+    // Issue #140 : téléchargements des documents restreints, voir \GlpiPlugin\Grcmanager\DocumentAccess.
     private const DOCUMENT_ACCESSES_TABLE = 'glpi_plugin_grcmanager_documentaccesses';
     // Issue #141 : revues périodiques du SMSI, voir \GlpiPlugin\Grcmanager\PeriodicReview.
     private const PERIODIC_REVIEWS_TABLE = 'glpi_plugin_grcmanager_periodicreviews';
@@ -1183,7 +1183,7 @@ final class Installer
         }
 
         // Revue de sécurité 2.11.0 : rapports générés lisibles par la seule audience de leur
-        // objet source (PluginGrcmanagerRestrictedDocument).
+        // objet source (\GlpiPlugin\Grcmanager\RestrictedDocument).
         if (!$DB->tableExists(self::RESTRICTED_DOCUMENTS_TABLE)) {
             $query = "CREATE TABLE `" . self::RESTRICTED_DOCUMENTS_TABLE . "` (
                 `id` int {$keySign} NOT NULL AUTO_INCREMENT,

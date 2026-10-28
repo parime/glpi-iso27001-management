@@ -31,9 +31,12 @@ Html::header(
     \GlpiPlugin\Grcmanager\SupplierRisk::class
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(\GlpiPlugin\Grcmanager\Risk::class, \GlpiPlugin\Grcmanager\SupplierRisk::class);
+\GlpiPlugin\Grcmanager\Menu::showSection(
+    \GlpiPlugin\Grcmanager\Risk::class,
+    \GlpiPlugin\Grcmanager\SupplierRisk::class
+);
 // Encadré « À quoi sert cette page ? ».
-PluginGrcmanagerPageHelp::show('supplierrisk');
+\GlpiPlugin\Grcmanager\PageHelp::show('supplierrisk');
 
 // Owner-scoped default view, same shortcut as front/risk.php (search option id 8, see
 // \GlpiPlugin\Grcmanager\SupplierRisk::rawSearchOptions()).

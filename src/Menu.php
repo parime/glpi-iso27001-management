@@ -15,6 +15,11 @@
  * -------------------------------------------------------------------------
  */
 
+namespace GlpiPlugin\Grcmanager;
+
+use CommonGLPI;
+use Glpi\Application\View\TemplateRenderer;
+
 /**
  * Simple ancre sans table ni CommonDBTM : ne sert qu'à porter le titre et l'icône du menu de
  * premier niveau dédié "GRC & Conformité" (voir setup.php). GLPI core (Html::generateMenuSession())
@@ -23,7 +28,7 @@
  * valeur ; sans cette classe placée en tête du tableau, le titre du sector deviendrait celui du
  * premier écran fonctionnel (ex: "Risques") au lieu du nom du regroupement.
  */
-class PluginGrcmanagerMenu extends CommonGLPI
+class Menu extends CommonGLPI
 {
     public static function getMenuName()
     {
@@ -44,7 +49,7 @@ class PluginGrcmanagerMenu extends CommonGLPI
     {
         return [
             'title' => self::getMenuName(),
-            'page'  => PluginGrcmanagerDashboard::getSearchURL(false),
+            'page'  => Dashboard::getSearchURL(false),
             'icon'  => self::getIcon(),
         ];
     }
@@ -64,35 +69,35 @@ class PluginGrcmanagerMenu extends CommonGLPI
     {
         return [
             // Pilotage.
-            PluginGrcmanagerDashboard::class => [
-                \GlpiPlugin\Grcmanager\Maturity::class, \GlpiPlugin\Grcmanager\ComplianceEvent::class,
+            Dashboard::class => [
+                Maturity::class, ComplianceEvent::class,
             ],
             // Appréciation et traitement des risques.
-            \GlpiPlugin\Grcmanager\Risk::class => [
-                \GlpiPlugin\Grcmanager\SupplierRisk::class, \GlpiPlugin\Grcmanager\ImpactAnalysis::class,
-                \GlpiPlugin\Grcmanager\CausalLink::class, \GlpiPlugin\Grcmanager\Waiver::class,
+            Risk::class => [
+                SupplierRisk::class, ImpactAnalysis::class,
+                CausalLink::class, Waiver::class,
             ],
             // Conformité : SoA, référentiels, exigences du SMSI, obligations, politiques, preuves.
-            \GlpiPlugin\Grcmanager\Control::class => [
-                \GlpiPlugin\Grcmanager\Referentials::class, \GlpiPlugin\Grcmanager\IsmsRequirement::class,
-                \GlpiPlugin\Grcmanager\ComplianceObligation::class, \GlpiPlugin\Grcmanager\Policy::class,
-                \GlpiPlugin\Grcmanager\Evidence::class, \GlpiPlugin\Grcmanager\CoverageRule::class,
+            Control::class => [
+                Referentials::class, IsmsRequirement::class,
+                ComplianceObligation::class, Policy::class,
+                Evidence::class, CoverageRule::class,
             ],
             // Contrôle et amélioration continue (ISO 27001 chapitres 9 et 10).
-            \GlpiPlugin\Grcmanager\Audit::class => [
-                \GlpiPlugin\Grcmanager\Nonconformity::class, \GlpiPlugin\Grcmanager\Objective::class,
-                \GlpiPlugin\Grcmanager\ManagementReview::class,
+            Audit::class => [
+                Nonconformity::class, Objective::class,
+                ManagementReview::class,
             ],
             // Opérations récurrentes : accès, revues, personnes, continuité.
-            \GlpiPlugin\Grcmanager\AccessReview::class => [
-                \GlpiPlugin\Grcmanager\AccountHygiene::class, \GlpiPlugin\Grcmanager\PeriodicReview::class,
-                \GlpiPlugin\Grcmanager\Training::class, \GlpiPlugin\Grcmanager\CrisisExercise::class,
+            AccessReview::class => [
+                AccountHygiene::class, PeriodicReview::class,
+                Training::class, CrisisExercise::class,
             ],
             // Sécurité technique. Le parent ne demande que le droit du plugin : les vulnérabilités
             // (qui exigent aussi la lecture des logiciels) restent une sous-page parmi d'autres.
-            \GlpiPlugin\Grcmanager\ComplianceAudit::class => [
-                \GlpiPlugin\Grcmanager\ParkVulnerability::class, self::MACHINE_RANKING, self::SOFTWARE_WATCH,
-                \GlpiPlugin\Grcmanager\CanonicalProduct::class, \GlpiPlugin\Grcmanager\NetworkFlow::class,
+            ComplianceAudit::class => [
+                ParkVulnerability::class, self::MACHINE_RANKING, self::SOFTWARE_WATCH,
+                CanonicalProduct::class, NetworkFlow::class,
             ],
         ];
     }
@@ -106,16 +111,16 @@ class PluginGrcmanagerMenu extends CommonGLPI
     private static function subPageMenu(string $child): ?array
     {
         if ($child === self::SOFTWARE_WATCH) {
-            return \GlpiPlugin\Grcmanager\ParkVulnerability::canView() ? [
+            return ParkVulnerability::canView() ? [
                 'title' => __('Software to watch', 'grcmanager'),
                 'page'  => '/plugins/grcmanager/front/softwarewatch.php',
                 'icon'  => 'ti ti-radar',
             ] : null;
         }
         if ($child === self::MACHINE_RANKING) {
-            return \GlpiPlugin\Grcmanager\ParkVulnerability::canView() ? [
+            return ParkVulnerability::canView() ? [
                 'title' => __('Most exposed machines', 'grcmanager'),
-                'page'  => \GlpiPlugin\Grcmanager\ParkVulnerability::getRankingURL(false),
+                'page'  => ParkVulnerability::getRankingURL(false),
                 'icon'  => 'ti ti-device-desktop-exclamation',
             ] : null;
         }
@@ -177,7 +182,7 @@ class PluginGrcmanagerMenu extends CommonGLPI
                 'active' => $key === $active,
             ];
         }
-        Glpi\Application\View\TemplateRenderer::getInstance()->display(
+        TemplateRenderer::getInstance()->display(
             '@grcmanager/_section_nav.html.twig',
             ['tabs' => $tabs]
         );

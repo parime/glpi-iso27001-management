@@ -108,6 +108,14 @@ final class ItemtypeRenames
         'PluginGrcmanagerPeriodicReview'           => \GlpiPlugin\Grcmanager\PeriodicReview::class,
         'PluginGrcmanagerReferentials'             => \GlpiPlugin\Grcmanager\Referentials::class,
         'PluginGrcmanagerRiskCatalog'              => \GlpiPlugin\Grcmanager\RiskCatalog::class,
+        // Socle : menu, onglet des profils, aide des pages, tableau de bord, documents restreints et
+        // journal de leurs téléchargements.
+        'PluginGrcmanagerMenu'                     => \GlpiPlugin\Grcmanager\Menu::class,
+        'PluginGrcmanagerProfile'                  => \GlpiPlugin\Grcmanager\Profile::class,
+        'PluginGrcmanagerPageHelp'                 => \GlpiPlugin\Grcmanager\PageHelp::class,
+        'PluginGrcmanagerDashboard'                => \GlpiPlugin\Grcmanager\Dashboard::class,
+        'PluginGrcmanagerRestrictedDocument'       => \GlpiPlugin\Grcmanager\RestrictedDocument::class,
+        'PluginGrcmanagerDocumentAccess'           => \GlpiPlugin\Grcmanager\DocumentAccess::class,
     ];
 
     /**

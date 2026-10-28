@@ -73,7 +73,7 @@ class Evidence extends EvidenceBase
     }
 
     /**
-     * Sous-page « Preuves » de la rubrique « Conformité » (PluginGrcmanagerMenu::sections()).
+     * Sous-page « Preuves » de la rubrique « Conformité » (Menu::sections()).
      */
     public static function getMenuContent()
     {

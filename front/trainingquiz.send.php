@@ -23,7 +23,7 @@ include('../../../inc/includes.php');
 /**
  * Issue #139 : téléchargement d'une copie de quiz, pour le participant, le formateur de la
  * session ou le groupe RSSI, même sans droit Documents ni droit sur le plugin. Chaque
- * téléchargement est historisé (PluginGrcmanagerDocumentAccess).
+ * téléchargement est historisé (\GlpiPlugin\Grcmanager\DocumentAccess).
  */
 
 Session::checkLoginUser();
@@ -42,7 +42,7 @@ if (
     throw new NotFoundHttpException();
 }
 
-PluginGrcmanagerDocumentAccess::log(
+\GlpiPlugin\Grcmanager\DocumentAccess::log(
     $document->getID(),
     \GlpiPlugin\Grcmanager\TrainingQuiz::class,
     $participationId,

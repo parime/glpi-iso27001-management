@@ -116,7 +116,7 @@ final class CrisisCellTest extends GrcmanagerIntegrationTestCase
             $document = new \Document();
             $this->assertTrue($document->getFromDB($documentsId));
             $this->assertSame(0, (int) $document->fields['is_recursive']);
-            $this->assertNotNull(\PluginGrcmanagerRestrictedDocument::sourceOf($documentsId));
+            $this->assertNotNull(\GlpiPlugin\Grcmanager\RestrictedDocument::sourceOf($documentsId));
             $this->assertNotContains(
                 $cellId,
                 array_column(Cell::history(), 'id'),

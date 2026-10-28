@@ -20,7 +20,7 @@ declare(strict_types=1);
 namespace GlpiPlugin\Grcmanager\Tests\Integration;
 
 use GlpiPlugin\Grcmanager\AuditTeam;
-use PluginGrcmanagerRestrictedDocument;
+use GlpiPlugin\Grcmanager\RestrictedDocument;
 use GlpiPlugin\Grcmanager\Training;
 use GlpiPlugin\Grcmanager\TrainingQuiz;
 
@@ -89,10 +89,10 @@ final class TrainingQuizTest extends GrcmanagerIntegrationTestCase
         $this->assertGreaterThan(0, $first);
         $this->assertSame(
             ['itemtype' => \GlpiPlugin\Grcmanager\TrainingQuiz::class, 'items_id' => $s['participation']],
-            PluginGrcmanagerRestrictedDocument::sourceOf($first)
+            \GlpiPlugin\Grcmanager\RestrictedDocument::sourceOf($first)
         );
         // La session connectée (Super-Admin) n'est ni participante ni formatrice.
-        $this->assertFalse(PluginGrcmanagerRestrictedDocument::canReadSource($first));
+        $this->assertFalse(\GlpiPlugin\Grcmanager\RestrictedDocument::canReadSource($first));
 
         $second = $this->attachCopy($s['participation']);
         $participation = \GlpiPlugin\Grcmanager\TrainingQuiz::getParticipation($s['participation']);

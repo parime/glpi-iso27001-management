@@ -61,12 +61,12 @@ Html::header(
     \GlpiPlugin\Grcmanager\PeriodicReview::class
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(
+\GlpiPlugin\Grcmanager\Menu::showSection(
     \GlpiPlugin\Grcmanager\AccessReview::class,
     \GlpiPlugin\Grcmanager\PeriodicReview::class
 );
 // Encadré « À quoi sert cette page ? ».
-PluginGrcmanagerPageHelp::show('periodicreview');
+\GlpiPlugin\Grcmanager\PageHelp::show('periodicreview');
 
 \GlpiPlugin\Grcmanager\PeriodicReview::showList();
 

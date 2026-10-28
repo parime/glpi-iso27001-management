@@ -32,7 +32,7 @@ Html::header(
     PluginGrcmanagerSecurityIncident::class
 );
 // Encadré « À quoi sert cette page ? ».
-PluginGrcmanagerPageHelp::show('securityincident');
+\GlpiPlugin\Grcmanager\PageHelp::show('securityincident');
 
 Search::show(PluginGrcmanagerSecurityIncident::class);
 
