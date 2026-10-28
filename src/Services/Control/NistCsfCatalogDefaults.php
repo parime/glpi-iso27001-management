@@ -15,7 +15,7 @@ namespace GlpiPlugin\Grcmanager\Services\Control;
  * PR.AC, PR.IP — absentes du CSF 2.0 réel et donc absentes d'ici).
  *
  * Catalogue de référence, purement consultable — voir ControlCrosswalkDefaults pour la
- * correspondance avec l'Annexe A ISO 27001 (PluginGrcmanagerControl).
+ * correspondance avec l'Annexe A ISO 27001 (\GlpiPlugin\Grcmanager\Control).
  */
 final class NistCsfCatalogDefaults
 {

@@ -8,7 +8,7 @@ namespace GlpiPlugin\Grcmanager\Services\Control;
  * Validation pure de l'import CSV de la SoA (ROADMAP.md "Version 1.5") — ne touche jamais la base
  * ni le système de fichiers, seulement des tableaux déjà lus (par `front/control.csv.php` via
  * `fgetcsv()`). Applique exactement la même règle que
- * `PluginGrcmanagerControl::validateAndMarkReviewed()` (justification obligatoire si
+ * `\GlpiPlugin\Grcmanager\Control::validateAndMarkReviewed()` (justification obligatoire si
  * l'applicabilité n'est pas pleinement "yes") pour que l'import ne puisse jamais produire un état
  * qu'une sauvegarde manuelle normale n'accepterait pas.
  *
@@ -16,7 +16,7 @@ namespace GlpiPlugin\Grcmanager\Services\Control;
  * stable (traduit par l'appelant, cette classe n'a aucune dépendance GLPI — voir
  * `REASON_*` ci-dessous), sans empêcher les autres lignes valides d'être appliquées — jamais un
  * import silencieusement partiel, jamais une création de contrôle (catalogue fixe, voir
- * `PluginGrcmanagerControl::showForm()`, `candel=false`) : un code absent du catalogue existant
+ * `\GlpiPlugin\Grcmanager\Control::showForm()`, `candel=false`) : un code absent du catalogue existant
  * est un rejet, pas une nouvelle ligne.
  */
 final class ControlCsvImportService

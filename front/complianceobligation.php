@@ -26,11 +26,14 @@ Html::header(
     \GlpiPlugin\Grcmanager\ComplianceObligation::getTypeName(2),
     $_SERVER['PHP_SELF'],
     'grcmanager',
-    PluginGrcmanagerControl::class,
+    \GlpiPlugin\Grcmanager\Control::class,
     \GlpiPlugin\Grcmanager\ComplianceObligation::class
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(PluginGrcmanagerControl::class, \GlpiPlugin\Grcmanager\ComplianceObligation::class);
+PluginGrcmanagerMenu::showSection(
+    \GlpiPlugin\Grcmanager\Control::class,
+    \GlpiPlugin\Grcmanager\ComplianceObligation::class
+);
 // Encadré « À quoi sert cette page ? ».
 PluginGrcmanagerPageHelp::show('complianceobligation');
 

@@ -15,16 +15,21 @@
  * -------------------------------------------------------------------------
  */
 
+namespace GlpiPlugin\Grcmanager;
+
+use Document_Item;
+use Dropdown;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\IsmsRequirementBase;
 use GlpiPlugin\Grcmanager\Services\Clause\IsmsClauseCatalog;
 use GlpiPlugin\Grcmanager\Services\Ui\Badge;
 use GlpiPlugin\Grcmanager\Services\Ui\Fragment;
+use Session;
 
 /**
  * Issue #113 : suivi des exigences du système de management (ISO/IEC 27001:2022, articles 4 à
  * 10), une ligne par sous-article, seedée une fois à l'installation (Installer::seedClauses(),
- * numéros dans IsmsClauseCatalog) — même modèle que PluginGrcmanagerControl pour l'Annexe A.
+ * numéros dans IsmsClauseCatalog) — même modèle que Control pour l'Annexe A.
  *
  * Seuls le numéro et des titres courts rédigés par ce projet sont affichés, jamais le texte des
  * exigences (voir la section « Avertissement » du README). Les preuves sont des Documents GLPI
@@ -32,7 +37,7 @@ use GlpiPlugin\Grcmanager\Services\Ui\Fragment;
  * qui produit déjà ces preuves quand il existe (registre des risques pour 6.1.2, SoA pour 6.1.3,
  * audits pour 9.2, etc.).
  */
-class PluginGrcmanagerIsmsRequirement extends IsmsRequirementBase
+class IsmsRequirement extends IsmsRequirementBase
 {
     // Même droit que la SoA : ces deux écrans décrivent le même SMSI, aucune frontière d'accès
     // propre (même raisonnement que front/referentiels.php).
@@ -208,7 +213,7 @@ class PluginGrcmanagerIsmsRequirement extends IsmsRequirementBase
 
     /**
      * Onglet natif « Documents » : les preuves (procès-verbaux, périmètre, matrices...) sont des
-     * Documents GLPI liés, comme pour \GlpiPlugin\Grcmanager\Policy.
+     * Documents GLPI liés, comme pour Policy.
      */
     public function defineTabs($options = [])
     {

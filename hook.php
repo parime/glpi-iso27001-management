@@ -513,22 +513,22 @@ function plugin_grcmanager_forget_restricted_document(CommonDBTM $item): void
 }
 
 /**
- * Issue #141 : Hooks::ITEM_ADD sur Ticket (setup.php), voir PluginGrcmanagerPeriodicReview::onTicketAdd().
+ * Issue #141 : Hooks::ITEM_ADD sur Ticket (setup.php), voir \GlpiPlugin\Grcmanager\PeriodicReview::onTicketAdd().
  */
 function plugin_grcmanager_periodic_review_ticket_add(CommonDBTM $item): void
 {
     if ($item instanceof Ticket) {
-        PluginGrcmanagerPeriodicReview::onTicketAdd($item);
+        \GlpiPlugin\Grcmanager\PeriodicReview::onTicketAdd($item);
     }
 }
 
 /**
- * Issue #141 : Hooks::ITEM_UPDATE sur Ticket (setup.php), voir PluginGrcmanagerPeriodicReview::onTicketUpdate().
+ * Issue #141 : Hooks::ITEM_UPDATE sur Ticket (setup.php), voir \GlpiPlugin\Grcmanager\PeriodicReview::onTicketUpdate().
  */
 function plugin_grcmanager_periodic_review_ticket_update(CommonDBTM $item): void
 {
     if ($item instanceof Ticket) {
-        PluginGrcmanagerPeriodicReview::onTicketUpdate($item);
+        \GlpiPlugin\Grcmanager\PeriodicReview::onTicketUpdate($item);
     }
 }
 

@@ -443,7 +443,7 @@ class Nonconformity extends NonconformityBase
     }
 
     /**
-     * Direct-lookup helper, same pattern as PluginGrcmanagerControl::getLinkedRisks() (a real
+     * Direct-lookup helper, same pattern as Control::getLinkedRisks() (a real
      * CommonDBTM::getFromDB() would work too, but this avoids instantiating a whole object just to
      * read one column).
      */

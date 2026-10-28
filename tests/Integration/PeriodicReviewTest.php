@@ -2,7 +2,7 @@
 
 namespace GlpiPlugin\Grcmanager\Tests\Integration;
 
-use PluginGrcmanagerPeriodicReview;
+use GlpiPlugin\Grcmanager\PeriodicReview;
 
 /**
  * Issue #141 : une revue activée devient un ticket récurrent natif ; son ticket résolu date la
@@ -10,9 +10,9 @@ use PluginGrcmanagerPeriodicReview;
  */
 final class PeriodicReviewTest extends GrcmanagerIntegrationTestCase
 {
-    private function review(string $key): PluginGrcmanagerPeriodicReview
+    private function review(string $key): \GlpiPlugin\Grcmanager\PeriodicReview
     {
-        $review = PluginGrcmanagerPeriodicReview::getByKey($key);
+        $review = \GlpiPlugin\Grcmanager\PeriodicReview::getByKey($key);
         $this->assertNotNull($review, 'Ligne créée par l\'installeur pour chaque revue du catalogue.');
 
         return $review;

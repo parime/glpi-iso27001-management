@@ -28,12 +28,12 @@ Html::header(
     \GlpiPlugin\Grcmanager\Evidence::getTypeName(Session::getPluralNumber()),
     $_SERVER['PHP_SELF'],
     'grcmanager',
-    PluginGrcmanagerControl::class,
+    \GlpiPlugin\Grcmanager\Control::class,
     \GlpiPlugin\Grcmanager\Evidence::class
 );
 // Encadré « À quoi sert cette page ? ».
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(PluginGrcmanagerControl::class, \GlpiPlugin\Grcmanager\Evidence::class);
+PluginGrcmanagerMenu::showSection(\GlpiPlugin\Grcmanager\Control::class, \GlpiPlugin\Grcmanager\Evidence::class);
 PluginGrcmanagerPageHelp::show('evidence');
 
 TemplateRenderer::getInstance()->display('@grcmanager/_list_toolbar.html.twig', ['notice' => __(

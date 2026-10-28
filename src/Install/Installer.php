@@ -198,7 +198,7 @@ final class Installer
     private const AUDITS_USERS_TABLE = 'glpi_plugin_grcmanager_audits_users';
     // Issue #140 : téléchargements des documents restreints, voir PluginGrcmanagerDocumentAccess.
     private const DOCUMENT_ACCESSES_TABLE = 'glpi_plugin_grcmanager_documentaccesses';
-    // Issue #141 : revues périodiques du SMSI, voir PluginGrcmanagerPeriodicReview.
+    // Issue #141 : revues périodiques du SMSI, voir \GlpiPlugin\Grcmanager\PeriodicReview.
     private const PERIODIC_REVIEWS_TABLE = 'glpi_plugin_grcmanager_periodicreviews';
     // Issue #144 : matrice des flux réseau, voir \GlpiPlugin\Grcmanager\NetworkFlow.
     private const NETWORK_FLOWS_TABLE = 'glpi_plugin_grcmanager_networkflows';
@@ -217,12 +217,12 @@ final class Installer
     private const CAUSAL_LINKS_TABLE = 'glpi_plugin_grcmanager_causallinks';
     private const CERTFR_NOTIFIED_TABLE = 'glpi_plugin_grcmanager_certfrnotices_supplierrisks';
     private const PARK_CVE_TICKETS_TABLE = 'glpi_plugin_grcmanager_parkcvetickets';
-    // Issue #178 : risques types importés depuis le catalogue, voir PluginGrcmanagerRiskCatalog.
+    // Issue #178 : risques types importés depuis le catalogue, voir \GlpiPlugin\Grcmanager\RiskCatalog.
     private const RISK_CATALOG_IMPORTS_TABLE = 'glpi_plugin_grcmanager_riskcatalogimports';
     // Issue #170 : dérogations de sécurité, voir GlpiPlugin\Grcmanager\Waiver.
     private const WAIVERS_TABLE = 'glpi_plugin_grcmanager_waivers';
     private const WAIVERS_ITEMS_TABLE = 'glpi_plugin_grcmanager_waivers_items';
-    // Issue #164 : règles de couverture des preuves, voir PluginGrcmanagerCoverageRule.
+    // Issue #164 : règles de couverture des preuves, voir \GlpiPlugin\Grcmanager\CoverageRule.
     private const COVERAGE_RULES_TABLE = 'glpi_plugin_grcmanager_coveragerules';
     // Issue #168 : exercices de crise et leurs étapes chronométrées.
     private const CRISIS_EXERCISES_TABLE = 'glpi_plugin_grcmanager_crisisexercises';
@@ -430,7 +430,7 @@ final class Installer
 
         // Sprint 3 (SoA, clause 6.1.3) : les 93 mesures Annexe A ISO/IEC 27001:2022, une ligne par
         // mesure. Seule la donnée stable (code, thème) est seedée, jamais l'intitulé traduit (voir
-        // PluginGrcmanagerControl::getControlTitles()), sur le même principe que les enums
+        // \GlpiPlugin\Grcmanager\Control::getControlTitles()), sur le même principe que les enums
         // catégorie/probabilité/impact du registre de risques.
         if (!$DB->tableExists(self::CONTROLS_TABLE)) {
             $query = "CREATE TABLE `" . self::CONTROLS_TABLE . "` (
@@ -440,7 +440,7 @@ final class Installer
                     COMMENT 'organizational, people, physical, technological',
                 `applicability` varchar(16) NOT NULL DEFAULT 'yes' COMMENT 'yes, no, partial',
                 `justification` text
-                    COMMENT 'Obligatoire si applicability != yes, voir PluginGrcmanagerControl',
+                    COMMENT 'Obligatoire si applicability != yes, voir GlpiPlugin\\Grcmanager\\Control',
                 `implementation_status` varchar(16) NOT NULL DEFAULT 'not_started'
                     COMMENT 'not_started, in_progress, implemented, verified',
                 `is_reviewed` tinyint NOT NULL DEFAULT 0
@@ -458,7 +458,7 @@ final class Installer
         }
 
         // Issue #113 : une ligne par sous-article des articles 4 à 10 (numéro seul, titres courts
-        // résolus par PluginGrcmanagerIsmsRequirement::getClauseTitles(), jamais stockés), seedée par
+        // résolus par \GlpiPlugin\Grcmanager\IsmsRequirement::getClauseTitles(), jamais stockés), seedée par
         // seedClauses() ci-dessous ; preuves = Documents GLPI liés (Document_Item).
         // Issue #112 : une ligne par version figée de la SoA soumise à approbation (PDF = Document
         // GLPI lié, `pdf_sha256` = empreinte du fichier, `fingerprint` = empreinte du contenu, voir
@@ -527,7 +527,7 @@ final class Installer
         }
 
         // Many-to-many : risque(s) du registre justifiant ou pilotant la mise en oeuvre d'une
-        // mesure Annexe A (voir PluginGrcmanagerControl::getLinkedRisks()/syncLinkedRisks()).
+        // mesure Annexe A (voir \GlpiPlugin\Grcmanager\Control::getLinkedRisks()/syncLinkedRisks()).
         if (!$DB->tableExists(self::CONTROLS_RISKS_TABLE)) {
             $query = "CREATE TABLE `" . self::CONTROLS_RISKS_TABLE . "` (
                 `id` int {$keySign} NOT NULL AUTO_INCREMENT,
@@ -1102,7 +1102,7 @@ final class Installer
         // qu'une seule colonne numérique obligatoire — certains objectifs ont une vraie cible
         // chiffrée ("réduire de 20%"), d'autres sont purement qualitatifs ("obtenir la
         // certification ISO 27001") et n'ont rien de sensé à mettre dans une colonne numérique
-        // obligatoire (voir PluginGrcmanagerObjective::hasNumericTarget() et
+        // obligatoire (voir \GlpiPlugin\Grcmanager\Objective::hasNumericTarget() et
         // GlpiPlugin\Grcmanager\Services\Objective\ObjectiveMeasurementValidator, qui utilisent
         // cette même distinction pour savoir si une mesure doit obligatoirement porter une valeur
         // chiffrée).
@@ -2060,7 +2060,7 @@ final class Installer
         // ses propres données : description, responsable, échéance, statut, date de réalisation).
         // `plugin_grcmanager_risks_id` n'est pas une vraie clé étrangère GLPI (pas de ON DELETE
         // CASCADE natif ici), même simplification assumée que
-        // `PluginGrcmanagerObjectiveMeasurement.plugin_grcmanager_objectives_id` ci-dessus, mais
+        // `\GlpiPlugin\Grcmanager\ObjectiveMeasurement.plugin_grcmanager_objectives_id` ci-dessus, mais
         // voir \GlpiPlugin\Grcmanager\Risk::post_purgeItem() pour le nettoyage explicite ajouté malgré
         // tout (coût marginal nul, ce hook existe déjà pour RISKS_ITEMS_TABLE).
         if (!$DB->tableExists(self::RISK_TREATMENT_ACTIONS_TABLE)) {
@@ -2296,7 +2296,7 @@ final class Installer
 
         // Issue #166 : score de maturité du mois, enregistré chaque jour pour l'historique.
         CronTask::Register(
-            'PluginGrcmanagerMaturity',
+            'GlpiPlugin\\Grcmanager\\Maturity',
             'maturitysnapshot',
             DAY_TIMESTAMP,
             [
@@ -3316,7 +3316,7 @@ final class Installer
             'rapport-post-incident-%'   => [PluginGrcmanagerSecurityIncident::class, true],
             'rapport-cellule-crise-%'   => [PluginGrcmanagerSecurityIncident::class, true],
             'rapport-exercice-crise-%'  => [PluginGrcmanagerSecurityIncident::class, false],
-            'soa-version-%'             => ['PluginGrcmanagerSoaVersion', false],
+            'soa-version-%'             => ['GlpiPlugin\\Grcmanager\\SoaVersion', false],
         ];
         foreach ($sources as $pattern => [$itemtype, $unlinkControls]) {
             $rows = $DB->request([
@@ -3351,7 +3351,7 @@ final class Installer
                 if ($unlinkControls) {
                     $DB->delete('glpi_documents_items', [
                         'documents_id' => $documentsId,
-                        'itemtype'     => 'PluginGrcmanagerControl',
+                        'itemtype'     => 'GlpiPlugin\\Grcmanager\\Control',
                     ]);
                 }
             }
@@ -3469,13 +3469,13 @@ final class Installer
 
     /**
      * Issue #112 : prévient les approbateurs désignés qu'une version de la SoA attend leur
-     * approbation (cible « Approbateurs désignés », voir PluginGrcmanagerNotificationTargetSoaVersion).
+     * approbation (cible « Approbateurs désignés », voir \GlpiPlugin\Grcmanager\NotificationTargetSoaVersion).
      */
     private function seedSoaApprovalNotification(): void
     {
         global $DB;
 
-        $itemtype = 'PluginGrcmanagerSoaVersion';
+        $itemtype = 'GlpiPlugin\\Grcmanager\\SoaVersion';
         $event    = 'soa_approval_request';
 
         $alreadySeeded = $DB->request([
@@ -3545,7 +3545,7 @@ final class Installer
         ]);
 
         $DB->insert('glpi_notificationtargets', [
-            'items_id'         => \PluginGrcmanagerNotificationTargetSoaVersion::APPROVERS_TARGET,
+            'items_id'         => \GlpiPlugin\Grcmanager\NotificationTargetSoaVersion::APPROVERS_TARGET,
             'type'             => Notification::USER_TYPE,
             'notifications_id' => $notificationId,
         ]);
@@ -3682,7 +3682,7 @@ final class Installer
         CronTask::Unregister('grcmanager');
 
         $this->unseedNotification('GlpiPlugin\\Grcmanager\\Risk');
-        $this->unseedNotification('PluginGrcmanagerSoaVersion');
+        $this->unseedNotification('GlpiPlugin\\Grcmanager\\SoaVersion');
         $this->unseedNotification('GlpiPlugin\\Grcmanager\\SupplierRisk');
         $this->unseedNotification('GlpiPlugin\\Grcmanager\\ComplianceObligation');
         $this->unseedNotification('GlpiPlugin\\Grcmanager\\Nonconformity');

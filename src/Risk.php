@@ -611,7 +611,7 @@ class Risk extends RiskBase
     /**
      * Replaces the full set of CMDB items linked to this risk with exactly $pairs (delete then
      * re-insert), same "supprimer-puis-réinsérer" convention already used by every other simple
-     * link table in this plugin (PluginGrcmanagerControl::syncLinkedRisks(),
+     * link table in this plugin (Control::syncLinkedRisks(),
      * Audit::syncLinkedControls()...), see TECH_DEBT.md. An empty $pairs array is
      * the expected, non-error baseline for a purely organizational risk with no CMDB counterpart
      * (issue #25, "processus de recrutement").
@@ -733,7 +733,7 @@ class Risk extends RiskBase
         global $DB;
         $DB->delete(self::ITEMS_LINK_TABLE, ['plugin_grcmanager_risks_id' => $this->fields['id']]);
 
-        // Issue #31 : contrairement à PluginGrcmanagerObjectiveMeasurement (jamais nettoyée quand
+        // Issue #31 : contrairement à ObjectiveMeasurement (jamais nettoyée quand
         // son objectif parent est supprimé, voir TECH_DEBT.md issue #32), on nettoie ici : ce hook
         // existe déjà pour ITEMS_LINK_TABLE ci-dessus, le coût marginal d'un second $DB->delete()
         // est nul, et une action de traitement orpheline ne serait, elle, plus jamais visible ni

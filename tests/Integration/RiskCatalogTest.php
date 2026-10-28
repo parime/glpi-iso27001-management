@@ -28,7 +28,7 @@ final class RiskCatalogTest extends GrcmanagerIntegrationTestCase
 {
     public function testEveryKeyHasTexts(): void
     {
-        $entries = \PluginGrcmanagerRiskCatalog::getEntries();
+        $entries = \GlpiPlugin\Grcmanager\RiskCatalog::getEntries();
         $this->assertSame(InfrastructureRiskCatalog::keys(), array_keys($entries));
         foreach ($entries as $entry) {
             $this->assertNotSame('', $entry['title']);
@@ -41,11 +41,11 @@ final class RiskCatalogTest extends GrcmanagerIntegrationTestCase
         global $DB;
 
         $DB->delete(
-            \PluginGrcmanagerRiskCatalog::IMPORTS_TABLE,
+            \GlpiPlugin\Grcmanager\RiskCatalog::IMPORTS_TABLE,
             ['catalog_key' => ['spof_power', 'backups_same_site']]
         );
 
-        $created = \PluginGrcmanagerRiskCatalog::import(['spof_power', 'backups_same_site', 'inconnu']);
+        $created = \GlpiPlugin\Grcmanager\RiskCatalog::import(['spof_power', 'backups_same_site', 'inconnu']);
         $this->assertCount(2, $created);
 
         $risk = new \GlpiPlugin\Grcmanager\Risk();
@@ -75,11 +75,11 @@ final class RiskCatalogTest extends GrcmanagerIntegrationTestCase
         sort($expected);
         $this->assertSame($expected, $codes);
 
-        $this->assertSame([], \PluginGrcmanagerRiskCatalog::import(['spof_power']), 'Déjà dans le registre.');
-        $this->assertSame($created[0], \PluginGrcmanagerRiskCatalog::importedRisks()['spof_power']);
+        $this->assertSame([], \GlpiPlugin\Grcmanager\RiskCatalog::import(['spof_power']), 'Déjà dans le registre.');
+        $this->assertSame($created[0], \GlpiPlugin\Grcmanager\RiskCatalog::importedRisks()['spof_power']);
 
         // Le risque supprimé du registre peut être réimporté.
         $risk->delete(['id' => $created[0]], true);
-        $this->assertCount(1, \PluginGrcmanagerRiskCatalog::import(['spof_power']));
+        $this->assertCount(1, \GlpiPlugin\Grcmanager\RiskCatalog::import(['spof_power']));
     }
 }

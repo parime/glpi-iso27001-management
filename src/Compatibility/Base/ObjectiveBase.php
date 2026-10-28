@@ -6,10 +6,10 @@ namespace GlpiPlugin\Grcmanager\Compatibility\Base;
 
 use CommonDBTM;
 use GlpiPlugin\Grcmanager\Compatibility\GlpiVersion;
-use PluginGrcmanagerObjective;
+use GlpiPlugin\Grcmanager\Objective;
 
 /*
- * Parent of \PluginGrcmanagerObjective.
+ * Parent of \\GlpiPlugin\Grcmanager\Objective.
  *
  * Redeclares the GLPI core properties that class overrides: untyped on GLPI 11, typed on GLPI 12
  * (see GlpiVersion). A class, not a trait: on PHP 8.2-8.4 a trait cannot redeclare an inherited
@@ -19,11 +19,11 @@ use PluginGrcmanagerObjective;
 if (GlpiVersion::isAtLeast12()) {
     abstract class ObjectiveBase extends CommonDBTM
     {
-        public static string $rightname = PluginGrcmanagerObjective::RIGHTNAME;
+        public static string $rightname = \GlpiPlugin\Grcmanager\Objective::RIGHTNAME;
     }
 } else {
     abstract class ObjectiveBase extends CommonDBTM
     {
-        public static $rightname = PluginGrcmanagerObjective::RIGHTNAME;
+        public static $rightname = \GlpiPlugin\Grcmanager\Objective::RIGHTNAME;
     }
 }

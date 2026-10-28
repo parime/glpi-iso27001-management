@@ -21,7 +21,7 @@
 
     <!-- GLPI hook/setup entry points use snake_case function names required by GLPI's plugin
          loader, and CommonDBTM's own magic hook methods (post_updateItem, post_addItem,
-         pre_deleteItem...) are snake_case too, e.g. PluginGrcmanagerControl::post_updateItem()
+         pre_deleteItem...) are snake_case too, e.g. GlpiPlugin\\Grcmanager\\Control::post_updateItem()
          (see inc/control.class.php), not an oversight. -->
     <rule ref="PSR1.Methods.CamelCapsMethodName">
         <exclude-pattern>setup.php</exclude-pattern>

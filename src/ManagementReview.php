@@ -21,7 +21,7 @@ use Dropdown;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\ManagementReviewBase;
 use GlpiPlugin\Grcmanager\Services\Ui\Badge;
-use PluginGrcmanagerObjective;
+use GlpiPlugin\Grcmanager\Objective;
 
 /**
  * Management review record (ISO 27001 clause 9.3): evidence that top management periodically
@@ -40,13 +40,13 @@ use PluginGrcmanagerObjective;
  * workflow would misrepresent what clause 9.3 actually asks for. See TECH_DEBT.md Sprint 6.
  *
  * Issue #32 (objectifs ISMS et suivi de KPI dans le temps, clause 6.2) adds a light many-to-many
- * link to `PluginGrcmanagerObjective` (glpi_plugin_grcmanager_managementreviews_objectives, same
+ * link to `Objective` (glpi_plugin_grcmanager_managementreviews_objectives, same
  * "direct $DB access, not a real CommonDBRelation" convention as the attendees link above):
  * ISO 27001 clause 9.3 lists "the extent to which the information security objectives have been
  * met" among the required management review inputs, and issue #32 itself calls out that a
  * management review is exactly where the ISMS's trajectory toward its objectives gets discussed.
  * Kept separate from `decisions` (free text) rather than folded into it: an objective reviewed
- * here is a structured reference to a real PluginGrcmanagerObjective row (clickable, filterable),
+ * here is a structured reference to a real Objective row (clickable, filterable),
  * not prose.
  */
 class ManagementReview extends ManagementReviewBase
@@ -221,7 +221,7 @@ class ManagementReview extends ManagementReviewBase
             'SELECT'     => ['objectives.id', 'objectives.title'],
             'FROM'       => self::OBJECTIVES_TABLE . ' AS links',
             'INNER JOIN' => [
-                PluginGrcmanagerObjective::getTable() . ' AS objectives' => [
+                Objective::getTable() . ' AS objectives' => [
                     'FKEY' => [
                         'links'      => 'plugin_grcmanager_objectives_id',
                         'objectives' => 'id',
@@ -393,7 +393,7 @@ class ManagementReview extends ManagementReviewBase
         // Issue #32 (clause 6.2/9.3) : objectifs ISMS effectivement abordés lors de cette revue.
         $objectiveTitles = [];
         foreach (
-            $DB->request(['SELECT' => ['id', 'title'], 'FROM' => PluginGrcmanagerObjective::getTable()]) as $row
+            $DB->request(['SELECT' => ['id', 'title'], 'FROM' => Objective::getTable()]) as $row
         ) {
             $objectiveTitles[(int) $row['id']] = $row['title'];
         }

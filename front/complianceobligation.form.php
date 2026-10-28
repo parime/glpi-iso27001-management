@@ -46,7 +46,7 @@ if (isset($_POST['add'])) {
         \GlpiPlugin\Grcmanager\ComplianceObligation::getTypeName(1),
         $_SERVER['PHP_SELF'],
         'grcmanager',
-        PluginGrcmanagerControl::class,
+        \GlpiPlugin\Grcmanager\Control::class,
         \GlpiPlugin\Grcmanager\ComplianceObligation::class
     );
 

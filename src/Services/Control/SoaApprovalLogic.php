@@ -6,7 +6,7 @@ namespace GlpiPlugin\Grcmanager\Services\Control;
 
 /**
  * Issue #112 : règles pures de l'approbation de la Déclaration d'Applicabilité par la direction
- * (versions figées, voir PluginGrcmanagerSoaVersion).
+ * (versions figées, voir \GlpiPlugin\Grcmanager\SoaVersion).
  *
  * L'empreinte de CONTENU (fingerprint) ne porte que sur ce qui fait la SoA — pour chaque contrôle :
  * code, applicabilité, état de mise en œuvre, justification — dans un ordre canonique (tri par

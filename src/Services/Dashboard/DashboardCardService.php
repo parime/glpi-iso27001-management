@@ -26,10 +26,10 @@ final class DashboardCardService
     public static function maturityScore(array $params = []): array
     {
         return [
-            'number' => \PluginGrcmanagerMaturity::current()['score'],
+            'number' => \GlpiPlugin\Grcmanager\Maturity::current()['score'],
             'label'  => $params['label'] ?? __('Maturity score (out of 100)', 'grcmanager'),
             'icon'   => 'ti ti-gauge',
-            'url'    => \PluginGrcmanagerMaturity::getSearchURL(),
+            'url'    => \GlpiPlugin\Grcmanager\Maturity::getSearchURL(),
         ];
     }
 
@@ -166,7 +166,7 @@ final class DashboardCardService
     /**
      * SoA completion progress (Sprint 3, clause 6.1.3): "X/93 contrôles revus", a control counts
      * as reviewed as soon as it has been explicitly saved once through the form (see
-     * PluginGrcmanagerControl::validateAndMarkReviewed()), regardless of the applicability chosen.
+     * \GlpiPlugin\Grcmanager\Control::validateAndMarkReviewed()), regardless of the applicability chosen.
      */
     public static function soaReviewedCount(array $params = []): array
     {

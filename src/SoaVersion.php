@@ -15,10 +15,19 @@
  * -------------------------------------------------------------------------
  */
 
+namespace GlpiPlugin\Grcmanager;
+
+use Document;
+use Document_Item;
 use GlpiPlugin\Grcmanager\Compatibility\Base\SoaVersionBase;
 use GlpiPlugin\Grcmanager\Pdf\PdfRenderer;
 use GlpiPlugin\Grcmanager\Services\Control\SoaApprovalLogic;
 use GlpiPlugin\Grcmanager\Services\Control\SoaReportBuilder;
+use Html;
+use NotificationEvent;
+use GlpiPlugin\Grcmanager\Control;
+use PluginGrcmanagerRestrictedDocument;
+use Session;
 
 /**
  * Issue #112 : version figée de la Déclaration d'Applicabilité soumise à l'approbation de la
@@ -34,7 +43,7 @@ use GlpiPlugin\Grcmanager\Services\Control\SoaReportBuilder;
  * - une nouvelle demande rend obsolète toute version encore en attente ; toute modification
  *   ultérieure de la SoA est détectée par l'empreinte de contenu et appelle une nouvelle version.
  */
-class PluginGrcmanagerSoaVersion extends SoaVersionBase
+class SoaVersion extends SoaVersionBase
 {
     public const RIGHTNAME = 'plugin_grcmanager';
 
@@ -103,7 +112,7 @@ class PluginGrcmanagerSoaVersion extends SoaVersionBase
     {
         global $DB;
 
-        return SoaApprovalLogic::fingerprint($DB->request(['FROM' => PluginGrcmanagerControl::getTable()]));
+        return SoaApprovalLogic::fingerprint($DB->request(['FROM' => Control::getTable()]));
     }
 
     /**

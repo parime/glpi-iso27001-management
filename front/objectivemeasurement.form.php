@@ -19,19 +19,19 @@ include('../../../inc/includes.php');
 
 // Ni menu, ni écran de recherche propres : ce contrôleur ne fait qu'ajouter/supprimer une mesure
 // pour un objectif donné puis revenir sur le formulaire de cet objectif, voir
-// PluginGrcmanagerObjective::showMeasurementHistory() (même esprit que
+// \GlpiPlugin\Grcmanager\Objective::showMeasurementHistory() (même esprit que
 // front/assetclassification.form.php, qui redirige lui aussi vers la fiche de l'item porteur
 // plutôt que vers un getSearchURL() qui n'aurait pas de sens ici).
 $objectiveId = (int) ($_POST['plugin_grcmanager_objectives_id'] ?? 0);
-$redirectUrl = PluginGrcmanagerObjective::getFormURLWithID($objectiveId);
+$redirectUrl = \GlpiPlugin\Grcmanager\Objective::getFormURLWithID($objectiveId);
 
-$item = new PluginGrcmanagerObjectiveMeasurement();
+$item = new \GlpiPlugin\Grcmanager\ObjectiveMeasurement();
 
 if (isset($_POST['add'])) {
-    Session::checkRight(PluginGrcmanagerObjective::$rightname, CREATE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\Objective::$rightname, CREATE);
     $item->add($_POST);
 } elseif (isset($_POST['purge'])) {
-    Session::checkRight(PluginGrcmanagerObjective::$rightname, PURGE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\Objective::$rightname, PURGE);
     $item->delete($_POST, true);
 }
 

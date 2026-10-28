@@ -31,7 +31,7 @@ use Session;
 /**
  * Security policy library (issue #28, ISO/IEC 27001:2022 A.5.1/A.5.1.1/A.5.1.2): the control
  * A.5.1 ("Politiques de sécurité de l'information") existed until now only as a checkbox row in
- * the SoA (PluginGrcmanagerControl), with no actual operational tool behind it. This class gives
+ * the SoA (Control), with no actual operational tool behind it. This class gives
  * the RSSI a real place to manage security policy documents (charte informatique, politique de
  * mots de passe, PCA...) with a real lifecycle: draft/approved/archived status, a free-text
  * version string (e.g. "1.2"), an approval date, and a next review date driving the same kind of
@@ -252,7 +252,7 @@ class Policy extends PolicyBase
      * date (see PolicyLifecycle::isApprovalDateMissing()). Returning false here aborts add()/
      * update() the same way GLPI core itself treats a false return from prepareInputForAdd()/
      * prepareInputForUpdate(), with a real, visible error message, same convention already used by
-     * PluginGrcmanagerControl::prepareInputForAdd()/prepareInputForUpdate().
+     * Control::prepareInputForAdd()/prepareInputForUpdate().
      *
      * @param array<string, mixed> $input
      * @return array<string, mixed>|false

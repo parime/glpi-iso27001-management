@@ -68,7 +68,7 @@ final class ItemtypeRenamesTest extends GrcmanagerIntegrationTestCase
         ]);
         $logId = (int) $DB->insertId();
         $events = [];
-        foreach (['PluginGrcmanagerRisk', 'PluginGrcmanagerRiskCatalog', 'system'] as $type) {
+        foreach (['PluginGrcmanagerRisk', 'PluginGrcmanagerRiskLegacyExport', 'system'] as $type) {
             $DB->insert('glpi_events', [
                 'items_id' => 1,
                 'type'     => $type,
@@ -81,8 +81,9 @@ final class ItemtypeRenamesTest extends GrcmanagerIntegrationTestCase
         }
         $risk = $this->savedSearch('PluginGrcmanagerRisk');
         $action = $this->savedSearch('PluginGrcmanagerRiskTreatmentAction');
-        // Classe restée dans inc/ dont le nom commence par un ancien nom : ne doit pas changer.
-        $catalog = $this->savedSearch('PluginGrcmanagerRiskCatalog');
+        // Nom qui commence par un ancien nom sans en être un (classe restée dans inc/ ou d'un autre
+        // plugin) : ne doit pas changer.
+        $other = $this->savedSearch('PluginGrcmanagerRiskLegacyExport');
 
         ItemtypeRenames::migrate(new Migration('test'));
         // Relancée (mise à jour suivante) : aucun effet.
@@ -98,9 +99,9 @@ final class ItemtypeRenamesTest extends GrcmanagerIntegrationTestCase
             $types[$old] = $DB->request(['FROM' => 'glpi_events', 'WHERE' => ['id' => $id]])->current()['type'];
         }
         $this->assertSame([
-            'PluginGrcmanagerRisk'        => \GlpiPlugin\Grcmanager\Risk::class,
-            'PluginGrcmanagerRiskCatalog' => 'PluginGrcmanagerRiskCatalog',
-            'system'                      => 'system',
+            'PluginGrcmanagerRisk'             => \GlpiPlugin\Grcmanager\Risk::class,
+            'PluginGrcmanagerRiskLegacyExport' => 'PluginGrcmanagerRiskLegacyExport',
+            'system'                           => 'system',
         ], $types);
 
         $this->assertSame([
@@ -112,9 +113,9 @@ final class ItemtypeRenamesTest extends GrcmanagerIntegrationTestCase
             'query'    => 'itemtype=GlpiPlugin%5CGrcmanager%5CRiskTreatmentAction&criteria%5B0%5D%5Bfield%5D=1',
         ], $this->savedSearchRow($action));
         $this->assertSame([
-            'itemtype' => 'PluginGrcmanagerRiskCatalog',
-            'query'    => 'itemtype=PluginGrcmanagerRiskCatalog&criteria%5B0%5D%5Bfield%5D=1',
-        ], $this->savedSearchRow($catalog));
+            'itemtype' => 'PluginGrcmanagerRiskLegacyExport',
+            'query'    => 'itemtype=PluginGrcmanagerRiskLegacyExport&criteria%5B0%5D%5Bfield%5D=1',
+        ], $this->savedSearchRow($other));
     }
 
     /**

@@ -33,12 +33,12 @@ use Session;
  * treatment plan is very often more than one action ("patch the system" AND "add monitoring" AND
  * "train staff"), each independently tracked to completion with its own owner/due date/status - a
  * genuine one-to-many relationship this plugin already has a comfortable convention for (see
- * PluginGrcmanagerObjectiveMeasurement, issue #32, the closest existing template: a child itemtype
+ * ObjectiveMeasurement, issue #32, the closest existing template: a child itemtype
  * that only ever exists as a row added/deleted inline from its parent's own form, with no menu
  * entry, no own search screen, no rawSearchOptions() of its own).
  *
  * `plugin_grcmanager_risks_id` is not a real GLPI foreign key (no native `ON DELETE CASCADE` here),
- * same simplification assumed for PluginGrcmanagerObjectiveMeasurement's own
+ * same simplification assumed for ObjectiveMeasurement's own
  * `plugin_grcmanager_objectives_id` (see TECH_DEBT.md issue #32) - EXCEPT that
  * Risk::post_purgeItem() already exists (issue #25, cleaning up
  * glpi_plugin_grcmanager_risks_items) and is extended here to also delete this itemtype's own rows,
@@ -110,7 +110,7 @@ class RiskTreatmentAction extends RiskTreatmentActionBase
 
     /**
      * Refuses an action with no real parent risk (same defensive posture as
-     * PluginGrcmanagerObjectiveMeasurement::prepareInputForAdd()'s own "Objectif introuvable."
+     * ObjectiveMeasurement::prepareInputForAdd()'s own "Objectif introuvable."
      * check), normalizes `status` against TreatmentPlanRules::ALLOWED_STATUSES, and auto-stamps
      * `completion_date` with today as soon as `status` reaches `done` without one already set -
      * same "auto-populate a real date rather than force an extra manual step" choice as

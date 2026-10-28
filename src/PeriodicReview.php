@@ -15,9 +15,21 @@
  * -------------------------------------------------------------------------
  */
 
+namespace GlpiPlugin\Grcmanager;
+
+use CommonITILObject;
+use Dropdown;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\PeriodicReviewBase;
 use GlpiPlugin\Grcmanager\Services\Review\PeriodicReviewCatalog;
+use Group;
+use Profile;
+use Session;
+use Ticket;
+use TicketRecurrent;
+use TicketTemplate;
+use TicketTemplatePredefinedField;
+use User;
 
 /**
  * Issue #141 : revues périodiques du SMSI (droits d'accès, matrice des flux, registre des risques,
@@ -32,7 +44,7 @@ use GlpiPlugin\Grcmanager\Services\Review\PeriodicReviewCatalog;
  * Les éléments du plugin sont globaux : gabarit et ticket récurrent sont créés dans l'entité
  * racine, récursifs.
  */
-class PluginGrcmanagerPeriodicReview extends PeriodicReviewBase
+class PeriodicReview extends PeriodicReviewBase
 {
     public const RIGHTNAME = 'plugin_grcmanager';
 

@@ -30,7 +30,7 @@ use GlpiPlugin\Grcmanager\Services\Impact\ImpactGraph;
 use Html;
 use ITILFollowup;
 use Planning;
-use PluginGrcmanagerControl;
+use GlpiPlugin\Grcmanager\Control;
 use PluginGrcmanagerRestrictedDocument;
 use PluginGrcmanagerSecurityIncident;
 use PluginGrcmanagerSecurityIncident_Item;
@@ -646,11 +646,11 @@ class CrisisExercise extends CrisisExerciseBase
             foreach (
                 $DB->request([
                     'SELECT' => ['id'],
-                    'FROM'   => PluginGrcmanagerControl::getTable(),
+                    'FROM'   => Control::getTable(),
                     'WHERE'  => ['code' => self::DRILL_CONTROL_CODES],
                 ]) as $control
             ) {
-                $targets[] = [PluginGrcmanagerControl::class, (int) $control['id']];
+                $targets[] = [Control::class, (int) $control['id']];
             }
         }
         foreach ($targets as [$itemtype, $itemsId]) {

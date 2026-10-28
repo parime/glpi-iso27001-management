@@ -22,7 +22,7 @@ namespace GlpiPlugin\Grcmanager\Services\Risk;
 /**
  * Issue #178 : risques types d'infrastructure, qui reviennent d'un système d'information à l'autre
  * et se repèrent sur un simple schéma réseau. Seules les données stables sont ici (catégorie du
- * registre, mesures de l'Annexe A) ; les textes traduits sont dans PluginGrcmanagerRiskCatalog.
+ * registre, mesures de l'Annexe A) ; les textes traduits sont dans \GlpiPlugin\Grcmanager\RiskCatalog.
  *
  * Les clés ai_* sont les risques types des systèmes d'IA (groupe « ai »), rattachés aux sections
  * d'ISO/IEC 27090:2026 (Iso27090CatalogDefaults) : pensés pour une organisation qui utilise

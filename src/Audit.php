@@ -26,7 +26,7 @@ use GlpiPlugin\Grcmanager\Services\Ui\Badge;
 use Html;
 use Log;
 use Notepad;
-use PluginGrcmanagerControl;
+use GlpiPlugin\Grcmanager\Control;
 use PluginGrcmanagerDocumentAccess;
 use PluginGrcmanagerMenu;
 use GlpiPlugin\Grcmanager\Nonconformity;
@@ -37,7 +37,7 @@ use Session;
  * Internal audit program (ISO 27001 clause 9.2): one row per planned/performed internal audit.
  * Scoped either to specific Annex A controls (many-to-many via
  * glpi_plugin_grcmanager_audits_controls, same "direct $DB access, not a real CommonDBRelation"
- * pattern PluginGrcmanagerControl already uses for its own link to the risk register, see
+ * pattern Control already uses for its own link to the risk register, see
  * TECH_DEBT.md Sprint 3) and/or to one or more risk categories (stored as a comma-separated list
  * of Risk::getCategories() keys, resolved through the same enum, never a second
  * copy of the category list).
@@ -265,7 +265,7 @@ class Audit extends AuditBase
 
     /**
      * Real `<select>` filter widgets for status/risk_categories, same lesson as
-     * Risk::getSpecificValueToSelect()/PluginGrcmanagerControl::getSpecificValueToSelect().
+     * Risk::getSpecificValueToSelect()/Control::getSpecificValueToSelect().
      * For `risk_categories` (a comma-separated column), the filter searches for a single category
      * key via GLPI's default "contains" search type, matching if that category is anywhere in the
      * stored list; not a genuine multi-value AND/OR filter, a deliberate simplification for a
@@ -339,7 +339,7 @@ class Audit extends AuditBase
             'SELECT'     => ['controls.id', 'controls.code'],
             'FROM'       => self::LINK_TABLE . ' AS links',
             'INNER JOIN' => [
-                PluginGrcmanagerControl::getTable() . ' AS controls' => [
+                Control::getTable() . ' AS controls' => [
                     'FKEY' => [
                         'links'    => 'plugin_grcmanager_controls_id',
                         'controls' => 'id',
@@ -351,7 +351,7 @@ class Audit extends AuditBase
         ]);
 
         foreach ($rows as $row) {
-            $controls[(int) $row['id']] = $row['code'] . ' - ' . PluginGrcmanagerControl::getControlTitle($row['code']);
+            $controls[(int) $row['id']] = $row['code'] . ' - ' . Control::getControlTitle($row['code']);
         }
 
         return $controls;
@@ -368,7 +368,7 @@ class Audit extends AuditBase
     /**
      * Replaces the full set of controls linked to this audit with exactly $controlIds (delete then
      * re-insert), same simplification (and same rationale: low cardinality) as
-     * PluginGrcmanagerControl::syncLinkedRisks().
+     * Control::syncLinkedRisks().
      *
      * @param array<int, int> $controlIds
      */
@@ -547,10 +547,10 @@ class Audit extends AuditBase
         $this->initForm($ID, $options);
 
         $controlTitles = [];
-        $controlRows   = $DB->request(['SELECT' => ['id', 'code'], 'FROM' => PluginGrcmanagerControl::getTable()]);
+        $controlRows   = $DB->request(['SELECT' => ['id', 'code'], 'FROM' => Control::getTable()]);
         foreach ($controlRows as $row) {
             $controlTitles[(int) $row['id']] = $row['code'] . ' - '
-                . PluginGrcmanagerControl::getControlTitle($row['code']);
+                . Control::getControlTitle($row['code']);
         }
         asort($controlTitles);
 

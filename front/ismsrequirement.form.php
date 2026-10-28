@@ -17,21 +17,25 @@
 
 include('../../../inc/includes.php');
 
-$item = new PluginGrcmanagerIsmsRequirement();
+$item = new \GlpiPlugin\Grcmanager\IsmsRequirement();
 
 // Catalogue fixe (30 sous-articles seedés à l'installation) : seule la mise à jour est possible,
-// pas d'ajout ni de suppression (voir PluginGrcmanagerIsmsRequirement::canCreate()/canDelete()).
+// pas d'ajout ni de suppression (voir \GlpiPlugin\Grcmanager\IsmsRequirement::canCreate()/canDelete()).
 if (isset($_POST['update'])) {
-    Session::checkRight(PluginGrcmanagerIsmsRequirement::$rightname, UPDATE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\IsmsRequirement::$rightname, UPDATE);
     $item->update($_POST);
     Html::back();
 } else {
     // displayFullPageForItem() plutôt que showForm() : seul display() affiche la barre d'onglets,
     // nécessaire ici pour l'onglet natif Documents (preuves), même raison que front/policy.form.php.
-    PluginGrcmanagerIsmsRequirement::displayFullPageForItem(
+    \GlpiPlugin\Grcmanager\IsmsRequirement::displayFullPageForItem(
         $_GET['id'] ?? 0,
         [
-            'central'  => ['grcmanager', PluginGrcmanagerControl::class, PluginGrcmanagerIsmsRequirement::class],
+            'central'  => [
+                'grcmanager',
+                \GlpiPlugin\Grcmanager\Control::class,
+                \GlpiPlugin\Grcmanager\IsmsRequirement::class,
+            ],
             'helpdesk' => [],
         ]
     );

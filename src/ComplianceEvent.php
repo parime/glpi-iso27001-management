@@ -31,7 +31,7 @@ use GlpiPlugin\Grcmanager\AccessReview;
 use GlpiPlugin\Grcmanager\Audit;
 use GlpiPlugin\Grcmanager\Evidence;
 use GlpiPlugin\Grcmanager\ManagementReview;
-use PluginGrcmanagerPeriodicReview;
+use GlpiPlugin\Grcmanager\PeriodicReview;
 use Session;
 use User;
 
@@ -150,7 +150,7 @@ class ComplianceEvent extends ComplianceEventBase
             'audit'             => [Audit::getTypeName(1), 'ti-clipboard-check'],
             'management_review' => [ManagementReview::getTypeName(1), 'ti-presentation'],
             'access_review'     => [AccessReview::getTypeName(1), 'ti-user-check'],
-            'periodic_review'   => [PluginGrcmanagerPeriodicReview::getTypeName(1), 'ti-calendar-repeat'],
+            'periodic_review'   => [PeriodicReview::getTypeName(1), 'ti-calendar-repeat'],
             'policy'            => [__('Policy review', 'grcmanager'), 'ti-file-certificate'],
             'obligation'        => [__('Obligation review', 'grcmanager'), 'ti-gavel'],
             'evidence'          => [__('Evidence expiry', 'grcmanager'), 'ti-file-alert'],
@@ -493,21 +493,21 @@ class ComplianceEvent extends ComplianceEventBase
     {
         global $DB;
 
-        if (!PluginGrcmanagerPeriodicReview::canView()) {
+        if (!PeriodicReview::canView()) {
             return [];
         }
         $list = [];
-        $rows = $DB->request(['FROM' => PluginGrcmanagerPeriodicReview::getTable(), 'WHERE' => ['is_active' => 1]]);
+        $rows = $DB->request(['FROM' => PeriodicReview::getTable(), 'WHERE' => ['is_active' => 1]]);
         foreach ($rows as $row) {
-            $review = new PluginGrcmanagerPeriodicReview();
+            $review = new PeriodicReview();
             $review->getFromDB((int) $row['id']);
             $list[] = self::deadline(
                 'periodic_review',
                 (int) $row['id'],
-                PluginGrcmanagerPeriodicReview::getLabel($review->getKey()),
+                PeriodicReview::getLabel($review->getKey()),
                 ComplianceCalendarRules::dayRange($review->getNextCreationDate()),
                 (int) $row['users_id_assign'],
-                PluginGrcmanagerPeriodicReview::getSearchURL()
+                PeriodicReview::getSearchURL()
             );
         }
 

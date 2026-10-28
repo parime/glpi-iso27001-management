@@ -15,14 +15,21 @@
  * -------------------------------------------------------------------------
  */
 
+namespace GlpiPlugin\Grcmanager;
+
 use GlpiPlugin\Grcmanager\Services\Control\SoaApprovalLogic;
+use Html;
+use NotificationTarget;
+use Override;
+use GlpiPlugin\Grcmanager\SoaVersion;
+use User;
 
 /**
  * Issue #112 : prévient les approbateurs désignés qu'une version de la SoA attend leur approbation.
  * Cible propre « Approbateurs désignés » : les utilisateurs liés à la version qui n'ont pas encore
  * répondu (glpi_plugin_grcmanager_soaversions_users).
  */
-class PluginGrcmanagerNotificationTargetSoaVersion extends NotificationTarget
+class NotificationTargetSoaVersion extends NotificationTarget
 {
     /** Identifiant de la cible « Approbateurs désignés » (hors plage des constantes de Notification). */
     public const APPROVERS_TARGET = 1120;
@@ -31,7 +38,7 @@ class PluginGrcmanagerNotificationTargetSoaVersion extends NotificationTarget
     public function getEvents()
     {
         return [
-            PluginGrcmanagerSoaVersion::REQUEST_EVENT => __('SoA approval requested', 'grcmanager'),
+            SoaVersion::REQUEST_EVENT => __('SoA approval requested', 'grcmanager'),
         ];
     }
 
@@ -48,7 +55,7 @@ class PluginGrcmanagerNotificationTargetSoaVersion extends NotificationTarget
             return;
         }
 
-        foreach (PluginGrcmanagerSoaVersion::getApprovers((int) ($this->obj->fields['id'] ?? 0)) as $approver) {
+        foreach (SoaVersion::getApprovers((int) ($this->obj->fields['id'] ?? 0)) as $approver) {
             if ($approver['status'] !== SoaApprovalLogic::ANSWER_PENDING) {
                 continue;
             }

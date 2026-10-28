@@ -25,30 +25,30 @@ use GlpiPlugin\Grcmanager\Services\Control\NistCsfCatalogDefaults;
 
 include('../../../inc/includes.php');
 
-// Reuses PluginGrcmanagerControl's own right rather than a dedicated one: this screen only
+// Reuses \GlpiPlugin\Grcmanager\Control's own right rather than a dedicated one: this screen only
 // displays the same Annexe A catalog (plus two purely-consultative reference libraries), no
 // meaningful access boundary of its own — same reasoning as \GlpiPlugin\Grcmanager\SecurityIncidentCve
 // reusing PluginGrcmanagerSecurityIncident's right.
-Session::checkRight(PluginGrcmanagerControl::$rightname, READ);
+Session::checkRight(\GlpiPlugin\Grcmanager\Control::$rightname, READ);
 
 Html::header(
     __('Reference frameworks', 'grcmanager'),
     $_SERVER['PHP_SELF'],
     'grcmanager',
-    PluginGrcmanagerControl::class,
-    PluginGrcmanagerReferentials::class
+    \GlpiPlugin\Grcmanager\Control::class,
+    \GlpiPlugin\Grcmanager\Referentials::class
 );
 // Encadré « À quoi sert cette page ? ».
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(PluginGrcmanagerControl::class, PluginGrcmanagerReferentials::class);
+PluginGrcmanagerMenu::showSection(\GlpiPlugin\Grcmanager\Control::class, \GlpiPlugin\Grcmanager\Referentials::class);
 PluginGrcmanagerPageHelp::show('referentiels');
 
-$titles = PluginGrcmanagerControl::getControlTitles();
-$themes = PluginGrcmanagerControl::getThemes();
+$titles = \GlpiPlugin\Grcmanager\Control::getControlTitles();
+$themes = \GlpiPlugin\Grcmanager\Control::getThemes();
 
 global $DB;
 $idsByCode = [];
-foreach ($DB->request(['SELECT' => ['id', 'code'], 'FROM' => PluginGrcmanagerControl::getTable()]) as $row) {
+foreach ($DB->request(['SELECT' => ['id', 'code'], 'FROM' => \GlpiPlugin\Grcmanager\Control::getTable()]) as $row) {
     $idsByCode[$row['code']] = (int) $row['id'];
 }
 

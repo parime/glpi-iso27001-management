@@ -90,7 +90,7 @@ final class SecurityIncidentPostMortemTest extends GrcmanagerIntegrationTestCase
             // récursivité, lecture réservée à qui lit l'incident.
             $this->assertSame(0, countElementsInTable('glpi_documents_items', [
                 'documents_id' => $documentsId,
-                'itemtype'     => \PluginGrcmanagerControl::class,
+                'itemtype'     => \GlpiPlugin\Grcmanager\Control::class,
             ]));
             $document = new \Document();
             $document->getFromDB($documentsId);

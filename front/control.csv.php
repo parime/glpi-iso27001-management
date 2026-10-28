@@ -23,15 +23,15 @@ include('../../../inc/includes.php');
 // natif de Search::showList() (colonne "Contrôle" combinant code+intitulé, libellés non pensés
 // pour un aller-retour), ce contrôleur produit/lit un CSV dédié dont les colonnes sont conçues
 // pour être réimportées telles quelles.
-$titles = PluginGrcmanagerControl::getControlTitles();
-$themes = PluginGrcmanagerControl::getThemes();
-$applicabilities = PluginGrcmanagerControl::getApplicabilities();
-$implementationStatuses = PluginGrcmanagerControl::getImplementationStatuses();
+$titles = \GlpiPlugin\Grcmanager\Control::getControlTitles();
+$themes = \GlpiPlugin\Grcmanager\Control::getThemes();
+$applicabilities = \GlpiPlugin\Grcmanager\Control::getApplicabilities();
+$implementationStatuses = \GlpiPlugin\Grcmanager\Control::getImplementationStatuses();
 
 $csvHeader = ['code', 'theme', 'titre', 'applicabilite', 'etat_mise_en_oeuvre', 'justification'];
 
 if (($_GET['action'] ?? '') === 'export') {
-    Session::checkRight(PluginGrcmanagerControl::$rightname, READ);
+    Session::checkRight(\GlpiPlugin\Grcmanager\Control::$rightname, READ);
 
     global $DB;
 
@@ -47,7 +47,7 @@ if (($_GET['action'] ?? '') === 'export') {
     $csvText = static fn (?string $value): string => preg_match('/^[=+\-@\t\r]/', (string) $value)
         ? "'" . $value
         : (string) $value;
-    foreach ($DB->request(['FROM' => PluginGrcmanagerControl::getTable(), 'ORDER' => 'code ASC']) as $row) {
+    foreach ($DB->request(['FROM' => \GlpiPlugin\Grcmanager\Control::getTable(), 'ORDER' => 'code ASC']) as $row) {
         fputcsv($out, [
             $csvText($row['code']),
             $themes[$row['theme']] ?? $csvText($row['theme']),
@@ -62,12 +62,12 @@ if (($_GET['action'] ?? '') === 'export') {
     exit;
 }
 
-Session::checkRight(PluginGrcmanagerControl::$rightname, READ);
+Session::checkRight(\GlpiPlugin\Grcmanager\Control::$rightname, READ);
 
 $importResult = null;
 
 if (isset($_POST['import'])) {
-    Session::checkRight(PluginGrcmanagerControl::$rightname, UPDATE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\Control::$rightname, UPDATE);
 
     $uploadError = $_FILES['soa_file']['error'] ?? UPLOAD_ERR_NO_FILE;
 
@@ -96,7 +96,7 @@ if (isset($_POST['import'])) {
 
         global $DB;
         $existingCodes = [];
-        foreach ($DB->request(['SELECT' => ['code'], 'FROM' => PluginGrcmanagerControl::getTable()]) as $row) {
+        foreach ($DB->request(['SELECT' => ['code'], 'FROM' => \GlpiPlugin\Grcmanager\Control::getTable()]) as $row) {
             $existingCodes[] = $row['code'];
         }
 
@@ -110,7 +110,7 @@ if (isset($_POST['import'])) {
         // Par CommonDBTM::update() et non un UPDATE brut : l'historique de chaque mesure garde qui
         // a changé l'applicabilité ou la justification par l'import (preuve d'audit de la SoA).
         foreach ($result['valid'] as $validRow) {
-            $control = new PluginGrcmanagerControl();
+            $control = new \GlpiPlugin\Grcmanager\Control();
             if (!$control->getFromDBByCrit(['code' => $validRow['code']])) {
                 continue;
             }
@@ -155,11 +155,11 @@ Html::header(
     __('CSV import/export — Annex A', 'grcmanager'),
     $_SERVER['PHP_SELF'],
     'grcmanager',
-    PluginGrcmanagerControl::class
+    \GlpiPlugin\Grcmanager\Control::class
 );
 
 \Glpi\Application\View\TemplateRenderer::getInstance()->display('@grcmanager/control_csv.html.twig', [
-    'can_edit'      => Session::haveRight(PluginGrcmanagerControl::$rightname, UPDATE),
+    'can_edit'      => Session::haveRight(\GlpiPlugin\Grcmanager\Control::$rightname, UPDATE),
     'import_result' => $importResult,
 ]);
 

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace GlpiPlugin\Grcmanager\Services\Objective;
 
 /**
- * Pure enum/decision logic behind `PluginGrcmanagerObjective::status` (issue #32, ISO 27001 clause
+ * Pure enum/decision logic behind `\GlpiPlugin\Grcmanager\Objective::status` (issue #32, ISO 27001 clause
  * 6.2), kept GLPI-independent (no $DB, no CommonDBTM, no __()) so it is unit-testable, same split
  * already used for the C/I/D classification register (ClassificationLevels): pure decision logic
  * here, thin $DB/HTML wrapper (labels/badges via __()) on the CommonDBTM class itself

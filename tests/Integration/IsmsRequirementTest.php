@@ -3,7 +3,7 @@
 namespace GlpiPlugin\Grcmanager\Tests\Integration;
 
 use GlpiPlugin\Grcmanager\Services\Clause\IsmsClauseCatalog;
-use PluginGrcmanagerIsmsRequirement;
+use GlpiPlugin\Grcmanager\IsmsRequirement;
 
 /**
  * Issue #113 : exigences du SMSI (articles 4 à 10) sur une vraie instance GLPI — semis à
@@ -11,9 +11,9 @@ use PluginGrcmanagerIsmsRequirement;
  */
 final class IsmsRequirementTest extends GrcmanagerIntegrationTestCase
 {
-    private function requirement(string $code): PluginGrcmanagerIsmsRequirement
+    private function requirement(string $code): \GlpiPlugin\Grcmanager\IsmsRequirement
     {
-        $requirement = new PluginGrcmanagerIsmsRequirement();
+        $requirement = new \GlpiPlugin\Grcmanager\IsmsRequirement();
         $this->assertTrue($requirement->getFromDBByCrit(['code' => $code]), "sous-article $code semé");
 
         return $requirement;
@@ -25,7 +25,7 @@ final class IsmsRequirementTest extends GrcmanagerIntegrationTestCase
 
         $codes = array_column(iterator_to_array($DB->request([
             'SELECT' => ['code'],
-            'FROM'   => PluginGrcmanagerIsmsRequirement::getTable(),
+            'FROM'   => \GlpiPlugin\Grcmanager\IsmsRequirement::getTable(),
         ]), false), 'code');
 
         // Tri explicite en chaînes : le tri par défaut de PHP (et donc assertEqualsCanonicalizing())
@@ -55,21 +55,21 @@ final class IsmsRequirementTest extends GrcmanagerIntegrationTestCase
 
     public function testCatalogIsFixed(): void
     {
-        $this->assertFalse(PluginGrcmanagerIsmsRequirement::canCreate());
-        $this->assertFalse(PluginGrcmanagerIsmsRequirement::canDelete());
+        $this->assertFalse(\GlpiPlugin\Grcmanager\IsmsRequirement::canCreate());
+        $this->assertFalse(\GlpiPlugin\Grcmanager\IsmsRequirement::canDelete());
     }
 
     public function testLinkedModuleAndCompletion(): void
     {
-        $module = PluginGrcmanagerIsmsRequirement::getLinkedModule('6.1.3');
+        $module = \GlpiPlugin\Grcmanager\IsmsRequirement::getLinkedModule('6.1.3');
         $this->assertNotNull($module);
         $this->assertStringContainsString('control.php', $module['url']);
-        $this->assertNull(PluginGrcmanagerIsmsRequirement::getLinkedModule('4.1'), 'aucun module ne couvre 4.1');
+        $this->assertNull(\GlpiPlugin\Grcmanager\IsmsRequirement::getLinkedModule('4.1'), 'aucun module ne couvre 4.1');
 
-        $before = PluginGrcmanagerIsmsRequirement::getCompletion();
+        $before = \GlpiPlugin\Grcmanager\IsmsRequirement::getCompletion();
         $requirement = $this->requirement('9.2.2');
         $requirement->update(['id' => $requirement->getID(), 'status' => IsmsClauseCatalog::STATUS_COMPLIANT]);
-        $after = PluginGrcmanagerIsmsRequirement::getCompletion();
+        $after = \GlpiPlugin\Grcmanager\IsmsRequirement::getCompletion();
 
         $this->assertSame(30, $after['total']);
         $this->assertSame($before['compliant'] + 1, $after['compliant']);

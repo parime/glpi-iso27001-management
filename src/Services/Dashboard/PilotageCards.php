@@ -77,7 +77,7 @@ final class PilotageCards
         foreach (
             $DB->request([
                 'SELECT' => ['code', 'applicability', 'implementation_status'],
-                'FROM'   => \PluginGrcmanagerControl::getTable(),
+                'FROM'   => \GlpiPlugin\Grcmanager\Control::getTable(),
             ]) as $row
         ) {
             $controls[(string) $row['code']] = [
@@ -429,7 +429,7 @@ final class PilotageCards
         foreach (
             $DB->request([
                 'SELECT' => ['month', 'indicators'],
-                'FROM'   => \PluginGrcmanagerMaturity::SNAPSHOTS_TABLE,
+                'FROM'   => \GlpiPlugin\Grcmanager\Maturity::SNAPSHOTS_TABLE,
                 'ORDER'  => 'month DESC',
                 'LIMIT'  => 12,
             ]) as $row
@@ -452,8 +452,8 @@ final class PilotageCards
 
         $today = date('Y-m-d');
         $count = 0;
-        foreach ($DB->request(['FROM' => \PluginGrcmanagerPeriodicReview::getTable()]) as $row) {
-            $review = new \PluginGrcmanagerPeriodicReview();
+        foreach ($DB->request(['FROM' => \GlpiPlugin\Grcmanager\PeriodicReview::getTable()]) as $row) {
+            $review = new \GlpiPlugin\Grcmanager\PeriodicReview();
             $review->getFromResultSet($row);
             if ($review->isOverdue($today)) {
                 $count++;
@@ -462,7 +462,7 @@ final class PilotageCards
 
         return [
             'number' => $count,
-            'url'    => \PluginGrcmanagerPeriodicReview::getSearchURL(),
+            'url'    => \GlpiPlugin\Grcmanager\PeriodicReview::getSearchURL(),
             'label'  => $params['label'] ?? __('Overdue periodic reviews', 'grcmanager'),
             'icon'   => 'ti ti-clock-exclamation',
         ];

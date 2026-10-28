@@ -7,9 +7,9 @@ namespace GlpiPlugin\Grcmanager\Services\Review;
 /**
  * Issue #141 : catalogue des revues périodiques d'un SMSI, sans dépendance à GLPI (testé
  * unitairement). Chaque revue activée devient un ticket récurrent natif de GLPI
- * (PluginGrcmanagerPeriodicReview) : rien n'est oublié, et le ticket résolu sert de preuve.
+ * (\GlpiPlugin\Grcmanager\PeriodicReview) : rien n'est oublié, et le ticket résolu sert de preuve.
  *
- * Les libellés et listes de contrôle sont traduits par l'appelant (PluginGrcmanagerPeriodicReview::
+ * Les libellés et listes de contrôle sont traduits par l'appelant (\GlpiPlugin\Grcmanager\PeriodicReview::
  * getLabel()/getChecklist()) : ce catalogue ne porte que les clés, les fréquences par défaut et les
  * mesures de l'Annexe A concernées (références seulement, aucun texte de la norme).
  */
