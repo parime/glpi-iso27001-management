@@ -28,7 +28,7 @@ if (!$incident->canUpdateItem()) {
     throw new \Glpi\Exception\Http\AccessDeniedHttpException();
 }
 
-$documentsId = PluginGrcmanagerSecurityIncidentPostMortem::archive($incident);
+$documentsId = \GlpiPlugin\Grcmanager\SecurityIncidentPostMortem::archive($incident);
 if ($documentsId > 0) {
     Session::addMessageAfterRedirect(htmlescape(__(
         'Post-incident report archived in the incident documents.',

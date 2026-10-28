@@ -2175,9 +2175,9 @@ final class Installer
         // fonctionnalité) et rafraîchit celles dont la dernière récupération date de plus de 7
         // jours (une CVE encore "en cours d'analyse" chez NVD peut recevoir son score plus tard,
         // voir NvdCveEnrichmentService::refreshDue()). No-op silencieux si l'enrichissement est
-        // désactivé (voir PluginGrcmanagerSecurityIncidentCve::cronRefreshNvdData()).
+        // désactivé (voir \GlpiPlugin\Grcmanager\SecurityIncidentCve::cronRefreshNvdData()).
         CronTask::Register(
-            'PluginGrcmanagerSecurityIncidentCve',
+            'GlpiPlugin\\Grcmanager\\SecurityIncidentCve',
             'refreshnvddata',
             DAY_TIMESTAMP,
             [

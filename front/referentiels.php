@@ -27,7 +27,7 @@ include('../../../inc/includes.php');
 
 // Reuses PluginGrcmanagerControl's own right rather than a dedicated one: this screen only
 // displays the same Annexe A catalog (plus two purely-consultative reference libraries), no
-// meaningful access boundary of its own — same reasoning as PluginGrcmanagerSecurityIncidentCve
+// meaningful access boundary of its own — same reasoning as \GlpiPlugin\Grcmanager\SecurityIncidentCve
 // reusing PluginGrcmanagerSecurityIncident's right.
 Session::checkRight(PluginGrcmanagerControl::$rightname, READ);
 

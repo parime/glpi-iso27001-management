@@ -29,6 +29,9 @@ use Migration;
  *   Configuration-glpi-auto), créé seulement à la première utilisation.
  * - Migration : les noms de classe stockés en base deviennent les nouveaux. Les tables gardent leur
  *   nom (getTableForItemType() donne glpi_plugin_grcmanager_xs dans les deux cas).
+ *
+ * Exception : l'incident de sécurité (objet ITIL) et ses classes liées gardent leur nom historique,
+ * le cœur de GLPI en dérive balises de notification et colonnes (voir PluginGrcmanagerSecurityIncident).
  */
 final class ItemtypeRenames
 {
@@ -86,6 +89,11 @@ final class ItemtypeRenames
         'PluginGrcmanagerCpeReference'             => \GlpiPlugin\Grcmanager\CpeReference::class,
         'PluginGrcmanagerNetworkFlow'              => \GlpiPlugin\Grcmanager\NetworkFlow::class,
         'PluginGrcmanagerAssetClassification'      => \GlpiPlugin\Grcmanager\AssetClassification::class,
+        // Incidents de sécurité, hors objet ITIL : CVE liées, rapport post-incident, lien avec les tickets.
+        'PluginGrcmanagerSecurityIncidentCve'      => \GlpiPlugin\Grcmanager\SecurityIncidentCve::class,
+        'PluginGrcmanagerSecurityIncidentPostMortem'
+            => \GlpiPlugin\Grcmanager\SecurityIncidentPostMortem::class,
+        'PluginGrcmanagerSecurityIncidentTicket'   => \GlpiPlugin\Grcmanager\SecurityIncidentTicket::class,
     ];
 
     /**

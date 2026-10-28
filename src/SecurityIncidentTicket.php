@@ -15,8 +15,21 @@
  * -------------------------------------------------------------------------
  */
 
+namespace GlpiPlugin\Grcmanager;
+
+use CommonDBTM;
+use CommonGLPI;
+use CommonITILActor;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Services\Ui\Fragment;
+use Html;
+use Item_Ticket;
+use ITILFollowup;
+use MassiveAction;
+use PluginGrcmanagerSecurityIncident;
+use PluginGrcmanagerSecurityIncident_Item;
+use Ticket;
+use Ticket_User;
 
 /**
  * Issue #128 : qualifier un ticket GLPI en incident de sécurité, et lien dans les deux sens.
@@ -30,7 +43,7 @@ use GlpiPlugin\Grcmanager\Services\Ui\Fragment;
  * de ce dernier sont typées en GLPI 12 et non en GLPI 11 (voir src/Compatibility/Base), et ce lien
  * n'a besoin ni de formulaire ni d'historique propres — la table est lue et écrite directement.
  */
-class PluginGrcmanagerSecurityIncidentTicket extends CommonGLPI
+class SecurityIncidentTicket extends CommonGLPI
 {
     public const TABLE = 'glpi_plugin_grcmanager_securityincidents_tickets';
 

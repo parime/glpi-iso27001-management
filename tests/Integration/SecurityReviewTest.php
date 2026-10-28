@@ -2,6 +2,7 @@
 
 namespace GlpiPlugin\Grcmanager\Tests\Integration;
 
+use GlpiPlugin\Grcmanager\SecurityIncidentCve;
 use PluginGrcmanagerSecurityIncident as Incident;
 
 /**
@@ -70,22 +71,22 @@ final class SecurityReviewTest extends GrcmanagerIntegrationTestCase
         $incidentB = (int) (new Incident())->add(['name' => 'PHPUnit incident de B', 'entities_id' => $b]);
         $analyst = [Incident::$rightname => CREATE | UPDATE | PURGE | Incident::READALL];
 
-        $added = $this->asProfile($analyst, [$a], static fn () => (new \PluginGrcmanagerSecurityIncidentCve())->add([
+        $added = $this->asProfile($analyst, [$a], static fn () => (new SecurityIncidentCve())->add([
             'plugin_grcmanager_securityincidents_id' => $incidentB, 'cve_id' => 'CVE-2099-0001',
         ]));
         $this->assertFalse($added, 'Incident d\'une autre entité.');
-        $this->assertSame(0, countElementsInTable(\PluginGrcmanagerSecurityIncidentCve::getTable(), [
+        $this->assertSame(0, countElementsInTable(SecurityIncidentCve::getTable(), [
             'plugin_grcmanager_securityincidents_id' => $incidentB,
         ]));
 
-        $id = (int) (new \PluginGrcmanagerSecurityIncidentCve())->add([
+        $id = (int) (new SecurityIncidentCve())->add([
             'plugin_grcmanager_securityincidents_id' => $incidentB, 'cve_id' => 'CVE-2099-0002',
         ]);
         $this->assertGreaterThan(0, $id);
         $this->assertFalse($this->asProfile(
             $analyst,
             [$a],
-            static fn () => (new \PluginGrcmanagerSecurityIncidentCve())->can($id, PURGE)
+            static fn () => (new SecurityIncidentCve())->can($id, PURGE)
         ));
     }
 
@@ -94,7 +95,7 @@ final class SecurityReviewTest extends GrcmanagerIntegrationTestCase
     {
         $incidentId = (int) (new Incident())->add(['name' => 'PHPUnit incident CVE', 'entities_id' => 0]);
         $_SESSION['MESSAGE_AFTER_REDIRECT'] = [];
-        (new \PluginGrcmanagerSecurityIncidentCve())->add([
+        (new SecurityIncidentCve())->add([
             'plugin_grcmanager_securityincidents_id' => $incidentId, 'cve_id' => '<img src=x onerror=alert(1)>',
         ]);
         $messages = implode(' ', array_merge(...array_values($_SESSION['MESSAGE_AFTER_REDIRECT'] ?? [[]])));

@@ -15,12 +15,21 @@
  * -------------------------------------------------------------------------
  */
 
+namespace GlpiPlugin\Grcmanager;
+
+use CommonGLPI;
+use CronTask;
+use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\SecurityIncidentCveBase;
 use GlpiPlugin\Grcmanager\Services\Cve\InventoryCveMatcher;
-use GlpiPlugin\Grcmanager\Services\Cve\NvdCveEnrichmentService;
 use GlpiPlugin\Grcmanager\Services\Cve\NvdConfig;
+use GlpiPlugin\Grcmanager\Services\Cve\NvdCveEnrichmentService;
 use GlpiPlugin\Grcmanager\Services\Cve\ParkVulnerabilityRules;
 use GlpiPlugin\Grcmanager\Services\Cve\ParkVulnerabilitySync;
+use Html;
+use ITILFollowup;
+use PluginGrcmanagerSecurityIncident;
+use Session;
 
 /**
  * One CVE reference associated to a PluginGrcmanagerSecurityIncident — several per
@@ -38,7 +47,7 @@ use GlpiPlugin\Grcmanager\Services\Cve\ParkVulnerabilitySync;
  * path (single identifier, or the multi-line textarea in front/securityincidentcve.form.php) gets
  * it for free rather than each caller remembering to trigger it itself.
  */
-class PluginGrcmanagerSecurityIncidentCve extends SecurityIncidentCveBase
+class SecurityIncidentCve extends SecurityIncidentCveBase
 {
     public const RIGHTNAME = 'plugin_grcmanager_securityincident';
 
@@ -179,7 +188,7 @@ class PluginGrcmanagerSecurityIncidentCve extends SecurityIncidentCveBase
                 'itemtype'   => PluginGrcmanagerSecurityIncident::class,
                 'items_id'   => (int) $row['plugin_grcmanager_securityincidents_id'],
                 'is_private' => 1,
-                'content'    => Glpi\Application\View\TemplateRenderer::getInstance()->render(
+                'content'    => TemplateRenderer::getInstance()->render(
                     '@grcmanager/incident_exploitation_followup.html.twig',
                     ['lines' => $lines]
                 ),
@@ -220,20 +229,20 @@ class PluginGrcmanagerSecurityIncidentCve extends SecurityIncidentCveBase
 
         $nvdConfig = NvdConfig::load();
 
-        Glpi\Application\View\TemplateRenderer::getInstance()->display('@grcmanager/tabs/cve.html.twig', [
+        TemplateRenderer::getInstance()->display('@grcmanager/tabs/cve.html.twig', [
            // Issue #163 : plan d'action déjà ouvert pour chaque CVE, ou bouton pour le proposer.
            'capa_by_cve_id'    => array_combine(
                array_column($cves, 'cve_id'),
                array_map(
-                   static fn (array $row): int => \GlpiPlugin\Grcmanager\Nonconformity::findForIncidentCve(
+                   static fn (array $row): int => Nonconformity::findForIncidentCve(
                        (int) $item->getID(),
                        (string) $row['cve_id']
                    ),
                    array_values($cves)
                )
            ) ?: [],
-           'can_capa'          => \GlpiPlugin\Grcmanager\Nonconformity::canCreate(),
-           'capa_url'          => \GlpiPlugin\Grcmanager\Nonconformity::getFormURL(),
+           'can_capa'          => Nonconformity::canCreate(),
+           'capa_url'          => Nonconformity::getFormURL(),
            // Issue #172 : badges KEV et EPSS, mis à jour par la tâche des vulnérabilités du parc.
            'signals_by_cve_id' => ParkVulnerabilitySync::signalsFor(array_values(array_column($cves, 'cve_id'))),
            'epss_priority'     => ParkVulnerabilityRules::PRIORITY_EPSS,

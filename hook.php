@@ -391,7 +391,7 @@ function plugin_grcmanager_ticket_security_section(Ticket $ticket): void
     }
 
     $incidents = [];
-    foreach (PluginGrcmanagerSecurityIncidentTicket::getIncidentIdsForTicket((int) $ticket->getID()) as $id) {
+    foreach (\GlpiPlugin\Grcmanager\SecurityIncidentTicket::getIncidentIdsForTicket((int) $ticket->getID()) as $id) {
         $incident = new PluginGrcmanagerSecurityIncident();
         if ($incident->getFromDB($id) && $incident->canViewItem()) {
             $incidents[] = [
@@ -469,8 +469,8 @@ function plugin_grcmanager_purge_security_incident_links(CommonDBTM $item): void
     global $DB;
 
     $field = $item instanceof Ticket ? 'tickets_id' : 'plugin_grcmanager_securityincidents_id';
-    if ($DB->tableExists(PluginGrcmanagerSecurityIncidentTicket::TABLE)) {
-        $DB->delete(PluginGrcmanagerSecurityIncidentTicket::TABLE, [$field => (int) $item->getID()]);
+    if ($DB->tableExists(\GlpiPlugin\Grcmanager\SecurityIncidentTicket::TABLE)) {
+        $DB->delete(\GlpiPlugin\Grcmanager\SecurityIncidentTicket::TABLE, [$field => (int) $item->getID()]);
     }
 }
 
@@ -549,7 +549,7 @@ function plugin_grcmanager_MassiveActions(string $itemtype): array
     }
 
     return [
-        PluginGrcmanagerSecurityIncidentTicket::class . MassiveAction::CLASS_ACTION_SEPARATOR . 'qualify'
+        \GlpiPlugin\Grcmanager\SecurityIncidentTicket::class . MassiveAction::CLASS_ACTION_SEPARATOR . 'qualify'
             => Fragment::text(__('Qualify as a security incident', 'grcmanager'), 'ti-shield-plus'),
     ];
 }

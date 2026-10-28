@@ -15,18 +15,35 @@
  * -------------------------------------------------------------------------
  */
 
+namespace GlpiPlugin\Grcmanager;
+
+use CommonDBTM;
+use CommonGLPI;
+use CommonITILTask;
+use Document;
+use Document_Item;
 use Glpi\Application\View\TemplateRenderer;
 use Glpi\RichText\RichText;
 use GlpiPlugin\Grcmanager\Pdf\PdfRenderer;
 use GlpiPlugin\Grcmanager\Services\Incident\PostMortem;
 use GlpiPlugin\Grcmanager\Services\Incident\RegulatoryDeadlines;
+use Html;
+use ITILFollowup;
+use ITILSolution;
+use PluginGrcmanagerRestrictedDocument;
+use PluginGrcmanagerSecurityIncident;
+use PluginGrcmanagerSecurityIncident_Item;
+use PluginGrcmanagerSecurityIncidentCost;
+use PluginGrcmanagerSecurityIncidentTask;
+use GlpiPlugin\Grcmanager\SecurityIncidentTicket;
+use Session;
 
 /**
  * Issue #169 : rapport post-incident (enseignements tirés, mesure A.5.27). L'onglet de l'incident
  * en présente le contenu ; le bouton produit le PDF, archivé en Document sur l'incident (et non
  * sur la mesure A.5.27 de la SoA, lisible de toutes les entités).
  */
-class PluginGrcmanagerSecurityIncidentPostMortem extends CommonGLPI
+class SecurityIncidentPostMortem extends CommonGLPI
 {
     public static function getTypeName($nb = 0)
     {
@@ -151,12 +168,12 @@ class PluginGrcmanagerSecurityIncidentPostMortem extends CommonGLPI
         }
 
         $actions = [];
-        foreach ((new \GlpiPlugin\Grcmanager\Nonconformity())->find($byIncident) as $row) {
+        foreach ((new Nonconformity())->find($byIncident) as $row) {
             $actions[] = [
                 'title'  => (string) $row['title'],
-                'status' => \GlpiPlugin\Grcmanager\Nonconformity::getStatuses()[$row['status']] ?? $row['status'],
+                'status' => Nonconformity::getStatuses()[$row['status']] ?? $row['status'],
                 'due'    => (string) ($row['due_date'] ?? ''),
-                'url'    => \GlpiPlugin\Grcmanager\Nonconformity::getFormURLWithID((int) $row['id']),
+                'url'    => Nonconformity::getFormURLWithID((int) $row['id']),
             ];
         }
 
@@ -186,7 +203,7 @@ class PluginGrcmanagerSecurityIncidentPostMortem extends CommonGLPI
             'timeline'   => PostMortem::sortTimeline($events),
             'assets'     => $assets,
             'cves'       => array_column(
-                (new PluginGrcmanagerSecurityIncidentCve())->find($byIncident),
+                (new SecurityIncidentCve())->find($byIncident),
                 'cve_id'
             ),
             'cost'       => PostMortem::costTotal(
@@ -194,7 +211,7 @@ class PluginGrcmanagerSecurityIncidentPostMortem extends CommonGLPI
             ),
             'deadlines'  => $deadlines,
             'actions'    => $actions,
-            'tickets'    => PluginGrcmanagerSecurityIncidentTicket::getTicketIdsForIncident($id),
+            'tickets'    => SecurityIncidentTicket::getTicketIdsForIncident($id),
         ];
     }
 

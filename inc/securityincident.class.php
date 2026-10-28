@@ -45,7 +45,12 @@ use GlpiPlugin\Grcmanager\Services\Ui\Fragment;
  * several GLPI core mechanisms that a `CommonITILObject` subclass must hook into derive internal
  * identifiers straight from `strtolower(static::class)` with no namespace-awareness (confirmed the
  * hard way on the original plugin — `CommonITILObject::getITILTemplateToUse()` tried to `SELECT` a
- * column literally named after the PSR-4 namespace when this class was namespaced).
+ * column literally named after the PSR-4 namespace when this class was namespaced). Issue #293
+ * confirmed a second one: NotificationTargetCommonITILObject builds the template tags from
+ * `strtolower($this->obj::class)` (`##plugingrcmanagersecurityincident.title##`), and the
+ * `##IF…##`/`##FOREACH…##` parser only accepts `[a-z-0-9._]` — a namespaced name would break
+ * every incident e-mail, customised templates included. Its ITIL satellites (actors, tasks, costs,
+ * templates and their fields, notification target, rules) stay in inc/ for the same reason.
  *
  * Which parts of this object are exposed is controlled by `SecurityIncidentModuleConfig` (see
  * front/config.php): the ISO classification fields and the base ITIL object itself are never
@@ -314,7 +319,7 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
         $this->addDefaultFormTab($tabs);
 
         if (SecurityIncidentModuleConfig::load()['securityincident_cve_enabled']) {
-            $this->addStandardTab(PluginGrcmanagerSecurityIncidentCve::class, $tabs, $options);
+            $this->addStandardTab(\GlpiPlugin\Grcmanager\SecurityIncidentCve::class, $tabs, $options);
         }
 
         $this->addStandardTab(PluginGrcmanagerSecurityIncident_Item::class, $tabs, $options);
@@ -333,7 +338,7 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
 
         $this->deleteChildrenAndRelationsFromDb([
             PluginGrcmanagerSecurityIncident_Item::class,
-            PluginGrcmanagerSecurityIncidentCve::class,
+            \GlpiPlugin\Grcmanager\SecurityIncidentCve::class,
             PluginGrcmanagerSecurityIncidentCost::class,
         ]);
 

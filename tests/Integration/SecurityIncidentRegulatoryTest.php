@@ -4,11 +4,11 @@ namespace GlpiPlugin\Grcmanager\Tests\Integration;
 
 use Computer;
 use CronTask;
+use GlpiPlugin\Grcmanager\SecurityIncidentTicket;
 use Item_Ticket;
 use ITILFollowup;
 use PluginGrcmanagerSecurityIncident;
 use PluginGrcmanagerSecurityIncident_Item;
-use PluginGrcmanagerSecurityIncidentTicket;
 use Ticket;
 
 /**
@@ -40,14 +40,14 @@ final class SecurityIncidentRegulatoryTest extends GrcmanagerIntegrationTestCase
         $ticket->getFromDB($ticketsId);
         $status = (int) $ticket->fields['status'];
 
-        $incidentsId = PluginGrcmanagerSecurityIncidentTicket::qualify($ticket);
+        $incidentsId = SecurityIncidentTicket::qualify($ticket);
 
         $this->assertGreaterThan(0, $incidentsId);
         $incident = new PluginGrcmanagerSecurityIncident();
         $this->assertTrue($incident->getFromDB($incidentsId));
         $this->assertSame('PHPUnit poste infecté', $incident->fields['name']);
-        $this->assertSame([$incidentsId], PluginGrcmanagerSecurityIncidentTicket::getIncidentIdsForTicket($ticketsId));
-        $this->assertSame([$ticketsId], PluginGrcmanagerSecurityIncidentTicket::getTicketIdsForIncident($incidentsId));
+        $this->assertSame([$incidentsId], SecurityIncidentTicket::getIncidentIdsForTicket($ticketsId));
+        $this->assertSame([$ticketsId], SecurityIncidentTicket::getTicketIdsForIncident($incidentsId));
         $this->assertSame(1, countElementsInTable(PluginGrcmanagerSecurityIncident_Item::getTable(), [
             'plugin_grcmanager_securityincidents_id' => $incidentsId,
             'itemtype'                               => Computer::class,
@@ -57,7 +57,7 @@ final class SecurityIncidentRegulatoryTest extends GrcmanagerIntegrationTestCase
         $ticket->getFromDB($ticketsId);
         $this->assertSame($status, (int) $ticket->fields['status'], 'statut du ticket inchangé');
 
-        $again = PluginGrcmanagerSecurityIncidentTicket::qualify($ticket);
+        $again = SecurityIncidentTicket::qualify($ticket);
         $this->assertSame($incidentsId, $again, 'pas de second incident');
     }
 
@@ -66,11 +66,11 @@ final class SecurityIncidentRegulatoryTest extends GrcmanagerIntegrationTestCase
         $ticket = new Ticket();
         $ticketsId = (int) $ticket->add(['name' => 'PHPUnit à purger', 'content' => 'x', 'entities_id' => 0]);
         $ticket->getFromDB($ticketsId);
-        $incidentsId = PluginGrcmanagerSecurityIncidentTicket::qualify($ticket);
+        $incidentsId = SecurityIncidentTicket::qualify($ticket);
 
         $ticket->delete(['id' => $ticketsId], true);
 
-        $this->assertSame([], PluginGrcmanagerSecurityIncidentTicket::getTicketIdsForIncident($incidentsId));
+        $this->assertSame([], SecurityIncidentTicket::getTicketIdsForIncident($incidentsId));
     }
 
     public function testNotificationDatesAreSavedFromTheBrowserFormat(): void
