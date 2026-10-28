@@ -28,8 +28,6 @@ use GlpiPlugin\Grcmanager\Services\Ui\Fragment;
 use GlpiPlugin\Grcmanager\Traits\RiskAssessmentTrait;
 use Html;
 use Log;
-use GlpiPlugin\Grcmanager\SecurityWatch;
-use GlpiPlugin\Grcmanager\SupplierAssessment;
 use Session;
 use Supplier;
 use Ticket;

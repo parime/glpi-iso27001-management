@@ -21,7 +21,6 @@ use CommonDBTM;
 use Document;
 use Document_Item;
 use Glpi\DBAL\QuerySubQuery;
-use GlpiPlugin\Grcmanager\DocumentAccess;
 
 /**
  * Documents générés par le plugin (rapports PDF d'audit, de revue des accès, post-incident, de

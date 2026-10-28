@@ -21,7 +21,6 @@ use Dropdown;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\ManagementReviewBase;
 use GlpiPlugin\Grcmanager\Services\Ui\Badge;
-use GlpiPlugin\Grcmanager\Objective;
 
 /**
  * Management review record (ISO 27001 clause 9.3): evidence that top management periodically

@@ -23,7 +23,6 @@ use Dropdown;
 use Glpi\Application\View\TemplateRenderer;
 use Group;
 use Group_User;
-use GlpiPlugin\Grcmanager\Audit;
 use Session;
 
 /**

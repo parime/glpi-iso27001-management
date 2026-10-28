@@ -23,8 +23,6 @@ use Dropdown;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Services\Training\TrainingScore;
 use Html;
-use GlpiPlugin\Grcmanager\RestrictedDocument;
-use GlpiPlugin\Grcmanager\Training;
 use Preference;
 use Session;
 

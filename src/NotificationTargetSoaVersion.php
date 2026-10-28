@@ -21,7 +21,6 @@ use GlpiPlugin\Grcmanager\Services\Control\SoaApprovalLogic;
 use Html;
 use NotificationTarget;
 use Override;
-use GlpiPlugin\Grcmanager\SoaVersion;
 use User;
 
 /**

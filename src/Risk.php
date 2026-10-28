@@ -29,9 +29,6 @@ use GlpiPlugin\Grcmanager\Services\Risk\RiskItemLinkNormalizer;
 use GlpiPlugin\Grcmanager\Services\Risk\TreatmentPlanRules;
 use GlpiPlugin\Grcmanager\Traits\RiskAssessmentTrait;
 use Log;
-use GlpiPlugin\Grcmanager\AssetClassification;
-use GlpiPlugin\Grcmanager\Menu;
-use GlpiPlugin\Grcmanager\RiskTreatmentAction;
 use Session;
 use User;
 

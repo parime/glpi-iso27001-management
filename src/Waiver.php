@@ -30,10 +30,6 @@ use Html;
 use Item_Ticket;
 use Log;
 use NotificationEvent;
-use GlpiPlugin\Grcmanager\AccessReview;
-use GlpiPlugin\Grcmanager\Control;
-use GlpiPlugin\Grcmanager\Policy;
-use GlpiPlugin\Grcmanager\Risk;
 use Session;
 use Ticket;
 

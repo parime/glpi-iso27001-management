@@ -19,8 +19,6 @@ namespace GlpiPlugin\Grcmanager;
 
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\CanonicalProductBase;
-use GlpiPlugin\Grcmanager\CpeReference;
-use GlpiPlugin\Grcmanager\ProductAlias;
 use Session;
 
 /**

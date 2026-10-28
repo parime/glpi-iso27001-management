@@ -23,7 +23,6 @@ use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Services\Classification\ClassificationLevels;
 use GlpiPlugin\Grcmanager\Services\Impact\ImpactGraph;
 use GlpiPlugin\Grcmanager\Services\Impact\RecoveryObjectives;
-use GlpiPlugin\Grcmanager\AssetClassification;
 use Session;
 
 /**

@@ -26,8 +26,6 @@ use Glpi\DBAL\QuerySubQuery;
 use GlpiPlugin\Grcmanager\Compatibility\Base\CoverageRuleBase;
 use GlpiPlugin\Grcmanager\Services\Evidence\CoverageRules;
 use Log;
-use GlpiPlugin\Grcmanager\Control;
-use GlpiPlugin\Grcmanager\IsmsRequirement;
 use Session;
 
 /**

@@ -25,7 +25,6 @@ use GlpiPlugin\Grcmanager\Services\Compliance\ComplianceObligationRules;
 use GlpiPlugin\Grcmanager\Services\Risk\ReviewReminderService;
 use GlpiPlugin\Grcmanager\Services\Ui\Badge;
 use GlpiPlugin\Grcmanager\Services\Ui\Fragment;
-use GlpiPlugin\Grcmanager\Risk;
 
 /**
  * Registre des obligations légales, réglementaires et contractuelles (issue #30, ISO 27001 clause

@@ -34,7 +34,6 @@ use GlpiPlugin\Grcmanager\Services\Ui\Fragment;
 use Html;
 use Log;
 use PluginGrcmanagerSecurityIncident;
-use GlpiPlugin\Grcmanager\SecurityIncidentCve;
 use Session;
 
 /**

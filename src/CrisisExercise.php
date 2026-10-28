@@ -30,8 +30,6 @@ use GlpiPlugin\Grcmanager\Services\Impact\ImpactGraph;
 use Html;
 use ITILFollowup;
 use Planning;
-use GlpiPlugin\Grcmanager\Control;
-use GlpiPlugin\Grcmanager\RestrictedDocument;
 use PluginGrcmanagerSecurityIncident;
 use PluginGrcmanagerSecurityIncident_Item;
 use PluginGrcmanagerSecurityIncidentTask;
