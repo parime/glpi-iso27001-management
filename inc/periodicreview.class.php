@@ -403,7 +403,7 @@ class PluginGrcmanagerPeriodicReview extends PeriodicReviewBase
     {
         $done = [CommonITILObject::SOLVED, CommonITILObject::CLOSED];
         $status = (int) $ticket->fields['status'];
-        if (!in_array('status', $ticket->updates, true) ||!in_array($status, $done, true)) {
+        if (!in_array('status', $ticket->updates, true) || !in_array($status, $done, true)) {
             return;
         }
         $review = new self();
