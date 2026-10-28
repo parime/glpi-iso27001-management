@@ -44,7 +44,7 @@ final class PageHelpTest extends GrcmanagerIntegrationTestCase
         ob_start();
         \PluginGrcmanagerPageHelp::show('risk');
         $html = (string) ob_get_clean();
-        $this->assertStringContainsString(__('À quoi sert cette page ?', 'grcmanager'), $html);
+        $this->assertStringContainsString(__('What is this page for?', 'grcmanager'), $html);
         $this->assertStringContainsString('grc-help-risk', $html);
 
         ob_start();

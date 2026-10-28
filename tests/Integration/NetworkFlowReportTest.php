@@ -51,8 +51,8 @@ final class NetworkFlowReportTest extends GrcmanagerIntegrationTestCase
             $this->assertArrayHasKey('PHPUnit RDP publié', $flows);
             $row = $flows['PHPUnit RDP publié'];
             $this->assertSame('TCP 3389', $row['service']);
-            $this->assertContains(__('Administration exposée sur Internet', 'grcmanager'), $row['checks']);
-            $this->assertContains(__('Sans justification', 'grcmanager'), $row['checks']);
+            $this->assertContains(__('Administration exposed on the Internet', 'grcmanager'), $row['checks']);
+            $this->assertContains(__('No justification', 'grcmanager'), $row['checks']);
 
             $html = TemplateRenderer::getInstance()->render('@grcmanager/pdf/network_flow_report.html.twig', [
                 'report_title'       => 'Matrice',
