@@ -31,7 +31,7 @@ if (!empty($_GET['ics'])) {
 }
 
 Html::header(
-    __('Calendrier de conformité', 'grcmanager'),
+    __('Compliance calendar', 'grcmanager'),
     PluginGrcmanagerComplianceEvent::getCalendarURL(),
     'grcmanager',
     PluginGrcmanagerDashboard::class,

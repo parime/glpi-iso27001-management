@@ -30,15 +30,15 @@ class PluginGrcmanagerNotificationTargetAccessReview extends NotificationTarget
     public function getEvents()
     {
         return [
-            PluginGrcmanagerAccessReview::REQUEST_EVENT  => __('Revue des accès à réaliser', 'grcmanager'),
-            PluginGrcmanagerAccessReview::REMINDER_EVENT => __('Relance de la revue des accès', 'grcmanager'),
+            PluginGrcmanagerAccessReview::REQUEST_EVENT  => __('Access review to complete', 'grcmanager'),
+            PluginGrcmanagerAccessReview::REMINDER_EVENT => __('Access review reminder', 'grcmanager'),
         ];
     }
 
     #[Override]
     public function addAdditionalTargets($event = '')
     {
-        $this->addTarget(self::REVIEWERS_TARGET, __('Responsables ayant des comptes à revoir', 'grcmanager'));
+        $this->addTarget(self::REVIEWERS_TARGET, __('Reviewers with accounts to review', 'grcmanager'));
     }
 
     #[Override]
@@ -94,10 +94,10 @@ class PluginGrcmanagerNotificationTargetAccessReview extends NotificationTarget
     {
         $tags = [
             'accessreview.action'  => _n('Event', 'Events', 1),
-            'accessreview.name'    => __('Campagne', 'grcmanager'),
-            'accessreview.owner'   => __('Pilote', 'grcmanager'),
-            'accessreview.duedate' => __('Échéance', 'grcmanager'),
-            'accessreview.comment' => __('Commentaire', 'grcmanager'),
+            'accessreview.name'    => __('Campaign', 'grcmanager'),
+            'accessreview.owner'   => _x('process pilot', 'Owner', 'grcmanager'),
+            'accessreview.duedate' => __('Due date', 'grcmanager'),
+            'accessreview.comment' => __('Comment', 'grcmanager'),
             'accessreview.url'     => __('URL'),
         ];
 

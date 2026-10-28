@@ -60,7 +60,7 @@ if (isset($_POST['request_approval'])) {
         trim((string) ($_POST['comment'] ?? ''))
     );
     if ($id > 0) {
-        Session::addMessageAfterRedirect(__('Version figée et envoyée aux approbateurs.', 'grcmanager'));
+        Session::addMessageAfterRedirect(__('Version frozen and sent to the approvers.', 'grcmanager'));
     }
     Html::redirect($CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/soaapproval.php');
 }
@@ -69,7 +69,7 @@ if (isset($_POST['answer'])) {
     $approve = ($_POST['decision'] ?? '') === 'approve';
     $comment = trim((string) ($_POST['comment'] ?? ''));
     if (!$approve && $comment === '') {
-        Session::addMessageAfterRedirect(__('Indiquez la raison du refus.', 'grcmanager'), false, ERROR);
+        Session::addMessageAfterRedirect(__('Please give the reason for the rejection.', 'grcmanager'), false, ERROR);
     } elseif (
         PluginGrcmanagerSoaVersion::answer(
             (int) ($_POST['versions_id'] ?? 0),
@@ -79,16 +79,16 @@ if (isset($_POST['answer'])) {
         )
     ) {
         Session::addMessageAfterRedirect($approve
-            ? __('Approbation enregistrée.', 'grcmanager')
-            : __('Refus enregistré.', 'grcmanager'));
+            ? __('Approval recorded.', 'grcmanager')
+            : __('Rejection recorded.', 'grcmanager'));
     } else {
-        Session::addMessageAfterRedirect(__('Cette version n\'attend pas votre réponse.', 'grcmanager'), false, ERROR);
+        Session::addMessageAfterRedirect(__('This version is not awaiting your answer.', 'grcmanager'), false, ERROR);
     }
     Html::redirect($CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/soaapproval.php');
 }
 
 Html::header(
-    __('Approbation de la SoA', 'grcmanager'),
+    __('SoA approval', 'grcmanager'),
     $_SERVER['PHP_SELF'],
     'grcmanager',
     PluginGrcmanagerControl::class

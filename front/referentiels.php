@@ -31,7 +31,7 @@ include('../../../inc/includes.php');
 Session::checkRight(PluginGrcmanagerControl::$rightname, READ);
 
 Html::header(
-    __('Référentiels', 'grcmanager'),
+    __('Reference frameworks', 'grcmanager'),
     $_SERVER['PHP_SELF'],
     'grcmanager',
     PluginGrcmanagerControl::class,

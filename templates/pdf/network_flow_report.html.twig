@@ -1,15 +1,15 @@
 {# Issue #144, phase 2 : rapport de la matrice des flux pour l'auditeur (A.8.20 à A.8.22) #}
 {% include '@grcmanager/pdf/_pdf_style.html.twig' %}
 
-<h2>{{ __('Résumé', 'grcmanager') }}</h2>
+<h2>{{ __('Summary', 'grcmanager') }}</h2>
 <table class="grcmanager-pdf-summary">
-  <tr><td>{{ __('Flux actifs', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ active }}</td></tr>
-  <tr><td>{{ __('Flux désactivés', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ inactive }}</td></tr>
+  <tr><td>{{ __('Active flows', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ active }}</td></tr>
+  <tr><td>{{ __('Disabled flows', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ inactive }}</td></tr>
   {% for c in checks %}
     <tr><td>{{ c.label }}</td><td class="grcmanager-pdf-summary-number">{{ c.count }}</td></tr>
   {% endfor %}
   {% if checks is empty and active > 0 %}
-    <tr><td colspan="2">{{ __('Aucun écart sur les flux actifs.', 'grcmanager') }}</td></tr>
+    <tr><td colspan="2">{{ __('No gap on active flows.', 'grcmanager') }}</td></tr>
   {% endif %}
 </table>
 
@@ -18,14 +18,14 @@
   <table class="grcmanager-pdf-table">
     <thead>
       <tr>
-        <th>{{ __('Nom', 'grcmanager') }}</th>
+        <th>{{ __('Name', 'grcmanager') }}</th>
         <th>{{ __('Source', 'grcmanager') }}</th>
         <th>{{ __('Destination', 'grcmanager') }}</th>
-        <th>{{ __('Protocole et ports', 'grcmanager') }}</th>
+        <th>{{ __('Protocol and ports', 'grcmanager') }}</th>
         <th>{{ __('Justification', 'grcmanager') }}</th>
-        <th>{{ __('Propriétaire', 'grcmanager') }}</th>
-        <th>{{ __('Fin', 'grcmanager') }}</th>
-        <th>{{ __('Écarts', 'grcmanager') }}</th>
+        <th>{{ _x('owner', 'Owner', 'grcmanager') }}</th>
+        <th>{{ __('End', 'grcmanager') }}</th>
+        <th>{{ __('Gaps', 'grcmanager') }}</th>
       </tr>
     </thead>
     <tbody>
@@ -44,20 +44,20 @@
     </tbody>
   </table>
 {% else %}
-  <p>{{ __('Aucun flux actif.', 'grcmanager') }}</p>
+  <p>{{ __('No active flow.', 'grcmanager') }}</p>
 {% endfor %}
 
-<h2>{{ __('Plan d\'adressage', 'grcmanager') }}</h2>
+<h2>{{ __('Addressing plan', 'grcmanager') }}</h2>
 {% if networks is empty %}
-  <p>{{ __('Aucun réseau IP déclaré dans GLPI.', 'grcmanager') }}</p>
+  <p>{{ __('No IP network declared in GLPI.', 'grcmanager') }}</p>
 {% else %}
   <table class="grcmanager-pdf-table">
     <thead>
       <tr>
-        <th>{{ __('Réseau', 'grcmanager') }}</th>
-        <th>{{ __('Adresse', 'grcmanager') }}</th>
-        <th>{{ __('Passerelle', 'grcmanager') }}</th>
-        <th>{{ __('Entité', 'grcmanager') }}</th>
+        <th>{{ __('Network', 'grcmanager') }}</th>
+        <th>{{ __('Address', 'grcmanager') }}</th>
+        <th>{{ __('Gateway', 'grcmanager') }}</th>
+        <th>{{ __('Entity', 'grcmanager') }}</th>
       </tr>
     </thead>
     <tbody>

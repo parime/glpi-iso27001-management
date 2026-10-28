@@ -1,26 +1,26 @@
 {# Issue #31 : plan de traitement d'un risque (issue #199 : passé de PHP à Twig). Hors du formulaire du
    risque : ces mini formulaires postent vers front/risktreatmentaction.form.php. #}
 {% if not saved %}
-   <div class="alert alert-info mt-3">{{ __('Enregistrez d\'abord ce risque pour pouvoir renseigner son plan de traitement.', 'grcmanager') }}</div>
+   <div class="alert alert-info mt-3">{{ __('Save this risk first to be able to fill in its treatment plan.', 'grcmanager') }}</div>
 {% else %}
    <div class="card mt-3"><div class="card-body">
-      <h3>{{ __('Plan de traitement du risque', 'grcmanager') }}</h3>
-      <small class="form-hint d-block mb-2">{{ __('Actions concrètes mises en œuvre pour appliquer la décision de traitement (clause 8.3/6.1.3 ISO 27001) : chacune a son propre responsable, sa propre échéance et son propre statut.', 'grcmanager') }}</small>
+      <h3>{{ __('Risk treatment plan', 'grcmanager') }}</h3>
+      <small class="form-hint d-block mb-2">{{ __('Concrete actions implementing the treatment decision (ISO 27001 clause 8.3/6.1.3): each has its own owner, its own due date and its own status.', 'grcmanager') }}</small>
       {% if can_edit %}
          <form method="post" action="{{ action }}" class="mb-3">
             <input type="hidden" name="plugin_grcmanager_risks_id" value="{{ risk_id }}">
             <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
             <div class="row g-2 align-items-end">
                <div class="col-md-5">
-                  <label class="form-label" for="grc-action-description">{{ __('Description de l\'action', 'grcmanager') }}</label>
+                  <label class="form-label" for="grc-action-description">{{ __('Action description', 'grcmanager') }}</label>
                   <input type="text" id="grc-action-description" name="description" class="form-control">
                </div>
                <div class="col-md-3">
-                  <div class="form-label">{{ __('Responsable', 'grcmanager') }}</div>
+                  <div class="form-label">{{ __('Owner', 'grcmanager') }}</div>
                   {{ user_dropdown|raw }}
                </div>
                <div class="col-md-2">
-                  <label class="form-label" for="grc-action-due">{{ __('Échéance', 'grcmanager') }}</label>
+                  <label class="form-label" for="grc-action-due">{{ __('Due date', 'grcmanager') }}</label>
                   <input type="date" id="grc-action-due" name="due_date" class="form-control">
                </div>
                <div class="col-md-2">
@@ -30,7 +30,7 @@
          </form>
       {% endif %}
       <table class="table">
-         <thead><tr><th>{{ __('Description de l\'action', 'grcmanager') }}</th><th>{{ __('Responsable', 'grcmanager') }}</th><th>{{ __('Échéance', 'grcmanager') }}</th><th>{{ __('Statut', 'grcmanager') }}</th><th>{{ __('Date de réalisation', 'grcmanager') }}</th>{% if can_edit %}<th></th>{% endif %}</tr></thead>
+         <thead><tr><th>{{ __('Action description', 'grcmanager') }}</th><th>{{ __('Owner', 'grcmanager') }}</th><th>{{ __('Due date', 'grcmanager') }}</th><th>{{ __('Status', 'grcmanager') }}</th><th>{{ __('Completion date', 'grcmanager') }}</th>{% if can_edit %}<th></th>{% endif %}</tr></thead>
          <tbody>
             {% for a in actions %}
                {% set status_html = a.status_html %}
@@ -39,7 +39,7 @@
                   <td>{{ a.user }}</td>
                   <td>
                      {{ a.due_date ? a.due_date|formatted_date }}
-                     {% if a.overdue %} <span class="badge bg-red-lt"><i class="ti ti-alert-triangle me-1"></i>{{ __('En retard', 'grcmanager') }}</span>{% endif %}
+                     {% if a.overdue %} <span class="badge bg-red-lt"><i class="ti ti-alert-triangle me-1"></i>{{ __('Overdue', 'grcmanager') }}</span>{% endif %}
                   </td>
                   <td>{{ status_html|raw }}</td>
                   <td>{{ a.completion_date ? a.completion_date|formatted_date }}</td>
@@ -49,12 +49,12 @@
                            <input type="hidden" name="id" value="{{ a.id }}">
                            <input type="hidden" name="plugin_grcmanager_risks_id" value="{{ risk_id }}">
                            <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
-                           <select name="status" class="form-select form-select-sm" aria-label="{{ __('Statut', 'grcmanager') }} — {{ a.description }}">
+                           <select name="status" class="form-select form-select-sm" aria-label="{{ __('Status', 'grcmanager') }} — {{ a.description }}">
                               {% for value, label in action_statuses %}<option value="{{ value }}" {{ value == a.status ? 'selected' }}>{{ label }}</option>{% endfor %}
                            </select>
-                           <button type="submit" name="update" value="1" class="btn btn-sm btn-primary text-nowrap">{{ __('Mettre à jour', 'grcmanager') }}</button>
+                           <button type="submit" name="update" value="1" class="btn btn-sm btn-primary text-nowrap">{{ __('Update', 'grcmanager') }}</button>
                         </form>
-                        <form method="post" action="{{ action }}" class="mb-0" data-grc-confirm="{{ __('Confirmer la suppression ?', 'grcmanager') }}">
+                        <form method="post" action="{{ action }}" class="mb-0" data-grc-confirm="{{ __('Confirm deletion?', 'grcmanager') }}">
                            <input type="hidden" name="id" value="{{ a.id }}">
                            <input type="hidden" name="plugin_grcmanager_risks_id" value="{{ risk_id }}">
                            <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
@@ -64,7 +64,7 @@
                   {% endif %}
                </tr>
             {% else %}
-               <tr><td colspan="{{ can_edit ? 6 : 5 }}" class="text-muted">{{ __('Aucune action de traitement enregistrée pour le moment.', 'grcmanager') }}</td></tr>
+               <tr><td colspan="{{ can_edit ? 6 : 5 }}" class="text-muted">{{ __('No treatment action recorded yet.', 'grcmanager') }}</td></tr>
             {% endfor %}
          </tbody>
       </table>

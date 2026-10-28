@@ -46,7 +46,7 @@ TemplateRenderer::getInstance()->display('@grcmanager/_list_toolbar.html.twig', 
     'buttons' => [[
         'url'   => $myRisksURL,
         'icon'  => 'ti-user-check',
-        'label' => __('Mes risques fournisseurs', 'grcmanager'),
+        'label' => __('My supplier risks', 'grcmanager'),
     ]],
 ]);
 

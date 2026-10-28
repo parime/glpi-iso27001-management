@@ -41,7 +41,7 @@ TemplateRenderer::getInstance()->display('@grcmanager/_list_toolbar.html.twig', 
     'buttons' => [[
         'url'   => $calendarUrl,
         'icon'  => 'ti-calendar',
-        'label' => __('Calendrier de conformité', 'grcmanager'),
+        'label' => __('Compliance calendar', 'grcmanager'),
     ]],
 ]);
 

@@ -36,7 +36,7 @@ class PluginGrcmanagerSupplierAssessment extends CommonGLPI
 
     public static function getTypeName($nb = 0)
     {
-        return __('Questionnaire de sécurité', 'grcmanager');
+        return __('Security questionnaire', 'grcmanager');
     }
 
     /**
@@ -46,54 +46,32 @@ class PluginGrcmanagerSupplierAssessment extends CommonGLPI
     {
         return [
             'certification' => __(
-                'Le fournisseur détient une certification de sécurité en cours de validité '
-                    . '(ISO 27001, SOC 2, HDS…).',
+                'The supplier holds a valid security certification (ISO 27001, SOC 2, HDS…).',
                 'grcmanager'
             ),
-            'security_policy' => __(
-                'Il dispose d\'une politique de sécurité de l\'information formalisée et à jour.',
-                'grcmanager'
-            ),
-            'data_location' => __(
-                'Nos données sont hébergées et traitées dans l\'Union européenne.',
-                'grcmanager'
-            ),
-            'encryption' => __(
-                'Nos données sont chiffrées au repos et en transit.',
-                'grcmanager'
-            ),
-            'mfa' => __(
-                'Les accès à nos données exigent une authentification multifacteur.',
-                'grcmanager'
-            ),
+            'security_policy' => __('It has a formal, up-to-date information security policy.', 'grcmanager'),
+            'data_location' => __('Our data is hosted and processed in the European Union.', 'grcmanager'),
+            'encryption' => __('Our data is encrypted at rest and in transit.', 'grcmanager'),
+            'mfa' => __('Access to our data requires multi-factor authentication.', 'grcmanager'),
             'subcontractors' => __(
-                'La liste de ses sous-traitants nous est communiquée et nos exigences leur sont répercutées.',
+                'Its list of subcontractors is shared with us and our requirements are passed on to them.',
                 'grcmanager'
             ),
             'incident_notification' => __(
-                'Il s\'engage à nous notifier ses incidents de sécurité dans un délai contractuel.',
+                'It commits to notifying us of its security incidents within a contractual deadline.',
                 'grcmanager'
             ),
-            'backup_continuity' => __(
-                'Ses sauvegardes sont testées et il dispose d\'un plan de continuité.',
-                'grcmanager'
-            ),
-            'audits' => __(
-                'Il réalise des audits ou tests d\'intrusion réguliers, ou accepte d\'être audité.',
-                'grcmanager'
-            ),
+            'backup_continuity' => __('Its backups are tested and it has a business continuity plan.', 'grcmanager'),
+            'audits' => __('It performs regular audits or penetration tests, or agrees to be audited.', 'grcmanager'),
             'vulnerability_management' => __(
-                'Il gère ses vulnérabilités et applique les correctifs dans des délais définis.',
+                'It manages its vulnerabilities and applies patches within defined timeframes.',
                 'grcmanager'
             ),
             'reversibility' => __(
-                'La restitution et la suppression de nos données en fin de contrat sont prévues.',
+                'The return and deletion of our data at the end of the contract are provided for.',
                 'grcmanager'
             ),
-            'contract_clauses' => __(
-                'Le contrat comporte des clauses de sécurité et de confidentialité.',
-                'grcmanager'
-            ),
+            'contract_clauses' => __('The contract includes security and confidentiality clauses.', 'grcmanager'),
         ];
     }
 
@@ -103,10 +81,10 @@ class PluginGrcmanagerSupplierAssessment extends CommonGLPI
     public static function getAnswerLabels(): array
     {
         return [
-            SupplierQuestionnaire::ANSWER_YES     => __('Oui', 'grcmanager'),
-            SupplierQuestionnaire::ANSWER_PARTIAL => __('Partiel', 'grcmanager'),
-            SupplierQuestionnaire::ANSWER_NO      => __('Non', 'grcmanager'),
-            SupplierQuestionnaire::ANSWER_NA      => __('Sans objet', 'grcmanager'),
+            SupplierQuestionnaire::ANSWER_YES     => __('Yes', 'grcmanager'),
+            SupplierQuestionnaire::ANSWER_PARTIAL => __('Partial', 'grcmanager'),
+            SupplierQuestionnaire::ANSWER_NO      => __('No', 'grcmanager'),
+            SupplierQuestionnaire::ANSWER_NA      => _x('nothing to assess', 'Not applicable', 'grcmanager'),
         ];
     }
 
@@ -119,7 +97,7 @@ class PluginGrcmanagerSupplierAssessment extends CommonGLPI
         return [
             self::TAB_QUESTIONNAIRE => self::createTabEntry(self::getTypeName(1), 0, null, 'ti ti-checklist'),
             self::TAB_CONTRACTS     => self::createTabEntry(
-                __('Contrats du fournisseur', 'grcmanager'),
+                __('Supplier contracts', 'grcmanager'),
                 0,
                 null,
                 Contract::getIcon()

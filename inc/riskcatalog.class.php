@@ -34,7 +34,7 @@ class PluginGrcmanagerRiskCatalog extends CommonGLPI
 
     public static function getTypeName($nb = 0)
     {
-        return __('Catalogue de risques types', 'grcmanager');
+        return __('Catalog of typical risks', 'grcmanager');
     }
 
     public static function getSearchURL($full = true)
@@ -56,216 +56,194 @@ class PluginGrcmanagerRiskCatalog extends CommonGLPI
     {
         $entries = [
             'admin_exposed' => [
-                __('Service d\'administration exposé sur Internet', 'grcmanager'),
+                __('Administration service exposed to the Internet', 'grcmanager'),
                 __(
-                    'Une interface d\'administration (SSH, bureau à distance, console d\'un pare-feu, tableau de '
-                    . 'bord d\'un proxy ou d\'un hyperviseur) est joignable depuis Internet.',
+                    'An administration interface (SSH, remote desktop, firewall console, proxy or hypervisor '
+                        . 'dashboard) can be reached from the Internet.',
                     'grcmanager'
                 ),
                 __(
-                    'Attaque par force brute ou par mots de passe volés, exploitation d\'une faille publiée avant '
-                    . 'la mise à jour, prise de contrôle de l\'équipement.',
+                    'Brute-force or stolen-password attack, exploitation of a published flaw before the update, '
+                        . 'takeover of the device.',
                     'grcmanager'
                 ),
                 [
-                    __('Une règle du pare-feu publie-t-elle un port d\'administration vers Internet ?', 'grcmanager'),
+                    __('Does a firewall rule publish an administration port to the Internet?', 'grcmanager'),
                     __(
-                        'L\'accès d\'administration passe-t-il par un VPN ou un bastion avec authentification '
-                        . 'forte ?',
+                        'Does administrative access go through a VPN or a bastion with strong authentication?',
                         'grcmanager'
                     ),
                 ],
             ],
             'remote_mgmt_exposed' => [
+                __('Server remote management cards reachable outside the administration network', 'grcmanager'),
                 __(
-                    'Cartes de gestion à distance des serveurs joignables hors du réseau d\'administration',
+                    'iLO, iDRAC, IPMI or similar interfaces are on the same network as workstations or servers, or '
+                        . 'even published.',
                     'grcmanager'
                 ),
                 __(
-                    'Les interfaces iLO, iDRAC, IPMI ou équivalentes sont sur le même réseau que les postes ou les '
-                    . 'serveurs, voire publiées.',
-                    'grcmanager'
-                ),
-                __(
-                    'Prise de contrôle matérielle du serveur (console, alimentation, montage d\'images) qui '
-                    . 'contourne le système d\'exploitation et ses protections.',
+                    'Hardware-level takeover of the server (console, power, image mounting) that bypasses the '
+                        . 'operating system and its protections.',
                     'grcmanager'
                 ),
                 [
-                    __('Les cartes de gestion sont-elles sur un réseau dédié, filtré ?', 'grcmanager'),
-                    __(
-                        'Leurs mots de passe par défaut ont-ils été changés et leur micrologiciel mis à jour ?',
-                        'grcmanager'
-                    ),
+                    __('Are the management cards on a dedicated, filtered network?', 'grcmanager'),
+                    __('Have their default passwords been changed and their firmware updated?', 'grcmanager'),
                 ],
             ],
             'vpn_overlap' => [
-                __('Réseaux qui se chevauchent avec un partenaire relié par VPN', 'grcmanager'),
+                __('Networks overlapping with a partner connected by VPN', 'grcmanager'),
                 __(
-                    'Un partenaire, un client ou un prestataire relié par VPN utilise la même plage d\'adresses '
-                    . 'qu\'un de vos sites.',
+                    'A partner, customer or provider connected by VPN uses the same address range as one of your '
+                        . 'sites.',
                     'grcmanager'
                 ),
                 __(
-                    'Flux mal routés ou bloqués, contournements improvisés (traduction d\'adresses ajoutée dans '
-                    . 'l\'urgence, règles trop larges) qui ouvrent plus que nécessaire.',
+                    'Misrouted or blocked traffic, improvised workarounds (address translation added in a hurry, '
+                        . 'overly broad rules) that open more than needed.',
                     'grcmanager'
                 ),
                 [
-                    __('Des tunnels VPN relient-ils vos réseaux à ceux de tiers ?', 'grcmanager'),
-                    __('Les plages de chaque côté sont-elles documentées et distinctes ?', 'grcmanager'),
+                    __('Do VPN tunnels connect your networks to third parties\' networks?', 'grcmanager'),
+                    __('Are the ranges on each side documented and distinct?', 'grcmanager'),
                 ],
             ],
             'guest_network' => [
-                __('Réseau invités insuffisamment isolé', 'grcmanager'),
-                __('Le Wi-Fi invités ou le réseau des visiteurs peut joindre des équipements internes.', 'grcmanager'),
+                __('Insufficiently isolated guest network', 'grcmanager'),
+                __('The guest Wi-Fi or visitor network can reach internal devices.', 'grcmanager'),
                 __(
-                    'Un appareil inconnu ou compromis atteint les postes, les imprimantes ou les serveurs ; écoute '
-                    . 'du trafic interne.',
+                    'An unknown or compromised device reaches workstations, printers or servers; internal traffic '
+                        . 'is eavesdropped.',
                     'grcmanager'
                 ),
                 [
-                    __('Le réseau invités n\'a-t-il accès qu\'à Internet ?', 'grcmanager'),
-                    __('L\'isolation a-t-elle été vérifiée par un test depuis un appareil invité ?', 'grcmanager'),
+                    __('Does the guest network only have access to the Internet?', 'grcmanager'),
+                    __('Has the isolation been checked by a test from a guest device?', 'grcmanager'),
                 ],
             ],
             'flat_network' => [
-                __('Réseau interne à plat, sans segmentation', 'grcmanager'),
+                __('Flat internal network, without segmentation', 'grcmanager'),
                 __(
-                    'Postes, serveurs, imprimantes, téléphonie et équipements industriels partagent le même réseau.',
+                    'Workstations, servers, printers, telephony and industrial equipment share the same network.',
                     'grcmanager'
                 ),
                 __(
-                    'Un poste compromis (rançongiciel, cheval de Troie) se propage librement vers les serveurs et '
-                    . 'les sauvegardes.',
+                    'A compromised workstation (ransomware, Trojan) spreads freely to servers and backups.',
                     'grcmanager'
                 ),
                 [
-                    __('Les usages ont-ils chacun leur réseau ou VLAN, avec un filtrage entre eux ?', 'grcmanager'),
-                    __('Les flux autorisés entre réseaux sont-ils listés dans la matrice des flux ?', 'grcmanager'),
+                    __('Does each use have its own network or VLAN, with filtering between them?', 'grcmanager'),
+                    __('Are the flows allowed between networks listed in the network flow matrix?', 'grcmanager'),
                 ],
             ],
             'spof_power' => [
-                __('Point de défaillance unique : alimentation électrique', 'grcmanager'),
+                __('Single point of failure: power supply', 'grcmanager'),
                 __(
-                    'La salle serveurs ou le local réseau dépend d\'un seul onduleur, d\'une seule arrivée '
-                    . 'électrique ou d\'une seule alimentation par équipement.',
+                    'The server room or network closet depends on a single UPS, a single power feed or a single '
+                        . 'power supply per device.',
                     'grcmanager'
                 ),
                 __(
-                    'Coupure générale lors d\'une panne d\'onduleur ou d\'une intervention électrique ; matériel '
-                    . 'endommagé par un arrêt brutal.',
+                    'Total outage during a UPS failure or electrical work; equipment damaged by a sudden shutdown.',
                     'grcmanager'
                 ),
                 [
-                    __('Les équipements critiques ont-ils deux alimentations, sur deux circuits ?', 'grcmanager'),
-                    __('L\'autonomie des onduleurs est-elle testée et suffisante pour un arrêt propre ?', 'grcmanager'),
+                    __('Do critical devices have two power supplies, on two circuits?', 'grcmanager'),
+                    __('Is the UPS runtime tested and sufficient for a clean shutdown?', 'grcmanager'),
                 ],
             ],
             'spof_hypervisor' => [
-                __('Point de défaillance unique : hyperviseur ou stockage partagé', 'grcmanager'),
+                __('Single point of failure: hypervisor or shared storage', 'grcmanager'),
                 __(
-                    'Plusieurs serveurs virtuels critiques reposent sur un seul hôte de virtualisation ou une '
-                    . 'seule baie de stockage.',
+                    'Several critical virtual servers rely on a single virtualization host or a single storage '
+                        . 'array.',
                     'grcmanager'
                 ),
                 __(
-                    'Arrêt simultané de toutes les applications hébergées en cas de panne matérielle ou de mise à '
-                    . 'jour ratée.',
+                    'Simultaneous outage of all hosted applications after a hardware failure or a failed update.',
                     'grcmanager'
                 ),
                 [
-                    __('Un second hôte peut-il reprendre les machines virtuelles critiques ?', 'grcmanager'),
-                    __('Le délai de reprise a-t-il été mesuré lors d\'un test ?', 'grcmanager'),
+                    __('Can a second host take over the critical virtual machines?', 'grcmanager'),
+                    __('Has the recovery time been measured during a test?', 'grcmanager'),
                 ],
             ],
             'spof_isp_link' => [
-                __('Point de défaillance unique : lien opérateur', 'grcmanager'),
+                __('Single point of failure: carrier link', 'grcmanager'),
                 __(
-                    'Un site, ou l\'accès aux services en ligne, dépend d\'un seul lien Internet ou d\'un seul '
-                    . 'opérateur.',
+                    'A site, or access to online services, depends on a single Internet link or a single carrier.',
                     'grcmanager'
                 ),
                 __(
-                    'Site isolé pendant une coupure (travaux, panne opérateur), téléphonie et applications '
-                    . 'hébergées inaccessibles.',
+                    'Site cut off during an outage (works, carrier failure), telephony and hosted applications '
+                        . 'unavailable.',
                     'grcmanager'
                 ),
                 [
-                    __(
-                        'Existe-t-il un second lien, chez un autre opérateur et par un autre chemin physique ?',
-                        'grcmanager'
-                    ),
-                    __('La bascule a-t-elle été testée ?', 'grcmanager'),
+                    __('Is there a second link, with another carrier and over another physical path?', 'grcmanager'),
+                    __('Has the failover been tested?', 'grcmanager'),
                 ],
             ],
             'spof_directory' => [
-                __('Point de défaillance unique : annuaire (contrôleur de domaine)', 'grcmanager'),
+                __('Single point of failure: directory (domain controller)', 'grcmanager'),
+                __('A site has only one domain controller, or the directory has only one server.', 'grcmanager'),
                 __(
-                    'Un site n\'a qu\'un seul contrôleur de domaine, ou l\'annuaire n\'a qu\'un seul serveur.',
-                    'grcmanager'
-                ),
-                __(
-                    'Plus aucune connexion ni accès aux partages en cas de panne ; restauration longue et délicate '
-                    . 'de l\'annuaire.',
+                    'No more logons or access to shares after a failure; long and tricky directory restore.',
                     'grcmanager'
                 ),
                 [
                     __(
-                        'Chaque site a-t-il au moins deux contrôleurs de domaine, ou un accès fiable à un second ?',
+                        'Does each site have at least two domain controllers, or reliable access to a second one?',
                         'grcmanager'
                     ),
-                    __('La restauration de l\'annuaire a-t-elle déjà été testée ?', 'grcmanager'),
+                    __('Has the directory restore ever been tested?', 'grcmanager'),
                 ],
             ],
             'backups_same_site' => [
-                __('Sauvegardes sur le même site que les données', 'grcmanager'),
+                __('Backups on the same site as the data', 'grcmanager'),
                 __(
-                    'Les sauvegardes sont stockées dans la même salle, le même bâtiment ou le même domaine '
-                    . 'd\'administration que les données qu\'elles protègent.',
+                    'Backups are stored in the same room, building or administration domain as the data they '
+                        . 'protect.',
                     'grcmanager'
                 ),
                 __(
-                    'Perte simultanée des données et des sauvegardes lors d\'un incendie, d\'un dégât des eaux ou '
-                    . 'd\'un rançongiciel qui chiffre aussi les sauvegardes.',
+                    'Simultaneous loss of data and backups in a fire, a flood or a ransomware attack that also '
+                        . 'encrypts the backups.',
                     'grcmanager'
                 ),
                 [
-                    __('Une copie est-elle conservée hors site ou hors ligne, non modifiable ?', 'grcmanager'),
-                    __('Une restauration complète est-elle testée régulièrement ?', 'grcmanager'),
+                    __('Is a copy kept off-site or offline, immutable?', 'grcmanager'),
+                    __('Is a full restore tested regularly?', 'grcmanager'),
                 ],
             ],
             'outdated_diagrams' => [
-                __('Schéma réseau et plan d\'adressage non tenus à jour', 'grcmanager'),
+                __('Network diagram and address plan not kept up to date', 'grcmanager'),
                 __(
-                    'Le schéma réseau, le plan d\'adressage et la liste des flux ne reflètent plus l\'existant.',
+                    'The network diagram, the address plan and the list of flows no longer reflect reality.',
                     'grcmanager'
                 ),
                 __(
-                    'Décisions prises sur une vision fausse, incident plus long à diagnostiquer, équipements '
-                    . 'oubliés hors de toute surveillance.',
+                    'Decisions made on a wrong picture, longer incident diagnosis, forgotten devices outside any '
+                        . 'monitoring.',
                     'grcmanager'
                 ),
                 [
-                    __('La date de la dernière mise à jour du schéma est-elle connue ?', 'grcmanager'),
-                    __('Une revue périodique du schéma et des flux est-elle planifiée ?', 'grcmanager'),
+                    __('Is the date of the last diagram update known?', 'grcmanager'),
+                    __('Is a periodic review of the diagram and flows scheduled?', 'grcmanager'),
                 ],
             ],
             'logs_not_reviewed' => [
-                __('Journaux de sécurité ni centralisés ni consultés', 'grcmanager'),
+                __('Security logs neither centralized nor reviewed', 'grcmanager'),
+                __('Firewall, directory and server logs stay on each device, with no alert or review.', 'grcmanager'),
                 __(
-                    'Les journaux des pare-feu, de l\'annuaire et des serveurs restent sur chaque équipement, sans '
-                    . 'alerte ni revue.',
-                    'grcmanager'
-                ),
-                __(
-                    'Intrusion détectée tard, ou jamais ; journaux effacés par l\'attaquant ; impossibilité de '
-                    . 'reconstituer un incident.',
+                    'Intrusion detected late, or never; logs wiped by the attacker; impossible to reconstruct an '
+                        . 'incident.',
                     'grcmanager'
                 ),
                 [
-                    __('Les journaux sont-ils centralisés et conservés assez longtemps ?', 'grcmanager'),
-                    __('Des alertes ou une revue régulière existent-elles ?', 'grcmanager'),
+                    __('Are logs centralized and kept long enough?', 'grcmanager'),
+                    __('Are there alerts or a regular review?', 'grcmanager'),
                 ],
             ],
         ];
@@ -333,8 +311,8 @@ class PluginGrcmanagerRiskCatalog extends CommonGLPI
         $imported = self::importedRisks();
         foreach (InfrastructureRiskCatalog::toImport($requested, array_keys($imported)) as $key) {
             $entry = $entries[$key];
-            $description = $entry['description'] . "\n\n" . __('Menaces :', 'grcmanager') . ' ' . $entry['threats']
-                . "\n\n" . __('Questions pour savoir s\'il s\'applique :', 'grcmanager') . "\n- "
+            $description = $entry['description'] . "\n\n" . __('Threats:', 'grcmanager') . ' ' . $entry['threats']
+                . "\n\n" . __('Questions to tell whether it applies:', 'grcmanager') . "\n- "
                 . implode("\n- ", $entry['questions']);
             $risksId = (int) (new PluginGrcmanagerRisk())->add([
                 'title'       => $entry['title'],

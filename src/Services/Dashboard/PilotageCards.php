@@ -92,7 +92,7 @@ final class PilotageCards
 
         return [
             'data'  => $data,
-            'label' => $params['label'] ?? __('Mesures mises en œuvre par référentiel (%)', 'grcmanager'),
+            'label' => $params['label'] ?? __('Implemented controls by framework (%)', 'grcmanager'),
             'icon'  => 'ti ti-shield-check',
         ];
     }
@@ -108,7 +108,7 @@ final class PilotageCards
         return [
             'number' => count($pending),
             'url'    => \PluginGrcmanagerComplianceEvent::getCalendarURL(),
-            'label'  => $params['label'] ?? __('Échéances à 90 jours', 'grcmanager'),
+            'label'  => $params['label'] ?? __('Deadlines within 90 days', 'grcmanager'),
             'icon'   => 'ti ti-calendar-event',
         ];
     }
@@ -141,7 +141,7 @@ final class PilotageCards
         return [
             'number' => AccessReviewLogic::progress($decisions)['percent'],
             'url'    => \PluginGrcmanagerAccessReview::getSearchURL(),
-            'label'  => $params['label'] ?? __('Revue des accès : % revus', 'grcmanager'),
+            'label'  => $params['label'] ?? __('Access review: % reviewed', 'grcmanager'),
             'icon'   => 'ti ti-user-check',
         ];
     }
@@ -174,7 +174,7 @@ final class PilotageCards
         return [
             'number' => $count,
             'url'    => \PluginGrcmanagerAccessReview::getSearchURL(),
-            'label'  => $params['label'] ?? __('Responsables en retard (accès)', 'grcmanager'),
+            'label'  => $params['label'] ?? __('Late reviewers (access)', 'grcmanager'),
             'icon'   => 'ti ti-user-exclamation',
         ];
     }
@@ -243,7 +243,7 @@ final class PilotageCards
         return [
             'number' => count(self::participantsToRetake(self::assessedParticipations())),
             'url'    => \PluginGrcmanagerTraining::getSearchURL(),
-            'label'  => $params['label'] ?? __('Participants à repasser', 'grcmanager'),
+            'label'  => $params['label'] ?? __('Participants to retake', 'grcmanager'),
             'icon'   => 'ti ti-repeat',
         ];
     }
@@ -286,7 +286,7 @@ final class PilotageCards
 
         return [
             'data'  => array_reverse($data),
-            'label' => $params['label'] ?? __('Réussite par session de formation (%)', 'grcmanager'),
+            'label' => $params['label'] ?? __('Pass rate by training session (%)', 'grcmanager'),
             'icon'  => 'ti ti-certificate',
         ];
     }
@@ -321,7 +321,7 @@ final class PilotageCards
         return [
             'number' => $count,
             'url'    => \PluginGrcmanagerSecurityIncident::getSearchURL(),
-            'label'  => $params['label'] ?? __('Délais NIS2 / RGPD en alerte', 'grcmanager'),
+            'label'  => $params['label'] ?? __('NIS2 / GDPR deadlines at risk', 'grcmanager'),
             'icon'   => 'ti ti-alarm',
         ];
     }
@@ -343,7 +343,7 @@ final class PilotageCards
         return [
             'number' => $row['avg_score'] !== null ? (int) round((float) $row['avg_score']) : 0,
             'url'    => \PluginGrcmanagerSupplierRisk::getSearchURL(),
-            'label'  => $params['label'] ?? __('Score fournisseurs moyen', 'grcmanager'),
+            'label'  => $params['label'] ?? __('Average supplier score', 'grcmanager'),
             'icon'   => 'ti ti-building-store',
         ];
     }
@@ -371,7 +371,7 @@ final class PilotageCards
         return [
             'number' => $count,
             'url'    => \PluginGrcmanagerSupplierRisk::getSearchURL(),
-            'label'  => $params['label'] ?? __('Fournisseurs critiques non évalués', 'grcmanager'),
+            'label'  => $params['label'] ?? __('Critical suppliers not assessed', 'grcmanager'),
             'icon'   => 'ti ti-building-warehouse',
         ];
     }
@@ -403,8 +403,8 @@ final class PilotageCards
         ksort($byMonth);
         $byMonth = array_slice($byMonth, -12, null, true);
         $names = [
-            'open_risks'           => __('Risques ouverts', 'grcmanager'),
-            'open_nonconformities' => __('Non-conformités ouvertes', 'grcmanager'),
+            'open_risks'           => __('Open risks', 'grcmanager'),
+            'open_nonconformities' => __('Open non-conformities', 'grcmanager'),
         ];
         $result = ['labels' => array_map('strval', array_keys($byMonth)), 'series' => []];
         foreach ($names as $key => $name) {
@@ -441,7 +441,7 @@ final class PilotageCards
 
         return [
             'data'  => self::trendSeries($byMonth),
-            'label' => $params['label'] ?? __('Risques et non-conformités par mois', 'grcmanager'),
+            'label' => $params['label'] ?? __('Risks and non-conformities by month', 'grcmanager'),
             'icon'  => 'ti ti-chart-line',
         ];
     }
@@ -463,7 +463,7 @@ final class PilotageCards
         return [
             'number' => $count,
             'url'    => \PluginGrcmanagerPeriodicReview::getSearchURL(),
-            'label'  => $params['label'] ?? __('Revues périodiques en retard', 'grcmanager'),
+            'label'  => $params['label'] ?? __('Overdue periodic reviews', 'grcmanager'),
             'icon'   => 'ti ti-clock-exclamation',
         ];
     }

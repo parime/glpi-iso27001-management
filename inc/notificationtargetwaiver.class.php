@@ -29,14 +29,14 @@ class PluginGrcmanagerNotificationTargetWaiver extends NotificationTarget
     public function getEvents()
     {
         return [
-            PluginGrcmanagerWaiver::EXPIRING_EVENT => __('Dérogation bientôt échue', 'grcmanager'),
+            PluginGrcmanagerWaiver::EXPIRING_EVENT => __('Waiver ending soon', 'grcmanager'),
         ];
     }
 
     #[Override]
     public function addAdditionalTargets($event = '')
     {
-        $this->addTarget(self::TARGET_RESPONSIBLE, __('Responsable (accepte le risque)', 'grcmanager'));
+        $this->addTarget(self::TARGET_RESPONSIBLE, __('Owner (accepts the risk)', 'grcmanager'));
     }
 
     #[Override]
@@ -96,7 +96,7 @@ class PluginGrcmanagerNotificationTargetWaiver extends NotificationTarget
         $tags = [
             'waiver.action'  => _n('Event', 'Events', 1),
             'waiver.name'    => __('Nom'),
-            'waiver.dateend' => __('Date de fin', 'grcmanager'),
+            'waiver.dateend' => __('End date', 'grcmanager'),
             'waiver.url'     => __('URL'),
         ];
         foreach ($tags as $tag => $label) {

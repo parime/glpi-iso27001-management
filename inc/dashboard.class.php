@@ -28,7 +28,7 @@ class PluginGrcmanagerDashboard extends CommonGLPI
 
     public static function getTypeName($nb = 0)
     {
-        return __('Tableau de bord', 'grcmanager');
+        return __('Dashboard', 'grcmanager');
     }
 
     public static function getIcon()

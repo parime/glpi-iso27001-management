@@ -48,7 +48,7 @@ class PluginGrcmanagerComplianceEvent extends ComplianceEventBase
 
     public static function getTypeName($nb = 0)
     {
-        return _n('Événement de conformité', 'Événements de conformité', $nb, 'grcmanager');
+        return _n('Compliance event', 'Compliance events', $nb, 'grcmanager');
     }
 
     public static function getIcon()
@@ -72,7 +72,7 @@ class PluginGrcmanagerComplianceEvent extends ComplianceEventBase
             return false;
         }
         $menu = [
-            'title' => __('Calendrier de conformité', 'grcmanager'),
+            'title' => __('Compliance calendar', 'grcmanager'),
             'page'  => self::getCalendarURL(false),
             'icon'  => self::getIcon(),
             'links' => ['search' => self::getSearchURL(false)],
@@ -100,14 +100,14 @@ class PluginGrcmanagerComplianceEvent extends ComplianceEventBase
     public static function getEventTypes(): array
     {
         return [
-            'internal_audit'      => __('Audit interne', 'grcmanager'),
-            'certification_audit' => __('Audit de certification', 'grcmanager'),
-            'surveillance_audit'  => __('Audit de surveillance', 'grcmanager'),
-            'pentest'             => __('Test d\'intrusion', 'grcmanager'),
-            'crisis_exercise'     => __('Exercice de crise', 'grcmanager'),
-            'management_review'   => __('Revue de direction', 'grcmanager'),
-            'certificate_renewal' => __('Renouvellement de certificat', 'grcmanager'),
-            'other'               => __('Autre', 'grcmanager'),
+            'internal_audit'      => __('Internal audit', 'grcmanager'),
+            'certification_audit' => __('Certification audit', 'grcmanager'),
+            'surveillance_audit'  => __('Surveillance audit', 'grcmanager'),
+            'pentest'             => __('Penetration test', 'grcmanager'),
+            'crisis_exercise'     => __('Crisis exercise', 'grcmanager'),
+            'management_review'   => __('Management review', 'grcmanager'),
+            'certificate_renewal' => __('Certificate renewal', 'grcmanager'),
+            'other'               => __('Other', 'grcmanager'),
         ];
     }
 
@@ -117,9 +117,9 @@ class PluginGrcmanagerComplianceEvent extends ComplianceEventBase
     public static function getStatuses(): array
     {
         return [
-            'planned'   => __('Planifié', 'grcmanager'),
-            'done'      => __('Réalisé', 'grcmanager'),
-            'cancelled' => __('Annulé', 'grcmanager'),
+            'planned'   => _x('masculine', 'Planned', 'grcmanager'),
+            'done'      => _x('masculine', 'Done', 'grcmanager'),
+            'cancelled' => __('Cancelled', 'grcmanager'),
         ];
     }
 
@@ -131,14 +131,14 @@ class PluginGrcmanagerComplianceEvent extends ComplianceEventBase
     public static function getSources(): array
     {
         return [
-            'event'             => [__('Événement', 'grcmanager'), 'ti-calendar-event'],
+            'event'             => [__('Event', 'grcmanager'), 'ti-calendar-event'],
             'audit'             => [PluginGrcmanagerAudit::getTypeName(1), 'ti-clipboard-check'],
             'management_review' => [PluginGrcmanagerManagementReview::getTypeName(1), 'ti-presentation'],
             'access_review'     => [PluginGrcmanagerAccessReview::getTypeName(1), 'ti-user-check'],
             'periodic_review'   => [PluginGrcmanagerPeriodicReview::getTypeName(1), 'ti-calendar-repeat'],
-            'policy'            => [__('Revue de politique', 'grcmanager'), 'ti-file-certificate'],
-            'obligation'        => [__('Revue d\'obligation', 'grcmanager'), 'ti-gavel'],
-            'evidence'          => [__('Fin de validité d\'une preuve', 'grcmanager'), 'ti-file-alert'],
+            'policy'            => [__('Policy review', 'grcmanager'), 'ti-file-certificate'],
+            'obligation'        => [__('Obligation review', 'grcmanager'), 'ti-gavel'],
+            'evidence'          => [__('Evidence expiry', 'grcmanager'), 'ti-file-alert'],
         ];
     }
 
@@ -179,7 +179,7 @@ class PluginGrcmanagerComplianceEvent extends ComplianceEventBase
             );
             if ($range === null) {
                 Session::addMessageAfterRedirect(
-                    htmlescape(__('Indiquez la date de début de l\'événement.', 'grcmanager')),
+                    htmlescape(__('Enter the start date of the event.', 'grcmanager')),
                     false,
                     ERROR
                 );
@@ -193,7 +193,7 @@ class PluginGrcmanagerComplianceEvent extends ComplianceEventBase
         }
         if (trim((string) ($input['name'] ?? $this->fields['name'] ?? '')) === '') {
             $input['name'] = self::getEventTypes()[$input['event_type'] ?? $this->fields['event_type'] ?? 'other']
-                ?? __('Autre', 'grcmanager');
+                ?? __('Other', 'grcmanager');
         }
 
         return $input;
@@ -203,21 +203,21 @@ class PluginGrcmanagerComplianceEvent extends ComplianceEventBase
     {
         $table = $this->getTable();
         $tab = [['id' => 'common', 'name' => self::getTypeName(1)]];
-        $tab[] = ['id' => 1, 'table' => $table, 'field' => 'name', 'name' => __('Nom', 'grcmanager'),
+        $tab[] = ['id' => 1, 'table' => $table, 'field' => 'name', 'name' => __('Name', 'grcmanager'),
             'datatype' => 'itemlink', 'itemtype' => self::class];
         $tab[] = ['id' => 2, 'table' => $table, 'field' => 'event_type', 'name' => __('Type', 'grcmanager'),
             'datatype' => 'specific'];
-        $tab[] = ['id' => 3, 'table' => $table, 'field' => 'date_begin', 'name' => __('Début', 'grcmanager'),
+        $tab[] = ['id' => 3, 'table' => $table, 'field' => 'date_begin', 'name' => __('Start', 'grcmanager'),
             'datatype' => 'datetime'];
-        $tab[] = ['id' => 4, 'table' => $table, 'field' => 'date_end', 'name' => __('Fin', 'grcmanager'),
+        $tab[] = ['id' => 4, 'table' => $table, 'field' => 'date_end', 'name' => __('End', 'grcmanager'),
             'datatype' => 'datetime'];
-        $tab[] = ['id' => 5, 'table' => $table, 'field' => 'status', 'name' => __('Statut', 'grcmanager'),
+        $tab[] = ['id' => 5, 'table' => $table, 'field' => 'status', 'name' => __('Status', 'grcmanager'),
             'datatype' => 'specific'];
-        $tab[] = ['id' => 6, 'table' => 'glpi_users', 'field' => 'name', 'name' => __('Responsable', 'grcmanager'),
+        $tab[] = ['id' => 6, 'table' => 'glpi_users', 'field' => 'name', 'name' => __('Owner', 'grcmanager'),
             'datatype' => 'dropdown', 'right' => 'all'];
-        $tab[] = ['id' => 7, 'table' => 'glpi_suppliers', 'field' => 'name', 'name' => __('Prestataire', 'grcmanager'),
+        $tab[] = ['id' => 7, 'table' => 'glpi_suppliers', 'field' => 'name', 'name' => __('Provider', 'grcmanager'),
             'datatype' => 'dropdown'];
-        $tab[] = ['id' => 8, 'table' => $table, 'field' => 'scope', 'name' => __('Périmètre', 'grcmanager'),
+        $tab[] = ['id' => 8, 'table' => $table, 'field' => 'scope', 'name' => __('Scope', 'grcmanager'),
             'datatype' => 'text'];
         $tab[] = ['id' => 9, 'table' => $table, 'field' => 'id', 'name' => __('ID'), 'datatype' => 'itemlink',
             'itemtype' => self::class];
@@ -671,10 +671,10 @@ class PluginGrcmanagerComplianceEvent extends ComplianceEventBase
 
     private static function monthLabel(string $yearMonth): string
     {
-        $months = [__('Janvier', 'grcmanager'), __('Février', 'grcmanager'), __('Mars', 'grcmanager'),
-            __('Avril', 'grcmanager'), __('Mai', 'grcmanager'), __('Juin', 'grcmanager'), __('Juillet', 'grcmanager'),
-            __('Août', 'grcmanager'), __('Septembre', 'grcmanager'), __('Octobre', 'grcmanager'),
-            __('Novembre', 'grcmanager'), __('Décembre', 'grcmanager')];
+        $months = [__('January', 'grcmanager'), __('February', 'grcmanager'), __('March', 'grcmanager'),
+            __('April', 'grcmanager'), __('May', 'grcmanager'), __('June', 'grcmanager'), __('July', 'grcmanager'),
+            __('August', 'grcmanager'), __('September', 'grcmanager'), __('October', 'grcmanager'),
+            __('November', 'grcmanager'), __('December', 'grcmanager')];
 
         return $months[(int) substr($yearMonth, 5, 2) - 1] . ' ' . substr($yearMonth, 0, 4);
     }
@@ -728,7 +728,7 @@ class PluginGrcmanagerComplianceEvent extends ComplianceEventBase
             ];
         }
 
-        $name = __('Calendrier de conformité', 'grcmanager');
+        $name = __('Compliance calendar', 'grcmanager');
 
         return ComplianceCalendarRules::toIcs($events, $name, date('Y-m-d H:i:s'));
     }
@@ -739,10 +739,7 @@ class PluginGrcmanagerComplianceEvent extends ComplianceEventBase
     public static function cronInfo($name)
     {
         return $name === 'complianceeventreminder'
-            ? ['description' => __(
-                'Prévient le responsable 15 jours avant un événement du calendrier de conformité',
-                'grcmanager'
-            )]
+            ? ['description' => __('Notifies the owner 15 days before a compliance calendar event', 'grcmanager')]
             : [];
     }
 

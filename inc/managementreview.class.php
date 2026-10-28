@@ -60,7 +60,7 @@ class PluginGrcmanagerManagementReview extends ManagementReviewBase
 
     public static function getTypeName($nb = 0)
     {
-        return _n('Revue de direction', 'Revues de direction', $nb, 'grcmanager');
+        return _n('Management review', 'Management reviews', $nb, 'grcmanager');
     }
 
     public static function getIcon()
@@ -74,8 +74,8 @@ class PluginGrcmanagerManagementReview extends ManagementReviewBase
     public static function getStatuses(): array
     {
         return [
-            'planned'   => __('Planifiée', 'grcmanager'),
-            'completed' => __('Terminée', 'grcmanager'),
+            'planned'   => __('Planned', 'grcmanager'),
+            'completed' => _x('feminine', 'Completed', 'grcmanager'),
         ];
     }
 
@@ -281,7 +281,7 @@ class PluginGrcmanagerManagementReview extends ManagementReviewBase
             'id'       => 1,
             'table'    => $this->getTable(),
             'field'    => 'title',
-            'name'     => __('Titre', 'grcmanager'),
+            'name'     => __('Title', 'grcmanager'),
             'datatype' => 'itemlink',
             'itemtype' => self::class,
         ];
@@ -290,7 +290,7 @@ class PluginGrcmanagerManagementReview extends ManagementReviewBase
             'id'       => 2,
             'table'    => $this->getTable(),
             'field'    => 'status',
-            'name'     => __('Statut', 'grcmanager'),
+            'name'     => __('Status', 'grcmanager'),
             'datatype' => 'specific',
         ];
 
@@ -298,7 +298,7 @@ class PluginGrcmanagerManagementReview extends ManagementReviewBase
             'id'       => 3,
             'table'    => $this->getTable(),
             'field'    => 'review_date',
-            'name'     => __('Date de revue', 'grcmanager'),
+            'name'     => __('Review date', 'grcmanager'),
             'datatype' => 'date',
         ];
 
@@ -306,7 +306,7 @@ class PluginGrcmanagerManagementReview extends ManagementReviewBase
             'id'       => 4,
             'table'    => $this->getTable(),
             'field'    => 'agenda',
-            'name'     => __('Ordre du jour', 'grcmanager'),
+            'name'     => __('Agenda', 'grcmanager'),
             'datatype' => 'text',
         ];
 
@@ -314,7 +314,7 @@ class PluginGrcmanagerManagementReview extends ManagementReviewBase
             'id'       => 5,
             'table'    => $this->getTable(),
             'field'    => 'decisions',
-            'name'     => __('Décisions et actions', 'grcmanager'),
+            'name'     => __('Decisions and actions', 'grcmanager'),
             'datatype' => 'text',
         ];
 
@@ -371,8 +371,8 @@ class PluginGrcmanagerManagementReview extends ManagementReviewBase
     private static function statusBadge(?string $value): string
     {
         $map = [
-            'planned'   => ['bg-secondary-lt', 'ti-calendar-event', __('Planifiée', 'grcmanager')],
-            'completed' => ['bg-green-lt', 'ti-check', __('Terminée', 'grcmanager')],
+            'planned'   => ['bg-secondary-lt', 'ti-calendar-event', __('Planned', 'grcmanager')],
+            'completed' => ['bg-green-lt', 'ti-check', _x('feminine', 'Completed', 'grcmanager')],
         ];
 
         [$class, $icon, $label] = $map[$value] ?? ['bg-secondary-lt', 'ti-help', (string) $value];

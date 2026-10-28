@@ -46,7 +46,7 @@ class PluginGrcmanagerWaiver extends WaiverBase
 
     public static function getTypeName($nb = 0)
     {
-        return _n('Dérogation', 'Dérogations', $nb, 'grcmanager');
+        return _n('Waiver', 'Waivers', $nb, 'grcmanager');
     }
 
     public static function getIcon()
@@ -70,10 +70,10 @@ class PluginGrcmanagerWaiver extends WaiverBase
     public static function getStatuses(): array
     {
         return [
-            WaiverRules::STATUS_REQUESTED => __('Demandée', 'grcmanager'),
-            WaiverRules::STATUS_APPROVED  => __('Validée', 'grcmanager'),
-            WaiverRules::STATUS_REJECTED  => __('Refusée', 'grcmanager'),
-            WaiverRules::STATUS_CLOSED    => __('Close', 'grcmanager'),
+            WaiverRules::STATUS_REQUESTED => __('Requested', 'grcmanager'),
+            WaiverRules::STATUS_APPROVED  => _x('validated', 'Approved', 'grcmanager'),
+            WaiverRules::STATUS_REJECTED  => __('Rejected', 'grcmanager'),
+            WaiverRules::STATUS_CLOSED    => _x('ended, feminine', 'Closed', 'grcmanager'),
         ];
     }
 
@@ -85,12 +85,20 @@ class PluginGrcmanagerWaiver extends WaiverBase
         $state = WaiverRules::state($status, $dateEnd, date('Y-m-d'));
 
         return match ($state) {
-            WaiverRules::STATE_ACTIVE   => ['label' => __('En cours', 'grcmanager'), 'class' => 'bg-green-lt'],
-            WaiverRules::STATE_EXPIRING => ['label' => __('Bientôt échue', 'grcmanager'), 'class' => 'bg-orange-lt'],
-            WaiverRules::STATE_EXPIRED  => ['label' => __('Échue', 'grcmanager'), 'class' => 'bg-red-lt'],
-            WaiverRules::STATUS_REJECTED => ['label' => __('Refusée', 'grcmanager'), 'class' => 'bg-secondary-lt'],
-            WaiverRules::STATUS_CLOSED  => ['label' => __('Close', 'grcmanager'), 'class' => 'bg-secondary-lt'],
-            default                     => ['label' => __('Demandée', 'grcmanager'), 'class' => 'bg-blue-lt'],
+            WaiverRules::STATE_ACTIVE   => ['label' => __('In progress', 'grcmanager'), 'class' => 'bg-green-lt'],
+            WaiverRules::STATE_EXPIRING => ['label' => __('Ending soon', 'grcmanager'), 'class' => 'bg-orange-lt'],
+            WaiverRules::STATE_EXPIRED  => ['label' => _x(
+                'due date passed, feminine',
+                'Expired',
+                'grcmanager'
+            ), 'class' => 'bg-red-lt'],
+            WaiverRules::STATUS_REJECTED => ['label' => __('Rejected', 'grcmanager'), 'class' => 'bg-secondary-lt'],
+            WaiverRules::STATUS_CLOSED  => ['label' => _x(
+                'ended, feminine',
+                'Closed',
+                'grcmanager'
+            ), 'class' => 'bg-secondary-lt'],
+            default                     => ['label' => __('Requested', 'grcmanager'), 'class' => 'bg-blue-lt'],
         };
     }
 
@@ -204,12 +212,9 @@ class PluginGrcmanagerWaiver extends WaiverBase
         );
         if ($errors !== []) {
             $messages = [
-                'name_required'         => __('Donnez un nom à la dérogation.', 'grcmanager'),
-                'date_end_required'     => __(
-                    'Une dérogation est temporaire : sa date de fin est obligatoire.',
-                    'grcmanager'
-                ),
-                'date_end_before_begin' => __('La date de fin précède la date de début.', 'grcmanager'),
+                'name_required'         => __('Give the waiver a name.', 'grcmanager'),
+                'date_end_required'     => __('A waiver is temporary: its end date is required.', 'grcmanager'),
+                'date_end_before_begin' => __('The end date is before the start date.', 'grcmanager'),
             ];
             foreach ($errors as $error) {
                 Session::addMessageAfterRedirect(htmlescape($messages[$error]), false, ERROR);
@@ -229,7 +234,7 @@ class PluginGrcmanagerWaiver extends WaiverBase
             $requester = (int) ($input['users_id_requester'] ?? $this->fields['users_id_requester'] ?? 0);
             if ($requester > 0 && $requester === (int) Session::getLoginUserID()) {
                 Session::addMessageAfterRedirect(htmlescape(__(
-                    'Vous ne pouvez pas approuver une dérogation que vous avez demandée.',
+                    'You cannot approve a waiver you requested.',
                     'grcmanager'
                 )), false, ERROR);
 
@@ -450,31 +455,28 @@ class PluginGrcmanagerWaiver extends WaiverBase
             'datatype' => 'specific', 'searchtype' => ['equals', 'notequals'],
         ];
         $tab[] = [
-            'id' => 4, 'table' => self::getTable(), 'field' => 'date_end', 'name' => __('Date de fin', 'grcmanager'),
+            'id' => 4, 'table' => self::getTable(), 'field' => 'date_end', 'name' => __('End date', 'grcmanager'),
             'datatype' => 'date',
         ];
         $tab[] = [
             'id' => 5, 'table' => 'glpi_users', 'field' => 'name', 'linkfield' => 'users_id',
-            'name' => __('Responsable (accepte le risque)', 'grcmanager'), 'datatype' => 'dropdown', 'right' => 'all',
+            'name' => __('Owner (accepts the risk)', 'grcmanager'), 'datatype' => 'dropdown', 'right' => 'all',
         ];
         $tab[] = [
             'id' => 6, 'table' => PluginGrcmanagerControl::getTable(), 'field' => 'code',
-            'name' => __('Mesure de l\'Annexe A', 'grcmanager'), 'datatype' => 'dropdown',
+            'name' => _x('measure', 'Annex A control', 'grcmanager'), 'datatype' => 'dropdown',
         ];
         $tab[] = [
             'id' => 7, 'table' => PluginGrcmanagerPolicy::getTable(), 'field' => 'title',
-            'name' => __('Politique', 'grcmanager'), 'datatype' => 'dropdown',
+            'name' => __('Policy', 'grcmanager'), 'datatype' => 'dropdown',
         ];
         $tab[] = [
-            'id' => 8, 'table' => self::getTable(), 'field' => 'date_begin', 'name' => __(
-                'Date de début',
-                'grcmanager'
-            ),
+            'id' => 8, 'table' => self::getTable(), 'field' => 'date_begin', 'name' => __('Start date', 'grcmanager'),
             'datatype' => 'date',
         ];
         $tab[] = [
             'id' => 9, 'table' => self::getTable(), 'field' => 'compensating_measures',
-            'name' => __('Mesures compensatoires', 'grcmanager'), 'datatype' => 'text',
+            'name' => __('Compensating controls', 'grcmanager'), 'datatype' => 'text',
         ];
 
         return $tab;
@@ -505,7 +507,7 @@ class PluginGrcmanagerWaiver extends WaiverBase
     {
         return $name === 'waiverreminder'
             ? ['description' => __(
-                'Prévient le responsable avant la fin d\'une dérogation, puis ouvre un ticket de réévaluation',
+                'Warns the owner before a waiver ends, then opens a re-assessment ticket',
                 'grcmanager'
             )]
             : [];
@@ -579,7 +581,7 @@ class PluginGrcmanagerWaiver extends WaiverBase
                 . self::getFormURLWithID((int) $this->getID(), false),
         ]);
         $input = [
-            'name'        => sprintf(__('Réévaluer la dérogation « %s »', 'grcmanager'), $this->fields['name']),
+            'name'        => sprintf(__('Re-assess the waiver "%s"', 'grcmanager'), $this->fields['name']),
             'content'     => $content,
             'entities_id' => $entitiesId,
             'type'        => Ticket::DEMAND_TYPE,

@@ -25,7 +25,7 @@ Session::checkRight(PluginGrcmanagerParkVulnerability::RIGHTNAME, READ);
 Session::checkRight(Software::$rightname, READ);
 
 Html::header(
-    __('Machines les plus exposées', 'grcmanager'),
+    __('Most exposed machines', 'grcmanager'),
     PluginGrcmanagerParkVulnerability::getRankingURL(),
     'grcmanager',
     PluginGrcmanagerComplianceAudit::class,

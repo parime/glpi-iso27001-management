@@ -45,7 +45,7 @@ class PluginGrcmanagerIsmsRequirement extends IsmsRequirementBase
 
     public static function getTypeName($nb = 0)
     {
-        return _n('Exigence SMSI (articles 4 à 10)', 'Exigences SMSI (articles 4 à 10)', $nb, 'grcmanager');
+        return _n('ISMS requirement (clauses 4 to 10)', 'ISMS requirements (clauses 4 to 10)', $nb, 'grcmanager');
     }
 
     public static function getIcon()
@@ -80,43 +80,43 @@ class PluginGrcmanagerIsmsRequirement extends IsmsRequirementBase
     public static function getClauseTitles(): array
     {
         return [
-            '4'     => __('Contexte de l\'organisation', 'grcmanager'),
-            '4.1'   => __('Organisation et son contexte', 'grcmanager'),
-            '4.2'   => __('Parties intéressées', 'grcmanager'),
-            '4.3'   => __('Domaine d\'application du SMSI', 'grcmanager'),
-            '4.4'   => __('Système de management de la sécurité de l\'information', 'grcmanager'),
+            '4'     => __('Context of the organization', 'grcmanager'),
+            '4.1'   => __('Organization and its context', 'grcmanager'),
+            '4.2'   => __('Interested parties', 'grcmanager'),
+            '4.3'   => __('ISMS scope', 'grcmanager'),
+            '4.4'   => __('Information security management system', 'grcmanager'),
             '5'     => __('Leadership', 'grcmanager'),
-            '5.1'   => __('Leadership et engagement', 'grcmanager'),
-            '5.2'   => __('Politique', 'grcmanager'),
-            '5.3'   => __('Rôles, responsabilités et autorités', 'grcmanager'),
-            '6'     => __('Planification', 'grcmanager'),
-            '6.1.1' => __('Risques et opportunités : généralités', 'grcmanager'),
-            '6.1.2' => __('Appréciation des risques', 'grcmanager'),
-            '6.1.3' => __('Traitement des risques', 'grcmanager'),
-            '6.2'   => __('Objectifs de sécurité de l\'information', 'grcmanager'),
-            '6.3'   => __('Planification des modifications', 'grcmanager'),
+            '5.1'   => __('Leadership and commitment', 'grcmanager'),
+            '5.2'   => __('Policy', 'grcmanager'),
+            '5.3'   => __('Roles, responsibilities and authorities', 'grcmanager'),
+            '6'     => __('Planning', 'grcmanager'),
+            '6.1.1' => __('Risks and opportunities: general', 'grcmanager'),
+            '6.1.2' => __('Risk assessment', 'grcmanager'),
+            '6.1.3' => __('Risk treatment', 'grcmanager'),
+            '6.2'   => __('Information security objectives', 'grcmanager'),
+            '6.3'   => __('Planning of changes', 'grcmanager'),
             '7'     => __('Support', 'grcmanager'),
-            '7.1'   => __('Ressources', 'grcmanager'),
-            '7.2'   => __('Compétences', 'grcmanager'),
-            '7.3'   => __('Sensibilisation', 'grcmanager'),
+            '7.1'   => __('Resources', 'grcmanager'),
+            '7.2'   => __('Competence', 'grcmanager'),
+            '7.3'   => __('Awareness', 'grcmanager'),
             '7.4'   => __('Communication', 'grcmanager'),
-            '7.5.1' => __('Informations documentées : généralités', 'grcmanager'),
-            '7.5.2' => __('Création et mise à jour', 'grcmanager'),
-            '7.5.3' => __('Maîtrise des informations documentées', 'grcmanager'),
-            '8'     => __('Fonctionnement', 'grcmanager'),
-            '8.1'   => __('Planification et maîtrise opérationnelles', 'grcmanager'),
-            '8.2'   => __('Appréciation des risques (réalisation)', 'grcmanager'),
-            '8.3'   => __('Traitement des risques (mise en œuvre)', 'grcmanager'),
-            '9'     => __('Évaluation des performances', 'grcmanager'),
-            '9.1'   => __('Surveillance, mesure, analyse et évaluation', 'grcmanager'),
-            '9.2.1' => __('Audit interne : généralités', 'grcmanager'),
-            '9.2.2' => __('Programme d\'audit interne', 'grcmanager'),
-            '9.3.1' => __('Revue de direction : généralités', 'grcmanager'),
-            '9.3.2' => __('Éléments d\'entrée de la revue de direction', 'grcmanager'),
-            '9.3.3' => __('Résultats de la revue de direction', 'grcmanager'),
-            '10'    => __('Amélioration', 'grcmanager'),
-            '10.1'  => __('Amélioration continue', 'grcmanager'),
-            '10.2'  => __('Non-conformité et action corrective', 'grcmanager'),
+            '7.5.1' => __('Documented information: general', 'grcmanager'),
+            '7.5.2' => __('Creating and updating', 'grcmanager'),
+            '7.5.3' => __('Control of documented information', 'grcmanager'),
+            '8'     => __('Operation', 'grcmanager'),
+            '8.1'   => __('Operational planning and control', 'grcmanager'),
+            '8.2'   => __('Risk assessment (performing)', 'grcmanager'),
+            '8.3'   => __('Risk treatment (implementing)', 'grcmanager'),
+            '9'     => __('Performance evaluation', 'grcmanager'),
+            '9.1'   => __('Monitoring, measurement, analysis and evaluation', 'grcmanager'),
+            '9.2.1' => __('Internal audit: general', 'grcmanager'),
+            '9.2.2' => __('Internal audit programme', 'grcmanager'),
+            '9.3.1' => __('Management review: general', 'grcmanager'),
+            '9.3.2' => __('Management review inputs', 'grcmanager'),
+            '9.3.3' => __('Management review results', 'grcmanager'),
+            '10'    => __('Improvement', 'grcmanager'),
+            '10.1'  => __('Continual improvement', 'grcmanager'),
+            '10.2'  => __('Nonconformity and corrective action', 'grcmanager'),
         ];
     }
 
@@ -131,9 +131,9 @@ class PluginGrcmanagerIsmsRequirement extends IsmsRequirementBase
     public static function getStatuses(): array
     {
         return [
-            IsmsClauseCatalog::STATUS_NOT_STARTED => __('Non commencé', 'grcmanager'),
-            IsmsClauseCatalog::STATUS_IN_PROGRESS => __('En cours', 'grcmanager'),
-            IsmsClauseCatalog::STATUS_COMPLIANT   => __('Conforme', 'grcmanager'),
+            IsmsClauseCatalog::STATUS_NOT_STARTED => _x('not begun', 'Not started', 'grcmanager'),
+            IsmsClauseCatalog::STATUS_IN_PROGRESS => __('In progress', 'grcmanager'),
+            IsmsClauseCatalog::STATUS_COMPLIANT   => __('Compliant', 'grcmanager'),
         ];
     }
 
@@ -198,7 +198,7 @@ class PluginGrcmanagerIsmsRequirement extends IsmsRequirementBase
         unset($input['code']);
 
         if (isset($input['status']) && !in_array($input['status'], IsmsClauseCatalog::STATUSES, true)) {
-            Session::addMessageAfterRedirect(__('Statut invalide.', 'grcmanager'), false, ERROR);
+            Session::addMessageAfterRedirect(__('Invalid status.', 'grcmanager'), false, ERROR);
 
             return false;
         }
@@ -232,7 +232,7 @@ class PluginGrcmanagerIsmsRequirement extends IsmsRequirementBase
             'id'               => 1,
             'table'            => $this->getTable(),
             'field'            => 'code',
-            'name'             => __('Exigence', 'grcmanager'),
+            'name'             => __('Requirement', 'grcmanager'),
             'datatype'         => 'specific',
             'additionalfields' => ['id'],
         ];
@@ -257,7 +257,7 @@ class PluginGrcmanagerIsmsRequirement extends IsmsRequirementBase
             'id'       => 4,
             'table'    => 'glpi_users',
             'field'    => 'name',
-            'name'     => __('Responsable', 'grcmanager'),
+            'name'     => __('Owner', 'grcmanager'),
             'datatype' => 'dropdown',
             'right'    => 'all',
         ];
@@ -266,7 +266,7 @@ class PluginGrcmanagerIsmsRequirement extends IsmsRequirementBase
             'id'       => 5,
             'table'    => $this->getTable(),
             'field'    => 'comment',
-            'name'     => __('Commentaire', 'grcmanager'),
+            'name'     => __('Comment', 'grcmanager'),
             'datatype' => 'text',
         ];
 
@@ -274,7 +274,7 @@ class PluginGrcmanagerIsmsRequirement extends IsmsRequirementBase
             'id'       => 7,
             'table'    => $this->getTable(),
             'field'    => 'date_mod',
-            'name'     => __('Dernière modification', 'grcmanager'),
+            'name'     => __('Last update', 'grcmanager'),
             'datatype' => 'datetime',
         ];
 

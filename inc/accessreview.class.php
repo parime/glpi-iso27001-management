@@ -52,7 +52,7 @@ class PluginGrcmanagerAccessReview extends AccessReviewBase
 
     public static function getTypeName($nb = 0)
     {
-        return _n('Revue des accès', 'Revues des accès', $nb, 'grcmanager');
+        return _n('Access review', 'Access reviews', $nb, 'grcmanager');
     }
 
     public static function getIcon()
@@ -70,7 +70,7 @@ class PluginGrcmanagerAccessReview extends AccessReviewBase
         $menu = parent::getMenuContent();
         if (is_array($menu) && $menu !== []) {
             $menu['section_label'] = $menu['title'];
-            $menu['title'] = __('Opérations', 'grcmanager');
+            $menu['title'] = __('Operations', 'grcmanager');
         }
 
         return PluginGrcmanagerMenu::withSubPages(self::class, $menu);
@@ -82,9 +82,9 @@ class PluginGrcmanagerAccessReview extends AccessReviewBase
     public static function getStatuses(): array
     {
         return [
-            AccessReviewLogic::STATUS_DRAFT  => __('En préparation', 'grcmanager'),
-            AccessReviewLogic::STATUS_OPEN   => __('En cours', 'grcmanager'),
-            AccessReviewLogic::STATUS_CLOSED => __('Clôturée', 'grcmanager'),
+            AccessReviewLogic::STATUS_DRAFT  => __('In preparation', 'grcmanager'),
+            AccessReviewLogic::STATUS_OPEN   => __('In progress', 'grcmanager'),
+            AccessReviewLogic::STATUS_CLOSED => __('Closed', 'grcmanager'),
         ];
     }
 
@@ -94,9 +94,9 @@ class PluginGrcmanagerAccessReview extends AccessReviewBase
     public static function getFrequencies(): array
     {
         return [
-            'quarterly'  => __('Trimestrielle', 'grcmanager'),
-            'semiannual' => __('Semestrielle', 'grcmanager'),
-            'annual'     => __('Annuelle', 'grcmanager'),
+            'quarterly'  => __('Quarterly', 'grcmanager'),
+            'semiannual' => __('Half-yearly', 'grcmanager'),
+            'annual'     => __('Yearly', 'grcmanager'),
         ];
     }
 
@@ -106,10 +106,10 @@ class PluginGrcmanagerAccessReview extends AccessReviewBase
     public static function getDecisionLabels(): array
     {
         return [
-            AccessReviewLogic::DECISION_PENDING => __('À revoir', 'grcmanager'),
-            AccessReviewLogic::DECISION_KEEP    => __('Accès validés', 'grcmanager'),
-            AccessReviewLogic::DECISION_MODIFY  => __('À modifier', 'grcmanager'),
-            AccessReviewLogic::DECISION_REMOVE  => __('À retirer', 'grcmanager'),
+            AccessReviewLogic::DECISION_PENDING => _x('to review', 'To review', 'grcmanager'),
+            AccessReviewLogic::DECISION_KEEP    => __('Access approved', 'grcmanager'),
+            AccessReviewLogic::DECISION_MODIFY  => __('To change', 'grcmanager'),
+            AccessReviewLogic::DECISION_REMOVE  => __('To remove', 'grcmanager'),
         ];
     }
 
@@ -119,9 +119,9 @@ class PluginGrcmanagerAccessReview extends AccessReviewBase
     public static function getSourceLabels(): array
     {
         return [
-            AccessReviewLogic::SOURCE_SUPERVISOR => __('responsable hiérarchique', 'grcmanager'),
-            AccessReviewLogic::SOURCE_GROUP      => __('responsable du groupe', 'grcmanager'),
-            AccessReviewLogic::SOURCE_OWNER      => __('pilote (aucun responsable)', 'grcmanager'),
+            AccessReviewLogic::SOURCE_SUPERVISOR => __('line manager', 'grcmanager'),
+            AccessReviewLogic::SOURCE_GROUP      => __('group manager', 'grcmanager'),
+            AccessReviewLogic::SOURCE_OWNER      => __('owner (no manager)', 'grcmanager'),
         ];
     }
 
@@ -152,7 +152,7 @@ class PluginGrcmanagerAccessReview extends AccessReviewBase
 
             return [
                 self::TAB_LINES => self::createTabEntry(
-                    __('Comptes à revoir', 'grcmanager'),
+                    __('Accounts to review', 'grcmanager'),
                     $count,
                     null,
                     'ti ti-users'
@@ -203,7 +203,7 @@ class PluginGrcmanagerAccessReview extends AccessReviewBase
     public function prepareInputForAdd($input)
     {
         if (trim((string) ($input['name'] ?? '')) === '') {
-            Session::addMessageAfterRedirect(__('Le nom de la campagne est obligatoire.', 'grcmanager'), false, ERROR);
+            Session::addMessageAfterRedirect(__('The campaign name is required.', 'grcmanager'), false, ERROR);
 
             return false;
         }
@@ -280,35 +280,35 @@ class PluginGrcmanagerAccessReview extends AccessReviewBase
             'id'       => 2,
             'table'    => $this->getTable(),
             'field'    => 'status',
-            'name'     => __('Statut', 'grcmanager'),
+            'name'     => __('Status', 'grcmanager'),
             'datatype' => 'specific',
         ];
         $tab[] = [
             'id'       => 3,
             'table'    => $this->getTable(),
             'field'    => 'frequency',
-            'name'     => __('Fréquence', 'grcmanager'),
+            'name'     => __('Frequency', 'grcmanager'),
             'datatype' => 'specific',
         ];
         $tab[] = [
             'id'       => 4,
             'table'    => $this->getTable(),
             'field'    => 'date_start',
-            'name'     => __('Date de début', 'grcmanager'),
+            'name'     => __('Start date', 'grcmanager'),
             'datatype' => 'date',
         ];
         $tab[] = [
             'id'       => 5,
             'table'    => $this->getTable(),
             'field'    => 'due_date',
-            'name'     => __('Échéance', 'grcmanager'),
+            'name'     => __('Due date', 'grcmanager'),
             'datatype' => 'date',
         ];
         $tab[] = [
             'id'       => 6,
             'table'    => 'glpi_users',
             'field'    => 'name',
-            'name'     => __('Pilote', 'grcmanager'),
+            'name'     => _x('process pilot', 'Owner', 'grcmanager'),
             'datatype' => 'dropdown',
             'right'    => 'all',
         ];
@@ -316,7 +316,7 @@ class PluginGrcmanagerAccessReview extends AccessReviewBase
             'id'       => 7,
             'table'    => $this->getTable(),
             'field'    => 'date_close',
-            'name'     => __('Date de clôture', 'grcmanager'),
+            'name'     => __('Closing date', 'grcmanager'),
             'datatype' => 'datetime',
         ];
         $tab[] = [
@@ -540,11 +540,11 @@ class PluginGrcmanagerAccessReview extends AccessReviewBase
             $accounts[$usersId]['profiles'][] =
                 Dropdown::getDropdownName(Profile::getTable(), (int) $row['profiles_id'])
                 . ' — ' . Dropdown::getDropdownName(Entity::getTable(), (int) $row['entities_id'])
-                . ((int) $row['is_recursive'] === 1 ? ' ' . __('(et sous-entités)', 'grcmanager') : '');
+                . ((int) $row['is_recursive'] === 1 ? ' ' . __('(and sub-entities)', 'grcmanager') : '');
         }
         if ($accounts === []) {
             Session::addMessageAfterRedirect(
-                __('Aucun compte actif n\'a de profil dans cette entité.', 'grcmanager'),
+                __('No active account has a profile in this entity.', 'grcmanager'),
                 false,
                 ERROR
             );
@@ -615,24 +615,24 @@ class PluginGrcmanagerAccessReview extends AccessReviewBase
             || !$campaign->getFromDB((int) $line['plugin_grcmanager_accessreviews_id'])
             || $campaign->fields['status'] !== AccessReviewLogic::STATUS_OPEN
         ) {
-            return __('Cette ligne n\'appartient pas à une campagne en cours.', 'grcmanager');
+            return __('This line does not belong to an ongoing campaign.', 'grcmanager');
         }
         // Gestionnaire des campagnes : droit UPDATE sur CETTE campagne (donc sur son entité), pas le
         // seul droit global — sinon une ligne d'une campagne d'une autre entité serait modifiable.
         if ((int) $line['reviewers_id'] !== $actorId && !$campaign->can($campaign->getID(), UPDATE)) {
-            return __('Cette ligne est confiée à un autre responsable.', 'grcmanager');
+            return __('This line is assigned to another reviewer.', 'grcmanager');
         }
         if (!AccessReviewLogic::isDecision($decision)) {
-            return __('Décision inconnue.', 'grcmanager');
+            return __('Unknown decision.', 'grcmanager');
         }
         if ((int) $line['tickets_id'] > 0) {
             return __(
-                'Un ticket a déjà été créé pour ce compte : la décision ne peut plus changer.',
+                'A ticket has already been created for this account: the decision can no longer change.',
                 'grcmanager'
             );
         }
         if (AccessReviewLogic::needsTicket($decision) && trim($comment) === '') {
-            return __('Précisez ce qu\'il faut modifier ou retirer.', 'grcmanager');
+            return __('State what must be changed or removed.', 'grcmanager');
         }
 
         $update = [
@@ -666,8 +666,8 @@ class PluginGrcmanagerAccessReview extends AccessReviewBase
         int $actorId
     ): int {
         $title = $decision === AccessReviewLogic::DECISION_REMOVE
-            ? __('Revue des accès : retirer les accès de %s', 'grcmanager')
-            : __('Revue des accès : modifier les accès de %s', 'grcmanager');
+            ? __('Access review: remove the access of %s', 'grcmanager')
+            : __('Access review: change the access of %s', 'grcmanager');
         // Issue #199 : contenu du ticket rendu par Twig.
         $content = TemplateRenderer::getInstance()->render('@grcmanager/ticket/access_review_request.html.twig', [
             'campaign' => (string) $campaign->fields['name'],
@@ -720,9 +720,9 @@ class PluginGrcmanagerAccessReview extends AccessReviewBase
         $controlId = (int) $campaign->fields['plugin_grcmanager_controls_id'];
 
         return TemplateRenderer::getInstance()->render('@grcmanager/pdf/access_review_report.html.twig', [
-            'report_title'       => sprintf(__('Revue des accès : %s', 'grcmanager'), $campaign->fields['name']),
+            'report_title'       => sprintf(__('Access review: %s', 'grcmanager'), $campaign->fields['name']),
             'generated_at_label' => sprintf(
-                __('Généré le %s', 'grcmanager'),
+                __('Generated on %s', 'grcmanager'),
                 Html::convDateTime(date('Y-m-d H:i:s'))
             ),
             'campaign'  => $campaign->fields,
@@ -752,7 +752,7 @@ class PluginGrcmanagerAccessReview extends AccessReviewBase
         // Document::add() empile des messages techniques sans intérêt pour l'utilisateur.
         $messagesBefore = $_SESSION['MESSAGE_AFTER_REDIRECT'] ?? [];
         $documentsId = (int) (new Document())->add([
-            'name'          => sprintf(__('Rapport de revue des accès - %s', 'grcmanager'), $this->fields['name']),
+            'name'          => sprintf(__('Access review report - %s', 'grcmanager'), $this->fields['name']),
             'entities_id'   => (int) $this->fields['entities_id'],
             // Comptes, profils et justifications d'une seule entité : pas de récursivité, et aucun
             // lien vers la mesure A.5.18 (globale, lisible de toutes les entités ; le document
@@ -790,7 +790,7 @@ class PluginGrcmanagerAccessReview extends AccessReviewBase
 
         return (int) (new self())->add([
             'name'                          => sprintf(
-                __('Revue des accès du %s', 'grcmanager'),
+                __('Access review of %s', 'grcmanager'),
                 Html::convDate($start)
             ),
             'entities_id'                   => (int) $this->fields['entities_id'],
@@ -866,7 +866,7 @@ class PluginGrcmanagerAccessReview extends AccessReviewBase
     public static function cronInfo(string $name): array
     {
         return [
-            'description' => __('Relance des responsables en retard sur la revue des accès', 'grcmanager'),
+            'description' => __('Reminds reviewers who are late on an access review', 'grcmanager'),
         ];
     }
 

@@ -44,7 +44,7 @@ class PluginGrcmanagerCoverageRule extends CoverageRuleBase
 
     public static function getTypeName($nb = 0)
     {
-        return _n('Couverture des preuves', 'Couverture des preuves', $nb, 'grcmanager');
+        return _n('Evidence coverage', 'Evidence coverage', $nb, 'grcmanager');
     }
 
     public static function getIcon()
@@ -153,13 +153,13 @@ class PluginGrcmanagerCoverageRule extends CoverageRuleBase
         $merged = $input + $this->fields;
         $errors = [];
         if (trim((string) ($merged['name'] ?? '')) === '') {
-            $errors[] = __('Donnez un nom à la règle.', 'grcmanager');
+            $errors[] = __('Give the rule a name.', 'grcmanager');
         }
         if (!array_key_exists((string) ($merged['itemtype'] ?? ''), self::getItemtypeLabels())) {
-            $errors[] = __('Choisissez le type d\'actif à couvrir.', 'grcmanager');
+            $errors[] = __('Choose the asset type to cover.', 'grcmanager');
         }
         if ((int) ($merged['documentcategories_id'] ?? 0) <= 0) {
-            $errors[] = __('Choisissez la catégorie du document requis.', 'grcmanager');
+            $errors[] = __('Choose the category of the required document.', 'grcmanager');
         }
         foreach ($errors as $error) {
             Session::addMessageAfterRedirect(htmlescape($error), false, ERROR);
@@ -281,7 +281,7 @@ class PluginGrcmanagerCoverageRule extends CoverageRuleBase
             return '';
         }
         if ($item instanceof self) {
-            return self::createTabEntry(__('Taux de couverture', 'grcmanager'));
+            return self::createTabEntry(__('Coverage rate', 'grcmanager'));
         }
         if ($item instanceof PluginGrcmanagerControl || $item instanceof PluginGrcmanagerIsmsRequirement) {
             return self::createTabEntry(self::getTypeName(1), count(self::getForItem($item)));
@@ -321,20 +321,20 @@ class PluginGrcmanagerCoverageRule extends CoverageRuleBase
         ];
         $tab[] = ['id' => 2, 'table' => self::getTable(), 'field' => 'id', 'name' => __('ID'), 'datatype' => 'number'];
         $tab[] = [
-            'id' => 3, 'table' => self::getTable(), 'field' => 'itemtype', 'name' => __('Type d\'actif', 'grcmanager'),
+            'id' => 3, 'table' => self::getTable(), 'field' => 'itemtype', 'name' => __('Asset type', 'grcmanager'),
             'datatype' => 'itemtypename', 'massiveaction' => false,
         ];
         $tab[] = [
             'id' => 4, 'table' => 'glpi_documentcategories', 'field' => 'name',
-            'name' => __('Catégorie du document requis', 'grcmanager'), 'datatype' => 'dropdown',
+            'name' => __('Required document category', 'grcmanager'), 'datatype' => 'dropdown',
         ];
         $tab[] = [
             'id' => 5, 'table' => PluginGrcmanagerControl::getTable(), 'field' => 'code',
-            'name' => __('Mesure de l\'Annexe A', 'grcmanager'), 'datatype' => 'dropdown',
+            'name' => _x('measure', 'Annex A control', 'grcmanager'), 'datatype' => 'dropdown',
         ];
         $tab[] = [
             'id' => 6, 'table' => PluginGrcmanagerIsmsRequirement::getTable(), 'field' => 'code',
-            'name' => __('Exigence du SMSI', 'grcmanager'), 'datatype' => 'dropdown',
+            'name' => __('ISMS requirement', 'grcmanager'), 'datatype' => 'dropdown',
         ];
         $tab[] = [
             'id' => 7, 'table' => self::getTable(), 'field' => 'is_active', 'name' => __('Active'),

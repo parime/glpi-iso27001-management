@@ -1,19 +1,19 @@
 {# Issue #177 : points de défaillance uniques de l'instance #}
 <div class="container-fluid">
    <div class="d-flex align-items-center mb-3">
-      <h2 class="mb-0"><i class="ti ti-sitemap me-1"></i>{{ __('Points de défaillance uniques', 'grcmanager') }}</h2>
+      <h2 class="mb-0"><i class="ti ti-sitemap me-1"></i>{{ __('Single points of failure', 'grcmanager') }}</h2>
       {# Issue #177, phase 2 : export pour le plan de continuité. #}
-      <a href="{{ export_url }}" class="btn btn-outline-secondary ms-auto"><i class="ti ti-file-spreadsheet me-1"></i>{{ __('Exporter pour le plan de continuité (CSV)', 'grcmanager') }}</a>
+      <a href="{{ export_url }}" class="btn btn-outline-secondary ms-auto"><i class="ti ti-file-spreadsheet me-1"></i>{{ __('Export for the business continuity plan (CSV)', 'grcmanager') }}</a>
    </div>
    <div class="alert alert-info">
-      <i class="ti ti-info-circle me-1"></i>{{ __('Un élément dont la disponibilité est classée « haute » et qui ne dépend que d\'une seule source (d\'après l\'analyse d\'impact de GLPI) : la panne de cette source l\'arrête. Le risque est proposé, jamais créé automatiquement.', 'grcmanager') }}
+      <i class="ti ti-info-circle me-1"></i>{{ __('An item whose availability is classified "high" and that depends on a single source only (according to the GLPI impact analysis): a failure of that source stops it. The risk is suggested, never created automatically.', 'grcmanager') }}
    </div>
    <div class="card">
       {% if points is empty %}
-         <div class="card-body text-muted"><i class="ti ti-circle-check me-1 text-green"></i>{{ __('Aucun point de défaillance unique détecté. Classez la disponibilité des actifs critiques et décrivez leurs dépendances pour que l\'analyse soit complète.', 'grcmanager') }}</div>
+         <div class="card-body text-muted"><i class="ti ti-circle-check me-1 text-green"></i>{{ __('No single point of failure detected. Classify the availability of critical assets and describe their dependencies for a complete analysis.', 'grcmanager') }}</div>
       {% else %}
          <table class="table table-vcenter card-table">
-            <thead><tr><th>{{ __('Source unique', 'grcmanager') }}</th><th>{{ __('Éléments critiques qui en dépendent', 'grcmanager') }}</th><th></th></tr></thead>
+            <thead><tr><th>{{ __('Single source', 'grcmanager') }}</th><th>{{ __('Critical items depending on it', 'grcmanager') }}</th><th></th></tr></thead>
             <tbody>
             {% for p in points %}
                <tr>
@@ -21,7 +21,7 @@
                   <td>{% for c in p.critical %}<span class="badge bg-red-lt me-1">{{ c.label }}</span>{% endfor %}</td>
                   <td class="text-end">
                      {% if can_create and p.source.visible %}
-                        <a class="btn btn-sm btn-outline-secondary" href="{{ p.source.url }}&forcetab=PluginGrcmanagerImpactAnalysis$1">{{ __('Voir l\'impact', 'grcmanager') }}</a>
+                        <a class="btn btn-sm btn-outline-secondary" href="{{ p.source.url }}&forcetab=PluginGrcmanagerImpactAnalysis$1">{{ __('See the impact', 'grcmanager') }}</a>
                      {% endif %}
                   </td>
                </tr>

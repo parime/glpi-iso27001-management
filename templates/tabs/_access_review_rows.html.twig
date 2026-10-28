@@ -5,10 +5,10 @@
 <table class="table table-sm table-vcenter mb-0">
    <thead>
       <tr>
-         <th>{{ __('Compte', 'grcmanager') }}</th>
-         <th>{{ __('Profils et groupes', 'grcmanager') }}</th>
-         {% if show_reviewer %}<th>{{ __('Responsable', 'grcmanager') }}</th>{% endif %}
-         <th>{{ __('Décision et commentaire', 'grcmanager') }}</th>
+         <th>{{ __('Account', 'grcmanager') }}</th>
+         <th>{{ __('Profiles and groups', 'grcmanager') }}</th>
+         {% if show_reviewer %}<th>{{ __('Owner', 'grcmanager') }}</th>{% endif %}
+         <th>{{ __('Decision and comment', 'grcmanager') }}</th>
       </tr>
    </thead>
    <tbody>
@@ -41,12 +41,12 @@
                {% endif %}
                {% if can_decide and not locked %}
                   <input type="text" class="form-control form-control-sm mt-1" name="comments[{{ line.id }}]" value="{{ line.comment }}"
-                     placeholder="{{ __('Commentaire (obligatoire pour modifier ou retirer)', 'grcmanager') }}">
+                     placeholder="{{ __('Comment (required to change or remove)', 'grcmanager') }}">
                {% elseif line.comment %}
                   <div class="mt-1"><i class="ti ti-message me-1 text-muted"></i>{{ line.comment }}</div>
                {% endif %}
                {% if line.ticket_url %}
-                  <div><a href="{{ line.ticket_url }}"><i class="ti ti-ticket me-1"></i>{{ __('Ticket n° %d', 'grcmanager')|format(line.tickets_id) }}</a></div>
+                  <div><a href="{{ line.ticket_url }}"><i class="ti ti-ticket me-1"></i>{{ __('Ticket #%d', 'grcmanager')|format(line.tickets_id) }}</a></div>
                {% endif %}
             </td>
          </tr>

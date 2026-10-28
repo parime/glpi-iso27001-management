@@ -4,8 +4,8 @@
 
 {% set analysis_fields = {
    'impact_content': __('Impact', 'grcmanager'),
-   'control_list_content': __('Contrôles appliqués / à appliquer', 'grcmanager'),
-   'rollback_plan_content': __('Plan de retour arrière / confinement', 'grcmanager'),
+   'control_list_content': __('Controls applied / to apply', 'grcmanager'),
+   'rollback_plan_content': __('Rollback / containment plan', 'grcmanager'),
 } %}
 
 {% set nb_analysis = 0 %}
@@ -15,12 +15,12 @@
    {% endif %}
 {% endfor %}
 
-<section class="accordion-item" aria-label="{{ __('Analyse', 'grcmanager') }}">
-   <div class="accordion-header" id="grcmanager-analysis-heading" title="{{ __('Analyse', 'grcmanager') }}" data-bs-toggle="tooltip">
+<section class="accordion-item" aria-label="{{ __('Analysis', 'grcmanager') }}">
+   <div class="accordion-header" id="grcmanager-analysis-heading" title="{{ __('Analysis', 'grcmanager') }}" data-bs-toggle="tooltip">
       <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#grcmanager-analysis" aria-expanded="true" aria-controls="grcmanager-analysis">
          <i class="ti ti-eyeglass"></i>
          <span class="item-title">
-            {{ __('Analyse', 'grcmanager') }}
+            {{ __('Analysis', 'grcmanager') }}
          </span>
          {% if nb_analysis > 0 %}
             <span class="badge bg-secondary text-secondary-fg ms-2">{{ nb_analysis }}</span>

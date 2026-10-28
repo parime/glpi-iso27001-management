@@ -42,10 +42,7 @@ class PluginGrcmanagerNotificationTargetTraining extends NotificationTarget
     public function getEvents()
     {
         return [
-            PluginGrcmanagerTraining::RENEWAL_DUE_EVENT => __(
-                'Renouvellement de formation en retard',
-                'grcmanager'
-            ),
+            PluginGrcmanagerTraining::RENEWAL_DUE_EVENT => __('Training renewal overdue', 'grcmanager'),
         ];
     }
 
@@ -54,7 +51,7 @@ class PluginGrcmanagerNotificationTargetTraining extends NotificationTarget
     {
         $this->addTarget(
             self::TARGET_OVERDUE_PARTICIPANTS,
-            __('Participants en retard de renouvellement', 'grcmanager')
+            __('Participants overdue for renewal', 'grcmanager')
         );
     }
 
@@ -118,9 +115,9 @@ class PluginGrcmanagerNotificationTargetTraining extends NotificationTarget
     {
         $tags = [
             'training.action'        => _n('Event', 'Events', 1),
-            'training.title'         => __('Titre', 'grcmanager'),
+            'training.title'         => __('Title', 'grcmanager'),
             'training.format'        => __('Format', 'grcmanager'),
-            'training.renewalmonths' => __('Renouvellement (mois)', 'grcmanager'),
+            'training.renewalmonths' => __('Renewal (months)', 'grcmanager'),
             'training.url'           => __('URL'),
         ];
 

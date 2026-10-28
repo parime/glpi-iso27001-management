@@ -57,7 +57,7 @@ class PluginGrcmanagerPolicy extends PolicyBase
 
     public static function getTypeName($nb = 0)
     {
-        return _n('Politique de sécurité', 'Politiques de sécurité', $nb, 'grcmanager');
+        return _n('Security policy', 'Security policies', $nb, 'grcmanager');
     }
 
     /**
@@ -86,9 +86,9 @@ class PluginGrcmanagerPolicy extends PolicyBase
     public static function getStatuses(): array
     {
         return [
-            PolicyLifecycle::STATUS_DRAFT    => __('Brouillon', 'grcmanager'),
-            PolicyLifecycle::STATUS_APPROVED => __('Approuvée', 'grcmanager'),
-            PolicyLifecycle::STATUS_ARCHIVED => __('Archivée', 'grcmanager'),
+            PolicyLifecycle::STATUS_DRAFT    => __('Draft', 'grcmanager'),
+            PolicyLifecycle::STATUS_APPROVED => __('Approved', 'grcmanager'),
+            PolicyLifecycle::STATUS_ARCHIVED => __('Archived', 'grcmanager'),
         ];
     }
 
@@ -121,7 +121,7 @@ class PluginGrcmanagerPolicy extends PolicyBase
             'id'       => 1,
             'table'    => $this->getTable(),
             'field'    => 'title',
-            'name'     => __('Titre', 'grcmanager'),
+            'name'     => __('Title', 'grcmanager'),
             'datatype' => 'itemlink',
             'itemtype' => self::class,
         ];
@@ -138,7 +138,7 @@ class PluginGrcmanagerPolicy extends PolicyBase
             'id'       => 3,
             'table'    => $this->getTable(),
             'field'    => 'status',
-            'name'     => __('Statut', 'grcmanager'),
+            'name'     => __('Status', 'grcmanager'),
             'datatype' => 'specific',
         ];
 
@@ -146,7 +146,7 @@ class PluginGrcmanagerPolicy extends PolicyBase
             'id'       => 4,
             'table'    => $this->getTable(),
             'field'    => 'approval_date',
-            'name'     => __('Date d\'approbation', 'grcmanager'),
+            'name'     => __('Approval date', 'grcmanager'),
             'datatype' => 'date',
         ];
 
@@ -154,7 +154,7 @@ class PluginGrcmanagerPolicy extends PolicyBase
             'id'       => 5,
             'table'    => $this->getTable(),
             'field'    => 'next_review_date',
-            'name'     => __('Prochaine revue', 'grcmanager'),
+            'name'     => __('Next review', 'grcmanager'),
             'datatype' => 'date',
         ];
 
@@ -162,7 +162,7 @@ class PluginGrcmanagerPolicy extends PolicyBase
             'id'       => 6,
             'table'    => 'glpi_users',
             'field'    => 'name',
-            'name'     => __('Propriétaire', 'grcmanager'),
+            'name'     => _x('owner', 'Owner', 'grcmanager'),
             'datatype' => 'dropdown',
             'right'    => 'all',
         ];
@@ -231,9 +231,9 @@ class PluginGrcmanagerPolicy extends PolicyBase
     private static function statusBadge(?string $value): string
     {
         $map = [
-            PolicyLifecycle::STATUS_DRAFT    => ['bg-secondary-lt', 'ti-pencil', __('Brouillon', 'grcmanager')],
-            PolicyLifecycle::STATUS_APPROVED => ['bg-green-lt', 'ti-circle-check', __('Approuvée', 'grcmanager')],
-            PolicyLifecycle::STATUS_ARCHIVED => ['bg-yellow-lt', 'ti-archive', __('Archivée', 'grcmanager')],
+            PolicyLifecycle::STATUS_DRAFT    => ['bg-secondary-lt', 'ti-pencil', __('Draft', 'grcmanager')],
+            PolicyLifecycle::STATUS_APPROVED => ['bg-green-lt', 'ti-circle-check', __('Approved', 'grcmanager')],
+            PolicyLifecycle::STATUS_ARCHIVED => ['bg-yellow-lt', 'ti-archive', __('Archived', 'grcmanager')],
         ];
 
         [$class, $icon, $label] = $map[$value] ?? ['bg-secondary-lt', 'ti-help', (string) $value];
@@ -278,10 +278,7 @@ class PluginGrcmanagerPolicy extends PolicyBase
 
         if (PolicyLifecycle::isApprovalDateMissing($status, $approvalDate)) {
             Session::addMessageAfterRedirect(
-                __(
-                    'Une date d\'approbation est obligatoire pour marquer une politique comme approuvée.',
-                    'grcmanager'
-                ),
+                __('An approval date is required to mark a policy as approved.', 'grcmanager'),
                 false,
                 ERROR
             );

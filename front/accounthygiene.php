@@ -30,11 +30,11 @@ if (isset($_POST['create_ticket'])) {
     $usersIds = array_values(array_map('intval', (array) ($_POST['users_id'] ?? [])));
     $ticketsId = PluginGrcmanagerAccountHygiene::createReviewTicket($usersIds, $days);
     if ($ticketsId > 0) {
-        $message = sprintf(__('Ticket de revue n°%d créé.', 'grcmanager'), $ticketsId);
+        $message = sprintf(__('Review ticket #%d created.', 'grcmanager'), $ticketsId);
         Session::addMessageAfterRedirect(htmlescape($message));
         Html::redirect(Ticket::getFormURLWithID($ticketsId));
     }
-    $message = __('Cochez au moins un compte à vérifier.', 'grcmanager');
+    $message = __('Tick at least one account to check.', 'grcmanager');
     Session::addMessageAfterRedirect(htmlescape($message), false, WARNING);
     Html::redirect(PluginGrcmanagerAccountHygiene::getSearchURL() . '?days=' . $days);
 }

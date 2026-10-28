@@ -36,10 +36,7 @@ class PluginGrcmanagerNotificationTargetRiskTreatmentAction extends Notification
     public function getEvents()
     {
         return [
-            PluginGrcmanagerRiskTreatmentAction::OVERDUE_EVENT => __(
-                'Action de traitement de risque en retard',
-                'grcmanager'
-            ),
+            PluginGrcmanagerRiskTreatmentAction::OVERDUE_EVENT => __('Overdue risk treatment action', 'grcmanager'),
         ];
     }
 
@@ -50,7 +47,7 @@ class PluginGrcmanagerNotificationTargetRiskTreatmentAction extends Notification
     #[Override]
     public function addAdditionalTargets($event = '')
     {
-        $this->addTarget(Notification::ITEM_USER, __('Responsable de l\'action', 'grcmanager'));
+        $this->addTarget(Notification::ITEM_USER, __('Action owner', 'grcmanager'));
     }
 
     #[Override]
@@ -74,7 +71,7 @@ class PluginGrcmanagerNotificationTargetRiskTreatmentAction extends Notification
         // Registre sensible : e-mail sans détail par défaut (SensitiveNotification).
         if (\GlpiPlugin\Grcmanager\Services\Notification\SensitiveNotification::isMinimal()) {
             $this->data = \GlpiPlugin\Grcmanager\Services\Notification\SensitiveNotification::reduce($this->data, [
-                '##treatmentaction.risktitle##' => sprintf(__('Risque n° %d', 'grcmanager'), $riskId),
+                '##treatmentaction.risktitle##' => sprintf(__('Risk no. %d', 'grcmanager'), $riskId),
             ], ['##treatmentaction.description##']);
         }
 
@@ -92,8 +89,8 @@ class PluginGrcmanagerNotificationTargetRiskTreatmentAction extends Notification
         $tags = [
             'treatmentaction.action'      => _n('Event', 'Events', 1),
             'treatmentaction.risktitle'   => PluginGrcmanagerRisk::getTypeName(1),
-            'treatmentaction.description' => __('Description de l\'action', 'grcmanager'),
-            'treatmentaction.duedate'     => __('Échéance', 'grcmanager'),
+            'treatmentaction.description' => __('Action description', 'grcmanager'),
+            'treatmentaction.duedate'     => __('Due date', 'grcmanager'),
             'treatmentaction.url'         => __('URL'),
         ];
 

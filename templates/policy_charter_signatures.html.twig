@@ -1,16 +1,16 @@
 {# Issue #283 : signatures de la charte informatique (campagnes de charte d'assetsign, lecture seule) #}
 <div class="card mt-3"><div class="card-body">
-   <h3 class="card-title"><i class="ti ti-signature me-1"></i>{{ __('Signatures de la charte', 'grcmanager') }}</h3>
+   <h3 class="card-title"><i class="ti ti-signature me-1"></i>{{ __('Charter signatures', 'grcmanager') }}</h3>
    {% if not available %}
-      <p class="text-muted mb-0">{{ __('Les signatures sont suivies par les campagnes de charte du plugin assetsign, qui n\'est pas installé ou pas à jour.', 'grcmanager') }}</p>
+      <p class="text-muted mb-0">{{ __('Signatures are tracked by the charter campaigns of the assetsign plugin, which is not installed or not up to date.', 'grcmanager') }}</p>
    {% elseif rows is empty %}
-      <p class="mb-0">{{ __('Aucune campagne de charte dans vos entités : lancez-en une dans assetsign pour faire signer la version %s.', 'grcmanager')|format(version) }}</p>
+      <p class="mb-0">{{ __('No charter campaign in your entities: start one in assetsign to have version %s signed.', 'grcmanager')|format(version) }}</p>
    {% else %}
       <table class="table table-sm align-middle">
          <thead><tr>
-            <th>{{ __('Entité', 'grcmanager') }}</th>
-            <th>{{ __('Dernière campagne', 'grcmanager') }}</th>
-            <th class="text-end">{{ __('Signées', 'grcmanager') }}</th>
+            <th>{{ __('Entity', 'grcmanager') }}</th>
+            <th>{{ __('Latest campaign', 'grcmanager') }}</th>
+            <th class="text-end">{{ __('Signed', 'grcmanager') }}</th>
             <th></th>
          </tr></thead>
          <tbody>
@@ -19,13 +19,13 @@
                   <td>{{ r.entity }}</td>
                   <td>{{ r.campaign }}{% if r.date %} <span class="text-muted">({{ r.date|formatted_date }})</span>{% endif %}</td>
                   <td class="text-end">{{ r.signed }} / {{ r.total }} ({{ r.rate }} %)</td>
-                  <td>{% if r.outdated %}<span class="badge bg-orange-lt">{{ __('Version %s approuvée après cette campagne : à faire signer', 'grcmanager')|format(version) }}</span>{% endif %}</td>
+                  <td>{% if r.outdated %}<span class="badge bg-orange-lt">{{ __('Version %s approved after this campaign: to be signed', 'grcmanager')|format(version) }}</span>{% endif %}</td>
                </tr>
             {% endfor %}
          </tbody>
       </table>
    {% endif %}
    {% if campaigns_url %}
-      <a class="btn btn-sm btn-outline-primary" href="{{ campaigns_url }}"><i class="ti ti-external-link me-1"></i>{{ __('Campagnes de charte (assetsign)', 'grcmanager') }}</a>
+      <a class="btn btn-sm btn-outline-primary" href="{{ campaigns_url }}"><i class="ti ti-external-link me-1"></i>{{ __('Charter campaigns (assetsign)', 'grcmanager') }}</a>
    {% endif %}
 </div></div>

@@ -33,7 +33,7 @@ if (isset($_POST['add'])) {
     $user = new User();
     $role = (string) ($_POST['role'] ?? '');
     if (!$user->getFromDB($usersId) || !PluginGrcmanagerAuditTeam::addMember($auditsId, $usersId, $role)) {
-        Session::addMessageAfterRedirect(__('Choisissez un membre et un rôle.', 'grcmanager'), false, ERROR);
+        Session::addMessageAfterRedirect(__('Choose a member and a role.', 'grcmanager'), false, ERROR);
     }
 } elseif (isset($_POST['remove'])) {
     PluginGrcmanagerAuditTeam::removeMember($auditsId, (int) ($_POST['members_id'] ?? 0));

@@ -160,27 +160,21 @@ class PluginGrcmanagerSecurityIncidentCve extends SecurityIncidentCveBase
             $lines = [];
             if (in_array('kev', $alerts, true)) {
                 $lines[] = sprintf(
-                    __('%s figure au catalogue CISA KEV : elle est activement exploitée.', 'grcmanager'),
+                    __('%s is listed in the CISA KEV catalog: it is actively exploited.', 'grcmanager'),
                     $row['cve_id']
                 ) . ($signal['kev_due'] !== '' ? ' ' . sprintf(
-                    __('Échéance de correction fixée par la CISA : %s.', 'grcmanager'),
+                    __('Remediation due date set by CISA: %s.', 'grcmanager'),
                     Html::convDate($signal['kev_due'])
                 ) : '');
             }
             if (in_array('epss', $alerts, true)) {
                 $lines[] = sprintf(
-                    __(
-                        'Probabilité d\'exploitation de %1$s dans les 30 jours (FIRST EPSS) : %2$d %%.',
-                        'grcmanager'
-                    ),
+                    __('Probability of exploitation of %1$s within 30 days (FIRST EPSS): %2$d %%.', 'grcmanager'),
                     $row['cve_id'],
                     (int) round((float) $signal['epss'] * 100)
                 );
             }
-            $lines[] = __(
-                'Revoyez la priorité de l\'incident : elle n\'est pas modifiée automatiquement.',
-                'grcmanager'
-            );
+            $lines[] = __('Review the incident priority: it is not changed automatically.', 'grcmanager');
             $added += (new ITILFollowup())->add([
                 'itemtype'   => PluginGrcmanagerSecurityIncident::class,
                 'items_id'   => (int) $row['plugin_grcmanager_securityincidents_id'],
@@ -286,7 +280,7 @@ class PluginGrcmanagerSecurityIncidentCve extends SecurityIncidentCveBase
 
         if ($alreadyLinked) {
             Session::addMessageAfterRedirect(
-                sprintf(__('%s est déjà référencée sur cet incident.', 'grcmanager'), htmlescape($input['cve_id'])),
+                sprintf(__('%s is already referenced on this incident.', 'grcmanager'), htmlescape($input['cve_id'])),
                 false,
                 ERROR
             );

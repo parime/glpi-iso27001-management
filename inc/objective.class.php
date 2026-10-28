@@ -60,7 +60,7 @@ class PluginGrcmanagerObjective extends ObjectiveBase
 
     public static function getTypeName($nb = 0)
     {
-        return _n('Objectif ISMS', 'Objectifs ISMS', $nb, 'grcmanager');
+        return _n('ISMS objective', 'ISMS objectives', $nb, 'grcmanager');
     }
 
     public static function getIcon()
@@ -74,11 +74,11 @@ class PluginGrcmanagerObjective extends ObjectiveBase
     public static function getStatuses(): array
     {
         return [
-            ObjectiveStatuses::NOT_STARTED => __('Non démarré', 'grcmanager'),
-            ObjectiveStatuses::ON_TRACK    => __('Sur la bonne voie', 'grcmanager'),
-            ObjectiveStatuses::AT_RISK     => __('À risque', 'grcmanager'),
-            ObjectiveStatuses::ACHIEVED    => __('Atteint', 'grcmanager'),
-            ObjectiveStatuses::MISSED      => __('Manqué', 'grcmanager'),
+            ObjectiveStatuses::NOT_STARTED => __('Not started', 'grcmanager'),
+            ObjectiveStatuses::ON_TRACK    => __('On track', 'grcmanager'),
+            ObjectiveStatuses::AT_RISK     => __('At risk', 'grcmanager'),
+            ObjectiveStatuses::ACHIEVED    => __('Achieved', 'grcmanager'),
+            ObjectiveStatuses::MISSED      => __('Missed', 'grcmanager'),
         ];
     }
 
@@ -142,7 +142,7 @@ class PluginGrcmanagerObjective extends ObjectiveBase
             'id'       => 1,
             'table'    => $this->getTable(),
             'field'    => 'title',
-            'name'     => __('Titre', 'grcmanager'),
+            'name'     => __('Title', 'grcmanager'),
             'datatype' => 'itemlink',
             'itemtype' => self::class,
         ];
@@ -151,7 +151,7 @@ class PluginGrcmanagerObjective extends ObjectiveBase
             'id'       => 2,
             'table'    => $this->getTable(),
             'field'    => 'status',
-            'name'     => __('Statut', 'grcmanager'),
+            'name'     => __('Status', 'grcmanager'),
             'datatype' => 'specific',
         ];
 
@@ -159,7 +159,7 @@ class PluginGrcmanagerObjective extends ObjectiveBase
             'id'       => 3,
             'table'    => $this->getTable(),
             'field'    => 'target_date',
-            'name'     => __('Échéance', 'grcmanager'),
+            'name'     => __('Due date', 'grcmanager'),
             'datatype' => 'date',
         ];
 
@@ -167,7 +167,7 @@ class PluginGrcmanagerObjective extends ObjectiveBase
             'id'       => 4,
             'table'    => $this->getTable(),
             'field'    => 'target_value',
-            'name'     => __('Valeur cible', 'grcmanager'),
+            'name'     => __('Target value', 'grcmanager'),
             'datatype' => 'decimal',
         ];
 
@@ -175,7 +175,7 @@ class PluginGrcmanagerObjective extends ObjectiveBase
             'id'       => 5,
             'table'    => $this->getTable(),
             'field'    => 'target_description',
-            'name'     => __('Cible qualitative', 'grcmanager'),
+            'name'     => __('Qualitative target', 'grcmanager'),
             'datatype' => 'text',
         ];
 
@@ -183,7 +183,7 @@ class PluginGrcmanagerObjective extends ObjectiveBase
             'id'       => 6,
             'table'    => 'glpi_users',
             'field'    => 'name',
-            'name'     => __('Propriétaire', 'grcmanager'),
+            'name'     => _x('owner', 'Owner', 'grcmanager'),
             'datatype' => 'dropdown',
             'right'    => 'all',
         ];
@@ -249,11 +249,11 @@ class PluginGrcmanagerObjective extends ObjectiveBase
     public static function statusBadge(?string $value): string
     {
         $map = [
-            ObjectiveStatuses::NOT_STARTED => ['bg-secondary-lt', 'ti-player-stop', __('Non démarré', 'grcmanager')],
-            ObjectiveStatuses::ON_TRACK    => ['bg-green-lt', 'ti-trending-up', __('Sur la bonne voie', 'grcmanager')],
-            ObjectiveStatuses::AT_RISK     => ['bg-orange-lt', 'ti-alert-triangle', __('À risque', 'grcmanager')],
-            ObjectiveStatuses::ACHIEVED    => ['bg-teal-lt', 'ti-trophy', __('Atteint', 'grcmanager')],
-            ObjectiveStatuses::MISSED      => ['bg-red-lt', 'ti-x', __('Manqué', 'grcmanager')],
+            ObjectiveStatuses::NOT_STARTED => ['bg-secondary-lt', 'ti-player-stop', __('Not started', 'grcmanager')],
+            ObjectiveStatuses::ON_TRACK    => ['bg-green-lt', 'ti-trending-up', __('On track', 'grcmanager')],
+            ObjectiveStatuses::AT_RISK     => ['bg-orange-lt', 'ti-alert-triangle', __('At risk', 'grcmanager')],
+            ObjectiveStatuses::ACHIEVED    => ['bg-teal-lt', 'ti-trophy', __('Achieved', 'grcmanager')],
+            ObjectiveStatuses::MISSED      => ['bg-red-lt', 'ti-x', __('Missed', 'grcmanager')],
         ];
 
         [$class, $icon, $label] = $map[$value] ?? ['bg-secondary-lt', 'ti-help', (string) $value];

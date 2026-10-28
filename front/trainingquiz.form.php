@@ -37,7 +37,7 @@ if (isset($_POST['remove'])) {
 
 $file = $_FILES['quiz'] ?? null;
 if (!isset($_POST['upload']) || !is_array($file) || ($file['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_OK) {
-    Session::addMessageAfterRedirect(__('Choisissez le fichier de la copie.', 'grcmanager'), false, ERROR);
+    Session::addMessageAfterRedirect(__('Choose the file of the copy.', 'grcmanager'), false, ERROR);
     Html::back();
 }
 
@@ -50,7 +50,7 @@ if (!move_uploaded_file((string) $file['tmp_name'], GLPI_TMP_DIR . '/' . $tmpNam
 }
 if (PluginGrcmanagerTrainingQuiz::attach($participation['id'], $tmpName, $prefix) <= 0) {
     Session::addMessageAfterRedirect(
-        __('La copie n\'a pas pu être jointe (type de fichier non autorisé ?).', 'grcmanager'),
+        __('The copy could not be attached (file type not allowed?).', 'grcmanager'),
         false,
         ERROR
     );

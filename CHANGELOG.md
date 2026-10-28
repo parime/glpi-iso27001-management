@@ -7,6 +7,19 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Changed
+
+- Chaînes source en anglais (convention GLPI, remarque de la revue de la marketplace, #293) :
+  les 1 712 textes de l'interface sont écrits en anglais dans le code, le français est une
+  traduction (`locales/fr_FR.po`). Aucun changement à l'écran en français : les accords et les
+  synonymes sont conservés par des contextes de traduction.
+
+### Fixed
+
+- Libellés « Event » / « Events » affichés en anglais dans l'interface française : traduits
+  « Événement » / « Événements ».
+- Aide de la page des politiques de sécurité : texte non traduit en anglais.
+
 ## [2.16.0] - 2026-10-27
 
 ### Added

@@ -25,7 +25,7 @@ Session::checkRight(PluginGrcmanagerRisk::$rightname, READ);
 // Registre sensible : chaque export est tracé (Administration > Journaux).
 \GlpiPlugin\Grcmanager\Services\Notification\SensitiveNotification::logExport(
     'PluginGrcmanagerRisk',
-    __('Registre des risques', 'grcmanager') . ' (PDF)'
+    __('Risk register', 'grcmanager') . ' (PDF)'
 );
 
 global $DB;
@@ -62,9 +62,9 @@ unset($entry);
 $html = \Glpi\Application\View\TemplateRenderer::getInstance()->render(
     '@grcmanager/pdf/risk_register_report.html.twig',
     [
-        'report_title'       => __('Registre des risques', 'grcmanager'),
+        'report_title'       => __('Risk register', 'grcmanager'),
         'generated_at_label' => sprintf(
-            __('Généré le %s', 'grcmanager'),
+            __('Generated on %s', 'grcmanager'),
             Html::convDateTime(date('Y-m-d H:i:s'))
         ),
         'risks'              => $risks,

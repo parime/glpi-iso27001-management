@@ -71,8 +71,8 @@ foreach ($byStatus['data'] as &$entry) {
 unset($entry);
 
 $html = \Glpi\Application\View\TemplateRenderer::getInstance()->render('@grcmanager/pdf/audit_report.html.twig', [
-    'report_title'          => __('Programme d\'audit interne et CAPA', 'grcmanager'),
-    'generated_at_label'    => sprintf(__('Généré le %s', 'grcmanager'), Html::convDateTime(date('Y-m-d H:i:s'))),
+    'report_title'          => __('Internal audit program and CAPA', 'grcmanager'),
+    'generated_at_label'    => sprintf(__('Generated on %s', 'grcmanager'), Html::convDateTime(date('Y-m-d H:i:s'))),
     'audits'                => $audits,
     'findings'              => $findings,
     'by_status'             => $byStatus,

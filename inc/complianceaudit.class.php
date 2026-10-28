@@ -51,7 +51,7 @@ class PluginGrcmanagerComplianceAudit extends CommonGLPI
 
     public static function getTypeName($nb = 0)
     {
-        return __('Contrôles techniques automatiques', 'grcmanager');
+        return __('Automated technical checks', 'grcmanager');
     }
 
     public static function getIcon()
@@ -78,7 +78,7 @@ class PluginGrcmanagerComplianceAudit extends CommonGLPI
     public static function getMenuContent()
     {
         return PluginGrcmanagerMenu::withSubPages(self::class, [
-            'title'         => __('Sécurité technique', 'grcmanager'),
+            'title'         => __('Technical security', 'grcmanager'),
             'section_label' => self::getTypeName(),
             'page'          => self::getSearchURL(false),
             'icon'          => self::getIcon(),
@@ -92,56 +92,55 @@ class PluginGrcmanagerComplianceAudit extends CommonGLPI
     {
         return [
             'antivirus'         => [
-                'label' => __('Postes sans antivirus actif et à jour', 'grcmanager'),
+                'label' => __('Computers without an active, up-to-date antivirus', 'grcmanager'),
                 'help'  => __(
-                    'D\'après l\'inventaire (onglet « Antivirus » des ordinateurs) : aucun antivirus, ou antivirus '
-                        . 'inactif, pas à jour ou expiré.',
+                    'From the inventory ("Antivirus" tab of computers): no antivirus, or an antivirus that is '
+                        . 'inactive, out of date or expired.',
                     'grcmanager'
                 ),
             ],
             'encryption'        => [
-                'label' => __('Postes avec un disque non chiffré', 'grcmanager'),
+                'label' => __('Computers with an unencrypted disk', 'grcmanager'),
                 'help'  => __(
-                    'D\'après l\'inventaire des volumes : au moins un disque non chiffré ou partiellement chiffré. '
-                        . 'Seuls les ordinateurs dont les volumes sont inventoriés sont comptés. Sont ignorés les '
-                        . 'volumes sans lettre de lecteur (EFI, récupération), les partages réseau, les supports '
-                        . 'optiques, les partitions FAT et, sous Linux, /boot et les pseudo-systèmes.',
+                    'From the volume inventory: at least one unencrypted or partially encrypted disk. Only '
+                        . 'computers whose volumes are inventoried are counted. Volumes without a drive letter (EFI, '
+                        . 'recovery), network shares, optical media, FAT partitions and, on Linux, /boot and '
+                        . 'pseudo-filesystems are ignored.',
                     'grcmanager'
                 ),
             ],
             'inventory'         => [
                 'label' => sprintf(
-                    __('Postes non inventoriés depuis plus de %d jours', 'grcmanager'),
+                    __('Computers not inventoried for more than %d days', 'grcmanager'),
                     self::INVENTORY_DAYS
                 ),
                 'help'  => __(
-                    'Ordinateurs remontés par l\'agent d\'inventaire dont la dernière remontée est ancienne : '
-                        . 'l\'inventaire des actifs n\'est plus fiable pour eux.',
+                    'Computers reported by the inventory agent whose last report is old: the asset inventory is no '
+                        . 'longer reliable for them.',
                     'grcmanager'
                 ),
             ],
             'change_validation' => [
                 'label' => sprintf(
                     _n(
-                        'Changements clos sans validation approuvée',
-                        'Changements clos sans %d validations approuvées',
+                        'Closed changes without an approved validation',
+                        'Closed changes without %d approved validations',
                         $approvals,
                         'grcmanager'
                     ),
                     $approvals
                 ),
                 'help'  => __(
-                    'Changements résolus ou clos depuis un an dont les validations approuvées sont moins '
-                        . 'nombreuses que le nombre exigé.',
+                    'Changes solved or closed within the last year with fewer approved validations than required.',
                     'grcmanager'
                 ),
             ],
             'accounts'          => [
-                'label' => __('Comptes à vérifier', 'grcmanager'),
+                'label' => _x('to check', 'Accounts to review', 'grcmanager'),
                 'help'  => sprintf(
                     __(
-                        'Comptes actifs supprimés de l\'annuaire, expirés, en doublon ou sans connexion depuis '
-                            . '%d jours (écran « Hygiène des comptes »).',
+                        'Active accounts deleted from the directory, expired, duplicated or without login for %d '
+                            . 'days ("Account hygiene" screen).',
                         'grcmanager'
                     ),
                     self::ACCOUNT_DAYS
@@ -158,7 +157,7 @@ class PluginGrcmanagerComplianceAudit extends CommonGLPI
         return [
             ComplianceAuditScore::ISO27001 => 'ISO/IEC 27001',
             ComplianceAuditScore::NIS2     => 'NIS2',
-            ComplianceAuditScore::GDPR     => __('RGPD', 'grcmanager'),
+            ComplianceAuditScore::GDPR     => __('GDPR', 'grcmanager'),
         ];
     }
 
@@ -311,8 +310,8 @@ class PluginGrcmanagerComplianceAudit extends CommonGLPI
         foreach ($computers as $id => $computer) {
             if (!isset($compliant[$id])) {
                 $gaps[] = self::gap(Computer::class, $id, (string) $computer['name'], isset($found[$id])
-                    ? __('Antivirus inactif, pas à jour ou expiré', 'grcmanager')
-                    : __('Aucun antivirus inventorié', 'grcmanager'));
+                    ? __('Antivirus inactive, out of date or expired', 'grcmanager')
+                    : __('No antivirus inventoried', 'grcmanager'));
             }
         }
 
@@ -377,7 +376,7 @@ class PluginGrcmanagerComplianceAudit extends CommonGLPI
                 Computer::class,
                 $id,
                 (string) $computers[$id]['name'],
-                sprintf(__('Non chiffré : %s', 'grcmanager'), implode(', ', $volumes))
+                sprintf(__('Not encrypted: %s', 'grcmanager'), implode(', ', $volumes))
             );
         }
 
@@ -401,8 +400,8 @@ class PluginGrcmanagerComplianceAudit extends CommonGLPI
             $last = (string) ($computer['last_inventory_update'] ?? '');
             if ($last === '' || $last < $limit) {
                 $gaps[] = self::gap(Computer::class, $id, (string) $computer['name'], $last === ''
-                    ? __('Jamais inventorié', 'grcmanager')
-                    : sprintf(__('Dernier inventaire : %s', 'grcmanager'), Html::convDateTime($last)));
+                    ? __('Never inventoried', 'grcmanager')
+                    : sprintf(__('Last inventory: %s', 'grcmanager'), Html::convDateTime($last)));
             }
         }
 
@@ -449,7 +448,7 @@ class PluginGrcmanagerComplianceAudit extends CommonGLPI
             $count = $accepted[$id] ?? 0;
             if ($count < $approvals) {
                 $gaps[] = self::gap(Change::class, $id, $name, sprintf(
-                    __('%1$d validation(s) approuvée(s) sur %2$d exigée(s)', 'grcmanager'),
+                    __('%1$d approved validation(s) out of %2$d required', 'grcmanager'),
                     $count,
                     $approvals
                 ));
@@ -555,7 +554,7 @@ class PluginGrcmanagerComplianceAudit extends CommonGLPI
         $gaps = array_slice($result['gaps'], 0, self::TICKET_ITEMS_MAX);
         $ticketId = (int) (new Ticket())->add([
             'name'        => sprintf(
-                __('Mise en conformité : %1$s (%2$d)', 'grcmanager'),
+                __('Compliance remediation: %1$s (%2$d)', 'grcmanager'),
                 $label,
                 count($result['gaps'])
             ),

@@ -39,7 +39,7 @@ class PluginGrcmanagerSecurityWatch extends CommonGLPI
 
     public static function getTypeName($nb = 0)
     {
-        return __('Veille sécurité', 'grcmanager');
+        return __('Security watch', 'grcmanager');
     }
 
     public static function getIcon()

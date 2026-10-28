@@ -37,8 +37,8 @@ PluginGrcmanagerMenu::showSection(PluginGrcmanagerControl::class, PluginGrcmanag
 PluginGrcmanagerPageHelp::show('evidence');
 
 TemplateRenderer::getInstance()->display('@grcmanager/_list_toolbar.html.twig', ['notice' => __(
-    'Une date de validité se saisit depuis l\'onglet « Validités des preuves » d\'une mesure, d\'un '
-        . 'risque fournisseur, d\'un audit ou d\'une politique, pour chaque document rattaché.',
+    'A validity date is entered from the "Evidence validity" tab of a control, supplier risk, audit or policy, for '
+        . 'each attached document.',
     'grcmanager'
 )]);
 

@@ -41,7 +41,7 @@ if (isset($_POST['create_ticket'])) {
         Html::redirect(Ticket::getFormURLWithID($ticketId));
     }
     Session::addMessageAfterRedirect(
-        htmlescape(__('Aucun écart à traiter : le ticket n\'a pas été créé.', 'grcmanager')),
+        htmlescape(__('No gap to handle: the ticket was not created.', 'grcmanager')),
         false,
         WARNING
     );

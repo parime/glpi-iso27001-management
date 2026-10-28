@@ -76,7 +76,7 @@ class PluginGrcmanagerNonconformity extends NonconformityBase
 
     public static function getTypeName($nb = 0)
     {
-        return _n('Non-conformité', 'Non-conformités', $nb, 'grcmanager');
+        return _n('Non-conformity', 'Non-conformities', $nb, 'grcmanager');
     }
 
     public static function getIcon()
@@ -90,9 +90,9 @@ class PluginGrcmanagerNonconformity extends NonconformityBase
     public static function getSeverities(): array
     {
         return [
-            'minor'    => __('Mineure', 'grcmanager'),
-            'major'    => __('Majeure', 'grcmanager'),
-            'critical' => __('Critique', 'grcmanager'),
+            'minor'    => __('Minor', 'grcmanager'),
+            'major'    => __('Major', 'grcmanager'),
+            'critical' => __('Critical', 'grcmanager'),
         ];
     }
 
@@ -109,7 +109,7 @@ class PluginGrcmanagerNonconformity extends NonconformityBase
             // gettext entry for the exact same singular French string "Non-conformité" (already
             // registered as a plural-form msgid via getTypeName()/_n()).
             'nonconformity' => self::getTypeName(1),
-            'observation'   => __('Observation / remarque', 'grcmanager'),
+            'observation'   => __('Observation / remark', 'grcmanager'),
         ];
     }
 
@@ -119,10 +119,10 @@ class PluginGrcmanagerNonconformity extends NonconformityBase
     public static function getStatuses(): array
     {
         return [
-            'open'        => __('Ouverte', 'grcmanager'),
-            'in_progress' => __('En traitement', 'grcmanager'),
-            'closed'      => __('Clôturée', 'grcmanager'),
-            'verified'    => __('Vérifiée', 'grcmanager'),
+            'open'        => __('Open', 'grcmanager'),
+            'in_progress' => __('In treatment', 'grcmanager'),
+            'closed'      => __('Closed', 'grcmanager'),
+            'verified'    => _x('feminine', 'Verified', 'grcmanager'),
         ];
     }
 
@@ -170,10 +170,7 @@ class PluginGrcmanagerNonconformity extends NonconformityBase
 
         if ($capaMandatory && in_array($status, self::CLOSED_STATUSES, true) && $correctiveAction === '') {
             Session::addMessageAfterRedirect(
-                __(
-                    'Une action corrective est obligatoire pour clôturer ou vérifier une non-conformité.',
-                    'grcmanager'
-                ),
+                __('A corrective action is required to close or verify a non-conformity.', 'grcmanager'),
                 false,
                 ERROR
             );
@@ -216,7 +213,7 @@ class PluginGrcmanagerNonconformity extends NonconformityBase
             'id'       => 1,
             'table'    => $this->getTable(),
             'field'    => 'title',
-            'name'     => __('Titre', 'grcmanager'),
+            'name'     => __('Title', 'grcmanager'),
             'datatype' => 'itemlink',
             'itemtype' => self::class,
         ];
@@ -227,7 +224,7 @@ class PluginGrcmanagerNonconformity extends NonconformityBase
             'id'       => 13,
             'table'    => $this->getTable(),
             'field'    => 'finding_type',
-            'name'     => __('Type de constat', 'grcmanager'),
+            'name'     => __('Finding type', 'grcmanager'),
             'datatype' => 'specific',
         ];
 
@@ -235,7 +232,7 @@ class PluginGrcmanagerNonconformity extends NonconformityBase
             'id'       => 2,
             'table'    => $this->getTable(),
             'field'    => 'severity',
-            'name'     => __('Sévérité', 'grcmanager'),
+            'name'     => __('Severity', 'grcmanager'),
             'datatype' => 'specific',
         ];
 
@@ -243,7 +240,7 @@ class PluginGrcmanagerNonconformity extends NonconformityBase
             'id'       => 3,
             'table'    => $this->getTable(),
             'field'    => 'status',
-            'name'     => __('Statut', 'grcmanager'),
+            'name'     => __('Status', 'grcmanager'),
             'datatype' => 'specific',
         ];
 
@@ -251,7 +248,7 @@ class PluginGrcmanagerNonconformity extends NonconformityBase
             'id'       => 4,
             'table'    => 'glpi_users',
             'field'    => 'name',
-            'name'     => __('Responsable', 'grcmanager'),
+            'name'     => __('Owner', 'grcmanager'),
             'datatype' => 'dropdown',
             'right'    => 'all',
         ];
@@ -260,7 +257,7 @@ class PluginGrcmanagerNonconformity extends NonconformityBase
             'id'       => 5,
             'table'    => $this->getTable(),
             'field'    => 'due_date',
-            'name'     => __('Échéance', 'grcmanager'),
+            'name'     => __('Due date', 'grcmanager'),
             'datatype' => 'date',
         ];
 
@@ -268,7 +265,7 @@ class PluginGrcmanagerNonconformity extends NonconformityBase
             'id'       => 6,
             'table'    => $this->getTable(),
             'field'    => 'closure_verification_date',
-            'name'     => __('Date de vérification de clôture', 'grcmanager'),
+            'name'     => __('Closure verification date', 'grcmanager'),
             'datatype' => 'date',
         ];
 
@@ -292,7 +289,7 @@ class PluginGrcmanagerNonconformity extends NonconformityBase
             'id'       => 9,
             'table'    => $this->getTable(),
             'field'    => 'root_cause',
-            'name'     => __('Cause racine', 'grcmanager'),
+            'name'     => __('Root cause', 'grcmanager'),
             'datatype' => 'text',
         ];
 
@@ -300,7 +297,7 @@ class PluginGrcmanagerNonconformity extends NonconformityBase
             'id'       => 10,
             'table'    => $this->getTable(),
             'field'    => 'corrective_action',
-            'name'     => __('Action corrective', 'grcmanager'),
+            'name'     => __('Corrective action', 'grcmanager'),
             'datatype' => 'text',
         ];
 
@@ -308,7 +305,7 @@ class PluginGrcmanagerNonconformity extends NonconformityBase
             'id'       => 11,
             'table'    => $this->getTable(),
             'field'    => 'preventive_action',
-            'name'     => __('Action préventive', 'grcmanager'),
+            'name'     => __('Preventive action', 'grcmanager'),
             'datatype' => 'text',
         ];
 
@@ -384,7 +381,7 @@ class PluginGrcmanagerNonconformity extends NonconformityBase
     {
         $map = [
             'nonconformity' => ['bg-red-lt', 'ti-alert-hexagon', self::getTypeName(1)],
-            'observation'   => ['bg-azure-lt', 'ti-notes', __('Observation / remarque', 'grcmanager')],
+            'observation'   => ['bg-azure-lt', 'ti-notes', __('Observation / remark', 'grcmanager')],
         ];
 
         [$class, $icon, $label] = $map[$value] ?? ['bg-secondary-lt', 'ti-help', (string) $value];
@@ -395,9 +392,9 @@ class PluginGrcmanagerNonconformity extends NonconformityBase
     private static function severityBadge(?string $value): string
     {
         $map = [
-            'minor'    => ['bg-yellow-lt', 'ti-alert-circle', __('Mineure', 'grcmanager')],
-            'major'    => ['bg-orange-lt', 'ti-alert-triangle', __('Majeure', 'grcmanager')],
-            'critical' => ['bg-red-lt', 'ti-alert-octagon', __('Critique', 'grcmanager')],
+            'minor'    => ['bg-yellow-lt', 'ti-alert-circle', __('Minor', 'grcmanager')],
+            'major'    => ['bg-orange-lt', 'ti-alert-triangle', __('Major', 'grcmanager')],
+            'critical' => ['bg-red-lt', 'ti-alert-octagon', __('Critical', 'grcmanager')],
         ];
 
         [$class, $icon, $label] = $map[$value] ?? ['bg-secondary-lt', 'ti-help', (string) $value];
@@ -408,10 +405,10 @@ class PluginGrcmanagerNonconformity extends NonconformityBase
     private static function statusBadge(?string $value): string
     {
         $map = [
-            'open'        => ['bg-red-lt', 'ti-flag', __('Ouverte', 'grcmanager')],
-            'in_progress' => ['bg-blue-lt', 'ti-tool', __('En traitement', 'grcmanager')],
-            'closed'      => ['bg-dark-lt', 'ti-check', __('Clôturée', 'grcmanager')],
-            'verified'    => ['bg-green-lt', 'ti-shield-check', __('Vérifiée', 'grcmanager')],
+            'open'        => ['bg-red-lt', 'ti-flag', __('Open', 'grcmanager')],
+            'in_progress' => ['bg-blue-lt', 'ti-tool', __('In treatment', 'grcmanager')],
+            'closed'      => ['bg-dark-lt', 'ti-check', __('Closed', 'grcmanager')],
+            'verified'    => ['bg-green-lt', 'ti-shield-check', _x('feminine', 'Verified', 'grcmanager')],
         ];
 
         [$class, $icon, $label] = $map[$value] ?? ['bg-secondary-lt', 'ti-help', (string) $value];
@@ -477,7 +474,7 @@ class PluginGrcmanagerNonconformity extends NonconformityBase
         }
         $count = countElementsInTable(self::getTable(), ['plugin_grcmanager_audits_id' => $item->getID()]);
 
-        return self::createTabEntry(__('Constats', 'grcmanager'), $count, null, self::getIcon());
+        return self::createTabEntry(__('Findings', 'grcmanager'), $count, null, self::getIcon());
     }
 
     public static function displayTabContentForItem(CommonGLPI $item, $tabnum = 1, $withtemplate = 0)
@@ -544,8 +541,8 @@ class PluginGrcmanagerNonconformity extends NonconformityBase
             'audits'          => $auditTitles,
             'audit_label'     => PluginGrcmanagerAudit::getTypeName(1),
             'corrective_hint' => CapaRequirementService::isCapaMandatory($findingType)
-                ? __('Obligatoire pour clôturer ou vérifier cette non-conformité.', 'grcmanager')
-                : __('Optionnelle pour une observation : peut néanmoins être renseignée si besoin.', 'grcmanager'),
+                ? __('Required to close or verify this non-conformity.', 'grcmanager')
+                : __('Optional for an observation: it may still be filled in if useful.', 'grcmanager'),
         ]);
 
         return true;
@@ -596,49 +593,42 @@ class PluginGrcmanagerNonconformity extends NonconformityBase
 
         $corrective = [];
         foreach ($links['patch'] as $url) {
-            $corrective[] = sprintf(__('Appliquer le correctif de l\'éditeur : %s', 'grcmanager'), $url);
+            $corrective[] = sprintf(__('Apply the vendor patch: %s', 'grcmanager'), $url);
         }
         if ($links['patch'] === []) {
-            $corrective[] = __(
-                'Rechercher et appliquer le correctif de l\'éditeur (aucun lien de correctif publié dans NVD '
-                    . 'pour l\'instant).',
-                'grcmanager'
-            );
+            $corrective[] = __('Find and apply the vendor patch (no patch link published in NVD yet).', 'grcmanager');
         }
         foreach ($links['advisory'] as $url) {
-            $corrective[] = sprintf(__('Suivre l\'avis de sécurité de l\'éditeur : %s', 'grcmanager'), $url);
+            $corrective[] = sprintf(__('Follow the vendor security advisory: %s', 'grcmanager'), $url);
         }
         if ($assets !== []) {
             $names = array_values(array_unique(array_column($assets, 'item_name')));
             $shown = array_slice($names, 0, 20);
             $corrective[] = sprintf(
-                __('Mettre à jour les actifs concernés (%1$d) : %2$s', 'grcmanager'),
+                __('Update the affected assets (%1$d): %2$s', 'grcmanager'),
                 count($names),
                 implode(', ', $shown) . (count($names) > 20 ? ' (…)' : '')
             );
         } else {
             $corrective[] = __(
-                'Identifier les actifs concernés (aucun actif correspondant trouvé dans l\'inventaire).',
+                'Identify the affected assets (no matching asset found in the inventory).',
                 'grcmanager'
             );
         }
         if ($isKev && $kevDue !== '') {
             $corrective[] = sprintf(
-                __(
-                    'Vulnérabilité activement exploitée : échéance de correction fixée par la CISA au %s.',
-                    'grcmanager'
-                ),
+                __('Actively exploited vulnerability: remediation due date set by CISA on %s.', 'grcmanager'),
                 Html::convDate($kevDue)
             );
         }
         $corrective[] = __(
-            'Contrôler l\'efficacité : vérifier que la vulnérabilité n\'apparaît plus sur les actifs (onglet CVE de '
-                . 'l\'incident ou « Vulnérabilités du parc »).',
+            'Check effectiveness: verify that the vulnerability no longer appears on the assets (incident CVE tab '
+                . 'or "Fleet vulnerabilities").',
             'grcmanager'
         );
 
         $description = sprintf(
-            __('Plan d\'action proposé pour %1$s, relevée sur l\'incident de sécurité « %2$s ».', 'grcmanager'),
+            __('Action plan proposed for %1$s, found on the security incident "%2$s".', 'grcmanager'),
             $cveId,
             $incident->fields['name']
         );
@@ -651,7 +641,7 @@ class PluginGrcmanagerNonconformity extends NonconformityBase
 
         return [
             'title'                                  => mb_substr(sprintf(
-                __('Corriger %1$s (incident « %2$s »)', 'grcmanager'),
+                __('Fix %1$s (incident "%2$s")', 'grcmanager'),
                 $cveId,
                 $incident->fields['name']
             ), 0, 255),
@@ -667,11 +657,10 @@ class PluginGrcmanagerNonconformity extends NonconformityBase
             )),
             'preventive_action'                      => implode("\n", [
                 '- ' . __(
-                    'Surveiller le logiciel concerné dans « Logiciels à surveiller » pour être alerté des '
-                        . 'prochaines vulnérabilités.',
+                    'Watch the affected software in "Software to watch" to be alerted of future vulnerabilities.',
                     'grcmanager'
                 ),
-                '- ' . __('Intégrer ce logiciel au cycle régulier d\'application des correctifs.', 'grcmanager'),
+                '- ' . __('Include this software in the regular patching cycle.', 'grcmanager'),
             ]),
             'plugin_grcmanager_securityincidents_id' => $incidentId,
             'cve_id'                                 => $cveId,

@@ -2,13 +2,13 @@
 <div class="container-fluid my-3">
    <div class="card">
       <div class="card-header">
-         <h3 class="card-title"><i class="ti ti-hierarchy-3 me-2"></i>{{ __('Effet domino', 'grcmanager') }}</h3>
+         <h3 class="card-title"><i class="ti ti-hierarchy-3 me-2"></i>{{ __('Domino effect', 'grcmanager') }}</h3>
       </div>
       <div class="card-body">
-         <p class="text-muted">{{ __('Chaînes de causes et de conséquences entre risques, risques fournisseurs et incidents de sécurité. Les liens se créent depuis l\'onglet « Effet domino » de chacun. C\'est une représentation : aucune probabilité n\'est calculée.', 'grcmanager') }}</p>
+         <p class="text-muted">{{ __('Chains of causes and consequences between risks, supplier risks and security incidents. Links are created from the "Domino effect" tab of each one. This is a representation: no probability is computed.', 'grcmanager') }}</p>
          {% if elements is empty %}
-            <div class="alert alert-info"><i class="ti ti-info-circle me-1"></i>{{ __('Aucun lien pour l\'instant.', 'grcmanager') }}
-               <a href="{{ risk_url }}">{{ __('Ouvrir le registre des risques', 'grcmanager') }}</a></div>
+            <div class="alert alert-info"><i class="ti ti-info-circle me-1"></i>{{ __('No link yet.', 'grcmanager') }}
+               <a href="{{ risk_url }}">{{ __('Open the risk register', 'grcmanager') }}</a></div>
          {% else %}
             {% include '@grcmanager/_causal_graph.html.twig' with {'elements': elements, 'height': '640px'} %}
          {% endif %}

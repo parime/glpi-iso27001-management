@@ -27,7 +27,7 @@ class PluginGrcmanagerMenu extends CommonGLPI
 {
     public static function getMenuName()
     {
-        return __('GRC & Conformité', 'grcmanager');
+        return __('GRC & Compliance', 'grcmanager');
     }
 
     public static function getIcon()
@@ -107,14 +107,14 @@ class PluginGrcmanagerMenu extends CommonGLPI
     {
         if ($child === self::SOFTWARE_WATCH) {
             return PluginGrcmanagerParkVulnerability::canView() ? [
-                'title' => __('Logiciels à surveiller', 'grcmanager'),
+                'title' => __('Software to watch', 'grcmanager'),
                 'page'  => '/plugins/grcmanager/front/softwarewatch.php',
                 'icon'  => 'ti ti-radar',
             ] : null;
         }
         if ($child === self::MACHINE_RANKING) {
             return PluginGrcmanagerParkVulnerability::canView() ? [
-                'title' => __('Machines les plus exposées', 'grcmanager'),
+                'title' => __('Most exposed machines', 'grcmanager'),
                 'page'  => PluginGrcmanagerParkVulnerability::getRankingURL(false),
                 'icon'  => 'ti ti-device-desktop-exclamation',
             ] : null;

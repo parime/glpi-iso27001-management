@@ -42,7 +42,7 @@ class PluginGrcmanagerProductAlias extends ProductAliasBase
 
     public static function getTypeName($nb = 0)
     {
-        return _n('Alias de logiciel', 'Alias de logiciels', $nb, 'grcmanager');
+        return _n('Software alias', 'Software aliases', $nb, 'grcmanager');
     }
 
     /**
@@ -59,7 +59,7 @@ class PluginGrcmanagerProductAlias extends ProductAliasBase
 
         if ($alias === '') {
             Session::addMessageAfterRedirect(
-                __('Veuillez saisir un alias.', 'grcmanager'),
+                __('Please enter an alias.', 'grcmanager'),
                 false,
                 ERROR
             );
@@ -106,7 +106,7 @@ class PluginGrcmanagerProductAlias extends ProductAliasBase
         if ($existing !== null) {
             Session::addMessageAfterRedirect(
                 sprintf(
-                    __('Cet alias est déjà rattaché au produit "%s / %s".', 'grcmanager'),
+                    __('This alias is already attached to product "%s / %s".', 'grcmanager'),
                     $existing['manufacturer'],
                     $existing['product']
                 ),

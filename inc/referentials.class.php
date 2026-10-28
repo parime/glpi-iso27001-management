@@ -25,7 +25,7 @@ class PluginGrcmanagerReferentials extends CommonGLPI
 {
     public static function getMenuName()
     {
-        return __('Référentiels', 'grcmanager');
+        return __('Reference frameworks', 'grcmanager');
     }
 
     public static function getIcon()

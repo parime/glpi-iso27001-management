@@ -22,7 +22,7 @@ include('../../../inc/includes.php');
 Session::checkRight(PluginGrcmanagerRisk::$rightname, READ);
 
 Html::header(
-    __('Cartographie des risques', 'grcmanager'),
+    __('Risk heatmap', 'grcmanager'),
     $_SERVER['PHP_SELF'],
     'grcmanager',
     PluginGrcmanagerRisk::class

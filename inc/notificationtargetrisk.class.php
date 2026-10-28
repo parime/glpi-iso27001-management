@@ -30,7 +30,7 @@ class PluginGrcmanagerNotificationTargetRisk extends NotificationTarget
     #[Override]
     public function getEvents()
     {
-        return [PluginGrcmanagerRisk::REVIEW_DUE_EVENT => __('Revue de risque à échéance', 'grcmanager')];
+        return [PluginGrcmanagerRisk::REVIEW_DUE_EVENT => __('Risk review due', 'grcmanager')];
     }
 
     /**
@@ -41,7 +41,7 @@ class PluginGrcmanagerNotificationTargetRisk extends NotificationTarget
     #[Override]
     public function addAdditionalTargets($event = '')
     {
-        $this->addTarget(Notification::ITEM_USER, __('Propriétaire du risque', 'grcmanager'));
+        $this->addTarget(Notification::ITEM_USER, __('Risk owner', 'grcmanager'));
     }
 
     #[Override]
@@ -66,7 +66,7 @@ class PluginGrcmanagerNotificationTargetRisk extends NotificationTarget
         // Registre sensible : e-mail sans détail par défaut (SensitiveNotification).
         if (\GlpiPlugin\Grcmanager\Services\Notification\SensitiveNotification::isMinimal()) {
             $this->data = \GlpiPlugin\Grcmanager\Services\Notification\SensitiveNotification::reduce($this->data, [
-                '##risk.title##' => sprintf(__('Risque n° %d', 'grcmanager'), (int) ($risk->fields['id'] ?? 0)),
+                '##risk.title##' => sprintf(__('Risk no. %d', 'grcmanager'), (int) ($risk->fields['id'] ?? 0)),
             ], ['##risk.category##', '##risk.risklevel##']);
         }
 
@@ -83,10 +83,10 @@ class PluginGrcmanagerNotificationTargetRisk extends NotificationTarget
     {
         $tags = [
             'risk.action'     => _n('Event', 'Events', 1),
-            'risk.title'      => __('Titre', 'grcmanager'),
-            'risk.category'   => __('Catégorie', 'grcmanager'),
-            'risk.risklevel'  => __('Niveau de risque', 'grcmanager'),
-            'risk.reviewdate' => __('Date de revue', 'grcmanager'),
+            'risk.title'      => __('Title', 'grcmanager'),
+            'risk.category'   => __('Category', 'grcmanager'),
+            'risk.risklevel'  => __('Risk level', 'grcmanager'),
+            'risk.reviewdate' => __('Review date', 'grcmanager'),
             'risk.url'        => __('URL'),
         ];
 

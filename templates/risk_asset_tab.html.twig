@@ -1,9 +1,9 @@
 {# Issue #25 : risques liés à un actif (onglet « Risques ») ; issue #199 : passé de PHP à Twig. #}
 {% if risks is empty %}
-   <p class="p-2 text-muted">{{ __('Aucun risque lié à cet actif.', 'grcmanager') }}</p>
+   <p class="p-2 text-muted">{{ __('No risk linked to this asset.', 'grcmanager') }}</p>
 {% else %}
    <table class="table table-striped">
-      <thead><tr><th>{{ __('Titre', 'grcmanager') }}</th><th>{{ __('Niveau de risque', 'grcmanager') }}</th></tr></thead>
+      <thead><tr><th>{{ __('Title', 'grcmanager') }}</th><th>{{ __('Risk level', 'grcmanager') }}</th></tr></thead>
       <tbody>
          {% for risk in risks %}
             {% set level_html = risk.level_html %}

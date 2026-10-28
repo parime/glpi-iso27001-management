@@ -1,9 +1,9 @@
 {# Issue #126 : ticket de modification ou de retrait d'accès ; issue #199 : passé de PHP à Twig. #}
 {% macro list(items) %}{% if items is empty %}—{% else %}<ul>{% for i in items %}<li>{{ i }}</li>{% endfor %}</ul>{% endif %}{% endmacro %}
-<p>{{ __('Demande issue de la campagne « %1$s », par %2$s.', 'grcmanager')|format(campaign, actor) }}</p>
-<p><strong>{{ __('Demande', 'grcmanager') }}</strong> : {{ comment|nl2br }}</p>
-<p><strong>{{ __('Profils au lancement', 'grcmanager') }}</strong></p>
+<p>{{ __('Request from campaign "%1$s", by %2$s.', 'grcmanager')|format(campaign, actor) }}</p>
+<p><strong>{{ __('Request', 'grcmanager') }}</strong> : {{ comment|nl2br }}</p>
+<p><strong>{{ __('Profiles at launch', 'grcmanager') }}</strong></p>
 {{ _self.list(profiles) }}
-<p><strong>{{ __('Groupes au lancement', 'grcmanager') }}</strong></p>
+<p><strong>{{ __('Groups at launch', 'grcmanager') }}</strong></p>
 {{ _self.list(groups) }}
-<p>{{ __('Le plugin GRC ne modifie aucun droit : appliquez la demande puis résolvez ce ticket.', 'grcmanager') }}</p>
+<p>{{ __('The GRC plugin changes no right: apply the request, then solve this ticket.', 'grcmanager') }}</p>

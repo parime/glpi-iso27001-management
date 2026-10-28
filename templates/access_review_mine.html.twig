@@ -1,23 +1,23 @@
 {# Issue #126 : « Mes revues d'accès » — comptes confiés au responsable connecté #}
 <div class="container-fluid">
    <div class="alert alert-info">
-      <i class="ti ti-info-circle me-1"></i>{{ __('Pour chaque compte de votre équipe, validez ses accès ou demandez une modification ou un retrait en précisant quoi changer. Une demande crée un ticket pour l\'équipe support : aucun droit n\'est modifié automatiquement.', 'grcmanager') }}
+      <i class="ti ti-info-circle me-1"></i>{{ __('For each account in your team, approve its access or request a change or removal, stating what to change. A request creates a ticket for the support team: no right is changed automatically.', 'grcmanager') }}
    </div>
    {% if campaigns is empty %}
-      <div class="card"><div class="card-body text-muted"><i class="ti ti-circle-check me-1 text-green"></i>{{ __('Aucune revue des accès ne vous attend.', 'grcmanager') }}</div></div>
+      <div class="card"><div class="card-body text-muted"><i class="ti ti-circle-check me-1 text-green"></i>{{ __('No access review is waiting for you.', 'grcmanager') }}</div></div>
    {% endif %}
    {% for c in campaigns %}
       <div class="card mb-3">
          <div class="card-header d-flex flex-wrap align-items-center gap-2">
             <h3 class="card-title mb-0"><i class="ti ti-user-check me-1"></i>{{ c.name }}</h3>
-            <span class="badge {{ c.late ? 'bg-red-lt' : 'bg-blue-lt' }}">{{ __('Échéance : %s', 'grcmanager')|format(c.due_date|formatted_date) }}</span>
-            <span class="text-muted small ms-auto">{{ __('%1$d compte(s) revu(s) sur %2$d', 'grcmanager')|format(c.progress.done, c.progress.total) }}</span>
+            <span class="badge {{ c.late ? 'bg-red-lt' : 'bg-blue-lt' }}">{{ __('Due: %s', 'grcmanager')|format(c.due_date|formatted_date) }}</span>
+            <span class="text-muted small ms-auto">{{ __('%1$d of %2$d account(s) reviewed', 'grcmanager')|format(c.progress.done, c.progress.total) }}</span>
          </div>
          <div class="card-body">
             <form method="post" action="{{ action }}">
                <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
                {{ include('@grcmanager/tabs/_access_review_rows.html.twig', {lines: c.lines, can_decide: true, show_reviewer: false}) }}
-               <button type="submit" name="save_decisions" value="1" class="btn btn-primary mt-3"><i class="ti ti-device-floppy me-1"></i>{{ __('Enregistrer les décisions', 'grcmanager') }}</button>
+               <button type="submit" name="save_decisions" value="1" class="btn btn-primary mt-3"><i class="ti ti-device-floppy me-1"></i>{{ __('Save decisions', 'grcmanager') }}</button>
             </form>
          </div>
       </div>

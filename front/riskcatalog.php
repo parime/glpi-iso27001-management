@@ -27,13 +27,13 @@ if (isset($_POST['import'])) {
     Session::checkRight(PluginGrcmanagerRisk::$rightname, CREATE);
     $created = PluginGrcmanagerRiskCatalog::import((array) ($_POST['keys'] ?? []));
     if ($created === []) {
-        $message = __('Cochez au moins un risque qui n\'est pas encore dans le registre.', 'grcmanager');
+        $message = __('Tick at least one risk that is not in the register yet.', 'grcmanager');
         Session::addMessageAfterRedirect(htmlescape($message), false, WARNING);
     } else {
         $message = sprintf(
             _n(
-                '%d risque ajouté au registre, à évaluer.',
-                '%d risques ajoutés au registre, à évaluer.',
+                '%d risk added to the register, to be assessed.',
+                '%d risks added to the register, to be assessed.',
                 count($created),
                 'grcmanager'
             ),

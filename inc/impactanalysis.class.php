@@ -40,7 +40,7 @@ class PluginGrcmanagerImpactAnalysis extends CommonGLPI
 
     public static function getTypeName($nb = 0)
     {
-        return __('Points de défaillance uniques', 'grcmanager');
+        return __('Single points of failure', 'grcmanager');
     }
 
     public static function getIcon()
@@ -68,7 +68,7 @@ class PluginGrcmanagerImpactAnalysis extends CommonGLPI
 
         // Sous-page de la rubrique « Risques » (PluginGrcmanagerMenu::sections()).
         return [
-            'title' => __('Analyse d\'impact', 'grcmanager'),
+            'title' => __('Impact analysis', 'grcmanager'),
             'page'  => self::getSearchURL(false),
             'icon'  => self::getIcon(),
         ];
@@ -128,7 +128,7 @@ class PluginGrcmanagerImpactAnalysis extends CommonGLPI
         }
         $item = new $itemtype();
         if (!$item->can($itemsId, READ)) {
-            return ['label' => __('Élément non visible', 'grcmanager'), 'url' => '', 'visible' => false] + $base;
+            return ['label' => __('Item not visible', 'grcmanager'), 'url' => '', 'visible' => false] + $base;
         }
 
         return [
@@ -217,14 +217,14 @@ class PluginGrcmanagerImpactAnalysis extends CommonGLPI
         $levels = PluginGrcmanagerAssetClassification::getLevels();
         $labels = PluginGrcmanagerAssetClassification::getRecoveryOptions();
         $rows = [[
-            __('Élément', 'grcmanager'),
-            __('Disponibilité', 'grcmanager'),
+            __('Item', 'grcmanager'),
+            __('Availability', 'grcmanager'),
             'RTO',
             'RPO',
-            __('Dépend de', 'grcmanager'),
-            __('Éléments touchés par une panne', 'grcmanager'),
-            __('Point de défaillance unique pour', 'grcmanager'),
-            __('Risques liés', 'grcmanager'),
+            __('Depends on', 'grcmanager'),
+            __('Items affected by a failure', 'grcmanager'),
+            __('Single point of failure for', 'grcmanager'),
+            __('Linked risks', 'grcmanager'),
         ]];
         foreach (
             $DB->request([
@@ -346,18 +346,17 @@ class PluginGrcmanagerImpactAnalysis extends CommonGLPI
      */
     public static function createSinglePointRisk(CommonDBTM $item, array $critical): int
     {
-        $title = sprintf(__('Point de défaillance unique : %s', 'grcmanager'), $item->getName());
+        $title = sprintf(__('Single point of failure: %s', 'grcmanager'), $item->getName());
         foreach (PluginGrcmanagerRisk::getRisksLinkedToItem($item::class, (int) $item->getID()) as $risk) {
             if ($risk['title'] === $title) {
                 return 0;
             }
         }
         $names = array_map(static fn (array $c): string => $c['label'], $critical);
-        $description = __('Ces éléments à disponibilité haute ne dépendent que de lui :', 'grcmanager')
+        $description = __('These high-availability items depend only on it:', 'grcmanager')
             . "\n- " . implode("\n- ", $names) . "\n\n"
             . __(
-                'Prévoir une redondance (second équipement, seconde alimentation, second lien) ou accepter le '
-                . 'risque.',
+                'Plan for redundancy (second device, second power supply, second link) or accept the risk.',
                 'grcmanager'
             );
         $field = 'linked_items_' . str_replace('\\', '_', $item::class);
@@ -383,7 +382,7 @@ class PluginGrcmanagerImpactAnalysis extends CommonGLPI
             return '';
         }
 
-        return self::createTabEntry(__('Impact d\'une panne', 'grcmanager'));
+        return self::createTabEntry(__('Failure impact', 'grcmanager'));
     }
 
     public static function displayTabContentForItem(CommonGLPI $item, $tabnum = 1, $withtemplate = 0)

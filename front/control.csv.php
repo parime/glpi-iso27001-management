@@ -73,7 +73,7 @@ if (isset($_POST['import'])) {
 
     if ($uploadError !== UPLOAD_ERR_OK || !is_uploaded_file($_FILES['soa_file']['tmp_name'])) {
         Session::addMessageAfterRedirect(
-            __('Aucun fichier valide n\'a été envoyé.', 'grcmanager'),
+            __('No valid file was uploaded.', 'grcmanager'),
             false,
             ERROR
         );
@@ -125,13 +125,13 @@ if (isset($_POST['import'])) {
 
         $reasonLabels = [
             ControlCsvImportService::REASON_UNKNOWN_CODE            =>
-                __('Code inconnu du catalogue Annexe A.', 'grcmanager'),
+                __('Code unknown in the Annex A catalogue.', 'grcmanager'),
             ControlCsvImportService::REASON_UNKNOWN_APPLICABILITY   =>
-                __('Valeur d\'applicabilité non reconnue.', 'grcmanager'),
+                __('Unrecognized applicability value.', 'grcmanager'),
             ControlCsvImportService::REASON_UNKNOWN_STATUS          =>
-                __('Valeur d\'état de mise en œuvre non reconnue.', 'grcmanager'),
+                __('Unrecognized implementation status value.', 'grcmanager'),
             ControlCsvImportService::REASON_MISSING_JUSTIFICATION   =>
-                __('Justification obligatoire : ce contrôle n\'est pas pleinement applicable.', 'grcmanager'),
+                __('Justification required: this control is not fully applicable.', 'grcmanager'),
         ];
 
         // Un fichier vide, non-CSV, ou dont l'en-tête ne compte pas exactement les colonnes
@@ -152,7 +152,7 @@ if (isset($_POST['import'])) {
 }
 
 Html::header(
-    __('Import/export CSV — Annexe A', 'grcmanager'),
+    __('CSV import/export — Annex A', 'grcmanager'),
     $_SERVER['PHP_SELF'],
     'grcmanager',
     PluginGrcmanagerControl::class
