@@ -81,7 +81,7 @@ class PluginGrcmanagerRisk extends RiskBase
 
     public static function getTypeName($nb = 0)
     {
-        return _n('Risque', 'Risques', $nb, 'grcmanager');
+        return _n('Risk', 'Risks', $nb, 'grcmanager');
     }
 
     public static function getIcon()
@@ -142,8 +142,8 @@ class PluginGrcmanagerRisk extends RiskBase
         ) {
             Session::addMessageAfterRedirect(
                 __(
-                    'Un plan de traitement (au moins une action) est requis pour clôturer un risque '
-                    . 'à mitiger ou transférer.',
+                    'A treatment plan (at least one action) is required to close a risk being mitigated or '
+                        . 'transferred.',
                     'grcmanager'
                 ),
                 false,
@@ -169,7 +169,7 @@ class PluginGrcmanagerRisk extends RiskBase
             'id'       => 1,
             'table'    => $this->getTable(),
             'field'    => 'title',
-            'name'     => __('Titre', 'grcmanager'),
+            'name'     => __('Title', 'grcmanager'),
             'datatype' => 'itemlink',
             'itemtype' => self::class,
         ];
@@ -178,7 +178,7 @@ class PluginGrcmanagerRisk extends RiskBase
             'id'       => 2,
             'table'    => $this->getTable(),
             'field'    => 'category',
-            'name'     => __('Catégorie', 'grcmanager'),
+            'name'     => __('Category', 'grcmanager'),
             'datatype' => 'specific',
         ];
 
@@ -186,7 +186,7 @@ class PluginGrcmanagerRisk extends RiskBase
             'id'       => 3,
             'table'    => $this->getTable(),
             'field'    => 'probability',
-            'name'     => __('Probabilité', 'grcmanager'),
+            'name'     => __('Probability', 'grcmanager'),
             'datatype' => 'specific',
         ];
 
@@ -202,7 +202,7 @@ class PluginGrcmanagerRisk extends RiskBase
             'id'       => 5,
             'table'    => $this->getTable(),
             'field'    => 'risk_level',
-            'name'     => __('Niveau de risque', 'grcmanager'),
+            'name'     => __('Risk level', 'grcmanager'),
             'datatype' => 'specific',
         ];
 
@@ -210,7 +210,7 @@ class PluginGrcmanagerRisk extends RiskBase
             'id'       => 6,
             'table'    => $this->getTable(),
             'field'    => 'treatment',
-            'name'     => __('Traitement', 'grcmanager'),
+            'name'     => __('Treatment', 'grcmanager'),
             'datatype' => 'specific',
         ];
 
@@ -218,7 +218,7 @@ class PluginGrcmanagerRisk extends RiskBase
             'id'       => 7,
             'table'    => 'glpi_users',
             'field'    => 'name',
-            'name'     => __('Propriétaire', 'grcmanager'),
+            'name'     => _x('owner', 'Owner', 'grcmanager'),
             'datatype' => 'dropdown',
             'right'    => 'all',
         ];
@@ -227,7 +227,7 @@ class PluginGrcmanagerRisk extends RiskBase
             'id'       => 8,
             'table'    => $this->getTable(),
             'field'    => 'status',
-            'name'     => __('Statut', 'grcmanager'),
+            'name'     => __('Status', 'grcmanager'),
             'datatype' => 'specific',
         ];
 
@@ -235,7 +235,7 @@ class PluginGrcmanagerRisk extends RiskBase
             'id'       => 9,
             'table'    => $this->getTable(),
             'field'    => 'review_date',
-            'name'     => __('Date de revue', 'grcmanager'),
+            'name'     => __('Review date', 'grcmanager'),
             'datatype' => 'date',
         ];
 
@@ -361,7 +361,7 @@ class PluginGrcmanagerRisk extends RiskBase
                 $classification = $classificationsByItemsId[$itemsId] ?? null;
                 if (ClassificationLevels::isClassified($classification)) {
                     $label .= ' ' . sprintf(
-                        __('(C : %1$s, I : %2$s, D : %3$s)', 'grcmanager'),
+                        __('(C: %1$s, I: %2$s, A: %3$s)', 'grcmanager'),
                         self::classificationLevelLabel($classification['confidentiality'] ?? null),
                         self::classificationLevelLabel($classification['integrity'] ?? null),
                         self::classificationLevelLabel($classification['availability'] ?? null)
@@ -492,7 +492,7 @@ class PluginGrcmanagerRisk extends RiskBase
             }
             $name = $exists
                 ? $item->getName()
-                : sprintf(__('%1$s #%2$d (supprimé)', 'grcmanager'), $itemtype::getTypeName(1), $itemsId);
+                : sprintf(__('%1$s #%2$d (deleted)', 'grcmanager'), $itemtype::getTypeName(1), $itemsId);
 
             $items[] = [
                 'itemtype' => $itemtype,
@@ -547,7 +547,7 @@ class PluginGrcmanagerRisk extends RiskBase
      */
     private static function classificationLevelLabel(?string $value): string
     {
-        return PluginGrcmanagerAssetClassification::getLevels()[$value] ?? __('Non classifié', 'grcmanager');
+        return PluginGrcmanagerAssetClassification::getLevels()[$value] ?? __('Not classified', 'grcmanager');
     }
 
     /**

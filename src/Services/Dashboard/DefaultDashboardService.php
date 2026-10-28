@@ -66,8 +66,8 @@ final class DefaultDashboardService
 
     public static function seed(): void
     {
-        self::upsert(self::KEY, __("GRC Manager - Vue d'ensemble ISMS", 'grcmanager'), self::getItems());
-        self::upsert(self::DIRECTION_KEY, __('GRC Manager - Direction', 'grcmanager'), self::getDirectionItems());
+        self::upsert(self::KEY, __('GRC Manager - ISMS overview', 'grcmanager'), self::getItems());
+        self::upsert(self::DIRECTION_KEY, __('GRC Manager - Management', 'grcmanager'), self::getDirectionItems());
     }
 
     public static function remove(): void

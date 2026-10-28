@@ -29,6 +29,6 @@ if (!isset($_POST['save_questionnaire']) || !$risk->getFromDB($id) || !$risk->ca
 
 $answers = is_array($_POST['answers'] ?? null) ? $_POST['answers'] : [];
 if (PluginGrcmanagerSupplierAssessment::save($risk, $answers)) {
-    Session::addMessageAfterRedirect(__('Questionnaire de sécurité enregistré.', 'grcmanager'));
+    Session::addMessageAfterRedirect(__('Security questionnaire saved.', 'grcmanager'));
 }
 Html::back();

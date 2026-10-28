@@ -1,42 +1,42 @@
 {# Issue #168 : salle de crise d'un exercice, étapes chronométrées #}
 {# Issue #185 : même salle en cellule de crise sur un incident réel (reprise face au RTO, journal) #}
 {% set statuses = {
-   'on_time': ['bg-green-lt', 'ti-circle-check', __('Dans le délai', 'grcmanager')],
-   'late': ['bg-red-lt', 'ti-clock-exclamation', __('En retard', 'grcmanager')],
-   'pending': ['bg-secondary-lt', 'ti-hourglass', __('À faire', 'grcmanager')],
-   'missed': ['bg-red-lt', 'ti-circle-x', __('Non faite', 'grcmanager')]
+   'on_time': ['bg-green-lt', 'ti-circle-check', __('On time', 'grcmanager')],
+   'late': ['bg-red-lt', 'ti-clock-exclamation', __('Overdue', 'grcmanager')],
+   'pending': ['bg-secondary-lt', 'ti-hourglass', __('To do', 'grcmanager')],
+   'missed': ['bg-red-lt', 'ti-circle-x', __('Not done', 'grcmanager')]
 } %}
 {% set recovery_states = {
-   'restored_on_time': ['bg-green-lt', 'ti-circle-check', __('Rétabli dans le RTO', 'grcmanager')],
-   'restored_late': ['bg-red-lt', 'ti-clock-exclamation', __('Rétabli après le RTO', 'grcmanager')],
-   'restored': ['bg-green-lt', 'ti-circle-check', __('Rétabli', 'grcmanager')],
-   'running': ['bg-orange-lt', 'ti-hourglass', __('En cours de reprise', 'grcmanager')],
-   'overdue': ['bg-red-lt', 'ti-alert-octagon', __('RTO dépassé', 'grcmanager')],
-   'no_rto': ['bg-secondary-lt', 'ti-help-circle', __('RTO non défini', 'grcmanager')]
+   'restored_on_time': ['bg-green-lt', 'ti-circle-check', __('Restored within RTO', 'grcmanager')],
+   'restored_late': ['bg-red-lt', 'ti-clock-exclamation', __('Restored after RTO', 'grcmanager')],
+   'restored': ['bg-green-lt', 'ti-circle-check', __('Restored', 'grcmanager')],
+   'running': ['bg-orange-lt', 'ti-hourglass', __('Recovery in progress', 'grcmanager')],
+   'overdue': ['bg-red-lt', 'ti-alert-octagon', __('RTO exceeded', 'grcmanager')],
+   'no_rto': ['bg-secondary-lt', 'ti-help-circle', __('RTO not set', 'grcmanager')]
 } %}
 <div class="container-fluid">
    {% if drill %}
-      <div class="alert alert-warning mt-2"><i class="ti ti-alert-triangle me-1"></i><strong>{{ __('EXERCICE', 'grcmanager') }}</strong> — {{ __('aucun incident réel n\'est en cours. Les étapes sont aussi des tâches de l\'incident d\'exercice.', 'grcmanager') }}</div>
+      <div class="alert alert-warning mt-2"><i class="ti ti-alert-triangle me-1"></i><strong>{{ __('EXERCISE', 'grcmanager') }}</strong> — {{ __('no real incident is in progress. The steps are also tasks of the exercise incident.', 'grcmanager') }}</div>
    {% else %}
-      <div class="alert alert-danger mt-2"><i class="ti ti-alarm me-1"></i><strong>{{ __('CELLULE DE CRISE', 'grcmanager') }}</strong> — {{ __('incident réel. Les étapes sont des tâches de l\'incident, le journal est enregistré dans ses suivis.', 'grcmanager') }}</div>
+      <div class="alert alert-danger mt-2"><i class="ti ti-alarm me-1"></i><strong>{{ __('CRISIS TEAM', 'grcmanager') }}</strong> — {{ __('real incident. The steps are incident tasks and the log is saved in its followups.', 'grcmanager') }}</div>
    {% endif %}
    <div class="d-flex flex-wrap align-items-center gap-3 mb-2">
       <h2 class="mb-0"><i class="ti ti-alarm me-1 text-danger"></i>{{ exercise.scenario }}</h2>
       {% if exercise.ended %}
-         <span class="badge bg-green-lt fs-4"><i class="ti ti-flag-check me-1"></i>{{ __('Terminé', 'grcmanager') }} — {{ exercise.duration }} min</span>
+         <span class="badge bg-green-lt fs-4"><i class="ti ti-flag-check me-1"></i>{{ __('Completed', 'grcmanager') }} — {{ exercise.duration }} min</span>
       {% else %}
          <span class="badge bg-red-lt fs-3" id="grc-exercise-timer" data-started="{{ exercise.started_ts }}"><i class="ti ti-clock me-1"></i><span>T+{{ exercise.duration }} min</span></span>
       {% endif %}
-      <a href="{{ incident.url }}"><i class="ti ti-shield-exclamation me-1"></i>{{ drill ? __('Incident d\'exercice', 'grcmanager') : __('Incident', 'grcmanager') }} #{{ incident.id }}</a>
-      {% if drill %}<a href="{{ list_url }}" class="ms-auto"><i class="ti ti-list me-1"></i>{{ __('Tous les exercices', 'grcmanager') }}</a>{% endif %}
+      <a href="{{ incident.url }}"><i class="ti ti-shield-exclamation me-1"></i>{{ drill ? __('Exercise incident', 'grcmanager') : __('Incident', 'grcmanager') }} #{{ incident.id }}</a>
+      {% if drill %}<a href="{{ list_url }}" class="ms-auto"><i class="ti ti-list me-1"></i>{{ __('All exercises', 'grcmanager') }}</a>{% endif %}
    </div>
-   <p class="text-muted">{{ __('Lancé le %1$s par %2$s.', 'grcmanager')|format(exercise.started_at|formatted_datetime, exercise.organizer) }}{% if not drill %} — {{ incident.name }}{% endif %}</p>
+   <p class="text-muted">{{ __('Started on %1$s by %2$s.', 'grcmanager')|format(exercise.started_at|formatted_datetime, exercise.organizer) }}{% if not drill %} — {{ incident.name }}{% endif %}</p>
 
    <div class="row g-3">
       <div class="col-lg-8">
-         <h3><i class="ti ti-list-check me-1"></i>{{ __('Étapes du plan', 'grcmanager') }}</h3>
+         <h3><i class="ti ti-list-check me-1"></i>{{ __('Plan steps', 'grcmanager') }}</h3>
          <table class="table table-vcenter card-table">
-            <thead><tr><th>#</th><th>{{ __('Étape', 'grcmanager') }}</th><th>{{ __('Objectif', 'grcmanager') }}</th><th>{{ __('Faite à', 'grcmanager') }}</th><th>{{ __('Résultat', 'grcmanager') }}</th><th></th></tr></thead>
+            <thead><tr><th>#</th><th>{{ __('Step', 'grcmanager') }}</th><th>{{ __('Target', 'grcmanager') }}</th><th>{{ __('Done at', 'grcmanager') }}</th><th>{{ __('Outcome', 'grcmanager') }}</th><th></th></tr></thead>
             <tbody>
                {% for s in steps %}
                   <tr>
@@ -50,7 +50,7 @@
                            <form method="post" action="{{ action }}" class="d-inline">
                               <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
                               <input type="hidden" name="id" value="{{ exercise.id }}">
-                              <button type="submit" name="step_done" value="{{ s.id }}" class="btn btn-sm btn-success"><i class="ti ti-check me-1"></i>{{ __('Fait', 'grcmanager') }}</button>
+                              <button type="submit" name="step_done" value="{{ s.id }}" class="btn btn-sm btn-success"><i class="ti ti-check me-1"></i>{{ _x('task', 'Done', 'grcmanager') }}</button>
                            </form>
                         {% endif %}
                      </td>
@@ -59,18 +59,18 @@
             </tbody>
          </table>
 
-         <h3 class="mt-4"><i class="ti ti-server-bolt me-1"></i>{{ __('Reprise des éléments touchés', 'grcmanager') }}</h3>
+         <h3 class="mt-4"><i class="ti ti-server-bolt me-1"></i>{{ __('Recovery of affected items', 'grcmanager') }}</h3>
          {% if recovery is empty %}
-            <div class="alert alert-info"><i class="ti ti-info-circle me-1"></i>{{ __('Aucun élément lié à l\'incident. Ajoutez les éléments touchés dans l\'onglet « Éléments » de l\'incident : leur reprise, et celle de ce qui en dépend, sera suivie ici face à leur RTO.', 'grcmanager') }}</div>
+            <div class="alert alert-info"><i class="ti ti-info-circle me-1"></i>{{ __('No item linked to the incident. Add the affected items in the incident\'s "Items" tab: their recovery, and that of what depends on them, will be tracked here against their RTO.', 'grcmanager') }}</div>
          {% else %}
             <table class="table table-vcenter card-table">
-               <thead><tr><th>{{ __('Élément', 'grcmanager') }}</th><th>RTO</th><th>{{ __('Échéance', 'grcmanager') }}</th><th>{{ __('Durée', 'grcmanager') }}</th><th>{{ __('Résultat', 'grcmanager') }}</th><th></th></tr></thead>
+               <thead><tr><th>{{ __('Item', 'grcmanager') }}</th><th>RTO</th><th>{{ __('Due date', 'grcmanager') }}</th><th>{{ __('Duration', 'grcmanager') }}</th><th>{{ __('Outcome', 'grcmanager') }}</th><th></th></tr></thead>
                <tbody>
                   {% for r in recovery %}
                      <tr>
                         <td>
                            <a href="{{ r.url }}">{{ r.label }}</a>
-                           <div class="small text-muted">{{ r.depth == 0 ? __('Touché par l\'incident', 'grcmanager') : __('Dépend d\'un élément touché', 'grcmanager') }}{% if r.by %} — {{ __('rétabli par %s', 'grcmanager')|format(r.by) }}{% endif %}</div>
+                           <div class="small text-muted">{{ r.depth == 0 ? __('Affected by the incident', 'grcmanager') : __('Depends on an affected item', 'grcmanager') }}{% if r.by %} — {{ __('restored by %s', 'grcmanager')|format(r.by) }}{% endif %}</div>
                         </td>
                         <td class="text-nowrap">{{ r.rto > 0 ? r.rto ~ ' h' : '—' }}</td>
                         <td class="text-nowrap">{{ r.due ? r.due|formatted_datetime : '—' }}</td>
@@ -81,7 +81,7 @@
                               <form method="post" action="{{ action }}" class="d-inline">
                                  <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
                                  <input type="hidden" name="id" value="{{ exercise.id }}">
-                                 <button type="submit" name="restored" value="{{ r.key }}" class="btn btn-sm btn-success"><i class="ti ti-plug-connected me-1"></i>{{ __('Rétabli', 'grcmanager') }}</button>
+                                 <button type="submit" name="restored" value="{{ r.key }}" class="btn btn-sm btn-success"><i class="ti ti-plug-connected me-1"></i>{{ __('Restored', 'grcmanager') }}</button>
                               </form>
                            {% endif %}
                         </td>
@@ -89,24 +89,24 @@
                   {% endfor %}
                </tbody>
             </table>
-            <div class="form-hint">{{ __('Le RTO se règle dans l\'onglet « Classification » de chaque élément ; il est compté depuis l\'ouverture de la salle de crise.', 'grcmanager') }}</div>
+            <div class="form-hint">{{ __('The RTO is set in each item\'s "Classification" tab; it is counted from the opening of the crisis room.', 'grcmanager') }}</div>
          {% endif %}
 
-         <h3 class="mt-4" id="grc-crisis-journal"><i class="ti ti-notebook me-1"></i>{{ __('Journal de crise', 'grcmanager') }}</h3>
+         <h3 class="mt-4" id="grc-crisis-journal"><i class="ti ti-notebook me-1"></i>{{ __('Crisis log', 'grcmanager') }}</h3>
          {% if can_journal and not exercise.ended %}
             <form method="post" action="{{ action }}" class="d-flex gap-2 mb-2">
                <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
                <input type="hidden" name="id" value="{{ exercise.id }}">
-               <input type="text" class="form-control" name="journal" required maxlength="2000" placeholder="{{ __('Décision, constat, appel passé… (horodaté automatiquement)', 'grcmanager') }}" aria-label="{{ __('Nouvelle entrée du journal', 'grcmanager') }}">
-               <button type="submit" class="btn btn-primary text-nowrap"><i class="ti ti-plus me-1"></i>{{ __('Ajouter', 'grcmanager') }}</button>
+               <input type="text" class="form-control" name="journal" required maxlength="2000" placeholder="{{ __('Decision, finding, call made… (timestamped automatically)', 'grcmanager') }}" aria-label="{{ __('New log entry', 'grcmanager') }}">
+               <button type="submit" class="btn btn-primary text-nowrap"><i class="ti ti-plus me-1"></i>{{ __('Add', 'grcmanager') }}</button>
             </form>
          {% endif %}
          {% if journal is empty %}
-            <p class="text-muted">{{ __('Aucune entrée pour l\'instant.', 'grcmanager') }}</p>
+            <p class="text-muted">{{ __('No entry yet.', 'grcmanager') }}</p>
          {% else %}
             <ul class="list-unstyled">
                {% for j in journal|reverse %}
-                  <li class="mb-2"><span class="text-muted text-nowrap">{{ j.date|formatted_datetime }}</span> — <strong>{{ j.author }}</strong>{% if j.private %} <span class="badge bg-secondary-lt">{{ __('Privé', 'grcmanager') }}</span>{% endif %} : {{ j.text|nl2br }}</li>
+                  <li class="mb-2"><span class="text-muted text-nowrap">{{ j.date|formatted_datetime }}</span> — <strong>{{ j.author }}</strong>{% if j.private %} <span class="badge bg-secondary-lt">{{ __('Private', 'grcmanager') }}</span>{% endif %} : {{ j.text|nl2br }}</li>
                {% endfor %}
             </ul>
          {% endif %}
@@ -114,44 +114,44 @@
       <div class="col-lg-4">
          <div class="card">
             <div class="card-body">
-               <h4><i class="ti ti-chart-bar me-1"></i>{{ __('Bilan', 'grcmanager') }}</h4>
+               <h4><i class="ti ti-chart-bar me-1"></i>{{ _x('summary', 'Outcome', 'grcmanager') }}</h4>
                <ul class="list-unstyled">
-                  <li>{{ __('Étapes faites', 'grcmanager') }} : <strong>{{ summary.done }} / {{ summary.total }}</strong></li>
-                  <li>{{ __('Étapes dans le délai', 'grcmanager') }} : <strong>{{ summary.on_time }}</strong> ({{ summary.rate }} %)</li>
-                  <li>{{ __('Temps de réaction moyen', 'grcmanager') }} : <strong>{{ summary.average is null ? '—' : summary.average ~ ' min' }}</strong></li>
+                  <li>{{ __('Steps done', 'grcmanager') }} : <strong>{{ summary.done }} / {{ summary.total }}</strong></li>
+                  <li>{{ __('Steps on time', 'grcmanager') }} : <strong>{{ summary.on_time }}</strong> ({{ summary.rate }} %)</li>
+                  <li>{{ __('Average reaction time', 'grcmanager') }} : <strong>{{ summary.average is null ? '—' : summary.average ~ ' min' }}</strong></li>
                   {% if recovery is not empty %}
-                     <li>{{ __('Éléments rétablis', 'grcmanager') }} : <strong>{{ recovery|filter(r => r.restored_at)|length }} / {{ recovery|length }}</strong></li>
-                     <li>{{ __('RTO dépassés', 'grcmanager') }} : <strong>{{ recovery|filter(r => r.state in ['overdue', 'restored_late'])|length }}</strong></li>
+                     <li>{{ __('Items restored', 'grcmanager') }} : <strong>{{ recovery|filter(r => r.restored_at)|length }} / {{ recovery|length }}</strong></li>
+                     <li>{{ __('RTOs exceeded', 'grcmanager') }} : <strong>{{ recovery|filter(r => r.state in ['overdue', 'restored_late'])|length }}</strong></li>
                   {% endif %}
                   <li>{{ __('Participants', 'grcmanager') }} : {{ participants is empty ? '—' : participants|join(', ') }}</li>
                </ul>
                {% if exercise.ended %}
                   {% if exercise.document_url %}
-                     <a href="{{ exercise.document_url }}" class="btn btn-primary"><i class="ti ti-file-type-pdf me-1"></i>{{ drill ? __('Ouvrir le rapport d\'exercice', 'grcmanager') : __('Ouvrir le rapport de crise', 'grcmanager') }}</a>
+                     <a href="{{ exercise.document_url }}" class="btn btn-primary"><i class="ti ti-file-type-pdf me-1"></i>{{ drill ? __('Open the exercise report', 'grcmanager') : __('Open the crisis report', 'grcmanager') }}</a>
                   {% endif %}
                   {% if can_act %}
                      <form method="post" action="{{ action }}" class="mt-2">
                         <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
                         <input type="hidden" name="id" value="{{ exercise.id }}">
-                        <button type="submit" name="finish" value="1" class="btn btn-outline-secondary btn-sm"><i class="ti ti-refresh me-1"></i>{{ __('Régénérer le rapport', 'grcmanager') }}</button>
+                        <button type="submit" name="finish" value="1" class="btn btn-outline-secondary btn-sm"><i class="ti ti-refresh me-1"></i>{{ __('Regenerate the report', 'grcmanager') }}</button>
                      </form>
-                     <div class="form-hint">{{ __('Renseignez les enseignements tirés sur l\'incident, puis régénérez le rapport pour les y faire figurer.', 'grcmanager') }}</div>
+                     <div class="form-hint">{{ __('Fill in the lessons learned on the incident, then regenerate the report to include them.', 'grcmanager') }}</div>
                   {% endif %}
                {% elseif can_act %}
                   {% if drill %}
-                     <form method="post" action="{{ action }}" data-grc-confirm="{{ __('Terminer l\'exercice ? Les étapes non faites seront comptées comme manquées.', 'grcmanager') }}">
+                     <form method="post" action="{{ action }}" data-grc-confirm="{{ __('Finish the exercise? Steps not done will be counted as missed.', 'grcmanager') }}">
                         <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
                         <input type="hidden" name="id" value="{{ exercise.id }}">
-                        <button type="submit" name="finish" value="1" class="btn btn-danger"><i class="ti ti-flag-check me-1"></i>{{ __('Terminer l\'exercice et générer le rapport', 'grcmanager') }}</button>
+                        <button type="submit" name="finish" value="1" class="btn btn-danger"><i class="ti ti-flag-check me-1"></i>{{ __('Finish the exercise and generate the report', 'grcmanager') }}</button>
                      </form>
-                     <div class="form-hint">{{ __('Le rapport PDF est archivé sur l\'incident d\'exercice et comme preuve sur les mesures A.5.29 et A.5.30 de la SoA.', 'grcmanager') }}</div>
+                     <div class="form-hint">{{ __('The PDF report is archived on the exercise incident and as evidence on SoA controls A.5.29 and A.5.30.', 'grcmanager') }}</div>
                   {% else %}
-                     <form method="post" action="{{ action }}" data-grc-confirm="{{ __('Fermer la cellule de crise ? Le chronomètre s\'arrête ; l\'incident lui-même reste ouvert.', 'grcmanager') }}">
+                     <form method="post" action="{{ action }}" data-grc-confirm="{{ __('Close the crisis team? The timer stops; the incident itself stays open.', 'grcmanager') }}">
                         <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
                         <input type="hidden" name="id" value="{{ exercise.id }}">
-                        <button type="submit" name="finish" value="1" class="btn btn-danger"><i class="ti ti-flag-check me-1"></i>{{ __('Fermer la cellule de crise et générer le rapport', 'grcmanager') }}</button>
+                        <button type="submit" name="finish" value="1" class="btn btn-danger"><i class="ti ti-flag-check me-1"></i>{{ __('Close the crisis team and generate the report', 'grcmanager') }}</button>
                      </form>
-                     <div class="form-hint">{{ __('Le rapport PDF est archivé sur l\'incident et comme preuve sur les mesures A.5.26 et A.5.29 de la SoA.', 'grcmanager') }}</div>
+                     <div class="form-hint">{{ __('The PDF report is archived on the incident and as evidence on SoA controls A.5.26 and A.5.29.', 'grcmanager') }}</div>
                   {% endif %}
                {% endif %}
             </div>

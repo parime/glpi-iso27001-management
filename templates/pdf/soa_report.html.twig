@@ -4,32 +4,32 @@
 {% if approval is not null %}
 <table class="grcmanager-pdf-summary">
   <tr>
-    <td><strong>{{ __('Version soumise à approbation', 'grcmanager') }}</strong></td>
+    <td><strong>{{ __('Version submitted for approval', 'grcmanager') }}</strong></td>
     <td class="grcmanager-pdf-summary-number">{{ __('Version %d', 'grcmanager')|format(approval.version) }}</td>
   </tr>
   <tr>
-    <td>{{ __('Demandée le %1$s par %2$s', 'grcmanager')|format(approval.requested_at, approval.requested_by) }}</td>
-    <td>{{ __('Empreinte du contenu (SHA-256)', 'grcmanager') }} : {{ approval.fingerprint|slice(0, 16) }}…</td>
+    <td>{{ __('Requested on %1$s by %2$s', 'grcmanager')|format(approval.requested_at, approval.requested_by) }}</td>
+    <td>{{ __('Content fingerprint (SHA-256)', 'grcmanager') }} : {{ approval.fingerprint|slice(0, 16) }}…</td>
   </tr>
 </table>
 {% endif %}
 
-<h2>{{ __('Résumé', 'grcmanager') }}</h2>
+<h2>{{ __('Summary', 'grcmanager') }}</h2>
 <table class="grcmanager-pdf-summary">
   <tr>
-    <td>{{ __('Contrôles Annexe A', 'grcmanager') }}</td>
+    <td>{{ __('Annex A controls', 'grcmanager') }}</td>
     <td class="grcmanager-pdf-summary-number">{{ total_count }}</td>
   </tr>
   <tr>
-    <td>{{ __('Contrôles revus', 'grcmanager') }}</td>
+    <td>{{ __('Reviewed controls', 'grcmanager') }}</td>
     <td class="grcmanager-pdf-summary-number">{{ reviewed_count.number }} / {{ total_count }}</td>
   </tr>
 </table>
 
 <table class="grcmanager-pdf-summary">
   <tr>
-    <td><strong>{{ __('Par applicabilité', 'grcmanager') }}</strong></td>
-    <td><strong>{{ __('Par état de mise en œuvre', 'grcmanager') }}</strong></td>
+    <td><strong>{{ __('By applicability', 'grcmanager') }}</strong></td>
+    <td><strong>{{ __('By implementation status', 'grcmanager') }}</strong></td>
   </tr>
   <tr>
     <td>
@@ -48,25 +48,25 @@
 {# Issue #109 : preuves agrégées issues du plugin assetsign (A.5.9, A.5.10, A.5.11), section
    absente si assetsign n'est pas installé et actif. Type 0 = remise, 1 = restitution. #}
 {% if assetsign_evidence is not null %}
-<h2>{{ __('Preuves assetsign (A.5.9, A.5.10, A.5.11)', 'grcmanager') }}</h2>
+<h2>{{ __('assetsign evidence (A.5.9, A.5.10, A.5.11)', 'grcmanager') }}</h2>
 <table class="grcmanager-pdf-table">
   <thead>
     <tr>
       <th></th>
-      <th>{{ __('Signées', 'grcmanager') }}</th>
-      <th>{{ __('En attente', 'grcmanager') }}</th>
-      <th>{{ __('Expirées', 'grcmanager') }}</th>
+      <th>{{ __('Signed', 'grcmanager') }}</th>
+      <th>{{ __('Pending', 'grcmanager') }}</th>
+      <th>{{ __('Expired', 'grcmanager') }}</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>{{ __('Remises (A.5.9, A.5.10)', 'grcmanager') }}</td>
+      <td>{{ __('Handovers (A.5.9, A.5.10)', 'grcmanager') }}</td>
       <td>{{ assetsign_evidence[0].signed }}</td>
       <td>{{ assetsign_evidence[0].pending }}</td>
       <td>{{ assetsign_evidence[0].expired }}</td>
     </tr>
     <tr>
-      <td>{{ __('Restitutions (A.5.11)', 'grcmanager') }}</td>
+      <td>{{ __('Returns (A.5.11)', 'grcmanager') }}</td>
       <td>{{ assetsign_evidence[1].signed }}</td>
       <td>{{ assetsign_evidence[1].pending }}</td>
       <td>{{ assetsign_evidence[1].expired }}</td>
@@ -75,15 +75,15 @@
 </table>
 {% endif %}
 
-<h2>{{ __('Détail des contrôles', 'grcmanager') }}</h2>
+<h2>{{ __('Control details', 'grcmanager') }}</h2>
 <table class="grcmanager-pdf-table">
   <thead>
     <tr>
       <th>{{ __('Code') }}</th>
-      <th>{{ __('Thème', 'grcmanager') }}</th>
+      <th>{{ __('Theme', 'grcmanager') }}</th>
       <th>{{ __('Intitulé') }}</th>
-      <th>{{ __('Applicabilité', 'grcmanager') }}</th>
-      <th>{{ __('État de mise en œuvre', 'grcmanager') }}</th>
+      <th>{{ __('Applicability', 'grcmanager') }}</th>
+      <th>{{ __('Implementation status', 'grcmanager') }}</th>
       <th>{{ __('Justification', 'grcmanager') }}</th>
     </tr>
   </thead>
@@ -104,15 +104,15 @@
 {# Issue #113 : exigences du système de management (articles 4 à 10), références et titres courts
    uniquement. #}
 {% if clauses is not empty %}
-<h2>{{ __('Exigences du SMSI (articles 4 à 10)', 'grcmanager') }}</h2>
-<p>{{ __('Complétude du SMSI : %1$d %% (%2$d / %3$d exigences conformes)', 'grcmanager')|format(clause_completion.percent, clause_completion.compliant, clause_completion.total) }}</p>
+<h2>{{ __('ISMS requirements (clauses 4 to 10)', 'grcmanager') }}</h2>
+<p>{{ __('ISMS completeness: %1$d %% (%2$d / %3$d requirements compliant)', 'grcmanager')|format(clause_completion.percent, clause_completion.compliant, clause_completion.total) }}</p>
 <table class="grcmanager-pdf-table">
   <thead>
     <tr>
-      <th>{{ __('Exigence', 'grcmanager') }}</th>
+      <th>{{ __('Requirement', 'grcmanager') }}</th>
       <th>{{ __('Intitulé') }}</th>
       <th>{{ __('Statut') }}</th>
-      <th>{{ __('Responsable', 'grcmanager') }}</th>
+      <th>{{ __('Owner', 'grcmanager') }}</th>
     </tr>
   </thead>
   <tbody>
@@ -130,11 +130,11 @@
 
 {# Issue #112 : bloc de signature manuscrite (approbation hors ligne ou en complément). #}
 {% if approval is not null %}
-<h2>{{ __('Approbation par la direction', 'grcmanager') }}</h2>
+<h2>{{ __('Management approval', 'grcmanager') }}</h2>
 <table class="grcmanager-pdf-table">
   <thead>
     <tr>
-      <th>{{ __('Approbateur', 'grcmanager') }}</th>
+      <th>{{ __('Approver', 'grcmanager') }}</th>
       <th>{{ __('Date') }}</th>
       <th>{{ __('Signature', 'grcmanager') }}</th>
     </tr>

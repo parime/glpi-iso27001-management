@@ -4,8 +4,8 @@
 {% import '@grcmanager/_hint.html.twig' as hints %}
 
 {% block form_fields %}
-   {{ fields.textField('manufacturer', item.fields['manufacturer'], __('Éditeur / fabricant', 'grcmanager'), {
-      'add_field_html': hints.hint(__('Nom court, ex. "Apache", "Microsoft" — sert uniquement d\'étiquette, pas de comparaison.', 'grcmanager')),
+   {{ fields.textField('manufacturer', item.fields['manufacturer'], __('Vendor / manufacturer', 'grcmanager'), {
+      'add_field_html': hints.hint(__('Short name, e.g. "Apache", "Microsoft" — used only as a label, never for matching.', 'grcmanager')),
    }) }}
-   {{ fields.textField('product', item.fields['product'], __('Produit', 'grcmanager')) }}
+   {{ fields.textField('product', item.fields['product'], __('Product', 'grcmanager')) }}
 {% endblock %}

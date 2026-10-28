@@ -110,7 +110,7 @@ class PluginGrcmanagerTrainingQuiz extends CommonGLPI
         }
         $documentsId = (int) (new Document())->add([
             'name'              => sprintf(
-                __('Copie de quiz - %1$s - %2$s', 'grcmanager'),
+                __('Quiz copy - %1$s - %2$s', 'grcmanager'),
                 getUserName($participation['users_id']),
                 Dropdown::getDropdownName(PluginGrcmanagerTraining::getTable(), $participation['trainings_id'])
             ),
@@ -168,13 +168,13 @@ class PluginGrcmanagerTrainingQuiz extends CommonGLPI
     public function getTabNameForItem(CommonGLPI $item, $withtemplate = 0)
     {
         if ($item instanceof Preference) {
-            return self::createTabEntry(__('Mes formations', 'grcmanager'), 0, null, 'ti ti-school');
+            return self::createTabEntry(__('My trainings', 'grcmanager'), 0, null, 'ti ti-school');
         }
         if (!$item instanceof PluginGrcmanagerTraining || $item->isNewItem() || !PluginGrcmanagerTraining::canView()) {
             return '';
         }
 
-        return self::createTabEntry(__('Copies de quiz', 'grcmanager'), 0, null, 'ti ti-file-certificate');
+        return self::createTabEntry(__('Quiz copies', 'grcmanager'), 0, null, 'ti ti-file-certificate');
     }
 
     public static function displayTabContentForItem(CommonGLPI $item, $tabnum = 1, $withtemplate = 0)

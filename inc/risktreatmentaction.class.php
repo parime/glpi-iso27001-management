@@ -66,7 +66,7 @@ class PluginGrcmanagerRiskTreatmentAction extends RiskTreatmentActionBase
 
     public static function getTypeName($nb = 0)
     {
-        return _n('Action de traitement de risque', 'Actions de traitement de risque', $nb, 'grcmanager');
+        return _n('Risk treatment action', 'Risk treatment actions', $nb, 'grcmanager');
     }
 
     public static function getIcon()
@@ -80,9 +80,9 @@ class PluginGrcmanagerRiskTreatmentAction extends RiskTreatmentActionBase
     public static function getStatuses(): array
     {
         return [
-            TreatmentPlanRules::STATUS_PLANNED     => __('Planifiée', 'grcmanager'),
-            TreatmentPlanRules::STATUS_IN_PROGRESS => __('En cours', 'grcmanager'),
-            TreatmentPlanRules::STATUS_DONE        => __('Réalisée', 'grcmanager'),
+            TreatmentPlanRules::STATUS_PLANNED     => __('Planned', 'grcmanager'),
+            TreatmentPlanRules::STATUS_IN_PROGRESS => __('In progress', 'grcmanager'),
+            TreatmentPlanRules::STATUS_DONE        => __('Done', 'grcmanager'),
         ];
     }
 
@@ -121,7 +121,7 @@ class PluginGrcmanagerRiskTreatmentAction extends RiskTreatmentActionBase
 
         $risk = new PluginGrcmanagerRisk();
         if ($riskId <= 0 || !$risk->getFromDB($riskId)) {
-            Session::addMessageAfterRedirect(__('Risque introuvable.', 'grcmanager'), false, ERROR);
+            Session::addMessageAfterRedirect(__('Risk not found.', 'grcmanager'), false, ERROR);
 
             return false;
         }
@@ -151,9 +151,9 @@ class PluginGrcmanagerRiskTreatmentAction extends RiskTreatmentActionBase
     {
         $map = [
             TreatmentPlanRules::STATUS_PLANNED     =>
-                ['bg-secondary-lt', 'ti-player-play', __('Planifiée', 'grcmanager')],
-            TreatmentPlanRules::STATUS_IN_PROGRESS => ['bg-blue-lt', 'ti-tool', __('En cours', 'grcmanager')],
-            TreatmentPlanRules::STATUS_DONE        => ['bg-green-lt', 'ti-check', __('Réalisée', 'grcmanager')],
+                ['bg-secondary-lt', 'ti-player-play', __('Planned', 'grcmanager')],
+            TreatmentPlanRules::STATUS_IN_PROGRESS => ['bg-blue-lt', 'ti-tool', __('In progress', 'grcmanager')],
+            TreatmentPlanRules::STATUS_DONE        => ['bg-green-lt', 'ti-check', __('Done', 'grcmanager')],
         ];
 
         [$class, $icon, $label] = $map[$value] ?? ['bg-secondary-lt', 'ti-help', (string) $value];

@@ -34,7 +34,7 @@ if (isset($_POST['launch'])) {
     if ($exerciseId > 0) {
         Html::redirect(PluginGrcmanagerCrisisExercise::getFormURLWithID($exerciseId));
     }
-    Session::addMessageAfterRedirect(htmlescape(__('L\'exercice n\'a pas pu être lancé.', 'grcmanager')), false, ERROR);
+    Session::addMessageAfterRedirect(htmlescape(__('The exercise could not be started.', 'grcmanager')), false, ERROR);
     Html::back();
 }
 

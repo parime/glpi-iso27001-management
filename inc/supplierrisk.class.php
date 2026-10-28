@@ -63,7 +63,7 @@ class PluginGrcmanagerSupplierRisk extends SupplierRiskBase
 
     public static function getTypeName($nb = 0)
     {
-        return _n('Risque fournisseur', 'Risques fournisseurs', $nb, 'grcmanager');
+        return _n('Supplier risk', 'Supplier risks', $nb, 'grcmanager');
     }
 
     public static function getIcon()
@@ -122,7 +122,7 @@ class PluginGrcmanagerSupplierRisk extends SupplierRiskBase
 
         if ($suppliersId <= 0) {
             Session::addMessageAfterRedirect(
-                __('Un fournisseur est obligatoire pour un risque fournisseur.', 'grcmanager'),
+                __('A supplier is required for a supplier risk.', 'grcmanager'),
                 false,
                 ERROR
             );
@@ -146,7 +146,7 @@ class PluginGrcmanagerSupplierRisk extends SupplierRiskBase
             'id'       => 1,
             'table'    => $this->getTable(),
             'field'    => 'title',
-            'name'     => __('Titre', 'grcmanager'),
+            'name'     => __('Title', 'grcmanager'),
             'datatype' => 'itemlink',
             'itemtype' => self::class,
         ];
@@ -170,7 +170,7 @@ class PluginGrcmanagerSupplierRisk extends SupplierRiskBase
             'id'       => 3,
             'table'    => $this->getTable(),
             'field'    => 'category',
-            'name'     => __('Catégorie', 'grcmanager'),
+            'name'     => __('Category', 'grcmanager'),
             'datatype' => 'specific',
         ];
 
@@ -178,7 +178,7 @@ class PluginGrcmanagerSupplierRisk extends SupplierRiskBase
             'id'       => 4,
             'table'    => $this->getTable(),
             'field'    => 'probability',
-            'name'     => __('Probabilité', 'grcmanager'),
+            'name'     => __('Probability', 'grcmanager'),
             'datatype' => 'specific',
         ];
 
@@ -194,7 +194,7 @@ class PluginGrcmanagerSupplierRisk extends SupplierRiskBase
             'id'       => 6,
             'table'    => $this->getTable(),
             'field'    => 'risk_level',
-            'name'     => __('Niveau de risque', 'grcmanager'),
+            'name'     => __('Risk level', 'grcmanager'),
             'datatype' => 'specific',
         ];
 
@@ -202,7 +202,7 @@ class PluginGrcmanagerSupplierRisk extends SupplierRiskBase
             'id'       => 7,
             'table'    => $this->getTable(),
             'field'    => 'treatment',
-            'name'     => __('Traitement', 'grcmanager'),
+            'name'     => __('Treatment', 'grcmanager'),
             'datatype' => 'specific',
         ];
 
@@ -210,7 +210,7 @@ class PluginGrcmanagerSupplierRisk extends SupplierRiskBase
             'id'       => 8,
             'table'    => 'glpi_users',
             'field'    => 'name',
-            'name'     => __('Propriétaire', 'grcmanager'),
+            'name'     => _x('owner', 'Owner', 'grcmanager'),
             'datatype' => 'dropdown',
             'right'    => 'all',
         ];
@@ -219,7 +219,7 @@ class PluginGrcmanagerSupplierRisk extends SupplierRiskBase
             'id'       => 9,
             'table'    => $this->getTable(),
             'field'    => 'status',
-            'name'     => __('Statut', 'grcmanager'),
+            'name'     => __('Status', 'grcmanager'),
             'datatype' => 'specific',
         ];
 
@@ -227,7 +227,7 @@ class PluginGrcmanagerSupplierRisk extends SupplierRiskBase
             'id'       => 10,
             'table'    => $this->getTable(),
             'field'    => 'review_date',
-            'name'     => __('Date de revue', 'grcmanager'),
+            'name'     => __('Review date', 'grcmanager'),
             'datatype' => 'date',
         ];
 
@@ -377,22 +377,22 @@ class PluginGrcmanagerSupplierRisk extends SupplierRiskBase
                 ? (int) $supplierItem->fields['entities_id']
                 : 0;
             $input = [
-                'name'        => sprintf(__('Réévaluer le fournisseur %s', 'grcmanager'), $supplier),
+                'name'        => sprintf(__('Reassess supplier %s', 'grcmanager'), $supplier),
                 'content'     => Fragment::ticketContent(
                     [
                         sprintf(
-                            __('La revue du risque fournisseur « %1$s » était prévue le %2$s.', 'grcmanager'),
+                            __('The review of supplier risk "%1$s" was due on %2$s.', 'grcmanager'),
                             (string) $row['title'],
                             Html::convDate((string) $row['review_date'])
                         ),
                         __(
-                            'Mettez à jour le questionnaire de sécurité, vérifiez les contrats et les preuves, '
-                                . 'puis la date de la prochaine revue.',
+                            'Update the security questionnaire, check the contracts and evidence, then set the next '
+                                . 'review date.',
                             'grcmanager'
                         ),
                     ],
                     self::getFormURLWithID((int) $row['id']),
-                    __('Ouvrir le risque fournisseur', 'grcmanager')
+                    __('Open the supplier risk', 'grcmanager')
                 ),
                 'type'        => Ticket::DEMAND_TYPE,
                 'entities_id' => $entityId,

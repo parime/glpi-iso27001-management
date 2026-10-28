@@ -31,10 +31,7 @@ class PluginGrcmanagerNotificationTargetComplianceObligation extends Notificatio
     public function getEvents()
     {
         return [
-            PluginGrcmanagerComplianceObligation::REVIEW_DUE_EVENT => __(
-                'Revue d\'obligation à échéance',
-                'grcmanager'
-            ),
+            PluginGrcmanagerComplianceObligation::REVIEW_DUE_EVENT => __('Obligation review due', 'grcmanager'),
         ];
     }
 
@@ -45,7 +42,7 @@ class PluginGrcmanagerNotificationTargetComplianceObligation extends Notificatio
     #[Override]
     public function addAdditionalTargets($event = '')
     {
-        $this->addTarget(Notification::ITEM_USER, __('Propriétaire de l\'obligation', 'grcmanager'));
+        $this->addTarget(Notification::ITEM_USER, __('Obligation owner', 'grcmanager'));
     }
 
     #[Override]
@@ -84,10 +81,10 @@ class PluginGrcmanagerNotificationTargetComplianceObligation extends Notificatio
     {
         $tags = [
             'complianceobligation.action'     => _n('Event', 'Events', 1),
-            'complianceobligation.title'      => __('Titre', 'grcmanager'),
+            'complianceobligation.title'      => __('Title', 'grcmanager'),
             'complianceobligation.type'       => __('Type', 'grcmanager'),
-            'complianceobligation.status'     => __('Statut de conformité', 'grcmanager'),
-            'complianceobligation.reviewdate' => __('Date de revue', 'grcmanager'),
+            'complianceobligation.status'     => __('Compliance status', 'grcmanager'),
+            'complianceobligation.reviewdate' => __('Review date', 'grcmanager'),
             'complianceobligation.url'        => __('URL'),
         ];
 

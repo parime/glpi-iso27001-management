@@ -54,7 +54,7 @@ class PluginGrcmanagerAudit extends AuditBase
 
     public static function getTypeName($nb = 0)
     {
-        return _n('Audit interne', 'Audits internes', $nb, 'grcmanager');
+        return _n('Internal audit', 'Internal audits', $nb, 'grcmanager');
     }
 
     public static function getIcon()
@@ -71,7 +71,7 @@ class PluginGrcmanagerAudit extends AuditBase
         $menu = parent::getMenuContent();
         if (is_array($menu) && $menu !== []) {
             $menu['section_label'] = $menu['title'];
-            $menu['title'] = __('Audits et amélioration', 'grcmanager');
+            $menu['title'] = __('Audits and improvement', 'grcmanager');
         }
 
         return PluginGrcmanagerMenu::withSubPages(self::class, $menu);
@@ -82,10 +82,10 @@ class PluginGrcmanagerAudit extends AuditBase
     public static function getStatuses(): array
     {
         return [
-            'planned'     => __('Planifié', 'grcmanager'),
-            'in_progress' => __('En cours', 'grcmanager'),
-            'completed'   => __('Terminé', 'grcmanager'),
-            'cancelled'   => __('Annulé', 'grcmanager'),
+            'planned'     => _x('masculine', 'Planned', 'grcmanager'),
+            'in_progress' => __('In progress', 'grcmanager'),
+            'completed'   => __('Completed', 'grcmanager'),
+            'cancelled'   => __('Cancelled', 'grcmanager'),
         ];
     }
 
@@ -156,7 +156,7 @@ class PluginGrcmanagerAudit extends AuditBase
             'id'       => 1,
             'table'    => $this->getTable(),
             'field'    => 'title',
-            'name'     => __('Titre', 'grcmanager'),
+            'name'     => __('Title', 'grcmanager'),
             'datatype' => 'itemlink',
             'itemtype' => self::class,
         ];
@@ -165,7 +165,7 @@ class PluginGrcmanagerAudit extends AuditBase
             'id'       => 2,
             'table'    => $this->getTable(),
             'field'    => 'status',
-            'name'     => __('Statut', 'grcmanager'),
+            'name'     => __('Status', 'grcmanager'),
             'datatype' => 'specific',
         ];
 
@@ -173,7 +173,7 @@ class PluginGrcmanagerAudit extends AuditBase
             'id'       => 3,
             'table'    => 'glpi_users',
             'field'    => 'name',
-            'name'     => __('Auditeur', 'grcmanager'),
+            'name'     => __('Auditor', 'grcmanager'),
             'datatype' => 'dropdown',
             'right'    => 'all',
         ];
@@ -182,7 +182,7 @@ class PluginGrcmanagerAudit extends AuditBase
             'id'       => 4,
             'table'    => $this->getTable(),
             'field'    => 'planned_date',
-            'name'     => __('Date planifiée', 'grcmanager'),
+            'name'     => __('Planned date', 'grcmanager'),
             'datatype' => 'date',
         ];
 
@@ -190,7 +190,7 @@ class PluginGrcmanagerAudit extends AuditBase
             'id'       => 5,
             'table'    => $this->getTable(),
             'field'    => 'actual_date',
-            'name'     => __('Date réalisée', 'grcmanager'),
+            'name'     => __('Actual date', 'grcmanager'),
             'datatype' => 'date',
         ];
 
@@ -198,7 +198,7 @@ class PluginGrcmanagerAudit extends AuditBase
             'id'       => 6,
             'table'    => $this->getTable(),
             'field'    => 'risk_categories',
-            'name'     => __('Catégories de risque couvertes', 'grcmanager'),
+            'name'     => __('Risk categories covered', 'grcmanager'),
             'datatype' => 'specific',
         ];
 
@@ -206,7 +206,7 @@ class PluginGrcmanagerAudit extends AuditBase
             'id'       => 7,
             'table'    => $this->getTable(),
             'field'    => 'scope',
-            'name'     => __('Périmètre', 'grcmanager'),
+            'name'     => __('Scope', 'grcmanager'),
             'datatype' => 'text',
         ];
 
@@ -281,10 +281,10 @@ class PluginGrcmanagerAudit extends AuditBase
     private static function statusBadge(?string $value): string
     {
         $map = [
-            'planned'     => ['bg-secondary-lt', 'ti-calendar-event', __('Planifié', 'grcmanager')],
-            'in_progress' => ['bg-blue-lt', 'ti-tool', __('En cours', 'grcmanager')],
-            'completed'   => ['bg-green-lt', 'ti-check', __('Terminé', 'grcmanager')],
-            'cancelled'   => ['bg-dark-lt', 'ti-x', __('Annulé', 'grcmanager')],
+            'planned'     => ['bg-secondary-lt', 'ti-calendar-event', _x('masculine', 'Planned', 'grcmanager')],
+            'in_progress' => ['bg-blue-lt', 'ti-tool', __('In progress', 'grcmanager')],
+            'completed'   => ['bg-green-lt', 'ti-check', __('Completed', 'grcmanager')],
+            'cancelled'   => ['bg-dark-lt', 'ti-x', __('Cancelled', 'grcmanager')],
         ];
 
         [$class, $icon, $label] = $map[$value] ?? ['bg-secondary-lt', 'ti-help', (string) $value];
@@ -463,8 +463,11 @@ class PluginGrcmanagerAudit extends AuditBase
         $categories = PluginGrcmanagerRisk::getCategories();
 
         return TemplateRenderer::getInstance()->render('@grcmanager/pdf/internal_audit_report.html.twig', [
-            'report_title'       => sprintf(__('Rapport d\'audit interne : %s', 'grcmanager'), $audit->fields['title']),
-            'generated_at_label' => sprintf(__('Généré le %s', 'grcmanager'), Html::convDateTime(date('Y-m-d H:i:s'))),
+            'report_title'       => sprintf(__('Internal audit report: %s', 'grcmanager'), $audit->fields['title']),
+            'generated_at_label' => sprintf(__(
+                'Generated on %s',
+                'grcmanager'
+            ), Html::convDateTime(date('Y-m-d H:i:s'))),
             'audit'              => $audit->fields,
             'auditor'            => $audit->fields['users_id'] ? getUserName((int) $audit->fields['users_id']) : '',
             'status'             => self::getStatuses()[$audit->fields['status']] ?? $audit->fields['status'],
@@ -498,7 +501,7 @@ class PluginGrcmanagerAudit extends AuditBase
         // Document::add() empile des messages techniques sans intérêt pour l'utilisateur.
         $messagesBefore = $_SESSION['MESSAGE_AFTER_REDIRECT'] ?? [];
         $documentsId = (int) (new Document())->add([
-            'name'          => sprintf(__('Rapport d\'audit interne - %s', 'grcmanager'), $this->fields['title']),
+            'name'          => sprintf(__('Internal audit report - %s', 'grcmanager'), $this->fields['title']),
             // L'audit est global : le document ne se lit qu'avec le droit de lire l'audit
             // (PluginGrcmanagerRestrictedDocument), jamais avec le seul droit Documents d'une
             // entité ; non récursif pour ne pas descendre dans les sous-entités.
@@ -516,7 +519,7 @@ class PluginGrcmanagerAudit extends AuditBase
             ]);
             PluginGrcmanagerRestrictedDocument::register($documentsId, $this);
             Session::addMessageAfterRedirect(
-                __('Le rapport d\'audit a été archivé dans l\'onglet Documents.', 'grcmanager')
+                __('The audit report has been archived in the Documents tab.', 'grcmanager')
             );
         }
 

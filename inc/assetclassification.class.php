@@ -50,7 +50,7 @@ class PluginGrcmanagerAssetClassification extends AssetClassificationBase
 
     public static function getTypeName($nb = 0)
     {
-        return _n('Classification C/I/D', 'Classifications C/I/D', $nb, 'grcmanager');
+        return _n('C/I/A classification', 'C/I/A classifications', $nb, 'grcmanager');
     }
 
     public static function getIcon()
@@ -64,9 +64,9 @@ class PluginGrcmanagerAssetClassification extends AssetClassificationBase
     public static function getLevels(): array
     {
         return [
-            ClassificationLevels::LOW    => __('Faible', 'grcmanager'),
-            ClassificationLevels::MEDIUM => __('Moyen', 'grcmanager'),
-            ClassificationLevels::HIGH   => __('Élevé', 'grcmanager'),
+            ClassificationLevels::LOW    => __('Low', 'grcmanager'),
+            ClassificationLevels::MEDIUM => __('Medium', 'grcmanager'),
+            ClassificationLevels::HIGH   => __('High', 'grcmanager'),
         ];
     }
 
@@ -83,7 +83,7 @@ class PluginGrcmanagerAssetClassification extends AssetClassificationBase
             'id'       => 1,
             'table'    => $this->getTable(),
             'field'    => 'itemtype',
-            'name'     => __('Type d\'actif', 'grcmanager'),
+            'name'     => __('Asset type', 'grcmanager'),
             'datatype' => 'itemtypename',
         ];
 
@@ -91,7 +91,7 @@ class PluginGrcmanagerAssetClassification extends AssetClassificationBase
             'id'       => 2,
             'table'    => $this->getTable(),
             'field'    => 'confidentiality',
-            'name'     => __('Confidentialité', 'grcmanager'),
+            'name'     => __('Confidentiality', 'grcmanager'),
             'datatype' => 'specific',
         ];
 
@@ -99,7 +99,7 @@ class PluginGrcmanagerAssetClassification extends AssetClassificationBase
             'id'       => 3,
             'table'    => $this->getTable(),
             'field'    => 'integrity',
-            'name'     => __('Intégrité', 'grcmanager'),
+            'name'     => __('Integrity', 'grcmanager'),
             'datatype' => 'specific',
         ];
 
@@ -107,7 +107,7 @@ class PluginGrcmanagerAssetClassification extends AssetClassificationBase
             'id'       => 4,
             'table'    => $this->getTable(),
             'field'    => 'availability',
-            'name'     => __('Disponibilité', 'grcmanager'),
+            'name'     => __('Availability', 'grcmanager'),
             'datatype' => 'specific',
         ];
 
@@ -115,7 +115,7 @@ class PluginGrcmanagerAssetClassification extends AssetClassificationBase
             'id'       => 5,
             'table'    => $this->getTable(),
             'field'    => 'rto_hours',
-            'name'     => __('RTO (durée maximale d\'interruption)', 'grcmanager'),
+            'name'     => __('RTO (maximum downtime)', 'grcmanager'),
             'datatype' => 'specific',
         ];
 
@@ -123,7 +123,7 @@ class PluginGrcmanagerAssetClassification extends AssetClassificationBase
             'id'       => 6,
             'table'    => $this->getTable(),
             'field'    => 'rpo_hours',
-            'name'     => __('RPO (perte de données maximale)', 'grcmanager'),
+            'name'     => __('RPO (maximum data loss)', 'grcmanager'),
             'datatype' => 'specific',
         ];
 
@@ -155,13 +155,13 @@ class PluginGrcmanagerAssetClassification extends AssetClassificationBase
     public static function levelBadge(?string $value): string
     {
         $levels = [
-            ClassificationLevels::LOW    => ['bg-green-lt', __('Faible', 'grcmanager')],
-            ClassificationLevels::MEDIUM => ['bg-yellow-lt', __('Moyen', 'grcmanager')],
-            ClassificationLevels::HIGH   => ['bg-orange-lt', __('Élevé', 'grcmanager')],
+            ClassificationLevels::LOW    => ['bg-green-lt', __('Low', 'grcmanager')],
+            ClassificationLevels::MEDIUM => ['bg-yellow-lt', __('Medium', 'grcmanager')],
+            ClassificationLevels::HIGH   => ['bg-orange-lt', __('High', 'grcmanager')],
         ];
 
         if (!ClassificationLevels::isValid($value)) {
-            return Fragment::text(__('Non classifié', 'grcmanager'), null, 'text-muted');
+            return Fragment::text(__('Not classified', 'grcmanager'), null, 'text-muted');
         }
 
         [$class, $label] = $levels[$value];
@@ -314,13 +314,13 @@ class PluginGrcmanagerAssetClassification extends AssetClassificationBase
     public static function getRecoveryOptions(): array
     {
         return [
-            1   => __('1 heure', 'grcmanager'),
-            4   => __('4 heures', 'grcmanager'),
-            8   => __('8 heures', 'grcmanager'),
-            24  => __('24 heures (1 jour)', 'grcmanager'),
-            48  => __('48 heures (2 jours)', 'grcmanager'),
-            72  => __('72 heures (3 jours)', 'grcmanager'),
-            168 => __('1 semaine', 'grcmanager'),
+            1   => __('1 hour', 'grcmanager'),
+            4   => __('4 hours', 'grcmanager'),
+            8   => __('8 hours', 'grcmanager'),
+            24  => __('24 hours (1 day)', 'grcmanager'),
+            48  => __('48 hours (2 days)', 'grcmanager'),
+            72  => __('72 hours (3 days)', 'grcmanager'),
+            168 => __('1 week', 'grcmanager'),
         ];
     }
 }

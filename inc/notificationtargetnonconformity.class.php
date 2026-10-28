@@ -31,7 +31,7 @@ class PluginGrcmanagerNotificationTargetNonconformity extends NotificationTarget
     {
         return [
             PluginGrcmanagerNonconformity::CAPA_OVERDUE_EVENT => __(
-                'Action corrective/préventive en retard',
+                'Overdue corrective/preventive action',
                 'grcmanager'
             ),
         ];
@@ -44,7 +44,7 @@ class PluginGrcmanagerNotificationTargetNonconformity extends NotificationTarget
     #[Override]
     public function addAdditionalTargets($event = '')
     {
-        $this->addTarget(Notification::ITEM_USER, __('Responsable de la non-conformité', 'grcmanager'));
+        $this->addTarget(Notification::ITEM_USER, __('Non-conformity owner', 'grcmanager'));
     }
 
     #[Override]
@@ -81,9 +81,9 @@ class PluginGrcmanagerNotificationTargetNonconformity extends NotificationTarget
     {
         $tags = [
             'nc.action'   => _n('Event', 'Events', 1),
-            'nc.title'    => __('Titre', 'grcmanager'),
-            'nc.severity' => __('Sévérité', 'grcmanager'),
-            'nc.duedate'  => __('Échéance', 'grcmanager'),
+            'nc.title'    => __('Title', 'grcmanager'),
+            'nc.severity' => __('Severity', 'grcmanager'),
+            'nc.duedate'  => __('Due date', 'grcmanager'),
             'nc.audit'    => PluginGrcmanagerAudit::getTypeName(1),
             'nc.url'      => __('URL'),
         ];

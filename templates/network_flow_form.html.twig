@@ -4,33 +4,33 @@
 {% import '@grcmanager/_hint.html.twig' as hints %}
 
 {% block form_fields %}
-   {{ fields.textField('name', item.fields['name'], __('Nom', 'grcmanager'), {
+   {{ fields.textField('name', item.fields['name'], __('Name', 'grcmanager'), {
       'full_width': true,
-      'add_field_html': hints.hint(__('Laissé vide, il est construit à partir de la source et de la destination.', 'grcmanager')),
+      'add_field_html': hints.hint(__('If left empty, it is built from the source and destination.', 'grcmanager')),
    }) }}
    {{ fields.dropdownArrayField('flow_type', item.fields['flow_type'] ?: default_type, types, __('Type', 'grcmanager')) }}
-   {{ fields.dropdownYesNo('is_active', is_active, __('Actif', 'grcmanager')) }}
+   {{ fields.dropdownYesNo('is_active', is_active, __('Active', 'grcmanager')) }}
    {% for side in sides %}
-      {{ fields.htmlField('', side.item_selector, side.title, {'add_field_html': hints.hint(__('Actif GLPI (facultatif).', 'grcmanager'))}) }}
-      {{ fields.textField(side.key ~ '_label', item.fields[side.key ~ '_label'], __('Réseau, zone ou adresse', 'grcmanager'), {
-         'add_field_html': hints.hint(__('Ex. « Internet », « VLAN serveurs », « 10.0.0.0/24 », « Partenaire X ».', 'grcmanager')),
+      {{ fields.htmlField('', side.item_selector, side.title, {'add_field_html': hints.hint(__('GLPI asset (optional).', 'grcmanager'))}) }}
+      {{ fields.textField(side.key ~ '_label', item.fields[side.key ~ '_label'], __('Network, zone or address', 'grcmanager'), {
+         'add_field_html': hints.hint(__('E.g. "Internet", "Server VLAN", "10.0.0.0/24", "Partner X".', 'grcmanager')),
       }) }}
    {% endfor %}
-   {{ fields.dropdownArrayField('protocol', item.fields['protocol'] ?: default_protocol, protocols, __('Protocole', 'grcmanager')) }}
+   {{ fields.dropdownArrayField('protocol', item.fields['protocol'] ?: default_protocol, protocols, __('Protocol', 'grcmanager')) }}
    {{ fields.textField('ports', ports, __('Ports', 'grcmanager'), {
       'additional_attributes': {'placeholder': '80, 443, 8000-8100'},
-      'add_field_html': hints.hint(__('Vide : tous les ports.', 'grcmanager')),
+      'add_field_html': hints.hint(__('Empty: all ports.', 'grcmanager')),
    }) }}
    {{ fields.textareaField('justification', item.fields['justification'], __('Justification', 'grcmanager'), {
       'full_width': true,
-      'add_field_html': hints.hint(__('Pourquoi ce flux est nécessaire : application, besoin métier, demande ou ticket d\'origine.', 'grcmanager')),
+      'add_field_html': hints.hint(__('Why this flow is needed: application, business need, originating request or ticket.', 'grcmanager')),
    }) }}
-   {{ fields.dropdownField('User', 'users_id', item.fields['users_id'], __('Propriétaire', 'grcmanager'), {'right': 'all'}) }}
-   {{ fields.dateField('date_end', item.fields['date_end'], __('Date de fin', 'grcmanager'), {
-      'add_field_html': hints.hint(__('Pour un flux temporaire (migration, prestataire).', 'grcmanager')),
+   {{ fields.dropdownField('User', 'users_id', item.fields['users_id'], _x('owner', 'Owner', 'grcmanager'), {'right': 'all'}) }}
+   {{ fields.dateField('date_end', item.fields['date_end'], __('End date', 'grcmanager'), {
+      'add_field_html': hints.hint(__('For a temporary flow (migration, contractor).', 'grcmanager')),
    }) }}
-   {{ fields.textareaField('comment', item.fields['comment'], __('Commentaires', 'grcmanager'), {'full_width': true}) }}
+   {{ fields.textareaField('comment', item.fields['comment'], __('Comments', 'grcmanager'), {'full_width': true}) }}
    {% if not is_new %}
-      {{ fields.htmlField('', checks, __('Contrôles', 'grcmanager'), {'full_width': true}) }}
+      {{ fields.htmlField('', checks, __('Checks', 'grcmanager'), {'full_width': true}) }}
    {% endif %}
 {% endblock %}

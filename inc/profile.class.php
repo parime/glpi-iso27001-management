@@ -73,7 +73,7 @@ class PluginGrcmanagerProfile extends CommonGLPI
                     READNOTE   => ['short' => __('Read notes'), 'long' => __('Read the item\'s notes')],
                     UPDATENOTE => ['short' => __('Update notes'), 'long' => __('Update the item\'s notes')],
                 ],
-                'label'    => __('Gouvernance de la sécurité (SMSI)', 'grcmanager'),
+                'label'    => __('Security governance (ISMS)', 'grcmanager'),
                 'field'    => Installer::RIGHT_NAME,
             ],
             [
@@ -86,7 +86,7 @@ class PluginGrcmanagerProfile extends CommonGLPI
                     DELETE => _x('button', 'Put in trashbin'),
                     PURGE  => ['short' => __('Purge'), 'long' => _x('button', 'Delete permanently')],
                 ],
-                'label'    => __('Registres sensibles (risques, vulnérabilités, flux réseau)', 'grcmanager'),
+                'label'    => __('Sensitive registers (risks, vulnerabilities, network flows)', 'grcmanager'),
                 'field'    => Installer::SENSITIVE_RIGHT,
             ],
             [

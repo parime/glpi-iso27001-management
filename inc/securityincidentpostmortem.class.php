@@ -30,7 +30,7 @@ class PluginGrcmanagerSecurityIncidentPostMortem extends CommonGLPI
 {
     public static function getTypeName($nb = 0)
     {
-        return __('Rapport post-incident', 'grcmanager');
+        return __('Post-incident report', 'grcmanager');
     }
 
     public static function getIcon()
@@ -80,7 +80,7 @@ class PluginGrcmanagerSecurityIncidentPostMortem extends CommonGLPI
         $byIncident = ['plugin_grcmanager_securityincidents_id' => $id];
         $events = [[
             'date'  => (string) $fields['date'],
-            'kind'  => __('Déclaration', 'grcmanager'),
+            'kind'  => __('Declaration', 'grcmanager'),
             'text'  => (string) $fields['name'],
             'icon'  => 'ti-flag',
         ]];
@@ -93,7 +93,7 @@ class PluginGrcmanagerSecurityIncidentPostMortem extends CommonGLPI
         ) {
             $events[] = [
                 'date' => (string) $log['date_mod'],
-                'kind' => __('Changement de statut', 'grcmanager'),
+                'kind' => __('Status change', 'grcmanager'),
                 'text' => PluginGrcmanagerSecurityIncident::getStatus((int) $log['old_value'])
                     . ' → ' . PluginGrcmanagerSecurityIncident::getStatus((int) $log['new_value']),
                 'icon' => 'ti-arrows-exchange',
@@ -105,7 +105,7 @@ class PluginGrcmanagerSecurityIncidentPostMortem extends CommonGLPI
             }
             $events[] = [
                 'date' => (string) $row['date'],
-                'kind' => $row['is_private'] ? __('Suivi privé', 'grcmanager') : __('Suivi', 'grcmanager'),
+                'kind' => $row['is_private'] ? __('Private followup', 'grcmanager') : __('Followup', 'grcmanager'),
                 'text' => self::plain((string) $row['content']),
                 'icon' => 'ti-message',
             ];
@@ -116,7 +116,7 @@ class PluginGrcmanagerSecurityIncidentPostMortem extends CommonGLPI
             }
             $events[] = [
                 'date' => (string) ($row['begin'] ?: $row['date']),
-                'kind' => __('Tâche', 'grcmanager'),
+                'kind' => __('Task', 'grcmanager'),
                 'text' => self::plain((string) $row['content']),
                 'icon' => 'ti-checkbox',
             ];
@@ -215,11 +215,11 @@ class PluginGrcmanagerSecurityIncidentPostMortem extends CommonGLPI
             '@grcmanager/pdf/postmortem_report.html.twig',
             self::collect($incident, true) + [
                 'report_title'       => sprintf(
-                    __('Rapport post-incident : %s', 'grcmanager'),
+                    __('Post-incident report: %s', 'grcmanager'),
                     $incident->fields['name']
                 ),
                 'generated_at_label' => sprintf(
-                    __('Généré le %s', 'grcmanager'),
+                    __('Generated on %s', 'grcmanager'),
                     Html::convDateTime(date('Y-m-d H:i:s'))
                 ),
             ]
@@ -241,7 +241,7 @@ class PluginGrcmanagerSecurityIncidentPostMortem extends CommonGLPI
         // Document::add() empile des messages techniques sans intérêt pour l'utilisateur.
         $messagesBefore = $_SESSION['MESSAGE_AFTER_REDIRECT'] ?? [];
         $documentsId = (int) (new Document())->add([
-            'name'          => sprintf(__('Rapport post-incident - %s', 'grcmanager'), $incident->fields['name']),
+            'name'          => sprintf(__('Post-incident report - %s', 'grcmanager'), $incident->fields['name']),
             'entities_id'   => (int) $incident->fields['entities_id'],
             'is_recursive'  => 0,
             '_filename'     => [$fileName],

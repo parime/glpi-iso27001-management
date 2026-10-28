@@ -36,7 +36,7 @@ class PluginGrcmanagerAccountHygiene extends CommonGLPI
 
     public static function getTypeName($nb = 0)
     {
-        return __('Hygiène des comptes', 'grcmanager');
+        return __('Account hygiene', 'grcmanager');
     }
 
     public static function getMenuName()
@@ -77,20 +77,20 @@ class PluginGrcmanagerAccountHygiene extends CommonGLPI
     public static function getCheckLabel(string $check, int $days): string
     {
         return match ($check) {
-            AccountHygieneRules::DIRECTORY_DELETED => __('Supprimé de l\'annuaire', 'grcmanager'),
-            AccountHygieneRules::EXPIRED           => __('Date de fin dépassée', 'grcmanager'),
+            AccountHygieneRules::DIRECTORY_DELETED => __('Deleted from the directory', 'grcmanager'),
+            AccountHygieneRules::EXPIRED           => __('End date passed', 'grcmanager'),
             AccountHygieneRules::INACTIVE          => sprintf(
-                __('Sans connexion depuis plus de %d jours', 'grcmanager'),
+                __('No login for more than %d days', 'grcmanager'),
                 $days
             ),
             AccountHygieneRules::NEVER_USED        => sprintf(
-                __('Jamais utilisé (créé il y a plus de %d jours)', 'grcmanager'),
+                __('Never used (created more than %d days ago)', 'grcmanager'),
                 $days
             ),
-            AccountHygieneRules::DUPLICATE_EMAIL   => __('Adresse e-mail en double', 'grcmanager'),
-            AccountHygieneRules::DUPLICATE_NAME    => __('Prénom et nom en double', 'grcmanager'),
+            AccountHygieneRules::DUPLICATE_EMAIL   => __('Duplicate email address', 'grcmanager'),
+            AccountHygieneRules::DUPLICATE_NAME    => __('Duplicate first and last name', 'grcmanager'),
             AccountHygieneRules::GROUP_CHANGED     => sprintf(
-                __('Groupes modifiés depuis moins de %d jours, profils non revus', 'grcmanager'),
+                __('Groups changed less than %d days ago, profiles not reviewed', 'grcmanager'),
                 $days
             ),
             default                                => $check,
@@ -250,8 +250,8 @@ class PluginGrcmanagerAccountHygiene extends CommonGLPI
         return (int) (new Ticket())->add([
             'name'        => sprintf(
                 _n(
-                    'Hygiène des comptes : %d compte à vérifier',
-                    'Hygiène des comptes : %d comptes à vérifier',
+                    'Account hygiene: %d account to check',
+                    'Account hygiene: %d accounts to check',
                     count($accounts),
                     'grcmanager'
                 ),

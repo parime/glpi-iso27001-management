@@ -31,7 +31,7 @@ class PluginGrcmanagerMaturity extends CommonGLPI
 
     public static function getTypeName($nb = 0)
     {
-        return __('Score de maturité', 'grcmanager');
+        return __('Maturity score', 'grcmanager');
     }
 
     public static function getIcon()
@@ -71,11 +71,11 @@ class PluginGrcmanagerMaturity extends CommonGLPI
     public static function getComponentLabels(): array
     {
         return [
-            'soa'      => __('Mesures de l\'Annexe A mises en œuvre (SoA)', 'grcmanager'),
-            'isms'     => __('Exigences du SMSI (articles 4 à 10) conformes', 'grcmanager'),
-            'evidence' => __('Preuves en cours de validité', 'grcmanager'),
-            'audit'    => __('Audit interne réalisé dans les 12 derniers mois', 'grcmanager'),
-            'training' => __('Formations réalisées', 'grcmanager'),
+            'soa'      => __('Annex A controls implemented (SoA)', 'grcmanager'),
+            'isms'     => __('ISMS requirements (clauses 4 to 10) met', 'grcmanager'),
+            'evidence' => __('Evidence still valid', 'grcmanager'),
+            'audit'    => __('Internal audit completed in the last 12 months', 'grcmanager'),
+            'training' => __('Training completed', 'grcmanager'),
         ];
     }
 
@@ -86,10 +86,10 @@ class PluginGrcmanagerMaturity extends CommonGLPI
     {
         return [
             1 => __('Initial', 'grcmanager'),
-            2 => __('Reproductible', 'grcmanager'),
-            3 => __('Défini', 'grcmanager'),
-            4 => __('Géré', 'grcmanager'),
-            5 => __('Optimisé', 'grcmanager'),
+            2 => __('Repeatable', 'grcmanager'),
+            3 => __('Defined', 'grcmanager'),
+            4 => __('Managed', 'grcmanager'),
+            5 => __('Optimised', 'grcmanager'),
         ];
     }
 
@@ -267,7 +267,7 @@ class PluginGrcmanagerMaturity extends CommonGLPI
     public static function cronInfo(string $name): array
     {
         return $name === 'maturitysnapshot'
-            ? ['description' => __('Score de maturité : enregistre le score du mois', 'grcmanager')]
+            ? ['description' => __('Maturity score: records the score of the month', 'grcmanager')]
             : [];
     }
 

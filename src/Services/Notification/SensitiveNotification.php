@@ -57,7 +57,7 @@ final class SensitiveNotification
             $type,
             4,
             'tools',
-            sprintf(__('%1$s exporte : %2$s', 'grcmanager'), (string) ($_SESSION['glpiname'] ?? ''), $what)
+            sprintf(__('%1$s exports: %2$s', 'grcmanager'), (string) ($_SESSION['glpiname'] ?? ''), $what)
         );
     }
 

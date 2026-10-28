@@ -50,7 +50,7 @@ class PluginGrcmanagerEvidence extends EvidenceBase
 
     public static function getTypeName($nb = 0)
     {
-        return _n('Validité de preuve', 'Validités des preuves', $nb, 'grcmanager');
+        return _n('Evidence validity', 'Evidence validities', $nb, 'grcmanager');
     }
 
     public static function getIcon()
@@ -65,7 +65,7 @@ class PluginGrcmanagerEvidence extends EvidenceBase
     {
         $menu = parent::getMenuContent();
         if (is_array($menu) && $menu !== []) {
-            $menu['title'] = __('Preuves', 'grcmanager');
+            $menu['title'] = __('Evidence', 'grcmanager');
         }
 
         return $menu;
@@ -157,7 +157,7 @@ class PluginGrcmanagerEvidence extends EvidenceBase
         $documentsId = (int) ($input['documents_id'] ?? 0);
         $parent = self::loadParent($itemtype, $itemsId);
         if ($parent === null || !self::isDocumentLinked($itemtype, $itemsId, $documentsId)) {
-            Session::addMessageAfterRedirect(__('Document introuvable sur cet élément.', 'grcmanager'), false, ERROR);
+            Session::addMessageAfterRedirect(__('Document not found on this item.', 'grcmanager'), false, ERROR);
             return false;
         }
 
@@ -304,10 +304,10 @@ class PluginGrcmanagerEvidence extends EvidenceBase
     private static function statusInfo(?string $validUntil): array
     {
         return match (EvidenceValidity::status($validUntil, date('Y-m-d'))) {
-            EvidenceValidity::STATUS_EXPIRED  => ['bg-red-lt', __('Expirée', 'grcmanager')],
-            EvidenceValidity::STATUS_EXPIRING => ['bg-orange-lt', __('À renouveler', 'grcmanager')],
-            EvidenceValidity::STATUS_VALID    => ['bg-green-lt', __('Valide', 'grcmanager')],
-            default                           => ['bg-secondary-lt', __('Sans date de validité', 'grcmanager')],
+            EvidenceValidity::STATUS_EXPIRED  => ['bg-red-lt', _x('feminine', 'Expired', 'grcmanager')],
+            EvidenceValidity::STATUS_EXPIRING => ['bg-orange-lt', __('To renew', 'grcmanager')],
+            EvidenceValidity::STATUS_VALID    => ['bg-green-lt', __('Valid', 'grcmanager')],
+            default                           => ['bg-secondary-lt', __('No validity date', 'grcmanager')],
         };
     }
 
@@ -370,7 +370,7 @@ class PluginGrcmanagerEvidence extends EvidenceBase
             'id'            => '3',
             'table'         => self::getTable(),
             'field'         => 'items_id',
-            'name'          => __('Élément', 'grcmanager'),
+            'name'          => __('Item', 'grcmanager'),
             'datatype'      => 'specific',
             'additionalfields' => ['itemtype'],
             'massiveaction' => false,
@@ -380,14 +380,14 @@ class PluginGrcmanagerEvidence extends EvidenceBase
             'id'       => '4',
             'table'    => self::getTable(),
             'field'    => 'valid_until',
-            'name'     => __('Valide jusqu\'au', 'grcmanager'),
+            'name'     => __('Valid until', 'grcmanager'),
             'datatype' => 'date',
         ];
         $tab[] = [
             'id'       => '5',
             'table'    => 'glpi_users',
             'field'    => 'name',
-            'name'     => __('Responsable du renouvellement', 'grcmanager'),
+            'name'     => __('Renewal owner', 'grcmanager'),
             'datatype' => 'dropdown',
             'right'    => 'all',
         ];
@@ -395,7 +395,7 @@ class PluginGrcmanagerEvidence extends EvidenceBase
             'id'            => '6',
             'table'         => 'glpi_tickets',
             'field'         => 'name',
-            'name'          => __('Ticket de renouvellement', 'grcmanager'),
+            'name'          => __('Renewal ticket', 'grcmanager'),
             'datatype'      => 'itemlink',
             'massiveaction' => false,
         ];
@@ -440,7 +440,7 @@ class PluginGrcmanagerEvidence extends EvidenceBase
     {
         return $name === 'evidencereminder'
             ? ['description' => __(
-                'Prévient le responsable avant l\'expiration d\'une preuve, puis ouvre un ticket de renouvellement',
+                'Notifies the owner before evidence expires, then opens a renewal ticket',
                 'grcmanager'
             )]
             : [];
@@ -501,9 +501,8 @@ class PluginGrcmanagerEvidence extends EvidenceBase
             . $parent::getFormURLWithID($parent->getID(), false);
         $content = Fragment::ticketContent([sprintf(
             __(
-                'La preuve « %1$s » de %2$s « %3$s » n\'est plus valide depuis le %4$s. Renouvelez le '
-                . 'document (nouveau certificat, rapport ou attestation) puis mettez à jour sa date de '
-                . 'validité.',
+                'The evidence "%1$s" of %2$s "%3$s" has not been valid since %4$s. Renew the document (new '
+                    . 'certificate, report or certification) then update its validity date.',
                 'grcmanager'
             ),
             $this->getDocumentName(),
@@ -512,7 +511,7 @@ class PluginGrcmanagerEvidence extends EvidenceBase
             Html::convDate($this->fields['valid_until'])
         )], $parentUrl);
         $input = [
-            'name'        => sprintf(__('Renouveler la preuve « %s »', 'grcmanager'), $this->getDocumentName()),
+            'name'        => sprintf(__('Renew the evidence "%s"', 'grcmanager'), $this->getDocumentName()),
             'content'     => $content,
             'entities_id' => (int) $this->fields['entities_id'],
             'type'        => Ticket::DEMAND_TYPE,

@@ -94,7 +94,7 @@ class PluginGrcmanagerSecurityIncidentTicket extends CommonGLPI
         if ($item instanceof PluginGrcmanagerSecurityIncident) {
             $count = count(self::getTicketIdsForIncident((int) $item->getID()));
 
-            return self::createTabEntry(__('Tickets liés', 'grcmanager'), $count, null, Ticket::getIcon());
+            return self::createTabEntry(__('Linked tickets', 'grcmanager'), $count, null, Ticket::getIcon());
         }
 
         return '';
@@ -168,7 +168,7 @@ class PluginGrcmanagerSecurityIncidentTicket extends CommonGLPI
      */
     public static function showMassiveActionsSubForm(MassiveAction $ma)
     {
-        echo Html::submit(__('Qualifier en incident de sécurité', 'grcmanager'), ['name' => 'massiveaction']);
+        echo Html::submit(__('Qualify as a security incident', 'grcmanager'), ['name' => 'massiveaction']);
 
         return true;
     }
@@ -258,14 +258,14 @@ class PluginGrcmanagerSecurityIncidentTicket extends CommonGLPI
             'content'    => Fragment::ticketContent(
                 [sprintf(
                     __(
-                        'Ce ticket a été qualifié en incident de sécurité n° %d : la suite de son traitement de '
-                            . 'sécurité (gravité, impact, délais de notification NIS2 / RGPD) se fait sur l\'incident.',
+                        'This ticket was qualified as security incident no. %d: its security handling (severity, '
+                            . 'impact, NIS2 / GDPR notification deadlines) continues on the incident.',
                         'grcmanager'
                     ),
                     $incidentsId
                 )],
                 PluginGrcmanagerSecurityIncident::getFormURLWithID($incidentsId),
-                sprintf(__('Ouvrir l\'incident de sécurité n° %d', 'grcmanager'), $incidentsId)
+                sprintf(__('Open security incident no. %d', 'grcmanager'), $incidentsId)
             ),
         ]);
 

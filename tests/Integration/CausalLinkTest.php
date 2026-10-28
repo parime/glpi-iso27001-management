@@ -79,6 +79,6 @@ final class CausalLinkTest extends GrcmanagerIntegrationTestCase
     {
         $node = Link::describe(\PluginGrcmanagerRisk::class . ':999999999');
         $this->assertFalse($node['visible']);
-        $this->assertSame(__('Élément non visible', 'grcmanager'), $node['label']);
+        $this->assertSame(__('Item not visible', 'grcmanager'), $node['label']);
     }
 }

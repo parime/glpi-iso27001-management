@@ -6,10 +6,10 @@
 
 <div class="d-flex justify-content-between align-items-center mb-3">
   <div class="text-muted">
-    {{ __('Cliquez sur une cellule pour voir la liste des risques correspondants.', 'grcmanager') }}
+    {{ __('Click a cell to see the matching list of risks.', 'grcmanager') }}
   </div>
   <a href="{{ risk_list_url }}" class="btn btn-outline-secondary btn-sm">
-    <i class="ti ti-list me-1"></i>{{ __('Retour à la liste des risques', 'grcmanager') }}
+    <i class="ti ti-list me-1"></i>{{ __('Back to the risk list', 'grcmanager') }}
   </a>
 </div>
 
@@ -17,7 +17,7 @@
   <table class="table table-bordered grcmanager-heatmap-table text-center">
     <thead>
       <tr>
-        <th>{{ __('Probabilité', 'grcmanager') }} \ {{ __('Impact', 'grcmanager') }}</th>
+        <th>{{ __('Probability', 'grcmanager') }} \ {{ __('Impact', 'grcmanager') }}</th>
         {% for impact_key, impact_label in risk_impacts %}
           <th>{{ impact_label }}</th>
         {% endfor %}
@@ -54,10 +54,10 @@
       <span class="grcmanager-heatmap-legend-swatch {{ class }}"></span>
       <span class="small text-muted">
         {{ {
-          'low': __('Faible', 'grcmanager'),
-          'medium': __('Moyen', 'grcmanager'),
-          'high': __('Élevé', 'grcmanager'),
-          'critical': __('Critique', 'grcmanager')
+          'low': __('Low', 'grcmanager'),
+          'medium': __('Medium', 'grcmanager'),
+          'high': __('High', 'grcmanager'),
+          'critical': __('Critical', 'grcmanager')
         }[level] }}
       </span>
     </div>

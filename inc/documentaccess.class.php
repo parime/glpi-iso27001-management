@@ -132,7 +132,7 @@ class PluginGrcmanagerDocumentAccess extends CommonGLPI
             return '';
         }
 
-        return self::createTabEntry(__('Accès aux documents', 'grcmanager'), 0, null, 'ti ti-history');
+        return self::createTabEntry(__('Document access', 'grcmanager'), 0, null, 'ti ti-history');
     }
 
     public static function displayTabContentForItem(CommonGLPI $item, $tabnum = 1, $withtemplate = 0)

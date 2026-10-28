@@ -52,7 +52,7 @@ class PluginGrcmanagerCrisisExercise extends CrisisExerciseBase
     public static function getTypeName($nb = 0)
     {
         // « Exercice de crise » existe déjà au singulier seul (type d'événement du calendrier).
-        return $nb > 1 ? __('Exercices de crise', 'grcmanager') : __('Exercice de crise', 'grcmanager');
+        return $nb > 1 ? __('Crisis exercises', 'grcmanager') : __('Crisis exercise', 'grcmanager');
     }
 
     public static function getIcon()
@@ -100,26 +100,26 @@ class PluginGrcmanagerCrisisExercise extends CrisisExerciseBase
     {
         return [
             'ransomware'  => [
-                'label'       => __('Attaque par rançongiciel', 'grcmanager'),
+                'label'       => __('Ransomware attack', 'grcmanager'),
                 'description' => __(
-                    'Des postes et un serveur de fichiers sont chiffrés, une demande de rançon s\'affiche. '
-                        . 'L\'équipe doit isoler, évaluer, restaurer depuis les sauvegardes et communiquer.',
+                    'Workstations and a file server are encrypted and a ransom note is displayed. The team must '
+                        . 'isolate, assess, restore from backups and communicate.',
                     'grcmanager'
                 ),
             ],
             'data_breach' => [
-                'label'       => __('Fuite de données personnelles', 'grcmanager'),
+                'label'       => __('Personal data leak', 'grcmanager'),
                 'description' => __(
-                    'Un fichier de clients est publié sur un forum. L\'équipe doit contenir la fuite, '
-                        . 'identifier les données touchées et décider de la notification à l\'autorité.',
+                    'A customer file is published on a forum. The team must contain the leak, identify the affected '
+                        . 'data and decide whether to notify the authority.',
                     'grcmanager'
                 ),
             ],
             'outage'      => [
-                'label'       => __('Panne majeure du système d\'information', 'grcmanager'),
+                'label'       => __('Major information system outage', 'grcmanager'),
                 'description' => __(
-                    'La salle serveur (ou l\'hébergeur principal) est indisponible. L\'équipe doit '
-                        . 'activer le plan de continuité et basculer sur le site de secours.',
+                    'The server room (or the main hosting provider) is unavailable. The team must activate the '
+                        . 'continuity plan and switch to the backup site.',
                     'grcmanager'
                 ),
             ],
@@ -132,21 +132,21 @@ class PluginGrcmanagerCrisisExercise extends CrisisExerciseBase
     public static function getStepLabels(): array
     {
         return [
-            'confirm_alert'            => __('Confirmer l\'alerte et qualifier l\'incident', 'grcmanager'),
-            'isolate_network'          => __('Isoler du réseau les machines touchées', 'grcmanager'),
-            'crisis_cell'              => __('Réunir la cellule de crise', 'grcmanager'),
-            'inform_management'        => __('Informer la direction', 'grcmanager'),
-            'assess_scope'             => __('Évaluer l\'étendue : systèmes et données touchés', 'grcmanager'),
-            'restore_test_backup'      => __('Restaurer une sauvegarde de test', 'grcmanager'),
-            'communicate'              => __('Préparer la communication interne et externe', 'grcmanager'),
-            'back_to_normal'           => __('Valider le retour à la normale', 'grcmanager'),
-            'contain_leak'             => __('Contenir la fuite (retrait, comptes, accès)', 'grcmanager'),
-            'identify_data'            => __('Identifier les données et les personnes concernées', 'grcmanager'),
-            'inform_dpo'               => __('Informer le délégué à la protection des données', 'grcmanager'),
-            'regulator_decision'       => __('Décider de la notification à l\'autorité (RGPD, NIS2)', 'grcmanager'),
-            'activate_continuity_plan' => __('Activer le plan de continuité', 'grcmanager'),
-            'inform_users'             => __('Prévenir les utilisateurs', 'grcmanager'),
-            'switch_to_backup'         => __('Basculer sur le site ou le service de secours', 'grcmanager'),
+            'confirm_alert'            => __('Confirm the alert and qualify the incident', 'grcmanager'),
+            'isolate_network'          => __('Isolate the affected machines from the network', 'grcmanager'),
+            'crisis_cell'              => __('Convene the crisis team', 'grcmanager'),
+            'inform_management'        => __('Inform management', 'grcmanager'),
+            'assess_scope'             => __('Assess the scope: affected systems and data', 'grcmanager'),
+            'restore_test_backup'      => __('Restore a test backup', 'grcmanager'),
+            'communicate'              => __('Prepare internal and external communication', 'grcmanager'),
+            'back_to_normal'           => __('Confirm the return to normal', 'grcmanager'),
+            'contain_leak'             => __('Contain the leak (takedown, accounts, access)', 'grcmanager'),
+            'identify_data'            => __('Identify the data and the people concerned', 'grcmanager'),
+            'inform_dpo'               => __('Inform the data protection officer', 'grcmanager'),
+            'regulator_decision'       => __('Decide on notifying the authority (GDPR, NIS2)', 'grcmanager'),
+            'activate_continuity_plan' => __('Activate the continuity plan', 'grcmanager'),
+            'inform_users'             => __('Warn users', 'grcmanager'),
+            'switch_to_backup'         => __('Switch to the backup site or service', 'grcmanager'),
         ];
     }
 
@@ -164,9 +164,9 @@ class PluginGrcmanagerCrisisExercise extends CrisisExerciseBase
         $now = Session::getCurrentTime();
         $definition = CrisisExercise::SCENARIOS[$scenario];
         $incidentId = (int) (new PluginGrcmanagerSecurityIncident())->add([
-            'name'        => sprintf(__('[EXERCICE] %s', 'grcmanager'), $scenarios[$scenario]['label']),
+            'name'        => sprintf(__('[EXERCISE] %s', 'grcmanager'), $scenarios[$scenario]['label']),
             'content'     => self::richText([
-                __('Ceci est un exercice de crise : aucun incident réel n\'est en cours.', 'grcmanager'),
+                __('This is a crisis exercise: no real incident is in progress.', 'grcmanager'),
                 $scenarios[$scenario]['description'],
             ]),
             'entities_id' => Session::getActiveEntity(),
@@ -232,8 +232,8 @@ class PluginGrcmanagerCrisisExercise extends CrisisExerciseBase
         }
         $labels = self::getStepLabels();
         $objective = $drill
-            ? __('Objectif : %d min après le début de l\'exercice.', 'grcmanager')
-            : __('Objectif : %d min après l\'activation de la cellule de crise.', 'grcmanager');
+            ? __('Target: %d min after the start of the exercise.', 'grcmanager')
+            : __('Target: %d min after the crisis team was activated.', 'grcmanager');
         foreach (CrisisExercise::orderedSteps($scenario) as $rank => [$step, $target]) {
             $taskId = (int) (new PluginGrcmanagerSecurityIncidentTask())->add([
                 'plugin_grcmanager_securityincidents_id' => $incident->getID(),
@@ -593,11 +593,14 @@ class PluginGrcmanagerCrisisExercise extends CrisisExerciseBase
         );
         $scenario = $drill ? $data['exercise']['scenario'] : $data['incident']['name'];
         $title = $drill
-            ? __('Rapport d\'exercice de crise : %s', 'grcmanager')
-            : __('Rapport de cellule de crise : %s', 'grcmanager');
+            ? __('Crisis exercise report: %s', 'grcmanager')
+            : __('Crisis team report: %s', 'grcmanager');
         $html = TemplateRenderer::getInstance()->render('@grcmanager/pdf/crisis_exercise_report.html.twig', $data + [
             'report_title'       => sprintf($title, $scenario),
-            'generated_at_label' => sprintf(__('Généré le %s', 'grcmanager'), Html::convDateTime(date('Y-m-d H:i:s'))),
+            'generated_at_label' => sprintf(__(
+                'Generated on %s',
+                'grcmanager'
+            ), Html::convDateTime(date('Y-m-d H:i:s'))),
         ]);
         if (file_put_contents(GLPI_TMP_DIR . '/' . $fileName, PdfRenderer::renderHtmlToPdf($html)) === false) {
             return 0;
@@ -607,8 +610,8 @@ class PluginGrcmanagerCrisisExercise extends CrisisExerciseBase
         $documentsId = (int) (new Document())->add([
             'name'          => sprintf(
                 $drill
-                    ? __('Rapport d\'exercice de crise - %s', 'grcmanager')
-                    : __('Rapport de cellule de crise - %s', 'grcmanager'),
+                    ? __('Crisis exercise report - %s', 'grcmanager')
+                    : __('Crisis team report - %s', 'grcmanager'),
                 $scenario
             ),
             'entities_id'   => (int) $this->fields['entities_id'],
@@ -693,7 +696,7 @@ class PluginGrcmanagerCrisisExercise extends CrisisExerciseBase
             return '';
         }
 
-        return self::createTabEntry(__('Cellule de crise', 'grcmanager'), 0, null, self::getIcon());
+        return self::createTabEntry(__('Crisis team', 'grcmanager'), 0, null, self::getIcon());
     }
 
     public static function displayTabContentForItem(CommonGLPI $item, $tabnum = 1, $withtemplate = 0)

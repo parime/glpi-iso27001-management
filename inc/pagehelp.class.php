@@ -32,433 +32,409 @@ class PluginGrcmanagerPageHelp
         return [
             'dashboard' => [
                 'purpose'  => __(
-                    'Le tableau de bord du système de management de la sécurité : risques, mesures, incidents, '
-                        . 'échéances et revues en un coup d\'œil.',
+                    'The information security management system dashboard: risks, controls, incidents, deadlines '
+                        . 'and reviews at a glance.',
                     'grcmanager'
                 ),
                 'expected' => __(
-                    'Cliquez sur une carte pour ouvrir la liste correspondante. Le menu du tableau de bord permet '
-                        . 'd\'ajouter ou de déplacer des cartes, et de le partager avec d\'autres profils.',
+                    'Click a card to open the matching list. The dashboard menu lets you add or move cards, and '
+                        . 'share it with other profiles.',
                     'grcmanager'
                 ),
             ],
             'maturity' => [
                 'purpose'  => __(
-                    'Le score de maturité cyber (0 à 100) : une vue d\'ensemble de l\'avancement de votre système de '
-                        . 'management de la sécurité, calculée à partir de vos données.',
+                    'The cyber maturity score (0 to 100): an overview of the progress of your security management '
+                        . 'system, computed from your data.',
                     'grcmanager'
                 ),
                 'expected' => __(
-                    'Présentez-le en revue de direction ; le détail du calcul montre quelles composantes '
-                        . 'améliorer en priorité.',
+                    'Present it in management reviews; the calculation details show which components to improve '
+                        . 'first.',
                     'grcmanager'
                 ),
             ],
             'complianceaudit' => [
                 'purpose'   => __(
-                    'Les contrôles techniques automatiques : des vérifications calculées sur les données de GLPI '
-                        . '(antivirus, chiffrement des disques, inventaire, validation des changements, comptes), '
-                        . 'avec un score par référentiel.',
+                    'Automated technical checks: checks computed from GLPI data (antivirus, disk encryption, '
+                        . 'inventory, change validation, accounts), with a score per framework.',
                     'grcmanager'
                 ),
                 'expected'  => __(
-                    'Consultez les écarts de chaque contrôle et créez le ticket de mise en conformité ; une fois '
-                        . 'les éléments corrigés, le score remonte. Présentez les scores en revue de direction.',
+                    'Review the gaps of each check and create the remediation ticket; once the items are fixed, the '
+                        . 'score goes up. Present the scores at the management review.',
                     'grcmanager'
                 ),
-                'reference' => __('ISO 27001, 9.1 ; NIS2, article 21 ; RGPD, article 32', 'grcmanager'),
+                'reference' => __('ISO 27001, 9.1; NIS2, article 21; GDPR, article 32', 'grcmanager'),
             ],
             'crisisexercise' => [
                 'purpose'   => __(
-                    'Les exercices de crise : simuler un incident (rançongiciel, fuite de données, panne) pour '
-                        . 'vérifier que l\'équipe sait réagir et que le plan de continuité fonctionne.',
+                    'Crisis exercises: simulate an incident (ransomware, data leak, outage) to check that the team '
+                        . 'knows how to react and that the continuity plan works.',
                     'grcmanager'
                 ),
                 'expected'  => __(
-                    'Lancez un scénario : un incident fictif « EXERCICE » est créé avec une tâche par étape. '
-                        . 'Dans la salle de crise, cochez chaque étape dès qu\'elle est faite ; à la fin, le rapport '
-                        . 'mesure les temps de réaction et sert de preuve pour l\'audit. Au moins un exercice par an.',
+                    'Start a scenario: a fictitious "EXERCISE" incident is created with one task per step. In the '
+                        . 'crisis room, tick each step as soon as it is done; at the end, the report measures reaction '
+                        . 'times and serves as audit evidence. At least one exercise per year.',
                     'grcmanager'
                 ),
-                'reference' => __('ISO 27001, Annexe A 5.29 et 5.30', 'grcmanager'),
+                'reference' => __('ISO 27001, Annex A 5.29 and 5.30', 'grcmanager'),
             ],
             'risk' => [
                 'purpose'   => __(
-                    'Le registre des risques de sécurité de l\'information : chaque risque est évalué (probabilité '
-                    . '× impact), relié aux actifs qu\'il menace et aux mesures qui le réduisent.',
+                    'The information security risk register: each risk is assessed (likelihood × impact), linked '
+                        . 'to the assets it threatens and to the controls that reduce it.',
                     'grcmanager'
                 ),
                 'expected'  => __(
-                    'Identifiez les risques, évaluez-les, décidez d\'un traitement (réduire, accepter, transférer, '
-                    . 'éviter) et fixez une date de revue. Le propriétaire est prévenu à l\'échéance.',
+                    'Identify risks, assess them, decide on a treatment (reduce, accept, transfer, avoid) and set a '
+                        . 'review date. The owner is notified when it is due.',
                     'grcmanager'
                 ),
-                'reference' => __('ISO 27001, 6.1.2 et 6.1.3 ; 8.2 et 8.3', 'grcmanager'),
+                'reference' => __('ISO 27001, 6.1.2 and 6.1.3; 8.2 and 8.3', 'grcmanager'),
             ],
             'riskheatmap' => [
                 'purpose'  => __(
-                    'La carte de chaleur des risques : leur répartition par probabilité et impact, pour voir d\'un '
-                    . 'coup d\'œil où se concentrent les risques élevés.',
+                    'The risk heat map: how risks are spread by likelihood and impact, to see at a glance where '
+                        . 'high risks are concentrated.',
                     'grcmanager'
                 ),
                 'expected' => __(
-                    'Consultez-la en revue de direction ; cliquez sur une case pour ouvrir les risques '
-                    . 'correspondants.',
+                    'Use it in management reviews; click a cell to open the matching risks.',
                     'grcmanager'
                 ),
             ],
             'riskcatalog' => [
                 'purpose'  => __(
-                    'Des risques types d\'infrastructure (service d\'administration exposé, réseau à plat, Wi-Fi '
-                    . 'invités mal isolé...), prêts à être ajoutés au registre.',
+                    'Typical infrastructure risks (exposed administration service, flat network, poorly isolated '
+                        . 'guest Wi-Fi...), ready to be added to the register.',
                     'grcmanager'
                 ),
                 'expected' => __(
-                    'Cochez ceux qui vous concernent et importez-les, puis évaluez-les dans le registre. Rien '
-                    . 'n\'est importé sans votre choix.',
+                    'Tick those that apply to you and import them, then assess them in the register. Nothing is '
+                        . 'imported without your choice.',
                     'grcmanager'
                 ),
             ],
             'supplierrisk' => [
                 'purpose'   => __(
-                    'Les risques liés à vos fournisseurs et prestataires : dépendance, accès à vos données, '
-                    . 'sécurité de leurs services.',
+                    'Risks related to your suppliers and service providers: dependency, access to your data, '
+                        . 'security of their services.',
                     'grcmanager'
                 ),
                 'expected'  => __(
-                    'Créez un risque par fournisseur important, faites remplir le questionnaire de sécurité, '
-                    . 'suivez ses contrats et l\'onglet « Veille sécurité ».',
+                    'Create one risk per important supplier, have the security questionnaire filled in, follow its '
+                        . 'contracts and the "Security watch" tab.',
                     'grcmanager'
                 ),
-                'reference' => __('ISO 27001, Annexe A 5.19 à 5.22', 'grcmanager'),
+                'reference' => __('ISO 27001, Annex A 5.19 to 5.22', 'grcmanager'),
             ],
             'control' => [
                 'purpose'   => __(
-                    'La déclaration d\'applicabilité (SoA) : les 93 mesures de l\'Annexe A, chacune déclarée '
-                    . 'applicable ou non, avec sa justification et son état de mise en œuvre.',
+                    'The Statement of Applicability (SoA): the 93 Annex A controls, each declared applicable or '
+                        . 'not, with its justification and implementation status.',
                     'grcmanager'
                 ),
                 'expected'  => __(
-                    'Pour chaque mesure, indiquez si elle s\'applique, pourquoi, et où en est sa mise en œuvre. '
-                    . 'Faites ensuite approuver la SoA.',
+                    'For each control, state whether it applies, why, and how far its implementation has '
+                        . 'progressed. Then have the SoA approved.',
                     'grcmanager'
                 ),
                 'reference' => __('ISO 27001, 6.1.3 d)', 'grcmanager'),
             ],
             'soaapproval' => [
                 'purpose'  => __(
-                    'Les versions approuvées de la déclaration d\'applicabilité, avec l\'approbateur et la date.',
+                    'Approved versions of the Statement of Applicability, with the approver and the date.',
                     'grcmanager'
                 ),
                 'expected' => __(
-                    'Demandez l\'approbation après chaque évolution notable de la SoA ; l\'approbateur ne peut pas '
-                    . 'être le demandeur.',
+                    'Request approval after every significant change to the SoA; the approver cannot be the '
+                        . 'requester.',
                     'grcmanager'
                 ),
             ],
             'ismsrequirement' => [
                 'purpose'   => __(
-                    'Les exigences des articles 4 à 10 de la norme (contexte, leadership, planification, support, '
-                    . 'fonctionnement, évaluation, amélioration) et la preuve de leur respect.',
+                    'The requirements of clauses 4 to 10 of the standard (context, leadership, planning, support, '
+                        . 'operation, evaluation, improvement) and the evidence that they are met.',
                     'grcmanager'
                 ),
                 'expected'  => __(
-                    'Pour chaque exigence, indiquez son état et joignez ou liez la preuve (document, revue, '
-                    . 'procédure).',
+                    'For each requirement, state its status and attach or link the evidence (document, review, '
+                        . 'procedure).',
                     'grcmanager'
                 ),
-                'reference' => __('ISO 27001, articles 4 à 10', 'grcmanager'),
+                'reference' => __('ISO 27001, clauses 4 to 10', 'grcmanager'),
             ],
             'complianceobligation' => [
                 'purpose'   => __(
-                    'Vos obligations légales, réglementaires et contractuelles en sécurité (RGPD, NIS2, clauses '
-                    . 'clients...).',
+                    'Your legal, regulatory and contractual security obligations (GDPR, NIS2, customer clauses...).',
                     'grcmanager'
                 ),
                 'expected'  => __(
-                    'Recensez-les avec leur source et leur responsable, et fixez une date de revue pour vérifier '
-                    . 'qu\'elles sont toujours respectées.',
+                    'List them with their source and owner, and set a review date to check they are still met.',
                     'grcmanager'
                 ),
-                'reference' => __('ISO 27001, 4.2 ; Annexe A 5.31', 'grcmanager'),
+                'reference' => __('ISO 27001, 4.2; Annex A 5.31', 'grcmanager'),
             ],
             'audit' => [
                 'purpose'   => __(
-                    'Le programme d\'audits internes : périmètre, dates, auditeurs, rapport et constats.',
+                    'The internal audit programme: scope, dates, auditors, report and findings.',
                     'grcmanager'
                 ),
                 'expected'  => __(
-                    'Planifiez les audits de l\'année, saisissez le rapport et les constats ; chaque '
-                    . 'non-conformité ouvre un plan d\'action.',
+                    'Plan the year\'s audits, enter the report and the findings; each nonconformity opens an action '
+                        . 'plan.',
                     'grcmanager'
                 ),
                 'reference' => __('ISO 27001, 9.2', 'grcmanager'),
             ],
             'nonconformity' => [
                 'purpose'   => __(
-                    'Les non-conformités et observations, avec leurs actions correctives et préventives (CAPA).',
+                    'Nonconformities and observations, with their corrective and preventive actions (CAPA).',
                     'grcmanager'
                 ),
                 'expected'  => __(
-                    'Analysez la cause, décrivez l\'action corrective, désignez un responsable et une échéance, '
-                    . 'puis vérifiez l\'efficacité avant de clôturer.',
+                    'Analyse the cause, describe the corrective action, assign an owner and a due date, then check '
+                        . 'its effectiveness before closing.',
                     'grcmanager'
                 ),
                 'reference' => __('ISO 27001, 10.2', 'grcmanager'),
             ],
             'training' => [
                 'purpose'   => __(
-                    'Les formations et actions de sensibilisation à la sécurité, avec les participants et leurs '
-                    . 'résultats.',
+                    'Security training and awareness sessions, with their participants and results.',
                     'grcmanager'
                 ),
                 'expected'  => __(
-                    'Enregistrez chaque session, ses participants et sa date de renouvellement ; un rappel est '
-                    . 'envoyé à l\'échéance.',
+                    'Record each session, its participants and its renewal date; a reminder is sent when it is due.',
                     'grcmanager'
                 ),
-                'reference' => __('ISO 27001, 7.2 et 7.3', 'grcmanager'),
+                'reference' => __('ISO 27001, 7.2 and 7.3', 'grcmanager'),
             ],
             'managementreview' => [
                 'purpose'   => __(
-                    'Les revues de direction : le bilan périodique du système de management de la sécurité par la '
-                    . 'direction.',
+                    'Management reviews: the periodic review of the information security management system by top '
+                        . 'management.',
                     'grcmanager'
                 ),
                 'expected'  => __(
-                    'Au moins une fois par an, préparez la revue (indicateurs, audits, incidents, risques), notez '
-                    . 'les décisions et les actions qui en découlent.',
+                    'At least once a year, prepare the review (indicators, audits, incidents, risks), record the '
+                        . 'decisions and the resulting actions.',
                     'grcmanager'
                 ),
                 'reference' => __('ISO 27001, 9.3', 'grcmanager'),
             ],
             'objective' => [
-                'purpose'   => __(
-                    'Les objectifs de sécurité et leurs indicateurs mesurés dans le temps.',
-                    'grcmanager'
-                ),
+                'purpose'   => __('Security objectives and their indicators measured over time.', 'grcmanager'),
                 'expected'  => __(
-                    'Définissez des objectifs mesurables, saisissez les mesures à chaque période et suivez '
-                    . 'l\'atteinte de la cible.',
+                    'Define measurable objectives, enter the measurements each period and track progress towards '
+                        . 'the target.',
                     'grcmanager'
                 ),
-                'reference' => __('ISO 27001, 6.2 et 9.1', 'grcmanager'),
+                'reference' => __('ISO 27001, 6.2 and 9.1', 'grcmanager'),
             ],
             'accessreview' => [
                 'purpose'   => __(
-                    'Les campagnes de revue des droits d\'accès : chaque responsable confirme ou retire les droits '
-                    . 'de son équipe.',
+                    'Access rights review campaigns: each manager confirms or removes the rights of their team.',
                     'grcmanager'
                 ),
                 'expected'  => __(
-                    'Lancez une campagne, les responsables se prononcent ligne par ligne ; un retrait de droit '
-                    . 'ouvre un ticket, il n\'est jamais appliqué automatiquement.',
+                    'Start a campaign; managers decide line by line. Removing a right opens a ticket, it is never '
+                        . 'applied automatically.',
                     'grcmanager'
                 ),
-                'reference' => __('ISO 27001, Annexe A 5.18', 'grcmanager'),
+                'reference' => __('ISO 27001, Annex A 5.18', 'grcmanager'),
             ],
             'accounthygiene' => [
                 'purpose'  => __(
-                    'Les comptes à vérifier : comptes inactifs, absents de l\'annuaire, en double ou jamais '
-                    . 'connectés.',
+                    'Accounts to check: inactive accounts, accounts missing from the directory, duplicates or never '
+                        . 'used.',
                     'grcmanager'
                 ),
                 'expected' => __(
-                    'Passez la liste en revue et ouvrez un ticket pour chaque compte à désactiver ; rien n\'est '
-                    . 'désactivé automatiquement.',
+                    'Review the list and open a ticket for each account to disable; nothing is disabled '
+                        . 'automatically.',
                     'grcmanager'
                 ),
             ],
             'periodicreview' => [
                 'purpose'  => __(
-                    'Les revues périodiques (sauvegardes, journaux, droits, plan de continuité...) programmées '
-                    . 'comme des tickets récurrents.',
+                    'Periodic reviews (backups, logs, rights, continuity plan...) scheduled as recurring tickets.',
                     'grcmanager'
                 ),
                 'expected' => __(
-                    'Activez les revues utiles et leur fréquence ; un ticket est créé à chaque échéance pour la '
-                    . 'personne en charge.',
+                    'Enable the useful reviews and their frequency; a ticket is created at each due date for the '
+                        . 'person in charge.',
                     'grcmanager'
                 ),
             ],
             'networkflow' => [
                 'purpose'   => __(
-                    'La matrice des flux réseau autorisés : qui parle à qui, sur quel port, et pourquoi.',
+                    'The matrix of authorised network flows: who talks to whom, on which port, and why.',
                     'grcmanager'
                 ),
                 'expected'  => __(
-                    'Décrivez chaque flux avec sa justification et son responsable, ou importez l\'export de votre '
-                    . 'pare-feu, puis revoyez la matrice régulièrement.',
+                    'Describe each flow with its justification and owner, or import your firewall export, then '
+                        . 'review the matrix regularly.',
                     'grcmanager'
                 ),
-                'reference' => __('ISO 27001, Annexe A 8.20 à 8.22', 'grcmanager'),
+                'reference' => __('ISO 27001, Annex A 8.20 to 8.22', 'grcmanager'),
             ],
             'compliancecalendar' => [
                 'purpose'  => __(
-                    'Le calendrier de conformité : toutes les échéances (revues, audits, renouvellements, '
-                    . 'obligations) au même endroit, aussi visibles dans le planning GLPI.',
+                    'The compliance calendar: all due dates (reviews, audits, renewals, obligations) in one place, '
+                        . 'also visible in the GLPI planning.',
                     'grcmanager'
                 ),
                 'expected' => __(
-                    'Consultez-le pour anticiper les échéances ; abonnez votre agenda avec le lien iCal.',
+                    'Check it to anticipate due dates; subscribe your calendar with the iCal link.',
                     'grcmanager'
                 ),
             ],
             'complianceevent' => [
                 'purpose'  => __(
-                    'Les événements de conformité ponctuels à ajouter au calendrier (contrôle d\'un régulateur, '
-                    . 'exercice de crise, échéance contractuelle...).',
+                    'One-off compliance events to add to the calendar (regulator inspection, crisis exercise, '
+                        . 'contractual deadline...).',
                     'grcmanager'
                 ),
                 'expected' => __(
-                    'Ajoutez l\'événement avec sa date et son responsable ; il apparaît dans le calendrier de '
-                    . 'conformité.',
+                    'Add the event with its date and owner; it appears in the compliance calendar.',
                     'grcmanager'
                 ),
             ],
             'policy' => [
                 'purpose'   => __(
-                    'La bibliothèque des politiques de sécurité, versionnées, avec leur approbation et leur date de '
-                    . 'revue.',
+                    'The library of security policies, versioned, with their approval and review date.',
                     'grcmanager'
                 ),
                 'expected'  => __(
-                    'Déposez chaque politique, faites-la valider, diffusez-la et revoyez-la à l\'échéance.',
+                    'Upload each policy, have it approved, distribute it and review it when due.',
                     'grcmanager'
                 ),
-                'reference' => __('ISO 27001, 5.2 ; Annexe A 5.1', 'grcmanager'),
+                'reference' => __('ISO 27001, 5.2; Annex A 5.1', 'grcmanager'),
             ],
             'evidence' => [
                 'purpose'  => __(
-                    'Les preuves datées (rapports, attestations, certificats) et leur validité.',
+                    'Dated evidence (reports, attestations, certificates) and its validity.',
                     'grcmanager'
                 ),
                 'expected' => __(
-                    'Indiquez jusqu\'à quand chaque preuve est valable ; un ticket de renouvellement est ouvert '
-                    . 'quand elle expire.',
+                    'State how long each piece of evidence is valid; a renewal ticket is opened when it expires.',
                     'grcmanager'
                 ),
             ],
             'coveragerule' => [
                 'purpose'  => __(
-                    'Les règles de couverture : quels actifs doivent avoir quel document (par exemple, chaque '
-                    . 'serveur doit avoir sa fiche d\'exploitation).',
+                    'Coverage rules: which assets must have which document (for example, every server must have its '
+                        . 'operations sheet).',
                     'grcmanager'
                 ),
                 'expected' => __(
-                    'Créez une règle par exigence ; le résultat liste les actifs couverts et ceux à compléter.',
+                    'Create one rule per requirement; the result lists the covered assets and those to complete.',
                     'grcmanager'
                 ),
             ],
             'waiver' => [
                 'purpose'   => __(
-                    'Les dérogations de sécurité : les exceptions acceptées à une politique ou à une mesure, '
-                    . 'limitées dans le temps et compensées.',
+                    'Security exemptions: accepted exceptions to a policy or a control, limited in time and '
+                        . 'compensated.',
                     'grcmanager'
                 ),
                 'expected'  => __(
-                    'Justifiez chaque dérogation, décrivez les mesures compensatoires, faites-la valider et fixez '
-                    . 'sa date de fin ; elle est réévaluée à l\'échéance.',
+                    'Justify each exemption, describe the compensating measures, have it approved and set its end '
+                        . 'date; it is reassessed when due.',
                     'grcmanager'
                 ),
-                'reference' => __('ISO 27001, 6.1.3 ; Annexe A 5.36', 'grcmanager'),
+                'reference' => __('ISO 27001, 6.1.3; Annex A 5.36', 'grcmanager'),
             ],
             'impactanalysis' => [
                 'purpose'   => __(
-                    'Les points de défaillance uniques : les éléments critiques qui ne dépendent que d\'une seule '
-                    . 'source, d\'après l\'analyse d\'impact de GLPI.',
+                    'Single points of failure: critical items that depend on a single source, according to GLPI\'s '
+                        . 'impact analysis.',
                     'grcmanager'
                 ),
                 'expected'  => __(
-                    'Créez le risque correspondant ou ajoutez une redondance ; exportez la liste pour votre plan '
-                    . 'de continuité.',
+                    'Create the matching risk or add redundancy; export the list for your business continuity plan.',
                     'grcmanager'
                 ),
-                'reference' => __('ISO 27001, Annexe A 5.29, 5.30 et 8.14', 'grcmanager'),
+                'reference' => __('ISO 27001, Annex A 5.29, 5.30 and 8.14', 'grcmanager'),
             ],
             'causalgraph' => [
-                'purpose'  => __(
-                    'L\'effet domino : comment un incident ou un risque peut en entraîner d\'autres.',
-                    'grcmanager'
-                ),
+                'purpose'  => __('The domino effect: how one incident or risk can lead to others.', 'grcmanager'),
                 'expected' => __(
-                    'Reliez les éléments depuis l\'onglet « Effet domino » d\'un risque ou d\'un incident ; cette '
-                    . 'page montre l\'ensemble.',
+                    'Link items from the "Domino effect" tab of a risk or an incident; this page shows the whole '
+                        . 'picture.',
                     'grcmanager'
                 ),
             ],
             'securityincident' => [
                 'purpose'   => __(
-                    'Les incidents de sécurité : qualification, actifs touchés, CVE, coûts, notifications '
-                    . 'réglementaires (CNIL, NIS2).',
+                    'Security incidents: qualification, affected assets, CVEs, costs, regulatory notifications '
+                        . '(data protection authority, NIS2).',
                     'grcmanager'
                 ),
                 'expected'  => __(
-                    'Déclarez l\'incident, qualifiez-le, suivez les actions et respectez les délais de '
-                    . 'notification rappelés sur la fiche.',
+                    'Declare the incident, qualify it, follow up the actions and meet the notification deadlines '
+                        . 'shown on the record.',
                     'grcmanager'
                 ),
-                'reference' => __('ISO 27001, Annexe A 5.24 à 5.28', 'grcmanager'),
+                'reference' => __('ISO 27001, Annex A 5.24 to 5.28', 'grcmanager'),
             ],
             'parkvulnerability' => [
                 'purpose'  => __(
-                    'Les vulnérabilités connues (CVE) des logiciels installés sur votre parc, avec leur '
-                    . 'exploitation réelle (KEV, EPSS) et les avis du CERT-FR.',
+                    'Known vulnerabilities (CVEs) of the software installed on your fleet, with their real-world '
+                        . 'exploitation (KEV, EPSS) and CERT-FR advisories.',
                     'grcmanager'
                 ),
                 'expected' => __(
-                    'Traitez d\'abord les vulnérabilités exploitées et prioritaires ; ouvrez un ticket de mise à '
-                    . 'jour par logiciel.',
+                    'Handle exploited and priority vulnerabilities first; open one update ticket per software.',
                     'grcmanager'
                 ),
-                'reference' => __('ISO 27001, Annexe A 8.8', 'grcmanager'),
+                'reference' => __('ISO 27001, Annex A 8.8', 'grcmanager'),
             ],
             'softwarewatch' => [
                 'purpose'  => __(
-                    'Les logiciels du parc à rapprocher d\'une référence CPE pour que leurs vulnérabilités soient '
-                    . 'suivies.',
+                    'Fleet software to match with a CPE reference so that its vulnerabilities are tracked.',
                     'grcmanager'
                 ),
                 'expected' => __(
-                    'Commencez par les plus exposés (navigateurs, accès distant, VPN) : cherchez le CPE, '
-                    . 'confirmez-le, ou ignorez un logiciel sans enjeu.',
+                    'Start with the most exposed (browsers, remote access, VPN): search for the CPE, confirm it, or '
+                        . 'ignore software with no stakes.',
                     'grcmanager'
                 ),
             ],
             'parkmachines' => [
                 'purpose'  => __(
-                    'Les machines les plus exposées aux vulnérabilités connues de leurs logiciels surveillés, '
-                    . 'pour savoir par où commencer les mises à jour.',
+                    'The machines most exposed to the known vulnerabilities of their watched software, to know '
+                        . 'where to start updating.',
                     'grcmanager'
                 ),
                 'expected' => __(
-                    'Traitez d\'abord les machines du haut de la liste ; l\'onglet « Vulnérabilités » de chacune '
-                    . 'détaille les CVE et le ticket de mise à jour.',
+                    'Handle the machines at the top of the list first; the "Vulnerabilities" tab of each one '
+                        . 'details the CVEs and the update ticket.',
                     'grcmanager'
                 ),
-                'reference' => __('ISO 27001, Annexe A 8.8', 'grcmanager'),
+                'reference' => __('ISO 27001, Annex A 8.8', 'grcmanager'),
             ],
             'canonicalproduct' => [
                 'purpose'  => __(
-                    'Le catalogue de corrélation : les produits de référence, leurs CPE et les noms sous lesquels '
-                    . 'ils apparaissent dans l\'inventaire.',
+                    'The correlation catalogue: reference products, their CPEs and the names under which they '
+                        . 'appear in the inventory.',
                     'grcmanager'
                 ),
                 'expected' => __(
-                    'Il se remplit depuis « Logiciels à surveiller » ; corrigez ici un alias ou un CPE si besoin.',
+                    'It is filled from "Software to watch"; correct an alias or a CPE here if needed.',
                     'grcmanager'
                 ),
             ],
             'referentiels' => [
                 'purpose'  => __(
-                    'Les correspondances entre l\'Annexe A et d\'autres référentiels, pour réutiliser votre '
-                    . 'travail sur plusieurs normes.',
+                    'Mappings between Annex A and other frameworks, to reuse your work across several standards.',
                     'grcmanager'
                 ),
-                'expected' => __(
-                    'Consultez les correspondances avant un audit portant sur un autre référentiel.',
-                    'grcmanager'
-                ),
+                'expected' => __('Check the mappings before an audit against another framework.', 'grcmanager'),
             ],
         ];
     }

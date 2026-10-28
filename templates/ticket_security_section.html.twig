@@ -1,11 +1,11 @@
 {# Issue #165 : section « Sécurité » du panneau principal d'un ticket — l'incident de sécurité lié,
    ou le bouton pour qualifier le ticket, sans passer par l'onglet. Rendu dans le formulaire du
    ticket : le bouton crée son propre envoi (un formulaire ne peut pas en contenir un autre). #}
-<section class="accordion-item" aria-label="{{ __('Sécurité', 'grcmanager') }}">
+<section class="accordion-item" aria-label="{{ __('Security', 'grcmanager') }}">
    <div class="accordion-header" id="grcmanager-ticket-security-heading">
       <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#grcmanager-ticket-security" aria-expanded="true" aria-controls="grcmanager-ticket-security">
          <i class="ti ti-shield-lock"></i>
-         <span class="item-title">{{ __('Sécurité', 'grcmanager') }}</span>
+         <span class="item-title">{{ __('Security', 'grcmanager') }}</span>
          {% if incidents is not empty %}
             <span class="badge bg-red text-red-fg ms-2">{{ incidents|length }}</span>
          {% endif %}
@@ -15,7 +15,7 @@
       <div class="accordion-body">
          {% if incidents is not empty %}
             <div class="alert alert-danger mb-0 py-2">
-               <i class="ti ti-shield-lock me-1"></i>{{ __('Ce ticket est qualifié en incident de sécurité :', 'grcmanager') }}
+               <i class="ti ti-shield-lock me-1"></i>{{ __('This ticket is qualified as a security incident:', 'grcmanager') }}
                {% for incident in incidents %}
                   <div><a href="{{ incident.url }}" class="fw-bold">{{ incident.name }} ({{ incident.id }})</a> — {{ incident.status }}</div>
                {% endfor %}
@@ -23,10 +23,10 @@
          {% elseif can_create %}
             <button type="button" class="btn btn-outline-danger w-100" id="grcmanager-qualify-{{ tickets_id }}"
                     data-action="{{ action }}" data-token="{{ csrf_token() }}" data-ticket="{{ tickets_id }}"
-                    data-confirm="{{ __('Créer un incident de sécurité à partir de ce ticket ? Le ticket garde son statut et son attribution.', 'grcmanager') }}">
-               <i class="ti ti-shield-plus me-1"></i>{{ __('Escalader en incident de sécurité', 'grcmanager') }}
+                    data-confirm="{{ __('Create a security incident from this ticket? The ticket keeps its status and assignment.', 'grcmanager') }}">
+               <i class="ti ti-shield-plus me-1"></i>{{ __('Escalate to a security incident', 'grcmanager') }}
             </button>
-            <div class="form-text">{{ __('Ex. clic sur un lien suspect, mot de passe divulgué, poste infecté. L\'incident reprend le titre, la description, le demandeur et les éléments liés.', 'grcmanager') }}</div>
+            <div class="form-text">{{ __('E.g. clicked a suspicious link, disclosed password, infected computer. The incident takes over the title, description, requester and linked items.', 'grcmanager') }}</div>
             <script>
                document.getElementById('grcmanager-qualify-{{ tickets_id }}').addEventListener('click', function () {
                   if (!window.confirm(this.dataset.confirm)) {
@@ -47,7 +47,7 @@
                });
             </script>
          {% else %}
-            <p class="text-muted mb-0">{{ __('Ce ticket n\'est lié à aucun incident de sécurité.', 'grcmanager') }}</p>
+            <p class="text-muted mb-0">{{ __('This ticket is not linked to any security incident.', 'grcmanager') }}</p>
          {% endif %}
       </div>
    </div>

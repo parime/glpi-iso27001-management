@@ -31,14 +31,14 @@ class PluginGrcmanagerNotificationTargetSoaVersion extends NotificationTarget
     public function getEvents()
     {
         return [
-            PluginGrcmanagerSoaVersion::REQUEST_EVENT => __('Approbation de la SoA demandée', 'grcmanager'),
+            PluginGrcmanagerSoaVersion::REQUEST_EVENT => __('SoA approval requested', 'grcmanager'),
         ];
     }
 
     #[Override]
     public function addAdditionalTargets($event = '')
     {
-        $this->addTarget(self::APPROVERS_TARGET, __('Approbateurs désignés', 'grcmanager'));
+        $this->addTarget(self::APPROVERS_TARGET, __('Designated approvers', 'grcmanager'));
     }
 
     #[Override]
@@ -95,10 +95,10 @@ class PluginGrcmanagerNotificationTargetSoaVersion extends NotificationTarget
         $tags = [
             'soa.action'      => _n('Event', 'Events', 1),
             'soa.version'     => __('Version', 'grcmanager'),
-            'soa.requester'   => __('Demandeur', 'grcmanager'),
-            'soa.date'        => __('Date de la demande', 'grcmanager'),
-            'soa.comment'     => __('Commentaire', 'grcmanager'),
-            'soa.fingerprint' => __('Empreinte du contenu (SHA-256)', 'grcmanager'),
+            'soa.requester'   => __('Requester', 'grcmanager'),
+            'soa.date'        => __('Request date', 'grcmanager'),
+            'soa.comment'     => __('Comment', 'grcmanager'),
+            'soa.fingerprint' => __('Content fingerprint (SHA-256)', 'grcmanager'),
             'soa.url'         => __('URL'),
         ];
 

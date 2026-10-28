@@ -39,11 +39,11 @@ trait RiskAssessmentTrait
     public static function getCategories(): array
     {
         return [
-            'people'       => __('Humain', 'grcmanager'),
-            'process'      => __('Processus', 'grcmanager'),
-            'physical'     => __('Physique', 'grcmanager'),
-            'third_party'  => __('Tiers / fournisseur', 'grcmanager'),
-            'technical'    => __('Technique', 'grcmanager'),
+            'people'       => __('People', 'grcmanager'),
+            'process'      => __('Process', 'grcmanager'),
+            'physical'     => __('Physical', 'grcmanager'),
+            'third_party'  => __('Third party / supplier', 'grcmanager'),
+            'technical'    => __('Technical', 'grcmanager'),
         ];
     }
 
@@ -56,7 +56,7 @@ trait RiskAssessmentTrait
             'rare'     => __('Rare', 'grcmanager'),
             'possible' => __('Possible', 'grcmanager'),
             'probable' => __('Probable', 'grcmanager'),
-            'certain'  => __('Quasi certaine', 'grcmanager'),
+            'certain'  => __('Almost certain', 'grcmanager'),
         ];
     }
 
@@ -66,10 +66,10 @@ trait RiskAssessmentTrait
     public static function getImpacts(): array
     {
         return [
-            'low'      => __('Faible', 'grcmanager'),
-            'medium'   => __('Moyen', 'grcmanager'),
-            'high'     => __('Élevé', 'grcmanager'),
-            'critical' => __('Critique', 'grcmanager'),
+            'low'      => __('Low', 'grcmanager'),
+            'medium'   => __('Medium', 'grcmanager'),
+            'high'     => __('High', 'grcmanager'),
+            'critical' => __('Critical', 'grcmanager'),
         ];
     }
 
@@ -79,11 +79,11 @@ trait RiskAssessmentTrait
     public static function getTreatments(): array
     {
         return [
-            ''         => __('Aucune décision', 'grcmanager'),
-            'accept'   => __('Accepter', 'grcmanager'),
-            'mitigate' => __('Mitiger', 'grcmanager'),
-            'transfer' => __('Transférer', 'grcmanager'),
-            'avoid'    => __('Éviter', 'grcmanager'),
+            ''         => __('No decision', 'grcmanager'),
+            'accept'   => __('Accept', 'grcmanager'),
+            'mitigate' => __('Mitigate', 'grcmanager'),
+            'transfer' => __('Transfer', 'grcmanager'),
+            'avoid'    => __('Avoid', 'grcmanager'),
         ];
     }
 
@@ -93,10 +93,10 @@ trait RiskAssessmentTrait
     public static function getStatuses(): array
     {
         return [
-            'identified'   => __('Identifié', 'grcmanager'),
-            'in_treatment' => __('En traitement', 'grcmanager'),
-            'accepted'     => __('Accepté', 'grcmanager'),
-            'closed'       => __('Clôturé', 'grcmanager'),
+            'identified'   => __('Identified', 'grcmanager'),
+            'in_treatment' => __('In treatment', 'grcmanager'),
+            'accepted'     => __('Accepted', 'grcmanager'),
+            'closed'       => _x('masculine', 'Closed', 'grcmanager'),
         ];
     }
 
@@ -205,10 +205,10 @@ trait RiskAssessmentTrait
     public static function riskLevelBadge(?string $value): string
     {
         $levels = [
-            'low'      => ['bg-green-lt', __('Faible', 'grcmanager')],
-            'medium'   => ['bg-yellow-lt', __('Moyen', 'grcmanager')],
-            'high'     => ['bg-orange-lt', __('Élevé', 'grcmanager')],
-            'critical' => ['bg-red-lt', __('Critique', 'grcmanager')],
+            'low'      => ['bg-green-lt', __('Low', 'grcmanager')],
+            'medium'   => ['bg-yellow-lt', __('Medium', 'grcmanager')],
+            'high'     => ['bg-orange-lt', __('High', 'grcmanager')],
+            'critical' => ['bg-red-lt', __('Critical', 'grcmanager')],
         ];
 
         [$class, $label] = $levels[$value] ?? ['bg-secondary-lt', (string) $value];
@@ -220,10 +220,10 @@ trait RiskAssessmentTrait
     private static function statusBadge(?string $value): string
     {
         $map = [
-            'identified'   => ['bg-secondary-lt', 'ti-eye', __('Identifié', 'grcmanager')],
-            'in_treatment' => ['bg-blue-lt', 'ti-tool', __('En traitement', 'grcmanager')],
-            'accepted'     => ['bg-green-lt', 'ti-shield-check', __('Accepté', 'grcmanager')],
-            'closed'       => ['bg-dark-lt', 'ti-check', __('Clôturé', 'grcmanager')],
+            'identified'   => ['bg-secondary-lt', 'ti-eye', __('Identified', 'grcmanager')],
+            'in_treatment' => ['bg-blue-lt', 'ti-tool', __('In treatment', 'grcmanager')],
+            'accepted'     => ['bg-green-lt', 'ti-shield-check', __('Accepted', 'grcmanager')],
+            'closed'       => ['bg-dark-lt', 'ti-check', _x('masculine', 'Closed', 'grcmanager')],
         ];
 
         [$class, $icon, $label] = $map[$value] ?? ['bg-secondary-lt', 'ti-help', (string) $value];

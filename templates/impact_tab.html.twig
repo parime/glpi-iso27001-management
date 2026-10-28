@@ -3,14 +3,14 @@
 <div class="container-fluid">
    {% if not analysis.has_relations %}
       <div class="alert alert-info">
-         <i class="ti ti-info-circle me-1"></i>{{ __('Aucune dépendance déclarée pour cet élément. Décrivez qui dépend de quoi dans l\'onglet « Analyse d\'impact » de GLPI (hyperviseur, stockage, machines virtuelles, applications...) pour voir ici l\'impact d\'une panne.', 'grcmanager') }}
-         <a href="{{ impact_url }}">{{ __('Ouvrir l\'analyse d\'impact', 'grcmanager') }}</a>
+         <i class="ti ti-info-circle me-1"></i>{{ __('No dependency declared for this item. Describe what depends on what in the GLPI "Impact analysis" tab (hypervisor, storage, virtual machines, applications...) to see the impact of a failure here.', 'grcmanager') }}
+         <a href="{{ impact_url }}">{{ __('Open the impact analysis', 'grcmanager') }}</a>
       </div>
    {% endif %}
 
    {% if analysis.spof_for is not empty %}
       <div class="alert alert-danger">
-         <div><i class="ti ti-alert-triangle me-1"></i><strong>{{ __('Point de défaillance unique', 'grcmanager') }}</strong> : {{ __('ces éléments à disponibilité haute ne dépendent que de lui.', 'grcmanager') }}</div>
+         <div><i class="ti ti-alert-triangle me-1"></i><strong>{{ __('Single point of failure', 'grcmanager') }}</strong> : {{ __('these high-availability items depend only on it.', 'grcmanager') }}</div>
          <ul class="mb-2">
             {% for c in analysis.spof_for %}<li>{% if c.url %}<a href="{{ c.url }}">{{ c.label }}</a>{% else %}{{ c.label }}{% endif %}</li>{% endfor %}
          </ul>
@@ -19,7 +19,7 @@
                <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
                <input type="hidden" name="itemtype" value="{{ itemtype }}">
                <input type="hidden" name="items_id" value="{{ items_id }}">
-               <button type="submit" name="create_risk" value="1" class="btn btn-sm btn-outline-danger"><i class="ti ti-playlist-add me-1"></i>{{ __('Créer le risque correspondant', 'grcmanager') }}</button>
+               <button type="submit" name="create_risk" value="1" class="btn btn-sm btn-outline-danger"><i class="ti ti-playlist-add me-1"></i>{{ __('Create the matching risk', 'grcmanager') }}</button>
             </form>
          {% endif %}
       </div>
@@ -28,12 +28,12 @@
    {# Issue #177, phase 2 : objectifs de reprise incohérents avec les dépendances. #}
    {% if analysis.recovery is not empty %}
       <div class="alert alert-warning">
-         <div><i class="ti ti-clock-exclamation me-1"></i><strong>{{ __('Objectifs de reprise incohérents', 'grcmanager') }}</strong></div>
+         <div><i class="ti ti-clock-exclamation me-1"></i><strong>{{ __('Inconsistent recovery objectives', 'grcmanager') }}</strong></div>
          <ul class="mb-0">
             {% for r in analysis.recovery %}
-               <li>{{ __('%1$s doit reprendre en %2$s, mais dépend de %3$s dont l\'objectif est %4$s.', 'grcmanager')|format(
+               <li>{{ __('%1$s must recover within %2$s, but depends on %3$s whose objective is %4$s.', 'grcmanager')|format(
                   r.impacted_node.label, recovery_labels[r.required]|default(r.required ~ ' h'), r.source_node.label,
-                  r.actual ? recovery_labels[r.actual]|default(r.actual ~ ' h') : __('non défini', 'grcmanager')) }}</li>
+                  r.actual ? recovery_labels[r.actual]|default(r.actual ~ ' h') : __('not defined', 'grcmanager')) }}</li>
             {% endfor %}
          </ul>
       </div>
@@ -43,18 +43,18 @@
       {% include '@grcmanager/_impact_graph.html.twig' with {'elements': analysis.graph} %}
    {% endif %}
 
-   <h4 class="mt-3">{{ __('Éléments touchés par une panne', 'grcmanager') }}</h4>
+   <h4 class="mt-3">{{ __('Items affected by a failure', 'grcmanager') }}</h4>
    {% if analysis.downstream is empty %}
-      <div class="text-muted mb-3">{{ __('Aucun élément ne dépend de celui-ci.', 'grcmanager') }}</div>
+      <div class="text-muted mb-3">{{ __('No item depends on this one.', 'grcmanager') }}</div>
    {% else %}
       <table class="table table-card mb-3">
-         <thead><tr><th>{{ __('Élément', 'grcmanager') }}</th><th>{{ __('Dépendance', 'grcmanager') }}</th><th>{{ __('Disponibilité', 'grcmanager') }}</th><th>RTO</th></tr></thead>
+         <thead><tr><th>{{ __('Item', 'grcmanager') }}</th><th>{{ __('Dependency', 'grcmanager') }}</th><th>{{ __('Availability', 'grcmanager') }}</th><th>RTO</th></tr></thead>
          <tbody>
          {% for d in analysis.downstream %}
             <tr>
                <td>{% if d.url %}<a href="{{ d.url }}">{{ d.label }}</a>{% else %}<span class="text-muted">{{ d.label }}</span>{% endif %}</td>
-               <td>{{ d.depth == 1 ? __('Directe', 'grcmanager') : __('Indirecte (niveau %d)', 'grcmanager')|format(d.depth) }}</td>
-               <td>{% if d.availability %}<span class="badge {{ badges[d.availability] ?? 'bg-secondary-lt' }}">{{ levels[d.availability] ?? d.availability }}</span>{% else %}<span class="text-muted">{{ __('Non classée', 'grcmanager') }}</span>{% endif %}</td>
+               <td>{{ d.depth == 1 ? __('Direct', 'grcmanager') : __('Indirect (level %d)', 'grcmanager')|format(d.depth) }}</td>
+               <td>{% if d.availability %}<span class="badge {{ badges[d.availability] ?? 'bg-secondary-lt' }}">{{ levels[d.availability] ?? d.availability }}</span>{% else %}<span class="text-muted">{{ _x('feminine', 'Not classified', 'grcmanager') }}</span>{% endif %}</td>
                <td>{{ d.rto ? recovery_labels[d.rto]|default(d.rto ~ ' h') : '—' }}</td>
             </tr>
          {% endfor %}
@@ -62,9 +62,9 @@
       </table>
    {% endif %}
 
-   <h4>{{ __('Risques concernés', 'grcmanager') }}</h4>
+   <h4>{{ __('Related risks', 'grcmanager') }}</h4>
    {% if analysis.risks is empty %}
-      <div class="text-muted">{{ __('Aucun risque du registre n\'est lié à cet élément ni à ce qui en dépend.', 'grcmanager') }}</div>
+      <div class="text-muted">{{ __('No register risk is linked to this item or to what depends on it.', 'grcmanager') }}</div>
    {% else %}
       <ul>{% for r in analysis.risks %}<li><a href="{{ r.url }}">{{ r.title }}</a></li>{% endfor %}</ul>
    {% endif %}

@@ -43,8 +43,8 @@ class PluginGrcmanagerAuditTeam extends CommonGLPI
     public static function getRoles(): array
     {
         return [
-            self::ROLE_AUDITOR => __('Auditeur', 'grcmanager'),
-            self::ROLE_AUDITEE => __('Audité (lecture seule)', 'grcmanager'),
+            self::ROLE_AUDITOR => __('Auditor', 'grcmanager'),
+            self::ROLE_AUDITEE => __('Auditee (read only)', 'grcmanager'),
         ];
     }
 
@@ -162,7 +162,7 @@ class PluginGrcmanagerAuditTeam extends CommonGLPI
         }
 
         return self::createTabEntry(
-            __('Équipe', 'grcmanager'),
+            __('Team', 'grcmanager'),
             count(self::getMembers($item->getID())),
             null,
             'ti ti-users-group'
@@ -182,12 +182,12 @@ class PluginGrcmanagerAuditTeam extends CommonGLPI
             [
                 [
                     'users_id' => (int) $item->fields['users_id'],
-                    'role'     => __('Auditeur', 'grcmanager'),
+                    'role'     => __('Auditor', 'grcmanager'),
                     'id'       => 0,
                 ],
                 [
                     'users_id' => (int) ($item->fields['users_id_responsible'] ?? 0),
-                    'role'     => __('Responsable de l\'audit', 'grcmanager'),
+                    'role'     => __('Audit owner', 'grcmanager'),
                     'id'       => 0,
                 ],
             ] as $row

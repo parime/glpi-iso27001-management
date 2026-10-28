@@ -45,7 +45,7 @@ class PluginGrcmanagerObjectiveMeasurement extends ObjectiveMeasurementBase
 
     public static function getTypeName($nb = 0)
     {
-        return _n('Mesure d\'objectif ISMS', 'Mesures d\'objectif ISMS', $nb, 'grcmanager');
+        return _n('ISMS objective measurement', 'ISMS objective measurements', $nb, 'grcmanager');
     }
 
     public static function getIcon()
@@ -70,7 +70,7 @@ class PluginGrcmanagerObjectiveMeasurement extends ObjectiveMeasurementBase
         $objective = new PluginGrcmanagerObjective();
         if ($objectiveId <= 0 || !$objective->getFromDB($objectiveId)) {
             Session::addMessageAfterRedirect(
-                __('Objectif introuvable.', 'grcmanager'),
+                __('Objective not found.', 'grcmanager'),
                 false,
                 ERROR
             );
@@ -85,13 +85,9 @@ class PluginGrcmanagerObjectiveMeasurement extends ObjectiveMeasurementBase
         if (!ObjectiveMeasurementValidator::isValid($objective->hasNumericTarget(), $value, $comment)) {
             Session::addMessageAfterRedirect(
                 $objective->hasNumericTarget()
-                    ? __(
-                        'Une valeur numérique est obligatoire pour une mesure de cet objectif chiffré.',
-                        'grcmanager'
-                    )
+                    ? __('A numeric value is required for a measurement of this quantitative objective.', 'grcmanager')
                     : __(
-                        'Un commentaire est obligatoire pour une mesure sans valeur numérique '
-                        . '(objectif qualitatif).',
+                        'A comment is required for a measurement with no numeric value (qualitative objective).',
                         'grcmanager'
                     ),
                 false,

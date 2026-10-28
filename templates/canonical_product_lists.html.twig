@@ -17,7 +17,7 @@
                <td>{% if list.code %}<code>{{ row.value }}</code>{% else %}{{ row.value }}{% endif %}</td>
                {% if can_edit %}
                   <td class="text-end">
-                     <form method="post" action="{{ list.url }}" data-grc-confirm="{{ __('Confirmer la suppression ?', 'grcmanager') }}">
+                     <form method="post" action="{{ list.url }}" data-grc-confirm="{{ __('Confirm deletion?', 'grcmanager') }}">
                         <input type="hidden" name="id" value="{{ row.id }}">
                         <input type="hidden" name="plugin_grcmanager_canonicalproducts_id" value="{{ product_id }}">
                         <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">

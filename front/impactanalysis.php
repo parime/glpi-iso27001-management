@@ -34,11 +34,14 @@ if (isset($_POST['create_risk'])) {
     $analysis = PluginGrcmanagerImpactAnalysis::analyze($item);
     $riskId = PluginGrcmanagerImpactAnalysis::createSinglePointRisk($item, $analysis['spof_for']);
     if ($riskId > 0) {
-        Session::addMessageAfterRedirect(htmlescape(__('Risque créé dans le registre, à évaluer.', 'grcmanager')));
+        Session::addMessageAfterRedirect(htmlescape(__(
+            'Risk created in the register, to be assessed.',
+            'grcmanager'
+        )));
         Html::redirect(PluginGrcmanagerRisk::getFormURLWithID($riskId));
     }
     Session::addMessageAfterRedirect(
-        htmlescape(__('Ce risque existe déjà pour cet élément.', 'grcmanager')),
+        htmlescape(__('This risk already exists for this item.', 'grcmanager')),
         false,
         WARNING
     );

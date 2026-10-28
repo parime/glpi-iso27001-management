@@ -37,7 +37,7 @@ class PluginGrcmanagerCpeReference extends CpeReferenceBase
 
     public static function getTypeName($nb = 0)
     {
-        return _n('Identifiant CPE', 'Identifiants CPE', $nb, 'grcmanager');
+        return _n('CPE identifier', 'CPE identifiers', $nb, 'grcmanager');
     }
 
     /**
@@ -54,7 +54,7 @@ class PluginGrcmanagerCpeReference extends CpeReferenceBase
 
         if ($cpe === '') {
             Session::addMessageAfterRedirect(
-                __('Veuillez saisir un identifiant CPE.', 'grcmanager'),
+                __('Please enter a CPE identifier.', 'grcmanager'),
                 false,
                 ERROR
             );
@@ -101,7 +101,7 @@ class PluginGrcmanagerCpeReference extends CpeReferenceBase
         if ($existing !== null) {
             Session::addMessageAfterRedirect(
                 sprintf(
-                    __('Cet identifiant CPE est déjà rattaché au produit "%s / %s".', 'grcmanager'),
+                    __('This CPE identifier is already attached to product "%s / %s".', 'grcmanager'),
                     $existing['manufacturer'],
                     $existing['product']
                 ),

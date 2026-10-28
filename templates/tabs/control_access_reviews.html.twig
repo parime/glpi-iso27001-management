@@ -2,14 +2,14 @@
 <div class="card">
    <div class="card-body">
       {% if campaigns is empty %}
-         <p class="text-muted mb-2"><i class="ti ti-user-check me-1"></i>{{ __('Aucune campagne de revue des accès n\'est rattachée à cette mesure.', 'grcmanager') }}</p>
-         <a class="btn btn-sm btn-outline-primary" href="{{ new_url }}"><i class="ti ti-plus me-1"></i>{{ __('Préparer une campagne', 'grcmanager') }}</a>
+         <p class="text-muted mb-2"><i class="ti ti-user-check me-1"></i>{{ __('No access review campaign is linked to this control.', 'grcmanager') }}</p>
+         <a class="btn btn-sm btn-outline-primary" href="{{ new_url }}"><i class="ti ti-plus me-1"></i>{{ __('Prepare a campaign', 'grcmanager') }}</a>
       {% else %}
          <table class="table table-sm table-vcenter mb-0">
             <thead><tr>
-               <th>{{ __('Campagne', 'grcmanager') }}</th><th>{{ __('Statut', 'grcmanager') }}</th>
-               <th>{{ __('Date de début', 'grcmanager') }}</th><th>{{ __('Comptes revus', 'grcmanager') }}</th>
-               <th>{{ __('Rapport', 'grcmanager') }}</th>
+               <th>{{ __('Campaign', 'grcmanager') }}</th><th>{{ __('Status', 'grcmanager') }}</th>
+               <th>{{ __('Start date', 'grcmanager') }}</th><th>{{ __('Accounts reviewed', 'grcmanager') }}</th>
+               <th>{{ __('Report', 'grcmanager') }}</th>
             </tr></thead>
             <tbody>
                {% for c in campaigns %}
@@ -20,7 +20,7 @@
                      <td>{{ c.progress.done }} / {{ c.progress.total }}</td>
                      <td>
                         {% if c.report_url %}
-                           <a href="{{ c.report_url }}"><i class="ti ti-file-type-pdf me-1"></i>{{ __('Rapport PDF', 'grcmanager') }}</a>
+                           <a href="{{ c.report_url }}"><i class="ti ti-file-type-pdf me-1"></i>{{ __('PDF report', 'grcmanager') }}</a>
                         {% else %}—{% endif %}
                      </td>
                   </tr>

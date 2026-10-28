@@ -43,7 +43,7 @@ class PluginGrcmanagerPeriodicReview extends PeriodicReviewBase
 
     public static function getTypeName($nb = 0)
     {
-        return _n('Revue périodique', 'Revues périodiques', $nb, 'grcmanager');
+        return _n('Periodic review', 'Periodic reviews', $nb, 'grcmanager');
     }
 
     public static function getIcon()
@@ -60,17 +60,17 @@ class PluginGrcmanagerPeriodicReview extends PeriodicReviewBase
     public static function getLabel(string $key): string
     {
         return match ($key) {
-            'access_rights'       => __('Revue des comptes et des droits d\'accès', 'grcmanager'),
-            'privileged_accounts' => __('Revue des comptes à privilèges et des comptes de service', 'grcmanager'),
-            'network_flows'       => __('Revue de la matrice des flux (règles de pare-feu)', 'grcmanager'),
-            'risk_register'       => __('Revue du registre des risques', 'grcmanager'),
-            'supplier_risks'      => __('Revue des risques fournisseurs', 'grcmanager'),
-            'policies'            => __('Revue des politiques de sécurité', 'grcmanager'),
-            'soa'                 => __('Revue de la Déclaration d\'Applicabilité', 'grcmanager'),
-            'legal_obligations'   => __('Revue des obligations légales et contractuelles', 'grcmanager'),
-            'backup_restore_test' => __('Test de restauration des sauvegardes', 'grcmanager'),
-            'continuity_test'     => __('Test du plan de continuité et de reprise (PCA / PRA)', 'grcmanager'),
-            'security_logs'       => __('Revue des journaux de sécurité', 'grcmanager'),
+            'access_rights'       => __('Review of accounts and access rights', 'grcmanager'),
+            'privileged_accounts' => __('Review of privileged and service accounts', 'grcmanager'),
+            'network_flows'       => __('Review of the network flow matrix (firewall rules)', 'grcmanager'),
+            'risk_register'       => __('Risk register review', 'grcmanager'),
+            'supplier_risks'      => __('Supplier risk review', 'grcmanager'),
+            'policies'            => __('Security policy review', 'grcmanager'),
+            'soa'                 => __('Statement of Applicability review', 'grcmanager'),
+            'legal_obligations'   => __('Review of legal and contractual obligations', 'grcmanager'),
+            'backup_restore_test' => __('Backup restore test', 'grcmanager'),
+            'continuity_test'     => __('Business continuity and disaster recovery test (BCP / DRP)', 'grcmanager'),
+            'security_logs'       => __('Security log review', 'grcmanager'),
             default               => $key,
         };
     }
@@ -84,55 +84,55 @@ class PluginGrcmanagerPeriodicReview extends PeriodicReviewBase
     {
         return match ($key) {
             'access_rights' => [
-                __('Lancer ou clôturer la campagne de revue des accès', 'grcmanager'),
-                __('Vérifier les comptes des personnes parties ou ayant changé de poste', 'grcmanager'),
-                __('Ouvrir un ticket pour chaque droit à retirer ou modifier', 'grcmanager'),
+                __('Launch or close the access review campaign', 'grcmanager'),
+                __('Check the accounts of people who left or changed jobs', 'grcmanager'),
+                __('Open a ticket for each right to remove or change', 'grcmanager'),
             ],
             'privileged_accounts' => [
-                __('Lister les comptes administrateurs et les comptes de service', 'grcmanager'),
-                __('Confirmer pour chacun le besoin et son responsable', 'grcmanager'),
-                __('Vérifier la rotation des mots de passe et l\'authentification forte', 'grcmanager'),
+                __('List administrator and service accounts', 'grcmanager'),
+                __('Confirm the need and the owner of each one', 'grcmanager'),
+                __('Check password rotation and strong authentication', 'grcmanager'),
             ],
             'network_flows' => [
-                __('Exporter les règles des pare-feu', 'grcmanager'),
-                __('Vérifier que chaque flux a une justification et un propriétaire', 'grcmanager'),
-                __('Supprimer les règles inutiles ou expirées (par ticket)', 'grcmanager'),
+                __('Export the firewall rules', 'grcmanager'),
+                __('Check that each flow has a justification and an owner', 'grcmanager'),
+                __('Remove unneeded or expired rules (through a ticket)', 'grcmanager'),
             ],
             'risk_register' => [
-                __('Réévaluer la probabilité et l\'impact des risques', 'grcmanager'),
-                __('Vérifier l\'avancement des plans de traitement', 'grcmanager'),
-                __('Ajouter les nouveaux risques identifiés', 'grcmanager'),
+                __('Reassess the likelihood and impact of the risks', 'grcmanager'),
+                __('Check the progress of the treatment plans', 'grcmanager'),
+                __('Add newly identified risks', 'grcmanager'),
             ],
             'supplier_risks' => [
-                __('Réévaluer les fournisseurs critiques', 'grcmanager'),
-                __('Vérifier les échéances des contrats et des attestations', 'grcmanager'),
+                __('Reassess the critical suppliers', 'grcmanager'),
+                __('Check contract and certificate expiry dates', 'grcmanager'),
             ],
             'policies' => [
-                __('Relire chaque politique et dater la revue', 'grcmanager'),
-                __('Publier les nouvelles versions et informer les personnes concernées', 'grcmanager'),
+                __('Reread each policy and date the review', 'grcmanager'),
+                __('Publish the new versions and inform the people concerned', 'grcmanager'),
             ],
             'soa' => [
-                __('Vérifier l\'applicabilité et la justification de chaque mesure', 'grcmanager'),
-                __('Mettre à jour l\'état de mise en œuvre', 'grcmanager'),
-                __('Demander une nouvelle approbation si la SoA a changé', 'grcmanager'),
+                __('Check the applicability and justification of each control', 'grcmanager'),
+                __('Update the implementation status', 'grcmanager'),
+                __('Request a new approval if the SoA changed', 'grcmanager'),
             ],
             'legal_obligations' => [
-                __('Recenser les nouvelles obligations (lois, contrats, clients)', 'grcmanager'),
-                __('Vérifier la conformité de chaque obligation suivie', 'grcmanager'),
+                __('List new obligations (laws, contracts, customers)', 'grcmanager'),
+                __('Check compliance with each tracked obligation', 'grcmanager'),
             ],
             'backup_restore_test' => [
-                __('Restaurer un échantillon de fichiers et une base de données', 'grcmanager'),
-                __('Mesurer la durée de restauration et la comparer à l\'objectif', 'grcmanager'),
-                __('Joindre le compte rendu du test à ce ticket', 'grcmanager'),
+                __('Restore a sample of files and a database', 'grcmanager'),
+                __('Measure the restore time and compare it with the objective', 'grcmanager'),
+                __('Attach the test report to this ticket', 'grcmanager'),
             ],
             'continuity_test' => [
-                __('Dérouler un scénario de reprise (exercice sur table ou réel)', 'grcmanager'),
-                __('Vérifier les contacts et les procédures d\'urgence', 'grcmanager'),
-                __('Joindre le compte rendu et les actions d\'amélioration', 'grcmanager'),
+                __('Run a recovery scenario (tabletop or live exercise)', 'grcmanager'),
+                __('Check the emergency contacts and procedures', 'grcmanager'),
+                __('Attach the report and the improvement actions', 'grcmanager'),
             ],
             'security_logs' => [
-                __('Consulter les alertes et les journaux de sécurité de la période', 'grcmanager'),
-                __('Ouvrir un incident de sécurité pour chaque anomalie avérée', 'grcmanager'),
+                __('Review the security alerts and logs for the period', 'grcmanager'),
+                __('Open a security incident for each confirmed anomaly', 'grcmanager'),
             ],
             default => [],
         };
@@ -267,7 +267,7 @@ class PluginGrcmanagerPeriodicReview extends PeriodicReviewBase
                 'is_recursive'  => 1,
                 'begin_date'    => $now,
                 'create_before' => 0,
-                'comment'       => __('Créé par GLPI GRC Manager (revues périodiques).', 'grcmanager'),
+                'comment'       => __('Created by GLPI GRC Manager (periodic reviews).', 'grcmanager'),
             ]);
             $ok = $recurrentsId > 0;
         }
@@ -303,7 +303,7 @@ class PluginGrcmanagerPeriodicReview extends PeriodicReviewBase
 
     public function getRecurrentName(): string
     {
-        return sprintf(__('Revue périodique : %s', 'grcmanager'), self::getLabel($this->getKey()));
+        return sprintf(__('Periodic review: %s', 'grcmanager'), self::getLabel($this->getKey()));
     }
 
     /**
@@ -315,8 +315,8 @@ class PluginGrcmanagerPeriodicReview extends PeriodicReviewBase
 
         $key = $this->getKey();
         $intro = __(
-            'Revue périodique à réaliser : %s. Une fois la revue faite, résolvez ce ticket : '
-                . 'sa date sert de preuve de revue.',
+            'Periodic review to carry out: %s. Once the review is done, solve this ticket: its date is the evidence '
+                . 'of the review.',
             'grcmanager'
         );
         $controls = PeriodicReviewCatalog::controls($key);
@@ -327,7 +327,7 @@ class PluginGrcmanagerPeriodicReview extends PeriodicReviewBase
             'intro'        => sprintf($intro, self::getLabel($key)),
             'items'        => self::getChecklist($key),
             'requirements' => $controls !== []
-                ? sprintf(__('Exigences concernées : %s', 'grcmanager'), implode(', ', $controls))
+                ? sprintf(__('Related requirements: %s', 'grcmanager'), implode(', ', $controls))
                 : '',
             'url'          => $path !== null ? rtrim((string) ($CFG_GLPI['url_base'] ?? ''), '/') . $path : '',
         ]);
@@ -342,7 +342,7 @@ class PluginGrcmanagerPeriodicReview extends PeriodicReviewBase
     {
         $template = new TicketTemplate();
         $templatesId = (int) $this->fields['tickettemplates_id'];
-        $name = sprintf(__('GRC : %s', 'grcmanager'), self::getLabel($this->getKey()));
+        $name = sprintf(__('GRC: %s', 'grcmanager'), self::getLabel($this->getKey()));
         if ($templatesId > 0 && $template->getFromDB($templatesId)) {
             $template->update(['id' => $templatesId, 'name' => $name]);
         } else {
@@ -350,7 +350,7 @@ class PluginGrcmanagerPeriodicReview extends PeriodicReviewBase
                 'name'         => $name,
                 'entities_id'  => 0,
                 'is_recursive' => 1,
-                'comment'      => __('Créé par GLPI GRC Manager (revues périodiques).', 'grcmanager'),
+                'comment'      => __('Created by GLPI GRC Manager (periodic reviews).', 'grcmanager'),
             ]);
             if ($templatesId <= 0) {
                 return 0;
@@ -528,12 +528,12 @@ class PluginGrcmanagerPeriodicReview extends PeriodicReviewBase
     public static function frequencyLabel(int $months): string
     {
         return match ($months) {
-            1       => __('Tous les mois', 'grcmanager'),
-            3       => __('Tous les trimestres', 'grcmanager'),
-            6       => __('Tous les six mois', 'grcmanager'),
-            12      => __('Tous les ans', 'grcmanager'),
-            24      => __('Tous les deux ans', 'grcmanager'),
-            default => sprintf(_n('Tous les %d mois', 'Tous les %d mois', $months, 'grcmanager'), $months),
+            1       => __('Monthly', 'grcmanager'),
+            3       => _x('every quarter', 'Quarterly', 'grcmanager'),
+            6       => __('Every six months', 'grcmanager'),
+            12      => _x('every year', 'Yearly', 'grcmanager'),
+            24      => __('Every two years', 'grcmanager'),
+            default => sprintf(_n('Every %d months', 'Every %d months', $months, 'grcmanager'), $months),
         };
     }
 }

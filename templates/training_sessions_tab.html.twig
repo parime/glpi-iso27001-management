@@ -1,30 +1,30 @@
 {# Issue #139 : sessions d'une formation et taux de réussite de l'ensemble. #}
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-2">
-  <p class="text-muted mb-0">{{ __('Chaque session a sa date, son formateur, son lieu, ses participants et ses documents (feuille d\'émargement, support, quiz).', 'grcmanager') }}</p>
+  <p class="text-muted mb-0">{{ __('Each session has its own date, trainer, location, participants and documents (attendance sheet, slides, quiz).', 'grcmanager') }}</p>
   {% if add_url %}
-    <a href="{{ add_url }}" class="btn btn-primary btn-sm"><i class="ti ti-calendar-plus me-1"></i>{{ __('Ajouter une session', 'grcmanager') }}</a>
+    <a href="{{ add_url }}" class="btn btn-primary btn-sm"><i class="ti ti-calendar-plus me-1"></i>{{ __('Add a session', 'grcmanager') }}</a>
   {% endif %}
 </div>
 {% if program_rate.rate is not null %}
   <p>
     <span class="badge {{ program_rate.rate >= 80 ? 'bg-green-lt' : (program_rate.rate >= 50 ? 'bg-yellow-lt' : 'bg-red-lt') }} fs-4">
       <i class="ti ti-certificate me-1"></i>
-      {{ __('Taux de réussite de la formation, toutes sessions : %1$s sur %2$s (%3$s %%)', 'grcmanager')|format(program_rate.passed, program_rate.assessed, program_rate.rate) }}
+      {{ __('Training pass rate, all sessions: %1$s out of %2$s (%3$s %%)', 'grcmanager')|format(program_rate.passed, program_rate.assessed, program_rate.rate) }}
     </span>
   </p>
 {% endif %}
 {% if sessions is empty %}
-  <div class="alert alert-info">{{ __('Aucune autre session pour cette formation.', 'grcmanager') }}</div>
+  <div class="alert alert-info">{{ __('No other session for this training.', 'grcmanager') }}</div>
 {% else %}
   <table class="table table-hover card-table">
     <thead>
       <tr>
         <th>{{ __('Session', 'grcmanager') }}</th>
-        <th>{{ __('Date de réalisation', 'grcmanager') }}</th>
-        <th>{{ __('Formateur', 'grcmanager') }}</th>
-        <th>{{ __('Lieu ou lien', 'grcmanager') }}</th>
+        <th>{{ __('Completion date', 'grcmanager') }}</th>
+        <th>{{ __('Trainer', 'grcmanager') }}</th>
+        <th>{{ __('Location or link', 'grcmanager') }}</th>
         <th>{{ __('Participants', 'grcmanager') }}</th>
-        <th>{{ __('Taux de réussite', 'grcmanager') }}</th>
+        <th>{{ __('Pass rate', 'grcmanager') }}</th>
       </tr>
     </thead>
     <tbody>

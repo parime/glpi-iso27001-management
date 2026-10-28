@@ -1,9 +1,9 @@
 {# Boutons au-dessus de la liste des risques (front/risk.php) #}
 <div class="d-flex justify-content-end mb-2 gap-2">
    {% if catalog_url %}
-      <a href="{{ catalog_url }}" class="btn btn-outline-primary btn-sm"><i class="ti ti-books me-1"></i>{{ __('Catalogue de risques types', 'grcmanager') }}</a>
+      <a href="{{ catalog_url }}" class="btn btn-outline-primary btn-sm"><i class="ti ti-books me-1"></i>{{ __('Catalog of typical risks', 'grcmanager') }}</a>
    {% endif %}
-   <a href="{{ heatmap_url }}" class="btn btn-outline-secondary btn-sm"><i class="ti ti-grid-dots me-1"></i>{{ __('Cartographie des risques', 'grcmanager') }}</a>
-   <a href="{{ my_risks_url }}" class="btn btn-outline-secondary btn-sm"><i class="ti ti-user-check me-1"></i>{{ __('Mes risques', 'grcmanager') }}</a>
+   <a href="{{ heatmap_url }}" class="btn btn-outline-secondary btn-sm"><i class="ti ti-grid-dots me-1"></i>{{ __('Risk heatmap', 'grcmanager') }}</a>
+   <a href="{{ my_risks_url }}" class="btn btn-outline-secondary btn-sm"><i class="ti ti-user-check me-1"></i>{{ __('My risks', 'grcmanager') }}</a>
    <a href="{{ report_url }}" class="btn btn-outline-secondary btn-sm" target="_blank"><i class="ti ti-file-type-pdf me-1"></i>{{ __('Export PDF', 'grcmanager') }}</a>
 </div>

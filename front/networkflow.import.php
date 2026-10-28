@@ -31,7 +31,7 @@ if (isset($_POST['import'])) {
     $uploaded = is_array($file) && ($file['error'] ?? UPLOAD_ERR_NO_FILE) === UPLOAD_ERR_OK
         && is_uploaded_file((string) $file['tmp_name']) && (int) $file['size'] <= 2 * 1024 * 1024;
     if (!$uploaded) {
-        $message = __('Choisissez un fichier CSV ou une sauvegarde pfSense (XML) de 2 Mo au plus.', 'grcmanager');
+        $message = __('Choose a CSV file or a pfSense backup (XML) of 2 MB at most.', 'grcmanager');
         Session::addMessageAfterRedirect(htmlescape($message), false, ERROR);
         Html::redirect(PluginGrcmanagerNetworkFlow::getImportURL());
     }
@@ -42,7 +42,7 @@ if (isset($_POST['import'])) {
     $result = PluginGrcmanagerNetworkFlow::importCsv($content, $simulate);
 }
 
-$title = __('Importer une matrice des flux', 'grcmanager');
+$title = __('Import a network flow matrix', 'grcmanager');
 $rows = [];
 $today = date('Y-m-d');
 foreach ($result['rows'] ?? [] as $row) {
@@ -53,9 +53,9 @@ foreach ($result['rows'] ?? [] as $row) {
         PluginGrcmanagerNetworkFlow::internalNetworks()
     );
     if ($row['status'] === 'skipped') {
-        $state = ['bg-secondary-lt', __('Déjà présent', 'grcmanager')];
+        $state = ['bg-secondary-lt', __('Already present', 'grcmanager')];
     } else {
-        $state = ['bg-blue-lt', $simulate ? __('À créer', 'grcmanager') : __('Créé', 'grcmanager')];
+        $state = ['bg-blue-lt', $simulate ? __('To create', 'grcmanager') : __('Created', 'grcmanager')];
     }
     $rows[] = [
         'line'              => (int) $row['line'],
@@ -82,8 +82,8 @@ TemplateRenderer::getInstance()->display('@grcmanager/network_flow_import.html.t
     'title'    => $title,
     'example'  => implode("\n", [
         'nom;type;source;destination;protocole;ports;justification;proprietaire;date_fin',
-        __('Site public;publication;Internet;Serveur web;tcp;443;Site vitrine;;', 'grcmanager'),
-        __('Sauvegarde;sauvegarde;Site principal;Site de secours;tcp;10000;Réplication nocturne;;', 'grcmanager'),
+        __('Public website;publication;Internet;Web server;tcp;443;Company website;;', 'grcmanager'),
+        __('Backup;backup;Main site;Recovery site;tcp;10000;Nightly replication;;', 'grcmanager'),
     ]),
     'action'   => PluginGrcmanagerNetworkFlow::getImportURL(),
     'list_url' => PluginGrcmanagerNetworkFlow::getSearchURL(),

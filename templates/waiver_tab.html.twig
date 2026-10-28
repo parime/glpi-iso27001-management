@@ -1,18 +1,18 @@
 {# Issue #170 : dérogations liées à un actif, une mesure ou une politique #}
 <div class="container-fluid">
    {% if new_url %}
-      <div class="mb-2"><a class="btn btn-primary btn-sm" href="{{ new_url }}"><i class="ti ti-plus me-1"></i>{{ __('Nouvelle dérogation pour cet élément', 'grcmanager') }}</a></div>
+      <div class="mb-2"><a class="btn btn-primary btn-sm" href="{{ new_url }}"><i class="ti ti-plus me-1"></i>{{ __('New waiver for this item', 'grcmanager') }}</a></div>
    {% endif %}
    {% if waivers is empty %}
-      <div class="text-muted"><i class="ti ti-circle-check me-1 text-green"></i>{{ __('Aucune dérogation.', 'grcmanager') }}</div>
+      <div class="text-muted"><i class="ti ti-circle-check me-1 text-green"></i>{{ __('No waiver.', 'grcmanager') }}</div>
    {% else %}
       <table class="table table-hover table-card">
          <thead>
             <tr>
                <th>{{ __('Nom') }}</th>
-               <th>{{ __('État', 'grcmanager') }}</th>
-               <th>{{ __('Responsable (accepte le risque)', 'grcmanager') }}</th>
-               <th>{{ __('Date de fin', 'grcmanager') }}</th>
+               <th>{{ _x('state', 'Status', 'grcmanager') }}</th>
+               <th>{{ __('Owner (accepts the risk)', 'grcmanager') }}</th>
+               <th>{{ __('End date', 'grcmanager') }}</th>
             </tr>
          </thead>
          <tbody>

@@ -31,7 +31,7 @@ if (isset($_POST['activate']) || isset($_POST['deactivate'])) {
     $label = PluginGrcmanagerPeriodicReview::getLabel($review->getKey());
     if (isset($_POST['deactivate'])) {
         $review->deactivate();
-        Session::addMessageAfterRedirect(htmlescape(sprintf(__('Revue désactivée : %s', 'grcmanager'), $label)));
+        Session::addMessageAfterRedirect(htmlescape(sprintf(__('Review disabled: %s', 'grcmanager'), $label)));
     } elseif (
         $review->activate(
             (int) ($_POST['frequency_months'] ?? 0),
@@ -40,15 +40,12 @@ if (isset($_POST['activate']) || isset($_POST['deactivate'])) {
         )
     ) {
         Session::addMessageAfterRedirect(htmlescape(sprintf(
-            __(
-                'Revue enregistrée : %s. Le ticket récurrent est visible dans Assistance > Tickets récurrents.',
-                'grcmanager'
-            ),
+            __('Review saved: %s. The recurrent ticket is listed under Assistance > Recurrent tickets.', 'grcmanager'),
             $label
         )));
     } else {
         Session::addMessageAfterRedirect(
-            htmlescape(sprintf(__('La revue n\'a pas pu être activée : %s', 'grcmanager'), $label)),
+            htmlescape(sprintf(__('The review could not be enabled: %s', 'grcmanager'), $label)),
             false,
             ERROR
         );

@@ -65,7 +65,7 @@ final class SecurityWatchTest extends GrcmanagerIntegrationTestCase
         $this->assertSame([strtolower($this->vendor)], \PluginGrcmanagerSecurityWatch::keywordsFor($risk));
 
         $tab = (string) (new \PluginGrcmanagerSecurityWatch())->getTabNameForItem($risk);
-        $this->assertStringContainsString(__('Veille sécurité', 'grcmanager'), $tab);
+        $this->assertStringContainsString(__('Security watch', 'grcmanager'), $tab);
         ob_start();
         \PluginGrcmanagerSecurityWatch::displayTabContentForItem($risk);
         $html = (string) ob_get_clean();

@@ -4,23 +4,23 @@
 {% import '@grcmanager/_hint.html.twig' as hints %}
 
 {% block form_fields %}
-   {{ fields.textField('title', item.fields['title'], __('Titre', 'grcmanager'), {'full_width': true}) }}
-   {{ fields.dropdownArrayField('status', item.fields['status'] ?: 'planned', statuses, __('Statut', 'grcmanager')) }}
-   {{ fields.dateField('review_date', item.fields['review_date'], __('Date de revue', 'grcmanager')) }}
+   {{ fields.textField('title', item.fields['title'], __('Title', 'grcmanager'), {'full_width': true}) }}
+   {{ fields.dropdownArrayField('status', item.fields['status'] ?: 'planned', statuses, __('Status', 'grcmanager')) }}
+   {{ fields.dateField('review_date', item.fields['review_date'], __('Review date', 'grcmanager')) }}
    {{ fields.dropdownField('User', 'attendees', attendees, __('Participants', 'grcmanager'), {
       'multiple': true,
       'right': 'all',
       'full_width': true,
    }) }}
-   {{ fields.textareaField('agenda', item.fields['agenda'], __('Ordre du jour', 'grcmanager'), {
+   {{ fields.textareaField('agenda', item.fields['agenda'], __('Agenda', 'grcmanager'), {
       'full_width': true,
-      'add_field_html': hints.hint(__('Sujets réellement abordés (état des actions précédentes, changements du contexte, retours des parties intéressées, résultats d\'audits, non-conformités, opportunités d\'amélioration...).', 'grcmanager')),
+      'add_field_html': hints.hint(__('Topics actually covered (status of previous actions, changes in context, feedback from interested parties, audit results, nonconformities, opportunities for improvement...).', 'grcmanager')),
    }) }}
-   {{ fields.textareaField('decisions', item.fields['decisions'], __('Décisions et actions', 'grcmanager'), {'full_width': true}) }}
-   {{ fields.dropdownArrayField('linked_objectives', null, objectives, __('Objectifs ISMS abordés', 'grcmanager'), {
+   {{ fields.textareaField('decisions', item.fields['decisions'], __('Decisions and actions', 'grcmanager'), {'full_width': true}) }}
+   {{ fields.dropdownArrayField('linked_objectives', null, objectives, __('ISMS objectives discussed', 'grcmanager'), {
       'multiple': true,
       'values': linked_objectives,
       'full_width': true,
-      'add_field_html': hints.hint(__('Objectif(s) ISO 27001 clause 6.2 dont la progression a été examinée lors de cette revue.', 'grcmanager')),
+      'add_field_html': hints.hint(__('ISO 27001 clause 6.2 objective(s) whose progress was reviewed at this meeting.', 'grcmanager')),
    }) }}
 {% endblock %}

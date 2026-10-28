@@ -46,7 +46,7 @@ class PluginGrcmanagerNetworkFlow extends NetworkFlowBase
 
     public static function getTypeName($nb = 0)
     {
-        return _n('Flux réseau', 'Matrice des flux', $nb, 'grcmanager');
+        return _n('Network flow', 'Network flow matrix', $nb, 'grcmanager');
     }
 
     public static function getIcon()
@@ -69,14 +69,14 @@ class PluginGrcmanagerNetworkFlow extends NetworkFlowBase
     public static function getTypes(): array
     {
         return [
-            'internal'             => __('Flux interne', 'grcmanager'),
-            'internet_publication' => __('Publication sur Internet (entrant)', 'grcmanager'),
-            'internet_outbound'    => __('Accès à Internet (sortant)', 'grcmanager'),
-            'site_tunnel'          => __('Tunnel entre sites', 'grcmanager'),
-            'partner_tunnel'       => __('Tunnel vers un partenaire', 'grcmanager'),
-            'admin_access'         => __('Accès d\'administration', 'grcmanager'),
-            'backup'               => __('Sauvegarde', 'grcmanager'),
-            'other'                => __('Autre', 'grcmanager'),
+            'internal'             => __('Internal flow', 'grcmanager'),
+            'internet_publication' => __('Published on the Internet (inbound)', 'grcmanager'),
+            'internet_outbound'    => __('Internet access (outbound)', 'grcmanager'),
+            'site_tunnel'          => __('Site-to-site tunnel', 'grcmanager'),
+            'partner_tunnel'       => __('Tunnel to a partner', 'grcmanager'),
+            'admin_access'         => __('Administration access', 'grcmanager'),
+            'backup'               => __('Backup', 'grcmanager'),
+            'other'                => __('Other', 'grcmanager'),
         ];
     }
 
@@ -91,21 +91,21 @@ class PluginGrcmanagerNetworkFlow extends NetworkFlowBase
             'tcp_udp' => 'TCP + UDP',
             'icmp'    => 'ICMP',
             'ipsec'   => 'IPsec',
-            'any'     => __('Tous', 'grcmanager'),
+            'any'     => __('All', 'grcmanager'),
         ];
     }
 
     public static function getCheckLabel(string $check): string
     {
         return match ($check) {
-            NetworkFlowRules::CHECK_NO_JUSTIFICATION  => __('Sans justification', 'grcmanager'),
-            NetworkFlowRules::CHECK_NO_OWNER          => __('Sans propriétaire', 'grcmanager'),
-            NetworkFlowRules::CHECK_EXPIRED           => __('Expiré', 'grcmanager'),
-            NetworkFlowRules::CHECK_EXPIRING          => __('Expire bientôt', 'grcmanager'),
-            NetworkFlowRules::CHECK_ADMIN_EXPOSED     => __('Administration exposée sur Internet', 'grcmanager'),
-            NetworkFlowRules::CHECK_ANY_PORT_INTERNET => __('Tous les ports ouverts depuis Internet', 'grcmanager'),
+            NetworkFlowRules::CHECK_NO_JUSTIFICATION  => __('No justification', 'grcmanager'),
+            NetworkFlowRules::CHECK_NO_OWNER          => __('No owner', 'grcmanager'),
+            NetworkFlowRules::CHECK_EXPIRED           => _x('masculine', 'Expired', 'grcmanager'),
+            NetworkFlowRules::CHECK_EXPIRING          => __('Expires soon', 'grcmanager'),
+            NetworkFlowRules::CHECK_ADMIN_EXPOSED     => __('Administration exposed on the Internet', 'grcmanager'),
+            NetworkFlowRules::CHECK_ANY_PORT_INTERNET => __('All ports open from the Internet', 'grcmanager'),
             NetworkFlowRules::CHECK_PARTNER_OVERLAP   => __(
-                'Réseau partenaire en conflit avec un réseau interne',
+                'Partner network conflicting with an internal network',
                 'grcmanager'
             ),
             default                                   => $check,
@@ -163,8 +163,8 @@ class PluginGrcmanagerNetworkFlow extends NetworkFlowBase
             $ports = NetworkFlowRules::normalizePorts($input['ports']);
             if ($ports === null) {
                 Session::addMessageAfterRedirect(htmlescape(__(
-                    'Ports invalides : saisissez des numéros ou des plages séparés par des virgules (ex. 80, 443, '
-                        . '8000-8100), ou laissez vide pour tous les ports.',
+                    'Invalid ports: enter numbers or ranges separated by commas (e.g. 80, 443, 8000-8100), or leave '
+                        . 'empty for all ports.',
                     'grcmanager'
                 )), false, ERROR);
                 return false;
@@ -185,7 +185,7 @@ class PluginGrcmanagerNetworkFlow extends NetworkFlowBase
         $destinationItem = (int) ($input['destination_items_id'] ?? $this->fields['destination_items_id'] ?? 0);
         if (($source === '' && $sourceItem === 0) || ($destination === '' && $destinationItem === 0)) {
             Session::addMessageAfterRedirect(htmlescape(__(
-                'Indiquez la source et la destination du flux : un actif GLPI, ou un réseau, une zone ou une adresse.',
+                'Enter the source and destination of the flow: a GLPI asset, or a network, zone or address.',
                 'grcmanager'
             )), false, ERROR);
             return false;
@@ -219,7 +219,7 @@ class PluginGrcmanagerNetworkFlow extends NetworkFlowBase
         }
         $item = in_array($itemtype, self::getEndpointItemtypes(), true) ? getItemForItemtype($itemtype) : false;
         if (!$item instanceof CommonDBTM || !$item->getFromDB($itemsId) || !$item->can($itemsId, READ)) {
-            $message = __('Actif introuvable ou non autorisé.', 'grcmanager');
+            $message = __('Asset not found or not allowed.', 'grcmanager');
             Session::addMessageAfterRedirect(htmlescape($message), false, ERROR);
             return false;
         }
@@ -232,7 +232,7 @@ class PluginGrcmanagerNetworkFlow extends NetworkFlowBase
     {
         $tab = [['id' => 'common', 'name' => self::getTypeName(1)]];
         $table = $this->getTable();
-        $tab[] = ['id' => 1, 'table' => $table, 'field' => 'name', 'name' => __('Nom', 'grcmanager'),
+        $tab[] = ['id' => 1, 'table' => $table, 'field' => 'name', 'name' => __('Name', 'grcmanager'),
             'datatype' => 'itemlink', 'itemtype' => self::class];
         $tab[] = ['id' => 2, 'table' => $table, 'field' => 'flow_type', 'name' => __('Type', 'grcmanager'),
             'datatype' => 'specific'];
@@ -241,23 +241,23 @@ class PluginGrcmanagerNetworkFlow extends NetworkFlowBase
         $tab[] = ['id' => 4, 'table' => $table, 'field' => 'destination_label',
             'name' => __('Destination', 'grcmanager'), 'datatype' => 'specific',
             'additionalfields' => ['destination_itemtype', 'destination_items_id']];
-        $tab[] = ['id' => 5, 'table' => $table, 'field' => 'protocol', 'name' => __('Protocole', 'grcmanager'),
+        $tab[] = ['id' => 5, 'table' => $table, 'field' => 'protocol', 'name' => __('Protocol', 'grcmanager'),
             'datatype' => 'specific'];
         $tab[] = ['id' => 6, 'table' => $table, 'field' => 'ports', 'name' => __('Ports', 'grcmanager'),
             'datatype' => 'specific'];
         $tab[] = ['id' => 7, 'table' => $table, 'field' => 'justification',
             'name' => __('Justification', 'grcmanager'), 'datatype' => 'text'];
-        $tab[] = ['id' => 8, 'table' => 'glpi_users', 'field' => 'name', 'name' => __('Propriétaire', 'grcmanager'),
+        $tab[] = ['id' => 8, 'table' => 'glpi_users', 'field' => 'name', 'name' => _x('owner', 'Owner', 'grcmanager'),
             'datatype' => 'dropdown', 'right' => 'all'];
-        $tab[] = ['id' => 9, 'table' => $table, 'field' => 'date_end', 'name' => __('Date de fin', 'grcmanager'),
+        $tab[] = ['id' => 9, 'table' => $table, 'field' => 'date_end', 'name' => __('End date', 'grcmanager'),
             'datatype' => 'date'];
-        $tab[] = ['id' => 10, 'table' => $table, 'field' => 'is_active', 'name' => __('Actif', 'grcmanager'),
+        $tab[] = ['id' => 10, 'table' => $table, 'field' => 'is_active', 'name' => __('Active', 'grcmanager'),
             'datatype' => 'bool'];
         // Contrôles calculés à l'affichage à partir des champs de la ligne (non triables).
-        $tab[] = ['id' => 11, 'table' => $table, 'field' => 'id', 'name' => __('Contrôles', 'grcmanager'),
+        $tab[] = ['id' => 11, 'table' => $table, 'field' => 'id', 'name' => __('Checks', 'grcmanager'),
             'datatype' => 'specific', 'nosearch' => true, 'nosort' => true, 'massiveaction' => false,
             'additionalfields' => ['flow_type', 'ports', 'justification', 'users_id', 'date_end', 'is_active']];
-        $tab[] = ['id' => 12, 'table' => $table, 'field' => 'comment', 'name' => __('Commentaires', 'grcmanager'),
+        $tab[] = ['id' => 12, 'table' => $table, 'field' => 'comment', 'name' => __('Comments', 'grcmanager'),
             'datatype' => 'text'];
         $tab[] = ['id' => 13, 'table' => $table, 'field' => 'id', 'name' => __('ID'), 'datatype' => 'itemlink',
             'itemtype' => self::class];
@@ -440,7 +440,7 @@ class PluginGrcmanagerNetworkFlow extends NetworkFlowBase
         }
         TemplateRenderer::getInstance()->display('@grcmanager/network_flow_summary.html.twig', [
             'active'       => $active,
-            'active_label' => sprintf(_n('%d flux actif', '%d flux actifs', $active, 'grcmanager'), $active),
+            'active_label' => sprintf(_n('%d active flow', '%d active flows', $active, 'grcmanager'), $active),
             'checks'       => array_values($byCheck),
             'can_import'   => Session::haveRight(self::RIGHTNAME, CREATE),
             'import_url'   => self::getImportURL(),
@@ -496,7 +496,7 @@ class PluginGrcmanagerNetworkFlow extends NetworkFlowBase
             $item = getItemForItemtype($itemtype);
             $parts[] = $item instanceof CommonDBTM && $item->can($itemsId, READ)
                 ? $item::getTypeName(1) . ' ' . $item->getName()
-                : __('Actif non visible', 'grcmanager');
+                : __('Asset not visible', 'grcmanager');
         }
         if ($label !== '') {
             $parts[] = $label;
@@ -584,7 +584,7 @@ class PluginGrcmanagerNetworkFlow extends NetworkFlowBase
 
     public static function portsLabel(string $ports): string
     {
-        return $ports === 'any' || $ports === '' ? __('Tous', 'grcmanager') : str_replace(',', ', ', $ports);
+        return $ports === 'any' || $ports === '' ? __('All', 'grcmanager') : str_replace(',', ', ', $ports);
     }
 
     public static function getImportURL(): string
@@ -620,7 +620,7 @@ class PluginGrcmanagerNetworkFlow extends NetworkFlowBase
                     $usersId = $user->getID();
                 } else {
                     $result['errors'][] = ['line' => $row['line'], 'message' => sprintf(
-                        __('Propriétaire « %s » introuvable : flux importé sans propriétaire.', 'grcmanager'),
+                        __('Owner "%s" not found: flow imported without an owner.', 'grcmanager'),
                         $row['owner']
                     )];
                 }
@@ -660,13 +660,13 @@ class PluginGrcmanagerNetworkFlow extends NetworkFlowBase
     private static function csvErrorLabel(string $code): string
     {
         return match ($code) {
-            'missing_columns'  => __('En-tête sans colonnes « source » et « destination ».', 'grcmanager'),
-            'empty'            => __('Fichier vide.', 'grcmanager'),
-            'missing_endpoint' => __('Source ou destination manquante : ligne ignorée.', 'grcmanager'),
-            'invalid_ports'    => __('Ports invalides : ligne ignorée.', 'grcmanager'),
-            'invalid_date'     => __('Date de fin invalide : ligne ignorée.', 'grcmanager'),
-            'not_pfsense'      => __('Fichier XML qui n\'est pas une sauvegarde pfSense (config.xml).', 'grcmanager'),
-            'no_rule'          => __('Aucune règle de filtrage dans la sauvegarde pfSense.', 'grcmanager'),
+            'missing_columns'  => __('Header without "source" and "destination" columns.', 'grcmanager'),
+            'empty'            => __('Empty file.', 'grcmanager'),
+            'missing_endpoint' => __('Missing source or destination: line skipped.', 'grcmanager'),
+            'invalid_ports'    => __('Invalid ports: line skipped.', 'grcmanager'),
+            'invalid_date'     => __('Invalid end date: line skipped.', 'grcmanager'),
+            'not_pfsense'      => __('XML file that is not a pfSense backup (config.xml).', 'grcmanager'),
+            'no_rule'          => __('No filter rule in the pfSense backup.', 'grcmanager'),
             default            => $code,
         };
     }

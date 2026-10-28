@@ -62,13 +62,13 @@ if (isset($_POST['save_decisions'])) {
         }
     }
     if ($saved > 0) {
-        Session::addMessageAfterRedirect(sprintf(__('%d décision(s) enregistrée(s).', 'grcmanager'), $saved));
+        Session::addMessageAfterRedirect(sprintf(__('%d decision(s) saved.', 'grcmanager'), $saved));
     }
     Html::back();
 }
 
 Html::header(
-    __('Mes revues d\'accès', 'grcmanager'),
+    __('My access reviews', 'grcmanager'),
     PluginGrcmanagerAccessReview::getMineURL(),
     'grcmanager',
     PluginGrcmanagerAccessReview::class

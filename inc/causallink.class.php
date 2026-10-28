@@ -44,7 +44,7 @@ class PluginGrcmanagerCausalLink extends CausalLinkBase
 
     public static function getTypeName($nb = 0)
     {
-        return __('Effet domino', 'grcmanager');
+        return __('Domino effect', 'grcmanager');
     }
 
     public static function getIcon()
@@ -116,7 +116,7 @@ class PluginGrcmanagerCausalLink extends CausalLinkBase
         [$itemtype, $id] = explode(':', $key, 2) + [1 => '0'];
         $node = [
             'key'     => $key,
-            'label'   => __('Élément non visible', 'grcmanager'),
+            'label'   => __('Item not visible', 'grcmanager'),
             'kind'    => 'hidden',
             'level'   => '',
             'url'     => '',
@@ -221,12 +221,18 @@ class PluginGrcmanagerCausalLink extends CausalLinkBase
             $input['items_id_' . $side] = (int) $id;
         }
         if (in_array([$cause, $effect], self::allEdges(), true)) {
-            Session::addMessageAfterRedirect(htmlescape(__('Ce lien existe déjà.', 'grcmanager')), false, WARNING);
+            Session::addMessageAfterRedirect(htmlescape(__(
+                'This link already exists.',
+                'grcmanager'
+            )), false, WARNING);
             return false;
         }
         if (CausalGraph::wouldCreateCycle(self::allEdges(), $cause, $effect)) {
             Session::addMessageAfterRedirect(
-                htmlescape(__('Ce lien fermerait une boucle : la conséquence mène déjà à la cause.', 'grcmanager')),
+                htmlescape(__(
+                    'This link would close a loop: the consequence already leads to the cause.',
+                    'grcmanager'
+                )),
                 false,
                 ERROR
             );

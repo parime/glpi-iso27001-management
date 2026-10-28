@@ -31,10 +31,10 @@ if (!$incident->canUpdateItem()) {
 $documentsId = PluginGrcmanagerSecurityIncidentPostMortem::archive($incident);
 if ($documentsId > 0) {
     Session::addMessageAfterRedirect(htmlescape(__(
-        'Rapport post-incident archivé dans les documents de l\'incident.',
+        'Post-incident report archived in the incident documents.',
         'grcmanager'
     )));
     Html::redirect(Document::getFormURLWithID($documentsId));
 }
-Session::addMessageAfterRedirect(htmlescape(__('Le rapport n\'a pas pu être généré.', 'grcmanager')), false, ERROR);
+Session::addMessageAfterRedirect(htmlescape(__('The report could not be generated.', 'grcmanager')), false, ERROR);
 Html::back();

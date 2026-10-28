@@ -49,7 +49,7 @@ class PluginGrcmanagerSoaVersion extends SoaVersionBase
 
     public static function getTypeName($nb = 0)
     {
-        return _n('Version approuvée de la SoA', 'Versions approuvées de la SoA', $nb, 'grcmanager');
+        return _n('Approved SoA version', 'Approved SoA versions', $nb, 'grcmanager');
     }
 
     public static function getIcon()
@@ -80,10 +80,10 @@ class PluginGrcmanagerSoaVersion extends SoaVersionBase
     public static function getStatuses(): array
     {
         return [
-            SoaApprovalLogic::VERSION_PENDING  => __('En attente d\'approbation', 'grcmanager'),
-            SoaApprovalLogic::VERSION_APPROVED => __('Approuvée', 'grcmanager'),
-            SoaApprovalLogic::VERSION_REJECTED => __('Refusée', 'grcmanager'),
-            SoaApprovalLogic::VERSION_OBSOLETE => __('Obsolète', 'grcmanager'),
+            SoaApprovalLogic::VERSION_PENDING  => __('Awaiting approval', 'grcmanager'),
+            SoaApprovalLogic::VERSION_APPROVED => __('Approved', 'grcmanager'),
+            SoaApprovalLogic::VERSION_REJECTED => __('Rejected', 'grcmanager'),
+            SoaApprovalLogic::VERSION_OBSOLETE => __('Obsolete', 'grcmanager'),
         ];
     }
 
@@ -93,9 +93,9 @@ class PluginGrcmanagerSoaVersion extends SoaVersionBase
     public static function getAnswerLabels(): array
     {
         return [
-            SoaApprovalLogic::ANSWER_PENDING  => __('En attente', 'grcmanager'),
-            SoaApprovalLogic::ANSWER_APPROVED => __('Approuvé', 'grcmanager'),
-            SoaApprovalLogic::ANSWER_REJECTED => __('Refusé', 'grcmanager'),
+            SoaApprovalLogic::ANSWER_PENDING  => __('Pending', 'grcmanager'),
+            SoaApprovalLogic::ANSWER_APPROVED => _x('masculine', 'Approved', 'grcmanager'),
+            SoaApprovalLogic::ANSWER_REJECTED => _x('masculine', 'Rejected', 'grcmanager'),
         ];
     }
 
@@ -208,16 +208,13 @@ class PluginGrcmanagerSoaVersion extends SoaVersionBase
         if (in_array($requesterId, $approverIds, true)) {
             $approverIds = array_values(array_diff($approverIds, [$requesterId]));
             Session::addMessageAfterRedirect(
-                __(
-                    'Vous ne pouvez pas approuver votre propre demande : vous avez été retiré des approbateurs.',
-                    'grcmanager'
-                ),
+                __('You cannot approve your own request: you have been removed from the approvers.', 'grcmanager'),
                 false,
                 WARNING
             );
         }
         if ($approverIds === []) {
-            Session::addMessageAfterRedirect(__('Choisissez au moins un approbateur.', 'grcmanager'), false, ERROR);
+            Session::addMessageAfterRedirect(__('Choose at least one approver.', 'grcmanager'), false, ERROR);
 
             return 0;
         }
@@ -329,7 +326,7 @@ class PluginGrcmanagerSoaVersion extends SoaVersionBase
         $messagesBefore = $_SESSION['MESSAGE_AFTER_REDIRECT'] ?? [];
         $document = new Document();
         $documentsId = (int) $document->add([
-            'name'          => sprintf(__('Déclaration d\'Applicabilité - version %d', 'grcmanager'), $versionNumber),
+            'name'          => sprintf(__('Statement of Applicability - version %d', 'grcmanager'), $versionNumber),
             // Lisible avec le seul droit de lire la SoA (PluginGrcmanagerRestrictedDocument), jamais
             // avec le droit Documents des sous-entités (trouvé par le contrôle commun,
             // parime/glpi-plugin-security).

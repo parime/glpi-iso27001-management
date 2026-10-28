@@ -58,7 +58,7 @@ class PluginGrcmanagerTraining extends TrainingBase
 
     public static function getTypeName($nb = 0)
     {
-        return _n('Formation', 'Formations', $nb, 'grcmanager');
+        return _n('Training', 'Trainings', $nb, 'grcmanager');
     }
 
     public static function getIcon()
@@ -72,9 +72,9 @@ class PluginGrcmanagerTraining extends TrainingBase
     public static function getFormats(): array
     {
         return [
-            'in_person' => __('Présentiel', 'grcmanager'),
+            'in_person' => __('In person', 'grcmanager'),
             'e_learning' => __('E-learning', 'grcmanager'),
-            'other' => __('Autre', 'grcmanager'),
+            'other' => __('Other', 'grcmanager'),
         ];
     }
 
@@ -84,9 +84,9 @@ class PluginGrcmanagerTraining extends TrainingBase
     public static function getCompletionStatuses(): array
     {
         return [
-            'pending'   => __('En attente', 'grcmanager'),
-            'completed' => __('Terminée', 'grcmanager'),
-            'exempted'  => __('Dispensé', 'grcmanager'),
+            'pending'   => __('Pending', 'grcmanager'),
+            'completed' => _x('feminine', 'Completed', 'grcmanager'),
+            'exempted'  => __('Exempted', 'grcmanager'),
         ];
     }
 
@@ -103,9 +103,9 @@ class PluginGrcmanagerTraining extends TrainingBase
     public static function getAssessmentResults(): array
     {
         return [
-            'not_applicable' => __('Sans évaluation', 'grcmanager'),
-            'passed'         => __('Réussie', 'grcmanager'),
-            'failed'         => __('Échouée', 'grcmanager'),
+            'not_applicable' => _x('no assessment', 'Not assessed', 'grcmanager'),
+            'passed'         => __('Passed', 'grcmanager'),
+            'failed'         => __('Failed', 'grcmanager'),
         ];
     }
 
@@ -198,7 +198,7 @@ class PluginGrcmanagerTraining extends TrainingBase
     {
         global $DB;
 
-        $trainings = [0 => __('Aucune (formation principale)', 'grcmanager')];
+        $trainings = [0 => __('None (main training)', 'grcmanager')];
         foreach (
             $DB->request([
                 'SELECT' => ['id', 'title'],
@@ -517,7 +517,7 @@ class PluginGrcmanagerTraining extends TrainingBase
             'id'       => 1,
             'table'    => $this->getTable(),
             'field'    => 'title',
-            'name'     => __('Titre', 'grcmanager'),
+            'name'     => __('Title', 'grcmanager'),
             'datatype' => 'itemlink',
             'itemtype' => self::class,
         ];
@@ -534,7 +534,7 @@ class PluginGrcmanagerTraining extends TrainingBase
             'id'       => 3,
             'table'    => $this->getTable(),
             'field'    => 'target_audience',
-            'name'     => __('Public cible', 'grcmanager'),
+            'name'     => __('Target audience', 'grcmanager'),
             'datatype' => 'string',
         ];
 
@@ -542,7 +542,7 @@ class PluginGrcmanagerTraining extends TrainingBase
             'id'       => 4,
             'table'    => $this->getTable(),
             'field'    => 'date_delivered',
-            'name'     => __('Date de réalisation', 'grcmanager'),
+            'name'     => __('Completion date', 'grcmanager'),
             'datatype' => 'date',
         ];
 
@@ -550,7 +550,7 @@ class PluginGrcmanagerTraining extends TrainingBase
             'id'       => 5,
             'table'    => $this->getTable(),
             'field'    => 'is_mandatory',
-            'name'     => __('Obligatoire', 'grcmanager'),
+            'name'     => __('Mandatory', 'grcmanager'),
             'datatype' => 'bool',
         ];
 
@@ -558,7 +558,7 @@ class PluginGrcmanagerTraining extends TrainingBase
             'id'       => 6,
             'table'    => $this->getTable(),
             'field'    => 'renewal_period_months',
-            'name'     => __('Renouvellement (mois)', 'grcmanager'),
+            'name'     => __('Renewal (months)', 'grcmanager'),
             'datatype' => 'number',
         ];
 
@@ -587,7 +587,7 @@ class PluginGrcmanagerTraining extends TrainingBase
             'table'     => 'glpi_users',
             'field'     => 'name',
             'linkfield' => 'users_id_trainer',
-            'name'      => __('Formateur', 'grcmanager'),
+            'name'      => __('Trainer', 'grcmanager'),
             'datatype'  => 'dropdown',
             'right'     => 'all',
         ];
@@ -595,7 +595,7 @@ class PluginGrcmanagerTraining extends TrainingBase
             'id'       => 10,
             'table'    => $this->getTable(),
             'field'    => 'location',
-            'name'     => __('Lieu ou lien', 'grcmanager'),
+            'name'     => __('Location or link', 'grcmanager'),
             'datatype' => 'string',
         ];
 
@@ -641,9 +641,9 @@ class PluginGrcmanagerTraining extends TrainingBase
     private static function formatBadge(?string $value): string
     {
         $map = [
-            'in_person'  => ['bg-blue-lt', 'ti-users', __('Présentiel', 'grcmanager')],
+            'in_person'  => ['bg-blue-lt', 'ti-users', __('In person', 'grcmanager')],
             'e_learning' => ['bg-azure-lt', 'ti-device-laptop', __('E-learning', 'grcmanager')],
-            'other'      => ['bg-secondary-lt', 'ti-dots', __('Autre', 'grcmanager')],
+            'other'      => ['bg-secondary-lt', 'ti-dots', __('Other', 'grcmanager')],
         ];
 
         [$class, $icon, $label] = $map[$value] ?? ['bg-secondary-lt', 'ti-help', (string) $value];
@@ -706,14 +706,17 @@ class PluginGrcmanagerTraining extends TrainingBase
                     ? TrainingScore::format($p['score'], $maxScore)
                     : '',
                 'result_label' => $p['assessment_result'] === 'failed'
-                    ? __('À repasser', 'grcmanager')
+                    ? __('To retake', 'grcmanager')
                     : ($results[$p['assessment_result']] ?? ''),
             ];
         }
 
         return TemplateRenderer::getInstance()->render('@grcmanager/pdf/training_session_report.html.twig', [
-            'report_title'       => sprintf(__('Session de formation : %s', 'grcmanager'), $training->fields['title']),
-            'generated_at_label' => sprintf(__('Généré le %s', 'grcmanager'), Html::convDateTime(date('Y-m-d H:i:s'))),
+            'report_title'       => sprintf(__('Training session: %s', 'grcmanager'), $training->fields['title']),
+            'generated_at_label' => sprintf(__(
+                'Generated on %s',
+                'grcmanager'
+            ), Html::convDateTime(date('Y-m-d H:i:s'))),
             'training'           => $training->fields,
             'format'             => self::getFormats()[$training->fields['format']] ?? '',
             'date_delivered'     => Html::convDate($training->fields['date_delivered']),
@@ -742,7 +745,7 @@ class PluginGrcmanagerTraining extends TrainingBase
             foreach ($copied as $field) {
                 $this->fields[$field] = $source->fields[$field];
             }
-            $this->fields['title'] = sprintf(__('%s - rattrapage', 'grcmanager'), $source->fields['title']);
+            $this->fields['title'] = sprintf(__('%s - retake', 'grcmanager'), $source->fields['title']);
             $participantIds = self::getRetakeParticipantIds($retakeOf);
             $this->fields['plugin_grcmanager_trainings_id'] = self::mainTrainingId($retakeOf);
         }

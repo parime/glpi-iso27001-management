@@ -37,17 +37,14 @@ if (isset($_POST['confirm'])) {
     $cpe = trim((string) ($_POST['cpe_manual'] ?? '')) ?: (string) ($_POST['cpe'] ?? '');
     $canonicalId = PluginGrcmanagerParkVulnerability::confirm($name, $cpe);
     if ($canonicalId === null) {
-        $message = __(
-            'Choisissez une suggestion ou saisissez un CPE 2.3 valide (cpe:2.3:a:éditeur:produit).',
-            'grcmanager'
-        );
+        $message = __('Pick a suggestion or enter a valid CPE 2.3 (cpe:2.3:a:vendor:product).', 'grcmanager');
         Session::addMessageAfterRedirect(htmlescape($message), false, ERROR);
         Html::redirect($back . '&suggest=' . rawurlencode($name));
     }
-    $message = sprintf(__('« %s » est maintenant surveillé.', 'grcmanager'), $name);
+    $message = sprintf(__('"%s" is now watched.', 'grcmanager'), $name);
     if (PluginGrcmanagerParkVulnerability::checkFirstVersion($canonicalId)) {
         $message .= ' ' . __(
-            'Sa version la plus installée vient d\'être vérifiée ; les autres le seront par la tâche planifiée.',
+            'Its most installed version has just been checked; the automatic action will check the others.',
             'grcmanager'
         );
     }
@@ -71,7 +68,7 @@ if ($suggestFor !== '' && ParkVulnerabilitySync::isEnabled()) {
 }
 
 Html::header(
-    __('Logiciels à surveiller', 'grcmanager'),
+    __('Software to watch', 'grcmanager'),
     PluginGrcmanagerParkVulnerability::getSearchURL(),
     'grcmanager',
     PluginGrcmanagerComplianceAudit::class,

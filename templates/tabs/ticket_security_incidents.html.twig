@@ -3,22 +3,22 @@
    <div class="card-body">
       {% if rows is empty %}
          <p class="text-muted mb-3">
-            <i class="ti ti-shield-lock me-1"></i>{{ __('Ce ticket n\'est lié à aucun incident de sécurité.', 'grcmanager') }}
+            <i class="ti ti-shield-lock me-1"></i>{{ __('This ticket is not linked to any security incident.', 'grcmanager') }}
          </p>
          {% if can_create %}
             <form method="post" action="{{ action }}">
                <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
                <input type="hidden" name="tickets_id" value="{{ tickets_id }}">
                <button type="submit" name="qualify" value="1" class="btn btn-danger">
-                  <i class="ti ti-shield-plus me-1"></i>{{ __('Qualifier en incident de sécurité', 'grcmanager') }}
+                  <i class="ti ti-shield-plus me-1"></i>{{ __('Qualify as a security incident', 'grcmanager') }}
                </button>
-               <p class="form-text mb-0 mt-2">{{ __('Crée un incident de sécurité à partir de ce ticket (titre, description, date, demandeur, éléments liés) et les relie. Le ticket n\'est pas modifié : il garde son statut et son attribution, et reçoit un suivi privé avec le lien.', 'grcmanager') }}</p>
+               <p class="form-text mb-0 mt-2">{{ __('Creates a security incident from this ticket (title, description, date, requester, linked items) and links them. The ticket is not changed: it keeps its status and assignment, and receives a private follow-up with the link.', 'grcmanager') }}</p>
             </form>
          {% endif %}
       {% else %}
          <table class="table table-sm table-vcenter mb-0">
             <thead>
-               <tr><th>{{ __('Incident de sécurité', 'grcmanager') }}</th><th>{{ __('Statut') }}</th><th>{{ __('Sévérité', 'grcmanager') }}</th></tr>
+               <tr><th>{{ __('Security incident', 'grcmanager') }}</th><th>{{ __('Statut') }}</th><th>{{ __('Severity', 'grcmanager') }}</th></tr>
             </thead>
             <tbody>
                {% for r in rows %}

@@ -45,7 +45,7 @@ class PluginGrcmanagerCanonicalProduct extends CanonicalProductBase
 
     public static function getTypeName($nb = 0)
     {
-        return _n('Produit (corrélation CVE)', 'Produits (corrélation CVE)', $nb, 'grcmanager');
+        return _n('Product (CVE correlation)', 'Products (CVE correlation)', $nb, 'grcmanager');
     }
 
     public static function getIcon()
@@ -81,7 +81,7 @@ class PluginGrcmanagerCanonicalProduct extends CanonicalProductBase
 
         if ($manufacturer === '' || $product === '') {
             Session::addMessageAfterRedirect(
-                __('L\'éditeur/fabricant et le produit sont obligatoires.', 'grcmanager'),
+                __('Vendor/manufacturer and product are both required.', 'grcmanager'),
                 false,
                 ERROR
             );
@@ -99,7 +99,7 @@ class PluginGrcmanagerCanonicalProduct extends CanonicalProductBase
         if ($exists) {
             Session::addMessageAfterRedirect(
                 sprintf(
-                    __('Un produit "%s / %s" existe déjà.', 'grcmanager'),
+                    __('A product "%s / %s" already exists.', 'grcmanager'),
                     $manufacturer,
                     $product
                 ),
@@ -129,7 +129,7 @@ class PluginGrcmanagerCanonicalProduct extends CanonicalProductBase
             'id'       => 1,
             'table'    => $this->getTable(),
             'field'    => 'manufacturer',
-            'name'     => __('Éditeur / fabricant', 'grcmanager'),
+            'name'     => __('Vendor / manufacturer', 'grcmanager'),
             'datatype' => 'itemlink',
             'itemtype' => self::class,
         ];
@@ -138,7 +138,7 @@ class PluginGrcmanagerCanonicalProduct extends CanonicalProductBase
             'id'       => 2,
             'table'    => $this->getTable(),
             'field'    => 'product',
-            'name'     => __('Produit', 'grcmanager'),
+            'name'     => __('Product', 'grcmanager'),
             'datatype' => 'string',
         ];
 
@@ -179,18 +179,18 @@ class PluginGrcmanagerCanonicalProduct extends CanonicalProductBase
                 // Plusieurs CPE peuvent pointer vers le même produit canonique (le NVD référence
                 // souvent le même logiciel avec des identifiants légèrement différents).
                 [
-                    'title'       => __('Identifiants CPE', 'grcmanager'),
+                    'title'       => __('CPE identifiers', 'grcmanager'),
                     'help'        => __(
-                        'Un identifiant CPE tel que rapporté par le NVD pour ce produit (ex. '
-                        . '"cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*"). Plusieurs identifiants peuvent pointer '
-                        . 'vers le même produit.',
+                        'A CPE identifier as reported by the NVD for this product (e.g. '
+                            . '"cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*"). Several identifiers can point to the same '
+                            . 'product.',
                         'grcmanager'
                     ),
                     'url'         => $front . 'cpereference.form.php',
                     'field'       => 'cpe',
                     'placeholder' => 'cpe:2.3:a:vendor:product:*:*:*:*:*:*:*:*',
                     'code'        => true,
-                    'empty'       => __('Aucun identifiant CPE pour l\'instant.', 'grcmanager'),
+                    'empty'       => __('No CPE identifier yet.', 'grcmanager'),
                     'rows'        => array_map(
                         static fn (array $row): array => ['id' => (int) $row['id'], 'value' => (string) $row['cpe']],
                         PluginGrcmanagerCpeReference::getForCanonicalProduct((int) $ID)
@@ -199,18 +199,18 @@ class PluginGrcmanagerCanonicalProduct extends CanonicalProductBase
                 // Le nom EXACT tel qu'il apparaît dans l'inventaire (glpi_softwares.name), jamais
                 // une correspondance approximative : voir Services\Cve\InventoryCveMatcher.
                 [
-                    'title'       => __('Alias de logiciels (parc GLPI)', 'grcmanager'),
+                    'title'       => __('Software aliases (GLPI inventory)', 'grcmanager'),
                     'help'        => __(
-                        'Le nom exact tel qu\'il apparaît dans votre inventaire GLPI (fiche Logiciel), pour que '
-                        . 'la corrélation puisse reconnaître ce produit sur vos actifs. Aucune correspondance '
-                        . 'approximative n\'est faite automatiquement.',
+                        'The exact name as it appears in your GLPI inventory (Software record), so the correlation '
+                            . 'can recognize this product on your assets. No approximate matching is ever done '
+                            . 'automatically.',
                         'grcmanager'
                     ),
                     'url'         => $front . 'productalias.form.php',
                     'field'       => 'alias',
                     'placeholder' => 'ex. Apache Log4j',
                     'code'        => false,
-                    'empty'       => __('Aucun alias pour l\'instant.', 'grcmanager'),
+                    'empty'       => __('No alias yet.', 'grcmanager'),
                     'rows'        => array_map(
                         static fn (array $row): array => ['id' => (int) $row['id'], 'value' => (string) $row['alias']],
                         PluginGrcmanagerProductAlias::getForCanonicalProduct((int) $ID)

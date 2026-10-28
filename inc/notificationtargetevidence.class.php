@@ -29,14 +29,14 @@ class PluginGrcmanagerNotificationTargetEvidence extends NotificationTarget
     public function getEvents()
     {
         return [
-            PluginGrcmanagerEvidence::EXPIRING_EVENT => __('Preuve à renouveler', 'grcmanager'),
+            PluginGrcmanagerEvidence::EXPIRING_EVENT => __('Evidence to renew', 'grcmanager'),
         ];
     }
 
     #[Override]
     public function addAdditionalTargets($event = '')
     {
-        $this->addTarget(self::TARGET_RESPONSIBLE, __('Responsable du renouvellement', 'grcmanager'));
+        $this->addTarget(self::TARGET_RESPONSIBLE, __('Renewal owner', 'grcmanager'));
     }
 
     #[Override]
@@ -102,8 +102,8 @@ class PluginGrcmanagerNotificationTargetEvidence extends NotificationTarget
         $tags = [
             'evidence.action'     => _n('Event', 'Events', 1),
             'evidence.document'   => __('Document', 'grcmanager'),
-            'evidence.item'       => __('Élément', 'grcmanager'),
-            'evidence.validuntil' => __('Valide jusqu\'au', 'grcmanager'),
+            'evidence.item'       => __('Item', 'grcmanager'),
+            'evidence.validuntil' => __('Valid until', 'grcmanager'),
             'evidence.url'        => __('URL'),
         ];
         foreach ($tags as $tag => $label) {

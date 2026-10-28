@@ -71,8 +71,8 @@ class PluginGrcmanagerComplianceObligation extends ComplianceObligationBase
     public static function getTypeName($nb = 0)
     {
         return _n(
-            'Obligation légale, réglementaire ou contractuelle',
-            'Obligations légales, réglementaires et contractuelles',
+            'Legal, regulatory or contractual obligation',
+            'Legal, regulatory and contractual obligations',
             $nb,
             'grcmanager'
         );
@@ -89,9 +89,9 @@ class PluginGrcmanagerComplianceObligation extends ComplianceObligationBase
     public static function getTypes(): array
     {
         return [
-            'legal'       => __('Légale', 'grcmanager'),
-            'regulatory'  => __('Réglementaire', 'grcmanager'),
-            'contractual' => __('Contractuelle', 'grcmanager'),
+            'legal'       => __('Legal', 'grcmanager'),
+            'regulatory'  => __('Regulatory', 'grcmanager'),
+            'contractual' => __('Contractual', 'grcmanager'),
         ];
     }
 
@@ -101,10 +101,10 @@ class PluginGrcmanagerComplianceObligation extends ComplianceObligationBase
     public static function getComplianceStatuses(): array
     {
         return [
-            'compliant'           => __('Conforme', 'grcmanager'),
-            'partially_compliant' => __('Partiellement conforme', 'grcmanager'),
-            'non_compliant'       => __('Non conforme', 'grcmanager'),
-            'not_assessed'        => __('Non évaluée', 'grcmanager'),
+            'compliant'           => __('Compliant', 'grcmanager'),
+            'partially_compliant' => __('Partially compliant', 'grcmanager'),
+            'non_compliant'       => __('Non-compliant', 'grcmanager'),
+            'not_assessed'        => __('Not assessed', 'grcmanager'),
         ];
     }
 
@@ -173,7 +173,7 @@ class PluginGrcmanagerComplianceObligation extends ComplianceObligationBase
             'id'       => 1,
             'table'    => $this->getTable(),
             'field'    => 'title',
-            'name'     => __('Titre', 'grcmanager'),
+            'name'     => __('Title', 'grcmanager'),
             'datatype' => 'itemlink',
             'itemtype' => self::class,
         ];
@@ -190,7 +190,7 @@ class PluginGrcmanagerComplianceObligation extends ComplianceObligationBase
             'id'       => 3,
             'table'    => $this->getTable(),
             'field'    => 'reference_source',
-            'name'     => __('Référence / source', 'grcmanager'),
+            'name'     => __('Reference / source', 'grcmanager'),
             'datatype' => 'string',
         ];
 
@@ -198,7 +198,7 @@ class PluginGrcmanagerComplianceObligation extends ComplianceObligationBase
             'id'       => 4,
             'table'    => $this->getTable(),
             'field'    => 'compliance_status',
-            'name'     => __('Statut de conformité', 'grcmanager'),
+            'name'     => __('Compliance status', 'grcmanager'),
             'datatype' => 'specific',
         ];
 
@@ -206,7 +206,7 @@ class PluginGrcmanagerComplianceObligation extends ComplianceObligationBase
             'id'       => 5,
             'table'    => 'glpi_users',
             'field'    => 'name',
-            'name'     => __('Propriétaire', 'grcmanager'),
+            'name'     => _x('owner', 'Owner', 'grcmanager'),
             'datatype' => 'dropdown',
             'right'    => 'all',
         ];
@@ -215,7 +215,7 @@ class PluginGrcmanagerComplianceObligation extends ComplianceObligationBase
             'id'       => 6,
             'table'    => $this->getTable(),
             'field'    => 'review_date',
-            'name'     => __('Date de revue', 'grcmanager'),
+            'name'     => __('Review date', 'grcmanager'),
             'datatype' => 'date',
         ];
 
@@ -300,9 +300,9 @@ class PluginGrcmanagerComplianceObligation extends ComplianceObligationBase
     private static function typeBadge(?string $value): string
     {
         $map = [
-            'legal'       => ['bg-indigo-lt', 'ti-gavel', __('Légale', 'grcmanager')],
-            'regulatory'  => ['bg-blue-lt', 'ti-building-bank', __('Réglementaire', 'grcmanager')],
-            'contractual' => ['bg-teal-lt', 'ti-file-text', __('Contractuelle', 'grcmanager')],
+            'legal'       => ['bg-indigo-lt', 'ti-gavel', __('Legal', 'grcmanager')],
+            'regulatory'  => ['bg-blue-lt', 'ti-building-bank', __('Regulatory', 'grcmanager')],
+            'contractual' => ['bg-teal-lt', 'ti-file-text', __('Contractual', 'grcmanager')],
         ];
 
         [$class, $icon, $label] = $map[$value] ?? ['bg-secondary-lt', 'ti-help', (string) $value];
@@ -313,10 +313,10 @@ class PluginGrcmanagerComplianceObligation extends ComplianceObligationBase
     private static function complianceStatusBadge(?string $value): string
     {
         $map = [
-            'compliant'           => ['bg-green-lt', 'ti-circle-check', __('Conforme', 'grcmanager')],
-            'partially_compliant' => ['bg-yellow-lt', 'ti-circle-half-2', __('Partiellement conforme', 'grcmanager')],
-            'non_compliant'       => ['bg-red-lt', 'ti-circle-x', __('Non conforme', 'grcmanager')],
-            'not_assessed'        => ['bg-secondary-lt', 'ti-help', __('Non évaluée', 'grcmanager')],
+            'compliant'           => ['bg-green-lt', 'ti-circle-check', __('Compliant', 'grcmanager')],
+            'partially_compliant' => ['bg-yellow-lt', 'ti-circle-half-2', __('Partially compliant', 'grcmanager')],
+            'non_compliant'       => ['bg-red-lt', 'ti-circle-x', __('Non-compliant', 'grcmanager')],
+            'not_assessed'        => ['bg-secondary-lt', 'ti-help', __('Not assessed', 'grcmanager')],
         ];
 
         [$class, $icon, $label] = $map[$value] ?? ['bg-secondary-lt', 'ti-help', (string) $value];

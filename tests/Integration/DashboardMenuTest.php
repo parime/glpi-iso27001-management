@@ -57,7 +57,7 @@ final class DashboardMenuTest extends GrcmanagerIntegrationTestCase
             }
         }
         $this->assertSame(
-            __('Contrôles techniques automatiques', 'grcmanager'),
+            __('Automated technical checks', 'grcmanager'),
             \PluginGrcmanagerComplianceAudit::getTypeName()
         );
     }

@@ -39,7 +39,7 @@ if (isset($_POST['activate'])) {
         Html::redirect(PluginGrcmanagerCrisisExercise::getFormURLWithID($cellId));
     }
     Session::addMessageAfterRedirect(
-        htmlescape(__('La cellule de crise n\'a pas pu être activée.', 'grcmanager')),
+        htmlescape(__('The crisis team could not be activated.', 'grcmanager')),
         false,
         ERROR
     );
@@ -63,12 +63,12 @@ if (isset($_POST['step_done']) || isset($_POST['finish']) || isset($_POST['resto
         $exercise->markRestored((string) $_POST['restored']);
     } elseif ($exercise->finish() > 0) {
         Session::addMessageAfterRedirect(htmlescape(__(
-            'Terminé : le rapport est archivé dans les documents de l\'incident.',
+            'Finished: the report is archived in the incident documents.',
             'grcmanager'
         )));
     } else {
         Session::addMessageAfterRedirect(
-            htmlescape(__('Le rapport n\'a pas pu être généré.', 'grcmanager')),
+            htmlescape(__('The report could not be generated.', 'grcmanager')),
             false,
             ERROR
         );
@@ -84,7 +84,7 @@ if (isset($_POST['journal'])) {
 }
 
 Html::header(
-    $exercise->isDrill() ? PluginGrcmanagerCrisisExercise::getTypeName(1) : __('Cellule de crise', 'grcmanager'),
+    $exercise->isDrill() ? PluginGrcmanagerCrisisExercise::getTypeName(1) : __('Crisis team', 'grcmanager'),
     PluginGrcmanagerCrisisExercise::getSearchURL(),
     'grcmanager',
     PluginGrcmanagerAccessReview::class,

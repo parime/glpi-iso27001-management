@@ -42,7 +42,7 @@ if (isset($_POST['add'])) {
     $count = $item->launch();
     if ($count > 0) {
         Session::addMessageAfterRedirect(sprintf(
-            __('Campagne lancée : %d compte(s) à revoir, les responsables sont prévenus.', 'grcmanager'),
+            __('Campaign launched: %d account(s) to review, reviewers have been notified.', 'grcmanager'),
             $count
         ));
     }
@@ -51,7 +51,7 @@ if (isset($_POST['add'])) {
     $item->check((int) $_POST['id'], UPDATE);
     if ($item->close()) {
         Session::addMessageAfterRedirect(
-            __('Campagne clôturée, rapport PDF archivé dans les documents.', 'grcmanager')
+            __('Campaign closed, PDF report archived in the documents.', 'grcmanager')
         );
     }
     Html::back();

@@ -113,7 +113,7 @@ final class SensitiveRegistersTest extends GrcmanagerIntegrationTestCase
 
         $target = new \PluginGrcmanagerNotificationTargetRisk(0, 'review_due', $risk);
         $target->addDataForTemplate('review_due');
-        $this->assertSame(sprintf(__('Risque n° %d', 'grcmanager'), $riskId), $target->data['##risk.title##']);
+        $this->assertSame(sprintf(__('Risk no. %d', 'grcmanager'), $riskId), $target->data['##risk.title##']);
         $this->assertSame('', $target->data['##risk.risklevel##']);
         $this->assertStringNotContainsString('Faille du VPN', implode(' ', array_map('strval', $target->data)));
 

@@ -38,7 +38,7 @@ TemplateRenderer::getInstance()->display('@grcmanager/_list_toolbar.html.twig', 
     'buttons' => [[
         'url'   => PluginGrcmanagerAccessReview::getMineURL(),
         'icon'  => 'ti-list-check',
-        'label' => __('Mes revues d\'accès', 'grcmanager'),
+        'label' => __('My access reviews', 'grcmanager'),
     ]],
 ]);
 

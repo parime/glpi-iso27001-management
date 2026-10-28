@@ -52,7 +52,7 @@ class PluginGrcmanagerControl extends ControlBase
 
     public static function getTypeName($nb = 0)
     {
-        return _n('Contrôle Annexe A', 'Contrôles Annexe A', $nb, 'grcmanager');
+        return _n('Annex A control', 'Annex A controls', $nb, 'grcmanager');
     }
 
     public static function getIcon()
@@ -70,7 +70,7 @@ class PluginGrcmanagerControl extends ControlBase
         $menu = parent::getMenuContent();
         if (is_array($menu) && $menu !== []) {
             $menu['section_label'] = $menu['title'];
-            $menu['title'] = __('Conformité', 'grcmanager');
+            $menu['title'] = __('Compliance', 'grcmanager');
         }
 
         return PluginGrcmanagerMenu::withSubPages(self::class, $menu);
@@ -82,10 +82,10 @@ class PluginGrcmanagerControl extends ControlBase
     public static function getThemes(): array
     {
         return [
-            'organizational' => __('Organisationnel', 'grcmanager'),
-            'people'         => __('Humain', 'grcmanager'),
-            'physical'       => __('Physique', 'grcmanager'),
-            'technological'  => __('Technologique', 'grcmanager'),
+            'organizational' => __('Organizational', 'grcmanager'),
+            'people'         => __('People', 'grcmanager'),
+            'physical'       => __('Physical', 'grcmanager'),
+            'technological'  => __('Technological', 'grcmanager'),
         ];
     }
 
@@ -96,8 +96,8 @@ class PluginGrcmanagerControl extends ControlBase
     {
         return [
             'yes'     => __('Applicable', 'grcmanager'),
-            'no'      => __('Non applicable', 'grcmanager'),
-            'partial' => __('Partiellement applicable', 'grcmanager'),
+            'no'      => __('Not applicable', 'grcmanager'),
+            'partial' => __('Partially applicable', 'grcmanager'),
         ];
     }
 
@@ -107,10 +107,10 @@ class PluginGrcmanagerControl extends ControlBase
     public static function getImplementationStatuses(): array
     {
         return [
-            'not_started' => __('Non démarré', 'grcmanager'),
-            'in_progress' => __('En cours', 'grcmanager'),
-            'implemented' => __('Mis en œuvre', 'grcmanager'),
-            'verified'    => __('Vérifié', 'grcmanager'),
+            'not_started' => __('Not started', 'grcmanager'),
+            'in_progress' => __('In progress', 'grcmanager'),
+            'implemented' => __('Implemented', 'grcmanager'),
+            'verified'    => __('Verified', 'grcmanager'),
         ];
     }
 
@@ -126,126 +126,105 @@ class PluginGrcmanagerControl extends ControlBase
     {
         return [
             // Organizational controls (A.5)
-            'A.5.1'  => __('Politiques de sécurité de l\'information', 'grcmanager'),
-            'A.5.2'  => __('Fonctions et responsabilités liées à la sécurité de l\'information', 'grcmanager'),
-            'A.5.3'  => __('Séparation des tâches', 'grcmanager'),
-            'A.5.4'  => __('Responsabilités de la direction', 'grcmanager'),
-            'A.5.5'  => __('Relations avec les autorités', 'grcmanager'),
-            'A.5.6'  => __('Relations avec des groupes de spécialistes', 'grcmanager'),
-            'A.5.7'  => __('Renseignement sur les menaces', 'grcmanager'),
-            'A.5.8'  => __('La sécurité de l\'information dans la gestion de projet', 'grcmanager'),
-            'A.5.9'  => __('Inventaire des informations et autres actifs associés', 'grcmanager'),
-            'A.5.10' => __('Utilisation correcte de l\'information et des autres actifs associés', 'grcmanager'),
-            'A.5.11' => __('Restitution des actifs', 'grcmanager'),
-            'A.5.12' => __('Classification de l\'information', 'grcmanager'),
-            'A.5.13' => __('Marquage des informations', 'grcmanager'),
-            'A.5.14' => __('Transfert de l\'information', 'grcmanager'),
-            'A.5.15' => __('Contrôle d\'accès', 'grcmanager'),
-            'A.5.16' => __('Gestion des identités', 'grcmanager'),
-            'A.5.17' => __('Informations d\'authentification', 'grcmanager'),
-            'A.5.18' => __('Droits d\'accès', 'grcmanager'),
-            'A.5.19' => __('Sécurité de l\'information dans les relations avec les fournisseurs', 'grcmanager'),
-            'A.5.20' => __(
-                'La sécurité de l\'information dans les accords conclus avec les fournisseurs',
-                'grcmanager'
-            ),
-            'A.5.21' => __(
-                'Gestion de la sécurité de l\'information dans la chaîne d\'approvisionnement TIC',
-                'grcmanager'
-            ),
-            'A.5.22' => __(
-                'Surveillance, revue et gestion des changements des services des fournisseurs',
-                'grcmanager'
-            ),
-            'A.5.23' => __('Sécurité de l\'information pour l\'utilisation de services en nuage', 'grcmanager'),
-            'A.5.24' => __(
-                'Planification et préparation de la gestion des incidents de sécurité de l\'information',
-                'grcmanager'
-            ),
-            'A.5.25' => __(
-                'Appréciation des événements liés à la sécurité de l\'information et prise de décision',
-                'grcmanager'
-            ),
-            'A.5.26' => __('Réponse aux incidents de sécurité de l\'information', 'grcmanager'),
-            'A.5.27' => __('Tirer des enseignements des incidents de sécurité de l\'information', 'grcmanager'),
-            'A.5.28' => __('Collecte de preuves', 'grcmanager'),
-            'A.5.29' => __('Sécurité de l\'information pendant une perturbation', 'grcmanager'),
-            'A.5.30' => __('Préparation des TIC pour la continuité d\'activité', 'grcmanager'),
-            'A.5.31' => __('Exigences légales, statutaires, réglementaires et contractuelles', 'grcmanager'),
-            'A.5.32' => __('Droits de propriété intellectuelle', 'grcmanager'),
-            'A.5.33' => __('Protection des enregistrements', 'grcmanager'),
-            'A.5.34' => __('Protection de la vie privée et des données à caractère personnel', 'grcmanager'),
-            'A.5.35' => __('Revue indépendante de la sécurité de l\'information', 'grcmanager'),
-            'A.5.36' => __(
-                'Conformité avec les politiques, règles et normes en matière de sécurité de l\'information',
-                'grcmanager'
-            ),
-            'A.5.37' => __('Procédures d\'exploitation documentées', 'grcmanager'),
+            'A.5.1'  => __('Policies for information security', 'grcmanager'),
+            'A.5.2'  => __('Information security roles and responsibilities', 'grcmanager'),
+            'A.5.3'  => __('Segregation of duties', 'grcmanager'),
+            'A.5.4'  => __('Management responsibilities', 'grcmanager'),
+            'A.5.5'  => __('Contact with authorities', 'grcmanager'),
+            'A.5.6'  => __('Contact with special interest groups', 'grcmanager'),
+            'A.5.7'  => __('Threat intelligence', 'grcmanager'),
+            'A.5.8'  => __('Information security in project management', 'grcmanager'),
+            'A.5.9'  => __('Inventory of information and other associated assets', 'grcmanager'),
+            'A.5.10' => __('Acceptable use of information and other associated assets', 'grcmanager'),
+            'A.5.11' => __('Return of assets', 'grcmanager'),
+            'A.5.12' => __('Classification of information', 'grcmanager'),
+            'A.5.13' => __('Labelling of information', 'grcmanager'),
+            'A.5.14' => __('Information transfer', 'grcmanager'),
+            'A.5.15' => __('Access control', 'grcmanager'),
+            'A.5.16' => __('Identity management', 'grcmanager'),
+            'A.5.17' => __('Authentication information', 'grcmanager'),
+            'A.5.18' => __('Access rights', 'grcmanager'),
+            'A.5.19' => __('Information security in supplier relationships', 'grcmanager'),
+            'A.5.20' => __('Addressing information security within supplier agreements', 'grcmanager'),
+            'A.5.21' => __('Managing information security in the ICT supply chain', 'grcmanager'),
+            'A.5.22' => __('Monitoring, review and change management of supplier services', 'grcmanager'),
+            'A.5.23' => __('Information security for use of cloud services', 'grcmanager'),
+            'A.5.24' => __('Information security incident management planning and preparation', 'grcmanager'),
+            'A.5.25' => __('Assessment and decision on information security events', 'grcmanager'),
+            'A.5.26' => __('Response to information security incidents', 'grcmanager'),
+            'A.5.27' => __('Learning from information security incidents', 'grcmanager'),
+            'A.5.28' => __('Collection of evidence', 'grcmanager'),
+            'A.5.29' => __('Information security during disruption', 'grcmanager'),
+            'A.5.30' => __('ICT readiness for business continuity', 'grcmanager'),
+            'A.5.31' => __('Legal, statutory, regulatory and contractual requirements', 'grcmanager'),
+            'A.5.32' => __('Intellectual property rights', 'grcmanager'),
+            'A.5.33' => __('Protection of records', 'grcmanager'),
+            'A.5.34' => __('Privacy and protection of PII', 'grcmanager'),
+            'A.5.35' => __('Independent review of information security', 'grcmanager'),
+            'A.5.36' => __('Compliance with policies, rules and standards for information security', 'grcmanager'),
+            'A.5.37' => __('Documented operating procedures', 'grcmanager'),
 
             // People controls (A.6)
-            'A.6.1' => __('Sélection des candidats', 'grcmanager'),
-            'A.6.2' => __('Termes et conditions du contrat de travail', 'grcmanager'),
-            'A.6.3' => __(
-                'Sensibilisation, apprentissage et formation à la sécurité de l\'information',
-                'grcmanager'
-            ),
-            'A.6.4' => __('Processus disciplinaire', 'grcmanager'),
-            'A.6.5' => __('Responsabilités après la fin ou le changement d\'un contrat de travail', 'grcmanager'),
-            'A.6.6' => __('Accords de confidentialité ou de non-divulgation', 'grcmanager'),
-            'A.6.7' => __('Travail à distance', 'grcmanager'),
-            'A.6.8' => __('Signalement des événements liés à la sécurité de l\'information', 'grcmanager'),
+            'A.6.1' => __('Screening', 'grcmanager'),
+            'A.6.2' => __('Terms and conditions of employment', 'grcmanager'),
+            'A.6.3' => __('Information security awareness, education and training', 'grcmanager'),
+            'A.6.4' => __('Disciplinary process', 'grcmanager'),
+            'A.6.5' => __('Responsibilities after termination or change of employment', 'grcmanager'),
+            'A.6.6' => __('Confidentiality or non-disclosure agreements', 'grcmanager'),
+            'A.6.7' => __('Remote working', 'grcmanager'),
+            'A.6.8' => __('Information security event reporting', 'grcmanager'),
 
             // Physical controls (A.7)
-            'A.7.1'  => __('Périmètres de sécurité physique', 'grcmanager'),
-            'A.7.2'  => __('Entrées physiques', 'grcmanager'),
-            'A.7.3'  => __('Sécurisation des bureaux, des salles et des locaux', 'grcmanager'),
-            'A.7.4'  => __('Surveillance de la sécurité physique', 'grcmanager'),
-            'A.7.5'  => __('Protection contre les menaces physiques et environnementales', 'grcmanager'),
-            'A.7.6'  => __('Travail dans les zones sécurisées', 'grcmanager'),
-            'A.7.7'  => __('Bureau propre et écran verrouillé', 'grcmanager'),
-            'A.7.8'  => __('Emplacement et protection du matériel', 'grcmanager'),
-            'A.7.9'  => __('Sécurité des actifs hors des locaux', 'grcmanager'),
-            'A.7.10' => __('Supports de stockage', 'grcmanager'),
-            'A.7.11' => __('Services généraux', 'grcmanager'),
-            'A.7.12' => __('Sécurité du câblage', 'grcmanager'),
-            'A.7.13' => __('Maintenance du matériel', 'grcmanager'),
-            'A.7.14' => __('Mise au rebut ou recyclage sécurisé du matériel', 'grcmanager'),
+            'A.7.1'  => __('Physical security perimeters', 'grcmanager'),
+            'A.7.2'  => __('Physical entry', 'grcmanager'),
+            'A.7.3'  => __('Securing offices, rooms and facilities', 'grcmanager'),
+            'A.7.4'  => __('Physical security monitoring', 'grcmanager'),
+            'A.7.5'  => __('Protecting against physical and environmental threats', 'grcmanager'),
+            'A.7.6'  => __('Working in secure areas', 'grcmanager'),
+            'A.7.7'  => __('Clear desk and clear screen', 'grcmanager'),
+            'A.7.8'  => __('Equipment siting and protection', 'grcmanager'),
+            'A.7.9'  => __('Security of assets off-premises', 'grcmanager'),
+            'A.7.10' => __('Storage media', 'grcmanager'),
+            'A.7.11' => __('Supporting utilities', 'grcmanager'),
+            'A.7.12' => __('Cabling security', 'grcmanager'),
+            'A.7.13' => __('Equipment maintenance', 'grcmanager'),
+            'A.7.14' => __('Secure disposal or re-use of equipment', 'grcmanager'),
 
             // Technological controls (A.8)
-            'A.8.1'  => __('Terminaux finaux des utilisateurs', 'grcmanager'),
-            'A.8.2'  => __('Droits d\'accès privilégiés', 'grcmanager'),
-            'A.8.3'  => __('Restriction d\'accès à l\'information', 'grcmanager'),
-            'A.8.4'  => __('Accès au code source', 'grcmanager'),
-            'A.8.5'  => __('Authentification sécurisée', 'grcmanager'),
-            'A.8.6'  => __('Gestion de la capacité', 'grcmanager'),
-            'A.8.7'  => __('Protection contre les logiciels malveillants', 'grcmanager'),
-            'A.8.8'  => __('Gestion des vulnérabilités techniques', 'grcmanager'),
-            'A.8.9'  => __('Gestion de la configuration', 'grcmanager'),
-            'A.8.10' => __('Suppression des informations', 'grcmanager'),
-            'A.8.11' => __('Masquage des données', 'grcmanager'),
-            'A.8.12' => __('Prévention de la fuite de données', 'grcmanager'),
-            'A.8.13' => __('Sauvegarde des informations', 'grcmanager'),
-            'A.8.14' => __('Redondance des moyens de traitement de l\'information', 'grcmanager'),
-            'A.8.15' => __('Journalisation', 'grcmanager'),
-            'A.8.16' => __('Activités de surveillance', 'grcmanager'),
-            'A.8.17' => __('Synchronisation des horloges', 'grcmanager'),
-            'A.8.18' => __('Utilisation de programmes utilitaires à privilèges', 'grcmanager'),
-            'A.8.19' => __('Installation de logiciels sur des systèmes en exploitation', 'grcmanager'),
-            'A.8.20' => __('Sécurité des réseaux', 'grcmanager'),
-            'A.8.21' => __('Sécurité des services réseau', 'grcmanager'),
-            'A.8.22' => __('Cloisonnement des réseaux', 'grcmanager'),
-            'A.8.23' => __('Filtrage web', 'grcmanager'),
-            'A.8.24' => __('Utilisation de la cryptographie', 'grcmanager'),
-            'A.8.25' => __('Cycle de vie du développement sécurisé', 'grcmanager'),
-            'A.8.26' => __('Exigences de sécurité des applications', 'grcmanager'),
-            'A.8.27' => __('Principes d\'ingénierie et d\'architecture système sécurisée', 'grcmanager'),
-            'A.8.28' => __('Codage sécurisé', 'grcmanager'),
-            'A.8.29' => __('Tests de sécurité en cours de développement et de recette', 'grcmanager'),
-            'A.8.30' => __('Développement externalisé', 'grcmanager'),
-            'A.8.31' => __('Séparation des environnements de développement, de test et de production', 'grcmanager'),
-            'A.8.32' => __('Gestion des changements', 'grcmanager'),
-            'A.8.33' => __('Informations de test', 'grcmanager'),
-            'A.8.34' => __('Protection des systèmes d\'information lors des tests d\'audit', 'grcmanager'),
+            'A.8.1'  => __('User endpoint devices', 'grcmanager'),
+            'A.8.2'  => __('Privileged access rights', 'grcmanager'),
+            'A.8.3'  => __('Information access restriction', 'grcmanager'),
+            'A.8.4'  => __('Access to source code', 'grcmanager'),
+            'A.8.5'  => __('Secure authentication', 'grcmanager'),
+            'A.8.6'  => __('Capacity management', 'grcmanager'),
+            'A.8.7'  => __('Protection against malware', 'grcmanager'),
+            'A.8.8'  => __('Management of technical vulnerabilities', 'grcmanager'),
+            'A.8.9'  => __('Configuration management', 'grcmanager'),
+            'A.8.10' => __('Information deletion', 'grcmanager'),
+            'A.8.11' => __('Data masking', 'grcmanager'),
+            'A.8.12' => __('Data leakage prevention', 'grcmanager'),
+            'A.8.13' => __('Information backup', 'grcmanager'),
+            'A.8.14' => __('Redundancy of information processing facilities', 'grcmanager'),
+            'A.8.15' => __('Logging', 'grcmanager'),
+            'A.8.16' => __('Monitoring activities', 'grcmanager'),
+            'A.8.17' => __('Clock synchronization', 'grcmanager'),
+            'A.8.18' => __('Use of privileged utility programs', 'grcmanager'),
+            'A.8.19' => __('Installation of software on operational systems', 'grcmanager'),
+            'A.8.20' => __('Networks security', 'grcmanager'),
+            'A.8.21' => __('Security of network services', 'grcmanager'),
+            'A.8.22' => __('Segregation of networks', 'grcmanager'),
+            'A.8.23' => __('Web filtering', 'grcmanager'),
+            'A.8.24' => __('Use of cryptography', 'grcmanager'),
+            'A.8.25' => __('Secure development life cycle', 'grcmanager'),
+            'A.8.26' => __('Application security requirements', 'grcmanager'),
+            'A.8.27' => __('Secure system architecture and engineering principles', 'grcmanager'),
+            'A.8.28' => __('Secure coding', 'grcmanager'),
+            'A.8.29' => __('Security testing in development and acceptance', 'grcmanager'),
+            'A.8.30' => __('Outsourced development', 'grcmanager'),
+            'A.8.31' => __('Separation of development, test and production environments', 'grcmanager'),
+            'A.8.32' => __('Change management', 'grcmanager'),
+            'A.8.33' => __('Test information', 'grcmanager'),
+            'A.8.34' => __('Protection of information systems during audit testing', 'grcmanager'),
         ];
     }
 
@@ -311,10 +290,7 @@ class PluginGrcmanagerControl extends ControlBase
 
         if (in_array($applicability, ['no', 'partial'], true) && $justification === '') {
             Session::addMessageAfterRedirect(
-                __(
-                    'Une justification est obligatoire lorsqu\'un contrôle n\'est pas pleinement applicable.',
-                    'grcmanager'
-                ),
+                __('A justification is required whenever a control is not fully applicable.', 'grcmanager'),
                 false,
                 ERROR
             );
@@ -344,7 +320,7 @@ class PluginGrcmanagerControl extends ControlBase
             'id'               => 1,
             'table'            => $this->getTable(),
             'field'            => 'code',
-            'name'             => __('Contrôle', 'grcmanager'),
+            'name'             => __('Control', 'grcmanager'),
             'datatype'         => 'specific',
             // Same convention as CommonITILObject's own "Title" column (id=1, 'datatype' =>
             // 'itemlink', 'additionalfields' => ['id']): 'id' has to be requested explicitly for
@@ -359,7 +335,7 @@ class PluginGrcmanagerControl extends ControlBase
             'id'       => 2,
             'table'    => $this->getTable(),
             'field'    => 'theme',
-            'name'     => __('Thème', 'grcmanager'),
+            'name'     => __('Theme', 'grcmanager'),
             'datatype' => 'specific',
         ];
 
@@ -367,7 +343,7 @@ class PluginGrcmanagerControl extends ControlBase
             'id'       => 3,
             'table'    => $this->getTable(),
             'field'    => 'applicability',
-            'name'     => __('Applicabilité', 'grcmanager'),
+            'name'     => __('Applicability', 'grcmanager'),
             'datatype' => 'specific',
         ];
 
@@ -375,7 +351,7 @@ class PluginGrcmanagerControl extends ControlBase
             'id'       => 4,
             'table'    => $this->getTable(),
             'field'    => 'implementation_status',
-            'name'     => __('État de mise en œuvre', 'grcmanager'),
+            'name'     => __('Implementation status', 'grcmanager'),
             'datatype' => 'specific',
         ];
 
@@ -391,7 +367,7 @@ class PluginGrcmanagerControl extends ControlBase
             'id'       => 6,
             'table'    => $this->getTable(),
             'field'    => 'is_reviewed',
-            'name'     => __('Revu', 'grcmanager'),
+            'name'     => __('Reviewed', 'grcmanager'),
             'datatype' => 'bool',
         ];
 
@@ -399,7 +375,7 @@ class PluginGrcmanagerControl extends ControlBase
             'id'       => 7,
             'table'    => $this->getTable(),
             'field'    => 'date_mod',
-            'name'     => __('Dernière modification', 'grcmanager'),
+            'name'     => __('Last update', 'grcmanager'),
             'datatype' => 'datetime',
         ];
 
@@ -502,8 +478,8 @@ class PluginGrcmanagerControl extends ControlBase
     {
         $map = [
             'yes'     => ['bg-green-lt', 'ti-circle-check', __('Applicable', 'grcmanager')],
-            'no'      => ['bg-secondary-lt', 'ti-circle-x', __('Non applicable', 'grcmanager')],
-            'partial' => ['bg-yellow-lt', 'ti-circle-half-2', __('Partiellement applicable', 'grcmanager')],
+            'no'      => ['bg-secondary-lt', 'ti-circle-x', __('Not applicable', 'grcmanager')],
+            'partial' => ['bg-yellow-lt', 'ti-circle-half-2', __('Partially applicable', 'grcmanager')],
         ];
 
         [$class, $icon, $label] = $map[$value] ?? ['bg-secondary-lt', 'ti-help', (string) $value];
@@ -514,10 +490,10 @@ class PluginGrcmanagerControl extends ControlBase
     private static function implementationStatusBadge(?string $value): string
     {
         $map = [
-            'not_started' => ['bg-secondary-lt', 'ti-player-stop', __('Non démarré', 'grcmanager')],
-            'in_progress' => ['bg-blue-lt', 'ti-tool', __('En cours', 'grcmanager')],
-            'implemented' => ['bg-green-lt', 'ti-check', __('Mis en œuvre', 'grcmanager')],
-            'verified'    => ['bg-teal-lt', 'ti-shield-check', __('Vérifié', 'grcmanager')],
+            'not_started' => ['bg-secondary-lt', 'ti-player-stop', __('Not started', 'grcmanager')],
+            'in_progress' => ['bg-blue-lt', 'ti-tool', __('In progress', 'grcmanager')],
+            'implemented' => ['bg-green-lt', 'ti-check', __('Implemented', 'grcmanager')],
+            'verified'    => ['bg-teal-lt', 'ti-shield-check', __('Verified', 'grcmanager')],
         ];
 
         [$class, $icon, $label] = $map[$value] ?? ['bg-secondary-lt', 'ti-help', (string) $value];
@@ -635,8 +611,8 @@ class PluginGrcmanagerControl extends ControlBase
             foreach (AssetsignEvidence::CONTROL_TYPES[$code] as $type) {
                 $sheets[] = $summary[$type] + [
                     'label' => $type === AssetsignEvidence::TYPE_RETURN
-                        ? __('Restitutions', 'grcmanager')
-                        : __('Remises', 'grcmanager'),
+                        ? __('Returns', 'grcmanager')
+                        : __('Handovers', 'grcmanager'),
                     'url'   => AssetsignEvidenceProvider::listUrl($type),
                 ];
             }

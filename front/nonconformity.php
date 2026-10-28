@@ -47,7 +47,7 @@ TemplateRenderer::getInstance()->display('@grcmanager/_list_toolbar.html.twig', 
     'buttons' => [[
         'url'   => $myCapaURL,
         'icon'  => 'ti-user-check',
-        'label' => __('Mes actions correctives/préventives', 'grcmanager'),
+        'label' => __('My corrective/preventive actions', 'grcmanager'),
     ]],
 ]);
 

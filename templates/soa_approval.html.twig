@@ -4,17 +4,17 @@
 <div class="card mb-3">
   <div class="card-body d-flex align-items-center gap-3">
     {% if state == 'up_to_date' %}
-      <span class="badge bg-green-lt fs-5"><i class="ti ti-circle-check me-1"></i>{{ __('SoA approuvée', 'grcmanager') }}</span>
-      <span>{{ __('Version %1$d approuvée le %2$s ; la SoA n\'a pas changé depuis.', 'grcmanager')|format(last_approved.version, last_approved.answered_at) }}</span>
+      <span class="badge bg-green-lt fs-5"><i class="ti ti-circle-check me-1"></i>{{ __('SoA approved', 'grcmanager') }}</span>
+      <span>{{ __('Version %1$d approved on %2$s; the SoA has not changed since.', 'grcmanager')|format(last_approved.version, last_approved.answered_at) }}</span>
     {% elseif state == 'changed' %}
-      <span class="badge bg-yellow-lt fs-5"><i class="ti ti-alert-triangle me-1"></i>{{ __('SoA modifiée', 'grcmanager') }}</span>
-      <span>{{ __('La SoA a changé depuis la version %d approuvée : une nouvelle approbation est nécessaire.', 'grcmanager')|format(last_approved.version) }}</span>
+      <span class="badge bg-yellow-lt fs-5"><i class="ti ti-alert-triangle me-1"></i>{{ __('SoA changed', 'grcmanager') }}</span>
+      <span>{{ __('The SoA has changed since approved version %d: a new approval is required.', 'grcmanager')|format(last_approved.version) }}</span>
     {% else %}
-      <span class="badge bg-secondary-lt fs-5"><i class="ti ti-file-unknown me-1"></i>{{ __('Jamais approuvée', 'grcmanager') }}</span>
-      <span>{{ __('Aucune version de la SoA n\'a encore été approuvée par la direction.', 'grcmanager') }}</span>
+      <span class="badge bg-secondary-lt fs-5"><i class="ti ti-file-unknown me-1"></i>{{ __('Never approved', 'grcmanager') }}</span>
+      <span>{{ __('No version of the SoA has been approved by management yet.', 'grcmanager') }}</span>
     {% endif %}
     {% if pending is not null %}
-      <span class="badge bg-blue-lt ms-auto"><i class="ti ti-hourglass me-1"></i>{{ __('Version %d en attente d\'approbation', 'grcmanager')|format(pending.version) }}</span>
+      <span class="badge bg-blue-lt ms-auto"><i class="ti ti-hourglass me-1"></i>{{ __('Version %d awaiting approval', 'grcmanager')|format(pending.version) }}</span>
     {% endif %}
   </div>
 </div>
@@ -22,20 +22,20 @@
 
 {% for version in my_pending %}
   <div class="card mb-3 border-primary">
-    <div class="card-header"><h3 class="card-title"><i class="ti ti-signature me-2"></i>{{ __('Version %d attend votre approbation', 'grcmanager')|format(version.version) }}</h3></div>
+    <div class="card-header"><h3 class="card-title"><i class="ti ti-signature me-2"></i>{{ __('Version %d is awaiting your approval', 'grcmanager')|format(version.version) }}</h3></div>
     <div class="card-body">
-      <p>{{ __('Demandée par %s.', 'grcmanager')|format(version.requested_by) }} {{ version.comment }}</p>
+      <p>{{ __('Requested by %s.', 'grcmanager')|format(version.requested_by) }} {{ version.comment }}</p>
       {% if version.pdf_url %}
-        <p><a href="{{ version.pdf_url }}" class="btn btn-outline-secondary btn-sm"><i class="ti ti-file-type-pdf me-1"></i>{{ __('Lire la version figée (PDF)', 'grcmanager') }}</a></p>
+        <p><a href="{{ version.pdf_url }}" class="btn btn-outline-secondary btn-sm"><i class="ti ti-file-type-pdf me-1"></i>{{ __('Read the frozen version (PDF)', 'grcmanager') }}</a></p>
       {% endif %}
       <form method="post" action="{{ config('root_doc') }}/plugins/grcmanager/front/soaapproval.php">
         <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
         <input type="hidden" name="answer" value="1">
         <input type="hidden" name="versions_id" value="{{ version.id }}">
-        <label class="form-label" for="grcmanager-answer-comment-{{ version.id }}">{{ __('Commentaire (obligatoire en cas de refus)', 'grcmanager') }}</label>
+        <label class="form-label" for="grcmanager-answer-comment-{{ version.id }}">{{ __('Comment (required to reject)', 'grcmanager') }}</label>
         <textarea class="form-control mb-2" name="comment" id="grcmanager-answer-comment-{{ version.id }}" rows="2"></textarea>
-        <button type="submit" name="decision" value="approve" class="btn btn-success"><i class="ti ti-check me-1"></i>{{ __('J\'approuve cette version', 'grcmanager') }}</button>
-        <button type="submit" name="decision" value="reject" class="btn btn-outline-danger"><i class="ti ti-x me-1"></i>{{ __('Refuser', 'grcmanager') }}</button>
+        <button type="submit" name="decision" value="approve" class="btn btn-success"><i class="ti ti-check me-1"></i>{{ __('I approve this version', 'grcmanager') }}</button>
+        <button type="submit" name="decision" value="reject" class="btn btn-outline-danger"><i class="ti ti-x me-1"></i>{{ __('Reject', 'grcmanager') }}</button>
       </form>
     </div>
   </div>
@@ -43,21 +43,21 @@
 
 {% if can_request %}
   <div class="card mb-3">
-    <div class="card-header"><h3 class="card-title"><i class="ti ti-send me-2"></i>{{ __('Faire approuver la SoA par la direction', 'grcmanager') }}</h3></div>
+    <div class="card-header"><h3 class="card-title"><i class="ti ti-send me-2"></i>{{ __('Have the SoA approved by management', 'grcmanager') }}</h3></div>
     <div class="card-body">
-      <p class="text-muted">{{ __('Fige la SoA actuelle dans un PDF daté (conservé dans les documents GLPI avec son empreinte SHA-256), puis l\'envoie aux approbateurs choisis. Chacun approuve depuis sa session GLPI ; le PDF comporte aussi un bloc de signature manuscrite. Toute modification ultérieure de la SoA demandera une nouvelle version.', 'grcmanager') }}</p>
+      <p class="text-muted">{{ __('Freezes the current SoA into a dated PDF (kept in GLPI documents with its SHA-256 fingerprint), then sends it to the chosen approvers. Each approves from their own GLPI session; the PDF also includes a handwritten signature block. Any later change to the SoA will require a new version.', 'grcmanager') }}</p>
       <form method="post" action="{{ config('root_doc') }}/plugins/grcmanager/front/soaapproval.php">
         <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
         <div class="mb-2">
-          <label class="form-label">{{ __('Approbateurs', 'grcmanager') }}</label>
+          <label class="form-label">{{ __('Approvers', 'grcmanager') }}</label>
           {{ approver_dropdown|raw }}
         </div>
         <div class="mb-2">
-          <label class="form-label" for="grcmanager-request-comment">{{ __('Message aux approbateurs (facultatif)', 'grcmanager') }}</label>
+          <label class="form-label" for="grcmanager-request-comment">{{ __('Message to the approvers (optional)', 'grcmanager') }}</label>
           <textarea class="form-control" name="comment" id="grcmanager-request-comment" rows="2"></textarea>
         </div>
-        <button type="submit" name="request_approval" value="1" class="btn btn-primary"><i class="ti ti-send me-1"></i>{{ __('Figer et envoyer pour approbation', 'grcmanager') }}</button>
-        <a href="{{ soa_url }}" class="btn btn-link">{{ __('Revoir la SoA avant', 'grcmanager') }}</a>
+        <button type="submit" name="request_approval" value="1" class="btn btn-primary"><i class="ti ti-send me-1"></i>{{ __('Freeze and send for approval', 'grcmanager') }}</button>
+        <a href="{{ soa_url }}" class="btn btn-link">{{ __('Review the SoA first', 'grcmanager') }}</a>
       </form>
     </div>
   </div>
@@ -65,19 +65,19 @@
 
 {% if can_read %}
 <div class="card">
-  <div class="card-header"><h3 class="card-title"><i class="ti ti-history me-2"></i>{{ __('Historique des versions', 'grcmanager') }}</h3></div>
+  <div class="card-header"><h3 class="card-title"><i class="ti ti-history me-2"></i>{{ __('Version history', 'grcmanager') }}</h3></div>
   <div class="card-body p-0">
     {% if history is empty %}
-      <p class="text-muted p-3 mb-0">{{ __('Aucune version pour l\'instant.', 'grcmanager') }}</p>
+      <p class="text-muted p-3 mb-0">{{ __('No version yet.', 'grcmanager') }}</p>
     {% else %}
       <table class="table table-vcenter mb-0">
         <thead>
           <tr>
             <th>{{ __('Version', 'grcmanager') }}</th>
             <th>{{ __('Statut') }}</th>
-            <th>{{ __('Demandée', 'grcmanager') }}</th>
-            <th>{{ __('Approbateurs', 'grcmanager') }}</th>
-            <th>{{ __('PDF figé', 'grcmanager') }}</th>
+            <th>{{ __('Requested', 'grcmanager') }}</th>
+            <th>{{ __('Approvers', 'grcmanager') }}</th>
+            <th>{{ __('Frozen PDF', 'grcmanager') }}</th>
           </tr>
         </thead>
         <tbody>

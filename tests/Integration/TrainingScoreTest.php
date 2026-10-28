@@ -64,7 +64,7 @@ final class TrainingScoreTest extends GrcmanagerIntegrationTestCase
             $training->getFromDB($id);
             $report = \PluginGrcmanagerTraining::renderSessionReport($training);
             $this->assertStringContainsString('32/40 (80 %)', $report);
-            $this->assertStringContainsString(__('À repasser', 'grcmanager'), $report);
+            $this->assertStringContainsString(__('To retake', 'grcmanager'), $report);
             $this->assertStringStartsWith('%PDF', \GlpiPlugin\Grcmanager\Pdf\PdfRenderer::renderHtmlToPdf($report));
 
             // Une note hors barème est ignorée, jamais enregistrée.
@@ -107,7 +107,7 @@ final class TrainingScoreTest extends GrcmanagerIntegrationTestCase
 
             // La CI tourne en anglais : comparer au titre traduit.
             $this->assertStringContainsString(
-                htmlspecialchars(sprintf(__('%s - rattrapage', 'grcmanager'), 'PHPUnit session source')),
+                htmlspecialchars(sprintf(__('%s - retake', 'grcmanager'), 'PHPUnit session source')),
                 $html
             );
             $this->assertStringContainsString('name="max_score"', $html);

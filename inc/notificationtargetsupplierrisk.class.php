@@ -30,13 +30,10 @@ class PluginGrcmanagerNotificationTargetSupplierRisk extends NotificationTarget
     public function getEvents()
     {
         return [
-            PluginGrcmanagerSupplierRisk::REVIEW_DUE_EVENT => __(
-                'Revue de risque fournisseur à échéance',
-                'grcmanager'
-            ),
+            PluginGrcmanagerSupplierRisk::REVIEW_DUE_EVENT => __('Supplier risk review due', 'grcmanager'),
             // Issue #167 : nouvel avis du CERT-FR qui cite le fournisseur.
             PluginGrcmanagerSecurityWatch::NOTIFY_EVENT => __(
-                'Nouvel avis de sécurité concernant le fournisseur',
+                'New security advisory about the supplier',
                 'grcmanager'
             ),
         ];
@@ -49,7 +46,7 @@ class PluginGrcmanagerNotificationTargetSupplierRisk extends NotificationTarget
     #[Override]
     public function addAdditionalTargets($event = '')
     {
-        $this->addTarget(Notification::ITEM_USER, __('Propriétaire du risque fournisseur', 'grcmanager'));
+        $this->addTarget(Notification::ITEM_USER, __('Supplier risk owner', 'grcmanager'));
     }
 
     #[Override]
@@ -84,7 +81,7 @@ class PluginGrcmanagerNotificationTargetSupplierRisk extends NotificationTarget
         if (\GlpiPlugin\Grcmanager\Services\Notification\SensitiveNotification::isMinimal()) {
             $this->data = \GlpiPlugin\Grcmanager\Services\Notification\SensitiveNotification::reduce($this->data, [
                 '##supplierrisk.title##' => sprintf(
-                    __('Risque fournisseur n° %d', 'grcmanager'),
+                    __('Supplier risk no. %d', 'grcmanager'),
                     (int) ($risk->fields['id'] ?? 0)
                 ),
             ], [
@@ -106,13 +103,13 @@ class PluginGrcmanagerNotificationTargetSupplierRisk extends NotificationTarget
     {
         $tags = [
             'supplierrisk.action'     => _n('Event', 'Events', 1),
-            'supplierrisk.title'      => __('Titre', 'grcmanager'),
+            'supplierrisk.title'      => __('Title', 'grcmanager'),
             'supplierrisk.supplier'   => Supplier::getTypeName(1),
-            'supplierrisk.category'   => __('Catégorie', 'grcmanager'),
-            'supplierrisk.risklevel'  => __('Niveau de risque', 'grcmanager'),
-            'supplierrisk.reviewdate' => __('Date de revue', 'grcmanager'),
+            'supplierrisk.category'   => __('Category', 'grcmanager'),
+            'supplierrisk.risklevel'  => __('Risk level', 'grcmanager'),
+            'supplierrisk.reviewdate' => __('Review date', 'grcmanager'),
             'supplierrisk.url'        => __('URL'),
-            'supplierrisk.notices'    => __('Avis de sécurité', 'grcmanager'),
+            'supplierrisk.notices'    => __('Security advisories', 'grcmanager'),
         ];
 
         foreach ($tags as $tag => $label) {

@@ -30,7 +30,7 @@ class PluginGrcmanagerNotificationTargetPolicy extends NotificationTarget
     public function getEvents()
     {
         return [
-            PluginGrcmanagerPolicy::REVIEW_DUE_EVENT => __('Revue de politique à échéance', 'grcmanager'),
+            PluginGrcmanagerPolicy::REVIEW_DUE_EVENT => __('Policy review due', 'grcmanager'),
         ];
     }
 
@@ -43,7 +43,7 @@ class PluginGrcmanagerNotificationTargetPolicy extends NotificationTarget
     #[Override]
     public function addAdditionalTargets($event = '')
     {
-        $this->addTarget(Notification::ITEM_USER, __('Propriétaire de la politique', 'grcmanager'));
+        $this->addTarget(Notification::ITEM_USER, __('Policy owner', 'grcmanager'));
     }
 
     #[Override]
@@ -78,10 +78,10 @@ class PluginGrcmanagerNotificationTargetPolicy extends NotificationTarget
     {
         $tags = [
             'policy.action'     => _n('Event', 'Events', 1),
-            'policy.title'      => __('Titre', 'grcmanager'),
+            'policy.title'      => __('Title', 'grcmanager'),
             'policy.version'    => __('Version', 'grcmanager'),
-            'policy.status'     => __('Statut', 'grcmanager'),
-            'policy.reviewdate' => __('Prochaine revue', 'grcmanager'),
+            'policy.status'     => __('Status', 'grcmanager'),
+            'policy.reviewdate' => __('Next review', 'grcmanager'),
             'policy.url'        => __('URL'),
         ];
 

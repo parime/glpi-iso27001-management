@@ -2,10 +2,10 @@
 <div class="card">
    <div class="card-body">
       {% if contracts is empty %}
-         <p class="text-muted mb-0"><i class="ti ti-file-off me-1"></i>{{ __('Aucun contrat GLPI n\'est rattaché à ce fournisseur (Gestion > Contrats, onglet Fournisseurs).', 'grcmanager') }}</p>
+         <p class="text-muted mb-0"><i class="ti ti-file-off me-1"></i>{{ __('No GLPI contract is linked to this supplier (Management > Contracts, Suppliers tab).', 'grcmanager') }}</p>
       {% else %}
          <table class="table table-sm table-vcenter mb-0">
-            <thead><tr><th>{{ __('Contrat', 'grcmanager') }}</th><th>{{ __('Début', 'grcmanager') }}</th><th>{{ __('Fin', 'grcmanager') }}</th></tr></thead>
+            <thead><tr><th>{{ __('Contract', 'grcmanager') }}</th><th>{{ __('Start', 'grcmanager') }}</th><th>{{ __('End', 'grcmanager') }}</th></tr></thead>
             <tbody>
                {% for c in contracts %}
                   <tr>
@@ -14,7 +14,7 @@
                      <td>
                         {{ c.end_date ? c.end_date|formatted_date : '—' }}
                         {% if c.end_date and c.end_date < 'now'|date('Y-m-d') %}
-                           <span class="badge bg-red-lt ms-1">{{ __('Échu', 'grcmanager') }}</span>
+                           <span class="badge bg-red-lt ms-1">{{ _x('due date passed', 'Expired', 'grcmanager') }}</span>
                         {% endif %}
                      </td>
                   </tr>

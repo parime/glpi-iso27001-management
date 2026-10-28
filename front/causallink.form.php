@@ -25,7 +25,7 @@ if (isset($_POST['add'])) {
     $other = (string) ($_POST['other'] ?? '');
     $isEffect = ($_POST['direction'] ?? 'effect') === 'effect';
     if ($link->add(['cause' => $isEffect ? $key : $other, 'effect' => $isEffect ? $other : $key])) {
-        Session::addMessageAfterRedirect(htmlescape(__('Lien ajouté.', 'grcmanager')));
+        Session::addMessageAfterRedirect(htmlescape(__('Link added.', 'grcmanager')));
     }
     Html::back();
 }

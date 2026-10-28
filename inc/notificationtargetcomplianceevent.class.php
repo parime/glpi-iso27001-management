@@ -29,14 +29,14 @@ class PluginGrcmanagerNotificationTargetComplianceEvent extends NotificationTarg
     public function getEvents()
     {
         return [
-            PluginGrcmanagerComplianceEvent::REMINDER_EVENT => __('Événement de conformité à venir', 'grcmanager'),
+            PluginGrcmanagerComplianceEvent::REMINDER_EVENT => __('Upcoming compliance event', 'grcmanager'),
         ];
     }
 
     #[Override]
     public function addAdditionalTargets($event = '')
     {
-        $this->addTarget(self::TARGET_RESPONSIBLE, __('Responsable de l\'événement', 'grcmanager'));
+        $this->addTarget(self::TARGET_RESPONSIBLE, __('Event owner', 'grcmanager'));
     }
 
     #[Override]
@@ -99,10 +99,10 @@ class PluginGrcmanagerNotificationTargetComplianceEvent extends NotificationTarg
     {
         $tags = [
             'complianceevent.action' => _n('Event', 'Events', 1),
-            'complianceevent.name'   => __('Nom', 'grcmanager'),
+            'complianceevent.name'   => __('Name', 'grcmanager'),
             'complianceevent.type'   => __('Type', 'grcmanager'),
-            'complianceevent.begin'  => __('Début', 'grcmanager'),
-            'complianceevent.scope'  => __('Périmètre', 'grcmanager'),
+            'complianceevent.begin'  => __('Start', 'grcmanager'),
+            'complianceevent.scope'  => __('Scope', 'grcmanager'),
             'complianceevent.url'    => __('URL'),
         ];
         foreach ($tags as $tag => $label) {

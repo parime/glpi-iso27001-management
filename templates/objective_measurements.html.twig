@@ -1,33 +1,33 @@
 {# Historique des mesures d'un objectif (issue #199 : passé de PHP à Twig). Hors du formulaire de
    l'objectif : ces mini formulaires postent vers front/objectivemeasurement.form.php. #}
 <div class="card mt-3"><div class="card-body">
-   <h3>{{ __('Historique des mesures', 'grcmanager') }}</h3>
+   <h3>{{ __('Measurement history', 'grcmanager') }}</h3>
    {% if can_edit %}
       <form method="post" action="{{ action }}" class="mb-3">
          <input type="hidden" name="plugin_grcmanager_objectives_id" value="{{ objective_id }}">
          <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
          <div class="row g-2 align-items-end">
             <div class="col-md-3">
-               <label class="form-label" for="grc-measure-date">{{ __('Date de la mesure', 'grcmanager') }}</label>
+               <label class="form-label" for="grc-measure-date">{{ __('Measurement date', 'grcmanager') }}</label>
                <input type="date" id="grc-measure-date" name="measurement_date" value="{{ today }}" class="form-control">
             </div>
             <div class="col-md-2">
-               <label class="form-label" for="grc-measure-value">{{ __('Valeur', 'grcmanager') }}</label>
+               <label class="form-label" for="grc-measure-value">{{ __('Value', 'grcmanager') }}</label>
                <input type="text" id="grc-measure-value" name="value" class="form-control">
             </div>
             <div class="col-md-5">
-               <label class="form-label" for="grc-measure-comment">{{ __('Commentaire', 'grcmanager') }}</label>
+               <label class="form-label" for="grc-measure-comment">{{ __('Comment', 'grcmanager') }}</label>
                <input type="text" id="grc-measure-comment" name="comment" class="form-control">
             </div>
             <div class="col-md-2">
                <button type="submit" name="add" value="1" class="btn btn-primary">{{ __('Ajouter') }}</button>
             </div>
          </div>
-         <div class="form-hint mt-1">{{ numeric ? __('Une valeur numérique est obligatoire pour cet objectif chiffré.', 'grcmanager') : __('Objectif qualitatif : la valeur reste optionnelle, mais un commentaire est alors obligatoire.', 'grcmanager') }}</div>
+         <div class="form-hint mt-1">{{ numeric ? __('A numeric value is required for this quantitative objective.', 'grcmanager') : __('Qualitative objective: the value stays optional, but a comment is then required.', 'grcmanager') }}</div>
       </form>
    {% endif %}
    <table class="table">
-      <thead><tr><th>{{ __('Date de la mesure', 'grcmanager') }}</th><th>{{ __('Valeur', 'grcmanager') }}</th><th>{{ __('Commentaire', 'grcmanager') }}</th>{% if can_purge %}<th></th>{% endif %}</tr></thead>
+      <thead><tr><th>{{ __('Measurement date', 'grcmanager') }}</th><th>{{ __('Value', 'grcmanager') }}</th><th>{{ __('Comment', 'grcmanager') }}</th>{% if can_purge %}<th></th>{% endif %}</tr></thead>
       <tbody>
          {% for m in measurements %}
             <tr>
@@ -36,7 +36,7 @@
                <td>{{ m.comment ?? '' }}</td>
                {% if can_purge %}
                   <td>
-                     <form method="post" action="{{ action }}" data-grc-confirm="{{ __('Confirmer la suppression ?', 'grcmanager') }}">
+                     <form method="post" action="{{ action }}" data-grc-confirm="{{ __('Confirm deletion?', 'grcmanager') }}">
                         <input type="hidden" name="id" value="{{ m.id }}">
                         <input type="hidden" name="plugin_grcmanager_objectives_id" value="{{ objective_id }}">
                         <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
@@ -46,7 +46,7 @@
                {% endif %}
             </tr>
          {% else %}
-            <tr><td colspan="{{ can_purge ? 4 : 3 }}" class="text-muted">{{ __('Aucune mesure enregistrée pour le moment.', 'grcmanager') }}</td></tr>
+            <tr><td colspan="{{ can_purge ? 4 : 3 }}" class="text-muted">{{ __('No measurement recorded yet.', 'grcmanager') }}</td></tr>
          {% endfor %}
       </tbody>
    </table>
