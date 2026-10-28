@@ -225,15 +225,15 @@ class PluginGrcmanagerSecurityIncidentCve extends SecurityIncidentCveBase
            'capa_by_cve_id'    => array_combine(
                array_column($cves, 'cve_id'),
                array_map(
-                   static fn (array $row): int => PluginGrcmanagerNonconformity::findForIncidentCve(
+                   static fn (array $row): int => \GlpiPlugin\Grcmanager\Nonconformity::findForIncidentCve(
                        (int) $item->getID(),
                        (string) $row['cve_id']
                    ),
                    array_values($cves)
                )
            ) ?: [],
-           'can_capa'          => PluginGrcmanagerNonconformity::canCreate(),
-           'capa_url'          => PluginGrcmanagerNonconformity::getFormURL(),
+           'can_capa'          => \GlpiPlugin\Grcmanager\Nonconformity::canCreate(),
+           'capa_url'          => \GlpiPlugin\Grcmanager\Nonconformity::getFormURL(),
            // Issue #172 : badges KEV et EPSS, mis à jour par la tâche des vulnérabilités du parc.
            'signals_by_cve_id' => ParkVulnerabilitySync::signalsFor(array_values(array_column($cves, 'cve_id'))),
            'epss_priority'     => ParkVulnerabilityRules::PRIORITY_EPSS,

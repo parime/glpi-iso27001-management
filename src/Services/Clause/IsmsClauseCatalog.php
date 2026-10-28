@@ -34,7 +34,7 @@ final class IsmsClauseCatalog
         '4.2'   => ['clause' => '4', 'module' => 'GlpiPlugin\\Grcmanager\\ComplianceObligation'],
         '4.3'   => ['clause' => '4', 'module' => null],
         '4.4'   => ['clause' => '4', 'module' => null],
-        '5.1'   => ['clause' => '5', 'module' => 'PluginGrcmanagerManagementReview'],
+        '5.1'   => ['clause' => '5', 'module' => 'GlpiPlugin\\Grcmanager\\ManagementReview'],
         '5.2'   => ['clause' => '5', 'module' => 'GlpiPlugin\\Grcmanager\\Policy'],
         '5.3'   => ['clause' => '5', 'module' => null],
         '6.1.1' => ['clause' => '6', 'module' => 'GlpiPlugin\\Grcmanager\\Risk'],
@@ -53,13 +53,13 @@ final class IsmsClauseCatalog
         '8.2'   => ['clause' => '8', 'module' => 'GlpiPlugin\\Grcmanager\\Risk'],
         '8.3'   => ['clause' => '8', 'module' => 'GlpiPlugin\\Grcmanager\\Risk'],
         '9.1'   => ['clause' => '9', 'module' => 'PluginGrcmanagerObjective'],
-        '9.2.1' => ['clause' => '9', 'module' => 'PluginGrcmanagerAudit'],
-        '9.2.2' => ['clause' => '9', 'module' => 'PluginGrcmanagerAudit'],
-        '9.3.1' => ['clause' => '9', 'module' => 'PluginGrcmanagerManagementReview'],
-        '9.3.2' => ['clause' => '9', 'module' => 'PluginGrcmanagerManagementReview'],
-        '9.3.3' => ['clause' => '9', 'module' => 'PluginGrcmanagerManagementReview'],
+        '9.2.1' => ['clause' => '9', 'module' => 'GlpiPlugin\\Grcmanager\\Audit'],
+        '9.2.2' => ['clause' => '9', 'module' => 'GlpiPlugin\\Grcmanager\\Audit'],
+        '9.3.1' => ['clause' => '9', 'module' => 'GlpiPlugin\\Grcmanager\\ManagementReview'],
+        '9.3.2' => ['clause' => '9', 'module' => 'GlpiPlugin\\Grcmanager\\ManagementReview'],
+        '9.3.3' => ['clause' => '9', 'module' => 'GlpiPlugin\\Grcmanager\\ManagementReview'],
         '10.1'  => ['clause' => '10', 'module' => null],
-        '10.2'  => ['clause' => '10', 'module' => 'PluginGrcmanagerNonconformity'],
+        '10.2'  => ['clause' => '10', 'module' => 'GlpiPlugin\\Grcmanager\\Nonconformity'],
     ];
 
     /**

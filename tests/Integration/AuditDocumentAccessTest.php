@@ -19,8 +19,8 @@ declare(strict_types=1);
 
 namespace GlpiPlugin\Grcmanager\Tests\Integration;
 
-use PluginGrcmanagerAudit;
-use PluginGrcmanagerAuditTeam;
+use GlpiPlugin\Grcmanager\Audit;
+use GlpiPlugin\Grcmanager\AuditTeam;
 use PluginGrcmanagerDocumentAccess;
 use PluginGrcmanagerRestrictedDocument;
 
@@ -36,12 +36,12 @@ final class AuditDocumentAccessTest extends GrcmanagerIntegrationTestCase
     {
         parent::setUp();
         // Indépendant du groupe RSSI de l'instance (annulé avec la transaction du test).
-        PluginGrcmanagerAuditTeam::setCisoGroupId(0);
+        \GlpiPlugin\Grcmanager\AuditTeam::setCisoGroupId(0);
     }
 
     private function audit(int $auditorId): int
     {
-        $id = (int) (new PluginGrcmanagerAudit())->add(['title' => 'Audit #140', 'users_id' => $auditorId]);
+        $id = (int) (new \GlpiPlugin\Grcmanager\Audit())->add(['title' => 'Audit #140', 'users_id' => $auditorId]);
         $this->assertGreaterThan(0, $id);
 
         return $id;
@@ -62,17 +62,21 @@ final class AuditDocumentAccessTest extends GrcmanagerIntegrationTestCase
     public function testDocumentJoinedToAnAuditIsReservedToItsTeam(): void
     {
         $auditId = $this->audit($this->createTestUser('Alice', 'Auditrice'));
-        $documentsId = $this->attach(PluginGrcmanagerAudit::class, $auditId);
+        $documentsId = $this->attach(\GlpiPlugin\Grcmanager\Audit::class, $auditId);
 
         $this->assertSame(
-            ['itemtype' => PluginGrcmanagerAudit::class, 'items_id' => $auditId],
+            ['itemtype' => \GlpiPlugin\Grcmanager\Audit::class, 'items_id' => $auditId],
             PluginGrcmanagerRestrictedDocument::sourceOf($documentsId)
         );
         // Super-Admin hors équipe : refusé malgré tous ses droits.
         $this->assertFalse(PluginGrcmanagerRestrictedDocument::canReadSource($documentsId));
 
         $this->assertTrue(
-            PluginGrcmanagerAuditTeam::addMember($auditId, self::SESSION_USER, PluginGrcmanagerAuditTeam::ROLE_AUDITEE)
+            \GlpiPlugin\Grcmanager\AuditTeam::addMember(
+                $auditId,
+                self::SESSION_USER,
+                \GlpiPlugin\Grcmanager\AuditTeam::ROLE_AUDITEE
+            )
         );
         $this->assertTrue(PluginGrcmanagerRestrictedDocument::canReadSource($documentsId));
     }
@@ -80,25 +84,25 @@ final class AuditDocumentAccessTest extends GrcmanagerIntegrationTestCase
     public function testAuditorAndResponsibleAreMembersFromTheForm(): void
     {
         $auditId = $this->audit(self::SESSION_USER);
-        $this->assertTrue(PluginGrcmanagerAuditTeam::canAccessDocuments($auditId, self::SESSION_USER));
+        $this->assertTrue(\GlpiPlugin\Grcmanager\AuditTeam::canAccessDocuments($auditId, self::SESSION_USER));
 
         $responsible = $this->createTestUser('Rémi', 'Responsable');
-        $this->assertFalse(PluginGrcmanagerAuditTeam::canAccessDocuments($auditId, $responsible));
-        (new PluginGrcmanagerAudit())->update(['id' => $auditId, 'users_id_responsible' => $responsible]);
-        $this->assertTrue(PluginGrcmanagerAuditTeam::canAccessDocuments($auditId, $responsible));
+        $this->assertFalse(\GlpiPlugin\Grcmanager\AuditTeam::canAccessDocuments($auditId, $responsible));
+        (new \GlpiPlugin\Grcmanager\Audit())->update(['id' => $auditId, 'users_id_responsible' => $responsible]);
+        $this->assertTrue(\GlpiPlugin\Grcmanager\AuditTeam::canAccessDocuments($auditId, $responsible));
     }
 
     public function testFindingDocumentTakesTheAudienceOfItsAudit(): void
     {
         $auditId = $this->audit($this->createTestUser('Alice', 'Auditrice'));
-        $findingId = (int) (new \PluginGrcmanagerNonconformity())->add([
+        $findingId = (int) (new \GlpiPlugin\Grcmanager\Nonconformity())->add([
             'title'                       => 'Constat #140',
             'plugin_grcmanager_audits_id' => $auditId,
         ]);
-        $documentsId = $this->attach(\PluginGrcmanagerNonconformity::class, $findingId);
+        $documentsId = $this->attach(\GlpiPlugin\Grcmanager\Nonconformity::class, $findingId);
 
         $this->assertSame(
-            ['itemtype' => PluginGrcmanagerAudit::class, 'items_id' => $auditId],
+            ['itemtype' => \GlpiPlugin\Grcmanager\Audit::class, 'items_id' => $auditId],
             PluginGrcmanagerRestrictedDocument::sourceOf($documentsId)
         );
     }
@@ -106,12 +110,12 @@ final class AuditDocumentAccessTest extends GrcmanagerIntegrationTestCase
     public function testCisoGroupReadsTheDocumentsOfEveryAudit(): void
     {
         $auditId = $this->audit($this->createTestUser('Alice', 'Auditrice'));
-        $documentsId = $this->attach(PluginGrcmanagerAudit::class, $auditId);
+        $documentsId = $this->attach(\GlpiPlugin\Grcmanager\Audit::class, $auditId);
         $this->assertFalse(PluginGrcmanagerRestrictedDocument::canReadSource($documentsId));
 
         $groupsId = (int) (new \Group())->add(['name' => 'RSSI #140', 'entities_id' => 0]);
         (new \Group_User())->add(['groups_id' => $groupsId, 'users_id' => self::SESSION_USER]);
-        PluginGrcmanagerAuditTeam::setCisoGroupId($groupsId);
+        \GlpiPlugin\Grcmanager\AuditTeam::setCisoGroupId($groupsId);
 
         $this->assertTrue(PluginGrcmanagerRestrictedDocument::canReadSource($documentsId));
     }
@@ -127,7 +131,7 @@ final class AuditDocumentAccessTest extends GrcmanagerIntegrationTestCase
 
         (new \Document_Item())->add([
             'documents_id' => $documentsId,
-            'itemtype'     => PluginGrcmanagerAudit::class,
+            'itemtype'     => \GlpiPlugin\Grcmanager\Audit::class,
             'items_id'     => $auditId,
         ]);
 
@@ -138,18 +142,26 @@ final class AuditDocumentAccessTest extends GrcmanagerIntegrationTestCase
     public function testDownloadsAreListedAndPurgedWithTheAudit(): void
     {
         $auditId = $this->audit(self::SESSION_USER);
-        $documentsId = $this->attach(PluginGrcmanagerAudit::class, $auditId);
-        PluginGrcmanagerDocumentAccess::log($documentsId, PluginGrcmanagerAudit::class, $auditId, self::SESSION_USER);
+        $documentsId = $this->attach(\GlpiPlugin\Grcmanager\Audit::class, $auditId);
+        PluginGrcmanagerDocumentAccess::log(
+            $documentsId,
+            \GlpiPlugin\Grcmanager\Audit::class,
+            $auditId,
+            self::SESSION_USER
+        );
 
-        $accesses = PluginGrcmanagerDocumentAccess::getAccesses(PluginGrcmanagerAudit::class, $auditId);
+        $accesses = PluginGrcmanagerDocumentAccess::getAccesses(\GlpiPlugin\Grcmanager\Audit::class, $auditId);
         $this->assertCount(1, $accesses);
         $this->assertSame($documentsId, $accesses[0]['documents_id']);
 
         $auditee = $this->createTestUser('Paul', 'Audite');
-        PluginGrcmanagerAuditTeam::addMember($auditId, $auditee, PluginGrcmanagerAuditTeam::ROLE_AUDITEE);
-        (new PluginGrcmanagerAudit())->delete(['id' => $auditId], true);
-        $this->assertSame([], PluginGrcmanagerDocumentAccess::getAccesses(PluginGrcmanagerAudit::class, $auditId));
-        $this->assertSame([], PluginGrcmanagerAuditTeam::getMembers($auditId));
+        \GlpiPlugin\Grcmanager\AuditTeam::addMember($auditId, $auditee, \GlpiPlugin\Grcmanager\AuditTeam::ROLE_AUDITEE);
+        (new \GlpiPlugin\Grcmanager\Audit())->delete(['id' => $auditId], true);
+        $this->assertSame(
+            [],
+            PluginGrcmanagerDocumentAccess::getAccesses(\GlpiPlugin\Grcmanager\Audit::class, $auditId)
+        );
+        $this->assertSame([], \GlpiPlugin\Grcmanager\AuditTeam::getMembers($auditId));
     }
 
     public function testOnlyDownloadsOfTheRequestedDocumentAreDetected(): void
@@ -169,7 +181,7 @@ final class AuditDocumentAccessTest extends GrcmanagerIntegrationTestCase
 
     public function testAuditHasNotesAndTheProfileTabOffersNoteRights(): void
     {
-        $this->assertArrayHasKey(READNOTE, (new PluginGrcmanagerAudit())->getRights());
+        $this->assertArrayHasKey(READNOTE, (new \GlpiPlugin\Grcmanager\Audit())->getRights());
         $rights = \PluginGrcmanagerProfile::getRightsMatrix()[0]['rights'];
         $this->assertArrayHasKey(READNOTE, $rights);
         $this->assertArrayHasKey(UPDATENOTE, $rights);

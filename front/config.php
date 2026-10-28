@@ -74,7 +74,7 @@ if (isset($_POST['update_sensitive_config'])) {
 if (isset($_POST['update_audit_config'])) {
     Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
 
-    PluginGrcmanagerAuditTeam::setCisoGroupId((int) ($_POST['ciso_groups_id'] ?? 0));
+    \GlpiPlugin\Grcmanager\AuditTeam::setCisoGroupId((int) ($_POST['ciso_groups_id'] ?? 0));
 
     Html::back();
 }
@@ -117,7 +117,7 @@ Html::header(
     'nvd_config'                => NvdConfig::load(),
     'park_thresholds'           => PluginGrcmanagerParkVulnerability::getTicketThresholds(),
     'max_tickets'               => PluginGrcmanagerParkVulnerability::MAX_TICKETS_PER_RUN,
-    'ciso_groups_id'            => PluginGrcmanagerAuditTeam::getCisoGroupId(),
+    'ciso_groups_id'            => \GlpiPlugin\Grcmanager\AuditTeam::getCisoGroupId(),
     'notifications_minimal'     => SensitiveNotification::isMinimal(),
     'can_edit_sensitive'        => Session::haveRight(Installer::SENSITIVE_RIGHT, UPDATE),
 ]);

@@ -75,7 +75,7 @@ Html::header(
     $title,
     PluginGrcmanagerNetworkFlow::getSearchURL(),
     'grcmanager',
-    PluginGrcmanagerComplianceAudit::class,
+    \GlpiPlugin\Grcmanager\ComplianceAudit::class,
     PluginGrcmanagerNetworkFlow::class
 );
 TemplateRenderer::getInstance()->display('@grcmanager/network_flow_import.html.twig', [

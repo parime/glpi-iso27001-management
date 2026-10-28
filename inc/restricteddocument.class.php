@@ -32,7 +32,7 @@ use Glpi\DBAL\QuerySubQuery;
  *
  * Issue #140 : les documents joints à un audit interne, ou à l'un de ses constats, rejoignent le
  * registre avec l'audit pour source. Ils ne se lisent que par l'équipe de l'audit et le groupe
- * RSSI (PluginGrcmanagerAuditTeam), et chaque téléchargement est historisé
+ * RSSI (\GlpiPlugin\Grcmanager\AuditTeam), et chaque téléchargement est historisé
  * (PluginGrcmanagerDocumentAccess).
  *
  * Issue #139 : les copies de quiz des participants ont pour source leur ligne de participation
@@ -97,19 +97,19 @@ class PluginGrcmanagerRestrictedDocument
         }
     }
 
-    private static function auditOf(string $itemtype, int $itemsId): ?PluginGrcmanagerAudit
+    private static function auditOf(string $itemtype, int $itemsId): ?\GlpiPlugin\Grcmanager\Audit
     {
-        if ($itemtype === PluginGrcmanagerNonconformity::class) {
-            $finding = new PluginGrcmanagerNonconformity();
+        if ($itemtype === \GlpiPlugin\Grcmanager\Nonconformity::class) {
+            $finding = new \GlpiPlugin\Grcmanager\Nonconformity();
             if (!$finding->getFromDB($itemsId)) {
                 return null;
             }
-            $itemtype = PluginGrcmanagerAudit::class;
+            $itemtype = \GlpiPlugin\Grcmanager\Audit::class;
             $itemsId = (int) ($finding->fields['plugin_grcmanager_audits_id'] ?? 0);
         }
-        $audit = new PluginGrcmanagerAudit();
+        $audit = new \GlpiPlugin\Grcmanager\Audit();
 
-        $found = $itemtype === PluginGrcmanagerAudit::class && $itemsId > 0 && $audit->getFromDB($itemsId);
+        $found = $itemtype === \GlpiPlugin\Grcmanager\Audit::class && $itemsId > 0 && $audit->getFromDB($itemsId);
 
         return $found ? $audit : null;
     }
@@ -147,8 +147,8 @@ class PluginGrcmanagerRestrictedDocument
         }
         $itemtype = $source['itemtype'];
         // Issue #140 : l'équipe de l'audit (audités compris) et le groupe RSSI, et personne d'autre.
-        if ($itemtype === PluginGrcmanagerAudit::class) {
-            return PluginGrcmanagerAuditTeam::canAccessDocuments($source['items_id']);
+        if ($itemtype === \GlpiPlugin\Grcmanager\Audit::class) {
+            return \GlpiPlugin\Grcmanager\AuditTeam::canAccessDocuments($source['items_id']);
         }
         // Issue #139 : copie de quiz, au participant, au formateur et au groupe RSSI.
         if ($itemtype === PluginGrcmanagerTrainingQuiz::class) {

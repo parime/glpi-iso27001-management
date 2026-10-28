@@ -59,6 +59,14 @@ final class ItemtypeRenames
         'PluginGrcmanagerSupplierAssessment'       => \GlpiPlugin\Grcmanager\SupplierAssessment::class,
         'PluginGrcmanagerImpactAnalysis'           => \GlpiPlugin\Grcmanager\ImpactAnalysis::class,
         'PluginGrcmanagerCausalLink'               => \GlpiPlugin\Grcmanager\CausalLink::class,
+        // Audits : audits internes, équipe d'audit, audit technique, non-conformités, revue de direction.
+        'PluginGrcmanagerAudit'                    => \GlpiPlugin\Grcmanager\Audit::class,
+        'PluginGrcmanagerAuditTeam'                => \GlpiPlugin\Grcmanager\AuditTeam::class,
+        'PluginGrcmanagerComplianceAudit'          => \GlpiPlugin\Grcmanager\ComplianceAudit::class,
+        'PluginGrcmanagerNonconformity'            => \GlpiPlugin\Grcmanager\Nonconformity::class,
+        'PluginGrcmanagerNotificationTargetNonconformity'
+            => \GlpiPlugin\Grcmanager\NotificationTargetNonconformity::class,
+        'PluginGrcmanagerManagementReview'         => \GlpiPlugin\Grcmanager\ManagementReview::class,
     ];
 
     /**

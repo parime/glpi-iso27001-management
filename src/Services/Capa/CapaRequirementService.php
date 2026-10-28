@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace GlpiPlugin\Grcmanager\Services\Capa;
 
 /**
- * Business rule behind PluginGrcmanagerNonconformity's `finding_type` axis (inc/nonconformity.class.php),
+ * Business rule behind \GlpiPlugin\Grcmanager\Nonconformity's `finding_type` axis (inc/nonconformity.class.php),
  * extracted as pure PHP so it is unit-testable without a running GLPI instance, same "logique
  * pure-PHP testable sous src/Services/" convention as GlpiPlugin\Grcmanager\Services\Risk\RiskScoringService.
  *

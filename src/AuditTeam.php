@@ -15,7 +15,16 @@
  * -------------------------------------------------------------------------
  */
 
+namespace GlpiPlugin\Grcmanager;
+
+use CommonGLPI;
+use Config;
+use Dropdown;
 use Glpi\Application\View\TemplateRenderer;
+use Group;
+use Group_User;
+use GlpiPlugin\Grcmanager\Audit;
+use Session;
 
 /**
  * Issue #140 : équipe d'un audit interne, seule audience de ses documents.
@@ -29,7 +38,7 @@ use Glpi\Application\View\TemplateRenderer;
  * Personne d'autre ne lit les documents de l'audit, même avec le droit Documents de GLPI
  * (PluginGrcmanagerRestrictedDocument).
  */
-class PluginGrcmanagerAuditTeam extends CommonGLPI
+class AuditTeam extends CommonGLPI
 {
     public const TABLE = 'glpi_plugin_grcmanager_audits_users';
     public const ROLE_AUDITOR = 'auditor';
@@ -109,7 +118,7 @@ class PluginGrcmanagerAuditTeam extends CommonGLPI
         }
         $audit = $DB->request([
             'SELECT' => ['users_id', 'users_id_responsible'],
-            'FROM'   => PluginGrcmanagerAudit::getTable(),
+            'FROM'   => Audit::getTable(),
             'WHERE'  => ['id' => $auditsId],
         ])->current();
         if ($audit === null) {
@@ -157,7 +166,7 @@ class PluginGrcmanagerAuditTeam extends CommonGLPI
 
     public function getTabNameForItem(CommonGLPI $item, $withtemplate = 0)
     {
-        if (!$item instanceof PluginGrcmanagerAudit || $item->isNewItem() || !PluginGrcmanagerAudit::canView()) {
+        if (!$item instanceof Audit || $item->isNewItem() || !Audit::canView()) {
             return '';
         }
 
@@ -174,7 +183,7 @@ class PluginGrcmanagerAuditTeam extends CommonGLPI
         global $CFG_GLPI;
 
         // ajax/common.tabs.php sert le contenu sans passer par getTabNameForItem().
-        if (!$item instanceof PluginGrcmanagerAudit || !$item->can($item->getID(), READ)) {
+        if (!$item instanceof Audit || !$item->can($item->getID(), READ)) {
             return false;
         }
         $rows = [];

@@ -15,8 +15,26 @@
  * -------------------------------------------------------------------------
  */
 
+namespace GlpiPlugin\Grcmanager;
+
+use Change;
+use Change_Ticket;
+use ChangeValidation;
+use CommonGLPI;
+use CommonITILValidation;
+use Computer;
+use Config;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Services\Compliance\ComplianceAuditScore;
+use Html;
+use Item_Disk;
+use Item_Ticket;
+use PluginGrcmanagerAccountHygiene;
+use PluginGrcmanagerMenu;
+use Session;
+use State;
+use Ticket;
+use User;
 
 /**
  * Issue #162 : audit de conformité technique (ISO 27001, NIS2, RGPD) à partir de l'inventaire et
@@ -28,7 +46,7 @@ use GlpiPlugin\Grcmanager\Services\Compliance\ComplianceAuditScore;
  * Chaque contrôle n'est évalué que si la personne a le droit natif de lecture des éléments
  * concernés (ordinateurs, changements, utilisateurs).
  */
-class PluginGrcmanagerComplianceAudit extends CommonGLPI
+class ComplianceAudit extends CommonGLPI
 {
     public const RIGHTNAME = 'plugin_grcmanager';
 
@@ -203,7 +221,7 @@ class PluginGrcmanagerComplianceAudit extends CommonGLPI
     public static function getExcludedStateIds(): array
     {
         $values = Config::getConfigurationValues(
-            PluginGrcmanagerAuditTeam::CONFIG_CONTEXT,
+            AuditTeam::CONFIG_CONTEXT,
             [self::EXCLUDED_STATES_KEY]
         );
         $ids = json_decode((string) ($values[self::EXCLUDED_STATES_KEY] ?? ''), true);
@@ -235,7 +253,7 @@ class PluginGrcmanagerComplianceAudit extends CommonGLPI
         }
         $ids = $existing;
         Config::setConfigurationValues(
-            PluginGrcmanagerAuditTeam::CONFIG_CONTEXT,
+            AuditTeam::CONFIG_CONTEXT,
             [self::EXCLUDED_STATES_KEY => json_encode($ids)]
         );
     }

@@ -28,14 +28,14 @@ final class AuditReportArchiveTest extends GrcmanagerIntegrationTestCase
     {
         global $DB;
 
-        $audit = new \PluginGrcmanagerAudit();
+        $audit = new \GlpiPlugin\Grcmanager\Audit();
         $auditId = (int) $audit->add([
             'title'        => 'PHPUnit audit des sauvegardes',
             'scope'        => 'Sauvegardes du siège',
             'planned_date' => '2026-10-01',
             'status'       => 'in_progress',
         ]);
-        $finding = new \PluginGrcmanagerNonconformity();
+        $finding = new \GlpiPlugin\Grcmanager\Nonconformity();
         $findingId = (int) $finding->add([
             'title'                       => 'PHPUnit test de restauration absent',
             'plugin_grcmanager_audits_id' => $auditId,
@@ -46,9 +46,9 @@ final class AuditReportArchiveTest extends GrcmanagerIntegrationTestCase
         try {
             $this->assertGreaterThan(0, $findingId);
             $audit->getFromDB($auditId);
-            $report = \PluginGrcmanagerAudit::renderReport($audit);
+            $report = \GlpiPlugin\Grcmanager\Audit::renderReport($audit);
             $this->assertStringContainsString('PHPUnit test de restauration absent', $report);
-            $tabs = (new \PluginGrcmanagerNonconformity())->getTabNameForItem($audit);
+            $tabs = (new \GlpiPlugin\Grcmanager\Nonconformity())->getTabNameForItem($audit);
             $this->assertNotSame('', $tabs);
 
             $this->assertTrue($audit->update(['id' => $auditId, 'status' => 'completed', 'conclusion' => 'Conforme.']));
@@ -66,7 +66,7 @@ final class AuditReportArchiveTest extends GrcmanagerIntegrationTestCase
             $audit->delete(['id' => $auditId], true);
             $DB->delete(
                 \Document_Item::getTable(),
-                ['itemtype' => \PluginGrcmanagerAudit::class, 'items_id' => $auditId]
+                ['itemtype' => \GlpiPlugin\Grcmanager\Audit::class, 'items_id' => $auditId]
             );
         }
     }
@@ -81,7 +81,7 @@ final class AuditReportArchiveTest extends GrcmanagerIntegrationTestCase
         return array_map('intval', array_column(iterator_to_array($DB->request([
             'SELECT' => ['documents_id'],
             'FROM'   => \Document_Item::getTable(),
-            'WHERE'  => ['itemtype' => \PluginGrcmanagerAudit::class, 'items_id' => $auditId],
+            'WHERE'  => ['itemtype' => \GlpiPlugin\Grcmanager\Audit::class, 'items_id' => $auditId],
         ]), false), 'documents_id'));
     }
 }

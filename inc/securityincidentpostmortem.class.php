@@ -151,12 +151,12 @@ class PluginGrcmanagerSecurityIncidentPostMortem extends CommonGLPI
         }
 
         $actions = [];
-        foreach ((new PluginGrcmanagerNonconformity())->find($byIncident) as $row) {
+        foreach ((new \GlpiPlugin\Grcmanager\Nonconformity())->find($byIncident) as $row) {
             $actions[] = [
                 'title'  => (string) $row['title'],
-                'status' => PluginGrcmanagerNonconformity::getStatuses()[$row['status']] ?? $row['status'],
+                'status' => \GlpiPlugin\Grcmanager\Nonconformity::getStatuses()[$row['status']] ?? $row['status'],
                 'due'    => (string) ($row['due_date'] ?? ''),
-                'url'    => PluginGrcmanagerNonconformity::getFormURLWithID((int) $row['id']),
+                'url'    => \GlpiPlugin\Grcmanager\Nonconformity::getFormURLWithID((int) $row['id']),
             ];
         }
 

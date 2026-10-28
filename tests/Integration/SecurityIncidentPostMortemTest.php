@@ -56,7 +56,7 @@ final class SecurityIncidentPostMortemTest extends GrcmanagerIntegrationTestCase
             'cost_fixed'    => 20,
             'cost_material' => 0,
         ]);
-        $ncId = (int) (new \PluginGrcmanagerNonconformity())->add([
+        $ncId = (int) (new \GlpiPlugin\Grcmanager\Nonconformity())->add([
             'title'                                  => 'PHPUnit déployer la MFA',
             'plugin_grcmanager_securityincidents_id' => $incidentId,
         ]);
@@ -102,7 +102,7 @@ final class SecurityIncidentPostMortemTest extends GrcmanagerIntegrationTestCase
             );
         } finally {
             (new \Document())->delete(['id' => $documentsId], true);
-            (new \PluginGrcmanagerNonconformity())->delete(['id' => $ncId], true);
+            (new \GlpiPlugin\Grcmanager\Nonconformity())->delete(['id' => $ncId], true);
         }
     }
 }

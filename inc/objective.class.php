@@ -35,7 +35,7 @@ use GlpiPlugin\Grcmanager\Services\Ui\Badge;
  * `target_value` column. Whichever is set (or both) is display-only context for the human reading
  * the measurement history below; this class does not itself compute "on track" vs "at risk" from
  * the numbers (see `status`, entered manually like every other status column in this plugin
- * family — RiskAssessmentTrait::getStatuses(), PluginGrcmanagerAudit::getStatuses()... — an
+ * family — RiskAssessmentTrait::getStatuses(), \GlpiPlugin\Grcmanager\Audit::getStatuses()... — an
  * automatic "distance to target" computation was judged premature for a first version, especially
  * for the qualitative-only case where no such computation is even possible, see TECH_DEBT.md).
  *

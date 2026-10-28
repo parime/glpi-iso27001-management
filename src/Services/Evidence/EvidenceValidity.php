@@ -41,7 +41,7 @@ final class EvidenceValidity
     public const ITEMTYPES = [
         'PluginGrcmanagerControl',
         'GlpiPlugin\\Grcmanager\\SupplierRisk',
-        'PluginGrcmanagerAudit',
+        'GlpiPlugin\\Grcmanager\\Audit',
         'GlpiPlugin\\Grcmanager\\Policy',
     ];
 

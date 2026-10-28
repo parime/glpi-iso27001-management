@@ -23,13 +23,13 @@ use GlpiPlugin\Grcmanager\Services\Objective\ObjectiveMeasurementValidator;
  * ISO 27001 clause 6.2), see PluginGrcmanagerObjective's own docblock for the full rationale.
  * `plugin_grcmanager_objectives_id` is not a real GLPI foreign key (no native `ON DELETE CASCADE`
  * here, resolved by this class' own getMeasurements()/deleteAllForObjective()), same simplification
- * already assumed for PluginGrcmanagerNonconformity's own `plugin_grcmanager_audits_id` (see
+ * already assumed for \GlpiPlugin\Grcmanager\Nonconformity's own `plugin_grcmanager_audits_id` (see
  * TECH_DEBT.md Sprint 4).
  *
  * Never surfaced through its own menu entry, search screen, or `showForm()`: it only ever exists
  * as a child row added/deleted inline from its parent objective's own form
  * (PluginGrcmanagerObjective::showMeasurementHistory(), front/objectivemeasurement.form.php),
- * exactly like PluginGrcmanagerManagementReview's attendees or PluginGrcmanagerTraining's
+ * exactly like \GlpiPlugin\Grcmanager\ManagementReview's attendees or PluginGrcmanagerTraining's
  * participants, except those two are plain link tables while a measurement genuinely carries its
  * own data (date, value, comment) and so needs its own real itemtype/table rather than a link
  * table with no extra columns.

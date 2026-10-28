@@ -36,7 +36,7 @@ final class MaturityTest extends GrcmanagerIntegrationTestCase
         $this->assertLessThanOrEqual(100, $before['score']);
 
         // Un audit interne terminé ce mois-ci porte la composante « audit » à 100.
-        $auditId = (int) (new \PluginGrcmanagerAudit())->add([
+        $auditId = (int) (new \GlpiPlugin\Grcmanager\Audit())->add([
             'title'       => 'PHPUnit audit maturité',
             'status'      => 'completed',
             'actual_date' => date('Y-m-d'),
@@ -58,7 +58,7 @@ final class MaturityTest extends GrcmanagerIntegrationTestCase
             $card = \GlpiPlugin\Grcmanager\Services\Dashboard\DashboardCardService::maturityScore();
             $this->assertSame($score, $card['number']);
         } finally {
-            (new \PluginGrcmanagerAudit())->delete(['id' => $auditId], true);
+            (new \GlpiPlugin\Grcmanager\Audit())->delete(['id' => $auditId], true);
             $DB->delete(\PluginGrcmanagerMaturity::SNAPSHOTS_TABLE, ['month' => date('Y-m')]);
         }
     }

@@ -758,7 +758,7 @@ final class DashboardCardService
 
     /**
      * Issue #29 : répartition par sévérité (mineure/majeure/critique), même échelle que
-     * PluginGrcmanagerNonconformity::getSeverities() et même schéma de carte que
+     * \GlpiPlugin\Grcmanager\Nonconformity::getSeverities() et même schéma de carte que
      * risksByLevel()/supplierRisksByLevel() ci-dessus.
      */
     public static function securityIncidentsBySeverity(array $params = []): array

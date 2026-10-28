@@ -30,10 +30,10 @@ final class ComplianceCalendarTest extends GrcmanagerIntegrationTestCase
         $this->assertSame($types['certification_audit'], $event->fields['name'], 'Le type sert de nom.');
         $this->assertSame('2031-03-11 00:00:00', $event->fields['date_end'], 'Fin : la journée du début.');
 
-        $auditsId = (int) (new \PluginGrcmanagerAudit())->add([
+        $auditsId = (int) (new \GlpiPlugin\Grcmanager\Audit())->add([
             'title' => 'PHPUnit audit interne', 'planned_date' => '2031-03-20', 'users_id' => $owner,
         ]);
-        $reviewsId = (int) (new \PluginGrcmanagerManagementReview())->add([
+        $reviewsId = (int) (new \GlpiPlugin\Grcmanager\ManagementReview())->add([
             'title' => 'PHPUnit revue de direction', 'review_date' => '2031-03-25',
         ]);
         $DB->insert('glpi_plugin_grcmanager_managementreviews_users', [

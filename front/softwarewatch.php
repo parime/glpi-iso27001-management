@@ -71,12 +71,12 @@ Html::header(
     __('Software to watch', 'grcmanager'),
     PluginGrcmanagerParkVulnerability::getSearchURL(),
     'grcmanager',
-    PluginGrcmanagerComplianceAudit::class,
+    \GlpiPlugin\Grcmanager\ComplianceAudit::class,
     PluginGrcmanagerMenu::SOFTWARE_WATCH
 );
 // Encadré « À quoi sert cette page ? ».
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(PluginGrcmanagerComplianceAudit::class, PluginGrcmanagerMenu::SOFTWARE_WATCH);
+PluginGrcmanagerMenu::showSection(\GlpiPlugin\Grcmanager\ComplianceAudit::class, PluginGrcmanagerMenu::SOFTWARE_WATCH);
 PluginGrcmanagerPageHelp::show('softwarewatch');
 
 TemplateRenderer::getInstance()->display('@grcmanager/software_watch.html.twig', [

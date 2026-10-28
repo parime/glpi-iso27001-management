@@ -43,7 +43,7 @@ final class SecurityIncidentRulesTest extends TestCase
         self::assertSame('other', SecurityIncidentRules::normalizeCategory(null));
     }
 
-    // --- severity (issue #29: reuses PluginGrcmanagerNonconformity's own scale) ----------------
+    // --- severity (issue #29: reuses \GlpiPlugin\Grcmanager\Nonconformity's own scale) ----------------
 
     /**
      * @dataProvider allowedSeverityProvider

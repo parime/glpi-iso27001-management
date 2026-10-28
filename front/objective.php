@@ -26,11 +26,11 @@ Html::header(
     PluginGrcmanagerObjective::getTypeName(2),
     $_SERVER['PHP_SELF'],
     'grcmanager',
-    PluginGrcmanagerAudit::class,
+    \GlpiPlugin\Grcmanager\Audit::class,
     PluginGrcmanagerObjective::class
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(PluginGrcmanagerAudit::class, PluginGrcmanagerObjective::class);
+PluginGrcmanagerMenu::showSection(\GlpiPlugin\Grcmanager\Audit::class, PluginGrcmanagerObjective::class);
 // Encadré « À quoi sert cette page ? ».
 PluginGrcmanagerPageHelp::show('objective');
 
