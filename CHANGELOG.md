@@ -28,6 +28,10 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   les 1 712 textes de l'interface sont écrits en anglais dans le code, le français est une
   traduction (`locales/fr_FR.po`). Aucun changement à l'écran en français : les accords et les
   synonymes sont conservés par des contextes de traduction.
+- Plus aucun HTML écrit en PHP (#199) : les modèles de notification créés à l'installation
+  (non-conformités, preuves, formations, politiques, actions de traitement, revues, incidents de
+  sécurité, approbation de la SoA, revue des accès) passent par un gabarit Twig. Le contenu est
+  le même, à l'encodage près des apostrophes et guillemets (`&#039;`, `&quot;`).
 
 ### Fixed
 
