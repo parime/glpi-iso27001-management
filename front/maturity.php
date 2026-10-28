@@ -35,13 +35,16 @@ Html::header(
     \GlpiPlugin\Grcmanager\Maturity::getTypeName(),
     \GlpiPlugin\Grcmanager\Maturity::getSearchURL(),
     'grcmanager',
-    PluginGrcmanagerDashboard::class,
+    \GlpiPlugin\Grcmanager\Dashboard::class,
     \GlpiPlugin\Grcmanager\Maturity::class
 );
 // Encadré « À quoi sert cette page ? ».
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(PluginGrcmanagerDashboard::class, \GlpiPlugin\Grcmanager\Maturity::class);
-PluginGrcmanagerPageHelp::show('maturity');
+\GlpiPlugin\Grcmanager\Menu::showSection(
+    \GlpiPlugin\Grcmanager\Dashboard::class,
+    \GlpiPlugin\Grcmanager\Maturity::class
+);
+\GlpiPlugin\Grcmanager\PageHelp::show('maturity');
 TemplateRenderer::getInstance()->display('@grcmanager/maturity.html.twig', [
     'score'            => $current['score'],
     'level'            => $current['level'],

@@ -32,8 +32,8 @@ Html::header(
 );
 // Encadré « À quoi sert cette page ? ».
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(\GlpiPlugin\Grcmanager\Control::class, \GlpiPlugin\Grcmanager\Control::class);
-PluginGrcmanagerPageHelp::show('control');
+\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\Control::class, \GlpiPlugin\Grcmanager\Control::class);
+\GlpiPlugin\Grcmanager\PageHelp::show('control');
 
 // Intro, exports et rappels d'approbation de la SoA (issue #112).
 global $CFG_GLPI;

@@ -32,8 +32,11 @@ Html::header(
 );
 // Encadré « À quoi sert cette page ? ».
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(\GlpiPlugin\Grcmanager\Control::class, \GlpiPlugin\Grcmanager\CoverageRule::class);
-PluginGrcmanagerPageHelp::show('coveragerule');
+\GlpiPlugin\Grcmanager\Menu::showSection(
+    \GlpiPlugin\Grcmanager\Control::class,
+    \GlpiPlugin\Grcmanager\CoverageRule::class
+);
+\GlpiPlugin\Grcmanager\PageHelp::show('coveragerule');
 
 $params = QueryBuilder::manageParams(\GlpiPlugin\Grcmanager\CoverageRule::class, $_GET);
 

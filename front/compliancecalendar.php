@@ -34,13 +34,16 @@ Html::header(
     __('Compliance calendar', 'grcmanager'),
     \GlpiPlugin\Grcmanager\ComplianceEvent::getCalendarURL(),
     'grcmanager',
-    PluginGrcmanagerDashboard::class,
+    \GlpiPlugin\Grcmanager\Dashboard::class,
     \GlpiPlugin\Grcmanager\ComplianceEvent::class
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(PluginGrcmanagerDashboard::class, \GlpiPlugin\Grcmanager\ComplianceEvent::class);
+\GlpiPlugin\Grcmanager\Menu::showSection(
+    \GlpiPlugin\Grcmanager\Dashboard::class,
+    \GlpiPlugin\Grcmanager\ComplianceEvent::class
+);
 // Encadré « À quoi sert cette page ? ».
-PluginGrcmanagerPageHelp::show('compliancecalendar');
+\GlpiPlugin\Grcmanager\PageHelp::show('compliancecalendar');
 
 \GlpiPlugin\Grcmanager\ComplianceEvent::showCalendar($mine);
 

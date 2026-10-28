@@ -34,9 +34,9 @@ Html::header(
     \GlpiPlugin\Grcmanager\Audit::class
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(\GlpiPlugin\Grcmanager\Audit::class, \GlpiPlugin\Grcmanager\Audit::class);
+\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\Audit::class, \GlpiPlugin\Grcmanager\Audit::class);
 // Encadré « À quoi sert cette page ? ».
-PluginGrcmanagerPageHelp::show('audit');
+\GlpiPlugin\Grcmanager\PageHelp::show('audit');
 
 // ROADMAP.md "Version 1.5" (rapports exportables pour audit externe) : export PDF mis en forme
 // (audits + non-conformités/CAPA), en complément de l'export CSV/XLSX déjà natif de

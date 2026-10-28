@@ -22,20 +22,23 @@ use Glpi\Dashboard\Grid;
 include('../../../inc/includes.php');
 
 // Issue #247 : tableau de bord du menu GRC & Conformité (même rendu que Parc > Tableau de bord).
-Session::checkRight(PluginGrcmanagerDashboard::RIGHTNAME, READ);
+Session::checkRight(\GlpiPlugin\Grcmanager\Dashboard::RIGHTNAME, READ);
 
 Html::header(
-    PluginGrcmanagerDashboard::getTypeName(),
-    PluginGrcmanagerDashboard::getSearchURL(),
+    \GlpiPlugin\Grcmanager\Dashboard::getTypeName(),
+    \GlpiPlugin\Grcmanager\Dashboard::getSearchURL(),
     'grcmanager',
-    PluginGrcmanagerDashboard::class
+    \GlpiPlugin\Grcmanager\Dashboard::class
 );
 // Encadré « À quoi sert cette page ? ».
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(PluginGrcmanagerDashboard::class, PluginGrcmanagerDashboard::class);
-PluginGrcmanagerPageHelp::show('dashboard');
+\GlpiPlugin\Grcmanager\Menu::showSection(
+    \GlpiPlugin\Grcmanager\Dashboard::class,
+    \GlpiPlugin\Grcmanager\Dashboard::class
+);
+\GlpiPlugin\Grcmanager\PageHelp::show('dashboard');
 
-$key = PluginGrcmanagerDashboard::getDashboardKey();
+$key = \GlpiPlugin\Grcmanager\Dashboard::getDashboardKey();
 if ((new Dashboard($key))->canViewCurrent()) {
     (new Grid($key))->showDefault();
 } else {

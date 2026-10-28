@@ -31,12 +31,12 @@ Html::header(
     \GlpiPlugin\Grcmanager\NetworkFlow::class
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(
+\GlpiPlugin\Grcmanager\Menu::showSection(
     \GlpiPlugin\Grcmanager\ComplianceAudit::class,
     \GlpiPlugin\Grcmanager\NetworkFlow::class
 );
 // Encadré « À quoi sert cette page ? ».
-PluginGrcmanagerPageHelp::show('networkflow');
+\GlpiPlugin\Grcmanager\PageHelp::show('networkflow');
 
 \GlpiPlugin\Grcmanager\NetworkFlow::showSummary();
 

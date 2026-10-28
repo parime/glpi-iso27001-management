@@ -15,18 +15,23 @@
  * -------------------------------------------------------------------------
  */
 
+namespace GlpiPlugin\Grcmanager;
+
+use CommonGLPI;
 use Glpi\Application\View\TemplateRenderer;
+use Html;
+use Session;
 
 /**
  * Issue #140 : historique des téléchargements des documents restreints (registre
- * PluginGrcmanagerRestrictedDocument), preuve d'un accès maîtrisé aux documents d'audit.
+ * RestrictedDocument), preuve d'un accès maîtrisé aux documents d'audit.
  *
  * Le téléchargement passe par front/document.send.php du cœur, après le contrôle du plugin
  * (Hooks::ITEM_CAN). Ce contrôle a lieu avant les autres vérifications de GLPI : l'accès n'est
  * donc enregistré qu'en fin de requête, et seulement si le fichier est réellement parti
  * (en-tête Content-Disposition envoyé).
  */
-class PluginGrcmanagerDocumentAccess extends CommonGLPI
+class DocumentAccess extends CommonGLPI
 {
     public const TABLE = 'glpi_plugin_grcmanager_documentaccesses';
 
@@ -126,10 +131,10 @@ class PluginGrcmanagerDocumentAccess extends CommonGLPI
     public function getTabNameForItem(CommonGLPI $item, $withtemplate = 0)
     {
         if (
-            !$item instanceof \GlpiPlugin\Grcmanager\Audit
+            !$item instanceof Audit
             || $item->isNewItem()
-            || !\GlpiPlugin\Grcmanager\Audit::canView()
-            || !\GlpiPlugin\Grcmanager\AuditTeam::canAccessDocuments($item->getID())
+            || !Audit::canView()
+            || !AuditTeam::canAccessDocuments($item->getID())
         ) {
             return '';
         }
@@ -141,13 +146,13 @@ class PluginGrcmanagerDocumentAccess extends CommonGLPI
     {
         // ajax/common.tabs.php sert le contenu sans passer par getTabNameForItem().
         if (
-            !$item instanceof \GlpiPlugin\Grcmanager\Audit || !$item->can($item->getID(), READ)
-            || !\GlpiPlugin\Grcmanager\AuditTeam::canAccessDocuments($item->getID())
+            !$item instanceof Audit || !$item->can($item->getID(), READ)
+            || !AuditTeam::canAccessDocuments($item->getID())
         ) {
             return false;
         }
         TemplateRenderer::getInstance()->display('@grcmanager/document_accesses_tab.html.twig', [
-            'accesses' => self::getAccesses(\GlpiPlugin\Grcmanager\Audit::class, $item->getID()),
+            'accesses' => self::getAccesses(Audit::class, $item->getID()),
         ]);
 
         return true;

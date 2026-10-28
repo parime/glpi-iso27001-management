@@ -28,7 +28,7 @@ use GlpiPlugin\Grcmanager\Services\Control\ControlCrosswalkDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\Nis2CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Ui\Badge;
 use GlpiPlugin\Grcmanager\Services\Ui\Fragment;
-use PluginGrcmanagerMenu;
+use GlpiPlugin\Grcmanager\Menu;
 use Session;
 
 /**
@@ -69,7 +69,7 @@ class Control extends ControlBase
     /** Rubrique « Contrôles Annexe A » : la SoA et ses correspondances (Référentiels). */
     /**
      * Rubrique « Conformité » : SoA, référentiels, exigences du SMSI, obligations, politiques et
-     * preuves (PluginGrcmanagerMenu::sections()).
+     * preuves (Menu::sections()).
      */
     public static function getMenuContent()
     {
@@ -79,7 +79,7 @@ class Control extends ControlBase
             $menu['title'] = __('Compliance', 'grcmanager');
         }
 
-        return PluginGrcmanagerMenu::withSubPages(self::class, $menu);
+        return Menu::withSubPages(self::class, $menu);
     }
 
     /**

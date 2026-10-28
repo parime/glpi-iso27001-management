@@ -31,9 +31,12 @@ Html::header(
     \GlpiPlugin\Grcmanager\Nonconformity::class
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(\GlpiPlugin\Grcmanager\Audit::class, \GlpiPlugin\Grcmanager\Nonconformity::class);
+\GlpiPlugin\Grcmanager\Menu::showSection(
+    \GlpiPlugin\Grcmanager\Audit::class,
+    \GlpiPlugin\Grcmanager\Nonconformity::class
+);
 // Encadré « À quoi sert cette page ? ».
-PluginGrcmanagerPageHelp::show('nonconformity');
+\GlpiPlugin\Grcmanager\PageHelp::show('nonconformity');
 
 // Owner-scoped default view (same "Mes ..." shortcut already offered by front/risk.php): a
 // one-click link to this same list pre-filtered on the "Responsable" search option (id 4, see

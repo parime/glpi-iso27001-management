@@ -33,8 +33,8 @@ Html::header(
 );
 // Encadré « À quoi sert cette page ? ».
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(\GlpiPlugin\Grcmanager\Control::class, \GlpiPlugin\Grcmanager\Evidence::class);
-PluginGrcmanagerPageHelp::show('evidence');
+\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\Control::class, \GlpiPlugin\Grcmanager\Evidence::class);
+\GlpiPlugin\Grcmanager\PageHelp::show('evidence');
 
 TemplateRenderer::getInstance()->display('@grcmanager/_list_toolbar.html.twig', ['notice' => __(
     'A validity date is entered from the "Evidence validity" tab of a control, supplier risk, audit or policy, for '

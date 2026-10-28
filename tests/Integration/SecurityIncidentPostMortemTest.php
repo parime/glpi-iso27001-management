@@ -98,7 +98,7 @@ final class SecurityIncidentPostMortemTest extends GrcmanagerIntegrationTestCase
             $this->assertSame(0, (int) $document->fields['is_recursive']);
             $this->assertSame(
                 ['itemtype' => Incident::class, 'items_id' => $incidentId],
-                \PluginGrcmanagerRestrictedDocument::sourceOf($documentsId)
+                \GlpiPlugin\Grcmanager\RestrictedDocument::sourceOf($documentsId)
             );
         } finally {
             (new \Document())->delete(['id' => $documentsId], true);

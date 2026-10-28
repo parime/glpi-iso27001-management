@@ -28,7 +28,7 @@ Html::header(
     \GlpiPlugin\Grcmanager\Risk::class
 );
 // Encadré « À quoi sert cette page ? ».
-PluginGrcmanagerPageHelp::show('riskheatmap');
+\GlpiPlugin\Grcmanager\PageHelp::show('riskheatmap');
 
 // Each cell links to the risk list, pre-filtered on that exact probability/impact combination
 // (search option ids 3/4, see \GlpiPlugin\Grcmanager\Risk::rawSearchOptions()) - the "interactive" half

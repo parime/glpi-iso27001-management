@@ -30,7 +30,7 @@ use Html;
 use Item_Disk;
 use Item_Ticket;
 use GlpiPlugin\Grcmanager\AccountHygiene;
-use PluginGrcmanagerMenu;
+use GlpiPlugin\Grcmanager\Menu;
 use Session;
 use State;
 use Ticket;
@@ -91,11 +91,11 @@ class ComplianceAudit extends CommonGLPI
 
     /**
      * Rubrique « Sécurité technique » : contrôles automatiques, vulnérabilités du parc et matrice
-     * des flux (PluginGrcmanagerMenu::sections()).
+     * des flux (Menu::sections()).
      */
     public static function getMenuContent()
     {
-        return PluginGrcmanagerMenu::withSubPages(self::class, [
+        return Menu::withSubPages(self::class, [
             'title'         => __('Technical security', 'grcmanager'),
             'section_label' => self::getTypeName(),
             'page'          => self::getSearchURL(false),

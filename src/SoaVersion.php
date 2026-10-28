@@ -26,7 +26,7 @@ use GlpiPlugin\Grcmanager\Services\Control\SoaReportBuilder;
 use Html;
 use NotificationEvent;
 use GlpiPlugin\Grcmanager\Control;
-use PluginGrcmanagerRestrictedDocument;
+use GlpiPlugin\Grcmanager\RestrictedDocument;
 use Session;
 
 /**
@@ -336,7 +336,7 @@ class SoaVersion extends SoaVersionBase
         $document = new Document();
         $documentsId = (int) $document->add([
             'name'          => sprintf(__('Statement of Applicability - version %d', 'grcmanager'), $versionNumber),
-            // Lisible avec le seul droit de lire la SoA (PluginGrcmanagerRestrictedDocument), jamais
+            // Lisible avec le seul droit de lire la SoA (RestrictedDocument), jamais
             // avec le droit Documents des sous-entités (trouvé par le contrôle commun,
             // parime/glpi-plugin-security).
             'entities_id'   => 0,
@@ -353,7 +353,7 @@ class SoaVersion extends SoaVersionBase
             ]);
             $version = new self();
             if ($version->getFromDB($versionId)) {
-                PluginGrcmanagerRestrictedDocument::register($documentsId, $version);
+                RestrictedDocument::register($documentsId, $version);
             }
         }
 

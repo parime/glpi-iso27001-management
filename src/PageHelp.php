@@ -15,6 +15,8 @@
  * -------------------------------------------------------------------------
  */
 
+namespace GlpiPlugin\Grcmanager;
+
 use Glpi\Application\View\TemplateRenderer;
 
 /**
@@ -22,7 +24,7 @@ use Glpi\Application\View\TemplateRenderer;
  * qu'on y trouve, ce qui est attendu de l'utilisateur, et la référence de la norme. Repliable ;
  * le choix est retenu par le navigateur, page par page.
  */
-class PluginGrcmanagerPageHelp
+class PageHelp
 {
     /**
      * @return array<string, array{purpose: string, expected: string, reference?: string}>

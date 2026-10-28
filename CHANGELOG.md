@@ -41,7 +41,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   parc, produits et références CPE, flux réseau, classification des actifs), incidents de sécurité
   hors objet ITIL (CVE liées, rapport post-incident, lien avec les tickets), SMSI (mesures et SoA,
   règles de couverture, exigences, objectifs et mesures, maturité, revues périodiques,
-  référentiels, catalogue de risques). L'incident lui-même
+  référentiels, catalogue de risques), socle (menu, onglet des profils, aide des pages, tableau
+  de bord, documents restreints et journal de leurs téléchargements). L'incident lui-même
   et ses classes ITIL gardent leur nom historique : GLPI en dérive les balises des e-mails. Par exemple
   `PluginGrcmanagerWaiver` devient `GlpiPlugin\Grcmanager\Waiver`. La mise à jour renomme les
   types stockés en base (notifications, modèles, préférences d'affichage, tâche planifiée,

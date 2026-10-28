@@ -34,8 +34,8 @@ Html::header(
 );
 // Encadré « À quoi sert cette page ? ».
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(\GlpiPlugin\Grcmanager\Risk::class, \GlpiPlugin\Grcmanager\CausalLink::class);
-PluginGrcmanagerPageHelp::show('causalgraph');
+\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\Risk::class, \GlpiPlugin\Grcmanager\CausalLink::class);
+\GlpiPlugin\Grcmanager\PageHelp::show('causalgraph');
 TemplateRenderer::getInstance()->display('@grcmanager/causal_graph_page.html.twig', [
     'elements' => \GlpiPlugin\Grcmanager\CausalLink::cytoscapeElements(['nodes' => $nodes, 'edges' => $edges]),
     'risk_url' => \GlpiPlugin\Grcmanager\Risk::getSearchURL(),

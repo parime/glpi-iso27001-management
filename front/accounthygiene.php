@@ -48,11 +48,11 @@ Html::header(
 );
 // Encadré « À quoi sert cette page ? ».
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(
+\GlpiPlugin\Grcmanager\Menu::showSection(
     \GlpiPlugin\Grcmanager\AccessReview::class,
     \GlpiPlugin\Grcmanager\AccountHygiene::class
 );
-PluginGrcmanagerPageHelp::show('accounthygiene');
+\GlpiPlugin\Grcmanager\PageHelp::show('accounthygiene');
 
 \GlpiPlugin\Grcmanager\AccountHygiene::showList($days);
 

@@ -31,9 +31,9 @@ Html::header(
     \GlpiPlugin\Grcmanager\Waiver::class
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(\GlpiPlugin\Grcmanager\Risk::class, \GlpiPlugin\Grcmanager\Waiver::class);
+\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\Risk::class, \GlpiPlugin\Grcmanager\Waiver::class);
 // Encadré « À quoi sert cette page ? ».
-PluginGrcmanagerPageHelp::show('waiver');
+\GlpiPlugin\Grcmanager\PageHelp::show('waiver');
 
 $params = QueryBuilder::manageParams(\GlpiPlugin\Grcmanager\Waiver::class, $_GET);
 

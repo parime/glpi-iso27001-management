@@ -27,10 +27,10 @@ use Html;
 use Log;
 use Notepad;
 use GlpiPlugin\Grcmanager\Control;
-use PluginGrcmanagerDocumentAccess;
-use PluginGrcmanagerMenu;
+use GlpiPlugin\Grcmanager\DocumentAccess;
+use GlpiPlugin\Grcmanager\Menu;
 use GlpiPlugin\Grcmanager\Nonconformity;
-use PluginGrcmanagerRestrictedDocument;
+use GlpiPlugin\Grcmanager\RestrictedDocument;
 use Session;
 
 /**
@@ -78,7 +78,7 @@ class Audit extends AuditBase
 
     /**
      * Rubrique « Audits et amélioration » : audits internes, non-conformités, objectifs et revues
-     * de direction (PluginGrcmanagerMenu::sections()).
+     * de direction (Menu::sections()).
      */
     public static function getMenuContent()
     {
@@ -88,7 +88,7 @@ class Audit extends AuditBase
             $menu['title'] = __('Audits and improvement', 'grcmanager');
         }
 
-        return PluginGrcmanagerMenu::withSubPages(self::class, $menu);
+        return Menu::withSubPages(self::class, $menu);
     }
     /**
      * @return array<string, string>
@@ -395,7 +395,7 @@ class Audit extends AuditBase
     public function cleanDBonPurge()
     {
         AuditTeam::purgeAudit($this->getID());
-        PluginGrcmanagerDocumentAccess::purgeItem(self::class, $this->getID());
+        DocumentAccess::purgeItem(self::class, $this->getID());
     }
 
     public function post_addItem()
@@ -430,7 +430,7 @@ class Audit extends AuditBase
             ->addStandardTab(Nonconformity::class, $tabs, $options)
             ->addStandardTab(AuditTeam::class, $tabs, $options)
             ->addStandardTab(Document_Item::class, $tabs, $options)
-            ->addStandardTab(PluginGrcmanagerDocumentAccess::class, $tabs, $options)
+            ->addStandardTab(DocumentAccess::class, $tabs, $options)
             ->addStandardTab(Notepad::class, $tabs, $options)
             ->addStandardTab(Log::class, $tabs, $options);
 
@@ -517,7 +517,7 @@ class Audit extends AuditBase
         $documentsId = (int) (new Document())->add([
             'name'          => sprintf(__('Internal audit report - %s', 'grcmanager'), $this->fields['title']),
             // L'audit est global : le document ne se lit qu'avec le droit de lire l'audit
-            // (PluginGrcmanagerRestrictedDocument), jamais avec le seul droit Documents d'une
+            // (RestrictedDocument), jamais avec le seul droit Documents d'une
             // entité ; non récursif pour ne pas descendre dans les sous-entités.
             'entities_id'   => (int) ($_SESSION['glpiactive_entity'] ?? 0),
             'is_recursive'  => 0,
@@ -531,7 +531,7 @@ class Audit extends AuditBase
                 'itemtype'     => self::class,
                 'items_id'     => $this->getID(),
             ]);
-            PluginGrcmanagerRestrictedDocument::register($documentsId, $this);
+            RestrictedDocument::register($documentsId, $this);
             Session::addMessageAfterRedirect(
                 __('The audit report has been archived in the Documents tab.', 'grcmanager')
             );

@@ -15,14 +15,19 @@
  * -------------------------------------------------------------------------
  */
 
+namespace GlpiPlugin\Grcmanager;
+
+use CommonGLPI;
 use GlpiPlugin\Grcmanager\Services\Dashboard\DefaultDashboardService;
+use GlpiPlugin\Grcmanager\Menu;
+use Session;
 
 /**
  * Issue #247 : entrée « Tableau de bord » du menu GRC & Conformité, comme celles des menus Parc et
  * Assistance de GLPI. La page affiche le tableau de bord natif « Vue d'ensemble ISMS » (grille,
  * cartes, édition et partage de GLPI) ; aucune donnée propre.
  */
-class PluginGrcmanagerDashboard extends CommonGLPI
+class Dashboard extends CommonGLPI
 {
     public const RIGHTNAME = 'plugin_grcmanager';
 
@@ -51,7 +56,7 @@ class PluginGrcmanagerDashboard extends CommonGLPI
     public static function getMenuContent()
     {
         // Rubrique « Tableau de bord » : avec le score de maturité.
-        return PluginGrcmanagerMenu::withSubPages(self::class, [
+        return Menu::withSubPages(self::class, [
             'title' => self::getTypeName(),
             'page'  => self::getSearchURL(false),
             'icon'  => self::getIcon(),

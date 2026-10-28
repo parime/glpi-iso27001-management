@@ -27,10 +27,10 @@ final class PageHelpTest extends GrcmanagerIntegrationTestCase
     public function testEveryHelpTextIsShownByItsPage(): void
     {
         $front = dirname(__DIR__, 2) . '/front/';
-        foreach (\PluginGrcmanagerPageHelp::texts() as $page => $text) {
+        foreach (\GlpiPlugin\Grcmanager\PageHelp::texts() as $page => $text) {
             $this->assertFileExists($front . $page . '.php');
             $this->assertStringContainsString(
-                "PluginGrcmanagerPageHelp::show('" . $page . "')",
+                "GlpiPlugin\\Grcmanager\\PageHelp::show('" . $page . "')",
                 (string) file_get_contents($front . $page . '.php'),
                 $page
             );
@@ -42,13 +42,13 @@ final class PageHelpTest extends GrcmanagerIntegrationTestCase
     public function testBoxRendersWithTranslatedTitle(): void
     {
         ob_start();
-        \PluginGrcmanagerPageHelp::show('risk');
+        \GlpiPlugin\Grcmanager\PageHelp::show('risk');
         $html = (string) ob_get_clean();
         $this->assertStringContainsString(__('What is this page for?', 'grcmanager'), $html);
         $this->assertStringContainsString('grc-help-risk', $html);
 
         ob_start();
-        \PluginGrcmanagerPageHelp::show('page-inconnue');
+        \GlpiPlugin\Grcmanager\PageHelp::show('page-inconnue');
         $this->assertSame('', (string) ob_get_clean());
     }
 }

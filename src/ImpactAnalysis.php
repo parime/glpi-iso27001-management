@@ -72,7 +72,7 @@ class ImpactAnalysis extends CommonGLPI
             return false;
         }
 
-        // Sous-page de la rubrique « Risques » (PluginGrcmanagerMenu::sections()).
+        // Sous-page de la rubrique « Risques » (Menu::sections()).
         return [
             'title' => __('Impact analysis', 'grcmanager'),
             'page'  => self::getSearchURL(false),

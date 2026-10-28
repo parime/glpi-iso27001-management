@@ -30,9 +30,12 @@ Html::header(
     \GlpiPlugin\Grcmanager\ManagementReview::class
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(\GlpiPlugin\Grcmanager\Audit::class, \GlpiPlugin\Grcmanager\ManagementReview::class);
+\GlpiPlugin\Grcmanager\Menu::showSection(
+    \GlpiPlugin\Grcmanager\Audit::class,
+    \GlpiPlugin\Grcmanager\ManagementReview::class
+);
 // Encadré « À quoi sert cette page ? ».
-PluginGrcmanagerPageHelp::show('managementreview');
+\GlpiPlugin\Grcmanager\PageHelp::show('managementreview');
 
 // Same URL-driven search fix as front/risk.php/front/audit.php (Search::showList()'s $params must
 // be pre-merged with $_GET via QueryBuilder::manageParams(), unlike Search::show() which does this

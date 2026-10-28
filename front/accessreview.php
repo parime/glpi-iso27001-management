@@ -31,11 +31,11 @@ Html::header(
 );
 // Encadré « À quoi sert cette page ? ».
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(
+\GlpiPlugin\Grcmanager\Menu::showSection(
     \GlpiPlugin\Grcmanager\AccessReview::class,
     \GlpiPlugin\Grcmanager\AccessReview::class
 );
-PluginGrcmanagerPageHelp::show('accessreview');
+\GlpiPlugin\Grcmanager\PageHelp::show('accessreview');
 
 TemplateRenderer::getInstance()->display('@grcmanager/_list_toolbar.html.twig', [
     'buttons' => [[

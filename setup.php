@@ -83,21 +83,21 @@ function plugin_init_grcmanager(): void
 
     // Menu « GRC & Conformité » : un secteur de premier niveau dédié. Une clé de catégorie inconnue
     // des secteurs natifs fait créer par Html::generateMenuSession() (cœur de GLPI) une nouvelle
-    // entrée de la barre latérale. PluginGrcmanagerMenu (inc/menu.class.php), ancre sans table, est
+    // entrée de la barre latérale. \GlpiPlugin\Grcmanager\Menu (inc/menu.class.php), ancre sans table, est
     // placée EN TÊTE du tableau pour que le titre et l'icône du secteur soient les siens et non ceux
     // du premier écran fonctionnel ; plugin_grcmanager_redefine_menus() retire ensuite sa ligne.
     //
     // Six rubriques, dans l'ordre du cycle du SMSI : pilotage, risques, conformité, audits et
     // amélioration, opérations, sécurité technique. Chaque rubrique est une seule entrée de menu ;
     // les autres écrans de la rubrique sont ses sous-pages, avec une barre d'onglets commune
-    // (PluginGrcmanagerMenu::sections()) et le fil d'Ariane « Rubrique > Page ». Les objets enfants
+    // (\GlpiPlugin\Grcmanager\Menu::sections()) et le fil d'Ariane « Rubrique > Page ». Les objets enfants
     // (mesures d'un objectif, actions de traitement d'un risque…) n'ont pas d'entrée : ils se gèrent
     // depuis la fiche de leur parent.
     $menuToAdd = [
         'grcmanager' => [
-            PluginGrcmanagerMenu::class,
+            \GlpiPlugin\Grcmanager\Menu::class,
             // Issue #247 : tableau de bord en tête, comme dans Parc et Assistance.
-            PluginGrcmanagerDashboard::class,
+            \GlpiPlugin\Grcmanager\Dashboard::class,
             \GlpiPlugin\Grcmanager\Risk::class,
             \GlpiPlugin\Grcmanager\Control::class,
             \GlpiPlugin\Grcmanager\Audit::class,
@@ -122,7 +122,7 @@ function plugin_init_grcmanager(): void
     $PLUGIN_HOOKS[Hooks::MENU_TOADD]['grcmanager'] = $menuToAdd;
     // Issue #247 : Html::header() ne charge la grille et les graphiques des tableaux de bord que
     // pour les pages déclarées ici (même mécanisme que Parc > Tableau de bord ; clé en minuscules).
-    $CFG_GLPI['javascript']['grcmanager'][strtolower(PluginGrcmanagerDashboard::class)] = ['dashboard'];
+    $CFG_GLPI['javascript']['grcmanager'][strtolower(\GlpiPlugin\Grcmanager\Dashboard::class)] = ['dashboard'];
 
     // Issue #28 (bibliothèque de politiques de sécurité versionnées, A.5.1) : le fichier joint
     // (PDF, Word...) d'une politique est stocké via le mécanisme natif GLPI Document/Document_Item,
@@ -246,11 +246,11 @@ function plugin_init_grcmanager(): void
     // l'utilisateur, sans droit sur le plugin).
     Plugin::registerClass(\GlpiPlugin\Grcmanager\TrainingQuiz::class, ['addtabon' => [Preference::class]]);
     // Onglet « GRC Manager » des profils : attribuer les droits du plugin sans passer par la base.
-    Plugin::registerClass(PluginGrcmanagerProfile::class, ['addtabon' => [Profile::class]]);
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\Profile::class, ['addtabon' => [Profile::class]]);
     // Issue #141 : le ticket créé par le ticket récurrent d'une revue devient son ticket en cours ;
     // sa résolution date la revue (\GlpiPlugin\Grcmanager\PeriodicReview::onTicketAdd()/onTicketUpdate()).
     // Issue #140 : un document joint à un audit, ou à un constat d'audit, est réservé à l'équipe
-    // de l'audit (PluginGrcmanagerRestrictedDocument::onDocumentItemAdd()).
+    // de l'audit (\GlpiPlugin\Grcmanager\RestrictedDocument::onDocumentItemAdd()).
     $PLUGIN_HOOKS[Hooks::ITEM_ADD]['grcmanager'] = [
         'Ticket'        => 'plugin_grcmanager_periodic_review_ticket_add',
         'Document_Item' => 'plugin_grcmanager_restricted_document_item_add',
@@ -262,7 +262,7 @@ function plugin_init_grcmanager(): void
         'Document'                              => 'plugin_grcmanager_forget_restricted_document',
     ];
     // Rapports générés (audit, revue des accès, post-incident, cellule de crise) : lisibles par
-    // les seules personnes qui lisent leur objet source, voir PluginGrcmanagerRestrictedDocument.
+    // les seules personnes qui lisent leur objet source, voir \GlpiPlugin\Grcmanager\RestrictedDocument.
     $PLUGIN_HOOKS[Hooks::ITEM_CAN]['grcmanager'] = ['Document' => 'plugin_grcmanager_restricted_document_can'];
     $PLUGIN_HOOKS[Hooks::ADD_DEFAULT_WHERE]['grcmanager'] = 'plugin_grcmanager_restricted_documents_where';
 
@@ -273,7 +273,7 @@ function plugin_init_grcmanager(): void
     // be discarded when this plugin runs earlier in that chain. See hook.php.
     $PLUGIN_HOOKS[Hooks::DASHBOARD_CARDS]['grcmanager'] = 'plugin_grcmanager_dashboard_cards';
 
-    // Strips PluginGrcmanagerMenu's own row from the "GRC & Conformité" submenu (v1.1.4): it must
+    // Strips \GlpiPlugin\Grcmanager\Menu's own row from the "GRC & Conformité" submenu (v1.1.4): it must
     // stay in the MENU_TOADD array above, FIRST, so Html::generateMenuSession() (GLPI core) still
     // picks up its title/icon for the whole sector - but once that title/icon are set, its own
     // clickable row is a pure visual duplicate of the sector header just above it ("GRC &
@@ -304,7 +304,7 @@ function plugin_init_grcmanager(): void
  */
 function plugin_grcmanager_redefine_menus(array $menu): array
 {
-    unset($menu['grcmanager']['content'][strtolower(PluginGrcmanagerMenu::class)]);
+    unset($menu['grcmanager']['content'][strtolower(\GlpiPlugin\Grcmanager\Menu::class)]);
 
     return $menu;
 }

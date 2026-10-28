@@ -34,9 +34,9 @@ Html::header(
     \GlpiPlugin\Grcmanager\Risk::class
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(\GlpiPlugin\Grcmanager\Risk::class, \GlpiPlugin\Grcmanager\Risk::class);
+\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\Risk::class, \GlpiPlugin\Grcmanager\Risk::class);
 // Encadré « À quoi sert cette page ? ».
-PluginGrcmanagerPageHelp::show('risk');
+\GlpiPlugin\Grcmanager\PageHelp::show('risk');
 
 // Owner-scoped default view (Sprint 2): a one-click shortcut to the same list pre-filtered on the
 // "Propriétaire" search option (id 7, see \GlpiPlugin\Grcmanager\Risk::rawSearchOptions()) to the

@@ -45,7 +45,7 @@ if (isset($_POST['add'])) {
         \GlpiPlugin\Grcmanager\ComplianceEvent::getTypeName(1),
         $_SERVER['PHP_SELF'],
         'grcmanager',
-        PluginGrcmanagerDashboard::class,
+        \GlpiPlugin\Grcmanager\Dashboard::class,
         \GlpiPlugin\Grcmanager\ComplianceEvent::class
     );
 

@@ -15,7 +15,13 @@
  * -------------------------------------------------------------------------
  */
 
+namespace GlpiPlugin\Grcmanager;
+
+use CommonDBTM;
+use Document;
+use Document_Item;
 use Glpi\DBAL\QuerySubQuery;
+use GlpiPlugin\Grcmanager\DocumentAccess;
 
 /**
  * Documents générés par le plugin (rapports PDF d'audit, de revue des accès, post-incident, de
@@ -32,13 +38,13 @@ use Glpi\DBAL\QuerySubQuery;
  *
  * Issue #140 : les documents joints à un audit interne, ou à l'un de ses constats, rejoignent le
  * registre avec l'audit pour source. Ils ne se lisent que par l'équipe de l'audit et le groupe
- * RSSI (\GlpiPlugin\Grcmanager\AuditTeam), et chaque téléchargement est historisé
- * (PluginGrcmanagerDocumentAccess).
+ * RSSI (AuditTeam), et chaque téléchargement est historisé
+ * (DocumentAccess).
  *
  * Issue #139 : les copies de quiz des participants ont pour source leur ligne de participation
- * (\GlpiPlugin\Grcmanager\TrainingQuiz) : le participant, le formateur de la session et le groupe RSSI.
+ * (TrainingQuiz) : le participant, le formateur de la session et le groupe RSSI.
  */
-class PluginGrcmanagerRestrictedDocument
+class RestrictedDocument
 {
     public const TABLE = 'glpi_plugin_grcmanager_restricteddocuments';
 
@@ -97,19 +103,19 @@ class PluginGrcmanagerRestrictedDocument
         }
     }
 
-    private static function auditOf(string $itemtype, int $itemsId): ?\GlpiPlugin\Grcmanager\Audit
+    private static function auditOf(string $itemtype, int $itemsId): ?Audit
     {
-        if ($itemtype === \GlpiPlugin\Grcmanager\Nonconformity::class) {
-            $finding = new \GlpiPlugin\Grcmanager\Nonconformity();
+        if ($itemtype === Nonconformity::class) {
+            $finding = new Nonconformity();
             if (!$finding->getFromDB($itemsId)) {
                 return null;
             }
-            $itemtype = \GlpiPlugin\Grcmanager\Audit::class;
+            $itemtype = Audit::class;
             $itemsId = (int) ($finding->fields['plugin_grcmanager_audits_id'] ?? 0);
         }
-        $audit = new \GlpiPlugin\Grcmanager\Audit();
+        $audit = new Audit();
 
-        $found = $itemtype === \GlpiPlugin\Grcmanager\Audit::class && $itemsId > 0 && $audit->getFromDB($itemsId);
+        $found = $itemtype === Audit::class && $itemsId > 0 && $audit->getFromDB($itemsId);
 
         return $found ? $audit : null;
     }
@@ -147,12 +153,12 @@ class PluginGrcmanagerRestrictedDocument
         }
         $itemtype = $source['itemtype'];
         // Issue #140 : l'équipe de l'audit (audités compris) et le groupe RSSI, et personne d'autre.
-        if ($itemtype === \GlpiPlugin\Grcmanager\Audit::class) {
-            return \GlpiPlugin\Grcmanager\AuditTeam::canAccessDocuments($source['items_id']);
+        if ($itemtype === Audit::class) {
+            return AuditTeam::canAccessDocuments($source['items_id']);
         }
         // Issue #139 : copie de quiz, au participant, au formateur et au groupe RSSI.
-        if ($itemtype === \GlpiPlugin\Grcmanager\TrainingQuiz::class) {
-            return \GlpiPlugin\Grcmanager\TrainingQuiz::canRead($source['items_id']);
+        if ($itemtype === TrainingQuiz::class) {
+            return TrainingQuiz::canRead($source['items_id']);
         }
         if (!is_a($itemtype, CommonDBTM::class, true)) {
             return false;
@@ -179,8 +185,8 @@ class PluginGrcmanagerRestrictedDocument
         }
         // Issue #140 : téléchargement autorisé par le plugin, historisé s'il aboutit.
         $source = self::sourceOf($document->getID());
-        if ($source !== null && PluginGrcmanagerDocumentAccess::isDownloadOf($document->getID())) {
-            PluginGrcmanagerDocumentAccess::logWhenSent($document->getID(), $source['itemtype'], $source['items_id']);
+        if ($source !== null && DocumentAccess::isDownloadOf($document->getID())) {
+            DocumentAccess::logWhenSent($document->getID(), $source['itemtype'], $source['items_id']);
         }
     }
 

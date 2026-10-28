@@ -316,6 +316,11 @@ $ids['ciso_group'] = $add(new Group(), ['name' => 'RSSI securite', 'entities_id'
 $add(new Notepad(), [
     'itemtype' => \GlpiPlugin\Grcmanager\Audit::class, 'items_id' => $ids['audit'], 'content' => 'Note de travail',
 ]);
-PluginGrcmanagerDocumentAccess::log($ids['audit_document'], \GlpiPlugin\Grcmanager\Audit::class, $ids['audit'], 2);
+\GlpiPlugin\Grcmanager\DocumentAccess::log(
+    $ids['audit_document'],
+    \GlpiPlugin\Grcmanager\Audit::class,
+    $ids['audit'],
+    2
+);
 
 echo json_encode($ids), "\n";

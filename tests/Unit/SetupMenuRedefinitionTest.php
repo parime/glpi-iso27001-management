@@ -10,7 +10,7 @@ require_once __DIR__ . '/../../setup.php';
 
 /**
  * `plugin_grcmanager_redefine_menus()` (setup.php) is a pure array-in/array-out function : no
- * GLPI dependency in its own body, `PluginGrcmanagerMenu::class` resolves to a plain string at
+ * GLPI dependency in its own body, `\GlpiPlugin\Grcmanager\Menu::class` resolves to a plain string at
  * compile time regardless of whether the class is actually loaded. Safe to exercise directly by
  * requiring setup.php — that only declares constants/functions and requires vendor/autoload.php,
  * none of which touches a real GLPI instance (confirmed by reading the file: no top-level code
@@ -32,7 +32,7 @@ final class SetupMenuRedefinitionTest extends TestCase
 
     public function testRemovesOnlyTheMenuAnchorsOwnRow(): void
     {
-        $anchorKey = strtolower(\PluginGrcmanagerMenu::class);
+        $anchorKey = strtolower(\GlpiPlugin\Grcmanager\Menu::class);
 
         $menu = [
             'grcmanager' => [
@@ -102,7 +102,7 @@ final class SetupMenuRedefinitionTest extends TestCase
             'grcmanager' => [
                 'title' => 'GRC & Conformité',
                 'content' => [
-                    strtolower(\PluginGrcmanagerMenu::class) => [
+                    strtolower(\GlpiPlugin\Grcmanager\Menu::class) => [
                         'title' => 'GRC & Conformité',
                         'page' => '/front/risk.php',
                     ],

@@ -44,7 +44,7 @@ final class SecurityReviewTest extends GrcmanagerIntegrationTestCase
         $incident = new Incident();
         $this->assertTrue($incident->getFromDB($incidentId));
         $documentsId = (int) (new \Document())->add(['name' => 'PHPUnit rapport restreint', 'entities_id' => $entity]);
-        \PluginGrcmanagerRestrictedDocument::register($documentsId, $incident);
+        \GlpiPlugin\Grcmanager\RestrictedDocument::register($documentsId, $incident);
 
         $documentReader = ['document' => READ];
         $this->assertFalse(
@@ -57,9 +57,9 @@ final class SecurityReviewTest extends GrcmanagerIntegrationTestCase
             static fn () => (new \Document())->can($documentsId, READ)
         ));
 
-        [, $criteria] = \PluginGrcmanagerRestrictedDocument::addDefaultWhere([\Document::class, []]);
+        [, $criteria] = \GlpiPlugin\Grcmanager\RestrictedDocument::addDefaultWhere([\Document::class, []]);
         $this->assertCount(1, $criteria, 'Retiré de la liste Gestion > Documents.');
-        [, $untouched] = \PluginGrcmanagerRestrictedDocument::addDefaultWhere([\Computer::class, []]);
+        [, $untouched] = \GlpiPlugin\Grcmanager\RestrictedDocument::addDefaultWhere([\Computer::class, []]);
         $this->assertSame([], $untouched);
     }
 
