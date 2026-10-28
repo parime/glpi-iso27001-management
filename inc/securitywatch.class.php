@@ -118,13 +118,14 @@ class PluginGrcmanagerSecurityWatch extends CommonGLPI
             if (!CertFrRules::mentionsAny((string) $row['product'], $keywords)) {
                 continue;
             }
-            $product = &$products[$row['product']];
-            $product ??= ['product' => $row['product'], 'cves' => 0, 'kev' => 0, 'priority' => 0, 'machines' => 0];
+            $name = (string) $row['product'];
+            $product = $products[$name]
+                ?? ['product' => $name, 'cves' => 0, 'kev' => 0, 'priority' => 0, 'machines' => 0];
             $product['cves']++;
             $product['kev'] += $row['is_kev'] ? 1 : 0;
             $product['priority'] += $row['priority'] ? 1 : 0;
             $product['machines'] = max($product['machines'], (int) $row['machines']);
-            unset($product);
+            $products[$name] = $product;
         }
 
         return array_values($products);

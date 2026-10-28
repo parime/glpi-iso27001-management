@@ -35,7 +35,7 @@ if (isset($_POST['add'])) {
     $item->update($_POST);
 } elseif (isset($_POST['purge'])) {
     Session::checkRight(PluginGrcmanagerRisk::$rightname, PURGE);
-    $item->delete($_POST, 1);
+    $item->delete($_POST, true);
 }
 
 Html::redirect($redirectUrl);

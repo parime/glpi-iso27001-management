@@ -33,7 +33,7 @@ if (isset($_POST['add'])) {
     Html::redirect(PluginGrcmanagerCanonicalProduct::getSearchURL());
 } elseif (isset($_POST['purge'])) {
     Session::checkRight(PluginGrcmanagerCanonicalProduct::$rightname, PURGE);
-    $item->delete($_POST, 1);
+    $item->delete($_POST, true);
     Html::redirect(PluginGrcmanagerCanonicalProduct::getSearchURL());
 } elseif (isset($_POST['update'])) {
     Session::checkRight(PluginGrcmanagerCanonicalProduct::$rightname, UPDATE);

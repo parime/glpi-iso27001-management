@@ -51,6 +51,7 @@ class PluginGrcmanagerNotificationTargetNonconformity extends NotificationTarget
     public function addDataForTemplate($event, $options = [])
     {
         $events = $this->getAllEvents();
+        /** @var PluginGrcmanagerNonconformity $nc */
         $nc     = $this->obj;
 
         $severities = PluginGrcmanagerNonconformity::getSeverities();

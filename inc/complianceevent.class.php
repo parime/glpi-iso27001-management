@@ -316,7 +316,10 @@ class PluginGrcmanagerComplianceEvent extends ComplianceEventBase
 
     /**
      * @param array{0: string, 1: string}|null $range
-     * @return array{source: string, id: int, name: string, range: ?array, users_id: int, url: string, done: bool}
+     * @return array{
+     *     source: string, id: int, name: string, range: array{0: string, 1: string}|null,
+     *     users_id: int, url: string, done: bool
+     * }
      */
     private static function deadline(
         string $source,

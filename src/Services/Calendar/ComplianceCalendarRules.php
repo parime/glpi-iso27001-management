@@ -109,8 +109,11 @@ final class ComplianceCalendarRules
     }
 
     /**
-     * @param list<array{begin: string}> $events
-     * @return list<array{begin: string}>
+     * Les autres clés des événements sont conservées.
+     *
+     * @template T of array<string, mixed>
+     * @param list<T> $events
+     * @return list<T>
      */
     public static function sortByDate(array $events): array
     {

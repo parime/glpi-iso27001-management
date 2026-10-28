@@ -32,7 +32,7 @@ if (isset($_POST['add'])) {
     Html::redirect(PluginGrcmanagerCoverageRule::getSearchURL());
 } elseif (isset($_POST['purge'])) {
     Session::checkRight(PluginGrcmanagerCoverageRule::$rightname, PURGE);
-    $item->delete($_POST, 1);
+    $item->delete($_POST, true);
     Html::redirect(PluginGrcmanagerCoverageRule::getSearchURL());
 } elseif (isset($_POST['update'])) {
     Session::checkRight(PluginGrcmanagerCoverageRule::$rightname, UPDATE);

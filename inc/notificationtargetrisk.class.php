@@ -48,6 +48,7 @@ class PluginGrcmanagerNotificationTargetRisk extends NotificationTarget
     public function addDataForTemplate($event, $options = [])
     {
         $events = $this->getAllEvents();
+        /** @var PluginGrcmanagerRisk $risk */
         $risk   = $this->obj;
 
         $categories = PluginGrcmanagerRisk::getCategories();

@@ -287,7 +287,7 @@ class PluginGrcmanagerAssetClassification extends AssetClassificationBase
         global $CFG_GLPI;
 
         // ajax/common.tabs.php sert le contenu sans passer par getTabNameForItem().
-        if (!Session::haveRight(self::$rightname, READ)) {
+        if (!$item instanceof CommonDBTM || !Session::haveRight(self::$rightname, READ)) {
             return false;
         }
 

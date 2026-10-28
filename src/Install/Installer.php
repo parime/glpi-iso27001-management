@@ -2091,7 +2091,7 @@ final class Installer
             $DB->doQuery($query);
 
             $DB->insert(self::SECURITY_INCIDENT_CONFIG_TABLE, array_merge(
-                array_map(static fn (bool $v): int => $v ? 1 : 0, SecurityIncidentModuleConfig::DEFAULTS),
+                array_map(static fn (bool $v): int => (int) $v, SecurityIncidentModuleConfig::DEFAULTS),
                 ['date_mod' => date('Y-m-d H:i:s')]
             ));
         }
@@ -3605,7 +3605,7 @@ final class Installer
                 continue;
             }
 
-            foreach (array_values($columns) as $index => $searchOptionId) {
+            foreach ($columns as $index => $searchOptionId) {
                 $DB->insert('glpi_displaypreferences', [
                     'itemtype' => $itemtype,
                     'num' => $searchOptionId,

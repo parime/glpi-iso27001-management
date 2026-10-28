@@ -52,6 +52,7 @@ class PluginGrcmanagerNotificationTargetComplianceObligation extends Notificatio
     public function addDataForTemplate($event, $options = [])
     {
         $events     = $this->getAllEvents();
+        /** @var PluginGrcmanagerComplianceObligation $obligation */
         $obligation = $this->obj;
 
         $types    = PluginGrcmanagerComplianceObligation::getTypes();

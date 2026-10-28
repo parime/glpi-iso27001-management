@@ -3,12 +3,8 @@
 # GLPI ; cette configuration tourne dans le conteneur GLPI de la CI (job « Installation reelle sur
 # GLPI »), où le plugin est dans plugins/grcmanager.
 #
-# Les signalements existants à la création (annotations de type de tableaux, delete($input, 1)…,
-# aucun bogue réel trouvé) sont dans phpstan-glpi-baseline.neon : tout nouveau signalement fait
-# échouer la CI. Régénérer la base seulement après avoir corrigé ou justifié chaque nouvelle entrée.
-includes:
-    - phpstan-glpi-baseline.neon
-
+# Aucune base d'exceptions : les 42 signalements de départ ont été corrigés (issue #146). Un
+# nouveau signalement se corrige ; à défaut, il s'ignore sur sa ligne avec sa justification.
 parameters:
     level: 5
     tmpDir: .phpstan-glpi-cache

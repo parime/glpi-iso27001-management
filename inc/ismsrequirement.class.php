@@ -72,8 +72,10 @@ class PluginGrcmanagerIsmsRequirement extends IsmsRequirementBase
 
     /**
      * Titres courts rédigés par ce projet (articles et sous-articles), jamais le texte de la norme.
+     * PHP convertit les clés « 4 » à « 10 » en entiers : lire par $titles[$code], jamais par
+     * comparaison stricte des clés.
      *
-     * @return array<string, string>
+     * @return array<int|string, string>
      */
     public static function getClauseTitles(): array
     {
