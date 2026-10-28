@@ -194,6 +194,9 @@ les audits/CAPA, avec une capture d'écran réelle par étape (disponible en fra
 
 - GLPI 11.x et GLPI 12.x (un seul paquet pour les deux versions)
 - PHP selon la matrice de compatibilité de la version de GLPI utilisée (PHP 8.2 minimum)
+- Interface en 6 langues : français, anglais, allemand, espagnol, italien et portugais du Brésil.
+  Les titres des mesures de l'Annexe A dans les langues autres que le français et l'anglais sont
+  une traduction de ce projet, pas le texte des éditions nationales de la norme.
 
 ## Avertissement : ISO 27001 et référentiels tiers
 

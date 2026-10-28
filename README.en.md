@@ -46,6 +46,9 @@ classification fields merged directly onto it.
   completeness rate, included in the PDF export.
 - **NIS2** (Directive (EU) 2022/2555) and the **ANSSI IT hygiene guide** frameworks, mapped to
   Annex A.
+- **Security of AI systems (ISO/IEC 27090:2026)**: sections of the standard mapped to Annex A, and
+  typical AI risks (public AI services, prompt injection, data leaks, supply chain, poisoning,
+  model theft, unlisted AI systems) to import into the register from the risk catalog.
 - **Evidence with an expiry date**: renewal owner, reminder before the due date, "Renew the
   evidence" ticket on expiry.
 
@@ -181,6 +184,9 @@ with a real screenshot for every step (available in French and English).
 
 - GLPI 11.x and GLPI 12.x (a single package for both versions)
 - PHP per the compatibility matrix of the GLPI version in use (PHP 8.2 minimum)
+- User interface in 6 languages: French, English, German, Spanish, Italian and Brazilian
+  Portuguese. Annex A control titles in languages other than French and English are this
+  project's translation, not the text of the national editions of the standard.
 
 ## Disclaimer: ISO 27001 and third-party frameworks
 
@@ -228,6 +234,11 @@ and documentation only identifies the framework the plugin helps you track.
   [Licence Ouverte / Open Licence (Etalab)](https://www.etalab.gouv.fr/licence-ouverte-open-licence/).
   The English translation and the Annex A mapping are indicative and made by this project; this
   project is not affiliated with or endorsed by ANSSI.
+- **ISO/IEC 27090:2026** (security of AI systems): copyrighted document (© ISO/IEC 2026). Only
+  its section numbers are used; the summary of each section, the typical AI risks and the mapping
+  to ISO 27001 Annex A are written by this project, which is not affiliated with ISO or IEC. The
+  text of the standard is available from [ISO](https://www.iso.org/standard/27090) or from your
+  national standards body.
 
 ## License
 
