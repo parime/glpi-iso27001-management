@@ -207,6 +207,48 @@
   </div>
 </div>
 
+<div class="card mb-3">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <h3 class="card-title mb-0">{{ __('ISO/IEC 27090:2026 — Security of AI systems', 'grcmanager') }}</h3>
+    <input type="search" class="form-control form-control-sm w-auto grcmanager-ref-filter"
+           data-target="grcmanager-iso27090-body" placeholder="{{ __('Filter…', 'grcmanager') }}">
+  </div>
+  <div class="card-body" id="grcmanager-iso27090-body">
+    <p class="text-muted small">{{ __('Guidance, not certifiable, to be applied alongside ISO/IEC 27001 and ISO/IEC 42001. The typical AI risks of the risk catalog refer to these sections.', 'grcmanager') }}</p>
+    {% for chapter in iso27090 %}
+      <details class="mb-2"{% if chapter.chapter == '6' %} open{% endif %}>
+        <summary class="fw-bold">{{ chapter.chapter }} — {{ chapter.title }}</summary>
+        <table class="table table-sm ms-3 mt-2">
+          <tbody>
+            {% for topic in chapter.topics %}
+              <tr>
+                <td class="text-nowrap"><code>{{ topic.code }}</code></td>
+                <td>{{ topic.text }}</td>
+                <td>
+                  {% for control in topic.controls %}
+                    {% if control.id %}
+                      <a class="badge bg-azure-lt" href="{{ path('/plugins/grcmanager/front/control.form.php') }}?id={{ control.id }}">{{ control.code }}</a>
+                    {% else %}
+                      <span class="badge bg-azure-lt">{{ control.code }}</span>
+                    {% endif %}
+                  {% endfor %}
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </details>
+    {% endfor %}
+  </div>
+  {# Texte de la norme protégé (© ISO/IEC 2026) : numéros de section seulement, objet résumé par ce
+     projet — voir le docblock d'Iso27090CatalogDefaults. #}
+  <div class="card-footer text-muted small">
+    <i class="ti ti-license me-1"></i>
+    {{ __('ISO/IEC 27090:2026 is protected by copyright: only its section numbers are used here; summaries and the mapping to ISO 27001 Annex A are written by this project, which is not affiliated with ISO or IEC.', 'grcmanager') }}
+    <a href="{{ iso27090_source }}" target="_blank" rel="noopener noreferrer">iso.org</a>
+  </div>
+</div>
+
 <script>
   document.querySelectorAll('.grcmanager-ref-filter').forEach(function (input) {
     input.addEventListener('input', function () {

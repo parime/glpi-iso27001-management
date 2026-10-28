@@ -51,6 +51,10 @@ archivé), avec ses champs de classification ISO 27001 fusionnés dessus.
   complétude, inclus dans l'export PDF.
 - **Référentiels NIS2** (directive (UE) 2022/2555) et **guide d'hygiène informatique de l'ANSSI**
   reliés à l'Annexe A.
+- **Sécurité des systèmes d'IA (ISO/IEC 27090:2026)** : sections de la norme reliées à l'Annexe A,
+  et risques types d'IA (services d'IA publics, injection de prompt, fuite de données, chaîne
+  d'approvisionnement, empoisonnement, vol de modèle, systèmes non inventoriés) à importer dans le
+  registre depuis le catalogue de risques.
 - **Preuves avec date de validité** : responsable du renouvellement, rappel avant l'échéance,
   ticket « Renouveler la preuve » à l'expiration.
 
@@ -236,6 +240,11 @@ du dépôt et dans la documentation indique uniquement le référentiel que le p
   [Licence Ouverte / Open Licence (Etalab)](https://www.etalab.gouv.fr/licence-ouverte-open-licence/).
   La traduction anglaise et la correspondance avec l'Annexe A sont indicatives et établies par
   ce projet ; ce projet n'est ni affilié à l'ANSSI ni approuvé par elle.
+- **ISO/IEC 27090:2026** (sécurité des systèmes d'IA) : document protégé par le droit d'auteur
+  (© ISO/IEC 2026). Seuls ses numéros de section sont repris ; l'objet de chaque section, les
+  risques types d'IA et la correspondance avec l'Annexe A ISO 27001 sont rédigés par ce projet,
+  qui n'est affilié ni à l'ISO ni à l'IEC. Le texte de la norme s'obtient auprès de
+  l'[ISO](https://www.iso.org/standard/27090) ou de l'organisme national de normalisation.
 
 ## Licence
 

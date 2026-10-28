@@ -7,6 +7,21 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Added
+
+- **Sécurité des systèmes d'IA, ISO/IEC 27090:2026** :
+  - page Référentiels : sections 5.2 à 7.8 de la norme (gouvernance de l'IA, chaîne
+    d'approvisionnement, empoisonnement, évasion, inférence, exfiltration, inversion, sorties
+    sensibles, injection de prompt, journalisation, filtrage, limitation d'usage…), chacune
+    reliée aux mesures de l'Annexe A ISO 27001 ;
+  - catalogue de risques : groupe « Systèmes d'IA » avec 7 risques types à importer dans le
+    registre (données saisies dans des services d'IA publics, assistant détourné par injection de
+    prompt, système qui révèle des données, modèle ou service tiers compromis, données ou modèle
+    altérés, vol d'un modèle maison, systèmes d'IA non inventoriés), avec leurs sections
+    ISO/IEC 27090 et leurs mesures de l'Annexe A.
+  Texte de la norme protégé : seuls les numéros de section sont repris, résumés et
+  correspondances sont rédigés par ce projet. Traduit dans les 6 langues.
+
 ### Changed
 
 - Chaînes source en anglais (convention GLPI, remarque de la revue de la marketplace, #293) :

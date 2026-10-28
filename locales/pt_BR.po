@@ -5414,3 +5414,133 @@ msgstr "Computadores excluídos das verificações (status): %s"
 
 msgid "The library of security policies, versioned, with their approval and review date."
 msgstr "A biblioteca de políticas de segurança, versionadas, com a aprovação e a data de revisão."
+
+msgid "ISO/IEC 27090:2026 — Security of AI systems"
+msgstr "ISO/IEC 27090:2026 — Segurança de sistemas de IA"
+
+msgid "Guidance, not certifiable, to be applied alongside ISO/IEC 27001 and ISO/IEC 42001. The typical AI risks of the risk catalog refer to these sections."
+msgstr "Diretrizes, não certificáveis, a aplicar com a ISO/IEC 27001 e a ISO/IEC 42001. Os riscos típicos de IA do catálogo de riscos remetem a estas seções."
+
+msgid "ISO/IEC 27090:2026 is protected by copyright: only its section numbers are used here; summaries and the mapping to ISO 27001 Annex A are written by this project, which is not affiliated with ISO or IEC."
+msgstr "A ISO/IEC 27090:2026 é protegida por direitos autorais: aqui só são usados os números de seção; os resumos e a correspondência com o Anexo A da ISO 27001 são redigidos por este projeto, que não é afiliado à ISO nem à IEC."
+
+msgid "Infrastructure"
+msgstr "Infraestrutura"
+
+msgid "AI systems (ISO/IEC 27090)"
+msgstr "Sistemas de IA (ISO/IEC 27090)"
+
+msgid "Typical risks for an organization that uses AI more than it develops it. The badges refer to the sections of ISO/IEC 27090:2026."
+msgstr "Riscos típicos para uma organização que usa IA mais do que a desenvolve. Os selos remetem às seções da ISO/IEC 27090:2026."
+
+msgid "See the ISO/IEC 27090 framework"
+msgstr "Ver o referencial ISO/IEC 27090"
+
+#, php-format
+msgid "ISO/IEC 27090 sections: %s"
+msgstr "Seções da ISO/IEC 27090: %s"
+
+msgid "Company data entered into public AI services"
+msgstr "Dados da empresa inseridos em serviços de IA públicos"
+
+msgid "Staff paste documents, customer data or source code into public chatbots or AI tools that the organization has not approved."
+msgstr "Funcionários colam documentos, dados de clientes ou código-fonte em chatbots ou ferramentas de IA públicas que a organização não aprovou."
+
+msgid "Leak of confidential or personal data, reuse of the data to train the service, breach of GDPR or of contracts."
+msgstr "Vazamento de dados confidenciais ou pessoais, reutilização dos dados para treinar o serviço, violação do RGPD ou de contratos."
+
+msgid "Is there a list of approved AI services and a rule on what data may be entered?"
+msgstr "Existe uma lista de serviços de IA aprovados e uma regra sobre quais dados podem ser inseridos?"
+
+msgid "Have staff been made aware of it?"
+msgstr "Os funcionários foram conscientizados sobre isso?"
+
+msgid "AI assistant or agent diverted by prompt injection"
+msgstr "Assistente ou agente de IA desviado por injeção de prompt"
+
+msgid "An AI assistant reads e-mails, documents or web pages, or acts on tools (mailbox, tickets, files) on behalf of users."
+msgstr "Um assistente de IA lê e-mails, documentos ou páginas web, ou age em ferramentas (caixa de correio, chamados, arquivos) em nome dos usuários."
+
+msgid "Instructions hidden in the content it reads make it disclose data, perform unwanted actions or return a booby-trapped answer."
+msgstr "Instruções ocultas no conteúdo que ele lê o fazem divulgar dados, executar ações indesejadas ou devolver uma resposta armadilhada."
+
+msgid "Does the assistant have more rights than needed, or act without human validation?"
+msgstr "O assistente tem mais direitos do que o necessário ou age sem validação humana?"
+
+msgid "Is the content it processes filtered and are its actions logged?"
+msgstr "O conteúdo que ele processa é filtrado e suas ações são registradas?"
+
+msgid "AI system revealing confidential or personal data"
+msgstr "Sistema de IA que revela dados confidenciais ou pessoais"
+
+msgid "An internal assistant or model has access to documents or data broader than what each user is allowed to see."
+msgstr "Um assistente ou modelo interno tem acesso a documentos ou dados mais amplos do que cada usuário pode ver."
+
+msgid "Disclosure through its answers of documents, personal data or training data to people who should not see them."
+msgstr "Divulgação, por meio de suas respostas, de documentos, dados pessoais ou dados de treinamento a pessoas que não deveriam vê-los."
+
+msgid "Does the assistant respect the access rights of the person asking?"
+msgstr "O assistente respeita os direitos de acesso da pessoa que pergunta?"
+
+msgid "Were personal data excluded or minimized in what it can access?"
+msgstr "Os dados pessoais foram excluídos ou minimizados naquilo a que ele tem acesso?"
+
+msgid "Compromised third-party AI model, dataset or service"
+msgstr "Modelo, conjunto de dados ou serviço de IA de terceiros comprometido"
+
+msgid "The organization uses models, datasets, libraries or AI services supplied by third parties, sometimes downloaded from public repositories."
+msgstr "A organização usa modelos, conjuntos de dados, bibliotecas ou serviços de IA fornecidos por terceiros, às vezes baixados de repositórios públicos."
+
+msgid "Trapped model or library, unknown origin of data, provider changing its terms or its model without notice, dependency on a single provider."
+msgstr "Modelo ou biblioteca armadilhado, origem desconhecida dos dados, fornecedor que muda suas condições ou seu modelo sem aviso, dependência de um único fornecedor."
+
+msgid "Are the origin and version of each model and dataset known?"
+msgstr "A origem e a versão de cada modelo e conjunto de dados são conhecidas?"
+
+msgid "Do contracts with AI providers cover data use, security and location?"
+msgstr "Os contratos com os fornecedores de IA cobrem o uso dos dados, a segurança e a localização?"
+
+msgid "Training data or model tampered with"
+msgstr "Dados de treinamento ou modelo adulterados"
+
+msgid "The organization trains or fine-tunes a model, or feeds an assistant with a document base that several people can modify."
+msgstr "A organização treina ou ajusta um modelo, ou alimenta um assistente com uma base documental que várias pessoas podem modificar."
+
+msgid "Altered data or parameters skew the answers or plant a hidden behaviour that is hard to detect."
+msgstr "Dados ou parâmetros adulterados distorcem as respostas ou implantam um comportamento oculto difícil de detectar."
+
+msgid "Who can modify the training data, the document base or the model?"
+msgstr "Quem pode modificar os dados de treinamento, a base documental ou o modelo?"
+
+msgid "Are changes traced and the model tested before going into production?"
+msgstr "As alterações são rastreadas e o modelo testado antes de entrar em produção?"
+
+msgid "Theft or extraction of an in-house model"
+msgstr "Roubo ou extração de um modelo próprio"
+
+msgid "A model developed or fine-tuned by the organization is exposed through an API or stored with the rest of the data."
+msgstr "Um modelo desenvolvido ou ajustado pela organização é exposto por uma API ou armazenado com o restante dos dados."
+
+msgid "Copy of the model files, or reconstruction of the model through massive queries, and loss of the know-how it contains."
+msgstr "Cópia dos arquivos do modelo, ou reconstrução do modelo por consultas massivas, e perda do conhecimento que ele contém."
+
+msgid "Are access to the model files restricted and its use limited and monitored?"
+msgstr "O acesso aos arquivos do modelo é restrito e seu uso limitado e monitorado?"
+
+msgid "Is the number of queries per user limited?"
+msgstr "O número de consultas por usuário é limitado?"
+
+msgid "AI systems neither inventoried nor monitored"
+msgstr "Sistemas de IA nem inventariados nem monitorados"
+
+msgid "AI features are enabled in software, services or internal projects without anyone having a complete list of them."
+msgstr "Funções de IA são ativadas em softwares, serviços ou projetos internos sem que ninguém tenha uma lista completa delas."
+
+msgid "Data processing and risks that nobody assesses, misuse or abuse noticed late, or never."
+msgstr "Tratamentos de dados e riscos que ninguém avalia, usos indevidos ou abusos percebidos tarde, ou nunca."
+
+msgid "Is there an inventory of AI systems with their owner and the data they use?"
+msgstr "Existe um inventário dos sistemas de IA com seu responsável e os dados que usam?"
+
+msgid "Is their use logged and reviewed?"
+msgstr "Seu uso é registrado e revisado?"
