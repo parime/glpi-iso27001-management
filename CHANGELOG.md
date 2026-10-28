@@ -7,6 +7,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.16.0] - 2026-10-27
+
 ### Added
 
 - Contrôles techniques automatiques : statuts d'ordinateur exclus des contrôles (#305). Un poste
