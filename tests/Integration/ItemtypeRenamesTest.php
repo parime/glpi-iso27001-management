@@ -94,6 +94,33 @@ final class ItemtypeRenamesTest extends GrcmanagerIntegrationTestCase
         ], $this->savedSearchRow($catalog));
     }
 
+    /**
+     * Préférence d'affichage réglée deux fois (ancien favori, puis nouveau nom) : la mise à jour
+     * ne doit pas s'arrêter sur la clé unique, et les autres réglages restent.
+     */
+    public function testOldRowWithATwinUnderTheNewNameDoesNotStopTheUpdate(): void
+    {
+        global $DB;
+
+        $row = ['users_id' => 2, 'num' => 9001, 'interface' => 'central'];
+        $DB->insert('glpi_displaypreferences', $row + ['itemtype' => \GlpiPlugin\Grcmanager\Risk::class, 'rank' => 1]);
+        $DB->insert('glpi_displaypreferences', $row + ['itemtype' => 'PluginGrcmanagerRisk', 'rank' => 2]);
+        $DB->insert('glpi_displaypreferences', ['num' => 9002, 'rank' => 3] + $row + [
+            'itemtype' => 'PluginGrcmanagerRisk',
+        ]);
+
+        ItemtypeRenames::migrate(new Migration('test'));
+
+        $ranks = [];
+        foreach ($DB->request(['FROM' => 'glpi_displaypreferences', 'WHERE' => ['num' => [9001, 9002]]]) as $pref) {
+            $ranks[(int) $pref['num']] = [$pref['itemtype'], (int) $pref['rank']];
+        }
+        $this->assertSame([
+            9001 => [\GlpiPlugin\Grcmanager\Risk::class, 1],
+            9002 => [\GlpiPlugin\Grcmanager\Risk::class, 3],
+        ], $ranks);
+    }
+
     public function testOldNameStillWorksAsAlias(): void
     {
         $this->assertTrue(class_exists('PluginGrcmanagerRisk'));
