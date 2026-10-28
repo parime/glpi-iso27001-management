@@ -68,7 +68,7 @@ final class ItemtypeRenamesTest extends GrcmanagerIntegrationTestCase
         ]);
         $logId = (int) $DB->insertId();
         $events = [];
-        foreach (['PluginGrcmanagerRisk', 'PluginGrcmanagerRiskCatalog', 'system'] as $type) {
+        foreach (['PluginGrcmanagerRisk', 'PluginGrcmanagerRiskLegacyExport', 'system'] as $type) {
             $DB->insert('glpi_events', [
                 'items_id' => 1,
                 'type'     => $type,
@@ -99,9 +99,9 @@ final class ItemtypeRenamesTest extends GrcmanagerIntegrationTestCase
             $types[$old] = $DB->request(['FROM' => 'glpi_events', 'WHERE' => ['id' => $id]])->current()['type'];
         }
         $this->assertSame([
-            'PluginGrcmanagerRisk'        => \GlpiPlugin\Grcmanager\Risk::class,
-            'PluginGrcmanagerRiskCatalog' => 'PluginGrcmanagerRiskCatalog',
-            'system'                      => 'system',
+            'PluginGrcmanagerRisk'             => \GlpiPlugin\Grcmanager\Risk::class,
+            'PluginGrcmanagerRiskLegacyExport' => 'PluginGrcmanagerRiskLegacyExport',
+            'system'                           => 'system',
         ], $types);
 
         $this->assertSame([
