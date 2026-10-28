@@ -75,7 +75,19 @@ TemplateRenderer::getInstance()->display('@grcmanager/risk_catalog.html.twig', [
         array_map([InfrastructureRiskCatalog::class, 'category'], InfrastructureRiskCatalog::keys())
     ),
     'labels'     => PluginGrcmanagerRisk::getCategories(),
-    'controls'   => $controls,
+    // Infrastructure puis systèmes d'IA (sections ISO/IEC 27090:2026).
+    'groups'     => [
+        InfrastructureRiskCatalog::GROUP_INFRASTRUCTURE => __('Infrastructure', 'grcmanager'),
+        InfrastructureRiskCatalog::GROUP_AI             => __('AI systems (ISO/IEC 27090)', 'grcmanager'),
+    ],
+    'group_of'   => array_combine(
+        InfrastructureRiskCatalog::keys(),
+        array_map([InfrastructureRiskCatalog::class, 'group'], InfrastructureRiskCatalog::keys())
+    ),
+    'iso27090'   => array_combine(
+        InfrastructureRiskCatalog::keys(),
+        array_map([InfrastructureRiskCatalog::class, 'iso27090'], InfrastructureRiskCatalog::keys())
+    ),    'controls'   => $controls,
     'imported'   => PluginGrcmanagerRiskCatalog::importedRisks(),
     'risk_url'   => PluginGrcmanagerRisk::getFormURL(),
     'can_create' => Session::haveRight(PluginGrcmanagerRisk::$rightname, CREATE),

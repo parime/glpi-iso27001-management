@@ -246,6 +246,128 @@ class PluginGrcmanagerRiskCatalog extends CommonGLPI
                     __('Are there alerts or a regular review?', 'grcmanager'),
                 ],
             ],
+            // Systèmes d'IA, rattachés à ISO/IEC 27090:2026 (InfrastructureRiskCatalog::iso27090()).
+            'ai_public_services' => [
+                __('Company data entered into public AI services', 'grcmanager'),
+                __(
+                    'Staff paste documents, customer data or source code into public chatbots or AI tools '
+                        . 'that the organization has not approved.',
+                    'grcmanager'
+                ),
+                __(
+                    'Leak of confidential or personal data, reuse of the data to train the service, breach of '
+                        . 'GDPR or of contracts.',
+                    'grcmanager'
+                ),
+                [
+                    __('Is there a list of approved AI services and a rule on what data may be entered?', 'grcmanager'),
+                    __('Have staff been made aware of it?', 'grcmanager'),
+                ],
+            ],
+            'ai_prompt_injection' => [
+                __('AI assistant or agent diverted by prompt injection', 'grcmanager'),
+                __(
+                    'An AI assistant reads e-mails, documents or web pages, or acts on tools (mailbox, '
+                        . 'tickets, files) on behalf of users.',
+                    'grcmanager'
+                ),
+                __(
+                    'Instructions hidden in the content it reads make it disclose data, perform unwanted actions '
+                        . 'or return a booby-trapped answer.',
+                    'grcmanager'
+                ),
+                [
+                    __(
+                        'Does the assistant have more rights than needed, or act without human validation?',
+                        'grcmanager'
+                    ),
+                    __('Is the content it processes filtered and are its actions logged?', 'grcmanager'),
+                ],
+            ],
+            'ai_sensitive_output' => [
+                __('AI system revealing confidential or personal data', 'grcmanager'),
+                __(
+                    'An internal assistant or model has access to documents or data broader than what each '
+                        . 'user is allowed to see.',
+                    'grcmanager'
+                ),
+                __(
+                    'Disclosure through its answers of documents, personal data or training data to people '
+                        . 'who should not see them.',
+                    'grcmanager'
+                ),
+                [
+                    __('Does the assistant respect the access rights of the person asking?', 'grcmanager'),
+                    __('Were personal data excluded or minimized in what it can access?', 'grcmanager'),
+                ],
+            ],
+            'ai_supply_chain' => [
+                __('Compromised third-party AI model, dataset or service', 'grcmanager'),
+                __(
+                    'The organization uses models, datasets, libraries or AI services supplied by third '
+                        . 'parties, sometimes downloaded from public repositories.',
+                    'grcmanager'
+                ),
+                __(
+                    'Trapped model or library, unknown origin of data, provider changing its terms or its '
+                        . 'model without notice, dependency on a single provider.',
+                    'grcmanager'
+                ),
+                [
+                    __('Are the origin and version of each model and dataset known?', 'grcmanager'),
+                    __('Do contracts with AI providers cover data use, security and location?', 'grcmanager'),
+                ],
+            ],
+            'ai_data_poisoning' => [
+                __('Training data or model tampered with', 'grcmanager'),
+                __(
+                    'The organization trains or fine-tunes a model, or feeds an assistant with a document base '
+                        . 'that several people can modify.',
+                    'grcmanager'
+                ),
+                __(
+                    'Altered data or parameters skew the answers or plant a hidden behaviour that is hard to '
+                        . 'detect.',
+                    'grcmanager'
+                ),
+                [
+                    __('Who can modify the training data, the document base or the model?', 'grcmanager'),
+                    __('Are changes traced and the model tested before going into production?', 'grcmanager'),
+                ],
+            ],
+            'ai_model_theft' => [
+                __('Theft or extraction of an in-house model', 'grcmanager'),
+                __(
+                    'A model developed or fine-tuned by the organization is exposed through an API or stored '
+                        . 'with the rest of the data.',
+                    'grcmanager'
+                ),
+                __(
+                    'Copy of the model files, or reconstruction of the model through massive queries, and loss '
+                        . 'of the know-how it contains.',
+                    'grcmanager'
+                ),
+                [
+                    __('Are access to the model files restricted and its use limited and monitored?', 'grcmanager'),
+                    __('Is the number of queries per user limited?', 'grcmanager'),
+                ],
+            ],
+            'ai_no_inventory' => [
+                __('AI systems neither inventoried nor monitored', 'grcmanager'),
+                __(
+                    'AI features are enabled in software, services or internal projects without anyone '
+                        . 'having a complete list of them.',
+                    'grcmanager'
+                ),
+                __(
+                    'Data processing and risks that nobody assesses, misuse or abuse noticed late, or never.',
+                    'grcmanager'
+                ),
+                [
+                    __('Is there an inventory of AI systems with their owner and the data they use?', 'grcmanager'),
+                    __('Is their use logged and reviewed?', 'grcmanager'),
+                ],
+            ],
         ];
 
         $result = [];
@@ -314,6 +436,11 @@ class PluginGrcmanagerRiskCatalog extends CommonGLPI
             $description = $entry['description'] . "\n\n" . __('Threats:', 'grcmanager') . ' ' . $entry['threats']
                 . "\n\n" . __('Questions to tell whether it applies:', 'grcmanager') . "\n- "
                 . implode("\n- ", $entry['questions']);
+            $sections = InfrastructureRiskCatalog::iso27090($key);
+            if ($sections !== []) {
+                $description .= "\n\n"
+                    . sprintf(__('ISO/IEC 27090 sections: %s', 'grcmanager'), implode(', ', $sections));
+            }
             $risksId = (int) (new PluginGrcmanagerRisk())->add([
                 'title'       => $entry['title'],
                 'description' => $description,

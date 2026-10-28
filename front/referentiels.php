@@ -19,6 +19,7 @@ use GlpiPlugin\Grcmanager\Services\Control\AnssiHygieneCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\CisControlsCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\ControlCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\ControlCrosswalkDefaults;
+use GlpiPlugin\Grcmanager\Services\Control\Iso27090CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\Nis2CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\NistCsfCatalogDefaults;
 
@@ -139,7 +140,27 @@ foreach (AnssiHygieneCatalogDefaults::THEMES as $themeCode => $themeTitle) {
     $anssi[] = ['code' => $themeCode, 'title' => $themeTitle[$nis2Lang], 'measures' => $measures];
 }
 
+// ISO/IEC 27090:2026 (sécurité des systèmes d'IA) : numéros de section et objet résumé par ce
+// projet (texte de la norme protégé), correspondance Annexe A indicative.
+$iso27090 = [];
+foreach (Iso27090CatalogDefaults::CHAPTERS as $chapter => $chapterTitle) {
+    $topics = [];
+    foreach (Iso27090CatalogDefaults::TOPICS as $code => $topic) {
+        if ($topic['chapter'] !== (string) $chapter) {
+            continue;
+        }
+        $controls = [];
+        foreach ($topic['annex_a'] as $annexACode) {
+            $controls[] = ['code' => $annexACode, 'id' => $idsByCode[$annexACode] ?? null];
+        }
+        $topics[] = ['code' => (string) $code, 'text' => $topic[$nis2Lang], 'controls' => $controls];
+    }
+    $iso27090[] = ['chapter' => (string) $chapter, 'title' => $chapterTitle[$nis2Lang], 'topics' => $topics];
+}
+
 \Glpi\Application\View\TemplateRenderer::getInstance()->display('@grcmanager/referentiels.html.twig', [
+    'iso27090'        => $iso27090,
+    'iso27090_source' => Iso27090CatalogDefaults::SOURCE_URL,
     'annex_a'      => $annexA,
     'nist_csf'     => $nistCsf,
     'cis_controls' => $cisControls,
