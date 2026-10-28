@@ -15,11 +15,21 @@
  * -------------------------------------------------------------------------
  */
 
+namespace GlpiPlugin\Grcmanager;
+
+use CommonDBTM;
+use Dropdown;
+use Entity;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\NetworkFlowBase;
 use GlpiPlugin\Grcmanager\Services\Network\NetworkFlowCsv;
 use GlpiPlugin\Grcmanager\Services\Network\NetworkFlowPfsense;
 use GlpiPlugin\Grcmanager\Services\Network\NetworkFlowRules;
+use Html;
+use IPNetwork;
+use Log;
+use Session;
+use User;
 
 /**
  * Issue #144 : matrice des flux réseau autorisés (A.8.20 à A.8.22). Un flux relie une source et
@@ -34,7 +44,7 @@ use GlpiPlugin\Grcmanager\Services\Network\NetworkFlowRules;
  * Registre global, comme les autres registres du plugin. Un actif lié n'est nommé qu'à qui peut le
  * voir dans GLPI.
  */
-class PluginGrcmanagerNetworkFlow extends NetworkFlowBase
+class NetworkFlow extends NetworkFlowBase
 {
     // Registre sensible : droit dédié, voir Installer::SENSITIVE_RIGHT.
     public const RIGHTNAME = 'plugin_grcmanager_sensitive';

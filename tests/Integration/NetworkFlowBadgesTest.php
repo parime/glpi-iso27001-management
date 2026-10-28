@@ -28,21 +28,21 @@ final class NetworkFlowBadgesTest extends GrcmanagerIntegrationTestCase
 {
     public function testBadgesAreRenderedAndEscaped(): void
     {
-        $type = \PluginGrcmanagerNetworkFlow::typeBadge('admin_access');
+        $type = \GlpiPlugin\Grcmanager\NetworkFlow::typeBadge('admin_access');
         $this->assertStringContainsString('bg-red-lt', $type);
         $this->assertStringContainsString('ti-shield-lock', $type);
 
-        $this->assertStringContainsString('bg-green-lt', \PluginGrcmanagerNetworkFlow::checksHtml([]));
-        $checks = \PluginGrcmanagerNetworkFlow::checksHtml([NetworkFlowRules::CHECK_NO_OWNER]);
+        $this->assertStringContainsString('bg-green-lt', \GlpiPlugin\Grcmanager\NetworkFlow::checksHtml([]));
+        $checks = \GlpiPlugin\Grcmanager\NetworkFlow::checksHtml([NetworkFlowRules::CHECK_NO_OWNER]);
         $this->assertStringContainsString('bg-yellow-lt', $checks);
 
-        $endpoint = \PluginGrcmanagerNetworkFlow::endpointHtml('', 0, '<b>Site</b> & co');
+        $endpoint = \GlpiPlugin\Grcmanager\NetworkFlow::endpointHtml('', 0, '<b>Site</b> & co');
         $this->assertSame('&lt;b&gt;Site&lt;/b&gt; &amp; co', $endpoint);
 
         $computer = new \Computer();
         $id = (int) $computer->add(['name' => 'PHPUnit serveur web', 'entities_id' => 0]);
         try {
-            $linked = \PluginGrcmanagerNetworkFlow::endpointHtml('Computer', $id, 'DMZ');
+            $linked = \GlpiPlugin\Grcmanager\NetworkFlow::endpointHtml('Computer', $id, 'DMZ');
             $this->assertStringContainsString(\Computer::getFormURLWithID($id), $linked);
             $this->assertStringContainsString('PHPUnit serveur web</a> — DMZ', $linked);
         } finally {

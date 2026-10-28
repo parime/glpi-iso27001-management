@@ -23,7 +23,7 @@ use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Services\Classification\ClassificationLevels;
 use GlpiPlugin\Grcmanager\Services\Impact\ImpactGraph;
 use GlpiPlugin\Grcmanager\Services\Impact\RecoveryObjectives;
-use PluginGrcmanagerAssetClassification;
+use GlpiPlugin\Grcmanager\AssetClassification;
 use Session;
 
 /**
@@ -109,7 +109,7 @@ class ImpactAnalysis extends CommonGLPI
 
         $keys = [];
         $where = ['availability' => ClassificationLevels::HIGH];
-        foreach ($DB->request(['FROM' => PluginGrcmanagerAssetClassification::getTable(), 'WHERE' => $where]) as $row) {
+        foreach ($DB->request(['FROM' => AssetClassification::getTable(), 'WHERE' => $where]) as $row) {
             $keys[] = ImpactGraph::key((string) $row['itemtype'], (int) $row['items_id']);
         }
 
@@ -122,7 +122,7 @@ class ImpactAnalysis extends CommonGLPI
     public static function describe(string $key): array
     {
         [$itemtype, $itemsId] = ImpactGraph::split($key);
-        $classification = PluginGrcmanagerAssetClassification::getByItem($itemtype, $itemsId);
+        $classification = AssetClassification::getByItem($itemtype, $itemsId);
         $base = [
             'availability' => (string) ($classification['availability'] ?? ''),
             // Issue #177, phase 2 : objectifs de reprise, en heures (0 : non définis).
@@ -157,7 +157,7 @@ class ImpactAnalysis extends CommonGLPI
         foreach (
             $DB->request([
                 'SELECT' => ['itemtype', 'items_id', 'rto_hours'],
-                'FROM'   => PluginGrcmanagerAssetClassification::getTable(),
+                'FROM'   => AssetClassification::getTable(),
                 'WHERE'  => ['rto_hours' => ['>', 0]],
             ]) as $row
         ) {
@@ -177,7 +177,7 @@ class ImpactAnalysis extends CommonGLPI
      */
     public static function graphElements(array $edges, array $nodes, string $start): array
     {
-        $labels = PluginGrcmanagerAssetClassification::getRecoveryOptions();
+        $labels = AssetClassification::getRecoveryOptions();
         $elements = [];
         foreach (array_keys($nodes) as $key) {
             $node = self::describe($key);
@@ -220,8 +220,8 @@ class ImpactAnalysis extends CommonGLPI
         foreach (ImpactGraph::singlePointsOfFailure($edges, self::criticalKeys()) as $point) {
             $spof[$point['source']][] = $point['critical'];
         }
-        $levels = PluginGrcmanagerAssetClassification::getLevels();
-        $labels = PluginGrcmanagerAssetClassification::getRecoveryOptions();
+        $levels = AssetClassification::getLevels();
+        $labels = AssetClassification::getRecoveryOptions();
         $rows = [[
             __('Item', 'grcmanager'),
             __('Availability', 'grcmanager'),
@@ -234,7 +234,7 @@ class ImpactAnalysis extends CommonGLPI
         ]];
         foreach (
             $DB->request([
-                'FROM'  => PluginGrcmanagerAssetClassification::getTable(),
+                'FROM'  => AssetClassification::getTable(),
                 'WHERE' => ['OR' => ['availability' => ['<>', ''], 'rto_hours' => ['>', 0], 'rpo_hours' => ['>', 0]]],
             ]) as $row
         ) {
@@ -399,13 +399,13 @@ class ImpactAnalysis extends CommonGLPI
         }
         TemplateRenderer::getInstance()->display('@grcmanager/impact_tab.html.twig', [
             'analysis'   => self::analyze($item),
-            'levels'     => PluginGrcmanagerAssetClassification::getLevels(),
+            'levels'     => AssetClassification::getLevels(),
             'action'     => self::getSearchURL(),
             'itemtype'   => $item::class,
             'items_id'   => $item->getID(),
             'can_create' => Session::haveRight(Risk::$rightname, CREATE),
             'impact_url' => $item->getLinkURL() . '&forcetab=Impact$1',
-            'recovery_labels' => PluginGrcmanagerAssetClassification::getRecoveryOptions(),
+            'recovery_labels' => AssetClassification::getRecoveryOptions(),
         ]);
 
         return true;

@@ -15,14 +15,19 @@
  * -------------------------------------------------------------------------
  */
 
+namespace GlpiPlugin\Grcmanager;
+
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\CanonicalProductBase;
+use GlpiPlugin\Grcmanager\CpeReference;
+use GlpiPlugin\Grcmanager\ProductAlias;
+use Session;
 
 /**
  * Anchor of the CVE-to-inventory correlation catalog (issue: corrélation CPE des CVE avec le
  * parc, cf. ROADMAP.md) : a (manufacturer, product) pair that both an admin-declared CPE
- * identifier (PluginGrcmanagerCpeReference) and an admin-declared GLPI software name
- * (PluginGrcmanagerProductAlias) point back to. Neither satellite table has a menu entry of its
+ * identifier (CpeReference) and an admin-declared GLPI software name
+ * (ProductAlias) point back to. Neither satellite table has a menu entry of its
  * own — same "no menu for a simple child record, managed inline from its parent's own form"
  * convention already used for PluginGrcmanagerObjectiveMeasurement (see
  * PluginGrcmanagerObjective::showMeasurementHistory()) — see showCpeReferences()/
@@ -34,7 +39,7 @@ use GlpiPlugin\Grcmanager\Compatibility\Base\CanonicalProductBase;
  * GlpiPlugin\Grcmanager\Services\Cve\InventoryCveMatcher rather than fuzzy-matched — a wrong
  * correlation would be worse than a missing one for a security decision.
  */
-class PluginGrcmanagerCanonicalProduct extends CanonicalProductBase
+class CanonicalProduct extends CanonicalProductBase
 {
     public const RIGHTNAME = 'plugin_grcmanager';
 
@@ -151,7 +156,7 @@ class PluginGrcmanagerCanonicalProduct extends CanonicalProductBase
      */
     public function cleanDBonPurge()
     {
-        foreach ([new PluginGrcmanagerCpeReference(), new PluginGrcmanagerProductAlias()] as $child) {
+        foreach ([new CpeReference(), new ProductAlias()] as $child) {
             $child->deleteByCriteria(['plugin_grcmanager_canonicalproducts_id' => $this->getID()], true);
         }
     }
@@ -193,7 +198,7 @@ class PluginGrcmanagerCanonicalProduct extends CanonicalProductBase
                     'empty'       => __('No CPE identifier yet.', 'grcmanager'),
                     'rows'        => array_map(
                         static fn (array $row): array => ['id' => (int) $row['id'], 'value' => (string) $row['cpe']],
-                        PluginGrcmanagerCpeReference::getForCanonicalProduct((int) $ID)
+                        CpeReference::getForCanonicalProduct((int) $ID)
                     ),
                 ],
                 // Le nom EXACT tel qu'il apparaît dans l'inventaire (glpi_softwares.name), jamais
@@ -213,7 +218,7 @@ class PluginGrcmanagerCanonicalProduct extends CanonicalProductBase
                     'empty'       => __('No alias yet.', 'grcmanager'),
                     'rows'        => array_map(
                         static fn (array $row): array => ['id' => (int) $row['id'], 'value' => (string) $row['alias']],
-                        PluginGrcmanagerProductAlias::getForCanonicalProduct((int) $ID)
+                        ProductAlias::getForCanonicalProduct((int) $ID)
                     ),
                 ],
             ],

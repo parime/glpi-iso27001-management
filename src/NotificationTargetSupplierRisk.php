@@ -22,7 +22,7 @@ use Html;
 use Notification;
 use NotificationTarget;
 use Override;
-use PluginGrcmanagerSecurityWatch;
+use GlpiPlugin\Grcmanager\SecurityWatch;
 use Supplier;
 
 /**
@@ -42,7 +42,7 @@ class NotificationTargetSupplierRisk extends NotificationTarget
         return [
             SupplierRisk::REVIEW_DUE_EVENT => __('Supplier risk review due', 'grcmanager'),
             // Issue #167 : nouvel avis du CERT-FR qui cite le fournisseur.
-            PluginGrcmanagerSecurityWatch::NOTIFY_EVENT => __(
+            SecurityWatch::NOTIFY_EVENT => __(
                 'New security advisory about the supplier',
                 'grcmanager'
             ),

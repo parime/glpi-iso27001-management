@@ -190,8 +190,8 @@ function plugin_init_grcmanager(): void
     // mécanisme qu'immédiatement ci-dessus pour l'onglet "Risques" de l'issue #25 (voir son
     // commentaire, y compris pour le correctif de l'issue #88), un second onglet indépendant sur
     // la fiche de chaque actif liable pour consulter/éditer sa classification C/I/D (voir
-    // PluginGrcmanagerAssetClassification::getTabNameForItem()/displayTabContentForItem()).
-    Plugin::registerClass(PluginGrcmanagerAssetClassification::class, [
+    // \GlpiPlugin\Grcmanager\AssetClassification::getTabNameForItem()/displayTabContentForItem()).
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\AssetClassification::class, [
         'addtabon' => \GlpiPlugin\Grcmanager\Risk::getLinkableItemtypes(),
     ]);
 
@@ -206,7 +206,7 @@ function plugin_init_grcmanager(): void
     ]);
 
     // Issue #160, phase 2 : onglet « Vulnérabilités » sur les éléments qui portent des logiciels.
-    Plugin::registerClass(PluginGrcmanagerParkVulnerability::class, [
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\ParkVulnerability::class, [
         'addtabon' => $CFG_GLPI['software_types'] ?? ['Computer'],
     ]);
 

@@ -28,7 +28,7 @@ use GlpiPlugin\Grcmanager\Services\Ui\Fragment;
 use GlpiPlugin\Grcmanager\Traits\RiskAssessmentTrait;
 use Html;
 use Log;
-use PluginGrcmanagerSecurityWatch;
+use GlpiPlugin\Grcmanager\SecurityWatch;
 use GlpiPlugin\Grcmanager\SupplierAssessment;
 use Session;
 use Supplier;
@@ -104,7 +104,7 @@ class SupplierRisk extends SupplierRiskBase
         $this->addDefaultFormTab($tabs)
             ->addStandardTab(SupplierAssessment::class, $tabs, $options)
             // Issue #167 : avis du CERT-FR et vulnérabilités du parc qui citent le fournisseur.
-            ->addStandardTab(PluginGrcmanagerSecurityWatch::class, $tabs, $options)
+            ->addStandardTab(SecurityWatch::class, $tabs, $options)
             ->addStandardTab(Document_Item::class, $tabs, $options)
             ->addStandardTab(Log::class, $tabs, $options);
 

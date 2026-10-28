@@ -15,18 +15,21 @@
  * -------------------------------------------------------------------------
  */
 
+namespace GlpiPlugin\Grcmanager;
+
 use GlpiPlugin\Grcmanager\Compatibility\Base\CpeReferenceBase;
+use Session;
 
 /**
- * One CPE identifier manually declared as belonging to a PluginGrcmanagerCanonicalProduct —
+ * One CPE identifier manually declared as belonging to a CanonicalProduct —
  * several per product, managed inline on that product's own form (see
- * PluginGrcmanagerCanonicalProduct::showCpeReferences()), no menu/search screen of its own, same
+ * CanonicalProduct::showCpeReferences()), no menu/search screen of its own, same
  * convention as PluginGrcmanagerObjectiveMeasurement.
  *
- * Uses PluginGrcmanagerCanonicalProduct's own right rather than a dedicated one: a CPE reference
+ * Uses CanonicalProduct's own right rather than a dedicated one: a CPE reference
  * has no meaningful access boundary of its own, separate from the product it documents.
  */
-class PluginGrcmanagerCpeReference extends CpeReferenceBase
+class CpeReference extends CpeReferenceBase
 {
     public const RIGHTNAME = 'plugin_grcmanager';
 
@@ -69,16 +72,16 @@ class PluginGrcmanagerCpeReference extends CpeReferenceBase
             'SELECT'    => [self::getTable() . '.id'],
             'FROM'      => self::getTable(),
             'LEFT JOIN' => [
-                PluginGrcmanagerCanonicalProduct::getTable() => [
+                CanonicalProduct::getTable() => [
                     'FKEY' => [
                         self::getTable() => 'plugin_grcmanager_canonicalproducts_id',
-                        PluginGrcmanagerCanonicalProduct::getTable() => 'id',
+                        CanonicalProduct::getTable() => 'id',
                     ],
                 ],
             ],
             'WHERE'     => [
                 self::getTable() . '.cpe'                    => $cpe,
-                PluginGrcmanagerCanonicalProduct::getTable() . '.id' => null,
+                CanonicalProduct::getTable() . '.id' => null,
             ],
         ]);
         foreach ($orphans as $orphan) {
@@ -86,12 +89,12 @@ class PluginGrcmanagerCpeReference extends CpeReferenceBase
         }
         $existing = $DB->request([
             'SELECT' => ['manufacturer', 'product'],
-            'FROM'   => PluginGrcmanagerCanonicalProduct::getTable(),
+            'FROM'   => CanonicalProduct::getTable(),
             'INNER JOIN' => [
                 self::getTable() => [
                     'FKEY' => [
                         self::getTable() => 'plugin_grcmanager_canonicalproducts_id',
-                        PluginGrcmanagerCanonicalProduct::getTable() => 'id',
+                        CanonicalProduct::getTable() => 'id',
                     ],
                 ],
             ],

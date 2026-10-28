@@ -91,8 +91,8 @@ class PluginGrcmanagerMenu extends CommonGLPI
             // Sécurité technique. Le parent ne demande que le droit du plugin : les vulnérabilités
             // (qui exigent aussi la lecture des logiciels) restent une sous-page parmi d'autres.
             \GlpiPlugin\Grcmanager\ComplianceAudit::class => [
-                PluginGrcmanagerParkVulnerability::class, self::MACHINE_RANKING, self::SOFTWARE_WATCH,
-                PluginGrcmanagerCanonicalProduct::class, PluginGrcmanagerNetworkFlow::class,
+                \GlpiPlugin\Grcmanager\ParkVulnerability::class, self::MACHINE_RANKING, self::SOFTWARE_WATCH,
+                \GlpiPlugin\Grcmanager\CanonicalProduct::class, \GlpiPlugin\Grcmanager\NetworkFlow::class,
             ],
         ];
     }
@@ -106,16 +106,16 @@ class PluginGrcmanagerMenu extends CommonGLPI
     private static function subPageMenu(string $child): ?array
     {
         if ($child === self::SOFTWARE_WATCH) {
-            return PluginGrcmanagerParkVulnerability::canView() ? [
+            return \GlpiPlugin\Grcmanager\ParkVulnerability::canView() ? [
                 'title' => __('Software to watch', 'grcmanager'),
                 'page'  => '/plugins/grcmanager/front/softwarewatch.php',
                 'icon'  => 'ti ti-radar',
             ] : null;
         }
         if ($child === self::MACHINE_RANKING) {
-            return PluginGrcmanagerParkVulnerability::canView() ? [
+            return \GlpiPlugin\Grcmanager\ParkVulnerability::canView() ? [
                 'title' => __('Most exposed machines', 'grcmanager'),
-                'page'  => PluginGrcmanagerParkVulnerability::getRankingURL(false),
+                'page'  => \GlpiPlugin\Grcmanager\ParkVulnerability::getRankingURL(false),
                 'icon'  => 'ti ti-device-desktop-exclamation',
             ] : null;
         }

@@ -35,11 +35,11 @@ final class NetworkFlowPartnerOverlapTest extends GrcmanagerIntegrationTestCase
             'network'     => '10.231.0.0/16',
             'gateway'     => '10.231.0.1',
         ]);
-        $flow = new \PluginGrcmanagerNetworkFlow();
+        $flow = new \GlpiPlugin\Grcmanager\NetworkFlow();
         $flowId = 0;
         try {
             $this->assertGreaterThan(0, $networkId);
-            $this->assertContains('10.231.0.0/16', \PluginGrcmanagerNetworkFlow::internalNetworks());
+            $this->assertContains('10.231.0.0/16', \GlpiPlugin\Grcmanager\NetworkFlow::internalNetworks());
 
             $flowId = (int) $flow->add([
                 'name'              => 'PHPUnit tunnel partenaire',

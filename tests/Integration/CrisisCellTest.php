@@ -43,7 +43,7 @@ final class CrisisCellTest extends GrcmanagerIntegrationTestCase
             'itemtype_impacted' => \Computer::class,
             'items_id_impacted' => $app,
         ]);
-        $DB->insert(\PluginGrcmanagerAssetClassification::getTable(), [
+        $DB->insert(\GlpiPlugin\Grcmanager\AssetClassification::getTable(), [
             'itemtype'  => \Computer::class,
             'items_id'  => $server,
             'rto_hours' => 4,

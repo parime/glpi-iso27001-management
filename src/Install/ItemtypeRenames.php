@@ -77,6 +77,15 @@ final class ItemtypeRenames
         'PluginGrcmanagerTrainingQuiz'             => \GlpiPlugin\Grcmanager\TrainingQuiz::class,
         'PluginGrcmanagerTrainingSession'          => \GlpiPlugin\Grcmanager\TrainingSession::class,
         'PluginGrcmanagerCrisisExercise'           => \GlpiPlugin\Grcmanager\CrisisExercise::class,
+        // Sécurité technique : veille, vulnérabilités du parc et référentiel produits, flux réseau,
+        // classification des actifs.
+        'PluginGrcmanagerSecurityWatch'            => \GlpiPlugin\Grcmanager\SecurityWatch::class,
+        'PluginGrcmanagerParkVulnerability'        => \GlpiPlugin\Grcmanager\ParkVulnerability::class,
+        'PluginGrcmanagerCanonicalProduct'         => \GlpiPlugin\Grcmanager\CanonicalProduct::class,
+        'PluginGrcmanagerProductAlias'             => \GlpiPlugin\Grcmanager\ProductAlias::class,
+        'PluginGrcmanagerCpeReference'             => \GlpiPlugin\Grcmanager\CpeReference::class,
+        'PluginGrcmanagerNetworkFlow'              => \GlpiPlugin\Grcmanager\NetworkFlow::class,
+        'PluginGrcmanagerAssetClassification'      => \GlpiPlugin\Grcmanager\AssetClassification::class,
     ];
 
     /**

@@ -19,6 +19,7 @@ declare(strict_types=1);
 
 namespace GlpiPlugin\Grcmanager\Tests\Integration;
 
+use GlpiPlugin\Grcmanager\SecurityWatch;
 use GlpiPlugin\Grcmanager\Services\Cve\ParkVulnerabilitySync;
 
 /**
@@ -62,35 +63,35 @@ final class SecurityWatchTest extends GrcmanagerIntegrationTestCase
         global $DB;
 
         $risk = $this->supplierRisk((int) \Session::getLoginUserID());
-        $this->assertSame([strtolower($this->vendor)], \PluginGrcmanagerSecurityWatch::keywordsFor($risk));
+        $this->assertSame([strtolower($this->vendor)], SecurityWatch::keywordsFor($risk));
 
-        $tab = (string) (new \PluginGrcmanagerSecurityWatch())->getTabNameForItem($risk);
+        $tab = (string) (new SecurityWatch())->getTabNameForItem($risk);
         $this->assertStringContainsString(__('Security watch', 'grcmanager'), $tab);
         ob_start();
-        \PluginGrcmanagerSecurityWatch::displayTabContentForItem($risk);
+        SecurityWatch::displayTabContentForItem($risk);
         $html = (string) ob_get_clean();
         $this->assertStringContainsString('CERTFR-2099-AVI-', $html);
         $this->assertStringContainsString($this->vendor . ' Viewer', $html);
 
         $links = ['plugin_grcmanager_supplierrisks_id' => $risk->getID()];
-        \PluginGrcmanagerSecurityWatch::notifyOwners();
-        $this->assertSame(1, countElementsInTable(\PluginGrcmanagerSecurityWatch::NOTIFIED_TABLE, $links));
-        \PluginGrcmanagerSecurityWatch::notifyOwners();
-        $this->assertSame(1, countElementsInTable(\PluginGrcmanagerSecurityWatch::NOTIFIED_TABLE, $links), 'Une fois.');
+        SecurityWatch::notifyOwners();
+        $this->assertSame(1, countElementsInTable(SecurityWatch::NOTIFIED_TABLE, $links));
+        SecurityWatch::notifyOwners();
+        $this->assertSame(1, countElementsInTable(SecurityWatch::NOTIFIED_TABLE, $links), 'Une fois.');
 
         $this->assertSame(1, countElementsInTable('glpi_notifications', [
             'itemtype' => \GlpiPlugin\Grcmanager\SupplierRisk::class,
-            'event'    => \PluginGrcmanagerSecurityWatch::NOTIFY_EVENT,
+            'event'    => SecurityWatch::NOTIFY_EVENT,
         ]), 'Notification installée.');
-        $DB->delete(\PluginGrcmanagerSecurityWatch::NOTIFIED_TABLE, $links);
+        $DB->delete(SecurityWatch::NOTIFIED_TABLE, $links);
     }
 
     public function testRiskWithoutMatchingNoticeShowsNothing(): void
     {
         $this->vendor = 'Inconnudemo' . random_int(1000, 9999);
         $risk = $this->supplierRisk(0);
-        $keywords = \PluginGrcmanagerSecurityWatch::keywordsFor($risk);
-        $this->assertSame([], \PluginGrcmanagerSecurityWatch::noticesFor($keywords, 90));
+        $keywords = SecurityWatch::keywordsFor($risk);
+        $this->assertSame([], SecurityWatch::noticesFor($keywords, 90));
     }
 
     public function testParkRowGetsTheCertFrBadge(): void
@@ -134,7 +135,7 @@ final class SecurityWatchTest extends GrcmanagerIntegrationTestCase
             'softwareversions_id' => $version,
             'entities_id'         => 0,
         ]);
-        $id = (int) \PluginGrcmanagerParkVulnerability::confirm(
+        $id = (int) \GlpiPlugin\Grcmanager\ParkVulnerability::confirm(
             $vendor . ' Viewer',
             'cpe:2.3:a:' . strtolower($vendor) . ':viewer:1.0:*:*:*:*:*:*:*'
         );
@@ -142,7 +143,7 @@ final class SecurityWatchTest extends GrcmanagerIntegrationTestCase
         ParkVulnerabilitySync::replaceParkCves($id, '1.0', [$cve]);
 
         $rows = array_values(array_filter(
-            \PluginGrcmanagerParkVulnerability::getVulnerabilityRows(),
+            \GlpiPlugin\Grcmanager\ParkVulnerability::getVulnerabilityRows(),
             static fn (array $row): bool => $row['cve_id'] === $cve
         ));
         $DB->delete(ParkVulnerabilitySync::PARK_CVES_TABLE, ['cve_id' => $cve]);

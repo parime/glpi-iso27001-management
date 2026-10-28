@@ -17,10 +17,10 @@
 
 include('../../../inc/includes.php');
 
-$item = new PluginGrcmanagerCanonicalProduct();
+$item = new \GlpiPlugin\Grcmanager\CanonicalProduct();
 
 if (isset($_POST['add'])) {
-    Session::checkRight(PluginGrcmanagerCanonicalProduct::$rightname, CREATE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\CanonicalProduct::$rightname, CREATE);
     $newID = $item->add($_POST);
     // Comme les formulaires natifs : retour sur le produit créé pour y ajouter CPE et alias.
     if ($newID && $_SESSION['glpibackcreated']) {
@@ -28,26 +28,26 @@ if (isset($_POST['add'])) {
     }
     Html::back();
 } elseif (isset($_POST['delete'])) {
-    Session::checkRight(PluginGrcmanagerCanonicalProduct::$rightname, DELETE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\CanonicalProduct::$rightname, DELETE);
     $item->delete($_POST);
-    Html::redirect(PluginGrcmanagerCanonicalProduct::getSearchURL());
+    Html::redirect(\GlpiPlugin\Grcmanager\CanonicalProduct::getSearchURL());
 } elseif (isset($_POST['purge'])) {
-    Session::checkRight(PluginGrcmanagerCanonicalProduct::$rightname, PURGE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\CanonicalProduct::$rightname, PURGE);
     $item->delete($_POST, true);
-    Html::redirect(PluginGrcmanagerCanonicalProduct::getSearchURL());
+    Html::redirect(\GlpiPlugin\Grcmanager\CanonicalProduct::getSearchURL());
 } elseif (isset($_POST['update'])) {
-    Session::checkRight(PluginGrcmanagerCanonicalProduct::$rightname, UPDATE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\CanonicalProduct::$rightname, UPDATE);
     $item->update($_POST);
     Html::back();
 } else {
-    Session::checkRight(PluginGrcmanagerCanonicalProduct::$rightname, READ);
+    Session::checkRight(\GlpiPlugin\Grcmanager\CanonicalProduct::$rightname, READ);
 
     Html::header(
-        PluginGrcmanagerCanonicalProduct::getTypeName(1),
+        \GlpiPlugin\Grcmanager\CanonicalProduct::getTypeName(1),
         $_SERVER['PHP_SELF'],
         'grcmanager',
         \GlpiPlugin\Grcmanager\ComplianceAudit::class,
-        PluginGrcmanagerCanonicalProduct::class
+        \GlpiPlugin\Grcmanager\CanonicalProduct::class
     );
 
     $id = (int) ($_GET['id'] ?? 0);

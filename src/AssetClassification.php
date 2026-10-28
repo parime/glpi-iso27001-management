@@ -15,31 +15,36 @@
  * -------------------------------------------------------------------------
  */
 
+namespace GlpiPlugin\Grcmanager;
+
+use CommonDBTM;
+use CommonGLPI;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\AssetClassificationBase;
 use GlpiPlugin\Grcmanager\Services\Classification\ClassificationLevels;
 use GlpiPlugin\Grcmanager\Services\Impact\RecoveryObjectives;
 use GlpiPlugin\Grcmanager\Services\Ui\Badge;
 use GlpiPlugin\Grcmanager\Services\Ui\Fragment;
+use Session;
 
 /**
  * Confidentialité/Intégrité/Disponibilité (C/I/D) classification register (issue #26, ISO/IEC
  * 27001:2022 controls A.5.9/A.5.12/A.8.2). Deliberately its OWN small register, keyed directly on
  * the real asset (itemtype/items_id, one row per asset via `unicity_link`), not a field bolted
  * onto the risk <-> asset link table from issue #25
- * (glpi_plugin_grcmanager_risks_items/\GlpiPlugin\Grcmanager\Risk::getLinkedAssets()): a classification is
+ * (glpi_plugin_grcmanager_risks_items/Risk::getLinkedAssets()): a classification is
  * an inherent property of the asset itself ("the HR database is confidentiality-sensitive"),
  * independent of any one risk that happens to mention it, and must still exist/be readable even
  * for an asset with zero linked risks.
  *
  * Reuses the exact same linkable-itemtype list as issue #25
- * (GlpiPlugin\Grcmanager\Services\Risk\LinkableItemtypes / \GlpiPlugin\Grcmanager\Risk::
+ * (GlpiPlugin\Grcmanager\Services\Risk\LinkableItemtypes / Risk::
  * getLinkableItemtypes()) rather than inventing a second, possibly-diverging list of "which GLPI
  * itemtypes does this plugin care about" — see setup.php for the identical
  * Plugin::registerClass()/addtabon mechanism already used for the Sprint-#25 "Risques" reverse tab,
  * applied here for a second, independent tab.
  */
-class PluginGrcmanagerAssetClassification extends AssetClassificationBase
+class AssetClassification extends AssetClassificationBase
 {
     public const RIGHTNAME = 'plugin_grcmanager';
 
@@ -173,7 +178,7 @@ class PluginGrcmanagerAssetClassification extends AssetClassificationBase
      * Never trusts confidentiality/integrity/availability from the request as-is: an
      * invalid/tampered value always falls back to '' ("not set on this axis", see
      * src/Install/Installer.php's column comment), exactly the empty-string "no decision yet"
-     * convention this plugin already uses for `\GlpiPlugin\Grcmanager\Risk::treatment`, never stored as
+     * convention this plugin already uses for `Risk::treatment`, never stored as
      * garbage nor silently guessed.
      *
      * @param array<string, mixed> $input
@@ -238,7 +243,7 @@ class PluginGrcmanagerAssetClassification extends AssetClassificationBase
 
     /**
      * @return array<int, array<string, mixed>> items_id => raw DB row, every classified asset of
-     *         one itemtype in a single query. Used by \GlpiPlugin\Grcmanager\Risk::showForm() to annotate
+     *         one itemtype in a single query. Used by Risk::showForm() to annotate
      *         each option of its per-itemtype multi-select without one query per row (issue #26,
      *         "read-only hint next to a linked asset").
      */
@@ -257,12 +262,12 @@ class PluginGrcmanagerAssetClassification extends AssetClassificationBase
     /**
      * Issue #26, reverse view: read-only summary + edit form on every linkable itemtype's own page
      * (see setup.php, Plugin::registerClass()/addtabon), same mechanism as issue #25's own
-     * "Risques" tab (\GlpiPlugin\Grcmanager\Risk::getTabNameForItem()). Guarded to only fire for a
-     * genuinely linkable $item, same reasoning as \GlpiPlugin\Grcmanager\Risk's own guard.
+     * "Risques" tab (Risk::getTabNameForItem()). Guarded to only fire for a
+     * genuinely linkable $item, same reasoning as Risk's own guard.
      */
     public function getTabNameForItem(CommonGLPI $item, $withtemplate = 0)
     {
-        if (!in_array($item->getType(), \GlpiPlugin\Grcmanager\Risk::getLinkableItemtypes(), true)) {
+        if (!in_array($item->getType(), Risk::getLinkableItemtypes(), true)) {
             return '';
         }
 

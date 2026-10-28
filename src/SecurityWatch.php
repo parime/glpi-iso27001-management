@@ -15,16 +15,22 @@
  * -------------------------------------------------------------------------
  */
 
+namespace GlpiPlugin\Grcmanager;
+
+use CommonGLPI;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Services\Cve\CertFrRules;
 use GlpiPlugin\Grcmanager\Services\Cve\ParkVulnerabilitySync;
+use NotificationEvent;
+use GlpiPlugin\Grcmanager\ParkVulnerability;
+use Supplier;
 
 /**
  * Issue #167 (phase 3 de #160) : veille de sécurité des fournisseurs du registre. Les avis du
  * CERT-FR et les vulnérabilités du parc qui citent le fournisseur s'affichent sur la fiche de son
  * risque, et son propriétaire est prévenu d'un nouvel avis. Rien n'est modifié dans le registre.
  */
-class PluginGrcmanagerSecurityWatch extends CommonGLPI
+class SecurityWatch extends CommonGLPI
 {
     public const NOTIFY_EVENT = 'security_watch';
 
@@ -52,7 +58,7 @@ class PluginGrcmanagerSecurityWatch extends CommonGLPI
      *
      * @return list<string>
      */
-    public static function keywordsFor(\GlpiPlugin\Grcmanager\SupplierRisk $risk): array
+    public static function keywordsFor(SupplierRisk $risk): array
     {
         $supplier = new Supplier();
         if (!$supplier->getFromDB((int) ($risk->fields['suppliers_id'] ?? 0))) {
@@ -114,7 +120,7 @@ class PluginGrcmanagerSecurityWatch extends CommonGLPI
             return [];
         }
         $products = [];
-        foreach (PluginGrcmanagerParkVulnerability::getVulnerabilityRows() as $row) {
+        foreach (ParkVulnerability::getVulnerabilityRows() as $row) {
             if (!CertFrRules::mentionsAny((string) $row['product'], $keywords)) {
                 continue;
             }
@@ -134,8 +140,8 @@ class PluginGrcmanagerSecurityWatch extends CommonGLPI
     public function getTabNameForItem(CommonGLPI $item, $withtemplate = 0)
     {
         if (
-            !$item instanceof \GlpiPlugin\Grcmanager\SupplierRisk || $item->isNewItem()
-            || !\GlpiPlugin\Grcmanager\SupplierRisk::canView()
+            !$item instanceof SupplierRisk || $item->isNewItem()
+            || !SupplierRisk::canView()
         ) {
             return '';
         }
@@ -151,7 +157,7 @@ class PluginGrcmanagerSecurityWatch extends CommonGLPI
         global $CFG_GLPI;
 
         // ajax/common.tabs.php sert le contenu sans passer par getTabNameForItem().
-        if (!$item instanceof \GlpiPlugin\Grcmanager\SupplierRisk || !$item->can($item->getID(), READ)) {
+        if (!$item instanceof SupplierRisk || !$item->can($item->getID(), READ)) {
             return false;
         }
         $keywords = self::keywordsFor($item);
@@ -159,8 +165,8 @@ class PluginGrcmanagerSecurityWatch extends CommonGLPI
             'keywords'     => $keywords,
             'notices'      => self::noticesFor($keywords, self::TAB_DAYS),
             'days'         => self::TAB_DAYS,
-            'park'         => PluginGrcmanagerParkVulnerability::canView() ? self::parkFor($keywords) : [],
-            'park_url'     => PluginGrcmanagerParkVulnerability::getSearchURL(),
+            'park'         => ParkVulnerability::canView() ? self::parkFor($keywords) : [],
+            'park_url'     => ParkVulnerability::getSearchURL(),
             'enabled'      => ParkVulnerabilitySync::isEnabled(),
             'last_refresh' => ParkVulnerabilitySync::lastCertFrRefresh(),
             'config_url'   => $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/config.php',
@@ -183,7 +189,7 @@ class PluginGrcmanagerSecurityWatch extends CommonGLPI
             return 0;
         }
         $sent = 0;
-        $risk = new \GlpiPlugin\Grcmanager\SupplierRisk();
+        $risk = new SupplierRisk();
         foreach ($risk->find(['users_id' => ['>', 0]]) as $row) {
             $risk->getFromDB((int) $row['id']);
             $notices = self::noticesFor(self::keywordsFor($risk), self::RECENT_DAYS);

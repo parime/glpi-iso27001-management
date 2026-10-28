@@ -23,26 +23,26 @@ include('../../../inc/includes.php');
 global $CFG_GLPI;
 
 // Issue #160 : logiciels à surveiller (droit du plugin + lecture native des logiciels).
-Session::checkRight(PluginGrcmanagerParkVulnerability::RIGHTNAME, READ);
+Session::checkRight(\GlpiPlugin\Grcmanager\ParkVulnerability::RIGHTNAME, READ);
 Session::checkRight(Software::$rightname, READ);
 
 $filter = (string) ($_REQUEST['filter'] ?? 'todo');
 $search = trim((string) ($_REQUEST['search'] ?? ''));
-$back = PluginGrcmanagerParkVulnerability::getWatchURL() . '?'
+$back = \GlpiPlugin\Grcmanager\ParkVulnerability::getWatchURL() . '?'
     . http_build_query(['filter' => $filter, 'search' => $search]);
 $name = trim((string) ($_POST['software'] ?? ''));
 
 if (isset($_POST['confirm'])) {
-    Session::checkRight(PluginGrcmanagerParkVulnerability::RIGHTNAME, UPDATE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\ParkVulnerability::RIGHTNAME, UPDATE);
     $cpe = trim((string) ($_POST['cpe_manual'] ?? '')) ?: (string) ($_POST['cpe'] ?? '');
-    $canonicalId = PluginGrcmanagerParkVulnerability::confirm($name, $cpe);
+    $canonicalId = \GlpiPlugin\Grcmanager\ParkVulnerability::confirm($name, $cpe);
     if ($canonicalId === null) {
         $message = __('Pick a suggestion or enter a valid CPE 2.3 (cpe:2.3:a:vendor:product).', 'grcmanager');
         Session::addMessageAfterRedirect(htmlescape($message), false, ERROR);
         Html::redirect($back . '&suggest=' . rawurlencode($name));
     }
     $message = sprintf(__('"%s" is now watched.', 'grcmanager'), $name);
-    if (PluginGrcmanagerParkVulnerability::checkFirstVersion($canonicalId)) {
+    if (\GlpiPlugin\Grcmanager\ParkVulnerability::checkFirstVersion($canonicalId)) {
         $message .= ' ' . __(
             'Its most installed version has just been checked; the automatic action will check the others.',
             'grcmanager'
@@ -53,8 +53,8 @@ if (isset($_POST['confirm'])) {
 }
 
 if (isset($_POST['ignore']) || isset($_POST['unignore'])) {
-    Session::checkRight(PluginGrcmanagerParkVulnerability::RIGHTNAME, UPDATE);
-    PluginGrcmanagerParkVulnerability::setIgnored($name, isset($_POST['ignore']));
+    Session::checkRight(\GlpiPlugin\Grcmanager\ParkVulnerability::RIGHTNAME, UPDATE);
+    \GlpiPlugin\Grcmanager\ParkVulnerability::setIgnored($name, isset($_POST['ignore']));
     Html::redirect($back);
 }
 
@@ -69,7 +69,7 @@ if ($suggestFor !== '' && ParkVulnerabilitySync::isEnabled()) {
 
 Html::header(
     __('Software to watch', 'grcmanager'),
-    PluginGrcmanagerParkVulnerability::getSearchURL(),
+    \GlpiPlugin\Grcmanager\ParkVulnerability::getSearchURL(),
     'grcmanager',
     \GlpiPlugin\Grcmanager\ComplianceAudit::class,
     PluginGrcmanagerMenu::SOFTWARE_WATCH
@@ -80,19 +80,19 @@ PluginGrcmanagerMenu::showSection(\GlpiPlugin\Grcmanager\ComplianceAudit::class,
 PluginGrcmanagerPageHelp::show('softwarewatch');
 
 TemplateRenderer::getInstance()->display('@grcmanager/software_watch.html.twig', [
-    'action'        => PluginGrcmanagerParkVulnerability::getWatchURL(),
-    'park_url'      => PluginGrcmanagerParkVulnerability::getSearchURL(),
+    'action'        => \GlpiPlugin\Grcmanager\ParkVulnerability::getWatchURL(),
+    'park_url'      => \GlpiPlugin\Grcmanager\ParkVulnerability::getSearchURL(),
     'config_url'    => $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/config.php',
-    'catalog_url'   => PluginGrcmanagerCanonicalProduct::getFormURL(),
-    'rows'          => PluginGrcmanagerParkVulnerability::getSoftwareRows($filter, $search),
-    'filters'       => PluginGrcmanagerParkVulnerability::getFilterLabels(),
-    'filter'        => in_array($filter, PluginGrcmanagerParkVulnerability::FILTERS, true) ? $filter : 'todo',
+    'catalog_url'   => \GlpiPlugin\Grcmanager\CanonicalProduct::getFormURL(),
+    'rows'          => \GlpiPlugin\Grcmanager\ParkVulnerability::getSoftwareRows($filter, $search),
+    'filters'       => \GlpiPlugin\Grcmanager\ParkVulnerability::getFilterLabels(),
+    'filter'        => in_array($filter, \GlpiPlugin\Grcmanager\ParkVulnerability::FILTERS, true) ? $filter : 'todo',
     'search'        => $search,
     'suggest_for'   => $suggestFor,
     'suggestions'   => $suggestions,
     'suggest_error' => $suggestError,
     'enabled'       => ParkVulnerabilitySync::isEnabled(),
-    'can_update'    => Session::haveRight(PluginGrcmanagerParkVulnerability::RIGHTNAME, UPDATE),
+    'can_update'    => Session::haveRight(\GlpiPlugin\Grcmanager\ParkVulnerability::RIGHTNAME, UPDATE),
 ]);
 
 Html::footer();

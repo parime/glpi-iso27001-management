@@ -6,10 +6,10 @@ namespace GlpiPlugin\Grcmanager\Compatibility\Base;
 
 use CommonDBTM;
 use GlpiPlugin\Grcmanager\Compatibility\GlpiVersion;
-use PluginGrcmanagerProductAlias;
+use GlpiPlugin\Grcmanager\ProductAlias;
 
 /*
- * Parent of \PluginGrcmanagerProductAlias.
+ * Parent of \\GlpiPlugin\Grcmanager\ProductAlias.
  *
  * Redeclares the GLPI core properties that class overrides: untyped on GLPI 11, typed on GLPI 12
  * (see GlpiVersion). A class, not a trait: on PHP 8.2-8.4 a trait cannot redeclare an inherited
@@ -19,11 +19,11 @@ use PluginGrcmanagerProductAlias;
 if (GlpiVersion::isAtLeast12()) {
     abstract class ProductAliasBase extends CommonDBTM
     {
-        public static string $rightname = PluginGrcmanagerProductAlias::RIGHTNAME;
+        public static string $rightname = \GlpiPlugin\Grcmanager\ProductAlias::RIGHTNAME;
     }
 } else {
     abstract class ProductAliasBase extends CommonDBTM
     {
-        public static $rightname = PluginGrcmanagerProductAlias::RIGHTNAME;
+        public static $rightname = \GlpiPlugin\Grcmanager\ProductAlias::RIGHTNAME;
     }
 }

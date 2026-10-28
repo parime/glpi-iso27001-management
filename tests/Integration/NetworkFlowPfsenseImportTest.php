@@ -34,30 +34,30 @@ final class NetworkFlowPfsenseImportTest extends GrcmanagerIntegrationTestCase
     {
         global $DB;
 
-        $before = countElementsInTable(\PluginGrcmanagerNetworkFlow::getTable());
+        $before = countElementsInTable(\GlpiPlugin\Grcmanager\NetworkFlow::getTable());
         try {
-            $simulation = \PluginGrcmanagerNetworkFlow::importCsv(self::CONFIG, true);
+            $simulation = \GlpiPlugin\Grcmanager\NetworkFlow::importCsv(self::CONFIG, true);
             $this->assertSame(1, $simulation['created']);
-            $this->assertSame($before, countElementsInTable(\PluginGrcmanagerNetworkFlow::getTable()));
+            $this->assertSame($before, countElementsInTable(\GlpiPlugin\Grcmanager\NetworkFlow::getTable()));
 
-            $import = \PluginGrcmanagerNetworkFlow::importCsv(self::CONFIG, false);
+            $import = \GlpiPlugin\Grcmanager\NetworkFlow::importCsv(self::CONFIG, false);
             $this->assertSame(1, $import['created']);
-            $flow = new \PluginGrcmanagerNetworkFlow();
+            $flow = new \GlpiPlugin\Grcmanager\NetworkFlow();
             $this->assertTrue($flow->getFromDBByCrit(['name' => 'PHPUnit RDP prestataire']));
             $this->assertSame('internet_publication', $flow->fields['flow_type']);
             $this->assertContains('admin_exposed', $flow->getChecks(), 'RDP publié sur Internet signalé.');
 
-            $again = \PluginGrcmanagerNetworkFlow::importCsv(self::CONFIG, false);
+            $again = \GlpiPlugin\Grcmanager\NetworkFlow::importCsv(self::CONFIG, false);
             $this->assertSame(0, $again['created']);
             $this->assertSame(1, $again['skipped']);
         } finally {
-            $DB->delete(\PluginGrcmanagerNetworkFlow::getTable(), ['name' => 'PHPUnit RDP prestataire']);
+            $DB->delete(\GlpiPlugin\Grcmanager\NetworkFlow::getTable(), ['name' => 'PHPUnit RDP prestataire']);
         }
     }
 
     public function testXmlThatIsNotPfsenseIsReported(): void
     {
-        $result = \PluginGrcmanagerNetworkFlow::importCsv('<config><rule/></config>', true);
+        $result = \GlpiPlugin\Grcmanager\NetworkFlow::importCsv('<config><rule/></config>', true);
         $this->assertSame(0, $result['created']);
         $this->assertCount(1, $result['errors']);
     }

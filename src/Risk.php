@@ -29,7 +29,7 @@ use GlpiPlugin\Grcmanager\Services\Risk\RiskItemLinkNormalizer;
 use GlpiPlugin\Grcmanager\Services\Risk\TreatmentPlanRules;
 use GlpiPlugin\Grcmanager\Traits\RiskAssessmentTrait;
 use Log;
-use PluginGrcmanagerAssetClassification;
+use GlpiPlugin\Grcmanager\AssetClassification;
 use PluginGrcmanagerMenu;
 use GlpiPlugin\Grcmanager\RiskTreatmentAction;
 use Session;
@@ -349,7 +349,7 @@ class Risk extends RiskBase
             if (!is_a($itemtype, CommonDBTM::class, true) || !$itemtype::canView()) {
                 continue;
             }
-            $classificationsByItemsId = PluginGrcmanagerAssetClassification::getByItemtype($itemtype);
+            $classificationsByItemsId = AssetClassification::getByItemtype($itemtype);
 
             // Le risque est global, les actifs non : seulement ceux que l'utilisateur voit (entités
             // de la session), hors corbeille et gabarits.
@@ -540,7 +540,7 @@ class Risk extends RiskBase
     private static function hasHighClassificationAmongLinkedAssets(int $riskId): bool
     {
         foreach (self::getLinkedAssets($riskId) as $asset) {
-            $classification = PluginGrcmanagerAssetClassification::getByItem($asset['itemtype'], $asset['items_id']);
+            $classification = AssetClassification::getByItem($asset['itemtype'], $asset['items_id']);
             if (ClassificationLevels::hasHighAxis($classification)) {
                 return true;
             }
@@ -552,13 +552,13 @@ class Risk extends RiskBase
     /**
      * Translated label for one raw C/I/D level value, used only for the inline read-only hint next
      * to a linked asset's multi-select option above - the color-coded badge
-     * (PluginGrcmanagerAssetClassification::levelBadge()) is HTML and cannot be embedded in a plain
+     * (AssetClassification::levelBadge()) is HTML and cannot be embedded in a plain
      * `<option>` label text, hence this plain-text equivalent kept in sync with the same three
      * levels (ClassificationLevels::ALLOWED).
      */
     private static function classificationLevelLabel(?string $value): string
     {
-        return PluginGrcmanagerAssetClassification::getLevels()[$value] ?? __('Not classified', 'grcmanager');
+        return AssetClassification::getLevels()[$value] ?? __('Not classified', 'grcmanager');
     }
 
     /**
