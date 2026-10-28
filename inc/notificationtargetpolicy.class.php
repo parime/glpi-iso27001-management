@@ -50,6 +50,7 @@ class PluginGrcmanagerNotificationTargetPolicy extends NotificationTarget
     public function addDataForTemplate($event, $options = [])
     {
         $events = $this->getAllEvents();
+        /** @var PluginGrcmanagerPolicy $policy */
         $policy = $this->obj;
 
         $statuses = PluginGrcmanagerPolicy::getStatuses();

@@ -349,8 +349,8 @@ jobs:
           '
 
       # Issue #146 : PHPStan sur TOUT le plugin (inc/, front/, src/), avec les sources de GLPI de
-      # ce conteneur ; le job « PHP quality » n'analyse que les services en PHP pur. Les
-      # signalements existants sont dans phpstan-glpi-baseline.neon : tout nouveau fait echouer.
+      # ce conteneur ; le job « PHP quality » n'analyse que les services en PHP pur. Sans base
+      # d'exceptions : tout signalement fait echouer.
       - name: PHPStan sur tout le plugin, avec GLPI
         run: |
           docker exec glpi sh -c '

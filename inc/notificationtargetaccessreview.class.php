@@ -48,7 +48,7 @@ class PluginGrcmanagerNotificationTargetAccessReview extends NotificationTarget
             return;
         }
 
-        $reviewers = PluginGrcmanagerAccessReview::getPendingReviewerIds($this->obj->getID());
+        $reviewers = PluginGrcmanagerAccessReview::getPendingReviewerIds((int) ($this->obj->fields['id'] ?? 0));
         if (isset($options['reviewers']) && is_array($options['reviewers'])) {
             $reviewers = array_values(array_intersect($reviewers, array_map('intval', $options['reviewers'])));
         }

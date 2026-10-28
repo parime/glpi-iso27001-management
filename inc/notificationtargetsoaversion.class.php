@@ -48,7 +48,7 @@ class PluginGrcmanagerNotificationTargetSoaVersion extends NotificationTarget
             return;
         }
 
-        foreach (PluginGrcmanagerSoaVersion::getApprovers($this->obj->getID()) as $approver) {
+        foreach (PluginGrcmanagerSoaVersion::getApprovers((int) ($this->obj->fields['id'] ?? 0)) as $approver) {
             if ($approver['status'] !== SoaApprovalLogic::ANSWER_PENDING) {
                 continue;
             }

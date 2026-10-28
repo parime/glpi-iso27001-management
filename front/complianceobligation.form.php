@@ -33,7 +33,7 @@ if (isset($_POST['add'])) {
     Html::redirect(PluginGrcmanagerComplianceObligation::getSearchURL());
 } elseif (isset($_POST['purge'])) {
     Session::checkRight(PluginGrcmanagerComplianceObligation::$rightname, PURGE);
-    $item->delete($_POST, 1);
+    $item->delete($_POST, true);
     Html::redirect(PluginGrcmanagerComplianceObligation::getSearchURL());
 } elseif (isset($_POST['update'])) {
     Session::checkRight(PluginGrcmanagerComplianceObligation::$rightname, UPDATE);

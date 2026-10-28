@@ -89,6 +89,7 @@ class PluginGrcmanagerNotificationTargetTraining extends NotificationTarget
     public function addDataForTemplate($event, $options = [])
     {
         $events   = $this->getAllEvents();
+        /** @var PluginGrcmanagerTraining $training */
         $training = $this->obj;
 
         $formats = PluginGrcmanagerTraining::getFormats();

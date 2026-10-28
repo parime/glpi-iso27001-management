@@ -32,7 +32,7 @@ if (isset($_POST['add'])) {
     Html::redirect(PluginGrcmanagerWaiver::getSearchURL());
 } elseif (isset($_POST['purge'])) {
     Session::checkRight(PluginGrcmanagerWaiver::$rightname, PURGE);
-    $item->delete($_POST, 1);
+    $item->delete($_POST, true);
     Html::redirect(PluginGrcmanagerWaiver::getSearchURL());
 } elseif (isset($_POST['update'])) {
     Session::checkRight(PluginGrcmanagerWaiver::$rightname, UPDATE);

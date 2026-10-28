@@ -742,7 +742,7 @@ class PluginGrcmanagerRisk extends RiskBase
      */
     public function getTabNameForItem(CommonGLPI $item, $withtemplate = 0)
     {
-        if (!in_array($item->getType(), self::getLinkableItemtypes(), true)) {
+        if (!$item instanceof CommonDBTM || !in_array($item->getType(), self::getLinkableItemtypes(), true)) {
             return '';
         }
 
@@ -767,7 +767,7 @@ class PluginGrcmanagerRisk extends RiskBase
     {
         // ajax/common.tabs.php sert le contenu sans passer par getTabNameForItem() : même contrôle
         // ici (revue de sécurité 2.11.0, trouvé par la matrice d'accès de bout en bout).
-        if (!Session::haveRight(self::$rightname, READ)) {
+        if (!$item instanceof CommonDBTM || !Session::haveRight(self::$rightname, READ)) {
             return false;
         }
         $rows = [];

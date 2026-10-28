@@ -31,7 +31,7 @@ if (isset($_POST['add'])) {
     Html::redirect(PluginGrcmanagerAccessReview::getSearchURL());
 } elseif (isset($_POST['purge'])) {
     $item->check((int) $_POST['id'], PURGE);
-    $item->delete($_POST, 1);
+    $item->delete($_POST, true);
     Html::redirect(PluginGrcmanagerAccessReview::getSearchURL());
 } elseif (isset($_POST['update'])) {
     $item->check((int) $_POST['id'], UPDATE);
