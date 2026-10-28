@@ -6,7 +6,7 @@ namespace GlpiPlugin\Grcmanager\Services\Policy;
 
 /**
  * Pure validation/decision logic behind the security policy library (issue #28, ISO/IEC
- * 27001:2022 A.5.1/A.5.1.1/A.5.1.2), see PluginGrcmanagerPolicy. Kept GLPI-independent (no $DB, no
+ * 27001:2022 A.5.1/A.5.1.1/A.5.1.2), see \GlpiPlugin\Grcmanager\Policy. Kept GLPI-independent (no $DB, no
  * CommonDBTM, no __()) so every status/approval-date combination can be unit tested directly
  * (tests/Unit/Services/Policy/PolicyLifecycleTest.php), the same split already used for the C/I/D
  * asset classification register (ClassificationLevels, issue #26) and the risk <-> CMDB item link

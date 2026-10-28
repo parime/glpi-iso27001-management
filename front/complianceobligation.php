@@ -20,29 +20,29 @@ use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
 
 include('../../../inc/includes.php');
 
-Session::checkRight(PluginGrcmanagerComplianceObligation::$rightname, READ);
+Session::checkRight(\GlpiPlugin\Grcmanager\ComplianceObligation::$rightname, READ);
 
 Html::header(
-    PluginGrcmanagerComplianceObligation::getTypeName(2),
+    \GlpiPlugin\Grcmanager\ComplianceObligation::getTypeName(2),
     $_SERVER['PHP_SELF'],
     'grcmanager',
     PluginGrcmanagerControl::class,
-    PluginGrcmanagerComplianceObligation::class
+    \GlpiPlugin\Grcmanager\ComplianceObligation::class
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(PluginGrcmanagerControl::class, PluginGrcmanagerComplianceObligation::class);
+PluginGrcmanagerMenu::showSection(PluginGrcmanagerControl::class, \GlpiPlugin\Grcmanager\ComplianceObligation::class);
 // Encadré « À quoi sert cette page ? ».
 PluginGrcmanagerPageHelp::show('complianceobligation');
 
 // Same URL-driven search fix already applied to every list of this plugin (see
 // front/risk.php's own docblock for the full explanation): Search::showList() needs $_GET merged
 // through QueryBuilder::manageParams() itself, unlike Search::show().
-$params = QueryBuilder::manageParams(PluginGrcmanagerComplianceObligation::class, $_GET);
+$params = QueryBuilder::manageParams(\GlpiPlugin\Grcmanager\ComplianceObligation::class, $_GET);
 
 Search::showList(
-    PluginGrcmanagerComplianceObligation::class,
+    \GlpiPlugin\Grcmanager\ComplianceObligation::class,
     $params,
-    DefaultSearchColumns::COLUMNS[PluginGrcmanagerComplianceObligation::class]
+    DefaultSearchColumns::COLUMNS[\GlpiPlugin\Grcmanager\ComplianceObligation::class]
 );
 
 Html::footer();

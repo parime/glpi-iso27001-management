@@ -72,7 +72,7 @@ class PluginGrcmanagerRisk extends RiskBase
 
     /**
      * Le titre tient lieu de nom : sans cela, l'en-tête de la fiche et les listes déroulantes
-     * affichaient « N/A » (même correctif que PluginGrcmanagerPolicy::getNameField()).
+     * affichaient « N/A » (même correctif que \GlpiPlugin\Grcmanager\Policy::getNameField()).
      */
     public static function getNameField()
     {

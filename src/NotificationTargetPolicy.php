@@ -15,22 +15,29 @@
  * -------------------------------------------------------------------------
  */
 
+namespace GlpiPlugin\Grcmanager;
+
+use Html;
+use Notification;
+use NotificationTarget;
+use Override;
+
 /**
- * GLPI notification target for PluginGrcmanagerPolicy (issue #28 review-date reminders, see
+ * GLPI notification target for Policy (issue #28 review-date reminders, see
  * src/Services/Policy/PolicyReviewReminderService.php and its Cron entry point
- * PluginGrcmanagerPolicy::cronReviewreminder()). Class name/file location are dictated by GLPI
- * core (NotificationTarget::getInstanceClass()): for a plugin item "PluginGrcmanagerPolicy", GLPI
- * expects a global class "PluginGrcmanagerNotificationTargetPolicy" in
+ * Policy::cronReviewreminder()). Class name/file location are dictated by GLPI
+ * core (NotificationTarget::getInstanceClass()): for a plugin item "Policy", GLPI
+ * expects a global class "NotificationTargetPolicy" in
  * "inc/notificationtargetpolicy.class.php", same convention already confirmed live for
  * inc/notificationtargetrisk.class.php (see its own docblock).
  */
-class PluginGrcmanagerNotificationTargetPolicy extends NotificationTarget
+class NotificationTargetPolicy extends NotificationTarget
 {
     #[Override]
     public function getEvents()
     {
         return [
-            PluginGrcmanagerPolicy::REVIEW_DUE_EVENT => __('Policy review due', 'grcmanager'),
+            Policy::REVIEW_DUE_EVENT => __('Policy review due', 'grcmanager'),
         ];
     }
 
@@ -50,10 +57,10 @@ class PluginGrcmanagerNotificationTargetPolicy extends NotificationTarget
     public function addDataForTemplate($event, $options = [])
     {
         $events = $this->getAllEvents();
-        /** @var PluginGrcmanagerPolicy $policy */
+        /** @var Policy $policy */
         $policy = $this->obj;
 
-        $statuses = PluginGrcmanagerPolicy::getStatuses();
+        $statuses = Policy::getStatuses();
 
         $this->data['##policy.action##']     = $events[$event] ?? '';
         $this->data['##policy.title##']      = $policy->fields['title'] ?? '';
@@ -62,7 +69,7 @@ class PluginGrcmanagerNotificationTargetPolicy extends NotificationTarget
         $this->data['##policy.reviewdate##'] = Html::convDate($policy->fields['next_review_date'] ?? null);
         $this->data['##policy.url##']        = $this->formatURL(
             $options['additionnaloption']['usertype'] ?? self::GLPI_USER,
-            PluginGrcmanagerPolicy::class . '_' . $policy->getID()
+            Policy::class . '_' . $policy->getID()
         );
 
         $this->getTags();

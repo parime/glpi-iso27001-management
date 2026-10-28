@@ -17,10 +17,10 @@
 
 include('../../../inc/includes.php');
 
-$item = new PluginGrcmanagerComplianceObligation();
+$item = new \GlpiPlugin\Grcmanager\ComplianceObligation();
 
 if (isset($_POST['add'])) {
-    Session::checkRight(PluginGrcmanagerComplianceObligation::$rightname, CREATE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\ComplianceObligation::$rightname, CREATE);
     $newID = $item->add($_POST);
     // Comme les formulaires natifs : retour sur l'élément créé si la préférence est active.
     if ($newID && $_SESSION['glpibackcreated']) {
@@ -28,26 +28,26 @@ if (isset($_POST['add'])) {
     }
     Html::back();
 } elseif (isset($_POST['delete'])) {
-    Session::checkRight(PluginGrcmanagerComplianceObligation::$rightname, DELETE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\ComplianceObligation::$rightname, DELETE);
     $item->delete($_POST);
-    Html::redirect(PluginGrcmanagerComplianceObligation::getSearchURL());
+    Html::redirect(\GlpiPlugin\Grcmanager\ComplianceObligation::getSearchURL());
 } elseif (isset($_POST['purge'])) {
-    Session::checkRight(PluginGrcmanagerComplianceObligation::$rightname, PURGE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\ComplianceObligation::$rightname, PURGE);
     $item->delete($_POST, true);
-    Html::redirect(PluginGrcmanagerComplianceObligation::getSearchURL());
+    Html::redirect(\GlpiPlugin\Grcmanager\ComplianceObligation::getSearchURL());
 } elseif (isset($_POST['update'])) {
-    Session::checkRight(PluginGrcmanagerComplianceObligation::$rightname, UPDATE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\ComplianceObligation::$rightname, UPDATE);
     $item->update($_POST);
     Html::back();
 } else {
-    Session::checkRight(PluginGrcmanagerComplianceObligation::$rightname, READ);
+    Session::checkRight(\GlpiPlugin\Grcmanager\ComplianceObligation::$rightname, READ);
 
     Html::header(
-        PluginGrcmanagerComplianceObligation::getTypeName(1),
+        \GlpiPlugin\Grcmanager\ComplianceObligation::getTypeName(1),
         $_SERVER['PHP_SELF'],
         'grcmanager',
         PluginGrcmanagerControl::class,
-        PluginGrcmanagerComplianceObligation::class
+        \GlpiPlugin\Grcmanager\ComplianceObligation::class
     );
 
     $id = (int) ($_GET['id'] ?? 0);

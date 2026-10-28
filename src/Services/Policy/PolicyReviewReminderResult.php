@@ -6,7 +6,7 @@ namespace GlpiPlugin\Grcmanager\Services\Policy;
 
 /**
  * Outcome of one PolicyReviewReminderService::notify() run, reported by
- * PluginGrcmanagerPolicy::cronReviewreminder() (inc/policy.class.php) to the GLPI Cron log. Same
+ * \GlpiPlugin\Grcmanager\Policy::cronReviewreminder() (inc/policy.class.php) to the GLPI Cron log. Same
  * shape as GlpiPlugin\Grcmanager\Services\Risk\ReviewReminderResult, kept as its own class rather
  * than reused: a policy's "due" definition (PolicyReviewReminderWindow, `next_review_date`,
  * `archived` exclusion) is independent of the risk register's own `review_date`/`closed`

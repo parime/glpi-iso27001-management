@@ -2,7 +2,7 @@
 
 namespace GlpiPlugin\Grcmanager\Tests\Integration;
 
-use PluginGrcmanagerComplianceEvent;
+use GlpiPlugin\Grcmanager\ComplianceEvent;
 
 /**
  * Issue #142 : calendrier de conformité — événements saisis et échéances des autres registres,
@@ -20,13 +20,13 @@ final class ComplianceCalendarTest extends GrcmanagerIntegrationTestCase
         $owner = $this->createTestUser('Rssi', 'Calendrier');
         $other = $this->createTestUser('Autre', 'Calendrier');
 
-        $event = new PluginGrcmanagerComplianceEvent();
+        $event = new \GlpiPlugin\Grcmanager\ComplianceEvent();
         $eventsId = (int) $event->add([
             'event_type' => 'certification_audit', 'date_begin' => '2031-03-10 09:00:00', 'users_id' => $owner,
         ]);
         $this->assertGreaterThan(0, $eventsId);
         $event->getFromDB($eventsId);
-        $types = PluginGrcmanagerComplianceEvent::getEventTypes();
+        $types = \GlpiPlugin\Grcmanager\ComplianceEvent::getEventTypes();
         $this->assertSame($types['certification_audit'], $event->fields['name'], 'Le type sert de nom.');
         $this->assertSame('2031-03-11 00:00:00', $event->fields['date_end'], 'Fin : la journée du début.');
 
@@ -39,31 +39,31 @@ final class ComplianceCalendarTest extends GrcmanagerIntegrationTestCase
         $DB->insert('glpi_plugin_grcmanager_managementreviews_users', [
             'plugin_grcmanager_managementreviews_id' => $reviewsId, 'users_id' => $owner,
         ]);
-        (new PluginGrcmanagerComplianceEvent())->add([
+        (new \GlpiPlugin\Grcmanager\ComplianceEvent())->add([
             'event_type' => 'pentest', 'date_begin' => '2031-03-15 09:00:00', 'users_id' => $other,
         ]);
-        (new PluginGrcmanagerComplianceEvent())->add([
+        (new \GlpiPlugin\Grcmanager\ComplianceEvent())->add([
             'event_type' => 'pentest', 'date_begin' => '2031-05-15 09:00:00', 'users_id' => $owner,
         ]);
 
-        $mine = PluginGrcmanagerComplianceEvent::collect(self::BEGIN, self::END, $owner);
+        $mine = \GlpiPlugin\Grcmanager\ComplianceEvent::collect(self::BEGIN, self::END, $owner);
         $this->assertSame(
             ['event-' . $eventsId . '@grcmanager', 'audit-' . $auditsId . '@grcmanager',
                 'management_review-' . $reviewsId . '@grcmanager'],
             array_column($mine, 'uid'),
             'Ses échéances de la période, triées ; ni celles d\'un autre, ni hors période.'
         );
-        $all = array_column(PluginGrcmanagerComplianceEvent::collect(self::BEGIN, self::END), 'name');
+        $all = array_column(\GlpiPlugin\Grcmanager\ComplianceEvent::collect(self::BEGIN, self::END), 'name');
         $this->assertContains($types['pentest'], $all, 'Vue d\'ensemble : toutes les échéances.');
 
-        $planning = PluginGrcmanagerComplianceEvent::populatePlanning([
+        $planning = \GlpiPlugin\Grcmanager\ComplianceEvent::populatePlanning([
             'who' => $owner, 'begin' => self::BEGIN, 'end' => self::END, 'state_done' => true,
         ]);
         $this->assertCount(3, $planning);
         $first = reset($planning);
-        $this->assertSame(PluginGrcmanagerComplianceEvent::class, $first['itemtype']);
+        $this->assertSame(\GlpiPlugin\Grcmanager\ComplianceEvent::class, $first['itemtype']);
         $this->assertFalse($first['editable'], 'Lecture seule dans le planning.');
-        $this->assertSame([], PluginGrcmanagerComplianceEvent::populatePlanning([
+        $this->assertSame([], \GlpiPlugin\Grcmanager\ComplianceEvent::populatePlanning([
             'who' => 0, 'begin' => self::BEGIN, 'end' => self::END,
         ]));
     }
@@ -71,12 +71,12 @@ final class ComplianceCalendarTest extends GrcmanagerIntegrationTestCase
     public function testCancelledEventsStayOutAndAStartDateIsRequired(): void
     {
         $owner = $this->createTestUser('Rssi', 'Annule');
-        (new PluginGrcmanagerComplianceEvent())->add([
+        (new \GlpiPlugin\Grcmanager\ComplianceEvent())->add([
             'event_type' => 'crisis_exercise', 'date_begin' => '2031-03-05 09:00:00', 'users_id' => $owner,
             'status' => 'cancelled',
         ]);
-        $this->assertSame([], PluginGrcmanagerComplianceEvent::collect(self::BEGIN, self::END, $owner));
-        $refused = (new PluginGrcmanagerComplianceEvent())->add(['event_type' => 'pentest', 'date_begin' => '']);
+        $this->assertSame([], \GlpiPlugin\Grcmanager\ComplianceEvent::collect(self::BEGIN, self::END, $owner));
+        $refused = (new \GlpiPlugin\Grcmanager\ComplianceEvent())->add(['event_type' => 'pentest', 'date_begin' => '']);
         $this->assertFalse($refused);
     }
 
@@ -85,12 +85,12 @@ final class ComplianceCalendarTest extends GrcmanagerIntegrationTestCase
         $owner = $this->createTestUser('Rssi', 'Ical');
         $_SESSION['glpiID'] = $owner;
         try {
-            (new PluginGrcmanagerComplianceEvent())->add([
+            (new \GlpiPlugin\Grcmanager\ComplianceEvent())->add([
                 'name' => 'PHPUnit pentest annuel', 'event_type' => 'pentest',
                 'date_begin' => date('Y-m-d 09:00:00', strtotime('+10 days')),
                 'date_end' => date('Y-m-d 17:00:00', strtotime('+10 days')), 'users_id' => $owner,
             ]);
-            $ics = PluginGrcmanagerComplianceEvent::exportIcs(true);
+            $ics = \GlpiPlugin\Grcmanager\ComplianceEvent::exportIcs(true);
         } finally {
             $_SESSION['glpiID'] = 2;
         }
@@ -106,8 +106,8 @@ final class ComplianceCalendarTest extends GrcmanagerIntegrationTestCase
         $user->getFromDB(2);
         $token = (string) $user->getAuthToken('personal_token');
 
-        $all = PluginGrcmanagerComplianceEvent::getSubscriptionURL(false);
-        $mine = PluginGrcmanagerComplianceEvent::getSubscriptionURL(true);
+        $all = \GlpiPlugin\Grcmanager\ComplianceEvent::getSubscriptionURL(false);
+        $mine = \GlpiPlugin\Grcmanager\ComplianceEvent::getSubscriptionURL(true);
         $this->assertStringContainsString('/plugins/grcmanager/front/compliancecalendar.ics.php?', $all);
         $this->assertStringContainsString('token=' . $token, $all);
         $this->assertStringNotContainsString('mine=', $all);

@@ -65,7 +65,7 @@ class PluginGrcmanagerMenu extends CommonGLPI
         return [
             // Pilotage.
             PluginGrcmanagerDashboard::class => [
-                PluginGrcmanagerMaturity::class, PluginGrcmanagerComplianceEvent::class,
+                PluginGrcmanagerMaturity::class, \GlpiPlugin\Grcmanager\ComplianceEvent::class,
             ],
             // Appréciation et traitement des risques.
             PluginGrcmanagerRisk::class => [
@@ -75,8 +75,8 @@ class PluginGrcmanagerMenu extends CommonGLPI
             // Conformité : SoA, référentiels, exigences du SMSI, obligations, politiques, preuves.
             PluginGrcmanagerControl::class => [
                 PluginGrcmanagerReferentials::class, PluginGrcmanagerIsmsRequirement::class,
-                PluginGrcmanagerComplianceObligation::class, PluginGrcmanagerPolicy::class,
-                PluginGrcmanagerEvidence::class, PluginGrcmanagerCoverageRule::class,
+                \GlpiPlugin\Grcmanager\ComplianceObligation::class, \GlpiPlugin\Grcmanager\Policy::class,
+                \GlpiPlugin\Grcmanager\Evidence::class, PluginGrcmanagerCoverageRule::class,
             ],
             // Contrôle et amélioration continue (ISO 27001 chapitres 9 et 10).
             PluginGrcmanagerAudit::class => [

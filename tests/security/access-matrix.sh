@@ -124,7 +124,7 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
   expect "front/auditteam.form.php : ajouter un membre" "$1" \
     "$(code -d "add=1&plugin_grcmanager_audits_id=$(id audit)&users_id=2&role=auditee&_glpi_csrf_token=$(csrf)" "$P/auditteam.form.php")"
   expect "front/evidence.form.php : date de validite d'une preuve" "$1" \
-    "$(code -d "save=1&itemtype=PluginGrcmanagerPolicy&items_id=$(id policy_A)&documents_id=$(id document_A)&valid_until=2030-01-01&_glpi_csrf_token=$(csrf)" "$P/evidence.form.php")"
+    "$(code -d "save=1&itemtype=GlpiPlugin%5CGrcmanager%5CPolicy&items_id=$(id policy_A)&documents_id=$(id document_A)&valid_until=2030-01-01&_glpi_csrf_token=$(csrf)" "$P/evidence.form.php")"
   # Issue #139 : joindre ou retirer une copie de quiz exige de pouvoir modifier la session.
   expect "front/trainingquiz.form.php : retirer une copie" "$1" \
     "$(code -d "remove=1&participations_id=$(id quiz)&_glpi_csrf_token=$(csrf)" "$P/trainingquiz.form.php")"
@@ -230,11 +230,11 @@ evidences=$(curl -s -c "$JAR" -b "$JAR" "$P/evidence.php")
 contains "liste des preuves : preuve de A" "Preuve securite A" oui    "$evidences"
 contains "liste des preuves : preuve de B" "Preuve securite B" $SEE_B "$evidences"
 expect "date de validite d'une preuve de A" 302 \
-  "$(code -d "save=1&itemtype=PluginGrcmanagerPolicy&items_id=$(id policy_A)&documents_id=$(id document_A)&valid_until=2030-01-01&_glpi_csrf_token=$(csrf)" "$P/evidence.form.php")"
+  "$(code -d "save=1&itemtype=GlpiPlugin%5CGrcmanager%5CPolicy&items_id=$(id policy_A)&documents_id=$(id document_A)&valid_until=2030-01-01&_glpi_csrf_token=$(csrf)" "$P/evidence.form.php")"
 expect "date de validite d'une preuve de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
-  "$(code -d "save=1&itemtype=PluginGrcmanagerPolicy&items_id=$(id policy_B)&documents_id=$(id document_B)&valid_until=2030-01-01&_glpi_csrf_token=$(csrf)" "$P/evidence.form.php")"
+  "$(code -d "save=1&itemtype=GlpiPlugin%5CGrcmanager%5CPolicy&items_id=$(id policy_B)&documents_id=$(id document_B)&valid_until=2030-01-01&_glpi_csrf_token=$(csrf)" "$P/evidence.form.php")"
 expect "date de validite : document d'une autre politique" 404 \
-  "$(code -d "save=1&itemtype=PluginGrcmanagerPolicy&items_id=$(id policy_A)&documents_id=$(id document_B)&valid_until=2030-01-01&_glpi_csrf_token=$(csrf)" "$P/evidence.form.php")"
+  "$(code -d "save=1&itemtype=GlpiPlugin%5CGrcmanager%5CPolicy&items_id=$(id policy_A)&documents_id=$(id document_B)&valid_until=2030-01-01&_glpi_csrf_token=$(csrf)" "$P/evidence.form.php")"
 
 if [ "$ROLE" = limited ]; then
   # Enregistre le risque (objet global) avec l'actif de A : le lien vers B, invisible pour lui,

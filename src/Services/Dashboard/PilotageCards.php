@@ -99,7 +99,7 @@ final class PilotageCards
 
     public static function upcomingComplianceDeadlines(array $params = []): array
     {
-        $events = \PluginGrcmanagerComplianceEvent::collect(
+        $events = \GlpiPlugin\Grcmanager\ComplianceEvent::collect(
             date('Y-m-d 00:00:00'),
             date('Y-m-d 23:59:59', (int) strtotime('+90 days'))
         );
@@ -107,7 +107,7 @@ final class PilotageCards
 
         return [
             'number' => count($pending),
-            'url'    => \PluginGrcmanagerComplianceEvent::getCalendarURL(),
+            'url'    => \GlpiPlugin\Grcmanager\ComplianceEvent::getCalendarURL(),
             'label'  => $params['label'] ?? __('Deadlines within 90 days', 'grcmanager'),
             'icon'   => 'ti ti-calendar-event',
         ];

@@ -20,29 +20,29 @@ use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
 
 include('../../../inc/includes.php');
 
-Session::checkRight(PluginGrcmanagerPolicy::$rightname, READ);
+Session::checkRight(\GlpiPlugin\Grcmanager\Policy::$rightname, READ);
 
 Html::header(
-    PluginGrcmanagerPolicy::getTypeName(2),
+    \GlpiPlugin\Grcmanager\Policy::getTypeName(2),
     $_SERVER['PHP_SELF'],
     'grcmanager',
     PluginGrcmanagerControl::class,
-    PluginGrcmanagerPolicy::class
+    \GlpiPlugin\Grcmanager\Policy::class
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(PluginGrcmanagerControl::class, PluginGrcmanagerPolicy::class);
+PluginGrcmanagerMenu::showSection(PluginGrcmanagerControl::class, \GlpiPlugin\Grcmanager\Policy::class);
 // Encadré « À quoi sert cette page ? ».
 PluginGrcmanagerPageHelp::show('policy');
 
 // Same $_GET merge as front/risk.php: Search::showList() (unlike Search::show()) doesn't merge
 // $_GET itself, needed here too so sort/pagination/filter links on this list actually work, see
 // front/risk.php's own docblock for the full explanation.
-$params = QueryBuilder::manageParams(PluginGrcmanagerPolicy::class, $_GET);
+$params = QueryBuilder::manageParams(\GlpiPlugin\Grcmanager\Policy::class, $_GET);
 
 Search::showList(
-    PluginGrcmanagerPolicy::class,
+    \GlpiPlugin\Grcmanager\Policy::class,
     $params,
-    DefaultSearchColumns::COLUMNS[PluginGrcmanagerPolicy::class]
+    DefaultSearchColumns::COLUMNS[\GlpiPlugin\Grcmanager\Policy::class]
 );
 
 Html::footer();

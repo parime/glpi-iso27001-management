@@ -56,7 +56,7 @@ parameters:
         # TrainingRenewalResult.php in the same directory stays in scope: pure PHP with no GLPI
         # dependency.
         - src/Services/Training/TrainingRenewalService.php
-        # Issue #28: depends on GLPI core classes NotificationEvent/PluginGrcmanagerPolicy, same
+        # Issue #28: depends on GLPI core classes NotificationEvent/GlpiPlugin\\Grcmanager\\Policy, same
         # rationale as ReviewReminderService above. PolicyLifecycle.php,
         # PolicyReviewReminderWindow.php and PolicyReviewReminderResult.php in the same directory
         # stay in scope: all three are pure PHP with no GLPI dependency.

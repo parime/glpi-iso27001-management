@@ -259,7 +259,7 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
     $add(new Contract_Supplier(), ['contracts_id' => $contract, 'suppliers_id' => $supplier]);
     $ids['computer_' . $suffix] = $add(new Computer(), ['name' => 'PC securite ' . $suffix, 'entities_id' => $entity]);
     // Issue #145 : politique (globale) avec un document de preuve daté de l'entité.
-    $ids['policy_' . $suffix] = $add(new PluginGrcmanagerPolicy(), [
+    $ids['policy_' . $suffix] = $add(new \GlpiPlugin\Grcmanager\Policy(), [
         'title' => 'Politique securite ' . $suffix, 'entities_id' => $entity,
     ]);
     $ids['document_' . $suffix] = $add(new Document(), [
@@ -267,10 +267,10 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
     ]);
     $add(new Document_Item(), [
         'documents_id' => $ids['document_' . $suffix],
-        'itemtype' => PluginGrcmanagerPolicy::class, 'items_id' => $ids['policy_' . $suffix],
+        'itemtype' => \GlpiPlugin\Grcmanager\Policy::class, 'items_id' => $ids['policy_' . $suffix],
     ]);
-    $add(new PluginGrcmanagerEvidence(), [
-        'itemtype' => PluginGrcmanagerPolicy::class, 'items_id' => $ids['policy_' . $suffix],
+    $add(new \GlpiPlugin\Grcmanager\Evidence(), [
+        'itemtype' => \GlpiPlugin\Grcmanager\Policy::class, 'items_id' => $ids['policy_' . $suffix],
         'documents_id' => $ids['document_' . $suffix], 'valid_until' => date('Y-m-d', strtotime('+10 days')),
     ]);
 }

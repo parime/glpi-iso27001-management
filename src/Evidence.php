@@ -15,11 +15,25 @@
  * -------------------------------------------------------------------------
  */
 
+namespace GlpiPlugin\Grcmanager;
+
+use CommonDBTM;
+use CommonGLPI;
+use CronTask;
+use Document;
+use Document_Item;
+use Dropdown;
+use Entity;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\EvidenceBase;
 use GlpiPlugin\Grcmanager\Services\Evidence\EvidenceValidity;
 use GlpiPlugin\Grcmanager\Services\Ui\Badge;
 use GlpiPlugin\Grcmanager\Services\Ui\Fragment;
+use Html;
+use NotificationEvent;
+use Session;
+use Ticket;
+use User;
 
 /**
  * Issue #145 : date de validité d'un document de preuve rattaché (onglet Documents natif, donc
@@ -37,7 +51,7 @@ use GlpiPlugin\Grcmanager\Services\Ui\Fragment;
  * pouvoir lire l'élément ET le document, la modifier exige de pouvoir modifier l'élément et lire
  * le document — jamais le seul droit global du plugin.
  */
-class PluginGrcmanagerEvidence extends EvidenceBase
+class Evidence extends EvidenceBase
 {
     public const RIGHTNAME = 'plugin_grcmanager';
 

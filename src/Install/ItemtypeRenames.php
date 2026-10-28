@@ -36,6 +36,17 @@ final class ItemtypeRenames
     public const MAP = [
         'PluginGrcmanagerWaiver'                   => \GlpiPlugin\Grcmanager\Waiver::class,
         'PluginGrcmanagerNotificationTargetWaiver' => \GlpiPlugin\Grcmanager\NotificationTargetWaiver::class,
+        // Conformité : politiques, obligations, calendrier, preuves.
+        'PluginGrcmanagerPolicy'                   => \GlpiPlugin\Grcmanager\Policy::class,
+        'PluginGrcmanagerNotificationTargetPolicy' => \GlpiPlugin\Grcmanager\NotificationTargetPolicy::class,
+        'PluginGrcmanagerComplianceObligation'     => \GlpiPlugin\Grcmanager\ComplianceObligation::class,
+        'PluginGrcmanagerNotificationTargetComplianceObligation'
+            => \GlpiPlugin\Grcmanager\NotificationTargetComplianceObligation::class,
+        'PluginGrcmanagerComplianceEvent'          => \GlpiPlugin\Grcmanager\ComplianceEvent::class,
+        'PluginGrcmanagerNotificationTargetComplianceEvent'
+            => \GlpiPlugin\Grcmanager\NotificationTargetComplianceEvent::class,
+        'PluginGrcmanagerEvidence'                 => \GlpiPlugin\Grcmanager\Evidence::class,
+        'PluginGrcmanagerNotificationTargetEvidence' => \GlpiPlugin\Grcmanager\NotificationTargetEvidence::class,
     ];
 
     /**
