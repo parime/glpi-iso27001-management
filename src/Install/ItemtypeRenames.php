@@ -88,6 +88,8 @@ final class ItemtypeRenames
     private const EXTRA_COLUMNS = [
         'glpi_dropdownvisibilities'     => 'visible_itemtype',
         'glpi_searches_criteriafilters' => 'search_itemtype',
+        // Journal des événements (Event::log()) : type = classe de l'objet journalisé.
+        'glpi_events'                   => 'type',
     ];
 
     public static function registerAliases(): void
