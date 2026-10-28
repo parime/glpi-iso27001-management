@@ -95,7 +95,11 @@ final class ItemtypeRenames
                     $DB->update($table, [$column => $new], [$column => $old]);
                 }
             }
-            // Recherches enregistrées : le type figure aussi dans la requête (itemtype=...).
+            // Recherches enregistrées : le type figure aussi dans la requête (itemtype=...), encodée
+            // comme une URL (l'ancien nom n'a aucun caractère à encoder, le nouveau si : « \ »).
+            // Nom exact seulement : PluginGrcmanagerRisk ne doit pas toucher à
+            // PluginGrcmanagerRiskCatalog, resté dans inc/.
+            $exactName = '/' . preg_quote($old, '/') . '(?![A-Za-z0-9_])/';
             if ($DB->tableExists('glpi_savedsearches')) {
                 $searches = $DB->request([
                     'SELECT' => ['id', 'query'],
@@ -104,11 +108,7 @@ final class ItemtypeRenames
                 ]);
                 foreach ($searches as $row) {
                     $DB->update('glpi_savedsearches', [
-                        'query' => str_replace(
-                            [$old, urlencode($old)],
-                            [$new, urlencode($new)],
-                            (string) $row['query']
-                        ),
+                        'query' => preg_replace($exactName, urlencode($new), (string) $row['query']),
                     ], ['id' => $row['id']]);
                 }
             }
