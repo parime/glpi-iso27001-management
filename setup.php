@@ -131,13 +131,13 @@ function plugin_init_grcmanager(): void
     // src/Glpi/Asset/Capacity/HasDocumentsCapacity::enable(), qui fait exactement ce push pour les
     // actifs personnalisés dotés de la capacité "Documents", et src/autoload/CFG_GLPI.php pour la
     // liste figée des itemtypes cœur), en plus de l'appel explicite à
-    // addStandardTab(Document_Item::class, ...) fait dans PluginGrcmanagerPolicy::defineTabs().
+    // addStandardTab(Document_Item::class, ...) fait dans \GlpiPlugin\Grcmanager\Policy::defineTabs().
     // Sans cette ligne, l'onglet s'afficherait quand même (Document_Item::getTabNameForItem() ne
     // vérifie que Document::canView(), pas getItemtypesThatCanHave()), mais
     // Document::getItemtypesThatCanHave() - utilisée ailleurs dans GLPI core (API, nettoyage
     // polymorphe CommonDBTM::cleanDBonPurge()) - ignorerait cette politique.
     global $CFG_GLPI;
-    $CFG_GLPI['document_types'][] = PluginGrcmanagerPolicy::class;
+    $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\Policy::class;
     // Issue #170 : validation signée d'une dérogation, analyse de risque jointe.
     $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\Waiver::class;
     // Issue #139 : feuille d'émargement, support et quiz d'une session de formation.
@@ -153,9 +153,9 @@ function plugin_init_grcmanager(): void
     $CFG_GLPI['document_types'][] = PluginGrcmanagerAccessReview::class;
     $CFG_GLPI['document_types'][] = PluginGrcmanagerControl::class;
     // Issue #142 : documents d'un evenement de conformite (rapport d'audit, de pentest...).
-    $CFG_GLPI['document_types'][] = PluginGrcmanagerComplianceEvent::class;
+    $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\ComplianceEvent::class;
     // Echeances de conformite dans le planning GLPI de chaque responsable (lecture seule).
-    $CFG_GLPI['planning_types'][] = PluginGrcmanagerComplianceEvent::class;
+    $CFG_GLPI['planning_types'][] = \GlpiPlugin\Grcmanager\ComplianceEvent::class;
 
     // Sprint 2 (matrice de risque administrable, front/config.php) : reachable via
     // Configuration > Plugins > wrench icon on this plugin's row, same minimal-footprint pattern
@@ -201,7 +201,7 @@ function plugin_init_grcmanager(): void
     Plugin::registerClass(\GlpiPlugin\Grcmanager\Waiver::class, [
         'addtabon' => array_merge(
             PluginGrcmanagerRisk::getLinkableItemtypes(),
-            [PluginGrcmanagerControl::class, PluginGrcmanagerPolicy::class]
+            [PluginGrcmanagerControl::class, \GlpiPlugin\Grcmanager\Policy::class]
         ),
     ]);
 
@@ -233,7 +233,7 @@ function plugin_init_grcmanager(): void
         'addtabon' => [PluginGrcmanagerControl::class, PluginGrcmanagerIsmsRequirement::class],
     ]);
 
-    Plugin::registerClass(PluginGrcmanagerEvidence::class, [
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\Evidence::class, [
         'addtabon' => \GlpiPlugin\Grcmanager\Services\Evidence\EvidenceValidity::ITEMTYPES,
     ]);
 

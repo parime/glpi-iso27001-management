@@ -15,12 +15,18 @@
  * -------------------------------------------------------------------------
  */
 
+namespace GlpiPlugin\Grcmanager;
+
+use CronTask;
+use Document_Item;
+use Dropdown;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\PolicyBase;
 use GlpiPlugin\Grcmanager\Services\Policy\CharterSignature;
 use GlpiPlugin\Grcmanager\Services\Policy\PolicyLifecycle;
 use GlpiPlugin\Grcmanager\Services\Policy\PolicyReviewReminderService;
 use GlpiPlugin\Grcmanager\Services\Ui\Badge;
+use Session;
 
 /**
  * Security policy library (issue #28, ISO/IEC 27001:2022 A.5.1/A.5.1.1/A.5.1.2): the control
@@ -38,7 +44,7 @@ use GlpiPlugin\Grcmanager\Services\Ui\Badge;
  * 11 core (src/Computer.php's own defineTabs(), src/Document_Item.php, src/Document.php). Adding
  * a new file-storage mechanism of this plugin's own was explicitly out of scope for this issue.
  */
-class PluginGrcmanagerPolicy extends PolicyBase
+class Policy extends PolicyBase
 {
     public const RIGHTNAME = 'plugin_grcmanager';
 

@@ -37,7 +37,7 @@ class NotificationTargetWaiver extends NotificationTarget
     public function getEvents()
     {
         return [
-            \GlpiPlugin\Grcmanager\Waiver::EXPIRING_EVENT => __('Waiver ending soon', 'grcmanager'),
+            Waiver::EXPIRING_EVENT => __('Waiver ending soon', 'grcmanager'),
         ];
     }
 
@@ -87,7 +87,7 @@ class NotificationTargetWaiver extends NotificationTarget
         $this->data['##waiver.dateend##'] = (string) Html::convDate($waiver->fields['date_end'] ?? null);
         $this->data['##waiver.url##']     = $this->formatURL(
             $options['additionnaloption']['usertype'] ?? self::GLPI_USER,
-            \GlpiPlugin\Grcmanager\Waiver::class . '_' . $waiver->getID()
+            Waiver::class . '_' . $waiver->getID()
         );
 
         $this->getTags();

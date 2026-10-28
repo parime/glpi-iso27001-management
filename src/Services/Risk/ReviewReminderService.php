@@ -25,12 +25,12 @@ use PluginGrcmanagerRisk;
  * notified item's own get_class()), so those two stay one-per-itemtype; only the query/notify
  * logic below is shared.
  *
- * Issue #30 (PluginGrcmanagerComplianceObligation) reuses this same service for a third itemtype
+ * Issue #30 (\GlpiPlugin\Grcmanager\ComplianceObligation) reuses this same service for a third itemtype
  * that has no `status` column at all (it has `compliance_status`, which grades compliance, not
  * whether the obligation is still being tracked) - the previously-hardcoded
  * `'status' => ['<>', 'closed']` exclusion is now the optional `$excludeCriteria` constructor
  * argument below, defaulting to that exact same criterion so PluginGrcmanagerRisk and
- * PluginGrcmanagerSupplierRisk see no behaviour change; PluginGrcmanagerComplianceObligation's own
+ * PluginGrcmanagerSupplierRisk see no behaviour change; \GlpiPlugin\Grcmanager\ComplianceObligation's own
  * cronReviewreminder() passes an empty array instead.
  *
  * NOTE: depends on GLPI's legacy global-namespace CommonDBTM classes (PluginGrcmanagerRisk and,

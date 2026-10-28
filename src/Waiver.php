@@ -32,7 +32,7 @@ use Log;
 use NotificationEvent;
 use PluginGrcmanagerAccessReview;
 use PluginGrcmanagerControl;
-use PluginGrcmanagerPolicy;
+use GlpiPlugin\Grcmanager\Policy;
 use PluginGrcmanagerRisk;
 use Session;
 use Ticket;
@@ -192,7 +192,7 @@ class Waiver extends WaiverBase
         global $DB;
 
         $choices = [0 => Dropdown::EMPTY_VALUE];
-        foreach ($DB->request(['SELECT' => ['id', 'title'], 'FROM' => PluginGrcmanagerPolicy::getTable()]) as $row) {
+        foreach ($DB->request(['SELECT' => ['id', 'title'], 'FROM' => Policy::getTable()]) as $row) {
             $choices[(int) $row['id']] = (string) $row['title'];
         }
         asort($choices);
@@ -398,7 +398,7 @@ class Waiver extends WaiverBase
         $table = self::getTable();
         $where = match ($item::class) {
             PluginGrcmanagerControl::class => ["$table.plugin_grcmanager_controls_id" => $item->getID()],
-            PluginGrcmanagerPolicy::class  => ["$table.plugin_grcmanager_policies_id" => $item->getID()],
+            Policy::class  => ["$table.plugin_grcmanager_policies_id" => $item->getID()],
             default                        => [
                 "$table.id" => new QuerySubQuery([
                     'SELECT' => 'plugin_grcmanager_waivers_id',
@@ -428,7 +428,7 @@ class Waiver extends WaiverBase
         }
         $supported = array_merge(
             self::getLinkableItemtypes(),
-            [PluginGrcmanagerControl::class, PluginGrcmanagerPolicy::class]
+            [PluginGrcmanagerControl::class, Policy::class]
         );
         if (!in_array($item::class, $supported, true)) {
             return '';
@@ -484,7 +484,7 @@ class Waiver extends WaiverBase
             'name' => _x('measure', 'Annex A control', 'grcmanager'), 'datatype' => 'dropdown',
         ];
         $tab[] = [
-            'id' => 7, 'table' => PluginGrcmanagerPolicy::getTable(), 'field' => 'title',
+            'id' => 7, 'table' => Policy::getTable(), 'field' => 'title',
             'name' => __('Policy', 'grcmanager'), 'datatype' => 'dropdown',
         ];
         $tab[] = [

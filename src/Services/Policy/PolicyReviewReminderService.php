@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace GlpiPlugin\Grcmanager\Services\Policy;
 
 use NotificationEvent;
-use PluginGrcmanagerPolicy;
+use GlpiPlugin\Grcmanager\Policy;
 
 /**
  * Finds security policies whose next review date has passed or is approaching, and raises GLPI's
  * native NotificationEvent for each one (see inc/notificationtargetpolicy.class.php for the
  * NotificationTarget, and src/Install/Installer.php for the seeded Notification/
  * NotificationTemplate rows). Driven by the daily Cron task
- * PluginGrcmanagerPolicy::cronReviewreminder() (issue #28, ISO/IEC 27001:2022
+ * \GlpiPlugin\Grcmanager\Policy::cronReviewreminder() (issue #28, ISO/IEC 27001:2022
  * A.5.1/A.5.1.1/A.5.1.2).
  *
  * Mirrors GlpiPlugin\Grcmanager\Services\Risk\ReviewReminderService's overall structure (same
@@ -26,7 +26,7 @@ use PluginGrcmanagerPolicy;
  * deliberate improvement over ReviewReminderService, which leaves its own equivalent window
  * untestable in isolation (see its docblock and phpstan.neon.dist).
  *
- * NOTE: depends on GLPI's legacy global-namespace CommonDBTM class (PluginGrcmanagerPolicy) and
+ * NOTE: depends on GLPI's legacy global-namespace CommonDBTM class (\GlpiPlugin\Grcmanager\Policy) and
  * the NotificationEvent core class, not unit-tested in isolation, same exclusion rationale as
  * ReviewReminderService, see phpstan.neon.dist.
  */
@@ -36,7 +36,7 @@ final class PolicyReviewReminderService
 
     public function notify(): PolicyReviewReminderResult
     {
-        $prototype = new PluginGrcmanagerPolicy();
+        $prototype = new \GlpiPlugin\Grcmanager\Policy();
 
         $candidates = $prototype->find([
             'status' => ['<>', PolicyLifecycle::STATUS_ARCHIVED],
@@ -54,7 +54,7 @@ final class PolicyReviewReminderService
 
             $due++;
 
-            $item = new PluginGrcmanagerPolicy();
+            $item = new \GlpiPlugin\Grcmanager\Policy();
             if (!$item->getFromDB((int) $row['id'])) {
                 continue;
             }

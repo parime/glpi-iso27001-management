@@ -6,10 +6,10 @@ namespace GlpiPlugin\Grcmanager\Compatibility\Base;
 
 use CommonDBTM;
 use GlpiPlugin\Grcmanager\Compatibility\GlpiVersion;
-use PluginGrcmanagerEvidence;
+use GlpiPlugin\Grcmanager\Evidence;
 
 /*
- * Parent of \PluginGrcmanagerEvidence.
+ * Parent of \\GlpiPlugin\Grcmanager\Evidence.
  *
  * Redeclares the GLPI core properties that class overrides: untyped on GLPI 11, typed on GLPI 12
  * (see GlpiVersion). A class, not a trait: on PHP 8.2-8.4 a trait cannot redeclare an inherited
@@ -19,11 +19,11 @@ use PluginGrcmanagerEvidence;
 if (GlpiVersion::isAtLeast12()) {
     abstract class EvidenceBase extends CommonDBTM
     {
-        public static string $rightname = PluginGrcmanagerEvidence::RIGHTNAME;
+        public static string $rightname = \GlpiPlugin\Grcmanager\Evidence::RIGHTNAME;
     }
 } else {
     abstract class EvidenceBase extends CommonDBTM
     {
-        public static $rightname = PluginGrcmanagerEvidence::RIGHTNAME;
+        public static $rightname = \GlpiPlugin\Grcmanager\Evidence::RIGHTNAME;
     }
 }

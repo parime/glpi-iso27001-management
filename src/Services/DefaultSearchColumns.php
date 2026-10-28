@@ -38,8 +38,8 @@ final class DefaultSearchColumns
         'PluginGrcmanagerAccessReview'     => [1, 2, 3, 4, 5, 6, 80],
         // Issue #28 (bibliothèque de politiques de sécurité versionnées, A.5.1), same "id first"
         // convention.
-        'PluginGrcmanagerPolicy'           => [8, 1, 2, 3, 4, 5, 6],
-        'PluginGrcmanagerEvidence'         => [2, 3, 4, 5, 6, 80],
+        'GlpiPlugin\\Grcmanager\\Policy'           => [8, 1, 2, 3, 4, 5, 6],
+        'GlpiPlugin\\Grcmanager\\Evidence'         => [2, 3, 4, 5, 6, 80],
         // Issue #144 : nom, type, source, destination, protocole, ports, propriétaire, fin, contrôles.
         'PluginGrcmanagerNetworkFlow'      => [1, 2, 3, 4, 5, 6, 8, 9, 11],
         // Issue #170 : nom, statut, date de fin, responsable, mesure, politique.
@@ -47,10 +47,10 @@ final class DefaultSearchColumns
         // Issue #164 : nom, type d'actif, catégorie de document, mesure, exigence, active.
         'PluginGrcmanagerCoverageRule'     => [1, 3, 4, 5, 6, 7],
         // Issue #142 : nom, type, debut, fin, statut, responsable, prestataire.
-        'PluginGrcmanagerComplianceEvent'  => [1, 2, 3, 4, 5, 6, 7],
+        'GlpiPlugin\\Grcmanager\\ComplianceEvent'  => [1, 2, 3, 4, 5, 6, 7],
         // Issue #30 (registre des obligations légales/réglementaires/contractuelles), same
         // "id first" convention.
-        'PluginGrcmanagerComplianceObligation' => [9, 1, 2, 3, 4, 5, 6, 7],
+        'GlpiPlugin\\Grcmanager\\ComplianceObligation' => [9, 1, 2, 3, 4, 5, 6, 7],
         // Issue #32 (objectifs ISMS et suivi de KPI dans le temps), same "id first" convention:
         // titre, statut, échéance, valeur cible, propriétaire.
         'PluginGrcmanagerObjective' => [8, 1, 2, 3, 4, 6],

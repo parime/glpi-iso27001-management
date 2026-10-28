@@ -42,8 +42,10 @@ final class IsmsClauseCatalogTest extends TestCase
             if ($subclause['module'] === null) {
                 continue;
             }
-            $shortName = strtolower(substr($subclause['module'], strlen('PluginGrcmanager')));
-            $file      = $root . '/inc/' . $shortName . '.class.php';
+            // Classe déjà passée dans src/ (#293) ou encore dans inc/.
+            $file = str_starts_with($subclause['module'], 'GlpiPlugin\\Grcmanager\\')
+                ? $root . '/src/' . substr($subclause['module'], strlen('GlpiPlugin\\Grcmanager\\')) . '.php'
+                : $root . '/inc/' . strtolower(substr($subclause['module'], strlen('PluginGrcmanager'))) . '.class.php';
             self::assertFileExists($file, (string) $code);
         }
     }

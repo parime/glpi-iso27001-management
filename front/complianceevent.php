@@ -22,21 +22,21 @@ use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
 include('../../../inc/includes.php');
 
 // Issue #142 : liste des événements de conformité saisis.
-Session::checkRight(PluginGrcmanagerComplianceEvent::$rightname, READ);
+Session::checkRight(\GlpiPlugin\Grcmanager\ComplianceEvent::$rightname, READ);
 
 Html::header(
-    PluginGrcmanagerComplianceEvent::getTypeName(2),
-    PluginGrcmanagerComplianceEvent::getSearchURL(),
+    \GlpiPlugin\Grcmanager\ComplianceEvent::getTypeName(2),
+    \GlpiPlugin\Grcmanager\ComplianceEvent::getSearchURL(),
     'grcmanager',
     PluginGrcmanagerDashboard::class,
-    PluginGrcmanagerComplianceEvent::class
+    \GlpiPlugin\Grcmanager\ComplianceEvent::class
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(PluginGrcmanagerDashboard::class, PluginGrcmanagerComplianceEvent::class);
+PluginGrcmanagerMenu::showSection(PluginGrcmanagerDashboard::class, \GlpiPlugin\Grcmanager\ComplianceEvent::class);
 // Encadré « À quoi sert cette page ? ».
 PluginGrcmanagerPageHelp::show('complianceevent');
 
-$calendarUrl = PluginGrcmanagerComplianceEvent::getCalendarURL();
+$calendarUrl = \GlpiPlugin\Grcmanager\ComplianceEvent::getCalendarURL();
 TemplateRenderer::getInstance()->display('@grcmanager/_list_toolbar.html.twig', [
     'buttons' => [[
         'url'   => $calendarUrl,
@@ -45,12 +45,12 @@ TemplateRenderer::getInstance()->display('@grcmanager/_list_toolbar.html.twig', 
     ]],
 ]);
 
-$params = QueryBuilder::manageParams(PluginGrcmanagerComplianceEvent::class, $_GET);
+$params = QueryBuilder::manageParams(\GlpiPlugin\Grcmanager\ComplianceEvent::class, $_GET);
 
 Search::showList(
-    PluginGrcmanagerComplianceEvent::class,
+    \GlpiPlugin\Grcmanager\ComplianceEvent::class,
     $params,
-    DefaultSearchColumns::COLUMNS[PluginGrcmanagerComplianceEvent::class]
+    DefaultSearchColumns::COLUMNS[\GlpiPlugin\Grcmanager\ComplianceEvent::class]
 );
 
 Html::footer();

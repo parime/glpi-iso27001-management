@@ -15,12 +15,17 @@
  * -------------------------------------------------------------------------
  */
 
+namespace GlpiPlugin\Grcmanager;
+
+use CronTask;
+use Dropdown;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\ComplianceObligationBase;
 use GlpiPlugin\Grcmanager\Services\Compliance\ComplianceObligationRules;
 use GlpiPlugin\Grcmanager\Services\Risk\ReviewReminderService;
 use GlpiPlugin\Grcmanager\Services\Ui\Badge;
 use GlpiPlugin\Grcmanager\Services\Ui\Fragment;
+use PluginGrcmanagerRisk;
 
 /**
  * Registre des obligations légales, réglementaires et contractuelles (issue #30, ISO 27001 clause
@@ -49,7 +54,7 @@ use GlpiPlugin\Grcmanager\Services\Ui\Fragment;
  * Voir GlpiPlugin\Grcmanager\Services\Compliance\ComplianceObligationRules pour la logique pure
  * (normalisation type/statut, zéro-ou-un lien, fenêtre de rappel de revue), testée en isolation.
  */
-class PluginGrcmanagerComplianceObligation extends ComplianceObligationBase
+class ComplianceObligation extends ComplianceObligationBase
 {
     public const RIGHTNAME = 'plugin_grcmanager';
 

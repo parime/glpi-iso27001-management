@@ -17,10 +17,10 @@
 
 include('../../../inc/includes.php');
 
-$item = new PluginGrcmanagerPolicy();
+$item = new \GlpiPlugin\Grcmanager\Policy();
 
 if (isset($_POST['add'])) {
-    Session::checkRight(PluginGrcmanagerPolicy::$rightname, CREATE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\Policy::$rightname, CREATE);
     $newID = $item->add($_POST);
     // Comme les formulaires natifs : retour sur l'élément créé si la préférence est active.
     if ($newID && $_SESSION['glpibackcreated']) {
@@ -28,15 +28,15 @@ if (isset($_POST['add'])) {
     }
     Html::back();
 } elseif (isset($_POST['delete'])) {
-    Session::checkRight(PluginGrcmanagerPolicy::$rightname, DELETE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\Policy::$rightname, DELETE);
     $item->delete($_POST);
-    Html::redirect(PluginGrcmanagerPolicy::getSearchURL());
+    Html::redirect(\GlpiPlugin\Grcmanager\Policy::getSearchURL());
 } elseif (isset($_POST['purge'])) {
-    Session::checkRight(PluginGrcmanagerPolicy::$rightname, PURGE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\Policy::$rightname, PURGE);
     $item->delete($_POST, true);
-    Html::redirect(PluginGrcmanagerPolicy::getSearchURL());
+    Html::redirect(\GlpiPlugin\Grcmanager\Policy::getSearchURL());
 } elseif (isset($_POST['update'])) {
-    Session::checkRight(PluginGrcmanagerPolicy::$rightname, UPDATE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\Policy::$rightname, UPDATE);
     $item->update($_POST);
     Html::back();
 } else {
@@ -46,13 +46,16 @@ if (isset($_POST['add'])) {
     // Html::header()/showForm()/Html::footer() sequence: only display() (called internally by
     // displayFullPageForItem(), see CommonDBTM.php) actually renders the tab bar, so this is the
     // first itemtype in this plugin that NEEDS it, for the native "Documents" tab added by
-    // PluginGrcmanagerPolicy::defineTabs() to be reachable at all. Confirmed live: calling
+    // \GlpiPlugin\Grcmanager\Policy::defineTabs() to be reachable at all. Confirmed live: calling
     // showForm() directly (like every sibling front/*.form.php) never shows any tab, regardless
     // of defineTabs(). Rights (READ for an existing item, CREATE for a new one) are checked
     // internally by displayFullPageForItem() itself via $item->can(), no separate
     // Session::checkRight() call needed here.
-    PluginGrcmanagerPolicy::displayFullPageForItem(
+    \GlpiPlugin\Grcmanager\Policy::displayFullPageForItem(
         $_GET['id'] ?? 0,
-        ['central' => ['grcmanager', PluginGrcmanagerControl::class, PluginGrcmanagerPolicy::class], 'helpdesk' => []]
+        [
+            'central'  => ['grcmanager', PluginGrcmanagerControl::class, \GlpiPlugin\Grcmanager\Policy::class],
+            'helpdesk' => [],
+        ]
     );
 }

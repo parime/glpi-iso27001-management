@@ -15,23 +15,30 @@
  * -------------------------------------------------------------------------
  */
 
+namespace GlpiPlugin\Grcmanager;
+
+use Html;
+use Notification;
+use NotificationTarget;
+use Override;
+
 /**
- * GLPI notification target for PluginGrcmanagerComplianceObligation (issue #30 review-date
+ * GLPI notification target for ComplianceObligation (issue #30 review-date
  * reminders, see src/Services/Risk/ReviewReminderService.php and its Cron entry point
- * PluginGrcmanagerComplianceObligation::cronReviewreminder()). Class name/file location follow the
+ * ComplianceObligation::cronReviewreminder()). Class name/file location follow the
  * exact same GLPI core naming convention already confirmed live for the sibling risk register, see
  * inc/notificationtargetrisk.class.php's own docblock: for a plugin item
- * "PluginGrcmanagerComplianceObligation", GLPI expects a global class
- * "PluginGrcmanagerNotificationTargetComplianceObligation" in
+ * "ComplianceObligation", GLPI expects a global class
+ * "NotificationTargetComplianceObligation" in
  * "inc/notificationtargetcomplianceobligation.class.php".
  */
-class PluginGrcmanagerNotificationTargetComplianceObligation extends NotificationTarget
+class NotificationTargetComplianceObligation extends NotificationTarget
 {
     #[Override]
     public function getEvents()
     {
         return [
-            PluginGrcmanagerComplianceObligation::REVIEW_DUE_EVENT => __('Obligation review due', 'grcmanager'),
+            ComplianceObligation::REVIEW_DUE_EVENT => __('Obligation review due', 'grcmanager'),
         ];
     }
 
@@ -49,11 +56,11 @@ class PluginGrcmanagerNotificationTargetComplianceObligation extends Notificatio
     public function addDataForTemplate($event, $options = [])
     {
         $events     = $this->getAllEvents();
-        /** @var PluginGrcmanagerComplianceObligation $obligation */
+        /** @var ComplianceObligation $obligation */
         $obligation = $this->obj;
 
-        $types    = PluginGrcmanagerComplianceObligation::getTypes();
-        $statuses = PluginGrcmanagerComplianceObligation::getComplianceStatuses();
+        $types    = ComplianceObligation::getTypes();
+        $statuses = ComplianceObligation::getComplianceStatuses();
 
         $this->data['##complianceobligation.action##']     = $events[$event] ?? '';
         $this->data['##complianceobligation.title##']      = $obligation->fields['title'] ?? '';
@@ -65,7 +72,7 @@ class PluginGrcmanagerNotificationTargetComplianceObligation extends Notificatio
         );
         $this->data['##complianceobligation.url##']        = $this->formatURL(
             $options['additionnaloption']['usertype'] ?? self::GLPI_USER,
-            PluginGrcmanagerComplianceObligation::class . '_' . $obligation->getID()
+            ComplianceObligation::class . '_' . $obligation->getID()
         );
 
         $this->getTags();

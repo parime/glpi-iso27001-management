@@ -15,10 +15,25 @@
  * -------------------------------------------------------------------------
  */
 
+namespace GlpiPlugin\Grcmanager;
+
+use CronTask;
+use Document_Item;
+use Dropdown;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\ComplianceEventBase;
 use GlpiPlugin\Grcmanager\Services\Calendar\ComplianceCalendarRules;
 use GlpiPlugin\Grcmanager\Services\Ui\Fragment;
+use Log;
+use NotificationEvent;
+use Planning;
+use PluginGrcmanagerAccessReview;
+use PluginGrcmanagerAudit;
+use GlpiPlugin\Grcmanager\Evidence;
+use PluginGrcmanagerManagementReview;
+use PluginGrcmanagerPeriodicReview;
+use Session;
+use User;
 
 /**
  * Issue #142 : calendrier de conformité. Deux choses à la fois :
@@ -34,7 +49,7 @@ use GlpiPlugin\Grcmanager\Services\Ui\Fragment;
  * responsable (type ajouté à $CFG_GLPI['planning_types'], lecture seule) et en export iCalendar.
  * Aucun statut n'est changé par le calendrier.
  */
-class PluginGrcmanagerComplianceEvent extends ComplianceEventBase
+class ComplianceEvent extends ComplianceEventBase
 {
     public const RIGHTNAME = 'plugin_grcmanager';
 
@@ -506,11 +521,11 @@ class PluginGrcmanagerComplianceEvent extends ComplianceEventBase
     {
         global $DB;
 
-        if (!PluginGrcmanagerPolicy::canView()) {
+        if (!Policy::canView()) {
             return [];
         }
         $list = [];
-        $rows = $DB->request(['FROM' => PluginGrcmanagerPolicy::getTable(), 'WHERE' => ['status' => 'approved']]);
+        $rows = $DB->request(['FROM' => Policy::getTable(), 'WHERE' => ['status' => 'approved']]);
         foreach ($rows as $row) {
             $id = (int) $row['id'];
             $list[] = self::deadline(
@@ -519,7 +534,7 @@ class PluginGrcmanagerComplianceEvent extends ComplianceEventBase
                 (string) $row['title'],
                 ComplianceCalendarRules::dayRange($row['next_review_date']),
                 (int) $row['users_id'],
-                PluginGrcmanagerPolicy::getFormURLWithID($id)
+                Policy::getFormURLWithID($id)
             );
         }
 
@@ -533,11 +548,11 @@ class PluginGrcmanagerComplianceEvent extends ComplianceEventBase
     {
         global $DB;
 
-        if (!PluginGrcmanagerComplianceObligation::canView()) {
+        if (!ComplianceObligation::canView()) {
             return [];
         }
         $list = [];
-        foreach ($DB->request(['FROM' => PluginGrcmanagerComplianceObligation::getTable()]) as $row) {
+        foreach ($DB->request(['FROM' => ComplianceObligation::getTable()]) as $row) {
             $id = (int) $row['id'];
             $list[] = self::deadline(
                 'obligation',
@@ -545,7 +560,7 @@ class PluginGrcmanagerComplianceEvent extends ComplianceEventBase
                 (string) $row['title'],
                 ComplianceCalendarRules::dayRange($row['review_date']),
                 (int) $row['users_id'],
-                PluginGrcmanagerComplianceObligation::getFormURLWithID($id)
+                ComplianceObligation::getFormURLWithID($id)
             );
         }
 
@@ -559,14 +574,14 @@ class PluginGrcmanagerComplianceEvent extends ComplianceEventBase
     {
         global $DB, $CFG_GLPI;
 
-        if (!PluginGrcmanagerEvidence::canView()) {
+        if (!Evidence::canView()) {
             return [];
         }
-        $table = PluginGrcmanagerEvidence::getTable();
+        $table = Evidence::getTable();
         $list = [];
         $rows = $DB->request(['FROM' => $table, 'WHERE' => getEntitiesRestrictCriteria($table, '', '', true)]);
         foreach ($rows as $row) {
-            $evidence = new PluginGrcmanagerEvidence();
+            $evidence = new Evidence();
             if (!$evidence->getFromDB((int) $row['id']) || !$evidence->canViewItem()) {
                 continue;
             }

@@ -2,8 +2,8 @@
 
 namespace GlpiPlugin\Grcmanager\Tests\Integration;
 
-use PluginGrcmanagerEvidence;
-use PluginGrcmanagerPolicy;
+use GlpiPlugin\Grcmanager\Evidence;
+use GlpiPlugin\Grcmanager\Policy;
 
 /**
  * Issue #145 : validité des documents de preuve, rappel au responsable puis ticket de
@@ -12,32 +12,36 @@ use PluginGrcmanagerPolicy;
 final class EvidenceTest extends GrcmanagerIntegrationTestCase
 {
     /**
-     * @return array{0: PluginGrcmanagerPolicy, 1: int}
+     * @return array{0: \GlpiPlugin\Grcmanager\Policy, 1: int}
      */
     private function policyWithDocument(): array
     {
         $entityId = $this->createTestEntity(0, 'PHPUnit preuves ' . random_int(1000, 9999));
-        $policy = new PluginGrcmanagerPolicy();
+        $policy = new \GlpiPlugin\Grcmanager\Policy();
         $policy->getFromDB((int) $policy->add(['title' => 'PHPUnit politique preuves', 'entities_id' => $entityId]));
         $documentsId = (int) (new \Document())->add([
             'name' => 'PHPUnit certificat ISO fournisseur', 'entities_id' => $entityId,
         ]);
         (new \Document_Item())->add([
-            'documents_id' => $documentsId, 'itemtype' => PluginGrcmanagerPolicy::class, 'items_id' => $policy->getID(),
+            'documents_id' => $documentsId,
+            'itemtype'     => \GlpiPlugin\Grcmanager\Policy::class,
+            'items_id'     => $policy->getID(),
         ]);
 
         return [$policy, $documentsId];
     }
 
     private function evidence(
-        PluginGrcmanagerPolicy $policy,
+        \GlpiPlugin\Grcmanager\Policy $policy,
         int $documentsId,
         string $validUntil,
         int $usersId = 0
-    ): PluginGrcmanagerEvidence {
-        $evidence = new PluginGrcmanagerEvidence();
+    ): \GlpiPlugin\Grcmanager\Evidence {
+        $evidence = new \GlpiPlugin\Grcmanager\Evidence();
         $evidence->getFromDB((int) $evidence->add([
-            'itemtype' => PluginGrcmanagerPolicy::class, 'items_id' => $policy->getID(), 'documents_id' => $documentsId,
+            'itemtype'     => \GlpiPlugin\Grcmanager\Policy::class,
+            'items_id'     => $policy->getID(),
+            'documents_id' => $documentsId,
             'valid_until' => $validUntil, 'users_id' => $usersId,
         ]));
 
@@ -49,11 +53,11 @@ final class EvidenceTest extends GrcmanagerIntegrationTestCase
         [$policy, $documentsId] = $this->policyWithDocument();
         $unlinked = (int) (new \Document())->add(['name' => 'PHPUnit document non rattaché', 'entities_id' => 0]);
 
-        $this->assertFalse((new PluginGrcmanagerEvidence())->add([
-            'itemtype' => PluginGrcmanagerPolicy::class, 'items_id' => $policy->getID(),
+        $this->assertFalse((new \GlpiPlugin\Grcmanager\Evidence())->add([
+            'itemtype' => \GlpiPlugin\Grcmanager\Policy::class, 'items_id' => $policy->getID(),
             'documents_id' => $unlinked, 'valid_until' => '2027-01-01',
         ]));
-        $this->assertFalse((new PluginGrcmanagerEvidence())->add([
+        $this->assertFalse((new \GlpiPlugin\Grcmanager\Evidence())->add([
             'itemtype' => 'Computer', 'items_id' => 1, 'documents_id' => $documentsId, 'valid_until' => '2027-01-01',
         ]), 'Type d\'élément non pris en charge.');
 
@@ -65,7 +69,7 @@ final class EvidenceTest extends GrcmanagerIntegrationTestCase
             (int) $evidence->fields['entities_id'],
             'Entité reprise du document (les éléments porteurs sont globaux).'
         );
-        $this->assertCount(1, PluginGrcmanagerEvidence::getDocumentsFor($policy));
+        $this->assertCount(1, \GlpiPlugin\Grcmanager\Evidence::getDocumentsFor($policy));
     }
 
     public function testTheResponsibleIsWarnedOnceThenOneRenewalTicketIsOpenedAndTheItemNeverChanges(): void
@@ -76,22 +80,22 @@ final class EvidenceTest extends GrcmanagerIntegrationTestCase
         $evidence = $this->evidence($policy, $documentsId, date('Y-m-d', strtotime('+10 days')), $owner);
 
         // L'instance de test peut contenir d'autres preuves : on suit celle-ci.
-        PluginGrcmanagerEvidence::runReminders(date('Y-m-d'));
+        \GlpiPlugin\Grcmanager\Evidence::runReminders(date('Y-m-d'));
         $evidence->getFromDB($evidence->getID());
         $notifiedAt = $evidence->fields['date_notified'];
         $this->assertNotNull($notifiedAt, 'Responsable prévenu avant l\'échéance.');
         $this->assertSame(0, (int) $evidence->fields['tickets_id'], 'Pas de ticket avant l\'échéance.');
-        PluginGrcmanagerEvidence::runReminders(date('Y-m-d'));
+        \GlpiPlugin\Grcmanager\Evidence::runReminders(date('Y-m-d'));
         $evidence->getFromDB($evidence->getID());
         $this->assertSame($notifiedAt, $evidence->fields['date_notified'], 'Un seul rappel.');
 
         // Le jour suivant l'échéance : un ticket, une seule fois.
         $afterExpiry = date('Y-m-d', strtotime('+11 days'));
-        PluginGrcmanagerEvidence::runReminders($afterExpiry);
+        \GlpiPlugin\Grcmanager\Evidence::runReminders($afterExpiry);
         $evidence->getFromDB($evidence->getID());
         $ticketsId = (int) $evidence->fields['tickets_id'];
         $this->assertGreaterThan(0, $ticketsId);
-        PluginGrcmanagerEvidence::runReminders($afterExpiry);
+        \GlpiPlugin\Grcmanager\Evidence::runReminders($afterExpiry);
         $evidence->getFromDB($evidence->getID());
         $this->assertSame($ticketsId, (int) $evidence->fields['tickets_id'], 'Un seul ticket.');
 
@@ -112,7 +116,7 @@ final class EvidenceTest extends GrcmanagerIntegrationTestCase
     {
         [$policy, $documentsId] = $this->policyWithDocument();
         $evidence = $this->evidence($policy, $documentsId, date('Y-m-d', strtotime('-1 day')));
-        PluginGrcmanagerEvidence::runReminders(date('Y-m-d'));
+        \GlpiPlugin\Grcmanager\Evidence::runReminders(date('Y-m-d'));
         $evidence->getFromDB($evidence->getID());
         $this->assertGreaterThan(0, (int) $evidence->fields['tickets_id']);
 

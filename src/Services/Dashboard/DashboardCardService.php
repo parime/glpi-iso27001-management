@@ -544,7 +544,7 @@ final class DashboardCardService
      * prochaine date de revue est dépassée ou approche, même définition "dû" que
      * GlpiPlugin\Grcmanager\Services\Policy\PolicyReviewReminderWindow (fenêtre de 30 jours,
      * `archived` exclu), pour que cette carte et la tâche Cron
-     * PluginGrcmanagerPolicy::cronReviewreminder() ne divergent jamais sur ce qui compte comme "en
+     * \GlpiPlugin\Grcmanager\Policy::cronReviewreminder() ne divergent jamais sur ce qui compte comme "en
      * attente de revue".
      */
     public static function policiesPendingReviewCount(array $params = []): array
@@ -623,7 +623,7 @@ final class DashboardCardService
     /**
      * Obligations dont la date de revue est dépassée ou approche, même définition (fenêtre de 30
      * jours) que GlpiPlugin\Grcmanager\Services\Compliance\ComplianceObligationRules::isReviewDue()
-     * et la tâche Cron PluginGrcmanagerComplianceObligation::cronReviewreminder(), pour que la
+     * et la tâche Cron \GlpiPlugin\Grcmanager\ComplianceObligation::cronReviewreminder(), pour que la
      * carte de tableau de bord et le rappel automatique ne divergent jamais sur ce qui compte comme
      * "en attente de revue". Contrairement à risksPendingReviewCount() ci-dessus, aucune exclusion
      * de statut : `compliance_status` ne dit rien sur si l'obligation est encore suivie, voir

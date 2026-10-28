@@ -208,7 +208,7 @@ class PluginGrcmanagerIsmsRequirement extends IsmsRequirementBase
 
     /**
      * Onglet natif « Documents » : les preuves (procès-verbaux, périmètre, matrices...) sont des
-     * Documents GLPI liés, comme pour PluginGrcmanagerPolicy.
+     * Documents GLPI liés, comme pour \GlpiPlugin\Grcmanager\Policy.
      */
     public function defineTabs($options = [])
     {

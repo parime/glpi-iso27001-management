@@ -126,7 +126,7 @@ final class SecurityIncidentRules
     /**
      * The optional link to a risk (issue #29: "lien optionnel vers un risque") is a direct column
      * (`plugin_grcmanager_risks_id`), not a link table - same zero-or-one cardinality and same
-     * choice already made for PluginGrcmanagerComplianceObligation (issue #30, see its own
+     * choice already made for \GlpiPlugin\Grcmanager\ComplianceObligation (issue #30, see its own
      * docblock and ComplianceObligationRules::normalizeLinkedRiskId()). 0 is the canonical "no risk
      * linked" value throughout this plugin's schema, never NULL.
      */

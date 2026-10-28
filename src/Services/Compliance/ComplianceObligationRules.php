@@ -7,7 +7,7 @@ namespace GlpiPlugin\Grcmanager\Services\Compliance;
 use DateTimeImmutable;
 
 /**
- * Pure decision logic behind PluginGrcmanagerComplianceObligation (issue #30, ISO 27001 clause 4.2
+ * Pure decision logic behind \GlpiPlugin\Grcmanager\ComplianceObligation (issue #30, ISO 27001 clause 4.2
  * "parties intéressées et leurs exigences" / Annexe A A.5.31-36) : type/compliance_status
  * normalization, the optional zero-or-one link to a PluginGrcmanagerRisk, and the review-date
  * reminder window. Kept GLPI-independent (no $DB, no CommonDBTM, no __()) so all three are unit
@@ -89,7 +89,7 @@ final class ComplianceObligationRules
      * days, matching exactly the predicate
      * GlpiPlugin\Grcmanager\Services\Risk\ReviewReminderService::notify() applies via
      * CommonDBTM::find() (`review_date <= today+30` AND `review_date IS NOT NULL`) — see
-     * PluginGrcmanagerComplianceObligation::cronReviewreminder(), which reuses that same service
+     * \GlpiPlugin\Grcmanager\ComplianceObligation::cronReviewreminder(), which reuses that same service
      * (generalized in this issue to accept obligations, whose `compliance_status` is not a
      * terminal "closed" state the way PluginGrcmanagerRisk's own `status` is, so no exclusion
      * criteria is passed for this itemtype: even a `compliant` obligation still needs its periodic

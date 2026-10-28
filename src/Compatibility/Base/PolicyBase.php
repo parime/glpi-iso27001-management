@@ -6,10 +6,10 @@ namespace GlpiPlugin\Grcmanager\Compatibility\Base;
 
 use CommonDBTM;
 use GlpiPlugin\Grcmanager\Compatibility\GlpiVersion;
-use PluginGrcmanagerPolicy;
+use GlpiPlugin\Grcmanager\Policy;
 
 /*
- * Parent of \PluginGrcmanagerPolicy.
+ * Parent of \\GlpiPlugin\Grcmanager\Policy.
  *
  * Redeclares the GLPI core properties that class overrides: untyped on GLPI 11, typed on GLPI 12
  * (see GlpiVersion). A class, not a trait: on PHP 8.2-8.4 a trait cannot redeclare an inherited
@@ -19,11 +19,11 @@ use PluginGrcmanagerPolicy;
 if (GlpiVersion::isAtLeast12()) {
     abstract class PolicyBase extends CommonDBTM
     {
-        public static string $rightname = PluginGrcmanagerPolicy::RIGHTNAME;
+        public static string $rightname = \GlpiPlugin\Grcmanager\Policy::RIGHTNAME;
     }
 } else {
     abstract class PolicyBase extends CommonDBTM
     {
-        public static $rightname = PluginGrcmanagerPolicy::RIGHTNAME;
+        public static $rightname = \GlpiPlugin\Grcmanager\Policy::RIGHTNAME;
     }
 }
