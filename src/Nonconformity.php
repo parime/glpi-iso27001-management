@@ -15,6 +15,13 @@
  * -------------------------------------------------------------------------
  */
 
+namespace GlpiPlugin\Grcmanager;
+
+use CommonGLPI;
+use CronTask;
+use Document_Item;
+use Dropdown;
+use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\NonconformityBase;
 use GlpiPlugin\Grcmanager\Services\Capa\CapaRequirementService;
 use GlpiPlugin\Grcmanager\Services\Capa\CveCapaRules;
@@ -22,13 +29,17 @@ use GlpiPlugin\Grcmanager\Services\Capa\OverdueCapaService;
 use GlpiPlugin\Grcmanager\Services\Cve\InventoryCveMatcher;
 use GlpiPlugin\Grcmanager\Services\Cve\NvdCveEnrichmentService;
 use GlpiPlugin\Grcmanager\Services\Cve\ParkVulnerabilitySync;
-use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Services\Ui\Badge;
 use GlpiPlugin\Grcmanager\Services\Ui\Fragment;
+use Html;
+use Log;
+use PluginGrcmanagerSecurityIncident;
+use PluginGrcmanagerSecurityIncidentCve;
+use Session;
 
 /**
  * A finding (non-conformity or observation) raised during an internal audit
- * (PluginGrcmanagerAudit), carrying the full corrective/preventive action (CAPA) workflow ISO
+ * (Audit), carrying the full corrective/preventive action (CAPA) workflow ISO
  * 27001 clause 10.2 requires: root cause, corrective action, preventive action, a responsible
  * owner, a due date, and a closure verification date once the action is confirmed effective.
  *
@@ -40,14 +51,14 @@ use GlpiPlugin\Grcmanager\Services\Ui\Fragment;
  * grades either one — a single overlapping ordinal scale was kept for these two axes in the first
  * version, this is what issue #27 resolves.
  */
-class PluginGrcmanagerNonconformity extends NonconformityBase
+class Nonconformity extends NonconformityBase
 {
     public const RIGHTNAME = 'plugin_grcmanager';
 
     /**
      * GLPI notification event name (see inc/notificationtargetnonconformity.class.php and
      * src/Services/Capa/OverdueCapaService.php), same single-source-of-truth pattern as
-     * \GlpiPlugin\Grcmanager\Risk::REVIEW_DUE_EVENT.
+     * Risk::REVIEW_DUE_EVENT.
      */
     public const CAPA_OVERDUE_EVENT = 'capa_overdue';
 
@@ -67,7 +78,7 @@ class PluginGrcmanagerNonconformity extends NonconformityBase
 
     /**
      * Le titre tient lieu de nom : sans cela, l'en-tête de la fiche et les listes déroulantes
-     * affichaient « N/A » (même correctif que \GlpiPlugin\Grcmanager\Policy::getNameField()).
+     * affichaient « N/A » (même correctif que Policy::getNameField()).
      */
     public static function getNameField()
     {
@@ -133,7 +144,7 @@ class PluginGrcmanagerNonconformity extends NonconformityBase
      * corrective action stays optional for it even at closure/verification. Reaching "verified"
      * without an explicit closure verification date auto-stamps it with today rather than silently
      * leaving it blank (same "auto-populate a real date rather than force an extra manual step"
-     * choice as PluginGrcmanagerAudit's own `actual_date`).
+     * choice as Audit's own `actual_date`).
      *
      * @param array<string, mixed> $input
      * @return array<string, mixed>|false
@@ -273,7 +284,7 @@ class PluginGrcmanagerNonconformity extends NonconformityBase
             'id'       => 7,
             'table'    => $this->getTable(),
             'field'    => 'plugin_grcmanager_audits_id',
-            'name'     => PluginGrcmanagerAudit::getTypeName(1),
+            'name'     => Audit::getTypeName(1),
             'datatype' => 'specific',
         ];
 
@@ -348,7 +359,7 @@ class PluginGrcmanagerNonconformity extends NonconformityBase
 
     /**
      * Real `<select>` filter widgets for severity/status, same lesson as
-     * \GlpiPlugin\Grcmanager\Risk::getSpecificValueToSelect(). `plugin_grcmanager_audits_id` is left to
+     * Risk::getSpecificValueToSelect(). `plugin_grcmanager_audits_id` is left to
      * the parent's default (free-text search on the raw numeric ID): looking it up through a real
      * GLPI dropdown join was judged not worth the added complexity for a first version, see
      * TECH_DEBT.md Sprint 4.
@@ -428,7 +439,7 @@ class PluginGrcmanagerNonconformity extends NonconformityBase
             return '';
         }
 
-        return Fragment::link(PluginGrcmanagerAudit::getFormURLWithID($auditId), $title);
+        return Fragment::link(Audit::getFormURLWithID($auditId), $title);
     }
 
     /**
@@ -442,7 +453,7 @@ class PluginGrcmanagerNonconformity extends NonconformityBase
 
         $rows = $DB->request([
             'SELECT' => ['title'],
-            'FROM'   => PluginGrcmanagerAudit::getTable(),
+            'FROM'   => Audit::getTable(),
             'WHERE'  => ['id' => $auditId],
         ]);
 
@@ -469,7 +480,7 @@ class PluginGrcmanagerNonconformity extends NonconformityBase
      */
     public function getTabNameForItem(CommonGLPI $item, $withtemplate = 0)
     {
-        if (!$item instanceof PluginGrcmanagerAudit || $item->isNewItem() || !self::canView()) {
+        if (!$item instanceof Audit || $item->isNewItem() || !self::canView()) {
             return '';
         }
         $count = countElementsInTable(self::getTable(), ['plugin_grcmanager_audits_id' => $item->getID()]);
@@ -479,10 +490,10 @@ class PluginGrcmanagerNonconformity extends NonconformityBase
 
     public static function displayTabContentForItem(CommonGLPI $item, $tabnum = 1, $withtemplate = 0)
     {
-        if (!$item instanceof PluginGrcmanagerAudit) {
+        if (!$item instanceof Audit) {
             return false;
         }
-        $findings = PluginGrcmanagerAudit::getFindings($item->getID());
+        $findings = Audit::getFindings($item->getID());
         foreach ($findings as &$finding) {
             $finding['url'] = self::getFormURLWithID($finding['id']);
         }
@@ -514,7 +525,7 @@ class PluginGrcmanagerNonconformity extends NonconformityBase
         }
 
         $auditTitles = [0 => Dropdown::EMPTY_VALUE];
-        foreach ($DB->request(['SELECT' => ['id', 'title'], 'FROM' => PluginGrcmanagerAudit::getTable()]) as $row) {
+        foreach ($DB->request(['SELECT' => ['id', 'title'], 'FROM' => Audit::getTable()]) as $row) {
             $auditTitles[(int) $row['id']] = $row['title'];
         }
         $incident = null;
@@ -539,7 +550,7 @@ class PluginGrcmanagerNonconformity extends NonconformityBase
             'severities'      => self::getSeverities(),
             'statuses'        => self::getStatuses(),
             'audits'          => $auditTitles,
-            'audit_label'     => PluginGrcmanagerAudit::getTypeName(1),
+            'audit_label'     => Audit::getTypeName(1),
             'corrective_hint' => CapaRequirementService::isCapaMandatory($findingType)
                 ? __('Required to close or verify this non-conformity.', 'grcmanager')
                 : __('Optional for an observation: it may still be filled in if useful.', 'grcmanager'),
@@ -668,7 +679,7 @@ class PluginGrcmanagerNonconformity extends NonconformityBase
     }
 
     /**
-     * GLPI Cron entry point, same structure as \GlpiPlugin\Grcmanager\Risk::cronReviewreminder().
+     * GLPI Cron entry point, same structure as Risk::cronReviewreminder().
      * Notifies the responsible owner of every non-conformity whose due date has passed and that
      * is not yet closed/verified (see OverdueCapaService, inc/notificationtargetnonconformity.class.php).
      *

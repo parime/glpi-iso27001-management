@@ -28,9 +28,9 @@ use Log;
 use NotificationEvent;
 use Planning;
 use PluginGrcmanagerAccessReview;
-use PluginGrcmanagerAudit;
+use GlpiPlugin\Grcmanager\Audit;
 use GlpiPlugin\Grcmanager\Evidence;
-use PluginGrcmanagerManagementReview;
+use GlpiPlugin\Grcmanager\ManagementReview;
 use PluginGrcmanagerPeriodicReview;
 use Session;
 use User;
@@ -147,8 +147,8 @@ class ComplianceEvent extends ComplianceEventBase
     {
         return [
             'event'             => [__('Event', 'grcmanager'), 'ti-calendar-event'],
-            'audit'             => [PluginGrcmanagerAudit::getTypeName(1), 'ti-clipboard-check'],
-            'management_review' => [PluginGrcmanagerManagementReview::getTypeName(1), 'ti-presentation'],
+            'audit'             => [Audit::getTypeName(1), 'ti-clipboard-check'],
+            'management_review' => [ManagementReview::getTypeName(1), 'ti-presentation'],
             'access_review'     => [PluginGrcmanagerAccessReview::getTypeName(1), 'ti-user-check'],
             'periodic_review'   => [PluginGrcmanagerPeriodicReview::getTypeName(1), 'ti-calendar-repeat'],
             'policy'            => [__('Policy review', 'grcmanager'), 'ti-file-certificate'],
@@ -394,11 +394,11 @@ class ComplianceEvent extends ComplianceEventBase
     {
         global $DB;
 
-        if (!PluginGrcmanagerAudit::canView()) {
+        if (!Audit::canView()) {
             return [];
         }
         $list = [];
-        foreach ($DB->request(['FROM' => PluginGrcmanagerAudit::getTable()]) as $row) {
+        foreach ($DB->request(['FROM' => Audit::getTable()]) as $row) {
             $id = (int) $row['id'];
             $list[] = self::deadline(
                 'audit',
@@ -406,7 +406,7 @@ class ComplianceEvent extends ComplianceEventBase
                 (string) $row['title'],
                 ComplianceCalendarRules::dayRange($row['actual_date'] ?: $row['planned_date']),
                 (int) $row['users_id'],
-                PluginGrcmanagerAudit::getFormURLWithID($id),
+                Audit::getFormURLWithID($id),
                 $row['status'] === 'completed'
             );
         }
@@ -424,11 +424,11 @@ class ComplianceEvent extends ComplianceEventBase
     {
         global $DB;
 
-        if (!PluginGrcmanagerManagementReview::canView()) {
+        if (!ManagementReview::canView()) {
             return [];
         }
         $list = [];
-        foreach ($DB->request(['FROM' => PluginGrcmanagerManagementReview::getTable()]) as $row) {
+        foreach ($DB->request(['FROM' => ManagementReview::getTable()]) as $row) {
             $id = (int) $row['id'];
             $who = 0;
             if ($usersId !== null) {
@@ -447,7 +447,7 @@ class ComplianceEvent extends ComplianceEventBase
                 (string) $row['title'],
                 ComplianceCalendarRules::dayRange($row['review_date']),
                 $who,
-                PluginGrcmanagerManagementReview::getFormURLWithID($id),
+                ManagementReview::getFormURLWithID($id),
                 $row['status'] === 'completed'
             );
         }

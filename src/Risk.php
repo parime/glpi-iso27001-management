@@ -113,7 +113,7 @@ class Risk extends RiskBase
      * The one validation this class adds on top of RiskAssessmentTrait's shared scoring (issue #31,
      * ISO 27001 clause 8.3/6.1.3) : a risk being closed while its decision is `mitigate`/`transfer`
      * (see TreatmentPlanRules::isTreatmentPlanRelevant()) must have at least one recorded treatment
-     * action - mirrors PluginGrcmanagerNonconformity's own "corrective action mandatory to
+     * action - mirrors Nonconformity's own "corrective action mandatory to
      * close/verify" pattern (CapaRequirementService::isCapaMandatory()), applied here to closing a
      * risk instead of closing a non-conformity. Delegates the actual probability x impact scoring
      * to the trait's own computeRiskLevel() so this override never duplicates that logic, same
@@ -612,7 +612,7 @@ class Risk extends RiskBase
      * Replaces the full set of CMDB items linked to this risk with exactly $pairs (delete then
      * re-insert), same "supprimer-puis-réinsérer" convention already used by every other simple
      * link table in this plugin (PluginGrcmanagerControl::syncLinkedRisks(),
-     * PluginGrcmanagerAudit::syncLinkedControls()...), see TECH_DEBT.md. An empty $pairs array is
+     * Audit::syncLinkedControls()...), see TECH_DEBT.md. An empty $pairs array is
      * the expected, non-error baseline for a purely organizational risk with no CMDB counterpart
      * (issue #25, "processus de recrutement").
      *

@@ -112,9 +112,9 @@ class PluginGrcmanagerTraining extends TrainingBase
     /**
      * Normalizes `renewal_period_months`/`is_mandatory` posted from the form, and syncs the
      * participant set + per-participant completion status/date the same "single normalize
-     * function called from both prepare hooks" convention as PluginGrcmanagerAudit's own
+     * function called from both prepare hooks" convention as \GlpiPlugin\Grcmanager\Audit's own
      * normalizeInput(). The actual sync happens in post_addItem()/post_updateItem() below, once a
-     * real ID exists, not here (mirrors PluginGrcmanagerAudit::syncLinkedControls() timing exactly).
+     * real ID exists, not here (mirrors \GlpiPlugin\Grcmanager\Audit::syncLinkedControls() timing exactly).
      *
      * @param array<string, mixed> $input
      * @return array<string, mixed>
@@ -311,7 +311,7 @@ class PluginGrcmanagerTraining extends TrainingBase
      * already linked before this save, see showForm()) in one pass: newly selected users are
      * inserted as "pending", deselected users are removed (their completion history is lost, a
      * deliberate simplification documented in TECH_DEBT.md Sprint 6, same spirit as
-     * PluginGrcmanagerAudit's own syncLinkedControls() delete-then-reinsert approach), and every
+     * \GlpiPlugin\Grcmanager\Audit's own syncLinkedControls() delete-then-reinsert approach), and every
      * remaining participant's status/date is updated from the posted arrays when present.
      */
     private function syncParticipants(int $trainingId): void
@@ -618,7 +618,7 @@ class PluginGrcmanagerTraining extends TrainingBase
 
     /**
      * Real `<select>` filter widget for `format`, same lesson as every other fixed-enum column in
-     * this plugin family (see PluginGrcmanagerAudit::getSpecificValueToSelect()).
+     * this plugin family (see \GlpiPlugin\Grcmanager\Audit::getSpecificValueToSelect()).
      */
     public static function getSpecificValueToSelect($field, $name = '', $values = '', array $options = [])
     {

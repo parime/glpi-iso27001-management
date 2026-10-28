@@ -15,9 +15,13 @@
  * -------------------------------------------------------------------------
  */
 
+namespace GlpiPlugin\Grcmanager;
+
+use Dropdown;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\ManagementReviewBase;
 use GlpiPlugin\Grcmanager\Services\Ui\Badge;
+use PluginGrcmanagerObjective;
 
 /**
  * Management review record (ISO 27001 clause 9.3): evidence that top management periodically
@@ -27,10 +31,10 @@ use GlpiPlugin\Grcmanager\Services\Ui\Badge;
  * Attendees are a many-to-many link to real GLPI `User`s
  * (glpi_plugin_grcmanager_managementreviews_users), same "direct $DB access, not a real
  * CommonDBRelation" simplification already assumed for every other many-to-many link in this
- * plugin family (see TECH_DEBT.md Sprint 3/4, and PluginGrcmanagerAudit::getLinkedControls()/
+ * plugin family (see TECH_DEBT.md Sprint 3/4, and Audit::getLinkedControls()/
  * syncLinkedControls() for the closest prior art: a plain link table with no extra columns).
  * Decisions/action items are kept as a single free-text field rather than hard-linked to the
- * existing CAPA/non-conformity mechanism (PluginGrcmanagerNonconformity): a management review
+ * existing CAPA/non-conformity mechanism (Nonconformity): a management review
  * decision is not always a corrective action tied to an audit finding (it might be a budget
  * approval, a policy change, a risk acceptance...), forcing every decision through the CAPA
  * workflow would misrepresent what clause 9.3 actually asks for. See TECH_DEBT.md Sprint 6.
@@ -45,7 +49,7 @@ use GlpiPlugin\Grcmanager\Services\Ui\Badge;
  * here is a structured reference to a real PluginGrcmanagerObjective row (clickable, filterable),
  * not prose.
  */
-class PluginGrcmanagerManagementReview extends ManagementReviewBase
+class ManagementReview extends ManagementReviewBase
 {
     public const RIGHTNAME = 'plugin_grcmanager';
 
@@ -82,7 +86,7 @@ class PluginGrcmanagerManagementReview extends ManagementReviewBase
     /**
      * Auto-populates `review_date` the first time a save sets `status` to "completed" without
      * providing one explicitly, same "auto-populate a real date rather than force an extra manual
-     * step" lesson as PluginGrcmanagerAudit's own `actual_date` (see normalizeInput() there).
+     * step" lesson as Audit's own `actual_date` (see normalizeInput() there).
      *
      * @param array<string, mixed> $input
      * @return array<string, mixed>
@@ -182,7 +186,7 @@ class PluginGrcmanagerManagementReview extends ManagementReviewBase
 
     /**
      * Replaces the full set of attendees linked to this review with exactly $userIds (delete then
-     * re-insert), same simplification as PluginGrcmanagerAudit::syncLinkedControls().
+     * re-insert), same simplification as Audit::syncLinkedControls().
      *
      * @param array<int, int> $userIds
      */

@@ -29,7 +29,7 @@ use Session;
  * ISO 27001 clause 8.3/6.1.3: the treatment plan must actually be IMPLEMENTED and TRACKED, not just
  * decided). A real child itemtype/table (glpi_plugin_grcmanager_risktreatmentactions), not a flat
  * set of fields on Risk itself: unlike a non-conformity's CAPA (exactly one
- * corrective action + one preventive action, see PluginGrcmanagerNonconformity), a real risk
+ * corrective action + one preventive action, see Nonconformity), a real risk
  * treatment plan is very often more than one action ("patch the system" AND "add monitoring" AND
  * "train staff"), each independently tracked to completion with its own owner/due date/status - a
  * genuine one-to-many relationship this plugin already has a comfortable convention for (see
@@ -59,7 +59,7 @@ class RiskTreatmentAction extends RiskTreatmentActionBase
     /**
      * GLPI notification event name (see inc/notificationtargetrisktreatmentaction.class.php and
      * src/Services/Risk/OverdueTreatmentActionService.php), same single-source-of-truth pattern as
-     * PluginGrcmanagerNonconformity::CAPA_OVERDUE_EVENT.
+     * Nonconformity::CAPA_OVERDUE_EVENT.
      */
     public const OVERDUE_EVENT = 'treatment_action_overdue';
 
@@ -114,7 +114,7 @@ class RiskTreatmentAction extends RiskTreatmentActionBase
      * check), normalizes `status` against TreatmentPlanRules::ALLOWED_STATUSES, and auto-stamps
      * `completion_date` with today as soon as `status` reaches `done` without one already set -
      * same "auto-populate a real date rather than force an extra manual step" choice as
-     * PluginGrcmanagerNonconformity's own `closure_verification_date`.
+     * Nonconformity's own `closure_verification_date`.
      *
      * @param array<string, mixed> $input
      * @return array<string, mixed>|false
@@ -206,7 +206,7 @@ class RiskTreatmentAction extends RiskTreatmentActionBase
     /**
      * GLPI Cron entry point, registered via CronTask::Register() in the plugin installer
      * (src/Install/Installer.php), same structure as
-     * PluginGrcmanagerNonconformity::cronOverduecapa(). Finds treatment actions whose due date has
+     * Nonconformity::cronOverduecapa(). Finds treatment actions whose due date has
      * passed and that are not yet marked done, and raises a real GLPI Notification for each (see
      * OverdueTreatmentActionService, inc/notificationtargetrisktreatmentaction.class.php).
      *

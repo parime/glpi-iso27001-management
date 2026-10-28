@@ -19,7 +19,7 @@ declare(strict_types=1);
 
 namespace GlpiPlugin\Grcmanager\Tests\Integration;
 
-use PluginGrcmanagerAuditTeam;
+use GlpiPlugin\Grcmanager\AuditTeam;
 use PluginGrcmanagerRestrictedDocument;
 use PluginGrcmanagerTraining;
 use PluginGrcmanagerTrainingQuiz;
@@ -34,7 +34,7 @@ final class TrainingQuizTest extends GrcmanagerIntegrationTestCase
     {
         parent::setUp();
         // Indépendant du groupe RSSI de l'instance (annulé avec la transaction du test).
-        PluginGrcmanagerAuditTeam::setCisoGroupId(0);
+        \GlpiPlugin\Grcmanager\AuditTeam::setCisoGroupId(0);
     }
 
     /**
@@ -78,7 +78,7 @@ final class TrainingQuizTest extends GrcmanagerIntegrationTestCase
 
         $groupsId = (int) (new \Group())->add(['name' => 'RSSI #139', 'entities_id' => 0]);
         (new \Group_User())->add(['groups_id' => $groupsId, 'users_id' => 2]);
-        PluginGrcmanagerAuditTeam::setCisoGroupId($groupsId);
+        \GlpiPlugin\Grcmanager\AuditTeam::setCisoGroupId($groupsId);
         $this->assertTrue(PluginGrcmanagerTrainingQuiz::canRead($s['participation'], 2));
     }
 

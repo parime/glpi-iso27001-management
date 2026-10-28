@@ -159,7 +159,7 @@ class PluginGrcmanagerMaturity extends CommonGLPI
             ['valid_until' => null],
             ['valid_until' => ['>=', $today]],
         ]]);
-        $recentAudits = countElementsInTable(PluginGrcmanagerAudit::getTable(), [
+        $recentAudits = countElementsInTable(\GlpiPlugin\Grcmanager\Audit::getTable(), [
             'status'      => 'completed',
             'actual_date' => ['>=', date('Y-m-d', strtotime('-12 months'))],
         ]);
@@ -169,8 +169,8 @@ class PluginGrcmanagerMaturity extends CommonGLPI
         $trainingDone = countElementsInTable('glpi_plugin_grcmanager_trainings_users', [
             'completion_status' => 'completed',
         ]);
-        $capaOverdue = countElementsInTable(PluginGrcmanagerNonconformity::getTable(), [
-            'NOT'      => ['status' => PluginGrcmanagerNonconformity::CLOSED_STATUSES],
+        $capaOverdue = countElementsInTable(\GlpiPlugin\Grcmanager\Nonconformity::getTable(), [
+            'NOT'      => ['status' => \GlpiPlugin\Grcmanager\Nonconformity::CLOSED_STATUSES],
             'due_date' => ['<', $today],
         ]);
         $incidentsOpen = countElementsInTable(PluginGrcmanagerSecurityIncident::getTable(), [

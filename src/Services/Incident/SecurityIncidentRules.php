@@ -47,7 +47,7 @@ final class SecurityIncidentRules
     public const DEFAULT_CATEGORY = 'other';
 
     /**
-     * Same three-value scale as PluginGrcmanagerNonconformity::getSeverities() (issue #29: "reuse
+     * Same three-value scale as \GlpiPlugin\Grcmanager\Nonconformity::getSeverities() (issue #29: "reuse
      * the SAME severity scale"), so an organization never has to reconcile two differently-worded
      * severity scales across this plugin's registers.
      *
@@ -81,11 +81,11 @@ final class SecurityIncidentRules
     /**
      * `cia_impact` is stored as a comma-separated list on a single varchar column, the same
      * "fixed-value list on one column" convention already established by
-     * `PluginGrcmanagerAudit.risk_categories` (Sprint 4, TECH_DEBT.md) rather than a link table -
+     * `\GlpiPlugin\Grcmanager\Audit.risk_categories` (Sprint 4, TECH_DEBT.md) rather than a link table -
      * appropriate here for exactly the same reason (a small closed set of 3 values, never a
      * variable/unbounded target). Rendered in showForm() as plain HTML checkboxes rather than
      * `Dropdown::showFromArray(..., ['multiple' => true])` (the select2 widget
-     * `PluginGrcmanagerAudit::showForm()` uses for `risk_categories`): a select2 multi-select
+     * `\GlpiPlugin\Grcmanager\Audit::showForm()` uses for `risk_categories`): a select2 multi-select
      * backed by a plain PHP array is known, in this plugin family's own live testing, to not
      * reliably persist a selection made via low-level JS-dispatched events, and for a fixed set of
      * only 3 checkboxes a select2 widget has no real benefit (no search, no long list to
@@ -147,7 +147,7 @@ final class SecurityIncidentRules
      * practice: an incident cannot be marked closed without a documented root cause AND documented
      * lessons learned. Neither is required to open an incident or move it through any other
      * status - the exact same "required only at a certain status transition" convention already
-     * established by PluginGrcmanagerNonconformity's own
+     * established by \GlpiPlugin\Grcmanager\Nonconformity's own
      * `corrective_action`/CapaRequirementService::isCapaMandatory() (issue #27, Sprint 4), applied
      * here to TWO fields instead of one because A.5.27 explicitly asks for both a cause and a
      * lesson, not just a fix. The caller (PluginGrcmanagerSecurityIncident::normalizeIsoFields())

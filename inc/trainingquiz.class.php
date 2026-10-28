@@ -92,7 +92,7 @@ class PluginGrcmanagerTrainingQuiz extends CommonGLPI
 
         return $usersId === $participation['users_id']
             || ($participation['trainer'] > 0 && $usersId === $participation['trainer'])
-            || PluginGrcmanagerAuditTeam::isCiso($usersId);
+            || \GlpiPlugin\Grcmanager\AuditTeam::isCiso($usersId);
     }
 
     /**

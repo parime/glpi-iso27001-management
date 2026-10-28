@@ -28,11 +28,11 @@ Html::header(
     __('Most exposed machines', 'grcmanager'),
     PluginGrcmanagerParkVulnerability::getRankingURL(),
     'grcmanager',
-    PluginGrcmanagerComplianceAudit::class,
+    \GlpiPlugin\Grcmanager\ComplianceAudit::class,
     PluginGrcmanagerMenu::MACHINE_RANKING
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-PluginGrcmanagerMenu::showSection(PluginGrcmanagerComplianceAudit::class, PluginGrcmanagerMenu::MACHINE_RANKING);
+PluginGrcmanagerMenu::showSection(\GlpiPlugin\Grcmanager\ComplianceAudit::class, PluginGrcmanagerMenu::MACHINE_RANKING);
 // Encadré « À quoi sert cette page ? ».
 PluginGrcmanagerPageHelp::show('parkmachines');
 

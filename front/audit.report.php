@@ -21,16 +21,16 @@ use GlpiPlugin\Grcmanager\Services\Dashboard\DashboardCardService;
 include('../../../inc/includes.php');
 
 // Export à la demande, jamais persisté (pas de Document GLPI créé) — ROADMAP.md "Version 1.5".
-Session::checkRight(PluginGrcmanagerAudit::$rightname, READ);
+Session::checkRight(\GlpiPlugin\Grcmanager\Audit::$rightname, READ);
 
 global $DB;
 
-$auditStatuses = PluginGrcmanagerAudit::getStatuses();
+$auditStatuses = \GlpiPlugin\Grcmanager\Audit::getStatuses();
 
 $audits = [];
 foreach (
     $DB->request([
-        'FROM'  => PluginGrcmanagerAudit::getTable(),
+        'FROM'  => \GlpiPlugin\Grcmanager\Audit::getTable(),
         'ORDER' => 'planned_date ASC',
     ]) as $row
 ) {
@@ -43,14 +43,14 @@ foreach (
     ];
 }
 
-$findingTypes = PluginGrcmanagerNonconformity::getFindingTypes();
-$severities   = PluginGrcmanagerNonconformity::getSeverities();
-$ncStatuses   = PluginGrcmanagerNonconformity::getStatuses();
+$findingTypes = \GlpiPlugin\Grcmanager\Nonconformity::getFindingTypes();
+$severities   = \GlpiPlugin\Grcmanager\Nonconformity::getSeverities();
+$ncStatuses   = \GlpiPlugin\Grcmanager\Nonconformity::getStatuses();
 
 $findings = [];
 foreach (
     $DB->request([
-        'FROM'  => PluginGrcmanagerNonconformity::getTable(),
+        'FROM'  => \GlpiPlugin\Grcmanager\Nonconformity::getTable(),
         'ORDER' => 'due_date ASC',
     ]) as $row
 ) {

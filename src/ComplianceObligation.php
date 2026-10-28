@@ -38,7 +38,7 @@ use GlpiPlugin\Grcmanager\Risk;
  *
  * Mêmes conventions que les autres registres de ce plugin : enums en varchar avec commentaire SQL
  * (voir src/Install/Installer.php), badges colorés traduits (voir
- * PluginGrcmanagerControl::applicabilityBadge()/PluginGrcmanagerNonconformity::severityBadge()),
+ * PluginGrcmanagerControl::applicabilityBadge()/Nonconformity::severityBadge()),
  * showForm() en HTML/PHP manuel (TECH_DEBT.md, choix assumé depuis le Sprint 1), rappel de revue
  * via le même Cron/NotificationTarget que le registre de risques (voir cronReviewreminder()
  * ci-dessous).
@@ -116,7 +116,7 @@ class ComplianceObligation extends ComplianceObligationBase
     /**
      * Normalise `type`/`compliance_status` via ComplianceObligationRules (jamais une valeur hors
      * énumération enregistrée en base) avant add()/update(), même endroit que
-     * PluginGrcmanagerControl::validateAndMarkReviewed()/PluginGrcmanagerNonconformity::
+     * PluginGrcmanagerControl::validateAndMarkReviewed()/Nonconformity::
      * validateAndNormalize() pour la validation d'entrée de ce plugin.
      *
      * @param array<string, mixed> $input
@@ -278,7 +278,7 @@ class ComplianceObligation extends ComplianceObligationBase
      * Real `<select>` filter widgets for type/compliance_status, same lesson as
      * Risk::getSpecificValueToSelect(). `plugin_grcmanager_risks_id` is left to
      * the parent's default (free-text search on the raw numeric id), same choice already made for
-     * `plugin_grcmanager_audits_id` on PluginGrcmanagerNonconformity (see its own
+     * `plugin_grcmanager_audits_id` on Nonconformity (see its own
      * getSpecificValueToSelect(), TECH_DEBT.md Sprint 4).
      */
     public static function getSpecificValueToSelect($field, $name = '', $values = '', array $options = [])

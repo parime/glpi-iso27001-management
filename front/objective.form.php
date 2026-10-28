@@ -46,7 +46,7 @@ if (isset($_POST['add'])) {
         PluginGrcmanagerObjective::getTypeName(1),
         $_SERVER['PHP_SELF'],
         'grcmanager',
-        PluginGrcmanagerAudit::class,
+        \GlpiPlugin\Grcmanager\Audit::class,
         PluginGrcmanagerObjective::class
     );
 

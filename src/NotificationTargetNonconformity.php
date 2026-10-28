@@ -15,22 +15,29 @@
  * -------------------------------------------------------------------------
  */
 
+namespace GlpiPlugin\Grcmanager;
+
+use Html;
+use Notification;
+use NotificationTarget;
+use Override;
+
 /**
- * GLPI notification target for PluginGrcmanagerNonconformity (Sprint 4 overdue CAPA reminders, see
+ * GLPI notification target for Nonconformity (Sprint 4 overdue CAPA reminders, see
  * src/Services/Capa/OverdueCapaService.php and its Cron entry point
- * PluginGrcmanagerNonconformity::cronOverduecapa()). Class name/file location follow the exact same
+ * Nonconformity::cronOverduecapa()). Class name/file location follow the exact same
  * GLPI core naming convention already confirmed live for the sibling risk register, see
  * inc/notificationtargetrisk.class.php's own docblock: for a plugin item
- * "PluginGrcmanagerNonconformity", GLPI expects a global class
- * "PluginGrcmanagerNotificationTargetNonconformity" in "inc/notificationtargetnonconformity.class.php".
+ * "Nonconformity", GLPI expects a global class
+ * "NotificationTargetNonconformity" in "inc/notificationtargetnonconformity.class.php".
  */
-class PluginGrcmanagerNotificationTargetNonconformity extends NotificationTarget
+class NotificationTargetNonconformity extends NotificationTarget
 {
     #[Override]
     public function getEvents()
     {
         return [
-            PluginGrcmanagerNonconformity::CAPA_OVERDUE_EVENT => __(
+            Nonconformity::CAPA_OVERDUE_EVENT => __(
                 'Overdue corrective/preventive action',
                 'grcmanager'
             ),
@@ -39,7 +46,7 @@ class PluginGrcmanagerNotificationTargetNonconformity extends NotificationTarget
 
     /**
      * Default recipient: the non-conformity's own responsible owner (`users_id`), same generic
-     * "item owner" resolution already used by \GlpiPlugin\Grcmanager\NotificationTargetRisk.
+     * "item owner" resolution already used by NotificationTargetRisk.
      */
     #[Override]
     public function addAdditionalTargets($event = '')
@@ -51,21 +58,21 @@ class PluginGrcmanagerNotificationTargetNonconformity extends NotificationTarget
     public function addDataForTemplate($event, $options = [])
     {
         $events = $this->getAllEvents();
-        /** @var PluginGrcmanagerNonconformity $nc */
+        /** @var Nonconformity $nc */
         $nc     = $this->obj;
 
-        $severities = PluginGrcmanagerNonconformity::getSeverities();
+        $severities = Nonconformity::getSeverities();
 
         $this->data['##nc.action##']   = $events[$event] ?? '';
         $this->data['##nc.title##']    = $nc->fields['title'] ?? '';
         $this->data['##nc.severity##'] = $severities[$nc->fields['severity'] ?? ''] ?? '';
         $this->data['##nc.duedate##']  = Html::convDate($nc->fields['due_date'] ?? null);
-        $this->data['##nc.audit##']    = PluginGrcmanagerNonconformity::getAuditTitle(
+        $this->data['##nc.audit##']    = Nonconformity::getAuditTitle(
             (int) ($nc->fields['plugin_grcmanager_audits_id'] ?? 0)
         );
         $this->data['##nc.url##']      = $this->formatURL(
             $options['additionnaloption']['usertype'] ?? self::GLPI_USER,
-            PluginGrcmanagerNonconformity::class . '_' . $nc->getID()
+            Nonconformity::class . '_' . $nc->getID()
         );
 
         $this->getTags();
@@ -84,7 +91,7 @@ class PluginGrcmanagerNotificationTargetNonconformity extends NotificationTarget
             'nc.title'    => __('Title', 'grcmanager'),
             'nc.severity' => __('Severity', 'grcmanager'),
             'nc.duedate'  => __('Due date', 'grcmanager'),
-            'nc.audit'    => PluginGrcmanagerAudit::getTypeName(1),
+            'nc.audit'    => Audit::getTypeName(1),
             'nc.url'      => __('URL'),
         ];
 

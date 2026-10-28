@@ -47,7 +47,7 @@ parameters:
         # $DB, same rationale as RiskMatrixConfig.php above. RiskHeatmapGrid.php in the same
         # directory stays in scope: pure PHP, no GLPI dependency.
         - src/Services/Risk/RiskHeatmapService.php
-        # Sprint 4: depends on GLPI core classes NotificationEvent/PluginGrcmanagerNonconformity,
+        # Sprint 4: depends on GLPI core classes NotificationEvent/GlpiPlugin\\Grcmanager\\Nonconformity,
         # same rationale as ReviewReminderService above. OverdueCapaResult.php in the same
         # directory stays in scope: pure PHP with no GLPI dependency.
         - src/Services/Capa/OverdueCapaService.php

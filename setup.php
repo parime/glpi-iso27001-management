@@ -100,9 +100,9 @@ function plugin_init_grcmanager(): void
             PluginGrcmanagerDashboard::class,
             \GlpiPlugin\Grcmanager\Risk::class,
             PluginGrcmanagerControl::class,
-            PluginGrcmanagerAudit::class,
+            \GlpiPlugin\Grcmanager\Audit::class,
             PluginGrcmanagerAccessReview::class,
-            PluginGrcmanagerComplianceAudit::class,
+            \GlpiPlugin\Grcmanager\ComplianceAudit::class,
         ],
     ];
 
@@ -143,8 +143,8 @@ function plugin_init_grcmanager(): void
     // Issue #139 : feuille d'émargement, support et quiz d'une session de formation.
     $CFG_GLPI['document_types'][] = PluginGrcmanagerTraining::class;
     // Issue #140 : pièces d'un audit interne et de ses constats.
-    $CFG_GLPI['document_types'][] = PluginGrcmanagerAudit::class;
-    $CFG_GLPI['document_types'][] = PluginGrcmanagerNonconformity::class;
+    $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\Audit::class;
+    $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\Nonconformity::class;
     // Issue #113 : preuves des exigences du SMSI, même mécanisme.
     $CFG_GLPI['document_types'][] = PluginGrcmanagerIsmsRequirement::class;
     // Issue #127 : preuves de l'évaluation d'un fournisseur (questionnaire signé, certificats).

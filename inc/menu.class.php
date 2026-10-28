@@ -79,9 +79,9 @@ class PluginGrcmanagerMenu extends CommonGLPI
                 \GlpiPlugin\Grcmanager\Evidence::class, PluginGrcmanagerCoverageRule::class,
             ],
             // Contrôle et amélioration continue (ISO 27001 chapitres 9 et 10).
-            PluginGrcmanagerAudit::class => [
-                PluginGrcmanagerNonconformity::class, PluginGrcmanagerObjective::class,
-                PluginGrcmanagerManagementReview::class,
+            \GlpiPlugin\Grcmanager\Audit::class => [
+                \GlpiPlugin\Grcmanager\Nonconformity::class, PluginGrcmanagerObjective::class,
+                \GlpiPlugin\Grcmanager\ManagementReview::class,
             ],
             // Opérations récurrentes : accès, revues, personnes, continuité.
             PluginGrcmanagerAccessReview::class => [
@@ -90,7 +90,7 @@ class PluginGrcmanagerMenu extends CommonGLPI
             ],
             // Sécurité technique. Le parent ne demande que le droit du plugin : les vulnérabilités
             // (qui exigent aussi la lecture des logiciels) restent une sous-page parmi d'autres.
-            PluginGrcmanagerComplianceAudit::class => [
+            \GlpiPlugin\Grcmanager\ComplianceAudit::class => [
                 PluginGrcmanagerParkVulnerability::class, self::MACHINE_RANKING, self::SOFTWARE_WATCH,
                 PluginGrcmanagerCanonicalProduct::class, PluginGrcmanagerNetworkFlow::class,
             ],

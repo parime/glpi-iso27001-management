@@ -126,8 +126,10 @@ class PluginGrcmanagerDocumentAccess extends CommonGLPI
     public function getTabNameForItem(CommonGLPI $item, $withtemplate = 0)
     {
         if (
-            !$item instanceof PluginGrcmanagerAudit || $item->isNewItem() || !PluginGrcmanagerAudit::canView()
-            || !PluginGrcmanagerAuditTeam::canAccessDocuments($item->getID())
+            !$item instanceof \GlpiPlugin\Grcmanager\Audit
+            || $item->isNewItem()
+            || !\GlpiPlugin\Grcmanager\Audit::canView()
+            || !\GlpiPlugin\Grcmanager\AuditTeam::canAccessDocuments($item->getID())
         ) {
             return '';
         }
@@ -139,13 +141,13 @@ class PluginGrcmanagerDocumentAccess extends CommonGLPI
     {
         // ajax/common.tabs.php sert le contenu sans passer par getTabNameForItem().
         if (
-            !$item instanceof PluginGrcmanagerAudit || !$item->can($item->getID(), READ)
-            || !PluginGrcmanagerAuditTeam::canAccessDocuments($item->getID())
+            !$item instanceof \GlpiPlugin\Grcmanager\Audit || !$item->can($item->getID(), READ)
+            || !\GlpiPlugin\Grcmanager\AuditTeam::canAccessDocuments($item->getID())
         ) {
             return false;
         }
         TemplateRenderer::getInstance()->display('@grcmanager/document_accesses_tab.html.twig', [
-            'accesses' => self::getAccesses(PluginGrcmanagerAudit::class, $item->getID()),
+            'accesses' => self::getAccesses(\GlpiPlugin\Grcmanager\Audit::class, $item->getID()),
         ]);
 
         return true;

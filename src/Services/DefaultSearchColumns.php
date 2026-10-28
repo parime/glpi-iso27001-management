@@ -23,17 +23,17 @@ final class DefaultSearchColumns
         // Issue #113 : exigence (lien) puis article, statut, responsable, dernière modification.
         'PluginGrcmanagerIsmsRequirement' => [1, 2, 3, 4, 7],
         // Sprint 4 (audits internes et CAPA), same "id first" convention.
-        'PluginGrcmanagerAudit'         => [9, 1, 2, 3, 4, 5, 6],
+        'GlpiPlugin\\Grcmanager\\Audit'         => [9, 1, 2, 3, 4, 5, 6],
         // Issue #27 : id 13 (finding_type) juste apres le titre, avant severite (2), pour que le
         // type de constat (non-conformite/observation) soit visible d'emblee dans la liste.
-        'PluginGrcmanagerNonconformity' => [12, 1, 13, 2, 3, 4, 5, 7],
+        'GlpiPlugin\\Grcmanager\\Nonconformity' => [12, 1, 13, 2, 3, 4, 5, 7],
         // Sprint 5 (risques fournisseurs/tiers), same "id first" convention, supplier column
         // second (the whole point of this register) then the same scoring/treatment order as
         // \GlpiPlugin\Grcmanager\Risk above.
         'GlpiPlugin\\Grcmanager\\SupplierRisk'  => [11, 1, 2, 3, 6, 4, 5, 7, 8, 9],
         // Sprint 6 (formations et revues de direction), same "id first" convention.
         'PluginGrcmanagerTraining'         => [8, 1, 2, 3, 4, 5, 6],
-        'PluginGrcmanagerManagementReview' => [6, 1, 2, 3, 4, 5],
+        'GlpiPlugin\\Grcmanager\\ManagementReview' => [6, 1, 2, 3, 4, 5],
         // Issue #126 : campagne (lien), statut, fréquence, dates, pilote, entité.
         'PluginGrcmanagerAccessReview'     => [1, 2, 3, 4, 5, 6, 80],
         // Issue #28 (bibliothèque de politiques de sécurité versionnées, A.5.1), same "id first"
