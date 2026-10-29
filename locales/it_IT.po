@@ -6861,3 +6861,34 @@ msgstr "Numero di modifiche"
 
 msgid "Access rights changed"
 msgstr "Diritti d'accesso modificati"
+
+msgid "Zone matrix"
+msgstr "Matrice per zone"
+
+msgid "Zone × zone"
+msgstr "Zona × zona"
+
+msgid "Site × site (zone name prefix)"
+msgstr "Sede × sede (inizio del nome di zona)"
+
+msgid "Each cell counts the active flows from a source zone (row) to a destination zone (column). Its colour is the most serious check of its flows: red for a blocking gap, yellow for a gap to fix. Click a cell to list its flows. Grouped by site, zones are gathered by the start of their name, before the first \"_\", \"-\" or space."
+msgstr "Ogni cella conta i flussi attivi da una zona di origine (riga) a una zona di destinazione (colonna). Il suo colore è quello del controllo più grave dei suoi flussi: rosso per uno scostamento bloccante, giallo per uno scostamento da correggere. Fate clic su una cella per vederne i flussi. Raggruppate per sede, le zone sono riunite secondo l'inizio del nome, prima del primo «_», «-» o spazio."
+
+msgid "Grouping"
+msgstr "Raggruppamento"
+
+msgid "Show"
+msgstr "Mostra"
+
+msgid "No active flow yet."
+msgstr "Ancora nessun flusso attivo."
+
+#, php-format
+msgid "More than %d zones: only the busiest are shown. Group by site for an overview."
+msgstr "Più di %d zone: sono mostrate solo le più cariche. Raggruppate per sede per una visione d'insieme."
+
+msgid "No active flow in this cell."
+msgstr "Nessun flusso attivo in questa cella."
+
+msgid "Service"
+msgstr "Servizio"

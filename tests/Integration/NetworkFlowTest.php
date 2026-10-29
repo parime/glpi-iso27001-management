@@ -86,4 +86,23 @@ final class NetworkFlowTest extends GrcmanagerIntegrationTestCase
         $this->assertSame(0, $again['created']);
         $this->assertSame(2, $again['skipped']);
     }
+
+    public function testZoneMatrixCountsActiveFlowsAndListsTheChosenCell(): void
+    {
+        $zone = 'PHPUnitZone' . random_int(1000, 9999);
+        foreach ([['22', 1], ['443', 1], ['80', 0]] as [$ports, $active]) {
+            (new \GlpiPlugin\Grcmanager\NetworkFlow())->add([
+                'source_label' => $zone . '_WS (192.0.2.0/24)', 'destination_label' => $zone . '_SRV',
+                'protocol' => 'tcp', 'ports' => $ports, 'is_active' => $active,
+            ]);
+        }
+
+        $data = \GlpiPlugin\Grcmanager\NetworkFlow::matrixData('zone', $zone . '_WS', $zone . '_SRV');
+        $this->assertSame(2, $data['cells'][$zone . '_WS'][$zone . '_SRV']['count'], 'Flux inactif exclu.');
+        $this->assertCount(2, $data['selected']);
+        $this->assertStringContainsString('networkflow.form.php?id=', $data['selected'][0]['url']);
+
+        $sites = \GlpiPlugin\Grcmanager\NetworkFlow::matrixData('prefix');
+        $this->assertSame(2, $sites['cells'][$zone][$zone]['count'] ?? 0, 'Regroupement par site.');
+    }
 }
