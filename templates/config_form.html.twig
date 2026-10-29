@@ -43,6 +43,44 @@
   </div>
 </div>
 
+{# Issue #183 : surveillance des fuites de données (Have I Been Pwned). #}
+<div class="card mb-3">
+  <div class="card-body">
+    <h4>{{ __('Data breach monitoring', 'grcmanager') }}</h4>
+    <p class="text-muted">
+      {{ __('Every day, the work email addresses of active users are checked with Have I Been Pwned; each exposure is recorded in a sensitive register and the CISO group is notified. Personal addresses are never sent. A verified domain needs a single request; otherwise addresses are checked one by one, within the rate limit of the key.', 'grcmanager') }}
+    </p>
+    <form method="post" action="{{ config('root_doc') }}/plugins/grcmanager/front/config.php">
+      <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
+      <div class="form-check form-switch mb-2">
+        <input type="hidden" name="hibp_enabled" value="0">
+        <input type="checkbox" class="form-check-input" id="grc-hibp-enabled" name="hibp_enabled" value="1" {{ breach_enabled ? 'checked' }} {{ can_edit_sensitive ? '' : 'disabled' }}>
+        <label class="form-check-label" for="grc-hibp-enabled">{{ __('Enable data breach monitoring', 'grcmanager') }}</label>
+      </div>
+      <label class="form-label" for="grc-hibp-domains">{{ __('Work email domains to monitor', 'grcmanager') }}</label>
+      <input type="text" class="form-control mb-1" id="grc-hibp-domains" name="hibp_domains" value="{{ breach_domains }}" placeholder="example.com, example.org" {{ can_edit_sensitive ? '' : 'disabled' }}>
+      <p class="text-muted small mb-2">{{ __('Only addresses on these domains are checked.', 'grcmanager') }}</p>
+      <label class="form-label" for="grc-hibp-key">{{ __('Have I Been Pwned API key', 'grcmanager') }}</label>
+      <input type="password" class="form-control mb-1" id="grc-hibp-key" name="hibp_api_key" value="" autocomplete="new-password" placeholder="{{ breach_has_key ? __('Key saved (leave empty to keep it)', 'grcmanager') : '' }}" {{ can_edit_sensitive ? '' : 'disabled' }}>
+      <p class="text-muted small mb-2">{{ __('Encrypted with the GLPI key and never displayed again.', 'grcmanager') }}</p>
+      {% if breach_has_key %}
+        <div class="form-check mb-2">
+          <input type="checkbox" class="form-check-input" id="grc-hibp-clear" name="hibp_clear_key" value="1" {{ can_edit_sensitive ? '' : 'disabled' }}>
+          <label class="form-check-label" for="grc-hibp-clear">{{ __('Delete the saved key', 'grcmanager') }}</label>
+        </div>
+      {% endif %}
+      {% if can_edit_sensitive %}
+        <div class="d-flex gap-2 mt-2">
+          <button type="submit" name="update_breach_config" class="btn btn-primary">{{ __('Enregistrer') }}</button>
+          {% if breach_has_key %}
+            <button type="submit" name="test_breach_config" class="btn btn-outline-secondary">{{ __('Test the key', 'grcmanager') }}</button>
+          {% endif %}
+        </div>
+      {% endif %}
+    </form>
+  </div>
+</div>
+
 <div class="card mb-3">
   <div class="card-body">
     <h4>{{ __('Internal audits', 'grcmanager') }}</h4>

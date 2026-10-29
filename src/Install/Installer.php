@@ -202,6 +202,13 @@ final class Installer
     private const PERIODIC_REVIEWS_TABLE = 'glpi_plugin_grcmanager_periodicreviews';
     // Issue #144 : matrice des flux réseau, voir \GlpiPlugin\Grcmanager\NetworkFlow.
     private const NETWORK_FLOWS_TABLE = 'glpi_plugin_grcmanager_networkflows';
+    // Issue #183 : expositions à des fuites de données, voir \GlpiPlugin\Grcmanager\BreachExposure.
+    private const BREACH_EXPOSURES_TABLE = 'glpi_plugin_grcmanager_breachexposures';
+    /** Classes créées directement dans src/ (sans ancien nom) : nettoyées à la désinstallation. */
+    private const SRC_ONLY_CLASSES = [
+        \GlpiPlugin\Grcmanager\BreachExposure::class,
+        \GlpiPlugin\Grcmanager\NotificationTargetBreachExposure::class,
+    ];
     // Issue #142 : evenements du calendrier de conformite, voir \GlpiPlugin\Grcmanager\ComplianceEvent.
     private const COMPLIANCE_EVENTS_TABLE = 'glpi_plugin_grcmanager_complianceevents';
     // Issue #160 : vulnérabilités du parc, voir GlpiPlugin\Grcmanager\Services\Cve\ParkVulnerabilitySync.
@@ -1265,6 +1272,33 @@ final class Installer
             $DB->doQuery($query);
         }
 
+        // Issue #183 : une ligne par utilisateur (ou adresse sans utilisateur) et par fuite. Minimisation :
+        // jamais de mot de passe (Have I Been Pwned n'en fournit pas), adresse seulement sans utilisateur.
+        if (!$DB->tableExists(self::BREACH_EXPOSURES_TABLE)) {
+            $query = "CREATE TABLE `" . self::BREACH_EXPOSURES_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `users_id` int {$keySign} NOT NULL DEFAULT 0,
+                `email` varchar(255) NOT NULL DEFAULT '' COMMENT 'Seulement si aucun utilisateur GLPI',
+                `breach_name` varchar(255) NOT NULL DEFAULT '',
+                `breach_title` varchar(255) NOT NULL DEFAULT '',
+                `breach_domain` varchar(255) NOT NULL DEFAULT '',
+                `breach_date` timestamp NULL DEFAULT NULL,
+                `added_date` timestamp NULL DEFAULT NULL,
+                `data_classes` text COMMENT 'Catégories de données exposées (JSON)',
+                `is_verified` tinyint NOT NULL DEFAULT 0,
+                `is_spam_list` tinyint NOT NULL DEFAULT 0,
+                `status` varchar(32) NOT NULL DEFAULT 'new',
+                `comment` text,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `exposure` (`users_id`, `email`, `breach_name`),
+                KEY `status` (`status`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query);
+        }
+
         // Issue #164 : couverture des preuves (type d'actif × catégorie de document requise).
         if (!$DB->tableExists(self::COVERAGE_RULES_TABLE)) {
             $query = "CREATE TABLE `" . self::COVERAGE_RULES_TABLE . "` (
@@ -2137,6 +2171,7 @@ final class Installer
         $this->seedCapaOverdueNotification();
         $this->seedSecurityWatchNotification();
         $this->seedTrainingRenewalNotification();
+        $this->seedBreachExposureNotification();
         $this->seedPolicyReviewReminderNotification();
         $this->seedTreatmentActionOverdueNotification();
         $this->seedAccessReviewNotifications();
@@ -2183,6 +2218,18 @@ final class Installer
             [
                 'comment' => 'Récupère/rafraîchit le score CVSS, la sévérité et les liens de '
                     . 'correctif de chaque CVE suivie, depuis le NVD',
+                'mode'    => CronTask::MODE_EXTERNAL,
+            ]
+        );
+
+        // Issue #183 : surveillance des fuites de données (Have I Been Pwned). Sans effet tant
+        // qu'elle n'est pas activée avec une clé d'API dans la configuration du plugin.
+        CronTask::Register(
+            'GlpiPlugin\\Grcmanager\\BreachExposure',
+            'breachmonitor',
+            DAY_TIMESTAMP,
+            [
+                'comment' => 'Vérifie les adresses professionnelles auprès de Have I Been Pwned',
                 'mode'    => CronTask::MODE_EXTERNAL,
             ]
         );
@@ -2934,6 +2981,69 @@ final class Installer
     }
 
     /**
+     * Issue #183 : « nouvelles expositions à des fuites de données », au groupe RSSI et à
+     * l'administrateur GLPI. Contenu minimal (registre sensible). Idempotent.
+     */
+    private function seedBreachExposureNotification(): void
+    {
+        global $DB;
+
+        $itemtype = \GlpiPlugin\Grcmanager\BreachExposure::class;
+        $event    = \GlpiPlugin\Grcmanager\BreachExposure::NEW_EXPOSURES_EVENT;
+        $criteria = ['itemtype' => $itemtype, 'event' => $event];
+        if ($DB->request(['FROM' => 'glpi_notifications', 'WHERE' => $criteria])->count() > 0) {
+            return;
+        }
+
+        $templateId = (new NotificationTemplate())->add([
+            'name'     => 'GRC Manager - Nouvelles expositions à des fuites de données',
+            'itemtype' => $itemtype,
+            'comment'  => 'Envoyée par la tâche automatique « breachmonitor » (Have I Been Pwned).',
+        ]);
+        $DB->insert('glpi_notificationtemplatetranslations', [
+            'notificationtemplates_id' => $templateId,
+            'language'                 => '',
+            'subject'                  => '##breachexposure.action## : ##breachexposure.count##',
+            'content_text'             => "##breachexposure.action## : ##breachexposure.count##\n\n"
+                . "Adresses professionnelles trouvées dans des fuites de données connues. Détail dans le "
+                . "registre (accès restreint) : ##breachexposure.url##",
+            'content_html'             => NotificationHtml::render([
+                NotificationHtml::strong('##breachexposure.action## : ##breachexposure.count##'),
+                NotificationHtml::lines([
+                    'Adresses professionnelles trouvées dans des fuites de données connues.',
+                    'Détail dans le registre (accès restreint).',
+                ]),
+                NotificationHtml::link('##breachexposure.url##', 'Ouvrir le registre'),
+            ]),
+        ]);
+        $notificationId = (new Notification())->add([
+            'name'         => 'GRC Manager - Nouvelles expositions à des fuites de données',
+            'entities_id'  => 0,
+            'is_recursive' => 1,
+            'itemtype'     => $itemtype,
+            'event'        => $event,
+            'is_active'    => 1,
+        ]);
+        $DB->insert('glpi_notifications_notificationtemplates', [
+            'notifications_id'         => $notificationId,
+            'mode'                     => 'mailing',
+            'notificationtemplates_id' => $templateId,
+        ]);
+        foreach (
+            [
+                \GlpiPlugin\Grcmanager\NotificationTargetBreachExposure::TARGET_CISO_GROUP,
+                Notification::GLOBAL_ADMINISTRATOR,
+            ] as $target
+        ) {
+            $DB->insert('glpi_notificationtargets', [
+                'notifications_id' => $notificationId,
+                'type'             => Notification::USER_TYPE,
+                'items_id'         => $target,
+            ]);
+        }
+    }
+
+    /**
      * Same structure as seedReviewReminderNotification() above, for the issue #28 policy
      * review-reminder Cron task (\GlpiPlugin\Grcmanager\Policy::cronReviewreminder(), event
      * 'policy_review_due', see inc/notificationtargetpolicy.class.php). Idempotent for the same
@@ -3227,7 +3337,7 @@ final class Installer
         // de l'antislash, caractère d'échappement de LIKE).
         $byItemtype = static fn (string $column): array => ['OR' => [
             [$column => ['LIKE', 'PluginGrcmanager%']],
-            [$column => array_values(ItemtypeRenames::MAP)],
+            [$column => array_merge(array_values(ItemtypeRenames::MAP), self::SRC_ONLY_CLASSES)],
         ]];
         // Rapports générés (audit, revue des accès, post-incident, crise) : sans le plugin, plus
         // rien ne limiterait leur lecture à l'audience de l'objet source, qui disparaît.
@@ -3694,6 +3804,7 @@ final class Installer
         $this->unseedNotification('GlpiPlugin\\Grcmanager\\ComplianceEvent');
         $this->unseedNotification(PluginGrcmanagerSecurityIncident::class);
         $this->unseedNotification('GlpiPlugin\\Grcmanager\\AccessReview');
+        $this->unseedNotification(\GlpiPlugin\Grcmanager\BreachExposure::class);
 
         // Absorption de glpi-security-incidents (ROADMAP.md "Version 2.0") : colonnes ajoutées sur
         // les tables cœur pour la gestion de modèles - même dérivation que le plugin absorbé
@@ -3746,6 +3857,7 @@ final class Installer
         $migration->dropTable(self::DOCUMENT_ACCESSES_TABLE);
         $migration->dropTable(self::PERIODIC_REVIEWS_TABLE);
         $migration->dropTable(self::NETWORK_FLOWS_TABLE);
+        $migration->dropTable(self::BREACH_EXPOSURES_TABLE);
         $migration->dropTable(self::COMPLIANCE_EVENTS_TABLE);
         $migration->dropTable(self::IGNORED_SOFTWARES_TABLE);
         $migration->dropTable(self::PARK_VERSION_CHECKS_TABLE);

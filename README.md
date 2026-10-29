@@ -109,6 +109,9 @@ archivé), avec ses champs de classification ISO 27001 fusionnés dessus.
 - **Contrôles techniques automatiques** : score ISO 27001, NIS2 et RGPD à partir des données de GLPI
   (antivirus, chiffrement, inventaire, validation des changements, comptes) et ticket de mise en
   conformité par contrôle.
+- **Surveillance des fuites de données** (Have I Been Pwned) : chaque nuit, les adresses
+  professionnelles des domaines choisis sont comparées aux fuites publiées ; le RSSI reçoit le
+  nombre de nouvelles expositions et le lien, jamais les adresses ni les noms des fuites.
 - Chaque écran du menu explique à quoi il sert et ce qui est attendu. Les écrans d'un même travail
   sont regroupés en rubriques (une entrée de menu, une barre d'onglets commune), dans l'ordre du
   cycle du SMSI.
@@ -129,15 +132,15 @@ tête de page et par le fil d'Ariane.
 | Conformité | Contrôles Annexe A (SoA), Référentiels, Exigences SMSI, Obligations, Politiques, Preuves, Couverture des preuves |
 | Audits et amélioration | Audits internes, Non-conformités, Objectifs ISMS, Revues de direction |
 | Opérations | Revues des accès, Hygiène des comptes, Revues périodiques, Formations, Exercices de crise |
-| Sécurité technique | Contrôles techniques automatiques, Vulnérabilités du parc, Machines les plus exposées, Logiciels à surveiller, Produits, Matrice des flux |
+| Sécurité technique | Contrôles techniques automatiques, Vulnérabilités du parc, Machines les plus exposées, Logiciels à surveiller, Produits, Matrice des flux, Fuites de données |
 
 Les incidents de sécurité sont dans **Assistance**, à côté des tickets. Les droits du plugin se
 donnent à n'importe quel profil depuis l'onglet **GRC Manager** d'Administration > Profils.
 
 ## Registres sensibles
 
-Le registre des risques, les vulnérabilités du parc et la matrice des flux décrivent les points
-faibles de l'organisation : la carte idéale pour un attaquant. Le plugin les protège à son niveau :
+Le registre des risques, les vulnérabilités du parc, la matrice des flux et les fuites de données
+décrivent les points faibles de l'organisation : la carte idéale pour un attaquant. Le plugin les protège à son niveau :
 
 - un **droit dédié**, « Registres sensibles », distinct du droit général du SMSI : donnez-le au RSSI
   et aux propriétaires de risques seulement (Administration > Profils, onglet GRC Manager). Sans lui,
@@ -145,6 +148,21 @@ faibles de l'organisation : la carte idéale pour un attaquant. Le plugin les pr
 - l'**historique** des modifications des risques, et la **trace des exports** du registre dans le
   journal des événements de GLPI ;
 - des **e-mails sans détail** par défaut (« Risque n° X » et le lien vers la fiche).
+
+### Fuites de données et RGPD
+
+La surveillance des fuites traite des adresses e-mail de personnes. Avant de l'activer
+(Configuration > Surveillance des fuites), inscrivez ce traitement au **registre des activités de
+traitement** (finalité : sécurité du système d'information ; base légale : intérêt légitime) et
+informez les salariés. Le plugin limite les données au strict nécessaire :
+
+- seules les adresses des **domaines professionnels** listés sont envoyées, jamais les adresses
+  personnelles ; un domaine vérifié chez Have I Been Pwned part en une seule requête, sans adresse ;
+- une exposition liée à un utilisateur GLPI ne stocke **pas l'adresse**, seulement l'utilisateur, la
+  fuite, sa date et les types de données touchées ; elle est supprimée avec l'utilisateur ;
+- la **clé d'API** est chiffrée avec la clé de GLPI, masquée dans l'historique et jamais réaffichée ;
+- consultation et traitement réservés au droit « Registres sensibles » ; seuls le statut et le
+  commentaire sont modifiables.
 ## État du projet
 
 **Stable**, publié et installable dès maintenant, pour GLPI 11 et 12 : voir la

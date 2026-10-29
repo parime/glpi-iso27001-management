@@ -54,7 +54,7 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/parkvulnerability.php front/parkmachines.php front/softwarewatch.php front/riskcatalog.php front/waiver.php
   front/coveragerule.php front/impactanalysis.php front/causalgraph.php
   front/impactanalysis.php?export=continuity front/maturity.php front/crisisexercise.php front/complianceaudit.php
-  front/dashboard.php front/networkflow.report.php"
+  front/dashboard.php front/networkflow.report.php front/breachexposure.php"
 # Creations : refusees sans droit comme en lecture seule (etat en base compare par la CI).
 create_attempts() { # code attendu, code attendu pour la classification (404 sans droit sur l'actif)
   local incident; incident=$(id incident_A)
@@ -158,10 +158,20 @@ fi
 if [ "$ROLE" = general ]; then
   for p in front/risk.php front/supplierrisk.php front/riskheatmap.php front/risk.report.php \
            front/networkflow.php front/networkflow.report.php front/parkvulnerability.php \
-           front/impactanalysis.php front/causalgraph.php; do
+           front/impactanalysis.php front/causalgraph.php front/breachexposure.php; do
     expect "$p : sans le droit des registres sensibles" 403 "$(code "$BASE/plugins/grcmanager/$p")"
   done
   expect "front/risk.form.php : sans le droit des registres sensibles" 403 "$(code "$P/risk.form.php?id=$(id risk)")"
+  # Issue #183 : la surveillance des fuites (cle d'API, domaines) se regle avec le droit des registres
+  # sensibles, et l'onglet des expositions de la fiche utilisateur reste vide sans lui.
+  expect "front/config.php : regler la surveillance des fuites" 403 \
+    "$(code -d "update_breach_config=1&hibp_enabled=1&hibp_domains=example.com&hibp_api_key=x&_glpi_csrf_token=$(csrf)" "$P/config.php")"
+  contains "onglet Expositions d'un utilisateur : rien" "breach" non \
+    "$(tab User 'GlpiPlugin%5CGrcmanager%5CBreachExposure$1' 2)"
+  expect "front/breachexposure.form.php : lire une exposition" 403 \
+    "$(code "$P/breachexposure.form.php?id=$(id breachexposure)")"
+  expect "front/breachexposure.form.php : changer son statut" 403 \
+    "$(code -d "update=1&id=$(id breachexposure)&status=handled&_glpi_csrf_token=$(csrf)" "$P/breachexposure.form.php")"
   for p in front/control.php front/policy.php front/audit.php front/training.php front/complianceobligation.php; do
     expect "$p : droit general du SMSI" 200 "$(code "$BASE/plugins/grcmanager/$p")"
   done

@@ -322,5 +322,17 @@ $add(new Notepad(), [
     $ids['audit'],
     2
 );
+// Issue #183 : exposition à une fuite (registre sensible), créée comme le fait la tâche planifiée.
+$exposure = ['users_id' => 2, 'email' => '', 'breach_name' => 'SecurityTestBreach'];
+if (countElementsInTable(\GlpiPlugin\Grcmanager\BreachExposure::getTable(), $exposure) === 0) {
+    $DB->insert(\GlpiPlugin\Grcmanager\BreachExposure::getTable(), $exposure + [
+        'breach_title' => 'Fuite securite',
+        'data_classes' => json_encode(['Email addresses', 'Passwords']),
+        'status'       => \GlpiPlugin\Grcmanager\BreachExposure::STATUS_NEW,
+    ]);
+}
+$ids['breachexposure'] = (int) current(
+    (new \GlpiPlugin\Grcmanager\BreachExposure())->find($exposure, [], 1)
+)['id'];
 
 echo json_encode($ids), "\n";
