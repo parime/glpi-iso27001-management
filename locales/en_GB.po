@@ -5544,3 +5544,138 @@ msgstr "Is there an inventory of AI systems with their owner and the data they u
 
 msgid "Is their use logged and reviewed?"
 msgstr "Is their use logged and reviewed?"
+
+msgid "Email (no GLPI user)"
+msgstr "Email (no GLPI user)"
+
+msgid "Breach"
+msgstr "Breach"
+
+msgid "Breached site"
+msgstr "Breached site"
+
+msgid "Breach date"
+msgstr "Breach date"
+
+msgid "Published by Have I Been Pwned"
+msgstr "Published by Have I Been Pwned"
+
+msgid "Exposed data"
+msgstr "Exposed data"
+
+msgid "Passwords were exposed: have the password changed wherever it was used, and enable multi-factor authentication."
+msgstr "Passwords were exposed: have the password changed wherever it was used, and enable multi-factor authentication."
+
+msgid "Unverified breach"
+msgstr "Unverified breach"
+
+msgid "Verified breach"
+msgstr "Verified breach"
+
+msgid "Action taken: password changed, multi-factor authentication enabled, user informed…"
+msgstr "Action taken: password changed, multi-factor authentication enabled, user informed…"
+
+msgid "Data breach monitoring"
+msgstr "Data breach monitoring"
+
+msgid "Every day, the work email addresses of active users are checked with Have I Been Pwned; each exposure is recorded in a sensitive register and the CISO group is notified. Personal addresses are never sent. A verified domain needs a single request; otherwise addresses are checked one by one, within the rate limit of the key."
+msgstr "Every day, the work email addresses of active users are checked with Have I Been Pwned; each exposure is recorded in a sensitive register and the CISO group is notified. Personal addresses are never sent. A verified domain needs a single request; otherwise addresses are checked one by one, within the rate limit of the key."
+
+msgid "Enable data breach monitoring"
+msgstr "Enable data breach monitoring"
+
+msgid "Work email domains to monitor"
+msgstr "Work email domains to monitor"
+
+msgid "Only addresses on these domains are checked."
+msgstr "Only addresses on these domains are checked."
+
+msgid "Have I Been Pwned API key"
+msgstr "Have I Been Pwned API key"
+
+msgid "Key saved (leave empty to keep it)"
+msgstr "Key saved (leave empty to keep it)"
+
+msgid "Encrypted with the GLPI key and never displayed again."
+msgstr "Encrypted with the GLPI key and never displayed again."
+
+msgid "Delete the saved key"
+msgstr "Delete the saved key"
+
+msgid "Test the key"
+msgstr "Test the key"
+
+msgid "No known data breach for this user's work email addresses."
+msgstr "No known data breach for this user's work email addresses."
+
+msgid "Data breach monitoring is not enabled (GRC Manager configuration)."
+msgstr "Data breach monitoring is not enabled (GRC Manager configuration)."
+
+msgid "Data breach exposure"
+msgid_plural "Data breach exposures"
+msgstr[0] "Data breach exposure"
+msgstr[1] "Data breach exposures"
+
+msgctxt "breach"
+msgid "New"
+msgstr "New"
+
+msgctxt "breach"
+msgid "Handled (password changed…)"
+msgstr "Handled (password changed…)"
+
+msgctxt "breach"
+msgid "Not applicable"
+msgstr "Not applicable"
+
+msgid "Detected on"
+msgstr "Detected on"
+
+msgid "Spam list"
+msgstr "Spam list"
+
+msgid "Data breach monitoring: checks work email addresses with Have I Been Pwned"
+msgstr "Data breach monitoring: checks work email addresses with Have I Been Pwned"
+
+#, php-format
+msgid "Have I Been Pwned: error %s"
+msgstr "Have I Been Pwned: error %s"
+
+msgid "Have I Been Pwned: rate limit reached, the next run resumes where this one stopped"
+msgstr "Have I Been Pwned: rate limit reached, the next run resumes where this one stopped"
+
+msgid "New data breach exposures"
+msgstr "New data breach exposures"
+
+msgid "CISO group (GRC Manager)"
+msgstr "CISO group (GRC Manager)"
+
+msgid "New exposures"
+msgstr "New exposures"
+
+msgid "Work email addresses found in known data breaches (Have I Been Pwned), checked every day."
+msgstr "Work email addresses found in known data breaches (Have I Been Pwned), checked every day."
+
+msgid "For each new exposure, have the password changed (and enable multi-factor authentication) if passwords were exposed, then mark it as handled."
+msgstr "For each new exposure, have the password changed (and enable multi-factor authentication) if passwords were exposed, then mark it as handled."
+
+msgid "ISO 27001, Annex A 5.7 and 5.17"
+msgstr "ISO 27001, Annex A 5.7 and 5.17"
+
+#, php-format
+msgid "%s: verified domain, one request per run"
+msgstr "%s: verified domain, one request per run"
+
+#, php-format
+msgid "%s: checked address by address"
+msgstr "%s: checked address by address"
+
+msgid "Have I Been Pwned key accepted."
+msgstr "Have I Been Pwned key accepted."
+
+msgid "Have I Been Pwned refused the API key."
+msgstr "Have I Been Pwned refused the API key."
+
+#, php-format
+msgid "Have I Been Pwned could not be reached (code %d)."
+msgstr "Have I Been Pwned could not be reached (code %d)."

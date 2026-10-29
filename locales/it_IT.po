@@ -5544,3 +5544,138 @@ msgstr "Esiste un inventario dei sistemi di IA con il loro responsabile e i dati
 
 msgid "Is their use logged and reviewed?"
 msgstr "Il loro uso è registrato e riesaminato?"
+
+msgid "Email (no GLPI user)"
+msgstr "Indirizzo e-mail (senza utente GLPI)"
+
+msgid "Breach"
+msgstr "Violazione"
+
+msgid "Breached site"
+msgstr "Sito coinvolto"
+
+msgid "Breach date"
+msgstr "Data della violazione"
+
+msgid "Published by Have I Been Pwned"
+msgstr "Pubblicata da Have I Been Pwned"
+
+msgid "Exposed data"
+msgstr "Dati esposti"
+
+msgid "Passwords were exposed: have the password changed wherever it was used, and enable multi-factor authentication."
+msgstr "Sono state esposte delle password: fate cambiare la password ovunque fosse usata e attivate l'autenticazione a più fattori."
+
+msgid "Unverified breach"
+msgstr "Violazione non verificata"
+
+msgid "Verified breach"
+msgstr "Violazione verificata"
+
+msgid "Action taken: password changed, multi-factor authentication enabled, user informed…"
+msgstr "Azione svolta: password cambiata, autenticazione a più fattori attivata, utente informato…"
+
+msgid "Data breach monitoring"
+msgstr "Monitoraggio delle violazioni di dati"
+
+msgid "Every day, the work email addresses of active users are checked with Have I Been Pwned; each exposure is recorded in a sensitive register and the CISO group is notified. Personal addresses are never sent. A verified domain needs a single request; otherwise addresses are checked one by one, within the rate limit of the key."
+msgstr "Ogni giorno gli indirizzi e-mail professionali degli utenti attivi vengono verificati presso Have I Been Pwned; ogni esposizione è registrata in un registro sensibile e il gruppo CISO viene avvisato. Gli indirizzi personali non vengono mai inviati. Un dominio verificato richiede una sola richiesta; altrimenti gli indirizzi vengono verificati uno per uno, entro il limite di frequenza della chiave."
+
+msgid "Enable data breach monitoring"
+msgstr "Attivare il monitoraggio delle violazioni di dati"
+
+msgid "Work email domains to monitor"
+msgstr "Domini e-mail professionali da monitorare"
+
+msgid "Only addresses on these domains are checked."
+msgstr "Vengono verificati solo gli indirizzi di questi domini."
+
+msgid "Have I Been Pwned API key"
+msgstr "Chiave API di Have I Been Pwned"
+
+msgid "Key saved (leave empty to keep it)"
+msgstr "Chiave salvata (lasciare vuoto per mantenerla)"
+
+msgid "Encrypted with the GLPI key and never displayed again."
+msgstr "Cifrata con la chiave di GLPI e mai più visualizzata."
+
+msgid "Delete the saved key"
+msgstr "Eliminare la chiave salvata"
+
+msgid "Test the key"
+msgstr "Testare la chiave"
+
+msgid "No known data breach for this user's work email addresses."
+msgstr "Nessuna violazione di dati nota per gli indirizzi professionali di questo utente."
+
+msgid "Data breach monitoring is not enabled (GRC Manager configuration)."
+msgstr "Il monitoraggio delle violazioni di dati non è attivo (configurazione di GRC Manager)."
+
+msgid "Data breach exposure"
+msgid_plural "Data breach exposures"
+msgstr[0] "Esposizione in una violazione di dati"
+msgstr[1] "Esposizioni in violazioni di dati"
+
+msgctxt "breach"
+msgid "New"
+msgstr "Nuova"
+
+msgctxt "breach"
+msgid "Handled (password changed…)"
+msgstr "Gestita (password cambiata…)"
+
+msgctxt "breach"
+msgid "Not applicable"
+msgstr "Non applicabile"
+
+msgid "Detected on"
+msgstr "Rilevata il"
+
+msgid "Spam list"
+msgstr "Lista di spam"
+
+msgid "Data breach monitoring: checks work email addresses with Have I Been Pwned"
+msgstr "Monitoraggio delle violazioni di dati: verifica gli indirizzi professionali presso Have I Been Pwned"
+
+#, php-format
+msgid "Have I Been Pwned: error %s"
+msgstr "Have I Been Pwned: errore %s"
+
+msgid "Have I Been Pwned: rate limit reached, the next run resumes where this one stopped"
+msgstr "Have I Been Pwned: limite di frequenza raggiunto, la prossima esecuzione riprenderà da dove si è fermata questa"
+
+msgid "New data breach exposures"
+msgstr "Nuove esposizioni in violazioni di dati"
+
+msgid "CISO group (GRC Manager)"
+msgstr "Gruppo CISO (GRC Manager)"
+
+msgid "New exposures"
+msgstr "Nuove esposizioni"
+
+msgid "Work email addresses found in known data breaches (Have I Been Pwned), checked every day."
+msgstr "Gli indirizzi professionali trovati in violazioni di dati note (Have I Been Pwned), verificati ogni giorno."
+
+msgid "For each new exposure, have the password changed (and enable multi-factor authentication) if passwords were exposed, then mark it as handled."
+msgstr "Per ogni nuova esposizione, fate cambiare la password (e attivate l'autenticazione a più fattori) se sono state esposte password, poi segnatela come gestita."
+
+msgid "ISO 27001, Annex A 5.7 and 5.17"
+msgstr "ISO 27001, Allegato A 5.7 e 5.17"
+
+#, php-format
+msgid "%s: verified domain, one request per run"
+msgstr "%s: dominio verificato, una richiesta per esecuzione"
+
+#, php-format
+msgid "%s: checked address by address"
+msgstr "%s: verificato indirizzo per indirizzo"
+
+msgid "Have I Been Pwned key accepted."
+msgstr "Chiave di Have I Been Pwned accettata."
+
+msgid "Have I Been Pwned refused the API key."
+msgstr "Have I Been Pwned ha rifiutato la chiave API."
+
+#, php-format
+msgid "Have I Been Pwned could not be reached (code %d)."
+msgstr "Impossibile contattare Have I Been Pwned (codice %d)."

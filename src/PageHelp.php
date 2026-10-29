@@ -284,6 +284,18 @@ class PageHelp
                 ),
                 'reference' => __('ISO 27001, Annex A 8.20 to 8.22', 'grcmanager'),
             ],
+            'breachexposure' => [
+                'purpose'   => __(
+                    'Work email addresses found in known data breaches (Have I Been Pwned), checked every day.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'For each new exposure, have the password changed (and enable multi-factor authentication) '
+                        . 'if passwords were exposed, then mark it as handled.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO 27001, Annex A 5.7 and 5.17', 'grcmanager'),
+            ],
             'compliancecalendar' => [
                 'purpose'  => __(
                     'The compliance calendar: all due dates (reviews, audits, renewals, obligations) in one place, '

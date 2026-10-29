@@ -210,6 +210,12 @@ function plugin_init_grcmanager(): void
         'addtabon' => $CFG_GLPI['software_types'] ?? ['Computer'],
     ]);
 
+    // Issue #183 : onglet « Expositions à des fuites de données » sur la fiche de l'utilisateur (registre
+    // sensible), et clé d'API Have I Been Pwned chiffrée par GLPI (configuration sécurisée).
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\BreachExposure::class, ['addtabon' => [User::class]]);
+    $PLUGIN_HOOKS[Hooks::SECURED_CONFIGS]['grcmanager']
+        = \GlpiPlugin\Grcmanager\Services\Breach\BreachMonitorConfig::SECURED;
+
     // Issue #169 : onglet « Rapport post-incident » sur les incidents de sécurité.
     Plugin::registerClass(\GlpiPlugin\Grcmanager\SecurityIncidentPostMortem::class, [
         'addtabon' => [PluginGrcmanagerSecurityIncident::class],

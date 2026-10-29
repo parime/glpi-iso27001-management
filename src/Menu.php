@@ -97,7 +97,7 @@ class Menu extends CommonGLPI
             // (qui exigent aussi la lecture des logiciels) restent une sous-page parmi d'autres.
             ComplianceAudit::class => [
                 ParkVulnerability::class, self::MACHINE_RANKING, self::SOFTWARE_WATCH,
-                CanonicalProduct::class, NetworkFlow::class,
+                CanonicalProduct::class, NetworkFlow::class, BreachExposure::class,
             ],
         ];
     }

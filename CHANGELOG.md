@@ -7,6 +7,19 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Added
+
+- **Surveillance des fuites de données (Have I Been Pwned)**, issue #183 :
+  - action automatique quotidienne : recherche par domaine vérifié, sinon adresse par adresse sur
+    les domaines configurés, en respectant la limite de débit et en reprenant là où elle s'est
+    arrêtée ;
+  - liste « Fuites de données » (rubrique Sécurité technique) et onglet sur la fiche utilisateur,
+    avec un statut (nouvelle, traitée, sans objet) et un commentaire ;
+  - notification au groupe RSSI avec le seul nombre de nouvelles expositions et le lien ;
+  - réglages dans la configuration : domaines, clé d'API chiffrée, bouton de test.
+- Sécurité : réservé au droit « Registres sensibles » ; adresse non stockée quand elle appartient à
+  un utilisateur GLPI ; adresses personnelles jamais envoyées ; tests ajoutés à la matrice d'accès.
+
 ## [2.17.0] - 2026-10-28
 
 ### Added
