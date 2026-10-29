@@ -609,16 +609,28 @@ class NetworkFlow extends NetworkFlowBase
      * identique à un flux existant (mêmes source, destination, protocole et ports) est ignorée :
      * réimporter le même fichier ne crée pas de doublon.
      *
+     * Sauvegarde pfSense : $outside est l'interface côté Internet (vide : déduite du fichier) ; le
+     * résultat donne alors les interfaces, celle retenue, la présence de secrets dans le fichier et
+     * le nombre de règles identiques fusionnées.
+     *
      * @return array{created: int, skipped: int, errors: list<array{line: int, message: string}>,
-     *     rows: list<array<string, mixed>>}
+     *     rows: list<array<string, mixed>>, pfsense: ?array{interfaces: array<string, string>,
+     *     outside: string, secrets: bool, merged: int}}
      */
-    public static function importCsv(string $content, bool $simulate): array
+    public static function importCsv(string $content, bool $simulate, string $outside = ''): array
     {
         // Issue #144, phase 2 : une sauvegarde pfSense (config.xml) est reconnue à son contenu.
-        $parsed = str_starts_with(ltrim(preg_replace('/^\xEF\xBB\xBF/', '', $content) ?? $content), '<')
-            ? NetworkFlowPfsense::parse($content)
-            : NetworkFlowCsv::parse($content);
-        $result = ['created' => 0, 'skipped' => 0, 'errors' => [], 'rows' => []];
+        $isXml = str_starts_with(ltrim(preg_replace('/^\xEF\xBB\xBF/', '', $content) ?? $content), '<');
+        $parsed = $isXml ? NetworkFlowPfsense::parse($content, $outside) : NetworkFlowCsv::parse($content);
+        $result = ['created' => 0, 'skipped' => 0, 'errors' => [], 'rows' => [], 'pfsense' => null];
+        if (isset($parsed['interfaces']) && $parsed['interfaces'] !== []) {
+            $result['pfsense'] = [
+                'interfaces' => $parsed['interfaces'],
+                'outside'    => $parsed['outside'],
+                'secrets'    => $parsed['secrets'],
+                'merged'     => $parsed['merged'],
+            ];
+        }
         foreach ($parsed['errors'] as $error) {
             $result['errors'][] = ['line' => $error['line'], 'message' => self::csvErrorLabel($error['message'])];
         }

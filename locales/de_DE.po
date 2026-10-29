@@ -5679,3 +5679,17 @@ msgstr "Have I Been Pwned hat den API-Schlüssel abgelehnt."
 #, php-format
 msgid "Have I Been Pwned could not be reached (code %d)."
 msgstr "Have I Been Pwned war nicht erreichbar (Code %d)."
+
+msgid "Internet-facing interface"
+msgstr "Schnittstelle zum Internet"
+
+msgid "This backup contains secrets of the firewall (keys, passwords, certificates). Only interfaces, aliases and filter rules were read, and the file was not kept. Next time, export only the needed areas (Diagnostics > Backup & Restore > Backup area: Aliases, Firewall Rules, Interfaces) and do not store or send the full backup."
+msgstr "Diese Sicherung enthält Geheimnisse der Firewall (Schlüssel, Passwörter, Zertifikate). Nur Schnittstellen, Aliase und Filterregeln wurden gelesen, und die Datei wurde nicht aufbewahrt. Exportieren Sie nächstes Mal nur die benötigten Bereiche (Diagnostics > Backup & Restore > Backup area: Aliases, Firewall Rules, Interfaces) und speichern oder versenden Sie die vollständige Sicherung nicht."
+
+#, php-format
+msgid "Internet-facing interface: %s. Rules on this interface from anywhere are publications; elsewhere, rules towards anywhere or towards everything except private networks are Internet access. Change it above and analyse the file again if needed."
+msgstr "Schnittstelle zum Internet: %s. Regeln auf dieser Schnittstelle von beliebiger Quelle sind Veröffentlichungen; anderswo sind Regeln zu beliebigem Ziel oder zu allem außer privaten Netzen Internetzugriffe. Ändern Sie sie oben und analysieren Sie die Datei bei Bedarf erneut."
+
+#, php-format
+msgid "%d identical rules merged."
+msgstr "%d identische Regeln zusammengeführt."
