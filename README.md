@@ -103,8 +103,10 @@ archivé), avec ses champs de classification ISO 27001 fusionnés dessus.
   participant, au formateur et au RSSI), et **audits internes** avec constats, notes de travail,
   équipe d'audit, documents réservés à l'équipe (téléchargements historisés) et rapport PDF archivé
   à la clôture.
-- **Matrice des flux** : import d'une sauvegarde pfSense, réseaux partenaires en conflit avec un
-  réseau interne, rapport PDF pour l'auditeur.
+- **Matrice des flux** : import d'une sauvegarde pfSense (zones nommées d'après les interfaces,
+  interface côté Internet au choix, règles identiques fusionnées ; seuls les interfaces, alias et
+  règles sont lus, le fichier n'est jamais conservé et une sauvegarde contenant des secrets est
+  signalée), réseaux partenaires en conflit avec un réseau interne, rapport PDF pour l'auditeur.
 - **Score de maturité** cyber (0 à 100) avec le détail du calcul et son historique mensuel.
 - **Contrôles techniques automatiques** : score ISO 27001, NIS2 et RGPD à partir des données de GLPI
   (antivirus, chiffrement, inventaire, validation des changements, comptes) et ticket de mise en

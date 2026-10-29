@@ -9,6 +9,18 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Import pfSense de la matrice des flux, sur une vraie sauvegarde**, issue #144 (phase 3) :
+  - zones nommées d'après les interfaces (« SITE_A_SRV_BDD (192.168.127.0/24) » au lieu de
+    « Réseau OPT14 ») ;
+  - interface côté Internet déduite de la passerelle par défaut et modifiable à l'import (lien
+    Internet sur `lan` derrière un routeur, par exemple) ;
+  - « tout sauf les réseaux privés » reconnu comme un accès à Internet ;
+  - règles identiques fusionnées, avec leur nombre.
+- Sécurité : seules les sections interfaces, passerelles, alias (sans leur champ `detail`) et
+  règles sont lues ; une sauvegarde complète contenant des secrets (clés IPsec, mots de passe,
+  clés privées…) est signalée avec la marche à suivre, sans qu'aucune valeur ne soit reprise ni le
+  fichier conservé.
+
 - **Surveillance des fuites de données (Have I Been Pwned)**, issue #183 :
   - action automatique quotidienne : recherche par domaine vérifié, sinon adresse par adresse sur
     les domaines configurés, en respectant la limite de débit et en reprenant là où elle s'est
