@@ -1998,13 +1998,16 @@ final class Installer
         }
         // Issue #372 : référence lisible SEC-AAAA-NNNN, source et identifiant externe. Colonnes
         // ajoutées immédiatement : les incidents existants sont numérotés juste après.
-        foreach ([
+        $incidentColumns = [
             'reference'   => "varchar(20) NOT NULL DEFAULT ''",
             'source'      => "varchar(32) NOT NULL DEFAULT ''",
             'external_id' => "varchar(255) NOT NULL DEFAULT ''",
-        ] as $field => $definition) {
+        ];
+        foreach ($incidentColumns as $field => $definition) {
             if (!$DB->fieldExists(self::SECURITY_INCIDENTS_TABLE, $field, false)) {
-                $DB->doQuery('ALTER TABLE `' . self::SECURITY_INCIDENTS_TABLE . '` ADD `' . $field . '` ' . $definition);
+                $DB->doQuery(
+                    'ALTER TABLE `' . self::SECURITY_INCIDENTS_TABLE . '` ADD `' . $field . '` ' . $definition
+                );
             }
         }
         \PluginGrcmanagerSecurityIncident::backfillReferences();

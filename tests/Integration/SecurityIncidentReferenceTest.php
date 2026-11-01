@@ -30,9 +30,17 @@ final class SecurityIncidentReferenceTest extends GrcmanagerIntegrationTestCase
     public function testReferencesFollowEachOtherWithinTheYear(): void
     {
         $first = new PluginGrcmanagerSecurityIncident();
-        $firstId = (int) $first->add(['name' => 'PHPUnit référence 1', 'date' => '2031-03-01 10:00:00', 'entities_id' => 0]);
+        $firstId = (int) $first->add([
+            'name' => 'PHPUnit référence 1',
+            'date' => '2031-03-01 10:00:00',
+            'entities_id' => 0,
+        ]);
         $second = new PluginGrcmanagerSecurityIncident();
-        $secondId = (int) $second->add(['name' => 'PHPUnit référence 2', 'date' => '2031-04-01 10:00:00', 'entities_id' => 0]);
+        $secondId = (int) $second->add([
+            'name' => 'PHPUnit référence 2',
+            'date' => '2031-04-01 10:00:00',
+            'entities_id' => 0,
+        ]);
 
         $first->getFromDB($firstId);
         $second->getFromDB($secondId);

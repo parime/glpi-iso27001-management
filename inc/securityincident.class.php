@@ -124,7 +124,11 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
     {
         global $DB;
 
-        $row = $DB->request(['SELECT' => ['date', 'reference'], 'FROM' => self::getTable(), 'WHERE' => ['id' => $id]])->current();
+        $row = $DB->request([
+            'SELECT' => ['date', 'reference'],
+            'FROM'   => self::getTable(),
+            'WHERE'  => ['id' => $id],
+        ])->current();
         if ($row === null || (string) $row['reference'] !== '') {
             return;
         }
@@ -148,7 +152,13 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
     {
         global $DB;
 
-        foreach ($DB->request(['SELECT' => ['id'], 'FROM' => self::getTable(), 'WHERE' => ['reference' => ''], 'ORDER' => ['date ASC', 'id ASC']]) as $row) {
+        $pending = $DB->request([
+            'SELECT' => ['id'],
+            'FROM'   => self::getTable(),
+            'WHERE'  => ['reference' => ''],
+            'ORDER'  => ['date ASC', 'id ASC'],
+        ]);
+        foreach ($pending as $row) {
             self::assignReference((int) $row['id']);
         }
     }
