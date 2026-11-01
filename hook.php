@@ -353,6 +353,19 @@ function plugin_grcmanager_dashboard_cards(?array $cards = null): array
                 'provider'   => 'Glpi\\Dashboard\\Provider::multipleNumber' . $itilItemtype . 'ByITILCategory',
                 'filters'    => $itilFilters,
             ],
+            // Issue #369 : tactiques et techniques MITRE ATT&CK des incidents.
+            'grcmanager_securityincident_attack_tactics' => [
+                'widgettype' => ['hbar', 'bar', 'multipleNumber', 'pie', 'donut'],
+                'label'      => __('Security incidents by MITRE ATT&CK tactic', 'grcmanager'),
+                'group'      => $group,
+                'provider'   => SecuredDashboardCards::class . '::attackTactics',
+            ],
+            'grcmanager_securityincident_attack_techniques' => [
+                'widgettype' => ['hbar', 'bar', 'multipleNumber'],
+                'label'      => __('Most frequent MITRE ATT&CK techniques', 'grcmanager'),
+                'group'      => $group,
+                'provider'   => SecuredDashboardCards::class . '::attackTopTechniques',
+            ],
             'grcmanager_security_incident_response_time' => [
                 'widgettype' => ['bigNumber'],
                 'label' => __('Average incident response time (hours)', 'grcmanager'),

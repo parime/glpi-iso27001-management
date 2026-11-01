@@ -5814,3 +5814,84 @@ msgid "Indicator of compromise"
 msgid_plural "Indicators of compromise"
 msgstr[0] "Indicador de comprometimento"
 msgstr[1] "Indicadores de comprometimento"
+
+#, php-format
+msgid "\"%s\" is not a known MITRE ATT&CK technique (T1566, T1003.001 or its name)."
+msgstr "\"%s\" não é uma técnica MITRE ATT&CK conhecida (T1566, T1003.001 ou seu nome)."
+
+msgid "Attack chain"
+msgstr "Cadeia de ataque"
+
+msgid "Collection"
+msgstr "Coleta"
+
+msgid "Command and Control"
+msgstr "Comando e controle"
+
+msgid "Credential Access"
+msgstr "Acesso a credenciais"
+
+msgid "Defense Impairment"
+msgstr "Neutralização de defesas"
+
+msgid "Describe how the attacker operated (initial access, persistence, exfiltration...): the dashboard then shows the most frequent tactics and techniques."
+msgstr "Descreva como o atacante agiu (acesso inicial, persistência, exfiltração...): o painel mostra então as táticas e técnicas mais frequentes."
+
+msgid "Discovery"
+msgstr "Descoberta"
+
+msgid "Execution"
+msgstr "Execução"
+
+msgid "Exfiltration"
+msgstr "Exfiltração"
+
+msgid "Initial Access"
+msgstr "Acesso inicial"
+
+msgid "Lateral Movement"
+msgstr "Movimento lateral"
+
+msgid "Most frequent MITRE ATT&CK techniques"
+msgstr "Técnicas MITRE ATT&CK mais frequentes"
+
+msgid "No MITRE ATT&CK technique yet"
+msgstr "Nenhuma técnica MITRE ATT&CK ainda"
+
+msgid "Persistence"
+msgstr "Persistência"
+
+msgid "Privilege Escalation"
+msgstr "Escalonamento de privilégios"
+
+msgid "Reconnaissance"
+msgstr "Reconhecimento"
+
+msgid "Remove this technique?"
+msgstr "Remover esta técnica?"
+
+msgid "Resource Development"
+msgstr "Desenvolvimento de recursos"
+
+msgid "Search the list by identifier or keyword, or type an identifier (T1566, T1003.001) or an exact name. A typed identifier is filed under each of its tactics."
+msgstr "Pesquise na lista por identificador ou palavra-chave, ou digite um identificador (T1566, T1003.001) ou um nome exato. Um identificador digitado é classificado em cada uma de suas táticas."
+
+msgid "Security incidents by MITRE ATT&CK tactic"
+msgstr "Incidentes de segurança por tática MITRE ATT&CK"
+
+msgid "Stealth"
+msgstr "Furtividade"
+
+msgid "Technique observed"
+msgstr "Técnica observada"
+
+msgid "e.g. mimikatz run on the domain controller"
+msgstr "ex.: mimikatz executado no controlador de domínio"
+
+msgid "or identifier / name"
+msgstr "ou identificador / nome"
+
+msgid "MITRE ATT&CK technique"
+msgid_plural "MITRE ATT&CK techniques"
+msgstr[0] "Técnica MITRE ATT&CK"
+msgstr[1] "Técnicas MITRE ATT&CK"
