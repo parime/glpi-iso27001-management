@@ -9,6 +9,9 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Incidents de sécurité** (issue #372, première partie) : les échéances NIS2 / RGPD non encore
+  notifiées s'affichent en tête du panneau de l'incident (en rouge si dépassées, avec le temps
+  restant sinon), au lieu d'être seulement dans la section « Notifications réglementaires ».
 - **Polonais (pl_PL)** : interface, rapports et notifications (1 801 chaînes).
 - **Variantes régionales des traductions** : en_US, es_MX et les espagnols d'Amérique latine,
   fr_CA, fr_BE, pt_PT. GLPI ne se replie pas d'une variante vers sa langue de base : un

@@ -7097,3 +7097,11 @@ msgstr ""
 #, php-format
 msgid "%d identical rules merged."
 msgstr "Scalono identyczne reguły: %d."
+
+#, php-format
+msgid "Overdue since %s"
+msgstr "Po terminie od %s"
+
+#, php-format
+msgid "Due no later than %1$s (%2$d h left)"
+msgstr "Najpóźniej %1$s (pozostało %2$d h)"

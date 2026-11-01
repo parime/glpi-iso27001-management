@@ -5693,3 +5693,11 @@ msgstr "Internet-facing interface: %s. Rules on this interface from anywhere are
 #, php-format
 msgid "%d identical rules merged."
 msgstr "%d identical rules merged."
+
+#, php-format
+msgid "Overdue since %s"
+msgstr "Overdue since %s"
+
+#, php-format
+msgid "Due no later than %1$s (%2$d h left)"
+msgstr "Due no later than %1$s (%2$d h left)"

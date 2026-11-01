@@ -1,0 +1,17 @@
+{# Issue #372 : échéances NIS2 / RGPD non encore notifiées, en tête du panneau de l'incident
+   (elles étaient seulement dans la section « Notifications réglementaires », plus bas). #}
+{% for d in banners %}
+  <div class="alert {{ d.status == 'overdue' ? 'alert-danger' : (d.status == 'due_soon' ? 'alert-warning' : 'alert-info') }} d-flex align-items-start gap-2 py-2 px-3 mb-2" role="status">
+    <i class="ti {{ d.status == 'overdue' ? 'ti-alarm-off' : 'ti-alarm' }} fs-3"></i>
+    <div>
+      <div class="fw-bold">{{ d.label }}</div>
+      <div class="small">
+        {% if d.status == 'overdue' %}
+          {{ __('Overdue since %s', 'grcmanager')|format(d.due|formatted_datetime) }}
+        {% else %}
+          {{ __('Due no later than %1$s (%2$d h left)', 'grcmanager')|format(d.due|formatted_datetime, d.hours_left) }}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endfor %}
