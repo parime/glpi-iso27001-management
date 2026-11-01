@@ -7301,3 +7301,42 @@ msgid_plural "MITRE ATT&CK techniques"
 msgstr[0] "Technika MITRE ATT&CK"
 msgstr[1] "Techniki MITRE ATT&CK"
 msgstr[2] "Techniki MITRE ATT&CK"
+
+msgid "Acknowledgement"
+msgstr "Przyjęcie zgłoszenia"
+
+msgid "Average time to closure (hours)"
+msgstr "Średni czas do zamknięcia (godziny)"
+
+msgid "Average time to containment (hours)"
+msgstr "Średni czas do powstrzymania (godziny)"
+
+msgid "Closure"
+msgstr "Zamknięcie"
+
+msgid "Containment"
+msgstr "Powstrzymanie"
+
+msgid "Date each step of the response (NIST SP 800-61): the delays to containment and closure feed the dashboard. Detection is the opening date, closure the closing date."
+msgstr "Opatrz datą każdy etap reagowania (NIST SP 800-61): czasy do powstrzymania i zamknięcia zasilają pulpit. Wykrycie to data otwarcia, zamknięcie to data zamknięcia."
+
+msgid "Dated before the previous phase"
+msgstr "Data wcześniejsza niż poprzedni etap"
+
+msgid "Detection"
+msgstr "Wykrycie"
+
+msgid "Eradication"
+msgstr "Usunięcie zagrożenia"
+
+msgid "Not reached"
+msgstr "Nieosiągnięty"
+
+msgid "Now"
+msgstr "Teraz"
+
+msgid "Recovery"
+msgstr "Przywrócenie działania"
+
+msgid "Response phases"
+msgstr "Etapy reagowania"

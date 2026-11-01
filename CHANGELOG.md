@@ -9,6 +9,12 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Phases de réponse NIST** sur les incidents de sécurité (issue #370) : section « Phases de
+  réponse » où l'on date la prise en compte, le confinement, l'éradication et la remise en service
+  (bouton « Maintenant »), la détection et la clôture reprenant les dates de l'incident. Frise des
+  phases en tête de l'incident avec le délai depuis la détection, alerte si une phase est datée
+  avant la précédente, recherche sur les quatre dates, et deux cartes de tableau de bord : délai
+  moyen de confinement et de clôture.
 - **Indicateurs de compromission (IOC)** sur les incidents de sécurité (issue #369) : nouvel
   onglet « IOC » où l'on colle les adresses IP, domaines, URL, empreintes (MD5, SHA-1, SHA-256),
   e-mails ou noms de fichiers relevés, une valeur par ligne. Le type est détecté automatiquement,
