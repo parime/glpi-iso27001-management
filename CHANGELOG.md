@@ -7,6 +7,13 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Changed
+
+- **Plus de tiret cadratin** (issue #363) : dans les textes affichés, les traductions et la
+  documentation, il est remplacé par « : » entre deux mots, et par « - » comme séparateur ou valeur
+  vide. À la mise à jour, les notifications d'incident de sécurité qui gardent leur nom d'origine
+  sont renommées ; un nom modifié par l'administrateur est conservé.
+
 ### Added
 
 - **Import pfSense de la matrice des flux, sur une vraie sauvegarde**, issue #144 (phase 3) :
