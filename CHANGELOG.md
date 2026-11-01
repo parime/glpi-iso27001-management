@@ -9,6 +9,13 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Journal des actions d'investigation** sur les incidents de sécurité (issue #370) : onglet
+  « Journal des actions » où l'équipe consigne chaque manipulation (date, cible, outil, commande
+  exacte, constat, résultat, détection et tâche de remédiation liées), chronologie filtrable par
+  résultat, synthèse (nombre, période, résultats, intervenants). PDF « Journal des actions et
+  remédiation » avec les phases de réponse et l'empreinte SHA-256 du contenu, consignée dans
+  l'historique de l'incident à chaque impression.
+
 - **Phases de réponse NIST** sur les incidents de sécurité (issue #370) : section « Phases de
   réponse » où l'on date la prise en compte, le confinement, l'éradication et la remise en service
   (bouton « Maintenant »), la détection et la clôture reprenant les dates de l'incident. Frise des
@@ -29,6 +36,11 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   recherche (identifiant ou mot-clé) ou saisie libre normalisée (`t1003/001`, `TA0006`, nom
   exact). Référentiel officiel MITRE ATT&CK Enterprise embarqué (aucun accès réseau). Deux cartes
   de tableau de bord : incidents par tactique et techniques les plus fréquentes.
+
+### Fixed
+
+- PDF du plugin (rapport post-incident, revue des accès, audit, SoA...) : le pied de page affichait
+  « 1 / 0 » ; il affiche désormais le numéro de page.
 
 ## [2.18.0] - 2026-11-02
 

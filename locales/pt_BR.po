@@ -5934,3 +5934,119 @@ msgstr "Recuperação"
 
 msgid "Response phases"
 msgstr "Fases de resposta"
+
+msgid "Action and remediation log (PDF)"
+msgstr "Registro de ações e remediação (PDF)"
+
+#, php-format
+msgid "Action and remediation log: %s"
+msgstr "Registro de ações e remediação: %s"
+
+msgid "Action log"
+msgstr "Registro de ações"
+
+#, php-format
+msgid "Action log printed (SHA-256 %s)"
+msgstr "Registro de ações impresso (SHA-256 %s)"
+
+msgid "Action target"
+msgstr "Alvo"
+
+msgid "Actions in chronological order"
+msgstr "Ações em ordem cronológica"
+
+msgid "Command and finding"
+msgstr "Comando e constatação"
+
+msgid "EDR / XDR console"
+msgstr "Console EDR / XDR"
+
+msgid "Exact command or operation"
+msgstr "Comando ou operação exata"
+
+msgid "Filter by result"
+msgstr "Filtrar por resultado"
+
+msgid "Finding"
+msgstr "Constatação"
+
+msgid "Firewall"
+msgstr "Firewall"
+
+msgid "Forensic analysis"
+msgstr "Análise forense"
+
+#, php-format
+msgid "Generated on %1$s by %2$s"
+msgstr "Gerado em %1$s por %2$s"
+
+msgid "Log each handling as you go (isolation, account reset, blocking, analysis): who did what, where, with which command and with which result. The log can be printed for the authorities or the insurer."
+msgstr "Registre cada intervenção à medida que ocorre (isolamento, redefinição de conta, bloqueio, análise): quem fez o quê, onde, com qual comando e com qual resultado. O registro pode ser impresso para as autoridades ou a seguradora."
+
+msgid "Log this action"
+msgstr "Registrar esta ação"
+
+msgid "No action logged yet"
+msgstr "Nenhuma ação registrada ainda"
+
+msgid "Number of actions"
+msgstr "Número de ações"
+
+msgid "On-site intervention"
+msgstr "Intervenção presencial"
+
+msgid "PC-ACCOUNTING-03, SRV-AD01, j.doe account..."
+msgstr "PC-CONTABILIDADE-03, SRV-AD01, conta j.doe..."
+
+msgid "Period"
+msgstr "Período"
+
+msgid "Related detection (IOC)"
+msgstr "Detecção relacionada (IOC)"
+
+msgid "Related remediation task"
+msgstr "Tarefa de remediação relacionada"
+
+msgid "Remove this action from the log?"
+msgstr "Remover esta ação do registro?"
+
+msgid "Responder"
+msgstr "Responsável"
+
+msgid "Responders"
+msgstr "Responsáveis"
+
+msgid "Result"
+msgstr "Resultado"
+
+msgid "Results"
+msgstr "Resultados"
+
+msgid "Successful"
+msgstr "Bem-sucedida"
+
+msgid "The action date is invalid."
+msgstr "A data da ação é inválida."
+
+msgid "The target of the action is required."
+msgstr "O alvo da ação é obrigatório."
+
+msgid "This fingerprint is recorded in the incident history each time the log is printed."
+msgstr "Esta impressão digital é registrada no histórico do incidente a cada impressão do registro."
+
+msgid "To be checked"
+msgstr "A verificar"
+
+msgid "Tool"
+msgstr "Ferramenta"
+
+msgid "What was observed or done"
+msgstr "O que foi observado ou feito"
+
+msgid "action(s)"
+msgstr "ação(ões)"
+
+msgid "Investigation action"
+msgid_plural "Investigation actions"
+msgstr[0] "Ação de investigação"
+msgstr[1] "Ações de investigação"
