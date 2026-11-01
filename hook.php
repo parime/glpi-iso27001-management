@@ -414,6 +414,8 @@ function plugin_grcmanager_ticket_security_section(Ticket $ticket): void
 /**
  * Issue #372 : bandeau des échéances NIS2 / RGPD non encore notifiées, en tête du panneau de
  * l'incident de sécurité (Hooks::PRE_ITIL_INFO_SECTION, setup.php).
+ *
+ * @param array<string, mixed> $params
  */
 function plugin_grcmanager_pre_itil_info_section(array $params): void
 {
