@@ -6,7 +6,7 @@
          <div class="col-md-4">
             <div class="card">
                <div class="card-body d-flex align-items-center gap-3">
-                  <span class="badge {{ _self.score_class(s.score) }} fs-1 px-3 py-2">{{ s.score is null ? '—' : s.score ~ ' %' }}</span>
+                  <span class="badge {{ _self.score_class(s.score) }} fs-1 px-3 py-2">{{ s.score is null ? '-' : s.score ~ ' %' }}</span>
                   <div>
                      <div class="h3 mb-0">{{ s.label }}</div>
                      <div class="text-muted small">{{ s.checks > 0 ? __('Average of %d technical check(s)', 'grcmanager')|format(s.checks) : __('No check can be evaluated', 'grcmanager') }}</div>
@@ -68,7 +68,7 @@
                <p class="mb-0">{{ __('No item concerned in your entities.', 'grcmanager') }}</p>
             {% elseif c.gap_count > 0 %}
                <ul class="mb-2">
-                  {% for g in c.gaps %}<li><a href="{{ g.url }}">{{ g.name }}</a> — <span class="text-muted">{{ g.detail }}</span></li>{% endfor %}
+                  {% for g in c.gaps %}<li><a href="{{ g.url }}">{{ g.name }}</a> - <span class="text-muted">{{ g.detail }}</span></li>{% endfor %}
                </ul>
                {% if c.gap_count > c.gaps|length %}<p class="text-muted small">{{ __('… and %d others.', 'grcmanager')|format(c.gap_count - c.gaps|length) }}</p>{% endif %}
                {% if c.key == 'accounts' %}

@@ -512,7 +512,7 @@ class NetworkFlow extends NetworkFlowBase
             $parts[] = $label;
         }
 
-        return implode(' — ', $parts);
+        return implode(' - ', $parts);
     }
 
     /**

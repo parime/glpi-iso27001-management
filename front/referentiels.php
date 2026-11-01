@@ -27,7 +27,7 @@ include('../../../inc/includes.php');
 
 // Reuses \GlpiPlugin\Grcmanager\Control's own right rather than a dedicated one: this screen only
 // displays the same Annexe A catalog (plus two purely-consultative reference libraries), no
-// meaningful access boundary of its own — same reasoning as \GlpiPlugin\Grcmanager\SecurityIncidentCve
+// meaningful access boundary of its own: same reasoning as \GlpiPlugin\Grcmanager\SecurityIncidentCve
 // reusing PluginGrcmanagerSecurityIncident's right.
 Session::checkRight(\GlpiPlugin\Grcmanager\Control::$rightname, READ);
 
@@ -125,7 +125,7 @@ foreach (Nis2CatalogDefaults::ARTICLES as $article => $articleTitle) {
     $nis2[] = ['article' => (string) $article, 'title' => $articleTitle[$nis2Lang], 'requirements' => $requirements];
 }
 
-// Issue #111 : guide d'hygiène ANSSI — intitulés officiels en français, traduction anglaise
+// Issue #111 : guide d'hygiène ANSSI : intitulés officiels en français, traduction anglaise
 // indicative pour les autres langues ; mesures regroupées par thème.
 $anssi = [];
 foreach (AnssiHygieneCatalogDefaults::THEMES as $themeCode => $themeTitle) {

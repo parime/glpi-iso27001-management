@@ -12,7 +12,7 @@ namespace GlpiPlugin\Grcmanager\Services\Capa;
  * ISO 19011 vocabulary (see TECH_DEBT.md Sprint 4, résolu par cette classe) : a real non-conformity
  * (a genuine gap against a requirement) always requires a documented corrective action before it
  * can be closed/verified (ISO 27001 clause 10.2). A mere observation/remark is tracked through the
- * exact same CAPA workflow but never forces one — an auditor may still add one voluntarily, it is
+ * exact same CAPA workflow but never forces one: an auditor may still add one voluntarily, it is
  * just not a precondition to close/verify.
  */
 final class CapaRequirementService

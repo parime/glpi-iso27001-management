@@ -16,7 +16,7 @@ final class NvdCveParserTest extends TestCase
 
     /**
      * Trimmed real payload for CVE-2021-44228 ("Log4Shell"), captured live from
-     * https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2021-44228 — including the exact
+     * https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2021-44228: including the exact
      * duplicate reference entry (the Apache security page and the Microsoft MSRC advisory each
      * appear twice in the real feed) confirmed to exist in production data, used below to prove
      * patch-link dedup by URL actually fires on real-shaped input, not just a synthetic case.
@@ -99,7 +99,7 @@ final class NvdCveParserTest extends TestCase
                                     'criteria'   => 'cpe:2.3:a:apache:log4j:2.0:beta9:*:*:*:*:*:*',
                                 ],
                                 // Real NVD payloads carry non-vulnerable siblings in the same node
-                                // (e.g. a fixed version listed for reference) — must be excluded.
+                                // (e.g. a fixed version listed for reference): must be excluded.
                                 ['vulnerable' => false, 'criteria' => 'cpe:2.3:a:apache:log4j:2.17.0:*:*:*:*:*:*:*'],
                             ],
                         ],
@@ -107,7 +107,7 @@ final class NvdCveParserTest extends TestCase
                 ],
                 // Real NVD payloads also carry AND-combined nodes with nested `children`
                 // preconditions (e.g. "this Siemens firmware AND this specific hardware
-                // revision") — deliberately not walked, see affectedCpes()'s own docblock.
+                // revision"): deliberately not walked, see affectedCpes()'s own docblock.
                 [
                     'operator' => 'AND',
                     'nodes' => [
@@ -240,7 +240,7 @@ final class NvdCveParserTest extends TestCase
 
     /**
      * A CVSS v2-only metric has no `baseSeverity` field at all in the real NVD payload (that
-     * concept was introduced with v3) — severity must fall back to NIST's own published v2
+     * concept was introduced with v3): severity must fall back to NIST's own published v2
      * qualitative scale, never an invented threshold, and only when no better metric exists.
      */
     public function testDerivesSeverityFromScoreOnlyForAV2OnlyMetricWithNoNativeBaseSeverity(): void
@@ -290,7 +290,7 @@ final class NvdCveParserTest extends TestCase
 
     public function testTruncatesAnOverlyLongDescriptionWithoutSplittingAMultiByteCharacter(): void
     {
-        // A multi-byte character placed exactly at the truncation boundary — the byte-based
+        // A multi-byte character placed exactly at the truncation boundary: the byte-based
         // substr() bug this mirrors (see class docblock) would split it and produce invalid UTF-8.
         $payload = [
             'id'           => 'CVE-2026-00002',

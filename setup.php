@@ -76,7 +76,7 @@ function plugin_init_grcmanager(): void
     // correct content. Deliberately here, not at this file's top level: `RuleCommonITILObject`
     // (the parent class) only exists inside a real GLPI Kernel boot, and setup.php is also
     // require_once'd standalone by SetupMenuRedefinitionTest (tests/Unit/) with no GLPI loaded at
-    // all — a top-level require here would fatal that test with "Class RuleCommonITILObject not
+    // all: a top-level require here would fatal that test with "Class RuleCommonITILObject not
     // found" (confirmed the hard way, first attempt at this fix).
     require_once __DIR__ . '/inc/rulesecurityincident.class.php';
     require_once __DIR__ . '/inc/rulesecurityincidentcollection.class.php';
@@ -179,7 +179,7 @@ function plugin_init_grcmanager(): void
     // glpi_assets_assetdefinitions (voir son docblock) plutôt que
     // Glpi\Asset\AssetDefinitionManager::getInstance()->getDefinitions() (qui renverrait un
     // tableau vide ici : ce hook s'exécute pendant le listener InitializePlugins, avant
-    // CustomObjectsBoot) — exactement le même contournement, déjà éprouvé en production, que
+    // CustomObjectsBoot) : exactement le même contournement, déjà éprouvé en production, que
     // Config::getAllManageableItemtypes() du plugin jumeau assetsign-glpi, qui l'appelle lui
     // aussi directement depuis son propre plugin_init() pour construire ses listes d'addtabon.
     Plugin::registerClass(\GlpiPlugin\Grcmanager\Risk::class, [

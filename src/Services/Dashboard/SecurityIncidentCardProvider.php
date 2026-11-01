@@ -22,7 +22,7 @@ namespace GlpiPlugin\Grcmanager\Services\Dashboard;
 use PluginGrcmanagerSecurityIncident;
 
 /**
- * The one security-incident dashboard card that needs a custom query — everything else (total
+ * The one security-incident dashboard card that needs a custom query: everything else (total
  * count, breakdown by entity/category) is served directly by GLPI core's own generic
  * `Glpi\Dashboard\Provider::bigNumber<Itemtype>`/`multipleNumber<Itemtype>By<FkItemtype>`
  * (`__callStatic` magic methods, already handling entity restriction/`is_deleted` for any

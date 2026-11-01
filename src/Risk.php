@@ -447,7 +447,7 @@ class Risk extends RiskBase
      * @return array<int, string> itemtype class names a risk may be linked to. The fixed default
      *         list (LinkableItemtypes::DEFAULT_ITEMTYPES) plus any active GLPI custom asset
      *         definition, enumerated dynamically at each call so an asset type created or
-     *         activated after this plugin's install is usable without reinstalling it — same
+     *         activated after this plugin's install is usable without reinstalling it: same
      *         dynamic-discovery approach and same `glpi_assets_assetdefinitions` query as the
      *         sibling plugin assetsign-glpi's own Config::getAllManageableItemtypes().
      */
@@ -669,7 +669,7 @@ class Risk extends RiskBase
      * in showForm() above, then delegates to syncLinkedAssets(). Does nothing if NONE of the
      * `linked_items_<Itemtype>` fields are present in the submitted input: an HTML multi-select
      * with zero selections submits no field at all, indistinguishable from "this form section
-     * wasn't rendered" (e.g. a future programmatic/API caller that doesn't know about this block) —
+     * wasn't rendered" (e.g. a future programmatic/API caller that doesn't know about this block) -
      * only ever wipes existing links when the real form was genuinely submitted.
      */
     private function syncLinkedAssetsFromInput(): void

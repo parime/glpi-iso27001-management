@@ -21,7 +21,7 @@ use GlpiPlugin\Grcmanager\Compatibility\Base\CpeReferenceBase;
 use Session;
 
 /**
- * One CPE identifier manually declared as belonging to a CanonicalProduct —
+ * One CPE identifier manually declared as belonging to a CanonicalProduct -
  * several per product, managed inline on that product's own form (see
  * CanonicalProduct::showCpeReferences()), no menu/search screen of its own, same
  * convention as ObjectiveMeasurement.
@@ -45,7 +45,7 @@ class CpeReference extends CpeReferenceBase
 
     /**
      * `cpe` is UNIQUE in the database (one CPE identifier can only ever point to one canonical
-     * product, see Installer.php) — without this check, a duplicate submission reaches
+     * product, see Installer.php): without this check, a duplicate submission reaches
      * CommonDBTM::add()'s raw INSERT and surfaces as an uncaught RuntimeException (HTTP 500,
      * confirmed live against a real GLPI instance) instead of the normal
      * Session::addMessageAfterRedirect() error flow every other validation failure in this plugin

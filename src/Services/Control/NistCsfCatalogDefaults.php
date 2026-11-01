@@ -6,15 +6,15 @@ namespace GlpiPlugin\Grcmanager\Services\Control;
 
 /**
  * Structure officielle du NIST Cybersecurity Framework (CSF) 2.0 (6 Fonctions, 22
- * Catégories, 106 Sous-catégories) — texte intégral des intitulés/objectifs, domaine public
+ * Catégories, 106 Sous-catégories) : texte intégral des intitulés/objectifs, domaine public
  * (publication du gouvernement américain, aucune restriction de reproduction, contrairement à
  * ISO 27002). Sourcé sur le catalogue OSCAL officiel publié par NIST
  * (https://github.com/usnistgov/oscal-content, nist.gov/CSF/v2.0/json), en filtrant les
  * éléments explicitement marqués `status: withdrawn` (les anciennes catégories/sous-catégories
  * de CSF 1.1 conservées dans le fichier à des fins historiques/de transition, ex. ID.BE, ID.GV,
- * PR.AC, PR.IP — absentes du CSF 2.0 réel et donc absentes d'ici).
+ * PR.AC, PR.IP : absentes du CSF 2.0 réel et donc absentes d'ici).
  *
- * Catalogue de référence, purement consultable — voir ControlCrosswalkDefaults pour la
+ * Catalogue de référence, purement consultable : voir ControlCrosswalkDefaults pour la
  * correspondance avec l'Annexe A ISO 27001 (\GlpiPlugin\Grcmanager\Control).
  */
 final class NistCsfCatalogDefaults

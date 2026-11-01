@@ -218,7 +218,7 @@ Journal des limites connues et compromis assumés, tenu à jour à chaque sprint
 - **Un multi-select par itemtype liable, jamais un unique widget polymorphe
   `Dropdown::showSelectItemFromItemtypes()`.** Ce widget natif GLPI existe précisément pour ce cas
   d'usage (choisir un itemtype puis un item de ce type), mais son fonctionnement réel dépend d'un
-  second appel Ajax déclenché en JS au changement du premier `<select>` — irait à l'encontre du
+  second appel Ajax déclenché en JS au changement du premier `<select>` - irait à l'encontre du
   choix déjà assumé pour `showForm()` depuis le Sprint 1 ("HTML/PHP manuel, pas de logique JS
   avancée", voir ci-dessus). Un multi-select par itemtype (même widget `Dropdown::showFromArray(...,
   ['multiple' => true])` que `PluginGrcmanagerControl::showForm()` pour son propre lien vers les

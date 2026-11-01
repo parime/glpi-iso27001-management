@@ -19,7 +19,7 @@
  * Resolved automatically by `NotificationTarget::getInstanceClass()` for the legacy-global-
  * namespace `PluginGrcmanagerSecurityIncident` itemtype (`isPluginItemType()` parses
  * "Securityincidents" as the plugin key and "SecurityIncident" as the class, producing
- * `Plugin` + `Securityincidents` + `NotificationTarget` + `SecurityIncident` — confirmed by
+ * `Plugin` + `Securityincidents` + `NotificationTarget` + `SecurityIncident` - confirmed by
  * reading GLPI core, no extra hook registration needed). Same minimal shape as core's own
  * `NotificationTargetChange`: only the event labels are specific to this plugin.
  */

@@ -5,12 +5,12 @@ namespace GlpiPlugin\Grcmanager\Tests\Integration;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Base class for the integration suite (real GLPI Kernel boot, real DB — see
+ * Base class for the integration suite (real GLPI Kernel boot, real DB: see
  * tests/integration-bootstrap.php). Each test runs inside a transaction rolled back in tearDown,
  * ported unchanged from the absorbed glpi-security-incidents plugin's own
  * `SecurityIncidentsTestCase` (ROADMAP.md "Version 2.0"), same pattern as the sibling plugin
  * assetsign-glpi's own `AssetsignTestCase` (same author). Not an absolute safety net (a query that
- * implicitly commits, e.g. DDL, would escape the rollback) — never run against a production
+ * implicitly commits, e.g. DDL, would escape the rollback): never run against a production
  * database.
  */
 abstract class GrcmanagerIntegrationTestCase extends TestCase
@@ -22,7 +22,7 @@ abstract class GrcmanagerIntegrationTestCase extends TestCase
         global $DB;
         $DB->beginTransaction();
 
-        // tests/integration-bootstrap.php simulates no real session — $_SESSION stays empty.
+        // tests/integration-bootstrap.php simulates no real session - $_SESSION stays empty.
         // Without native GLPI rights, CommonDBTM::can() always fails, even for a legitimate test.
         // Reproduces the Super-Admin profile's own rights (profiles_id = 4 on a fresh install)
         // rather than enumerating every right this suite happens to touch.

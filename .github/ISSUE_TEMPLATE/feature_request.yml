@@ -6,7 +6,7 @@ body:
     attributes:
       value: |
         Avant de proposer une fonctionnalité majeure, jetez un œil à ROADMAP.md et
-        docs/design/DEVELOPMENT_PLAN.md — elle est peut-être déjà planifiée.
+        docs/design/DEVELOPMENT_PLAN.md : elle est peut-être déjà planifiée.
 
   - type: textarea
     id: need

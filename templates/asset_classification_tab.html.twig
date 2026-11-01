@@ -14,8 +14,8 @@
    {% endif %}
    {% if classification.rto_hours|default(0) or classification.rpo_hours|default(0) %}
       <p>
-         <i class="ti ti-clock-hour-4 me-1"></i>RTO : <strong>{{ recovery[classification.rto_hours]|default('—') }}</strong>
-         <span class="ms-3"><i class="ti ti-database me-1"></i>RPO : <strong>{{ recovery[classification.rpo_hours]|default('—') }}</strong></span>
+         <i class="ti ti-clock-hour-4 me-1"></i>RTO : <strong>{{ recovery[classification.rto_hours]|default('-') }}</strong>
+         <span class="ms-3"><i class="ti ti-database me-1"></i>RPO : <strong>{{ recovery[classification.rpo_hours]|default('-') }}</strong></span>
       </p>
    {% endif %}
 

@@ -1283,8 +1283,8 @@ msgid_plural "CPE identifiers"
 msgstr[0] "CPE-Kennung"
 msgstr[1] "CPE-Kennungen"
 
-msgid "Short name, e.g. \"Apache\", \"Microsoft\" — used only as a label, never for matching."
-msgstr "Kurzname, z. B. \"Apache\", \"Microsoft\" — dient nur als Bezeichnung, nie zum Abgleich."
+msgid "Short name, e.g. \"Apache\", \"Microsoft\" - used only as a label, never for matching."
+msgstr "Kurzname, z. B. \"Apache\", \"Microsoft\" - dient nur als Bezeichnung, nie zum Abgleich."
 
 msgid "A CPE identifier as reported by the NVD for this product (e.g. \"cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point to the same product."
 msgstr "Eine CPE-Kennung, wie sie von der NVD für dieses Produkt gemeldet wird (z. B. \"cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*\"). Mehrere Kennungen können auf dasselbe Produkt verweisen."
@@ -1316,8 +1316,8 @@ msgstr "Referenzrahmen"
 msgid "Equivalent reference frameworks"
 msgstr "Entsprechende Referenzrahmen"
 
-msgid "Mapping published by NIST — see"
-msgstr "Vom NIST veröffentlichte Zuordnung — siehe"
+msgid "Mapping published by NIST: see"
+msgstr "Vom NIST veröffentlichte Zuordnung: siehe"
 
 msgid "the Reference frameworks screen"
 msgstr "die Ansicht Referenzrahmen"
@@ -1361,8 +1361,8 @@ msgstr "Stufe"
 msgid "Risk details"
 msgstr "Details der Risiken"
 
-msgid "Statement of Applicability — ISO/IEC 27001:2022 Annex A"
-msgstr "Erklärung zur Anwendbarkeit — ISO/IEC 27001:2022 Anhang A"
+msgid "Statement of Applicability: ISO/IEC 27001:2022 Annex A"
+msgstr "Erklärung zur Anwendbarkeit: ISO/IEC 27001:2022 Anhang A"
 
 #, php-format
 msgid "Generated on %s"
@@ -1418,14 +1418,14 @@ msgstr "Unbekannter Wert für den Umsetzungsstatus."
 msgid "Justification required: this control is not fully applicable."
 msgstr "Begründung erforderlich: Diese Maßnahme ist nicht vollständig anwendbar."
 
-msgid "CSV import/export — Annex A"
-msgstr "CSV-Import/-Export — Anhang A"
+msgid "CSV import/export: Annex A"
+msgstr "CSV-Import/-Export: Anhang A"
 
 msgid "CSV import/export"
 msgstr "CSV-Import/-Export"
 
-msgid "One per line, or comma-separated — several at once are supported."
-msgstr "Eine pro Zeile oder durch Kommas getrennt — mehrere gleichzeitig werden unterstützt."
+msgid "One per line, or comma-separated: several at once are supported."
+msgstr "Eine pro Zeile oder durch Kommas getrennt: mehrere gleichzeitig werden unterstützt."
 
 msgid "Enables or disables each part of the security incident management module (dedicated ITIL object, visible in the Assistance menu)."
 msgstr "Aktiviert oder deaktiviert jeden Teil des Moduls zur Verwaltung von Sicherheitsvorfällen (eigenes ITIL-Objekt, sichtbar im Menü Unterstützung)."
@@ -1436,8 +1436,8 @@ msgstr "Ruft für jede verfolgte CVE automatisch CVSS-Score, Schweregrad, Beschr
 msgid "A CVE with an equal or higher score is highlighted as urgent."
 msgstr "Eine CVE mit gleichem oder höherem Score wird als dringend hervorgehoben."
 
-msgid "No usable row was found in this file — check that it is really a CSV exported from this screen (semicolon-separated columns)."
-msgstr "In dieser Datei wurde keine verwertbare Zeile gefunden — prüfen Sie, ob es sich wirklich um eine aus dieser Ansicht exportierte CSV handelt (durch Semikolons getrennte Spalten)."
+msgid "No usable row was found in this file: check that it is really a CSV exported from this screen (semicolon-separated columns)."
+msgstr "In dieser Datei wurde keine verwertbare Zeile gefunden: prüfen Sie, ob es sich wirklich um eine aus dieser Ansicht exportierte CSV handelt (durch Semikolons getrennte Spalten)."
 
 msgid "Expected file: the one downloaded above, possibly edited (semicolon-separated columns). Only the applicabilite, etat_mise_en_oeuvre and justification columns are applied, matched by the control's code. No row is ever created or deleted."
 msgstr "Erwartete Datei: die oben heruntergeladene, ggf. bearbeitet (durch Semikolons getrennte Spalten). Nur die Spalten applicabilite, etat_mise_en_oeuvre und justification werden übernommen, zugeordnet über den Code der Maßnahme. Es werden niemals Zeilen erstellt oder gelöscht."
@@ -1527,8 +1527,8 @@ msgstr "Quelle: Richtlinie (EU) 2022/2555 (NIS2), © Europäische Union, EUR-Lex
 msgid "NIS2 requirements"
 msgstr "NIS2-Anforderungen"
 
-msgid "Indicative mapping made by this project — see"
-msgstr "Unverbindliche Zuordnung, erstellt von diesem Projekt — siehe"
+msgid "Indicative mapping made by this project: see"
+msgstr "Unverbindliche Zuordnung, erstellt von diesem Projekt: siehe"
 
 msgid "ANSSI hygiene"
 msgstr "ANSSI-Hygiene"
@@ -1923,17 +1923,17 @@ msgstr "Ticket als Sicherheitsvorfall Nr. %d eingestuft."
 msgid "%s: notified on"
 msgstr "%s: gemeldet am"
 
-msgid "NIS2 — early warning (24 h)"
-msgstr "NIS2 — Frühwarnung (24 h)"
+msgid "NIS2: early warning (24 h)"
+msgstr "NIS2: Frühwarnung (24 h)"
 
-msgid "NIS2 — incident notification (72 h)"
-msgstr "NIS2 — Meldung des Sicherheitsvorfalls (72 h)"
+msgid "NIS2: incident notification (72 h)"
+msgstr "NIS2 : Meldung des Sicherheitsvorfalls (72 h)"
 
-msgid "NIS2 — final report (1 month)"
-msgstr "NIS2 — Abschlussbericht (1 Monat)"
+msgid "NIS2: final report (1 month)"
+msgstr "NIS2: Abschlussbericht (1 Monat)"
 
-msgid "GDPR — notification to the supervisory authority (72 h)"
-msgstr "DSGVO — Meldung an die Aufsichtsbehörde (72 h)"
+msgid "GDPR: notification to the supervisory authority (72 h)"
+msgstr "DSGVO: Meldung an die Aufsichtsbehörde (72 h)"
 
 msgid "Reports NIS2 / GDPR notification deadlines that are near or past with a follow-up"
 msgstr "Meldet nahende oder überschrittene NIS2-/DSGVO-Meldefristen per Nachverfolgung"
@@ -5415,8 +5415,8 @@ msgstr "Von den Prüfungen ausgeschlossene Computer (Status): %s"
 msgid "The library of security policies, versioned, with their approval and review date."
 msgstr "Die Bibliothek versionierter Sicherheitsrichtlinien mit Genehmigung und Überprüfungsdatum."
 
-msgid "ISO/IEC 27090:2026 — Security of AI systems"
-msgstr "ISO/IEC 27090:2026 — Sicherheit von KI-Systemen"
+msgid "ISO/IEC 27090:2026: Security of AI systems"
+msgstr "ISO/IEC 27090:2026: Sicherheit von KI-Systemen"
 
 msgid "Guidance, not certifiable, to be applied alongside ISO/IEC 27001 and ISO/IEC 42001. The typical AI risks of the risk catalog refer to these sections."
 msgstr "Leitlinien, nicht zertifizierbar, anzuwenden zusammen mit ISO/IEC 27001 und ISO/IEC 42001. Die typischen KI-Risiken des Risikokatalogs verweisen auf diese Abschnitte."

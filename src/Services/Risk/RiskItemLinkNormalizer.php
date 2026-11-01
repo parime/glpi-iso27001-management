@@ -17,7 +17,7 @@ namespace GlpiPlugin\Grcmanager\Services\Risk;
  * this class covers: every other simple link table in this plugin (controls_risks,
  * audits_controls, trainings_users, managementreviews_users) has the same gap, validated instead
  * against a real GLPI instance (see docs/design/DEVELOPMENT_PLAN.md, "Environnement de
- * développement et tests"), not by PHPUnit — this issue does not change that established
+ * développement et tests"), not by PHPUnit : this issue does not change that established
  * convention, see TECH_DEBT.md.
  */
 final class RiskItemLinkNormalizer

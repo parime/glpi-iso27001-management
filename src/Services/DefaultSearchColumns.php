@@ -61,7 +61,7 @@ final class DefaultSearchColumns
         'PluginGrcmanagerSecurityIncident' => [13, 1, 2, 3, 4, 5, 6],
         // Corrélation CPE des CVE avec le parc GLPI (cf. ROADMAP.md) : seulement 2 colonnes
         // (éditeur, produit), pas de convention "id first" à respecter faute de colonne ID dédiée
-        // — même choix que le CanonicalProduct du plugin jumeau glpi-vulnerability-manager, qui n'a
+        // - même choix que le CanonicalProduct du plugin jumeau glpi-vulnerability-manager, qui n'a
         // lui non plus pas de colonne de titre naturelle.
         'GlpiPlugin\\Grcmanager\\CanonicalProduct' => [1, 2],
     ];

@@ -83,7 +83,7 @@ class NotificationTargetSupplierRisk extends NotificationTarget
         );
 
         $this->data['##supplierrisk.notices##'] = implode("\n", array_map(
-            static fn (array $notice): string => $notice['ref'] . ' — ' . $notice['title'] . ' — ' . $notice['link'],
+            static fn (array $notice): string => $notice['ref'] . ' - ' . $notice['title'] . ' - ' . $notice['link'],
             $options['notices'] ?? []
         ));
         // Registre sensible : e-mail sans détail par défaut (SensitiveNotification).

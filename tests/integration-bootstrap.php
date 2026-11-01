@@ -1,7 +1,7 @@
 <?php
 
 /**
- * PHPUnit bootstrap for the integration suite (real GLPI Kernel boot, real DB) — ported from the
+ * PHPUnit bootstrap for the integration suite (real GLPI Kernel boot, real DB): ported from the
  * absorbed glpi-security-incidents plugin (ROADMAP.md "Version 2.0"), same mechanism as the
  * sibling plugin assetsign-glpi (same author): GLPI 11 has no lightweight bootstrap any more,
  * `Glpi\Kernel\Kernel` (the same one `bin/console` uses) is the real entry point, reproduced here
@@ -41,7 +41,7 @@ if (is_file(__DIR__ . '/../vendor/autoload.php')) {
 
 $kernel = new \Glpi\Kernel\Kernel('production');
 // A plain local variable here never becomes a real PHP global (this bootstrap is include_once'd
-// from inside a method, not run at top-level script scope) — GLPI's own legacy code (e.g.
+// from inside a method, not run at top-level script scope): GLPI's own legacy code (e.g.
 // isAPI()/getMainRequest()-dependent paths reached from CommonDBTM::add() hooks such as
 // notification queueing) does `global $kernel` internally and finds nothing without this,
 // crashing with "Call to a member function getMainRequest() on null". Confirmed live: exactly

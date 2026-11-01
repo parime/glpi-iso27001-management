@@ -18,7 +18,7 @@
                </td>
                <td><span class="badge {{ doc.status_class }}">{{ doc.status_label }}</span></td>
                {% if can_edit %}
-                  <td><input type="date" class="form-control form-control-sm" name="valid_until" form="{{ form_id }}" value="{{ doc.valid_until }}" aria-label="{{ __('Valid until', 'grcmanager') }} — {{ doc.name }}"></td>
+                  <td><input type="date" class="form-control form-control-sm" name="valid_until" form="{{ form_id }}" value="{{ doc.valid_until }}" aria-label="{{ __('Valid until', 'grcmanager') }} - {{ doc.name }}"></td>
                   {% set user_dropdown = doc.user_dropdown_safe_html %}
                   <td>{{ user_dropdown|raw }}</td>
                   <td class="text-nowrap">

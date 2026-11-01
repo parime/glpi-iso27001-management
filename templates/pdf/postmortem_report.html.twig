@@ -4,11 +4,11 @@
 
 <h2>{{ __('Summary', 'grcmanager') }}</h2>
 <table class="grcmanager-pdf-summary">
-  <tr><td>{{ __('Incident', 'grcmanager') }}</td><td>#{{ incident.id }} — {{ incident.name }}</td></tr>
-  <tr><td>{{ __('Status', 'grcmanager') }}</td><td>{{ incident.status }}{% if not incident.closed %} — {{ __('provisional report, incident not closed', 'grcmanager') }}{% endif %}</td></tr>
+  <tr><td>{{ __('Incident', 'grcmanager') }}</td><td>#{{ incident.id }} - {{ incident.name }}</td></tr>
+  <tr><td>{{ __('Status', 'grcmanager') }}</td><td>{{ incident.status }}{% if not incident.closed %} - {{ __('provisional report, incident not closed', 'grcmanager') }}{% endif %}</td></tr>
   <tr><td>{{ __('Category / severity', 'grcmanager') }}</td><td>{{ incident.category }} / {{ incident.severity }}</td></tr>
   <tr><td>{{ __('Declared on', 'grcmanager') }}</td><td>{{ incident.opened }}</td></tr>
-  <tr><td>{{ __('Solved / closed on', 'grcmanager') }}</td><td>{{ incident.solved ?: '—' }} / {{ incident.closed_at ?: '—' }}</td></tr>
+  <tr><td>{{ __('Solved / closed on', 'grcmanager') }}</td><td>{{ incident.solved ?: '-' }} / {{ incident.closed_at ?: '-' }}</td></tr>
   {% if incident.hours is not null %}<tr><td>{{ __('Time to resolution', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ incident.hours }} h</td></tr>{% endif %}
   <tr><td>{{ __('Total cost', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ cost|number_format(2, ',', ' ') }}</td></tr>
 </table>
@@ -28,9 +28,9 @@
 
 <h2>{{ __('Scope', 'grcmanager') }}</h2>
 <table class="grcmanager-pdf-summary">
-  <tr><td>{{ __('Affected items', 'grcmanager') }}</td><td>{{ assets is empty ? '—' : assets|join(', ') }}</td></tr>
-  <tr><td>CVE</td><td>{{ cves is empty ? '—' : cves|join(', ') }}</td></tr>
-  <tr><td>{{ __('Linked tickets', 'grcmanager') }}</td><td>{{ tickets is empty ? '—' : '#' ~ tickets|join(', #') }}</td></tr>
+  <tr><td>{{ __('Affected items', 'grcmanager') }}</td><td>{{ assets is empty ? '-' : assets|join(', ') }}</td></tr>
+  <tr><td>CVE</td><td>{{ cves is empty ? '-' : cves|join(', ') }}</td></tr>
+  <tr><td>{{ __('Linked tickets', 'grcmanager') }}</td><td>{{ tickets is empty ? '-' : '#' ~ tickets|join(', #') }}</td></tr>
 </table>
 
 {% if deadlines is not empty %}
@@ -39,7 +39,7 @@
   <thead><tr><th>{{ __('Due date', 'grcmanager') }}</th><th>{{ __('Deadline', 'grcmanager') }}</th><th>{{ _x('feminine', 'Notified on', 'grcmanager') }}</th><th>{{ __('Outcome', 'grcmanager') }}</th></tr></thead>
   <tbody>
     {% for d in deadlines %}
-      <tr><td>{{ d.label }}</td><td>{{ d.due }}</td><td>{{ d.done_at ?: '—' }}</td><td>{{ outcomes[d.outcome] }}</td></tr>
+      <tr><td>{{ d.label }}</td><td>{{ d.due }}</td><td>{{ d.done_at ?: '-' }}</td><td>{{ outcomes[d.outcome] }}</td></tr>
     {% endfor %}
   </tbody>
 </table>
@@ -58,7 +58,7 @@
 <table class="grcmanager-pdf-table">
   <thead><tr><th>{{ __('Action', 'grcmanager') }}</th><th>{{ __('Status', 'grcmanager') }}</th><th>{{ __('Due date', 'grcmanager') }}</th></tr></thead>
   <tbody>
-    {% for a in actions %}<tr><td>{{ a.title }}</td><td>{{ a.status }}</td><td>{{ a.due ?: '—' }}</td></tr>{% endfor %}
+    {% for a in actions %}<tr><td>{{ a.title }}</td><td>{{ a.status }}</td><td>{{ a.due ?: '-' }}</td></tr>{% endfor %}
   </tbody>
 </table>
 {% endif %}

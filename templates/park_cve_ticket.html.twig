@@ -1,5 +1,5 @@
 {# Issue #160, phase 2 : contenu du ticket de mise à jour d'un logiciel vulnérable du parc #}
-<p><strong>{{ product }}</strong> — {{ __('versions', 'grcmanager') }} {{ versions|join(', ') }}</p>
+<p><strong>{{ product }}</strong> - {{ __('versions', 'grcmanager') }} {{ versions|join(', ') }}</p>
 <ul>
    <li>{{ __('Affected machines', 'grcmanager') }} : {{ machines }}</li>
    {% if kev %}<li><strong>{{ __('Actively exploited vulnerabilities (CISA KEV catalog)', 'grcmanager') }} : {{ kev }}</strong></li>{% endif %}
@@ -9,8 +9,8 @@
    {% for c in cves %}
    <tr>
       <td><a href="https://nvd.nist.gov/vuln/detail/{{ c.cve_id }}">{{ c.cve_id }}</a></td>
-      <td>{{ c.cvss is null ? '—' : c.cvss }}</td>
-      <td>{{ c.epss is null ? '—' : (c.epss * 100)|round(1) ~ ' %' }}</td>
+      <td>{{ c.cvss is null ? '-' : c.cvss }}</td>
+      <td>{{ c.epss is null ? '-' : (c.epss * 100)|round(1) ~ ' %' }}</td>
       <td>{% if c.is_kev %}KEV{% if c.kev_due %} ({{ __('CISA due date', 'grcmanager') }} {{ c.kev_due }}){% endif %}{% endif %}</td>
    </tr>
    {% endfor %}

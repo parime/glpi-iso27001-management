@@ -6,14 +6,14 @@ namespace GlpiPlugin\Grcmanager\Services\Control;
 
 /**
  * Correspondances entre l'Annexe A ISO 27001 (\GlpiPlugin\Grcmanager\Control, code sans le préfixe
- * "A.") et le NIST CSF 2.0 — tableau CREUX : seuls les 67 contrôles Annexe A pour lesquels le
+ * "A.") et le NIST CSF 2.0 : tableau CREUX : seuls les 67 contrôles Annexe A pour lesquels le
  * NIST publie lui-même une correspondance explicite ont une entrée ici (aucune correspondance
  * approximée). Sourcé sur les "Informative References" officielles du NIST CSF 2.0 Reference
  * Tool, pas reconstruit de mémoire.
  *
  * Pas de clé 'cis_controls' pour l'instant : CIS ne publie sa correspondance officielle vers
  * ISO/IEC 27001:2022 que dans un livre blanc nécessitant la création d'un compte
- * (learn.cisecurity.org) — non récupérable automatiquement, et une correspondance approximée
+ * (learn.cisecurity.org) : non récupérable automatiquement, et une correspondance approximée
  * de mémoire irait à l'encontre du principe "aucune donnée inventée" de ce plugin. Le
  * catalogue CIS Controls v8 (CisControlsCatalogDefaults) reste consultable indépendamment.
  */

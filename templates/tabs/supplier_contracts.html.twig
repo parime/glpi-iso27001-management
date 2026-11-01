@@ -10,9 +10,9 @@
                {% for c in contracts %}
                   <tr>
                      <td><a href="{{ c.url }}"><i class="ti ti-writing-sign me-1"></i>{{ c.name }}</a></td>
-                     <td>{{ c.begin_date ? c.begin_date|formatted_date : '—' }}</td>
+                     <td>{{ c.begin_date ? c.begin_date|formatted_date : '-' }}</td>
                      <td>
-                        {{ c.end_date ? c.end_date|formatted_date : '—' }}
+                        {{ c.end_date ? c.end_date|formatted_date : '-' }}
                         {% if c.end_date and c.end_date < 'now'|date('Y-m-d') %}
                            <span class="badge bg-red-lt ms-1">{{ _x('due date passed', 'Expired', 'grcmanager') }}</span>
                         {% endif %}

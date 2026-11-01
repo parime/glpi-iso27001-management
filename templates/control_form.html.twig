@@ -31,7 +31,7 @@
    {% if nist is not empty %}
       {% set nist_html %}
          {% for c in nist %}<span class="badge bg-blue-lt me-1">NIST CSF {{ c }}</span>{% endfor %}
-         {{ _self.referentials_hint(__('Mapping published by NIST — see', 'grcmanager'), referentials_url) }}
+         {{ _self.referentials_hint(__('Mapping published by NIST: see', 'grcmanager'), referentials_url) }}
       {% endset %}
       {{ fields.htmlField('', nist_html, __('Equivalent reference frameworks', 'grcmanager'), {'full_width': true}) }}
    {% endif %}
@@ -39,14 +39,14 @@
    {% if nis2 is not empty %}
       {% set nis2_html %}
          {% for c in nis2 %}<span class="badge bg-purple-lt me-1">NIS2 {{ c }}</span>{% endfor %}
-         {{ _self.referentials_hint(__('Indicative mapping made by this project — see', 'grcmanager'), referentials_url) }}
+         {{ _self.referentials_hint(__('Indicative mapping made by this project: see', 'grcmanager'), referentials_url) }}
       {% endset %}
       {{ fields.htmlField('', nis2_html, __('NIS2 requirements', 'grcmanager'), {'full_width': true}) }}
    {% endif %}
    {% if anssi is not empty %}
       {% set anssi_html %}
          {% for m in anssi %}<span class="badge bg-teal-lt me-1" title="{{ m.title }}">{{ __('Measure %d', 'grcmanager')|format(m.number) }}</span>{% endfor %}
-         {{ _self.referentials_hint(__('Indicative mapping made by this project — see', 'grcmanager'), referentials_url) }}
+         {{ _self.referentials_hint(__('Indicative mapping made by this project: see', 'grcmanager'), referentials_url) }}
       {% endset %}
       {{ fields.htmlField('', anssi_html, __('ANSSI hygiene', 'grcmanager'), {'full_width': true}) }}
    {% endif %}

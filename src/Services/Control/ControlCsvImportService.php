@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace GlpiPlugin\Grcmanager\Services\Control;
 
 /**
- * Validation pure de l'import CSV de la SoA (ROADMAP.md "Version 1.5") — ne touche jamais la base
+ * Validation pure de l'import CSV de la SoA (ROADMAP.md "Version 1.5") : ne touche jamais la base
  * ni le système de fichiers, seulement des tableaux déjà lus (par `front/control.csv.php` via
  * `fgetcsv()`). Applique exactement la même règle que
  * `\GlpiPlugin\Grcmanager\Control::validateAndMarkReviewed()` (justification obligatoire si
@@ -13,8 +13,8 @@ namespace GlpiPlugin\Grcmanager\Services\Control;
  * qu'une sauvegarde manuelle normale n'accepterait pas.
  *
  * Traite chaque ligne indépendamment : une ligne invalide est rejetée avec un code de raison
- * stable (traduit par l'appelant, cette classe n'a aucune dépendance GLPI — voir
- * `REASON_*` ci-dessous), sans empêcher les autres lignes valides d'être appliquées — jamais un
+ * stable (traduit par l'appelant, cette classe n'a aucune dépendance GLPI : voir
+ * `REASON_*` ci-dessous), sans empêcher les autres lignes valides d'être appliquées : jamais un
  * import silencieusement partiel, jamais une création de contrôle (catalogue fixe, voir
  * `\GlpiPlugin\Grcmanager\Control::showForm()`, `candel=false`) : un code absent du catalogue existant
  * est un rejet, pas une nouvelle ligne.

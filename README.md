@@ -22,7 +22,7 @@ d'un auditeur ISO 27001 :
 
 **GLPI GRC Manager** couvre le risque organisationnel générique (clause 6.1.2/8.2 ISO 27001) :
 humain, processus, physique, tiers/fournisseur, avec acceptation, traitement, Déclaration
-d'Applicabilité (SoA), audits internes et actions correctives — et, depuis la v2.0, un véritable
+d'Applicabilité (SoA), audits internes et actions correctives : et, depuis la v2.0, un véritable
 objet ITIL "Incident de sécurité" (absorbé du plugin jumeau glpi-security-incidents, désormais
 archivé), avec ses champs de classification ISO 27001 fusionnés dessus.
 
@@ -178,7 +178,7 @@ informez les salariés. Le plugin limite les données au strict nécessaire :
 déduit la clé du plugin) :
 
 - Depuis une [release](https://github.com/parime/glpi-iso27001-management/releases) (recommandé,
-  aucune dépendance à installer — `vendor/` est déjà inclus dans le ZIP) : téléchargez
+  aucune dépendance à installer - `vendor/` est déjà inclus dans le ZIP) : téléchargez
   `glpi-iso27001-management-X.Y.Z.zip`, extrayez-la dans `plugins/`, puis renommez le dossier extrait
   en `grcmanager`.
 - Ou en développement, depuis le code source :
@@ -253,7 +253,7 @@ du dépôt et dans la documentation indique uniquement le référentiel que le p
 - **Directive (UE) 2022/2555 « NIS2 »** : articles 20, 21 §2 et 23 §4. Les dix mesures de
   l'article 21 §2 sont reproduites d'après les versions officielles française et anglaise
   publiées sur [EUR-Lex](https://eur-lex.europa.eu/eli/dir/2022/2555/oj), les articles 20 et 23
-  sont résumés. © Union européenne, https://eur-lex.europa.eu/ — réutilisation autorisée
+  sont résumés. © Union européenne, https://eur-lex.europa.eu/ - réutilisation autorisée
   (décision 2011/833/UE de la Commission). Seule la version publiée au Journal officiel de l'UE
   fait foi. La correspondance avec l'Annexe A ISO 27001 est indicative et établie par ce projet.
 - **Guide d'hygiène informatique de l'ANSSI (42 mesures)** : intitulés des 42 mesures et des

@@ -28,7 +28,7 @@ use GlpiPlugin\Grcmanager\Services\Ui\Fragment;
  * `array $cards = []` signature first and had to fix it after finding, against a real instance
  * running alongside another plugin also hooking DASHBOARD_CARDS, that Plugin::doHookFunction()
  * chains every registered callback through the same accumulator
- * (`$ret = call_user_func($function, $ret)`, never array_merge()-ing the results itself) — a
+ * (`$ret = call_user_func($function, $ret)`, never array_merge()-ing the results itself): a
  * callback that ignores the incoming array and returns only its own cards silently discards every
  * other plugin's contribution whenever it runs later in the chain, and gets discarded itself when
  * it runs earlier. The parameter must accept null, not just default to an empty array: Grid.php
@@ -374,7 +374,7 @@ function plugin_grcmanager_dashboard_cards(?array $cards = null): array
  * risque lié, the fields merged from the plugin's former lightweight compliance register).
  */
 /**
- * Issue #165 : section « Sécurité » dans le panneau principal d'un ticket existant — l'incident de
+ * Issue #165 : section « Sécurité » dans le panneau principal d'un ticket existant : l'incident de
  * sécurité lié, ou le bouton « Escalader en incident de sécurité » (même action que l'onglet du
  * ticket, front/securityincidentticket.form.php). Rien si le module est désactivé ou sans droit.
  */

@@ -18,7 +18,7 @@
 use GlpiPlugin\Grcmanager\Compatibility\Base\SecurityIncidentTemplateReadonlyFieldBase;
 
 /**
- * Required by `ITILTemplate` (naming-convention resolved) — same minimal shape as GLPI core's own
+ * Required by `ITILTemplate` (naming-convention resolved): same minimal shape as GLPI core's own
  * `ChangeTemplateReadonlyField`.
  */
 class PluginGrcmanagerSecurityIncidentTemplateReadonlyField extends SecurityIncidentTemplateReadonlyFieldBase

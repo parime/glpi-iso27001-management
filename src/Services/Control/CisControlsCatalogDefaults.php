@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace GlpiPlugin\Grcmanager\Services\Control;
 
 /**
- * CIS Critical Security Controls v8 (18 Contrôles, 153 Sauvegardes/Safeguards) — intitulés
+ * CIS Critical Security Controls v8 (18 Contrôles, 153 Sauvegardes/Safeguards) : intitulés
  * reproduits SANS MODIFICATION (en anglais, pas de traduction : la licence interdit les œuvres
  * dérivées) depuis la publication du Center for Internet Security, Inc., sous licence Creative
  * Commons Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0,
@@ -17,14 +17,14 @@ namespace GlpiPlugin\Grcmanager\Services\Control;
  * officiel du Center for Internet Security lui-même
  * (github.com/CISecurity/ControlsAssessmentSpecification), pas des résumés tiers largement
  * cités ("56 en IG1, 74 de plus en IG2, 23 de plus en IG3") qui datent de la sortie initiale
- * de v8 en 2021 — CIS a depuis légèrement rééquilibré quelques sauvegardes entre groupes (ex.
+ * de v8 en 2021 : CIS a depuis légèrement rééquilibré quelques sauvegardes entre groupes (ex.
  * 14.7/14.8/14.9/17.9 rétrogradées vers IG1, 9.7/15.5 montées vers IG3), d'où la répartition
  * réelle ici (58/73/22) qui ne correspond plus à ce chiffre devenu obsolète.
  *
- * Catalogue de référence, purement consultable — contrairement à NistCsfCatalogDefaults, PAS
+ * Catalogue de référence, purement consultable : contrairement à NistCsfCatalogDefaults, PAS
  * de correspondance avec l'Annexe A ISO 27001 dans ControlCrosswalkDefaults : CIS ne publie sa
  * correspondance officielle vers ISO/IEC 27001:2022 que dans un livre blanc nécessitant la
- * création d'un compte (learn.cisecurity.org), non récupérable automatiquement — voir le
+ * création d'un compte (learn.cisecurity.org), non récupérable automatiquement : voir le
  * docblock de ControlCrosswalkDefaults.
  */
 final class CisControlsCatalogDefaults

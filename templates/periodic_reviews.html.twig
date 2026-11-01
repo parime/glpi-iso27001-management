@@ -50,7 +50,7 @@
                      {% if r.ticket_url %} <a href="{{ r.ticket_url }}" class="small"><i class="ti ti-ticket me-1"></i>{{ _x('compact', 'Ticket #%d', 'grcmanager')|format(r.tickets_id) }}</a>{% endif %}
                   </td>
                   <td>
-                     {{ r.next ? r.next|formatted_datetime : '—' }}
+                     {{ r.next ? r.next|formatted_datetime : '-' }}
                      {% if r.recurrent_url %} <a href="{{ r.recurrent_url }}" class="small" title="{{ __('Open the recurrent ticket', 'grcmanager') }}" aria-label="{{ __('Open the recurrent ticket', 'grcmanager') }}"><i class="ti ti-external-link"></i></a>{% endif %}
                   </td>
                   <td class="text-end text-nowrap">

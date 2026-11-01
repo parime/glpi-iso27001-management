@@ -15,11 +15,11 @@
  * -------------------------------------------------------------------------
  */
 
-// Required, not optional — the timeline's "add a task" action posts here by convention
+// Required, not optional: the timeline's "add a task" action posts here by convention
 // (`<itemtype in lowercase>task.form.php`, same as core's own front/changetask.form.php /
 // front/tickettask.form.php). Missing entirely until now: confirmed live, adding a task from the
 // incident's own timeline 404'd. Delegates to GLPI core's shared generic controller, same as every
-// core ITIL task front controller does — no plugin-specific logic needed.
+// core ITIL task front controller does: no plugin-specific logic needed.
 
 $task = new PluginGrcmanagerSecurityIncidentTask();
 

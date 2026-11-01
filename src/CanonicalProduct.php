@@ -26,15 +26,15 @@ use Session;
  * parc, cf. ROADMAP.md) : a (manufacturer, product) pair that both an admin-declared CPE
  * identifier (CpeReference) and an admin-declared GLPI software name
  * (ProductAlias) point back to. Neither satellite table has a menu entry of its
- * own — same "no menu for a simple child record, managed inline from its parent's own form"
+ * own: same "no menu for a simple child record, managed inline from its parent's own form"
  * convention already used for ObjectiveMeasurement (see
- * Objective::showMeasurementHistory()) — see showCpeReferences()/
+ * Objective::showMeasurementHistory()): see showCpeReferences()/
  * showProductAliases() below.
  *
  * Deliberately NOT an automatic name/version-based guess: exactly like the plugin's own
  * "never invent a value" rule elsewhere (see EnvironmentalData in the sibling plugin
  * assetsign-glpi), an installed software with no matching alias is silently skipped by
- * GlpiPlugin\Grcmanager\Services\Cve\InventoryCveMatcher rather than fuzzy-matched — a wrong
+ * GlpiPlugin\Grcmanager\Services\Cve\InventoryCveMatcher rather than fuzzy-matched: a wrong
  * correlation would be worse than a missing one for a security decision.
  */
 class CanonicalProduct extends CanonicalProductBase
@@ -57,7 +57,7 @@ class CanonicalProduct extends CanonicalProductBase
     }
 
     /**
-     * `UNIQUE(manufacturer, product)` in the database (Installer.php) — without this check, a
+     * `UNIQUE(manufacturer, product)` in the database (Installer.php): without this check, a
      * duplicate submission reaches CommonDBTM::add()'s raw INSERT and surfaces as an uncaught
      * RuntimeException (HTTP 500, confirmed live against a real GLPI instance) instead of the
      * normal Session::addMessageAfterRedirect() error flow every other validation failure in this

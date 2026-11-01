@@ -15,7 +15,7 @@
  * -------------------------------------------------------------------------
  */
 
-// Same shape as GLPI core's own front/change.form.php (the closest native analogue) — add/update/
+// Same shape as GLPI core's own front/change.form.php (the closest native analogue): add/update/
 // delete/restore/purge plus the two "add myself as actor" shortcuts, trimmed of Change-specific
 // branches (Kanban, cross-linking from an existing Ticket/Problem) not needed by this plugin yet.
 
@@ -69,7 +69,7 @@ if (isset($_POST['add'])) {
     ));
 } elseif (isset($_POST['addme_assign'])) {
     // UPDATE, pas READ : s'assigner un incident donne ensuite le droit de le résoudre (canSolve()
-    // accepte READMY + assigné) — un simple lecteur ne doit pas pouvoir se l'octroyer.
+    // accepte READMY + assigné) : un simple lecteur ne doit pas pouvoir se l'octroyer.
     $securityIncident->check($_POST['plugin_grcmanager_securityincidents_id'], UPDATE);
     (new PluginGrcmanagerSecurityIncident_User())->add([
         'plugin_grcmanager_securityincidents_id' => $_POST['plugin_grcmanager_securityincidents_id'],

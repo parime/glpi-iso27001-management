@@ -4,7 +4,7 @@
       <div class="d-flex flex-wrap align-items-center gap-3 mb-2">
          <h4 class="mb-0"><i class="ti ti-alarm me-1 text-danger"></i>{{ cell.exercise.scenario }}</h4>
          {% if cell.exercise.ended %}
-            <span class="badge bg-green-lt"><i class="ti ti-flag-check me-1"></i>{{ __('Completed', 'grcmanager') }} — {{ cell.exercise.duration }} min</span>
+            <span class="badge bg-green-lt"><i class="ti ti-flag-check me-1"></i>{{ __('Completed', 'grcmanager') }} - {{ cell.exercise.duration }} min</span>
          {% else %}
             <span class="badge bg-red-lt"><i class="ti ti-clock me-1"></i>{{ __('Active for %d min', 'grcmanager')|format(cell.exercise.duration) }}</span>
          {% endif %}
@@ -12,7 +12,7 @@
       <p class="mb-2">
          {{ __('Steps done', 'grcmanager') }} : <strong>{{ cell.summary.done }} / {{ cell.summary.total }}</strong>
          {% if cell.recovery is not empty %}
-            — {{ __('Items restored', 'grcmanager') }} : <strong>{{ cell.recovery|filter(r => r.restored_at)|length }} / {{ cell.recovery|length }}</strong>
+            - {{ __('Items restored', 'grcmanager') }} : <strong>{{ cell.recovery|filter(r => r.restored_at)|length }} / {{ cell.recovery|length }}</strong>
          {% endif %}
       </p>
       <a href="{{ room_url }}" class="btn btn-primary"><i class="ti ti-door-enter me-1"></i>{{ __('Open the crisis room', 'grcmanager') }}</a>

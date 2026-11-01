@@ -5,23 +5,23 @@
 {% set recovery_states = {'restored_on_time': __('Restored within RTO', 'grcmanager'), 'restored_late': __('Restored after RTO', 'grcmanager'), 'restored': __('Restored', 'grcmanager'), 'running': __('Recovery in progress', 'grcmanager'), 'overdue': __('RTO exceeded', 'grcmanager'), 'no_rto': __('RTO not set', 'grcmanager')} %}
 
 {% if drill %}
-<p><strong>{{ __('EXERCISE', 'grcmanager') }}</strong> — {{ __('this report covers a fictitious incident, simulated to test the continuity plan.', 'grcmanager') }}</p>
+<p><strong>{{ __('EXERCISE', 'grcmanager') }}</strong> - {{ __('this report covers a fictitious incident, simulated to test the continuity plan.', 'grcmanager') }}</p>
 {% endif %}
 
 <h2>{{ __('Summary', 'grcmanager') }}</h2>
 <table class="grcmanager-pdf-summary">
   <tr><td>{{ drill ? __('Scenario', 'grcmanager') : __('Response plan', 'grcmanager') }}</td><td>{{ exercise.scenario }}</td></tr>
-  <tr><td>{{ drill ? __('Exercise incident', 'grcmanager') : __('Incident', 'grcmanager') }}</td><td>#{{ incident.id }} — {{ incident.name }}</td></tr>
+  <tr><td>{{ drill ? __('Exercise incident', 'grcmanager') : __('Incident', 'grcmanager') }}</td><td>#{{ incident.id }} - {{ incident.name }}</td></tr>
   <tr><td>{{ drill ? __('Organised by', 'grcmanager') : __('Crisis team activated by', 'grcmanager') }}</td><td>{{ exercise.organizer }}</td></tr>
-  <tr><td>{{ __('Start / end', 'grcmanager') }}</td><td>{{ exercise.started_at }} / {{ exercise.ended_at ?: '—' }}</td></tr>
+  <tr><td>{{ __('Start / end', 'grcmanager') }}</td><td>{{ exercise.started_at }} / {{ exercise.ended_at ?: '-' }}</td></tr>
   <tr><td>{{ __('Duration', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ exercise.duration }} min</td></tr>
   <tr><td>{{ __('Steps done', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ summary.done }} / {{ summary.total }}</td></tr>
   <tr><td>{{ __('Steps on time', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ summary.on_time }} ({{ summary.rate }} %)</td></tr>
-  <tr><td>{{ __('Average reaction time', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ summary.average is null ? '—' : summary.average ~ ' min' }}</td></tr>
+  <tr><td>{{ __('Average reaction time', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ summary.average is null ? '-' : summary.average ~ ' min' }}</td></tr>
   {% if recovery is not empty %}
   <tr><td>{{ __('Items restored', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ recovery|filter(r => r.restored_at)|length }} / {{ recovery|length }}</td></tr>
   {% endif %}
-  <tr><td>{{ __('Participants', 'grcmanager') }}</td><td>{{ participants is empty ? '—' : participants|join(', ') }}</td></tr>
+  <tr><td>{{ __('Participants', 'grcmanager') }}</td><td>{{ participants is empty ? '-' : participants|join(', ') }}</td></tr>
 </table>
 
 <h2>{{ __('Course of the exercise', 'grcmanager') }}</h2>
@@ -29,7 +29,7 @@
   <thead><tr><th>#</th><th>{{ __('Step', 'grcmanager') }}</th><th>{{ __('Target', 'grcmanager') }}</th><th>{{ __('Done at', 'grcmanager') }}</th><th>{{ __('By', 'grcmanager') }}</th><th>{{ __('Outcome', 'grcmanager') }}</th></tr></thead>
   <tbody>
     {% for s in steps %}
-      <tr><td>{{ loop.index }}</td><td>{{ s.label }}</td><td>T+{{ s.target }} min</td><td>{{ s.minutes is null ? '—' : 'T+' ~ s.minutes ~ ' min' }}</td><td>{{ s.by ?: '—' }}</td><td>{{ statuses[s.status] }}</td></tr>
+      <tr><td>{{ loop.index }}</td><td>{{ s.label }}</td><td>T+{{ s.target }} min</td><td>{{ s.minutes is null ? '-' : 'T+' ~ s.minutes ~ ' min' }}</td><td>{{ s.by ?: '-' }}</td><td>{{ statuses[s.status] }}</td></tr>
     {% endfor %}
   </tbody>
 </table>
@@ -40,7 +40,7 @@
   <thead><tr><th>{{ __('Item', 'grcmanager') }}</th><th>RTO</th><th>{{ __('Restored on', 'grcmanager') }}</th><th>{{ __('Duration', 'grcmanager') }}</th><th>{{ __('Outcome', 'grcmanager') }}</th></tr></thead>
   <tbody>
     {% for r in recovery %}
-      <tr><td>{{ r.label }}{% if r.depth > 0 %} ({{ __('dependent', 'grcmanager') }}){% endif %}</td><td>{{ r.rto > 0 ? r.rto ~ ' h' : '—' }}</td><td>{{ r.restored_at ?: '—' }}</td><td>{{ r.hours is null ? '—' : r.hours ~ ' h' }}</td><td>{{ recovery_states[r.state] }}</td></tr>
+      <tr><td>{{ r.label }}{% if r.depth > 0 %} ({{ __('dependent', 'grcmanager') }}){% endif %}</td><td>{{ r.rto > 0 ? r.rto ~ ' h' : '-' }}</td><td>{{ r.restored_at ?: '-' }}</td><td>{{ r.hours is null ? '-' : r.hours ~ ' h' }}</td><td>{{ recovery_states[r.state] }}</td></tr>
     {% endfor %}
   </tbody>
 </table>

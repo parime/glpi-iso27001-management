@@ -1283,8 +1283,8 @@ msgid_plural "CPE identifiers"
 msgstr[0] "CPE identifier"
 msgstr[1] "CPE identifiers"
 
-msgid "Short name, e.g. \"Apache\", \"Microsoft\" — used only as a label, never for matching."
-msgstr "Short name, e.g. \"Apache\", \"Microsoft\" — used only as a label, never for matching."
+msgid "Short name, e.g. \"Apache\", \"Microsoft\" - used only as a label, never for matching."
+msgstr "Short name, e.g. \"Apache\", \"Microsoft\" - used only as a label, never for matching."
 
 msgid "A CPE identifier as reported by the NVD for this product (e.g. \"cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point to the same product."
 msgstr "A CPE identifier as reported by the NVD for this product (e.g. \"cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point to the same product."
@@ -1316,8 +1316,8 @@ msgstr "Reference frameworks"
 msgid "Equivalent reference frameworks"
 msgstr "Equivalent reference frameworks"
 
-msgid "Mapping published by NIST — see"
-msgstr "Mapping published by NIST — see"
+msgid "Mapping published by NIST: see"
+msgstr "Mapping published by NIST: see"
 
 msgid "the Reference frameworks screen"
 msgstr "the Reference frameworks screen"
@@ -1361,8 +1361,8 @@ msgstr "Level"
 msgid "Risk details"
 msgstr "Risk details"
 
-msgid "Statement of Applicability — ISO/IEC 27001:2022 Annex A"
-msgstr "Statement of Applicability — ISO/IEC 27001:2022 Annex A"
+msgid "Statement of Applicability: ISO/IEC 27001:2022 Annex A"
+msgstr "Statement of Applicability: ISO/IEC 27001:2022 Annex A"
 
 #, php-format
 msgid "Generated on %s"
@@ -1418,14 +1418,14 @@ msgstr "Unrecognized implementation status value."
 msgid "Justification required: this control is not fully applicable."
 msgstr "Justification required: this control is not fully applicable."
 
-msgid "CSV import/export — Annex A"
-msgstr "CSV import/export — Annex A"
+msgid "CSV import/export: Annex A"
+msgstr "CSV import/export: Annex A"
 
 msgid "CSV import/export"
 msgstr "CSV import/export"
 
-msgid "One per line, or comma-separated — several at once are supported."
-msgstr "One per line, or comma-separated — several at once are supported."
+msgid "One per line, or comma-separated: several at once are supported."
+msgstr "One per line, or comma-separated: several at once are supported."
 
 msgid "Enables or disables each part of the security incident management module (dedicated ITIL object, visible in the Assistance menu)."
 msgstr "Enables or disables each part of the security incident management module (dedicated ITIL object, visible in the Assistance menu)."
@@ -1436,8 +1436,8 @@ msgstr "Automatically retrieves the CVSS score, severity, description and patch 
 msgid "A CVE with an equal or higher score is highlighted as urgent."
 msgstr "A CVE with an equal or higher score is highlighted as urgent."
 
-msgid "No usable row was found in this file — check that it is really a CSV exported from this screen (semicolon-separated columns)."
-msgstr "No usable row was found in this file — check that it is really a CSV exported from this screen (semicolon-separated columns)."
+msgid "No usable row was found in this file: check that it is really a CSV exported from this screen (semicolon-separated columns)."
+msgstr "No usable row was found in this file: check that it is really a CSV exported from this screen (semicolon-separated columns)."
 
 msgid "Expected file: the one downloaded above, possibly edited (semicolon-separated columns). Only the applicabilite, etat_mise_en_oeuvre and justification columns are applied, matched by the control's code. No row is ever created or deleted."
 msgstr "Expected file: the one downloaded above, possibly edited (semicolon-separated columns). Only the applicabilite, etat_mise_en_oeuvre and justification columns are applied, matched by the control's code. No row is ever created or deleted."
@@ -1527,8 +1527,8 @@ msgstr "Source: Directive (EU) 2022/2555 (NIS2), © European Union, EUR-Lex. Map
 msgid "NIS2 requirements"
 msgstr "NIS2 requirements"
 
-msgid "Indicative mapping made by this project — see"
-msgstr "Indicative mapping made by this project — see"
+msgid "Indicative mapping made by this project: see"
+msgstr "Indicative mapping made by this project: see"
 
 msgid "ANSSI hygiene"
 msgstr "ANSSI hygiene"
@@ -1923,17 +1923,17 @@ msgstr "Ticket qualified as security incident no. %d."
 msgid "%s: notified on"
 msgstr "%s: notified on"
 
-msgid "NIS2 — early warning (24 h)"
-msgstr "NIS2 — early warning (24 h)"
+msgid "NIS2: early warning (24 h)"
+msgstr "NIS2: early warning (24 h)"
 
-msgid "NIS2 — incident notification (72 h)"
-msgstr "NIS2 — incident notification (72 h)"
+msgid "NIS2: incident notification (72 h)"
+msgstr "NIS2: incident notification (72 h)"
 
-msgid "NIS2 — final report (1 month)"
-msgstr "NIS2 — final report (1 month)"
+msgid "NIS2: final report (1 month)"
+msgstr "NIS2: final report (1 month)"
 
-msgid "GDPR — notification to the supervisory authority (72 h)"
-msgstr "GDPR — notification to the supervisory authority (72 h)"
+msgid "GDPR: notification to the supervisory authority (72 h)"
+msgstr "GDPR: notification to the supervisory authority (72 h)"
 
 msgid "Reports NIS2 / GDPR notification deadlines that are near or past with a follow-up"
 msgstr "Reports NIS2 / GDPR notification deadlines that are near or past with a follow-up"
@@ -5415,8 +5415,8 @@ msgstr "Computers excluded from the checks (status): %s"
 msgid "The library of security policies, versioned, with their approval and review date."
 msgstr "The library of security policies, versioned, with their approval and review date."
 
-msgid "ISO/IEC 27090:2026 — Security of AI systems"
-msgstr "ISO/IEC 27090:2026 — Security of AI systems"
+msgid "ISO/IEC 27090:2026: Security of AI systems"
+msgstr "ISO/IEC 27090:2026: Security of AI systems"
 
 msgid "Guidance, not certifiable, to be applied alongside ISO/IEC 27001 and ISO/IEC 42001. The typical AI risks of the risk catalog refer to these sections."
 msgstr "Guidance, not certifiable, to be applied alongside ISO/IEC 27001 and ISO/IEC 42001. The typical AI risks of the risk catalog refer to these sections."

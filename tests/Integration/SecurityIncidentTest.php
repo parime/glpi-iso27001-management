@@ -8,7 +8,7 @@ use GlpiPlugin\Grcmanager\SecurityIncidentCve;
 
 /**
  * Ported and extended from the absorbed glpi-security-incidents plugin's own
- * `SecurityIncidentTest` (ROADMAP.md "Version 2.0") — the base ITIL-object coverage (CRUD, item
+ * `SecurityIncidentTest` (ROADMAP.md "Version 2.0"): the base ITIL-object coverage (CRUD, item
  * links, notifications, CVE, rights) is unchanged; the ISO 27001 classification fields fused onto
  * this object (category/severity/cia_impact/root_cause/lessons_learned/plugin_grcmanager_risks_id,
  * absorbed from the plugin's former lightweight register, issue #29) get their own coverage below.
@@ -21,7 +21,7 @@ final class SecurityIncidentTest extends GrcmanagerIntegrationTestCase
 
         $incident = new PluginGrcmanagerSecurityIncident();
         $id = $incident->add([
-            'name'        => 'Test — phishing campaign',
+            'name'        => 'Test: phishing campaign',
             'entities_id' => $entityId,
             'content'     => 'A phishing email was reported by several users.',
         ]);
@@ -30,7 +30,7 @@ final class SecurityIncidentTest extends GrcmanagerIntegrationTestCase
 
         $reloaded = new PluginGrcmanagerSecurityIncident();
         $this->assertTrue($reloaded->getFromDB($id));
-        $this->assertSame('Test — phishing campaign', $reloaded->fields['name']);
+        $this->assertSame('Test: phishing campaign', $reloaded->fields['name']);
         $this->assertSame($entityId, (int) $reloaded->fields['entities_id']);
         $this->assertSame(PluginGrcmanagerSecurityIncident::INCOMING, (int) $reloaded->fields['status']);
         // ISO classification fields default to their canonical values even when not submitted.
@@ -74,7 +74,7 @@ final class SecurityIncidentTest extends GrcmanagerIntegrationTestCase
      * Regression guard: `CommonItilObject_Item::prepareInputForAdd()` unconditionally calls
      * `CommonITILObject::getRuleCollectionClassInstance()`, which builds
      * `'Rule' . static::getType() . 'Collection'` and throws a `RuntimeException` if that class
-     * doesn't exist or isn't loadable — confirmed live on the absorbed plugin before the merge,
+     * doesn't exist or isn't loadable: confirmed live on the absorbed plugin before the merge,
      * linking an asset via the real "Item" tab fataled without
      * `RulePluginGrcmanagerSecurityIncident(Collection)`.
      */
@@ -82,7 +82,7 @@ final class SecurityIncidentTest extends GrcmanagerIntegrationTestCase
     {
         $entityId = $this->createTestEntity(0, 'PHPUnit Item Link Entity');
         $incident = new PluginGrcmanagerSecurityIncident();
-        $incidentId = $incident->add(['name' => 'Test — item link', 'entities_id' => $entityId, 'content' => 'x']);
+        $incidentId = $incident->add(['name' => 'Test: item link', 'entities_id' => $entityId, 'content' => 'x']);
 
         $computer = new \Computer();
         $computerId = $computer->add(['name' => 'PHPUnit test computer', 'entities_id' => $entityId]);
@@ -103,7 +103,7 @@ final class SecurityIncidentTest extends GrcmanagerIntegrationTestCase
         $entityId = $this->createTestEntity(0, 'PHPUnit Analysis Entity');
         $incident = new PluginGrcmanagerSecurityIncident();
         $id = $incident->add([
-            'name'        => 'Test — analysis fields',
+            'name'        => 'Test: analysis fields',
             'entities_id' => $entityId,
             'content'     => 'Incident content.',
         ]);
@@ -129,7 +129,7 @@ final class SecurityIncidentTest extends GrcmanagerIntegrationTestCase
         $entityId = $this->createTestEntity(0, 'PHPUnit ISO Classification Entity');
         $incident = new PluginGrcmanagerSecurityIncident();
         $id = $incident->add([
-            'name'        => 'Test — ISO classification',
+            'name'        => 'Test: ISO classification',
             'entities_id' => $entityId,
             'content'     => 'x',
             'category'    => 'malware',
@@ -149,7 +149,7 @@ final class SecurityIncidentTest extends GrcmanagerIntegrationTestCase
         $entityId = $this->createTestEntity(0, 'PHPUnit Bad Category Entity');
         $incident = new PluginGrcmanagerSecurityIncident();
         $id = $incident->add([
-            'name'        => 'Test — bad category',
+            'name'        => 'Test: bad category',
             'entities_id' => $entityId,
             'content'     => 'x',
             'category'    => 'not_a_real_category',
@@ -170,7 +170,7 @@ final class SecurityIncidentTest extends GrcmanagerIntegrationTestCase
     {
         $entityId = $this->createTestEntity(0, 'PHPUnit Closure Blocked Entity');
         $incident = new PluginGrcmanagerSecurityIncident();
-        $id = $incident->add(['name' => 'Test — closure blocked', 'entities_id' => $entityId, 'content' => 'x']);
+        $id = $incident->add(['name' => 'Test: closure blocked', 'entities_id' => $entityId, 'content' => 'x']);
 
         $result = $incident->update(['id' => $id, 'status' => PluginGrcmanagerSecurityIncident::CLOSED]);
 
@@ -184,7 +184,7 @@ final class SecurityIncidentTest extends GrcmanagerIntegrationTestCase
     {
         $entityId = $this->createTestEntity(0, 'PHPUnit Closure Allowed Entity');
         $incident = new PluginGrcmanagerSecurityIncident();
-        $id = $incident->add(['name' => 'Test — closure allowed', 'entities_id' => $entityId, 'content' => 'x']);
+        $id = $incident->add(['name' => 'Test: closure allowed', 'entities_id' => $entityId, 'content' => 'x']);
 
         $result = $incident->update([
             'id'              => $id,
@@ -208,7 +208,7 @@ final class SecurityIncidentTest extends GrcmanagerIntegrationTestCase
 
         $incident = new PluginGrcmanagerSecurityIncident();
         $id = $incident->add([
-            'name'                       => 'Test — risk link',
+            'name'                       => 'Test: risk link',
             'entities_id'                => $entityId,
             'content'                    => 'x',
             'plugin_grcmanager_risks_id' => $riskId,
@@ -229,7 +229,7 @@ final class SecurityIncidentTest extends GrcmanagerIntegrationTestCase
     {
         $entityId = $this->createTestEntity(0, 'PHPUnit CVE Entity');
         $incident = new PluginGrcmanagerSecurityIncident();
-        $id = $incident->add(['name' => 'Test — CVE', 'entities_id' => $entityId, 'content' => 'x']);
+        $id = $incident->add(['name' => 'Test: CVE', 'entities_id' => $entityId, 'content' => 'x']);
 
         $cve = new \GlpiPlugin\Grcmanager\SecurityIncidentCve();
         $cveId = $cve->add(['plugin_grcmanager_securityincidents_id' => $id, 'cve_id' => 'cve-2026-12345']);
@@ -244,7 +244,7 @@ final class SecurityIncidentTest extends GrcmanagerIntegrationTestCase
     {
         $entityId = $this->createTestEntity(0, 'PHPUnit CVE Invalid Entity');
         $incident = new PluginGrcmanagerSecurityIncident();
-        $id = $incident->add(['name' => 'Test — bad CVE', 'entities_id' => $entityId, 'content' => 'x']);
+        $id = $incident->add(['name' => 'Test: bad CVE', 'entities_id' => $entityId, 'content' => 'x']);
 
         $cve = new \GlpiPlugin\Grcmanager\SecurityIncidentCve();
         $cveId = $cve->add(['plugin_grcmanager_securityincidents_id' => $id, 'cve_id' => 'not-a-cve']);
@@ -269,7 +269,7 @@ final class SecurityIncidentTest extends GrcmanagerIntegrationTestCase
 
     /**
      * Regression guard: `CommonITILObject::getSolvedStatusArray()`/`getClosedStatusArray()` both
-     * default to an empty array ("to be overridden by class") — left unoverridden, any code path
+     * default to an empty array ("to be overridden by class"): left unoverridden, any code path
      * that merges them into a SQL `NOT IN (...)` clause fatals with "Empty IN are not allowed".
      */
     public function testStatusArraysAreNeverEmpty(): void
@@ -304,7 +304,7 @@ final class SecurityIncidentTest extends GrcmanagerIntegrationTestCase
 
         $incident = new PluginGrcmanagerSecurityIncident();
         $id = $incident->add([
-            'name'                => 'Test — notification',
+            'name'                => 'Test: notification',
             'entities_id'         => $entityId,
             'content'             => 'x',
             '_users_id_requester' => $requesterId,
@@ -344,7 +344,7 @@ final class SecurityIncidentTest extends GrcmanagerIntegrationTestCase
 
         $latest = $DB->request(['FROM' => 'glpi_queuednotifications', 'ORDER' => 'id DESC', 'LIMIT' => 1])->current();
         $this->assertStringContainsString(__('New security incident', 'grcmanager'), $latest['name']);
-        $this->assertStringContainsString('Test — notification', $latest['name']);
+        $this->assertStringContainsString('Test: notification', $latest['name']);
     }
 
     public function testSolvingAnIncidentQueuesASolvedNotification(): void
@@ -359,7 +359,7 @@ final class SecurityIncidentTest extends GrcmanagerIntegrationTestCase
         $entityId = $this->createTestEntity(0, 'PHPUnit Solved Notification Entity');
         $incident = new PluginGrcmanagerSecurityIncident();
         $id = $incident->add([
-            'name'                => 'Test — solved notification',
+            'name'                => 'Test: solved notification',
             'entities_id'         => $entityId,
             'content'             => 'x',
             '_users_id_requester' => $requesterId,
@@ -373,7 +373,7 @@ final class SecurityIncidentTest extends GrcmanagerIntegrationTestCase
 
     /**
      * Regression guard: `ALLSTANDARDRIGHT` alone (READ/UPDATE/CREATE/DELETE/PURGE) does NOT
-     * include `self::READALL` (a separate bit added by this class's own `getRights()` override) —
+     * include `self::READALL` (a separate bit added by this class's own `getRights()` override) -
      * confirmed the hard way on the absorbed plugin before the merge, Super-Admin got a real 403
      * viewing an incident they hadn't personally created after install granted only
      * `ALLSTANDARDRIGHT`.

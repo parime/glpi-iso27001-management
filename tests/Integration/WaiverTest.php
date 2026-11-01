@@ -20,7 +20,7 @@ declare(strict_types=1);
 namespace GlpiPlugin\Grcmanager\Tests\Integration;
 
 /**
- * Issue #170 : dérogations de sécurité — saisie, validation, actifs liés, rappel puis ticket de
+ * Issue #170 : dérogations de sécurité : saisie, validation, actifs liés, rappel puis ticket de
  * réévaluation, sans jamais changer le statut automatiquement.
  */
 final class WaiverTest extends GrcmanagerIntegrationTestCase

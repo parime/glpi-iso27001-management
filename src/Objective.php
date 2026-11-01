@@ -28,7 +28,7 @@ use Session;
  * ISMS security objective (issue #32, ISO 27001 clause 6.2): the plugin's 15-card dashboard
  * (DashboardCardService) shows the ISMS's CURRENT state, a snapshot, but clause 6.2 explicitly
  * requires the organization to SET measurable objectives (e.g. "réduire de 20% les
- * non-conformités récurrentes d'ici fin d'année") and demonstrate progress toward them over time —
+ * non-conformités récurrentes d'ici fin d'année") and demonstrate progress toward them over time -
  * a trajectory, which is what this class and its measurement history
  * (ObjectiveMeasurement) exist to hold.
  *
@@ -39,7 +39,7 @@ use Session;
  * `target_value` column. Whichever is set (or both) is display-only context for the human reading
  * the measurement history below; this class does not itself compute "on track" vs "at risk" from
  * the numbers (see `status`, entered manually like every other status column in this plugin
- * family — RiskAssessmentTrait::getStatuses(), Audit::getStatuses()... — an
+ * family: RiskAssessmentTrait::getStatuses(), Audit::getStatuses()...: an
  * automatic "distance to target" computation was judged premature for a first version, especially
  * for the qualitative-only case where no such computation is even possible, see TECH_DEBT.md).
  *

@@ -28,7 +28,7 @@ use Session;
  * Issue #127 : évaluation de la sécurité d'un fournisseur, en onglets du risque fournisseur.
  *
  * - « Questionnaire de sécurité » : douze questions (oui / partiel / non / sans objet) et leur
- *   score (SupplierQuestionnaire), indicatif — le niveau de risque reste celui saisi par l'équipe ;
+ *   score (SupplierQuestionnaire), indicatif : le niveau de risque reste celui saisi par l'équipe ;
  * - « Contrats du fournisseur » : contrats GLPI du fournisseur, avec leurs échéances.
  *
  * Les preuves (questionnaire signé, certificats) s'ajoutent dans l'onglet Documents natif du

@@ -11,7 +11,7 @@
          <div class="col-md-6">
             <h4><i class="ti {{ side == 'causes' ? 'ti-arrow-big-left-lines' : 'ti-arrow-big-right-lines' }} me-1"></i>{{ side == 'causes' ? __('Can be caused by', 'grcmanager') : __('Can lead to', 'grcmanager') }}</h4>
             {% if rows is empty %}
-               <p class="text-muted">—</p>
+               <p class="text-muted">-</p>
             {% else %}
                <ul class="list-unstyled">
                   {% for r in rows %}

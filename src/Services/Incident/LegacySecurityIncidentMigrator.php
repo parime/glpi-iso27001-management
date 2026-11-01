@@ -9,8 +9,8 @@ namespace GlpiPlugin\Grcmanager\Services\Incident;
  * `Installer::migrateLegacySecurityIncidents()`, ROADMAP.md "Version 2.0"): maps a row from the
  * former lightweight `PluginGrcmanagerSecurityIncident` register (CommonDBTM, issue #29) onto the
  * column shape of the absorbed ITIL object's own table. Kept GLPI-independent (no $DB, no
- * CommonDBTM) so the field mapping — including the trickiest part, the status vocabulary
- * conversion — is unit-tested directly, the same split as `SecurityIncidentRules` and every other
+ * CommonDBTM) so the field mapping: including the trickiest part, the status vocabulary
+ * conversion: is unit-tested directly, the same split as `SecurityIncidentRules` and every other
  * Rules class in this plugin.
  *
  * Status values are the raw ints CommonITILObject itself defines (INCOMING=1, ASSIGNED=2,
@@ -28,7 +28,7 @@ final class LegacySecurityIncidentMigrator
 
     /**
      * The old 4-value ISO status vocabulary doesn't line up 1:1 with CommonITILObject's own
-     * lifecycle — this is a judgment call, not a native equivalence: "investigating" (someone is
+     * lifecycle: this is a judgment call, not a native equivalence: "investigating" (someone is
      * actively working it) maps to ASSIGNED, "contained" (mitigated but not yet fully resolved)
      * maps to WAITING, "open"/"closed" map directly to their obvious counterparts.
      *
@@ -69,7 +69,7 @@ final class LegacySecurityIncidentMigrator
     {
         // Indexing STATUS_MAP directly with $legacyStatus when it's null would still trigger
         // PHP's "Using null as an array offset is deprecated" (the array access itself is
-        // evaluated before `??` can short-circuit it) — checked explicitly instead.
+        // evaluated before `??` can short-circuit it): checked explicitly instead.
         if ($legacyStatus === null) {
             return self::STATUS_INCOMING;
         }
