@@ -29,7 +29,7 @@ use Session;
 /**
  * Issue #113 : suivi des exigences du système de management (ISO/IEC 27001:2022, articles 4 à
  * 10), une ligne par sous-article, seedée une fois à l'installation (Installer::seedClauses(),
- * numéros dans IsmsClauseCatalog) — même modèle que Control pour l'Annexe A.
+ * numéros dans IsmsClauseCatalog) : même modèle que Control pour l'Annexe A.
  *
  * Seuls le numéro et des titres courts rédigés par ce projet sont affichés, jamais le texte des
  * exigences (voir la section « Avertissement » du README). Les preuves sont des Documents GLPI

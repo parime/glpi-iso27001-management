@@ -17,7 +17,7 @@
 
 // Same gap as securityincidenttask.form.php/securityincidentcost.form.php (see their own
 // comments): the "Item" tab (associated assets) posts to `front/<itemtype>_item.form.php` by
-// convention — confirmed live, the tab's own form action pointed here before this file existed.
+// convention: confirmed live, the tab's own form action pointed here before this file existed.
 // Delegates to GLPI core's shared generic controller, same as front/change_item.form.php.
 
 $obj = new PluginGrcmanagerSecurityIncident();

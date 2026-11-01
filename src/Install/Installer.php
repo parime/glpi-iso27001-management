@@ -138,7 +138,7 @@ final class Installer
 
     // Issue #29 (registre des incidents de sécurité de l'information, A.5.24-27). Absorption de
     // glpi-security-incidents (ROADMAP.md "Version 2.0") : ce nom de table reste inchangé, mais son
-    // schéma change du tout au tout (objet ITIL complet au lieu d'un simple registre CommonDBTM) —
+    // schéma change du tout au tout (objet ITIL complet au lieu d'un simple registre CommonDBTM) -
     // voir la migration légère->fusionnée dans install() ci-dessous, qui renomme l'ancien contenu
     // vers SECURITY_INCIDENTS_LEGACY_TABLE avant de recréer celui-ci avec le nouveau schéma.
     private const SECURITY_INCIDENTS_TABLE = 'glpi_plugin_grcmanager_securityincidents';
@@ -165,7 +165,7 @@ final class Installer
 
     // Raccourci (ne reflète pas le nom de classe complet) : le nom par défaut que GLPI dériverait
     // (glpi_plugin_grcmanager_securityincidenttemplates_predefinedfields, etc. pour les 4 tables
-    // satellites) dépasse la limite de 64 caractères de MySQL pour un identifiant — voir le
+    // satellites) dépasse la limite de 64 caractères de MySQL pour un identifiant : voir le
     // docblock de PluginGrcmanagerSecurityIncidentTemplate::getTable().
     private const SECURITY_INCIDENT_TEMPLATES_TABLE = 'glpi_plugin_grcmanager_secincidenttemplates';
 
@@ -977,7 +977,7 @@ final class Installer
         // plugin) : la cible ici est n'importe quel itemtype GLPI géré (Computer, actif
         // personnalisé...), exactement le même modèle que les tables de liaison polymorphes du
         // cœur GLPI lui-même (ex. glpi_documents_items). Un risque peut avoir zéro ligne ici (reste
-        // un risque purement organisationnel, ex. "processus de recrutement", voir l'issue) — ce
+        // un risque purement organisationnel, ex. "processus de recrutement", voir l'issue) : ce
         // n'est pas une relation obligatoire, contrairement à `users_id` (propriétaire) sur
         // RISKS_TABLE ci-dessus qui, elle, est bien une colonne directe (relation 1-vers-1
         // implicite avec un `User`, toujours renseignée). Voir
@@ -1000,7 +1000,7 @@ final class Installer
 
         // Issue #26 (classification C/I/D des actifs, ISO/IEC 27001:2022 A.5.9/A.5.12/A.8.2) :
         // registre INDÉPENDANT du lien risque <-> actif de l'issue #25 ci-dessus (RISKS_ITEMS_TABLE)
-        // — une classification est une propriété de l'actif lui-même, pas d'un risque particulier
+        // - une classification est une propriété de l'actif lui-même, pas d'un risque particulier
         // qui le mentionne, voir \GlpiPlugin\Grcmanager\AssetClassification. Clé composite unique
         // itemtype/items_id (une seule ligne par actif réel, jamais deux classifications
         // concurrentes pour le même actif), même modèle polymorphe que RISKS_ITEMS_TABLE mais SANS
@@ -1106,7 +1106,7 @@ final class Installer
 
         // Issue #32 (objectifs ISMS et suivi de KPI dans le temps, clause 6.2) : `target_value` et
         // `target_description` sont deux colonnes INDÉPENDANTES et toutes deux nullables plutôt
-        // qu'une seule colonne numérique obligatoire — certains objectifs ont une vraie cible
+        // qu'une seule colonne numérique obligatoire : certains objectifs ont une vraie cible
         // chiffrée ("réduire de 20%"), d'autres sont purement qualitatifs ("obtenir la
         // certification ISO 27001") et n'ont rien de sensé à mettre dans une colonne numérique
         // obligatoire (voir \GlpiPlugin\Grcmanager\Objective::hasNumericTarget() et
@@ -1637,7 +1637,7 @@ final class Installer
         // plugin jumeau (acteurs, workflow, tâches, notifications, CVE), avec les champs de
         // classification ISO ci-dessus FUSIONNÉS dessus (`category`/`severity`/`cia_impact`/
         // `root_cause`/`lessons_learned`/`plugin_grcmanager_risks_id`) plutôt que gardés sur un
-        // second enregistrement séparé — un seul incident, jamais deux saisies à faire concorder.
+        // second enregistrement séparé : un seul incident, jamais deux saisies à faire concorder.
         // `linked_itemtype`/`linked_items_id` (référence légère vers un Ticket/Problem) disparaît :
         // le lien polymorphe hérité de CommonITILObject (SECURITY_INCIDENTS_ITEMS_TABLE ci-dessous,
         // qui accepte n'importe quel itemtype) couvre déjà ce besoin, pas la peine de deux
@@ -1645,7 +1645,7 @@ final class Installer
         //
         // Le nom de table ne change pas, mais son schéma si : le contenu existant (sous l'ancien
         // schéma CommonDBTM) est d'abord renommé vers SECURITY_INCIDENTS_LEGACY_TABLE avant de
-        // recréer la table sous son nom canonique avec le nouveau schéma — voir la migration de
+        // recréer la table sous son nom canonique avec le nouveau schéma : voir la migration de
         // données après la création des tables satellites ci-dessous. `incident_date` n'existe que
         // dans l'ancien schéma, donc sa présence sert de marqueur fiable pour détecter qu'une
         // migration est nécessaire (idempotent : une fois migré et la table legacy supprimée, ce
@@ -1658,7 +1658,7 @@ final class Installer
         }
 
         // Colonnes calquées sur `glpi_changes` (le plus proche analogue natif), lues directement
-        // depuis un vrai schéma GLPI 11 par le plugin absorbé plutôt que devinées — voir son propre
+        // depuis un vrai schéma GLPI 11 par le plugin absorbé plutôt que devinées : voir son propre
         // Installer.php d'origine.
         if (!$DB->tableExists(self::SECURITY_INCIDENTS_TABLE)) {
             $query = "CREATE TABLE `" . self::SECURITY_INCIDENTS_TABLE . "` (
@@ -1921,7 +1921,7 @@ final class Installer
 
         // Colonnes requises par convention GLPI core (dérivées de strtolower(static::class) pour
         // un objet ITIL avec gestion de modèles) : CommonITILObject::getITILTemplateToUse() /
-        // Entity::getUsedConfig() vont chercher ces colonnes par ce nom exact — confirmé sur le
+        // Entity::getUsedConfig() vont chercher ces colonnes par ce nom exact : confirmé sur le
         // plugin absorbé avant fusion, pas une supposition. Même forme que les colonnes natives
         // changetemplates_strategy/_id.
         if (!$DB->fieldExists('glpi_entities', 'plugingrcmanagersecurityincidenttemplates_strategy')) {
@@ -2121,7 +2121,7 @@ final class Installer
 
         // Absorption de glpi-security-incidents (ROADMAP.md "Version 2.0") : interrupteurs
         // module/CVE/modèles/tableau de bord, une seule ligne singleton (id=1) seedée avec tous
-        // les indicateurs activés — même convention que RISK_MATRIX_CONFIG_TABLE ci-dessus (voir
+        // les indicateurs activés : même convention que RISK_MATRIX_CONFIG_TABLE ci-dessus (voir
         // SecurityIncidentModuleConfig). Tous activés par défaut : sur une install existante, ce
         // toggle ne fait que permettre de DÉSACTIVER une fonctionnalité, jamais l'inverse.
         if (!$DB->tableExists(self::SECURITY_INCIDENT_CONFIG_TABLE)) {
@@ -2313,7 +2313,7 @@ final class Installer
         );
 
         // Issue #128 : délais de notification réglementaires (NIS2, RGPD) des incidents de
-        // sécurité — suivi sur l'incident quand une échéance approche ou est dépassée (voir
+        // sécurité : suivi sur l'incident quand une échéance approche ou est dépassée (voir
         // PluginGrcmanagerSecurityIncident::cronRegulatorydeadlines()).
         CronTask::Register(
             'PluginGrcmanagerSecurityIncident',
@@ -3203,7 +3203,7 @@ final class Installer
      * for all four events (same pattern as GLPI core's own native `Change` notifications) and four
      * `Notification` rows. Target `items_id`/`type` values (1, 3, 21, and 1/2/3/4/21 for "update")
      * are copied verbatim from a real GLPI 11 install's own `glpi_notificationtargets` rows for
-     * `Change` — ported unchanged from the absorbed plugin's own Installer.php.
+     * `Change` - ported unchanged from the absorbed plugin's own Installer.php.
      */
     private function seedSecurityIncidentNotifications(): void
     {
@@ -3245,11 +3245,16 @@ final class Installer
         foreach ($eventsAndTargets as $event => $targetItemsIds) {
             $notification = new Notification();
             if ($notification->getFromDBByCrit(['itemtype' => $itemtype, 'event' => $event])) {
+                // Issue #363 : nom d'origine avec un tiret cadratin, renommé seulement s'il n'a pas
+                // été modifié par l'administrateur.
+                if ($notification->fields['name'] === "Security incident \u{2014} " . $event) {
+                    $notification->update(['id' => $notification->getID(), 'name' => 'Security incident - ' . $event]);
+                }
                 continue;
             }
 
             $notificationId = $notification->add([
-                'name'         => 'Security incident — ' . $event,
+                'name'         => 'Security incident - ' . $event,
                 'entities_id'  => 0,
                 'is_recursive' => 1,
                 'is_active'    => 1,
@@ -3470,13 +3475,13 @@ final class Installer
 
     /**
      * Migrates every row of the former lightweight CommonDBTM register (renamed to
-     * SECURITY_INCIDENTS_LEGACY_TABLE just before the new ITIL-object table was created — see the
+     * SECURITY_INCIDENTS_LEGACY_TABLE just before the new ITIL-object table was created: see the
      * caller) into the new merged schema, then drops the now-empty legacy table. Runs at most once
      * per instance: the legacy table only exists on an upgrade from a pre-absorption version, and
      * is gone for good after this method returns.
      *
      * The actual field mapping (including the status-vocabulary conversion) lives in
-     * `LegacySecurityIncidentMigrator::mapRow()` — a pure, GLPI-independent, unit-tested class —
+     * `LegacySecurityIncidentMigrator::mapRow()` - a pure, GLPI-independent, unit-tested class -
      * so the trickiest part of this migration is verified without needing a live DB. `users_id`
      * (the old register's single "responsable" field) becomes an ASSIGN actor on the new object;
      * `linked_itemtype`/`linked_items_id` (if set) becomes a row in SECURITY_INCIDENTS_ITEMS_TABLE,

@@ -1,4 +1,4 @@
-{# Absorbé depuis glpi-security-incidents (ROADMAP.md "Version 2.0") — voir
+{# Absorbé depuis glpi-security-incidents (ROADMAP.md "Version 2.0") : voir
    GlpiPlugin\\Grcmanager\\SecurityIncidentCve::displayTabContentForItem(). #}
 {% if can_edit %}
 <form method="post" action="{{ path('/plugins/grcmanager/front/securityincidentcve.form.php') }}" class="mb-3 d-flex gap-2 align-items-end">
@@ -7,7 +7,7 @@
   <div class="flex-fill">
     <label class="form-label">{{ __('CVE identifier(s)', 'grcmanager') }}</label>
     <textarea name="cve_ids" class="form-control" rows="2" placeholder="CVE-2026-12345&#10;CVE-2026-67890" required></textarea>
-    <div class="form-hint">{{ __('One per line, or comma-separated — several at once are supported.', 'grcmanager') }}</div>
+    <div class="form-hint">{{ __('One per line, or comma-separated: several at once are supported.', 'grcmanager') }}</div>
   </div>
   <button type="submit" name="add" class="btn btn-primary">
     <i class="ti ti-plus"></i> {{ __('Ajouter') }}
@@ -40,7 +40,7 @@
                 }[enrichment.severity]|default('bg-secondary-lt') %}
                 <span class="badge {{ severity_class }}">
                   {% if is_urgent %}<i class="ti ti-alert-triangle me-1"></i>{% endif %}
-                  CVSS {{ enrichment.cvss_score }} — {{ enrichment.severity }}
+                  CVSS {{ enrichment.cvss_score }} - {{ enrichment.severity }}
                 </span>
               {% endif %}
             {% endif %}
@@ -49,7 +49,7 @@
             {% set signal = signals_by_cve_id[cve.cve_id]|default(null) %}
             {% if signal and signal.is_kev %}
               <span class="badge bg-red text-white" title="{{ __('Actively exploited (CISA KEV catalog)', 'grcmanager') }}">
-                <i class="ti ti-flame me-1"></i>KEV{% if signal.kev_due %} — {{ __('CISA due date', 'grcmanager') }} {{ signal.kev_due|formatted_date }}{% endif %}
+                <i class="ti ti-flame me-1"></i>KEV{% if signal.kev_due %} - {{ __('CISA due date', 'grcmanager') }} {{ signal.kev_due|formatted_date }}{% endif %}
               </span>
             {% endif %}
             {% if signal and signal.epss is not null %}
@@ -117,7 +117,7 @@
                       <a href="{{ path('/front/' ~ asset.itemtype|lower ~ '.form.php') }}?id={{ asset.items_id }}">
                         {{ asset.item_name }}
                       </a>
-                      — {{ asset.software_name }} {{ asset.version }}
+                      - {{ asset.software_name }} {{ asset.version }}
                       {% if asset.state == 'unknown' %}
                         <span class="text-muted">({{ __('version not verifiable', 'grcmanager') }})</span>
                       {% endif %}

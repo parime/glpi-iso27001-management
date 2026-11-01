@@ -20,7 +20,7 @@ declare(strict_types=1);
 namespace GlpiPlugin\Grcmanager\Services\Evidence;
 
 /**
- * Issue #145 : règles pures (sans GLPI) de validité des documents de preuve — un certificat ISO
+ * Issue #145 : règles pures (sans GLPI) de validité des documents de preuve : un certificat ISO
  * fournisseur, un rapport de pentest ou une attestation d'assurance expirés ne prouvent plus rien.
  * Aucune décision ici ne change un statut : la tâche planifiée prévient le responsable, puis ouvre
  * un ticket « Renouveler la preuve » (\GlpiPlugin\Grcmanager\Evidence::cronEvidencereminder()).

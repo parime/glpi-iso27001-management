@@ -18,7 +18,7 @@
 use GlpiPlugin\Grcmanager\Compatibility\Base\SecurityIncidentTemplateHiddenFieldBase;
 
 /**
- * Required by `ITILTemplate` (naming-convention resolved, `$itiltype . 'TemplateHiddenField'`) —
+ * Required by `ITILTemplate` (naming-convention resolved, `$itiltype . 'TemplateHiddenField'`) -
  * same minimal shape as GLPI core's own `ChangeTemplateHiddenField`.
  */
 class PluginGrcmanagerSecurityIncidentTemplateHiddenField extends SecurityIncidentTemplateHiddenFieldBase

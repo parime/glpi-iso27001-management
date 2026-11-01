@@ -18,7 +18,7 @@
 use GlpiPlugin\Grcmanager\Compatibility\Base\SecurityIncidentSupplierBase;
 
 /**
- * Relation between PluginGrcmanagerSecurityIncident and Supplier — same minimal shape as
+ * Relation between PluginGrcmanagerSecurityIncident and Supplier: same minimal shape as
  * GLPI core's own `Change_Supplier`.
  */
 class PluginGrcmanagerSecurityIncident_Supplier extends SecurityIncidentSupplierBase

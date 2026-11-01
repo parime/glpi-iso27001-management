@@ -136,7 +136,7 @@ if (isset($_POST['import'])) {
 
         // Un fichier vide, non-CSV, ou dont l'en-tête ne compte pas exactement les colonnes
         // attendues produit silencieusement 0 ligne exploitable (ni mise à jour, ni rejet à
-        // afficher) — distingué explicitement d'un import normal à 0 changement, pour ne jamais
+        // afficher) : distingué explicitement d'un import normal à 0 changement, pour ne jamais
         // laisser un utilisateur croire que son fichier a été traité avec succès alors qu'il n'a
         // pas été lu du tout.
         $importResult = [
@@ -152,7 +152,7 @@ if (isset($_POST['import'])) {
 }
 
 Html::header(
-    __('CSV import/export — Annex A', 'grcmanager'),
+    __('CSV import/export: Annex A', 'grcmanager'),
     $_SERVER['PHP_SELF'],
     'grcmanager',
     \GlpiPlugin\Grcmanager\Control::class

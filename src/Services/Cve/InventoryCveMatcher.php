@@ -9,13 +9,13 @@ use GlpiPlugin\Grcmanager\ProductAlias;
 /**
  * Correlates a CVE's `affected_cpes` (see NvdCveParser::affectedCpes()) against software actually
  * installed on this GLPI instance's own inventory, using the admin-declared catalog
- * (\GlpiPlugin\Grcmanager\CanonicalProduct/CpeReference/ProductAlias) — never an automatic name/version
+ * (\GlpiPlugin\Grcmanager\CanonicalProduct/CpeReference/ProductAlias): never an automatic name/version
  * guess, same "no invented correlation" principle as the rest of this plugin family.
  *
  * Computed on demand (called only when a human views a CVE's tab on a security incident), not by a
  * Cron against a whole vulnerability catalog: unlike the sibling plugin glpi-vulnerability-manager
  * (archived), this plugin only ever needs to answer "does THIS one CVE, already being reviewed on
- * an incident, concern my inventory?" — a bounded, low-frequency question, not a continuous
+ * an incident, concern my inventory?" - a bounded, low-frequency question, not a continuous
  * fleet-wide scan. No persisted "matches" table, no Cron, no review workflow as a result: simpler
  * by design, not a missing feature (see ROADMAP.md for the full rationale).
  *
@@ -24,7 +24,7 @@ use GlpiPlugin\Grcmanager\ProductAlias;
  * the sibling plugin's own `AssetProductResolver` hand-writes for the same reason (GLPI core's own
  * `Item_SoftwareVersion::getFromItem()` doesn't return the manufacturer). Iterates every itemtype
  * in `$CFG_GLPI['software_types']` (Computer, Monitor, NetworkEquipment, Peripheral, Phone,
- * Printer in stock GLPI 11) rather than hardcoding Computer only — a CVE can just as well affect a
+ * Printer in stock GLPI 11) rather than hardcoding Computer only: a CVE can just as well affect a
  * NetworkEquipment's firmware as a Computer's software.
  *
  * NOTE: depends on GLPI's runtime global $DB/$CFG_GLPI and the legacy PluginGrcmanager* classes,

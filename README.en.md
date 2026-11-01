@@ -21,7 +21,7 @@ natively do is answer the questions a security officer or an ISO 27001 auditor a
 
 **GLPI GRC Manager** covers generic organizational risk (ISO 27001 clause 6.1.2/8.2): people,
 process, physical, third-party, with acceptance, treatment, a Statement of Applicability (SoA),
-internal audits and corrective actions — and, since v2.0, a real "Security Incident" ITIL object
+internal audits and corrective actions: and, since v2.0, a real "Security Incident" ITIL object
 (absorbed from the sibling plugin glpi-security-incidents, now archived), with its ISO 27001
 classification fields merged directly onto it.
 
@@ -148,7 +148,7 @@ points: an ideal map for an attacker. The plugin protects them at its own level:
 derives the plugin key from it):
 
 - From a [release](https://github.com/parime/glpi-iso27001-management/releases) (recommended, no
-  dependency to install — `vendor/` is already bundled in the ZIP): download
+  dependency to install - `vendor/` is already bundled in the ZIP): download
   `glpi-iso27001-management-X.Y.Z.zip`, extract it into `plugins/`, then rename the extracted
   folder to `grcmanager`.
 - Or for development, from source:
@@ -223,7 +223,7 @@ and documentation only identifies the framework the plugin helps you track.
 - **Directive (EU) 2022/2555 "NIS2"**: articles 20, 21(2) and 23(4). The ten measures of
   article 21(2) are reproduced from the official French and English language versions published
   on [EUR-Lex](https://eur-lex.europa.eu/eli/dir/2022/2555/oj); articles 20 and 23 are
-  summarised. © European Union, https://eur-lex.europa.eu/ — reuse authorised (Commission
+  summarised. © European Union, https://eur-lex.europa.eu/ - reuse authorised (Commission
   Decision 2011/833/EU). Only the version published in the Official Journal of the EU is
   authentic. The mapping to ISO 27001 Annex A is indicative and made by this project.
 - **ANSSI IT hygiene guide (42 measures)**: titles of the 42 measures and 10 themes reproduced

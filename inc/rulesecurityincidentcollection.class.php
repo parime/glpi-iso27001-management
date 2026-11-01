@@ -18,13 +18,13 @@
 use GlpiPlugin\Grcmanager\Compatibility\Base\RuleSecurityIncidentCollectionBase;
 
 /**
- * Required, not optional — same class of surprise as `PluginGrcmanagerSecurityIncidentCost`/
+ * Required, not optional: same class of surprise as `PluginGrcmanagerSecurityIncidentCost`/
  * `PluginGrcmanagerSecurityIncidentTemplate` (see their own docblocks):
  * `CommonItilObject_Item::prepareInputForAdd()` unconditionally calls
  * `CommonITILObject::getRuleCollectionClassInstance()`, which builds the expected class name as
  * `'Rule' . static::getType() . 'Collection'` and throws a `RuntimeException` if it doesn't exist
- * — confirmed live, the very first attempt to link an asset to an incident (the "Item" tab) fataled
- * with exactly that error. Minimal shape, mirroring GLPI core's own `RuleChangeCollection` — no
+ * - confirmed live, the very first attempt to link an asset to an incident (the "Item" tab) fataled
+ * with exactly that error. Minimal shape, mirroring GLPI core's own `RuleChangeCollection` - no
  * predefined business rules are seeded, this only satisfies the convention so linking an asset
  * doesn't crash; an administrator can still define real rules from **Configuration > Rules**
  * (`Plugin::registerClass()` in setup.php makes this itemtype discoverable there) if that

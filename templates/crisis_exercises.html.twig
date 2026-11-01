@@ -40,8 +40,8 @@
                   <td>{{ e.started_at|formatted_datetime }}</td>
                   <td>{{ e.duration }} min</td>
                   <td><span class="badge {{ e.summary.rate >= 80 ? 'bg-green-lt' : (e.summary.rate >= 50 ? 'bg-orange-lt' : 'bg-red-lt') }}">{{ e.summary.on_time }} / {{ e.summary.total }} ({{ e.summary.rate }} %)</span></td>
-                  <td>{{ e.summary.average is null ? '—' : e.summary.average ~ ' min' }}</td>
-                  <td>{% if e.document_url %}<a href="{{ e.document_url }}"><i class="ti ti-file-type-pdf me-1"></i>{{ _x('verb', 'Open', 'grcmanager') }}</a>{% else %}—{% endif %}</td>
+                  <td>{{ e.summary.average is null ? '-' : e.summary.average ~ ' min' }}</td>
+                  <td>{% if e.document_url %}<a href="{{ e.document_url }}"><i class="ti ti-file-type-pdf me-1"></i>{{ _x('verb', 'Open', 'grcmanager') }}</a>{% else %}-{% endif %}</td>
                </tr>
             {% endfor %}
          </tbody>

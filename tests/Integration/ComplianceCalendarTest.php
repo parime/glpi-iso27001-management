@@ -5,7 +5,7 @@ namespace GlpiPlugin\Grcmanager\Tests\Integration;
 use GlpiPlugin\Grcmanager\ComplianceEvent;
 
 /**
- * Issue #142 : calendrier de conformité — événements saisis et échéances des autres registres,
+ * Issue #142 : calendrier de conformité : événements saisis et échéances des autres registres,
  * planning GLPI du responsable, export iCal.
  */
 final class ComplianceCalendarTest extends GrcmanagerIntegrationTestCase

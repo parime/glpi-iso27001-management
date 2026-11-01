@@ -32,7 +32,7 @@ use PluginGrcmanagerSecurityIncident;
 use Session;
 
 /**
- * One CVE reference associated to a PluginGrcmanagerSecurityIncident — several per
+ * One CVE reference associated to a PluginGrcmanagerSecurityIncident: several per
  * incident, native reference feature ported from the sibling plugin `glpi-vulnerability-manager`'s
  * own `cve_id varchar(20)` column precedent (see this plugin's own project plan). Deliberately a
  * standalone plugin table, no dependency on `glpi-vulnerability-manager` itself (that plugin is
@@ -41,7 +41,7 @@ use Session;
  * Uses `PluginGrcmanagerSecurityIncident`'s own right rather than a dedicated one: a CVE
  * reference has no meaningful access boundary of its own, separate from the incident it documents.
  *
- * Optional NVD enrichment (score, severity, description, patch links — see
+ * Optional NVD enrichment (score, severity, description, patch links: see
  * GlpiPlugin\Grcmanager\Services\Cve\NvdCveEnrichmentService, front/config.php) is triggered right
  * after a successful add via post_addItem(), the standard CommonDBTM lifecycle hook, so every add
  * path (single identifier, or the multi-line textarea in front/securityincidentcve.form.php) gets
@@ -51,7 +51,7 @@ class SecurityIncidentCve extends SecurityIncidentCveBase
 {
     public const RIGHTNAME = 'plugin_grcmanager_securityincident';
 
-    // Same literal as PluginGrcmanagerSecurityIncident::$rightname — a static property of
+    // Same literal as PluginGrcmanagerSecurityIncident::$rightname: a static property of
     // another class cannot be used as a property default value (not a constant expression), so
     public static function getTypeName($nb = 0)
     {
@@ -64,7 +64,7 @@ class SecurityIncidentCve extends SecurityIncidentCveBase
     }
 
     /**
-     * Best-effort synchronous enrichment right after a successful add — a single lightweight NVD
+     * Best-effort synchronous enrichment right after a successful add: a single lightweight NVD
      * call, same cost as GithubVersionChecker's own inline HTTP call elsewhere in this plugin. A
      * network failure here is captured as `fetch_status = 'error'` by
      * NvdCveEnrichmentService::fetchForCve() itself (never an exception), so it can never abort or
@@ -82,7 +82,7 @@ class SecurityIncidentCve extends SecurityIncidentCveBase
 
     /**
      * Cron entry point (registered in src/Install/Installer.php) : rattrape les CVE jamais
-     * enrichies avec succès et rafraîchit celles dont la donnée commence à dater — voir
+     * enrichies avec succès et rafraîchit celles dont la donnée commence à dater : voir
      * NvdCveEnrichmentService::refreshDue(). No-op explicite (retourne 0 sans requête réseau) si
      * l'enrichissement est désactivé, plutôt que de laisser le Cron tourner pour rien.
      */
@@ -277,7 +277,7 @@ class SecurityIncidentCve extends SecurityIncidentCveBase
             return false;
         }
 
-        // `UNIQUE(plugin_grcmanager_securityincidents_id, cve_id)` in the database — without this
+        // `UNIQUE(plugin_grcmanager_securityincidents_id, cve_id)` in the database: without this
         // check, re-submitting an already-linked CVE (e.g. the multi-line textarea re-processing
         // an identifier already added earlier) reaches CommonDBTM::add()'s raw INSERT and surfaces
         // as an uncaught RuntimeException (HTTP 500, confirmed live against a real GLPI instance)
@@ -344,7 +344,7 @@ class SecurityIncidentCve extends SecurityIncidentCveBase
 
     /**
      * Splits a textarea's raw content (one identifier per line, and/or comma-separated) into a
-     * deduplicated list of uppercased candidate identifiers — shape validation of each one still
+     * deduplicated list of uppercased candidate identifiers: shape validation of each one still
      * happens per-row in `prepareInput()` when it's actually added, this only tokenizes the input.
      *
      * @return list<string>

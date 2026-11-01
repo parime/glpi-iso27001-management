@@ -157,10 +157,10 @@ jobs:
     if: needs.detect.outputs.has_composer == 'true'
     runs-on: ubuntu-latest
     # Catches a __()/_n()/_x() string added to the code without a matching entry in
-    # locales/*.po — the exact gap that let ~38 strings (menu title, security-incident absorbed
+    # locales/*.po: the exact gap that let ~38 strings (menu title, security-incident absorbed
     # module, config toggles, dashboard cards, training evaluation) sit with NO translation entry
     # at all in either shipped language (fr_FR/en_GB) for whole sprints before a manual audit
-    # found them — distinct from the already-documented TECH_DEBT.md item about the absorbed
+    # found them: distinct from the already-documented TECH_DEBT.md item about the absorbed
     # module only shipping 2 of the sibling plugin's original 5 languages, which this job does
     # not address. Regenerates the .pot from the current code (vendor/bin/extract-locales, same
     # tool a human contributor would run by hand) rather than a hand-rolled regex.

@@ -201,7 +201,7 @@ class ImpactAnalysis extends CommonGLPI
     }
 
     /**
-     * Issue #177, phase 2 : export pour le plan de continuité (CSV) — actifs classés en
+     * Issue #177, phase 2 : export pour le plan de continuité (CSV) : actifs classés en
      * disponibilité ou dotés d'objectifs de reprise, avec leurs dépendances.
      *
      * @return list<list<string>>

@@ -6,11 +6,11 @@ namespace GlpiPlugin\Grcmanager\Services\Control;
 
 /**
  * Issue #111 : Guide d'hygiène informatique de l'ANSSI, « Renforcer la sécurité de son système
- * d'information en 42 mesures », version 2.0 de septembre 2017 — les 42 intitulés et les 10
+ * d'information en 42 mesures », version 2.0 de septembre 2017 : les 42 intitulés et les 10
  * thèmes sont reproduits tels qu'ils figurent dans l'« Outil de suivi » en fin de guide (pages
  * 60 à 65, y compris l'orthographe « Connaitre » du thème II).
  *
- * Droits : publié par l'ANSSI sous Licence Ouverte / Open Licence (Etalab V1) — réutilisation
+ * Droits : publié par l'ANSSI sous Licence Ouverte / Open Licence (Etalab V1) : réutilisation
  * libre, y compris commerciale, sous réserve de mentionner la paternité (ANSSI, titre, version et
  * date). Mention affichée sous la carte ANSSI de templates/referentiels.html.twig et dans le
  * README. La traduction anglaise (`en`) est indicative, établie par ce projet : l'ANSSI ne publie

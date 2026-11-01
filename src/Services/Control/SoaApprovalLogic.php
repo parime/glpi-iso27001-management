@@ -8,8 +8,8 @@ namespace GlpiPlugin\Grcmanager\Services\Control;
  * Issue #112 : règles pures de l'approbation de la Déclaration d'Applicabilité par la direction
  * (versions figées, voir \GlpiPlugin\Grcmanager\SoaVersion).
  *
- * L'empreinte de CONTENU (fingerprint) ne porte que sur ce qui fait la SoA — pour chaque contrôle :
- * code, applicabilité, état de mise en œuvre, justification — dans un ordre canonique (tri par
+ * L'empreinte de CONTENU (fingerprint) ne porte que sur ce qui fait la SoA : pour chaque contrôle :
+ * code, applicabilité, état de mise en œuvre, justification : dans un ordre canonique (tri par
  * code, JSON stable). Elle permet de savoir, sans régénérer de PDF, si la SoA a changé depuis la
  * dernière version approuvée : toute modification d'un de ces champs exige une nouvelle version.
  * L'empreinte du PDF figé (SHA-256 du fichier) est distincte : elle prouve quel document exact a

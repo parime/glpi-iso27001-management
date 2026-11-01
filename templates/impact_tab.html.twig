@@ -55,7 +55,7 @@
                <td>{% if d.url %}<a href="{{ d.url }}">{{ d.label }}</a>{% else %}<span class="text-muted">{{ d.label }}</span>{% endif %}</td>
                <td>{{ d.depth == 1 ? __('Direct', 'grcmanager') : __('Indirect (level %d)', 'grcmanager')|format(d.depth) }}</td>
                <td>{% if d.availability %}<span class="badge {{ badges[d.availability] ?? 'bg-secondary-lt' }}">{{ levels[d.availability] ?? d.availability }}</span>{% else %}<span class="text-muted">{{ _x('feminine', 'Not classified', 'grcmanager') }}</span>{% endif %}</td>
-               <td>{{ d.rto ? recovery_labels[d.rto]|default(d.rto ~ ' h') : '—' }}</td>
+               <td>{{ d.rto ? recovery_labels[d.rto]|default(d.rto ~ ' h') : '-' }}</td>
             </tr>
          {% endfor %}
          </tbody>

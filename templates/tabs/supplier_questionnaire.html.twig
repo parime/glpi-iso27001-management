@@ -9,7 +9,7 @@
    <div class="card-header d-flex flex-wrap align-items-center gap-2">
       <h3 class="card-title mb-0"><i class="ti ti-checklist me-1"></i>{{ __('Security questionnaire', 'grcmanager') }}</h3>
       {% if score is not null %}
-         <span class="badge {{ level_class[level] }} ms-2">{{ __('Score: %d %%', 'grcmanager')|format(score) }} — {{ level_labels[level] }}</span>
+         <span class="badge {{ level_class[level] }} ms-2">{{ __('Score: %d %%', 'grcmanager')|format(score) }} - {{ level_labels[level] }}</span>
       {% endif %}
       {% if date %}
          <span class="text-muted small ms-auto">{{ __('Filled in on %1$s by %2$s', 'grcmanager')|format(date|formatted_datetime, author) }}</span>

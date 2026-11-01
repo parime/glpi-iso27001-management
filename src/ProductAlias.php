@@ -22,13 +22,13 @@ use Session;
 
 /**
  * One GLPI software name (the exact string as it appears in `glpi_softwares.name` on this
- * instance's inventory) manually declared as an alias of a CanonicalProduct —
+ * instance's inventory) manually declared as an alias of a CanonicalProduct -
  * several per product, managed inline on that product's own form (see
  * CanonicalProduct::showProductAliases()), no menu/search screen of its own, same
  * convention as ObjectiveMeasurement.
  *
  * Matched by GlpiPlugin\Grcmanager\Services\Cve\InventoryCveMatcher by exact string equality only
- * — never a fuzzy/normalized match, same "no invented correlation" principle as the rest of this
+ * - never a fuzzy/normalized match, same "no invented correlation" principle as the rest of this
  * plugin family.
  *
  * Uses CanonicalProduct's own right rather than a dedicated one: a product alias
@@ -50,7 +50,7 @@ class ProductAlias extends ProductAliasBase
 
     /**
      * `alias` is UNIQUE in the database (one GLPI software name can only ever point to one
-     * canonical product, see Installer.php) — without this check, a duplicate submission reaches
+     * canonical product, see Installer.php): without this check, a duplicate submission reaches
      * CommonDBTM::add()'s raw INSERT and surfaces as an uncaught RuntimeException (HTTP 500,
      * confirmed live against a real GLPI instance for the sibling CpeReference,
      * same underlying issue here) instead of the normal Session::addMessageAfterRedirect() error
@@ -149,7 +149,7 @@ class ProductAlias extends ProductAliasBase
 
     /**
      * Resolves a raw GLPI software name to its canonical product id, or null if no alias matches
-     * — an unmatched software must be silently skipped by the caller, never guessed at (see class
+     * - an unmatched software must be silently skipped by the caller, never guessed at (see class
      * docblock).
      */
     public static function resolveCanonicalProductId(string $softwareName): ?int

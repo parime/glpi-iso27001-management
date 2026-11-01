@@ -19,7 +19,7 @@ use GlpiPlugin\Grcmanager\Compatibility\Base\SecurityIncidentItemBase;
 
 /**
  * Polymorphic link (any GLPI asset itemtype) between a PluginGrcmanagerSecurityIncident and
- * the assets it affects — same minimal shape as GLPI core's own `Change_Item`.
+ * the assets it affects: same minimal shape as GLPI core's own `Change_Item`.
  */
 class PluginGrcmanagerSecurityIncident_Item extends SecurityIncidentItemBase
 {

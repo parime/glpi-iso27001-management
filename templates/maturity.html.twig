@@ -24,8 +24,8 @@
                      <tr>
                         <td>{{ component_labels[key] }}</td>
                         <td class="text-end text-nowrap">{{ c.value is null ? __('no data', 'grcmanager') : c.value|number_format(1, ',') ~ ' %' }}</td>
-                        <td class="text-end text-nowrap">{{ c.value is null ? '—' : c.effective_weight|number_format(1, ',') ~ ' %' }}</td>
-                        <td class="text-end text-nowrap">{{ c.value is null ? '—' : (c.value * c.effective_weight / 100)|number_format(1, ',') }}</td>
+                        <td class="text-end text-nowrap">{{ c.value is null ? '-' : c.effective_weight|number_format(1, ',') ~ ' %' }}</td>
+                        <td class="text-end text-nowrap">{{ c.value is null ? '-' : (c.value * c.effective_weight / 100)|number_format(1, ',') }}</td>
                      </tr>
                   {% endfor %}
                   <tr class="fw-bold"><td>{{ __('Subtotal', 'grcmanager') }}</td><td></td><td></td><td class="text-end text-nowrap">{{ base|number_format(1, ',') }}</td></tr>

@@ -49,7 +49,7 @@
                            <input type="hidden" name="id" value="{{ a.id }}">
                            <input type="hidden" name="plugin_grcmanager_risks_id" value="{{ risk_id }}">
                            <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
-                           <select name="status" class="form-select form-select-sm" aria-label="{{ __('Status', 'grcmanager') }} — {{ a.description }}">
+                           <select name="status" class="form-select form-select-sm" aria-label="{{ __('Status', 'grcmanager') }} - {{ a.description }}">
                               {% for value, label in action_statuses %}<option value="{{ value }}" {{ value == a.status ? 'selected' }}>{{ label }}</option>{% endfor %}
                            </select>
                            <button type="submit" name="update" value="1" class="btn btn-sm btn-primary text-nowrap">{{ __('Update', 'grcmanager') }}</button>

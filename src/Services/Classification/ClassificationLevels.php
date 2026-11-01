@@ -77,7 +77,7 @@ final class ClassificationLevels
     /**
      * Whether any of the three axes is at the HIGH level. Backs the risk form's optional, purely
      * informational suggestion (inc/risk.class.php showForm(): "a linked asset carries a high C/I/D
-     * classification, consider reviewing this risk's impact") — never auto-changes the risk's own
+     * classification, consider reviewing this risk's impact"): never auto-changes the risk's own
      * `impact` field, only ever a non-blocking hint.
      *
      * @param array<string, mixed>|null $classification

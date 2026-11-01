@@ -17,7 +17,7 @@
 
 // Same gap as securityincidenttask.form.php (see its own comment) for the same reason: the Cost
 // tab's own "add a cost" subform (loaded via ajax/viewsubitem.php, itself generic) posts to
-// `front/<itemtype-in-lowercase>.form.php` by convention — confirmed live, submitting it 403'd
+// `front/<itemtype-in-lowercase>.form.php` by convention: confirmed live, submitting it 403'd
 // with no controller to receive it. Delegates to GLPI core's shared generic controller, same as
 // every core ITIL cost front controller (front/changecost.form.php, front/ticketcost.form.php).
 

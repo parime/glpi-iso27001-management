@@ -22,7 +22,7 @@
    {# Issue #127 : ticket ouvert par la tâche de rappel à l'échéance de la revue. #}
    {{ fields.htmlField('', review_ticket_url
       ? '<a href="' ~ review_ticket_url|e ~ '"><i class="ti ti-ticket me-1"></i>' ~ (__('Ticket #%d', 'grcmanager')|format(review_ticket_id))|e ~ '</a>'
-      : '—', __('Reassessment ticket', 'grcmanager')) }}
+      : '-', __('Reassessment ticket', 'grcmanager')) }}
    {{ fields.textareaField('description', item.fields['description'], __('Description', 'grcmanager'), {'full_width': true}) }}
    {{ fields.textareaField('justification', item.fields['justification'], __('Justification', 'grcmanager'), {'full_width': true}) }}
 {% endblock %}

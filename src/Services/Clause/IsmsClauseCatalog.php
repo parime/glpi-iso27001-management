@@ -8,7 +8,7 @@ namespace GlpiPlugin\Grcmanager\Services\Clause;
  * Issue #113 : exigences du système de management (ISO/IEC 27001:2022, articles 4 à 10), suivies
  * sous-article par sous-article. Seuls les numéros sont stockés ici ; les titres affichés sont des
  * titres courts rédigés par ce projet (PluginGrcmanagerClause::getClauseTitles()), JAMAIS le texte
- * des exigences de la norme — même règle que pour l'Annexe A, voir la section « Avertissement »
+ * des exigences de la norme : même règle que pour l'Annexe A, voir la section « Avertissement »
  * du README.
  *
  * Granularité : le niveau le plus fin numéroté par la norme (6.1.1 à 6.1.3, 7.5.1 à 7.5.3, 9.2.1,

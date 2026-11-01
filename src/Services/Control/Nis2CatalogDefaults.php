@@ -6,7 +6,7 @@ namespace GlpiPlugin\Grcmanager\Services\Control;
 
 /**
  * Issue #110 : directive (UE) 2022/2555 dite « NIS2 », exigences de gestion des risques
- * applicables aux entités essentielles et importantes — article 20 (gouvernance), article 21 §2
+ * applicables aux entités essentielles et importantes : article 20 (gouvernance), article 21 §2
  * (dix mesures minimales, points a à j) et article 23 §4 (étapes de notification des incidents
  * importants).
  *

@@ -1,5 +1,5 @@
 {# ROADMAP.md "Version 2.2" (bibliothèque de contrôles étendue) : 3 bibliothèques de référence
-   purement consultables (Annexe A ISO 27001, NIST CSF 2.0, CIS Controls v8) — voir
+   purement consultables (Annexe A ISO 27001, NIST CSF 2.0, CIS Controls v8) : voir
    front/referentiels.php pour la construction des données et
    GlpiPlugin\Grcmanager\Services\Control\{NistCsfCatalogDefaults,CisControlsCatalogDefaults,
    ControlCrosswalkDefaults} pour leur source. Rien n'est éditable ici : un admin gère
@@ -59,10 +59,10 @@
   <div class="card-body" id="grcmanager-nist-body">
     {% for function in nist_csf %}
       <details class="mb-2">
-        <summary class="fw-bold">{{ function.code }} — {{ function.name }}</summary>
+        <summary class="fw-bold">{{ function.code }} - {{ function.name }}</summary>
         {% for category in function.categories %}
           <div class="ms-3 mt-2">
-            <div class="text-muted small mb-1">{{ category.code }} — {{ category.name }}</div>
+            <div class="text-muted small mb-1">{{ category.code }} - {{ category.name }}</div>
             <table class="table table-sm">
               <tbody>
                 {% for sub in category.subcategories %}
@@ -104,7 +104,7 @@
       </details>
     {% endfor %}
   </div>
-  {# Mention de source exigée par la licence CC BY-NC-ND 4.0 des CIS Controls — voir le docblock de
+  {# Mention de source exigée par la licence CC BY-NC-ND 4.0 des CIS Controls : voir le docblock de
      CisControlsCatalogDefaults et la section « Avertissement » du README. #}
   <div class="card-footer text-muted small">
     <i class="ti ti-license me-1"></i>
@@ -123,7 +123,7 @@
   <div class="card-body" id="grcmanager-nis2-body">
     {% for article in nis2 %}
       <details class="mb-2"{% if article.article == '21' %} open{% endif %}>
-        <summary class="fw-bold">{{ __('Article', 'grcmanager') }} {{ article.article }} — {{ article.title }}</summary>
+        <summary class="fw-bold">{{ __('Article', 'grcmanager') }} {{ article.article }} - {{ article.title }}</summary>
         <table class="table table-sm ms-3 mt-2">
           <tbody>
             {% for requirement in article.requirements %}
@@ -169,7 +169,7 @@
   <div class="card-body" id="grcmanager-anssi-body">
     {% for theme in anssi %}
       <details class="mb-2">
-        <summary class="fw-bold">{{ theme.code }} — {{ theme.title }}
+        <summary class="fw-bold">{{ theme.code }} - {{ theme.title }}
           <span class="badge bg-secondary-lt ms-1">{{ theme.measures|length }}</span></summary>
         <table class="table table-sm ms-3 mt-2">
           <tbody>
@@ -195,7 +195,7 @@
       </details>
     {% endfor %}
   </div>
-  {# Mention de paternité exigée par la Licence Ouverte (Etalab) — voir le docblock de
+  {# Mention de paternité exigée par la Licence Ouverte (Etalab) : voir le docblock de
      AnssiHygieneCatalogDefaults et la section « Avertissement » du README. #}
   <div class="card-footer text-muted small">
     <i class="ti ti-license me-1"></i>
@@ -209,7 +209,7 @@
 
 <div class="card mb-3">
   <div class="card-header d-flex justify-content-between align-items-center">
-    <h3 class="card-title mb-0">{{ __('ISO/IEC 27090:2026 — Security of AI systems', 'grcmanager') }}</h3>
+    <h3 class="card-title mb-0">{{ __('ISO/IEC 27090:2026: Security of AI systems', 'grcmanager') }}</h3>
     <input type="search" class="form-control form-control-sm w-auto grcmanager-ref-filter"
            data-target="grcmanager-iso27090-body" placeholder="{{ __('Filter…', 'grcmanager') }}">
   </div>
@@ -217,7 +217,7 @@
     <p class="text-muted small">{{ __('Guidance, not certifiable, to be applied alongside ISO/IEC 27001 and ISO/IEC 42001. The typical AI risks of the risk catalog refer to these sections.', 'grcmanager') }}</p>
     {% for chapter in iso27090 %}
       <details class="mb-2"{% if chapter.chapter == '6' %} open{% endif %}>
-        <summary class="fw-bold">{{ chapter.chapter }} — {{ chapter.title }}</summary>
+        <summary class="fw-bold">{{ chapter.chapter }} - {{ chapter.title }}</summary>
         <table class="table table-sm ms-3 mt-2">
           <tbody>
             {% for topic in chapter.topics %}
@@ -241,7 +241,7 @@
     {% endfor %}
   </div>
   {# Texte de la norme protégé (© ISO/IEC 2026) : numéros de section seulement, objet résumé par ce
-     projet — voir le docblock d'Iso27090CatalogDefaults. #}
+     projet : voir le docblock d'Iso27090CatalogDefaults. #}
   <div class="card-footer text-muted small">
     <i class="ti ti-license me-1"></i>
     {{ __('ISO/IEC 27090:2026 is protected by copyright: only its section numbers are used here; summaries and the mapping to ISO 27001 Annex A are written by this project, which is not affiliated with ISO or IEC.', 'grcmanager') }}

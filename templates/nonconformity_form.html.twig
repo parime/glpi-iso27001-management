@@ -8,7 +8,7 @@
       <input type="hidden" name="plugin_grcmanager_securityincidents_id" value="{{ incident.id }}">
       <input type="hidden" name="cve_id" value="{{ item.fields['cve_id'] }}">
       {{ fields.htmlField('', '<a href="' ~ incident.url|e ~ '"><i class="ti ti-shield-exclamation me-1"></i>' ~ incident.name|e ~ '</a>'
-         ~ (item.fields['cve_id'] ? ' — <a href="https://nvd.nist.gov/vuln/detail/' ~ item.fields['cve_id']|e ~ '" target="_blank" rel="noopener">' ~ item.fields['cve_id']|e ~ '</a>' : ''),
+         ~ (item.fields['cve_id'] ? ' - <a href="https://nvd.nist.gov/vuln/detail/' ~ item.fields['cve_id']|e ~ '" target="_blank" rel="noopener">' ~ item.fields['cve_id']|e ~ '</a>' : ''),
          __('Origin', 'grcmanager')) }}
       {% if item.isNewItem() %}
          <div class="col-12 mb-2">

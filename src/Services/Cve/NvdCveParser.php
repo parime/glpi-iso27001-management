@@ -7,7 +7,7 @@ namespace GlpiPlugin\Grcmanager\Services\Cve;
 /**
  * Pure transformation of one raw NVD API 2.0 `cve` object (from
  * `GET https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-...`, the single-CVE lookup
- * endpoint — this plugin only ever enriches CVE references the user already typed in, never a bulk
+ * endpoint: this plugin only ever enriches CVE references the user already typed in, never a bulk
  * date-range sync) into the normalized shape this plugin persists. No GLPI dependency, no HTTP call
  * here: see NvdCveEnrichmentService for the network-bound half (same pure/GLPI-bound split as
  * RiskScoringService vs RiskMatrixConfig elsewhere in this plugin).
@@ -20,7 +20,7 @@ namespace GlpiPlugin\Grcmanager\Services\Cve;
  *
  * Patch/remediation link extraction (`patchLinks()` below) has no equivalent in
  * glpi-vulnerability-manager's own NvdConnector, which only ever persists the static NVD detail-page
- * URL, never the CVE's own `references[]` array — confirmed by reading that connector's
+ * URL, never the CVE's own `references[]` array: confirmed by reading that connector's
  * `normalize()`. Real NVD payload (CVE-2021-44228, "Log4Shell") does carry genuinely actionable
  * entries here, e.g. a Microsoft/Oracle advisory tagged `["Patch", ...]`.
  */
@@ -37,7 +37,7 @@ final class NvdCveParser
     ];
 
     /**
-     * Reference tags NVD uses that point to an actual remediation, not just background reading —
+     * Reference tags NVD uses that point to an actual remediation, not just background reading -
      * confirmed against the real Log4Shell payload (which also carries plain "Release Notes"/
      * "Third Party Advisory"/"Exploit"/"VDB Entry" tags, deliberately excluded here: never surface
      * an exploit writeup as if it were a fix).
@@ -96,10 +96,10 @@ final class NvdCveParser
     }
 
     /**
-     * Picks the most recent CVSS version available, "Primary" source preferred over "Secondary" —
+     * Picks the most recent CVSS version available, "Primary" source preferred over "Secondary" -
      * same rule as glpi-vulnerability-manager's NvdConnector::bestCvss(). Unlike that connector,
      * also returns `baseSeverity` straight from NVD's own analysis (present on every v3.x/v4.0
-     * metric block) rather than deriving one — a v2-only CVE has no `baseSeverity` field at all, the
+     * metric block) rather than deriving one: a v2-only CVE has no `baseSeverity` field at all, the
      * only case severityFromScore() below is used, and only with the well-established CVSS v2
      * qualitative scale NIST itself published, never an invented threshold.
      *
@@ -142,7 +142,7 @@ final class NvdCveParser
     }
 
     /**
-     * CVSS v2 has no `baseSeverity` field in the NVD payload (that concept was introduced in v3) —
+     * CVSS v2 has no `baseSeverity` field in the NVD payload (that concept was introduced in v3) -
      * this reproduces NIST's own published v2 qualitative scale
      * (https://nvd.nist.gov/vuln-metrics/cvss, "Qualitative Severity Rating Scale") rather than
      * inventing one, and is only ever reached when bestCvss() found a v2-only metric.
@@ -162,7 +162,7 @@ final class NvdCveParser
 
     /**
      * Flattens `references[]`, keeping only entries tagged as an actual remediation (see
-     * PATCH_TAGS) — deduplicated by URL, since the same advisory sometimes appears twice with
+     * PATCH_TAGS): deduplicated by URL, since the same advisory sometimes appears twice with
      * slightly different tag sets in real NVD data (confirmed on CVE-2021-44228).
      *
      * @param array<string, mixed> $cve
@@ -207,10 +207,10 @@ final class NvdCveParser
 
     /**
      * Flattens `configurations[].nodes[].cpeMatch[]`, keeping only entries with `vulnerable: true`
-     * — same rule, and same accepted limitation, as the sibling plugin glpi-vulnerability-manager's
+     * - same rule, and same accepted limitation, as the sibling plugin glpi-vulnerability-manager's
      * own NvdConnector::affectedCpes() (confirmed live on CVE-2021-44228's own `configurations`,
-     * which does carry nested `children` precondition nodes for some entries — e.g. "this firmware
-     * AND this specific hardware revision" — deliberately not walked here: the correlation this
+     * which does carry nested `children` precondition nodes for some entries: e.g. "this firmware
+     * AND this specific hardware revision" - deliberately not walked here: the correlation this
      * feature does is inherently best-effort already, walking `children` would need evaluating an
      * AND/OR boolean tree of preconditions this plugin has no other data to satisfy anyway).
      *
@@ -265,7 +265,7 @@ final class NvdCveParser
             return null;
         }
 
-        // NVD's `published` is `Y-m-d\TH:i:s.v` (confirmed live) — reformatted to plain
+        // NVD's `published` is `Y-m-d\TH:i:s.v` (confirmed live): reformatted to plain
         // `Y-m-d H:i:s` for storage in a native MySQL `timestamp` column.
         $date = \DateTimeImmutable::createFromFormat('Y-m-d\TH:i:s.v', $value)
             ?: \DateTimeImmutable::createFromFormat('Y-m-d\TH:i:s', $value);
@@ -275,7 +275,7 @@ final class NvdCveParser
 
     /**
      * mb_* required: byte-based substr() can split a multi-byte UTF-8 character in half, producing
-     * an invalid sequence MySQL's strict utf8mb4 mode rejects outright — the exact bug
+     * an invalid sequence MySQL's strict utf8mb4 mode rejects outright: the exact bug
      * glpi-vulnerability-manager's own NvdConnector::truncate() docblock documents hitting in
      * production against real NVD data.
      */

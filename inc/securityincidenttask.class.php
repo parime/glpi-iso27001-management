@@ -16,7 +16,7 @@
  */
 
 /**
- * Investigation/remediation follow-ups on a PluginGrcmanagerSecurityIncident — same shape
+ * Investigation/remediation follow-ups on a PluginGrcmanagerSecurityIncident: same shape
  * as GLPI core's own `ChangeTask`. `CommonITILTask::getItilObjectItemType()` derives the parent
  * itemtype by stripping the literal string "Task" off `static::class`, which resolves to
  * `PluginGrcmanagerSecurityIncident` automatically; no override needed here.

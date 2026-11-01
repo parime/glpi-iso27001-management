@@ -8,18 +8,18 @@ namespace GlpiPlugin\Grcmanager\Services\Incident;
  * Loads/saves the on/off switches for the security-incident module being absorbed from the
  * sibling plugin glpi-security-incidents (full ITIL object: actors, workflow, tasks,
  * notifications, CVE tracking, incident templates, dashboard cards) into
- * `glpi_plugin_grcmanager_securityincidentconfig` — a single row (id=1), seeded at install with
+ * `glpi_plugin_grcmanager_securityincidentconfig` - a single row (id=1), seeded at install with
  * every flag enabled, same singleton-row shape as RiskMatrixConfig
  * (src/Services/Risk/RiskMatrixConfig.php) so front/config.php doesn't need a second loading
  * convention.
  *
  * All flags default to enabled: on an existing install, this toggle only ever turns OFF something
- * that already exists — it never opts a fresh install IN to something new on its own, since the
+ * that already exists: it never opts a fresh install IN to something new on its own, since the
  * module's actual behaviour (menu entry, tabs, dashboard cards) only starts reading these flags
  * once that code lands. See ROADMAP.md "Version 2.0".
  *
  * NOTE: depends on GLPI's runtime global $DB, not unit-tested in isolation, same exclusion
- * rationale as RiskMatrixConfig — see phpstan.neon.dist.
+ * rationale as RiskMatrixConfig: see phpstan.neon.dist.
  */
 final class SecurityIncidentModuleConfig
 {

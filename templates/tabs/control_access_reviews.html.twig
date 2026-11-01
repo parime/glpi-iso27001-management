@@ -16,12 +16,12 @@
                   <tr>
                      <td><a href="{{ c.url }}"><i class="ti ti-user-check me-1"></i>{{ c.name }}</a></td>
                      <td>{{ c.status }}</td>
-                     <td>{{ c.date_start ? c.date_start|formatted_date : '—' }}</td>
+                     <td>{{ c.date_start ? c.date_start|formatted_date : '-' }}</td>
                      <td>{{ c.progress.done }} / {{ c.progress.total }}</td>
                      <td>
                         {% if c.report_url %}
                            <a href="{{ c.report_url }}"><i class="ti ti-file-type-pdf me-1"></i>{{ __('PDF report', 'grcmanager') }}</a>
-                        {% else %}—{% endif %}
+                        {% else %}-{% endif %}
                      </td>
                   </tr>
                {% endfor %}

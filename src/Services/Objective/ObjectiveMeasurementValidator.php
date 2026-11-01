@@ -13,7 +13,7 @@ namespace GlpiPlugin\Grcmanager\Services\Objective;
  * An objective's target is not always a single number (see \GlpiPlugin\Grcmanager\Objective's own
  * docblock: `target_value` is nullable, `target_description` carries a free-text qualitative
  * target alongside/instead of it). A measurement logged against a QUANTITATIVE objective
- * (`target_value` set) must itself carry a numeric value — otherwise there is nothing to plot on
+ * (`target_value` set) must itself carry a numeric value: otherwise there is nothing to plot on
  * the trajectory the objective exists to track. A measurement logged against a QUALITATIVE-ONLY
  * objective has no number to compare against, so its value stays optional, but the comment then
  * becomes the only record of progress and cannot be left empty (an empty comment AND no value

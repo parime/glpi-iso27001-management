@@ -47,7 +47,7 @@ use Session;
  * (a real gap against a requirement, CAPA mandatory to close/verify, see
  * CapaRequirementService::isCapaMandatory()) from a lesser observation/remark (CAPA optional,
  * still trackable through the exact same workflow), while `severity` (minor/major/critical) still
- * grades either one — a single overlapping ordinal scale was kept for these two axes in the first
+ * grades either one: a single overlapping ordinal scale was kept for these two axes in the first
  * version, this is what issue #27 resolves.
  */
 class Nonconformity extends NonconformityBase

@@ -31,8 +31,8 @@
                   <td class="text-end">{% if r.kev > 0 %}<span class="badge bg-red-lt">{{ r.kev }}</span>{% else %}0{% endif %}</td>
                   <td class="text-end">{{ r.priority }}</td>
                   <td class="text-end">{{ r.cves }}</td>
-                  <td class="text-end">{{ r.max_cvss is not null ? r.max_cvss|number_format(1) : '—' }}</td>
-                  <td class="text-end">{{ r.max_epss is not null ? (r.max_epss * 100)|round ~ ' %' : '—' }}</td>
+                  <td class="text-end">{{ r.max_cvss is not null ? r.max_cvss|number_format(1) : '-' }}</td>
+                  <td class="text-end">{{ r.max_epss is not null ? (r.max_epss * 100)|round ~ ' %' : '-' }}</td>
                </tr>
             {% endfor %}
          </tbody>

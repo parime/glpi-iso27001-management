@@ -63,7 +63,7 @@ final class RiskItemLinkNormalizerTest extends TestCase
     }
 
     /**
-     * Reverse lookup (issue #25: "inversement partir d'un risque pour voir les actifs concernés" —
+     * Reverse lookup (issue #25: "inversement partir d'un risque pour voir les actifs concernés" -
      * and its mirror, from an asset back to the risks affecting it): given the rows for one
      * itemtype, finds every risk linked to a specific asset, de-duplicated and ignoring rows for a
      * different asset id.

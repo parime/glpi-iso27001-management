@@ -88,7 +88,7 @@ final class ComplianceObligationRules
      * True as soon as $reviewDate is set and falls on or before $now + self::REMINDER_WINDOW_DAYS
      * days, matching exactly the predicate
      * GlpiPlugin\Grcmanager\Services\Risk\ReviewReminderService::notify() applies via
-     * CommonDBTM::find() (`review_date <= today+30` AND `review_date IS NOT NULL`) — see
+     * CommonDBTM::find() (`review_date <= today+30` AND `review_date IS NOT NULL`): see
      * \GlpiPlugin\Grcmanager\ComplianceObligation::cronReviewreminder(), which reuses that same service
      * (generalized in this issue to accept obligations, whose `compliance_status` is not a
      * terminal "closed" state the way \GlpiPlugin\Grcmanager\Risk's own `status` is, so no exclusion

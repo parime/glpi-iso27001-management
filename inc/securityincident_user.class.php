@@ -18,7 +18,7 @@
 use GlpiPlugin\Grcmanager\Compatibility\Base\SecurityIncidentUserBase;
 
 /**
- * Relation between PluginGrcmanagerSecurityIncident and User (requester/observer/assign) —
+ * Relation between PluginGrcmanagerSecurityIncident and User (requester/observer/assign) -
  * same minimal shape as GLPI core's own `Change_User`.
  */
 class PluginGrcmanagerSecurityIncident_User extends SecurityIncidentUserBase

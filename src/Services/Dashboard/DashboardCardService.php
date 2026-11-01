@@ -797,7 +797,7 @@ final class DashboardCardService
     /**
      * Absorption de glpi-security-incidents (ROADMAP.md "Version 2.0") : délai moyen de réponse
      * (heures entre la création `date` et la résolution `solvedate`), calculé uniquement sur les
-     * incidents effectivement résolus (`solvedate` renseigné) — un incident encore ouvert n'a pas
+     * incidents effectivement résolus (`solvedate` renseigné) : un incident encore ouvert n'a pas
      * de délai à mesurer, l'inclure avec une valeur nulle/zéro fausserait la moyenne à la baisse.
      * Absent des indicateurs déjà existants (par statut/sévérité) : ceux-ci comptent, celui-ci
      * mesure un temps, un indicateur ISO 27001 A.5.24-27 classique ("temps de réponse") qui

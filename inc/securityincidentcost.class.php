@@ -18,10 +18,10 @@
 use GlpiPlugin\Grcmanager\Compatibility\Base\SecurityIncidentCostBase;
 
 /**
- * Required, not optional — same class of surprise as `PluginGrcmanagerSecurityIncidentTemplate`
+ * Required, not optional: same class of surprise as `PluginGrcmanagerSecurityIncidentTemplate`
  * (see its own docblock): `NotificationTargetCommonITILObject::getDataForObject()` unconditionally
  * builds `$item->getType() . 'Cost'` and calls `$costtype::getCostsSummary(...)` on it with no
- * existence check at all — confirmed the hard way, the first real notification fired after
+ * existence check at all: confirmed the hard way, the first real notification fired after
  * `PluginGrcmanagerSecurityIncidentTemplate` was added still fataled with
  * `Class "PluginGrcmanagerSecurityIncidentCost" not found`. Same minimal shape as GLPI
  * core's own `ChangeCost`.

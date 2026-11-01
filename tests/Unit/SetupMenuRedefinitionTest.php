@@ -12,15 +12,15 @@ require_once __DIR__ . '/../../setup.php';
  * `plugin_grcmanager_redefine_menus()` (setup.php) is a pure array-in/array-out function : no
  * GLPI dependency in its own body, `\GlpiPlugin\Grcmanager\Menu::class` resolves to a plain string at
  * compile time regardless of whether the class is actually loaded. Safe to exercise directly by
- * requiring setup.php — that only declares constants/functions and requires vendor/autoload.php,
+ * requiring setup.php: that only declares constants/functions and requires vendor/autoload.php,
  * none of which touches a real GLPI instance (confirmed by reading the file: no top-level code
  * runs plugin_init_grcmanager() or any other GLPI-dependent function).
  *
  * This is the *wiring* half of the fix for two real bugs (CHANGELOG v1.1.3/v1.1.4: wrong
- * breadcrumb sector, then a duplicate "GRC & Conformité" row in its own submenu) — the *effect*
+ * breadcrumb sector, then a duplicate "GRC & Conformité" row in its own submenu) : the *effect*
  * those fixes have on GLPI's actual rendered menu isn't practically unit-testable (depends on
  * `Html::generateMenuSession()`/`Html::header()` rendering against a real GLPI instance), but this
- * function's own contract — "remove exactly the anchor class's own row, touch nothing else" — is,
+ * function's own contract - "remove exactly the anchor class's own row, touch nothing else" - is,
  * and had no test at all despite that.
  */
 final class SetupMenuRedefinitionTest extends TestCase
@@ -50,7 +50,7 @@ final class SetupMenuRedefinitionTest extends TestCase
         $this->assertArrayNotHasKey(
             $anchorKey,
             $result['grcmanager']['content'],
-            'The menu anchor\'s own row must be removed — this is the actual regression: it used ' .
+            'The menu anchor\'s own row must be removed: this is the actual regression: it used ' .
             'to duplicate the section title as a clickable submenu entry.'
         );
         $this->assertArrayHasKey(
@@ -66,7 +66,7 @@ final class SetupMenuRedefinitionTest extends TestCase
         $this->assertSame(
             'GRC & Conformité',
             $result['grcmanager']['title'],
-            'The sector title itself must be untouched — only the anchor\'s own content row is removed.'
+            'The sector title itself must be untouched: only the anchor\'s own content row is removed.'
         );
     }
 

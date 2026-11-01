@@ -65,7 +65,7 @@ final class CpeVersionMatchTest extends TestCase
     }
 
     /**
-     * The classic string-ordering trap ("9.10" < "9.9" lexically) — version_compare() must be used
+     * The classic string-ordering trap ("9.10" < "9.9" lexically): version_compare() must be used
      * under the hood, not a plain string comparison, or this would wrongly exclude a genuinely
      * vulnerable later version.
      */
@@ -86,7 +86,7 @@ final class CpeVersionMatchTest extends TestCase
 
     public function testIsUnknownRatherThanGuessedWhenNoBoundsAndNoConcreteCpeVersionExist(): void
     {
-        // A bare wildcard CPE ("*" as the version field) with no start/end bounds either — real
+        // A bare wildcard CPE ("*" as the version field) with no start/end bounds either: real
         // NVD data does have this shape for some entries, and there is genuinely nothing to
         // compare against, so this must be UNKNOWN, never MATCHED nor EXCLUDED by default.
         $affectedCpe = $this->affectedCpe(['cpe23_uri' => 'cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*']);
@@ -105,7 +105,7 @@ final class CpeVersionMatchTest extends TestCase
      * Real bug found by testing a real installed-version string against a real CVE with explicit
      * bounds on the shared Docker instance: version_compare("unknown", "2.13.0", ">=") returns
      * false (non-numeric input degrades to very low precedence), which the bounds check used to
-     * read as a confirmed EXCLUDED — silently claiming "not vulnerable" for a value the plugin
+     * read as a confirmed EXCLUDED: silently claiming "not vulnerable" for a value the plugin
      * actually has no basis to judge. Must be UNKNOWN instead, same as the no-bounds/no-concrete-
      * version case above.
      */

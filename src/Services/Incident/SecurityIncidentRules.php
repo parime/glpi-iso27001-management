@@ -16,13 +16,13 @@ namespace GlpiPlugin\Grcmanager\Services\Incident;
  * ClassificationLevels, CapaRequirementService).
  *
  * Absorbed from the sibling plugin glpi-security-incidents (issue #29, now merged directly onto
- * the full ITIL object — see PluginGrcmanagerSecurityIncident's own docblock, ROADMAP.md "Version
+ * the full ITIL object: see PluginGrcmanagerSecurityIncident's own docblock, ROADMAP.md "Version
  * 2.0"). `status` normalization and the `linked_itemtype`/`linked_items_id` zero-or-one Ticket/
  * Problem reference from the former standalone lightweight register are both gone: status is now
  * CommonITILObject's own int-based lifecycle (see PluginGrcmanagerSecurityIncident::CLOSED etc.),
  * and the Ticket/Problem reference is superseded by the polymorphic asset-link tab
  * (PluginGrcmanagerSecurityIncident_Item, inherited from CommonITILObject) which already accepts
- * any itemtype including Ticket/Problem — one linking mechanism instead of two overlapping ones.
+ * any itemtype including Ticket/Problem: one linking mechanism instead of two overlapping ones.
  *
  * Not extracted into a shared trait/helper with ComplianceObligationRules::normalizeLinkedRiskId()/
  * isLinkedToRisk() despite the identical zero-or-one-risk-link logic: no other Rules class in this
