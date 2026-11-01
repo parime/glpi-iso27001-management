@@ -17,6 +17,12 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   positif), liens de recherche VirusTotal / AbuseIPDB / urlscan (simples liens, aucun envoi
   automatique), incidents où le même IOC a déjà été vu (dans le périmètre visible), copie de la
   liste en clair ou désamorcée.
+- **MITRE ATT&CK** sur les incidents de sécurité (issue #369) : onglet « MITRE ATT&CK » avec la
+  chaîne d'attaque (les 15 tactiques, en couleur celles observées) et les techniques classées par
+  tactique, liens vers attack.mitre.org et commentaire par technique. Choix dans une liste avec
+  recherche (identifiant ou mot-clé) ou saisie libre normalisée (`t1003/001`, `TA0006`, nom
+  exact). Référentiel officiel MITRE ATT&CK Enterprise embarqué (aucun accès réseau). Deux cartes
+  de tableau de bord : incidents par tactique et techniques les plus fréquentes.
 
 ## [2.18.0] - 2026-11-02
 
