@@ -15,8 +15,9 @@ final class ActionLogTest extends TestCase
     private static function actions(): array
     {
         return [
-            ['id' => 2, 'date' => '2026-10-02 10:00:00', 'users_id' => 7, 'target' => 'SRV-AD01', 'tool' => 'powershell',
-                'command' => 'Get-ADUser jdoe', 'finding' => 'compte actif', 'result' => 'success'],
+            ['id' => 2, 'date' => '2026-10-02 10:00:00', 'users_id' => 7, 'target' => 'SRV-AD01',
+                'tool' => 'powershell', 'command' => 'Get-ADUser jdoe', 'finding' => 'compte actif',
+                'result' => 'success'],
             ['id' => 1, 'date' => '2026-10-01 09:00:00', 'users_id' => 5, 'target' => 'PC-COMPTA-03', 'tool' => 'edr',
                 'command' => 'isolate', 'finding' => '', 'result' => 'partial'],
             ['id' => 3, 'date' => '2026-10-03 11:00:00', 'users_id' => 7, 'target' => 'FW-01', 'tool' => 'firewall',
