@@ -411,6 +411,35 @@ function plugin_grcmanager_ticket_security_section(Ticket $ticket): void
     ]);
 }
 
+/**
+ * Issue #372 : bandeau des échéances NIS2 / RGPD non encore notifiées, en tête du panneau de
+ * l'incident de sécurité (Hooks::PRE_ITIL_INFO_SECTION, setup.php).
+ */
+function plugin_grcmanager_pre_itil_info_section(array $params): void
+{
+    $item = $params['item'] ?? null;
+    if (!($item instanceof PluginGrcmanagerSecurityIncident) || $item->isNewItem()) {
+        return;
+    }
+    $labels = PluginGrcmanagerSecurityIncident::getRegulatoryLabels();
+    $banners = [];
+    foreach (GlpiPlugin\Grcmanager\Services\Incident\RegulatoryDeadlines::compute($item->fields) as $row) {
+        if ($row['done_at'] !== null) {
+            continue;
+        }
+        $banners[] = $row + [
+            'label'      => $labels[$row['key']] ?? $row['key'],
+            'hours_left' => max(0, (int) floor((strtotime($row['due']) - time()) / 3600)),
+        ];
+    }
+    if ($banners === []) {
+        return;
+    }
+    Glpi\Application\View\TemplateRenderer::getInstance()->display('@grcmanager/itil_deadline_banner.html.twig', [
+        'banners' => $banners,
+    ]);
+}
+
 function plugin_grcmanager_post_itil_info_section(array $params): void
 {
     $item = $params['item'] ?? null;

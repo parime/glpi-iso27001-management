@@ -298,6 +298,7 @@ function plugin_init_grcmanager(): void
     // hook, appelé à la toute fin de ce même panneau, est le point d'extension réel confirmé cette
     // session pour obtenir le même rendu visuel sans patcher le cœur.
     $PLUGIN_HOOKS[Hooks::POST_ITIL_INFO_SECTION]['grcmanager'] = 'plugin_grcmanager_post_itil_info_section';
+    $PLUGIN_HOOKS[Hooks::PRE_ITIL_INFO_SECTION]['grcmanager'] = 'plugin_grcmanager_pre_itil_info_section';
 
     // Issue #165 : « Qualifier en incident de sécurité » aussi en action groupée sur les tickets
     // (plugin_grcmanager_MassiveActions(), hook.php).

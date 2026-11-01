@@ -5693,3 +5693,11 @@ msgstr "Schnittstelle zum Internet: %s. Regeln auf dieser Schnittstelle von beli
 #, php-format
 msgid "%d identical rules merged."
 msgstr "%d identische Regeln zusammengeführt."
+
+#, php-format
+msgid "Overdue since %s"
+msgstr "Überfällig seit %s"
+
+#, php-format
+msgid "Due no later than %1$s (%2$d h left)"
+msgstr "Fällig spätestens am %1$s (noch %2$d Std.)"
