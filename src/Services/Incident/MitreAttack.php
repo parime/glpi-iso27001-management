@@ -146,7 +146,7 @@ final class MitreAttack
             return isset(self::tactics()[$id]) ? ['kind' => 'tactic', 'id' => $id] : null;
         }
         if (preg_match('/^(T\d{4})(?:[.\/](\d{3}))?\b/i', $input, $m)) {
-            $id = strtoupper($m[1]) . (isset($m[2]) && $m[2] !== '' ? '.' . $m[2] : '');
+            $id = strtoupper($m[1]) . (isset($m[2]) ? '.' . $m[2] : '');
 
             return self::technique($id) !== null ? ['kind' => 'technique', 'id' => $id] : null;
         }
