@@ -36,6 +36,21 @@
          ) }}
 
          {{ fields.dropdownArrayField(
+            'source',
+            item.fields['source']|default(''),
+            sources,
+            __('Source', 'grcmanager'),
+            {'full_width': false, 'disabled': not item.canUpdateItem(), 'rand': rand}
+         ) }}
+
+         {{ fields.textField(
+            'external_id',
+            item.fields['external_id']|default(''),
+            __('External identifier (EDR, SIEM...)', 'grcmanager'),
+            {'full_width': false, 'disabled': not item.canUpdateItem()}
+         ) }}
+
+         {{ fields.dropdownArrayField(
             'severity',
             item.fields['severity'],
             severities,

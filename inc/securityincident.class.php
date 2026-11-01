@@ -98,6 +98,71 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
     /**
      * @return array<string, string>
      */
+    /**
+     * Issue #372 : origine du signalement.
+     *
+     * @return array<string, string>
+     */
+    public static function getSources(): array
+    {
+        return [
+            ''          => \Dropdown::EMPTY_VALUE,
+            'user'      => __('User report', 'grcmanager'),
+            'ticket'    => __('Ticket', 'grcmanager'),
+            'edr'       => __('EDR / XDR', 'grcmanager'),
+            'siem'      => __('SIEM / log monitoring', 'grcmanager'),
+            'partner'   => __('Supplier or partner', 'grcmanager'),
+            'authority' => __('Authority (CERT, regulator...)', 'grcmanager'),
+            'other'     => __('Other', 'grcmanager'),
+        ];
+    }
+
+    /**
+     * Issue #372 : référence SEC-AAAA-NNNN, numérotée par année d'ouverture de l'incident.
+     */
+    public static function assignReference(int $id): void
+    {
+        global $DB;
+
+        $row = $DB->request([
+            'SELECT' => ['date', 'reference'],
+            'FROM'   => self::getTable(),
+            'WHERE'  => ['id' => $id],
+        ])->current();
+        if ($row === null || (string) $row['reference'] !== '') {
+            return;
+        }
+        $year = substr((string) ($row['date'] ?: date('Y-m-d')), 0, 4);
+        $prefix = 'SEC-' . $year . '-';
+        $last = $DB->request([
+            'SELECT' => ['reference'],
+            'FROM'   => self::getTable(),
+            'WHERE'  => ['reference' => ['LIKE', $prefix . '%']],
+            'ORDER'  => 'reference DESC',
+            'LIMIT'  => 1,
+        ])->current();
+        $next = $last === null ? 1 : ((int) substr((string) $last['reference'], strlen($prefix)) + 1);
+        $DB->update(self::getTable(), ['reference' => $prefix . sprintf('%04d', $next)], ['id' => $id]);
+    }
+
+    /**
+     * Numérote les incidents qui n'ont pas encore de référence, dans l'ordre de création.
+     */
+    public static function backfillReferences(): void
+    {
+        global $DB;
+
+        $pending = $DB->request([
+            'SELECT' => ['id'],
+            'FROM'   => self::getTable(),
+            'WHERE'  => ['reference' => ''],
+            'ORDER'  => ['date ASC', 'id ASC'],
+        ]);
+        foreach ($pending as $row) {
+            self::assignReference((int) $row['id']);
+        }
+    }
+
     public static function getSeverities(): array
     {
         return [
@@ -349,6 +414,9 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
     {
         parent::post_addItem();
 
+        // Issue #372 : référence lisible, attribuée une fois pour toutes.
+        self::assignReference((int) $this->getID());
+
         $this->handleNewItemNotifications();
     }
 
@@ -572,6 +640,30 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
             'name'     => __('Crisis exercise', 'grcmanager'),
             'datatype' => 'bool',
         ];
+        // Issue #372 : référence, source et identifiant externe.
+        $tab[] = [
+            'id'       => 233,
+            'table'    => $this->getTable(),
+            'field'    => 'reference',
+            'name'     => __('Reference', 'grcmanager'),
+            'datatype' => 'string',
+            'massiveaction' => false,
+        ];
+        $tab[] = [
+            'id'       => 234,
+            'table'    => $this->getTable(),
+            'field'    => 'source',
+            'name'     => __('Source', 'grcmanager'),
+            'datatype' => 'specific',
+            'searchtype' => ['equals', 'notequals'],
+        ];
+        $tab[] = [
+            'id'       => 235,
+            'table'    => $this->getTable(),
+            'field'    => 'external_id',
+            'name'     => __('External identifier (EDR, SIEM...)', 'grcmanager'),
+            'datatype' => 'string',
+        ];
 
         return $tab;
     }
@@ -680,6 +772,10 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
 
             case 'plugin_grcmanager_risks_id':
                 return self::riskLink((int) ($values[$field] ?? 0));
+
+            case 'source':
+                $source = (string) ($values[$field] ?? '');
+                return $source === '' ? '' : htmlescape(self::getSources()[$source] ?? $source);
         }
 
         return parent::getSpecificValueToDisplay($field, $values, $options);
@@ -704,6 +800,9 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
 
             case 'cia_impact':
                 return Dropdown::showFromArray($name, self::getCiaAxisLabels(), $options);
+
+            case 'source':
+                return Dropdown::showFromArray($name, self::getSources(), $options);
         }
 
         return parent::getSpecificValueToSelect($field, $name, $values, $options);

@@ -5701,3 +5701,21 @@ msgstr "Vencido desde el %s"
 #, php-format
 msgid "Due no later than %1$s (%2$d h left)"
 msgstr "A más tardar el %1$s (quedan %2$d h)"
+
+msgid "User report"
+msgstr "Aviso de un usuario"
+
+msgid "EDR / XDR"
+msgstr "EDR / XDR"
+
+msgid "SIEM / log monitoring"
+msgstr "SIEM / supervisión de registros"
+
+msgid "Supplier or partner"
+msgstr "Proveedor o socio"
+
+msgid "Authority (CERT, regulator...)"
+msgstr "Autoridad (CERT, regulador...)"
+
+msgid "External identifier (EDR, SIEM...)"
+msgstr "Identificador externo (EDR, SIEM...)"

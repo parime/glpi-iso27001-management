@@ -5701,3 +5701,21 @@ msgstr "Atrasado desde %s"
 #, php-format
 msgid "Due no later than %1$s (%2$d h left)"
 msgstr "Até no máximo %1$s (restam %2$d h)"
+
+msgid "User report"
+msgstr "Relato de um usuário"
+
+msgid "EDR / XDR"
+msgstr "EDR / XDR"
+
+msgid "SIEM / log monitoring"
+msgstr "SIEM / monitoramento de logs"
+
+msgid "Supplier or partner"
+msgstr "Fornecedor ou parceiro"
+
+msgid "Authority (CERT, regulator...)"
+msgstr "Autoridade (CERT, regulador...)"
+
+msgid "External identifier (EDR, SIEM...)"
+msgstr "Identificador externo (EDR, SIEM...)"

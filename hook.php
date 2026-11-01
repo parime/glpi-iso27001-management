@@ -434,11 +434,14 @@ function plugin_grcmanager_pre_itil_info_section(array $params): void
             'hours_left' => max(0, (int) floor((strtotime($row['due']) - time()) / 3600)),
         ];
     }
-    if ($banners === []) {
-        return;
-    }
     Glpi\Application\View\TemplateRenderer::getInstance()->display('@grcmanager/itil_deadline_banner.html.twig', [
-        'banners' => $banners,
+        'banners'   => $banners,
+        'reference' => (string) ($item->fields['reference'] ?? ''),
+        'severity'  => (string) ($item->fields['severity'] ?? ''),
+        'severities' => PluginGrcmanagerSecurityIncident::getSeverities(),
+        'category'  => PluginGrcmanagerSecurityIncident::getCategories()[$item->fields['category'] ?? ''] ?? '',
+        'source'    => PluginGrcmanagerSecurityIncident::getSources()[$item->fields['source'] ?? ''] ?? '',
+        'is_exercise' => (bool) ($item->fields['is_exercise'] ?? false),
     ]);
 }
 
@@ -473,6 +476,7 @@ function plugin_grcmanager_post_itil_info_section(array $params): void
         'rand'           => $rand,
         'categories'     => PluginGrcmanagerSecurityIncident::getCategories(),
         'severities'     => PluginGrcmanagerSecurityIncident::getSeverities(),
+        'sources'        => PluginGrcmanagerSecurityIncident::getSources(),
         'cia_axes'       => PluginGrcmanagerSecurityIncident::getCiaAxisLabels(),
         'risks'          => $risks,
         'risk_type_name' => \GlpiPlugin\Grcmanager\Risk::getTypeName(1),
