@@ -112,6 +112,61 @@ final class SecurityIncidentCardProvider
     }
 
     /**
+     * Issue #370 : délai moyen entre la détection et le confinement, en heures.
+     *
+     * @return array{number: int, label: string, icon: string}
+     */
+    public static function averageTimeToContain(array $params = []): array
+    {
+        return [
+            'number' => self::averageHoursTo('contained_at'),
+            'label'  => $params['label'] ?? __('Average time to containment (hours)', 'grcmanager'),
+            'icon'   => 'ti ti-shield-half',
+        ];
+    }
+
+    /**
+     * Issue #370 : délai moyen entre la détection et la clôture, en heures.
+     *
+     * @return array{number: int, label: string, icon: string}
+     */
+    public static function averageTimeToClose(array $params = []): array
+    {
+        return [
+            'number' => self::averageHoursTo('closedate'),
+            'label'  => $params['label'] ?? __('Average time to closure (hours)', 'grcmanager'),
+            'icon'   => 'ti ti-flag-check',
+        ];
+    }
+
+    private static function averageHoursTo(string $field): int
+    {
+        global $DB;
+
+        $ids = self::visibleIncidentIds();
+        if ($ids === []) {
+            return 0;
+        }
+        $total = 0;
+        $count = 0;
+        $rows = $DB->request([
+            'SELECT' => ['date', $field],
+            'FROM'   => PluginGrcmanagerSecurityIncident::getTable(),
+            'WHERE'  => ['id' => $ids, 'NOT' => [$field => null]],
+        ]);
+        foreach ($rows as $row) {
+            $start = strtotime((string) $row['date']);
+            $end = strtotime((string) $row[$field]);
+            if ($start !== false && $end !== false && $end >= $start) {
+                $total += $end - $start;
+                $count++;
+            }
+        }
+
+        return $count === 0 ? 0 : (int) round($total / $count / 3600);
+    }
+
+    /**
      * Incidents réels (hors exercices) du périmètre de l'utilisateur.
      *
      * @return list<int>

@@ -17,6 +17,7 @@
 
 use Glpi\ContentTemplates\Parameters\CommonITILObjectParameters;
 use GlpiPlugin\Grcmanager\Compatibility\Base\SecurityIncidentBase;
+use GlpiPlugin\Grcmanager\Services\Incident\IncidentPhases;
 use GlpiPlugin\Grcmanager\Services\Incident\RegulatoryDeadlines;
 use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentModuleConfig;
 use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentParameters;
@@ -98,6 +99,23 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
     /**
      * @return array<string, string>
      */
+    /**
+     * Issue #370 : libellés des phases de réponse (NIST SP 800-61).
+     *
+     * @return array<string, string>
+     */
+    public static function getPhaseLabels(): array
+    {
+        return [
+            'detection'       => __('Detection', 'grcmanager'),
+            'acknowledgement' => __('Acknowledgement', 'grcmanager'),
+            'containment'     => __('Containment', 'grcmanager'),
+            'eradication'     => __('Eradication', 'grcmanager'),
+            'recovery'        => __('Recovery', 'grcmanager'),
+            'closure'         => __('Closure', 'grcmanager'),
+        ];
+    }
+
     /**
      * Issue #372 : origine du signalement.
      *
@@ -521,6 +539,17 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
                 $input[$flag] = empty($input[$flag]) ? 0 : 1;
             }
         }
+        // Issue #370 : dates des phases de réponse NIST, même saisie que les dates de notification.
+        foreach (IncidentPhases::EDITABLE as $phaseField) {
+            if (array_key_exists($phaseField, $input)) {
+                $phaseValue = IncidentPhases::normalizeInput($input[$phaseField]);
+                if ($phaseValue === null) {
+                    unset($input[$phaseField]);
+                } else {
+                    $input[$phaseField] = $phaseValue;
+                }
+            }
+        }
         foreach (RegulatoryDeadlines::DEADLINES as [, , $doneField]) {
             if (!array_key_exists($doneField, $input)) {
                 continue;
@@ -645,6 +674,21 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
             'name'     => __('Crisis exercise', 'grcmanager'),
             'datatype' => 'bool',
         ];
+        // Issue #370 : phases de réponse NIST.
+        $phaseId = 236;
+        foreach (self::getPhaseLabels() as $phase => $label) {
+            $field = IncidentPhases::PHASES[$phase];
+            if (!in_array($field, IncidentPhases::EDITABLE, true)) {
+                continue;
+            }
+            $tab[] = [
+                'id'       => $phaseId++,
+                'table'    => $this->getTable(),
+                'field'    => $field,
+                'name'     => $label,
+                'datatype' => 'datetime',
+            ];
+        }
         // Issue #372 : référence, source et identifiant externe.
         $tab[] = [
             'id'       => 233,
