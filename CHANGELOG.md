@@ -7,6 +7,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.18.0] - 2026-11-02
+
 ### Added
 
 - **Incidents de sécurité** (issue #372) : référence lisible `SEC-AAAA-NNNN` (attribuée à la
@@ -21,15 +23,6 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   fr_CA, fr_BE, pt_PT. GLPI ne se replie pas d'une variante vers sa langue de base : un
   utilisateur réglé en es_MX voyait le plugin en anglais. Copies tenues à jour par
   `tools/sync-locale-variants.sh`, vérifiées en CI.
-
-### Changed
-
-- **Plus de tiret cadratin** (issue #363) : dans les textes affichés, les traductions et la
-  documentation, il est remplacé par « : » entre deux mots, et par « - » comme séparateur ou valeur
-  vide. À la mise à jour, les notifications d'incident de sécurité qui gardent leur nom d'origine
-  sont renommées ; un nom modifié par l'administrateur est conservé.
-
-### Added
 
 - **Import pfSense de la matrice des flux, sur une vraie sauvegarde**, issue #144 (phase 3) :
   - zones nommées d'après les interfaces (« SITE_A_SRV_BDD (192.168.127.0/24) » au lieu de
@@ -53,6 +46,13 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   - réglages dans la configuration : domaines, clé d'API chiffrée, bouton de test.
 - Sécurité : réservé au droit « Registres sensibles » ; adresse non stockée quand elle appartient à
   un utilisateur GLPI ; adresses personnelles jamais envoyées ; tests ajoutés à la matrice d'accès.
+
+### Changed
+
+- **Plus de tiret cadratin** (issue #363) : dans les textes affichés, les traductions et la
+  documentation, il est remplacé par « : » entre deux mots, et par « - » comme séparateur ou valeur
+  vide. À la mise à jour, les notifications d'incident de sécurité qui gardent leur nom d'origine
+  sont renommées ; un nom modifié par l'administrateur est conservé.
 
 ## [2.17.0] - 2026-10-28
 
