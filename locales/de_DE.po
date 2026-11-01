@@ -5719,3 +5719,98 @@ msgstr "Behörde (CERT, Aufsicht...)"
 
 msgid "External identifier (EDR, SIEM...)"
 msgstr "Externe Kennung (EDR, SIEM...)"
+
+#, php-format
+msgid "%1$d indicator(s) added, %2$d already known (last seen date updated)."
+msgstr "%1$d Indikator(en) hinzugefügt, %2$d bereits bekannt (Datum der letzten Sichtung aktualisiert)."
+
+msgid "203[.]0[.]113[.]7, hxxps://... : safe to paste in an email or a ticket"
+msgstr "203[.]0[.]113[.]7, hxxps://... : gefahrlos in eine E-Mail oder ein Ticket einfügbar"
+
+msgid "Also seen in"
+msgstr "Auch gesehen in"
+
+msgid "Copy all"
+msgstr "Alle kopieren"
+
+msgid "Copy defanged"
+msgstr "Entschärft kopieren"
+
+msgid "Domain"
+msgstr "Domain"
+
+msgid "Email address"
+msgstr "E-Mail-Adresse"
+
+msgid "False positive"
+msgstr "Falsch positiv"
+
+msgid "File name"
+msgstr "Dateiname"
+
+msgid "First seen"
+msgstr "Erstmals gesehen"
+
+msgid "IOC"
+msgstr "IOC"
+
+msgid "IPv4 address"
+msgstr "IPv4-Adresse"
+
+msgid "IPv6 address"
+msgstr "IPv6-Adresse"
+
+msgid "Indicators to add"
+msgstr "Hinzuzufügende Indikatoren"
+
+msgid "Last seen"
+msgstr "Zuletzt gesehen"
+
+msgid "Lookup"
+msgstr "Nachschlagen"
+
+msgid "Malicious"
+msgstr "Bösartig"
+
+msgid "No indicator of compromise yet"
+msgstr "Noch keine Kompromittierungsindikatoren"
+
+#, php-format
+msgid "Not recognized, ignored: %s"
+msgstr "Nicht erkannt, ignoriert: %s"
+
+msgid "One per line. The type (IP, domain, URL, hash, email, file) is detected automatically, defanged values (hxxp, [.]) are accepted and duplicates are merged."
+msgstr "Einer pro Zeile. Der Typ (IP, Domain, URL, Hash, E-Mail, Datei) wird automatisch erkannt, entschärfte Werte (hxxp, [.]) werden akzeptiert und Duplikate zusammengeführt."
+
+#, php-format
+msgid "Opens %s in a new tab: nothing is sent automatically"
+msgstr "Öffnet %s in einem neuen Tab: nichts wird automatisch gesendet"
+
+msgid "Paste the IP addresses, domains, URLs or file hashes seen during the investigation: those already seen in another incident are flagged."
+msgstr "Fügen Sie die während der Untersuchung gefundenen IP-Adressen, Domains, URLs oder Datei-Hashes ein: bereits in einem anderen Vorfall gesehene werden markiert."
+
+msgid "Remove this indicator?"
+msgstr "Diesen Indikator entfernen?"
+
+msgid "Seen"
+msgstr "Gesehen"
+
+msgid "Suspicious"
+msgstr "Verdächtig"
+
+msgid "To be qualified"
+msgstr "Zu bewerten"
+
+msgid "Unknown verdict."
+msgstr "Unbekanntes Urteil."
+
+msgid "Verdict"
+msgstr "Bewertung"
+
+msgid "indicator(s)"
+msgstr "Indikator(en)"
+
+msgid "Indicator of compromise"
+msgid_plural "Indicators of compromise"
+msgstr[0] "Kompromittierungsindikator"
+msgstr[1] "Kompromittierungsindikatoren"

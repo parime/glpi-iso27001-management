@@ -5719,3 +5719,98 @@ msgstr "Autorità (CERT, regolatore...)"
 
 msgid "External identifier (EDR, SIEM...)"
 msgstr "Identificativo esterno (EDR, SIEM...)"
+
+#, php-format
+msgid "%1$d indicator(s) added, %2$d already known (last seen date updated)."
+msgstr "%1$d indicatore/i aggiunto/i, %2$d già noto/i (data dell'ultimo rilevamento aggiornata)."
+
+msgid "203[.]0[.]113[.]7, hxxps://... : safe to paste in an email or a ticket"
+msgstr "203[.]0[.]113[.]7, hxxps://... : sicuro da incollare in un'e-mail o in un ticket"
+
+msgid "Also seen in"
+msgstr "Visto anche in"
+
+msgid "Copy all"
+msgstr "Copia tutto"
+
+msgid "Copy defanged"
+msgstr "Copia disinnescato"
+
+msgid "Domain"
+msgstr "Dominio"
+
+msgid "Email address"
+msgstr "Indirizzo e-mail"
+
+msgid "False positive"
+msgstr "Falso positivo"
+
+msgid "File name"
+msgstr "Nome file"
+
+msgid "First seen"
+msgstr "Primo rilevamento"
+
+msgid "IOC"
+msgstr "IOC"
+
+msgid "IPv4 address"
+msgstr "Indirizzo IPv4"
+
+msgid "IPv6 address"
+msgstr "Indirizzo IPv6"
+
+msgid "Indicators to add"
+msgstr "Indicatori da aggiungere"
+
+msgid "Last seen"
+msgstr "Ultimo rilevamento"
+
+msgid "Lookup"
+msgstr "Verifica"
+
+msgid "Malicious"
+msgstr "Malevolo"
+
+msgid "No indicator of compromise yet"
+msgstr "Ancora nessun indicatore di compromissione"
+
+#, php-format
+msgid "Not recognized, ignored: %s"
+msgstr "Non riconosciuto/i, ignorato/i: %s"
+
+msgid "One per line. The type (IP, domain, URL, hash, email, file) is detected automatically, defanged values (hxxp, [.]) are accepted and duplicates are merged."
+msgstr "Uno per riga. Il tipo (IP, dominio, URL, hash, e-mail, file) è rilevato automaticamente, i valori disinnescati (hxxp, [.]) sono accettati e i duplicati uniti."
+
+#, php-format
+msgid "Opens %s in a new tab: nothing is sent automatically"
+msgstr "Apre %s in una nuova scheda: nulla viene inviato automaticamente"
+
+msgid "Paste the IP addresses, domains, URLs or file hashes seen during the investigation: those already seen in another incident are flagged."
+msgstr "Incolla gli indirizzi IP, i domini, gli URL o gli hash dei file rilevati durante l'indagine: quelli già visti in un altro incidente sono segnalati."
+
+msgid "Remove this indicator?"
+msgstr "Rimuovere questo indicatore?"
+
+msgid "Seen"
+msgstr "Rilevato"
+
+msgid "Suspicious"
+msgstr "Sospetto"
+
+msgid "To be qualified"
+msgstr "Da qualificare"
+
+msgid "Unknown verdict."
+msgstr "Verdetto sconosciuto."
+
+msgid "Verdict"
+msgstr "Verdetto"
+
+msgid "indicator(s)"
+msgstr "indicatore/i"
+
+msgid "Indicator of compromise"
+msgid_plural "Indicators of compromise"
+msgstr[0] "Indicatore di compromissione"
+msgstr[1] "Indicatori di compromissione"
