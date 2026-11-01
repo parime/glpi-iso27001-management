@@ -169,6 +169,9 @@ final class Installer
     // Issue #369 : techniques MITRE ATT&CK observées sur les incidents.
     private const SECURITY_INCIDENT_TECHNIQUES_TABLE = 'glpi_plugin_grcmanager_securityincidenttechniques';
 
+    // Issue #370 : journal des actions d'investigation et de remédiation.
+    private const SECURITY_INCIDENT_ACTIONS_TABLE = 'glpi_plugin_grcmanager_securityincidentactions';
+
     // Raccourci (ne reflète pas le nom de classe complet) : le nom par défaut que GLPI dériverait
     // (glpi_plugin_grcmanager_securityincidenttemplates_predefinedfields, etc. pour les 4 tables
     // satellites) dépasse la limite de 64 caractères de MySQL pour un identifiant : voir le
@@ -1890,6 +1893,30 @@ final class Installer
                 UNIQUE KEY `unicity` (`plugin_grcmanager_securityincidents_id`,`technique`,`tactic`),
                 KEY `technique` (`technique`),
                 KEY `tactic` (`tactic`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query);
+        }
+
+        if (!$DB->tableExists(self::SECURITY_INCIDENT_ACTIONS_TABLE)) {
+            $query = "CREATE TABLE `" . self::SECURITY_INCIDENT_ACTIONS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_securityincidents_id` int {$keySign} NOT NULL DEFAULT 0,
+                `date` timestamp NULL DEFAULT NULL,
+                `users_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Intervenant',
+                `target` varchar(255) NOT NULL DEFAULT '' COMMENT 'Poste, serveur, compte...',
+                `tool` varchar(32) NOT NULL DEFAULT 'other',
+                `command` text,
+                `finding` text,
+                `result` varchar(16) NOT NULL DEFAULT 'to_check' COMMENT 'success, partial, failure, to_check',
+                `plugin_grcmanager_securityincidentiocs_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Detection liee',
+                `tasks_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Tache de remediation liee',
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `plugin_grcmanager_securityincidents_id` (`plugin_grcmanager_securityincidents_id`),
+                KEY `date` (`date`),
+                KEY `users_id` (`users_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
             $DB->doQuery($query);
@@ -3966,6 +3993,7 @@ final class Installer
         $migration->dropTable(self::SECURITY_INCIDENT_CVES_TABLE);
         $migration->dropTable(self::SECURITY_INCIDENT_IOCS_TABLE);
         $migration->dropTable(self::SECURITY_INCIDENT_TECHNIQUES_TABLE);
+        $migration->dropTable(self::SECURITY_INCIDENT_ACTIONS_TABLE);
         $migration->dropTable(self::SECURITY_INCIDENT_TASKS_TABLE);
         $migration->dropTable(self::SECURITY_INCIDENTS_TICKETS_TABLE);
         $migration->dropTable(self::SECURITY_INCIDENTS_ITEMS_TABLE);

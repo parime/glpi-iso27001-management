@@ -64,7 +64,8 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
     front/policy.form.php front/risk.form.php front/risktreatmentaction.form.php front/supplierrisk.form.php \
     front/training.form.php front/securityincident.form.php front/securityincidentticket.form.php \
     front/securityincidentcve.form.php front/securityincidentioc.form.php \
-    front/securityincidenttechnique.form.php front/cpereference.form.php front/productalias.form.php \
+    front/securityincidenttechnique.form.php front/securityincidentaction.form.php \
+    front/cpereference.form.php front/productalias.form.php \
     front/waiver.form.php front/coveragerule.form.php; do
     expect "$form : creation" "$1" "$(code -d "add=1&name=securite&title=securite&_glpi_csrf_token=$(csrf)" "$BASE/plugins/grcmanager/$form")"
   done
@@ -211,6 +212,10 @@ expect "IOC sur un incident de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403
   "$(code -d "add=1&plugin_grcmanager_securityincidents_id=$(id incident_B)&iocs=198.51.100.1&_glpi_csrf_token=$(csrf)" "$P/securityincidentioc.form.php")"
 expect "technique ATT&CK sur un incident de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
   "$(code -d "add=1&plugin_grcmanager_securityincidents_id=$(id incident_B)&technique=T1566&_glpi_csrf_token=$(csrf)" "$P/securityincidenttechnique.form.php")"
+expect "action d'investigation sur un incident de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
+  "$(code -d "add=1&plugin_grcmanager_securityincidents_id=$(id incident_B)&target=PC-B&tool=edr&_glpi_csrf_token=$(csrf)" "$P/securityincidentaction.form.php")"
+expect "journal des actions (PDF) d'un incident de B" "$([ "$ROLE" = admin ] && echo 200 || echo 404)" \
+  "$(code "$P/securityincidentaction.form.php?pdf=$(id incident_B)")"
 # Issue #140 : un document d'audit ne se lit que par l'equipe de l'audit (glpi en fait partie),
 # jamais avec le seul droit Documents de GLPI ou le droit du plugin.
 expect "document d'audit (equipe de l'audit seulement)" "$([ "$ROLE" = admin ] && echo 200 || echo 403)" \

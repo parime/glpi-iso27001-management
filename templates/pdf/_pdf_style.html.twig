@@ -47,7 +47,8 @@
   }
 
   .grcmanager-pdf-footer .page-number::after {
-    content: counter(page) " / " counter(pages);
+    /* Dompdf ne connaît pas counter(pages) (il affichait « 1 / 0 ») : numéro de page seul. */
+    content: counter(page);
   }
 
   h2 {
