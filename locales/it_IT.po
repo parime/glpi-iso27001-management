@@ -5934,3 +5934,119 @@ msgstr "Ripristino"
 
 msgid "Response phases"
 msgstr "Fasi di risposta"
+
+msgid "Action and remediation log (PDF)"
+msgstr "Registro delle azioni e della remediation (PDF)"
+
+#, php-format
+msgid "Action and remediation log: %s"
+msgstr "Registro delle azioni e della remediation: %s"
+
+msgid "Action log"
+msgstr "Registro delle azioni"
+
+#, php-format
+msgid "Action log printed (SHA-256 %s)"
+msgstr "Registro delle azioni stampato (SHA-256 %s)"
+
+msgid "Action target"
+msgstr "Obiettivo"
+
+msgid "Actions in chronological order"
+msgstr "Azioni in ordine cronologico"
+
+msgid "Command and finding"
+msgstr "Comando e riscontro"
+
+msgid "EDR / XDR console"
+msgstr "Console EDR / XDR"
+
+msgid "Exact command or operation"
+msgstr "Comando o operazione esatta"
+
+msgid "Filter by result"
+msgstr "Filtra per risultato"
+
+msgid "Finding"
+msgstr "Riscontro"
+
+msgid "Firewall"
+msgstr "Firewall"
+
+msgid "Forensic analysis"
+msgstr "Analisi forense"
+
+#, php-format
+msgid "Generated on %1$s by %2$s"
+msgstr "Generato il %1$s da %2$s"
+
+msgid "Log each handling as you go (isolation, account reset, blocking, analysis): who did what, where, with which command and with which result. The log can be printed for the authorities or the insurer."
+msgstr "Registra ogni intervento man mano (isolamento, reset dell'account, blocco, analisi): chi ha fatto cosa, dove, con quale comando e con quale risultato. Il registro si può stampare per le autorità o l'assicuratore."
+
+msgid "Log this action"
+msgstr "Registra questa azione"
+
+msgid "No action logged yet"
+msgstr "Ancora nessuna azione registrata"
+
+msgid "Number of actions"
+msgstr "Numero di azioni"
+
+msgid "On-site intervention"
+msgstr "Intervento in loco"
+
+msgid "PC-ACCOUNTING-03, SRV-AD01, j.doe account..."
+msgstr "PC-CONTABILITA-03, SRV-AD01, account j.doe..."
+
+msgid "Period"
+msgstr "Periodo"
+
+msgid "Related detection (IOC)"
+msgstr "Rilevamento collegato (IOC)"
+
+msgid "Related remediation task"
+msgstr "Attività di remediation collegata"
+
+msgid "Remove this action from the log?"
+msgstr "Rimuovere questa azione dal registro?"
+
+msgid "Responder"
+msgstr "Operatore"
+
+msgid "Responders"
+msgstr "Operatori"
+
+msgid "Result"
+msgstr "Risultato"
+
+msgid "Results"
+msgstr "Risultati"
+
+msgid "Successful"
+msgstr "Riuscita"
+
+msgid "The action date is invalid."
+msgstr "La data dell'azione non è valida."
+
+msgid "The target of the action is required."
+msgstr "L'obiettivo dell'azione è obbligatorio."
+
+msgid "This fingerprint is recorded in the incident history each time the log is printed."
+msgstr "Questa impronta viene registrata nella cronologia dell'incidente a ogni stampa del registro."
+
+msgid "To be checked"
+msgstr "Da verificare"
+
+msgid "Tool"
+msgstr "Strumento"
+
+msgid "What was observed or done"
+msgstr "Cosa è stato osservato o fatto"
+
+msgid "action(s)"
+msgstr "azione/i"
+
+msgid "Investigation action"
+msgid_plural "Investigation actions"
+msgstr[0] "Azione di indagine"
+msgstr[1] "Azioni di indagine"

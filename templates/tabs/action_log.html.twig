@@ -1,0 +1,156 @@
+{# Issue #370 : journal des actions d'investigation et de remédiation, voir
+   GlpiPlugin\\Grcmanager\\SecurityIncidentAction::displayTabContentForItem(). #}
+
+<div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+  <span class="badge bg-dark-lt fs-5"><i class="ti ti-terminal-2 me-1"></i>{{ summary.count }} {{ __('action(s)', 'grcmanager') }}</span>
+  {% for key, result in results %}
+    {% if summary.results[key] > 0 %}
+      <span class="badge {{ result.class }}"><i class="ti {{ result.icon }} me-1"></i>{{ result.label }} : {{ summary.results[key] }}</span>
+    {% endif %}
+  {% endfor %}
+  {% if summary.first %}
+    <span class="text-muted small"><i class="ti ti-calendar me-1"></i>{{ summary.first|formatted_datetime }} - {{ summary.last|formatted_datetime }}</span>
+  {% endif %}
+  {% if summary.users is not empty %}
+    <span class="text-muted small"><i class="ti ti-users me-1"></i>{{ summary.users|map(u => users[u])|join(', ') }}</span>
+  {% endif %}
+  <a href="{{ pdf_url }}" class="btn btn-sm btn-outline-secondary ms-auto {{ summary.count == 0 ? 'disabled' : '' }}">
+    <i class="ti ti-file-type-pdf me-1"></i>{{ __('Action and remediation log (PDF)', 'grcmanager') }}
+  </a>
+</div>
+
+{% if can_edit %}
+<form method="post" action="{{ form_url }}" class="card card-body mb-3">
+  <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+  <input type="hidden" name="plugin_grcmanager_securityincidents_id" value="{{ item.getID() }}">
+  <div class="row g-2">
+    <div class="col-md-3">
+      <label class="form-label" for="grc-action-date">{{ __('Date', 'grcmanager') }}</label>
+      <input type="datetime-local" id="grc-action-date" name="date" class="form-control" value="{{ now }}" required>
+    </div>
+    <div class="col-md-3">
+      <label class="form-label" for="grc-action-target">{{ __('Action target', 'grcmanager') }}</label>
+      <input type="text" id="grc-action-target" name="target" class="form-control" maxlength="255" required
+             placeholder="{{ __('PC-ACCOUNTING-03, SRV-AD01, j.doe account...', 'grcmanager') }}">
+    </div>
+    <div class="col-md-3">
+      <label class="form-label" for="grc-action-tool">{{ __('Tool', 'grcmanager') }}</label>
+      <select id="grc-action-tool" name="tool" class="form-select">
+        {% for key, tool in tools %}<option value="{{ key }}">{{ tool.label }}</option>{% endfor %}
+      </select>
+    </div>
+    <div class="col-md-3">
+      <label class="form-label" for="grc-action-result">{{ __('Result', 'grcmanager') }}</label>
+      <select id="grc-action-result" name="result" class="form-select">
+        {% for key, result in results %}<option value="{{ key }}" {{ key == 'to_check' ? 'selected' : '' }}>{{ result.label }}</option>{% endfor %}
+      </select>
+    </div>
+    <div class="col-md-6">
+      <label class="form-label" for="grc-action-command">{{ __('Exact command or operation', 'grcmanager') }}</label>
+      <textarea id="grc-action-command" name="command" class="form-control font-monospace" rows="2"
+                placeholder="Get-ADUser j.doe -Properties LastLogonDate"></textarea>
+    </div>
+    <div class="col-md-6">
+      <label class="form-label" for="grc-action-finding">{{ __('Finding', 'grcmanager') }}</label>
+      <textarea id="grc-action-finding" name="finding" class="form-control" rows="2"
+                placeholder="{{ __('What was observed or done', 'grcmanager') }}"></textarea>
+    </div>
+    <div class="col-md-4">
+      <label class="form-label" for="grc-action-ioc">{{ __('Related detection (IOC)', 'grcmanager') }}</label>
+      <select id="grc-action-ioc" name="plugin_grcmanager_securityincidentiocs_id" class="form-select">
+        <option value="0">-----</option>
+        {% for id, value in iocs %}<option value="{{ id }}">{{ value }}</option>{% endfor %}
+      </select>
+    </div>
+    <div class="col-md-4">
+      <label class="form-label" for="grc-action-task">{{ __('Related remediation task', 'grcmanager') }}</label>
+      <select id="grc-action-task" name="tasks_id" class="form-select">
+        <option value="0">-----</option>
+        {% for id, label in tasks %}<option value="{{ id }}">{{ label }}</option>{% endfor %}
+      </select>
+    </div>
+    <div class="col-md-4 d-flex align-items-end">
+      <button type="submit" name="add" class="btn btn-primary w-100"><i class="ti ti-plus me-1"></i>{{ __('Log this action', 'grcmanager') }}</button>
+    </div>
+  </div>
+</form>
+{% endif %}
+
+{% if actions is empty %}
+  <div class="empty">
+    <div class="empty-icon"><i class="ti ti-terminal-2 fs-1"></i></div>
+    <p class="empty-title">{{ __('No action logged yet', 'grcmanager') }}</p>
+    <p class="empty-subtitle text-muted">
+      {{ __('Log each handling as you go (isolation, account reset, blocking, analysis): who did what, where, with which command and with which result. The log can be printed for the authorities or the insurer.', 'grcmanager') }}
+    </p>
+  </div>
+{% else %}
+  <div class="d-flex flex-wrap gap-1 mb-2" role="group" aria-label="{{ __('Filter by result', 'grcmanager') }}">
+    <button type="button" class="btn btn-sm btn-secondary" data-grc-action-filter="">{{ __('All', 'grcmanager') }}</button>
+    {% for key, result in results %}
+      {% if summary.results[key] > 0 %}
+        <button type="button" class="btn btn-sm btn-outline-secondary" data-grc-action-filter="{{ key }}">{{ result.label }}</button>
+      {% endif %}
+    {% endfor %}
+  </div>
+  <ul class="timeline">
+    {% for action in actions %}
+      {% set tool = tools[action.tool]|default(tools['other']) %}
+      {% set result = results[action.result]|default(results['to_check']) %}
+      <li class="timeline-event" data-grc-action-result="{{ action.result }}">
+        <div class="timeline-event-icon {{ result.class }}"><i class="{{ tool.icon }}"></i></div>
+        <div class="card timeline-event-card">
+          <div class="card-body py-2">
+            <div class="d-flex flex-wrap align-items-center gap-2">
+              <span class="text-muted small">{{ action.date|formatted_datetime }}</span>
+              <span class="fw-bold">{{ action.target }}</span>
+              <span class="badge bg-secondary-lt">{{ tool.label }}</span>
+              <span class="badge {{ result.class }}"><i class="ti {{ result.icon }} me-1"></i>{{ result.label }}</span>
+              {% if action.plugin_grcmanager_securityincidentiocs_id and iocs[action.plugin_grcmanager_securityincidentiocs_id] is defined %}
+                <span class="badge bg-purple-lt"><i class="ti ti-fingerprint me-1"></i>{{ iocs[action.plugin_grcmanager_securityincidentiocs_id] }}</span>
+              {% endif %}
+              {% if action.tasks_id and tasks[action.tasks_id] is defined %}
+                <span class="badge bg-azure-lt"><i class="ti ti-checklist me-1"></i>{{ tasks[action.tasks_id] }}</span>
+              {% endif %}
+              <span class="text-muted small ms-auto"><i class="ti ti-user me-1"></i>{{ users[action.users_id]|default('') }}</span>
+              {% if can_edit %}
+                <form method="post" action="{{ form_url }}" onsubmit="return confirm('{{ __('Remove this action from the log?', 'grcmanager')|e('js') }}');">
+                  <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                  <input type="hidden" name="id" value="{{ action.id }}">
+                  <button type="submit" name="purge" class="btn btn-sm btn-ghost-danger" title="{{ __('Remove', 'grcmanager') }}" aria-label="{{ __('Remove', 'grcmanager') }}"><i class="ti ti-trash"></i></button>
+                </form>
+              {% endif %}
+            </div>
+            {% if action.command %}<pre class="mt-2 mb-1 p-2 bg-dark text-white rounded small text-wrap">{{ action.command }}</pre>{% endif %}
+            {% if action.finding %}<div class="mt-1">{{ action.finding|nl2br }}</div>{% endif %}
+            {% if can_edit %}
+              <form method="post" action="{{ form_url }}" class="d-flex gap-1 mt-2">
+                <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="id" value="{{ action.id }}">
+                <input type="hidden" name="update" value="1">
+                <select name="result" class="form-select form-select-sm" style="max-width: 12rem" aria-label="{{ __('Result', 'grcmanager') }}" onchange="this.form.submit()">
+                  {% for key, r in results %}<option value="{{ key }}" {{ key == action.result ? 'selected' : '' }}>{{ r.label }}</option>{% endfor %}
+                </select>
+              </form>
+            {% endif %}
+          </div>
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+  <p class="text-muted small mb-0"><i class="ti ti-fingerprint me-1"></i>{{ __('Content fingerprint (SHA-256)', 'grcmanager') }} : <code>{{ hash }}</code></p>
+  <script>
+    document.querySelectorAll('[data-grc-action-filter]').forEach((button) => {
+      button.addEventListener('click', () => {
+        const wanted = button.dataset.grcActionFilter;
+        document.querySelectorAll('[data-grc-action-result]').forEach((row) => {
+          row.classList.toggle('d-none', wanted !== '' && row.dataset.grcActionResult !== wanted);
+        });
+        document.querySelectorAll('[data-grc-action-filter]').forEach((b) => {
+          b.classList.toggle('btn-secondary', b === button);
+          b.classList.toggle('btn-outline-secondary', b !== button);
+        });
+      });
+    });
+  </script>
+{% endif %}

@@ -5934,3 +5934,119 @@ msgstr "Remise en service"
 
 msgid "Response phases"
 msgstr "Phases de réponse"
+
+msgid "Action and remediation log (PDF)"
+msgstr "Journal des actions et remédiation (PDF)"
+
+#, php-format
+msgid "Action and remediation log: %s"
+msgstr "Journal des actions et remédiation : %s"
+
+msgid "Action log"
+msgstr "Journal des actions"
+
+#, php-format
+msgid "Action log printed (SHA-256 %s)"
+msgstr "Journal des actions imprimé (SHA-256 %s)"
+
+msgid "Action target"
+msgstr "Cible"
+
+msgid "Actions in chronological order"
+msgstr "Actions par ordre chronologique"
+
+msgid "Command and finding"
+msgstr "Commande et constat"
+
+msgid "EDR / XDR console"
+msgstr "Console EDR / XDR"
+
+msgid "Exact command or operation"
+msgstr "Commande ou manipulation exacte"
+
+msgid "Filter by result"
+msgstr "Filtrer par résultat"
+
+msgid "Finding"
+msgstr "Constat"
+
+msgid "Firewall"
+msgstr "Pare-feu"
+
+msgid "Forensic analysis"
+msgstr "Analyse forensique"
+
+#, php-format
+msgid "Generated on %1$s by %2$s"
+msgstr "Généré le %1$s par %2$s"
+
+msgid "Log each handling as you go (isolation, account reset, blocking, analysis): who did what, where, with which command and with which result. The log can be printed for the authorities or the insurer."
+msgstr "Consignez chaque manipulation au fil de l'eau (isolement, réinitialisation de compte, blocage, analyse) : qui a fait quoi, où, avec quelle commande et quel résultat. Le journal s'imprime pour les autorités ou l'assureur."
+
+msgid "Log this action"
+msgstr "Consigner cette action"
+
+msgid "No action logged yet"
+msgstr "Aucune action consignée pour l'instant"
+
+msgid "Number of actions"
+msgstr "Nombre d'actions"
+
+msgid "On-site intervention"
+msgstr "Intervention physique"
+
+msgid "PC-ACCOUNTING-03, SRV-AD01, j.doe account..."
+msgstr "PC-COMPTA-03, SRV-AD01, compte j.dupont..."
+
+msgid "Period"
+msgstr "Période"
+
+msgid "Related detection (IOC)"
+msgstr "Détection liée (IOC)"
+
+msgid "Related remediation task"
+msgstr "Tâche de remédiation liée"
+
+msgid "Remove this action from the log?"
+msgstr "Retirer cette action du journal ?"
+
+msgid "Responder"
+msgstr "Intervenant"
+
+msgid "Responders"
+msgstr "Intervenants"
+
+msgid "Result"
+msgstr "Résultat"
+
+msgid "Results"
+msgstr "Résultats"
+
+msgid "Successful"
+msgstr "Réussie"
+
+msgid "The action date is invalid."
+msgstr "La date de l'action n'est pas valide."
+
+msgid "The target of the action is required."
+msgstr "La cible de l'action est obligatoire."
+
+msgid "This fingerprint is recorded in the incident history each time the log is printed."
+msgstr "Cette empreinte est consignée dans l'historique de l'incident à chaque impression du journal."
+
+msgid "To be checked"
+msgstr "À vérifier"
+
+msgid "Tool"
+msgstr "Outil"
+
+msgid "What was observed or done"
+msgstr "Ce qui a été constaté ou fait"
+
+msgid "action(s)"
+msgstr "action(s)"
+
+msgid "Investigation action"
+msgid_plural "Investigation actions"
+msgstr[0] "Action d'investigation"
+msgstr[1] "Actions d'investigation"

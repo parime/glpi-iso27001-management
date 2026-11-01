@@ -1,0 +1,58 @@
+{# Issue #370 : PDF « Journal des actions et remédiation » d'un incident, voir
+   GlpiPlugin\\Grcmanager\\SecurityIncidentAction::renderPdf(). #}
+{% set generated_at_label = __('Generated on %1$s by %2$s', 'grcmanager')|format(generated_at, generated_by) %}
+{% include '@grcmanager/pdf/_pdf_style.html.twig' %}
+
+<h2>{{ __('Summary', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-summary">
+  <tr><td>{{ __('Incident', 'grcmanager') }}</td><td>{{ item.fields['reference'] ?: ('#' ~ item.getID()) }} - {{ item.fields['name'] }}</td></tr>
+  <tr><td>{{ __('Number of actions', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ summary.count }}</td></tr>
+  <tr><td>{{ __('Period', 'grcmanager') }}</td><td>{{ summary.first ?: '-' }} - {{ summary.last ?: '-' }}</td></tr>
+  <tr><td>{{ __('Results', 'grcmanager') }}</td><td>
+    {% for key, result in results %}{{ result.label }} : {{ summary.results[key] }}{% if not loop.last %}, {% endif %}{% endfor %}
+  </td></tr>
+  <tr><td>{{ __('Responders', 'grcmanager') }}</td><td>{{ summary.users is empty ? '-' : summary.users|map(u => users[u])|join(', ') }}</td></tr>
+  {% for label, at in phases %}
+    <tr><td>{{ label }}</td><td>{{ at }}</td></tr>
+  {% endfor %}
+</table>
+
+<h2>{{ __('Actions in chronological order', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-table">
+  <thead>
+    <tr>
+      <th>{{ __('Date', 'grcmanager') }}</th>
+      <th>{{ __('Action target', 'grcmanager') }}</th>
+      <th>{{ __('Tool', 'grcmanager') }}</th>
+      <th>{{ __('Command and finding', 'grcmanager') }}</th>
+      <th>{{ __('Result', 'grcmanager') }}</th>
+      <th>{{ __('Responder', 'grcmanager') }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for action in actions %}
+      <tr>
+        <td>{{ action.date }}</td>
+        <td>{{ action.target }}</td>
+        <td>{{ tools[action.tool].label|default(action.tool) }}</td>
+        <td>
+          {% if action.command %}<code>{{ action.command }}</code><br>{% endif %}
+          {{ action.finding|nl2br }}
+          {% if action.plugin_grcmanager_securityincidentiocs_id and iocs[action.plugin_grcmanager_securityincidentiocs_id] is defined %}
+            <br>{{ __('Detection', 'grcmanager') }} : {{ iocs[action.plugin_grcmanager_securityincidentiocs_id] }}
+          {% endif %}
+          {% if action.tasks_id and tasks[action.tasks_id] is defined %}
+            <br>{{ __('Task', 'grcmanager') }} : {{ tasks[action.tasks_id] }}
+          {% endif %}
+        </td>
+        <td>{{ results[action.result].label|default(action.result) }}</td>
+        <td>{{ users[action.users_id]|default('') }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<p class="grcmanager-pdf-meta">
+  {{ __('Content fingerprint (SHA-256)', 'grcmanager') }} : {{ hash }}<br>
+  {{ __('This fingerprint is recorded in the incident history each time the log is printed.', 'grcmanager') }}
+</p>
