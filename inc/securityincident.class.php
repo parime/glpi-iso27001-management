@@ -389,6 +389,7 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
 
         // Issue #369 : indicateurs de compromission.
         $this->addStandardTab(\GlpiPlugin\Grcmanager\SecurityIncidentIoc::class, $tabs, $options);
+        $this->addStandardTab(\GlpiPlugin\Grcmanager\SecurityIncidentTechnique::class, $tabs, $options);
         $this->addStandardTab(PluginGrcmanagerSecurityIncident_Item::class, $tabs, $options);
         $this->addStandardTab(PluginGrcmanagerSecurityIncidentCost::class, $tabs, $options);
         $this->addStandardTab(KnowbaseItem_Item::class, $tabs, $options);
@@ -407,6 +408,7 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
             PluginGrcmanagerSecurityIncident_Item::class,
             \GlpiPlugin\Grcmanager\SecurityIncidentCve::class,
             \GlpiPlugin\Grcmanager\SecurityIncidentIoc::class,
+            \GlpiPlugin\Grcmanager\SecurityIncidentTechnique::class,
             PluginGrcmanagerSecurityIncidentCost::class,
         ]);
 

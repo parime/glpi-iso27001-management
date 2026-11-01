@@ -19,6 +19,8 @@ declare(strict_types=1);
 
 namespace GlpiPlugin\Grcmanager\Services\Dashboard;
 
+use GlpiPlugin\Grcmanager\SecurityIncidentTechnique;
+use GlpiPlugin\Grcmanager\Services\Incident\MitreAttack;
 use PluginGrcmanagerSecurityIncident;
 
 /**
@@ -65,5 +67,70 @@ final class SecurityIncidentCardProvider
             'label'  => _x('security incidents', 'Open', 'grcmanager'),
             'icon'   => PluginGrcmanagerSecurityIncident::getIcon(),
         ];
+    }
+
+    /**
+     * Issue #369 : nombre d'incidents par tactique MITRE ATT&CK, dans l'ordre de la chaîne d'attaque.
+     *
+     * @return array{data: list<array{label: string, number: int}>, label: string, icon: string}
+     */
+    public static function attackTactics(array $params = []): array
+    {
+        $stats = SecurityIncidentTechnique::statistics(self::visibleIncidentIds());
+        $data = [];
+        foreach (SecurityIncidentTechnique::translatedTactics() as $id => $name) {
+            if (($stats['tactics'][$id] ?? 0) > 0) {
+                $data[] = ['label' => $name, 'number' => $stats['tactics'][$id]];
+            }
+        }
+
+        return [
+            'data'  => $data,
+            'label' => $params['label'] ?? __('Security incidents by MITRE ATT&CK tactic', 'grcmanager'),
+            'icon'  => SecurityIncidentTechnique::getIcon(),
+        ];
+    }
+
+    /**
+     * Issue #369 : les 10 techniques MITRE ATT&CK les plus fréquentes.
+     *
+     * @return array{data: list<array{label: string, number: int}>, label: string, icon: string}
+     */
+    public static function attackTopTechniques(array $params = []): array
+    {
+        $stats = SecurityIncidentTechnique::statistics(self::visibleIncidentIds());
+        $data = [];
+        foreach (array_slice($stats['techniques'], 0, 10, true) as $id => $count) {
+            $data[] = ['label' => $id . ' ' . MitreAttack::fullName((string) $id), 'number' => $count];
+        }
+
+        return [
+            'data'  => $data,
+            'label' => $params['label'] ?? __('Most frequent MITRE ATT&CK techniques', 'grcmanager'),
+            'icon'  => SecurityIncidentTechnique::getIcon(),
+        ];
+    }
+
+    /**
+     * Incidents réels (hors exercices) du périmètre de l'utilisateur.
+     *
+     * @return list<int>
+     */
+    private static function visibleIncidentIds(): array
+    {
+        global $DB;
+
+        $table = PluginGrcmanagerSecurityIncident::getTable();
+        $ids = [];
+        $rows = $DB->request([
+            'SELECT' => ['id'],
+            'FROM'   => $table,
+            'WHERE'  => ['is_deleted' => 0, 'is_exercise' => 0] + \getEntitiesRestrictCriteria($table, '', '', true),
+        ]);
+        foreach ($rows as $row) {
+            $ids[] = (int) $row['id'];
+        }
+
+        return $ids;
     }
 }
