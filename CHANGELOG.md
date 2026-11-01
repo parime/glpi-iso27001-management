@@ -7,6 +7,13 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Added
+
+- **Variantes régionales des traductions** : en_US, es_MX et les espagnols d'Amérique latine,
+  fr_CA, fr_BE, pt_PT. GLPI ne se replie pas d'une variante vers sa langue de base : un
+  utilisateur réglé en es_MX voyait le plugin en anglais. Copies tenues à jour par
+  `tools/sync-locale-variants.sh`, vérifiées en CI.
+
 ### Changed
 
 - **Plus de tiret cadratin** (issue #363) : dans les textes affichés, les traductions et la
