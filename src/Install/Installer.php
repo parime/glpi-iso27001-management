@@ -1717,6 +1717,10 @@ final class Installer
                 `reference` varchar(20) NOT NULL DEFAULT '' COMMENT 'SEC-AAAA-NNNN (issue #372)',
                 `source` varchar(32) NOT NULL DEFAULT '' COMMENT 'user, ticket, edr, siem, partner, authority, other',
                 `external_id` varchar(255) NOT NULL DEFAULT '' COMMENT 'Identifiant EDR, SIEM...',
+                `acknowledged_at` timestamp NULL DEFAULT NULL COMMENT 'Phases NIST (issue #370)',
+                `contained_at` timestamp NULL DEFAULT NULL,
+                `eradicated_at` timestamp NULL DEFAULT NULL,
+                `recovered_at` timestamp NULL DEFAULT NULL,
                 PRIMARY KEY (`id`),
                 KEY `entities_id` (`entities_id`),
                 KEY `is_recursive` (`is_recursive`),
@@ -2047,6 +2051,11 @@ final class Installer
             'reference'   => "varchar(20) NOT NULL DEFAULT ''",
             'source'      => "varchar(32) NOT NULL DEFAULT ''",
             'external_id' => "varchar(255) NOT NULL DEFAULT ''",
+            // Issue #370 : phases de réponse NIST horodatées.
+            'acknowledged_at' => 'timestamp NULL DEFAULT NULL',
+            'contained_at'    => 'timestamp NULL DEFAULT NULL',
+            'eradicated_at'   => 'timestamp NULL DEFAULT NULL',
+            'recovered_at'    => 'timestamp NULL DEFAULT NULL',
         ];
         foreach ($incidentColumns as $field => $definition) {
             if (!$DB->fieldExists(self::SECURITY_INCIDENTS_TABLE, $field, false)) {

@@ -12,6 +12,19 @@
   {% if category %}<span class="badge bg-blue-lt"><i class="ti ti-category me-1"></i>{{ category }}</span>{% endif %}
   {% if source and source != constant('Dropdown::EMPTY_VALUE') %}<span class="badge bg-secondary-lt"><i class="ti ti-radar me-1"></i>{{ source }}</span>{% endif %}
 </div>
+{# Issue #370 : frise des phases de réponse NIST. #}
+{% if phases is defined %}
+<ol class="grc-phases d-flex flex-wrap gap-1 list-unstyled mb-2" aria-label="{{ __('Response phases', 'grcmanager') }}">
+  {% for p in phases %}
+    <li class="badge {{ p.current ? 'bg-green text-white' : (p.done ? 'bg-green-lt' : 'bg-secondary-lt text-muted') }}"
+        title="{{ p.at ? p.at|formatted_datetime : __('Not reached', 'grcmanager') }}">
+      <i class="ti {{ p.done ? 'ti-circle-check' : 'ti-circle-dashed' }} me-1"></i>{{ phase_labels[p.key] }}
+      {% if p.done and p.key != 'detection' and p.hours is not null %}<span class="ms-1 opacity-75">+{{ p.hours }} h</span>{% endif %}
+      {% if p.out_of_order %}<i class="ti ti-alert-triangle text-orange ms-1" title="{{ __('Dated before the previous phase', 'grcmanager') }}"></i>{% endif %}
+    </li>
+  {% endfor %}
+</ol>
+{% endif %}
 {% for d in banners %}
   <div class="alert {{ d.status == 'overdue' ? 'alert-danger' : (d.status == 'due_soon' ? 'alert-warning' : 'alert-info') }} d-flex align-items-start gap-2 py-2 px-3 mb-2" role="status">
     <i class="ti {{ d.status == 'overdue' ? 'ti-alarm-off' : 'ti-alarm' }} fs-3"></i>
