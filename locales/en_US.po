@@ -5701,3 +5701,21 @@ msgstr "Overdue since %s"
 #, php-format
 msgid "Due no later than %1$s (%2$d h left)"
 msgstr "Due no later than %1$s (%2$d h left)"
+
+msgid "User report"
+msgstr "User report"
+
+msgid "EDR / XDR"
+msgstr "EDR / XDR"
+
+msgid "SIEM / log monitoring"
+msgstr "SIEM / log monitoring"
+
+msgid "Supplier or partner"
+msgstr "Supplier or partner"
+
+msgid "Authority (CERT, regulator...)"
+msgstr "Authority (CERT, regulator...)"
+
+msgid "External identifier (EDR, SIEM...)"
+msgstr "External identifier (EDR, SIEM...)"

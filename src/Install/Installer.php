@@ -1708,6 +1708,9 @@ final class Installer
                 `gdpr_notification_at` timestamp NULL DEFAULT NULL,
                 `regulatory_alerts` text COMMENT 'Alertes deja envoyees, echeance:statut (issue #128)',
                 `is_exercise` tinyint NOT NULL DEFAULT 0 COMMENT 'Incident fictif d exercice de crise (issue #168)',
+                `reference` varchar(20) NOT NULL DEFAULT '' COMMENT 'SEC-AAAA-NNNN (issue #372)',
+                `source` varchar(32) NOT NULL DEFAULT '' COMMENT 'user, ticket, edr, siem, partner, authority, other',
+                `external_id` varchar(255) NOT NULL DEFAULT '' COMMENT 'Identifiant EDR, SIEM...',
                 PRIMARY KEY (`id`),
                 KEY `entities_id` (`entities_id`),
                 KEY `is_recursive` (`is_recursive`),
@@ -1993,6 +1996,19 @@ final class Installer
         if (!$DB->fieldExists(self::SECURITY_INCIDENTS_TABLE, 'is_exercise')) {
             $migration->addField(self::SECURITY_INCIDENTS_TABLE, 'is_exercise', 'bool', ['value' => 0]);
         }
+        // Issue #372 : référence lisible SEC-AAAA-NNNN, source et identifiant externe. Colonnes
+        // ajoutées immédiatement : les incidents existants sont numérotés juste après.
+        foreach ([
+            'reference'   => "varchar(20) NOT NULL DEFAULT ''",
+            'source'      => "varchar(32) NOT NULL DEFAULT ''",
+            'external_id' => "varchar(255) NOT NULL DEFAULT ''",
+        ] as $field => $definition) {
+            if (!$DB->fieldExists(self::SECURITY_INCIDENTS_TABLE, $field, false)) {
+                $DB->doQuery('ALTER TABLE `' . self::SECURITY_INCIDENTS_TABLE . '` ADD `' . $field . '` ' . $definition);
+            }
+        }
+        \PluginGrcmanagerSecurityIncident::backfillReferences();
+
         // Issue #168 : un exercice = un incident fictif, ses étapes = des tâches de l'incident.
         if (!$DB->tableExists(self::CRISIS_EXERCISES_TABLE)) {
             $query = "CREATE TABLE `" . self::CRISIS_EXERCISES_TABLE . "` (

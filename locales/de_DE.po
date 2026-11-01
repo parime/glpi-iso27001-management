@@ -5701,3 +5701,21 @@ msgstr "Überfällig seit %s"
 #, php-format
 msgid "Due no later than %1$s (%2$d h left)"
 msgstr "Fällig spätestens am %1$s (noch %2$d Std.)"
+
+msgid "User report"
+msgstr "Meldung eines Benutzers"
+
+msgid "EDR / XDR"
+msgstr "EDR / XDR"
+
+msgid "SIEM / log monitoring"
+msgstr "SIEM / Protokollüberwachung"
+
+msgid "Supplier or partner"
+msgstr "Lieferant oder Partner"
+
+msgid "Authority (CERT, regulator...)"
+msgstr "Behörde (CERT, Aufsicht...)"
+
+msgid "External identifier (EDR, SIEM...)"
+msgstr "Externe Kennung (EDR, SIEM...)"

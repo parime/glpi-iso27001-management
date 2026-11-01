@@ -9,6 +9,10 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Incidents de sécurité** (issue #372) : référence lisible `SEC-AAAA-NNNN` (attribuée à la
+  création, les incidents existants sont numérotés à la mise à jour), champs **Source** (EDR,
+  SIEM, utilisateur, ticket, partenaire, autorité) et **Identifiant externe**, et en-tête de pastilles
+  (référence, gravité, catégorie, source) au-dessus des échéances ; recherche sur les trois champs.
 - **Incidents de sécurité** (issue #372, première partie) : les échéances NIS2 / RGPD non encore
   notifiées s'affichent en tête du panneau de l'incident (en rouge si dépassées, avec le temps
   restant sinon), au lieu d'être seulement dans la section « Notifications réglementaires ».

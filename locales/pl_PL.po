@@ -7105,3 +7105,21 @@ msgstr "Po terminie od %s"
 #, php-format
 msgid "Due no later than %1$s (%2$d h left)"
 msgstr "Najpóźniej %1$s (pozostało %2$d h)"
+
+msgid "User report"
+msgstr "Zgłoszenie użytkownika"
+
+msgid "EDR / XDR"
+msgstr "EDR / XDR"
+
+msgid "SIEM / log monitoring"
+msgstr "SIEM / monitorowanie dzienników"
+
+msgid "Supplier or partner"
+msgstr "Dostawca lub partner"
+
+msgid "Authority (CERT, regulator...)"
+msgstr "Organ (CERT, regulator...)"
+
+msgid "External identifier (EDR, SIEM...)"
+msgstr "Identyfikator zewnętrzny (EDR, SIEM...)"
