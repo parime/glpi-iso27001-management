@@ -387,6 +387,8 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
             $this->addStandardTab(\GlpiPlugin\Grcmanager\SecurityIncidentCve::class, $tabs, $options);
         }
 
+        // Issue #369 : indicateurs de compromission.
+        $this->addStandardTab(\GlpiPlugin\Grcmanager\SecurityIncidentIoc::class, $tabs, $options);
         $this->addStandardTab(PluginGrcmanagerSecurityIncident_Item::class, $tabs, $options);
         $this->addStandardTab(PluginGrcmanagerSecurityIncidentCost::class, $tabs, $options);
         $this->addStandardTab(KnowbaseItem_Item::class, $tabs, $options);
@@ -404,6 +406,7 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
         $this->deleteChildrenAndRelationsFromDb([
             PluginGrcmanagerSecurityIncident_Item::class,
             \GlpiPlugin\Grcmanager\SecurityIncidentCve::class,
+            \GlpiPlugin\Grcmanager\SecurityIncidentIoc::class,
             PluginGrcmanagerSecurityIncidentCost::class,
         ]);
 

@@ -163,6 +163,9 @@ final class Installer
 
     private const SECURITY_INCIDENT_COSTS_TABLE = 'glpi_plugin_grcmanager_securityincidentcosts';
 
+    // Issue #369 : indicateurs de compromission des incidents.
+    private const SECURITY_INCIDENT_IOCS_TABLE = 'glpi_plugin_grcmanager_securityincidentiocs';
+
     // Raccourci (ne reflète pas le nom de classe complet) : le nom par défaut que GLPI dériverait
     // (glpi_plugin_grcmanager_securityincidenttemplates_predefinedfields, etc. pour les 4 tables
     // satellites) dépasse la limite de 64 caractères de MySQL pour un identifiant : voir le
@@ -1844,6 +1847,27 @@ final class Installer
                 'after' => 'epss_alerted',
             ]);
             $migration->migrationOneTable(self::SECURITY_INCIDENT_CVES_TABLE);
+        }
+
+        if (!$DB->tableExists(self::SECURITY_INCIDENT_IOCS_TABLE)) {
+            $query = "CREATE TABLE `" . self::SECURITY_INCIDENT_IOCS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_securityincidents_id` int {$keySign} NOT NULL DEFAULT 0,
+                `type` varchar(16) NOT NULL DEFAULT '',
+                `value` text,
+                `ioc_hash` char(64) NOT NULL DEFAULT '',
+                `verdict` varchar(16) NOT NULL DEFAULT '',
+                `comment` text,
+                `first_seen` timestamp NULL DEFAULT NULL,
+                `last_seen` timestamp NULL DEFAULT NULL,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity` (`plugin_grcmanager_securityincidents_id`,`ioc_hash`),
+                KEY `ioc_hash` (`ioc_hash`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query);
         }
 
         if (!$DB->tableExists(self::SECURITY_INCIDENT_COSTS_TABLE)) {
@@ -3910,6 +3934,7 @@ final class Installer
         $migration->dropTable(self::SECURITY_INCIDENT_TEMPLATES_TABLE);
         $migration->dropTable(self::SECURITY_INCIDENT_COSTS_TABLE);
         $migration->dropTable(self::SECURITY_INCIDENT_CVES_TABLE);
+        $migration->dropTable(self::SECURITY_INCIDENT_IOCS_TABLE);
         $migration->dropTable(self::SECURITY_INCIDENT_TASKS_TABLE);
         $migration->dropTable(self::SECURITY_INCIDENTS_TICKETS_TABLE);
         $migration->dropTable(self::SECURITY_INCIDENTS_ITEMS_TABLE);

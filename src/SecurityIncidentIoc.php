@@ -91,23 +91,25 @@ class SecurityIncidentIoc extends SecurityIncidentIocBase
         $now = $_SESSION['glpi_currenttime'] ?? date('Y-m-d H:i:s');
         foreach ($parsed['iocs'] as $ioc) {
             $existing = new self();
-            if ($existing->getFromDBByCrit([
+            $criteria = [
                 'plugin_grcmanager_securityincidents_id' => $incidentsId,
                 'ioc_hash' => self::hashOf($ioc['type'], $ioc['value']),
-            ])) {
+            ];
+            if ($existing->getFromDBByCrit($criteria)) {
                 $existing->update(['id' => $existing->getID(), 'last_seen' => $now]);
                 $result['updated']++;
                 continue;
             }
             $row = new self();
-            if ($row->add([
+            $added = $row->add([
                 'plugin_grcmanager_securityincidents_id' => $incidentsId,
                 'type'       => $ioc['type'],
                 'value'      => $ioc['value'],
                 'verdict'    => $verdict,
                 'first_seen' => $now,
                 'last_seen'  => $now,
-            ])) {
+            ]);
+            if ($added) {
                 $result['added']++;
             }
         }
@@ -138,7 +140,7 @@ class SecurityIncidentIoc extends SecurityIncidentIocBase
         $incidents = PluginGrcmanagerSecurityIncident::getTable();
         $found = [];
         $visible = [];
-        foreach ($DB->request([
+        $rows = $DB->request([
             'SELECT'     => ["$table.ioc_hash", "$incidents.id", "$incidents.reference", "$incidents.name"],
             'FROM'       => $table,
             'INNER JOIN' => [
@@ -150,7 +152,8 @@ class SecurityIncidentIoc extends SecurityIncidentIocBase
                 'NOT' => ["$incidents.id" => $incidentsId],
             ],
             'ORDER'      => ["$incidents.date DESC"],
-        ]) as $row) {
+        ]);
+        foreach ($rows as $row) {
             $id = (int) $row['id'];
             if (!isset($visible[$id])) {
                 $incident = new PluginGrcmanagerSecurityIncident();

@@ -1,0 +1,147 @@
+{# Issue #369 : indicateurs de compromission de l'incident, voir
+   GlpiPlugin\\Grcmanager\\SecurityIncidentIoc::displayTabContentForItem(). #}
+{% set verdict_classes = {'': 'bg-secondary-lt', 'malicious': 'bg-red-lt', 'suspicious': 'bg-orange-lt', 'benign': 'bg-green-lt'} %}
+{% set verdict_icons = {'': 'ti-help-circle', 'malicious': 'ti-skull', 'suspicious': 'ti-alert-triangle', 'benign': 'ti-circle-check'} %}
+
+<div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+  <span class="badge bg-dark-lt fs-5"><i class="ti ti-fingerprint me-1"></i>{{ iocs|length }} {{ __('indicator(s)', 'grcmanager') }}</span>
+  {% for key, label in verdicts %}
+    {% if counts[key]|default(0) > 0 %}
+      <span class="badge {{ verdict_classes[key] }}"><i class="ti {{ verdict_icons[key] }} me-1"></i>{{ label }} : {{ counts[key] }}</span>
+    {% endif %}
+  {% endfor %}
+  {% if iocs is not empty %}
+    <div class="ms-auto d-flex gap-1">
+      <button type="button" class="btn btn-sm btn-outline-secondary" data-grc-ioc-copy="plain">
+        <i class="ti ti-copy me-1"></i>{{ __('Copy all', 'grcmanager') }}
+      </button>
+      <button type="button" class="btn btn-sm btn-outline-secondary" data-grc-ioc-copy="defanged" title="{{ __('203[.]0[.]113[.]7, hxxps://... : safe to paste in an email or a ticket', 'grcmanager') }}">
+        <i class="ti ti-shield-lock me-1"></i>{{ __('Copy defanged', 'grcmanager') }}
+      </button>
+    </div>
+  {% endif %}
+</div>
+
+{% if can_edit %}
+<form method="post" action="{{ form_url }}" class="card card-body mb-3">
+  <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+  <input type="hidden" name="plugin_grcmanager_securityincidents_id" value="{{ item.getID() }}">
+  <div class="row g-2 align-items-end">
+    <div class="col-md-7">
+      <label class="form-label" for="grc-ioc-input">{{ __('Indicators to add', 'grcmanager') }}</label>
+      <textarea id="grc-ioc-input" name="iocs" class="form-control font-monospace" rows="4" required
+                placeholder="203.0.113.7&#10;hxxps://login-microsoft[.]example/office&#10;d41d8cd98f00b204e9800998ecf8427e&#10;facture.pdf.exe"></textarea>
+      <div class="form-hint">
+        {{ __('One per line. The type (IP, domain, URL, hash, email, file) is detected automatically, defanged values (hxxp, [.]) are accepted and duplicates are merged.', 'grcmanager') }}
+      </div>
+    </div>
+    <div class="col-md-3">
+      <label class="form-label" for="grc-ioc-verdict">{{ __('Verdict', 'grcmanager') }}</label>
+      <select id="grc-ioc-verdict" name="verdict" class="form-select">
+        {% for key, label in verdicts %}<option value="{{ key }}">{{ label }}</option>{% endfor %}
+      </select>
+    </div>
+    <div class="col-md-2">
+      <button type="submit" name="add" class="btn btn-primary w-100"><i class="ti ti-plus me-1"></i>{{ __('Add', 'grcmanager') }}</button>
+    </div>
+  </div>
+</form>
+{% endif %}
+
+{% if iocs is empty %}
+  <div class="empty">
+    <div class="empty-icon"><i class="ti ti-fingerprint fs-1"></i></div>
+    <p class="empty-title">{{ __('No indicator of compromise yet', 'grcmanager') }}</p>
+    <p class="empty-subtitle text-muted">
+      {{ __('Paste the IP addresses, domains, URLs or file hashes seen during the investigation: those already seen in another incident are flagged.', 'grcmanager') }}
+    </p>
+  </div>
+{% else %}
+<div class="table-responsive">
+  <table class="table table-sm table-vcenter card-table">
+    <thead>
+      <tr>
+        <th>{{ __('Type', 'grcmanager') }}</th>
+        <th>{{ __('Value', 'grcmanager') }}</th>
+        <th>{{ __('Verdict', 'grcmanager') }}</th>
+        <th>{{ __('Seen', 'grcmanager') }}</th>
+        <th>{{ __('Lookup', 'grcmanager') }}</th>
+        <th>{{ __('Also seen in', 'grcmanager') }}</th>
+        {% if can_edit %}<th></th>{% endif %}
+      </tr>
+    </thead>
+    <tbody>
+    {% for ioc in iocs %}
+      {% set type = types[ioc.type]|default({'label': ioc.type, 'icon': 'ti ti-question-mark'}) %}
+      <tr data-grc-ioc-type="{{ ioc.type }}" data-grc-ioc-value="{{ ioc.value }}">
+        <td class="text-nowrap"><span class="badge bg-blue-lt"><i class="{{ type.icon }} me-1"></i>{{ type.label }}</span></td>
+        <td class="text-break" style="min-width: 12rem"><code>{{ ioc.value }}</code></td>
+        <td>
+          {% if can_edit %}
+            <form method="post" action="{{ form_url }}" class="d-flex gap-1">
+              <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+              <input type="hidden" name="id" value="{{ ioc.id }}">
+              <input type="hidden" name="update" value="1">
+              <input type="hidden" name="comment" value="{{ ioc.comment }}">
+              <select name="verdict" class="form-select form-select-sm {{ verdict_classes[ioc.verdict]|default('') }}" style="min-width: 10rem" aria-label="{{ __('Verdict', 'grcmanager') }}" onchange="this.form.submit()">
+                {% for key, label in verdicts %}<option value="{{ key }}" {{ key == ioc.verdict ? 'selected' : '' }}>{{ label }}</option>{% endfor %}
+              </select>
+            </form>
+          {% else %}
+            <span class="badge {{ verdict_classes[ioc.verdict]|default('bg-secondary-lt') }}"><i class="ti {{ verdict_icons[ioc.verdict]|default('ti-help-circle') }} me-1"></i>{{ verdicts[ioc.verdict]|default(ioc.verdict) }}</span>
+          {% endif %}
+        </td>
+        <td class="text-nowrap small">
+          <div title="{{ __('First seen', 'grcmanager') }}"><i class="ti ti-player-play text-muted me-1"></i>{{ ioc.first_seen|formatted_datetime }}</div>
+          {% if ioc.last_seen != ioc.first_seen %}
+            <div title="{{ __('Last seen', 'grcmanager') }}"><i class="ti ti-player-stop text-muted me-1"></i>{{ ioc.last_seen|formatted_datetime }}</div>
+          {% endif %}
+        </td>
+        <td class="text-nowrap">
+          {% for name, url in links[ioc.id]|default([]) %}
+            <a href="{{ url }}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-ghost-primary px-1" title="{{ __('Opens %s in a new tab: nothing is sent automatically', 'grcmanager')|format(name) }}">
+              {{ name }} <i class="ti ti-external-link ms-1"></i>
+            </a>
+          {% endfor %}
+        </td>
+        <td class="text-nowrap">
+          {% for other in seen[ioc.ioc_hash]|default([]) %}
+            <a href="{{ item.getFormURLWithID(other.id) }}" class="badge bg-purple-lt d-block mb-1" title="{{ other.name }}"><i class="ti ti-link me-1"></i>{{ other.reference ?: ('#' ~ other.id) }}</a>
+          {% else %}
+            <span class="text-muted">-</span>
+          {% endfor %}
+        </td>
+        {% if can_edit %}
+          <td>
+            <form method="post" action="{{ form_url }}" onsubmit="return confirm('{{ __('Remove this indicator?', 'grcmanager')|e('js') }}');">
+              <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+              <input type="hidden" name="id" value="{{ ioc.id }}">
+              <button type="submit" name="purge" class="btn btn-sm btn-ghost-danger" title="{{ __('Remove', 'grcmanager') }}" aria-label="{{ __('Remove', 'grcmanager') }}"><i class="ti ti-trash"></i></button>
+            </form>
+          </td>
+        {% endif %}
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+<script>
+  document.querySelectorAll('[data-grc-ioc-copy]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const defang = button.dataset.grcIocCopy === 'defanged';
+      const lines = [...document.querySelectorAll('tr[data-grc-ioc-value]')].map((row) => {
+        let value = row.dataset.grcIocValue;
+        if (defang && row.dataset.grcIocType !== 'md5' && row.dataset.grcIocType !== 'sha1' && row.dataset.grcIocType !== 'sha256') {
+          value = value.replace(/^http/i, 'hxxp').replace(/\./g, '[.]').replace(/@/g, '[at]');
+        }
+        return value;
+      });
+      navigator.clipboard.writeText(lines.join('\n')).then(() => {
+        const icon = button.querySelector('i');
+        icon.className = 'ti ti-check me-1';
+        setTimeout(() => { icon.className = defang ? 'ti ti-shield-lock me-1' : 'ti ti-copy me-1'; }, 1500);
+      });
+    });
+  });
+</script>
+{% endif %}
