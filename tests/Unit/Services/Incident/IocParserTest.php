@@ -39,7 +39,8 @@ final class IocParserTest extends TestCase
 
     public function testParseDeduplicatesAndKeepsRejectedLines(): void
     {
-        $result = IocParser::parse("203.0.113.7\n\n# commentaire\n203[.]0[.]113[.]7\nnot an ioc at all\nevil.example\n");
+        $raw = "203.0.113.7\n\n# commentaire\n203[.]0[.]113[.]7\n";
+        $result = IocParser::parse($raw . "not an ioc at all\nevil.example\n");
 
         self::assertSame(
             [['type' => 'ipv4', 'value' => '203.0.113.7'], ['type' => 'domain', 'value' => 'evil.example']],
