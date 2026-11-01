@@ -104,8 +104,12 @@
             </a>
           {% endfor %}
         </td>
-        <td class="text-nowrap">
-          {% for other in seen[ioc.ioc_hash]|default([]) %}
+        <td class="text-nowrap" style="min-width: 9rem">
+          {% set others = seen[ioc.ioc_hash]|default([]) %}
+          {% if others|length > 3 %}
+            <span class="badge bg-purple text-white d-block mb-1">+{{ others|length - 3 }}</span>
+          {% endif %}
+          {% for other in others|slice(0, 3) %}
             <a href="{{ item.getFormURLWithID(other.id) }}" class="badge bg-purple-lt d-block mb-1" title="{{ other.name }}"><i class="ti ti-link me-1"></i>{{ other.reference ?: ('#' ~ other.id) }}</a>
           {% else %}
             <span class="text-muted">-</span>

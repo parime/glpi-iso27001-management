@@ -7123,3 +7123,99 @@ msgstr "Organ (CERT, regulator...)"
 
 msgid "External identifier (EDR, SIEM...)"
 msgstr "Identyfikator zewnętrzny (EDR, SIEM...)"
+
+#, php-format
+msgid "%1$d indicator(s) added, %2$d already known (last seen date updated)."
+msgstr "Dodano wskaźniki: %1$d, już znane: %2$d (zaktualizowano datę ostatniego wystąpienia)."
+
+msgid "203[.]0[.]113[.]7, hxxps://... : safe to paste in an email or a ticket"
+msgstr "203[.]0[.]113[.]7, hxxps://... : bezpieczne do wklejenia w e-mailu lub zgłoszeniu"
+
+msgid "Also seen in"
+msgstr "Widziany także w"
+
+msgid "Copy all"
+msgstr "Kopiuj wszystko"
+
+msgid "Copy defanged"
+msgstr "Kopiuj w formie bezpiecznej"
+
+msgid "Domain"
+msgstr "Domena"
+
+msgid "Email address"
+msgstr "Adres e-mail"
+
+msgid "False positive"
+msgstr "Fałszywy alarm"
+
+msgid "File name"
+msgstr "Nazwa pliku"
+
+msgid "First seen"
+msgstr "Pierwsze wystąpienie"
+
+msgid "IOC"
+msgstr "IOC"
+
+msgid "IPv4 address"
+msgstr "Adres IPv4"
+
+msgid "IPv6 address"
+msgstr "Adres IPv6"
+
+msgid "Indicators to add"
+msgstr "Wskaźniki do dodania"
+
+msgid "Last seen"
+msgstr "Ostatnie wystąpienie"
+
+msgid "Lookup"
+msgstr "Sprawdź"
+
+msgid "Malicious"
+msgstr "Złośliwy"
+
+msgid "No indicator of compromise yet"
+msgstr "Brak wskaźników kompromitacji"
+
+#, php-format
+msgid "Not recognized, ignored: %s"
+msgstr "Nierozpoznane, pominięte: %s"
+
+msgid "One per line. The type (IP, domain, URL, hash, email, file) is detected automatically, defanged values (hxxp, [.]) are accepted and duplicates are merged."
+msgstr "Jeden na wiersz. Typ (IP, domena, URL, skrót, e-mail, plik) jest wykrywany automatycznie, wartości zabezpieczone (hxxp, [.]) są akceptowane, a duplikaty scalane."
+
+#, php-format
+msgid "Opens %s in a new tab: nothing is sent automatically"
+msgstr "Otwiera %s w nowej karcie: nic nie jest wysyłane automatycznie"
+
+msgid "Paste the IP addresses, domains, URLs or file hashes seen during the investigation: those already seen in another incident are flagged."
+msgstr "Wklej adresy IP, domeny, adresy URL lub skróty plików wykryte podczas dochodzenia: te widziane już w innym incydencie zostaną oznaczone."
+
+msgid "Remove this indicator?"
+msgstr "Usunąć ten wskaźnik?"
+
+msgid "Seen"
+msgstr "Wystąpienie"
+
+msgid "Suspicious"
+msgstr "Podejrzany"
+
+msgid "To be qualified"
+msgstr "Do oceny"
+
+msgid "Unknown verdict."
+msgstr "Nieznany werdykt."
+
+msgid "Verdict"
+msgstr "Werdykt"
+
+msgid "indicator(s)"
+msgstr "wskaźnik(i)"
+
+msgid "Indicator of compromise"
+msgid_plural "Indicators of compromise"
+msgstr[0] "Wskaźnik kompromitacji"
+msgstr[1] "Wskaźniki kompromitacji"
+msgstr[2] "Wskaźniki kompromitacji"

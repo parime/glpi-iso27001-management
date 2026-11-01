@@ -7,6 +7,17 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Added
+
+- **Indicateurs de compromission (IOC)** sur les incidents de sécurité (issue #369) : nouvel
+  onglet « IOC » où l'on colle les adresses IP, domaines, URL, empreintes (MD5, SHA-1, SHA-256),
+  e-mails ou noms de fichiers relevés, une valeur par ligne. Le type est détecté automatiquement,
+  les valeurs désamorcées (`hxxp`, `[.]`, `[at]`) sont acceptées et les doublons fusionnés (la date
+  de dernière observation est mise à jour). Verdict (à qualifier, malveillant, suspect, faux
+  positif), liens de recherche VirusTotal / AbuseIPDB / urlscan (simples liens, aucun envoi
+  automatique), incidents où le même IOC a déjà été vu (dans le périmètre visible), copie de la
+  liste en clair ou désamorcée.
+
 ## [2.18.0] - 2026-11-02
 
 ### Added

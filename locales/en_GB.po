@@ -5719,3 +5719,98 @@ msgstr "Authority (CERT, regulator...)"
 
 msgid "External identifier (EDR, SIEM...)"
 msgstr "External identifier (EDR, SIEM...)"
+
+#, php-format
+msgid "%1$d indicator(s) added, %2$d already known (last seen date updated)."
+msgstr "%1$d indicator(s) added, %2$d already known (last seen date updated)."
+
+msgid "203[.]0[.]113[.]7, hxxps://... : safe to paste in an email or a ticket"
+msgstr "203[.]0[.]113[.]7, hxxps://... : safe to paste in an email or a ticket"
+
+msgid "Also seen in"
+msgstr "Also seen in"
+
+msgid "Copy all"
+msgstr "Copy all"
+
+msgid "Copy defanged"
+msgstr "Copy defanged"
+
+msgid "Domain"
+msgstr "Domain"
+
+msgid "Email address"
+msgstr "Email address"
+
+msgid "False positive"
+msgstr "False positive"
+
+msgid "File name"
+msgstr "File name"
+
+msgid "First seen"
+msgstr "First seen"
+
+msgid "IOC"
+msgstr "IOC"
+
+msgid "IPv4 address"
+msgstr "IPv4 address"
+
+msgid "IPv6 address"
+msgstr "IPv6 address"
+
+msgid "Indicators to add"
+msgstr "Indicators to add"
+
+msgid "Last seen"
+msgstr "Last seen"
+
+msgid "Lookup"
+msgstr "Lookup"
+
+msgid "Malicious"
+msgstr "Malicious"
+
+msgid "No indicator of compromise yet"
+msgstr "No indicator of compromise yet"
+
+#, php-format
+msgid "Not recognized, ignored: %s"
+msgstr "Not recognized, ignored: %s"
+
+msgid "One per line. The type (IP, domain, URL, hash, email, file) is detected automatically, defanged values (hxxp, [.]) are accepted and duplicates are merged."
+msgstr "One per line. The type (IP, domain, URL, hash, email, file) is detected automatically, defanged values (hxxp, [.]) are accepted and duplicates are merged."
+
+#, php-format
+msgid "Opens %s in a new tab: nothing is sent automatically"
+msgstr "Opens %s in a new tab: nothing is sent automatically"
+
+msgid "Paste the IP addresses, domains, URLs or file hashes seen during the investigation: those already seen in another incident are flagged."
+msgstr "Paste the IP addresses, domains, URLs or file hashes seen during the investigation: those already seen in another incident are flagged."
+
+msgid "Remove this indicator?"
+msgstr "Remove this indicator?"
+
+msgid "Seen"
+msgstr "Seen"
+
+msgid "Suspicious"
+msgstr "Suspicious"
+
+msgid "To be qualified"
+msgstr "To be qualified"
+
+msgid "Unknown verdict."
+msgstr "Unknown verdict."
+
+msgid "Verdict"
+msgstr "Verdict"
+
+msgid "indicator(s)"
+msgstr "indicator(s)"
+
+msgid "Indicator of compromise"
+msgid_plural "Indicators of compromise"
+msgstr[0] "Indicator of compromise"
+msgstr[1] "Indicators of compromise"
