@@ -21,7 +21,7 @@ use Glpi\ContentTemplates\Parameters\CommonITILObjectParameters;
 use PluginGrcmanagerSecurityIncident;
 
 /**
- * Content-template parameters for PluginGrcmanagerSecurityIncident items — same minimal shape as
+ * Content-template parameters for PluginGrcmanagerSecurityIncident items: same minimal shape as
  * GLPI core's own `ChangeParameters`, required by
  * `PluginGrcmanagerSecurityIncident::getContentTemplatesParametersClassInstance()`. Ported from the
  * absorbed glpi-security-incidents plugin (ROADMAP.md "Version 2.0").

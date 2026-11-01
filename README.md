@@ -22,7 +22,7 @@ d'un auditeur ISO 27001 :
 
 **GLPI GRC Manager** couvre le risque organisationnel générique (clause 6.1.2/8.2 ISO 27001) :
 humain, processus, physique, tiers/fournisseur, avec acceptation, traitement, Déclaration
-d'Applicabilité (SoA), audits internes et actions correctives — et, depuis la v2.0, un véritable
+d'Applicabilité (SoA), audits internes et actions correctives : et, depuis la v2.0, un véritable
 objet ITIL "Incident de sécurité" (absorbé du plugin jumeau glpi-security-incidents, désormais
 archivé), avec ses champs de classification ISO 27001 fusionnés dessus.
 
@@ -103,12 +103,17 @@ archivé), avec ses champs de classification ISO 27001 fusionnés dessus.
   participant, au formateur et au RSSI), et **audits internes** avec constats, notes de travail,
   équipe d'audit, documents réservés à l'équipe (téléchargements historisés) et rapport PDF archivé
   à la clôture.
-- **Matrice des flux** : import d'une sauvegarde pfSense, réseaux partenaires en conflit avec un
-  réseau interne, rapport PDF pour l'auditeur.
+- **Matrice des flux** : import d'une sauvegarde pfSense (zones nommées d'après les interfaces,
+  interface côté Internet au choix, règles identiques fusionnées ; seuls les interfaces, alias et
+  règles sont lus, le fichier n'est jamais conservé et une sauvegarde contenant des secrets est
+  signalée), réseaux partenaires en conflit avec un réseau interne, rapport PDF pour l'auditeur.
 - **Score de maturité** cyber (0 à 100) avec le détail du calcul et son historique mensuel.
 - **Contrôles techniques automatiques** : score ISO 27001, NIS2 et RGPD à partir des données de GLPI
   (antivirus, chiffrement, inventaire, validation des changements, comptes) et ticket de mise en
   conformité par contrôle.
+- **Surveillance des fuites de données** (Have I Been Pwned) : chaque nuit, les adresses
+  professionnelles des domaines choisis sont comparées aux fuites publiées ; le RSSI reçoit le
+  nombre de nouvelles expositions et le lien, jamais les adresses ni les noms des fuites.
 - Chaque écran du menu explique à quoi il sert et ce qui est attendu. Les écrans d'un même travail
   sont regroupés en rubriques (une entrée de menu, une barre d'onglets commune), dans l'ordre du
   cycle du SMSI.
@@ -129,15 +134,15 @@ tête de page et par le fil d'Ariane.
 | Conformité | Contrôles Annexe A (SoA), Référentiels, Exigences SMSI, Obligations, Politiques, Preuves, Couverture des preuves |
 | Audits et amélioration | Audits internes, Non-conformités, Objectifs ISMS, Revues de direction |
 | Opérations | Revues des accès, Hygiène des comptes, Revues périodiques, Formations, Exercices de crise |
-| Sécurité technique | Contrôles techniques automatiques, Vulnérabilités du parc, Machines les plus exposées, Logiciels à surveiller, Produits, Matrice des flux |
+| Sécurité technique | Contrôles techniques automatiques, Vulnérabilités du parc, Machines les plus exposées, Logiciels à surveiller, Produits, Matrice des flux, Fuites de données |
 
 Les incidents de sécurité sont dans **Assistance**, à côté des tickets. Les droits du plugin se
 donnent à n'importe quel profil depuis l'onglet **GRC Manager** d'Administration > Profils.
 
 ## Registres sensibles
 
-Le registre des risques, les vulnérabilités du parc et la matrice des flux décrivent les points
-faibles de l'organisation : la carte idéale pour un attaquant. Le plugin les protège à son niveau :
+Le registre des risques, les vulnérabilités du parc, la matrice des flux et les fuites de données
+décrivent les points faibles de l'organisation : la carte idéale pour un attaquant. Le plugin les protège à son niveau :
 
 - un **droit dédié**, « Registres sensibles », distinct du droit général du SMSI : donnez-le au RSSI
   et aux propriétaires de risques seulement (Administration > Profils, onglet GRC Manager). Sans lui,
@@ -145,6 +150,21 @@ faibles de l'organisation : la carte idéale pour un attaquant. Le plugin les pr
 - l'**historique** des modifications des risques, et la **trace des exports** du registre dans le
   journal des événements de GLPI ;
 - des **e-mails sans détail** par défaut (« Risque n° X » et le lien vers la fiche).
+
+### Fuites de données et RGPD
+
+La surveillance des fuites traite des adresses e-mail de personnes. Avant de l'activer
+(Configuration > Surveillance des fuites), inscrivez ce traitement au **registre des activités de
+traitement** (finalité : sécurité du système d'information ; base légale : intérêt légitime) et
+informez les salariés. Le plugin limite les données au strict nécessaire :
+
+- seules les adresses des **domaines professionnels** listés sont envoyées, jamais les adresses
+  personnelles ; un domaine vérifié chez Have I Been Pwned part en une seule requête, sans adresse ;
+- une exposition liée à un utilisateur GLPI ne stocke **pas l'adresse**, seulement l'utilisateur, la
+  fuite, sa date et les types de données touchées ; elle est supprimée avec l'utilisateur ;
+- la **clé d'API** est chiffrée avec la clé de GLPI, masquée dans l'historique et jamais réaffichée ;
+- consultation et traitement réservés au droit « Registres sensibles » ; seuls le statut et le
+  commentaire sont modifiables.
 ## État du projet
 
 **Stable**, publié et installable dès maintenant, pour GLPI 11 et 12 : voir la
@@ -158,7 +178,7 @@ faibles de l'organisation : la carte idéale pour un attaquant. Le plugin les pr
 déduit la clé du plugin) :
 
 - Depuis une [release](https://github.com/parime/glpi-iso27001-management/releases) (recommandé,
-  aucune dépendance à installer — `vendor/` est déjà inclus dans le ZIP) : téléchargez
+  aucune dépendance à installer - `vendor/` est déjà inclus dans le ZIP) : téléchargez
   `glpi-iso27001-management-X.Y.Z.zip`, extrayez-la dans `plugins/`, puis renommez le dossier extrait
   en `grcmanager`.
 - Ou en développement, depuis le code source :
@@ -233,7 +253,7 @@ du dépôt et dans la documentation indique uniquement le référentiel que le p
 - **Directive (UE) 2022/2555 « NIS2 »** : articles 20, 21 §2 et 23 §4. Les dix mesures de
   l'article 21 §2 sont reproduites d'après les versions officielles française et anglaise
   publiées sur [EUR-Lex](https://eur-lex.europa.eu/eli/dir/2022/2555/oj), les articles 20 et 23
-  sont résumés. © Union européenne, https://eur-lex.europa.eu/ — réutilisation autorisée
+  sont résumés. © Union européenne, https://eur-lex.europa.eu/ - réutilisation autorisée
   (décision 2011/833/UE de la Commission). Seule la version publiée au Journal officiel de l'UE
   fait foi. La correspondance avec l'Annexe A ISO 27001 est indicative et établie par ce projet.
 - **Guide d'hygiène informatique de l'ANSSI (42 mesures)** : intitulés des 42 mesures et des

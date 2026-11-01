@@ -34,7 +34,7 @@ class PluginGrcmanagerSecurityIncidentTemplatePredefinedField extends SecurityIn
 
     /**
      * Same "Unknown ITIL type" hardcoded-switch surprise as `PluginGrcmanagerSecurityIncident
-     * ::getItemsTable()` (see its own docblock) — this time the switch lives directly inside
+     * ::getItemsTable()` (see its own docblock): this time the switch lives directly inside
      * `ITILTemplatePredefinedField::getMultiplePredefinedValues()` itself (not delegated to
      * `$itiltype::getItemsTable()`), so overriding the ITIL object's own method isn't enough; this
      * one has to be overridden here too. Identical to core's own implementation except the

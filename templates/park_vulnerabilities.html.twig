@@ -1,4 +1,4 @@
-{# Issue #160 : vulnérabilités du parc — CVE touchant les versions installées des logiciels surveillés #}
+{# Issue #160 : vulnérabilités du parc : CVE touchant les versions installées des logiciels surveillés #}
 <div class="container-fluid">
    <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
       <h2 class="mb-0"><i class="ti ti-bug me-1"></i>{{ __('Fleet vulnerabilities', 'grcmanager') }}</h2>
@@ -92,13 +92,13 @@
                      <td>{% for v in row.versions %}<span class="badge bg-azure-lt me-1">{{ v }}</span>{% endfor %}</td>
                      <td class="text-end"><strong>{{ row.machines }}</strong></td>
                      <td><span class="badge {{ cvss_class }}">{{ row.cvss is null ? __('n/a', 'grcmanager') : row.cvss|number_format(1, ',') }}</span></td>
-                     <td class="text-nowrap">{{ row.epss is null ? '—' : (row.epss * 100)|number_format(1, ',') ~ ' %' }}</td>
+                     <td class="text-nowrap">{{ row.epss is null ? '-' : (row.epss * 100)|number_format(1, ',') ~ ' %' }}</td>
                      <td class="text-nowrap">
                         {% if row.is_kev %}
                            <span class="badge bg-red text-white" title="{{ __('CISA catalog of known exploited vulnerabilities', 'grcmanager') }}"><i class="ti ti-flame me-1"></i>KEV</span>
                            {% if row.ransomware %}<span class="badge bg-dark text-white ms-1">{{ __('Ransomware', 'grcmanager') }}</span>{% endif %}
                         {% else %}
-                           <span class="text-muted">—</span>
+                           <span class="text-muted">-</span>
                         {% endif %}
                      </td>
                      <td class="text-nowrap">{{ row.published ? row.published|formatted_date : '' }}</td>

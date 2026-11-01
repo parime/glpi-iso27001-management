@@ -24,7 +24,7 @@ final class CisControlsCatalogDefaultsTest extends TestCase
      * The widely-cited "56/74/23" breakdown dates from v8's 2021 release; CIS's own
      * assessment-specification repo (the source used here, see CisControlsCatalogDefaults'
      * docblock) reflects a handful of safeguards rebalanced since then. Only the total (153) is
-     * a stable, independently-confirmed invariant — the per-IG split is asserted as a regression
+     * a stable, independently-confirmed invariant: the per-IG split is asserted as a regression
      * guard on the data actually shipped, not as an external claim.
      */
     public function testImplementationGroupCountsSumToTheTotal(): void

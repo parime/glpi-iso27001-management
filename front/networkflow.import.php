@@ -39,7 +39,11 @@ if (isset($_POST['import'])) {
     if (!mb_check_encoding($content, 'UTF-8')) {
         $content = mb_convert_encoding($content, 'UTF-8', 'Windows-1252');
     }
-    $result = \GlpiPlugin\Grcmanager\NetworkFlow::importCsv($content, $simulate);
+    // Interface côté Internet d'une sauvegarde pfSense ; vide : déduite du fichier.
+    $outside = (string) ($_POST['outside'] ?? '');
+    $outside = preg_match('/^(wan|lan|opt\d{1,3})$/', $outside) === 1 ? $outside : '';
+    $result = \GlpiPlugin\Grcmanager\NetworkFlow::importCsv($content, $simulate, $outside);
+    unset($content);
 }
 
 $title = __('Import a network flow matrix', 'grcmanager');

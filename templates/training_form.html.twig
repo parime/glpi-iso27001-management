@@ -87,15 +87,15 @@
                   <tr>
                      <td>{{ p.name }}</td>
                      <td>
-                        <select name="participant_status[{{ p.users_id }}]" class="form-select" aria-label="{{ __('Completion status', 'grcmanager') }} — {{ p.name }}">
+                        <select name="participant_status[{{ p.users_id }}]" class="form-select" aria-label="{{ __('Completion status', 'grcmanager') }} - {{ p.name }}">
                            {% for value, label in completion_statuses %}<option value="{{ value }}" {{ value == p.completion_status ? 'selected' }}>{{ label }}</option>{% endfor %}
                         </select>
                      </td>
-                     <td><input type="date" name="participant_date[{{ p.users_id }}]" value="{{ p.completion_date ? p.completion_date|slice(0, 10) }}" class="form-control" aria-label="{{ __('Completion date', 'grcmanager') }} — {{ p.name }}"></td>
+                     <td><input type="date" name="participant_date[{{ p.users_id }}]" value="{{ p.completion_date ? p.completion_date|slice(0, 10) }}" class="form-control" aria-label="{{ __('Completion date', 'grcmanager') }} - {{ p.name }}"></td>
                      {% if is_scored %}
                         <td style="min-width: 170px;">
                            <div class="input-group">
-                              <input type="text" inputmode="decimal" name="participant_score[{{ p.users_id }}]" value="{{ p.score_input }}" class="form-control" style="max-width: 90px;" aria-label="{{ __('Score', 'grcmanager') }} — {{ p.name }}">
+                              <input type="text" inputmode="decimal" name="participant_score[{{ p.users_id }}]" value="{{ p.score_input }}" class="form-control" style="max-width: 90px;" aria-label="{{ __('Score', 'grcmanager') }} - {{ p.name }}">
                               <span class="input-group-text">/ {{ item.fields['max_score'] }}</span>
                            </div>
                            {% if p.score_label %}<div class="text-muted small mt-1">{{ p.score_label }}</div>{% endif %}
@@ -113,7 +113,7 @@
                         </td>
                      {% else %}
                         <td>
-                           <select name="participant_result[{{ p.users_id }}]" class="form-select" aria-label="{{ __('Assessment', 'grcmanager') }} — {{ p.name }}">
+                           <select name="participant_result[{{ p.users_id }}]" class="form-select" aria-label="{{ __('Assessment', 'grcmanager') }} - {{ p.name }}">
                               {% for value, label in assessment_results %}<option value="{{ value }}" {{ value == p.assessment_result ? 'selected' }}>{{ label }}</option>{% endfor %}
                            </select>
                         </td>

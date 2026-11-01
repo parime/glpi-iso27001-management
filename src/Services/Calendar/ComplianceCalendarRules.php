@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace GlpiPlugin\Grcmanager\Services\Calendar;
 
 /**
- * Issue #142 : calendrier de conformité, sans dépendance à GLPI (testé unitairement) — types
+ * Issue #142 : calendrier de conformité, sans dépendance à GLPI (testé unitairement) : types
  * d'événements, normalisation des saisies, tri, et export iCalendar (RFC 5545).
  */
 final class ComplianceCalendarRules

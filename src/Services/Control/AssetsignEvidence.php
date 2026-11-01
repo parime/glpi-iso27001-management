@@ -27,7 +27,7 @@ namespace GlpiPlugin\Grcmanager\Services\Control;
  * Aucune dépendance dure : assetsign est détecté à l'exécution (plugin actif ET table présente),
  * et la lecture se fait directement sur sa table, en lecture seule, sans charger ses classes. Les
  * valeurs de type/statut ci-dessous recopient donc celles de
- * GlpiPlugin\Assetsign\Assetsign::TYPE_* / STATUS_* — elles sont stockées en base et figées par
+ * GlpiPlugin\Assetsign\Assetsign::TYPE_* / STATUS_* - elles sont stockées en base et figées par
  * assetsign (les numéros retirés y sont volontairement laissés vides, jamais réutilisés).
  *
  * Seuls des chiffres agrégés sortent d'ici (jamais de nom de bénéficiaire ni de matériel) : un

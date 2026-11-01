@@ -7,6 +7,53 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.18.0] - 2026-11-02
+
+### Added
+
+- **Incidents de sécurité** (issue #372) : référence lisible `SEC-AAAA-NNNN` (attribuée à la
+  création, les incidents existants sont numérotés à la mise à jour), champs **Source** (EDR,
+  SIEM, utilisateur, ticket, partenaire, autorité) et **Identifiant externe**, et en-tête de pastilles
+  (référence, gravité, catégorie, source) au-dessus des échéances ; recherche sur les trois champs.
+- **Incidents de sécurité** (issue #372, première partie) : les échéances NIS2 / RGPD non encore
+  notifiées s'affichent en tête du panneau de l'incident (en rouge si dépassées, avec le temps
+  restant sinon), au lieu d'être seulement dans la section « Notifications réglementaires ».
+- **Polonais (pl_PL)** : interface, rapports et notifications (1 801 chaînes).
+- **Variantes régionales des traductions** : en_US, es_MX et les espagnols d'Amérique latine,
+  fr_CA, fr_BE, pt_PT. GLPI ne se replie pas d'une variante vers sa langue de base : un
+  utilisateur réglé en es_MX voyait le plugin en anglais. Copies tenues à jour par
+  `tools/sync-locale-variants.sh`, vérifiées en CI.
+
+- **Import pfSense de la matrice des flux, sur une vraie sauvegarde**, issue #144 (phase 3) :
+  - zones nommées d'après les interfaces (« SITE_A_SRV_BDD (192.168.127.0/24) » au lieu de
+    « Réseau OPT14 ») ;
+  - interface côté Internet déduite de la passerelle par défaut et modifiable à l'import (lien
+    Internet sur `lan` derrière un routeur, par exemple) ;
+  - « tout sauf les réseaux privés » reconnu comme un accès à Internet ;
+  - règles identiques fusionnées, avec leur nombre.
+- Sécurité : seules les sections interfaces, passerelles, alias (sans leur champ `detail`) et
+  règles sont lues ; une sauvegarde complète contenant des secrets (clés IPsec, mots de passe,
+  clés privées…) est signalée avec la marche à suivre, sans qu'aucune valeur ne soit reprise ni le
+  fichier conservé.
+
+- **Surveillance des fuites de données (Have I Been Pwned)**, issue #183 :
+  - action automatique quotidienne : recherche par domaine vérifié, sinon adresse par adresse sur
+    les domaines configurés, en respectant la limite de débit et en reprenant là où elle s'est
+    arrêtée ;
+  - liste « Fuites de données » (rubrique Sécurité technique) et onglet sur la fiche utilisateur,
+    avec un statut (nouvelle, traitée, sans objet) et un commentaire ;
+  - notification au groupe RSSI avec le seul nombre de nouvelles expositions et le lien ;
+  - réglages dans la configuration : domaines, clé d'API chiffrée, bouton de test.
+- Sécurité : réservé au droit « Registres sensibles » ; adresse non stockée quand elle appartient à
+  un utilisateur GLPI ; adresses personnelles jamais envoyées ; tests ajoutés à la matrice d'accès.
+
+### Changed
+
+- **Plus de tiret cadratin** (issue #363) : dans les textes affichés, les traductions et la
+  documentation, il est remplacé par « : » entre deux mots, et par « - » comme séparateur ou valeur
+  vide. À la mise à jour, les notifications d'incident de sécurité qui gardent leur nom d'origine
+  sont renommées ; un nom modifié par l'administrateur est conservé.
+
 ## [2.17.0] - 2026-10-28
 
 ### Added
@@ -515,7 +562,7 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   au-dessus du registre des risques : douze risques qui se repèrent sur un schéma réseau (service
   d'administration exposé sur Internet, cartes iLO/iDRAC/IPMI joignables, réseaux qui se chevauchent
   avec un partenaire relié par VPN, réseau invités mal isolé, réseau à plat, points de défaillance
-  unique — alimentation, hyperviseur, lien opérateur, annuaire —, sauvegardes sur le même site,
+  unique : alimentation, hyperviseur, lien opérateur, annuaire -, sauvegardes sur le même site,
   schéma non tenu à jour, journaux non consultés). Chacun a sa description, ses menaces, ses mesures
   de l'Annexe A et des questions pour savoir s'il s'applique. Les risques cochés sont créés dans le
   registre au statut « Identifié », liés à leurs mesures, à évaluer ; un risque déjà importé n'est
@@ -580,7 +627,7 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   ticket (#128) : le ticket garde son statut et son attribution, un ticket déjà qualifié n'en crée
   pas un second.
 - **Hygiène des comptes** (issue #184), menu GRC & Conformité > Hygiène des comptes (A.5.16, A.5.18,
-  A.8.2) : comptes GLPI actifs à vérifier dans les entités visibles — supprimés de l'annuaire
+  A.8.2) : comptes GLPI actifs à vérifier dans les entités visibles : supprimés de l'annuaire
   (synchronisation LDAP native), date de fin dépassée, sans connexion depuis N jours (30 à 365) ou
   jamais utilisés, adresse e-mail ou prénom et nom en double. Un ticket de revue s'ouvre pour les
   comptes cochés ; aucun compte n'est désactivé automatiquement. Exige aussi le droit natif de
@@ -767,7 +814,7 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 - **Compatibilité GLPI 12** (en plus de GLPI 11, depuis un seul et même paquet). Incompatibilités
   réelles corrigées, identifiées en faisant tourner les suites de tests sur un vrai GLPI 12.0.0-rc2 :
   - GLPI 12 type de nombreuses propriétés de ses classes de base (`CommonGLPI::$rightname`,
-    `CommonDBRelation::$itemtype_1`…, `CommonITILObject::$userlinkclass`…), GLPI 11 non — et PHP
+    `CommonDBRelation::$itemtype_1`…, `CommonITILObject::$userlinkclass`…), GLPI 11 non : et PHP
     impose à une sous-classe de reprendre exactement le type du parent, donc aucune déclaration
     unique ne fonctionne sur les deux. Les 29 classes concernées (20 pour `$rightname`, plus le
     module Incidents de sécurité : relations d'acteurs, coûts, gabarits, collection de règles)
@@ -779,7 +826,7 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
     partagée en silence avec la classe de GLPI). Nouveau job CI `php-compat` qui charge chaque
     classe concernée sur le vrai cœur GLPI, sous PHP 8.2 à 8.5 × GLPI 11 et PHP 8.3 à 8.5 × GLPI 12.
   - `$DB->request('table')` (forme chaîne supprimée en GLPI 12) → forme tableau, dans
-    `RiskMatrixConfig`, `SecurityIncidentModuleConfig` et `NvdConfig` — sans ce correctif,
+    `RiskMatrixConfig`, `SecurityIncidentModuleConfig` et `NvdConfig` - sans ce correctif,
     GLPI 12 désactivait silencieusement le plugin au démarrage.
   - `Toolbox::getURLContent()` supprimé en GLPI 12 → `Compatibility\Http` (vérification de version
     GitHub, enrichissement CVE NVD).
@@ -789,7 +836,7 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   élément lié, coût, tâche, formulaire, onglets, suppression) réussi sur les deux. Nouveau job CI
   `Installation reelle sur GLPI 12` (cycle d'installation complet + suite d'intégration).
 
-- **`.github/dependabot.yml`** — ce dépôt était le seul des trois plugins jumeaux à n'avoir aucune
+- **`.github/dependabot.yml`** - ce dépôt était le seul des trois plugins jumeaux à n'avoir aucune
   configuration Dependabot (ni mises à jour automatiques de version, ni alertes de sécurité sur les
   dépendances) ; trouvé lors d'un audit de dépendances. Deux écosystèmes couverts (`composer`,
   `github-actions`), même convention (labels, delai de refroidissement de 7 jours, revue/assignation
@@ -800,7 +847,7 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 - **`phpstan/phpstan` mis à jour (2.2.9 → 2.2.16)**, seule dépendance réellement obsolète repérée par
   cet audit (`composer outdated`) sur ce que verrouille `composer.lock`. `phpunit/phpunit` a aussi une
   version majeure disponible (10.5.64 → 13.x) mais volontairement **non appliquée** : PHPUnit 13 exige
-  PHP ≥ 8.4.1, alors que ce plugin déclare officiellement PHP ≥ 8.2 — un changement de politique de
+  PHP ≥ 8.4.1, alors que ce plugin déclare officiellement PHP ≥ 8.2 : un changement de politique de
   version minimale du tooling de dev, pas une simple mise à jour de routine, laissé à une décision
   explicite plutôt qu'appliqué silencieusement.
 
@@ -812,12 +859,12 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   `RulePluginGrcmanagerSecurityIncidentCollection` existaient déjà avec un contenu correct
   (`inc/rulesecurityincident*.class.php`), mais n'étaient jamais chargées : l'autoloader natif de
   GLPI pour les classes `inc/{nom}.class.php` (`glpi_autoload()`) n'agit que sur un nom de classe
-  qui commence littéralement par `Plugin` — or la convention `'Rule' . static::getType() .
+  qui commence littéralement par `Plugin` - or la convention `'Rule' . static::getType() .
   'Collection'` place systématiquement `Plugin...` au milieu du nom, jamais au début, pour n'importe
   quel objet ITIL défini par un plugin tiers. `require_once` explicite ajouté dans
   `plugin_init_grcmanager()` (pas au premier niveau de `setup.php`, qui doit rester chargeable sans
   noyau GLPI pour `SetupMenuRedefinitionTest`).
-- **`tests/integration-bootstrap.php` ne rendait jamais `$kernel` réellement global** — `global
+- **`tests/integration-bootstrap.php` ne rendait jamais `$kernel` réellement global** - `global
   $kernel` (code historique de GLPI, ex. les chemins dépendant de `getMainRequest()` déclenchés
   par certains hooks `CommonDBTM::add()`) n'y trouvait rien, plantant avec "Call to a member
   function getMainRequest() on null" sur tout test créant un `User`. Même correctif déjà nécessaire
@@ -831,17 +878,17 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   natifs de GLPI), au lieu du résultat dynamique de `PluginGrcmanagerRisk::getLinkableItemtypes()`
   (qui, lui, interroge directement la table SQL `glpi_assets_assetdefinitions`, disponible dès la
   connexion DB). Les deux appels à `Plugin::registerClass()` utilisent désormais
-  `PluginGrcmanagerRisk::getLinkableItemtypes()` — même contournement, déjà éprouvé en production,
+  `PluginGrcmanagerRisk::getLinkableItemtypes()` - même contournement, déjà éprouvé en production,
   que `Config::getAllManageableItemtypes()` du plugin jumeau assetsign-glpi.
 
 - **La fiche d'une Politique de sécurité affichait « N/A » comme titre de page**, au lieu du vrai
-  titre de la politique — trouvé en peuplant une instance de test avec de vraies politiques.
+  titre de la politique : trouvé en peuplant une instance de test avec de vraies politiques.
   `front/policy.form.php` est le seul contrôleur de ce plugin à appeler `displayFullPageForItem()`
   (nécessaire pour que l'onglet natif « Documents » s'affiche, cf. le commentaire déjà présent dans
   ce fichier) ; ce chemin construit l'en-tête de page à partir de `getNameField()`, jamais surchargé
   sur `PluginGrcmanagerPolicy` alors que sa colonne d'affichage principale est `title`, pas `name`
   (cette table n'a même pas de colonne `name`). Chaque classe sœur (Risque, Audit...) utilise un
-  simple `Html::header()`, qui ne consulte jamais de champ nom — aucune n'avait besoin de ce
+  simple `Html::header()`, qui ne consulte jamais de champ nom : aucune n'avait besoin de ce
   correctif.
 
 ## [2.1.0] - 2026-09-12
@@ -862,7 +909,7 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Changed
 
-- **PHP 8.2 minimum requis** (était 8.1) — hérité du module Incidents de sécurité absorbé
+- **PHP 8.2 minimum requis** (était 8.1) : hérité du module Incidents de sécurité absorbé
   ci-dessous, qui l'exigeait déjà dans son plugin d'origine. Changement cassant pour toute
   installation encore sur PHP 8.1.
 
@@ -872,16 +919,16 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   glpi-security-incidents (ROADMAP.md "Version 2.0"). L'ancien registre léger de conformité ISO
   (`PluginGrcmanagerSecurityIncident`, issue #29 : catégorie/sévérité/impact C/I/D/cause racine/
   enseignements tirés/lien vers un risque) est remplacé par l'objet ITIL complet porté depuis ce
-  plugin jumeau (acteurs, workflow, tâches, notifications, suivi CVE, modèles d'incident) — **les
+  plugin jumeau (acteurs, workflow, tâches, notifications, suivi CVE, modèles d'incident) - **les
   deux fusionnés en un seul enregistrement**, plus de double saisie entre le suivi opérationnel et
   la conformité :
   - Nouvelle entrée de menu "Incidents de sécurité" dans le secteur natif Assistance (`helpdesk`),
-    aux côtés de Tickets/Problèmes/Changements — ce plugin peut désormais enregistrer des classes
+    aux côtés de Tickets/Problèmes/Changements : ce plugin peut désormais enregistrer des classes
     dans plusieurs secteurs de menu à la fois.
   - Les champs de classification ISO 27001 (catégorie/sévérité/impact C/I/D/cause racine/
     enseignements tirés/risque lié) s'affichent dans un accordéon dédié "Classification ISO 27001",
     aux côtés de l'accordéon "Analyse" (impact/contrôles/plan de retour arrière) également absorbé
-    — les deux directement dans le panneau principal de champs, via `Hooks::POST_ITIL_INFO_SECTION`.
+    - les deux directement dans le panneau principal de champs, via `Hooks::POST_ITIL_INFO_SECTION`.
   - La clôture d'un incident (statut "Clos") exige toujours une cause racine et des enseignements
     tirés documentés (clause A.5.27), exactement comme le faisait l'ancien registre.
   - Suivi CVE (association en masse, format validé), modèles d'incident, et 4 cartes de tableau de
@@ -910,12 +957,12 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 - **Carte de tableau de bord "délai moyen de réponse aux incidents"** (issue A.5.24-27 ISO/IEC
   27001:2022) : moyenne, en heures, du temps écoulé entre la création et la résolution des
   incidents de sécurité effectivement résolus. Complète les cartes déjà existantes (par statut/
-  sévérité/entité/catégorie, qui comptent) avec un indicateur qui mesure un temps — un indicateur
+  sévérité/entité/catégorie, qui comptent) avec un indicateur qui mesure un temps : un indicateur
   ISO 27001 classique qui n'avait pas d'équivalent parmi les cartes portées depuis le plugin
   absorbé.
 
 - **Première suite de tests d'intégration** (`tests/Integration/`, `phpunit-integration.xml.dist`,
-  `composer test:integration`) — ce plugin n'en avait aucune jusqu'ici (seulement `tests/Unit`,
+  `composer test:integration`) : ce plugin n'en avait aucune jusqu'ici (seulement `tests/Unit`,
   sans base de données). Portée depuis le plugin absorbé glpi-security-incidents : boot réel du
   Kernel GLPI, transaction par test. Couvre le cycle de vie complet de l'objet ITIL fusionné (CRUD,
   liaison d'actif, champs de classification ISO 27001, blocage/déblocage de la clôture, lien vers
@@ -936,7 +983,7 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Fixed
 
-- **Le titre d'un contrôle Annexe A (liste SoA) n'était pas cliquable** — seule une colonne "ID"
+- **Le titre d'un contrôle Annexe A (liste SoA) n'était pas cliquable** - seule une colonne "ID"
   séparée, peu lisible (juste un numéro), permettait de rouvrir la fiche du contrôle. La colonne
   qu'un utilisateur lit et clique naturellement (`code`, ex. "A.5.1 - Politiques de sécurité de
   l'information") restait du texte brut malgré son affichage personnalisé
@@ -944,7 +991,7 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
   Corrigé en reprenant la même convention que `CommonITILObject::rawSearchOptions()` pour sa
   propre colonne "Titre" (`'additionalfields' => ['id']`, nécessaire même pour la toute première
-  colonne — confirmé en lisant le code de `Ticket`) : le lien entoure maintenant le texte formaté
+  colonne : confirmé en lisant le code de `Ticket`) : le lien entoure maintenant le texte formaté
   existant plutôt que d'être une colonne séparée à part.
 
   Vérifié en direct sur l'instance de test : la liste des 93 contrôles Annexe A affiche bien
@@ -952,17 +999,17 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Changed
 
-- **Dépôt renommé** de `glpi-grc-manager` vers `glpi-iso27001-management` — nom jugé plus parlant
+- **Dépôt renommé** de `glpi-grc-manager` vers `glpi-iso27001-management` - nom jugé plus parlant
   (le plugin est un ISMS ISO 27001 : risques, contrôles/SoA, audits, non-conformités). GitHub
   redirige automatiquement l'ancien nom. Le namespace PHP (`GlpiPlugin\Grcmanager`), les noms de
-  table (`glpi_plugin_grcmanager_*`) et la clé du plugin restent inchangés — casser ça imposerait
+  table (`glpi_plugin_grcmanager_*`) et la clé du plugin restent inchangés : casser ça imposerait
   une migration de données à toute installation existante pour un simple changement de nom de
   dépôt.
 
 ### Added
 
 - Test unitaire pour `plugin_grcmanager_redefine_menus()` (`setup.php`), le hook qui corrige le
-  doublon de libellé du sous-menu "GRC & Conformité" (v1.1.4) — c'est une fonction pure (aucune
+  doublon de libellé du sous-menu "GRC & Conformité" (v1.1.4) : c'est une fonction pure (aucune
   dépendance GLPI dans son propre corps), testable directement sans instance GLPI réelle, qui
   n'avait pourtant aucun test malgré ça. Ne couvre que la logique de transformation du tableau de
   menu elle-même ; l'effet réel sur le rendu GLPI (breadcrumb, absence de doublon visuel) reste
@@ -1107,13 +1154,13 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 - **Objectifs ISMS et suivi de KPI dans le temps** (issue #32, ISO 27001 clause 6.2) : le tableau
   de bord ISMS (15 cartes) montrait l'état actuel du système de management, une photo instantanée,
   mais rien ne permettait de fixer des objectifs de sécurité mesurables (ex. « réduire de 20% les
-  non-conformités récurrentes d'ici fin d'année ») ni de suivre leur progression dans le temps —
+  non-conformités récurrentes d'ici fin d'année ») ni de suivre leur progression dans le temps -
   une trajectoire. Nouvelle classe `PluginGrcmanagerObjective` (table
   `glpi_plugin_grcmanager_objectives`) : titre, description, propriétaire (vrai `User` GLPI),
   échéance, statut (non démarré/sur la bonne voie/à risque/atteint/manqué), et une cible en DEUX
-  champs indépendants tous deux optionnels — `target_value` (numérique) pour un objectif chiffré et
+  champs indépendants tous deux optionnels - `target_value` (numérique) pour un objectif chiffré et
   `target_description` (texte libre) pour un objectif purement qualitatif ("obtenir la
-  certification ISO 27001") — plutôt que de forcer chaque objectif dans une case numérique
+  certification ISO 27001") : plutôt que de forcer chaque objectif dans une case numérique
   artificielle. Nouvelle classe `PluginGrcmanagerObjectiveMeasurement` (table
   `glpi_plugin_grcmanager_objectivemeasurements`) : historique manuel de mesures dans le temps
   ("à cette date, nous en sommes à X"), volontairement PAS auto-calculé depuis d'autres données du
@@ -1163,7 +1210,7 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 - **Classification Confidentialité/Intégrité/Disponibilité (C/I/D) des actifs** (issue #26,
   ISO/IEC 27001:2022 A.5.9/A.5.12/A.8.2) : nouveau registre natif, indépendant du lien registre de
   risques <-> actifs de l'issue #25 (`PluginGrcmanagerAssetClassification`, table
-  `glpi_plugin_grcmanager_assetclassifications`, clé composite unique itemtype/items_id) — une
+  `glpi_plugin_grcmanager_assetclassifications`, clé composite unique itemtype/items_id) : une
   classification est une propriété de l'actif lui-même (ex. « base RH = confidentialité élevée »),
   pas d'un risque particulier qui le mentionne. Réutilise exactement la même liste d'itemtypes
   classifiables que l'issue #25 (`LinkableItemtypes`/`PluginGrcmanagerRisk::getLinkableItemtypes()`),
@@ -1192,7 +1239,7 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   lié à zéro, un ou plusieurs actifs réels de la CMDB (Computer, Monitor, NetworkEquipment,
   Peripheral, Phone, Printer, Software, ainsi que tout actif personnalisé actif) via une nouvelle
   table de liaison polymorphe `glpi_plugin_grcmanager_risks_items` (itemtype/items_id, sur le même
-  modèle que les tables de liaison polymorphes du cœur GLPI, ex. `glpi_documents_items`) —
+  modèle que les tables de liaison polymorphes du cœur GLPI, ex. `glpi_documents_items`) -
   volontairement PAS une colonne `itemtype`/`items_id` directe sur `glpi_plugin_grcmanager_risks`
   elle-même, qui aurait imposé à tort une cardinalité 1-vers-1. Un multi-select par itemtype liable
   dans le formulaire du risque (`PluginGrcmanagerRisk::showForm()`), et un nouvel onglet "Risques"
@@ -1216,7 +1263,7 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Fixed
 
-- Badges README (statut "alpha — sprint 7") restés obsolètes depuis le passage en v1.0.0 stable.
+- Badges README (statut "alpha: sprint 7") restés obsolètes depuis le passage en v1.0.0 stable.
 
 ## [1.0.0] - 2026-08-25
 

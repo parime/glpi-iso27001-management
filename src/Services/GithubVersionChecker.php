@@ -30,7 +30,7 @@ final class GithubVersionChecker
         global $GLPI_CACHE;
 
         // Opt-in : aucun appel sortant tant que l'action automatique native « checkupdate » de GLPI
-        // (Configuration > Actions automatiques, désactivée par défaut) n'est pas activée — refuser
+        // (Configuration > Actions automatiques, désactivée par défaut) n'est pas activée : refuser
         // la vérification de mise à jour de GLPI lui-même refuse aussi celle-ci.
         $checkUpdate = new \CronTask();
         if (

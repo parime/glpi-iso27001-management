@@ -7,7 +7,7 @@ use GlpiPlugin\Grcmanager\Services\Control\SoaApprovalLogic;
 use GlpiPlugin\Grcmanager\SoaVersion;
 
 /**
- * Issue #112 : approbation de la SoA par la direction sur une vraie instance GLPI — version
+ * Issue #112 : approbation de la SoA par la direction sur une vraie instance GLPI : version
  * figée (PDF en Document GLPI, empreintes), réponses des approbateurs, obsolescence.
  */
 final class SoaVersionTest extends GrcmanagerIntegrationTestCase

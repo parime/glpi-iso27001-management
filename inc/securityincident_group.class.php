@@ -18,7 +18,7 @@
 use GlpiPlugin\Grcmanager\Compatibility\Base\SecurityIncidentGroupBase;
 
 /**
- * Relation between PluginGrcmanagerSecurityIncident and Group — same minimal shape as GLPI
+ * Relation between PluginGrcmanagerSecurityIncident and Group: same minimal shape as GLPI
  * core's own `Change_Group`.
  */
 class PluginGrcmanagerSecurityIncident_Group extends SecurityIncidentGroupBase

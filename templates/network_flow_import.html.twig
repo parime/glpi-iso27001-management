@@ -8,6 +8,15 @@
    <form method="post" enctype="multipart/form-data" action="{{ action }}" class="d-flex flex-wrap align-items-center gap-3">
       <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
       <input type="file" name="csv_file" accept=".csv,text/csv,.xml,text/xml" class="form-control" style="max-width: 420px;" required aria-label="{{ __('CSV file', 'grcmanager') }}">
+      {% if result and result.pfsense %}
+         <label class="d-flex align-items-center gap-2 mb-0">{{ __('Internet-facing interface', 'grcmanager') }}
+            <select name="outside" class="form-select form-select-sm" style="max-width: 260px;">
+               {% for key, name in result.pfsense.interfaces %}
+                  <option value="{{ key }}" {{ key == result.pfsense.outside ? 'selected' }}>{{ name }} ({{ key|upper }})</option>
+               {% endfor %}
+            </select>
+         </label>
+      {% endif %}
       <label class="form-check mb-0"><input type="checkbox" class="form-check-input" name="simulate" value="1" {{ simulate ? 'checked' }}><span class="form-check-label">{{ __('Simulation (nothing is saved)', 'grcmanager') }}</span></label>
       <button type="submit" name="import" value="1" class="btn btn-primary"><i class="ti ti-upload me-1"></i>{{ __('Analyse the file', 'grcmanager') }}</button>
       <a href="{{ list_url }}" class="btn btn-outline-secondary">{{ __('Back to the network flow matrix', 'grcmanager') }}</a>
@@ -20,6 +29,17 @@
          {{ (simulate ? __('Simulation: %1$d flows would be created, %2$d already exist.', 'grcmanager') : __('Import finished: %1$d flows created, %2$d already existed.', 'grcmanager'))|format(result.created, result.skipped) }}
          {% if simulate and result.created > 0 %}<br>{{ __('Untick "Simulation" and analyse the file again to import it.', 'grcmanager') }}{% endif %}
       </div>
+      {% if result.pfsense %}
+         {% if result.pfsense.secrets %}
+            <div class="alert alert-danger">
+               <i class="ti ti-key me-1"></i>{{ __('This backup contains secrets of the firewall (keys, passwords, certificates). Only interfaces, aliases and filter rules were read, and the file was not kept. Next time, export only the needed areas (Diagnostics > Backup & Restore > Backup area: Aliases, Firewall Rules, Interfaces) and do not store or send the full backup.', 'grcmanager') }}
+            </div>
+         {% endif %}
+         <div class="alert alert-secondary">
+            {{ __('Internet-facing interface: %s. Rules on this interface from anywhere are publications; elsewhere, rules towards anywhere or towards everything except private networks are Internet access. Change it above and analyse the file again if needed.', 'grcmanager')|format(result.pfsense.interfaces[result.pfsense.outside] ?? result.pfsense.outside) }}
+            {% if result.pfsense.merged > 0 %}<br>{{ __('%d identical rules merged.', 'grcmanager')|format(result.pfsense.merged) }}{% endif %}
+         </div>
+      {% endif %}
       {% if result.errors is not empty %}
          <div class="alert alert-warning"><ul class="mb-0">
             {% for error in result.errors %}<li>{{ __('Line %1$d: %2$s', 'grcmanager')|format(error.line, error.message) }}</li>{% endfor %}

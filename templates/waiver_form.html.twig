@@ -26,7 +26,7 @@
       {{ fields.htmlField('', requester|e, __('Requested by', 'grcmanager')) }}
    {% endif %}
    {% if approver %}
-      {{ fields.htmlField('', approver|e ~ ' — ' ~ item.fields['date_approval']|formatted_datetime, __('Approved by', 'grcmanager')) }}
+      {{ fields.htmlField('', approver|e ~ ' - ' ~ item.fields['date_approval']|formatted_datetime, __('Approved by', 'grcmanager')) }}
    {% endif %}
 
    {{ fields.textareaField('description', item.fields['description'], __('Justification', 'grcmanager'), {

@@ -44,7 +44,7 @@ final class NetworkFlowBadgesTest extends GrcmanagerIntegrationTestCase
         try {
             $linked = \GlpiPlugin\Grcmanager\NetworkFlow::endpointHtml('Computer', $id, 'DMZ');
             $this->assertStringContainsString(\Computer::getFormURLWithID($id), $linked);
-            $this->assertStringContainsString('PHPUnit serveur web</a> — DMZ', $linked);
+            $this->assertStringContainsString('PHPUnit serveur web</a> - DMZ', $linked);
         } finally {
             $computer->delete(['id' => $id], true);
         }

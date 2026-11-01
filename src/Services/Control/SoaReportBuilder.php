@@ -63,7 +63,7 @@ final class SoaReportBuilder
         usort($clauses, static fn (array $a, array $b): int => IsmsClauseCatalog::compareCodes($a['code'], $b['code']));
 
         return \Glpi\Application\View\TemplateRenderer::getInstance()->render('@grcmanager/pdf/soa_report.html.twig', [
-            'report_title'       => __('Statement of Applicability — ISO/IEC 27001:2022 Annex A', 'grcmanager'),
+            'report_title'       => __('Statement of Applicability: ISO/IEC 27001:2022 Annex A', 'grcmanager'),
             'generated_at_label' => sprintf(__(
                 'Generated on %s',
                 'grcmanager'

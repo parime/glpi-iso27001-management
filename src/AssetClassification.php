@@ -40,7 +40,7 @@ use Session;
  * Reuses the exact same linkable-itemtype list as issue #25
  * (GlpiPlugin\Grcmanager\Services\Risk\LinkableItemtypes / Risk::
  * getLinkableItemtypes()) rather than inventing a second, possibly-diverging list of "which GLPI
- * itemtypes does this plugin care about" — see setup.php for the identical
+ * itemtypes does this plugin care about" - see setup.php for the identical
  * Plugin::registerClass()/addtabon mechanism already used for the Sprint-#25 "Risques" reverse tab,
  * applied here for a second, independent tab.
  */
@@ -153,7 +153,7 @@ class AssetClassification extends AssetClassificationBase
 
     /**
      * Same low/medium/high scale for all three axes, color-coded like every other enum badge in
-     * this plugin (RiskAssessmentTrait::riskLevelBadge()), but only 3 levels (no "critical") — see
+     * this plugin (RiskAssessmentTrait::riskLevelBadge()), but only 3 levels (no "critical"): see
      * ClassificationLevels' own docblock for why this scale is deliberately narrower than the risk
      * impact scale it otherwise resembles.
      */
@@ -280,7 +280,7 @@ class AssetClassification extends AssetClassificationBase
 
     /**
      * Read-only summary of the asset's current C/I/D classification (or an explicit empty state if
-     * it has never been classified), followed by a plain 3-dropdown edit form — same "HTML/PHP
+     * it has never been classified), followed by a plain 3-dropdown edit form: same "HTML/PHP
      * manual, no JS-heavy widget" convention as every other form in this plugin (see TECH_DEBT.md).
      * Posts to front/assetclassification.form.php (itemtype/items_id carried as hidden fields,
      * this class is polymorphic-keyed, not a single-ID form like every other itemtype in this

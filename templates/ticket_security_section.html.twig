@@ -1,4 +1,4 @@
-{# Issue #165 : section « Sécurité » du panneau principal d'un ticket — l'incident de sécurité lié,
+{# Issue #165 : section « Sécurité » du panneau principal d'un ticket : l'incident de sécurité lié,
    ou le bouton pour qualifier le ticket, sans passer par l'onglet. Rendu dans le formulaire du
    ticket : le bouton crée son propre envoi (un formulaire ne peut pas en contenir un autre). #}
 <section class="accordion-item" aria-label="{{ __('Security', 'grcmanager') }}">
@@ -17,7 +17,7 @@
             <div class="alert alert-danger mb-0 py-2">
                <i class="ti ti-shield-lock me-1"></i>{{ __('This ticket is qualified as a security incident:', 'grcmanager') }}
                {% for incident in incidents %}
-                  <div><a href="{{ incident.url }}" class="fw-bold">{{ incident.name }} ({{ incident.id }})</a> — {{ incident.status }}</div>
+                  <div><a href="{{ incident.url }}" class="fw-bold">{{ incident.name }} ({{ incident.id }})</a> - {{ incident.status }}</div>
                {% endfor %}
             </div>
          {% elseif can_create %}

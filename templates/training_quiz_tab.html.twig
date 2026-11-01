@@ -33,7 +33,7 @@
               <form method="post" action="{{ action }}" enctype="multipart/form-data" class="d-flex gap-2 align-items-center">
                 <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
                 <input type="hidden" name="participations_id" value="{{ row.id }}">
-                <input type="file" name="quiz" class="form-control form-control-sm" aria-label="{{ __('Quiz copy', 'grcmanager') }} — {{ row.name }}">
+                <input type="file" name="quiz" class="form-control form-control-sm" aria-label="{{ __('Quiz copy', 'grcmanager') }} - {{ row.name }}">
                 <button type="submit" name="upload" class="btn btn-sm btn-primary"><i class="ti ti-upload"></i></button>
                 {% if row.has_copy %}
                   <button type="submit" name="remove" class="btn btn-sm btn-ghost-danger" title="{{ __('Remove the copy', 'grcmanager') }}"><i class="ti ti-trash"></i></button>

@@ -2,7 +2,7 @@
 /vendor/
 /node_modules/
 
-# Environment / secrets — never commit
+# Environment / secrets: never commit
 .env
 .env.*
 !.env.example

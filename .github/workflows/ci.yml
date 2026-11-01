@@ -157,10 +157,10 @@ jobs:
     if: needs.detect.outputs.has_composer == 'true'
     runs-on: ubuntu-latest
     # Catches a __()/_n()/_x() string added to the code without a matching entry in
-    # locales/*.po — the exact gap that let ~38 strings (menu title, security-incident absorbed
+    # locales/*.po: the exact gap that let ~38 strings (menu title, security-incident absorbed
     # module, config toggles, dashboard cards, training evaluation) sit with NO translation entry
     # at all in either shipped language (fr_FR/en_GB) for whole sprints before a manual audit
-    # found them — distinct from the already-documented TECH_DEBT.md item about the absorbed
+    # found them: distinct from the already-documented TECH_DEBT.md item about the absorbed
     # module only shipping 2 of the sibling plugin's original 5 languages, which this job does
     # not address. Regenerates the .pot from the current code (vendor/bin/extract-locales, same
     # tool a human contributor would run by hand) rather than a hand-rolled regex.
@@ -186,6 +186,9 @@ jobs:
           # copied as msgstr for every string) - undo that so en_GB.po is checked the same way
           # as every other language, not blindly regenerated.
           git checkout -- locales/en_GB.po
+
+      - name: "Check regional variants (es_MX, fr_CA, en_US...) follow their language"
+        run: sh tools/sync-locale-variants.sh --check
 
       - name: Check every language has a translation for every extracted string
         run: |
@@ -240,12 +243,12 @@ jobs:
     # Ne remplace pas les tests unitaires (job "tests" ci-dessus) : verifie ce qu'eux ne peuvent
     # pas couvrir, a savoir que setup.php/hook.php/l'installeur fonctionnent reellement contre un
     # GLPI qui boot pour de vrai. Approche et commandes reprises du plugin jumeau
-    # glpi-vulnerability-manager (meme auteur), deja validees manuellement contre glpi/glpi:11.0.11.
+    # glpi-vulnerability-manager (meme auteur), deja validees manuellement contre glpi/glpi:11.0.12.
     needs: detect
     if: needs.detect.outputs.has_composer == 'true'
     runs-on: ubuntu-latest
     env:
-      GLPI_IMAGE: glpi/glpi:11.0.11
+      GLPI_IMAGE: glpi/glpi:11.0.12
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7 (SHA pinned)
 
@@ -415,7 +418,7 @@ jobs:
 
       - name: Extrait le code de GLPI 11 et GLPI 12 des images officielles
         run: |
-          for v in 11.0.11 12.0.0; do
+          for v in 11.0.12 12.0.1; do
             docker create --name "glpi-$v" "glpi/glpi:$v"
             mkdir -p "/tmp/glpi-$v"
             docker cp "glpi-$v:/var/www/glpi/src" "/tmp/glpi-$v/src"
@@ -426,8 +429,8 @@ jobs:
         # GLPI 11 : PHP 8.2 a 8.5 ; GLPI 12 : PHP 8.3 a 8.5.
         run: |
           status=0
-          for combo in "8.2 11.0.11" "8.3 11.0.11" "8.4 11.0.11" "8.5 11.0.11" \
-                       "8.3 12.0.0" "8.4 12.0.0" "8.5 12.0.0"; do
+          for combo in "8.2 11.0.12" "8.3 11.0.12" "8.4 11.0.12" "8.5 11.0.12" \
+                       "8.3 12.0.1" "8.4 12.0.1" "8.5 12.0.1"; do
             set -- $combo
             docker run --rm -v "$PWD:/p" -v "/tmp/glpi-$2:/g" "php:$1-cli" \
               php /p/.github/scripts/compat-smoke.php /g /p || status=1
@@ -443,7 +446,7 @@ jobs:
     if: needs.detect.outputs.has_composer == 'true'
     runs-on: ubuntu-latest
     env:
-      GLPI12_IMAGE: glpi/glpi:12.0.0
+      GLPI12_IMAGE: glpi/glpi:12.0.1
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7 (SHA pinned)
 

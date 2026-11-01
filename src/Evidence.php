@@ -49,7 +49,7 @@ use User;
  * Les éléments porteurs sont globaux (sans entité) dans ce plugin ; le document de preuve, lui,
  * appartient à une entité. Une validité suit donc l'entité de son document : la lire exige de
  * pouvoir lire l'élément ET le document, la modifier exige de pouvoir modifier l'élément et lire
- * le document — jamais le seul droit global du plugin.
+ * le document : jamais le seul droit global du plugin.
  */
 class Evidence extends EvidenceBase
 {
@@ -440,7 +440,7 @@ class Evidence extends EvidenceBase
             }
             return Fragment::link(
                 $parent::getFormURLWithID($parent->getID()),
-                $parent::getTypeName(1) . ' — ' . $parent->getName()
+                $parent::getTypeName(1) . ' - ' . $parent->getName()
             );
         }
 

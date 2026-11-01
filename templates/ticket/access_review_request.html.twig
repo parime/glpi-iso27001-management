@@ -1,5 +1,5 @@
 {# Issue #126 : ticket de modification ou de retrait d'accès ; issue #199 : passé de PHP à Twig. #}
-{% macro list(items) %}{% if items is empty %}—{% else %}<ul>{% for i in items %}<li>{{ i }}</li>{% endfor %}</ul>{% endif %}{% endmacro %}
+{% macro list(items) %}{% if items is empty %}-{% else %}<ul>{% for i in items %}<li>{{ i }}</li>{% endfor %}</ul>{% endif %}{% endmacro %}
 <p>{{ __('Request from campaign "%1$s", by %2$s.', 'grcmanager')|format(campaign, actor) }}</p>
 <p><strong>{{ __('Request', 'grcmanager') }}</strong> : {{ comment|nl2br }}</p>
 <p><strong>{{ __('Profiles at launch', 'grcmanager') }}</strong></p>

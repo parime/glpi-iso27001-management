@@ -31,7 +31,7 @@ if (is_readable(__DIR__ . '/vendor/autoload.php')) {
     \GlpiPlugin\Grcmanager\Install\ItemtypeRenames::registerAliases();
 }
 
-define('PLUGIN_GRCMANAGER_VERSION', '2.17.0');
+define('PLUGIN_GRCMANAGER_VERSION', '2.18.0');
 define('PLUGIN_GRCMANAGER_MIN_GLPI', '11.0.0');
 // GLPI 11 and 12 from a single code base (see src/Compatibility/).
 define('PLUGIN_GRCMANAGER_MAX_GLPI', '12.99.99');
@@ -76,7 +76,7 @@ function plugin_init_grcmanager(): void
     // correct content. Deliberately here, not at this file's top level: `RuleCommonITILObject`
     // (the parent class) only exists inside a real GLPI Kernel boot, and setup.php is also
     // require_once'd standalone by SetupMenuRedefinitionTest (tests/Unit/) with no GLPI loaded at
-    // all — a top-level require here would fatal that test with "Class RuleCommonITILObject not
+    // all: a top-level require here would fatal that test with "Class RuleCommonITILObject not
     // found" (confirmed the hard way, first attempt at this fix).
     require_once __DIR__ . '/inc/rulesecurityincident.class.php';
     require_once __DIR__ . '/inc/rulesecurityincidentcollection.class.php';
@@ -179,7 +179,7 @@ function plugin_init_grcmanager(): void
     // glpi_assets_assetdefinitions (voir son docblock) plutôt que
     // Glpi\Asset\AssetDefinitionManager::getInstance()->getDefinitions() (qui renverrait un
     // tableau vide ici : ce hook s'exécute pendant le listener InitializePlugins, avant
-    // CustomObjectsBoot) — exactement le même contournement, déjà éprouvé en production, que
+    // CustomObjectsBoot) : exactement le même contournement, déjà éprouvé en production, que
     // Config::getAllManageableItemtypes() du plugin jumeau assetsign-glpi, qui l'appelle lui
     // aussi directement depuis son propre plugin_init() pour construire ses listes d'addtabon.
     Plugin::registerClass(\GlpiPlugin\Grcmanager\Risk::class, [
@@ -209,6 +209,12 @@ function plugin_init_grcmanager(): void
     Plugin::registerClass(\GlpiPlugin\Grcmanager\ParkVulnerability::class, [
         'addtabon' => $CFG_GLPI['software_types'] ?? ['Computer'],
     ]);
+
+    // Issue #183 : onglet « Expositions à des fuites de données » sur la fiche de l'utilisateur (registre
+    // sensible), et clé d'API Have I Been Pwned chiffrée par GLPI (configuration sécurisée).
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\BreachExposure::class, ['addtabon' => [User::class]]);
+    $PLUGIN_HOOKS[Hooks::SECURED_CONFIGS]['grcmanager']
+        = \GlpiPlugin\Grcmanager\Services\Breach\BreachMonitorConfig::SECURED;
 
     // Issue #169 : onglet « Rapport post-incident » sur les incidents de sécurité.
     Plugin::registerClass(\GlpiPlugin\Grcmanager\SecurityIncidentPostMortem::class, [
@@ -292,6 +298,7 @@ function plugin_init_grcmanager(): void
     // hook, appelé à la toute fin de ce même panneau, est le point d'extension réel confirmé cette
     // session pour obtenir le même rendu visuel sans patcher le cœur.
     $PLUGIN_HOOKS[Hooks::POST_ITIL_INFO_SECTION]['grcmanager'] = 'plugin_grcmanager_post_itil_info_section';
+    $PLUGIN_HOOKS[Hooks::PRE_ITIL_INFO_SECTION]['grcmanager'] = 'plugin_grcmanager_pre_itil_info_section';
 
     // Issue #165 : « Qualifier en incident de sécurité » aussi en action groupée sur les tickets
     // (plugin_grcmanager_MassiveActions(), hook.php).

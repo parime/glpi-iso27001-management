@@ -6,7 +6,7 @@ use GlpiPlugin\Grcmanager\Services\Clause\IsmsClauseCatalog;
 use GlpiPlugin\Grcmanager\IsmsRequirement;
 
 /**
- * Issue #113 : exigences du SMSI (articles 4 à 10) sur une vraie instance GLPI — semis à
+ * Issue #113 : exigences du SMSI (articles 4 à 10) sur une vraie instance GLPI : semis à
  * l'installation, mise à jour, garde-fous, liens vers les modules.
  */
 final class IsmsRequirementTest extends GrcmanagerIntegrationTestCase

@@ -1283,8 +1283,8 @@ msgid_plural "CPE identifiers"
 msgstr[0] "Identifiant CPE"
 msgstr[1] "Identifiants CPE"
 
-msgid "Short name, e.g. \"Apache\", \"Microsoft\" — used only as a label, never for matching."
-msgstr "Nom court, ex. \"Apache\", \"Microsoft\" — sert uniquement d'étiquette, pas de comparaison."
+msgid "Short name, e.g. \"Apache\", \"Microsoft\" - used only as a label, never for matching."
+msgstr "Nom court, ex. \"Apache\", \"Microsoft\" - sert uniquement d'étiquette, pas de comparaison."
 
 msgid "A CPE identifier as reported by the NVD for this product (e.g. \"cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point to the same product."
 msgstr "Un identifiant CPE tel que rapporté par le NVD pour ce produit (ex. \"cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*\"). Plusieurs identifiants peuvent pointer vers le même produit."
@@ -1316,8 +1316,8 @@ msgstr "Référentiels"
 msgid "Equivalent reference frameworks"
 msgstr "Référentiels équivalents"
 
-msgid "Mapping published by NIST — see"
-msgstr "Correspondance publiée par le NIST — voir"
+msgid "Mapping published by NIST: see"
+msgstr "Correspondance publiée par le NIST : voir"
 
 msgid "the Reference frameworks screen"
 msgstr "l'écran Référentiels"
@@ -1361,8 +1361,8 @@ msgstr "Niveau"
 msgid "Risk details"
 msgstr "Détail des risques"
 
-msgid "Statement of Applicability — ISO/IEC 27001:2022 Annex A"
-msgstr "Déclaration d'Applicabilité — Annexe A ISO/IEC 27001:2022"
+msgid "Statement of Applicability: ISO/IEC 27001:2022 Annex A"
+msgstr "Déclaration d'Applicabilité : Annexe A ISO/IEC 27001:2022"
 
 #, php-format
 msgid "Generated on %s"
@@ -1418,14 +1418,14 @@ msgstr "Valeur d'état de mise en œuvre non reconnue."
 msgid "Justification required: this control is not fully applicable."
 msgstr "Justification obligatoire : ce contrôle n'est pas pleinement applicable."
 
-msgid "CSV import/export — Annex A"
-msgstr "Import/export CSV — Annexe A"
+msgid "CSV import/export: Annex A"
+msgstr "Import/export CSV: Annexe A"
 
 msgid "CSV import/export"
 msgstr "Import/export CSV"
 
-msgid "One per line, or comma-separated — several at once are supported."
-msgstr "Un par ligne, ou séparés par des virgules — plusieurs à la fois sont pris en charge."
+msgid "One per line, or comma-separated: several at once are supported."
+msgstr "Un par ligne, ou séparés par des virgules : plusieurs à la fois sont pris en charge."
 
 msgid "Enables or disables each part of the security incident management module (dedicated ITIL object, visible in the Assistance menu)."
 msgstr "Active ou désactive chaque partie du module de gestion des incidents de sécurité (objet ITIL dédié, visible dans le menu Assistance)."
@@ -1436,8 +1436,8 @@ msgstr "Récupère automatiquement le score CVSS, la sévérité, la description
 msgid "A CVE with an equal or higher score is highlighted as urgent."
 msgstr "Une CVE avec un score égal ou supérieur est mise en avant comme urgente."
 
-msgid "No usable row was found in this file — check that it is really a CSV exported from this screen (semicolon-separated columns)."
-msgstr "Aucune ligne exploitable trouvée dans ce fichier — vérifiez qu'il s'agit bien d'un CSV exporté depuis cet écran (colonnes séparées par des points-virgules)."
+msgid "No usable row was found in this file: check that it is really a CSV exported from this screen (semicolon-separated columns)."
+msgstr "Aucune ligne exploitable trouvée dans ce fichier : vérifiez qu'il s'agit bien d'un CSV exporté depuis cet écran (colonnes séparées par des points-virgules)."
 
 msgid "Expected file: the one downloaded above, possibly edited (semicolon-separated columns). Only the applicabilite, etat_mise_en_oeuvre and justification columns are applied, matched by the control's code. No row is ever created or deleted."
 msgstr "Fichier attendu : celui téléchargé ci-dessus, éventuellement modifié (colonnes séparées par des points-virgules). Seules les colonnes applicabilite, etat_mise_en_oeuvre et justification sont appliquées, identifiées par le code du contrôle. Aucune ligne n'est jamais créée ni supprimée."
@@ -1527,8 +1527,8 @@ msgstr "Source : directive (UE) 2022/2555 (NIS2), © Union européenne, EUR-Lex.
 msgid "NIS2 requirements"
 msgstr "Exigences NIS2"
 
-msgid "Indicative mapping made by this project — see"
-msgstr "Correspondance indicative, établie par ce projet — voir"
+msgid "Indicative mapping made by this project: see"
+msgstr "Correspondance indicative, établie par ce projet : voir"
 
 msgid "ANSSI hygiene"
 msgstr "Hygiène ANSSI"
@@ -1923,17 +1923,17 @@ msgstr "Ticket qualifié en incident de sécurité n° %d."
 msgid "%s: notified on"
 msgstr "%s : notifié le"
 
-msgid "NIS2 — early warning (24 h)"
-msgstr "NIS2 — alerte précoce (24 h)"
+msgid "NIS2: early warning (24 h)"
+msgstr "NIS2 : alerte précoce (24 h)"
 
-msgid "NIS2 — incident notification (72 h)"
-msgstr "NIS2 — notification d'incident (72 h)"
+msgid "NIS2: incident notification (72 h)"
+msgstr "NIS2: notification d'incident (72 h)"
 
-msgid "NIS2 — final report (1 month)"
-msgstr "NIS2 — rapport final (1 mois)"
+msgid "NIS2: final report (1 month)"
+msgstr "NIS2: rapport final (1 mois)"
 
-msgid "GDPR — notification to the supervisory authority (72 h)"
-msgstr "RGPD — notification à l'autorité de contrôle (72 h)"
+msgid "GDPR: notification to the supervisory authority (72 h)"
+msgstr "RGPD : notification à l'autorité de contrôle (72 h)"
 
 msgid "Reports NIS2 / GDPR notification deadlines that are near or past with a follow-up"
 msgstr "Signale par un suivi les délais de notification NIS2 / RGPD proches ou dépassés"
@@ -5415,8 +5415,8 @@ msgstr "Postes exclus des contrôles (statut) : %s"
 msgid "The library of security policies, versioned, with their approval and review date."
 msgstr "La bibliothèque des politiques de sécurité, versionnées, avec leur approbation et leur date de revue."
 
-msgid "ISO/IEC 27090:2026 — Security of AI systems"
-msgstr "ISO/IEC 27090:2026 — Sécurité des systèmes d'IA"
+msgid "ISO/IEC 27090:2026: Security of AI systems"
+msgstr "ISO/IEC 27090:2026 : Sécurité des systèmes d'IA"
 
 msgid "Guidance, not certifiable, to be applied alongside ISO/IEC 27001 and ISO/IEC 42001. The typical AI risks of the risk catalog refer to these sections."
 msgstr "Lignes directrices, non certifiables, à appliquer avec ISO/IEC 27001 et ISO/IEC 42001. Les risques types d'IA du catalogue de risques renvoient à ces sections."
@@ -5544,3 +5544,178 @@ msgstr "Existe-t-il un inventaire des systèmes d'IA avec leur responsable et le
 
 msgid "Is their use logged and reviewed?"
 msgstr "Leur usage est-il journalisé et revu ?"
+
+msgid "Email (no GLPI user)"
+msgstr "Adresse (sans utilisateur GLPI)"
+
+msgid "Breach"
+msgstr "Fuite"
+
+msgid "Breached site"
+msgstr "Site concerné"
+
+msgid "Breach date"
+msgstr "Date de la fuite"
+
+msgid "Published by Have I Been Pwned"
+msgstr "Publiée par Have I Been Pwned"
+
+msgid "Exposed data"
+msgstr "Données exposées"
+
+msgid "Passwords were exposed: have the password changed wherever it was used, and enable multi-factor authentication."
+msgstr "Des mots de passe ont été exposés : faites changer le mot de passe partout où il était utilisé, et activez l'authentification multifacteur."
+
+msgid "Unverified breach"
+msgstr "Fuite non vérifiée"
+
+msgid "Verified breach"
+msgstr "Fuite vérifiée"
+
+msgid "Action taken: password changed, multi-factor authentication enabled, user informed…"
+msgstr "Action menée : mot de passe changé, authentification multifacteur activée, utilisateur informé…"
+
+msgid "Data breach monitoring"
+msgstr "Surveillance des fuites de données"
+
+msgid "Every day, the work email addresses of active users are checked with Have I Been Pwned; each exposure is recorded in a sensitive register and the CISO group is notified. Personal addresses are never sent. A verified domain needs a single request; otherwise addresses are checked one by one, within the rate limit of the key."
+msgstr "Chaque jour, les adresses professionnelles des utilisateurs actifs sont vérifiées auprès de Have I Been Pwned ; chaque exposition est consignée dans un registre sensible et le groupe RSSI est prévenu. Les adresses personnelles ne sont jamais envoyées. Un domaine vérifié ne demande qu'une requête ; sinon les adresses sont vérifiées une à une, dans la limite de débit de la clé."
+
+msgid "Enable data breach monitoring"
+msgstr "Activer la surveillance des fuites de données"
+
+msgid "Work email domains to monitor"
+msgstr "Domaines de messagerie professionnels à surveiller"
+
+msgid "Only addresses on these domains are checked."
+msgstr "Seules les adresses de ces domaines sont vérifiées."
+
+msgid "Have I Been Pwned API key"
+msgstr "Clé d'API Have I Been Pwned"
+
+msgid "Key saved (leave empty to keep it)"
+msgstr "Clé enregistrée (laisser vide pour la garder)"
+
+msgid "Encrypted with the GLPI key and never displayed again."
+msgstr "Chiffrée avec la clé de GLPI et jamais réaffichée."
+
+msgid "Delete the saved key"
+msgstr "Supprimer la clé enregistrée"
+
+msgid "Test the key"
+msgstr "Tester la clé"
+
+msgid "No known data breach for this user's work email addresses."
+msgstr "Aucune fuite de données connue pour les adresses professionnelles de cet utilisateur."
+
+msgid "Data breach monitoring is not enabled (GRC Manager configuration)."
+msgstr "La surveillance des fuites de données n'est pas activée (configuration de GRC Manager)."
+
+msgid "Data breach exposure"
+msgid_plural "Data breach exposures"
+msgstr[0] "Exposition à une fuite de données"
+msgstr[1] "Expositions à des fuites de données"
+
+msgctxt "breach"
+msgid "New"
+msgstr "Nouvelle"
+
+msgctxt "breach"
+msgid "Handled (password changed…)"
+msgstr "Prise en compte (mot de passe changé…)"
+
+msgctxt "breach"
+msgid "Not applicable"
+msgstr "Sans objet"
+
+msgid "Detected on"
+msgstr "Détectée le"
+
+msgid "Spam list"
+msgstr "Liste de spam"
+
+msgid "Data breach monitoring: checks work email addresses with Have I Been Pwned"
+msgstr "Surveillance des fuites de données : vérifie les adresses professionnelles auprès de Have I Been Pwned"
+
+#, php-format
+msgid "Have I Been Pwned: error %s"
+msgstr "Have I Been Pwned : erreur %s"
+
+msgid "Have I Been Pwned: rate limit reached, the next run resumes where this one stopped"
+msgstr "Have I Been Pwned : limite de débit atteinte, le passage suivant reprendra là où celui-ci s'est arrêté"
+
+msgid "New data breach exposures"
+msgstr "Nouvelles expositions à des fuites de données"
+
+msgid "CISO group (GRC Manager)"
+msgstr "Groupe RSSI (GRC Manager)"
+
+msgid "New exposures"
+msgstr "Nouvelles expositions"
+
+msgid "Work email addresses found in known data breaches (Have I Been Pwned), checked every day."
+msgstr "Les adresses professionnelles trouvées dans des fuites de données connues (Have I Been Pwned), vérifiées chaque jour."
+
+msgid "For each new exposure, have the password changed (and enable multi-factor authentication) if passwords were exposed, then mark it as handled."
+msgstr "Pour chaque nouvelle exposition, faites changer le mot de passe (et activez l'authentification multifacteur) si des mots de passe ont été exposés, puis marquez-la comme prise en compte."
+
+msgid "ISO 27001, Annex A 5.7 and 5.17"
+msgstr "ISO 27001, Annexe A 5.7 et 5.17"
+
+#, php-format
+msgid "%s: verified domain, one request per run"
+msgstr "%s : domaine vérifié, une requête par passage"
+
+#, php-format
+msgid "%s: checked address by address"
+msgstr "%s : vérifié adresse par adresse"
+
+msgid "Have I Been Pwned key accepted."
+msgstr "Clé Have I Been Pwned acceptée."
+
+msgid "Have I Been Pwned refused the API key."
+msgstr "Have I Been Pwned a refusé la clé d'API."
+
+#, php-format
+msgid "Have I Been Pwned could not be reached (code %d)."
+msgstr "Have I Been Pwned n'a pas pu être joint (code %d)."
+
+msgid "Internet-facing interface"
+msgstr "Interface côté Internet"
+
+msgid "This backup contains secrets of the firewall (keys, passwords, certificates). Only interfaces, aliases and filter rules were read, and the file was not kept. Next time, export only the needed areas (Diagnostics > Backup & Restore > Backup area: Aliases, Firewall Rules, Interfaces) and do not store or send the full backup."
+msgstr "Cette sauvegarde contient des secrets du pare-feu (clés, mots de passe, certificats). Seuls les interfaces, les alias et les règles de filtrage ont été lus, et le fichier n'a pas été conservé. La prochaine fois, exportez seulement les zones utiles (Diagnostics > Backup & Restore > Backup area : Aliases, Firewall Rules, Interfaces) et ne stockez ni n'envoyez la sauvegarde complète."
+
+#, php-format
+msgid "Internet-facing interface: %s. Rules on this interface from anywhere are publications; elsewhere, rules towards anywhere or towards everything except private networks are Internet access. Change it above and analyse the file again if needed."
+msgstr "Interface côté Internet : %s. Les règles de cette interface depuis n'importe où sont des publications ; ailleurs, les règles vers n'importe où ou vers tout sauf les réseaux privés sont des accès à Internet. Changez-la ci-dessus et analysez à nouveau le fichier si besoin."
+
+#, php-format
+msgid "%d identical rules merged."
+msgstr "%d règles identiques fusionnées."
+
+#, php-format
+msgid "Overdue since %s"
+msgstr "En retard depuis le %s"
+
+#, php-format
+msgid "Due no later than %1$s (%2$d h left)"
+msgstr "À faire au plus tard le %1$s (%2$d h restantes)"
+
+msgid "User report"
+msgstr "Signalement d'un utilisateur"
+
+msgid "EDR / XDR"
+msgstr "EDR / XDR"
+
+msgid "SIEM / log monitoring"
+msgstr "SIEM / surveillance des journaux"
+
+msgid "Supplier or partner"
+msgstr "Fournisseur ou partenaire"
+
+msgid "Authority (CERT, regulator...)"
+msgstr "Autorité (CERT, régulateur...)"
+
+msgid "External identifier (EDR, SIEM...)"
+msgstr "Identifiant externe (EDR, SIEM...)"

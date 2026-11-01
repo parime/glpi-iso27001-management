@@ -9,7 +9,7 @@
          <h4><i class="ti ti-timeline me-1"></i>{{ __('Timeline', 'grcmanager') }} ({{ timeline|length }})</h4>
          <ul class="list-unstyled small">
             {% for e in timeline|slice(0, 12) %}
-               <li class="mb-1"><i class="ti {{ e.icon }} me-1 text-muted"></i><span class="text-muted">{{ e.date|formatted_datetime }}</span> — <strong>{{ e.kind }}</strong> : {{ e.text|u.truncate(120, '…') }}</li>
+               <li class="mb-1"><i class="ti {{ e.icon }} me-1 text-muted"></i><span class="text-muted">{{ e.date|formatted_datetime }}</span> - <strong>{{ e.kind }}</strong> : {{ e.text|u.truncate(120, '…') }}</li>
             {% endfor %}
             {% if timeline|length > 12 %}<li class="text-muted">{{ __('… and %d other events, all in the report.', 'grcmanager')|format(timeline|length - 12) }}</li>{% endif %}
          </ul>

@@ -11,7 +11,7 @@ final class RequirementCheckerTest extends TestCase
 {
     public static function setUpBeforeClass(): void
     {
-        // PLUGIN_GRCMANAGER_MAX_GLPI — setup.php only declares constants/functions at load time
+        // PLUGIN_GRCMANAGER_MAX_GLPI: setup.php only declares constants/functions at load time
         // (same reasoning as SetupMenuRedefinitionTest).
         require_once __DIR__ . '/../../../setup.php';
     }

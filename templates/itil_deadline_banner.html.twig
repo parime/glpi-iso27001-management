@@ -1,0 +1,29 @@
+{# Issue #372 : échéances NIS2 / RGPD non encore notifiées, en tête du panneau de l'incident
+   (elles étaient seulement dans la section « Notifications réglementaires », plus bas). #}
+{# Issue #372 : en-tête de pastilles (référence, gravité, catégorie, source). #}
+<div class="d-flex flex-wrap gap-1 mb-2">
+  {% if reference %}<span class="badge bg-dark-lt fs-5"><i class="ti ti-hash me-1"></i>{{ reference }}</span>{% endif %}
+  {% if is_exercise %}<span class="badge bg-purple-lt"><i class="ti ti-school me-1"></i>{{ __('Crisis exercise', 'grcmanager') }}</span>{% endif %}
+  {% if severity %}
+    <span class="badge {{ severity == 'critical' ? 'bg-red-lt' : (severity == 'major' ? 'bg-orange-lt' : 'bg-yellow-lt') }}">
+      <i class="ti ti-alert-triangle me-1"></i>{{ __('Severity', 'grcmanager') }} : {{ severities[severity]|default(severity) }}
+    </span>
+  {% endif %}
+  {% if category %}<span class="badge bg-blue-lt"><i class="ti ti-category me-1"></i>{{ category }}</span>{% endif %}
+  {% if source and source != constant('Dropdown::EMPTY_VALUE') %}<span class="badge bg-secondary-lt"><i class="ti ti-radar me-1"></i>{{ source }}</span>{% endif %}
+</div>
+{% for d in banners %}
+  <div class="alert {{ d.status == 'overdue' ? 'alert-danger' : (d.status == 'due_soon' ? 'alert-warning' : 'alert-info') }} d-flex align-items-start gap-2 py-2 px-3 mb-2" role="status">
+    <i class="ti {{ d.status == 'overdue' ? 'ti-alarm-off' : 'ti-alarm' }} fs-3"></i>
+    <div>
+      <div class="fw-bold">{{ d.label }}</div>
+      <div class="small">
+        {% if d.status == 'overdue' %}
+          {{ __('Overdue since %s', 'grcmanager')|format(d.due|formatted_datetime) }}
+        {% else %}
+          {{ __('Due no later than %1$s (%2$d h left)', 'grcmanager')|format(d.due|formatted_datetime, d.hours_left) }}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endfor %}

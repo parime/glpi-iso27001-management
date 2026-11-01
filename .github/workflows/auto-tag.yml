@@ -4,7 +4,7 @@ name: Auto-tag de version
 # PLUGIN_GRCMANAGER_VERSION (setup.php) a change et que ce tag
 # n'existe pas encore. Repris tel quel du meme workflow deja en place sur
 # les plugins jumeaux de cet auteur (glpi-vulnerability-manager,
-# assetsign-glpi ; seule la constante de version change) — separation
+# assetsign-glpi ; seule la constante de version change) : separation
 # volontaire : ce fichier ne fait QUE decider s'il faut taguer, toute la
 # validation (build, install reelle sur GLPI, publication) reste dans
 # release.yml.

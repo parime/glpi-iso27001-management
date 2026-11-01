@@ -332,7 +332,7 @@ class Control extends ControlBase
             // a search option to receive it in $values, even for the primary/first column.
             // Without this, the only clickable way back to a control's own form was a separate,
             // barely-readable numeric "ID" column (id 8 below) instead of the actual title text a
-            // user would naturally click — real user feedback on this exact list.
+            // user would naturally click: real user feedback on this exact list.
             'additionalfields' => ['id'],
         ];
 
@@ -413,7 +413,7 @@ class Control extends ControlBase
                 }
 
                 // Same "a list with no way back to showForm() is not self-explanatory" lesson as
-                // the rest of this plugin family — but here the fix is making this column (the
+                // the rest of this plugin family: but here the fix is making this column (the
                 // one a user actually reads and clicks) the link, not adding a separate one: this
                 // column already had a custom 'specific' display, and a bare numeric "ID" column
                 // was the only clickable way back to a control's own form. Real user feedback.

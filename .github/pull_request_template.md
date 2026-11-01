@@ -32,7 +32,7 @@
 
 ## Migration nécessaire
 
-- [ ] Oui — migration ajoutée dans src/Install/Installer.php
+- [ ] Oui : migration ajoutée dans src/Install/Installer.php
 - [ ] Non
 
 ## Capture d'écran

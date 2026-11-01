@@ -28,7 +28,7 @@ use GlpiPlugin\Grcmanager\Services\Ui\Fragment;
  * `array $cards = []` signature first and had to fix it after finding, against a real instance
  * running alongside another plugin also hooking DASHBOARD_CARDS, that Plugin::doHookFunction()
  * chains every registered callback through the same accumulator
- * (`$ret = call_user_func($function, $ret)`, never array_merge()-ing the results itself) — a
+ * (`$ret = call_user_func($function, $ret)`, never array_merge()-ing the results itself): a
  * callback that ignores the incoming array and returns only its own cards silently discards every
  * other plugin's contribution whenever it runs later in the chain, and gets discarded itself when
  * it runs earlier. The parameter must accept null, not just default to an empty array: Grid.php
@@ -374,7 +374,7 @@ function plugin_grcmanager_dashboard_cards(?array $cards = null): array
  * risque lié, the fields merged from the plugin's former lightweight compliance register).
  */
 /**
- * Issue #165 : section « Sécurité » dans le panneau principal d'un ticket existant — l'incident de
+ * Issue #165 : section « Sécurité » dans le panneau principal d'un ticket existant : l'incident de
  * sécurité lié, ou le bouton « Escalader en incident de sécurité » (même action que l'onglet du
  * ticket, front/securityincidentticket.form.php). Rien si le module est désactivé ou sans droit.
  */
@@ -411,6 +411,40 @@ function plugin_grcmanager_ticket_security_section(Ticket $ticket): void
     ]);
 }
 
+/**
+ * Issue #372 : bandeau des échéances NIS2 / RGPD non encore notifiées, en tête du panneau de
+ * l'incident de sécurité (Hooks::PRE_ITIL_INFO_SECTION, setup.php).
+ *
+ * @param array<string, mixed> $params
+ */
+function plugin_grcmanager_pre_itil_info_section(array $params): void
+{
+    $item = $params['item'] ?? null;
+    if (!($item instanceof PluginGrcmanagerSecurityIncident) || $item->isNewItem()) {
+        return;
+    }
+    $labels = PluginGrcmanagerSecurityIncident::getRegulatoryLabels();
+    $banners = [];
+    foreach (GlpiPlugin\Grcmanager\Services\Incident\RegulatoryDeadlines::compute($item->fields) as $row) {
+        if ($row['done_at'] !== null) {
+            continue;
+        }
+        $banners[] = $row + [
+            'label'      => $labels[$row['key']] ?? $row['key'],
+            'hours_left' => max(0, (int) floor((strtotime($row['due']) - time()) / 3600)),
+        ];
+    }
+    Glpi\Application\View\TemplateRenderer::getInstance()->display('@grcmanager/itil_deadline_banner.html.twig', [
+        'banners'   => $banners,
+        'reference' => (string) ($item->fields['reference'] ?? ''),
+        'severity'  => (string) ($item->fields['severity'] ?? ''),
+        'severities' => PluginGrcmanagerSecurityIncident::getSeverities(),
+        'category'  => PluginGrcmanagerSecurityIncident::getCategories()[$item->fields['category'] ?? ''] ?? '',
+        'source'    => PluginGrcmanagerSecurityIncident::getSources()[$item->fields['source'] ?? ''] ?? '',
+        'is_exercise' => (bool) ($item->fields['is_exercise'] ?? false),
+    ]);
+}
+
 function plugin_grcmanager_post_itil_info_section(array $params): void
 {
     $item = $params['item'] ?? null;
@@ -442,6 +476,7 @@ function plugin_grcmanager_post_itil_info_section(array $params): void
         'rand'           => $rand,
         'categories'     => PluginGrcmanagerSecurityIncident::getCategories(),
         'severities'     => PluginGrcmanagerSecurityIncident::getSeverities(),
+        'sources'        => PluginGrcmanagerSecurityIncident::getSources(),
         'cia_axes'       => PluginGrcmanagerSecurityIncident::getCiaAxisLabels(),
         'risks'          => $risks,
         'risk_type_name' => \GlpiPlugin\Grcmanager\Risk::getTypeName(1),

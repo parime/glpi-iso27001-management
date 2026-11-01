@@ -1,0 +1,31 @@
+{# Exposition à une fuite de données, issue #183 : données de la fuite en lecture seule, statut et
+   commentaire modifiables. #}
+{% extends 'generic_show_form.html.twig' %}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+{% import '@grcmanager/_hint.html.twig' as hints %}
+
+{% block form_fields %}
+   {% if user_link %}
+      {{ fields.htmlField('', user_link, __('User')) }}
+   {% else %}
+      {{ fields.readOnlyField('', item.fields['email'], __('Email (no GLPI user)', 'grcmanager')) }}
+   {% endif %}
+   {{ fields.readOnlyField('', item.fields['breach_title'], __('Breach', 'grcmanager')) }}
+   {{ fields.readOnlyField('', item.fields['breach_domain'], __('Breached site', 'grcmanager')) }}
+   {{ fields.readOnlyField('', item.fields['breach_date']|formatted_date, __('Breach date', 'grcmanager')) }}
+   {{ fields.readOnlyField('', item.fields['added_date']|formatted_datetime, __('Published by Have I Been Pwned', 'grcmanager')) }}
+   {{ fields.readOnlyField('', data_classes|join(', '), __('Exposed data', 'grcmanager'), {
+      'full_width': true,
+      'add_field_html': exposes_passwords
+         ? hints.hint(__('Passwords were exposed: have the password changed wherever it was used, and enable multi-factor authentication.', 'grcmanager'))
+         : '',
+   }) }}
+   {% if not item.fields['is_verified'] %}
+      {{ fields.htmlField('', '<span class="badge bg-yellow-lt">' ~ __('Unverified breach', 'grcmanager')|e ~ '</span>', __('Verified breach', 'grcmanager')) }}
+   {% endif %}
+   {{ fields.dropdownArrayField('status', item.fields['status'], statuses, __('Status', 'grcmanager')) }}
+   {{ fields.textareaField('comment', item.fields['comment'], __('Comments', 'grcmanager'), {
+      'full_width': true,
+      'add_field_html': hints.hint(__('Action taken: password changed, multi-factor authentication enabled, user informed…', 'grcmanager')),
+   }) }}
+{% endblock %}

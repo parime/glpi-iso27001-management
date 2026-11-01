@@ -15,7 +15,7 @@
  * -------------------------------------------------------------------------
  */
 
-// The search/list page — PluginGrcmanagerSecurityIncident::getSearchURL() resolves here
+// The search/list page: PluginGrcmanagerSecurityIncident::getSearchURL() resolves here
 // generically (Toolbox::getItemTypeSearchURL(), same convention core uses for
 // Ticket/Change/Problem), unlike PluginGrcmanagerSecurityIncident::displayFullPageForItem()
 // (front/securityincident.form.php with no id), which shows the "new item" creation form instead

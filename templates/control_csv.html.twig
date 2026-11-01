@@ -1,4 +1,4 @@
-{# ROADMAP.md "Version 1.5" (import/export de la SoA au format standard) — voir front/control.csv.php.
+{# ROADMAP.md "Version 1.5" (import/export de la SoA au format standard) : voir front/control.csv.php.
    Contrairement à l'export CSV natif de Search::showList() (menu "Exporter" sur la liste des
    contrôles), ce CSV dédié sépare le code de l'intitulé et n'utilise que des libellés stables,
    pensé pour être réimporté tel quel après modification dans un tableur. #}
@@ -14,7 +14,7 @@
 {% if import_result %}
   {% if import_result.no_rows_found %}
     <div class="alert alert-danger">
-      {{ __('No usable row was found in this file — check that it is really a CSV exported from this screen (semicolon-separated columns).', 'grcmanager') }}
+      {{ __('No usable row was found in this file: check that it is really a CSV exported from this screen (semicolon-separated columns).', 'grcmanager') }}
     </div>
   {% else %}
     <div class="alert {{ import_result.rejected_count > 0 ? 'alert-warning' : 'alert-success' }}">
@@ -23,7 +23,7 @@
         {{ __('%d row(s) rejected:', 'grcmanager')|format(import_result.rejected_count) }}
         <ul class="mb-0">
           {% for rejection in import_result.rejected %}
-            <li><strong>{{ rejection.code|default(__('(empty row)', 'grcmanager')) }}</strong> — {{ rejection.reason }}</li>
+            <li><strong>{{ rejection.code|default(__('(empty row)', 'grcmanager')) }}</strong> - {{ rejection.reason }}</li>
           {% endfor %}
         </ul>
       {% endif %}

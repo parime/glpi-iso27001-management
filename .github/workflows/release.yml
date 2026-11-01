@@ -20,7 +20,7 @@ on:
   workflow_dispatch:
 
 env:
-  GLPI_IMAGE: glpi/glpi:11.0.11
+  GLPI_IMAGE: glpi/glpi:11.0.12
 
 jobs:
   release:
@@ -39,7 +39,7 @@ jobs:
 
       - name: Vérifie que le tag correspond à PLUGIN_GRCMANAGER_VERSION
         # Empêche une release qui ne correspondrait pas à la version réellement écrite dans le
-        # code (ex : tag poussé avant/après avoir oublié de mettre à jour setup.php) — ferait
+        # code (ex : tag poussé avant/après avoir oublié de mettre à jour setup.php) : ferait
         # cohabiter une archive et un numéro de version incohérents.
         run: |
           TAG_VERSION="${GITHUB_REF_NAME#v}"
@@ -63,14 +63,14 @@ jobs:
         # git archive (pas un simple zip du checkout) : construit exactement à partir du contenu
         # commité au tag, exclut automatiquement ce qui est marqué `export-ignore` dans
         # .gitattributes (tests/, .github/, config CI/qualité...). `vendor/` n'est pas versionné
-        # (voir .gitignore) donc git archive ne peut pas l'inclure — on le copie explicitement
+        # (voir .gitignore) donc git archive ne peut pas l'inclure : on le copie explicitement
         # depuis l'install de production ci-dessus après extraction de l'archive source. Préfixe
         # `grcmanager/` : l'archive s'extrait directement sous `plugins/` sur une instance GLPI
         # (structure exigée par le cœur GLPI).
         run: |
           VERSION="${GITHUB_REF_NAME#v}"
           ARCHIVE_NAME="glpi-iso27001-management-${VERSION}.zip"
-          # $GITHUB_ENV n'est lu qu'à partir de l'étape SUIVANTE, jamais dans celle qui l'écrit —
+          # $GITHUB_ENV n'est lu qu'à partir de l'étape SUIVANTE, jamais dans celle qui l'écrit -
           # on garde donc aussi une variable shell locale pour l'utiliser plus bas dans cette même
           # étape.
           echo "ARCHIVE_NAME=${ARCHIVE_NAME}" >> "$GITHUB_ENV"
@@ -123,7 +123,7 @@ jobs:
       - name: Valide la structure de l'archive sur une vraie instance GLPI
         # Validation la plus fiable de "cette archive est une structure GLPI valide" : l'extraire
         # tel quel (comme le ferait un administrateur GLPI) sous plugins/, et vérifier que
-        # plugin:install/plugin:activate réussissent réellement — pas une simple vérification
+        # plugin:install/plugin:activate réussissent réellement : pas une simple vérification
         # heuristique de présence de fichiers.
         run: |
           mkdir -p /tmp/archive-extraite

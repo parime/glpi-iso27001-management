@@ -20,7 +20,7 @@ use GlpiPlugin\Grcmanager\Services\Dashboard\DashboardCardService;
 
 include('../../../inc/includes.php');
 
-// Export à la demande, jamais persisté (pas de Document GLPI créé) — ROADMAP.md "Version 1.5".
+// Export à la demande, jamais persisté (pas de Document GLPI créé) : ROADMAP.md "Version 1.5".
 Session::checkRight(\GlpiPlugin\Grcmanager\Audit::$rightname, READ);
 
 global $DB;

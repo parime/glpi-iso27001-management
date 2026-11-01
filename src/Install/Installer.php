@@ -138,7 +138,7 @@ final class Installer
 
     // Issue #29 (registre des incidents de sécurité de l'information, A.5.24-27). Absorption de
     // glpi-security-incidents (ROADMAP.md "Version 2.0") : ce nom de table reste inchangé, mais son
-    // schéma change du tout au tout (objet ITIL complet au lieu d'un simple registre CommonDBTM) —
+    // schéma change du tout au tout (objet ITIL complet au lieu d'un simple registre CommonDBTM) -
     // voir la migration légère->fusionnée dans install() ci-dessous, qui renomme l'ancien contenu
     // vers SECURITY_INCIDENTS_LEGACY_TABLE avant de recréer celui-ci avec le nouveau schéma.
     private const SECURITY_INCIDENTS_TABLE = 'glpi_plugin_grcmanager_securityincidents';
@@ -165,7 +165,7 @@ final class Installer
 
     // Raccourci (ne reflète pas le nom de classe complet) : le nom par défaut que GLPI dériverait
     // (glpi_plugin_grcmanager_securityincidenttemplates_predefinedfields, etc. pour les 4 tables
-    // satellites) dépasse la limite de 64 caractères de MySQL pour un identifiant — voir le
+    // satellites) dépasse la limite de 64 caractères de MySQL pour un identifiant : voir le
     // docblock de PluginGrcmanagerSecurityIncidentTemplate::getTable().
     private const SECURITY_INCIDENT_TEMPLATES_TABLE = 'glpi_plugin_grcmanager_secincidenttemplates';
 
@@ -202,6 +202,13 @@ final class Installer
     private const PERIODIC_REVIEWS_TABLE = 'glpi_plugin_grcmanager_periodicreviews';
     // Issue #144 : matrice des flux réseau, voir \GlpiPlugin\Grcmanager\NetworkFlow.
     private const NETWORK_FLOWS_TABLE = 'glpi_plugin_grcmanager_networkflows';
+    // Issue #183 : expositions à des fuites de données, voir \GlpiPlugin\Grcmanager\BreachExposure.
+    private const BREACH_EXPOSURES_TABLE = 'glpi_plugin_grcmanager_breachexposures';
+    /** Classes créées directement dans src/ (sans ancien nom) : nettoyées à la désinstallation. */
+    private const SRC_ONLY_CLASSES = [
+        \GlpiPlugin\Grcmanager\BreachExposure::class,
+        \GlpiPlugin\Grcmanager\NotificationTargetBreachExposure::class,
+    ];
     // Issue #142 : evenements du calendrier de conformite, voir \GlpiPlugin\Grcmanager\ComplianceEvent.
     private const COMPLIANCE_EVENTS_TABLE = 'glpi_plugin_grcmanager_complianceevents';
     // Issue #160 : vulnérabilités du parc, voir GlpiPlugin\Grcmanager\Services\Cve\ParkVulnerabilitySync.
@@ -970,7 +977,7 @@ final class Installer
         // plugin) : la cible ici est n'importe quel itemtype GLPI géré (Computer, actif
         // personnalisé...), exactement le même modèle que les tables de liaison polymorphes du
         // cœur GLPI lui-même (ex. glpi_documents_items). Un risque peut avoir zéro ligne ici (reste
-        // un risque purement organisationnel, ex. "processus de recrutement", voir l'issue) — ce
+        // un risque purement organisationnel, ex. "processus de recrutement", voir l'issue) : ce
         // n'est pas une relation obligatoire, contrairement à `users_id` (propriétaire) sur
         // RISKS_TABLE ci-dessus qui, elle, est bien une colonne directe (relation 1-vers-1
         // implicite avec un `User`, toujours renseignée). Voir
@@ -993,7 +1000,7 @@ final class Installer
 
         // Issue #26 (classification C/I/D des actifs, ISO/IEC 27001:2022 A.5.9/A.5.12/A.8.2) :
         // registre INDÉPENDANT du lien risque <-> actif de l'issue #25 ci-dessus (RISKS_ITEMS_TABLE)
-        // — une classification est une propriété de l'actif lui-même, pas d'un risque particulier
+        // - une classification est une propriété de l'actif lui-même, pas d'un risque particulier
         // qui le mentionne, voir \GlpiPlugin\Grcmanager\AssetClassification. Clé composite unique
         // itemtype/items_id (une seule ligne par actif réel, jamais deux classifications
         // concurrentes pour le même actif), même modèle polymorphe que RISKS_ITEMS_TABLE mais SANS
@@ -1099,7 +1106,7 @@ final class Installer
 
         // Issue #32 (objectifs ISMS et suivi de KPI dans le temps, clause 6.2) : `target_value` et
         // `target_description` sont deux colonnes INDÉPENDANTES et toutes deux nullables plutôt
-        // qu'une seule colonne numérique obligatoire — certains objectifs ont une vraie cible
+        // qu'une seule colonne numérique obligatoire : certains objectifs ont une vraie cible
         // chiffrée ("réduire de 20%"), d'autres sont purement qualitatifs ("obtenir la
         // certification ISO 27001") et n'ont rien de sensé à mettre dans une colonne numérique
         // obligatoire (voir \GlpiPlugin\Grcmanager\Objective::hasNumericTarget() et
@@ -1260,6 +1267,33 @@ final class Installer
                 KEY `is_active` (`is_active`),
                 KEY `source_item` (`source_itemtype`, `source_items_id`),
                 KEY `destination_item` (`destination_itemtype`, `destination_items_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query);
+        }
+
+        // Issue #183 : une ligne par utilisateur (ou adresse sans utilisateur) et par fuite. Minimisation :
+        // jamais de mot de passe (Have I Been Pwned n'en fournit pas), adresse seulement sans utilisateur.
+        if (!$DB->tableExists(self::BREACH_EXPOSURES_TABLE)) {
+            $query = "CREATE TABLE `" . self::BREACH_EXPOSURES_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `users_id` int {$keySign} NOT NULL DEFAULT 0,
+                `email` varchar(255) NOT NULL DEFAULT '' COMMENT 'Seulement si aucun utilisateur GLPI',
+                `breach_name` varchar(255) NOT NULL DEFAULT '',
+                `breach_title` varchar(255) NOT NULL DEFAULT '',
+                `breach_domain` varchar(255) NOT NULL DEFAULT '',
+                `breach_date` timestamp NULL DEFAULT NULL,
+                `added_date` timestamp NULL DEFAULT NULL,
+                `data_classes` text COMMENT 'Catégories de données exposées (JSON)',
+                `is_verified` tinyint NOT NULL DEFAULT 0,
+                `is_spam_list` tinyint NOT NULL DEFAULT 0,
+                `status` varchar(32) NOT NULL DEFAULT 'new',
+                `comment` text,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `exposure` (`users_id`, `email`, `breach_name`),
+                KEY `status` (`status`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
             $DB->doQuery($query);
@@ -1603,7 +1637,7 @@ final class Installer
         // plugin jumeau (acteurs, workflow, tâches, notifications, CVE), avec les champs de
         // classification ISO ci-dessus FUSIONNÉS dessus (`category`/`severity`/`cia_impact`/
         // `root_cause`/`lessons_learned`/`plugin_grcmanager_risks_id`) plutôt que gardés sur un
-        // second enregistrement séparé — un seul incident, jamais deux saisies à faire concorder.
+        // second enregistrement séparé : un seul incident, jamais deux saisies à faire concorder.
         // `linked_itemtype`/`linked_items_id` (référence légère vers un Ticket/Problem) disparaît :
         // le lien polymorphe hérité de CommonITILObject (SECURITY_INCIDENTS_ITEMS_TABLE ci-dessous,
         // qui accepte n'importe quel itemtype) couvre déjà ce besoin, pas la peine de deux
@@ -1611,7 +1645,7 @@ final class Installer
         //
         // Le nom de table ne change pas, mais son schéma si : le contenu existant (sous l'ancien
         // schéma CommonDBTM) est d'abord renommé vers SECURITY_INCIDENTS_LEGACY_TABLE avant de
-        // recréer la table sous son nom canonique avec le nouveau schéma — voir la migration de
+        // recréer la table sous son nom canonique avec le nouveau schéma : voir la migration de
         // données après la création des tables satellites ci-dessous. `incident_date` n'existe que
         // dans l'ancien schéma, donc sa présence sert de marqueur fiable pour détecter qu'une
         // migration est nécessaire (idempotent : une fois migré et la table legacy supprimée, ce
@@ -1624,7 +1658,7 @@ final class Installer
         }
 
         // Colonnes calquées sur `glpi_changes` (le plus proche analogue natif), lues directement
-        // depuis un vrai schéma GLPI 11 par le plugin absorbé plutôt que devinées — voir son propre
+        // depuis un vrai schéma GLPI 11 par le plugin absorbé plutôt que devinées : voir son propre
         // Installer.php d'origine.
         if (!$DB->tableExists(self::SECURITY_INCIDENTS_TABLE)) {
             $query = "CREATE TABLE `" . self::SECURITY_INCIDENTS_TABLE . "` (
@@ -1674,6 +1708,9 @@ final class Installer
                 `gdpr_notification_at` timestamp NULL DEFAULT NULL,
                 `regulatory_alerts` text COMMENT 'Alertes deja envoyees, echeance:statut (issue #128)',
                 `is_exercise` tinyint NOT NULL DEFAULT 0 COMMENT 'Incident fictif d exercice de crise (issue #168)',
+                `reference` varchar(20) NOT NULL DEFAULT '' COMMENT 'SEC-AAAA-NNNN (issue #372)',
+                `source` varchar(32) NOT NULL DEFAULT '' COMMENT 'user, ticket, edr, siem, partner, authority, other',
+                `external_id` varchar(255) NOT NULL DEFAULT '' COMMENT 'Identifiant EDR, SIEM...',
                 PRIMARY KEY (`id`),
                 KEY `entities_id` (`entities_id`),
                 KEY `is_recursive` (`is_recursive`),
@@ -1887,7 +1924,7 @@ final class Installer
 
         // Colonnes requises par convention GLPI core (dérivées de strtolower(static::class) pour
         // un objet ITIL avec gestion de modèles) : CommonITILObject::getITILTemplateToUse() /
-        // Entity::getUsedConfig() vont chercher ces colonnes par ce nom exact — confirmé sur le
+        // Entity::getUsedConfig() vont chercher ces colonnes par ce nom exact : confirmé sur le
         // plugin absorbé avant fusion, pas une supposition. Même forme que les colonnes natives
         // changetemplates_strategy/_id.
         if (!$DB->fieldExists('glpi_entities', 'plugingrcmanagersecurityincidenttemplates_strategy')) {
@@ -1959,6 +1996,22 @@ final class Installer
         if (!$DB->fieldExists(self::SECURITY_INCIDENTS_TABLE, 'is_exercise')) {
             $migration->addField(self::SECURITY_INCIDENTS_TABLE, 'is_exercise', 'bool', ['value' => 0]);
         }
+        // Issue #372 : référence lisible SEC-AAAA-NNNN, source et identifiant externe. Colonnes
+        // ajoutées immédiatement : les incidents existants sont numérotés juste après.
+        $incidentColumns = [
+            'reference'   => "varchar(20) NOT NULL DEFAULT ''",
+            'source'      => "varchar(32) NOT NULL DEFAULT ''",
+            'external_id' => "varchar(255) NOT NULL DEFAULT ''",
+        ];
+        foreach ($incidentColumns as $field => $definition) {
+            if (!$DB->fieldExists(self::SECURITY_INCIDENTS_TABLE, $field, false)) {
+                $DB->doQuery(
+                    'ALTER TABLE `' . self::SECURITY_INCIDENTS_TABLE . '` ADD `' . $field . '` ' . $definition
+                );
+            }
+        }
+        \PluginGrcmanagerSecurityIncident::backfillReferences();
+
         // Issue #168 : un exercice = un incident fictif, ses étapes = des tâches de l'incident.
         if (!$DB->tableExists(self::CRISIS_EXERCISES_TABLE)) {
             $query = "CREATE TABLE `" . self::CRISIS_EXERCISES_TABLE . "` (
@@ -2087,7 +2140,7 @@ final class Installer
 
         // Absorption de glpi-security-incidents (ROADMAP.md "Version 2.0") : interrupteurs
         // module/CVE/modèles/tableau de bord, une seule ligne singleton (id=1) seedée avec tous
-        // les indicateurs activés — même convention que RISK_MATRIX_CONFIG_TABLE ci-dessus (voir
+        // les indicateurs activés : même convention que RISK_MATRIX_CONFIG_TABLE ci-dessus (voir
         // SecurityIncidentModuleConfig). Tous activés par défaut : sur une install existante, ce
         // toggle ne fait que permettre de DÉSACTIVER une fonctionnalité, jamais l'inverse.
         if (!$DB->tableExists(self::SECURITY_INCIDENT_CONFIG_TABLE)) {
@@ -2137,6 +2190,7 @@ final class Installer
         $this->seedCapaOverdueNotification();
         $this->seedSecurityWatchNotification();
         $this->seedTrainingRenewalNotification();
+        $this->seedBreachExposureNotification();
         $this->seedPolicyReviewReminderNotification();
         $this->seedTreatmentActionOverdueNotification();
         $this->seedAccessReviewNotifications();
@@ -2183,6 +2237,18 @@ final class Installer
             [
                 'comment' => 'Récupère/rafraîchit le score CVSS, la sévérité et les liens de '
                     . 'correctif de chaque CVE suivie, depuis le NVD',
+                'mode'    => CronTask::MODE_EXTERNAL,
+            ]
+        );
+
+        // Issue #183 : surveillance des fuites de données (Have I Been Pwned). Sans effet tant
+        // qu'elle n'est pas activée avec une clé d'API dans la configuration du plugin.
+        CronTask::Register(
+            'GlpiPlugin\\Grcmanager\\BreachExposure',
+            'breachmonitor',
+            DAY_TIMESTAMP,
+            [
+                'comment' => 'Vérifie les adresses professionnelles auprès de Have I Been Pwned',
                 'mode'    => CronTask::MODE_EXTERNAL,
             ]
         );
@@ -2266,7 +2332,7 @@ final class Installer
         );
 
         // Issue #128 : délais de notification réglementaires (NIS2, RGPD) des incidents de
-        // sécurité — suivi sur l'incident quand une échéance approche ou est dépassée (voir
+        // sécurité : suivi sur l'incident quand une échéance approche ou est dépassée (voir
         // PluginGrcmanagerSecurityIncident::cronRegulatorydeadlines()).
         CronTask::Register(
             'PluginGrcmanagerSecurityIncident',
@@ -2934,6 +3000,69 @@ final class Installer
     }
 
     /**
+     * Issue #183 : « nouvelles expositions à des fuites de données », au groupe RSSI et à
+     * l'administrateur GLPI. Contenu minimal (registre sensible). Idempotent.
+     */
+    private function seedBreachExposureNotification(): void
+    {
+        global $DB;
+
+        $itemtype = \GlpiPlugin\Grcmanager\BreachExposure::class;
+        $event    = \GlpiPlugin\Grcmanager\BreachExposure::NEW_EXPOSURES_EVENT;
+        $criteria = ['itemtype' => $itemtype, 'event' => $event];
+        if ($DB->request(['FROM' => 'glpi_notifications', 'WHERE' => $criteria])->count() > 0) {
+            return;
+        }
+
+        $templateId = (new NotificationTemplate())->add([
+            'name'     => 'GRC Manager - Nouvelles expositions à des fuites de données',
+            'itemtype' => $itemtype,
+            'comment'  => 'Envoyée par la tâche automatique « breachmonitor » (Have I Been Pwned).',
+        ]);
+        $DB->insert('glpi_notificationtemplatetranslations', [
+            'notificationtemplates_id' => $templateId,
+            'language'                 => '',
+            'subject'                  => '##breachexposure.action## : ##breachexposure.count##',
+            'content_text'             => "##breachexposure.action## : ##breachexposure.count##\n\n"
+                . "Adresses professionnelles trouvées dans des fuites de données connues. Détail dans le "
+                . "registre (accès restreint) : ##breachexposure.url##",
+            'content_html'             => NotificationHtml::render([
+                NotificationHtml::strong('##breachexposure.action## : ##breachexposure.count##'),
+                NotificationHtml::lines([
+                    'Adresses professionnelles trouvées dans des fuites de données connues.',
+                    'Détail dans le registre (accès restreint).',
+                ]),
+                NotificationHtml::link('##breachexposure.url##', 'Ouvrir le registre'),
+            ]),
+        ]);
+        $notificationId = (new Notification())->add([
+            'name'         => 'GRC Manager - Nouvelles expositions à des fuites de données',
+            'entities_id'  => 0,
+            'is_recursive' => 1,
+            'itemtype'     => $itemtype,
+            'event'        => $event,
+            'is_active'    => 1,
+        ]);
+        $DB->insert('glpi_notifications_notificationtemplates', [
+            'notifications_id'         => $notificationId,
+            'mode'                     => 'mailing',
+            'notificationtemplates_id' => $templateId,
+        ]);
+        foreach (
+            [
+                \GlpiPlugin\Grcmanager\NotificationTargetBreachExposure::TARGET_CISO_GROUP,
+                Notification::GLOBAL_ADMINISTRATOR,
+            ] as $target
+        ) {
+            $DB->insert('glpi_notificationtargets', [
+                'notifications_id' => $notificationId,
+                'type'             => Notification::USER_TYPE,
+                'items_id'         => $target,
+            ]);
+        }
+    }
+
+    /**
      * Same structure as seedReviewReminderNotification() above, for the issue #28 policy
      * review-reminder Cron task (\GlpiPlugin\Grcmanager\Policy::cronReviewreminder(), event
      * 'policy_review_due', see inc/notificationtargetpolicy.class.php). Idempotent for the same
@@ -3093,7 +3222,7 @@ final class Installer
      * for all four events (same pattern as GLPI core's own native `Change` notifications) and four
      * `Notification` rows. Target `items_id`/`type` values (1, 3, 21, and 1/2/3/4/21 for "update")
      * are copied verbatim from a real GLPI 11 install's own `glpi_notificationtargets` rows for
-     * `Change` — ported unchanged from the absorbed plugin's own Installer.php.
+     * `Change` - ported unchanged from the absorbed plugin's own Installer.php.
      */
     private function seedSecurityIncidentNotifications(): void
     {
@@ -3135,11 +3264,16 @@ final class Installer
         foreach ($eventsAndTargets as $event => $targetItemsIds) {
             $notification = new Notification();
             if ($notification->getFromDBByCrit(['itemtype' => $itemtype, 'event' => $event])) {
+                // Issue #363 : nom d'origine avec un tiret cadratin, renommé seulement s'il n'a pas
+                // été modifié par l'administrateur.
+                if ($notification->fields['name'] === "Security incident \u{2014} " . $event) {
+                    $notification->update(['id' => $notification->getID(), 'name' => 'Security incident - ' . $event]);
+                }
                 continue;
             }
 
             $notificationId = $notification->add([
-                'name'         => 'Security incident — ' . $event,
+                'name'         => 'Security incident - ' . $event,
                 'entities_id'  => 0,
                 'is_recursive' => 1,
                 'is_active'    => 1,
@@ -3227,7 +3361,7 @@ final class Installer
         // de l'antislash, caractère d'échappement de LIKE).
         $byItemtype = static fn (string $column): array => ['OR' => [
             [$column => ['LIKE', 'PluginGrcmanager%']],
-            [$column => array_values(ItemtypeRenames::MAP)],
+            [$column => array_merge(array_values(ItemtypeRenames::MAP), self::SRC_ONLY_CLASSES)],
         ]];
         // Rapports générés (audit, revue des accès, post-incident, crise) : sans le plugin, plus
         // rien ne limiterait leur lecture à l'audience de l'objet source, qui disparaît.
@@ -3360,13 +3494,13 @@ final class Installer
 
     /**
      * Migrates every row of the former lightweight CommonDBTM register (renamed to
-     * SECURITY_INCIDENTS_LEGACY_TABLE just before the new ITIL-object table was created — see the
+     * SECURITY_INCIDENTS_LEGACY_TABLE just before the new ITIL-object table was created: see the
      * caller) into the new merged schema, then drops the now-empty legacy table. Runs at most once
      * per instance: the legacy table only exists on an upgrade from a pre-absorption version, and
      * is gone for good after this method returns.
      *
      * The actual field mapping (including the status-vocabulary conversion) lives in
-     * `LegacySecurityIncidentMigrator::mapRow()` — a pure, GLPI-independent, unit-tested class —
+     * `LegacySecurityIncidentMigrator::mapRow()` - a pure, GLPI-independent, unit-tested class -
      * so the trickiest part of this migration is verified without needing a live DB. `users_id`
      * (the old register's single "responsable" field) becomes an ASSIGN actor on the new object;
      * `linked_itemtype`/`linked_items_id` (if set) becomes a row in SECURITY_INCIDENTS_ITEMS_TABLE,
@@ -3694,6 +3828,7 @@ final class Installer
         $this->unseedNotification('GlpiPlugin\\Grcmanager\\ComplianceEvent');
         $this->unseedNotification(PluginGrcmanagerSecurityIncident::class);
         $this->unseedNotification('GlpiPlugin\\Grcmanager\\AccessReview');
+        $this->unseedNotification(\GlpiPlugin\Grcmanager\BreachExposure::class);
 
         // Absorption de glpi-security-incidents (ROADMAP.md "Version 2.0") : colonnes ajoutées sur
         // les tables cœur pour la gestion de modèles - même dérivation que le plugin absorbé
@@ -3746,6 +3881,7 @@ final class Installer
         $migration->dropTable(self::DOCUMENT_ACCESSES_TABLE);
         $migration->dropTable(self::PERIODIC_REVIEWS_TABLE);
         $migration->dropTable(self::NETWORK_FLOWS_TABLE);
+        $migration->dropTable(self::BREACH_EXPOSURES_TABLE);
         $migration->dropTable(self::COMPLIANCE_EVENTS_TABLE);
         $migration->dropTable(self::IGNORED_SOFTWARES_TABLE);
         $migration->dropTable(self::PARK_VERSION_CHECKS_TABLE);

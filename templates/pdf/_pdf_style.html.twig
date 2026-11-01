@@ -1,5 +1,5 @@
 {# Partiel CSS partagé par les 3 rapports PDF d'audit externe (SoA, registre de risques, programme
-   d'audit/CAPA — ROADMAP.md "Version 1.5") : en-tête avec titre + date de génération, pied de page
+   d'audit/CAPA : ROADMAP.md "Version 1.5") : en-tête avec titre + date de génération, pied de page
    fixe avec numérotation de page (technique CSS standard Dompdf, `position: fixed` + compteur),
    styles de tableau réutilisés par les 3 gabarits. Même convention visuelle que le plugin jumeau
    assetsign-glpi (`templates/pdf/_pdf_style.html.twig`), fichier propre à ce plugin. #}
@@ -96,6 +96,6 @@
   <div class="grcmanager-pdf-meta">{{ generated_at_label }}</div>
 </div>
 <div class="grcmanager-pdf-footer">
-  <span>GLPI GRC Manager — {{ report_title }}</span>
+  <span>GLPI GRC Manager - {{ report_title }}</span>
   <span style="float: right;" class="page-number"></span>
 </div>

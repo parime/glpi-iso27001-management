@@ -86,7 +86,7 @@ class NotificationTargetEvidence extends NotificationTarget
         $this->data['##evidence.action##']     = $events[$event] ?? '';
         $this->data['##evidence.document##']   = $evidence->getDocumentName();
         $this->data['##evidence.item##']       = $parent !== null
-            ? $parent::getTypeName(1) . ' — ' . $parent->getName()
+            ? $parent::getTypeName(1) . ' - ' . $parent->getName()
             : '';
         $this->data['##evidence.validuntil##'] = (string) Html::convDate($evidence->fields['valid_until'] ?? null);
         $this->data['##evidence.url##']        = $parent !== null

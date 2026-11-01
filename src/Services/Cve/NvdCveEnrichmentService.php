@@ -10,21 +10,21 @@ use GlpiPlugin\Grcmanager\Compatibility\Http;
  * Fetches real data (CVSS score/vector, severity, description, patch links) for one CVE reference
  * from the NVD single-CVE lookup endpoint, and persists it into
  * `glpi_plugin_grcmanager_cveenrichments`. The GLPI/network-bound half of the split described in
- * NvdCveParser's own docblock — that class does all the actual parsing, this one only makes the
+ * NvdCveParser's own docblock: that class does all the actual parsing, this one only makes the
  * HTTP call and stores the result.
  *
  * No dedicated CommonDBTM itemtype for this table on purpose: like RiskMatrixConfig for the risk
  * matrix, this is a pure internal cache a user never lists/searches/edits directly as a GLPI item
- * (only ever read to decorate the CVE tab, see cve.html.twig) — plain `$DB` access keyed by
+ * (only ever read to decorate the CVE tab, see cve.html.twig): plain `$DB` access keyed by
  * `cve_id` (unique), same reasoning, just generalized from RiskMatrixConfig's single row to one
  * row per CVE.
  *
  * Uses GLPI core's HTTP client (via Compatibility\Http, GLPI 11 and 12) rather than a raw HTTP
- * client — same choice, and same reasoning, as the sibling GithubVersionChecker::getLatestGithubVersion():
+ * client: same choice, and same reasoning, as the sibling GithubVersionChecker::getLatestGithubVersion():
  * reuses GLPI core's own proxy/timeout/error handling instead of reinventing it.
  *
  * Every outcome (`ok`/`not_found`/`error`) is persisted explicitly rather than left as a silent
- * blank — a failed or not-yet-attempted fetch must never be indistinguishable from "NVD confirms
+ * blank: a failed or not-yet-attempted fetch must never be indistinguishable from "NVD confirms
  * this CVE has no data", matching this plugin's own "never invent an absent value" rule (see
  * EnvironmentalData in the sibling plugin assetsign-glpi for the same principle applied there).
  *
@@ -42,7 +42,7 @@ final class NvdCveEnrichmentService
      * NVD's unauthenticated limit is 5 requests / rolling 30s (enforced by Cloudflare in front of
      * NVD, see the sibling plugin glpi-vulnerability-manager's own NvdConnector docblock for a
      * confirmed-live HTTP 429). Only relevant here when the Cron refreshes several CVEs in one
-     * pass — a single on-add fetch never needs to pace itself.
+     * pass: a single on-add fetch never needs to pace itself.
      */
     private const MIN_DELAY_BETWEEN_REQUESTS_MICROSECONDS = 7_500_000;
 
@@ -117,7 +117,7 @@ final class NvdCveEnrichmentService
         $entry = $decoded['vulnerabilities'][0]['cve'] ?? null;
 
         if (!is_array($entry)) {
-            // A well-formed response with zero results (`totalResults: 0`) — the CVE identifier
+            // A well-formed response with zero results (`totalResults: 0`): the CVE identifier
             // is not (yet, or never) a real NVD entry, confirmed live for a made-up ID: distinct
             // from a transient network/parse failure, so it gets its own status rather than
             // sharing 'error' and being retried forever by the Cron for no reason.
@@ -160,11 +160,11 @@ final class NvdCveEnrichmentService
 
     /**
      * Refreshes every CVE in $trackedCveIds that either has no enrichment row yet (covers a CVE
-     * added while enrichment was disabled, then enabled later — nothing to do with "staleness"),
-     * has never successfully been fetched (`pending`/`error`/`not_found` — NVD's own catalog does
+     * added while enrichment was disabled, then enabled later: nothing to do with "staleness"),
+     * has never successfully been fetched (`pending`/`error`/`not_found` - NVD's own catalog does
      * grow over time, a CVE reported as `not_found` today may exist tomorrow), or whose last
      * successful fetch is older than $staleAfterDays (a CVE can sit in NVD's "awaiting analysis"
-     * queue and only receive its CVSS score later — see the sibling plugin's own NvdConnector
+     * queue and only receive its CVSS score later: see the sibling plugin's own NvdConnector
      * docblock for the same transition). $trackedCveIds is supplied by the caller (the Cron entry
      * point on \GlpiPlugin\Grcmanager\SecurityIncidentCve, which owns the "which CVEs actually exist in
      * this instance" list) rather than looked up here, keeping this service decoupled from that

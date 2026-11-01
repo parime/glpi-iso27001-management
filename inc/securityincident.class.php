@@ -26,14 +26,14 @@ use GlpiPlugin\Grcmanager\Services\Ui\Fragment;
 
 /**
  * A security incident (unauthorized access, data leak, malware, phishing...), as its own native
- * GLPI ITIL object alongside Ticket/Problem/Change — not a Ticket sub-type, since a security
+ * GLPI ITIL object alongside Ticket/Problem/Change: not a Ticket sub-type, since a security
  * incident has its own actors/workflow/notifications and belongs in a dedicated register rather
  * than mixed into the general helpdesk queue. Absorbed from the sibling plugin
  * glpi-security-incidents (ROADMAP.md "Version 2.0", now archived) into this plugin as one merged
  * object: the operational ITIL workflow (actors, tasks, notifications, CVE tracking) AND the
  * ISO/IEC 27001:2022 Annexe A A.5.24-27 compliance fields (`category`/`severity`/`cia_impact`/
  * `root_cause`/`lessons_learned`/link to a \GlpiPlugin\Grcmanager\Risk) that used to live on a separate,
- * lightweight `PluginGrcmanagerSecurityIncident` CommonDBTM register (issue #29) — ONE record per
+ * lightweight `PluginGrcmanagerSecurityIncident` CommonDBTM register (issue #29): ONE record per
  * real-world incident now, not two that could drift apart or be double-entered. The ISO
  * classification fields render in their own accordion via `Hooks::POST_ITIL_INFO_SECTION` (see
  * `plugin_grcmanager_post_itil_info_section()` in hook.php), alongside the pre-existing "Analyse"
@@ -41,14 +41,14 @@ use GlpiPlugin\Grcmanager\Services\Ui\Fragment;
  * the same plugin.
  *
  * Legacy global-namespace `PluginXxxYyy` convention (not this plugin's own PSR-4
- * `GlpiPlugin\Grcmanager\*`, used everywhere else in this plugin) — deliberate, not an oversight:
+ * `GlpiPlugin\Grcmanager\*`, used everywhere else in this plugin): deliberate, not an oversight:
  * several GLPI core mechanisms that a `CommonITILObject` subclass must hook into derive internal
  * identifiers straight from `strtolower(static::class)` with no namespace-awareness (confirmed the
- * hard way on the original plugin — `CommonITILObject::getITILTemplateToUse()` tried to `SELECT` a
+ * hard way on the original plugin - `CommonITILObject::getITILTemplateToUse()` tried to `SELECT` a
  * column literally named after the PSR-4 namespace when this class was namespaced). Issue #293
  * confirmed a second one: NotificationTargetCommonITILObject builds the template tags from
  * `strtolower($this->obj::class)` (`##plugingrcmanagersecurityincident.title##`), and the
- * `##IF…##`/`##FOREACH…##` parser only accepts `[a-z-0-9._]` — a namespaced name would break
+ * `##IF…##`/`##FOREACH…##` parser only accepts `[a-z-0-9._]` - a namespaced name would break
  * every incident e-mail, customised templates included. Its ITIL satellites (actors, tasks, costs,
  * templates and their fields, notification target, rules) stay in inc/ for the same reason.
  *
@@ -78,7 +78,7 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
 
     /**
      * Translated labels for the ISO classification fields absorbed from the plugin's former
-     * lightweight register (issue #29) — kept as static methods here (not constants, and not on
+     * lightweight register (issue #29): kept as static methods here (not constants, and not on
      * the GLPI-independent SecurityIncidentRules) since `__()` calls aren't compile-time constant
      * expressions.
      *
@@ -98,6 +98,71 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
     /**
      * @return array<string, string>
      */
+    /**
+     * Issue #372 : origine du signalement.
+     *
+     * @return array<string, string>
+     */
+    public static function getSources(): array
+    {
+        return [
+            ''          => \Dropdown::EMPTY_VALUE,
+            'user'      => __('User report', 'grcmanager'),
+            'ticket'    => __('Ticket', 'grcmanager'),
+            'edr'       => __('EDR / XDR', 'grcmanager'),
+            'siem'      => __('SIEM / log monitoring', 'grcmanager'),
+            'partner'   => __('Supplier or partner', 'grcmanager'),
+            'authority' => __('Authority (CERT, regulator...)', 'grcmanager'),
+            'other'     => __('Other', 'grcmanager'),
+        ];
+    }
+
+    /**
+     * Issue #372 : référence SEC-AAAA-NNNN, numérotée par année d'ouverture de l'incident.
+     */
+    public static function assignReference(int $id): void
+    {
+        global $DB;
+
+        $row = $DB->request([
+            'SELECT' => ['date', 'reference'],
+            'FROM'   => self::getTable(),
+            'WHERE'  => ['id' => $id],
+        ])->current();
+        if ($row === null || (string) $row['reference'] !== '') {
+            return;
+        }
+        $year = substr((string) ($row['date'] ?: date('Y-m-d')), 0, 4);
+        $prefix = 'SEC-' . $year . '-';
+        $last = $DB->request([
+            'SELECT' => ['reference'],
+            'FROM'   => self::getTable(),
+            'WHERE'  => ['reference' => ['LIKE', $prefix . '%']],
+            'ORDER'  => 'reference DESC',
+            'LIMIT'  => 1,
+        ])->current();
+        $next = $last === null ? 1 : ((int) substr((string) $last['reference'], strlen($prefix)) + 1);
+        $DB->update(self::getTable(), ['reference' => $prefix . sprintf('%04d', $next)], ['id' => $id]);
+    }
+
+    /**
+     * Numérote les incidents qui n'ont pas encore de référence, dans l'ordre de création.
+     */
+    public static function backfillReferences(): void
+    {
+        global $DB;
+
+        $pending = $DB->request([
+            'SELECT' => ['id'],
+            'FROM'   => self::getTable(),
+            'WHERE'  => ['reference' => ''],
+            'ORDER'  => ['date ASC', 'id ASC'],
+        ]);
+        foreach ($pending as $row) {
+            self::assignReference((int) $row['id']);
+        }
+    }
+
     public static function getSeverities(): array
     {
         return [
@@ -126,13 +191,13 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
 
     /**
      * `CommonITILObject`'s own status-array methods explicitly say "to be overridden by class" and
-     * default to an empty array — confirmed the hard way on the original plugin:
+     * default to an empty array: confirmed the hard way on the original plugin:
      * `handleNewItemNotifications()` fataled with "Empty IN are not allowed"
      * (`getSolvedStatusArray()`/`getClosedStatusArray()` both `[]`, merged into a `NOT IN ()` SQL
      * clause) the first time a real incident was created after notifications were wired up. Uses
      * only the base, universally-shared lifecycle constants (`INCOMING`/`ASSIGNED`/`PLANNED`/
      * `WAITING`/`SOLVED`/`CLOSED`, defined on `CommonITILObject` itself) rather than `Change`'s own
-     * richer set — a security incident's workflow doesn't need change-specific approval/testing/
+     * richer set: a security incident's workflow doesn't need change-specific approval/testing/
      * rollback states.
      */
     public static function getAllStatusArray($withmetaforsearch = false)
@@ -216,7 +281,7 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
             'itemtype'                   => '',
             'locations_id'               => 0,
             // ISO/IEC 27001:2022 Annexe A A.5.24-27 classification, absorbed from the plugin's own
-            // former lightweight register (issue #29) — see SecurityIncidentRules.
+            // former lightweight register (issue #29): see SecurityIncidentRules.
             'category'                   => SecurityIncidentRules::DEFAULT_CATEGORY,
             'severity'                   => SecurityIncidentRules::DEFAULT_SEVERITY,
             'cia_impact'                 => '',
@@ -232,11 +297,11 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
     }
 
     /**
-     * Required, not optional — same class of surprise as `getRuleCollectionClassInstance()` (see
+     * Required, not optional: same class of surprise as `getRuleCollectionClassInstance()` (see
      * `RulePluginGrcmanagerSecurityIncidentCollection`'s own docblock): unlike most
      * `CommonITILObject` extension points, this one is a hardcoded `switch` in core listing only
      * `Ticket`/`Change`/`Problem`, with no generic fallback and no way to register a plugin's own
-     * itemtype from outside. Not abstract, so overriding it here is enough — no core patch needed.
+     * itemtype from outside. Not abstract, so overriding it here is enough: no core patch needed.
      */
     public static function getItemsTable()
     {
@@ -348,6 +413,9 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
     public function post_addItem()
     {
         parent::post_addItem();
+
+        // Issue #372 : référence lisible, attribuée une fois pour toutes.
+        self::assignReference((int) $this->getID());
 
         $this->handleNewItemNotifications();
     }
@@ -488,7 +556,7 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
         $tab = $this->getSearchOptionsMain();
 
         // ISO/IEC 27001:2022 Annexe A A.5.24-27 classification fields absorbed from the plugin's
-        // former lightweight register (issue #29) — IDs 220+ deliberately clear of every ID
+        // former lightweight register (issue #29): IDs 220+ deliberately clear of every ID
         // CommonITILObject/Change use for their own fields (checked against a real GLPI 11
         // instance: the highest core-used id below 400 is 154, Change's own highest is 211).
         $tab[] = [
@@ -572,6 +640,30 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
             'name'     => __('Crisis exercise', 'grcmanager'),
             'datatype' => 'bool',
         ];
+        // Issue #372 : référence, source et identifiant externe.
+        $tab[] = [
+            'id'       => 233,
+            'table'    => $this->getTable(),
+            'field'    => 'reference',
+            'name'     => __('Reference', 'grcmanager'),
+            'datatype' => 'string',
+            'massiveaction' => false,
+        ];
+        $tab[] = [
+            'id'       => 234,
+            'table'    => $this->getTable(),
+            'field'    => 'source',
+            'name'     => __('Source', 'grcmanager'),
+            'datatype' => 'specific',
+            'searchtype' => ['equals', 'notequals'],
+        ];
+        $tab[] = [
+            'id'       => 235,
+            'table'    => $this->getTable(),
+            'field'    => 'external_id',
+            'name'     => __('External identifier (EDR, SIEM...)', 'grcmanager'),
+            'datatype' => 'string',
+        ];
 
         return $tab;
     }
@@ -584,10 +676,10 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
     public static function getRegulatoryLabels(): array
     {
         return [
-            'nis2_early_warning' => __('NIS2 — early warning (24 h)', 'grcmanager'),
-            'nis2_notification'  => __('NIS2 — incident notification (72 h)', 'grcmanager'),
-            'nis2_final_report'  => __('NIS2 — final report (1 month)', 'grcmanager'),
-            'gdpr_notification'  => __('GDPR — notification to the supervisory authority (72 h)', 'grcmanager'),
+            'nis2_early_warning' => __('NIS2: early warning (24 h)', 'grcmanager'),
+            'nis2_notification'  => __('NIS2: incident notification (72 h)', 'grcmanager'),
+            'nis2_final_report'  => __('NIS2: final report (1 month)', 'grcmanager'),
+            'gdpr_notification'  => __('GDPR: notification to the supervisory authority (72 h)', 'grcmanager'),
         ];
     }
 
@@ -607,7 +699,7 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
     /**
      * Issue #128 : pour chaque incident ouvert soumis à NIS2 ou au RGPD, un suivi privé quand une
      * échéance de notification approche (moins d'un quart du délai restant) puis quand elle est
-     * dépassée — une seule fois par niveau. Le suivi déclenche les notifications GLPI habituelles
+     * dépassée : une seule fois par niveau. Le suivi déclenche les notifications GLPI habituelles
      * aux acteurs de l'incident. Rien n'est envoyé à une autorité, aucun statut ne change.
      */
     public static function cronRegulatorydeadlines(CronTask $task): int
@@ -680,6 +772,10 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
 
             case 'plugin_grcmanager_risks_id':
                 return self::riskLink((int) ($values[$field] ?? 0));
+
+            case 'source':
+                $source = (string) ($values[$field] ?? '');
+                return $source === '' ? '' : htmlescape(self::getSources()[$source] ?? $source);
         }
 
         return parent::getSpecificValueToDisplay($field, $values, $options);
@@ -704,6 +800,9 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
 
             case 'cia_impact':
                 return Dropdown::showFromArray($name, self::getCiaAxisLabels(), $options);
+
+            case 'source':
+                return Dropdown::showFromArray($name, self::getSources(), $options);
         }
 
         return parent::getSpecificValueToSelect($field, $name, $values, $options);

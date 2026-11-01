@@ -9,7 +9,7 @@ use Glpi\DBAL\QueryExpression;
 /**
  * ROADMAP.md "Version 2.2" (cartographie des risques) : counts every row of the generic risk
  * register (`glpi_plugin_grcmanager_risks`) per probability x impact cell, then overlays those
- * counts onto the administrable matrix via the pure RiskHeatmapGrid::build() — one query, reused
+ * counts onto the administrable matrix via the pure RiskHeatmapGrid::build(): one query, reused
  * by front/riskheatmap.php.
  *
  * All risks are counted, not only the "open" subset `DashboardCardService::openRisksCount()` uses:

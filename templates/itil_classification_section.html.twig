@@ -1,6 +1,6 @@
 {# Champs de conformité ISO/IEC 27001:2022 Annexe A A.5.24-27, fusionnés depuis l'ancien registre
    léger PluginGrcmanagerSecurityIncident (CommonDBTM, issue #29) directement sur l'objet ITIL
-   absorbé de glpi-security-incidents (ROADMAP.md "Version 2.0") — voir
+   absorbé de glpi-security-incidents (ROADMAP.md "Version 2.0") : voir
    plugin_grcmanager_post_itil_info_section() dans hook.php. #}
 {% import 'components/form/fields_macros.html.twig' as fields %}
 {% import '@grcmanager/_hint.html.twig' as hints %}
@@ -33,6 +33,21 @@
             categories,
             __('Category', 'grcmanager'),
             {'full_width': false, 'disabled': not item.canUpdateItem(), 'rand': rand}
+         ) }}
+
+         {{ fields.dropdownArrayField(
+            'source',
+            item.fields['source']|default(''),
+            sources,
+            __('Source', 'grcmanager'),
+            {'full_width': false, 'disabled': not item.canUpdateItem(), 'rand': rand}
+         ) }}
+
+         {{ fields.textField(
+            'external_id',
+            item.fields['external_id']|default(''),
+            __('External identifier (EDR, SIEM...)', 'grcmanager'),
+            {'full_width': false, 'disabled': not item.canUpdateItem()}
          ) }}
 
          {{ fields.dropdownArrayField(

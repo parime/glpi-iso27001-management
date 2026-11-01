@@ -15,7 +15,7 @@
  * -------------------------------------------------------------------------
  */
 
-// A tab-embedded child, not a standalone item with its own form page — add/purge only, always
+// A tab-embedded child, not a standalone item with its own form page: add/purge only, always
 // redirecting back to the parent SecurityIncident's own "CVE" tab.
 $item = new \GlpiPlugin\Grcmanager\SecurityIncidentCve();
 
@@ -23,7 +23,7 @@ if (isset($_POST['add'])) {
     $item->check(-1, CREATE, $_POST);
 
     // `cve_ids` (plural, a textarea): one or more identifiers, one per line and/or comma-
-    // separated — added one at a time through the same single-row `add()`/`prepareInputForAdd()`
+    // separated: added one at a time through the same single-row `add()`/`prepareInputForAdd()`
     // this class already validates with, so a malformed line is skipped (with its usual error
     // message) rather than silently accepted or aborting the whole batch. `cve_id` (singular)
     // stays supported for a single identifier, unchanged from before this feature existed.
@@ -54,7 +54,7 @@ if (isset($_POST['add'])) {
 } elseif (isset($_POST['refresh_nvd'])) {
     // Manual per-row control (in addition to the daily Cron and the automatic fetch on add) : an
     // admin can always ask for an immediate re-check rather than wait for the next scheduled
-    // pass — e.g. right after NVD finishes analyzing a CVE that was still 'pending'/'not_found'.
+    // pass: e.g. right after NVD finishes analyzing a CVE that was still 'pending'/'not_found'.
     // Droit de modification sur l'incident de la référence (canUpdateItem()). Le bit READ du
     // droit des incidents n'existe pas (READALL / READMY), il refusait tout profil sauf le
     // super-admin.

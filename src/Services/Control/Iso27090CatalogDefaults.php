@@ -20,7 +20,7 @@ declare(strict_types=1);
 namespace GlpiPlugin\Grcmanager\Services\Control;
 
 /**
- * ISO/IEC 27090:2026, « Cybersecurity — Artificial intelligence (AI) — Addressing security threats
+ * ISO/IEC 27090:2026, « Cybersecurity: Artificial intelligence (AI): Addressing security threats
  * and compromises to AI systems » (1re édition, octobre 2026) : lignes directrices, non
  * certifiables, à appliquer avec ISO/IEC 27001 et ISO/IEC 42001.
  *

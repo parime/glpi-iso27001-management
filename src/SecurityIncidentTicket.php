@@ -41,7 +41,7 @@ use Ticket_User;
  *
  * Simple fournisseur d'onglets (CommonGLPI) plutôt qu'un CommonDBRelation : les propriétés héritées
  * de ce dernier sont typées en GLPI 12 et non en GLPI 11 (voir src/Compatibility/Base), et ce lien
- * n'a besoin ni de formulaire ni d'historique propres — la table est lue et écrite directement.
+ * n'a besoin ni de formulaire ni d'historique propres : la table est lue et écrite directement.
  */
 class SecurityIncidentTicket extends CommonGLPI
 {

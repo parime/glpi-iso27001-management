@@ -557,7 +557,7 @@ class AccessReview extends AccessReviewBase
             $accounts[$usersId]['supervisor'] = (int) $row['users_id_supervisor'];
             $accounts[$usersId]['profiles'][] =
                 Dropdown::getDropdownName(Profile::getTable(), (int) $row['profiles_id'])
-                . ' — ' . Dropdown::getDropdownName(Entity::getTable(), (int) $row['entities_id'])
+                . ' - ' . Dropdown::getDropdownName(Entity::getTable(), (int) $row['entities_id'])
                 . ((int) $row['is_recursive'] === 1 ? ' ' . __('(and sub-entities)', 'grcmanager') : '');
         }
         if ($accounts === []) {
@@ -636,7 +636,7 @@ class AccessReview extends AccessReviewBase
             return __('This line does not belong to an ongoing campaign.', 'grcmanager');
         }
         // Gestionnaire des campagnes : droit UPDATE sur CETTE campagne (donc sur son entité), pas le
-        // seul droit global — sinon une ligne d'une campagne d'une autre entité serait modifiable.
+        // seul droit global : sinon une ligne d'une campagne d'une autre entité serait modifiable.
         if ((int) $line['reviewers_id'] !== $actorId && !$campaign->can($campaign->getID(), UPDATE)) {
             return __('This line is assigned to another reviewer.', 'grcmanager');
         }

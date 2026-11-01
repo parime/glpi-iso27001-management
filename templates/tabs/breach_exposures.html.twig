@@ -1,0 +1,35 @@
+{# Onglet « Expositions à des fuites de données » de la fiche d'un utilisateur, issue #183. #}
+<div class="card">
+   <div class="card-body">
+      {% if rows is empty %}
+         <p class="text-muted mb-0">
+            {% if enabled %}
+               {{ __('No known data breach for this user\'s work email addresses.', 'grcmanager') }}
+            {% else %}
+               {{ __('Data breach monitoring is not enabled (GRC Manager configuration).', 'grcmanager') }}
+            {% endif %}
+         </p>
+      {% else %}
+         <table class="table table-sm table-hover mb-0">
+            <thead>
+               <tr>
+                  <th>{{ __('Breach', 'grcmanager') }}</th>
+                  <th>{{ __('Breach date', 'grcmanager') }}</th>
+                  <th>{{ __('Exposed data', 'grcmanager') }}</th>
+                  <th>{{ __('Status', 'grcmanager') }}</th>
+               </tr>
+            </thead>
+            <tbody>
+               {% for row in rows %}
+                  <tr>
+                     <td><a href="{{ row.url }}">{{ row.breach_title }}</a></td>
+                     <td>{{ row.breach_date|formatted_date }}</td>
+                     <td>{{ row.data_classes|join(', ') }}</td>
+                     <td>{{ row.status_label }}</td>
+                  </tr>
+               {% endfor %}
+            </tbody>
+         </table>
+      {% endif %}
+   </div>
+</div>
