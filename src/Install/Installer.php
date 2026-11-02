@@ -174,6 +174,8 @@ final class Installer
 
     // Issue #370 : procédures de remédiation, leurs étapes et les tâches copiées sur les incidents.
     private const PLAYBOOKS_TABLE = 'glpi_plugin_grcmanager_playbooks';
+    // Issue #371 : journal d'audit chaîné, conservé à la désinstallation (valeur probante).
+    private const AUDIT_LOGS_TABLE = 'glpi_plugin_grcmanager_auditlogs';
     // Issue #370 : imports CSV d'EDR / XDR (lignes brutes) et identifiants d'alerte déjà importés.
     private const SECURITY_INCIDENT_EDR_IMPORTS_TABLE = 'glpi_plugin_grcmanager_securityincidentedrimports';
     private const SECURITY_INCIDENT_EDR_ALERTS_TABLE = 'glpi_plugin_grcmanager_securityincidentedralerts';
@@ -1953,6 +1955,31 @@ final class Installer
                 `alert_id` varchar(255) NOT NULL DEFAULT '',
                 PRIMARY KEY (`id`),
                 KEY `alert_id` (`alert_id`(191)),
+                KEY `plugin_grcmanager_securityincidents_id` (`plugin_grcmanager_securityincidents_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query);
+        }
+        if (!$DB->tableExists(self::AUDIT_LOGS_TABLE)) {
+            $query = "CREATE TABLE `" . self::AUDIT_LOGS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `date` timestamp NULL DEFAULT NULL,
+                `users_id` int {$keySign} NOT NULL DEFAULT 0,
+                `users_id_real` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Utilisateur reel si Prendre l identite',
+                `profiles_id` int {$keySign} NOT NULL DEFAULT 0,
+                `action` varchar(32) NOT NULL DEFAULT '',
+                `itemtype` varchar(100) NOT NULL DEFAULT '',
+                `items_id` int {$keySign} NOT NULL DEFAULT 0,
+                `plugin_grcmanager_securityincidents_id` int {$keySign} NOT NULL DEFAULT 0,
+                `ip` varchar(45) NOT NULL DEFAULT '',
+                `result` varchar(16) NOT NULL DEFAULT 'success',
+                `details` text,
+                `prev_hash` char(64) NOT NULL DEFAULT '',
+                `hash` char(64) NOT NULL DEFAULT '',
+                PRIMARY KEY (`id`),
+                KEY `date` (`date`),
+                KEY `users_id` (`users_id`),
+                KEY `action` (`action`),
                 KEY `plugin_grcmanager_securityincidents_id` (`plugin_grcmanager_securityincidents_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
