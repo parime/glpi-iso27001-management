@@ -19,6 +19,7 @@ declare(strict_types=1);
 
 namespace GlpiPlugin\Grcmanager\Services\Dashboard;
 
+use GlpiPlugin\Grcmanager\SecurityIncidentPlaybookTask;
 use GlpiPlugin\Grcmanager\SecurityIncidentTechnique;
 use GlpiPlugin\Grcmanager\Services\Incident\MitreAttack;
 use PluginGrcmanagerSecurityIncident;
@@ -108,6 +109,51 @@ final class SecurityIncidentCardProvider
             'data'  => $data,
             'label' => $params['label'] ?? __('Most frequent MITRE ATT&CK techniques', 'grcmanager'),
             'icon'  => SecurityIncidentTechnique::getIcon(),
+        ];
+    }
+
+    /**
+     * Issue #370 : tâches de remédiation non terminées assignées à l'utilisateur connecté.
+     *
+     * @return array{number: int, label: string, icon: string, url: string}
+     */
+    public static function myRemediationTasksCount(array $params = []): array
+    {
+        $tasks = SecurityIncidentPlaybookTask::getOpenTasksFor((int) \Session::getLoginUserID());
+
+        return [
+            'number' => count($tasks),
+            'label'  => $params['label'] ?? __('My open remediation tasks', 'grcmanager'),
+            'icon'   => SecurityIncidentPlaybookTask::getIcon(),
+            'url'    => $tasks === [] ? '' : PluginGrcmanagerSecurityIncident::getFormURLWithID(
+                (int) $tasks[0]['plugin_grcmanager_securityincidents_id']
+            ),
+        ];
+    }
+
+    /**
+     * Issue #370 : liste de ces tâches, chacune menant à son incident.
+     *
+     * @return array{data: list<array<string, string>>, label: string, icon: string}
+     */
+    public static function myRemediationTasks(array $params = []): array
+    {
+        $data = [];
+        foreach (SecurityIncidentPlaybookTask::getOpenTasksFor((int) \Session::getLoginUserID()) as $task) {
+            $data[] = [
+                'label'   => (string) $task['name'],
+                'content' => (string) $task['incident_name'],
+                'author'  => '',
+                'url'     => PluginGrcmanagerSecurityIncident::getFormURLWithID(
+                    (int) $task['plugin_grcmanager_securityincidents_id']
+                ),
+            ];
+        }
+
+        return [
+            'data'  => $data,
+            'label' => $params['label'] ?? __('My remediation tasks', 'grcmanager'),
+            'icon'  => SecurityIncidentPlaybookTask::getIcon(),
         ];
     }
 

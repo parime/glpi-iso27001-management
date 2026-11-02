@@ -366,6 +366,19 @@ function plugin_grcmanager_dashboard_cards(?array $cards = null): array
                 'group'      => $group,
                 'provider'   => SecuredDashboardCards::class . '::attackTopTechniques',
             ],
+            // Issue #370 : tâches de remédiation de l'utilisateur connecté.
+            'grcmanager_securityincident_my_remediation_count' => [
+                'widgettype' => ['bigNumber'],
+                'label'      => __('My open remediation tasks', 'grcmanager'),
+                'group'      => $group,
+                'provider'   => SecuredDashboardCards::class . '::myRemediationTasksCount',
+            ],
+            'grcmanager_securityincident_my_remediation_list' => [
+                'widgettype' => ['articleList'],
+                'label'      => __('My remediation tasks', 'grcmanager'),
+                'group'      => $group,
+                'provider'   => SecuredDashboardCards::class . '::myRemediationTasks',
+            ],
             // Issue #370 : délais moyens de confinement et de clôture.
             'grcmanager_securityincident_time_to_contain' => [
                 'widgettype' => ['bigNumber'],

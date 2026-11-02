@@ -219,6 +219,8 @@ expect "journal des actions (PDF) d'un incident de B" "$([ "$ROLE" = admin ] && 
   "$(code "$P/securityincidentaction.form.php?pdf=$(id incident_B)")"
 expect "tâche de remédiation sur un incident de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
   "$(code -d "add=1&plugin_grcmanager_securityincidents_id=$(id incident_B)&name=PHPUnit&_glpi_csrf_token=$(csrf)" "$P/securityincidentplaybooktask.form.php")"
+expect "plan de remédiation (PDF) d'un incident de B" "$([ "$ROLE" = admin ] && echo 200 || echo 404)" \
+  "$(code "$P/securityincidentplaybooktask.form.php?pdf=$(id incident_B)")"
 # Issue #140 : un document d'audit ne se lit que par l'equipe de l'audit (glpi en fait partie),
 # jamais avec le seul droit Documents de GLPI ou le droit du plugin.
 expect "document d'audit (equipe de l'audit seulement)" "$([ "$ROLE" = admin ] && echo 200 || echo 403)" \

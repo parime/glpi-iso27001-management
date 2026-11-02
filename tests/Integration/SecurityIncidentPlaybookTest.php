@@ -59,6 +59,16 @@ final class SecurityIncidentPlaybookTest extends GrcmanagerIntegrationTestCase
         $this->assertTrue($suggested[0]['recommended']);
 
         $this->assertSame(2, SecurityIncidentPlaybookTask::applyPlaybook($incidentId, $playbookId));
+        // Déjà appliquée : pas de tâches en double.
+        $this->assertSame(0, SecurityIncidentPlaybookTask::applyPlaybook($incidentId, $playbookId));
+
+        // PDF du plan, consigné dans l'historique de l'incident.
+        $this->assertStringStartsWith('%PDF-', SecurityIncidentPlaybookTask::renderPdf($incident));
+        $this->assertSame(1, countElementsInTable(\Log::getTable(), [
+            'itemtype'  => PluginGrcmanagerSecurityIncident::class,
+            'items_id'  => $incidentId,
+            'new_value' => ['LIKE', '%SHA-256%'],
+        ]));
         $tasks = SecurityIncidentPlaybookTask::getForIncident($incidentId);
         $this->assertSame(['Isoler le poste', 'Remettre en service'], array_column($tasks, 'name'));
         $this->assertTrue(SecurityIncidentPlaybookTask::blocksClosure($incidentId));

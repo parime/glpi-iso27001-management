@@ -7827,3 +7827,47 @@ msgid_plural "%d remediation tasks added."
 msgstr[0] "Dodano zadania naprawcze: %d."
 msgstr[1] "Dodano zadania naprawcze: %d."
 msgstr[2] "Dodano zadania naprawcze: %d."
+
+msgid "My open remediation tasks"
+msgstr "Moje otwarte zadania naprawcze"
+
+msgid "My remediation tasks"
+msgstr "Moje zadania naprawcze"
+
+msgid "This playbook is already applied to the incident."
+msgstr "Ta procedura jest już zastosowana do incydentu."
+
+#, php-format
+msgid "Remediation plan: %s"
+msgstr "Plan naprawczy: %s"
+
+#, php-format
+msgid "Remediation plan printed (SHA-256 %s)"
+msgstr "Wydrukowano plan naprawczy (SHA-256 %s)"
+
+msgid "Mandatory steps still open"
+msgstr "Obowiązkowe kroki nadal otwarte"
+
+msgid "Playbooks applied"
+msgstr "Zastosowane procedury"
+
+msgid "Done by"
+msgstr "Wykonane przez"
+
+msgid "Signatures"
+msgstr "Podpisy"
+
+msgid "Incident manager"
+msgstr "Kierownik incydentu"
+
+msgid "Name, date and signature"
+msgstr "Imię i nazwisko, data i podpis"
+
+msgid "Information security officer"
+msgstr "Inspektor bezpieczeństwa informacji"
+
+msgid "This fingerprint is recorded in the incident history each time the plan is printed."
+msgstr "Ten odcisk jest zapisywany w historii incydentu przy każdym wydruku planu."
+
+msgid "Remediation plan (PDF)"
+msgstr "Plan naprawczy (PDF)"
