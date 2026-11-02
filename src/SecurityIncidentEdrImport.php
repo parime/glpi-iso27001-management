@@ -61,6 +61,44 @@ class SecurityIncidentEdrImport extends SecurityIncidentEdrImportBase
         return $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/securityincidentedrimport.php';
     }
 
+    /**
+     * @return array<string, string>
+     */
+    public static function getFieldLabels(): array
+    {
+        return [
+            'alert_id'     => __('Alert identifier', 'grcmanager'),
+            'detected_at'  => __('Detection date', 'grcmanager'),
+            'title'        => __('Alert name', 'grcmanager'),
+            'hostname'     => __('Host', 'grcmanager'),
+            'username'     => __('Account', 'grcmanager'),
+            'severity'     => __('Severity', 'grcmanager'),
+            'tactic'       => __('MITRE ATT&CK tactic', 'grcmanager'),
+            'technique'    => __('MITRE ATT&CK technique', 'grcmanager'),
+            'command_line' => __('Command line', 'grcmanager'),
+            'sha256'       => 'SHA-256',
+            'md5'          => 'MD5',
+            'file_name'    => __('File name', 'grcmanager'),
+            'ip'           => __('IP address', 'grcmanager'),
+            'domain'       => __('Domain', 'grcmanager'),
+            'url'          => __('URL', 'grcmanager'),
+            'console_url'  => __('Console link', 'grcmanager'),
+        ];
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    public static function getGroupingLabels(): array
+    {
+        return [
+            'detection' => __('One incident per alert identifier', 'grcmanager'),
+            'host'      => __('One incident per host', 'grcmanager'),
+            'single'    => __('A single incident for the whole file', 'grcmanager'),
+            'row'       => __('One incident per line', 'grcmanager'),
+        ];
+    }
+
     public static function canImport(): bool
     {
         return PluginGrcmanagerSecurityIncident::canCreate();
