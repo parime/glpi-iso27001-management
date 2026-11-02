@@ -174,6 +174,9 @@ final class Installer
 
     // Issue #370 : procédures de remédiation, leurs étapes et les tâches copiées sur les incidents.
     private const PLAYBOOKS_TABLE = 'glpi_plugin_grcmanager_playbooks';
+    // Issue #370 : imports CSV d'EDR / XDR (lignes brutes) et identifiants d'alerte déjà importés.
+    private const SECURITY_INCIDENT_EDR_IMPORTS_TABLE = 'glpi_plugin_grcmanager_securityincidentedrimports';
+    private const SECURITY_INCIDENT_EDR_ALERTS_TABLE = 'glpi_plugin_grcmanager_securityincidentedralerts';
     private const PLAYBOOK_STEPS_TABLE = 'glpi_plugin_grcmanager_playbooksteps';
     private const SECURITY_INCIDENT_PLAYBOOK_TASKS_TABLE = 'glpi_plugin_grcmanager_securityincidentplaybooktasks';
 
@@ -1927,6 +1930,34 @@ final class Installer
             $DB->doQuery($query);
         }
 
+        if (!$DB->tableExists(self::SECURITY_INCIDENT_EDR_IMPORTS_TABLE)) {
+            $query = "CREATE TABLE `" . self::SECURITY_INCIDENT_EDR_IMPORTS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_securityincidents_id` int {$keySign} NOT NULL DEFAULT 0,
+                `file_name` varchar(255) NOT NULL DEFAULT '',
+                `file_sha256` char(64) NOT NULL DEFAULT '',
+                `row_count` int NOT NULL DEFAULT 0,
+                `raw` longtext COMMENT 'En-tetes et lignes du fichier, jamais modifies',
+                `users_id` int {$keySign} NOT NULL DEFAULT 0,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `plugin_grcmanager_securityincidents_id` (`plugin_grcmanager_securityincidents_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query);
+        }
+        if (!$DB->tableExists(self::SECURITY_INCIDENT_EDR_ALERTS_TABLE)) {
+            $query = "CREATE TABLE `" . self::SECURITY_INCIDENT_EDR_ALERTS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_securityincidents_id` int {$keySign} NOT NULL DEFAULT 0,
+                `alert_id` varchar(255) NOT NULL DEFAULT '',
+                PRIMARY KEY (`id`),
+                KEY `alert_id` (`alert_id`(191)),
+                KEY `plugin_grcmanager_securityincidents_id` (`plugin_grcmanager_securityincidents_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query);
+        }
         if (!$DB->tableExists(self::PLAYBOOKS_TABLE)) {
             $query = "CREATE TABLE `" . self::PLAYBOOKS_TABLE . "` (
                 `id` int {$keySign} NOT NULL AUTO_INCREMENT,
@@ -4064,6 +4095,8 @@ final class Installer
         $migration->dropTable(self::SECURITY_INCIDENT_PLAYBOOK_TASKS_TABLE);
         $migration->dropTable(self::PLAYBOOK_STEPS_TABLE);
         $migration->dropTable(self::PLAYBOOKS_TABLE);
+        $migration->dropTable(self::SECURITY_INCIDENT_EDR_IMPORTS_TABLE);
+        $migration->dropTable(self::SECURITY_INCIDENT_EDR_ALERTS_TABLE);
         $migration->dropTable(self::SECURITY_INCIDENT_TASKS_TABLE);
         $migration->dropTable(self::SECURITY_INCIDENTS_TICKETS_TABLE);
         $migration->dropTable(self::SECURITY_INCIDENTS_ITEMS_TABLE);

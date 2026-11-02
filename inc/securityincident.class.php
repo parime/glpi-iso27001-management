@@ -449,8 +449,16 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
             \GlpiPlugin\Grcmanager\SecurityIncidentTechnique::class,
             \GlpiPlugin\Grcmanager\SecurityIncidentAction::class,
             \GlpiPlugin\Grcmanager\SecurityIncidentPlaybookTask::class,
+            \GlpiPlugin\Grcmanager\SecurityIncidentEdrImport::class,
             PluginGrcmanagerSecurityIncidentCost::class,
         ]);
+
+        // Issue #370 : identifiants d'alerte importés, pour qu'un ré-import recrée l'incident.
+        global $DB;
+        $DB->delete(
+            \GlpiPlugin\Grcmanager\SecurityIncidentEdrImport::getAlertsTable(),
+            ['plugin_grcmanager_securityincidents_id' => (int) $this->fields['id']]
+        );
 
         parent::cleanDBonPurge();
     }
