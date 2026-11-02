@@ -17,7 +17,7 @@
 
 declare(strict_types=1);
 
-namespace GlpiPlugin\Grcmanager\Services\Incident;
+namespace GlpiPlugin\Grcmanager;
 
 use Session;
 
@@ -27,7 +27,7 @@ use Session;
  * (droit de configuration) n'est jamais bloqué, mais son accès hors du groupe est signalé dans le
  * journal d'audit.
  */
-final class SecurityGroup
+final class IncidentSecurityGroup
 {
     private const TABLE = 'glpi_plugin_grcmanager_securityincidentconfig';
 

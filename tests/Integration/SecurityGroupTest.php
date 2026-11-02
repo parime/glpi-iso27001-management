@@ -21,7 +21,7 @@ namespace GlpiPlugin\Grcmanager\Tests\Integration;
 
 use Group;
 use Group_User;
-use GlpiPlugin\Grcmanager\Services\Incident\SecurityGroup;
+use GlpiPlugin\Grcmanager\IncidentSecurityGroup;
 use PluginGrcmanagerSecurityIncident;
 use User;
 
@@ -42,32 +42,32 @@ final class SecurityGroupTest extends GrcmanagerIntegrationTestCase
 
         $savedId = $_SESSION['glpiID'];
         $savedConfig = $_SESSION['glpiactiveprofile']['config'] ?? 0;
-        SecurityGroup::save($groupId);
+        IncidentSecurityGroup::save($groupId);
         try {
             // Membre du groupe : les droits de son profil s'appliquent.
             $_SESSION['glpiID'] = $memberId;
-            SecurityGroup::reset();
+            IncidentSecurityGroup::reset();
             $this->assertTrue(PluginGrcmanagerSecurityIncident::canView());
             $this->assertTrue($incident->getFromDB($incidentId) && $incident->canViewItem());
 
             // Hors du groupe, sans droit de configuration : module fermé malgré le profil.
             $_SESSION['glpiID'] = $outsiderId;
             $_SESSION['glpiactiveprofile']['config'] = 0;
-            SecurityGroup::reset();
+            IncidentSecurityGroup::reset();
             $this->assertFalse(PluginGrcmanagerSecurityIncident::canView());
             $this->assertFalse(PluginGrcmanagerSecurityIncident::canCreate());
             $this->assertFalse($incident->canViewItem());
 
             // Administrateur GLPI hors du groupe : jamais bloqué, mais signalé.
             $_SESSION['glpiactiveprofile']['config'] = $savedConfig ?: (READ | UPDATE);
-            SecurityGroup::reset();
+            IncidentSecurityGroup::reset();
             $this->assertTrue(PluginGrcmanagerSecurityIncident::canView());
-            $this->assertTrue(SecurityGroup::isAdministratorBypass());
+            $this->assertTrue(IncidentSecurityGroup::isAdministratorBypass());
         } finally {
             $_SESSION['glpiID'] = $savedId;
             $_SESSION['glpiactiveprofile']['config'] = $savedConfig;
-            SecurityGroup::save(0);
+            IncidentSecurityGroup::save(0);
         }
-        $this->assertFalse(SecurityGroup::isAdministratorBypass());
+        $this->assertFalse(IncidentSecurityGroup::isAdministratorBypass());
     }
 }
