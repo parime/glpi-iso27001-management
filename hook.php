@@ -599,7 +599,7 @@ function plugin_grcmanager_audit_event(CommonDBTM $item, string $action): void
     }
     $isIncident = $item instanceof PluginGrcmanagerSecurityIncident;
     $details = [];
-    if ($action === 'update' && is_array($item->updates ?? null)) {
+    if ($action === 'update' && $item->updates !== []) {
         $details['fields'] = array_values($item->updates);
     }
     $linkActions = ['create' => 'add_link', 'purge' => 'remove_link'];
