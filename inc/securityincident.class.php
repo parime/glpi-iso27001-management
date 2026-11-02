@@ -113,6 +113,14 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
             ));
             $menu['links'][$label] = \GlpiPlugin\Grcmanager\Playbook::getSearchURL(false);
         }
+        // Issue #370 : import d'un export CSV d'EDR / XDR.
+        if (is_array($menu) && \GlpiPlugin\Grcmanager\SecurityIncidentEdrImport::canImport()) {
+            $label = trim(\Glpi\Application\View\TemplateRenderer::getInstance()->render(
+                '@grcmanager/menu_link_label.html.twig',
+                ['icon' => 'ti ti-file-import', 'label' => __('Import EDR / XDR', 'grcmanager')]
+            ));
+            $menu['links'][$label] = '/plugins/grcmanager/front/securityincidentedrimport.php';
+        }
 
         return $menu;
     }
@@ -449,8 +457,16 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
             \GlpiPlugin\Grcmanager\SecurityIncidentTechnique::class,
             \GlpiPlugin\Grcmanager\SecurityIncidentAction::class,
             \GlpiPlugin\Grcmanager\SecurityIncidentPlaybookTask::class,
+            \GlpiPlugin\Grcmanager\SecurityIncidentEdrImport::class,
             PluginGrcmanagerSecurityIncidentCost::class,
         ]);
+
+        // Issue #370 : identifiants d'alerte importés, pour qu'un ré-import recrée l'incident.
+        global $DB;
+        $DB->delete(
+            \GlpiPlugin\Grcmanager\SecurityIncidentEdrImport::getAlertsTable(),
+            ['plugin_grcmanager_securityincidents_id' => (int) $this->fields['id']]
+        );
 
         parent::cleanDBonPurge();
     }

@@ -339,6 +339,18 @@ class PageHelp
                     'grcmanager'
                 ),
             ],
+            'securityincidentedrimport' => [
+                'purpose'  => __(
+                    'Import of a CSV export of the alerts from an EDR or XDR console: each alert becomes an incident '
+                        . 'with its indicators, MITRE ATT&CK techniques, hosts and accounts.',
+                    'grcmanager'
+                ),
+                'expected' => __(
+                    'Check the columns proposed, choose how to group the alerts, then import. An alert already '
+                        . 'imported is ignored; the original lines are kept unchanged on the incident.',
+                    'grcmanager'
+                ),
+            ],
             'playbook' => [
                 'purpose'  => __(
                     'Remediation playbooks: the standard steps to follow for each type of incident (ransomware, '

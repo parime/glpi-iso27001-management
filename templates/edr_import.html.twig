@@ -1,0 +1,102 @@
+{# Issue #370 : import d'un export CSV d'EDR / XDR, en trois étapes (fichier, correspondance,
+   résultat), voir front/securityincidentedrimport.php. #}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title"><i class="ti ti-file-import me-2"></i>{{ __('Import an EDR / XDR export', 'grcmanager') }}</h3>
+    <ul class="steps steps-counter ms-auto mb-0" style="max-width: 28rem">
+      <li class="step-item {{ step == 'upload' ? 'active' : '' }}">{{ __('File', 'grcmanager') }}</li>
+      <li class="step-item {{ step == 'mapping' ? 'active' : '' }}">{{ __('Columns', 'grcmanager') }}</li>
+      <li class="step-item {{ step == 'result' ? 'active' : '' }}">{{ __('Result', 'grcmanager') }}</li>
+    </ul>
+  </div>
+  <div class="card-body">
+
+  {% if step == 'upload' %}
+    <form method="post" action="{{ action }}" enctype="multipart/form-data">
+      <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+      <p class="text-muted">{{ __('CSV export of the alerts from your EDR or XDR console (Microsoft Defender, CrowdStrike, SentinelOne, Sophos, Wazuh...). The separator and the encoding are detected, the usual columns are recognised automatically: you check them at the next step.', 'grcmanager') }}</p>
+      <div class="mb-3">
+        <label class="form-label" for="grc-edr-file">{{ __('CSV file', 'grcmanager') }}</label>
+        <input type="file" id="grc-edr-file" name="edr_file" class="form-control" accept=".csv,.txt,text/csv" required>
+        <div class="form-hint">{{ __('At most %1$d MB and %2$d lines.', 'grcmanager')|format(max_mb, max_rows) }}</div>
+      </div>
+      <div class="d-flex gap-2">
+        <button type="submit" name="upload" class="btn btn-primary"><i class="ti ti-arrow-right me-1"></i>{{ __('Next', 'grcmanager') }}</button>
+        <a href="{{ action }}?example=1" class="btn btn-ghost-secondary"><i class="ti ti-download me-1"></i>{{ __('Example file', 'grcmanager') }}</a>
+      </div>
+    </form>
+
+  {% elseif step == 'mapping' %}
+    <form method="post" action="{{ action }}">
+      <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+      <p><i class="ti ti-file-text me-1"></i><strong>{{ file_name }}</strong> : {{ row_count }} {{ __('line(s)', 'grcmanager') }}{% if truncated %} <span class="badge bg-orange-lt">{{ __('truncated to the first %d lines', 'grcmanager')|format(max_rows) }}</span>{% endif %}</p>
+
+      <h4>{{ __('Column of each field', 'grcmanager') }}</h4>
+      <div class="row g-2 mb-3">
+        {% for field, label in field_labels %}
+          <div class="col-md-3">
+            <label class="form-label small mb-1" for="grc-map-{{ field }}">{{ label }}</label>
+            <select id="grc-map-{{ field }}" name="mapping[{{ field }}]" class="form-select form-select-sm {{ mapping[field] is defined ? 'border-green' : '' }}">
+              <option value="">{{ __('(not imported)', 'grcmanager') }}</option>
+              {% for index, header in headers %}
+                <option value="{{ index }}" {{ mapping[field] is defined and mapping[field] == index ? 'selected' : '' }}>{{ header }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        {% endfor %}
+      </div>
+
+      <div class="row g-2 mb-3">
+        <div class="col-md-4">
+          <label class="form-label" for="grc-edr-grouping">{{ __('Create', 'grcmanager') }}</label>
+          <select id="grc-edr-grouping" name="grouping" class="form-select">
+            {% for key, label in groupings %}<option value="{{ key }}">{{ label }}</option>{% endfor %}
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label" for="grc-edr-timezone">{{ __('Time zone of dates without one', 'grcmanager') }}</label>
+          <select id="grc-edr-timezone" name="timezone" class="form-select">
+            {% for zone in timezones %}<option value="{{ zone }}" {{ zone == default_timezone ? 'selected' : '' }}>{{ zone }}</option>{% endfor %}
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label" for="grc-edr-target">{{ __('Or add everything to an existing incident', 'grcmanager') }}</label>
+          <select id="grc-edr-target" name="target" class="form-select">
+            <option value="0">{{ __('No: create new incidents', 'grcmanager') }}</option>
+            {% for id, name in incidents %}<option value="{{ id }}">{{ name }}</option>{% endfor %}
+          </select>
+        </div>
+      </div>
+
+      <h4>{{ __('Preview', 'grcmanager') }}</h4>
+      <div class="table-responsive mb-3">
+        <table class="table table-sm table-vcenter small">
+          <thead><tr>{% for header in headers %}<th>{{ header }}</th>{% endfor %}</tr></thead>
+          <tbody>
+            {% for row in preview %}<tr>{% for value in row %}<td class="text-truncate" style="max-width: 14rem" title="{{ value }}">{{ value }}</td>{% endfor %}</tr>{% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="d-flex gap-2">
+        <button type="submit" name="import" class="btn btn-primary"><i class="ti ti-file-import me-1"></i>{{ __('Import', 'grcmanager') }}</button>
+        <a href="{{ action }}" class="btn btn-ghost-secondary">{{ __('Start again', 'grcmanager') }}</a>
+      </div>
+    </form>
+
+  {% else %}
+    <div class="d-flex flex-wrap gap-2 mb-3">
+      <span class="badge bg-green-lt fs-5"><i class="ti ti-plus me-1"></i>{{ created|length }} {{ __('incident(s) created', 'grcmanager') }}</span>
+      <span class="badge bg-blue-lt fs-5"><i class="ti ti-pencil me-1"></i>{{ updated|length }} {{ __('incident(s) completed', 'grcmanager') }}</span>
+      <span class="badge bg-secondary-lt fs-5"><i class="ti ti-copy-off me-1"></i>{{ skipped }} {{ __('already imported, ignored', 'grcmanager') }}</span>
+    </div>
+    {% if links is not empty %}
+      <div class="list-group mb-3">
+        {% for link in links %}<a href="{{ link.url }}" class="list-group-item list-group-item-action"><i class="ti ti-shield-exclamation me-1"></i>{{ link.label }}</a>{% endfor %}
+      </div>
+    {% endif %}
+    <a href="{{ action }}" class="btn btn-outline-primary"><i class="ti ti-file-import me-1"></i>{{ __('Import another file', 'grcmanager') }}</a>
+  {% endif %}
+  </div>
+</div>

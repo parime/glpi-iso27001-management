@@ -15,6 +15,15 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 - **Mes tâches de remédiation** (issue #370) : deux cartes de tableau de bord (nombre et liste des
   tâches ouvertes qui me sont assignées, chacune menant à son incident).
 
+- **Import CSV d'EDR / XDR** (issue #370) : lien « Import EDR / XDR » dans l'en-tête des incidents.
+  Séparateur et encodage détectés, colonnes usuelles reconnues automatiquement (y compris les
+  en-têtes aplatis), aperçu ; un incident par alerte, par hôte, par ligne ou un seul, ou ajout à un
+  incident existant ; fuseau des dates. Crée les IOC et les techniques MITRE ATT&CK, lie les
+  ordinateurs (nom court ou FQDN) et les comptes (DOMAINE\login, login@domaine), préremplit le
+  titre, la gravité maximale, la date la plus ancienne, la catégorie et le lien console. Lignes
+  brutes conservées sans modification, ré-import sans doublon, limites 30 Mo / 20 000 lignes,
+  fichier d'exemple.
+
 ### Fixed
 
 - Une procédure de remédiation ne peut plus être appliquée deux fois au même incident (tâches en

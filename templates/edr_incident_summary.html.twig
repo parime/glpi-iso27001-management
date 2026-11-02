@@ -1,0 +1,5 @@
+{# Issue #370 : description d'un incident créé par l'import CSV d'EDR / XDR. #}
+<p>{{ __('Created from an EDR / XDR export (%d alert line(s)).', 'grcmanager')|format(rows) }}</p>
+{% if hosts is not empty %}<p>{{ __('Hosts:', 'grcmanager') }} {{ hosts|join(', ') }}</p>{% endif %}
+{% if users is not empty %}<p>{{ __('Accounts:', 'grcmanager') }} {{ users|join(', ') }}</p>{% endif %}
+{% if console_url %}<p>{{ __('Console:', 'grcmanager') }} <a href="{{ console_url }}">{{ console_url }}</a></p>{% endif %}
