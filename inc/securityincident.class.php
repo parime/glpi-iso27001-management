@@ -107,7 +107,10 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
     {
         $menu = parent::getMenuContent();
         if (is_array($menu) && \GlpiPlugin\Grcmanager\Playbook::canView()) {
-            $label = '<i class="ti ti-list-check me-1"></i>' . htmlescape(__('Remediation playbooks', 'grcmanager'));
+            $label = trim(\Glpi\Application\View\TemplateRenderer::getInstance()->render(
+                '@grcmanager/menu_link_label.html.twig',
+                ['icon' => 'ti ti-list-check', 'label' => __('Remediation playbooks', 'grcmanager')]
+            ));
             $menu['links'][$label] = \GlpiPlugin\Grcmanager\Playbook::getSearchURL(false);
         }
 
