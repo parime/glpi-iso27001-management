@@ -6416,3 +6416,9 @@ msgid "%d remediation task added."
 msgid_plural "%d remediation tasks added."
 msgstr[0] "%d Behebungsaufgabe hinzugefügt."
 msgstr[1] "%d Behebungsaufgaben hinzugefügt."
+
+msgid "My open remediation tasks"
+msgstr "Meine offenen Behebungsaufgaben"
+
+msgid "My remediation tasks"
+msgstr "Meine Behebungsaufgaben"

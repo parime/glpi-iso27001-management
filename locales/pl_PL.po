@@ -7827,3 +7827,9 @@ msgid_plural "%d remediation tasks added."
 msgstr[0] "Dodano zadania naprawcze: %d."
 msgstr[1] "Dodano zadania naprawcze: %d."
 msgstr[2] "Dodano zadania naprawcze: %d."
+
+msgid "My open remediation tasks"
+msgstr "Moje otwarte zadania naprawcze"
+
+msgid "My remediation tasks"
+msgstr "Moje zadania naprawcze"
