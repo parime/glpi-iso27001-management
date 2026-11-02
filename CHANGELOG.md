@@ -9,6 +9,10 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Groupe sécurité** optionnel du module des incidents (issue #371), dans la configuration du
+  plugin : s'il est défini, seuls ses membres utilisent le module, quels que soient les droits de
+  leur profil. Un administrateur GLPI n'est jamais bloqué, mais ses consultations hors du groupe
+  sont signalées dans le journal d'audit, comme toute modification des réglages du module.
 - **Équipe d'intervention** des incidents de sécurité (issue #371) : onglet où les pilotes de
   l'incident (droit « Voir tout », rédacteur, technicien ou groupe assigné) ajoutent des
   intervenants (agissent sur l'incident) et des observateurs (lecture seule). Avec le droit « Voir

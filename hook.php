@@ -475,7 +475,16 @@ function plugin_grcmanager_pre_itil_info_section(array $params): void
     }
     // Issue #371 : consultation de l'incident, tracée dans le journal d'audit.
     $incidentId = (int) $item->getID();
-    GlpiPlugin\Grcmanager\AuditLog::record('view', PluginGrcmanagerSecurityIncident::class, $incidentId, $incidentId);
+    // Issue #371 : un administrateur hors du groupe sécurité n'est pas bloqué, mais c'est visible.
+    $bypass = GlpiPlugin\Grcmanager\IncidentSecurityGroup::isAdministratorBypass();
+    GlpiPlugin\Grcmanager\AuditLog::record(
+        'view',
+        PluginGrcmanagerSecurityIncident::class,
+        $incidentId,
+        $incidentId,
+        'success',
+        $bypass ? ['outside_security_group' => true] : []
+    );
     Glpi\Application\View\TemplateRenderer::getInstance()->display('@grcmanager/itil_deadline_banner.html.twig', [
         'banners'   => $banners,
         'reference' => (string) ($item->fields['reference'] ?? ''),
