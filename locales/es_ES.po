@@ -6594,3 +6594,115 @@ msgid "EDR / XDR import"
 msgid_plural "EDR / XDR imports"
 msgstr[0] "Importación EDR / XDR"
 msgstr[1] "Importaciones EDR / XDR"
+
+msgid "Security audit log"
+msgstr "Registro de auditoría de seguridad"
+
+msgid "Audit log"
+msgstr "Registro de auditoría"
+
+msgid "Consultation"
+msgstr "Consulta"
+
+msgid "Creation"
+msgstr "Creación"
+
+msgid "Modification"
+msgstr "Modificación"
+
+msgid "Moved to the trash"
+msgstr "Enviado a la papelera"
+
+msgid "Restoration"
+msgstr "Restauración"
+
+msgid "Permanent deletion"
+msgstr "Eliminación definitiva"
+
+msgid "Item added"
+msgstr "Elemento añadido"
+
+msgid "Item removed"
+msgstr "Elemento quitado"
+
+msgid "Export or print"
+msgstr "Exportación o impresión"
+
+msgid "Integrity check"
+msgstr "Verificación de integridad"
+
+msgid "Access denied"
+msgstr "Acceso denegado"
+
+msgid "Real user (impersonation)"
+msgstr "Usuario real (suplantación)"
+
+msgid "Profile"
+msgstr "Perfil"
+
+msgid "Details"
+msgstr "Detalles"
+
+msgid "Integrity verified"
+msgstr "Integridad verificada"
+
+#, php-format
+msgid "%d entries checked: the chain is intact, no entry was modified, deleted or inserted."
+msgstr "%d entradas verificadas: la cadena está intacta, ninguna entrada se modificó, eliminó o insertó."
+
+msgid "Integrity broken"
+msgstr "Integridad rota"
+
+#, php-format
+msgid "The chain breaks at entry #%d: it, or the one before it, was modified, deleted or inserted outside GLPI."
+msgstr "La cadena se rompe en la entrada n.º %d: ella, o la anterior, se modificó, eliminó o insertó fuera de GLPI."
+
+msgid "From"
+msgstr "Desde"
+
+msgid "To"
+msgstr "Hasta"
+
+msgid "Allowed"
+msgstr "Permitido"
+
+msgid "Denied"
+msgstr "Denegado"
+
+msgid "Filter"
+msgstr "Filtrar"
+
+msgid "Reset"
+msgstr "Restablecer"
+
+#, php-format
+msgid "%d entries"
+msgstr "%d entradas"
+
+#, php-format
+msgid "the %d most recent shown"
+msgstr "se muestran las %d más recientes"
+
+msgid "Check integrity"
+msgstr "Verificar la integridad"
+
+msgid "Export (CSV)"
+msgstr "Exportar (CSV)"
+
+msgid "Object"
+msgstr "Objeto"
+
+msgid "Impersonation"
+msgstr "Suplantación"
+
+msgid "No entry for these filters."
+msgstr "Ninguna entrada para estos filtros."
+
+msgid "Each entry is sealed with the SHA-256 fingerprint of the previous one: the log is kept when the plugin is uninstalled and any modification made outside GLPI is detected by the check."
+msgstr "Cada entrada se sella con la huella SHA-256 de la anterior: el registro se conserva al desinstalar el plugin y la verificación detecta cualquier modificación hecha fuera de GLPI."
+
+msgid "The audit log of the security incidents: who consulted or changed what, when, with which profile and from which address, including impersonations."
+msgstr "El registro de auditoría de los incidentes de seguridad: quién consultó o modificó qué, cuándo, con qué perfil y desde qué dirección, incluidas las suplantaciones."
+
+msgid "Filter the entries, export them for an audit or a court, and check the integrity regularly: each entry is sealed with the previous one."
+msgstr "Filtre las entradas, expórtelas para una auditoría o un procedimiento judicial y verifique la integridad con regularidad: cada entrada está sellada con la anterior."

@@ -159,6 +159,7 @@ class SecurityIncidentEdrImport extends SecurityIncidentEdrImportBase
                 $result['created'][] = $incidentId;
             }
 
+            AuditLog::record('import', self::class, 0, $incidentId, 'success', ['file' => $fileName]);
             $DB->insert(self::getTable(), [
                 'plugin_grcmanager_securityincidents_id' => $incidentId,
                 'file_name'     => mb_substr($fileName, 0, 255),

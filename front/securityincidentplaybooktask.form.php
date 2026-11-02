@@ -29,6 +29,7 @@ if (isset($_GET['pdf'])) {
         throw new \Glpi\Exception\Http\NotFoundHttpException();
     }
     $pdf = SecurityIncidentPlaybookTask::renderPdf($incident);
+    \GlpiPlugin\Grcmanager\AuditLog::record('export', SecurityIncidentPlaybookTask::class, 0, (int) $incident->getID());
     header('Content-Type: application/pdf');
     header('Content-Disposition: attachment; filename="' . sprintf(
         'plan-remediation-%s.pdf',

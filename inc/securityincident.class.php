@@ -113,6 +113,14 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
             ));
             $menu['links'][$label] = \GlpiPlugin\Grcmanager\Playbook::getSearchURL(false);
         }
+        // Issue #371 : journal d'audit des incidents (registres sensibles).
+        if (is_array($menu) && \GlpiPlugin\Grcmanager\AuditLog::canView()) {
+            $label = trim(\Glpi\Application\View\TemplateRenderer::getInstance()->render(
+                '@grcmanager/menu_link_label.html.twig',
+                ['icon' => 'ti ti-file-certificate', 'label' => __('Audit log', 'grcmanager')]
+            ));
+            $menu['links'][$label] = '/plugins/grcmanager/front/auditlog.php';
+        }
         // Issue #370 : import d'un export CSV d'EDR / XDR.
         if (is_array($menu) && \GlpiPlugin\Grcmanager\SecurityIncidentEdrImport::canImport()) {
             $label = trim(\Glpi\Application\View\TemplateRenderer::getInstance()->render(

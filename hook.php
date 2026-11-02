@@ -473,6 +473,9 @@ function plugin_grcmanager_pre_itil_info_section(array $params): void
             'hours_left' => max(0, (int) floor((strtotime($row['due']) - time()) / 3600)),
         ];
     }
+    // Issue #371 : consultation de l'incident, tracée dans le journal d'audit.
+    $incidentId = (int) $item->getID();
+    GlpiPlugin\Grcmanager\AuditLog::record('view', PluginGrcmanagerSecurityIncident::class, $incidentId, $incidentId);
     Glpi\Application\View\TemplateRenderer::getInstance()->display('@grcmanager/itil_deadline_banner.html.twig', [
         'banners'   => $banners,
         'reference' => (string) ($item->fields['reference'] ?? ''),
@@ -553,6 +556,11 @@ function plugin_grcmanager_purge_security_incident_links(CommonDBTM $item): void
 {
     global $DB;
 
+    // Issue #371 : suppression définitive d'un incident, tracée dans le journal d'audit.
+    if ($item instanceof PluginGrcmanagerSecurityIncident) {
+        plugin_grcmanager_audit_purge($item);
+    }
+
     $field = $item instanceof Ticket ? 'tickets_id' : 'plugin_grcmanager_securityincidents_id';
     if ($DB->tableExists(\GlpiPlugin\Grcmanager\SecurityIncidentTicket::TABLE)) {
         $DB->delete(\GlpiPlugin\Grcmanager\SecurityIncidentTicket::TABLE, [$field => (int) $item->getID()]);
@@ -575,7 +583,59 @@ function plugin_grcmanager_restricted_document_item_add(CommonDBTM $item): void
 {
     if ($item instanceof Document_Item) {
         \GlpiPlugin\Grcmanager\RestrictedDocument::onDocumentItemAdd($item);
+        // Issue #371 : document joint à un incident, tracé dans le journal d'audit.
+        plugin_grcmanager_audit_add($item);
     }
+}
+
+/**
+ * Issue #371 : journal d'audit des incidents de sécurité (hooks ITEM_*, voir setup.php).
+ */
+function plugin_grcmanager_audit_event(CommonDBTM $item, string $action): void
+{
+    $incidentId = GlpiPlugin\Grcmanager\Services\Incident\AuditedItems::incidentOf($item);
+    if ($incidentId === null) {
+        return;
+    }
+    $isIncident = $item instanceof PluginGrcmanagerSecurityIncident;
+    $details = [];
+    if ($action === 'update' && $item->updates !== []) {
+        $details['fields'] = array_values($item->updates);
+    }
+    $linkActions = ['create' => 'add_link', 'purge' => 'remove_link'];
+    GlpiPlugin\Grcmanager\AuditLog::record(
+        $isIncident ? $action : ($linkActions[$action] ?? $action),
+        $item::class,
+        (int) $item->getID(),
+        $incidentId,
+        'success',
+        $details
+    );
+}
+
+function plugin_grcmanager_audit_add(CommonDBTM $item): void
+{
+    plugin_grcmanager_audit_event($item, 'create');
+}
+
+function plugin_grcmanager_audit_update(CommonDBTM $item): void
+{
+    plugin_grcmanager_audit_event($item, 'update');
+}
+
+function plugin_grcmanager_audit_delete(CommonDBTM $item): void
+{
+    plugin_grcmanager_audit_event($item, 'delete');
+}
+
+function plugin_grcmanager_audit_restore(CommonDBTM $item): void
+{
+    plugin_grcmanager_audit_event($item, 'restore');
+}
+
+function plugin_grcmanager_audit_purge(CommonDBTM $item): void
+{
+    plugin_grcmanager_audit_event($item, 'purge');
 }
 
 /**

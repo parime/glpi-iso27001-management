@@ -8006,3 +8006,115 @@ msgid_plural "EDR / XDR imports"
 msgstr[0] "Import EDR / XDR"
 msgstr[1] "Importy EDR / XDR"
 msgstr[2] "Importy EDR / XDR"
+
+msgid "Security audit log"
+msgstr "Dziennik audytu bezpieczeństwa"
+
+msgid "Audit log"
+msgstr "Dziennik audytu"
+
+msgid "Consultation"
+msgstr "Wyświetlenie"
+
+msgid "Creation"
+msgstr "Utworzenie"
+
+msgid "Modification"
+msgstr "Modyfikacja"
+
+msgid "Moved to the trash"
+msgstr "Przeniesiono do kosza"
+
+msgid "Restoration"
+msgstr "Przywrócenie"
+
+msgid "Permanent deletion"
+msgstr "Trwałe usunięcie"
+
+msgid "Item added"
+msgstr "Dodano element"
+
+msgid "Item removed"
+msgstr "Usunięto element"
+
+msgid "Export or print"
+msgstr "Eksport lub wydruk"
+
+msgid "Integrity check"
+msgstr "Kontrola integralności"
+
+msgid "Access denied"
+msgstr "Odmowa dostępu"
+
+msgid "Real user (impersonation)"
+msgstr "Rzeczywisty użytkownik (przejęcie tożsamości)"
+
+msgid "Profile"
+msgstr "Profil"
+
+msgid "Details"
+msgstr "Szczegóły"
+
+msgid "Integrity verified"
+msgstr "Integralność potwierdzona"
+
+#, php-format
+msgid "%d entries checked: the chain is intact, no entry was modified, deleted or inserted."
+msgstr "Sprawdzono wpisy: %d. Łańcuch jest nienaruszony, żaden wpis nie został zmieniony, usunięty ani wstawiony."
+
+msgid "Integrity broken"
+msgstr "Integralność naruszona"
+
+#, php-format
+msgid "The chain breaks at entry #%d: it, or the one before it, was modified, deleted or inserted outside GLPI."
+msgstr "Łańcuch przerywa się na wpisie nr %d: ten wpis lub poprzedni został zmieniony, usunięty lub wstawiony poza GLPI."
+
+msgid "From"
+msgstr "Od"
+
+msgid "To"
+msgstr "Do"
+
+msgid "Allowed"
+msgstr "Dozwolone"
+
+msgid "Denied"
+msgstr "Odmówiono"
+
+msgid "Filter"
+msgstr "Filtruj"
+
+msgid "Reset"
+msgstr "Resetuj"
+
+#, php-format
+msgid "%d entries"
+msgstr "Wpisy: %d"
+
+#, php-format
+msgid "the %d most recent shown"
+msgstr "wyświetlono %d najnowszych"
+
+msgid "Check integrity"
+msgstr "Sprawdź integralność"
+
+msgid "Export (CSV)"
+msgstr "Eksportuj (CSV)"
+
+msgid "Object"
+msgstr "Obiekt"
+
+msgid "Impersonation"
+msgstr "Przejęcie tożsamości"
+
+msgid "No entry for these filters."
+msgstr "Brak wpisów dla tych filtrów."
+
+msgid "Each entry is sealed with the SHA-256 fingerprint of the previous one: the log is kept when the plugin is uninstalled and any modification made outside GLPI is detected by the check."
+msgstr "Każdy wpis jest zapieczętowany odciskiem SHA-256 poprzedniego: dziennik jest zachowywany po odinstalowaniu wtyczki, a kontrola wykrywa każdą zmianę dokonaną poza GLPI."
+
+msgid "The audit log of the security incidents: who consulted or changed what, when, with which profile and from which address, including impersonations."
+msgstr "Dziennik audytu incydentów bezpieczeństwa: kto, co i kiedy wyświetlił lub zmienił, z jakim profilem i z jakiego adresu, łącznie z przejęciami tożsamości."
+
+msgid "Filter the entries, export them for an audit or a court, and check the integrity regularly: each entry is sealed with the previous one."
+msgstr "Filtruj wpisy, eksportuj je na potrzeby audytu lub sądu i regularnie sprawdzaj integralność: każdy wpis jest zapieczętowany poprzednim."

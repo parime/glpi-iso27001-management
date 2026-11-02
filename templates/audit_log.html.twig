@@ -1,0 +1,101 @@
+{# Issue #371 : journal d'audit des incidents de sécurité, voir front/auditlog.php. #}
+{% if verification is not null %}
+  <div class="alert {{ verification.valid ? 'alert-success' : 'alert-danger' }} d-flex gap-2 align-items-start" role="status">
+    <i class="ti {{ verification.valid ? 'ti-shield-check' : 'ti-shield-x' }} fs-2"></i>
+    <div>
+      {% if verification.valid %}
+        <div class="fw-bold">{{ __('Integrity verified', 'grcmanager') }}</div>
+        <div>{{ __('%d entries checked: the chain is intact, no entry was modified, deleted or inserted.', 'grcmanager')|format(verification.checked) }}</div>
+      {% else %}
+        <div class="fw-bold">{{ __('Integrity broken', 'grcmanager') }}</div>
+        <div>{{ __('The chain breaks at entry #%d: it, or the one before it, was modified, deleted or inserted outside GLPI.', 'grcmanager')|format(verification.broken_id) }}</div>
+      {% endif %}
+    </div>
+  </div>
+{% endif %}
+
+<form method="get" action="{{ action }}" class="card card-body mb-3">
+  <div class="row g-2 align-items-end">
+    <div class="col-md-2">
+      <label class="form-label" for="grc-audit-from">{{ __('From', 'grcmanager') }}</label>
+      <input type="date" id="grc-audit-from" name="from" value="{{ filters.from }}" class="form-control">
+    </div>
+    <div class="col-md-2">
+      <label class="form-label" for="grc-audit-to">{{ __('To', 'grcmanager') }}</label>
+      <input type="date" id="grc-audit-to" name="to" value="{{ filters.to }}" class="form-control">
+    </div>
+    <div class="col-md-2">
+      <label class="form-label" for="grc-audit-action">{{ __('Action', 'grcmanager') }}</label>
+      <select id="grc-audit-action" name="action" class="form-select">
+        <option value="">{{ __('All', 'grcmanager') }}</option>
+        {% for key, label in actions %}<option value="{{ key }}" {{ filters.action == key ? 'selected' : '' }}>{{ label }}</option>{% endfor %}
+      </select>
+    </div>
+    <div class="col-md-2">
+      <label class="form-label" for="grc-audit-result">{{ __('Result', 'grcmanager') }}</label>
+      <select id="grc-audit-result" name="result" class="form-select">
+        <option value="">{{ __('All', 'grcmanager') }}</option>
+        <option value="success" {{ filters.result == 'success' ? 'selected' : '' }}>{{ __('Allowed', 'grcmanager') }}</option>
+        <option value="denied" {{ filters.result == 'denied' ? 'selected' : '' }}>{{ __('Denied', 'grcmanager') }}</option>
+      </select>
+    </div>
+    <div class="col-md-1">
+      <label class="form-label" for="grc-audit-incident">{{ __('Incident', 'grcmanager') }}</label>
+      <input type="number" id="grc-audit-incident" name="incident" value="{{ filters.incident ?: '' }}" min="0" class="form-control">
+    </div>
+    <div class="col-md-1">
+      <label class="form-label" for="grc-audit-ip">IP</label>
+      <input type="text" id="grc-audit-ip" name="ip" value="{{ filters.ip }}" class="form-control">
+    </div>
+    <div class="col-md-2 d-flex gap-1">
+      <button type="submit" class="btn btn-primary"><i class="ti ti-filter me-1"></i>{{ __('Filter', 'grcmanager') }}</button>
+      <a href="{{ action }}" class="btn btn-ghost-secondary" title="{{ __('Reset', 'grcmanager') }}" aria-label="{{ __('Reset', 'grcmanager') }}"><i class="ti ti-x"></i></a>
+    </div>
+  </div>
+</form>
+
+<div class="d-flex flex-wrap gap-2 mb-2 align-items-center">
+  <span class="text-muted">{{ __('%d entries', 'grcmanager')|format(total) }}{% if total > entries|length %} ({{ __('the %d most recent shown', 'grcmanager')|format(entries|length) }}){% endif %}</span>
+  <form method="post" action="{{ action }}" class="ms-auto">
+    <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+    <button type="submit" name="verify" class="btn btn-outline-success"><i class="ti ti-shield-check me-1"></i>{{ __('Check integrity', 'grcmanager') }}</button>
+  </form>
+  <a href="{{ csv_url }}" class="btn btn-outline-secondary"><i class="ti ti-file-spreadsheet me-1"></i>{{ __('Export (CSV)', 'grcmanager') }}</a>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-sm table-vcenter card-table">
+    <thead>
+      <tr>
+        <th>{{ __('Date', 'grcmanager') }}</th>
+        <th>{{ __('User', 'grcmanager') }}</th>
+        <th>{{ __('Profile', 'grcmanager') }}</th>
+        <th>{{ __('Action', 'grcmanager') }}</th>
+        <th>{{ __('Object', 'grcmanager') }}</th>
+        <th>{{ __('Incident', 'grcmanager') }}</th>
+        <th>IP</th>
+        <th>{{ __('Result', 'grcmanager') }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for e in entries %}
+        <tr>
+          <td class="text-nowrap small">{{ e.date|formatted_datetime }}</td>
+          <td>
+            {{ e.user }}
+            {% if e.real_user %}<span class="badge bg-orange-lt ms-1" title="{{ __('Impersonation', 'grcmanager') }}"><i class="ti ti-masks-theater me-1"></i>{{ e.real_user }}</span>{% endif %}
+          </td>
+          <td class="small">{{ e.profile }}</td>
+          <td><span class="badge bg-blue-lt">{{ actions[e.action]|default(e.action) }}</span></td>
+          <td class="small">{{ e.object }}</td>
+          <td>{% if e.incident_url %}<a href="{{ e.incident_url }}">#{{ e.plugin_grcmanager_securityincidents_id }}</a>{% endif %}</td>
+          <td class="small text-muted">{{ e.ip }}</td>
+          <td>{% if e.result == 'denied' %}<span class="badge bg-red-lt">{{ __('Denied', 'grcmanager') }}</span>{% else %}<span class="badge bg-green-lt">{{ __('Allowed', 'grcmanager') }}</span>{% endif %}</td>
+        </tr>
+      {% else %}
+        <tr><td colspan="8" class="text-muted">{{ __('No entry for these filters.', 'grcmanager') }}</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+<p class="text-muted small mt-2"><i class="ti ti-info-circle me-1"></i>{{ __('Each entry is sealed with the SHA-256 fingerprint of the previous one: the log is kept when the plugin is uninstalled and any modification made outside GLPI is detected by the check.', 'grcmanager') }}</p>
