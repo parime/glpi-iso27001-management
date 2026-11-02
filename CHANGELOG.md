@@ -9,6 +9,12 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Registre des preuves** des incidents de sécurité (issue #371) : onglet « Intégrité et preuves ».
+  Chaque document joint à l'incident y est inscrit avec son empreinte SHA-256 de référence, sa
+  taille, son auteur et sa date (scellement gravé dans le journal d'audit). Un document retiré ou
+  dont le fichier est remplacé reste au registre avec son empreinte d'origine. Bouton « Vérifier
+  maintenant » (fichier modifié ou absent signalé, vérification tracée) et aide pour vérifier une
+  copie hors de GLPI (`sha256sum`, `Get-FileHash`).
 - **Journal d'audit infalsifiable** des incidents de sécurité (issue #371) : consultation, création,
   modification, corbeille, restauration, suppression, éléments ajoutés ou retirés (IOC, techniques,
   actions, tâches, documents, suivis...), exports, imports et vérifications sont tracés, avec

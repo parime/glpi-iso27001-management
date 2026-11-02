@@ -6706,3 +6706,68 @@ msgstr "El registro de auditoría de los incidentes de seguridad: quién consult
 
 msgid "Filter the entries, export them for an audit or a court, and check the integrity regularly: each entry is sealed with the previous one."
 msgstr "Filtre las entradas, expórtelas para una auditoría o un procedimiento judicial y verifique la integridad con regularidad: cada entrada está sellada con la anterior."
+
+msgid "Integrity and evidence"
+msgstr "Integridad y pruebas"
+
+msgid "Present"
+msgstr "Presente"
+
+msgid "Removed from the incident"
+msgstr "Quitada del incidente"
+
+msgid "File replaced"
+msgstr "Archivo sustituido"
+
+msgid "Intact"
+msgstr "Intacta"
+
+msgid "Modified"
+msgstr "Modificada"
+
+msgid "Missing"
+msgstr "Ausente"
+
+msgid "evidence(s)"
+msgstr "prueba(s)"
+
+msgid "No evidence yet"
+msgstr "Aún no hay pruebas"
+
+msgid "Each document attached to the incident (Documents tab) is registered here with its SHA-256 fingerprint, so you can prove later that it was not altered."
+msgstr "Cada documento adjunto al incidente (pestaña Documentos) se registra aquí con su huella SHA-256, para poder demostrar después que no fue alterado."
+
+msgid "Reference SHA-256 fingerprint"
+msgstr "Huella SHA-256 de referencia"
+
+msgid "Size"
+msgstr "Tamaño"
+
+msgid "Added by"
+msgstr "Añadida por"
+
+msgid "Last check"
+msgstr "Última verificación"
+
+msgid "Never checked"
+msgstr "Nunca verificada"
+
+msgid "Check a file outside GLPI"
+msgstr "Verificar un archivo fuera de GLPI"
+
+msgid "Compute the fingerprint of your copy and compare it with the reference fingerprint above:"
+msgstr "Calcule la huella de su copia y compárela con la huella de referencia de arriba:"
+
+msgid "Useful evidence formats (to allow in the GLPI document types): .log, .evtx, .json, .pcap, .eml, .csv, .zip."
+msgstr "Formatos de prueba útiles (a permitir en los tipos de documento de GLPI): .log, .evtx, .json, .pcap, .eml, .csv, .zip."
+
+#, php-format
+msgid "%d evidence(s) checked: all intact."
+msgstr "%d prueba(s) verificada(s): todas intactas."
+
+#, php-format
+msgid "%d evidence(s) modified or missing: see the Integrity and evidence tab."
+msgstr "%d prueba(s) modificada(s) o ausente(s): vea la pestaña Integridad y pruebas."
+
+msgid "Evidence sealed"
+msgstr "Prueba sellada"
