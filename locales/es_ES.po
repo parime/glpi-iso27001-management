@@ -6050,3 +6050,369 @@ msgid "Investigation action"
 msgid_plural "Investigation actions"
 msgstr[0] "Acción de investigación"
 msgstr[1] "Acciones de investigación"
+
+msgid "Notification"
+msgstr "Notificación"
+
+msgid "After the incident"
+msgstr "Después del incidente"
+
+msgid "The playbook name is required."
+msgstr "El nombre del procedimiento es obligatorio."
+
+msgid "The step name is required."
+msgstr "El nombre del paso es obligatorio."
+
+msgid "Remediation"
+msgstr "Remediación"
+
+#, php-format
+msgid "Playbook applied: %s"
+msgstr "Procedimiento aplicado: %s"
+
+#, php-format
+msgid "Remediation task \"%1$s\": %2$s"
+msgstr "Tarea de remediación \"%1$s\": %2$s"
+
+msgid "The task name is required."
+msgstr "El nombre de la tarea es obligatorio."
+
+msgid "Example: \"Ransomware\", \"Compromised account\"."
+msgstr "Ejemplo: \"Ransomware\", \"Cuenta comprometida\"."
+
+msgid "Incident category"
+msgstr "Categoría de incidente"
+
+msgid "The playbook is suggested first on incidents of this category."
+msgstr "El procedimiento se propone primero en los incidentes de esta categoría."
+
+msgid "New playbook"
+msgstr "Nuevo procedimiento"
+
+msgid "Phase"
+msgstr "Fase"
+
+msgid "Order"
+msgstr "Orden"
+
+msgid "No step yet: add the first one above."
+msgstr "Aún no hay pasos: añada el primero arriba."
+
+msgid "Remove this step?"
+msgstr "¿Quitar este paso?"
+
+msgid "Progress"
+msgstr "Avance"
+
+#, php-format
+msgid "%d mandatory step(s) open: closure blocked"
+msgstr "%d paso(s) obligatorio(s) abierto(s): cierre bloqueado"
+
+msgid "Mandatory steps completed"
+msgstr "Pasos obligatorios completados"
+
+msgid "Playbook library"
+msgstr "Biblioteca de procedimientos"
+
+msgid "Apply a playbook"
+msgstr "Aplicar un procedimiento"
+
+msgid "already applied"
+msgstr "ya aplicado"
+
+msgid "★ = suggested for the category of this incident. The steps are copied as tasks: changing the playbook later does not change them."
+msgstr "★ = sugerido para la categoría de este incidente. Los pasos se copian como tareas: modificar el procedimiento después no las cambia."
+
+msgid "Add a task specific to this incident"
+msgstr "Añadir una tarea propia de este incidente"
+
+msgid "Mandatory before closing"
+msgstr "Obligatoria antes del cierre"
+
+msgid "No remediation plan yet"
+msgstr "Aún no hay plan de remediación"
+
+msgid "Apply the playbook that matches the incident: its steps become tasks to follow up, phase by phase."
+msgstr "Aplique el procedimiento que corresponde al incidente: sus pasos se convierten en tareas a seguir, fase por fase."
+
+msgid "Report: what was done, result"
+msgstr "Informe: qué se hizo, resultado"
+
+msgid "Remove this task?"
+msgstr "¿Quitar esta tarea?"
+
+msgid "Remediation playbooks"
+msgstr "Procedimientos de remediación"
+
+msgid "Mandatory remediation steps are still open: mark them done or not applicable before closing."
+msgstr "Aún hay pasos de remediación obligatorios abiertos: márquelos como hechos o no aplicables antes de cerrar."
+
+msgid "Remediation playbooks: the standard steps to follow for each type of incident (ransomware, phishing, compromised account...)."
+msgstr "Procedimientos de remediación: los pasos estándar para cada tipo de incidente (ransomware, phishing, cuenta comprometida...)."
+
+msgid "Adapt the five playbooks provided to your context; from an incident, apply one to get its plan of tasks. Mandatory steps must be done or marked not applicable before closing."
+msgstr "Adapte los cinco procedimientos incluidos a su contexto; desde un incidente, aplique uno para obtener su plan de tareas. Los pasos obligatorios deben estar hechos o marcados como no aplicables antes del cierre."
+
+msgid "Encrypted files, ransom note: contain first, keep the evidence, never pay without legal advice."
+msgstr "Archivos cifrados, nota de rescate: contener primero, conservar las pruebas, no pagar nunca sin asesoramiento jurídico."
+
+msgid "Disconnect the affected machines from the network (do not switch them off)"
+msgstr "Desconectar de la red los equipos afectados (sin apagarlos)"
+
+msgid "Unplug the cable or isolate from the EDR console; switching off destroys the memory evidence."
+msgstr "Desenchufar el cable o aislar desde la consola EDR; apagar destruye las pruebas en memoria."
+
+msgid "Isolate the backups"
+msgstr "Aislar las copias de seguridad"
+
+msgid "Disconnect or lock the backup repositories so they are not encrypted in turn."
+msgstr "Desconectar o bloquear los repositorios de copias para que no se cifren a su vez."
+
+msgid "Disable the compromised accounts and the remote accesses"
+msgstr "Desactivar las cuentas comprometidas y los accesos remotos"
+
+msgid "VPN, remote desktop, service accounts used by the attacker."
+msgstr "VPN, escritorio remoto, cuentas de servicio usadas por el atacante."
+
+msgid "Identify the ransomware and the entry point"
+msgstr "Identificar el ransomware y el punto de entrada"
+
+msgid "Ransom note, file extension, first infected machine, MITRE ATT&CK techniques."
+msgstr "Nota de rescate, extensión de los archivos, primer equipo infectado, técnicas MITRE ATT&CK."
+
+msgid "Preserve the evidence"
+msgstr "Preservar las pruebas"
+
+msgid "Memory and disk images, logs, ransom note; record each handling in the action log."
+msgstr "Imágenes de memoria y disco, registros, nota de rescate; anotar cada intervención en el registro de acciones."
+
+msgid "Inform management and the crisis unit"
+msgstr "Informar a la dirección y a la célula de crisis"
+
+msgid "File a complaint and notify the authorities"
+msgstr "Presentar denuncia y notificar a las autoridades"
+
+msgid "Police or gendarmerie, the CNIL within 72 h if personal data is affected, NIS2 if applicable."
+msgstr "Policía, la autoridad de protección de datos en 72 h si hay datos personales afectados, NIS2 si procede."
+
+msgid "Inform the cyber insurer"
+msgstr "Informar a la aseguradora cibernética"
+
+msgid "Remove the persistence and reset every password"
+msgstr "Eliminar la persistencia y restablecer todas las contraseñas"
+
+msgid "Scheduled tasks, services, GPO, attacker accounts; reset the krbtgt account twice."
+msgstr "Tareas programadas, servicios, GPO, cuentas del atacante; restablecer dos veces la cuenta krbtgt."
+
+msgid "Restore from healthy backups"
+msgstr "Restaurar desde copias de seguridad sanas"
+
+msgid "Check the backup date against the date of the first compromise."
+msgstr "Comparar la fecha de la copia con la del primer compromiso."
+
+msgid "Reconnect gradually under monitoring"
+msgstr "Reconectar progresivamente bajo vigilancia"
+
+msgid "Write the post-incident report"
+msgstr "Redactar el informe posincidente"
+
+msgid "Root cause, timeline, costs, lessons learned."
+msgstr "Causa raíz, cronología, costes, lecciones aprendidas."
+
+msgid "Update the risk analysis and the action plan"
+msgstr "Actualizar el análisis de riesgos y el plan de acción"
+
+msgid "Phishing"
+msgstr "Phishing"
+
+msgid "A malicious email was received or clicked: find all recipients, block, check what was entered."
+msgstr "Se recibió o se hizo clic en un correo malicioso: encontrar a todos los destinatarios, bloquear, comprobar lo introducido."
+
+msgid "Block the sender and the links"
+msgstr "Bloquear el remitente y los enlaces"
+
+msgid "Mail gateway, web filtering, DNS."
+msgstr "Pasarela de correo, filtrado web, DNS."
+
+msgid "Delete the email from every mailbox"
+msgstr "Eliminar el correo de todos los buzones"
+
+msgid "Message search on the whole messaging system."
+msgstr "Búsqueda del mensaje en todo el sistema de correo."
+
+msgid "List the recipients who clicked or replied"
+msgstr "Listar los destinatarios que hicieron clic o respondieron"
+
+msgid "Analyse the attachment and the links in a sandbox"
+msgstr "Analizar el adjunto y los enlaces en un entorno aislado"
+
+msgid "Record the indicators of compromise (IOC tab)."
+msgstr "Registrar los indicadores de compromiso (pestaña IOC)."
+
+msgid "Reset the passwords entered on the fake page"
+msgstr "Restablecer las contraseñas introducidas en la página falsa"
+
+msgid "And revoke the open sessions and tokens."
+msgstr "Y revocar las sesiones y tokens abiertos."
+
+msgid "Scan the machines of those who opened the attachment"
+msgstr "Analizar los equipos de quienes abrieron el adjunto"
+
+msgid "Warn the users"
+msgstr "Avisar a los usuarios"
+
+msgid "Short message: what to do if they received it."
+msgstr "Mensaje breve: qué hacer si lo recibieron."
+
+msgid "Plan an awareness reminder"
+msgstr "Planificar un recordatorio de concienciación"
+
+msgid "Compromised account"
+msgstr "Cuenta comprometida"
+
+msgid "An account is used by someone else: cut the access, measure what was done, close the gap."
+msgstr "Otra persona usa una cuenta: cortar el acceso, medir lo que se hizo, cerrar la brecha."
+
+msgid "Disable the account or reset its password"
+msgstr "Desactivar la cuenta o restablecer su contraseña"
+
+msgid "And revoke the sessions, tokens and application passwords."
+msgstr "Y revocar las sesiones, tokens y contraseñas de aplicación."
+
+msgid "Enforce multi-factor authentication"
+msgstr "Imponer la autenticación multifactor"
+
+msgid "Review the sign-in logs and the actions performed"
+msgstr "Revisar los registros de inicio de sesión y las acciones realizadas"
+
+msgid "Unusual countries or times, forwarding rules, data accessed."
+msgstr "Países u horarios inusuales, reglas de reenvío, datos consultados."
+
+msgid "Look for the other accounts affected"
+msgstr "Buscar las otras cuentas afectadas"
+
+msgid "Same password, same source IP."
+msgstr "Misma contraseña, misma IP de origen."
+
+msgid "Remove the rules and accesses added by the attacker"
+msgstr "Eliminar las reglas y accesos añadidos por el atacante"
+
+msgid "Mail forwarding, delegations, registered devices."
+msgstr "Reenvíos de correo, delegaciones, dispositivos registrados."
+
+msgid "Assess whether personal data was exposed"
+msgstr "Evaluar si se expusieron datos personales"
+
+msgid "If so, GDPR notification within 72 h."
+msgstr "En tal caso, notificación RGPD en 72 h."
+
+msgid "Give the account back to its owner"
+msgstr "Devolver la cuenta a su titular"
+
+msgid "With a new password and multi-factor authentication."
+msgstr "Con una nueva contraseña y autenticación multifactor."
+
+msgid "Check the password policy and the multi-factor coverage"
+msgstr "Revisar la política de contraseñas y la cobertura multifactor"
+
+msgid "Malicious software detected on a machine: isolate, analyse its spread, clean or reinstall."
+msgstr "Software malicioso detectado en un equipo: aislar, analizar su propagación, limpiar o reinstalar."
+
+msgid "Isolate the infected machine"
+msgstr "Aislar el equipo infectado"
+
+msgid "From the EDR console or by unplugging it."
+msgstr "Desde la consola EDR o desconectándolo."
+
+msgid "Identify the malware and its behaviour"
+msgstr "Identificar el malware y su comportamiento"
+
+msgid "Hash, name, network connections; record the indicators (IOC tab)."
+msgstr "Hash, nombre, conexiones de red; registrar los indicadores (pestaña IOC)."
+
+msgid "Search the other machines for the same indicators"
+msgstr "Buscar los mismos indicadores en los demás equipos"
+
+msgid "Clean or reinstall the machine"
+msgstr "Limpiar o reinstalar el equipo"
+
+msgid "Reinstall when in doubt about persistence."
+msgstr "Reinstalar en caso de duda sobre la persistencia."
+
+msgid "Reset the passwords used on the machine"
+msgstr "Restablecer las contraseñas usadas en el equipo"
+
+msgid "Put the machine back in service and monitor it"
+msgstr "Volver a poner el equipo en servicio y vigilarlo"
+
+msgid "Close the entry point"
+msgstr "Cerrar el punto de entrada"
+
+msgid "Vulnerability to patch, removable media, download."
+msgstr "Vulnerabilidad a parchear, medio extraíble, descarga."
+
+msgid "Data leak"
+msgstr "Fuga de datos"
+
+msgid "Data has left the organisation: stop the leak, assess the exposure, notify in time."
+msgstr "Los datos han salido de la organización: detener la fuga, evaluar la exposición, notificar a tiempo."
+
+msgid "Stop the leak"
+msgstr "Detener la fuga"
+
+msgid "Remove the public share, revoke the access, ask the host to take the data down."
+msgstr "Retirar el recurso público, revocar el acceso, pedir al proveedor que retire los datos."
+
+msgid "Identify the data exposed and the people concerned"
+msgstr "Identificar los datos expuestos y las personas afectadas"
+
+msgid "Categories of data, number of people, period of exposure."
+msgstr "Categorías de datos, número de personas, periodo de exposición."
+
+msgid "Assess the risk for the people concerned"
+msgstr "Evaluar el riesgo para las personas afectadas"
+
+msgid "Seriousness, likelihood of misuse."
+msgstr "Gravedad, probabilidad de uso indebido."
+
+msgid "Notify the CNIL within 72 h"
+msgstr "Notificar a la autoridad de control en 72 h"
+
+msgid "Unless the breach is unlikely to result in a risk; document the decision."
+msgstr "Salvo que sea improbable que la violación suponga un riesgo; documentar la decisión."
+
+msgid "Inform the people concerned if the risk is high"
+msgstr "Informar a las personas afectadas si el riesgo es alto"
+
+msgid "Monitor the reuse of the data"
+msgstr "Vigilar la reutilización de los datos"
+
+msgid "Leak sites, fraud attempts."
+msgstr "Sitios de filtraciones, intentos de fraude."
+
+msgid "Record the breach in the breach register"
+msgstr "Inscribir la violación en el registro de violaciones"
+
+msgid "Required by the GDPR (article 33.5) even without notification."
+msgstr "Exigido por el RGPD (artículo 33.5) incluso sin notificación."
+
+msgid "Remediation playbook"
+msgid_plural "Remediation playbooks"
+msgstr[0] "Procedimiento de remediación"
+msgstr[1] "Procedimientos de remediación"
+
+msgid "Playbook step"
+msgid_plural "Playbook steps"
+msgstr[0] "Paso del procedimiento"
+msgstr[1] "Pasos del procedimiento"
+
+msgid "Remediation task"
+msgid_plural "Remediation tasks"
+msgstr[0] "Tarea de remediación"
+msgstr[1] "Tareas de remediación"
+
+#, php-format
+msgid "%d remediation task added."
+msgid_plural "%d remediation tasks added."
+msgstr[0] "%d tarea de remediación añadida."
+msgstr[1] "%d tareas de remediación añadidas."

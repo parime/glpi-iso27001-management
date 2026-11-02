@@ -6050,3 +6050,369 @@ msgid "Investigation action"
 msgid_plural "Investigation actions"
 msgstr[0] "Investigation action"
 msgstr[1] "Investigation actions"
+
+msgid "Notification"
+msgstr "Notification"
+
+msgid "After the incident"
+msgstr "After the incident"
+
+msgid "The playbook name is required."
+msgstr "The playbook name is required."
+
+msgid "The step name is required."
+msgstr "The step name is required."
+
+msgid "Remediation"
+msgstr "Remediation"
+
+#, php-format
+msgid "Playbook applied: %s"
+msgstr "Playbook applied: %s"
+
+#, php-format
+msgid "Remediation task \"%1$s\": %2$s"
+msgstr "Remediation task \"%1$s\": %2$s"
+
+msgid "The task name is required."
+msgstr "The task name is required."
+
+msgid "Example: \"Ransomware\", \"Compromised account\"."
+msgstr "Example: \"Ransomware\", \"Compromised account\"."
+
+msgid "Incident category"
+msgstr "Incident category"
+
+msgid "The playbook is suggested first on incidents of this category."
+msgstr "The playbook is suggested first on incidents of this category."
+
+msgid "New playbook"
+msgstr "New playbook"
+
+msgid "Phase"
+msgstr "Phase"
+
+msgid "Order"
+msgstr "Order"
+
+msgid "No step yet: add the first one above."
+msgstr "No step yet: add the first one above."
+
+msgid "Remove this step?"
+msgstr "Remove this step?"
+
+msgid "Progress"
+msgstr "Progress"
+
+#, php-format
+msgid "%d mandatory step(s) open: closure blocked"
+msgstr "%d mandatory step(s) open: closure blocked"
+
+msgid "Mandatory steps completed"
+msgstr "Mandatory steps completed"
+
+msgid "Playbook library"
+msgstr "Playbook library"
+
+msgid "Apply a playbook"
+msgstr "Apply a playbook"
+
+msgid "already applied"
+msgstr "already applied"
+
+msgid "★ = suggested for the category of this incident. The steps are copied as tasks: changing the playbook later does not change them."
+msgstr "★ = suggested for the category of this incident. The steps are copied as tasks: changing the playbook later does not change them."
+
+msgid "Add a task specific to this incident"
+msgstr "Add a task specific to this incident"
+
+msgid "Mandatory before closing"
+msgstr "Mandatory before closing"
+
+msgid "No remediation plan yet"
+msgstr "No remediation plan yet"
+
+msgid "Apply the playbook that matches the incident: its steps become tasks to follow up, phase by phase."
+msgstr "Apply the playbook that matches the incident: its steps become tasks to follow up, phase by phase."
+
+msgid "Report: what was done, result"
+msgstr "Report: what was done, result"
+
+msgid "Remove this task?"
+msgstr "Remove this task?"
+
+msgid "Remediation playbooks"
+msgstr "Remediation playbooks"
+
+msgid "Mandatory remediation steps are still open: mark them done or not applicable before closing."
+msgstr "Mandatory remediation steps are still open: mark them done or not applicable before closing."
+
+msgid "Remediation playbooks: the standard steps to follow for each type of incident (ransomware, phishing, compromised account...)."
+msgstr "Remediation playbooks: the standard steps to follow for each type of incident (ransomware, phishing, compromised account...)."
+
+msgid "Adapt the five playbooks provided to your context; from an incident, apply one to get its plan of tasks. Mandatory steps must be done or marked not applicable before closing."
+msgstr "Adapt the five playbooks provided to your context; from an incident, apply one to get its plan of tasks. Mandatory steps must be done or marked not applicable before closing."
+
+msgid "Encrypted files, ransom note: contain first, keep the evidence, never pay without legal advice."
+msgstr "Encrypted files, ransom note: contain first, keep the evidence, never pay without legal advice."
+
+msgid "Disconnect the affected machines from the network (do not switch them off)"
+msgstr "Disconnect the affected machines from the network (do not switch them off)"
+
+msgid "Unplug the cable or isolate from the EDR console; switching off destroys the memory evidence."
+msgstr "Unplug the cable or isolate from the EDR console; switching off destroys the memory evidence."
+
+msgid "Isolate the backups"
+msgstr "Isolate the backups"
+
+msgid "Disconnect or lock the backup repositories so they are not encrypted in turn."
+msgstr "Disconnect or lock the backup repositories so they are not encrypted in turn."
+
+msgid "Disable the compromised accounts and the remote accesses"
+msgstr "Disable the compromised accounts and the remote accesses"
+
+msgid "VPN, remote desktop, service accounts used by the attacker."
+msgstr "VPN, remote desktop, service accounts used by the attacker."
+
+msgid "Identify the ransomware and the entry point"
+msgstr "Identify the ransomware and the entry point"
+
+msgid "Ransom note, file extension, first infected machine, MITRE ATT&CK techniques."
+msgstr "Ransom note, file extension, first infected machine, MITRE ATT&CK techniques."
+
+msgid "Preserve the evidence"
+msgstr "Preserve the evidence"
+
+msgid "Memory and disk images, logs, ransom note; record each handling in the action log."
+msgstr "Memory and disk images, logs, ransom note; record each handling in the action log."
+
+msgid "Inform management and the crisis unit"
+msgstr "Inform management and the crisis unit"
+
+msgid "File a complaint and notify the authorities"
+msgstr "File a complaint and notify the authorities"
+
+msgid "Police or gendarmerie, the CNIL within 72 h if personal data is affected, NIS2 if applicable."
+msgstr "Police or gendarmerie, the CNIL within 72 h if personal data is affected, NIS2 if applicable."
+
+msgid "Inform the cyber insurer"
+msgstr "Inform the cyber insurer"
+
+msgid "Remove the persistence and reset every password"
+msgstr "Remove the persistence and reset every password"
+
+msgid "Scheduled tasks, services, GPO, attacker accounts; reset the krbtgt account twice."
+msgstr "Scheduled tasks, services, GPO, attacker accounts; reset the krbtgt account twice."
+
+msgid "Restore from healthy backups"
+msgstr "Restore from healthy backups"
+
+msgid "Check the backup date against the date of the first compromise."
+msgstr "Check the backup date against the date of the first compromise."
+
+msgid "Reconnect gradually under monitoring"
+msgstr "Reconnect gradually under monitoring"
+
+msgid "Write the post-incident report"
+msgstr "Write the post-incident report"
+
+msgid "Root cause, timeline, costs, lessons learned."
+msgstr "Root cause, timeline, costs, lessons learned."
+
+msgid "Update the risk analysis and the action plan"
+msgstr "Update the risk analysis and the action plan"
+
+msgid "Phishing"
+msgstr "Phishing"
+
+msgid "A malicious email was received or clicked: find all recipients, block, check what was entered."
+msgstr "A malicious email was received or clicked: find all recipients, block, check what was entered."
+
+msgid "Block the sender and the links"
+msgstr "Block the sender and the links"
+
+msgid "Mail gateway, web filtering, DNS."
+msgstr "Mail gateway, web filtering, DNS."
+
+msgid "Delete the email from every mailbox"
+msgstr "Delete the email from every mailbox"
+
+msgid "Message search on the whole messaging system."
+msgstr "Message search on the whole messaging system."
+
+msgid "List the recipients who clicked or replied"
+msgstr "List the recipients who clicked or replied"
+
+msgid "Analyse the attachment and the links in a sandbox"
+msgstr "Analyse the attachment and the links in a sandbox"
+
+msgid "Record the indicators of compromise (IOC tab)."
+msgstr "Record the indicators of compromise (IOC tab)."
+
+msgid "Reset the passwords entered on the fake page"
+msgstr "Reset the passwords entered on the fake page"
+
+msgid "And revoke the open sessions and tokens."
+msgstr "And revoke the open sessions and tokens."
+
+msgid "Scan the machines of those who opened the attachment"
+msgstr "Scan the machines of those who opened the attachment"
+
+msgid "Warn the users"
+msgstr "Warn the users"
+
+msgid "Short message: what to do if they received it."
+msgstr "Short message: what to do if they received it."
+
+msgid "Plan an awareness reminder"
+msgstr "Plan an awareness reminder"
+
+msgid "Compromised account"
+msgstr "Compromised account"
+
+msgid "An account is used by someone else: cut the access, measure what was done, close the gap."
+msgstr "An account is used by someone else: cut the access, measure what was done, close the gap."
+
+msgid "Disable the account or reset its password"
+msgstr "Disable the account or reset its password"
+
+msgid "And revoke the sessions, tokens and application passwords."
+msgstr "And revoke the sessions, tokens and application passwords."
+
+msgid "Enforce multi-factor authentication"
+msgstr "Enforce multi-factor authentication"
+
+msgid "Review the sign-in logs and the actions performed"
+msgstr "Review the sign-in logs and the actions performed"
+
+msgid "Unusual countries or times, forwarding rules, data accessed."
+msgstr "Unusual countries or times, forwarding rules, data accessed."
+
+msgid "Look for the other accounts affected"
+msgstr "Look for the other accounts affected"
+
+msgid "Same password, same source IP."
+msgstr "Same password, same source IP."
+
+msgid "Remove the rules and accesses added by the attacker"
+msgstr "Remove the rules and accesses added by the attacker"
+
+msgid "Mail forwarding, delegations, registered devices."
+msgstr "Mail forwarding, delegations, registered devices."
+
+msgid "Assess whether personal data was exposed"
+msgstr "Assess whether personal data was exposed"
+
+msgid "If so, GDPR notification within 72 h."
+msgstr "If so, GDPR notification within 72 h."
+
+msgid "Give the account back to its owner"
+msgstr "Give the account back to its owner"
+
+msgid "With a new password and multi-factor authentication."
+msgstr "With a new password and multi-factor authentication."
+
+msgid "Check the password policy and the multi-factor coverage"
+msgstr "Check the password policy and the multi-factor coverage"
+
+msgid "Malicious software detected on a machine: isolate, analyse its spread, clean or reinstall."
+msgstr "Malicious software detected on a machine: isolate, analyse its spread, clean or reinstall."
+
+msgid "Isolate the infected machine"
+msgstr "Isolate the infected machine"
+
+msgid "From the EDR console or by unplugging it."
+msgstr "From the EDR console or by unplugging it."
+
+msgid "Identify the malware and its behaviour"
+msgstr "Identify the malware and its behaviour"
+
+msgid "Hash, name, network connections; record the indicators (IOC tab)."
+msgstr "Hash, name, network connections; record the indicators (IOC tab)."
+
+msgid "Search the other machines for the same indicators"
+msgstr "Search the other machines for the same indicators"
+
+msgid "Clean or reinstall the machine"
+msgstr "Clean or reinstall the machine"
+
+msgid "Reinstall when in doubt about persistence."
+msgstr "Reinstall when in doubt about persistence."
+
+msgid "Reset the passwords used on the machine"
+msgstr "Reset the passwords used on the machine"
+
+msgid "Put the machine back in service and monitor it"
+msgstr "Put the machine back in service and monitor it"
+
+msgid "Close the entry point"
+msgstr "Close the entry point"
+
+msgid "Vulnerability to patch, removable media, download."
+msgstr "Vulnerability to patch, removable media, download."
+
+msgid "Data leak"
+msgstr "Data leak"
+
+msgid "Data has left the organisation: stop the leak, assess the exposure, notify in time."
+msgstr "Data has left the organisation: stop the leak, assess the exposure, notify in time."
+
+msgid "Stop the leak"
+msgstr "Stop the leak"
+
+msgid "Remove the public share, revoke the access, ask the host to take the data down."
+msgstr "Remove the public share, revoke the access, ask the host to take the data down."
+
+msgid "Identify the data exposed and the people concerned"
+msgstr "Identify the data exposed and the people concerned"
+
+msgid "Categories of data, number of people, period of exposure."
+msgstr "Categories of data, number of people, period of exposure."
+
+msgid "Assess the risk for the people concerned"
+msgstr "Assess the risk for the people concerned"
+
+msgid "Seriousness, likelihood of misuse."
+msgstr "Seriousness, likelihood of misuse."
+
+msgid "Notify the CNIL within 72 h"
+msgstr "Notify the CNIL within 72 h"
+
+msgid "Unless the breach is unlikely to result in a risk; document the decision."
+msgstr "Unless the breach is unlikely to result in a risk; document the decision."
+
+msgid "Inform the people concerned if the risk is high"
+msgstr "Inform the people concerned if the risk is high"
+
+msgid "Monitor the reuse of the data"
+msgstr "Monitor the reuse of the data"
+
+msgid "Leak sites, fraud attempts."
+msgstr "Leak sites, fraud attempts."
+
+msgid "Record the breach in the breach register"
+msgstr "Record the breach in the breach register"
+
+msgid "Required by the GDPR (article 33.5) even without notification."
+msgstr "Required by the GDPR (article 33.5) even without notification."
+
+msgid "Remediation playbook"
+msgid_plural "Remediation playbooks"
+msgstr[0] "Remediation playbook"
+msgstr[1] "Remediation playbooks"
+
+msgid "Playbook step"
+msgid_plural "Playbook steps"
+msgstr[0] "Playbook step"
+msgstr[1] "Playbook steps"
+
+msgid "Remediation task"
+msgid_plural "Remediation tasks"
+msgstr[0] "Remediation task"
+msgstr[1] "Remediation tasks"
+
+#, php-format
+msgid "%d remediation task added."
+msgid_plural "%d remediation tasks added."
+msgstr[0] "%d remediation task added."
+msgstr[1] "%d remediation tasks added."
