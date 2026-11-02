@@ -52,7 +52,7 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/evidence.php front/periodicreview.php front/networkflow.php front/accounthygiene.php
   front/compliancecalendar.php front/compliancecalendar.php?ics=1 front/complianceevent.php
   front/parkvulnerability.php front/parkmachines.php front/softwarewatch.php front/riskcatalog.php front/waiver.php
-  front/coveragerule.php front/impactanalysis.php front/causalgraph.php
+  front/coveragerule.php front/playbook.php front/impactanalysis.php front/causalgraph.php
   front/impactanalysis.php?export=continuity front/maturity.php front/crisisexercise.php front/complianceaudit.php
   front/dashboard.php front/networkflow.report.php front/breachexposure.php"
 # Creations : refusees sans droit comme en lecture seule (etat en base compare par la CI).
@@ -63,7 +63,10 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
     front/nonconformity.form.php front/objective.form.php front/objectivemeasurement.form.php \
     front/policy.form.php front/risk.form.php front/risktreatmentaction.form.php front/supplierrisk.form.php \
     front/training.form.php front/securityincident.form.php front/securityincidentticket.form.php \
-    front/securityincidentcve.form.php front/cpereference.form.php front/productalias.form.php \
+    front/securityincidentcve.form.php front/securityincidentioc.form.php \
+    front/securityincidenttechnique.form.php front/securityincidentaction.form.php \
+    front/securityincidentplaybooktask.form.php front/playbook.form.php front/playbookstep.form.php \
+    front/cpereference.form.php front/productalias.form.php \
     front/waiver.form.php front/coveragerule.form.php; do
     expect "$form : creation" "$1" "$(code -d "add=1&name=securite&title=securite&_glpi_csrf_token=$(csrf)" "$BASE/plugins/grcmanager/$form")"
   done
@@ -205,6 +208,17 @@ expect "incident, entite B"            $DENY  "$(code "$P/securityincident.form.
 # Revue de securite 2.11.0 : une reference CVE exige de pouvoir modifier son incident.
 expect "reference CVE sur un incident de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
   "$(code -d "add=1&plugin_grcmanager_securityincidents_id=$(id incident_B)&cve_id=CVE-2099-0001&_glpi_csrf_token=$(csrf)" "$P/securityincidentcve.form.php")"
+# Issue #369 : un IOC exige aussi de pouvoir modifier son incident.
+expect "IOC sur un incident de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
+  "$(code -d "add=1&plugin_grcmanager_securityincidents_id=$(id incident_B)&iocs=198.51.100.1&_glpi_csrf_token=$(csrf)" "$P/securityincidentioc.form.php")"
+expect "technique ATT&CK sur un incident de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
+  "$(code -d "add=1&plugin_grcmanager_securityincidents_id=$(id incident_B)&technique=T1566&_glpi_csrf_token=$(csrf)" "$P/securityincidenttechnique.form.php")"
+expect "action d'investigation sur un incident de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
+  "$(code -d "add=1&plugin_grcmanager_securityincidents_id=$(id incident_B)&target=PC-B&tool=edr&_glpi_csrf_token=$(csrf)" "$P/securityincidentaction.form.php")"
+expect "journal des actions (PDF) d'un incident de B" "$([ "$ROLE" = admin ] && echo 200 || echo 404)" \
+  "$(code "$P/securityincidentaction.form.php?pdf=$(id incident_B)")"
+expect "tâche de remédiation sur un incident de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
+  "$(code -d "add=1&plugin_grcmanager_securityincidents_id=$(id incident_B)&name=PHPUnit&_glpi_csrf_token=$(csrf)" "$P/securityincidentplaybooktask.form.php")"
 # Issue #140 : un document d'audit ne se lit que par l'equipe de l'audit (glpi en fait partie),
 # jamais avec le seul droit Documents de GLPI ou le droit du plugin.
 expect "document d'audit (equipe de l'audit seulement)" "$([ "$ROLE" = admin ] && echo 200 || echo 403)" \

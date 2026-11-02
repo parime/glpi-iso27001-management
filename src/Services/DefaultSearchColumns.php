@@ -48,6 +48,7 @@ final class DefaultSearchColumns
         'GlpiPlugin\\Grcmanager\\Waiver'           => [1, 3, 4, 5, 6, 7],
         // Issue #164 : nom, type d'actif, catégorie de document, mesure, exigence, active.
         'GlpiPlugin\\Grcmanager\\CoverageRule'     => [1, 3, 4, 5, 6, 7],
+        'GlpiPlugin\\Grcmanager\\Playbook'         => [1, 3, 4, 6],
         // Issue #142 : nom, type, debut, fin, statut, responsable, prestataire.
         'GlpiPlugin\\Grcmanager\\ComplianceEvent'  => [1, 2, 3, 4, 5, 6, 7],
         // Issue #30 (registre des obligations légales/réglementaires/contractuelles), same

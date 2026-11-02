@@ -1,0 +1,64 @@
+{# Issue #370 : phases de réponse à incident (NIST SP 800-61) dans le panneau principal de
+   l'incident, voir plugin_grcmanager_post_itil_info_section(). La détection est la date
+   d'ouverture et la clôture la date de clôture : seules les quatre phases intermédiaires se
+   saisissent ici. #}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+{% import '@grcmanager/_hint.html.twig' as hints %}
+
+{% set nb_done = phases|filter(p => p.done)|length %}
+<section class="accordion-item" aria-label="{{ __('Response phases', 'grcmanager') }}">
+   <div class="accordion-header" id="grcmanager-phases-heading">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#grcmanager-phases" aria-expanded="true" aria-controls="grcmanager-phases">
+         <i class="ti ti-timeline-event"></i>
+         <span class="item-title">{{ __('Response phases', 'grcmanager') }}</span>
+         <span class="badge bg-green-lt ms-2">{{ nb_done }}/{{ phases|length }}</span>
+      </button>
+   </div>
+   <div id="grcmanager-phases" class="accordion-collapse collapse show" aria-labelledby="grcmanager-phases-heading">
+      <div class="accordion-body row m-0 mt-n2">
+         <div class="col-12 mt-2">
+            <p class="text-muted small mb-2">
+               {{ __('Date each step of the response (NIST SP 800-61): the delays to containment and closure feed the dashboard. Detection is the opening date, closure the closing date.', 'grcmanager') }}
+            </p>
+         </div>
+         {% for p in phases %}
+            {% set phase_field %}
+               {% if p.field in editable %}
+                  <div class="d-flex flex-wrap align-items-center gap-2">
+                     <input type="datetime-local" class="form-control form-control-sm" style="max-width: 220px;"
+                        id="grc-phase-{{ p.field }}" name="{{ p.field }}" value="{{ p.at ? p.at|date('Y-m-d\\TH:i') : '' }}"
+                        aria-label="{{ labels[p.key] }}"
+                        {{ not item.canUpdateItem() ? 'disabled' : '' }}>
+                     {% if item.canUpdateItem() %}
+                        <button type="button" class="btn btn-sm btn-ghost-secondary" data-grc-phase-now="grc-phase-{{ p.field }}">
+                           <i class="ti ti-clock me-1"></i>{{ __('Now', 'grcmanager') }}
+                        </button>
+                     {% endif %}
+                     {% if p.done and p.hours is not null %}<span class="text-muted small">+{{ p.hours }} h</span>{% endif %}
+                     {% if p.out_of_order %}
+                        <span class="badge bg-orange-lt"><i class="ti ti-alert-triangle me-1"></i>{{ __('Dated before the previous phase', 'grcmanager') }}</span>
+                     {% endif %}
+                  </div>
+               {% else %}
+                  <span class="{{ p.done ? '' : 'text-muted' }}">
+                     <i class="ti {{ p.done ? 'ti-circle-check text-green' : 'ti-circle-dashed' }} me-1"></i>{{ p.at ? p.at|formatted_datetime : __('Not reached', 'grcmanager') }}
+                     {% if p.done and p.key == 'closure' and p.hours is not null %}<span class="text-muted small ms-1">+{{ p.hours }} h</span>{% endif %}
+                  </span>
+               {% endif %}
+            {% endset %}
+            {{ fields.field(p.field, phase_field, labels[p.key], {'full_width': true}) }}
+         {% endfor %}
+      </div>
+   </div>
+</section>
+<script>
+   document.querySelectorAll('[data-grc-phase-now]').forEach((button) => {
+      button.addEventListener('click', () => {
+         const input = document.getElementById(button.dataset.grcPhaseNow);
+         const now = new Date();
+         now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+         input.value = now.toISOString().slice(0, 16);
+         input.dispatchEvent(new Event('change', {bubbles: true}));
+      });
+   });
+</script>

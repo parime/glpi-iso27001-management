@@ -17,6 +17,7 @@
 
 use Glpi\ContentTemplates\Parameters\CommonITILObjectParameters;
 use GlpiPlugin\Grcmanager\Compatibility\Base\SecurityIncidentBase;
+use GlpiPlugin\Grcmanager\Services\Incident\IncidentPhases;
 use GlpiPlugin\Grcmanager\Services\Incident\RegulatoryDeadlines;
 use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentModuleConfig;
 use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentParameters;
@@ -98,6 +99,41 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
     /**
      * @return array<string, string>
      */
+    /**
+     * Issue #370 : lien vers la bibliothèque des procédures de remédiation dans l'en-tête des
+     * incidents, à côté des gabarits.
+     */
+    public static function getMenuContent()
+    {
+        $menu = parent::getMenuContent();
+        if (is_array($menu) && \GlpiPlugin\Grcmanager\Playbook::canView()) {
+            $label = trim(\Glpi\Application\View\TemplateRenderer::getInstance()->render(
+                '@grcmanager/menu_link_label.html.twig',
+                ['icon' => 'ti ti-list-check', 'label' => __('Remediation playbooks', 'grcmanager')]
+            ));
+            $menu['links'][$label] = \GlpiPlugin\Grcmanager\Playbook::getSearchURL(false);
+        }
+
+        return $menu;
+    }
+
+    /**
+     * Issue #370 : libellés des phases de réponse (NIST SP 800-61).
+     *
+     * @return array<string, string>
+     */
+    public static function getPhaseLabels(): array
+    {
+        return [
+            'detection'       => __('Detection', 'grcmanager'),
+            'acknowledgement' => __('Acknowledgement', 'grcmanager'),
+            'containment'     => __('Containment', 'grcmanager'),
+            'eradication'     => __('Eradication', 'grcmanager'),
+            'recovery'        => __('Recovery', 'grcmanager'),
+            'closure'         => __('Closure', 'grcmanager'),
+        ];
+    }
+
     /**
      * Issue #372 : origine du signalement.
      *
@@ -387,6 +423,11 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
             $this->addStandardTab(\GlpiPlugin\Grcmanager\SecurityIncidentCve::class, $tabs, $options);
         }
 
+        // Issue #369 : indicateurs de compromission.
+        $this->addStandardTab(\GlpiPlugin\Grcmanager\SecurityIncidentIoc::class, $tabs, $options);
+        $this->addStandardTab(\GlpiPlugin\Grcmanager\SecurityIncidentTechnique::class, $tabs, $options);
+        $this->addStandardTab(\GlpiPlugin\Grcmanager\SecurityIncidentAction::class, $tabs, $options);
+        $this->addStandardTab(\GlpiPlugin\Grcmanager\SecurityIncidentPlaybookTask::class, $tabs, $options);
         $this->addStandardTab(PluginGrcmanagerSecurityIncident_Item::class, $tabs, $options);
         $this->addStandardTab(PluginGrcmanagerSecurityIncidentCost::class, $tabs, $options);
         $this->addStandardTab(KnowbaseItem_Item::class, $tabs, $options);
@@ -404,6 +445,10 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
         $this->deleteChildrenAndRelationsFromDb([
             PluginGrcmanagerSecurityIncident_Item::class,
             \GlpiPlugin\Grcmanager\SecurityIncidentCve::class,
+            \GlpiPlugin\Grcmanager\SecurityIncidentIoc::class,
+            \GlpiPlugin\Grcmanager\SecurityIncidentTechnique::class,
+            \GlpiPlugin\Grcmanager\SecurityIncidentAction::class,
+            \GlpiPlugin\Grcmanager\SecurityIncidentPlaybookTask::class,
             PluginGrcmanagerSecurityIncidentCost::class,
         ]);
 
@@ -516,6 +561,17 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
                 $input[$flag] = empty($input[$flag]) ? 0 : 1;
             }
         }
+        // Issue #370 : dates des phases de réponse NIST, même saisie que les dates de notification.
+        foreach (IncidentPhases::EDITABLE as $phaseField) {
+            if (array_key_exists($phaseField, $input)) {
+                $phaseValue = IncidentPhases::normalizeInput($input[$phaseField]);
+                if ($phaseValue === null) {
+                    unset($input[$phaseField]);
+                } else {
+                    $input[$phaseField] = $phaseValue;
+                }
+            }
+        }
         foreach (RegulatoryDeadlines::DEADLINES as [, , $doneField]) {
             if (!array_key_exists($doneField, $input)) {
                 continue;
@@ -540,6 +596,22 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
             if (SecurityIncidentRules::isClosureDocumentationMissing($rootCause, $lessonsLearned)) {
                 Session::addMessageAfterRedirect(
                     __('The root cause and lessons learned are required to close a security incident.', 'grcmanager'),
+                    false,
+                    ERROR
+                );
+
+                return false;
+            }
+            // Issue #370 : pas de clôture tant qu'une étape obligatoire de remédiation est ouverte.
+            if (
+                isset($this->fields['id'])
+                && \GlpiPlugin\Grcmanager\SecurityIncidentPlaybookTask::blocksClosure((int) $this->fields['id'])
+            ) {
+                Session::addMessageAfterRedirect(
+                    __(
+                        'Mandatory remediation steps are still open: mark them done or not applicable before closing.',
+                        'grcmanager'
+                    ),
                     false,
                     ERROR
                 );
@@ -640,6 +712,21 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
             'name'     => __('Crisis exercise', 'grcmanager'),
             'datatype' => 'bool',
         ];
+        // Issue #370 : phases de réponse NIST.
+        $phaseId = 236;
+        foreach (self::getPhaseLabels() as $phase => $label) {
+            $field = IncidentPhases::PHASES[$phase];
+            if (!in_array($field, IncidentPhases::EDITABLE, true)) {
+                continue;
+            }
+            $tab[] = [
+                'id'       => $phaseId++,
+                'table'    => $this->getTable(),
+                'field'    => $field,
+                'name'     => $label,
+                'datatype' => 'datetime',
+            ];
+        }
         // Issue #372 : référence, source et identifiant externe.
         $tab[] = [
             'id'       => 233,

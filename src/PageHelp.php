@@ -339,6 +339,18 @@ class PageHelp
                     'grcmanager'
                 ),
             ],
+            'playbook' => [
+                'purpose'  => __(
+                    'Remediation playbooks: the standard steps to follow for each type of incident (ransomware, '
+                        . 'phishing, compromised account...).',
+                    'grcmanager'
+                ),
+                'expected' => __(
+                    'Adapt the five playbooks provided to your context; from an incident, apply one to get its plan of '
+                        . 'tasks. Mandatory steps must be done or marked not applicable before closing.',
+                    'grcmanager'
+                ),
+            ],
             'coveragerule' => [
                 'purpose'  => __(
                     'Coverage rules: which assets must have which document (for example, every server must have its '

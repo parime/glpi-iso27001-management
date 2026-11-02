@@ -1,0 +1,112 @@
+{# Issue #369 : techniques MITRE ATT&CK de l'incident, voir
+   GlpiPlugin\\Grcmanager\\SecurityIncidentTechnique::displayTabContentForItem(). #}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+
+{# Chaîne d'attaque : les 15 tactiques dans l'ordre de la matrice, en couleur celles observées. #}
+<div class="d-flex flex-wrap gap-1 mb-3" role="list" aria-label="{{ __('Attack chain', 'grcmanager') }}">
+  {% for tactic_id, tactic_name in tactics %}
+    {% set n = matrix[tactic_id]|length %}
+    <a href="{{ n > 0 ? '#grc-tactic-' ~ tactic_id : 'https://attack.mitre.org/tactics/' ~ tactic_id ~ '/' }}"
+       {% if n == 0 %}target="_blank" rel="noopener noreferrer"{% endif %}
+       role="listitem"
+       class="badge {{ n > 0 ? 'bg-red text-white' : 'bg-secondary-lt text-muted' }} text-decoration-none"
+       title="{{ tactic_id }} - {{ tactic_name }}">
+      {% if loop.index > 1 %}<i class="ti ti-chevron-right me-1 opacity-50"></i>{% endif %}{{ tactic_name }}{% if n > 0 %} <span class="badge bg-white text-red ms-1">{{ n }}</span>{% endif %}
+    </a>
+  {% endfor %}
+</div>
+
+{% if can_edit %}
+<form method="post" action="{{ form_url }}" class="card card-body mb-3">
+  <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+  <input type="hidden" name="plugin_grcmanager_securityincidents_id" value="{{ item.getID() }}">
+  <div class="row g-2 align-items-end">
+    <div class="col-lg-5">
+      {{ fields.dropdownArrayField('technique', '', options, __('Technique observed', 'grcmanager'), {
+        'display_emptychoice': true,
+        'full_width': true,
+        'is_horizontal': false,
+        'width': '100%',
+      }) }}
+    </div>
+    <div class="col-lg-2">
+      <label class="form-label" for="grc-attack-free">{{ __('or identifier / name', 'grcmanager') }}</label>
+      <input type="text" id="grc-attack-free" name="free_input" class="form-control" placeholder="T1003.001">
+    </div>
+    <div class="col-lg-3">
+      <label class="form-label" for="grc-attack-comment">{{ __('Comment', 'grcmanager') }}</label>
+      <input type="text" id="grc-attack-comment" name="comment" class="form-control" maxlength="1000"
+             placeholder="{{ __('e.g. mimikatz run on the domain controller', 'grcmanager') }}">
+    </div>
+    <div class="col-lg-2">
+      <button type="submit" name="add" class="btn btn-primary w-100"><i class="ti ti-plus me-1"></i>{{ __('Add', 'grcmanager') }}</button>
+    </div>
+  </div>
+  <div class="form-hint mt-2">
+    {{ __('Search the list by identifier or keyword, or type an identifier (T1566, T1003.001) or an exact name. A typed identifier is filed under each of its tactics.', 'grcmanager') }}
+  </div>
+</form>
+{% endif %}
+
+{% if count == 0 %}
+  <div class="empty">
+    <div class="empty-icon"><i class="ti ti-target-arrow fs-1"></i></div>
+    <p class="empty-title">{{ __('No MITRE ATT&CK technique yet', 'grcmanager') }}</p>
+    <p class="empty-subtitle text-muted">
+      {{ __('Describe how the attacker operated (initial access, persistence, exfiltration...): the dashboard then shows the most frequent tactics and techniques.', 'grcmanager') }}
+    </p>
+  </div>
+{% else %}
+<div class="row row-cards">
+  {% for tactic_id, rows in matrix %}
+    {% if rows is not empty %}
+      <div class="col-md-6 col-xl-4" id="grc-tactic-{{ tactic_id }}">
+        <div class="card h-100">
+          <div class="card-header py-2">
+            <h3 class="card-title">
+              <a href="https://attack.mitre.org/tactics/{{ tactic_id }}/" target="_blank" rel="noopener noreferrer" class="text-reset">
+                <span class="badge bg-red-lt me-1">{{ tactic_id }}</span>{{ tactics[tactic_id] }}
+              </a>
+            </h3>
+          </div>
+          <div class="list-group list-group-flush">
+            {% for row in rows %}
+              <div class="list-group-item py-2">
+                <div class="d-flex align-items-start gap-2">
+                  <div class="flex-fill">
+                    <a href="{{ row.url }}" target="_blank" rel="noopener noreferrer" class="fw-bold">{{ row.technique }}</a>
+                    <span>{{ row.full_name }}</span>
+                    {% if can_edit %}
+                      <form method="post" action="{{ form_url }}" class="mt-1">
+                        <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                        <input type="hidden" name="id" value="{{ row.id }}">
+                        <input type="hidden" name="update" value="1">
+                        <input type="text" name="comment" value="{{ row.comment }}" maxlength="1000"
+                               class="form-control form-control-sm" placeholder="{{ __('Comment', 'grcmanager') }}"
+                               aria-label="{{ __('Comment', 'grcmanager') }}" onchange="this.form.submit()">
+                      </form>
+                    {% elseif row.comment %}
+                      <div class="text-muted small">{{ row.comment }}</div>
+                    {% endif %}
+                  </div>
+                  {% if can_edit %}
+                    <form method="post" action="{{ form_url }}" onsubmit="return confirm('{{ __('Remove this technique?', 'grcmanager')|e('js') }}');">
+                      <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                      <input type="hidden" name="id" value="{{ row.id }}">
+                      <button type="submit" name="purge" class="btn btn-sm btn-ghost-danger" title="{{ __('Remove', 'grcmanager') }}" aria-label="{{ __('Remove', 'grcmanager') }}"><i class="ti ti-trash"></i></button>
+                    </form>
+                  {% endif %}
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>
+{% endif %}
+
+<p class="text-muted small mt-3 mb-0">
+  <i class="ti ti-info-circle me-1"></i>{{ source }}. {{ notice }}
+</p>

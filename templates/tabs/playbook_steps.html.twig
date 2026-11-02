@@ -1,0 +1,82 @@
+{# Issue #370 : étapes d'une procédure de remédiation, regroupées par phase, voir
+   GlpiPlugin\\Grcmanager\\PlaybookStep::displayTabContentForItem(). #}
+
+{% if can_edit %}
+<form method="post" action="{{ form_url }}" class="card card-body mb-3">
+  <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+  <input type="hidden" name="plugin_grcmanager_playbooks_id" value="{{ item.getID() }}">
+  <div class="row g-2 align-items-end">
+    <div class="col-md-2">
+      <label class="form-label" for="grc-step-phase">{{ __('Phase', 'grcmanager') }}</label>
+      <select id="grc-step-phase" name="phase" class="form-select">
+        {% for key, label in phases %}<option value="{{ key }}">{{ label }}</option>{% endfor %}
+      </select>
+    </div>
+    <div class="col-md-4">
+      <label class="form-label" for="grc-step-name">{{ __('Step', 'grcmanager') }}</label>
+      <input type="text" id="grc-step-name" name="name" class="form-control" maxlength="255" required>
+    </div>
+    <div class="col-md-3">
+      <label class="form-label" for="grc-step-description">{{ __('Description') }}</label>
+      <input type="text" id="grc-step-description" name="description" class="form-control">
+    </div>
+    <div class="col-md-1">
+      <label class="form-label" for="grc-step-rank">{{ __('Order', 'grcmanager') }}</label>
+      <input type="number" id="grc-step-rank" name="rank" class="form-control" value="{{ next_rank }}" min="0" step="10">
+    </div>
+    <div class="col-md-2">
+      <label class="form-check mb-1">
+        <input type="checkbox" class="form-check-input" name="is_mandatory" value="1" checked>
+        <span class="form-check-label">{{ __('Mandatory', 'grcmanager') }}</span>
+      </label>
+      <button type="submit" name="add" class="btn btn-primary w-100"><i class="ti ti-plus me-1"></i>{{ __('Add', 'grcmanager') }}</button>
+    </div>
+  </div>
+</form>
+{% endif %}
+
+{% if groups is empty %}
+  <p class="text-muted">{{ __('No step yet: add the first one above.', 'grcmanager') }}</p>
+{% endif %}
+{% for phase, steps in groups %}
+  <h4 class="mt-3 mb-2"><span class="badge bg-blue-lt">{{ phases[phase] }}</span></h4>
+  <div class="list-group mb-2">
+    {% for step in steps %}
+      <div class="list-group-item">
+        {% if can_edit %}
+          <form method="post" action="{{ form_url }}" class="row g-2 align-items-center">
+            <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="id" value="{{ step.id }}">
+            <div class="col-auto"><input type="number" name="rank" value="{{ step.rank }}" class="form-control form-control-sm" style="width: 5rem" aria-label="{{ __('Order', 'grcmanager') }}"></div>
+            <div class="col-auto">
+              <select name="phase" class="form-select form-select-sm" aria-label="{{ __('Phase', 'grcmanager') }}">
+                {% for key, label in phases %}<option value="{{ key }}" {{ key == step.phase ? 'selected' : '' }}>{{ label }}</option>{% endfor %}
+              </select>
+            </div>
+            <div class="col"><input type="text" name="name" value="{{ step.name }}" class="form-control form-control-sm" aria-label="{{ __('Step', 'grcmanager') }}" required></div>
+            <div class="col"><input type="text" name="description" value="{{ step.description }}" class="form-control form-control-sm" aria-label="{{ __('Description') }}"></div>
+            <div class="col-auto">
+              <input type="hidden" name="is_mandatory" value="0">
+              <label class="form-check mb-0">
+                <input type="checkbox" class="form-check-input" name="is_mandatory" value="1" {{ step.is_mandatory ? 'checked' : '' }}>
+                <span class="form-check-label">{{ __('Mandatory', 'grcmanager') }}</span>
+              </label>
+            </div>
+            <div class="col-auto d-flex gap-1">
+              <button type="submit" name="update" class="btn btn-sm btn-outline-primary" title="{{ __('Save') }}" aria-label="{{ __('Save') }}"><i class="ti ti-device-floppy"></i></button>
+              <button type="submit" name="purge" class="btn btn-sm btn-ghost-danger" title="{{ __('Remove', 'grcmanager') }}" aria-label="{{ __('Remove', 'grcmanager') }}"
+                      onclick="return confirm('{{ __('Remove this step?', 'grcmanager')|e('js') }}');"><i class="ti ti-trash"></i></button>
+            </div>
+          </form>
+        {% else %}
+          <div class="d-flex gap-2 align-items-center">
+            <span class="text-muted">{{ step.rank }}</span>
+            <span class="fw-bold">{{ step.name }}</span>
+            {% if step.is_mandatory %}<span class="badge bg-red-lt">{{ __('Mandatory', 'grcmanager') }}</span>{% endif %}
+            <span class="text-muted small">{{ step.description }}</span>
+          </div>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+{% endfor %}

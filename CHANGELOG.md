@@ -7,6 +7,52 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.19.0] - 2026-11-02
+
+### Added
+
+- **Procédures de remédiation** pour les incidents de sécurité (issue #370) : bibliothèque de
+  procédures (lien « Procédures de remédiation » dans l'en-tête des incidents) avec leurs étapes
+  ordonnées par phase (confinement, analyse, notification, éradication, remise en service, après
+  l'incident), obligatoires ou non. Cinq procédures fournies et modifiables : rançongiciel,
+  hameçonnage, compte compromis, logiciel malveillant, fuite de données. Onglet « Remédiation » de
+  l'incident : application d'une procédure (celles de sa catégorie proposées en premier), avancement
+  (« 6/14 »), statut, compte rendu et assignation de chaque tâche, réalisation horodatée et signée,
+  tâches propres à l'incident, tout changement inscrit dans l'historique. **La clôture est refusée**
+  tant qu'une étape obligatoire n'est ni faite ni « non applicable ».
+- **Journal des actions d'investigation** sur les incidents de sécurité (issue #370) : onglet
+  « Journal des actions » où l'équipe consigne chaque manipulation (date, cible, outil, commande
+  exacte, constat, résultat, détection et tâche de remédiation liées), chronologie filtrable par
+  résultat, synthèse (nombre, période, résultats, intervenants). PDF « Journal des actions et
+  remédiation » avec les phases de réponse et l'empreinte SHA-256 du contenu, consignée dans
+  l'historique de l'incident à chaque impression.
+
+- **Phases de réponse NIST** sur les incidents de sécurité (issue #370) : section « Phases de
+  réponse » où l'on date la prise en compte, le confinement, l'éradication et la remise en service
+  (bouton « Maintenant »), la détection et la clôture reprenant les dates de l'incident. Frise des
+  phases en tête de l'incident avec le délai depuis la détection, alerte si une phase est datée
+  avant la précédente, recherche sur les quatre dates, et deux cartes de tableau de bord : délai
+  moyen de confinement et de clôture.
+- **Indicateurs de compromission (IOC)** sur les incidents de sécurité (issue #369) : nouvel
+  onglet « IOC » où l'on colle les adresses IP, domaines, URL, empreintes (MD5, SHA-1, SHA-256),
+  e-mails ou noms de fichiers relevés, une valeur par ligne. Le type est détecté automatiquement,
+  les valeurs désamorcées (`hxxp`, `[.]`, `[at]`) sont acceptées et les doublons fusionnés (la date
+  de dernière observation est mise à jour). Verdict (à qualifier, malveillant, suspect, faux
+  positif), liens de recherche VirusTotal / AbuseIPDB / urlscan (simples liens, aucun envoi
+  automatique), incidents où le même IOC a déjà été vu (dans le périmètre visible), copie de la
+  liste en clair ou désamorcée.
+- **MITRE ATT&CK** sur les incidents de sécurité (issue #369) : onglet « MITRE ATT&CK » avec la
+  chaîne d'attaque (les 15 tactiques, en couleur celles observées) et les techniques classées par
+  tactique, liens vers attack.mitre.org et commentaire par technique. Choix dans une liste avec
+  recherche (identifiant ou mot-clé) ou saisie libre normalisée (`t1003/001`, `TA0006`, nom
+  exact). Référentiel officiel MITRE ATT&CK Enterprise embarqué (aucun accès réseau). Deux cartes
+  de tableau de bord : incidents par tactique et techniques les plus fréquentes.
+
+### Fixed
+
+- PDF du plugin (rapport post-incident, revue des accès, audit, SoA...) : le pied de page affichait
+  « 1 / 0 » ; il affiche désormais le numéro de page.
+
 ## [2.18.0] - 2026-11-02
 
 ### Added
