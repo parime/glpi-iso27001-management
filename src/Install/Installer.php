@@ -231,6 +231,9 @@ final class Installer
     private const SRC_ONLY_CLASSES = [
         \GlpiPlugin\Grcmanager\BreachExposure::class,
         \GlpiPlugin\Grcmanager\NotificationTargetBreachExposure::class,
+        // Issue #371 : alertes d'accès au module des incidents.
+        \GlpiPlugin\Grcmanager\IncidentAccessWatch::class,
+        \GlpiPlugin\Grcmanager\NotificationTargetIncidentAccessWatch::class,
     ];
     // Issue #142 : evenements du calendrier de conformite, voir \GlpiPlugin\Grcmanager\ComplianceEvent.
     private const COMPLIANCE_EVENTS_TABLE = 'glpi_plugin_grcmanager_complianceevents';
@@ -2409,6 +2412,10 @@ final class Installer
             ));
         }
 
+        // Issue #371 : instantané des accès au module, comparé chaque jour (IncidentAccessWatch).
+        if (!$DB->fieldExists(self::SECURITY_INCIDENT_CONFIG_TABLE, 'access_snapshot', false)) {
+            $DB->doQuery('ALTER TABLE `' . self::SECURITY_INCIDENT_CONFIG_TABLE . '` ADD `access_snapshot` longtext');
+        }
         // Issue #371 : groupe sécurité optionnel (0 = aucun : les droits de profil suffisent).
         if (!$DB->fieldExists(self::SECURITY_INCIDENT_CONFIG_TABLE, 'security_groups_id', false)) {
             $DB->doQuery(
@@ -2446,6 +2453,7 @@ final class Installer
         $this->seedSecurityWatchNotification();
         $this->seedTrainingRenewalNotification();
         $this->seedBreachExposureNotification();
+        $this->seedIncidentAccessWatchNotifications();
         $this->seedPolicyReviewReminderNotification();
         $this->seedTreatmentActionOverdueNotification();
         $this->seedAccessReviewNotifications();
@@ -2492,6 +2500,17 @@ final class Installer
             [
                 'comment' => 'Récupère/rafraîchit le score CVSS, la sévérité et les liens de '
                     . 'correctif de chaque CVE suivie, depuis le NVD',
+                'mode'    => CronTask::MODE_EXTERNAL,
+            ]
+        );
+
+        // Issue #371 : surveillance quotidienne des accès au module des incidents de sécurité.
+        CronTask::Register(
+            'GlpiPlugin\\Grcmanager\\IncidentAccessWatch',
+            'accesswatch',
+            DAY_TIMESTAMP,
+            [
+                'comment' => 'Signale au groupe RSSI les changements d accès au module des incidents',
                 'mode'    => CronTask::MODE_EXTERNAL,
             ]
         );
@@ -3252,6 +3271,76 @@ final class Installer
             'type'             => Notification::USER_TYPE,
             'items_id'         => NotificationTargetTraining::TARGET_OVERDUE_PARTICIPANTS,
         ]);
+    }
+
+    /**
+     * Issue #371 : alertes d'accès au module des incidents (droits étendus, profil attribué,
+     * module désactivé), au groupe RSSI et à l'administrateur GLPI. Idempotent.
+     */
+    private function seedIncidentAccessWatchNotifications(): void
+    {
+        global $DB;
+
+        $itemtype = \GlpiPlugin\Grcmanager\IncidentAccessWatch::class;
+        $events = [
+            \GlpiPlugin\Grcmanager\IncidentAccessWatch::ACCESS_CHANGED_EVENT  => [
+                'GRC Manager - Accès aux incidents de sécurité modifiés',
+                'Accès au module des incidents de sécurité modifiés',
+            ],
+            \GlpiPlugin\Grcmanager\IncidentAccessWatch::MODULE_DISABLED_EVENT => [
+                'GRC Manager - Module des incidents de sécurité désactivé',
+                'Module des incidents de sécurité désactivé',
+            ],
+        ];
+        foreach ($events as $event => [$name, $title]) {
+            $existing = ['itemtype' => $itemtype, 'event' => $event];
+            if ($DB->request(['FROM' => 'glpi_notifications', 'WHERE' => $existing])->count() > 0) {
+                continue;
+            }
+            $templateId = (new NotificationTemplate())->add([
+                'name'     => $name,
+                'itemtype' => $itemtype,
+                'comment'  => 'Issue #371 : envoyée par la tâche « accesswatch » ou à la désactivation du module.',
+            ]);
+            $DB->insert('glpi_notificationtemplatetranslations', [
+                'notificationtemplates_id' => $templateId,
+                'language'                 => '',
+                'subject'                  => '##accesswatch.action##',
+                'content_text'             => "##accesswatch.action##\n\n##accesswatch.changes##\n\n"
+                    . "Rien n'a été modifié automatiquement. Journal d'audit : ##accesswatch.url##",
+                'content_html'             => NotificationHtml::render([
+                    NotificationHtml::strong('##accesswatch.action##'),
+                    NotificationHtml::lines(['##accesswatch.changes##', "Rien n'a été modifié automatiquement."]),
+                    NotificationHtml::link('##accesswatch.url##', "Ouvrir le journal d'audit"),
+                ]),
+            ]);
+            $notificationId = (new Notification())->add([
+                'name'         => $name,
+                'entities_id'  => 0,
+                'is_recursive' => 1,
+                'itemtype'     => $itemtype,
+                'event'        => $event,
+                'is_active'    => 1,
+                'comment'      => $title,
+            ]);
+            $DB->insert('glpi_notifications_notificationtemplates', [
+                'notifications_id'         => $notificationId,
+                'mode'                     => 'mailing',
+                'notificationtemplates_id' => $templateId,
+            ]);
+            foreach (
+                [
+                    \GlpiPlugin\Grcmanager\NotificationTargetIncidentAccessWatch::TARGET_CISO_GROUP,
+                    Notification::GLOBAL_ADMINISTRATOR,
+                ] as $target
+            ) {
+                $DB->insert('glpi_notificationtargets', [
+                    'notifications_id' => $notificationId,
+                    'type'             => Notification::USER_TYPE,
+                    'items_id'         => $target,
+                ]);
+            }
+        }
     }
 
     /**
@@ -4084,6 +4173,7 @@ final class Installer
         $this->unseedNotification(PluginGrcmanagerSecurityIncident::class);
         $this->unseedNotification('GlpiPlugin\\Grcmanager\\AccessReview');
         $this->unseedNotification(\GlpiPlugin\Grcmanager\BreachExposure::class);
+        $this->unseedNotification(\GlpiPlugin\Grcmanager\IncidentAccessWatch::class);
 
         // Absorption de glpi-security-incidents (ROADMAP.md "Version 2.0") : colonnes ajoutées sur
         // les tables cœur pour la gestion de modèles - même dérivation que le plugin absorbé

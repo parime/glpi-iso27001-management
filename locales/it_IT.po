@@ -6819,3 +6819,45 @@ msgstr "Se impostato, solo i membri di questo gruppo usano il modulo degli incid
 
 msgid "Module settings changed"
 msgstr "Impostazioni del modulo modificate"
+
+msgid "Access to the security incidents module"
+msgstr "Accesso al modulo degli incidenti di sicurezza"
+
+#, php-format
+msgid "Profile %s now has access to the module"
+msgstr "Il profilo %s ora ha accesso al modulo"
+
+#, php-format
+msgid "Rights of profile %s on the module extended"
+msgstr "Diritti del profilo %s sul modulo estesi"
+
+#, php-format
+msgid "Rights of profile %s on the module reduced"
+msgstr "Diritti del profilo %s sul modulo ridotti"
+
+#, php-format
+msgid "Profile %s no longer has access to the module"
+msgstr "Il profilo %s non ha più accesso al modulo"
+
+#, php-format
+msgid "%1$s received profile %2$s (entity %3$s)"
+msgstr "%1$s ha ricevuto il profilo %2$s (entità %3$s)"
+
+#, php-format
+msgid "%1$s lost profile %2$s (entity %3$s)"
+msgstr "%1$s ha perso il profilo %2$s (entità %3$s)"
+
+msgid "Access to the security incidents module changed"
+msgstr "Accesso al modulo degli incidenti di sicurezza modificato"
+
+msgid "Security incidents module disabled"
+msgstr "Modulo degli incidenti di sicurezza disattivato"
+
+msgid "Changes"
+msgstr "Modifiche"
+
+msgid "Number of changes"
+msgstr "Numero di modifiche"
+
+msgid "Access rights changed"
+msgstr "Diritti d'accesso modificati"

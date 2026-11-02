@@ -80,6 +80,7 @@ class AuditLog extends CommonGLPI
             'verify'        => __('Integrity check', 'grcmanager'),
             'seal'          => __('Evidence sealed', 'grcmanager'),
             'config_change' => __('Module settings changed', 'grcmanager'),
+            'rights_change' => __('Access rights changed', 'grcmanager'),
             'access_denied' => __('Access denied', 'grcmanager'),
         ];
     }
