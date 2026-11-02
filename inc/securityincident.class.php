@@ -378,12 +378,19 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
 
     public static function canView(): bool
     {
-        return Session::haveRightsOr(self::$rightname, [self::READALL, self::READMY]);
+        // Issue #371 : groupe sécurité optionnel.
+        return Session::haveRightsOr(self::$rightname, [self::READALL, self::READMY])
+            && \GlpiPlugin\Grcmanager\Services\Incident\SecurityGroup::allows();
+    }
+
+    public static function canCreate(): bool
+    {
+        return parent::canCreate() && \GlpiPlugin\Grcmanager\Services\Incident\SecurityGroup::allows();
     }
 
     public function canViewItem(): bool
     {
-        if (!$this->checkEntity(true)) {
+        if (!$this->checkEntity(true) || !\GlpiPlugin\Grcmanager\Services\Incident\SecurityGroup::allows()) {
             return false;
         }
 

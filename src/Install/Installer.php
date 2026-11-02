@@ -2409,6 +2409,14 @@ final class Installer
             ));
         }
 
+        // Issue #371 : groupe sécurité optionnel (0 = aucun : les droits de profil suffisent).
+        if (!$DB->fieldExists(self::SECURITY_INCIDENT_CONFIG_TABLE, 'security_groups_id', false)) {
+            $DB->doQuery(
+                'ALTER TABLE `' . self::SECURITY_INCIDENT_CONFIG_TABLE . '` ADD `security_groups_id` int '
+                . $keySign . ' NOT NULL DEFAULT 0'
+            );
+        }
+
         $this->seedControls();
         $this->seedClauses();
         $this->seedSoaApprovalNotification();
