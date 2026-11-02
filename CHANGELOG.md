@@ -9,6 +9,12 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Alertes d'accès** au module des incidents (issue #371) : une tâche automatique quotidienne
+  (« accesswatch ») compare les droits des profils sur les incidents et les utilisateurs qui
+  détiennent ces profils ; chaque écart (droit accordé, étendu, réduit ou retiré, profil attribué
+  ou retiré) est inscrit dans le journal d'audit et signalé au groupe RSSI et à l'administrateur
+  GLPI. La désactivation du module déclenche une alerte immédiate. Rien n'est modifié
+  automatiquement.
 - **Groupe sécurité** optionnel du module des incidents (issue #371), dans la configuration du
   plugin : s'il est défini, seuls ses membres utilisent le module, quels que soient les droits de
   leur profil. Un administrateur GLPI n'est jamais bloqué, mais ses consultations hors du groupe
