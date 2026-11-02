@@ -6460,3 +6460,137 @@ msgstr "Cette empreinte est consignée dans l'historique de l'incident à chaque
 
 msgid "Remediation plan (PDF)"
 msgstr "Plan de remédiation (PDF)"
+
+msgid "Alert identifier"
+msgstr "Identifiant de l'alerte"
+
+msgid "Detection date"
+msgstr "Date de détection"
+
+msgid "Alert name"
+msgstr "Nom de l'alerte"
+
+msgid "Host"
+msgstr "Hôte"
+
+msgid "MITRE ATT&CK tactic"
+msgstr "Tactique MITRE ATT&CK"
+
+msgid "Command line"
+msgstr "Ligne de commande"
+
+msgid "IP address"
+msgstr "Adresse IP"
+
+msgid "Console link"
+msgstr "Lien vers la console"
+
+msgid "One incident per alert identifier"
+msgstr "Un incident par identifiant d'alerte"
+
+msgid "One incident per host"
+msgstr "Un incident par hôte"
+
+msgid "A single incident for the whole file"
+msgstr "Un seul incident pour tout le fichier"
+
+msgid "One incident per line"
+msgstr "Un incident par ligne"
+
+msgid "The file could not be received."
+msgstr "Le fichier n'a pas pu être reçu."
+
+msgid "The file is too large."
+msgstr "Le fichier est trop volumineux."
+
+msgid "Import an EDR / XDR export"
+msgstr "Importer un export EDR / XDR"
+
+msgid "File"
+msgstr "Fichier"
+
+msgid "Columns"
+msgstr "Colonnes"
+
+msgid "CSV export of the alerts from your EDR or XDR console (Microsoft Defender, CrowdStrike, SentinelOne, Sophos, Wazuh...). The separator and the encoding are detected, the usual columns are recognised automatically: you check them at the next step."
+msgstr "Export CSV des alertes de votre console EDR ou XDR (Microsoft Defender, CrowdStrike, SentinelOne, Sophos, Wazuh...). Le séparateur et l'encodage sont détectés, les colonnes usuelles reconnues automatiquement : vous les vérifiez à l'étape suivante."
+
+#, php-format
+msgid "At most %1$d MB and %2$d lines."
+msgstr "Au plus %1$d Mo et %2$d lignes."
+
+msgid "Next"
+msgstr "Suivant"
+
+msgid "Example file"
+msgstr "Fichier d'exemple"
+
+msgid "line(s)"
+msgstr "ligne(s)"
+
+#, php-format
+msgid "truncated to the first %d lines"
+msgstr "limité aux %d premières lignes"
+
+msgid "Column of each field"
+msgstr "Colonne de chaque champ"
+
+msgid "(not imported)"
+msgstr "(non importé)"
+
+msgid "Create"
+msgstr "Créer"
+
+msgid "Time zone of dates without one"
+msgstr "Fuseau des dates qui n'en ont pas"
+
+msgid "Or add everything to an existing incident"
+msgstr "Ou tout ajouter à un incident existant"
+
+msgid "No: create new incidents"
+msgstr "Non : créer de nouveaux incidents"
+
+msgid "Preview"
+msgstr "Aperçu"
+
+msgid "Start again"
+msgstr "Recommencer"
+
+msgid "incident(s) created"
+msgstr "incident(s) créé(s)"
+
+msgid "incident(s) completed"
+msgstr "incident(s) complété(s)"
+
+msgid "already imported, ignored"
+msgstr "déjà importé(s), ignoré(s)"
+
+msgid "Import another file"
+msgstr "Importer un autre fichier"
+
+#, php-format
+msgid "Created from an EDR / XDR export (%d alert line(s))."
+msgstr "Créé depuis un export EDR / XDR (%d ligne(s) d'alerte)."
+
+msgid "Hosts:"
+msgstr "Hôtes :"
+
+msgid "Accounts:"
+msgstr "Comptes :"
+
+msgid "Console:"
+msgstr "Console :"
+
+msgid "Import EDR / XDR"
+msgstr "Import EDR / XDR"
+
+msgid "Import of a CSV export of the alerts from an EDR or XDR console: each alert becomes an incident with its indicators, MITRE ATT&CK techniques, hosts and accounts."
+msgstr "Import d'un export CSV des alertes d'une console EDR ou XDR : chaque alerte devient un incident avec ses indicateurs, ses techniques MITRE ATT&CK, ses hôtes et ses comptes."
+
+msgid "Check the columns proposed, choose how to group the alerts, then import. An alert already imported is ignored; the original lines are kept unchanged on the incident."
+msgstr "Vérifiez les colonnes proposées, choisissez comment regrouper les alertes, puis importez. Une alerte déjà importée est ignorée ; les lignes d'origine sont conservées telles quelles sur l'incident."
+
+msgid "EDR / XDR import"
+msgid_plural "EDR / XDR imports"
+msgstr[0] "Import EDR / XDR"
+msgstr[1] "Imports EDR / XDR"
