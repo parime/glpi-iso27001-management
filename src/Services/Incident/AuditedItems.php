@@ -54,7 +54,7 @@ final class AuditedItems
     public static function incidentOf(object $item): ?int
     {
         $fields = property_exists($item, 'fields') && is_array($item->fields) ? $item->fields : [];
-        if ($item::class === self::INCIDENT || is_a($item, self::INCIDENT)) {
+        if (is_a($item, self::INCIDENT)) {
             return (int) ($fields['id'] ?? 0) ?: null;
         }
         if (isset($fields[self::FOREIGN_KEY])) {
