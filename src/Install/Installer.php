@@ -176,6 +176,8 @@ final class Installer
     private const PLAYBOOKS_TABLE = 'glpi_plugin_grcmanager_playbooks';
     // Issue #371 : journal d'audit chaîné, conservé à la désinstallation (valeur probante).
     private const AUDIT_LOGS_TABLE = 'glpi_plugin_grcmanager_auditlogs';
+    // Issue #371 : registre des preuves des incidents (empreintes SHA-256 des documents joints).
+    private const SECURITY_INCIDENT_EVIDENCES_TABLE = 'glpi_plugin_grcmanager_securityincidentevidences';
     // Issue #370 : imports CSV d'EDR / XDR (lignes brutes) et identifiants d'alerte déjà importés.
     private const SECURITY_INCIDENT_EDR_IMPORTS_TABLE = 'glpi_plugin_grcmanager_securityincidentedrimports';
     private const SECURITY_INCIDENT_EDR_ALERTS_TABLE = 'glpi_plugin_grcmanager_securityincidentedralerts';
@@ -1981,6 +1983,27 @@ final class Installer
                 KEY `users_id` (`users_id`),
                 KEY `action` (`action`),
                 KEY `plugin_grcmanager_securityincidents_id` (`plugin_grcmanager_securityincidents_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query);
+        }
+        if (!$DB->tableExists(self::SECURITY_INCIDENT_EVIDENCES_TABLE)) {
+            $query = "CREATE TABLE `" . self::SECURITY_INCIDENT_EVIDENCES_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_securityincidents_id` int {$keySign} NOT NULL DEFAULT 0,
+                `documents_id` int {$keySign} NOT NULL DEFAULT 0,
+                `file_name` varchar(255) NOT NULL DEFAULT '',
+                `sha256` char(64) NOT NULL DEFAULT '',
+                `size` bigint NOT NULL DEFAULT 0,
+                `status` varchar(16) NOT NULL DEFAULT 'present' COMMENT 'present, removed, replaced',
+                `users_id` int {$keySign} NOT NULL DEFAULT 0,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_removed` timestamp NULL DEFAULT NULL,
+                `last_check` timestamp NULL DEFAULT NULL,
+                `last_result` varchar(16) NOT NULL DEFAULT '' COMMENT 'ok, modified, missing',
+                PRIMARY KEY (`id`),
+                KEY `plugin_grcmanager_securityincidents_id` (`plugin_grcmanager_securityincidents_id`),
+                KEY `documents_id` (`documents_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
             $DB->doQuery($query);

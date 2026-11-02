@@ -261,7 +261,10 @@ function plugin_init_grcmanager(): void
         'Ticket'        => 'plugin_grcmanager_periodic_review_ticket_add',
         'Document_Item' => 'plugin_grcmanager_restricted_document_item_add',
     ];
-    $PLUGIN_HOOKS[Hooks::ITEM_UPDATE]['grcmanager'] = ['Ticket' => 'plugin_grcmanager_periodic_review_ticket_update'];
+    $PLUGIN_HOOKS[Hooks::ITEM_UPDATE]['grcmanager'] = [
+        'Ticket'   => 'plugin_grcmanager_periodic_review_ticket_update',
+        'Document' => 'plugin_grcmanager_evidence_document_update',
+    ];
     // Issue #371 : journal d'audit chaîné des incidents de sécurité et de ce qui leur est rattaché.
     foreach (\GlpiPlugin\Grcmanager\Services\Incident\AuditedItems::ITEMTYPES as $auditedItemtype) {
         $PLUGIN_HOOKS[Hooks::ITEM_ADD]['grcmanager'][$auditedItemtype] ??= 'plugin_grcmanager_audit_add';

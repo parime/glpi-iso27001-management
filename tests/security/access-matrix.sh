@@ -67,7 +67,7 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
     front/securityincidentcve.form.php front/securityincidentioc.form.php \
     front/securityincidenttechnique.form.php front/securityincidentaction.form.php \
     front/securityincidentplaybooktask.form.php front/playbook.form.php front/playbookstep.form.php \
-    front/securityincidentedrimport.php \
+    front/securityincidentedrimport.php front/securityincidentevidence.form.php \
     front/cpereference.form.php front/productalias.form.php \
     front/waiver.form.php front/coveragerule.form.php; do
     expect "$form : creation" "$1" "$(code -d "add=1&name=securite&title=securite&_glpi_csrf_token=$(csrf)" "$BASE/plugins/grcmanager/$form")"

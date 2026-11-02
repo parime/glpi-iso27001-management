@@ -444,6 +444,7 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
         $this->addStandardTab(\GlpiPlugin\Grcmanager\SecurityIncidentTechnique::class, $tabs, $options);
         $this->addStandardTab(\GlpiPlugin\Grcmanager\SecurityIncidentAction::class, $tabs, $options);
         $this->addStandardTab(\GlpiPlugin\Grcmanager\SecurityIncidentPlaybookTask::class, $tabs, $options);
+        $this->addStandardTab(\GlpiPlugin\Grcmanager\SecurityIncidentEvidence::class, $tabs, $options);
         $this->addStandardTab(PluginGrcmanagerSecurityIncident_Item::class, $tabs, $options);
         $this->addStandardTab(PluginGrcmanagerSecurityIncidentCost::class, $tabs, $options);
         $this->addStandardTab(KnowbaseItem_Item::class, $tabs, $options);

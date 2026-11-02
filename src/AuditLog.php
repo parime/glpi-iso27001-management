@@ -78,6 +78,7 @@ class AuditLog extends CommonGLPI
             'export'        => __('Export or print', 'grcmanager'),
             'import'        => __('Import', 'grcmanager'),
             'verify'        => __('Integrity check', 'grcmanager'),
+            'seal'          => __('Evidence sealed', 'grcmanager'),
             'access_denied' => __('Access denied', 'grcmanager'),
         ];
     }
