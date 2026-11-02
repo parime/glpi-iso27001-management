@@ -396,7 +396,63 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
                             || $this->haveAGroup(CommonITILActor::OBSERVER, $_SESSION['glpigroups'])))
                     || $this->isUser(CommonITILActor::ASSIGN, Session::getLoginUserID())
                     || (isset($_SESSION['glpigroups'])
-                        && $this->haveAGroup(CommonITILActor::ASSIGN, $_SESSION['glpigroups']))));
+                        && $this->haveAGroup(CommonITILActor::ASSIGN, $_SESSION['glpigroups']))
+                    // Issue #371 : membre de l'équipe d'intervention.
+                    || \GlpiPlugin\Grcmanager\SecurityIncidentTeam::roleOf(
+                        (int) $this->getID(),
+                        (int) Session::getLoginUserID()
+                    ) !== null));
+    }
+
+    /**
+     * Issue #371 : modifier exige aussi de voir l'incident (cloisonnement), et un membre de
+     * l'équipe qui n'y est qu'observateur le lit seulement.
+     */
+    public function canUpdateItem(): bool
+    {
+        if (!parent::canUpdateItem() || !$this->canViewItem()) {
+            return false;
+        }
+
+        return !$this->isObserverOnly();
+    }
+
+    /**
+     * Issue #371 : corbeille et suppression réservées aux pilotes de l'incident.
+     */
+    public function canDeleteItem(): bool
+    {
+        return parent::canDeleteItem() && $this->canViewItem()
+            && \GlpiPlugin\Grcmanager\SecurityIncidentTeam::isPilot($this);
+    }
+
+    public function canPurgeItem(): bool
+    {
+        return parent::canPurgeItem() && $this->canViewItem()
+            && \GlpiPlugin\Grcmanager\SecurityIncidentTeam::isPilot($this);
+    }
+
+    /**
+     * Membre de l'équipe en lecture seule, sans autre lien avec l'incident ni droit « Voir tout ».
+     */
+    private function isObserverOnly(): bool
+    {
+        $me = (int) Session::getLoginUserID();
+        if (
+            Session::haveRight(self::$rightname, self::READALL)
+            || \GlpiPlugin\Grcmanager\SecurityIncidentTeam::roleOf((int) $this->getID(), $me)
+                !== \GlpiPlugin\Grcmanager\SecurityIncidentTeam::OBSERVER
+        ) {
+            return false;
+        }
+        $groups = $_SESSION['glpigroups'] ?? [];
+        foreach ([CommonITILActor::REQUESTER, CommonITILActor::OBSERVER, CommonITILActor::ASSIGN] as $type) {
+            if ($this->isUser($type, $me) || ($groups !== [] && $this->haveAGroup($type, $groups))) {
+                return false;
+            }
+        }
+
+        return (int) ($this->fields['users_id_recipient'] ?? 0) !== $me;
     }
 
     public function canCreateItem(): bool
@@ -444,6 +500,7 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
         $this->addStandardTab(\GlpiPlugin\Grcmanager\SecurityIncidentTechnique::class, $tabs, $options);
         $this->addStandardTab(\GlpiPlugin\Grcmanager\SecurityIncidentAction::class, $tabs, $options);
         $this->addStandardTab(\GlpiPlugin\Grcmanager\SecurityIncidentPlaybookTask::class, $tabs, $options);
+        $this->addStandardTab(\GlpiPlugin\Grcmanager\SecurityIncidentTeam::class, $tabs, $options);
         $this->addStandardTab(\GlpiPlugin\Grcmanager\SecurityIncidentEvidence::class, $tabs, $options);
         $this->addStandardTab(PluginGrcmanagerSecurityIncident_Item::class, $tabs, $options);
         $this->addStandardTab(PluginGrcmanagerSecurityIncidentCost::class, $tabs, $options);
@@ -467,6 +524,7 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
             \GlpiPlugin\Grcmanager\SecurityIncidentAction::class,
             \GlpiPlugin\Grcmanager\SecurityIncidentPlaybookTask::class,
             \GlpiPlugin\Grcmanager\SecurityIncidentEdrImport::class,
+            \GlpiPlugin\Grcmanager\SecurityIncidentTeam::class,
             PluginGrcmanagerSecurityIncidentCost::class,
         ]);
 

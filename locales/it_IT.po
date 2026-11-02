@@ -6771,3 +6771,42 @@ msgstr "%d prova/e modificata/e o mancante/i: vedi la scheda Integrità e prove.
 
 msgid "Evidence sealed"
 msgstr "Prova sigillata"
+
+msgid "Responder (acts on the incident)"
+msgstr "Operatore (agisce sull'incidente)"
+
+msgid "Observer (read only)"
+msgstr "Osservatore (sola lettura)"
+
+msgid "Response team"
+msgstr "Team di intervento"
+
+msgid "Only the incident pilots can compose the response team."
+msgstr "Solo i responsabili dell'incidente possono comporre il team di intervento."
+
+msgid "Add to the team"
+msgstr "Aggiungi al team"
+
+msgid "A responder acts on the incident (timeline, indicators, evidence, tasks); an observer only reads it. Removing a member cuts their access at once, unless they are also an actor of the incident."
+msgstr "Un operatore agisce sull'incidente (cronologia, indicatori, prove, attività); un osservatore lo legge soltanto. Rimuovere un membro ne blocca subito l'accesso, a meno che non sia anche attore dell'incidente."
+
+msgid "No response team yet"
+msgstr "Ancora nessun team di intervento"
+
+msgid "Add the technicians who work on the incident: with the \"See (author)\" right, they see only the incidents of their team."
+msgstr "Aggiungi i tecnici che lavorano sull'incidente: con il diritto «Vedi (autore)» vedono solo gli incidenti del loro team."
+
+#, php-format
+msgid "added by %1$s on %2$s"
+msgstr "aggiunto da %1$s il %2$s"
+
+msgid "Remove from the team"
+msgstr "Rimuovi dal team"
+
+msgid "Remove this member? Their access is cut at once."
+msgstr "Rimuovere questo membro? Il suo accesso viene bloccato subito."
+
+msgid "Response team member"
+msgid_plural "Response team"
+msgstr[0] "Membro del team di intervento"
+msgstr[1] "Team di intervento"

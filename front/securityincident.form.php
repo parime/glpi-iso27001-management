@@ -81,6 +81,17 @@ if (isset($_POST['add'])) {
         $_POST['plugin_grcmanager_securityincidents_id']
     ));
 } else {
+    // Issue #371 : tentative d'ouvrir un incident non visible, tracée dans le journal d'audit.
+    $requestedId = (int) ($_REQUEST['id'] ?? 0);
+    if ($requestedId > 0 && $securityIncident->getFromDB($requestedId) && !$securityIncident->canViewItem()) {
+        \GlpiPlugin\Grcmanager\AuditLog::record(
+            'access_denied',
+            PluginGrcmanagerSecurityIncident::class,
+            $requestedId,
+            $requestedId,
+            'denied'
+        );
+    }
     $menus = ['helpdesk', PluginGrcmanagerSecurityIncident::class];
     PluginGrcmanagerSecurityIncident::displayFullPageForItem((int) ($_REQUEST['id'] ?? 0), $menus, $_REQUEST);
     Html::footer();

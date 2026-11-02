@@ -661,6 +661,11 @@ function plugin_grcmanager_evidence_document_update(CommonDBTM $item): void
  */
 function plugin_grcmanager_restricted_documents_where(array $params): array
 {
+    // Issue #371 : cloisonnement de la liste des incidents de sécurité.
+    if (($params[0] ?? '') === PluginGrcmanagerSecurityIncident::class) {
+        return [$params[0], \GlpiPlugin\Grcmanager\SecurityIncidentTeam::restrictSearch((array) $params[1])];
+    }
+
     return \GlpiPlugin\Grcmanager\RestrictedDocument::addDefaultWhere($params);
 }
 
