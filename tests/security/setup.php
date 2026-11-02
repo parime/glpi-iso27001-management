@@ -115,6 +115,11 @@ if ($mode === 'counts') {
     $counts = [];
     foreach ($DB->listTables('glpi_plugin_grcmanager_%') as $table) {
         $name = $table['TABLE_NAME'];
+        // Issue #371 : le journal d'audit enregistre par conception les consultations et les accès
+        // refusés de ces profils (il ne contient rien d'autre que ces traces).
+        if ($name === 'glpi_plugin_grcmanager_auditlogs') {
+            continue;
+        }
         $counts[$name] = countElementsInTable($name);
     }
     ksort($counts);
