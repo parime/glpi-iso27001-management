@@ -8118,3 +8118,68 @@ msgstr "Dziennik audytu incydentów bezpieczeństwa: kto, co i kiedy wyświetli�
 
 msgid "Filter the entries, export them for an audit or a court, and check the integrity regularly: each entry is sealed with the previous one."
 msgstr "Filtruj wpisy, eksportuj je na potrzeby audytu lub sądu i regularnie sprawdzaj integralność: każdy wpis jest zapieczętowany poprzednim."
+
+msgid "Integrity and evidence"
+msgstr "Integralność i dowody"
+
+msgid "Present"
+msgstr "Obecny"
+
+msgid "Removed from the incident"
+msgstr "Usunięty z incydentu"
+
+msgid "File replaced"
+msgstr "Plik zastąpiony"
+
+msgid "Intact"
+msgstr "Nienaruszony"
+
+msgid "Modified"
+msgstr "Zmieniony"
+
+msgid "Missing"
+msgstr "Brak pliku"
+
+msgid "evidence(s)"
+msgstr "dowód(y)"
+
+msgid "No evidence yet"
+msgstr "Brak dowodów"
+
+msgid "Each document attached to the incident (Documents tab) is registered here with its SHA-256 fingerprint, so you can prove later that it was not altered."
+msgstr "Każdy dokument dołączony do incydentu (karta Dokumenty) jest tu rejestrowany z odciskiem SHA-256, aby później dowieść, że nie został zmieniony."
+
+msgid "Reference SHA-256 fingerprint"
+msgstr "Referencyjny odcisk SHA-256"
+
+msgid "Size"
+msgstr "Rozmiar"
+
+msgid "Added by"
+msgstr "Dodane przez"
+
+msgid "Last check"
+msgstr "Ostatnia kontrola"
+
+msgid "Never checked"
+msgstr "Nigdy nie sprawdzano"
+
+msgid "Check a file outside GLPI"
+msgstr "Sprawdź plik poza GLPI"
+
+msgid "Compute the fingerprint of your copy and compare it with the reference fingerprint above:"
+msgstr "Oblicz odcisk swojej kopii i porównaj go z odciskiem referencyjnym powyżej:"
+
+msgid "Useful evidence formats (to allow in the GLPI document types): .log, .evtx, .json, .pcap, .eml, .csv, .zip."
+msgstr "Przydatne formaty dowodów (do zezwolenia w typach dokumentów GLPI): .log, .evtx, .json, .pcap, .eml, .csv, .zip."
+
+#, php-format
+msgid "%d evidence(s) checked: all intact."
+msgstr "Sprawdzono dowody: %d, wszystkie nienaruszone."
+
+#, php-format
+msgid "%d evidence(s) modified or missing: see the Integrity and evidence tab."
+msgstr "Zmienione lub brakujące dowody: %d. Zobacz kartę Integralność i dowody."
+
+msgid "Evidence sealed"
+msgstr "Dowód zapieczętowany"

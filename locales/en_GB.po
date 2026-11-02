@@ -6706,3 +6706,68 @@ msgstr "The audit log of the security incidents: who consulted or changed what, 
 
 msgid "Filter the entries, export them for an audit or a court, and check the integrity regularly: each entry is sealed with the previous one."
 msgstr "Filter the entries, export them for an audit or a court, and check the integrity regularly: each entry is sealed with the previous one."
+
+msgid "Integrity and evidence"
+msgstr "Integrity and evidence"
+
+msgid "Present"
+msgstr "Present"
+
+msgid "Removed from the incident"
+msgstr "Removed from the incident"
+
+msgid "File replaced"
+msgstr "File replaced"
+
+msgid "Intact"
+msgstr "Intact"
+
+msgid "Modified"
+msgstr "Modified"
+
+msgid "Missing"
+msgstr "Missing"
+
+msgid "evidence(s)"
+msgstr "evidence(s)"
+
+msgid "No evidence yet"
+msgstr "No evidence yet"
+
+msgid "Each document attached to the incident (Documents tab) is registered here with its SHA-256 fingerprint, so you can prove later that it was not altered."
+msgstr "Each document attached to the incident (Documents tab) is registered here with its SHA-256 fingerprint, so you can prove later that it was not altered."
+
+msgid "Reference SHA-256 fingerprint"
+msgstr "Reference SHA-256 fingerprint"
+
+msgid "Size"
+msgstr "Size"
+
+msgid "Added by"
+msgstr "Added by"
+
+msgid "Last check"
+msgstr "Last check"
+
+msgid "Never checked"
+msgstr "Never checked"
+
+msgid "Check a file outside GLPI"
+msgstr "Check a file outside GLPI"
+
+msgid "Compute the fingerprint of your copy and compare it with the reference fingerprint above:"
+msgstr "Compute the fingerprint of your copy and compare it with the reference fingerprint above:"
+
+msgid "Useful evidence formats (to allow in the GLPI document types): .log, .evtx, .json, .pcap, .eml, .csv, .zip."
+msgstr "Useful evidence formats (to allow in the GLPI document types): .log, .evtx, .json, .pcap, .eml, .csv, .zip."
+
+#, php-format
+msgid "%d evidence(s) checked: all intact."
+msgstr "%d evidence(s) checked: all intact."
+
+#, php-format
+msgid "%d evidence(s) modified or missing: see the Integrity and evidence tab."
+msgstr "%d evidence(s) modified or missing: see the Integrity and evidence tab."
+
+msgid "Evidence sealed"
+msgstr "Evidence sealed"

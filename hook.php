@@ -583,8 +583,9 @@ function plugin_grcmanager_restricted_document_item_add(CommonDBTM $item): void
 {
     if ($item instanceof Document_Item) {
         \GlpiPlugin\Grcmanager\RestrictedDocument::onDocumentItemAdd($item);
-        // Issue #371 : document joint à un incident, tracé dans le journal d'audit.
+        // Issue #371 : document joint à un incident, tracé dans le journal d'audit et scellé.
         plugin_grcmanager_audit_add($item);
+        \GlpiPlugin\Grcmanager\SecurityIncidentEvidence::onDocumentLinked($item);
     }
 }
 
@@ -636,6 +637,20 @@ function plugin_grcmanager_audit_restore(CommonDBTM $item): void
 function plugin_grcmanager_audit_purge(CommonDBTM $item): void
 {
     plugin_grcmanager_audit_event($item, 'purge');
+    // Issue #371 : document retiré d'un incident, conservé au registre des preuves.
+    if ($item instanceof Document_Item) {
+        \GlpiPlugin\Grcmanager\SecurityIncidentEvidence::onDocumentUnlinked($item);
+    }
+}
+
+/**
+ * Issue #371 : fichier d'un document remplacé, inscrit à nouveau au registre des preuves.
+ */
+function plugin_grcmanager_evidence_document_update(CommonDBTM $item): void
+{
+    if ($item instanceof Document) {
+        \GlpiPlugin\Grcmanager\SecurityIncidentEvidence::onDocumentUpdated($item);
+    }
 }
 
 /**
