@@ -86,6 +86,9 @@ if (isset($_POST['import']) && $valid) {
         (string) $pending['name'],
         hash('sha256', $raw)
     );
+    // Chemin créé par le serveur à l'étape « fichier » (nom aléatoire, gardé en session) et vérifié
+    // sous GLPI_TMP_DIR ci-dessus : aucune partie ne vient de l'utilisateur.
+    // nosemgrep: php.lang.security.unlink-use.unlink-use
     @unlink($pendingPath);
     unset($_SESSION[$tmpKey]);
     $links = [];
