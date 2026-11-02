@@ -6810,3 +6810,12 @@ msgid "Response team member"
 msgid_plural "Response team"
 msgstr[0] "Membre de l'équipe d'intervention"
 msgstr[1] "Équipe d'intervention"
+
+msgid "Security group (optional)"
+msgstr "Groupe sécurité (facultatif)"
+
+msgid "If set, only the members of this group use the security incidents module, whatever the rights of their profile. A GLPI administrator is never blocked, but each of their consultations outside the group is flagged in the audit log."
+msgstr "Si défini, seuls les membres de ce groupe utilisent le module des incidents de sécurité, quels que soient les droits de leur profil. Un administrateur GLPI n'est jamais bloqué, mais chacune de ses consultations hors du groupe est signalée dans le journal d'audit."
+
+msgid "Module settings changed"
+msgstr "Réglages du module modifiés"

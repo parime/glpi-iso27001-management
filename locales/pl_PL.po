@@ -8223,3 +8223,12 @@ msgid_plural "Response team"
 msgstr[0] "Członek zespołu reagowania"
 msgstr[1] "Zespół reagowania"
 msgstr[2] "Zespół reagowania"
+
+msgid "Security group (optional)"
+msgstr "Grupa bezpieczeństwa (opcjonalnie)"
+
+msgid "If set, only the members of this group use the security incidents module, whatever the rights of their profile. A GLPI administrator is never blocked, but each of their consultations outside the group is flagged in the audit log."
+msgstr "Jeśli ustawiono, tylko członkowie tej grupy korzystają z modułu incydentów bezpieczeństwa, niezależnie od uprawnień profilu. Administrator GLPI nigdy nie jest blokowany, ale każde jego wyświetlenie poza grupą jest oznaczane w dzienniku audytu."
+
+msgid "Module settings changed"
+msgstr "Zmieniono ustawienia modułu"
