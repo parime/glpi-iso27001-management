@@ -9,6 +9,13 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Journal d'audit infalsifiable** des incidents de sécurité (issue #371) : consultation, création,
+  modification, corbeille, restauration, suppression, éléments ajoutés ou retirés (IOC, techniques,
+  actions, tâches, documents, suivis...), exports, imports et vérifications sont tracés, avec
+  l'utilisateur, l'utilisateur réel en cas de « Prendre l'identité », le profil et l'adresse IP.
+  Chaque entrée est chaînée à la précédente par SHA-256 ; écran « Journal d'audit » (lien dans
+  l'en-tête des incidents, droit des registres sensibles) avec filtres, bouton « Vérifier
+  l'intégrité » et export CSV tracé. Le journal est conservé à la désinstallation du plugin.
 - **Plan de remédiation en PDF** (issue #370) : tâches par phase avec cases à cocher, comptes
   rendus, réalisations signées, zones de signature et empreinte SHA-256 du contenu, consignée dans
   l'historique de l'incident à chaque impression.

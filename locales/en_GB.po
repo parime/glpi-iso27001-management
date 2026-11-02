@@ -6594,3 +6594,115 @@ msgid "EDR / XDR import"
 msgid_plural "EDR / XDR imports"
 msgstr[0] "EDR / XDR import"
 msgstr[1] "EDR / XDR imports"
+
+msgid "Security audit log"
+msgstr "Security audit log"
+
+msgid "Audit log"
+msgstr "Audit log"
+
+msgid "Consultation"
+msgstr "Consultation"
+
+msgid "Creation"
+msgstr "Creation"
+
+msgid "Modification"
+msgstr "Modification"
+
+msgid "Moved to the trash"
+msgstr "Moved to the trash"
+
+msgid "Restoration"
+msgstr "Restoration"
+
+msgid "Permanent deletion"
+msgstr "Permanent deletion"
+
+msgid "Item added"
+msgstr "Item added"
+
+msgid "Item removed"
+msgstr "Item removed"
+
+msgid "Export or print"
+msgstr "Export or print"
+
+msgid "Integrity check"
+msgstr "Integrity check"
+
+msgid "Access denied"
+msgstr "Access denied"
+
+msgid "Real user (impersonation)"
+msgstr "Real user (impersonation)"
+
+msgid "Profile"
+msgstr "Profile"
+
+msgid "Details"
+msgstr "Details"
+
+msgid "Integrity verified"
+msgstr "Integrity verified"
+
+#, php-format
+msgid "%d entries checked: the chain is intact, no entry was modified, deleted or inserted."
+msgstr "%d entries checked: the chain is intact, no entry was modified, deleted or inserted."
+
+msgid "Integrity broken"
+msgstr "Integrity broken"
+
+#, php-format
+msgid "The chain breaks at entry #%d: it, or the one before it, was modified, deleted or inserted outside GLPI."
+msgstr "The chain breaks at entry #%d: it, or the one before it, was modified, deleted or inserted outside GLPI."
+
+msgid "From"
+msgstr "From"
+
+msgid "To"
+msgstr "To"
+
+msgid "Allowed"
+msgstr "Allowed"
+
+msgid "Denied"
+msgstr "Denied"
+
+msgid "Filter"
+msgstr "Filter"
+
+msgid "Reset"
+msgstr "Reset"
+
+#, php-format
+msgid "%d entries"
+msgstr "%d entries"
+
+#, php-format
+msgid "the %d most recent shown"
+msgstr "the %d most recent shown"
+
+msgid "Check integrity"
+msgstr "Check integrity"
+
+msgid "Export (CSV)"
+msgstr "Export (CSV)"
+
+msgid "Object"
+msgstr "Object"
+
+msgid "Impersonation"
+msgstr "Impersonation"
+
+msgid "No entry for these filters."
+msgstr "No entry for these filters."
+
+msgid "Each entry is sealed with the SHA-256 fingerprint of the previous one: the log is kept when the plugin is uninstalled and any modification made outside GLPI is detected by the check."
+msgstr "Each entry is sealed with the SHA-256 fingerprint of the previous one: the log is kept when the plugin is uninstalled and any modification made outside GLPI is detected by the check."
+
+msgid "The audit log of the security incidents: who consulted or changed what, when, with which profile and from which address, including impersonations."
+msgstr "The audit log of the security incidents: who consulted or changed what, when, with which profile and from which address, including impersonations."
+
+msgid "Filter the entries, export them for an audit or a court, and check the integrity regularly: each entry is sealed with the previous one."
+msgstr "Filter the entries, export them for an audit or a court, and check the integrity regularly: each entry is sealed with the previous one."
