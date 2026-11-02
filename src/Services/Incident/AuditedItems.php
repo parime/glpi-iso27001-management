@@ -37,6 +37,7 @@ final class AuditedItems
         'GlpiPlugin\\Grcmanager\\SecurityIncidentTechnique',
         'GlpiPlugin\\Grcmanager\\SecurityIncidentAction',
         'GlpiPlugin\\Grcmanager\\SecurityIncidentPlaybookTask',
+        'GlpiPlugin\\Grcmanager\\SecurityIncidentTeam',
         'Document_Item',
         'ITILFollowup',
     ];

@@ -176,6 +176,8 @@ final class Installer
     private const PLAYBOOKS_TABLE = 'glpi_plugin_grcmanager_playbooks';
     // Issue #371 : journal d'audit chaîné, conservé à la désinstallation (valeur probante).
     private const AUDIT_LOGS_TABLE = 'glpi_plugin_grcmanager_auditlogs';
+    // Issue #371 : équipe d'intervention des incidents.
+    private const SECURITY_INCIDENT_TEAMS_TABLE = 'glpi_plugin_grcmanager_securityincidentteams';
     // Issue #371 : registre des preuves des incidents (empreintes SHA-256 des documents joints).
     private const SECURITY_INCIDENT_EVIDENCES_TABLE = 'glpi_plugin_grcmanager_securityincidentevidences';
     // Issue #370 : imports CSV d'EDR / XDR (lignes brutes) et identifiants d'alerte déjà importés.
@@ -2004,6 +2006,22 @@ final class Installer
                 PRIMARY KEY (`id`),
                 KEY `plugin_grcmanager_securityincidents_id` (`plugin_grcmanager_securityincidents_id`),
                 KEY `documents_id` (`documents_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query);
+        }
+        if (!$DB->tableExists(self::SECURITY_INCIDENT_TEAMS_TABLE)) {
+            $query = "CREATE TABLE `" . self::SECURITY_INCIDENT_TEAMS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_securityincidents_id` int {$keySign} NOT NULL DEFAULT 0,
+                `users_id` int {$keySign} NOT NULL DEFAULT 0,
+                `role` varchar(16) NOT NULL DEFAULT 'responder' COMMENT 'responder, observer',
+                `users_id_added` int {$keySign} NOT NULL DEFAULT 0,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity` (`plugin_grcmanager_securityincidents_id`,`users_id`),
+                KEY `users_id` (`users_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
             $DB->doQuery($query);
@@ -4147,6 +4165,7 @@ final class Installer
         $migration->dropTable(self::PLAYBOOKS_TABLE);
         $migration->dropTable(self::SECURITY_INCIDENT_EDR_IMPORTS_TABLE);
         $migration->dropTable(self::SECURITY_INCIDENT_EDR_ALERTS_TABLE);
+        $migration->dropTable(self::SECURITY_INCIDENT_TEAMS_TABLE);
         $migration->dropTable(self::SECURITY_INCIDENT_TASKS_TABLE);
         $migration->dropTable(self::SECURITY_INCIDENTS_TICKETS_TABLE);
         $migration->dropTable(self::SECURITY_INCIDENTS_ITEMS_TABLE);

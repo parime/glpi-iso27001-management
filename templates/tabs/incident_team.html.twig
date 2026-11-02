@@ -1,0 +1,62 @@
+{# Issue #371 : équipe d'intervention de l'incident, voir
+   GlpiPlugin\\Grcmanager\\SecurityIncidentTeam::displayTabContentForItem(). #}
+
+{% if can_manage %}
+<form method="post" action="{{ form_url }}" class="card card-body mb-3">
+  <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+  <input type="hidden" name="plugin_grcmanager_securityincidents_id" value="{{ item.getID() }}">
+  <div class="row g-2 align-items-end">
+    <div class="col-md-5">
+      <label class="form-label">{{ __('Member', 'grcmanager') }}</label>
+      {{ call('User::dropdown', [{
+        'name': 'users_id',
+        'right': 'all',
+        'entity': entity,
+        'display': false,
+        'width': '100%',
+      }])|raw }}
+    </div>
+    <div class="col-md-4">
+      <label class="form-label" for="grc-team-role">{{ __('Role', 'grcmanager') }}</label>
+      <select id="grc-team-role" name="role" class="form-select">
+        {% for key, label in roles %}<option value="{{ key }}">{{ label }}</option>{% endfor %}
+      </select>
+    </div>
+    <div class="col-md-3">
+      <button type="submit" name="add" class="btn btn-primary w-100"><i class="ti ti-user-plus me-1"></i>{{ __('Add to the team', 'grcmanager') }}</button>
+    </div>
+  </div>
+  <div class="form-hint mt-2">{{ __('A responder acts on the incident (timeline, indicators, evidence, tasks); an observer only reads it. Removing a member cuts their access at once, unless they are also an actor of the incident.', 'grcmanager') }}</div>
+</form>
+{% endif %}
+
+{% if members is empty %}
+  <div class="empty">
+    <div class="empty-icon"><i class="ti ti-users-group fs-1"></i></div>
+    <p class="empty-title">{{ __('No response team yet', 'grcmanager') }}</p>
+    <p class="empty-subtitle text-muted">{{ __('Add the technicians who work on the incident: with the "See (author)" right, they see only the incidents of their team.', 'grcmanager') }}</p>
+  </div>
+{% else %}
+  <div class="list-group">
+    {% for m in members %}
+      <div class="list-group-item d-flex flex-wrap align-items-center gap-2">
+        <span class="avatar avatar-sm bg-blue-lt"><i class="ti {{ m.role == 'observer' ? 'ti-eye' : 'ti-tool' }}"></i></span>
+        <span class="fw-bold">{{ m.user_name }}</span>
+        <span class="badge {{ m.role == 'observer' ? 'bg-secondary-lt' : 'bg-blue-lt' }}">{{ roles[m.role]|default(m.role) }}</span>
+        <span class="text-muted small">{{ __('added by %1$s on %2$s', 'grcmanager')|format(m.added_by, m.date_creation|formatted_datetime) }}</span>
+        {% if can_manage %}
+          <form method="post" action="{{ form_url }}" class="ms-auto d-flex gap-1">
+            <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="id" value="{{ m.id }}">
+            <select name="role" class="form-select form-select-sm" aria-label="{{ __('Role', 'grcmanager') }}" onchange="this.form.querySelector('[name=update]').click()">
+              {% for key, label in roles %}<option value="{{ key }}" {{ key == m.role ? 'selected' : '' }}>{{ label }}</option>{% endfor %}
+            </select>
+            <button type="submit" name="update" class="d-none">{{ __('Save') }}</button>
+            <button type="submit" name="purge" class="btn btn-sm btn-ghost-danger" title="{{ __('Remove from the team', 'grcmanager') }}" aria-label="{{ __('Remove from the team', 'grcmanager') }}"
+                    onclick="return confirm('{{ __('Remove this member? Their access is cut at once.', 'grcmanager')|e('js') }}');"><i class="ti ti-user-minus"></i></button>
+          </form>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
