@@ -8183,3 +8183,43 @@ msgstr "Zmienione lub brakujące dowody: %d. Zobacz kartę Integralność i dowo
 
 msgid "Evidence sealed"
 msgstr "Dowód zapieczętowany"
+
+msgid "Responder (acts on the incident)"
+msgstr "Wykonawca (działa w incydencie)"
+
+msgid "Observer (read only)"
+msgstr "Obserwator (tylko odczyt)"
+
+msgid "Response team"
+msgstr "Zespół reagowania"
+
+msgid "Only the incident pilots can compose the response team."
+msgstr "Tylko prowadzący incydent mogą skompletować zespół reagowania."
+
+msgid "Add to the team"
+msgstr "Dodaj do zespołu"
+
+msgid "A responder acts on the incident (timeline, indicators, evidence, tasks); an observer only reads it. Removing a member cuts their access at once, unless they are also an actor of the incident."
+msgstr "Wykonawca działa w incydencie (oś czasu, wskaźniki, dowody, zadania); obserwator tylko go czyta. Usunięcie członka natychmiast odcina mu dostęp, chyba że jest też uczestnikiem incydentu."
+
+msgid "No response team yet"
+msgstr "Brak zespołu reagowania"
+
+msgid "Add the technicians who work on the incident: with the \"See (author)\" right, they see only the incidents of their team."
+msgstr "Dodaj techników pracujących nad incydentem: z uprawnieniem „Zobacz (autor)” widzą tylko incydenty swojego zespołu."
+
+#, php-format
+msgid "added by %1$s on %2$s"
+msgstr "dodany przez %1$s dnia %2$s"
+
+msgid "Remove from the team"
+msgstr "Usuń z zespołu"
+
+msgid "Remove this member? Their access is cut at once."
+msgstr "Usunąć tego członka? Jego dostęp zostanie natychmiast odcięty."
+
+msgid "Response team member"
+msgid_plural "Response team"
+msgstr[0] "Członek zespołu reagowania"
+msgstr[1] "Zespół reagowania"
+msgstr[2] "Zespół reagowania"

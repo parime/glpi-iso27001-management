@@ -6771,3 +6771,42 @@ msgstr "%d evidence(s) modified or missing: see the Integrity and evidence tab."
 
 msgid "Evidence sealed"
 msgstr "Evidence sealed"
+
+msgid "Responder (acts on the incident)"
+msgstr "Responder (acts on the incident)"
+
+msgid "Observer (read only)"
+msgstr "Observer (read only)"
+
+msgid "Response team"
+msgstr "Response team"
+
+msgid "Only the incident pilots can compose the response team."
+msgstr "Only the incident pilots can compose the response team."
+
+msgid "Add to the team"
+msgstr "Add to the team"
+
+msgid "A responder acts on the incident (timeline, indicators, evidence, tasks); an observer only reads it. Removing a member cuts their access at once, unless they are also an actor of the incident."
+msgstr "A responder acts on the incident (timeline, indicators, evidence, tasks); an observer only reads it. Removing a member cuts their access at once, unless they are also an actor of the incident."
+
+msgid "No response team yet"
+msgstr "No response team yet"
+
+msgid "Add the technicians who work on the incident: with the \"See (author)\" right, they see only the incidents of their team."
+msgstr "Add the technicians who work on the incident: with the \"See (author)\" right, they see only the incidents of their team."
+
+#, php-format
+msgid "added by %1$s on %2$s"
+msgstr "added by %1$s on %2$s"
+
+msgid "Remove from the team"
+msgstr "Remove from the team"
+
+msgid "Remove this member? Their access is cut at once."
+msgstr "Remove this member? Their access is cut at once."
+
+msgid "Response team member"
+msgid_plural "Response team"
+msgstr[0] "Response team member"
+msgstr[1] "Response team"

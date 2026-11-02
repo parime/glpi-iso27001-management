@@ -9,6 +9,11 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Équipe d'intervention** des incidents de sécurité (issue #371) : onglet où les pilotes de
+  l'incident (droit « Voir tout », rédacteur, technicien ou groupe assigné) ajoutent des
+  intervenants (agissent sur l'incident) et des observateurs (lecture seule). Avec le droit « Voir
+  (auteur) », un membre voit l'incident ; le retirer lui coupe l'accès. Ajouts, retraits et
+  changements de rôle sont tracés dans le journal d'audit.
 - **Registre des preuves** des incidents de sécurité (issue #371) : onglet « Intégrité et preuves ».
   Chaque document joint à l'incident y est inscrit avec son empreinte SHA-256 de référence, sa
   taille, son auteur et sa date (scellement gravé dans le journal d'audit). Un document retiré ou
@@ -39,6 +44,12 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Fixed
 
+- **Cloisonnement des incidents de sécurité** (issue #371) : avec le seul droit « Voir (auteur) »,
+  la liste et la recherche montraient tous les incidents de l'entité (GLPI ne filtre lui-même que
+  ses tickets, changements et problèmes) ; elles ne montrent plus que ceux où l'on est acteur,
+  rédacteur ou membre de l'équipe. Modifier un incident exige désormais aussi de pouvoir le voir,
+  la corbeille et la suppression sont réservées aux pilotes, et une tentative d'ouvrir un incident
+  non visible est tracée dans le journal d'audit.
 - Une procédure de remédiation ne peut plus être appliquée deux fois au même incident (tâches en
   double).
 
