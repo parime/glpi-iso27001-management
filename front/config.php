@@ -67,6 +67,10 @@ if (isset($_POST['update_securityincident_modules'])) {
     if ($changes !== []) {
         \GlpiPlugin\Grcmanager\AuditLog::record('config_change', 'Config', 0, 0, 'success', ['changes' => $changes]);
     }
+    // Issue #371 : module désactivé, alerte immédiate au groupe RSSI.
+    if (!empty($before['securityincident_enabled']) && !$modules['securityincident_enabled']) {
+        \GlpiPlugin\Grcmanager\IncidentAccessWatch::moduleDisabled();
+    }
 
     Html::back();
 }
