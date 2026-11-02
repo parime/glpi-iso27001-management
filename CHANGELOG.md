@@ -7,6 +7,19 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Added
+
+- **Plan de remédiation en PDF** (issue #370) : tâches par phase avec cases à cocher, comptes
+  rendus, réalisations signées, zones de signature et empreinte SHA-256 du contenu, consignée dans
+  l'historique de l'incident à chaque impression.
+- **Mes tâches de remédiation** (issue #370) : deux cartes de tableau de bord (nombre et liste des
+  tâches ouvertes qui me sont assignées, chacune menant à son incident).
+
+### Fixed
+
+- Une procédure de remédiation ne peut plus être appliquée deux fois au même incident (tâches en
+  double).
+
 ## [2.19.0] - 2026-11-02
 
 ### Added

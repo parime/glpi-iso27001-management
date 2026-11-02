@@ -6422,3 +6422,41 @@ msgstr "Meine offenen Behebungsaufgaben"
 
 msgid "My remediation tasks"
 msgstr "Meine Behebungsaufgaben"
+
+msgid "This playbook is already applied to the incident."
+msgstr "Dieses Playbook ist auf den Vorfall bereits angewendet."
+
+#, php-format
+msgid "Remediation plan: %s"
+msgstr "Behebungsplan: %s"
+
+#, php-format
+msgid "Remediation plan printed (SHA-256 %s)"
+msgstr "Behebungsplan gedruckt (SHA-256 %s)"
+
+msgid "Mandatory steps still open"
+msgstr "Noch offene Pflichtschritte"
+
+msgid "Playbooks applied"
+msgstr "Angewendete Playbooks"
+
+msgid "Done by"
+msgstr "Erledigt von"
+
+msgid "Signatures"
+msgstr "Unterschriften"
+
+msgid "Incident manager"
+msgstr "Vorfallverantwortlicher"
+
+msgid "Name, date and signature"
+msgstr "Name, Datum und Unterschrift"
+
+msgid "Information security officer"
+msgstr "Informationssicherheitsbeauftragter"
+
+msgid "This fingerprint is recorded in the incident history each time the plan is printed."
+msgstr "Dieser Fingerabdruck wird bei jedem Druck des Plans im Verlauf des Vorfalls festgehalten."
+
+msgid "Remediation plan (PDF)"
+msgstr "Behebungsplan (PDF)"

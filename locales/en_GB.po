@@ -6422,3 +6422,41 @@ msgstr "My open remediation tasks"
 
 msgid "My remediation tasks"
 msgstr "My remediation tasks"
+
+msgid "This playbook is already applied to the incident."
+msgstr "This playbook is already applied to the incident."
+
+#, php-format
+msgid "Remediation plan: %s"
+msgstr "Remediation plan: %s"
+
+#, php-format
+msgid "Remediation plan printed (SHA-256 %s)"
+msgstr "Remediation plan printed (SHA-256 %s)"
+
+msgid "Mandatory steps still open"
+msgstr "Mandatory steps still open"
+
+msgid "Playbooks applied"
+msgstr "Playbooks applied"
+
+msgid "Done by"
+msgstr "Done by"
+
+msgid "Signatures"
+msgstr "Signatures"
+
+msgid "Incident manager"
+msgstr "Incident manager"
+
+msgid "Name, date and signature"
+msgstr "Name, date and signature"
+
+msgid "Information security officer"
+msgstr "Information security officer"
+
+msgid "This fingerprint is recorded in the incident history each time the plan is printed."
+msgstr "This fingerprint is recorded in the incident history each time the plan is printed."
+
+msgid "Remediation plan (PDF)"
+msgstr "Remediation plan (PDF)"

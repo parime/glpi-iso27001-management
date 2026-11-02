@@ -20,7 +20,9 @@ namespace GlpiPlugin\Grcmanager;
 use CommonGLPI;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\SecurityIncidentPlaybookTaskBase;
+use GlpiPlugin\Grcmanager\Pdf\PdfRenderer;
 use GlpiPlugin\Grcmanager\Services\Incident\PlaybookRules;
+use Html;
 use Log;
 use PluginGrcmanagerSecurityIncident;
 use Session;
@@ -131,6 +133,7 @@ class SecurityIncidentPlaybookTask extends SecurityIncidentPlaybookTaskBase
             'can_library' => Playbook::canView(),
             'library_url' => Playbook::getSearchURL(),
             'form_url'  => self::getFormURL(),
+            'pdf_url'   => self::getFormURL() . '?pdf=' . (int) $item->getID(),
         ]);
 
         return true;
@@ -148,6 +151,17 @@ class SecurityIncidentPlaybookTask extends SecurityIncidentPlaybookTaskBase
             return 0;
         }
         $existing = self::getForIncident($incidentsId);
+        // Une procédure déjà appliquée ne l'est pas une seconde fois (tâches en double).
+        $applied = array_map('intval', array_column($existing, 'plugin_grcmanager_playbooks_id'));
+        if (in_array($playbooksId, $applied, true)) {
+            Session::addMessageAfterRedirect(
+                __('This playbook is already applied to the incident.', 'grcmanager'),
+                false,
+                WARNING
+            );
+
+            return 0;
+        }
         $offset = $existing === [] ? 0 : (int) max(array_column($existing, 'rank'));
         $created = 0;
         foreach (PlaybookStep::getForPlaybook($playbooksId) as $step) {
@@ -174,6 +188,61 @@ class SecurityIncidentPlaybookTask extends SecurityIncidentPlaybookTaskBase
         }
 
         return $created;
+    }
+
+    /**
+     * PDF du plan de remédiation : tâches par phase avec cases à cocher, comptes rendus,
+     * réalisations signées, zones de signature et empreinte SHA-256 du contenu, consignée dans
+     * l'historique de l'incident à chaque impression.
+     */
+    public static function renderPdf(PluginGrcmanagerSecurityIncident $incident): string
+    {
+        $tasks = self::getForIncident((int) $incident->getID());
+        $users = [];
+        $hashed = [];
+        foreach ($tasks as $task) {
+            $doneBy = (int) $task['users_id_done'];
+            if ($doneBy > 0 && !isset($users[$doneBy])) {
+                $users[$doneBy] = getUserName($doneBy);
+            }
+            $hashed[] = array_intersect_key($task, array_flip([
+                'id', 'name', 'phase', 'is_mandatory', 'status', 'report', 'users_id_done', 'date_done',
+            ]));
+        }
+        $hash = hash('sha256', (string) json_encode($hashed, JSON_UNESCAPED_UNICODE));
+        $playbooks = [];
+        foreach (array_unique(array_filter(array_column($tasks, 'plugin_grcmanager_playbooks_id'))) as $playbookId) {
+            $playbook = new Playbook();
+            if ($playbook->getFromDB((int) $playbookId)) {
+                $playbooks[] = (string) $playbook->fields['name'];
+            }
+        }
+
+        $pdf = PdfRenderer::renderHtmlToPdf(TemplateRenderer::getInstance()->render(
+            '@grcmanager/pdf/remediation_plan.html.twig',
+            [
+                'item'         => $incident,
+                'groups'       => PlaybookRules::byPhase($tasks),
+                'progress'     => PlaybookRules::progress($tasks),
+                'phases'       => Playbook::getPhaseLabels(),
+                'statuses'     => self::getStatuses(),
+                'users'        => $users,
+                'playbooks'    => $playbooks,
+                'hash'         => $hash,
+                'report_title' => sprintf(__('Remediation plan: %s', 'grcmanager'), $incident->fields['name']),
+                'generated_at' => Html::convDateTime($_SESSION['glpi_currenttime'] ?? date('Y-m-d H:i:s')),
+                'generated_by' => getUserName(Session::getLoginUserID() ?: 0),
+            ]
+        ));
+        Log::history(
+            (int) $incident->getID(),
+            PluginGrcmanagerSecurityIncident::class,
+            [0, '', sprintf(__('Remediation plan printed (SHA-256 %s)', 'grcmanager'), $hash)],
+            '',
+            Log::HISTORY_LOG_SIMPLE_MESSAGE
+        );
+
+        return $pdf;
     }
 
     /**

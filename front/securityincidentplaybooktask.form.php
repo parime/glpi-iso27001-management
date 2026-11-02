@@ -22,6 +22,23 @@ include('../../../inc/includes.php');
 use GlpiPlugin\Grcmanager\SecurityIncidentPlaybookTask;
 
 $item = new SecurityIncidentPlaybookTask();
+
+if (isset($_GET['pdf'])) {
+    $incident = new PluginGrcmanagerSecurityIncident();
+    if (!$incident->getFromDB((int) $_GET['pdf']) || !$incident->canViewItem()) {
+        throw new \Glpi\Exception\Http\NotFoundHttpException();
+    }
+    $pdf = SecurityIncidentPlaybookTask::renderPdf($incident);
+    header('Content-Type: application/pdf');
+    header('Content-Disposition: attachment; filename="' . sprintf(
+        'plan-remediation-%s.pdf',
+        preg_replace('/[^A-Za-z0-9-]/', '', (string) ($incident->fields['reference'] ?: $incident->getID()))
+    ) . '"');
+    header('Content-Length: ' . strlen($pdf));
+    echo $pdf;
+
+    return;
+}
 $incidentsId = (int) ($_POST['plugin_grcmanager_securityincidents_id'] ?? 0);
 
 if (isset($_POST['apply'])) {
