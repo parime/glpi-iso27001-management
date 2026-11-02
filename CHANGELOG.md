@@ -9,6 +9,15 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Procédures de remédiation** pour les incidents de sécurité (issue #370) : bibliothèque de
+  procédures (lien « Procédures de remédiation » dans l'en-tête des incidents) avec leurs étapes
+  ordonnées par phase (confinement, analyse, notification, éradication, remise en service, après
+  l'incident), obligatoires ou non. Cinq procédures fournies et modifiables : rançongiciel,
+  hameçonnage, compte compromis, logiciel malveillant, fuite de données. Onglet « Remédiation » de
+  l'incident : application d'une procédure (celles de sa catégorie proposées en premier), avancement
+  (« 6/14 »), statut, compte rendu et assignation de chaque tâche, réalisation horodatée et signée,
+  tâches propres à l'incident, tout changement inscrit dans l'historique. **La clôture est refusée**
+  tant qu'une étape obligatoire n'est ni faite ni « non applicable ».
 - **Journal des actions d'investigation** sur les incidents de sécurité (issue #370) : onglet
   « Journal des actions » où l'équipe consigne chaque manipulation (date, cible, outil, commande
   exacte, constat, résultat, détection et tâche de remédiation liées), chronologie filtrable par

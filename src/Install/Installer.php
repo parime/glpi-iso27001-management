@@ -172,6 +172,11 @@ final class Installer
     // Issue #370 : journal des actions d'investigation et de remédiation.
     private const SECURITY_INCIDENT_ACTIONS_TABLE = 'glpi_plugin_grcmanager_securityincidentactions';
 
+    // Issue #370 : procédures de remédiation, leurs étapes et les tâches copiées sur les incidents.
+    private const PLAYBOOKS_TABLE = 'glpi_plugin_grcmanager_playbooks';
+    private const PLAYBOOK_STEPS_TABLE = 'glpi_plugin_grcmanager_playbooksteps';
+    private const SECURITY_INCIDENT_PLAYBOOK_TASKS_TABLE = 'glpi_plugin_grcmanager_securityincidentplaybooktasks';
+
     // Raccourci (ne reflète pas le nom de classe complet) : le nom par défaut que GLPI dériverait
     // (glpi_plugin_grcmanager_securityincidenttemplates_predefinedfields, etc. pour les 4 tables
     // satellites) dépasse la limite de 64 caractères de MySQL pour un identifiant : voir le
@@ -1921,6 +1926,68 @@ final class Installer
 
             $DB->doQuery($query);
         }
+
+        if (!$DB->tableExists(self::PLAYBOOKS_TABLE)) {
+            $query = "CREATE TABLE `" . self::PLAYBOOKS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `name` varchar(255) NOT NULL DEFAULT '',
+                `category` varchar(32) NOT NULL DEFAULT '' COMMENT 'Categorie d incident proposee en premier',
+                `description` text,
+                `is_active` tinyint NOT NULL DEFAULT 1,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `category` (`category`),
+                KEY `is_active` (`is_active`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query);
+        }
+        if (!$DB->tableExists(self::PLAYBOOK_STEPS_TABLE)) {
+            $query = "CREATE TABLE `" . self::PLAYBOOK_STEPS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_playbooks_id` int {$keySign} NOT NULL DEFAULT 0,
+                `rank` int NOT NULL DEFAULT 0,
+                `phase` varchar(32) NOT NULL DEFAULT 'containment',
+                `name` varchar(255) NOT NULL DEFAULT '',
+                `description` text,
+                `is_mandatory` tinyint NOT NULL DEFAULT 0,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `plugin_grcmanager_playbooks_id` (`plugin_grcmanager_playbooks_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query);
+        }
+        if (!$DB->tableExists(self::SECURITY_INCIDENT_PLAYBOOK_TASKS_TABLE)) {
+            $query = "CREATE TABLE `" . self::SECURITY_INCIDENT_PLAYBOOK_TASKS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_securityincidents_id` int {$keySign} NOT NULL DEFAULT 0,
+                `plugin_grcmanager_playbooks_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT '0 = tache propre',
+                `plugin_grcmanager_playbooksteps_id` int {$keySign} NOT NULL DEFAULT 0,
+                `rank` int NOT NULL DEFAULT 0,
+                `phase` varchar(32) NOT NULL DEFAULT 'post_incident',
+                `name` varchar(255) NOT NULL DEFAULT '',
+                `description` text,
+                `is_mandatory` tinyint NOT NULL DEFAULT 0,
+                `status` varchar(16) NOT NULL DEFAULT 'todo' COMMENT 'todo, in_progress, done, not_applicable',
+                `report` text COMMENT 'Compte rendu',
+                `users_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Assignee',
+                `users_id_done` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Realisee par',
+                `date_done` timestamp NULL DEFAULT NULL,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `plugin_grcmanager_securityincidents_id` (`plugin_grcmanager_securityincidents_id`),
+                KEY `users_id` (`users_id`),
+                KEY `status` (`status`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query);
+        }
+        // Les cinq procédures fournies, une seule fois (bibliothèque vide).
+        \GlpiPlugin\Grcmanager\Playbook::seedDefaults();
 
         if (!$DB->tableExists(self::SECURITY_INCIDENT_COSTS_TABLE)) {
             $query = "CREATE TABLE `" . self::SECURITY_INCIDENT_COSTS_TABLE . "` (
@@ -3994,6 +4061,9 @@ final class Installer
         $migration->dropTable(self::SECURITY_INCIDENT_IOCS_TABLE);
         $migration->dropTable(self::SECURITY_INCIDENT_TECHNIQUES_TABLE);
         $migration->dropTable(self::SECURITY_INCIDENT_ACTIONS_TABLE);
+        $migration->dropTable(self::SECURITY_INCIDENT_PLAYBOOK_TASKS_TABLE);
+        $migration->dropTable(self::PLAYBOOK_STEPS_TABLE);
+        $migration->dropTable(self::PLAYBOOKS_TABLE);
         $migration->dropTable(self::SECURITY_INCIDENT_TASKS_TABLE);
         $migration->dropTable(self::SECURITY_INCIDENTS_TICKETS_TABLE);
         $migration->dropTable(self::SECURITY_INCIDENTS_ITEMS_TABLE);
