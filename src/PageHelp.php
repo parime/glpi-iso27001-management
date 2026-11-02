@@ -339,6 +339,18 @@ class PageHelp
                     'grcmanager'
                 ),
             ],
+            'auditlog' => [
+                'purpose'  => __(
+                    'The audit log of the security incidents: who consulted or changed what, when, with which '
+                        . 'profile and from which address, including impersonations.',
+                    'grcmanager'
+                ),
+                'expected' => __(
+                    'Filter the entries, export them for an audit or a court, and check the integrity regularly: '
+                        . 'each entry is sealed with the previous one.',
+                    'grcmanager'
+                ),
+            ],
             'securityincidentedrimport' => [
                 'purpose'  => __(
                     'Import of a CSV export of the alerts from an EDR or XDR console: each alert becomes an incident '

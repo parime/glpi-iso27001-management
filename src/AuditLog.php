@@ -134,6 +134,116 @@ class AuditLog extends CommonGLPI
     }
 
     /**
+     * @param array<string, mixed> $input
+     * @return array{from: string, to: string, action: string, result: string, incident: int, ip: string}
+     */
+    public static function filtersFrom(array $input): array
+    {
+        $date = static fn ($value): string
+            => preg_match('/^\d{4}-\d{2}-\d{2}$/', (string) $value) ? (string) $value : '';
+
+        $action = (string) ($input['action'] ?? '');
+        $result = (string) ($input['result'] ?? '');
+
+        return [
+            'from'     => $date($input['from'] ?? ''),
+            'to'       => $date($input['to'] ?? ''),
+            'action'   => array_key_exists($action, self::getActions()) ? $action : '',
+            'result'   => in_array($result, ['success', 'denied'], true) ? $result : '',
+            'incident' => max(0, (int) ($input['incident'] ?? 0)),
+            'ip'       => mb_substr(trim((string) ($input['ip'] ?? '')), 0, 45),
+        ];
+    }
+
+    /**
+     * @param array{from: string, to: string, action: string, result: string, incident: int, ip: string} $filters
+     * @return array<int|string, mixed>
+     */
+    public static function criteria(array $filters): array
+    {
+        $where = [];
+        if ($filters['from'] !== '') {
+            $where[] = ['date' => ['>=', $filters['from'] . ' 00:00:00']];
+        }
+        if ($filters['to'] !== '') {
+            $where[] = ['date' => ['<=', $filters['to'] . ' 23:59:59']];
+        }
+        foreach (['action', 'result', 'ip'] as $field) {
+            if ($filters[$field] !== '') {
+                $where[$field] = $filters[$field];
+            }
+        }
+        if ($filters['incident'] > 0) {
+            $where['plugin_grcmanager_securityincidents_id'] = $filters['incident'];
+        }
+
+        return $where;
+    }
+
+    /**
+     * Lignes prêtes à afficher (noms d'utilisateurs et de profils, objet, lien vers l'incident).
+     *
+     * @param list<array<string, mixed>> $rows
+     * @return list<array<string, mixed>>
+     */
+    public static function present(array $rows): array
+    {
+        $names = [];
+        $name = static function (int $id) use (&$names): string {
+            if ($id <= 0) {
+                return '';
+            }
+
+            return $names[$id] ??= getUserName($id);
+        };
+        foreach ($rows as &$row) {
+            $row['user'] = $name((int) $row['users_id']);
+            $row['real_user'] = $name((int) $row['users_id_real']);
+            $row['profile'] = (int) $row['profiles_id'] > 0
+                ? \Dropdown::getDropdownName('glpi_profiles', (int) $row['profiles_id'])
+                : '';
+            $itemtype = (string) $row['itemtype'];
+            $row['object'] = $itemtype !== '' && class_exists($itemtype)
+                ? $itemtype::getTypeName(1) . ((int) $row['items_id'] > 0 ? ' #' . (int) $row['items_id'] : '')
+                : '';
+            $incidentId = (int) $row['plugin_grcmanager_securityincidents_id'];
+            $row['incident_url'] = $incidentId > 0
+                ? \PluginGrcmanagerSecurityIncident::getFormURLWithID($incidentId)
+                : '';
+        }
+
+        return $rows;
+    }
+
+    /**
+     * @return list<string>
+     */
+    public static function csvHeaders(): array
+    {
+        return [
+            'id', __('Date', 'grcmanager'), __('User', 'grcmanager'), __('Real user (impersonation)', 'grcmanager'),
+            __('Profile', 'grcmanager'), __('Action', 'grcmanager'), 'itemtype', 'items_id',
+            __('Incident', 'grcmanager'), 'IP', __('Result', 'grcmanager'), __('Details', 'grcmanager'),
+            'prev_hash', 'hash',
+        ];
+    }
+
+    /**
+     * @param array<string, mixed> $row
+     * @return list<string>
+     */
+    public static function csvRow(array $row): array
+    {
+        $presented = self::present([$row])[0];
+
+        return array_map('strval', [
+            $row['id'], $row['date'], $presented['user'], $presented['real_user'], $presented['profile'],
+            $row['action'], $row['itemtype'], $row['items_id'], $row['plugin_grcmanager_securityincidents_id'],
+            $row['ip'], $row['result'], $row['details'], $row['prev_hash'], $row['hash'],
+        ]);
+    }
+
+    /**
      * Vérifie toute la chaîne, par paquets ; la vérification est elle-même tracée.
      *
      * @return array{valid: bool, checked: int, broken_id: ?int, last_hash: string}
