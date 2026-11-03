@@ -38,6 +38,19 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   lus, et seuls l'identifiant et l'état des phases 1 (jamais la clé ni les certificats). Un test
   vérifie qu'aucune clé n'apparaît dans les flux importés.
 
+- **Import Stormshield : côté Internet situé sans l'export des objets** (issue #144) :
+  - chaque côté d'une règle est situé d'après les objets prédéfinis (`Internet`,
+    `Network_internals`, `Network_<interface>`, `Firewall_<interface>`), l'interface de la règle,
+    un filtrage par pays ou par réputation (réservé aux adresses publiques) et une adresse IPv4
+    écrite dans le nom de l'objet ;
+  - l'interface côté Internet se choisit à l'import ; par défaut, celle des publications, sinon
+    `out` ;
+  - une règle qui entre par cette interface est une publication, une règle vers Internet un accès
+    sortant ; une règle entre deux interfaces internes n'est plus prise pour un accès à Internet ;
+  - une règle dont un objet n'a pas pu être situé est importée comme flux interne et listée, à
+    vérifier, au lieu d'être classée en silence. Les noms des objets propres à la configuration ne
+    sont jamais interprétés.
+
 ## [2.20.0] - 2026-11-03
 
 ### Added

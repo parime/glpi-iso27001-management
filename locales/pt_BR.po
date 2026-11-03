@@ -6925,6 +6925,14 @@ msgstr "Rede remota de um túnel IPsec que se sobrepõe a uma rede do firewall: 
 msgid "%1$s: %2$s overlaps %3$s"
 msgstr "%1$s: %2$s se sobrepõe a %3$s"
 
+#, php-format
+msgid "Internet-facing interface: %s. Without the export of the objects, each side of a rule is located from the built-in objects (Internet, Network_internals, Network_ or Firewall_ followed by an interface), the interface of the rule, a country or reputation filter (public addresses only) and an IPv4 address written in the object name. Change the interface above and analyse the file again if needed."
+msgstr "Interface voltada para a Internet: %s. Sem a exportação dos objetos, cada lado de uma regra é situado pelos objetos predefinidos (Internet, Network_internals, Network_ ou Firewall_ seguido de uma interface), pela interface da regra, por um filtro de país ou reputação (somente endereços públicos) e por um endereço IPv4 escrito no nome do objeto. Altere a interface acima e analise o arquivo novamente se necessário."
+
+#, php-format
+msgid "Rules imported as internal flows because one of their objects could not be located (inside or on the Internet), to check and correct the type if needed: lines %s."
+msgstr "Regras importadas como fluxos internos porque não foi possível situar um de seus objetos (interno ou na Internet), a verificar e corrigir o tipo se necessário: linhas %s."
+
 msgid "Qualification"
 msgstr "Qualificação"
 
