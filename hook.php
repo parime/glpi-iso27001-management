@@ -464,14 +464,8 @@ function plugin_grcmanager_pre_itil_info_section(array $params): void
     }
     $labels = PluginGrcmanagerSecurityIncident::getRegulatoryLabels();
     $banners = [];
-    foreach (GlpiPlugin\Grcmanager\Services\Incident\RegulatoryDeadlines::compute($item->fields) as $row) {
-        if ($row['done_at'] !== null) {
-            continue;
-        }
-        $banners[] = $row + [
-            'label'      => $labels[$row['key']] ?? $row['key'],
-            'hours_left' => max(0, (int) floor((strtotime($row['due']) - time()) / 3600)),
-        ];
+    foreach (GlpiPlugin\Grcmanager\Services\Incident\RegulatoryDeadlines::banners($item->fields) as $row) {
+        $banners[] = $row + ['label' => $labels[$row['key']] ?? $row['key']];
     }
     // Issue #371 : consultation de l'incident, tracée dans le journal d'audit.
     $incidentId = (int) $item->getID();
@@ -496,6 +490,8 @@ function plugin_grcmanager_pre_itil_info_section(array $params): void
         // Issue #370 : frise des phases de réponse.
         'phases'      => GlpiPlugin\Grcmanager\Services\Incident\IncidentPhases::compute($item->fields),
         'phase_labels' => PluginGrcmanagerSecurityIncident::getPhaseLabels(),
+        // Issue #372 : compteurs de l'en-tête, vers leurs onglets.
+        'counters'     => $item->getHeaderCounters(),
     ]);
 }
 

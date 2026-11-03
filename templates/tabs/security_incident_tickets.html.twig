@@ -1,6 +1,18 @@
 {# Issue #128 : onglet « Tickets liés » de l'incident de sécurité (GlpiPlugin\\Grcmanager\\SecurityIncidentTicket) #}
 <div class="card">
    <div class="card-body">
+      {# Issue #372 : « Créer un ticket lié ». Le panneau principal de l'incident est lui-même un
+         formulaire : le bouton vit ici, dans son propre formulaire (jeton CSRF). #}
+      {% if can_create %}
+         <form method="post" action="{{ action }}" class="mb-3">
+            <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="plugin_grcmanager_securityincidents_id" value="{{ incidents_id }}">
+            <button type="submit" name="create_ticket" value="1" class="btn btn-primary" id="grcmanager-create-ticket-{{ incidents_id }}">
+               <i class="ti ti-ticket me-1"></i>{{ __('Create a linked ticket', 'grcmanager') }}
+            </button>
+            <p class="form-text mb-0 mt-2">{{ __('Creates a ticket in the entity of this incident, linked to it. The ticket only takes the reference and title of the incident, never its description: tickets are read more widely than security incidents.', 'grcmanager') }}</p>
+         </form>
+      {% endif %}
       {% if rows is empty %}
          <p class="text-muted mb-0"><i class="ti ti-ticket me-1"></i>{{ __('No ticket has been qualified as this incident. From a ticket, the “Security incident” tab does it.', 'grcmanager') }}</p>
       {% else %}

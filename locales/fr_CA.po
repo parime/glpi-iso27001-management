@@ -6924,3 +6924,26 @@ msgstr "Réseau distant d'un tunnel IPsec qui chevauche un réseau du pare-feu :
 #, php-format
 msgid "%1$s: %2$s overlaps %3$s"
 msgstr "%1$s : %2$s chevauche %3$s"
+
+msgid "Qualification"
+msgstr "Qualification"
+
+msgid "Post-incident review"
+msgstr "Retour d'expérience"
+
+msgid "Create a linked ticket"
+msgstr "Créer un ticket lié"
+
+msgid "Creates a ticket in the entity of this incident, linked to it. The ticket only takes the reference and title of the incident, never its description: tickets are read more widely than security incidents."
+msgstr "Crée un ticket dans l'entité de cet incident, lié à lui. Le ticket ne reprend que la référence et le titre de l'incident, jamais sa description : les tickets sont lus bien plus largement que les incidents de sécurité."
+
+#, php-format
+msgid "Ticket opened from security incident %s."
+msgstr "Ticket ouvert depuis l'incident de sécurité %s."
+
+msgid "The ticket could not be created."
+msgstr "Le ticket n'a pas pu être créé."
+
+#, php-format
+msgid "Linked ticket #%d created."
+msgstr "Ticket lié n° %d créé."

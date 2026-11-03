@@ -6924,3 +6924,26 @@ msgstr "Entferntes Netz eines IPsec-Tunnels, das sich mit einem Netz der Firewal
 #, php-format
 msgid "%1$s: %2$s overlaps %3$s"
 msgstr "%1$s: %2$s überschneidet sich mit %3$s"
+
+msgid "Qualification"
+msgstr "Einstufung"
+
+msgid "Post-incident review"
+msgstr "Erfahrungsauswertung"
+
+msgid "Create a linked ticket"
+msgstr "Verknüpftes Ticket erstellen"
+
+msgid "Creates a ticket in the entity of this incident, linked to it. The ticket only takes the reference and title of the incident, never its description: tickets are read more widely than security incidents."
+msgstr "Erstellt ein mit diesem Vorfall verknüpftes Ticket in dessen Einheit. Das Ticket übernimmt nur die Referenz und den Titel des Vorfalls, nie seine Beschreibung: Tickets werden viel breiter gelesen als Sicherheitsvorfälle."
+
+#, php-format
+msgid "Ticket opened from security incident %s."
+msgstr "Ticket aus dem Sicherheitsvorfall %s eröffnet."
+
+msgid "The ticket could not be created."
+msgstr "Das Ticket konnte nicht erstellt werden."
+
+#, php-format
+msgid "Linked ticket #%d created."
+msgstr "Verknüpftes Ticket Nr. %d erstellt."

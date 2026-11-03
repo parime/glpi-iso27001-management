@@ -84,6 +84,29 @@ final class RegulatoryDeadlines
     }
 
     /**
+     * Issue #372 : échéances non encore notifiées pour les bandeaux en tête de l'incident, la plus
+     * urgente d'abord, avec le nombre d'heures entières restantes (0 une fois dépassée).
+     *
+     * @param array<string, mixed> $fields champs de l'incident
+     * @return list<array{key: string, due: string, done_at: ?string, status: string, hours_left: int}>
+     */
+    public static function banners(array $fields, ?int $now = null): array
+    {
+        $now ??= time();
+        $rows = [];
+        foreach (self::compute($fields, $now) as $row) {
+            if ($row['done_at'] !== null) {
+                continue;
+            }
+            $row['hours_left'] = max(0, (int) floor(((int) strtotime($row['due']) - $now) / 3600));
+            $rows[] = $row;
+        }
+        usort($rows, static fn (array $a, array $b): int => strcmp($a['due'], $b['due']));
+
+        return $rows;
+    }
+
+    /**
      * Échéances qui appellent une alerte (proche ou dépassée) et qui n'en ont pas encore reçu pour
      * ce niveau : une alerte « proche », puis une « dépassée », jamais deux fois la même.
      *

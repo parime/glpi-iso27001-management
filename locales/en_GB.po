@@ -6924,3 +6924,26 @@ msgstr "Remote network of an IPsec tunnel overlapping a network of the firewall:
 #, php-format
 msgid "%1$s: %2$s overlaps %3$s"
 msgstr "%1$s: %2$s overlaps %3$s"
+
+msgid "Qualification"
+msgstr "Qualification"
+
+msgid "Post-incident review"
+msgstr "Post-incident review"
+
+msgid "Create a linked ticket"
+msgstr "Create a linked ticket"
+
+msgid "Creates a ticket in the entity of this incident, linked to it. The ticket only takes the reference and title of the incident, never its description: tickets are read more widely than security incidents."
+msgstr "Creates a ticket in the entity of this incident, linked to it. The ticket only takes the reference and title of the incident, never its description: tickets are read more widely than security incidents."
+
+#, php-format
+msgid "Ticket opened from security incident %s."
+msgstr "Ticket opened from security incident %s."
+
+msgid "The ticket could not be created."
+msgstr "The ticket could not be created."
+
+#, php-format
+msgid "Linked ticket #%d created."
+msgstr "Linked ticket #%d created."

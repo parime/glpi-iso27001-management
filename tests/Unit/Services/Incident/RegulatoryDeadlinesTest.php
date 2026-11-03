@@ -78,6 +78,31 @@ final class RegulatoryDeadlinesTest extends TestCase
         );
     }
 
+    /**
+     * Issue #372 : bandeaux en tête de l'incident, la plus urgente d'abord, sans les échéances
+     * déjà notifiées, avec les heures restantes.
+     */
+    public function testBannersListPendingDeadlinesMostUrgentFirst(): void
+    {
+        $now = (int) strtotime(self::DETECTED) + 6 * 3600;
+        $incident = self::incident(['personal_data_breach' => 1, 'nis2_early_warning_at' => '2026-10-18 10:00:00']);
+
+        $rows = RegulatoryDeadlines::banners($incident, $now);
+
+        self::assertSame(
+            ['nis2_notification', 'gdpr_notification', 'nis2_final_report'],
+            array_column($rows, 'key'),
+            'l\'alerte précoce déjà notifiée ne s\'affiche plus'
+        );
+        self::assertSame(66, $rows[0]['hours_left']);
+        self::assertSame(RegulatoryDeadlines::STATUS_PENDING, $rows[0]['status']);
+
+        $late = RegulatoryDeadlines::banners(self::incident(), $now + 30 * 3600);
+        self::assertSame('nis2_early_warning', $late[0]['key']);
+        self::assertSame(RegulatoryDeadlines::STATUS_OVERDUE, $late[0]['status']);
+        self::assertSame(0, $late[0]['hours_left'], 'jamais négatif une fois dépassée');
+    }
+
     public function testEachAlertLevelIsRaisedOnlyOnce(): void
     {
         $now = (int) strtotime(self::DETECTED) + 20 * 3600;

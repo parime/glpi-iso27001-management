@@ -8314,3 +8314,26 @@ msgstr "Sieć zdalna tunelu IPsec nakłada się na sieć zapory: obie strony nie
 #, php-format
 msgid "%1$s: %2$s overlaps %3$s"
 msgstr "%1$s: %2$s nakłada się na %3$s"
+
+msgid "Qualification"
+msgstr "Kwalifikacja"
+
+msgid "Post-incident review"
+msgstr "Wnioski po incydencie"
+
+msgid "Create a linked ticket"
+msgstr "Utwórz powiązane zgłoszenie"
+
+msgid "Creates a ticket in the entity of this incident, linked to it. The ticket only takes the reference and title of the incident, never its description: tickets are read more widely than security incidents."
+msgstr "Tworzy zgłoszenie w jednostce tego incydentu, powiązane z nim. Zgłoszenie przejmuje tylko numer referencyjny i tytuł incydentu, nigdy jego opis: zgłoszenia są czytane znacznie szerzej niż incydenty bezpieczeństwa."
+
+#, php-format
+msgid "Ticket opened from security incident %s."
+msgstr "Zgłoszenie otwarte z incydentu bezpieczeństwa %s."
+
+msgid "The ticket could not be created."
+msgstr "Nie udało się utworzyć zgłoszenia."
+
+#, php-format
+msgid "Linked ticket #%d created."
+msgstr "Utworzono powiązane zgłoszenie nr %d."

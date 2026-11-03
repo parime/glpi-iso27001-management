@@ -6924,3 +6924,26 @@ msgstr "Rede remota de um túnel IPsec que se sobrepõe a uma rede do firewall: 
 #, php-format
 msgid "%1$s: %2$s overlaps %3$s"
 msgstr "%1$s: %2$s se sobrepõe a %3$s"
+
+msgid "Qualification"
+msgstr "Qualificação"
+
+msgid "Post-incident review"
+msgstr "Lições aprendidas"
+
+msgid "Create a linked ticket"
+msgstr "Criar um chamado vinculado"
+
+msgid "Creates a ticket in the entity of this incident, linked to it. The ticket only takes the reference and title of the incident, never its description: tickets are read more widely than security incidents."
+msgstr "Cria um chamado na entidade deste incidente, vinculado a ele. O chamado só retoma a referência e o título do incidente, nunca a sua descrição: os chamados são lidos de forma muito mais ampla que os incidentes de segurança."
+
+#, php-format
+msgid "Ticket opened from security incident %s."
+msgstr "Chamado aberto a partir do incidente de segurança %s."
+
+msgid "The ticket could not be created."
+msgstr "Não foi possível criar o chamado."
+
+#, php-format
+msgid "Linked ticket #%d created."
+msgstr "Chamado vinculado n.º %d criado."

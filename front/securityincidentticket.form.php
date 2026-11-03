@@ -17,7 +17,26 @@
 
 /**
  * Issue #128 : « Qualifier en incident de sécurité » depuis l'onglet du ticket.
+ * Issue #372 : « Créer un ticket lié » depuis l'onglet « Tickets liés » de l'incident.
  */
+
+if (isset($_POST['create_ticket'])) {
+    // Créer un ticket (droit natif de GLPI) et modifier l'incident (le lien s'y ajoute) ; l'entité
+    // du ticket est vérifiée par createLinkedTicket().
+    Session::checkRight(Ticket::$rightname, CREATE);
+    $incident = new PluginGrcmanagerSecurityIncident();
+    if (!$incident->can((int) ($_POST['plugin_grcmanager_securityincidents_id'] ?? 0), UPDATE)) {
+        Html::displayRightError();
+    }
+    $ticketsId = \GlpiPlugin\Grcmanager\SecurityIncidentTicket::createLinkedTicket($incident);
+    if ($ticketsId <= 0) {
+        $message = __('The ticket could not be created.', 'grcmanager');
+        Session::addMessageAfterRedirect(htmlescape($message), false, ERROR);
+        Html::back();
+    }
+    Session::addMessageAfterRedirect(htmlescape(sprintf(__('Linked ticket #%d created.', 'grcmanager'), $ticketsId)));
+    Html::redirect(Ticket::getFormURLWithID($ticketsId));
+}
 
 Session::checkRight(PluginGrcmanagerSecurityIncident::RIGHTNAME, CREATE);
 
