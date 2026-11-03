@@ -239,6 +239,11 @@ function plugin_init_grcmanager(): void
         'addtabon' => [\GlpiPlugin\Grcmanager\Control::class, \GlpiPlugin\Grcmanager\IsmsRequirement::class],
     ]);
 
+    // Issue #380 : onglet « Tests d'efficacité » des mesures de l'Annexe A.
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\ControlTest::class, [
+        'addtabon' => [\GlpiPlugin\Grcmanager\Control::class],
+    ]);
+
     Plugin::registerClass(\GlpiPlugin\Grcmanager\Evidence::class, [
         'addtabon' => \GlpiPlugin\Grcmanager\Services\Evidence\EvidenceValidity::ITEMTYPES,
     ]);
