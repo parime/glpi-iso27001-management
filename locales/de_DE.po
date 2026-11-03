@@ -6901,3 +6901,10 @@ msgstr "Vollzugriff auf eine Administrationszone"
 
 msgid "Temporary rule still active"
 msgstr "Temporäre Regel noch aktiv"
+
+msgid "Stormshield firewall: import the CSV export of the filtering policy (Security policy > Filter - NAT > Export). Enabled \"pass\" rules are imported; NAT rules, section separators and disabled rules are ignored, and a published service takes its internal target as destination. The export only names objects: common services (http, https, ssh, ntp, smtp…) become ports, a rule using a service of your own is reported so you can add it by hand."
+msgstr "Stormshield-Firewall: Importieren Sie den CSV-Export der Filterrichtlinie (Sicherheitsrichtlinie > Filter - NAT > Exportieren). Aktive „Durchlassen“-Regeln werden importiert; NAT-Regeln, Abschnittstrenner und deaktivierte Regeln werden ignoriert, und ein veröffentlichter Dienst erhält sein internes Ziel als Ziel. Der Export nennt nur Objektnamen: gängige Dienste (http, https, ssh, ntp, smtp…) werden zu Ports, eine Regel mit einem eigenen Dienst wird gemeldet, damit Sie sie von Hand hinzufügen."
+
+#, php-format
+msgid "Service object not known from this export (%s): rule skipped, add the flow with its ports by hand."
+msgstr "Dienstobjekt in diesem Export unbekannt (%s): Regel übersprungen, fügen Sie den Fluss mit seinen Ports von Hand hinzu."
