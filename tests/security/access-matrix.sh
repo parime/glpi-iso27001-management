@@ -53,7 +53,7 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/compliancecalendar.php front/compliancecalendar.php?ics=1 front/complianceevent.php
   front/parkvulnerability.php front/parkmachines.php front/softwarewatch.php front/riskcatalog.php front/waiver.php
   front/coveragerule.php front/playbook.php front/impactanalysis.php front/causalgraph.php
-  front/auditlog.php
+  front/auditlog.php front/controltest.php
   front/impactanalysis.php?export=continuity front/maturity.php front/crisisexercise.php front/complianceaudit.php
   front/dashboard.php front/networkflow.report.php front/breachexposure.php front/networkflow.matrix.php"
 # Creations : refusees sans droit comme en lecture seule (etat en base compare par la CI).
@@ -70,7 +70,7 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
     front/securityincidentedrimport.php front/securityincidentevidence.form.php \
     front/securityincidentteam.form.php \
     front/cpereference.form.php front/productalias.form.php \
-    front/waiver.form.php front/coveragerule.form.php; do
+    front/waiver.form.php front/coveragerule.form.php front/controltest.form.php; do
     expect "$form : creation" "$1" "$(code -d "add=1&name=securite&title=securite&_glpi_csrf_token=$(csrf)" "$BASE/plugins/grcmanager/$form")"
   done
   expect "front/ismsrequirement.form.php : modification" "$1" \
@@ -137,6 +137,9 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
   # Issue #372 : declarer un incident depuis un element (droit de creer un incident).
   expect "front/securityincidentlinkeditem.form.php : declarer un incident" "$1" \
     "$(code -d "declare=1&itemtype=Computer&items_id=$(id computer_A)&_glpi_csrf_token=$(csrf)" "$P/securityincidentlinkeditem.form.php")"
+  # Issue #380 : plan de test d'une mesure (droit de modifier la mesure).
+  expect "front/controltest.form.php : plan de test" "$1" \
+    "$(code -d "save_plan=1&plugin_grcmanager_controls_id=$(id control)&test_frequency_months=12&_glpi_csrf_token=$(csrf)" "$P/controltest.form.php")"
   # Issue #139 : joindre ou retirer une copie de quiz exige de pouvoir modifier la session.
   expect "front/trainingquiz.form.php : retirer une copie" "$1" \
     "$(code -d "remove=1&participations_id=$(id quiz)&_glpi_csrf_token=$(csrf)" "$P/trainingquiz.form.php")"
@@ -303,6 +306,15 @@ expect "date de validite d'une preuve de B" "$([ "$ROLE" = admin ] && echo 302 |
   "$(code -d "save=1&itemtype=GlpiPlugin%5CGrcmanager%5CPolicy&items_id=$(id policy_B)&documents_id=$(id document_B)&valid_until=2030-01-01&_glpi_csrf_token=$(csrf)" "$P/evidence.form.php")"
 expect "date de validite : document d'une autre politique" 404 \
   "$(code -d "save=1&itemtype=GlpiPlugin%5CGrcmanager%5CPolicy&items_id=$(id policy_A)&documents_id=$(id document_B)&valid_until=2030-01-01&_glpi_csrf_token=$(csrf)" "$P/evidence.form.php")"
+
+# Issue #380 : un test d'efficacite d'une mesure ne cite comme preuve qu'un document joint a la
+# mesure ET lisible (entite du document), jamais un document quelconque designe par son id.
+expect "test d'efficacite, preuve de A" 302 \
+  "$(code -d "add=1&plugin_grcmanager_controls_id=$(id control)&result=effective&documents_id=$(id document_A)&_glpi_csrf_token=$(csrf)" "$P/controltest.form.php")"
+expect "test d'efficacite, preuve de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
+  "$(code -d "add=1&plugin_grcmanager_controls_id=$(id control)&result=effective&documents_id=$(id document_B)&_glpi_csrf_token=$(csrf)" "$P/controltest.form.php")"
+expect "test d'efficacite, document d'un autre objet" 404 \
+  "$(code -d "add=1&plugin_grcmanager_controls_id=$(id control)&result=effective&documents_id=$(id audit_document)&_glpi_csrf_token=$(csrf)" "$P/controltest.form.php")"
 
 if [ "$ROLE" = limited ]; then
   # Enregistre le risque (objet global) avec l'actif de A : le lien vers B, invisible pour lui,

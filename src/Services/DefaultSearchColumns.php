@@ -40,6 +40,8 @@ final class DefaultSearchColumns
         // convention.
         'GlpiPlugin\\Grcmanager\\Policy'           => [8, 1, 2, 3, 4, 5, 6],
         'GlpiPlugin\\Grcmanager\\Evidence'         => [2, 3, 4, 5, 6, 80],
+        // Issue #380 : mesure, date, méthode, résultat, testeur, prochain test, non-conformité.
+        'GlpiPlugin\\Grcmanager\\ControlTest'      => [1, 2, 3, 4, 5, 6, 8],
         // Issue #144 : nom, type, source, destination, protocole, ports, propriétaire, fin, contrôles.
         'GlpiPlugin\\Grcmanager\\NetworkFlow'      => [1, 2, 3, 4, 5, 6, 8, 9, 11],
         // Issue #183 : fuite, utilisateur, date de la fuite, données exposées, statut, détection.

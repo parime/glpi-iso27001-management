@@ -6983,6 +6983,151 @@ msgstr "Catálogo de seguridad de la IA y sus referencias en el catálogo de rie
 msgid "AI systems"
 msgstr "Sistemas de IA"
 
+msgid "Effectiveness test"
+msgid_plural "Effectiveness tests"
+msgstr[0] "Prueba de eficacia"
+msgstr[1] "Pruebas de eficacia"
+
+msgid "Documentary inspection"
+msgstr "Inspección documental"
+
+msgid "Sampling"
+msgstr "Muestreo"
+
+msgid "Technical test"
+msgstr "Prueba técnica"
+
+msgid "Interview"
+msgstr "Entrevista"
+
+msgid "Effective"
+msgstr "Eficaz"
+
+msgid "Partially effective"
+msgstr "Parcialmente eficaz"
+
+msgid "Ineffective"
+msgstr "Ineficaz"
+
+msgid "No test plan"
+msgstr "Sin plan de pruebas"
+
+msgid "No test scheduled"
+msgstr "Ninguna prueba prevista"
+
+msgid "Control not found."
+msgstr "Control no encontrado."
+
+msgid "Choose the result of the test."
+msgstr "Elija el resultado de la prueba."
+
+msgid "Describe what was found when the control is not fully effective."
+msgstr "Describa lo constatado cuando el control no es plenamente eficaz."
+
+msgid "A test cannot be dated in the future."
+msgstr "Una prueba no puede tener una fecha futura."
+
+msgid "The next test must be scheduled after the test date."
+msgstr "La próxima prueba debe programarse después de la fecha de la prueba."
+
+msgid "The evidence must be a document attached to this control."
+msgstr "La evidencia debe ser un documento adjunto a este control."
+
+#, php-format
+msgid "Implementation status of the control set to \"%s\"."
+msgstr "Estado de implementación del control cambiado a «%s»."
+
+msgid "No non-conformity was opened: you are not allowed to create one."
+msgstr "No se abrió ninguna no conformidad: no tiene permiso para crearla."
+
+#, php-format
+msgid "Ineffective control %1$s: %2$s"
+msgstr "Control ineficaz %1$s: %2$s"
+
+#, php-format
+msgid "Effectiveness test of %1$s (%2$s) on %3$s: %4$s"
+msgstr "Prueba de eficacia de %1$s (%2$s) del %3$s: %4$s"
+
+#, php-format
+msgid "Non-conformity opened: %s"
+msgstr "No conformidad abierta: %s"
+
+msgid "Test date"
+msgstr "Fecha de la prueba"
+
+msgid "Method"
+msgstr "Método"
+
+msgid "Tester"
+msgstr "Evaluador"
+
+msgid "Next test"
+msgstr "Próxima prueba"
+
+msgid "Last test"
+msgstr "Última prueba"
+
+msgid "Never tested"
+msgstr "Nunca probado"
+
+msgid "Test plan"
+msgstr "Plan de pruebas"
+
+msgid "Test owner"
+msgstr "Responsable de las pruebas"
+
+msgid "Save the plan"
+msgstr "Guardar el plan"
+
+msgid "The next test is due at the date of the last test plus this frequency, unless another date is entered with the test."
+msgstr "La próxima prueba vence en la fecha de la última prueba más esta frecuencia, salvo que se indique otra fecha con la prueba."
+
+msgid "Record a test"
+msgstr "Registrar una prueba"
+
+msgid "Sample checked, observed gaps, people interviewed..."
+msgstr "Muestra revisada, desviaciones observadas, personas entrevistadas..."
+
+msgid "Required if the control is not fully effective. An ineffective control opens a non-conformity."
+msgstr "Obligatorio si el control no es plenamente eficaz. Un control ineficaz abre una no conformidad."
+
+msgid "A document of the control:"
+msgstr "Un documento del control:"
+
+msgid "add it first in the Documents tab"
+msgstr "añádalo primero en la pestaña Documentos"
+
+msgid "Empty: computed from the test plan."
+msgstr "Vacío: calculado según el plan de pruebas."
+
+msgid "Record the test"
+msgstr "Registrar la prueba"
+
+msgid "No effectiveness test recorded yet"
+msgstr "Todavía no se ha registrado ninguna prueba de eficacia"
+
+msgid "A control in place is not yet a control that works: test it (inspection, sampling, technical test or interview), keep the evidence and schedule the next test."
+msgstr "Un control implantado no es aún un control que funciona: pruébelo (inspección, muestreo, prueba técnica o entrevista), conserve la evidencia y programe la próxima prueba."
+
+#, php-format
+msgid "Non-conformity #%d"
+msgstr "No conformidad n.º %d"
+
+msgid "Delete this test?"
+msgstr "¿Eliminar esta prueba?"
+
+msgid "Tests to carry out"
+msgstr "Pruebas por realizar"
+
+msgid "ISO 27001, 9.1; ISO 27002, 5.35 and 5.36"
+msgstr "ISO 27001, 9.1; ISO 27002, 5.35 y 5.36"
+
+msgid "The effectiveness tests of the Annex A controls: a control in place is checked to really work, with its method, result and evidence."
+msgstr "Las pruebas de eficacia de los controles del Anexo A: se comprueba que un control implantado funciona realmente, con su método, su resultado y su evidencia."
+
+msgid "Set a test plan on each control, record each test from the control's \"Effectiveness tests\" tab and carry out the tests that are due first. An ineffective control opens a non-conformity."
+msgstr "Defina un plan de pruebas en cada control, registre cada prueba desde la pestaña «Pruebas de eficacia» del control y realice primero las pruebas vencidas. Un control ineficaz abre una no conformidad."
+
 #, php-format
 msgid "Security incident on %s"
 msgstr "Incidente de seguridad en %s"

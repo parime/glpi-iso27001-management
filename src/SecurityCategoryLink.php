@@ -41,7 +41,7 @@ final class SecurityCategoryLink
 
     public const KEYS = [
         'security', 'security_endpoint', 'security_phishing', 'security_malware', 'security_account',
-        'security_certificates', 'security_removable', 'security_vulnerabilities',
+        'security_data_breach', 'security_certificates', 'security_removable', 'security_vulnerabilities',
     ];
 
     /** Pour les tests : force la présence de Configuration GLPI Auto (null = détection réelle). */
@@ -99,7 +99,13 @@ final class SecurityCategoryLink
         if ($itilcategoriesId <= 0) {
             return null;
         }
-        $key = array_search($itilcategoriesId, self::ids(), true);
+        $ids = self::ids();
+        $key = array_search($itilcategoriesId, $ids, true);
+        // Avant la scission (Configuration GLPI Auto 1.16), « security_account » désignait
+        // « Compte compromis / Fuite de données » : accès ou fuite, ambigu.
+        if ($key === 'security_account' && !isset($ids['security_data_breach'])) {
+            return null;
+        }
 
         return is_string($key) ? SecurityCategoryMap::classification($key) : null;
     }

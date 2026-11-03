@@ -149,6 +149,7 @@ class ComplianceEvent extends ComplianceEventBase
             'policy'            => [__('Policy review', 'grcmanager'), 'ti-file-certificate'],
             'obligation'        => [__('Obligation review', 'grcmanager'), 'ti-gavel'],
             'evidence'          => [__('Evidence expiry', 'grcmanager'), 'ti-file-alert'],
+            'control_test'      => [ControlTest::getTypeName(1), 'ti-test-pipe'],
         ];
     }
 
@@ -296,7 +297,8 @@ class ComplianceEvent extends ComplianceEventBase
             self::periodicReviewDeadlines(),
             self::policyDeadlines(),
             self::obligationDeadlines(),
-            self::evidenceDeadlines()
+            self::evidenceDeadlines(),
+            self::controlTestDeadlines()
         );
 
         $events = [];
@@ -587,6 +589,33 @@ class ComplianceEvent extends ComplianceEventBase
                 ComplianceCalendarRules::dayRange($row['valid_until']),
                 (int) $row['users_id'],
                 $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/evidence.php'
+            );
+        }
+
+        return $list;
+    }
+
+    /**
+     * Issue #380 : prochain test d'efficacité de chaque mesure déjà testée.
+     *
+     * @return list<array<string, mixed>>
+     */
+    private static function controlTestDeadlines(): array
+    {
+        if (!ControlTest::canView()) {
+            return [];
+        }
+        $list = [];
+        foreach (ControlTest::getSchedule() as $entry) {
+            $id = (int) $entry['control']['id'];
+            $code = (string) $entry['control']['code'];
+            $list[] = self::deadline(
+                'control_test',
+                $id,
+                $code . ' ' . Control::getControlTitle($code),
+                ComplianceCalendarRules::dayRange($entry['next']),
+                (int) $entry['control']['users_id_tester'],
+                ControlTest::getControlTabURL($id)
             );
         }
 
