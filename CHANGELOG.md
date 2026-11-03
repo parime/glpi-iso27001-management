@@ -7,6 +7,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.20.0] - 2026-11-03
+
 ### Added
 
 - **Import Stormshield dans la matrice des flux** (issue #144, phase 3) : l'export CSV de la
