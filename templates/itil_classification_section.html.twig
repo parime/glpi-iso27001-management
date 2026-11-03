@@ -4,6 +4,14 @@
    plugin_grcmanager_post_itil_info_section() dans hook.php. #}
 {% import 'components/form/fields_macros.html.twig' as fields %}
 {% import '@grcmanager/_hint.html.twig' as hints %}
+{% import _self as bands %}
+
+{# Issue #372 : sections à bandeau (icône + titre) dans la classification. #}
+{% macro band(icon, title) %}
+   <div class="col-12 mt-3 mb-1">
+      <h4 class="d-flex align-items-center gap-2 border-bottom pb-1 mb-0 text-secondary"><i class="ti {{ icon }}"></i>{{ title }}</h4>
+   </div>
+{% endmacro %}
 
 {% set classification_fields = ['category', 'severity', 'cia_impact', 'root_cause', 'lessons_learned', 'plugin_grcmanager_risks_id'] %}
 {% set nb_classification = 0 %}
@@ -27,6 +35,8 @@
    </div>
    <div id="grcmanager-classification" class="accordion-collapse collapse show" aria-labelledby="grcmanager-classification-heading">
       <div class="accordion-body row m-0 mt-n2">
+         {{ bands.band('ti-tag', __('Qualification', 'grcmanager')) }}
+
          {{ fields.dropdownArrayField(
             'category',
             item.fields['category'],
@@ -58,6 +68,16 @@
             {'full_width': false, 'disabled': not item.canUpdateItem(), 'rand': rand}
          ) }}
 
+         {{ fields.dropdownArrayField(
+            'plugin_grcmanager_risks_id',
+            item.fields['plugin_grcmanager_risks_id'],
+            risks,
+            risk_type_name,
+            {'full_width': false, 'disabled': not item.canUpdateItem(), 'rand': rand}
+         ) }}
+
+         {{ bands.band('ti-shield-half', __('CIA impact', 'grcmanager')) }}
+
          {% set cia_field %}
             {% set selected_axes = item.fields['cia_impact']|default('')|split(',') %}
             {% for axis, axis_label in cia_axes %}
@@ -71,13 +91,7 @@
          {% endset %}
          {{ fields.field('cia_impact', cia_field, __('CIA impact', 'grcmanager'), {'full_width': false}) }}
 
-         {{ fields.dropdownArrayField(
-            'plugin_grcmanager_risks_id',
-            item.fields['plugin_grcmanager_risks_id'],
-            risks,
-            risk_type_name,
-            {'full_width': false, 'disabled': not item.canUpdateItem(), 'rand': rand}
-         ) }}
+         {{ bands.band('ti-bulb', __('Post-incident review', 'grcmanager')) }}
 
          {{ fields.textareaField(
             'root_cause',
