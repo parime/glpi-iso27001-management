@@ -6892,3 +6892,12 @@ msgstr "Nessun flusso attivo in questa cella."
 
 msgid "Service"
 msgstr "Servizio"
+
+msgid "All ports open between zones"
+msgstr "Tutte le porte aperte tra zone"
+
+msgid "Full access to an administration zone"
+msgstr "Accesso completo a una zona di amministrazione"
+
+msgid "Temporary rule still active"
+msgstr "Regola temporanea ancora attiva"

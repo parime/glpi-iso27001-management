@@ -8305,3 +8305,12 @@ msgstr "Brak aktywnych przepływów w tej komórce."
 
 msgid "Service"
 msgstr "Usługa"
+
+msgid "All ports open between zones"
+msgstr "Wszystkie porty otwarte między strefami"
+
+msgid "Full access to an administration zone"
+msgstr "Pełny dostęp do strefy administracyjnej"
+
+msgid "Temporary rule still active"
+msgstr "Reguła tymczasowa nadal aktywna"
