@@ -5,15 +5,14 @@ declare(strict_types=1);
 namespace GlpiPlugin\Grcmanager\Tests\Services\Incident;
 
 use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentRules;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 final class SecurityIncidentRulesTest extends TestCase
 {
     // --- category ------------------------------------------------------------------------------
 
-    /**
-     * @dataProvider allowedCategoryProvider
-     */
+    #[DataProvider('allowedCategoryProvider')]
     public function testNormalizeCategoryKeepsAnAllowedValue(string $category): void
     {
         self::assertSame($category, SecurityIncidentRules::normalizeCategory($category));
@@ -45,9 +44,7 @@ final class SecurityIncidentRulesTest extends TestCase
 
     // --- severity (issue #29: reuses \GlpiPlugin\Grcmanager\Nonconformity's own scale) ----------------
 
-    /**
-     * @dataProvider allowedSeverityProvider
-     */
+    #[DataProvider('allowedSeverityProvider')]
     public function testNormalizeSeverityKeepsAnAllowedValue(string $severity): void
     {
         self::assertSame($severity, SecurityIncidentRules::normalizeSeverity($severity));

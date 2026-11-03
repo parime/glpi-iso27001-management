@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace GlpiPlugin\Grcmanager\Tests\Services\Incident;
 
 use GlpiPlugin\Grcmanager\Services\Incident\MitreAttack;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -23,9 +24,7 @@ final class MitreAttackTest extends TestCase
         }
     }
 
-    /**
-     * @dataProvider normalizeProvider
-     */
+    #[DataProvider('normalizeProvider')]
     public function testNormalize(string $input, ?array $expected): void
     {
         self::assertSame($expected, MitreAttack::normalize($input));

@@ -6,6 +6,7 @@ namespace GlpiPlugin\Grcmanager\Tests\Services\Risk;
 
 use GlpiPlugin\Grcmanager\Services\Risk\RiskMatrixDefaults;
 use GlpiPlugin\Grcmanager\Services\Risk\RiskScoringService;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 final class RiskScoringServiceTest extends TestCase
@@ -51,9 +52,8 @@ final class RiskScoringServiceTest extends TestCase
      * Default constructor uses RiskMatrixDefaults::MATRIX (Sprint 1's original grid, preserved
      * exactly so an existing install sees no change until an admin edits the matrix), verified
      * exhaustively here for every probability x impact combination.
-     *
-     * @dataProvider defaultMatrixProvider
      */
+    #[DataProvider('defaultMatrixProvider')]
     public function testDefaultMatrixMatchesSprint1Grid(string $probability, string $impact, string $expected): void
     {
         self::assertSame($expected, $this->service->level($probability, $impact));
