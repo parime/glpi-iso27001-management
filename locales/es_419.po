@@ -6908,3 +6908,6 @@ msgstr "Cortafuegos Stormshield: importe la exportación CSV de la política de 
 #, php-format
 msgid "Service object not known from this export (%s): rule skipped, add the flow with its ports by hand."
 msgstr "Objeto de servicio desconocido en esta exportación (%s): regla omitida, añada el flujo con sus puertos a mano."
+
+msgid "All ports open towards the Internet"
+msgstr "Todos los puertos abiertos hacia Internet"
