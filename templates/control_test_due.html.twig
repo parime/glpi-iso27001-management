@@ -1,0 +1,22 @@
+{# Issue #380 : tests d'efficacité en retard ou proches de leur échéance, en tête du registre des
+   tests (front/controltest.php). #}
+{% if upcoming is not empty %}
+  <div class="card mb-3">
+    <div class="card-header"><h3 class="card-title"><i class="ti ti-alarm me-1"></i>{{ __('Tests to carry out', 'grcmanager') }}</h3></div>
+    <div class="table-responsive">
+      <table class="table table-sm table-vcenter card-table">
+        <thead><tr><th>{{ __('Control', 'grcmanager') }}</th><th>{{ __('Next test', 'grcmanager') }}</th><th>{{ __('Status', 'grcmanager') }}</th><th>{{ __('Test owner', 'grcmanager') }}</th></tr></thead>
+        <tbody>
+          {% for row in upcoming %}
+            <tr>
+              <td><a href="{{ row.url }}"><strong>{{ row.code }}</strong> {{ row.title }}</a></td>
+              <td class="text-nowrap">{{ row.next|formatted_date }}</td>
+              <td><span class="badge {{ row.due_class }}">{{ row.due_label }}</span></td>
+              <td>{{ row.tester_name }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endif %}

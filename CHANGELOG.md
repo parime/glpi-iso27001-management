@@ -9,6 +9,27 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Tests d'efficacité des contrôles** (issue #380, première étape) : un contrôle de l'Annexe A
+  « mis en œuvre » se prouve désormais par des tests.
+  - onglet **« Tests d'efficacité »** sur la fiche du contrôle : plan de test (fréquence, méthode,
+    responsable) et registre des tests (date, méthode : inspection documentaire, échantillonnage,
+    test technique ou entretien ; résultat : efficace, partiellement efficace, inefficace ;
+    testeur, constat, preuve, prochaine échéance) ;
+  - la prochaine échéance est celle saisie avec le test, sinon la date du test plus la fréquence
+    du plan ; elle apparaît dans le **calendrier de conformité** et le planning du responsable ;
+  - un test **inefficace ouvre une non-conformité** (majeure, à traiter dans le registre CAPA) ;
+  - l'état « Vérifié » de la SoA suit le dernier test : un test efficace fait passer un contrôle
+    mis en œuvre à « Vérifié », un test partiel ou inefficace lui retire cet état ;
+  - nouvelle sous-page **Conformité > Tests d'efficacité** : registre de tous les tests, avec en
+    tête les tests en retard ou à réaliser dans les 30 jours.
+
+  Sécurité : mêmes droits que le contrôle (lecture pour voir les tests, modification pour le plan
+  et l'enregistrement, suppression en plus pour retirer un test). La preuve est un document joint
+  au contrôle et lisible par l'utilisateur (entité du document), jamais un document quelconque
+  désigné par son identifiant ; sans le droit de créer une non-conformité, le test est enregistré
+  sans en ouvrir. Un test enregistré ne se modifie pas. Création et suppression tracées dans le
+  journal d'audit. Désinstallation : table supprimée, réglages de liste et recherches nettoyés.
+
 - **Fiche de l'incident de sécurité** (issue #372, fin) :
   - en-tête de pastilles complété par des compteurs (journal des actions, IOC, éléments liés,
     tickets liés), chacun menant à son onglet ;
