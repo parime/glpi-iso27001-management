@@ -19,6 +19,7 @@ declare(strict_types=1);
 
 namespace GlpiPlugin\Grcmanager\Tests\Unit\Services\Dashboard;
 
+use GlpiPlugin\Grcmanager\Services\Control\FrameworkSelection;
 use GlpiPlugin\Grcmanager\Services\Control\Nis2CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Dashboard\PilotageCards;
 use PHPUnit\Framework\TestCase;
@@ -56,6 +57,17 @@ final class PilotageCardsTest extends TestCase
             ['ISO 27001' => null, 'NIS2' => null, 'ANSSI' => null, 'NIST CSF 2.0' => null],
             PilotageCards::frameworkRates([])
         );
+    }
+
+    public function testOnlyEnabledFrameworksAreComputed(): void
+    {
+        // Issue #403 : un référentiel désactivé disparaît de la carte, les autres ne changent pas.
+        $controls = ['A.5.1' => ['applicability' => 'yes', 'implementation_status' => 'implemented']];
+        $rates = PilotageCards::frameworkRates($controls, [FrameworkSelection::NIS2, FrameworkSelection::NIST_CSF]);
+
+        $this->assertSame(['NIS2', 'NIST CSF 2.0'], array_keys($rates));
+        $this->assertSame(PilotageCards::frameworkRates($controls)['NIST CSF 2.0'], $rates['NIST CSF 2.0']);
+        $this->assertSame([], PilotageCards::frameworkRates($controls, []));
     }
 
     public function testNistCsfUsesTheOfficialCrosswalkOnly(): void

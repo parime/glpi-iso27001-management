@@ -20,6 +20,8 @@ namespace GlpiPlugin\Grcmanager;
 use CommonGLPI;
 use CronTask;
 use GlpiPlugin\Grcmanager\Services\Clause\IsmsClauseCatalog;
+use GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig;
+use GlpiPlugin\Grcmanager\Services\Control\FrameworkSelection;
 use GlpiPlugin\Grcmanager\Services\Dashboard\PilotageCards;
 use GlpiPlugin\Grcmanager\Services\Maturity\MaturityScore;
 use PluginGrcmanagerSecurityIncident;
@@ -191,7 +193,10 @@ class Maturity extends CommonGLPI
         return [
             'components' => [
                 'soa'      => MaturityScore::implementationRate($soa),
-                'isms'     => MaturityScore::implementationRate($isms),
+                // Issue #403 : sans ISO 27001, composante écartée (son poids est réparti sur les autres).
+                'isms'     => FrameworkConfig::isEnabled(FrameworkSelection::ISO27001)
+                    ? MaturityScore::implementationRate($isms)
+                    : null,
                 'evidence' => MaturityScore::rate($evidenceValid, $evidenceTotal),
                 // L'audit interne est une exigence (9.2) : son absence compte pour zéro.
                 'audit'    => $recentAudits > 0 ? 100.0 : 0.0,

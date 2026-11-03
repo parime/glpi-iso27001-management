@@ -51,6 +51,27 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
     vérifier, au lieu d'être classée en silence. Les noms des objets propres à la configuration ne
     sont jamais interprétés.
 
+- **Référentiels de conformité activables un par un** (issue #403) : dans Configuration > Plugins >
+  GRC Manager, une case par référentiel (ISO/IEC 27001, NIS2, ANSSI, NIST CSF 2.0, CIS Controls v8,
+  ISO/IEC 27090). Un référentiel décoché n'est plus affiché ni compté :
+  - page « Référentiels » : sa carte disparaît (la colonne NIST du tableau de l'Annexe A aussi) ;
+    sans aucun référentiel actif, la page quitte le menu et son adresse est refusée ;
+  - fiche d'une mesure : plus de correspondances NIS2, ANSSI ou NIST ;
+  - carte « Mesures mises en œuvre par référentiel » et scores des contrôles techniques
+    automatiques (ISO 27001, NIS2 ; le RGPD reste) ;
+  - ISO 27001 : exigences du SMSI (articles 4 à 10) retirées du menu et refusées par leur adresse,
+    composante écartée du score de maturité ; la liste des mesures (SoA) reste, les autres
+    référentiels s'appuient dessus ;
+  - ISO/IEC 27090 : plus de badges ni de sections citées dans le catalogue de risques types.
+
+  Tout reste actif par défaut, y compris après mise à jour. Désactiver ne supprime rien : les
+  données reviennent à la réactivation. Les délais de notification NIS2 et RGPD des incidents de
+  sécurité ne dépendent pas de ce réglage (obligation légale).
+
+  Sécurité : réglage réservé au droit de modification de la configuration du plugin, formulaire
+  protégé par le jeton CSRF, valeurs limitées à la liste connue, changement tracé dans le journal
+  d'audit.
+
 ## [2.20.0] - 2026-11-03
 
 ### Added

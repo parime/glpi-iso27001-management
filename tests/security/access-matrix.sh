@@ -158,6 +158,9 @@ if [ "$ROLE" = none ]; then
            'GlpiPlugin%5CGrcmanager%5CParkVulnerability$1' 'GlpiPlugin%5CGrcmanager%5CRisk$1'; do
     contains "onglet $t d'un ordinateur : sans droit" "plugins/grcmanager" non "$(tab Computer "$t" "$(id computer_A)")"
   done
+  # Issue #403 : les referentiels actifs se reglent avec le droit de modifier la configuration.
+  expect "front/config.php : desactiver les referentiels" 403 \
+    "$(code -d "update_frameworks=1&_glpi_csrf_token=$(csrf)" "$P/config.php")"
   create_attempts 403 403
   rm -f "$JAR"; exit $FAIL
 fi
@@ -201,6 +204,9 @@ if [ "$ROLE" = reader ]; then
   expect "front/trainingquiz.send.php : copie d'un autre, en lecture" 403 "$(code "$P/trainingquiz.send.php?id=$(id quiz)")"
   expect "s'assigner un incident en lecture seule" 403 \
     "$(code -d "addme_assign=1&plugin_grcmanager_securityincidents_id=$(id incident_A)&_glpi_csrf_token=$(csrf)" "$P/securityincident.form.php")"
+  # Issue #403 : les referentiels actifs se reglent avec le droit de modifier la configuration.
+  expect "front/config.php : desactiver les referentiels" 403 \
+    "$(code -d "update_frameworks=1&_glpi_csrf_token=$(csrf)" "$P/config.php")"
   create_attempts 403 403
   rm -f "$JAR"; exit $FAIL
 fi

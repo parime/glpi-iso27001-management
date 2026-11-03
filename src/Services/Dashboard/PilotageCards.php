@@ -22,6 +22,8 @@ namespace GlpiPlugin\Grcmanager\Services\Dashboard;
 use GlpiPlugin\Grcmanager\Services\Access\AccessReviewLogic;
 use GlpiPlugin\Grcmanager\Services\Control\AnssiHygieneCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\ControlCrosswalkDefaults;
+use GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig;
+use GlpiPlugin\Grcmanager\Services\Control\FrameworkSelection;
 use GlpiPlugin\Grcmanager\Services\Control\Nis2CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Incident\RegulatoryDeadlines;
 use GlpiPlugin\Grcmanager\Services\Maturity\MaturityScore;
@@ -40,22 +42,28 @@ final class PilotageCards
      * lui-même au CSF 2.0 (correspondance officielle, ControlCrosswalkDefaults). Pas de CIS
      * Controls : aucune correspondance officielle librement disponible (voir ce même fichier).
      *
+     * Issue #403 : seuls les référentiels de $enabled (tous si null) sont calculés.
+     *
      * @param array<string, array{applicability: string, implementation_status: string}> $controls code => ligne
+     * @param list<string>|null $enabled référentiels actifs (FrameworkSelection)
      * @return array<string, ?float> référentiel => taux (null si aucune mesure concernée)
      */
-    public static function frameworkRates(array $controls): array
+    public static function frameworkRates(array $controls, ?array $enabled = null): array
     {
         $filters = [
-            'ISO 27001'    => static fn (string $code): bool => true,
-            'NIS2'         => static fn (string $code): bool
-                => Nis2CatalogDefaults::requirementsForControl($code) !== [],
-            'ANSSI'        => static fn (string $code): bool
-                => AnssiHygieneCatalogDefaults::measuresForControl($code) !== [],
-            'NIST CSF 2.0' => static fn (string $code): bool
-                => (ControlCrosswalkDefaults::CROSSWALK[preg_replace('/^A\./', '', $code)]['nist_csf'] ?? []) !== [],
+            'ISO 27001'    => [FrameworkSelection::ISO27001, static fn (string $code): bool => true],
+            'NIS2'         => [FrameworkSelection::NIS2, static fn (string $code): bool
+                => Nis2CatalogDefaults::requirementsForControl($code) !== []],
+            'ANSSI'        => [FrameworkSelection::ANSSI, static fn (string $code): bool
+                => AnssiHygieneCatalogDefaults::measuresForControl($code) !== []],
+            'NIST CSF 2.0' => [FrameworkSelection::NIST_CSF, static fn (string $code): bool
+                => (ControlCrosswalkDefaults::CROSSWALK[preg_replace('/^A\./', '', $code)]['nist_csf'] ?? []) !== []],
         ];
         $rates = [];
-        foreach ($filters as $framework => $covers) {
+        foreach ($filters as $framework => [$key, $covers]) {
+            if ($enabled !== null && !in_array($key, $enabled, true)) {
+                continue;
+            }
             $byStatus = [];
             foreach ($controls as $code => $row) {
                 if ($row['applicability'] === 'no' || !$covers((string) $code)) {
@@ -86,7 +94,7 @@ final class PilotageCards
             ];
         }
         $data = [];
-        foreach (self::frameworkRates($controls) as $framework => $rate) {
+        foreach (self::frameworkRates($controls, FrameworkConfig::enabled()) as $framework => $rate) {
             $data[] = ['label' => $framework, 'number' => (int) round($rate ?? 0)];
         }
 
