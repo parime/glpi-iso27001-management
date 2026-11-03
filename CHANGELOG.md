@@ -7,6 +7,93 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.20.0] - 2026-11-03
+
+### Added
+
+- **Import Stormshield dans la matrice des flux** (issue #144, phase 3) : l'export CSV de la
+  politique de filtrage (Politique de sécurité > Filtrage - NAT > Exporter) est reconnu
+  automatiquement dans la page d'import. Seules les règles de filtrage actives « passer » sont
+  reprises (séparateurs, NAT et règles désactivées ignorés) ; une publication prend sa cible
+  interne comme destination ; un passage par un tunnel IPsec donne un flux entre sites ; les
+  services courants (http, https, ssh, ntp, smtp…) deviennent des ports ; une règle utilisant un
+  service propre à la configuration est signalée au lieu d'être importée avec de faux ports ;
+  règles identiques fusionnées ; commentaires automatiques (« Created on… ») non repris comme nom.
+
+- **Vue matrice zone × zone de la matrice des flux** (issue #144, phase 3) : lignes = zones
+  sources, colonnes = zones destinations, chaque case compte les flux actifs et prend la couleur
+  du pire écart de ses flux ; un clic liste les flux de la case. Regroupement par site (début du
+  nom de zone) pour la matrice entre sites. Réservée au droit « Registres sensibles », comme le
+  reste de la matrice des flux ; un actif non visible de l'utilisateur ne révèle pas son nom.
+- **Nouveaux contrôles de la matrice des flux** (issue #144, phase 3), d'après une vraie politique
+  de pare-feu :
+  - « Tous les ports ouverts entre zones » : flux interne, inter-sites, partenaire ou de
+    sauvegarde sans port précis (à corriger) ;
+  - « Accès complet à une zone d'administration » : la même chose vers une zone de gestion
+    (MGMT, bastion, iLO, IPMI, hyperviseurs…), bloquant ;
+  - « Règle temporaire toujours active » : nom ou commentaire en « tmp », « provisoire »,
+    « debug », « installation » (à corriger) ;
+  - « Tous les ports ouverts vers Internet » : accès sortant sans port précis, par où tout
+    protocole peut sortir (à corriger).
+  Ils apparaissent dans la liste, la fiche, la synthèse, l'import, la vue matrice et le rapport PDF.
+- **Alertes d'accès** au module des incidents (issue #371) : une tâche automatique quotidienne
+  (« accesswatch ») compare les droits des profils sur les incidents et les utilisateurs qui
+  détiennent ces profils ; chaque écart (droit accordé, étendu, réduit ou retiré, profil attribué
+  ou retiré) est inscrit dans le journal d'audit et signalé au groupe RSSI et à l'administrateur
+  GLPI. La désactivation du module déclenche une alerte immédiate. Rien n'est modifié
+  automatiquement.
+- **Groupe sécurité** optionnel du module des incidents (issue #371), dans la configuration du
+  plugin : s'il est défini, seuls ses membres utilisent le module, quels que soient les droits de
+  leur profil. Un administrateur GLPI n'est jamais bloqué, mais ses consultations hors du groupe
+  sont signalées dans le journal d'audit, comme toute modification des réglages du module.
+- **Équipe d'intervention** des incidents de sécurité (issue #371) : onglet où les pilotes de
+  l'incident (droit « Voir tout », rédacteur, technicien ou groupe assigné) ajoutent des
+  intervenants (agissent sur l'incident) et des observateurs (lecture seule). Avec le droit « Voir
+  (auteur) », un membre voit l'incident ; le retirer lui coupe l'accès. Ajouts, retraits et
+  changements de rôle sont tracés dans le journal d'audit.
+- **Registre des preuves** des incidents de sécurité (issue #371) : onglet « Intégrité et preuves ».
+  Chaque document joint à l'incident y est inscrit avec son empreinte SHA-256 de référence, sa
+  taille, son auteur et sa date (scellement gravé dans le journal d'audit). Un document retiré ou
+  dont le fichier est remplacé reste au registre avec son empreinte d'origine. Bouton « Vérifier
+  maintenant » (fichier modifié ou absent signalé, vérification tracée) et aide pour vérifier une
+  copie hors de GLPI (`sha256sum`, `Get-FileHash`).
+- **Journal d'audit infalsifiable** des incidents de sécurité (issue #371) : consultation, création,
+  modification, corbeille, restauration, suppression, éléments ajoutés ou retirés (IOC, techniques,
+  actions, tâches, documents, suivis...), exports, imports et vérifications sont tracés, avec
+  l'utilisateur, l'utilisateur réel en cas de « Prendre l'identité », le profil et l'adresse IP.
+  Chaque entrée est chaînée à la précédente par SHA-256 ; écran « Journal d'audit » (lien dans
+  l'en-tête des incidents, droit des registres sensibles) avec filtres, bouton « Vérifier
+  l'intégrité » et export CSV tracé. Le journal est conservé à la désinstallation du plugin.
+- **Plan de remédiation en PDF** (issue #370) : tâches par phase avec cases à cocher, comptes
+  rendus, réalisations signées, zones de signature et empreinte SHA-256 du contenu, consignée dans
+  l'historique de l'incident à chaque impression.
+- **Mes tâches de remédiation** (issue #370) : deux cartes de tableau de bord (nombre et liste des
+  tâches ouvertes qui me sont assignées, chacune menant à son incident).
+
+- **Import CSV d'EDR / XDR** (issue #370) : lien « Import EDR / XDR » dans l'en-tête des incidents.
+  Séparateur et encodage détectés, colonnes usuelles reconnues automatiquement (y compris les
+  en-têtes aplatis), aperçu ; un incident par alerte, par hôte, par ligne ou un seul, ou ajout à un
+  incident existant ; fuseau des dates. Crée les IOC et les techniques MITRE ATT&CK, lie les
+  ordinateurs (nom court ou FQDN) et les comptes (DOMAINE\login, login@domaine), préremplit le
+  titre, la gravité maximale, la date la plus ancienne, la catégorie et le lien console. Lignes
+  brutes conservées sans modification, ré-import sans doublon, limites 30 Mo / 20 000 lignes,
+  fichier d'exemple.
+
+### Fixed
+
+- Traduction polonaise : un texte d'aide des formations empêchait la compilation stricte du
+  catalogue (format PHP invalide).
+- Liste des flux : la colonne « Contrôles » ne signalait pas les réseaux partenaires en conflit
+  avec un réseau interne (champs source et destination non chargés).
+- **Cloisonnement des incidents de sécurité** (issue #371) : avec le seul droit « Voir (auteur) »,
+  la liste et la recherche montraient tous les incidents de l'entité (GLPI ne filtre lui-même que
+  ses tickets, changements et problèmes) ; elles ne montrent plus que ceux où l'on est acteur,
+  rédacteur ou membre de l'équipe. Modifier un incident exige désormais aussi de pouvoir le voir,
+  la corbeille et la suppression sont réservées aux pilotes, et une tentative d'ouvrir un incident
+  non visible est tracée dans le journal d'audit.
+- Une procédure de remédiation ne peut plus être appliquée deux fois au même incident (tâches en
+  double).
+
 ## [2.19.0] - 2026-11-02
 
 ### Added

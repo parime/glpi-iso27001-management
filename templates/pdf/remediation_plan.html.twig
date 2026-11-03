@@ -1,0 +1,54 @@
+{# Issue #370 : PDF du plan de remédiation d'un incident, voir
+   GlpiPlugin\\Grcmanager\\SecurityIncidentPlaybookTask::renderPdf(). #}
+{% set generated_at_label = __('Generated on %1$s by %2$s', 'grcmanager')|format(generated_at, generated_by) %}
+{% include '@grcmanager/pdf/_pdf_style.html.twig' %}
+
+<h2>{{ __('Summary', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-summary">
+  <tr><td>{{ __('Incident', 'grcmanager') }}</td><td>{{ item.fields['reference'] ?: ('#' ~ item.getID()) }} - {{ item.fields['name'] }}</td></tr>
+  <tr><td>{{ __('Progress', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ progress.done }}/{{ progress.total }} ({{ progress.percent }} %)</td></tr>
+  <tr><td>{{ __('Mandatory steps still open', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ progress.mandatory_pending }}</td></tr>
+  {% if playbooks is not empty %}<tr><td>{{ __('Playbooks applied', 'grcmanager') }}</td><td>{{ playbooks|join(', ') }}</td></tr>{% endif %}
+</table>
+
+{% for phase, tasks in groups %}
+  <h2>{{ phases[phase] }}</h2>
+  <table class="grcmanager-pdf-table">
+    <thead>
+      <tr>
+        <th style="width: 4%"></th>
+        <th>{{ __('Task', 'grcmanager') }}</th>
+        <th style="width: 14%">{{ __('Status') }}</th>
+        <th style="width: 30%">{{ __('Report', 'grcmanager') }}</th>
+        <th style="width: 18%">{{ __('Done by', 'grcmanager') }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for task in tasks %}
+        <tr>
+          <td style="font-size: 14px">{{ task.status == 'done' ? '☑' : (task.status == 'not_applicable' ? '☒' : '☐') }}</td>
+          <td>
+            <strong>{{ task.name }}</strong>{% if task.is_mandatory %} ({{ __('Mandatory', 'grcmanager') }}){% endif %}
+            {% if task.description %}<br><span style="color: #64748b">{{ task.description }}</span>{% endif %}
+          </td>
+          <td>{{ statuses[task.status].label|default(task.status) }}</td>
+          <td>{{ task.report|nl2br }}</td>
+          <td>{% if task.date_done %}{{ users[task.users_id_done]|default('') }}<br>{{ task.date_done }}{% endif %}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endfor %}
+
+<h2>{{ __('Signatures', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-table">
+  <tr>
+    <td style="width: 50%; height: 70px; vertical-align: top">{{ __('Incident manager', 'grcmanager') }}<br>{{ __('Name, date and signature', 'grcmanager') }}</td>
+    <td style="width: 50%; height: 70px; vertical-align: top">{{ __('Information security officer', 'grcmanager') }}<br>{{ __('Name, date and signature', 'grcmanager') }}</td>
+  </tr>
+</table>
+
+<p class="grcmanager-pdf-meta">
+  {{ __('Content fingerprint (SHA-256)', 'grcmanager') }} : {{ hash }}<br>
+  {{ __('This fingerprint is recorded in the incident history each time the plan is printed.', 'grcmanager') }}
+</p>

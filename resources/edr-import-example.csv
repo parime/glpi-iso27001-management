@@ -1,0 +1,4 @@
+Alert ID,Detection Time,Alert Name,Hostname,User Name,Severity,Tactic,Technique,Command Line,SHA256,Remote IP,Console URL
+EXEMPLE-0001,2026-10-30T07:55:12Z,Credential dumping (LSASS),PC-COMPTA-03.corp.example,CORP\jdupont,Critical,Credential Access,T1003.001,"rundll32.exe C:\Windows\System32\comsvcs.dll MiniDump 624 C:\temp\l.dmp full",,203.0.113.7,https://edr.example/alerts/EXEMPLE-0001
+EXEMPLE-0001,2026-10-30T07:57:40Z,Credential dumping (LSASS),PC-COMPTA-03.corp.example,CORP\jdupont,High,Execution,T1059.001,"powershell.exe -nop -w hidden -enc SQBFAFgA",e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855,203.0.113.7,https://edr.example/alerts/EXEMPLE-0001
+EXEMPLE-0002,2026-10-30T09:12:03Z,Suspicious mailbox forwarding rule,SRV-MAIL01.corp.example,m.martin@corp.example,Medium,Collection,T1114.003,,,198.51.100.23,https://edr.example/alerts/EXEMPLE-0002

@@ -1,0 +1,82 @@
+{# Issue #144, phase 3 : vue zone × zone de la matrice des flux (registre sensible) #}
+<div class="card mb-3"><div class="card-body">
+   <h3 class="card-title"><i class="ti ti-grid-dots me-1"></i>{{ title }}</h3>
+   <p>{{ __('Each cell counts the active flows from a source zone (row) to a destination zone (column). Its colour is the most serious check of its flows: red for a blocking gap, yellow for a gap to fix. Click a cell to list its flows. Grouped by site, zones are gathered by the start of their name, before the first "_", "-" or space.', 'grcmanager') }}</p>
+   <form method="get" action="{{ matrix_url }}" class="d-flex flex-wrap align-items-center gap-2">
+      <select name="group" class="form-select form-select-sm" style="max-width: 320px;" aria-label="{{ __('Grouping', 'grcmanager') }}">
+         {% for key, label in groups %}
+            <option value="{{ key }}" {{ key == group ? 'selected' }}>{{ label }}</option>
+         {% endfor %}
+      </select>
+      <button type="submit" class="btn btn-sm btn-primary">{{ __('Show', 'grcmanager') }}</button>
+      <a href="{{ list_url }}" class="btn btn-sm btn-outline-secondary ms-auto">{{ __('Back to the network flow matrix', 'grcmanager') }}</a>
+   </form>
+</div></div>
+
+<div class="card mb-3"><div class="card-body">
+   {% if total == 0 %}
+      <p class="text-muted mb-0">{{ __('No active flow yet.', 'grcmanager') }}</p>
+   {% else %}
+      {% if truncated %}
+         <div class="alert alert-warning">{{ __('More than %d zones: only the busiest are shown. Group by site for an overview.', 'grcmanager')|format(max_zones) }}</div>
+      {% endif %}
+      <div class="table-responsive">
+         <table class="table table-sm table-bordered text-center align-middle mb-0" style="width: auto;">
+            <thead>
+               <tr>
+                  <th class="text-start small">{{ __('Source', 'grcmanager') }} ↓ / {{ __('Destination', 'grcmanager') }} →</th>
+                  {% for dst in destinations %}<th class="small" style="writing-mode: vertical-rl; transform: rotate(180deg); max-height: 12rem;">{{ dst }}</th>{% endfor %}
+               </tr>
+            </thead>
+            <tbody>
+               {% for src in sources %}
+                  <tr>
+                     <th class="text-start small text-nowrap">{{ src }}</th>
+                     {% for dst in destinations %}
+                        {% set cell = cells[src][dst] ?? null %}
+                        {% if cell %}
+                           {% set cls = cell.level == level_blocking ? 'bg-red-lt' : (cell.level == level_warning ? 'bg-yellow-lt' : 'bg-green-lt') %}
+                           {% set active = src == source and dst == destination %}
+                           <td class="{{ cls }} {{ active ? 'fw-bold border-primary' }}">
+                              <a href="{{ matrix_url }}?{{ {group: group, src: src, dst: dst}|url_encode }}#flows" class="text-reset d-block" title="{{ src }} → {{ dst }}">{{ cell.count }}</a>
+                           </td>
+                        {% else %}
+                           <td class="text-muted">·</td>
+                        {% endif %}
+                     {% endfor %}
+                  </tr>
+               {% endfor %}
+            </tbody>
+         </table>
+      </div>
+   {% endif %}
+</div></div>
+
+{% if source is not null and destination is not null %}
+   <div class="card" id="flows"><div class="card-body">
+      <h4 class="card-title">{{ source }} → {{ destination }}</h4>
+      {% if selected is empty %}
+         <p class="text-muted mb-0">{{ __('No active flow in this cell.', 'grcmanager') }}</p>
+      {% else %}
+         <div class="table-responsive">
+            <table class="table table-sm align-middle mb-0">
+               <thead><tr><th>{{ __('Name', 'grcmanager') }}</th><th>{{ __('Type', 'grcmanager') }}</th><th>{{ __('Source', 'grcmanager') }}</th><th>{{ __('Destination', 'grcmanager') }}</th><th>{{ __('Service', 'grcmanager') }}</th><th>{{ __('Checks', 'grcmanager') }}</th></tr></thead>
+               <tbody>
+                  {% for flow in selected %}
+                     {% set type_html = flow.type_html %}
+                     {% set checks_html = flow.checks_html %}
+                     <tr>
+                        <td><a href="{{ flow.url }}">{{ flow.name }}</a></td>
+                        <td>{{ type_html|raw }}</td>
+                        <td>{{ flow.source }}</td>
+                        <td>{{ flow.destination }}</td>
+                        <td>{{ flow.service }}</td>
+                        <td>{{ checks_html|raw }}</td>
+                     </tr>
+                  {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      {% endif %}
+   </div></div>
+{% endif %}

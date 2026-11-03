@@ -17,6 +17,9 @@
   {% elseif progress.total > 0 %}
     <span class="badge bg-green-lt"><i class="ti ti-lock-open me-1"></i>{{ __('Mandatory steps completed', 'grcmanager') }}</span>
   {% endif %}
+  {% if progress.total > 0 %}
+    <a href="{{ pdf_url }}" class="btn btn-sm btn-outline-secondary"><i class="ti ti-file-type-pdf me-1"></i>{{ __('Remediation plan (PDF)', 'grcmanager') }}</a>
+  {% endif %}
   {% if can_library %}
     <a href="{{ library_url }}" class="btn btn-sm btn-ghost-secondary"><i class="ti ti-books me-1"></i>{{ __('Playbook library', 'grcmanager') }}</a>
   {% endif %}
@@ -32,7 +35,7 @@
         <div class="d-flex gap-2">
           <select id="grc-playbook" name="plugin_grcmanager_playbooks_id" class="form-select" required>
             {% for p in playbooks %}
-              <option value="{{ p.id }}">{{ p.recommended ? '★ ' : '' }}{{ p.name }}{{ p.id in applied ? ' (' ~ __('already applied', 'grcmanager') ~ ')' : '' }}</option>
+              <option value="{{ p.id }}" {{ p.id in applied ? 'disabled' : '' }}>{{ p.recommended ? '★ ' : '' }}{{ p.name }}{{ p.id in applied ? ' (' ~ __('already applied', 'grcmanager') ~ ')' : '' }}</option>
             {% endfor %}
           </select>
           <button type="submit" name="apply" class="btn btn-primary text-nowrap"><i class="ti ti-player-play me-1"></i>{{ __('Apply', 'grcmanager') }}</button>

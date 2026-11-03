@@ -4,6 +4,7 @@
    <p>{{ __('CSV file separated by semicolons or commas, with a header line. Recognised columns: name, type, source, destination, protocol, ports, justification, owner (GLPI login), date_end (French column names also accepted). Only source and destination are required.', 'grcmanager') }}</p>
    <pre class="bg-light p-2 small mb-3">{{ example }}</pre>
    <p><i class="ti ti-brick-wall me-1"></i>{{ __('pfSense firewall: import its configuration backup directly (Diagnostics > Backup & Restore, config.xml file). Enabled rules that allow a flow are imported with their aliases resolved; block rules and disabled rules are ignored. In that case, the line number shown is the rule number. Justification and owner remain to be filled in the matrix.', 'grcmanager') }}</p>
+   <p><i class="ti ti-shield-lock me-1"></i>{{ __('Stormshield firewall: import the CSV export of the filtering policy (Security policy > Filter - NAT > Export). Enabled "pass" rules are imported; NAT rules, section separators and disabled rules are ignored, and a published service takes its internal target as destination. The export only names objects: common services (http, https, ssh, ntp, smtp…) become ports, a rule using a service of your own is reported so you can add it by hand.', 'grcmanager') }}</p>
    <p class="text-muted small">{{ __('Types: internal, publication, outbound, tunnel, partner, admin, backup, other. A flow already present (same source, destination, protocol and ports) is not created again: importing the same file twice creates no duplicate.', 'grcmanager') }}</p>
    <form method="post" enctype="multipart/form-data" action="{{ action }}" class="d-flex flex-wrap align-items-center gap-3">
       <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
@@ -29,6 +30,9 @@
          {{ (simulate ? __('Simulation: %1$d flows would be created, %2$d already exist.', 'grcmanager') : __('Import finished: %1$d flows created, %2$d already existed.', 'grcmanager'))|format(result.created, result.skipped) }}
          {% if simulate and result.created > 0 %}<br>{{ __('Untick "Simulation" and analyse the file again to import it.', 'grcmanager') }}{% endif %}
       </div>
+      {% if result.stormshield and result.stormshield.merged > 0 %}
+         <div class="alert alert-secondary">{{ __('%d identical rules merged.', 'grcmanager')|format(result.stormshield.merged) }}</div>
+      {% endif %}
       {% if result.pfsense %}
          {% if result.pfsense.secrets %}
             <div class="alert alert-danger">

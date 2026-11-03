@@ -20,6 +20,7 @@ use GlpiPlugin\Grcmanager\Services\Breach\BreachMonitorConfig;
 use GlpiPlugin\Grcmanager\Services\Breach\HibpClient;
 use GlpiPlugin\Grcmanager\Services\Cve\NvdConfig;
 use GlpiPlugin\Grcmanager\Services\GithubVersionChecker;
+use GlpiPlugin\Grcmanager\IncidentSecurityGroup;
 use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentModuleConfig;
 use GlpiPlugin\Grcmanager\Services\Notification\SensitiveNotification;
 use GlpiPlugin\Grcmanager\Services\Risk\RiskMatrixConfig;
@@ -51,12 +52,25 @@ if (isset($_POST['update_risk_matrix'])) {
 if (isset($_POST['update_securityincident_modules'])) {
     Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
 
-    SecurityIncidentModuleConfig::save([
+    $modules = [
         'securityincident_enabled'           => isset($_POST['securityincident_enabled']),
         'securityincident_cve_enabled'       => isset($_POST['securityincident_cve_enabled']),
         'securityincident_templates_enabled' => isset($_POST['securityincident_templates_enabled']),
         'securityincident_dashboard_enabled' => isset($_POST['securityincident_dashboard_enabled']),
-    ]);
+    ];
+    $before = SecurityIncidentModuleConfig::load() + ['security_groups_id' => IncidentSecurityGroup::groupId()];
+    SecurityIncidentModuleConfig::save($modules);
+    // Issue #371 : groupe sécurité optionnel.
+    IncidentSecurityGroup::save((int) ($_POST['security_groups_id'] ?? 0));
+    $after = $modules + ['security_groups_id' => IncidentSecurityGroup::groupId()];
+    $changes = array_diff_assoc(array_map('intval', $after), array_map('intval', $before));
+    if ($changes !== []) {
+        \GlpiPlugin\Grcmanager\AuditLog::record('config_change', 'Config', 0, 0, 'success', ['changes' => $changes]);
+    }
+    // Issue #371 : module désactivé, alerte immédiate au groupe RSSI.
+    if (!empty($before['securityincident_enabled']) && !$modules['securityincident_enabled']) {
+        \GlpiPlugin\Grcmanager\IncidentAccessWatch::moduleDisabled();
+    }
 
     Html::back();
 }
@@ -159,6 +173,16 @@ Html::header(
     'installed_version'     => PLUGIN_GRCMANAGER_VERSION,
     'latest_github_version' => GithubVersionChecker::getLatestGithubVersion(),
     'securityincident_modules' => SecurityIncidentModuleConfig::load(),
+    'security_group_rand'      => $securityGroupRand = mt_rand(),
+    'security_group_dropdown'  => Group::dropdown([
+        'name'    => 'security_groups_id',
+        'value'   => IncidentSecurityGroup::groupId(),
+        'entity'  => 0,
+        'entity_sons' => true,
+        'rand'    => $securityGroupRand,
+        'display' => false,
+        'width'   => '100%',
+    ]),
     'nvd_config'                => NvdConfig::load(),
     'park_thresholds'           => \GlpiPlugin\Grcmanager\ParkVulnerability::getTicketThresholds(),
     'max_tickets'               => \GlpiPlugin\Grcmanager\ParkVulnerability::MAX_TICKETS_PER_RUN,

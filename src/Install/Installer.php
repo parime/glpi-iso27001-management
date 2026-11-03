@@ -174,6 +174,15 @@ final class Installer
 
     // Issue #370 : procédures de remédiation, leurs étapes et les tâches copiées sur les incidents.
     private const PLAYBOOKS_TABLE = 'glpi_plugin_grcmanager_playbooks';
+    // Issue #371 : journal d'audit chaîné, conservé à la désinstallation (valeur probante).
+    private const AUDIT_LOGS_TABLE = 'glpi_plugin_grcmanager_auditlogs';
+    // Issue #371 : équipe d'intervention des incidents.
+    private const SECURITY_INCIDENT_TEAMS_TABLE = 'glpi_plugin_grcmanager_securityincidentteams';
+    // Issue #371 : registre des preuves des incidents (empreintes SHA-256 des documents joints).
+    private const SECURITY_INCIDENT_EVIDENCES_TABLE = 'glpi_plugin_grcmanager_securityincidentevidences';
+    // Issue #370 : imports CSV d'EDR / XDR (lignes brutes) et identifiants d'alerte déjà importés.
+    private const SECURITY_INCIDENT_EDR_IMPORTS_TABLE = 'glpi_plugin_grcmanager_securityincidentedrimports';
+    private const SECURITY_INCIDENT_EDR_ALERTS_TABLE = 'glpi_plugin_grcmanager_securityincidentedralerts';
     private const PLAYBOOK_STEPS_TABLE = 'glpi_plugin_grcmanager_playbooksteps';
     private const SECURITY_INCIDENT_PLAYBOOK_TASKS_TABLE = 'glpi_plugin_grcmanager_securityincidentplaybooktasks';
 
@@ -222,6 +231,9 @@ final class Installer
     private const SRC_ONLY_CLASSES = [
         \GlpiPlugin\Grcmanager\BreachExposure::class,
         \GlpiPlugin\Grcmanager\NotificationTargetBreachExposure::class,
+        // Issue #371 : alertes d'accès au module des incidents.
+        \GlpiPlugin\Grcmanager\IncidentAccessWatch::class,
+        \GlpiPlugin\Grcmanager\NotificationTargetIncidentAccessWatch::class,
     ];
     // Issue #142 : evenements du calendrier de conformite, voir \GlpiPlugin\Grcmanager\ComplianceEvent.
     private const COMPLIANCE_EVENTS_TABLE = 'glpi_plugin_grcmanager_complianceevents';
@@ -1927,6 +1939,96 @@ final class Installer
             $DB->doQuery($query);
         }
 
+        if (!$DB->tableExists(self::SECURITY_INCIDENT_EDR_IMPORTS_TABLE)) {
+            $query = "CREATE TABLE `" . self::SECURITY_INCIDENT_EDR_IMPORTS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_securityincidents_id` int {$keySign} NOT NULL DEFAULT 0,
+                `file_name` varchar(255) NOT NULL DEFAULT '',
+                `file_sha256` char(64) NOT NULL DEFAULT '',
+                `row_count` int NOT NULL DEFAULT 0,
+                `raw` longtext COMMENT 'En-tetes et lignes du fichier, jamais modifies',
+                `users_id` int {$keySign} NOT NULL DEFAULT 0,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `plugin_grcmanager_securityincidents_id` (`plugin_grcmanager_securityincidents_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query);
+        }
+        if (!$DB->tableExists(self::SECURITY_INCIDENT_EDR_ALERTS_TABLE)) {
+            $query = "CREATE TABLE `" . self::SECURITY_INCIDENT_EDR_ALERTS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_securityincidents_id` int {$keySign} NOT NULL DEFAULT 0,
+                `alert_id` varchar(255) NOT NULL DEFAULT '',
+                PRIMARY KEY (`id`),
+                KEY `alert_id` (`alert_id`(191)),
+                KEY `plugin_grcmanager_securityincidents_id` (`plugin_grcmanager_securityincidents_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query);
+        }
+        if (!$DB->tableExists(self::AUDIT_LOGS_TABLE)) {
+            $query = "CREATE TABLE `" . self::AUDIT_LOGS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `date` timestamp NULL DEFAULT NULL,
+                `users_id` int {$keySign} NOT NULL DEFAULT 0,
+                `users_id_real` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Utilisateur reel si Prendre l identite',
+                `profiles_id` int {$keySign} NOT NULL DEFAULT 0,
+                `action` varchar(32) NOT NULL DEFAULT '',
+                `itemtype` varchar(100) NOT NULL DEFAULT '',
+                `items_id` int {$keySign} NOT NULL DEFAULT 0,
+                `plugin_grcmanager_securityincidents_id` int {$keySign} NOT NULL DEFAULT 0,
+                `ip` varchar(45) NOT NULL DEFAULT '',
+                `result` varchar(16) NOT NULL DEFAULT 'success',
+                `details` text,
+                `prev_hash` char(64) NOT NULL DEFAULT '',
+                `hash` char(64) NOT NULL DEFAULT '',
+                PRIMARY KEY (`id`),
+                KEY `date` (`date`),
+                KEY `users_id` (`users_id`),
+                KEY `action` (`action`),
+                KEY `plugin_grcmanager_securityincidents_id` (`plugin_grcmanager_securityincidents_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query);
+        }
+        if (!$DB->tableExists(self::SECURITY_INCIDENT_EVIDENCES_TABLE)) {
+            $query = "CREATE TABLE `" . self::SECURITY_INCIDENT_EVIDENCES_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_securityincidents_id` int {$keySign} NOT NULL DEFAULT 0,
+                `documents_id` int {$keySign} NOT NULL DEFAULT 0,
+                `file_name` varchar(255) NOT NULL DEFAULT '',
+                `sha256` char(64) NOT NULL DEFAULT '',
+                `size` bigint NOT NULL DEFAULT 0,
+                `status` varchar(16) NOT NULL DEFAULT 'present' COMMENT 'present, removed, replaced',
+                `users_id` int {$keySign} NOT NULL DEFAULT 0,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_removed` timestamp NULL DEFAULT NULL,
+                `last_check` timestamp NULL DEFAULT NULL,
+                `last_result` varchar(16) NOT NULL DEFAULT '' COMMENT 'ok, modified, missing',
+                PRIMARY KEY (`id`),
+                KEY `plugin_grcmanager_securityincidents_id` (`plugin_grcmanager_securityincidents_id`),
+                KEY `documents_id` (`documents_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query);
+        }
+        if (!$DB->tableExists(self::SECURITY_INCIDENT_TEAMS_TABLE)) {
+            $query = "CREATE TABLE `" . self::SECURITY_INCIDENT_TEAMS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_securityincidents_id` int {$keySign} NOT NULL DEFAULT 0,
+                `users_id` int {$keySign} NOT NULL DEFAULT 0,
+                `role` varchar(16) NOT NULL DEFAULT 'responder' COMMENT 'responder, observer',
+                `users_id_added` int {$keySign} NOT NULL DEFAULT 0,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity` (`plugin_grcmanager_securityincidents_id`,`users_id`),
+                KEY `users_id` (`users_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query);
+        }
         if (!$DB->tableExists(self::PLAYBOOKS_TABLE)) {
             $query = "CREATE TABLE `" . self::PLAYBOOKS_TABLE . "` (
                 `id` int {$keySign} NOT NULL AUTO_INCREMENT,
@@ -2310,6 +2412,18 @@ final class Installer
             ));
         }
 
+        // Issue #371 : instantané des accès au module, comparé chaque jour (IncidentAccessWatch).
+        if (!$DB->fieldExists(self::SECURITY_INCIDENT_CONFIG_TABLE, 'access_snapshot', false)) {
+            $DB->doQuery('ALTER TABLE `' . self::SECURITY_INCIDENT_CONFIG_TABLE . '` ADD `access_snapshot` longtext');
+        }
+        // Issue #371 : groupe sécurité optionnel (0 = aucun : les droits de profil suffisent).
+        if (!$DB->fieldExists(self::SECURITY_INCIDENT_CONFIG_TABLE, 'security_groups_id', false)) {
+            $DB->doQuery(
+                'ALTER TABLE `' . self::SECURITY_INCIDENT_CONFIG_TABLE . '` ADD `security_groups_id` int '
+                . $keySign . ' NOT NULL DEFAULT 0'
+            );
+        }
+
         $this->seedControls();
         $this->seedClauses();
         $this->seedSoaApprovalNotification();
@@ -2339,6 +2453,7 @@ final class Installer
         $this->seedSecurityWatchNotification();
         $this->seedTrainingRenewalNotification();
         $this->seedBreachExposureNotification();
+        $this->seedIncidentAccessWatchNotifications();
         $this->seedPolicyReviewReminderNotification();
         $this->seedTreatmentActionOverdueNotification();
         $this->seedAccessReviewNotifications();
@@ -2385,6 +2500,17 @@ final class Installer
             [
                 'comment' => 'Récupère/rafraîchit le score CVSS, la sévérité et les liens de '
                     . 'correctif de chaque CVE suivie, depuis le NVD',
+                'mode'    => CronTask::MODE_EXTERNAL,
+            ]
+        );
+
+        // Issue #371 : surveillance quotidienne des accès au module des incidents de sécurité.
+        CronTask::Register(
+            'GlpiPlugin\\Grcmanager\\IncidentAccessWatch',
+            'accesswatch',
+            DAY_TIMESTAMP,
+            [
+                'comment' => 'Signale au groupe RSSI les changements d accès au module des incidents',
                 'mode'    => CronTask::MODE_EXTERNAL,
             ]
         );
@@ -3145,6 +3271,76 @@ final class Installer
             'type'             => Notification::USER_TYPE,
             'items_id'         => NotificationTargetTraining::TARGET_OVERDUE_PARTICIPANTS,
         ]);
+    }
+
+    /**
+     * Issue #371 : alertes d'accès au module des incidents (droits étendus, profil attribué,
+     * module désactivé), au groupe RSSI et à l'administrateur GLPI. Idempotent.
+     */
+    private function seedIncidentAccessWatchNotifications(): void
+    {
+        global $DB;
+
+        $itemtype = \GlpiPlugin\Grcmanager\IncidentAccessWatch::class;
+        $events = [
+            \GlpiPlugin\Grcmanager\IncidentAccessWatch::ACCESS_CHANGED_EVENT  => [
+                'GRC Manager - Accès aux incidents de sécurité modifiés',
+                'Accès au module des incidents de sécurité modifiés',
+            ],
+            \GlpiPlugin\Grcmanager\IncidentAccessWatch::MODULE_DISABLED_EVENT => [
+                'GRC Manager - Module des incidents de sécurité désactivé',
+                'Module des incidents de sécurité désactivé',
+            ],
+        ];
+        foreach ($events as $event => [$name, $title]) {
+            $existing = ['itemtype' => $itemtype, 'event' => $event];
+            if ($DB->request(['FROM' => 'glpi_notifications', 'WHERE' => $existing])->count() > 0) {
+                continue;
+            }
+            $templateId = (new NotificationTemplate())->add([
+                'name'     => $name,
+                'itemtype' => $itemtype,
+                'comment'  => 'Issue #371 : envoyée par la tâche « accesswatch » ou à la désactivation du module.',
+            ]);
+            $DB->insert('glpi_notificationtemplatetranslations', [
+                'notificationtemplates_id' => $templateId,
+                'language'                 => '',
+                'subject'                  => '##accesswatch.action##',
+                'content_text'             => "##accesswatch.action##\n\n##accesswatch.changes##\n\n"
+                    . "Rien n'a été modifié automatiquement. Journal d'audit : ##accesswatch.url##",
+                'content_html'             => NotificationHtml::render([
+                    NotificationHtml::strong('##accesswatch.action##'),
+                    NotificationHtml::lines(['##accesswatch.changes##', "Rien n'a été modifié automatiquement."]),
+                    NotificationHtml::link('##accesswatch.url##', "Ouvrir le journal d'audit"),
+                ]),
+            ]);
+            $notificationId = (new Notification())->add([
+                'name'         => $name,
+                'entities_id'  => 0,
+                'is_recursive' => 1,
+                'itemtype'     => $itemtype,
+                'event'        => $event,
+                'is_active'    => 1,
+                'comment'      => $title,
+            ]);
+            $DB->insert('glpi_notifications_notificationtemplates', [
+                'notifications_id'         => $notificationId,
+                'mode'                     => 'mailing',
+                'notificationtemplates_id' => $templateId,
+            ]);
+            foreach (
+                [
+                    \GlpiPlugin\Grcmanager\NotificationTargetIncidentAccessWatch::TARGET_CISO_GROUP,
+                    Notification::GLOBAL_ADMINISTRATOR,
+                ] as $target
+            ) {
+                $DB->insert('glpi_notificationtargets', [
+                    'notifications_id' => $notificationId,
+                    'type'             => Notification::USER_TYPE,
+                    'items_id'         => $target,
+                ]);
+            }
+        }
     }
 
     /**
@@ -3977,6 +4173,7 @@ final class Installer
         $this->unseedNotification(PluginGrcmanagerSecurityIncident::class);
         $this->unseedNotification('GlpiPlugin\\Grcmanager\\AccessReview');
         $this->unseedNotification(\GlpiPlugin\Grcmanager\BreachExposure::class);
+        $this->unseedNotification(\GlpiPlugin\Grcmanager\IncidentAccessWatch::class);
 
         // Absorption de glpi-security-incidents (ROADMAP.md "Version 2.0") : colonnes ajoutées sur
         // les tables cœur pour la gestion de modèles - même dérivation que le plugin absorbé
@@ -4064,6 +4261,9 @@ final class Installer
         $migration->dropTable(self::SECURITY_INCIDENT_PLAYBOOK_TASKS_TABLE);
         $migration->dropTable(self::PLAYBOOK_STEPS_TABLE);
         $migration->dropTable(self::PLAYBOOKS_TABLE);
+        $migration->dropTable(self::SECURITY_INCIDENT_EDR_IMPORTS_TABLE);
+        $migration->dropTable(self::SECURITY_INCIDENT_EDR_ALERTS_TABLE);
+        $migration->dropTable(self::SECURITY_INCIDENT_TEAMS_TABLE);
         $migration->dropTable(self::SECURITY_INCIDENT_TASKS_TABLE);
         $migration->dropTable(self::SECURITY_INCIDENTS_TICKETS_TABLE);
         $migration->dropTable(self::SECURITY_INCIDENTS_ITEMS_TABLE);

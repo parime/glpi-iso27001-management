@@ -1,0 +1,79 @@
+{# Issue #371 : registre des preuves de l'incident, voir
+   GlpiPlugin\\Grcmanager\\SecurityIncidentEvidence::displayTabContentForItem(). #}
+{% set status_badges = {
+  'present': ['bg-blue-lt', 'ti-file-check', __('Present', 'grcmanager')],
+  'removed': ['bg-secondary-lt', 'ti-file-minus', __('Removed from the incident', 'grcmanager')],
+  'replaced': ['bg-orange-lt', 'ti-file-diff', __('File replaced', 'grcmanager')],
+} %}
+{% set result_badges = {
+  'ok': ['bg-green-lt', 'ti-shield-check', __('Intact', 'grcmanager')],
+  'modified': ['bg-red', 'ti-shield-x', __('Modified', 'grcmanager')],
+  'missing': ['bg-red-lt', 'ti-file-off', __('Missing', 'grcmanager')],
+} %}
+
+<div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+  <span class="badge bg-dark-lt fs-5"><i class="ti ti-fingerprint-scan me-1"></i>{{ rows|length }} {{ __('evidence(s)', 'grcmanager') }}</span>
+  {% if can_edit and rows|filter(r => r.status == 'present')|length > 0 %}
+    <form method="post" action="{{ form_url }}" class="ms-auto">
+      <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+      <input type="hidden" name="plugin_grcmanager_securityincidents_id" value="{{ item.getID() }}">
+      <button type="submit" name="verify" class="btn btn-outline-success"><i class="ti ti-shield-check me-1"></i>{{ __('Check now', 'grcmanager') }}</button>
+    </form>
+  {% endif %}
+</div>
+
+{% if rows is empty %}
+  <div class="empty">
+    <div class="empty-icon"><i class="ti ti-fingerprint-scan fs-1"></i></div>
+    <p class="empty-title">{{ __('No evidence yet', 'grcmanager') }}</p>
+    <p class="empty-subtitle text-muted">{{ __('Each document attached to the incident (Documents tab) is registered here with its SHA-256 fingerprint, so you can prove later that it was not altered.', 'grcmanager') }}</p>
+  </div>
+{% else %}
+<div class="table-responsive">
+  <table class="table table-sm table-vcenter card-table">
+    <thead>
+      <tr>
+        <th>{{ __('File', 'grcmanager') }}</th>
+        <th>{{ __('Reference SHA-256 fingerprint', 'grcmanager') }}</th>
+        <th>{{ __('Size', 'grcmanager') }}</th>
+        <th>{{ __('Added by', 'grcmanager') }}</th>
+        <th>{{ __('Status') }}</th>
+        <th>{{ __('Last check', 'grcmanager') }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in rows %}
+        {% set s = status_badges[row.status]|default(status_badges['present']) %}
+        <tr>
+          <td>{% if row.status == 'present' %}<a href="{{ path('/front/document.form.php') }}?id={{ row.documents_id }}">{{ row.file_name }}</a>{% else %}{{ row.file_name }}{% endif %}</td>
+          <td><code class="small text-break">{{ row.sha256 }}</code></td>
+          <td class="text-nowrap small">{{ (row.size / 1024)|number_format(1, ',', ' ') }} Ko</td>
+          <td class="small">{{ users[row.users_id]|default('') }}<br><span class="text-muted">{{ row.date_creation|formatted_datetime }}</span></td>
+          <td><span class="badge {{ s[0] }}"><i class="ti {{ s[1] }} me-1"></i>{{ s[2] }}</span>{% if row.date_removed %}<div class="small text-muted">{{ row.date_removed|formatted_datetime }}</div>{% endif %}</td>
+          <td>
+            {% if row.last_result %}
+              {% set r = result_badges[row.last_result] %}
+              <span class="badge {{ r[0] }} {{ row.last_result == 'modified' ? 'text-white' : '' }}"><i class="ti {{ r[1] }} me-1"></i>{{ r[2] }}</span>
+              <div class="small text-muted">{{ row.last_check|formatted_datetime }}</div>
+            {% else %}
+              <span class="text-muted small">{{ __('Never checked', 'grcmanager') }}</span>
+            {% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endif %}
+
+<details class="mt-3">
+  <summary class="text-muted"><i class="ti ti-help-circle me-1"></i>{{ __('Check a file outside GLPI', 'grcmanager') }}</summary>
+  <div class="small mt-2">
+    <p>{{ __('Compute the fingerprint of your copy and compare it with the reference fingerprint above:', 'grcmanager') }}</p>
+    <ul>
+      <li>Linux / macOS : <code>sha256sum fichier</code></li>
+      <li>Windows (PowerShell) : <code>Get-FileHash fichier -Algorithm SHA256</code></li>
+    </ul>
+    <p class="mb-0">{{ __('Useful evidence formats (to allow in the GLPI document types): .log, .evtx, .json, .pcap, .eml, .csv, .zip.', 'grcmanager') }}</p>
+  </div>
+</details>

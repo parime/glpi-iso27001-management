@@ -113,6 +113,22 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
             ));
             $menu['links'][$label] = \GlpiPlugin\Grcmanager\Playbook::getSearchURL(false);
         }
+        // Issue #371 : journal d'audit des incidents (registres sensibles).
+        if (is_array($menu) && \GlpiPlugin\Grcmanager\AuditLog::canView()) {
+            $label = trim(\Glpi\Application\View\TemplateRenderer::getInstance()->render(
+                '@grcmanager/menu_link_label.html.twig',
+                ['icon' => 'ti ti-file-certificate', 'label' => __('Audit log', 'grcmanager')]
+            ));
+            $menu['links'][$label] = '/plugins/grcmanager/front/auditlog.php';
+        }
+        // Issue #370 : import d'un export CSV d'EDR / XDR.
+        if (is_array($menu) && \GlpiPlugin\Grcmanager\SecurityIncidentEdrImport::canImport()) {
+            $label = trim(\Glpi\Application\View\TemplateRenderer::getInstance()->render(
+                '@grcmanager/menu_link_label.html.twig',
+                ['icon' => 'ti ti-file-import', 'label' => __('Import EDR / XDR', 'grcmanager')]
+            ));
+            $menu['links'][$label] = '/plugins/grcmanager/front/securityincidentedrimport.php';
+        }
 
         return $menu;
     }
@@ -362,12 +378,19 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
 
     public static function canView(): bool
     {
-        return Session::haveRightsOr(self::$rightname, [self::READALL, self::READMY]);
+        // Issue #371 : groupe sécurité optionnel.
+        return Session::haveRightsOr(self::$rightname, [self::READALL, self::READMY])
+            && \GlpiPlugin\Grcmanager\IncidentSecurityGroup::allows();
+    }
+
+    public static function canCreate(): bool
+    {
+        return parent::canCreate() && \GlpiPlugin\Grcmanager\IncidentSecurityGroup::allows();
     }
 
     public function canViewItem(): bool
     {
-        if (!$this->checkEntity(true)) {
+        if (!$this->checkEntity(true) || !\GlpiPlugin\Grcmanager\IncidentSecurityGroup::allows()) {
             return false;
         }
 
@@ -380,7 +403,63 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
                             || $this->haveAGroup(CommonITILActor::OBSERVER, $_SESSION['glpigroups'])))
                     || $this->isUser(CommonITILActor::ASSIGN, Session::getLoginUserID())
                     || (isset($_SESSION['glpigroups'])
-                        && $this->haveAGroup(CommonITILActor::ASSIGN, $_SESSION['glpigroups']))));
+                        && $this->haveAGroup(CommonITILActor::ASSIGN, $_SESSION['glpigroups']))
+                    // Issue #371 : membre de l'équipe d'intervention.
+                    || \GlpiPlugin\Grcmanager\SecurityIncidentTeam::roleOf(
+                        (int) $this->getID(),
+                        (int) Session::getLoginUserID()
+                    ) !== null));
+    }
+
+    /**
+     * Issue #371 : modifier exige aussi de voir l'incident (cloisonnement), et un membre de
+     * l'équipe qui n'y est qu'observateur le lit seulement.
+     */
+    public function canUpdateItem(): bool
+    {
+        if (!parent::canUpdateItem() || !$this->canViewItem()) {
+            return false;
+        }
+
+        return !$this->isObserverOnly();
+    }
+
+    /**
+     * Issue #371 : corbeille et suppression réservées aux pilotes de l'incident.
+     */
+    public function canDeleteItem(): bool
+    {
+        return parent::canDeleteItem() && $this->canViewItem()
+            && \GlpiPlugin\Grcmanager\SecurityIncidentTeam::isPilot($this);
+    }
+
+    public function canPurgeItem(): bool
+    {
+        return parent::canPurgeItem() && $this->canViewItem()
+            && \GlpiPlugin\Grcmanager\SecurityIncidentTeam::isPilot($this);
+    }
+
+    /**
+     * Membre de l'équipe en lecture seule, sans autre lien avec l'incident ni droit « Voir tout ».
+     */
+    private function isObserverOnly(): bool
+    {
+        $me = (int) Session::getLoginUserID();
+        if (
+            Session::haveRight(self::$rightname, self::READALL)
+            || \GlpiPlugin\Grcmanager\SecurityIncidentTeam::roleOf((int) $this->getID(), $me)
+                !== \GlpiPlugin\Grcmanager\SecurityIncidentTeam::OBSERVER
+        ) {
+            return false;
+        }
+        $groups = $_SESSION['glpigroups'] ?? [];
+        foreach ([CommonITILActor::REQUESTER, CommonITILActor::OBSERVER, CommonITILActor::ASSIGN] as $type) {
+            if ($this->isUser($type, $me) || ($groups !== [] && $this->haveAGroup($type, $groups))) {
+                return false;
+            }
+        }
+
+        return (int) ($this->fields['users_id_recipient'] ?? 0) !== $me;
     }
 
     public function canCreateItem(): bool
@@ -428,6 +507,8 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
         $this->addStandardTab(\GlpiPlugin\Grcmanager\SecurityIncidentTechnique::class, $tabs, $options);
         $this->addStandardTab(\GlpiPlugin\Grcmanager\SecurityIncidentAction::class, $tabs, $options);
         $this->addStandardTab(\GlpiPlugin\Grcmanager\SecurityIncidentPlaybookTask::class, $tabs, $options);
+        $this->addStandardTab(\GlpiPlugin\Grcmanager\SecurityIncidentTeam::class, $tabs, $options);
+        $this->addStandardTab(\GlpiPlugin\Grcmanager\SecurityIncidentEvidence::class, $tabs, $options);
         $this->addStandardTab(PluginGrcmanagerSecurityIncident_Item::class, $tabs, $options);
         $this->addStandardTab(PluginGrcmanagerSecurityIncidentCost::class, $tabs, $options);
         $this->addStandardTab(KnowbaseItem_Item::class, $tabs, $options);
@@ -449,8 +530,17 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
             \GlpiPlugin\Grcmanager\SecurityIncidentTechnique::class,
             \GlpiPlugin\Grcmanager\SecurityIncidentAction::class,
             \GlpiPlugin\Grcmanager\SecurityIncidentPlaybookTask::class,
+            \GlpiPlugin\Grcmanager\SecurityIncidentEdrImport::class,
+            \GlpiPlugin\Grcmanager\SecurityIncidentTeam::class,
             PluginGrcmanagerSecurityIncidentCost::class,
         ]);
+
+        // Issue #370 : identifiants d'alerte importés, pour qu'un ré-import recrée l'incident.
+        global $DB;
+        $DB->delete(
+            \GlpiPlugin\Grcmanager\SecurityIncidentEdrImport::getAlertsTable(),
+            ['plugin_grcmanager_securityincidents_id' => (int) $this->fields['id']]
+        );
 
         parent::cleanDBonPurge();
     }

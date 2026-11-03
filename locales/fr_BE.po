@@ -6416,3 +6416,498 @@ msgid "%d remediation task added."
 msgid_plural "%d remediation tasks added."
 msgstr[0] "%d tâche de remédiation ajoutée."
 msgstr[1] "%d tâches de remédiation ajoutées."
+
+msgid "My open remediation tasks"
+msgstr "Mes tâches de remédiation ouvertes"
+
+msgid "My remediation tasks"
+msgstr "Mes tâches de remédiation"
+
+msgid "This playbook is already applied to the incident."
+msgstr "Cette procédure est déjà appliquée à l'incident."
+
+#, php-format
+msgid "Remediation plan: %s"
+msgstr "Plan de remédiation : %s"
+
+#, php-format
+msgid "Remediation plan printed (SHA-256 %s)"
+msgstr "Plan de remédiation imprimé (SHA-256 %s)"
+
+msgid "Mandatory steps still open"
+msgstr "Étapes obligatoires encore ouvertes"
+
+msgid "Playbooks applied"
+msgstr "Procédures appliquées"
+
+msgid "Done by"
+msgstr "Réalisée par"
+
+msgid "Signatures"
+msgstr "Signatures"
+
+msgid "Incident manager"
+msgstr "Responsable de l'incident"
+
+msgid "Name, date and signature"
+msgstr "Nom, date et signature"
+
+msgid "Information security officer"
+msgstr "Responsable de la sécurité de l'information"
+
+msgid "This fingerprint is recorded in the incident history each time the plan is printed."
+msgstr "Cette empreinte est consignée dans l'historique de l'incident à chaque impression du plan."
+
+msgid "Remediation plan (PDF)"
+msgstr "Plan de remédiation (PDF)"
+
+msgid "Alert identifier"
+msgstr "Identifiant de l'alerte"
+
+msgid "Detection date"
+msgstr "Date de détection"
+
+msgid "Alert name"
+msgstr "Nom de l'alerte"
+
+msgid "Host"
+msgstr "Hôte"
+
+msgid "MITRE ATT&CK tactic"
+msgstr "Tactique MITRE ATT&CK"
+
+msgid "Command line"
+msgstr "Ligne de commande"
+
+msgid "IP address"
+msgstr "Adresse IP"
+
+msgid "Console link"
+msgstr "Lien vers la console"
+
+msgid "One incident per alert identifier"
+msgstr "Un incident par identifiant d'alerte"
+
+msgid "One incident per host"
+msgstr "Un incident par hôte"
+
+msgid "A single incident for the whole file"
+msgstr "Un seul incident pour tout le fichier"
+
+msgid "One incident per line"
+msgstr "Un incident par ligne"
+
+msgid "The file could not be received."
+msgstr "Le fichier n'a pas pu être reçu."
+
+msgid "The file is too large."
+msgstr "Le fichier est trop volumineux."
+
+msgid "Import an EDR / XDR export"
+msgstr "Importer un export EDR / XDR"
+
+msgid "File"
+msgstr "Fichier"
+
+msgid "Columns"
+msgstr "Colonnes"
+
+msgid "CSV export of the alerts from your EDR or XDR console (Microsoft Defender, CrowdStrike, SentinelOne, Sophos, Wazuh...). The separator and the encoding are detected, the usual columns are recognised automatically: you check them at the next step."
+msgstr "Export CSV des alertes de votre console EDR ou XDR (Microsoft Defender, CrowdStrike, SentinelOne, Sophos, Wazuh...). Le séparateur et l'encodage sont détectés, les colonnes usuelles reconnues automatiquement : vous les vérifiez à l'étape suivante."
+
+#, php-format
+msgid "At most %1$d MB and %2$d lines."
+msgstr "Au plus %1$d Mo et %2$d lignes."
+
+msgid "Next"
+msgstr "Suivant"
+
+msgid "Example file"
+msgstr "Fichier d'exemple"
+
+msgid "line(s)"
+msgstr "ligne(s)"
+
+#, php-format
+msgid "truncated to the first %d lines"
+msgstr "limité aux %d premières lignes"
+
+msgid "Column of each field"
+msgstr "Colonne de chaque champ"
+
+msgid "(not imported)"
+msgstr "(non importé)"
+
+msgid "Create"
+msgstr "Créer"
+
+msgid "Time zone of dates without one"
+msgstr "Fuseau des dates qui n'en ont pas"
+
+msgid "Or add everything to an existing incident"
+msgstr "Ou tout ajouter à un incident existant"
+
+msgid "No: create new incidents"
+msgstr "Non : créer de nouveaux incidents"
+
+msgid "Preview"
+msgstr "Aperçu"
+
+msgid "Start again"
+msgstr "Recommencer"
+
+msgid "incident(s) created"
+msgstr "incident(s) créé(s)"
+
+msgid "incident(s) completed"
+msgstr "incident(s) complété(s)"
+
+msgid "already imported, ignored"
+msgstr "déjà importé(s), ignoré(s)"
+
+msgid "Import another file"
+msgstr "Importer un autre fichier"
+
+#, php-format
+msgid "Created from an EDR / XDR export (%d alert line(s))."
+msgstr "Créé depuis un export EDR / XDR (%d ligne(s) d'alerte)."
+
+msgid "Hosts:"
+msgstr "Hôtes :"
+
+msgid "Accounts:"
+msgstr "Comptes :"
+
+msgid "Console:"
+msgstr "Console :"
+
+msgid "Import EDR / XDR"
+msgstr "Import EDR / XDR"
+
+msgid "Import of a CSV export of the alerts from an EDR or XDR console: each alert becomes an incident with its indicators, MITRE ATT&CK techniques, hosts and accounts."
+msgstr "Import d'un export CSV des alertes d'une console EDR ou XDR : chaque alerte devient un incident avec ses indicateurs, ses techniques MITRE ATT&CK, ses hôtes et ses comptes."
+
+msgid "Check the columns proposed, choose how to group the alerts, then import. An alert already imported is ignored; the original lines are kept unchanged on the incident."
+msgstr "Vérifiez les colonnes proposées, choisissez comment regrouper les alertes, puis importez. Une alerte déjà importée est ignorée ; les lignes d'origine sont conservées telles quelles sur l'incident."
+
+msgid "EDR / XDR import"
+msgid_plural "EDR / XDR imports"
+msgstr[0] "Import EDR / XDR"
+msgstr[1] "Imports EDR / XDR"
+
+msgid "Security audit log"
+msgstr "Journal d'audit de sécurité"
+
+msgid "Audit log"
+msgstr "Journal d'audit"
+
+msgid "Consultation"
+msgstr "Consultation"
+
+msgid "Creation"
+msgstr "Création"
+
+msgid "Modification"
+msgstr "Modification"
+
+msgid "Moved to the trash"
+msgstr "Mise à la corbeille"
+
+msgid "Restoration"
+msgstr "Restauration"
+
+msgid "Permanent deletion"
+msgstr "Suppression définitive"
+
+msgid "Item added"
+msgstr "Élément ajouté"
+
+msgid "Item removed"
+msgstr "Élément retiré"
+
+msgid "Export or print"
+msgstr "Export ou impression"
+
+msgid "Integrity check"
+msgstr "Vérification d'intégrité"
+
+msgid "Access denied"
+msgstr "Accès refusé"
+
+msgid "Real user (impersonation)"
+msgstr "Utilisateur réel (prise d'identité)"
+
+msgid "Profile"
+msgstr "Profil"
+
+msgid "Details"
+msgstr "Détails"
+
+msgid "Integrity verified"
+msgstr "Intégrité vérifiée"
+
+#, php-format
+msgid "%d entries checked: the chain is intact, no entry was modified, deleted or inserted."
+msgstr "%d entrées vérifiées : la chaîne est intacte, aucune entrée n'a été modifiée, supprimée ou insérée."
+
+msgid "Integrity broken"
+msgstr "Intégrité rompue"
+
+#, php-format
+msgid "The chain breaks at entry #%d: it, or the one before it, was modified, deleted or inserted outside GLPI."
+msgstr "La chaîne est rompue à l'entrée n° %d : elle, ou celle qui la précède, a été modifiée, supprimée ou insérée hors de GLPI."
+
+msgid "From"
+msgstr "Du"
+
+msgid "To"
+msgstr "Au"
+
+msgid "Allowed"
+msgstr "Autorisé"
+
+msgid "Denied"
+msgstr "Refusé"
+
+msgid "Filter"
+msgstr "Filtrer"
+
+msgid "Reset"
+msgstr "Réinitialiser"
+
+#, php-format
+msgid "%d entries"
+msgstr "%d entrées"
+
+#, php-format
+msgid "the %d most recent shown"
+msgstr "les %d plus récentes affichées"
+
+msgid "Check integrity"
+msgstr "Vérifier l'intégrité"
+
+msgid "Export (CSV)"
+msgstr "Exporter (CSV)"
+
+msgid "Object"
+msgstr "Objet"
+
+msgid "Impersonation"
+msgstr "Prise d'identité"
+
+msgid "No entry for these filters."
+msgstr "Aucune entrée pour ces filtres."
+
+msgid "Each entry is sealed with the SHA-256 fingerprint of the previous one: the log is kept when the plugin is uninstalled and any modification made outside GLPI is detected by the check."
+msgstr "Chaque entrée est scellée avec l'empreinte SHA-256 de la précédente : le journal est conservé à la désinstallation du plugin et toute modification faite hors de GLPI est détectée par la vérification."
+
+msgid "The audit log of the security incidents: who consulted or changed what, when, with which profile and from which address, including impersonations."
+msgstr "Le journal d'audit des incidents de sécurité : qui a consulté ou modifié quoi, quand, avec quel profil et depuis quelle adresse, prises d'identité comprises."
+
+msgid "Filter the entries, export them for an audit or a court, and check the integrity regularly: each entry is sealed with the previous one."
+msgstr "Filtrez les entrées, exportez-les pour un audit ou une procédure judiciaire, et vérifiez régulièrement l'intégrité : chaque entrée est scellée avec la précédente."
+
+msgid "Integrity and evidence"
+msgstr "Intégrité et preuves"
+
+msgid "Present"
+msgstr "Présente"
+
+msgid "Removed from the incident"
+msgstr "Retirée de l'incident"
+
+msgid "File replaced"
+msgstr "Fichier remplacé"
+
+msgid "Intact"
+msgstr "Intacte"
+
+msgid "Modified"
+msgstr "Modifiée"
+
+msgid "Missing"
+msgstr "Absente"
+
+msgid "evidence(s)"
+msgstr "preuve(s)"
+
+msgid "No evidence yet"
+msgstr "Aucune preuve pour l'instant"
+
+msgid "Each document attached to the incident (Documents tab) is registered here with its SHA-256 fingerprint, so you can prove later that it was not altered."
+msgstr "Chaque document joint à l'incident (onglet Documents) est inscrit ici avec son empreinte SHA-256, pour pouvoir prouver ensuite qu'il n'a pas été altéré."
+
+msgid "Reference SHA-256 fingerprint"
+msgstr "Empreinte SHA-256 de référence"
+
+msgid "Size"
+msgstr "Taille"
+
+msgid "Added by"
+msgstr "Ajoutée par"
+
+msgid "Last check"
+msgstr "Dernière vérification"
+
+msgid "Never checked"
+msgstr "Jamais vérifiée"
+
+msgid "Check a file outside GLPI"
+msgstr "Vérifier un fichier hors de GLPI"
+
+msgid "Compute the fingerprint of your copy and compare it with the reference fingerprint above:"
+msgstr "Calculez l'empreinte de votre copie et comparez-la à l'empreinte de référence ci-dessus :"
+
+msgid "Useful evidence formats (to allow in the GLPI document types): .log, .evtx, .json, .pcap, .eml, .csv, .zip."
+msgstr "Formats de preuve utiles (à autoriser dans les types de documents de GLPI) : .log, .evtx, .json, .pcap, .eml, .csv, .zip."
+
+#, php-format
+msgid "%d evidence(s) checked: all intact."
+msgstr "%d preuve(s) vérifiée(s) : toutes intactes."
+
+#, php-format
+msgid "%d evidence(s) modified or missing: see the Integrity and evidence tab."
+msgstr "%d preuve(s) modifiée(s) ou absente(s) : voir l'onglet Intégrité et preuves."
+
+msgid "Evidence sealed"
+msgstr "Preuve scellée"
+
+msgid "Responder (acts on the incident)"
+msgstr "Intervenant (agit sur l'incident)"
+
+msgid "Observer (read only)"
+msgstr "Observateur (lecture seule)"
+
+msgid "Response team"
+msgstr "Équipe d'intervention"
+
+msgid "Only the incident pilots can compose the response team."
+msgstr "Seuls les pilotes de l'incident peuvent composer l'équipe d'intervention."
+
+msgid "Add to the team"
+msgstr "Ajouter à l'équipe"
+
+msgid "A responder acts on the incident (timeline, indicators, evidence, tasks); an observer only reads it. Removing a member cuts their access at once, unless they are also an actor of the incident."
+msgstr "Un intervenant agit sur l'incident (chronologie, indicateurs, preuves, tâches) ; un observateur le lit seulement. Retirer un membre lui coupe l'accès immédiatement, sauf s'il est aussi acteur de l'incident."
+
+msgid "No response team yet"
+msgstr "Aucune équipe d'intervention pour l'instant"
+
+msgid "Add the technicians who work on the incident: with the \"See (author)\" right, they see only the incidents of their team."
+msgstr "Ajoutez les techniciens qui travaillent sur l'incident : avec le droit « Voir (auteur) », ils ne voient que les incidents de leur équipe."
+
+#, php-format
+msgid "added by %1$s on %2$s"
+msgstr "ajouté par %1$s le %2$s"
+
+msgid "Remove from the team"
+msgstr "Retirer de l'équipe"
+
+msgid "Remove this member? Their access is cut at once."
+msgstr "Retirer ce membre ? Son accès est coupé immédiatement."
+
+msgid "Response team member"
+msgid_plural "Response team"
+msgstr[0] "Membre de l'équipe d'intervention"
+msgstr[1] "Équipe d'intervention"
+
+msgid "Security group (optional)"
+msgstr "Groupe sécurité (facultatif)"
+
+msgid "If set, only the members of this group use the security incidents module, whatever the rights of their profile. A GLPI administrator is never blocked, but each of their consultations outside the group is flagged in the audit log."
+msgstr "Si défini, seuls les membres de ce groupe utilisent le module des incidents de sécurité, quels que soient les droits de leur profil. Un administrateur GLPI n'est jamais bloqué, mais chacune de ses consultations hors du groupe est signalée dans le journal d'audit."
+
+msgid "Module settings changed"
+msgstr "Réglages du module modifiés"
+
+msgid "Access to the security incidents module"
+msgstr "Accès au module des incidents de sécurité"
+
+#, php-format
+msgid "Profile %s now has access to the module"
+msgstr "Le profil %s a désormais accès au module"
+
+#, php-format
+msgid "Rights of profile %s on the module extended"
+msgstr "Droits du profil %s sur le module étendus"
+
+#, php-format
+msgid "Rights of profile %s on the module reduced"
+msgstr "Droits du profil %s sur le module réduits"
+
+#, php-format
+msgid "Profile %s no longer has access to the module"
+msgstr "Le profil %s n'a plus accès au module"
+
+#, php-format
+msgid "%1$s received profile %2$s (entity %3$s)"
+msgstr "%1$s a reçu le profil %2$s (entité %3$s)"
+
+#, php-format
+msgid "%1$s lost profile %2$s (entity %3$s)"
+msgstr "%1$s a perdu le profil %2$s (entité %3$s)"
+
+msgid "Access to the security incidents module changed"
+msgstr "Accès au module des incidents de sécurité modifiés"
+
+msgid "Security incidents module disabled"
+msgstr "Module des incidents de sécurité désactivé"
+
+msgid "Changes"
+msgstr "Changements"
+
+msgid "Number of changes"
+msgstr "Nombre de changements"
+
+msgid "Access rights changed"
+msgstr "Droits d'accès modifiés"
+
+msgid "Zone matrix"
+msgstr "Matrice par zone"
+
+msgid "Zone × zone"
+msgstr "Zone × zone"
+
+msgid "Site × site (zone name prefix)"
+msgstr "Site × site (début du nom de zone)"
+
+msgid "Each cell counts the active flows from a source zone (row) to a destination zone (column). Its colour is the most serious check of its flows: red for a blocking gap, yellow for a gap to fix. Click a cell to list its flows. Grouped by site, zones are gathered by the start of their name, before the first \"_\", \"-\" or space."
+msgstr "Chaque case compte les flux actifs d'une zone source (ligne) vers une zone destination (colonne). Sa couleur est celle du contrôle le plus grave de ses flux : rouge pour un écart bloquant, jaune pour un écart à corriger. Cliquez sur une case pour voir ses flux. Regroupées par site, les zones sont rassemblées selon le début de leur nom, avant le premier « _ », « - » ou espace."
+
+msgid "Grouping"
+msgstr "Regroupement"
+
+msgid "Show"
+msgstr "Afficher"
+
+msgid "No active flow yet."
+msgstr "Aucun flux actif pour l'instant."
+
+#, php-format
+msgid "More than %d zones: only the busiest are shown. Group by site for an overview."
+msgstr "Plus de %d zones : seules les plus chargées sont affichées. Regroupez par site pour une vue d'ensemble."
+
+msgid "No active flow in this cell."
+msgstr "Aucun flux actif dans cette case."
+
+msgid "Service"
+msgstr "Service"
+
+msgid "All ports open between zones"
+msgstr "Tous les ports ouverts entre zones"
+
+msgid "Full access to an administration zone"
+msgstr "Accès complet à une zone d'administration"
+
+msgid "Temporary rule still active"
+msgstr "Règle temporaire toujours active"
+
+msgid "Stormshield firewall: import the CSV export of the filtering policy (Security policy > Filter - NAT > Export). Enabled \"pass\" rules are imported; NAT rules, section separators and disabled rules are ignored, and a published service takes its internal target as destination. The export only names objects: common services (http, https, ssh, ntp, smtp…) become ports, a rule using a service of your own is reported so you can add it by hand."
+msgstr "Pare-feu Stormshield : importez l'export CSV de la politique de filtrage (Politique de sécurité > Filtrage - NAT > Exporter). Les règles actives « passer » sont importées ; les règles de NAT, les séparateurs de section et les règles désactivées sont ignorés, et un service publié prend sa cible interne comme destination. L'export ne donne que le nom des objets : les services courants (http, https, ssh, ntp, smtp…) deviennent des ports, une règle utilisant un service propre à votre configuration est signalée pour que vous l'ajoutiez à la main."
+
+#, php-format
+msgid "Service object not known from this export (%s): rule skipped, add the flow with its ports by hand."
+msgstr "Objet de service inconnu dans cet export (%s) : règle ignorée, ajoutez le flux avec ses ports à la main."
+
+msgid "All ports open towards the Internet"
+msgstr "Tous les ports ouverts vers Internet"

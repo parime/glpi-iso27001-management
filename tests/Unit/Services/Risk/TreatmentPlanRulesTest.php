@@ -6,6 +6,7 @@ namespace GlpiPlugin\Grcmanager\Tests\Services\Risk;
 
 use DateTimeImmutable;
 use GlpiPlugin\Grcmanager\Services\Risk\TreatmentPlanRules;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 final class TreatmentPlanRulesTest extends TestCase
@@ -49,9 +50,7 @@ final class TreatmentPlanRulesTest extends TestCase
 
     // --- normalizeStatus() -------------------------------------------------------------------
 
-    /**
-     * @dataProvider allowedStatusProvider
-     */
+    #[DataProvider('allowedStatusProvider')]
     public function testNormalizeStatusKeepsAnAllowedValue(string $status): void
     {
         self::assertSame($status, TreatmentPlanRules::normalizeStatus($status));

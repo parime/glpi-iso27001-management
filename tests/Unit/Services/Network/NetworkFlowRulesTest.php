@@ -56,7 +56,7 @@ final class NetworkFlowRulesTest extends TestCase
             ],
             NetworkFlowRules::checks($flow, '2026-10-24')
         );
-        $flow = ['justification' => 'ok', 'users_id' => 1, 'date_end' => '2026-11-20'];
+        $flow = ['justification' => 'ok', 'users_id' => 1, 'date_end' => '2026-11-20', 'ports' => '443'];
         self::assertSame([NetworkFlowRules::CHECK_EXPIRING], NetworkFlowRules::checks($flow, '2026-10-24'));
         self::assertSame([], NetworkFlowRules::checks(['is_active' => 0], '2026-10-24'), 'Flux inactif.');
     }
@@ -116,5 +116,74 @@ final class NetworkFlowRulesTest extends TestCase
         );
         self::assertTrue(NetworkFlowRules::networksOverlap([ip2long('10.0.0.0'), 8], [ip2long('10.200.0.0'), 16]));
         self::assertFalse(NetworkFlowRules::networksOverlap([ip2long('10.0.0.0'), 16], [ip2long('10.1.0.0'), 16]));
+    }
+
+    public function testAllPortsBetweenZonesAndFullAccessToAnAdministrationZone(): void
+    {
+        $base = ['flow_type' => 'internal', 'justification' => 'x', 'users_id' => 1, 'ports' => 'any',
+            'source_label' => 'SITE_A_WS_IT'];
+        self::assertSame(
+            [NetworkFlowRules::CHECK_ANY_PORT_INTERNAL],
+            NetworkFlowRules::checks($base + ['destination_label' => 'SITE_A_SRV_BDD (192.0.2.0/24)'], '2026-11-03')
+        );
+        foreach (['SITE_A_SRV_MGMT', 'SITE-B-BASTION', 'iLO serveurs', 'SITE_A_SRV_PVE (198.51.100.0/24)'] as $zone) {
+            self::assertSame(
+                [NetworkFlowRules::CHECK_ADMIN_ZONE_OPEN],
+                NetworkFlowRules::checks($base + ['destination_label' => $zone], '2026-11-03'),
+                $zone
+            );
+        }
+        self::assertTrue(NetworkFlowRules::isBlocking(NetworkFlowRules::CHECK_ADMIN_ZONE_OPEN));
+        self::assertFalse(NetworkFlowRules::isBlocking(NetworkFlowRules::CHECK_ANY_PORT_INTERNAL));
+        self::assertSame(
+            [NetworkFlowRules::CHECK_ANY_PORT_INTERNAL],
+            NetworkFlowRules::checks($base + ['destination_label' => 'SITE_A_WS_ADMINISTRATIF'], '2026-11-03'),
+            'Postes du service administratif : pas une zone d\'administration.'
+        );
+        self::assertSame(
+            [],
+            NetworkFlowRules::checks(['ports' => '22', 'destination_label' => 'SITE_A_SRV_MGMT'] + $base, '2026-11-03'),
+            'Port précis vers une zone d\'administration : pas d\'alerte.'
+        );
+        self::assertSame(
+            [NetworkFlowRules::CHECK_ANY_PORT_OUTBOUND],
+            NetworkFlowRules::checks(
+                ['flow_type' => 'internet_outbound', 'destination_label' => 'Internet'] + $base,
+                '2026-11-03'
+            ),
+            'Accès Internet sortant sur tous les ports : contrôle dédié, pas celui des zones internes.'
+        );
+        self::assertSame(
+            [],
+            NetworkFlowRules::checks(
+                ['flow_type' => 'internet_outbound', 'destination_label' => 'Internet', 'ports' => '80,443'] + $base,
+                '2026-11-03'
+            ),
+            'Accès Internet sortant sur des ports précis : rien à signaler.'
+        );
+        self::assertFalse(NetworkFlowRules::isBlocking(NetworkFlowRules::CHECK_ANY_PORT_OUTBOUND));
+    }
+
+    public function testTemporaryRuleStillActive(): void
+    {
+        $base = ['flow_type' => 'internal', 'justification' => 'x', 'users_id' => 1, 'ports' => '443'];
+        foreach (['Installation tmp 17/06/2026', 'Règle provisoire', 'Debug ICMP', 'TMP-migration'] as $name) {
+            self::assertSame(
+                [NetworkFlowRules::CHECK_TEMPORARY],
+                NetworkFlowRules::checks($base + ['name' => $name], '2026-11-03'),
+                $name
+            );
+        }
+        self::assertSame(
+            [NetworkFlowRules::CHECK_TEMPORARY],
+            NetworkFlowRules::checks(
+                $base + ['name' => 'Sauvegarde', 'comment' => 'temporaire, à supprimer'],
+                '2026-11-03'
+            )
+        );
+        foreach (['Template web', 'Serveur de test', 'Temperature probe'] as $name) {
+            self::assertSame([], NetworkFlowRules::checks($base + ['name' => $name], '2026-11-03'), $name);
+        }
+        self::assertFalse(NetworkFlowRules::isBlocking(NetworkFlowRules::CHECK_TEMPORARY));
     }
 }

@@ -23,8 +23,10 @@ use Entity;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\NetworkFlowBase;
 use GlpiPlugin\Grcmanager\Services\Network\NetworkFlowCsv;
+use GlpiPlugin\Grcmanager\Services\Network\NetworkFlowMatrix;
 use GlpiPlugin\Grcmanager\Services\Network\NetworkFlowPfsense;
 use GlpiPlugin\Grcmanager\Services\Network\NetworkFlowRules;
+use GlpiPlugin\Grcmanager\Services\Network\NetworkFlowStormshield;
 use Html;
 use IPNetwork;
 use Log;
@@ -118,6 +120,10 @@ class NetworkFlow extends NetworkFlowBase
                 'Partner network conflicting with an internal network',
                 'grcmanager'
             ),
+            NetworkFlowRules::CHECK_ANY_PORT_INTERNAL => __('All ports open between zones', 'grcmanager'),
+            NetworkFlowRules::CHECK_ADMIN_ZONE_OPEN   => __('Full access to an administration zone', 'grcmanager'),
+            NetworkFlowRules::CHECK_TEMPORARY         => __('Temporary rule still active', 'grcmanager'),
+            NetworkFlowRules::CHECK_ANY_PORT_OUTBOUND => __('All ports open towards the Internet', 'grcmanager'),
             default                                   => $check,
         };
     }
@@ -266,7 +272,8 @@ class NetworkFlow extends NetworkFlowBase
         // Contrôles calculés à l'affichage à partir des champs de la ligne (non triables).
         $tab[] = ['id' => 11, 'table' => $table, 'field' => 'id', 'name' => __('Checks', 'grcmanager'),
             'datatype' => 'specific', 'nosearch' => true, 'nosort' => true, 'massiveaction' => false,
-            'additionalfields' => ['flow_type', 'ports', 'justification', 'users_id', 'date_end', 'is_active']];
+            'additionalfields' => ['flow_type', 'ports', 'justification', 'users_id', 'date_end', 'is_active',
+                'name', 'comment', 'source_label', 'destination_label']];
         $tab[] = ['id' => 12, 'table' => $table, 'field' => 'comment', 'name' => __('Comments', 'grcmanager'),
             'datatype' => 'text'];
         $tab[] = ['id' => 13, 'table' => $table, 'field' => 'id', 'name' => __('ID'), 'datatype' => 'itemlink',
@@ -455,6 +462,7 @@ class NetworkFlow extends NetworkFlowBase
             'can_import'   => Session::haveRight(self::RIGHTNAME, CREATE),
             'import_url'   => self::getImportURL(),
             'report_url'   => self::getReportURL(),
+            'matrix_url'   => self::getMatrixURL(),
         ]);
     }
 
@@ -592,6 +600,68 @@ class NetworkFlow extends NetworkFlowBase
         ];
     }
 
+    public static function getMatrixURL(): string
+    {
+        global $CFG_GLPI;
+
+        return $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/networkflow.matrix.php';
+    }
+
+    /**
+     * Issue #144, phase 3 : vue zone × zone des flux actifs, et les flux d'une case choisie.
+     * Une extrémité qui est un actif non visible de l'utilisateur ne révèle pas son nom.
+     *
+     * @return array<string, mixed>
+     */
+    public static function matrixData(string $group, ?string $source = null, ?string $destination = null): array
+    {
+        global $DB;
+
+        $today = date('Y-m-d');
+        $flows = [];
+        $rows = [];
+        foreach ($DB->request(['FROM' => self::getTable(), 'WHERE' => ['is_active' => 1]]) as $row) {
+            $checks = NetworkFlowRules::checks($row, $today, self::internalNetworks());
+            $flows[(int) $row['id']] = [
+                'id'          => (int) $row['id'],
+                'source'      => self::endpointText(
+                    (string) $row['source_itemtype'],
+                    (int) $row['source_items_id'],
+                    (string) $row['source_label']
+                ),
+                'destination' => self::endpointText(
+                    (string) $row['destination_itemtype'],
+                    (int) $row['destination_items_id'],
+                    (string) $row['destination_label']
+                ),
+                'checks'      => $checks,
+            ];
+            $rows[(int) $row['id']] = $row;
+        }
+        $matrix = NetworkFlowMatrix::build(array_values($flows), $group);
+
+        $selected = [];
+        if ($source !== null && $destination !== null) {
+            $protocols = self::getProtocols();
+            foreach ($matrix['cells'][$source][$destination]['ids'] ?? [] as $id) {
+                $row = $rows[$id];
+                $flow = $flows[$id];
+                $selected[] = [
+                    'name'        => (string) $row['name'],
+                    'url'         => self::getFormURLWithID($id),
+                    'type_html'   => self::typeBadge((string) $row['flow_type']),
+                    'source'      => $flow['source'],
+                    'destination' => $flow['destination'],
+                    'service'     => ($protocols[$row['protocol']] ?? $row['protocol']) . ' '
+                        . self::portsLabel((string) $row['ports']),
+                    'checks_html' => self::checksHtml($flow['checks']),
+                ];
+            }
+        }
+
+        return $matrix + ['selected' => $selected];
+    }
+
     public static function portsLabel(string $ports): string
     {
         return $ports === 'any' || $ports === '' ? __('All', 'grcmanager') : str_replace(',', ', ', $ports);
@@ -615,14 +685,21 @@ class NetworkFlow extends NetworkFlowBase
      *
      * @return array{created: int, skipped: int, errors: list<array{line: int, message: string}>,
      *     rows: list<array<string, mixed>>, pfsense: ?array{interfaces: array<string, string>,
-     *     outside: string, secrets: bool, merged: int}}
+     *     outside: string, secrets: bool, merged: int}, stormshield: ?array{merged: int}}
      */
     public static function importCsv(string $content, bool $simulate, string $outside = ''): array
     {
-        // Issue #144, phase 2 : une sauvegarde pfSense (config.xml) est reconnue à son contenu.
+        // Issue #144, phase 2 : une sauvegarde pfSense (config.xml) est reconnue à son contenu ;
+        // phase 3 : un export de politique Stormshield à son en-tête « #type_slot ».
         $isXml = str_starts_with(ltrim(preg_replace('/^\xEF\xBB\xBF/', '', $content) ?? $content), '<');
-        $parsed = $isXml ? NetworkFlowPfsense::parse($content, $outside) : NetworkFlowCsv::parse($content);
-        $result = ['created' => 0, 'skipped' => 0, 'errors' => [], 'rows' => [], 'pfsense' => null];
+        $isStormshield = !$isXml && NetworkFlowStormshield::isStormshieldExport($content);
+        $parsed = match (true) {
+            $isXml         => NetworkFlowPfsense::parse($content, $outside),
+            $isStormshield => NetworkFlowStormshield::parse($content),
+            default        => NetworkFlowCsv::parse($content),
+        };
+        $result = ['created' => 0, 'skipped' => 0, 'errors' => [], 'rows' => [], 'pfsense' => null,
+            'stormshield' => $isStormshield ? ['merged' => (int) ($parsed['merged'] ?? 0)] : null];
         if (isset($parsed['interfaces']) && $parsed['interfaces'] !== []) {
             $result['pfsense'] = [
                 'interfaces' => $parsed['interfaces'],
@@ -681,6 +758,17 @@ class NetworkFlow extends NetworkFlowBase
 
     private static function csvErrorLabel(string $code): string
     {
+        if (str_starts_with($code, 'unknown_service:')) {
+            return sprintf(
+                __(
+                    'Service object not known from this export (%s): rule skipped, add the flow with its ports '
+                        . 'by hand.',
+                    'grcmanager'
+                ),
+                substr($code, strlen('unknown_service:'))
+            );
+        }
+
         return match ($code) {
             'missing_columns'  => __('Header without "source" and "destination" columns.', 'grcmanager'),
             'empty'            => __('Empty file.', 'grcmanager'),

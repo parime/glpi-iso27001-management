@@ -31,7 +31,7 @@ if (is_readable(__DIR__ . '/vendor/autoload.php')) {
     \GlpiPlugin\Grcmanager\Install\ItemtypeRenames::registerAliases();
 }
 
-define('PLUGIN_GRCMANAGER_VERSION', '2.19.0');
+define('PLUGIN_GRCMANAGER_VERSION', '2.20.0');
 define('PLUGIN_GRCMANAGER_MIN_GLPI', '11.0.0');
 // GLPI 11 and 12 from a single code base (see src/Compatibility/).
 define('PLUGIN_GRCMANAGER_MAX_GLPI', '12.99.99');
@@ -261,12 +261,25 @@ function plugin_init_grcmanager(): void
         'Ticket'        => 'plugin_grcmanager_periodic_review_ticket_add',
         'Document_Item' => 'plugin_grcmanager_restricted_document_item_add',
     ];
-    $PLUGIN_HOOKS[Hooks::ITEM_UPDATE]['grcmanager'] = ['Ticket' => 'plugin_grcmanager_periodic_review_ticket_update'];
+    $PLUGIN_HOOKS[Hooks::ITEM_UPDATE]['grcmanager'] = [
+        'Ticket'   => 'plugin_grcmanager_periodic_review_ticket_update',
+        'Document' => 'plugin_grcmanager_evidence_document_update',
+    ];
+    // Issue #371 : journal d'audit chaîné des incidents de sécurité et de ce qui leur est rattaché.
+    foreach (\GlpiPlugin\Grcmanager\Services\Incident\AuditedItems::ITEMTYPES as $auditedItemtype) {
+        $PLUGIN_HOOKS[Hooks::ITEM_ADD]['grcmanager'][$auditedItemtype] ??= 'plugin_grcmanager_audit_add';
+        $PLUGIN_HOOKS[Hooks::ITEM_UPDATE]['grcmanager'][$auditedItemtype] ??= 'plugin_grcmanager_audit_update';
+        $PLUGIN_HOOKS[Hooks::ITEM_DELETE]['grcmanager'][$auditedItemtype] = 'plugin_grcmanager_audit_delete';
+        $PLUGIN_HOOKS[Hooks::ITEM_RESTORE]['grcmanager'][$auditedItemtype] = 'plugin_grcmanager_audit_restore';
+    }
     $PLUGIN_HOOKS[Hooks::ITEM_PURGE]['grcmanager'] = [
         'Ticket'                                => 'plugin_grcmanager_purge_security_incident_links',
         PluginGrcmanagerSecurityIncident::class => 'plugin_grcmanager_purge_security_incident_links',
         'Document'                              => 'plugin_grcmanager_forget_restricted_document',
     ];
+    foreach (\GlpiPlugin\Grcmanager\Services\Incident\AuditedItems::ITEMTYPES as $auditedItemtype) {
+        $PLUGIN_HOOKS[Hooks::ITEM_PURGE]['grcmanager'][$auditedItemtype] ??= 'plugin_grcmanager_audit_purge';
+    }
     // Rapports générés (audit, revue des accès, post-incident, cellule de crise) : lisibles par
     // les seules personnes qui lisent leur objet source, voir \GlpiPlugin\Grcmanager\RestrictedDocument.
     $PLUGIN_HOOKS[Hooks::ITEM_CAN]['grcmanager'] = ['Document' => 'plugin_grcmanager_restricted_document_can'];
