@@ -71,7 +71,7 @@ final class NetworkFlowMatrixTest extends TestCase
         $this->assertSame(1, $matrix['cells']['SITE']['Internet']['count'] ?? 0, 'Internet reste à part.');
         $this->assertSame('Internet', NetworkFlowMatrix::zone('Internet', NetworkFlowMatrix::GROUP_PREFIX));
         $this->assertSame('PARIS', NetworkFlowMatrix::zone('PARIS-SRV (10.0.0.0/8)', NetworkFlowMatrix::GROUP_PREFIX));
-        $this->assertSame('—', NetworkFlowMatrix::zone(''));
+        $this->assertSame('?', NetworkFlowMatrix::zone(''));
     }
 
     public function testTooManyZonesAreTruncated(): void

@@ -93,7 +93,7 @@ final class NetworkFlowMatrix
     {
         $zone = trim((string) preg_replace('/\s*\([^()]*\)\s*$/', '', trim($label)));
         if ($zone === '') {
-            return '—';
+            return '?';
         }
         if ($group === self::GROUP_PREFIX && !in_array($zone, ['Internet', 'Tous'], true)) {
             $parts = preg_split('/[_\-\s]/', $zone, 2) ?: [$zone];
