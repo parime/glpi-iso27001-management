@@ -23,6 +23,7 @@ use Entity;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\NetworkFlowBase;
 use GlpiPlugin\Grcmanager\Services\Network\NetworkFlowCsv;
+use GlpiPlugin\Grcmanager\Services\Network\NetworkFlowMatrix;
 use GlpiPlugin\Grcmanager\Services\Network\NetworkFlowPfsense;
 use GlpiPlugin\Grcmanager\Services\Network\NetworkFlowRules;
 use Html;
@@ -459,6 +460,7 @@ class NetworkFlow extends NetworkFlowBase
             'can_import'   => Session::haveRight(self::RIGHTNAME, CREATE),
             'import_url'   => self::getImportURL(),
             'report_url'   => self::getReportURL(),
+            'matrix_url'   => self::getMatrixURL(),
         ]);
     }
 
@@ -594,6 +596,68 @@ class NetworkFlow extends NetworkFlowBase
             'groups'   => array_values($groups),
             'networks' => $networks,
         ];
+    }
+
+    public static function getMatrixURL(): string
+    {
+        global $CFG_GLPI;
+
+        return $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/networkflow.matrix.php';
+    }
+
+    /**
+     * Issue #144, phase 3 : vue zone × zone des flux actifs, et les flux d'une case choisie.
+     * Une extrémité qui est un actif non visible de l'utilisateur ne révèle pas son nom.
+     *
+     * @return array<string, mixed>
+     */
+    public static function matrixData(string $group, ?string $source = null, ?string $destination = null): array
+    {
+        global $DB;
+
+        $today = date('Y-m-d');
+        $flows = [];
+        $rows = [];
+        foreach ($DB->request(['FROM' => self::getTable(), 'WHERE' => ['is_active' => 1]]) as $row) {
+            $checks = NetworkFlowRules::checks($row, $today, self::internalNetworks());
+            $flows[(int) $row['id']] = [
+                'id'          => (int) $row['id'],
+                'source'      => self::endpointText(
+                    (string) $row['source_itemtype'],
+                    (int) $row['source_items_id'],
+                    (string) $row['source_label']
+                ),
+                'destination' => self::endpointText(
+                    (string) $row['destination_itemtype'],
+                    (int) $row['destination_items_id'],
+                    (string) $row['destination_label']
+                ),
+                'checks'      => $checks,
+            ];
+            $rows[(int) $row['id']] = $row;
+        }
+        $matrix = NetworkFlowMatrix::build(array_values($flows), $group);
+
+        $selected = [];
+        if ($source !== null && $destination !== null) {
+            $protocols = self::getProtocols();
+            foreach ($matrix['cells'][$source][$destination]['ids'] ?? [] as $id) {
+                $row = $rows[$id];
+                $flow = $flows[$id];
+                $selected[] = [
+                    'name'        => (string) $row['name'],
+                    'url'         => self::getFormURLWithID($id),
+                    'type_html'   => self::typeBadge((string) $row['flow_type']),
+                    'source'      => $flow['source'],
+                    'destination' => $flow['destination'],
+                    'service'     => ($protocols[$row['protocol']] ?? $row['protocol']) . ' '
+                        . self::portsLabel((string) $row['ports']),
+                    'checks_html' => self::checksHtml($flow['checks']),
+                ];
+            }
+        }
+
+        return $matrix + ['selected' => $selected];
     }
 
     public static function portsLabel(string $ports): string
