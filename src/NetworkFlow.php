@@ -681,12 +681,15 @@ class NetworkFlow extends NetworkFlowBase
      *
      * Sauvegarde pfSense : $outside est l'interface côté Internet (vide : déduite du fichier) ; le
      * résultat donne alors les interfaces, celle retenue, la présence de secrets dans le fichier et
-     * le nombre de règles identiques fusionnées.
+     * le nombre de règles identiques fusionnées. Export Stormshield : $outside est aussi l'interface
+     * côté Internet (vide : déduite des publications) ; le résultat donne les interfaces de l'export,
+     * celle retenue et les lignes dont un côté n'a pas pu être situé.
      *
      * @return array{created: int, skipped: int, errors: list<array{line: int, message: string}>,
      *     rows: list<array<string, mixed>>, pfsense: ?array{interfaces: array<string, string>,
      *     outside: string, secrets: bool, merged: int, nat: int, tunnels: int,
-     *     overlaps: list<array{tunnel: string, remote: string, interface: string}>}, stormshield: ?array{merged: int}}
+     *     overlaps: list<array{tunnel: string, remote: string, interface: string}>}, stormshield: ?array{merged: int,
+     *     interfaces: list<string>, outside: string, unclassified: list<int>}}
      */
     public static function importCsv(string $content, bool $simulate, string $outside = ''): array
     {
@@ -696,12 +699,20 @@ class NetworkFlow extends NetworkFlowBase
         $isStormshield = !$isXml && NetworkFlowStormshield::isStormshieldExport($content);
         $parsed = match (true) {
             $isXml         => NetworkFlowPfsense::parse($content, $outside),
-            $isStormshield => NetworkFlowStormshield::parse($content),
+            $isStormshield => NetworkFlowStormshield::parse($content, $outside),
             default        => NetworkFlowCsv::parse($content),
         };
         $result = ['created' => 0, 'skipped' => 0, 'errors' => [], 'rows' => [], 'pfsense' => null,
-            'stormshield' => $isStormshield ? ['merged' => (int) ($parsed['merged'] ?? 0)] : null];
-        if (isset($parsed['interfaces']) && $parsed['interfaces'] !== []) {
+            'stormshield' => null];
+        if ($isStormshield) {
+            $result['stormshield'] = [
+                'merged'       => $parsed['merged'],
+                'interfaces'   => $parsed['interfaces'],
+                'outside'      => $parsed['outside'],
+                'unclassified' => $parsed['unclassified'],
+            ];
+        }
+        if ($isXml && isset($parsed['interfaces']) && $parsed['interfaces'] !== []) {
             $result['pfsense'] = [
                 'interfaces' => $parsed['interfaces'],
                 'outside'    => $parsed['outside'],

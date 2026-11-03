@@ -116,6 +116,68 @@ final class NetworkFlowStormshieldTest extends TestCase
 
         $this->assertSame('internal', $internal['flow_type']);
         $this->assertSame('2222,22', $internal['ports']);
+
+        $this->assertSame('WAN', $result['outside'], 'Interface des publications.');
+        $this->assertSame([10], $result['unclassified'], 'Objets propres à la configuration : à vérifier.');
+    }
+
+    /**
+     * Export fictif sans objets : chaque côté est situé d'après les objets prédéfinis, l'interface,
+     * le filtrage par pays et une adresse IP écrite dans le nom.
+     */
+    private static function classificationExport(): string
+    {
+        return implode("\n", [
+            self::HEADER,
+            self::rule(['comment' => 'Messagerie entrante', 'from_src' => 'any', 'from_if' => 'out',
+                'to_dest' => 'SITE_A_SRV_MAIL', 'to_port' => 'smtp']),
+            self::rule(['comment' => 'Navigation', 'from_src' => 'Network_internals', 'to_dest' => 'Internet',
+                'to_port' => 'https']),
+            self::rule(['comment' => 'API du prestataire', 'from_src' => 'SITE_A_WS', 'to_dest' => 'SITE_B_API',
+                'to_geo' => 'FR', 'to_port' => 'https']),
+            self::rule(['comment' => 'Serveur public', 'from_src' => 'Network_in', 'to_dest' => 'h_203.0.113.10',
+                'to_port' => 'https']),
+            self::rule(['comment' => 'Serveur privé', 'from_src' => 'Network_in', 'to_dest' => 'h_192.168.5.10',
+                'to_port' => 'https']),
+            self::rule(['comment' => 'Objet inconnu', 'from_src' => 'SITE_A_WS', 'to_dest' => 'SRV_PARTENAIRE',
+                'to_port' => 'ssh']),
+            self::rule(['comment' => 'Entre zones', 'from_src' => 'any', 'from_if' => 'in', 'to_dest' => 'any',
+                'to_if' => 'dmz1', 'to_port' => 'rdp']),
+        ]);
+    }
+
+    public function testSidesAreLocatedWithoutTheObjectsExport(): void
+    {
+        $result = NetworkFlowStormshield::parse(self::classificationExport());
+        $rows = array_column($result['rows'], null, 'name');
+
+        $this->assertSame('out', $result['outside'], 'Interface par défaut d\'un boîtier.');
+        $this->assertSame(['out', 'in', 'dmz1'], $result['interfaces']);
+
+        $this->assertSame('internet_publication', $rows['Messagerie entrante']['flow_type'], 'Entrée par « out ».');
+        $this->assertSame('Internet', $rows['Messagerie entrante']['source_label']);
+        $this->assertSame('internet_outbound', $rows['Navigation']['flow_type'], 'Objet prédéfini « Internet ».');
+        $this->assertSame('internet_outbound', $rows['API du prestataire']['flow_type'], 'Filtrage par pays.');
+        $this->assertSame('internet_outbound', $rows['Serveur public']['flow_type'], 'Adresse publique.');
+        $this->assertSame('internal', $rows['Serveur privé']['flow_type'], 'Adresse privée.');
+        $this->assertSame('internal', $rows['Objet inconnu']['flow_type']);
+        $this->assertSame('internal', $rows['Entre zones']['flow_type'], 'Deux interfaces internes.');
+        $this->assertSame(['Tous', 'Tous'], [$rows['Entre zones']['source_label'],
+            $rows['Entre zones']['destination_label']]);
+
+        $this->assertSame([$rows['Objet inconnu']['line']], $result['unclassified'], 'Seul l\'objet inconnu.');
+
+        $chosen = NetworkFlowStormshield::parse(self::classificationExport(), 'IN');
+        $this->assertSame('in', $chosen['outside'], 'Interface choisie à l\'import.');
+        $this->assertSame(
+            'internet_publication',
+            array_column($chosen['rows'], null, 'name')['Entre zones']['flow_type']
+        );
+        $this->assertSame(
+            'out',
+            NetworkFlowStormshield::parse(self::classificationExport(), 'inconnue')['outside'],
+            'Interface absente du fichier : ignorée.'
+        );
     }
 
     public function testCustomServiceIsReportedInsteadOfGuessed(): void

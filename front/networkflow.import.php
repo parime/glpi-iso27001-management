@@ -39,9 +39,10 @@ if (isset($_POST['import'])) {
     if (!mb_check_encoding($content, 'UTF-8')) {
         $content = mb_convert_encoding($content, 'UTF-8', 'Windows-1252');
     }
-    // Interface côté Internet d'une sauvegarde pfSense ; vide : déduite du fichier.
+    // Interface côté Internet d'une sauvegarde pfSense ou d'un export Stormshield ; vide : déduite
+    // du fichier. L'analyse ne retient le nom que s'il figure dans le fichier.
     $outside = (string) ($_POST['outside'] ?? '');
-    $outside = preg_match('/^(wan|lan|opt\d{1,3})$/', $outside) === 1 ? $outside : '';
+    $outside = preg_match('/^[A-Za-z0-9_.-]{1,64}$/', $outside) === 1 ? $outside : '';
     $result = \GlpiPlugin\Grcmanager\NetworkFlow::importCsv($content, $simulate, $outside);
     unset($content);
 }
