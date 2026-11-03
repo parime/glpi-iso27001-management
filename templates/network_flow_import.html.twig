@@ -3,7 +3,7 @@
    <h3 class="card-title"><i class="ti ti-file-import me-1"></i>{{ title }}</h3>
    <p>{{ __('CSV file separated by semicolons or commas, with a header line. Recognised columns: name, type, source, destination, protocol, ports, justification, owner (GLPI login), date_end (French column names also accepted). Only source and destination are required.', 'grcmanager') }}</p>
    <pre class="bg-light p-2 small mb-3">{{ example }}</pre>
-   <p><i class="ti ti-brick-wall me-1"></i>{{ __('pfSense firewall: import its configuration backup directly (Diagnostics > Backup & Restore, config.xml file). Enabled rules that allow a flow are imported with their aliases resolved; block rules and disabled rules are ignored. In that case, the line number shown is the rule number. Justification and owner remain to be filled in the matrix.', 'grcmanager') }}</p>
+   <p><i class="ti ti-brick-wall me-1"></i>{{ __('pfSense firewall: import its configuration backup directly (Diagnostics > Backup & Restore, config.xml file). Enabled rules that allow a flow are imported with their aliases resolved; block rules and disabled rules are ignored. Port forwards (NAT) make their rule a publication on the Internet, and each enabled IPsec phase 2 becomes a site-to-site tunnel flow (local network to remote network). In that case, the line number shown is the rule number, port forwards without a filter rule and IPsec tunnels being numbered after the filter rules. Justification and owner remain to be filled in the matrix.', 'grcmanager') }}</p>
    <p><i class="ti ti-shield-lock me-1"></i>{{ __('Stormshield firewall: import the CSV export of the filtering policy (Security policy > Filter - NAT > Export). Enabled "pass" rules are imported; NAT rules, section separators and disabled rules are ignored, and a published service takes its internal target as destination. The export only names objects: common services (http, https, ssh, ntp, smtp…) become ports, a rule using a service of your own is reported so you can add it by hand.', 'grcmanager') }}</p>
    <p class="text-muted small">{{ __('Types: internal, publication, outbound, tunnel, partner, admin, backup, other. A flow already present (same source, destination, protocol and ports) is not created again: importing the same file twice creates no duplicate.', 'grcmanager') }}</p>
    <form method="post" enctype="multipart/form-data" action="{{ action }}" class="d-flex flex-wrap align-items-center gap-3">
@@ -36,13 +36,19 @@
       {% if result.pfsense %}
          {% if result.pfsense.secrets %}
             <div class="alert alert-danger">
-               <i class="ti ti-key me-1"></i>{{ __('This backup contains secrets of the firewall (keys, passwords, certificates). Only interfaces, aliases and filter rules were read, and the file was not kept. Next time, export only the needed areas (Diagnostics > Backup & Restore > Backup area: Aliases, Firewall Rules, Interfaces) and do not store or send the full backup.', 'grcmanager') }}
+               <i class="ti ti-key me-1"></i>{{ __('This backup contains secrets of the firewall (keys, passwords, certificates). Only interfaces, aliases, filter rules, port forwards and the networks of IPsec tunnels were read, and the file was not kept. Next time, export only the needed areas (Diagnostics > Backup & Restore > Backup area: Aliases, Firewall Rules, NAT, Interfaces, IPsec) and do not store or send the full backup.', 'grcmanager') }}
             </div>
          {% endif %}
          <div class="alert alert-secondary">
             {{ __('Internet-facing interface: %s. Rules on this interface from anywhere are publications; elsewhere, rules towards anywhere or towards everything except private networks are Internet access. Change it above and analyse the file again if needed.', 'grcmanager')|format(result.pfsense.interfaces[result.pfsense.outside] ?? result.pfsense.outside) }}
             {% if result.pfsense.merged > 0 %}<br>{{ __('%d identical rules merged.', 'grcmanager')|format(result.pfsense.merged) }}{% endif %}
+            {% if result.pfsense.nat > 0 or result.pfsense.tunnels > 0 %}<br>{{ __('Port forwards (NAT): %1$d. IPsec tunnels: %2$d, imported as site-to-site tunnels: change the type of those leading to a partner, the overlap check then applies to them.', 'grcmanager')|format(result.pfsense.nat, result.pfsense.tunnels) }}{% endif %}
          </div>
+         {% if result.pfsense.overlaps is not empty %}
+            <div class="alert alert-warning"><i class="ti ti-arrows-cross me-1"></i>{{ __('Remote network of an IPsec tunnel overlapping a network of the firewall: both sides cannot reach each other without address translation (NAT).', 'grcmanager') }}<ul class="mb-0">
+               {% for overlap in result.pfsense.overlaps %}<li>{{ __('%1$s: %2$s overlaps %3$s', 'grcmanager')|format(overlap.tunnel, overlap.remote, overlap.interface) }}</li>{% endfor %}
+            </ul></div>
+         {% endif %}
       {% endif %}
       {% if result.errors is not empty %}
          <div class="alert alert-warning"><ul class="mb-0">
