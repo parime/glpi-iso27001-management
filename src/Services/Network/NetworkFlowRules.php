@@ -46,6 +46,21 @@ final class NetworkFlowRules
     public const CHECK_ADMIN_EXPOSED = 'admin_exposed';
     public const CHECK_ANY_PORT_INTERNET = 'any_port_internet';
     public const CHECK_PARTNER_OVERLAP = 'partner_overlap';
+    public const CHECK_ANY_PORT_INTERNAL = 'any_port_internal';
+    public const CHECK_ADMIN_ZONE_OPEN = 'admin_zone_open';
+    public const CHECK_TEMPORARY = 'temporary';
+
+    /**
+     * Zones d'administration reconnues à leur nom (mot entier, « _ » et « - » comptent comme
+     * séparateurs) : réseau de gestion, bastion, cartes de gestion à distance, hyperviseurs.
+     * « ADMINISTRATIF » (postes du service administratif) n'en fait pas partie.
+     */
+    public const ADMIN_ZONE_PATTERN = '/(?<![a-z0-9])(mgmt|management|admin|administration|bastion|ilo|idrac'
+        . '|ipmi|bmc|oob|hyperviseur|hypervisor|pve|proxmox|esxi|vcenter|vcsa)(?![a-z0-9])/i';
+
+    /** Règle provisoire d'après son nom ou son commentaire. */
+    public const TEMPORARY_PATTERN = '/(?<![a-z0-9])(tmp|temp|temporaire|provisoire|debug|install|installation)'
+        . '(?![a-z0-9])/i';
 
     public static function normalizeType(mixed $value): string
     {
@@ -109,7 +124,8 @@ final class NetworkFlowRules
      * Contrôles automatiques d'un flux actif.
      *
      * @param array{flow_type?: mixed, ports?: mixed, justification?: mixed, users_id?: mixed,
-     *     date_end?: mixed, is_active?: mixed, source_label?: mixed, destination_label?: mixed} $flow
+     *     date_end?: mixed, is_active?: mixed, source_label?: mixed, destination_label?: mixed, name?: mixed,
+     *     comment?: mixed} $flow
      * @param list<string> $internalNetworks réseaux internes (« 10.0.0.0/16 »), voir partnerOverlaps()
      * @return list<string> clés CHECK_*
      */
@@ -143,6 +159,20 @@ final class NetworkFlowRules
         }
         if (self::partnerOverlaps($flow, $internalNetworks) !== []) {
             $checks[] = self::CHECK_PARTNER_OVERLAP;
+        }
+        // Issue #144, phase 3 : tous les ports ouverts entre zones de l'organisation ; vers une zone
+        // d'administration, c'est un accès complet à l'infrastructure.
+        $type = self::normalizeType($flow['flow_type'] ?? '');
+        if (
+            !in_array($type, ['internet_publication', 'internet_outbound'], true)
+            && (self::normalizePorts($flow['ports'] ?? '') ?? 'any') === 'any'
+        ) {
+            $checks[] = preg_match(self::ADMIN_ZONE_PATTERN, (string) ($flow['destination_label'] ?? '')) === 1
+                ? self::CHECK_ADMIN_ZONE_OPEN
+                : self::CHECK_ANY_PORT_INTERNAL;
+        }
+        if (preg_match(self::TEMPORARY_PATTERN, ($flow['name'] ?? '') . ' ' . ($flow['comment'] ?? '')) === 1) {
+            $checks[] = self::CHECK_TEMPORARY;
         }
         return $checks;
     }
@@ -223,6 +253,6 @@ final class NetworkFlowRules
     public static function isBlocking(string $check): bool
     {
         return in_array($check, [self::CHECK_NO_JUSTIFICATION, self::CHECK_EXPIRED, self::CHECK_ADMIN_EXPOSED,
-            self::CHECK_ANY_PORT_INTERNET, self::CHECK_PARTNER_OVERLAP], true);
+            self::CHECK_ANY_PORT_INTERNET, self::CHECK_PARTNER_OVERLAP, self::CHECK_ADMIN_ZONE_OPEN], true);
     }
 }

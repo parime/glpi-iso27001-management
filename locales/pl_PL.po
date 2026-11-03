@@ -6117,7 +6117,7 @@ msgid ""
 "E.g. 80: passed from 80% of the maximum score. With a maximum score and a "
 "threshold, each participant's result is computed from their score."
 msgstr ""
-"Np. 80: zaliczone od 80% maksymalnego wyniku. Przy maksymalnym wyniku i progu"
+"Np. 80: zaliczone od 80 % dostępnego maksymalnego wyniku. Przy maksymalnym wyniku i progu"
 " wynik każdego uczestnika jest obliczany z jego punktów."
 
 #, php-format
@@ -8274,3 +8274,12 @@ msgstr "Liczba zmian"
 
 msgid "Access rights changed"
 msgstr "Zmieniono prawa dostępu"
+
+msgid "All ports open between zones"
+msgstr "Wszystkie porty otwarte między strefami"
+
+msgid "Full access to an administration zone"
+msgstr "Pełny dostęp do strefy administracyjnej"
+
+msgid "Temporary rule still active"
+msgstr "Reguła tymczasowa nadal aktywna"

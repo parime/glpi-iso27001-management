@@ -118,6 +118,9 @@ class NetworkFlow extends NetworkFlowBase
                 'Partner network conflicting with an internal network',
                 'grcmanager'
             ),
+            NetworkFlowRules::CHECK_ANY_PORT_INTERNAL => __('All ports open between zones', 'grcmanager'),
+            NetworkFlowRules::CHECK_ADMIN_ZONE_OPEN   => __('Full access to an administration zone', 'grcmanager'),
+            NetworkFlowRules::CHECK_TEMPORARY         => __('Temporary rule still active', 'grcmanager'),
             default                                   => $check,
         };
     }
@@ -266,7 +269,8 @@ class NetworkFlow extends NetworkFlowBase
         // Contrôles calculés à l'affichage à partir des champs de la ligne (non triables).
         $tab[] = ['id' => 11, 'table' => $table, 'field' => 'id', 'name' => __('Checks', 'grcmanager'),
             'datatype' => 'specific', 'nosearch' => true, 'nosort' => true, 'massiveaction' => false,
-            'additionalfields' => ['flow_type', 'ports', 'justification', 'users_id', 'date_end', 'is_active']];
+            'additionalfields' => ['flow_type', 'ports', 'justification', 'users_id', 'date_end', 'is_active',
+                'name', 'comment', 'source_label', 'destination_label']];
         $tab[] = ['id' => 12, 'table' => $table, 'field' => 'comment', 'name' => __('Comments', 'grcmanager'),
             'datatype' => 'text'];
         $tab[] = ['id' => 13, 'table' => $table, 'field' => 'id', 'name' => __('ID'), 'datatype' => 'itemlink',

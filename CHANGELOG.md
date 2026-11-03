@@ -9,6 +9,16 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Nouveaux contrôles de la matrice des flux** (issue #144, phase 3), d'après une vraie politique
+  de pare-feu :
+  - « Tous les ports ouverts entre zones » : flux interne, inter-sites, partenaire ou de
+    sauvegarde sans port précis (à corriger) ;
+  - « Accès complet à une zone d'administration » : la même chose vers une zone de gestion
+    (MGMT, bastion, iLO, IPMI, hyperviseurs…), bloquant ;
+  - « Règle temporaire toujours active » : nom ou commentaire en « tmp », « provisoire »,
+    « debug », « installation » (à corriger).
+  Ils apparaissent dans la liste, la fiche, la synthèse, l'import, la vue matrice et le rapport PDF.
+
 - **Alertes d'accès** au module des incidents (issue #371) : une tâche automatique quotidienne
   (« accesswatch ») compare les droits des profils sur les incidents et les utilisateurs qui
   détiennent ces profils ; chaque écart (droit accordé, étendu, réduit ou retiré, profil attribué
@@ -54,6 +64,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Fixed
 
+- Liste des flux : la colonne « Contrôles » ne signalait pas les réseaux partenaires en conflit
+  avec un réseau interne (champs source et destination non chargés).
 - **Cloisonnement des incidents de sécurité** (issue #371) : avec le seul droit « Voir (auteur) »,
   la liste et la recherche montraient tous les incidents de l'entité (GLPI ne filtre lui-même que
   ses tickets, changements et problèmes) ; elles ne montrent plus que ceux où l'on est acteur,

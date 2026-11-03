@@ -6861,3 +6861,12 @@ msgstr "Número de alterações"
 
 msgid "Access rights changed"
 msgstr "Direitos de acesso alterados"
+
+msgid "All ports open between zones"
+msgstr "Todas as portas abertas entre zonas"
+
+msgid "Full access to an administration zone"
+msgstr "Acesso completo a uma zona de administração"
+
+msgid "Temporary rule still active"
+msgstr "Regra temporária ainda ativa"
