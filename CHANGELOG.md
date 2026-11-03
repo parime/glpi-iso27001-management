@@ -35,9 +35,13 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   identifiant (jamais par nom), au lieu d'en créer d'autres :
   - le ticket ouvert depuis un incident (« Créer un ticket lié ») prend la catégorie de l'incident,
     sinon la sous-catégorie qui correspond à sa classification (malware : « Malware / Ransomware »,
-    accès non autorisé ou fuite : « Compte compromis / Fuite de données », sinon la branche) ;
+    accès non autorisé : « Compte compromis / Accès non autorisé », fuite : « Fuite de données »,
+    sinon la branche) ;
   - un ticket qualifié en incident lui transmet sa catégorie, et sa classification quand la
-    sous-catégorie est sans ambiguïté (« Malware / Ransomware », « Antivirus & Endpoint ») ;
+    sous-catégorie est sans ambiguïté (« Malware / Ransomware », « Antivirus & Endpoint »,
+    « Compte compromis / Accès non autorisé », « Fuite de données »). Avec une version de
+    Configuration GLPI Auto antérieure à la scission de « Compte compromis / Fuite de données »,
+    cette catégorie reste ambiguë et la classification est laissée à choisir ;
   - une catégorie n'est utilisée que si elle est visible dans l'entité du ticket ; sinon, repli sur
     la branche, puis aucune catégorie.
 
