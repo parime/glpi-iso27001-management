@@ -279,6 +279,14 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
         'documents_id' => $ids['document_' . $suffix], 'valid_until' => date('Y-m-d', strtotime('+10 days')),
     ]);
 }
+// Issue #372 : les deux incidents touchent l'ordinateur de A ; l'onglet « Incidents de sécurité »
+// de cet ordinateur ne doit montrer (ni compter) l'incident de B qu'au super-admin.
+foreach (['A', 'B'] as $suffix) {
+    $add(new PluginGrcmanagerSecurityIncident_Item(), [
+        'plugin_grcmanager_securityincidents_id' => $ids['incident_' . $suffix],
+        'itemtype' => Computer::class, 'items_id' => $ids['computer_A'],
+    ]);
+}
 $ids['supplierrisk'] = $add(new \GlpiPlugin\Grcmanager\SupplierRisk(), [
     'title' => 'Risque fournisseur securite', 'suppliers_id' => $supplier,
 ]);

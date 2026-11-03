@@ -1,0 +1,42 @@
+{# Issue #372 : onglet « Incidents de sécurité » d'un élément lié (GlpiPlugin\\Grcmanager\\SecurityIncidentLinkedItem) #}
+<div class="card">
+   <div class="card-body">
+      {% if can_declare %}
+         <form method="post" action="{{ action }}" class="mb-3">
+            <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="itemtype" value="{{ itemtype }}">
+            <input type="hidden" name="items_id" value="{{ items_id }}">
+            <button type="submit" name="declare" value="1" class="btn btn-danger" id="grcmanager-declare-incident-{{ items_id }}">
+               <i class="ti ti-shield-plus me-1"></i>{{ __('Declare an incident', 'grcmanager') }}
+            </button>
+            <p class="form-text mb-0 mt-2">{{ __('Creates a security incident already linked to this item, then opens it to be completed.', 'grcmanager') }}</p>
+         </form>
+      {% endif %}
+      {% if rows is empty %}
+         <p class="text-muted mb-0"><i class="ti ti-shield-lock me-1"></i>{{ __('No security incident linked to this item.', 'grcmanager') }}</p>
+      {% else %}
+         <table class="table table-sm table-vcenter mb-0">
+            <thead>
+               <tr>
+                  <th>{{ __('Reference', 'grcmanager') }}</th>
+                  <th>{{ __('Security incident', 'grcmanager') }}</th>
+                  <th>{{ __('Date', 'grcmanager') }}</th>
+                  <th>{{ __('Statut') }}</th>
+                  <th>{{ __('Severity', 'grcmanager') }}</th>
+               </tr>
+            </thead>
+            <tbody>
+               {% for r in rows %}
+                  <tr>
+                     <td>{{ r.reference }}</td>
+                     <td><a href="{{ r.url }}"><i class="ti ti-shield-lock me-1"></i>{{ r.name }} ({{ r.id }})</a></td>
+                     <td>{{ r.date|formatted_datetime }}</td>
+                     <td>{{ r.status }}</td>
+                     <td>{{ r.severity }}</td>
+                  </tr>
+               {% endfor %}
+            </tbody>
+         </table>
+      {% endif %}
+   </div>
+</div>

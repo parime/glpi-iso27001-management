@@ -248,6 +248,14 @@ function plugin_init_grcmanager(): void
     Plugin::registerClass(\GlpiPlugin\Grcmanager\SecurityIncidentTicket::class, [
         'addtabon' => ['Ticket', PluginGrcmanagerSecurityIncident::class],
     ]);
+    // Issue #372 : onglet « Incidents de sécurité » des autres éléments liés, avec « Déclarer un
+    // incident » (le ticket garde le sien ci-dessus) ; sur l'incident, « Autres éléments liés ».
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\SecurityIncidentLinkedItem::class, [
+        'addtabon' => array_merge(
+            \GlpiPlugin\Grcmanager\SecurityIncidentLinkedItem::ITEMTYPES,
+            [PluginGrcmanagerSecurityIncident::class]
+        ),
+    ]);
     // Issue #139 : « Mes formations » dans les préférences (résultats et copies de quiz de
     // l'utilisateur, sans droit sur le plugin).
     Plugin::registerClass(\GlpiPlugin\Grcmanager\TrainingQuiz::class, ['addtabon' => [Preference::class]]);

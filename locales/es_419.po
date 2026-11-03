@@ -6982,3 +6982,23 @@ msgstr "Catálogo de seguridad de la IA y sus referencias en el catálogo de rie
 
 msgid "AI systems"
 msgstr "Sistemas de IA"
+
+#, php-format
+msgid "Security incident on %s"
+msgstr "Incidente de seguridad en %s"
+
+#, php-format
+msgid "Security incident no. %d declared."
+msgstr "Incidente de seguridad n.º %d declarado."
+
+msgid "Declare an incident"
+msgstr "Declarar un incidente"
+
+msgid "Creates a security incident already linked to this item, then opens it to be completed."
+msgstr "Crea un incidente de seguridad ya vinculado a este elemento y lo abre para completarlo."
+
+msgid "No security incident linked to this item."
+msgstr "Ningún incidente de seguridad vinculado a este elemento."
+
+msgid "Other linked items"
+msgstr "Otros elementos vinculados"
