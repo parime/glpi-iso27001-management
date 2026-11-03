@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace GlpiPlugin\Grcmanager\Tests\Services\Incident;
 
 use GlpiPlugin\Grcmanager\Services\Incident\EdrCsvImport;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 final class EdrCsvImportTest extends TestCase
@@ -48,9 +49,7 @@ final class EdrCsvImportTest extends TestCase
         );
     }
 
-    /**
-     * @dataProvider severityProvider
-     */
+    #[DataProvider('severityProvider')]
     public function testSeverity(string $value, string $expected): void
     {
         self::assertSame($expected, EdrCsvImport::severity($value));

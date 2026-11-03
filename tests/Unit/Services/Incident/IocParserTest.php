@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace GlpiPlugin\Grcmanager\Tests\Services\Incident;
 
 use GlpiPlugin\Grcmanager\Services\Incident\IocParser;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 final class IocParserTest extends TestCase
 {
-    /**
-     * @dataProvider detectionProvider
-     */
+    #[DataProvider('detectionProvider')]
     public function testDetectsTypeAndNormalizes(string $raw, string $type, string $value): void
     {
         self::assertSame(['type' => $type, 'value' => $value], IocParser::detect($raw));

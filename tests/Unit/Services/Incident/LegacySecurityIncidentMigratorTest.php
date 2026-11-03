@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace GlpiPlugin\Grcmanager\Tests\Services\Incident;
 
 use GlpiPlugin\Grcmanager\Services\Incident\LegacySecurityIncidentMigrator;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 final class LegacySecurityIncidentMigratorTest extends TestCase
 {
-    /**
-     * @dataProvider statusMapProvider
-     */
+    #[DataProvider('statusMapProvider')]
     public function testMapStatusConvertsEachLegacyValue(string $legacy, int $expected): void
     {
         self::assertSame($expected, LegacySecurityIncidentMigrator::mapStatus($legacy));

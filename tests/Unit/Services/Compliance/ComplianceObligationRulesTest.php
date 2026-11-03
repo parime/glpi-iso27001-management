@@ -6,13 +6,12 @@ namespace GlpiPlugin\Grcmanager\Tests\Services\Compliance;
 
 use DateTimeImmutable;
 use GlpiPlugin\Grcmanager\Services\Compliance\ComplianceObligationRules;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 final class ComplianceObligationRulesTest extends TestCase
 {
-    /**
-     * @dataProvider allowedTypeProvider
-     */
+    #[DataProvider('allowedTypeProvider')]
     public function testNormalizeTypeKeepsAnAllowedValue(string $type): void
     {
         self::assertSame($type, ComplianceObligationRules::normalizeType($type));
@@ -40,9 +39,7 @@ final class ComplianceObligationRulesTest extends TestCase
         self::assertSame('legal', ComplianceObligationRules::normalizeType(null));
     }
 
-    /**
-     * @dataProvider allowedStatusProvider
-     */
+    #[DataProvider('allowedStatusProvider')]
     public function testNormalizeComplianceStatusKeepsAnAllowedValue(string $status): void
     {
         self::assertSame($status, ComplianceObligationRules::normalizeComplianceStatus($status));
