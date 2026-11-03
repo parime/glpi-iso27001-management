@@ -6908,3 +6908,6 @@ msgstr "Stormshield-Firewall: Importieren Sie den CSV-Export der Filterrichtlini
 #, php-format
 msgid "Service object not known from this export (%s): rule skipped, add the flow with its ports by hand."
 msgstr "Dienstobjekt in diesem Export unbekannt (%s): Regel übersprungen, fügen Sie den Fluss mit seinen Ports von Hand hinzu."
+
+msgid "All ports open towards the Internet"
+msgstr "Alle Ports ins Internet offen"

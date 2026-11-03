@@ -8321,3 +8321,6 @@ msgstr "Zapora Stormshield: zaimportuj eksport CSV polityki filtrowania (Polityk
 #, php-format
 msgid "Service object not known from this export (%s): rule skipped, add the flow with its ports by hand."
 msgstr "Obiekt usługi nieznany w tym eksporcie (%s): reguła pominięta, dodaj przepływ z jego portami ręcznie."
+
+msgid "All ports open towards the Internet"
+msgstr "Wszystkie porty otwarte do Internetu"

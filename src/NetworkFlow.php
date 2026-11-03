@@ -123,6 +123,7 @@ class NetworkFlow extends NetworkFlowBase
             NetworkFlowRules::CHECK_ANY_PORT_INTERNAL => __('All ports open between zones', 'grcmanager'),
             NetworkFlowRules::CHECK_ADMIN_ZONE_OPEN   => __('Full access to an administration zone', 'grcmanager'),
             NetworkFlowRules::CHECK_TEMPORARY         => __('Temporary rule still active', 'grcmanager'),
+            NetworkFlowRules::CHECK_ANY_PORT_OUTBOUND => __('All ports open towards the Internet', 'grcmanager'),
             default                                   => $check,
         };
     }

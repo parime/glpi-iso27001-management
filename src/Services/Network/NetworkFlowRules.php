@@ -49,6 +49,7 @@ final class NetworkFlowRules
     public const CHECK_ANY_PORT_INTERNAL = 'any_port_internal';
     public const CHECK_ADMIN_ZONE_OPEN = 'admin_zone_open';
     public const CHECK_TEMPORARY = 'temporary';
+    public const CHECK_ANY_PORT_OUTBOUND = 'any_port_outbound';
 
     /**
      * Zones d'administration reconnues à leur nom (mot entier, « _ » et « - » comptent comme
@@ -170,6 +171,10 @@ final class NetworkFlowRules
             $checks[] = preg_match(self::ADMIN_ZONE_PATTERN, (string) ($flow['destination_label'] ?? '')) === 1
                 ? self::CHECK_ADMIN_ZONE_OPEN
                 : self::CHECK_ANY_PORT_INTERNAL;
+        }
+        // Sortie vers Internet sans port précis : tout protocole peut sortir (exfiltration, tunnel).
+        if ($type === 'internet_outbound' && (self::normalizePorts($flow['ports'] ?? '') ?? 'any') === 'any') {
+            $checks[] = self::CHECK_ANY_PORT_OUTBOUND;
         }
         if (preg_match(self::TEMPORARY_PATTERN, ($flow['name'] ?? '') . ' ' . ($flow['comment'] ?? '')) === 1) {
             $checks[] = self::CHECK_TEMPORARY;

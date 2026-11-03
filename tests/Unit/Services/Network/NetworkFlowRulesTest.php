@@ -146,13 +146,22 @@ final class NetworkFlowRulesTest extends TestCase
             'Port précis vers une zone d\'administration : pas d\'alerte.'
         );
         self::assertSame(
-            [],
+            [NetworkFlowRules::CHECK_ANY_PORT_OUTBOUND],
             NetworkFlowRules::checks(
                 ['flow_type' => 'internet_outbound', 'destination_label' => 'Internet'] + $base,
                 '2026-11-03'
             ),
-            'Accès Internet sortant : hors de ce contrôle.'
+            'Accès Internet sortant sur tous les ports : contrôle dédié, pas celui des zones internes.'
         );
+        self::assertSame(
+            [],
+            NetworkFlowRules::checks(
+                ['flow_type' => 'internet_outbound', 'destination_label' => 'Internet', 'ports' => '80,443'] + $base,
+                '2026-11-03'
+            ),
+            'Accès Internet sortant sur des ports précis : rien à signaler.'
+        );
+        self::assertFalse(NetworkFlowRules::isBlocking(NetworkFlowRules::CHECK_ANY_PORT_OUTBOUND));
     }
 
     public function testTemporaryRuleStillActive(): void

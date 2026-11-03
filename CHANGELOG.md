@@ -30,7 +30,9 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   - « Accès complet à une zone d'administration » : la même chose vers une zone de gestion
     (MGMT, bastion, iLO, IPMI, hyperviseurs…), bloquant ;
   - « Règle temporaire toujours active » : nom ou commentaire en « tmp », « provisoire »,
-    « debug », « installation » (à corriger).
+    « debug », « installation » (à corriger) ;
+  - « Tous les ports ouverts vers Internet » : accès sortant sans port précis, par où tout
+    protocole peut sortir (à corriger).
   Ils apparaissent dans la liste, la fiche, la synthèse, l'import, la vue matrice et le rapport PDF.
 - **Alertes d'accès** au module des incidents (issue #371) : une tâche automatique quotidienne
   (« accesswatch ») compare les droits des profils sur les incidents et les utilisateurs qui
