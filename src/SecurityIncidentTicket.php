@@ -164,10 +164,14 @@ class SecurityIncidentTicket extends CommonGLPI
                     ];
                 }
             }
-            TemplateRenderer::getInstance()->display(
-                '@grcmanager/tabs/security_incident_tickets.html.twig',
-                ['rows' => $rows]
-            );
+            TemplateRenderer::getInstance()->display('@grcmanager/tabs/security_incident_tickets.html.twig', [
+                'rows'         => $rows,
+                // Issue #372 : bouton « Créer un ticket lié », pour qui peut créer un ticket et
+                // modifier l'incident (le lien s'ajoute à l'incident).
+                'can_create'   => Ticket::canCreate() && $item->canUpdateItem(),
+                'action'       => $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/securityincidentticket.form.php',
+                'incidents_id' => (int) $item->getID(),
+            ]);
 
             return true;
         }
@@ -283,5 +287,55 @@ class SecurityIncidentTicket extends CommonGLPI
         ]);
 
         return $incidentsId;
+    }
+
+    /**
+     * Issue #372 : « Créer un ticket lié » depuis l'incident (par exemple une intervention confiée
+     * au support). Le ticket est créé dans l'entité de l'incident et relié à lui ; il ne reprend
+     * que la référence et le titre de l'incident, jamais sa description ni ses éléments : un
+     * ticket est lu bien plus largement qu'un incident de sécurité (registre cloisonné, #371).
+     *
+     * L'appelant vérifie le droit de modifier l'incident ; le droit de créer un ticket dans
+     * l'entité de l'incident est vérifié ici.
+     *
+     * @return int id du ticket (0 si la création est refusée ou a échoué)
+     */
+    public static function createLinkedTicket(PluginGrcmanagerSecurityIncident $incident): int
+    {
+        global $DB;
+
+        $incidentsId = (int) $incident->getID();
+        $reference = (string) ($incident->fields['reference'] ?? '');
+        $input = [
+            'name'        => ($reference !== '' ? '[' . $reference . '] ' : '') . (string) $incident->fields['name'],
+            'content'     => Fragment::ticketContent(
+                [sprintf(
+                    __('Ticket opened from security incident %s.', 'grcmanager'),
+                    $reference !== '' ? $reference : '#' . $incidentsId
+                )],
+                PluginGrcmanagerSecurityIncident::getFormURLWithID($incidentsId),
+                sprintf(__('Open security incident no. %d', 'grcmanager'), $incidentsId)
+            ),
+            'entities_id' => (int) $incident->fields['entities_id'],
+            'type'        => Ticket::INCIDENT_TYPE,
+        ];
+
+        $ticket = new Ticket();
+        if (!$ticket->can(-1, CREATE, $input)) {
+            return 0;
+        }
+        $ticketsId = (int) $ticket->add($input);
+        if ($ticketsId <= 0) {
+            return 0;
+        }
+
+        $DB->insert(self::TABLE, [
+            'plugin_grcmanager_securityincidents_id' => $incidentsId,
+            'tickets_id'                             => $ticketsId,
+            'date_creation'                          => date('Y-m-d H:i:s'),
+        ]);
+        AuditLog::record('ticket_create', Ticket::class, $ticketsId, $incidentsId);
+
+        return $ticketsId;
     }
 }

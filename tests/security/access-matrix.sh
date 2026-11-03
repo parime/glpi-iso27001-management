@@ -131,6 +131,9 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
     "$(code -d "add=1&plugin_grcmanager_audits_id=$(id audit)&users_id=2&role=auditee&_glpi_csrf_token=$(csrf)" "$P/auditteam.form.php")"
   expect "front/evidence.form.php : date de validite d'une preuve" "$1" \
     "$(code -d "save=1&itemtype=GlpiPlugin%5CGrcmanager%5CPolicy&items_id=$(id policy_A)&documents_id=$(id document_A)&valid_until=2030-01-01&_glpi_csrf_token=$(csrf)" "$P/evidence.form.php")"
+  # Issue #372 : ticket lie depuis l'incident (exige aussi de pouvoir modifier l'incident).
+  expect "front/securityincidentticket.form.php : creer un ticket lie" "$1" \
+    "$(code -d "create_ticket=1&plugin_grcmanager_securityincidents_id=$incident&_glpi_csrf_token=$(csrf)" "$P/securityincidentticket.form.php")"
   # Issue #139 : joindre ou retirer une copie de quiz exige de pouvoir modifier la session.
   expect "front/trainingquiz.form.php : retirer une copie" "$1" \
     "$(code -d "remove=1&participations_id=$(id quiz)&_glpi_csrf_token=$(csrf)" "$P/trainingquiz.form.php")"
@@ -230,6 +233,9 @@ expect "tâche de remédiation sur un incident de B" "$([ "$ROLE" = admin ] && e
   "$(code -d "add=1&plugin_grcmanager_securityincidents_id=$(id incident_B)&name=PHPUnit&_glpi_csrf_token=$(csrf)" "$P/securityincidentplaybooktask.form.php")"
 expect "plan de remédiation (PDF) d'un incident de B" "$([ "$ROLE" = admin ] && echo 200 || echo 404)" \
   "$(code "$P/securityincidentplaybooktask.form.php?pdf=$(id incident_B)")"
+# Issue #372 : un ticket lie exige de pouvoir modifier l'incident (et de creer un ticket).
+expect "ticket lie a un incident de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
+  "$(code -d "create_ticket=1&plugin_grcmanager_securityincidents_id=$(id incident_B)&_glpi_csrf_token=$(csrf)" "$P/securityincidentticket.form.php")"
 # Issue #140 : un document d'audit ne se lit que par l'equipe de l'audit (glpi en fait partie),
 # jamais avec le seul droit Documents de GLPI ou le droit du plugin.
 expect "document d'audit (equipe de l'audit seulement)" "$([ "$ROLE" = admin ] && echo 200 || echo 403)" \

@@ -9,6 +9,20 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Fiche de l'incident de sécurité** (issue #372, fin) :
+  - en-tête de pastilles complété par des compteurs (journal des actions, IOC, éléments liés,
+    tickets liés), chacun menant à son onglet ;
+  - bandeaux d'échéance NIS2 / RGPD triés du plus urgent au moins urgent (bleu, orange quand
+    moins d'un quart du délai reste, rouge une fois dépassé), avec un lien vers la section
+    « Notifications réglementaires » où se saisit la date de notification ;
+  - section de classification découpée en bandeaux (icône et titre) : Qualification, Impact C/I/D,
+    Retour d'expérience ;
+  - bouton **« Créer un ticket lié »** dans l'onglet « Tickets liés » : ticket créé dans l'entité
+    de l'incident et relié à lui, tracé dans le journal d'audit.
+
+  Sécurité : le bouton exige le droit de créer un ticket dans l'entité de l'incident et celui de
+  modifier l'incident. Le ticket ne reprend que la référence et le titre de l'incident, jamais sa
+  description : un ticket est lu bien plus largement qu'un incident de sécurité.
 - **Import pfSense : redirections NAT et tunnels IPsec** (issue #144, étape 4) :
   - une règle de filtrage créée par une redirection de ports sur l'interface côté Internet est une
     publication sur Internet, même quand sa source est restreinte à quelques adresses ;

@@ -198,6 +198,46 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
     }
 
     /**
+     * Issue #372 : compteurs de l'en-tête de pastilles (journal des actions, IOC, éléments et
+     * tickets liés), chacun avec le lien vers son onglet. Mêmes comptes que les onglets.
+     *
+     * @return list<array{icon: string, label: string, count: int, url: string}>
+     */
+    public function getHeaderCounters(): array
+    {
+        $id = (int) $this->getID();
+        $where = ['plugin_grcmanager_securityincidents_id' => $id];
+        $tab = static fn (string $tab): string => self::getFormURLWithID($id) . '&forcetab=' . urlencode($tab);
+
+        return [
+            [
+                'icon'  => \GlpiPlugin\Grcmanager\SecurityIncidentAction::getIcon(),
+                'label' => __('Action log', 'grcmanager'),
+                'count' => countElementsInTable(\GlpiPlugin\Grcmanager\SecurityIncidentAction::getTable(), $where),
+                'url'   => $tab(\GlpiPlugin\Grcmanager\SecurityIncidentAction::class . '$1'),
+            ],
+            [
+                'icon'  => \GlpiPlugin\Grcmanager\SecurityIncidentIoc::getIcon(),
+                'label' => __('IOC', 'grcmanager'),
+                'count' => countElementsInTable(\GlpiPlugin\Grcmanager\SecurityIncidentIoc::getTable(), $where),
+                'url'   => $tab(\GlpiPlugin\Grcmanager\SecurityIncidentIoc::class . '$1'),
+            ],
+            [
+                'icon'  => 'ti ti-package',
+                'label' => _n('Item', 'Items', Session::getPluralNumber()),
+                'count' => countElementsInTable(PluginGrcmanagerSecurityIncident_Item::getTable(), $where),
+                'url'   => $tab(PluginGrcmanagerSecurityIncident_Item::class . '$1'),
+            ],
+            [
+                'icon'  => Ticket::getIcon(),
+                'label' => __('Linked tickets', 'grcmanager'),
+                'count' => count(\GlpiPlugin\Grcmanager\SecurityIncidentTicket::getTicketIdsForIncident($id)),
+                'url'   => $tab(\GlpiPlugin\Grcmanager\SecurityIncidentTicket::class . '$1'),
+            ],
+        ];
+    }
+
+    /**
      * Numérote les incidents qui n'ont pas encore de référence, dans l'ordre de création.
      */
     public static function backfillReferences(): void

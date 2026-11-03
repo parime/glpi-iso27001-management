@@ -1,7 +1,8 @@
 {# Issue #372 : échéances NIS2 / RGPD non encore notifiées, en tête du panneau de l'incident
    (elles étaient seulement dans la section « Notifications réglementaires », plus bas). #}
-{# Issue #372 : en-tête de pastilles (référence, gravité, catégorie, source). #}
-<div class="d-flex flex-wrap gap-1 mb-2">
+{# Issue #372 : en-tête de pastilles (référence, gravité, catégorie, source), puis compteurs vers
+   leurs onglets (journal des actions, IOC, éléments et tickets liés). #}
+<div class="d-flex flex-wrap align-items-center gap-1 mb-2">
   {% if reference %}<span class="badge bg-dark-lt fs-5"><i class="ti ti-hash me-1"></i>{{ reference }}</span>{% endif %}
   {% if is_exercise %}<span class="badge bg-purple-lt"><i class="ti ti-school me-1"></i>{{ __('Crisis exercise', 'grcmanager') }}</span>{% endif %}
   {% if severity %}
@@ -11,6 +12,11 @@
   {% endif %}
   {% if category %}<span class="badge bg-blue-lt"><i class="ti ti-category me-1"></i>{{ category }}</span>{% endif %}
   {% if source and source != constant('Dropdown::EMPTY_VALUE') %}<span class="badge bg-secondary-lt"><i class="ti ti-radar me-1"></i>{{ source }}</span>{% endif %}
+  {% for c in counters|default([]) %}
+    <a href="{{ c.url }}" class="badge {{ c.count > 0 ? 'bg-azure-lt' : 'bg-secondary-lt text-muted' }} text-decoration-none grcmanager-counter">
+      <i class="{{ c.icon }} me-1"></i>{{ c.label }}<span class="ms-1 fw-bold">{{ c.count }}</span>
+    </a>
+  {% endfor %}
 </div>
 {# Issue #370 : frise des phases de réponse NIST. #}
 {% if phases is defined %}
@@ -25,10 +31,12 @@
   {% endfor %}
 </ol>
 {% endif %}
+{# Bandeaux : bleu, puis orange quand moins d'un quart du délai reste, puis rouge une fois
+   dépassée ; lien vers la section « Notifications réglementaires » où se saisit la date. #}
 {% for d in banners %}
   <div class="alert {{ d.status == 'overdue' ? 'alert-danger' : (d.status == 'due_soon' ? 'alert-warning' : 'alert-info') }} d-flex align-items-start gap-2 py-2 px-3 mb-2" role="status">
     <i class="ti {{ d.status == 'overdue' ? 'ti-alarm-off' : 'ti-alarm' }} fs-3"></i>
-    <div>
+    <div class="flex-grow-1">
       <div class="fw-bold">{{ d.label }}</div>
       <div class="small">
         {% if d.status == 'overdue' %}
@@ -38,5 +46,8 @@
         {% endif %}
       </div>
     </div>
+    <a href="#grcmanager-regulatory-heading" class="alert-link small text-nowrap grcmanager-banner-link">
+      <i class="ti ti-arrow-down me-1"></i>{{ __('Regulatory notifications', 'grcmanager') }}
+    </a>
   </div>
 {% endfor %}

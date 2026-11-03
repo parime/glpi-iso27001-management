@@ -6933,6 +6933,29 @@ msgstr "Interfaccia verso Internet: %s. Senza l'esportazione degli oggetti, ogni
 msgid "Rules imported as internal flows because one of their objects could not be located (inside or on the Internet), to check and correct the type if needed: lines %s."
 msgstr "Regole importate come flussi interni perché non è stato possibile collocare uno dei loro oggetti (interno o su Internet), da verificare correggendo il tipo se necessario: righe %s."
 
+msgid "Qualification"
+msgstr "Qualificazione"
+
+msgid "Post-incident review"
+msgstr "Lezioni apprese"
+
+msgid "Create a linked ticket"
+msgstr "Crea un ticket collegato"
+
+msgid "Creates a ticket in the entity of this incident, linked to it. The ticket only takes the reference and title of the incident, never its description: tickets are read more widely than security incidents."
+msgstr "Crea un ticket nell'entità di questo incidente, collegato ad esso. Il ticket riprende solo il riferimento e il titolo dell'incidente, mai la sua descrizione: i ticket sono letti molto più ampiamente degli incidenti di sicurezza."
+
+#, php-format
+msgid "Ticket opened from security incident %s."
+msgstr "Ticket aperto dall'incidente di sicurezza %s."
+
+msgid "The ticket could not be created."
+msgstr "Impossibile creare il ticket."
+
+#, php-format
+msgid "Linked ticket #%d created."
+msgstr "Ticket collegato n. %d creato."
+
 msgid "Compliance frameworks"
 msgstr "Framework di conformità"
 
