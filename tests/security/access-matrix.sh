@@ -55,7 +55,7 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/coveragerule.php front/playbook.php front/impactanalysis.php front/causalgraph.php
   front/auditlog.php
   front/impactanalysis.php?export=continuity front/maturity.php front/crisisexercise.php front/complianceaudit.php
-  front/dashboard.php front/networkflow.report.php front/breachexposure.php"
+  front/dashboard.php front/networkflow.report.php front/breachexposure.php front/networkflow.matrix.php"
 # Creations : refusees sans droit comme en lecture seule (etat en base compare par la CI).
 create_attempts() { # code attendu, code attendu pour la classification (404 sans droit sur l'actif)
   local incident; incident=$(id incident_A)
@@ -163,7 +163,7 @@ fi
 # flux reseau et analyse d'impact lui sont refuses, et aucun titre de risque n'apparait ailleurs.
 if [ "$ROLE" = general ]; then
   for p in front/risk.php front/supplierrisk.php front/riskheatmap.php front/risk.report.php \
-           front/networkflow.php front/networkflow.report.php front/parkvulnerability.php \
+           front/networkflow.php front/networkflow.report.php front/networkflow.matrix.php front/parkvulnerability.php \
            front/impactanalysis.php front/causalgraph.php front/breachexposure.php; do
     expect "$p : sans le droit des registres sensibles" 403 "$(code "$BASE/plugins/grcmanager/$p")"
   done

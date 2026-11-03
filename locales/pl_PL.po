@@ -6117,7 +6117,7 @@ msgid ""
 "E.g. 80: passed from 80% of the maximum score. With a maximum score and a "
 "threshold, each participant's result is computed from their score."
 msgstr ""
-"Np. 80: zaliczone od 80% maksymalnego wyniku. Przy maksymalnym wyniku i progu"
+"Np. 80: zaliczone od 80 % dostępnego maksymalnego wyniku. Przy maksymalnym wyniku i progu"
 " wynik każdego uczestnika jest obliczany z jego punktów."
 
 #, php-format
@@ -8274,3 +8274,34 @@ msgstr "Liczba zmian"
 
 msgid "Access rights changed"
 msgstr "Zmieniono prawa dostępu"
+
+msgid "Zone matrix"
+msgstr "Macierz stref"
+
+msgid "Zone × zone"
+msgstr "Strefa × strefa"
+
+msgid "Site × site (zone name prefix)"
+msgstr "Lokalizacja × lokalizacja (początek nazwy strefy)"
+
+msgid "Each cell counts the active flows from a source zone (row) to a destination zone (column). Its colour is the most serious check of its flows: red for a blocking gap, yellow for a gap to fix. Click a cell to list its flows. Grouped by site, zones are gathered by the start of their name, before the first \"_\", \"-\" or space."
+msgstr "Każda komórka liczy aktywne przepływy ze strefy źródłowej (wiersz) do strefy docelowej (kolumna). Jej kolor odpowiada najpoważniejszej kontroli jej przepływów: czerwony dla odchylenia blokującego, żółty dla odchylenia do poprawy. Kliknij komórkę, aby zobaczyć jej przepływy. Po pogrupowaniu według lokalizacji strefy są łączone według początku nazwy, przed pierwszym „_”, „-” lub spacją."
+
+msgid "Grouping"
+msgstr "Grupowanie"
+
+msgid "Show"
+msgstr "Pokaż"
+
+msgid "No active flow yet."
+msgstr "Brak aktywnych przepływów."
+
+#, php-format
+msgid "More than %d zones: only the busiest are shown. Group by site for an overview."
+msgstr "Ponad %d stref: wyświetlane są tylko najbardziej obciążone. Pogrupuj według lokalizacji, aby uzyskać przegląd."
+
+msgid "No active flow in this cell."
+msgstr "Brak aktywnych przepływów w tej komórce."
+
+msgid "Service"
+msgstr "Usługa"
