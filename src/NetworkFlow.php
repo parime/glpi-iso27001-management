@@ -26,6 +26,7 @@ use GlpiPlugin\Grcmanager\Services\Network\NetworkFlowCsv;
 use GlpiPlugin\Grcmanager\Services\Network\NetworkFlowMatrix;
 use GlpiPlugin\Grcmanager\Services\Network\NetworkFlowPfsense;
 use GlpiPlugin\Grcmanager\Services\Network\NetworkFlowRules;
+use GlpiPlugin\Grcmanager\Services\Network\NetworkFlowStormshield;
 use Html;
 use IPNetwork;
 use Log;
@@ -679,14 +680,21 @@ class NetworkFlow extends NetworkFlowBase
      *
      * @return array{created: int, skipped: int, errors: list<array{line: int, message: string}>,
      *     rows: list<array<string, mixed>>, pfsense: ?array{interfaces: array<string, string>,
-     *     outside: string, secrets: bool, merged: int}}
+     *     outside: string, secrets: bool, merged: int}, stormshield: ?array{merged: int}}
      */
     public static function importCsv(string $content, bool $simulate, string $outside = ''): array
     {
-        // Issue #144, phase 2 : une sauvegarde pfSense (config.xml) est reconnue à son contenu.
+        // Issue #144, phase 2 : une sauvegarde pfSense (config.xml) est reconnue à son contenu ;
+        // phase 3 : un export de politique Stormshield à son en-tête « #type_slot ».
         $isXml = str_starts_with(ltrim(preg_replace('/^\xEF\xBB\xBF/', '', $content) ?? $content), '<');
-        $parsed = $isXml ? NetworkFlowPfsense::parse($content, $outside) : NetworkFlowCsv::parse($content);
-        $result = ['created' => 0, 'skipped' => 0, 'errors' => [], 'rows' => [], 'pfsense' => null];
+        $isStormshield = !$isXml && NetworkFlowStormshield::isStormshieldExport($content);
+        $parsed = match (true) {
+            $isXml         => NetworkFlowPfsense::parse($content, $outside),
+            $isStormshield => NetworkFlowStormshield::parse($content),
+            default        => NetworkFlowCsv::parse($content),
+        };
+        $result = ['created' => 0, 'skipped' => 0, 'errors' => [], 'rows' => [], 'pfsense' => null,
+            'stormshield' => $isStormshield ? ['merged' => (int) ($parsed['merged'] ?? 0)] : null];
         if (isset($parsed['interfaces']) && $parsed['interfaces'] !== []) {
             $result['pfsense'] = [
                 'interfaces' => $parsed['interfaces'],
@@ -745,6 +753,17 @@ class NetworkFlow extends NetworkFlowBase
 
     private static function csvErrorLabel(string $code): string
     {
+        if (str_starts_with($code, 'unknown_service:')) {
+            return sprintf(
+                __(
+                    'Service object not known from this export (%s): rule skipped, add the flow with its ports '
+                        . 'by hand.',
+                    'grcmanager'
+                ),
+                substr($code, strlen('unknown_service:'))
+            );
+        }
+
         return match ($code) {
             'missing_columns'  => __('Header without "source" and "destination" columns.', 'grcmanager'),
             'empty'            => __('Empty file.', 'grcmanager'),

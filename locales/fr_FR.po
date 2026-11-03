@@ -6892,3 +6892,10 @@ msgstr "Aucun flux actif dans cette case."
 
 msgid "Service"
 msgstr "Service"
+
+msgid "Stormshield firewall: import the CSV export of the filtering policy (Security policy > Filter - NAT > Export). Enabled \"pass\" rules are imported; NAT rules, section separators and disabled rules are ignored, and a published service takes its internal target as destination. The export only names objects: common services (http, https, ssh, ntp, smtp…) become ports, a rule using a service of your own is reported so you can add it by hand."
+msgstr "Pare-feu Stormshield : importez l'export CSV de la politique de filtrage (Politique de sécurité > Filtrage - NAT > Exporter). Les règles actives « passer » sont importées ; les règles de NAT, les séparateurs de section et les règles désactivées sont ignorés, et un service publié prend sa cible interne comme destination. L'export ne donne que le nom des objets : les services courants (http, https, ssh, ntp, smtp…) deviennent des ports, une règle utilisant un service propre à votre configuration est signalée pour que vous l'ajoutiez à la main."
+
+#, php-format
+msgid "Service object not known from this export (%s): rule skipped, add the flow with its ports by hand."
+msgstr "Objet de service inconnu dans cet export (%s) : règle ignorée, ajoutez le flux avec ses ports à la main."

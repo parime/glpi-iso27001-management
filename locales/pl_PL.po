@@ -8305,3 +8305,10 @@ msgstr "Brak aktywnych przepływów w tej komórce."
 
 msgid "Service"
 msgstr "Usługa"
+
+msgid "Stormshield firewall: import the CSV export of the filtering policy (Security policy > Filter - NAT > Export). Enabled \"pass\" rules are imported; NAT rules, section separators and disabled rules are ignored, and a published service takes its internal target as destination. The export only names objects: common services (http, https, ssh, ntp, smtp…) become ports, a rule using a service of your own is reported so you can add it by hand."
+msgstr "Zapora Stormshield: zaimportuj eksport CSV polityki filtrowania (Polityka bezpieczeństwa > Filtrowanie - NAT > Eksportuj). Importowane są aktywne reguły „przepuść”; reguły NAT, separatory sekcji i wyłączone reguły są pomijane, a opublikowana usługa otrzymuje swój cel wewnętrzny jako miejsce docelowe. Eksport zawiera tylko nazwy obiektów: typowe usługi (http, https, ssh, ntp, smtp…) stają się portami, a reguła z własną usługą jest zgłaszana, aby dodać ją ręcznie."
+
+#, php-format
+msgid "Service object not known from this export (%s): rule skipped, add the flow with its ports by hand."
+msgstr "Obiekt usługi nieznany w tym eksporcie (%s): reguła pominięta, dodaj przepływ z jego portami ręcznie."

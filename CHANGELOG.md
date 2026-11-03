@@ -9,6 +9,15 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Import Stormshield dans la matrice des flux** (issue #144, phase 3) : l'export CSV de la
+  politique de filtrage (Politique de sécurité > Filtrage - NAT > Exporter) est reconnu
+  automatiquement dans la page d'import. Seules les règles de filtrage actives « passer » sont
+  reprises (séparateurs, NAT et règles désactivées ignorés) ; une publication prend sa cible
+  interne comme destination ; un passage par un tunnel IPsec donne un flux entre sites ; les
+  services courants (http, https, ssh, ntp, smtp…) deviennent des ports ; une règle utilisant un
+  service propre à la configuration est signalée au lieu d'être importée avec de faux ports ;
+  règles identiques fusionnées ; commentaires automatiques (« Created on… ») non repris comme nom.
+
 - **Vue matrice zone × zone de la matrice des flux** (issue #144, phase 3) : lignes = zones
   sources, colonnes = zones destinations, chaque case compte les flux actifs et prend la couleur
   du pire écart de ses flux ; un clic liste les flux de la case. Regroupement par site (début du
