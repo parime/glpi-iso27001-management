@@ -18,6 +18,8 @@
 use GlpiPlugin\Grcmanager\Install\Installer;
 use GlpiPlugin\Grcmanager\Services\Breach\BreachMonitorConfig;
 use GlpiPlugin\Grcmanager\Services\Breach\HibpClient;
+use GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig;
+use GlpiPlugin\Grcmanager\Services\Control\FrameworkSelection;
 use GlpiPlugin\Grcmanager\Services\Cve\NvdConfig;
 use GlpiPlugin\Grcmanager\Services\GithubVersionChecker;
 use GlpiPlugin\Grcmanager\IncidentSecurityGroup;
@@ -130,6 +132,24 @@ if (isset($_POST['update_breach_config']) || isset($_POST['test_breach_config'])
     Html::back();
 }
 
+// Issue #403 : référentiels de conformité actifs. Rien n'est supprimé : un référentiel désactivé
+// est seulement masqué et ignoré des calculs, ses données reviennent à la réactivation.
+if (isset($_POST['update_frameworks'])) {
+    Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
+
+    $before = FrameworkConfig::enabled();
+    FrameworkConfig::save((array) ($_POST['frameworks'] ?? []));
+    $after = FrameworkConfig::enabled();
+    if ($before !== $after) {
+        \GlpiPlugin\Grcmanager\AuditLog::record('config_change', 'Config', 0, 0, 'success', ['changes' => [
+            'frameworks_enabled'  => array_values(array_diff($after, $before)),
+            'frameworks_disabled' => array_values(array_diff($before, $after)),
+        ]]);
+    }
+
+    Html::back();
+}
+
 if (isset($_POST['update_audit_config'])) {
     Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
 
@@ -192,6 +212,10 @@ Html::header(
     'breach_enabled'            => BreachMonitorConfig::isEnabled(),
     'breach_has_key'            => BreachMonitorConfig::hasApiKey(),
     'breach_domains'            => implode(', ', BreachMonitorConfig::domains()),
+    'frameworks'                => FrameworkSelection::FRAMEWORKS,
+    'frameworks_help'           => FrameworkConfig::helpTexts(),
+    'frameworks_enabled'        => FrameworkConfig::enabled(),
+    'can_edit_config'           => Session::haveRight(Installer::RIGHT_NAME, UPDATE),
 ]);
 
 Html::footer();

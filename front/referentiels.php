@@ -18,7 +18,10 @@
 use GlpiPlugin\Grcmanager\Services\Control\AnssiHygieneCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\CisControlsCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\ControlCatalogDefaults;
+use Glpi\Exception\Http\AccessDeniedHttpException;
 use GlpiPlugin\Grcmanager\Services\Control\ControlCrosswalkDefaults;
+use GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig;
+use GlpiPlugin\Grcmanager\Services\Control\FrameworkSelection;
 use GlpiPlugin\Grcmanager\Services\Control\Iso27090CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\Nis2CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\NistCsfCatalogDefaults;
@@ -30,6 +33,14 @@ include('../../../inc/includes.php');
 // meaningful access boundary of its own: same reasoning as \GlpiPlugin\Grcmanager\SecurityIncidentCve
 // reusing PluginGrcmanagerSecurityIncident's right.
 Session::checkRight(\GlpiPlugin\Grcmanager\Control::$rightname, READ);
+
+// Issue #403 : seuls les référentiels actifs sont construits et affichés. Sans aucun, la page est
+// retirée du menu (Referentials::getMenuContent()) et refusée par son adresse.
+$enabled = FrameworkConfig::enabled();
+if ($enabled === []) {
+    throw new AccessDeniedHttpException();
+}
+$isEnabled = static fn (string $framework): bool => in_array($framework, $enabled, true);
 
 Html::header(
     __('Reference frameworks', 'grcmanager'),
@@ -162,14 +173,16 @@ foreach (Iso27090CatalogDefaults::CHAPTERS as $chapter => $chapterTitle) {
 }
 
 \Glpi\Application\View\TemplateRenderer::getInstance()->display('@grcmanager/referentiels.html.twig', [
-    'iso27090'        => $iso27090,
+    // Issue #403 : un référentiel désactivé arrive vide, sa carte n'est pas affichée.
+    'iso27090'        => $isEnabled(FrameworkSelection::ISO27090) ? $iso27090 : [],
     'iso27090_source' => Iso27090CatalogDefaults::SOURCE_URL,
-    'annex_a'      => $annexA,
-    'nist_csf'     => $nistCsf,
-    'cis_controls' => $cisControls,
-    'nis2'         => $nis2,
+    'annex_a'      => $isEnabled(FrameworkSelection::ISO27001) ? $annexA : [],
+    'show_nist_crosswalk' => $isEnabled(FrameworkSelection::NIST_CSF),
+    'nist_csf'     => $isEnabled(FrameworkSelection::NIST_CSF) ? $nistCsf : [],
+    'cis_controls' => $isEnabled(FrameworkSelection::CIS_CONTROLS) ? $cisControls : [],
+    'nis2'         => $isEnabled(FrameworkSelection::NIS2) ? $nis2 : [],
     'nis2_source'  => Nis2CatalogDefaults::SOURCE_URL,
-    'anssi'        => $anssi,
+    'anssi'        => $isEnabled(FrameworkSelection::ANSSI) ? $anssi : [],
     'anssi_source' => AnssiHygieneCatalogDefaults::SOURCE_URL,
     'anssi_lang'   => $nis2Lang,
 ]);

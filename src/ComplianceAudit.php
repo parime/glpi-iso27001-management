@@ -26,6 +26,8 @@ use Computer;
 use Config;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Services\Compliance\ComplianceAuditScore;
+use GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig;
+use GlpiPlugin\Grcmanager\Services\Control\FrameworkSelection;
 use Html;
 use Item_Disk;
 use Item_Ticket;
@@ -170,11 +172,36 @@ class ComplianceAudit extends CommonGLPI
      */
     public static function getFrameworkLabels(): array
     {
-        return [
-            ComplianceAuditScore::ISO27001 => 'ISO/IEC 27001',
-            ComplianceAuditScore::NIS2     => 'NIS2',
-            ComplianceAuditScore::GDPR     => __('GDPR', 'grcmanager'),
-        ];
+        // Issue #403 : ISO 27001 et NIS2 seulement s'ils sont actifs (le RGPD n'est pas un
+        // référentiel activable : obligation légale).
+        $labels = [];
+        if (FrameworkConfig::isEnabled(FrameworkSelection::ISO27001)) {
+            $labels[ComplianceAuditScore::ISO27001] = 'ISO/IEC 27001';
+        }
+        if (FrameworkConfig::isEnabled(FrameworkSelection::NIS2)) {
+            $labels[ComplianceAuditScore::NIS2] = 'NIS2';
+        }
+        $labels[ComplianceAuditScore::GDPR] = __('GDPR', 'grcmanager');
+
+        return $labels;
+    }
+
+    /**
+     * Références d'un contrôle dans les référentiels actifs (« ISO/IEC 27001 A.8.7 »...).
+     *
+     * @return list<string>
+     */
+    public static function getCheckReferences(string $check): array
+    {
+        $labels = self::getFrameworkLabels();
+        $references = [];
+        foreach (ComplianceAuditScore::CHECKS[$check] ?? [] as $framework => $reference) {
+            if (isset($labels[$framework])) {
+                $references[] = $labels[$framework] . ' ' . $reference;
+            }
+        }
+
+        return $references;
     }
 
     /**
@@ -563,10 +590,7 @@ class ComplianceAudit extends CommonGLPI
             return 0;
         }
         $label = self::getCheckLabels($approvals)[$check]['label'];
-        $references = [];
-        foreach (ComplianceAuditScore::CHECKS[$check] as $framework => $reference) {
-            $references[] = self::getFrameworkLabels()[$framework] . ' ' . $reference;
-        }
+        $references = self::getCheckReferences($check);
         $gaps = array_slice($result['gaps'], 0, self::TICKET_ITEMS_MAX);
         $ticketId = (int) (new Ticket())->add([
             'name'        => sprintf(

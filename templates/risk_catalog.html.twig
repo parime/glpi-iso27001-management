@@ -15,7 +15,7 @@
             <i class="ti ti-info-circle me-1"></i>{{ __('These risks recur from one infrastructure to another and can be spotted on a simple network diagram. Read the questions for each one and tick those that apply to you: they are added to the register with the "Identified" status and their Annex A controls, to be assessed like the others. Nothing is rated for you.', 'grcmanager') }}
          </div>
       {% endif %}
-      {% if group == 'ai' %}
+      {% if group == 'ai' and iso27090_enabled %}
          <p class="text-muted small">{{ __('Typical risks for an organization that uses AI more than it develops it. The badges refer to the sections of ISO/IEC 27090:2026.', 'grcmanager') }}
             <a href="{{ path('/plugins/grcmanager/front/referentiels.php') }}#grcmanager-iso27090-body">{{ __('See the ISO/IEC 27090 framework', 'grcmanager') }}</a></p>
       {% endif %}

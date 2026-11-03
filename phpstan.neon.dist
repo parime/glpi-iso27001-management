@@ -40,6 +40,9 @@ parameters:
         - src/Services/Risk/RiskMatrixConfig.php
         # Issue #109 : lit la table d'assetsign via le global $DB, Plugin et Session, même raison.
         - src/Services/Control/AssetsignEvidenceProvider.php
+        # Issue #403 : lit et écrit la configuration de GLPI (Config), même raison.
+        # FrameworkSelection.php, dans le même dossier, reste dans le périmètre : PHP pur.
+        - src/Services/Control/FrameworkConfig.php
         # Issue #112 : rend le rapport via TemplateRenderer et le $DB global, même raison.
         - src/Services/Control/SoaReportBuilder.php
         - src/Services/Risk/ReviewReminderService.php

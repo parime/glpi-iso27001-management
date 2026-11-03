@@ -54,10 +54,7 @@ $labels = \GlpiPlugin\Grcmanager\ComplianceAudit::getCheckLabels($approvals);
 $frameworks = \GlpiPlugin\Grcmanager\ComplianceAudit::getFrameworkLabels();
 $checks = [];
 foreach ($results as $key => $result) {
-    $references = [];
-    foreach (ComplianceAuditScore::CHECKS[$key] as $framework => $reference) {
-        $references[] = $frameworks[$framework] . ' ' . $reference;
-    }
+    $references = \GlpiPlugin\Grcmanager\ComplianceAudit::getCheckReferences($key);
     $ticket = $key === 'accounts' ? null : \GlpiPlugin\Grcmanager\ComplianceAudit::openTicket($key);
     $checks[] = $labels[$key] + [
         'key'        => $key,
@@ -80,7 +77,7 @@ foreach (
             'evaluated' => $result['evaluated'],
         ],
         $results
-    )) as $framework => $score
+    ), array_keys($frameworks)) as $framework => $score
 ) {
     $scores[] = $score + ['label' => $frameworks[$framework]];
 }

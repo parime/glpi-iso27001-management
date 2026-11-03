@@ -18,6 +18,8 @@
 namespace GlpiPlugin\Grcmanager;
 
 use CommonGLPI;
+use GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig;
+use GlpiPlugin\Grcmanager\Services\Control\FrameworkSelection;
 use GlpiPlugin\Grcmanager\Services\Risk\InfrastructureRiskCatalog;
 use Session;
 
@@ -440,7 +442,10 @@ class RiskCatalog extends CommonGLPI
             $description = $entry['description'] . "\n\n" . __('Threats:', 'grcmanager') . ' ' . $entry['threats']
                 . "\n\n" . __('Questions to tell whether it applies:', 'grcmanager') . "\n- "
                 . implode("\n- ", $entry['questions']);
-            $sections = InfrastructureRiskCatalog::iso27090($key);
+            // Issue #403 : sections ISO/IEC 27090 citées seulement si ce référentiel est actif.
+            $sections = FrameworkConfig::isEnabled(FrameworkSelection::ISO27090)
+                ? InfrastructureRiskCatalog::iso27090($key)
+                : [];
             if ($sections !== []) {
                 $description .= "\n\n"
                     . sprintf(__('ISO/IEC 27090 sections: %s', 'grcmanager'), implode(', ', $sections));

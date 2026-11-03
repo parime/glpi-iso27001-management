@@ -6924,3 +6924,30 @@ msgstr "Entferntes Netz eines IPsec-Tunnels, das sich mit einem Netz der Firewal
 #, php-format
 msgid "%1$s: %2$s overlaps %3$s"
 msgstr "%1$s: %2$s überschneidet sich mit %3$s"
+
+msgid "Compliance frameworks"
+msgstr "Compliance-Referenzrahmen"
+
+msgid "Untick a framework your organisation does not follow: it is no longer shown or counted in the scores. Nothing is deleted, and its data comes back when it is enabled again."
+msgstr "Deaktivieren Sie einen Referenzrahmen, den Ihre Organisation nicht anwendet: Er wird nicht mehr angezeigt und nicht mehr in die Bewertungen eingerechnet. Nichts wird gelöscht, und seine Daten sind nach der erneuten Aktivierung wieder da."
+
+msgid "Annex A table, ISMS requirements (clauses 4 to 10) and ISO 27001 scores. The list of security controls stays: the other frameworks rely on it."
+msgstr "Tabelle des Anhangs A, ISMS-Anforderungen (Abschnitte 4 bis 10) und ISO-27001-Bewertungen. Die Liste der Sicherheitsmaßnahmen bleibt: Die anderen Referenzrahmen stützen sich darauf."
+
+msgid "NIS2 requirements, their references on the controls and NIS2 scores. The notification deadlines of security incidents stay: they are a legal obligation."
+msgstr "NIS2-Anforderungen, ihre Verweise bei den Maßnahmen und NIS2-Bewertungen. Die Meldefristen für Sicherheitsvorfälle bleiben: Sie sind eine gesetzliche Pflicht."
+
+msgid "Measures of the IT hygiene guide, their references on the controls and ANSSI score."
+msgstr "Maßnahmen des IT-Hygiene-Leitfadens, ihre Verweise bei den Maßnahmen und ANSSI-Bewertung."
+
+msgid "CSF 2.0 catalog, its equivalences on the controls and NIST score."
+msgstr "CSF-2.0-Katalog, seine Entsprechungen bei den Maßnahmen und NIST-Bewertung."
+
+msgid "CIS Controls v8 catalog."
+msgstr "Katalog der CIS Controls v8."
+
+msgid "AI security catalog and its references in the catalog of typical risks."
+msgstr "Katalog zur KI-Sicherheit und seine Verweise im Katalog typischer Risiken."
+
+msgid "AI systems"
+msgstr "KI-Systeme"

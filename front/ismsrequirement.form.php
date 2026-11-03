@@ -19,6 +19,12 @@ include('../../../inc/includes.php');
 
 $item = new \GlpiPlugin\Grcmanager\IsmsRequirement();
 
+// Issue #403 : écran propre à ISO 27001, refusé (lecture et modification) quand ce référentiel
+// est désactivé.
+\GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig::checkEnabled(
+    \GlpiPlugin\Grcmanager\Services\Control\FrameworkSelection::ISO27001
+);
+
 // Catalogue fixe (30 sous-articles seedés à l'installation) : seule la mise à jour est possible,
 // pas d'ajout ni de suppression (voir \GlpiPlugin\Grcmanager\IsmsRequirement::canCreate()/canDelete()).
 if (isset($_POST['update'])) {

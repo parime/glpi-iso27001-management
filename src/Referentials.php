@@ -18,6 +18,7 @@
 namespace GlpiPlugin\Grcmanager;
 
 use CommonGLPI;
+use GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig;
 use Session;
 
 /**
@@ -40,7 +41,8 @@ class Referentials extends CommonGLPI
 
     public static function getMenuContent()
     {
-        if (!Session::haveRight(Control::$rightname, READ)) {
+        // Issue #403 : sans aucun référentiel actif, la page n'a plus rien à montrer.
+        if (!Session::haveRight(Control::$rightname, READ) || FrameworkConfig::enabled() === []) {
             return false;
         }
 
