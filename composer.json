@@ -21,7 +21,7 @@
     "require-dev": {
         "glpi-project/tools": "^0.8.4",
         "phpstan/phpstan": "^2.0",
-        "phpunit/phpunit": "^10.5",
+        "phpunit/phpunit": "^13.4",
         "squizlabs/php_codesniffer": "^4.0"
     },
     "autoload": {
