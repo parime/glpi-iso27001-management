@@ -6925,6 +6925,14 @@ msgstr "Remote network of an IPsec tunnel overlapping a network of the firewall:
 msgid "%1$s: %2$s overlaps %3$s"
 msgstr "%1$s: %2$s overlaps %3$s"
 
+#, php-format
+msgid "Internet-facing interface: %s. Without the export of the objects, each side of a rule is located from the built-in objects (Internet, Network_internals, Network_ or Firewall_ followed by an interface), the interface of the rule, a country or reputation filter (public addresses only) and an IPv4 address written in the object name. Change the interface above and analyse the file again if needed."
+msgstr "Internet-facing interface: %s. Without the export of the objects, each side of a rule is located from the built-in objects (Internet, Network_internals, Network_ or Firewall_ followed by an interface), the interface of the rule, a country or reputation filter (public addresses only) and an IPv4 address written in the object name. Change the interface above and analyse the file again if needed."
+
+#, php-format
+msgid "Rules imported as internal flows because one of their objects could not be located (inside or on the Internet), to check and correct the type if needed: lines %s."
+msgstr "Rules imported as internal flows because one of their objects could not be located (inside or on the Internet), to check and correct the type if needed: lines %s."
+
 msgid "Compliance frameworks"
 msgstr "Compliance frameworks"
 
