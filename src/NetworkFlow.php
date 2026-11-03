@@ -685,7 +685,8 @@ class NetworkFlow extends NetworkFlowBase
      *
      * @return array{created: int, skipped: int, errors: list<array{line: int, message: string}>,
      *     rows: list<array<string, mixed>>, pfsense: ?array{interfaces: array<string, string>,
-     *     outside: string, secrets: bool, merged: int}, stormshield: ?array{merged: int}}
+     *     outside: string, secrets: bool, merged: int, nat: int, tunnels: int,
+     *     overlaps: list<array{tunnel: string, remote: string, interface: string}>}, stormshield: ?array{merged: int}}
      */
     public static function importCsv(string $content, bool $simulate, string $outside = ''): array
     {
@@ -706,6 +707,9 @@ class NetworkFlow extends NetworkFlowBase
                 'outside'    => $parsed['outside'],
                 'secrets'    => $parsed['secrets'],
                 'merged'     => $parsed['merged'],
+                'nat'        => $parsed['nat'],
+                'tunnels'    => $parsed['tunnels'],
+                'overlaps'   => $parsed['overlaps'],
             ];
         }
         foreach ($parsed['errors'] as $error) {

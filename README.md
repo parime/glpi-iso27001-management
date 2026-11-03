@@ -105,9 +105,10 @@ archivé), avec ses champs de classification ISO 27001 fusionnés dessus.
   à la clôture.
 - **Matrice des flux** : import de l'export CSV de la politique d'un pare-feu Stormshield (services
   courants traduits en ports, publications vers leur cible interne) et d'une sauvegarde pfSense
-  (zones nommées d'après les interfaces,
-  interface côté Internet au choix, règles identiques fusionnées ; seuls les interfaces, alias et
-  règles sont lus, le fichier n'est jamais conservé et une sauvegarde contenant des secrets est
+  (zones nommées d'après les interfaces, interface côté Internet au choix, règles identiques
+  fusionnées, redirections NAT reliées à leur règle, tunnels IPsec en flux inter-sites avec les
+  réseaux distants qui chevauchent un réseau du pare-feu signalés ; seuls les interfaces, alias,
+  règles, redirections et réseaux des tunnels sont lus, le fichier n'est jamais conservé et une sauvegarde contenant des secrets est
   signalée), vue matrice zone × zone et site × site (chaque case colorée selon le pire écart de ses
   flux), réseaux partenaires en conflit avec un réseau interne, rapport PDF pour l'auditeur.
 - **Score de maturité** cyber (0 à 100) avec le détail du calcul et son historique mensuel.

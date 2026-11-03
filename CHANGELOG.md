@@ -7,6 +7,23 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Added
+
+- **Import pfSense : redirections NAT et tunnels IPsec** (issue #144, étape 4) :
+  - une règle de filtrage créée par une redirection de ports sur l'interface côté Internet est une
+    publication sur Internet, même quand sa source est restreinte à quelques adresses ;
+  - une redirection « Pass » (sans règle de filtrage) donne son propre flux, vers sa cible et son
+    port interne ; les redirections désactivées sont ignorées ;
+  - chaque phase 2 IPsec active (mode tunnel, phase 1 active) donne un flux inter-sites du réseau
+    local vers le réseau distant, à passer en « tunnel vers un partenaire » si besoin : le contrôle
+    de chevauchement avec les réseaux internes s'applique alors ;
+  - un réseau distant qui chevauche un réseau du pare-feu est signalé dès l'import ;
+  - les règles de l'interface IPsec (enc0) sont des flux inter-sites, plus des accès à Internet.
+
+  Sécurité : de la section IPsec, seuls les réseaux, le mode et la description des phases 2 sont
+  lus, et seuls l'identifiant et l'état des phases 1 (jamais la clé ni les certificats). Un test
+  vérifie qu'aucune clé n'apparaît dans les flux importés.
+
 ## [2.20.0] - 2026-11-03
 
 ### Added

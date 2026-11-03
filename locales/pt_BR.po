@@ -5093,8 +5093,6 @@ msgstr "Nenhuma regra de filtragem no backup do pfSense."
 msgid "Choose a CSV file or a pfSense backup (XML) of 2 MB at most."
 msgstr "Escolha um arquivo CSV ou um backup do pfSense (XML) de no máximo 2 MB."
 
-msgid "pfSense firewall: import its configuration backup directly (Diagnostics > Backup & Restore, config.xml file). Enabled rules that allow a flow are imported with their aliases resolved; block rules and disabled rules are ignored. In that case, the line number shown is the rule number. Justification and owner remain to be filled in the matrix."
-msgstr "Firewall pfSense: importe diretamente o backup da configuração (Diagnostics > Backup & Restore, arquivo config.xml). As regras ativas que permitem um fluxo são importadas com seus aliases resolvidos; regras de bloqueio e regras desativadas são ignoradas. Nesse caso, o número de linha exibido é o número da regra. Justificativa e proprietário ainda devem ser preenchidos na matriz."
 
 msgid "Partner network conflicting with an internal network"
 msgstr "Rede de parceiro em conflito com uma rede interna"
@@ -5683,8 +5681,6 @@ msgstr "Não foi possível contatar o Have I Been Pwned (código %d)."
 msgid "Internet-facing interface"
 msgstr "Interface voltada para a Internet"
 
-msgid "This backup contains secrets of the firewall (keys, passwords, certificates). Only interfaces, aliases and filter rules were read, and the file was not kept. Next time, export only the needed areas (Diagnostics > Backup & Restore > Backup area: Aliases, Firewall Rules, Interfaces) and do not store or send the full backup."
-msgstr "Este backup contém segredos do firewall (chaves, senhas, certificados). Somente as interfaces, os aliases e as regras de filtro foram lidos, e o arquivo não foi guardado. Da próxima vez, exporte apenas as áreas necessárias (Diagnostics > Backup & Restore > Backup area: Aliases, Firewall Rules, Interfaces) e não guarde nem envie o backup completo."
 
 #, php-format
 msgid "Internet-facing interface: %s. Rules on this interface from anywhere are publications; elsewhere, rules towards anywhere or towards everything except private networks are Internet access. Change it above and analyse the file again if needed."
@@ -6911,3 +6907,20 @@ msgstr "Objeto de serviço desconhecido nesta exportação (%s): regra ignorada,
 
 msgid "All ports open towards the Internet"
 msgstr "Todas as portas abertas para a Internet"
+
+msgid "pfSense firewall: import its configuration backup directly (Diagnostics > Backup & Restore, config.xml file). Enabled rules that allow a flow are imported with their aliases resolved; block rules and disabled rules are ignored. Port forwards (NAT) make their rule a publication on the Internet, and each enabled IPsec phase 2 becomes a site-to-site tunnel flow (local network to remote network). In that case, the line number shown is the rule number, port forwards without a filter rule and IPsec tunnels being numbered after the filter rules. Justification and owner remain to be filled in the matrix."
+msgstr "Firewall pfSense: importe diretamente o backup da sua configuração (Diagnostics > Backup & Restore, arquivo config.xml). As regras ativas que permitem um fluxo são importadas com seus aliases resolvidos; regras de bloqueio e regras desativadas são ignoradas. Os redirecionamentos de portas (NAT) tornam sua regra uma publicação na Internet, e cada fase 2 IPsec ativa vira um fluxo de túnel entre sites (rede local para rede remota). Nesse caso, o número de linha exibido é o da regra; redirecionamentos sem regra de filtragem e túneis IPsec são numerados após as regras de filtragem. Justificativa e responsável ficam a preencher na matriz."
+
+msgid "This backup contains secrets of the firewall (keys, passwords, certificates). Only interfaces, aliases, filter rules, port forwards and the networks of IPsec tunnels were read, and the file was not kept. Next time, export only the needed areas (Diagnostics > Backup & Restore > Backup area: Aliases, Firewall Rules, NAT, Interfaces, IPsec) and do not store or send the full backup."
+msgstr "Este backup contém segredos do firewall (chaves, senhas, certificados). Apenas interfaces, aliases, regras de filtragem, redirecionamentos de portas e as redes dos túneis IPsec foram lidos, e o arquivo não foi mantido. Da próxima vez, exporte apenas as áreas necessárias (Diagnostics > Backup & Restore > Backup area: Aliases, Firewall Rules, NAT, Interfaces, IPsec) e não armazene nem envie o backup completo."
+
+#, php-format
+msgid "Port forwards (NAT): %1$d. IPsec tunnels: %2$d, imported as site-to-site tunnels: change the type of those leading to a partner, the overlap check then applies to them."
+msgstr "Redirecionamentos de portas (NAT): %1$d. Túneis IPsec: %2$d, importados como túneis entre sites: altere o tipo dos que levam a um parceiro, a verificação de sobreposição passa a se aplicar a eles."
+
+msgid "Remote network of an IPsec tunnel overlapping a network of the firewall: both sides cannot reach each other without address translation (NAT)."
+msgstr "Rede remota de um túnel IPsec que se sobrepõe a uma rede do firewall: os dois lados não conseguem se alcançar sem tradução de endereços (NAT)."
+
+#, php-format
+msgid "%1$s: %2$s overlaps %3$s"
+msgstr "%1$s: %2$s se sobrepõe a %3$s"

@@ -150,6 +150,97 @@ XML;
         $this->assertFalse(NetworkFlowPfsense::containsSecrets('<pfsense><prv></prv><password/></pfsense>'));
     }
 
+    /**
+     * Sauvegarde fictive avec redirections NAT et tunnels IPsec : redirection liée à sa règle
+     * (source restreinte), redirection « Pass » sans règle, redirection désactivée, phase 2 vers un
+     * réseau qui chevauche une interface, phase 2 d'une phase 1 désactivée, mode transport.
+     */
+    private const NAT_IPSEC_CONFIG = <<<'XML'
+<?xml version="1.0"?>
+<pfsense>
+  <interfaces>
+    <wan><descr><![CDATA[INTERNET]]></descr><ipaddr>203.0.113.2</ipaddr><subnet>29</subnet></wan>
+    <lan><descr><![CDATA[SITE_A_SRV]]></descr><ipaddr>192.168.10.254</ipaddr><subnet>24</subnet></lan>
+  </interfaces>
+  <aliases>
+    <alias><name>SRV_MAIL</name><type>host</type><address>192.168.10.25</address></alias>
+  </aliases>
+  <nat>
+    <rule><interface>wan</interface><protocol>tcp</protocol><source><address>198.51.100.7</address></source>
+      <destination><network>wanip</network><port>25</port></destination><target>SRV_MAIL</target>
+      <local-port>25</local-port><descr>Relais du prestataire</descr>
+      <associated-rule-id>nat_0001</associated-rule-id></rule>
+    <rule><interface>wan</interface><protocol>tcp</protocol><source><any/></source>
+      <destination><network>wanip</network><port>8443</port></destination><target>192.168.10.30</target>
+      <local-port>443</local-port><associated-rule-id>pass</associated-rule-id></rule>
+    <rule><disabled/><interface>wan</interface><protocol>tcp</protocol><source><any/></source>
+      <destination><network>wanip</network><port>22</port></destination><target>192.168.10.40</target>
+      <local-port>22</local-port><associated-rule-id>pass</associated-rule-id></rule>
+  </nat>
+  <ipsec>
+    <phase1><ikeid>1</ikeid><pre-shared-key>fictitious-ipsec-psk</pre-shared-key><descr>SITE_B</descr></phase1>
+    <phase1><ikeid>2</ikeid><disabled/><descr>OLD_SITE</descr></phase1>
+    <phase2><ikeid>1</ikeid><mode>tunnel</mode><localid><type>lan</type></localid>
+      <remoteid><type>network</type><address>192.168.20.0</address><netbits>24</netbits></remoteid>
+      <descr>SITE_B_SRV</descr></phase2>
+    <phase2><ikeid>1</ikeid><mode>tunnel</mode>
+      <localid><type>network</type><address>192.168.10.0</address><netbits>24</netbits></localid>
+      <remoteid><type>network</type><address>192.168.10.0</address><netbits>25</netbits></remoteid></phase2>
+    <phase2><ikeid>2</ikeid><mode>tunnel</mode><localid><type>lan</type></localid>
+      <remoteid><type>network</type><address>10.9.0.0</address><netbits>16</netbits></remoteid></phase2>
+    <phase2><ikeid>1</ikeid><mode>transport</mode><localid><type>lan</type></localid>
+      <remoteid><type>address</type><address>192.0.2.9</address></remoteid></phase2>
+  </ipsec>
+  <filter>
+    <rule><type>pass</type><interface>wan</interface><protocol>tcp</protocol>
+      <source><address>198.51.100.7</address></source>
+      <destination><address>SRV_MAIL</address><port>25</port></destination>
+      <descr>NAT Relais du prestataire</descr><associated-rule-id>nat_0001</associated-rule-id></rule>
+    <rule><type>pass</type><interface>enc0</interface>
+      <source><network>lan</network></source><destination><any/></destination></rule>
+  </filter>
+</pfsense>
+XML;
+
+    public function testPortForwardsAndIpsecTunnelsBecomeFlows(): void
+    {
+        $result = NetworkFlowPfsense::parse(self::NAT_IPSEC_CONFIG);
+        $this->assertSame([], $result['errors']);
+        $this->assertSame(2, $result['nat'], 'Redirection désactivée ignorée.');
+        $this->assertSame(2, $result['tunnels'], 'Phase 1 désactivée et mode transport ignorés.');
+
+        $rows = array_column($result['rows'], null, 'name');
+        $relay = $rows['NAT Relais du prestataire'];
+        $this->assertSame('internet_publication', $relay['flow_type'], 'Règle créée par une redirection NAT.');
+        $this->assertSame('198.51.100.7', $relay['source_label']);
+        $this->assertSame('SRV_MAIL (192.168.10.25)', $relay['destination_label']);
+
+        $this->assertSame('site_tunnel', $rows['pfSense IPsec : SITE_A_SRV (192.168.10.0/24) → Tous']['flow_type']);
+
+        $pass = $rows['pfSense NAT INTERNET : Internet → 192.168.10.30'];
+        $this->assertSame('internet_publication', $pass['flow_type'], 'Redirection « Pass » sans règle de filtrage.');
+        $this->assertSame('443', $pass['ports'], 'Port interne de la redirection.');
+        $this->assertSame(3, $pass['line'], 'Numérotée après les règles de filtrage.');
+
+        $tunnel = $rows['SITE_B_SRV'];
+        $this->assertSame('site_tunnel', $tunnel['flow_type']);
+        $this->assertSame('SITE_A_SRV (192.168.10.0/24)', $tunnel['source_label']);
+        $this->assertSame('192.168.20.0/24', $tunnel['destination_label']);
+        $this->assertSame(['any', 'any'], [$tunnel['protocol'], $tunnel['ports']]);
+
+        $this->assertSame([[
+            'tunnel'    => 'IPsec : 192.168.10.0/24 → 192.168.10.0/25',
+            'remote'    => '192.168.10.0/25',
+            'interface' => 'SITE_A_SRV (192.168.10.0/24)',
+        ]], $result['overlaps'], 'Seul le réseau distant qui chevauche une interface est signalé.');
+
+        $this->assertCount(5, $result['rows']);
+        $dump = (string) json_encode($result);
+        $this->assertStringNotContainsString('fictitious-ipsec-psk', $dump, 'Clé IPsec jamais reprise.');
+        $this->assertStringNotContainsString('192.168.10.40', $dump, 'Redirection désactivée non importée.');
+        $this->assertStringNotContainsString('10.9.0.0', $dump, 'Tunnel d\'une phase 1 désactivée non importé.');
+    }
+
     public function testRejectsAFileThatIsNotAPfsenseBackup(): void
     {
         $this->assertSame('not_pfsense', NetworkFlowPfsense::parse('nom;source')['errors'][0]['message']);

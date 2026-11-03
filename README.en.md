@@ -97,7 +97,9 @@ classification fields merged directly onto it.
   PDF report with attendance sheet, each participant's quiz copy restricted to the participant, the
   trainer and the CISO), and **internal audits** with findings, working notes, audit team, documents
   restricted to the team (downloads logged) and a PDF report archived on closure.
-- **Network flow matrix**: pfSense backup import, partner networks conflicting with an internal
+- **Network flow matrix**: import of a Stormshield policy export and of a pfSense backup (named
+  zones, port forwards linked to their rule, IPsec tunnels as site-to-site flows), zone by zone
+  matrix view, partner networks conflicting with an internal
   network, PDF report for the auditor.
 - Cyber **maturity score** (0 to 100) with the calculation details and its monthly history.
 - **Automated technical checks**: ISO 27001, NIS2 and GDPR score from GLPI data (antivirus,

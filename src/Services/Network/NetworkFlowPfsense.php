@@ -29,9 +29,17 @@ namespace GlpiPlugin\Grcmanager\Services\Network;
  * Phase 3 : zones nommées d'après les interfaces, interface côté Internet choisie à l'import,
  * « tout sauf les réseaux privés » lu comme Internet, règles identiques fusionnées.
  *
+ * Étape 4 : une règle créée par une redirection NAT (port forward) est une publication sur
+ * Internet quelle que soit sa source ; une redirection qui laisse passer le trafic sans règle de
+ * filtrage (« Pass ») donne son propre flux. Chaque phase 2 IPsec active donne un flux inter-sites
+ * (réseau local → réseau distant) et un réseau distant qui chevauche une interface du pare-feu est
+ * signalé. Les règles de l'interface IPsec (enc0) sont des flux inter-sites.
+ *
  * Sécurité : une sauvegarde complète contient tous les secrets du pare-feu. Seules les sections
- * interfaces, gateways (nom et interface), aliases (nom, type, adresses) et filter sont lues ;
- * la présence de secrets est seulement signalée, aucune valeur n'en est reprise.
+ * interfaces, gateways (nom et interface), aliases (nom, type, adresses), filter, nat (port
+ * forward), ipsec/phase2 (réseaux, mode, description) et ipsec/phase1 (identifiant et état, jamais
+ * la clé ni les certificats) sont lues ; la présence de secrets est seulement signalée, aucune
+ * valeur n'en est reprise.
  */
 final class NetworkFlowPfsense
 {
@@ -48,12 +56,14 @@ final class NetworkFlowPfsense
      * @return array{rows: list<array{line: int, name: string, flow_type: string, source_label: string,
      *     destination_label: string, protocol: string, ports: string, justification: string, owner: string,
      *     date_end: ?string}>, errors: list<array{line: int, message: string}>,
-     *     interfaces: array<string, string>, outside: string, secrets: bool, merged: int}
+     *     interfaces: array<string, string>, outside: string, secrets: bool, merged: int, nat: int,
+     *     tunnels: int, overlaps: list<array{tunnel: string, remote: string, interface: string}>}
      */
     public static function parse(string $content, string $outside = ''): array
     {
         $empty = [
             'rows' => [], 'errors' => [], 'interfaces' => [], 'outside' => 'wan', 'secrets' => false, 'merged' => 0,
+            'nat' => 0, 'tunnels' => 0, 'overlaps' => [],
         ];
         $previous = libxml_use_internal_errors(true);
         $xml = simplexml_load_string($content, \SimpleXMLElement::class, LIBXML_NONET);
@@ -77,48 +87,49 @@ final class NetworkFlowPfsense
             ];
         }
 
+        // Redirections NAT actives, par identifiant de la règle de filtrage qu'elles ont créée.
+        $natRules = [];
+        $natPass = [];
+        foreach ($xml->nat->rule ?? [] as $nat) {
+            if (isset($nat->disabled) || isset($nat->nordr)) {
+                continue;
+            }
+            $associated = trim((string) $nat->{'associated-rule-id'});
+            if ($associated === 'pass') {
+                $natPass[] = $nat;
+            } elseif ($associated !== '') {
+                $natRules[$associated] = strtolower((string) $nat->interface);
+            }
+        }
+
         $rows = [];
         $seen = [];
         $merged = 0;
         $errors = [];
         $number = 0;
-        foreach ($xml->filter->rule ?? [] as $rule) {
-            $number++;
-            if ((string) $rule->type !== 'pass' || isset($rule->disabled)) {
-                continue;
-            }
-            $interface = strtolower((string) $rule->interface);
-            $source = self::endpoint($rule->source, $aliases, $zones);
-            $destination = self::endpoint($rule->destination, $aliases, $zones);
-            $portsInput = (string) ($rule->destination->port ?? '');
-            if (isset($aliases[$portsInput]) && $aliases[$portsInput]['type'] === 'port') {
-                $portsInput = $aliases[$portsInput]['address'];
-            }
-            $ports = NetworkFlowRules::normalizePorts(str_replace(':', '-', $portsInput));
-            if ($ports === null) {
-                $errors[] = ['line' => $number, 'message' => 'invalid_ports'];
-                continue;
-            }
-            $protocol = NetworkFlowRules::normalizeProtocol((string) ($rule->protocol ?? '') ?: 'any');
-            $description = trim((string) $rule->descr);
-            $flowType = self::flowType($interface === $outside, $source, $destination);
-            // « any » : Internet du côté extérieur du pare-feu, « Tous » sinon.
-            $source = $source === 'any' ? ($interface === $outside ? 'Internet' : 'Tous') : $source;
-            $destination = $destination === 'any'
-                ? ($flowType === 'internet_outbound' ? 'Internet' : 'Tous')
-                : $destination;
+        $add = static function (
+            int $line,
+            string $name,
+            string $flowType,
+            string $source,
+            string $destination,
+            string $protocol,
+            string $ports
+        ) use (
+            &$rows,
+            &$seen,
+            &$merged
+        ): void {
             // La même règle saisie plusieurs fois ne donne qu'un flux.
             $key = implode("\0", [$flowType, $source, $destination, $protocol, $ports]);
             if (isset($seen[$key])) {
                 $merged++;
-                continue;
+                return;
             }
             $seen[$key] = true;
             $rows[] = [
-                'line'              => $number,
-                'name'              => $description !== ''
-                    ? $description
-                    : sprintf('pfSense %s : %s → %s', self::interfaceName($interface, $zones), $source, $destination),
+                'line'              => $line,
+                'name'              => $name,
                 'flow_type'         => $flowType,
                 'source_label'      => $source,
                 'destination_label' => $destination,
@@ -128,9 +139,130 @@ final class NetworkFlowPfsense
                 'owner'             => '',
                 'date_end'          => null,
             ];
+        };
+
+        foreach ($xml->filter->rule ?? [] as $rule) {
+            $number++;
+            if ((string) $rule->type !== 'pass' || isset($rule->disabled)) {
+                continue;
+            }
+            $interface = strtolower((string) $rule->interface);
+            $source = self::endpoint($rule->source, $aliases, $zones);
+            $destination = self::endpoint($rule->destination, $aliases, $zones);
+            $ports = self::ports((string) ($rule->destination->port ?? ''), $aliases);
+            if ($ports === null) {
+                $errors[] = ['line' => $number, 'message' => 'invalid_ports'];
+                continue;
+            }
+            $protocol = NetworkFlowRules::normalizeProtocol((string) ($rule->protocol ?? '') ?: 'any');
+            $description = trim((string) $rule->descr);
+            $natInterface = $natRules[trim((string) $rule->{'associated-rule-id'})] ?? null;
+            $flowType = match (true) {
+                $natInterface !== null && $natInterface === $outside => 'internet_publication',
+                $interface === 'enc0' => 'site_tunnel',
+                default => self::flowType($interface === $outside, $source, $destination),
+            };
+            // « any » : Internet du côté extérieur du pare-feu, « Tous » sinon.
+            $source = $source === 'any' ? ($interface === $outside ? 'Internet' : 'Tous') : $source;
+            $destination = $destination === 'any'
+                ? ($flowType === 'internet_outbound' ? 'Internet' : 'Tous')
+                : $destination;
+            $add(
+                $number,
+                $description !== ''
+                    ? $description
+                    : sprintf('pfSense %s : %s → %s', self::interfaceName($interface, $zones), $source, $destination),
+                $flowType,
+                $source,
+                $destination,
+                $protocol,
+                $ports
+            );
         }
         if ($number === 0) {
             $errors[] = ['line' => 1, 'message' => 'no_rule'];
+        }
+
+        // Redirections « Pass » : pas de règle de filtrage, la redirection seule ouvre le flux. Elles
+        // sont numérotées à la suite des règles de filtrage.
+        foreach ($natPass as $nat) {
+            $number++;
+            $interface = strtolower((string) $nat->interface);
+            $ports = self::ports(
+                trim((string) $nat->{'local-port'}) !== ''
+                    ? (string) $nat->{'local-port'}
+                    : (string) ($nat->destination->port ?? ''),
+                $aliases
+            );
+            if ($ports === null) {
+                $errors[] = ['line' => $number, 'message' => 'invalid_ports'];
+                continue;
+            }
+            $source = self::endpoint($nat->source, $aliases, $zones);
+            $onOutside = $interface === $outside;
+            $source = $source === 'any' ? ($onOutside ? 'Internet' : 'Tous') : $source;
+            $destination = self::addressLabel(trim((string) $nat->target), $aliases);
+            if ($destination === '') {
+                $errors[] = ['line' => $number, 'message' => 'missing_endpoint'];
+                continue;
+            }
+            $description = trim((string) $nat->descr);
+            $add(
+                $number,
+                $description !== ''
+                    ? $description
+                    : sprintf(
+                        'pfSense NAT %s : %s → %s',
+                        self::interfaceName($interface, $zones),
+                        $source,
+                        $destination
+                    ),
+                $onOutside ? 'internet_publication' : 'internal',
+                $source,
+                $destination,
+                NetworkFlowRules::normalizeProtocol((string) ($nat->protocol ?? '') ?: 'any'),
+                $ports
+            );
+        }
+
+        // Tunnels IPsec : phase 2 active d'une phase 1 active, mode tunnel (réseaux des deux côtés).
+        $disabledPhase1 = [];
+        foreach ($xml->ipsec->phase1 ?? [] as $phase1) {
+            if (isset($phase1->disabled)) {
+                $disabledPhase1[(string) $phase1->ikeid] = true;
+            }
+        }
+        $tunnels = 0;
+        $overlaps = [];
+        foreach ($xml->ipsec->phase2 ?? [] as $phase2) {
+            $number++;
+            $mode = (string) $phase2->mode;
+            if (
+                isset($phase2->disabled) || isset($disabledPhase1[(string) $phase2->ikeid])
+                || !in_array($mode, ['tunnel', 'tunnel6'], true)
+            ) {
+                continue;
+            }
+            $local = self::tunnelNetwork($phase2->localid, $zones);
+            $remote = self::tunnelNetwork($phase2->remoteid, $zones);
+            if ($local === '' || $remote === '') {
+                $errors[] = ['line' => $number, 'message' => 'missing_endpoint'];
+                continue;
+            }
+            $tunnels++;
+            $description = trim((string) $phase2->descr);
+            $name = $description !== '' ? $description : sprintf('IPsec : %s → %s', $local, $remote);
+            $add($number, $name, 'site_tunnel', $local, $remote, 'any', 'any');
+            // Réseau distant qui chevauche un réseau du pare-feu : injoignable sans NAT.
+            foreach (NetworkFlowRules::extractNetworks($remote) as $remoteNetwork) {
+                foreach ($zones as $zone) {
+                    $zoneNetwork = NetworkFlowRules::extractNetworks($zone['network'])[0] ?? null;
+                    if ($zoneNetwork !== null && NetworkFlowRules::networksOverlap($remoteNetwork, $zoneNetwork)) {
+                        $overlaps[] = ['tunnel' => $name, 'remote' => $remote, 'interface' => $zone['name']
+                            . ' (' . $zone['network'] . ')'];
+                    }
+                }
+            }
         }
 
         return [
@@ -140,7 +272,63 @@ final class NetworkFlowPfsense
             'outside'    => $outside,
             'secrets'    => self::containsSecrets($content),
             'merged'     => $merged,
+            'nat'        => count($natRules) + count($natPass),
+            'tunnels'    => $tunnels,
+            'overlaps'   => array_values(array_unique($overlaps, SORT_REGULAR)),
         ];
+    }
+
+    /**
+     * Ports pfSense (« 80 », « 8000:8080 » ou alias de ports) normalisés, null s'ils sont invalides.
+     *
+     * @param array<string, array{type: string, address: string}> $aliases
+     */
+    private static function ports(string $input, array $aliases): ?string
+    {
+        $input = trim($input);
+        if (isset($aliases[$input]) && $aliases[$input]['type'] === 'port') {
+            $input = $aliases[$input]['address'];
+        }
+
+        return NetworkFlowRules::normalizePorts(str_replace(':', '-', $input));
+    }
+
+    /**
+     * Adresse ou alias résolu : « SRV_WEB (192.0.2.10) ».
+     *
+     * @param array<string, array{type: string, address: string}> $aliases
+     */
+    private static function addressLabel(string $address, array $aliases): string
+    {
+        return isset($aliases[$address]) && $aliases[$address]['address'] !== ''
+            ? $address . ' (' . str_replace(' ', ', ', $aliases[$address]['address']) . ')'
+            : $address;
+    }
+
+    /**
+     * Réseau d'un côté d'une phase 2 : réseau ou adresse saisis, ou réseau d'une interface.
+     *
+     * @param array<string, array{name: string, ip: string, network: string}> $zones
+     */
+    private static function tunnelNetwork(?\SimpleXMLElement $side, array $zones): string
+    {
+        if ($side === null) {
+            return '';
+        }
+        $type = strtolower((string) $side->type);
+        $address = trim((string) $side->address);
+        $bits = trim((string) $side->netbits);
+        if ($type === 'network' && filter_var($address, FILTER_VALIDATE_IP) !== false && ctype_digit($bits)) {
+            return $address . '/' . $bits;
+        }
+        if ($type === 'address' && filter_var($address, FILTER_VALIDATE_IP) !== false) {
+            return $address;
+        }
+        if (isset($zones[$type]) && $zones[$type]['network'] !== '') {
+            return $zones[$type]['name'] . ' (' . $zones[$type]['network'] . ')';
+        }
+
+        return '';
     }
 
     /**
@@ -249,9 +437,7 @@ final class NetworkFlowPfsense
             if (isset($side->not) && self::isPrivateOnly($resolved)) {
                 return 'Internet';
             }
-            $label = isset($aliases[$address]) && $aliases[$address]['address'] !== ''
-                ? $address . ' (' . str_replace(' ', ', ', $aliases[$address]['address']) . ')'
-                : $address;
+            $label = self::addressLabel($address, $aliases);
         }
         if (isset($side->not)) {
             $label = 'non ' . $label;
