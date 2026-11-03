@@ -9,6 +9,19 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Incidents de sécurité rangés dans les catégories de Configuration GLPI Auto** (issue #372) :
+  si ce plugin est actif, ses catégories de tickets « Sécurité SI » sont réutilisées, repérées par
+  identifiant (jamais par nom), au lieu d'en créer d'autres :
+  - le ticket ouvert depuis un incident (« Créer un ticket lié ») prend la catégorie de l'incident,
+    sinon la sous-catégorie qui correspond à sa classification (malware : « Malware / Ransomware »,
+    accès non autorisé ou fuite : « Compte compromis / Fuite de données », sinon la branche) ;
+  - un ticket qualifié en incident lui transmet sa catégorie, et sa classification quand la
+    sous-catégorie est sans ambiguïté (« Malware / Ransomware », « Antivirus & Endpoint ») ;
+  - une catégorie n'est utilisée que si elle est visible dans l'entité du ticket ; sinon, repli sur
+    la branche, puis aucune catégorie.
+
+  Sans Configuration GLPI Auto, rien ne change et GRC Manager ne crée aucune catégorie.
+
 - **Fiche de l'incident de sécurité** (issue #372, fin) :
   - en-tête de pastilles complété par des compteurs (journal des actions, IOC, éléments liés,
     tickets liés), chacun menant à son onglet ;

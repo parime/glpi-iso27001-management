@@ -239,6 +239,16 @@ class SecurityIncidentTicket extends CommonGLPI
             'urgency'     => (int) $ticket->fields['urgency'],
             'impact'      => (int) $ticket->fields['impact'],
         ];
+        // Issue #372 : catégorie du ticket gardée, classification déduite d'une sous-catégorie
+        // « Sécurité SI » de Configuration GLPI Auto quand elle est sans ambiguïté.
+        $itilcategoriesId = (int) ($ticket->fields['itilcategories_id'] ?? 0);
+        if ($itilcategoriesId > 0) {
+            $input['itilcategories_id'] = $itilcategoriesId;
+            $classification = SecurityCategoryLink::classificationFor($itilcategoriesId);
+            if ($classification !== null) {
+                $input['category'] = $classification;
+            }
+        }
         $requesters = (new Ticket_User())->find([
             'tickets_id' => (int) $ticket->getID(),
             'type'       => CommonITILActor::REQUESTER,
@@ -319,6 +329,16 @@ class SecurityIncidentTicket extends CommonGLPI
             'entities_id' => (int) $incident->fields['entities_id'],
             'type'        => Ticket::INCIDENT_TYPE,
         ];
+        // Issue #372 : catégorie de l'incident, sinon la catégorie « Sécurité SI » de Configuration GLPI
+        // Auto qui correspond à sa classification ; aucune catégorie n'est créée.
+        $itilcategoriesId = SecurityCategoryLink::forIncident(
+            (int) ($incident->fields['itilcategories_id'] ?? 0),
+            (string) ($incident->fields['category'] ?? ''),
+            (int) $incident->fields['entities_id']
+        );
+        if ($itilcategoriesId > 0) {
+            $input['itilcategories_id'] = $itilcategoriesId;
+        }
 
         $ticket = new Ticket();
         if (!$ticket->can(-1, CREATE, $input)) {
