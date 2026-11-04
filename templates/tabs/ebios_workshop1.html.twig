@@ -70,7 +70,7 @@
                 {% if event.impacts %}<div class="small text-muted">{{ event.impacts }}</div>{% endif %}
               </div>
               {% if can_edit %}
-                <form method="post" action="{{ form_url }}">
+                <form method="post" action="{{ form_url }}" onsubmit="return confirm('{{ __('Remove this feared event and the scenarios built on it?', 'grcmanager')|e('js') }}');">
                   <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
                   <input type="hidden" name="element" value="feared_event">
                   <input type="hidden" name="id" value="{{ event.id }}">

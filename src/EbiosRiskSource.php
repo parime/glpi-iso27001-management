@@ -54,4 +54,12 @@ class EbiosRiskSource extends EbiosElement
 
         return $input;
     }
+
+    /**
+     * Retirer une source de risque retire les scénarios stratégiques construits sur elle.
+     */
+    public function cleanDBonPurge()
+    {
+        (new EbiosStrategicScenario())->deleteByCriteria([self::getForeignKeyField() => $this->getID()]);
+    }
 }

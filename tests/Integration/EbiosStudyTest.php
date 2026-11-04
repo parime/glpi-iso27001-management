@@ -21,13 +21,16 @@ namespace GlpiPlugin\Grcmanager\Tests\Integration;
 
 use GlpiPlugin\Grcmanager\EbiosElement;
 use GlpiPlugin\Grcmanager\EbiosFearedEvent;
+use GlpiPlugin\Grcmanager\EbiosOperationalScenario;
 use GlpiPlugin\Grcmanager\EbiosRiskSource;
+use GlpiPlugin\Grcmanager\EbiosStakeholder;
+use GlpiPlugin\Grcmanager\EbiosStrategicScenario;
 use GlpiPlugin\Grcmanager\EbiosStudy;
 use GlpiPlugin\Grcmanager\EbiosSupport;
 use GlpiPlugin\Grcmanager\EbiosValue;
 
 /**
- * Issue #376 : étude EBIOS Risk Manager, ateliers 1 et 2 (données fictives).
+ * Issue #376 : étude EBIOS Risk Manager, ateliers 1 à 4 (données fictives).
  */
 final class EbiosStudyTest extends GrcmanagerIntegrationTestCase
 {
@@ -59,15 +62,123 @@ final class EbiosStudyTest extends GrcmanagerIntegrationTestCase
         $this->assertSame($studyId, (int) $source->fields[EbiosElement::STUDY_FK]);
         $this->assertSame(0, (int) $source->fields['is_retained']);
 
-        $this->assertSame([1 => 3, 2 => 1], EbiosStudy::countElements($studyId));
+        $this->assertSame([1 => 3, 2 => 1, 3 => 0, 4 => 0], EbiosStudy::countElements($studyId));
 
         // Retirer la valeur métier retire ce qui en dépend.
         (new EbiosValue())->delete(['id' => $valueId], true);
-        $this->assertSame([1 => 0, 2 => 1], EbiosStudy::countElements($studyId));
+        $this->assertSame([1 => 0, 2 => 1, 3 => 0, 4 => 0], EbiosStudy::countElements($studyId));
 
         // Supprimer l'étude supprime tout.
         $study->delete(['id' => $studyId], true);
-        $this->assertSame([1 => 0, 2 => 0], EbiosStudy::countElements($studyId));
+        $this->assertSame([1 => 0, 2 => 0, 3 => 0, 4 => 0], EbiosStudy::countElements($studyId));
+    }
+
+    public function testScenariosFollowWhatTheyAreBuiltOn(): void
+    {
+        $study = new EbiosStudy();
+        $studyId = (int) $study->add(['name' => 'PHPUnit étude scénarios']);
+        $fk = [EbiosElement::STUDY_FK => $studyId];
+        $sourceKey = EbiosRiskSource::getForeignKeyField();
+        $eventKey = EbiosFearedEvent::getForeignKeyField();
+        $stakeholderKey = EbiosStakeholder::getForeignKeyField();
+        $strategicKey = EbiosStrategicScenario::getForeignKeyField();
+
+        $valueId = (int) (new EbiosValue())->add($fk + ['name' => 'Prise de commande']);
+        $onValue = $fk + ['plugin_grcmanager_ebiosvalues_id' => $valueId];
+        $eventId = (int) (new EbiosFearedEvent())->add($onValue + ['name' => 'Arrêt', 'severity' => 4]);
+        $supportId = (int) (new EbiosSupport())->add($onValue + ['name' => 'Serveur']);
+        $sourceId = (int) (new EbiosRiskSource())->add($fk + ['name' => 'Crime organisé']);
+        $stakeholder = new EbiosStakeholder();
+        $stakeholderId = (int) $stakeholder->add($fk + [
+            'name' => 'Hébergeur fictif', 'dependence' => 9, 'category' => 'inconnue',
+        ]);
+        $stakeholder->getFromDB($stakeholderId);
+        $this->assertSame(4, (int) $stakeholder->fields['dependence'], 'Échelle ramenée à 4.');
+        $this->assertSame('other', $stakeholder->fields['category']);
+
+        $links = $fk + [$sourceKey => $sourceId, $eventKey => $eventId];
+        $strategicId = (int) (new EbiosStrategicScenario())->add($links + [
+            $stakeholderKey => $stakeholderId, 'name' => 'Par l\'hébergeur',
+        ]);
+        $directId = (int) (new EbiosStrategicScenario())->add($links + ['name' => 'Directe']);
+        $this->assertGreaterThan(0, $strategicId);
+        $this->assertGreaterThan(0, $directId);
+        $operational = new EbiosOperationalScenario();
+        $operationalId = (int) $operational->add($fk + [
+            $strategicKey => $strategicId, EbiosSupport::getForeignKeyField() => $supportId,
+            'name' => 'Hameçonnage', 'likelihood' => 7,
+        ]);
+        $operational->getFromDB($operationalId);
+        $this->assertSame(4, (int) $operational->fields['likelihood'], 'Vraisemblance ramenée à V4.');
+        $this->assertTrue($operational->update(['id' => $operationalId, 'likelihood' => 1]));
+        $operational->getFromDB($operationalId);
+        $this->assertSame($strategicId, (int) $operational->fields[$strategicKey], 'Le lien reste à la modification.');
+        $this->assertSame([1 => 3, 2 => 1, 3 => 3, 4 => 1], EbiosStudy::countElements($studyId));
+
+        // Un lien vers une autre étude, ou manquant, est refusé.
+        $otherStudyId = (int) (new EbiosStudy())->add(['name' => 'PHPUnit autre étude']);
+        $other = [EbiosElement::STUDY_FK => $otherStudyId];
+        $crossed = $other + ['name' => 'Croisé'];
+        $this->assertFalse((new EbiosStrategicScenario())->add($crossed + [$sourceKey => $sourceId, $eventKey => $eventId]));
+        $this->assertFalse((new EbiosStrategicScenario())->add($fk + [$sourceKey => $sourceId, 'name' => 'Incomplet']));
+        $this->assertFalse((new EbiosOperationalScenario())->add($crossed + [$strategicKey => $strategicId]));
+        $this->assertFalse((new EbiosFearedEvent())->add($crossed + ['plugin_grcmanager_ebiosvalues_id' => $valueId]));
+        $this->assertFalse((new EbiosSupport())->add($crossed + ['plugin_grcmanager_ebiosvalues_id' => $valueId]));
+
+        // Retirer un bien support garde le scénario, sans lien.
+        (new EbiosSupport())->delete(['id' => $supportId], true);
+        $operational->getFromDB($operationalId);
+        $this->assertSame(0, (int) $operational->fields[EbiosSupport::getForeignKeyField()]);
+
+        // Retirer la partie prenante retire son scénario et le scénario opérationnel, pas l'attaque directe.
+        (new EbiosStakeholder())->delete(['id' => $stakeholderId], true);
+        $this->assertSame([1 => 2, 2 => 1, 3 => 1, 4 => 0], EbiosStudy::countElements($studyId));
+
+        // Retirer la valeur métier retire l'événement, donc le scénario restant, en cascade.
+        (new EbiosValue())->delete(['id' => $valueId], true);
+        $this->assertSame([1 => 0, 2 => 1, 3 => 0, 4 => 0], EbiosStudy::countElements($studyId));
+
+        $study->delete(['id' => $studyId], true);
+        (new EbiosStudy())->delete(['id' => $otherStudyId], true);
+    }
+
+    public function testWorkshopTabsRender(): void
+    {
+        $study = new EbiosStudy();
+        $studyId = (int) $study->add(['name' => 'PHPUnit étude affichage']);
+        $fk = [EbiosElement::STUDY_FK => $studyId];
+        $valueId = (int) (new EbiosValue())->add($fk + ['name' => 'Facturation fictive']);
+        $eventId = (int) (new EbiosFearedEvent())->add($fk + [
+            'plugin_grcmanager_ebiosvalues_id' => $valueId, 'name' => 'Arrêt fictif', 'severity' => 4,
+        ]);
+        $sourceId = (int) (new EbiosRiskSource())->add($fk + ['name' => 'Source fictive']);
+        $stakeholderId = (int) (new EbiosStakeholder())->add($fk + [
+            'name' => 'Partenaire fictif', 'dependence' => 4, 'penetration' => 4, 'maturity' => 1, 'trust' => 1,
+        ]);
+        $strategicId = (int) (new EbiosStrategicScenario())->add($fk + [
+            EbiosRiskSource::getForeignKeyField() => $sourceId, EbiosFearedEvent::getForeignKeyField() => $eventId,
+            EbiosStakeholder::getForeignKeyField() => $stakeholderId, 'name' => 'Chemin fictif',
+        ]);
+        (new EbiosOperationalScenario())->add($fk + [
+            EbiosStrategicScenario::getForeignKeyField() => $strategicId,
+            'name' => 'Mode opératoire fictif', 'likelihood' => 3,
+        ]);
+
+        $study->getFromDB($studyId);
+        ob_start();
+        EbiosStudy::displayTabContentForItem($study, 3);
+        $three = (string) ob_get_clean();
+        $this->assertStringContainsString('Partenaire fictif', $three);
+        $this->assertStringContainsString('16', $three, 'Niveau de menace (4 x 4) / (1 x 1).');
+        $this->assertStringContainsString('Chemin fictif', $three);
+
+        ob_start();
+        EbiosStudy::displayTabContentForItem($study, 4);
+        $four = (string) ob_get_clean();
+        $this->assertStringContainsString('Mode opératoire fictif', $four);
+        $this->assertStringContainsString('bg-red-lt fw-bold', $four, 'G4 x V3 : case critique occupée.');
+
+        $study->delete(['id' => $studyId], true);
     }
 
     public function testElementsRequireTheRightToEditTheStudy(): void

@@ -95,6 +95,43 @@ final class EbiosRules
     }
 
     /**
+     * Niveau de risque d'un scénario opérationnel, gravité x vraisemblance : low, medium, high ou critical.
+     */
+    public static function riskLevel(int $severity, int $likelihood): string
+    {
+        $score = self::level($severity) * self::level($likelihood);
+        if ($score >= 12) {
+            return 'critical';
+        }
+        if ($score >= 8) {
+            return 'high';
+        }
+
+        return $score >= 4 ? 'medium' : 'low';
+    }
+
+    /**
+     * Grille gravité x vraisemblance : de G4 à G1, de V1 à V4, le niveau et le nombre de scénarios par case.
+     *
+     * @param list<array{severity: int, likelihood: int}> $scenarios
+     * @return array<int, array<int, array{level: string, count: int}>>
+     */
+    public static function riskMatrix(array $scenarios): array
+    {
+        $matrix = [];
+        foreach (array_reverse(self::LEVELS) as $severity) {
+            foreach (self::LEVELS as $likelihood) {
+                $matrix[$severity][$likelihood] = ['level' => self::riskLevel($severity, $likelihood), 'count' => 0];
+            }
+        }
+        foreach ($scenarios as $scenario) {
+            $matrix[self::level($scenario['severity'])][self::level($scenario['likelihood'])]['count']++;
+        }
+
+        return $matrix;
+    }
+
+    /**
      * Avancement de l'étude : un atelier est commencé dès qu'il contient un élément.
      *
      * @param array<int, int> $counts Atelier => nombre d'éléments.

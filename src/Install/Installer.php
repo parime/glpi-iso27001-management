@@ -294,6 +294,9 @@ final class Installer
     private const EBIOS_FEARED_EVENTS_TABLE = 'glpi_plugin_grcmanager_ebiosfearedevents';
     private const EBIOS_SUPPORTS_TABLE = 'glpi_plugin_grcmanager_ebiossupports';
     private const EBIOS_RISK_SOURCES_TABLE = 'glpi_plugin_grcmanager_ebiosrisksources';
+    private const EBIOS_STAKEHOLDERS_TABLE = 'glpi_plugin_grcmanager_ebiosstakeholders';
+    private const EBIOS_STRATEGIC_SCENARIOS_TABLE = 'glpi_plugin_grcmanager_ebiosstrategicscenarios';
+    private const EBIOS_OPERATIONAL_SCENARIOS_TABLE = 'glpi_plugin_grcmanager_ebiosoperationalscenarios';
     private const BUSINESS_PROCESSES_TABLE = 'glpi_plugin_grcmanager_businessprocesses';
     private const BUSINESS_PROCESSES_ITEMS_TABLE = 'glpi_plugin_grcmanager_businessprocesses_items';
     private const BUSINESS_IMPACTS_TABLE = 'glpi_plugin_grcmanager_businessimpacts';
@@ -2331,6 +2334,66 @@ final class Installer
                 `date_mod` timestamp NULL DEFAULT NULL,
                 PRIMARY KEY (`id`),
                 KEY `plugin_grcmanager_ebiosstudies_id` (`plugin_grcmanager_ebiosstudies_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query);
+        }
+        if (!$DB->tableExists(self::EBIOS_STAKEHOLDERS_TABLE)) {
+            $query = "CREATE TABLE `" . self::EBIOS_STAKEHOLDERS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_ebiosstudies_id` int {$keySign} NOT NULL DEFAULT 0,
+                `name` varchar(255) NOT NULL DEFAULT '',
+                `category` varchar(16) NOT NULL DEFAULT 'supplier',
+                `suppliers_id` int {$keySign} NOT NULL DEFAULT 0,
+                `dependence` tinyint NOT NULL DEFAULT 2,
+                `penetration` tinyint NOT NULL DEFAULT 2,
+                `maturity` tinyint NOT NULL DEFAULT 2,
+                `trust` tinyint NOT NULL DEFAULT 2,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `plugin_grcmanager_ebiosstudies_id` (`plugin_grcmanager_ebiosstudies_id`),
+                KEY `suppliers_id` (`suppliers_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query);
+        }
+        if (!$DB->tableExists(self::EBIOS_STRATEGIC_SCENARIOS_TABLE)) {
+            $query = "CREATE TABLE `" . self::EBIOS_STRATEGIC_SCENARIOS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_ebiosstudies_id` int {$keySign} NOT NULL DEFAULT 0,
+                `plugin_grcmanager_ebiosrisksources_id` int {$keySign} NOT NULL DEFAULT 0,
+                `plugin_grcmanager_ebiosfearedevents_id` int {$keySign} NOT NULL DEFAULT 0,
+                `plugin_grcmanager_ebiosstakeholders_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT '0 : attaque directe',
+                `name` varchar(255) NOT NULL DEFAULT '',
+                `description` text,
+                `measures` text COMMENT 'Mesures prevues sur ce chemin d attaque',
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `plugin_grcmanager_ebiosstudies_id` (`plugin_grcmanager_ebiosstudies_id`),
+                KEY `plugin_grcmanager_ebiosrisksources_id` (`plugin_grcmanager_ebiosrisksources_id`),
+                KEY `plugin_grcmanager_ebiosfearedevents_id` (`plugin_grcmanager_ebiosfearedevents_id`),
+                KEY `plugin_grcmanager_ebiosstakeholders_id` (`plugin_grcmanager_ebiosstakeholders_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query);
+        }
+        if (!$DB->tableExists(self::EBIOS_OPERATIONAL_SCENARIOS_TABLE)) {
+            $query = "CREATE TABLE `" . self::EBIOS_OPERATIONAL_SCENARIOS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_ebiosstudies_id` int {$keySign} NOT NULL DEFAULT 0,
+                `plugin_grcmanager_ebiosstrategicscenarios_id` int {$keySign} NOT NULL DEFAULT 0,
+                `plugin_grcmanager_ebiossupports_id` int {$keySign} NOT NULL DEFAULT 0,
+                `name` varchar(255) NOT NULL DEFAULT '',
+                `attack_sequence` text,
+                `likelihood` tinyint NOT NULL DEFAULT 2 COMMENT 'V1 a V4',
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `plugin_grcmanager_ebiosstudies_id` (`plugin_grcmanager_ebiosstudies_id`),
+                KEY `plugin_grcmanager_ebiosstrategicscenarios_id` (`plugin_grcmanager_ebiosstrategicscenarios_id`),
+                KEY `plugin_grcmanager_ebiossupports_id` (`plugin_grcmanager_ebiossupports_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
             $DB->doQuery($query);
@@ -4687,6 +4750,9 @@ final class Installer
         $migration->dropTable(self::EBIOS_FEARED_EVENTS_TABLE);
         $migration->dropTable(self::EBIOS_SUPPORTS_TABLE);
         $migration->dropTable(self::EBIOS_RISK_SOURCES_TABLE);
+        $migration->dropTable(self::EBIOS_STAKEHOLDERS_TABLE);
+        $migration->dropTable(self::EBIOS_STRATEGIC_SCENARIOS_TABLE);
+        $migration->dropTable(self::EBIOS_OPERATIONAL_SCENARIOS_TABLE);
         $migration->dropTable(self::CRISIS_EXERCISES_TABLE);
         $migration->dropTable(self::ACCESS_REVIEWS_USERS_TABLE);
         $migration->dropTable(self::ACCESS_REVIEWS_TABLE);

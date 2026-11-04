@@ -88,7 +88,7 @@
           </td>
           {% if can_edit %}
             <td>
-              <form method="post" action="{{ form_url }}" onsubmit="return confirm('{{ __('Remove this risk source?', 'grcmanager')|e('js') }}');">
+              <form method="post" action="{{ form_url }}" onsubmit="return confirm('{{ __('Remove this risk source and the scenarios built on it?', 'grcmanager')|e('js') }}');">
                 <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
                 <input type="hidden" name="element" value="risk_source">
                 <input type="hidden" name="id" value="{{ source.id }}">

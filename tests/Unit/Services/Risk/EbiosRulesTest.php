@@ -46,6 +46,32 @@ final class EbiosRulesTest extends TestCase
         self::assertSame('certain', EbiosRules::likelihoodToProbability(4));
     }
 
+    public function testRiskLevelCombinesSeverityAndLikelihood(): void
+    {
+        self::assertSame('low', EbiosRules::riskLevel(1, 3));
+        self::assertSame('medium', EbiosRules::riskLevel(2, 2));
+        self::assertSame('medium', EbiosRules::riskLevel(3, 2));
+        self::assertSame('high', EbiosRules::riskLevel(4, 2));
+        self::assertSame('high', EbiosRules::riskLevel(3, 3));
+        self::assertSame('critical', EbiosRules::riskLevel(4, 3));
+        self::assertSame('critical', EbiosRules::riskLevel(9, 9), 'Saisies hors échelle ramenées à 4.');
+    }
+
+    public function testRiskMatrixCountsScenariosInTheirCell(): void
+    {
+        $matrix = EbiosRules::riskMatrix([
+            ['severity' => 4, 'likelihood' => 3],
+            ['severity' => 4, 'likelihood' => 3],
+            ['severity' => 1, 'likelihood' => 1],
+        ]);
+
+        self::assertSame([4, 3, 2, 1], array_keys($matrix), 'De la gravité la plus forte à la plus faible.');
+        self::assertSame([1, 2, 3, 4], array_keys($matrix[4]));
+        self::assertSame(['level' => 'critical', 'count' => 2], $matrix[4][3]);
+        self::assertSame(['level' => 'low', 'count' => 1], $matrix[1][1]);
+        self::assertSame(0, $matrix[2][2]['count']);
+    }
+
     public function testProgressPointsToTheFirstEmptyWorkshop(): void
     {
         self::assertSame(['started' => 0, 'total' => 5, 'next' => 1], EbiosRules::progress([]));
