@@ -1,0 +1,66 @@
+{# Issue #375 : demande d'exercice des droits (RGPD, articles 15 à 22). #}
+{% extends 'generic_show_form.html.twig' %}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+{% import '@grcmanager/_hint.html.twig' as hints %}
+
+{% block form_fields %}
+   {% if state %}
+      <div class="col-12 mb-3">
+         <div class="d-flex flex-wrap align-items-center gap-2">
+            <span class="badge {{ state.class }} fs-5"><i class="ti ti-clock me-1"></i>{{ state.label }}</span>
+            <span>{{ __('Deadline', 'grcmanager') }} : <strong>{{ due_label }}</strong></span>
+            {% if state.days_left is not null %}
+               <span class="text-muted">
+                  {{ state.days_left >= 0
+                     ? _n('%d day left', '%d days left', state.days_left, 'grcmanager')|format(state.days_left)
+                     : _n('%d day late', '%d days late', -state.days_left, 'grcmanager')|format(-state.days_left) }}
+               </span>
+            {% endif %}
+         </div>
+      </div>
+   {% endif %}
+
+   {{ fields.dropdownArrayField('request_type', item.fields['request_type'] ?: 'access', types, __('Right exercised', 'grcmanager')) }}
+   {{ fields.dropdownArrayField('status', item.fields['status'] ?: 'received', statuses, __('Status'), {
+      'add_field_html': hints.hint(__('Check the identity only if there is a reasonable doubt.', 'grcmanager')),
+   }) }}
+   {{ fields.textField('name', item.fields['name'], __('Title', 'grcmanager'), {
+      'add_field_html': hints.hint(__('Optional. Do not put the name of the person here: it stays in the field below.', 'grcmanager')),
+   }) }}
+   {{ fields.textField('requester', item.fields['requester'], __('Requester', 'grcmanager'), {
+      'add_field_html': hints.hint(__('Only what is needed to answer: this field stays on this request.', 'grcmanager')),
+   }) }}
+   {{ fields.dateField('date_received', item.fields['date_received'], __('Date of receipt', 'grcmanager'), {
+      'required': true,
+      'add_field_html': hints.hint(__('The deadline runs from this date: one month to answer (GDPR, article 12.3).', 'grcmanager')),
+   }) }}
+   {{ fields.dropdownField('User', 'users_id', item.fields['users_id'], __('Handled by', 'grcmanager'), {
+      'right': 'all',
+   }) }}
+   {{ fields.dropdownArrayField('plugin_grcmanager_processingactivities_id', item.fields['plugin_grcmanager_processingactivities_id'], activities, __('Processing activity concerned', 'grcmanager')) }}
+
+   <div class="col-12"><h4 class="border-bottom pb-1 mt-3"><i class="ti ti-calendar-plus me-1"></i>{{ __('Extension of the deadline', 'grcmanager') }}</h4></div>
+   {{ fields.dropdownYesNo('is_extended', item.fields['is_extended'], __('Extended by two months', 'grcmanager'), {
+      'add_field_html': hints.hint(__('Allowed for complex or numerous requests. The person must be told within the first month.', 'grcmanager')),
+   }) }}
+   {{ fields.textareaField('extension_reason', item.fields['extension_reason'], __('Reason for the extension', 'grcmanager')) }}
+
+   <div class="col-12"><h4 class="border-bottom pb-1 mt-3"><i class="ti ti-mail-check me-1"></i>{{ __('Answer', 'grcmanager') }}</h4></div>
+   {{ fields.dateField('date_answered', item.fields['date_answered'], __('Date of the answer', 'grcmanager'), {
+      'add_field_html': hints.hint(__('If left empty, today is used when the request is closed. Attach the proof in the Documents tab.', 'grcmanager')),
+   }) }}
+   {{ fields.textareaField('response', item.fields['response'], __('Summary of the answer', 'grcmanager')) }}
+   {{ fields.textareaField('refusal_reason', item.fields['refusal_reason'], __('Reason for the refusal', 'grcmanager'), {
+      'add_field_html': hints.hint(__('The person must be told the reason and their right to complain to the supervisory authority.', 'grcmanager')),
+   }) }}
+   {{ fields.textareaField('comment', item.fields['comment'], __('Comments')) }}
+
+   {% if ticket_url %}
+      <div class="col-12 mt-2"><i class="ti ti-ticket me-1"></i>{{ __('Follow-up ticket', 'grcmanager') }} : <a href="{{ ticket_url }}">{{ ticket_name }}</a></div>
+   {% elseif can_ticket %}
+      <div class="col-12 mt-2">
+         <button type="submit" name="create_ticket" value="1" class="btn btn-outline-primary"><i class="ti ti-ticket me-1"></i>{{ __('Create a follow-up ticket', 'grcmanager') }}</button>
+         <div class="form-hint">{{ __('The ticket contains neither the name of the person nor the title of the request.', 'grcmanager') }}</div>
+      </div>
+   {% endif %}
+{% endblock %}

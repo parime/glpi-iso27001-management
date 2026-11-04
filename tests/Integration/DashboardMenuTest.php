@@ -87,9 +87,9 @@ final class DashboardMenuTest extends GrcmanagerIntegrationTestCase
             $url = \GlpiPlugin\Grcmanager\ProcessingActivity::getSearchURL(false);
             $this->assertSame($url, $menu['page'], 'La sous-page autorisée prend la place de la rubrique.');
             $this->assertSame(
-                [\GlpiPlugin\Grcmanager\ProcessingActivity::class],
+                [\GlpiPlugin\Grcmanager\ProcessingActivity::class, \GlpiPlugin\Grcmanager\DataSubjectRequest::class],
                 array_keys($menu['options']),
-                'Aucune autre sous-page de la rubrique.'
+                'Les seules sous-pages couvertes par le droit RGPD.'
             );
 
             $_SESSION['glpiactiveprofile'][$gdpr] = 0;

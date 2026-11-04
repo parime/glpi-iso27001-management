@@ -57,7 +57,7 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/auditlog.php front/controltest.php
   front/impactanalysis.php?export=continuity front/maturity.php front/crisisexercise.php front/complianceaudit.php
   front/dashboard.php front/networkflow.report.php front/breachexposure.php front/networkflow.matrix.php
-  front/processingactivity.php front/processingactivity.export.php?format=pdf
+  front/processingactivity.php front/datasubjectrequest.php front/processingactivity.export.php?format=pdf
   front/processingactivity.export.php?format=csv
   front/riskappetite.php front/riskindicator.php
   front/businessprocess.php front/businessprocess.php?export=csv"
@@ -77,7 +77,7 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
     front/securityincidentteam.form.php \
     front/cpereference.form.php front/productalias.form.php \
     front/waiver.form.php front/coveragerule.form.php front/controltest.form.php \
-    front/processingactivity.form.php \
+    front/processingactivity.form.php front/datasubjectrequest.form.php \
     front/businessprocess.form.php front/riskindicator.form.php; do
     expect "$form : creation" "$1" "$(code -d "add=1&name=securite&title=securite&_glpi_csrf_token=$(csrf)" "$BASE/plugins/grcmanager/$form")"
   done
@@ -241,7 +241,8 @@ if [ "$ROLE" = general ]; then
     "$(code -d "update=1&id=$(id breachexposure)&status=handled&_glpi_csrf_token=$(csrf)" "$P/breachexposure.form.php")"
   # Issue #375 : le registre des traitements (RGPD) a son propre droit, distinct du droit general
   # du SMSI : liste, fiche, exports, modification et onglet des actifs lui sont refuses.
-  for p in front/processingactivity.php "front/processingactivity.export.php?format=pdf" \
+  for p in front/processingactivity.php front/datasubjectrequest.php "front/datasubjectrequest.form.php?id=$(id dsr_A)" \
+           "front/processingactivity.export.php?format=pdf" \
            "front/processingactivity.export.php?format=csv" "front/processingactivity.form.php?id=$(id processing_A)"; do
     expect "$p : sans le droit du registre des traitements" 403 "$(code "$BASE/plugins/grcmanager/$p")"
   done
@@ -350,6 +351,12 @@ expect "front/compliancecalendar.ics.php : jeton invalide" 403    "$(code "$P/co
 expect "traitement, entite A"          200    "$(code "$P/processingactivity.form.php?id=$(id processing_A)")"
 expect "traitement, entite B"          $DENY  "$(code "$P/processingactivity.form.php?id=$(id processing_B)")"
 expect "AIPD d'un traitement de B"     $DENY  "$(code "$P/dpia.report.php?id=$(id processing_B)")"
+expect "demande RGPD, entite A"        200    "$(code "$P/datasubjectrequest.form.php?id=$(id dsr_A)")"
+expect "demande RGPD, entite B"        $DENY  "$(code "$P/datasubjectrequest.form.php?id=$(id dsr_B)")"
+expect "modifier une demande RGPD de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
+  "$(code -d "update=1&id=$(id dsr_B)&comment=securite&_glpi_csrf_token=$(csrf)" "$P/datasubjectrequest.form.php")"
+expect "ticket d'une demande RGPD de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
+  "$(code -d "create_ticket=1&id=$(id dsr_B)&_glpi_csrf_token=$(csrf)" "$P/datasubjectrequest.form.php")"
 expect "enregistrer l'AIPD d'un traitement de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
   "$(code -d "save=1&plugin_grcmanager_processingactivities_id=$(id processing_B)&_glpi_csrf_token=$(csrf)" "$P/dpia.form.php")"
 expect "modifier un traitement de B"   "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \

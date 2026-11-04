@@ -138,6 +138,8 @@ function plugin_init_grcmanager(): void
     // polymorphe CommonDBTM::cleanDBonPurge()) - ignorerait cette politique.
     global $CFG_GLPI;
     $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\Policy::class;
+    // Issue #375 : preuve de la réponse à une demande d'exercice des droits.
+    $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\DataSubjectRequest::class;
     // Issue #170 : validation signée d'une dérogation, analyse de risque jointe.
     $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\Waiver::class;
     // Issue #139 : feuille d'émargement, support et quiz d'une session de formation.
