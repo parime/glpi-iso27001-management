@@ -22,11 +22,11 @@ Session::checkRight(\GlpiPlugin\Grcmanager\PeriodicReview::$rightname, READ);
 
 if (isset($_POST['activate']) || isset($_POST['deactivate'])) {
     if (!\GlpiPlugin\Grcmanager\PeriodicReview::canManage()) {
-        Html::displayRightError();
+        throw new \Glpi\Exception\Http\AccessDeniedHttpException();
     }
     $review = new \GlpiPlugin\Grcmanager\PeriodicReview();
     if (!$review->getFromDB((int) ($_POST['id'] ?? 0))) {
-        Html::displayNotFoundError();
+        throw new \Glpi\Exception\Http\NotFoundHttpException();
     }
     $label = \GlpiPlugin\Grcmanager\PeriodicReview::getLabel($review->getKey());
     if (isset($_POST['deactivate'])) {

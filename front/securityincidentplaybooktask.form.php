@@ -44,7 +44,7 @@ $incidentsId = (int) ($_POST['plugin_grcmanager_securityincidents_id'] ?? 0);
 
 if (isset($_POST['apply'])) {
     if (!SecurityIncidentPlaybookTask::canEditIncident($incidentsId)) {
-        Html::displayRightError();
+        throw new \Glpi\Exception\Http\AccessDeniedHttpException();
     }
     $playbooksId = (int) ($_POST['plugin_grcmanager_playbooks_id'] ?? 0);
     $created = SecurityIncidentPlaybookTask::applyPlaybook($incidentsId, $playbooksId);
@@ -54,7 +54,7 @@ if (isset($_POST['apply'])) {
     ), false, $created > 0 ? INFO : WARNING);
 } elseif (isset($_POST['add'])) {
     if (!SecurityIncidentPlaybookTask::canEditIncident($incidentsId)) {
-        Html::displayRightError();
+        throw new \Glpi\Exception\Http\AccessDeniedHttpException();
     }
     $item->add($_POST);
 } elseif (isset($_POST['update'])) {
