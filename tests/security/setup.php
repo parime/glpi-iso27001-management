@@ -77,6 +77,11 @@ if ($mode === 'xss') {
         'title' => $canary, 'description' => $canary, 'target_description' => $canary,
     ]);
     $insert('objectivemeasurements', ['plugin_grcmanager_objectives_id' => $out['objective'], 'comment' => $canary]);
+    // Issue #380 : constat d'un test d'efficacité (onglet de la mesure et registre des tests).
+    $insert('controltests', [
+        'plugin_grcmanager_controls_id' => (int) $ids['control'], 'test_date' => date('Y-m-d'),
+        'result' => 'partial', 'comment' => $canary,
+    ]);
     $out['policy'] = $insert('policies', ['title' => $canary, 'description' => $canary]);
     $out['training'] = $insert('trainings', [
         'title' => $canary, 'description' => $canary, 'target_audience' => $canary,
@@ -284,9 +289,22 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
         'documents_id' => $ids['document_' . $suffix],
         'itemtype' => \GlpiPlugin\Grcmanager\Policy::class, 'items_id' => $ids['policy_' . $suffix],
     ]);
+    // Issue #380 : le même document est aussi une preuve possible des tests d'efficacité de la mesure.
+    $add(new Document_Item(), [
+        'documents_id' => $ids['document_' . $suffix],
+        'itemtype' => \GlpiPlugin\Grcmanager\Control::class, 'items_id' => $controlId,
+    ]);
     $add(new \GlpiPlugin\Grcmanager\Evidence(), [
         'itemtype' => \GlpiPlugin\Grcmanager\Policy::class, 'items_id' => $ids['policy_' . $suffix],
         'documents_id' => $ids['document_' . $suffix], 'valid_until' => date('Y-m-d', strtotime('+10 days')),
+    ]);
+}
+// Issue #372 : les deux incidents touchent l'ordinateur de A ; l'onglet « Incidents de sécurité »
+// de cet ordinateur ne doit montrer (ni compter) l'incident de B qu'au super-admin.
+foreach (['A', 'B'] as $suffix) {
+    $add(new PluginGrcmanagerSecurityIncident_Item(), [
+        'plugin_grcmanager_securityincidents_id' => $ids['incident_' . $suffix],
+        'itemtype' => Computer::class, 'items_id' => $ids['computer_A'],
     ]);
 }
 $ids['supplierrisk'] = $add(new \GlpiPlugin\Grcmanager\SupplierRisk(), [
