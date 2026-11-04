@@ -76,6 +76,7 @@ class Menu extends CommonGLPI
             Risk::class => [
                 SupplierRisk::class, ImpactAnalysis::class,
                 CausalLink::class, Waiver::class,
+                RiskAppetite::class, RiskIndicator::class,
             ],
             // Conformité : SoA, référentiels, exigences du SMSI, obligations, politiques, preuves.
             Control::class => [

@@ -28,6 +28,7 @@ final class PeriodicReviewCatalog
         'privileged_accounts' => ['months' => 3, 'controls' => ['A.8.2', 'A.5.18']],
         'network_flows'       => ['months' => 6, 'controls' => ['A.8.20', 'A.8.21', 'A.8.22']],
         'risk_register'       => ['months' => 6, 'controls' => ['6.1.2', '8.2']],
+        'risk_indicators'     => ['months' => 3, 'controls' => ['6.1.2', '9.1']],
         'supplier_risks'      => ['months' => 12, 'controls' => ['A.5.19', 'A.5.20', 'A.5.22']],
         'policies'            => ['months' => 12, 'controls' => ['A.5.1']],
         'soa'                 => ['months' => 12, 'controls' => ['6.1.3']],

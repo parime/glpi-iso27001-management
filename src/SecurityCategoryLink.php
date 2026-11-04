@@ -91,6 +91,17 @@ final class SecurityCategoryLink
     }
 
     /**
+     * Issue #378 : catégorie d'une demande ouverte depuis un indicateur de risque au rouge : la
+     * branche « Sécurité SI » de CGA si elle accepte les demandes dans l'entité, 0 sinon.
+     */
+    public static function forRequest(int $entitiesId): int
+    {
+        $id = self::ids()['security'] ?? 0;
+
+        return $id > 0 && self::usableIn($id, $entitiesId, 'is_request') ? $id : 0;
+    }
+
+    /**
      * Classification déduite de la catégorie d'un ticket qualifié en incident, null si cette
      * catégorie n'est pas une sous-catégorie « Sécurité SI » sans ambiguïté.
      */
@@ -108,10 +119,10 @@ final class SecurityCategoryLink
      * Catégorie d'incident visible dans l'entité : la sienne, ou une entité parente si elle est
      * récursive.
      */
-    private static function usableIn(int $itilcategoriesId, int $entitiesId): bool
+    private static function usableIn(int $itilcategoriesId, int $entitiesId, string $flag = 'is_incident'): bool
     {
         $category = new ITILCategory();
-        if (!$category->getFromDB($itilcategoriesId) || (int) $category->fields['is_incident'] !== 1) {
+        if (!$category->getFromDB($itilcategoriesId) || (int) ($category->fields[$flag] ?? 0) !== 1) {
             return false;
         }
         $categoryEntity = (int) $category->fields['entities_id'];

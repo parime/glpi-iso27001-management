@@ -1,0 +1,30 @@
+{# Issue #378 : indicateur de risque (KRI) #}
+{% extends 'generic_show_form.html.twig' %}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+{% import '@grcmanager/_hint.html.twig' as hints %}
+
+{% block form_fields %}
+   {{ fields.textField('name', item.fields['name'], __('Name'), {'full_width': true}) }}
+   {% if status %}
+      {{ fields.htmlField('', include('@grcmanager/_badge.html.twig', status, with_context = false), __('Status', 'grcmanager')) }}
+      {{ fields.htmlField('', (item.fields['last_value'] is not null ? (item.fields['last_value'] ~ ' ' ~ item.fields['unit']) : '-')|e, __('Last value', 'grcmanager')) }}
+   {% endif %}
+   {{ fields.dropdownField('User', 'users_id', item.fields['users_id'], _x('owner', 'Owner', 'grcmanager'), {'right': 'all'}) }}
+   {{ fields.dropdownArrayField('category', item.fields['category'], categories, __('Risk category', 'grcmanager')) }}
+   {{ fields.dropdownArrayField('plugin_grcmanager_risks_id', item.fields['plugin_grcmanager_risks_id'], risks, __('Linked risk', 'grcmanager')) }}
+   {{ fields.dropdownArrayField('source', item.fields['source'] ?: 'manual', sources, __('Source', 'grcmanager'), {
+      'add_field_html': hints.hint(__('An automatic source is measured every day on this entity and its sub-entities; choosing it requires the right to read the measured data there.', 'grcmanager')),
+   }) }}
+   {{ fields.textField('unit', item.fields['unit'], __('Unit', 'grcmanager'), {
+      'add_field_html': hints.hint(__('Set automatically for an automatic source.', 'grcmanager')),
+   }) }}
+   {{ fields.dropdownArrayField('direction', item.fields['direction'] ?: 'higher_is_worse', directions, __('Direction', 'grcmanager')) }}
+   {{ fields.textField('threshold_warning', item.fields['threshold_warning'], __('Orange threshold', 'grcmanager'), {
+      'add_field_html': hints.hint(__('Vigilance: reached from this value (inclusive).', 'grcmanager')),
+   }) }}
+   {{ fields.textField('threshold_critical', item.fields['threshold_critical'], __('Red threshold', 'grcmanager'), {
+      'add_field_html': hints.hint(__('Alert: reached from this value (inclusive). A ticket is then offered.', 'grcmanager')),
+   }) }}
+   {{ fields.sliderField('is_active', is_new ? 1 : item.fields['is_active'], __('Active')) }}
+   {{ fields.textareaField('description', item.fields['description'], __('Description', 'grcmanager'), {'full_width': true}) }}
+{% endblock %}

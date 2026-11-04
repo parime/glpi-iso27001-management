@@ -87,6 +87,18 @@ if ($mode === 'xss') {
     $insert('risktreatmentactions', ['plugin_grcmanager_risks_id' => (int) $ids['risk'], 'description' => $canary]);
     $update('risks', ['title' => $canary, 'description' => $canary, 'justification' => $canary], (int) $ids['risk']);
     $update('controls', ['justification' => $canary], (int) $ids['control']);
+    // Issue #378 : KRI, relevé et énoncé d'appétence.
+    $out['kri'] = $insert('riskindicators', [
+        'name' => $canary, 'description' => $canary, 'unit' => $canary, 'entities_id' => (int) $ids['a'],
+        'plugin_grcmanager_risks_id' => (int) $ids['risk'], 'status' => 'red', 'last_value' => 12,
+    ]);
+    $insert('riskindicatorvalues', [
+        'plugin_grcmanager_riskindicators_id' => $out['kri'], 'value_date' => date('Y-m-d'), 'value' => 12,
+        'status' => 'red', 'comment' => $canary,
+    ]);
+    $DB->updateOrInsert('glpi_plugin_grcmanager_riskappetites', [
+        'category' => 'process', 'appetite_level' => 'low', 'tolerance_level' => 'low', 'statement' => $canary,
+    ], ['category' => 'process']);
     $update('supplierrisks', [
         'title' => $canary, 'description' => $canary, 'justification' => $canary,
     ], (int) $ids['supplierrisk']);
@@ -263,6 +275,11 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
     ]);
     $add(new Contract_Supplier(), ['contracts_id' => $contract, 'suppliers_id' => $supplier]);
     $ids['computer_' . $suffix] = $add(new Computer(), ['name' => 'PC securite ' . $suffix, 'entities_id' => $entity]);
+    // Issue #378 : indicateur de risque de l'entité.
+    $ids['kri_' . $suffix] = $add(new \GlpiPlugin\Grcmanager\RiskIndicator(), [
+        'name' => 'KRI securite ' . $suffix, 'entities_id' => $entity,
+        'threshold_warning' => '5', 'threshold_critical' => '10',
+    ]);
     // Issue #145 : politique (globale) avec un document de preuve daté de l'entité.
     $ids['policy_' . $suffix] = $add(new \GlpiPlugin\Grcmanager\Policy(), [
         'title' => 'Politique securite ' . $suffix, 'entities_id' => $entity,

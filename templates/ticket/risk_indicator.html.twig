@@ -1,0 +1,10 @@
+{# Issue #378 : contenu du ticket proposé pour un indicateur de risque au rouge. #}
+<p>{{ __('The risk indicator "%s" reached its red threshold.', 'grcmanager')|format(name) }}</p>
+<ul>
+   <li>{{ __('Last value', 'grcmanager') }} : {{ value }}{% if unit %} {{ unit }}{% endif %}{% if date %} ({{ date }}){% endif %}</li>
+   <li>{{ __('Orange threshold', 'grcmanager') }} : {{ warning ?? '-' }}</li>
+   <li>{{ __('Red threshold', 'grcmanager') }} : {{ critical ?? '-' }}</li>
+   <li>{{ direction }}</li>
+</ul>
+<p>{{ __('Analyse the cause, decide on the actions to bring the indicator back below its thresholds, and record them in this ticket.', 'grcmanager') }}</p>
+<p><a href="{{ url }}">{{ url }}</a></p>
