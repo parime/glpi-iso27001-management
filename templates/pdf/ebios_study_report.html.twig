@@ -2,7 +2,7 @@
 {% include '@grcmanager/pdf/_pdf_style.html.twig' %}
 {% set risk_colors = {'low': '#d3f2dc', 'medium': '#fdf3cf', 'high': '#fde3c8', 'critical': '#f9d5d5'} %}
 {# Rapport complet : chaque atelier à partir du deuxième commence sur une nouvelle page. #}
-{% set new_page = workshop == 0 ? 'style="page-break-before: always"' : '' %}
+{% set new_page = workshop == 0 ? 'page-break-before: always' : '' %}
 
 {% if study.scope %}
   <h2>{{ __('Scope', 'grcmanager') }}</h2>
@@ -34,7 +34,7 @@
 {% endif %}
 
 {% if workshop == 0 or workshop == 2 %}
-  <h2 {{ new_page|raw }}>{{ labels[2] }}</h2>
+  <h2 style="{{ new_page }}">{{ labels[2] }}</h2>
   {% if sources is empty %}
     <p>{{ __('No risk source yet', 'grcmanager') }}</p>
   {% else %}
@@ -66,7 +66,7 @@
 {% endif %}
 
 {% if workshop == 0 or workshop == 3 %}
-  <h2 {{ new_page|raw }}>{{ labels[3] }}</h2>
+  <h2 style="{{ new_page }}">{{ labels[3] }}</h2>
   <h3>{{ __('Stakeholders of the ecosystem', 'grcmanager') }}</h3>
   {% if stakeholders is empty %}
     <p>{{ __('No stakeholder yet', 'grcmanager') }}</p>
@@ -133,7 +133,7 @@
 {% endif %}
 
 {% if workshop == 0 or workshop == 4 %}
-  <h2 {{ new_page|raw }}>{{ labels[4] }}</h2>
+  <h2 style="{{ new_page }}">{{ labels[4] }}</h2>
   {% if operational_scenarios is empty %}
     <p>{{ __('No operational scenario yet', 'grcmanager') }}</p>
   {% else %}
@@ -182,7 +182,7 @@
 {% endif %}
 
 {% if workshop == 0 or workshop == 5 %}
-  <h2 {{ new_page|raw }}>{{ labels[5] }}</h2>
+  <h2 style="{{ new_page }}">{{ labels[5] }}</h2>
   {% if treatment_scenarios is empty %}
     <p>{{ __('No operational scenario yet', 'grcmanager') }}</p>
   {% else %}
