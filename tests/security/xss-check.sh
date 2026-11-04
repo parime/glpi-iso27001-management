@@ -62,6 +62,11 @@ check "onglet couts d'un incident"            "$(tab PluginGrcmanagerSecurityInc
 check "onglet mesures d'un objectif"          "$(tab GlpiPlugin%5CGrcmanager%5CObjective 'GlpiPlugin%5CGrcmanager%5CObjectiveMeasurement$1' "$(xid objective)")"
 check "onglet references CPE d'un produit"    "$(tab GlpiPlugin%5CGrcmanager%5CCanonicalProduct 'GlpiPlugin%5CGrcmanager%5CCpeReference$1' "$(xid product)")"
 check "onglet alias d'un produit"             "$(tab GlpiPlugin%5CGrcmanager%5CCanonicalProduct 'GlpiPlugin%5CGrcmanager%5CProductAlias$1' "$(xid product)")"
+check "front/businessprocess.form.php"         "$P/businessprocess.form.php?id=$(xid process)"
+check "front/businessprocess.php"              "$P/businessprocess.php"
+check "onglet BIA d'un processus"              "$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessImpact$1' "$(xid process)")"
+check "onglet dependances d'un processus"      "$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessProcessItem$1' "$(xid process)")"
+check "onglet processus metier d'un ordinateur" "$(tab Computer 'GlpiPlugin%5CGrcmanager%5CBusinessProcessItem$1' "$(id computer_A)")"
 check "onglet validites des preuves"          "$(tab 'GlpiPlugin%5CGrcmanager%5CPolicy' 'GlpiPlugin%5CGrcmanager%5CEvidence$1' "$(id policy_A)")"
 
 rm -f "$JAR"

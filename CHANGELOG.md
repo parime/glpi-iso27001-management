@@ -9,6 +9,26 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Processus métier et analyse d'impact sur l'activité (BIA)** (issue #377, première étape) :
+  nouvel écran Opérations > Processus métier (ISO 22301 8.2.2, ISO 27001 A.5.29 et A.5.30) :
+  - registre des processus par entité : responsable, service, criticité (l'intitulé « Criticité
+    métier » du cœur de GLPI, celui des informations financières des actifs), durée maximale
+    d'interruption admissible (DMIA), RTO, RPO, date de la dernière BIA ;
+  - onglet « Analyse d'impact (BIA) » : impact financier, juridique, d'image et opérationnel
+    d'une interruption à 4 h, 1 jour, 3 jours, 1 semaine et 1 mois, de négligeable à critique ;
+    contrôles de cohérence (RTO au-delà de la DMIA, DMIA au-delà de la première durée jugée
+    grave, impact qui baisse avec le temps…) ;
+  - onglet « Dépendances » : applications et instances de bases de données du cœur, actifs,
+    logiciels, fournisseurs dont dépend le processus, complétés par ce dont ils dépendent selon
+    l'analyse d'impact native de GLPI ; un élément dont le RTO (classification C/I/D) est plus
+    long que celui du processus, ou non défini, est signalé ;
+  - onglet « Processus métier » sur ces éléments GLPI ;
+  - export CSV pour le PCA / PRA, tracé dans le journal d'audit ;
+  - revue périodique « Revue de l'analyse d'impact sur l'activité » (annuelle) ajoutée au
+    catalogue des revues ;
+  - nouveau droit « Continuité d'activité » dans l'onglet GRC Manager des profils, initialisé à
+    la mise à jour avec la valeur du droit des registres sensibles de chaque profil.
+
 - **Incidents de sécurité rangés dans les catégories de Configuration GLPI Auto** (issue #372) :
   si ce plugin est actif, ses catégories de tickets « Sécurité SI » sont réutilisées, repérées par
   identifiant (jamais par nom), au lieu d'en créer d'autres :

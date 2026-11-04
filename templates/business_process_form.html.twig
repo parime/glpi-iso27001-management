@@ -1,0 +1,35 @@
+{# Issue #377 : fiche d'un processus métier, voir GlpiPlugin\\Grcmanager\\BusinessProcess::showForm() #}
+{% extends 'generic_show_form.html.twig' %}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+{% import '@grcmanager/_hint.html.twig' as hints %}
+
+{% block form_fields %}
+   {{ fields.textField('name', item.fields['name'], __('Name'), {
+      'required': true,
+      'add_field_html': hints.hint(__('Example: "Payroll", "Order taking", "Customer support".', 'grcmanager')),
+   }) }}
+   {{ fields.dropdownField('User', 'users_id', item.fields['users_id'], __('Owner', 'grcmanager'), {
+      'right': 'all',
+   }) }}
+   {{ fields.dropdownField('Group', 'groups_id', item.fields['groups_id'], __('Group'), {
+      'condition': {'is_itemgroup': 1},
+   }) }}
+   {{ fields.dropdownField('BusinessCriticity', 'businesscriticities_id', item.fields['businesscriticities_id'], __('Business criticality', 'grcmanager'), {
+      'add_field_html': hints.hint(__('Same list as the business criticality of assets (financial information).', 'grcmanager')),
+   }) }}
+   {{ fields.dropdownArrayField('mtpd_hours', item.fields['mtpd_hours'], durations, __('MTPD', 'grcmanager'), {
+      'add_field_html': hints.hint(__('Maximum tolerable period of disruption: beyond it, the impact is no longer acceptable.', 'grcmanager')),
+   }) }}
+   {{ fields.dropdownArrayField('rto_hours', item.fields['rto_hours'], durations, 'RTO', {
+      'add_field_html': hints.hint(__('Recovery time objective: time within which the process must be running again.', 'grcmanager')),
+   }) }}
+   {{ fields.dropdownArrayField('rpo_hours', item.fields['rpo_hours'], durations, 'RPO', {
+      'add_field_html': hints.hint(__('Recovery point objective: maximum acceptable data loss.', 'grcmanager')),
+   }) }}
+   {{ fields.dateField('bia_date', item.fields['bia_date'], __('Last business impact analysis', 'grcmanager'), {
+      'add_field_html': hints.hint(__('Set automatically when the analysis is saved.', 'grcmanager')),
+   }) }}
+   {{ fields.textareaField('description', item.fields['description'], __('Description'), {
+      'full_width': true,
+   }) }}
+{% endblock %}

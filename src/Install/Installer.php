@@ -54,6 +54,12 @@ final class Installer
     // séparée du droit général du SMSI pour ne la donner qu'au RSSI et aux propriétaires de risques.
     public const SENSITIVE_RIGHT = 'plugin_grcmanager_sensitive';
 
+    // Issue #377 : continuité d'activité (processus métier et analyses d'impact sur l'activité).
+    // Droit distinct pour le responsable du plan de continuité ; à sa création, il reprend pour
+    // chaque profil la valeur du droit des registres sensibles (la carte des processus critiques et
+    // de leurs dépendances en est un).
+    public const CONTINUITY_RIGHT = 'plugin_grcmanager_continuity';
+
     // Table-name derivation confirmed against a real GLPI 11 instance by the sibling plugins of
     // this same author (glpi-vulnerability-manager, assetsign-glpi): the class-name suffix is
     // lowercased and concatenated as one block (no underscore inserted at camelCase boundaries).
@@ -234,6 +240,10 @@ final class Installer
         // Issue #371 : alertes d'accès au module des incidents.
         \GlpiPlugin\Grcmanager\IncidentAccessWatch::class,
         \GlpiPlugin\Grcmanager\NotificationTargetIncidentAccessWatch::class,
+        // Issue #377 : processus métier, leurs dépendances et leur BIA.
+        \GlpiPlugin\Grcmanager\BusinessProcess::class,
+        \GlpiPlugin\Grcmanager\BusinessProcessItem::class,
+        \GlpiPlugin\Grcmanager\BusinessImpact::class,
     ];
     // Issue #142 : evenements du calendrier de conformite, voir \GlpiPlugin\Grcmanager\ComplianceEvent.
     private const COMPLIANCE_EVENTS_TABLE = 'glpi_plugin_grcmanager_complianceevents';
@@ -258,6 +268,10 @@ final class Installer
     // Issue #164 : règles de couverture des preuves, voir \GlpiPlugin\Grcmanager\CoverageRule.
     private const COVERAGE_RULES_TABLE = 'glpi_plugin_grcmanager_coveragerules';
     // Issue #168 : exercices de crise et leurs étapes chronométrées.
+    // Issue #377 : registre des processus métier, leurs dépendances et leur BIA.
+    private const BUSINESS_PROCESSES_TABLE = 'glpi_plugin_grcmanager_businessprocesses';
+    private const BUSINESS_PROCESSES_ITEMS_TABLE = 'glpi_plugin_grcmanager_businessprocesses_items';
+    private const BUSINESS_IMPACTS_TABLE = 'glpi_plugin_grcmanager_businessimpacts';
     private const CRISIS_EXERCISES_TABLE = 'glpi_plugin_grcmanager_crisisexercises';
     private const CRISIS_EXERCISE_STEPS_TABLE = 'glpi_plugin_grcmanager_crisisexercisesteps';
     // Issue #185 : éléments rétablis pendant une crise (temps de reprise mesuré face au RTO).
@@ -2091,6 +2105,69 @@ final class Installer
         // Les cinq procédures fournies, une seule fois (bibliothèque vide).
         \GlpiPlugin\Grcmanager\Playbook::seedDefaults();
 
+        // Issue #377 : processus métier (responsable, criticité GLPI, DMIA, RTO, RPO), éléments GLPI
+        // dont ils dépendent et analyse d'impact sur l'activité par durée d'interruption.
+        if (!$DB->tableExists(self::BUSINESS_PROCESSES_TABLE)) {
+            $query = "CREATE TABLE `" . self::BUSINESS_PROCESSES_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `entities_id` int {$keySign} NOT NULL DEFAULT 0,
+                `is_recursive` tinyint NOT NULL DEFAULT 0,
+                `name` varchar(255) NOT NULL DEFAULT '',
+                `description` text,
+                `users_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Responsable du processus',
+                `groups_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Service responsable',
+                `businesscriticities_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Criticite (intitule du coeur)',
+                `mtpd_hours` int NOT NULL DEFAULT 0 COMMENT 'DMIA / MTPD en heures, 0 = non definie',
+                `rto_hours` int NOT NULL DEFAULT 0 COMMENT 'RTO en heures, 0 = non defini',
+                `rpo_hours` int NOT NULL DEFAULT 0 COMMENT 'RPO en heures, 0 = non defini',
+                `bia_date` date DEFAULT NULL COMMENT 'Date de la derniere BIA',
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `entities_id` (`entities_id`),
+                KEY `is_recursive` (`is_recursive`),
+                KEY `name` (`name`),
+                KEY `users_id` (`users_id`),
+                KEY `groups_id` (`groups_id`),
+                KEY `businesscriticities_id` (`businesscriticities_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query);
+        }
+        if (!$DB->tableExists(self::BUSINESS_PROCESSES_ITEMS_TABLE)) {
+            $query = "CREATE TABLE `" . self::BUSINESS_PROCESSES_ITEMS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_businessprocesses_id` int {$keySign} NOT NULL DEFAULT 0,
+                `itemtype` varchar(100) NOT NULL DEFAULT '',
+                `items_id` int {$keySign} NOT NULL DEFAULT 0,
+                `comment` varchar(255) NOT NULL DEFAULT '' COMMENT 'Role de l element pour le processus',
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity` (`plugin_grcmanager_businessprocesses_id`, `itemtype`, `items_id`),
+                KEY `item` (`itemtype`, `items_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query);
+        }
+        if (!$DB->tableExists(self::BUSINESS_IMPACTS_TABLE)) {
+            $query = "CREATE TABLE `" . self::BUSINESS_IMPACTS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_businessprocesses_id` int {$keySign} NOT NULL DEFAULT 0,
+                `horizon_hours` int NOT NULL DEFAULT 0 COMMENT 'Duree d interruption evaluee',
+                `financial` tinyint NOT NULL DEFAULT 0 COMMENT '0 non evalue a 4 critique',
+                `legal` tinyint NOT NULL DEFAULT 0,
+                `reputation` tinyint NOT NULL DEFAULT 0,
+                `operational` tinyint NOT NULL DEFAULT 0,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity` (`plugin_grcmanager_businessprocesses_id`, `horizon_hours`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query);
+        }
+
         if (!$DB->tableExists(self::SECURITY_INCIDENT_COSTS_TABLE)) {
             $query = "CREATE TABLE `" . self::SECURITY_INCIDENT_COSTS_TABLE . "` (
                 `id` int {$keySign} NOT NULL AUTO_INCREMENT,
@@ -2718,6 +2795,24 @@ final class Installer
             }
         }
 
+        // Issue #377 : droit de la continuité d'activité. À sa création, il reprend pour chaque profil
+        // la valeur du droit des registres sensibles : personne n'obtient un accès qu'il n'avait pas.
+        $continuityRows = $DB->request(['FROM' => 'glpi_profilerights', 'WHERE' => ['name' => self::CONTINUITY_RIGHT]]);
+        if ($continuityRows->count() === 0) {
+            ProfileRight::addProfileRights([self::CONTINUITY_RIGHT]);
+            $sensitiveRights = $DB->request([
+                'FROM'  => 'glpi_profilerights',
+                'WHERE' => ['name' => self::SENSITIVE_RIGHT],
+            ]);
+            foreach ($sensitiveRights as $row) {
+                $DB->update(
+                    'glpi_profilerights',
+                    ['rights' => (int) $row['rights'] & ALLSTANDARDRIGHT],
+                    ['profiles_id' => (int) $row['profiles_id'], 'name' => self::CONTINUITY_RIGHT]
+                );
+            }
+        }
+
         // addProfileRights() above inserts every profile at rights=0 (GLPI core's own default),
         // an admin is expected to grant it explicitly per profile via Administration > Profils,
         // except Super-Admin which always gets full rights so the plugin is usable right after
@@ -2730,6 +2825,7 @@ final class Installer
                 [
                     self::RIGHT_NAME      => ALLSTANDARDRIGHT | READNOTE | UPDATENOTE,
                     self::SENSITIVE_RIGHT => ALLSTANDARDRIGHT,
+                    self::CONTINUITY_RIGHT => ALLSTANDARDRIGHT,
                 ]
             );
         }
@@ -4149,7 +4245,7 @@ final class Installer
     {
         global $DB;
 
-        ProfileRight::deleteProfileRights([self::RIGHT_NAME, self::SENSITIVE_RIGHT]);
+        ProfileRight::deleteProfileRights([self::RIGHT_NAME, self::SENSITIVE_RIGHT, self::CONTINUITY_RIGHT]);
         ProfileRight::deleteProfileRights([self::SECURITY_INCIDENT_RIGHT, self::SECURITY_INCIDENT_RULE_RIGHT]);
 
         $DB->delete('glpi_displaypreferences', ['itemtype' => array_keys(DefaultSearchColumns::COLUMNS)]);
@@ -4244,6 +4340,9 @@ final class Installer
         $migration->dropTable(self::CRISIS_RECOVERIES_TABLE);
         $migration->dropTable(self::COMPLIANCE_AUDIT_TICKETS_TABLE);
         $migration->dropTable(self::CRISIS_EXERCISE_STEPS_TABLE);
+        $migration->dropTable(self::BUSINESS_IMPACTS_TABLE);
+        $migration->dropTable(self::BUSINESS_PROCESSES_ITEMS_TABLE);
+        $migration->dropTable(self::BUSINESS_PROCESSES_TABLE);
         $migration->dropTable(self::CRISIS_EXERCISES_TABLE);
         $migration->dropTable(self::ACCESS_REVIEWS_USERS_TABLE);
         $migration->dropTable(self::ACCESS_REVIEWS_TABLE);
