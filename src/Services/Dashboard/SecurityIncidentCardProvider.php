@@ -20,6 +20,7 @@ declare(strict_types=1);
 namespace GlpiPlugin\Grcmanager\Services\Dashboard;
 
 use Entity;
+use Glpi\Application\View\TemplateRenderer;
 use Glpi\Dashboard\Provider;
 use Glpi\DBAL\QueryExpression;
 use GlpiPlugin\Grcmanager\SecurityIncidentPlaybookTask;
@@ -534,9 +535,11 @@ final class SecurityIncidentCardProvider
             // Le widget « liste » de GLPI n'affiche que le contenu de chaque entrée (texte riche).
             $data[] = [
                 'label'   => $row['name'],
-                'content' => '<p><strong>' . \htmlescape($row['name']) . '</strong><br>'
-                    . \htmlescape(($labels[$row['key']] ?? $row['key']) . ' : '
-                    . sprintf($text, (string) \Html::convDateTime($row['due']))) . '</p>',
+                'content' => TemplateRenderer::getInstance()->render('@grcmanager/dashboard_notification.html.twig', [
+                    'name'     => $row['name'],
+                    'deadline' => ($labels[$row['key']] ?? $row['key']) . ' : '
+                        . sprintf($text, (string) \Html::convDateTime($row['due'])),
+                ]),
                 'author'  => '',
                 'url'     => PluginGrcmanagerSecurityIncident::getFormURLWithID($row['id']),
             ];

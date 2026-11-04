@@ -4,22 +4,23 @@
    À la largeur d'un téléphone, GLPI 11 passe la grille sur une colonne sans dépasser ses 24 rangées,
    et les cartes suivantes se superposent : sur cette page, elles se suivent dans le flux normal. #}
 <style>
-   .grcmanager-dashboard .dashboard:not(.edit-mode) .grid-stack-item:has(.empty-card.card-warning) {
+   .grcmanager-dashboard-views ~ .card .dashboard:not(.edit-mode) .grid-stack-item:has(.empty-card.card-warning) {
       display: none;
    }
-   .grcmanager-dashboard .dashboard:not(.edit-mode) .grid-stack.gs-1 {
+   .grcmanager-dashboard-views ~ .card .dashboard:not(.edit-mode) .grid-stack.gs-1 {
       height: auto !important;
    }
-   .grcmanager-dashboard .dashboard:not(.edit-mode) .grid-stack.gs-1 > .grid-stack-item {
+   .grcmanager-dashboard-views ~ .card .dashboard:not(.edit-mode) .grid-stack.gs-1 > .grid-stack-item {
       position: relative !important;
       top: auto !important;
       left: auto !important;
       width: 100% !important;
    }
-   .grcmanager-dashboard .dashboard:not(.edit-mode) .grid-stack.gs-1 > .grid-stack-item.lock-bottom {
+   .grcmanager-dashboard-views ~ .card .dashboard:not(.edit-mode) .grid-stack.gs-1 > .grid-stack-item.lock-bottom {
       display: none;
    }
 </style>
+<div class="grcmanager-dashboard-views">
 {% if views|length > 1 %}
    <div class="btn-group mb-3 flex-wrap" role="group" aria-label="{{ __('Dashboard', 'grcmanager') }}">
       {% for name, view in views %}
@@ -30,3 +31,4 @@
       {% endfor %}
    </div>
 {% endif %}
+</div>
