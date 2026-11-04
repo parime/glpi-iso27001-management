@@ -48,6 +48,7 @@ final class DefaultSearchColumns
         'GlpiPlugin\\Grcmanager\\BreachExposure'   => [1, 2, 4, 6, 7, 8],
         // Issue #375 : référence, nom, statut, base légale, personnes, AIPD, responsable, écarts, entité.
         'GlpiPlugin\\Grcmanager\\ProcessingActivity' => [2, 1, 3, 6, 7, 12, 13, 15, 80],
+        'GlpiPlugin\\Grcmanager\\DataSubjectRequest' => [1, 3, 4, 5, 6, 8, 80],
         // Issue #170 : nom, statut, date de fin, responsable, mesure, politique.
         'GlpiPlugin\\Grcmanager\\Waiver'           => [1, 3, 4, 5, 6, 7],
         // Issue #164 : nom, type d'actif, catégorie de document, mesure, exigence, active.
