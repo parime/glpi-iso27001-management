@@ -37,18 +37,21 @@ use Ticket;
  */
 final class RiskAppetiteKriTest extends GrcmanagerIntegrationTestCase
 {
+    /** @var array<int, int|string> entités actives à restaurer après chaque test */
+    private array $activeEntities = [];
+
     protected function setUp(): void
     {
         parent::setUp();
+        $this->activeEntities = $_SESSION['glpiactiveentities'];
         global $DB;
         $DB->delete(RiskAppetite::getTable(), ['id' => ['>', 0]]);
-        RiskAppetite::clearCache();
         $_SESSION['glpi_currenttime'] ??= date('Y-m-d H:i:s');
     }
 
     protected function tearDown(): void
     {
-        RiskAppetite::clearCache();
+        $_SESSION['glpiactiveentities'] = $this->activeEntities;
         parent::tearDown();
     }
 
@@ -246,6 +249,8 @@ final class RiskAppetiteKriTest extends GrcmanagerIntegrationTestCase
         } finally {
             $_SESSION['glpiactiveprofile']['computer'] = $rights;
         }
+        // Tout le périmètre de la racine (autres entités de l'instance de test comprises).
+        $_SESSION['glpiactiveentities'] = array_values(array_map('intval', getSonsOf('glpi_entities', 0)));
         $kri = $this->kri(['source' => 'unencrypted_computers', 'unit' => 'bidon']);
         $this->assertSame('%', $kri->fields['unit']);
 
