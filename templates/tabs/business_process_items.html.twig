@@ -1,0 +1,97 @@
+{# Issue #377 : éléments GLPI dont dépend un processus, voir
+   GlpiPlugin\\Grcmanager\\BusinessProcessItem::displayTabContentForItem(). #}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+
+{% if can_edit %}
+<form method="post" action="{{ form_url }}" class="card card-body mb-3">
+  <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+  <input type="hidden" name="plugin_grcmanager_businessprocesses_id" value="{{ item.getID() }}">
+  <div class="row g-2 align-items-end">
+    <div class="col-md-7">
+      {{ fields.dropdownItemsFromItemtypes('items_id', __('Item', 'grcmanager'), {
+         'itemtypes': itemtypes,
+         'itemtype_name': 'itemtype',
+         'items_id_name': 'items_id',
+         'entity_restrict': -1,
+         'checkright': true,
+         'is_horizontal': false,
+         'full_width': true,
+      }) }}
+    </div>
+    <div class="col-md-3">
+      <label class="form-label" for="grc-process-item-comment">{{ __('Role', 'grcmanager') }}</label>
+      <input type="text" id="grc-process-item-comment" name="comment" class="form-control" maxlength="255"
+             placeholder="{{ __('E.g. "Payroll application", "Main database"', 'grcmanager') }}">
+    </div>
+    <div class="col-md-2">
+      <button type="submit" name="add" value="1" class="btn btn-primary w-100"><i class="ti ti-plus me-1"></i>{{ __('Add', 'grcmanager') }}</button>
+    </div>
+  </div>
+</form>
+{% endif %}
+
+<p class="text-muted">{{ __('Items linked to the process, then what they depend on according to GLPI\'s impact analysis. Recovery objectives come from the C/I/A classification tab of each item.', 'grcmanager') }}</p>
+
+{% if analysis.dependencies is empty %}
+  <p class="text-muted">{{ __('No dependency yet: add the applications, servers and suppliers the process needs.', 'grcmanager') }}</p>
+{% else %}
+  <div class="table-responsive">
+    <table class="table table-sm table-hover align-middle">
+      <thead>
+        <tr>
+          <th scope="col">{{ __('Item', 'grcmanager') }}</th>
+          <th scope="col">{{ __('Dependency', 'grcmanager') }}</th>
+          <th scope="col">{{ __('Role', 'grcmanager') }}</th>
+          <th scope="col">{{ __('Business criticality', 'grcmanager') }}</th>
+          <th scope="col">{{ __('Availability', 'grcmanager') }}</th>
+          <th scope="col">RTO</th>
+          <th scope="col">RPO</th>
+          <th scope="col">{{ __('Consistency checks', 'grcmanager') }}</th>
+          {% if can_edit %}<th scope="col"><span class="visually-hidden">{{ __('Actions', 'grcmanager') }}</span></th>{% endif %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for dependency in analysis.dependencies %}
+          <tr>
+            <td><a href="{{ dependency.url }}">{{ dependency.label }}</a></td>
+            <td>
+              {% if dependency.depth == 0 %}
+                <span class="badge bg-blue-lt">{{ __('Direct', 'grcmanager') }}</span>
+              {% else %}
+                <span class="badge bg-secondary-lt">{{ __('Indirect (level %d)', 'grcmanager')|format(dependency.depth) }}</span>
+              {% endif %}
+            </td>
+            <td>{{ dependency.comment }}</td>
+            <td>{{ dependency.criticity }}</td>
+            <td>{{ levels[dependency.availability] ?? '' }}</td>
+            <td>{{ durations[dependency.rto] ?? '' }}</td>
+            <td>{{ durations[dependency.rpo] ?? '' }}</td>
+            <td>
+              {% for code in dependency.issues %}
+                <span class="badge bg-orange-lt d-block mb-1 text-wrap">{{ issues[code] ?? code }}</span>
+              {% else %}
+                <span class="badge bg-green-lt">{{ __('OK', 'grcmanager') }}</span>
+              {% endfor %}
+            </td>
+            {% if can_edit %}
+              <td>
+                {% if dependency.link_id > 0 %}
+                  <form method="post" action="{{ form_url }}">
+                    <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                    <input type="hidden" name="id" value="{{ dependency.link_id }}">
+                    <button type="submit" name="purge" value="1" class="btn btn-sm btn-ghost-danger"
+                            title="{{ __('Remove', 'grcmanager') }}" aria-label="{{ __('Remove', 'grcmanager') }}"
+                            onclick="return confirm('{{ __('Remove this dependency?', 'grcmanager')|e('js') }}');"><i class="ti ti-trash"></i></button>
+                  </form>
+                {% endif %}
+              </td>
+            {% endif %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endif %}
+{% if analysis.hidden > 0 %}
+  <p class="text-muted small">{{ _n('%d other item you cannot see is not listed.', '%d other items you cannot see are not listed.', analysis.hidden, 'grcmanager')|format(analysis.hidden) }}</p>
+{% endif %}

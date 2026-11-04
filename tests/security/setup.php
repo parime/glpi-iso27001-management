@@ -109,6 +109,12 @@ if ($mode === 'xss') {
     ]);
     $DB->update('glpi_plugin_grcmanager_ismsrequirements', ['comment' => $canary], ['id' => ['>', 0]]);
     $DB->update('glpi_computers', ['name' => $canary], ['id' => (int) $ids['computer_A']]);
+    // Issue #377 : processus metier et role d'une dependance (fiche, liste, onglets, export).
+    $out['process'] = $insert('businessprocesses', ['name' => $canary, 'description' => $canary, 'rto_hours' => 4]);
+    $insert('businessprocesses_items', [
+        'plugin_grcmanager_businessprocesses_id' => $out['process'], 'itemtype' => 'Computer',
+        'items_id' => (int) $ids['computer_A'], 'comment' => $canary,
+    ]);
     // Issue #145 : nom du document de preuve, affiché par l'onglet et la liste des validités.
     $DB->update('glpi_documents', ['name' => $canary], ['id' => (int) $ids['document_A']]);
     echo json_encode($out), "\n";
@@ -200,6 +206,7 @@ $b = $entityId('Securite ISO B');
 $manager = $userId('iso-gestionnaire', $a, $profileId('Securite ISO - gestionnaire A', [
     'plugin_grcmanager'                  => ALLSTANDARDRIGHT,
     'plugin_grcmanager_sensitive'        => ALLSTANDARDRIGHT,
+    'plugin_grcmanager_continuity'       => ALLSTANDARDRIGHT,
     'plugin_grcmanager_securityincident' => ALLSTANDARDRIGHT | CommonITILObject::READALL | CommonITILObject::READMY,
     'computer' => READ, 'contract' => READ, 'supplier' => READ, 'user' => READ, 'document' => READ,
     'software' => READ,
@@ -207,6 +214,7 @@ $manager = $userId('iso-gestionnaire', $a, $profileId('Securite ISO - gestionnai
 $reader = $userId('iso-lecteur', $a, $profileId('Securite ISO - lecteur A', [
     'plugin_grcmanager'                  => READ,
     'plugin_grcmanager_sensitive'        => READ,
+    'plugin_grcmanager_continuity'       => READ,
     'plugin_grcmanager_securityincident' => CommonITILObject::READALL,
     'computer' => READ, 'contract' => READ, 'supplier' => READ, 'user' => READ, 'software' => READ,
 ]));
@@ -217,6 +225,7 @@ $reader = $userId('iso-lecteur', $a, $profileId('Securite ISO - lecteur A', [
 $noRight = $userId('iso-sans-droit', $a, $profileId('Securite ISO - sans droit', [
     'plugin_grcmanager'                  => 0,
     'plugin_grcmanager_sensitive'        => 0,
+    'plugin_grcmanager_continuity'       => 0,
     'plugin_grcmanager_securityincident' => 0,
     'computer'                           => READ,
     'software'                           => READ,
@@ -227,6 +236,7 @@ $noRight = $userId('iso-sans-droit', $a, $profileId('Securite ISO - sans droit',
 $general = $userId('iso-general', $a, $profileId('Securite ISO - sans registres sensibles', [
     'plugin_grcmanager'                  => ALLSTANDARDRIGHT,
     'plugin_grcmanager_sensitive'        => 0,
+    'plugin_grcmanager_continuity'       => 0,
     'plugin_grcmanager_securityincident' => 0,
     'computer' => READ, 'software' => READ, 'supplier' => READ, 'contract' => READ, 'user' => READ,
 ]));
@@ -354,6 +364,22 @@ if (countElementsInTable(\GlpiPlugin\Grcmanager\BreachExposure::getTable(), $exp
         'status'       => \GlpiPlugin\Grcmanager\BreachExposure::STATUS_NEW,
     ]);
 }
+// Issue #377 : un processus metier par entite ; celui de A depend aussi du PC de B (invisible pour
+// les profils limites a A, jamais nomme pour eux).
+foreach (['A', 'B'] as $suffix) {
+    $ids['process_' . $suffix] = $add(new \GlpiPlugin\Grcmanager\BusinessProcess(), [
+        'name' => 'Processus securite ' . $suffix, 'entities_id' => $ids[strtolower($suffix)], 'rto_hours' => 4,
+    ]);
+    $DB->insert('glpi_plugin_grcmanager_businessprocesses_items', [
+        'plugin_grcmanager_businessprocesses_id' => $ids['process_' . $suffix],
+        'itemtype' => 'Computer', 'items_id' => $ids['computer_' . $suffix], 'comment' => 'Serveur ' . $suffix,
+    ]);
+}
+$DB->insert('glpi_plugin_grcmanager_businessprocesses_items', [
+    'plugin_grcmanager_businessprocesses_id' => $ids['process_A'],
+    'itemtype' => 'Computer', 'items_id' => $ids['computer_B'], 'comment' => 'Serveur B',
+]);
+
 $ids['breachexposure'] = (int) current(
     (new \GlpiPlugin\Grcmanager\BreachExposure())->find($exposure, [], 1)
 )['id'];
