@@ -7,20 +7,36 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
-## [2.21.0] - 2026-11-04
-
 ### Added
 
-<<<<<<< HEAD
 - **Tableau de bord des incidents de sécurité** (issues #143 et #372) : nouvelle vue sur la page
   Tableau de bord (et tableau de bord natif « GRC Manager - Incidents de sécurité »), proposée à
   qui peut lire les incidents :
   - incidents critiques en cours, tendance sur 12 mois (déclarés et résolus), répartition par
     catégorie d'incident, liste des notifications NIS2 / RGPD à suivre (la plus urgente d'abord) ;
   - les répartitions par statut, sévérité, catégorie, entité et catégorie GLPI mènent à la
-    recherche, qui applique elle-même ses droits. La sévérité et la catégorie acceptent le critère
-    « est » dans la recherche.
-=======
+    recherche, qui applique elle-même ses droits et retrouve le nombre affiché. La sévérité et la
+    catégorie acceptent le critère « est » dans la recherche.
+
+### Fixed
+
+- **Cartes de tableau de bord** (issue #143) :
+  - les cartes des incidents comptent seulement les incidents que l'utilisateur peut ouvrir : sans
+    « Voir tout », ceux où il est acteur ou membre de l'équipe d'intervention. Les cartes total, par
+    entité et par catégorie GLPI ne vérifiaient aucun droit du plugin ; elles les vérifient ;
+  - la carte des échéances NIS2 / RGPD et celle des revues périodiques en retard respectent les
+    entités actives ;
+  - une carte n'est plus proposée à qui n'a pas le droit de la voir, ni quand son module ou tous ses
+    référentiels sont désactivés ; sur la page Tableau de bord du plugin, elle disparaît ;
+  - le lien de la carte « Ouverts » menait à une recherche vide ;
+  - sur la page Tableau de bord du plugin, les cartes ne se superposent plus, ni au-delà de la
+    24e rangée, ni à la largeur d'un téléphone ;
+  - délais moyens et tactiques MITRE calculés par une seule requête d'agrégat.
+
+## [2.21.0] - 2026-11-04
+
+### Added
+
 - **Processus métier et analyse d'impact sur l'activité (BIA)** (issue #377, première étape) :
   nouvel écran Opérations > Processus métier (ISO 22301 8.2.2, ISO 27001 A.5.29 et A.5.30) :
   - registre des processus par entité : responsable, service, criticité (l'intitulé « Criticité
@@ -40,7 +56,6 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
     catalogue des revues ;
   - nouveau droit « Continuité d'activité » dans l'onglet GRC Manager des profils, initialisé à
     la mise à jour avec la valeur du droit des registres sensibles de chaque profil.
->>>>>>> origin/dev
 
 - **Onglet « Incidents de sécurité » sur les éléments liés** (issue #372) : ordinateurs, matériels
   réseau, logiciels, utilisateurs, fournisseurs, problèmes et changements (le ticket garde son
@@ -158,18 +173,6 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   Sécurité : réglage réservé au droit de modification de la configuration du plugin, formulaire
   protégé par le jeton CSRF, valeurs limitées à la liste connue, changement tracé dans le journal
   d'audit.
-
-### Fixed
-
-- **Cartes de tableau de bord** (issue #143) :
-  - les cartes des incidents comptent seulement les incidents que l'utilisateur peut ouvrir : sans
-    « Voir tout », ceux où il est acteur ou membre de l'équipe d'intervention. Les cartes total, par
-    entité et par catégorie GLPI ne vérifiaient aucun droit du plugin ; elles les vérifient ;
-  - la carte des échéances NIS2 / RGPD et celle des revues périodiques en retard respectent les
-    entités actives ;
-  - une carte n'est plus proposée à qui n'a pas le droit de la voir, ni quand son module ou tous ses
-    référentiels sont désactivés ; sur la page Tableau de bord du plugin, elle disparaît ;
-  - délais moyens et tactiques MITRE calculés par une seule requête d'agrégat.
 
 ## [2.20.0] - 2026-11-03
 
