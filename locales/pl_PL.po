@@ -8760,7 +8760,7 @@ msgid "Improving"
 msgstr "Poprawa"
 
 msgid "This indicator is in the red: open a ticket so that the team handles it."
-msgstr "Ten wskaźnik jest na czerwono: otwórz zgłoszenie, aby zespół się nim zajął."
+msgstr "Ten wskaźnik jest w strefie czerwonej: otwórz zgłoszenie, aby zespół się nim zajął."
 
 #, php-format
 msgid "Open ticket #%d"
@@ -8911,7 +8911,7 @@ msgstr "Mierz automatyczne wskaźniki ryzyka (KRI)"
 
 #, php-format
 msgid "Risk indicator in the red: %s"
-msgstr "Wskaźnik ryzyka na czerwono: %s"
+msgstr "Wskaźnik ryzyka w strefie czerwonej: %s"
 
 msgid "Last measured on"
 msgstr "Ostatni pomiar"
@@ -8965,7 +8965,7 @@ msgid "Risk indicators (KRI) by status"
 msgstr "Wskaźniki ryzyka (KRI) według stanu"
 
 msgid "Risk indicators (KRI) in the red"
-msgstr "Wskaźniki ryzyka (KRI) na czerwono"
+msgstr "Wskaźniki ryzyka (KRI) w strefie czerwonej"
 
 msgid "A numeric value is required."
 msgstr "Wymagana jest wartość liczbowa."
@@ -8977,7 +8977,7 @@ msgid "No value could be measured for this indicator."
 msgstr "Nie udało się zmierzyć żadnej wartości tego wskaźnika."
 
 msgid "The indicator is not in the red: no ticket was created."
-msgstr "Wskaźnik nie jest na czerwono: nie utworzono zgłoszenia."
+msgstr "Wskaźnik nie jest w strefie czerwonej: nie utworzono zgłoszenia."
 
 msgid "Risk indicator value"
 msgid_plural "Risk indicator values"
