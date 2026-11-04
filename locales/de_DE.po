@@ -7964,3 +7964,9 @@ msgstr "GRC Manager - Sicherheitsvorfälle"
 
 msgid "ISMS overview"
 msgstr "ISMS-Übersicht"
+
+msgid "Data protection officer (DPO)"
+msgstr "Datenschutzbeauftragter (DSB)"
+
+msgid "Name and contact details of the data protection officer, shown on the record of processing activities (GDPR, article 30)."
+msgstr "Name und Kontaktdaten des Datenschutzbeauftragten, die im Verzeichnis der Verarbeitungstätigkeiten erscheinen (DSGVO, Artikel 30)."

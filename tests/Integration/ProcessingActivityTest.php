@@ -27,7 +27,6 @@ use GlpiPlugin\Grcmanager\Services\Review\PeriodicReviewCatalog;
  */
 final class ProcessingActivityTest extends GrcmanagerIntegrationTestCase
 {
-
     public function testDpoContactIsPlainTextAndBounded(): void
     {
         $before = ProcessingActivity::dpoContact();
@@ -40,6 +39,7 @@ final class ProcessingActivityTest extends GrcmanagerIntegrationTestCase
             ProcessingActivity::saveDpoContact($before);
         }
     }
+
     public function testRightIsInstalledForSuperAdminOnly(): void
     {
         global $DB;
