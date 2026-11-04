@@ -8356,3 +8356,48 @@ msgstr[1] "Operative Szenarien"
 
 msgid "Severity (G1 to G4)"
 msgstr "Schwere (G1 bis G4)"
+
+msgid "Workshop 5: risk treatment"
+msgstr "Workshop 5: Risikobehandlung"
+
+msgid "Decide how to treat each scenario, starting with the highest risks, then add it to the risk register. The follow-up continues there: owner, treatment plan and review date."
+msgstr "Entscheiden Sie über die Behandlung jedes Szenarios, beginnend mit den höchsten Risiken, und fügen Sie es dann dem Risikoregister hinzu. Dort geht die Nachverfolgung weiter: Verantwortlicher, Behandlungsplan und Prüfdatum."
+
+msgid "The treatment applies to operational scenarios: fill in workshop 4 first."
+msgstr "Die Behandlung betrifft die operativen Szenarien: Füllen Sie zuerst Workshop 4 aus."
+
+msgid "Scenarios"
+msgstr "Szenarien"
+
+msgid "Decisions made"
+msgstr "Getroffene Entscheidungen"
+
+msgid "In the risk register"
+msgstr "Im Risikoregister"
+
+msgid "Treatment decision"
+msgstr "Behandlungsentscheidung"
+
+msgid "The likelihood or the severity no longer matches this risk: review it in the register."
+msgstr "Wahrscheinlichkeit oder Schwere stimmen nicht mehr mit diesem Risiko überein: Prüfen Sie es im Register."
+
+msgid "Add to the risk register"
+msgstr "Zum Risikoregister hinzufügen"
+
+msgid "Not in the register"
+msgstr "Nicht im Register"
+
+msgid "The risk has been added to the register."
+msgstr "Das Risiko wurde dem Register hinzugefügt."
+
+msgid "Export this workshop (PDF)"
+msgstr "Diesen Workshop exportieren (PDF)"
+
+msgid "Full report (PDF)"
+msgstr "Vollständiger Bericht (PDF)"
+
+msgid "Zone"
+msgstr "Zone"
+
+msgid "Create one study per scope, then work through its workshops in order: business values and feared events, risk sources, stakeholders and strategic scenarios, operational scenarios, then their treatment, which feeds the risk register."
+msgstr "Legen Sie pro Geltungsbereich eine Studie an und bearbeiten Sie die Workshops der Reihe nach: Geschäftswerte und gefürchtete Ereignisse, Risikoquellen, Stakeholder und strategische Szenarien, operative Szenarien und schließlich deren Behandlung, die das Risikoregister speist."

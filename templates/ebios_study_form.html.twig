@@ -21,6 +21,9 @@
             {% if progress.next and labels[progress.next] is defined %}
                <span class="text-muted"><i class="ti ti-arrow-right me-1"></i>{{ __('Next step', 'grcmanager') }} : {{ labels[progress.next] }}</span>
             {% endif %}
+            {% if report_url %}
+               <a href="{{ report_url }}" class="btn btn-sm btn-outline-secondary ms-auto"><i class="ti ti-file-type-pdf me-1"></i>{{ __('Full report (PDF)', 'grcmanager') }}</a>
+            {% endif %}
          </div>
       </div>
    {% endif %}

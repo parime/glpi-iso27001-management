@@ -130,7 +130,7 @@ class EbiosOperationalScenario extends EbiosElement
         $source->getFromDB((int) $strategic->fields[EbiosRiskSource::getForeignKeyField()]);
         $stakeholder = new EbiosStakeholder();
         $path = $stakeholder->getFromDB((int) $strategic->fields[EbiosStakeholder::getForeignKeyField()])
-            ? sprintf(__('Through: %s', 'grcmanager'), (string) $stakeholder->fields['name'])
+            ? (string) $stakeholder->fields['name']
             : __('Direct attack', 'grcmanager');
 
         $lines = [

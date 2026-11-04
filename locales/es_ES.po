@@ -8356,3 +8356,48 @@ msgstr[1] "Escenarios operativos"
 
 msgid "Severity (G1 to G4)"
 msgstr "Gravedad (G1 a G4)"
+
+msgid "Workshop 5: risk treatment"
+msgstr "Taller 5: tratamiento del riesgo"
+
+msgid "Decide how to treat each scenario, starting with the highest risks, then add it to the risk register. The follow-up continues there: owner, treatment plan and review date."
+msgstr "Decida cómo tratar cada escenario, empezando por los riesgos más altos, y añádalo al registro de riesgos. El seguimiento continúa allí: responsable, plan de tratamiento y fecha de revisión."
+
+msgid "The treatment applies to operational scenarios: fill in workshop 4 first."
+msgstr "El tratamiento se aplica a los escenarios operativos: complete primero el taller 4."
+
+msgid "Scenarios"
+msgstr "Escenarios"
+
+msgid "Decisions made"
+msgstr "Decisiones tomadas"
+
+msgid "In the risk register"
+msgstr "En el registro de riesgos"
+
+msgid "Treatment decision"
+msgstr "Decisión de tratamiento"
+
+msgid "The likelihood or the severity no longer matches this risk: review it in the register."
+msgstr "La probabilidad o la gravedad ya no coinciden con este riesgo: revíselo en el registro."
+
+msgid "Add to the risk register"
+msgstr "Añadir al registro de riesgos"
+
+msgid "Not in the register"
+msgstr "No está en el registro"
+
+msgid "The risk has been added to the register."
+msgstr "El riesgo se ha añadido al registro."
+
+msgid "Export this workshop (PDF)"
+msgstr "Exportar este taller (PDF)"
+
+msgid "Full report (PDF)"
+msgstr "Informe completo (PDF)"
+
+msgid "Zone"
+msgstr "Zona"
+
+msgid "Create one study per scope, then work through its workshops in order: business values and feared events, risk sources, stakeholders and strategic scenarios, operational scenarios, then their treatment, which feeds the risk register."
+msgstr "Cree un estudio por alcance y siga sus talleres en orden: valores de negocio y eventos temidos, fuentes de riesgo, partes interesadas y escenarios estratégicos, escenarios operativos y, por último, su tratamiento, que alimenta el registro de riesgos."

@@ -202,6 +202,16 @@ final class EbiosStudyTest extends GrcmanagerIntegrationTestCase
         $this->assertStringContainsString('ti-alert-triangle', $html);
         $this->assertStringNotContainsString('name="send_to_register"', $html);
 
+        // Rapport complet et rapport d'un seul atelier.
+        $full = $study->renderReport();
+        $this->assertStringContainsString('Scénario vers le registre', $full);
+        $this->assertStringContainsString('Facturation fictive', $full);
+        $this->assertStringContainsString('Prestataire fictif', $full);
+        $onlyTwo = $study->renderReport(2);
+        $this->assertStringContainsString('Source fictive', $onlyTwo);
+        $this->assertStringNotContainsString('Facturation fictive', $onlyTwo);
+        $this->assertStringNotContainsString('Scénario vers le registre', $onlyTwo);
+
         // Retirer le scénario garde le risque ; un risque retiré du registre peut être recréé.
         $otherId = (int) (new EbiosOperationalScenario())->add($fk + [
             EbiosStrategicScenario::getForeignKeyField() => $strategicId, 'name' => 'Autre scénario',

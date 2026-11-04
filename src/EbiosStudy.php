@@ -178,6 +178,7 @@ class EbiosStudy extends EbiosStudyBase
             'statuses' => self::getStatuses(),
             'progress' => $this->isNewItem() ? null : EbiosRules::progress(self::countElements((int) $ID)),
             'labels'   => self::getWorkshopLabels(),
+            'report_url' => $this->isNewItem() ? '' : self::getReportURL((int) $ID),
         ]);
 
         return true;
@@ -238,21 +239,18 @@ class EbiosStudy extends EbiosStudyBase
             'levels'   => self::getLevelLabels(),
         ];
         $renderer = TemplateRenderer::getInstance();
+        if (array_key_exists((int) $tabnum, self::getWorkshopLabels())) {
+            $renderer->display('@grcmanager/tabs/ebios_report_link.html.twig', [
+                'report_url' => self::getReportURL($studyId, (int) $tabnum),
+            ]);
+        }
         if ((int) $tabnum === 1) {
             $renderer->display('@grcmanager/tabs/ebios_workshop1.html.twig', $common + self::workshopOneData($studyId));
 
             return true;
         }
         if ((int) $tabnum === 2) {
-            $sources = [];
-            foreach (EbiosRiskSource::getForStudy($studyId) as $source) {
-                $source['relevance'] = EbiosRules::sourceRelevance(
-                    (int) $source['motivation'],
-                    (int) $source['resources'],
-                    (int) $source['activity']
-                );
-                $sources[] = $source;
-            }
+            $sources = self::workshopTwoSources($studyId);
             $renderer->display('@grcmanager/tabs/ebios_workshop2.html.twig', $common + ['sources' => $sources]);
 
             return true;
@@ -277,6 +275,70 @@ class EbiosStudy extends EbiosStudyBase
         }
 
         return false;
+    }
+
+    /**
+     * @return list<array<string, mixed>>
+     */
+    private static function workshopTwoSources(int $studyId): array
+    {
+        $sources = [];
+        foreach (EbiosRiskSource::getForStudy($studyId) as $source) {
+            $source['relevance'] = EbiosRules::sourceRelevance(
+                (int) $source['motivation'],
+                (int) $source['resources'],
+                (int) $source['activity']
+            );
+            $sources[] = $source;
+        }
+
+        return $sources;
+    }
+
+    /**
+     * Rapport PDF de l'étude : tous les ateliers (0) ou un seul.
+     */
+    public function renderReport(int $workshop = 0): string
+    {
+        $studyId = (int) $this->getID();
+        $three = self::workshopThreeData($studyId);
+        $four = self::workshopFourData($studyId);
+        $five = self::workshopFiveData($studyId);
+
+        return TemplateRenderer::getInstance()->render('@grcmanager/pdf/ebios_study_report.html.twig', [
+            'report_title'          => $workshop > 0
+                ? sprintf(__('%1$s: %2$s'), $this->fields['name'], self::getWorkshopLabels()[$workshop])
+                : sprintf(__('%1$s: %2$s'), self::getTypeName(1), $this->fields['name']),
+            'generated_at_label'    => sprintf(
+                __('Generated on %s', 'grcmanager'),
+                Html::convDateTime(date('Y-m-d H:i:s'))
+            ),
+            'workshop'              => $workshop,
+            'study'                 => $this->fields,
+            'labels'                => self::getWorkshopLabels(),
+            'values'                => self::workshopOneData($studyId)['values'],
+            'sources'               => self::workshopTwoSources($studyId),
+            'stakeholders'          => $three['stakeholders'],
+            'categories'            => $three['categories'],
+            'strategic_scenarios'   => $three['scenarios'],
+            'operational_scenarios' => $four['scenarios'],
+            'matrix'                => $four['matrix'],
+            'treatment_scenarios'   => $five['scenarios'],
+            'decided'               => $five['decided'],
+            'registered'            => $five['registered'],
+            'treatments'            => $five['treatments'],
+            'severities'            => $four['severities'],
+            'likelihoods'           => $four['likelihoods'],
+            'risk_labels'           => $four['risk_labels'],
+        ]);
+    }
+
+    public static function getReportURL(int $studyId, int $workshop = 0): string
+    {
+        global $CFG_GLPI;
+
+        return $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/ebiosstudy.report.php?id=' . $studyId
+            . ($workshop > 0 ? '&workshop=' . $workshop : '');
     }
 
     /**

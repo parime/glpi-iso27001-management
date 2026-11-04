@@ -19,6 +19,11 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   scénarios stratégiques (source de risque, chemin d'attaque, événement redouté) ; scénarios
   opérationnels avec leur vraisemblance V1 à V4, leur niveau de risque et une grille gravité x
   vraisemblance.
+- **EBIOS Risk Manager, atelier 5 et rapport** : décision de traitement de chaque scénario, du risque
+  le plus fort au plus faible, et ajout au registre des risques, à la demande et une seule fois. Le
+  risque créé n'est jamais modifié depuis l'étude : un écart éventuel est simplement signalé. Le
+  niveau de risque des scénarios suit la matrice administrable du registre. Rapport PDF de l'étude,
+  complet ou par atelier, avec la mention de la méthode de l'ANSSI.
 
 ### Fixed
 
