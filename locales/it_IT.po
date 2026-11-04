@@ -7536,7 +7536,7 @@ msgid "Sensitive registers (risks, risk indicators, vulnerabilities, network flo
 msgstr "Registri sensibili (rischi, indicatori di rischio, vulnerabilità, flussi di rete)"
 
 msgid "Risk indicator (KRI) review"
-msgstr "Revisione degli indicatori di rischio (KRI)"
+msgstr "Riesame degli indicatori di rischio (KRI)"
 
 msgid "Enter the values of the manual indicators"
 msgstr "Inserire i valori degli indicatori manuali"
@@ -7563,7 +7563,7 @@ msgid "Key risk indicators (KRI): values measured over time, entered by hand or 
 msgstr "Indicatori di rischio (KRI): valori misurati nel tempo, inseriti a mano o misurati ogni giorno da controlli tecnici, vulnerabilità del parco e registro dei rischi, con soglie arancione e rossa."
 
 msgid "Set the thresholds of each indicator, enter the manual values at each review, and open a ticket for any indicator in the red."
-msgstr "Fissate le soglie di ogni indicatore, inserite i valori manuali a ogni revisione e aprite un ticket per ogni indicatore in rosso."
+msgstr "Fissate le soglie di ogni indicatore, inserite i valori manuali a ogni riesame e aprite un ticket per ogni indicatore in rosso."
 
 msgid "ISO 27001, 6.1.2 and 9.1"
 msgstr "ISO 27001, 6.1.2 e 9.1"
@@ -7816,7 +7816,7 @@ msgid "GDPR, article 30; ISO 27001, Annex A 5.34"
 msgstr "GDPR, articolo 30; ISO 27001, Allegato A 5.34"
 
 msgid "Review of the record of processing activities (GDPR)"
-msgstr "Revisione del registro delle attività di trattamento (GDPR)"
+msgstr "Riesame del registro delle attività di trattamento (GDPR)"
 
 msgid "Add new processing activities and mark those that ended"
 msgstr "Aggiungere i nuovi trattamenti e contrassegnare quelli terminati"
@@ -7825,7 +7825,7 @@ msgid "Settle the gaps shown in the register (legal basis, retention, transfers.
 msgstr "Risolvere le lacune indicate nel registro (base giuridica, conservazione, trasferimenti...)"
 
 msgid "Check the processors and recipients, then date the review of each entry"
-msgstr "Verificare responsabili e destinatari, quindi datare la revisione di ogni scheda"
+msgstr "Verificare responsabili e destinatari, quindi datare il riesame di ogni scheda"
 
 msgid "Personal data protection (GDPR record of processing)"
 msgstr "Protezione dei dati personali (registro dei trattamenti GDPR)"
@@ -7891,7 +7891,7 @@ msgid "Statement of Applicability controls"
 msgstr "Controlli della Dichiarazione di applicabilità"
 
 msgid "Impact assessment and review"
-msgstr "Valutazione d'impatto e revisione"
+msgstr "Valutazione d'impatto e riesame"
 
 msgid "Data protection impact assessment (article 35): record here whether one is needed."
 msgstr "Valutazione d'impatto sulla protezione dei dati (articolo 35): indicare qui se è necessaria."

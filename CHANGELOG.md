@@ -7,6 +7,13 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Fixed
+
+- **Export du registre des traitements** : « Oui - pays » au lieu de « Oui pays » pour les transferts
+  hors UE.
+- **Traductions** : « riesame » harmonisé en italien (terme des normes ISO), « w strefie czerwonej »
+  pour un indicateur au rouge en polonais.
+
 ## [2.21.0] - 2026-11-04
 
 ### Added

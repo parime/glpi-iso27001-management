@@ -819,7 +819,7 @@ class ProcessingActivity extends ProcessingActivityBase
                 }
             }
             $transfer = (int) $row['transfers_outside_eu'] === 1
-                ? trim(__('Yes') . ' ' . (string) $row['transfer_countries'])
+                ? __('Yes') . ((string) $row['transfer_countries'] !== '' ? ' - ' . $row['transfer_countries'] : '')
                     . ((string) $row['transfer_safeguards'] !== ''
                         ? ' (' . (self::getSafeguards()[(string) $row['transfer_safeguards']] ?? '') . ')'
                         : '')
