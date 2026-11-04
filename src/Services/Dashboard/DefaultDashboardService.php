@@ -205,8 +205,6 @@ final class DefaultDashboardService
         $chart = static function (string $cardId, string $widget, int $x, int $y, int $width, int $height): array {
             $item = self::chart($cardId, $widget, $x, $y, $width, $height);
             $item['gridstack_id'] = $cardId . '_incidents';
-            // Sans légende, un camembert à une seule part ne dit rien.
-            $item['card_options']['legend'] = '1';
 
             return $item;
         };
@@ -219,10 +217,10 @@ final class DefaultDashboardService
             $bigNumber('grcmanager_security_incident_regulatory_deadlines', 20, '#b52d30', 6),
             $chart('grcmanager_securityincident_monthly_trend', 'lines', 0, 2, 13, 6),
             $chart('grcmanager_securityincident_regulatory_notifications', 'articleList', 13, 2, 13, 6),
-            $chart('grcmanager_security_incidents_by_status', 'pie', 0, 8, 7, 5),
-            $chart('grcmanager_security_incidents_by_severity', 'pie', 7, 8, 6, 5),
-            $chart('grcmanager_securityincident_by_classification', 'pie', 13, 8, 6, 5),
-            $chart('securityincidents_by_category', 'pie', 19, 8, 7, 5),
+            $chart('grcmanager_security_incidents_by_status', 'hbar', 0, 8, 7, 5),
+            $chart('grcmanager_security_incidents_by_severity', 'hbar', 7, 8, 6, 5),
+            $chart('grcmanager_securityincident_by_classification', 'hbar', 13, 8, 6, 5),
+            $chart('securityincidents_by_category', 'hbar', 19, 8, 7, 5),
             $chart('grcmanager_securityincident_attack_tactics', 'hbar', 0, 13, 13, 6),
             $chart('grcmanager_securityincident_attack_techniques', 'hbar', 13, 13, 13, 6),
         ];

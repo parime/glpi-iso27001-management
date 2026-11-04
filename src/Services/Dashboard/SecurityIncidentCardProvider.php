@@ -184,6 +184,18 @@ final class SecurityIncidentCardProvider
     }
 
     /**
+     * Sans donnée, les widgets de GLPI affichent « Aucune donnée » au lieu d'un cadre vide (même
+     * convention que Glpi\Dashboard\Provider).
+     *
+     * @param array<int|string, mixed> $data
+     * @return array<int|string, mixed>
+     */
+    private static function orNoData(array $data): array
+    {
+        return $data === [] ? ['nodata' => true] : $data;
+    }
+
+    /**
      * Répartition selon une liste de valeurs connues, chaque part menant à la recherche.
      *
      * @param array<string, string> $labels valeur => libellé
@@ -290,12 +302,12 @@ final class SecurityIncidentCardProvider
     /**
      * Issue #372 : répartition par catégorie d'incident (classification ISO 27001).
      *
-     * @return array{data: list<array{label: string, number: int, url: string}>, label: string, icon: string}
+     * @return array{data: array<int|string, mixed>, label: string, icon: string}
      */
     public static function byClassification(array $params = []): array
     {
         return [
-            'data'  => array_values(array_filter(
+            'data'  => self::orNoData(array_values(array_filter(
                 self::breakdown(
                     'category',
                     self::SO_CLASSIFICATION,
@@ -303,7 +315,7 @@ final class SecurityIncidentCardProvider
                     $params
                 ),
                 static fn (array $entry): bool => $entry['number'] > 0
-            )),
+            ))),
             'label' => $params['label'] ?? __('Security incidents by incident category', 'grcmanager'),
             'icon'  => 'ti ti-category',
         ];
@@ -353,24 +365,24 @@ final class SecurityIncidentCardProvider
     }
 
     /**
-     * @return array{data: list<array{label: string, number: int, url: string}>, label: string, icon: string}
+     * @return array{data: array<int|string, mixed>, label: string, icon: string}
      */
     public static function incidentsByEntity(array $params = []): array
     {
         return [
-            'data'  => self::byForeignKey(Entity::class, self::SO_ENTITY, $params),
+            'data'  => self::orNoData(self::byForeignKey(Entity::class, self::SO_ENTITY, $params)),
             'label' => $params['label'] ?? __('Security incidents by entity', 'grcmanager'),
             'icon'  => Entity::getIcon(),
         ];
     }
 
     /**
-     * @return array{data: list<array{label: string, number: int, url: string}>, label: string, icon: string}
+     * @return array{data: array<int|string, mixed>, label: string, icon: string}
      */
     public static function incidentsByItilCategory(array $params = []): array
     {
         return [
-            'data'  => self::byForeignKey(ITILCategory::class, self::SO_CATEGORY, $params),
+            'data'  => self::orNoData(self::byForeignKey(ITILCategory::class, self::SO_CATEGORY, $params)),
             'label' => $params['label'] ?? __('Security incidents by GLPI category', 'grcmanager'),
             'icon'  => ITILCategory::getIcon(),
         ];
@@ -509,7 +521,7 @@ final class SecurityIncidentCardProvider
     /**
      * Issue #372 : notifications réglementaires à suivre, chacune menant à son incident.
      *
-     * @return array{data: list<array<string, string>>, label: string, icon: string, date: string}
+     * @return array{data: array<int|string, mixed>, label: string, icon: string, date: string}
      */
     public static function regulatoryNotifications(array $params = []): array
     {
@@ -531,7 +543,7 @@ final class SecurityIncidentCardProvider
         }
 
         return [
-            'data'  => $data,
+            'data'  => self::orNoData($data),
             'label' => $params['label'] ?? __('Regulatory notifications to follow', 'grcmanager'),
             'icon'  => 'ti ti-alarm',
             // Le widget « liste » de GLPI affiche cette date sur chaque ligne (« NaN » si vide) : celle
@@ -589,7 +601,7 @@ final class SecurityIncidentCardProvider
     /**
      * Issue #369 : nombre d'incidents par tactique MITRE ATT&CK, dans l'ordre de la chaîne d'attaque.
      *
-     * @return array{data: list<array{label: string, number: int}>, label: string, icon: string}
+     * @return array{data: array<int|string, mixed>, label: string, icon: string}
      */
     public static function attackTactics(array $params = []): array
     {
@@ -602,7 +614,7 @@ final class SecurityIncidentCardProvider
         }
 
         return [
-            'data'  => $data,
+            'data'  => self::orNoData($data),
             'label' => $params['label'] ?? __('Security incidents by MITRE ATT&CK tactic', 'grcmanager'),
             'icon'  => SecurityIncidentTechnique::getIcon(),
         ];
@@ -611,7 +623,7 @@ final class SecurityIncidentCardProvider
     /**
      * Issue #369 : les 10 techniques MITRE ATT&CK les plus fréquentes.
      *
-     * @return array{data: list<array{label: string, number: int}>, label: string, icon: string}
+     * @return array{data: array<int|string, mixed>, label: string, icon: string}
      */
     public static function attackTopTechniques(array $params = []): array
     {
@@ -621,7 +633,7 @@ final class SecurityIncidentCardProvider
         }
 
         return [
-            'data'  => $data,
+            'data'  => self::orNoData($data),
             'label' => $params['label'] ?? __('Most frequent MITRE ATT&CK techniques', 'grcmanager'),
             'icon'  => SecurityIncidentTechnique::getIcon(),
         ];

@@ -139,8 +139,8 @@ final class SecurityIncidentDashboardTest extends GrcmanagerIntegrationTestCase
             $this->assertSame(3, SecuredDashboardCards::open()['number']);
             $this->assertSame(0, SecuredDashboardCards::openCritical()['number'], 'Ni le secret, ni l\'exercice.');
             $this->assertSame(0, SecuredDashboardCards::securityIncidentRegulatoryDeadlines()['number']);
-            $this->assertSame([], SecuredDashboardCards::regulatoryNotifications()['data']);
-            $this->assertSame([], SecuredDashboardCards::attackTactics()['data']);
+            $this->assertSame(['nodata' => true], SecuredDashboardCards::regulatoryNotifications()['data']);
+            $this->assertSame(['nodata' => true], SecuredDashboardCards::attackTactics()['data']);
             $this->assertSame(1, SecuredDashboardCards::averageTimeToContain()['number']);
             $severity = array_column(SecuredDashboardCards::securityIncidentsBySeverity()['data'], 'number', 'label');
             $this->assertSame(0, $severity[__('Critical', 'grcmanager')]);
@@ -222,7 +222,11 @@ final class SecurityIncidentDashboardTest extends GrcmanagerIntegrationTestCase
      */
     public function testEveryLinkLeadsToAsManyResultsAsTheCardShows(): void
     {
-        // La recherche de GLPI lit les entités parentes de la session (absentes du bootstrap de test).
+        // La recherche de GLPI lit ces valeurs de session, absentes ou modifiées par d'autres tests.
+        $savedEntities = $_SESSION['glpiactiveentities'];
+        $savedString = $_SESSION['glpiactiveentities_string'];
+        $_SESSION['glpiactiveentities'] = [0];
+        $_SESSION['glpiactiveentities_string'] = "'0'";
         $_SESSION['glpiparententities'] ??= [0];
         $techId = $this->createTestUser('Sacha', 'Fictif');
         $groupId = (int) (new \Group())->add(['name' => 'PHPUnit groupe sécurité 3', 'entities_id' => 0]);
@@ -246,6 +250,8 @@ final class SecurityIncidentDashboardTest extends GrcmanagerIntegrationTestCase
                 $this->assertSame($entry['number'], $results($entry['url']), $name . ' : ' . $entry['label']);
             }
         }
+        $_SESSION['glpiactiveentities'] = $savedEntities;
+        $_SESSION['glpiactiveentities_string'] = $savedString;
     }
 
     public function testIncidentNamesAreEscapedInTheNotificationList(): void
