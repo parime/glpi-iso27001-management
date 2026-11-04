@@ -7964,3 +7964,9 @@ msgstr "GRC Manager - Incidentes de segurança"
 
 msgid "ISMS overview"
 msgstr "Visão geral do SGSI"
+
+msgid "Data protection officer (DPO)"
+msgstr "Encarregado de proteção de dados (DPO)"
+
+msgid "Name and contact details of the data protection officer, shown on the record of processing activities (GDPR, article 30)."
+msgstr "Nome e dados de contato do encarregado de proteção de dados, exibidos no registro das atividades de tratamento (RGPD, artigo 30)."

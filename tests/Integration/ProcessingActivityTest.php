@@ -27,6 +27,19 @@ use GlpiPlugin\Grcmanager\Services\Review\PeriodicReviewCatalog;
  */
 final class ProcessingActivityTest extends GrcmanagerIntegrationTestCase
 {
+    public function testDpoContactIsPlainTextAndBounded(): void
+    {
+        $before = ProcessingActivity::dpoContact();
+        try {
+            ProcessingActivity::saveDpoContact('  <script>x</script>DPO SITE_A, dpo@example.org  ');
+            $this->assertSame('xDPO SITE_A, dpo@example.org', ProcessingActivity::dpoContact());
+            ProcessingActivity::saveDpoContact(str_repeat('a', 300));
+            $this->assertSame(255, mb_strlen(ProcessingActivity::dpoContact()));
+        } finally {
+            ProcessingActivity::saveDpoContact($before);
+        }
+    }
+
     public function testRightIsInstalledForSuperAdminOnly(): void
     {
         global $DB;

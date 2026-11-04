@@ -9361,3 +9361,9 @@ msgstr "GRC Manager - Incydenty bezpieczeństwa"
 
 msgid "ISMS overview"
 msgstr "Przegląd SZBI"
+
+msgid "Data protection officer (DPO)"
+msgstr "Inspektor ochrony danych (IOD)"
+
+msgid "Name and contact details of the data protection officer, shown on the record of processing activities (GDPR, article 30)."
+msgstr "Imię i nazwisko oraz dane kontaktowe inspektora ochrony danych, widoczne w rejestrze czynności przetwarzania (RODO, artykuł 30)."

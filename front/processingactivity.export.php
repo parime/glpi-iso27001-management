@@ -74,6 +74,7 @@ $html = TemplateRenderer::getInstance()->render('@grcmanager/pdf/processing_regi
         ]))),
         'email'   => (string) ($entity->fields['email'] ?? ''),
         'phone'   => (string) ($entity->fields['phonenumber'] ?? ''),
+        'dpo'     => ProcessingActivity::dpoContact(),
     ],
     'columns'            => $columns,
     'rows'               => $rows,
