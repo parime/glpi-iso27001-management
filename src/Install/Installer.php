@@ -2364,7 +2364,7 @@ final class Installer
                 `plugin_grcmanager_ebiosstudies_id` int {$keySign} NOT NULL DEFAULT 0,
                 `plugin_grcmanager_ebiosrisksources_id` int {$keySign} NOT NULL DEFAULT 0,
                 `plugin_grcmanager_ebiosfearedevents_id` int {$keySign} NOT NULL DEFAULT 0,
-                `plugin_grcmanager_ebiosstakeholders_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT '0 : attaque directe',
+                `plugin_grcmanager_ebiosstakeholders_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT '0 : directe',
                 `name` varchar(255) NOT NULL DEFAULT '',
                 `description` text,
                 `measures` text COMMENT 'Mesures prevues sur ce chemin d attaque',
