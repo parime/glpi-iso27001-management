@@ -723,37 +723,8 @@ final class DashboardCardService
      */
     public static function securityIncidentsByStatus(array $params = []): array
     {
-        global $DB;
-
-        $labels = \PluginGrcmanagerSecurityIncident::getAllStatusArray();
-        $countsByStatus = array_fill_keys(array_keys($labels), 0);
-
-        $rows = $DB->request([
-            'SELECT' => ['status', new QueryExpression('COUNT(*) AS c')],
-            'FROM' => 'glpi_plugin_grcmanager_securityincidents',
-            // Incidents rattachés à une entité : seulement celles de la session, hors corbeille.
-            // Issue #168 : sans les incidents fictifs des exercices de crise.
-            'WHERE' => ['is_deleted' => 0, 'is_exercise' => 0]
-                + getEntitiesRestrictCriteria('glpi_plugin_grcmanager_securityincidents', '', '', true),
-            'GROUPBY' => 'status',
-        ]);
-
-        foreach ($rows as $row) {
-            if (isset($countsByStatus[$row['status']])) {
-                $countsByStatus[$row['status']] = (int) $row['c'];
-            }
-        }
-
-        $data = [];
-        foreach ($countsByStatus as $status => $count) {
-            $data[] = ['label' => $labels[$status] ?? (string) $status, 'number' => $count];
-        }
-
-        return [
-            'data' => $data,
-            'label' => $params['label'] ?? __('Security incidents by status', 'grcmanager'),
-            'icon' => 'ti ti-chart-pie',
-        ];
+        // Issue #143 : incidents visibles seulement (cloisonnement), chaque part mène à la recherche.
+        return SecurityIncidentCardProvider::byStatus($params);
     }
 
     /**
@@ -763,35 +734,7 @@ final class DashboardCardService
      */
     public static function securityIncidentsBySeverity(array $params = []): array
     {
-        global $DB;
-
-        $countsBySeverity = array_fill_keys(['minor', 'major', 'critical'], 0);
-
-        $rows = $DB->request([
-            'SELECT' => ['severity', new QueryExpression('COUNT(*) AS c')],
-            'FROM' => 'glpi_plugin_grcmanager_securityincidents',
-            // Issue #168 : sans les incidents fictifs des exercices de crise.
-            'WHERE' => ['is_deleted' => 0, 'is_exercise' => 0]
-                + getEntitiesRestrictCriteria('glpi_plugin_grcmanager_securityincidents', '', '', true),
-            'GROUPBY' => 'severity',
-        ]);
-
-        foreach ($rows as $row) {
-            if (isset($countsBySeverity[$row['severity']])) {
-                $countsBySeverity[$row['severity']] = (int) $row['c'];
-            }
-        }
-
-        $data = [];
-        foreach ($countsBySeverity as $severity => $count) {
-            $data[] = ['label' => $severity, 'number' => $count];
-        }
-
-        return [
-            'data' => $data,
-            'label' => $params['label'] ?? __('Security incidents by severity', 'grcmanager'),
-            'icon' => 'ti ti-chart-pie',
-        ];
+        return SecurityIncidentCardProvider::bySeverity($params);
     }
 
     /**
@@ -805,26 +748,9 @@ final class DashboardCardService
      */
     public static function securityIncidentResponseTimeHours(array $params = []): array
     {
-        global $DB;
-
-        $row = $DB->request([
-            'SELECT' => [
-                new QueryExpression(
-                    'AVG(TIMESTAMPDIFF(HOUR, `date`, `solvedate`)) AS avg_hours'
-                ),
-            ],
-            'FROM'  => 'glpi_plugin_grcmanager_securityincidents',
-            'WHERE' => [
-                new QueryExpression('solvedate IS NOT NULL'),
-                'is_deleted'  => 0,
-                'is_exercise' => 0,
-            ] + getEntitiesRestrictCriteria('glpi_plugin_grcmanager_securityincidents', '', '', true),
-        ])->current();
-
-        $avgHours = $row['avg_hours'] !== null ? (int) round((float) $row['avg_hours']) : 0;
-
         return [
-            'number' => $avgHours,
+            // Issue #143 : sur les seuls incidents visibles.
+            'number' => SecurityIncidentCardProvider::averageHoursTo('solvedate'),
             'label'  => $params['label'] ?? __('Average incident response time (hours)', 'grcmanager'),
             'icon'   => 'ti ti-clock-hour-4',
         ];

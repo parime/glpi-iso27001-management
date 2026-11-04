@@ -148,6 +148,55 @@ class SecurityIncidentTeam extends SecurityIncidentTeamBase
         return $criteria;
     }
 
+    /**
+     * Issue #143 : incidents que l'utilisateur peut ouvrir, en critères SQL, même règle que
+     * PluginGrcmanagerSecurityIncident::canViewItem() hors entité (ajoutée par l'appelant) :
+     * groupe sécurité, puis « Voir tout », ou « Voir (auteur) » avec un lien à l'incident
+     * (demandeur, observateur ou assigné, en personne ou par un groupe, ou membre de l'équipe).
+     * Pour les cartes du tableau de bord : un comptage ne doit révéler aucun incident fermé à
+     * l'utilisateur.
+     *
+     * @return list<mixed> critères à combiner en ET (vide : aucune restriction)
+     */
+    public static function viewCriteria(): array
+    {
+        $right = PluginGrcmanagerSecurityIncident::$rightname;
+        if (!IncidentSecurityGroup::allows()) {
+            return [new QueryExpression('false')];
+        }
+        if (Session::haveRight($right, PluginGrcmanagerSecurityIncident::READALL)) {
+            return [];
+        }
+        if (!Session::haveRight($right, PluginGrcmanagerSecurityIncident::READMY)) {
+            return [new QueryExpression('false')];
+        }
+        $table = PluginGrcmanagerSecurityIncident::getTable();
+        $me = (int) Session::getLoginUserID();
+        $fk = 'plugin_grcmanager_securityincidents_id';
+        $actorTypes = [CommonITILActor::REQUESTER, CommonITILActor::OBSERVER, CommonITILActor::ASSIGN];
+        $or = [
+            ["$table.id" => new QuerySubQuery([
+                'SELECT' => $fk,
+                'FROM'   => \PluginGrcmanagerSecurityIncident_User::getTable(),
+                'WHERE'  => ['users_id' => $me, 'type' => $actorTypes],
+            ])],
+            ["$table.id" => new QuerySubQuery([
+                'SELECT' => $fk,
+                'FROM'   => self::getTable(),
+                'WHERE'  => ['users_id' => $me],
+            ])],
+        ];
+        if (!empty($_SESSION['glpigroups'])) {
+            $or[] = ["$table.id" => new QuerySubQuery([
+                'SELECT' => $fk,
+                'FROM'   => \PluginGrcmanagerSecurityIncident_Group::getTable(),
+                'WHERE'  => ['groups_id' => $_SESSION['glpigroups'], 'type' => $actorTypes],
+            ])];
+        }
+
+        return [['OR' => $or]];
+    }
+
     public function getTabNameForItem(CommonGLPI $item, $withtemplate = 0)
     {
         if (!($item instanceof PluginGrcmanagerSecurityIncident) || !PluginGrcmanagerSecurityIncident::canView()) {

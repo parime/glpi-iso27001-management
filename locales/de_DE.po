@@ -6982,3 +6982,31 @@ msgstr "Katalog zur KI-Sicherheit und seine Verweise im Katalog typischer Risike
 
 msgid "AI systems"
 msgstr "KI-Systeme"
+
+msgid "Open critical security incidents"
+msgstr "Offene kritische Sicherheitsvorfälle"
+
+msgid "Security incidents by incident category"
+msgstr "Sicherheitsvorfälle nach Vorfallkategorie"
+
+msgid "Declared"
+msgstr "Gemeldet"
+
+msgid "Resolved"
+msgstr "Gelöst"
+
+msgid "Security incidents over 12 months"
+msgstr "Sicherheitsvorfälle über 12 Monate"
+
+#, php-format
+msgid "Due by %s"
+msgstr "Fällig bis %s"
+
+msgid "Regulatory notifications to follow"
+msgstr "Zu verfolgende behördliche Meldungen"
+
+msgid "GRC Manager - Security incidents"
+msgstr "GRC Manager - Sicherheitsvorfälle"
+
+msgid "ISMS overview"
+msgstr "ISMS-Übersicht"

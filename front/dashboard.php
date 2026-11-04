@@ -38,7 +38,18 @@ Html::header(
 );
 \GlpiPlugin\Grcmanager\PageHelp::show('dashboard');
 
-$key = \GlpiPlugin\Grcmanager\Dashboard::getDashboardKey();
+// Issue #143 : vue « Incidents de sécurité », proposée seulement à qui peut voir ses cartes.
+$views = \GlpiPlugin\Grcmanager\Dashboard::getViews();
+$view = is_string($_GET['view'] ?? null) && isset($views[$_GET['view']]) ? $_GET['view'] : 'isms';
+if (count($views) > 1) {
+    TemplateRenderer::getInstance()->display('@grcmanager/dashboard_views.html.twig', [
+        'views'  => $views,
+        'active' => $view,
+        'url'    => \GlpiPlugin\Grcmanager\Dashboard::getSearchURL(),
+    ]);
+}
+
+$key = $views[$view]['key'];
 if ((new Dashboard($key))->canViewCurrent()) {
     (new Grid($key))->showDefault();
 } else {

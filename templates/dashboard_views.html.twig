@@ -1,0 +1,9 @@
+{# Issue #143 : choix du tableau de bord affiché (vue d'ensemble ISMS, incidents de sécurité). #}
+<div class="btn-group mb-3 flex-wrap" role="group" aria-label="{{ __('Dashboard', 'grcmanager') }}">
+   {% for name, view in views %}
+      <a class="btn btn-sm {{ name == active ? 'btn-primary' : 'btn-outline-secondary' }}"
+         href="{{ url }}?view={{ name|url_encode }}"{% if name == active %} aria-current="page"{% endif %}>
+         <i class="{{ view.icon }} me-1"></i>{{ view.label }}
+      </a>
+   {% endfor %}
+</div>

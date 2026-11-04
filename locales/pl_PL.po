@@ -8372,3 +8372,31 @@ msgstr "Katalog bezpieczeństwa AI i jego odniesienia w katalogu typowych ryzyk.
 
 msgid "AI systems"
 msgstr "Systemy AI"
+
+msgid "Open critical security incidents"
+msgstr "Otwarte krytyczne incydenty bezpieczeństwa"
+
+msgid "Security incidents by incident category"
+msgstr "Incydenty bezpieczeństwa według kategorii incydentu"
+
+msgid "Declared"
+msgstr "Zgłoszone"
+
+msgid "Resolved"
+msgstr "Rozwiązane"
+
+msgid "Security incidents over 12 months"
+msgstr "Incydenty bezpieczeństwa w ciągu 12 miesięcy"
+
+#, php-format
+msgid "Due by %s"
+msgstr "Termin do %s"
+
+msgid "Regulatory notifications to follow"
+msgstr "Zgłoszenia regulacyjne do monitorowania"
+
+msgid "GRC Manager - Security incidents"
+msgstr "GRC Manager - Incydenty bezpieczeństwa"
+
+msgid "ISMS overview"
+msgstr "Przegląd SZBI"

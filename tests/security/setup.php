@@ -197,13 +197,14 @@ $manager = $userId('iso-gestionnaire', $a, $profileId('Securite ISO - gestionnai
     'plugin_grcmanager_sensitive'        => ALLSTANDARDRIGHT,
     'plugin_grcmanager_securityincident' => ALLSTANDARDRIGHT | CommonITILObject::READALL | CommonITILObject::READMY,
     'computer' => READ, 'contract' => READ, 'supplier' => READ, 'user' => READ, 'document' => READ,
-    'software' => READ,
+    'software' => READ, 'dashboard' => READ,
 ]));
 $reader = $userId('iso-lecteur', $a, $profileId('Securite ISO - lecteur A', [
     'plugin_grcmanager'                  => READ,
     'plugin_grcmanager_sensitive'        => READ,
     'plugin_grcmanager_securityincident' => CommonITILObject::READALL,
     'computer' => READ, 'contract' => READ, 'supplier' => READ, 'user' => READ, 'software' => READ,
+    'dashboard' => READ,
 ]));
 
 // Sans droit : aucun droit sur le plugin, chaque page doit lui être refusée. Il lit les
@@ -215,6 +216,8 @@ $noRight = $userId('iso-sans-droit', $a, $profileId('Securite ISO - sans droit',
     'plugin_grcmanager_securityincident' => 0,
     'computer'                           => READ,
     'software'                           => READ,
+    // Issue #143 : voit les tableaux de bord, pas les cartes du plugin.
+    'dashboard'                          => READ,
 ]));
 
 // Registres sensibles : tout le SMSI en gestion, mais pas le droit dédié (risques, vulnérabilités du
@@ -224,6 +227,7 @@ $general = $userId('iso-general', $a, $profileId('Securite ISO - sans registres 
     'plugin_grcmanager_sensitive'        => 0,
     'plugin_grcmanager_securityincident' => 0,
     'computer' => READ, 'software' => READ, 'supplier' => READ, 'contract' => READ, 'user' => READ,
+    'dashboard' => READ,
 ]));
 
 $control = $DB->request([

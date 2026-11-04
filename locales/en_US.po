@@ -6982,3 +6982,31 @@ msgstr "AI security catalog and its references in the catalog of typical risks."
 
 msgid "AI systems"
 msgstr "AI systems"
+
+msgid "Open critical security incidents"
+msgstr "Open critical security incidents"
+
+msgid "Security incidents by incident category"
+msgstr "Security incidents by incident category"
+
+msgid "Declared"
+msgstr "Declared"
+
+msgid "Resolved"
+msgstr "Resolved"
+
+msgid "Security incidents over 12 months"
+msgstr "Security incidents over 12 months"
+
+#, php-format
+msgid "Due by %s"
+msgstr "Due by %s"
+
+msgid "Regulatory notifications to follow"
+msgstr "Regulatory notifications to follow"
+
+msgid "GRC Manager - Security incidents"
+msgstr "GRC Manager - Security incidents"
+
+msgid "ISMS overview"
+msgstr "ISMS overview"

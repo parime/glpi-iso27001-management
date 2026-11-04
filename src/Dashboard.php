@@ -19,6 +19,7 @@ namespace GlpiPlugin\Grcmanager;
 
 use CommonGLPI;
 use GlpiPlugin\Grcmanager\Services\Dashboard\DefaultDashboardService;
+use GlpiPlugin\Grcmanager\Services\Dashboard\SecuredDashboardCards;
 use Session;
 
 /**
@@ -65,5 +66,31 @@ class Dashboard extends CommonGLPI
     public static function getDashboardKey(): string
     {
         return DefaultDashboardService::KEY;
+    }
+
+    /**
+     * Issue #143 : tableaux de bord proposés sur la page. La vue des incidents n'apparaît que si
+     * l'utilisateur peut voir leurs cartes (droit, groupe sécurité, module et cartes actifs).
+     *
+     * @return array<string, array{key: string, label: string, icon: string}>
+     */
+    public static function getViews(): array
+    {
+        $views = [
+            'isms' => [
+                'key'   => DefaultDashboardService::KEY,
+                'label' => __('ISMS overview', 'grcmanager'),
+                'icon'  => self::getIcon(),
+            ],
+        ];
+        if (SecuredDashboardCards::canShow('open')) {
+            $views['incidents'] = [
+                'key'   => DefaultDashboardService::INCIDENTS_KEY,
+                'label' => \PluginGrcmanagerSecurityIncident::getTypeName(Session::getPluralNumber()),
+                'icon'  => \PluginGrcmanagerSecurityIncident::getIcon(),
+            ];
+        }
+
+        return $views;
     }
 }

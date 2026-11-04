@@ -42,7 +42,7 @@ function plugin_grcmanager_dashboard_cards(?array $cards = null): array
 
     $group = __('GRC Manager', 'grcmanager');
 
-    $cards += [
+    $own = [
         'grcmanager_open_risks' => [
             'widgettype' => ['bigNumber'],
             'label' => __('Open risks', 'grcmanager'),
@@ -298,60 +298,83 @@ function plugin_grcmanager_dashboard_cards(?array $cards = null): array
         ],
     ];
 
-    // Absorption de glpi-security-incidents (ROADMAP.md "Version 2.0") : les 4 cartes natives
-    // portées depuis ce plugin jumeau (total/ouverts/répartition par entité et par catégorie),
+    // Absorption de glpi-security-incidents (ROADMAP.md "Version 2.0") : cartes des incidents,
     // conditionnées par le module ET son propre interrupteur "cartes de tableau de bord" - un
-    // administrateur qui désactive l'un ou l'autre ne voit plus jamais une carte vide. `total`/
-    // `by_entity`/`by_category` réutilisent directement les fournisseurs génériques
-    // `Glpi\Dashboard\Provider::bigNumber<Itemtype>`/`multipleNumber<Itemtype>By<FkItemtype>`
-    // (magic __callStatic, gèrent déjà entités/is_deleted pour tout CommonDBTM) ; seul "ouverts" a
-    // besoin d'une requête dédiée (SecurityIncidentCardProvider::open()), sa définition de "ouvert"
-    // dépendant des constantes de statut propres à cet objet.
+    // administrateur qui désactive l'un ou l'autre ne voit plus jamais une carte vide.
     $moduleFlags = SecurityIncidentModuleConfig::load();
     if ($moduleFlags['securityincident_enabled'] && $moduleFlags['securityincident_dashboard_enabled']) {
         $itilItemtype = \PluginGrcmanagerSecurityIncident::class;
         $itilTable    = $itilItemtype::getTable();
         $itilFilters  = \Glpi\Dashboard\Filter::getAppliableFilters($itilTable);
+        $breakdowns   = ['summaryNumbers', 'multipleNumber', 'pie', 'donut', 'halfpie', 'halfdonut', 'bar', 'hbar'];
 
-        $cards += [
+        // Issue #143 : les quatre premières cartes passaient par le fournisseur générique de GLPI,
+        // qui ne vérifie aucun droit du plugin ni le cloisonnement des incidents. Mêmes
+        // identifiants (tableaux de bord existants intacts), calcul par SecurityIncidentCardProvider.
+        $own += [
             'securityincidents_bn_total' => [
                 'widgettype' => ['bigNumber'],
-                'itemtype'   => "\\{$itilItemtype}",
+                'itemtype'   => "\{$itilItemtype}",
                 'label'      => __('Security incidents', 'grcmanager'),
                 'group'      => $group,
-                // Fournisseur générique cœur (Glpi\Dashboard\Provider::__callStatic()), déjà porté
-                // depuis glpi-security-incidents (ROADMAP.md "Version 2.0") - gère déjà entités/
-                // is_deleted pour tout CommonDBTM.
-                'provider'   => 'Glpi\\Dashboard\\Provider::bigNumber' . $itilItemtype,
+                'provider'   => SecuredDashboardCards::class . '::incidentsTotal',
                 'filters'    => $itilFilters,
             ],
             'securityincidents_bn_open' => [
                 'widgettype' => ['bigNumber'],
-                'itemtype'   => "\\{$itilItemtype}",
+                'itemtype'   => "\{$itilItemtype}",
                 'label'      => _x('security incidents', 'Open', 'grcmanager'),
                 'group'      => $group,
                 'provider'   => SecuredDashboardCards::class . '::open',
                 'filters'    => $itilFilters,
             ],
             'securityincidents_by_entity' => [
-                'widgettype' => [
-                    'summaryNumbers', 'multipleNumber', 'pie', 'donut', 'halfpie', 'halfdonut', 'bar', 'hbar',
-                ],
-                'itemtype'   => "\\{$itilItemtype}",
+                'widgettype' => $breakdowns,
+                'itemtype'   => "\{$itilItemtype}",
                 'label'      => __('Security incidents by entity', 'grcmanager'),
                 'group'      => $group,
-                'provider'   => 'Glpi\\Dashboard\\Provider::multipleNumber' . $itilItemtype . 'ByEntity',
+                'provider'   => SecuredDashboardCards::class . '::incidentsByEntity',
                 'filters'    => $itilFilters,
             ],
             'securityincidents_by_category' => [
-                'widgettype' => [
-                    'summaryNumbers', 'multipleNumber', 'pie', 'donut', 'halfpie', 'halfdonut', 'bar', 'hbar',
-                ],
-                'itemtype'   => "\\{$itilItemtype}",
+                'widgettype' => $breakdowns,
+                'itemtype'   => "\{$itilItemtype}",
                 'label'      => __('Security incidents by GLPI category', 'grcmanager'),
                 'group'      => $group,
-                'provider'   => 'Glpi\\Dashboard\\Provider::multipleNumber' . $itilItemtype . 'ByITILCategory',
+                'provider'   => SecuredDashboardCards::class . '::incidentsByItilCategory',
                 'filters'    => $itilFilters,
+            ],
+            // Issue #372 : incidents critiques en cours, répartition par catégorie d'incident,
+            // tendance sur 12 mois et notifications réglementaires à suivre.
+            'grcmanager_securityincident_open_critical' => [
+                'widgettype' => ['bigNumber'],
+                'itemtype'   => "\{$itilItemtype}",
+                'label'      => __('Open critical security incidents', 'grcmanager'),
+                'group'      => $group,
+                'provider'   => SecuredDashboardCards::class . '::openCritical',
+                'filters'    => $itilFilters,
+            ],
+            'grcmanager_securityincident_by_classification' => [
+                'widgettype' => $breakdowns,
+                'itemtype'   => "\{$itilItemtype}",
+                'label'      => __('Security incidents by incident category', 'grcmanager'),
+                'group'      => $group,
+                'provider'   => SecuredDashboardCards::class . '::byClassification',
+                'filters'    => $itilFilters,
+            ],
+            'grcmanager_securityincident_monthly_trend' => [
+                'widgettype' => ['lines', 'areas', 'bars', 'stackedbars'],
+                'itemtype'   => "\{$itilItemtype}",
+                'label'      => __('Security incidents over 12 months', 'grcmanager'),
+                'group'      => $group,
+                'provider'   => SecuredDashboardCards::class . '::incidentsMonthlyTrend',
+                'filters'    => $itilFilters,
+            ],
+            'grcmanager_securityincident_regulatory_notifications' => [
+                'widgettype' => ['articleList'],
+                'label'      => __('Regulatory notifications to follow', 'grcmanager'),
+                'group'      => $group,
+                'provider'   => SecuredDashboardCards::class . '::regulatoryNotifications',
             ],
             // Issue #369 : tactiques et techniques MITRE ATT&CK des incidents.
             'grcmanager_securityincident_attack_tactics' => [
@@ -401,7 +424,8 @@ function plugin_grcmanager_dashboard_cards(?array $cards = null): array
         ];
     }
 
-    return $cards;
+    // Issue #143 : seules les cartes que l'utilisateur peut voir sont proposées et calculées.
+    return $cards + SecuredDashboardCards::filterCatalog($own);
 }
 
 /**
