@@ -134,6 +134,9 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
   # Issue #372 : ticket lie depuis l'incident (exige aussi de pouvoir modifier l'incident).
   expect "front/securityincidentticket.form.php : creer un ticket lie" "$1" \
     "$(code -d "create_ticket=1&plugin_grcmanager_securityincidents_id=$incident&_glpi_csrf_token=$(csrf)" "$P/securityincidentticket.form.php")"
+  # Issue #372 : declarer un incident depuis un element (droit de creer un incident).
+  expect "front/securityincidentlinkeditem.form.php : declarer un incident" "$1" \
+    "$(code -d "declare=1&itemtype=Computer&items_id=$(id computer_A)&_glpi_csrf_token=$(csrf)" "$P/securityincidentlinkeditem.form.php")"
   # Issue #380 : plan de test d'une mesure (droit de modifier la mesure).
   expect "front/controltest.form.php : plan de test" "$1" \
     "$(code -d "save_plan=1&plugin_grcmanager_controls_id=$(id control)&test_frequency_months=12&_glpi_csrf_token=$(csrf)" "$P/controltest.form.php")"
@@ -158,7 +161,8 @@ if [ "$ROLE" = none ]; then
   # Revue de securite 2.11.0 : contenu des onglets du plugin demande directement sur un
   # ordinateur lisible, sans le droit du plugin (GLPI ne consulte pas getTabNameForItem()).
   for t in 'GlpiPlugin%5CGrcmanager%5CImpactAnalysis$1' 'GlpiPlugin%5CGrcmanager%5CAssetClassification$1' \
-           'GlpiPlugin%5CGrcmanager%5CParkVulnerability$1' 'GlpiPlugin%5CGrcmanager%5CRisk$1'; do
+           'GlpiPlugin%5CGrcmanager%5CParkVulnerability$1' 'GlpiPlugin%5CGrcmanager%5CRisk$1' \
+           'GlpiPlugin%5CGrcmanager%5CSecurityIncidentLinkedItem$1'; do
     contains "onglet $t d'un ordinateur : sans droit" "plugins/grcmanager" non "$(tab Computer "$t" "$(id computer_A)")"
   done
   # Issue #403 : les referentiels actifs se reglent avec le droit de modifier la configuration.
@@ -194,6 +198,9 @@ if [ "$ROLE" = general ]; then
     "$(tab GlpiPlugin%5CGrcmanager%5CControl 'GlpiPlugin%5CGrcmanager%5CControl$main' "$(id control)")"
   contains "onglet Risques d'un ordinateur : rien" "Risque securite" non \
     "$(tab Computer 'GlpiPlugin%5CGrcmanager%5CRisk$1' "$(id computer_A)")"
+  # Issue #372 : sans droit sur les incidents, l'onglet de l'ordinateur ne montre aucun incident.
+  contains "onglet Incidents de securite d'un ordinateur : rien" "Incident securite" non \
+    "$(tab Computer 'GlpiPlugin%5CGrcmanager%5CSecurityIncidentLinkedItem$1' "$(id computer_A)")"
   rm -f "$JAR"; exit $FAIL
 fi
 
@@ -205,6 +212,11 @@ if [ "$ROLE" = reader ]; then
   done
   expect "front/training.report.php : en lecture" 200 "$(code "$P/training.report.php?id=$(id training)")"
   expect "front/trainingquiz.send.php : copie d'un autre, en lecture" 403 "$(code "$P/trainingquiz.send.php?id=$(id quiz)")"
+  # Issue #372 : l'onglet de l'ordinateur liste l'incident de A, pas celui de B, sans bouton.
+  incidents_tab=$(tab Computer 'GlpiPlugin%5CGrcmanager%5CSecurityIncidentLinkedItem$1' "$(id computer_A)")
+  contains "onglet Incidents de securite d'un ordinateur : incident A" "Incident securite A" oui "$incidents_tab"
+  contains "onglet Incidents de securite d'un ordinateur : incident B" "Incident securite B" non "$incidents_tab"
+  contains "onglet Incidents de securite d'un ordinateur : pas de bouton en lecture" "grcmanager-declare-incident" non "$incidents_tab"
   expect "s'assigner un incident en lecture seule" 403 \
     "$(code -d "addme_assign=1&plugin_grcmanager_securityincidents_id=$(id incident_A)&_glpi_csrf_token=$(csrf)" "$P/securityincident.form.php")"
   # Issue #403 : les referentiels actifs se reglent avec le droit de modifier la configuration.
@@ -239,6 +251,21 @@ expect "plan de remédiation (PDF) d'un incident de B" "$([ "$ROLE" = admin ] &&
 # Issue #372 : un ticket lie exige de pouvoir modifier l'incident (et de creer un ticket).
 expect "ticket lie a un incident de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
   "$(code -d "create_ticket=1&plugin_grcmanager_securityincidents_id=$(id incident_B)&_glpi_csrf_token=$(csrf)" "$P/securityincidentticket.form.php")"
+# Issue #372 : onglet « Incidents de securite » d'un ordinateur de A, lie aux incidents de A et de B :
+# l'incident de B n'est ni liste ni compte hors super-admin ; « Declarer un incident » exige de lire
+# l'element (ordinateur de B refuse) et n'accepte que les types de l'onglet.
+incidents_tab=$(tab Computer 'GlpiPlugin%5CGrcmanager%5CSecurityIncidentLinkedItem$1' "$(id computer_A)")
+contains "onglet Incidents de securite d'un ordinateur : incident A" "Incident securite A" oui    "$incidents_tab"
+contains "onglet Incidents de securite d'un ordinateur : incident B" "Incident securite B" $SEE_B "$incidents_tab"
+contains "onglet Incidents de securite d'un ordinateur : bouton" "grcmanager-declare-incident" oui "$incidents_tab"
+expect "declarer un incident depuis un ordinateur de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
+  "$(code -d "declare=1&itemtype=Computer&items_id=$(id computer_B)&_glpi_csrf_token=$(csrf)" "$P/securityincidentlinkeditem.form.php")"
+expect "declarer un incident depuis un type hors onglet" 403 \
+  "$(code -d "declare=1&itemtype=Entity&items_id=$(id a)&_glpi_csrf_token=$(csrf)" "$P/securityincidentlinkeditem.form.php")"
+expect "declarer un incident sans jeton CSRF" 403 \
+  "$(code -d "declare=1&itemtype=Computer&items_id=$(id computer_A)" "$P/securityincidentlinkeditem.form.php")"
+expect "declarer un incident depuis un ordinateur de A" 302 \
+  "$(code -d "declare=1&itemtype=Computer&items_id=$(id computer_A)&_glpi_csrf_token=$(csrf)" "$P/securityincidentlinkeditem.form.php")"
 # Issue #140 : un document d'audit ne se lit que par l'equipe de l'audit (glpi en fait partie),
 # jamais avec le seul droit Documents de GLPI ou le droit du plugin.
 expect "document d'audit (equipe de l'audit seulement)" "$([ "$ROLE" = admin ] && echo 200 || echo 403)" \

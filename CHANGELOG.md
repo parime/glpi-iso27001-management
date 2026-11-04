@@ -9,6 +9,22 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Onglet « Incidents de sécurité » sur les éléments liés** (issue #372) : ordinateurs, matériels
+  réseau, logiciels, utilisateurs, fournisseurs, problèmes et changements (le ticket garde son
+  onglet « Incident de sécurité » et sa qualification) :
+  - liste des incidents liés à l'élément (référence, date, statut, sévérité) : par ses éléments,
+    et pour un utilisateur ou un fournisseur aussi comme acteur ;
+  - seuls les incidents que l'utilisateur peut lire (entité, cloisonnement de l'équipe
+    d'intervention) sont listés et comptés, sur cet onglet comme sur celui du ticket : le
+    compteur ne trahit plus un incident invisible ;
+  - bouton « Déclarer un incident », pour qui peut créer un incident et lire l'élément : l'incident
+    est créé dans l'entité de l'élément (sinon dans l'entité active), lié à l'élément, puis ouvert
+    pour être complété. Depuis un problème ou un changement, il en reprend le titre, la
+    description, la catégorie et les éléments, comme la qualification d'un ticket ; un
+    utilisateur est lié comme élément, jamais comme acteur (ce qui lui ouvrirait l'incident) ;
+  - sur l'incident, un onglet « Autres éléments liés » montre les utilisateurs, fournisseurs,
+    problèmes et changements liés, que l'onglet « Éléments » de GLPI n'affiche pas.
+
 - **Tests d'efficacité des contrôles** (issue #380, première étape) : un contrôle de l'Annexe A
   « mis en œuvre » se prouve désormais par des tests.
   - onglet **« Tests d'efficacité »** sur la fiche du contrôle : plan de test (fréquence, méthode,

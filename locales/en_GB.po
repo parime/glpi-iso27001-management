@@ -7127,3 +7127,23 @@ msgstr "The effectiveness tests of the Annex A controls: a control in place is c
 
 msgid "Set a test plan on each control, record each test from the control's \"Effectiveness tests\" tab and carry out the tests that are due first. An ineffective control opens a non-conformity."
 msgstr "Set a test plan on each control, record each test from the control's \"Effectiveness tests\" tab and carry out the tests that are due first. An ineffective control opens a non-conformity."
+
+#, php-format
+msgid "Security incident on %s"
+msgstr "Security incident on %s"
+
+#, php-format
+msgid "Security incident no. %d declared."
+msgstr "Security incident no. %d declared."
+
+msgid "Declare an incident"
+msgstr "Declare an incident"
+
+msgid "Creates a security incident already linked to this item, then opens it to be completed."
+msgstr "Creates a security incident already linked to this item, then opens it to be completed."
+
+msgid "No security incident linked to this item."
+msgstr "No security incident linked to this item."
+
+msgid "Other linked items"
+msgstr "Other linked items"

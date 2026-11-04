@@ -7127,3 +7127,23 @@ msgstr "Die Wirksamkeitstests der Maßnahmen aus Anhang A: Es wird geprüft, ob 
 
 msgid "Set a test plan on each control, record each test from the control's \"Effectiveness tests\" tab and carry out the tests that are due first. An ineffective control opens a non-conformity."
 msgstr "Legen Sie für jede Maßnahme einen Testplan fest, erfassen Sie jeden Test im Reiter „Wirksamkeitstests“ der Maßnahme und führen Sie zuerst die fälligen Tests durch. Eine unwirksame Maßnahme eröffnet eine Nichtkonformität."
+
+#, php-format
+msgid "Security incident on %s"
+msgstr "Sicherheitsvorfall bei %s"
+
+#, php-format
+msgid "Security incident no. %d declared."
+msgstr "Sicherheitsvorfall Nr. %d gemeldet."
+
+msgid "Declare an incident"
+msgstr "Vorfall melden"
+
+msgid "Creates a security incident already linked to this item, then opens it to be completed."
+msgstr "Erstellt einen Sicherheitsvorfall, der bereits mit diesem Element verknüpft ist, und öffnet ihn zur Vervollständigung."
+
+msgid "No security incident linked to this item."
+msgstr "Kein Sicherheitsvorfall mit diesem Element verknüpft."
+
+msgid "Other linked items"
+msgstr "Weitere verknüpfte Elemente"

@@ -7127,3 +7127,23 @@ msgstr "Les tests d'efficacité des contrôles de l'Annexe A : on vérifie qu'un
 
 msgid "Set a test plan on each control, record each test from the control's \"Effectiveness tests\" tab and carry out the tests that are due first. An ineffective control opens a non-conformity."
 msgstr "Définissez un plan de test sur chaque contrôle, enregistrez chaque test depuis l'onglet « Tests d'efficacité » du contrôle et réalisez d'abord les tests arrivés à échéance. Un contrôle inefficace ouvre une non-conformité."
+
+#, php-format
+msgid "Security incident on %s"
+msgstr "Incident de sécurité sur %s"
+
+#, php-format
+msgid "Security incident no. %d declared."
+msgstr "Incident de sécurité n° %d déclaré."
+
+msgid "Declare an incident"
+msgstr "Déclarer un incident"
+
+msgid "Creates a security incident already linked to this item, then opens it to be completed."
+msgstr "Crée un incident de sécurité déjà lié à cet élément, puis l'ouvre pour le compléter."
+
+msgid "No security incident linked to this item."
+msgstr "Aucun incident de sécurité lié à cet élément."
+
+msgid "Other linked items"
+msgstr "Autres éléments liés"
