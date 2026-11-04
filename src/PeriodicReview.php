@@ -76,13 +76,16 @@ class PeriodicReview extends PeriodicReviewBase
             'privileged_accounts' => __('Review of privileged and service accounts', 'grcmanager'),
             'network_flows'       => __('Review of the network flow matrix (firewall rules)', 'grcmanager'),
             'risk_register'       => __('Risk register review', 'grcmanager'),
+            'risk_indicators'     => __('Risk indicator (KRI) review', 'grcmanager'),
             'supplier_risks'      => __('Supplier risk review', 'grcmanager'),
             'policies'            => __('Security policy review', 'grcmanager'),
             'soa'                 => __('Statement of Applicability review', 'grcmanager'),
             'legal_obligations'   => __('Review of legal and contractual obligations', 'grcmanager'),
             'backup_restore_test' => __('Backup restore test', 'grcmanager'),
             'continuity_test'     => __('Business continuity and disaster recovery test (BCP / DRP)', 'grcmanager'),
+            'business_impact'     => __('Business impact analysis review (business processes)', 'grcmanager'),
             'security_logs'       => __('Security log review', 'grcmanager'),
+            'processing_register' => __('Review of the record of processing activities (GDPR)', 'grcmanager'),
             default               => $key,
         };
     }
@@ -115,6 +118,12 @@ class PeriodicReview extends PeriodicReviewBase
                 __('Check the progress of the treatment plans', 'grcmanager'),
                 __('Add newly identified risks', 'grcmanager'),
             ],
+            'risk_indicators' => [
+                __('Enter the values of the manual indicators', 'grcmanager'),
+                __('Analyse the indicators in orange or red and their trend', 'grcmanager'),
+                __('Open a ticket for each indicator in the red', 'grcmanager'),
+                __('Check the thresholds and the risk appetite with management', 'grcmanager'),
+            ],
             'supplier_risks' => [
                 __('Reassess the critical suppliers', 'grcmanager'),
                 __('Check contract and certificate expiry dates', 'grcmanager'),
@@ -142,9 +151,19 @@ class PeriodicReview extends PeriodicReviewBase
                 __('Check the emergency contacts and procedures', 'grcmanager'),
                 __('Attach the report and the improvement actions', 'grcmanager'),
             ],
+            'business_impact' => [
+                __('Review the list of business processes and their owners', 'grcmanager'),
+                __('Update the impact of an interruption over time and the MTPD, RTO and RPO', 'grcmanager'),
+                __('Check that the items each process depends on recover fast enough', 'grcmanager'),
+            ],
             'security_logs' => [
                 __('Review the security alerts and logs for the period', 'grcmanager'),
                 __('Open a security incident for each confirmed anomaly', 'grcmanager'),
+            ],
+            'processing_register' => [
+                __('Add new processing activities and mark those that ended', 'grcmanager'),
+                __('Settle the gaps shown in the register (legal basis, retention, transfers...)', 'grcmanager'),
+                __('Check the processors and recipients, then date the review of each entry', 'grcmanager'),
             ],
             default => [],
         };
@@ -160,10 +179,13 @@ class PeriodicReview extends PeriodicReviewBase
             'privileged_accounts' => '/plugins/grcmanager/front/accounthygiene.php',
             'network_flows'     => '/plugins/grcmanager/front/networkflow.php',
             'risk_register'     => '/plugins/grcmanager/front/risk.php',
+            'risk_indicators'   => '/plugins/grcmanager/front/riskindicator.php',
             'supplier_risks'    => '/plugins/grcmanager/front/supplierrisk.php',
             'policies'          => '/plugins/grcmanager/front/policy.php',
             'soa'               => '/plugins/grcmanager/front/control.php',
             'legal_obligations' => '/plugins/grcmanager/front/complianceobligation.php',
+            'processing_register' => '/plugins/grcmanager/front/processingactivity.php',
+            'business_impact'   => '/plugins/grcmanager/front/businessprocess.php',
             default             => null,
         };
     }

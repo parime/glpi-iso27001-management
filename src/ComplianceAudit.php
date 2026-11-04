@@ -26,6 +26,9 @@ use Computer;
 use Config;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Services\Compliance\ComplianceAuditScore;
+use GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig;
+use GlpiPlugin\Grcmanager\Services\Control\FrameworkSelection;
+use GlpiPlugin\Grcmanager\Services\Risk\KriRules;
 use Html;
 use Item_Disk;
 use Item_Ticket;
@@ -170,11 +173,36 @@ class ComplianceAudit extends CommonGLPI
      */
     public static function getFrameworkLabels(): array
     {
-        return [
-            ComplianceAuditScore::ISO27001 => 'ISO/IEC 27001',
-            ComplianceAuditScore::NIS2     => 'NIS2',
-            ComplianceAuditScore::GDPR     => __('GDPR', 'grcmanager'),
-        ];
+        // Issue #403 : ISO 27001 et NIS2 seulement s'ils sont actifs (le RGPD n'est pas un
+        // référentiel activable : obligation légale).
+        $labels = [];
+        if (FrameworkConfig::isEnabled(FrameworkSelection::ISO27001)) {
+            $labels[ComplianceAuditScore::ISO27001] = 'ISO/IEC 27001';
+        }
+        if (FrameworkConfig::isEnabled(FrameworkSelection::NIS2)) {
+            $labels[ComplianceAuditScore::NIS2] = 'NIS2';
+        }
+        $labels[ComplianceAuditScore::GDPR] = __('GDPR', 'grcmanager');
+
+        return $labels;
+    }
+
+    /**
+     * Références d'un contrôle dans les référentiels actifs (« ISO/IEC 27001 A.8.7 »...).
+     *
+     * @return list<string>
+     */
+    public static function getCheckReferences(string $check): array
+    {
+        $labels = self::getFrameworkLabels();
+        $references = [];
+        foreach (ComplianceAuditScore::CHECKS[$check] ?? [] as $framework => $reference) {
+            if (isset($labels[$framework])) {
+                $references[] = $labels[$framework] . ' ' . $reference;
+            }
+        }
+
+        return $references;
     }
 
     /**
@@ -201,6 +229,26 @@ class ComplianceAudit extends CommonGLPI
                 ? self::accounts($now)
                 : self::notEvaluated(),
         ];
+    }
+
+    /**
+     * Issue #378 : part des ordinateurs en écart (en %) pour un contrôle technique (antivirus ou
+     * chiffrement) sur les entités données, pour alimenter un indicateur de risque. Null si aucun
+     * ordinateur n'est concerné. L'appelant vérifie les droits (RiskIndicator::canUseSource()).
+     *
+     * @param list<int> $entityIds
+     */
+    public static function gapRate(string $check, array $entityIds): ?float
+    {
+        if (!in_array($check, ['antivirus', 'encryption'], true) || $entityIds === []) {
+            return null;
+        }
+        $computers = self::computers([Computer::getTable() . '.entities_id' => $entityIds]);
+        $result = $check === 'antivirus'
+            ? self::antivirus($computers, Session::getCurrentTime() ?? date('Y-m-d H:i:s'))
+            : self::encryption($computers);
+
+        return KriRules::rate(count($result['gaps']), $result['total']);
     }
 
     /**
@@ -258,10 +306,12 @@ class ComplianceAudit extends CommonGLPI
 
     /**
      * Ordinateurs visibles (entités actives, hors corbeille, gabarits et statuts exclus).
+     * Issue #378 : un indicateur de risque passe à la place le périmètre de son entité.
      *
+     * @param array<string, mixed>|null $entityCriteria
      * @return array<int, array<string, mixed>>
      */
-    private static function computers(): array
+    private static function computers(?array $entityCriteria = null): array
     {
         global $DB;
 
@@ -275,7 +325,8 @@ class ComplianceAudit extends CommonGLPI
             $DB->request([
                 'SELECT' => ['id', 'name', 'is_dynamic', 'last_inventory_update'],
                 'FROM'   => Computer::getTable(),
-                'WHERE'  => $where + getEntitiesRestrictCriteria(Computer::getTable(), '', '', true),
+                'WHERE'  => $where
+                    + ($entityCriteria ?? getEntitiesRestrictCriteria(Computer::getTable(), '', '', true)),
                 'ORDER'  => 'name',
             ]) as $row
         ) {
@@ -563,10 +614,7 @@ class ComplianceAudit extends CommonGLPI
             return 0;
         }
         $label = self::getCheckLabels($approvals)[$check]['label'];
-        $references = [];
-        foreach (ComplianceAuditScore::CHECKS[$check] as $framework => $reference) {
-            $references[] = self::getFrameworkLabels()[$framework] . ' ' . $reference;
-        }
+        $references = self::getCheckReferences($check);
         $gaps = array_slice($result['gaps'], 0, self::TICKET_ITEMS_MAX);
         $ticketId = (int) (new Ticket())->add([
             'name'        => sprintf(

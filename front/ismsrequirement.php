@@ -22,6 +22,10 @@ use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
 include('../../../inc/includes.php');
 
 Session::checkRight(\GlpiPlugin\Grcmanager\IsmsRequirement::$rightname, READ);
+// Issue #403 : écran propre à ISO 27001, refusé quand ce référentiel est désactivé.
+\GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig::checkEnabled(
+    \GlpiPlugin\Grcmanager\Services\Control\FrameworkSelection::ISO27001
+);
 
 Html::header(
     \GlpiPlugin\Grcmanager\IsmsRequirement::getTypeName(2),

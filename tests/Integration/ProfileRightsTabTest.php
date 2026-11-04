@@ -39,7 +39,10 @@ final class ProfileRightsTabTest extends GrcmanagerIntegrationTestCase
         $html = (string) ob_get_clean();
 
         $this->assertTrue($shown);
-        $rights = [Installer::RIGHT_NAME, Installer::SECURITY_INCIDENT_RIGHT, Installer::SECURITY_INCIDENT_RULE_RIGHT];
+        $rights = [
+            Installer::RIGHT_NAME, Installer::CONTINUITY_RIGHT,
+            Installer::SECURITY_INCIDENT_RIGHT, Installer::SECURITY_INCIDENT_RULE_RIGHT,
+        ];
         foreach ($rights as $right) {
             $this->assertStringContainsString('name="_' . $right . '[', $html);
         }

@@ -25,6 +25,9 @@ use GlpiPlugin\Grcmanager\Services\Control\AnssiHygieneCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\AssetsignEvidence;
 use GlpiPlugin\Grcmanager\Services\Control\AssetsignEvidenceProvider;
 use GlpiPlugin\Grcmanager\Services\Control\ControlCrosswalkDefaults;
+use GlpiPlugin\Grcmanager\Services\Control\ControlTestRules;
+use GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig;
+use GlpiPlugin\Grcmanager\Services\Control\FrameworkSelection;
 use GlpiPlugin\Grcmanager\Services\Control\Nis2CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Ui\Badge;
 use GlpiPlugin\Grcmanager\Services\Ui\Fragment;
@@ -301,6 +304,23 @@ class Control extends ControlBase
             );
 
             return false;
+        }
+
+        // Issue #380 : plan de test d'efficacité (fréquence, méthode, responsable).
+        if (array_key_exists('test_frequency_months', $input)) {
+            $input['test_frequency_months'] = ControlTestRules::normalizeFrequency($input['test_frequency_months']);
+        }
+        if (array_key_exists('test_method', $input)) {
+            $input['test_method'] = ControlTestRules::normalizePlanMethod($input['test_method']);
+        }
+        if (array_key_exists('users_id_tester', $input)) {
+            $input['users_id_tester'] = max(0, (int) $input['users_id_tester']);
+        }
+
+        // Issue #380 : le plan de test et l'état posé par un test (ControlTest) ne sont pas une
+        // revue de la SoA.
+        if (!empty($input['_grcmanager_from_test'])) {
+            return $input;
         }
 
         // Any explicit save through this form counts as "reviewed" for the SoA completion
@@ -599,10 +619,17 @@ class Control extends ControlBase
             }
         }
 
+        // Issue #403 : correspondances des référentiels désactivés masquées.
+        $showNis2 = FrameworkConfig::isEnabled(FrameworkSelection::NIS2);
+        $showNist = FrameworkConfig::isEnabled(FrameworkSelection::NIST_CSF);
+        $measures = FrameworkConfig::isEnabled(FrameworkSelection::ANSSI)
+            ? AnssiHygieneCatalogDefaults::measuresForControl($code)
+            : [];
+
         // Issue #111 : mesures du guide d'hygiène ANSSI, intitulé dans la langue de la session.
         $anssiLang = str_starts_with((string) ($_SESSION['glpilanguage'] ?? 'fr_FR'), 'fr') ? 'fr' : 'en';
         $anssi = [];
-        foreach (AnssiHygieneCatalogDefaults::measuresForControl($code) as $measureNumber) {
+        foreach ($measures as $measureNumber) {
             $anssi[] = [
                 'number' => $measureNumber,
                 'title'  => AnssiHygieneCatalogDefaults::MEASURES[$measureNumber][$anssiLang],
@@ -642,11 +669,13 @@ class Control extends ControlBase
             'risks'                   => $riskTitles,
             'linked_risks'            => $this->isNewID($ID) || !$canViewRisks ? [] : self::getLinkedRiskIds((int) $ID),
             'can_view_risks'          => $canViewRisks,
-            'nist'                    => ControlCrosswalkDefaults::CROSSWALK[substr($code, 2)]['nist_csf'] ?? [],
-            'nis2'                    => array_map(
+            'nist'                    => $showNist
+                ? (ControlCrosswalkDefaults::CROSSWALK[substr($code, 2)]['nist_csf'] ?? [])
+                : [],
+            'nis2'                    => $showNis2 ? array_map(
                 static fn (string $nis2Code): string => Nis2CatalogDefaults::reference($nis2Code),
                 Nis2CatalogDefaults::requirementsForControl($code)
-            ),
+            ) : [],
             'anssi'                   => $anssi,
             'assetsign_sheets'        => $sheets,
             'assetsign_charter'       => $charter,

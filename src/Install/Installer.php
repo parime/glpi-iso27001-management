@@ -54,6 +54,17 @@ final class Installer
     // séparée du droit général du SMSI pour ne la donner qu'au RSSI et aux propriétaires de risques.
     public const SENSITIVE_RIGHT = 'plugin_grcmanager_sensitive';
 
+    // Issue #375 : registre des traitements de données personnelles (RGPD). Droit à part des
+    // registres sensibles : le DPO n'a pas à voir les risques ni la matrice des flux, et le RSSI
+    // n'a pas d'office accès à la description des traitements.
+    public const GDPR_RIGHT = 'plugin_grcmanager_gdpr';
+
+    // Issue #377 : continuité d'activité (processus métier et analyses d'impact sur l'activité).
+    // Droit distinct pour le responsable du plan de continuité ; à sa création, il reprend pour
+    // chaque profil la valeur du droit des registres sensibles (la carte des processus critiques et
+    // de leurs dépendances en est un).
+    public const CONTINUITY_RIGHT = 'plugin_grcmanager_continuity';
+
     // Table-name derivation confirmed against a real GLPI 11 instance by the sibling plugins of
     // this same author (glpi-vulnerability-manager, assetsign-glpi): the class-name suffix is
     // lowercased and concatenated as one block (no underscore inserted at camelCase boundaries).
@@ -234,7 +245,23 @@ final class Installer
         // Issue #371 : alertes d'accès au module des incidents.
         \GlpiPlugin\Grcmanager\IncidentAccessWatch::class,
         \GlpiPlugin\Grcmanager\NotificationTargetIncidentAccessWatch::class,
+        // Issue #375 : registre des activités de traitement (RGPD).
+        \GlpiPlugin\Grcmanager\ProcessingActivity::class,
+        // Issue #378 : indicateurs de risque et leurs relevés.
+        \GlpiPlugin\Grcmanager\RiskIndicator::class,
+        \GlpiPlugin\Grcmanager\RiskIndicatorValue::class,
+        \GlpiPlugin\Grcmanager\RiskAppetite::class,
+        // Issue #377 : processus métier, leurs dépendances et leur BIA.
+        \GlpiPlugin\Grcmanager\BusinessProcess::class,
+        \GlpiPlugin\Grcmanager\BusinessProcessItem::class,
+        \GlpiPlugin\Grcmanager\BusinessImpact::class,
+        // Issue #380 : tests d'efficacité des mesures.
+        \GlpiPlugin\Grcmanager\ControlTest::class,
     ];
+    // Issue #375 : registre des activités de traitement (RGPD, article 30) et éléments GLPI cités,
+    // voir \GlpiPlugin\Grcmanager\ProcessingActivity.
+    private const PROCESSING_ACTIVITIES_TABLE = 'glpi_plugin_grcmanager_processingactivities';
+    private const PROCESSING_ACTIVITIES_ITEMS_TABLE = 'glpi_plugin_grcmanager_processingactivities_items';
     // Issue #142 : evenements du calendrier de conformite, voir \GlpiPlugin\Grcmanager\ComplianceEvent.
     private const COMPLIANCE_EVENTS_TABLE = 'glpi_plugin_grcmanager_complianceevents';
     // Issue #160 : vulnérabilités du parc, voir GlpiPlugin\Grcmanager\Services\Cve\ParkVulnerabilitySync.
@@ -258,12 +285,22 @@ final class Installer
     // Issue #164 : règles de couverture des preuves, voir \GlpiPlugin\Grcmanager\CoverageRule.
     private const COVERAGE_RULES_TABLE = 'glpi_plugin_grcmanager_coveragerules';
     // Issue #168 : exercices de crise et leurs étapes chronométrées.
+    // Issue #377 : registre des processus métier, leurs dépendances et leur BIA.
+    private const BUSINESS_PROCESSES_TABLE = 'glpi_plugin_grcmanager_businessprocesses';
+    private const BUSINESS_PROCESSES_ITEMS_TABLE = 'glpi_plugin_grcmanager_businessprocesses_items';
+    private const BUSINESS_IMPACTS_TABLE = 'glpi_plugin_grcmanager_businessimpacts';
     private const CRISIS_EXERCISES_TABLE = 'glpi_plugin_grcmanager_crisisexercises';
     private const CRISIS_EXERCISE_STEPS_TABLE = 'glpi_plugin_grcmanager_crisisexercisesteps';
     // Issue #185 : éléments rétablis pendant une crise (temps de reprise mesuré face au RTO).
     private const CRISIS_RECOVERIES_TABLE = 'glpi_plugin_grcmanager_crisisrecoveries';
     // Issue #162 : ticket de mise en conformité ouvert par contrôle technique et par entité.
     private const COMPLIANCE_AUDIT_TICKETS_TABLE = 'glpi_plugin_grcmanager_complianceaudittickets';
+    // Issue #378 : appétence et tolérance au risque, indicateurs de risque (KRI) et leurs relevés.
+    private const RISK_APPETITES_TABLE = 'glpi_plugin_grcmanager_riskappetites';
+    private const RISK_INDICATORS_TABLE = 'glpi_plugin_grcmanager_riskindicators';
+    private const RISK_INDICATOR_VALUES_TABLE = 'glpi_plugin_grcmanager_riskindicatorvalues';
+    // Issue #380 : tests d'efficacité des mesures, voir \GlpiPlugin\Grcmanager\ControlTest.
+    private const CONTROL_TESTS_TABLE = 'glpi_plugin_grcmanager_controltests';
 
     /**
      * Création et mise à jour du schéma. Les ordres DDL passent par $DB->doQuery(), qui lève une
@@ -485,6 +522,54 @@ final class Installer
                 KEY `theme` (`theme`),
                 KEY `applicability` (`applicability`),
                 KEY `implementation_status` (`implementation_status`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query);
+        }
+
+        // Issue #380 : plan de test d'efficacité de chaque mesure (fréquence en mois, 0 = aucun
+        // plan ; méthode ; responsable), ajouté aux mesures existantes sans toucher à leurs données.
+        if (!$DB->fieldExists(self::CONTROLS_TABLE, 'test_frequency_months')) {
+            $migration->addField(self::CONTROLS_TABLE, 'test_frequency_months', 'integer', [
+                'value' => 0,
+                'after' => 'is_reviewed',
+            ]);
+            $migration->addField(self::CONTROLS_TABLE, 'test_method', 'string', [
+                'value'   => '',
+                'comment' => 'inspection, sampling, technical, interview',
+                'after'   => 'test_frequency_months',
+            ]);
+            $migration->addField(self::CONTROLS_TABLE, 'users_id_tester', 'fkey', ['after' => 'test_method']);
+            $migration->addKey(self::CONTROLS_TABLE, 'users_id_tester', 'users_id_tester');
+            $migration->migrationOneTable(self::CONTROLS_TABLE);
+        }
+
+        // Issue #380 : tests d'efficacité des mesures, une ligne par test (voir
+        // \GlpiPlugin\Grcmanager\ControlTest). Preuve = document joint à la mesure ; non-conformité
+        // ouverte par un test inefficace.
+        if (!$DB->tableExists(self::CONTROL_TESTS_TABLE)) {
+            $query = "CREATE TABLE `" . self::CONTROL_TESTS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_controls_id` int {$keySign} NOT NULL DEFAULT 0,
+                `test_date` date DEFAULT NULL,
+                `method` varchar(16) NOT NULL DEFAULT 'inspection'
+                    COMMENT 'inspection, sampling, technical, interview',
+                `result` varchar(16) NOT NULL DEFAULT '' COMMENT 'effective, partial, ineffective',
+                `users_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Testeur',
+                `comment` text,
+                `documents_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Preuve, jointe a la mesure',
+                `next_test_date` date DEFAULT NULL,
+                `plugin_grcmanager_nonconformities_id` int {$keySign} NOT NULL DEFAULT 0,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `plugin_grcmanager_controls_id` (`plugin_grcmanager_controls_id`),
+                KEY `test_date` (`test_date`),
+                KEY `result` (`result`),
+                KEY `users_id` (`users_id`),
+                KEY `documents_id` (`documents_id`),
+                KEY `next_test_date` (`next_test_date`),
+                KEY `plugin_grcmanager_nonconformities_id` (`plugin_grcmanager_nonconformities_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
             $DB->doQuery($query);
@@ -1325,6 +1410,68 @@ final class Installer
             $DB->doQuery($query);
         }
 
+        // Issue #375 : registre des activités de traitement (RGPD, article 30). Une fiche par
+        // traitement, rattachée à une entité ; listes à choix multiples en JSON (clés du catalogue
+        // de ProcessingActivityRules). Aucune donnée personnelle des personnes concernées n'y est
+        // stockée, seulement la description du traitement.
+        if (!$DB->tableExists(self::PROCESSING_ACTIVITIES_TABLE)) {
+            $query = "CREATE TABLE `" . self::PROCESSING_ACTIVITIES_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `entities_id` int {$keySign} NOT NULL DEFAULT 0,
+                `is_recursive` tinyint NOT NULL DEFAULT 0,
+                `name` varchar(255) NOT NULL DEFAULT '',
+                `reference` varchar(64) NOT NULL DEFAULT '',
+                `status` varchar(16) NOT NULL DEFAULT 'draft' COMMENT 'draft, active, archived',
+                `role` varchar(32) NOT NULL DEFAULT 'controller'
+                    COMMENT 'controller, joint_controller, processor',
+                `controller_name` varchar(255) NOT NULL DEFAULT '',
+                `users_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Responsable métier du traitement',
+                `purpose` text,
+                `legal_basis` varchar(32) NOT NULL DEFAULT '' COMMENT 'Article 6.1, vide = non déterminée',
+                `legal_basis_detail` varchar(255) NOT NULL DEFAULT '',
+                `data_subjects` text COMMENT 'JSON - catégories de personnes concernées',
+                `data_categories` text COMMENT 'JSON - catégories de données',
+                `sensitive_data` text COMMENT 'JSON - données sensibles (articles 9, 10, 87)',
+                `data_details` text,
+                `recipients` text,
+                `transfers_outside_eu` tinyint NOT NULL DEFAULT 0,
+                `transfer_countries` varchar(255) NOT NULL DEFAULT '',
+                `transfer_safeguards` varchar(32) NOT NULL DEFAULT ''
+                    COMMENT 'adequacy, scc, bcr, derogation, other',
+                `retention_period` text,
+                `security_measures` text,
+                `dpia_status` varchar(16) NOT NULL DEFAULT 'not_assessed'
+                    COMMENT 'not_assessed, not_required, required, done',
+                `last_review_date` date DEFAULT NULL,
+                `comment` text,
+                `is_deleted` tinyint NOT NULL DEFAULT 0,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `entities_id` (`entities_id`),
+                KEY `is_recursive` (`is_recursive`),
+                KEY `status` (`status`),
+                KEY `users_id` (`users_id`),
+                KEY `is_deleted` (`is_deleted`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query);
+        }
+        if (!$DB->tableExists(self::PROCESSING_ACTIVITIES_ITEMS_TABLE)) {
+            $query = "CREATE TABLE `" . self::PROCESSING_ACTIVITIES_ITEMS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_processingactivities_id` int {$keySign} NOT NULL DEFAULT 0,
+                `itemtype` varchar(100) NOT NULL DEFAULT '',
+                `items_id` int {$keySign} NOT NULL DEFAULT 0,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity` (`plugin_grcmanager_processingactivities_id`, `itemtype`, `items_id`),
+                KEY `item` (`itemtype`, `items_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query);
+        }
+
         // Issue #164 : couverture des preuves (type d'actif × catégorie de document requise).
         if (!$DB->tableExists(self::COVERAGE_RULES_TABLE)) {
             $query = "CREATE TABLE `" . self::COVERAGE_RULES_TABLE . "` (
@@ -1641,6 +1788,8 @@ final class Installer
         // "lien simple en accès direct $DB" que CONTROLS_RISKS_TABLE/MANAGEMENT_REVIEWS_USERS_TABLE
         // ci-dessus (voir \GlpiPlugin\Grcmanager\ManagementReview::getLinkedObjectives()/
         // syncLinkedObjectives()).
+        $this->installRiskAppetiteTables($migration);
+
         if (!$DB->tableExists(self::MANAGEMENT_REVIEWS_OBJECTIVES_TABLE)) {
             $query = "CREATE TABLE `" . self::MANAGEMENT_REVIEWS_OBJECTIVES_TABLE . "` (
                 `id` int {$keySign} NOT NULL AUTO_INCREMENT,
@@ -2090,6 +2239,69 @@ final class Installer
         }
         // Les cinq procédures fournies, une seule fois (bibliothèque vide).
         \GlpiPlugin\Grcmanager\Playbook::seedDefaults();
+
+        // Issue #377 : processus métier (responsable, criticité GLPI, DMIA, RTO, RPO), éléments GLPI
+        // dont ils dépendent et analyse d'impact sur l'activité par durée d'interruption.
+        if (!$DB->tableExists(self::BUSINESS_PROCESSES_TABLE)) {
+            $query = "CREATE TABLE `" . self::BUSINESS_PROCESSES_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `entities_id` int {$keySign} NOT NULL DEFAULT 0,
+                `is_recursive` tinyint NOT NULL DEFAULT 0,
+                `name` varchar(255) NOT NULL DEFAULT '',
+                `description` text,
+                `users_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Responsable du processus',
+                `groups_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Service responsable',
+                `businesscriticities_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Criticite (intitule du coeur)',
+                `mtpd_hours` int NOT NULL DEFAULT 0 COMMENT 'DMIA / MTPD en heures, 0 = non definie',
+                `rto_hours` int NOT NULL DEFAULT 0 COMMENT 'RTO en heures, 0 = non defini',
+                `rpo_hours` int NOT NULL DEFAULT 0 COMMENT 'RPO en heures, 0 = non defini',
+                `bia_date` date DEFAULT NULL COMMENT 'Date de la derniere BIA',
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `entities_id` (`entities_id`),
+                KEY `is_recursive` (`is_recursive`),
+                KEY `name` (`name`),
+                KEY `users_id` (`users_id`),
+                KEY `groups_id` (`groups_id`),
+                KEY `businesscriticities_id` (`businesscriticities_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query);
+        }
+        if (!$DB->tableExists(self::BUSINESS_PROCESSES_ITEMS_TABLE)) {
+            $query = "CREATE TABLE `" . self::BUSINESS_PROCESSES_ITEMS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_businessprocesses_id` int {$keySign} NOT NULL DEFAULT 0,
+                `itemtype` varchar(100) NOT NULL DEFAULT '',
+                `items_id` int {$keySign} NOT NULL DEFAULT 0,
+                `comment` varchar(255) NOT NULL DEFAULT '' COMMENT 'Role de l element pour le processus',
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity` (`plugin_grcmanager_businessprocesses_id`, `itemtype`, `items_id`),
+                KEY `item` (`itemtype`, `items_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query);
+        }
+        if (!$DB->tableExists(self::BUSINESS_IMPACTS_TABLE)) {
+            $query = "CREATE TABLE `" . self::BUSINESS_IMPACTS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_businessprocesses_id` int {$keySign} NOT NULL DEFAULT 0,
+                `horizon_hours` int NOT NULL DEFAULT 0 COMMENT 'Duree d interruption evaluee',
+                `financial` tinyint NOT NULL DEFAULT 0 COMMENT '0 non evalue a 4 critique',
+                `legal` tinyint NOT NULL DEFAULT 0,
+                `reputation` tinyint NOT NULL DEFAULT 0,
+                `operational` tinyint NOT NULL DEFAULT 0,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity` (`plugin_grcmanager_businessprocesses_id`, `horizon_hours`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query);
+        }
 
         if (!$DB->tableExists(self::SECURITY_INCIDENT_COSTS_TABLE)) {
             $query = "CREATE TABLE `" . self::SECURITY_INCIDENT_COSTS_TABLE . "` (
@@ -2718,6 +2930,24 @@ final class Installer
             }
         }
 
+        // Issue #377 : droit de la continuité d'activité. À sa création, il reprend pour chaque profil
+        // la valeur du droit des registres sensibles : personne n'obtient un accès qu'il n'avait pas.
+        $continuityRows = $DB->request(['FROM' => 'glpi_profilerights', 'WHERE' => ['name' => self::CONTINUITY_RIGHT]]);
+        if ($continuityRows->count() === 0) {
+            ProfileRight::addProfileRights([self::CONTINUITY_RIGHT]);
+            $sensitiveRights = $DB->request([
+                'FROM'  => 'glpi_profilerights',
+                'WHERE' => ['name' => self::SENSITIVE_RIGHT],
+            ]);
+            foreach ($sensitiveRights as $row) {
+                $DB->update(
+                    'glpi_profilerights',
+                    ['rights' => (int) $row['rights'] & ALLSTANDARDRIGHT],
+                    ['profiles_id' => (int) $row['profiles_id'], 'name' => self::CONTINUITY_RIGHT]
+                );
+            }
+        }
+
         // addProfileRights() above inserts every profile at rights=0 (GLPI core's own default),
         // an admin is expected to grant it explicitly per profile via Administration > Profils,
         // except Super-Admin which always gets full rights so the plugin is usable right after
@@ -2730,8 +2960,19 @@ final class Installer
                 [
                     self::RIGHT_NAME      => ALLSTANDARDRIGHT | READNOTE | UPDATENOTE,
                     self::SENSITIVE_RIGHT => ALLSTANDARDRIGHT,
+                    self::CONTINUITY_RIGHT => ALLSTANDARDRIGHT,
                 ]
             );
+        }
+
+        // Issue #375 : registre des traitements (RGPD). À sa création, aucun profil ne l'a, sauf le
+        // Super-Admin : l'administrateur le donne au DPO dans l'onglet GRC Manager des profils. Une
+        // mise à jour ne touche jamais aux droits déjà réglés.
+        if ($DB->request(['FROM' => 'glpi_profilerights', 'WHERE' => ['name' => self::GDPR_RIGHT]])->count() === 0) {
+            ProfileRight::addProfileRights([self::GDPR_RIGHT]);
+            foreach ($DB->request(['FROM' => 'glpi_profiles', 'WHERE' => ['name' => 'Super-Admin']]) as $profileRow) {
+                ProfileRight::updateProfileRights((int) $profileRow['id'], [self::GDPR_RIGHT => ALLSTANDARDRIGHT]);
+            }
         }
 
         // Absorption de glpi-security-incidents (ROADMAP.md "Version 2.0") : contrairement au reste
@@ -3696,6 +3937,102 @@ final class Installer
      * notes, historique, recherches enregistrées, règles des incidents). Suivis, solutions, liens
      * et règles passent par leur classe, pour que leurs propres nettoyages s'exécutent.
      */
+    /**
+     * Issue #378 : appétence et tolérance par catégorie de risque, indicateurs de risque (KRI) et
+     * leur historique, signature de l'acceptation formelle d'un risque. Création ou ajout des
+     * colonnes manquantes : une mise à jour garde les données existantes.
+     */
+    private function installRiskAppetiteTables(Migration $migration): void
+    {
+        global $DB;
+
+        $charset   = DBConnection::getDefaultCharset();
+        $collation = DBConnection::getDefaultCollation();
+        $keySign   = DBConnection::getDefaultPrimaryKeySignOption();
+
+        if (!$DB->tableExists(self::RISK_APPETITES_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::RISK_APPETITES_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `category` varchar(32) NOT NULL COMMENT 'Categorie du registre des risques',
+                `appetite_level` varchar(16) NOT NULL DEFAULT '' COMMENT 'low, medium, high, critical',
+                `tolerance_level` varchar(16) NOT NULL DEFAULT '' COMMENT 'Vide = appetite_level',
+                `statement` text,
+                `users_id_approval` int {$keySign} NOT NULL DEFAULT 0,
+                `date_approval` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `category` (`category`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+
+        if (!$DB->tableExists(self::RISK_INDICATORS_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::RISK_INDICATORS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `name` varchar(255) NOT NULL DEFAULT '',
+                `entities_id` int {$keySign} NOT NULL DEFAULT 0,
+                `description` text,
+                `category` varchar(32) NOT NULL DEFAULT '',
+                `plugin_grcmanager_risks_id` int {$keySign} NOT NULL DEFAULT 0,
+                `users_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Responsable',
+                `source` varchar(40) NOT NULL DEFAULT 'manual',
+                `unit` varchar(32) NOT NULL DEFAULT '',
+                `direction` varchar(20) NOT NULL DEFAULT 'higher_is_worse',
+                `threshold_warning` decimal(14,2) DEFAULT NULL,
+                `threshold_critical` decimal(14,2) DEFAULT NULL,
+                `last_value` decimal(14,2) DEFAULT NULL,
+                `last_value_date` date DEFAULT NULL,
+                `status` varchar(16) NOT NULL DEFAULT 'none' COMMENT 'green, orange, red, none',
+                `tickets_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Dernier ticket ouvert au rouge',
+                `is_active` tinyint NOT NULL DEFAULT 1,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `entities_id` (`entities_id`),
+                KEY `plugin_grcmanager_risks_id` (`plugin_grcmanager_risks_id`),
+                KEY `users_id` (`users_id`),
+                KEY `status` (`status`),
+                KEY `tickets_id` (`tickets_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+
+        if (!$DB->tableExists(self::RISK_INDICATOR_VALUES_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::RISK_INDICATOR_VALUES_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_riskindicators_id` int {$keySign} NOT NULL DEFAULT 0,
+                `value_date` date DEFAULT NULL,
+                `value` decimal(14,2) NOT NULL DEFAULT 0,
+                `status` varchar(16) NOT NULL DEFAULT 'none',
+                `comment` text,
+                `users_id` int {$keySign} NOT NULL DEFAULT 0,
+                `is_automatic` tinyint NOT NULL DEFAULT 0,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `plugin_grcmanager_riskindicators_id` (`plugin_grcmanager_riskindicators_id`),
+                KEY `value_date` (`value_date`),
+                KEY `users_id` (`users_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+
+        // Signature de l'acceptation formelle d'un risque au-dessus de l'appétence.
+        if (!$DB->fieldExists(self::RISKS_TABLE, 'users_id_acceptance')) {
+            $migration->addField(self::RISKS_TABLE, 'users_id_acceptance', 'fkey', ['after' => 'justification']);
+            $migration->addField(self::RISKS_TABLE, 'date_acceptance', 'timestamp', ['after' => 'users_id_acceptance']);
+            $migration->addKey(self::RISKS_TABLE, 'users_id_acceptance');
+            $migration->migrationOneTable(self::RISKS_TABLE);
+        }
+
+        // Relevé quotidien des KRI à source automatique.
+        CronTask::Register(
+            'GlpiPlugin\\Grcmanager\\RiskIndicator',
+            'riskindicatormeasure',
+            DAY_TIMESTAMP,
+            [
+                'comment' => 'Relève chaque jour les indicateurs de risque (KRI) à source automatique',
+                'mode'    => CronTask::MODE_EXTERNAL,
+            ]
+        );
+    }
+
     private function purgeCoreRows(): void
     {
         global $DB;
@@ -4149,7 +4486,9 @@ final class Installer
     {
         global $DB;
 
-        ProfileRight::deleteProfileRights([self::RIGHT_NAME, self::SENSITIVE_RIGHT]);
+        ProfileRight::deleteProfileRights([
+            self::RIGHT_NAME, self::SENSITIVE_RIGHT, self::CONTINUITY_RIGHT, self::GDPR_RIGHT,
+        ]);
         ProfileRight::deleteProfileRights([self::SECURITY_INCIDENT_RIGHT, self::SECURITY_INCIDENT_RULE_RIGHT]);
 
         $DB->delete('glpi_displaypreferences', ['itemtype' => array_keys(DefaultSearchColumns::COLUMNS)]);
@@ -4203,6 +4542,7 @@ final class Installer
         $migration->dropTable(self::PRODUCT_ALIASES_TABLE);
         $migration->dropTable(self::CANONICAL_PRODUCTS_TABLE);
         $migration->dropTable(self::CONTROLS_RISKS_TABLE);
+        $migration->dropTable(self::CONTROL_TESTS_TABLE);
         $migration->dropTable(self::CONTROLS_TABLE);
         $migration->dropTable(self::ISMS_REQUIREMENTS_TABLE);
         $migration->dropTable(self::SOA_VERSIONS_USERS_TABLE);
@@ -4227,6 +4567,8 @@ final class Installer
         $migration->dropTable(self::PERIODIC_REVIEWS_TABLE);
         $migration->dropTable(self::NETWORK_FLOWS_TABLE);
         $migration->dropTable(self::BREACH_EXPOSURES_TABLE);
+        $migration->dropTable(self::PROCESSING_ACTIVITIES_ITEMS_TABLE);
+        $migration->dropTable(self::PROCESSING_ACTIVITIES_TABLE);
         $migration->dropTable(self::COMPLIANCE_EVENTS_TABLE);
         $migration->dropTable(self::IGNORED_SOFTWARES_TABLE);
         $migration->dropTable(self::PARK_VERSION_CHECKS_TABLE);
@@ -4244,6 +4586,9 @@ final class Installer
         $migration->dropTable(self::CRISIS_RECOVERIES_TABLE);
         $migration->dropTable(self::COMPLIANCE_AUDIT_TICKETS_TABLE);
         $migration->dropTable(self::CRISIS_EXERCISE_STEPS_TABLE);
+        $migration->dropTable(self::BUSINESS_IMPACTS_TABLE);
+        $migration->dropTable(self::BUSINESS_PROCESSES_ITEMS_TABLE);
+        $migration->dropTable(self::BUSINESS_PROCESSES_TABLE);
         $migration->dropTable(self::CRISIS_EXERCISES_TABLE);
         $migration->dropTable(self::ACCESS_REVIEWS_USERS_TABLE);
         $migration->dropTable(self::ACCESS_REVIEWS_TABLE);
@@ -4274,6 +4619,9 @@ final class Installer
         $migration->dropTable(self::SECURITY_INCIDENTS_TABLE);
         $migration->dropTable(self::RISK_TREATMENT_ACTIONS_TABLE);
         $migration->dropTable(self::SECURITY_INCIDENT_CONFIG_TABLE);
+        $migration->dropTable(self::RISK_APPETITES_TABLE);
+        $migration->dropTable(self::RISK_INDICATOR_VALUES_TABLE);
+        $migration->dropTable(self::RISK_INDICATORS_TABLE);
 
         $migration->executeMigration();
 

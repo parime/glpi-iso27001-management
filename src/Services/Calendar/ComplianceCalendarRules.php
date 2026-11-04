@@ -28,7 +28,7 @@ final class ComplianceCalendarRules
     /** Sources agrégées dans le calendrier (événements saisis + échéances des autres registres). */
     public const SOURCES = [
         'event', 'audit', 'management_review', 'access_review', 'periodic_review', 'policy', 'obligation',
-        'evidence',
+        'evidence', 'control_test',
     ];
 
     public static function normalizeType(mixed $value): string

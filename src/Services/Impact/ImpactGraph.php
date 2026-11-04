@@ -76,6 +76,21 @@ final class ImpactGraph
     }
 
     /**
+     * Issue #377 : tout ce dont $start dépend, directement ou non (sa chaîne d'approvisionnement
+     * technique), avec la distance. Parcours inverse de downstream().
+     *
+     * @param list<array{0: string, 1: string}> $edges [source, impacté]
+     * @return array<string, int>
+     */
+    public static function upstream(array $edges, string $start): array
+    {
+        return self::downstream(
+            array_map(static fn (array $edge): array => [$edge[1], $edge[0]], $edges),
+            $start
+        );
+    }
+
+    /**
      * Points de défaillance uniques : pour chaque élément critique, s'il ne dépend que d'une seule
      * source directe, cette source est un point de défaillance unique pour lui.
      *

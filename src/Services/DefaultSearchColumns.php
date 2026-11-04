@@ -40,15 +40,21 @@ final class DefaultSearchColumns
         // convention.
         'GlpiPlugin\\Grcmanager\\Policy'           => [8, 1, 2, 3, 4, 5, 6],
         'GlpiPlugin\\Grcmanager\\Evidence'         => [2, 3, 4, 5, 6, 80],
+        // Issue #380 : mesure, date, méthode, résultat, testeur, prochain test, non-conformité.
+        'GlpiPlugin\\Grcmanager\\ControlTest'      => [1, 2, 3, 4, 5, 6, 8],
         // Issue #144 : nom, type, source, destination, protocole, ports, propriétaire, fin, contrôles.
         'GlpiPlugin\\Grcmanager\\NetworkFlow'      => [1, 2, 3, 4, 5, 6, 8, 9, 11],
         // Issue #183 : fuite, utilisateur, date de la fuite, données exposées, statut, détection.
         'GlpiPlugin\\Grcmanager\\BreachExposure'   => [1, 2, 4, 6, 7, 8],
+        // Issue #375 : référence, nom, statut, base légale, personnes, AIPD, responsable, écarts, entité.
+        'GlpiPlugin\\Grcmanager\\ProcessingActivity' => [2, 1, 3, 6, 7, 12, 13, 15, 80],
         // Issue #170 : nom, statut, date de fin, responsable, mesure, politique.
         'GlpiPlugin\\Grcmanager\\Waiver'           => [1, 3, 4, 5, 6, 7],
         // Issue #164 : nom, type d'actif, catégorie de document, mesure, exigence, active.
         'GlpiPlugin\\Grcmanager\\CoverageRule'     => [1, 3, 4, 5, 6, 7],
         'GlpiPlugin\\Grcmanager\\Playbook'         => [1, 3, 4, 6],
+        // Issue #377 : nom, entité, responsable, criticité, DMIA, RTO, RPO, dernière BIA.
+        'GlpiPlugin\\Grcmanager\\BusinessProcess'  => [1, 80, 3, 5, 6, 7, 8, 9],
         // Issue #142 : nom, type, debut, fin, statut, responsable, prestataire.
         'GlpiPlugin\\Grcmanager\\ComplianceEvent'  => [1, 2, 3, 4, 5, 6, 7],
         // Issue #30 (registre des obligations légales/réglementaires/contractuelles), same
@@ -57,6 +63,8 @@ final class DefaultSearchColumns
         // Issue #32 (objectifs ISMS et suivi de KPI dans le temps), same "id first" convention:
         // titre, statut, échéance, valeur cible, propriétaire.
         'GlpiPlugin\\Grcmanager\\Objective' => [8, 1, 2, 3, 4, 6],
+        // Issue #378 (indicateurs de risque) : nom, statut, dernière valeur, date, seuils, entité.
+        'GlpiPlugin\\Grcmanager\\RiskIndicator' => [10, 1, 2, 3, 4, 5, 6, 80],
         // Issue #29 (registre des incidents de sécurité de l'information, A.5.24-27), same
         // "id first" convention: titre, catégorie, sévérité, statut, date, responsable.
         'PluginGrcmanagerSecurityIncident' => [13, 1, 2, 3, 4, 5, 6],

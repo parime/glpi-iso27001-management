@@ -58,13 +58,17 @@ final class ComplianceAuditScore
     /**
      * Score par référentiel : moyenne des taux des contrôles évalués qui s'y rattachent.
      *
+     * Issue #403 : $frameworks limite le calcul aux référentiels actifs (tous si null).
+     *
      * @param array<string, array{gaps: int, total: int, evaluated: bool}> $results
+     * @param list<string>|null $frameworks
      * @return array<string, array{score: ?int, checks: int}>
      */
-    public static function frameworkScores(array $results): array
+    public static function frameworkScores(array $results, ?array $frameworks = null): array
     {
         $scores = [];
-        foreach ([self::ISO27001, self::NIS2, self::GDPR] as $framework) {
+        $all = [self::ISO27001, self::NIS2, self::GDPR];
+        foreach ($frameworks === null ? $all : array_intersect($all, $frameworks) as $framework) {
             $rates = [];
             foreach (self::CHECKS as $check => $references) {
                 if (!isset($references[$framework], $results[$check]) || !$results[$check]['evaluated']) {

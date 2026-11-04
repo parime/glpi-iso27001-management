@@ -16,6 +16,8 @@
  */
 
 use Glpi\Application\View\TemplateRenderer;
+use GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig;
+use GlpiPlugin\Grcmanager\Services\Control\FrameworkSelection;
 use GlpiPlugin\Grcmanager\Services\Risk\InfrastructureRiskCatalog;
 
 include('../../../inc/includes.php');
@@ -65,6 +67,7 @@ foreach (InfrastructureRiskCatalog::keys() as $key) {
             : '';
     }
 }
+$iso27090Enabled = FrameworkConfig::isEnabled(FrameworkSelection::ISO27090);
 
 TemplateRenderer::getInstance()->display('@grcmanager/risk_catalog.html.twig', [
     'action'     => \GlpiPlugin\Grcmanager\RiskCatalog::getSearchURL(),
@@ -78,16 +81,23 @@ TemplateRenderer::getInstance()->display('@grcmanager/risk_catalog.html.twig', [
     // Infrastructure puis systèmes d'IA (sections ISO/IEC 27090:2026).
     'groups'     => [
         InfrastructureRiskCatalog::GROUP_INFRASTRUCTURE => __('Infrastructure', 'grcmanager'),
-        InfrastructureRiskCatalog::GROUP_AI             => __('AI systems (ISO/IEC 27090)', 'grcmanager'),
+        InfrastructureRiskCatalog::GROUP_AI             => $iso27090Enabled
+            ? __('AI systems (ISO/IEC 27090)', 'grcmanager')
+            : __('AI systems', 'grcmanager'),
     ],
     'group_of'   => array_combine(
         InfrastructureRiskCatalog::keys(),
         array_map([InfrastructureRiskCatalog::class, 'group'], InfrastructureRiskCatalog::keys())
     ),
+    // Issue #403 : sans ISO/IEC 27090, ni badges ni lien vers ce référentiel.
     'iso27090'   => array_combine(
         InfrastructureRiskCatalog::keys(),
-        array_map([InfrastructureRiskCatalog::class, 'iso27090'], InfrastructureRiskCatalog::keys())
-    ),    'controls'   => $controls,
+        array_map(
+            static fn (string $key): array => $iso27090Enabled ? InfrastructureRiskCatalog::iso27090($key) : [],
+            InfrastructureRiskCatalog::keys()
+        )
+    ),
+    'iso27090_enabled' => $iso27090Enabled,    'controls'   => $controls,
     'imported'   => \GlpiPlugin\Grcmanager\RiskCatalog::importedRisks(),
     'risk_url'   => \GlpiPlugin\Grcmanager\Risk::getFormURL(),
     'can_create' => Session::haveRight(\GlpiPlugin\Grcmanager\Risk::$rightname, CREATE),

@@ -70,6 +70,17 @@ final class ComplianceAuditScoreTest extends TestCase
         $this->assertSame(['score' => null, 'checks' => 0], Score::frameworkScores([])[Score::GDPR]);
     }
 
+    public function testFrameworkScoresSkipDisabledFrameworks(): void
+    {
+        // Issue #403 : ISO 27001 désactivé, plus de score ISO ; les autres ne changent pas.
+        $results = ['antivirus' => ['gaps' => 1, 'total' => 4, 'evaluated' => true]];
+        $scores = Score::frameworkScores($results, [Score::NIS2, Score::GDPR, 'inconnu']);
+
+        $this->assertSame([Score::NIS2, Score::GDPR], array_keys($scores));
+        $this->assertSame(Score::frameworkScores($results)[Score::NIS2], $scores[Score::NIS2]);
+        $this->assertSame([], Score::frameworkScores($results, []));
+    }
+
     public function testAntivirusCompliance(): void
     {
         $ok = ['is_active' => 1, 'is_uptodate' => 1, 'date_expiration' => null];

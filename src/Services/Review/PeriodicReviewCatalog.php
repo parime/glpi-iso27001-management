@@ -28,13 +28,18 @@ final class PeriodicReviewCatalog
         'privileged_accounts' => ['months' => 3, 'controls' => ['A.8.2', 'A.5.18']],
         'network_flows'       => ['months' => 6, 'controls' => ['A.8.20', 'A.8.21', 'A.8.22']],
         'risk_register'       => ['months' => 6, 'controls' => ['6.1.2', '8.2']],
+        'risk_indicators'     => ['months' => 3, 'controls' => ['6.1.2', '9.1']],
         'supplier_risks'      => ['months' => 12, 'controls' => ['A.5.19', 'A.5.20', 'A.5.22']],
         'policies'            => ['months' => 12, 'controls' => ['A.5.1']],
         'soa'                 => ['months' => 12, 'controls' => ['6.1.3']],
         'legal_obligations'   => ['months' => 12, 'controls' => ['A.5.31']],
         'backup_restore_test' => ['months' => 6, 'controls' => ['A.8.13']],
         'continuity_test'     => ['months' => 12, 'controls' => ['A.5.29', 'A.5.30']],
+        // Issue #377 : revue annuelle des processus métier et de leur BIA (ISO 22301 8.2.2).
+        'business_impact'     => ['months' => 12, 'controls' => ['A.5.29', 'A.5.30']],
         'security_logs'       => ['months' => 1, 'controls' => ['A.8.15', 'A.8.16']],
+        // Issue #375 : revue annuelle du registre des traitements (RGPD, article 30).
+        'processing_register' => ['months' => 12, 'controls' => ['A.5.34']],
     ];
 
     /**

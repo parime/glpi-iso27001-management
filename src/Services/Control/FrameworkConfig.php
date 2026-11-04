@@ -1,0 +1,127 @@
+<?php
+
+/**
+ * -------------------------------------------------------------------------
+ * GLPI GRC Manager plugin for GLPI
+ * Copyright (C) 2026 Vincent GUILLOTTE
+ * https://github.com/parime/glpi-grc-manager
+ * -------------------------------------------------------------------------
+ * LICENSE
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version. See LICENSE for the full text.
+ * -------------------------------------------------------------------------
+ */
+
+declare(strict_types=1);
+
+namespace GlpiPlugin\Grcmanager\Services\Control;
+
+use Config;
+use Glpi\Exception\Http\AccessDeniedHttpException;
+
+/**
+ * Issue #403 : référentiels de conformité actifs, réglés dans la configuration du plugin (contexte
+ * plugin:grcmanager, clé frameworks_disabled : liste JSON des référentiels désactivés, voir
+ * FrameworkSelection). Réglage absent : tout reste actif, comme avant ; aucune migration n'est donc
+ * nécessaire, et la désinstallation le retire avec le reste du contexte.
+ *
+ * NOTE : dépend de la classe Config de GLPI, hors du périmètre de phpstan.neon.dist (même raison que
+ * RiskMatrixConfig) ; la logique est testée dans FrameworkSelection.
+ */
+final class FrameworkConfig
+{
+    public const CONFIG_CONTEXT = 'plugin:grcmanager';
+    public const CONFIG_KEY = 'frameworks_disabled';
+
+    /** @var list<string>|null lu une fois par requête, oublié à l'enregistrement */
+    private static ?array $disabled = null;
+
+    /**
+     * @return list<string>
+     */
+    public static function disabled(): array
+    {
+        if (self::$disabled === null) {
+            $values = Config::getConfigurationValues(self::CONFIG_CONTEXT, [self::CONFIG_KEY]);
+            self::$disabled = FrameworkSelection::decode(
+                isset($values[self::CONFIG_KEY]) ? (string) $values[self::CONFIG_KEY] : null
+            );
+        }
+
+        return self::$disabled;
+    }
+
+    /**
+     * @return list<string>
+     */
+    public static function enabled(): array
+    {
+        return FrameworkSelection::enabled(self::disabled());
+    }
+
+    public static function isEnabled(string $framework): bool
+    {
+        return !in_array($framework, self::disabled(), true);
+    }
+
+    /**
+     * Écran propre à un référentiel désactivé, demandé par son adresse : refusé comme sans droit.
+     */
+    public static function checkEnabled(string $framework): void
+    {
+        if (!self::isEnabled($framework)) {
+            throw new AccessDeniedHttpException();
+        }
+    }
+
+    /**
+     * Ce que masque la désactivation de chaque référentiel (écran de configuration).
+     *
+     * @return array<string, string>
+     */
+    public static function helpTexts(): array
+    {
+        return [
+            FrameworkSelection::ISO27001     => __(
+                'Annex A table, ISMS requirements (clauses 4 to 10) and ISO 27001 scores. The list of security '
+                    . 'controls stays: the other frameworks rely on it.',
+                'grcmanager'
+            ),
+            FrameworkSelection::NIS2         => __(
+                'NIS2 requirements, their references on the controls and NIS2 scores. The notification deadlines '
+                    . 'of security incidents stay: they are a legal obligation.',
+                'grcmanager'
+            ),
+            FrameworkSelection::ANSSI        => __(
+                'Measures of the IT hygiene guide, their references on the controls and ANSSI score.',
+                'grcmanager'
+            ),
+            FrameworkSelection::NIST_CSF     => __(
+                'CSF 2.0 catalog, its equivalences on the controls and NIST score.',
+                'grcmanager'
+            ),
+            FrameworkSelection::CIS_CONTROLS => __('CIS Controls v8 catalog.', 'grcmanager'),
+            FrameworkSelection::ISO27090     => __(
+                'AI security catalog and its references in the catalog of typical risks.',
+                'grcmanager'
+            ),
+        ];
+    }
+
+    /**
+     * Enregistre les référentiels cochés (valeurs inconnues ignorées).
+     *
+     * @param array<mixed> $enabled
+     */
+    public static function save(array $enabled): void
+    {
+        Config::setConfigurationValues(
+            self::CONFIG_CONTEXT,
+            [self::CONFIG_KEY => FrameworkSelection::encode($enabled)]
+        );
+        self::$disabled = null;
+    }
+}

@@ -98,7 +98,14 @@ class SecurityIncidentTicket extends CommonGLPI
             return '';
         }
         if ($item instanceof Ticket) {
-            $count = count(self::getIncidentIdsForTicket((int) $item->getID()));
+            // Issue #372 : seuls les incidents lisibles sont comptés (rien ne trahit un incident
+            // invisible, cloisonné par entité ou par l'équipe d'intervention).
+            $count = 0;
+            foreach (self::getIncidentIdsForTicket((int) $item->getID()) as $id) {
+                if ((new PluginGrcmanagerSecurityIncident())->can($id, READ)) {
+                    $count++;
+                }
+            }
 
             $icon = PluginGrcmanagerSecurityIncident::getIcon();
 
@@ -164,10 +171,14 @@ class SecurityIncidentTicket extends CommonGLPI
                     ];
                 }
             }
-            TemplateRenderer::getInstance()->display(
-                '@grcmanager/tabs/security_incident_tickets.html.twig',
-                ['rows' => $rows]
-            );
+            TemplateRenderer::getInstance()->display('@grcmanager/tabs/security_incident_tickets.html.twig', [
+                'rows'         => $rows,
+                // Issue #372 : bouton « Créer un ticket lié », pour qui peut créer un ticket et
+                // modifier l'incident (le lien s'ajoute à l'incident).
+                'can_create'   => Ticket::canCreate() && $item->canUpdateItem(),
+                'action'       => $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/securityincidentticket.form.php',
+                'incidents_id' => (int) $item->getID(),
+            ]);
 
             return true;
         }
@@ -235,6 +246,16 @@ class SecurityIncidentTicket extends CommonGLPI
             'urgency'     => (int) $ticket->fields['urgency'],
             'impact'      => (int) $ticket->fields['impact'],
         ];
+        // Issue #372 : catégorie du ticket gardée, classification déduite d'une sous-catégorie
+        // « Sécurité SI » de Configuration GLPI Auto quand elle est sans ambiguïté.
+        $itilcategoriesId = (int) ($ticket->fields['itilcategories_id'] ?? 0);
+        if ($itilcategoriesId > 0) {
+            $input['itilcategories_id'] = $itilcategoriesId;
+            $classification = SecurityCategoryLink::classificationFor($itilcategoriesId);
+            if ($classification !== null) {
+                $input['category'] = $classification;
+            }
+        }
         $requesters = (new Ticket_User())->find([
             'tickets_id' => (int) $ticket->getID(),
             'type'       => CommonITILActor::REQUESTER,
@@ -283,5 +304,65 @@ class SecurityIncidentTicket extends CommonGLPI
         ]);
 
         return $incidentsId;
+    }
+
+    /**
+     * Issue #372 : « Créer un ticket lié » depuis l'incident (par exemple une intervention confiée
+     * au support). Le ticket est créé dans l'entité de l'incident et relié à lui ; il ne reprend
+     * que la référence et le titre de l'incident, jamais sa description ni ses éléments : un
+     * ticket est lu bien plus largement qu'un incident de sécurité (registre cloisonné, #371).
+     *
+     * L'appelant vérifie le droit de modifier l'incident ; le droit de créer un ticket dans
+     * l'entité de l'incident est vérifié ici.
+     *
+     * @return int id du ticket (0 si la création est refusée ou a échoué)
+     */
+    public static function createLinkedTicket(PluginGrcmanagerSecurityIncident $incident): int
+    {
+        global $DB;
+
+        $incidentsId = (int) $incident->getID();
+        $reference = (string) ($incident->fields['reference'] ?? '');
+        $input = [
+            'name'        => ($reference !== '' ? '[' . $reference . '] ' : '') . (string) $incident->fields['name'],
+            'content'     => Fragment::ticketContent(
+                [sprintf(
+                    __('Ticket opened from security incident %s.', 'grcmanager'),
+                    $reference !== '' ? $reference : '#' . $incidentsId
+                )],
+                PluginGrcmanagerSecurityIncident::getFormURLWithID($incidentsId),
+                sprintf(__('Open security incident no. %d', 'grcmanager'), $incidentsId)
+            ),
+            'entities_id' => (int) $incident->fields['entities_id'],
+            'type'        => Ticket::INCIDENT_TYPE,
+        ];
+        // Issue #372 : catégorie de l'incident, sinon la catégorie « Sécurité SI » de Configuration GLPI
+        // Auto qui correspond à sa classification ; aucune catégorie n'est créée.
+        $itilcategoriesId = SecurityCategoryLink::forIncident(
+            (int) ($incident->fields['itilcategories_id'] ?? 0),
+            (string) ($incident->fields['category'] ?? ''),
+            (int) $incident->fields['entities_id']
+        );
+        if ($itilcategoriesId > 0) {
+            $input['itilcategories_id'] = $itilcategoriesId;
+        }
+
+        $ticket = new Ticket();
+        if (!$ticket->can(-1, CREATE, $input)) {
+            return 0;
+        }
+        $ticketsId = (int) $ticket->add($input);
+        if ($ticketsId <= 0) {
+            return 0;
+        }
+
+        $DB->insert(self::TABLE, [
+            'plugin_grcmanager_securityincidents_id' => $incidentsId,
+            'tickets_id'                             => $ticketsId,
+            'date_creation'                          => date('Y-m-d H:i:s'),
+        ]);
+        AuditLog::record('ticket_create', Ticket::class, $ticketsId, $incidentsId);
+
+        return $ticketsId;
     }
 }

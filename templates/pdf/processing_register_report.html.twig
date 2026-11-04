@@ -1,0 +1,30 @@
+{# Issue #375 : registre des activités de traitement (RGPD, article 30), pour l'autorité de contrôle #}
+{% include '@grcmanager/pdf/_pdf_style.html.twig' %}
+
+<h2>{{ __('Organisation', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-summary">
+  <tr><td>{{ __('Entity', 'grcmanager') }}</td><td>{{ organisation.name }}</td></tr>
+  {% if organisation.address %}<tr><td>{{ __('Address', 'grcmanager') }}</td><td>{{ organisation.address }}</td></tr>{% endif %}
+  {% if organisation.email %}<tr><td>{{ __('Email', 'grcmanager') }}</td><td>{{ organisation.email }}</td></tr>{% endif %}
+  {% if organisation.phone %}<tr><td>{{ __('Phone', 'grcmanager') }}</td><td>{{ organisation.phone }}</td></tr>{% endif %}
+  <tr><td>{{ __('Data protection officer (DPO)', 'grcmanager') }}</td><td>{{ organisation.dpo ?: __('Not set', 'grcmanager') }}</td></tr>
+  <tr><td>{{ __('Processing activities in the register', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ rows|length }}</td></tr>
+</table>
+
+{% for row in rows %}
+  <h2>{{ row.reference ? row.reference ~ ' - ' : '' }}{{ row.name }}</h2>
+  <table class="grcmanager-pdf-table">
+    <tbody>
+      {% for key, label in columns %}
+        {% if key not in ['reference', 'name'] and row[key] is not empty %}
+          <tr>
+            <th style="width: 30%;">{{ label }}</th>
+            <td>{{ row[key]|nl2br }}</td>
+          </tr>
+        {% endif %}
+      {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <p>{{ __('The register contains no processing activity.', 'grcmanager') }}</p>
+{% endfor %}

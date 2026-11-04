@@ -7,6 +7,218 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.21.0] - 2026-11-04
+
+### Added
+
+- **Contact du DPO** (issue #375) : réglage dans la configuration du plugin, repris sur l'export PDF
+  du registre des traitements (article 30).
+
+- **Tableau de bord des incidents de sécurité** (issues #143 et #372) : nouvelle vue sur la page
+  Tableau de bord (et tableau de bord natif « GRC Manager - Incidents de sécurité »), proposée à
+  qui peut lire les incidents :
+  - incidents critiques en cours, tendance sur 12 mois (déclarés et résolus), répartition par
+    catégorie d'incident, liste des notifications NIS2 / RGPD à suivre (la plus urgente d'abord) ;
+  - les répartitions par statut, sévérité, catégorie, entité et catégorie GLPI mènent à la
+    recherche, qui applique elle-même ses droits et retrouve le nombre affiché. La sévérité et la
+    catégorie acceptent le critère « est » dans la recherche.
+
+- **Registre des activités de traitement RGPD** (issue #375, première étape, article 30) : menu
+  Conformité > Registre des traitements.
+  - une fiche par traitement : finalité, base légale, catégories de personnes et de données,
+    données sensibles, destinataires, transferts hors UE (pays, garanties), durées de conservation,
+    mesures de sécurité, rôle de l'organisme (responsable, responsable conjoint, sous-traitant) ;
+  - liens vers les applications, logiciels, bases de données, fournisseurs et actifs GLPI, et vers
+    les mesures de la SoA ; onglet « Registre des traitements » sur ces éléments ;
+  - écarts calculés (base légale, conservation, transfert sans garantie, données sensibles sans
+    décision d'AIPD, revue de plus d'un an...), sans rien modifier ;
+  - export PDF pour l'autorité de contrôle et export CSV, tracés dans les journaux ;
+  - revue périodique annuelle « registre des traitements » (ticket récurrent natif) ;
+  - droit dédié « Protection des données personnelles » dans l'onglet GRC Manager des profils, au
+    seul Super-Admin à l'installation ; fiches rattachées à une entité ; un élément lié n'est nommé,
+    ajouté ou retiré que par qui peut le lire ; modifications dans le journal d'audit ; cellules du
+    CSV protégées contre l'injection de formules.
+  - restent à venir : AIPD (article 35), demandes d'exercice des droits, contact du DPO sur l'export.
+
+
+- **Appétence et tolérance au risque, indicateurs de risque (KRI)** (issue #378, première étape) :
+  - écran **« Appétence et tolérance au risque »** (rubrique Risques) : par catégorie de risque, le
+    niveau accepté sans action, le niveau au-delà duquel le risque n'est plus supportable, l'énoncé
+    validé et son approbateur ; les risques ouverts qui dépassent sont listés, hors tolérance en
+    tête. Rien ne change tant qu'une catégorie n'a pas d'appétence ;
+  - sur la fiche du risque, sa position par rapport à l'appétence et ses KRI. Accepter un risque
+    au-dessus de l'appétence devient une acceptation formelle : justification obligatoire, personne
+    et date conservées (recherche et journal d'audit) ;
+  - écran **« Indicateurs de risque (KRI) »** : seuils orange et rouge, sens de l'indicateur, entité,
+    historique des valeurs et tendance. Valeur saisie à la main ou relevée chaque jour par une tâche
+    planifiée (ordinateurs avec un disque non chiffré, sans antivirus à jour, vulnérabilités critiques
+    du parc, risques hors tolérance, actions de traitement en retard) ;
+  - un KRI au rouge propose un ticket, attribué au groupe RSSI et rangé dans la catégorie « Sécurité
+    SI » de Configuration GLPI Auto si elle accepte les demandes ;
+  - revue périodique **« Revue des indicateurs de risque (KRI) »**, trimestrielle par défaut ;
+  - quatre cartes pour les tableaux de bord « Vue d'ensemble ISMS » et « Direction ».
+  - Droits : ceux des registres sensibles, entité vérifiée pour chaque KRI. La valeur d'une source
+    automatique n'est visible que de qui lit les données mesurées et accède à l'entité et à toutes
+    ses sous-entités, y compris dans les listes et les cartes.
+
+- **Processus métier et analyse d'impact sur l'activité (BIA)** (issue #377, première étape) :
+  nouvel écran Opérations > Processus métier (ISO 22301 8.2.2, ISO 27001 A.5.29 et A.5.30) :
+  - registre des processus par entité : responsable, service, criticité (l'intitulé « Criticité
+    métier » du cœur de GLPI, celui des informations financières des actifs), durée maximale
+    d'interruption admissible (DMIA), RTO, RPO, date de la dernière BIA ;
+  - onglet « Analyse d'impact (BIA) » : impact financier, juridique, d'image et opérationnel
+    d'une interruption à 4 h, 1 jour, 3 jours, 1 semaine et 1 mois, de négligeable à critique ;
+    contrôles de cohérence (RTO au-delà de la DMIA, DMIA au-delà de la première durée jugée
+    grave, impact qui baisse avec le temps…) ;
+  - onglet « Dépendances » : applications et instances de bases de données du cœur, actifs,
+    logiciels, fournisseurs dont dépend le processus, complétés par ce dont ils dépendent selon
+    l'analyse d'impact native de GLPI ; un élément dont le RTO (classification C/I/D) est plus
+    long que celui du processus, ou non défini, est signalé ;
+  - onglet « Processus métier » sur ces éléments GLPI ;
+  - export CSV pour le PCA / PRA, tracé dans le journal d'audit ;
+  - revue périodique « Revue de l'analyse d'impact sur l'activité » (annuelle) ajoutée au
+    catalogue des revues ;
+  - nouveau droit « Continuité d'activité » dans l'onglet GRC Manager des profils, initialisé à
+    la mise à jour avec la valeur du droit des registres sensibles de chaque profil.
+
+- **Onglet « Incidents de sécurité » sur les éléments liés** (issue #372) : ordinateurs, matériels
+  réseau, logiciels, utilisateurs, fournisseurs, problèmes et changements (le ticket garde son
+  onglet « Incident de sécurité » et sa qualification) :
+  - liste des incidents liés à l'élément (référence, date, statut, sévérité) : par ses éléments,
+    et pour un utilisateur ou un fournisseur aussi comme acteur ;
+  - seuls les incidents que l'utilisateur peut lire (entité, cloisonnement de l'équipe
+    d'intervention) sont listés et comptés, sur cet onglet comme sur celui du ticket : le
+    compteur ne trahit plus un incident invisible ;
+  - bouton « Déclarer un incident », pour qui peut créer un incident et lire l'élément : l'incident
+    est créé dans l'entité de l'élément (sinon dans l'entité active), lié à l'élément, puis ouvert
+    pour être complété. Depuis un problème ou un changement, il en reprend le titre, la
+    description, la catégorie et les éléments, comme la qualification d'un ticket ; un
+    utilisateur est lié comme élément, jamais comme acteur (ce qui lui ouvrirait l'incident) ;
+  - sur l'incident, un onglet « Autres éléments liés » montre les utilisateurs, fournisseurs,
+    problèmes et changements liés, que l'onglet « Éléments » de GLPI n'affiche pas.
+
+- **Tests d'efficacité des contrôles** (issue #380, première étape) : un contrôle de l'Annexe A
+  « mis en œuvre » se prouve désormais par des tests.
+  - onglet **« Tests d'efficacité »** sur la fiche du contrôle : plan de test (fréquence, méthode,
+    responsable) et registre des tests (date, méthode : inspection documentaire, échantillonnage,
+    test technique ou entretien ; résultat : efficace, partiellement efficace, inefficace ;
+    testeur, constat, preuve, prochaine échéance) ;
+  - la prochaine échéance est celle saisie avec le test, sinon la date du test plus la fréquence
+    du plan ; elle apparaît dans le **calendrier de conformité** et le planning du responsable ;
+  - un test **inefficace ouvre une non-conformité** (majeure, à traiter dans le registre CAPA) ;
+  - l'état « Vérifié » de la SoA suit le dernier test : un test efficace fait passer un contrôle
+    mis en œuvre à « Vérifié », un test partiel ou inefficace lui retire cet état ;
+  - nouvelle sous-page **Conformité > Tests d'efficacité** : registre de tous les tests, avec en
+    tête les tests en retard ou à réaliser dans les 30 jours.
+
+  Sécurité : mêmes droits que le contrôle (lecture pour voir les tests, modification pour le plan
+  et l'enregistrement, suppression en plus pour retirer un test). La preuve est un document joint
+  au contrôle et lisible par l'utilisateur (entité du document), jamais un document quelconque
+  désigné par son identifiant ; sans le droit de créer une non-conformité, le test est enregistré
+  sans en ouvrir. Un test enregistré ne se modifie pas. Création et suppression tracées dans le
+  journal d'audit. Désinstallation : table supprimée, réglages de liste et recherches nettoyés.
+
+- **Incidents de sécurité rangés dans les catégories de Configuration GLPI Auto** (issue #372) :
+  si ce plugin est actif, ses catégories de tickets « Sécurité SI » sont réutilisées, repérées par
+  identifiant (jamais par nom), au lieu d'en créer d'autres :
+  - le ticket ouvert depuis un incident (« Créer un ticket lié ») prend la catégorie de l'incident,
+    sinon la sous-catégorie qui correspond à sa classification (malware : « Malware / Ransomware »,
+    accès non autorisé : « Compte compromis / Accès non autorisé », fuite : « Fuite de données »,
+    sinon la branche) ;
+  - un ticket qualifié en incident lui transmet sa catégorie, et sa classification quand la
+    sous-catégorie est sans ambiguïté (« Malware / Ransomware », « Antivirus & Endpoint »,
+    « Compte compromis / Accès non autorisé », « Fuite de données »). Avec une version de
+    Configuration GLPI Auto antérieure à la scission de « Compte compromis / Fuite de données »,
+    cette catégorie reste ambiguë et la classification est laissée à choisir ;
+  - une catégorie n'est utilisée que si elle est visible dans l'entité du ticket ; sinon, repli sur
+    la branche, puis aucune catégorie.
+
+  Sans Configuration GLPI Auto, rien ne change et GRC Manager ne crée aucune catégorie.
+
+- **Fiche de l'incident de sécurité** (issue #372, fin) :
+  - en-tête de pastilles complété par des compteurs (journal des actions, IOC, éléments liés,
+    tickets liés), chacun menant à son onglet ;
+  - bandeaux d'échéance NIS2 / RGPD triés du plus urgent au moins urgent (bleu, orange quand
+    moins d'un quart du délai reste, rouge une fois dépassé), avec un lien vers la section
+    « Notifications réglementaires » où se saisit la date de notification ;
+  - section de classification découpée en bandeaux (icône et titre) : Qualification, Impact C/I/D,
+    Retour d'expérience ;
+  - bouton **« Créer un ticket lié »** dans l'onglet « Tickets liés » : ticket créé dans l'entité
+    de l'incident et relié à lui, tracé dans le journal d'audit.
+
+  Sécurité : le bouton exige le droit de créer un ticket dans l'entité de l'incident et celui de
+  modifier l'incident. Le ticket ne reprend que la référence et le titre de l'incident, jamais sa
+  description : un ticket est lu bien plus largement qu'un incident de sécurité.
+- **Import pfSense : redirections NAT et tunnels IPsec** (issue #144, étape 4) :
+  - une règle de filtrage créée par une redirection de ports sur l'interface côté Internet est une
+    publication sur Internet, même quand sa source est restreinte à quelques adresses ;
+  - une redirection « Pass » (sans règle de filtrage) donne son propre flux, vers sa cible et son
+    port interne ; les redirections désactivées sont ignorées ;
+  - chaque phase 2 IPsec active (mode tunnel, phase 1 active) donne un flux inter-sites du réseau
+    local vers le réseau distant, à passer en « tunnel vers un partenaire » si besoin : le contrôle
+    de chevauchement avec les réseaux internes s'applique alors ;
+  - un réseau distant qui chevauche un réseau du pare-feu est signalé dès l'import ;
+  - les règles de l'interface IPsec (enc0) sont des flux inter-sites, plus des accès à Internet.
+
+  Sécurité : de la section IPsec, seuls les réseaux, le mode et la description des phases 2 sont
+  lus, et seuls l'identifiant et l'état des phases 1 (jamais la clé ni les certificats). Un test
+  vérifie qu'aucune clé n'apparaît dans les flux importés.
+
+- **Import Stormshield : côté Internet situé sans l'export des objets** (issue #144) :
+  - chaque côté d'une règle est situé d'après les objets prédéfinis (`Internet`,
+    `Network_internals`, `Network_<interface>`, `Firewall_<interface>`), l'interface de la règle,
+    un filtrage par pays ou par réputation (réservé aux adresses publiques) et une adresse IPv4
+    écrite dans le nom de l'objet ;
+  - l'interface côté Internet se choisit à l'import ; par défaut, celle des publications, sinon
+    `out` ;
+  - une règle qui entre par cette interface est une publication, une règle vers Internet un accès
+    sortant ; une règle entre deux interfaces internes n'est plus prise pour un accès à Internet ;
+  - une règle dont un objet n'a pas pu être situé est importée comme flux interne et listée, à
+    vérifier, au lieu d'être classée en silence. Les noms des objets propres à la configuration ne
+    sont jamais interprétés.
+
+- **Référentiels de conformité activables un par un** (issue #403) : dans Configuration > Plugins >
+  GRC Manager, une case par référentiel (ISO/IEC 27001, NIS2, ANSSI, NIST CSF 2.0, CIS Controls v8,
+  ISO/IEC 27090). Un référentiel décoché n'est plus affiché ni compté :
+  - page « Référentiels » : sa carte disparaît (la colonne NIST du tableau de l'Annexe A aussi) ;
+    sans aucun référentiel actif, la page quitte le menu et son adresse est refusée ;
+  - fiche d'une mesure : plus de correspondances NIS2, ANSSI ou NIST ;
+  - carte « Mesures mises en œuvre par référentiel » et scores des contrôles techniques
+    automatiques (ISO 27001, NIS2 ; le RGPD reste) ;
+  - ISO 27001 : exigences du SMSI (articles 4 à 10) retirées du menu et refusées par leur adresse,
+    composante écartée du score de maturité ; la liste des mesures (SoA) reste, les autres
+    référentiels s'appuient dessus ;
+  - ISO/IEC 27090 : plus de badges ni de sections citées dans le catalogue de risques types.
+
+  Tout reste actif par défaut, y compris après mise à jour. Désactiver ne supprime rien : les
+  données reviennent à la réactivation. Les délais de notification NIS2 et RGPD des incidents de
+  sécurité ne dépendent pas de ce réglage (obligation légale).
+
+  Sécurité : réglage réservé au droit de modification de la configuration du plugin, formulaire
+  protégé par le jeton CSRF, valeurs limitées à la liste connue, changement tracé dans le journal
+  d'audit.
+
+### Fixed
+
+- **La recherche des incidents suit la règle d'ouverture** (issue #143) : un simple rédacteur ne voit
+  plus de ligne pour un incident qu'il ne peut pas ouvrir, et le groupe sécurité s'applique aussi à
+  la recherche.
+- **Menu** (issue #375) : si une rubrique n'est pas visible, sa première sous-page autorisée prend sa
+  place. Un droit propre à une sous-page (RGPD pour un DPO, continuité) suffit à la trouver, sans
+  donner le droit général. Chaque sous-page garde ses propres droits.
+- **Cartes de tableau de bord** (issue #143) :
+  - les cartes des incidents comptent seulement les incidents que l'utilisateur peut ouvrir : sans
+    « Voir tout », ceux où il est acteur ou membre de l'équipe d'intervention. Les cartes total, par
+    entité et par catégorie GLPI ne vérifiaient aucun droit du plugin ; elles les vérifient ;
+  - la carte des revues périodiques en retard respecte les entités actives ;
+  - une carte n'est plus proposée à qui n'a pas le droit de la voir, ni quand son module ou tous ses
+    référentiels sont désactivés ; sur la page Tableau de bord du plugin, elle disparaît ;
+  - le lien de la carte « Ouverts » menait à une recherche vide ;
+  - sur la page Tableau de bord du plugin, les cartes ne se superposent plus, ni au-delà de la
+    24e rangée, ni à la largeur d'un téléphone ;
+  - délais moyens et tactiques MITRE calculés par une seule requête d'agrégat.
+
+
 ## [2.20.0] - 2026-11-03
 
 ### Added

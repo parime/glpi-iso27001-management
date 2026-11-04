@@ -29,9 +29,29 @@ namespace GlpiPlugin\Grcmanager\Services\Network;
  * lue dans la règle de filtrage elle-même, colonne nat_to_target). L'export ne donne que le nom
  * des objets : les services courants (https, ssh, ntp…) sont traduits en ports, un service propre
  * à la configuration est signalé et la règle ignorée plutôt qu'importée avec de faux ports.
+ *
+ * Côté Internet sans l'export des objets : chaque côté d'une règle est classé d'après les objets
+ * prédéfinis (Internet, Network_internals, Network_<interface>, Firewall_<interface>), l'interface
+ * d'entrée ou de sortie (celle côté Internet est choisie à l'import, déduite sinon des
+ * publications), le filtrage par pays ou réputation (réservé aux adresses publiques) et une adresse
+ * IP écrite dans le nom de l'objet. Une règle dont un côté reste inconnu est importée comme flux
+ * interne et signalée, plutôt que classée en silence. Les noms des objets propres à la
+ * configuration ne sont jamais interprétés.
  */
 final class NetworkFlowStormshield
 {
+    /** Classement d'un côté de règle. */
+    private const SIDE_INTERNET = 'internet';
+    private const SIDE_INTERNAL = 'internal';
+    private const SIDE_ANY = 'any';
+    private const SIDE_UNKNOWN = 'unknown';
+
+    /** Plages non routées sur Internet : privées, CGNAT, lien local, boucle locale. */
+    private const NON_PUBLIC_RANGES = [
+        ['10.0.0.0', 8], ['172.16.0.0', 12], ['192.168.0.0', 16], ['100.64.0.0', 10], ['169.254.0.0', 16],
+        ['127.0.0.0', 8],
+    ];
+
     /** Services prédéfinis de Stormshield (nom d'objet en minuscules) et leurs ports. */
     private const SERVICES = [
         'ftp' => '21', 'ssh' => '22', 'telnet' => '23', 'smtp' => '25', 'dns' => '53', 'domain' => '53',
@@ -50,11 +70,14 @@ final class NetworkFlowStormshield
     }
 
     /**
+     * @param string $outside interface côté Internet (nom de l'export, « out » par défaut sur un
+     *     boîtier) ; vide : celle des publications, sinon « out » ou « wan » si elle existe
      * @return array{rows: list<array{line: int, name: string, flow_type: string, source_label: string,
      *     destination_label: string, protocol: string, ports: string, justification: string, owner: string,
-     *     date_end: ?string}>, errors: list<array{line: int, message: string}>, merged: int}
+     *     date_end: ?string}>, errors: list<array{line: int, message: string}>, merged: int,
+     *     interfaces: list<string>, outside: string, unclassified: list<int>}
      */
-    public static function parse(string $content): array
+    public static function parse(string $content, string $outside = ''): array
     {
         $lines = preg_split('/\r\n|\r|\n/', (string) preg_replace('/^\xEF\xBB\xBF/', '', $content)) ?: [];
         $header = array_map(
@@ -64,26 +87,55 @@ final class NetworkFlowStormshield
         $column = array_flip($header);
         foreach (['type_slot', 'state', 'action', 'from_src', 'to_dest', 'to_port'] as $required) {
             if (!isset($column[$required])) {
-                return ['rows' => [], 'errors' => [['line' => 1, 'message' => 'missing_columns']], 'merged' => 0];
+                return [
+                    'rows' => [], 'errors' => [['line' => 1, 'message' => 'missing_columns']], 'merged' => 0,
+                    'interfaces' => [], 'outside' => '', 'unclassified' => [],
+                ];
             }
         }
+
+        // Règles de filtrage actives qui autorisent ; séparateurs (sans action) et NAT ignorés.
+        $rules = [];
+        foreach ($lines as $index => $line) {
+            if (trim($line) === '') {
+                continue;
+            }
+            $cells = str_getcsv($line, ',', '"', '');
+            $get = static fn (string $name): string => trim((string) ($cells[$column[$name] ?? -1] ?? ''));
+            if ($get('type_slot') === 'local_filter_slot' && $get('state') === 'on' && $get('action') === 'pass') {
+                $rules[$index + 2] = $get;
+            }
+        }
+
+        // Interfaces nommées dans les règles, et celle côté Internet.
+        $interfaces = [];
+        $publishedOn = [];
+        foreach ($rules as $get) {
+            foreach (['from_if', 'to_if'] as $name) {
+                $interface = $get($name);
+                if ($interface !== '' && strtolower($interface) !== 'any') {
+                    $interfaces[strtolower($interface)] = $interface;
+                }
+            }
+            $natTarget = $get('nat_to_target');
+            if ($natTarget !== '' && $natTarget !== 'any' && $get('from_if') !== '') {
+                $publishedOn[strtolower($get('from_if'))] = ($publishedOn[strtolower($get('from_if'))] ?? 0) + 1;
+            }
+        }
+        $outside = strtolower(trim($outside));
+        if (!isset($interfaces[$outside])) {
+            arsort($publishedOn);
+            $outside = (string) (array_key_first($publishedOn)
+                ?? (isset($interfaces['out']) ? 'out' : (isset($interfaces['wan']) ? 'wan' : 'out')));
+        }
+        $interfaceNames = array_map('strtolower', array_keys($interfaces));
 
         $rows = [];
         $errors = [];
         $seen = [];
         $merged = 0;
-        foreach ($lines as $index => $line) {
-            if (trim($line) === '') {
-                continue;
-            }
-            $number = $index + 2;
-            $cells = str_getcsv($line, ',', '"', '');
-            $get = static fn (string $name): string => trim((string) ($cells[$column[$name] ?? -1] ?? ''));
-            // Règles de filtrage actives qui autorisent ; séparateurs (sans action) et NAT ignorés.
-            if ($get('type_slot') !== 'local_filter_slot' || $get('state') !== 'on' || $get('action') !== 'pass') {
-                continue;
-            }
-
+        $unclassified = [];
+        foreach ($rules as $number => $get) {
             $ports = self::ports($get('to_port'), $unknown);
             if ($ports === null) {
                 $errors[] = ['line' => $number, 'message' => 'unknown_service:' . implode(', ', $unknown)];
@@ -93,13 +145,32 @@ final class NetworkFlowStormshield
             $published = $natTarget !== '' && $natTarget !== 'any';
             $source = self::objects($get('from_src'));
             $destination = $published ? self::objects($natTarget) : self::objects($get('to_dest'));
+
+            $sourceSide = self::side($get('from_src'), $get('from_if'), $outside, $interfaceNames, [
+                $get('from_geo'), $get('from_ip_rep'), $get('from_host_rep'),
+            ]);
+            $destinationSide = $published
+                ? self::SIDE_INTERNAL
+                : self::side($get('to_dest'), $get('to_if'), $outside, $interfaceNames, [
+                    $get('to_geo'), $get('to_ip_rep'), $get('to_host_rep'),
+                ]);
             $flowType = match (true) {
-                $published                                  => 'internet_publication',
-                strtolower($get('via')) === 'ipsec'         => 'site_tunnel',
-                $destination === 'any'                      => 'internet_outbound',
-                default                                     => 'internal',
+                $published                                         => 'internet_publication',
+                strtolower($get('via')) === 'ipsec'                => 'site_tunnel',
+                $sourceSide === self::SIDE_INTERNET               => 'internet_publication',
+                $destinationSide === self::SIDE_INTERNET,
+                $destinationSide === self::SIDE_ANY                => 'internet_outbound',
+                default                                            => 'internal',
             };
-            $source = $source === 'any' ? ($published || $get('from_if') !== '' ? 'Internet' : 'Tous') : $source;
+            if (
+                $flowType === 'internal'
+                && ($sourceSide === self::SIDE_UNKNOWN || $destinationSide === self::SIDE_UNKNOWN)
+            ) {
+                $unclassified[] = $number;
+            }
+            $source = $source === 'any'
+                ? ($sourceSide === self::SIDE_INTERNET || $published ? 'Internet' : 'Tous')
+                : $source;
             $destination = $destination === 'any'
                 ? ($flowType === 'internet_outbound' ? 'Internet' : 'Tous')
                 : $destination;
@@ -132,7 +203,86 @@ final class NetworkFlowStormshield
             ];
         }
 
-        return ['rows' => $rows, 'errors' => $errors, 'merged' => $merged];
+        return [
+            'rows'         => $rows,
+            'errors'       => $errors,
+            'merged'       => $merged,
+            'interfaces'   => array_values($interfaces),
+            'outside'      => $interfaces[$outside] ?? $outside,
+            'unclassified' => $unclassified,
+        ];
+    }
+
+    /**
+     * Côté d'une règle : Internet, interne, « any » ou inconnu. Le filtrage par pays ou réputation
+     * (réservé aux adresses publiques) puis l'interface priment sur les objets.
+     *
+     * @param list<string> $interfaces interfaces nommées dans l'export, en minuscules
+     * @param list<string> $publicOnly colonnes de pays et de réputation de ce côté
+     */
+    private static function side(
+        string $objects,
+        string $interface,
+        string $outside,
+        array $interfaces,
+        array $publicOnly
+    ): string {
+        foreach ($publicOnly as $value) {
+            if ($value !== '' && strtolower($value) !== 'any') {
+                return self::SIDE_INTERNET;
+            }
+        }
+        $interface = strtolower($interface);
+        if ($interface !== '' && $interface !== 'any') {
+            return $interface === $outside ? self::SIDE_INTERNET : self::SIDE_INTERNAL;
+        }
+        if (self::objects($objects) === 'any') {
+            return self::SIDE_ANY;
+        }
+        $sides = [];
+        foreach (array_filter(array_map('trim', explode(',', $objects)), static fn ($v) => $v !== '') as $object) {
+            $sides[self::objectSide($object, $outside, $interfaces)] = true;
+        }
+
+        return count($sides) === 1 ? (string) array_key_first($sides) : self::SIDE_UNKNOWN;
+    }
+
+    /**
+     * Objet prédéfini (Internet, Network_internals, Network_<interface>, Firewall_<interface>) ou
+     * nom contenant une adresse IPv4 ; tout autre nom reste inconnu.
+     *
+     * @param list<string> $interfaces
+     */
+    private static function objectSide(string $object, string $outside, array $interfaces): string
+    {
+        $name = strtolower($object);
+        if ($name === 'internet') {
+            return self::SIDE_INTERNET;
+        }
+        if (preg_match('/^(?:network|firewall)_(.+)$/', $name, $m) === 1) {
+            return match (true) {
+                $m[1] === $outside || $m[1] === 'out'                       => self::SIDE_INTERNET,
+                $m[1] === 'internals' || $m[1] === 'all'
+                    || in_array($m[1], $interfaces, true)
+                    || preg_match('/^(in|dmz\d*|bridge)$/', $m[1]) === 1    => self::SIDE_INTERNAL,
+                default                                                    => self::SIDE_UNKNOWN,
+            };
+        }
+        if (preg_match('/(?<![\d.])(\d{1,3}(?:\.\d{1,3}){3})(?!\d)/', $name, $m) === 1) {
+            $ip = ip2long($m[1]);
+            if ($ip !== false) {
+                foreach (self::NON_PUBLIC_RANGES as [$range, $bits]) {
+                    $mask = (-1 << (32 - $bits)) & 0xFFFFFFFF;
+                    if (($ip & $mask) === ((int) ip2long($range) & $mask)) {
+                        return self::SIDE_INTERNAL;
+                    }
+                }
+
+                return self::SIDE_INTERNET;
+            }
+        }
+
+        return self::SIDE_UNKNOWN;
     }
 
     /**

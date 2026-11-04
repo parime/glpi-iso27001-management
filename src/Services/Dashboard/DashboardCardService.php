@@ -723,37 +723,8 @@ final class DashboardCardService
      */
     public static function securityIncidentsByStatus(array $params = []): array
     {
-        global $DB;
-
-        $labels = \PluginGrcmanagerSecurityIncident::getAllStatusArray();
-        $countsByStatus = array_fill_keys(array_keys($labels), 0);
-
-        $rows = $DB->request([
-            'SELECT' => ['status', new QueryExpression('COUNT(*) AS c')],
-            'FROM' => 'glpi_plugin_grcmanager_securityincidents',
-            // Incidents rattachés à une entité : seulement celles de la session, hors corbeille.
-            // Issue #168 : sans les incidents fictifs des exercices de crise.
-            'WHERE' => ['is_deleted' => 0, 'is_exercise' => 0]
-                + getEntitiesRestrictCriteria('glpi_plugin_grcmanager_securityincidents', '', '', true),
-            'GROUPBY' => 'status',
-        ]);
-
-        foreach ($rows as $row) {
-            if (isset($countsByStatus[$row['status']])) {
-                $countsByStatus[$row['status']] = (int) $row['c'];
-            }
-        }
-
-        $data = [];
-        foreach ($countsByStatus as $status => $count) {
-            $data[] = ['label' => $labels[$status] ?? (string) $status, 'number' => $count];
-        }
-
-        return [
-            'data' => $data,
-            'label' => $params['label'] ?? __('Security incidents by status', 'grcmanager'),
-            'icon' => 'ti ti-chart-pie',
-        ];
+        // Issue #143 : incidents visibles seulement (cloisonnement), chaque part mène à la recherche.
+        return SecurityIncidentCardProvider::byStatus($params);
     }
 
     /**
@@ -763,35 +734,7 @@ final class DashboardCardService
      */
     public static function securityIncidentsBySeverity(array $params = []): array
     {
-        global $DB;
-
-        $countsBySeverity = array_fill_keys(['minor', 'major', 'critical'], 0);
-
-        $rows = $DB->request([
-            'SELECT' => ['severity', new QueryExpression('COUNT(*) AS c')],
-            'FROM' => 'glpi_plugin_grcmanager_securityincidents',
-            // Issue #168 : sans les incidents fictifs des exercices de crise.
-            'WHERE' => ['is_deleted' => 0, 'is_exercise' => 0]
-                + getEntitiesRestrictCriteria('glpi_plugin_grcmanager_securityincidents', '', '', true),
-            'GROUPBY' => 'severity',
-        ]);
-
-        foreach ($rows as $row) {
-            if (isset($countsBySeverity[$row['severity']])) {
-                $countsBySeverity[$row['severity']] = (int) $row['c'];
-            }
-        }
-
-        $data = [];
-        foreach ($countsBySeverity as $severity => $count) {
-            $data[] = ['label' => $severity, 'number' => $count];
-        }
-
-        return [
-            'data' => $data,
-            'label' => $params['label'] ?? __('Security incidents by severity', 'grcmanager'),
-            'icon' => 'ti ti-chart-pie',
-        ];
+        return SecurityIncidentCardProvider::bySeverity($params);
     }
 
     /**
@@ -805,26 +748,9 @@ final class DashboardCardService
      */
     public static function securityIncidentResponseTimeHours(array $params = []): array
     {
-        global $DB;
-
-        $row = $DB->request([
-            'SELECT' => [
-                new QueryExpression(
-                    'AVG(TIMESTAMPDIFF(HOUR, `date`, `solvedate`)) AS avg_hours'
-                ),
-            ],
-            'FROM'  => 'glpi_plugin_grcmanager_securityincidents',
-            'WHERE' => [
-                new QueryExpression('solvedate IS NOT NULL'),
-                'is_deleted'  => 0,
-                'is_exercise' => 0,
-            ] + getEntitiesRestrictCriteria('glpi_plugin_grcmanager_securityincidents', '', '', true),
-        ])->current();
-
-        $avgHours = $row['avg_hours'] !== null ? (int) round((float) $row['avg_hours']) : 0;
-
         return [
-            'number' => $avgHours,
+            // Issue #143 : sur les seuls incidents visibles.
+            'number' => SecurityIncidentCardProvider::averageHoursTo('solvedate'),
             'label'  => $params['label'] ?? __('Average incident response time (hours)', 'grcmanager'),
             'icon'   => 'ti ti-clock-hour-4',
         ];
@@ -932,6 +858,78 @@ final class DashboardCardService
             'data' => $data,
             'label' => $params['label'] ?? __('ISMS objectives by status', 'grcmanager'),
             'icon' => 'ti ti-chart-pie',
+        ];
+    }
+
+    /**
+     * Issue #378 : risques ouverts au-dessus de l'appétence de leur catégorie (registre global,
+     * droit des registres sensibles vérifié par SecuredDashboardCards).
+     *
+     * @param array<string, mixed> $params
+     * @return array<string, mixed>
+     */
+    public static function risksAboveAppetiteCount(array $params = []): array
+    {
+        return [
+            'number' => \GlpiPlugin\Grcmanager\RiskAppetite::countAbove(false),
+            'url'    => \GlpiPlugin\Grcmanager\RiskAppetite::getSearchURL(),
+            'label'  => $params['label'] ?? __('Open risks above appetite', 'grcmanager'),
+            'icon'   => 'ti ti-gauge',
+        ];
+    }
+
+    /**
+     * Issue #378 : risques ouverts au-delà de la tolérance de leur catégorie.
+     *
+     * @param array<string, mixed> $params
+     * @return array<string, mixed>
+     */
+    public static function risksAboveToleranceCount(array $params = []): array
+    {
+        return [
+            'number' => \GlpiPlugin\Grcmanager\RiskAppetite::countAbove(true),
+            'url'    => \GlpiPlugin\Grcmanager\RiskAppetite::getSearchURL(),
+            'label'  => $params['label'] ?? __('Open risks above tolerance', 'grcmanager'),
+            'icon'   => 'ti ti-alert-octagon',
+        ];
+    }
+
+    /**
+     * Issue #378 : KRI actifs par statut, seulement ceux des entités de l'utilisateur.
+     *
+     * @param array<string, mixed> $params
+     * @return array<string, mixed>
+     */
+    public static function riskIndicatorsByStatus(array $params = []): array
+    {
+        $labels = \GlpiPlugin\Grcmanager\RiskIndicator::getStatuses();
+        $data = [];
+        foreach (\GlpiPlugin\Grcmanager\RiskIndicator::countByStatus() as $status => $count) {
+            $data[] = ['label' => $labels[$status] ?? $status, 'number' => $count];
+        }
+
+        return [
+            'data'  => $data,
+            'label' => $params['label'] ?? __('Risk indicators (KRI) by status', 'grcmanager'),
+            'icon'  => 'ti ti-activity-heartbeat',
+        ];
+    }
+
+    /**
+     * Issue #378 : KRI actifs au rouge, dans les entités de l'utilisateur.
+     *
+     * @param array<string, mixed> $params
+     * @return array<string, mixed>
+     */
+    public static function riskIndicatorsRedCount(array $params = []): array
+    {
+        return [
+            'number' => \GlpiPlugin\Grcmanager\RiskIndicator::countByStatus()['red'],
+            'url'    => \GlpiPlugin\Grcmanager\RiskIndicator::getSearchURL() . '?' . http_build_query([
+                'criteria' => [['field' => 2, 'searchtype' => 'equals', 'value' => 'red']],
+            ]),
+            'label'  => $params['label'] ?? __('Risk indicators (KRI) in the red', 'grcmanager'),
+            'icon'   => 'ti ti-alert-octagon',
         ];
     }
 }

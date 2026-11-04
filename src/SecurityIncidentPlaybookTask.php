@@ -260,20 +260,36 @@ class SecurityIncidentPlaybookTask extends SecurityIncidentPlaybookTaskBase
      */
     public static function getOpenTasksFor(int $usersId): array
     {
-        $tasks = [];
-        $rows = (new self())->find([
-            'users_id' => $usersId,
-            'NOT'      => ['status' => PlaybookRules::FINISHED],
-        ], ['plugin_grcmanager_securityincidents_id ASC', 'rank ASC']);
+        global $DB;
+
+        // Issue #143 : une requête, au lieu d'un canViewItem() par tâche. Même règle (entités
+        // actives, groupe sécurité, « Voir tout » ou lien à l'incident), sur l'utilisateur connecté.
+        $tasks = self::getTable();
+        $incidents = PluginGrcmanagerSecurityIncident::getTable();
+        $where = [["$tasks.users_id" => $usersId, 'NOT' => ["$tasks.status" => PlaybookRules::FINISHED]]];
+        $entities = getEntitiesRestrictCriteria($incidents, '', '', true);
+        if ($entities !== []) {
+            $where[] = $entities;
+        }
+        foreach (SecurityIncidentTeam::viewCriteria() as $criterion) {
+            $where[] = $criterion;
+        }
+        $rows = $DB->request([
+            'SELECT'     => ["$tasks.*", "$incidents.name AS incident_name"],
+            'FROM'       => $tasks,
+            'INNER JOIN' => [
+                $incidents => ['ON' => [$incidents => 'id', $tasks => 'plugin_grcmanager_securityincidents_id']],
+            ],
+            'WHERE'      => $where,
+            'ORDER'      => ["$tasks.plugin_grcmanager_securityincidents_id ASC", "$tasks.rank ASC"],
+        ]);
+        $list = [];
         foreach ($rows as $row) {
-            $incident = new PluginGrcmanagerSecurityIncident();
-            $incidentId = (int) $row['plugin_grcmanager_securityincidents_id'];
-            if ($incident->getFromDB($incidentId) && $incident->canViewItem()) {
-                $tasks[] = $row + ['incident_name' => (string) $incident->fields['name']];
-            }
+            $row['incident_name'] = (string) $row['incident_name'];
+            $list[] = $row;
         }
 
-        return $tasks;
+        return $list;
     }
 
     public function prepareInputForAdd($input)

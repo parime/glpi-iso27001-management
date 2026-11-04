@@ -76,12 +76,13 @@ class Menu extends CommonGLPI
             Risk::class => [
                 SupplierRisk::class, ImpactAnalysis::class,
                 CausalLink::class, Waiver::class,
+                RiskAppetite::class, RiskIndicator::class,
             ],
             // Conformité : SoA, référentiels, exigences du SMSI, obligations, politiques, preuves.
             Control::class => [
                 Referentials::class, IsmsRequirement::class,
-                ComplianceObligation::class, Policy::class,
-                Evidence::class, CoverageRule::class,
+                ComplianceObligation::class, ProcessingActivity::class, Policy::class,
+                Evidence::class, CoverageRule::class, ControlTest::class,
             ],
             // Contrôle et amélioration continue (ISO 27001 chapitres 9 et 10).
             Audit::class => [
@@ -92,6 +93,8 @@ class Menu extends CommonGLPI
             AccessReview::class => [
                 AccountHygiene::class, PeriodicReview::class,
                 Training::class, CrisisExercise::class,
+                // Issue #377 : processus métier et analyses d'impact sur l'activité (BIA).
+                BusinessProcess::class,
             ],
             // Sécurité technique. Le parent ne demande que le droit du plugin : les vulnérabilités
             // (qui exigent aussi la lecture des logiciels) restent une sous-page parmi d'autres.
@@ -130,21 +133,29 @@ class Menu extends CommonGLPI
     }
 
     /**
-     * Ajoute les sous-pages de la rubrique $parent à son entrée de menu.
+     * Ajoute les sous-pages de la rubrique $parent à son entrée de menu. Si l'utilisateur ne peut
+     * pas voir le parent, sa première sous-page autorisée prend sa place : un droit propre à une
+     * sous-page (RGPD pour un DPO, continuité) suffit à la trouver dans le menu, sans donner le droit
+     * général. Chaque sous-page déclare elle-même ses droits (subPageMenu()) : rien n'est élargi.
      *
      * @param array<string, mixed>|false $menu
      * @return array<string, mixed>|false
      */
     public static function withSubPages(string $parent, $menu)
     {
-        if (!is_array($menu) || $menu === []) {
-            return $menu;
-        }
+        $parentVisible = is_array($menu) && $menu !== [];
         foreach (self::sections()[$parent] ?? [] as $child) {
             $childMenu = self::subPageMenu($child);
-            if ($childMenu !== null) {
-                $menu['options'][$child] = $childMenu;
+            if ($childMenu === null) {
+                continue;
             }
+            if (!is_array($menu) || $menu === []) {
+                $menu = $childMenu;
+            }
+            $menu['options'][$child] = $childMenu;
+        }
+        if (!$parentVisible && is_array($menu) && $menu !== []) {
+            $menu['parent_hidden'] = true;
         }
 
         return $menu;
@@ -162,7 +173,8 @@ class Menu extends CommonGLPI
         if (!is_array($parentMenu) || $parentMenu === []) {
             return;
         }
-        $pages = [$parent => $parentMenu];
+        // Parent invisible : son entrée de menu n'est que sa première sous-page, déjà listée.
+        $pages = empty($parentMenu['parent_hidden']) ? [$parent => $parentMenu] : [];
         foreach (self::sections()[$parent] ?? [] as $child) {
             $childMenu = self::subPageMenu($child);
             if ($childMenu !== null) {

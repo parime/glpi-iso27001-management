@@ -5093,8 +5093,6 @@ msgstr "Ninguna regla de filtrado en la copia de seguridad de pfSense."
 msgid "Choose a CSV file or a pfSense backup (XML) of 2 MB at most."
 msgstr "Elija un archivo CSV o una copia de seguridad de pfSense (XML) de 2 MB como máximo."
 
-msgid "pfSense firewall: import its configuration backup directly (Diagnostics > Backup & Restore, config.xml file). Enabled rules that allow a flow are imported with their aliases resolved; block rules and disabled rules are ignored. In that case, the line number shown is the rule number. Justification and owner remain to be filled in the matrix."
-msgstr "Cortafuegos pfSense: importe directamente su copia de seguridad de configuración (Diagnostics > Backup & Restore, archivo config.xml). Se importan las reglas activas que permiten un flujo, con sus alias resueltos; se ignoran las reglas de bloqueo y las reglas desactivadas. En ese caso, el número de línea mostrado es el número de la regla. La justificación y el propietario quedan por completar en la matriz."
 
 msgid "Partner network conflicting with an internal network"
 msgstr "Red de un socio en conflicto con una red interna"
@@ -5375,8 +5373,6 @@ msgstr "Quitar la copia"
 msgid "You are not enrolled in any training."
 msgstr "No está inscrito en ninguna formación."
 
-msgid "Sensitive registers (risks, vulnerabilities, network flows)"
-msgstr "Registros sensibles (riesgos, vulnerabilidades, flujos de red)"
 
 msgid "Sensitive registers"
 msgstr "Registros sensibles"
@@ -5683,8 +5679,6 @@ msgstr "No se pudo contactar con Have I Been Pwned (código %d)."
 msgid "Internet-facing interface"
 msgstr "Interfaz hacia Internet"
 
-msgid "This backup contains secrets of the firewall (keys, passwords, certificates). Only interfaces, aliases and filter rules were read, and the file was not kept. Next time, export only the needed areas (Diagnostics > Backup & Restore > Backup area: Aliases, Firewall Rules, Interfaces) and do not store or send the full backup."
-msgstr "Esta copia de seguridad contiene secretos del cortafuegos (claves, contraseñas, certificados). Solo se leyeron las interfaces, los alias y las reglas de filtrado, y el archivo no se conservó. La próxima vez, exporte solo las áreas necesarias (Diagnostics > Backup & Restore > Backup area: Aliases, Firewall Rules, Interfaces) y no guarde ni envíe la copia completa."
 
 #, php-format
 msgid "Internet-facing interface: %s. Rules on this interface from anywhere are publications; elsewhere, rules towards anywhere or towards everything except private networks are Internet access. Change it above and analyse the file again if needed."
@@ -6911,3 +6905,1068 @@ msgstr "Objeto de servicio desconocido en esta exportación (%s): regla omitida,
 
 msgid "All ports open towards the Internet"
 msgstr "Todos los puertos abiertos hacia Internet"
+
+msgid "pfSense firewall: import its configuration backup directly (Diagnostics > Backup & Restore, config.xml file). Enabled rules that allow a flow are imported with their aliases resolved; block rules and disabled rules are ignored. Port forwards (NAT) make their rule a publication on the Internet, and each enabled IPsec phase 2 becomes a site-to-site tunnel flow (local network to remote network). In that case, the line number shown is the rule number, port forwards without a filter rule and IPsec tunnels being numbered after the filter rules. Justification and owner remain to be filled in the matrix."
+msgstr "Cortafuegos pfSense: importe directamente la copia de seguridad de su configuración (Diagnostics > Backup & Restore, archivo config.xml). Se importan las reglas activas que permiten un flujo, con sus alias resueltos; las reglas de bloqueo y las desactivadas se ignoran. Las redirecciones de puertos (NAT) convierten su regla en una publicación en Internet, y cada fase 2 IPsec activa se convierte en un flujo de túnel entre sedes (red local hacia red remota). En ese caso, el número de línea mostrado es el de la regla; las redirecciones sin regla de filtrado y los túneles IPsec se numeran después de las reglas de filtrado. La justificación y el responsable quedan por completar en la matriz."
+
+msgid "This backup contains secrets of the firewall (keys, passwords, certificates). Only interfaces, aliases, filter rules, port forwards and the networks of IPsec tunnels were read, and the file was not kept. Next time, export only the needed areas (Diagnostics > Backup & Restore > Backup area: Aliases, Firewall Rules, NAT, Interfaces, IPsec) and do not store or send the full backup."
+msgstr "Esta copia de seguridad contiene secretos del cortafuegos (claves, contraseñas, certificados). Solo se leyeron las interfaces, los alias, las reglas de filtrado, las redirecciones de puertos y las redes de los túneles IPsec, y el archivo no se conservó. La próxima vez, exporte solo las áreas necesarias (Diagnostics > Backup & Restore > Backup area: Aliases, Firewall Rules, NAT, Interfaces, IPsec) y no almacene ni envíe la copia completa."
+
+#, php-format
+msgid "Port forwards (NAT): %1$d. IPsec tunnels: %2$d, imported as site-to-site tunnels: change the type of those leading to a partner, the overlap check then applies to them."
+msgstr "Redirecciones de puertos (NAT): %1$d. Túneles IPsec: %2$d, importados como túneles entre sedes: cambie el tipo de los que llevan a un socio, el control de solapamiento se les aplica entonces."
+
+msgid "Remote network of an IPsec tunnel overlapping a network of the firewall: both sides cannot reach each other without address translation (NAT)."
+msgstr "Red remota de un túnel IPsec que se solapa con una red del cortafuegos: ambos lados no pueden comunicarse sin traducción de direcciones (NAT)."
+
+#, php-format
+msgid "%1$s: %2$s overlaps %3$s"
+msgstr "%1$s: %2$s se solapa con %3$s"
+
+#, php-format
+msgid "Internet-facing interface: %s. Without the export of the objects, each side of a rule is located from the built-in objects (Internet, Network_internals, Network_ or Firewall_ followed by an interface), the interface of the rule, a country or reputation filter (public addresses only) and an IPv4 address written in the object name. Change the interface above and analyse the file again if needed."
+msgstr "Interfaz hacia Internet: %s. Sin la exportación de los objetos, cada lado de una regla se sitúa según los objetos predefinidos (Internet, Network_internals, Network_ o Firewall_ seguido de una interfaz), la interfaz de la regla, un filtrado por país o reputación (solo direcciones públicas) y una dirección IPv4 escrita en el nombre del objeto. Cambie la interfaz arriba y analice de nuevo el archivo si es necesario."
+
+#, php-format
+msgid "Rules imported as internal flows because one of their objects could not be located (inside or on the Internet), to check and correct the type if needed: lines %s."
+msgstr "Reglas importadas como flujos internos porque no se pudo situar uno de sus objetos (interno o en Internet), a revisar y corregir el tipo si es necesario: líneas %s."
+
+msgid "Qualification"
+msgstr "Calificación"
+
+msgid "Post-incident review"
+msgstr "Lecciones aprendidas"
+
+msgid "Create a linked ticket"
+msgstr "Crear un ticket vinculado"
+
+msgid "Creates a ticket in the entity of this incident, linked to it. The ticket only takes the reference and title of the incident, never its description: tickets are read more widely than security incidents."
+msgstr "Crea un ticket en la entidad de este incidente, vinculado a él. El ticket solo toma la referencia y el título del incidente, nunca su descripción: los tickets se leen mucho más ampliamente que los incidentes de seguridad."
+
+#, php-format
+msgid "Ticket opened from security incident %s."
+msgstr "Ticket abierto desde el incidente de seguridad %s."
+
+msgid "The ticket could not be created."
+msgstr "No se ha podido crear el ticket."
+
+#, php-format
+msgid "Linked ticket #%d created."
+msgstr "Ticket vinculado n.º %d creado."
+
+msgid "Compliance frameworks"
+msgstr "Marcos de cumplimiento"
+
+msgid "Untick a framework your organisation does not follow: it is no longer shown or counted in the scores. Nothing is deleted, and its data comes back when it is enabled again."
+msgstr "Desmarque un marco que su organización no sigue: deja de mostrarse y de contarse en las puntuaciones. No se elimina nada y sus datos vuelven cuando se reactiva."
+
+msgid "Annex A table, ISMS requirements (clauses 4 to 10) and ISO 27001 scores. The list of security controls stays: the other frameworks rely on it."
+msgstr "Tabla del Anexo A, requisitos del SGSI (cláusulas 4 a 10) y puntuaciones ISO 27001. La lista de controles de seguridad se mantiene: los demás marcos se basan en ella."
+
+msgid "NIS2 requirements, their references on the controls and NIS2 scores. The notification deadlines of security incidents stay: they are a legal obligation."
+msgstr "Requisitos NIS2, sus referencias en los controles y puntuaciones NIS2. Los plazos de notificación de los incidentes de seguridad se mantienen: son una obligación legal."
+
+msgid "Measures of the IT hygiene guide, their references on the controls and ANSSI score."
+msgstr "Medidas de la guía de higiene informática, sus referencias en los controles y puntuación ANSSI."
+
+msgid "CSF 2.0 catalog, its equivalences on the controls and NIST score."
+msgstr "Catálogo CSF 2.0, sus equivalencias en los controles y puntuación NIST."
+
+msgid "CIS Controls v8 catalog."
+msgstr "Catálogo de los CIS Controls v8."
+
+msgid "AI security catalog and its references in the catalog of typical risks."
+msgstr "Catálogo de seguridad de la IA y sus referencias en el catálogo de riesgos tipo."
+
+msgid "AI systems"
+msgstr "Sistemas de IA"
+
+msgid "Effectiveness test"
+msgid_plural "Effectiveness tests"
+msgstr[0] "Prueba de eficacia"
+msgstr[1] "Pruebas de eficacia"
+
+msgid "Documentary inspection"
+msgstr "Inspección documental"
+
+msgid "Sampling"
+msgstr "Muestreo"
+
+msgid "Technical test"
+msgstr "Prueba técnica"
+
+msgid "Interview"
+msgstr "Entrevista"
+
+msgid "Effective"
+msgstr "Eficaz"
+
+msgid "Partially effective"
+msgstr "Parcialmente eficaz"
+
+msgid "Ineffective"
+msgstr "Ineficaz"
+
+msgid "No test plan"
+msgstr "Sin plan de pruebas"
+
+msgid "No test scheduled"
+msgstr "Ninguna prueba prevista"
+
+msgid "Control not found."
+msgstr "Control no encontrado."
+
+msgid "Choose the result of the test."
+msgstr "Elija el resultado de la prueba."
+
+msgid "Describe what was found when the control is not fully effective."
+msgstr "Describa lo constatado cuando el control no es plenamente eficaz."
+
+msgid "A test cannot be dated in the future."
+msgstr "Una prueba no puede tener una fecha futura."
+
+msgid "The next test must be scheduled after the test date."
+msgstr "La próxima prueba debe programarse después de la fecha de la prueba."
+
+msgid "The evidence must be a document attached to this control."
+msgstr "La evidencia debe ser un documento adjunto a este control."
+
+#, php-format
+msgid "Implementation status of the control set to \"%s\"."
+msgstr "Estado de implementación del control cambiado a «%s»."
+
+msgid "No non-conformity was opened: you are not allowed to create one."
+msgstr "No se abrió ninguna no conformidad: no tiene permiso para crearla."
+
+#, php-format
+msgid "Ineffective control %1$s: %2$s"
+msgstr "Control ineficaz %1$s: %2$s"
+
+#, php-format
+msgid "Effectiveness test of %1$s (%2$s) on %3$s: %4$s"
+msgstr "Prueba de eficacia de %1$s (%2$s) del %3$s: %4$s"
+
+#, php-format
+msgid "Non-conformity opened: %s"
+msgstr "No conformidad abierta: %s"
+
+msgid "Test date"
+msgstr "Fecha de la prueba"
+
+msgid "Method"
+msgstr "Método"
+
+msgid "Tester"
+msgstr "Evaluador"
+
+msgid "Next test"
+msgstr "Próxima prueba"
+
+msgid "Last test"
+msgstr "Última prueba"
+
+msgid "Never tested"
+msgstr "Nunca probado"
+
+msgid "Test plan"
+msgstr "Plan de pruebas"
+
+msgid "Test owner"
+msgstr "Responsable de las pruebas"
+
+msgid "Save the plan"
+msgstr "Guardar el plan"
+
+msgid "The next test is due at the date of the last test plus this frequency, unless another date is entered with the test."
+msgstr "La próxima prueba vence en la fecha de la última prueba más esta frecuencia, salvo que se indique otra fecha con la prueba."
+
+msgid "Record a test"
+msgstr "Registrar una prueba"
+
+msgid "Sample checked, observed gaps, people interviewed..."
+msgstr "Muestra revisada, desviaciones observadas, personas entrevistadas..."
+
+msgid "Required if the control is not fully effective. An ineffective control opens a non-conformity."
+msgstr "Obligatorio si el control no es plenamente eficaz. Un control ineficaz abre una no conformidad."
+
+msgid "A document of the control:"
+msgstr "Un documento del control:"
+
+msgid "add it first in the Documents tab"
+msgstr "añádalo primero en la pestaña Documentos"
+
+msgid "Empty: computed from the test plan."
+msgstr "Vacío: calculado según el plan de pruebas."
+
+msgid "Record the test"
+msgstr "Registrar la prueba"
+
+msgid "No effectiveness test recorded yet"
+msgstr "Todavía no se ha registrado ninguna prueba de eficacia"
+
+msgid "A control in place is not yet a control that works: test it (inspection, sampling, technical test or interview), keep the evidence and schedule the next test."
+msgstr "Un control implantado no es aún un control que funciona: pruébelo (inspección, muestreo, prueba técnica o entrevista), conserve la evidencia y programe la próxima prueba."
+
+#, php-format
+msgid "Non-conformity #%d"
+msgstr "No conformidad n.º %d"
+
+msgid "Delete this test?"
+msgstr "¿Eliminar esta prueba?"
+
+msgid "Tests to carry out"
+msgstr "Pruebas por realizar"
+
+msgid "ISO 27001, 9.1; ISO 27002, 5.35 and 5.36"
+msgstr "ISO 27001, 9.1; ISO 27002, 5.35 y 5.36"
+
+msgid "The effectiveness tests of the Annex A controls: a control in place is checked to really work, with its method, result and evidence."
+msgstr "Las pruebas de eficacia de los controles del Anexo A: se comprueba que un control implantado funciona realmente, con su método, su resultado y su evidencia."
+
+msgid "Set a test plan on each control, record each test from the control's \"Effectiveness tests\" tab and carry out the tests that are due first. An ineffective control opens a non-conformity."
+msgstr "Defina un plan de pruebas en cada control, registre cada prueba desde la pestaña «Pruebas de eficacia» del control y realice primero las pruebas vencidas. Un control ineficaz abre una no conformidad."
+
+#, php-format
+msgid "Security incident on %s"
+msgstr "Incidente de seguridad en %s"
+
+#, php-format
+msgid "Security incident no. %d declared."
+msgstr "Incidente de seguridad n.º %d declarado."
+
+msgid "Declare an incident"
+msgstr "Declarar un incidente"
+
+msgid "Creates a security incident already linked to this item, then opens it to be completed."
+msgstr "Crea un incidente de seguridad ya vinculado a este elemento y lo abre para completarlo."
+
+msgid "No security incident linked to this item."
+msgstr "Ningún incidente de seguridad vinculado a este elemento."
+
+msgid "Other linked items"
+msgstr "Otros elementos vinculados"
+
+msgid "Business process"
+msgid_plural "Business processes"
+msgstr[0] "Proceso de negocio"
+msgstr[1] "Procesos de negocio"
+
+#, php-format
+msgid "%d other item you cannot see is not listed."
+msgid_plural "%d other items you cannot see are not listed."
+msgstr[0] "%d elemento más que no puede ver no aparece en la lista."
+msgstr[1] "%d elementos más que no puede ver no aparecen en la lista."
+
+msgid "2 weeks"
+msgstr "2 semanas"
+
+msgid "1 month"
+msgstr "1 mes"
+
+msgid "The business process name is required."
+msgstr "El nombre del proceso de negocio es obligatorio."
+
+msgid "No impact assessed yet: fill in the business impact analysis."
+msgstr "Aún no se ha evaluado ningún impacto: complete el análisis de impacto en el negocio."
+
+msgid "Maximum tolerable period of disruption (MTPD) not set."
+msgstr "Periodo máximo tolerable de interrupción (MTPD) no definido."
+
+msgid "Recovery time objective (RTO) not set."
+msgstr "Objetivo de tiempo de recuperación (RTO) no definido."
+
+msgid "The RTO is longer than the maximum tolerable period of disruption."
+msgstr "El RTO es mayor que el periodo máximo tolerable de interrupción."
+
+msgid "The maximum tolerable period of disruption is longer than the duration from which the impact becomes serious."
+msgstr "El periodo máximo tolerable de interrupción es mayor que la duración a partir de la cual el impacto se vuelve grave."
+
+msgid "The RPO is longer than the maximum tolerable period of disruption."
+msgstr "El RPO es mayor que el periodo máximo tolerable de interrupción."
+
+msgid "An impact decreases when the disruption lasts longer: check the analysis."
+msgstr "Un impacto disminuye cuando la interrupción dura más: revise el análisis."
+
+msgid "Recovers more slowly than the process requires (RTO)"
+msgstr "Se recupera más lentamente de lo que exige el proceso (RTO)"
+
+msgid "May lose more data than the process accepts (RPO)"
+msgstr "Puede perder más datos de los que acepta el proceso (RPO)"
+
+msgid "No RTO set on this item (C/I/A classification tab)"
+msgstr "Ningún RTO definido en este elemento (pestaña Clasificación C/I/D)"
+
+msgid "Business criticality"
+msgstr "Criticidad para el negocio"
+
+msgid "MTPD"
+msgstr "MTPD"
+
+msgid "Last business impact analysis"
+msgstr "Último análisis de impacto en el negocio"
+
+#, php-format
+msgid "Worst impact after %s"
+msgstr "Peor impacto tras %s"
+
+msgid "Items not meeting the objectives"
+msgstr "Elementos que no cumplen los objetivos"
+
+msgid "Consistency checks"
+msgstr "Controles de coherencia"
+
+msgid "Dependencies"
+msgstr "Dependencias"
+
+msgid "Choose an item to link."
+msgstr "Elija un elemento para vincular."
+
+msgid "This item is already linked to the process."
+msgstr "Este elemento ya está vinculado al proceso."
+
+msgid "Business impact analysis"
+msgstr "Análisis de impacto en el negocio (BIA)"
+
+msgid "Financial"
+msgstr "Financiero"
+
+msgid "Legal and regulatory"
+msgstr "Legal y regulatorio"
+
+msgid "Image and reputation"
+msgstr "Imagen y reputación"
+
+msgid "Operational"
+msgstr "Operativo"
+
+msgid "Not rated"
+msgstr "No evaluado"
+
+msgid "Negligible"
+msgstr "Insignificante"
+
+msgid "Limited"
+msgstr "Limitado"
+
+msgid "Serious"
+msgstr "Grave"
+
+msgid "Business impact analysis updated"
+msgstr "Análisis de impacto en el negocio actualizado"
+
+msgid "Business impact analysis saved."
+msgstr "Análisis de impacto en el negocio guardado."
+
+msgid "Business continuity (business processes, BIA)"
+msgstr "Continuidad del negocio (procesos de negocio, BIA)"
+
+msgid "Business processes: who owns them, how critical they are, how long they can be interrupted and which GLPI items they depend on."
+msgstr "Procesos de negocio: quién es su responsable, qué tan críticos son, cuánto tiempo pueden interrumpirse y de qué elementos de GLPI dependen."
+
+msgid "For each process, rate the impact of an interruption over time (business impact analysis), set its MTPD, RTO and RPO, and link the applications, servers and suppliers it needs; items slower than the process are reported. Export the result for your continuity plan."
+msgstr "Para cada proceso, evalúe el impacto de una interrupción en el tiempo (análisis de impacto en el negocio), defina su MTPD, RTO y RPO, y vincule las aplicaciones, servidores y proveedores que necesita; se señalan los elementos más lentos que el proceso. Exporte el resultado para su plan de continuidad."
+
+msgid "ISO 22301, 8.2.2; ISO 27001, Annex A 5.29 and 5.30"
+msgstr "ISO 22301, 8.2.2; ISO 27001, Anexo A 5.29 y 5.30"
+
+msgid "Business impact analysis review (business processes)"
+msgstr "Revisión del análisis de impacto en el negocio (procesos de negocio)"
+
+msgid "Review the list of business processes and their owners"
+msgstr "Revisar la lista de procesos de negocio y sus responsables"
+
+msgid "Update the impact of an interruption over time and the MTPD, RTO and RPO"
+msgstr "Actualizar el impacto de una interrupción en el tiempo y el MTPD, RTO y RPO"
+
+msgid "Check that the items each process depends on recover fast enough"
+msgstr "Comprobar que los elementos de los que depende cada proceso se recuperan con suficiente rapidez"
+
+msgid "Example: \"Payroll\", \"Order taking\", \"Customer support\"."
+msgstr "Ejemplo: «Nómina», «Toma de pedidos», «Atención al cliente»."
+
+msgid "Same list as the business criticality of assets (financial information)."
+msgstr "Misma lista que la criticidad para el negocio de los activos (información financiera)."
+
+msgid "Maximum tolerable period of disruption: beyond it, the impact is no longer acceptable."
+msgstr "Periodo máximo tolerable de interrupción: más allá, el impacto deja de ser aceptable."
+
+msgid "Recovery time objective: time within which the process must be running again."
+msgstr "Objetivo de tiempo de recuperación: plazo en el que el proceso debe volver a funcionar."
+
+msgid "Recovery point objective: maximum acceptable data loss."
+msgstr "Objetivo de punto de recuperación: pérdida de datos máxima aceptable."
+
+msgid "Set automatically when the analysis is saved."
+msgstr "Se rellena automáticamente al guardar el análisis."
+
+msgid "Not set"
+msgstr "No definido"
+
+msgid "Impact becomes serious after"
+msgstr "El impacto se vuelve grave tras"
+
+msgid "Never, according to the analysis"
+msgstr "Nunca, según el análisis"
+
+msgid "The objectives of the process are consistent with its impact analysis."
+msgstr "Los objetivos del proceso son coherentes con su análisis de impacto."
+
+msgid "Rate the impact of an interruption of the process for each duration, from negligible to critical. The MTPD must not exceed the first duration rated serious, and the RTO must not exceed the MTPD."
+msgstr "Evalúe el impacto de una interrupción del proceso para cada duración, de insignificante a crítico. El MTPD no debe superar la primera duración evaluada como grave, y el RTO no debe superar el MTPD."
+
+msgid "Worst impact"
+msgstr "Peor impacto"
+
+msgid "E.g. \"Payroll application\", \"Main database\""
+msgstr "Ej.: «Aplicación de nómina», «Base de datos principal»"
+
+msgid "Items linked to the process, then what they depend on according to GLPI's impact analysis. Recovery objectives come from the C/I/A classification tab of each item."
+msgstr "Elementos vinculados al proceso y, después, aquello de lo que dependen según el análisis de impacto de GLPI. Los objetivos de recuperación provienen de la pestaña Clasificación C/I/D de cada elemento."
+
+msgid "No dependency yet: add the applications, servers and suppliers the process needs."
+msgstr "Aún no hay dependencias: añada las aplicaciones, servidores y proveedores que necesita el proceso."
+
+msgid "OK"
+msgstr "OK"
+
+msgid "Remove this dependency?"
+msgstr "¿Quitar esta dependencia?"
+
+msgid "No business process you can see depends on this item."
+msgstr "Ningún proceso de negocio que pueda ver depende de este elemento."
+
+msgid "New business process"
+msgstr "Nuevo proceso de negocio"
+
+#, php-format
+msgid "The risk indicator \"%s\" reached its red threshold."
+msgstr "El indicador de riesgo «%s» ha alcanzado su umbral rojo."
+
+msgid "Last value"
+msgstr "Último valor"
+
+msgid "Orange threshold"
+msgstr "Umbral naranja"
+
+msgid "Red threshold"
+msgstr "Umbral rojo"
+
+msgid "Analyse the cause, decide on the actions to bring the indicator back below its thresholds, and record them in this ticket."
+msgstr "Analice la causa, decida las acciones para devolver el indicador por debajo de sus umbrales y regístrelas en este ticket."
+
+msgid "Value history"
+msgstr "Historial de valores"
+
+msgid "Worsening"
+msgstr "Empeora"
+
+msgid "Stable"
+msgstr "Estable"
+
+msgid "Improving"
+msgstr "Mejora"
+
+msgid "This indicator is in the red: open a ticket so that the team handles it."
+msgstr "Este indicador está en rojo: abra un ticket para que el equipo se encargue."
+
+#, php-format
+msgid "Open ticket #%d"
+msgstr "Ticket abierto n.º %d"
+
+msgid "Create a ticket"
+msgstr "Crear un ticket"
+
+msgid "Measure now"
+msgstr "Medir ahora"
+
+msgid "Also measured every day by the scheduled task."
+msgstr "También lo mide cada día la tarea programada."
+
+msgid "Automatic"
+msgstr "Automático"
+
+msgid "Risk category"
+msgstr "Categoría de riesgo"
+
+msgid "Linked risk"
+msgstr "Riesgo vinculado"
+
+msgid "An automatic source is measured every day on this entity and its sub-entities; choosing it requires the right to read the measured data there."
+msgstr "Una fuente automática se mide cada día en esta entidad y sus subentidades; elegirla requiere el derecho de leer allí los datos medidos."
+
+msgid "Unit"
+msgstr "Unidad"
+
+msgid "Set automatically for an automatic source."
+msgstr "Se define automáticamente para una fuente automática."
+
+msgid "Direction"
+msgstr "Sentido"
+
+msgid "Vigilance: reached from this value (inclusive)."
+msgstr "Vigilancia: se alcanza a partir de este valor (incluido)."
+
+msgid "Alert: reached from this value (inclusive). A ticket is then offered."
+msgstr "Alerta: se alcanza a partir de este valor (incluido). Entonces se propone un ticket."
+
+msgid "Appetite and tolerance by risk category"
+msgstr "Apetito y tolerancia por categoría de riesgo"
+
+msgid "Appetite: the highest risk level accepted without action. Tolerance: the level beyond which the risk can no longer be borne. A risk above the appetite needs a treatment or a formal, justified acceptance. Saving records you as the approver, with today's date."
+msgstr "Apetito: el nivel de riesgo más alto aceptado sin acción. Tolerancia: el nivel a partir del cual el riesgo ya no es soportable. Un riesgo por encima del apetito requiere un tratamiento o una aceptación formal justificada. Al guardar, usted queda registrado como aprobador, con la fecha de hoy."
+
+msgid "Appetite"
+msgstr "Apetito"
+
+msgid "Tolerance"
+msgstr "Tolerancia"
+
+msgid "Statement approved by management"
+msgstr "Declaración aprobada por la dirección"
+
+msgid "Open risks above appetite"
+msgstr "Riesgos abiertos por encima del apetito"
+
+msgid "Position"
+msgstr "Posición"
+
+msgid "Above tolerance"
+msgstr "Por encima de la tolerancia"
+
+msgid "Above appetite"
+msgstr "Por encima del apetito"
+
+msgid "Decision required"
+msgstr "Decisión requerida"
+
+#, php-format
+msgid "Formally accepted by %s"
+msgstr "Aceptado formalmente por %s"
+
+msgid "No open risk exceeds the appetite of its category."
+msgstr "Ningún riesgo abierto supera el apetito de su categoría."
+
+msgid "Risk indicators (KRI)"
+msgstr "Indicadores de riesgo (KRI)"
+
+msgid "A treatment, or a formal acceptance with a justification, is required."
+msgstr "Se requiere un tratamiento o una aceptación formal justificada."
+
+#, php-format
+msgid "Formally accepted by %1$s on %2$s"
+msgstr "Aceptado formalmente por %1$s el %2$s"
+
+msgid "Risk appetite"
+msgstr "Apetito de riesgo"
+
+msgid "Within appetite"
+msgstr "Dentro del apetito"
+
+msgid "Risk appetite and tolerance"
+msgstr "Apetito y tolerancia al riesgo"
+
+msgid "No appetite defined"
+msgstr "Apetito no definido"
+
+msgid "Formal risk acceptance"
+msgstr "Aceptación formal de un riesgo"
+
+msgid "Manual entry"
+msgstr "Entrada manual"
+
+msgid "Computers with an unencrypted disk (%)"
+msgstr "Ordenadores con un disco sin cifrar (%)"
+
+msgid "Computers without an up-to-date antivirus (%)"
+msgstr "Ordenadores sin antivirus actualizado (%)"
+
+msgid "Open critical vulnerabilities in the fleet"
+msgstr "Vulnerabilidades críticas abiertas del parque"
+
+msgid "Open risks above tolerance"
+msgstr "Riesgos abiertos por encima de la tolerancia"
+
+msgid "A high value is bad"
+msgstr "Un valor alto es malo"
+
+msgid "A low value is bad"
+msgstr "Un valor bajo es malo"
+
+msgid "Green"
+msgstr "Verde"
+
+msgid "Orange"
+msgstr "Naranja"
+
+msgid "Red"
+msgstr "Rojo"
+
+msgid "Not measured"
+msgstr "Sin medir"
+
+msgid "You cannot use this automatic source: it measures data you cannot read in this entity and its sub-entities."
+msgstr "No puede usar esta fuente automática: mide datos que usted no puede leer en esta entidad y sus subentidades."
+
+msgid "The red threshold must be beyond the orange threshold, in the direction of the indicator."
+msgstr "El umbral rojo debe estar más allá del umbral naranja, en el sentido del indicador."
+
+msgid "The indicator needs a name."
+msgstr "El indicador necesita un nombre."
+
+msgid "Measure automatic risk indicators (KRI)"
+msgstr "Medir los indicadores de riesgo (KRI) automáticos"
+
+#, php-format
+msgid "Risk indicator in the red: %s"
+msgstr "Indicador de riesgo en rojo: %s"
+
+msgid "Last measured on"
+msgstr "Última medición el"
+
+msgid "This risk exceeds the appetite of its category: accepting it requires a justification."
+msgstr "Este riesgo supera el apetito de su categoría: aceptarlo requiere una justificación."
+
+msgid "Formally accepted by"
+msgstr "Aceptado formalmente por"
+
+msgid "Formal acceptance date"
+msgstr "Fecha de aceptación formal"
+
+msgid "Sensitive registers (risks, risk indicators, vulnerabilities, network flows)"
+msgstr "Registros sensibles (riesgos, indicadores de riesgo, vulnerabilidades, flujos de red)"
+
+msgid "Risk indicator (KRI) review"
+msgstr "Revisión de los indicadores de riesgo (KRI)"
+
+msgid "Enter the values of the manual indicators"
+msgstr "Introducir los valores de los indicadores manuales"
+
+msgid "Analyse the indicators in orange or red and their trend"
+msgstr "Analizar los indicadores en naranja o rojo y su tendencia"
+
+msgid "Open a ticket for each indicator in the red"
+msgstr "Abrir un ticket por cada indicador en rojo"
+
+msgid "Check the thresholds and the risk appetite with management"
+msgstr "Comprobar los umbrales y el apetito de riesgo con la dirección"
+
+msgid "The risk appetite and tolerance set by management for each risk category, and the open risks that exceed them."
+msgstr "El apetito y la tolerancia al riesgo fijados por la dirección para cada categoría, y los riesgos abiertos que los superan."
+
+msgid "Have management approve the levels; then give each risk above the appetite a treatment or a formal, justified acceptance. Risks above tolerance come first."
+msgstr "Haga aprobar los niveles por la dirección y luego dé a cada riesgo por encima del apetito un tratamiento o una aceptación formal justificada. Los riesgos por encima de la tolerancia aparecen primero."
+
+msgid "ISO 27001, 6.1.2; ISO 31000, 6.3.4"
+msgstr "ISO 27001, 6.1.2; ISO 31000, 6.3.4"
+
+msgid "Key risk indicators (KRI): values measured over time, entered by hand or measured every day from technical checks, fleet vulnerabilities and the risk register, with orange and red thresholds."
+msgstr "Indicadores de riesgo (KRI): valores medidos en el tiempo, introducidos a mano o medidos cada día a partir de los controles técnicos, las vulnerabilidades del parque y el registro de riesgos, con umbrales naranja y rojo."
+
+msgid "Set the thresholds of each indicator, enter the manual values at each review, and open a ticket for any indicator in the red."
+msgstr "Fije los umbrales de cada indicador, introduzca los valores manuales en cada revisión y abra un ticket para cualquier indicador en rojo."
+
+msgid "ISO 27001, 6.1.2 and 9.1"
+msgstr "ISO 27001, 6.1.2 y 9.1"
+
+msgid "Risk indicators (KRI) by status"
+msgstr "Indicadores de riesgo (KRI) por estado"
+
+msgid "Risk indicators (KRI) in the red"
+msgstr "Indicadores de riesgo (KRI) en rojo"
+
+msgid "A numeric value is required."
+msgstr "Se requiere un valor numérico."
+
+msgid "The tolerance cannot be below the appetite: these categories were not saved."
+msgstr "La tolerancia no puede ser inferior al apetito: estas categorías no se han guardado."
+
+msgid "No value could be measured for this indicator."
+msgstr "No se ha podido medir ningún valor para este indicador."
+
+msgid "The indicator is not in the red: no ticket was created."
+msgstr "El indicador no está en rojo: no se ha creado ningún ticket."
+
+msgid "Risk indicator value"
+msgid_plural "Risk indicator values"
+msgstr[0] "Valor de indicador de riesgo"
+msgstr[1] "Valores de indicador de riesgo"
+
+msgid "Risk indicator (KRI)"
+msgid_plural "Risk indicators (KRI)"
+msgstr[0] "Indicador de riesgo (KRI)"
+msgstr[1] "Indicadores de riesgo (KRI)"
+
+msgid "Controller"
+msgstr "Responsable del tratamiento"
+
+msgid "Joint controller"
+msgstr "Corresponsable del tratamiento"
+
+msgid "Processor (on behalf of a controller)"
+msgstr "Encargado del tratamiento (por cuenta de un responsable)"
+
+msgid "Consent (art. 6.1.a)"
+msgstr "Consentimiento (art. 6.1.a)"
+
+msgid "Performance of a contract (art. 6.1.b)"
+msgstr "Ejecución de un contrato (art. 6.1.b)"
+
+msgid "Legal obligation (art. 6.1.c)"
+msgstr "Obligación legal (art. 6.1.c)"
+
+msgid "Vital interests (art. 6.1.d)"
+msgstr "Intereses vitales (art. 6.1.d)"
+
+msgid "Public interest task (art. 6.1.e)"
+msgstr "Misión de interés público (art. 6.1.e)"
+
+msgid "Legitimate interests (art. 6.1.f)"
+msgstr "Intereses legítimos (art. 6.1.f)"
+
+msgid "In use"
+msgstr "En curso"
+
+msgid "Ended"
+msgstr "Finalizado"
+
+msgid "Employees"
+msgstr "Empleados"
+
+msgid "Job applicants"
+msgstr "Candidatos a un empleo"
+
+msgid "Customers"
+msgstr "Clientes"
+
+msgid "Prospects"
+msgstr "Clientes potenciales"
+
+msgid "Supplier and partner contacts"
+msgstr "Contactos de proveedores y socios"
+
+msgid "Website or application users"
+msgstr "Usuarios de un sitio web o aplicación"
+
+msgid "Patients"
+msgstr "Pacientes"
+
+msgid "Students or trainees"
+msgstr "Estudiantes o becarios"
+
+msgid "Minors"
+msgstr "Menores"
+
+msgid "Identity and contact details"
+msgstr "Identidad y datos de contacto"
+
+msgid "Personal life (habits, family situation...)"
+msgstr "Vida personal (hábitos, situación familiar...)"
+
+msgid "Professional life (resume, career, training...)"
+msgstr "Vida profesional (currículum, carrera, formación...)"
+
+msgid "Economic and financial information"
+msgstr "Información económica y financiera"
+
+msgid "Connection data (logs, IP addresses...)"
+msgstr "Datos de conexión (registros, direcciones IP...)"
+
+msgid "Location data"
+msgstr "Datos de localización"
+
+msgid "Images, video or voice"
+msgstr "Imágenes, vídeo o voz"
+
+msgid "Racial or ethnic origin"
+msgstr "Origen racial o étnico"
+
+msgid "Political opinions"
+msgstr "Opiniones políticas"
+
+msgid "Religious or philosophical beliefs"
+msgstr "Convicciones religiosas o filosóficas"
+
+msgid "Trade union membership"
+msgstr "Afiliación sindical"
+
+msgid "Genetic data"
+msgstr "Datos genéticos"
+
+msgid "Biometric data used to identify a person"
+msgstr "Datos biométricos para identificar a una persona"
+
+msgid "Health data"
+msgstr "Datos de salud"
+
+msgid "Sex life or sexual orientation"
+msgstr "Vida sexual u orientación sexual"
+
+msgid "Criminal convictions and offences (art. 10)"
+msgstr "Condenas e infracciones penales (art. 10)"
+
+msgid "National identification number"
+msgstr "Número de identificación nacional"
+
+msgid "Adequacy decision"
+msgstr "Decisión de adecuación"
+
+msgid "Standard contractual clauses"
+msgstr "Cláusulas contractuales tipo"
+
+msgid "Binding corporate rules"
+msgstr "Normas corporativas vinculantes"
+
+msgid "Derogation for a specific situation (art. 49)"
+msgstr "Excepción para una situación específica (art. 49)"
+
+msgid "Not required"
+msgstr "No requerida"
+
+msgid "Required, to be carried out"
+msgstr "Requerida, por realizar"
+
+msgid "Carried out"
+msgstr "Realizada"
+
+msgid "No purpose"
+msgstr "Sin finalidad"
+
+msgid "No legal basis"
+msgstr "Sin base jurídica"
+
+msgid "No category of data subjects"
+msgstr "Sin categoría de interesados"
+
+msgid "No category of personal data"
+msgstr "Sin categoría de datos personales"
+
+msgid "No retention period"
+msgstr "Sin plazo de conservación"
+
+msgid "No security measure"
+msgstr "Sin medida de seguridad"
+
+msgid "Controller not named"
+msgstr "Responsable no indicado"
+
+msgid "Transfer outside the EU without safeguard"
+msgstr "Transferencia fuera de la UE sin garantía"
+
+msgid "Sensitive data: DPIA decision missing"
+msgstr "Datos sensibles: falta la decisión sobre la EIPD"
+
+msgid "DPIA to be carried out"
+msgstr "EIPD por realizar"
+
+msgid "Not reviewed for more than a year"
+msgstr "Sin revisar desde hace más de un año"
+
+msgid "Give the processing activity a name."
+msgstr "Indique un nombre para la actividad de tratamiento."
+
+msgid "Role of the organisation"
+msgstr "Función de la organización"
+
+msgid "Purpose"
+msgstr "Finalidad"
+
+msgid "Legal basis"
+msgstr "Base jurídica"
+
+msgid "Data subjects"
+msgstr "Interesados"
+
+msgid "Categories of personal data"
+msgstr "Categorías de datos personales"
+
+msgid "Sensitive data"
+msgstr "Datos sensibles"
+
+msgid "Transfers outside the EU"
+msgstr "Transferencias fuera de la UE"
+
+msgid "Retention period"
+msgstr "Plazo de conservación"
+
+msgid "DPIA"
+msgstr "EIPD"
+
+msgid "Recipients"
+msgstr "Destinatarios"
+
+msgid "Controller or joint controller"
+msgstr "Responsable o corresponsable del tratamiento"
+
+msgid "Details of the data"
+msgstr "Detalle de los datos"
+
+msgid "Security measures"
+msgstr "Medidas de seguridad"
+
+msgid "Applications, assets and suppliers"
+msgstr "Aplicaciones, activos y proveedores"
+
+msgid "The record of processing activities required by the GDPR: one entry per processing of personal data, with its purpose, legal basis, data, recipients and retention periods."
+msgstr "El registro de actividades de tratamiento exigido por el RGPD: una ficha por tratamiento de datos personales, con su finalidad, base jurídica, datos, destinatarios y plazos de conservación."
+
+msgid "Describe each processing, link the applications, assets and suppliers involved, settle the gaps shown, review the register every year and export it if the supervisory authority asks for it."
+msgstr "Describa cada tratamiento, vincule las aplicaciones, activos y proveedores implicados, resuelva las carencias mostradas, revise el registro cada año y expórtelo si la autoridad de control lo solicita."
+
+msgid "GDPR, article 30; ISO 27001, Annex A 5.34"
+msgstr "RGPD, artículo 30; ISO 27001, Anexo A 5.34"
+
+msgid "Review of the record of processing activities (GDPR)"
+msgstr "Revisión del registro de actividades de tratamiento (RGPD)"
+
+msgid "Add new processing activities and mark those that ended"
+msgstr "Añadir los nuevos tratamientos y marcar los finalizados"
+
+msgid "Settle the gaps shown in the register (legal basis, retention, transfers...)"
+msgstr "Resolver las carencias mostradas en el registro (base jurídica, conservación, transferencias...)"
+
+msgid "Check the processors and recipients, then date the review of each entry"
+msgstr "Comprobar los encargados y destinatarios y fechar la revisión de cada ficha"
+
+msgid "Personal data protection (GDPR record of processing)"
+msgstr "Protección de datos personales (registro de tratamientos RGPD)"
+
+msgid "E.g. \"Payroll\", \"Customer relationship management\", \"Video surveillance\"."
+msgstr "P. ej., «Nóminas», «Gestión de clientes», «Videovigilancia»."
+
+msgid "Your own numbering (e.g. T-001), used to sort the register."
+msgstr "Su propia numeración (p. ej., T-001), que sirve para ordenar el registro."
+
+msgid "The business manager of the processing, who keeps this record up to date."
+msgstr "El responsable funcional del tratamiento, que mantiene esta ficha actualizada."
+
+msgid "Controller and purpose"
+msgstr "Responsable y finalidad"
+
+msgid "As a processor, the record lists the processing carried out on behalf of each controller (article 30.2)."
+msgstr "Como encargado, el registro recoge los tratamientos efectuados por cuenta de cada responsable (artículo 30.2)."
+
+msgid "Name and contact details of the controller you act for, or of the joint controller."
+msgstr "Nombre y datos de contacto del responsable para el que actúa, o del corresponsable."
+
+msgid "Why the data is processed, in one or two sentences (e.g. \"Pay the employees and make the related declarations\")."
+msgstr "Por qué se tratan los datos, en una o dos frases (p. ej., «Pagar a los empleados y hacer las declaraciones correspondientes»)."
+
+msgid "Legal basis details"
+msgstr "Detalles de la base jurídica"
+
+msgid "The text, contract or interest relied upon (e.g. \"Labour code\")."
+msgstr "El texto, contrato o interés invocado (p. ej., «Estatuto de los Trabajadores»)."
+
+msgid "Data subjects and data"
+msgstr "Interesados y datos"
+
+msgid "Special categories (article 9), offences (article 10) and national identification number: processing them usually calls for a DPIA."
+msgstr "Categorías especiales (artículo 9), infracciones (artículo 10) y número de identificación nacional: su tratamiento suele requerir una EIPD."
+
+msgid "The data actually collected, without any real personal data (e.g. \"name, bank details, salary\")."
+msgstr "Los datos realmente recogidos, sin ningún dato personal real (p. ej., «nombre, datos bancarios, salario»)."
+
+msgid "Recipients and transfers"
+msgstr "Destinatarios y transferencias"
+
+msgid "Internal departments and external recipients (processors, authorities...). Link the suppliers concerned below."
+msgstr "Departamentos internos y destinatarios externos (encargados, autoridades...). Vincule abajo los proveedores afectados."
+
+msgid "Destination countries"
+msgstr "Países de destino"
+
+msgid "Transfer safeguards"
+msgstr "Garantías de la transferencia"
+
+msgid "Retention and security"
+msgstr "Conservación y seguridad"
+
+msgid "Per category of data if needed (e.g. \"5 years after the employee leaves, then archived\")."
+msgstr "Por categoría de datos si es necesario (p. ej., «5 años tras la salida del empleado y después archivo»)."
+
+msgid "General description of the technical and organisational measures (article 32)."
+msgstr "Descripción general de las medidas técnicas y organizativas (artículo 32)."
+
+msgid "Statement of Applicability controls"
+msgstr "Controles de la Declaración de aplicabilidad"
+
+msgid "Impact assessment and review"
+msgstr "Evaluación de impacto y revisión"
+
+msgid "Data protection impact assessment (article 35): record here whether one is needed."
+msgstr "Evaluación de impacto relativa a la protección de datos (artículo 35): indique aquí si es necesaria."
+
+msgid "The register is reviewed at least once a year (Periodic reviews)."
+msgstr "El registro se revisa al menos una vez al año (Revisiones periódicas)."
+
+msgid "No processing activity cites this item."
+msgstr "Ninguna actividad de tratamiento cita este elemento."
+
+msgid "Complete"
+msgstr "Completa"
+
+msgid "Organisation"
+msgstr "Organización"
+
+msgid "Email"
+msgstr "Correo electrónico"
+
+msgid "Phone"
+msgstr "Teléfono"
+
+msgid "Processing activities in the register"
+msgstr "Actividades de tratamiento en el registro"
+
+msgid "The register contains no processing activity."
+msgstr "El registro no contiene ninguna actividad de tratamiento."
+
+msgid "Export CSV"
+msgstr "Exportar CSV"
+
+msgid "Record of processing activities"
+msgstr "Registro de actividades de tratamiento"
+
+msgid "Processing activity"
+msgid_plural "Record of processing activities"
+msgstr[0] "Actividad de tratamiento"
+msgstr[1] "Registro de actividades de tratamiento"
+
+#, php-format
+msgid "%d linked item is not visible to you and stays linked."
+msgid_plural "%d linked items are not visible to you and stay linked."
+msgstr[0] "%d elemento vinculado no es visible para usted y sigue vinculado."
+msgstr[1] "%d elementos vinculados no son visibles para usted y siguen vinculados."
+
+msgid "Open critical security incidents"
+msgstr "Incidentes de seguridad críticos abiertos"
+
+msgid "Security incidents by incident category"
+msgstr "Incidentes de seguridad por categoría de incidente"
+
+msgid "Declared"
+msgstr "Declarados"
+
+msgid "Resolved"
+msgstr "Resueltos"
+
+msgid "Security incidents over 12 months"
+msgstr "Incidentes de seguridad en 12 meses"
+
+#, php-format
+msgid "Due by %s"
+msgstr "Vence el %s"
+
+msgid "Regulatory notifications to follow"
+msgstr "Notificaciones reglamentarias pendientes"
+
+msgid "GRC Manager - Security incidents"
+msgstr "GRC Manager - Incidentes de seguridad"
+
+msgid "ISMS overview"
+msgstr "Vista general del SGSI"
+
+msgid "Data protection officer (DPO)"
+msgstr "Delegado de protección de datos (DPD)"
+
+msgid "Name and contact details of the data protection officer, shown on the record of processing activities (GDPR, article 30)."
+msgstr "Nombre y datos de contacto del delegado de protección de datos, que figuran en el registro de actividades de tratamiento (RGPD, artículo 30)."

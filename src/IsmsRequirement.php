@@ -22,6 +22,8 @@ use Dropdown;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\IsmsRequirementBase;
 use GlpiPlugin\Grcmanager\Services\Clause\IsmsClauseCatalog;
+use GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig;
+use GlpiPlugin\Grcmanager\Services\Control\FrameworkSelection;
 use GlpiPlugin\Grcmanager\Services\Ui\Badge;
 use GlpiPlugin\Grcmanager\Services\Ui\Fragment;
 use Session;
@@ -56,6 +58,18 @@ class IsmsRequirement extends IsmsRequirementBase
     public static function getIcon()
     {
         return 'ti ti-list-check';
+    }
+
+    // Issue #403 : exigences propres à ISO 27001, masquées (menu, recherche, fiches) et non
+    // modifiables quand ce référentiel est désactivé. Les lignes restent en base.
+    public static function canView(): bool
+    {
+        return FrameworkConfig::isEnabled(FrameworkSelection::ISO27001) && parent::canView();
+    }
+
+    public static function canUpdate(): bool
+    {
+        return FrameworkConfig::isEnabled(FrameworkSelection::ISO27001) && parent::canUpdate();
     }
 
     // Catalogue fixe de 30 sous-articles : ni création ni suppression depuis l'interface, comme

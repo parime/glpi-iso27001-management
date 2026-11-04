@@ -1,0 +1,6 @@
+{# Issue #375 : écarts d'une fiche du registre des traitements (article 30) #}
+{% for c in checks %}
+   <span class="badge {{ c.blocking ? 'bg-red-lt' : 'bg-yellow-lt' }} me-1"><i class="ti ti-alert-triangle me-1"></i>{{ c.label }}</span>
+{%- else %}
+   <span class="badge bg-green-lt"><i class="ti ti-circle-check me-1"></i>{{ __('Complete', 'grcmanager') }}</span>
+{%- endfor %}

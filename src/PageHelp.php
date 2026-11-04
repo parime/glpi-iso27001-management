@@ -107,6 +107,33 @@ class PageHelp
                     'grcmanager'
                 ),
             ],
+            'riskappetite' => [
+                'purpose'   => __(
+                    'The risk appetite and tolerance set by management for each risk category, and the open risks '
+                        . 'that exceed them.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Have management approve the levels; then give each risk above the appetite a treatment or a '
+                        . 'formal, justified acceptance. Risks above tolerance come first.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO 27001, 6.1.2; ISO 31000, 6.3.4', 'grcmanager'),
+            ],
+            'riskindicator' => [
+                'purpose'   => __(
+                    'Key risk indicators (KRI): values measured over time, entered by hand or measured every day '
+                        . 'from technical checks, fleet vulnerabilities and the risk register, with orange and red '
+                        . 'thresholds.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Set the thresholds of each indicator, enter the manual values at each review, and open a ticket '
+                        . 'for any indicator in the red.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO 27001, 6.1.2 and 9.1', 'grcmanager'),
+            ],
             'riskcatalog' => [
                 'purpose'  => __(
                     'Typical infrastructure risks (exposed administration service, flat network, poorly isolated '
@@ -179,6 +206,20 @@ class PageHelp
                     'grcmanager'
                 ),
                 'reference' => __('ISO 27001, 4.2; Annex A 5.31', 'grcmanager'),
+            ],
+            'processingactivity' => [
+                'purpose'   => __(
+                    'The record of processing activities required by the GDPR: one entry per processing of '
+                        . 'personal data, with its purpose, legal basis, data, recipients and retention periods.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Describe each processing, link the applications, assets and suppliers involved, settle the '
+                        . 'gaps shown, review the register every year and export it if the supervisory authority '
+                        . 'asks for it.',
+                    'grcmanager'
+                ),
+                'reference' => __('GDPR, article 30; ISO 27001, Annex A 5.34', 'grcmanager'),
             ],
             'audit' => [
                 'purpose'   => __(
@@ -339,6 +380,20 @@ class PageHelp
                     'grcmanager'
                 ),
             ],
+            'controltest' => [
+                'purpose'   => __(
+                    'The effectiveness tests of the Annex A controls: a control in place is checked to really work, '
+                        . 'with its method, result and evidence.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Set a test plan on each control, record each test from the control\'s "Effectiveness tests" '
+                        . 'tab and carry out the tests that are due first. An ineffective control opens a '
+                        . 'non-conformity.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO 27001, 9.1; ISO 27002, 5.35 and 5.36', 'grcmanager'),
+            ],
             'auditlog' => [
                 'purpose'  => __(
                     'The audit log of the security incidents: who consulted or changed what, when, with which '
@@ -398,6 +453,20 @@ class PageHelp
                     'grcmanager'
                 ),
                 'reference' => __('ISO 27001, 6.1.3; Annex A 5.36', 'grcmanager'),
+            ],
+            'businessprocess' => [
+                'purpose'   => __(
+                    'Business processes: who owns them, how critical they are, how long they can be interrupted and '
+                        . 'which GLPI items they depend on.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'For each process, rate the impact of an interruption over time (business impact analysis), set '
+                        . 'its MTPD, RTO and RPO, and link the applications, servers and suppliers it needs; items '
+                        . 'slower than the process are reported. Export the result for your continuity plan.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO 22301, 8.2.2; ISO 27001, Annex A 5.29 and 5.30', 'grcmanager'),
             ],
             'impactanalysis' => [
                 'purpose'   => __(

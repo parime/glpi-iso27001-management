@@ -93,8 +93,34 @@ class Profile extends CommonGLPI
                     DELETE => _x('button', 'Put in trashbin'),
                     PURGE  => ['short' => __('Purge'), 'long' => _x('button', 'Delete permanently')],
                 ],
-                'label'    => __('Sensitive registers (risks, vulnerabilities, network flows)', 'grcmanager'),
+                'label'    => __(
+                    'Sensitive registers (risks, risk indicators, vulnerabilities, network flows)',
+                    'grcmanager'
+                ),
                 'field'    => Installer::SENSITIVE_RIGHT,
+            ],
+            [
+                // Issue #377 : processus métier, leurs dépendances et leur analyse d'impact (BIA).
+                'rights'   => [
+                    READ   => __('Read'),
+                    UPDATE => __('Update'),
+                    CREATE => __('Create'),
+                    PURGE  => ['short' => __('Purge'), 'long' => _x('button', 'Delete permanently')],
+                ],
+                'label'    => __('Business continuity (business processes, BIA)', 'grcmanager'),
+                'field'    => Installer::CONTINUITY_RIGHT,
+            ],
+            [
+                // Issue #375 : registre des traitements de données personnelles (RGPD), pour le DPO.
+                'rights'   => [
+                    READ   => __('Read'),
+                    UPDATE => __('Update'),
+                    CREATE => __('Create'),
+                    DELETE => _x('button', 'Put in trashbin'),
+                    PURGE  => ['short' => __('Purge'), 'long' => _x('button', 'Delete permanently')],
+                ],
+                'label'    => __('Personal data protection (GDPR record of processing)', 'grcmanager'),
+                'field'    => Installer::GDPR_RIGHT,
             ],
             [
                 'itemtype' => PluginGrcmanagerSecurityIncident::class,
