@@ -7,7 +7,12 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.21.0] - 2026-11-04
+
 ### Added
+
+- **Contact du DPO** (issue #375) : réglage dans la configuration du plugin, repris sur l'export PDF
+  du registre des traitements (article 30).
 
 - **Tableau de bord des incidents de sécurité** (issues #143 et #372) : nouvelle vue sur la page
   Tableau de bord (et tableau de bord natif « GRC Manager - Incidents de sécurité »), proposée à
@@ -55,24 +60,6 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   - Droits : ceux des registres sensibles, entité vérifiée pour chaque KRI. La valeur d'une source
     automatique n'est visible que de qui lit les données mesurées et accède à l'entité et à toutes
     ses sous-entités, y compris dans les listes et les cartes.
-
-### Fixed
-
-- **Cartes de tableau de bord** (issue #143) :
-  - les cartes des incidents comptent seulement les incidents que l'utilisateur peut ouvrir : sans
-    « Voir tout », ceux où il est acteur ou membre de l'équipe d'intervention. Les cartes total, par
-    entité et par catégorie GLPI ne vérifiaient aucun droit du plugin ; elles les vérifient ;
-  - la carte des revues périodiques en retard respecte les entités actives ;
-  - une carte n'est plus proposée à qui n'a pas le droit de la voir, ni quand son module ou tous ses
-    référentiels sont désactivés ; sur la page Tableau de bord du plugin, elle disparaît ;
-  - le lien de la carte « Ouverts » menait à une recherche vide ;
-  - sur la page Tableau de bord du plugin, les cartes ne se superposent plus, ni au-delà de la
-    24e rangée, ni à la largeur d'un téléphone ;
-  - délais moyens et tactiques MITRE calculés par une seule requête d'agrégat.
-
-## [2.21.0] - 2026-11-04
-
-### Added
 
 - **Processus métier et analyse d'impact sur l'activité (BIA)** (issue #377, première étape) :
   nouvel écran Opérations > Processus métier (ISO 22301 8.2.2, ISO 27001 A.5.29 et A.5.30) :
@@ -210,6 +197,27 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   Sécurité : réglage réservé au droit de modification de la configuration du plugin, formulaire
   protégé par le jeton CSRF, valeurs limitées à la liste connue, changement tracé dans le journal
   d'audit.
+
+### Fixed
+
+- **La recherche des incidents suit la règle d'ouverture** (issue #143) : un simple rédacteur ne voit
+  plus de ligne pour un incident qu'il ne peut pas ouvrir, et le groupe sécurité s'applique aussi à
+  la recherche.
+- **Menu** (issue #375) : si une rubrique n'est pas visible, sa première sous-page autorisée prend sa
+  place. Un droit propre à une sous-page (RGPD pour un DPO, continuité) suffit à la trouver, sans
+  donner le droit général. Chaque sous-page garde ses propres droits.
+- **Cartes de tableau de bord** (issue #143) :
+  - les cartes des incidents comptent seulement les incidents que l'utilisateur peut ouvrir : sans
+    « Voir tout », ceux où il est acteur ou membre de l'équipe d'intervention. Les cartes total, par
+    entité et par catégorie GLPI ne vérifiaient aucun droit du plugin ; elles les vérifient ;
+  - la carte des revues périodiques en retard respecte les entités actives ;
+  - une carte n'est plus proposée à qui n'a pas le droit de la voir, ni quand son module ou tous ses
+    référentiels sont désactivés ; sur la page Tableau de bord du plugin, elle disparaît ;
+  - le lien de la carte « Ouverts » menait à une recherche vide ;
+  - sur la page Tableau de bord du plugin, les cartes ne se superposent plus, ni au-delà de la
+    24e rangée, ni à la largeur d'un téléphone ;
+  - délais moyens et tactiques MITRE calculés par une seule requête d'agrégat.
+
 
 ## [2.20.0] - 2026-11-03
 
