@@ -7,6 +7,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.24.0] - 2026-11-04
+
 ### Added
 
 - **Demandes d'exercice des droits (RGPD)** (issue #375), dans la rubrique Conformité : droit exercé,
