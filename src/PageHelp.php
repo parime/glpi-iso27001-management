@@ -107,6 +107,33 @@ class PageHelp
                     'grcmanager'
                 ),
             ],
+            'riskappetite' => [
+                'purpose'   => __(
+                    'The risk appetite and tolerance set by management for each risk category, and the open risks '
+                        . 'that exceed them.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Have management approve the levels; then give each risk above the appetite a treatment or a '
+                        . 'formal, justified acceptance. Risks above tolerance come first.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO 27001, 6.1.2; ISO 31000, 6.3.4', 'grcmanager'),
+            ],
+            'riskindicator' => [
+                'purpose'   => __(
+                    'Key risk indicators (KRI): values measured over time, entered by hand or measured every day '
+                        . 'from technical checks, fleet vulnerabilities and the risk register, with orange and red '
+                        . 'thresholds.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Set the thresholds of each indicator, enter the manual values at each review, and open a ticket '
+                        . 'for any indicator in the red.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO 27001, 6.1.2 and 9.1', 'grcmanager'),
+            ],
             'riskcatalog' => [
                 'purpose'  => __(
                     'Typical infrastructure risks (exposed administration service, flat network, poorly isolated '

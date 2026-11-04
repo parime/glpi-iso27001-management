@@ -296,6 +296,31 @@ function plugin_grcmanager_dashboard_cards(?array $cards = null): array
             'group' => $group,
             'provider' => SecuredDashboardCards::class . '::risksMissingTreatmentPlanCount',
         ],
+        // Issue #378 (appétence, tolérance et indicateurs de risque).
+        'grcmanager_risks_above_appetite' => [
+            'widgettype' => ['bigNumber'],
+            'label' => __('Open risks above appetite', 'grcmanager'),
+            'group' => $group,
+            'provider' => SecuredDashboardCards::class . '::risksAboveAppetiteCount',
+        ],
+        'grcmanager_risks_above_tolerance' => [
+            'widgettype' => ['bigNumber'],
+            'label' => __('Open risks above tolerance', 'grcmanager'),
+            'group' => $group,
+            'provider' => SecuredDashboardCards::class . '::risksAboveToleranceCount',
+        ],
+        'grcmanager_risk_indicators_by_status' => [
+            'widgettype' => ['multipleNumber', 'pie', 'donut', 'bar', 'hbar'],
+            'label' => __('Risk indicators (KRI) by status', 'grcmanager'),
+            'group' => $group,
+            'provider' => SecuredDashboardCards::class . '::riskIndicatorsByStatus',
+        ],
+        'grcmanager_risk_indicators_red' => [
+            'widgettype' => ['bigNumber'],
+            'label' => __('Risk indicators (KRI) in the red', 'grcmanager'),
+            'group' => $group,
+            'provider' => SecuredDashboardCards::class . '::riskIndicatorsRedCount',
+        ],
     ];
 
     // Absorption de glpi-security-incidents (ROADMAP.md "Version 2.0") : cartes des incidents,

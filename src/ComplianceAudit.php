@@ -28,6 +28,7 @@ use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Services\Compliance\ComplianceAuditScore;
 use GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig;
 use GlpiPlugin\Grcmanager\Services\Control\FrameworkSelection;
+use GlpiPlugin\Grcmanager\Services\Risk\KriRules;
 use Html;
 use Item_Disk;
 use Item_Ticket;
@@ -231,6 +232,26 @@ class ComplianceAudit extends CommonGLPI
     }
 
     /**
+     * Issue #378 : part des ordinateurs en écart (en %) pour un contrôle technique (antivirus ou
+     * chiffrement) sur les entités données, pour alimenter un indicateur de risque. Null si aucun
+     * ordinateur n'est concerné. L'appelant vérifie les droits (RiskIndicator::canUseSource()).
+     *
+     * @param list<int> $entityIds
+     */
+    public static function gapRate(string $check, array $entityIds): ?float
+    {
+        if (!in_array($check, ['antivirus', 'encryption'], true) || $entityIds === []) {
+            return null;
+        }
+        $computers = self::computers([Computer::getTable() . '.entities_id' => $entityIds]);
+        $result = $check === 'antivirus'
+            ? self::antivirus($computers, Session::getCurrentTime() ?? date('Y-m-d H:i:s'))
+            : self::encryption($computers);
+
+        return KriRules::rate(count($result['gaps']), $result['total']);
+    }
+
+    /**
      * @return array{evaluated: bool, total: int, gaps: list<array<string, mixed>>}
      */
     private static function notEvaluated(): array
@@ -285,10 +306,12 @@ class ComplianceAudit extends CommonGLPI
 
     /**
      * Ordinateurs visibles (entités actives, hors corbeille, gabarits et statuts exclus).
+     * Issue #378 : un indicateur de risque passe à la place le périmètre de son entité.
      *
+     * @param array<string, mixed>|null $entityCriteria
      * @return array<int, array<string, mixed>>
      */
-    private static function computers(): array
+    private static function computers(?array $entityCriteria = null): array
     {
         global $DB;
 
@@ -302,7 +325,8 @@ class ComplianceAudit extends CommonGLPI
             $DB->request([
                 'SELECT' => ['id', 'name', 'is_dynamic', 'last_inventory_update'],
                 'FROM'   => Computer::getTable(),
-                'WHERE'  => $where + getEntitiesRestrictCriteria(Computer::getTable(), '', '', true),
+                'WHERE'  => $where
+                    + ($entityCriteria ?? getEntitiesRestrictCriteria(Computer::getTable(), '', '', true)),
                 'ORDER'  => 'name',
             ]) as $row
         ) {

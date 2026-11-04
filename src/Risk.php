@@ -25,6 +25,7 @@ use GlpiPlugin\Grcmanager\Compatibility\Base\RiskBase;
 use GlpiPlugin\Grcmanager\Services\Classification\ClassificationLevels;
 use GlpiPlugin\Grcmanager\Services\Risk\LinkableItemtypes;
 use GlpiPlugin\Grcmanager\Services\Risk\ReviewReminderService;
+use GlpiPlugin\Grcmanager\Services\Risk\RiskAppetiteRules;
 use GlpiPlugin\Grcmanager\Services\Risk\RiskItemLinkNormalizer;
 use GlpiPlugin\Grcmanager\Services\Risk\TreatmentPlanRules;
 use GlpiPlugin\Grcmanager\Traits\RiskAssessmentTrait;
@@ -161,7 +162,58 @@ class Risk extends RiskBase
             return false;
         }
 
-        return $this->computeRiskLevel($input);
+        $input = $this->computeRiskLevel($input);
+
+        return $this->applyAppetite($input);
+    }
+
+    /**
+     * Issue #378 : un risque accepté alors qu'il dépasse l'appétence de sa catégorie est une
+     * acceptation formelle. Elle doit être justifiée, et la personne qui l'enregistre (droit de
+     * modifier le registre) la signe : son identifiant et la date sont conservés. Rien ne change
+     * tant que la catégorie n'a pas d'appétence (RiskAppetite).
+     *
+     * @param array<string, mixed> $input
+     * @return array<string, mixed>|false
+     */
+    private function applyAppetite(array $input)
+    {
+        unset($input['users_id_acceptance'], $input['date_acceptance']);
+        $category  = (string) ($input['category'] ?? ($this->fields['category'] ?? ''));
+        $level     = (string) ($input['risk_level'] ?? ($this->fields['risk_level'] ?? ''));
+        $treatment = (string) ($input['treatment'] ?? ($this->fields['treatment'] ?? ''));
+        $position  = RiskAppetite::positionFor($category, $level);
+        $alreadySigned = (int) ($this->fields['users_id_acceptance'] ?? 0) > 0
+            && ($this->fields['treatment'] ?? '') === 'accept';
+
+        if (RiskAppetiteRules::isFormalAcceptance($position, $treatment)) {
+            $justification = trim((string) ($input['justification'] ?? ($this->fields['justification'] ?? '')));
+            if ($justification === '') {
+                Session::addMessageAfterRedirect(
+                    __(
+                        'This risk exceeds the appetite of its category: accepting it requires a justification.',
+                        'grcmanager'
+                    ),
+                    false,
+                    ERROR
+                );
+
+                return false;
+            }
+            if (!$alreadySigned) {
+                $input['users_id_acceptance'] = (int) Session::getLoginUserID();
+                $input['date_acceptance']     = Session::getCurrentTime() ?? date('Y-m-d H:i:s');
+                AuditLog::record('risk_acceptance', self::class, (int) ($this->fields['id'] ?? 0), 0, 'success', [
+                    'category' => $category, 'level' => $level, 'position' => $position,
+                ]);
+            }
+        } elseif ($treatment !== 'accept' && (int) ($this->fields['users_id_acceptance'] ?? 0) > 0) {
+            // Décision changée : la signature d'acceptation ne vaut plus.
+            $input['users_id_acceptance'] = 0;
+            $input['date_acceptance']     = null;
+        }
+
+        return $input;
     }
 
     public function rawSearchOptions()
@@ -257,6 +309,24 @@ class Risk extends RiskBase
             'name'     => __('ID'),
             'datatype' => 'itemlink',
             'itemtype' => self::class,
+        ];
+
+        // Issue #378 : acceptation formelle d'un risque au-dessus de l'appétence.
+        $tab[] = [
+            'id'        => 11,
+            'table'     => 'glpi_users',
+            'field'     => 'name',
+            'linkfield' => 'users_id_acceptance',
+            'name'      => __('Formally accepted by', 'grcmanager'),
+            'datatype'  => 'dropdown',
+            'right'     => 'all',
+        ];
+        $tab[] = [
+            'id'       => 12,
+            'table'    => $this->getTable(),
+            'field'    => 'date_acceptance',
+            'name'     => __('Formal acceptance date', 'grcmanager'),
+            'datatype' => 'datetime',
         ];
 
         return $tab;
@@ -401,6 +471,16 @@ class Risk extends RiskBase
             'high_classification' => !$isNew && self::hasHighClassificationAmongLinkedAssets((int) $ID),
             'plan_relevant'       => $planRelevant,
             'asset_groups'        => $assetGroups,
+            // Issue #378 : position par rapport à l'appétence, acceptation formelle, KRI liés.
+            'appetite_position'   => $isNew ? RiskAppetiteRules::UNDEFINED : RiskAppetite::positionFor(
+                (string) $this->fields['category'],
+                (string) $this->fields['risk_level']
+            ),
+            'appetite_url'        => RiskAppetite::getSearchURL(),
+            'accepted_by'         => (int) ($this->fields['users_id_acceptance'] ?? 0) > 0
+                ? getUserName((int) $this->fields['users_id_acceptance']) : '',
+            'accepted_on'         => (string) ($this->fields['date_acceptance'] ?? ''),
+            'indicators'          => $isNew ? [] : RiskIndicator::forRisk((int) $ID),
         ]);
 
         // Issue #31 : le plan de traitement est un vrai enfant (ajout, statut, suppression par

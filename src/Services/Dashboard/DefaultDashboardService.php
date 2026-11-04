@@ -179,6 +179,11 @@ final class DefaultDashboardService
             $bigNumber('grcmanager_evidences_to_renew', 6, 8, 6),
             $bigNumber('grcmanager_critical_suppliers_without_assessment', 12, 8, 6),
             $bigNumber('grcmanager_periodic_reviews_overdue', 18, 8, 6),
+            // Issue #378 : appétence, tolérance et indicateurs de risque (KRI).
+            $bigNumber('grcmanager_risks_above_tolerance', 0, 10, 6),
+            $bigNumber('grcmanager_risks_above_appetite', 6, 10, 6),
+            $bigNumber('grcmanager_risk_indicators_red', 12, 10, 6),
+            self::chart('grcmanager_risk_indicators_by_status', 'pie', 18, 10, 6, 4),
         ];
     }
 
@@ -328,6 +333,11 @@ final class DefaultDashboardService
             // session de formation (issue #143).
             self::chart('grcmanager_monthly_trend', 'lines', 0, 24, 12, 6),
             self::chart('grcmanager_training_pass_rate_by_session', 'hbar', 12, 24, 12, 6),
+            // Rangée 9 (y=30) : appétence, tolérance et indicateurs de risque (issue #378).
+            $bigNumber('grcmanager_risks_above_appetite', 0, 30, '#f8911f'),
+            $bigNumber('grcmanager_risks_above_tolerance', 4, 30, '#cc2936'),
+            $bigNumber('grcmanager_risk_indicators_red', 8, 30, '#b52d30'),
+            $pie('grcmanager_risk_indicators_by_status', 12, 30),
         ];
     }
 }

@@ -1,0 +1,85 @@
+{# Issue #378 : historique des valeurs d'un KRI, relevé à la demande et ticket proposé au rouge.
+   Hors du formulaire du KRI : ces mini formulaires postent vers riskindicatorvalue.form.php et
+   riskindicator.form.php. #}
+<div class="card mt-3"><div class="card-body">
+   <h3>{{ __('Value history', 'grcmanager') }}
+      {% if trend %}
+         <span class="badge {{ worsening ? 'bg-red-lt' : 'bg-secondary-lt' }} ms-2">
+            <i class="ti {{ trend == 'up' ? 'ti-trending-up' : (trend == 'down' ? 'ti-trending-down' : 'ti-arrow-right') }} me-1"></i>
+            {{ worsening ? __('Worsening', 'grcmanager') : (trend == 'stable' ? __('Stable', 'grcmanager') : __('Improving', 'grcmanager')) }}
+         </span>
+      {% endif %}
+   </h3>
+   {% if is_red %}
+      <div class="alert alert-danger d-flex align-items-center">
+         <i class="ti ti-alert-octagon me-2"></i>
+         <div class="flex-grow-1">{{ __('This indicator is in the red: open a ticket so that the team handles it.', 'grcmanager') }}</div>
+         {% if ticket_url %}
+            <a href="{{ ticket_url }}" class="btn btn-sm btn-outline-danger">{{ __('Open ticket #%d', 'grcmanager')|format(ticket_id) }}</a>
+         {% elseif can_ticket %}
+            <form method="post" action="{{ path('/plugins/grcmanager/front/riskindicator.form.php') }}">
+               <input type="hidden" name="id" value="{{ kri_id }}">
+               <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+               <button type="submit" name="create_ticket" value="1" class="btn btn-sm btn-danger">{{ __('Create a ticket', 'grcmanager') }}</button>
+            </form>
+         {% endif %}
+      </div>
+   {% endif %}
+   {% if can_edit %}
+      {% if automatic %}
+         <form method="post" action="{{ path('/plugins/grcmanager/front/riskindicator.form.php') }}" class="mb-3">
+            <input type="hidden" name="id" value="{{ kri_id }}">
+            <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+            <button type="submit" name="measure" value="1" class="btn btn-outline-primary"><i class="ti ti-refresh me-1"></i>{{ __('Measure now', 'grcmanager') }}</button>
+            <span class="form-hint ms-2">{{ __('Also measured every day by the scheduled task.', 'grcmanager') }}</span>
+         </form>
+      {% endif %}
+      <form method="post" action="{{ action }}" class="mb-3">
+         <input type="hidden" name="plugin_grcmanager_riskindicators_id" value="{{ kri_id }}">
+         <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+         <div class="row g-2 align-items-end">
+            <div class="col-md-3">
+               <label class="form-label" for="grc-kri-date">{{ __('Measurement date', 'grcmanager') }}</label>
+               <input type="date" id="grc-kri-date" name="value_date" value="{{ today }}" class="form-control">
+            </div>
+            <div class="col-md-2">
+               <label class="form-label" for="grc-kri-value">{{ __('Value', 'grcmanager') }}{% if unit %} ({{ unit }}){% endif %}</label>
+               <input type="text" id="grc-kri-value" name="value" class="form-control" required>
+            </div>
+            <div class="col-md-5">
+               <label class="form-label" for="grc-kri-comment">{{ __('Comment', 'grcmanager') }}</label>
+               <input type="text" id="grc-kri-comment" name="comment" class="form-control">
+            </div>
+            <div class="col-md-2">
+               <button type="submit" name="add" value="1" class="btn btn-primary">{{ __('Add') }}</button>
+            </div>
+         </div>
+      </form>
+   {% endif %}
+   <table class="table">
+      <thead><tr><th>{{ __('Measurement date', 'grcmanager') }}</th><th>{{ __('Value', 'grcmanager') }}</th><th>{{ __('Status', 'grcmanager') }}</th><th>{{ __('Comment', 'grcmanager') }}</th>{% if can_purge %}<th></th>{% endif %}</tr></thead>
+      <tbody>
+         {% for v in values %}
+            <tr>
+               <td>{{ v.value_date|formatted_date }}{% if v.is_automatic %} <span class="badge bg-azure-lt ms-1">{{ __('Automatic', 'grcmanager') }}</span>{% endif %}</td>
+               <td>{{ v.value }}{% if unit %} {{ unit }}{% endif %}</td>
+               <td>{% include '@grcmanager/_badge.html.twig' with v.status_badge only %}</td>
+               <td>{{ v.comment ?? '' }}</td>
+               {% if can_purge %}
+                  <td>
+                     <form method="post" action="{{ action }}" data-grc-confirm="{{ __('Confirm deletion?', 'grcmanager') }}">
+                        <input type="hidden" name="id" value="{{ v.id }}">
+                        <input type="hidden" name="plugin_grcmanager_riskindicators_id" value="{{ kri_id }}">
+                        <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                        <button type="submit" name="purge" value="1" class="btn btn-sm btn-outline-danger" aria-label="{{ __('Delete') }}"><i class="ti ti-trash"></i></button>
+                     </form>
+                  </td>
+               {% endif %}
+            </tr>
+         {% else %}
+            <tr><td colspan="{{ can_purge ? 5 : 4 }}" class="text-muted">{{ __('No measurement recorded yet.', 'grcmanager') }}</td></tr>
+         {% endfor %}
+      </tbody>
+   </table>
+</div></div>
+{% include '@grcmanager/_confirm_forms.html.twig' %}
