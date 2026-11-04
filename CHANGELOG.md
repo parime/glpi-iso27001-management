@@ -7,6 +7,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.22.0] - 2026-11-04
+
 ### Added
 
 - **Études EBIOS Risk Manager** (issue #376, première partie), méthode de l'ANSSI sous licence
