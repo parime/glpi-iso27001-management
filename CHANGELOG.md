@@ -9,6 +9,9 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Fixed
 
+- **KRI** : avec les règles de SLA de Configuration GLPI Auto, le ticket d'un indicateur au rouge
+  partait au groupe de la règle et plus au groupe RSSI. Le groupe RSSI reste désormais assigné, en
+  plus de celui de la règle.
 - **GLPI 12** : un accès refusé ou un élément introuvable donnait une erreur 500 sur plusieurs pages
   (IOC, techniques, journal des actions, remédiation, exercices de crise, tests de contrôles...),
   car GLPI 12 a retiré les fonctions utilisées. Ces pages répondent de nouveau 403 ou 404.
@@ -16,6 +19,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   hors UE.
 - **Traductions** : « riesame » harmonisé en italien (terme des normes ISO), « w strefie czerwonej »
   pour un indicateur au rouge en polonais.
+- **Journal d'audit** : les filtres sont conservés après « Vérifier l'intégrité ».
+- **Traductions** : entrée polonaise refusée par `msgfmt -c` (un « % » littéral marqué comme format).
 
 ## [2.21.0] - 2026-11-04
 

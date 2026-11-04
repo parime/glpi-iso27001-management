@@ -302,6 +302,36 @@ final class RiskAppetiteKriTest extends GrcmanagerIntegrationTestCase
         $this->assertStringContainsString((string) $kri->fields['name'], (string) $ticket->fields['name']);
     }
 
+    public function testCisoGroupKeepsTheTicketWhenABusinessRuleAssignsAnotherGroup(): void
+    {
+        $ciso = (int) (new \Group())->add(['name' => 'RSSI fictif', 'entities_id' => 0, 'is_recursive' => 1]);
+        $support = (int) (new \Group())->add(['name' => 'Support fictif', 'entities_id' => 0, 'is_recursive' => 1]);
+        AuditTeam::setCisoGroupId($ciso);
+        $rule = new \RuleTicket();
+        $ruleId = (int) $rule->add([
+            'name' => 'Règle fictive', 'sub_type' => 'RuleTicket', 'match' => 'AND', 'is_active' => 1,
+            'entities_id' => 0, 'is_recursive' => 1, 'condition' => \RuleTicket::ONADD, 'ranking' => 0,
+        ]);
+        (new \RuleCriteria())->add([
+            'rules_id' => $ruleId, 'criteria' => 'name', 'condition' => \Rule::PATTERN_CONTAIN, 'pattern' => 'KRI',
+        ]);
+        (new \RuleAction())->add([
+            'rules_id' => $ruleId, 'action_type' => 'assign', 'field' => '_groups_id_assign', 'value' => $support,
+        ]);
+
+        try {
+            $kri = $this->kri();
+            $kri->recordValue(15, date('Y-m-d'));
+            $ticketsId = $kri->createTicket();
+            $assigned = ['tickets_id' => $ticketsId, 'type' => \CommonITILActor::ASSIGN];
+            $this->assertSame(1, countElementsInTable('glpi_groups_tickets', $assigned + ['groups_id' => $ciso]));
+            // Le groupe de la règle reste assigné (une autre règle de l'instance peut passer après celle-ci).
+            $this->assertSame(2, countElementsInTable('glpi_groups_tickets', $assigned));
+        } finally {
+            $rule->delete(['id' => $ruleId], true);
+        }
+    }
+
     public function testTicketUsesTheCgaSecurityBranchOnlyWhenItAcceptsRequests(): void
     {
         $category = (int) (new \ITILCategory())->add([

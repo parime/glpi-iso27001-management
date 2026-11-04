@@ -56,6 +56,7 @@ TemplateRenderer::getInstance()->display('@grcmanager/audit_log.html.twig', [
     'action'       => $action,
     'csv_url'      => $action . '?' . http_build_query(array_filter($filters) + ['csv' => 1]),
     'filters'      => $filters,
+    'verify_url'   => $action . (array_filter($filters) === [] ? '' : '?' . http_build_query(array_filter($filters))),
     'actions'      => AuditLog::getActions(),
     'verification' => $verification,
     'total'        => countElementsInTable(AuditLog::getTable(), $where),
