@@ -8407,3 +8407,173 @@ msgstr "Vorfalltyp"
 
 msgid "The playbook is suggested first on incidents of this type."
 msgstr "Der Ablauf wird bei Vorfällen dieses Typs zuerst vorgeschlagen."
+
+msgid "Evaluation or scoring of people"
+msgstr "Bewertung oder Einstufung von Personen"
+
+msgid "Automated decisions with legal or similar effects"
+msgstr "Automatisierte Entscheidung mit rechtlicher oder ähnlicher Wirkung"
+
+msgid "Systematic monitoring of people"
+msgstr "Systematische Überwachung von Personen"
+
+msgid "Sensitive or highly personal data"
+msgstr "Sensible oder höchstpersönliche Daten"
+
+msgid "Processing on a large scale"
+msgstr "Verarbeitung in großem Umfang"
+
+msgid "Matching or combining datasets"
+msgstr "Abgleich oder Zusammenführung von Datensätzen"
+
+msgid "Data about vulnerable people"
+msgstr "Daten schutzbedürftiger Personen"
+
+msgid "Innovative use of technology"
+msgstr "Innovativer Einsatz von Technologie"
+
+msgid "Prevents the exercise of a right or access to a service"
+msgstr "Verhindert die Ausübung eines Rechts oder den Zugang zu einem Dienst"
+
+msgid "Illegitimate access to data"
+msgstr "Unrechtmäßiger Zugriff auf Daten"
+
+msgid "Unwanted change of data"
+msgstr "Unerwünschte Änderung von Daten"
+
+msgid "Disappearance of data"
+msgstr "Verlust von Daten"
+
+msgid "1 - Negligible"
+msgstr "1 - Vernachlässigbar"
+
+msgid "2 - Limited"
+msgstr "2 - Begrenzt"
+
+msgid "3 - Significant"
+msgstr "3 - Erheblich"
+
+msgid "4 - Maximum"
+msgstr "4 - Maximal"
+
+msgid "Necessity and proportionality"
+msgstr "Notwendigkeit und Verhältnismäßigkeit"
+
+msgid "Rating of the three risks, before and after measures"
+msgstr "Bewertung der drei Risiken, vor und nach den Maßnahmen"
+
+msgid "Planned measures"
+msgstr "Geplante Maßnahmen"
+
+msgid "Opinion of the DPO"
+msgstr "Stellungnahme des DSB"
+
+msgid "This DPIA is approved: reopen it to change it."
+msgstr "Diese DSFA ist genehmigt: Öffnen Sie sie erneut, um sie zu ändern."
+
+#, php-format
+msgid "This DPIA cannot be approved yet, missing: %s"
+msgstr "Diese DSFA kann noch nicht genehmigt werden, es fehlt: %s"
+
+msgid "DPIA approved"
+msgstr "DSFA genehmigt"
+
+msgid "DPIA reopened, approval withdrawn"
+msgstr "DSFA erneut geöffnet, Genehmigung zurückgezogen"
+
+msgid "Seriousness"
+msgstr "Schwere"
+
+msgid "Severity after measures"
+msgstr "Schwere nach Maßnahmen"
+
+msgid "Likelihood after measures"
+msgstr "Wahrscheinlichkeit nach Maßnahmen"
+
+msgid "On the record"
+msgstr "Im Eintrag"
+
+msgid "Report (PDF)"
+msgstr "Bericht (PDF)"
+
+msgid "A residual risk remains high: article 36 of the GDPR requires consulting the supervisory authority (CNIL in France) before starting the processing."
+msgstr "Ein Restrisiko bleibt hoch: Artikel 36 DSGVO verlangt, vor Beginn der Verarbeitung die Aufsichtsbehörde zu konsultieren (in Frankreich die CNIL)."
+
+#, php-format
+msgid "The record of this processing could be updated: %s."
+msgstr "Der Eintrag dieser Verarbeitung könnte aktualisiert werden: %s."
+
+msgid "Update the record"
+msgstr "Eintrag aktualisieren"
+
+msgid "Is a DPIA needed?"
+msgstr "Ist eine DSFA erforderlich?"
+
+msgid "European guidelines (WP248) list nine criteria. From two criteria met, a DPIA is required in principle. The final decision remains yours, after the opinion of the DPO."
+msgstr "Die europäischen Leitlinien (WP248) nennen neun Kriterien. Ab zwei erfüllten Kriterien ist grundsätzlich eine DSFA erforderlich. Die endgültige Entscheidung liegt nach der Stellungnahme des DSB bei Ihnen."
+
+msgid "Criteria met"
+msgstr "Erfüllte Kriterien"
+
+msgid "A DPIA is required in principle."
+msgstr "Eine DSFA ist grundsätzlich erforderlich."
+
+msgid "Below the threshold: a DPIA is not required in principle."
+msgstr "Unter dem Schwellenwert: Eine DSFA ist grundsätzlich nicht erforderlich."
+
+msgid "Description and proportionality"
+msgstr "Beschreibung und Verhältnismäßigkeit"
+
+msgid "Description of the processing"
+msgstr "Beschreibung der Verarbeitung"
+
+msgid "What the record does not say: how data flows, who accesses it, in which tools"
+msgstr "Was der Eintrag nicht sagt: wie die Daten fließen, wer darauf zugreift, in welchen Werkzeugen"
+
+msgid "Why this data, why this duration, could the same goal be reached with less?"
+msgstr "Warum diese Daten, warum diese Dauer, ließe sich dasselbe Ziel mit weniger erreichen?"
+
+msgid "Risks for the people concerned"
+msgstr "Risiken für die betroffenen Personen"
+
+msgid "Rate each risk from the point of view of the people concerned, not of the organisation, before and after the planned measures."
+msgstr "Bewerten Sie jedes Risiko aus Sicht der betroffenen Personen, nicht der Organisation, vor und nach den geplanten Maßnahmen."
+
+msgid "Residual level"
+msgstr "Restniveau"
+
+msgid "Encryption, access limited to..., shorter retention, information of the people..."
+msgstr "Verschlüsselung, Zugriff beschränkt auf..., kürzere Aufbewahrung, Information der Personen..."
+
+msgid "Opinions"
+msgstr "Stellungnahmen"
+
+msgid "DPO"
+msgstr "DSB"
+
+msgid "Views of the people concerned"
+msgstr "Standpunkt der betroffenen Personen"
+
+msgid "Consultation carried out, or why it was not appropriate"
+msgstr "Durchgeführte Konsultation oder warum sie nicht angebracht war"
+
+msgid "Approval by the data controller"
+msgstr "Genehmigung durch den Verantwortlichen"
+
+msgid "Still missing before approval:"
+msgstr "Vor der Genehmigung fehlt noch:"
+
+msgid "Reopen this DPIA? The approval will be withdrawn."
+msgstr "Diese DSFA erneut öffnen? Die Genehmigung wird zurückgezogen."
+
+msgid "Approve this DPIA? It can no longer be changed unless it is reopened."
+msgstr "Diese DSFA genehmigen? Sie kann nur nach erneutem Öffnen geändert werden."
+
+msgid "Reopen"
+msgstr "Erneut öffnen"
+
+msgid "Approve"
+msgstr "Genehmigen"
+
+msgid "Add the highest residual risk to the register"
+msgstr "Das höchste Restrisiko zum Register hinzufügen"

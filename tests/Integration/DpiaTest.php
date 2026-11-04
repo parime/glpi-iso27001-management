@@ -169,6 +169,13 @@ final class DpiaTest extends GrcmanagerIntegrationTestCase
         $this->assertStringContainsString('Finalité fictive du rapport', $report);
         $this->assertStringContainsString('Chiffrement fictif', $report);
 
+        // Le texte saisi reste du texte, à l'écran comme dans le rapport.
+        Dpia::saveForm($id, ['necessity' => '<img src=x onerror=alert(1)>'] + $this->completeForm(4, 4));
+        $this->assertStringNotContainsString('<img src=x', Dpia::renderReport($activity));
+        ob_start();
+        Dpia::displayTabContentForItem($activity);
+        $this->assertStringNotContainsString('<img src=x', (string) ob_get_clean());
+
         // En lecture seule : les données restent visibles, sans bouton ni envoi.
         $saved = $_SESSION['glpiactiveprofile'][ProcessingActivity::RIGHTNAME];
         try {

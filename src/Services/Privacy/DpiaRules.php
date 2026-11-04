@@ -176,9 +176,7 @@ final class DpiaRules
         if ($status === self::STATUS_APPROVED) {
             return $recordStatus === 'done' ? null : 'done';
         }
-        if ($recordStatus === 'done') {
-            return null;
-        }
+        // AIPD en cours (rouverte, par exemple) : la fiche ne doit plus la dire réalisée.
         if (self::isRequired($criteria)) {
             return $recordStatus === 'required' ? null : 'required';
         }

@@ -8407,3 +8407,173 @@ msgstr "Tipo di incidente"
 
 msgid "The playbook is suggested first on incidents of this type."
 msgstr "La procedura viene suggerita per prima sugli incidenti di questo tipo."
+
+msgid "Evaluation or scoring of people"
+msgstr "Valutazione o assegnazione di punteggi a persone"
+
+msgid "Automated decisions with legal or similar effects"
+msgstr "Decisioni automatizzate con effetti giuridici o analoghi"
+
+msgid "Systematic monitoring of people"
+msgstr "Monitoraggio sistematico di persone"
+
+msgid "Sensitive or highly personal data"
+msgstr "Dati sensibili o altamente personali"
+
+msgid "Processing on a large scale"
+msgstr "Trattamento su larga scala"
+
+msgid "Matching or combining datasets"
+msgstr "Incrocio o combinazione di dati"
+
+msgid "Data about vulnerable people"
+msgstr "Dati di persone vulnerabili"
+
+msgid "Innovative use of technology"
+msgstr "Uso innovativo della tecnologia"
+
+msgid "Prevents the exercise of a right or access to a service"
+msgstr "Impedisce l'esercizio di un diritto o l'accesso a un servizio"
+
+msgid "Illegitimate access to data"
+msgstr "Accesso illegittimo ai dati"
+
+msgid "Unwanted change of data"
+msgstr "Modifica indesiderata dei dati"
+
+msgid "Disappearance of data"
+msgstr "Scomparsa dei dati"
+
+msgid "1 - Negligible"
+msgstr "1 - Trascurabile"
+
+msgid "2 - Limited"
+msgstr "2 - Limitato"
+
+msgid "3 - Significant"
+msgstr "3 - Importante"
+
+msgid "4 - Maximum"
+msgstr "4 - Massimo"
+
+msgid "Necessity and proportionality"
+msgstr "Necessità e proporzionalità"
+
+msgid "Rating of the three risks, before and after measures"
+msgstr "Valutazione dei tre rischi, prima e dopo le misure"
+
+msgid "Planned measures"
+msgstr "Misure previste"
+
+msgid "Opinion of the DPO"
+msgstr "Parere del DPO"
+
+msgid "This DPIA is approved: reopen it to change it."
+msgstr "Questa DPIA è approvata: riapritela per modificarla."
+
+#, php-format
+msgid "This DPIA cannot be approved yet, missing: %s"
+msgstr "Questa DPIA non può ancora essere approvata, manca: %s"
+
+msgid "DPIA approved"
+msgstr "DPIA approvata"
+
+msgid "DPIA reopened, approval withdrawn"
+msgstr "DPIA riaperta, approvazione ritirata"
+
+msgid "Seriousness"
+msgstr "Gravità"
+
+msgid "Severity after measures"
+msgstr "Gravità dopo le misure"
+
+msgid "Likelihood after measures"
+msgstr "Probabilità dopo le misure"
+
+msgid "On the record"
+msgstr "Sulla scheda"
+
+msgid "Report (PDF)"
+msgstr "Report (PDF)"
+
+msgid "A residual risk remains high: article 36 of the GDPR requires consulting the supervisory authority (CNIL in France) before starting the processing."
+msgstr "Un rischio residuo resta alto: l'articolo 36 del GDPR impone di consultare l'autorità di controllo (la CNIL in Francia) prima di iniziare il trattamento."
+
+#, php-format
+msgid "The record of this processing could be updated: %s."
+msgstr "La scheda di questo trattamento potrebbe essere aggiornata: %s."
+
+msgid "Update the record"
+msgstr "Aggiorna la scheda"
+
+msgid "Is a DPIA needed?"
+msgstr "È necessaria una DPIA?"
+
+msgid "European guidelines (WP248) list nine criteria. From two criteria met, a DPIA is required in principle. The final decision remains yours, after the opinion of the DPO."
+msgstr "Le linee guida europee (WP248) elencano nove criteri. Con almeno due criteri soddisfatti, una DPIA è in linea di principio richiesta. La decisione finale spetta a voi, dopo il parere del DPO."
+
+msgid "Criteria met"
+msgstr "Criteri soddisfatti"
+
+msgid "A DPIA is required in principle."
+msgstr "Una DPIA è in linea di principio richiesta."
+
+msgid "Below the threshold: a DPIA is not required in principle."
+msgstr "Sotto la soglia: una DPIA non è in linea di principio richiesta."
+
+msgid "Description and proportionality"
+msgstr "Descrizione e proporzionalità"
+
+msgid "Description of the processing"
+msgstr "Descrizione del trattamento"
+
+msgid "What the record does not say: how data flows, who accesses it, in which tools"
+msgstr "Ciò che la scheda non dice: come circolano i dati, chi vi accede, in quali strumenti"
+
+msgid "Why this data, why this duration, could the same goal be reached with less?"
+msgstr "Perché questi dati, perché questa durata, lo stesso obiettivo è raggiungibile con meno?"
+
+msgid "Risks for the people concerned"
+msgstr "Rischi per gli interessati"
+
+msgid "Rate each risk from the point of view of the people concerned, not of the organisation, before and after the planned measures."
+msgstr "Valutate ogni rischio dal punto di vista degli interessati, non dell'organizzazione, prima e dopo le misure previste."
+
+msgid "Residual level"
+msgstr "Livello residuo"
+
+msgid "Encryption, access limited to..., shorter retention, information of the people..."
+msgstr "Cifratura, accesso limitato a..., conservazione più breve, informazione delle persone..."
+
+msgid "Opinions"
+msgstr "Pareri"
+
+msgid "DPO"
+msgstr "DPO"
+
+msgid "Views of the people concerned"
+msgstr "Opinione degli interessati"
+
+msgid "Consultation carried out, or why it was not appropriate"
+msgstr "Consultazione svolta, o perché non era appropriata"
+
+msgid "Approval by the data controller"
+msgstr "Approvazione del titolare del trattamento"
+
+msgid "Still missing before approval:"
+msgstr "Manca ancora prima dell'approvazione:"
+
+msgid "Reopen this DPIA? The approval will be withdrawn."
+msgstr "Riaprire questa DPIA? L'approvazione sarà ritirata."
+
+msgid "Approve this DPIA? It can no longer be changed unless it is reopened."
+msgstr "Approvare questa DPIA? Potrà essere modificata solo se riaperta."
+
+msgid "Reopen"
+msgstr "Riapri"
+
+msgid "Approve"
+msgstr "Approva"
+
+msgid "Add the highest residual risk to the register"
+msgstr "Aggiungi il rischio residuo più alto al registro"

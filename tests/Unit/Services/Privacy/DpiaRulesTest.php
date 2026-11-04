@@ -118,6 +118,7 @@ final class DpiaRulesTest extends TestCase
         self::assertNull(DpiaRules::suggestedRecordStatus('required', $two, 'draft'));
         self::assertSame('done', DpiaRules::suggestedRecordStatus('required', $two, 'approved'));
         self::assertNull(DpiaRules::suggestedRecordStatus('done', $two, 'approved'));
+        self::assertSame('required', DpiaRules::suggestedRecordStatus('done', $two, 'draft'), 'AIPD rouverte.');
         self::assertNull(DpiaRules::suggestedRecordStatus('done', [], 'draft'));
         self::assertSame('not_required', DpiaRules::suggestedRecordStatus('not_assessed', ['large_scale'], 'draft'));
         // Rien de coché : rien à proposer.
