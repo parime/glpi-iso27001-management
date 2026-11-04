@@ -4,7 +4,7 @@
 
 <p>
   <strong>{{ __('Status') }} :</strong> {{ is_approved ? __('Approved', 'grcmanager') : __('Draft', 'grcmanager') }}
-  {% if is_approved %}({{ approval_name }}{{ dpia.date_approval ? ' - ' ~ dpia.date_approval : '' }}){% endif %}
+  {% if is_approved %}({{ approval_name }}{{ approval_date ? ' - ' ~ approval_date : '' }}){% endif %}
 </p>
 {% if needs_consultation %}
   <p><strong>{{ __('A residual risk remains high: article 36 of the GDPR requires consulting the supervisory authority (CNIL in France) before starting the processing.', 'grcmanager') }}</strong></p>
@@ -62,6 +62,6 @@
 <h2>{{ __('Opinions', 'grcmanager') }}</h2>
 <h3>{{ __('Opinion of the DPO', 'grcmanager') }}{{ dpo_name ? ' (' ~ dpo_name ~ ')' : '' }}</h3>
 <p>{{ dpia.dpo_opinion|default('')|nl2br }}</p>
-{% if dpia.date_dpo_opinion|default('') %}<p>{{ dpia.date_dpo_opinion }}</p>{% endif %}
+{% if opinion_date %}<p>{{ opinion_date }}</p>{% endif %}
 <h3>{{ __('Views of the people concerned', 'grcmanager') }}</h3>
 <p>{{ dpia.data_subjects_views|default('')|nl2br }}</p>

@@ -14,7 +14,7 @@
 <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
   {% if is_approved %}
     <span class="badge bg-green-lt fs-5"><i class="ti ti-circle-check me-1"></i>{{ __('Approved', 'grcmanager') }}</span>
-    <span class="text-muted">{{ approval_name }}{{ dpia.date_approval ? ' - ' ~ dpia.date_approval : '' }}</span>
+    <span class="text-muted">{{ approval_name }}{{ approval_date ? ' - ' ~ approval_date : '' }}</span>
   {% else %}
     <span class="badge bg-yellow-lt fs-5"><i class="ti ti-pencil me-1"></i>{{ __('Draft', 'grcmanager') }}</span>
   {% endif %}
@@ -88,7 +88,7 @@
             <td class="fw-bold">{{ risk.label }}</td>
             {% for scale in scales %}
               <td>
-                <select name="risks[{{ risk.key }}][{{ scale }}]" class="form-select form-select-sm" aria-label="{{ risk.label }} - {{ scale_titles[scale] }}" {{ off }}>
+                <select name="risks[{{ risk.key }}][{{ scale }}]" class="form-select form-select-sm" style="min-width: 9.5rem" aria-label="{{ risk.label }} - {{ scale_titles[scale] }}" {{ off }}>
                   <option value="0">{{ constant('Dropdown::EMPTY_VALUE') }}</option>
                   {% for value, label in scale_labels %}<option value="{{ value }}" {{ value == risk[scale] ? 'selected' : '' }}>{{ label }}</option>{% endfor %}
                 </select>
@@ -119,7 +119,7 @@
     <div class="col-md-8">
       <label class="form-label" for="grc-dpia-opinion">{{ __('Opinion of the DPO', 'grcmanager') }}</label>
       <textarea id="grc-dpia-opinion" name="dpo_opinion" class="form-control" rows="3" {{ off }}>{{ dpia.dpo_opinion|default('') }}</textarea>
-      {% if dpia.date_dpo_opinion|default('') %}<div class="form-hint">{{ dpia.date_dpo_opinion }}</div>{% endif %}
+      {% if opinion_date %}<div class="form-hint">{{ opinion_date }}</div>{% endif %}
     </div>
     <div class="col-12">
       <label class="form-label" for="grc-dpia-views">{{ __('Views of the people concerned', 'grcmanager') }}</label>

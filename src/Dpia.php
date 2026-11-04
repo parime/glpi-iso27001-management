@@ -388,6 +388,8 @@ class Dpia extends DpiaBase
                 ? getUserName((int) $fields['users_id_dpo']) : '',
             'approval_name'        => (int) ($fields['users_id_approval'] ?? 0) > 0
                 ? getUserName((int) $fields['users_id_approval']) : '',
+            'approval_date'        => (string) Html::convDateTime($fields['date_approval'] ?? null),
+            'opinion_date'         => (string) Html::convDateTime($fields['date_dpo_opinion'] ?? null),
             'risk'                 => self::linkedRisk($fields),
             'can_send_to_register' => $canEdit && Risk::canCreate() && $dpia !== null && $worst !== null,
         ];
