@@ -34,13 +34,13 @@ $classes = [
 $class = $classes[(string) ($_POST['element'] ?? '')] ?? null;
 Session::checkRight(EbiosElement::RIGHTNAME, UPDATE);
 if ($class === null) {
-    throw new GlpixceptionHttpAccessDeniedHttpException();
+    throw new \Glpi\Exception\Http\AccessDeniedHttpException();
 }
 $item = new $class(); // nosemgrep
 
 if (isset($_POST['add'])) {
     if (!EbiosElement::canEditStudy((int) ($_POST[EbiosElement::STUDY_FK] ?? 0))) {
-        throw new GlpixceptionHttpAccessDeniedHttpException();
+        throw new \Glpi\Exception\Http\AccessDeniedHttpException();
     }
     $item->add($_POST);
 } elseif (isset($_POST['update'])) {
