@@ -245,6 +245,11 @@ function plugin_init_grcmanager(): void
         'addtabon' => [\GlpiPlugin\Grcmanager\Control::class, \GlpiPlugin\Grcmanager\IsmsRequirement::class],
     ]);
 
+    // Issue #380 : onglet « Tests d'efficacité » des mesures de l'Annexe A.
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\ControlTest::class, [
+        'addtabon' => [\GlpiPlugin\Grcmanager\Control::class],
+    ]);
+
     Plugin::registerClass(\GlpiPlugin\Grcmanager\Evidence::class, [
         'addtabon' => \GlpiPlugin\Grcmanager\Services\Evidence\EvidenceValidity::ITEMTYPES,
     ]);
@@ -253,6 +258,14 @@ function plugin_init_grcmanager(): void
     // liens disparaissent avec le ticket ou l'incident supprimé définitivement.
     Plugin::registerClass(\GlpiPlugin\Grcmanager\SecurityIncidentTicket::class, [
         'addtabon' => ['Ticket', PluginGrcmanagerSecurityIncident::class],
+    ]);
+    // Issue #372 : onglet « Incidents de sécurité » des autres éléments liés, avec « Déclarer un
+    // incident » (le ticket garde le sien ci-dessus) ; sur l'incident, « Autres éléments liés ».
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\SecurityIncidentLinkedItem::class, [
+        'addtabon' => array_merge(
+            \GlpiPlugin\Grcmanager\SecurityIncidentLinkedItem::ITEMTYPES,
+            [PluginGrcmanagerSecurityIncident::class]
+        ),
     ]);
     // Issue #139 : « Mes formations » dans les préférences (résultats et copies de quiz de
     // l'utilisateur, sans droit sur le plugin).

@@ -241,6 +241,8 @@ final class Installer
         \GlpiPlugin\Grcmanager\NotificationTargetIncidentAccessWatch::class,
         // Issue #375 : registre des activités de traitement (RGPD).
         \GlpiPlugin\Grcmanager\ProcessingActivity::class,
+        // Issue #380 : tests d'efficacité des mesures.
+        \GlpiPlugin\Grcmanager\ControlTest::class,
     ];
     // Issue #375 : registre des activités de traitement (RGPD, article 30) et éléments GLPI cités,
     // voir \GlpiPlugin\Grcmanager\ProcessingActivity.
@@ -275,6 +277,8 @@ final class Installer
     private const CRISIS_RECOVERIES_TABLE = 'glpi_plugin_grcmanager_crisisrecoveries';
     // Issue #162 : ticket de mise en conformité ouvert par contrôle technique et par entité.
     private const COMPLIANCE_AUDIT_TICKETS_TABLE = 'glpi_plugin_grcmanager_complianceaudittickets';
+    // Issue #380 : tests d'efficacité des mesures, voir \GlpiPlugin\Grcmanager\ControlTest.
+    private const CONTROL_TESTS_TABLE = 'glpi_plugin_grcmanager_controltests';
 
     /**
      * Création et mise à jour du schéma. Les ordres DDL passent par $DB->doQuery(), qui lève une
@@ -496,6 +500,54 @@ final class Installer
                 KEY `theme` (`theme`),
                 KEY `applicability` (`applicability`),
                 KEY `implementation_status` (`implementation_status`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query);
+        }
+
+        // Issue #380 : plan de test d'efficacité de chaque mesure (fréquence en mois, 0 = aucun
+        // plan ; méthode ; responsable), ajouté aux mesures existantes sans toucher à leurs données.
+        if (!$DB->fieldExists(self::CONTROLS_TABLE, 'test_frequency_months')) {
+            $migration->addField(self::CONTROLS_TABLE, 'test_frequency_months', 'integer', [
+                'value' => 0,
+                'after' => 'is_reviewed',
+            ]);
+            $migration->addField(self::CONTROLS_TABLE, 'test_method', 'string', [
+                'value'   => '',
+                'comment' => 'inspection, sampling, technical, interview',
+                'after'   => 'test_frequency_months',
+            ]);
+            $migration->addField(self::CONTROLS_TABLE, 'users_id_tester', 'fkey', ['after' => 'test_method']);
+            $migration->addKey(self::CONTROLS_TABLE, 'users_id_tester', 'users_id_tester');
+            $migration->migrationOneTable(self::CONTROLS_TABLE);
+        }
+
+        // Issue #380 : tests d'efficacité des mesures, une ligne par test (voir
+        // \GlpiPlugin\Grcmanager\ControlTest). Preuve = document joint à la mesure ; non-conformité
+        // ouverte par un test inefficace.
+        if (!$DB->tableExists(self::CONTROL_TESTS_TABLE)) {
+            $query = "CREATE TABLE `" . self::CONTROL_TESTS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_controls_id` int {$keySign} NOT NULL DEFAULT 0,
+                `test_date` date DEFAULT NULL,
+                `method` varchar(16) NOT NULL DEFAULT 'inspection'
+                    COMMENT 'inspection, sampling, technical, interview',
+                `result` varchar(16) NOT NULL DEFAULT '' COMMENT 'effective, partial, ineffective',
+                `users_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Testeur',
+                `comment` text,
+                `documents_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Preuve, jointe a la mesure',
+                `next_test_date` date DEFAULT NULL,
+                `plugin_grcmanager_nonconformities_id` int {$keySign} NOT NULL DEFAULT 0,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `plugin_grcmanager_controls_id` (`plugin_grcmanager_controls_id`),
+                KEY `test_date` (`test_date`),
+                KEY `result` (`result`),
+                KEY `users_id` (`users_id`),
+                KEY `documents_id` (`documents_id`),
+                KEY `next_test_date` (`next_test_date`),
+                KEY `plugin_grcmanager_nonconformities_id` (`plugin_grcmanager_nonconformities_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
             $DB->doQuery($query);
@@ -4286,6 +4338,7 @@ final class Installer
         $migration->dropTable(self::PRODUCT_ALIASES_TABLE);
         $migration->dropTable(self::CANONICAL_PRODUCTS_TABLE);
         $migration->dropTable(self::CONTROLS_RISKS_TABLE);
+        $migration->dropTable(self::CONTROL_TESTS_TABLE);
         $migration->dropTable(self::CONTROLS_TABLE);
         $migration->dropTable(self::ISMS_REQUIREMENTS_TABLE);
         $migration->dropTable(self::SOA_VERSIONS_USERS_TABLE);

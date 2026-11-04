@@ -1,0 +1,16 @@
+{# Issue #372 : onglet « Autres éléments liés » de l'incident (utilisateurs, fournisseurs, problèmes, changements) #}
+<div class="card">
+   <div class="card-body">
+      <table class="table table-sm table-vcenter mb-0">
+         <thead><tr><th>{{ __('Type') }}</th><th>{{ __('Name') }}</th></tr></thead>
+         <tbody>
+            {% for r in rows %}
+               <tr>
+                  <td>{{ r.type }}</td>
+                  <td><a href="{{ r.url }}">{{ r.name }}</a></td>
+               </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+   </div>
+</div>
