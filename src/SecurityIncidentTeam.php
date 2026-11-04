@@ -102,48 +102,19 @@ class SecurityIncidentTeam extends SecurityIncidentTeamBase
     }
 
     /**
-     * Hooks::ADD_DEFAULT_WHERE : sans le droit « Voir tout », la liste et la recherche des
-     * incidents ne montrent que ceux où l'utilisateur est acteur, rédacteur ou membre de l'équipe
-     * (GLPI ne le fait lui-même que pour ses tickets, changements et problèmes).
+     * Hooks::ADD_DEFAULT_WHERE : la liste et la recherche des incidents suivent la même règle que
+     * leur ouverture (viewCriteria(), équivalente à canViewItem()) : aucune ligne pour un incident
+     * que l'utilisateur ne peut pas ouvrir, même hors du groupe sécurité avec « Voir tout » (GLPI ne
+     * le fait lui-même que pour ses tickets, changements et problèmes).
      *
      * @param array<int|string, mixed> $criteria
      * @return array<int|string, mixed>
      */
     public static function restrictSearch(array $criteria): array
     {
-        $right = PluginGrcmanagerSecurityIncident::$rightname;
-        if (Session::haveRight($right, PluginGrcmanagerSecurityIncident::READALL)) {
-            return $criteria;
+        foreach (self::viewCriteria() as $criterion) {
+            $criteria[] = $criterion;
         }
-        $table = PluginGrcmanagerSecurityIncident::getTable();
-        if (!Session::haveRight($right, PluginGrcmanagerSecurityIncident::READMY)) {
-            $criteria[] = new QueryExpression('false');
-
-            return $criteria;
-        }
-        $me = (int) Session::getLoginUserID();
-        $fk = 'plugin_grcmanager_securityincidents_id';
-        $or = [
-            "$table.users_id_recipient" => $me,
-            ["$table.id" => new QuerySubQuery([
-                'SELECT' => $fk,
-                'FROM'   => \PluginGrcmanagerSecurityIncident_User::getTable(),
-                'WHERE'  => ['users_id' => $me],
-            ])],
-            ["$table.id" => new QuerySubQuery([
-                'SELECT' => $fk,
-                'FROM'   => self::getTable(),
-                'WHERE'  => ['users_id' => $me],
-            ])],
-        ];
-        if (!empty($_SESSION['glpigroups'])) {
-            $or[] = ["$table.id" => new QuerySubQuery([
-                'SELECT' => $fk,
-                'FROM'   => \PluginGrcmanagerSecurityIncident_Group::getTable(),
-                'WHERE'  => ['groups_id' => $_SESSION['glpigroups']],
-            ])];
-        }
-        $criteria[] = ['OR' => $or];
 
         return $criteria;
     }
