@@ -31,7 +31,7 @@ if (is_readable(__DIR__ . '/vendor/autoload.php')) {
     \GlpiPlugin\Grcmanager\Install\ItemtypeRenames::registerAliases();
 }
 
-define('PLUGIN_GRCMANAGER_VERSION', '2.23.0');
+define('PLUGIN_GRCMANAGER_VERSION', '2.24.0');
 define('PLUGIN_GRCMANAGER_MIN_GLPI', '11.0.0');
 // GLPI 11 and 12 from a single code base (see src/Compatibility/).
 define('PLUGIN_GRCMANAGER_MAX_GLPI', '12.99.99');
@@ -138,6 +138,8 @@ function plugin_init_grcmanager(): void
     // polymorphe CommonDBTM::cleanDBonPurge()) - ignorerait cette politique.
     global $CFG_GLPI;
     $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\Policy::class;
+    // Issue #375 : preuve de la réponse à une demande d'exercice des droits.
+    $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\DataSubjectRequest::class;
     // Issue #170 : validation signée d'une dérogation, analyse de risque jointe.
     $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\Waiver::class;
     // Issue #139 : feuille d'émargement, support et quiz d'une session de formation.

@@ -22,6 +22,7 @@ use Document_Item;
 use Dropdown;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\ComplianceEventBase;
+use GlpiPlugin\Grcmanager\Services\Privacy\DataSubjectRequestRules;
 use GlpiPlugin\Grcmanager\Services\Calendar\ComplianceCalendarRules;
 use GlpiPlugin\Grcmanager\Services\Ui\Fragment;
 use Log;
@@ -150,6 +151,7 @@ class ComplianceEvent extends ComplianceEventBase
             'obligation'        => [__('Obligation review', 'grcmanager'), 'ti-gavel'],
             'evidence'          => [__('Evidence expiry', 'grcmanager'), 'ti-file-alert'],
             'control_test'      => [ControlTest::getTypeName(1), 'ti-test-pipe'],
+            'data_subject_request' => [DataSubjectRequest::getTypeName(1), 'ti-user-question'],
         ];
     }
 
@@ -298,7 +300,8 @@ class ComplianceEvent extends ComplianceEventBase
             self::policyDeadlines(),
             self::obligationDeadlines(),
             self::evidenceDeadlines(),
-            self::controlTestDeadlines()
+            self::controlTestDeadlines(),
+            self::dataSubjectRequestDeadlines()
         );
 
         $events = [];
@@ -405,6 +408,46 @@ class ComplianceEvent extends ComplianceEventBase
                 (int) $row['users_id'],
                 Audit::getFormURLWithID($id),
                 $row['status'] === 'completed'
+            );
+        }
+
+        return $list;
+    }
+
+    /**
+     * Issue #375 : réponses dues aux demandes d'exercice des droits, dans les entités de la session. Le
+     * calendrier est plus largement partagé que le registre RGPD : ni l'identité, ni le titre libre.
+     *
+     * @return list<array<string, mixed>>
+     */
+    private static function dataSubjectRequestDeadlines(): array
+    {
+        global $DB;
+
+        if (!DataSubjectRequest::canView()) {
+            return [];
+        }
+        $table = DataSubjectRequest::getTable();
+        $list = [];
+        foreach (
+            $DB->request([
+                'FROM'  => $table,
+                'WHERE' => ['is_deleted' => 0] + getEntitiesRestrictCriteria($table),
+            ]) as $row
+        ) {
+            $id = (int) $row['id'];
+            $list[] = self::deadline(
+                'data_subject_request',
+                $id,
+                sprintf(
+                    __('%1$s: %2$s'),
+                    DataSubjectRequest::getTypeName(1),
+                    DataSubjectRequest::getTypes()[(string) $row['request_type']] ?? ''
+                ),
+                ComplianceCalendarRules::dayRange($row['date_due']),
+                (int) $row['users_id'],
+                DataSubjectRequest::getFormURLWithID($id),
+                DataSubjectRequestRules::isClosed((string) $row['status'])
             );
         }
 

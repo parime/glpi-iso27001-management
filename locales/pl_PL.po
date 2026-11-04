@@ -9981,3 +9981,158 @@ msgstr "Zatwierdź"
 
 msgid "Add the highest residual risk to the register"
 msgstr "Dodaj najwyższe ryzyko szczątkowe do rejestru"
+
+msgid "Access (article 15)"
+msgstr "Dostęp (art. 15)"
+
+msgid "Rectification (article 16)"
+msgstr "Sprostowanie (art. 16)"
+
+msgid "Erasure (article 17)"
+msgstr "Usunięcie (art. 17)"
+
+msgid "Restriction of processing (article 18)"
+msgstr "Ograniczenie przetwarzania (art. 18)"
+
+msgid "Portability (article 20)"
+msgstr "Przenoszenie danych (art. 20)"
+
+msgid "Objection (article 21)"
+msgstr "Sprzeciw (art. 21)"
+
+msgid "Received"
+msgstr "Otrzymane"
+
+msgid "Identity being checked"
+msgstr "Weryfikacja tożsamości"
+
+msgid "Answered"
+msgstr "Udzielono odpowiedzi"
+
+msgid "Refused"
+msgstr "Odmowa"
+
+msgid "Deadline approaching"
+msgstr "Zbliża się termin"
+
+msgid "Closed on time"
+msgstr "Zamknięte w terminie"
+
+msgid "Closed late"
+msgstr "Zamknięte po terminie"
+
+msgid "The date of receipt is required."
+msgstr "Data otrzymania jest wymagana."
+
+msgid "An extension of the deadline must be justified."
+msgstr "Przedłużenie terminu musi być uzasadnione."
+
+msgid "A refusal must be justified."
+msgstr "Odmowa musi być uzasadniona."
+
+msgid "The date of the answer is required."
+msgstr "Data odpowiedzi jest wymagana."
+
+#, php-format
+msgid "GDPR request no. %1$d: %2$s"
+msgstr "Wniosek RODO nr %1$d: %2$s"
+
+msgid "Right exercised"
+msgstr "Realizowane prawo"
+
+msgid "Date of receipt"
+msgstr "Data otrzymania"
+
+msgid "Date of the answer"
+msgstr "Data odpowiedzi"
+
+msgid "Handled by"
+msgstr "Prowadzi"
+
+msgid "Check the identity only if there is a reasonable doubt."
+msgstr "Sprawdzaj tożsamość tylko w razie uzasadnionych wątpliwości."
+
+msgid "Optional. Do not put the name of the person here: it stays in the field below."
+msgstr "Opcjonalne. Nie wpisuj tu nazwiska osoby: należy ono do pola poniżej."
+
+msgid "Only what is needed to answer: this field stays on this request."
+msgstr "Tylko to, co potrzebne do odpowiedzi: to pole pozostaje w tym wniosku."
+
+msgid "The deadline runs from this date: one month to answer (GDPR, article 12.3)."
+msgstr "Termin biegnie od tej daty: miesiąc na odpowiedź (RODO, art. 12 ust. 3)."
+
+msgid "Processing activity concerned"
+msgstr "Dotyczy przetwarzania"
+
+msgid "Extension of the deadline"
+msgstr "Przedłużenie terminu"
+
+msgid "Extended by two months"
+msgstr "Przedłużono o dwa miesiące"
+
+msgid "Allowed for complex or numerous requests. The person must be told within the first month."
+msgstr "Dopuszczalne przy wnioskach złożonych lub licznych. Osobę należy poinformować w ciągu pierwszego miesiąca."
+
+msgid "Reason for the extension"
+msgstr "Powód przedłużenia"
+
+msgid "If left empty, today is used when the request is closed. Attach the proof in the Documents tab."
+msgstr "Jeśli pole pozostanie puste, przy zamknięciu zostanie użyta dzisiejsza data. Dołącz dowód w zakładce Dokumenty."
+
+msgid "Summary of the answer"
+msgstr "Podsumowanie odpowiedzi"
+
+msgid "Reason for the refusal"
+msgstr "Powód odmowy"
+
+msgid "The person must be told the reason and their right to complain to the supervisory authority."
+msgstr "Osobę należy poinformować o powodzie i prawie do skargi do organu nadzorczego."
+
+msgid "Follow-up ticket"
+msgstr "Zgłoszenie śledzące"
+
+msgid "Create a follow-up ticket"
+msgstr "Utwórz zgłoszenie śledzące"
+
+msgid "The ticket contains neither the name of the person nor the title of the request."
+msgstr "Zgłoszenie nie zawiera ani nazwiska osoby, ani tytułu wniosku."
+
+#, php-format
+msgid "A data subject request must be handled: %s."
+msgstr "Należy obsłużyć wniosek osoby, której dane dotyczą: %s."
+
+#, php-format
+msgid "Answer due by: %s"
+msgstr "Odpowiedź wymagana do: %s"
+
+msgid "The details are on the request, for people allowed to read the GDPR register:"
+msgstr "Szczegóły znajdują się we wniosku, dla osób uprawnionych do odczytu rejestru RODO:"
+
+msgid "Requests from people exercising their GDPR rights (access, rectification, erasure...) and the deadline to answer each one: one month, or three when the extension is justified."
+msgstr "Wnioski osób korzystających z praw RODO (dostęp, sprostowanie, usunięcie...) i termin odpowiedzi na każdy z nich: miesiąc lub trzy, gdy przedłużenie jest uzasadnione."
+
+msgid "Record each request on the day it arrives, answer before the deadline and attach the proof. Put the identity of the person only in the Requester field."
+msgstr "Rejestruj każdy wniosek w dniu wpłynięcia, odpowiadaj przed terminem i dołączaj dowód. Tożsamość osoby wpisuj tylko w polu Wnioskodawca."
+
+msgid "GDPR, articles 12 and 15 to 22"
+msgstr "RODO, art. 12 i 15-22"
+
+msgid "Data subject request"
+msgid_plural "Data subject requests"
+msgstr[0] "Wniosek osoby, której dane dotyczą"
+msgstr[1] "Wnioski osób, których dane dotyczą"
+msgstr[2] "Wnioski osób, których dane dotyczą"
+
+#, php-format
+msgid "%d day left"
+msgid_plural "%d days left"
+msgstr[0] "Pozostał %d dzień"
+msgstr[1] "Pozostało %d dni"
+msgstr[2] "Pozostało %d dni"
+
+#, php-format
+msgid "%d day late"
+msgid_plural "%d days late"
+msgstr[0] "%d dzień opóźnienia"
+msgstr[1] "%d dni opóźnienia"
+msgstr[2] "%d dni opóźnienia"

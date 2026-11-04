@@ -449,6 +449,16 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
         ]);
     }
     $ids['processing_' . $suffix] = (int) $processing->getID();
+
+    $dsr = new \GlpiPlugin\Grcmanager\DataSubjectRequest();
+    if (!$dsr->getFromDBByCrit(['name' => 'Demande securite ' . $suffix])) {
+        $add($dsr, [
+            'name'          => 'Demande securite ' . $suffix,
+            'entities_id'   => $entity,
+            'date_received' => date('Y-m-d'),
+        ]);
+    }
+    $ids['dsr_' . $suffix] = (int) $dsr->getID();
 }
 
 echo json_encode($ids), "\n";

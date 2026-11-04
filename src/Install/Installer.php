@@ -247,6 +247,7 @@ final class Installer
         \GlpiPlugin\Grcmanager\NotificationTargetIncidentAccessWatch::class,
         // Issue #375 : registre des activités de traitement (RGPD).
         \GlpiPlugin\Grcmanager\ProcessingActivity::class,
+        \GlpiPlugin\Grcmanager\DataSubjectRequest::class,
         // Issue #378 : indicateurs de risque et leurs relevés.
         \GlpiPlugin\Grcmanager\RiskIndicator::class,
         \GlpiPlugin\Grcmanager\RiskIndicatorValue::class,
@@ -291,6 +292,8 @@ final class Installer
     // Issue #376 : études EBIOS Risk Manager et éléments de leurs ateliers.
     // Issue #375 : analyse d'impact (AIPD) d'une fiche du registre des traitements.
     private const DPIAS_TABLE = 'glpi_plugin_grcmanager_dpias';
+    // Issue #375 : demandes d'exercice des droits.
+    private const DATA_SUBJECT_REQUESTS_TABLE = 'glpi_plugin_grcmanager_datasubjectrequests';
     private const EBIOS_STUDIES_TABLE = 'glpi_plugin_grcmanager_ebiosstudies';
     private const EBIOS_VALUES_TABLE = 'glpi_plugin_grcmanager_ebiosvalues';
     private const EBIOS_FEARED_EVENTS_TABLE = 'glpi_plugin_grcmanager_ebiosfearedevents';
@@ -2255,6 +2258,42 @@ final class Installer
 
         // Issue #377 : processus métier (responsable, criticité GLPI, DMIA, RTO, RPO), éléments GLPI
         // dont ils dépendent et analyse d'impact sur l'activité par durée d'interruption.
+        if (!$DB->tableExists(self::DATA_SUBJECT_REQUESTS_TABLE)) {
+            $query = "CREATE TABLE `" . self::DATA_SUBJECT_REQUESTS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `entities_id` int {$keySign} NOT NULL DEFAULT 0,
+                `name` varchar(255) NOT NULL DEFAULT '',
+                `request_type` varchar(16) NOT NULL DEFAULT 'access'
+                    COMMENT 'access, rectification, erasure, restriction, portability, objection',
+                `status` varchar(16) NOT NULL DEFAULT 'received'
+                    COMMENT 'received, identity_check, in_progress, answered, refused',
+                `requester` varchar(255) NOT NULL DEFAULT '',
+                `date_received` date DEFAULT NULL,
+                `date_due` date DEFAULT NULL COMMENT 'Calculee, article 12.3 du RGPD',
+                `is_extended` tinyint NOT NULL DEFAULT 0,
+                `extension_reason` text,
+                `date_answered` date DEFAULT NULL,
+                `response` text,
+                `refusal_reason` text,
+                `users_id` int {$keySign} NOT NULL DEFAULT 0,
+                `plugin_grcmanager_processingactivities_id` int {$keySign} NOT NULL DEFAULT 0,
+                `tickets_id` int {$keySign} NOT NULL DEFAULT 0,
+                `comment` text,
+                `is_deleted` tinyint NOT NULL DEFAULT 0,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `entities_id` (`entities_id`),
+                KEY `status` (`status`),
+                KEY `date_due` (`date_due`),
+                KEY `users_id` (`users_id`),
+                KEY `plugin_grcmanager_processingactivities_id` (`plugin_grcmanager_processingactivities_id`),
+                KEY `tickets_id` (`tickets_id`),
+                KEY `is_deleted` (`is_deleted`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query);
+        }
         if (!$DB->tableExists(self::DPIAS_TABLE)) {
             $query = "CREATE TABLE `" . self::DPIAS_TABLE . "` (
                 `id` int {$keySign} NOT NULL AUTO_INCREMENT,
@@ -4784,6 +4823,7 @@ final class Installer
         $migration->dropTable(self::BUSINESS_PROCESSES_ITEMS_TABLE);
         $migration->dropTable(self::BUSINESS_PROCESSES_TABLE);
         $migration->dropTable(self::DPIAS_TABLE);
+        $migration->dropTable(self::DATA_SUBJECT_REQUESTS_TABLE);
         $migration->dropTable(self::EBIOS_STUDIES_TABLE);
         $migration->dropTable(self::EBIOS_VALUES_TABLE);
         $migration->dropTable(self::EBIOS_FEARED_EVENTS_TABLE);

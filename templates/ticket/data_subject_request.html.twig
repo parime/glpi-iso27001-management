@@ -1,0 +1,4 @@
+{# Issue #375 : ticket de suivi d'une demande d'exercice des droits. Ni l'identité du demandeur, ni le titre libre. #}
+<p>{{ __('A data subject request must be handled: %s.', 'grcmanager')|format(type) }}</p>
+<p>{{ __('Answer due by: %s', 'grcmanager')|format(due) }}</p>
+<p>{{ __('The details are on the request, for people allowed to read the GDPR register:', 'grcmanager') }} <a href="{{ url }}">{{ url }}</a></p>

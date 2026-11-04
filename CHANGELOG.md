@@ -7,6 +7,15 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.24.0] - 2026-11-04
+
+### Added
+
+- **Demandes d'exercice des droits (RGPD)** (issue #375), dans la rubrique Conformité : droit exercé,
+  délai de réponse calculé (un mois, trois avec une prolongation justifiée, article 12.3), état de
+  l'échéance, réponse ou refus motivé, preuves en documents joints. Échéances au calendrier de
+  conformité et ticket de suivi à la demande, qui ne reprennent ni l'identité du demandeur ni le titre.
+
 ## [2.23.0] - 2026-11-04
 
 ### Added

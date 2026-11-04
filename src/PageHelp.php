@@ -221,6 +221,19 @@ class PageHelp
                 ),
                 'reference' => __('GDPR, article 30; ISO 27001, Annex A 5.34', 'grcmanager'),
             ],
+            'datasubjectrequest' => [
+                'purpose'   => __(
+                    'Requests from people exercising their GDPR rights (access, rectification, erasure...) and the '
+                        . 'deadline to answer each one: one month, or three when the extension is justified.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Record each request on the day it arrives, answer before the deadline and attach the proof. '
+                        . 'Put the identity of the person only in the Requester field.',
+                    'grcmanager'
+                ),
+                'reference' => __('GDPR, articles 12 and 15 to 22', 'grcmanager'),
+            ],
             'audit' => [
                 'purpose'   => __(
                     'The internal audit programme: scope, dates, auditors, report and findings.',
