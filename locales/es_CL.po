@@ -8401,3 +8401,9 @@ msgstr "Zona"
 
 msgid "Create one study per scope, then work through its workshops in order: business values and feared events, risk sources, stakeholders and strategic scenarios, operational scenarios, then their treatment, which feeds the risk register."
 msgstr "Cree un estudio por alcance y siga sus talleres en orden: valores de negocio y eventos temidos, fuentes de riesgo, partes interesadas y escenarios estratégicos, escenarios operativos y, por último, su tratamiento, que alimenta el registro de riesgos."
+
+msgid "Incident type"
+msgstr "Tipo de incidente"
+
+msgid "The playbook is suggested first on incidents of this type."
+msgstr "El procedimiento se sugiere primero en los incidentes de este tipo."

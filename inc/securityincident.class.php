@@ -765,7 +765,8 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
             'id'       => 220,
             'table'    => $this->getTable(),
             'field'    => 'category',
-            'name'     => __('Category', 'grcmanager'),
+            // « Catégorie » désigne déjà la catégorie GLPI de l'incident (paramétrable, issue #372).
+            'name'     => __('Incident type', 'grcmanager'),
             'datatype' => 'specific',
             // Issue #143 : « est » pour les liens du tableau de bord.
             'searchtype' => ['contains', 'notcontains', 'equals', 'notequals'],
