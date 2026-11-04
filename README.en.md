@@ -82,6 +82,9 @@ classification fields merged directly onto it.
 - **Evidence coverage**: which assets must have which document.
 - **Supplier security watch** (CERT-FR advisories naming the supplier), **typical infrastructure
   risk catalogue**, **domino effect** between risks and incidents, **security exemptions**.
+- **Business processes and business impact analysis (BIA)**: owner, criticality, MTPD, RTO, RPO,
+  impact by duration of interruption, GLPI items each process depends on, assets slower than the
+  process reported, export for the business continuity plan.
 - **Crisis exercises** (ransomware, data leak, outage): fictitious incident, timed steps, exercise
   report archived as evidence (A.5.29, A.5.30).
 - **Crisis team** on a real incident: response plan, recovery of affected items against their RTO,
@@ -127,7 +130,7 @@ page and through the breadcrumb.
 | Risks | Risks, Supplier risks, Impact analysis, Domino effect, Waivers |
 | Compliance | Annex A controls (SoA), Reference frameworks, ISMS requirements, Obligations, Record of processing activities, Policies, Evidence, Evidence coverage |
 | Audits and improvement | Internal audits, Non-conformities, ISMS objectives, Management reviews |
-| Operations | Access reviews, Account hygiene, Periodic reviews, Trainings, Crisis exercises |
+| Operations | Access reviews, Account hygiene, Periodic reviews, Trainings, Crisis exercises, Business processes |
 | Technical security | Automated technical checks, Fleet vulnerabilities, Most exposed machines, Software to watch, Products, Network flow matrix |
 
 Security incidents live in **Assistance**, next to tickets. Plugin rights are granted to any profile

@@ -8539,345 +8539,196 @@ msgstr "Brak incydentów bezpieczeństwa powiązanych z tym elementem."
 msgid "Other linked items"
 msgstr "Inne powiązane elementy"
 
-msgid "Controller"
-msgstr "Administrator"
-
-msgid "Joint controller"
-msgstr "Współadministrator"
-
-msgid "Processor (on behalf of a controller)"
-msgstr "Podmiot przetwarzający (w imieniu administratora)"
-
-msgid "Consent (art. 6.1.a)"
-msgstr "Zgoda (art. 6.1.a)"
-
-msgid "Performance of a contract (art. 6.1.b)"
-msgstr "Wykonanie umowy (art. 6.1.b)"
-
-msgid "Legal obligation (art. 6.1.c)"
-msgstr "Obowiązek prawny (art. 6.1.c)"
-
-msgid "Vital interests (art. 6.1.d)"
-msgstr "Żywotne interesy (art. 6.1.d)"
-
-msgid "Public interest task (art. 6.1.e)"
-msgstr "Zadanie w interesie publicznym (art. 6.1.e)"
-
-msgid "Legitimate interests (art. 6.1.f)"
-msgstr "Prawnie uzasadnione interesy (art. 6.1.f)"
-
-msgid "In use"
-msgstr "W użyciu"
-
-msgid "Ended"
-msgstr "Zakończone"
-
-msgid "Employees"
-msgstr "Pracownicy"
-
-msgid "Job applicants"
-msgstr "Kandydaci do pracy"
-
-msgid "Customers"
-msgstr "Klienci"
-
-msgid "Prospects"
-msgstr "Potencjalni klienci"
-
-msgid "Supplier and partner contacts"
-msgstr "Osoby kontaktowe dostawców i partnerów"
-
-msgid "Website or application users"
-msgstr "Użytkownicy witryny lub aplikacji"
-
-msgid "Patients"
-msgstr "Pacjenci"
-
-msgid "Students or trainees"
-msgstr "Uczniowie lub stażyści"
-
-msgid "Minors"
-msgstr "Osoby niepełnoletnie"
-
-msgid "Identity and contact details"
-msgstr "Tożsamość i dane kontaktowe"
-
-msgid "Personal life (habits, family situation...)"
-msgstr "Życie prywatne (zwyczaje, sytuacja rodzinna...)"
-
-msgid "Professional life (resume, career, training...)"
-msgstr "Życie zawodowe (CV, kariera, szkolenia...)"
-
-msgid "Economic and financial information"
-msgstr "Informacje ekonomiczne i finansowe"
-
-msgid "Connection data (logs, IP addresses...)"
-msgstr "Dane połączeń (dzienniki, adresy IP...)"
-
-msgid "Location data"
-msgstr "Dane o lokalizacji"
-
-msgid "Images, video or voice"
-msgstr "Obrazy, wideo lub głos"
-
-msgid "Racial or ethnic origin"
-msgstr "Pochodzenie rasowe lub etniczne"
-
-msgid "Political opinions"
-msgstr "Poglądy polityczne"
-
-msgid "Religious or philosophical beliefs"
-msgstr "Przekonania religijne lub światopoglądowe"
-
-msgid "Trade union membership"
-msgstr "Przynależność do związków zawodowych"
-
-msgid "Genetic data"
-msgstr "Dane genetyczne"
-
-msgid "Biometric data used to identify a person"
-msgstr "Dane biometryczne służące do identyfikacji osoby"
-
-msgid "Health data"
-msgstr "Dane dotyczące zdrowia"
-
-msgid "Sex life or sexual orientation"
-msgstr "Seksualność lub orientacja seksualna"
-
-msgid "Criminal convictions and offences (art. 10)"
-msgstr "Wyroki skazujące i naruszenia prawa (art. 10)"
-
-msgid "National identification number"
-msgstr "Krajowy numer identyfikacyjny"
-
-msgid "Adequacy decision"
-msgstr "Decyzja stwierdzająca odpowiedni stopień ochrony"
-
-msgid "Standard contractual clauses"
-msgstr "Standardowe klauzule umowne"
-
-msgid "Binding corporate rules"
-msgstr "Wiążące reguły korporacyjne"
-
-msgid "Derogation for a specific situation (art. 49)"
-msgstr "Wyjątek w szczególnej sytuacji (art. 49)"
-
-msgid "Not required"
-msgstr "Niewymagana"
-
-msgid "Required, to be carried out"
-msgstr "Wymagana, do przeprowadzenia"
-
-msgid "Carried out"
-msgstr "Przeprowadzona"
-
-msgid "No purpose"
-msgstr "Brak celu"
-
-msgid "No legal basis"
-msgstr "Brak podstawy prawnej"
-
-msgid "No category of data subjects"
-msgstr "Brak kategorii osób"
-
-msgid "No category of personal data"
-msgstr "Brak kategorii danych osobowych"
-
-msgid "No retention period"
-msgstr "Brak okresu przechowywania"
-
-msgid "No security measure"
-msgstr "Brak środka bezpieczeństwa"
-
-msgid "Controller not named"
-msgstr "Nie wskazano administratora"
-
-msgid "Transfer outside the EU without safeguard"
-msgstr "Przekazywanie poza UE bez zabezpieczeń"
-
-msgid "Sensitive data: DPIA decision missing"
-msgstr "Dane wrażliwe: brak decyzji w sprawie DPIA"
-
-msgid "DPIA to be carried out"
-msgstr "DPIA do przeprowadzenia"
-
-msgid "Not reviewed for more than a year"
-msgstr "Bez przeglądu od ponad roku"
-
-msgid "Give the processing activity a name."
-msgstr "Podaj nazwę czynności przetwarzania."
-
-msgid "Role of the organisation"
-msgstr "Rola organizacji"
-
-msgid "Purpose"
-msgstr "Cel"
-
-msgid "Legal basis"
-msgstr "Podstawa prawna"
-
-msgid "Data subjects"
-msgstr "Osoby, których dane dotyczą"
-
-msgid "Categories of personal data"
-msgstr "Kategorie danych osobowych"
-
-msgid "Sensitive data"
-msgstr "Dane wrażliwe"
-
-msgid "Transfers outside the EU"
-msgstr "Przekazywanie poza UE"
-
-msgid "Retention period"
-msgstr "Okres przechowywania"
-
-msgid "DPIA"
-msgstr "DPIA"
-
-msgid "Recipients"
-msgstr "Odbiorcy"
-
-msgid "Controller or joint controller"
-msgstr "Administrator lub współadministrator"
-
-msgid "Details of the data"
-msgstr "Szczegóły danych"
-
-msgid "Security measures"
-msgstr "Środki bezpieczeństwa"
-
-msgid "Applications, assets and suppliers"
-msgstr "Aplikacje, zasoby i dostawcy"
-
-msgid "The record of processing activities required by the GDPR: one entry per processing of personal data, with its purpose, legal basis, data, recipients and retention periods."
-msgstr "Rejestr czynności przetwarzania wymagany przez RODO: jeden wpis na każde przetwarzanie danych osobowych, z celem, podstawą prawną, danymi, odbiorcami i okresami przechowywania."
-
-msgid "Describe each processing, link the applications, assets and suppliers involved, settle the gaps shown, review the register every year and export it if the supervisory authority asks for it."
-msgstr "Opisz każde przetwarzanie, powiąż aplikacje, zasoby i dostawców, usuń wskazane braki, co roku dokonuj przeglądu rejestru i wyeksportuj go na żądanie organu nadzorczego."
-
-msgid "GDPR, article 30; ISO 27001, Annex A 5.34"
-msgstr "RODO, art. 30; ISO 27001, załącznik A 5.34"
-
-msgid "Review of the record of processing activities (GDPR)"
-msgstr "Przegląd rejestru czynności przetwarzania (RODO)"
-
-msgid "Add new processing activities and mark those that ended"
-msgstr "Dodać nowe czynności przetwarzania i oznaczyć zakończone"
-
-msgid "Settle the gaps shown in the register (legal basis, retention, transfers...)"
-msgstr "Usunąć braki wskazane w rejestrze (podstawa prawna, przechowywanie, przekazywanie...)"
-
-msgid "Check the processors and recipients, then date the review of each entry"
-msgstr "Sprawdzić podmioty przetwarzające i odbiorców, a następnie opatrzyć datą przegląd każdego wpisu"
-
-msgid "Personal data protection (GDPR record of processing)"
-msgstr "Ochrona danych osobowych (rejestr czynności przetwarzania RODO)"
-
-msgid "E.g. \"Payroll\", \"Customer relationship management\", \"Video surveillance\"."
-msgstr "Np. „Płace”, „Obsługa klientów”, „Monitoring wizyjny”."
-
-msgid "Your own numbering (e.g. T-001), used to sort the register."
-msgstr "Własna numeracja (np. T-001), według której sortowany jest rejestr."
-
-msgid "The business manager of the processing, who keeps this record up to date."
-msgstr "Osoba odpowiedzialna biznesowo za przetwarzanie, aktualizująca ten wpis."
-
-msgid "Controller and purpose"
-msgstr "Administrator i cel"
-
-msgid "As a processor, the record lists the processing carried out on behalf of each controller (article 30.2)."
-msgstr "Jako podmiot przetwarzający rejestr obejmuje przetwarzanie w imieniu każdego administratora (art. 30.2)."
-
-msgid "Name and contact details of the controller you act for, or of the joint controller."
-msgstr "Nazwa i dane kontaktowe administratora, w imieniu którego działasz, lub współadministratora."
-
-msgid "Why the data is processed, in one or two sentences (e.g. \"Pay the employees and make the related declarations\")."
-msgstr "Dlaczego dane są przetwarzane, w jednym lub dwóch zdaniach (np. „Wypłata wynagrodzeń i powiązane deklaracje”)."
-
-msgid "Legal basis details"
-msgstr "Szczegóły podstawy prawnej"
-
-msgid "The text, contract or interest relied upon (e.g. \"Labour code\")."
-msgstr "Akt prawny, umowa lub interes, na które się powołujesz (np. „Kodeks pracy”)."
-
-msgid "Data subjects and data"
-msgstr "Osoby i dane"
-
-msgid "Special categories (article 9), offences (article 10) and national identification number: processing them usually calls for a DPIA."
-msgstr "Szczególne kategorie (art. 9), naruszenia prawa (art. 10) i krajowy numer identyfikacyjny: ich przetwarzanie zwykle wymaga DPIA."
-
-msgid "The data actually collected, without any real personal data (e.g. \"name, bank details, salary\")."
-msgstr "Faktycznie zbierane dane, bez rzeczywistych danych osobowych (np. „nazwisko, dane bankowe, wynagrodzenie”)."
-
-msgid "Recipients and transfers"
-msgstr "Odbiorcy i przekazywanie"
-
-msgid "Internal departments and external recipients (processors, authorities...). Link the suppliers concerned below."
-msgstr "Działy wewnętrzne i odbiorcy zewnętrzni (podmioty przetwarzające, organy...). Powiąż poniżej odpowiednich dostawców."
-
-msgid "Destination countries"
-msgstr "Kraje docelowe"
-
-msgid "Transfer safeguards"
-msgstr "Zabezpieczenia przekazywania"
-
-msgid "Retention and security"
-msgstr "Przechowywanie i bezpieczeństwo"
-
-msgid "Per category of data if needed (e.g. \"5 years after the employee leaves, then archived\")."
-msgstr "W razie potrzeby według kategorii danych (np. „5 lat po odejściu pracownika, potem archiwizacja”)."
-
-msgid "General description of the technical and organisational measures (article 32)."
-msgstr "Ogólny opis środków technicznych i organizacyjnych (art. 32)."
-
-msgid "Statement of Applicability controls"
-msgstr "Zabezpieczenia z Deklaracji stosowania"
-
-msgid "Impact assessment and review"
-msgstr "Ocena skutków i przegląd"
-
-msgid "Data protection impact assessment (article 35): record here whether one is needed."
-msgstr "Ocena skutków dla ochrony danych (art. 35): zaznacz tutaj, czy jest potrzebna."
-
-msgid "The register is reviewed at least once a year (Periodic reviews)."
-msgstr "Przegląd rejestru odbywa się co najmniej raz w roku (Przeglądy okresowe)."
-
-msgid "No processing activity cites this item."
-msgstr "Żadna czynność przetwarzania nie wskazuje tego elementu."
-
-msgid "Complete"
-msgstr "Kompletny"
-
-msgid "Organisation"
-msgstr "Organizacja"
-
-msgid "Email"
-msgstr "E-mail"
-
-msgid "Phone"
-msgstr "Telefon"
-
-msgid "Processing activities in the register"
-msgstr "Czynności przetwarzania w rejestrze"
-
-msgid "The register contains no processing activity."
-msgstr "Rejestr nie zawiera żadnych czynności przetwarzania."
-
-msgid "Export CSV"
-msgstr "Eksport CSV"
-
-msgid "Record of processing activities"
-msgstr "Rejestr czynności przetwarzania"
-
-msgid "Processing activity"
-msgid_plural "Record of processing activities"
-msgstr[0] "Czynność przetwarzania"
-msgstr[1] "Rejestr czynności przetwarzania"
-msgstr[2] "Rejestr czynności przetwarzania"
+msgid "Business process"
+msgid_plural "Business processes"
+msgstr[0] "Proces biznesowy"
+msgstr[1] "Procesy biznesowe"
+msgstr[2] "Procesów biznesowych"
 
 #, php-format
-msgid "%d linked item is not visible to you and stays linked."
-msgid_plural "%d linked items are not visible to you and stay linked."
-msgstr[0] "%d powiązany element jest dla Ciebie niewidoczny i pozostaje powiązany."
-msgstr[1] "%d powiązane elementy są dla Ciebie niewidoczne i pozostają powiązane."
-msgstr[2] "%d powiązanych elementów jest dla Ciebie niewidocznych i pozostaje powiązanych."
+msgid "%d other item you cannot see is not listed."
+msgid_plural "%d other items you cannot see are not listed."
+msgstr[0] "%d inny element, którego nie możesz zobaczyć, nie jest wyświetlany."
+msgstr[1] "%d inne elementy, których nie możesz zobaczyć, nie są wyświetlane."
+msgstr[2] "%d innych elementów, których nie możesz zobaczyć, nie jest wyświetlanych."
+
+msgid "2 weeks"
+msgstr "2 tygodnie"
+
+msgid "1 month"
+msgstr "1 miesiąc"
+
+msgid "The business process name is required."
+msgstr "Nazwa procesu biznesowego jest wymagana."
+
+msgid "No impact assessed yet: fill in the business impact analysis."
+msgstr "Nie oceniono jeszcze żadnego wpływu: wypełnij analizę wpływu na działalność."
+
+msgid "Maximum tolerable period of disruption (MTPD) not set."
+msgstr "Maksymalny tolerowany okres przerwy (MTPD) nie został określony."
+
+msgid "Recovery time objective (RTO) not set."
+msgstr "Docelowy czas odtworzenia (RTO) nie został określony."
+
+msgid "The RTO is longer than the maximum tolerable period of disruption."
+msgstr "RTO jest dłuższy niż maksymalny tolerowany okres przerwy."
+
+msgid "The maximum tolerable period of disruption is longer than the duration from which the impact becomes serious."
+msgstr "Maksymalny tolerowany okres przerwy jest dłuższy niż czas, po którym wpływ staje się poważny."
+
+msgid "The RPO is longer than the maximum tolerable period of disruption."
+msgstr "RPO jest dłuższy niż maksymalny tolerowany okres przerwy."
+
+msgid "An impact decreases when the disruption lasts longer: check the analysis."
+msgstr "Wpływ maleje, gdy przerwa trwa dłużej: sprawdź analizę."
+
+msgid "Recovers more slowly than the process requires (RTO)"
+msgstr "Odtwarza się wolniej, niż wymaga proces (RTO)"
+
+msgid "May lose more data than the process accepts (RPO)"
+msgstr "Może utracić więcej danych, niż dopuszcza proces (RPO)"
+
+msgid "No RTO set on this item (C/I/A classification tab)"
+msgstr "Brak RTO dla tego elementu (karta Klasyfikacja P/I/D)"
+
+msgid "Business criticality"
+msgstr "Krytyczność biznesowa"
+
+msgid "MTPD"
+msgstr "MTPD"
+
+msgid "Last business impact analysis"
+msgstr "Ostatnia analiza wpływu na działalność"
+
+#, php-format
+msgid "Worst impact after %s"
+msgstr "Najgorszy wpływ po %s"
+
+msgid "Items not meeting the objectives"
+msgstr "Elementy niespełniające celów"
+
+msgid "Consistency checks"
+msgstr "Kontrole spójności"
+
+msgid "Dependencies"
+msgstr "Zależności"
+
+msgid "Choose an item to link."
+msgstr "Wybierz element do powiązania."
+
+msgid "This item is already linked to the process."
+msgstr "Ten element jest już powiązany z procesem."
+
+msgid "Business impact analysis"
+msgstr "Analiza wpływu na działalność (BIA)"
+
+msgid "Financial"
+msgstr "Finansowy"
+
+msgid "Legal and regulatory"
+msgstr "Prawny i regulacyjny"
+
+msgid "Image and reputation"
+msgstr "Wizerunek i reputacja"
+
+msgid "Operational"
+msgstr "Operacyjny"
+
+msgid "Not rated"
+msgstr "Nieoceniony"
+
+msgid "Negligible"
+msgstr "Pomijalny"
+
+msgid "Limited"
+msgstr "Ograniczony"
+
+msgid "Serious"
+msgstr "Poważny"
+
+msgid "Business impact analysis updated"
+msgstr "Zaktualizowano analizę wpływu na działalność"
+
+msgid "Business impact analysis saved."
+msgstr "Zapisano analizę wpływu na działalność."
+
+msgid "Business continuity (business processes, BIA)"
+msgstr "Ciągłość działania (procesy biznesowe, BIA)"
+
+msgid "Business processes: who owns them, how critical they are, how long they can be interrupted and which GLPI items they depend on."
+msgstr "Procesy biznesowe: kto za nie odpowiada, jak są krytyczne, jak długo mogą być przerwane i od jakich elementów GLPI zależą."
+
+msgid "For each process, rate the impact of an interruption over time (business impact analysis), set its MTPD, RTO and RPO, and link the applications, servers and suppliers it needs; items slower than the process are reported. Export the result for your continuity plan."
+msgstr "Dla każdego procesu oceń wpływ przerwy w czasie (analiza wpływu na działalność), ustal jego MTPD, RTO i RPO oraz powiąż potrzebne aplikacje, serwery i dostawców; elementy wolniejsze niż proces są sygnalizowane. Wyeksportuj wynik do planu ciągłości działania."
+
+msgid "ISO 22301, 8.2.2; ISO 27001, Annex A 5.29 and 5.30"
+msgstr "ISO 22301, 8.2.2; ISO 27001, Załącznik A 5.29 i 5.30"
+
+msgid "Business impact analysis review (business processes)"
+msgstr "Przegląd analizy wpływu na działalność (procesy biznesowe)"
+
+msgid "Review the list of business processes and their owners"
+msgstr "Przejrzeć listę procesów biznesowych i ich właścicieli"
+
+msgid "Update the impact of an interruption over time and the MTPD, RTO and RPO"
+msgstr "Zaktualizować wpływ przerwy w czasie oraz MTPD, RTO i RPO"
+
+msgid "Check that the items each process depends on recover fast enough"
+msgstr "Sprawdzić, czy elementy, od których zależy każdy proces, odtwarzają się wystarczająco szybko"
+
+msgid "Example: \"Payroll\", \"Order taking\", \"Customer support\"."
+msgstr "Przykład: „Płace\", „Przyjmowanie zamówień\", „Obsługa klienta\"."
+
+msgid "Same list as the business criticality of assets (financial information)."
+msgstr "Ta sama lista co krytyczność biznesowa zasobów (informacje finansowe)."
+
+msgid "Maximum tolerable period of disruption: beyond it, the impact is no longer acceptable."
+msgstr "Maksymalny tolerowany okres przerwy: po jego przekroczeniu wpływ nie jest już akceptowalny."
+
+msgid "Recovery time objective: time within which the process must be running again."
+msgstr "Docelowy czas odtworzenia: czas, w którym proces musi ponownie działać."
+
+msgid "Recovery point objective: maximum acceptable data loss."
+msgstr "Docelowy punkt odtworzenia: maksymalna akceptowalna utrata danych."
+
+msgid "Set automatically when the analysis is saved."
+msgstr "Ustawiana automatycznie przy zapisie analizy."
+
+msgid "Not set"
+msgstr "Nie określono"
+
+msgid "Impact becomes serious after"
+msgstr "Wpływ staje się poważny po"
+
+msgid "Never, according to the analysis"
+msgstr "Nigdy, według analizy"
+
+msgid "The objectives of the process are consistent with its impact analysis."
+msgstr "Cele procesu są spójne z jego analizą wpływu."
+
+msgid "Rate the impact of an interruption of the process for each duration, from negligible to critical. The MTPD must not exceed the first duration rated serious, and the RTO must not exceed the MTPD."
+msgstr "Oceń wpływ przerwy w procesie dla każdego czasu trwania, od pomijalnego do krytycznego. MTPD nie może przekraczać pierwszego czasu ocenionego jako poważny, a RTO nie może przekraczać MTPD."
+
+msgid "Worst impact"
+msgstr "Najgorszy wpływ"
+
+msgid "E.g. \"Payroll application\", \"Main database\""
+msgstr "Np. „Aplikacja płacowa\", „Główna baza danych\""
+
+msgid "Items linked to the process, then what they depend on according to GLPI's impact analysis. Recovery objectives come from the C/I/A classification tab of each item."
+msgstr "Elementy powiązane z procesem, a następnie to, od czego zależą według analizy wpływu GLPI. Cele odtworzenia pochodzą z karty Klasyfikacja P/I/D każdego elementu."
+
+msgid "No dependency yet: add the applications, servers and suppliers the process needs."
+msgstr "Brak zależności: dodaj aplikacje, serwery i dostawców, których potrzebuje proces."
+
+msgid "OK"
+msgstr "OK"
+
+msgid "Remove this dependency?"
+msgstr "Usunąć tę zależność?"
+
+msgid "No business process you can see depends on this item."
+msgstr "Żaden widoczny dla Ciebie proces biznesowy nie zależy od tego elementu."
+
+msgid "New business process"
+msgstr "Nowy proces biznesowy"

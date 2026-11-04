@@ -1,0 +1,28 @@
+{# Issue #377 : processus métier qui dépendent de cet élément, voir
+   GlpiPlugin\\Grcmanager\\BusinessProcessItem::displayTabContentForItem(). #}
+{% if processes is empty %}
+  <p class="text-muted">{{ __('No business process you can see depends on this item.', 'grcmanager') }}</p>
+{% else %}
+  <div class="table-responsive">
+    <table class="table table-sm table-hover align-middle">
+      <thead>
+        <tr>
+          <th scope="col">{{ _n('Business process', 'Business processes', 1, 'grcmanager') }}</th>
+          <th scope="col">{{ __('Role', 'grcmanager') }}</th>
+          <th scope="col">{{ __('MTPD', 'grcmanager') }}</th>
+          <th scope="col">RTO</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for process in processes %}
+          <tr>
+            <td><a href="{{ process.url }}">{{ process.name }}</a></td>
+            <td>{{ process.comment }}</td>
+            <td>{{ process.mtpd }}</td>
+            <td>{{ process.rto }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endif %}

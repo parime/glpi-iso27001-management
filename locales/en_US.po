@@ -7148,343 +7148,194 @@ msgstr "No security incident linked to this item."
 msgid "Other linked items"
 msgstr "Other linked items"
 
-msgid "Controller"
-msgstr "Controller"
-
-msgid "Joint controller"
-msgstr "Joint controller"
-
-msgid "Processor (on behalf of a controller)"
-msgstr "Processor (on behalf of a controller)"
-
-msgid "Consent (art. 6.1.a)"
-msgstr "Consent (art. 6.1.a)"
-
-msgid "Performance of a contract (art. 6.1.b)"
-msgstr "Performance of a contract (art. 6.1.b)"
-
-msgid "Legal obligation (art. 6.1.c)"
-msgstr "Legal obligation (art. 6.1.c)"
-
-msgid "Vital interests (art. 6.1.d)"
-msgstr "Vital interests (art. 6.1.d)"
-
-msgid "Public interest task (art. 6.1.e)"
-msgstr "Public interest task (art. 6.1.e)"
-
-msgid "Legitimate interests (art. 6.1.f)"
-msgstr "Legitimate interests (art. 6.1.f)"
-
-msgid "In use"
-msgstr "In use"
-
-msgid "Ended"
-msgstr "Ended"
-
-msgid "Employees"
-msgstr "Employees"
-
-msgid "Job applicants"
-msgstr "Job applicants"
-
-msgid "Customers"
-msgstr "Customers"
-
-msgid "Prospects"
-msgstr "Prospects"
-
-msgid "Supplier and partner contacts"
-msgstr "Supplier and partner contacts"
-
-msgid "Website or application users"
-msgstr "Website or application users"
-
-msgid "Patients"
-msgstr "Patients"
-
-msgid "Students or trainees"
-msgstr "Students or trainees"
-
-msgid "Minors"
-msgstr "Minors"
-
-msgid "Identity and contact details"
-msgstr "Identity and contact details"
-
-msgid "Personal life (habits, family situation...)"
-msgstr "Personal life (habits, family situation...)"
-
-msgid "Professional life (resume, career, training...)"
-msgstr "Professional life (resume, career, training...)"
-
-msgid "Economic and financial information"
-msgstr "Economic and financial information"
-
-msgid "Connection data (logs, IP addresses...)"
-msgstr "Connection data (logs, IP addresses...)"
-
-msgid "Location data"
-msgstr "Location data"
-
-msgid "Images, video or voice"
-msgstr "Images, video or voice"
-
-msgid "Racial or ethnic origin"
-msgstr "Racial or ethnic origin"
-
-msgid "Political opinions"
-msgstr "Political opinions"
-
-msgid "Religious or philosophical beliefs"
-msgstr "Religious or philosophical beliefs"
-
-msgid "Trade union membership"
-msgstr "Trade union membership"
-
-msgid "Genetic data"
-msgstr "Genetic data"
-
-msgid "Biometric data used to identify a person"
-msgstr "Biometric data used to identify a person"
-
-msgid "Health data"
-msgstr "Health data"
-
-msgid "Sex life or sexual orientation"
-msgstr "Sex life or sexual orientation"
-
-msgid "Criminal convictions and offences (art. 10)"
-msgstr "Criminal convictions and offences (art. 10)"
-
-msgid "National identification number"
-msgstr "National identification number"
-
-msgid "Adequacy decision"
-msgstr "Adequacy decision"
-
-msgid "Standard contractual clauses"
-msgstr "Standard contractual clauses"
-
-msgid "Binding corporate rules"
-msgstr "Binding corporate rules"
-
-msgid "Derogation for a specific situation (art. 49)"
-msgstr "Derogation for a specific situation (art. 49)"
-
-msgid "Not required"
-msgstr "Not required"
-
-msgid "Required, to be carried out"
-msgstr "Required, to be carried out"
-
-msgid "Carried out"
-msgstr "Carried out"
-
-msgid "No purpose"
-msgstr "No purpose"
-
-msgid "No legal basis"
-msgstr "No legal basis"
-
-msgid "No category of data subjects"
-msgstr "No category of data subjects"
-
-msgid "No category of personal data"
-msgstr "No category of personal data"
-
-msgid "No retention period"
-msgstr "No retention period"
-
-msgid "No security measure"
-msgstr "No security measure"
-
-msgid "Controller not named"
-msgstr "Controller not named"
-
-msgid "Transfer outside the EU without safeguard"
-msgstr "Transfer outside the EU without safeguard"
-
-msgid "Sensitive data: DPIA decision missing"
-msgstr "Sensitive data: DPIA decision missing"
-
-msgid "DPIA to be carried out"
-msgstr "DPIA to be carried out"
-
-msgid "Not reviewed for more than a year"
-msgstr "Not reviewed for more than a year"
-
-msgid "Give the processing activity a name."
-msgstr "Give the processing activity a name."
-
-msgid "Role of the organisation"
-msgstr "Role of the organisation"
-
-msgid "Purpose"
-msgstr "Purpose"
-
-msgid "Legal basis"
-msgstr "Legal basis"
-
-msgid "Data subjects"
-msgstr "Data subjects"
-
-msgid "Categories of personal data"
-msgstr "Categories of personal data"
-
-msgid "Sensitive data"
-msgstr "Sensitive data"
-
-msgid "Transfers outside the EU"
-msgstr "Transfers outside the EU"
-
-msgid "Retention period"
-msgstr "Retention period"
-
-msgid "DPIA"
-msgstr "DPIA"
-
-msgid "Recipients"
-msgstr "Recipients"
-
-msgid "Controller or joint controller"
-msgstr "Controller or joint controller"
-
-msgid "Details of the data"
-msgstr "Details of the data"
-
-msgid "Security measures"
-msgstr "Security measures"
-
-msgid "Applications, assets and suppliers"
-msgstr "Applications, assets and suppliers"
-
-msgid "The record of processing activities required by the GDPR: one entry per processing of personal data, with its purpose, legal basis, data, recipients and retention periods."
-msgstr "The record of processing activities required by the GDPR: one entry per processing of personal data, with its purpose, legal basis, data, recipients and retention periods."
-
-msgid "Describe each processing, link the applications, assets and suppliers involved, settle the gaps shown, review the register every year and export it if the supervisory authority asks for it."
-msgstr "Describe each processing, link the applications, assets and suppliers involved, settle the gaps shown, review the register every year and export it if the supervisory authority asks for it."
-
-msgid "GDPR, article 30; ISO 27001, Annex A 5.34"
-msgstr "GDPR, article 30; ISO 27001, Annex A 5.34"
-
-msgid "Review of the record of processing activities (GDPR)"
-msgstr "Review of the record of processing activities (GDPR)"
-
-msgid "Add new processing activities and mark those that ended"
-msgstr "Add new processing activities and mark those that ended"
-
-msgid "Settle the gaps shown in the register (legal basis, retention, transfers...)"
-msgstr "Settle the gaps shown in the register (legal basis, retention, transfers...)"
-
-msgid "Check the processors and recipients, then date the review of each entry"
-msgstr "Check the processors and recipients, then date the review of each entry"
-
-msgid "Personal data protection (GDPR record of processing)"
-msgstr "Personal data protection (GDPR record of processing)"
-
-msgid "E.g. \"Payroll\", \"Customer relationship management\", \"Video surveillance\"."
-msgstr "E.g. \"Payroll\", \"Customer relationship management\", \"Video surveillance\"."
-
-msgid "Your own numbering (e.g. T-001), used to sort the register."
-msgstr "Your own numbering (e.g. T-001), used to sort the register."
-
-msgid "The business manager of the processing, who keeps this record up to date."
-msgstr "The business manager of the processing, who keeps this record up to date."
-
-msgid "Controller and purpose"
-msgstr "Controller and purpose"
-
-msgid "As a processor, the record lists the processing carried out on behalf of each controller (article 30.2)."
-msgstr "As a processor, the record lists the processing carried out on behalf of each controller (article 30.2)."
-
-msgid "Name and contact details of the controller you act for, or of the joint controller."
-msgstr "Name and contact details of the controller you act for, or of the joint controller."
-
-msgid "Why the data is processed, in one or two sentences (e.g. \"Pay the employees and make the related declarations\")."
-msgstr "Why the data is processed, in one or two sentences (e.g. \"Pay the employees and make the related declarations\")."
-
-msgid "Legal basis details"
-msgstr "Legal basis details"
-
-msgid "The text, contract or interest relied upon (e.g. \"Labour code\")."
-msgstr "The text, contract or interest relied upon (e.g. \"Labour code\")."
-
-msgid "Data subjects and data"
-msgstr "Data subjects and data"
-
-msgid "Special categories (article 9), offences (article 10) and national identification number: processing them usually calls for a DPIA."
-msgstr "Special categories (article 9), offences (article 10) and national identification number: processing them usually calls for a DPIA."
-
-msgid "The data actually collected, without any real personal data (e.g. \"name, bank details, salary\")."
-msgstr "The data actually collected, without any real personal data (e.g. \"name, bank details, salary\")."
-
-msgid "Recipients and transfers"
-msgstr "Recipients and transfers"
-
-msgid "Internal departments and external recipients (processors, authorities...). Link the suppliers concerned below."
-msgstr "Internal departments and external recipients (processors, authorities...). Link the suppliers concerned below."
-
-msgid "Destination countries"
-msgstr "Destination countries"
-
-msgid "Transfer safeguards"
-msgstr "Transfer safeguards"
-
-msgid "Retention and security"
-msgstr "Retention and security"
-
-msgid "Per category of data if needed (e.g. \"5 years after the employee leaves, then archived\")."
-msgstr "Per category of data if needed (e.g. \"5 years after the employee leaves, then archived\")."
-
-msgid "General description of the technical and organisational measures (article 32)."
-msgstr "General description of the technical and organisational measures (article 32)."
-
-msgid "Statement of Applicability controls"
-msgstr "Statement of Applicability controls"
-
-msgid "Impact assessment and review"
-msgstr "Impact assessment and review"
-
-msgid "Data protection impact assessment (article 35): record here whether one is needed."
-msgstr "Data protection impact assessment (article 35): record here whether one is needed."
-
-msgid "The register is reviewed at least once a year (Periodic reviews)."
-msgstr "The register is reviewed at least once a year (Periodic reviews)."
-
-msgid "No processing activity cites this item."
-msgstr "No processing activity cites this item."
-
-msgid "Complete"
-msgstr "Complete"
-
-msgid "Organisation"
-msgstr "Organisation"
-
-msgid "Email"
-msgstr "Email"
-
-msgid "Phone"
-msgstr "Phone"
-
-msgid "Processing activities in the register"
-msgstr "Processing activities in the register"
-
-msgid "The register contains no processing activity."
-msgstr "The register contains no processing activity."
-
-msgid "Export CSV"
-msgstr "Export CSV"
-
-msgid "Record of processing activities"
-msgstr "Record of processing activities"
-
-msgid "Processing activity"
-msgid_plural "Record of processing activities"
-msgstr[0] "Processing activity"
-msgstr[1] "Record of processing activities"
+msgid "Business process"
+msgid_plural "Business processes"
+msgstr[0] "Business process"
+msgstr[1] "Business processes"
 
 #, php-format
-msgid "%d linked item is not visible to you and stays linked."
-msgid_plural "%d linked items are not visible to you and stay linked."
-msgstr[0] "%d linked item is not visible to you and stays linked."
-msgstr[1] "%d linked items are not visible to you and stay linked."
+msgid "%d other item you cannot see is not listed."
+msgid_plural "%d other items you cannot see are not listed."
+msgstr[0] "%d other item you cannot see is not listed."
+msgstr[1] "%d other items you cannot see are not listed."
+
+msgid "2 weeks"
+msgstr "2 weeks"
+
+msgid "1 month"
+msgstr "1 month"
+
+msgid "The business process name is required."
+msgstr "The business process name is required."
+
+msgid "No impact assessed yet: fill in the business impact analysis."
+msgstr "No impact assessed yet: fill in the business impact analysis."
+
+msgid "Maximum tolerable period of disruption (MTPD) not set."
+msgstr "Maximum tolerable period of disruption (MTPD) not set."
+
+msgid "Recovery time objective (RTO) not set."
+msgstr "Recovery time objective (RTO) not set."
+
+msgid "The RTO is longer than the maximum tolerable period of disruption."
+msgstr "The RTO is longer than the maximum tolerable period of disruption."
+
+msgid "The maximum tolerable period of disruption is longer than the duration from which the impact becomes serious."
+msgstr "The maximum tolerable period of disruption is longer than the duration from which the impact becomes serious."
+
+msgid "The RPO is longer than the maximum tolerable period of disruption."
+msgstr "The RPO is longer than the maximum tolerable period of disruption."
+
+msgid "An impact decreases when the disruption lasts longer: check the analysis."
+msgstr "An impact decreases when the disruption lasts longer: check the analysis."
+
+msgid "Recovers more slowly than the process requires (RTO)"
+msgstr "Recovers more slowly than the process requires (RTO)"
+
+msgid "May lose more data than the process accepts (RPO)"
+msgstr "May lose more data than the process accepts (RPO)"
+
+msgid "No RTO set on this item (C/I/A classification tab)"
+msgstr "No RTO set on this item (C/I/A classification tab)"
+
+msgid "Business criticality"
+msgstr "Business criticality"
+
+msgid "MTPD"
+msgstr "MTPD"
+
+msgid "Last business impact analysis"
+msgstr "Last business impact analysis"
+
+#, php-format
+msgid "Worst impact after %s"
+msgstr "Worst impact after %s"
+
+msgid "Items not meeting the objectives"
+msgstr "Items not meeting the objectives"
+
+msgid "Consistency checks"
+msgstr "Consistency checks"
+
+msgid "Dependencies"
+msgstr "Dependencies"
+
+msgid "Choose an item to link."
+msgstr "Choose an item to link."
+
+msgid "This item is already linked to the process."
+msgstr "This item is already linked to the process."
+
+msgid "Business impact analysis"
+msgstr "Business impact analysis"
+
+msgid "Financial"
+msgstr "Financial"
+
+msgid "Legal and regulatory"
+msgstr "Legal and regulatory"
+
+msgid "Image and reputation"
+msgstr "Image and reputation"
+
+msgid "Operational"
+msgstr "Operational"
+
+msgid "Not rated"
+msgstr "Not rated"
+
+msgid "Negligible"
+msgstr "Negligible"
+
+msgid "Limited"
+msgstr "Limited"
+
+msgid "Serious"
+msgstr "Serious"
+
+msgid "Business impact analysis updated"
+msgstr "Business impact analysis updated"
+
+msgid "Business impact analysis saved."
+msgstr "Business impact analysis saved."
+
+msgid "Business continuity (business processes, BIA)"
+msgstr "Business continuity (business processes, BIA)"
+
+msgid "Business processes: who owns them, how critical they are, how long they can be interrupted and which GLPI items they depend on."
+msgstr "Business processes: who owns them, how critical they are, how long they can be interrupted and which GLPI items they depend on."
+
+msgid "For each process, rate the impact of an interruption over time (business impact analysis), set its MTPD, RTO and RPO, and link the applications, servers and suppliers it needs; items slower than the process are reported. Export the result for your continuity plan."
+msgstr "For each process, rate the impact of an interruption over time (business impact analysis), set its MTPD, RTO and RPO, and link the applications, servers and suppliers it needs; items slower than the process are reported. Export the result for your continuity plan."
+
+msgid "ISO 22301, 8.2.2; ISO 27001, Annex A 5.29 and 5.30"
+msgstr "ISO 22301, 8.2.2; ISO 27001, Annex A 5.29 and 5.30"
+
+msgid "Business impact analysis review (business processes)"
+msgstr "Business impact analysis review (business processes)"
+
+msgid "Review the list of business processes and their owners"
+msgstr "Review the list of business processes and their owners"
+
+msgid "Update the impact of an interruption over time and the MTPD, RTO and RPO"
+msgstr "Update the impact of an interruption over time and the MTPD, RTO and RPO"
+
+msgid "Check that the items each process depends on recover fast enough"
+msgstr "Check that the items each process depends on recover fast enough"
+
+msgid "Example: \"Payroll\", \"Order taking\", \"Customer support\"."
+msgstr "Example: \"Payroll\", \"Order taking\", \"Customer support\"."
+
+msgid "Same list as the business criticality of assets (financial information)."
+msgstr "Same list as the business criticality of assets (financial information)."
+
+msgid "Maximum tolerable period of disruption: beyond it, the impact is no longer acceptable."
+msgstr "Maximum tolerable period of disruption: beyond it, the impact is no longer acceptable."
+
+msgid "Recovery time objective: time within which the process must be running again."
+msgstr "Recovery time objective: time within which the process must be running again."
+
+msgid "Recovery point objective: maximum acceptable data loss."
+msgstr "Recovery point objective: maximum acceptable data loss."
+
+msgid "Set automatically when the analysis is saved."
+msgstr "Set automatically when the analysis is saved."
+
+msgid "Not set"
+msgstr "Not set"
+
+msgid "Impact becomes serious after"
+msgstr "Impact becomes serious after"
+
+msgid "Never, according to the analysis"
+msgstr "Never, according to the analysis"
+
+msgid "The objectives of the process are consistent with its impact analysis."
+msgstr "The objectives of the process are consistent with its impact analysis."
+
+msgid "Rate the impact of an interruption of the process for each duration, from negligible to critical. The MTPD must not exceed the first duration rated serious, and the RTO must not exceed the MTPD."
+msgstr "Rate the impact of an interruption of the process for each duration, from negligible to critical. The MTPD must not exceed the first duration rated serious, and the RTO must not exceed the MTPD."
+
+msgid "Worst impact"
+msgstr "Worst impact"
+
+msgid "E.g. \"Payroll application\", \"Main database\""
+msgstr "E.g. \"Payroll application\", \"Main database\""
+
+msgid "Items linked to the process, then what they depend on according to GLPI's impact analysis. Recovery objectives come from the C/I/A classification tab of each item."
+msgstr "Items linked to the process, then what they depend on according to GLPI's impact analysis. Recovery objectives come from the C/I/A classification tab of each item."
+
+msgid "No dependency yet: add the applications, servers and suppliers the process needs."
+msgstr "No dependency yet: add the applications, servers and suppliers the process needs."
+
+msgid "OK"
+msgstr "OK"
+
+msgid "Remove this dependency?"
+msgstr "Remove this dependency?"
+
+msgid "No business process you can see depends on this item."
+msgstr "No business process you can see depends on this item."
+
+msgid "New business process"
+msgstr "New business process"

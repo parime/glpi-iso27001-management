@@ -427,6 +427,20 @@ class PageHelp
                 ),
                 'reference' => __('ISO 27001, 6.1.3; Annex A 5.36', 'grcmanager'),
             ],
+            'businessprocess' => [
+                'purpose'   => __(
+                    'Business processes: who owns them, how critical they are, how long they can be interrupted and '
+                        . 'which GLPI items they depend on.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'For each process, rate the impact of an interruption over time (business impact analysis), set '
+                        . 'its MTPD, RTO and RPO, and link the applications, servers and suppliers it needs; items '
+                        . 'slower than the process are reported. Export the result for your continuity plan.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO 22301, 8.2.2; ISO 27001, Annex A 5.29 and 5.30', 'grcmanager'),
+            ],
             'impactanalysis' => [
                 'purpose'   => __(
                     'Single points of failure: critical items that depend on a single source, according to GLPI\'s '
