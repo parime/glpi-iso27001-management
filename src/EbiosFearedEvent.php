@@ -41,10 +41,21 @@ class EbiosFearedEvent extends EbiosElement
 
     protected function normalize(array $input)
     {
+        if (!$this->hasStudyLink($input, EbiosValue::class)) {
+            return false;
+        }
         if (isset($input['severity'])) {
             $input['severity'] = EbiosRules::level($input['severity']);
         }
 
         return $input;
+    }
+
+    /**
+     * Retirer un événement redouté retire les scénarios stratégiques qui y mènent.
+     */
+    public function cleanDBonPurge()
+    {
+        (new EbiosStrategicScenario())->deleteByCriteria([self::getForeignKeyField() => $this->getID()]);
     }
 }

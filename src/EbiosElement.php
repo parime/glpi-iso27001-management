@@ -50,6 +50,37 @@ abstract class EbiosElement extends EbiosElementBase
     }
 
     /**
+     * Le lien vers un autre élément doit rester dans la même étude. À l'ajout il est obligatoire ; à la
+     * modification, seulement vérifié s'il est envoyé.
+     *
+     * @param array<string, mixed> $input
+     * @param class-string<EbiosElement> $class
+     */
+    protected function hasStudyLink(array $input, string $class): bool
+    {
+        $key = $class::getForeignKeyField();
+        if (!$this->isNewItem() && !array_key_exists($key, $input)) {
+            return true;
+        }
+        $studyId = (int) ($input[self::STUDY_FK] ?? $this->fields[self::STUDY_FK] ?? 0);
+        $linked = countElementsInTable($class::getTable(), [
+            'id'           => (int) ($input[$key] ?? 0),
+            self::STUDY_FK => $studyId,
+        ]);
+        if ($linked === 0) {
+            Session::addMessageAfterRedirect(
+                __('The linked element does not belong to this study.', 'grcmanager'),
+                false,
+                ERROR
+            );
+
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * @return list<array<string, mixed>>
      */
     public static function getForStudy(int $studyId): array

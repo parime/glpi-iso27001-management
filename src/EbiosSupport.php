@@ -42,6 +42,9 @@ class EbiosSupport extends EbiosElement
 
     protected function normalize(array $input)
     {
+        if (!$this->hasStudyLink($input, EbiosValue::class)) {
+            return false;
+        }
         $itemtype = (string) ($input['itemtype'] ?? '');
         $itemsId = (int) ($input['items_id'] ?? 0);
         // Seuls les types proposés par le registre des processus, et un élément réellement lisible.
@@ -61,5 +64,16 @@ class EbiosSupport extends EbiosElement
         }
 
         return $input;
+    }
+
+    /**
+     * Le scénario opérationnel reste quand son bien support est retiré, sans ce lien.
+     */
+    public function cleanDBonPurge()
+    {
+        global $DB;
+
+        $key = self::getForeignKeyField();
+        $DB->update(EbiosOperationalScenario::getTable(), [$key => 0], [$key => $this->getID()]);
     }
 }

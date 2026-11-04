@@ -1,0 +1,144 @@
+{# Issue #376, atelier 4 : scénarios opérationnels, vraisemblance et grille des niveaux de risque. #}
+{% set fk = 'plugin_grcmanager_ebiosstudies_id' %}
+{% set severity_classes = {1: 'bg-green-lt', 2: 'bg-yellow-lt', 3: 'bg-orange-lt', 4: 'bg-red-lt'} %}
+{% set risk_levels = {
+  'low': ['bg-green-lt', __('Low risk', 'grcmanager')],
+  'medium': ['bg-yellow-lt', __('Moderate risk', 'grcmanager')],
+  'high': ['bg-orange-lt', __('High risk', 'grcmanager')],
+  'critical': ['bg-red-lt', __('Critical risk', 'grcmanager')],
+} %}
+
+<p class="text-muted">{{ __('For each strategic scenario, describe how the attack would actually unfold and on which supporting asset, then rate how likely it is. The risk level combines this likelihood with the severity of the feared event.', 'grcmanager') }}</p>
+
+{% if strategic is empty %}
+  <div class="alert alert-info">
+    <i class="ti ti-info-circle me-1"></i>{{ __('An operational scenario details a strategic scenario: fill in workshop 3 first.', 'grcmanager') }}
+  </div>
+{% elseif can_edit %}
+<form method="post" action="{{ form_url }}" class="card card-body mb-3">
+  <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+  <input type="hidden" name="element" value="operational">
+  <input type="hidden" name="{{ fk }}" value="{{ item.getID() }}">
+  <div class="row g-2 align-items-end">
+    <div class="col-md-6">
+      <label class="form-label" for="grc-ebios-operational">{{ __('New operational scenario', 'grcmanager') }}</label>
+      <input type="text" id="grc-ebios-operational" name="name" class="form-control" maxlength="255" required placeholder="{{ __('e.g. Phishing of an administrator, then encryption of the servers', 'grcmanager') }}">
+    </div>
+    <div class="col-md-6">
+      <label class="form-label" for="grc-ebios-operational-parent">{{ __('Strategic scenario', 'grcmanager') }}</label>
+      <select id="grc-ebios-operational-parent" name="plugin_grcmanager_ebiosstrategicscenarios_id" class="form-select" required>
+        {% for s in strategic %}<option value="{{ s.id }}">{{ s.name }}</option>{% endfor %}
+      </select>
+    </div>
+    <div class="col-12">
+      <label class="form-label" for="grc-ebios-sequence">{{ __('Attack sequence', 'grcmanager') }}</label>
+      <textarea id="grc-ebios-sequence" name="attack_sequence" class="form-control" rows="2" placeholder="{{ __('Know, get in, find, exploit: the main steps of the attack', 'grcmanager') }}"></textarea>
+    </div>
+    <div class="col-md-5">
+      <label class="form-label" for="grc-ebios-operational-support">{{ __('Supporting asset targeted', 'grcmanager') }}</label>
+      <select id="grc-ebios-operational-support" name="plugin_grcmanager_ebiossupports_id" class="form-select">
+        <option value="0">{{ constant('Dropdown::EMPTY_VALUE') }}</option>
+        {% for support in supports %}<option value="{{ support.id }}">{{ support.name }}</option>{% endfor %}
+      </select>
+    </div>
+    <div class="col-md-5">
+      <label class="form-label" for="grc-ebios-likelihood">{{ __('Likelihood', 'grcmanager') }}</label>
+      <select id="grc-ebios-likelihood" name="likelihood" class="form-select">
+        {% for level, label in likelihoods %}<option value="{{ level }}" {{ level == 2 ? 'selected' : '' }}>{{ label }}</option>{% endfor %}
+      </select>
+    </div>
+    <div class="col-md-2">
+      <button type="submit" name="add" class="btn btn-primary w-100"><i class="ti ti-plus me-1"></i>{{ __('Add', 'grcmanager') }}</button>
+    </div>
+  </div>
+</form>
+{% endif %}
+
+{% if scenarios is empty %}
+  {% if strategic is not empty %}
+    <div class="empty">
+      <div class="empty-icon"><i class="ti ti-binary-tree fs-1"></i></div>
+      <p class="empty-title">{{ __('No operational scenario yet', 'grcmanager') }}</p>
+      <p class="empty-subtitle text-muted">{{ __('Start with the strategic scenarios on the most serious feared events.', 'grcmanager') }}</p>
+    </div>
+  {% endif %}
+{% else %}
+<div class="row g-3">
+  <div class="col-12">
+    <h4><i class="ti ti-grid-dots me-1"></i>{{ __('Risk matrix', 'grcmanager') }}</h4>
+    <table class="table table-sm table-bordered text-center mb-0" style="max-width: 30rem">
+      <thead>
+        <tr>
+          <th class="small">{{ __('Severity (G1 to G4)', 'grcmanager') }} / {{ __('Likelihood', 'grcmanager') }}</th>
+          {% for level, label in likelihoods %}<th title="{{ label }}">V{{ level }}</th>{% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for severity, cells in matrix %}
+          <tr>
+            <th title="{{ severities[severity] }}">G{{ severity }}</th>
+            {% for likelihood, cell in cells %}
+              <td class="{{ risk_levels[cell.level][0] }} {{ cell.count ? 'fw-bold' : '' }}" title="{{ risk_levels[cell.level][1] }}">{{ cell.count ?: '' }}</td>
+            {% endfor %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="col-12">
+    <h4><i class="ti ti-binary-tree me-1"></i>{{ __('Operational scenarios', 'grcmanager') }}</h4>
+    <div class="table-responsive">
+      <table class="table table-sm table-vcenter card-table">
+        <thead>
+          <tr>
+            <th>{{ __('Scenario', 'grcmanager') }}</th>
+            <th>{{ __('Severity (G1 to G4)', 'grcmanager') }}</th>
+            <th>{{ __('Likelihood', 'grcmanager') }}</th>
+            <th>{{ __('Risk level', 'grcmanager') }}</th>
+            {% if can_edit %}<th></th>{% endif %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for scenario in scenarios %}
+            <tr>
+              <td>
+                <div class="fw-bold">{{ scenario.name }}</div>
+                <div class="small text-muted"><i class="ti ti-route me-1"></i>{{ scenario.strategic_name }}</div>
+                {% if scenario.support_name %}<div class="small text-muted"><i class="ti ti-server me-1"></i>{{ scenario.support_name }}</div>{% endif %}
+                {% if scenario.attack_sequence %}<div class="small">{{ scenario.attack_sequence }}</div>{% endif %}
+              </td>
+              <td><span class="badge {{ severity_classes[scenario.severity]|default('bg-secondary-lt') }}">{{ severities[scenario.severity]|default(scenario.severity) }}</span></td>
+              <td style="min-width: 13rem">
+                {% if can_edit %}
+                  <form method="post" action="{{ form_url }}" class="d-flex gap-1 align-items-center">
+                    <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                    <input type="hidden" name="element" value="operational">
+                    <input type="hidden" name="id" value="{{ scenario.id }}">
+                    <select name="likelihood" class="form-select form-select-sm" aria-label="{{ __('Likelihood', 'grcmanager') }}">
+                      {% for level, label in likelihoods %}<option value="{{ level }}" {{ level == scenario.likelihood ? 'selected' : '' }}>{{ label }}</option>{% endfor %}
+                    </select>
+                    <button type="submit" name="update" class="btn btn-sm btn-outline-primary" title="{{ __('Save') }}" aria-label="{{ __('Save') }}"><i class="ti ti-device-floppy"></i></button>
+                  </form>
+                {% else %}
+                  {{ likelihoods[scenario.likelihood]|default(scenario.likelihood) }}
+                {% endif %}
+              </td>
+              <td><span class="badge {{ risk_levels[scenario.level][0] }}">{{ risk_levels[scenario.level][1] }}</span></td>
+              {% if can_edit %}
+                <td>
+                  <form method="post" action="{{ form_url }}" onsubmit="return confirm('{{ __('Remove this operational scenario?', 'grcmanager')|e('js') }}');">
+                    <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                    <input type="hidden" name="element" value="operational">
+                    <input type="hidden" name="id" value="{{ scenario.id }}">
+                    <button type="submit" name="purge" class="btn btn-sm btn-ghost-danger" title="{{ __('Remove', 'grcmanager') }}" aria-label="{{ __('Remove', 'grcmanager') }}"><i class="ti ti-trash"></i></button>
+                  </form>
+                </td>
+              {% endif %}
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endif %}

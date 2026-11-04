@@ -17,7 +17,10 @@
 
 use GlpiPlugin\Grcmanager\EbiosElement;
 use GlpiPlugin\Grcmanager\EbiosFearedEvent;
+use GlpiPlugin\Grcmanager\EbiosOperationalScenario;
 use GlpiPlugin\Grcmanager\EbiosRiskSource;
+use GlpiPlugin\Grcmanager\EbiosStakeholder;
+use GlpiPlugin\Grcmanager\EbiosStrategicScenario;
 use GlpiPlugin\Grcmanager\EbiosSupport;
 use GlpiPlugin\Grcmanager\EbiosValue;
 
@@ -30,6 +33,9 @@ $classes = [
     'feared_event' => EbiosFearedEvent::class,
     'support'      => EbiosSupport::class,
     'risk_source'  => EbiosRiskSource::class,
+    'stakeholder'  => EbiosStakeholder::class,
+    'strategic'    => EbiosStrategicScenario::class,
+    'operational'  => EbiosOperationalScenario::class,
 ];
 $class = $classes[(string) ($_POST['element'] ?? '')] ?? null;
 Session::checkRight(EbiosElement::RIGHTNAME, UPDATE);

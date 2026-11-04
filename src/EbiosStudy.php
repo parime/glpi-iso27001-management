@@ -21,8 +21,10 @@ use CommonGLPI;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\EbiosStudyBase;
 use GlpiPlugin\Grcmanager\Services\Risk\EbiosRules;
+use Html;
 use Log;
 use Session;
+use Supplier;
 
 /**
  * Issue #376 : étude EBIOS Risk Manager, méthode d'appréciation et de traitement du risque de
@@ -39,6 +41,8 @@ class EbiosStudy extends EbiosStudyBase
     private const ELEMENTS = [
         1 => [EbiosValue::class, EbiosFearedEvent::class, EbiosSupport::class],
         2 => [EbiosRiskSource::class],
+        3 => [EbiosStakeholder::class, EbiosStrategicScenario::class],
+        4 => [EbiosOperationalScenario::class],
     ];
 
     public static function getTable($classname = null)
@@ -114,11 +118,26 @@ class EbiosStudy extends EbiosStudyBase
     /**
      * @return array<int, string>
      */
+    public static function getLikelihoodLabels(): array
+    {
+        return [
+            1 => __('V1 - Unlikely', 'grcmanager'),
+            2 => __('V2 - Likely', 'grcmanager'),
+            3 => __('V3 - Very likely', 'grcmanager'),
+            4 => __('V4 - Almost certain', 'grcmanager'),
+        ];
+    }
+
+    /**
+     * @return array<int, string>
+     */
     public static function getWorkshopLabels(): array
     {
         return [
             1 => __('Workshop 1: security baseline', 'grcmanager'),
             2 => __('Workshop 2: risk sources', 'grcmanager'),
+            3 => __('Workshop 3: strategic scenarios', 'grcmanager'),
+            4 => __('Workshop 4: operational scenarios', 'grcmanager'),
         ];
     }
 
@@ -189,7 +208,7 @@ class EbiosStudy extends EbiosStudyBase
         $studyId = (int) $item->getID();
         $common = [
             'item'     => $item,
-            'can_edit' => $item->canUpdateItem(),
+            'can_edit' => self::canUpdate() && $item->canUpdateItem(),
             'form_url' => self::getElementFormURL(),
             'levels'   => self::getLevelLabels(),
         ];
@@ -213,8 +232,130 @@ class EbiosStudy extends EbiosStudyBase
 
             return true;
         }
+        if ((int) $tabnum === 3) {
+            $data = self::workshopThreeData($studyId);
+            $renderer->display('@grcmanager/tabs/ebios_workshop3.html.twig', $common + $data);
+
+            return true;
+        }
+        if ((int) $tabnum === 4) {
+            $data = self::workshopFourData($studyId);
+            $renderer->display('@grcmanager/tabs/ebios_workshop4.html.twig', $common + $data);
+
+            return true;
+        }
 
         return false;
+    }
+
+    /**
+     * Parties prenantes classées par menace décroissante, et scénarios stratégiques avec leurs libellés.
+     *
+     * @return array<string, mixed>
+     */
+    private static function workshopThreeData(int $studyId): array
+    {
+        $stakeholders = [];
+        foreach (EbiosStakeholder::getForStudy($studyId) as $row) {
+            $row['threat'] = EbiosRules::threatLevel(
+                (int) $row['dependence'],
+                (int) $row['penetration'],
+                (int) $row['maturity'],
+                (int) $row['trust']
+            );
+            $row['zone'] = EbiosRules::threatZone($row['threat']);
+            $row['threat_label'] = Html::formatNumber($row['threat']);
+            $row['supplier_url'] = (int) $row['suppliers_id'] > 0
+                ? Supplier::getFormURLWithID((int) $row['suppliers_id'])
+                : '';
+            $stakeholders[(int) $row['id']] = $row;
+        }
+        uasort($stakeholders, static fn(array $a, array $b): int => $b['threat'] <=> $a['threat']);
+
+        $sources = [];
+        foreach (EbiosRiskSource::getForStudy($studyId) as $source) {
+            $sources[(int) $source['id']] = $source;
+        }
+        $events = self::eventsById($studyId);
+        $scenarios = [];
+        foreach (EbiosStrategicScenario::getForStudy($studyId) as $row) {
+            $source = $sources[(int) $row[EbiosRiskSource::getForeignKeyField()]] ?? [];
+            $event = $events[(int) $row[EbiosFearedEvent::getForeignKeyField()]] ?? [];
+            $stakeholder = $stakeholders[(int) $row[EbiosStakeholder::getForeignKeyField()]] ?? [];
+            $scenarios[] = $row + [
+                'source_name'      => (string) ($source['name'] ?? ''),
+                'source_objective' => (string) ($source['objective'] ?? ''),
+                'source_retained'  => (int) ($source['is_retained'] ?? 0),
+                'event_name'       => (string) ($event['name'] ?? ''),
+                'severity'         => (int) ($event['severity'] ?? 1),
+                'stakeholder_name' => (string) ($stakeholder['name'] ?? ''),
+            ];
+        }
+
+        return [
+            'stakeholders' => array_values($stakeholders),
+            'scenarios'    => $scenarios,
+            'sources'      => array_filter($sources, static fn(array $s): bool => (int) $s['is_retained'] === 1),
+            'events'       => $events,
+            'categories'   => EbiosStakeholder::getCategories(),
+            'severities'   => self::getSeverityLabels(),
+        ];
+    }
+
+    /**
+     * Scénarios opérationnels avec leur gravité et leur niveau de risque, et la grille de ces niveaux.
+     *
+     * @return array<string, mixed>
+     */
+    private static function workshopFourData(int $studyId): array
+    {
+        $events = self::eventsById($studyId);
+        $strategic = [];
+        foreach (EbiosStrategicScenario::getForStudy($studyId) as $row) {
+            $event = $events[(int) $row[EbiosFearedEvent::getForeignKeyField()]] ?? [];
+            $strategic[(int) $row['id']] = $row + ['severity' => (int) ($event['severity'] ?? 1)];
+        }
+        $supports = [];
+        foreach (EbiosSupport::getForStudy($studyId) as $support) {
+            $supports[(int) $support['id']] = $support;
+        }
+        $scenarios = [];
+        foreach (EbiosOperationalScenario::getForStudy($studyId) as $row) {
+            $parent = $strategic[(int) $row[EbiosStrategicScenario::getForeignKeyField()]] ?? [];
+            $severity = (int) ($parent['severity'] ?? 1);
+            $scenarios[] = $row + [
+                'strategic_name' => (string) ($parent['name'] ?? ''),
+                'severity'       => $severity,
+                'level'          => EbiosRules::riskLevel($severity, (int) $row['likelihood']),
+                'support_name'   => (string) ($supports[(int) $row[EbiosSupport::getForeignKeyField()]]['name'] ?? ''),
+            ];
+        }
+        $pairs = [];
+        foreach ($scenarios as $scenario) {
+            $pairs[] = ['severity' => $scenario['severity'], 'likelihood' => (int) $scenario['likelihood']];
+        }
+
+        return [
+            'scenarios'   => $scenarios,
+            'strategic'   => $strategic,
+            'supports'    => $supports,
+            'matrix'      => EbiosRules::riskMatrix($pairs),
+            'severities'  => self::getSeverityLabels(),
+            'likelihoods' => self::getLikelihoodLabels(),
+        ];
+    }
+
+    /**
+     * @return array<int, array<string, mixed>>
+     */
+    private static function eventsById(int $studyId): array
+    {
+        $events = [];
+        foreach (EbiosFearedEvent::getForStudy($studyId) as $event) {
+            $events[(int) $event['id']] = $event;
+        }
+
+        return $events;
     }
 
     /**

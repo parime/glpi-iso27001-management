@@ -426,7 +426,8 @@ class PageHelp
                 ),
                 'expected' => __(
                     'Create one study per scope, then work through its workshops in order: business values and '
-                        . 'feared events first, then risk sources.',
+                        . 'feared events, risk sources, stakeholders and strategic scenarios, then operational '
+                        . 'scenarios.',
                     'grcmanager'
                 ),
             ],
