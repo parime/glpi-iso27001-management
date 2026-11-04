@@ -46,7 +46,7 @@ class Dpia extends DpiaBase
 
     public static function getTypeName($nb = 0)
     {
-        return _n('DPIA', 'DPIAs', $nb, 'grcmanager');
+        return __('DPIA', 'grcmanager');
     }
 
     public static function getIcon()
