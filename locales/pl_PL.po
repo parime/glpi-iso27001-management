@@ -9805,3 +9805,179 @@ msgstr "Strefa"
 
 msgid "Create one study per scope, then work through its workshops in order: business values and feared events, risk sources, stakeholders and strategic scenarios, operational scenarios, then their treatment, which feeds the risk register."
 msgstr "Utwórz jedno badanie na każdy zakres, a następnie przejdź kolejno przez warsztaty: wartości biznesowe i zdarzenia niepożądane, źródła ryzyka, interesariusze i scenariusze strategiczne, scenariusze operacyjne, a na końcu postępowanie z nimi, które zasila rejestr ryzyk."
+
+msgid "Incident type"
+msgstr "Typ incydentu"
+
+msgid "The playbook is suggested first on incidents of this type."
+msgstr "Procedura jest proponowana w pierwszej kolejności dla incydentów tego typu."
+
+msgid "Evaluation or scoring of people"
+msgstr "Ocena lub punktacja osób"
+
+msgid "Automated decisions with legal or similar effects"
+msgstr "Zautomatyzowane decyzje o skutkach prawnych lub podobnych"
+
+msgid "Systematic monitoring of people"
+msgstr "Systematyczne monitorowanie osób"
+
+msgid "Sensitive or highly personal data"
+msgstr "Dane wrażliwe lub o charakterze wysoce osobistym"
+
+msgid "Processing on a large scale"
+msgstr "Przetwarzanie na dużą skalę"
+
+msgid "Matching or combining datasets"
+msgstr "Dopasowywanie lub łączenie zbiorów danych"
+
+msgid "Data about vulnerable people"
+msgstr "Dane osób szczególnie narażonych"
+
+msgid "Innovative use of technology"
+msgstr "Innowacyjne wykorzystanie technologii"
+
+msgid "Prevents the exercise of a right or access to a service"
+msgstr "Uniemożliwia korzystanie z prawa lub dostęp do usługi"
+
+msgid "Illegitimate access to data"
+msgstr "Nieuprawniony dostęp do danych"
+
+msgid "Unwanted change of data"
+msgstr "Niepożądana zmiana danych"
+
+msgid "Disappearance of data"
+msgstr "Utrata danych"
+
+msgid "1 - Negligible"
+msgstr "1 - Znikomy"
+
+msgid "2 - Limited"
+msgstr "2 - Ograniczony"
+
+msgid "3 - Significant"
+msgstr "3 - Znaczący"
+
+msgid "4 - Maximum"
+msgstr "4 - Maksymalny"
+
+msgid "Necessity and proportionality"
+msgstr "Niezbędność i proporcjonalność"
+
+msgid "Rating of the three risks, before and after measures"
+msgstr "Ocena trzech ryzyk przed i po zastosowaniu środków"
+
+msgid "Planned measures"
+msgstr "Planowane środki"
+
+msgid "Opinion of the DPO"
+msgstr "Opinia IOD"
+
+msgid "This DPIA is approved: reopen it to change it."
+msgstr "Ta ocena skutków jest zatwierdzona: otwórz ją ponownie, aby ją zmienić."
+
+#, php-format
+msgid "This DPIA cannot be approved yet, missing: %s"
+msgstr "Tej oceny skutków nie można jeszcze zatwierdzić, brakuje: %s"
+
+msgid "DPIA approved"
+msgstr "Ocena skutków zatwierdzona"
+
+msgid "DPIA reopened, approval withdrawn"
+msgstr "Ocena skutków otwarta ponownie, zatwierdzenie wycofane"
+
+msgid "Seriousness"
+msgstr "Dotkliwość"
+
+msgid "Severity after measures"
+msgstr "Dotkliwość po zastosowaniu środków"
+
+msgid "Likelihood after measures"
+msgstr "Prawdopodobieństwo po zastosowaniu środków"
+
+msgid "On the record"
+msgstr "W rejestrze"
+
+msgid "Report (PDF)"
+msgstr "Raport (PDF)"
+
+msgid "A residual risk remains high: article 36 of the GDPR requires consulting the supervisory authority (CNIL in France) before starting the processing."
+msgstr "Ryzyko szczątkowe pozostaje wysokie: art. 36 RODO wymaga konsultacji z organem nadzorczym (we Francji CNIL) przed rozpoczęciem przetwarzania."
+
+#, php-format
+msgid "The record of this processing could be updated: %s."
+msgstr "Wpis tego przetwarzania można zaktualizować: %s."
+
+msgid "Update the record"
+msgstr "Zaktualizuj wpis"
+
+msgid "Is a DPIA needed?"
+msgstr "Czy potrzebna jest ocena skutków?"
+
+msgid "European guidelines (WP248) list nine criteria. From two criteria met, a DPIA is required in principle. The final decision remains yours, after the opinion of the DPO."
+msgstr "Wytyczne europejskie (WP248) wymieniają dziewięć kryteriów. Po spełnieniu dwóch kryteriów ocena skutków jest co do zasady wymagana. Ostateczna decyzja należy do Ciebie, po opinii IOD."
+
+msgid "Criteria met"
+msgstr "Spełnione kryteria"
+
+msgid "A DPIA is required in principle."
+msgstr "Ocena skutków jest co do zasady wymagana."
+
+msgid "Below the threshold: a DPIA is not required in principle."
+msgstr "Poniżej progu: ocena skutków co do zasady nie jest wymagana."
+
+msgid "Description and proportionality"
+msgstr "Opis i proporcjonalność"
+
+msgid "Description of the processing"
+msgstr "Opis przetwarzania"
+
+msgid "What the record does not say: how data flows, who accesses it, in which tools"
+msgstr "Czego nie ma we wpisie: jak przepływają dane, kto ma do nich dostęp, w jakich narzędziach"
+
+msgid "Why this data, why this duration, could the same goal be reached with less?"
+msgstr "Dlaczego te dane, dlaczego taki okres, czy ten sam cel można osiągnąć mniejszym kosztem?"
+
+msgid "Risks for the people concerned"
+msgstr "Ryzyka dla osób, których dane dotyczą"
+
+msgid "Rate each risk from the point of view of the people concerned, not of the organisation, before and after the planned measures."
+msgstr "Oceń każde ryzyko z punktu widzenia osób, których dane dotyczą, a nie organizacji, przed i po planowanych środkach."
+
+msgid "Residual level"
+msgstr "Poziom szczątkowy"
+
+msgid "Encryption, access limited to..., shorter retention, information of the people..."
+msgstr "Szyfrowanie, dostęp ograniczony do..., krótsze przechowywanie, informowanie osób..."
+
+msgid "Opinions"
+msgstr "Opinie"
+
+msgid "DPO"
+msgstr "IOD"
+
+msgid "Views of the people concerned"
+msgstr "Opinia osób, których dane dotyczą"
+
+msgid "Consultation carried out, or why it was not appropriate"
+msgstr "Przeprowadzone konsultacje lub powód, dla którego nie były właściwe"
+
+msgid "Approval by the data controller"
+msgstr "Zatwierdzenie przez administratora"
+
+msgid "Still missing before approval:"
+msgstr "Przed zatwierdzeniem brakuje jeszcze:"
+
+msgid "Reopen this DPIA? The approval will be withdrawn."
+msgstr "Otworzyć ponownie tę ocenę skutków? Zatwierdzenie zostanie wycofane."
+
+msgid "Approve this DPIA? It can no longer be changed unless it is reopened."
+msgstr "Zatwierdzić tę ocenę skutków? Można ją będzie zmienić tylko po ponownym otwarciu."
+
+msgid "Reopen"
+msgstr "Otwórz ponownie"
+
+msgid "Approve"
+msgstr "Zatwierdź"
+
+msgid "Add the highest residual risk to the register"
+msgstr "Dodaj najwyższe ryzyko szczątkowe do rejestru"

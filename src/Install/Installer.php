@@ -289,6 +289,8 @@ final class Installer
     // Issue #168 : exercices de crise et leurs étapes chronométrées.
     // Issue #377 : registre des processus métier, leurs dépendances et leur BIA.
     // Issue #376 : études EBIOS Risk Manager et éléments de leurs ateliers.
+    // Issue #375 : analyse d'impact (AIPD) d'une fiche du registre des traitements.
+    private const DPIAS_TABLE = 'glpi_plugin_grcmanager_dpias';
     private const EBIOS_STUDIES_TABLE = 'glpi_plugin_grcmanager_ebiosstudies';
     private const EBIOS_VALUES_TABLE = 'glpi_plugin_grcmanager_ebiosvalues';
     private const EBIOS_FEARED_EVENTS_TABLE = 'glpi_plugin_grcmanager_ebiosfearedevents';
@@ -2253,6 +2255,32 @@ final class Installer
 
         // Issue #377 : processus métier (responsable, criticité GLPI, DMIA, RTO, RPO), éléments GLPI
         // dont ils dépendent et analyse d'impact sur l'activité par durée d'interruption.
+        if (!$DB->tableExists(self::DPIAS_TABLE)) {
+            $query = "CREATE TABLE `" . self::DPIAS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_processingactivities_id` int {$keySign} NOT NULL DEFAULT 0,
+                `status` varchar(16) NOT NULL DEFAULT 'draft' COMMENT 'draft, approved',
+                `criteria` text COMMENT 'JSON, criteres WP248',
+                `risk_assessment` text COMMENT 'JSON, cotation avant et apres mesures',
+                `description` text,
+                `necessity` text,
+                `measures` text,
+                `data_subjects_views` text,
+                `dpo_opinion` text,
+                `users_id_dpo` int {$keySign} NOT NULL DEFAULT 0,
+                `date_dpo_opinion` timestamp NULL DEFAULT NULL,
+                `users_id_approval` int {$keySign} NOT NULL DEFAULT 0,
+                `date_approval` timestamp NULL DEFAULT NULL,
+                `plugin_grcmanager_risks_id` int {$keySign} NOT NULL DEFAULT 0,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `plugin_grcmanager_processingactivities_id` (`plugin_grcmanager_processingactivities_id`),
+                KEY `plugin_grcmanager_risks_id` (`plugin_grcmanager_risks_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query);
+        }
         if (!$DB->tableExists(self::EBIOS_STUDIES_TABLE)) {
             $query = "CREATE TABLE `" . self::EBIOS_STUDIES_TABLE . "` (
                 `id` int {$keySign} NOT NULL AUTO_INCREMENT,
@@ -4755,6 +4783,7 @@ final class Installer
         $migration->dropTable(self::BUSINESS_IMPACTS_TABLE);
         $migration->dropTable(self::BUSINESS_PROCESSES_ITEMS_TABLE);
         $migration->dropTable(self::BUSINESS_PROCESSES_TABLE);
+        $migration->dropTable(self::DPIAS_TABLE);
         $migration->dropTable(self::EBIOS_STUDIES_TABLE);
         $migration->dropTable(self::EBIOS_VALUES_TABLE);
         $migration->dropTable(self::EBIOS_FEARED_EVENTS_TABLE);

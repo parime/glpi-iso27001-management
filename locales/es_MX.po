@@ -8401,3 +8401,179 @@ msgstr "Zona"
 
 msgid "Create one study per scope, then work through its workshops in order: business values and feared events, risk sources, stakeholders and strategic scenarios, operational scenarios, then their treatment, which feeds the risk register."
 msgstr "Cree un estudio por alcance y siga sus talleres en orden: valores de negocio y eventos temidos, fuentes de riesgo, partes interesadas y escenarios estratégicos, escenarios operativos y, por último, su tratamiento, que alimenta el registro de riesgos."
+
+msgid "Incident type"
+msgstr "Tipo de incidente"
+
+msgid "The playbook is suggested first on incidents of this type."
+msgstr "El procedimiento se sugiere primero en los incidentes de este tipo."
+
+msgid "Evaluation or scoring of people"
+msgstr "Evaluación o puntuación de personas"
+
+msgid "Automated decisions with legal or similar effects"
+msgstr "Decisiones automatizadas con efectos jurídicos o similares"
+
+msgid "Systematic monitoring of people"
+msgstr "Observación sistemática de personas"
+
+msgid "Sensitive or highly personal data"
+msgstr "Datos sensibles o muy personales"
+
+msgid "Processing on a large scale"
+msgstr "Tratamiento a gran escala"
+
+msgid "Matching or combining datasets"
+msgstr "Cruce o combinación de datos"
+
+msgid "Data about vulnerable people"
+msgstr "Datos de personas vulnerables"
+
+msgid "Innovative use of technology"
+msgstr "Uso innovador de la tecnología"
+
+msgid "Prevents the exercise of a right or access to a service"
+msgstr "Impide ejercer un derecho o acceder a un servicio"
+
+msgid "Illegitimate access to data"
+msgstr "Acceso ilegítimo a los datos"
+
+msgid "Unwanted change of data"
+msgstr "Modificación no deseada de los datos"
+
+msgid "Disappearance of data"
+msgstr "Desaparición de los datos"
+
+msgid "1 - Negligible"
+msgstr "1 - Insignificante"
+
+msgid "2 - Limited"
+msgstr "2 - Limitado"
+
+msgid "3 - Significant"
+msgstr "3 - Importante"
+
+msgid "4 - Maximum"
+msgstr "4 - Máximo"
+
+msgid "Necessity and proportionality"
+msgstr "Necesidad y proporcionalidad"
+
+msgid "Rating of the three risks, before and after measures"
+msgstr "Evaluación de los tres riesgos, antes y después de las medidas"
+
+msgid "Planned measures"
+msgstr "Medidas previstas"
+
+msgid "Opinion of the DPO"
+msgstr "Dictamen del DPD"
+
+msgid "This DPIA is approved: reopen it to change it."
+msgstr "Esta EIPD está aprobada: reábrala para modificarla."
+
+#, php-format
+msgid "This DPIA cannot be approved yet, missing: %s"
+msgstr "Esta EIPD aún no se puede aprobar, falta: %s"
+
+msgid "DPIA approved"
+msgstr "EIPD aprobada"
+
+msgid "DPIA reopened, approval withdrawn"
+msgstr "EIPD reabierta, aprobación retirada"
+
+msgid "Seriousness"
+msgstr "Gravedad"
+
+msgid "Severity after measures"
+msgstr "Gravedad tras las medidas"
+
+msgid "Likelihood after measures"
+msgstr "Probabilidad tras las medidas"
+
+msgid "On the record"
+msgstr "En la ficha"
+
+msgid "Report (PDF)"
+msgstr "Informe (PDF)"
+
+msgid "A residual risk remains high: article 36 of the GDPR requires consulting the supervisory authority (CNIL in France) before starting the processing."
+msgstr "Un riesgo residual sigue siendo alto: el artículo 36 del RGPD exige consultar a la autoridad de control (la CNIL en Francia) antes de iniciar el tratamiento."
+
+#, php-format
+msgid "The record of this processing could be updated: %s."
+msgstr "La ficha de este tratamiento podría actualizarse: %s."
+
+msgid "Update the record"
+msgstr "Actualizar la ficha"
+
+msgid "Is a DPIA needed?"
+msgstr "¿Es necesaria una EIPD?"
+
+msgid "European guidelines (WP248) list nine criteria. From two criteria met, a DPIA is required in principle. The final decision remains yours, after the opinion of the DPO."
+msgstr "Las directrices europeas (WP248) enumeran nueve criterios. A partir de dos criterios cumplidos, en principio se requiere una EIPD. La decisión final es suya, tras el dictamen del DPD."
+
+msgid "Criteria met"
+msgstr "Criterios cumplidos"
+
+msgid "A DPIA is required in principle."
+msgstr "En principio se requiere una EIPD."
+
+msgid "Below the threshold: a DPIA is not required in principle."
+msgstr "Por debajo del umbral: en principio no se requiere una EIPD."
+
+msgid "Description and proportionality"
+msgstr "Descripción y proporcionalidad"
+
+msgid "Description of the processing"
+msgstr "Descripción del tratamiento"
+
+msgid "What the record does not say: how data flows, who accesses it, in which tools"
+msgstr "Lo que la ficha no dice: cómo circulan los datos, quién accede a ellos, en qué herramientas"
+
+msgid "Why this data, why this duration, could the same goal be reached with less?"
+msgstr "¿Por qué estos datos, por qué esta duración, se podría lograr el mismo objetivo con menos?"
+
+msgid "Risks for the people concerned"
+msgstr "Riesgos para los interesados"
+
+msgid "Rate each risk from the point of view of the people concerned, not of the organisation, before and after the planned measures."
+msgstr "Evalúe cada riesgo desde el punto de vista de los interesados, no de la organización, antes y después de las medidas previstas."
+
+msgid "Residual level"
+msgstr "Nivel residual"
+
+msgid "Encryption, access limited to..., shorter retention, information of the people..."
+msgstr "Cifrado, acceso limitado a..., conservación más corta, información a las personas..."
+
+msgid "Opinions"
+msgstr "Dictámenes"
+
+msgid "DPO"
+msgstr "DPD"
+
+msgid "Views of the people concerned"
+msgstr "Opinión de los interesados"
+
+msgid "Consultation carried out, or why it was not appropriate"
+msgstr "Consulta realizada, o motivo por el que no era adecuada"
+
+msgid "Approval by the data controller"
+msgstr "Aprobación por el responsable del tratamiento"
+
+msgid "Still missing before approval:"
+msgstr "Aún falta antes de la aprobación:"
+
+msgid "Reopen this DPIA? The approval will be withdrawn."
+msgstr "¿Reabrir esta EIPD? La aprobación se retirará."
+
+msgid "Approve this DPIA? It can no longer be changed unless it is reopened."
+msgstr "¿Aprobar esta EIPD? Solo podrá modificarse si se reabre."
+
+msgid "Reopen"
+msgstr "Reabrir"
+
+msgid "Approve"
+msgstr "Aprobar"
+
+msgid "Add the highest residual risk to the register"
+msgstr "Añadir el riesgo residual más alto al registro"

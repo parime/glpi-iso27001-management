@@ -245,6 +245,10 @@ if [ "$ROLE" = general ]; then
            "front/processingactivity.export.php?format=csv" "front/processingactivity.form.php?id=$(id processing_A)"; do
     expect "$p : sans le droit du registre des traitements" 403 "$(code "$BASE/plugins/grcmanager/$p")"
   done
+  expect "front/dpia.report.php : sans le droit du registre des traitements" 403 \
+    "$(code "$P/dpia.report.php?id=$(id processing_A)")"
+  expect "front/dpia.form.php : enregistrer une AIPD" 403 \
+    "$(code -d "save=1&plugin_grcmanager_processingactivities_id=$(id processing_A)&_glpi_csrf_token=$(csrf)" "$P/dpia.form.php")"
   expect "front/processingactivity.form.php : modifier une fiche" 403 \
     "$(code -d "update=1&id=$(id processing_A)&name=securite&_glpi_csrf_token=$(csrf)" "$P/processingactivity.form.php")"
   contains "onglet Registre des traitements d'un ordinateur : rien" "Traitement securite" non \
@@ -345,6 +349,9 @@ expect "front/compliancecalendar.ics.php : jeton invalide" 403    "$(code "$P/co
 # n'est jamais nomme, ni sur la fiche, ni dans l'export, ni dans l'onglet de l'actif.
 expect "traitement, entite A"          200    "$(code "$P/processingactivity.form.php?id=$(id processing_A)")"
 expect "traitement, entite B"          $DENY  "$(code "$P/processingactivity.form.php?id=$(id processing_B)")"
+expect "AIPD d'un traitement de B"     $DENY  "$(code "$P/dpia.report.php?id=$(id processing_B)")"
+expect "enregistrer l'AIPD d'un traitement de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
+  "$(code -d "save=1&plugin_grcmanager_processingactivities_id=$(id processing_B)&_glpi_csrf_token=$(csrf)" "$P/dpia.form.php")"
 expect "modifier un traitement de B"   "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
   "$(code -d "update=1&id=$(id processing_B)&comment=securite&_glpi_csrf_token=$(csrf)" "$P/processingactivity.form.php")"
 processing_page=$(tab GlpiPlugin%5CGrcmanager%5CProcessingActivity 'GlpiPlugin%5CGrcmanager%5CProcessingActivity$main' "$(id processing_A)")

@@ -8401,3 +8401,179 @@ msgstr "Zona"
 
 msgid "Create one study per scope, then work through its workshops in order: business values and feared events, risk sources, stakeholders and strategic scenarios, operational scenarios, then their treatment, which feeds the risk register."
 msgstr "Crie um estudo por escopo e siga as oficinas em ordem: valores de negócio e eventos temidos, fontes de risco, partes interessadas e cenários estratégicos, cenários operacionais e, por fim, seu tratamento, que alimenta o registro de riscos."
+
+msgid "Incident type"
+msgstr "Tipo de incidente"
+
+msgid "The playbook is suggested first on incidents of this type."
+msgstr "O procedimento é sugerido primeiro nos incidentes deste tipo."
+
+msgid "Evaluation or scoring of people"
+msgstr "Avaliação ou pontuação de pessoas"
+
+msgid "Automated decisions with legal or similar effects"
+msgstr "Decisões automatizadas com efeitos jurídicos ou semelhantes"
+
+msgid "Systematic monitoring of people"
+msgstr "Monitoramento sistemático de pessoas"
+
+msgid "Sensitive or highly personal data"
+msgstr "Dados sensíveis ou altamente pessoais"
+
+msgid "Processing on a large scale"
+msgstr "Tratamento em larga escala"
+
+msgid "Matching or combining datasets"
+msgstr "Cruzamento ou combinação de dados"
+
+msgid "Data about vulnerable people"
+msgstr "Dados de pessoas vulneráveis"
+
+msgid "Innovative use of technology"
+msgstr "Uso inovador da tecnologia"
+
+msgid "Prevents the exercise of a right or access to a service"
+msgstr "Impede o exercício de um direito ou o acesso a um serviço"
+
+msgid "Illegitimate access to data"
+msgstr "Acesso ilegítimo aos dados"
+
+msgid "Unwanted change of data"
+msgstr "Alteração indesejada dos dados"
+
+msgid "Disappearance of data"
+msgstr "Desaparecimento dos dados"
+
+msgid "1 - Negligible"
+msgstr "1 - Insignificante"
+
+msgid "2 - Limited"
+msgstr "2 - Limitado"
+
+msgid "3 - Significant"
+msgstr "3 - Importante"
+
+msgid "4 - Maximum"
+msgstr "4 - Máximo"
+
+msgid "Necessity and proportionality"
+msgstr "Necessidade e proporcionalidade"
+
+msgid "Rating of the three risks, before and after measures"
+msgstr "Avaliação dos três riscos, antes e depois das medidas"
+
+msgid "Planned measures"
+msgstr "Medidas previstas"
+
+msgid "Opinion of the DPO"
+msgstr "Parecer do DPO"
+
+msgid "This DPIA is approved: reopen it to change it."
+msgstr "Este RIPD está aprovado: reabra-o para alterá-lo."
+
+#, php-format
+msgid "This DPIA cannot be approved yet, missing: %s"
+msgstr "Este RIPD ainda não pode ser aprovado, falta: %s"
+
+msgid "DPIA approved"
+msgstr "RIPD aprovado"
+
+msgid "DPIA reopened, approval withdrawn"
+msgstr "RIPD reaberto, aprovação retirada"
+
+msgid "Seriousness"
+msgstr "Gravidade"
+
+msgid "Severity after measures"
+msgstr "Gravidade após as medidas"
+
+msgid "Likelihood after measures"
+msgstr "Probabilidade após as medidas"
+
+msgid "On the record"
+msgstr "Na ficha"
+
+msgid "Report (PDF)"
+msgstr "Relatório (PDF)"
+
+msgid "A residual risk remains high: article 36 of the GDPR requires consulting the supervisory authority (CNIL in France) before starting the processing."
+msgstr "Um risco residual continua alto: o artigo 36 do RGPD exige consultar a autoridade de controle (a CNIL na França) antes de iniciar o tratamento."
+
+#, php-format
+msgid "The record of this processing could be updated: %s."
+msgstr "A ficha deste tratamento poderia ser atualizada: %s."
+
+msgid "Update the record"
+msgstr "Atualizar a ficha"
+
+msgid "Is a DPIA needed?"
+msgstr "É necessário um RIPD?"
+
+msgid "European guidelines (WP248) list nine criteria. From two criteria met, a DPIA is required in principle. The final decision remains yours, after the opinion of the DPO."
+msgstr "As diretrizes europeias (WP248) listam nove critérios. A partir de dois critérios atendidos, um RIPD é exigido em princípio. A decisão final é sua, após o parecer do DPO."
+
+msgid "Criteria met"
+msgstr "Critérios atendidos"
+
+msgid "A DPIA is required in principle."
+msgstr "Um RIPD é exigido em princípio."
+
+msgid "Below the threshold: a DPIA is not required in principle."
+msgstr "Abaixo do limite: um RIPD não é exigido em princípio."
+
+msgid "Description and proportionality"
+msgstr "Descrição e proporcionalidade"
+
+msgid "Description of the processing"
+msgstr "Descrição do tratamento"
+
+msgid "What the record does not say: how data flows, who accesses it, in which tools"
+msgstr "O que a ficha não diz: como os dados circulam, quem os acessa, em quais ferramentas"
+
+msgid "Why this data, why this duration, could the same goal be reached with less?"
+msgstr "Por que estes dados, por que esta duração, o mesmo objetivo poderia ser alcançado com menos?"
+
+msgid "Risks for the people concerned"
+msgstr "Riscos para os titulares"
+
+msgid "Rate each risk from the point of view of the people concerned, not of the organisation, before and after the planned measures."
+msgstr "Avalie cada risco do ponto de vista dos titulares, não da organização, antes e depois das medidas previstas."
+
+msgid "Residual level"
+msgstr "Nível residual"
+
+msgid "Encryption, access limited to..., shorter retention, information of the people..."
+msgstr "Criptografia, acesso limitado a..., retenção mais curta, informação das pessoas..."
+
+msgid "Opinions"
+msgstr "Pareceres"
+
+msgid "DPO"
+msgstr "DPO"
+
+msgid "Views of the people concerned"
+msgstr "Opinião dos titulares"
+
+msgid "Consultation carried out, or why it was not appropriate"
+msgstr "Consulta realizada, ou por que não era apropriada"
+
+msgid "Approval by the data controller"
+msgstr "Aprovação pelo controlador"
+
+msgid "Still missing before approval:"
+msgstr "Ainda falta antes da aprovação:"
+
+msgid "Reopen this DPIA? The approval will be withdrawn."
+msgstr "Reabrir este RIPD? A aprovação será retirada."
+
+msgid "Approve this DPIA? It can no longer be changed unless it is reopened."
+msgstr "Aprovar este RIPD? Só poderá ser alterado se for reaberto."
+
+msgid "Reopen"
+msgstr "Reabrir"
+
+msgid "Approve"
+msgstr "Aprovar"
+
+msgid "Add the highest residual risk to the register"
+msgstr "Adicionar o risco residual mais alto ao registro"

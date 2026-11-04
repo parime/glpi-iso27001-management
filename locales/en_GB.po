@@ -8401,3 +8401,179 @@ msgstr "Zone"
 
 msgid "Create one study per scope, then work through its workshops in order: business values and feared events, risk sources, stakeholders and strategic scenarios, operational scenarios, then their treatment, which feeds the risk register."
 msgstr "Create one study per scope, then work through its workshops in order: business values and feared events, risk sources, stakeholders and strategic scenarios, operational scenarios, then their treatment, which feeds the risk register."
+
+msgid "Incident type"
+msgstr "Incident type"
+
+msgid "The playbook is suggested first on incidents of this type."
+msgstr "The playbook is suggested first on incidents of this type."
+
+msgid "Evaluation or scoring of people"
+msgstr "Evaluation or scoring of people"
+
+msgid "Automated decisions with legal or similar effects"
+msgstr "Automated decisions with legal or similar effects"
+
+msgid "Systematic monitoring of people"
+msgstr "Systematic monitoring of people"
+
+msgid "Sensitive or highly personal data"
+msgstr "Sensitive or highly personal data"
+
+msgid "Processing on a large scale"
+msgstr "Processing on a large scale"
+
+msgid "Matching or combining datasets"
+msgstr "Matching or combining datasets"
+
+msgid "Data about vulnerable people"
+msgstr "Data about vulnerable people"
+
+msgid "Innovative use of technology"
+msgstr "Innovative use of technology"
+
+msgid "Prevents the exercise of a right or access to a service"
+msgstr "Prevents the exercise of a right or access to a service"
+
+msgid "Illegitimate access to data"
+msgstr "Illegitimate access to data"
+
+msgid "Unwanted change of data"
+msgstr "Unwanted change of data"
+
+msgid "Disappearance of data"
+msgstr "Disappearance of data"
+
+msgid "1 - Negligible"
+msgstr "1 - Negligible"
+
+msgid "2 - Limited"
+msgstr "2 - Limited"
+
+msgid "3 - Significant"
+msgstr "3 - Significant"
+
+msgid "4 - Maximum"
+msgstr "4 - Maximum"
+
+msgid "Necessity and proportionality"
+msgstr "Necessity and proportionality"
+
+msgid "Rating of the three risks, before and after measures"
+msgstr "Rating of the three risks, before and after measures"
+
+msgid "Planned measures"
+msgstr "Planned measures"
+
+msgid "Opinion of the DPO"
+msgstr "Opinion of the DPO"
+
+msgid "This DPIA is approved: reopen it to change it."
+msgstr "This DPIA is approved: reopen it to change it."
+
+#, php-format
+msgid "This DPIA cannot be approved yet, missing: %s"
+msgstr "This DPIA cannot be approved yet, missing: %s"
+
+msgid "DPIA approved"
+msgstr "DPIA approved"
+
+msgid "DPIA reopened, approval withdrawn"
+msgstr "DPIA reopened, approval withdrawn"
+
+msgid "Seriousness"
+msgstr "Seriousness"
+
+msgid "Severity after measures"
+msgstr "Severity after measures"
+
+msgid "Likelihood after measures"
+msgstr "Likelihood after measures"
+
+msgid "On the record"
+msgstr "On the record"
+
+msgid "Report (PDF)"
+msgstr "Report (PDF)"
+
+msgid "A residual risk remains high: article 36 of the GDPR requires consulting the supervisory authority (CNIL in France) before starting the processing."
+msgstr "A residual risk remains high: article 36 of the GDPR requires consulting the supervisory authority (CNIL in France) before starting the processing."
+
+#, php-format
+msgid "The record of this processing could be updated: %s."
+msgstr "The record of this processing could be updated: %s."
+
+msgid "Update the record"
+msgstr "Update the record"
+
+msgid "Is a DPIA needed?"
+msgstr "Is a DPIA needed?"
+
+msgid "European guidelines (WP248) list nine criteria. From two criteria met, a DPIA is required in principle. The final decision remains yours, after the opinion of the DPO."
+msgstr "European guidelines (WP248) list nine criteria. From two criteria met, a DPIA is required in principle. The final decision remains yours, after the opinion of the DPO."
+
+msgid "Criteria met"
+msgstr "Criteria met"
+
+msgid "A DPIA is required in principle."
+msgstr "A DPIA is required in principle."
+
+msgid "Below the threshold: a DPIA is not required in principle."
+msgstr "Below the threshold: a DPIA is not required in principle."
+
+msgid "Description and proportionality"
+msgstr "Description and proportionality"
+
+msgid "Description of the processing"
+msgstr "Description of the processing"
+
+msgid "What the record does not say: how data flows, who accesses it, in which tools"
+msgstr "What the record does not say: how data flows, who accesses it, in which tools"
+
+msgid "Why this data, why this duration, could the same goal be reached with less?"
+msgstr "Why this data, why this duration, could the same goal be reached with less?"
+
+msgid "Risks for the people concerned"
+msgstr "Risks for the people concerned"
+
+msgid "Rate each risk from the point of view of the people concerned, not of the organisation, before and after the planned measures."
+msgstr "Rate each risk from the point of view of the people concerned, not of the organisation, before and after the planned measures."
+
+msgid "Residual level"
+msgstr "Residual level"
+
+msgid "Encryption, access limited to..., shorter retention, information of the people..."
+msgstr "Encryption, access limited to..., shorter retention, information of the people..."
+
+msgid "Opinions"
+msgstr "Opinions"
+
+msgid "DPO"
+msgstr "DPO"
+
+msgid "Views of the people concerned"
+msgstr "Views of the people concerned"
+
+msgid "Consultation carried out, or why it was not appropriate"
+msgstr "Consultation carried out, or why it was not appropriate"
+
+msgid "Approval by the data controller"
+msgstr "Approval by the data controller"
+
+msgid "Still missing before approval:"
+msgstr "Still missing before approval:"
+
+msgid "Reopen this DPIA? The approval will be withdrawn."
+msgstr "Reopen this DPIA? The approval will be withdrawn."
+
+msgid "Approve this DPIA? It can no longer be changed unless it is reopened."
+msgstr "Approve this DPIA? It can no longer be changed unless it is reopened."
+
+msgid "Reopen"
+msgstr "Reopen"
+
+msgid "Approve"
+msgstr "Approve"
+
+msgid "Add the highest residual risk to the register"
+msgstr "Add the highest residual risk to the register"
