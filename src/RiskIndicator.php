@@ -186,6 +186,61 @@ class RiskIndicator extends RiskIndicatorBase
     }
 
     /**
+     * Les valeurs d'une source automatique agrègent des données du périmètre du KRI : on ne les
+     * montre qu'à qui voit ces données (droits natifs, accès à l'entité et à ses sous-entités).
+     */
+    public function canViewItem(): bool
+    {
+        return parent::canViewItem()
+            && self::canUseSource((string) ($this->fields['source'] ?? ''), (int) ($this->fields['entities_id'] ?? 0));
+    }
+
+    public function canUpdateItem(): bool
+    {
+        return parent::canUpdateItem()
+            && self::canUseSource((string) ($this->fields['source'] ?? ''), (int) ($this->fields['entities_id'] ?? 0));
+    }
+
+    public function canPurgeItem(): bool
+    {
+        return parent::canPurgeItem()
+            && self::canUseSource((string) ($this->fields['source'] ?? ''), (int) ($this->fields['entities_id'] ?? 0));
+    }
+
+    /**
+     * Même règle pour les listes (moteur de recherche de GLPI), le tableau de bord et la fiche d'un
+     * risque : sources manuelle et globales, ou source automatique que la personne peut utiliser
+     * dans une entité dont elle voit tout le périmètre. S'ajoute au filtre d'entité habituel.
+     *
+     * @return array<int|string, mixed>
+     */
+    public static function getSystemSQLCriteria(?string $tablename = null): array
+    {
+        $prefix = ($tablename ?? self::getTable()) . '.';
+        $open = [self::SOURCE_MANUAL];
+        $bySource = [];
+        foreach (self::SOURCES as $source => $definition) {
+            if ($definition['global']) {
+                $open[] = $source;
+            } else {
+                $bySource[] = $source;
+            }
+        }
+        $or = [[$prefix . 'source' => $open]];
+        foreach ($bySource as $source) {
+            $entities = array_values(array_filter(
+                array_map('intval', (array) ($_SESSION['glpiactiveentities'] ?? [])),
+                static fn (int $entity): bool => self::canUseSource($source, $entity)
+            ));
+            if ($entities !== []) {
+                $or[] = [$prefix . 'source' => $source, $prefix . 'entities_id' => $entities];
+            }
+        }
+
+        return [['OR' => $or]];
+    }
+
+    /**
      * La source automatique est-elle utilisable par la personne connectée pour cette entité ? Il
      * lui faut les droits natifs de lecture des données mesurées et l'accès à toute l'entité et ses
      * sous-entités, le périmètre que le KRI mesure. Une source globale (registre des risques) ne
@@ -230,8 +285,11 @@ class RiskIndicator extends RiskIndicatorBase
     {
         // Champs calculés : jamais repris de la requête.
         unset($input['last_value'], $input['last_value_date'], $input['status'], $input['tickets_id']);
-        if (array_key_exists('is_recursive', $input)) {
-            $input['is_recursive'] = 0;
+        // Un KRI ne change pas d'entité : ce serait contourner le contrôle fait sur son entité.
+        if ($isNew) {
+            $input['entities_id'] = (int) ($input['entities_id'] ?? Session::getActiveEntity());
+        } else {
+            unset($input['entities_id']);
         }
 
         $source = (string) ($input['source'] ?? ($this->fields['source'] ?? self::SOURCE_MANUAL));
@@ -369,6 +427,11 @@ class RiskIndicator extends RiskIndicatorBase
             return false;
         }
         $this->refresh();
+        if (!$automatic) {
+            AuditLog::record('create', RiskIndicatorValue::class, (int) $id, 0, 'success', [
+                'kri' => $this->getID(), 'value' => $value,
+            ]);
+        }
 
         return true;
     }
@@ -713,7 +776,8 @@ class RiskIndicator extends RiskIndicatorBase
         foreach (
             $DB->request([
                 'FROM'  => self::getTable(),
-                'WHERE' => ['plugin_grcmanager_risks_id' => $risksId] + getEntitiesRestrictCriteria(self::getTable()),
+                'WHERE' => ['plugin_grcmanager_risks_id' => $risksId]
+                    + getEntitiesRestrictCriteria(self::getTable()) + self::getSystemSQLCriteria(),
                 'ORDER' => 'name',
             ]) as $row
         ) {
@@ -743,7 +807,8 @@ class RiskIndicator extends RiskIndicatorBase
             $DB->request([
                 'SELECT'  => ['status', 'COUNT' => 'id AS c'],
                 'FROM'    => self::getTable(),
-                'WHERE'   => ['is_active' => 1] + getEntitiesRestrictCriteria(self::getTable()),
+                'WHERE'   => ['is_active' => 1]
+                    + getEntitiesRestrictCriteria(self::getTable()) + self::getSystemSQLCriteria(),
                 'GROUPBY' => 'status',
             ]) as $row
         ) {

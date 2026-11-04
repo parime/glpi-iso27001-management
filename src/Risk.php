@@ -203,6 +203,9 @@ class Risk extends RiskBase
             if (!$alreadySigned) {
                 $input['users_id_acceptance'] = (int) Session::getLoginUserID();
                 $input['date_acceptance']     = Session::getCurrentTime() ?? date('Y-m-d H:i:s');
+                AuditLog::record('risk_acceptance', self::class, (int) ($this->fields['id'] ?? 0), 0, 'success', [
+                    'category' => $category, 'level' => $level, 'position' => $position,
+                ]);
             }
         } elseif ($treatment !== 'accept' && (int) ($this->fields['users_id_acceptance'] ?? 0) > 0) {
             // Décision changée : la signature d'acceptation ne vaut plus.

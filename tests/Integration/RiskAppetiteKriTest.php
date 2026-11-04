@@ -25,6 +25,7 @@ use GlpiPlugin\Grcmanager\Risk;
 use GlpiPlugin\Grcmanager\RiskAppetite;
 use GlpiPlugin\Grcmanager\RiskIndicator;
 use GlpiPlugin\Grcmanager\RiskIndicatorValue;
+use GlpiPlugin\Grcmanager\SecurityCategoryLink;
 use GlpiPlugin\Grcmanager\Services\Dashboard\SecuredDashboardCards;
 use GlpiPlugin\Grcmanager\Services\Risk\KriRules;
 use GlpiPlugin\Grcmanager\Services\Risk\RiskAppetiteRules;
@@ -114,7 +115,9 @@ final class RiskAppetiteKriTest extends GrcmanagerIntegrationTestCase
         $this->assertSame('', $risk->fields['treatment']);
 
         // Justifiée : signée par la personne qui enregistre.
-        $this->assertTrue($risk->update(['id' => $id, 'treatment' => 'accept', 'justification' => 'Coût disproportionné']));
+        $this->assertTrue(
+            $risk->update(['id' => $id, 'treatment' => 'accept', 'justification' => 'Coût disproportionné'])
+        );
         $risk->getFromDB($id);
         $this->assertSame(2, (int) $risk->fields['users_id_acceptance']);
         $this->assertNotEmpty($risk->fields['date_acceptance']);
@@ -142,7 +145,8 @@ final class RiskAppetiteKriTest extends GrcmanagerIntegrationTestCase
         $this->setAppetite('technical', 'low', 'high');
         $critical = $this->criticalRisk('technical');
         $high = (int) (new Risk())->add([
-            'title' => 'Risque fictif élevé', 'category' => 'technical', 'probability' => 'probable', 'impact' => 'high',
+            'title' => 'Risque fictif élevé', 'category' => 'technical',
+            'probability' => 'probable', 'impact' => 'high',
         ]);
         $closed = $this->criticalRisk('technical', ['status' => 'closed']);
         $rows = RiskAppetite::risksAboveAppetite();
@@ -203,7 +207,9 @@ final class RiskAppetiteKriTest extends GrcmanagerIntegrationTestCase
         $this->assertFalse($kri->add([
             'name' => 'KRI incohérent', 'entities_id' => 0, 'threshold_warning' => '10', 'threshold_critical' => '5',
         ]));
-        $ok = $this->kri(['direction' => KriRules::LOWER_IS_WORSE, 'threshold_warning' => '95', 'threshold_critical' => '80']);
+        $ok = $this->kri([
+            'direction' => KriRules::LOWER_IS_WORSE, 'threshold_warning' => '95', 'threshold_critical' => '80',
+        ]);
         $ok->update(['id' => $ok->getID(), 'status' => 'red', 'last_value' => '1', 'tickets_id' => 5]);
         $ok->getFromDB($ok->getID());
         $this->assertSame(KriRules::NONE, $ok->fields['status']);
@@ -246,7 +252,9 @@ final class RiskAppetiteKriTest extends GrcmanagerIntegrationTestCase
         // Source globale du registre : relevée à la demande, un seul relevé automatique par jour.
         $this->setAppetite('technical', 'low', 'medium');
         $this->criticalRisk('technical');
-        $global = $this->kri(['source' => 'risks_above_tolerance', 'threshold_warning' => '1', 'threshold_critical' => '100']);
+        $global = $this->kri([
+            'source' => 'risks_above_tolerance', 'threshold_warning' => '1', 'threshold_critical' => '100',
+        ]);
         $this->assertTrue($global->measure());
         $this->assertTrue($global->measure());
         $values = RiskIndicatorValue::getValues($global->getID());
@@ -275,6 +283,91 @@ final class RiskAppetiteKriTest extends GrcmanagerIntegrationTestCase
         $this->assertStringContainsString((string) $kri->fields['name'], (string) $ticket->fields['name']);
     }
 
+    public function testTicketUsesTheCgaSecurityBranchOnlyWhenItAcceptsRequests(): void
+    {
+        $category = (int) (new \ITILCategory())->add([
+            'name' => 'Sécurité SI fictive', 'entities_id' => 0, 'is_recursive' => 1, 'is_request' => 1,
+            'is_incident' => 1,
+        ]);
+        \Config::setConfigurationValues(SecurityCategoryLink::CGA_CONTEXT, ['security_itilcategories_id' => $category]);
+        SecurityCategoryLink::$forceCgaActive = true;
+        try {
+            $this->assertSame($category, SecurityCategoryLink::forRequest(0));
+            $kri = $this->kri();
+            $kri->recordValue(15, date('Y-m-d'));
+            $ticket = new Ticket();
+            $ticket->getFromDB($kri->createTicket());
+            $this->assertSame($category, (int) $ticket->fields['itilcategories_id']);
+
+            (new \ITILCategory())->update(['id' => $category, 'is_request' => 0]);
+            $this->assertSame(0, SecurityCategoryLink::forRequest(0));
+            SecurityCategoryLink::$forceCgaActive = false;
+            $this->assertSame(0, SecurityCategoryLink::forRequest(0), 'Sans CGA, aucune catégorie.');
+        } finally {
+            SecurityCategoryLink::$forceCgaActive = null;
+        }
+    }
+
+    public function testAKriCannotChangeEntityAndItsCreationDefaultsToTheActiveEntity(): void
+    {
+        $other = $this->createTestEntity(0, 'Entité KRI destination');
+        $kri = $this->kri();
+        $kri->update(['id' => $kri->getID(), 'entities_id' => $other]);
+        $kri->getFromDB($kri->getID());
+        $this->assertSame(0, (int) $kri->fields['entities_id']);
+    }
+
+    public function testAutomaticValuesAreHiddenFromWhoCannotSeeTheMeasuredData(): void
+    {
+        $parent = $this->createTestEntity(0, 'Entité mère KRI');
+        $child = $this->createTestEntity($parent, 'Entité fille KRI');
+        // Sous-entité insérée directement : cache des fils de getSonsOf() réinitialisé.
+        global $DB, $GLPI_CACHE;
+        $DB->update('glpi_entities', ['sons_cache' => null], ['id' => $parent]);
+        $GLPI_CACHE->delete('sons_cache_glpi_entities_' . $parent);
+
+        $auto = $this->kri(['entities_id' => $parent, 'source' => 'antivirus_gaps']);
+        $manual = $this->kri(['entities_id' => $parent]);
+        $auto->recordValue(50, date('Y-m-d'));
+        $this->assertTrue($auto->can($auto->getID(), READ));
+        $this->assertSame(2, $this->visibleCount([$auto->getID(), $manual->getID()]));
+
+        // Même entité, sans la lecture des ordinateurs : la valeur agrégée n'est plus visible.
+        $rights = $_SESSION['glpiactiveprofile']['computer'] ?? 0;
+        $_SESSION['glpiactiveprofile']['computer'] = 0;
+        try {
+            $this->assertFalse($auto->can($auto->getID(), READ));
+            $this->assertFalse($auto->can($auto->getID(), UPDATE));
+            $this->assertTrue($manual->can($manual->getID(), READ));
+            $this->assertSame(1, $this->visibleCount([$auto->getID(), $manual->getID()]));
+        } finally {
+            $_SESSION['glpiactiveprofile']['computer'] = $rights;
+        }
+
+        // Accès à la mère sans la fille : le périmètre mesuré n'est pas entièrement visible.
+        $active = $_SESSION['glpiactiveentities'];
+        $_SESSION['glpiactiveentities'] = array_values(array_diff($active, [$child]));
+        $_SESSION['glpiactiveentities_string'] = implode("','", $_SESSION['glpiactiveentities']);
+        try {
+            $this->assertFalse($auto->can($auto->getID(), READ));
+            $this->assertSame(1, $this->visibleCount([$auto->getID(), $manual->getID()]));
+        } finally {
+            $_SESSION['glpiactiveentities'] = $active;
+            $_SESSION['glpiactiveentities_string'] = implode("','", $active);
+        }
+    }
+
+    /**
+     * @param list<int> $ids
+     */
+    private function visibleCount(array $ids): int
+    {
+        return countElementsInTable(
+            RiskIndicator::getTable(),
+            ['id' => $ids] + RiskIndicator::getSystemSQLCriteria()
+        );
+    }
+
     public function testDashboardCardsAreEmptyWithoutTheSensitiveRight(): void
     {
         $this->kri()->recordValue(20, date('Y-m-d'));
@@ -297,6 +390,9 @@ final class RiskAppetiteKriTest extends GrcmanagerIntegrationTestCase
         $this->assertNotNull($review);
         $this->assertSame(3, (int) $review->fields['frequency_months']);
         $this->assertNotSame([], PeriodicReview::getChecklist('risk_indicators'));
-        $this->assertSame('/plugins/grcmanager/front/riskindicator.php', PeriodicReview::getScreenPath('risk_indicators'));
+        $this->assertSame(
+            '/plugins/grcmanager/front/riskindicator.php',
+            PeriodicReview::getScreenPath('risk_indicators')
+        );
     }
 }

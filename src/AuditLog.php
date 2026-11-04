@@ -82,6 +82,8 @@ class AuditLog extends CommonGLPI
             'config_change' => __('Module settings changed', 'grcmanager'),
             'rights_change' => __('Access rights changed', 'grcmanager'),
             'access_denied' => __('Access denied', 'grcmanager'),
+            // Issue #378 : acceptation formelle d'un risque au-dessus de l'appétence.
+            'risk_acceptance' => __('Formal risk acceptance', 'grcmanager'),
         ];
     }
 

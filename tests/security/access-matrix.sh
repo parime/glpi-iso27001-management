@@ -298,6 +298,8 @@ expect "releve sur un KRI de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)"
   "$(code -d "add=1&plugin_grcmanager_riskindicators_id=$(id kri_B)&value=3&_glpi_csrf_token=$(csrf)" "$P/riskindicatorvalue.form.php")"
 expect "ticket depuis un KRI de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
   "$(code -d "create_ticket=1&id=$(id kri_B)&_glpi_csrf_token=$(csrf)" "$P/riskindicator.form.php")"
+expect "creer un KRI dans l'entite B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
+  "$(code -d "add=1&name=KRI%20cree&entities_id=$(id b)&_glpi_csrf_token=$(csrf)" "$P/riskindicator.form.php")"
 kris=$(curl -s -c "$JAR" -b "$JAR" "$P/riskindicator.php")
 contains "liste des KRI : KRI de A" "KRI securite A" oui    "$kris"
 contains "liste des KRI : KRI de B" "KRI securite B" $SEE_B "$kris"

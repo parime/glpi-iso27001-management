@@ -5373,8 +5373,6 @@ msgstr "Rimuovi l'elaborato"
 msgid "You are not enrolled in any training."
 msgstr "Non sei iscritto ad alcuna formazione."
 
-msgid "Sensitive registers (risks, vulnerabilities, network flows)"
-msgstr "Registri sensibili (rischi, vulnerabilità, flussi di rete)"
 
 msgid "Sensitive registers"
 msgstr "Registri sensibili"
@@ -7147,3 +7145,261 @@ msgstr "Nessun incidente di sicurezza collegato a questo elemento."
 
 msgid "Other linked items"
 msgstr "Altri elementi collegati"
+
+#, php-format
+msgid "The risk indicator \"%s\" reached its red threshold."
+msgstr "L'indicatore di rischio «%s» ha raggiunto la soglia rossa."
+
+msgid "Last value"
+msgstr "Ultimo valore"
+
+msgid "Orange threshold"
+msgstr "Soglia arancione"
+
+msgid "Red threshold"
+msgstr "Soglia rossa"
+
+msgid "Analyse the cause, decide on the actions to bring the indicator back below its thresholds, and record them in this ticket."
+msgstr "Analizzate la causa, decidete le azioni per riportare l'indicatore sotto le soglie e registratele in questo ticket."
+
+msgid "Value history"
+msgstr "Cronologia dei valori"
+
+msgid "Worsening"
+msgstr "In peggioramento"
+
+msgid "Stable"
+msgstr "Stabile"
+
+msgid "Improving"
+msgstr "In miglioramento"
+
+msgid "This indicator is in the red: open a ticket so that the team handles it."
+msgstr "Questo indicatore è in rosso: aprite un ticket perché il team se ne occupi."
+
+#, php-format
+msgid "Open ticket #%d"
+msgstr "Ticket aperto n. %d"
+
+msgid "Create a ticket"
+msgstr "Crea un ticket"
+
+msgid "Measure now"
+msgstr "Misura ora"
+
+msgid "Also measured every day by the scheduled task."
+msgstr "Misurato anche ogni giorno dall'attività pianificata."
+
+msgid "Automatic"
+msgstr "Automatico"
+
+msgid "Risk category"
+msgstr "Categoria di rischio"
+
+msgid "Linked risk"
+msgstr "Rischio collegato"
+
+msgid "An automatic source is measured every day on this entity and its sub-entities; choosing it requires the right to read the measured data there."
+msgstr "Una fonte automatica viene misurata ogni giorno su questa entità e sulle sue sotto-entità; sceglierla richiede il diritto di leggervi i dati misurati."
+
+msgid "Unit"
+msgstr "Unità"
+
+msgid "Set automatically for an automatic source."
+msgstr "Impostata automaticamente per una fonte automatica."
+
+msgid "Direction"
+msgstr "Direzione"
+
+msgid "Vigilance: reached from this value (inclusive)."
+msgstr "Vigilanza: raggiunta a partire da questo valore (incluso)."
+
+msgid "Alert: reached from this value (inclusive). A ticket is then offered."
+msgstr "Allerta: raggiunta a partire da questo valore (incluso). Viene quindi proposto un ticket."
+
+msgid "Appetite and tolerance by risk category"
+msgstr "Propensione e tolleranza per categoria di rischio"
+
+msgid "Appetite: the highest risk level accepted without action. Tolerance: the level beyond which the risk can no longer be borne. A risk above the appetite needs a treatment or a formal, justified acceptance. Saving records you as the approver, with today's date."
+msgstr "Propensione: il livello di rischio più alto accettato senza azioni. Tolleranza: il livello oltre il quale il rischio non è più sostenibile. Un rischio sopra la propensione richiede un trattamento o un'accettazione formale motivata. Salvando, risultate come approvatore, con la data odierna."
+
+msgid "Appetite"
+msgstr "Propensione"
+
+msgid "Tolerance"
+msgstr "Tolleranza"
+
+msgid "Statement approved by management"
+msgstr "Dichiarazione approvata dalla direzione"
+
+msgid "Open risks above appetite"
+msgstr "Rischi aperti sopra la propensione"
+
+msgid "Position"
+msgstr "Posizione"
+
+msgid "Above tolerance"
+msgstr "Oltre la tolleranza"
+
+msgid "Above appetite"
+msgstr "Sopra la propensione"
+
+msgid "Decision required"
+msgstr "Decisione richiesta"
+
+#, php-format
+msgid "Formally accepted by %s"
+msgstr "Accettato formalmente da %s"
+
+msgid "No open risk exceeds the appetite of its category."
+msgstr "Nessun rischio aperto supera la propensione della sua categoria."
+
+msgid "Risk indicators (KRI)"
+msgstr "Indicatori di rischio (KRI)"
+
+msgid "A treatment, or a formal acceptance with a justification, is required."
+msgstr "È richiesto un trattamento o un'accettazione formale motivata."
+
+#, php-format
+msgid "Formally accepted by %1$s on %2$s"
+msgstr "Accettato formalmente da %1$s il %2$s"
+
+msgid "Risk appetite"
+msgstr "Propensione al rischio"
+
+msgid "Within appetite"
+msgstr "Entro la propensione"
+
+msgid "Risk appetite and tolerance"
+msgstr "Propensione e tolleranza al rischio"
+
+msgid "No appetite defined"
+msgstr "Propensione non definita"
+
+msgid "Formal risk acceptance"
+msgstr "Accettazione formale di un rischio"
+
+msgid "Manual entry"
+msgstr "Inserimento manuale"
+
+msgid "Computers with an unencrypted disk (%)"
+msgstr "Computer con un disco non cifrato (%)"
+
+msgid "Computers without an up-to-date antivirus (%)"
+msgstr "Computer senza antivirus aggiornato (%)"
+
+msgid "Open critical vulnerabilities in the fleet"
+msgstr "Vulnerabilità critiche aperte del parco"
+
+msgid "Open risks above tolerance"
+msgstr "Rischi aperti oltre la tolleranza"
+
+msgid "A high value is bad"
+msgstr "Un valore alto è negativo"
+
+msgid "A low value is bad"
+msgstr "Un valore basso è negativo"
+
+msgid "Green"
+msgstr "Verde"
+
+msgid "Orange"
+msgstr "Arancione"
+
+msgid "Red"
+msgstr "Rosso"
+
+msgid "Not measured"
+msgstr "Non misurato"
+
+msgid "You cannot use this automatic source: it measures data you cannot read in this entity and its sub-entities."
+msgstr "Non potete usare questa fonte automatica: misura dati che non potete leggere in questa entità e nelle sue sotto-entità."
+
+msgid "The red threshold must be beyond the orange threshold, in the direction of the indicator."
+msgstr "La soglia rossa deve superare quella arancione, nella direzione dell'indicatore."
+
+msgid "The indicator needs a name."
+msgstr "L'indicatore deve avere un nome."
+
+msgid "Measure automatic risk indicators (KRI)"
+msgstr "Misurare gli indicatori di rischio (KRI) automatici"
+
+#, php-format
+msgid "Risk indicator in the red: %s"
+msgstr "Indicatore di rischio in rosso: %s"
+
+msgid "Last measured on"
+msgstr "Ultima misura il"
+
+msgid "This risk exceeds the appetite of its category: accepting it requires a justification."
+msgstr "Questo rischio supera la propensione della sua categoria: accettarlo richiede una motivazione."
+
+msgid "Formally accepted by"
+msgstr "Accettato formalmente da"
+
+msgid "Formal acceptance date"
+msgstr "Data di accettazione formale"
+
+msgid "Sensitive registers (risks, risk indicators, vulnerabilities, network flows)"
+msgstr "Registri sensibili (rischi, indicatori di rischio, vulnerabilità, flussi di rete)"
+
+msgid "Risk indicator (KRI) review"
+msgstr "Revisione degli indicatori di rischio (KRI)"
+
+msgid "Enter the values of the manual indicators"
+msgstr "Inserire i valori degli indicatori manuali"
+
+msgid "Analyse the indicators in orange or red and their trend"
+msgstr "Analizzare gli indicatori in arancione o rosso e il loro andamento"
+
+msgid "Open a ticket for each indicator in the red"
+msgstr "Aprire un ticket per ogni indicatore in rosso"
+
+msgid "Check the thresholds and the risk appetite with management"
+msgstr "Verificare le soglie e la propensione al rischio con la direzione"
+
+msgid "The risk appetite and tolerance set by management for each risk category, and the open risks that exceed them."
+msgstr "La propensione e la tolleranza al rischio fissate dalla direzione per ogni categoria, e i rischi aperti che le superano."
+
+msgid "Have management approve the levels; then give each risk above the appetite a treatment or a formal, justified acceptance. Risks above tolerance come first."
+msgstr "Fate approvare i livelli dalla direzione, poi assegnate a ogni rischio sopra la propensione un trattamento o un'accettazione formale motivata. I rischi oltre la tolleranza compaiono per primi."
+
+msgid "ISO 27001, 6.1.2; ISO 31000, 6.3.4"
+msgstr "ISO 27001, 6.1.2; ISO 31000, 6.3.4"
+
+msgid "Key risk indicators (KRI): values measured over time, entered by hand or measured every day from technical checks, fleet vulnerabilities and the risk register, with orange and red thresholds."
+msgstr "Indicatori di rischio (KRI): valori misurati nel tempo, inseriti a mano o misurati ogni giorno da controlli tecnici, vulnerabilità del parco e registro dei rischi, con soglie arancione e rossa."
+
+msgid "Set the thresholds of each indicator, enter the manual values at each review, and open a ticket for any indicator in the red."
+msgstr "Fissate le soglie di ogni indicatore, inserite i valori manuali a ogni revisione e aprite un ticket per ogni indicatore in rosso."
+
+msgid "ISO 27001, 6.1.2 and 9.1"
+msgstr "ISO 27001, 6.1.2 e 9.1"
+
+msgid "Risk indicators (KRI) by status"
+msgstr "Indicatori di rischio (KRI) per stato"
+
+msgid "Risk indicators (KRI) in the red"
+msgstr "Indicatori di rischio (KRI) in rosso"
+
+msgid "A numeric value is required."
+msgstr "È richiesto un valore numerico."
+
+msgid "The tolerance cannot be below the appetite: these categories were not saved."
+msgstr "La tolleranza non può essere inferiore alla propensione: queste categorie non sono state salvate."
+
+msgid "No value could be measured for this indicator."
+msgstr "Non è stato possibile misurare alcun valore per questo indicatore."
+
+msgid "The indicator is not in the red: no ticket was created."
+msgstr "L'indicatore non è in rosso: non è stato creato alcun ticket."
+
+msgid "Risk indicator value"
+msgid_plural "Risk indicator values"
+msgstr[0] "Valore di indicatore di rischio"
+msgstr[1] "Valori di indicatore di rischio"
+
+msgid "Risk indicator (KRI)"
+msgid_plural "Risk indicators (KRI)"
+msgstr[0] "Indicatore di rischio (KRI)"
+msgstr[1] "Indicatori di rischio (KRI)"
