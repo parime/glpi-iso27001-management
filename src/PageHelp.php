@@ -180,6 +180,20 @@ class PageHelp
                 ),
                 'reference' => __('ISO 27001, 4.2; Annex A 5.31', 'grcmanager'),
             ],
+            'processingactivity' => [
+                'purpose'   => __(
+                    'The record of processing activities required by the GDPR: one entry per processing of '
+                        . 'personal data, with its purpose, legal basis, data, recipients and retention periods.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Describe each processing, link the applications, assets and suppliers involved, settle the '
+                        . 'gaps shown, review the register every year and export it if the supervisory authority '
+                        . 'asks for it.',
+                    'grcmanager'
+                ),
+                'reference' => __('GDPR, article 30; ISO 27001, Annex A 5.34', 'grcmanager'),
+            ],
             'audit' => [
                 'purpose'   => __(
                     'The internal audit programme: scope, dates, auditors, report and findings.',

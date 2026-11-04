@@ -1,0 +1,97 @@
+{# Issue #375 : fiche du registre des activités de traitement (RGPD, article 30) #}
+{% extends 'generic_show_form.html.twig' %}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+{% import '@grcmanager/_hint.html.twig' as hints %}
+
+{% block form_fields %}
+   <input type="hidden" name="{{ lists_marker }}" value="1">
+
+   {{ fields.textField('name', item.fields['name'], __('Name', 'grcmanager'), {
+      'required': true,
+      'add_field_html': hints.hint(__('E.g. "Payroll", "Customer relationship management", "Video surveillance".', 'grcmanager')),
+   }) }}
+   {{ fields.textField('reference', item.fields['reference'], __('Reference', 'grcmanager'), {
+      'add_field_html': hints.hint(__('Your own numbering (e.g. T-001), used to sort the register.', 'grcmanager')),
+   }) }}
+   {{ fields.dropdownArrayField('status', item.fields['status'] ?: 'draft', statuses, __('Status', 'grcmanager')) }}
+   {{ fields.dropdownField('User', 'users_id', item.fields['users_id'], _x('owner', 'Owner', 'grcmanager'), {
+      'right': 'all',
+      'add_field_html': hints.hint(__('The business manager of the processing, who keeps this record up to date.', 'grcmanager')),
+   }) }}
+   {% if checks_html %}
+      {{ fields.htmlField('', checks_html, __('Checks', 'grcmanager'), {'full_width': true}) }}
+   {% endif %}
+
+   {{ fields.smallTitle(__('Controller and purpose', 'grcmanager'), 'ti ti-target') }}
+   {{ fields.dropdownArrayField('role', item.fields['role'] ?: 'controller', roles, __('Role of the organisation', 'grcmanager'), {
+      'add_field_html': hints.hint(__('As a processor, the record lists the processing carried out on behalf of each controller (article 30.2).', 'grcmanager')),
+   }) }}
+   {{ fields.textField('controller_name', item.fields['controller_name'], __('Controller or joint controller', 'grcmanager'), {
+      'add_field_html': hints.hint(__('Name and contact details of the controller you act for, or of the joint controller.', 'grcmanager')),
+   }) }}
+   {{ fields.textareaField('purpose', item.fields['purpose'], __('Purpose', 'grcmanager'), {
+      'full_width': true,
+      'add_field_html': hints.hint(__('Why the data is processed, in one or two sentences (e.g. "Pay the employees and make the related declarations").', 'grcmanager')),
+   }) }}
+   {{ fields.dropdownArrayField('legal_basis', item.fields['legal_basis'], legal_bases, __('Legal basis', 'grcmanager')) }}
+   {{ fields.textField('legal_basis_detail', item.fields['legal_basis_detail'], __('Legal basis details', 'grcmanager'), {
+      'add_field_html': hints.hint(__('The text, contract or interest relied upon (e.g. "Labour code").', 'grcmanager')),
+   }) }}
+
+   {{ fields.smallTitle(__('Data subjects and data', 'grcmanager'), 'ti ti-users') }}
+   {{ fields.dropdownArrayField('data_subjects', '', data_subjects, __('Data subjects', 'grcmanager'), {
+      'multiple': true, 'values': values.data_subjects,
+   }) }}
+   {{ fields.dropdownArrayField('data_categories', '', data_categories, __('Categories of personal data', 'grcmanager'), {
+      'multiple': true, 'values': values.data_categories,
+   }) }}
+   {{ fields.dropdownArrayField('sensitive_data', '', sensitive_data, __('Sensitive data', 'grcmanager'), {
+      'multiple': true, 'values': values.sensitive_data,
+      'add_field_html': hints.hint(__('Special categories (article 9), offences (article 10) and national identification number: processing them usually calls for a DPIA.', 'grcmanager')),
+   }) }}
+   {{ fields.textareaField('data_details', item.fields['data_details'], __('Details of the data', 'grcmanager'), {
+      'full_width': true,
+      'add_field_html': hints.hint(__('The data actually collected, without any real personal data (e.g. "name, bank details, salary").', 'grcmanager')),
+   }) }}
+
+   {{ fields.smallTitle(__('Recipients and transfers', 'grcmanager'), 'ti ti-send') }}
+   {{ fields.textareaField('recipients', item.fields['recipients'], __('Recipients', 'grcmanager'), {
+      'full_width': true,
+      'add_field_html': hints.hint(__('Internal departments and external recipients (processors, authorities...). Link the suppliers concerned below.', 'grcmanager')),
+   }) }}
+   {{ fields.dropdownYesNo('transfers_outside_eu', item.fields['transfers_outside_eu'], __('Transfers outside the EU', 'grcmanager')) }}
+   {{ fields.textField('transfer_countries', item.fields['transfer_countries'], __('Destination countries', 'grcmanager')) }}
+   {{ fields.dropdownArrayField('transfer_safeguards', item.fields['transfer_safeguards'], safeguards, __('Transfer safeguards', 'grcmanager')) }}
+
+   {{ fields.smallTitle(__('Retention and security', 'grcmanager'), 'ti ti-lock') }}
+   {{ fields.textareaField('retention_period', item.fields['retention_period'], __('Retention period', 'grcmanager'), {
+      'full_width': true,
+      'add_field_html': hints.hint(__('Per category of data if needed (e.g. "5 years after the employee leaves, then archived").', 'grcmanager')),
+   }) }}
+   {{ fields.textareaField('security_measures', item.fields['security_measures'], __('Security measures', 'grcmanager'), {
+      'full_width': true,
+      'add_field_html': hints.hint(__('General description of the technical and organisational measures (article 32).', 'grcmanager')),
+   }) }}
+   {% if control_choices is not empty %}
+      {{ fields.dropdownArrayField(controls_field, '', control_choices, __('Statement of Applicability controls', 'grcmanager'), {
+         'multiple': true, 'values': control_values,
+      }) }}
+   {% endif %}
+
+   {{ fields.smallTitle(__('Impact assessment and review', 'grcmanager'), 'ti ti-clipboard-check') }}
+   {{ fields.dropdownArrayField('dpia_status', item.fields['dpia_status'] ?: 'not_assessed', dpia_statuses, __('DPIA', 'grcmanager'), {
+      'add_field_html': hints.hint(__('Data protection impact assessment (article 35): record here whether one is needed.', 'grcmanager')),
+   }) }}
+   {{ fields.dateField('last_review_date', item.fields['last_review_date'], __('Last review', 'grcmanager'), {
+      'add_field_html': hints.hint(__('The register is reviewed at least once a year (Periodic reviews).', 'grcmanager')),
+   }) }}
+   {{ fields.textareaField('comment', item.fields['comment'], __('Comments', 'grcmanager'), {'full_width': true}) }}
+
+   {{ fields.smallTitle(__('Applications, assets and suppliers', 'grcmanager'), 'ti ti-apps') }}
+   {% if hidden_links > 0 %}
+      <div class="col-12 mb-2 text-muted small"><i class="ti ti-eye-off me-1"></i>{{ _n('%d linked item is not visible to you and stays linked.', '%d linked items are not visible to you and stay linked.', hidden_links, 'grcmanager')|format(hidden_links) }}</div>
+   {% endif %}
+   {% for group in groups %}
+      {{ fields.dropdownField(group.itemtype, group.field, group.values, group.label, {'multiple': true}) }}
+   {% endfor %}
+{% endblock %}

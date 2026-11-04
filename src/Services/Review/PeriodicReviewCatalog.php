@@ -35,6 +35,8 @@ final class PeriodicReviewCatalog
         'backup_restore_test' => ['months' => 6, 'controls' => ['A.8.13']],
         'continuity_test'     => ['months' => 12, 'controls' => ['A.5.29', 'A.5.30']],
         'security_logs'       => ['months' => 1, 'controls' => ['A.8.15', 'A.8.16']],
+        // Issue #375 : revue annuelle du registre des traitements (RGPD, article 30).
+        'processing_register' => ['months' => 12, 'controls' => ['A.5.34']],
     ];
 
     /**

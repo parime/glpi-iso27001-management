@@ -1,0 +1,27 @@
+{# Issue #375 : traitements de données personnelles qui citent cet élément (registre RGPD) #}
+<div class="container-fluid">
+   {% if activities is empty %}
+      <div class="text-muted"><i class="ti ti-info-circle me-1"></i>{{ __('No processing activity cites this item.', 'grcmanager') }}</div>
+   {% else %}
+      <table class="table table-hover table-card">
+         <thead>
+            <tr>
+               <th>{{ __('Name', 'grcmanager') }}</th>
+               <th>{{ __('Status', 'grcmanager') }}</th>
+               <th>{{ __('Role of the organisation', 'grcmanager') }}</th>
+               <th>{{ __('Purpose', 'grcmanager') }}</th>
+            </tr>
+         </thead>
+         <tbody>
+         {% for a in activities %}
+            <tr>
+               <td><a href="{{ a.url }}">{{ a.name }}</a></td>
+               <td>{{ a.status }}</td>
+               <td>{{ a.role }}</td>
+               <td>{{ a.purpose }}</td>
+            </tr>
+         {% endfor %}
+         </tbody>
+      </table>
+   {% endif %}
+</div>
