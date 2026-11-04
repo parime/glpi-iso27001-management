@@ -26,7 +26,7 @@ if (isset($_POST['create_ticket'])) {
     Session::checkRight(Ticket::$rightname, CREATE);
     $incident = new PluginGrcmanagerSecurityIncident();
     if (!$incident->can((int) ($_POST['plugin_grcmanager_securityincidents_id'] ?? 0), UPDATE)) {
-        Html::displayRightError();
+        throw new \Glpi\Exception\Http\AccessDeniedHttpException();
     }
     $ticketsId = \GlpiPlugin\Grcmanager\SecurityIncidentTicket::createLinkedTicket($incident);
     if ($ticketsId <= 0) {

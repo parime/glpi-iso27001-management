@@ -9,6 +9,9 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Fixed
 
+- **GLPI 12** : un accès refusé ou un élément introuvable donnait une erreur 500 sur plusieurs pages
+  (IOC, techniques, journal des actions, remédiation, exercices de crise, tests de contrôles...),
+  car GLPI 12 a retiré les fonctions utilisées. Ces pages répondent de nouveau 403 ou 404.
 - **Export du registre des traitements** : « Oui - pays » au lieu de « Oui pays » pour les transferts
   hors UE.
 - **Traductions** : « riesame » harmonisé en italien (terme des normes ISO), « w strefie czerwonej »

@@ -28,7 +28,7 @@ Session::checkRightsOr(
 
 if (isset($_POST['launch'])) {
     if (!\GlpiPlugin\Grcmanager\CrisisExercise::canCreate()) {
-        Html::displayRightError();
+        throw new \Glpi\Exception\Http\AccessDeniedHttpException();
     }
     $exerciseId = \GlpiPlugin\Grcmanager\CrisisExercise::launch((string) $_POST['launch']);
     if ($exerciseId > 0) {
