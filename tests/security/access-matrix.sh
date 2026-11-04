@@ -72,7 +72,8 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
     front/securityincidentedrimport.php front/securityincidentevidence.form.php \
     front/securityincidentteam.form.php \
     front/cpereference.form.php front/productalias.form.php \
-    front/waiver.form.php front/coveragerule.form.php front/controltest.form.php \n    front/processingactivity.form.php; do
+    front/waiver.form.php front/coveragerule.form.php front/controltest.form.php \
+    front/processingactivity.form.php; do
     expect "$form : creation" "$1" "$(code -d "add=1&name=securite&title=securite&_glpi_csrf_token=$(csrf)" "$BASE/plugins/grcmanager/$form")"
   done
   expect "front/ismsrequirement.form.php : modification" "$1" \
@@ -164,7 +165,8 @@ if [ "$ROLE" = none ]; then
   # ordinateur lisible, sans le droit du plugin (GLPI ne consulte pas getTabNameForItem()).
   for t in 'GlpiPlugin%5CGrcmanager%5CImpactAnalysis$1' 'GlpiPlugin%5CGrcmanager%5CAssetClassification$1' \
            'GlpiPlugin%5CGrcmanager%5CParkVulnerability$1' 'GlpiPlugin%5CGrcmanager%5CRisk$1' \
-           'GlpiPlugin%5CGrcmanager%5CSecurityIncidentLinkedItem$1' \n           'GlpiPlugin%5CGrcmanager%5CProcessingActivity$1'; do
+           'GlpiPlugin%5CGrcmanager%5CSecurityIncidentLinkedItem$1' \
+           'GlpiPlugin%5CGrcmanager%5CProcessingActivity$1'; do
     contains "onglet $t d'un ordinateur : sans droit" "plugins/grcmanager" non "$(tab Computer "$t" "$(id computer_A)")"
   done
   # Issue #403 : les referentiels actifs se reglent avec le droit de modifier la configuration.

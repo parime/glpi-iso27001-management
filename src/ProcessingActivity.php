@@ -251,7 +251,9 @@ class ProcessingActivity extends ProcessingActivityBase
             );
             return false;
         }
+        // Sans entité dans la saisie : l'entité active, celle que check() a contrôlée, jamais la racine.
         $input += [
+            'entities_id' => Session::getActiveEntity(),
             'role'        => Rules::DEFAULT_ROLE,
             'status'      => Rules::DEFAULT_STATUS,
             'dpia_status' => Rules::DEFAULT_DPIA_STATUS,
@@ -483,12 +485,13 @@ class ProcessingActivity extends ProcessingActivityBase
         $visible = [];
         $hidden = 0;
         foreach (self::getLinks($activityId) as $link) {
-            if (!self::canSeeLinkedItem($link['itemtype'], $link['items_id'])) {
-                $hidden++;
-                continue;
-            }
+            // Élément supprimé définitivement depuis : ni nommé, ni compté comme invisible.
             $item = getItemForItemtype($link['itemtype']);
             if (!$item instanceof CommonDBTM || !$item->getFromDB($link['items_id'])) {
+                continue;
+            }
+            if (!self::canSeeLinkedItem($link['itemtype'], $link['items_id'])) {
+                $hidden++;
                 continue;
             }
             $name = $item instanceof Control

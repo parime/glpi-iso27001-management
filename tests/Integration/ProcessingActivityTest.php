@@ -67,6 +67,18 @@ final class ProcessingActivityTest extends GrcmanagerIntegrationTestCase
     {
         $this->assertFalse((new ProcessingActivity())->add(['name' => '  ']));
 
+        // Saisie sans entité : l'entité active, jamais la racine par défaut de la table.
+        $entityId = $this->createTestEntity(0, 'Entite RGPD active ' . random_int(1000, 9999));
+        $active = $_SESSION['glpiactive_entity'] ?? null;
+        $_SESSION['glpiactive_entity'] = $entityId;
+        try {
+            $activity = new ProcessingActivity();
+            $activity->getFromDB((int) $activity->add(['name' => 'Sans entite saisie']));
+            $this->assertSame($entityId, (int) $activity->fields['entities_id']);
+        } finally {
+            $_SESSION['glpiactive_entity'] = $active;
+        }
+
         $activity = new ProcessingActivity();
         $id = $this->createActivity([
             'name'                 => 'Gestion de la paie',

@@ -7147,3 +7147,344 @@ msgstr "Nenhum incidente de segurança vinculado a este item."
 
 msgid "Other linked items"
 msgstr "Outros itens vinculados"
+
+msgid "Controller"
+msgstr "Controlador"
+
+msgid "Joint controller"
+msgstr "Controlador conjunto"
+
+msgid "Processor (on behalf of a controller)"
+msgstr "Operador (em nome de um controlador)"
+
+msgid "Consent (art. 6.1.a)"
+msgstr "Consentimento (art. 6.1.a)"
+
+msgid "Performance of a contract (art. 6.1.b)"
+msgstr "Execução de um contrato (art. 6.1.b)"
+
+msgid "Legal obligation (art. 6.1.c)"
+msgstr "Obrigação legal (art. 6.1.c)"
+
+msgid "Vital interests (art. 6.1.d)"
+msgstr "Interesses vitais (art. 6.1.d)"
+
+msgid "Public interest task (art. 6.1.e)"
+msgstr "Missão de interesse público (art. 6.1.e)"
+
+msgid "Legitimate interests (art. 6.1.f)"
+msgstr "Interesses legítimos (art. 6.1.f)"
+
+msgid "In use"
+msgstr "Em uso"
+
+msgid "Ended"
+msgstr "Encerrado"
+
+msgid "Employees"
+msgstr "Funcionários"
+
+msgid "Job applicants"
+msgstr "Candidatos a emprego"
+
+msgid "Customers"
+msgstr "Clientes"
+
+msgid "Prospects"
+msgstr "Clientes potenciais"
+
+msgid "Supplier and partner contacts"
+msgstr "Contatos de fornecedores e parceiros"
+
+msgid "Website or application users"
+msgstr "Usuários de um site ou aplicativo"
+
+msgid "Patients"
+msgstr "Pacientes"
+
+msgid "Students or trainees"
+msgstr "Estudantes ou estagiários"
+
+msgid "Minors"
+msgstr "Menores"
+
+msgid "Identity and contact details"
+msgstr "Identidade e dados de contato"
+
+msgid "Personal life (habits, family situation...)"
+msgstr "Vida pessoal (hábitos, situação familiar...)"
+
+msgid "Professional life (resume, career, training...)"
+msgstr "Vida profissional (currículo, carreira, formação...)"
+
+msgid "Economic and financial information"
+msgstr "Informações econômicas e financeiras"
+
+msgid "Connection data (logs, IP addresses...)"
+msgstr "Dados de conexão (logs, endereços IP...)"
+
+msgid "Location data"
+msgstr "Dados de localização"
+
+msgid "Images, video or voice"
+msgstr "Imagens, vídeo ou voz"
+
+msgid "Racial or ethnic origin"
+msgstr "Origem racial ou étnica"
+
+msgid "Political opinions"
+msgstr "Opiniões políticas"
+
+msgid "Religious or philosophical beliefs"
+msgstr "Convicções religiosas ou filosóficas"
+
+msgid "Trade union membership"
+msgstr "Filiação sindical"
+
+msgid "Genetic data"
+msgstr "Dados genéticos"
+
+msgid "Biometric data used to identify a person"
+msgstr "Dados biométricos usados para identificar uma pessoa"
+
+msgid "Health data"
+msgstr "Dados de saúde"
+
+msgid "Sex life or sexual orientation"
+msgstr "Vida sexual ou orientação sexual"
+
+msgid "Criminal convictions and offences (art. 10)"
+msgstr "Condenações penais e infrações (art. 10)"
+
+msgid "National identification number"
+msgstr "Número de identificação nacional"
+
+msgid "Adequacy decision"
+msgstr "Decisão de adequação"
+
+msgid "Standard contractual clauses"
+msgstr "Cláusulas contratuais-padrão"
+
+msgid "Binding corporate rules"
+msgstr "Regras corporativas vinculantes"
+
+msgid "Derogation for a specific situation (art. 49)"
+msgstr "Derrogação para uma situação específica (art. 49)"
+
+msgid "Not required"
+msgstr "Não exigida"
+
+msgid "Required, to be carried out"
+msgstr "Exigida, a realizar"
+
+msgid "Carried out"
+msgstr "Realizada"
+
+msgid "No purpose"
+msgstr "Sem finalidade"
+
+msgid "No legal basis"
+msgstr "Sem base legal"
+
+msgid "No category of data subjects"
+msgstr "Sem categoria de titulares"
+
+msgid "No category of personal data"
+msgstr "Sem categoria de dados pessoais"
+
+msgid "No retention period"
+msgstr "Sem prazo de retenção"
+
+msgid "No security measure"
+msgstr "Sem medida de segurança"
+
+msgid "Controller not named"
+msgstr "Controlador não indicado"
+
+msgid "Transfer outside the EU without safeguard"
+msgstr "Transferência para fora da UE sem garantia"
+
+msgid "Sensitive data: DPIA decision missing"
+msgstr "Dados sensíveis: decisão sobre a AIPD ausente"
+
+msgid "DPIA to be carried out"
+msgstr "AIPD a realizar"
+
+msgid "Not reviewed for more than a year"
+msgstr "Não revisada há mais de um ano"
+
+msgid "Give the processing activity a name."
+msgstr "Informe um nome para a atividade de tratamento."
+
+msgid "Role of the organisation"
+msgstr "Papel da organização"
+
+msgid "Purpose"
+msgstr "Finalidade"
+
+msgid "Legal basis"
+msgstr "Base legal"
+
+msgid "Data subjects"
+msgstr "Titulares dos dados"
+
+msgid "Categories of personal data"
+msgstr "Categorias de dados pessoais"
+
+msgid "Sensitive data"
+msgstr "Dados sensíveis"
+
+msgid "Transfers outside the EU"
+msgstr "Transferências para fora da UE"
+
+msgid "Retention period"
+msgstr "Prazo de retenção"
+
+msgid "DPIA"
+msgstr "AIPD"
+
+msgid "Recipients"
+msgstr "Destinatários"
+
+msgid "Controller or joint controller"
+msgstr "Controlador ou controlador conjunto"
+
+msgid "Details of the data"
+msgstr "Detalhe dos dados"
+
+msgid "Security measures"
+msgstr "Medidas de segurança"
+
+msgid "Applications, assets and suppliers"
+msgstr "Aplicações, ativos e fornecedores"
+
+msgid "The record of processing activities required by the GDPR: one entry per processing of personal data, with its purpose, legal basis, data, recipients and retention periods."
+msgstr "O registro das atividades de tratamento exigido pelo RGPD: uma ficha por tratamento de dados pessoais, com finalidade, base legal, dados, destinatários e prazos de retenção."
+
+msgid "Describe each processing, link the applications, assets and suppliers involved, settle the gaps shown, review the register every year and export it if the supervisory authority asks for it."
+msgstr "Descreva cada tratamento, vincule as aplicações, ativos e fornecedores envolvidos, resolva as lacunas exibidas, revise o registro todo ano e exporte-o se a autoridade de controle solicitar."
+
+msgid "GDPR, article 30; ISO 27001, Annex A 5.34"
+msgstr "RGPD, artigo 30; ISO 27001, Anexo A 5.34"
+
+msgid "Review of the record of processing activities (GDPR)"
+msgstr "Revisão do registro das atividades de tratamento (RGPD)"
+
+msgid "Add new processing activities and mark those that ended"
+msgstr "Adicionar novos tratamentos e marcar os encerrados"
+
+msgid "Settle the gaps shown in the register (legal basis, retention, transfers...)"
+msgstr "Resolver as lacunas exibidas no registro (base legal, retenção, transferências...)"
+
+msgid "Check the processors and recipients, then date the review of each entry"
+msgstr "Verificar operadores e destinatários e datar a revisão de cada ficha"
+
+msgid "Personal data protection (GDPR record of processing)"
+msgstr "Proteção de dados pessoais (registro de tratamentos RGPD)"
+
+msgid "E.g. \"Payroll\", \"Customer relationship management\", \"Video surveillance\"."
+msgstr "Ex.: \"Folha de pagamento\", \"Gestão de clientes\", \"Videovigilância\"."
+
+msgid "Your own numbering (e.g. T-001), used to sort the register."
+msgstr "Sua própria numeração (ex.: T-001), usada para ordenar o registro."
+
+msgid "The business manager of the processing, who keeps this record up to date."
+msgstr "O responsável de negócio pelo tratamento, que mantém esta ficha atualizada."
+
+msgid "Controller and purpose"
+msgstr "Controlador e finalidade"
+
+msgid "As a processor, the record lists the processing carried out on behalf of each controller (article 30.2)."
+msgstr "Como operador, o registro lista os tratamentos realizados em nome de cada controlador (artigo 30.2)."
+
+msgid "Name and contact details of the controller you act for, or of the joint controller."
+msgstr "Nome e dados de contato do controlador para quem você atua, ou do controlador conjunto."
+
+msgid "Why the data is processed, in one or two sentences (e.g. \"Pay the employees and make the related declarations\")."
+msgstr "Por que os dados são tratados, em uma ou duas frases (ex.: \"Pagar os funcionários e fazer as declarações relacionadas\")."
+
+msgid "Legal basis details"
+msgstr "Detalhes da base legal"
+
+msgid "The text, contract or interest relied upon (e.g. \"Labour code\")."
+msgstr "O texto, contrato ou interesse invocado (ex.: \"Legislação trabalhista\")."
+
+msgid "Data subjects and data"
+msgstr "Titulares e dados"
+
+msgid "Special categories (article 9), offences (article 10) and national identification number: processing them usually calls for a DPIA."
+msgstr "Categorias especiais (artigo 9), infrações (artigo 10) e número de identificação nacional: tratá-los geralmente exige uma AIPD."
+
+msgid "The data actually collected, without any real personal data (e.g. \"name, bank details, salary\")."
+msgstr "Os dados realmente coletados, sem nenhum dado pessoal real (ex.: \"nome, dados bancários, salário\")."
+
+msgid "Recipients and transfers"
+msgstr "Destinatários e transferências"
+
+msgid "Internal departments and external recipients (processors, authorities...). Link the suppliers concerned below."
+msgstr "Departamentos internos e destinatários externos (operadores, autoridades...). Vincule abaixo os fornecedores envolvidos."
+
+msgid "Destination countries"
+msgstr "Países de destino"
+
+msgid "Transfer safeguards"
+msgstr "Garantias da transferência"
+
+msgid "Retention and security"
+msgstr "Retenção e segurança"
+
+msgid "Per category of data if needed (e.g. \"5 years after the employee leaves, then archived\")."
+msgstr "Por categoria de dados, se necessário (ex.: \"5 anos após a saída do funcionário e depois arquivamento\")."
+
+msgid "General description of the technical and organisational measures (article 32)."
+msgstr "Descrição geral das medidas técnicas e organizacionais (artigo 32)."
+
+msgid "Statement of Applicability controls"
+msgstr "Controles da Declaração de Aplicabilidade"
+
+msgid "Impact assessment and review"
+msgstr "Avaliação de impacto e revisão"
+
+msgid "Data protection impact assessment (article 35): record here whether one is needed."
+msgstr "Avaliação de impacto sobre a proteção de dados (artigo 35): indique aqui se é necessária."
+
+msgid "The register is reviewed at least once a year (Periodic reviews)."
+msgstr "O registro é revisado pelo menos uma vez por ano (Revisões periódicas)."
+
+msgid "No processing activity cites this item."
+msgstr "Nenhuma atividade de tratamento cita este item."
+
+msgid "Complete"
+msgstr "Completa"
+
+msgid "Organisation"
+msgstr "Organização"
+
+msgid "Email"
+msgstr "E-mail"
+
+msgid "Phone"
+msgstr "Telefone"
+
+msgid "Processing activities in the register"
+msgstr "Atividades de tratamento no registro"
+
+msgid "The register contains no processing activity."
+msgstr "O registro não contém nenhuma atividade de tratamento."
+
+msgid "Export CSV"
+msgstr "Exportar CSV"
+
+msgid "Record of processing activities"
+msgstr "Registro das atividades de tratamento"
+
+msgid "Processing activity"
+msgid_plural "Record of processing activities"
+msgstr[0] "Atividade de tratamento"
+msgstr[1] "Registro das atividades de tratamento"
+
+#, php-format
+msgid "%d linked item is not visible to you and stays linked."
+msgid_plural "%d linked items are not visible to you and stay linked."
+msgstr[0] "%d item vinculado não está visível para você e continua vinculado."
+msgstr[1] "%d itens vinculados não estão visíveis para você e continuam vinculados."

@@ -102,6 +102,11 @@ classification fields merged directly onto it.
   matrix view, partner networks conflicting with an internal
   network, PDF report for the auditor.
 - Cyber **maturity score** (0 to 100) with the calculation details and its monthly history.
+- **Record of processing activities (GDPR, article 30)**: one entry per processing (purpose, legal basis,
+  data subjects and data, recipients, transfers outside the EU, retention, security measures), linked to GLPI
+  applications, assets and suppliers and to SoA controls, with its gaps, a yearly review and a PDF or CSV
+  export for the supervisory authority. Dedicated right "Personal data protection" (plus read on the general
+  right to see the menu entry). DPIA and data subject requests to come.
 - **Automated technical checks**: ISO 27001, NIS2 and GDPR score from GLPI data (antivirus,
   encryption, inventory, change validation, accounts) and one remediation ticket per check.
 - Every menu screen explains what it is for and what is expected. Screens that belong to the same
@@ -120,7 +125,7 @@ page and through the breadcrumb.
 |---|---|
 | Dashboard | Dashboard, Maturity score, Compliance calendar |
 | Risks | Risks, Supplier risks, Impact analysis, Domino effect, Waivers |
-| Compliance | Annex A controls (SoA), Reference frameworks, ISMS requirements, Obligations, Policies, Evidence, Evidence coverage |
+| Compliance | Annex A controls (SoA), Reference frameworks, ISMS requirements, Obligations, Record of processing activities, Policies, Evidence, Evidence coverage |
 | Audits and improvement | Internal audits, Non-conformities, ISMS objectives, Management reviews |
 | Operations | Access reviews, Account hygiene, Periodic reviews, Trainings, Crisis exercises |
 | Technical security | Automated technical checks, Fleet vulnerabilities, Most exposed machines, Software to watch, Products, Network flow matrix |
