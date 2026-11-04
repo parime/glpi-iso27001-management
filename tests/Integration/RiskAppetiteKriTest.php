@@ -264,6 +264,18 @@ final class RiskAppetiteKriTest extends GrcmanagerIntegrationTestCase
         $this->assertFalse($this->kri()->measure(), 'Un KRI manuel ne se relève pas automatiquement.');
     }
 
+    public function testScheduledTaskMeasuresOnlyActiveAutomaticIndicators(): void
+    {
+        $automatic = $this->kri(['source' => 'overdue_treatment_actions']);
+        $inactive = $this->kri(['source' => 'overdue_treatment_actions', 'is_active' => 0]);
+        $manual = $this->kri();
+        $this->assertSame(1, RiskIndicator::cronRiskindicatormeasure(new \CronTask()));
+        $this->assertCount(1, RiskIndicatorValue::getValues($automatic->getID()));
+        $this->assertSame([], RiskIndicatorValue::getValues($inactive->getID()));
+        $this->assertSame([], RiskIndicatorValue::getValues($manual->getID()));
+        $this->assertArrayHasKey('description', RiskIndicator::cronInfo('riskindicatormeasure'));
+    }
+
     public function testRedIndicatorOffersATicketAssignedToTheCisoGroup(): void
     {
         $group = (int) (new \Group())->add(['name' => 'RSSI fictif', 'entities_id' => 0, 'is_recursive' => 1]);
