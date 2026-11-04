@@ -32,6 +32,9 @@ final class EbiosRules
 
     public const LEVELS = [1, 2, 3, 4];
 
+    /** Ordre des niveaux de risque, du plus faible au plus fort. */
+    private const LEVEL_RANK = ['low' => 1, 'medium' => 2, 'high' => 3, 'critical' => 4];
+
     /** Niveau de menace à partir duquel une partie prenante entre en zone de contrôle, puis de danger. */
     public const CONTROL_THRESHOLD = 0.9;
     public const DANGER_THRESHOLD = 2.5;
@@ -95,40 +98,62 @@ final class EbiosRules
     }
 
     /**
-     * Niveau de risque d'un scénario opérationnel, gravité x vraisemblance : low, medium, high ou critical.
+     * Niveau de risque d'un scénario opérationnel : celui que le registre des risques donnera à la même
+     * gravité et à la même vraisemblance, d'après sa matrice (une seule source de vérité).
+     *
+     * @param array<string, array<string, string>> $riskMatrix Matrice du registre.
      */
-    public static function riskLevel(int $severity, int $likelihood): string
-    {
-        $score = self::level($severity) * self::level($likelihood);
-        if ($score >= 12) {
-            return 'critical';
-        }
-        if ($score >= 8) {
-            return 'high';
-        }
-
-        return $score >= 4 ? 'medium' : 'low';
+    public static function riskLevel(
+        int $severity,
+        int $likelihood,
+        array $riskMatrix = RiskMatrixDefaults::MATRIX
+    ): string {
+        return (new RiskScoringService($riskMatrix))->level(
+            self::likelihoodToProbability($likelihood),
+            self::severityToImpact($severity)
+        );
     }
 
     /**
      * Grille gravité x vraisemblance : de G4 à G1, de V1 à V4, le niveau et le nombre de scénarios par case.
      *
      * @param list<array{severity: int, likelihood: int}> $scenarios
+     * @param array<string, array<string, string>> $riskMatrix Matrice du registre.
      * @return array<int, array<int, array{level: string, count: int}>>
      */
-    public static function riskMatrix(array $scenarios): array
+    public static function riskMatrix(array $scenarios, array $riskMatrix = RiskMatrixDefaults::MATRIX): array
     {
-        $matrix = [];
+        $grid = [];
         foreach (array_reverse(self::LEVELS) as $severity) {
             foreach (self::LEVELS as $likelihood) {
-                $matrix[$severity][$likelihood] = ['level' => self::riskLevel($severity, $likelihood), 'count' => 0];
+                $grid[$severity][$likelihood] = [
+                    'level' => self::riskLevel($severity, $likelihood, $riskMatrix),
+                    'count' => 0,
+                ];
             }
         }
         foreach ($scenarios as $scenario) {
-            $matrix[self::level($scenario['severity'])][self::level($scenario['likelihood'])]['count']++;
+            $grid[self::level($scenario['severity'])][self::level($scenario['likelihood'])]['count']++;
         }
 
-        return $matrix;
+        return $grid;
+    }
+
+    /**
+     * Trie des scénarios du risque le plus fort au plus faible, puis par gravité décroissante.
+     *
+     * @param list<array<string, mixed>> $scenarios Avec les clés level et severity.
+     * @return list<array<string, mixed>>
+     */
+    public static function sortByRisk(array $scenarios): array
+    {
+        usort($scenarios, static fn(array $a, array $b): int => [
+            self::LEVEL_RANK[$b['level']] ?? 0, (int) $b['severity'],
+        ] <=> [
+            self::LEVEL_RANK[$a['level']] ?? 0, (int) $a['severity'],
+        ]);
+
+        return $scenarios;
     }
 
     /**

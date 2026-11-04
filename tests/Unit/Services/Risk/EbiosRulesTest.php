@@ -72,6 +72,27 @@ final class EbiosRulesTest extends TestCase
         self::assertSame(0, $matrix[2][2]['count']);
     }
 
+    public function testRiskLevelFollowsTheMatrixOfTheRegister(): void
+    {
+        // La grille par défaut du registre, et une grille modifiée par un administrateur.
+        self::assertSame('medium', EbiosRules::riskLevel(4, 1));
+        $custom = ['rare' => ['critical' => 'critical']];
+        self::assertSame('critical', EbiosRules::riskLevel(4, 1, $custom));
+        self::assertSame('critical', EbiosRules::riskMatrix([], $custom)[4][1]['level']);
+    }
+
+    public function testScenariosAreSortedFromTheHighestRisk(): void
+    {
+        $sorted = EbiosRules::sortByRisk([
+            ['id' => 1, 'level' => 'low', 'severity' => 4],
+            ['id' => 2, 'level' => 'critical', 'severity' => 3],
+            ['id' => 3, 'level' => 'critical', 'severity' => 4],
+            ['id' => 4, 'level' => 'medium', 'severity' => 1],
+        ]);
+
+        self::assertSame([3, 2, 4, 1], array_column($sorted, 'id'));
+    }
+
     public function testProgressPointsToTheFirstEmptyWorkshop(): void
     {
         self::assertSame(['started' => 0, 'total' => 5, 'next' => 1], EbiosRules::progress([]));
