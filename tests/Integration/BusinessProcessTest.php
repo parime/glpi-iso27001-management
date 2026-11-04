@@ -101,7 +101,7 @@ final class BusinessProcessTest extends GrcmanagerIntegrationTestCase
 
         $byLabel = array_column($analysis['dependencies'], null, 'label');
         $this->assertSame(0, $byLabel[\Appliance::getTypeName(1) . ' APP-DEMO-PAIE']['depth']);
-        $this->assertSame(['asset_rto_missing'], $byLabel[\Appliance::getTypeName(1) . ' APP-DEMO-PAIE']['issues']);
+        $this->assertSame([], $byLabel[\Appliance::getTypeName(1) . ' APP-DEMO-PAIE']['issues']);
         $this->assertSame([], $byLabel[\Computer::getTypeName(1) . ' VM-DEMO-PAIE']['issues']);
         $this->assertSame(2, $byLabel[\Computer::getTypeName(1) . ' HV-DEMO-01']['depth']);
         $this->assertSame(

@@ -240,6 +240,7 @@ class BusinessProcess extends BusinessProcessBase
         }
 
         $allObjectives = self::assetObjectives();
+        $classifiable = Risk::getLinkableItemtypes();
         $dependencies = [];
         $objectives = [];
         $hidden = 0;
@@ -250,7 +251,11 @@ class BusinessProcess extends BusinessProcessBase
                 continue;
             }
             [$itemtype, $itemsId] = ImpactGraph::split($key);
-            $objectives[$key] = $allObjectives[$key] ?? ['rto' => 0, 'rpo' => 0];
+            // Applications, instances de bases de données et fournisseurs n'ont pas d'onglet de
+            // classification : pas d'objectif à leur réclamer, seuls les actifs classables sont contrôlés.
+            if (in_array($itemtype, $classifiable, true)) {
+                $objectives[$key] = $allObjectives[$key] ?? ['rto' => 0, 'rpo' => 0];
+            }
             $dependencies[$key] = $node + [
                 'key'       => $key,
                 'depth'     => $depth,
