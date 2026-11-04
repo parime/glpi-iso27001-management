@@ -29,6 +29,10 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
     automatique n'est visible que de qui lit les données mesurées et accède à l'entité et à toutes
     ses sous-entités, y compris dans les listes et les cartes.
 
+## [2.21.0] - 2026-11-04
+
+### Added
+
 - **Processus métier et analyse d'impact sur l'activité (BIA)** (issue #377, première étape) :
   nouvel écran Opérations > Processus métier (ISO 22301 8.2.2, ISO 27001 A.5.29 et A.5.30) :
   - registre des processus par entité : responsable, service, criticité (l'intitulé « Criticité
