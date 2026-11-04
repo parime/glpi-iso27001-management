@@ -7,6 +7,12 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Changed
+
+- **Incidents de sécurité** : la fiche affichait deux champs « Catégorie ». La classification du plugin
+  s'appelle désormais « Type d'incident » ; « Catégorie » reste la catégorie de GLPI, paramétrable par
+  l'administrateur, y compris celles de Configuration GLPI Auto.
+
 ## [2.22.0] - 2026-11-04
 
 ### Added

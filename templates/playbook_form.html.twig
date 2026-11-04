@@ -9,8 +9,8 @@
       'add_field_html': hints.hint(__('Example: "Ransomware", "Compromised account".', 'grcmanager')),
    }) }}
    {{ fields.checkboxField('is_active', item.isNewItem() ? 1 : item.fields['is_active'], __('Active')) }}
-   {{ fields.dropdownArrayField('category', item.fields['category'], categories, __('Incident category', 'grcmanager'), {
-      'add_field_html': hints.hint(__('The playbook is suggested first on incidents of this category.', 'grcmanager')),
+   {{ fields.dropdownArrayField('category', item.fields['category'], categories, __('Incident type', 'grcmanager'), {
+      'add_field_html': hints.hint(__('The playbook is suggested first on incidents of this type.', 'grcmanager')),
    }) }}
    {{ fields.textareaField('description', item.fields['description'], __('Description'), {
       'full_width': true,
