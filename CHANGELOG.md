@@ -9,6 +9,9 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Fixed
 
+- **KRI** : avec les règles de SLA de Configuration GLPI Auto, le ticket d'un indicateur au rouge
+  partait au groupe de la règle et plus au groupe RSSI. Le groupe RSSI reste désormais assigné, en
+  plus de celui de la règle.
 - **Export du registre des traitements** : « Oui - pays » au lieu de « Oui pays » pour les transferts
   hors UE.
 - **Traductions** : « riesame » harmonisé en italien (terme des normes ISO), « w strefie czerwonej »
