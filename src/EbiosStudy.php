@@ -208,7 +208,7 @@ class EbiosStudy extends EbiosStudyBase
         $studyId = (int) $item->getID();
         $common = [
             'item'     => $item,
-            'can_edit' => $item->canUpdateItem(),
+            'can_edit' => self::canUpdate() && $item->canUpdateItem(),
             'form_url' => self::getElementFormURL(),
             'levels'   => self::getLevelLabels(),
         ];
