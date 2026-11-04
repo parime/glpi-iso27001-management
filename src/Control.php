@@ -25,6 +25,7 @@ use GlpiPlugin\Grcmanager\Services\Control\AnssiHygieneCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\AssetsignEvidence;
 use GlpiPlugin\Grcmanager\Services\Control\AssetsignEvidenceProvider;
 use GlpiPlugin\Grcmanager\Services\Control\ControlCrosswalkDefaults;
+use GlpiPlugin\Grcmanager\Services\Control\ControlTestRules;
 use GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig;
 use GlpiPlugin\Grcmanager\Services\Control\FrameworkSelection;
 use GlpiPlugin\Grcmanager\Services\Control\Nis2CatalogDefaults;
@@ -303,6 +304,23 @@ class Control extends ControlBase
             );
 
             return false;
+        }
+
+        // Issue #380 : plan de test d'efficacité (fréquence, méthode, responsable).
+        if (array_key_exists('test_frequency_months', $input)) {
+            $input['test_frequency_months'] = ControlTestRules::normalizeFrequency($input['test_frequency_months']);
+        }
+        if (array_key_exists('test_method', $input)) {
+            $input['test_method'] = ControlTestRules::normalizePlanMethod($input['test_method']);
+        }
+        if (array_key_exists('users_id_tester', $input)) {
+            $input['users_id_tester'] = max(0, (int) $input['users_id_tester']);
+        }
+
+        // Issue #380 : le plan de test et l'état posé par un test (ControlTest) ne sont pas une
+        // revue de la SoA.
+        if (!empty($input['_grcmanager_from_test'])) {
+            return $input;
         }
 
         // Any explicit save through this form counts as "reviewed" for the SoA completion

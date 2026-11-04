@@ -98,7 +98,14 @@ class SecurityIncidentTicket extends CommonGLPI
             return '';
         }
         if ($item instanceof Ticket) {
-            $count = count(self::getIncidentIdsForTicket((int) $item->getID()));
+            // Issue #372 : seuls les incidents lisibles sont comptés (rien ne trahit un incident
+            // invisible, cloisonné par entité ou par l'équipe d'intervention).
+            $count = 0;
+            foreach (self::getIncidentIdsForTicket((int) $item->getID()) as $id) {
+                if ((new PluginGrcmanagerSecurityIncident())->can($id, READ)) {
+                    $count++;
+                }
+            }
 
             $icon = PluginGrcmanagerSecurityIncident::getIcon();
 

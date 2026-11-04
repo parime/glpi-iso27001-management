@@ -339,6 +339,20 @@ class PageHelp
                     'grcmanager'
                 ),
             ],
+            'controltest' => [
+                'purpose'   => __(
+                    'The effectiveness tests of the Annex A controls: a control in place is checked to really work, '
+                        . 'with its method, result and evidence.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Set a test plan on each control, record each test from the control\'s "Effectiveness tests" '
+                        . 'tab and carry out the tests that are due first. An ineffective control opens a '
+                        . 'non-conformity.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO 27001, 9.1; ISO 27002, 5.35 and 5.36', 'grcmanager'),
+            ],
             'auditlog' => [
                 'purpose'  => __(
                     'The audit log of the security incidents: who consulted or changed what, when, with which '

@@ -8373,6 +8373,172 @@ msgstr "Katalog bezpieczeństwa AI i jego odniesienia w katalogu typowych ryzyk.
 msgid "AI systems"
 msgstr "Systemy AI"
 
+msgid "Effectiveness test"
+msgid_plural "Effectiveness tests"
+msgstr[0] "Test skuteczności"
+msgstr[1] "Testy skuteczności"
+msgstr[2] "Testów skuteczności"
+
+msgid "Documentary inspection"
+msgstr "Przegląd dokumentacji"
+
+msgid "Sampling"
+msgstr "Próbkowanie"
+
+msgid "Technical test"
+msgstr "Test techniczny"
+
+msgid "Interview"
+msgstr "Wywiad"
+
+msgid "Effective"
+msgstr "Skuteczne"
+
+msgid "Partially effective"
+msgstr "Częściowo skuteczne"
+
+msgid "Ineffective"
+msgstr "Nieskuteczne"
+
+msgid "No test plan"
+msgstr "Brak planu testów"
+
+msgid "No test scheduled"
+msgstr "Brak zaplanowanego testu"
+
+msgid "Control not found."
+msgstr "Nie znaleziono zabezpieczenia."
+
+msgid "Choose the result of the test."
+msgstr "Wybierz wynik testu."
+
+msgid "Describe what was found when the control is not fully effective."
+msgstr "Opisz ustalenia, gdy zabezpieczenie nie jest w pełni skuteczne."
+
+msgid "A test cannot be dated in the future."
+msgstr "Test nie może mieć daty z przyszłości."
+
+msgid "The next test must be scheduled after the test date."
+msgstr "Następny test musi być zaplanowany po dacie testu."
+
+msgid "The evidence must be a document attached to this control."
+msgstr "Dowód musi być dokumentem dołączonym do tego zabezpieczenia."
+
+#, php-format
+msgid "Implementation status of the control set to \"%s\"."
+msgstr "Status wdrożenia zabezpieczenia zmieniono na „%s”."
+
+msgid "No non-conformity was opened: you are not allowed to create one."
+msgstr "Nie otwarto niezgodności: nie masz uprawnień do jej utworzenia."
+
+#, php-format
+msgid "Ineffective control %1$s: %2$s"
+msgstr "Nieskuteczne zabezpieczenie %1$s: %2$s"
+
+#, php-format
+msgid "Effectiveness test of %1$s (%2$s) on %3$s: %4$s"
+msgstr "Test skuteczności %1$s (%2$s) z dnia %3$s: %4$s"
+
+#, php-format
+msgid "Non-conformity opened: %s"
+msgstr "Otwarto niezgodność: %s"
+
+msgid "Test date"
+msgstr "Data testu"
+
+msgid "Method"
+msgstr "Metoda"
+
+msgid "Tester"
+msgstr "Testujący"
+
+msgid "Next test"
+msgstr "Następny test"
+
+msgid "Last test"
+msgstr "Ostatni test"
+
+msgid "Never tested"
+msgstr "Nigdy nie testowano"
+
+msgid "Test plan"
+msgstr "Plan testów"
+
+msgid "Test owner"
+msgstr "Odpowiedzialny za testy"
+
+msgid "Save the plan"
+msgstr "Zapisz plan"
+
+msgid "The next test is due at the date of the last test plus this frequency, unless another date is entered with the test."
+msgstr "Następny test przypada w dniu ostatniego testu powiększonym o tę częstotliwość, chyba że przy teście podano inną datę."
+
+msgid "Record a test"
+msgstr "Zarejestruj test"
+
+msgid "Sample checked, observed gaps, people interviewed..."
+msgstr "Sprawdzona próbka, stwierdzone odstępstwa, osoby, z którymi przeprowadzono wywiad..."
+
+msgid "Required if the control is not fully effective. An ineffective control opens a non-conformity."
+msgstr "Wymagane, jeśli zabezpieczenie nie jest w pełni skuteczne. Nieskuteczne zabezpieczenie otwiera niezgodność."
+
+msgid "A document of the control:"
+msgstr "Dokument zabezpieczenia:"
+
+msgid "add it first in the Documents tab"
+msgstr "najpierw dodaj go na karcie Dokumenty"
+
+msgid "Empty: computed from the test plan."
+msgstr "Puste: obliczane na podstawie planu testów."
+
+msgid "Record the test"
+msgstr "Zapisz test"
+
+msgid "No effectiveness test recorded yet"
+msgstr "Nie zarejestrowano jeszcze testu skuteczności"
+
+msgid "A control in place is not yet a control that works: test it (inspection, sampling, technical test or interview), keep the evidence and schedule the next test."
+msgstr "Wdrożone zabezpieczenie to jeszcze nie działające zabezpieczenie: przetestuj je (przegląd, próbkowanie, test techniczny lub wywiad), zachowaj dowód i zaplanuj następny test."
+
+#, php-format
+msgid "Non-conformity #%d"
+msgstr "Niezgodność nr %d"
+
+msgid "Delete this test?"
+msgstr "Usunąć ten test?"
+
+msgid "Tests to carry out"
+msgstr "Testy do przeprowadzenia"
+
+msgid "ISO 27001, 9.1; ISO 27002, 5.35 and 5.36"
+msgstr "ISO 27001, 9.1; ISO 27002, 5.35 i 5.36"
+
+msgid "The effectiveness tests of the Annex A controls: a control in place is checked to really work, with its method, result and evidence."
+msgstr "Testy skuteczności zabezpieczeń z Załącznika A: sprawdza się, czy wdrożone zabezpieczenie naprawdę działa, wraz z metodą, wynikiem i dowodem."
+
+msgid "Set a test plan on each control, record each test from the control's \"Effectiveness tests\" tab and carry out the tests that are due first. An ineffective control opens a non-conformity."
+msgstr "Ustal plan testów dla każdego zabezpieczenia, rejestruj każdy test na karcie „Testy skuteczności” zabezpieczenia i najpierw przeprowadzaj testy, których termin minął. Nieskuteczne zabezpieczenie otwiera niezgodność."
+
+#, php-format
+msgid "Security incident on %s"
+msgstr "Incydent bezpieczeństwa dotyczący %s"
+
+#, php-format
+msgid "Security incident no. %d declared."
+msgstr "Zgłoszono incydent bezpieczeństwa nr %d."
+
+msgid "Declare an incident"
+msgstr "Zgłoś incydent"
+
+msgid "Creates a security incident already linked to this item, then opens it to be completed."
+msgstr "Tworzy incydent bezpieczeństwa już powiązany z tym elementem, a następnie otwiera go do uzupełnienia."
+
+msgid "No security incident linked to this item."
+msgstr "Brak incydentów bezpieczeństwa powiązanych z tym elementem."
+
+msgid "Other linked items"
+msgstr "Inne powiązane elementy"
+
 msgid "Open critical security incidents"
 msgstr "Otwarte krytyczne incydenty bezpieczeństwa"
 

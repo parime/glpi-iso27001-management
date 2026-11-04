@@ -45,6 +45,7 @@ final class SecurityCategoryLinkTest extends GrcmanagerIntegrationTestCase
             'security'         => $branch,
             'security_malware' => $this->category('PHPUnit Malware', $branch),
             'security_account' => $this->category('PHPUnit Compte compromis', $branch),
+            'security_data_breach' => $this->category('PHPUnit Fuite de données', $branch),
         ];
         $values = [];
         foreach ($this->categories as $key => $id) {
@@ -120,14 +121,34 @@ final class SecurityCategoryLinkTest extends GrcmanagerIntegrationTestCase
         $this->assertSame('malware', $incident->fields['category']);
         $this->assertSame($this->categories['security_malware'], (int) $incident->fields['itilcategories_id']);
 
-        // Compte compromis : accès non autorisé ou fuite, la classification reste à choisir.
+        // Compte compromis et fuite de données : catégories distinctes depuis la scission.
         $ticketsId = (int) $ticket->add([
             'name' => 'PHPUnit compte', 'content' => 'x', 'entities_id' => 0,
             'itilcategories_id' => $this->categories['security_account'],
         ]);
         $ticket->getFromDB($ticketsId);
         $incident->getFromDB(SecurityIncidentTicket::qualify($ticket));
-        $this->assertSame('other', $incident->fields['category']);
+        $this->assertSame('unauthorized_access', $incident->fields['category']);
+        $ticketsId = (int) $ticket->add([
+            'name' => 'PHPUnit fuite', 'content' => 'x', 'entities_id' => 0,
+            'itilcategories_id' => $this->categories['security_data_breach'],
+        ]);
+        $ticket->getFromDB($ticketsId);
+        $incident->getFromDB(SecurityIncidentTicket::qualify($ticket));
+        $this->assertSame('data_breach', $incident->fields['category']);
+
+        // CGA antérieur à la scission : « Compte compromis / Fuite de données », ambigu.
+        Config::deleteConfigurationValues(
+            SecurityCategoryLink::CGA_CONTEXT,
+            ['security_data_breach_itilcategories_id']
+        );
+        $ticketsId = (int) $ticket->add([
+            'name' => 'PHPUnit compte avant scission', 'content' => 'x', 'entities_id' => 0,
+            'itilcategories_id' => $this->categories['security_account'],
+        ]);
+        $ticket->getFromDB($ticketsId);
+        $incident->getFromDB(SecurityIncidentTicket::qualify($ticket));
+        $this->assertSame('other', $incident->fields['category'], 'Classification laissée à choisir.');
     }
 
     public function testNothingChangesWithoutConfigurationGlpiAuto(): void
