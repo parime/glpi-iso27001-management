@@ -8142,3 +8142,217 @@ msgid "Risk source"
 msgid_plural "Risk sources"
 msgstr[0] "Source de risque"
 msgstr[1] "Sources de risque"
+
+msgid "V1 - Unlikely"
+msgstr "V1 - Peu vraisemblable"
+
+msgid "V2 - Likely"
+msgstr "V2 - Vraisemblable"
+
+msgid "V3 - Very likely"
+msgstr "V3 - Très vraisemblable"
+
+msgid "V4 - Almost certain"
+msgstr "V4 - Quasi certain"
+
+msgid "Workshop 3: strategic scenarios"
+msgstr "Atelier 3 : scénarios stratégiques"
+
+msgid "Workshop 4: operational scenarios"
+msgstr "Atelier 4 : scénarios opérationnels"
+
+msgid "The linked element does not belong to this study."
+msgstr "L'élément lié n'appartient pas à cette étude."
+
+msgid "Supplier"
+msgstr "Fournisseur"
+
+msgid "Partner"
+msgstr "Partenaire"
+
+msgid "Customer"
+msgstr "Client"
+
+msgid "Internal team"
+msgstr "Équipe interne"
+
+msgid "Create one study per scope, then work through its workshops in order: business values and feared events, risk sources, stakeholders and strategic scenarios, then operational scenarios."
+msgstr "Créez une étude par périmètre, puis suivez ses ateliers dans l'ordre : valeurs métier et événements redoutés, sources de risque, parties prenantes et scénarios stratégiques, puis scénarios opérationnels."
+
+msgid "Remove this feared event and the scenarios built on it?"
+msgstr "Retirer cet événement redouté et les scénarios construits dessus ?"
+
+msgid "Remove this risk source and the scenarios built on it?"
+msgstr "Retirer cette source de risque et les scénarios construits dessus ?"
+
+msgid "Danger zone"
+msgstr "Zone de danger"
+
+msgid "Act first: reduce the dependence or demand stronger guarantees."
+msgstr "À traiter en priorité : réduire la dépendance ou exiger des garanties plus fortes."
+
+msgid "Control zone"
+msgstr "Zone de contrôle"
+
+msgid "Check their security measures regularly."
+msgstr "Contrôler régulièrement leurs mesures de sécurité."
+
+msgid "Watch zone"
+msgstr "Zone de veille"
+
+msgid "Keep an eye on them, no specific action needed."
+msgstr "À surveiller, sans action particulière."
+
+msgid "Dependence"
+msgstr "Dépendance"
+
+msgid "How much you rely on them to operate"
+msgstr "À quel point votre activité repose sur eux"
+
+msgid "Penetration"
+msgstr "Pénétration"
+
+msgid "How far they can access your systems and data"
+msgstr "Jusqu'où ils accèdent à vos systèmes et à vos données"
+
+msgid "Cyber maturity"
+msgstr "Maturité cyber"
+
+msgid "How well they protect themselves"
+msgstr "À quel point ils se protègent bien"
+
+msgid "Trust"
+msgstr "Confiance"
+
+msgid "How much you trust their intentions and interests"
+msgstr "La confiance accordée à leurs intentions et à leurs intérêts"
+
+msgid "Attackers often go through a supplier or a partner. Rate your stakeholders to see which ones are the most exposed, then describe how each retained risk source could reach a feared event."
+msgstr "Les attaquants passent souvent par un fournisseur ou un partenaire. Cotez vos parties prenantes pour voir les plus exposées, puis décrivez comment chaque source de risque retenue pourrait atteindre un événement redouté."
+
+msgid "Stakeholders of the ecosystem"
+msgstr "Parties prenantes de l'écosystème"
+
+msgid "New stakeholder"
+msgstr "Nouvelle partie prenante"
+
+msgid "e.g. Hosting provider (or choose a GLPI supplier)"
+msgstr "ex. Hébergeur (ou choisissez un fournisseur GLPI)"
+
+msgid "GLPI supplier"
+msgstr "Fournisseur GLPI"
+
+msgid "No stakeholder yet"
+msgstr "Aucune partie prenante pour le moment"
+
+msgid "Think of your hosting provider, software vendors, IT service companies, key partners..."
+msgstr "Pensez à votre hébergeur, vos éditeurs de logiciels, vos sociétés de services informatiques, vos partenaires clés..."
+
+msgid "Threat level = (dependence x penetration) / (maturity x trust)."
+msgstr "Niveau de menace = (dépendance x pénétration) / (maturité x confiance)."
+
+msgid "Threat"
+msgstr "Menace"
+
+msgid "Remove this stakeholder and the scenarios that go through it?"
+msgstr "Retirer cette partie prenante et les scénarios qui passent par elle ?"
+
+msgid "Strategic scenarios"
+msgstr "Scénarios stratégiques"
+
+msgid "A strategic scenario links a retained risk source to a feared event: fill in workshops 1 and 2 first."
+msgstr "Un scénario stratégique relie une source de risque retenue à un événement redouté : remplissez d'abord les ateliers 1 et 2."
+
+msgid "New strategic scenario"
+msgstr "Nouveau scénario stratégique"
+
+msgid "e.g. Ransom demand after compromising the hosting provider"
+msgstr "ex. Demande de rançon après la compromission de l'hébergeur"
+
+msgid "Attack path"
+msgstr "Chemin d'attaque"
+
+msgid "Direct attack"
+msgstr "Attaque directe"
+
+#, php-format
+msgid "Through: %s"
+msgstr "Par : %s"
+
+msgid "Measures planned on this path"
+msgstr "Mesures prévues sur ce chemin"
+
+msgid "e.g. Security clause, annual audit of the provider"
+msgstr "ex. Clause de sécurité, audit annuel du prestataire"
+
+msgid "No strategic scenario yet."
+msgstr "Aucun scénario stratégique pour le moment."
+
+msgid "Remove this strategic scenario and its operational scenarios?"
+msgstr "Retirer ce scénario stratégique et ses scénarios opérationnels ?"
+
+msgid "Low risk"
+msgstr "Risque faible"
+
+msgid "Moderate risk"
+msgstr "Risque modéré"
+
+msgid "High risk"
+msgstr "Risque élevé"
+
+msgid "Critical risk"
+msgstr "Risque critique"
+
+msgid "For each strategic scenario, describe how the attack would actually unfold and on which supporting asset, then rate how likely it is. The risk level combines this likelihood with the severity of the feared event."
+msgstr "Pour chaque scénario stratégique, décrivez comment l'attaque se déroulerait concrètement et sur quel bien support, puis cotez sa vraisemblance. Le niveau de risque combine cette vraisemblance avec la gravité de l'événement redouté."
+
+msgid "An operational scenario details a strategic scenario: fill in workshop 3 first."
+msgstr "Un scénario opérationnel détaille un scénario stratégique : remplissez d'abord l'atelier 3."
+
+msgid "New operational scenario"
+msgstr "Nouveau scénario opérationnel"
+
+msgid "e.g. Phishing of an administrator, then encryption of the servers"
+msgstr "ex. Hameçonnage d'un administrateur, puis chiffrement des serveurs"
+
+msgid "Attack sequence"
+msgstr "Mode opératoire"
+
+msgid "Know, get in, find, exploit: the main steps of the attack"
+msgstr "Connaître, rentrer, trouver, exploiter : les grandes étapes de l'attaque"
+
+msgid "Supporting asset targeted"
+msgstr "Bien support visé"
+
+msgid "Likelihood"
+msgstr "Vraisemblance"
+
+msgid "No operational scenario yet"
+msgstr "Aucun scénario opérationnel pour le moment"
+
+msgid "Start with the strategic scenarios on the most serious feared events."
+msgstr "Commencez par les scénarios stratégiques sur les événements redoutés les plus graves."
+
+msgid "Operational scenarios"
+msgstr "Scénarios opérationnels"
+
+msgid "Remove this operational scenario?"
+msgstr "Retirer ce scénario opérationnel ?"
+
+msgid "Stakeholder"
+msgid_plural "Stakeholders"
+msgstr[0] "Partie prenante"
+msgstr[1] "Parties prenantes"
+
+msgid "Strategic scenario"
+msgid_plural "Strategic scenarios"
+msgstr[0] "Scénario stratégique"
+msgstr[1] "Scénarios stratégiques"
+
+msgid "Operational scenario"
+msgid_plural "Operational scenarios"
+msgstr[0] "Scénario opérationnel"
+msgstr[1] "Scénarios opérationnels"
+
+msgid "Severity (G1 to G4)"
+msgstr "Gravité (G1 à G4)"

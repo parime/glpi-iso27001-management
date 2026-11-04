@@ -41,9 +41,11 @@
         {% for key, label in categories %}<option value="{{ key }}">{{ label }}</option>{% endfor %}
       </select>
     </div>
+  </div>
+  <div class="row g-2 mt-1">
     {% for scale, texts in scales %}
       <div class="col-md-3">
-        <label class="form-label" for="grc-ebios-{{ scale }}" title="{{ texts[1] }}">{{ texts[0] }} <i class="ti ti-info-circle text-muted" aria-hidden="true"></i></label>
+        <label class="form-label" for="grc-ebios-{{ scale }}">{{ texts[0] }}</label>
         <select id="grc-ebios-{{ scale }}" name="{{ scale }}" class="form-select">
           {% for level, text in levels %}<option value="{{ level }}" {{ level == 2 ? 'selected' : '' }}>{{ text }}</option>{% endfor %}
         </select>
@@ -73,7 +75,7 @@
           <div class="card-body py-2">
             <p class="small text-muted mb-1">{{ meta[3] }}</p>
             {% for s in stakeholders|filter(s => s.zone == zone) %}
-              <div class="d-flex justify-content-between"><span>{{ s.name }}</span><span class="fw-bold">{{ s.threat }}</span></div>
+              <div class="d-flex justify-content-between"><span>{{ s.name }}</span><span class="fw-bold">{{ s.threat_label }}</span></div>
             {% else %}
               <span class="text-muted small">-</span>
             {% endfor %}
@@ -112,7 +114,7 @@
                 {% endif %}
               </td>
             {% endfor %}
-            <td><span class="badge {{ zones[s.zone][0] }}">{{ s.threat }}</span></td>
+            <td><span class="badge {{ zones[s.zone][0] }}">{{ s.threat_label }}</span></td>
             {% if can_edit %}
               <td class="text-nowrap">
                 <form method="post" action="{{ form_url }}" id="{{ update_form }}" class="d-inline">

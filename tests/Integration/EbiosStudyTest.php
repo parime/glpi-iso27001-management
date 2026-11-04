@@ -119,7 +119,8 @@ final class EbiosStudyTest extends GrcmanagerIntegrationTestCase
         $otherStudyId = (int) (new EbiosStudy())->add(['name' => 'PHPUnit autre étude']);
         $other = [EbiosElement::STUDY_FK => $otherStudyId];
         $crossed = $other + ['name' => 'Croisé'];
-        $this->assertFalse((new EbiosStrategicScenario())->add($crossed + [$sourceKey => $sourceId, $eventKey => $eventId]));
+        $crossedLinks = $crossed + [$sourceKey => $sourceId, $eventKey => $eventId];
+        $this->assertFalse((new EbiosStrategicScenario())->add($crossedLinks));
         $this->assertFalse((new EbiosStrategicScenario())->add($fk + [$sourceKey => $sourceId, 'name' => 'Incomplet']));
         $this->assertFalse((new EbiosOperationalScenario())->add($crossed + [$strategicKey => $strategicId]));
         $this->assertFalse((new EbiosFearedEvent())->add($crossed + ['plugin_grcmanager_ebiosvalues_id' => $valueId]));
@@ -177,6 +178,21 @@ final class EbiosStudyTest extends GrcmanagerIntegrationTestCase
         $four = (string) ob_get_clean();
         $this->assertStringContainsString('Mode opératoire fictif', $four);
         $this->assertStringContainsString('bg-red-lt fw-bold', $four, 'G4 x V3 : case critique occupée.');
+
+        // En lecture seule : les données restent visibles, sans aucun formulaire de modification.
+        $saved = $_SESSION['glpiactiveprofile'][EbiosElement::RIGHTNAME];
+        try {
+            $_SESSION['glpiactiveprofile'][EbiosElement::RIGHTNAME] = READ;
+            foreach ([3 => 'Chemin fictif', 4 => 'Mode opératoire fictif'] as $tab => $expected) {
+                ob_start();
+                EbiosStudy::displayTabContentForItem($study, $tab);
+                $html = (string) ob_get_clean();
+                $this->assertStringContainsString($expected, $html);
+                $this->assertStringNotContainsString('<form', $html);
+            }
+        } finally {
+            $_SESSION['glpiactiveprofile'][EbiosElement::RIGHTNAME] = $saved;
+        }
 
         $study->delete(['id' => $studyId], true);
     }

@@ -90,7 +90,7 @@
               <div class="col-12"><input type="text" name="name" class="form-control form-control-sm" maxlength="255" required placeholder="{{ __('e.g. Customer data disclosed', 'grcmanager') }}" aria-label="{{ __('Feared events', 'grcmanager') }}"></div>
               <div class="col-md-6"><input type="text" name="impacts" class="form-control form-control-sm" placeholder="{{ __('Impacts', 'grcmanager') }}" aria-label="{{ __('Impacts', 'grcmanager') }}"></div>
               <div class="col-md-5">
-                <select name="severity" class="form-select form-select-sm" aria-label="{{ __('Severity', 'grcmanager') }}">
+                <select name="severity" class="form-select form-select-sm" aria-label="{{ __('Severity (G1 to G4)', 'grcmanager') }}">
                   {% for level, label in severities %}<option value="{{ level }}" {{ level == 2 ? 'selected' : '' }}>{{ label }}</option>{% endfor %}
                 </select>
               </div>

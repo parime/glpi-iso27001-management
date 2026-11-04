@@ -32,7 +32,7 @@
     </div>
     <div class="col-12">
       <label class="form-label" for="grc-ebios-sequence">{{ __('Attack sequence', 'grcmanager') }}</label>
-      <textarea id="grc-ebios-sequence" name="attack_sequence" class="form-control" rows="2" placeholder="{{ __('Know, get in, spread, then act: the main steps of the attack', 'grcmanager') }}"></textarea>
+      <textarea id="grc-ebios-sequence" name="attack_sequence" class="form-control" rows="2" placeholder="{{ __('Know, get in, find, exploit: the main steps of the attack', 'grcmanager') }}"></textarea>
     </div>
     <div class="col-md-5">
       <label class="form-label" for="grc-ebios-operational-support">{{ __('Supporting asset targeted', 'grcmanager') }}</label>
@@ -64,12 +64,12 @@
   {% endif %}
 {% else %}
 <div class="row g-3">
-  <div class="col-lg-4">
+  <div class="col-12">
     <h4><i class="ti ti-grid-dots me-1"></i>{{ __('Risk matrix', 'grcmanager') }}</h4>
-    <table class="table table-sm table-bordered text-center mb-0">
+    <table class="table table-sm table-bordered text-center mb-0" style="max-width: 30rem">
       <thead>
         <tr>
-          <th class="small">{{ __('Severity', 'grcmanager') }} / {{ __('Likelihood', 'grcmanager') }}</th>
+          <th class="small">{{ __('Severity (G1 to G4)', 'grcmanager') }} / {{ __('Likelihood', 'grcmanager') }}</th>
           {% for level, label in likelihoods %}<th title="{{ label }}">V{{ level }}</th>{% endfor %}
         </tr>
       </thead>
@@ -85,14 +85,14 @@
       </tbody>
     </table>
   </div>
-  <div class="col-lg-8">
+  <div class="col-12">
     <h4><i class="ti ti-binary-tree me-1"></i>{{ __('Operational scenarios', 'grcmanager') }}</h4>
     <div class="table-responsive">
       <table class="table table-sm table-vcenter card-table">
         <thead>
           <tr>
             <th>{{ __('Scenario', 'grcmanager') }}</th>
-            <th>{{ __('Severity', 'grcmanager') }}</th>
+            <th>{{ __('Severity (G1 to G4)', 'grcmanager') }}</th>
             <th>{{ __('Likelihood', 'grcmanager') }}</th>
             <th>{{ __('Risk level', 'grcmanager') }}</th>
             {% if can_edit %}<th></th>{% endif %}

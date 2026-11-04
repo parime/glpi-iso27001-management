@@ -21,6 +21,7 @@ use CommonGLPI;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\EbiosStudyBase;
 use GlpiPlugin\Grcmanager\Services\Risk\EbiosRules;
+use Html;
 use Log;
 use Session;
 use Supplier;
@@ -263,6 +264,7 @@ class EbiosStudy extends EbiosStudyBase
                 (int) $row['trust']
             );
             $row['zone'] = EbiosRules::threatZone($row['threat']);
+            $row['threat_label'] = Html::formatNumber($row['threat']);
             $row['supplier_url'] = (int) $row['suppliers_id'] > 0
                 ? Supplier::getFormURLWithID((int) $row['suppliers_id'])
                 : '';
