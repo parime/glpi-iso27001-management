@@ -381,6 +381,12 @@ jobs:
           jq -e --argjson me "$(jq -r .manager <<< "$ids")" '.approvers | index($me) == null' <<< "$approvers" > /dev/null \
             || { echo "::error::le demandeur s'est designe approbateur de sa propre SoA : $approvers"; exit 1; }
           echo "OK  liens du risque conserves ($links), demandeur absent des approbateurs ($approvers)"
+          # Issue #375 : enregistrer le traitement de A ne retire pas l'ordinateur de B, invisible pour lui.
+          plinks=$(setup processing-links "$(jq -r .processing_A <<< "$ids")")
+          jq -e --arg b "Computer:$(jq -r .computer_B <<< "$ids")" --arg a "Computer:$(jq -r .computer_A <<< "$ids")" \
+            'index($b) != null and index($a) != null' <<< "$plinks" > /dev/null \
+            || { echo "::error::enregistrer le traitement a modifie un lien vers un actif invisible pour l'utilisateur : $plinks"; exit 1; }
+          echo "OK  liens du traitement conserves ($plinks)"
           counts_before=$(setup counts)
           bash tests/security/access-matrix.sh http://localhost:8080 none iso-sans-droit 'Secrev#2026' "$ids"
           bash tests/security/access-matrix.sh http://localhost:8080 reader iso-lecteur 'Secrev#2026' "$ids"

@@ -56,6 +56,8 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/auditlog.php front/controltest.php
   front/impactanalysis.php?export=continuity front/maturity.php front/crisisexercise.php front/complianceaudit.php
   front/dashboard.php front/networkflow.report.php front/breachexposure.php front/networkflow.matrix.php
+  front/processingactivity.php front/processingactivity.export.php?format=pdf
+  front/processingactivity.export.php?format=csv
   front/riskappetite.php front/riskindicator.php
   front/businessprocess.php front/businessprocess.php?export=csv"
 # Creations : refusees sans droit comme en lecture seule (etat en base compare par la CI).
@@ -73,6 +75,7 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
     front/securityincidentteam.form.php \
     front/cpereference.form.php front/productalias.form.php \
     front/waiver.form.php front/coveragerule.form.php front/controltest.form.php \
+    front/processingactivity.form.php \
     front/businessprocess.form.php front/riskindicator.form.php; do
     expect "$form : creation" "$1" "$(code -d "add=1&name=securite&title=securite&_glpi_csrf_token=$(csrf)" "$BASE/plugins/grcmanager/$form")"
   done
@@ -200,6 +203,7 @@ if [ "$ROLE" = none ]; then
   for t in 'GlpiPlugin%5CGrcmanager%5CImpactAnalysis$1' 'GlpiPlugin%5CGrcmanager%5CAssetClassification$1' \
            'GlpiPlugin%5CGrcmanager%5CParkVulnerability$1' 'GlpiPlugin%5CGrcmanager%5CRisk$1' \
            'GlpiPlugin%5CGrcmanager%5CSecurityIncidentLinkedItem$1' \
+           'GlpiPlugin%5CGrcmanager%5CProcessingActivity$1' \
            'GlpiPlugin%5CGrcmanager%5CBusinessProcessItem$1'; do
     contains "onglet $t d'un ordinateur : sans droit" "plugins/grcmanager" non "$(tab Computer "$t" "$(id computer_A)")"
   done
@@ -232,6 +236,16 @@ if [ "$ROLE" = general ]; then
     "$(code "$P/breachexposure.form.php?id=$(id breachexposure)")"
   expect "front/breachexposure.form.php : changer son statut" 403 \
     "$(code -d "update=1&id=$(id breachexposure)&status=handled&_glpi_csrf_token=$(csrf)" "$P/breachexposure.form.php")"
+  # Issue #375 : le registre des traitements (RGPD) a son propre droit, distinct du droit general
+  # du SMSI : liste, fiche, exports, modification et onglet des actifs lui sont refuses.
+  for p in front/processingactivity.php "front/processingactivity.export.php?format=pdf" \
+           "front/processingactivity.export.php?format=csv" "front/processingactivity.form.php?id=$(id processing_A)"; do
+    expect "$p : sans le droit du registre des traitements" 403 "$(code "$BASE/plugins/grcmanager/$p")"
+  done
+  expect "front/processingactivity.form.php : modifier une fiche" 403 \
+    "$(code -d "update=1&id=$(id processing_A)&name=securite&_glpi_csrf_token=$(csrf)" "$P/processingactivity.form.php")"
+  contains "onglet Registre des traitements d'un ordinateur : rien" "Traitement securite" non \
+    "$(tab Computer 'GlpiPlugin%5CGrcmanager%5CProcessingActivity$1' "$(id computer_A)")"
   for p in front/control.php front/policy.php front/audit.php front/training.php front/complianceobligation.php; do
     expect "$p : droit general du SMSI" 200 "$(code "$BASE/plugins/grcmanager/$p")"
   done
@@ -324,6 +338,22 @@ expect "front/trainingquiz.send.php : copie d'un autre" "$([ "$ROLE" = admin ] &
 # Issue #142 : le flux iCal d'abonnement ignore la session et n'accepte qu'un jeton personnel valide.
 expect "front/compliancecalendar.ics.php : sans jeton" 403    "$(curl -s -o /dev/null -w '%{http_code}' "$P/compliancecalendar.ics.php")"
 expect "front/compliancecalendar.ics.php : jeton invalide" 403    "$(code "$P/compliancecalendar.ics.php?token=jeton-invalide")"
+# Issue #375 : registre des traitements rattache a une entite ; un element lie d'une autre entite
+# n'est jamais nomme, ni sur la fiche, ni dans l'export, ni dans l'onglet de l'actif.
+expect "traitement, entite A"          200    "$(code "$P/processingactivity.form.php?id=$(id processing_A)")"
+expect "traitement, entite B"          $DENY  "$(code "$P/processingactivity.form.php?id=$(id processing_B)")"
+expect "modifier un traitement de B"   "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
+  "$(code -d "update=1&id=$(id processing_B)&comment=securite&_glpi_csrf_token=$(csrf)" "$P/processingactivity.form.php")"
+processing_page=$(tab GlpiPlugin%5CGrcmanager%5CProcessingActivity 'GlpiPlugin%5CGrcmanager%5CProcessingActivity$main' "$(id processing_A)")
+contains "traitement de A : actif de A nomme" "PC securite A" oui "$processing_page"
+contains "traitement de A : actif de B nomme" "PC securite B" $SEE_B "$processing_page"
+processing_csv=$(curl -s -c "$JAR" -b "$JAR" "$P/processingactivity.export.php?format=csv")
+contains "export CSV du registre : traitement de A" "Traitement securite A" oui "$processing_csv"
+contains "export CSV du registre : traitement de B" "Traitement securite B" $SEE_B "$processing_csv"
+contains "export CSV du registre : actif de B" "PC securite B" $SEE_B "$processing_csv"
+contains "onglet Registre des traitements d'un ordinateur de A" "Traitement securite A" oui \
+  "$(tab Computer 'GlpiPlugin%5CGrcmanager%5CProcessingActivity$1' "$(id computer_A)")"
+
 # Issue #378 : un KRI appartient a son entite (lecture, releve, ticket).
 expect "KRI, entite A"                  200    "$(code "$P/riskindicator.form.php?id=$(id kri_A)")"
 expect "KRI, entite B"                  $DENY  "$(code "$P/riskindicator.form.php?id=$(id kri_B)")"
@@ -406,6 +436,11 @@ if [ "$ROLE" = limited ]; then
   # lui-meme : il doit etre retire des approbateurs (verifie en base par la CI).
   code -d "update=1&id=$(id risk)&title=Risque%20securite&linked_items_Computer[]=$(id computer_A)&_glpi_csrf_token=$(csrf)" "$P/risk.form.php" > /dev/null
   code -d "request_approval=1&approvers[]=$(id manager)&approvers[]=2&comment=test&_glpi_csrf_token=$(csrf)" "$P/soaapproval.php" > /dev/null
+  # Issue #375 : enregistre le traitement de A avec le seul ordinateur de A : le lien vers celui de B,
+  # invisible pour lui, doit rester (verifie en base par la CI).
+  code -d "update=1&id=$(id processing_A)&_linked_items_Computer_defined=1&linked_items_Computer[]=$(id computer_A)&_glpi_csrf_token=$(csrf)" \
+    "$P/processingactivity.form.php" > /dev/null
+  echo "    (traitement de A enregistre : verification en base par la CI)"
   echo "    (risque enregistre et approbation SoA demandee : verification en base par la CI)"
 fi
 

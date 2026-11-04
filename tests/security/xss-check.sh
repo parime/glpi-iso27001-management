@@ -47,7 +47,7 @@ for url in \
   "audit.form.php?id=$(xid audit)" "complianceobligation.form.php?id=$(xid obligation)" \
   "managementreview.form.php?id=$(xid review)" "nonconformity.form.php?id=$(xid nonconformity)" \
   "objective.form.php?id=$(xid objective)" "policy.form.php?id=$(xid policy)" "training.form.php?id=$(xid training)" \
-  "canonicalproduct.form.php?id=$(xid product)" \
+  "canonicalproduct.form.php?id=$(xid product)" "processingactivity.form.php?id=$(xid processing)" processingactivity.php \
   "riskindicator.form.php?id=$(xid kri)" riskindicator.php riskappetite.php \
   risk.php control.php supplierrisk.php securityincident.php accessreview.php audit.php complianceobligation.php \
   managementreview.php nonconformity.php objective.php policy.php training.php canonicalproduct.php \
@@ -64,6 +64,8 @@ check "onglet couts d'un incident"            "$(tab PluginGrcmanagerSecurityInc
 check "onglet mesures d'un objectif"          "$(tab GlpiPlugin%5CGrcmanager%5CObjective 'GlpiPlugin%5CGrcmanager%5CObjectiveMeasurement$1' "$(xid objective)")"
 check "onglet references CPE d'un produit"    "$(tab GlpiPlugin%5CGrcmanager%5CCanonicalProduct 'GlpiPlugin%5CGrcmanager%5CCpeReference$1' "$(xid product)")"
 check "onglet alias d'un produit"             "$(tab GlpiPlugin%5CGrcmanager%5CCanonicalProduct 'GlpiPlugin%5CGrcmanager%5CProductAlias$1' "$(xid product)")"
+check "onglet registre des traitements d'un ordinateur" "$(tab Computer 'GlpiPlugin%5CGrcmanager%5CProcessingActivity$1' "$(id computer_A)")"
+check "fiche d'un traitement (onglet principal)" "$(tab GlpiPlugin%5CGrcmanager%5CProcessingActivity 'GlpiPlugin%5CGrcmanager%5CProcessingActivity$main' "$(xid processing)")"
 check "front/businessprocess.form.php"         "$P/businessprocess.form.php?id=$(xid process)"
 check "front/businessprocess.php"              "$P/businessprocess.php"
 check "onglet BIA d'un processus"              "$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessImpact$1' "$(xid process)")"

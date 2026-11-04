@@ -210,6 +210,12 @@ function plugin_init_grcmanager(): void
         'addtabon' => $CFG_GLPI['software_types'] ?? ['Computer'],
     ]);
 
+    // Issue #375 : onglet « Registre des traitements » sur les applications, logiciels, bases de
+    // données, fournisseurs et actifs cités par une fiche (droit dédié du registre RGPD).
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\ProcessingActivity::class, [
+        'addtabon' => \GlpiPlugin\Grcmanager\ProcessingActivity::getLinkableItemtypes(),
+    ]);
+
     // Issue #183 : onglet « Expositions à des fuites de données » sur la fiche de l'utilisateur (registre
     // sensible), et clé d'API Have I Been Pwned chiffrée par GLPI (configuration sécurisée).
     Plugin::registerClass(\GlpiPlugin\Grcmanager\BreachExposure::class, ['addtabon' => [User::class]]);

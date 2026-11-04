@@ -18,6 +18,24 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
     recherche, qui applique elle-même ses droits et retrouve le nombre affiché. La sévérité et la
     catégorie acceptent le critère « est » dans la recherche.
 
+- **Registre des activités de traitement RGPD** (issue #375, première étape, article 30) : menu
+  Conformité > Registre des traitements.
+  - une fiche par traitement : finalité, base légale, catégories de personnes et de données,
+    données sensibles, destinataires, transferts hors UE (pays, garanties), durées de conservation,
+    mesures de sécurité, rôle de l'organisme (responsable, responsable conjoint, sous-traitant) ;
+  - liens vers les applications, logiciels, bases de données, fournisseurs et actifs GLPI, et vers
+    les mesures de la SoA ; onglet « Registre des traitements » sur ces éléments ;
+  - écarts calculés (base légale, conservation, transfert sans garantie, données sensibles sans
+    décision d'AIPD, revue de plus d'un an...), sans rien modifier ;
+  - export PDF pour l'autorité de contrôle et export CSV, tracés dans les journaux ;
+  - revue périodique annuelle « registre des traitements » (ticket récurrent natif) ;
+  - droit dédié « Protection des données personnelles » dans l'onglet GRC Manager des profils, au
+    seul Super-Admin à l'installation ; fiches rattachées à une entité ; un élément lié n'est nommé,
+    ajouté ou retiré que par qui peut le lire ; modifications dans le journal d'audit ; cellules du
+    CSV protégées contre l'injection de formules.
+  - restent à venir : AIPD (article 35), demandes d'exercice des droits, contact du DPO sur l'export.
+
+
 - **Appétence et tolérance au risque, indicateurs de risque (KRI)** (issue #378, première étape) :
   - écran **« Appétence et tolérance au risque »** (rubrique Risques) : par catégorie de risque, le
     niveau accepté sans action, le niveau au-delà duquel le risque n'est plus supportable, l'énoncé

@@ -46,6 +46,21 @@ if ($mode === 'risk-links') {
     exit(0);
 }
 
+if ($mode === 'processing-links') {
+    // Issue #375 : éléments cités par une fiche du registre des traitements, JSON trié.
+    $links = [];
+    $rows = $DB->request([
+        'FROM'  => 'glpi_plugin_grcmanager_processingactivities_items',
+        'WHERE' => ['plugin_grcmanager_processingactivities_id' => (int) $argv[2]],
+    ]);
+    foreach ($rows as $row) {
+        $links[] = $row['itemtype'] . ':' . $row['items_id'];
+    }
+    sort($links);
+    echo json_encode($links), "\n";
+    exit(0);
+}
+
 if ($mode === 'xss') {
     // Charge piégée dans chaque champ texte libre : un objet de chaque type est créé, et les objets
     // du jeu de données sont piégés aussi. tests/security/xss-check.sh vérifie qu'aucune page ne
@@ -85,6 +100,18 @@ if ($mode === 'xss') {
     $out['policy'] = $insert('policies', ['title' => $canary, 'description' => $canary]);
     $out['training'] = $insert('trainings', [
         'title' => $canary, 'description' => $canary, 'target_audience' => $canary,
+    ]);
+    // Issue #375 : chaque champ texte d'une fiche du registre des traitements.
+    $out['processing'] = $insert('processingactivities', [
+        'name' => $canary, 'reference' => $canary, 'controller_name' => $canary, 'purpose' => $canary,
+        'legal_basis_detail' => $canary, 'data_details' => $canary, 'recipients' => $canary,
+        'transfer_countries' => $canary, 'retention_period' => $canary, 'security_measures' => $canary,
+        'comment' => $canary, 'data_subjects' => '[]', 'data_categories' => '[]', 'sensitive_data' => '[]',
+        'status' => 'active',
+    ]);
+    $insert('processingactivities_items', [
+        'plugin_grcmanager_processingactivities_id' => $out['processing'],
+        'itemtype' => 'Computer', 'items_id' => (int) $ids['computer_A'],
     ]);
     $out['product'] = $insert('canonicalproducts', ['manufacturer' => $canary, 'product' => $canary]);
     $insert('cpereferences', ['plugin_grcmanager_canonicalproducts_id' => $out['product'], 'cpe' => $canary]);
@@ -218,6 +245,7 @@ $b = $entityId('Securite ISO B');
 $manager = $userId('iso-gestionnaire', $a, $profileId('Securite ISO - gestionnaire A', [
     'plugin_grcmanager'                  => ALLSTANDARDRIGHT,
     'plugin_grcmanager_sensitive'        => ALLSTANDARDRIGHT,
+    'plugin_grcmanager_gdpr'             => ALLSTANDARDRIGHT,
     'plugin_grcmanager_continuity'       => ALLSTANDARDRIGHT,
     'plugin_grcmanager_securityincident' => ALLSTANDARDRIGHT | CommonITILObject::READALL | CommonITILObject::READMY,
     'computer' => READ, 'contract' => READ, 'supplier' => READ, 'user' => READ, 'document' => READ,
@@ -226,6 +254,7 @@ $manager = $userId('iso-gestionnaire', $a, $profileId('Securite ISO - gestionnai
 $reader = $userId('iso-lecteur', $a, $profileId('Securite ISO - lecteur A', [
     'plugin_grcmanager'                  => READ,
     'plugin_grcmanager_sensitive'        => READ,
+    'plugin_grcmanager_gdpr'             => READ,
     'plugin_grcmanager_continuity'       => READ,
     'plugin_grcmanager_securityincident' => CommonITILObject::READALL,
     'computer' => READ, 'contract' => READ, 'supplier' => READ, 'user' => READ, 'software' => READ,
@@ -238,6 +267,7 @@ $reader = $userId('iso-lecteur', $a, $profileId('Securite ISO - lecteur A', [
 $noRight = $userId('iso-sans-droit', $a, $profileId('Securite ISO - sans droit', [
     'plugin_grcmanager'                  => 0,
     'plugin_grcmanager_sensitive'        => 0,
+    'plugin_grcmanager_gdpr'             => 0,
     'plugin_grcmanager_continuity'       => 0,
     'plugin_grcmanager_securityincident' => 0,
     'computer'                           => READ,
@@ -251,6 +281,7 @@ $noRight = $userId('iso-sans-droit', $a, $profileId('Securite ISO - sans droit',
 $general = $userId('iso-general', $a, $profileId('Securite ISO - sans registres sensibles', [
     'plugin_grcmanager'                  => ALLSTANDARDRIGHT,
     'plugin_grcmanager_sensitive'        => 0,
+    'plugin_grcmanager_gdpr'             => 0,
     'plugin_grcmanager_continuity'       => 0,
     'plugin_grcmanager_securityincident' => 0,
     'computer' => READ, 'software' => READ, 'supplier' => READ, 'contract' => READ, 'user' => READ,
@@ -404,5 +435,20 @@ $DB->insert('glpi_plugin_grcmanager_businessprocesses_items', [
 $ids['breachexposure'] = (int) current(
     (new \GlpiPlugin\Grcmanager\BreachExposure())->find($exposure, [], 1)
 )['id'];
+// Issue #375 : registre des traitements (RGPD), une fiche par entité. Celle de A cite les
+// ordinateurs de A et de B : le gestionnaire de A ne doit ni voir ni retirer celui de B.
+foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
+    $processing = new \GlpiPlugin\Grcmanager\ProcessingActivity();
+    if (!$processing->getFromDBByCrit(['name' => 'Traitement securite ' . $suffix])) {
+        $add($processing, [
+            'name'                           => 'Traitement securite ' . $suffix,
+            'entities_id'                    => $entity,
+            'purpose'                        => 'Finalite fictive',
+            '_linked_items_Computer_defined' => 1,
+            'linked_items_Computer'          => $suffix === 'A' ? [$ids['computer_A'], $ids['computer_B']] : [],
+        ]);
+    }
+    $ids['processing_' . $suffix] = (int) $processing->getID();
+}
 
 echo json_encode($ids), "\n";
