@@ -7,6 +7,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.21.1] - 2026-11-04
+
 ### Fixed
 
 - **KRI** : avec les règles de SLA de Configuration GLPI Auto, le ticket d'un indicateur au rouge
