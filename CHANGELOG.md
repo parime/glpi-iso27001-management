@@ -16,6 +16,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   hors UE.
 - **Traductions** : « riesame » harmonisé en italien (terme des normes ISO), « w strefie czerwonej »
   pour un indicateur au rouge en polonais.
+- **Journal d'audit** : les filtres sont conservés après « Vérifier l'intégrité ».
+- **Traductions** : entrée polonaise refusée par `msgfmt -c` (un « % » littéral marqué comme format).
 
 ## [2.21.0] - 2026-11-04
 
