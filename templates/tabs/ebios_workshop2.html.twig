@@ -14,16 +14,16 @@
   <input type="hidden" name="element" value="risk_source">
   <input type="hidden" name="{{ fk }}" value="{{ item.getID() }}">
   <div class="row g-2 align-items-end">
-    <div class="col-md-3">
+    <div class="col-md-6">
       <label class="form-label" for="grc-ebios-source">{{ __('Risk source', 'grcmanager') }}</label>
       <input type="text" id="grc-ebios-source" name="name" class="form-control" maxlength="255" required placeholder="{{ __('e.g. Organised crime', 'grcmanager') }}">
     </div>
-    <div class="col-md-3">
+    <div class="col-md-6">
       <label class="form-label" for="grc-ebios-objective">{{ __('Target objective', 'grcmanager') }}</label>
       <input type="text" id="grc-ebios-objective" name="objective" class="form-control" maxlength="255" placeholder="{{ __('e.g. Financial gain through ransom', 'grcmanager') }}">
     </div>
     {% for scale, label in {'motivation': __('Motivation', 'grcmanager'), 'resources': __('Resources', 'grcmanager'), 'activity': __('Activity', 'grcmanager')} %}
-      <div class="col-md-2">
+      <div class="col-md-3">
         <label class="form-label" for="grc-ebios-{{ scale }}">{{ label }}</label>
         <select id="grc-ebios-{{ scale }}" name="{{ scale }}" class="form-select">
           {% for level, text in levels %}<option value="{{ level }}" {{ level == 2 ? 'selected' : '' }}>{{ text }}</option>{% endfor %}
@@ -31,8 +31,8 @@
       </div>
     {% endfor %}
     <input type="hidden" name="is_retained" value="1">
-    <div class="col-12 text-end">
-      <button type="submit" name="add" class="btn btn-primary"><i class="ti ti-plus me-1"></i>{{ __('Add', 'grcmanager') }}</button>
+    <div class="col-md-3">
+      <button type="submit" name="add" class="btn btn-primary w-100"><i class="ti ti-plus me-1"></i>{{ __('Add', 'grcmanager') }}</button>
     </div>
   </div>
 </form>

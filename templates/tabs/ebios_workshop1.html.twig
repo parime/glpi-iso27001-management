@@ -87,9 +87,9 @@
               <input type="hidden" name="element" value="feared_event">
               <input type="hidden" name="{{ fk }}" value="{{ item.getID() }}">
               <input type="hidden" name="plugin_grcmanager_ebiosvalues_id" value="{{ value.id }}">
-              <div class="col-md-4"><input type="text" name="name" class="form-control form-control-sm" maxlength="255" required placeholder="{{ __('e.g. Customer data disclosed', 'grcmanager') }}" aria-label="{{ __('Feared events', 'grcmanager') }}"></div>
-              <div class="col-md-4"><input type="text" name="impacts" class="form-control form-control-sm" placeholder="{{ __('Impacts', 'grcmanager') }}" aria-label="{{ __('Impacts', 'grcmanager') }}"></div>
-              <div class="col-md-3">
+              <div class="col-12"><input type="text" name="name" class="form-control form-control-sm" maxlength="255" required placeholder="{{ __('e.g. Customer data disclosed', 'grcmanager') }}" aria-label="{{ __('Feared events', 'grcmanager') }}"></div>
+              <div class="col-md-6"><input type="text" name="impacts" class="form-control form-control-sm" placeholder="{{ __('Impacts', 'grcmanager') }}" aria-label="{{ __('Impacts', 'grcmanager') }}"></div>
+              <div class="col-md-5">
                 <select name="severity" class="form-select form-select-sm" aria-label="{{ __('Severity', 'grcmanager') }}">
                   {% for level, label in severities %}<option value="{{ level }}" {{ level == 2 ? 'selected' : '' }}>{{ label }}</option>{% endfor %}
                 </select>
