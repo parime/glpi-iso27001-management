@@ -7,6 +7,7 @@
   {% if organisation.address %}<tr><td>{{ __('Address', 'grcmanager') }}</td><td>{{ organisation.address }}</td></tr>{% endif %}
   {% if organisation.email %}<tr><td>{{ __('Email', 'grcmanager') }}</td><td>{{ organisation.email }}</td></tr>{% endif %}
   {% if organisation.phone %}<tr><td>{{ __('Phone', 'grcmanager') }}</td><td>{{ organisation.phone }}</td></tr>{% endif %}
+  <tr><td>{{ __('Data protection officer (DPO)', 'grcmanager') }}</td><td>{{ organisation.dpo ?: __('Not set', 'grcmanager') }}</td></tr>
   <tr><td>{{ __('Processing activities in the register', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ rows|length }}</td></tr>
 </table>
 

@@ -43,6 +43,25 @@
   </div>
 </div>
 
+{# Issue #375 : contact du DPO, repris sur l'export du registre des traitements (article 30). #}
+<div class="card mb-3">
+  <div class="card-body">
+    <h4>{{ __('Data protection officer (DPO)', 'grcmanager') }}</h4>
+    <p class="text-muted">
+      {{ __('Name and contact details of the data protection officer, shown on the record of processing activities (GDPR, article 30).', 'grcmanager') }}
+    </p>
+    <form method="post" action="{{ config('root_doc') }}/plugins/grcmanager/front/config.php">
+      <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
+      <input type="text" class="form-control" name="dpo_contact" maxlength="255" value="{{ dpo_contact }}" aria-label="{{ __('Data protection officer (DPO)', 'grcmanager') }}" {{ can_edit_config ? '' : 'disabled' }}>
+      {% if can_edit_config %}
+        <div class="d-flex gap-2 mt-2">
+          <button type="submit" name="update_dpo_contact" class="btn btn-primary">{{ __('Enregistrer') }}</button>
+        </div>
+      {% endif %}
+    </form>
+  </div>
+</div>
+
 {# Issue #140 : groupe RSSI, qui lit les documents de tous les audits internes. #}
 {% import 'components/form/fields_macros.html.twig' as fields %}
 {# Registres sensibles : contenu des e-mails des risques, risques fournisseurs et actions de traitement. #}

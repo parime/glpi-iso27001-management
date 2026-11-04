@@ -150,6 +150,21 @@ if (isset($_POST['update_frameworks'])) {
     Html::back();
 }
 
+// Issue #375 : contact du DPO, repris sur l'export du registre des traitements (article 30).
+if (isset($_POST['update_dpo_contact'])) {
+    Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
+
+    $before = \GlpiPlugin\Grcmanager\ProcessingActivity::dpoContact();
+    \GlpiPlugin\Grcmanager\ProcessingActivity::saveDpoContact((string) ($_POST['dpo_contact'] ?? ''));
+    if ($before !== \GlpiPlugin\Grcmanager\ProcessingActivity::dpoContact()) {
+        \GlpiPlugin\Grcmanager\AuditLog::record('config_change', 'Config', 0, 0, 'success', [
+            'changes' => ['dpo_contact' => true],
+        ]);
+    }
+
+    Html::back();
+}
+
 if (isset($_POST['update_audit_config'])) {
     Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
 
@@ -215,6 +230,7 @@ Html::header(
     'frameworks'                => FrameworkSelection::FRAMEWORKS,
     'frameworks_help'           => FrameworkConfig::helpTexts(),
     'frameworks_enabled'        => FrameworkConfig::enabled(),
+    'dpo_contact'               => \GlpiPlugin\Grcmanager\ProcessingActivity::dpoContact(),
     'can_edit_config'           => Session::haveRight(Installer::RIGHT_NAME, UPDATE),
 ]);
 
