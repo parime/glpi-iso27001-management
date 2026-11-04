@@ -7,6 +7,31 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.22.0] - 2026-11-04
+
+### Added
+
+- **Études EBIOS Risk Manager** (issue #376, première partie), méthode de l'ANSSI sous licence
+  ouverte, dans la rubrique Risques : atelier 1 (valeurs métier reliées aux processus, événements
+  redoutés et gravité G1 à G4, biens supports choisis parmi les éléments de GLPI) et atelier 2
+  (couples source de risque / objectif visé, pertinence calculée à titre indicatif, décision et
+  justification). Registre sensible : même droit que les risques.
+- **EBIOS Risk Manager, ateliers 3 et 4** : parties prenantes de l'écosystème, éventuellement reliées
+  à un fournisseur de GLPI, avec leur niveau de menace et leur zone (veille, contrôle, danger) ;
+  scénarios stratégiques (source de risque, chemin d'attaque, événement redouté) ; scénarios
+  opérationnels avec leur vraisemblance V1 à V4, leur niveau de risque et une grille gravité x
+  vraisemblance.
+- **EBIOS Risk Manager, atelier 5 et rapport** : décision de traitement de chaque scénario, du risque
+  le plus fort au plus faible, et ajout au registre des risques, à la demande et une seule fois. Le
+  risque créé n'est jamais modifié depuis l'étude : un écart éventuel est simplement signalé. Le
+  niveau de risque des scénarios suit la matrice administrable du registre. Rapport PDF de l'étude,
+  complet ou par atelier, avec la mention de la méthode de l'ANSSI.
+
+### Fixed
+
+- **EBIOS Risk Manager** : un événement redouté ou un bien support ne peut plus être rattaché à une
+  valeur métier d'une autre étude.
+
 ## [2.21.1] - 2026-11-04
 
 ### Fixed

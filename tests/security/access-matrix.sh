@@ -53,6 +53,7 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/compliancecalendar.php front/compliancecalendar.php?ics=1 front/complianceevent.php
   front/parkvulnerability.php front/parkmachines.php front/softwarewatch.php front/riskcatalog.php front/waiver.php
   front/coveragerule.php front/playbook.php front/impactanalysis.php front/causalgraph.php
+  front/ebiosstudy.php
   front/auditlog.php front/controltest.php
   front/impactanalysis.php?export=continuity front/maturity.php front/crisisexercise.php front/complianceaudit.php
   front/dashboard.php front/networkflow.report.php front/breachexposure.php front/networkflow.matrix.php
@@ -72,6 +73,7 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
     front/securityincidenttechnique.form.php front/securityincidentaction.form.php \
     front/securityincidentplaybooktask.form.php front/playbook.form.php front/playbookstep.form.php \
     front/securityincidentedrimport.php front/securityincidentevidence.form.php \
+    front/ebiosstudy.form.php front/ebioselement.form.php \
     front/securityincidentteam.form.php \
     front/cpereference.form.php front/productalias.form.php \
     front/waiver.form.php front/coveragerule.form.php front/controltest.form.php \
@@ -191,6 +193,7 @@ if [ "$ROLE" = none ]; then
     expect "front/$p : sans droit" 403 "$(code "$P/$p")"
   done
   expect "front/training.report.php : sans droit" 403 "$(code "$P/training.report.php?id=$(id training)")"
+  expect "front/ebiosstudy.report.php : sans droit" 403 "$(code "$P/ebiosstudy.report.php?id=1")"
   expect "front/riskindicator.form.php : sans droit" 403 "$(code "$P/riskindicator.form.php?id=$(id kri_A)")"
   expect "front/trainingquiz.send.php : copie d'un autre, sans droit" 403 "$(code "$P/trainingquiz.send.php?id=$(id quiz)")"
   # Page des responsables de revue : ouverte a toute session, ne montre que leurs propres lignes.

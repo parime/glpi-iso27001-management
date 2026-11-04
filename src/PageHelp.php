@@ -418,6 +418,19 @@ class PageHelp
                     'grcmanager'
                 ),
             ],
+            'ebiosstudy' => [
+                'purpose'  => __(
+                    'EBIOS Risk Manager studies: the risk assessment method of ANSSI, the French national '
+                        . 'cybersecurity agency, published under an open licence.',
+                    'grcmanager'
+                ),
+                'expected' => __(
+                    'Create one study per scope, then work through its workshops in order: business values and '
+                        . 'feared events, risk sources, stakeholders and strategic scenarios, operational scenarios, '
+                        . 'then their treatment, which feeds the risk register.',
+                    'grcmanager'
+                ),
+            ],
             'playbook' => [
                 'purpose'  => __(
                     'Remediation playbooks: the standard steps to follow for each type of incident (ransomware, '

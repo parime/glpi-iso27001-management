@@ -7970,3 +7970,434 @@ msgstr "Delegado de protección de datos (DPD)"
 
 msgid "Name and contact details of the data protection officer, shown on the record of processing activities (GDPR, article 30)."
 msgstr "Nombre y datos de contacto del delegado de protección de datos, que figuran en el registro de actividades de tratamiento (RGPD, artículo 30)."
+
+msgid "G1 - Minor"
+msgstr "G1 - Menor"
+
+msgid "G2 - Significant"
+msgstr "G2 - Significativa"
+
+msgid "G3 - Serious"
+msgstr "G3 - Grave"
+
+msgid "G4 - Critical"
+msgstr "G4 - Crítica"
+
+msgid "1 - Low"
+msgstr "1 - Bajo"
+
+msgid "2 - Moderate"
+msgstr "2 - Moderado"
+
+msgid "3 - High"
+msgstr "3 - Alto"
+
+msgid "4 - Very high"
+msgstr "4 - Muy alto"
+
+msgid "Workshop 1: security baseline"
+msgstr "Taller 1: base de seguridad"
+
+msgid "Workshop 2: risk sources"
+msgstr "Taller 2: fuentes de riesgo"
+
+msgid "The name is required."
+msgstr "El nombre es obligatorio."
+
+msgid "Example: \"Customer portal 2027\", \"Head office information system\"."
+msgstr "Ejemplo: \"Portal de clientes 2027\", \"Sistema de información de la sede\"."
+
+msgid "What the study covers, its objectives and its time frame."
+msgstr "Lo que cubre el estudio, sus objetivos y su horizonte temporal."
+
+msgid "Workshops started"
+msgstr "Talleres iniciados"
+
+msgid "Next step"
+msgstr "Siguiente paso"
+
+msgid "EBIOS Risk Manager is a method of ANSSI, the French national cybersecurity agency, published under an open licence."
+msgstr "EBIOS Risk Manager es un método de la ANSSI, la agencia nacional francesa de ciberseguridad, publicado con licencia abierta."
+
+msgid "List what must be protected (business values), what you fear for it and how serious it would be, then what it relies on."
+msgstr "Enumere lo que hay que proteger (valores de negocio), lo que teme para ello y su gravedad, y luego en qué se apoya."
+
+msgid "New business value"
+msgstr "Nuevo valor de negocio"
+
+msgid "e.g. Taking customer orders"
+msgstr "p. ej. toma de pedidos de clientes"
+
+msgid "No business value yet"
+msgstr "Aún no hay valores de negocio"
+
+msgid "Start with the few activities or pieces of information whose loss would really hurt the organisation."
+msgstr "Empiece por las pocas actividades o informaciones cuya pérdida perjudicaría realmente a la organización."
+
+msgid "Remove this business value and what depends on it?"
+msgstr "¿Quitar este valor de negocio y lo que depende de él?"
+
+msgid "Feared events"
+msgstr "Eventos temidos"
+
+msgid "No feared event yet."
+msgstr "Aún no hay eventos temidos."
+
+msgid "e.g. Customer data disclosed"
+msgstr "p. ej. datos de clientes divulgados"
+
+msgid "Impacts"
+msgstr "Impactos"
+
+msgid "Supporting assets"
+msgstr "Activos de soporte"
+
+msgid "No supporting asset yet."
+msgstr "Aún no hay activos de soporte."
+
+msgid "GLPI item"
+msgstr "Elemento de GLPI"
+
+msgid "or a label: head office, payroll team..."
+msgstr "o una etiqueta: sede, equipo de nóminas..."
+
+msgid "Low relevance"
+msgstr "Pertinencia baja"
+
+msgid "Medium relevance"
+msgstr "Pertinencia media"
+
+msgid "High relevance"
+msgstr "Pertinencia alta"
+
+msgid "Who could attack you, and to achieve what? Rate each pair, then keep the ones the study will follow: the computed relevance is only a suggestion."
+msgstr "¿Quién podría atacarle y para conseguir qué? Evalúe cada par y conserve los que el estudio seguirá: la pertinencia calculada es solo una sugerencia."
+
+msgid "e.g. Organised crime"
+msgstr "p. ej. crimen organizado"
+
+msgid "Target objective"
+msgstr "Objetivo perseguido"
+
+msgid "e.g. Financial gain through ransom"
+msgstr "p. ej. beneficio económico mediante rescate"
+
+msgid "Motivation"
+msgstr "Motivación"
+
+msgid "Activity"
+msgstr "Actividad"
+
+msgid "No risk source yet"
+msgstr "Aún no hay fuentes de riesgo"
+
+msgid "Think of organised crime, a competitor, a disgruntled employee, an activist, a state-backed group..."
+msgstr "Piense en el crimen organizado, un competidor, un empleado descontento, un activista, un grupo respaldado por un Estado..."
+
+msgid "Relevance"
+msgstr "Pertinencia"
+
+msgid "Decision and justification"
+msgstr "Decisión y justificación"
+
+msgid "Retained"
+msgstr "Retenido"
+
+msgid "Set aside"
+msgstr "Descartado"
+
+msgid "Why"
+msgstr "Por qué"
+
+msgid "Remove this risk source?"
+msgstr "¿Quitar esta fuente de riesgo?"
+
+msgid "EBIOS Risk Manager studies: the risk assessment method of ANSSI, the French national cybersecurity agency, published under an open licence."
+msgstr "Estudios EBIOS Risk Manager: el método de evaluación de riesgos de la ANSSI, la agencia nacional francesa de ciberseguridad, publicado con licencia abierta."
+
+msgid "Create one study per scope, then work through its workshops in order: business values and feared events first, then risk sources."
+msgstr "Cree un estudio por alcance y siga sus talleres en orden: primero valores de negocio y eventos temidos, luego fuentes de riesgo."
+
+msgid "EBIOS RM study"
+msgid_plural "EBIOS RM studies"
+msgstr[0] "Estudio EBIOS RM"
+msgstr[1] "Estudios EBIOS RM"
+
+msgid "Business value"
+msgid_plural "Business values"
+msgstr[0] "Valor de negocio"
+msgstr[1] "Valores de negocio"
+
+msgid "Feared event"
+msgid_plural "Feared events"
+msgstr[0] "Evento temido"
+msgstr[1] "Eventos temidos"
+
+msgid "Supporting asset"
+msgid_plural "Supporting assets"
+msgstr[0] "Activo de soporte"
+msgstr[1] "Activos de soporte"
+
+msgid "Risk source"
+msgid_plural "Risk sources"
+msgstr[0] "Fuente de riesgo"
+msgstr[1] "Fuentes de riesgo"
+
+msgid "V1 - Unlikely"
+msgstr "V1 - Poco probable"
+
+msgid "V2 - Likely"
+msgstr "V2 - Probable"
+
+msgid "V3 - Very likely"
+msgstr "V3 - Muy probable"
+
+msgid "V4 - Almost certain"
+msgstr "V4 - Casi seguro"
+
+msgid "Workshop 3: strategic scenarios"
+msgstr "Taller 3: escenarios estratégicos"
+
+msgid "Workshop 4: operational scenarios"
+msgstr "Taller 4: escenarios operativos"
+
+msgid "The linked element does not belong to this study."
+msgstr "El elemento vinculado no pertenece a este estudio."
+
+msgid "Supplier"
+msgstr "Proveedor"
+
+msgid "Partner"
+msgstr "Socio"
+
+msgid "Customer"
+msgstr "Cliente"
+
+msgid "Internal team"
+msgstr "Equipo interno"
+
+msgid "Create one study per scope, then work through its workshops in order: business values and feared events, risk sources, stakeholders and strategic scenarios, then operational scenarios."
+msgstr "Cree un estudio por alcance y siga sus talleres en orden: valores de negocio y eventos temidos, fuentes de riesgo, partes interesadas y escenarios estratégicos y, por último, escenarios operativos."
+
+msgid "Remove this feared event and the scenarios built on it?"
+msgstr "¿Quitar este evento temido y los escenarios basados en él?"
+
+msgid "Remove this risk source and the scenarios built on it?"
+msgstr "¿Quitar esta fuente de riesgo y los escenarios basados en ella?"
+
+msgid "Danger zone"
+msgstr "Zona de peligro"
+
+msgid "Act first: reduce the dependence or demand stronger guarantees."
+msgstr "Actúe primero: reduzca la dependencia o exija garantías más sólidas."
+
+msgid "Control zone"
+msgstr "Zona de control"
+
+msgid "Check their security measures regularly."
+msgstr "Compruebe periódicamente sus medidas de seguridad."
+
+msgid "Watch zone"
+msgstr "Zona de vigilancia"
+
+msgid "Keep an eye on them, no specific action needed."
+msgstr "Vigílelos, sin ninguna acción específica."
+
+msgid "Dependence"
+msgstr "Dependencia"
+
+msgid "How much you rely on them to operate"
+msgstr "Cuánto depende de ellos para operar"
+
+msgid "Penetration"
+msgstr "Penetración"
+
+msgid "How far they can access your systems and data"
+msgstr "Hasta dónde pueden acceder a sus sistemas y datos"
+
+msgid "Cyber maturity"
+msgstr "Madurez cibernética"
+
+msgid "How well they protect themselves"
+msgstr "Lo bien que se protegen"
+
+msgid "Trust"
+msgstr "Confianza"
+
+msgid "How much you trust their intentions and interests"
+msgstr "Cuánto confía en sus intenciones e intereses"
+
+msgid "Attackers often go through a supplier or a partner. Rate your stakeholders to see which ones are the most exposed, then describe how each retained risk source could reach a feared event."
+msgstr "Los atacantes suelen pasar por un proveedor o un socio. Evalúe a sus partes interesadas para ver las más expuestas y describa cómo cada fuente de riesgo retenida podría llegar a un evento temido."
+
+msgid "Stakeholders of the ecosystem"
+msgstr "Partes interesadas del ecosistema"
+
+msgid "New stakeholder"
+msgstr "Nueva parte interesada"
+
+msgid "e.g. Hosting provider (or choose a GLPI supplier)"
+msgstr "p. ej. Proveedor de alojamiento (o elija un proveedor de GLPI)"
+
+msgid "GLPI supplier"
+msgstr "Proveedor de GLPI"
+
+msgid "No stakeholder yet"
+msgstr "Aún no hay partes interesadas"
+
+msgid "Think of your hosting provider, software vendors, IT service companies, key partners..."
+msgstr "Piense en su proveedor de alojamiento, fabricantes de software, empresas de servicios informáticos, socios clave..."
+
+msgid "Threat level = (dependence x penetration) / (maturity x trust)."
+msgstr "Nivel de amenaza = (dependencia x penetración) / (madurez x confianza)."
+
+msgid "Threat"
+msgstr "Amenaza"
+
+msgid "Remove this stakeholder and the scenarios that go through it?"
+msgstr "¿Quitar esta parte interesada y los escenarios que pasan por ella?"
+
+msgid "Strategic scenarios"
+msgstr "Escenarios estratégicos"
+
+msgid "A strategic scenario links a retained risk source to a feared event: fill in workshops 1 and 2 first."
+msgstr "Un escenario estratégico vincula una fuente de riesgo retenida con un evento temido: complete primero los talleres 1 y 2."
+
+msgid "New strategic scenario"
+msgstr "Nuevo escenario estratégico"
+
+msgid "e.g. Ransom demand after compromising the hosting provider"
+msgstr "p. ej. Petición de rescate tras comprometer al proveedor de alojamiento"
+
+msgid "Attack path"
+msgstr "Camino de ataque"
+
+msgid "Direct attack"
+msgstr "Ataque directo"
+
+#, php-format
+msgid "Through: %s"
+msgstr "A través de: %s"
+
+msgid "Measures planned on this path"
+msgstr "Medidas previstas en este camino"
+
+msgid "e.g. Security clause, annual audit of the provider"
+msgstr "p. ej. Cláusula de seguridad, auditoría anual del proveedor"
+
+msgid "No strategic scenario yet."
+msgstr "Aún no hay escenarios estratégicos."
+
+msgid "Remove this strategic scenario and its operational scenarios?"
+msgstr "¿Quitar este escenario estratégico y sus escenarios operativos?"
+
+msgid "Low risk"
+msgstr "Riesgo bajo"
+
+msgid "Moderate risk"
+msgstr "Riesgo moderado"
+
+msgid "High risk"
+msgstr "Riesgo alto"
+
+msgid "Critical risk"
+msgstr "Riesgo crítico"
+
+msgid "For each strategic scenario, describe how the attack would actually unfold and on which supporting asset, then rate how likely it is. The risk level combines this likelihood with the severity of the feared event."
+msgstr "Para cada escenario estratégico, describa cómo se desarrollaría realmente el ataque y sobre qué activo de soporte, y evalúe su probabilidad. El nivel de riesgo combina esta probabilidad con la gravedad del evento temido."
+
+msgid "An operational scenario details a strategic scenario: fill in workshop 3 first."
+msgstr "Un escenario operativo detalla un escenario estratégico: complete primero el taller 3."
+
+msgid "New operational scenario"
+msgstr "Nuevo escenario operativo"
+
+msgid "e.g. Phishing of an administrator, then encryption of the servers"
+msgstr "p. ej. Phishing a un administrador y cifrado de los servidores"
+
+msgid "Attack sequence"
+msgstr "Secuencia de ataque"
+
+msgid "Know, get in, find, exploit: the main steps of the attack"
+msgstr "Conocer, entrar, encontrar, explotar: las principales etapas del ataque"
+
+msgid "Supporting asset targeted"
+msgstr "Activo de soporte afectado"
+
+msgid "Likelihood"
+msgstr "Probabilidad"
+
+msgid "No operational scenario yet"
+msgstr "Aún no hay escenarios operativos"
+
+msgid "Start with the strategic scenarios on the most serious feared events."
+msgstr "Empiece por los escenarios estratégicos sobre los eventos temidos más graves."
+
+msgid "Operational scenarios"
+msgstr "Escenarios operativos"
+
+msgid "Remove this operational scenario?"
+msgstr "¿Quitar este escenario operativo?"
+
+msgid "Stakeholder"
+msgid_plural "Stakeholders"
+msgstr[0] "Parte interesada"
+msgstr[1] "Partes interesadas"
+
+msgid "Strategic scenario"
+msgid_plural "Strategic scenarios"
+msgstr[0] "Escenario estratégico"
+msgstr[1] "Escenarios estratégicos"
+
+msgid "Operational scenario"
+msgid_plural "Operational scenarios"
+msgstr[0] "Escenario operativo"
+msgstr[1] "Escenarios operativos"
+
+msgid "Severity (G1 to G4)"
+msgstr "Gravedad (G1 a G4)"
+
+msgid "Workshop 5: risk treatment"
+msgstr "Taller 5: tratamiento del riesgo"
+
+msgid "Decide how to treat each scenario, starting with the highest risks, then add it to the risk register. The follow-up continues there: owner, treatment plan and review date."
+msgstr "Decida cómo tratar cada escenario, empezando por los riesgos más altos, y añádalo al registro de riesgos. El seguimiento continúa allí: responsable, plan de tratamiento y fecha de revisión."
+
+msgid "The treatment applies to operational scenarios: fill in workshop 4 first."
+msgstr "El tratamiento se aplica a los escenarios operativos: complete primero el taller 4."
+
+msgid "Scenarios"
+msgstr "Escenarios"
+
+msgid "Decisions made"
+msgstr "Decisiones tomadas"
+
+msgid "In the risk register"
+msgstr "En el registro de riesgos"
+
+msgid "Treatment decision"
+msgstr "Decisión de tratamiento"
+
+msgid "The likelihood or the severity no longer matches this risk: review it in the register."
+msgstr "La probabilidad o la gravedad ya no coinciden con este riesgo: revíselo en el registro."
+
+msgid "Add to the risk register"
+msgstr "Añadir al registro de riesgos"
+
+msgid "Not in the register"
+msgstr "No está en el registro"
+
+msgid "The risk has been added to the register."
+msgstr "El riesgo se ha añadido al registro."
+
+msgid "Export this workshop (PDF)"
+msgstr "Exportar este taller (PDF)"
+
+msgid "Full report (PDF)"
+msgstr "Informe completo (PDF)"
+
+msgid "Zone"
+msgstr "Zona"
+
+msgid "Create one study per scope, then work through its workshops in order: business values and feared events, risk sources, stakeholders and strategic scenarios, operational scenarios, then their treatment, which feeds the risk register."
+msgstr "Cree un estudio por alcance y siga sus talleres en orden: valores de negocio y eventos temidos, fuentes de riesgo, partes interesadas y escenarios estratégicos, escenarios operativos y, por último, su tratamiento, que alimenta el registro de riesgos."
