@@ -6112,7 +6112,6 @@ msgstr "Np. 40 dla quizu ocenianego na 40. 0 = bez wyniku."
 msgid "Pass threshold (%)"
 msgstr "Próg zaliczenia (%)"
 
-#, php-format
 msgid ""
 "E.g. 80: passed from 80% of the maximum score. With a maximum score and a "
 "threshold, each participant's result is computed from their score."
