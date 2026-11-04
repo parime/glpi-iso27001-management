@@ -221,6 +221,23 @@ final class SecurityIncidentDashboardTest extends GrcmanagerIntegrationTestCase
         }
     }
 
+    public function testIncidentNamesAreEscapedInTheNotificationList(): void
+    {
+        $id = (int) (new PluginGrcmanagerSecurityIncident())->add([
+            'name' => 'PHPUnit <script>alert(1)</script>', 'entities_id' => 0, 'personal_data_breach' => 1,
+            'date' => date('Y-m-d H:i:s', strtotime('-5 days')),
+        ]);
+        $url = PluginGrcmanagerSecurityIncident::getFormURLWithID($id);
+        $entries = array_values(array_filter(
+            SecuredDashboardCards::regulatoryNotifications()['data'],
+            static fn (array $entry): bool => $entry['url'] === $url
+        ));
+
+        $this->assertCount(1, $entries);
+        $this->assertStringNotContainsString('<script>', $entries[0]['content']);
+        $this->assertStringContainsString('&lt;script&gt;', $entries[0]['content']);
+    }
+
     public function testMyRemediationTasksStayLimitedToVisibleIncidents(): void
     {
         global $DB;

@@ -438,7 +438,10 @@ final class PilotageCards
 
         $today = date('Y-m-d');
         $count = 0;
-        foreach ($DB->request(['FROM' => \GlpiPlugin\Grcmanager\PeriodicReview::getTable()]) as $row) {
+        // Issue #143 : seulement les entités actives, comme la liste des revues.
+        $table = \GlpiPlugin\Grcmanager\PeriodicReview::getTable();
+        $where = getEntitiesRestrictCriteria($table);
+        foreach ($DB->request(['FROM' => $table, 'WHERE' => $where]) as $row) {
             $review = new \GlpiPlugin\Grcmanager\PeriodicReview();
             $review->getFromResultSet($row);
             if ($review->isOverdue($today)) {

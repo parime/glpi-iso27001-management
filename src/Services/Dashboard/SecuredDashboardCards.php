@@ -71,10 +71,7 @@ final class SecuredDashboardCards
     public static function canShow(string $name): bool
     {
         if (self::isIncidentCard($name)) {
-            $flags = SecurityIncidentModuleConfig::load();
-
-            return $flags['securityincident_enabled'] && $flags['securityincident_dashboard_enabled']
-                && \PluginGrcmanagerSecurityIncident::canView();
+            return self::incidentCardsAllowed();
         }
         if (self::isSensitiveCard($name)) {
             // Registres sensibles (risques, risques fournisseurs, plans de traitement, tendances) :
@@ -86,6 +83,17 @@ final class SecuredDashboardCards
         }
 
         return self::frameworkAvailable($name, FrameworkConfig::enabled());
+    }
+
+    /**
+     * Module et cartes des incidents actifs, et droit de lire au moins une partie des incidents.
+     */
+    private static function incidentCardsAllowed(): bool
+    {
+        $flags = SecurityIncidentModuleConfig::load();
+
+        return $flags['securityincident_enabled'] && $flags['securityincident_dashboard_enabled']
+            && \PluginGrcmanagerSecurityIncident::canView();
     }
 
     /** Référentiels dont dépend une carte : elle disparaît quand tous sont désactivés. */
@@ -116,11 +124,17 @@ final class SecuredDashboardCards
     public static function filterCatalog(array $cards): array
     {
         $prefix = self::class . '::';
+        // Calculé une fois : le catalogue est relu pour chaque carte affichée.
+        $incidents = self::incidentCardsAllowed();
 
-        return array_filter($cards, static function (array $card) use ($prefix): bool {
+        return array_filter($cards, static function (array $card) use ($prefix, $incidents): bool {
             $provider = (string) ($card['provider'] ?? '');
+            if (!str_starts_with($provider, $prefix)) {
+                return true;
+            }
+            $name = substr($provider, strlen($prefix));
 
-            return !str_starts_with($provider, $prefix) || self::canShow(substr($provider, strlen($prefix)));
+            return self::isIncidentCard($name) ? $incidents : self::canShow($name);
         });
     }
     /**

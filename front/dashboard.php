@@ -41,17 +41,17 @@ Html::header(
 // Issue #143 : vue « Incidents de sécurité », proposée seulement à qui peut voir ses cartes.
 $views = \GlpiPlugin\Grcmanager\Dashboard::getViews();
 $view = is_string($_GET['view'] ?? null) && isset($views[$_GET['view']]) ? $_GET['view'] : 'isms';
-if (count($views) > 1) {
-    TemplateRenderer::getInstance()->display('@grcmanager/dashboard_views.html.twig', [
-        'views'  => $views,
-        'active' => $view,
-        'url'    => \GlpiPlugin\Grcmanager\Dashboard::getSearchURL(),
-    ]);
-}
+TemplateRenderer::getInstance()->display('@grcmanager/dashboard_views.html.twig', [
+    'views'  => $views,
+    'active' => $view,
+    'url'    => \GlpiPlugin\Grcmanager\Dashboard::getSearchURL(),
+]);
 
 $key = $views[$view]['key'];
 if ((new Dashboard($key))->canViewCurrent()) {
+    echo '<div class="grcmanager-dashboard">';
     (new Grid($key))->showDefault();
+    echo '</div>';
 } else {
     // Tableau de bord supprimé ou non partagé avec ce profil.
     TemplateRenderer::getInstance()->display('@grcmanager/dashboard_unavailable.html.twig');
