@@ -15,6 +15,29 @@
    {% if not is_new %}
       {{ fields.htmlField('', risk_level_badge, __('Risk level', 'grcmanager')) }}
       {{ fields.htmlField('', item.fields['computed_score']|default('0')|e, _x('score', 'Score', 'grcmanager')) }}
+      {# Issue #378 : position par rapport à l'appétence de la catégorie. #}
+      {% if appetite_position == 'above_tolerance' or appetite_position == 'above_appetite' %}
+         {% set appetite_html %}
+            <a href="{{ appetite_url }}" class="badge {{ appetite_position == 'above_tolerance' ? 'bg-red-lt' : 'bg-orange-lt' }}">
+               <i class="ti {{ appetite_position == 'above_tolerance' ? 'ti-alert-octagon' : 'ti-alert-triangle' }} me-1"></i>
+               {{ appetite_position == 'above_tolerance' ? __('Above tolerance', 'grcmanager') : __('Above appetite', 'grcmanager') }}
+            </a>
+            <div class="form-hint">{{ __('A treatment, or a formal acceptance with a justification, is required.', 'grcmanager') }}</div>
+            {% if accepted_by %}<div class="form-hint">{{ __('Formally accepted by %1$s on %2$s', 'grcmanager')|format(accepted_by, accepted_on|formatted_datetime) }}</div>{% endif %}
+         {% endset %}
+         {{ fields.htmlField('', appetite_html, __('Risk appetite', 'grcmanager')) }}
+      {% elseif appetite_position == 'within' %}
+         {% set appetite_html %}<span class="badge bg-green-lt"><i class="ti ti-circle-check me-1"></i>{{ __('Within appetite', 'grcmanager') }}</span>{% endset %}
+         {{ fields.htmlField('', appetite_html, __('Risk appetite', 'grcmanager')) }}
+      {% endif %}
+      {% if indicators is not empty %}
+         {% set kri_html %}
+            {% for kri in indicators %}
+               <div><a href="{{ kri.url }}">{{ kri.name }}</a> {% include '@grcmanager/_badge.html.twig' with kri.status_badge only %}{% if kri.value is not null %} <span class="text-muted">{{ kri.value }}{% if kri.unit %} {{ kri.unit }}{% endif %}</span>{% endif %}</div>
+            {% endfor %}
+         {% endset %}
+         {{ fields.htmlField('', kri_html, __('Risk indicators (KRI)', 'grcmanager')) }}
+      {% endif %}
    {% endif %}
    {# Issue #31 : le choix implique un plan de traitement, plus bas sur la fiche. #}
    {{ fields.dropdownArrayField('treatment', item.fields['treatment'], treatments, __('Treatment', 'grcmanager'), plan_relevant ? {

@@ -247,6 +247,10 @@ final class Installer
         \GlpiPlugin\Grcmanager\NotificationTargetIncidentAccessWatch::class,
         // Issue #375 : registre des activités de traitement (RGPD).
         \GlpiPlugin\Grcmanager\ProcessingActivity::class,
+        // Issue #378 : indicateurs de risque et leurs relevés.
+        \GlpiPlugin\Grcmanager\RiskIndicator::class,
+        \GlpiPlugin\Grcmanager\RiskIndicatorValue::class,
+        \GlpiPlugin\Grcmanager\RiskAppetite::class,
         // Issue #377 : processus métier, leurs dépendances et leur BIA.
         \GlpiPlugin\Grcmanager\BusinessProcess::class,
         \GlpiPlugin\Grcmanager\BusinessProcessItem::class,
@@ -291,6 +295,10 @@ final class Installer
     private const CRISIS_RECOVERIES_TABLE = 'glpi_plugin_grcmanager_crisisrecoveries';
     // Issue #162 : ticket de mise en conformité ouvert par contrôle technique et par entité.
     private const COMPLIANCE_AUDIT_TICKETS_TABLE = 'glpi_plugin_grcmanager_complianceaudittickets';
+    // Issue #378 : appétence et tolérance au risque, indicateurs de risque (KRI) et leurs relevés.
+    private const RISK_APPETITES_TABLE = 'glpi_plugin_grcmanager_riskappetites';
+    private const RISK_INDICATORS_TABLE = 'glpi_plugin_grcmanager_riskindicators';
+    private const RISK_INDICATOR_VALUES_TABLE = 'glpi_plugin_grcmanager_riskindicatorvalues';
     // Issue #380 : tests d'efficacité des mesures, voir \GlpiPlugin\Grcmanager\ControlTest.
     private const CONTROL_TESTS_TABLE = 'glpi_plugin_grcmanager_controltests';
 
@@ -1780,6 +1788,8 @@ final class Installer
         // "lien simple en accès direct $DB" que CONTROLS_RISKS_TABLE/MANAGEMENT_REVIEWS_USERS_TABLE
         // ci-dessus (voir \GlpiPlugin\Grcmanager\ManagementReview::getLinkedObjectives()/
         // syncLinkedObjectives()).
+        $this->installRiskAppetiteTables($migration);
+
         if (!$DB->tableExists(self::MANAGEMENT_REVIEWS_OBJECTIVES_TABLE)) {
             $query = "CREATE TABLE `" . self::MANAGEMENT_REVIEWS_OBJECTIVES_TABLE . "` (
                 `id` int {$keySign} NOT NULL AUTO_INCREMENT,
@@ -3927,6 +3937,102 @@ final class Installer
      * notes, historique, recherches enregistrées, règles des incidents). Suivis, solutions, liens
      * et règles passent par leur classe, pour que leurs propres nettoyages s'exécutent.
      */
+    /**
+     * Issue #378 : appétence et tolérance par catégorie de risque, indicateurs de risque (KRI) et
+     * leur historique, signature de l'acceptation formelle d'un risque. Création ou ajout des
+     * colonnes manquantes : une mise à jour garde les données existantes.
+     */
+    private function installRiskAppetiteTables(Migration $migration): void
+    {
+        global $DB;
+
+        $charset   = DBConnection::getDefaultCharset();
+        $collation = DBConnection::getDefaultCollation();
+        $keySign   = DBConnection::getDefaultPrimaryKeySignOption();
+
+        if (!$DB->tableExists(self::RISK_APPETITES_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::RISK_APPETITES_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `category` varchar(32) NOT NULL COMMENT 'Categorie du registre des risques',
+                `appetite_level` varchar(16) NOT NULL DEFAULT '' COMMENT 'low, medium, high, critical',
+                `tolerance_level` varchar(16) NOT NULL DEFAULT '' COMMENT 'Vide = appetite_level',
+                `statement` text,
+                `users_id_approval` int {$keySign} NOT NULL DEFAULT 0,
+                `date_approval` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `category` (`category`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+
+        if (!$DB->tableExists(self::RISK_INDICATORS_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::RISK_INDICATORS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `name` varchar(255) NOT NULL DEFAULT '',
+                `entities_id` int {$keySign} NOT NULL DEFAULT 0,
+                `description` text,
+                `category` varchar(32) NOT NULL DEFAULT '',
+                `plugin_grcmanager_risks_id` int {$keySign} NOT NULL DEFAULT 0,
+                `users_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Responsable',
+                `source` varchar(40) NOT NULL DEFAULT 'manual',
+                `unit` varchar(32) NOT NULL DEFAULT '',
+                `direction` varchar(20) NOT NULL DEFAULT 'higher_is_worse',
+                `threshold_warning` decimal(14,2) DEFAULT NULL,
+                `threshold_critical` decimal(14,2) DEFAULT NULL,
+                `last_value` decimal(14,2) DEFAULT NULL,
+                `last_value_date` date DEFAULT NULL,
+                `status` varchar(16) NOT NULL DEFAULT 'none' COMMENT 'green, orange, red, none',
+                `tickets_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Dernier ticket ouvert au rouge',
+                `is_active` tinyint NOT NULL DEFAULT 1,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `entities_id` (`entities_id`),
+                KEY `plugin_grcmanager_risks_id` (`plugin_grcmanager_risks_id`),
+                KEY `users_id` (`users_id`),
+                KEY `status` (`status`),
+                KEY `tickets_id` (`tickets_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+
+        if (!$DB->tableExists(self::RISK_INDICATOR_VALUES_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::RISK_INDICATOR_VALUES_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_riskindicators_id` int {$keySign} NOT NULL DEFAULT 0,
+                `value_date` date DEFAULT NULL,
+                `value` decimal(14,2) NOT NULL DEFAULT 0,
+                `status` varchar(16) NOT NULL DEFAULT 'none',
+                `comment` text,
+                `users_id` int {$keySign} NOT NULL DEFAULT 0,
+                `is_automatic` tinyint NOT NULL DEFAULT 0,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `plugin_grcmanager_riskindicators_id` (`plugin_grcmanager_riskindicators_id`),
+                KEY `value_date` (`value_date`),
+                KEY `users_id` (`users_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+
+        // Signature de l'acceptation formelle d'un risque au-dessus de l'appétence.
+        if (!$DB->fieldExists(self::RISKS_TABLE, 'users_id_acceptance')) {
+            $migration->addField(self::RISKS_TABLE, 'users_id_acceptance', 'fkey', ['after' => 'justification']);
+            $migration->addField(self::RISKS_TABLE, 'date_acceptance', 'timestamp', ['after' => 'users_id_acceptance']);
+            $migration->addKey(self::RISKS_TABLE, 'users_id_acceptance');
+            $migration->migrationOneTable(self::RISKS_TABLE);
+        }
+
+        // Relevé quotidien des KRI à source automatique.
+        CronTask::Register(
+            'GlpiPlugin\\Grcmanager\\RiskIndicator',
+            'riskindicatormeasure',
+            DAY_TIMESTAMP,
+            [
+                'comment' => 'Relève chaque jour les indicateurs de risque (KRI) à source automatique',
+                'mode'    => CronTask::MODE_EXTERNAL,
+            ]
+        );
+    }
+
     private function purgeCoreRows(): void
     {
         global $DB;
@@ -4513,6 +4619,9 @@ final class Installer
         $migration->dropTable(self::SECURITY_INCIDENTS_TABLE);
         $migration->dropTable(self::RISK_TREATMENT_ACTIONS_TABLE);
         $migration->dropTable(self::SECURITY_INCIDENT_CONFIG_TABLE);
+        $migration->dropTable(self::RISK_APPETITES_TABLE);
+        $migration->dropTable(self::RISK_INDICATOR_VALUES_TABLE);
+        $migration->dropTable(self::RISK_INDICATORS_TABLE);
 
         $migration->executeMigration();
 

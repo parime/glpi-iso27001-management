@@ -934,4 +934,76 @@ final class DashboardCardService
             'icon' => 'ti ti-chart-pie',
         ];
     }
+
+    /**
+     * Issue #378 : risques ouverts au-dessus de l'appétence de leur catégorie (registre global,
+     * droit des registres sensibles vérifié par SecuredDashboardCards).
+     *
+     * @param array<string, mixed> $params
+     * @return array<string, mixed>
+     */
+    public static function risksAboveAppetiteCount(array $params = []): array
+    {
+        return [
+            'number' => \GlpiPlugin\Grcmanager\RiskAppetite::countAbove(false),
+            'url'    => \GlpiPlugin\Grcmanager\RiskAppetite::getSearchURL(),
+            'label'  => $params['label'] ?? __('Open risks above appetite', 'grcmanager'),
+            'icon'   => 'ti ti-gauge',
+        ];
+    }
+
+    /**
+     * Issue #378 : risques ouverts au-delà de la tolérance de leur catégorie.
+     *
+     * @param array<string, mixed> $params
+     * @return array<string, mixed>
+     */
+    public static function risksAboveToleranceCount(array $params = []): array
+    {
+        return [
+            'number' => \GlpiPlugin\Grcmanager\RiskAppetite::countAbove(true),
+            'url'    => \GlpiPlugin\Grcmanager\RiskAppetite::getSearchURL(),
+            'label'  => $params['label'] ?? __('Open risks above tolerance', 'grcmanager'),
+            'icon'   => 'ti ti-alert-octagon',
+        ];
+    }
+
+    /**
+     * Issue #378 : KRI actifs par statut, seulement ceux des entités de l'utilisateur.
+     *
+     * @param array<string, mixed> $params
+     * @return array<string, mixed>
+     */
+    public static function riskIndicatorsByStatus(array $params = []): array
+    {
+        $labels = \GlpiPlugin\Grcmanager\RiskIndicator::getStatuses();
+        $data = [];
+        foreach (\GlpiPlugin\Grcmanager\RiskIndicator::countByStatus() as $status => $count) {
+            $data[] = ['label' => $labels[$status] ?? $status, 'number' => $count];
+        }
+
+        return [
+            'data'  => $data,
+            'label' => $params['label'] ?? __('Risk indicators (KRI) by status', 'grcmanager'),
+            'icon'  => 'ti ti-activity-heartbeat',
+        ];
+    }
+
+    /**
+     * Issue #378 : KRI actifs au rouge, dans les entités de l'utilisateur.
+     *
+     * @param array<string, mixed> $params
+     * @return array<string, mixed>
+     */
+    public static function riskIndicatorsRedCount(array $params = []): array
+    {
+        return [
+            'number' => \GlpiPlugin\Grcmanager\RiskIndicator::countByStatus()['red'],
+            'url'    => \GlpiPlugin\Grcmanager\RiskIndicator::getSearchURL() . '?' . http_build_query([
+                'criteria' => [['field' => 2, 'searchtype' => 'equals', 'value' => 'red']],
+            ]),
+            'label'  => $params['label'] ?? __('Risk indicators (KRI) in the red', 'grcmanager'),
+            'icon'   => 'ti ti-alert-octagon',
+        ];
+    }
 }

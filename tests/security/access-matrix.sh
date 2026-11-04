@@ -58,6 +58,7 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/dashboard.php front/networkflow.report.php front/breachexposure.php front/networkflow.matrix.php
   front/processingactivity.php front/processingactivity.export.php?format=pdf
   front/processingactivity.export.php?format=csv
+  front/riskappetite.php front/riskindicator.php
   front/businessprocess.php front/businessprocess.php?export=csv"
 # Creations : refusees sans droit comme en lecture seule (etat en base compare par la CI).
 create_attempts() { # code attendu, code attendu pour la classification (404 sans droit sur l'actif)
@@ -75,7 +76,7 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
     front/cpereference.form.php front/productalias.form.php \
     front/waiver.form.php front/coveragerule.form.php front/controltest.form.php \
     front/processingactivity.form.php \
-    front/businessprocess.form.php; do
+    front/businessprocess.form.php front/riskindicator.form.php; do
     expect "$form : creation" "$1" "$(code -d "add=1&name=securite&title=securite&_glpi_csrf_token=$(csrf)" "$BASE/plugins/grcmanager/$form")"
   done
   expect "front/ismsrequirement.form.php : modification" "$1" \
@@ -139,6 +140,15 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
   # Issue #372 : ticket lie depuis l'incident (exige aussi de pouvoir modifier l'incident).
   expect "front/securityincidentticket.form.php : creer un ticket lie" "$1" \
     "$(code -d "create_ticket=1&plugin_grcmanager_securityincidents_id=$incident&_glpi_csrf_token=$(csrf)" "$P/securityincidentticket.form.php")"
+  # Issue #378 : appetence (registre sensible), releve, releve automatique et ticket d'un KRI.
+  expect "front/riskappetite.php : enregistrer l'appetence" "$1" \
+    "$(code -d "save_appetite=1&appetite[technical][appetite_level]=low&_glpi_csrf_token=$(csrf)" "$P/riskappetite.php")"
+  expect "front/riskindicatorvalue.form.php : ajouter un releve" "$1" \
+    "$(code -d "add=1&plugin_grcmanager_riskindicators_id=$(id kri_A)&value=3&_glpi_csrf_token=$(csrf)" "$P/riskindicatorvalue.form.php")"
+  expect "front/riskindicator.form.php : relever maintenant" "$1" \
+    "$(code -d "measure=1&id=$(id kri_A)&_glpi_csrf_token=$(csrf)" "$P/riskindicator.form.php")"
+  expect "front/riskindicator.form.php : ticket au rouge" "$1" \
+    "$(code -d "create_ticket=1&id=$(id kri_A)&_glpi_csrf_token=$(csrf)" "$P/riskindicator.form.php")"
   # Issue #377 : dependance et BIA d'un processus metier (exigent de pouvoir modifier le processus).
   expect "front/businessprocessitem.form.php : lier un element" "$1" \
     "$(code -d "add=1&plugin_grcmanager_businessprocesses_id=$(id process_A)&itemtype=Computer&items_id=$(id computer_A)&_glpi_csrf_token=$(csrf)" "$P/businessprocessitem.form.php")"
@@ -163,6 +173,7 @@ if [ "$ROLE" = none ]; then
     expect "front/$p : sans droit" 403 "$(code "$P/$p")"
   done
   expect "front/training.report.php : sans droit" 403 "$(code "$P/training.report.php?id=$(id training)")"
+  expect "front/riskindicator.form.php : sans droit" 403 "$(code "$P/riskindicator.form.php?id=$(id kri_A)")"
   expect "front/trainingquiz.send.php : copie d'un autre, sans droit" 403 "$(code "$P/trainingquiz.send.php?id=$(id quiz)")"
   # Page des responsables de revue : ouverte a toute session, ne montre que leurs propres lignes.
   contains "front/accessreview.mine.php : aucune campagne d'autrui" "Campagne securite" non "$(curl -s -c "$JAR" -b "$JAR" "$P/accessreview.mine.php")"
@@ -191,10 +202,12 @@ if [ "$ROLE" = general ]; then
   for p in front/risk.php front/supplierrisk.php front/riskheatmap.php front/risk.report.php \
            front/networkflow.php front/networkflow.report.php front/networkflow.matrix.php front/parkvulnerability.php \
            front/impactanalysis.php front/causalgraph.php front/breachexposure.php \
+           front/riskappetite.php front/riskindicator.php \
            front/businessprocess.php front/businessprocess.php?export=csv; do
     expect "$p : sans le droit des registres sensibles" 403 "$(code "$BASE/plugins/grcmanager/$p")"
   done
   expect "front/risk.form.php : sans le droit des registres sensibles" 403 "$(code "$P/risk.form.php?id=$(id risk)")"
+  expect "front/riskindicator.form.php : sans le droit des registres sensibles" 403 "$(code "$P/riskindicator.form.php?id=$(id kri_A)")"
   # Issue #183 : la surveillance des fuites (cle d'API, domaines) se regle avec le droit des registres
   # sensibles, et l'onglet des expositions de la fiche utilisateur reste vide sans lui.
   expect "front/config.php : regler la surveillance des fuites" 403 \
@@ -240,6 +253,8 @@ if [ "$ROLE" = reader ]; then
     expect "front/$p : en lecture" 200 "$(code "$P/$p")"
   done
   expect "front/training.report.php : en lecture" 200 "$(code "$P/training.report.php?id=$(id training)")"
+  expect "front/riskindicator.form.php : KRI de A en lecture" 200 "$(code "$P/riskindicator.form.php?id=$(id kri_A)")"
+  expect "front/riskindicator.form.php : KRI de B en lecture" 403 "$(code "$P/riskindicator.form.php?id=$(id kri_B)")"
   expect "front/trainingquiz.send.php : copie d'un autre, en lecture" 403 "$(code "$P/trainingquiz.send.php?id=$(id quiz)")"
   # Issue #372 : l'onglet de l'ordinateur liste l'incident de A, pas celui de B, sans bouton.
   incidents_tab=$(tab Computer 'GlpiPlugin%5CGrcmanager%5CSecurityIncidentLinkedItem$1' "$(id computer_A)")
@@ -321,6 +336,18 @@ contains "export CSV du registre : actif de B" "PC securite B" $SEE_B "$processi
 contains "onglet Registre des traitements d'un ordinateur de A" "Traitement securite A" oui \
   "$(tab Computer 'GlpiPlugin%5CGrcmanager%5CProcessingActivity$1' "$(id computer_A)")"
 
+# Issue #378 : un KRI appartient a son entite (lecture, releve, ticket).
+expect "KRI, entite A"                  200    "$(code "$P/riskindicator.form.php?id=$(id kri_A)")"
+expect "KRI, entite B"                  $DENY  "$(code "$P/riskindicator.form.php?id=$(id kri_B)")"
+expect "releve sur un KRI de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
+  "$(code -d "add=1&plugin_grcmanager_riskindicators_id=$(id kri_B)&value=3&_glpi_csrf_token=$(csrf)" "$P/riskindicatorvalue.form.php")"
+expect "ticket depuis un KRI de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
+  "$(code -d "create_ticket=1&id=$(id kri_B)&_glpi_csrf_token=$(csrf)" "$P/riskindicator.form.php")"
+expect "creer un KRI dans l'entite B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
+  "$(code -d "add=1&name=KRI%20cree&entities_id=$(id b)&_glpi_csrf_token=$(csrf)" "$P/riskindicator.form.php")"
+kris=$(curl -s -c "$JAR" -b "$JAR" "$P/riskindicator.php")
+contains "liste des KRI : KRI de A" "KRI securite A" oui    "$kris"
+contains "liste des KRI : KRI de B" "KRI securite B" $SEE_B "$kris"
 expect "campagne de revue, entite A"   200    "$(code "$P/accessreview.form.php?id=$(id campaign_A)")"
 expect "campagne de revue, entite B"   $DENY  "$(code "$P/accessreview.form.php?id=$(id campaign_B)")"
 

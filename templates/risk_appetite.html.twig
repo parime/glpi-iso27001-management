@@ -1,0 +1,78 @@
+{# Issue #378 : appétence et tolérance au risque par catégorie, puis risques qui les dépassent. #}
+<div class="card mb-3"><div class="card-body">
+   <h3>{{ __('Appetite and tolerance by risk category', 'grcmanager') }}</h3>
+   <p class="text-muted"><i class="ti ti-info-circle me-1"></i>{{ __('Appetite: the highest risk level accepted without action. Tolerance: the level beyond which the risk can no longer be borne. A risk above the appetite needs a treatment or a formal, justified acceptance. Saving records you as the approver, with today\'s date.', 'grcmanager') }}</p>
+   {% if can_update %}<form method="post" action="{{ action }}">{% endif %}
+   <div class="table-responsive">
+      <table class="table align-middle">
+         <thead><tr><th>{{ __('Category', 'grcmanager') }}</th><th>{{ __('Appetite', 'grcmanager') }}</th><th>{{ __('Tolerance', 'grcmanager') }}</th><th>{{ __('Statement approved by management', 'grcmanager') }}</th><th>{{ __('Approved by', 'grcmanager') }}</th></tr></thead>
+         <tbody>
+            {% for c in categories %}
+               <tr>
+                  <td><strong>{{ c.label }}</strong></td>
+                  {% for field in ['appetite', 'tolerance'] %}
+                     <td>
+                        {% if can_update %}
+                           <select name="appetite[{{ c.key }}][{{ field }}_level]" class="form-select form-select-sm" aria-label="{{ c.label }}">
+                              {% for key, label in levels %}<option value="{{ key }}" {{ key == attribute(c, field) ? 'selected' }}>{{ label }}</option>{% endfor %}
+                           </select>
+                        {% else %}
+                           {{ levels[attribute(c, field)] ?? '' }}
+                        {% endif %}
+                     </td>
+                  {% endfor %}
+                  <td>
+                     {% if can_update %}
+                        <input type="text" name="appetite[{{ c.key }}][statement]" value="{{ c.statement }}" class="form-control form-control-sm" aria-label="{{ __('Statement approved by management', 'grcmanager') }}">
+                     {% else %}
+                        {{ c.statement }}
+                     {% endif %}
+                  </td>
+                  <td class="small text-muted">{% if c.approver %}{{ c.approver }}<br>{{ c.approved|formatted_datetime }}{% endif %}</td>
+               </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+   </div>
+   {% if can_update %}
+      <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+      <button type="submit" name="save_appetite" value="1" class="btn btn-primary">{{ __('Save') }}</button>
+   </form>
+   {% endif %}
+</div></div>
+
+<div class="card"><div class="card-body">
+   <h3>{{ __('Open risks above appetite', 'grcmanager') }}</h3>
+   <div class="table-responsive">
+      <table class="table table-hover align-middle">
+         <thead><tr><th>{{ __('Risk', 'grcmanager') }}</th><th>{{ __('Category', 'grcmanager') }}</th><th>{{ __('Risk level', 'grcmanager') }}</th><th>{{ __('Position', 'grcmanager') }}</th><th>{{ __('Treatment', 'grcmanager') }}</th></tr></thead>
+         <tbody>
+            {% for r in risks %}
+               <tr>
+                  <td><a href="{{ r.url }}">{{ r.title }}</a></td>
+                  <td>{{ r.category }}</td>
+                  <td>{% include '@grcmanager/_badge.html.twig' with r.level_badge only %}</td>
+                  <td>
+                     {% if r.above_tolerance %}
+                        <span class="badge bg-red-lt"><i class="ti ti-alert-octagon me-1"></i>{{ __('Above tolerance', 'grcmanager') }}</span>
+                     {% else %}
+                        <span class="badge bg-orange-lt"><i class="ti ti-alert-triangle me-1"></i>{{ __('Above appetite', 'grcmanager') }}</span>
+                     {% endif %}
+                  </td>
+                  <td>
+                     {% if r.needs_decision %}
+                        <span class="badge bg-red-lt">{{ __('Decision required', 'grcmanager') }}</span>
+                     {% else %}
+                        {{ r.treatment }}
+                        {% if r.accepted_by %}<div class="small text-muted">{{ __('Formally accepted by %s', 'grcmanager')|format(r.accepted_by) }}</div>{% endif %}
+                     {% endif %}
+                  </td>
+               </tr>
+            {% else %}
+               <tr><td colspan="5" class="text-muted">{{ __('No open risk exceeds the appetite of its category.', 'grcmanager') }}</td></tr>
+            {% endfor %}
+         </tbody>
+      </table>
+   </div>
+   <a href="{{ kri_url }}" class="btn btn-outline-secondary btn-sm"><i class="ti ti-activity-heartbeat me-1"></i>{{ __('Risk indicators (KRI)', 'grcmanager') }}</a>
+</div></div>
