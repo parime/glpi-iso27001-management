@@ -7,6 +7,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.23.0] - 2026-11-04
+
 ### Added
 
 - **Analyse d'impact (AIPD, RGPD article 35)** (issue #375), onglet de chaque fiche du registre des
