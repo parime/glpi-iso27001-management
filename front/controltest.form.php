@@ -40,7 +40,7 @@ if (isset($_POST['save_plan'])) {
     ]);
 } elseif (isset($_POST['add'])) {
     if (!ControlTest::canEditControl($controlsId)) {
-        Html::displayRightError();
+        throw new \Glpi\Exception\Http\AccessDeniedHttpException();
     }
     // Preuve : un document joint à cette mesure (sinon introuvable), lisible par l'utilisateur
     // (la mesure est globale, le document appartient à une entité). Revérifié par prepareInputForAdd().
