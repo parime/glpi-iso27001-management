@@ -35,6 +35,8 @@ final class PeriodicReviewCatalog
         'legal_obligations'   => ['months' => 12, 'controls' => ['A.5.31']],
         'backup_restore_test' => ['months' => 6, 'controls' => ['A.8.13']],
         'continuity_test'     => ['months' => 12, 'controls' => ['A.5.29', 'A.5.30']],
+        // Issue #377 : revue annuelle des processus métier et de leur BIA (ISO 22301 8.2.2).
+        'business_impact'     => ['months' => 12, 'controls' => ['A.5.29', 'A.5.30']],
         'security_logs'       => ['months' => 1, 'controls' => ['A.8.15', 'A.8.16']],
     ];
 

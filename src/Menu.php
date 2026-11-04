@@ -93,6 +93,8 @@ class Menu extends CommonGLPI
             AccessReview::class => [
                 AccountHygiene::class, PeriodicReview::class,
                 Training::class, CrisisExercise::class,
+                // Issue #377 : processus métier et analyses d'impact sur l'activité (BIA).
+                BusinessProcess::class,
             ],
             // Sécurité technique. Le parent ne demande que le droit du plugin : les vulnérabilités
             // (qui exigent aussi la lecture des logiciels) restent une sous-page parmi d'autres.

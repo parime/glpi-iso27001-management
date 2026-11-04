@@ -46,12 +46,14 @@ final class RiskAppetiteKriTest extends GrcmanagerIntegrationTestCase
         $this->activeEntities = $_SESSION['glpiactiveentities'];
         global $DB;
         $DB->delete(RiskAppetite::getTable(), ['id' => ['>', 0]]);
+        RiskAppetite::clearCache();
         $_SESSION['glpi_currenttime'] ??= date('Y-m-d H:i:s');
     }
 
     protected function tearDown(): void
     {
         $_SESSION['glpiactiveentities'] = $this->activeEntities;
+        RiskAppetite::clearCache();
         parent::tearDown();
     }
 

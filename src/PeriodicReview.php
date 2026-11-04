@@ -83,6 +83,7 @@ class PeriodicReview extends PeriodicReviewBase
             'legal_obligations'   => __('Review of legal and contractual obligations', 'grcmanager'),
             'backup_restore_test' => __('Backup restore test', 'grcmanager'),
             'continuity_test'     => __('Business continuity and disaster recovery test (BCP / DRP)', 'grcmanager'),
+            'business_impact'     => __('Business impact analysis review (business processes)', 'grcmanager'),
             'security_logs'       => __('Security log review', 'grcmanager'),
             default               => $key,
         };
@@ -149,6 +150,11 @@ class PeriodicReview extends PeriodicReviewBase
                 __('Check the emergency contacts and procedures', 'grcmanager'),
                 __('Attach the report and the improvement actions', 'grcmanager'),
             ],
+            'business_impact' => [
+                __('Review the list of business processes and their owners', 'grcmanager'),
+                __('Update the impact of an interruption over time and the MTPD, RTO and RPO', 'grcmanager'),
+                __('Check that the items each process depends on recover fast enough', 'grcmanager'),
+            ],
             'security_logs' => [
                 __('Review the security alerts and logs for the period', 'grcmanager'),
                 __('Open a security incident for each confirmed anomaly', 'grcmanager'),
@@ -172,6 +178,7 @@ class PeriodicReview extends PeriodicReviewBase
             'policies'          => '/plugins/grcmanager/front/policy.php',
             'soa'               => '/plugins/grcmanager/front/control.php',
             'legal_obligations' => '/plugins/grcmanager/front/complianceobligation.php',
+            'business_impact'   => '/plugins/grcmanager/front/businessprocess.php',
             default             => null,
         };
     }

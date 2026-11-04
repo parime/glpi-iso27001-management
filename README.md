@@ -86,6 +86,9 @@ archivé), avec ses champs de classification ISO 27001 fusionnés dessus.
 - **Impact d'une panne** (analyse d'impact de GLPI), points de défaillance uniques, objectifs de
   reprise **RTO/RPO** et export pour le plan de continuité.
 - **Couverture des preuves** : quels actifs doivent avoir quel document.
+- **Processus métier et analyse d'impact sur l'activité (BIA)** : responsable, criticité, DMIA, RTO,
+  RPO, impacts par durée d'interruption, éléments GLPI dont dépend chaque processus, signalement des
+  actifs plus lents que le processus, export pour le PCA / PRA.
 - **Exercices de crise** (rançongiciel, fuite de données, panne) : incident fictif, étapes
   chronométrées, rapport d'exercice archivé comme preuve (A.5.29, A.5.30).
 - **Cellule de crise** sur un incident réel : plan de réponse, reprise des éléments touchés face à
@@ -137,7 +140,7 @@ tête de page et par le fil d'Ariane.
 | Risques | Risques, Risques fournisseurs, Analyse d'impact, Effet domino, Dérogations |
 | Conformité | Contrôles Annexe A (SoA), Référentiels, Exigences SMSI, Obligations, Politiques, Preuves, Couverture des preuves |
 | Audits et amélioration | Audits internes, Non-conformités, Objectifs ISMS, Revues de direction |
-| Opérations | Revues des accès, Hygiène des comptes, Revues périodiques, Formations, Exercices de crise |
+| Opérations | Revues des accès, Hygiène des comptes, Revues périodiques, Formations, Exercices de crise, Processus métier |
 | Sécurité technique | Contrôles techniques automatiques, Vulnérabilités du parc, Machines les plus exposées, Logiciels à surveiller, Produits, Matrice des flux, Fuites de données |
 
 Les incidents de sécurité sont dans **Assistance**, à côté des tickets. Les droits du plugin se

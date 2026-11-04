@@ -708,6 +708,19 @@ function plugin_grcmanager_forget_restricted_document(CommonDBTM $item): void
 }
 
 /**
+ * Issue #377 : Hooks::ITEM_PURGE sur les éléments liables à un processus métier (setup.php).
+ */
+function plugin_grcmanager_forget_business_process_item(CommonDBTM $item): void
+{
+    global $DB;
+
+    $table = \GlpiPlugin\Grcmanager\BusinessProcessItem::getTable();
+    if ($DB->tableExists($table)) {
+        $DB->delete($table, ['itemtype' => $item::class, 'items_id' => (int) $item->getID()]);
+    }
+}
+
+/**
  * Issue #141 : Hooks::ITEM_ADD sur Ticket (setup.php), voir \GlpiPlugin\Grcmanager\PeriodicReview::onTicketAdd().
  */
 function plugin_grcmanager_periodic_review_ticket_add(CommonDBTM $item): void
