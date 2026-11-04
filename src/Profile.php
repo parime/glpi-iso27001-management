@@ -97,6 +97,17 @@ class Profile extends CommonGLPI
                 'field'    => Installer::SENSITIVE_RIGHT,
             ],
             [
+                // Issue #377 : processus métier, leurs dépendances et leur analyse d'impact (BIA).
+                'rights'   => [
+                    READ   => __('Read'),
+                    UPDATE => __('Update'),
+                    CREATE => __('Create'),
+                    PURGE  => ['short' => __('Purge'), 'long' => _x('button', 'Delete permanently')],
+                ],
+                'label'    => __('Business continuity (business processes, BIA)', 'grcmanager'),
+                'field'    => Installer::CONTINUITY_RIGHT,
+            ],
+            [
                 'itemtype' => PluginGrcmanagerSecurityIncident::class,
                 'label'    => PluginGrcmanagerSecurityIncident::getTypeName(Session::getPluralNumber()),
                 'field'    => Installer::SECURITY_INCIDENT_RIGHT,

@@ -31,7 +31,7 @@ if (is_readable(__DIR__ . '/vendor/autoload.php')) {
     \GlpiPlugin\Grcmanager\Install\ItemtypeRenames::registerAliases();
 }
 
-define('PLUGIN_GRCMANAGER_VERSION', '2.20.0');
+define('PLUGIN_GRCMANAGER_VERSION', '2.21.0');
 define('PLUGIN_GRCMANAGER_MIN_GLPI', '11.0.0');
 // GLPI 11 and 12 from a single code base (see src/Compatibility/).
 define('PLUGIN_GRCMANAGER_MAX_GLPI', '12.99.99');
@@ -234,6 +234,13 @@ function plugin_init_grcmanager(): void
         'addtabon' => \GlpiPlugin\Grcmanager\Risk::getLinkableItemtypes(),
     ]);
 
+    // Issue #377 : onglet « Processus métier » sur les éléments dont un processus peut dépendre
+    // (applications et instances de bases de données du cœur, actifs, fournisseurs), et onglets
+    // « BIA » et « Dépendances » du processus.
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\BusinessProcessItem::class, [
+        'addtabon' => \GlpiPlugin\Grcmanager\BusinessProcessItem::getItemtypes(),
+    ]);
+
     // Issue #164 : onglet « Couverture des preuves » sur les mesures et les exigences du SMSI.
     Plugin::registerClass(\GlpiPlugin\Grcmanager\CoverageRule::class, [
         'addtabon' => [\GlpiPlugin\Grcmanager\Control::class, \GlpiPlugin\Grcmanager\IsmsRequirement::class],
@@ -292,6 +299,11 @@ function plugin_init_grcmanager(): void
     ];
     foreach (\GlpiPlugin\Grcmanager\Services\Incident\AuditedItems::ITEMTYPES as $auditedItemtype) {
         $PLUGIN_HOOKS[Hooks::ITEM_PURGE]['grcmanager'][$auditedItemtype] ??= 'plugin_grcmanager_audit_purge';
+    }
+    // Issue #377 : un élément supprimé définitivement n'est plus une dépendance d'un processus métier.
+    foreach (\GlpiPlugin\Grcmanager\BusinessProcessItem::getItemtypes() as $processItemtype) {
+        $PLUGIN_HOOKS[Hooks::ITEM_PURGE]['grcmanager'][$processItemtype]
+            ??= 'plugin_grcmanager_forget_business_process_item';
     }
     // Rapports générés (audit, revue des accès, post-incident, cellule de crise) : lisibles par
     // les seules personnes qui lisent leur objet source, voir \GlpiPlugin\Grcmanager\RestrictedDocument.

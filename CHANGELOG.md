@@ -7,8 +7,11 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.21.0] - 2026-11-04
+
 ### Added
 
+<<<<<<< HEAD
 - **Tableau de bord des incidents de sécurité** (issues #143 et #372) : nouvelle vue sur la page
   Tableau de bord (et tableau de bord natif « GRC Manager - Incidents de sécurité »), proposée à
   qui peut lire les incidents :
@@ -17,6 +20,27 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   - les répartitions par statut, sévérité, catégorie, entité et catégorie GLPI mènent à la
     recherche, qui applique elle-même ses droits. La sévérité et la catégorie acceptent le critère
     « est » dans la recherche.
+=======
+- **Processus métier et analyse d'impact sur l'activité (BIA)** (issue #377, première étape) :
+  nouvel écran Opérations > Processus métier (ISO 22301 8.2.2, ISO 27001 A.5.29 et A.5.30) :
+  - registre des processus par entité : responsable, service, criticité (l'intitulé « Criticité
+    métier » du cœur de GLPI, celui des informations financières des actifs), durée maximale
+    d'interruption admissible (DMIA), RTO, RPO, date de la dernière BIA ;
+  - onglet « Analyse d'impact (BIA) » : impact financier, juridique, d'image et opérationnel
+    d'une interruption à 4 h, 1 jour, 3 jours, 1 semaine et 1 mois, de négligeable à critique ;
+    contrôles de cohérence (RTO au-delà de la DMIA, DMIA au-delà de la première durée jugée
+    grave, impact qui baisse avec le temps…) ;
+  - onglet « Dépendances » : applications et instances de bases de données du cœur, actifs,
+    logiciels, fournisseurs dont dépend le processus, complétés par ce dont ils dépendent selon
+    l'analyse d'impact native de GLPI ; un élément dont le RTO (classification C/I/D) est plus
+    long que celui du processus, ou non défini, est signalé ;
+  - onglet « Processus métier » sur ces éléments GLPI ;
+  - export CSV pour le PCA / PRA, tracé dans le journal d'audit ;
+  - revue périodique « Revue de l'analyse d'impact sur l'activité » (annuelle) ajoutée au
+    catalogue des revues ;
+  - nouveau droit « Continuité d'activité » dans l'onglet GRC Manager des profils, initialisé à
+    la mise à jour avec la valeur du droit des registres sensibles de chaque profil.
+>>>>>>> origin/dev
 
 - **Onglet « Incidents de sécurité » sur les éléments liés** (issue #372) : ordinateurs, matériels
   réseau, logiciels, utilisateurs, fournisseurs, problèmes et changements (le ticket garde son

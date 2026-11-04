@@ -46,6 +46,18 @@ final class ImpactGraphTest extends TestCase
         $this->assertSame([], ImpactGraph::downstream(self::EDGES, 'Computer:99'));
     }
 
+    /**
+     * Issue #377 : ce dont une application dépend (machines, puis hyperviseur), cycles compris.
+     */
+    public function testUpstreamWithDepthAndCycles(): void
+    {
+        $this->assertSame(
+            ['Computer:10' => 1, 'Computer:11' => 1, 'Computer:1' => 2, 'Appliance:6' => 2],
+            ImpactGraph::upstream(self::EDGES, 'Appliance:5')
+        );
+        $this->assertSame([], ImpactGraph::upstream(self::EDGES, 'Computer:1'));
+    }
+
     public function testSinglePointsOfFailure(): void
     {
         $points = ImpactGraph::singlePointsOfFailure(self::EDGES, ['Appliance:5', 'Appliance:6', 'Computer:10']);

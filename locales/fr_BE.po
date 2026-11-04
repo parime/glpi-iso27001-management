@@ -7148,6 +7148,198 @@ msgstr "Aucun incident de sécurité lié à cet élément."
 msgid "Other linked items"
 msgstr "Autres éléments liés"
 
+msgid "Business process"
+msgid_plural "Business processes"
+msgstr[0] "Processus métier"
+msgstr[1] "Processus métier"
+
+#, php-format
+msgid "%d other item you cannot see is not listed."
+msgid_plural "%d other items you cannot see are not listed."
+msgstr[0] "%d autre élément que vous ne pouvez pas voir n'est pas listé."
+msgstr[1] "%d autres éléments que vous ne pouvez pas voir ne sont pas listés."
+
+msgid "2 weeks"
+msgstr "2 semaines"
+
+msgid "1 month"
+msgstr "1 mois"
+
+msgid "The business process name is required."
+msgstr "Le nom du processus métier est obligatoire."
+
+msgid "No impact assessed yet: fill in the business impact analysis."
+msgstr "Aucun impact évalué : remplissez l'analyse d'impact sur l'activité."
+
+msgid "Maximum tolerable period of disruption (MTPD) not set."
+msgstr "Durée maximale d'interruption admissible (DMIA) non définie."
+
+msgid "Recovery time objective (RTO) not set."
+msgstr "Durée maximale de reprise (RTO) non définie."
+
+msgid "The RTO is longer than the maximum tolerable period of disruption."
+msgstr "Le RTO dépasse la durée maximale d'interruption admissible."
+
+msgid "The maximum tolerable period of disruption is longer than the duration from which the impact becomes serious."
+msgstr "La durée maximale d'interruption admissible dépasse la durée à partir de laquelle l'impact devient grave."
+
+msgid "The RPO is longer than the maximum tolerable period of disruption."
+msgstr "Le RPO dépasse la durée maximale d'interruption admissible."
+
+msgid "An impact decreases when the disruption lasts longer: check the analysis."
+msgstr "Un impact diminue quand l'interruption dure plus longtemps : vérifiez l'analyse."
+
+msgid "Recovers more slowly than the process requires (RTO)"
+msgstr "Reprend plus lentement que ne l'exige le processus (RTO)"
+
+msgid "May lose more data than the process accepts (RPO)"
+msgstr "Peut perdre plus de données que le processus ne l'admet (RPO)"
+
+msgid "No RTO set on this item (C/I/A classification tab)"
+msgstr "Aucun RTO défini sur cet élément (onglet Classification C/I/D)"
+
+msgid "Business criticality"
+msgstr "Criticité métier"
+
+msgid "MTPD"
+msgstr "DMIA"
+
+msgid "Last business impact analysis"
+msgstr "Dernière analyse d'impact (BIA)"
+
+#, php-format
+msgid "Worst impact after %s"
+msgstr "Pire impact après %s"
+
+msgid "Items not meeting the objectives"
+msgstr "Éléments qui ne tiennent pas les objectifs"
+
+msgid "Consistency checks"
+msgstr "Contrôles de cohérence"
+
+msgid "Dependencies"
+msgstr "Dépendances"
+
+msgid "Choose an item to link."
+msgstr "Choisissez un élément à lier."
+
+msgid "This item is already linked to the process."
+msgstr "Cet élément est déjà lié au processus."
+
+msgid "Business impact analysis"
+msgstr "Analyse d'impact sur l'activité (BIA)"
+
+msgid "Financial"
+msgstr "Financier"
+
+msgid "Legal and regulatory"
+msgstr "Juridique et réglementaire"
+
+msgid "Image and reputation"
+msgstr "Image et réputation"
+
+msgid "Operational"
+msgstr "Opérationnel"
+
+msgid "Not rated"
+msgstr "Non évalué"
+
+msgid "Negligible"
+msgstr "Négligeable"
+
+msgid "Limited"
+msgstr "Limité"
+
+msgid "Serious"
+msgstr "Grave"
+
+msgid "Business impact analysis updated"
+msgstr "Analyse d'impact sur l'activité mise à jour"
+
+msgid "Business impact analysis saved."
+msgstr "Analyse d'impact sur l'activité enregistrée."
+
+msgid "Business continuity (business processes, BIA)"
+msgstr "Continuité d'activité (processus métier, BIA)"
+
+msgid "Business processes: who owns them, how critical they are, how long they can be interrupted and which GLPI items they depend on."
+msgstr "Processus métier : leur responsable, leur criticité, combien de temps ils peuvent être interrompus et de quels éléments GLPI ils dépendent."
+
+msgid "For each process, rate the impact of an interruption over time (business impact analysis), set its MTPD, RTO and RPO, and link the applications, servers and suppliers it needs; items slower than the process are reported. Export the result for your continuity plan."
+msgstr "Pour chaque processus, notez l'impact d'une interruption dans le temps (analyse d'impact sur l'activité), fixez sa DMIA, son RTO et son RPO, et liez les applications, serveurs et fournisseurs dont il a besoin ; les éléments plus lents que le processus sont signalés. Exportez le résultat pour votre plan de continuité."
+
+msgid "ISO 22301, 8.2.2; ISO 27001, Annex A 5.29 and 5.30"
+msgstr "ISO 22301, 8.2.2 ; ISO 27001, Annexe A 5.29 et 5.30"
+
+msgid "Business impact analysis review (business processes)"
+msgstr "Revue de l'analyse d'impact sur l'activité (processus métier)"
+
+msgid "Review the list of business processes and their owners"
+msgstr "Revoir la liste des processus métier et leurs responsables"
+
+msgid "Update the impact of an interruption over time and the MTPD, RTO and RPO"
+msgstr "Mettre à jour l'impact d'une interruption dans le temps et la DMIA, le RTO et le RPO"
+
+msgid "Check that the items each process depends on recover fast enough"
+msgstr "Vérifier que les éléments dont dépend chaque processus reprennent assez vite"
+
+msgid "Example: \"Payroll\", \"Order taking\", \"Customer support\"."
+msgstr "Exemple : « Paie », « Prise de commande », « Support client »."
+
+msgid "Same list as the business criticality of assets (financial information)."
+msgstr "Même liste que la criticité métier des actifs (informations financières)."
+
+msgid "Maximum tolerable period of disruption: beyond it, the impact is no longer acceptable."
+msgstr "Durée maximale d'interruption admissible : au-delà, l'impact n'est plus acceptable."
+
+msgid "Recovery time objective: time within which the process must be running again."
+msgstr "Durée maximale de reprise : délai dans lequel le processus doit fonctionner à nouveau."
+
+msgid "Recovery point objective: maximum acceptable data loss."
+msgstr "Perte de données maximale admissible."
+
+msgid "Set automatically when the analysis is saved."
+msgstr "Renseignée automatiquement à l'enregistrement de l'analyse."
+
+msgid "Not set"
+msgstr "Non définie"
+
+msgid "Impact becomes serious after"
+msgstr "L'impact devient grave après"
+
+msgid "Never, according to the analysis"
+msgstr "Jamais, selon l'analyse"
+
+msgid "The objectives of the process are consistent with its impact analysis."
+msgstr "Les objectifs du processus sont cohérents avec son analyse d'impact."
+
+msgid "Rate the impact of an interruption of the process for each duration, from negligible to critical. The MTPD must not exceed the first duration rated serious, and the RTO must not exceed the MTPD."
+msgstr "Notez l'impact d'une interruption du processus pour chaque durée, de négligeable à critique. La DMIA ne doit pas dépasser la première durée notée grave, et le RTO ne doit pas dépasser la DMIA."
+
+msgid "Worst impact"
+msgstr "Pire impact"
+
+msgid "E.g. \"Payroll application\", \"Main database\""
+msgstr "Ex. : « Application de paie », « Base principale »"
+
+msgid "Items linked to the process, then what they depend on according to GLPI's impact analysis. Recovery objectives come from the C/I/A classification tab of each item."
+msgstr "Éléments liés au processus, puis ce dont ils dépendent selon l'analyse d'impact de GLPI. Les objectifs de reprise viennent de l'onglet Classification C/I/D de chaque élément."
+
+msgid "No dependency yet: add the applications, servers and suppliers the process needs."
+msgstr "Aucune dépendance : ajoutez les applications, serveurs et fournisseurs dont le processus a besoin."
+
+msgid "OK"
+msgstr "OK"
+
+msgid "Remove this dependency?"
+msgstr "Retirer cette dépendance ?"
+
+msgid "No business process you can see depends on this item."
+msgstr "Aucun processus métier que vous pouvez voir ne dépend de cet élément."
+
+msgid "New business process"
+msgstr "Nouveau processus métier"
+
 msgid "Open critical security incidents"
 msgstr "Incidents de sécurité critiques en cours"
 
