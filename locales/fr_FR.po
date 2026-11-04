@@ -7936,3 +7936,31 @@ msgid "%d linked item is not visible to you and stays linked."
 msgid_plural "%d linked items are not visible to you and stay linked."
 msgstr[0] "%d élément lié ne vous est pas visible et reste lié."
 msgstr[1] "%d éléments liés ne vous sont pas visibles et restent liés."
+
+msgid "Open critical security incidents"
+msgstr "Incidents de sécurité critiques en cours"
+
+msgid "Security incidents by incident category"
+msgstr "Incidents de sécurité par catégorie d'incident"
+
+msgid "Declared"
+msgstr "Déclarés"
+
+msgid "Resolved"
+msgstr "Résolus"
+
+msgid "Security incidents over 12 months"
+msgstr "Incidents de sécurité sur 12 mois"
+
+#, php-format
+msgid "Due by %s"
+msgstr "À faire avant le %s"
+
+msgid "Regulatory notifications to follow"
+msgstr "Notifications réglementaires à suivre"
+
+msgid "GRC Manager - Security incidents"
+msgstr "GRC Manager - Incidents de sécurité"
+
+msgid "ISMS overview"
+msgstr "Vue d'ensemble ISMS"

@@ -165,6 +165,24 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
     "$(code -d "remove=1&participations_id=$(id quiz)&_glpi_csrf_token=$(csrf)" "$P/trainingquiz.form.php")"
 }
 
+# Issue #143 : cartes des incidents de securite, calculees par le plugin (et non plus par le
+# fournisseur generique de GLPI, sans droit du plugin ni cloisonnement). Tous les profils voient
+# les tableaux de bord (droit natif) : seuls ceux qui lisent les incidents en obtiennent les cartes,
+# et seulement pour leurs entites. La vue « incidents » de la page n'est proposee qu'a eux.
+card() { # identifiant de la carte, type de widget
+  body "$BASE/ajax/dashboard.php?action=get_card&dashboard=grcmanager-security-incidents&card_id=$1&args%5Bwidgettype%5D=$2&args%5Bgridstack_id%5D=matrice&args%5Bforce%5D=1"
+}
+SEE_INCIDENTS=oui
+case $ROLE in none|general) SEE_INCIDENTS=non ;; esac
+by_entity=$(card securityincidents_by_entity multipleNumber)
+contains "carte incidents par entite : entite A" "Securite ISO A" $SEE_INCIDENTS "$by_entity"
+contains "carte incidents par entite : entite B" "Securite ISO B" $SEE_B "$by_entity"
+contains "carte incidents ouverts : chiffre" "big-number" $SEE_INCIDENTS "$(card securityincidents_bn_open bigNumber)"
+contains "page du tableau de bord : vue incidents proposee" "view=incidents" $SEE_INCIDENTS \
+  "$(curl -s -c "$JAR" -b "$JAR" "$P/dashboard.php")"
+contains "page du tableau de bord, vue incidents : grille" "\"current\":\"grcmanager-security-incidents\"" $SEE_INCIDENTS \
+  "$(curl -s -c "$JAR" -b "$JAR" "$P/dashboard.php?view=incidents")"
+
 if [ "$ROLE" = none ]; then
   for p in $READABLE; do expect "$p : sans droit" 403 "$(code "$BASE/plugins/grcmanager/$p")"; done
   for p in "risk.form.php?id=$(id risk)" "control.form.php?id=$(id control)" "securityincident.form.php?id=$(id incident_A)" \

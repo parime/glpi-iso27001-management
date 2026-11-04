@@ -767,6 +767,8 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
             'field'    => 'category',
             'name'     => __('Category', 'grcmanager'),
             'datatype' => 'specific',
+            // Issue #143 : « est » pour les liens du tableau de bord.
+            'searchtype' => ['contains', 'notcontains', 'equals', 'notequals'],
         ];
 
         $tab[] = [
@@ -775,6 +777,8 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
             'field'    => 'severity',
             'name'     => __('Severity', 'grcmanager'),
             'datatype' => 'specific',
+            // Issue #143 : « est » pour les liens du tableau de bord.
+            'searchtype' => ['contains', 'notcontains', 'equals', 'notequals'],
         ];
 
         $tab[] = [

@@ -25,7 +25,6 @@ use GlpiPlugin\Grcmanager\Services\Control\ControlCrosswalkDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig;
 use GlpiPlugin\Grcmanager\Services\Control\FrameworkSelection;
 use GlpiPlugin\Grcmanager\Services\Control\Nis2CatalogDefaults;
-use GlpiPlugin\Grcmanager\Services\Incident\RegulatoryDeadlines;
 use GlpiPlugin\Grcmanager\Services\Maturity\MaturityScore;
 
 /**
@@ -304,30 +303,9 @@ final class PilotageCards
      */
     public static function securityIncidentRegulatoryDeadlines(array $params = []): array
     {
-        global $DB;
-
-        $count = 0;
-        foreach (
-            $DB->request([
-                'FROM'  => \PluginGrcmanagerSecurityIncident::getTable(),
-                'WHERE' => [
-                    'is_deleted'  => 0,
-                    'is_exercise' => 0,
-                    'NOT'         => ['status' => \PluginGrcmanagerSecurityIncident::getClosedStatusArray()],
-                    'OR'          => ['nis2_applicable' => 1, 'personal_data_breach' => 1],
-                ] + getEntitiesRestrictCriteria(\PluginGrcmanagerSecurityIncident::getTable(), '', '', true),
-            ]) as $row
-        ) {
-            foreach (RegulatoryDeadlines::compute($row) as $deadline) {
-                $alerting = [RegulatoryDeadlines::STATUS_OVERDUE, RegulatoryDeadlines::STATUS_DUE_SOON];
-                if (in_array($deadline['status'], $alerting, true)) {
-                    $count++;
-                }
-            }
-        }
-
         return [
-            'number' => $count,
+            // Issue #143 : incidents visibles seulement (cloisonnement).
+            'number' => SecurityIncidentCardProvider::regulatoryDeadlinesAtRisk(),
             'url'    => \PluginGrcmanagerSecurityIncident::getSearchURL(),
             'label'  => $params['label'] ?? __('NIS2 / GDPR deadlines at risk', 'grcmanager'),
             'icon'   => 'ti ti-alarm',
@@ -460,7 +438,10 @@ final class PilotageCards
 
         $today = date('Y-m-d');
         $count = 0;
-        foreach ($DB->request(['FROM' => \GlpiPlugin\Grcmanager\PeriodicReview::getTable()]) as $row) {
+        // Issue #143 : seulement les entités actives, comme la liste des revues.
+        $table = \GlpiPlugin\Grcmanager\PeriodicReview::getTable();
+        $where = getEntitiesRestrictCriteria($table);
+        foreach ($DB->request(['FROM' => $table, 'WHERE' => $where]) as $row) {
             $review = new \GlpiPlugin\Grcmanager\PeriodicReview();
             $review->getFromResultSet($row);
             if ($review->isOverdue($today)) {

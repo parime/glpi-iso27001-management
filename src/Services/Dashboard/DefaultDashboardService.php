@@ -64,15 +64,25 @@ final class DefaultDashboardService
      */
     public const DIRECTION_KEY = 'grcmanager-direction';
 
+    /**
+     * Issue #143 / #372 : tableau de bord des incidents de sécurité.
+     */
+    public const INCIDENTS_KEY = 'grcmanager-security-incidents';
+
     public static function seed(): void
     {
         self::upsert(self::KEY, __('GRC Manager - ISMS overview', 'grcmanager'), self::getItems());
         self::upsert(self::DIRECTION_KEY, __('GRC Manager - Management', 'grcmanager'), self::getDirectionItems());
+        self::upsert(
+            self::INCIDENTS_KEY,
+            __('GRC Manager - Security incidents', 'grcmanager'),
+            self::getIncidentItems()
+        );
     }
 
     public static function remove(): void
     {
-        foreach ([self::KEY, self::DIRECTION_KEY] as $key) {
+        foreach ([self::KEY, self::DIRECTION_KEY, self::INCIDENTS_KEY] as $key) {
             (new Dashboard())->delete(['key' => $key], true);
         }
     }
@@ -174,6 +184,50 @@ final class DefaultDashboardService
             $bigNumber('grcmanager_risks_above_appetite', 6, 10, 6),
             $bigNumber('grcmanager_risk_indicators_red', 12, 10, 6),
             self::chart('grcmanager_risk_indicators_by_status', 'pie', 18, 10, 6, 4),
+        ];
+    }
+
+    /**
+     * Vue « Incidents de sécurité » (issues #143 et #372) : chiffres clés (en cours, critiques,
+     * délais moyens, échéances réglementaires), tendance sur 12 mois et notifications à suivre,
+     * répartitions cliquables, puis tactiques et techniques MITRE ATT&CK. Uniquement des cartes
+     * déjà enregistrées par hook.php ; aucune ne figure dans le tableau de bord ITIL de
+     * Configuration GLPI Auto (cartes de tickets seulement).
+     *
+     * @return list<array<string, mixed>>
+     */
+    private static function getIncidentItems(): array
+    {
+        $bigNumber = static fn (string $cardId, int $x, string $color, int $width = 5): array => [
+            'gridstack_id' => $cardId . '_incidents',
+            'card_id'      => $cardId,
+            'x'            => $x,
+            'y'            => 0,
+            'width'        => $width,
+            'height'       => 2,
+            'card_options' => ['color' => $color, 'widgettype' => 'bigNumber', 'use_gradient' => '0'],
+        ];
+        $chart = static function (string $cardId, string $widget, int $x, int $y, int $width, int $height): array {
+            $item = self::chart($cardId, $widget, $x, $y, $width, $height);
+            $item['gridstack_id'] = $cardId . '_incidents';
+
+            return $item;
+        };
+
+        return [
+            $bigNumber('securityincidents_bn_open', 0, '#f8911f'),
+            $bigNumber('grcmanager_securityincident_open_critical', 5, '#cc2936'),
+            $bigNumber('grcmanager_securityincident_time_to_contain', 10, '#0e87a0'),
+            $bigNumber('grcmanager_securityincident_time_to_close', 15, '#27ab3c'),
+            $bigNumber('grcmanager_security_incident_regulatory_deadlines', 20, '#b52d30', 6),
+            $chart('grcmanager_securityincident_monthly_trend', 'lines', 0, 2, 13, 6),
+            $chart('grcmanager_securityincident_regulatory_notifications', 'articleList', 13, 2, 13, 6),
+            $chart('grcmanager_security_incidents_by_status', 'hbar', 0, 8, 7, 5),
+            $chart('grcmanager_security_incidents_by_severity', 'hbar', 7, 8, 6, 5),
+            $chart('grcmanager_securityincident_by_classification', 'hbar', 13, 8, 6, 5),
+            $chart('securityincidents_by_category', 'hbar', 19, 8, 7, 5),
+            $chart('grcmanager_securityincident_attack_tactics', 'hbar', 0, 13, 13, 6),
+            $chart('grcmanager_securityincident_attack_techniques', 'hbar', 13, 13, 13, 6),
         ];
     }
 

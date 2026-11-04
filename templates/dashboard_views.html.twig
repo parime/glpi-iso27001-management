@@ -1,0 +1,34 @@
+{# Issue #143 : choix du tableau de bord affiché (vue d'ensemble ISMS, incidents de sécurité). #}
+{# GLPI affiche « carte vide » à la place d'une carte que l'utilisateur n'a pas le droit de voir :
+   sur cette page, la carte disparaît (sauf en mode édition, pour pouvoir la retirer).
+   À la largeur d'un téléphone, GLPI 11 passe la grille sur une colonne sans dépasser ses 24 rangées,
+   et les cartes suivantes se superposent : sur cette page, elles se suivent dans le flux normal. #}
+<style>
+   .grcmanager-dashboard-views ~ .card .dashboard:not(.edit-mode) .grid-stack-item:has(.empty-card.card-warning) {
+      display: none;
+   }
+   .grcmanager-dashboard-views ~ .card .dashboard:not(.edit-mode) .grid-stack.gs-1 {
+      height: auto !important;
+   }
+   .grcmanager-dashboard-views ~ .card .dashboard:not(.edit-mode) .grid-stack.gs-1 > .grid-stack-item {
+      position: relative !important;
+      top: auto !important;
+      left: auto !important;
+      width: 100% !important;
+   }
+   .grcmanager-dashboard-views ~ .card .dashboard:not(.edit-mode) .grid-stack.gs-1 > .grid-stack-item.lock-bottom {
+      display: none;
+   }
+</style>
+<div class="grcmanager-dashboard-views">
+{% if views|length > 1 %}
+   <div class="btn-group mb-3 flex-wrap" role="group" aria-label="{{ __('Dashboard', 'grcmanager') }}">
+      {% for name, view in views %}
+         <a class="btn btn-sm {{ name == active ? 'btn-primary' : 'btn-outline-secondary' }}"
+            href="{{ url }}?view={{ name|url_encode }}"{% if name == active %} aria-current="page"{% endif %}>
+            <i class="{{ view.icon }} me-1"></i>{{ view.label }}
+         </a>
+      {% endfor %}
+   </div>
+{% endif %}
+</div>

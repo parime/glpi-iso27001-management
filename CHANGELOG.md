@@ -9,6 +9,15 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Tableau de bord des incidents de sécurité** (issues #143 et #372) : nouvelle vue sur la page
+  Tableau de bord (et tableau de bord natif « GRC Manager - Incidents de sécurité »), proposée à
+  qui peut lire les incidents :
+  - incidents critiques en cours, tendance sur 12 mois (déclarés et résolus), répartition par
+    catégorie d'incident, liste des notifications NIS2 / RGPD à suivre (la plus urgente d'abord) ;
+  - les répartitions par statut, sévérité, catégorie, entité et catégorie GLPI mènent à la
+    recherche, qui applique elle-même ses droits et retrouve le nombre affiché. La sévérité et la
+    catégorie acceptent le critère « est » dans la recherche.
+
 - **Registre des activités de traitement RGPD** (issue #375, première étape, article 30) : menu
   Conformité > Registre des traitements.
   - une fiche par traitement : finalité, base légale, catégories de personnes et de données,
@@ -46,6 +55,20 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   - Droits : ceux des registres sensibles, entité vérifiée pour chaque KRI. La valeur d'une source
     automatique n'est visible que de qui lit les données mesurées et accède à l'entité et à toutes
     ses sous-entités, y compris dans les listes et les cartes.
+
+### Fixed
+
+- **Cartes de tableau de bord** (issue #143) :
+  - les cartes des incidents comptent seulement les incidents que l'utilisateur peut ouvrir : sans
+    « Voir tout », ceux où il est acteur ou membre de l'équipe d'intervention. Les cartes total, par
+    entité et par catégorie GLPI ne vérifiaient aucun droit du plugin ; elles les vérifient ;
+  - la carte des revues périodiques en retard respecte les entités actives ;
+  - une carte n'est plus proposée à qui n'a pas le droit de la voir, ni quand son module ou tous ses
+    référentiels sont désactivés ; sur la page Tableau de bord du plugin, elle disparaît ;
+  - le lien de la carte « Ouverts » menait à une recherche vide ;
+  - sur la page Tableau de bord du plugin, les cartes ne se superposent plus, ni au-delà de la
+    24e rangée, ni à la largeur d'un téléphone ;
+  - délais moyens et tactiques MITRE calculés par une seule requête d'agrégat.
 
 ## [2.21.0] - 2026-11-04
 
