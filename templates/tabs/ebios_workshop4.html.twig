@@ -1,12 +1,7 @@
 {# Issue #376, atelier 4 : scénarios opérationnels, vraisemblance et grille des niveaux de risque. #}
 {% set fk = 'plugin_grcmanager_ebiosstudies_id' %}
 {% set severity_classes = {1: 'bg-green-lt', 2: 'bg-yellow-lt', 3: 'bg-orange-lt', 4: 'bg-red-lt'} %}
-{% set risk_levels = {
-  'low': ['bg-green-lt', __('Low risk', 'grcmanager')],
-  'medium': ['bg-yellow-lt', __('Moderate risk', 'grcmanager')],
-  'high': ['bg-orange-lt', __('High risk', 'grcmanager')],
-  'critical': ['bg-red-lt', __('Critical risk', 'grcmanager')],
-} %}
+{% set risk_classes = {'low': 'bg-green-lt', 'medium': 'bg-yellow-lt', 'high': 'bg-orange-lt', 'critical': 'bg-red-lt'} %}
 
 <p class="text-muted">{{ __('For each strategic scenario, describe how the attack would actually unfold and on which supporting asset, then rate how likely it is. The risk level combines this likelihood with the severity of the feared event.', 'grcmanager') }}</p>
 
@@ -78,7 +73,7 @@
           <tr>
             <th title="{{ severities[severity] }}">G{{ severity }}</th>
             {% for likelihood, cell in cells %}
-              <td class="{{ risk_levels[cell.level][0] }} {{ cell.count ? 'fw-bold' : '' }}" title="{{ risk_levels[cell.level][1] }}">{{ cell.count ?: '' }}</td>
+              <td class="{{ risk_classes[cell.level] }} {{ cell.count ? 'fw-bold' : '' }}" title="{{ risk_labels[cell.level] }}">{{ cell.count ?: '' }}</td>
             {% endfor %}
           </tr>
         {% endfor %}
@@ -123,7 +118,7 @@
                   {{ likelihoods[scenario.likelihood]|default(scenario.likelihood) }}
                 {% endif %}
               </td>
-              <td><span class="badge {{ risk_levels[scenario.level][0] }}">{{ risk_levels[scenario.level][1] }}</span></td>
+              <td><span class="badge {{ risk_classes[scenario.level] }}">{{ risk_labels[scenario.level] }}</span></td>
               {% if can_edit %}
                 <td>
                   <form method="post" action="{{ form_url }}" onsubmit="return confirm('{{ __('Remove this operational scenario?', 'grcmanager')|e('js') }}');">

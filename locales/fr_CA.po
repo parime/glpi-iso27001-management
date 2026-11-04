@@ -8356,3 +8356,48 @@ msgstr[1] "Scénarios opérationnels"
 
 msgid "Severity (G1 to G4)"
 msgstr "Gravité (G1 à G4)"
+
+msgid "Workshop 5: risk treatment"
+msgstr "Atelier 5 : traitement du risque"
+
+msgid "Decide how to treat each scenario, starting with the highest risks, then add it to the risk register. The follow-up continues there: owner, treatment plan and review date."
+msgstr "Décidez du traitement de chaque scénario, en commençant par les risques les plus élevés, puis ajoutez-le au registre des risques. Le suivi s'y poursuit : responsable, plan de traitement et date de revue."
+
+msgid "The treatment applies to operational scenarios: fill in workshop 4 first."
+msgstr "Le traitement porte sur les scénarios opérationnels : remplissez d'abord l'atelier 4."
+
+msgid "Scenarios"
+msgstr "Scénarios"
+
+msgid "Decisions made"
+msgstr "Décisions prises"
+
+msgid "In the risk register"
+msgstr "Dans le registre des risques"
+
+msgid "Treatment decision"
+msgstr "Décision de traitement"
+
+msgid "The likelihood or the severity no longer matches this risk: review it in the register."
+msgstr "La vraisemblance ou la gravité ne correspond plus à ce risque : réexaminez-le dans le registre."
+
+msgid "Add to the risk register"
+msgstr "Ajouter au registre des risques"
+
+msgid "Not in the register"
+msgstr "Pas dans le registre"
+
+msgid "The risk has been added to the register."
+msgstr "Le risque a été ajouté au registre."
+
+msgid "Export this workshop (PDF)"
+msgstr "Exporter cet atelier (PDF)"
+
+msgid "Full report (PDF)"
+msgstr "Rapport complet (PDF)"
+
+msgid "Zone"
+msgstr "Zone"
+
+msgid "Create one study per scope, then work through its workshops in order: business values and feared events, risk sources, stakeholders and strategic scenarios, operational scenarios, then their treatment, which feeds the risk register."
+msgstr "Créez une étude par périmètre, puis suivez ses ateliers dans l'ordre : valeurs métier et événements redoutés, sources de risque, parties prenantes et scénarios stratégiques, scénarios opérationnels, puis leur traitement, qui alimente le registre des risques."

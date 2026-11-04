@@ -21,6 +21,7 @@ use CommonGLPI;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\EbiosStudyBase;
 use GlpiPlugin\Grcmanager\Services\Risk\EbiosRules;
+use GlpiPlugin\Grcmanager\Services\Risk\RiskMatrixConfig;
 use Html;
 use Log;
 use Session;
@@ -44,6 +45,9 @@ class EbiosStudy extends EbiosStudyBase
         3 => [EbiosStakeholder::class, EbiosStrategicScenario::class],
         4 => [EbiosOperationalScenario::class],
     ];
+
+    /** L'atelier 5 n'a pas d'élément propre : il décide du sort des scénarios de l'atelier 4. */
+    private const TREATMENT_WORKSHOP = 5;
 
     public static function getTable($classname = null)
     {
@@ -129,6 +133,19 @@ class EbiosStudy extends EbiosStudyBase
     }
 
     /**
+     * @return array<string, string>
+     */
+    public static function getRiskLevelLabels(): array
+    {
+        return [
+            'low'      => __('Low risk', 'grcmanager'),
+            'medium'   => __('Moderate risk', 'grcmanager'),
+            'high'     => __('High risk', 'grcmanager'),
+            'critical' => __('Critical risk', 'grcmanager'),
+        ];
+    }
+
+    /**
      * @return array<int, string>
      */
     public static function getWorkshopLabels(): array
@@ -138,6 +155,7 @@ class EbiosStudy extends EbiosStudyBase
             2 => __('Workshop 2: risk sources', 'grcmanager'),
             3 => __('Workshop 3: strategic scenarios', 'grcmanager'),
             4 => __('Workshop 4: operational scenarios', 'grcmanager'),
+            self::TREATMENT_WORKSHOP => __('Workshop 5: risk treatment', 'grcmanager'),
         ];
     }
 
@@ -160,6 +178,7 @@ class EbiosStudy extends EbiosStudyBase
             'statuses' => self::getStatuses(),
             'progress' => $this->isNewItem() ? null : EbiosRules::progress(self::countElements((int) $ID)),
             'labels'   => self::getWorkshopLabels(),
+            'report_url' => $this->isNewItem() ? '' : self::getReportURL((int) $ID),
         ]);
 
         return true;
@@ -177,6 +196,13 @@ class EbiosStudy extends EbiosStudyBase
                 $counts[$workshop] += countElementsInTable($class::getTable(), [self::FOREIGN_KEY => $studyId]);
             }
         }
+        $counts[self::TREATMENT_WORKSHOP] = countElementsInTable(EbiosOperationalScenario::getTable(), [
+            self::FOREIGN_KEY => $studyId,
+            'OR'              => [
+                'treatment'                 => ['<>', ''],
+                Risk::getForeignKeyField() => ['>', 0],
+            ],
+        ]);
 
         return $counts;
     }
@@ -213,21 +239,18 @@ class EbiosStudy extends EbiosStudyBase
             'levels'   => self::getLevelLabels(),
         ];
         $renderer = TemplateRenderer::getInstance();
+        if (array_key_exists((int) $tabnum, self::getWorkshopLabels())) {
+            $renderer->display('@grcmanager/tabs/ebios_report_link.html.twig', [
+                'report_url' => self::getReportURL($studyId, (int) $tabnum),
+            ]);
+        }
         if ((int) $tabnum === 1) {
             $renderer->display('@grcmanager/tabs/ebios_workshop1.html.twig', $common + self::workshopOneData($studyId));
 
             return true;
         }
         if ((int) $tabnum === 2) {
-            $sources = [];
-            foreach (EbiosRiskSource::getForStudy($studyId) as $source) {
-                $source['relevance'] = EbiosRules::sourceRelevance(
-                    (int) $source['motivation'],
-                    (int) $source['resources'],
-                    (int) $source['activity']
-                );
-                $sources[] = $source;
-            }
+            $sources = self::workshopTwoSources($studyId);
             $renderer->display('@grcmanager/tabs/ebios_workshop2.html.twig', $common + ['sources' => $sources]);
 
             return true;
@@ -244,8 +267,78 @@ class EbiosStudy extends EbiosStudyBase
 
             return true;
         }
+        if ((int) $tabnum === self::TREATMENT_WORKSHOP) {
+            $data = self::workshopFiveData($studyId);
+            $renderer->display('@grcmanager/tabs/ebios_workshop5.html.twig', $common + $data);
+
+            return true;
+        }
 
         return false;
+    }
+
+    /**
+     * @return list<array<string, mixed>>
+     */
+    private static function workshopTwoSources(int $studyId): array
+    {
+        $sources = [];
+        foreach (EbiosRiskSource::getForStudy($studyId) as $source) {
+            $source['relevance'] = EbiosRules::sourceRelevance(
+                (int) $source['motivation'],
+                (int) $source['resources'],
+                (int) $source['activity']
+            );
+            $sources[] = $source;
+        }
+
+        return $sources;
+    }
+
+    /**
+     * Rapport PDF de l'étude : tous les ateliers (0) ou un seul.
+     */
+    public function renderReport(int $workshop = 0): string
+    {
+        $studyId = (int) $this->getID();
+        $three = self::workshopThreeData($studyId);
+        $four = self::workshopFourData($studyId);
+        $five = self::workshopFiveData($studyId);
+
+        return TemplateRenderer::getInstance()->render('@grcmanager/pdf/ebios_study_report.html.twig', [
+            'report_title'          => $workshop > 0
+                ? sprintf(__('%1$s: %2$s'), $this->fields['name'], self::getWorkshopLabels()[$workshop])
+                : sprintf(__('%1$s: %2$s'), self::getTypeName(1), $this->fields['name']),
+            'generated_at_label'    => sprintf(
+                __('Generated on %s', 'grcmanager'),
+                Html::convDateTime(date('Y-m-d H:i:s'))
+            ),
+            'workshop'              => $workshop,
+            'study'                 => $this->fields,
+            'labels'                => self::getWorkshopLabels(),
+            'values'                => self::workshopOneData($studyId)['values'],
+            'sources'               => self::workshopTwoSources($studyId),
+            'stakeholders'          => $three['stakeholders'],
+            'categories'            => $three['categories'],
+            'strategic_scenarios'   => $three['scenarios'],
+            'operational_scenarios' => $four['scenarios'],
+            'matrix'                => $four['matrix'],
+            'treatment_scenarios'   => $five['scenarios'],
+            'decided'               => $five['decided'],
+            'registered'            => $five['registered'],
+            'treatments'            => $five['treatments'],
+            'severities'            => $four['severities'],
+            'likelihoods'           => $four['likelihoods'],
+            'risk_labels'           => $four['risk_labels'],
+        ]);
+    }
+
+    public static function getReportURL(int $studyId, int $workshop = 0): string
+    {
+        global $CFG_GLPI;
+
+        return $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/ebiosstudy.report.php?id=' . $studyId
+            . ($workshop > 0 ? '&workshop=' . $workshop : '');
     }
 
     /**
@@ -309,6 +402,7 @@ class EbiosStudy extends EbiosStudyBase
      */
     private static function workshopFourData(int $studyId): array
     {
+        $riskMatrix = RiskMatrixConfig::load();
         $events = self::eventsById($studyId);
         $strategic = [];
         foreach (EbiosStrategicScenario::getForStudy($studyId) as $row) {
@@ -326,7 +420,7 @@ class EbiosStudy extends EbiosStudyBase
             $scenarios[] = $row + [
                 'strategic_name' => (string) ($parent['name'] ?? ''),
                 'severity'       => $severity,
-                'level'          => EbiosRules::riskLevel($severity, (int) $row['likelihood']),
+                'level'          => EbiosRules::riskLevel($severity, (int) $row['likelihood'], $riskMatrix),
                 'support_name'   => (string) ($supports[(int) $row[EbiosSupport::getForeignKeyField()]]['name'] ?? ''),
             ];
         }
@@ -339,9 +433,56 @@ class EbiosStudy extends EbiosStudyBase
             'scenarios'   => $scenarios,
             'strategic'   => $strategic,
             'supports'    => $supports,
-            'matrix'      => EbiosRules::riskMatrix($pairs),
+            'matrix'      => EbiosRules::riskMatrix($pairs, $riskMatrix),
             'severities'  => self::getSeverityLabels(),
             'likelihoods' => self::getLikelihoodLabels(),
+            'risk_labels' => self::getRiskLevelLabels(),
+        ];
+    }
+
+    /**
+     * Scénarios du risque le plus fort au plus faible, avec leur décision et leur risque du registre.
+     *
+     * @return array<string, mixed>
+     */
+    private static function workshopFiveData(int $studyId): array
+    {
+        $data = self::workshopFourData($studyId);
+        $statuses = Risk::getStatuses();
+        $scenarios = [];
+        $decided = 0;
+        $registered = 0;
+        foreach (EbiosRules::sortByRisk($data['scenarios']) as $scenario) {
+            $scenario['risk'] = null;
+            $risk = new Risk();
+            $riskId = (int) $scenario[Risk::getForeignKeyField()];
+            if ($riskId > 0 && $risk->getFromDB($riskId)) {
+                $registered++;
+                $probability = EbiosRules::likelihoodToProbability((int) $scenario['likelihood']);
+                $impact = EbiosRules::severityToImpact((int) $scenario['severity']);
+                $scenario['risk'] = [
+                    'title'   => (string) $risk->fields['title'],
+                    'url'     => Risk::getFormURLWithID($riskId),
+                    'level'   => (string) $risk->fields['risk_level'],
+                    'status'  => $statuses[$risk->fields['status']] ?? (string) $risk->fields['status'],
+                    'differs' => $risk->fields['probability'] !== $probability || $risk->fields['impact'] !== $impact,
+                ];
+            }
+            if ((string) $scenario['treatment'] !== '') {
+                $decided++;
+            }
+            $scenarios[] = $scenario;
+        }
+
+        return [
+            'scenarios'       => $scenarios,
+            'decided'         => $decided,
+            'registered'      => $registered,
+            'severities'      => $data['severities'],
+            'likelihoods'     => $data['likelihoods'],
+            'risk_labels'     => $data['risk_labels'],
+            'treatments'      => Risk::getTreatments(),
+            'can_create_risk' => Risk::canCreate(),
         ];
     }
 

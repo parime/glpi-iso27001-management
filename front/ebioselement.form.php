@@ -52,6 +52,9 @@ if (isset($_POST['add'])) {
 } elseif (isset($_POST['update'])) {
     $item->check((int) $_POST['id'], UPDATE);
     $item->update($_POST);
+} elseif (isset($_POST['send_to_register']) && $item instanceof EbiosOperationalScenario) {
+    $item->check((int) $_POST['id'], UPDATE);
+    $item->sendToRegister();
 } elseif (isset($_POST['purge'])) {
     $item->check((int) $_POST['id'], PURGE);
     $item->delete(['id' => (int) $_POST['id']], true);

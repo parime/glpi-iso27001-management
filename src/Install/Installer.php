@@ -2388,15 +2388,25 @@ final class Installer
                 `name` varchar(255) NOT NULL DEFAULT '',
                 `attack_sequence` text,
                 `likelihood` tinyint NOT NULL DEFAULT 2 COMMENT 'V1 a V4',
+                `treatment` varchar(16) NOT NULL DEFAULT '' COMMENT 'Decision de l atelier 5',
+                `justification` text,
+                `plugin_grcmanager_risks_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Risque cree dans le registre',
                 `date_creation` timestamp NULL DEFAULT NULL,
                 `date_mod` timestamp NULL DEFAULT NULL,
                 PRIMARY KEY (`id`),
                 KEY `plugin_grcmanager_ebiosstudies_id` (`plugin_grcmanager_ebiosstudies_id`),
                 KEY `plugin_grcmanager_ebiosstrategicscenarios_id` (`plugin_grcmanager_ebiosstrategicscenarios_id`),
-                KEY `plugin_grcmanager_ebiossupports_id` (`plugin_grcmanager_ebiossupports_id`)
+                KEY `plugin_grcmanager_ebiossupports_id` (`plugin_grcmanager_ebiossupports_id`),
+                KEY `plugin_grcmanager_risks_id` (`plugin_grcmanager_risks_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
             $DB->doQuery($query);
+        } elseif (!$DB->fieldExists(self::EBIOS_OPERATIONAL_SCENARIOS_TABLE, 'plugin_grcmanager_risks_id')) {
+            // Instance créée entre les ateliers 4 et 5 (branche de développement).
+            $migration->addField(self::EBIOS_OPERATIONAL_SCENARIOS_TABLE, 'treatment', 'string', ['value' => '']);
+            $migration->addField(self::EBIOS_OPERATIONAL_SCENARIOS_TABLE, 'justification', 'text');
+            $migration->addField(self::EBIOS_OPERATIONAL_SCENARIOS_TABLE, 'plugin_grcmanager_risks_id', 'fkey');
+            $migration->addKey(self::EBIOS_OPERATIONAL_SCENARIOS_TABLE, 'plugin_grcmanager_risks_id');
         }
         if (!$DB->tableExists(self::BUSINESS_PROCESSES_TABLE)) {
             $query = "CREATE TABLE `" . self::BUSINESS_PROCESSES_TABLE . "` (

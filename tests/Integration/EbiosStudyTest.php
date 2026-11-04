@@ -28,9 +28,10 @@ use GlpiPlugin\Grcmanager\EbiosStrategicScenario;
 use GlpiPlugin\Grcmanager\EbiosStudy;
 use GlpiPlugin\Grcmanager\EbiosSupport;
 use GlpiPlugin\Grcmanager\EbiosValue;
+use GlpiPlugin\Grcmanager\Risk;
 
 /**
- * Issue #376 : étude EBIOS Risk Manager, ateliers 1 à 4 (données fictives).
+ * Issue #376 : étude EBIOS Risk Manager, ateliers 1 à 5 (données fictives).
  */
 final class EbiosStudyTest extends GrcmanagerIntegrationTestCase
 {
@@ -62,15 +63,15 @@ final class EbiosStudyTest extends GrcmanagerIntegrationTestCase
         $this->assertSame($studyId, (int) $source->fields[EbiosElement::STUDY_FK]);
         $this->assertSame(0, (int) $source->fields['is_retained']);
 
-        $this->assertSame([1 => 3, 2 => 1, 3 => 0, 4 => 0], EbiosStudy::countElements($studyId));
+        $this->assertSame([1 => 3, 2 => 1, 3 => 0, 4 => 0, 5 => 0], EbiosStudy::countElements($studyId));
 
         // Retirer la valeur métier retire ce qui en dépend.
         (new EbiosValue())->delete(['id' => $valueId], true);
-        $this->assertSame([1 => 0, 2 => 1, 3 => 0, 4 => 0], EbiosStudy::countElements($studyId));
+        $this->assertSame([1 => 0, 2 => 1, 3 => 0, 4 => 0, 5 => 0], EbiosStudy::countElements($studyId));
 
         // Supprimer l'étude supprime tout.
         $study->delete(['id' => $studyId], true);
-        $this->assertSame([1 => 0, 2 => 0, 3 => 0, 4 => 0], EbiosStudy::countElements($studyId));
+        $this->assertSame([1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0], EbiosStudy::countElements($studyId));
     }
 
     public function testScenariosFollowWhatTheyAreBuiltOn(): void
@@ -113,7 +114,7 @@ final class EbiosStudyTest extends GrcmanagerIntegrationTestCase
         $this->assertTrue($operational->update(['id' => $operationalId, 'likelihood' => 1]));
         $operational->getFromDB($operationalId);
         $this->assertSame($strategicId, (int) $operational->fields[$strategicKey], 'Le lien reste à la modification.');
-        $this->assertSame([1 => 3, 2 => 1, 3 => 3, 4 => 1], EbiosStudy::countElements($studyId));
+        $this->assertSame([1 => 3, 2 => 1, 3 => 3, 4 => 1, 5 => 0], EbiosStudy::countElements($studyId));
 
         // Un lien vers une autre étude, ou manquant, est refusé.
         $otherStudyId = (int) (new EbiosStudy())->add(['name' => 'PHPUnit autre étude']);
@@ -133,14 +134,129 @@ final class EbiosStudyTest extends GrcmanagerIntegrationTestCase
 
         // Retirer la partie prenante retire son scénario et le scénario opérationnel, pas l'attaque directe.
         (new EbiosStakeholder())->delete(['id' => $stakeholderId], true);
-        $this->assertSame([1 => 2, 2 => 1, 3 => 1, 4 => 0], EbiosStudy::countElements($studyId));
+        $this->assertSame([1 => 2, 2 => 1, 3 => 1, 4 => 0, 5 => 0], EbiosStudy::countElements($studyId));
 
         // Retirer la valeur métier retire l'événement, donc le scénario restant, en cascade.
         (new EbiosValue())->delete(['id' => $valueId], true);
-        $this->assertSame([1 => 0, 2 => 1, 3 => 0, 4 => 0], EbiosStudy::countElements($studyId));
+        $this->assertSame([1 => 0, 2 => 1, 3 => 0, 4 => 0, 5 => 0], EbiosStudy::countElements($studyId));
 
         $study->delete(['id' => $studyId], true);
         (new EbiosStudy())->delete(['id' => $otherStudyId], true);
+    }
+
+    public function testOperationalScenarioFeedsTheRiskRegisterOnce(): void
+    {
+        $study = new EbiosStudy();
+        $studyId = (int) $study->add(['name' => 'PHPUnit étude registre']);
+        $fk = [EbiosElement::STUDY_FK => $studyId];
+        $valueId = (int) (new EbiosValue())->add($fk + ['name' => 'Facturation fictive']);
+        $eventId = (int) (new EbiosFearedEvent())->add($fk + [
+            'plugin_grcmanager_ebiosvalues_id' => $valueId, 'name' => 'Arrêt fictif', 'severity' => 4,
+        ]);
+        $sourceId = (int) (new EbiosRiskSource())->add($fk + ['name' => 'Source fictive', 'objective' => 'Rançon']);
+        $stakeholderId = (int) (new EbiosStakeholder())->add($fk + ['name' => 'Prestataire fictif']);
+        $strategicId = (int) (new EbiosStrategicScenario())->add($fk + [
+            EbiosRiskSource::getForeignKeyField() => $sourceId, EbiosFearedEvent::getForeignKeyField() => $eventId,
+            EbiosStakeholder::getForeignKeyField() => $stakeholderId, 'name' => 'Chemin fictif',
+        ]);
+        $scenario = new EbiosOperationalScenario();
+        $scenarioId = (int) $scenario->add($fk + [
+            EbiosStrategicScenario::getForeignKeyField() => $strategicId,
+            'name' => 'Scénario vers le registre', 'attack_sequence' => 'Hameçonnage fictif', 'likelihood' => 3,
+        ]);
+        $this->assertSame(0, EbiosStudy::countElements($studyId)[5]);
+
+        // Décision saisie : l'atelier 5 est commencé, rien n'est encore créé dans le registre.
+        $decision = ['id' => $scenarioId, 'treatment' => 'mitigate', 'justification' => 'Clause'];
+        $this->assertTrue($scenario->update($decision));
+        $scenario->update(['id' => $scenarioId, 'treatment' => 'inconnu']);
+        $scenario->getFromDB($scenarioId);
+        $this->assertSame('mitigate', $scenario->fields['treatment']);
+        $this->assertSame(1, EbiosStudy::countElements($studyId)[5]);
+        $this->assertSame(0, (int) $scenario->fields[Risk::getForeignKeyField()]);
+
+        $riskId = $scenario->sendToRegister();
+        $this->assertGreaterThan(0, $riskId);
+        $risk = new Risk();
+        $risk->getFromDB($riskId);
+        $this->assertSame('Scénario vers le registre', $risk->fields['title']);
+        $this->assertSame('third_party', $risk->fields['category'], 'Le chemin passe par une partie prenante.');
+        $this->assertSame('probable', $risk->fields['probability']);
+        $this->assertSame('critical', $risk->fields['impact']);
+        $this->assertSame('mitigate', $risk->fields['treatment']);
+        $this->assertStringContainsString('Hameçonnage fictif', (string) $risk->fields['description']);
+        $this->assertStringContainsString('Prestataire fictif', (string) $risk->fields['description']);
+
+        // Une seule création, et le risque n'est pas modifié quand le scénario change ensuite.
+        $this->assertSame($riskId, $scenario->sendToRegister());
+        $this->assertTrue($scenario->update(['id' => $scenarioId, 'likelihood' => 1]));
+        $risk->getFromDB($riskId);
+        $this->assertSame('probable', $risk->fields['probability']);
+
+        // L'écart est signalé dans l'atelier 5.
+        $study->getFromDB($studyId);
+        ob_start();
+        EbiosStudy::displayTabContentForItem($study, 5);
+        $html = (string) ob_get_clean();
+        $this->assertStringContainsString('Scénario vers le registre', $html);
+        $this->assertStringContainsString('ti-alert-triangle', $html);
+        $this->assertStringNotContainsString('name="send_to_register"', $html);
+
+        // Rapport complet et rapport d'un seul atelier.
+        $full = $study->renderReport();
+        $this->assertStringContainsString('Scénario vers le registre', $full);
+        $this->assertStringContainsString('Facturation fictive', $full);
+        $this->assertStringContainsString('Prestataire fictif', $full);
+        $onlyTwo = $study->renderReport(2);
+        $this->assertStringContainsString('Source fictive', $onlyTwo);
+        $this->assertStringNotContainsString('Facturation fictive', $onlyTwo);
+        $this->assertStringNotContainsString('Scénario vers le registre', $onlyTwo);
+
+        // Retirer le scénario garde le risque ; un risque retiré du registre peut être recréé.
+        $otherId = (int) (new EbiosOperationalScenario())->add($fk + [
+            EbiosStrategicScenario::getForeignKeyField() => $strategicId, 'name' => 'Autre scénario',
+        ]);
+        $other = new EbiosOperationalScenario();
+        $other->getFromDB($otherId);
+        $otherRiskId = $other->sendToRegister();
+        (new Risk())->delete(['id' => $otherRiskId], true);
+        $this->assertGreaterThan($otherRiskId, $other->sendToRegister());
+
+        $study->delete(['id' => $studyId], true);
+        $this->assertTrue((new Risk())->getFromDB($riskId), 'Le registre garde le risque après l\'étude.');
+        (new Risk())->delete(['id' => $riskId], true);
+        (new Risk())->delete(['id' => (int) $other->fields[Risk::getForeignKeyField()]], true);
+    }
+
+    public function testWithoutTheRightToCreateARiskTheScenarioStaysUnlinked(): void
+    {
+        $study = new EbiosStudy();
+        $studyId = (int) $study->add(['name' => 'PHPUnit étude sans droit']);
+        $fk = [EbiosElement::STUDY_FK => $studyId];
+        $valueId = (int) (new EbiosValue())->add($fk + ['name' => 'Valeur fictive']);
+        $eventId = (int) (new EbiosFearedEvent())->add($fk + [
+            'plugin_grcmanager_ebiosvalues_id' => $valueId, 'name' => 'Arrêt',
+        ]);
+        $sourceId = (int) (new EbiosRiskSource())->add($fk + ['name' => 'Source fictive']);
+        $strategicId = (int) (new EbiosStrategicScenario())->add($fk + [
+            EbiosRiskSource::getForeignKeyField() => $sourceId, EbiosFearedEvent::getForeignKeyField() => $eventId,
+            'name' => 'Direct',
+        ]);
+        $scenario = new EbiosOperationalScenario();
+        $scenarioId = (int) $scenario->add($fk + [
+            EbiosStrategicScenario::getForeignKeyField() => $strategicId, 'name' => 'Sans création',
+        ]);
+        $scenario->getFromDB($scenarioId);
+        $saved = $_SESSION['glpiactiveprofile'][Risk::RIGHTNAME];
+        try {
+            $_SESSION['glpiactiveprofile'][Risk::RIGHTNAME] = READ;
+            $this->assertSame(0, $scenario->sendToRegister());
+        } finally {
+            $_SESSION['glpiactiveprofile'][Risk::RIGHTNAME] = $saved;
+        }
+        $scenario->getFromDB($scenarioId);
+        $this->assertSame(0, (int) $scenario->fields[Risk::getForeignKeyField()]);
+        $study->delete(['id' => $studyId], true);
     }
 
     public function testWorkshopTabsRender(): void

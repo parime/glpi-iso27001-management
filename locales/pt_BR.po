@@ -8356,3 +8356,48 @@ msgstr[1] "Cenários operacionais"
 
 msgid "Severity (G1 to G4)"
 msgstr "Gravidade (G1 a G4)"
+
+msgid "Workshop 5: risk treatment"
+msgstr "Oficina 5: tratamento do risco"
+
+msgid "Decide how to treat each scenario, starting with the highest risks, then add it to the risk register. The follow-up continues there: owner, treatment plan and review date."
+msgstr "Decida como tratar cada cenário, começando pelos riscos mais altos, e adicione-o ao registro de riscos. O acompanhamento continua lá: responsável, plano de tratamento e data de revisão."
+
+msgid "The treatment applies to operational scenarios: fill in workshop 4 first."
+msgstr "O tratamento se aplica aos cenários operacionais: preencha primeiro a oficina 4."
+
+msgid "Scenarios"
+msgstr "Cenários"
+
+msgid "Decisions made"
+msgstr "Decisões tomadas"
+
+msgid "In the risk register"
+msgstr "No registro de riscos"
+
+msgid "Treatment decision"
+msgstr "Decisão de tratamento"
+
+msgid "The likelihood or the severity no longer matches this risk: review it in the register."
+msgstr "A probabilidade ou a gravidade não correspondem mais a este risco: revise-o no registro."
+
+msgid "Add to the risk register"
+msgstr "Adicionar ao registro de riscos"
+
+msgid "Not in the register"
+msgstr "Fora do registro"
+
+msgid "The risk has been added to the register."
+msgstr "O risco foi adicionado ao registro."
+
+msgid "Export this workshop (PDF)"
+msgstr "Exportar esta oficina (PDF)"
+
+msgid "Full report (PDF)"
+msgstr "Relatório completo (PDF)"
+
+msgid "Zone"
+msgstr "Zona"
+
+msgid "Create one study per scope, then work through its workshops in order: business values and feared events, risk sources, stakeholders and strategic scenarios, operational scenarios, then their treatment, which feeds the risk register."
+msgstr "Crie um estudo por escopo e siga as oficinas em ordem: valores de negócio e eventos temidos, fontes de risco, partes interessadas e cenários estratégicos, cenários operacionais e, por fim, seu tratamento, que alimenta o registro de riscos."

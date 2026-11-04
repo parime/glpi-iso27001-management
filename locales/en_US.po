@@ -8356,3 +8356,48 @@ msgstr[1] "Operational scenarios"
 
 msgid "Severity (G1 to G4)"
 msgstr "Severity (G1 to G4)"
+
+msgid "Workshop 5: risk treatment"
+msgstr "Workshop 5: risk treatment"
+
+msgid "Decide how to treat each scenario, starting with the highest risks, then add it to the risk register. The follow-up continues there: owner, treatment plan and review date."
+msgstr "Decide how to treat each scenario, starting with the highest risks, then add it to the risk register. The follow-up continues there: owner, treatment plan and review date."
+
+msgid "The treatment applies to operational scenarios: fill in workshop 4 first."
+msgstr "The treatment applies to operational scenarios: fill in workshop 4 first."
+
+msgid "Scenarios"
+msgstr "Scenarios"
+
+msgid "Decisions made"
+msgstr "Decisions made"
+
+msgid "In the risk register"
+msgstr "In the risk register"
+
+msgid "Treatment decision"
+msgstr "Treatment decision"
+
+msgid "The likelihood or the severity no longer matches this risk: review it in the register."
+msgstr "The likelihood or the severity no longer matches this risk: review it in the register."
+
+msgid "Add to the risk register"
+msgstr "Add to the risk register"
+
+msgid "Not in the register"
+msgstr "Not in the register"
+
+msgid "The risk has been added to the register."
+msgstr "The risk has been added to the register."
+
+msgid "Export this workshop (PDF)"
+msgstr "Export this workshop (PDF)"
+
+msgid "Full report (PDF)"
+msgstr "Full report (PDF)"
+
+msgid "Zone"
+msgstr "Zone"
+
+msgid "Create one study per scope, then work through its workshops in order: business values and feared events, risk sources, stakeholders and strategic scenarios, operational scenarios, then their treatment, which feeds the risk register."
+msgstr "Create one study per scope, then work through its workshops in order: business values and feared events, risk sources, stakeholders and strategic scenarios, operational scenarios, then their treatment, which feeds the risk register."

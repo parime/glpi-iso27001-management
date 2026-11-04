@@ -1,0 +1,219 @@
+{# Issue #376 : rapport d'une étude EBIOS RM, complet (workshop = 0) ou limité à un atelier. #}
+{% include '@grcmanager/pdf/_pdf_style.html.twig' %}
+{% set risk_colors = {'low': '#d3f2dc', 'medium': '#fdf3cf', 'high': '#fde3c8', 'critical': '#f9d5d5'} %}
+{# Rapport complet : chaque atelier à partir du deuxième commence sur une nouvelle page. #}
+{% set new_page = workshop == 0 ? 'page-break-before: always' : '' %}
+
+{% if study.scope %}
+  <h2>{{ __('Scope', 'grcmanager') }}</h2>
+  <p>{{ study.scope }}</p>
+{% endif %}
+<p>{{ __('EBIOS Risk Manager is a method of ANSSI, the French national cybersecurity agency, published under an open licence.', 'grcmanager') }}</p>
+
+{% if workshop == 0 or workshop == 1 %}
+  <h2>{{ labels[1] }}</h2>
+  {% for value in values %}
+    <h3>{{ value.name }}</h3>
+    {% if value.description %}<p>{{ value.description }}</p>{% endif %}
+    <table class="grcmanager-pdf-table">
+      <thead><tr><th>{{ __('Feared event', 'grcmanager') }}</th><th>{{ __('Impacts', 'grcmanager') }}</th><th>{{ __('Severity (G1 to G4)', 'grcmanager') }}</th></tr></thead>
+      <tbody>
+        {% for event in value.events %}
+          <tr><td>{{ event.name }}</td><td>{{ event.impacts }}</td><td>{{ severities[event.severity]|default(event.severity) }}</td></tr>
+        {% else %}
+          <tr><td colspan="3">{{ __('No feared event yet.', 'grcmanager') }}</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <p><strong>{{ __('Supporting assets', 'grcmanager') }} :</strong>
+      {% for support in value.supports %}{{ support.name }}{{ not loop.last ? ', ' : '' }}{% else %}{{ __('No supporting asset yet.', 'grcmanager') }}{% endfor %}
+    </p>
+  {% else %}
+    <p>{{ __('No business value yet', 'grcmanager') }}</p>
+  {% endfor %}
+{% endif %}
+
+{% if workshop == 0 or workshop == 2 %}
+  <h2 style="{{ new_page }}">{{ labels[2] }}</h2>
+  {% if sources is empty %}
+    <p>{{ __('No risk source yet', 'grcmanager') }}</p>
+  {% else %}
+    <table class="grcmanager-pdf-table">
+      <thead>
+        <tr>
+          <th>{{ __('Risk source', 'grcmanager') }}</th>
+          <th>{{ __('Target objective', 'grcmanager') }}</th>
+          <th>{{ __('Motivation', 'grcmanager') }}</th>
+          <th>{{ __('Resources', 'grcmanager') }}</th>
+          <th>{{ __('Activity', 'grcmanager') }}</th>
+          <th>{{ __('Decision and justification', 'grcmanager') }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for source in sources %}
+          <tr>
+            <td>{{ source.name }}</td>
+            <td>{{ source.objective }}</td>
+            <td>{{ source.motivation }}</td>
+            <td>{{ source.resources }}</td>
+            <td>{{ source.activity }}</td>
+            <td>{{ source.is_retained ? __('Retained', 'grcmanager') : __('Set aside', 'grcmanager') }}{{ source.justification ? ' : ' ~ source.justification : '' }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+{% endif %}
+
+{% if workshop == 0 or workshop == 3 %}
+  <h2 style="{{ new_page }}">{{ labels[3] }}</h2>
+  <h3>{{ __('Stakeholders of the ecosystem', 'grcmanager') }}</h3>
+  {% if stakeholders is empty %}
+    <p>{{ __('No stakeholder yet', 'grcmanager') }}</p>
+  {% else %}
+    <p>{{ __('Threat level = (dependence x penetration) / (maturity x trust).', 'grcmanager') }}</p>
+    <table class="grcmanager-pdf-table">
+      <thead>
+        <tr>
+          <th>{{ __('Stakeholder', 'grcmanager') }}</th>
+          <th>{{ __('Category') }}</th>
+          <th>{{ __('Dependence', 'grcmanager') }}</th>
+          <th>{{ __('Penetration', 'grcmanager') }}</th>
+          <th>{{ __('Cyber maturity', 'grcmanager') }}</th>
+          <th>{{ __('Trust', 'grcmanager') }}</th>
+          <th>{{ __('Threat', 'grcmanager') }}</th>
+          <th>{{ __('Zone', 'grcmanager') }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for s in stakeholders %}
+          <tr>
+            <td>{{ s.name }}</td>
+            <td>{{ categories[s.category]|default(s.category) }}</td>
+            <td>{{ s.dependence }}</td>
+            <td>{{ s.penetration }}</td>
+            <td>{{ s.maturity }}</td>
+            <td>{{ s.trust }}</td>
+            <td>{{ s.threat_label }}</td>
+            <td>{{ {'danger': __('Danger zone', 'grcmanager'), 'control': __('Control zone', 'grcmanager'), 'watch': __('Watch zone', 'grcmanager')}[s.zone] }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+  <h3>{{ __('Strategic scenarios', 'grcmanager') }}</h3>
+  {% if strategic_scenarios is empty %}
+    <p>{{ __('No strategic scenario yet.', 'grcmanager') }}</p>
+  {% else %}
+    <table class="grcmanager-pdf-table">
+      <thead>
+        <tr>
+          <th>{{ __('Scenario', 'grcmanager') }}</th>
+          <th>{{ __('Risk source', 'grcmanager') }}</th>
+          <th>{{ __('Attack path', 'grcmanager') }}</th>
+          <th>{{ __('Feared event', 'grcmanager') }}</th>
+          <th>{{ __('Severity (G1 to G4)', 'grcmanager') }}</th>
+          <th>{{ __('Measures planned on this path', 'grcmanager') }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for scenario in strategic_scenarios %}
+          <tr>
+            <td>{{ scenario.name }}</td>
+            <td>{{ scenario.source_name }}{{ scenario.source_objective ? ' : ' ~ scenario.source_objective : '' }}</td>
+            <td>{{ scenario.stakeholder_name ?: __('Direct attack', 'grcmanager') }}</td>
+            <td>{{ scenario.event_name }}</td>
+            <td>{{ severities[scenario.severity]|default(scenario.severity) }}</td>
+            <td>{{ scenario.measures }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+{% endif %}
+
+{% if workshop == 0 or workshop == 4 %}
+  <h2 style="{{ new_page }}">{{ labels[4] }}</h2>
+  {% if operational_scenarios is empty %}
+    <p>{{ __('No operational scenario yet', 'grcmanager') }}</p>
+  {% else %}
+    <h3>{{ __('Risk matrix', 'grcmanager') }}</h3>
+    <table class="grcmanager-pdf-table" style="width: 50%">
+      <thead>
+        <tr><th>{{ __('Severity (G1 to G4)', 'grcmanager') }} / {{ __('Likelihood', 'grcmanager') }}</th>{% for level, label in likelihoods %}<th>V{{ level }}</th>{% endfor %}</tr>
+      </thead>
+      <tbody>
+        {% for severity, cells in matrix %}
+          <tr>
+            <td>G{{ severity }}</td>
+            {% for cell in cells %}<td style="background-color: {{ risk_colors[cell.level] }}; text-align: center">{{ cell.count ?: '' }}</td>{% endfor %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <h3>{{ __('Operational scenarios', 'grcmanager') }}</h3>
+    <table class="grcmanager-pdf-table">
+      <thead>
+        <tr>
+          <th>{{ __('Scenario', 'grcmanager') }}</th>
+          <th>{{ __('Strategic scenario', 'grcmanager') }}</th>
+          <th>{{ __('Attack sequence', 'grcmanager') }}</th>
+          <th>{{ __('Supporting asset targeted', 'grcmanager') }}</th>
+          <th>{{ __('Severity (G1 to G4)', 'grcmanager') }}</th>
+          <th>{{ __('Likelihood', 'grcmanager') }}</th>
+          <th>{{ __('Risk level', 'grcmanager') }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for scenario in operational_scenarios %}
+          <tr>
+            <td>{{ scenario.name }}</td>
+            <td>{{ scenario.strategic_name }}</td>
+            <td>{{ scenario.attack_sequence }}</td>
+            <td>{{ scenario.support_name }}</td>
+            <td>{{ severities[scenario.severity]|default(scenario.severity) }}</td>
+            <td>{{ likelihoods[scenario.likelihood]|default(scenario.likelihood) }}</td>
+            <td style="background-color: {{ risk_colors[scenario.level] }}">{{ risk_labels[scenario.level] }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+{% endif %}
+
+{% if workshop == 0 or workshop == 5 %}
+  <h2 style="{{ new_page }}">{{ labels[5] }}</h2>
+  {% if treatment_scenarios is empty %}
+    <p>{{ __('No operational scenario yet', 'grcmanager') }}</p>
+  {% else %}
+    <p>{{ __('Decisions made', 'grcmanager') }} : {{ decided }}/{{ treatment_scenarios|length }} - {{ __('In the risk register', 'grcmanager') }} : {{ registered }}/{{ treatment_scenarios|length }}</p>
+    <table class="grcmanager-pdf-table">
+      <thead>
+        <tr>
+          <th>{{ __('Scenario', 'grcmanager') }}</th>
+          <th>{{ __('Risk level', 'grcmanager') }}</th>
+          <th>{{ __('Treatment decision', 'grcmanager') }}</th>
+          <th>{{ __('Why', 'grcmanager') }}</th>
+          <th>{{ __('Risk register', 'grcmanager') }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for scenario in treatment_scenarios %}
+          <tr>
+            <td>{{ scenario.name }}</td>
+            <td style="background-color: {{ risk_colors[scenario.level] }}">{{ risk_labels[scenario.level] }}</td>
+            <td>{{ treatments[scenario.treatment]|default('') }}</td>
+            <td>{{ scenario.justification }}</td>
+            <td>
+              {% if scenario.risk %}
+                {{ scenario.risk.title }} ({{ scenario.risk.status }})
+              {% else %}
+                {{ __('Not in the register', 'grcmanager') }}
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+{% endif %}

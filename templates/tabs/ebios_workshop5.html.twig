@@ -1,0 +1,80 @@
+{# Issue #376, atelier 5 : décision de traitement de chaque scénario, passage au registre des risques. #}
+{% set severity_classes = {1: 'bg-green-lt', 2: 'bg-yellow-lt', 3: 'bg-orange-lt', 4: 'bg-red-lt'} %}
+{% set risk_classes = {'low': 'bg-green-lt', 'medium': 'bg-yellow-lt', 'high': 'bg-orange-lt', 'critical': 'bg-red-lt'} %}
+
+<p class="text-muted">{{ __('Decide how to treat each scenario, starting with the highest risks, then add it to the risk register. The follow-up continues there: owner, treatment plan and review date.', 'grcmanager') }}</p>
+
+{% if scenarios is empty %}
+  <div class="alert alert-info">
+    <i class="ti ti-info-circle me-1"></i>{{ __('The treatment applies to operational scenarios: fill in workshop 4 first.', 'grcmanager') }}
+  </div>
+{% else %}
+  <div class="d-flex flex-wrap gap-2 mb-3">
+    <span class="badge bg-blue-lt fs-5"><i class="ti ti-binary-tree me-1"></i>{{ __('Scenarios', 'grcmanager') }} : {{ scenarios|length }}</span>
+    <span class="badge {{ decided == scenarios|length ? 'bg-green-lt' : 'bg-yellow-lt' }} fs-5"><i class="ti ti-gavel me-1"></i>{{ __('Decisions made', 'grcmanager') }} : {{ decided }}/{{ scenarios|length }}</span>
+    <span class="badge {{ registered == scenarios|length ? 'bg-green-lt' : 'bg-yellow-lt' }} fs-5"><i class="ti ti-shield-exclamation me-1"></i>{{ __('In the risk register', 'grcmanager') }} : {{ registered }}/{{ scenarios|length }}</span>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-sm table-vcenter card-table">
+      <thead>
+        <tr>
+          <th>{{ __('Scenario', 'grcmanager') }}</th>
+          <th>{{ __('Risk level', 'grcmanager') }}</th>
+          <th>{{ __('Treatment decision', 'grcmanager') }}</th>
+          <th>{{ __('Risk register', 'grcmanager') }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for scenario in scenarios %}
+          <tr>
+            <td>
+              <div class="fw-bold">{{ scenario.name }}</div>
+              <div class="small text-muted"><i class="ti ti-route me-1"></i>{{ scenario.strategic_name }}</div>
+              <span class="badge {{ severity_classes[scenario.severity]|default('bg-secondary-lt') }}">{{ severities[scenario.severity]|default(scenario.severity) }}</span>
+              <span class="badge bg-secondary-lt">{{ likelihoods[scenario.likelihood]|default(scenario.likelihood) }}</span>
+            </td>
+            <td><span class="badge {{ risk_classes[scenario.level] }}">{{ risk_labels[scenario.level] }}</span></td>
+            <td style="min-width: 22rem">
+              {% if can_edit %}
+                <form method="post" action="{{ form_url }}" class="d-flex gap-1 align-items-center">
+                  <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                  <input type="hidden" name="element" value="operational">
+                  <input type="hidden" name="id" value="{{ scenario.id }}">
+                  <select name="treatment" class="form-select form-select-sm" style="max-width: 11rem" aria-label="{{ __('Treatment decision', 'grcmanager') }}">
+                    {% for key, label in treatments %}<option value="{{ key }}" {{ key == scenario.treatment ? 'selected' : '' }}>{{ label }}</option>{% endfor %}
+                  </select>
+                  <input type="text" name="justification" value="{{ scenario.justification }}" class="form-control form-control-sm" placeholder="{{ __('Why', 'grcmanager') }}" aria-label="{{ __('Why', 'grcmanager') }}">
+                  <button type="submit" name="update" class="btn btn-sm btn-outline-primary" title="{{ __('Save') }}" aria-label="{{ __('Save') }}"><i class="ti ti-device-floppy"></i></button>
+                </form>
+              {% else %}
+                {{ treatments[scenario.treatment]|default('') }}
+                {% if scenario.justification %}<div class="small text-muted">{{ scenario.justification }}</div>{% endif %}
+              {% endif %}
+            </td>
+            <td style="min-width: 15rem">
+              {% if scenario.risk %}
+                <a href="{{ scenario.risk.url }}"><i class="ti ti-shield-exclamation me-1"></i>{{ scenario.risk.title }}</a>
+                <div class="d-flex flex-wrap gap-1 mt-1">
+                  <span class="badge {{ risk_classes[scenario.risk.level]|default('bg-secondary-lt') }}">{{ risk_labels[scenario.risk.level]|default(scenario.risk.level) }}</span>
+                  <span class="badge bg-secondary-lt">{{ scenario.risk.status }}</span>
+                </div>
+                {% if scenario.risk.differs %}
+                  <div class="small text-warning mt-1"><i class="ti ti-alert-triangle me-1"></i>{{ __('The likelihood or the severity no longer matches this risk: review it in the register.', 'grcmanager') }}</div>
+                {% endif %}
+              {% elseif can_edit and can_create_risk %}
+                <form method="post" action="{{ form_url }}">
+                  <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                  <input type="hidden" name="element" value="operational">
+                  <input type="hidden" name="id" value="{{ scenario.id }}">
+                  <button type="submit" name="send_to_register" class="btn btn-sm btn-primary"><i class="ti ti-shield-plus me-1"></i>{{ __('Add to the risk register', 'grcmanager') }}</button>
+                </form>
+              {% else %}
+                <span class="text-muted small">{{ __('Not in the register', 'grcmanager') }}</span>
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endif %}
