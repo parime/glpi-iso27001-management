@@ -76,6 +76,7 @@ class PeriodicReview extends PeriodicReviewBase
             'privileged_accounts' => __('Review of privileged and service accounts', 'grcmanager'),
             'network_flows'       => __('Review of the network flow matrix (firewall rules)', 'grcmanager'),
             'risk_register'       => __('Risk register review', 'grcmanager'),
+            'risk_indicators'     => __('Risk indicator (KRI) review', 'grcmanager'),
             'supplier_risks'      => __('Supplier risk review', 'grcmanager'),
             'policies'            => __('Security policy review', 'grcmanager'),
             'soa'                 => __('Statement of Applicability review', 'grcmanager'),
@@ -115,6 +116,12 @@ class PeriodicReview extends PeriodicReviewBase
                 __('Reassess the likelihood and impact of the risks', 'grcmanager'),
                 __('Check the progress of the treatment plans', 'grcmanager'),
                 __('Add newly identified risks', 'grcmanager'),
+            ],
+            'risk_indicators' => [
+                __('Enter the values of the manual indicators', 'grcmanager'),
+                __('Analyse the indicators in orange or red and their trend', 'grcmanager'),
+                __('Open a ticket for each indicator in the red', 'grcmanager'),
+                __('Check the thresholds and the risk appetite with management', 'grcmanager'),
             ],
             'supplier_risks' => [
                 __('Reassess the critical suppliers', 'grcmanager'),
@@ -166,6 +173,7 @@ class PeriodicReview extends PeriodicReviewBase
             'privileged_accounts' => '/plugins/grcmanager/front/accounthygiene.php',
             'network_flows'     => '/plugins/grcmanager/front/networkflow.php',
             'risk_register'     => '/plugins/grcmanager/front/risk.php',
+            'risk_indicators'   => '/plugins/grcmanager/front/riskindicator.php',
             'supplier_risks'    => '/plugins/grcmanager/front/supplierrisk.php',
             'policies'          => '/plugins/grcmanager/front/policy.php',
             'soa'               => '/plugins/grcmanager/front/control.php',

@@ -48,6 +48,7 @@ for url in \
   "managementreview.form.php?id=$(xid review)" "nonconformity.form.php?id=$(xid nonconformity)" \
   "objective.form.php?id=$(xid objective)" "policy.form.php?id=$(xid policy)" "training.form.php?id=$(xid training)" \
   "canonicalproduct.form.php?id=$(xid product)" \
+  "riskindicator.form.php?id=$(xid kri)" riskindicator.php riskappetite.php \
   risk.php control.php supplierrisk.php securityincident.php accessreview.php audit.php complianceobligation.php \
   managementreview.php nonconformity.php objective.php policy.php training.php canonicalproduct.php \
   ismsrequirement.php referentiels.php riskheatmap.php soaapproval.php config.php evidence.php controltest.php; do

@@ -93,7 +93,10 @@ class Profile extends CommonGLPI
                     DELETE => _x('button', 'Put in trashbin'),
                     PURGE  => ['short' => __('Purge'), 'long' => _x('button', 'Delete permanently')],
                 ],
-                'label'    => __('Sensitive registers (risks, vulnerabilities, network flows)', 'grcmanager'),
+                'label'    => __(
+                    'Sensitive registers (risks, risk indicators, vulnerabilities, network flows)',
+                    'grcmanager'
+                ),
                 'field'    => Installer::SENSITIVE_RIGHT,
             ],
             [

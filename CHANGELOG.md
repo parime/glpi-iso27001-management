@@ -7,6 +7,28 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Added
+
+- **Appétence et tolérance au risque, indicateurs de risque (KRI)** (issue #378, première étape) :
+  - écran **« Appétence et tolérance au risque »** (rubrique Risques) : par catégorie de risque, le
+    niveau accepté sans action, le niveau au-delà duquel le risque n'est plus supportable, l'énoncé
+    validé et son approbateur ; les risques ouverts qui dépassent sont listés, hors tolérance en
+    tête. Rien ne change tant qu'une catégorie n'a pas d'appétence ;
+  - sur la fiche du risque, sa position par rapport à l'appétence et ses KRI. Accepter un risque
+    au-dessus de l'appétence devient une acceptation formelle : justification obligatoire, personne
+    et date conservées (recherche et journal d'audit) ;
+  - écran **« Indicateurs de risque (KRI) »** : seuils orange et rouge, sens de l'indicateur, entité,
+    historique des valeurs et tendance. Valeur saisie à la main ou relevée chaque jour par une tâche
+    planifiée (ordinateurs avec un disque non chiffré, sans antivirus à jour, vulnérabilités critiques
+    du parc, risques hors tolérance, actions de traitement en retard) ;
+  - un KRI au rouge propose un ticket, attribué au groupe RSSI et rangé dans la catégorie « Sécurité
+    SI » de Configuration GLPI Auto si elle accepte les demandes ;
+  - revue périodique **« Revue des indicateurs de risque (KRI) »**, trimestrielle par défaut ;
+  - quatre cartes pour les tableaux de bord « Vue d'ensemble ISMS » et « Direction ».
+  - Droits : ceux des registres sensibles, entité vérifiée pour chaque KRI. La valeur d'une source
+    automatique n'est visible que de qui lit les données mesurées et accède à l'entité et à toutes
+    ses sous-entités, y compris dans les listes et les cartes.
+
 ## [2.21.0] - 2026-11-04
 
 ### Added
