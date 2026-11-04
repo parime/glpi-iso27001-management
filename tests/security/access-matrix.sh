@@ -53,7 +53,7 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/compliancecalendar.php front/compliancecalendar.php?ics=1 front/complianceevent.php
   front/parkvulnerability.php front/parkmachines.php front/softwarewatch.php front/riskcatalog.php front/waiver.php
   front/coveragerule.php front/playbook.php front/impactanalysis.php front/causalgraph.php
-  front/auditlog.php
+  front/auditlog.php front/controltest.php
   front/impactanalysis.php?export=continuity front/maturity.php front/crisisexercise.php front/complianceaudit.php
   front/dashboard.php front/networkflow.report.php front/breachexposure.php front/networkflow.matrix.php
   front/riskappetite.php front/riskindicator.php"
@@ -71,7 +71,7 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
     front/securityincidentedrimport.php front/securityincidentevidence.form.php \
     front/securityincidentteam.form.php \
     front/cpereference.form.php front/productalias.form.php \
-    front/waiver.form.php front/coveragerule.form.php front/riskindicator.form.php; do
+    front/waiver.form.php front/coveragerule.form.php front/controltest.form.php front/riskindicator.form.php; do
     expect "$form : creation" "$1" "$(code -d "add=1&name=securite&title=securite&_glpi_csrf_token=$(csrf)" "$BASE/plugins/grcmanager/$form")"
   done
   expect "front/ismsrequirement.form.php : modification" "$1" \
@@ -144,6 +144,12 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
     "$(code -d "measure=1&id=$(id kri_A)&_glpi_csrf_token=$(csrf)" "$P/riskindicator.form.php")"
   expect "front/riskindicator.form.php : ticket au rouge" "$1" \
     "$(code -d "create_ticket=1&id=$(id kri_A)&_glpi_csrf_token=$(csrf)" "$P/riskindicator.form.php")"
+  # Issue #372 : declarer un incident depuis un element (droit de creer un incident).
+  expect "front/securityincidentlinkeditem.form.php : declarer un incident" "$1" \
+    "$(code -d "declare=1&itemtype=Computer&items_id=$(id computer_A)&_glpi_csrf_token=$(csrf)" "$P/securityincidentlinkeditem.form.php")"
+  # Issue #380 : plan de test d'une mesure (droit de modifier la mesure).
+  expect "front/controltest.form.php : plan de test" "$1" \
+    "$(code -d "save_plan=1&plugin_grcmanager_controls_id=$(id control)&test_frequency_months=12&_glpi_csrf_token=$(csrf)" "$P/controltest.form.php")"
   # Issue #139 : joindre ou retirer une copie de quiz exige de pouvoir modifier la session.
   expect "front/trainingquiz.form.php : retirer une copie" "$1" \
     "$(code -d "remove=1&participations_id=$(id quiz)&_glpi_csrf_token=$(csrf)" "$P/trainingquiz.form.php")"
@@ -166,7 +172,8 @@ if [ "$ROLE" = none ]; then
   # Revue de securite 2.11.0 : contenu des onglets du plugin demande directement sur un
   # ordinateur lisible, sans le droit du plugin (GLPI ne consulte pas getTabNameForItem()).
   for t in 'GlpiPlugin%5CGrcmanager%5CImpactAnalysis$1' 'GlpiPlugin%5CGrcmanager%5CAssetClassification$1' \
-           'GlpiPlugin%5CGrcmanager%5CParkVulnerability$1' 'GlpiPlugin%5CGrcmanager%5CRisk$1'; do
+           'GlpiPlugin%5CGrcmanager%5CParkVulnerability$1' 'GlpiPlugin%5CGrcmanager%5CRisk$1' \
+           'GlpiPlugin%5CGrcmanager%5CSecurityIncidentLinkedItem$1'; do
     contains "onglet $t d'un ordinateur : sans droit" "plugins/grcmanager" non "$(tab Computer "$t" "$(id computer_A)")"
   done
   # Issue #403 : les referentiels actifs se reglent avec le droit de modifier la configuration.
@@ -204,6 +211,9 @@ if [ "$ROLE" = general ]; then
     "$(tab GlpiPlugin%5CGrcmanager%5CControl 'GlpiPlugin%5CGrcmanager%5CControl$main' "$(id control)")"
   contains "onglet Risques d'un ordinateur : rien" "Risque securite" non \
     "$(tab Computer 'GlpiPlugin%5CGrcmanager%5CRisk$1' "$(id computer_A)")"
+  # Issue #372 : sans droit sur les incidents, l'onglet de l'ordinateur ne montre aucun incident.
+  contains "onglet Incidents de securite d'un ordinateur : rien" "Incident securite" non \
+    "$(tab Computer 'GlpiPlugin%5CGrcmanager%5CSecurityIncidentLinkedItem$1' "$(id computer_A)")"
   rm -f "$JAR"; exit $FAIL
 fi
 
@@ -217,6 +227,11 @@ if [ "$ROLE" = reader ]; then
   expect "front/riskindicator.form.php : KRI de A en lecture" 200 "$(code "$P/riskindicator.form.php?id=$(id kri_A)")"
   expect "front/riskindicator.form.php : KRI de B en lecture" 403 "$(code "$P/riskindicator.form.php?id=$(id kri_B)")"
   expect "front/trainingquiz.send.php : copie d'un autre, en lecture" 403 "$(code "$P/trainingquiz.send.php?id=$(id quiz)")"
+  # Issue #372 : l'onglet de l'ordinateur liste l'incident de A, pas celui de B, sans bouton.
+  incidents_tab=$(tab Computer 'GlpiPlugin%5CGrcmanager%5CSecurityIncidentLinkedItem$1' "$(id computer_A)")
+  contains "onglet Incidents de securite d'un ordinateur : incident A" "Incident securite A" oui "$incidents_tab"
+  contains "onglet Incidents de securite d'un ordinateur : incident B" "Incident securite B" non "$incidents_tab"
+  contains "onglet Incidents de securite d'un ordinateur : pas de bouton en lecture" "grcmanager-declare-incident" non "$incidents_tab"
   expect "s'assigner un incident en lecture seule" 403 \
     "$(code -d "addme_assign=1&plugin_grcmanager_securityincidents_id=$(id incident_A)&_glpi_csrf_token=$(csrf)" "$P/securityincident.form.php")"
   # Issue #403 : les referentiels actifs se reglent avec le droit de modifier la configuration.
@@ -251,6 +266,21 @@ expect "plan de remédiation (PDF) d'un incident de B" "$([ "$ROLE" = admin ] &&
 # Issue #372 : un ticket lie exige de pouvoir modifier l'incident (et de creer un ticket).
 expect "ticket lie a un incident de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
   "$(code -d "create_ticket=1&plugin_grcmanager_securityincidents_id=$(id incident_B)&_glpi_csrf_token=$(csrf)" "$P/securityincidentticket.form.php")"
+# Issue #372 : onglet « Incidents de securite » d'un ordinateur de A, lie aux incidents de A et de B :
+# l'incident de B n'est ni liste ni compte hors super-admin ; « Declarer un incident » exige de lire
+# l'element (ordinateur de B refuse) et n'accepte que les types de l'onglet.
+incidents_tab=$(tab Computer 'GlpiPlugin%5CGrcmanager%5CSecurityIncidentLinkedItem$1' "$(id computer_A)")
+contains "onglet Incidents de securite d'un ordinateur : incident A" "Incident securite A" oui    "$incidents_tab"
+contains "onglet Incidents de securite d'un ordinateur : incident B" "Incident securite B" $SEE_B "$incidents_tab"
+contains "onglet Incidents de securite d'un ordinateur : bouton" "grcmanager-declare-incident" oui "$incidents_tab"
+expect "declarer un incident depuis un ordinateur de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
+  "$(code -d "declare=1&itemtype=Computer&items_id=$(id computer_B)&_glpi_csrf_token=$(csrf)" "$P/securityincidentlinkeditem.form.php")"
+expect "declarer un incident depuis un type hors onglet" 403 \
+  "$(code -d "declare=1&itemtype=Entity&items_id=$(id a)&_glpi_csrf_token=$(csrf)" "$P/securityincidentlinkeditem.form.php")"
+expect "declarer un incident sans jeton CSRF" 403 \
+  "$(code -d "declare=1&itemtype=Computer&items_id=$(id computer_A)" "$P/securityincidentlinkeditem.form.php")"
+expect "declarer un incident depuis un ordinateur de A" 302 \
+  "$(code -d "declare=1&itemtype=Computer&items_id=$(id computer_A)&_glpi_csrf_token=$(csrf)" "$P/securityincidentlinkeditem.form.php")"
 # Issue #140 : un document d'audit ne se lit que par l'equipe de l'audit (glpi en fait partie),
 # jamais avec le seul droit Documents de GLPI ou le droit du plugin.
 expect "document d'audit (equipe de l'audit seulement)" "$([ "$ROLE" = admin ] && echo 200 || echo 403)" \
@@ -301,6 +331,15 @@ expect "date de validite d'une preuve de B" "$([ "$ROLE" = admin ] && echo 302 |
   "$(code -d "save=1&itemtype=GlpiPlugin%5CGrcmanager%5CPolicy&items_id=$(id policy_B)&documents_id=$(id document_B)&valid_until=2030-01-01&_glpi_csrf_token=$(csrf)" "$P/evidence.form.php")"
 expect "date de validite : document d'une autre politique" 404 \
   "$(code -d "save=1&itemtype=GlpiPlugin%5CGrcmanager%5CPolicy&items_id=$(id policy_A)&documents_id=$(id document_B)&valid_until=2030-01-01&_glpi_csrf_token=$(csrf)" "$P/evidence.form.php")"
+
+# Issue #380 : un test d'efficacite d'une mesure ne cite comme preuve qu'un document joint a la
+# mesure ET lisible (entite du document), jamais un document quelconque designe par son id.
+expect "test d'efficacite, preuve de A" 302 \
+  "$(code -d "add=1&plugin_grcmanager_controls_id=$(id control)&result=effective&documents_id=$(id document_A)&_glpi_csrf_token=$(csrf)" "$P/controltest.form.php")"
+expect "test d'efficacite, preuve de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
+  "$(code -d "add=1&plugin_grcmanager_controls_id=$(id control)&result=effective&documents_id=$(id document_B)&_glpi_csrf_token=$(csrf)" "$P/controltest.form.php")"
+expect "test d'efficacite, document d'un autre objet" 404 \
+  "$(code -d "add=1&plugin_grcmanager_controls_id=$(id control)&result=effective&documents_id=$(id audit_document)&_glpi_csrf_token=$(csrf)" "$P/controltest.form.php")"
 
 if [ "$ROLE" = limited ]; then
   # Enregistre le risque (objet global) avec l'actif de A : le lien vers B, invisible pour lui,

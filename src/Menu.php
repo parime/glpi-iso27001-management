@@ -82,7 +82,7 @@ class Menu extends CommonGLPI
             Control::class => [
                 Referentials::class, IsmsRequirement::class,
                 ComplianceObligation::class, Policy::class,
-                Evidence::class, CoverageRule::class,
+                Evidence::class, CoverageRule::class, ControlTest::class,
             ],
             // Contrôle et amélioration continue (ISO 27001 chapitres 9 et 10).
             Audit::class => [

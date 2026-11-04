@@ -6982,3 +6982,168 @@ msgstr "Katalog zur KI-Sicherheit und seine Verweise im Katalog typischer Risike
 
 msgid "AI systems"
 msgstr "KI-Systeme"
+
+msgid "Effectiveness test"
+msgid_plural "Effectiveness tests"
+msgstr[0] "Wirksamkeitstest"
+msgstr[1] "Wirksamkeitstests"
+
+msgid "Documentary inspection"
+msgstr "Dokumentenprüfung"
+
+msgid "Sampling"
+msgstr "Stichprobe"
+
+msgid "Technical test"
+msgstr "Technischer Test"
+
+msgid "Interview"
+msgstr "Interview"
+
+msgid "Effective"
+msgstr "Wirksam"
+
+msgid "Partially effective"
+msgstr "Teilweise wirksam"
+
+msgid "Ineffective"
+msgstr "Unwirksam"
+
+msgid "No test plan"
+msgstr "Kein Testplan"
+
+msgid "No test scheduled"
+msgstr "Kein Test geplant"
+
+msgid "Control not found."
+msgstr "Maßnahme nicht gefunden."
+
+msgid "Choose the result of the test."
+msgstr "Wählen Sie das Ergebnis des Tests."
+
+msgid "Describe what was found when the control is not fully effective."
+msgstr "Beschreiben Sie die Feststellung, wenn die Maßnahme nicht voll wirksam ist."
+
+msgid "A test cannot be dated in the future."
+msgstr "Ein Test kann nicht in der Zukunft datiert sein."
+
+msgid "The next test must be scheduled after the test date."
+msgstr "Der nächste Test muss nach dem Testdatum geplant werden."
+
+msgid "The evidence must be a document attached to this control."
+msgstr "Der Nachweis muss ein dieser Maßnahme beigefügtes Dokument sein."
+
+#, php-format
+msgid "Implementation status of the control set to \"%s\"."
+msgstr "Umsetzungsstatus der Maßnahme auf „%s“ gesetzt."
+
+msgid "No non-conformity was opened: you are not allowed to create one."
+msgstr "Keine Nichtkonformität eröffnet: Sie dürfen keine anlegen."
+
+#, php-format
+msgid "Ineffective control %1$s: %2$s"
+msgstr "Unwirksame Maßnahme %1$s: %2$s"
+
+#, php-format
+msgid "Effectiveness test of %1$s (%2$s) on %3$s: %4$s"
+msgstr "Wirksamkeitstest von %1$s (%2$s) am %3$s: %4$s"
+
+#, php-format
+msgid "Non-conformity opened: %s"
+msgstr "Nichtkonformität eröffnet: %s"
+
+msgid "Test date"
+msgstr "Testdatum"
+
+msgid "Method"
+msgstr "Methode"
+
+msgid "Tester"
+msgstr "Prüfer"
+
+msgid "Next test"
+msgstr "Nächster Test"
+
+msgid "Last test"
+msgstr "Letzter Test"
+
+msgid "Never tested"
+msgstr "Nie getestet"
+
+msgid "Test plan"
+msgstr "Testplan"
+
+msgid "Test owner"
+msgstr "Testverantwortlicher"
+
+msgid "Save the plan"
+msgstr "Plan speichern"
+
+msgid "The next test is due at the date of the last test plus this frequency, unless another date is entered with the test."
+msgstr "Der nächste Test ist am Datum des letzten Tests plus dieser Frequenz fällig, sofern beim Test kein anderes Datum angegeben wird."
+
+msgid "Record a test"
+msgstr "Test erfassen"
+
+msgid "Sample checked, observed gaps, people interviewed..."
+msgstr "Geprüfte Stichprobe, festgestellte Abweichungen, befragte Personen..."
+
+msgid "Required if the control is not fully effective. An ineffective control opens a non-conformity."
+msgstr "Pflichtangabe, wenn die Maßnahme nicht voll wirksam ist. Eine unwirksame Maßnahme eröffnet eine Nichtkonformität."
+
+msgid "A document of the control:"
+msgstr "Ein Dokument der Maßnahme:"
+
+msgid "add it first in the Documents tab"
+msgstr "fügen Sie es zuerst im Reiter Dokumente hinzu"
+
+msgid "Empty: computed from the test plan."
+msgstr "Leer: aus dem Testplan berechnet."
+
+msgid "Record the test"
+msgstr "Test speichern"
+
+msgid "No effectiveness test recorded yet"
+msgstr "Noch kein Wirksamkeitstest erfasst"
+
+msgid "A control in place is not yet a control that works: test it (inspection, sampling, technical test or interview), keep the evidence and schedule the next test."
+msgstr "Eine umgesetzte Maßnahme ist noch keine funktionierende Maßnahme: Testen Sie sie (Prüfung, Stichprobe, technischer Test oder Interview), bewahren Sie den Nachweis auf und planen Sie den nächsten Test."
+
+#, php-format
+msgid "Non-conformity #%d"
+msgstr "Nichtkonformität Nr. %d"
+
+msgid "Delete this test?"
+msgstr "Diesen Test löschen?"
+
+msgid "Tests to carry out"
+msgstr "Durchzuführende Tests"
+
+msgid "ISO 27001, 9.1; ISO 27002, 5.35 and 5.36"
+msgstr "ISO 27001, 9.1; ISO 27002, 5.35 und 5.36"
+
+msgid "The effectiveness tests of the Annex A controls: a control in place is checked to really work, with its method, result and evidence."
+msgstr "Die Wirksamkeitstests der Maßnahmen aus Anhang A: Es wird geprüft, ob eine umgesetzte Maßnahme wirklich funktioniert, mit Methode, Ergebnis und Nachweis."
+
+msgid "Set a test plan on each control, record each test from the control's \"Effectiveness tests\" tab and carry out the tests that are due first. An ineffective control opens a non-conformity."
+msgstr "Legen Sie für jede Maßnahme einen Testplan fest, erfassen Sie jeden Test im Reiter „Wirksamkeitstests“ der Maßnahme und führen Sie zuerst die fälligen Tests durch. Eine unwirksame Maßnahme eröffnet eine Nichtkonformität."
+
+#, php-format
+msgid "Security incident on %s"
+msgstr "Sicherheitsvorfall bei %s"
+
+#, php-format
+msgid "Security incident no. %d declared."
+msgstr "Sicherheitsvorfall Nr. %d gemeldet."
+
+msgid "Declare an incident"
+msgstr "Vorfall melden"
+
+msgid "Creates a security incident already linked to this item, then opens it to be completed."
+msgstr "Erstellt einen Sicherheitsvorfall, der bereits mit diesem Element verknüpft ist, und öffnet ihn zur Vervollständigung."
+
+msgid "No security incident linked to this item."
+msgstr "Kein Sicherheitsvorfall mit diesem Element verknüpft."
+
+msgid "Other linked items"
+msgstr "Weitere verknüpfte Elemente"

@@ -51,7 +51,7 @@ for url in \
   "riskindicator.form.php?id=$(xid kri)" riskindicator.php riskappetite.php \
   risk.php control.php supplierrisk.php securityincident.php accessreview.php audit.php complianceobligation.php \
   managementreview.php nonconformity.php objective.php policy.php training.php canonicalproduct.php \
-  ismsrequirement.php referentiels.php riskheatmap.php soaapproval.php config.php evidence.php; do
+  ismsrequirement.php referentiels.php riskheatmap.php soaapproval.php config.php evidence.php controltest.php; do
   check "front/$url" "$P/$url"
 done
 check "onglet risques d'un ordinateur"        "$(tab Computer 'GlpiPlugin%5CGrcmanager%5CRisk$1' "$(id computer_A)")"
@@ -59,11 +59,14 @@ check "onglet classification d'un ordinateur" "$(tab Computer 'GlpiPlugin%5CGrcm
 check "onglet questionnaire fournisseur"      "$(tab GlpiPlugin%5CGrcmanager%5CSupplierRisk 'GlpiPlugin%5CGrcmanager%5CSupplierAssessment$1' "$(id supplierrisk)")"
 check "onglet contrats fournisseur"           "$(tab GlpiPlugin%5CGrcmanager%5CSupplierRisk 'GlpiPlugin%5CGrcmanager%5CSupplierAssessment$2' "$(id supplierrisk)")"
 check "onglet revues d'acces d'un controle"   "$(tab GlpiPlugin%5CGrcmanager%5CControl 'GlpiPlugin%5CGrcmanager%5CAccessReview$2' "$(id control)")"
+check "onglet incidents d'un ordinateur"     "$(tab Computer 'GlpiPlugin%5CGrcmanager%5CSecurityIncidentLinkedItem$1' "$(id computer_A)")"
 check "onglet couts d'un incident"            "$(tab PluginGrcmanagerSecurityIncident 'PluginGrcmanagerSecurityIncidentCost$1' "$(id incident_A)")"
 check "onglet mesures d'un objectif"          "$(tab GlpiPlugin%5CGrcmanager%5CObjective 'GlpiPlugin%5CGrcmanager%5CObjectiveMeasurement$1' "$(xid objective)")"
 check "onglet references CPE d'un produit"    "$(tab GlpiPlugin%5CGrcmanager%5CCanonicalProduct 'GlpiPlugin%5CGrcmanager%5CCpeReference$1' "$(xid product)")"
 check "onglet alias d'un produit"             "$(tab GlpiPlugin%5CGrcmanager%5CCanonicalProduct 'GlpiPlugin%5CGrcmanager%5CProductAlias$1' "$(xid product)")"
 check "onglet validites des preuves"          "$(tab 'GlpiPlugin%5CGrcmanager%5CPolicy' 'GlpiPlugin%5CGrcmanager%5CEvidence$1' "$(id policy_A)")"
+# Issue #380 : constat d'un test d'efficacite (onglet de la mesure).
+check "onglet tests d'efficacite d'un controle" "$(tab GlpiPlugin%5CGrcmanager%5CControl 'GlpiPlugin%5CGrcmanager%5CControlTest$1' "$(id control)")"
 
 rm -f "$JAR"
 if [ "$RENDERED" -lt 10 ]; then

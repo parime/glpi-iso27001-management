@@ -26,15 +26,16 @@ namespace GlpiPlugin\Grcmanager\Services\Incident;
  *
  * Dans le sens incident vers catégorie, chaque classification a une catégorie (la branche quand
  * aucune sous-catégorie ne correspond). Dans l'autre sens, seule une sous-catégorie sans
- * ambiguïté donne une classification : « Compte compromis / Fuite de données » peut être un accès
- * non autorisé comme une fuite, et l'hameçonnage n'est pas une classification de ce plugin.
+ * ambiguïté donne une classification : l'hameçonnage, par exemple, n'est pas une classification
+ * de ce plugin. « Compte compromis / Accès non autorisé » et « Fuite de données » sont distinctes
+ * depuis Configuration GLPI Auto 1.16 (une fuite a ses propres obligations de notification).
  */
 final class SecurityCategoryMap
 {
     /** Classification de l'incident => clé de la catégorie « Sécurité SI ». */
     private const CATEGORY_FOR_CLASSIFICATION = [
         'malware'             => 'security_malware',
-        'data_breach'         => 'security_account',
+        'data_breach'         => 'security_data_breach',
         'unauthorized_access' => 'security_account',
         'availability'        => 'security',
         'other'               => 'security',
@@ -42,8 +43,10 @@ final class SecurityCategoryMap
 
     /** Clé de la catégorie « Sécurité SI » => classification, quand elle est sans ambiguïté. */
     private const CLASSIFICATION_FOR_CATEGORY = [
-        'security_malware'  => 'malware',
-        'security_endpoint' => 'malware',
+        'security_malware'     => 'malware',
+        'security_endpoint'    => 'malware',
+        'security_account'     => 'unauthorized_access',
+        'security_data_breach' => 'data_breach',
     ];
 
     public static function categoryKey(string $classification): string
