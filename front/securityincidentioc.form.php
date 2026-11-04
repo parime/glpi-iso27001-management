@@ -24,7 +24,7 @@ $item = new SecurityIncidentIoc();
 if (isset($_POST['add'])) {
     $incidentsId = (int) ($_POST['plugin_grcmanager_securityincidents_id'] ?? 0);
     if (!SecurityIncidentIoc::canEditIncident($incidentsId)) {
-        Html::displayRightError();
+        throw new \Glpi\Exception\Http\AccessDeniedHttpException();
     }
     $result = SecurityIncidentIoc::addFromText(
         $incidentsId,

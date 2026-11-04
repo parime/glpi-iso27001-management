@@ -32,7 +32,7 @@ if (isset($_POST['activate'])) {
         throw new \Glpi\Exception\Http\NotFoundHttpException();
     }
     if (!$incident->canUpdateItem()) {
-        Html::displayRightError();
+        throw new \Glpi\Exception\Http\AccessDeniedHttpException();
     }
     $cellId = \GlpiPlugin\Grcmanager\CrisisExercise::activate($incident, (string) ($_POST['scenario'] ?? ''));
     if ($cellId > 0) {
@@ -55,7 +55,7 @@ if ($incident === null || !$incident->canViewItem()) {
 
 if (isset($_POST['step_done']) || isset($_POST['finish']) || isset($_POST['restored'])) {
     if (!$incident->canUpdateItem()) {
-        Html::displayRightError();
+        throw new \Glpi\Exception\Http\AccessDeniedHttpException();
     }
     if (isset($_POST['step_done'])) {
         $exercise->markStepDone((int) $_POST['step_done']);
@@ -77,7 +77,7 @@ if (isset($_POST['step_done']) || isset($_POST['finish']) || isset($_POST['resto
 }
 if (isset($_POST['journal'])) {
     if (!$incident->canAddFollowups()) {
-        Html::displayRightError();
+        throw new \Glpi\Exception\Http\AccessDeniedHttpException();
     }
     $exercise->addJournalEntry((string) $_POST['journal']);
     Html::redirect(\GlpiPlugin\Grcmanager\CrisisExercise::getFormURLWithID($id) . '#grc-crisis-journal');

@@ -56,7 +56,7 @@
 
 <div class="d-flex flex-wrap gap-2 mb-2 align-items-center">
   <span class="text-muted">{{ __('%d entries', 'grcmanager')|format(total) }}{% if total > entries|length %} ({{ __('the %d most recent shown', 'grcmanager')|format(entries|length) }}){% endif %}</span>
-  <form method="post" action="{{ action }}" class="ms-auto">
+  <form method="post" action="{{ verify_url }}" class="ms-auto">
     <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
     <button type="submit" name="verify" class="btn btn-outline-success"><i class="ti ti-shield-check me-1"></i>{{ __('Check integrity', 'grcmanager') }}</button>
   </form>

@@ -25,7 +25,7 @@ Session::checkRight(\GlpiPlugin\Grcmanager\Training::$rightname, READ);
 
 $training = new \GlpiPlugin\Grcmanager\Training();
 if (!$training->getFromDB((int) ($_GET['id'] ?? 0)) || !$training->canViewItem()) {
-    Html::displayNotFoundError();
+    throw new \Glpi\Exception\Http\NotFoundHttpException();
 }
 
 $pdf = PdfRenderer::renderHtmlToPdf(\GlpiPlugin\Grcmanager\Training::renderSessionReport($training));

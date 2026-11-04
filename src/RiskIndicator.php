@@ -19,6 +19,7 @@ declare(strict_types=1);
 
 namespace GlpiPlugin\Grcmanager;
 
+use CommonITILActor;
 use CronTask;
 use Dropdown;
 use Entity;
@@ -27,6 +28,7 @@ use GlpiPlugin\Grcmanager\Compatibility\Base\RiskIndicatorBase;
 use GlpiPlugin\Grcmanager\Services\Dashboard\DashboardCardService;
 use GlpiPlugin\Grcmanager\Services\Risk\KriRules;
 use GlpiPlugin\Grcmanager\Services\Ui\Badge;
+use Group_Ticket;
 use Log;
 use Session;
 use Ticket;
@@ -608,6 +610,14 @@ class RiskIndicator extends RiskIndicatorBase
         $ticketsId = (int) (new Ticket())->add($input);
         if ($ticketsId <= 0) {
             return 0;
+        }
+        // Une règle métier (celles de SLA de Configuration GLPI Auto, par exemple) peut remplacer le
+        // groupe demandé : le RSSI doit recevoir le ticket, en plus du groupe de la règle.
+        if ($group > 0) {
+            $assignment = ['tickets_id' => $ticketsId, 'groups_id' => $group, 'type' => CommonITILActor::ASSIGN];
+            if (countElementsInTable('glpi_groups_tickets', $assignment) === 0) {
+                (new Group_Ticket())->add($assignment);
+            }
         }
         $DB->update(self::getTable(), ['tickets_id' => $ticketsId], ['id' => $this->getID()]);
         $this->fields['tickets_id'] = $ticketsId;
