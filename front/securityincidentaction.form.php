@@ -41,7 +41,7 @@ if (isset($_GET['pdf'])) {
 
 if (isset($_POST['add'])) {
     if (!SecurityIncidentAction::canEditIncident((int) ($_POST['plugin_grcmanager_securityincidents_id'] ?? 0))) {
-        Html::displayRightError();
+        throw new \Glpi\Exception\Http\AccessDeniedHttpException();
     }
     $item->add($_POST);
 } elseif (isset($_POST['update'])) {

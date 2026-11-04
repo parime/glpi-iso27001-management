@@ -24,7 +24,7 @@ $item = new SecurityIncidentTechnique();
 if (isset($_POST['add'])) {
     $incidentsId = (int) ($_POST['plugin_grcmanager_securityincidents_id'] ?? 0);
     if (!SecurityIncidentTechnique::canEditIncident($incidentsId)) {
-        Html::displayRightError();
+        throw new \Glpi\Exception\Http\AccessDeniedHttpException();
     }
     $choice = trim((string) ($_POST['free_input'] ?? '')) !== ''
         ? (string) $_POST['free_input']

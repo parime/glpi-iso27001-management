@@ -28,11 +28,11 @@ $itemtype = (string) ($_POST['itemtype'] ?? '');
 $itemsId = (int) ($_POST['items_id'] ?? 0);
 // Seuls les types de l'onglet ; l'élément doit être lu par l'utilisateur.
 if (!isset($_POST['declare']) || !in_array($itemtype, SecurityIncidentLinkedItem::ITEMTYPES, true)) {
-    Html::displayRightError();
+    throw new \Glpi\Exception\Http\AccessDeniedHttpException();
 }
 $item = getItemForItemtype($itemtype);
 if (!$item instanceof CommonDBTM || !$item->getFromDB($itemsId) || !$item->can($itemsId, READ)) {
-    Html::displayRightError();
+    throw new \Glpi\Exception\Http\AccessDeniedHttpException();
 }
 
 $incidentsId = SecurityIncidentLinkedItem::declare($item);
