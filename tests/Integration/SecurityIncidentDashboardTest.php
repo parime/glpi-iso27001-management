@@ -155,14 +155,10 @@ final class SecurityIncidentDashboardTest extends GrcmanagerIntegrationTestCase
         $this->asUser(2, PluginGrcmanagerSecurityIncident::READALL, [], function () use ($ids): void {
             $critical = SecuredDashboardCards::openCritical();
             $this->assertGreaterThanOrEqual(1, $critical['number']);
-            $this->assertStringContainsString('criteria%5B1%5D%5Bfield%5D=221', $critical['url']);
             $urls = array_column(SecuredDashboardCards::regulatoryNotifications()['data'], 'url');
             $this->assertContains(PluginGrcmanagerSecurityIncident::getFormURLWithID($ids['hidden']), $urls);
             $tactics = array_column(SecuredDashboardCards::attackTactics()['data'], 'number');
             $this->assertGreaterThanOrEqual(1, array_sum($tactics));
-            foreach (SecuredDashboardCards::securityIncidentsByStatus()['data'] as $entry) {
-                $this->assertStringContainsString('criteria%5B0%5D%5Bfield%5D=12', $entry['url']);
-            }
         });
     }
 
@@ -218,6 +214,37 @@ final class SecurityIncidentDashboardTest extends GrcmanagerIntegrationTestCase
 
         foreach ([220, 221] as $id) {
             $this->assertArrayHasKey('equals', \Search::getActionsFor(PluginGrcmanagerSecurityIncident::class, $id));
+        }
+    }
+
+    /**
+     * Le nombre d'une carte est celui de la recherche vers laquelle elle mène (exercices exclus).
+     */
+    public function testEveryLinkLeadsToAsManyResultsAsTheCardShows(): void
+    {
+        // La recherche de GLPI lit les entités parentes de la session (absentes du bootstrap de test).
+        $_SESSION['glpiparententities'] ??= [0];
+        $techId = $this->createTestUser('Sacha', 'Fictif');
+        $groupId = (int) (new \Group())->add(['name' => 'PHPUnit groupe sécurité 3', 'entities_id' => 0]);
+        $this->createIncidents($techId, $groupId);
+
+        $results = static function (string $url): int {
+            parse_str((string) parse_url($url, PHP_URL_QUERY), $params);
+            $search = \Search::getDatas(PluginGrcmanagerSecurityIncident::class, $params, [1]);
+
+            return (int) $search['data']['totalcount'];
+        };
+        foreach (['incidentsTotal', 'open', 'openCritical'] as $name) {
+            $card = SecuredDashboardCards::$name();
+            $this->assertGreaterThan(0, $card['number'], $name);
+            $this->assertSame($card['number'], $results($card['url']), $name);
+        }
+        $breakdowns = ['securityIncidentsByStatus', 'securityIncidentsBySeverity', 'byClassification',
+            'incidentsByEntity', 'incidentsByItilCategory'];
+        foreach ($breakdowns as $name) {
+            foreach (SecuredDashboardCards::$name()['data'] as $entry) {
+                $this->assertSame($entry['number'], $results($entry['url']), $name . ' : ' . $entry['label']);
+            }
         }
     }
 

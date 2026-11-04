@@ -50,6 +50,7 @@ final class SecurityIncidentCardProvider
     private const SO_ENTITY = 80;
     private const SO_CLASSIFICATION = 220;
     private const SO_SEVERITY = 221;
+    private const SO_EXERCISE = 232;
 
     /**
      * Critères communs : incidents visibles par l'utilisateur, filtres du tableau de bord compris.
@@ -98,7 +99,30 @@ final class SecurityIncidentCardProvider
     }
 
     /**
-     * Lien vers la recherche des incidents, filtres du tableau de bord compris.
+     * Critères de recherche des incidents en cours. La valeur « notold » du statut n'est comprise
+     * par GLPI que pour ses propres tickets, problèmes et changements : ici, on écarte les statuts un
+     * à un.
+     *
+     * @return list<array{field: int, searchtype: string, value: int|string}>
+     */
+    private static function openSearchCriteria(): array
+    {
+        $criteria = [];
+        foreach (
+            array_merge(
+                PluginGrcmanagerSecurityIncident::getSolvedStatusArray(),
+                PluginGrcmanagerSecurityIncident::getClosedStatusArray()
+            ) as $status
+        ) {
+            $criteria[] = ['field' => self::SO_STATUS, 'searchtype' => 'notequals', 'value' => (int) $status];
+        }
+
+        return $criteria;
+    }
+
+    /**
+     * Lien vers la recherche des incidents, filtres du tableau de bord compris et hors exercices de
+     * crise, pour retrouver le nombre affiché par la carte.
      *
      * @param list<array{field: int, searchtype: string, value: int|string}> $criteria
      * @param array<string, mixed> $params
@@ -112,7 +136,11 @@ final class SecurityIncidentCardProvider
         $url = PluginGrcmanagerSecurityIncident::getSearchURL();
 
         return $url . (str_contains($url, '?') ? '&' : '?') . Toolbox::append_params([
-            'criteria' => array_merge($filters, $criteria),
+            'criteria' => array_merge(
+                $filters,
+                $criteria,
+                [['field' => self::SO_EXERCISE, 'searchtype' => 'equals', 'value' => 0]]
+            ),
             'reset'    => 'reset',
         ]);
     }
@@ -200,10 +228,7 @@ final class SecurityIncidentCardProvider
     {
         return [
             'number' => self::count($params, self::openCriteria()),
-            'url'    => self::searchUrl(
-                [['field' => self::SO_STATUS, 'searchtype' => 'equals', 'value' => 'notold']],
-                $params
-            ),
+            'url'    => self::searchUrl(self::openSearchCriteria(), $params),
             'label'  => $params['label'] ?? _x('security incidents', 'Open', 'grcmanager'),
             'icon'   => PluginGrcmanagerSecurityIncident::getIcon(),
         ];
@@ -220,10 +245,9 @@ final class SecurityIncidentCardProvider
 
         return [
             'number' => self::count($params, array_merge(self::openCriteria(), [["$table.severity" => 'critical']])),
-            'url'    => self::searchUrl([
-                ['field' => self::SO_STATUS, 'searchtype' => 'equals', 'value' => 'notold'],
+            'url'    => self::searchUrl(array_merge(self::openSearchCriteria(), [
                 ['field' => self::SO_SEVERITY, 'searchtype' => 'equals', 'value' => 'critical'],
-            ], $params),
+            ]), $params),
             'label'  => $params['label'] ?? __('Open critical security incidents', 'grcmanager'),
             'icon'   => 'ti ti-urgent',
         ];
@@ -510,8 +534,9 @@ final class SecurityIncidentCardProvider
             'data'  => $data,
             'label' => $params['label'] ?? __('Regulatory notifications to follow', 'grcmanager'),
             'icon'  => 'ti ti-alarm',
-            // Lu par le widget « liste » de GLPI, même vide.
-            'date'  => '',
+            // Le widget « liste » de GLPI affiche cette date sur chaque ligne (« NaN » si vide) : celle
+            // du calcul, jamais une donnée de l'incident.
+            'date'  => date('Y-m-d H:i:s'),
         ];
     }
 
@@ -644,7 +669,7 @@ final class SecurityIncidentCardProvider
             'data'  => $data,
             'label' => $params['label'] ?? __('My remediation tasks', 'grcmanager'),
             'icon'  => SecurityIncidentPlaybookTask::getIcon(),
-            'date'  => '',
+            'date'  => date('Y-m-d H:i:s'),
         ];
     }
 

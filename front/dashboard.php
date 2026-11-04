@@ -50,7 +50,8 @@ TemplateRenderer::getInstance()->display('@grcmanager/dashboard_views.html.twig'
 $key = $views[$view]['key'];
 if ((new Dashboard($key))->canViewCurrent()) {
     echo '<div class="grcmanager-dashboard">';
-    (new Grid($key))->showDefault();
+    // Vue d'ensemble ISMS : 30 rangées, au-delà des 24 par défaut (sans quoi GLPI les superpose).
+    (new Grid($key, 26, 30))->showDefault();
     echo '</div>';
 } else {
     // Tableau de bord supprimé ou non partagé avec ce profil.

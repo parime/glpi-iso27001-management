@@ -205,6 +205,8 @@ final class DefaultDashboardService
         $chart = static function (string $cardId, string $widget, int $x, int $y, int $width, int $height): array {
             $item = self::chart($cardId, $widget, $x, $y, $width, $height);
             $item['gridstack_id'] = $cardId . '_incidents';
+            // Sans légende, un camembert à une seule part ne dit rien.
+            $item['card_options']['legend'] = '1';
 
             return $item;
         };

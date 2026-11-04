@@ -148,7 +148,7 @@ final class SecuredDashboardCards
 
     /**
      * Clés de présentation conservées sur une carte vidée : aucune ne porte de donnée (« date » :
-     * libellé vide des cartes liste, que le widget « articleList » de GLPI lit toujours).
+     * heure du calcul, que le widget « articleList » de GLPI lit toujours).
      */
     private const PRESENTATION_KEYS = ['label', 'icon', 'color', 'alt', 'date'];
 
