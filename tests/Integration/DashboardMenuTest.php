@@ -62,6 +62,50 @@ final class DashboardMenuTest extends GrcmanagerIntegrationTestCase
         );
     }
 
+    /**
+     * Issue #375 : un droit propre à une sous-page suffit à la trouver dans le menu (DPO avec le seul
+     * droit RGPD), sans rien montrer d'autre de la rubrique.
+     */
+    public function testSubPageRightAloneKeepsItInTheMenuWithoutOpeningTheRest(): void
+    {
+        $control = \GlpiPlugin\Grcmanager\Control::$rightname;
+        $gdpr = \GlpiPlugin\Grcmanager\ProcessingActivity::RIGHTNAME;
+        $saved = $_SESSION['glpiactiveprofile'];
+        try {
+            foreach (array_keys($_SESSION['glpiactiveprofile']) as $right) {
+                if (str_starts_with((string) $right, 'plugin_grcmanager')) {
+                    $_SESSION['glpiactiveprofile'][$right] = 0;
+                }
+            }
+            $this->assertFalse(
+                \GlpiPlugin\Grcmanager\Control::getMenuContent(),
+                'Sans aucun droit du plugin : aucune entrée.'
+            );
+
+            $_SESSION['glpiactiveprofile'][$gdpr] = READ;
+            $menu = \GlpiPlugin\Grcmanager\Control::getMenuContent();
+            $url = \GlpiPlugin\Grcmanager\ProcessingActivity::getSearchURL(false);
+            $this->assertSame($url, $menu['page'], 'La sous-page autorisée prend la place de la rubrique.');
+            $this->assertSame(
+                [\GlpiPlugin\Grcmanager\ProcessingActivity::class],
+                array_keys($menu['options']),
+                'Aucune autre sous-page de la rubrique.'
+            );
+
+            $_SESSION['glpiactiveprofile'][$gdpr] = 0;
+            $_SESSION['glpiactiveprofile'][$control] = READ;
+            $menu = \GlpiPlugin\Grcmanager\Control::getMenuContent();
+            $this->assertArrayNotHasKey('parent_hidden', $menu);
+            $this->assertArrayNotHasKey(
+                \GlpiPlugin\Grcmanager\ProcessingActivity::class,
+                $menu['options'] ?? [],
+                'Le droit général ne donne pas accès au registre RGPD.'
+            );
+        } finally {
+            $_SESSION['glpiactiveprofile'] = $saved;
+        }
+    }
+
     public function testDefaultDashboardIsVisibleToTheAdministrator(): void
     {
         $dashboard = new Dashboard(\GlpiPlugin\Grcmanager\Dashboard::getDashboardKey());

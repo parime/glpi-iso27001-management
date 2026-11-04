@@ -22,6 +22,7 @@ namespace GlpiPlugin\Grcmanager\Tests\Integration;
 use Group;
 use Group_User;
 use GlpiPlugin\Grcmanager\IncidentSecurityGroup;
+use GlpiPlugin\Grcmanager\SecurityIncidentTeam;
 use PluginGrcmanagerSecurityIncident;
 use User;
 
@@ -69,5 +70,57 @@ final class SecurityGroupTest extends GrcmanagerIntegrationTestCase
             IncidentSecurityGroup::save(0);
         }
         $this->assertFalse(IncidentSecurityGroup::isAdministratorBypass());
+    }
+
+    /**
+     * La recherche suit la règle d'ouverture : aucune ligne pour un incident que l'utilisateur ne
+     * peut pas ouvrir (hors du groupe sécurité, ou simple rédacteur sans être acteur).
+     */
+    public function testSearchListsOnlyIncidentsTheUserCanOpen(): void
+    {
+        global $DB;
+
+        $table = PluginGrcmanagerSecurityIncident::getTable();
+        $incident = new PluginGrcmanagerSecurityIncident();
+        $incidentId = (int) $incident->add(['name' => 'PHPUnit recherche cloisonnée', 'entities_id' => 0]);
+        $userId = (int) (new User())->add(['name' => 'phpunit-sg-' . bin2hex(random_bytes(4))]);
+        $groupId = (int) (new Group())->add(['name' => 'PHPUnit groupe recherche', 'entities_id' => 0]);
+        $visible = static fn (): int => count($DB->request([
+            'SELECT' => ["$table.id"],
+            'FROM'   => $table,
+            'WHERE'  => SecurityIncidentTeam::restrictSearch([["$table.id" => $incidentId]]),
+        ]));
+
+        $right = PluginGrcmanagerSecurityIncident::$rightname;
+        $savedId = $_SESSION['glpiID'];
+        $savedRight = $_SESSION['glpiactiveprofile'][$right];
+        $savedConfig = $_SESSION['glpiactiveprofile']['config'] ?? 0;
+        $savedGroups = $_SESSION['glpigroups'] ?? [];
+        try {
+            $this->assertSame(1, $visible(), 'Voir tout, sans groupe sécurité.');
+
+            // « Voir tout » mais hors du groupe sécurité.
+            $_SESSION['glpiID'] = $userId;
+            $_SESSION['glpiactiveprofile']['config'] = 0;
+            IncidentSecurityGroup::save($groupId);
+            IncidentSecurityGroup::reset();
+            $this->assertSame(0, $visible(), 'Hors du groupe : aucune ligne.');
+            IncidentSecurityGroup::save(0);
+            IncidentSecurityGroup::reset();
+
+            // Simple rédacteur : l'incident ne s'ouvre pas, il n'est pas listé non plus.
+            $DB->update($table, ['users_id_recipient' => $userId], ['id' => $incidentId]);
+            $_SESSION['glpiactiveprofile'][$right] = PluginGrcmanagerSecurityIncident::READMY;
+            $_SESSION['glpigroups'] = [];
+            $this->assertTrue($incident->getFromDB($incidentId));
+            $this->assertFalse($incident->canViewItem());
+            $this->assertSame(0, $visible(), 'Rédacteur sans être acteur : aucune ligne.');
+        } finally {
+            $_SESSION['glpiID'] = $savedId;
+            $_SESSION['glpiactiveprofile'][$right] = $savedRight;
+            $_SESSION['glpiactiveprofile']['config'] = $savedConfig;
+            $_SESSION['glpigroups'] = $savedGroups;
+            IncidentSecurityGroup::save(0);
+        }
     }
 }
