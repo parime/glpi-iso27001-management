@@ -1,0 +1,67 @@
+{# Issue #375 : rapport d'une analyse d'impact (AIPD, RGPD article 35). #}
+{% include '@grcmanager/pdf/_pdf_style.html.twig' %}
+{% set level_colors = {'none': '#f1f5f9', 'low': '#d3f2dc', 'medium': '#fdf3cf', 'high': '#f9d5d5'} %}
+
+<p>
+  <strong>{{ __('Status') }} :</strong> {{ is_approved ? __('Approved', 'grcmanager') : __('Draft', 'grcmanager') }}
+  {% if is_approved %}({{ approval_name }}{{ dpia.date_approval ? ' - ' ~ dpia.date_approval : '' }}){% endif %}
+</p>
+{% if needs_consultation %}
+  <p><strong>{{ __('A residual risk remains high: article 36 of the GDPR requires consulting the supervisory authority (CNIL in France) before starting the processing.', 'grcmanager') }}</strong></p>
+{% endif %}
+
+{% if purpose %}
+  <h2>{{ __('Purpose', 'grcmanager') }}</h2>
+  <p>{{ purpose }}</p>
+{% endif %}
+
+<h2>{{ __('Is a DPIA needed?', 'grcmanager') }}</h2>
+<ul>
+  {% for key, label in criteria_labels %}
+    {% if key in criteria %}<li>{{ label }}</li>{% endif %}
+  {% endfor %}
+</ul>
+<p>{{ __('Criteria met', 'grcmanager') }} : {{ criteria_count }}/{{ criteria_labels|length }}. {{ is_required ? __('A DPIA is required in principle.', 'grcmanager') : __('Below the threshold: a DPIA is not required in principle.', 'grcmanager') }}</p>
+
+<h2>{{ __('Description and proportionality', 'grcmanager') }}</h2>
+<h3>{{ __('Description of the processing', 'grcmanager') }}</h3>
+<p>{{ dpia.description|default('')|nl2br }}</p>
+<h3>{{ __('Necessity and proportionality', 'grcmanager') }}</h3>
+<p>{{ dpia.necessity|default('')|nl2br }}</p>
+
+<h2>{{ __('Risks for the people concerned', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-table">
+  <thead>
+    <tr>
+      <th>{{ __('Risk', 'grcmanager') }}</th>
+      <th>{{ __('Severity', 'grcmanager') }}</th>
+      <th>{{ __('Likelihood', 'grcmanager') }}</th>
+      <th>{{ __('Level', 'grcmanager') }}</th>
+      <th>{{ __('Severity after measures', 'grcmanager') }}</th>
+      <th>{{ __('Likelihood after measures', 'grcmanager') }}</th>
+      <th>{{ __('Residual level', 'grcmanager') }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for risk in risks %}
+      <tr>
+        <td>{{ risk.label }}</td>
+        <td>{{ scale_labels[risk.severity]|default('') }}</td>
+        <td>{{ scale_labels[risk.likelihood]|default('') }}</td>
+        <td style="background-color: {{ level_colors[risk.level] }}">{{ level_labels[risk.level] }}</td>
+        <td>{{ scale_labels[risk.residual_severity]|default('') }}</td>
+        <td>{{ scale_labels[risk.residual_likelihood]|default('') }}</td>
+        <td style="background-color: {{ level_colors[risk.residual_level] }}">{{ level_labels[risk.residual_level] }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<h3>{{ __('Planned measures', 'grcmanager') }}</h3>
+<p>{{ dpia.measures|default('')|nl2br }}</p>
+
+<h2>{{ __('Opinions', 'grcmanager') }}</h2>
+<h3>{{ __('Opinion of the DPO', 'grcmanager') }}{{ dpo_name ? ' (' ~ dpo_name ~ ')' : '' }}</h3>
+<p>{{ dpia.dpo_opinion|default('')|nl2br }}</p>
+{% if dpia.date_dpo_opinion|default('') %}<p>{{ dpia.date_dpo_opinion }}</p>{% endif %}
+<h3>{{ __('Views of the people concerned', 'grcmanager') }}</h3>
+<p>{{ dpia.data_subjects_views|default('')|nl2br }}</p>

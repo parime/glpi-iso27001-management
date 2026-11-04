@@ -82,6 +82,7 @@ class ProcessingActivity extends ProcessingActivityBase
     {
         $tabs = [];
         $this->addDefaultFormTab($tabs)
+            ->addStandardTab(Dpia::class, $tabs, $options)
             ->addStandardTab(Log::class, $tabs, $options);
 
         return $tabs;
@@ -363,6 +364,7 @@ class ProcessingActivity extends ProcessingActivityBase
 
         parent::post_purgeItem();
         $DB->delete(self::ITEMS_TABLE, ['plugin_grcmanager_processingactivities_id' => (int) $this->getID()]);
+        (new Dpia())->deleteByCriteria([Dpia::ACTIVITY_FK => (int) $this->getID()]);
         AuditLog::record('purge', self::class, (int) $this->getID());
     }
 

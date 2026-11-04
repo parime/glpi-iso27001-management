@@ -7,6 +7,14 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Added
+
+- **Analyse d'impact (AIPD, RGPD article 35)** (issue #375), onglet de chaque fiche du registre des
+  traitements : critères de déclenchement des lignes directrices européennes WP248, nécessité et
+  proportionnalité, trois risques cotés avant et après mesures, avis du DPO, approbation signée puis
+  figée. Un risque résiduel élevé rappelle l'obligation de consulter l'autorité de contrôle (article
+  36). Rapport PDF. Le statut de la fiche et le registre des risques ne changent que sur demande.
+
 ## [2.22.0] - 2026-11-04
 
 ### Added
