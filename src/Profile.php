@@ -111,6 +111,18 @@ class Profile extends CommonGLPI
                 'field'    => Installer::CONTINUITY_RIGHT,
             ],
             [
+                // Issue #375 : registre des traitements de données personnelles (RGPD), pour le DPO.
+                'rights'   => [
+                    READ   => __('Read'),
+                    UPDATE => __('Update'),
+                    CREATE => __('Create'),
+                    DELETE => _x('button', 'Put in trashbin'),
+                    PURGE  => ['short' => __('Purge'), 'long' => _x('button', 'Delete permanently')],
+                ],
+                'label'    => __('Personal data protection (GDPR record of processing)', 'grcmanager'),
+                'field'    => Installer::GDPR_RIGHT,
+            ],
+            [
                 'itemtype' => PluginGrcmanagerSecurityIncident::class,
                 'label'    => PluginGrcmanagerSecurityIncident::getTypeName(Session::getPluralNumber()),
                 'field'    => Installer::SECURITY_INCIDENT_RIGHT,

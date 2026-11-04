@@ -121,6 +121,12 @@ archivé), avec ses champs de classification ISO 27001 fusionnés dessus.
 - **Surveillance des fuites de données** (Have I Been Pwned) : chaque nuit, les adresses
   professionnelles des domaines choisis sont comparées aux fuites publiées ; le RSSI reçoit le
   nombre de nouvelles expositions et le lien, jamais les adresses ni les noms des fuites.
+- **Registre des activités de traitement (RGPD, article 30)** : une fiche par traitement (finalité, base
+  légale, personnes et données, destinataires, transferts hors UE, conservation, mesures de sécurité), liée
+  aux applications, actifs et fournisseurs GLPI et aux mesures de la SoA, avec ses écarts, une revue annuelle
+  et un export PDF ou CSV pour l'autorité de contrôle. Droit dédié « Protection des données personnelles »
+  (avec la lecture du droit général pour voir l'entrée dans le menu). AIPD et demandes d'exercice des droits
+  à venir.
 - Chaque écran du menu explique à quoi il sert et ce qui est attendu. Les écrans d'un même travail
   sont regroupés en rubriques (une entrée de menu, une barre d'onglets commune), dans l'ordre du
   cycle du SMSI.
@@ -138,7 +144,7 @@ tête de page et par le fil d'Ariane.
 |---|---|
 | Tableau de bord | Tableau de bord, Score de maturité, Calendrier de conformité |
 | Risques | Risques, Risques fournisseurs, Analyse d'impact, Effet domino, Dérogations |
-| Conformité | Contrôles Annexe A (SoA), Référentiels, Exigences SMSI, Obligations, Politiques, Preuves, Couverture des preuves |
+| Conformité | Contrôles Annexe A (SoA), Référentiels, Exigences SMSI, Obligations, Registre des traitements, Politiques, Preuves, Couverture des preuves |
 | Audits et amélioration | Audits internes, Non-conformités, Objectifs ISMS, Revues de direction |
 | Opérations | Revues des accès, Hygiène des comptes, Revues périodiques, Formations, Exercices de crise, Processus métier |
 | Sécurité technique | Contrôles techniques automatiques, Vulnérabilités du parc, Machines les plus exposées, Logiciels à surveiller, Produits, Matrice des flux, Fuites de données |

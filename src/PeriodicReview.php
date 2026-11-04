@@ -85,6 +85,7 @@ class PeriodicReview extends PeriodicReviewBase
             'continuity_test'     => __('Business continuity and disaster recovery test (BCP / DRP)', 'grcmanager'),
             'business_impact'     => __('Business impact analysis review (business processes)', 'grcmanager'),
             'security_logs'       => __('Security log review', 'grcmanager'),
+            'processing_register' => __('Review of the record of processing activities (GDPR)', 'grcmanager'),
             default               => $key,
         };
     }
@@ -159,6 +160,11 @@ class PeriodicReview extends PeriodicReviewBase
                 __('Review the security alerts and logs for the period', 'grcmanager'),
                 __('Open a security incident for each confirmed anomaly', 'grcmanager'),
             ],
+            'processing_register' => [
+                __('Add new processing activities and mark those that ended', 'grcmanager'),
+                __('Settle the gaps shown in the register (legal basis, retention, transfers...)', 'grcmanager'),
+                __('Check the processors and recipients, then date the review of each entry', 'grcmanager'),
+            ],
             default => [],
         };
     }
@@ -178,6 +184,7 @@ class PeriodicReview extends PeriodicReviewBase
             'policies'          => '/plugins/grcmanager/front/policy.php',
             'soa'               => '/plugins/grcmanager/front/control.php',
             'legal_obligations' => '/plugins/grcmanager/front/complianceobligation.php',
+            'processing_register' => '/plugins/grcmanager/front/processingactivity.php',
             'business_impact'   => '/plugins/grcmanager/front/businessprocess.php',
             default             => null,
         };
