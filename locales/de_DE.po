@@ -8577,3 +8577,155 @@ msgstr "Genehmigen"
 
 msgid "Add the highest residual risk to the register"
 msgstr "Das höchste Restrisiko zum Register hinzufügen"
+
+msgid "Access (article 15)"
+msgstr "Auskunft (Artikel 15)"
+
+msgid "Rectification (article 16)"
+msgstr "Berichtigung (Artikel 16)"
+
+msgid "Erasure (article 17)"
+msgstr "Löschung (Artikel 17)"
+
+msgid "Restriction of processing (article 18)"
+msgstr "Einschränkung der Verarbeitung (Artikel 18)"
+
+msgid "Portability (article 20)"
+msgstr "Datenübertragbarkeit (Artikel 20)"
+
+msgid "Objection (article 21)"
+msgstr "Widerspruch (Artikel 21)"
+
+msgid "Received"
+msgstr "Eingegangen"
+
+msgid "Identity being checked"
+msgstr "Identitätsprüfung"
+
+msgid "Answered"
+msgstr "Beantwortet"
+
+msgid "Refused"
+msgstr "Abgelehnt"
+
+msgid "Deadline approaching"
+msgstr "Frist läuft bald ab"
+
+msgid "Closed on time"
+msgstr "Fristgerecht abgeschlossen"
+
+msgid "Closed late"
+msgstr "Verspätet abgeschlossen"
+
+msgid "The date of receipt is required."
+msgstr "Das Eingangsdatum ist erforderlich."
+
+msgid "An extension of the deadline must be justified."
+msgstr "Eine Fristverlängerung muss begründet werden."
+
+msgid "A refusal must be justified."
+msgstr "Eine Ablehnung muss begründet werden."
+
+msgid "The date of the answer is required."
+msgstr "Das Antwortdatum ist erforderlich."
+
+#, php-format
+msgid "GDPR request no. %1$d: %2$s"
+msgstr "DSGVO-Antrag Nr. %1$d: %2$s"
+
+msgid "Right exercised"
+msgstr "Ausgeübtes Recht"
+
+msgid "Date of receipt"
+msgstr "Eingangsdatum"
+
+msgid "Date of the answer"
+msgstr "Antwortdatum"
+
+msgid "Handled by"
+msgstr "Bearbeitet von"
+
+msgid "Check the identity only if there is a reasonable doubt."
+msgstr "Prüfen Sie die Identität nur bei begründeten Zweifeln."
+
+msgid "Optional. Do not put the name of the person here: it stays in the field below."
+msgstr "Optional. Geben Sie hier nicht den Namen der Person an: Er gehört in das Feld darunter."
+
+msgid "Only what is needed to answer: this field stays on this request."
+msgstr "Nur das, was für die Antwort nötig ist: Dieses Feld bleibt bei diesem Antrag."
+
+msgid "The deadline runs from this date: one month to answer (GDPR, article 12.3)."
+msgstr "Die Frist beginnt an diesem Datum: ein Monat für die Antwort (DSGVO, Artikel 12 Abs. 3)."
+
+msgid "Processing activity concerned"
+msgstr "Betroffene Verarbeitung"
+
+msgid "Extension of the deadline"
+msgstr "Fristverlängerung"
+
+msgid "Extended by two months"
+msgstr "Um zwei Monate verlängert"
+
+msgid "Allowed for complex or numerous requests. The person must be told within the first month."
+msgstr "Zulässig bei komplexen oder zahlreichen Anträgen. Die Person muss innerhalb des ersten Monats informiert werden."
+
+msgid "Reason for the extension"
+msgstr "Grund der Verlängerung"
+
+msgid "If left empty, today is used when the request is closed. Attach the proof in the Documents tab."
+msgstr "Bleibt das Feld leer, wird beim Abschluss das heutige Datum verwendet. Fügen Sie den Nachweis im Reiter Dokumente hinzu."
+
+msgid "Summary of the answer"
+msgstr "Zusammenfassung der Antwort"
+
+msgid "Reason for the refusal"
+msgstr "Grund der Ablehnung"
+
+msgid "The person must be told the reason and their right to complain to the supervisory authority."
+msgstr "Die Person muss über den Grund und ihr Beschwerderecht bei der Aufsichtsbehörde informiert werden."
+
+msgid "Follow-up ticket"
+msgstr "Folgeticket"
+
+msgid "Create a follow-up ticket"
+msgstr "Folgeticket erstellen"
+
+msgid "The ticket contains neither the name of the person nor the title of the request."
+msgstr "Das Ticket enthält weder den Namen der Person noch den Titel des Antrags."
+
+#, php-format
+msgid "A data subject request must be handled: %s."
+msgstr "Ein Betroffenenantrag muss bearbeitet werden: %s."
+
+#, php-format
+msgid "Answer due by: %s"
+msgstr "Antwort fällig bis: %s"
+
+msgid "The details are on the request, for people allowed to read the GDPR register:"
+msgstr "Die Details stehen im Antrag, für Personen, die das DSGVO-Register lesen dürfen:"
+
+msgid "Requests from people exercising their GDPR rights (access, rectification, erasure...) and the deadline to answer each one: one month, or three when the extension is justified."
+msgstr "Anträge von Personen, die ihre DSGVO-Rechte ausüben (Auskunft, Berichtigung, Löschung...), und die Antwortfrist für jeden Antrag: ein Monat oder drei bei begründeter Verlängerung."
+
+msgid "Record each request on the day it arrives, answer before the deadline and attach the proof. Put the identity of the person only in the Requester field."
+msgstr "Erfassen Sie jeden Antrag am Tag des Eingangs, antworten Sie vor Fristablauf und fügen Sie den Nachweis hinzu. Tragen Sie die Identität der Person nur im Feld Antragsteller ein."
+
+msgid "GDPR, articles 12 and 15 to 22"
+msgstr "DSGVO, Artikel 12 und 15 bis 22"
+
+msgid "Data subject request"
+msgid_plural "Data subject requests"
+msgstr[0] "Betroffenenantrag"
+msgstr[1] "Betroffenenanträge"
+
+#, php-format
+msgid "%d day left"
+msgid_plural "%d days left"
+msgstr[0] "%d Tag verbleibend"
+msgstr[1] "%d Tage verbleibend"
+
+#, php-format
+msgid "%d day late"
+msgid_plural "%d days late"
+msgstr[0] "%d Tag überfällig"
+msgstr[1] "%d Tage überfällig"
