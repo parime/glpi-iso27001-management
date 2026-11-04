@@ -7,6 +7,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.21.0] - 2026-11-04
+
 ### Added
 
 - **Processus métier et analyse d'impact sur l'activité (BIA)** (issue #377, première étape) :
