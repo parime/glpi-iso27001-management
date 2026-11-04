@@ -1,0 +1,28 @@
+{# Issue #376 : fiche d'une étude EBIOS Risk Manager, voir GlpiPlugin\\Grcmanager\\EbiosStudy::showForm(). #}
+{% extends 'generic_show_form.html.twig' %}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+{% import '@grcmanager/_hint.html.twig' as hints %}
+
+{% block form_fields %}
+   {{ fields.textField('name', item.fields['name'], __('Name'), {
+      'required': true,
+      'add_field_html': hints.hint(__('Example: "Customer portal 2027", "Head office information system".', 'grcmanager')),
+   }) }}
+   {{ fields.dropdownArrayField('status', item.fields['status']|default('draft'), statuses, __('Status')) }}
+   {{ fields.dropdownField('User', 'users_id', item.fields['users_id'], __('Owner', 'grcmanager'), {'right': 'all'}) }}
+   {{ fields.textareaField('scope', item.fields['scope'], __('Scope', 'grcmanager'), {
+      'full_width': true,
+      'add_field_html': hints.hint(__('What the study covers, its objectives and its time frame.', 'grcmanager')),
+   }) }}
+   {% if progress %}
+      <div class="col-12 mt-2">
+         <div class="d-flex flex-wrap align-items-center gap-2">
+            <span class="badge bg-blue-lt fs-5"><i class="ti ti-list-check me-1"></i>{{ __('Workshops started', 'grcmanager') }} : {{ progress.started }}/{{ labels|length }}</span>
+            {% if progress.next and labels[progress.next] is defined %}
+               <span class="text-muted"><i class="ti ti-arrow-right me-1"></i>{{ __('Next step', 'grcmanager') }} : {{ labels[progress.next] }}</span>
+            {% endif %}
+         </div>
+      </div>
+   {% endif %}
+   <p class="text-muted small col-12 mt-3 mb-0"><i class="ti ti-info-circle me-1"></i>{{ __('EBIOS Risk Manager is a method of ANSSI, the French national cybersecurity agency, published under an open licence.', 'grcmanager') }}</p>
+{% endblock %}

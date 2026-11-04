@@ -77,6 +77,8 @@ class Menu extends CommonGLPI
                 SupplierRisk::class, ImpactAnalysis::class,
                 CausalLink::class, Waiver::class,
                 RiskAppetite::class, RiskIndicator::class,
+                // Issue #376 : études EBIOS Risk Manager.
+                EbiosStudy::class,
             ],
             // Conformité : SoA, référentiels, exigences du SMSI, obligations, politiques, preuves.
             Control::class => [
