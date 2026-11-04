@@ -24,8 +24,7 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   - les cartes des incidents comptent seulement les incidents que l'utilisateur peut ouvrir : sans
     « Voir tout », ceux où il est acteur ou membre de l'équipe d'intervention. Les cartes total, par
     entité et par catégorie GLPI ne vérifiaient aucun droit du plugin ; elles les vérifient ;
-  - la carte des échéances NIS2 / RGPD et celle des revues périodiques en retard respectent les
-    entités actives ;
+  - la carte des revues périodiques en retard respecte les entités actives ;
   - une carte n'est plus proposée à qui n'a pas le droit de la voir, ni quand son module ou tous ses
     référentiels sont désactivés ; sur la page Tableau de bord du plugin, elle disparaît ;
   - le lien de la carte « Ouverts » menait à une recherche vide ;
