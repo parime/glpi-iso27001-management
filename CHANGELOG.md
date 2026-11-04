@@ -7,6 +7,14 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Added
+
+- **Études EBIOS Risk Manager** (issue #376, première partie), méthode de l'ANSSI sous licence
+  ouverte, dans la rubrique Risques : atelier 1 (valeurs métier reliées aux processus, événements
+  redoutés et gravité G1 à G4, biens supports choisis parmi les éléments de GLPI) et atelier 2
+  (couples source de risque / objectif visé, pertinence calculée à titre indicatif, décision et
+  justification). Registre sensible : même droit que les risques.
+
 ## [2.21.1] - 2026-11-04
 
 ### Fixed

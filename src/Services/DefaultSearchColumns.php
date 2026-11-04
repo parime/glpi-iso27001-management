@@ -54,6 +54,7 @@ final class DefaultSearchColumns
         'GlpiPlugin\\Grcmanager\\CoverageRule'     => [1, 3, 4, 5, 6, 7],
         'GlpiPlugin\\Grcmanager\\Playbook'         => [1, 3, 4, 6],
         // Issue #377 : nom, entité, responsable, criticité, DMIA, RTO, RPO, dernière BIA.
+        'GlpiPlugin\\Grcmanager\\EbiosStudy'       => [1, 3, 4, 6],
         'GlpiPlugin\\Grcmanager\\BusinessProcess'  => [1, 80, 3, 5, 6, 7, 8, 9],
         // Issue #142 : nom, type, debut, fin, statut, responsable, prestataire.
         'GlpiPlugin\\Grcmanager\\ComplianceEvent'  => [1, 2, 3, 4, 5, 6, 7],

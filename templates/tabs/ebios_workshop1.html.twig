@@ -1,0 +1,142 @@
+{# Issue #376, atelier 1 : valeurs métier, événements redoutés, biens supports. #}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+{% set fk = 'plugin_grcmanager_ebiosstudies_id' %}
+{% set severity_classes = {1: 'bg-green-lt', 2: 'bg-yellow-lt', 3: 'bg-orange-lt', 4: 'bg-red-lt'} %}
+
+<p class="text-muted">{{ __('List what must be protected (business values), what you fear for it and how serious it would be, then what it relies on.', 'grcmanager') }}</p>
+
+{% if can_edit %}
+<form method="post" action="{{ form_url }}" class="card card-body mb-3">
+  <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+  <input type="hidden" name="{{ fk }}" value="{{ item.getID() }}">
+  <input type="hidden" name="element" value="value">
+  <div class="row g-2 align-items-end">
+    <div class="col-md-4">
+      <label class="form-label" for="grc-ebios-value">{{ __('New business value', 'grcmanager') }}</label>
+      <input type="text" id="grc-ebios-value" name="name" class="form-control" maxlength="255" required placeholder="{{ __('e.g. Taking customer orders', 'grcmanager') }}">
+    </div>
+    <div class="col-md-3">
+      <label class="form-label" for="grc-ebios-process">{{ __('Business process', 'grcmanager') }}</label>
+      <select id="grc-ebios-process" name="plugin_grcmanager_businessprocesses_id" class="form-select">
+        {% for id, name in processes %}<option value="{{ id }}">{{ name }}</option>{% endfor %}
+      </select>
+    </div>
+    <div class="col-md-3">
+      <label class="form-label" for="grc-ebios-description">{{ __('Description') }}</label>
+      <input type="text" id="grc-ebios-description" name="description" class="form-control">
+    </div>
+    <div class="col-md-2">
+      <button type="submit" name="add" class="btn btn-primary w-100"><i class="ti ti-plus me-1"></i>{{ __('Add', 'grcmanager') }}</button>
+    </div>
+  </div>
+</form>
+{% endif %}
+
+{% if values is empty %}
+  <div class="empty">
+    <div class="empty-icon"><i class="ti ti-diamond fs-1"></i></div>
+    <p class="empty-title">{{ __('No business value yet', 'grcmanager') }}</p>
+    <p class="empty-subtitle text-muted">{{ __('Start with the few activities or pieces of information whose loss would really hurt the organisation.', 'grcmanager') }}</p>
+  </div>
+{% endif %}
+
+{% for value in values %}
+  <div class="card mb-3">
+    <div class="card-header py-2 d-flex align-items-center gap-2">
+      <i class="ti ti-diamond text-blue"></i>
+      <h3 class="card-title mb-0">{{ value.name }}</h3>
+      {% if processes[value.plugin_grcmanager_businessprocesses_id] is defined and value.plugin_grcmanager_businessprocesses_id %}
+        <span class="badge bg-secondary-lt">{{ processes[value.plugin_grcmanager_businessprocesses_id] }}</span>
+      {% endif %}
+      {% if can_edit %}
+        <form method="post" action="{{ form_url }}" class="ms-auto" onsubmit="return confirm('{{ __('Remove this business value and what depends on it?', 'grcmanager')|e('js') }}');">
+          <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+          <input type="hidden" name="element" value="value">
+          <input type="hidden" name="id" value="{{ value.id }}">
+          <button type="submit" name="purge" class="btn btn-sm btn-ghost-danger" title="{{ __('Remove', 'grcmanager') }}" aria-label="{{ __('Remove', 'grcmanager') }}"><i class="ti ti-trash"></i></button>
+        </form>
+      {% endif %}
+    </div>
+    <div class="card-body">
+      {% if value.description %}<p class="text-muted">{{ value.description }}</p>{% endif %}
+      <div class="row g-3">
+        <div class="col-lg-7">
+          <h4><i class="ti ti-alert-triangle me-1"></i>{{ __('Feared events', 'grcmanager') }}</h4>
+          {% for event in value.events %}
+            <div class="d-flex align-items-start gap-2 mb-2">
+              <span class="badge {{ severity_classes[event.severity]|default('bg-secondary-lt') }}">{{ severities[event.severity]|default(event.severity) }}</span>
+              <div class="flex-fill">
+                <div class="fw-bold">{{ event.name }}</div>
+                {% if event.impacts %}<div class="small text-muted">{{ event.impacts }}</div>{% endif %}
+              </div>
+              {% if can_edit %}
+                <form method="post" action="{{ form_url }}">
+                  <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                  <input type="hidden" name="element" value="feared_event">
+                  <input type="hidden" name="id" value="{{ event.id }}">
+                  <button type="submit" name="purge" class="btn btn-sm btn-ghost-danger" title="{{ __('Remove', 'grcmanager') }}" aria-label="{{ __('Remove', 'grcmanager') }}"><i class="ti ti-x"></i></button>
+                </form>
+              {% endif %}
+            </div>
+          {% else %}
+            <p class="text-muted small">{{ __('No feared event yet.', 'grcmanager') }}</p>
+          {% endfor %}
+          {% if can_edit %}
+            <form method="post" action="{{ form_url }}" class="row g-1 mt-1">
+              <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+              <input type="hidden" name="element" value="feared_event">
+              <input type="hidden" name="{{ fk }}" value="{{ item.getID() }}">
+              <input type="hidden" name="plugin_grcmanager_ebiosvalues_id" value="{{ value.id }}">
+              <div class="col-12"><input type="text" name="name" class="form-control form-control-sm" maxlength="255" required placeholder="{{ __('e.g. Customer data disclosed', 'grcmanager') }}" aria-label="{{ __('Feared events', 'grcmanager') }}"></div>
+              <div class="col-md-6"><input type="text" name="impacts" class="form-control form-control-sm" placeholder="{{ __('Impacts', 'grcmanager') }}" aria-label="{{ __('Impacts', 'grcmanager') }}"></div>
+              <div class="col-md-5">
+                <select name="severity" class="form-select form-select-sm" aria-label="{{ __('Severity', 'grcmanager') }}">
+                  {% for level, label in severities %}<option value="{{ level }}" {{ level == 2 ? 'selected' : '' }}>{{ label }}</option>{% endfor %}
+                </select>
+              </div>
+              <div class="col-md-1"><button type="submit" name="add" class="btn btn-sm btn-outline-primary w-100" title="{{ __('Add', 'grcmanager') }}" aria-label="{{ __('Add', 'grcmanager') }}"><i class="ti ti-plus"></i></button></div>
+            </form>
+          {% endif %}
+        </div>
+        <div class="col-lg-5">
+          <h4><i class="ti ti-server me-1"></i>{{ __('Supporting assets', 'grcmanager') }}</h4>
+          {% for support in value.supports %}
+            <div class="d-flex align-items-center gap-2 mb-1">
+              <i class="ti {{ support.itemtype ? 'ti-link' : 'ti-tag' }} text-muted"></i>
+              <span class="flex-fill">{{ support.name }}</span>
+              {% if can_edit %}
+                <form method="post" action="{{ form_url }}">
+                  <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                  <input type="hidden" name="element" value="support">
+                  <input type="hidden" name="id" value="{{ support.id }}">
+                  <button type="submit" name="purge" class="btn btn-sm btn-ghost-danger" title="{{ __('Remove', 'grcmanager') }}" aria-label="{{ __('Remove', 'grcmanager') }}"><i class="ti ti-x"></i></button>
+                </form>
+              {% endif %}
+            </div>
+          {% else %}
+            <p class="text-muted small">{{ __('No supporting asset yet.', 'grcmanager') }}</p>
+          {% endfor %}
+          {% if can_edit %}
+            <form method="post" action="{{ form_url }}" class="mt-2">
+              <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+              <input type="hidden" name="element" value="support">
+              <input type="hidden" name="{{ fk }}" value="{{ item.getID() }}">
+              <input type="hidden" name="plugin_grcmanager_ebiosvalues_id" value="{{ value.id }}">
+              {{ fields.dropdownItemsFromItemtypes('items_id', __('GLPI item', 'grcmanager'), {
+                 'itemtypes': itemtypes,
+                 'itemtype_name': 'itemtype',
+                 'full_width': true,
+                 'is_horizontal': false,
+                 'rand': value.id,
+              }) }}
+              <div class="d-flex gap-1">
+                <input type="text" name="name" class="form-control form-control-sm" maxlength="255" placeholder="{{ __('or a label: head office, payroll team...', 'grcmanager') }}" aria-label="{{ __('Name') }}">
+                <button type="submit" name="add" class="btn btn-sm btn-outline-primary" title="{{ __('Add', 'grcmanager') }}" aria-label="{{ __('Add', 'grcmanager') }}"><i class="ti ti-plus"></i></button>
+              </div>
+            </form>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endfor %}

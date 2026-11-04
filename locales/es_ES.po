@@ -7970,3 +7970,175 @@ msgstr "Delegado de protección de datos (DPD)"
 
 msgid "Name and contact details of the data protection officer, shown on the record of processing activities (GDPR, article 30)."
 msgstr "Nombre y datos de contacto del delegado de protección de datos, que figuran en el registro de actividades de tratamiento (RGPD, artículo 30)."
+
+msgid "G1 - Minor"
+msgstr "G1 - Menor"
+
+msgid "G2 - Significant"
+msgstr "G2 - Significativa"
+
+msgid "G3 - Serious"
+msgstr "G3 - Grave"
+
+msgid "G4 - Critical"
+msgstr "G4 - Crítica"
+
+msgid "1 - Low"
+msgstr "1 - Bajo"
+
+msgid "2 - Moderate"
+msgstr "2 - Moderado"
+
+msgid "3 - High"
+msgstr "3 - Alto"
+
+msgid "4 - Very high"
+msgstr "4 - Muy alto"
+
+msgid "Workshop 1: security baseline"
+msgstr "Taller 1: base de seguridad"
+
+msgid "Workshop 2: risk sources"
+msgstr "Taller 2: fuentes de riesgo"
+
+msgid "The name is required."
+msgstr "El nombre es obligatorio."
+
+msgid "Example: \"Customer portal 2027\", \"Head office information system\"."
+msgstr "Ejemplo: \"Portal de clientes 2027\", \"Sistema de información de la sede\"."
+
+msgid "What the study covers, its objectives and its time frame."
+msgstr "Lo que cubre el estudio, sus objetivos y su horizonte temporal."
+
+msgid "Workshops started"
+msgstr "Talleres iniciados"
+
+msgid "Next step"
+msgstr "Siguiente paso"
+
+msgid "EBIOS Risk Manager is a method of ANSSI, the French national cybersecurity agency, published under an open licence."
+msgstr "EBIOS Risk Manager es un método de la ANSSI, la agencia nacional francesa de ciberseguridad, publicado con licencia abierta."
+
+msgid "List what must be protected (business values), what you fear for it and how serious it would be, then what it relies on."
+msgstr "Enumere lo que hay que proteger (valores de negocio), lo que teme para ello y su gravedad, y luego en qué se apoya."
+
+msgid "New business value"
+msgstr "Nuevo valor de negocio"
+
+msgid "e.g. Taking customer orders"
+msgstr "p. ej. toma de pedidos de clientes"
+
+msgid "No business value yet"
+msgstr "Aún no hay valores de negocio"
+
+msgid "Start with the few activities or pieces of information whose loss would really hurt the organisation."
+msgstr "Empiece por las pocas actividades o informaciones cuya pérdida perjudicaría realmente a la organización."
+
+msgid "Remove this business value and what depends on it?"
+msgstr "¿Quitar este valor de negocio y lo que depende de él?"
+
+msgid "Feared events"
+msgstr "Eventos temidos"
+
+msgid "No feared event yet."
+msgstr "Aún no hay eventos temidos."
+
+msgid "e.g. Customer data disclosed"
+msgstr "p. ej. datos de clientes divulgados"
+
+msgid "Impacts"
+msgstr "Impactos"
+
+msgid "Supporting assets"
+msgstr "Activos de soporte"
+
+msgid "No supporting asset yet."
+msgstr "Aún no hay activos de soporte."
+
+msgid "GLPI item"
+msgstr "Elemento de GLPI"
+
+msgid "or a label: head office, payroll team..."
+msgstr "o una etiqueta: sede, equipo de nóminas..."
+
+msgid "Low relevance"
+msgstr "Pertinencia baja"
+
+msgid "Medium relevance"
+msgstr "Pertinencia media"
+
+msgid "High relevance"
+msgstr "Pertinencia alta"
+
+msgid "Who could attack you, and to achieve what? Rate each pair, then keep the ones the study will follow: the computed relevance is only a suggestion."
+msgstr "¿Quién podría atacarle y para conseguir qué? Evalúe cada par y conserve los que el estudio seguirá: la pertinencia calculada es solo una sugerencia."
+
+msgid "e.g. Organised crime"
+msgstr "p. ej. crimen organizado"
+
+msgid "Target objective"
+msgstr "Objetivo perseguido"
+
+msgid "e.g. Financial gain through ransom"
+msgstr "p. ej. beneficio económico mediante rescate"
+
+msgid "Motivation"
+msgstr "Motivación"
+
+msgid "Activity"
+msgstr "Actividad"
+
+msgid "No risk source yet"
+msgstr "Aún no hay fuentes de riesgo"
+
+msgid "Think of organised crime, a competitor, a disgruntled employee, an activist, a state-backed group..."
+msgstr "Piense en el crimen organizado, un competidor, un empleado descontento, un activista, un grupo respaldado por un Estado..."
+
+msgid "Relevance"
+msgstr "Pertinencia"
+
+msgid "Decision and justification"
+msgstr "Decisión y justificación"
+
+msgid "Retained"
+msgstr "Retenido"
+
+msgid "Set aside"
+msgstr "Descartado"
+
+msgid "Why"
+msgstr "Por qué"
+
+msgid "Remove this risk source?"
+msgstr "¿Quitar esta fuente de riesgo?"
+
+msgid "EBIOS Risk Manager studies: the risk assessment method of ANSSI, the French national cybersecurity agency, published under an open licence."
+msgstr "Estudios EBIOS Risk Manager: el método de evaluación de riesgos de la ANSSI, la agencia nacional francesa de ciberseguridad, publicado con licencia abierta."
+
+msgid "Create one study per scope, then work through its workshops in order: business values and feared events first, then risk sources."
+msgstr "Cree un estudio por alcance y siga sus talleres en orden: primero valores de negocio y eventos temidos, luego fuentes de riesgo."
+
+msgid "EBIOS RM study"
+msgid_plural "EBIOS RM studies"
+msgstr[0] "Estudio EBIOS RM"
+msgstr[1] "Estudios EBIOS RM"
+
+msgid "Business value"
+msgid_plural "Business values"
+msgstr[0] "Valor de negocio"
+msgstr[1] "Valores de negocio"
+
+msgid "Feared event"
+msgid_plural "Feared events"
+msgstr[0] "Evento temido"
+msgstr[1] "Eventos temidos"
+
+msgid "Supporting asset"
+msgid_plural "Supporting assets"
+msgstr[0] "Activo de soporte"
+msgstr[1] "Activos de soporte"
+
+msgid "Risk source"
+msgid_plural "Risk sources"
+msgstr[0] "Fuente de riesgo"
+msgstr[1] "Fuentes de riesgo"

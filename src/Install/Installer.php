@@ -251,6 +251,8 @@ final class Installer
         \GlpiPlugin\Grcmanager\RiskIndicator::class,
         \GlpiPlugin\Grcmanager\RiskIndicatorValue::class,
         \GlpiPlugin\Grcmanager\RiskAppetite::class,
+        // Issue #376 : études EBIOS Risk Manager.
+        \GlpiPlugin\Grcmanager\EbiosStudy::class,
         // Issue #377 : processus métier, leurs dépendances et leur BIA.
         \GlpiPlugin\Grcmanager\BusinessProcess::class,
         \GlpiPlugin\Grcmanager\BusinessProcessItem::class,
@@ -286,6 +288,12 @@ final class Installer
     private const COVERAGE_RULES_TABLE = 'glpi_plugin_grcmanager_coveragerules';
     // Issue #168 : exercices de crise et leurs étapes chronométrées.
     // Issue #377 : registre des processus métier, leurs dépendances et leur BIA.
+    // Issue #376 : études EBIOS Risk Manager et éléments de leurs ateliers.
+    private const EBIOS_STUDIES_TABLE = 'glpi_plugin_grcmanager_ebiosstudies';
+    private const EBIOS_VALUES_TABLE = 'glpi_plugin_grcmanager_ebiosvalues';
+    private const EBIOS_FEARED_EVENTS_TABLE = 'glpi_plugin_grcmanager_ebiosfearedevents';
+    private const EBIOS_SUPPORTS_TABLE = 'glpi_plugin_grcmanager_ebiossupports';
+    private const EBIOS_RISK_SOURCES_TABLE = 'glpi_plugin_grcmanager_ebiosrisksources';
     private const BUSINESS_PROCESSES_TABLE = 'glpi_plugin_grcmanager_businessprocesses';
     private const BUSINESS_PROCESSES_ITEMS_TABLE = 'glpi_plugin_grcmanager_businessprocesses_items';
     private const BUSINESS_IMPACTS_TABLE = 'glpi_plugin_grcmanager_businessimpacts';
@@ -2242,6 +2250,91 @@ final class Installer
 
         // Issue #377 : processus métier (responsable, criticité GLPI, DMIA, RTO, RPO), éléments GLPI
         // dont ils dépendent et analyse d'impact sur l'activité par durée d'interruption.
+        if (!$DB->tableExists(self::EBIOS_STUDIES_TABLE)) {
+            $query = "CREATE TABLE `" . self::EBIOS_STUDIES_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `name` varchar(255) NOT NULL DEFAULT '',
+                `scope` text COMMENT 'Cadre et perimetre de l etude',
+                `status` varchar(16) NOT NULL DEFAULT 'draft',
+                `users_id` int {$keySign} NOT NULL DEFAULT 0,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `status` (`status`),
+                KEY `users_id` (`users_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query);
+        }
+        if (!$DB->tableExists(self::EBIOS_VALUES_TABLE)) {
+            $query = "CREATE TABLE `" . self::EBIOS_VALUES_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_ebiosstudies_id` int {$keySign} NOT NULL DEFAULT 0,
+                `name` varchar(255) NOT NULL DEFAULT '',
+                `description` text,
+                `plugin_grcmanager_businessprocesses_id` int {$keySign} NOT NULL DEFAULT 0,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `plugin_grcmanager_ebiosstudies_id` (`plugin_grcmanager_ebiosstudies_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query);
+        }
+        if (!$DB->tableExists(self::EBIOS_FEARED_EVENTS_TABLE)) {
+            $query = "CREATE TABLE `" . self::EBIOS_FEARED_EVENTS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_ebiosstudies_id` int {$keySign} NOT NULL DEFAULT 0,
+                `plugin_grcmanager_ebiosvalues_id` int {$keySign} NOT NULL DEFAULT 0,
+                `name` varchar(255) NOT NULL DEFAULT '',
+                `impacts` text,
+                `severity` tinyint NOT NULL DEFAULT 2 COMMENT 'G1 a G4',
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `plugin_grcmanager_ebiosstudies_id` (`plugin_grcmanager_ebiosstudies_id`),
+                KEY `plugin_grcmanager_ebiosvalues_id` (`plugin_grcmanager_ebiosvalues_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query);
+        }
+        if (!$DB->tableExists(self::EBIOS_SUPPORTS_TABLE)) {
+            $query = "CREATE TABLE `" . self::EBIOS_SUPPORTS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_ebiosstudies_id` int {$keySign} NOT NULL DEFAULT 0,
+                `plugin_grcmanager_ebiosvalues_id` int {$keySign} NOT NULL DEFAULT 0,
+                `name` varchar(255) NOT NULL DEFAULT '',
+                `itemtype` varchar(100) NOT NULL DEFAULT '',
+                `items_id` int {$keySign} NOT NULL DEFAULT 0,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `plugin_grcmanager_ebiosstudies_id` (`plugin_grcmanager_ebiosstudies_id`),
+                KEY `plugin_grcmanager_ebiosvalues_id` (`plugin_grcmanager_ebiosvalues_id`),
+                KEY `item` (`itemtype`,`items_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query);
+        }
+        if (!$DB->tableExists(self::EBIOS_RISK_SOURCES_TABLE)) {
+            $query = "CREATE TABLE `" . self::EBIOS_RISK_SOURCES_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_ebiosstudies_id` int {$keySign} NOT NULL DEFAULT 0,
+                `name` varchar(255) NOT NULL DEFAULT '' COMMENT 'Source de risque',
+                `objective` varchar(255) NOT NULL DEFAULT '' COMMENT 'Objectif vise',
+                `motivation` tinyint NOT NULL DEFAULT 2,
+                `resources` tinyint NOT NULL DEFAULT 2,
+                `activity` tinyint NOT NULL DEFAULT 2,
+                `is_retained` tinyint NOT NULL DEFAULT 1,
+                `justification` text,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `plugin_grcmanager_ebiosstudies_id` (`plugin_grcmanager_ebiosstudies_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query);
+        }
         if (!$DB->tableExists(self::BUSINESS_PROCESSES_TABLE)) {
             $query = "CREATE TABLE `" . self::BUSINESS_PROCESSES_TABLE . "` (
                 `id` int {$keySign} NOT NULL AUTO_INCREMENT,
@@ -4589,6 +4682,11 @@ final class Installer
         $migration->dropTable(self::BUSINESS_IMPACTS_TABLE);
         $migration->dropTable(self::BUSINESS_PROCESSES_ITEMS_TABLE);
         $migration->dropTable(self::BUSINESS_PROCESSES_TABLE);
+        $migration->dropTable(self::EBIOS_STUDIES_TABLE);
+        $migration->dropTable(self::EBIOS_VALUES_TABLE);
+        $migration->dropTable(self::EBIOS_FEARED_EVENTS_TABLE);
+        $migration->dropTable(self::EBIOS_SUPPORTS_TABLE);
+        $migration->dropTable(self::EBIOS_RISK_SOURCES_TABLE);
         $migration->dropTable(self::CRISIS_EXERCISES_TABLE);
         $migration->dropTable(self::ACCESS_REVIEWS_USERS_TABLE);
         $migration->dropTable(self::ACCESS_REVIEWS_TABLE);

@@ -53,6 +53,7 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/compliancecalendar.php front/compliancecalendar.php?ics=1 front/complianceevent.php
   front/parkvulnerability.php front/parkmachines.php front/softwarewatch.php front/riskcatalog.php front/waiver.php
   front/coveragerule.php front/playbook.php front/impactanalysis.php front/causalgraph.php
+  front/ebiosstudy.php
   front/auditlog.php front/controltest.php
   front/impactanalysis.php?export=continuity front/maturity.php front/crisisexercise.php front/complianceaudit.php
   front/dashboard.php front/networkflow.report.php front/breachexposure.php front/networkflow.matrix.php
@@ -72,6 +73,7 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
     front/securityincidenttechnique.form.php front/securityincidentaction.form.php \
     front/securityincidentplaybooktask.form.php front/playbook.form.php front/playbookstep.form.php \
     front/securityincidentedrimport.php front/securityincidentevidence.form.php \
+    front/ebiosstudy.form.php front/ebioselement.form.php \
     front/securityincidentteam.form.php \
     front/cpereference.form.php front/productalias.form.php \
     front/waiver.form.php front/coveragerule.form.php front/controltest.form.php \
