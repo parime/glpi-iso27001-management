@@ -158,6 +158,10 @@ class BusinessProcessItem extends BusinessProcessItemBase
                 'itemtypes'  => self::getItemtypes(),
                 'can_edit'   => $item->canUpdateItem(),
                 'form_url'   => self::getFormURL(),
+                // Issue #377 : risque proposé pour un actif qui ne tient pas les objectifs.
+                'can_propose_risk' => $item->canUpdateItem() && Risk::canView() && Risk::canCreate(),
+                'risk_url'         => BusinessProcessRisk::getFormURL(),
+                'risk_itemtypes'   => Risk::getLinkableItemtypes(),
             ]);
 
             return true;

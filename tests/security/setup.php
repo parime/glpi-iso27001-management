@@ -154,6 +154,16 @@ if ($mode === 'xss') {
         'plugin_grcmanager_businessprocesses_id' => $out['process'], 'itemtype' => 'Computer',
         'items_id' => (int) $ids['computer_A'], 'comment' => $canary,
     ]);
+    // Issue #377, deuxième étape : processus amont, role du lien, risque lie et son commentaire.
+    $upstream = $insert('businessprocesses', ['name' => $canary, 'description' => $canary, 'rto_hours' => 24]);
+    $insert('businessprocesses_businessprocesses', [
+        'plugin_grcmanager_businessprocesses_id' => $out['process'],
+        'plugin_grcmanager_businessprocesses_id_upstream' => $upstream, 'comment' => $canary,
+    ]);
+    $insert('businessprocesses_risks', [
+        'plugin_grcmanager_businessprocesses_id' => $out['process'],
+        'plugin_grcmanager_risks_id' => (int) $ids['risk'], 'comment' => $canary,
+    ]);
     // Issue #145 : nom du document de preuve, affiché par l'onglet et la liste des validités.
     $DB->update('glpi_documents', ['name' => $canary], ['id' => (int) $ids['document_A']]);
     echo json_encode($out), "\n";
@@ -431,6 +441,18 @@ $DB->insert('glpi_plugin_grcmanager_businessprocesses_items', [
     'plugin_grcmanager_businessprocesses_id' => $ids['process_A'],
     'itemtype' => 'Computer', 'items_id' => $ids['computer_B'], 'comment' => 'Serveur B',
 ]);
+// Issue #377, deuxième étape : le processus de A dépend de celui de B (jamais nommé pour un profil
+// limité à A), et le risque est lié aux deux processus.
+$DB->insert('glpi_plugin_grcmanager_businessprocesses_businessprocesses', [
+    'plugin_grcmanager_businessprocesses_id' => $ids['process_A'],
+    'plugin_grcmanager_businessprocesses_id_upstream' => $ids['process_B'], 'comment' => 'Amont B',
+]);
+foreach (['A', 'B'] as $suffix) {
+    $DB->insert('glpi_plugin_grcmanager_businessprocesses_risks', [
+        'plugin_grcmanager_businessprocesses_id' => $ids['process_' . $suffix],
+        'plugin_grcmanager_risks_id' => (int) $ids['risk'],
+    ]);
+}
 
 $ids['breachexposure'] = (int) current(
     (new \GlpiPlugin\Grcmanager\BreachExposure())->find($exposure, [], 1)

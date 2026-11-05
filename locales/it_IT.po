@@ -8735,3 +8735,122 @@ msgstr "Scollega"
 
 msgid "Processing activities whose personal data are affected by this incident: they help assess the GDPR notification."
 msgstr "Attività di trattamento i cui dati personali sono coinvolti in questo incidente: aiutano a valutare la notifica GDPR."
+
+msgid "Business continuity plan"
+msgstr "Piano di continuità operativa"
+
+msgid "Business continuity plan (PDF)"
+msgstr "Piano di continuità operativa (PDF)"
+
+#, php-format
+msgid "Business continuity plan: %s"
+msgstr "Piano di continuità operativa: %s"
+
+msgid "Choose a process to link."
+msgstr "Scegli un processo da collegare."
+
+msgid "Choose a risk to link."
+msgstr "Scegli un rischio da collegare."
+
+msgid "Consistency checks: objectives of the process, plus items and processes it depends on that do not meet them."
+msgstr "Controlli di coerenza: obiettivi del processo, più gli elementi e i processi da cui dipende che non li rispettano."
+
+msgid "Continuity plan of this process (PDF)"
+msgstr "Piano di continuità di questo processo (PDF)"
+
+msgid "Disruption"
+msgstr "Interruzione"
+
+msgid "E.g. \"Provides the time sheets\""
+msgstr "Es. «Fornisce i fogli presenze»"
+
+msgid "Each of them must recover at least as fast as this process (RTO) and lose no more data (RPO)."
+msgstr "Ciascuno deve ripartire almeno con la stessa rapidità di questo processo (RTO) e non perdere più dati (RPO)."
+
+msgid "Improve the recovery of this item (backup, redundancy, contract) or accept the risk."
+msgstr "Migliora il ripristino di questo elemento (backup, ridondanza, contratto) o accetta il rischio."
+
+#, php-format
+msgid "Insufficient recovery of %1$s for the process %2$s"
+msgstr "Ripristino insufficiente di %1$s per il processo %2$s"
+
+msgid "Items it depends on"
+msgstr "Elementi da cui dipende"
+
+msgid "Linked processes"
+msgstr "Processi collegati"
+
+msgid "No RTO set on this process"
+msgstr "Nessun RTO definito per questo processo"
+
+msgid "No business process you can see is linked to this risk."
+msgstr "Nessun processo aziendale che puoi vedere è collegato a questo rischio."
+
+msgid "No business process you can see."
+msgstr "Nessun processo aziendale che puoi vedere."
+
+msgid "No dependency you can see."
+msgstr "Nessuna dipendenza che puoi vedere."
+
+msgid "No linked process you can see."
+msgstr "Nessun processo collegato che puoi vedere."
+
+msgid "No process you can see depends on this process."
+msgstr "Nessun processo che puoi vedere dipende da questo processo."
+
+msgid "No risk linked to this process."
+msgstr "Nessun rischio collegato a questo processo."
+
+msgid "Processes that depend on this process"
+msgstr "Processi che dipendono da questo processo"
+
+msgid "Processes this process depends on"
+msgstr "Processi da cui dipende questo processo"
+
+msgid "Propose a risk"
+msgstr "Proponi un rischio"
+
+msgid "Remove this link?"
+msgstr "Rimuovere questo collegamento?"
+
+#, php-format
+msgid "Required RPO: %1$s (process %2$s)"
+msgstr "RPO richiesto: %1$s (processo %2$s)"
+
+#, php-format
+msgid "Required RTO: %1$s (process %2$s)"
+msgstr "RTO richiesto: %1$s (processo %2$s)"
+
+msgid "Risk linked to the process, to be assessed in the register."
+msgstr "Rischio collegato al processo, da valutare nel registro."
+
+msgid "Risks of the register that threaten the continuity of this process. A risk can also be proposed from the Dependencies tab for an item that does not meet the objectives."
+msgstr "Rischi del registro che minacciano la continuità di questo processo. Un rischio può anche essere proposto dalla scheda Dipendenze per un elemento che non rispetta gli obiettivi."
+
+msgid "The objectives of the process are consistent with its analysis."
+msgstr "Gli obiettivi del processo sono coerenti con la sua analisi."
+
+#, php-format
+msgid "The process %1$s requires a recovery within %2$s (RTO) with a data loss of at most %3$s (RPO)."
+msgstr "Il processo %1$s richiede un ripristino entro %2$s (RTO) con una perdita di dati di al massimo %3$s (RPO)."
+
+msgid "This link would create a loop: the chosen process already depends on this one."
+msgstr "Questo collegamento creerebbe un ciclo: il processo scelto dipende già da questo."
+
+msgid "This process depends on"
+msgstr "Questo processo dipende da"
+
+msgid "This process depends on no other process you can see."
+msgstr "Questo processo non dipende da nessun altro processo che puoi vedere."
+
+msgid "This process is already linked."
+msgstr "Questo processo è già collegato."
+
+msgid "This risk is already linked to the process."
+msgstr "Questo rischio è già collegato al processo."
+
+#, php-format
+msgid "%d other process you cannot see is not listed."
+msgid_plural "%d other processes you cannot see are not listed."
+msgstr[0] "%d altro processo che non puoi vedere non è elencato."
+msgstr[1] "%d altri processi che non puoi vedere non sono elencati."

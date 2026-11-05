@@ -1,0 +1,28 @@
+{# Issue #377 : processus métier liés à un risque, voir
+   GlpiPlugin\\Grcmanager\\BusinessProcessRisk::displayTabContentForItem(). #}
+{% if processes is empty %}
+  <p class="text-muted">{{ __('No business process you can see is linked to this risk.', 'grcmanager') }}</p>
+{% else %}
+  <div class="table-responsive">
+    <table class="table table-sm table-hover align-middle">
+      <thead>
+        <tr>
+          <th scope="col">{{ _n('Business process', 'Business processes', 1, 'grcmanager') }}</th>
+          <th scope="col">{{ __('MTPD', 'grcmanager') }}</th>
+          <th scope="col">RTO</th>
+          <th scope="col">{{ __('Comment', 'grcmanager') }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for process in processes %}
+          <tr>
+            <td><a href="{{ process.url }}">{{ process.name }}</a></td>
+            <td>{{ process.mtpd }}</td>
+            <td>{{ process.rto }}</td>
+            <td>{{ process.comment }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endif %}
