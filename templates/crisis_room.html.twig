@@ -92,6 +92,55 @@
             <div class="form-hint">{{ __('The RTO is set in each item\'s "Classification" tab; it is counted from the opening of the crisis room.', 'grcmanager') }}</div>
          {% endif %}
 
+         {% if show_processes %}
+            {# Issue #377, troisième étape : temps de reprise des processus métier mesurés pendant l'exercice. #}
+            <h3 class="mt-4" id="grc-crisis-processes"><i class="ti ti-lifebuoy me-1"></i>{{ __('Business processes tested', 'grcmanager') }}</h3>
+            {% if process_recoveries.rows is empty %}
+               <p class="text-muted">{{ __('No recovery time recorded for a business process during this exercise.', 'grcmanager') }}</p>
+            {% else %}
+               <table class="table table-vcenter card-table">
+                  <thead><tr><th>{{ _n('Business process', 'Business processes', 1, 'grcmanager') }}</th><th>RTO</th><th>{{ __('Measured time', 'grcmanager') }}</th><th>{{ __('Comment', 'grcmanager') }}</th></tr></thead>
+                  <tbody>
+                     {% for p in process_recoveries.rows %}
+                        <tr>
+                           <td><a href="{{ p.url }}">{{ p.name }}</a></td>
+                           <td class="text-nowrap">{{ p.rto ?: '-' }}</td>
+                           <td class="text-nowrap">{{ p.duration }}{% if p.exceeds %} <span class="badge bg-red-lt grcmanager-recovery-late">{{ __('Above the RTO', 'grcmanager') }}</span>{% endif %}</td>
+                           <td>{{ p.comment }}</td>
+                        </tr>
+                     {% endfor %}
+                  </tbody>
+               </table>
+            {% endif %}
+            {% if process_recoveries.hidden > 0 %}
+               <p class="text-muted small">{{ _n('%d other process you cannot see is not listed.', '%d other processes you cannot see are not listed.', process_recoveries.hidden, 'grcmanager')|format(process_recoveries.hidden) }}</p>
+            {% endif %}
+            {% if recovery_processes is not empty %}
+               <form method="post" action="{{ recovery_url }}" class="row g-2 align-items-end mb-2">
+                  <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                  <input type="hidden" name="plugin_grcmanager_crisisexercises_id" value="{{ exercise.id }}">
+                  <div class="col-md-4">
+                     <label class="form-label" for="grc-crisis-process">{{ _n('Business process', 'Business processes', 1, 'grcmanager') }}</label>
+                     <select id="grc-crisis-process" name="plugin_grcmanager_businessprocesses_id" class="form-select" required>
+                        {% for id, name in recovery_processes %}<option value="{{ id }}">{{ name }}</option>{% endfor %}
+                     </select>
+                  </div>
+                  <div class="col-md-2">
+                     <label class="form-label" for="grc-crisis-process-minutes">{{ __('Measured time (minutes)', 'grcmanager') }}</label>
+                     <input type="number" id="grc-crisis-process-minutes" name="measured_minutes" class="form-control" min="1" value="{{ recovery_minutes > 0 ? recovery_minutes : '' }}" required>
+                  </div>
+                  <div class="col-md-4">
+                     <label class="form-label" for="grc-crisis-process-comment">{{ __('Comment', 'grcmanager') }}</label>
+                     <input type="text" id="grc-crisis-process-comment" name="comment" class="form-control" maxlength="255">
+                  </div>
+                  <div class="col-md-2">
+                     <button type="submit" name="add" value="1" class="btn btn-primary w-100"><i class="ti ti-plus me-1"></i>{{ __('Record', 'grcmanager') }}</button>
+                  </div>
+               </form>
+               <div class="form-hint">{{ __('The measured time is compared with the RTO of the process and becomes its last recovery test.', 'grcmanager') }}</div>
+            {% endif %}
+         {% endif %}
+
          <h3 class="mt-4" id="grc-crisis-journal"><i class="ti ti-notebook me-1"></i>{{ __('Crisis log', 'grcmanager') }}</h3>
          {% if can_journal and not exercise.ended %}
             <form method="post" action="{{ action }}" class="d-flex gap-2 mb-2">

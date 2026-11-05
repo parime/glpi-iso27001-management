@@ -22,6 +22,7 @@ use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\BusinessProcessBase;
 use GlpiPlugin\Grcmanager\Install\Installer;
 use GlpiPlugin\Grcmanager\Services\Continuity\BusinessImpactRules;
+use GlpiPlugin\Grcmanager\Services\Continuity\RecoveryStrategyRules;
 use GlpiPlugin\Grcmanager\Services\Impact\ImpactGraph;
 use Log;
 use Session;
@@ -100,6 +101,7 @@ class BusinessProcess extends BusinessProcessBase
             ->addStandardTab(BusinessProcessItem::class, $tabs, $options)
             ->addStandardTab(BusinessProcessLink::class, $tabs, $options)
             ->addStandardTab(BusinessProcessRisk::class, $tabs, $options)
+            ->addStandardTab(BusinessProcessRecovery::class, $tabs, $options)
             ->addStandardTab(Log::class, $tabs, $options);
 
         return $tabs;
@@ -168,6 +170,10 @@ class BusinessProcess extends BusinessProcessBase
             BusinessProcessLink::UPSTREAM_FIELD      => $this->getID(),
         ]]);
         (new BusinessProcessRisk())->deleteByCriteria(['plugin_grcmanager_businessprocesses_id' => $this->getID()]);
+        // Issue #377, troisième étape : temps de reprise mesurés.
+        (new BusinessProcessRecovery())->deleteByCriteria(
+            ['plugin_grcmanager_businessprocesses_id' => $this->getID()]
+        );
     }
 
     /**
@@ -286,11 +292,19 @@ class BusinessProcess extends BusinessProcessBase
             static fn (array $a, array $b): int => [$a['depth'], $a['label']] <=> [$b['depth'], $b['label']]
         );
 
+        $issues = BusinessImpactRules::objectiveIssues($mtpd, $rto, $rpo, $grid);
+        // Issue #377, troisième étape : le dernier test de reprise a dépassé le RTO.
+        $measured = BusinessProcessRecovery::lastMeasured($processId);
+        if ($measured !== null && RecoveryStrategyRules::exceedsRto($rto, $measured)) {
+            $issues[] = 'recovery_above_rto';
+        }
+
         return [
             'grid'               => $grid,
             'worst'              => BusinessImpactRules::worstByHorizon($grid),
             'first_unacceptable' => BusinessImpactRules::firstUnacceptableHorizon($grid),
-            'issues'             => BusinessImpactRules::objectiveIssues($mtpd, $rto, $rpo, $grid),
+            'issues'             => $issues,
+            'last_measured'      => $measured,
             'dependencies'       => array_values($dependencies),
             'hidden'             => $hidden,
         ];
@@ -328,6 +342,19 @@ class BusinessProcess extends BusinessProcessBase
             'rpo_larger'        => __('May lose more data than the process accepts (RPO)', 'grcmanager'),
             'asset_rto_missing' => __('No RTO set on this item (C/I/A classification tab)', 'grcmanager'),
             'process_rto_missing' => __('No RTO set on this process', 'grcmanager'),
+            // Issue #377, troisième étape : stratégie de reprise.
+            'recovery_above_rto' => __(
+                'The recovery time measured at the last test exceeds the RTO.',
+                'grcmanager'
+            ),
+            'strategy_missing'   => __(
+                'No recovery strategy described (degraded mode, backup solution or procedure).',
+                'grcmanager'
+            ),
+            'recovery_untested'  => __(
+                'Recovery never tested: record the time measured during a test or a crisis exercise.',
+                'grcmanager'
+            ),
         ];
     }
 
@@ -413,7 +440,11 @@ class BusinessProcess extends BusinessProcessBase
                     'issues'  => $label($node['issues']),
                 ];
             }
+            // Issue #377, troisième étape : stratégie de reprise et tests (exercice nommé s'il est lisible).
+            $strategy = BusinessProcessRecovery::strategy($process);
+            $strategy['issues'] = $label(array_values(array_diff($strategy['issues'], $analysis['issues'])));
             $sheets[] = [
+                'strategy'     => $strategy,
                 'name'         => (string) $fields['name'],
                 'entity'       => (string) Dropdown::getDropdownName('glpi_entities', (int) $fields['entities_id']),
                 'owner'        => (int) $fields['users_id'] > 0 ? getUserName((int) $fields['users_id']) : '',
@@ -484,6 +515,7 @@ class BusinessProcess extends BusinessProcessBase
         $header[] = __('Depends on', 'grcmanager');
         $header[] = __('Items not meeting the objectives', 'grcmanager');
         $header[] = __('Consistency checks', 'grcmanager');
+        $header[] = __('Recovery time measured at the last test', 'grcmanager');
 
         $levels = BusinessImpact::getLevelLabels();
         $issueLabels = self::getIssueLabels();
@@ -523,6 +555,8 @@ class BusinessProcess extends BusinessProcessBase
                 static fn (string $code): string => $issueLabels[$code] ?? $code,
                 $analysis['issues']
             ));
+            $line[] = $analysis['last_measured'] === null
+                ? '' : BusinessProcessRecovery::formatMinutes((int) $analysis['last_measured']);
             $rows[] = $line;
         }
 
@@ -574,6 +608,19 @@ class BusinessProcess extends BusinessProcessBase
         $tab[] = [
             'id' => 11, 'table' => self::getTable(), 'field' => 'date_mod', 'name' => __('Last update'),
             'datatype' => 'datetime', 'massiveaction' => false,
+        ];
+        // Issue #377, troisième étape : stratégie de reprise.
+        $tab[] = [
+            'id' => 12, 'table' => self::getTable(), 'field' => 'degraded_mode',
+            'name' => __('Degraded mode', 'grcmanager'), 'datatype' => 'text',
+        ];
+        $tab[] = [
+            'id' => 13, 'table' => self::getTable(), 'field' => 'backup_solution',
+            'name' => __('Backup solution', 'grcmanager'), 'datatype' => 'text',
+        ];
+        $tab[] = [
+            'id' => 14, 'table' => self::getTable(), 'field' => 'recovery_procedure',
+            'name' => __('Recovery procedure', 'grcmanager'), 'datatype' => 'text',
         ];
         $tab[] = [
             'id' => 80, 'table' => 'glpi_entities', 'field' => 'completename', 'name' => __('Entity'),

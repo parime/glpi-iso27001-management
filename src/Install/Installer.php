@@ -2606,7 +2606,12 @@ final class Installer
         // existants sans toucher à leurs données) et temps de reprise mesurés à chaque test.
         if (!$DB->fieldExists(self::BUSINESS_PROCESSES_TABLE, 'degraded_mode')) {
             $migration->addField(self::BUSINESS_PROCESSES_TABLE, 'degraded_mode', 'text', ['after' => 'bia_date']);
-            $migration->addField(self::BUSINESS_PROCESSES_TABLE, 'backup_solution', 'text', ['after' => 'degraded_mode']);
+            $migration->addField(
+                self::BUSINESS_PROCESSES_TABLE,
+                'backup_solution',
+                'text',
+                ['after' => 'degraded_mode']
+            );
             $migration->addField(
                 self::BUSINESS_PROCESSES_TABLE,
                 'recovery_procedure',

@@ -19,10 +19,13 @@ declare(strict_types=1);
 
 namespace GlpiPlugin\Grcmanager\Tests\Integration;
 
+use GlpiPlugin\Grcmanager\AssetClassification;
 use GlpiPlugin\Grcmanager\BusinessImpact;
 use GlpiPlugin\Grcmanager\BusinessProcess;
 use GlpiPlugin\Grcmanager\BusinessProcessItem;
 use GlpiPlugin\Grcmanager\BusinessProcessLink;
+use GlpiPlugin\Grcmanager\BusinessProcessRecovery;
+use GlpiPlugin\Grcmanager\CrisisExercise;
 use GlpiPlugin\Grcmanager\BusinessProcessRisk;
 use GlpiPlugin\Grcmanager\Install\Installer;
 use GlpiPlugin\Grcmanager\Risk;
@@ -411,5 +414,175 @@ final class BusinessProcessTest extends GrcmanagerIntegrationTestCase
         $html = (string) ob_get_clean();
         $this->assertStringContainsString('levels[4][financial]', $html);
         $this->assertStringContainsString('_glpi_csrf_token', $html);
+    }
+
+    /**
+     * Issue #377, troisième étape : applications, instances de bases de données et fournisseurs ont
+     * une classification C/I/D (RTO, RPO), contrôlée par la BIA.
+     */
+    public function testApplianceDatabaseAndSupplierHaveRecoveryObjectives(): void
+    {
+        $process = $this->process(['rto_hours' => 4, 'rpo_hours' => 1]);
+        $items = [
+            'Appliance'        => (int) (new \Appliance())->add(['name' => 'APP-DEMO-RTO', 'entities_id' => 0]),
+            'DatabaseInstance' => (int) (new \DatabaseInstance())->add(['name' => 'DB-DEMO-RTO', 'entities_id' => 0]),
+            'Supplier'         => (int) (new \Supplier())->add(['name' => 'FOURN-DEMO-RTO', 'entities_id' => 0]),
+        ];
+        $objectives = ['Appliance' => [24, 1], 'DatabaseInstance' => [4, 8], 'Supplier' => [1, 1]];
+        foreach ($items as $itemtype => $id) {
+            $this->assertContains($itemtype, AssetClassification::getItemtypes());
+            $this->assertGreaterThan(0, (int) (new BusinessProcessItem())->add([
+                'plugin_grcmanager_businessprocesses_id' => $process->getID(),
+                'itemtype' => $itemtype, 'items_id' => $id,
+            ]));
+            $this->assertGreaterThan(0, (int) (new AssetClassification())->add([
+                'itemtype' => $itemtype, 'items_id' => $id, 'availability' => 'high',
+                'rto_hours' => $objectives[$itemtype][0], 'rpo_hours' => $objectives[$itemtype][1],
+            ]));
+        }
+
+        $issues = array_column(BusinessProcess::analyze($process)['dependencies'], 'issues', 'itemtype');
+        $this->assertSame(['rto_slower'], $issues['Appliance'], 'Application plus lente que le processus.');
+        $this->assertSame(['rpo_larger'], $issues['DatabaseInstance'], 'Base qui perd trop de données.');
+        $this->assertSame([], $issues['Supplier']);
+
+        // Onglet de classification sur le fournisseur, contenu refusé sans le droit du SMSI.
+        $supplier = new \Supplier();
+        $supplier->getFromDB($items['Supplier']);
+        $this->assertNotSame('', (new AssetClassification())->getTabNameForItem($supplier));
+        $saved = $_SESSION['glpiactiveprofile'][AssetClassification::$rightname] ?? 0;
+        $_SESSION['glpiactiveprofile'][AssetClassification::$rightname] = 0;
+        try {
+            ob_start();
+            $shown = AssetClassification::displayTabContentForItem($supplier);
+            $this->assertSame('', (string) ob_get_clean());
+            $this->assertFalse($shown);
+        } finally {
+            $_SESSION['glpiactiveprofile'][AssetClassification::$rightname] = $saved;
+        }
+        // Un utilisateur n'est pas classable.
+        $user = new \User();
+        $user->getFromDB(2);
+        $this->assertSame('', (new AssetClassification())->getTabNameForItem($user));
+
+        // Purge de l'application : sa classification disparaît (rappel ITEM_PURGE existant).
+        (new \Appliance())->delete(['id' => $items['Appliance']], true);
+        $this->assertSame(0, countElementsInTable(AssetClassification::getTable(), [
+            'itemtype' => 'Appliance', 'items_id' => $items['Appliance'],
+        ]));
+        $this->assertSame(1, countElementsInTable(AssetClassification::getTable(), [
+            'itemtype' => 'Supplier', 'items_id' => $items['Supplier'],
+        ]));
+    }
+
+    /**
+     * Issue #377, troisième étape : stratégie de reprise, temps mesurés et lien avec les exercices.
+     */
+    public function testRecoveryStrategyAndMeasuredTimes(): void
+    {
+        $process = $this->process(['name' => 'Facturation DEMO', 'rto_hours' => 4]);
+        $strategy = BusinessProcessRecovery::strategy($process);
+        $this->assertSame(['strategy_missing', 'recovery_untested'], $strategy['issues']);
+
+        $this->assertTrue($process->update([
+            'id' => $process->getID(), 'degraded_mode' => 'Factures saisies sur papier',
+            'backup_solution' => 'Serveur de secours DEMO',
+        ]));
+        $process->getFromDB($process->getID());
+
+        // Test d'exercice : rattaché à un exercice de crise lancé pour l'occasion.
+        $exerciseId = CrisisExercise::launch('outage');
+        $this->assertGreaterThan(0, $exerciseId);
+        $recovery = new BusinessProcessRecovery();
+        $this->assertGreaterThan(0, (int) $recovery->add([
+            'plugin_grcmanager_businessprocesses_id' => $process->getID(),
+            BusinessProcessRecovery::EXERCISE_FIELD   => $exerciseId,
+            'test_date' => '2026-03-02', 'measured_minutes' => 180, 'comment' => 'Bascule DEMO',
+        ]));
+        $this->assertGreaterThan(0, (int) $recovery->add([
+            'plugin_grcmanager_businessprocesses_id' => $process->getID(),
+            'test_date' => '2026-06-15', 'measured_minutes' => 300,
+        ]));
+        // Saisies refusées : durée absente, exercice inexistant.
+        $this->assertFalse($recovery->add([
+            'plugin_grcmanager_businessprocesses_id' => $process->getID(), 'measured_minutes' => 'x',
+        ]));
+        $this->assertFalse($recovery->add([
+            'plugin_grcmanager_businessprocesses_id' => $process->getID(), 'measured_minutes' => 30,
+            BusinessProcessRecovery::EXERCISE_FIELD => 999999999,
+        ]));
+
+        $strategy = BusinessProcessRecovery::strategy($process);
+        $this->assertSame(['recovery_above_rto'], $strategy['issues'], 'Dernier test : 5 h pour un RTO de 4 h.');
+        $this->assertSame(300, $strategy['last']['minutes']);
+        $this->assertSame(BusinessProcessRecovery::formatMinutes(300), $strategy['last']['duration']);
+        $this->assertContains('recovery_above_rto', BusinessProcess::analyze($process)['issues']);
+        $this->assertNotSame('', $strategy['tests'][1]['exercise'], 'Exercice lisible nommé.');
+
+        // Salle de crise : le processus testé pendant l'exercice.
+        $exercise = new CrisisExercise();
+        $exercise->getFromDB($exerciseId);
+        $rows = BusinessProcessRecovery::forExercise($exercise)['rows'];
+        $this->assertSame(['Facturation DEMO'], array_column($rows, 'name'));
+        $this->assertFalse($rows[0]['exceeds'], '3 h pour un RTO de 4 h.');
+
+        // Sans le droit des incidents, l'exercice n'est plus nommé ni rattachable.
+        $saved = $_SESSION['glpiactiveprofile'][CrisisExercise::RIGHTNAME] ?? 0;
+        $_SESSION['glpiactiveprofile'][CrisisExercise::RIGHTNAME] = 0;
+        try {
+            $tests = BusinessProcessRecovery::strategy($process)['tests'];
+            $this->assertSame('', $tests[1]['exercise']);
+            $this->assertTrue($tests[1]['exercise_hidden']);
+            $this->assertSame([], BusinessProcessRecovery::exerciseChoices());
+            $this->assertFalse($recovery->add([
+                'plugin_grcmanager_businessprocesses_id' => $process->getID(), 'measured_minutes' => 30,
+                BusinessProcessRecovery::EXERCISE_FIELD   => $exerciseId,
+            ]));
+        } finally {
+            $_SESSION['glpiactiveprofile'][CrisisExercise::RIGHTNAME] = $saved;
+        }
+
+        // Onglet : refusé sans le droit de la continuité.
+        $savedContinuity = $_SESSION['glpiactiveprofile'][Installer::CONTINUITY_RIGHT] ?? 0;
+        $_SESSION['glpiactiveprofile'][Installer::CONTINUITY_RIGHT] = 0;
+        try {
+            ob_start();
+            $shown = BusinessProcessRecovery::displayTabContentForItem($process);
+            $this->assertSame('', (string) ob_get_clean());
+            $this->assertFalse($shown);
+            $this->assertSame(['rows' => [], 'hidden' => 0], BusinessProcessRecovery::forExercise($exercise));
+        } finally {
+            $_SESSION['glpiactiveprofile'][Installer::CONTINUITY_RIGHT] = $savedContinuity;
+        }
+        ob_start();
+        $this->assertTrue(BusinessProcessRecovery::displayTabContentForItem($process));
+        $html = (string) ob_get_clean();
+        $this->assertStringContainsString('Factures saisies sur papier', $html);
+        $this->assertStringContainsString('measured_minutes', $html);
+
+        // Plan de continuité : stratégie, dernier test et écart.
+        $report = BusinessProcess::renderContinuityReport($process);
+        $this->assertStringContainsString('Serveur de secours DEMO', $report);
+        $this->assertStringContainsString(BusinessProcessRecovery::formatMinutes(300), $report);
+        $this->assertStringContainsString(BusinessProcess::getIssueLabels()['recovery_above_rto'], $report);
+
+        // Purge du processus : ses tests disparaissent.
+        $process->delete(['id' => $process->getID()], true);
+        $this->assertSame(0, countElementsInTable(BusinessProcessRecovery::getTable(), [
+            'plugin_grcmanager_businessprocesses_id' => $process->getID(),
+        ]));
+    }
+
+    public function testRecoveryOfAnotherEntityProcessIsRefused(): void
+    {
+        $other = $this->createTestEntity(0, 'BIA DEMO R ' . random_int(1000, 9999));
+        $processB = $this->process(['name' => 'Processus DEMO RB', 'entities_id' => $other]);
+        $_SESSION['glpiactiveentities'] = array_values(array_diff($_SESSION['glpiactiveentities'], [$other]));
+        $_SESSION['glpiactiveentities_string'] = implode("','", $_SESSION['glpiactiveentities']);
+
+        $this->assertFalse((new BusinessProcessRecovery())->add([
+            'plugin_grcmanager_businessprocesses_id' => $processB->getID(), 'measured_minutes' => 60,
+        ]));
+        $this->assertArrayNotHasKey($processB->getID(), BusinessProcessRecovery::processChoices());
     }
 }

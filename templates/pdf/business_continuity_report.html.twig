@@ -35,6 +35,7 @@
           <th>RTO</th>
           <th>RPO</th>
           <th>{{ __('Last business impact analysis', 'grcmanager') }}</th>
+          <th>{{ __('Last recovery test', 'grcmanager') }}</th>
           <th>{{ __('Consistency checks', 'grcmanager') }}</th>
         </tr>
       </thead>
@@ -48,6 +49,7 @@
             <td>{{ sheet.rto }}</td>
             <td>{{ sheet.rpo }}</td>
             <td>{{ sheet.bia_date }}</td>
+            <td class="{{ sheet.strategy.last and sheet.strategy.last.exceeds ? 'grc-issue' : '' }}">{% if sheet.strategy.last %}{{ sheet.strategy.last.duration }}{% else %}<span class="grc-muted">{{ __('Never tested', 'grcmanager') }}</span>{% endif %}</td>
             <td class="grc-center">{{ sheet.issues|length + sheet.late }}</td>
           </tr>
         {% endfor %}
@@ -190,6 +192,56 @@
     {% endif %}
     {% if sheet.hidden_processes > 0 %}
       <p class="grc-muted">{{ _n('%d other process you cannot see is not listed.', '%d other processes you cannot see are not listed.', sheet.hidden_processes, 'grcmanager')|format(sheet.hidden_processes) }}</p>
+    {% endif %}
+
+    {# Issue #377, troisième étape : stratégie de reprise et dernier test. #}
+    <h3>{{ __('Recovery strategy', 'grcmanager') }}</h3>
+    <table class="grcmanager-pdf-table">
+      {% for field, title in {'degraded_mode': __('Degraded mode', 'grcmanager'), 'backup_solution': __('Backup solution', 'grcmanager'), 'recovery_procedure': __('Recovery procedure', 'grcmanager')} %}
+        <tr class="grc-keep">
+          <th style="width: 30%;">{{ title }}</th>
+          <td>{% if sheet.strategy[field] is not empty %}{{ sheet.strategy[field]|nl2br }}{% else %}<span class="grc-muted">{{ __('Not described', 'grcmanager') }}</span>{% endif %}</td>
+        </tr>
+      {% endfor %}
+      <tr class="grc-keep">
+        <th>{{ __('Recovery time measured at the last test', 'grcmanager') }}</th>
+        <td>
+          {% if sheet.strategy.last %}
+            <span class="{{ sheet.strategy.last.exceeds ? 'grc-issue' : '' }}">{{ sheet.strategy.last.duration }}</span>
+            ({{ sheet.strategy.last.date }}{% if sheet.strategy.last.exercise %}, {{ sheet.strategy.last.exercise }}{% endif %})
+            {% if sheet.strategy.last.exceeds %}<div class="grc-issue">{{ __('Above the RTO', 'grcmanager') }}</div>{% endif %}
+          {% else %}
+            <span class="grc-muted">{{ __('Never tested', 'grcmanager') }}</span>
+          {% endif %}
+        </td>
+      </tr>
+    </table>
+    {% if sheet.strategy.issues is not empty %}
+      <ul>
+        {% for issue in sheet.strategy.issues %}<li class="grc-issue">{{ issue }}</li>{% endfor %}
+      </ul>
+    {% endif %}
+    {% if sheet.strategy.tests|length > 1 %}
+      <table class="grcmanager-pdf-table">
+        <thead>
+          <tr>
+            <th>{{ __('Date') }}</th>
+            <th>{{ __('Measured time', 'grcmanager') }}</th>
+            <th>{{ __('Crisis exercise', 'grcmanager') }}</th>
+            <th>{{ __('Comment', 'grcmanager') }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for test in sheet.strategy.tests %}
+            <tr>
+              <td>{{ test.date }}</td>
+              <td class="{{ test.exceeds ? 'grc-issue' : '' }}">{{ test.duration }}</td>
+              <td>{{ test.exercise }}</td>
+              <td>{{ test.comment }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     {% endif %}
 
     {% if show_risks %}
