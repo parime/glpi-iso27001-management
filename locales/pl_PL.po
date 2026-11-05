@@ -10304,3 +10304,105 @@ msgstr "Kolor wiadomości e-mail przejęty z identyfikacji wizualnej powiadomie�
 
 msgid "E-mail colour:"
 msgstr "Kolor wiadomości e-mail:"
+
+msgid "Recovery strategy"
+msgstr "Strategia odtwarzania"
+
+#, php-format
+msgid "%d min"
+msgstr "%d min"
+
+#, php-format
+msgid "%1$d h %2$02d min"
+msgstr "%1$d godz. %2$02d min"
+
+#, php-format
+msgid "Crisis team: %s"
+msgstr "Sztab kryzysowy: %s"
+
+msgid "Enter the measured recovery time, in minutes."
+msgstr "Wprowadź zmierzony czas odtworzenia w minutach."
+
+msgid "The recovery time measured at the last test exceeds the RTO."
+msgstr "Czas odtworzenia zmierzony podczas ostatniego testu przekracza RTO."
+
+msgid "No recovery strategy described (degraded mode, backup solution or procedure)."
+msgstr "Nie opisano strategii odtwarzania (tryb awaryjny, rozwiązanie zapasowe lub procedura)."
+
+msgid "Recovery never tested: record the time measured during a test or a crisis exercise."
+msgstr "Odtworzenie nigdy nie było testowane: zapisz czas zmierzony podczas testu lub ćwiczenia kryzysowego."
+
+msgid "Recovery time measured at the last test"
+msgstr "Czas odtworzenia zmierzony w ostatnim teście"
+
+msgid "Degraded mode"
+msgstr "Tryb awaryjny"
+
+msgid "Backup solution"
+msgstr "Rozwiązanie zapasowe"
+
+msgid "Recovery procedure"
+msgstr "Procedura odtwarzania"
+
+msgid "Last recovery test"
+msgstr "Ostatni test odtworzenia"
+
+msgid "Not described"
+msgstr "Nie opisano"
+
+msgid "Above the RTO"
+msgstr "Powyżej RTO"
+
+msgid "Within the RTO"
+msgstr "W granicach RTO"
+
+msgid "How the activity continues while the system is down (paper forms, manual workaround…)."
+msgstr "Jak działalność jest kontynuowana podczas awarii (formularze papierowe, obejście ręczne…)."
+
+msgid "Backup site, standby system, alternative supplier…"
+msgstr "Lokalizacja zapasowa, system rezerwowy, dostawca alternatywny…"
+
+msgid "Main steps to restore the process, or reference of the detailed procedure."
+msgstr "Główne kroki przywrócenia procesu lub odwołanie do szczegółowej procedury."
+
+msgid "Time actually needed to restore the process during a test or a crisis exercise, compared with its RTO. A test can also be recorded from the crisis room."
+msgstr "Czas faktycznie potrzebny do przywrócenia procesu podczas testu lub ćwiczenia kryzysowego, porównany z jego RTO. Test można też zapisać z poziomu sali kryzysowej."
+
+msgid "Measured time (minutes)"
+msgstr "Zmierzony czas (minuty)"
+
+msgid "None (test outside an exercise)"
+msgstr "Brak (test poza ćwiczeniem)"
+
+msgid "No recovery test recorded yet."
+msgstr "Nie zapisano jeszcze żadnego testu odtworzenia."
+
+msgid "Measured time"
+msgstr "Zmierzony czas"
+
+msgid "Recorded by"
+msgstr "Zapisane przez"
+
+msgid "Exercise you cannot see"
+msgstr "Ćwiczenie, którego nie możesz zobaczyć"
+
+msgid "Remove this recovery test?"
+msgstr "Usunąć ten test odtworzenia?"
+
+msgid "Business processes tested"
+msgstr "Przetestowane procesy biznesowe"
+
+msgid "No recovery time recorded for a business process during this exercise."
+msgstr "Podczas tego ćwiczenia nie zapisano czasu odtworzenia żadnego procesu biznesowego."
+
+msgid "Record"
+msgstr "Zapisz"
+
+msgid "The measured time is compared with the RTO of the process and becomes its last recovery test."
+msgstr "Zmierzony czas jest porównywany z RTO procesu i staje się jego ostatnim testem odtworzenia."
+
+msgid "Recovery test"
+msgid_plural "Recovery tests"
+msgstr[0] "Test odtworzenia"
+msgstr[1] "Testy odtworzenia"
+msgstr[2] "Testów odtworzenia"

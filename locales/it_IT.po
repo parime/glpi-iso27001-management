@@ -8896,3 +8896,104 @@ msgstr "Colore delle e-mail ripreso dalla grafica delle notifiche di Configurati
 
 msgid "E-mail colour:"
 msgstr "Colore delle e-mail:"
+
+msgid "Recovery strategy"
+msgstr "Strategia di ripristino"
+
+#, php-format
+msgid "%d min"
+msgstr "%d min"
+
+#, php-format
+msgid "%1$d h %2$02d min"
+msgstr "%1$d h %2$02d min"
+
+#, php-format
+msgid "Crisis team: %s"
+msgstr "Unità di crisi: %s"
+
+msgid "Enter the measured recovery time, in minutes."
+msgstr "Inserire il tempo di ripristino misurato, in minuti."
+
+msgid "The recovery time measured at the last test exceeds the RTO."
+msgstr "Il tempo di ripristino misurato all'ultimo test supera l'RTO."
+
+msgid "No recovery strategy described (degraded mode, backup solution or procedure)."
+msgstr "Nessuna strategia di ripristino descritta (modalità degradata, soluzione di riserva o procedura)."
+
+msgid "Recovery never tested: record the time measured during a test or a crisis exercise."
+msgstr "Ripristino mai testato: registrare il tempo misurato durante un test o un'esercitazione di crisi."
+
+msgid "Recovery time measured at the last test"
+msgstr "Tempo di ripristino misurato all'ultimo test"
+
+msgid "Degraded mode"
+msgstr "Modalità degradata"
+
+msgid "Backup solution"
+msgstr "Soluzione di riserva"
+
+msgid "Recovery procedure"
+msgstr "Procedura di ripristino"
+
+msgid "Last recovery test"
+msgstr "Ultimo test di ripristino"
+
+msgid "Not described"
+msgstr "Non descritto"
+
+msgid "Above the RTO"
+msgstr "Oltre l'RTO"
+
+msgid "Within the RTO"
+msgstr "Entro l'RTO"
+
+msgid "How the activity continues while the system is down (paper forms, manual workaround…)."
+msgstr "Come prosegue l'attività durante il guasto (moduli cartacei, soluzione manuale…)."
+
+msgid "Backup site, standby system, alternative supplier…"
+msgstr "Sito di riserva, sistema in standby, fornitore alternativo…"
+
+msgid "Main steps to restore the process, or reference of the detailed procedure."
+msgstr "Passi principali per ripristinare il processo, o riferimento alla procedura dettagliata."
+
+msgid "Time actually needed to restore the process during a test or a crisis exercise, compared with its RTO. A test can also be recorded from the crisis room."
+msgstr "Tempo effettivamente necessario per ripristinare il processo durante un test o un'esercitazione di crisi, confrontato con il suo RTO. Un test può essere registrato anche dalla sala di crisi."
+
+msgid "Measured time (minutes)"
+msgstr "Tempo misurato (minuti)"
+
+msgid "None (test outside an exercise)"
+msgstr "Nessuna (test al di fuori di un'esercitazione)"
+
+msgid "No recovery test recorded yet."
+msgstr "Nessun test di ripristino ancora registrato."
+
+msgid "Measured time"
+msgstr "Tempo misurato"
+
+msgid "Recorded by"
+msgstr "Registrato da"
+
+msgid "Exercise you cannot see"
+msgstr "Esercitazione che non può vedere"
+
+msgid "Remove this recovery test?"
+msgstr "Rimuovere questo test di ripristino?"
+
+msgid "Business processes tested"
+msgstr "Processi aziendali testati"
+
+msgid "No recovery time recorded for a business process during this exercise."
+msgstr "Nessun tempo di ripristino registrato per un processo aziendale durante questa esercitazione."
+
+msgid "Record"
+msgstr "Registra"
+
+msgid "The measured time is compared with the RTO of the process and becomes its last recovery test."
+msgstr "Il tempo misurato viene confrontato con l'RTO del processo e diventa il suo ultimo test di ripristino."
+
+msgid "Recovery test"
+msgid_plural "Recovery tests"
+msgstr[0] "Test di ripristino"
+msgstr[1] "Test di ripristino"
