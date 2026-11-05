@@ -60,7 +60,7 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/processingactivity.php front/datasubjectrequest.php front/processingactivity.export.php?format=pdf
   front/processingactivity.export.php?format=csv
   front/riskappetite.php front/riskindicator.php
-  front/businessprocess.php front/businessprocess.php?export=csv"
+  front/businessprocess.php front/businessprocess.php?export=csv front/businessprocess.report.php"
 # Creations : refusees sans droit comme en lecture seule (etat en base compare par la CI).
 create_attempts() { # code attendu, code attendu pour la classification (404 sans droit sur l'actif)
   local incident; incident=$(id incident_A)
@@ -156,6 +156,13 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
     "$(code -d "add=1&plugin_grcmanager_businessprocesses_id=$(id process_A)&itemtype=Computer&items_id=$(id computer_A)&_glpi_csrf_token=$(csrf)" "$P/businessprocessitem.form.php")"
   expect "front/businessimpact.form.php : enregistrer la BIA" "$1" \
     "$(code -d "save=1&plugin_grcmanager_businessprocesses_id=$(id process_A)&levels[4][financial]=4&_glpi_csrf_token=$(csrf)" "$P/businessimpact.form.php")"
+  # Issue #377, deuxieme etape : dependance entre processus, risque lie, risque propose pour un actif.
+  expect "front/businessprocesslink.form.php : lier un processus" "$1" \
+    "$(code -d "add=1&plugin_grcmanager_businessprocesses_id=$(id process_A)&plugin_grcmanager_businessprocesses_id_upstream=$(id process_B)&_glpi_csrf_token=$(csrf)" "$P/businessprocesslink.form.php")"
+  expect "front/businessprocessrisk.form.php : lier un risque" "$1" \
+    "$(code -d "add=1&plugin_grcmanager_businessprocesses_id=$(id process_A)&plugin_grcmanager_risks_id=$(id risk)&_glpi_csrf_token=$(csrf)" "$P/businessprocessrisk.form.php")"
+  expect "front/businessprocessrisk.form.php : proposer un risque" "$1" \
+    "$(code -d "create_risk=1&plugin_grcmanager_businessprocesses_id=$(id process_A)&itemtype=Computer&items_id=$(id computer_A)&_glpi_csrf_token=$(csrf)" "$P/businessprocessrisk.form.php")"
   # Issue #372 : declarer un incident depuis un element (droit de creer un incident).
   expect "front/securityincidentlinkeditem.form.php : declarer un incident" "$1" \
     "$(code -d "declare=1&itemtype=Computer&items_id=$(id computer_A)&_glpi_csrf_token=$(csrf)" "$P/securityincidentlinkeditem.form.php")"
@@ -194,6 +201,8 @@ if [ "$ROLE" = none ]; then
   done
   expect "front/training.report.php : sans droit" 403 "$(code "$P/training.report.php?id=$(id training)")"
   expect "front/ebiosstudy.report.php : sans droit" 403 "$(code "$P/ebiosstudy.report.php?id=1")"
+  expect "front/businessprocess.report.php : PCA d'un processus, sans droit" 403 \
+    "$(code "$P/businessprocess.report.php?id=$(id process_A)")"
   expect "front/riskindicator.form.php : sans droit" 403 "$(code "$P/riskindicator.form.php?id=$(id kri_A)")"
   expect "front/trainingquiz.send.php : copie d'un autre, sans droit" 403 "$(code "$P/trainingquiz.send.php?id=$(id quiz)")"
   # Page des responsables de revue : ouverte a toute session, ne montre que leurs propres lignes.
@@ -210,6 +219,8 @@ if [ "$ROLE" = none ]; then
            'GlpiPlugin%5CGrcmanager%5CBusinessProcessItem$1'; do
     contains "onglet $t d'un ordinateur : sans droit" "plugins/grcmanager" non "$(tab Computer "$t" "$(id computer_A)")"
   done
+  contains "onglet Processus metier d'un risque : sans droit" "Processus securite" non \
+    "$(tab GlpiPlugin%5CGrcmanager%5CRisk 'GlpiPlugin%5CGrcmanager%5CBusinessProcessRisk$1' "$(id risk)")"
   # Issue #403 : les referentiels actifs se reglent avec le droit de modifier la configuration.
   expect "front/config.php : desactiver les referentiels" 403 \
     "$(code -d "update_frameworks=1&_glpi_csrf_token=$(csrf)" "$P/config.php")"
@@ -230,9 +241,15 @@ if [ "$ROLE" = general ]; then
            front/networkflow.php front/networkflow.report.php front/networkflow.matrix.php front/parkvulnerability.php \
            front/impactanalysis.php front/causalgraph.php front/breachexposure.php \
            front/riskappetite.php front/riskindicator.php \
-           front/businessprocess.php front/businessprocess.php?export=csv; do
+           front/businessprocess.php front/businessprocess.php?export=csv front/businessprocess.report.php; do
     expect "$p : sans le droit des registres sensibles" 403 "$(code "$BASE/plugins/grcmanager/$p")"
   done
+  expect "front/businessprocess.report.php : PCA d'un processus, sans le droit de la continuite" 403 \
+    "$(code "$P/businessprocess.report.php?id=$(id process_A)")"
+  contains "onglet Processus metier d'un risque : rien" "Processus securite" non \
+    "$(tab GlpiPlugin%5CGrcmanager%5CRisk 'GlpiPlugin%5CGrcmanager%5CBusinessProcessRisk$1' "$(id risk)")"
+  contains "onglet Risques d'un processus : rien" "Risque securite" non \
+    "$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessProcessRisk$1' "$(id process_A)")"
   expect "front/risk.form.php : sans le droit des registres sensibles" 403 "$(code "$P/risk.form.php?id=$(id risk)")"
   expect "front/riskindicator.form.php : sans le droit des registres sensibles" 403 "$(code "$P/riskindicator.form.php?id=$(id kri_A)")"
   # Issue #183 : la surveillance des fuites (cle d'API, domaines) se regle avec le droit des registres
@@ -452,6 +469,30 @@ pca_export=$(curl -s -c "$JAR" -b "$JAR" "$P/businessprocess.php?export=csv")
 contains "export PCA : processus de A" "Processus securite A" oui "$pca_export"
 contains "export PCA : processus de B" "Processus securite B" $SEE_B "$pca_export"
 contains "export PCA : PC de B" "PC securite B" $SEE_B "$pca_export"
+# Issue #377, deuxieme etape : processus lies, risques lies et PCA en PDF. Le processus de B, dont
+# depend celui de A, n'est nomme ni dans l'onglet ni dans le PDF ; il ne peut pas etre lie.
+expect "PCA (PDF) d'un processus de A" 200 "$(code "$P/businessprocess.report.php?id=$(id process_A)")"
+expect "PCA (PDF) d'un processus de B" $DENY "$(code "$P/businessprocess.report.php?id=$(id process_B)")"
+links=$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessProcessLink$1' "$(id process_A)")
+contains "processus lies de A : processus de B" "Processus securite B" $SEE_B "$links"
+contains "processus lies de A : role du lien" "Amont B" $SEE_B "$links"
+contains "risques du processus A : risque" "Risque securite" oui \
+  "$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessProcessRisk$1' "$(id process_A)")"
+risk_procs=$(tab GlpiPlugin%5CGrcmanager%5CRisk 'GlpiPlugin%5CGrcmanager%5CBusinessProcessRisk$1' "$(id risk)")
+contains "processus metier du risque : processus de A" "Processus securite A" oui "$risk_procs"
+contains "processus metier du risque : processus de B" "Processus securite B" $SEE_B "$risk_procs"
+expect "lier un processus a un processus de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
+  "$(code -d "add=1&plugin_grcmanager_businessprocesses_id=$(id process_B)&plugin_grcmanager_businessprocesses_id_upstream=$(id process_A)&_glpi_csrf_token=$(csrf)" "$P/businessprocesslink.form.php")"
+expect "lier un risque a un processus de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
+  "$(code -d "add=1&plugin_grcmanager_businessprocesses_id=$(id process_B)&plugin_grcmanager_risks_id=$(id risk)&_glpi_csrf_token=$(csrf)" "$P/businessprocessrisk.form.php")"
+expect "lier un processus sans jeton CSRF" 403 \
+  "$(code -d "add=1&plugin_grcmanager_businessprocesses_id=$(id process_A)&plugin_grcmanager_businessprocesses_id_upstream=$(id process_B)" "$P/businessprocesslink.form.php")"
+if [ "$ROLE" = limited ]; then
+  expect "lier le processus de B (illisible) au processus A" 404 \
+    "$(code -d "add=1&plugin_grcmanager_businessprocesses_id=$(id process_A)&plugin_grcmanager_businessprocesses_id_upstream=$(id process_B)&_glpi_csrf_token=$(csrf)" "$P/businessprocesslink.form.php")"
+  expect "proposer un risque pour le PC de B (illisible)" 404 \
+    "$(code -d "create_risk=1&plugin_grcmanager_businessprocesses_id=$(id process_A)&itemtype=Computer&items_id=$(id computer_B)&_glpi_csrf_token=$(csrf)" "$P/businessprocessrisk.form.php")"
+fi
 
 # Issue #145 : preuves datées, uniquement celles de ses entités.
 evidences=$(curl -s -c "$JAR" -b "$JAR" "$P/evidence.php")

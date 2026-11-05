@@ -392,6 +392,8 @@ class Risk extends RiskBase
     {
         $tabs = [];
         $this->addDefaultFormTab($tabs)
+            // Issue #377 : processus métier menacés par ce risque (droit de la continuité requis).
+            ->addStandardTab(BusinessProcessRisk::class, $tabs, $options)
             // Registre sensible : modifications historisées.
             ->addStandardTab(Log::class, $tabs, $options);
 
@@ -819,6 +821,8 @@ class Risk extends RiskBase
             RiskTreatmentAction::getTable(),
             ['plugin_grcmanager_risks_id' => $this->fields['id']]
         );
+        // Issue #377 : le risque n'est plus lié à aucun processus métier.
+        $DB->delete(BusinessProcessRisk::getTable(), ['plugin_grcmanager_risks_id' => $this->fields['id']]);
     }
 
     /**

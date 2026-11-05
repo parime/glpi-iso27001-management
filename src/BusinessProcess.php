@@ -98,6 +98,8 @@ class BusinessProcess extends BusinessProcessBase
         $this->addDefaultFormTab($tabs)
             ->addStandardTab(BusinessImpact::class, $tabs, $options)
             ->addStandardTab(BusinessProcessItem::class, $tabs, $options)
+            ->addStandardTab(BusinessProcessLink::class, $tabs, $options)
+            ->addStandardTab(BusinessProcessRisk::class, $tabs, $options)
             ->addStandardTab(Log::class, $tabs, $options);
 
         return $tabs;
@@ -160,6 +162,12 @@ class BusinessProcess extends BusinessProcessBase
     {
         (new BusinessProcessItem())->deleteByCriteria(['plugin_grcmanager_businessprocesses_id' => $this->getID()]);
         (new BusinessImpact())->deleteByCriteria(['plugin_grcmanager_businessprocesses_id' => $this->getID()]);
+        // Dépendances entre processus, dans les deux sens, et liens vers le registre des risques.
+        (new BusinessProcessLink())->deleteByCriteria(['OR' => [
+            'plugin_grcmanager_businessprocesses_id' => $this->getID(),
+            BusinessProcessLink::UPSTREAM_FIELD      => $this->getID(),
+        ]]);
+        (new BusinessProcessRisk())->deleteByCriteria(['plugin_grcmanager_businessprocesses_id' => $this->getID()]);
     }
 
     /**
@@ -258,6 +266,8 @@ class BusinessProcess extends BusinessProcessBase
             }
             $dependencies[$key] = $node + [
                 'key'       => $key,
+                'itemtype'  => $itemtype,
+                'items_id'  => $itemsId,
                 'depth'     => $depth,
                 'link_id'   => (int) ($links[$key]['id'] ?? 0),
                 'comment'   => (string) ($links[$key]['comment'] ?? ''),
@@ -316,7 +326,136 @@ class BusinessProcess extends BusinessProcessBase
             'rto_slower'        => __('Recovers more slowly than the process requires (RTO)', 'grcmanager'),
             'rpo_larger'        => __('May lose more data than the process accepts (RPO)', 'grcmanager'),
             'asset_rto_missing' => __('No RTO set on this item (C/I/A classification tab)', 'grcmanager'),
+            'process_rto_missing' => __('No RTO set on this process', 'grcmanager'),
         ];
+    }
+
+    /**
+     * Issue #377 : plan de continuité (PCA / PRA) au format PDF, pour un processus ou pour tous ceux
+     * que la personne peut lire. Ne contient que ce qu'elle peut lire : processus (droit et entité),
+     * éléments et processus liés lisibles (les autres sont comptés), risques seulement avec le droit
+     * du registre des risques. L'appelant trace l'export.
+     */
+    public static function getContinuityReportURL(int $id = 0): string
+    {
+        global $CFG_GLPI;
+
+        return $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/businessprocess.report.php'
+            . ($id > 0 ? '?id=' . $id : '');
+    }
+
+    public static function renderContinuityReport(?self $only = null): string
+    {
+        $processes = [];
+        if ($only !== null) {
+            $processes[] = $only;
+        } else {
+            $criteria = getEntitiesRestrictCriteria(self::getTable(), '', '', true);
+            foreach ((new self())->find($criteria, ['name ASC']) as $row) {
+                $process = new self();
+                if ($process->getFromDB((int) $row['id']) && $process->canViewItem()) {
+                    $processes[] = $process;
+                }
+            }
+        }
+
+        $durations = self::getDurationOptions();
+        $levels = BusinessImpact::getLevelLabels();
+        $issueLabels = self::getIssueLabels();
+        $showRisks = Risk::canView();
+        $label = static fn (array $codes): array => array_map(
+            static fn (string $code): string => $issueLabels[$code] ?? $code,
+            $codes
+        );
+        $sheets = [];
+        foreach ($processes as $process) {
+            $fields = $process->fields;
+            $analysis = self::analyze($process);
+            $links = BusinessProcessLink::analyze($process);
+            $grid = [];
+            foreach (BusinessImpactRules::HORIZONS as $horizon) {
+                $cells = [];
+                foreach (BusinessImpactRules::CATEGORIES as $category) {
+                    $value = (int) ($analysis['grid'][$horizon][$category] ?? 0);
+                    $cells[] = ['level' => $value, 'label' => $value > 0 ? $levels[$value] : ''];
+                }
+                $worst = (int) ($analysis['worst'][$horizon] ?? 0);
+                $grid[] = [
+                    'horizon' => $durations[$horizon] ?? $horizon . ' h',
+                    'cells'   => $cells,
+                    'worst'   => ['level' => $worst, 'label' => $worst > 0 ? $levels[$worst] : ''],
+                ];
+            }
+            $dependencies = [];
+            $late = 0;
+            foreach ($analysis['dependencies'] as $dependency) {
+                $late += $dependency['issues'] !== [] ? 1 : 0;
+                $dependencies[] = [
+                    'label'     => $dependency['label'],
+                    'depth'     => $dependency['depth'],
+                    'comment'   => $dependency['comment'],
+                    'criticity' => $dependency['criticity'],
+                    'rto'       => $durations[$dependency['rto']] ?? '',
+                    'rpo'       => $durations[$dependency['rpo']] ?? '',
+                    'issues'    => $label($dependency['issues']),
+                ];
+            }
+            $upstream = [];
+            foreach ($links['upstream'] as $node) {
+                $late += $node['issues'] !== [] ? 1 : 0;
+                $upstream[] = [
+                    'name'    => $node['name'],
+                    'depth'   => $node['depth'],
+                    'comment' => $node['comment'],
+                    'rto'     => $durations[$node['rto']] ?? '',
+                    'rpo'     => $durations[$node['rpo']] ?? '',
+                    'issues'  => $label($node['issues']),
+                ];
+            }
+            $sheets[] = [
+                'name'         => (string) $fields['name'],
+                'entity'       => (string) Dropdown::getDropdownName('glpi_entities', (int) $fields['entities_id']),
+                'owner'        => (int) $fields['users_id'] > 0 ? getUserName((int) $fields['users_id']) : '',
+                'group'        => (int) $fields['groups_id'] > 0
+                    ? (string) Dropdown::getDropdownName('glpi_groups', (int) $fields['groups_id']) : '',
+                'criticity'    => self::criticityName((int) $fields['businesscriticities_id']),
+                'mtpd'         => $durations[(int) $fields['mtpd_hours']] ?? '',
+                'rto'          => $durations[(int) $fields['rto_hours']] ?? '',
+                'rpo'          => $durations[(int) $fields['rpo_hours']] ?? '',
+                'bia_date'     => !empty($fields['bia_date']) ? \Html::convDate((string) $fields['bia_date']) : '',
+                'description'  => (string) ($fields['description'] ?? ''),
+                'grid'         => $grid,
+                'issues'       => $label($analysis['issues']),
+                'dependencies' => $dependencies,
+                'hidden_items' => (int) $analysis['hidden'],
+                'upstream'     => $upstream,
+                'downstream'   => array_column($links['downstream'], 'name'),
+                'required'     => [
+                    'rto'      => $durations[$links['required']['rto']] ?? '',
+                    'rto_from' => $links['required']['rto_from'],
+                    'rpo'      => $durations[$links['required']['rpo']] ?? '',
+                    'rpo_from' => $links['required']['rpo_from'],
+                ],
+                'hidden_processes' => (int) $links['hidden'],
+                'risks'        => $showRisks ? BusinessProcessRisk::getRisksForProcess((int) $process->getID()) : [],
+                'late'         => $late,
+            ];
+        }
+
+        return TemplateRenderer::getInstance()->render('@grcmanager/pdf/business_continuity_report.html.twig', [
+            'report_title'       => $only !== null
+                ? sprintf(__('Business continuity plan: %s', 'grcmanager'), $only->fields['name'])
+                : __('Business continuity plan', 'grcmanager'),
+            'generated_at_label' => sprintf(
+                __('Generated on %1$s by %2$s', 'grcmanager'),
+                \Html::convDateTime($_SESSION['glpi_currenttime'] ?? date('Y-m-d H:i:s')),
+                getUserName((int) Session::getLoginUserID())
+            ),
+            'sheets'             => $sheets,
+            'show_summary'       => $only === null,
+            'show_risks'         => $showRisks,
+            'categories'         => BusinessImpact::getCategoryLabels(),
+        ]);
     }
 
     /**

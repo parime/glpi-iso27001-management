@@ -87,8 +87,9 @@ archivé), avec ses champs de classification ISO 27001 fusionnés dessus.
   reprise **RTO/RPO** et export pour le plan de continuité.
 - **Couverture des preuves** : quels actifs doivent avoir quel document.
 - **Processus métier et analyse d'impact sur l'activité (BIA)** : responsable, criticité, DMIA, RTO,
-  RPO, impacts par durée d'interruption, éléments GLPI dont dépend chaque processus, signalement des
-  actifs plus lents que le processus, export pour le PCA / PRA.
+  RPO, impacts par durée d'interruption, éléments GLPI et autres processus dont dépend chaque
+  processus, signalement des actifs et processus plus lents que lui, risques liés (et risque proposé
+  pour un actif trop lent), plan de continuité (PCA / PRA) en PDF et export CSV.
 - **Exercices de crise** (rançongiciel, fuite de données, panne) : incident fictif, étapes
   chronométrées, rapport d'exercice archivé comme preuve (A.5.29, A.5.30).
 - **Cellule de crise** sur un incident réel : plan de réponse, reprise des éléments touchés face à

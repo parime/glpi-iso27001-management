@@ -3,5 +3,6 @@
   {% if new_url is not empty %}
     <a href="{{ new_url }}" class="btn btn-primary"><i class="ti ti-plus me-1"></i>{{ __('New business process', 'grcmanager') }}</a>
   {% endif %}
+  <a href="{{ report_url }}" class="btn btn-outline-secondary"><i class="ti ti-file-type-pdf me-1"></i>{{ __('Business continuity plan (PDF)', 'grcmanager') }}</a>
   <a href="{{ export_url }}" class="btn btn-outline-secondary"><i class="ti ti-file-spreadsheet me-1"></i>{{ __('Export for the business continuity plan (CSV)', 'grcmanager') }}</a>
 </div>

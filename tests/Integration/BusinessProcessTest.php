@@ -22,7 +22,10 @@ namespace GlpiPlugin\Grcmanager\Tests\Integration;
 use GlpiPlugin\Grcmanager\BusinessImpact;
 use GlpiPlugin\Grcmanager\BusinessProcess;
 use GlpiPlugin\Grcmanager\BusinessProcessItem;
+use GlpiPlugin\Grcmanager\BusinessProcessLink;
+use GlpiPlugin\Grcmanager\BusinessProcessRisk;
 use GlpiPlugin\Grcmanager\Install\Installer;
+use GlpiPlugin\Grcmanager\Risk;
 
 /**
  * Issue #377 : registre des processus métier fictifs, BIA, dépendances GLPI, cloisonnement.
@@ -185,6 +188,200 @@ final class BusinessProcessTest extends GrcmanagerIntegrationTestCase
         $names = array_column(BusinessProcess::continuityRows(), 0);
         $this->assertContains('Processus DEMO A', $names);
         $this->assertNotContains('Processus DEMO B', $names);
+    }
+
+    public function testProcessDependenciesPropagateObjectives(): void
+    {
+        // La paie (RTO 24 h, RPO 4 h) a besoin de la gestion des temps (RTO 72 h, RPO 24 h),
+        // elle-même alimentée par l'annuaire RH (aucun objectif).
+        $payroll = $this->process(['name' => 'Paie DEMO', 'rto_hours' => 24, 'rpo_hours' => 4]);
+        $time = $this->process(['name' => 'Temps DEMO', 'rto_hours' => 72, 'rpo_hours' => 24]);
+        $directory = $this->process(['name' => 'Annuaire DEMO']);
+        $link = new BusinessProcessLink();
+        $this->assertGreaterThan(0, (int) $link->add([
+            'plugin_grcmanager_businessprocesses_id' => $payroll->getID(),
+            BusinessProcessLink::UPSTREAM_FIELD      => $time->getID(),
+            'comment'                                => 'Feuilles de temps',
+        ]));
+        $this->assertGreaterThan(0, (int) $link->add([
+            'plugin_grcmanager_businessprocesses_id' => $time->getID(),
+            BusinessProcessLink::UPSTREAM_FIELD      => $directory->getID(),
+        ]));
+
+        // Boucle, lien vers soi-même et doublon refusés.
+        foreach (
+            [
+                [$directory, $payroll],
+                [$payroll, $payroll],
+                [$payroll, $time],
+            ] as [$dependent, $upstream]
+        ) {
+            $this->assertFalse($link->add([
+                'plugin_grcmanager_businessprocesses_id' => $dependent->getID(),
+                BusinessProcessLink::UPSTREAM_FIELD      => $upstream->getID(),
+            ]));
+        }
+
+        $analysis = BusinessProcessLink::analyze($payroll);
+        $byName = array_column($analysis['upstream'], null, 'name');
+        $this->assertSame(['Temps DEMO', 'Annuaire DEMO'], array_column($analysis['upstream'], 'name'));
+        $this->assertSame(1, $byName['Temps DEMO']['depth']);
+        $this->assertSame('Feuilles de temps', $byName['Temps DEMO']['comment']);
+        $this->assertSame(['rto_slower', 'rpo_larger'], $byName['Temps DEMO']['issues']);
+        $this->assertSame(2, $byName['Annuaire DEMO']['depth']);
+        $this->assertSame(0, $byName['Annuaire DEMO']['link_id'], 'Dépendance indirecte : pas de lien à retirer.');
+        $this->assertSame(['process_rto_missing'], $byName['Annuaire DEMO']['issues']);
+
+        // L'annuaire doit reprendre aussi vite que le plus exigeant des processus qui en dépendent.
+        $required = BusinessProcessLink::analyze($directory);
+        $this->assertSame(['Temps DEMO', 'Paie DEMO'], array_column($required['downstream'], 'name'));
+        $this->assertSame(24, $required['required']['rto']);
+        $this->assertSame('Paie DEMO', $required['required']['rto_from']);
+        $this->assertSame(4, $required['required']['rpo']);
+
+        // Purge du processus intermédiaire : ses liens disparaissent dans les deux sens.
+        $time->delete(['id' => $time->getID()], true);
+        $this->assertSame(0, countElementsInTable(BusinessProcessLink::getTable(), ['OR' => [
+            'plugin_grcmanager_businessprocesses_id' => $time->getID(),
+            BusinessProcessLink::UPSTREAM_FIELD      => $time->getID(),
+        ]]));
+        $this->assertSame([], BusinessProcessLink::analyze($payroll)['upstream']);
+    }
+
+    public function testProcessOfAnotherEntityIsNeitherNamedNorLinkable(): void
+    {
+        $other = $this->createTestEntity(0, 'BIA DEMO D ' . random_int(1000, 9999));
+        $processB = $this->process(['name' => 'Processus amont DEMO B', 'entities_id' => $other, 'rto_hours' => 72]);
+        $processA = $this->process(['name' => 'Processus aval DEMO A', 'rto_hours' => 4]);
+        $this->assertGreaterThan(0, (int) (new BusinessProcessLink())->add([
+            'plugin_grcmanager_businessprocesses_id' => $processA->getID(),
+            BusinessProcessLink::UPSTREAM_FIELD      => $processB->getID(),
+        ]));
+        $_SESSION['glpiactiveentities'] = array_values(array_diff($_SESSION['glpiactiveentities'], [$other]));
+        $_SESSION['glpiactiveentities_string'] = implode("','", $_SESSION['glpiactiveentities']);
+
+        $analysis = BusinessProcessLink::analyze($processA);
+        $this->assertSame([], $analysis['upstream'], 'Processus de B jamais nommé.');
+        $this->assertSame(1, $analysis['hidden']);
+        $other2 = $this->process(['name' => 'Autre DEMO A']);
+        $this->assertFalse((new BusinessProcessLink())->add([
+            'plugin_grcmanager_businessprocesses_id' => $other2->getID(),
+            BusinessProcessLink::UPSTREAM_FIELD      => $processB->getID(),
+        ]), 'Processus illisible : lien refusé.');
+
+        $html = BusinessProcess::renderContinuityReport();
+        $this->assertStringContainsString('Processus aval DEMO A', $html);
+        $this->assertStringNotContainsString('Processus amont DEMO B', $html);
+    }
+
+    public function testRiskLinksRequireBothRights(): void
+    {
+        $process = $this->process(['name' => 'Commandes DEMO']);
+        $riskId = (int) (new Risk())->add([
+            'title' => 'Panne du site DEMO', 'category' => 'technical', 'probability' => 'possible',
+            'impact' => 'high', 'status' => 'identified',
+        ]);
+        $this->assertGreaterThan(0, $riskId);
+        $link = new BusinessProcessRisk();
+        $linkId = (int) $link->add([
+            'plugin_grcmanager_businessprocesses_id' => $process->getID(),
+            'plugin_grcmanager_risks_id'             => $riskId,
+        ]);
+        $this->assertGreaterThan(0, $linkId);
+        $this->assertFalse($link->add([
+            'plugin_grcmanager_businessprocesses_id' => $process->getID(),
+            'plugin_grcmanager_risks_id'             => $riskId,
+        ]), 'Doublon refusé.');
+        $this->assertSame(['Panne du site DEMO'], array_column(
+            BusinessProcessRisk::getRisksForProcess((int) $process->getID()),
+            'title'
+        ));
+        $this->assertSame(['Commandes DEMO'], array_column(BusinessProcessRisk::getProcessesForRisk($riskId), 'name'));
+        $this->assertStringContainsString('Panne du site DEMO', BusinessProcess::renderContinuityReport($process));
+
+        // Responsable de continuité sans le droit du registre des risques : ni onglet, ni risque dans
+        // le PCA, ni lien possible.
+        $saved = $_SESSION['glpiactiveprofile'][Installer::SENSITIVE_RIGHT] ?? 0;
+        $_SESSION['glpiactiveprofile'][Installer::SENSITIVE_RIGHT] = 0;
+        try {
+            $risk = new Risk();
+            $risk->getFromDB($riskId);
+            $this->assertSame('', (new BusinessProcessRisk())->getTabNameForItem($process));
+            ob_start();
+            $shown = BusinessProcessRisk::displayTabContentForItem($process);
+            $shownOnRisk = BusinessProcessRisk::displayTabContentForItem($risk);
+            $this->assertSame('', (string) ob_get_clean());
+            $this->assertFalse($shown);
+            $this->assertFalse($shownOnRisk);
+            $this->assertStringNotContainsString(
+                'Panne du site DEMO',
+                BusinessProcess::renderContinuityReport($process)
+            );
+            $this->assertFalse((new BusinessProcessRisk())->add([
+                'plugin_grcmanager_businessprocesses_id' => $this->process(['name' => 'Autre DEMO'])->getID(),
+                'plugin_grcmanager_risks_id'             => $riskId,
+            ]));
+        } finally {
+            $_SESSION['glpiactiveprofile'][Installer::SENSITIVE_RIGHT] = $saved;
+        }
+
+        // Purge du risque : il n'est plus lié au processus.
+        (new Risk())->delete(['id' => $riskId], true);
+        $this->assertSame(0, countElementsInTable(BusinessProcessRisk::getTable(), ['id' => $linkId]));
+    }
+
+    public function testRiskProposedForAnItemTooSlowForTheProcess(): void
+    {
+        global $DB;
+
+        $process = $this->process(['name' => 'Expedition DEMO', 'rto_hours' => 4, 'rpo_hours' => 1]);
+        $computer = new \Computer();
+        $computer->getFromDB((int) $computer->add(['name' => 'SRV-DEMO-EXP', 'entities_id' => 0]));
+        $DB->insert(\GlpiPlugin\Grcmanager\AssetClassification::getTable(), [
+            'itemtype' => 'Computer', 'items_id' => $computer->getID(), 'availability' => 'high',
+            'rto_hours' => 24, 'rpo_hours' => 24,
+        ]);
+        (new BusinessProcessItem())->add([
+            'plugin_grcmanager_businessprocesses_id' => $process->getID(),
+            'itemtype' => 'Computer', 'items_id' => $computer->getID(),
+        ]);
+        $issues = BusinessProcess::analyze($process)['dependencies'][0]['issues'];
+        $this->assertSame(['rto_slower', 'rpo_larger'], $issues);
+
+        $riskId = BusinessProcessRisk::createRecoveryRisk($process, $computer, $issues);
+        $this->assertGreaterThan(0, $riskId);
+        $this->assertSame(
+            $riskId,
+            BusinessProcessRisk::createRecoveryRisk($process, $computer, $issues),
+            'Pas de doublon.'
+        );
+        $risk = new Risk();
+        $risk->getFromDB($riskId);
+        $this->assertStringContainsString('SRV-DEMO-EXP', (string) $risk->fields['title']);
+        $this->assertSame([$computer->getID()], array_column(Risk::getLinkedAssets($riskId), 'items_id'));
+        $this->assertSame(1, countElementsInTable(BusinessProcessRisk::getTable(), [
+            'plugin_grcmanager_businessprocesses_id' => $process->getID(), 'plugin_grcmanager_risks_id' => $riskId,
+        ]));
+    }
+
+    public function testContinuityReportIsARealPdf(): void
+    {
+        $process = $this->process([
+            'name' => 'Support client DEMO', 'mtpd_hours' => 72, 'rto_hours' => 24, 'rpo_hours' => 4,
+            'description' => "Prise d'appels\net tickets",
+        ]);
+        BusinessImpact::saveGrid($process, [
+            4  => ['financial' => 1, 'legal' => 1, 'reputation' => 2, 'operational' => 2],
+            24 => ['financial' => 2, 'legal' => 2, 'reputation' => 3, 'operational' => 3],
+        ]);
+        $process->getFromDB($process->getID());
+        $html = BusinessProcess::renderContinuityReport($process);
+        $this->assertStringContainsString('Support client DEMO', $html);
+        $this->assertStringContainsString(BusinessImpact::getLevelLabels()[3], $html);
+        $this->assertStringContainsString('grc-level-3', $html);
+
+        $pdf = \GlpiPlugin\Grcmanager\Pdf\PdfRenderer::renderHtmlToPdf(BusinessProcess::renderContinuityReport());
+        $this->assertStringStartsWith('%PDF-', $pdf);
     }
 
     public function testTabsRequireTheContinuityRight(): void

@@ -9,6 +9,27 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Processus métier : dépendances entre processus, risques liés et plan de continuité en PDF**
+  (issue #377, deuxième étape) :
+  - onglet « Processus liés » : processus dont dépend un processus (la paie a besoin de la gestion
+    des temps), directement ou non, avec un signalement de ceux qui reprennent plus lentement
+    (RTO), peuvent perdre plus de données (RPO) ou n'ont pas de RTO ; processus qui en dépendent et
+    objectifs qu'ils lui imposent (le plus court RTO et le plus court RPO). Un lien qui fermerait
+    une boucle est refusé ;
+  - onglet « Risques » du processus et onglet « Processus métier » du risque : lien avec le
+    registre des risques. Depuis l'onglet « Dépendances », un actif qui ne tient pas les objectifs
+    du processus peut donner lieu à un risque proposé, lié à l'actif et au processus, à apprécier
+    dans le registre ;
+  - plan de continuité (PCA / PRA) en PDF, pour tous les processus lisibles (liste) ou pour un
+    seul (onglet « Analyse d'impact ») : synthèse, objectifs, grille de la BIA, contrôles de
+    cohérence, éléments et processus dont il dépend, risques liés. Chaque export est tracé
+    (journal d'audit, Administration > Journaux).
+  - Droits : celui de la continuité, avec l'entité du processus ; les risques ne sont montrés,
+    liés ou proposés qu'avec le droit des registres sensibles (et celui de créer un risque). Un
+    processus ou un élément que la personne ne peut pas lire n'est jamais nommé, ni à l'écran ni
+    dans le PDF : il est seulement compté.
+  - Mise à jour : deux tables ajoutées, aucune donnée existante modifiée ; retirées à la
+    désinstallation.
 - **Traitements concernés par un incident** (issue #375) : sur la fiche d'un incident de sécurité, un
   onglet relie les traitements du registre dont les données personnelles sont touchées, pour
   apprécier la notification RGPD. Il faut pouvoir modifier l'incident et lire la fiche ; une
