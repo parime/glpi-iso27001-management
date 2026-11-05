@@ -99,7 +99,10 @@ final class KriRulesTest extends TestCase
         self::assertSame(['event' => 'alert', 'notified' => 'red'], KriRules::alertTransition('orange', 'red', $level));
         // Amélioration qui reste en alerte : rien, puis une nouvelle alerte au retour au rouge.
         self::assertSame(['event' => null, 'notified' => 'orange'], KriRules::alertTransition('red', 'orange', $level));
-        self::assertSame(['event' => 'cleared', 'notified' => ''], KriRules::alertTransition('orange', 'green', $level));
+        self::assertSame(
+            ['event' => 'cleared', 'notified' => ''],
+            KriRules::alertTransition('orange', 'green', $level)
+        );
     }
 
     public function testMonthlyStatusCountsUseTheLastValueOfEachMonth(): void

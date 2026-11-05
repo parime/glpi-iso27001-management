@@ -125,7 +125,11 @@ final class KriAlert
         $transition = KriRules::alertTransition($notified, $status, self::level());
         if ($transition['notified'] !== $notified) {
             // Écriture directe : l'état de l'alerte n'est pas une modification du KRI.
-            $DB->update(RiskIndicator::getTable(), ['alert_status' => $transition['notified']], ['id' => $kri->getID()]);
+            $DB->update(
+                RiskIndicator::getTable(),
+                ['alert_status' => $transition['notified']],
+                ['id' => $kri->getID()]
+            );
             $kri->fields['alert_status'] = $transition['notified'];
         }
         if ($transition['event'] === null) {
