@@ -50,6 +50,14 @@
       {% endset %}
       {{ fields.htmlField('', anssi_html, __('ANSSI hygiene', 'grcmanager'), {'full_width': true}) }}
    {% endif %}
+   {# Issue #143 : contrôles CIS, correspondance indicative établie par ce projet. #}
+   {% if cis is not empty %}
+      {% set cis_html %}
+         {% for c in cis %}<span class="badge bg-orange-lt me-1" title="{{ c.title }}">CIS {{ c.number }}</span>{% endfor %}
+         {{ _self.referentials_hint(__('Indicative mapping made by this project: see', 'grcmanager'), referentials_url) }}
+      {% endset %}
+      {{ fields.htmlField('', cis_html, __('CIS Controls v8', 'grcmanager'), {'full_width': true}) }}
+   {% endif %}
 
    {# Issue #109 et assetsign #204 : preuves issues d'assetsign, ligne absente si le plugin n'est pas actif. #}
    {% if assetsign_sheets is not empty or assetsign_charter is not null %}

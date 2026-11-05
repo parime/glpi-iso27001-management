@@ -108,7 +108,17 @@ foreach (CisControlsCatalogDefaults::CONTROLS as $controlNumber => $controlName)
             $safeguards[] = ['code' => $safeguardCode, 'text' => $safeguard['text'], 'ig' => $safeguard['ig']];
         }
     }
-    $cisControls[] = ['number' => $controlNumber, 'name' => $controlName, 'safeguards' => $safeguards];
+    // Issue #143 : correspondance Annexe A indicative, reliée aux fiches de contrôle.
+    $controls = [];
+    foreach (CisControlsCatalogDefaults::ANNEX_A[$controlNumber] as $annexACode) {
+        $controls[] = ['code' => $annexACode, 'id' => $idsByCode[$annexACode] ?? null];
+    }
+    $cisControls[] = [
+        'number'     => $controlNumber,
+        'name'       => $controlName,
+        'safeguards' => $safeguards,
+        'controls'   => $controls,
+    ];
 }
 
 // Issue #110 : NIS2 dans la langue de l'utilisateur (versions officielles FR/EN de la directive,

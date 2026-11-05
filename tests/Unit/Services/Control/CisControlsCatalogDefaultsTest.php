@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace GlpiPlugin\Grcmanager\Tests\Services\Control;
 
 use GlpiPlugin\Grcmanager\Services\Control\CisControlsCatalogDefaults;
+use GlpiPlugin\Grcmanager\Services\Control\ControlCatalogDefaults;
 use PHPUnit\Framework\TestCase;
 
 final class CisControlsCatalogDefaultsTest extends TestCase
@@ -53,5 +54,31 @@ final class CisControlsCatalogDefaultsTest extends TestCase
         foreach (CisControlsCatalogDefaults::SAFEGUARDS as $code => $safeguard) {
             self::assertStringStartsWith($safeguard['control'] . '.', $code);
         }
+    }
+
+    /** Issue #143 : chaque contrôle CIS renvoie à des mesures existantes de l'Annexe A, sans doublon. */
+    public function testEveryControlHasAnIndicativeAnnexAMapping(): void
+    {
+        self::assertSame(
+            array_keys(CisControlsCatalogDefaults::CONTROLS),
+            array_keys(CisControlsCatalogDefaults::ANNEX_A)
+        );
+        foreach (CisControlsCatalogDefaults::ANNEX_A as $number => $codes) {
+            self::assertNotEmpty($codes, "contrôle $number");
+            self::assertSame(array_values(array_unique($codes)), $codes, "contrôle $number");
+            foreach ($codes as $annexACode) {
+                self::assertArrayHasKey($annexACode, ControlCatalogDefaults::CONTROLS, "$number -> $annexACode");
+            }
+        }
+    }
+
+    public function testReverseLookup(): void
+    {
+        self::assertSame([11], CisControlsCatalogDefaults::controlsForAnnexA('A.8.13'));
+        self::assertSame([7, 18], CisControlsCatalogDefaults::controlsForAnnexA('A.8.8'));
+        // Gouvernance (politiques) et sécurité physique : hors du champ des CIS Controls.
+        self::assertSame([], CisControlsCatalogDefaults::controlsForAnnexA('A.5.1'));
+        self::assertSame([], CisControlsCatalogDefaults::controlsForAnnexA('A.7.4'));
+        self::assertSame([], CisControlsCatalogDefaults::controlsForAnnexA('8.13'));
     }
 }
