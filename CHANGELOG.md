@@ -7,6 +7,12 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Fixed
+
+- **Désinstallation** : le journal des analyses d'impact (AIPD) et les préférences des éléments EBIOS
+  sont retirés ; une ligne du journal de l'AIPD restait depuis la 2.23.0. Le contrôle commun des
+  restes crée désormais une AIPD avant de désinstaller, pour détecter une régression.
+
 ### Added
 
 - **Processus métier : dépendances entre processus, risques liés et plan de continuité en PDF**

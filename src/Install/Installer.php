@@ -263,6 +263,15 @@ final class Installer
         \GlpiPlugin\Grcmanager\BusinessProcessRisk::class,
         // Issue #380 : tests d'efficacité des mesures.
         \GlpiPlugin\Grcmanager\ControlTest::class,
+        // Issue #375 : analyse d'impact (historisée) ; issue #376 : éléments des études EBIOS RM.
+        \GlpiPlugin\Grcmanager\Dpia::class,
+        \GlpiPlugin\Grcmanager\EbiosValue::class,
+        \GlpiPlugin\Grcmanager\EbiosSupport::class,
+        \GlpiPlugin\Grcmanager\EbiosFearedEvent::class,
+        \GlpiPlugin\Grcmanager\EbiosRiskSource::class,
+        \GlpiPlugin\Grcmanager\EbiosStakeholder::class,
+        \GlpiPlugin\Grcmanager\EbiosStrategicScenario::class,
+        \GlpiPlugin\Grcmanager\EbiosOperationalScenario::class,
         // Issue #380, deuxième étape : rappel des tests d'efficacité.
         \GlpiPlugin\Grcmanager\NotificationTargetControl::class,
     ];
