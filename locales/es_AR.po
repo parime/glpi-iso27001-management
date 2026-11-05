@@ -8729,3 +8729,9 @@ msgid "%d day late"
 msgid_plural "%d days late"
 msgstr[0] "%d día de retraso"
 msgstr[1] "%d días de retraso"
+
+msgid "Unlink"
+msgstr "Desvincular"
+
+msgid "Processing activities whose personal data are affected by this incident: they help assess the GDPR notification."
+msgstr "Actividades de tratamiento cuyos datos personales se ven afectados por este incidente: ayudan a valorar la notificación RGPD."
