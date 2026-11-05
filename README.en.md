@@ -95,7 +95,7 @@ classification fields merged directly onto it.
 
 **Steering**
 - Default ISMS dashboard and KPIs to add to GLPI dashboards, including compliance by framework
-  (ISO 27001, NIS2, ANSSI), deadlines within 90 days, access review progress and NIS2 / GDPR
+  (ISO 27001, NIS2, ANSSI, NIST CSF, CIS Controls), deadlines within 90 days, access review progress and NIS2 / GDPR
   deadlines at risk; GRC & Compliance > Dashboard menu, ISMS and Management views, monthly trend.
 - **Scored trainings**, in one or several sessions (trainer, location, score, pass threshold, retake,
   PDF report with attendance sheet, each participant's quiz copy restricted to the participant, the
@@ -227,7 +227,8 @@ and documentation only identifies the framework the plugin helps you track.
   © Center for Internet Security, Inc. CIS Controls® and CIS Critical Security Controls® are
   trademarks of the Center for Internet Security, Inc. This project is not affiliated with or
   endorsed by CIS. This excerpt is not covered by the plugin's GPLv3 license and may not be reused
-  for commercial purposes.
+  for commercial purposes. The mapping between the 18 controls and ISO 27001 Annex A, used for the
+  CIS score, is indicative and made by this project: it is not taken from CIS.
 - **NIST Cybersecurity Framework (CSF) 2.0**: published by the
   [National Institute of Standards and Technology](https://www.nist.gov/cyberframework)
   (U.S. federal government), in the public domain.

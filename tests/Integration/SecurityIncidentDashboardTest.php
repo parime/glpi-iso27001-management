@@ -185,9 +185,16 @@ final class SecurityIncidentDashboardTest extends GrcmanagerIntegrationTestCase
         // PR #418 : sans aucun des référentiels qu'elle mesure, la conformité par référentiel disparaît.
         $before = FrameworkConfig::enabled();
         try {
-            FrameworkConfig::save(['cis_controls']);
+            FrameworkConfig::save(['iso27090']);
             $this->assertArrayNotHasKey('grcmanager_compliance_by_framework', $catalog());
             $this->assertSame([], SecuredDashboardCards::complianceByFramework()['data']);
+            // Issue #143 : le score CIS seul garde la carte.
+            FrameworkConfig::save(['cis_controls']);
+            $this->assertArrayHasKey('grcmanager_compliance_by_framework', $catalog());
+            $this->assertSame(
+                ['CIS Controls v8'],
+                array_column(SecuredDashboardCards::complianceByFramework()['data'], 'label')
+            );
             FrameworkConfig::save(['nis2']);
             $this->assertArrayHasKey('grcmanager_compliance_by_framework', $catalog());
         } finally {
