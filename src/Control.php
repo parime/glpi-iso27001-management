@@ -415,6 +415,34 @@ class Control extends ControlBase
             'itemtype' => self::class,
         ];
 
+        // Issue #380 : dernier test d'efficacité et échéance du suivant, calculés par la base
+        // (mêmes règles que ControlTest::nextDueDate() : échéance saisie avec le dernier test,
+        // sinon sa date plus la fréquence du plan ; DATE_ADD ramène le 31 au dernier jour du mois).
+        // TABLE est remplacé par la table de la recherche (SQLProvider, option « computation »).
+        $tests = ControlTest::getTable();
+        $tab[] = [
+            'id'            => 9,
+            'table'         => $this->getTable(),
+            'field'         => 'id',
+            'name'          => __('Last test', 'grcmanager'),
+            'datatype'      => 'date',
+            'massiveaction' => false,
+            'computation'   => "(SELECT MAX(`t`.`test_date`) FROM `{$tests}` AS `t`"
+                . ' WHERE `t`.`plugin_grcmanager_controls_id` = TABLE.`id`)',
+        ];
+        $tab[] = [
+            'id'            => 10,
+            'table'         => $this->getTable(),
+            'field'         => 'id',
+            'name'          => __('Next test', 'grcmanager'),
+            'datatype'      => 'date',
+            'massiveaction' => false,
+            'computation'   => '(SELECT COALESCE(`t`.`next_test_date`, IF(TABLE.`test_frequency_months` > 0,'
+                . ' DATE_ADD(`t`.`test_date`, INTERVAL TABLE.`test_frequency_months` MONTH), NULL))'
+                . " FROM `{$tests}` AS `t` WHERE `t`.`plugin_grcmanager_controls_id` = TABLE.`id`"
+                . ' ORDER BY `t`.`test_date` DESC, `t`.`id` DESC LIMIT 1)',
+        ];
+
         return $tab;
     }
 

@@ -165,6 +165,20 @@ if (isset($_POST['update_dpo_contact'])) {
     Html::back();
 }
 
+// Issue #380 : groupe RSSI prévenu des tests d'efficacité en retard ou proches de l'échéance.
+if (isset($_POST['update_controltest_reminder'])) {
+    Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
+
+    // Énumération fermée : une valeur inconnue revient au réglage par défaut.
+    if (\GlpiPlugin\Grcmanager\ControlTestReminder::saveCisoMode((string) ($_POST['controltest_reminder_ciso'] ?? ''))) {
+        \GlpiPlugin\Grcmanager\AuditLog::record('config_change', 'Config', 0, 0, 'success', [
+            'changes' => ['controltest_reminder_ciso' => \GlpiPlugin\Grcmanager\ControlTestReminder::cisoMode()],
+        ]);
+    }
+
+    Html::back();
+}
+
 if (isset($_POST['update_audit_config'])) {
     Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
 
@@ -222,6 +236,10 @@ Html::header(
     'park_thresholds'           => \GlpiPlugin\Grcmanager\ParkVulnerability::getTicketThresholds(),
     'max_tickets'               => \GlpiPlugin\Grcmanager\ParkVulnerability::MAX_TICKETS_PER_RUN,
     'ciso_groups_id'            => \GlpiPlugin\Grcmanager\AuditTeam::getCisoGroupId(),
+    'controltest_ciso_mode'     => \GlpiPlugin\Grcmanager\ControlTestReminder::cisoMode(),
+    'controltest_ciso_modes'    => \GlpiPlugin\Grcmanager\ControlTestReminder::getCisoModes(),
+    'controltest_brand_color'   => \GlpiPlugin\Grcmanager\ControlTestReminder::brandColor(),
+    'controltest_cga_branding'  => \GlpiPlugin\Grcmanager\ControlTestReminder::isCgaActive(),
     'notifications_minimal'     => SensitiveNotification::isMinimal(),
     'can_edit_sensitive'        => Session::haveRight(Installer::SENSITIVE_RIGHT, UPDATE),
     'breach_enabled'            => BreachMonitorConfig::isEnabled(),

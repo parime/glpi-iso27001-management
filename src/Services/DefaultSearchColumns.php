@@ -19,7 +19,8 @@ final class DefaultSearchColumns
         'GlpiPlugin\\Grcmanager\\Risk'    => [10, 1, 2, 5, 3, 4, 6, 7, 8, 9],
         // Sprint 3 (SoA) : id-then-theme-then-code first, same "clickable row first" convention
         // as the risk register above.
-        'GlpiPlugin\\Grcmanager\\Control' => [8, 2, 1, 3, 4, 6, 7],
+        // Issue #380 : dernier test d'efficacité et échéance du suivant.
+        'GlpiPlugin\\Grcmanager\\Control' => [8, 2, 1, 3, 4, 9, 10, 6, 7],
         // Issue #113 : exigence (lien) puis article, statut, responsable, dernière modification.
         'GlpiPlugin\\Grcmanager\\IsmsRequirement' => [1, 2, 3, 4, 7],
         // Sprint 4 (audits internes et CAPA), same "id first" convention.
