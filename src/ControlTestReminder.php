@@ -22,8 +22,6 @@ namespace GlpiPlugin\Grcmanager;
 use Config;
 use GlpiPlugin\Grcmanager\Services\Control\ControlTestRules;
 use NotificationEvent;
-use Plugin;
-use Profile_User;
 
 /**
  * Issue #380, deuxième étape : tâche planifiée des tests d'efficacité
@@ -50,11 +48,8 @@ final class ControlTestReminder
     public const CONFIG_CONTEXT = 'plugin:grcmanager';
     public const CISO_MODE_KEY = 'controltest_reminder_ciso';
 
-    public const CGA_CONTEXT = SecurityCategoryLink::CGA_CONTEXT;
-    public const CGA_BRAND_COLOR_KEY = 'notification_branding_color';
-
-    /** Pour les tests : force la présence de Configuration GLPI Auto (null = détection réelle). */
-    public static ?bool $forceCgaActive = null;
+    public const CGA_CONTEXT = NotificationSupport::CGA_CONTEXT;
+    public const CGA_BRAND_COLOR_KEY = NotificationSupport::CGA_BRAND_COLOR_KEY;
 
     public static function cisoMode(): string
     {
@@ -89,7 +84,7 @@ final class ControlTestReminder
 
     public static function isCgaActive(): bool
     {
-        return self::$forceCgaActive ?? Plugin::isPluginActive('configurationglpiauto');
+        return NotificationSupport::isCgaActive();
     }
 
     /**
@@ -97,12 +92,7 @@ final class ControlTestReminder
      */
     public static function brandColor(): string
     {
-        if (!self::isCgaActive()) {
-            return ControlTestRules::DEFAULT_BRAND_COLOR;
-        }
-        $values = Config::getConfigurationValues(self::CGA_CONTEXT, [self::CGA_BRAND_COLOR_KEY]);
-
-        return ControlTestRules::brandColor($values[self::CGA_BRAND_COLOR_KEY] ?? '');
+        return NotificationSupport::brandColor();
     }
 
     /**
@@ -112,23 +102,7 @@ final class ControlTestReminder
      */
     public static function canReceive(int $usersId, int $entitiesId, bool $recursive = false): bool
     {
-        if ($usersId <= 0) {
-            return false;
-        }
-        $filter = getEntitiesRestrictCriteria('glpi_profiles_users', '', max(0, $entitiesId), true);
-        if ($recursive) {
-            $filter = ['OR' => [$filter, ['entities_id' => getSonsOf('glpi_entities', max(0, $entitiesId))]]];
-        }
-        $profiles = array_map('intval', array_keys(Profile_User::getUserProfiles($usersId, $filter)));
-        if ($profiles === []) {
-            return false;
-        }
-
-        return countElementsInTable('glpi_profilerights', [
-            'profiles_id' => $profiles,
-            'name'        => Control::RIGHTNAME,
-            'rights'      => ['&', READ],
-        ]) > 0;
+        return NotificationSupport::canReceive($usersId, $entitiesId, $recursive, [Control::RIGHTNAME => READ]);
     }
 
     /**

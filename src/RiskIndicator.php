@@ -286,7 +286,13 @@ class RiskIndicator extends RiskIndicatorBase
     private function prepareInput(array $input, bool $isNew)
     {
         // Champs calculés : jamais repris de la requête.
-        unset($input['last_value'], $input['last_value_date'], $input['status'], $input['tickets_id']);
+        unset(
+            $input['last_value'],
+            $input['last_value_date'],
+            $input['status'],
+            $input['tickets_id'],
+            $input['alert_status']
+        );
         // Un KRI ne change pas d'entité : ce serait contourner le contrôle fait sur son entité.
         if ($isNew) {
             $input['entities_id'] = (int) ($input['entities_id'] ?? Session::getActiveEntity());
@@ -376,8 +382,11 @@ class RiskIndicator extends RiskIndicatorBase
 
     public function post_updateItem($history = true)
     {
-        // Seuils ou sens changés : le statut suit.
-        if (array_intersect(['threshold_warning', 'threshold_critical', 'direction'], $this->updates) !== []) {
+        // Seuils ou sens changés : le statut suit. Un KRI réactivé repasse par l'alerte.
+        if (
+            array_intersect(['threshold_warning', 'threshold_critical', 'direction', 'is_active'], $this->updates)
+            !== []
+        ) {
             $this->refresh();
         }
         parent::post_updateItem($history);
@@ -439,7 +448,8 @@ class RiskIndicator extends RiskIndicatorBase
     }
 
     /**
-     * Recalcule dernière valeur et statut depuis l'historique.
+     * Recalcule dernière valeur et statut depuis l'historique, puis prévient si l'état d'alerte a
+     * changé (KriAlert).
      */
     public function refresh(): void
     {
@@ -447,6 +457,7 @@ class RiskIndicator extends RiskIndicatorBase
         $last = $values === [] ? null : $values[array_key_last($values)];
         $value = $last === null ? null : (float) $last['value'];
         $this->getFromDB($this->getID());
+        $previous = (string) ($this->fields['status'] ?? KriRules::NONE);
         $status = $this->statusFor($value);
         // Sans historique ni droit : écriture directe des champs calculés.
         global $DB;
@@ -458,6 +469,7 @@ class RiskIndicator extends RiskIndicatorBase
         $this->fields['last_value'] = $value;
         $this->fields['last_value_date'] = $last['value_date'] ?? null;
         $this->fields['status'] = $status;
+        KriAlert::check($this, $previous);
     }
 
     /**
