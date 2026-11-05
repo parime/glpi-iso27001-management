@@ -196,6 +196,16 @@ contains "page du tableau de bord : vue incidents proposee" "view=incidents" $SE
   "$(curl -s -c "$JAR" -b "$JAR" "$P/dashboard.php")"
 contains "page du tableau de bord, vue incidents : grille" "\"current\":\"grcmanager-security-incidents\"" $SEE_INCIDENTS \
   "$(curl -s -c "$JAR" -b "$JAR" "$P/dashboard.php?view=incidents")"
+# Issue #377, quatrieme etape : indicateurs des processus metier (BIA a revoir, reprise au-dela du
+# RTO), sous le seul droit de la continuite. Sans lui, la carte est videe : ni chiffre ni lien.
+isms_card() { # identifiant de la carte
+  body "$BASE/ajax/dashboard.php?action=get_card&dashboard=grcmanager-isms-overview&card_id=$1&args%5Bwidgettype%5D=bigNumber&args%5Bgridstack_id%5D=matrice&args%5Bforce%5D=1"
+}
+SEE_CONTINUITY=oui
+case $ROLE in none|general) SEE_CONTINUITY=non ;; esac
+for c in grcmanager_business_processes_bia_due grcmanager_business_processes_recovery_above_rto; do
+  contains "carte $c : lien vers les processus" "businessprocess.php" $SEE_CONTINUITY "$(isms_card $c)"
+done
 
 if [ "$ROLE" = none ]; then
   for p in $READABLE; do expect "$p : sans droit" 403 "$(code "$BASE/plugins/grcmanager/$p")"; done
@@ -232,6 +242,9 @@ if [ "$ROLE" = none ]; then
   done
   contains "onglet Processus metier d'un risque : sans droit" "Processus securite" non \
     "$(tab GlpiPlugin%5CGrcmanager%5CRisk 'GlpiPlugin%5CGrcmanager%5CBusinessProcessRisk$1' "$(id risk)")"
+  # Issue #377, quatrieme etape : carte des dependances demandee directement, sans droit.
+  contains "onglet Carte des dependances d'un processus : sans droit" "Processus securite" non \
+    "$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessProcessLink$2' "$(id process_A)")"
   # Issue #403 : les referentiels actifs se reglent avec le droit de modifier la configuration.
   expect "front/config.php : desactiver les referentiels" 403 \
     "$(code -d "update_frameworks=1&_glpi_csrf_token=$(csrf)" "$P/config.php")"
@@ -267,6 +280,9 @@ if [ "$ROLE" = general ]; then
   # Issue #377, troisieme etape : ni strategie de reprise ni test sans le droit de la continuite.
   contains "onglet Strategie de reprise d'un processus : rien" "Test de reprise A" non \
     "$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessProcessRecovery$1' "$(id process_A)")"
+  # Issue #377, quatrieme etape : ni carte des dependances sans le droit de la continuite.
+  contains "onglet Carte des dependances d'un processus : rien" "Processus securite" non \
+    "$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessProcessLink$2' "$(id process_A)")"
   expect "front/businessprocessrecovery.form.php : sans le droit de la continuite" 403 \
     "$(code -d "add=1&plugin_grcmanager_businessprocesses_id=$(id process_A)&measured_minutes=60&_glpi_csrf_token=$(csrf)" "$P/businessprocessrecovery.form.php")"
   contains "onglet Processus metier d'une application : rien" "Processus securite" non \
@@ -551,6 +567,17 @@ expect "strategie de reprise d'un processus de B" "$([ "$ROLE" = admin ] && echo
   "$(code -d "update=1&id=$(id process_B)&degraded_mode=securite&_glpi_csrf_token=$(csrf)" "$P/businessprocess.form.php")"
 expect "test de reprise sans jeton CSRF" 403 \
   "$(code -d "add=1&plugin_grcmanager_businessprocesses_id=$(id process_A)&measured_minutes=60" "$P/businessprocessrecovery.form.php")"
+# Issue #377, quatrieme etape : carte des dependances du processus de A. Le processus de B dont il
+# depend et le PC de B qu'il utilise ne sont ni nommes ni designes pour un profil limite a A.
+map=$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessProcessLink$2' "$(id process_A)")
+contains "carte des dependances de A : graphe" "data-elements=" oui "$map"
+contains "carte des dependances de A : processus A" "Processus securite A" oui "$map"
+contains "carte des dependances de A : PC de A" "PC securite A" oui "$map"
+contains "carte des dependances de A : processus de B" "Processus securite B" $SEE_B "$map"
+contains "carte des dependances de A : PC de B" "PC securite B" $SEE_B "$map"
+contains "carte des dependances de A : identifiant du PC de B" "Computer:$(id computer_B)&quot;" $SEE_B "$map"
+contains "carte des dependances d'un processus de B" "Processus securite B" $SEE_B \
+  "$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessProcessLink$2' "$(id process_B)")"
 
 # Issue #145 : preuves datées, uniquement celles de ses entités.
 evidences=$(curl -s -c "$JAR" -b "$JAR" "$P/evidence.php")

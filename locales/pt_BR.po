@@ -9033,3 +9033,39 @@ msgstr "Anexo A da ISO 27001 (indicativo):"
 
 msgid "Mapping to ISO 27001 Annex A is indicative and made by this project, not taken from CIS."
 msgstr "O mapeamento para o Anexo A da ISO 27001 é indicativo e feito por este projeto, não foi extraído do CIS."
+
+msgid "Business impact analysis to review"
+msgstr "Análise de impacto no negócio a revisar"
+
+msgid "Recovery test due"
+msgstr "Teste de recuperação pendente"
+
+msgid "Business process owner"
+msgstr "Responsável pelo processo de negócio"
+
+msgid "Reminds business impact analyses to review and recovery tests due"
+msgstr "Lembra as análises de impacto a revisar e os testes de recuperação pendentes"
+
+msgid "Business processes without a BIA or with an overdue BIA"
+msgstr "Processos de negócio sem BIA ou com BIA vencida"
+
+msgid "Business processes whose last recovery test exceeded the RTO"
+msgstr "Processos de negócio cujo último teste de recuperação excedeu o RTO"
+
+msgid "Dependency map"
+msgstr "Mapa de dependências"
+
+msgid "Items and processes this process depends on, and processes that depend on it. Click a node to open it."
+msgstr "Itens e processos dos quais este processo depende, e processos que dependem dele. Clique em um nó para abri-lo."
+
+msgid "No dependency recorded yet: link items in the \"Dependencies\" tab and processes in the \"Linked processes\" tab."
+msgstr "Nenhuma dependência registrada ainda: vincule itens na aba \"Dependências\" e processos na aba \"Processos vinculados\"."
+
+msgid "Does not meet the objectives of the process (RTO, RPO)"
+msgstr "Não atende aos objetivos do processo (RTO, RPO)"
+
+#, php-format
+msgid "%d item or process you cannot see is not shown."
+msgid_plural "%d items or processes you cannot see are not shown."
+msgstr[0] "%d item ou processo que você não pode ver não é exibido."
+msgstr[1] "%d itens ou processos que você não pode ver não são exibidos."

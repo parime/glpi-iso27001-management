@@ -327,6 +327,19 @@ function plugin_grcmanager_dashboard_cards(?array $cards = null): array
             'group' => $group,
             'provider' => SecuredDashboardCards::class . '::riskIndicatorsTrend',
         ],
+        // Issue #377 (processus métier et BIA), sous le droit de la continuité.
+        'grcmanager_business_processes_bia_due' => [
+            'widgettype' => ['bigNumber'],
+            'label' => __('Business processes without a BIA or with an overdue BIA', 'grcmanager'),
+            'group' => $group,
+            'provider' => SecuredDashboardCards::class . '::businessProcessesBiaDueCount',
+        ],
+        'grcmanager_business_processes_recovery_above_rto' => [
+            'widgettype' => ['bigNumber'],
+            'label' => __('Business processes whose last recovery test exceeded the RTO', 'grcmanager'),
+            'group' => $group,
+            'provider' => SecuredDashboardCards::class . '::businessProcessesRecoveryAboveRtoCount',
+        ],
     ];
 
     // Absorption de glpi-security-incidents (ROADMAP.md "Version 2.0") : cartes des incidents,
