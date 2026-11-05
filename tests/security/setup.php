@@ -501,6 +501,13 @@ foreach (['A', 'B'] as $suffix) {
         'rto_hours' => 24, 'rpo_hours' => 4,
     ]);
 }
+// Issue #377, quatrième étape : BIA échue du processus de A, rappelée par la tâche planifiée (message
+// en file d'attente si l'envoi est actif), pour que le contrôle des restes après désinstallation porte
+// aussi sur ces rappels.
+$DB->update('glpi_plugin_grcmanager_businessprocesses', [
+    'bia_date' => date('Y-m-d', strtotime('-400 days')), 'users_id' => $manager,
+], ['id' => $ids['process_A']]);
+\GlpiPlugin\Grcmanager\BusinessProcessReminder::run(date('Y-m-d'));
 
 $ids['breachexposure'] = (int) current(
     (new \GlpiPlugin\Grcmanager\BreachExposure())->find($exposure, [], 1)

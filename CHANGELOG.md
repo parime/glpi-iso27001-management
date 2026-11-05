@@ -28,6 +28,27 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
     correspondant et l'enregistre comme test technique en un clic, recalculé à l'enregistrement
     (aucun écart : efficace ; au moins 80 % de conformité : partiellement efficace ; sinon
     inefficace, ce qui ouvre une non-conformité). Toutes les entités doivent être sélectionnées.
+- **Processus métier : rappels, indicateurs et carte des dépendances** (issue #377, quatrième et
+  dernière étape) :
+  - rappel d'une BIA à revoir (date de la dernière BIA plus la fréquence de la revue périodique
+    « Revue de l'analyse d'impact sur l'activité », annuelle par défaut) et du prochain test de
+    reprise (date du dernier test plus la fréquence de la revue « Test du plan de continuité et de
+    reprise », annuelle par défaut) : tâche planifiée quotidienne
+    `businessprocessreminder`, deux notifications modifiables (« GRC Manager - Analyse d'impact
+    (BIA) à revoir », « GRC Manager - Test de reprise à refaire »), un rappel quand l'échéance
+    approche (30 jours) puis un quand elle est dépassée, une seule fois par échéance. Destinataires :
+    le responsable du processus et le groupe RSSI, seulement s'ils ont le droit de la continuité
+    dans l'entité du processus. Même mécanisme et même charte que le rappel des tests d'efficacité ;
+  - deux cartes du tableau de bord, ajoutées à la vue d'ensemble ISMS : processus sans BIA ou à BIA
+    échue, processus dont le dernier test de reprise dépasse le RTO. Elles ne comptent que les
+    processus des entités de la personne et restent vides sans le droit de la continuité ;
+  - onglet « Carte des dépendances » du processus : graphe des processus amont et aval et des
+    éléments dont il dépend (directement ou par l'analyse d'impact de GLPI), avec ceux qui ne
+    tiennent pas ses objectifs. Un processus ou un élément illisible n'y figure pas : il est
+    seulement compté.
+  - Mise à jour : deux colonnes ajoutées aux processus ; les échéances déjà proches ou dépassées
+    sont tenues pour rappelées, sans rafale de messages. Notifications, tâche et colonnes retirées à
+    la désinstallation.
 - **Score de conformité CIS Controls v8** (issue #143) : la carte « Mesures mises en œuvre par
   référentiel » affiche le taux de mise en œuvre des mesures applicables de l'Annexe A liées à un
   contrôle CIS, calculé comme ceux de NIS2 et de l'ANSSI. La correspondance entre les 18 contrôles

@@ -173,18 +173,91 @@ class BusinessProcessLink extends BusinessProcessLinkBase
         ];
     }
 
+    /**
+     * Issue #377, quatrième étape : carte des dépendances d'un processus (éléments Cytoscape, rendus
+     * par le gabarit du graphe d'impact) : processus amont et aval, éléments dont il dépend
+     * (directement ou par l'analyse d'impact de GLPI), avec leurs écarts. Seuls les processus et les
+     * éléments que la personne peut lire sont des nœuds ; les autres sont seulement comptés, et leurs
+     * liens ne sont pas tracés.
+     *
+     * @return array{elements: list<array{data: array<string, mixed>, classes?: string}>, hidden: int}
+     */
+    public static function mapElements(BusinessProcess $process): array
+    {
+        $durations = BusinessProcess::getDurationOptions();
+        $links = self::analyze($process);
+        $items = BusinessProcess::analyze($process);
+        $processKey = static fn (int $id): string => ImpactGraph::key(BusinessProcess::class, $id);
+        $label = static fn (string $name, int $rto): string => $name
+            . ($rto > 0 ? "\nRTO " . ($durations[$rto] ?? $rto . ' h') : '');
+
+        $center = $processKey((int) $process->getID());
+        $nodes = [$center => [
+            'data'    => [
+                'id'    => $center,
+                'label' => $label((string) $process->fields['name'], (int) $process->fields['rto_hours']),
+                'url'   => '',
+            ],
+            'classes' => 'process center',
+        ]];
+        foreach (array_merge($links['upstream'], $links['downstream']) as $node) {
+            $nodes[$processKey((int) $node['id'])] = [
+                'data'    => [
+                    'id'    => $processKey((int) $node['id']),
+                    'label' => $label((string) $node['name'], (int) $node['rto']),
+                    'url'   => (string) $node['url'],
+                ],
+                'classes' => 'process' . (($node['issues'] ?? []) !== [] ? ' late' : ''),
+            ];
+        }
+        foreach ($items['dependencies'] as $dependency) {
+            $nodes[$dependency['key']] = [
+                'data'    => [
+                    'id'    => $dependency['key'],
+                    'label' => $label((string) $dependency['label'], (int) $dependency['rto']),
+                    'url'   => (string) $dependency['url'],
+                ],
+                'classes' => 'asset availability-' . $dependency['availability']
+                    . ($dependency['issues'] !== [] ? ' late' : ''),
+            ];
+        }
+
+        // Arêtes « la panne de la source affecte la cible », entre nœuds lisibles seulement.
+        $edges = [];
+        foreach (self::loadEdges() as [$upstream, $downstream]) {
+            $edges[] = [$processKey($upstream), $processKey($downstream)];
+        }
+        foreach ($items['dependencies'] as $dependency) {
+            if ($dependency['depth'] === 0) {
+                $edges[] = [$dependency['key'], $center];
+            }
+        }
+        $elements = array_values($nodes);
+        foreach (array_merge($edges, ImpactAnalysis::loadEdges()) as [$source, $target]) {
+            if ($source !== $target && isset($nodes[$source], $nodes[$target])) {
+                $elements[] = ['data' => ['id' => $source . '>' . $target, 'source' => $source, 'target' => $target]];
+            }
+        }
+
+        return ['elements' => $elements, 'hidden' => (int) $links['hidden'] + (int) $items['hidden']];
+    }
+
     public function getTabNameForItem(CommonGLPI $item, $withtemplate = 0)
     {
         if (!$item instanceof BusinessProcess || $item->isNewItem() || !BusinessProcess::canView()) {
             return '';
         }
 
-        return self::createTabEntry(
-            self::getTypeName(Session::getPluralNumber()),
-            countElementsInTable(self::getTable(), ['plugin_grcmanager_businessprocesses_id' => $item->getID()]),
-            $item::class,
-            self::getIcon()
-        );
+        return [
+            1 => self::createTabEntry(
+                self::getTypeName(Session::getPluralNumber()),
+                countElementsInTable(self::getTable(), ['plugin_grcmanager_businessprocesses_id' => $item->getID()]),
+                $item::class,
+                self::getIcon()
+            ),
+            // Issue #377, quatrième étape : carte des dépendances.
+            2 => self::createTabEntry(__('Dependency map', 'grcmanager'), 0, $item::class, 'ti ti-topology-star-3'),
+        ];
     }
 
     public static function displayTabContentForItem(CommonGLPI $item, $tabnum = 1, $withtemplate = 0)
@@ -195,6 +268,13 @@ class BusinessProcessLink extends BusinessProcessLinkBase
             || !$item->canViewItem()
         ) {
             return false;
+        }
+        if ((int) $tabnum === 2) {
+            TemplateRenderer::getInstance()->display('@grcmanager/tabs/business_process_map.html.twig', [
+                'map' => self::mapElements($item),
+            ]);
+
+            return true;
         }
         $analysis = self::analyze($item);
         $used = array_merge([(int) $item->getID()], array_column(

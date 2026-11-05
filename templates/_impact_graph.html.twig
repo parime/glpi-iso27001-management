@@ -1,9 +1,14 @@
-{# Issue #177, phase 2 : graphe de l'impact d'une panne (Cytoscape, fourni par GLPI). Paramètre : elements. #}
+{# Issue #177, phase 2 : graphe de l'impact d'une panne (Cytoscape, fourni par GLPI). Paramètres : elements,
+   process_legend (issue #377 : carte des dépendances d'un processus métier, nœuds « process » et « late »). #}
 {% set cy_id = 'grc-impact-' ~ random() %}
 <div id="{{ cy_id }}" class="border rounded bg-white mb-1" style="height: 340px; width: 100%;" data-elements="{{ elements|json_encode }}"></div>
 <div class="d-flex flex-wrap gap-3 small text-muted mb-2">
    <span><span class="badge" style="background:#d63939">&nbsp;</span> {{ __('High availability', 'grcmanager') }}</span>
    <span><span class="badge" style="background:#f59f00">&nbsp;</span> {{ __('Medium availability', 'grcmanager') }}</span>
+   {% if process_legend|default(false) %}
+      <span><span class="badge rounded-pill" style="background:#206bc4">&nbsp;</span> {{ _n('Business process', 'Business processes', 1, 'grcmanager') }}</span>
+      <span><span class="badge" style="background:#fff; border:3px solid #d63939">&nbsp;</span> {{ __('Does not meet the objectives of the process (RTO, RPO)', 'grcmanager') }}</span>
+   {% endif %}
    <span><i class="ti ti-arrow-right"></i> {{ __('an outage of the source affects the item pointed to', 'grcmanager') }}</span>
 </div>
 <script>
@@ -25,6 +30,8 @@
                {selector: 'node.availability-high', style: {'background-color': '#d63939'}},
                {selector: 'node.availability-medium', style: {'background-color': '#f59f00'}},
                {selector: 'node.availability-', style: {'background-color': '#adb5bd'}},
+               {selector: 'node.process', style: {'background-color': '#206bc4', 'shape': 'ellipse'}},
+               {selector: 'node.late', style: {'border-width': 3, 'border-color': '#d63939'}},
                {selector: 'node.center', style: {'width': 36, 'height': 36, 'font-weight': 'bold'}},
                {selector: 'edge', style: {
                   'width': 2, 'line-color': '#adb5bd', 'target-arrow-color': '#adb5bd',

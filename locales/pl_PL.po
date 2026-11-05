@@ -10445,6 +10445,43 @@ msgstr "Załącznik A ISO 27001 (orientacyjnie):"
 msgid "Mapping to ISO 27001 Annex A is indicative and made by this project, not taken from CIS."
 msgstr "Mapowanie na Załącznik A ISO 27001 jest orientacyjne i wykonane przez ten projekt, nie pochodzi od CIS."
 
+msgid "Business impact analysis to review"
+msgstr "Analiza wpływu na działalność do przeglądu"
+
+msgid "Recovery test due"
+msgstr "Wymagany test odtworzenia"
+
+msgid "Business process owner"
+msgstr "Właściciel procesu biznesowego"
+
+msgid "Reminds business impact analyses to review and recovery tests due"
+msgstr "Przypomina o analizach wpływu do przeglądu i wymaganych testach odtworzenia"
+
+msgid "Business processes without a BIA or with an overdue BIA"
+msgstr "Procesy biznesowe bez BIA lub z zaległą BIA"
+
+msgid "Business processes whose last recovery test exceeded the RTO"
+msgstr "Procesy biznesowe, których ostatni test odtworzenia przekroczył RTO"
+
+msgid "Dependency map"
+msgstr "Mapa zależności"
+
+msgid "Items and processes this process depends on, and processes that depend on it. Click a node to open it."
+msgstr "Elementy i procesy, od których zależy ten proces, oraz procesy, które od niego zależą. Kliknij węzeł, aby go otworzyć."
+
+msgid "No dependency recorded yet: link items in the \"Dependencies\" tab and processes in the \"Linked processes\" tab."
+msgstr "Nie zapisano jeszcze żadnej zależności: powiąż elementy na karcie „Zależności” i procesy na karcie „Powiązane procesy”."
+
+msgid "Does not meet the objectives of the process (RTO, RPO)"
+msgstr "Nie spełnia celów procesu (RTO, RPO)"
+
+#, php-format
+msgid "%d item or process you cannot see is not shown."
+msgid_plural "%d items or processes you cannot see are not shown."
+msgstr[0] "%d element lub proces, którego nie możesz zobaczyć, nie jest wyświetlany."
+msgstr[1] "%d elementy lub procesy, których nie możesz zobaczyć, nie są wyświetlane."
+msgstr[2] "%d elementów lub procesów, których nie możesz zobaczyć, nie jest wyświetlanych."
+
 msgid "You are not allowed to add a document to this control."
 msgstr "Nie masz uprawnień do dodania dokumentu do tego zabezpieczenia."
 

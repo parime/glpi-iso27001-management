@@ -278,6 +278,8 @@ final class Installer
         \GlpiPlugin\Grcmanager\NotificationTargetControl::class,
         // Issue #378, deuxième étape : alertes des indicateurs de risque.
         \GlpiPlugin\Grcmanager\NotificationTargetRiskIndicator::class,
+        // Issue #377, quatrième étape : rappels des BIA à revoir et des tests de reprise.
+        \GlpiPlugin\Grcmanager\NotificationTargetBusinessProcess::class,
     ];
     // Issue #375 : registre des activités de traitement (RGPD, article 30) et éléments GLPI cités,
     // voir \GlpiPlugin\Grcmanager\ProcessingActivity.
@@ -2643,6 +2645,24 @@ final class Installer
 
             $DB->doQuery($query);
         }
+        // Issue #377, quatrième étape : dernier rappel envoyé pour la BIA à revoir et pour le test de
+        // reprise à refaire (échéance et état, voir \GlpiPlugin\Grcmanager\BusinessProcessReminder).
+        // À la mise à jour, les échéances déjà proches ou passées sont tenues pour rappelées : pas de
+        // rafale de rappels sur des échéances anciennes, que le tableau de bord signale déjà.
+        if (!$DB->fieldExists(self::BUSINESS_PROCESSES_TABLE, 'bia_reminder_key')) {
+            $migration->addField(self::BUSINESS_PROCESSES_TABLE, 'bia_reminder_key', 'string', [
+                'value'   => '',
+                'comment' => 'Echeance et etat du dernier rappel de BIA, ex. 2027-03-31|due_soon',
+                'after'   => 'bia_date',
+            ]);
+            $migration->addField(self::BUSINESS_PROCESSES_TABLE, 'recovery_reminder_key', 'string', [
+                'value'   => '',
+                'comment' => 'Echeance et etat du dernier rappel de test de reprise',
+                'after'   => 'bia_reminder_key',
+            ]);
+            $migration->migrationOneTable(self::BUSINESS_PROCESSES_TABLE);
+            \GlpiPlugin\Grcmanager\BusinessProcessReminder::run(date('Y-m-d'), false);
+        }
 
         if (!$DB->tableExists(self::SECURITY_INCIDENT_COSTS_TABLE)) {
             $query = "CREATE TABLE `" . self::SECURITY_INCIDENT_COSTS_TABLE . "` (
@@ -3015,6 +3035,7 @@ final class Installer
         $this->seedComplianceEventReminderNotification();
         $this->seedControlTestReminderNotification();
         $this->seedKriAlertNotifications();
+        $this->seedBusinessProcessReminderNotifications();
         $this->migrateResponsibleTargets();
 
         // Issue #126 : relance hebdomadaire des responsables en retard sur une revue des accès.
@@ -3261,6 +3282,18 @@ final class Installer
             [
                 'comment' => 'Rappelle les tests d\'efficacité en retard ou proches de l\'échéance et '
                     . 'retire l\'état « Vérifié » quand le dernier test est échu',
+                'mode'    => CronTask::MODE_EXTERNAL,
+            ]
+        );
+
+        // Issue #377, quatrième étape : rappel des BIA à revoir et des tests de reprise à refaire
+        // (\GlpiPlugin\Grcmanager\BusinessProcess::cronBusinessprocessreminder()).
+        CronTask::Register(
+            \GlpiPlugin\Grcmanager\BusinessProcess::class,
+            \GlpiPlugin\Grcmanager\BusinessProcessReminder::CRON_NAME,
+            DAY_TIMESTAMP,
+            [
+                'comment' => 'Rappelle les analyses d\'impact (BIA) à revoir et les tests de reprise à refaire',
                 'mode'    => CronTask::MODE_EXTERNAL,
             ]
         );
@@ -3865,6 +3898,80 @@ final class Installer
                     null,
                     [$advice],
                     ['url' => '##kri.url##', 'text' => 'Voir l\'indicateur']
+                ),
+                $targets
+            );
+        }
+    }
+
+    /**
+     * Issue #377, quatrième étape : rappel d'une BIA à revoir et d'un test de reprise à refaire
+     * (\GlpiPlugin\Grcmanager\BusinessProcessReminder), au responsable du processus et au groupe
+     * RSSI. Même habillage et même idempotence que le rappel des tests d'efficacité.
+     */
+    private function seedBusinessProcessReminderNotifications(): void
+    {
+        $targets = [
+            \GlpiPlugin\Grcmanager\NotificationTargetBusinessProcess::TARGET_OWNER,
+            \GlpiPlugin\Grcmanager\NotificationTargetBusinessProcess::TARGET_CISO_GROUP,
+        ];
+        $subject = '##businessprocess.duestatus## : ##businessprocess.action## - ##businessprocess.name##';
+        $events = [
+            \GlpiPlugin\Grcmanager\BusinessProcessReminder::EVENT_BIA => [
+                'GRC Manager - Analyse d\'impact (BIA) à revoir',
+                'Notification envoyée par la tâche automatique GRC Manager lorsque l\'analyse d\'impact sur '
+                    . 'l\'activité (BIA) d\'un processus métier doit être revue dans les 30 jours ou est en retard '
+                    . '(date de la dernière BIA plus la fréquence de la revue périodique).',
+                [
+                    ['label' => 'À revoir le', 'tag' => '##businessprocess.duedate##'],
+                    ['label' => 'Dernière BIA', 'tag' => '##businessprocess.biadate##'],
+                ],
+                'Revoyez avec le responsable les impacts d\'une interruption dans le temps, la DMIA, le RTO et '
+                    . 'le RPO, puis enregistrez la BIA dans l\'onglet « Analyse d\'impact (BIA) » du processus.',
+                'Voir la BIA',
+            ],
+            \GlpiPlugin\Grcmanager\BusinessProcessReminder::EVENT_RECOVERY => [
+                'GRC Manager - Test de reprise à refaire',
+                'Notification envoyée par la tâche automatique GRC Manager lorsque le prochain test de reprise '
+                    . 'd\'un processus métier est dû dans les 30 jours ou en retard (date du dernier test plus la '
+                    . 'fréquence de la revue périodique des tests du PCA / PRA).',
+                [
+                    ['label' => 'Test dû le', 'tag' => '##businessprocess.duedate##'],
+                    ['label' => 'Dernier test', 'tag' => '##businessprocess.lasttest##'],
+                    ['label' => 'Temps mesuré', 'tag' => '##businessprocess.measured##'],
+                    ['label' => 'RTO', 'tag' => '##businessprocess.rto##'],
+                ],
+                'Planifiez un test ou un exercice de crise, puis enregistrez le temps de reprise mesuré dans '
+                    . 'l\'onglet « Stratégie de reprise » du processus.',
+                'Voir la stratégie de reprise',
+            ],
+        ];
+        $common = [
+            ['label' => 'Responsable', 'tag' => '##businessprocess.owner##'],
+            ['label' => 'Criticité', 'tag' => '##businessprocess.criticity##'],
+            ['label' => 'Entité', 'tag' => '##businessprocess.entity##'],
+        ];
+        foreach ($events as $event => [$name, $comment, $rows, $advice, $button]) {
+            $text = "##businessprocess.duestatus## : ##businessprocess.action##\n"
+                . "Processus : ##businessprocess.name##\n\n";
+            foreach (array_merge($rows, $common) as $row) {
+                $text .= $row['label'] . ' : ' . $row['tag'] . "\n";
+            }
+            $this->seedBrandedNotification(
+                \GlpiPlugin\Grcmanager\BusinessProcess::class,
+                $event,
+                $name,
+                $comment,
+                $subject,
+                $text . "\n" . $advice . "\n\n" . $button . ' : ##businessprocess.url##',
+                NotificationHtml::renderBranded(
+                    '##businessprocess.brandcolor##',
+                    '##businessprocess.duestatus## : ##businessprocess.name##',
+                    '##businessprocess.action##',
+                    array_merge($rows, $common),
+                    null,
+                    [$advice],
+                    ['url' => '##businessprocess.url##', 'text' => $button]
                 ),
                 $targets
             );
@@ -5062,6 +5169,8 @@ final class Installer
         $this->unseedNotification(\GlpiPlugin\Grcmanager\Control::class);
         // Issue #378, deuxième étape : alertes des indicateurs de risque.
         $this->unseedNotification(\GlpiPlugin\Grcmanager\RiskIndicator::class);
+        // Issue #377, quatrième étape : rappels des BIA et des tests de reprise.
+        $this->unseedNotification(\GlpiPlugin\Grcmanager\BusinessProcess::class);
 
         // Absorption de glpi-security-incidents (ROADMAP.md "Version 2.0") : colonnes ajoutées sur
         // les tables cœur pour la gestion de modèles - même dérivation que le plugin absorbé

@@ -17,6 +17,7 @@
 
 namespace GlpiPlugin\Grcmanager;
 
+use CronTask;
 use Dropdown;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\BusinessProcessBase;
@@ -139,6 +140,10 @@ class BusinessProcess extends BusinessProcessBase
      */
     private function checkInput(array $input)
     {
+        // Issue #377, quatrième étape : l'état des rappels n'est écrit que par la tâche planifiée.
+        foreach (BusinessProcessReminder::KEY_FIELDS as $field) {
+            unset($input[$field]);
+        }
         if (array_key_exists('name', $input) && trim((string) $input['name']) === '') {
             Session::addMessageAfterRedirect(
                 htmlescape(__('The business process name is required.', 'grcmanager')),
@@ -174,6 +179,38 @@ class BusinessProcess extends BusinessProcessBase
         (new BusinessProcessRecovery())->deleteByCriteria(
             ['plugin_grcmanager_businessprocesses_id' => $this->getID()]
         );
+    }
+
+    /**
+     * @param string $name
+     * @return array<string, string>
+     */
+    public static function cronInfo($name)
+    {
+        return $name === BusinessProcessReminder::CRON_NAME
+            ? ['description' => __(
+                'Reminds business impact analyses to review and recovery tests due',
+                'grcmanager'
+            )]
+            : [];
+    }
+
+    /**
+     * Issue #377, quatrième étape : rappel des BIA à revoir et des tests de reprise à refaire
+     * (BusinessProcessReminder), une fois par échéance et par état.
+     */
+    public static function cronBusinessprocessreminder(CronTask $task): int
+    {
+        $result = BusinessProcessReminder::run(date('Y-m-d'));
+        $total = array_sum($result);
+        $task->addVolume($total);
+        $task->log(sprintf(
+            '%d rappel(s) de BIA, %d rappel(s) de test de reprise.',
+            $result[BusinessProcessReminder::EVENT_BIA],
+            $result[BusinessProcessReminder::EVENT_RECOVERY]
+        ));
+
+        return $total > 0 ? 1 : 0;
     }
 
     /**
