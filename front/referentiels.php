@@ -110,7 +110,7 @@ foreach (CisControlsCatalogDefaults::CONTROLS as $controlNumber => $controlName)
     }
     // Issue #143 : correspondance Annexe A indicative, reliée aux fiches de contrôle.
     $controls = [];
-    foreach (CisControlsCatalogDefaults::ANNEX_A[$controlNumber] ?? [] as $annexACode) {
+    foreach (CisControlsCatalogDefaults::ANNEX_A[$controlNumber] as $annexACode) {
         $controls[] = ['code' => $annexACode, 'id' => $idsByCode[$annexACode] ?? null];
     }
     $cisControls[] = [
