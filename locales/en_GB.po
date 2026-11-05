@@ -8729,3 +8729,122 @@ msgid "%d day late"
 msgid_plural "%d days late"
 msgstr[0] "%d day late"
 msgstr[1] "%d days late"
+
+msgid "Business continuity plan"
+msgstr "Business continuity plan"
+
+msgid "Business continuity plan (PDF)"
+msgstr "Business continuity plan (PDF)"
+
+#, php-format
+msgid "Business continuity plan: %s"
+msgstr "Business continuity plan: %s"
+
+msgid "Choose a process to link."
+msgstr "Choose a process to link."
+
+msgid "Choose a risk to link."
+msgstr "Choose a risk to link."
+
+msgid "Consistency checks: objectives of the process, plus items and processes it depends on that do not meet them."
+msgstr "Consistency checks: objectives of the process, plus items and processes it depends on that do not meet them."
+
+msgid "Continuity plan of this process (PDF)"
+msgstr "Continuity plan of this process (PDF)"
+
+msgid "Disruption"
+msgstr "Disruption"
+
+msgid "E.g. \"Provides the time sheets\""
+msgstr "E.g. \"Provides the time sheets\""
+
+msgid "Each of them must recover at least as fast as this process (RTO) and lose no more data (RPO)."
+msgstr "Each of them must recover at least as fast as this process (RTO) and lose no more data (RPO)."
+
+msgid "Improve the recovery of this item (backup, redundancy, contract) or accept the risk."
+msgstr "Improve the recovery of this item (backup, redundancy, contract) or accept the risk."
+
+#, php-format
+msgid "Insufficient recovery of %1$s for the process %2$s"
+msgstr "Insufficient recovery of %1$s for the process %2$s"
+
+msgid "Items it depends on"
+msgstr "Items it depends on"
+
+msgid "Linked processes"
+msgstr "Linked processes"
+
+msgid "No RTO set on this process"
+msgstr "No RTO set on this process"
+
+msgid "No business process you can see is linked to this risk."
+msgstr "No business process you can see is linked to this risk."
+
+msgid "No business process you can see."
+msgstr "No business process you can see."
+
+msgid "No dependency you can see."
+msgstr "No dependency you can see."
+
+msgid "No linked process you can see."
+msgstr "No linked process you can see."
+
+msgid "No process you can see depends on this process."
+msgstr "No process you can see depends on this process."
+
+msgid "No risk linked to this process."
+msgstr "No risk linked to this process."
+
+msgid "Processes that depend on this process"
+msgstr "Processes that depend on this process"
+
+msgid "Processes this process depends on"
+msgstr "Processes this process depends on"
+
+msgid "Propose a risk"
+msgstr "Propose a risk"
+
+msgid "Remove this link?"
+msgstr "Remove this link?"
+
+#, php-format
+msgid "Required RPO: %1$s (process %2$s)"
+msgstr "Required RPO: %1$s (process %2$s)"
+
+#, php-format
+msgid "Required RTO: %1$s (process %2$s)"
+msgstr "Required RTO: %1$s (process %2$s)"
+
+msgid "Risk linked to the process, to be assessed in the register."
+msgstr "Risk linked to the process, to be assessed in the register."
+
+msgid "Risks of the register that threaten the continuity of this process. A risk can also be proposed from the Dependencies tab for an item that does not meet the objectives."
+msgstr "Risks of the register that threaten the continuity of this process. A risk can also be proposed from the Dependencies tab for an item that does not meet the objectives."
+
+msgid "The objectives of the process are consistent with its analysis."
+msgstr "The objectives of the process are consistent with its analysis."
+
+#, php-format
+msgid "The process %1$s requires a recovery within %2$s (RTO) with a data loss of at most %3$s (RPO)."
+msgstr "The process %1$s requires a recovery within %2$s (RTO) with a data loss of at most %3$s (RPO)."
+
+msgid "This link would create a loop: the chosen process already depends on this one."
+msgstr "This link would create a loop: the chosen process already depends on this one."
+
+msgid "This process depends on"
+msgstr "This process depends on"
+
+msgid "This process depends on no other process you can see."
+msgstr "This process depends on no other process you can see."
+
+msgid "This process is already linked."
+msgstr "This process is already linked."
+
+msgid "This risk is already linked to the process."
+msgstr "This risk is already linked to the process."
+
+#, php-format
+msgid "%d other process you cannot see is not listed."
+msgid_plural "%d other processes you cannot see are not listed."
+msgstr[0] "%d other process you cannot see is not listed."
+msgstr[1] "%d other processes you cannot see are not listed."

@@ -263,7 +263,10 @@ class BusinessProcessRisk extends BusinessProcessRiskBase
             $labels = BusinessProcess::getIssueLabels();
             $durations = BusinessProcess::getDurationOptions();
             $description = sprintf(
-                __('The process %1$s requires a recovery within %2$s (RTO) with a data loss of at most %3$s (RPO).', 'grcmanager'),
+                __(
+                    'The process %1$s requires a recovery within %2$s (RTO) with a data loss of at most %3$s (RPO).',
+                    'grcmanager'
+                ),
                 $process->fields['name'],
                 $durations[(int) $process->fields['rto_hours']] ?? '-',
                 $durations[(int) $process->fields['rpo_hours']] ?? '-'
@@ -286,7 +289,10 @@ class BusinessProcessRisk extends BusinessProcessRiskBase
             ]);
         }
         if ($riskId > 0) {
-            $link = ['plugin_grcmanager_businessprocesses_id' => (int) $process->getID(), 'plugin_grcmanager_risks_id' => $riskId];
+            $link = [
+                'plugin_grcmanager_businessprocesses_id' => (int) $process->getID(),
+                'plugin_grcmanager_risks_id'             => $riskId,
+            ];
             if (countElementsInTable(self::getTable(), $link) === 0) {
                 (new self())->add($link + ['comment' => (string) $item->getName()]);
             }

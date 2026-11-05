@@ -2546,14 +2546,18 @@ final class Installer
         if (!$DB->tableExists(self::BUSINESS_PROCESS_LINKS_TABLE)) {
             $query = "CREATE TABLE `" . self::BUSINESS_PROCESS_LINKS_TABLE . "` (
                 `id` int {$keySign} NOT NULL AUTO_INCREMENT,
-                `plugin_grcmanager_businessprocesses_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Processus qui depend',
-                `plugin_grcmanager_businessprocesses_id_upstream` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Processus dont il depend',
+                `plugin_grcmanager_businessprocesses_id` int {$keySign} NOT NULL DEFAULT 0
+                    COMMENT 'Processus qui depend',
+                `plugin_grcmanager_businessprocesses_id_upstream` int {$keySign} NOT NULL DEFAULT 0
+                    COMMENT 'Processus dont il depend',
                 `comment` varchar(255) NOT NULL DEFAULT '' COMMENT 'Role du processus amont',
                 `date_creation` timestamp NULL DEFAULT NULL,
                 `date_mod` timestamp NULL DEFAULT NULL,
                 PRIMARY KEY (`id`),
-                UNIQUE KEY `unicity` (`plugin_grcmanager_businessprocesses_id`, `plugin_grcmanager_businessprocesses_id_upstream`),
-                KEY `plugin_grcmanager_businessprocesses_id_upstream` (`plugin_grcmanager_businessprocesses_id_upstream`)
+                UNIQUE KEY `unicity` (
+                    `plugin_grcmanager_businessprocesses_id`, `plugin_grcmanager_businessprocesses_id_upstream`
+                ),
+                KEY `upstream` (`plugin_grcmanager_businessprocesses_id_upstream`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
             $DB->doQuery($query);

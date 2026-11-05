@@ -313,7 +313,10 @@ final class BusinessProcessTest extends GrcmanagerIntegrationTestCase
             $this->assertSame('', (string) ob_get_clean());
             $this->assertFalse($shown);
             $this->assertFalse($shownOnRisk);
-            $this->assertStringNotContainsString('Panne du site DEMO', BusinessProcess::renderContinuityReport($process));
+            $this->assertStringNotContainsString(
+                'Panne du site DEMO',
+                BusinessProcess::renderContinuityReport($process)
+            );
             $this->assertFalse((new BusinessProcessRisk())->add([
                 'plugin_grcmanager_businessprocesses_id' => $this->process(['name' => 'Autre DEMO'])->getID(),
                 'plugin_grcmanager_risks_id'             => $riskId,
@@ -347,7 +350,11 @@ final class BusinessProcessTest extends GrcmanagerIntegrationTestCase
 
         $riskId = BusinessProcessRisk::createRecoveryRisk($process, $computer, $issues);
         $this->assertGreaterThan(0, $riskId);
-        $this->assertSame($riskId, BusinessProcessRisk::createRecoveryRisk($process, $computer, $issues), 'Pas de doublon.');
+        $this->assertSame(
+            $riskId,
+            BusinessProcessRisk::createRecoveryRisk($process, $computer, $issues),
+            'Pas de doublon.'
+        );
         $risk = new Risk();
         $risk->getFromDB($riskId);
         $this->assertStringContainsString('SRV-DEMO-EXP', (string) $risk->fields['title']);

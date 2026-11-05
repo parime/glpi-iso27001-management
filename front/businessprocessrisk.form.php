@@ -65,7 +65,10 @@ if (isset($_POST['add'])) {
     }
     $riskId = \GlpiPlugin\Grcmanager\BusinessProcessRisk::createRecoveryRisk($process, $item, $issues);
     if ($riskId > 0) {
-        Session::addMessageAfterRedirect(htmlescape(__('Risk linked to the process, to be assessed in the register.', 'grcmanager')));
+        Session::addMessageAfterRedirect(htmlescape(__(
+            'Risk linked to the process, to be assessed in the register.',
+            'grcmanager'
+        )));
         Html::redirect(\GlpiPlugin\Grcmanager\Risk::getFormURLWithID($riskId));
     }
 }

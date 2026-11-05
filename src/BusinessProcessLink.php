@@ -230,7 +230,10 @@ class BusinessProcessLink extends BusinessProcessLinkBase
         }
         if (ProcessDependencyRules::wouldCreateCycle(self::loadEdges(), $processId, $upstreamId)) {
             Session::addMessageAfterRedirect(
-                htmlescape(__('This link would create a loop: the chosen process already depends on this one.', 'grcmanager')),
+                htmlescape(__(
+                    'This link would create a loop: the chosen process already depends on this one.',
+                    'grcmanager'
+                )),
                 false,
                 ERROR
             );
