@@ -41,20 +41,30 @@ use UserEmail;
  */
 final class ControlTestReminderTest extends GrcmanagerIntegrationTestCase
 {
-    /** @var array<string, mixed> */
-    private array $cfg = [];
+    private const MAIL_SETTINGS = [
+        'use_notifications'     => 1,
+        'notifications_mailing' => 1,
+        'admin_email'           => 'glpi@example.org',
+        'from_email'            => 'glpi@example.org',
+    ];
+
+    /**
+     * Réglages remplacés, restaurés un par un : $CFG_GLPI est un objet sur GLPI 12.
+     *
+     * @var array<string, mixed>
+     */
+    private array $savedSettings = [];
 
     protected function setUp(): void
     {
         global $CFG_GLPI;
 
         parent::setUp();
-        $this->cfg = $CFG_GLPI;
         // Envoi par e-mail actif : les rappels sont mis en file d'attente (glpi_queuednotifications).
-        $CFG_GLPI['use_notifications'] = 1;
-        $CFG_GLPI['notifications_mailing'] = 1;
-        $CFG_GLPI['admin_email'] = 'glpi@example.org';
-        $CFG_GLPI['from_email'] = 'glpi@example.org';
+        foreach (self::MAIL_SETTINGS as $key => $value) {
+            $this->savedSettings[$key] = $CFG_GLPI[$key] ?? null;
+            $CFG_GLPI[$key] = $value;
+        }
         ControlTestReminder::$forceCgaActive = false;
     }
 
@@ -62,7 +72,9 @@ final class ControlTestReminderTest extends GrcmanagerIntegrationTestCase
     {
         global $CFG_GLPI;
 
-        $CFG_GLPI = $this->cfg;
+        foreach ($this->savedSettings as $key => $value) {
+            $CFG_GLPI[$key] = $value;
+        }
         ControlTestReminder::$forceCgaActive = null;
         parent::tearDown();
     }
