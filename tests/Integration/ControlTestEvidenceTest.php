@@ -164,12 +164,15 @@ final class ControlTestEvidenceTest extends GrcmanagerIntegrationTestCase
 
         $control = $this->control('A.8.13');
         $CFG_GLPI['document_max_size'] = 1;
-        $this->assertSame(0, $this->store($control, $this->file(str_repeat("ligne de journal\n", 70000)), 'journal.txt'));
+        $large = $this->file(str_repeat("ligne de journal\n", 70000));
+        $this->assertSame(0, $this->store($control, $large, 'journal.txt'));
         $CFG_GLPI['document_max_size'] = $this->maxSize;
         $this->assertGreaterThan(0, $this->store($control, $this->file("ligne de journal\n"), 'journal.txt'));
 
-        // Onglet Documents : pas de création de document sans le droit de GLPI.
+        // Onglet Documents : pas de création de document sans le droit de GLPI (Document::canCreate() :
+        // créer un document, ou ajouter un suivi).
         $_SESSION['glpiactiveprofile']['document'] = READ;
+        $_SESSION['glpiactiveprofile']['followup'] = 0;
         $this->assertSame(0, $this->store($control, $this->pdf(), 'preuve.pdf'));
     }
 
@@ -183,6 +186,7 @@ final class ControlTestEvidenceTest extends GrcmanagerIntegrationTestCase
         $this->assertStringContainsString('multipart/form-data', $html);
 
         $_SESSION['glpiactiveprofile']['document'] = READ;
+        $_SESSION['glpiactiveprofile']['followup'] = 0;
         ob_start();
         ControlTest::displayTabContentForItem($control);
         $this->assertStringNotContainsString('name="evidence_file"', (string) ob_get_clean());

@@ -80,8 +80,8 @@ final class EvidenceUploadRules
         }
         $parts = preg_split('#[/\\\\]#', $clientName) ?: [];
         $name = (string) end($parts);
-        $name = (string) preg_replace('/[\x00-\x1F\x7F<>:"|?*]+/u', '', $name);
-        $name = trim((string) preg_replace('/\s+/u', ' ', $name), " .");
+        $name = (string) preg_replace('/\s+/u', ' ', $name);
+        $name = trim((string) preg_replace('/[\x00-\x1F\x7F<>:"|?*]+/u', '', $name), ' .');
         if (preg_match('/^(.+)\.([A-Za-z0-9]{1,10})$/u', $name, $matches) !== 1) {
             return null;
         }

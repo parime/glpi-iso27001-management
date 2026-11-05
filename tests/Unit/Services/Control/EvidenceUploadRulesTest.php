@@ -34,12 +34,13 @@ final class EvidenceUploadRulesTest extends TestCase
 
     public function testUploadErrors(): void
     {
-        self::assertNull(EvidenceUploadRules::uploadError(UPLOAD_ERR_OK, 10, 100));
-        self::assertSame(EvidenceUploadRules::ERROR_TOO_LARGE, EvidenceUploadRules::uploadError(UPLOAD_ERR_OK, 101, 100));
-        self::assertSame(EvidenceUploadRules::ERROR_TOO_LARGE, EvidenceUploadRules::uploadError(UPLOAD_ERR_INI_SIZE, 0, 100));
-        self::assertSame(EvidenceUploadRules::ERROR_EMPTY, EvidenceUploadRules::uploadError(UPLOAD_ERR_OK, 0, 100));
-        self::assertSame(EvidenceUploadRules::ERROR_EMPTY, EvidenceUploadRules::uploadError(UPLOAD_ERR_NO_FILE, 0, 100));
-        self::assertSame(EvidenceUploadRules::ERROR_FAILED, EvidenceUploadRules::uploadError(UPLOAD_ERR_PARTIAL, 5, 100));
+        $error = static fn (int $php, int $size): ?string => EvidenceUploadRules::uploadError($php, $size, 100);
+        self::assertNull($error(UPLOAD_ERR_OK, 10));
+        self::assertSame(EvidenceUploadRules::ERROR_TOO_LARGE, $error(UPLOAD_ERR_OK, 101));
+        self::assertSame(EvidenceUploadRules::ERROR_TOO_LARGE, $error(UPLOAD_ERR_INI_SIZE, 0));
+        self::assertSame(EvidenceUploadRules::ERROR_EMPTY, $error(UPLOAD_ERR_OK, 0));
+        self::assertSame(EvidenceUploadRules::ERROR_EMPTY, $error(UPLOAD_ERR_NO_FILE, 0));
+        self::assertSame(EvidenceUploadRules::ERROR_FAILED, $error(UPLOAD_ERR_PARTIAL, 5));
     }
 
     public function testRealTypeMustMatchTheExtension(): void
