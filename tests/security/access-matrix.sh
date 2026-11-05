@@ -29,6 +29,17 @@ contains() { # libelle, texte, attendu (oui|non), contenu
 tab() { # itemtype, onglet, id
   body "$BASE/ajax/common.tabs.php?_target=/plugins/grcmanager/front/x.php&_itemtype=$1&_glpi_tab=$2&id=$3"
 }
+# Issue #380 : preuve envoyee depuis le formulaire d'un test (vrai PDF, et faux PDF contenant du PHP).
+EVIDENCE_PDF=$(mktemp); FAKE_PDF=$(mktemp)
+trap 'rm -f "$EVIDENCE_PDF" "$FAKE_PDF"' EXIT
+printf '%%PDF-1.4\n1 0 obj << /Type /Catalog >> endobj\ntrailer << /Root 1 0 R >>\n%%%%EOF\n' > "$EVIDENCE_PDF"
+printf "<?php echo 'securite';\n" > "$FAKE_PDF"
+upload_evidence() { # fichier, nom annonce, [jeton CSRF : oui|non]
+  local token=(-F "_glpi_csrf_token=$(csrf)")
+  [ "${3:-oui}" = non ] && token=()
+  code -F add=1 -F "plugin_grcmanager_controls_id=$(id control)" -F result=effective \
+    -F "evidence_file=@$1;filename=$2" "${token[@]}" "$BASE/plugins/grcmanager/front/controltest.form.php"
+}
 
 for try in 1 2 3 4 5; do
   rm -f "$JAR"
@@ -174,6 +185,10 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
   # Issue #380 : plan de test d'une mesure (droit de modifier la mesure).
   expect "front/controltest.form.php : plan de test" "$1" \
     "$(code -d "save_plan=1&plugin_grcmanager_controls_id=$(id control)&test_frequency_months=12&_glpi_csrf_token=$(csrf)" "$P/controltest.form.php")"
+  # Issue #380, troisieme etape : envoyer une preuve, ou enregistrer le resultat d'un controle technique.
+  expect "front/controltest.form.php : envoyer une preuve" "$1" "$(upload_evidence "$EVIDENCE_PDF" preuve-securite.pdf)"
+  expect "front/controltest.form.php : resultat d'un controle technique" "$1" \
+    "$(code -d "record_check=antivirus&plugin_grcmanager_controls_id=$(id control)&_glpi_csrf_token=$(csrf)" "$P/controltest.form.php")"
   # Issue #139 : joindre ou retirer une copie de quiz exige de pouvoir modifier la session.
   expect "front/trainingquiz.form.php : retirer une copie" "$1" \
     "$(code -d "remove=1&participations_id=$(id quiz)&_glpi_csrf_token=$(csrf)" "$P/trainingquiz.form.php")"
@@ -194,6 +209,11 @@ contains "carte incidents par entite : entite B" "Securite ISO B" $SEE_B "$by_en
 contains "carte incidents ouverts : chiffre" "big-number" $SEE_INCIDENTS "$(card securityincidents_bn_open bigNumber)"
 contains "page du tableau de bord : vue incidents proposee" "view=incidents" $SEE_INCIDENTS \
   "$(curl -s -c "$JAR" -b "$JAR" "$P/dashboard.php")"
+# Issue #380 : tests d'efficacite en retard, seulement pour qui lit les mesures.
+SEE_CONTROLS=oui
+[ "$ROLE" = none ] && SEE_CONTROLS=non
+contains "carte tests d'efficacite en retard : chiffre" "big-number" $SEE_CONTROLS \
+  "$(body "$BASE/ajax/dashboard.php?action=get_card&dashboard=grcmanager-isms-overview&card_id=grcmanager_overdue_control_tests&args%5Bwidgettype%5D=bigNumber&args%5Bgridstack_id%5D=matrice&args%5Bforce%5D=1")"
 contains "page du tableau de bord, vue incidents : grille" "\"current\":\"grcmanager-security-incidents\"" $SEE_INCIDENTS \
   "$(curl -s -c "$JAR" -b "$JAR" "$P/dashboard.php?view=incidents")"
 
@@ -244,6 +264,10 @@ if [ "$ROLE" = none ]; then
   # Issue #375 : relier un traitement a un incident exige de pouvoir modifier l'incident.
   expect "front/processingactivity.form.php : relier un incident en lecture seule" 403 \
     "$(code -d "link_incident=1&plugin_grcmanager_processingactivities_id=$(id processing_A)&incidents_id=$(id incident_A)&_glpi_csrf_token=$(csrf)" "$P/processingactivity.form.php")"
+  # Issue #380 : la preuve envoyee pour une mesure, dans son entite A, lui est refusee malgre son
+  # droit Documents : il ne lit pas les mesures.
+  expect "preuve envoyee d'une mesure : droit Documents sans lecture des mesures" 403 \
+    "$(code "$BASE/front/document.send.php?docid=$(id evidence_upload)")"
   create_attempts 403 403
   rm -f "$JAR"; exit $FAIL
 fi
@@ -571,6 +595,26 @@ expect "test d'efficacite, preuve de B" "$([ "$ROLE" = admin ] && echo 302 || ec
   "$(code -d "add=1&plugin_grcmanager_controls_id=$(id control)&result=effective&documents_id=$(id document_B)&_glpi_csrf_token=$(csrf)" "$P/controltest.form.php")"
 expect "test d'efficacite, document d'un autre objet" 404 \
   "$(code -d "add=1&plugin_grcmanager_controls_id=$(id control)&result=effective&documents_id=$(id audit_document)&_glpi_csrf_token=$(csrf)" "$P/controltest.form.php")"
+
+# Issue #380, troisieme etape : preuve envoyee depuis le formulaire du test. Memes droits que l'onglet
+# Documents : le gestionnaire limite (droit Documents en lecture seule) ne peut pas en envoyer. Le
+# type reel est verifie : un faux PDF n'est pas enregistre. La preuve envoyee se lit par qui lit la
+# mesure et le document (entite A).
+expect "preuve envoyee d'une mesure, lecture" 200 "$(code "$BASE/front/document.send.php?docid=$(id evidence_upload)")"
+expect "envoyer une preuve sans jeton CSRF" 403 "$(upload_evidence "$EVIDENCE_PDF" preuve-securite.pdf non)"
+if [ "$ROLE" = admin ]; then
+  expect "envoyer une preuve (PDF)" 302 "$(upload_evidence "$EVIDENCE_PDF" preuve-securite-admin.pdf)"
+  expect "envoyer un faux PDF" 302 "$(upload_evidence "$FAKE_PDF" faux-securite.pdf)"
+  test_tab=$(tab GlpiPlugin%5CGrcmanager%5CControl 'GlpiPlugin%5CGrcmanager%5CControlTest$1' "$(id control)")
+  contains "onglet des tests : preuve envoyee" "preuve-securite-admin.pdf" oui "$test_tab"
+  contains "onglet des tests : faux PDF refuse" "faux-securite.pdf" non "$test_tab"
+  contains "onglet des tests : envoi propose" 'name="evidence_file"' oui "$test_tab"
+else
+  expect "envoyer une preuve sans le droit de creer un document" 403 \
+    "$(upload_evidence "$EVIDENCE_PDF" preuve-securite-limite.pdf)"
+  contains "onglet des tests : pas d'envoi sans droit de creer un document" 'name="evidence_file"' non \
+    "$(tab GlpiPlugin%5CGrcmanager%5CControl 'GlpiPlugin%5CGrcmanager%5CControlTest$1' "$(id control)")"
+fi
 
 if [ "$ROLE" = limited ]; then
   # Enregistre le risque (objet global) avec l'actif de A : le lien vers B, invisible pour lui,

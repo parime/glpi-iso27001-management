@@ -163,6 +163,13 @@ function plugin_grcmanager_dashboard_cards(?array $cards = null): array
             'group' => $group,
             'provider' => SecuredDashboardCards::class . '::periodicReviewsOverdue',
         ],
+        // Issue #380 : mesures dont le test d'efficacité est en retard.
+        'grcmanager_overdue_control_tests' => [
+            'widgettype' => ['bigNumber'],
+            'label' => __('Overdue effectiveness tests', 'grcmanager'),
+            'group' => $group,
+            'provider' => SecuredDashboardCards::class . '::overdueControlTests',
+        ],
         'grcmanager_critical_suppliers_without_assessment' => [
             'widgettype' => ['bigNumber'],
             'label' => __('Critical suppliers not assessed', 'grcmanager'),

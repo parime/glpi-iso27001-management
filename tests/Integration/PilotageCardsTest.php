@@ -39,7 +39,7 @@ final class PilotageCardsTest extends GrcmanagerIntegrationTestCase
         foreach (
             ['upcomingComplianceDeadlines', 'accessReviewProgress', 'securityIncidentRegulatoryDeadlines',
                 'supplierQuestionnaireAverage', 'periodicReviewsOverdue', 'criticalSuppliersWithoutAssessment',
-                'accessReviewLateReviewers', 'trainingRetakeParticipants'] as $card
+                'accessReviewLateReviewers', 'trainingRetakeParticipants', 'overdueControlTests'] as $card
         ) {
             $result = SecuredDashboardCards::$card();
             $this->assertIsInt($result['number'], $card);

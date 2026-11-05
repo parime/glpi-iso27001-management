@@ -179,6 +179,12 @@ if ($mode === 'xss') {
     ]);
     // Issue #145 : nom du document de preuve, affiché par l'onglet et la liste des validités.
     $DB->update('glpi_documents', ['name' => $canary], ['id' => (int) $ids['document_A']]);
+    // Issue #380 : nom de la preuve envoyée depuis le formulaire, citée par un test (onglet).
+    $DB->update('glpi_documents', ['name' => $canary], ['id' => (int) $ids['evidence_upload']]);
+    $insert('controltests', [
+        'plugin_grcmanager_controls_id' => (int) $ids['control'], 'test_date' => date('Y-m-d'),
+        'result' => 'effective', 'documents_id' => (int) $ids['evidence_upload'],
+    ]);
     echo json_encode($out), "\n";
     exit(0);
 }
@@ -301,6 +307,8 @@ $noRight = $userId('iso-sans-droit', $a, $profileId('Securite ISO - sans droit',
     'supplier'                           => READ,
     // Issue #143 : voit les tableaux de bord, pas les cartes du plugin.
     'dashboard'                          => READ,
+    // Issue #380 : lit les documents de son entité, sauf la preuve d'une mesure qu'il ne lit pas.
+    'document'                           => READ,
 ]));
 
 // Registres sensibles : tout le SMSI en gestion, mais pas le droit dédié (risques, vulnérabilités du
@@ -526,5 +534,24 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
     }
     $ids['dsr_' . $suffix] = (int) $dsr->getID();
 }
+
+// Issue #380, troisième étape : preuve envoyée depuis le formulaire d'un test, par le même chemin
+// (type réel vérifié, document de la mesure au registre des documents restreints), puis rangée dans
+// l'entité A : seuls ceux qui lisent la mesure la lisent, pas un simple droit Documents dans A.
+$evidenceFile = tempnam(sys_get_temp_dir(), 'grc');
+file_put_contents($evidenceFile, "%PDF-1.4\n1 0 obj << /Type /Catalog >> endobj\ntrailer << /Root 1 0 R >>\n%%EOF\n");
+$evidenceControl = new \GlpiPlugin\Grcmanager\Control();
+$evidenceControl->getFromDB($controlId);
+$ids['evidence_upload'] = \GlpiPlugin\Grcmanager\ControlTest::storeEvidenceFile(
+    $evidenceControl,
+    $evidenceFile,
+    'Preuve envoyee securite.pdf'
+);
+unlink($evidenceFile);
+if ($ids['evidence_upload'] <= 0) {
+    fwrite(STDERR, "Envoi de la preuve impossible\n");
+    exit(1);
+}
+$DB->update('glpi_documents', ['entities_id' => $a], ['id' => $ids['evidence_upload']]);
 
 echo json_encode($ids), "\n";

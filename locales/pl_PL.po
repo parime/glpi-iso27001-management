@@ -6597,7 +6597,6 @@ msgstr "Usuń arkusz"
 msgid "You are not enrolled in any training."
 msgstr "Nie jesteś zapisany na żadne szkolenie."
 
-
 msgid "Sensitive registers"
 msgstr "Rejestry wrażliwe"
 
@@ -10439,3 +10438,72 @@ msgid_plural "Recovery tests"
 msgstr[0] "Test odtworzenia"
 msgstr[1] "Testy odtworzenia"
 msgstr[2] "Testów odtworzenia"
+
+msgid "You are not allowed to add a document to this control."
+msgstr "Nie masz uprawnień do dodania dokumentu do tego zabezpieczenia."
+
+msgid "The file name is not valid."
+msgstr "Nazwa pliku jest nieprawidłowa."
+
+#, php-format
+msgid "Files of type .%s are not allowed by GLPI (Setup > Dropdowns > Document types)."
+msgstr "GLPI nie zezwala na pliki typu .%s (Konfiguracja > Listy rozwijane > Typy dokumentów)."
+
+#, php-format
+msgid "The content of the file (%1$s) does not match its extension (.%2$s)."
+msgstr "Zawartość pliku (%1$s) nie odpowiada jego rozszerzeniu (.%2$s)."
+
+msgid "The file could not be saved."
+msgstr "Nie udało się zapisać pliku."
+
+#, php-format
+msgid "The file exceeds the maximum size allowed by GLPI (%d MiB)."
+msgstr "Plik przekracza maksymalny rozmiar dozwolony przez GLPI (%d MiB)."
+
+msgid "The file is empty."
+msgstr "Plik jest pusty."
+
+msgid "This automated check is not related to this control."
+msgstr "Ta automatyczna kontrola nie dotyczy tego zabezpieczenia."
+
+msgid "Select all entities to record the result of an automated check."
+msgstr "Wybierz wszystkie jednostki, aby zapisać wynik automatycznej kontroli."
+
+msgid "The automated check has nothing to evaluate: no test was recorded."
+msgstr "Automatyczna kontrola nie ma czego ocenić: nie zapisano żadnego testu."
+
+#, php-format
+msgid "Automated technical check \"%1$s\": %2$d gap out of %3$d, %4$d%% compliant."
+msgid_plural "Automated technical check \"%1$s\": %2$d gaps out of %3$d, %4$d%% compliant."
+msgstr[0] "Automatyczna kontrola techniczna „%1$s”: %2$d odstępstwo na %3$d, %4$d%% zgodności."
+msgstr[1] "Automatyczna kontrola techniczna „%1$s”: %2$d odstępstwa na %3$d, %4$d%% zgodności."
+msgstr[2] "Automatyczna kontrola techniczna „%1$s”: %2$d odstępstw na %3$d, %4$d%% zgodności."
+
+msgid "Choose an existing document or send a file, not both."
+msgstr "Wybierz istniejący dokument albo wyślij plik, nie oba naraz."
+
+#, php-format
+msgid "%1$d gap out of %2$d"
+msgid_plural "%1$d gaps out of %2$d"
+msgstr[0] "%1$d odstępstwo na %2$d"
+msgstr[1] "%1$d odstępstwa na %2$d"
+msgstr[2] "%1$d odstępstw na %2$d"
+
+msgid "Record as a test"
+msgstr "Zapisz jako test"
+
+#, php-format
+msgid "The result is computed again when it is recorded, as a technical test dated today: no gap gives an effective test, at least %d%% compliant a partially effective test, below an ineffective test."
+msgstr "Wynik jest obliczany ponownie przy zapisie, jako test techniczny z dzisiejszą datą: brak odstępstw daje test skuteczny, co najmniej %d%% zgodności test częściowo skuteczny, poniżej test nieskuteczny."
+
+msgid "Select all entities to record it: the control covers the whole organisation."
+msgstr "Wybierz wszystkie jednostki, aby go zapisać: zabezpieczenie obejmuje całą organizację."
+
+msgid "Or send a file"
+msgstr "Lub wyślij plik"
+
+msgid "It becomes a document of the control, readable only by those who read the control."
+msgstr "Staje się dokumentem zabezpieczenia, dostępnym tylko dla osób, które mogą czytać zabezpieczenie."
+
+msgid "Overdue effectiveness tests"
+msgstr "Zaległe testy skuteczności"

@@ -55,8 +55,38 @@
   </div>
 </div>
 
+{% if can_edit and technical_checks is not empty %}
+<div class="card mb-3">
+  <div class="card-header"><h3 class="card-title"><i class="ti ti-checklist me-1"></i>{{ __('Automated technical checks', 'grcmanager') }}</h3></div>
+  <div class="card-body">
+    {% for check in technical_checks %}
+      <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+        <strong>{{ check.label }}</strong>
+        {% if check.evaluated and check.result %}
+          <span class="text-muted">{{ _n('%1$d gap out of %2$d', '%1$d gaps out of %2$d', check.gaps, 'grcmanager')|format(check.gaps, check.total) }}</span>
+          <span class="badge {{ check.result.class }}"><i class="ti {{ check.result.icon }} me-1"></i>{{ check.result.label }}</span>
+          {% if all_entities %}
+            <form method="post" action="{{ form_url }}" class="ms-auto">
+              <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+              <input type="hidden" name="plugin_grcmanager_controls_id" value="{{ controls_id }}">
+              <button type="submit" name="record_check" value="{{ check.key }}" class="btn btn-sm btn-outline-primary"><i class="ti ti-test-pipe me-1"></i>{{ __('Record as a test', 'grcmanager') }}</button>
+            </form>
+          {% endif %}
+        {% else %}
+          <span class="badge bg-secondary-lt">{{ __('Not evaluated', 'grcmanager') }}</span>
+        {% endif %}
+      </div>
+    {% endfor %}
+    <small class="form-hint d-block">
+      {{ __('The result is computed again when it is recorded, as a technical test dated today: no gap gives an effective test, at least %d%% compliant a partially effective test, below an ineffective test.', 'grcmanager')|format(technical_threshold) }}
+      {% if not all_entities %}{{ __('Select all entities to record it: the control covers the whole organisation.', 'grcmanager') }}{% endif %}
+    </small>
+  </div>
+</div>
+{% endif %}
+
 {% if can_edit %}
-<form method="post" action="{{ form_url }}" class="card card-body mb-3">
+<form method="post" action="{{ form_url }}" class="card card-body mb-3" enctype="multipart/form-data">
   <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
   <input type="hidden" name="plugin_grcmanager_controls_id" value="{{ controls_id }}">
   <h3 class="card-title"><i class="ti ti-plus me-1"></i>{{ __('Record a test', 'grcmanager') }}</h3>
@@ -94,7 +124,13 @@
         <option value="0">-----</option>
         {% for doc in documents %}<option value="{{ doc.documents_id }}">{{ doc.name }}</option>{% endfor %}
       </select>
-      <small class="form-hint">{{ __('A document of the control:', 'grcmanager') }} <a href="{{ documents_url }}">{{ __('add it first in the Documents tab', 'grcmanager') }}</a>.</small>
+      {% if can_upload %}
+        <label class="form-label mt-2" for="grc-test-file">{{ __('Or send a file', 'grcmanager') }}</label>
+        <input type="file" id="grc-test-file" name="evidence_file" class="form-control">
+        <small class="form-hint">{{ __('It becomes a document of the control, readable only by those who read the control.', 'grcmanager') }} {{ max_upload }}</small>
+      {% else %}
+        <small class="form-hint">{{ __('A document of the control:', 'grcmanager') }} <a href="{{ documents_url }}">{{ __('add it first in the Documents tab', 'grcmanager') }}</a>.</small>
+      {% endif %}
     </div>
     <div class="col-md-3">
       <label class="form-label" for="grc-test-next">{{ __('Next test', 'grcmanager') }}</label>

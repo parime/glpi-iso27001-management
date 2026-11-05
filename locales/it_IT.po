@@ -5093,7 +5093,6 @@ msgstr "Nessuna regola di filtraggio nel backup di pfSense."
 msgid "Choose a CSV file or a pfSense backup (XML) of 2 MB at most."
 msgstr "Scegliere un file CSV o un backup di pfSense (XML) di massimo 2 MB."
 
-
 msgid "Partner network conflicting with an internal network"
 msgstr "Rete del partner in conflitto con una rete interna"
 
@@ -5372,7 +5371,6 @@ msgstr "Rimuovi l'elaborato"
 
 msgid "You are not enrolled in any training."
 msgstr "Non sei iscritto ad alcuna formazione."
-
 
 msgid "Sensitive registers"
 msgstr "Registri sensibili"
@@ -5678,7 +5676,6 @@ msgstr "Impossibile contattare Have I Been Pwned (codice %d)."
 
 msgid "Internet-facing interface"
 msgstr "Interfaccia verso Internet"
-
 
 #, php-format
 msgid "Internet-facing interface: %s. Rules on this interface from anywhere are publications; elsewhere, rules towards anywhere or towards everything except private networks are Internet access. Change it above and analyse the file again if needed."
@@ -9030,3 +9027,70 @@ msgid "Recovery test"
 msgid_plural "Recovery tests"
 msgstr[0] "Test di ripristino"
 msgstr[1] "Test di ripristino"
+
+msgid "You are not allowed to add a document to this control."
+msgstr "Non è autorizzato ad aggiungere un documento a questo controllo."
+
+msgid "The file name is not valid."
+msgstr "Il nome del file non è valido."
+
+#, php-format
+msgid "Files of type .%s are not allowed by GLPI (Setup > Dropdowns > Document types)."
+msgstr "I file di tipo .%s non sono consentiti da GLPI (Configurazione > Elenchi a discesa > Tipi di documento)."
+
+#, php-format
+msgid "The content of the file (%1$s) does not match its extension (.%2$s)."
+msgstr "Il contenuto del file (%1$s) non corrisponde alla sua estensione (.%2$s)."
+
+msgid "The file could not be saved."
+msgstr "Impossibile salvare il file."
+
+#, php-format
+msgid "The file exceeds the maximum size allowed by GLPI (%d MiB)."
+msgstr "Il file supera la dimensione massima consentita da GLPI (%d MiB)."
+
+msgid "The file is empty."
+msgstr "Il file è vuoto."
+
+msgid "This automated check is not related to this control."
+msgstr "Questa verifica automatica non riguarda questo controllo."
+
+msgid "Select all entities to record the result of an automated check."
+msgstr "Selezioni tutte le entità per registrare il risultato di una verifica automatica."
+
+msgid "The automated check has nothing to evaluate: no test was recorded."
+msgstr "La verifica automatica non ha nulla da valutare: nessun test è stato registrato."
+
+#, php-format
+msgid "Automated technical check \"%1$s\": %2$d gap out of %3$d, %4$d%% compliant."
+msgid_plural "Automated technical check \"%1$s\": %2$d gaps out of %3$d, %4$d%% compliant."
+msgstr[0] "Verifica tecnica automatica «%1$s»: %2$d scostamento su %3$d, %4$d%% di conformità."
+msgstr[1] "Verifica tecnica automatica «%1$s»: %2$d scostamenti su %3$d, %4$d%% di conformità."
+
+msgid "Choose an existing document or send a file, not both."
+msgstr "Scelga un documento esistente o invii un file, non entrambi."
+
+#, php-format
+msgid "%1$d gap out of %2$d"
+msgid_plural "%1$d gaps out of %2$d"
+msgstr[0] "%1$d scostamento su %2$d"
+msgstr[1] "%1$d scostamenti su %2$d"
+
+msgid "Record as a test"
+msgstr "Registra come test"
+
+#, php-format
+msgid "The result is computed again when it is recorded, as a technical test dated today: no gap gives an effective test, at least %d%% compliant a partially effective test, below an ineffective test."
+msgstr "Il risultato viene ricalcolato alla registrazione, come test tecnico con la data di oggi: nessuno scostamento dà un test efficace, almeno il %d%% di conformità un test parzialmente efficace, al di sotto un test inefficace."
+
+msgid "Select all entities to record it: the control covers the whole organisation."
+msgstr "Selezioni tutte le entità per registrarlo: il controllo copre l'intera organizzazione."
+
+msgid "Or send a file"
+msgstr "Oppure inviare un file"
+
+msgid "It becomes a document of the control, readable only by those who read the control."
+msgstr "Diventa un documento del controllo, leggibile solo da chi può leggere il controllo."
+
+msgid "Overdue effectiveness tests"
+msgstr "Test di efficacia in ritardo"

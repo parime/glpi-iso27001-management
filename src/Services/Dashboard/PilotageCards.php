@@ -22,6 +22,7 @@ namespace GlpiPlugin\Grcmanager\Services\Dashboard;
 use GlpiPlugin\Grcmanager\Services\Access\AccessReviewLogic;
 use GlpiPlugin\Grcmanager\Services\Control\AnssiHygieneCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\ControlCrosswalkDefaults;
+use GlpiPlugin\Grcmanager\Services\Control\ControlTestRules;
 use GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig;
 use GlpiPlugin\Grcmanager\Services\Control\FrameworkSelection;
 use GlpiPlugin\Grcmanager\Services\Control\Nis2CatalogDefaults;
@@ -429,6 +430,30 @@ final class PilotageCards
             'data'  => self::trendSeries($byMonth),
             'label' => $params['label'] ?? __('Risks and non-conformities by month', 'grcmanager'),
             'icon'  => 'ti ti-chart-line',
+        ];
+    }
+
+    /**
+     * Issue #380 : mesures dont le test d'efficacité est en retard, comme en tête de la page
+     * « Tests d'efficacité » (même calcul, ControlTest::getSchedule()). Droit de lecture des
+     * mesures vérifié par SecuredDashboardCards. Les mesures de l'Annexe A sont globales (sans
+     * entité, comme la SoA) : le compte est le même dans toutes les entités.
+     */
+    public static function overdueControlTests(array $params = []): array
+    {
+        $today = date('Y-m-d');
+        $count = 0;
+        foreach (\GlpiPlugin\Grcmanager\ControlTest::getSchedule() as $entry) {
+            if (ControlTestRules::dueStatus($entry['next'], $today) === ControlTestRules::DUE_OVERDUE) {
+                $count++;
+            }
+        }
+
+        return [
+            'number' => $count,
+            'url'    => \GlpiPlugin\Grcmanager\ControlTest::getSearchURL(),
+            'label'  => $params['label'] ?? __('Overdue effectiveness tests', 'grcmanager'),
+            'icon'   => 'ti ti-test-pipe',
         ];
     }
 

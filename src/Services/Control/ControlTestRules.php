@@ -204,4 +204,49 @@ final class ControlTestRules
     {
         return $result === self::RESULT_INEFFECTIVE;
     }
+
+    /**
+     * Un contrôle technique automatique dont le taux de conformité (en %) atteint ce seuil, sans
+     * être parfait, donne un test « partiellement efficace » ; en dessous, « inefficace ».
+     */
+    public const TECHNICAL_PARTIAL_THRESHOLD = 80;
+
+    /**
+     * Issue #380 (#162) : résultat d'un test alimenté par un contrôle technique automatique, à
+     * partir de ses écarts. Aucun écart : efficace ; peu d'écarts : partiellement efficace ;
+     * sinon inefficace. Null si la population est vide (rien à prouver).
+     */
+    public static function resultFromTechnicalCheck(int $gaps, int $total): ?string
+    {
+        if ($total <= 0) {
+            return null;
+        }
+        $gaps = max(0, min($gaps, $total));
+        if ($gaps === 0) {
+            return self::RESULT_EFFECTIVE;
+        }
+
+        return 100 * ($total - $gaps) / $total >= self::TECHNICAL_PARTIAL_THRESHOLD
+            ? self::RESULT_PARTIAL
+            : self::RESULT_INEFFECTIVE;
+    }
+
+    /**
+     * Contrôles techniques automatiques (ComplianceAuditScore::CHECKS) rattachés à une mesure de
+     * l'Annexe A par leur référence ISO 27001.
+     *
+     * @param array<string, array<string, string>> $checks
+     * @return list<string>
+     */
+    public static function technicalChecksFor(string $controlCode, array $checks): array
+    {
+        $keys = [];
+        foreach ($checks as $check => $references) {
+            if (($references['iso27001'] ?? null) === $controlCode) {
+                $keys[] = (string) $check;
+            }
+        }
+
+        return $keys;
+    }
 }
