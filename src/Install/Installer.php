@@ -274,6 +274,8 @@ final class Installer
         \GlpiPlugin\Grcmanager\EbiosOperationalScenario::class,
         // Issue #380, deuxième étape : rappel des tests d'efficacité.
         \GlpiPlugin\Grcmanager\NotificationTargetControl::class,
+        // Issue #378, deuxième étape : alertes des indicateurs de risque.
+        \GlpiPlugin\Grcmanager\NotificationTargetRiskIndicator::class,
     ];
     // Issue #375 : registre des activités de traitement (RGPD, article 30) et éléments GLPI cités,
     // voir \GlpiPlugin\Grcmanager\ProcessingActivity.
@@ -2969,6 +2971,7 @@ final class Installer
         $this->seedWaiverExpiringNotification();
         $this->seedComplianceEventReminderNotification();
         $this->seedControlTestReminderNotification();
+        $this->seedKriAlertNotifications();
         $this->migrateResponsibleTargets();
 
         // Issue #126 : relance hebdomadaire des responsables en retard sur une revue des accès.
@@ -3719,22 +3722,6 @@ final class Installer
      */
     private function seedControlTestReminderNotification(): void
     {
-        global $DB;
-
-        $itemtype = \GlpiPlugin\Grcmanager\Control::class;
-        $event    = \GlpiPlugin\Grcmanager\ControlTestReminder::EVENT;
-        $where = ['itemtype' => $itemtype, 'event' => $event];
-        if ($DB->request(['FROM' => 'glpi_notifications', 'WHERE' => $where])->count() > 0) {
-            return;
-        }
-
-        $name = 'GRC Manager - Test d\'efficacité à réaliser';
-        $templateId = (new NotificationTemplate())->add([
-            'name'     => $name,
-            'itemtype' => $itemtype,
-            'comment'  => 'Notification envoyée par la tâche automatique GRC Manager lorsqu\'un test '
-                . 'd\'efficacité d\'une mesure de l\'Annexe A est en retard ou à réaliser dans les 30 jours.',
-        ]);
         $advice = 'Réalisez le test et enregistrez son résultat dans l\'onglet « Tests d\'efficacité » de la '
             . 'mesure. Un test en retard retire l\'état « Vérifié » de la mesure dans la SoA.';
         $text = "##controltest.duestatus## : ##controltest.control##\n\n"
@@ -3745,12 +3732,15 @@ final class Installer
             . "##IFcontroltest.withdrawn##\n##controltest.withdrawn##\n##ENDIFcontroltest.withdrawn##\n"
             . $advice . "\n\n"
             . "Voir la mesure : ##controltest.url##";
-        $DB->insert('glpi_notificationtemplatetranslations', [
-            'notificationtemplates_id' => $templateId,
-            'language'                 => '',
-            'subject'                  => '##controltest.duestatus## : ##controltest.control##',
-            'content_text'             => $text,
-            'content_html'             => NotificationHtml::renderBranded(
+        $this->seedBrandedNotification(
+            \GlpiPlugin\Grcmanager\Control::class,
+            \GlpiPlugin\Grcmanager\ControlTestReminder::EVENT,
+            'GRC Manager - Test d\'efficacité à réaliser',
+            'Notification envoyée par la tâche automatique GRC Manager lorsqu\'un test '
+                . 'd\'efficacité d\'une mesure de l\'Annexe A est en retard ou à réaliser dans les 30 jours.',
+            '##controltest.duestatus## : ##controltest.control##',
+            $text,
+            NotificationHtml::renderBranded(
                 '##controltest.brandcolor##',
                 '##controltest.duestatus## : ##controltest.control##',
                 '##controltest.action##',
@@ -3765,6 +3755,114 @@ final class Installer
                 [$advice],
                 ['url' => '##controltest.url##', 'text' => 'Voir la mesure']
             ),
+            [
+                \GlpiPlugin\Grcmanager\NotificationTargetControl::TARGET_TESTER,
+                \GlpiPlugin\Grcmanager\NotificationTargetControl::TARGET_CISO_GROUP,
+            ]
+        );
+    }
+
+    /**
+     * Issue #378, deuxième étape : alerte d'un indicateur de risque passé au rouge (ou à l'orange,
+     * selon le réglage) et retour au vert (\GlpiPlugin\Grcmanager\KriAlert), au responsable du KRI et
+     * au groupe RSSI. Même habillage et même idempotence que le rappel des tests d'efficacité.
+     */
+    private function seedKriAlertNotifications(): void
+    {
+        $rows = [
+            ['label' => 'Statut', 'tag' => '##kri.status##'],
+            ['label' => 'Statut précédent', 'tag' => '##kri.previousstatus##'],
+            ['label' => 'Dernière valeur', 'tag' => '##kri.value##'],
+            ['label' => 'Relevée le', 'tag' => '##kri.date##'],
+            ['label' => 'Seuil orange', 'tag' => '##kri.warning##'],
+            ['label' => 'Seuil rouge', 'tag' => '##kri.critical##'],
+            ['label' => 'Source', 'tag' => '##kri.source##'],
+            ['label' => 'Entité', 'tag' => '##kri.entity##'],
+            ['label' => 'Responsable', 'tag' => '##kri.owner##'],
+        ];
+        $text = "##kri.action## : ##kri.name##\n\n"
+            . "Statut : ##kri.status## (avant : ##kri.previousstatus##)\n"
+            . "Dernière valeur : ##kri.value##, relevée le ##kri.date##\n"
+            . "Seuils : orange ##kri.warning##, rouge ##kri.critical##\n"
+            . "Source : ##kri.source##\n"
+            . "Entité : ##kri.entity##\n"
+            . "Responsable : ##kri.owner##\n\n";
+        $targets = [
+            \GlpiPlugin\Grcmanager\NotificationTargetRiskIndicator::TARGET_OWNER,
+            \GlpiPlugin\Grcmanager\NotificationTargetRiskIndicator::TARGET_CISO_GROUP,
+        ];
+        $events = [
+            \GlpiPlugin\Grcmanager\KriAlert::EVENT_ALERT => [
+                'GRC Manager - Indicateur de risque en alerte',
+                'Notification envoyée par GRC Manager lorsqu\'un indicateur de risque (KRI) passe au rouge, '
+                    . 'ou à l\'orange selon le réglage, une fois par changement d\'état.',
+                'Analysez la cause, décidez d\'un traitement et, si besoin, créez le ticket proposé sur la '
+                    . 'fiche de l\'indicateur.',
+            ],
+            \GlpiPlugin\Grcmanager\KriAlert::EVENT_CLEARED => [
+                'GRC Manager - Indicateur de risque revenu au vert',
+                'Notification envoyée par GRC Manager lorsqu\'un indicateur de risque (KRI) en alerte '
+                    . 'revient au vert.',
+                'L\'indicateur est revenu sous ses seuils. Vérifiez si le ticket éventuel peut être clos.',
+            ],
+        ];
+        foreach ($events as $event => [$name, $comment, $advice]) {
+            $this->seedBrandedNotification(
+                \GlpiPlugin\Grcmanager\RiskIndicator::class,
+                $event,
+                $name,
+                $comment,
+                '##kri.action## : ##kri.name##',
+                $text . $advice . "\n\nVoir l'indicateur : ##kri.url##",
+                NotificationHtml::renderBranded(
+                    '##kri.brandcolor##',
+                    '##kri.action## : ##kri.name##',
+                    '##kri.category##',
+                    $rows,
+                    null,
+                    [$advice],
+                    ['url' => '##kri.url##', 'text' => 'Voir l\'indicateur']
+                ),
+                $targets
+            );
+        }
+    }
+
+    /**
+     * Notification, modèle (traduction par défaut, en français) et cibles propres au plugin, créés
+     * une seule fois : une notification déjà présente (éventuellement modifiée par un
+     * administrateur) n'est jamais réécrite.
+     *
+     * @param list<int> $targets cibles propres (constantes >= 1000 de la classe NotificationTarget)
+     */
+    private function seedBrandedNotification(
+        string $itemtype,
+        string $event,
+        string $name,
+        string $comment,
+        string $subject,
+        string $text,
+        string $html,
+        array $targets
+    ): void {
+        global $DB;
+
+        $where = ['itemtype' => $itemtype, 'event' => $event];
+        if ($DB->request(['FROM' => 'glpi_notifications', 'WHERE' => $where])->count() > 0) {
+            return;
+        }
+
+        $templateId = (new NotificationTemplate())->add([
+            'name'     => $name,
+            'itemtype' => $itemtype,
+            'comment'  => $comment,
+        ]);
+        $DB->insert('glpi_notificationtemplatetranslations', [
+            'notificationtemplates_id' => $templateId,
+            'language'                 => '',
+            'subject'                  => $subject,
+            'content_text'             => $text,
+            'content_html'             => $html,
         ]);
 
         $notificationId = (new Notification())->add([
@@ -3780,12 +3878,7 @@ final class Installer
             'mode'                     => 'mailing',
             'notificationtemplates_id' => $templateId,
         ]);
-        foreach (
-            [
-                \GlpiPlugin\Grcmanager\NotificationTargetControl::TARGET_TESTER,
-                \GlpiPlugin\Grcmanager\NotificationTargetControl::TARGET_CISO_GROUP,
-            ] as $target
-        ) {
+        foreach ($targets as $target) {
             $DB->insert('glpi_notificationtargets', [
                 'notifications_id' => $notificationId,
                 'type'             => Notification::USER_TYPE,
@@ -4378,6 +4471,7 @@ final class Installer
                 `last_value_date` date DEFAULT NULL,
                 `status` varchar(16) NOT NULL DEFAULT 'none' COMMENT 'green, orange, red, none',
                 `tickets_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Dernier ticket ouvert au rouge',
+                `alert_status` varchar(16) NOT NULL DEFAULT '' COMMENT 'Derniere alerte envoyee : orange, red ou vide',
                 `is_active` tinyint NOT NULL DEFAULT 1,
                 `date_creation` timestamp NULL DEFAULT NULL,
                 `date_mod` timestamp NULL DEFAULT NULL,
@@ -4414,6 +4508,19 @@ final class Installer
             $migration->addField(self::RISKS_TABLE, 'date_acceptance', 'timestamp', ['after' => 'users_id_acceptance']);
             $migration->addKey(self::RISKS_TABLE, 'users_id_acceptance');
             $migration->migrationOneTable(self::RISKS_TABLE);
+        }
+
+        // Issue #378, deuxième étape : dernière alerte envoyée pour un KRI (\GlpiPlugin\Grcmanager\KriAlert),
+        // pour ne prévenir qu'une fois par changement d'état. À la mise à jour, un KRI déjà au rouge
+        // est tenu pour prévenu (niveau d'alerte par défaut) : pas de rafale d'alertes anciennes.
+        if (!$DB->fieldExists(self::RISK_INDICATORS_TABLE, 'alert_status')) {
+            $migration->addField(self::RISK_INDICATORS_TABLE, 'alert_status', 'string', [
+                'value'   => '',
+                'comment' => 'Derniere alerte envoyee : orange, red ou vide',
+                'after'   => 'tickets_id',
+            ]);
+            $migration->migrationOneTable(self::RISK_INDICATORS_TABLE);
+            $DB->update(self::RISK_INDICATORS_TABLE, ['alert_status' => 'red'], ['status' => 'red']);
         }
 
         // Relevé quotidien des KRI à source automatique.
@@ -4910,6 +5017,8 @@ final class Installer
         $this->unseedNotification(\GlpiPlugin\Grcmanager\IncidentAccessWatch::class);
         // Issue #380 : rappel des tests d'efficacité.
         $this->unseedNotification(\GlpiPlugin\Grcmanager\Control::class);
+        // Issue #378, deuxième étape : alertes des indicateurs de risque.
+        $this->unseedNotification(\GlpiPlugin\Grcmanager\RiskIndicator::class);
 
         // Absorption de glpi-security-incidents (ROADMAP.md "Version 2.0") : colonnes ajoutées sur
         // les tables cœur pour la gestion de modèles - même dérivation que le plugin absorbé

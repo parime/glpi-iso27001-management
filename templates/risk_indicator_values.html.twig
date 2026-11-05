@@ -10,6 +10,46 @@
          </span>
       {% endif %}
    </h3>
+   {# Courbe de tendance : valeurs relevées et seuils orange et rouge (données en attribut, échappées). #}
+   {% if chart.points|length >= 2 %}
+      <div id="grc-kri-trend-{{ kri_id }}" class="mb-3" style="height: 260px;"
+           role="img" aria-label="{{ __('Trend of the indicator with its thresholds', 'grcmanager') }}"
+           data-chart="{{ chart|json_encode }}"></div>
+      <script>
+         (function () {
+            const draw = function () {
+               const node = document.getElementById('grc-kri-trend-{{ kri_id }}');
+               const chart = JSON.parse(node.dataset.chart);
+               const lines = [];
+               if (chart.warning !== null) {
+                  lines.push({yAxis: chart.warning, name: chart.labels.warning, lineStyle: {color: '#f59f00', type: 'dashed'}, label: {formatter: '{b}', color: '#f59f00'}});
+               }
+               if (chart.critical !== null) {
+                  lines.push({yAxis: chart.critical, name: chart.labels.critical, lineStyle: {color: '#d63939', type: 'dashed'}, label: {formatter: '{b}', color: '#d63939'}});
+               }
+               window.echarts.init(node).setOption({
+                  grid: {left: 50, right: 90, top: 20, bottom: 30},
+                  tooltip: {trigger: 'axis'},
+                  xAxis: {type: 'category', data: chart.points.map(function (p) { return p.date; })},
+                  yAxis: {type: 'value', scale: true},
+                  series: [{
+                     type: 'line', name: chart.labels.value, color: '#206bc4',
+                     data: chart.points.map(function (p) { return p.value; }),
+                     markLine: {symbol: 'none', silent: true, data: lines}
+                  }]
+               });
+            };
+            if (typeof window.echarts === 'undefined') {
+               const script = document.createElement('script');
+               script.src = '{{ config('root_doc') }}/lib/echarts.min.js';
+               script.onload = draw;
+               document.head.appendChild(script);
+            } else {
+               draw();
+            }
+         })();
+      </script>
+   {% endif %}
    {% if is_red %}
       <div class="alert alert-danger d-flex align-items-center">
          <i class="ti ti-alert-octagon me-2"></i>

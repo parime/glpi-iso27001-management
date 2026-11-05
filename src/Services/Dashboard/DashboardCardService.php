@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace GlpiPlugin\Grcmanager\Services\Dashboard;
 
 use Glpi\DBAL\QueryExpression;
+use GlpiPlugin\Grcmanager\Services\Risk\KriRules;
 
 /**
  * Data providers for the plugin's `Hooks::DASHBOARD_CARDS` entries (registered in
@@ -912,6 +913,33 @@ final class DashboardCardService
             'data'  => $data,
             'label' => $params['label'] ?? __('Risk indicators (KRI) by status', 'grcmanager'),
             'icon'  => 'ti ti-activity-heartbeat',
+        ];
+    }
+
+    /**
+     * Issue #378 : nombre de KRI au rouge et à l'orange à la fin de chaque mois, sur douze mois,
+     * pour la direction. Seulement les KRI visibles de l'utilisateur (entités et règle des sources
+     * automatiques, RiskIndicator::getSystemSQLCriteria()).
+     *
+     * @param array<string, mixed> $params
+     * @return array<string, mixed>
+     */
+    public static function riskIndicatorsTrend(array $params = []): array
+    {
+        $months = KriRules::lastMonths(date('Y-m-d'));
+        $counts = KriRules::monthlyStatusCounts(\GlpiPlugin\Grcmanager\RiskIndicator::visibleValuesByKri(), $months);
+        $labels = \GlpiPlugin\Grcmanager\RiskIndicator::getStatuses();
+
+        return [
+            'data'  => [
+                'labels' => $months,
+                'series' => [
+                    ['name' => $labels[KriRules::RED], 'data' => array_column($counts, 'red')],
+                    ['name' => $labels[KriRules::ORANGE], 'data' => array_column($counts, 'orange')],
+                ],
+            ],
+            'label' => $params['label'] ?? __('Risk indicators (KRI) in the red and orange by month', 'grcmanager'),
+            'icon'  => 'ti ti-chart-line',
         ];
     }
 

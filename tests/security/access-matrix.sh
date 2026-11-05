@@ -227,6 +227,9 @@ if [ "$ROLE" = none ]; then
   # Issue #380 : le rappel des tests au groupe RSSI se regle avec le droit de modifier la configuration.
   expect "front/config.php : rappel des tests au groupe RSSI" 403 \
     "$(code -d "update_controltest_reminder=1&controltest_reminder_ciso=always&_glpi_csrf_token=$(csrf)" "$P/config.php")"
+  # Issue #378 : le niveau d'alerte des KRI se regle avec le droit de modifier la configuration.
+  expect "front/config.php : niveau d'alerte des KRI" 403 \
+    "$(code -d "update_kri_alert=1&kri_alert_level=orange&_glpi_csrf_token=$(csrf)" "$P/config.php")"
   # Issue #375 : relier un traitement a un incident exige de pouvoir modifier l'incident.
   expect "front/processingactivity.form.php : relier un incident en lecture seule" 403 \
     "$(code -d "link_incident=1&plugin_grcmanager_processingactivities_id=$(id processing_A)&incidents_id=$(id incident_A)&_glpi_csrf_token=$(csrf)" "$P/processingactivity.form.php")"
@@ -318,6 +321,9 @@ if [ "$ROLE" = reader ]; then
   # Issue #380 : le rappel des tests au groupe RSSI se regle avec le droit de modifier la configuration.
   expect "front/config.php : rappel des tests au groupe RSSI" 403 \
     "$(code -d "update_controltest_reminder=1&controltest_reminder_ciso=always&_glpi_csrf_token=$(csrf)" "$P/config.php")"
+  # Issue #378 : le niveau d'alerte des KRI se regle avec le droit de modifier la configuration.
+  expect "front/config.php : niveau d'alerte des KRI" 403 \
+    "$(code -d "update_kri_alert=1&kri_alert_level=orange&_glpi_csrf_token=$(csrf)" "$P/config.php")"
   # Issue #375 : relier un traitement a un incident exige de pouvoir modifier l'incident.
   expect "front/processingactivity.form.php : relier un incident en lecture seule" 403 \
     "$(code -d "link_incident=1&plugin_grcmanager_processingactivities_id=$(id processing_A)&incidents_id=$(id incident_A)&_glpi_csrf_token=$(csrf)" "$P/processingactivity.form.php")"
@@ -340,6 +346,20 @@ if [ "$ROLE" = admin ]; then
   expect "front/config.php : rappel des tests, valeur inconnue" 302 \
     "$(code -d "update_controltest_reminder=1&controltest_reminder_ciso=x&_glpi_csrf_token=$(csrf)" "$P/config.php")"
   contains "front/config.php : rappel des tests par defaut" 'value="overdue" selected' oui \
+    "$(curl -s -c "$JAR" -b "$JAR" "$P/config.php")"
+  # Issue #378 : niveau d'alerte des KRI. Sans jeton CSRF, refuse et inchange ; avec, enregistre ;
+  # une valeur inconnue revient au rouge.
+  expect "front/config.php : alerte des KRI, sans jeton CSRF" 403 \
+    "$(code -d "update_kri_alert=1&kri_alert_level=orange" "$P/config.php")"
+  contains "front/config.php : alerte des KRI inchangee sans jeton" 'value="orange" selected' non \
+    "$(curl -s -c "$JAR" -b "$JAR" "$P/config.php")"
+  expect "front/config.php : alerte des KRI des l'orange" 302 \
+    "$(code -d "update_kri_alert=1&kri_alert_level=orange&_glpi_csrf_token=$(csrf)" "$P/config.php")"
+  contains "front/config.php : alerte des KRI enregistree" 'value="orange" selected' oui \
+    "$(curl -s -c "$JAR" -b "$JAR" "$P/config.php")"
+  expect "front/config.php : alerte des KRI, valeur inconnue" 302 \
+    "$(code -d "update_kri_alert=1&kri_alert_level=x&_glpi_csrf_token=$(csrf)" "$P/config.php")"
+  contains "front/config.php : alerte des KRI par defaut" 'value="red" selected' oui \
     "$(curl -s -c "$JAR" -b "$JAR" "$P/config.php")"
 fi
 
