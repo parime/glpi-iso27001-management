@@ -63,8 +63,11 @@ final class BusinessProcessReminder
     {
         $review = PeriodicReview::getByKey($reviewKey);
         $months = $review !== null ? (int) $review->fields['frequency_months'] : 0;
+        if ($months <= 0) {
+            $months = PeriodicReviewCatalog::defaultMonths($reviewKey);
+        }
 
-        return PeriodicReviewCatalog::normalizeMonths($months > 0 ? $months : PeriodicReviewCatalog::defaultMonths($reviewKey));
+        return PeriodicReviewCatalog::normalizeMonths($months);
     }
 
     /**
@@ -216,7 +219,10 @@ final class BusinessProcessReminder
                 $counts['bia_due']++;
             }
             $last = $lastTests[(int) $row['id']] ?? null;
-            if ($last !== null && RecoveryStrategyRules::exceedsRto((int) $row['rto_hours'], $last['measured_minutes'])) {
+            if (
+                $last !== null
+                && RecoveryStrategyRules::exceedsRto((int) $row['rto_hours'], $last['measured_minutes'])
+            ) {
                 $counts['recovery_above_rto']++;
             }
         }

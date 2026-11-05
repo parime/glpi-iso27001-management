@@ -112,7 +112,11 @@ final class BusinessProcessReminderTest extends GrcmanagerIntegrationTestCase
         $process = $this->process('Paie DEMO echeances', 0, ['bia_date' => '2026-01-31']);
         $this->assertSame('2027-01-31', BusinessProcessReminder::biaDueDate($process->fields), 'Revue annuelle.');
 
-        $DB->update(PeriodicReview::getTable(), ['frequency_months' => 6], ['review_key' => BusinessProcessReminder::BIA_REVIEW]);
+        $DB->update(
+            PeriodicReview::getTable(),
+            ['frequency_months' => 6],
+            ['review_key' => BusinessProcessReminder::BIA_REVIEW]
+        );
         $this->assertSame(6, BusinessProcessReminder::frequency(BusinessProcessReminder::BIA_REVIEW));
         // Fin de mois : le 31 janvier plus six mois donne le 31 juillet.
         $this->assertSame('2026-07-31', BusinessProcessReminder::biaDueDate($process->fields));
@@ -138,7 +142,7 @@ final class BusinessProcessReminderTest extends GrcmanagerIntegrationTestCase
         $this->assertStringContainsString('Paie DEMO BIA', (string) $mails[0]['name']);
         $this->assertStringNotContainsString('##', (string) $mails[0]['body_text'], 'Toutes les balises remplacées.');
         $this->assertStringNotContainsString('##', (string) $mails[0]['body_html']);
-        $this->assertStringContainsString('BusinessImpact', (string) $mails[0]['body_text'], 'Lien vers l\'onglet de la BIA.');
+        $this->assertStringContainsString('BusinessImpact', (string) $mails[0]['body_text'], 'Lien vers la BIA.');
         $this->assertSame(0, countElementsInTable('glpi_logs', [
             'itemtype'      => BusinessProcess::class,
             'items_id'      => $process->getID(),
@@ -174,7 +178,7 @@ final class BusinessProcessReminderTest extends GrcmanagerIntegrationTestCase
 
         $mails = $this->mailsFor($process, 'remi@example.org');
         $this->assertCount(1, $mails, 'Un seul rappel « à venir ».');
-        $this->assertStringContainsString('3 h 00 min', (string) $mails[0]['body_text'], 'Temps mesuré au dernier test.');
+        $this->assertStringContainsString('3 h 00 min', (string) $mails[0]['body_text'], 'Temps mesuré.');
         $this->assertStringContainsString('BusinessProcessRecovery', (string) $mails[0]['body_text']);
         $process->getFromDB($process->getID());
         $this->assertStringEndsWith('|due_soon', (string) $process->fields['recovery_reminder_key']);
@@ -212,7 +216,7 @@ final class BusinessProcessReminderTest extends GrcmanagerIntegrationTestCase
         $this->assertFalse(BusinessProcessReminder::canReceive($noRight, $process));
         $this->assertFalse(BusinessProcessReminder::canReceive(0, $process));
         $process->getFromDB($process->getID());
-        $this->assertStringEndsWith('|overdue', (string) $process->fields['bia_reminder_key'], 'Rappel tout de même noté.');
+        $this->assertStringEndsWith('|overdue', (string) $process->fields['bia_reminder_key'], 'Rappel noté.');
     }
 
     public function testRecipientNeedsTheRightInTheEntityOfTheProcess(): void
@@ -239,10 +243,13 @@ final class BusinessProcessReminderTest extends GrcmanagerIntegrationTestCase
         BusinessProcessReminder::run(date('Y-m-d'));
 
         $this->assertCount(1, $this->mailsFor($process, 'carla@example.org'), 'Groupe RSSI, droit dans l\'entité.');
-        $this->assertSame([], $this->mailsFor($process, 'bruno@example.org'), 'Droit dans une autre entité seulement.');
+        $this->assertSame([], $this->mailsFor($process, 'bruno@example.org'), 'Droit dans une autre entité.');
 
         // Droit dans une entité fille de A : processus de A rappelé seulement s'il est récursif.
-        $child = (int) (new \Entity())->add(['name' => 'BIA DEMO fille ' . bin2hex(random_bytes(3)), 'entities_id' => $entityA]);
+        $child = (int) (new \Entity())->add([
+            'name'        => 'BIA DEMO fille ' . bin2hex(random_bytes(3)),
+            'entities_id' => $entityA,
+        ]);
         $this->assertGreaterThan(0, $child);
         $inChild = $this->user('Fanny', 'Fille', $reader, $child);
         $this->assertFalse(BusinessProcessReminder::canReceive($inChild, $process));
@@ -326,7 +333,10 @@ final class BusinessProcessReminderTest extends GrcmanagerIntegrationTestCase
         $saved = $_SESSION['glpiactiveprofile'][BusinessProcess::RIGHTNAME];
         $_SESSION['glpiactiveprofile'][BusinessProcess::RIGHTNAME] = 0;
         try {
-            $this->assertSame(['bia_due' => 0, 'recovery_above_rto' => 0], BusinessProcessReminder::dashboardCounts(date('Y-m-d')));
+            $this->assertSame(
+                ['bia_due' => 0, 'recovery_above_rto' => 0],
+                BusinessProcessReminder::dashboardCounts(date('Y-m-d'))
+            );
             $card = SecuredDashboardCards::businessProcessesRecoveryAboveRtoCount();
             $this->assertSame(0, $card['number']);
             $this->assertArrayNotHasKey('url', $card);
@@ -373,7 +383,8 @@ final class BusinessProcessReminderTest extends GrcmanagerIntegrationTestCase
 
         $map = BusinessProcessLink::mapElements($process);
         $json = (string) json_encode($map['elements']);
-        foreach (['Paie DEMO carte', 'Temps DEMO carte', 'Reporting DEMO carte', 'VM-DEMO-CARTE', 'HV-DEMO-CARTE'] as $name) {
+        $visible = ['Paie DEMO carte', 'Temps DEMO carte', 'Reporting DEMO carte', 'VM-DEMO-CARTE', 'HV-DEMO-CARTE'];
+        foreach ($visible as $name) {
             $this->assertStringContainsString($name, $json);
         }
         $this->assertStringNotContainsString('Annuaire DEMO B', $json, 'Processus illisible jamais nommé.');

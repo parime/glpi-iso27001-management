@@ -127,7 +127,9 @@ class NotificationTargetBusinessProcess extends NotificationTarget
             : __('Due soon', 'grcmanager');
         $this->data['##businessprocess.duedate##']    = (string) Html::convDate($due);
         $this->data['##businessprocess.biadate##']    = (string) Html::convDate($fields['bia_date'] ?? null);
-        $this->data['##businessprocess.lasttest##']   = $last !== null ? (string) Html::convDate($last['test_date']) : '';
+        $this->data['##businessprocess.lasttest##']   = $last !== null
+            ? (string) Html::convDate($last['test_date'])
+            : '';
         $this->data['##businessprocess.measured##']   = $last !== null
             ? BusinessProcessRecovery::formatMinutes($last['measured_minutes'])
             : '';

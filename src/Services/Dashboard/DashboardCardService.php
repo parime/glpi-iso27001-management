@@ -970,10 +970,13 @@ final class DashboardCardService
      */
     public static function businessProcessesBiaDueCount(array $params = []): array
     {
+        $counts = \GlpiPlugin\Grcmanager\BusinessProcessReminder::dashboardCounts(date('Y-m-d'));
+
         return [
-            'number' => \GlpiPlugin\Grcmanager\BusinessProcessReminder::dashboardCounts(date('Y-m-d'))['bia_due'],
+            'number' => $counts['bia_due'],
             'url'    => \GlpiPlugin\Grcmanager\BusinessProcess::getSearchURL(),
-            'label'  => $params['label'] ?? __('Business processes without a BIA or with an overdue BIA', 'grcmanager'),
+            'label'  => $params['label']
+                ?? __('Business processes without a BIA or with an overdue BIA', 'grcmanager'),
             'icon'   => 'ti ti-calendar-exclamation',
         ];
     }
@@ -987,10 +990,13 @@ final class DashboardCardService
      */
     public static function businessProcessesRecoveryAboveRtoCount(array $params = []): array
     {
+        $counts = \GlpiPlugin\Grcmanager\BusinessProcessReminder::dashboardCounts(date('Y-m-d'));
+
         return [
-            'number' => \GlpiPlugin\Grcmanager\BusinessProcessReminder::dashboardCounts(date('Y-m-d'))['recovery_above_rto'],
+            'number' => $counts['recovery_above_rto'],
             'url'    => \GlpiPlugin\Grcmanager\BusinessProcess::getSearchURL(),
-            'label'  => $params['label'] ?? __('Business processes whose last recovery test exceeded the RTO', 'grcmanager'),
+            'label'  => $params['label']
+                ?? __('Business processes whose last recovery test exceeded the RTO', 'grcmanager'),
             'icon'   => 'ti ti-clock-exclamation',
         ];
     }
