@@ -9030,3 +9030,39 @@ msgid "Recovery test"
 msgid_plural "Recovery tests"
 msgstr[0] "Test de reprise"
 msgstr[1] "Tests de reprise"
+
+msgid "Business impact analysis to review"
+msgstr "Analyse d'impact (BIA) à revoir"
+
+msgid "Recovery test due"
+msgstr "Test de reprise à refaire"
+
+msgid "Business process owner"
+msgstr "Responsable du processus métier"
+
+msgid "Reminds business impact analyses to review and recovery tests due"
+msgstr "Rappelle les analyses d'impact (BIA) à revoir et les tests de reprise à refaire"
+
+msgid "Business processes without a BIA or with an overdue BIA"
+msgstr "Processus métier sans BIA ou à BIA échue"
+
+msgid "Business processes whose last recovery test exceeded the RTO"
+msgstr "Processus métier dont le dernier test de reprise dépasse le RTO"
+
+msgid "Dependency map"
+msgstr "Carte des dépendances"
+
+msgid "Items and processes this process depends on, and processes that depend on it. Click a node to open it."
+msgstr "Éléments et processus dont dépend ce processus, et processus qui en dépendent. Cliquez sur un nœud pour l'ouvrir."
+
+msgid "No dependency recorded yet: link items in the \"Dependencies\" tab and processes in the \"Linked processes\" tab."
+msgstr "Aucune dépendance enregistrée pour l'instant : liez des éléments dans l'onglet « Dépendances » et des processus dans l'onglet « Processus liés »."
+
+msgid "Does not meet the objectives of the process (RTO, RPO)"
+msgstr "Ne tient pas les objectifs du processus (RTO, RPO)"
+
+#, php-format
+msgid "%d item or process you cannot see is not shown."
+msgid_plural "%d items or processes you cannot see are not shown."
+msgstr[0] "%d élément ou processus que vous ne pouvez pas voir n'est pas affiché."
+msgstr[1] "%d éléments ou processus que vous ne pouvez pas voir ne sont pas affichés."
