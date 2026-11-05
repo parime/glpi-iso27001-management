@@ -9,6 +9,21 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Indicateurs de risque (KRI) : alerte, courbe et carte de tendance** (issue #378, deuxième
+  étape) :
+  - notifications modifiables « GRC Manager - Indicateur de risque en alerte » et « ... revenu au
+    vert », au responsable du KRI et au groupe RSSI (celui de Configuration GLPI Auto s'il est
+    installé), une seule fois par changement d'état, que le relevé soit manuel ou fait par la
+    tâche planifiée. Réglage Configuration > « Alertes des indicateurs de risque (KRI) » : au
+    rouge (défaut) ou dès l'orange. À la mise à jour, un KRI déjà au rouge ne prévient pas ;
+  - un destinataire ne reçoit rien s'il ne peut pas lire le KRI et, pour une source automatique,
+    les données mesurées dans l'entité et toutes ses sous-entités ;
+  - couleur des e-mails reprise de la charte de Configuration GLPI Auto, comme pour le rappel des
+    tests d'efficacité (mécanisme commun, `NotificationSupport`) ;
+  - courbe de tendance sur la fiche du KRI (180 derniers relevés, seuils orange et rouge) ;
+  - carte « Indicateurs de risque (KRI) au rouge et à l'orange par mois » sur douze mois, ajoutée
+    aux tableaux de bord « Direction » et « Vue d'ensemble ISMS ».
+
 - **Processus métier : dépendances entre processus, risques liés et plan de continuité en PDF**
   (issue #377, deuxième étape) :
   - onglet « Processus liés » : processus dont dépend un processus (la paie a besoin de la gestion

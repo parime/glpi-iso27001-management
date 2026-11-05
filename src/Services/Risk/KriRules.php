@@ -104,7 +104,8 @@ final class KriRules
      */
     public static function isAlert(string $status, string $level): bool
     {
-        return $status === self::RED || ($status === self::ORANGE && self::normalizeAlertLevel($level) === self::ORANGE);
+        return $status === self::RED
+            || ($status === self::ORANGE && self::normalizeAlertLevel($level) === self::ORANGE);
     }
 
     /**

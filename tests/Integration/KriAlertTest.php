@@ -119,7 +119,10 @@ final class KriAlertTest extends GrcmanagerIntegrationTestCase
         $mails = $this->mailsFor($kri, 'olga@example.org');
         $this->assertCount(1, $mails, 'Passage au rouge : une alerte.');
         $this->assertStringContainsString($kri->fields['name'], (string) $mails[0]['name']);
-        $this->assertStringContainsString(__('Risk indicator (KRI) in alert', 'grcmanager'), (string) $mails[0]['name']);
+        $this->assertStringContainsString(
+            __('Risk indicator (KRI) in alert', 'grcmanager'),
+            (string) $mails[0]['name']
+        );
         $this->assertStringNotContainsString('##', (string) $mails[0]['body_text'], 'Toutes les balises remplacées.');
         $this->assertStringNotContainsString('##', (string) $mails[0]['body_html']);
         $this->assertSame(KriRules::RED, $this->fresh($kri)->fields['alert_status']);
@@ -322,8 +325,13 @@ final class KriAlertTest extends GrcmanagerIntegrationTestCase
         return $profileId;
     }
 
-    private function user(string $firstname, string $realname, int $profileId, int $entitiesId, bool $recursive = false): int
-    {
+    private function user(
+        string $firstname,
+        string $realname,
+        int $profileId,
+        int $entitiesId,
+        bool $recursive = false
+    ): int {
         global $DB;
 
         $usersId = $this->createTestUser($firstname, $realname);
