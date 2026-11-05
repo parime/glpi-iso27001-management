@@ -97,6 +97,18 @@
     {% for control in cis_controls %}
       <details class="mb-2">
         <summary class="fw-bold">{{ control.number }}. {{ control.name }}</summary>
+        {% if control.controls is not empty %}
+          <div class="ms-3 mt-2 small">
+            <span class="text-muted">{{ __('ISO 27001 Annex A (indicative):', 'grcmanager') }}</span>
+            {% for c in control.controls %}
+              {% if c.id %}
+                <a class="badge bg-azure-lt" href="{{ path('/plugins/grcmanager/front/control.form.php') }}?id={{ c.id }}">{{ c.code }}</a>
+              {% else %}
+                <span class="badge bg-azure-lt">{{ c.code }}</span>
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% endif %}
         <table class="table table-sm ms-3 mt-2">
           <tbody>
             {% for safeguard in control.safeguards %}
@@ -116,8 +128,9 @@
   <div class="card-footer text-muted small">
     <i class="ti ti-license me-1"></i>
     {{ __('Source: CIS Critical Security Controls® v8, © Center for Internet Security, Inc., titles reproduced unmodified under the CC BY-NC-ND 4.0 license. This project is not affiliated with or endorsed by CIS.', 'grcmanager') }}
+    {{ __('Mapping to ISO 27001 Annex A is indicative and made by this project, not taken from CIS.', 'grcmanager') }}
     <a href="https://www.cisecurity.org/controls" target="_blank" rel="noopener noreferrer">cisecurity.org/controls</a>
-    · <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC-ND 4.0</a>
+    ·<a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC-ND 4.0</a>
   </div>
 </div>
 {% endif %}

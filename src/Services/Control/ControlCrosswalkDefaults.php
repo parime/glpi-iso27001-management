@@ -11,11 +11,10 @@ namespace GlpiPlugin\Grcmanager\Services\Control;
  * approximée). Sourcé sur les "Informative References" officielles du NIST CSF 2.0 Reference
  * Tool, pas reconstruit de mémoire.
  *
- * Pas de clé 'cis_controls' pour l'instant : CIS ne publie sa correspondance officielle vers
- * ISO/IEC 27001:2022 que dans un livre blanc nécessitant la création d'un compte
- * (learn.cisecurity.org) : non récupérable automatiquement, et une correspondance approximée
- * de mémoire irait à l'encontre du principe "aucune donnée inventée" de ce plugin. Le
- * catalogue CIS Controls v8 (CisControlsCatalogDefaults) reste consultable indépendamment.
+ * Pas de clé 'cis_controls' : ce tableau ne contient que des correspondances officielles, et
+ * celle que publie le CIS vers ISO/IEC 27001:2022 ne peut pas être embarquée (licence). La
+ * correspondance CIS du plugin (issue #143) est indicative, établie par ce projet comme celles
+ * de l'ANSSI et de NIS2 : voir CisControlsCatalogDefaults::ANNEX_A.
  */
 final class ControlCrosswalkDefaults
 {

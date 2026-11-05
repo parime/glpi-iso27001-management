@@ -28,6 +28,12 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
     correspondant et l'enregistre comme test technique en un clic, recalculé à l'enregistrement
     (aucun écart : efficace ; au moins 80 % de conformité : partiellement efficace ; sinon
     inefficace, ce qui ouvre une non-conformité). Toutes les entités doivent être sélectionnées.
+- **Score de conformité CIS Controls v8** (issue #143) : la carte « Mesures mises en œuvre par
+  référentiel » affiche le taux de mise en œuvre des mesures applicables de l'Annexe A liées à un
+  contrôle CIS, calculé comme ceux de NIS2 et de l'ANSSI. La correspondance entre les 18 contrôles
+  CIS et l'Annexe A est indicative, établie par ce projet (la correspondance publiée par le CIS ne
+  peut pas être embarquée) ; elle est affichée sur la fiche de chaque mesure et dans la carte CIS
+  de la page Référentiels. Rien n'apparaît quand le référentiel CIS est désactivé.
 - **Processus métier : objectifs de reprise des applications, bases et fournisseurs, stratégie de
   reprise et lien avec les exercices de crise** (issue #377, troisième étape) :
   - l'onglet « Classification C/I/D » (disponibilité, RTO, RPO) existe désormais aussi sur les
