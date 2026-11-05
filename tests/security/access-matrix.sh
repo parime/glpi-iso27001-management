@@ -213,6 +213,9 @@ if [ "$ROLE" = none ]; then
   # Issue #403 : les referentiels actifs se reglent avec le droit de modifier la configuration.
   expect "front/config.php : desactiver les referentiels" 403 \
     "$(code -d "update_frameworks=1&_glpi_csrf_token=$(csrf)" "$P/config.php")"
+  # Issue #375 : relier un traitement a un incident exige de pouvoir modifier l'incident.
+  expect "front/processingactivity.form.php : relier un incident en lecture seule" 403 \
+    "$(code -d "link_incident=1&plugin_grcmanager_processingactivities_id=$(id processing_A)&incidents_id=$(id incident_A)&_glpi_csrf_token=$(csrf)" "$P/processingactivity.form.php")"
   create_attempts 403 403
   rm -f "$JAR"; exit $FAIL
 fi
@@ -292,6 +295,9 @@ if [ "$ROLE" = reader ]; then
   # Issue #403 : les referentiels actifs se reglent avec le droit de modifier la configuration.
   expect "front/config.php : desactiver les referentiels" 403 \
     "$(code -d "update_frameworks=1&_glpi_csrf_token=$(csrf)" "$P/config.php")"
+  # Issue #375 : relier un traitement a un incident exige de pouvoir modifier l'incident.
+  expect "front/processingactivity.form.php : relier un incident en lecture seule" 403 \
+    "$(code -d "link_incident=1&plugin_grcmanager_processingactivities_id=$(id processing_A)&incidents_id=$(id incident_A)&_glpi_csrf_token=$(csrf)" "$P/processingactivity.form.php")"
   create_attempts 403 403
   rm -f "$JAR"; exit $FAIL
 fi
