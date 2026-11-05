@@ -7,6 +7,36 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Added
+
+- **Traitements concernés par un incident** (issue #375) : sur la fiche d'un incident de sécurité, un
+  onglet relie les traitements du registre dont les données personnelles sont touchées, pour
+  apprécier la notification RGPD. Il faut pouvoir modifier l'incident et lire la fiche ; une
+  personne qui ne lit pas l'incident ne voit pas l'onglet. Le lien se fait depuis l'incident, jamais
+  dans une liste d'incidents sur la fiche, pour ne pas montrer d'incident cloisonné à un DPO.
+- **Rappel des tests d'efficacité** (issue #380, deuxième étape) : une tâche planifiée quotidienne
+  (`controltestreminder`) prévient le responsable du plan de test d'un test en retard ou à réaliser
+  dans les 30 jours, une fois par échéance, par la notification modifiable « GRC Manager - Test
+  d'efficacité à réaliser ». Le groupe RSSI est prévenu selon un réglage (jamais, tests en retard
+  seulement, ou tous les rappels) ; c'est celui de la configuration du plugin, que Configuration GLPI
+  Auto peut fournir, et la couleur de sa charte des notifications est reprise quand il la publie.
+  Seul un utilisateur qui peut lire la mesure reçoit le rappel.
+- **État « Vérifié » échu** : la même tâche le retire d'une mesure dont le test suivant est en
+  retard (elle redevient « mise en œuvre »), avec une trace dans le journal d'audit. Ce retrait ne
+  marque pas la SoA comme revue.
+- **SoA** : colonnes « Dernier test » et « Prochain test » dans la liste des mesures.
+
+### Changed
+
+- **Export PDF du registre des traitements** : la ligne « Contrôles » (écarts internes, par exemple
+  « Pas de finalité ») n'y figure plus, car ce document peut être remis à l'autorité de contrôle.
+  Elle reste à l'écran et dans l'export CSV.
+
+### Fixed
+
+- **Liens orphelins du registre des traitements** : un élément ou un incident supprimé
+  définitivement n'est plus cité par le registre.
+
 ## [2.24.0] - 2026-11-04
 
 ### Added

@@ -615,6 +615,9 @@ function plugin_grcmanager_purge_security_incident_links(CommonDBTM $item): void
         plugin_grcmanager_audit_purge($item);
     }
 
+    // Issue #375 : un incident ou un ticket supprimé définitivement n'est plus cité par le registre.
+    \GlpiPlugin\Grcmanager\ProcessingActivity::forgetItem($item);
+
     $field = $item instanceof Ticket ? 'tickets_id' : 'plugin_grcmanager_securityincidents_id';
     if ($DB->tableExists(\GlpiPlugin\Grcmanager\SecurityIncidentTicket::TABLE)) {
         $DB->delete(\GlpiPlugin\Grcmanager\SecurityIncidentTicket::TABLE, [$field => (int) $item->getID()]);
@@ -691,6 +694,8 @@ function plugin_grcmanager_audit_restore(CommonDBTM $item): void
 function plugin_grcmanager_audit_purge(CommonDBTM $item): void
 {
     plugin_grcmanager_audit_event($item, 'purge');
+    // Issue #375 : un seul rappel de purge par type : les liens du registre des traitements aussi.
+    \GlpiPlugin\Grcmanager\ProcessingActivity::forgetItem($item);
     // Issue #371 : document retiré d'un incident, conservé au registre des preuves.
     if ($item instanceof Document_Item) {
         \GlpiPlugin\Grcmanager\SecurityIncidentEvidence::onDocumentUnlinked($item);
@@ -742,6 +747,16 @@ function plugin_grcmanager_forget_business_process_item(CommonDBTM $item): void
     if ($DB->tableExists($table)) {
         $DB->delete($table, ['itemtype' => $item::class, 'items_id' => (int) $item->getID()]);
     }
+    // Issue #375 : un seul rappel de purge par type : les liens du registre des traitements aussi.
+    \GlpiPlugin\Grcmanager\ProcessingActivity::forgetItem($item);
+}
+
+/**
+ * Issue #375 : Hooks::ITEM_PURGE sur les éléments cités par le registre des traitements (setup.php).
+ */
+function plugin_grcmanager_forget_processing_activity_item(CommonDBTM $item): void
+{
+    \GlpiPlugin\Grcmanager\ProcessingActivity::forgetItem($item);
 }
 
 /**

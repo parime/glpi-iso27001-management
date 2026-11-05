@@ -42,6 +42,20 @@ if (isset($_POST['add'])) {
     $item->check((int) $_POST['id'], PURGE);
     $item->delete($_POST, true);
     Html::redirect(ProcessingActivity::getSearchURL());
+} elseif (isset($_POST['link_incident']) || isset($_POST['unlink_incident'])) {
+    // Issue #375 : traitements concernés par un incident, reliés depuis l'onglet de l'incident.
+    // Contrôles dans setIncidentLink() : modifier l'incident et lire la fiche.
+    Session::checkRight(ProcessingActivity::$rightname, READ);
+    if (
+        !ProcessingActivity::setIncidentLink(
+            (int) ($_POST['plugin_grcmanager_processingactivities_id'] ?? 0),
+            (int) ($_POST['incidents_id'] ?? 0),
+            isset($_POST['link_incident'])
+        )
+    ) {
+        Html::displayRightError();
+    }
+    Html::back();
 } elseif (isset($_POST['update'])) {
     $item->check((int) $_POST['id'], UPDATE);
     $item->update($_POST);
