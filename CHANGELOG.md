@@ -15,6 +15,12 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   personne qui ne lit pas l'incident ne voit pas l'onglet. Le lien se fait depuis l'incident, jamais
   dans une liste d'incidents sur la fiche, pour ne pas montrer d'incident cloisonné à un DPO.
 
+### Changed
+
+- **Export PDF du registre des traitements** : la ligne « Contrôles » (écarts internes, par exemple
+  « Pas de finalité ») n'y figure plus, car ce document peut être remis à l'autorité de contrôle.
+  Elle reste à l'écran et dans l'export CSV.
+
 ### Fixed
 
 - **Liens orphelins du registre des traitements** : un élément ou un incident supprimé

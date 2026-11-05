@@ -16,7 +16,8 @@
   <table class="grcmanager-pdf-table">
     <tbody>
       {% for key, label in columns %}
-        {% if key not in ['reference', 'name'] and row[key] is not empty %}
+        {# Les écarts internes (« checks ») restent à l'écran et dans le CSV : pas dans un document remis à l'autorité. #}
+        {% if key not in ['reference', 'name', 'checks'] and row[key] is not empty %}
           <tr>
             <th style="width: 30%;">{{ label }}</th>
             <td>{{ row[key]|nl2br }}</td>
