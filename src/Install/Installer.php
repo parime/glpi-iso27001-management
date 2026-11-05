@@ -248,8 +248,6 @@ final class Installer
         // Issue #375 : registre des activités de traitement (RGPD).
         \GlpiPlugin\Grcmanager\ProcessingActivity::class,
         \GlpiPlugin\Grcmanager\DataSubjectRequest::class,
-        // Analyse d'impact (AIPD) : son historique restait dans glpi_logs après désinstallation.
-        \GlpiPlugin\Grcmanager\Dpia::class,
         // Issue #378 : indicateurs de risque et leurs relevés.
         \GlpiPlugin\Grcmanager\RiskIndicator::class,
         \GlpiPlugin\Grcmanager\RiskIndicatorValue::class,
