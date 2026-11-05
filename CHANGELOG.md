@@ -15,6 +15,27 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Processus métier : objectifs de reprise des applications, bases et fournisseurs, stratégie de
+  reprise et lien avec les exercices de crise** (issue #377, troisième étape) :
+  - l'onglet « Classification C/I/D » (disponibilité, RTO, RPO) existe désormais aussi sur les
+    applications, les instances de bases de données et les fournisseurs. L'onglet « Dépendances »
+    d'un processus les contrôle comme les actifs : élément plus lent que le processus, qui peut
+    perdre plus de données, ou sans RTO. Une classification disparaît avec l'élément supprimé
+    définitivement ;
+  - onglet « Stratégie de reprise » du processus : mode dégradé, solution de secours, procédure de
+    reprise, et tests de reprise (date, temps mesuré, exercice de crise éventuel). Le dernier temps
+    mesuré est comparé au RTO : un écart est signalé dans la BIA, l'onglet et le plan de
+    continuité. Une stratégie non décrite ou jamais testée est signalée dans l'onglet ;
+  - salle de crise : section « Processus métier testés », pour enregistrer le temps de reprise
+    mesuré d'un processus pendant l'exercice (ou la cellule de crise) et voir l'écart avec son RTO ;
+  - plan de continuité en PDF : stratégie de reprise, dernier test et historique des tests, colonne
+    « Dernier test de reprise » dans la synthèse ; export CSV : temps mesuré au dernier test.
+  - Droits : la classification garde le droit général du SMSI, et son onglet revérifie aussi la
+    lecture de l'élément (droit et entité). Enregistrer un test exige de pouvoir modifier le
+    processus (droit de la continuité et entité) ; le rattacher à un exercice exige de pouvoir lire
+    l'incident de l'exercice. Un processus ou un exercice illisible n'est jamais nommé.
+  - Mise à jour : trois colonnes ajoutées aux processus et une table pour les tests, données
+    existantes conservées ; retirées à la désinstallation.
 - **Indicateurs de risque (KRI) : alerte, courbe et carte de tendance** (issue #378, deuxième
   étape) :
   - notifications modifiables « GRC Manager - Indicateur de risque en alerte » et « ... revenu au
@@ -29,7 +50,6 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   - courbe de tendance sur la fiche du KRI (180 derniers relevés, seuils orange et rouge) ;
   - carte « Indicateurs de risque (KRI) au rouge et à l'orange par mois » sur douze mois, ajoutée
     aux tableaux de bord « Direction » et « Vue d'ensemble ISMS ».
-
 - **Processus métier : dépendances entre processus, risques liés et plan de continuité en PDF**
   (issue #377, deuxième étape) :
   - onglet « Processus liés » : processus dont dépend un processus (la paie a besoin de la gestion

@@ -193,8 +193,10 @@ function plugin_init_grcmanager(): void
     // commentaire, y compris pour le correctif de l'issue #88), un second onglet indépendant sur
     // la fiche de chaque actif liable pour consulter/éditer sa classification C/I/D (voir
     // \GlpiPlugin\Grcmanager\AssetClassification::getTabNameForItem()/displayTabContentForItem()).
+    // Issue #377, troisième étape : aussi sur les applications, instances de bases de données et
+    // fournisseurs, pour leur RTO et leur RPO.
     Plugin::registerClass(\GlpiPlugin\Grcmanager\AssetClassification::class, [
-        'addtabon' => \GlpiPlugin\Grcmanager\Risk::getLinkableItemtypes(),
+        'addtabon' => \GlpiPlugin\Grcmanager\AssetClassification::getItemtypes(),
     ]);
 
     // Issue #145 : onglet « Validités des preuves » sur les éléments dont les documents prouvent

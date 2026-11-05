@@ -65,10 +65,10 @@ class BusinessProcessItem extends BusinessProcessItemBase
     {
         // Pas de test d'existence des classes : setup.php appelle cette liste avant le chargement des
         // actifs personnalisés (voir son commentaire de l'issue #88), qui en seraient retirés.
+        // Mêmes types que la classification C/I/D (AssetClassification), qui porte leur RTO et leur RPO.
         return array_values(array_unique(array_merge(
             ['Appliance', 'DatabaseInstance'],
-            Risk::getLinkableItemtypes(),
-            ['Supplier']
+            AssetClassification::getItemtypes()
         )));
     }
 

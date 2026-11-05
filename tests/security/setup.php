@@ -169,6 +169,14 @@ if ($mode === 'xss') {
         'plugin_grcmanager_businessprocesses_id' => $out['process'],
         'plugin_grcmanager_risks_id' => (int) $ids['risk'], 'comment' => $canary,
     ]);
+    // Issue #377, troisième étape : stratégie de reprise et commentaire d'un test mesuré.
+    $update('businessprocesses', [
+        'degraded_mode' => $canary, 'backup_solution' => $canary, 'recovery_procedure' => $canary,
+    ], $out['process']);
+    $insert('businessprocessrecoveries', [
+        'plugin_grcmanager_businessprocesses_id' => $out['process'], 'test_date' => date('Y-m-d'),
+        'measured_minutes' => 90, 'comment' => $canary,
+    ]);
     // Issue #145 : nom du document de preuve, affiché par l'onglet et la liste des validités.
     $DB->update('glpi_documents', ['name' => $canary], ['id' => (int) $ids['document_A']]);
     echo json_encode($out), "\n";
@@ -264,7 +272,7 @@ $manager = $userId('iso-gestionnaire', $a, $profileId('Securite ISO - gestionnai
     'plugin_grcmanager_continuity'       => ALLSTANDARDRIGHT,
     'plugin_grcmanager_securityincident' => ALLSTANDARDRIGHT | CommonITILObject::READALL | CommonITILObject::READMY,
     'computer' => READ, 'contract' => READ, 'supplier' => READ, 'user' => READ, 'document' => READ,
-    'software' => READ, 'dashboard' => READ,
+    'software' => READ, 'dashboard' => READ, 'appliance' => READ,
 ]));
 $reader = $userId('iso-lecteur', $a, $profileId('Securite ISO - lecteur A', [
     'plugin_grcmanager'                  => READ,
@@ -273,7 +281,7 @@ $reader = $userId('iso-lecteur', $a, $profileId('Securite ISO - lecteur A', [
     'plugin_grcmanager_continuity'       => READ,
     'plugin_grcmanager_securityincident' => CommonITILObject::READALL,
     'computer' => READ, 'contract' => READ, 'supplier' => READ, 'user' => READ, 'software' => READ,
-    'dashboard' => READ,
+    'dashboard' => READ, 'appliance' => READ,
 ]));
 
 // Sans droit : aucun droit sur le plugin, chaque page doit lui être refusée. Il lit les
@@ -287,6 +295,10 @@ $noRight = $userId('iso-sans-droit', $a, $profileId('Securite ISO - sans droit',
     'plugin_grcmanager_securityincident' => 0,
     'computer'                           => READ,
     'software'                           => READ,
+    // Issue #377 : lit aussi les applications et les fournisseurs, dont les onglets du plugin
+    // (classification, processus métier) ne lui montrent rien.
+    'appliance'                          => READ,
+    'supplier'                           => READ,
     // Issue #143 : voit les tableaux de bord, pas les cartes du plugin.
     'dashboard'                          => READ,
 ]));
@@ -318,7 +330,9 @@ $controlId = (int) $control['id'];
 $supplier = $add(new Supplier(), [
     'name' => 'Fournisseur securite ' . uniqid(), 'entities_id' => 0, 'is_recursive' => 1,
 ]);
-$ids = ['a' => $a, 'b' => $b, 'manager' => $manager, 'reader' => $reader, 'control' => $controlId];
+$ids = [
+    'a' => $a, 'b' => $b, 'manager' => $manager, 'reader' => $reader, 'control' => $controlId, 'supplier' => $supplier,
+];
 foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
     $ids['incident_' . $suffix] = $add(new PluginGrcmanagerSecurityIncident(), [
         'name'        => 'Incident securite ' . $suffix,
@@ -340,6 +354,10 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
     ]);
     $add(new Contract_Supplier(), ['contracts_id' => $contract, 'suppliers_id' => $supplier]);
     $ids['computer_' . $suffix] = $add(new Computer(), ['name' => 'PC securite ' . $suffix, 'entities_id' => $entity]);
+    // Issue #377, troisième étape : application classable (RTO) de l'entité.
+    $ids['appliance_' . $suffix] = $add(new Appliance(), [
+        'name' => 'Application securite ' . $suffix, 'entities_id' => $entity,
+    ]);
     // Issue #378 : indicateur de risque de l'entité.
     $ids['kri_' . $suffix] = $add(new \GlpiPlugin\Grcmanager\RiskIndicator(), [
         'name' => 'KRI securite ' . $suffix, 'entities_id' => $entity,
@@ -456,6 +474,23 @@ foreach (['A', 'B'] as $suffix) {
     $DB->insert('glpi_plugin_grcmanager_businessprocesses_risks', [
         'plugin_grcmanager_businessprocesses_id' => $ids['process_' . $suffix],
         'plugin_grcmanager_risks_id' => (int) $ids['risk'],
+    ]);
+    // Issue #377, troisième étape : stratégie de reprise et test mesuré, historisé sur le processus,
+    // pour que le contrôle commun des restes après désinstallation voie aussi ce journal.
+    (new \GlpiPlugin\Grcmanager\BusinessProcess())->update([
+        'id' => $ids['process_' . $suffix], 'degraded_mode' => 'Mode degrade ' . $suffix,
+    ]);
+    $add(new \GlpiPlugin\Grcmanager\BusinessProcessRecovery(), [
+        'plugin_grcmanager_businessprocesses_id' => $ids['process_' . $suffix],
+        'measured_minutes' => 300, 'comment' => 'Test de reprise ' . $suffix,
+    ]);
+    $DB->insert('glpi_plugin_grcmanager_businessprocesses_items', [
+        'plugin_grcmanager_businessprocesses_id' => $ids['process_' . $suffix],
+        'itemtype' => 'Appliance', 'items_id' => $ids['appliance_' . $suffix], 'comment' => 'Application ' . $suffix,
+    ]);
+    $add(new \GlpiPlugin\Grcmanager\AssetClassification(), [
+        'itemtype' => 'Appliance', 'items_id' => $ids['appliance_' . $suffix], 'availability' => 'high',
+        'rto_hours' => 24, 'rpo_hours' => 4,
     ]);
 }
 

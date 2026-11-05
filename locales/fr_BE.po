@@ -8929,3 +8929,104 @@ msgstr "Indicateurs de risque (KRI) au rouge et à l'orange par mois"
 
 msgid "The owner of the indicator and the CISO group are notified once when an indicator reaches the alert level, then when it is back to green. Only recipients who can read the indicator and the data it measures receive it."
 msgstr "Le responsable de l'indicateur et le groupe RSSI sont prévenus une fois quand un indicateur atteint le niveau d'alerte, puis quand il revient au vert. Seuls les destinataires qui peuvent lire l'indicateur et les données qu'il mesure reçoivent ce message."
+
+msgid "Recovery strategy"
+msgstr "Stratégie de reprise"
+
+#, php-format
+msgid "%d min"
+msgstr "%d min"
+
+#, php-format
+msgid "%1$d h %2$02d min"
+msgstr "%1$d h %2$02d min"
+
+#, php-format
+msgid "Crisis team: %s"
+msgstr "Cellule de crise : %s"
+
+msgid "Enter the measured recovery time, in minutes."
+msgstr "Saisissez le temps de reprise mesuré, en minutes."
+
+msgid "The recovery time measured at the last test exceeds the RTO."
+msgstr "Le temps de reprise mesuré au dernier test dépasse le RTO."
+
+msgid "No recovery strategy described (degraded mode, backup solution or procedure)."
+msgstr "Aucune stratégie de reprise décrite (mode dégradé, solution de secours ou procédure)."
+
+msgid "Recovery never tested: record the time measured during a test or a crisis exercise."
+msgstr "Reprise jamais testée : enregistrez le temps mesuré lors d'un test ou d'un exercice de crise."
+
+msgid "Recovery time measured at the last test"
+msgstr "Temps de reprise mesuré au dernier test"
+
+msgid "Degraded mode"
+msgstr "Mode dégradé"
+
+msgid "Backup solution"
+msgstr "Solution de secours"
+
+msgid "Recovery procedure"
+msgstr "Procédure de reprise"
+
+msgid "Last recovery test"
+msgstr "Dernier test de reprise"
+
+msgid "Not described"
+msgstr "Non décrit"
+
+msgid "Above the RTO"
+msgstr "Au-delà du RTO"
+
+msgid "Within the RTO"
+msgstr "Dans le RTO"
+
+msgid "How the activity continues while the system is down (paper forms, manual workaround…)."
+msgstr "Comment l'activité continue pendant la panne (formulaires papier, contournement manuel…)."
+
+msgid "Backup site, standby system, alternative supplier…"
+msgstr "Site de secours, système en attente, fournisseur de remplacement…"
+
+msgid "Main steps to restore the process, or reference of the detailed procedure."
+msgstr "Principales étapes pour rétablir le processus, ou référence de la procédure détaillée."
+
+msgid "Time actually needed to restore the process during a test or a crisis exercise, compared with its RTO. A test can also be recorded from the crisis room."
+msgstr "Temps réellement nécessaire pour rétablir le processus lors d'un test ou d'un exercice de crise, comparé à son RTO. Un test peut aussi être enregistré depuis la salle de crise."
+
+msgid "Measured time (minutes)"
+msgstr "Temps mesuré (minutes)"
+
+msgid "None (test outside an exercise)"
+msgstr "Aucun (test hors exercice)"
+
+msgid "No recovery test recorded yet."
+msgstr "Aucun test de reprise enregistré pour l'instant."
+
+msgid "Measured time"
+msgstr "Temps mesuré"
+
+msgid "Recorded by"
+msgstr "Enregistré par"
+
+msgid "Exercise you cannot see"
+msgstr "Exercice que vous ne pouvez pas voir"
+
+msgid "Remove this recovery test?"
+msgstr "Retirer ce test de reprise ?"
+
+msgid "Business processes tested"
+msgstr "Processus métier testés"
+
+msgid "No recovery time recorded for a business process during this exercise."
+msgstr "Aucun temps de reprise enregistré pour un processus métier pendant cet exercice."
+
+msgid "Record"
+msgstr "Enregistrer"
+
+msgid "The measured time is compared with the RTO of the process and becomes its last recovery test."
+msgstr "Le temps mesuré est comparé au RTO du processus et devient son dernier test de reprise."
+
+msgid "Recovery test"
+msgid_plural "Recovery tests"
+msgstr[0] "Test de reprise"
+msgstr[1] "Tests de reprise"

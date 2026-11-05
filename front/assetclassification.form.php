@@ -34,7 +34,9 @@ $itemsId  = (int) ($_POST['items_id'] ?? 0);
 // polymorphe (issue #25) : rejette silencieusement un itemtype/items_id qui ne correspond à aucun
 // actif réellement liable par ce plugin, plutôt que de faire confiance à un POST forgé pointant
 // vers un itemtype arbitraire (ex. `User`, jamais dans la liste des actifs classifiables).
-if (!RiskItemLinkNormalizer::isLinkable($itemtype, $itemsId, \GlpiPlugin\Grcmanager\Risk::getLinkableItemtypes())) {
+// Issue #377 : applications, instances de bases de données et fournisseurs aussi.
+$classifiable = \GlpiPlugin\Grcmanager\AssetClassification::getItemtypes();
+if (!RiskItemLinkNormalizer::isLinkable($itemtype, $itemsId, $classifiable)) {
     throw new \Glpi\Exception\Http\NotFoundHttpException();
 }
 

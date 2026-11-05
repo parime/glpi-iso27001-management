@@ -261,6 +261,8 @@ final class Installer
         // Issue #377, deuxième étape : dépendances entre processus et risques liés.
         \GlpiPlugin\Grcmanager\BusinessProcessLink::class,
         \GlpiPlugin\Grcmanager\BusinessProcessRisk::class,
+        // Issue #377, troisième étape : temps de reprise mesurés (stratégie de reprise).
+        \GlpiPlugin\Grcmanager\BusinessProcessRecovery::class,
         // Issue #380 : tests d'efficacité des mesures.
         \GlpiPlugin\Grcmanager\ControlTest::class,
         // Issue #375 : analyse d'impact (historisée) ; issue #376 : éléments des études EBIOS RM.
@@ -324,6 +326,8 @@ final class Installer
     // Issue #377, deuxième étape : dépendances entre processus métier et risques qui les menacent.
     private const BUSINESS_PROCESS_LINKS_TABLE = 'glpi_plugin_grcmanager_businessprocesses_businessprocesses';
     private const BUSINESS_PROCESS_RISKS_TABLE = 'glpi_plugin_grcmanager_businessprocesses_risks';
+    // Issue #377, troisième étape : temps de reprise mesurés d'un processus (test, exercice de crise).
+    private const BUSINESS_PROCESS_RECOVERIES_TABLE = 'glpi_plugin_grcmanager_businessprocessrecoveries';
     private const CRISIS_EXERCISES_TABLE = 'glpi_plugin_grcmanager_crisisexercises';
     private const CRISIS_EXERCISE_STEPS_TABLE = 'glpi_plugin_grcmanager_crisisexercisesteps';
     // Issue #185 : éléments rétablis pendant une crise (temps de reprise mesuré face au RTO).
@@ -2596,6 +2600,45 @@ final class Installer
                 PRIMARY KEY (`id`),
                 UNIQUE KEY `unicity` (`plugin_grcmanager_businessprocesses_id`, `plugin_grcmanager_risks_id`),
                 KEY `plugin_grcmanager_risks_id` (`plugin_grcmanager_risks_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query);
+        }
+        // Issue #377, troisième étape : stratégie de reprise du processus (ajoutée aux processus
+        // existants sans toucher à leurs données) et temps de reprise mesurés à chaque test.
+        if (!$DB->fieldExists(self::BUSINESS_PROCESSES_TABLE, 'degraded_mode')) {
+            $migration->addField(self::BUSINESS_PROCESSES_TABLE, 'degraded_mode', 'text', ['after' => 'bia_date']);
+            $migration->addField(
+                self::BUSINESS_PROCESSES_TABLE,
+                'backup_solution',
+                'text',
+                ['after' => 'degraded_mode']
+            );
+            $migration->addField(
+                self::BUSINESS_PROCESSES_TABLE,
+                'recovery_procedure',
+                'text',
+                ['after' => 'backup_solution']
+            );
+            $migration->migrationOneTable(self::BUSINESS_PROCESSES_TABLE);
+        }
+        if (!$DB->tableExists(self::BUSINESS_PROCESS_RECOVERIES_TABLE)) {
+            $query = "CREATE TABLE `" . self::BUSINESS_PROCESS_RECOVERIES_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_businessprocesses_id` int {$keySign} NOT NULL DEFAULT 0,
+                `plugin_grcmanager_crisisexercises_id` int {$keySign} NOT NULL DEFAULT 0
+                    COMMENT 'Exercice de crise du test, 0 = test hors exercice',
+                `test_date` date DEFAULT NULL,
+                `measured_minutes` int NOT NULL DEFAULT 0 COMMENT 'Temps de reprise mesure, en minutes',
+                `users_id` int {$keySign} NOT NULL DEFAULT 0,
+                `comment` varchar(255) NOT NULL DEFAULT '',
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `plugin_grcmanager_businessprocesses_id` (`plugin_grcmanager_businessprocesses_id`),
+                KEY `plugin_grcmanager_crisisexercises_id` (`plugin_grcmanager_crisisexercises_id`),
+                KEY `test_date` (`test_date`),
+                KEY `users_id` (`users_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
             $DB->doQuery($query);
@@ -5095,6 +5138,7 @@ final class Installer
         $migration->dropTable(self::BUSINESS_IMPACTS_TABLE);
         $migration->dropTable(self::BUSINESS_PROCESS_LINKS_TABLE);
         $migration->dropTable(self::BUSINESS_PROCESS_RISKS_TABLE);
+        $migration->dropTable(self::BUSINESS_PROCESS_RECOVERIES_TABLE);
         $migration->dropTable(self::BUSINESS_PROCESSES_ITEMS_TABLE);
         $migration->dropTable(self::BUSINESS_PROCESSES_TABLE);
         $migration->dropTable(self::DPIAS_TABLE);

@@ -8929,3 +8929,104 @@ msgstr "Risk indicators (KRI) in the red and orange by month"
 
 msgid "The owner of the indicator and the CISO group are notified once when an indicator reaches the alert level, then when it is back to green. Only recipients who can read the indicator and the data it measures receive it."
 msgstr "The owner of the indicator and the CISO group are notified once when an indicator reaches the alert level, then when it is back to green. Only recipients who can read the indicator and the data it measures receive it."
+
+msgid "Recovery strategy"
+msgstr "Recovery strategy"
+
+#, php-format
+msgid "%d min"
+msgstr "%d min"
+
+#, php-format
+msgid "%1$d h %2$02d min"
+msgstr "%1$d h %2$02d min"
+
+#, php-format
+msgid "Crisis team: %s"
+msgstr "Crisis team: %s"
+
+msgid "Enter the measured recovery time, in minutes."
+msgstr "Enter the measured recovery time, in minutes."
+
+msgid "The recovery time measured at the last test exceeds the RTO."
+msgstr "The recovery time measured at the last test exceeds the RTO."
+
+msgid "No recovery strategy described (degraded mode, backup solution or procedure)."
+msgstr "No recovery strategy described (degraded mode, backup solution or procedure)."
+
+msgid "Recovery never tested: record the time measured during a test or a crisis exercise."
+msgstr "Recovery never tested: record the time measured during a test or a crisis exercise."
+
+msgid "Recovery time measured at the last test"
+msgstr "Recovery time measured at the last test"
+
+msgid "Degraded mode"
+msgstr "Degraded mode"
+
+msgid "Backup solution"
+msgstr "Backup solution"
+
+msgid "Recovery procedure"
+msgstr "Recovery procedure"
+
+msgid "Last recovery test"
+msgstr "Last recovery test"
+
+msgid "Not described"
+msgstr "Not described"
+
+msgid "Above the RTO"
+msgstr "Above the RTO"
+
+msgid "Within the RTO"
+msgstr "Within the RTO"
+
+msgid "How the activity continues while the system is down (paper forms, manual workaround…)."
+msgstr "How the activity continues while the system is down (paper forms, manual workaround…)."
+
+msgid "Backup site, standby system, alternative supplier…"
+msgstr "Backup site, standby system, alternative supplier…"
+
+msgid "Main steps to restore the process, or reference of the detailed procedure."
+msgstr "Main steps to restore the process, or reference of the detailed procedure."
+
+msgid "Time actually needed to restore the process during a test or a crisis exercise, compared with its RTO. A test can also be recorded from the crisis room."
+msgstr "Time actually needed to restore the process during a test or a crisis exercise, compared with its RTO. A test can also be recorded from the crisis room."
+
+msgid "Measured time (minutes)"
+msgstr "Measured time (minutes)"
+
+msgid "None (test outside an exercise)"
+msgstr "None (test outside an exercise)"
+
+msgid "No recovery test recorded yet."
+msgstr "No recovery test recorded yet."
+
+msgid "Measured time"
+msgstr "Measured time"
+
+msgid "Recorded by"
+msgstr "Recorded by"
+
+msgid "Exercise you cannot see"
+msgstr "Exercise you cannot see"
+
+msgid "Remove this recovery test?"
+msgstr "Remove this recovery test?"
+
+msgid "Business processes tested"
+msgstr "Business processes tested"
+
+msgid "No recovery time recorded for a business process during this exercise."
+msgstr "No recovery time recorded for a business process during this exercise."
+
+msgid "Record"
+msgstr "Record"
+
+msgid "The measured time is compared with the RTO of the process and becomes its last recovery test."
+msgstr "The measured time is compared with the RTO of the process and becomes its last recovery test."
+
+msgid "Recovery test"
+msgid_plural "Recovery tests"
+msgstr[0] "Recovery test"
+msgstr[1] "Recovery tests"

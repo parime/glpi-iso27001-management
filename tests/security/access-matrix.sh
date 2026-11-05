@@ -163,6 +163,11 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
     "$(code -d "add=1&plugin_grcmanager_businessprocesses_id=$(id process_A)&plugin_grcmanager_risks_id=$(id risk)&_glpi_csrf_token=$(csrf)" "$P/businessprocessrisk.form.php")"
   expect "front/businessprocessrisk.form.php : proposer un risque" "$1" \
     "$(code -d "create_risk=1&plugin_grcmanager_businessprocesses_id=$(id process_A)&itemtype=Computer&items_id=$(id computer_A)&_glpi_csrf_token=$(csrf)" "$P/businessprocessrisk.form.php")"
+  # Issue #377, troisieme etape : temps de reprise mesure d'un processus (droit de le modifier).
+  expect "front/businessprocessrecovery.form.php : enregistrer un test de reprise" "$1" \
+    "$(code -d "add=1&plugin_grcmanager_businessprocesses_id=$(id process_A)&measured_minutes=60&_glpi_csrf_token=$(csrf)" "$P/businessprocessrecovery.form.php")"
+  expect "front/businessprocess.form.php : modifier la strategie de reprise" "$1" \
+    "$(code -d "update=1&id=$(id process_A)&degraded_mode=securite&_glpi_csrf_token=$(csrf)" "$P/businessprocess.form.php")"
   # Issue #372 : declarer un incident depuis un element (droit de creer un incident).
   expect "front/securityincidentlinkeditem.form.php : declarer un incident" "$1" \
     "$(code -d "declare=1&itemtype=Computer&items_id=$(id computer_A)&_glpi_csrf_token=$(csrf)" "$P/securityincidentlinkeditem.form.php")"
@@ -219,6 +224,12 @@ if [ "$ROLE" = none ]; then
            'GlpiPlugin%5CGrcmanager%5CBusinessProcessItem$1'; do
     contains "onglet $t d'un ordinateur : sans droit" "plugins/grcmanager" non "$(tab Computer "$t" "$(id computer_A)")"
   done
+  # Issue #377, troisieme etape : classification et processus d'une application et d'un fournisseur
+  # lisibles, demandes directement sans aucun droit du plugin.
+  for t in 'GlpiPlugin%5CGrcmanager%5CAssetClassification$1' 'GlpiPlugin%5CGrcmanager%5CBusinessProcessItem$1'; do
+    contains "onglet $t d'une application : sans droit" "plugins/grcmanager" non "$(tab Appliance "$t" "$(id appliance_A)")"
+    contains "onglet $t d'un fournisseur : sans droit" "plugins/grcmanager" non "$(tab Supplier "$t" "$(id supplier)")"
+  done
   contains "onglet Processus metier d'un risque : sans droit" "Processus securite" non \
     "$(tab GlpiPlugin%5CGrcmanager%5CRisk 'GlpiPlugin%5CGrcmanager%5CBusinessProcessRisk$1' "$(id risk)")"
   # Issue #403 : les referentiels actifs se reglent avec le droit de modifier la configuration.
@@ -253,6 +264,13 @@ if [ "$ROLE" = general ]; then
     "$(tab GlpiPlugin%5CGrcmanager%5CRisk 'GlpiPlugin%5CGrcmanager%5CBusinessProcessRisk$1' "$(id risk)")"
   contains "onglet Risques d'un processus : rien" "Risque securite" non \
     "$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessProcessRisk$1' "$(id process_A)")"
+  # Issue #377, troisieme etape : ni strategie de reprise ni test sans le droit de la continuite.
+  contains "onglet Strategie de reprise d'un processus : rien" "Test de reprise A" non \
+    "$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessProcessRecovery$1' "$(id process_A)")"
+  expect "front/businessprocessrecovery.form.php : sans le droit de la continuite" 403 \
+    "$(code -d "add=1&plugin_grcmanager_businessprocesses_id=$(id process_A)&measured_minutes=60&_glpi_csrf_token=$(csrf)" "$P/businessprocessrecovery.form.php")"
+  contains "onglet Processus metier d'une application : rien" "Processus securite" non \
+    "$(tab Appliance 'GlpiPlugin%5CGrcmanager%5CBusinessProcessItem$1' "$(id appliance_A)")"
   expect "front/risk.form.php : sans le droit des registres sensibles" 403 "$(code "$P/risk.form.php?id=$(id risk)")"
   expect "front/riskindicator.form.php : sans le droit des registres sensibles" 403 "$(code "$P/riskindicator.form.php?id=$(id kri_A)")"
   # Issue #183 : la surveillance des fuites (cle d'API, domaines) se regle avec le droit des registres
@@ -512,7 +530,27 @@ if [ "$ROLE" = limited ]; then
     "$(code -d "add=1&plugin_grcmanager_businessprocesses_id=$(id process_A)&plugin_grcmanager_businessprocesses_id_upstream=$(id process_B)&_glpi_csrf_token=$(csrf)" "$P/businessprocesslink.form.php")"
   expect "proposer un risque pour le PC de B (illisible)" 404 \
     "$(code -d "create_risk=1&plugin_grcmanager_businessprocesses_id=$(id process_A)&itemtype=Computer&items_id=$(id computer_B)&_glpi_csrf_token=$(csrf)" "$P/businessprocessrisk.form.php")"
+  expect "test de reprise rattache a un exercice inexistant" 404 \
+    "$(code -d "add=1&plugin_grcmanager_businessprocesses_id=$(id process_A)&measured_minutes=60&plugin_grcmanager_crisisexercises_id=999999&_glpi_csrf_token=$(csrf)" "$P/businessprocessrecovery.form.php")"
 fi
+# Issue #377, troisieme etape : RTO des applications (classification) et strategie de reprise.
+expect "classification d'une application de A" 302 \
+  "$(code -d "save=1&itemtype=Appliance&items_id=$(id appliance_A)&availability=high&rto_hours=4&_glpi_csrf_token=$(csrf)" "$P/assetclassification.form.php")"
+expect "classification d'une application de B" "$([ "$ROLE" = admin ] && echo 302 || echo 404)" \
+  "$(code -d "save=1&itemtype=Appliance&items_id=$(id appliance_B)&availability=low&_glpi_csrf_token=$(csrf)" "$P/assetclassification.form.php")"
+contains "onglet classification d'une application de A" "rto_hours" oui \
+  "$(tab Appliance 'GlpiPlugin%5CGrcmanager%5CAssetClassification$1' "$(id appliance_A)")"
+contains "dependances du processus A : application de A" "Application securite A" oui "$deps"
+strategy=$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessProcessRecovery$1' "$(id process_A)")
+contains "strategie de reprise du processus A : test" "Test de reprise A" oui "$strategy"
+contains "strategie de reprise du processus A : mode degrade" "Mode degrade A" oui "$strategy"
+contains "strategie de reprise du processus A : test de B" "Test de reprise B" non "$strategy"
+expect "test de reprise d'un processus de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
+  "$(code -d "add=1&plugin_grcmanager_businessprocesses_id=$(id process_B)&measured_minutes=60&_glpi_csrf_token=$(csrf)" "$P/businessprocessrecovery.form.php")"
+expect "strategie de reprise d'un processus de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
+  "$(code -d "update=1&id=$(id process_B)&degraded_mode=securite&_glpi_csrf_token=$(csrf)" "$P/businessprocess.form.php")"
+expect "test de reprise sans jeton CSRF" 403 \
+  "$(code -d "add=1&plugin_grcmanager_businessprocesses_id=$(id process_A)&measured_minutes=60" "$P/businessprocessrecovery.form.php")"
 
 # Issue #145 : preuves datées, uniquement celles de ses entités.
 evidences=$(curl -s -c "$JAR" -b "$JAR" "$P/evidence.php")

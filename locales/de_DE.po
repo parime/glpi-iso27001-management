@@ -8929,3 +8929,104 @@ msgstr "Risikoindikatoren (KRI) in Rot und Orange pro Monat"
 
 msgid "The owner of the indicator and the CISO group are notified once when an indicator reaches the alert level, then when it is back to green. Only recipients who can read the indicator and the data it measures receive it."
 msgstr "Der Verantwortliche des Indikators und die CISO-Gruppe werden einmal benachrichtigt, wenn ein Indikator die Alarmstufe erreicht, und erneut, wenn er wieder grün ist. Nur Empfänger, die den Indikator und die gemessenen Daten lesen dürfen, erhalten die Nachricht."
+
+msgid "Recovery strategy"
+msgstr "Wiederanlaufstrategie"
+
+#, php-format
+msgid "%d min"
+msgstr "%d Min."
+
+#, php-format
+msgid "%1$d h %2$02d min"
+msgstr "%1$d Std. %2$02d Min."
+
+#, php-format
+msgid "Crisis team: %s"
+msgstr "Krisenstab: %s"
+
+msgid "Enter the measured recovery time, in minutes."
+msgstr "Geben Sie die gemessene Wiederanlaufzeit in Minuten ein."
+
+msgid "The recovery time measured at the last test exceeds the RTO."
+msgstr "Die beim letzten Test gemessene Wiederanlaufzeit überschreitet die RTO."
+
+msgid "No recovery strategy described (degraded mode, backup solution or procedure)."
+msgstr "Keine Wiederanlaufstrategie beschrieben (Notbetrieb, Ausweichlösung oder Verfahren)."
+
+msgid "Recovery never tested: record the time measured during a test or a crisis exercise."
+msgstr "Wiederanlauf nie getestet: Erfassen Sie die bei einem Test oder einer Krisenübung gemessene Zeit."
+
+msgid "Recovery time measured at the last test"
+msgstr "Beim letzten Test gemessene Wiederanlaufzeit"
+
+msgid "Degraded mode"
+msgstr "Notbetrieb"
+
+msgid "Backup solution"
+msgstr "Ausweichlösung"
+
+msgid "Recovery procedure"
+msgstr "Wiederanlaufverfahren"
+
+msgid "Last recovery test"
+msgstr "Letzter Wiederanlauftest"
+
+msgid "Not described"
+msgstr "Nicht beschrieben"
+
+msgid "Above the RTO"
+msgstr "Über der RTO"
+
+msgid "Within the RTO"
+msgstr "Innerhalb der RTO"
+
+msgid "How the activity continues while the system is down (paper forms, manual workaround…)."
+msgstr "Wie die Tätigkeit während des Ausfalls weiterläuft (Papierformulare, manuelle Umgehung…)."
+
+msgid "Backup site, standby system, alternative supplier…"
+msgstr "Ausweichstandort, Bereitschaftssystem, alternativer Lieferant…"
+
+msgid "Main steps to restore the process, or reference of the detailed procedure."
+msgstr "Wichtigste Schritte zur Wiederherstellung des Prozesses oder Verweis auf das ausführliche Verfahren."
+
+msgid "Time actually needed to restore the process during a test or a crisis exercise, compared with its RTO. A test can also be recorded from the crisis room."
+msgstr "Tatsächlich benötigte Zeit zur Wiederherstellung des Prozesses bei einem Test oder einer Krisenübung, verglichen mit seiner RTO. Ein Test kann auch im Krisenraum erfasst werden."
+
+msgid "Measured time (minutes)"
+msgstr "Gemessene Zeit (Minuten)"
+
+msgid "None (test outside an exercise)"
+msgstr "Keine (Test außerhalb einer Übung)"
+
+msgid "No recovery test recorded yet."
+msgstr "Noch kein Wiederanlauftest erfasst."
+
+msgid "Measured time"
+msgstr "Gemessene Zeit"
+
+msgid "Recorded by"
+msgstr "Erfasst von"
+
+msgid "Exercise you cannot see"
+msgstr "Übung, die Sie nicht sehen können"
+
+msgid "Remove this recovery test?"
+msgstr "Diesen Wiederanlauftest entfernen?"
+
+msgid "Business processes tested"
+msgstr "Getestete Geschäftsprozesse"
+
+msgid "No recovery time recorded for a business process during this exercise."
+msgstr "Während dieser Übung wurde für keinen Geschäftsprozess eine Wiederanlaufzeit erfasst."
+
+msgid "Record"
+msgstr "Erfassen"
+
+msgid "The measured time is compared with the RTO of the process and becomes its last recovery test."
+msgstr "Die gemessene Zeit wird mit der RTO des Prozesses verglichen und wird zu seinem letzten Wiederanlauftest."
+
+msgid "Recovery test"
+msgid_plural "Recovery tests"
+msgstr[0] "Wiederanlauftest"
+msgstr[1] "Wiederanlauftests"
