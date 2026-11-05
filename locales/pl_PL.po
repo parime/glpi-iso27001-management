@@ -10137,6 +10137,12 @@ msgstr[0] "%d dzień opóźnienia"
 msgstr[1] "%d dni opóźnienia"
 msgstr[2] "%d dni opóźnienia"
 
+msgid "Unlink"
+msgstr "Odłącz"
+
+msgid "Processing activities whose personal data are affected by this incident: they help assess the GDPR notification."
+msgstr "Czynności przetwarzania, których dane osobowe dotyczy ten incydent: pomagają ocenić potrzebę zgłoszenia na podstawie RODO."
+
 msgid "Business continuity plan"
 msgstr "Plan ciągłości działania"
 

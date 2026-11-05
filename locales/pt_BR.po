@@ -8730,6 +8730,12 @@ msgid_plural "%d days late"
 msgstr[0] "%d dia de atraso"
 msgstr[1] "%d dias de atraso"
 
+msgid "Unlink"
+msgstr "Desvincular"
+
+msgid "Processing activities whose personal data are affected by this incident: they help assess the GDPR notification."
+msgstr "Atividades de tratamento cujos dados pessoais são afetados por este incidente: ajudam a avaliar a notificação RGPD."
+
 msgid "Business continuity plan"
 msgstr "Plano de continuidade de negócios"
 
