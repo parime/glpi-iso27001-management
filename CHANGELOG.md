@@ -7,6 +7,12 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Changed
+
+- **Export PDF du registre des traitements** : la ligne « Contrôles » (écarts internes, par exemple
+  « Pas de finalité ») n'y figure plus, car ce document peut être remis à l'autorité de contrôle.
+  Elle reste à l'écran et dans l'export CSV.
+
 ## [2.24.0] - 2026-11-04
 
 ### Added
