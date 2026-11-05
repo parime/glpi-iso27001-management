@@ -747,6 +747,9 @@ function plugin_grcmanager_forget_business_process_item(CommonDBTM $item): void
     if ($DB->tableExists($table)) {
         $DB->delete($table, ['itemtype' => $item::class, 'items_id' => (int) $item->getID()]);
     }
+    // Issue #377, troisième étape : un seul rappel de purge par type, et ces types sont tous
+    // classables : la classification C/I/D (RTO, RPO) de l'élément disparaît avec lui.
+    \GlpiPlugin\Grcmanager\AssetClassification::forgetItem($item);
     // Issue #375 : un seul rappel de purge par type : les liens du registre des traitements aussi.
     \GlpiPlugin\Grcmanager\ProcessingActivity::forgetItem($item);
 }

@@ -64,6 +64,26 @@ class AssetClassification extends AssetClassificationBase
     }
 
     /**
+     * Issue #377, troisième étape : éléments du cœur classables en plus des actifs du registre des
+     * risques. Une application, une instance de base de données ou un fournisseur a lui aussi une
+     * disponibilité, un RTO et un RPO, que la BIA compare aux objectifs des processus qui en dépendent.
+     */
+    public const EXTRA_ITEMTYPES = ['Appliance', 'DatabaseInstance', 'Supplier'];
+
+    /**
+     * Types classables : les actifs du registre des risques (actifs du cœur et actifs personnalisés),
+     * plus les applications, instances de bases de données et fournisseurs du cœur.
+     *
+     * @return list<string>
+     */
+    public static function getItemtypes(): array
+    {
+        // Pas de test d'existence des classes : setup.php appelle cette liste avant le chargement des
+        // actifs personnalisés (voir son commentaire de l'issue #88), qui en seraient retirés.
+        return array_values(array_unique(array_merge(Risk::getLinkableItemtypes(), self::EXTRA_ITEMTYPES)));
+    }
+
+    /**
      * @return array<string, string>
      */
     public static function getLevels(): array
@@ -242,6 +262,19 @@ class AssetClassification extends AssetClassificationBase
     }
 
     /**
+     * Issue #377 : Hooks::ITEM_PURGE (hook.php) : la classification d'un élément supprimé
+     * définitivement disparaît avec lui.
+     */
+    public static function forgetItem(CommonDBTM $item): void
+    {
+        global $DB;
+
+        if ($DB->tableExists(self::getTable())) {
+            $DB->delete(self::getTable(), ['itemtype' => $item::class, 'items_id' => (int) $item->getID()]);
+        }
+    }
+
+    /**
      * @return array<int, array<string, mixed>> items_id => raw DB row, every classified asset of
      *         one itemtype in a single query. Used by Risk::showForm() to annotate
      *         each option of its per-itemtype multi-select without one query per row (issue #26,
@@ -267,7 +300,7 @@ class AssetClassification extends AssetClassificationBase
      */
     public function getTabNameForItem(CommonGLPI $item, $withtemplate = 0)
     {
-        if (!in_array($item->getType(), Risk::getLinkableItemtypes(), true)) {
+        if (!in_array($item->getType(), self::getItemtypes(), true)) {
             return '';
         }
 
@@ -292,7 +325,12 @@ class AssetClassification extends AssetClassificationBase
         global $CFG_GLPI;
 
         // ajax/common.tabs.php sert le contenu sans passer par getTabNameForItem().
-        if (!$item instanceof CommonDBTM || !Session::haveRight(self::$rightname, READ)) {
+        // Issue #377 : l'élément doit aussi être classable et lisible (droit et entité).
+        if (
+            !$item instanceof CommonDBTM || !Session::haveRight(self::$rightname, READ)
+            || !in_array($item->getType(), self::getItemtypes(), true)
+            || $item->isNewItem() || !$item->canViewItem()
+        ) {
             return false;
         }
 

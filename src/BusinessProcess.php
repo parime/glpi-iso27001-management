@@ -248,7 +248,7 @@ class BusinessProcess extends BusinessProcessBase
         }
 
         $allObjectives = self::assetObjectives();
-        $classifiable = Risk::getLinkableItemtypes();
+        $classifiable = AssetClassification::getItemtypes();
         $dependencies = [];
         $objectives = [];
         $hidden = 0;
@@ -259,8 +259,9 @@ class BusinessProcess extends BusinessProcessBase
                 continue;
             }
             [$itemtype, $itemsId] = ImpactGraph::split($key);
-            // Applications, instances de bases de données et fournisseurs n'ont pas d'onglet de
-            // classification : pas d'objectif à leur réclamer, seuls les actifs classables sont contrôlés.
+            // Tout élément classable est contrôlé : actifs, et depuis la troisième étape de l'issue
+            // #377 applications, instances de bases de données et fournisseurs. Les autres éléments
+            // atteints par l'analyse d'impact de GLPI (réseau, câbles…) n'ont pas d'objectif.
             if (in_array($itemtype, $classifiable, true)) {
                 $objectives[$key] = $allObjectives[$key] ?? ['rto' => 0, 'rpo' => 0];
             }
