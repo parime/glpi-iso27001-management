@@ -11,6 +11,12 @@
   .grc-sheet-first { page-break-before: auto; }
   .grc-issue { color: #b54708; }
   .grc-muted { color: #6c757d; }
+  .grc-keep { page-break-inside: avoid; }
+  /* Dompdf ignore page-break-inside sur un div : une ligne de tableau, elle, n'est pas coupée. */
+  table.grc-wrap { width: 100%; border-collapse: collapse; }
+  table.grc-wrap > tr, table.grc-wrap tr { page-break-inside: avoid; }
+  table.grc-wrap > tr > td, table.grc-wrap td.grc-wrap-cell { padding: 0; border: 0; }
+  h3 { page-break-after: avoid; }
   table.grcmanager-pdf-table td.grc-center, table.grcmanager-pdf-table th.grc-center { text-align: center; }
 </style>
 
@@ -171,7 +177,10 @@
       </table>
     {% endif %}
     {% if sheet.downstream is not empty %}
-      <p><strong>{{ __('Processes that depend on this process', 'grcmanager') }} :</strong> {{ sheet.downstream|join(', ') }}</p>
+      <table class="grcmanager-pdf-table grc-keep">
+        <thead><tr><th>{{ __('Processes that depend on this process', 'grcmanager') }}</th></tr></thead>
+        <tbody><tr><td>{{ sheet.downstream|join(', ') }}</td></tr></tbody>
+      </table>
       {% if sheet.required.rto is not empty %}
         <p>{{ __('Required RTO: %1$s (process %2$s)', 'grcmanager')|format(sheet.required.rto, sheet.required.rto_from) }}</p>
       {% endif %}
@@ -184,6 +193,7 @@
     {% endif %}
 
     {% if show_risks %}
+      <table class="grc-wrap"><tr><td class="grc-wrap-cell">
       <h3>{{ __('Linked risks', 'grcmanager') }}</h3>
       {% if sheet.risks is empty %}
         <p class="grc-muted">{{ __('No risk linked to this process.', 'grcmanager') }}</p>
@@ -209,6 +219,7 @@
           </tbody>
         </table>
       {% endif %}
+      </td></tr></table>
     {% endif %}
   </div>
 {% endfor %}
