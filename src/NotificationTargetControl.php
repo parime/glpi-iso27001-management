@@ -101,7 +101,12 @@ class NotificationTargetControl extends NotificationTarget
 
         return [
             'language' => (string) ($user->fields['language'] ?: ($GLOBALS['CFG_GLPI']['language'] ?? 'en_GB')),
-            'name'     => formatUserName(0, $user->fields['name'], $user->fields['realname'], $user->fields['firstname']),
+            'name'     => formatUserName(
+                0,
+                $user->fields['name'],
+                $user->fields['realname'],
+                $user->fields['firstname']
+            ),
         ];
     }
 
@@ -125,7 +130,9 @@ class NotificationTargetControl extends NotificationTarget
             ? _x('deadline passed', 'Overdue', 'grcmanager')
             : __('Due soon', 'grcmanager');
         $this->data['##controltest.nextdate##']   = (string) Html::convDate($next);
-        $this->data['##controltest.lastdate##']   = $latest !== null ? (string) Html::convDate($latest['test_date']) : '';
+        $this->data['##controltest.lastdate##']   = $latest !== null
+            ? (string) Html::convDate($latest['test_date'])
+            : '';
         $this->data['##controltest.lastresult##'] = $latest !== null
             ? ($results[$latest['result']]['label'] ?? (string) $latest['result'])
             : '';

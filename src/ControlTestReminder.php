@@ -148,7 +148,8 @@ final class ControlTestReminder
             }
 
             $withdrawn = false;
-            $status = ControlTestRules::statusWhenDue((string) $control->fields['implementation_status'], $next, $today);
+            $current = (string) $control->fields['implementation_status'];
+            $status = ControlTestRules::statusWhenDue($current, $next, $today);
             if (
                 $status !== null
                 && $control->update([

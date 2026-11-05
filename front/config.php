@@ -170,7 +170,8 @@ if (isset($_POST['update_controltest_reminder'])) {
     Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
 
     // Énumération fermée : une valeur inconnue revient au réglage par défaut.
-    if (\GlpiPlugin\Grcmanager\ControlTestReminder::saveCisoMode((string) ($_POST['controltest_reminder_ciso'] ?? ''))) {
+    $cisoMode = (string) ($_POST['controltest_reminder_ciso'] ?? '');
+    if (\GlpiPlugin\Grcmanager\ControlTestReminder::saveCisoMode($cisoMode)) {
         \GlpiPlugin\Grcmanager\AuditLog::record('config_change', 'Config', 0, 0, 'success', [
             'changes' => ['controltest_reminder_ciso' => \GlpiPlugin\Grcmanager\ControlTestReminder::cisoMode()],
         ]);

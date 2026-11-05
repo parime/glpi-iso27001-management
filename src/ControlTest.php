@@ -438,7 +438,7 @@ class ControlTest extends ControlTestBase
     {
         return $name === ControlTestReminder::CRON_NAME
             ? ['description' => __(
-                'Reminds overdue or upcoming effectiveness tests and withdraws the "Verified" status when the last test has expired',
+                'Reminds overdue or upcoming effectiveness tests and withdraws the expired "Verified" status',
                 'grcmanager'
             )]
             : [];

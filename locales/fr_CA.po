@@ -8729,3 +8729,45 @@ msgid "%d day late"
 msgid_plural "%d days late"
 msgstr[0] "%d jour de retard"
 msgstr[1] "%d jours de retard"
+
+msgid "Effectiveness test overdue or due soon"
+msgstr "Test d'efficacité en retard ou à réaliser bientôt"
+
+msgid "Test plan owner"
+msgstr "Responsable du plan de test"
+
+msgid "The \"Verified\" status was withdrawn: the last effectiveness test has expired."
+msgstr "L'état « Vérifié » a été retiré : le dernier test d'efficacité est échu."
+
+msgid "Verified status withdrawn"
+msgstr "État « Vérifié » retiré"
+
+msgid "Notification colour"
+msgstr "Couleur de la notification"
+
+msgid "Reminds overdue or upcoming effectiveness tests and withdraws the expired \"Verified\" status"
+msgstr "Rappelle les tests d'efficacité en retard ou à venir et retire l'état « Vérifié » échu"
+
+msgid "Overdue tests only"
+msgstr "Tests en retard seulement"
+
+msgid "Overdue tests and tests due soon"
+msgstr "Tests en retard et tests à réaliser bientôt"
+
+msgid "Effectiveness test reminders"
+msgstr "Rappels des tests d'efficacité"
+
+msgid "The test plan owner is reminded of an overdue test or a test due within 30 days. An overdue test withdraws the \"Verified\" status of the control."
+msgstr "Le responsable du plan de test est prévenu d'un test en retard ou à réaliser dans les 30 jours. Un test en retard retire l'état « Vérifié » de la mesure."
+
+msgid "Also remind the CISO group"
+msgstr "Prévenir aussi le groupe RSSI"
+
+msgid "No CISO group is set (Internal audits above, or Configuration GLPI Auto): only the test plan owner is reminded."
+msgstr "Aucun groupe RSSI n'est défini (Audits internes ci-dessus, ou Configuration GLPI Auto) : seul le responsable du plan de test est prévenu."
+
+msgid "E-mail colour taken from the notification branding of Configuration GLPI Auto:"
+msgstr "Couleur des e-mails reprise de la charte des notifications de Configuration GLPI Auto :"
+
+msgid "E-mail colour:"
+msgstr "Couleur des e-mails :"
