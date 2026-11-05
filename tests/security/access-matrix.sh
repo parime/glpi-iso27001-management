@@ -213,6 +213,9 @@ if [ "$ROLE" = none ]; then
   # Issue #403 : les referentiels actifs se reglent avec le droit de modifier la configuration.
   expect "front/config.php : desactiver les referentiels" 403 \
     "$(code -d "update_frameworks=1&_glpi_csrf_token=$(csrf)" "$P/config.php")"
+  # Issue #380 : le rappel des tests au groupe RSSI se regle avec le droit de modifier la configuration.
+  expect "front/config.php : rappel des tests au groupe RSSI" 403 \
+    "$(code -d "update_controltest_reminder=1&controltest_reminder_ciso=always&_glpi_csrf_token=$(csrf)" "$P/config.php")"
   create_attempts 403 403
   rm -f "$JAR"; exit $FAIL
 fi
@@ -292,12 +295,29 @@ if [ "$ROLE" = reader ]; then
   # Issue #403 : les referentiels actifs se reglent avec le droit de modifier la configuration.
   expect "front/config.php : desactiver les referentiels" 403 \
     "$(code -d "update_frameworks=1&_glpi_csrf_token=$(csrf)" "$P/config.php")"
+  # Issue #380 : le rappel des tests au groupe RSSI se regle avec le droit de modifier la configuration.
+  expect "front/config.php : rappel des tests au groupe RSSI" 403 \
+    "$(code -d "update_controltest_reminder=1&controltest_reminder_ciso=always&_glpi_csrf_token=$(csrf)" "$P/config.php")"
   create_attempts 403 403
   rm -f "$JAR"; exit $FAIL
 fi
 
 if [ "$ROLE" = admin ]; then
   for p in $READABLE; do expect "$p : super-admin" 200 "$(code "$BASE/plugins/grcmanager/$p")"; done
+  # Issue #380 : reglage du rappel des tests d'efficacite au groupe RSSI. Sans jeton CSRF, refuse
+  # et inchange ; avec, enregistre ; une valeur inconnue revient au reglage par defaut.
+  expect "front/config.php : rappel des tests, sans jeton CSRF" 403 \
+    "$(code -d "update_controltest_reminder=1&controltest_reminder_ciso=always" "$P/config.php")"
+  contains "front/config.php : rappel des tests inchange sans jeton" 'value="always" selected' non \
+    "$(curl -s -c "$JAR" -b "$JAR" "$P/config.php")"
+  expect "front/config.php : rappel des tests au groupe RSSI" 302 \
+    "$(code -d "update_controltest_reminder=1&controltest_reminder_ciso=always&_glpi_csrf_token=$(csrf)" "$P/config.php")"
+  contains "front/config.php : rappel des tests enregistre" 'value="always" selected' oui \
+    "$(curl -s -c "$JAR" -b "$JAR" "$P/config.php")"
+  expect "front/config.php : rappel des tests, valeur inconnue" 302 \
+    "$(code -d "update_controltest_reminder=1&controltest_reminder_ciso=x&_glpi_csrf_token=$(csrf)" "$P/config.php")"
+  contains "front/config.php : rappel des tests par defaut" 'value="overdue" selected' oui \
+    "$(curl -s -c "$JAR" -b "$JAR" "$P/config.php")"
 fi
 
 expect "incident, entite A"            200    "$(code "$P/securityincident.form.php?id=$(id incident_A)")"
