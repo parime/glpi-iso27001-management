@@ -128,6 +128,11 @@ if ($mode === 'xss') {
         'plugin_grcmanager_riskindicators_id' => $out['kri'], 'value_date' => date('Y-m-d'), 'value' => 12,
         'status' => 'red', 'comment' => $canary,
     ]);
+    // Deuxième relevé : la courbe de tendance de la fiche s'affiche (libellés et unité piégés).
+    $insert('riskindicatorvalues', [
+        'plugin_grcmanager_riskindicators_id' => $out['kri'], 'value_date' => date('Y-m-d', strtotime('-1 day')),
+        'value' => 4, 'status' => 'green', 'comment' => $canary,
+    ]);
     $DB->updateOrInsert('glpi_plugin_grcmanager_riskappetites', [
         'category' => 'process', 'appetite_level' => 'low', 'tolerance_level' => 'low', 'statement' => $canary,
     ], ['category' => 'process']);

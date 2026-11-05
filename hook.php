@@ -321,6 +321,12 @@ function plugin_grcmanager_dashboard_cards(?array $cards = null): array
             'group' => $group,
             'provider' => SecuredDashboardCards::class . '::riskIndicatorsRedCount',
         ],
+        'grcmanager_risk_indicators_trend' => [
+            'widgettype' => ['lines', 'areas', 'bars', 'stackedbars'],
+            'label' => __('Risk indicators (KRI) in the red and orange by month', 'grcmanager'),
+            'group' => $group,
+            'provider' => SecuredDashboardCards::class . '::riskIndicatorsTrend',
+        ],
     ];
 
     // Absorption de glpi-security-incidents (ROADMAP.md "Version 2.0") : cartes des incidents,

@@ -25,6 +25,7 @@ use GlpiPlugin\Grcmanager\AuditTeam;
 use GlpiPlugin\Grcmanager\Control;
 use GlpiPlugin\Grcmanager\ControlTest;
 use GlpiPlugin\Grcmanager\ControlTestReminder;
+use GlpiPlugin\Grcmanager\NotificationSupport;
 use GlpiPlugin\Grcmanager\NotificationTargetControl;
 use GlpiPlugin\Grcmanager\Services\Control\ControlTestRules;
 use Group;
@@ -65,7 +66,7 @@ final class ControlTestReminderTest extends GrcmanagerIntegrationTestCase
             $this->savedSettings[$key] = $CFG_GLPI[$key] ?? null;
             $CFG_GLPI[$key] = $value;
         }
-        ControlTestReminder::$forceCgaActive = false;
+        NotificationSupport::$forceCgaActive = false;
     }
 
     protected function tearDown(): void
@@ -75,7 +76,7 @@ final class ControlTestReminderTest extends GrcmanagerIntegrationTestCase
         foreach ($this->savedSettings as $key => $value) {
             $CFG_GLPI[$key] = $value;
         }
-        ControlTestReminder::$forceCgaActive = null;
+        NotificationSupport::$forceCgaActive = null;
         parent::tearDown();
     }
 
@@ -241,10 +242,10 @@ final class ControlTestReminderTest extends GrcmanagerIntegrationTestCase
         ]);
 
         // Sans Configuration GLPI Auto actif, sa clé est ignorée.
-        ControlTestReminder::$forceCgaActive = false;
+        NotificationSupport::$forceCgaActive = false;
         $this->assertSame(ControlTestRules::DEFAULT_BRAND_COLOR, ControlTestReminder::brandColor());
 
-        ControlTestReminder::$forceCgaActive = true;
+        NotificationSupport::$forceCgaActive = true;
         $this->assertSame('#aa3366', ControlTestReminder::brandColor());
 
         $tester = $this->user('Clara', 'Charte', $this->readerProfile(), 0);

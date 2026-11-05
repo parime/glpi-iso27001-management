@@ -61,7 +61,7 @@ class NotificationTargetControl extends NotificationTarget
             case self::TARGET_TESTER:
                 $usersId = (int) ($this->obj->fields['users_id_tester'] ?? 0);
                 if ($usersId > 0) {
-                    $this->addToRecipientsList(['users_id' => $usersId] + $this->userInfo($usersId));
+                    $this->addToRecipientsList(['users_id' => $usersId] + NotificationSupport::userInfo($usersId));
                 }
                 break;
 
@@ -87,27 +87,6 @@ class NotificationTargetControl extends NotificationTarget
         }
 
         return parent::validateSendTo($event, $infos, $notify_me, $emitter);
-    }
-
-    /**
-     * @return array{language: string, name: string}
-     */
-    private function userInfo(int $usersId): array
-    {
-        $user = new \User();
-        if (!$user->getFromDB($usersId)) {
-            return ['language' => '', 'name' => ''];
-        }
-
-        return [
-            'language' => (string) ($user->fields['language'] ?: ($GLOBALS['CFG_GLPI']['language'] ?? 'en_GB')),
-            'name'     => formatUserName(
-                0,
-                $user->fields['name'],
-                $user->fields['realname'],
-                $user->fields['firstname']
-            ),
-        ];
     }
 
     #[Override]

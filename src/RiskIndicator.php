@@ -29,6 +29,7 @@ use GlpiPlugin\Grcmanager\Services\Dashboard\DashboardCardService;
 use GlpiPlugin\Grcmanager\Services\Risk\KriRules;
 use GlpiPlugin\Grcmanager\Services\Ui\Badge;
 use Group_Ticket;
+use Html;
 use Log;
 use Session;
 use Ticket;
@@ -286,7 +287,13 @@ class RiskIndicator extends RiskIndicatorBase
     private function prepareInput(array $input, bool $isNew)
     {
         // Champs calculés : jamais repris de la requête.
-        unset($input['last_value'], $input['last_value_date'], $input['status'], $input['tickets_id']);
+        unset(
+            $input['last_value'],
+            $input['last_value_date'],
+            $input['status'],
+            $input['tickets_id'],
+            $input['alert_status']
+        );
         // Un KRI ne change pas d'entité : ce serait contourner le contrôle fait sur son entité.
         if ($isNew) {
             $input['entities_id'] = (int) ($input['entities_id'] ?? Session::getActiveEntity());
@@ -376,8 +383,11 @@ class RiskIndicator extends RiskIndicatorBase
 
     public function post_updateItem($history = true)
     {
-        // Seuils ou sens changés : le statut suit.
-        if (array_intersect(['threshold_warning', 'threshold_critical', 'direction'], $this->updates) !== []) {
+        // Seuils ou sens changés : le statut suit. Un KRI réactivé repasse par l'alerte.
+        if (
+            array_intersect(['threshold_warning', 'threshold_critical', 'direction', 'is_active'], $this->updates)
+            !== []
+        ) {
             $this->refresh();
         }
         parent::post_updateItem($history);
@@ -439,7 +449,8 @@ class RiskIndicator extends RiskIndicatorBase
     }
 
     /**
-     * Recalcule dernière valeur et statut depuis l'historique.
+     * Recalcule dernière valeur et statut depuis l'historique, puis prévient si l'état d'alerte a
+     * changé (KriAlert).
      */
     public function refresh(): void
     {
@@ -447,6 +458,7 @@ class RiskIndicator extends RiskIndicatorBase
         $last = $values === [] ? null : $values[array_key_last($values)];
         $value = $last === null ? null : (float) $last['value'];
         $this->getFromDB($this->getID());
+        $previous = (string) ($this->fields['status'] ?? KriRules::NONE);
         $status = $this->statusFor($value);
         // Sans historique ni droit : écriture directe des champs calculés.
         global $DB;
@@ -458,6 +470,7 @@ class RiskIndicator extends RiskIndicatorBase
         $this->fields['last_value'] = $value;
         $this->fields['last_value_date'] = $last['value_date'] ?? null;
         $this->fields['status'] = $status;
+        KriAlert::check($this, $previous);
     }
 
     /**
@@ -764,10 +777,82 @@ class RiskIndicator extends RiskIndicatorBase
                 'can_ticket'   => $canUpdate && Session::haveRight(Ticket::$rightname, CREATE),
                 'ticket_url'   => $ticket === null ? '' : Ticket::getFormURLWithID($ticket->getID()),
                 'ticket_id'    => $ticket === null ? 0 : $ticket->getID(),
+                'chart'        => $this->trendChart($values),
             ]);
         }
 
         return true;
+    }
+
+    /** Nombre de relevés au plus dans la courbe de tendance de la fiche. */
+    public const TREND_POINTS = 180;
+
+    /**
+     * Courbe de tendance de la fiche : derniers relevés et seuils.
+     *
+     * @param list<array<string, mixed>> $values relevés chronologiques
+     * @return array{points: list<array{date: string, value: float}>, warning: ?float, critical: ?float,
+     *     labels: array<string, string>}
+     */
+    public function trendChart(array $values): array
+    {
+        $points = [];
+        foreach (array_slice($values, -self::TREND_POINTS) as $row) {
+            $points[] = ['date' => (string) Html::convDate($row['value_date']), 'value' => (float) $row['value']];
+        }
+
+        return [
+            'points'   => $points,
+            'warning'  => self::toNumber($this->fields['threshold_warning'] ?? null),
+            'critical' => self::toNumber($this->fields['threshold_critical'] ?? null),
+            'labels'   => [
+                'value'    => __('Value', 'grcmanager'),
+                'warning'  => __('Orange threshold', 'grcmanager'),
+                'critical' => __('Red threshold', 'grcmanager'),
+            ],
+        ];
+    }
+
+    /**
+     * Valeurs des KRI visibles (actifs, entités de l'utilisateur, même règle de source que la
+     * liste), regroupées par KRI, pour la carte de tendance.
+     *
+     * @return array<int, list<array{date: string, status: string}>>
+     */
+    public static function visibleValuesByKri(): array
+    {
+        global $DB;
+
+        $ids = [];
+        foreach (
+            $DB->request([
+                'SELECT' => ['id'],
+                'FROM'   => self::getTable(),
+                'WHERE'  => ['is_active' => 1]
+                    + getEntitiesRestrictCriteria(self::getTable()) + self::getSystemSQLCriteria(),
+            ]) as $row
+        ) {
+            $ids[] = (int) $row['id'];
+        }
+        if ($ids === []) {
+            return [];
+        }
+        $byKri = [];
+        foreach (
+            $DB->request([
+                'SELECT' => ['plugin_grcmanager_riskindicators_id', 'value_date', 'status'],
+                'FROM'   => RiskIndicatorValue::getTable(),
+                'WHERE'  => ['plugin_grcmanager_riskindicators_id' => $ids],
+                'ORDER'  => ['value_date ASC', 'id ASC'],
+            ]) as $row
+        ) {
+            $byKri[(int) $row['plugin_grcmanager_riskindicators_id']][] = [
+                'date'   => (string) $row['value_date'],
+                'status' => (string) $row['status'],
+            ];
+        }
+
+        return $byKri;
     }
 
     /**

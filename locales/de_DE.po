@@ -8897,6 +8897,39 @@ msgstr "E-Mail-Farbe aus dem Benachrichtigungsdesign von Configuration GLPI Auto
 msgid "E-mail colour:"
 msgstr "E-Mail-Farbe:"
 
+msgid "Risk indicator (KRI) in alert"
+msgstr "Risikoindikator (KRI) im Alarmzustand"
+
+msgid "Risk indicator (KRI) back to green"
+msgstr "Risikoindikator (KRI) wieder im grünen Bereich"
+
+msgid "Risk indicator owner"
+msgstr "Verantwortlicher des Risikoindikators"
+
+msgid "Previous status"
+msgstr "Vorheriger Status"
+
+msgid "When an indicator turns red"
+msgstr "Wenn ein Indikator rot wird"
+
+msgid "From orange"
+msgstr "Ab Orange"
+
+msgid "Risk indicator (KRI) alerts"
+msgstr "Alarme der Risikoindikatoren (KRI)"
+
+msgid "Alert level"
+msgstr "Alarmstufe"
+
+msgid "Trend of the indicator with its thresholds"
+msgstr "Verlauf des Indikators mit seinen Schwellenwerten"
+
+msgid "Risk indicators (KRI) in the red and orange by month"
+msgstr "Risikoindikatoren (KRI) in Rot und Orange pro Monat"
+
+msgid "The owner of the indicator and the CISO group are notified once when an indicator reaches the alert level, then when it is back to green. Only recipients who can read the indicator and the data it measures receive it."
+msgstr "Der Verantwortliche des Indikators und die CISO-Gruppe werden einmal benachrichtigt, wenn ein Indikator die Alarmstufe erreicht, und erneut, wenn er wieder grün ist. Nur Empfänger, die den Indikator und die gemessenen Daten lesen dürfen, erhalten die Nachricht."
+
 msgid "Recovery strategy"
 msgstr "Wiederanlaufstrategie"
 
