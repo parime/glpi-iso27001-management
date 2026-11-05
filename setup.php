@@ -215,7 +215,7 @@ function plugin_init_grcmanager(): void
     // Issue #375 : onglet « Registre des traitements » sur les applications, logiciels, bases de
     // données, fournisseurs et actifs cités par une fiche (droit dédié du registre RGPD).
     Plugin::registerClass(\GlpiPlugin\Grcmanager\ProcessingActivity::class, [
-        'addtabon' => \GlpiPlugin\Grcmanager\ProcessingActivity::getLinkableItemtypes(),
+        'addtabon' => \GlpiPlugin\Grcmanager\ProcessingActivity::getTabItemtypes(),
     ]);
 
     // Issue #183 : onglet « Expositions à des fuites de données » sur la fiche de l'utilisateur (registre
@@ -312,6 +312,12 @@ function plugin_init_grcmanager(): void
     foreach (\GlpiPlugin\Grcmanager\BusinessProcessItem::getItemtypes() as $processItemtype) {
         $PLUGIN_HOOKS[Hooks::ITEM_PURGE]['grcmanager'][$processItemtype]
             ??= 'plugin_grcmanager_forget_business_process_item';
+    }
+    // Issue #375 : ni cité par le registre des traitements. En dernier : un seul rappel par type, et
+    // ceux déjà posés ci-dessus oublient aussi ces liens (ProcessingActivity::forgetItem()).
+    foreach (\GlpiPlugin\Grcmanager\ProcessingActivity::getTabItemtypes() as $processingItemtype) {
+        $PLUGIN_HOOKS[Hooks::ITEM_PURGE]['grcmanager'][$processingItemtype]
+            ??= 'plugin_grcmanager_forget_processing_activity_item';
     }
     // Rapports générés (audit, revue des accès, post-incident, cellule de crise) : lisibles par
     // les seules personnes qui lisent leur objet source, voir \GlpiPlugin\Grcmanager\RestrictedDocument.

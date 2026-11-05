@@ -253,6 +253,68 @@ final class ProcessingActivityTest extends GrcmanagerIntegrationTestCase
     /**
      * @param array<string, mixed> $input
      */
+    /**
+     * Traitements concernés par un incident : reliés depuis l'incident (le modifier, lire la fiche),
+     * jamais visibles par qui ne lit pas l'incident, et oubliés quand l'incident est purgé.
+     */
+    public function testIncidentLinkRespectsRightsAndIsForgottenOnPurge(): void
+    {
+        $activityId = $this->createActivity(['name' => 'Paie SITE_A, violation']);
+        $incident = new \PluginGrcmanagerSecurityIncident();
+        $incidentId = (int) $incident->add(['name' => 'PHPUnit fuite SITE_A', 'entities_id' => 0]);
+        $this->assertGreaterThan(0, $incidentId);
+        $incident->getFromDB($incidentId);
+        $count = static fn (): int => countElementsInTable(ProcessingActivity::ITEMS_TABLE, [
+            'itemtype' => ProcessingActivity::INCIDENT_ITEMTYPE, 'items_id' => $incidentId,
+        ]);
+
+        $this->assertTrue(ProcessingActivity::setIncidentLink($activityId, $incidentId, true));
+        $this->assertTrue(ProcessingActivity::setIncidentLink($activityId, $incidentId, true), 'Sans doublon.');
+        $this->assertSame(1, $count());
+        $this->assertSame([$activityId], array_column(ProcessingActivity::getForItem($incident), 'id'));
+        $this->assertNotSame('', (new ProcessingActivity())->getTabNameForItem($incident));
+
+        $right = \PluginGrcmanagerSecurityIncident::$rightname;
+        $saved = $_SESSION['glpiactiveprofile'][$right];
+        try {
+            // Sans droit de modifier l'incident : ni lien, ni retrait.
+            $_SESSION['glpiactiveprofile'][$right] = READ | \PluginGrcmanagerSecurityIncident::READALL;
+            $this->assertFalse(ProcessingActivity::setIncidentLink($activityId, $incidentId, false));
+            // Sans droit de lire l'incident : l'onglet ne montre rien.
+            $_SESSION['glpiactiveprofile'][$right] = 0;
+            ob_start();
+            $shown = ProcessingActivity::displayTabContentForItem($incident);
+            ob_end_clean();
+            $this->assertFalse($shown);
+        } finally {
+            $_SESSION['glpiactiveprofile'][$right] = $saved;
+        }
+        $this->assertSame(1, $count());
+
+        $this->assertTrue(ProcessingActivity::setIncidentLink($activityId, $incidentId, false));
+        $this->assertSame(0, $count());
+
+        ProcessingActivity::setIncidentLink($activityId, $incidentId, true);
+        $incident->delete(['id' => $incidentId], true);
+        $this->assertSame(0, $count(), 'Incident purgé : plus cité par le registre.');
+    }
+
+    public function testPurgedApplicationIsNoLongerCited(): void
+    {
+        $applianceId = (int) (new \Appliance())->add(['name' => 'Application purgée SITE_A', 'entities_id' => 0]);
+        $activity = new ProcessingActivity();
+        $activity->getFromDB($this->createActivity([
+            'name'                                  => 'Traitement avec application',
+            ProcessingActivity::LISTS_MARKER        => 1,
+            ProcessingActivity::linkedFieldName('Appliance') => [$applianceId],
+        ]));
+        $where = ['itemtype' => 'Appliance', 'items_id' => $applianceId];
+        $this->assertSame(1, countElementsInTable(ProcessingActivity::ITEMS_TABLE, $where));
+
+        (new \Appliance())->delete(['id' => $applianceId], true);
+        $this->assertSame(0, countElementsInTable(ProcessingActivity::ITEMS_TABLE, $where));
+    }
+
     private function createActivity(array $input): int
     {
         $id = (int) (new ProcessingActivity())->add($input + ['entities_id' => 0]);

@@ -7,6 +7,19 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Added
+
+- **Traitements concernés par un incident** (issue #375) : sur la fiche d'un incident de sécurité, un
+  onglet relie les traitements du registre dont les données personnelles sont touchées, pour
+  apprécier la notification RGPD. Il faut pouvoir modifier l'incident et lire la fiche ; une
+  personne qui ne lit pas l'incident ne voit pas l'onglet. Le lien se fait depuis l'incident, jamais
+  dans une liste d'incidents sur la fiche, pour ne pas montrer d'incident cloisonné à un DPO.
+
+### Fixed
+
+- **Liens orphelins du registre des traitements** : un élément ou un incident supprimé
+  définitivement n'est plus cité par le registre.
+
 ## [2.24.0] - 2026-11-04
 
 ### Added
