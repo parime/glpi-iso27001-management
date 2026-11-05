@@ -103,7 +103,10 @@ final class FrameworkConfig
                 'CSF 2.0 catalog, its equivalences on the controls and NIST score.',
                 'grcmanager'
             ),
-            FrameworkSelection::CIS_CONTROLS => __('CIS Controls v8 catalog.', 'grcmanager'),
+            FrameworkSelection::CIS_CONTROLS => __(
+                'CIS Controls v8 catalog, its indicative references on the controls and CIS score.',
+                'grcmanager'
+            ),
             FrameworkSelection::ISO27090     => __(
                 'AI security catalog and its references in the catalog of typical risks.',
                 'grcmanager'

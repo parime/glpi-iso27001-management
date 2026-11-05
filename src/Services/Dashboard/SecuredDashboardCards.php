@@ -105,7 +105,7 @@ final class SecuredDashboardCards
     private const FRAMEWORK_CARDS = [
         'complianceByFramework' => [
             FrameworkSelection::ISO27001, FrameworkSelection::NIS2,
-            FrameworkSelection::ANSSI, FrameworkSelection::NIST_CSF,
+            FrameworkSelection::ANSSI, FrameworkSelection::NIST_CSF, FrameworkSelection::CIS_CONTROLS,
         ],
     ];
 

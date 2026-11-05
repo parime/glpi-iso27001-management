@@ -24,6 +24,7 @@ use GlpiPlugin\Grcmanager\Compatibility\Base\ControlBase;
 use GlpiPlugin\Grcmanager\Services\Control\AnssiHygieneCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\AssetsignEvidence;
 use GlpiPlugin\Grcmanager\Services\Control\AssetsignEvidenceProvider;
+use GlpiPlugin\Grcmanager\Services\Control\CisControlsCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\ControlCrosswalkDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\ControlTestRules;
 use GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig;
@@ -664,6 +665,14 @@ class Control extends ControlBase
             ];
         }
 
+        // Issue #143 : contrôles CIS (correspondance indicative), intitulés officiels non traduits.
+        $cis = [];
+        if (FrameworkConfig::isEnabled(FrameworkSelection::CIS_CONTROLS)) {
+            foreach (CisControlsCatalogDefaults::controlsForAnnexA($code) as $cisNumber) {
+                $cis[] = ['number' => $cisNumber, 'title' => CisControlsCatalogDefaults::CONTROLS[$cisNumber]];
+            }
+        }
+
         // Issue #109 : preuves agrégées d'assetsign (fiches signées) pour A.5.9/A.5.10/A.5.11, et
         // taux de signature de la charte (assetsign #204) pour A.5.10 et A.6.3.
         $sheets = [];
@@ -705,6 +714,7 @@ class Control extends ControlBase
                 Nis2CatalogDefaults::requirementsForControl($code)
             ) : [],
             'anssi'                   => $anssi,
+            'cis'                     => $cis,
             'assetsign_sheets'        => $sheets,
             'assetsign_charter'       => $charter,
             'campaigns_url'           => $charter !== null ? AssetsignEvidenceProvider::campaignsUrl() : null,

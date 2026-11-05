@@ -101,7 +101,7 @@ archivé), avec ses champs de classification ISO 27001 fusionnés dessus.
 
 **Pilotage**
 - Tableau de bord ISMS par défaut et indicateurs à ajouter aux tableaux de bord GLPI, dont la
-  conformité par référentiel (ISO 27001, NIS2, ANSSI), les échéances à 90 jours, la revue des accès
+  conformité par référentiel (ISO 27001, NIS2, ANSSI, NIST CSF, CIS Controls), les échéances à 90 jours, la revue des accès
   et les délais NIS2 / RGPD en alerte ; menu GRC & Conformité > Tableau de bord, vues ISMS et
   Direction, tendance mensuelle.
 - **Formations notées**, en une ou plusieurs sessions (formateur, lieu, note, seuil de réussite,
@@ -262,7 +262,8 @@ du dépôt et dans la documentation indique uniquement le référentiel que le p
   © Center for Internet Security, Inc. CIS Controls® et CIS Critical Security Controls® sont des
   marques du Center for Internet Security, Inc. Ce projet n'est ni affilié ni approuvé par le CIS.
   Cet extrait n'est pas couvert par la licence GPLv3 du plugin et ne peut pas être réutilisé à
-  des fins commerciales.
+  des fins commerciales. La correspondance entre les 18 contrôles et l'Annexe A d'ISO 27001, qui
+  sert au score CIS, est indicative et établie par ce projet : elle ne reprend pas celle du CIS.
 - **NIST Cybersecurity Framework (CSF) 2.0** : publication du
   [National Institute of Standards and Technology](https://www.nist.gov/cyberframework)
   (gouvernement fédéral des États-Unis), dans le domaine public.

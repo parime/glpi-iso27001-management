@@ -58,9 +58,13 @@ final class SecurityIncidentCardProviderTest extends TestCase
         self::assertTrue(
             SecuredDashboardCards::frameworkAvailable('complianceByFramework', [FrameworkSelection::NIS2])
         );
+        // Issue #143 : le score CIS suffit à garder la carte.
+        self::assertTrue(
+            SecuredDashboardCards::frameworkAvailable('complianceByFramework', [FrameworkSelection::CIS_CONTROLS])
+        );
         self::assertFalse(SecuredDashboardCards::frameworkAvailable(
             'complianceByFramework',
-            [FrameworkSelection::CIS_CONTROLS, FrameworkSelection::ISO27090]
+            [FrameworkSelection::ISO27090]
         ));
         self::assertTrue(SecuredDashboardCards::frameworkAvailable('openRisksCount', []));
     }
