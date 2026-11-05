@@ -31,7 +31,7 @@ use NotificationEvent;
  * - BIA à revoir : date de la dernière BIA plus la fréquence de la revue périodique « Revue de
  *   l'analyse d'impact sur l'activité » (catalogue PeriodicReviewCatalog, annuelle par défaut).
  * - Test de reprise à refaire : date du dernier test mesuré plus la fréquence de la revue
- *   périodique « Test du PCA / PRA ».
+ *   périodique « Test du plan de continuité et de reprise ».
  *
  * Mêmes règles d'échéance que les tests d'efficacité (ControlTestRules : à venir dans les 30 jours,
  * puis en retard) et même mécanisme de notification (NotificationSupport) : un seul rappel par
