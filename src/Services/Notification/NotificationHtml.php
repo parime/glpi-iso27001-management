@@ -38,6 +38,35 @@ final class NotificationHtml
         ]));
     }
 
+    /**
+     * Issue #380 : corps habillé sur la structure de la charte des notifications de Configuration
+     * GLPI Auto, la couleur étant une balise remplacée à l'envoi.
+     *
+     * @param list<array{label: string, tag: string}>   $rows
+     * @param array{tag: string, if_tag: string}|null   $highlight encadré, masqué si if_tag est vide
+     * @param list<string>                              $lines     paragraphes sous le tableau
+     * @param array{url: string, text: string}          $cta       bouton
+     */
+    public static function renderBranded(
+        string $colorTag,
+        string $title,
+        string $meta,
+        array $rows,
+        ?array $highlight,
+        array $lines,
+        array $cta
+    ): string {
+        return trim(self::environment()->load('@grcmanager/notifications/branded_html.html.twig')->render([
+            'color_tag' => $colorTag,
+            'title'     => $title,
+            'meta'      => $meta,
+            'rows'      => $rows,
+            'highlight' => $highlight,
+            'lines'     => $lines,
+            'cta'       => $cta,
+        ]));
+    }
+
     /** @return array{type: string, text: string} ligne de titre en gras */
     public static function strong(string $text): array
     {

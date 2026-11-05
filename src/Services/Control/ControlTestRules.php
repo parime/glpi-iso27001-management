@@ -133,6 +133,71 @@ final class ControlTestRules
     }
 
     /**
+     * Retrait automatique de l'état « vérifié » : une mesure vérifiée dont le test suivant est en
+     * retard redevient « mise en œuvre » (la preuve d'efficacité est échue). Null sinon.
+     */
+    public static function statusWhenDue(string $currentStatus, ?string $nextDate, string $today): ?string
+    {
+        return $currentStatus === 'verified' && self::dueStatus($nextDate, $today) === self::DUE_OVERDUE
+            ? 'implemented'
+            : null;
+    }
+
+    /**
+     * Clé du rappel à envoyer pour cette échéance (échéance et état), null si aucun rappel n'est dû.
+     * Un rappel n'est envoyé qu'une fois par clé : une fois quand l'échéance approche, une fois
+     * quand elle est dépassée, et de nouveau quand un nouveau test déplace l'échéance.
+     */
+    public static function reminderKey(?string $nextDate, string $today): ?string
+    {
+        $status = self::dueStatus($nextDate, $today);
+        if ($status !== self::DUE_OVERDUE && $status !== self::DUE_SOON) {
+            return null;
+        }
+
+        return $nextDate . '|' . $status;
+    }
+
+    /** Groupe RSSI prévenu : jamais, pour les tests en retard seulement, ou pour tous les rappels. */
+    public const CISO_NEVER = 'never';
+    public const CISO_OVERDUE = 'overdue';
+    public const CISO_ALWAYS = 'always';
+    public const CISO_MODES = [self::CISO_NEVER, self::CISO_OVERDUE, self::CISO_ALWAYS];
+    public const DEFAULT_CISO_MODE = self::CISO_OVERDUE;
+
+    public static function normalizeCisoMode(mixed $value): string
+    {
+        $value = (string) $value;
+
+        return in_array($value, self::CISO_MODES, true) ? $value : self::DEFAULT_CISO_MODE;
+    }
+
+    /**
+     * Le groupe RSSI reçoit-il le rappel d'une échéance dans cet état ?
+     */
+    public static function notifiesCiso(string $mode, string $dueStatus): bool
+    {
+        return match (self::normalizeCisoMode($mode)) {
+            self::CISO_ALWAYS  => in_array($dueStatus, [self::DUE_OVERDUE, self::DUE_SOON], true),
+            self::CISO_OVERDUE => $dueStatus === self::DUE_OVERDUE,
+            default            => false,
+        };
+    }
+
+    /**
+     * Couleur de la charte des notifications publiée par Configuration GLPI Auto : une couleur
+     * hexadécimale #rrggbb, sinon la couleur par défaut (la même que celle de ce plugin).
+     */
+    public const DEFAULT_BRAND_COLOR = '#206bc4';
+
+    public static function brandColor(mixed $value): string
+    {
+        $value = trim((string) $value);
+
+        return preg_match('/^#[0-9a-fA-F]{6}$/', $value) === 1 ? strtolower($value) : self::DEFAULT_BRAND_COLOR;
+    }
+
+    /**
      * Un test inefficace ouvre une non-conformité ; un test partiel reste une observation à suivre.
      */
     public static function opensNonconformity(string $result): bool
