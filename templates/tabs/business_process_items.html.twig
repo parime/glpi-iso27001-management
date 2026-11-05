@@ -72,6 +72,17 @@
               {% else %}
                 <span class="badge bg-green-lt">{{ __('OK', 'grcmanager') }}</span>
               {% endfor %}
+              {% if can_propose_risk and dependency.issues is not empty and dependency.itemtype in risk_itemtypes %}
+                <form method="post" action="{{ risk_url }}" class="mt-1">
+                  <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                  <input type="hidden" name="plugin_grcmanager_businessprocesses_id" value="{{ item.getID() }}">
+                  <input type="hidden" name="itemtype" value="{{ dependency.itemtype }}">
+                  <input type="hidden" name="items_id" value="{{ dependency.items_id }}">
+                  <button type="submit" name="create_risk" value="1" class="btn btn-sm btn-outline-warning grcmanager-propose-risk">
+                    <i class="ti ti-shield-plus me-1"></i>{{ __('Propose a risk', 'grcmanager') }}
+                  </button>
+                </form>
+              {% endif %}
             </td>
             {% if can_edit %}
               <td>

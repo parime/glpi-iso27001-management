@@ -1,0 +1,214 @@
+{# Issue #377 : plan de continuité (PCA / PRA) des processus métier, voir
+   GlpiPlugin\\Grcmanager\\BusinessProcess::renderContinuityReport(). Ne contient que ce que la
+   personne qui l'exporte peut lire. #}
+{% include '@grcmanager/pdf/_pdf_style.html.twig' %}
+<style>
+  .grc-level-1 { background-color: #d1f2dc; }
+  .grc-level-2 { background-color: #fff3c4; }
+  .grc-level-3 { background-color: #ffd8b0; }
+  .grc-level-4 { background-color: #f9c0c0; }
+  .grc-sheet { page-break-before: always; }
+  .grc-sheet-first { page-break-before: auto; }
+  .grc-issue { color: #b54708; }
+  .grc-muted { color: #6c757d; }
+  table.grcmanager-pdf-table td.grc-center, table.grcmanager-pdf-table th.grc-center { text-align: center; }
+</style>
+
+{% if show_summary %}
+  <h2>{{ __('Summary', 'grcmanager') }}</h2>
+  {% if sheets is empty %}
+    <p class="grc-muted">{{ __('No business process you can see.', 'grcmanager') }}</p>
+  {% else %}
+    <table class="grcmanager-pdf-table">
+      <thead>
+        <tr>
+          <th>{{ _n('Business process', 'Business processes', 1, 'grcmanager') }}</th>
+          <th>{{ __('Entity') }}</th>
+          <th>{{ __('Business criticality', 'grcmanager') }}</th>
+          <th>{{ __('MTPD', 'grcmanager') }}</th>
+          <th>RTO</th>
+          <th>RPO</th>
+          <th>{{ __('Last business impact analysis', 'grcmanager') }}</th>
+          <th>{{ __('Consistency checks', 'grcmanager') }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for sheet in sheets %}
+          <tr>
+            <td>{{ sheet.name }}</td>
+            <td>{{ sheet.entity }}</td>
+            <td>{{ sheet.criticity }}</td>
+            <td>{{ sheet.mtpd }}</td>
+            <td>{{ sheet.rto }}</td>
+            <td>{{ sheet.rpo }}</td>
+            <td>{{ sheet.bia_date }}</td>
+            <td class="grc-center">{{ sheet.issues|length + sheet.late }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <p class="grc-muted">{{ __('Consistency checks: objectives of the process, plus items and processes it depends on that do not meet them.', 'grcmanager') }}</p>
+  {% endif %}
+{% endif %}
+
+{% for sheet in sheets %}
+  <div class="{{ (loop.first and not show_summary) ? 'grc-sheet-first' : 'grc-sheet' }}">
+    <h2>{{ sheet.name }}</h2>
+    <table class="grcmanager-pdf-table">
+      <tr><th style="width: 30%;">{{ __('Entity') }}</th><td>{{ sheet.entity }}</td></tr>
+      <tr><th>{{ __('Owner', 'grcmanager') }}</th><td>{{ sheet.owner }}</td></tr>
+      <tr><th>{{ __('Group') }}</th><td>{{ sheet.group }}</td></tr>
+      <tr><th>{{ __('Business criticality', 'grcmanager') }}</th><td>{{ sheet.criticity }}</td></tr>
+      <tr><th>{{ __('MTPD', 'grcmanager') }}</th><td>{{ sheet.mtpd }}</td></tr>
+      <tr><th>RTO</th><td>{{ sheet.rto }}</td></tr>
+      <tr><th>RPO</th><td>{{ sheet.rpo }}</td></tr>
+      <tr><th>{{ __('Last business impact analysis', 'grcmanager') }}</th><td>{{ sheet.bia_date }}</td></tr>
+      {% if sheet.description is not empty %}
+        <tr><th>{{ __('Description') }}</th><td>{{ sheet.description|nl2br }}</td></tr>
+      {% endif %}
+    </table>
+
+    <h3>{{ __('Business impact analysis', 'grcmanager') }}</h3>
+    <table class="grcmanager-pdf-table">
+      <thead>
+        <tr>
+          <th>{{ __('Disruption', 'grcmanager') }}</th>
+          {% for category in categories %}<th class="grc-center">{{ category }}</th>{% endfor %}
+          <th class="grc-center">{{ __('Worst impact', 'grcmanager') }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in sheet.grid %}
+          <tr>
+            <td>{{ row.horizon }}</td>
+            {% for cell in row.cells %}
+              <td class="grc-center grc-level-{{ cell.level }}">{{ cell.label }}</td>
+            {% endfor %}
+            <td class="grc-center grc-level-{{ row.worst.level }}"><strong>{{ row.worst.label }}</strong></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <h3>{{ __('Consistency checks', 'grcmanager') }}</h3>
+    {% if sheet.issues is empty %}
+      <p>{{ __('The objectives of the process are consistent with its analysis.', 'grcmanager') }}</p>
+    {% else %}
+      <ul>
+        {% for issue in sheet.issues %}<li class="grc-issue">{{ issue }}</li>{% endfor %}
+      </ul>
+    {% endif %}
+
+    <h3>{{ __('Items it depends on', 'grcmanager') }}</h3>
+    {% if sheet.dependencies is empty %}
+      <p class="grc-muted">{{ __('No dependency you can see.', 'grcmanager') }}</p>
+    {% else %}
+      <table class="grcmanager-pdf-table">
+        <thead>
+          <tr>
+            <th>{{ __('Item', 'grcmanager') }}</th>
+            <th>{{ __('Role', 'grcmanager') }}</th>
+            <th>{{ __('Business criticality', 'grcmanager') }}</th>
+            <th>RTO</th>
+            <th>RPO</th>
+            <th>{{ __('Consistency checks', 'grcmanager') }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for dependency in sheet.dependencies %}
+            <tr>
+              <td>
+                {{ dependency.label }}
+                {% if dependency.depth > 0 %}<br><span class="grc-muted">{{ __('Indirect (level %d)', 'grcmanager')|format(dependency.depth) }}</span>{% endif %}
+              </td>
+              <td>{{ dependency.comment }}</td>
+              <td>{{ dependency.criticity }}</td>
+              <td>{{ dependency.rto }}</td>
+              <td>{{ dependency.rpo }}</td>
+              <td>
+                {% for issue in dependency.issues %}<div class="grc-issue">{{ issue }}</div>{% else %}{{ __('OK', 'grcmanager') }}{% endfor %}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% endif %}
+    {% if sheet.hidden_items > 0 %}
+      <p class="grc-muted">{{ _n('%d other item you cannot see is not listed.', '%d other items you cannot see are not listed.', sheet.hidden_items, 'grcmanager')|format(sheet.hidden_items) }}</p>
+    {% endif %}
+
+    <h3>{{ __('Linked processes', 'grcmanager') }}</h3>
+    {% if sheet.upstream is empty and sheet.downstream is empty %}
+      <p class="grc-muted">{{ __('No linked process you can see.', 'grcmanager') }}</p>
+    {% endif %}
+    {% if sheet.upstream is not empty %}
+      <table class="grcmanager-pdf-table">
+        <thead>
+          <tr>
+            <th>{{ __('Processes this process depends on', 'grcmanager') }}</th>
+            <th>{{ __('Role', 'grcmanager') }}</th>
+            <th>RTO</th>
+            <th>RPO</th>
+            <th>{{ __('Consistency checks', 'grcmanager') }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for node in sheet.upstream %}
+            <tr>
+              <td>
+                {{ node.name }}
+                {% if node.depth > 1 %}<br><span class="grc-muted">{{ __('Indirect (level %d)', 'grcmanager')|format(node.depth - 1) }}</span>{% endif %}
+              </td>
+              <td>{{ node.comment }}</td>
+              <td>{{ node.rto }}</td>
+              <td>{{ node.rpo }}</td>
+              <td>
+                {% for issue in node.issues %}<div class="grc-issue">{{ issue }}</div>{% else %}{{ __('OK', 'grcmanager') }}{% endfor %}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% endif %}
+    {% if sheet.downstream is not empty %}
+      <p><strong>{{ __('Processes that depend on this process', 'grcmanager') }} :</strong> {{ sheet.downstream|join(', ') }}</p>
+      {% if sheet.required.rto is not empty %}
+        <p>{{ __('Required RTO: %1$s (process %2$s)', 'grcmanager')|format(sheet.required.rto, sheet.required.rto_from) }}</p>
+      {% endif %}
+      {% if sheet.required.rpo is not empty %}
+        <p>{{ __('Required RPO: %1$s (process %2$s)', 'grcmanager')|format(sheet.required.rpo, sheet.required.rpo_from) }}</p>
+      {% endif %}
+    {% endif %}
+    {% if sheet.hidden_processes > 0 %}
+      <p class="grc-muted">{{ _n('%d other process you cannot see is not listed.', '%d other processes you cannot see are not listed.', sheet.hidden_processes, 'grcmanager')|format(sheet.hidden_processes) }}</p>
+    {% endif %}
+
+    {% if show_risks %}
+      <h3>{{ __('Linked risks', 'grcmanager') }}</h3>
+      {% if sheet.risks is empty %}
+        <p class="grc-muted">{{ __('No risk linked to this process.', 'grcmanager') }}</p>
+      {% else %}
+        <table class="grcmanager-pdf-table">
+          <thead>
+            <tr>
+              <th>{{ __('Title', 'grcmanager') }}</th>
+              <th>{{ __('Risk level', 'grcmanager') }}</th>
+              <th>{{ __('Treatment', 'grcmanager') }}</th>
+              <th>{{ __('Status', 'grcmanager') }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for risk in sheet.risks %}
+              <tr>
+                <td>{{ risk.title }}</td>
+                <td>{{ risk.level }}</td>
+                <td>{{ risk.treatment }}</td>
+                <td>{{ risk.status }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% endif %}
+    {% endif %}
+  </div>
+{% endfor %}
