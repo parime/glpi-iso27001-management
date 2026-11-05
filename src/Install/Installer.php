@@ -272,6 +272,8 @@ final class Installer
         \GlpiPlugin\Grcmanager\EbiosStakeholder::class,
         \GlpiPlugin\Grcmanager\EbiosStrategicScenario::class,
         \GlpiPlugin\Grcmanager\EbiosOperationalScenario::class,
+        // Issue #380, deuxième étape : rappel des tests d'efficacité.
+        \GlpiPlugin\Grcmanager\NotificationTargetControl::class,
     ];
     // Issue #375 : registre des activités de traitement (RGPD, article 30) et éléments GLPI cités,
     // voir \GlpiPlugin\Grcmanager\ProcessingActivity.
@@ -572,6 +574,16 @@ final class Installer
             ]);
             $migration->addField(self::CONTROLS_TABLE, 'users_id_tester', 'fkey', ['after' => 'test_method']);
             $migration->addKey(self::CONTROLS_TABLE, 'users_id_tester', 'users_id_tester');
+            $migration->migrationOneTable(self::CONTROLS_TABLE);
+        }
+        // Issue #380, deuxième étape : dernier rappel envoyé (échéance et état, voir
+        // \GlpiPlugin\Grcmanager\ControlTestReminder), pour ne prévenir qu'une fois par échéance.
+        if (!$DB->fieldExists(self::CONTROLS_TABLE, 'test_reminder_key')) {
+            $migration->addField(self::CONTROLS_TABLE, 'test_reminder_key', 'string', [
+                'value'   => '',
+                'comment' => 'Echeance et etat du dernier rappel envoye, ex. 2026-11-30|due_soon',
+                'after'   => 'users_id_tester',
+            ]);
             $migration->migrationOneTable(self::CONTROLS_TABLE);
         }
 
@@ -2956,6 +2968,7 @@ final class Installer
         $this->seedEvidenceExpiringNotification();
         $this->seedWaiverExpiringNotification();
         $this->seedComplianceEventReminderNotification();
+        $this->seedControlTestReminderNotification();
         $this->migrateResponsibleTargets();
 
         // Issue #126 : relance hebdomadaire des responsables en retard sur une revue des accès.
@@ -3188,6 +3201,20 @@ final class Installer
             [
                 'comment' => 'Prévient le responsable avant l\'expiration d\'une preuve, puis ouvre '
                     . 'un ticket de renouvellement',
+                'mode'    => CronTask::MODE_EXTERNAL,
+            ]
+        );
+
+        // Issue #380, deuxième étape : rappel des tests d'efficacité en retard ou proches de
+        // l'échéance, et retrait de l'état « Vérifié » quand le dernier test est échu
+        // (\GlpiPlugin\Grcmanager\ControlTest::cronControltestreminder()).
+        CronTask::Register(
+            \GlpiPlugin\Grcmanager\ControlTest::class,
+            \GlpiPlugin\Grcmanager\ControlTestReminder::CRON_NAME,
+            DAY_TIMESTAMP,
+            [
+                'comment' => 'Rappelle les tests d\'efficacité en retard ou proches de l\'échéance et '
+                    . 'retire l\'état « Vérifié » quand le dernier test est échu',
                 'mode'    => CronTask::MODE_EXTERNAL,
             ]
         );
@@ -3681,6 +3708,90 @@ final class Installer
             'type'             => Notification::USER_TYPE,
             'items_id'         => \GlpiPlugin\Grcmanager\NotificationTargetComplianceEvent::TARGET_RESPONSIBLE,
         ]);
+    }
+
+    /**
+     * Issue #380, deuxième étape : rappel d'un test d'efficacité en retard ou à réaliser dans les
+     * 30 jours (\GlpiPlugin\Grcmanager\ControlTestReminder), au responsable du plan de test et au
+     * groupe RSSI (selon le réglage). Habillage sur la structure de la charte des notifications de
+     * Configuration GLPI Auto, sa couleur étant lue à l'envoi. Idempotent : une notification déjà
+     * présente (éventuellement modifiée par un administrateur) n'est jamais réécrite.
+     */
+    private function seedControlTestReminderNotification(): void
+    {
+        global $DB;
+
+        $itemtype = \GlpiPlugin\Grcmanager\Control::class;
+        $event    = \GlpiPlugin\Grcmanager\ControlTestReminder::EVENT;
+        $where = ['itemtype' => $itemtype, 'event' => $event];
+        if ($DB->request(['FROM' => 'glpi_notifications', 'WHERE' => $where])->count() > 0) {
+            return;
+        }
+
+        $name = 'GRC Manager - Test d\'efficacité à réaliser';
+        $templateId = (new NotificationTemplate())->add([
+            'name'     => $name,
+            'itemtype' => $itemtype,
+            'comment'  => 'Notification envoyée par la tâche automatique GRC Manager lorsqu\'un test '
+                . 'd\'efficacité d\'une mesure de l\'Annexe A est en retard ou à réaliser dans les 30 jours.',
+        ]);
+        $advice = 'Réalisez le test et enregistrez son résultat dans l\'onglet « Tests d\'efficacité » de la '
+            . 'mesure. Un test en retard retire l\'état « Vérifié » de la mesure dans la SoA.';
+        $text = "##controltest.duestatus## : ##controltest.control##\n\n"
+            . "Prochain test : ##controltest.nextdate##\n"
+            . "Dernier test : ##controltest.lastdate## (##controltest.lastresult##)\n"
+            . "Responsable du plan de test : ##controltest.tester##\n"
+            . "État de mise en œuvre : ##controltest.status##\n"
+            . "##IFcontroltest.withdrawn##\n##controltest.withdrawn##\n##ENDIFcontroltest.withdrawn##\n"
+            . $advice . "\n\n"
+            . "Voir la mesure : ##controltest.url##";
+        $DB->insert('glpi_notificationtemplatetranslations', [
+            'notificationtemplates_id' => $templateId,
+            'language'                 => '',
+            'subject'                  => '##controltest.duestatus## : ##controltest.control##',
+            'content_text'             => $text,
+            'content_html'             => NotificationHtml::renderBranded(
+                '##controltest.brandcolor##',
+                '##controltest.duestatus## : ##controltest.control##',
+                '##controltest.action##',
+                [
+                    ['label' => 'Prochain test', 'tag' => '##controltest.nextdate##'],
+                    ['label' => 'Dernier test', 'tag' => '##controltest.lastdate##'],
+                    ['label' => 'Résultat', 'tag' => '##controltest.lastresult##'],
+                    ['label' => 'Responsable du plan de test', 'tag' => '##controltest.tester##'],
+                    ['label' => 'État de mise en œuvre', 'tag' => '##controltest.status##'],
+                ],
+                ['tag' => '##controltest.withdrawn##', 'if_tag' => 'controltest.withdrawn'],
+                [$advice],
+                ['url' => '##controltest.url##', 'text' => 'Voir la mesure']
+            ),
+        ]);
+
+        $notificationId = (new Notification())->add([
+            'name'         => $name,
+            'entities_id'  => 0,
+            'is_recursive' => 1,
+            'itemtype'     => $itemtype,
+            'event'        => $event,
+            'is_active'    => 1,
+        ]);
+        $DB->insert('glpi_notifications_notificationtemplates', [
+            'notifications_id'         => $notificationId,
+            'mode'                     => 'mailing',
+            'notificationtemplates_id' => $templateId,
+        ]);
+        foreach (
+            [
+                \GlpiPlugin\Grcmanager\NotificationTargetControl::TARGET_TESTER,
+                \GlpiPlugin\Grcmanager\NotificationTargetControl::TARGET_CISO_GROUP,
+            ] as $target
+        ) {
+            $DB->insert('glpi_notificationtargets', [
+                'notifications_id' => $notificationId,
+                'type'             => Notification::USER_TYPE,
+                'items_id'         => $target,
+            ]);
+        }
     }
 
     private function seedWaiverExpiringNotification(): void
@@ -4797,6 +4908,8 @@ final class Installer
         $this->unseedNotification('GlpiPlugin\\Grcmanager\\AccessReview');
         $this->unseedNotification(\GlpiPlugin\Grcmanager\BreachExposure::class);
         $this->unseedNotification(\GlpiPlugin\Grcmanager\IncidentAccessWatch::class);
+        // Issue #380 : rappel des tests d'efficacité.
+        $this->unseedNotification(\GlpiPlugin\Grcmanager\Control::class);
 
         // Absorption de glpi-security-incidents (ROADMAP.md "Version 2.0") : colonnes ajoutées sur
         // les tables cœur pour la gestion de modèles - même dérivation que le plugin absorbé

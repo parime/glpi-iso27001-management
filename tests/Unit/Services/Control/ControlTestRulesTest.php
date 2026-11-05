@@ -58,6 +58,50 @@ final class ControlTestRulesTest extends TestCase
         self::assertNull(ControlTestRules::statusAfterTest('not_started', 'ineffective'));
     }
 
+    public function testVerifiedStatusIsWithdrawnOnlyWhenTheNextTestIsOverdue(): void
+    {
+        $today = '2026-11-03';
+        self::assertSame('implemented', ControlTestRules::statusWhenDue('verified', '2026-11-02', $today));
+        self::assertNull(ControlTestRules::statusWhenDue('verified', '2026-11-03', $today), 'Échéance du jour.');
+        self::assertNull(ControlTestRules::statusWhenDue('verified', null, $today), 'Sans échéance.');
+        self::assertNull(ControlTestRules::statusWhenDue('implemented', '2026-01-01', $today));
+        self::assertNull(ControlTestRules::statusWhenDue('in_progress', '2026-01-01', $today));
+    }
+
+    public function testOneReminderPerDueDateAndState(): void
+    {
+        $today = '2026-11-03';
+        self::assertNull(ControlTestRules::reminderKey(null, $today));
+        self::assertNull(ControlTestRules::reminderKey('2027-01-01', $today), 'Échéance lointaine.');
+        self::assertSame('2026-11-20|due_soon', ControlTestRules::reminderKey('2026-11-20', $today));
+        self::assertSame('2026-11-02|overdue', ControlTestRules::reminderKey('2026-11-02', $today));
+        self::assertNotSame(
+            ControlTestRules::reminderKey('2026-11-20', $today),
+            ControlTestRules::reminderKey('2026-11-20', '2026-11-21'),
+            'Un test en retard est rappelé une seconde fois.'
+        );
+    }
+
+    public function testCisoGroupFollowsTheSetting(): void
+    {
+        self::assertSame(ControlTestRules::CISO_OVERDUE, ControlTestRules::normalizeCisoMode('nimporte'));
+        self::assertSame(ControlTestRules::CISO_NEVER, ControlTestRules::normalizeCisoMode('never'));
+        self::assertTrue(ControlTestRules::notifiesCiso('overdue', ControlTestRules::DUE_OVERDUE));
+        self::assertFalse(ControlTestRules::notifiesCiso('overdue', ControlTestRules::DUE_SOON));
+        self::assertTrue(ControlTestRules::notifiesCiso('always', ControlTestRules::DUE_SOON));
+        self::assertFalse(ControlTestRules::notifiesCiso('always', ControlTestRules::DUE_PLANNED));
+        self::assertFalse(ControlTestRules::notifiesCiso('never', ControlTestRules::DUE_OVERDUE));
+    }
+
+    public function testBrandColorAcceptsOnlyAHexColor(): void
+    {
+        self::assertSame('#aa3366', ControlTestRules::brandColor('#AA3366'));
+        self::assertSame(ControlTestRules::DEFAULT_BRAND_COLOR, ControlTestRules::brandColor(''));
+        self::assertSame(ControlTestRules::DEFAULT_BRAND_COLOR, ControlTestRules::brandColor('red'));
+        self::assertSame(ControlTestRules::DEFAULT_BRAND_COLOR, ControlTestRules::brandColor('#123456"><script>'));
+        self::assertSame(ControlTestRules::DEFAULT_BRAND_COLOR, ControlTestRules::brandColor(null));
+    }
+
     public function testOnlyAnIneffectiveControlOpensANonconformity(): void
     {
         self::assertTrue(ControlTestRules::opensNonconformity('ineffective'));

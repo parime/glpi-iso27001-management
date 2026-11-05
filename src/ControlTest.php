@@ -18,6 +18,7 @@
 namespace GlpiPlugin\Grcmanager;
 
 use CommonGLPI;
+use CronTask;
 use Document;
 use Dropdown;
 use Glpi\Application\View\TemplateRenderer;
@@ -427,6 +428,36 @@ class ControlTest extends ControlTestBase
         usort($schedule, static fn (array $a, array $b): int => strcmp($a['next'], $b['next']));
 
         return $schedule;
+    }
+
+    /**
+     * @param string $name
+     * @return array<string, string>
+     */
+    public static function cronInfo($name)
+    {
+        return $name === ControlTestReminder::CRON_NAME
+            ? ['description' => __(
+                'Reminds overdue or upcoming effectiveness tests and withdraws the expired "Verified" status',
+                'grcmanager'
+            )]
+            : [];
+    }
+
+    /**
+     * Issue #380 : rappels des tests et retrait de l'état « Vérifié » (ControlTestReminder::run()).
+     */
+    public static function cronControltestreminder(CronTask $task): int
+    {
+        $result = ControlTestReminder::run(date('Y-m-d'));
+        $task->addVolume($result['notified'] + $result['withdrawn']);
+        $task->log(sprintf(
+            '%d rappel(s), %d état(s) « Vérifié » retiré(s).',
+            $result['notified'],
+            $result['withdrawn']
+        ));
+
+        return ($result['notified'] + $result['withdrawn']) > 0 ? 1 : 0;
     }
 
     /**

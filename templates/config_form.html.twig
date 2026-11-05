@@ -142,6 +142,38 @@
   </div>
 </div>
 
+{# Issue #380 : rappel des tests d'efficacité (tâche planifiée controltestreminder). Le responsable
+   du plan de test est toujours prévenu ; le groupe RSSI ci-dessus selon ce réglage. #}
+<div class="card mb-3">
+  <div class="card-body">
+    <h4>{{ __('Effectiveness test reminders', 'grcmanager') }}</h4>
+    <p class="text-muted">
+      {{ __('The test plan owner is reminded of an overdue test or a test due within 30 days. An overdue test withdraws the "Verified" status of the control.', 'grcmanager') }}
+    </p>
+    <form method="post" action="{{ config('root_doc') }}/plugins/grcmanager/front/config.php">
+      <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
+      <label class="form-label" for="grc-controltest-ciso">{{ __('Also remind the CISO group', 'grcmanager') }}</label>
+      <select class="form-select" id="grc-controltest-ciso" name="controltest_reminder_ciso" {{ can_edit_config ? '' : 'disabled' }}>
+        {% for key, label in controltest_ciso_modes %}
+          <option value="{{ key }}" {{ key == controltest_ciso_mode ? 'selected' }}>{{ label }}</option>
+        {% endfor %}
+      </select>
+      {% if ciso_groups_id <= 0 %}
+        <div class="form-hint">{{ __('No CISO group is set (Internal audits above, or Configuration GLPI Auto): only the test plan owner is reminded.', 'grcmanager') }}</div>
+      {% endif %}
+      <div class="form-hint">
+        {{ controltest_cga_branding ? __('E-mail colour taken from the notification branding of Configuration GLPI Auto:', 'grcmanager') : __('E-mail colour:', 'grcmanager') }}
+        <span class="badge" style="background-color: {{ controltest_brand_color }};">&nbsp;&nbsp;&nbsp;</span> {{ controltest_brand_color }}
+      </div>
+      {% if can_edit_config %}
+        <div class="d-flex gap-2 mt-2">
+          <button type="submit" name="update_controltest_reminder" class="btn btn-primary">{{ __('Enregistrer') }}</button>
+        </div>
+      {% endif %}
+    </form>
+  </div>
+</div>
+
 {# Absorption de glpi-security-incidents (ROADMAP.md "Version 2.0") : interrupteurs
    module/CVE/modèles/tableau de bord, un par fonctionnalité plutôt qu'un seul bouton global
    (voir front/config.php, SecurityIncidentModuleConfig). Le sous-module technique

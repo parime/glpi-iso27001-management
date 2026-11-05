@@ -10262,3 +10262,45 @@ msgid_plural "%d other processes you cannot see are not listed."
 msgstr[0] "%d inny proces, którego nie możesz zobaczyć, nie jest wyświetlany."
 msgstr[1] "%d inne procesy, których nie możesz zobaczyć, nie są wyświetlane."
 msgstr[2] "%d innych procesów, których nie możesz zobaczyć, nie jest wyświetlanych."
+
+msgid "Effectiveness test overdue or due soon"
+msgstr "Test skuteczności zaległy lub zbliżający się"
+
+msgid "Test plan owner"
+msgstr "Odpowiedzialny za plan testów"
+
+msgid "The \"Verified\" status was withdrawn: the last effectiveness test has expired."
+msgstr "Status „Zweryfikowane” został cofnięty: ostatni test skuteczności wygasł."
+
+msgid "Verified status withdrawn"
+msgstr "Cofnięty status „Zweryfikowane”"
+
+msgid "Notification colour"
+msgstr "Kolor powiadomienia"
+
+msgid "Reminds overdue or upcoming effectiveness tests and withdraws the expired \"Verified\" status"
+msgstr "Przypomina o zaległych lub nadchodzących testach skuteczności i cofa wygasły status „Zweryfikowane”"
+
+msgid "Overdue tests only"
+msgstr "Tylko zaległe testy"
+
+msgid "Overdue tests and tests due soon"
+msgstr "Testy zaległe i zbliżające się"
+
+msgid "Effectiveness test reminders"
+msgstr "Przypomnienia o testach skuteczności"
+
+msgid "The test plan owner is reminded of an overdue test or a test due within 30 days. An overdue test withdraws the \"Verified\" status of the control."
+msgstr "Odpowiedzialny za plan testów otrzymuje przypomnienie o teście zaległym lub przypadającym w ciągu 30 dni. Zaległy test cofa status „Zweryfikowane” zabezpieczenia."
+
+msgid "Also remind the CISO group"
+msgstr "Powiadamiaj także grupę CISO"
+
+msgid "No CISO group is set (Internal audits above, or Configuration GLPI Auto): only the test plan owner is reminded."
+msgstr "Nie ustawiono grupy CISO (Audyty wewnętrzne powyżej lub Configuration GLPI Auto): przypomnienie otrzymuje tylko odpowiedzialny za plan testów."
+
+msgid "E-mail colour taken from the notification branding of Configuration GLPI Auto:"
+msgstr "Kolor wiadomości e-mail przejęty z identyfikacji wizualnej powiadomień Configuration GLPI Auto:"
+
+msgid "E-mail colour:"
+msgstr "Kolor wiadomości e-mail:"
