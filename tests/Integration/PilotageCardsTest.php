@@ -199,7 +199,8 @@ final class PilotageCardsTest extends GrcmanagerIntegrationTestCase
             'FROM'  => \Glpi\Dashboard\Item::getTable(),
             'WHERE' => ['dashboards_dashboards_id' => $dashboard->fields['id']],
         ]), false);
-        $this->assertCount(15, $items); // Issue #378 : 4 cartes (appétence, tolérance, KRI).
+        // Issue #378 : 4 cartes (appétence, tolérance, KRI), puis la tendance des KRI.
+        $this->assertCount(16, $items);
         foreach ($items as $item) {
             $this->assertArrayHasKey($item['card_id'], $cards, $item['card_id']);
         }

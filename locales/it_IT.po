@@ -8896,3 +8896,36 @@ msgstr "Colore delle e-mail ripreso dalla grafica delle notifiche di Configurati
 
 msgid "E-mail colour:"
 msgstr "Colore delle e-mail:"
+
+msgid "Risk indicator (KRI) in alert"
+msgstr "Indicatore di rischio (KRI) in allerta"
+
+msgid "Risk indicator (KRI) back to green"
+msgstr "Indicatore di rischio (KRI) tornato al verde"
+
+msgid "Risk indicator owner"
+msgstr "Responsabile dell'indicatore di rischio"
+
+msgid "Previous status"
+msgstr "Stato precedente"
+
+msgid "When an indicator turns red"
+msgstr "Quando un indicatore diventa rosso"
+
+msgid "From orange"
+msgstr "Dall'arancione"
+
+msgid "Risk indicator (KRI) alerts"
+msgstr "Allerte degli indicatori di rischio (KRI)"
+
+msgid "Alert level"
+msgstr "Livello di allerta"
+
+msgid "Trend of the indicator with its thresholds"
+msgstr "Andamento dell'indicatore con le sue soglie"
+
+msgid "Risk indicators (KRI) in the red and orange by month"
+msgstr "Indicatori di rischio (KRI) in rosso e arancione per mese"
+
+msgid "The owner of the indicator and the CISO group are notified once when an indicator reaches the alert level, then when it is back to green. Only recipients who can read the indicator and the data it measures receive it."
+msgstr "Il responsabile dell'indicatore e il gruppo CISO vengono avvisati una volta quando un indicatore raggiunge il livello di allerta, poi quando torna al verde. Lo ricevono solo i destinatari che possono leggere l'indicatore e i dati che misura."

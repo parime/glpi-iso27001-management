@@ -180,6 +180,20 @@ if (isset($_POST['update_controltest_reminder'])) {
     Html::back();
 }
 
+// Issue #378 : niveau d'alerte des indicateurs de risque (rouge seulement, ou dès l'orange).
+if (isset($_POST['update_kri_alert'])) {
+    Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
+
+    // Énumération fermée : une valeur inconnue revient au réglage par défaut.
+    if (\GlpiPlugin\Grcmanager\KriAlert::saveLevel((string) ($_POST['kri_alert_level'] ?? ''))) {
+        \GlpiPlugin\Grcmanager\AuditLog::record('config_change', 'Config', 0, 0, 'success', [
+            'changes' => ['kri_alert_level' => \GlpiPlugin\Grcmanager\KriAlert::level()],
+        ]);
+    }
+
+    Html::back();
+}
+
 if (isset($_POST['update_audit_config'])) {
     Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
 
@@ -241,6 +255,8 @@ Html::header(
     'controltest_ciso_modes'    => \GlpiPlugin\Grcmanager\ControlTestReminder::getCisoModes(),
     'controltest_brand_color'   => \GlpiPlugin\Grcmanager\ControlTestReminder::brandColor(),
     'controltest_cga_branding'  => \GlpiPlugin\Grcmanager\ControlTestReminder::isCgaActive(),
+    'kri_alert_level'           => \GlpiPlugin\Grcmanager\KriAlert::level(),
+    'kri_alert_levels'          => \GlpiPlugin\Grcmanager\KriAlert::getLevels(),
     'notifications_minimal'     => SensitiveNotification::isMinimal(),
     'can_edit_sensitive'        => Session::haveRight(Installer::SENSITIVE_RIGHT, UPDATE),
     'breach_enabled'            => BreachMonitorConfig::isEnabled(),

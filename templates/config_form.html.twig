@@ -174,6 +174,31 @@
   </div>
 </div>
 
+{# Issue #378 : alerte des indicateurs de risque (KRI), au responsable du KRI et au groupe RSSI,
+   une fois par changement d'état, puis au retour au vert. #}
+<div class="card mb-3">
+  <div class="card-body">
+    <h4>{{ __('Risk indicator (KRI) alerts', 'grcmanager') }}</h4>
+    <p class="text-muted">
+      {{ __('The owner of the indicator and the CISO group are notified once when an indicator reaches the alert level, then when it is back to green. Only recipients who can read the indicator and the data it measures receive it.', 'grcmanager') }}
+    </p>
+    <form method="post" action="{{ config('root_doc') }}/plugins/grcmanager/front/config.php">
+      <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
+      <label class="form-label" for="grc-kri-alert-level">{{ __('Alert level', 'grcmanager') }}</label>
+      <select class="form-select" id="grc-kri-alert-level" name="kri_alert_level" {{ can_edit_config ? '' : 'disabled' }}>
+        {% for key, label in kri_alert_levels %}
+          <option value="{{ key }}" {{ key == kri_alert_level ? 'selected' }}>{{ label }}</option>
+        {% endfor %}
+      </select>
+      {% if can_edit_config %}
+        <div class="d-flex gap-2 mt-2">
+          <button type="submit" name="update_kri_alert" class="btn btn-primary">{{ __('Enregistrer') }}</button>
+        </div>
+      {% endif %}
+    </form>
+  </div>
+</div>
+
 {# Absorption de glpi-security-incidents (ROADMAP.md "Version 2.0") : interrupteurs
    module/CVE/modèles/tableau de bord, un par fonctionnalité plutôt qu'un seul bouton global
    (voir front/config.php, SecurityIncidentModuleConfig). Le sous-module technique

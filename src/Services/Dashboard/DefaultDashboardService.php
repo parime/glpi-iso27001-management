@@ -184,6 +184,7 @@ final class DefaultDashboardService
             $bigNumber('grcmanager_risks_above_appetite', 6, 10, 6),
             $bigNumber('grcmanager_risk_indicators_red', 12, 10, 6),
             self::chart('grcmanager_risk_indicators_by_status', 'pie', 18, 10, 6, 4),
+            self::chart('grcmanager_risk_indicators_trend', 'lines', 0, 12, 18, 5),
         ];
     }
 
@@ -338,6 +339,7 @@ final class DefaultDashboardService
             $bigNumber('grcmanager_risks_above_tolerance', 4, 30, '#cc2936'),
             $bigNumber('grcmanager_risk_indicators_red', 8, 30, '#b52d30'),
             $pie('grcmanager_risk_indicators_by_status', 12, 30),
+            self::chart('grcmanager_risk_indicators_trend', 'lines', 0, 34, 12, 6),
         ];
     }
 }

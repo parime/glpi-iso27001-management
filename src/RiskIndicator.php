@@ -29,6 +29,7 @@ use GlpiPlugin\Grcmanager\Services\Dashboard\DashboardCardService;
 use GlpiPlugin\Grcmanager\Services\Risk\KriRules;
 use GlpiPlugin\Grcmanager\Services\Ui\Badge;
 use Group_Ticket;
+use Html;
 use Log;
 use Session;
 use Ticket;
@@ -776,10 +777,82 @@ class RiskIndicator extends RiskIndicatorBase
                 'can_ticket'   => $canUpdate && Session::haveRight(Ticket::$rightname, CREATE),
                 'ticket_url'   => $ticket === null ? '' : Ticket::getFormURLWithID($ticket->getID()),
                 'ticket_id'    => $ticket === null ? 0 : $ticket->getID(),
+                'chart'        => $this->trendChart($values),
             ]);
         }
 
         return true;
+    }
+
+    /** Nombre de relevés au plus dans la courbe de tendance de la fiche. */
+    public const TREND_POINTS = 180;
+
+    /**
+     * Courbe de tendance de la fiche : derniers relevés et seuils.
+     *
+     * @param list<array<string, mixed>> $values relevés chronologiques
+     * @return array{points: list<array{date: string, value: float}>, warning: ?float, critical: ?float,
+     *     labels: array<string, string>}
+     */
+    public function trendChart(array $values): array
+    {
+        $points = [];
+        foreach (array_slice($values, -self::TREND_POINTS) as $row) {
+            $points[] = ['date' => (string) Html::convDate($row['value_date']), 'value' => (float) $row['value']];
+        }
+
+        return [
+            'points'   => $points,
+            'warning'  => self::toNumber($this->fields['threshold_warning'] ?? null),
+            'critical' => self::toNumber($this->fields['threshold_critical'] ?? null),
+            'labels'   => [
+                'value'    => __('Value', 'grcmanager'),
+                'warning'  => __('Orange threshold', 'grcmanager'),
+                'critical' => __('Red threshold', 'grcmanager'),
+            ],
+        ];
+    }
+
+    /**
+     * Valeurs des KRI visibles (actifs, entités de l'utilisateur, même règle de source que la
+     * liste), regroupées par KRI, pour la carte de tendance.
+     *
+     * @return array<int, list<array{date: string, status: string}>>
+     */
+    public static function visibleValuesByKri(): array
+    {
+        global $DB;
+
+        $ids = [];
+        foreach (
+            $DB->request([
+                'SELECT' => ['id'],
+                'FROM'   => self::getTable(),
+                'WHERE'  => ['is_active' => 1]
+                    + getEntitiesRestrictCriteria(self::getTable()) + self::getSystemSQLCriteria(),
+            ]) as $row
+        ) {
+            $ids[] = (int) $row['id'];
+        }
+        if ($ids === []) {
+            return [];
+        }
+        $byKri = [];
+        foreach (
+            $DB->request([
+                'SELECT' => ['plugin_grcmanager_riskindicators_id', 'value_date', 'status'],
+                'FROM'   => RiskIndicatorValue::getTable(),
+                'WHERE'  => ['plugin_grcmanager_riskindicators_id' => $ids],
+                'ORDER'  => ['value_date ASC', 'id ASC'],
+            ]) as $row
+        ) {
+            $byKri[(int) $row['plugin_grcmanager_riskindicators_id']][] = [
+                'date'   => (string) $row['value_date'],
+                'status' => (string) $row['status'],
+            ];
+        }
+
+        return $byKri;
     }
 
     /**
