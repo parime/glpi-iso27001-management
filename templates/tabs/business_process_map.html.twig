@@ -1,0 +1,18 @@
+{# Issue #377, quatrième étape : carte des dépendances d'un processus métier, voir
+   GlpiPlugin\\Grcmanager\\BusinessProcessLink::mapElements(). Ce que la personne ne peut pas lire
+   n'est jamais nommé : seulement compté. #}
+<div class="container-fluid">
+   <p class="text-muted">{{ __('Items and processes this process depends on, and processes that depend on it. Click a node to open it.', 'grcmanager') }}</p>
+   {% if map.elements|length > 1 %}
+      {% include '@grcmanager/_impact_graph.html.twig' with {'elements': map.elements, 'process_legend': true} %}
+   {% else %}
+      <div class="alert alert-info">
+         <i class="ti ti-info-circle me-1"></i>{{ __('No dependency recorded yet: link items in the "Dependencies" tab and processes in the "Linked processes" tab.', 'grcmanager') }}
+      </div>
+   {% endif %}
+   {% if map.hidden > 0 %}
+      <div class="text-muted small">
+         <i class="ti ti-eye-off me-1"></i>{{ _n('%d item or process you cannot see is not shown.', '%d items or processes you cannot see are not shown.', map.hidden, 'grcmanager')|format(map.hidden) }}
+      </div>
+   {% endif %}
+</div>

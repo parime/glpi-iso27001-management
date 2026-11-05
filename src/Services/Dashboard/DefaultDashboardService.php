@@ -340,6 +340,9 @@ final class DefaultDashboardService
             $bigNumber('grcmanager_risk_indicators_red', 8, 30, '#b52d30'),
             $pie('grcmanager_risk_indicators_by_status', 12, 30),
             self::chart('grcmanager_risk_indicators_trend', 'lines', 0, 34, 12, 6),
+            // Rangée 10 (y=40) : continuité des processus métier (issue #377).
+            $bigNumber('grcmanager_business_processes_bia_due', 0, 40, '#f8911f', 6),
+            $bigNumber('grcmanager_business_processes_recovery_above_rto', 6, 40, '#cc2936', 6),
         ];
     }
 }

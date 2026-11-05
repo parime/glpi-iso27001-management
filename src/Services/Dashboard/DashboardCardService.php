@@ -960,4 +960,38 @@ final class DashboardCardService
             'icon'   => 'ti ti-alert-octagon',
         ];
     }
+
+    /**
+     * Issue #377 : processus métier sans BIA, ou dont la BIA est à revoir depuis son échéance, dans
+     * les entités de l'utilisateur (droit de la continuité vérifié par SecuredDashboardCards).
+     *
+     * @param array<string, mixed> $params
+     * @return array<string, mixed>
+     */
+    public static function businessProcessesBiaDueCount(array $params = []): array
+    {
+        return [
+            'number' => \GlpiPlugin\Grcmanager\BusinessProcessReminder::dashboardCounts(date('Y-m-d'))['bia_due'],
+            'url'    => \GlpiPlugin\Grcmanager\BusinessProcess::getSearchURL(),
+            'label'  => $params['label'] ?? __('Business processes without a BIA or with an overdue BIA', 'grcmanager'),
+            'icon'   => 'ti ti-calendar-exclamation',
+        ];
+    }
+
+    /**
+     * Issue #377 : processus métier dont le dernier test de reprise a dépassé le RTO, dans les
+     * entités de l'utilisateur.
+     *
+     * @param array<string, mixed> $params
+     * @return array<string, mixed>
+     */
+    public static function businessProcessesRecoveryAboveRtoCount(array $params = []): array
+    {
+        return [
+            'number' => \GlpiPlugin\Grcmanager\BusinessProcessReminder::dashboardCounts(date('Y-m-d'))['recovery_above_rto'],
+            'url'    => \GlpiPlugin\Grcmanager\BusinessProcess::getSearchURL(),
+            'label'  => $params['label'] ?? __('Business processes whose last recovery test exceeded the RTO', 'grcmanager'),
+            'icon'   => 'ti ti-clock-exclamation',
+        ];
+    }
 }
