@@ -9358,3 +9358,24 @@ msgstr "Grupo de dirección"
 
 msgid "To be signed by management"
 msgstr "Pendiente de firma de la dirección"
+
+msgid "Residual probability"
+msgstr "Probabilidad residual"
+
+msgid "Residual impact"
+msgstr "Impacto residual"
+
+msgid "Residual risk level"
+msgstr "Nivel de riesgo residual"
+
+msgid "To be assessed"
+msgstr "Por evaluar"
+
+msgid "After the treatment. Leave \"To be assessed\" until the treatment is defined: the initial risk is then compared to the appetite."
+msgstr "Tras el tratamiento. Deje «Por evaluar» mientras el tratamiento no esté definido: entonces se compara el riesgo inicial con el apetito."
+
+msgid "Compared on the residual risk level."
+msgstr "Comparado según el nivel de riesgo residual."
+
+msgid "Compared on the initial risk level: assess the residual risk once the treatment is defined."
+msgstr "Comparado según el nivel de riesgo inicial: evalúe el riesgo residual una vez definido el tratamiento."

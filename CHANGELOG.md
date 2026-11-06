@@ -7,6 +7,14 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Added
+
+- **Risque résiduel** (issue #378) : probabilité et impact après traitement sur chaque risque, niveau
+  résiduel calculé avec la même matrice. Une fois évalué, c'est le risque résiduel qui est comparé à
+  l'appétence et à la tolérance (fiche, page Appétence, indicateur « risques au-delà de la tolérance »,
+  signature de la direction) ; sinon le risque initial, comme avant. La fiche indique lequel est retenu.
+  Colonnes de recherche « Probabilité / Impact / Niveau de risque résiduel ».
+
 ## [2.27.0] - 2026-11-06
 
 ### Added

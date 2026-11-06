@@ -15,6 +15,16 @@
    {% if not is_new %}
       {{ fields.htmlField('', risk_level_badge, __('Risk level', 'grcmanager')) }}
       {{ fields.htmlField('', item.fields['computed_score']|default('0')|e, _x('score', 'Score', 'grcmanager')) }}
+   {% endif %}
+   {# Issue #378 : risque résiduel, une fois le traitement appliqué. #}
+   {{ fields.dropdownArrayField('residual_probability', item.fields['residual_probability']|default(''), residual_probabilities, __('Residual probability', 'grcmanager'), {
+      'add_field_html': hints.hint(__('After the treatment. Leave "To be assessed" until the treatment is defined: the initial risk is then compared to the appetite.', 'grcmanager')),
+   }) }}
+   {{ fields.dropdownArrayField('residual_impact', item.fields['residual_impact']|default(''), residual_impacts, __('Residual impact', 'grcmanager')) }}
+   {% if not is_new %}
+      {% if residual_badge %}
+         {{ fields.htmlField('', residual_badge, __('Residual risk level', 'grcmanager')) }}
+      {% endif %}
       {# Issue #378 : position par rapport à l'appétence de la catégorie. #}
       {% if appetite_position == 'above_tolerance' or appetite_position == 'above_appetite' %}
          {% set appetite_html %}
@@ -29,6 +39,7 @@
                   {{ __('A treatment, or a formal acceptance with a justification, is required.', 'grcmanager') }}
                {% endif %}
             </div>
+            <div class="form-hint">{{ appetite_on_residual ? __('Compared on the residual risk level.', 'grcmanager') : __('Compared on the initial risk level: assess the residual risk once the treatment is defined.', 'grcmanager') }}</div>
             {% if accepted_by %}
                <div class="form-hint">
                   {{ __('Formally accepted by %1$s on %2$s', 'grcmanager')|format(accepted_by, accepted_on|formatted_datetime) }}
@@ -41,7 +52,7 @@
          {% endset %}
          {{ fields.htmlField('', appetite_html, __('Risk appetite', 'grcmanager')) }}
       {% elseif appetite_position == 'within' %}
-         {% set appetite_html %}<span class="badge bg-green-lt"><i class="ti ti-circle-check me-1"></i>{{ __('Within appetite', 'grcmanager') }}</span>{% endset %}
+         {% set appetite_html %}<span class="badge bg-green-lt"><i class="ti ti-circle-check me-1"></i>{{ __('Within appetite', 'grcmanager') }}</span>{% if appetite_on_residual %}<div class="form-hint">{{ __('Compared on the residual risk level.', 'grcmanager') }}</div>{% endif %}{% endset %}
          {{ fields.htmlField('', appetite_html, __('Risk appetite', 'grcmanager')) }}
       {% endif %}
       {% if indicators is not empty %}

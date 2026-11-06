@@ -288,7 +288,7 @@ class RiskAppetite extends CommonGLPI
                 'ORDER' => ['computed_score DESC', 'title'],
             ]) as $row
         ) {
-            $position = self::positionFor((string) $row['category'], (string) $row['risk_level']);
+            $position = self::positionFor((string) $row['category'], Risk::appetiteLevel($row));
             if (!RiskAppetiteRules::isAboveAppetite($position)) {
                 continue;
             }

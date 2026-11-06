@@ -9358,3 +9358,24 @@ msgstr "Leitungsgruppe"
 
 msgid "To be signed by management"
 msgstr "Von der Leitung zu unterzeichnen"
+
+msgid "Residual probability"
+msgstr "Restwahrscheinlichkeit"
+
+msgid "Residual impact"
+msgstr "Restauswirkung"
+
+msgid "Residual risk level"
+msgstr "Restrisikostufe"
+
+msgid "To be assessed"
+msgstr "Zu bewerten"
+
+msgid "After the treatment. Leave \"To be assessed\" until the treatment is defined: the initial risk is then compared to the appetite."
+msgstr "Nach der Behandlung. Lassen Sie „Zu bewerten\", solange die Behandlung nicht festgelegt ist: Dann wird das Ausgangsrisiko mit dem Risikoappetit verglichen."
+
+msgid "Compared on the residual risk level."
+msgstr "Verglichen anhand der Restrisikostufe."
+
+msgid "Compared on the initial risk level: assess the residual risk once the treatment is defined."
+msgstr "Verglichen anhand der Ausgangsrisikostufe: Bewerten Sie das Restrisiko, sobald die Behandlung festgelegt ist."
