@@ -189,6 +189,47 @@ final class RiskAppetiteKriTest extends GrcmanagerIntegrationTestCase
         $this->assertSame(0, RiskAppetite::getDirectionGroupId());
     }
 
+    public function testResidualRiskDecidesThePositionOnceAssessed(): void
+    {
+        $this->setAppetite('technical', 'medium', 'high');
+        $risk = new Risk();
+        $position = static fn (): string => RiskAppetite::positionFor('technical', Risk::appetiteLevel($risk->fields));
+        $id = $this->criticalRisk('technical');
+        $risk->getFromDB($id);
+        $this->assertSame('', $risk->fields['residual_level'], 'Non évalué à la création.');
+        $this->assertSame(RiskAppetiteRules::ABOVE_TOLERANCE, $position());
+
+        // Résiduel faible après réduction : le risque passe dans l'appétence ; le niveau initial ne change pas.
+        $this->assertTrue($risk->update([
+            'id' => $id, 'treatment' => 'mitigate', 'residual_probability' => 'rare', 'residual_impact' => 'medium',
+            'residual_level' => 'critical',
+        ]));
+        $risk->getFromDB($id);
+        $this->assertSame('low', $risk->fields['residual_level'], 'Calculé par la matrice, jamais saisi.');
+        $this->assertSame('critical', $risk->fields['risk_level']);
+        $this->assertSame(RiskAppetiteRules::WITHIN, $position());
+        $listed = array_column(RiskAppetite::risksAboveAppetite(), 'id');
+        $this->assertNotContains($id, array_map('intval', $listed));
+
+        // Accepter le résiduel dans l'appétence : pas d'acceptation formelle à signer.
+        $this->assertTrue($risk->update(['id' => $id, 'treatment' => 'accept', 'justification' => '']));
+        $risk->getFromDB($id);
+        $this->assertSame(0, (int) $risk->fields['users_id_acceptance']);
+
+        // Valeur inconnue ou un seul axe : non évalué, retour au niveau initial.
+        $risk->update(['id' => $id, 'treatment' => 'mitigate', 'residual_probability' => 'inconnu']);
+        $risk->getFromDB($id);
+        $this->assertSame('', $risk->fields['residual_probability']);
+        $this->assertSame('', $risk->fields['residual_level']);
+        $this->assertSame(RiskAppetiteRules::ABOVE_TOLERANCE, $position());
+
+        // Affichage : badge, ou « Non évalué ».
+        $display = static fn (string $level): string
+            => Risk::getSpecificValueToDisplay('residual_level', ['residual_level' => $level]);
+        $this->assertStringContainsString('badge', $display('low'));
+        $this->assertSame(__('To be assessed', 'grcmanager'), $display(''));
+    }
+
     public function testNothingChangesWithoutAppetite(): void
     {
         $risk = new Risk();

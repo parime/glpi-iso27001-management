@@ -10779,3 +10779,24 @@ msgstr "Grupa kierownictwa"
 
 msgid "To be signed by management"
 msgstr "Do podpisu przez kierownictwo"
+
+msgid "Residual probability"
+msgstr "Prawdopodobieństwo rezydualne"
+
+msgid "Residual impact"
+msgstr "Wpływ rezydualny"
+
+msgid "Residual risk level"
+msgstr "Poziom ryzyka rezydualnego"
+
+msgid "To be assessed"
+msgstr "Do oceny"
+
+msgid "After the treatment. Leave \"To be assessed\" until the treatment is defined: the initial risk is then compared to the appetite."
+msgstr "Po postępowaniu z ryzykiem. Pozostaw „Do oceny\", dopóki postępowanie nie jest określone: wtedy z apetytem porównywane jest ryzyko początkowe."
+
+msgid "Compared on the residual risk level."
+msgstr "Porównywane według poziomu ryzyka rezydualnego."
+
+msgid "Compared on the initial risk level: assess the residual risk once the treatment is defined."
+msgstr "Porównywane według poziomu ryzyka początkowego: oceń ryzyko rezydualne po określeniu postępowania."

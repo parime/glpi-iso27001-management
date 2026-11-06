@@ -84,6 +84,14 @@ final class RiskAppetiteRulesTest extends TestCase
         self::assertFalse($needs(RiskAppetiteRules::ABOVE_APPETITE, 'accept', true, false));
     }
 
+    public function testResidualLevelIsComparedOnceItIsAssessed(): void
+    {
+        self::assertSame('low', RiskAppetiteRules::retainedLevel('low', 'critical'));
+        self::assertSame('critical', RiskAppetiteRules::retainedLevel('', 'critical'), 'Résiduel non évalué.');
+        self::assertSame('critical', RiskAppetiteRules::retainedLevel('inconnu', 'critical'));
+        self::assertSame('', RiskAppetiteRules::retainedLevel(null, null));
+    }
+
     public function testFormalAcceptance(): void
     {
         self::assertTrue(RiskAppetiteRules::isFormalAcceptance(RiskAppetiteRules::ABOVE_APPETITE, 'accept'));

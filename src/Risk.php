@@ -28,6 +28,8 @@ use GlpiPlugin\Grcmanager\Services\Risk\LinkableItemtypes;
 use GlpiPlugin\Grcmanager\Services\Risk\ReviewReminderService;
 use GlpiPlugin\Grcmanager\Services\Risk\RiskAppetiteRules;
 use GlpiPlugin\Grcmanager\Services\Risk\RiskItemLinkNormalizer;
+use GlpiPlugin\Grcmanager\Services\Risk\RiskMatrixConfig;
+use GlpiPlugin\Grcmanager\Services\Risk\RiskScoringService;
 use GlpiPlugin\Grcmanager\Services\Risk\TreatmentPlanRules;
 use GlpiPlugin\Grcmanager\Traits\RiskAssessmentTrait;
 use Log;
@@ -63,6 +65,13 @@ class Risk extends RiskBase
      * Cron entry point below.
      */
     public const REVIEW_DUE_EVENT = 'review_due';
+
+    /** Issue #378 : champs du risque résiduel => champ du risque initial dont ils reprennent l'affichage. */
+    private const RESIDUAL_FIELDS = [
+        'residual_probability' => 'probability',
+        'residual_impact'      => 'impact',
+        'residual_level'       => 'risk_level',
+    ];
 
     /**
      * Issue #25 (lien registre de risques <-> actifs GLPI/CMDB) : table de liaison polymorphe
@@ -164,8 +173,48 @@ class Risk extends RiskBase
         }
 
         $input = $this->computeRiskLevel($input);
+        $input = $this->computeResidualLevel($input);
 
         return $this->applyAppetite($input);
+    }
+
+    /**
+     * Issue #378 : risque résiduel, après traitement. Probabilité et impact facultatifs (vides : non
+     * évalué), niveau calculé avec la même matrice que le risque initial ; jamais saisi directement.
+     *
+     * @param array<string, mixed> $input
+     * @return array<string, mixed>
+     */
+    private function computeResidualLevel(array $input): array
+    {
+        unset($input['residual_level']);
+        if (!array_key_exists('residual_probability', $input) && !array_key_exists('residual_impact', $input)) {
+            return $input;
+        }
+        $probability = (string) ($input['residual_probability'] ?? ($this->fields['residual_probability'] ?? ''));
+        $impact = (string) ($input['residual_impact'] ?? ($this->fields['residual_impact'] ?? ''));
+        $probability = array_key_exists($probability, self::getProbabilities()) ? $probability : '';
+        $impact = array_key_exists($impact, self::getImpacts()) ? $impact : '';
+        $input['residual_probability'] = $probability;
+        $input['residual_impact'] = $impact;
+        $input['residual_level'] = $probability !== '' && $impact !== ''
+            ? (new RiskScoringService(RiskMatrixConfig::load()))->level($probability, $impact)
+            : '';
+
+        return $input;
+    }
+
+    /**
+     * Niveau comparé à l'appétence : résiduel s'il est évalué, sinon initial.
+     *
+     * @param array<string, mixed> $fields
+     */
+    public static function appetiteLevel(array $fields): string
+    {
+        return RiskAppetiteRules::retainedLevel(
+            (string) ($fields['residual_level'] ?? ''),
+            (string) ($fields['risk_level'] ?? '')
+        );
     }
 
     /**
@@ -181,7 +230,7 @@ class Risk extends RiskBase
     {
         unset($input['users_id_acceptance'], $input['date_acceptance'], $input['is_direction_acceptance']);
         $category  = (string) ($input['category'] ?? ($this->fields['category'] ?? ''));
-        $level     = (string) ($input['risk_level'] ?? ($this->fields['risk_level'] ?? ''));
+        $level     = self::appetiteLevel($input + $this->fields);
         $treatment = (string) ($input['treatment'] ?? ($this->fields['treatment'] ?? ''));
         $position  = RiskAppetite::positionFor($category, $level);
         $alreadySigned = (int) ($this->fields['users_id_acceptance'] ?? 0) > 0
@@ -363,6 +412,23 @@ class Risk extends RiskBase
             'name'     => __('Formal acceptance date', 'grcmanager'),
             'datatype' => 'datetime',
         ];
+        // Issue #378 : risque résiduel.
+        foreach (
+            [
+                13 => ['residual_probability', __('Residual probability', 'grcmanager')],
+                14 => ['residual_impact', __('Residual impact', 'grcmanager')],
+                15 => ['residual_level', __('Residual risk level', 'grcmanager')],
+            ] as $id => [$field, $name]
+        ) {
+            $tab[] = [
+                'id'            => $id,
+                'table'         => $this->getTable(),
+                'field'         => $field,
+                'name'          => $name,
+                'datatype'      => 'specific',
+                'massiveaction' => false,
+            ];
+        }
 
         return $tab;
     }
@@ -380,6 +446,14 @@ class Risk extends RiskBase
             $values = [$field => $values];
         }
 
+        // Issue #378 : risque résiduel, vide tant qu'il n'est pas évalué.
+        $residual = self::RESIDUAL_FIELDS;
+        if (isset($residual[$field])) {
+            $value = (string) ($values[$field] ?? '');
+
+            return $value === '' ? htmlescape(__('To be assessed', 'grcmanager'))
+                : (string) self::commonValueToDisplay($residual[$field], $value);
+        }
         $common = self::commonValueToDisplay($field, $values[$field] ?? null);
         if ($common !== null) {
             return $common;
@@ -411,7 +485,8 @@ class Risk extends RiskBase
         $options['name']    = $name;
         $options['value']   = $values[$field] ?? '';
 
-        $common = self::commonValueToSelect($field, $name, $options);
+        $residual = self::RESIDUAL_FIELDS;
+        $common = self::commonValueToSelect($residual[$field] ?? $field, $name, $options);
         if ($common !== null) {
             return $common;
         }
@@ -511,8 +586,13 @@ class Risk extends RiskBase
             // Issue #378 : position par rapport à l'appétence, acceptation formelle, KRI liés.
             'appetite_position'   => $isNew ? RiskAppetiteRules::UNDEFINED : RiskAppetite::positionFor(
                 (string) $this->fields['category'],
-                (string) $this->fields['risk_level']
+                self::appetiteLevel($this->fields)
             ),
+            'residual_probabilities' => ['' => __('To be assessed', 'grcmanager')] + self::getProbabilities(),
+            'residual_impacts'    => ['' => __('To be assessed', 'grcmanager')] + self::getImpacts(),
+            'residual_badge'      => (string) ($this->fields['residual_level'] ?? '') !== ''
+                ? self::riskLevelBadge((string) $this->fields['residual_level']) : '',
+            'appetite_on_residual' => (string) ($this->fields['residual_level'] ?? '') !== '',
             'appetite_url'        => RiskAppetite::getSearchURL(),
             'accepted_by'         => (int) ($this->fields['users_id_acceptance'] ?? 0) > 0
                 ? getUserName((int) $this->fields['users_id_acceptance']) : '',
@@ -521,7 +601,7 @@ class Risk extends RiskBase
             'direction_group'     => RiskAppetite::getDirectionGroupId() > 0
                 ? Dropdown::getDropdownName('glpi_groups', RiskAppetite::getDirectionGroupId()) : '',
             'needs_direction'     => !$isNew && RiskAppetiteRules::needsDirectionSignature(
-                RiskAppetite::positionFor((string) $this->fields['category'], (string) $this->fields['risk_level']),
+                RiskAppetite::positionFor((string) $this->fields['category'], self::appetiteLevel($this->fields)),
                 (string) $this->fields['treatment'],
                 RiskAppetite::getDirectionGroupId() > 0,
                 (int) ($this->fields['is_direction_acceptance'] ?? 0) === 1

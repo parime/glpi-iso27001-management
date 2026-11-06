@@ -70,6 +70,15 @@ final class RiskAppetiteRules
         return self::WITHIN;
     }
 
+    /**
+     * Niveau comparé à l'appétence : le risque résiduel (après traitement) quand il est évalué, sinon
+     * le risque initial (ISO 27005 : c'est le risque résiduel qui est accepté ou non).
+     */
+    public static function retainedLevel(?string $residual, ?string $initial): string
+    {
+        return self::isLevel($residual) ? (string) $residual : (string) $initial;
+    }
+
     public static function isAboveAppetite(string $position): bool
     {
         return in_array($position, [self::ABOVE_APPETITE, self::ABOVE_TOLERANCE], true);
