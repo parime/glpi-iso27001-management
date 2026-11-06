@@ -51,6 +51,9 @@ archivé), avec ses champs de classification ISO 27001 fusionnés dessus.
   complétude, inclus dans l'export PDF.
 - **Référentiels NIS2** (directive (UE) 2022/2555) et **guide d'hygiène informatique de l'ANSSI**
   reliés à l'Annexe A.
+- **Référentiel DORA** (règlement (UE) 2022/2554, secteur financier), optionnel et désactivé par
+  défaut : exigences de 19 articles clés (5 à 30) résumées, reliées à l'Annexe A, références affichées sur les
+  mesures et taux de conformité DORA.
 - **Sécurité des systèmes d'IA (ISO/IEC 27090:2026)** : sections de la norme reliées à l'Annexe A,
   et risques types d'IA (services d'IA publics, injection de prompt, fuite de données, chaîne
   d'approvisionnement, empoisonnement, vol de modèle, systèmes non inventoriés) à importer dans le
@@ -101,7 +104,7 @@ archivé), avec ses champs de classification ISO 27001 fusionnés dessus.
 
 **Pilotage**
 - Tableau de bord ISMS par défaut et indicateurs à ajouter aux tableaux de bord GLPI, dont la
-  conformité par référentiel (ISO 27001, NIS2, ANSSI, NIST CSF, CIS Controls), les échéances à 90 jours, la revue des accès
+  conformité par référentiel (ISO 27001, NIS2, ANSSI, NIST CSF, CIS Controls, DORA si activé), les échéances à 90 jours, la revue des accès
   et les délais NIS2 / RGPD en alerte ; menu GRC & Conformité > Tableau de bord, vues ISMS et
   Direction, tendance mensuelle.
 - **Formations notées**, en une ou plusieurs sessions (formateur, lieu, note, seuil de réussite,
@@ -273,6 +276,12 @@ du dépôt et dans la documentation indique uniquement le référentiel que le p
   sont résumés. © Union européenne, https://eur-lex.europa.eu/ - réutilisation autorisée
   (décision 2011/833/UE de la Commission). Seule la version publiée au Journal officiel de l'UE
   fait foi. La correspondance avec l'Annexe A ISO 27001 est indicative et établie par ce projet.
+- **Règlement (UE) 2022/2554 « DORA »** : intitulés de 19 articles clés (5 à 30) d'après les versions
+  officielles française et anglaise publiées sur
+  [EUR-Lex](https://eur-lex.europa.eu/eli/reg/2022/2554/oj) ; les exigences sont résumées par ce
+  projet, pas reproduites. © Union européenne, https://eur-lex.europa.eu/ - réutilisation autorisée
+  (décision 2011/833/UE de la Commission). Seule la version publiée au Journal officiel de l'UE fait
+  foi. La correspondance avec l'Annexe A ISO 27001 est indicative et établie par ce projet.
 - **Guide d'hygiène informatique de l'ANSSI (42 mesures)** : intitulés des 42 mesures et des
   10 thèmes reproduits d'après le guide « Renforcer la sécurité de son système d'information en
   42 mesures », version 2.0 de septembre 2017, publié par l'
@@ -289,7 +298,7 @@ du dépôt et dans la documentation indique uniquement le référentiel que le p
 ## Licence
 
 Distribué sous licence [GNU GPLv3](LICENSE). Projet gratuit, communautaire, sans fonctionnalité
-payante obligatoire. Les extraits de référentiels tiers (CIS Controls, NIST CSF, NIS2, guide ANSSI) restent sous
+payante obligatoire. Les extraits de référentiels tiers (CIS Controls, NIST CSF, NIS2, DORA, guide ANSSI) restent sous
 leur licence d'origine : voir l'avertissement ci-dessus.
 
 ## Contribuer
