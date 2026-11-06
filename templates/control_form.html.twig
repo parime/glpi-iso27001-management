@@ -43,6 +43,14 @@
       {% endset %}
       {{ fields.htmlField('', nis2_html, __('NIS2 requirements', 'grcmanager'), {'full_width': true}) }}
    {% endif %}
+   {# Issue #379 : exigences DORA, correspondance indicative établie par ce projet. #}
+   {% if dora is not empty %}
+      {% set dora_html %}
+         {% for c in dora %}<span class="badge bg-indigo-lt me-1">DORA {{ c }}</span>{% endfor %}
+         {{ _self.referentials_hint(__('Indicative mapping made by this project: see', 'grcmanager'), referentials_url) }}
+      {% endset %}
+      {{ fields.htmlField('', dora_html, __('DORA requirements', 'grcmanager'), {'full_width': true}) }}
+   {% endif %}
    {% if anssi is not empty %}
       {% set anssi_html %}
          {% for m in anssi %}<span class="badge bg-teal-lt me-1" title="{{ m.title }}">{{ __('Measure %d', 'grcmanager')|format(m.number) }}</span>{% endfor %}

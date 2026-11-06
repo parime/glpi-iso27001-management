@@ -41,7 +41,7 @@ final class FrameworkSelectionTest extends TestCase
 
         $this->assertSame(
             [FrameworkSelection::ISO27001, FrameworkSelection::NIST_CSF, FrameworkSelection::CIS_CONTROLS,
-                FrameworkSelection::ISO27090],
+                FrameworkSelection::ISO27090, FrameworkSelection::DORA],
             FrameworkSelection::decode($stored)
         );
         $this->assertSame(

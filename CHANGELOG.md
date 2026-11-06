@@ -7,6 +7,16 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.30.0] - 2026-11-06
+
+### Added
+
+- **Référentiel DORA** (règlement (UE) 2022/2554, issue #379) : optionnel, désactivé par défaut (y
+  compris sur les installations existantes) et activable dans la configuration des référentiels.
+  Exigences de 19 articles clés (5 à 30) résumées par le projet et reliées à l'Annexe A, carte dans
+  Référentiels avec la source EUR-Lex, badges « DORA » sur les mesures concernées et taux de
+  conformité DORA dans les tableaux de bord.
+
 ## [2.29.0] - 2026-11-06
 
 ### Added
