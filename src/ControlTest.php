@@ -443,7 +443,9 @@ class ControlTest extends ControlTestBase
         $document = new Document();
         $documentsId = $document->can(-1, CREATE, $input) ? (int) $document->add($input) : 0;
         if (is_file($temporary)) {
-            unlink($temporary);
+            // Chemin construit ici : GLPI_TMP_DIR, préfixe aléatoire et nom réduit par
+            // EvidenceUploadRules::safeName() (sans séparateur de dossier), jamais un chemin envoyé.
+            unlink($temporary); // nosemgrep: php.lang.security.unlink-use.unlink-use
         }
         if ($documentsId <= 0) {
             return $refuse(__('The file could not be saved.', 'grcmanager'));
