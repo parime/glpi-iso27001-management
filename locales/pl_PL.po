@@ -10748,3 +10748,7 @@ msgstr "Brak raportu e-mailem."
 
 msgid "Set it up"
 msgstr "Skonfiguruj"
+
+msgctxt "vulnerability"
+msgid "New"
+msgstr "Nowa"

@@ -9327,3 +9327,7 @@ msgstr "Nessun report via e-mail."
 
 msgid "Set it up"
 msgstr "Configuralo"
+
+msgctxt "vulnerability"
+msgid "New"
+msgstr "Nuova"

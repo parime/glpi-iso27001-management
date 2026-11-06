@@ -9327,3 +9327,7 @@ msgstr "Nenhum relatório por e-mail."
 
 msgid "Set it up"
 msgstr "Configurar"
+
+msgctxt "vulnerability"
+msgid "New"
+msgstr "Nova"
