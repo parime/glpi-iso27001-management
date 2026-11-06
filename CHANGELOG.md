@@ -7,6 +7,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.29.0] - 2026-11-06
+
 ### Added
 
 - **Nouvelles sources des indicateurs de risque (KRI)** (issue #378) : vulnérabilités exploitées du parc
