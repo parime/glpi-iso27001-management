@@ -22,6 +22,13 @@ use GlpiPlugin\Grcmanager\Services\Risk\RiskAppetiteRules;
 // Registre sensible : lecture avec son droit, modification avec UPDATE.
 Session::checkRight(\GlpiPlugin\Grcmanager\RiskAppetite::RIGHTNAME, READ);
 
+// Issue #378, troisième étape : groupe Direction, seul à pouvoir accepter un risque au-delà de la tolérance.
+if (isset($_POST['save_direction_group'])) {
+    Session::checkRight(\GlpiPlugin\Grcmanager\RiskAppetite::RIGHTNAME, UPDATE);
+    \GlpiPlugin\Grcmanager\RiskAppetite::setDirectionGroupId((int) ($_POST['direction_groups_id'] ?? 0));
+    Html::back();
+}
+
 if (isset($_POST['save_appetite'])) {
     Session::checkRight(\GlpiPlugin\Grcmanager\RiskAppetite::RIGHTNAME, UPDATE);
     $posted = $_POST['appetite'] ?? [];
@@ -65,6 +72,7 @@ foreach (\GlpiPlugin\Grcmanager\Risk::getCategories() as $key => $label) {
         'tolerance' => (string) ($row['tolerance_level'] ?? ''),
         'statement' => (string) ($row['statement'] ?? ''),
         'approver'  => $row === null ? '' : getUserName((int) $row['users_id_approval']),
+        'by_direction' => (int) ($row['is_direction_approval'] ?? 0) === 1,
         'approved'  => (string) ($row['date_approval'] ?? ''),
     ];
 }
@@ -80,6 +88,13 @@ foreach (\GlpiPlugin\Grcmanager\RiskAppetite::risksAboveAppetite() as $risk) {
         'above_tolerance' => $risk['position'] === RiskAppetiteRules::ABOVE_TOLERANCE,
         'needs_decision'  => $risk['needs_decision'],
         'accepted_by'     => $acceptedBy > 0 ? getUserName($acceptedBy) : '',
+        'by_direction'    => (int) ($risk['is_direction_acceptance'] ?? 0) === 1,
+        'needs_direction' => RiskAppetiteRules::needsDirectionSignature(
+            (string) $risk['position'],
+            (string) $risk['treatment'],
+            \GlpiPlugin\Grcmanager\RiskAppetite::getDirectionGroupId() > 0,
+            (int) ($risk['is_direction_acceptance'] ?? 0) === 1
+        ),
     ];
 }
 
@@ -90,6 +105,11 @@ TemplateRenderer::getInstance()->display('@grcmanager/risk_appetite.html.twig', 
     'action'     => \GlpiPlugin\Grcmanager\RiskAppetite::getSearchURL(),
     'risks'      => $risks,
     'kri_url'    => \GlpiPlugin\Grcmanager\RiskIndicator::getSearchURL(),
+    'direction_groups_id' => \GlpiPlugin\Grcmanager\RiskAppetite::getDirectionGroupId(),
+    'direction_group_name' => Dropdown::getDropdownName(
+        'glpi_groups',
+        \GlpiPlugin\Grcmanager\RiskAppetite::getDirectionGroupId()
+    ),
 ]);
 
 Html::footer();

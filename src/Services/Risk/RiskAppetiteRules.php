@@ -85,6 +85,51 @@ final class RiskAppetiteRules
         return self::isAboveAppetite($position) && $status !== 'closed' && $treatment === '';
     }
 
+    /** Acceptation : rien à signer, signature de la personne, signature de la direction, refus. */
+    public const ACCEPT_NONE = 'none';
+    public const ACCEPT_SIGN = 'sign';
+    public const ACCEPT_DIRECTION = 'direction';
+    public const ACCEPT_REFUSED = 'refused';
+
+    /**
+     * Qui peut signer l'acceptation d'un risque ? Au-dessus de l'appétence, la personne qui l'enregistre.
+     * Au-delà de la tolérance, seulement un membre du groupe Direction, quand ce groupe est défini :
+     * sinon, rien ne bloque (aucun groupe ne pourrait signer). Un membre de la direction signe toujours
+     * au titre de la direction.
+     */
+    public static function acceptance(
+        string $position,
+        string $treatment,
+        bool $directionConfigured,
+        bool $signerIsDirection
+    ): string {
+        if (!self::isFormalAcceptance($position, $treatment)) {
+            return self::ACCEPT_NONE;
+        }
+        if ($signerIsDirection) {
+            return self::ACCEPT_DIRECTION;
+        }
+        if ($position === self::ABOVE_TOLERANCE && $directionConfigured) {
+            return self::ACCEPT_REFUSED;
+        }
+
+        return self::ACCEPT_SIGN;
+    }
+
+    /**
+     * Une acceptation déjà signée doit-elle encore l'être par la direction ? C'est le cas d'un risque
+     * réévalué au-delà de la tolérance après une signature hors direction.
+     */
+    public static function needsDirectionSignature(
+        string $position,
+        string $treatment,
+        bool $directionConfigured,
+        bool $signedByDirection
+    ): bool {
+        return $directionConfigured && $position === self::ABOVE_TOLERANCE && $treatment === 'accept'
+            && !$signedByDirection;
+    }
+
     /**
      * Accepter un risque au-dessus de l'appétence est une acceptation formelle : elle doit être
      * justifiée (la personne qui l'enregistre et la date sont conservées par l'appelant).

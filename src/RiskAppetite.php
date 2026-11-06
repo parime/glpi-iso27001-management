@@ -20,6 +20,8 @@ declare(strict_types=1);
 namespace GlpiPlugin\Grcmanager;
 
 use CommonGLPI;
+use Config;
+use Group;
 use GlpiPlugin\Grcmanager\Services\Risk\RiskAppetiteRules;
 use Session;
 
@@ -41,6 +43,39 @@ class RiskAppetite extends CommonGLPI
 
     /** @var array<string, array<string, mixed>>|null */
     private static ?array $cache = null;
+
+    public const CONFIG_CONTEXT = 'plugin:grcmanager';
+    public const DIRECTION_GROUP_KEY = 'direction_groups_id';
+
+    public static function getDirectionGroupId(): int
+    {
+        $values = Config::getConfigurationValues(self::CONFIG_CONTEXT, [self::DIRECTION_GROUP_KEY]);
+
+        return (int) ($values[self::DIRECTION_GROUP_KEY] ?? 0);
+    }
+
+    public static function setDirectionGroupId(int $groupsId): bool
+    {
+        $groupsId = $groupsId > 0 && (new Group())->getFromDB($groupsId) ? $groupsId : 0;
+        if ($groupsId === self::getDirectionGroupId()) {
+            return false;
+        }
+        Config::setConfigurationValues(self::CONFIG_CONTEXT, [self::DIRECTION_GROUP_KEY => $groupsId]);
+        AuditLog::record('config_change', self::class, 0, 0, 'success', ['direction_groups_id' => $groupsId]);
+
+        return true;
+    }
+
+    /**
+     * Membre (direct) du groupe Direction défini pour signer les acceptations au-delà de la tolérance.
+     */
+    public static function isDirection(int $usersId): bool
+    {
+        $groupsId = self::getDirectionGroupId();
+
+        return $groupsId > 0 && $usersId > 0
+            && countElementsInTable('glpi_groups_users', ['groups_id' => $groupsId, 'users_id' => $usersId]) > 0;
+    }
 
     public static function getTable(): string
     {
@@ -217,6 +252,7 @@ class RiskAppetite extends CommonGLPI
                 'tolerance_level'   => $tolerance,
                 'statement'         => $statement,
                 'users_id_approval' => (int) Session::getLoginUserID(),
+                'is_direction_approval' => (int) self::isDirection((int) Session::getLoginUserID()),
                 'date_approval'     => $now,
                 'date_mod'          => $now,
             ], ['category' => $category]);
