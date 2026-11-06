@@ -7,6 +7,13 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Added
+
+- **Nouvelles sources des indicateurs de risque (KRI)** (issue #378) : vulnérabilités exploitées du parc
+  (CISA KEV), actions correctives en retard, tests d'efficacité des mesures en retard et revues
+  périodiques en retard. Chacune demande le droit de lecture du registre mesuré ; la mesure reprend le
+  calcul déjà affiché sur l'écran correspondant.
+
 ## [2.28.0] - 2026-11-06
 
 ### Added

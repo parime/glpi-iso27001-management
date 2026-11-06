@@ -9379,3 +9379,12 @@ msgstr "Verglichen anhand der Restrisikostufe."
 
 msgid "Compared on the initial risk level: assess the residual risk once the treatment is defined."
 msgstr "Verglichen anhand der Ausgangsrisikostufe: Bewerten Sie das Restrisiko, sobald die Behandlung festgelegt ist."
+
+msgid "Actively exploited vulnerabilities in the fleet (CISA KEV)"
+msgstr "Aktiv ausgenutzte Schwachstellen im Bestand (CISA KEV)"
+
+msgid "Overdue corrective actions (non-conformities)"
+msgstr "Überfällige Korrekturmaßnahmen (Nichtkonformitäten)"
+
+msgid "Overdue control effectiveness tests"
+msgstr "Überfällige Wirksamkeitstests der Maßnahmen"
