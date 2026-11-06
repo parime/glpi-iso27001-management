@@ -20,12 +20,15 @@ declare(strict_types=1);
 namespace GlpiPlugin\Grcmanager\Tests\Integration;
 
 use GlpiPlugin\Grcmanager\AuditTeam;
+use GlpiPlugin\Grcmanager\Nonconformity;
 use GlpiPlugin\Grcmanager\PeriodicReview;
 use GlpiPlugin\Grcmanager\Risk;
 use GlpiPlugin\Grcmanager\RiskAppetite;
 use GlpiPlugin\Grcmanager\RiskIndicator;
 use GlpiPlugin\Grcmanager\RiskIndicatorValue;
 use GlpiPlugin\Grcmanager\SecurityCategoryLink;
+use GlpiPlugin\Grcmanager\Services\Dashboard\DashboardCardService;
+use GlpiPlugin\Grcmanager\Services\Dashboard\PilotageCards;
 use GlpiPlugin\Grcmanager\Services\Dashboard\SecuredDashboardCards;
 use GlpiPlugin\Grcmanager\Services\Risk\KriRules;
 use GlpiPlugin\Grcmanager\Services\Risk\RiskAppetiteRules;
@@ -363,6 +366,46 @@ final class RiskAppetiteKriTest extends GrcmanagerIntegrationTestCase
         $this->assertSame(1, (int) $values[0]['is_automatic']);
         $this->assertEquals(RiskAppetite::countAbove(true), (float) $values[0]['value']);
         $this->assertFalse($this->kri()->measure(), 'Un KRI manuel ne se relève pas automatiquement.');
+    }
+
+    public function testOtherSourcesMeasureWhatTheirScreensShow(): void
+    {
+        global $DB;
+
+        $_SESSION['glpiactiveentities'] = array_values(array_map('intval', getSonsOf('glpi_entities', 0)));
+
+        // Non-conformité fictive dont l'action corrective est en retard.
+        $DB->insert('glpi_plugin_grcmanager_nonconformities', [
+            'title' => 'Non-conformité fictive KRI', 'status' => 'open', 'due_date' => '2020-01-01',
+        ]);
+        $expected = [
+            'overdue_corrective_actions' => (float) DashboardCardService::overdueCapaCount()['number'],
+            'overdue_control_tests'      => (float) PilotageCards::overdueControlTests()['number'],
+        ];
+        $this->assertGreaterThanOrEqual(1.0, $expected['overdue_corrective_actions']);
+        foreach ($expected as $source => $value) {
+            $kri = $this->kri(['source' => $source, 'threshold_warning' => '1', 'threshold_critical' => '5']);
+            $this->assertTrue($kri->measure(), $source);
+            $values = RiskIndicatorValue::getValues($kri->getID());
+            $this->assertEquals($value, (float) $values[0]['value'], $source);
+        }
+
+        // Revues périodiques et vulnérabilités exploitées : mesurables, sur le périmètre du KRI.
+        foreach (['overdue_periodic_reviews', 'exploited_vulnerabilities'] as $source) {
+            $kri = $this->kri(['source' => $source]);
+            $this->assertTrue($kri->measure(), $source);
+            $this->assertGreaterThanOrEqual(0.0, (float) RiskIndicatorValue::getValues($kri->getID())[0]['value']);
+        }
+
+        // Sans le droit du registre mesuré, la source est refusée.
+        $rights = $_SESSION['glpiactiveprofile'][Nonconformity::RIGHTNAME];
+        $_SESSION['glpiactiveprofile'][Nonconformity::RIGHTNAME] = 0;
+        try {
+            $this->assertFalse(RiskIndicator::canUseSource('overdue_corrective_actions', 0));
+        } finally {
+            $_SESSION['glpiactiveprofile'][Nonconformity::RIGHTNAME] = $rights;
+        }
+        $DB->delete('glpi_plugin_grcmanager_nonconformities', ['title' => 'Non-conformité fictive KRI']);
     }
 
     public function testScheduledTaskMeasuresOnlyActiveAutomaticIndicators(): void

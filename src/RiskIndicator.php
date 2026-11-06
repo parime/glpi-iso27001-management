@@ -26,6 +26,7 @@ use Entity;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\RiskIndicatorBase;
 use GlpiPlugin\Grcmanager\Services\Dashboard\DashboardCardService;
+use GlpiPlugin\Grcmanager\Services\Dashboard\PilotageCards;
 use GlpiPlugin\Grcmanager\Services\Risk\KriRules;
 use GlpiPlugin\Grcmanager\Services\Ui\Badge;
 use Group_Ticket;
@@ -81,6 +82,22 @@ class RiskIndicator extends RiskIndicatorBase
         'overdue_treatment_actions' => [
             'unit' => '', 'direction' => KriRules::HIGHER_IS_WORSE, 'rights' => [], 'global' => true,
         ],
+        // Issue #378, cinquième étape : autres sources, sur des compteurs déjà affichés ailleurs.
+        'exploited_vulnerabilities' => [
+            'unit' => '', 'direction' => KriRules::HIGHER_IS_WORSE, 'rights' => ['software' => READ], 'global' => false,
+        ],
+        'overdue_corrective_actions' => [
+            'unit' => '', 'direction' => KriRules::HIGHER_IS_WORSE,
+            'rights' => [Nonconformity::RIGHTNAME => READ], 'global' => true,
+        ],
+        'overdue_control_tests' => [
+            'unit' => '', 'direction' => KriRules::HIGHER_IS_WORSE,
+            'rights' => [Control::RIGHTNAME => READ], 'global' => true,
+        ],
+        'overdue_periodic_reviews' => [
+            'unit' => '', 'direction' => KriRules::HIGHER_IS_WORSE,
+            'rights' => [PeriodicReview::RIGHTNAME => READ], 'global' => false,
+        ],
     ];
 
     /** Score CVSS à partir duquel une vulnérabilité est critique. */
@@ -113,6 +130,13 @@ class RiskIndicator extends RiskIndicatorBase
             'critical_vulnerabilities'  => __('Open critical vulnerabilities in the fleet', 'grcmanager'),
             'risks_above_tolerance'     => __('Open risks above tolerance', 'grcmanager'),
             'overdue_treatment_actions' => __('Overdue risk treatment actions', 'grcmanager'),
+            'exploited_vulnerabilities' => __(
+                'Actively exploited vulnerabilities in the fleet (CISA KEV)',
+                'grcmanager'
+            ),
+            'overdue_corrective_actions' => __('Overdue corrective actions (non-conformities)', 'grcmanager'),
+            'overdue_control_tests'     => __('Overdue control effectiveness tests', 'grcmanager'),
+            'overdue_periodic_reviews'  => __('Overdue periodic reviews', 'grcmanager'),
         ];
     }
 
@@ -263,7 +287,8 @@ class RiskIndicator extends RiskIndicatorBase
                 return false;
             }
         }
-        if ($source === 'critical_vulnerabilities' && !ParkVulnerability::canView()) {
+        $fleet = ['critical_vulnerabilities', 'exploited_vulnerabilities'];
+        if (in_array($source, $fleet, true) && !ParkVulnerability::canView()) {
             return false;
         }
 
@@ -494,8 +519,42 @@ class RiskIndicator extends RiskIndicatorBase
             )),
             'risks_above_tolerance'     => (float) RiskAppetite::countAbove(true),
             'overdue_treatment_actions' => (float) DashboardCardService::overdueTreatmentActionsCount()['number'],
+            'exploited_vulnerabilities' => (float) count(array_filter(
+                ParkVulnerability::getVulnerabilityRows(
+                    false,
+                    ['glpi_items_softwareversions.entities_id' => $perimeter]
+                ),
+                static fn (array $row): bool => (bool) $row['is_kev']
+            )),
+            'overdue_corrective_actions' => (float) DashboardCardService::overdueCapaCount()['number'],
+            'overdue_control_tests'     => (float) PilotageCards::overdueControlTests()['number'],
+            'overdue_periodic_reviews'  => (float) self::overduePeriodicReviews($perimeter),
             default                     => null,
         };
+    }
+
+    /**
+     * Revues périodiques en retard dans le périmètre du KRI (sans dépendre de la session : la tâche
+     * planifiée relève sans utilisateur connecté).
+     *
+     * @param list<int> $perimeter
+     */
+    private static function overduePeriodicReviews(array $perimeter): int
+    {
+        global $DB;
+
+        $today = date('Y-m-d');
+        $count = 0;
+        $table = PeriodicReview::getTable();
+        foreach ($DB->request(['FROM' => $table, 'WHERE' => ['entities_id' => $perimeter]]) as $row) {
+            $review = new PeriodicReview();
+            $review->getFromResultSet($row);
+            if ($review->isOverdue($today)) {
+                $count++;
+            }
+        }
+
+        return $count;
     }
 
     /**

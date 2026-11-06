@@ -10800,3 +10800,12 @@ msgstr "Porównywane według poziomu ryzyka rezydualnego."
 
 msgid "Compared on the initial risk level: assess the residual risk once the treatment is defined."
 msgstr "Porównywane według poziomu ryzyka początkowego: oceń ryzyko rezydualne po określeniu postępowania."
+
+msgid "Actively exploited vulnerabilities in the fleet (CISA KEV)"
+msgstr "Aktywnie wykorzystywane podatności w infrastrukturze (CISA KEV)"
+
+msgid "Overdue corrective actions (non-conformities)"
+msgstr "Zaległe działania korygujące (niezgodności)"
+
+msgid "Overdue control effectiveness tests"
+msgstr "Zaległe testy skuteczności zabezpieczeń"
