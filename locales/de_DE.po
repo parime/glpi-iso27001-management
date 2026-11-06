@@ -9388,3 +9388,18 @@ msgstr "Überfällige Korrekturmaßnahmen (Nichtkonformitäten)"
 
 msgid "Overdue control effectiveness tests"
 msgstr "Überfällige Wirksamkeitstests der Maßnahmen"
+
+msgid "Financial sector (Regulation (EU) 2022/2554): DORA requirements, their references on the controls and DORA score. Disabled by default."
+msgstr "Finanzsektor (Verordnung (EU) 2022/2554): DORA-Anforderungen, ihre Verweise bei den Maßnahmen und DORA-Bewertung. Standardmäßig deaktiviert."
+
+msgid "DORA requirements"
+msgstr "DORA-Anforderungen"
+
+msgid "DORA Regulation (EU) 2022/2554"
+msgstr "DORA-Verordnung (EU) 2022/2554"
+
+msgid "Digital operational resilience of the financial sector. Requirements summarised by this project; refer to the official text."
+msgstr "Digitale operationale Resilienz des Finanzsektors. Von diesem Projekt zusammengefasste Anforderungen: Maßgeblich ist der amtliche Text."
+
+msgid "Source: Regulation (EU) 2022/2554 (DORA), © European Union, EUR-Lex. Requirements are summarised and the mapping to ISO 27001 Annex A is indicative, both made by this project."
+msgstr "Quelle: Verordnung (EU) 2022/2554 (DORA), © Europäische Union, EUR-Lex. Die Anforderungen sind zusammengefasst und die Zuordnung zu ISO 27001 Anhang A ist indikativ, beides von diesem Projekt erstellt."

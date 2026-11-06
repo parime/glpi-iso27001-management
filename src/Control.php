@@ -29,6 +29,7 @@ use GlpiPlugin\Grcmanager\Services\Control\ControlCrosswalkDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\ControlTestRules;
 use GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig;
 use GlpiPlugin\Grcmanager\Services\Control\FrameworkSelection;
+use GlpiPlugin\Grcmanager\Services\Control\DoraCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\Nis2CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Ui\Badge;
 use GlpiPlugin\Grcmanager\Services\Ui\Fragment;
@@ -650,6 +651,7 @@ class Control extends ControlBase
 
         // Issue #403 : correspondances des référentiels désactivés masquées.
         $showNis2 = FrameworkConfig::isEnabled(FrameworkSelection::NIS2);
+        $showDora = FrameworkConfig::isEnabled(FrameworkSelection::DORA);
         $showNist = FrameworkConfig::isEnabled(FrameworkSelection::NIST_CSF);
         $measures = FrameworkConfig::isEnabled(FrameworkSelection::ANSSI)
             ? AnssiHygieneCatalogDefaults::measuresForControl($code)
@@ -712,6 +714,10 @@ class Control extends ControlBase
             'nis2'                    => $showNis2 ? array_map(
                 static fn (string $nis2Code): string => Nis2CatalogDefaults::reference($nis2Code),
                 Nis2CatalogDefaults::requirementsForControl($code)
+            ) : [],
+            'dora'                    => $showDora ? array_map(
+                static fn (string $doraCode): string => DoraCatalogDefaults::reference($doraCode),
+                DoraCatalogDefaults::requirementsForControl($code)
             ) : [],
             'anssi'                   => $anssi,
             'cis'                     => $cis,

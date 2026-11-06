@@ -35,6 +35,13 @@ final class FrameworkSelection
     public const NIST_CSF = 'nist_csf';
     public const CIS_CONTROLS = 'cis_controls';
     public const ISO27090 = 'iso27090';
+    public const DORA = 'dora';
+
+    /**
+     * Issue #379 : référentiels sectoriels, désactivés tant que personne ne les a activés (une
+     * installation existante ne les voit pas apparaître d'office).
+     */
+    public const OPTIONAL = [self::DORA];
 
     /**
      * Référentiels activables, dans l'ordre d'affichage, avec leur nom (nom propre, non traduit).
@@ -48,6 +55,7 @@ final class FrameworkSelection
         self::NIST_CSF     => 'NIST CSF 2.0',
         self::CIS_CONTROLS => 'CIS Controls v8',
         self::ISO27090     => 'ISO/IEC 27090:2026',
+        self::DORA         => 'DORA',
     ];
 
     /**

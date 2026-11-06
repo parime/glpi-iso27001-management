@@ -59,6 +59,26 @@ final class FrameworkConfigTest extends GrcmanagerIntegrationTestCase
         $this->assertNotFalse(Referentials::getMenuContent());
     }
 
+    public function testOptionalFrameworksStayDisabledUntilSomeoneEnablesThem(): void
+    {
+        global $DB;
+        FrameworkConfig::save(array_keys(FrameworkSelection::FRAMEWORKS));
+        $DB->delete('glpi_configs', [
+            'context' => FrameworkConfig::CONFIG_CONTEXT,
+            'name'    => [FrameworkConfig::CONFIG_KEY, FrameworkConfig::KNOWN_KEY],
+        ]);
+
+        // Sans réglage (installation antérieure à DORA) : tout reste actif, sauf le référentiel optionnel.
+        $expected = array_values(array_diff(array_keys(FrameworkSelection::FRAMEWORKS), [FrameworkSelection::DORA]));
+        $this->assertSame($expected, FrameworkConfig::enabled());
+
+        // Activé une fois, il le reste ; sa correspondance entre dans le score.
+        FrameworkConfig::save([FrameworkSelection::ISO27001, FrameworkSelection::DORA]);
+        $this->assertTrue(FrameworkConfig::isEnabled(FrameworkSelection::DORA));
+        $controls = ['A.5.19' => ['applicability' => 'yes', 'implementation_status' => 'implemented']];
+        $this->assertArrayHasKey('DORA', PilotageCards::frameworkRates($controls, FrameworkConfig::enabled()));
+    }
+
     public function testDisablingIso27001HidesIsmsRequirementsAndKeepsTheirData(): void
     {
         $requirement = new IsmsRequirement();
