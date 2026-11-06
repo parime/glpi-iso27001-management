@@ -238,10 +238,15 @@ final class Installer
     private const NETWORK_FLOWS_TABLE = 'glpi_plugin_grcmanager_networkflows';
     // Issue #183 : expositions à des fuites de données, voir \GlpiPlugin\Grcmanager\BreachExposure.
     private const BREACH_EXPOSURES_TABLE = 'glpi_plugin_grcmanager_breachexposures';
+    // Issue #485 : rapports périodiques des vulnérabilités du parc envoyés par e-mail.
+    private const VULNERABILITY_DIGESTS_TABLE = 'glpi_plugin_grcmanager_vulnerabilitydigests';
     /** Classes créées directement dans src/ (sans ancien nom) : nettoyées à la désinstallation. */
     private const SRC_ONLY_CLASSES = [
         \GlpiPlugin\Grcmanager\BreachExposure::class,
         \GlpiPlugin\Grcmanager\NotificationTargetBreachExposure::class,
+        // Issue #485 : rapport des vulnérabilités du parc par e-mail.
+        \GlpiPlugin\Grcmanager\VulnerabilityDigest::class,
+        \GlpiPlugin\Grcmanager\NotificationTargetVulnerabilityDigest::class,
         // Issue #371 : alertes d'accès au module des incidents.
         \GlpiPlugin\Grcmanager\IncidentAccessWatch::class,
         \GlpiPlugin\Grcmanager\NotificationTargetIncidentAccessWatch::class,
@@ -1456,6 +1461,29 @@ final class Installer
                 PRIMARY KEY (`id`),
                 UNIQUE KEY `exposure` (`users_id`, `email`, `breach_name`),
                 KEY `status` (`status`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query);
+        }
+
+        // Issue #485 : un enregistrement par rapport envoyé (comptes, et clés des vulnérabilités
+        // signalées, pour marquer les nouvelles au rapport suivant).
+        if (!$DB->tableExists(self::VULNERABILITY_DIGESTS_TABLE)) {
+            $query = "CREATE TABLE `" . self::VULNERABILITY_DIGESTS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `entities_id` int {$keySign} NOT NULL DEFAULT 0,
+                `urgency` varchar(16) NOT NULL DEFAULT 'ok' COMMENT 'urgent, high, watch, ok',
+                `exploited` int NOT NULL DEFAULT 0,
+                `likely` int NOT NULL DEFAULT 0,
+                `critical` int NOT NULL DEFAULT 0,
+                `high` int NOT NULL DEFAULT 0,
+                `machines` int NOT NULL DEFAULT 0,
+                `new_count` int NOT NULL DEFAULT 0,
+                `cve_keys` mediumtext COMMENT 'JSON, CVE#produit signalées',
+                `is_sent` tinyint NOT NULL DEFAULT 0,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `date_creation` (`date_creation`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
             $DB->doQuery($query);
@@ -3026,6 +3054,7 @@ final class Installer
         $this->seedSecurityWatchNotification();
         $this->seedTrainingRenewalNotification();
         $this->seedBreachExposureNotification();
+        $this->seedVulnerabilityDigestNotification();
         $this->seedIncidentAccessWatchNotifications();
         $this->seedPolicyReviewReminderNotification();
         $this->seedTreatmentActionOverdueNotification();
@@ -3256,6 +3285,18 @@ final class Installer
                     . 'CISA KEV et FIRST EPSS',
                 'mode'    => CronTask::MODE_EXTERNAL,
                 'param'   => 20,
+            ]
+        );
+
+        // Issue #485 : rapport des vulnérabilités du parc par e-mail. Tâche quotidienne : le rapport
+        // part selon la fréquence choisie dans la configuration (désactivé par défaut).
+        CronTask::Register(
+            'GlpiPlugin\\Grcmanager\\VulnerabilityDigest',
+            'vulnerabilitydigest',
+            DAY_TIMESTAMP,
+            [
+                'comment' => 'Envoie le rapport des vulnérabilités du parc selon la fréquence choisie',
+                'mode'    => CronTask::MODE_EXTERNAL,
             ]
         );
 
@@ -4286,6 +4327,55 @@ final class Installer
     }
 
     /**
+     * Issue #485 : rapport périodique des vulnérabilités du parc, au groupe RSSI (seuls les
+     * destinataires qui lisent les vulnérabilités de tout le parc le reçoivent). Titre calculé à
+     * l'envoi, qui donne l'urgence. Idempotent : une notification modifiée n'est jamais réécrite.
+     */
+    private function seedVulnerabilityDigestNotification(): void
+    {
+        $name = 'GRC Manager - Rapport des vulnérabilités du parc';
+        $rows = [
+            ['label' => 'Exploitées activement (CISA KEV)', 'tag' => '##vulndigest.exploited##', 'color' => '#d63939'],
+            ['label' => 'Probablement exploitées (EPSS)', 'tag' => '##vulndigest.likely##', 'color' => '#f76707'],
+            ['label' => 'Critiques (CVSS 9 ou plus)', 'tag' => '##vulndigest.critical##', 'color' => '#f59f00'],
+            ['label' => 'Élevées', 'tag' => '##vulndigest.high##', 'color' => '#1a1a2e'],
+            ['label' => 'Machines exposées', 'tag' => '##vulndigest.machines##', 'color' => '#1a1a2e'],
+            ['label' => 'Nouvelles depuis le dernier rapport', 'tag' => '##vulndigest.new##', 'color' => '#1a1a2e'],
+        ];
+        $advice = 'Traitez d\'abord les vulnérabilités exploitées : mettez à jour le logiciel ou appliquez '
+            . 'la mesure de contournement de l\'éditeur. La liste complète, les machines concernées et la '
+            . 'création de tickets sont dans GLPI.';
+        $text = "##vulndigest.subject##\n\n";
+        foreach ($rows as $row) {
+            $text .= $row['label'] . ' : ' . $row['tag'] . "\n";
+        }
+        $text .= "##vulndigest.ransomware##\n\n"
+            . "##FOREACHvulnerabilities##- ##vulnerability.cve## ##vulnerability.isnew## : "
+            . "##vulnerability.product## (##vulnerability.versions##), ##vulnerability.category##, "
+            . "##vulnerability.signal##, ##vulnerability.machines## machine(s)\n##ENDFOREACHvulnerabilities##"
+            . "##vulndigest.more##\n\n" . $advice . "\n\nVoir les vulnérabilités du parc : ##vulndigest.url##";
+        $html = NotificationHtml::renderVulnerabilityDigest(
+            'Rapport des vulnérabilités du parc',
+            $rows,
+            ['CVE', 'Logiciel', 'Catégorie', 'Machines'],
+            [$advice],
+            'Voir les vulnérabilités du parc'
+        );
+        $this->seedBrandedNotification(
+            \GlpiPlugin\Grcmanager\VulnerabilityDigest::class,
+            \GlpiPlugin\Grcmanager\VulnerabilityDigest::EVENT,
+            $name,
+            'Envoyée par la tâche automatique « vulnerabilitydigest » selon la fréquence choisie dans la '
+                . 'configuration de GRC Manager (vulnérabilités exploitées, probablement exploitées, '
+                . 'critiques et élevées du parc).',
+            '##vulndigest.subject##',
+            $text,
+            $html,
+            [\GlpiPlugin\Grcmanager\NotificationTargetVulnerabilityDigest::TARGET_CISO_GROUP]
+        );
+    }
+
+    /**
      * Same structure as seedReviewReminderNotification() above, for the issue #28 policy
      * review-reminder Cron task (\GlpiPlugin\Grcmanager\Policy::cronReviewreminder(), event
      * 'policy_review_due', see inc/notificationtargetpolicy.class.php). Idempotent for the same
@@ -5164,6 +5254,7 @@ final class Installer
         $this->unseedNotification(PluginGrcmanagerSecurityIncident::class);
         $this->unseedNotification('GlpiPlugin\\Grcmanager\\AccessReview');
         $this->unseedNotification(\GlpiPlugin\Grcmanager\BreachExposure::class);
+        $this->unseedNotification(\GlpiPlugin\Grcmanager\VulnerabilityDigest::class);
         $this->unseedNotification(\GlpiPlugin\Grcmanager\IncidentAccessWatch::class);
         // Issue #380 : rappel des tests d'efficacité.
         $this->unseedNotification(\GlpiPlugin\Grcmanager\Control::class);
@@ -5225,6 +5316,7 @@ final class Installer
         $migration->dropTable(self::PERIODIC_REVIEWS_TABLE);
         $migration->dropTable(self::NETWORK_FLOWS_TABLE);
         $migration->dropTable(self::BREACH_EXPOSURES_TABLE);
+        $migration->dropTable(self::VULNERABILITY_DIGESTS_TABLE);
         $migration->dropTable(self::PROCESSING_ACTIVITIES_ITEMS_TABLE);
         $migration->dropTable(self::PROCESSING_ACTIVITIES_TABLE);
         $migration->dropTable(self::COMPLIANCE_EVENTS_TABLE);
