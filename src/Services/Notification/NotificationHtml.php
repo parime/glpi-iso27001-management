@@ -67,6 +67,30 @@ final class NotificationHtml
         ]));
     }
 
+    /**
+     * Issue #485 : corps HTML du rapport des vulnérabilités du parc (comptes, puis liste en boucle
+     * ##FOREACH## de GLPI), sur la même charte que renderBranded().
+     *
+     * @param list<array{label: string, tag: string, color: string}> $rows
+     * @param list<string> $columns
+     * @param list<string> $lines
+     */
+    public static function renderVulnerabilityDigest(
+        string $title,
+        array $rows,
+        array $columns,
+        array $lines,
+        string $cta
+    ): string {
+        return trim(self::environment()->load('@grcmanager/notifications/vulnerability_digest_html.html.twig')->render([
+            'title'   => $title,
+            'rows'    => $rows,
+            'columns' => $columns,
+            'lines'   => $lines,
+            'cta'     => $cta,
+        ]));
+    }
+
     /** @return array{type: string, text: string} ligne de titre en gras */
     public static function strong(string $text): array
     {

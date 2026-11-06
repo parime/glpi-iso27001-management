@@ -17,6 +17,17 @@
       </div>
    {% endif %}
 
+   {# Issue #485 : rapport des vulnérabilités par e-mail. #}
+   <p class="text-muted small mb-2">
+      <i class="ti ti-mail-bolt me-1"></i>
+      {% if digest.frequency %}
+         {{ __('Report by email: %1$s, next one on %2$s.', 'grcmanager')|format(digest.frequency|lower, digest.next) }}
+      {% else %}
+         {{ __('No report by email.', 'grcmanager') }}
+      {% endif %}
+      {% if can_update %}<a href="{{ config_url }}">{{ __('Set it up', 'grcmanager') }}</a>{% endif %}
+   </p>
+
    <div class="row row-cards mb-3">
       <div class="col-sm-6 col-lg-3"><div class="card card-sm"><div class="card-body">
          <div class="text-muted">{{ __('Watched software', 'grcmanager') }}</div>

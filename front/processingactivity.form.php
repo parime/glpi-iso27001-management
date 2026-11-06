@@ -51,7 +51,7 @@ if (isset($_POST['add'])) {
             isset($_POST['link_incident'])
         )
     ) {
-        Html::displayRightError();
+        throw new \Glpi\Exception\Http\AccessDeniedHttpException();
     }
     Html::back();
 } elseif (isset($_POST['update'])) {
