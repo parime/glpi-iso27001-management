@@ -7,11 +7,7 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
-### Fixed
-
-- **Désinstallation** : le journal des analyses d'impact (AIPD) et les préférences des éléments EBIOS
-  sont retirés ; une ligne du journal de l'AIPD restait depuis la 2.23.0. Le contrôle commun des
-  restes crée désormais une AIPD avant de désinstaller, pour détecter une régression.
+## [2.25.0] - 2026-11-06
 
 ### Added
 
@@ -135,6 +131,10 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   Elle reste à l'écran et dans l'export CSV.
 
 ### Fixed
+
+- **Désinstallation** : le journal des analyses d'impact (AIPD) et les préférences des éléments EBIOS
+  sont retirés ; une ligne du journal de l'AIPD restait depuis la 2.23.0. Le contrôle commun des
+  restes crée désormais une AIPD avant de désinstaller, pour détecter une régression.
 
 - **Liens orphelins du registre des traitements** : un élément ou un incident supprimé
   définitivement n'est plus cité par le registre.
