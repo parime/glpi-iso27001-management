@@ -7,13 +7,6 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
-### Fixed
-
-- **Installation depuis la marketplace de GLPI** (issue #479) : les pages du plugin ne chargent plus
-  `inc/includes.php` par un chemin relatif, qui ne fonctionnait que dans le dossier `plugins/`. Installé
-  dans le dossier `marketplace`, le plugin ne s'ouvrait plus (GLPI 11.0.12). GLPI 11 charge lui-même
-  son environnement avant d'appeler une page de plugin.
-
 ## [2.25.0] - 2026-11-06
 
 ### Added
@@ -139,6 +132,10 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Fixed
 
+- **Installation depuis la marketplace de GLPI** (issue #479) : les pages du plugin ne chargent plus
+  `inc/includes.php` par un chemin relatif, qui ne fonctionnait que dans le dossier `plugins/`. Installé
+  dans le dossier `marketplace`, le plugin ne s'ouvrait plus (GLPI 11.0.12). GLPI 11 charge lui-même
+  son environnement avant d'appeler une page de plugin.
 - **Désinstallation** : le journal des analyses d'impact (AIPD) et les préférences des éléments EBIOS
   sont retirés ; une ligne du journal de l'AIPD restait depuis la 2.23.0. Le contrôle commun des
   restes crée désormais une AIPD avant de désinstaller, pour détecter une régression.
