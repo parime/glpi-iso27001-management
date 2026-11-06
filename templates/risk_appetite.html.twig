@@ -1,7 +1,28 @@
+{% import 'components/form/fields_macros.html.twig' as fields %}
 {# Issue #378 : appétence et tolérance au risque par catégorie, puis risques qui les dépassent. #}
 <div class="card mb-3"><div class="card-body">
    <h3>{{ __('Appetite and tolerance by risk category', 'grcmanager') }}</h3>
    <p class="text-muted"><i class="ti ti-info-circle me-1"></i>{{ __('Appetite: the highest risk level accepted without action. Tolerance: the level beyond which the risk can no longer be borne. A risk above the appetite needs a treatment or a formal, justified acceptance. Saving records you as the approver, with today\'s date.', 'grcmanager') }}</p>
+   {# Issue #378, troisième étape : groupe Direction. #}
+   <div class="alert {{ direction_groups_id ? 'alert-info' : 'alert-warning' }} d-flex flex-wrap align-items-center gap-2">
+      <i class="ti ti-building"></i>
+      <div class="flex-fill">
+         {% if direction_groups_id %}
+            {{ __('Beyond the tolerance, only management can accept a risk: the members of the group below. Their acceptances and approvals are marked "Management".', 'grcmanager') }}
+         {% else %}
+            {{ __('No management group is set: anyone who can edit the register can accept a risk beyond the tolerance. Choose the group whose members represent management.', 'grcmanager') }}
+         {% endif %}
+      </div>
+      {% if can_update %}
+         <form method="post" action="{{ action }}" class="d-flex gap-2 align-items-center">
+            <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+            {{ fields.dropdownField('Group', 'direction_groups_id', direction_groups_id, __('Management group', 'grcmanager'), {'entity': -1, 'full_width': true, 'is_horizontal': false, 'mb': ''}) }}
+            <button type="submit" name="save_direction_group" value="1" class="btn btn-sm btn-primary">{{ __('Save') }}</button>
+         </form>
+      {% elseif direction_groups_id %}
+         <strong>{{ direction_group_name }}</strong>
+      {% endif %}
+   </div>
    {% if can_update %}<form method="post" action="{{ action }}">{% endif %}
    <div class="table-responsive">
       <table class="table align-middle">
@@ -28,7 +49,7 @@
                         {{ c.statement }}
                      {% endif %}
                   </td>
-                  <td class="small text-muted">{% if c.approver %}{{ c.approver }}<br>{{ c.approved|formatted_datetime }}{% endif %}</td>
+                  <td class="small text-muted">{% if c.approver %}{{ c.approver }}{% if c.by_direction %} <span class="badge bg-blue-lt"><i class="ti ti-building me-1"></i>{{ __('Management', 'grcmanager') }}</span>{% endif %}<br>{{ c.approved|formatted_datetime }}{% endif %}</td>
                </tr>
             {% endfor %}
          </tbody>
@@ -64,7 +85,8 @@
                         <span class="badge bg-red-lt">{{ __('Decision required', 'grcmanager') }}</span>
                      {% else %}
                         {{ r.treatment }}
-                        {% if r.accepted_by %}<div class="small text-muted">{{ __('Formally accepted by %s', 'grcmanager')|format(r.accepted_by) }}</div>{% endif %}
+                        {% if r.accepted_by %}<div class="small text-muted">{{ __('Formally accepted by %s', 'grcmanager')|format(r.accepted_by) }}{% if r.by_direction %} <span class="badge bg-blue-lt"><i class="ti ti-building me-1"></i>{{ __('Management', 'grcmanager') }}</span>{% endif %}</div>{% endif %}
+                        {% if r.needs_direction %}<div class="small text-warning"><i class="ti ti-alert-triangle me-1"></i>{{ __('To be signed by management', 'grcmanager') }}</div>{% endif %}
                      {% endif %}
                   </td>
                </tr>

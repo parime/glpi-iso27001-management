@@ -20,6 +20,7 @@ namespace GlpiPlugin\Grcmanager;
 use CommonDBTM;
 use CommonGLPI;
 use CronTask;
+use Dropdown;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\RiskBase;
 use GlpiPlugin\Grcmanager\Services\Classification\ClassificationLevels;
@@ -178,7 +179,7 @@ class Risk extends RiskBase
      */
     private function applyAppetite(array $input)
     {
-        unset($input['users_id_acceptance'], $input['date_acceptance']);
+        unset($input['users_id_acceptance'], $input['date_acceptance'], $input['is_direction_acceptance']);
         $category  = (string) ($input['category'] ?? ($this->fields['category'] ?? ''));
         $level     = (string) ($input['risk_level'] ?? ($this->fields['risk_level'] ?? ''));
         $treatment = (string) ($input['treatment'] ?? ($this->fields['treatment'] ?? ''));
@@ -200,17 +201,51 @@ class Risk extends RiskBase
 
                 return false;
             }
-            if (!$alreadySigned) {
-                $input['users_id_acceptance'] = (int) Session::getLoginUserID();
-                $input['date_acceptance']     = Session::getCurrentTime() ?? date('Y-m-d H:i:s');
+            $signer = (int) Session::getLoginUserID();
+            $directionId = RiskAppetite::getDirectionGroupId();
+            $signedByDirection = (int) ($this->fields['is_direction_acceptance'] ?? 0) === 1;
+            $decision = RiskAppetiteRules::acceptance(
+                $position,
+                $treatment,
+                $directionId > 0,
+                RiskAppetite::isDirection($signer)
+            );
+            // Une acceptation déjà signée reste valable ; seule la direction peut la reprendre à son compte.
+            $resign = !$alreadySigned
+                || ($decision === RiskAppetiteRules::ACCEPT_DIRECTION && !$signedByDirection);
+            if ($decision === RiskAppetiteRules::ACCEPT_REFUSED && !$alreadySigned) {
+                Session::addMessageAfterRedirect(
+                    sprintf(
+                        __(
+                            'This risk exceeds the tolerance of its category: only a member of the management group '
+                                . '(%s) can accept it. Choose a treatment, or ask management to sign the acceptance.',
+                            'grcmanager'
+                        ),
+                        Dropdown::getDropdownName('glpi_groups', $directionId)
+                    ),
+                    false,
+                    ERROR
+                );
+                AuditLog::record('risk_acceptance', self::class, (int) ($this->fields['id'] ?? 0), 0, 'denied', [
+                    'category' => $category, 'level' => $level, 'position' => $position,
+                ]);
+
+                return false;
+            }
+            if ($resign) {
+                $input['users_id_acceptance']     = $signer;
+                $input['date_acceptance']         = Session::getCurrentTime() ?? date('Y-m-d H:i:s');
+                $input['is_direction_acceptance'] = (int) ($decision === RiskAppetiteRules::ACCEPT_DIRECTION);
                 AuditLog::record('risk_acceptance', self::class, (int) ($this->fields['id'] ?? 0), 0, 'success', [
                     'category' => $category, 'level' => $level, 'position' => $position,
+                    'direction' => $decision === RiskAppetiteRules::ACCEPT_DIRECTION,
                 ]);
             }
         } elseif ($treatment !== 'accept' && (int) ($this->fields['users_id_acceptance'] ?? 0) > 0) {
             // Décision changée : la signature d'acceptation ne vaut plus.
-            $input['users_id_acceptance'] = 0;
-            $input['date_acceptance']     = null;
+            $input['users_id_acceptance']     = 0;
+            $input['date_acceptance']         = null;
+            $input['is_direction_acceptance'] = 0;
         }
 
         return $input;
@@ -482,6 +517,15 @@ class Risk extends RiskBase
             'accepted_by'         => (int) ($this->fields['users_id_acceptance'] ?? 0) > 0
                 ? getUserName((int) $this->fields['users_id_acceptance']) : '',
             'accepted_on'         => (string) ($this->fields['date_acceptance'] ?? ''),
+            'accepted_direction'  => (int) ($this->fields['is_direction_acceptance'] ?? 0) === 1,
+            'direction_group'     => RiskAppetite::getDirectionGroupId() > 0
+                ? Dropdown::getDropdownName('glpi_groups', RiskAppetite::getDirectionGroupId()) : '',
+            'needs_direction'     => !$isNew && RiskAppetiteRules::needsDirectionSignature(
+                RiskAppetite::positionFor((string) $this->fields['category'], (string) $this->fields['risk_level']),
+                (string) $this->fields['treatment'],
+                RiskAppetite::getDirectionGroupId() > 0,
+                (int) ($this->fields['is_direction_acceptance'] ?? 0) === 1
+            ),
             'indicators'          => $isNew ? [] : RiskIndicator::forRisk((int) $ID),
         ]);
 

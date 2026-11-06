@@ -7,6 +7,15 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Added
+
+- **Acceptation des risques par la direction** (issue #378) : un groupe « Direction » se choisit sur la
+  page Appétence au risque. Au-delà de la tolérance d'une catégorie, seul un de ses membres peut
+  accepter un risque ; les autres doivent choisir un traitement. Les acceptations et les appétences
+  approuvées par un membre de la direction portent la mention « Direction ». Un risque réévalué au-delà
+  de la tolérance après une acceptation hors direction est signalé « à faire signer par la direction ».
+  Sans groupe Direction, rien ne change.
+
 ## [2.26.0] - 2026-11-06
 
 ### Added
