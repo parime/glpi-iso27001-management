@@ -296,8 +296,48 @@
       </div>
       <div class="form-hint mb-2">{{ __('A single open ticket per software, detailing its vulnerabilities and linked to the affected machines. At most %d tickets are created per run, most severe first. A followup is added when more machines are affected, when a vulnerability becomes actively exploited, or when no machine is vulnerable anymore. The ticket is never closed and its priority never changed automatically.', 'grcmanager')|format(max_tickets) }}</div>
 
+      {# Issue #485 : rapport des vulnérabilités du parc par e-mail. #}
+      <h5 class="mt-4"><i class="ti ti-mail-bolt me-1"></i>{{ __('Fleet vulnerability report by email', 'grcmanager') }}</h5>
+      <p class="text-muted mb-2">{{ __('A regular email listing the vulnerabilities of the fleet that are exploited, likely to be exploited, critical or high. Its subject shows the urgency at a glance, for instance "[URGENT] 2 actively exploited vulnerabilities, 14 machines exposed".', 'grcmanager') }}</p>
+      <div class="d-flex flex-wrap gap-3 mb-2">
+        <div style="max-width: 260px;">
+          <label class="form-label" for="park_digest_frequency">{{ __('Send the report', 'grcmanager') }}</label>
+          <select class="form-select" id="park_digest_frequency" name="park_digest_frequency">
+            {% for key, label in digest.frequencies %}<option value="{{ key }}" {{ key == digest.frequency ? 'selected' : '' }}>{{ label }}</option>{% endfor %}
+          </select>
+        </div>
+        <div style="max-width: 260px;">
+          <label class="form-label" for="park_digest_min_cvss">{{ __('Include vulnerabilities from CVSS', 'grcmanager') }}</label>
+          <input type="number" class="form-control" id="park_digest_min_cvss" name="park_digest_min_cvss" min="0" max="10" step="0.1" value="{{ digest.min_cvss }}">
+          <div class="form-hint">{{ __('7 = high and critical. Exploited vulnerabilities are always included.', 'grcmanager') }}</div>
+        </div>
+      </div>
+      <ul class="list-unstyled small mb-2">
+        <li><i class="ti ti-calendar-event me-1"></i>{{ __('Last report', 'grcmanager') }} :
+          {% if digest.last %}
+            {{ digest.last_date }} <span class="badge {{ {'urgent': 'bg-red-lt', 'high': 'bg-orange-lt', 'watch': 'bg-yellow-lt', 'ok': 'bg-green-lt'}[digest.last.urgency]|default('bg-secondary-lt') }}">{{ digest.urgencies[digest.last.urgency]|default(digest.last.urgency) }}</span>
+          {% else %}
+            {{ __('none yet', 'grcmanager') }}
+          {% endif %}
+        </li>
+        {% if digest.next_date %}<li><i class="ti ti-calendar-time me-1"></i>{{ __('Next report', 'grcmanager') }} : {{ digest.next_date }}</li>{% endif %}
+        <li><i class="ti ti-users me-1"></i>{{ __('Recipients: the CISO group, and anyone added to the notification who can read the vulnerabilities of the whole fleet.', 'grcmanager') }}
+          {% if digest.notification_url %}<a href="{{ digest.notification_url }}">{{ __('Change the recipients or the text', 'grcmanager') }}</a>{% endif %}
+        </li>
+      </ul>
+      {% for problem, active in {
+        (__('The vulnerability watch (NVD enrichment) is disabled: no report is sent.', 'grcmanager')): not digest.watch_enabled,
+        (__('Email notifications are disabled in GLPI (Setup > Notifications): the report cannot reach anyone.', 'grcmanager')): not digest.mail_enabled,
+        (__('No CISO group is set (Audit team section above): add recipients to the notification, or the report will reach nobody.', 'grcmanager')): not digest.has_ciso_group,
+        (__('The notification "GRC Manager - Fleet vulnerability report" is inactive.', 'grcmanager')): digest.notification_url and not digest.is_active,
+      } %}
+        {% if active %}<div class="alert alert-warning py-2 mb-2"><i class="ti ti-alert-triangle me-1"></i>{{ problem }}</div>{% endif %}
+      {% endfor %}
+
+
       <div class="d-flex gap-2 mt-2">
         <button type="submit" name="update_nvd_config" class="btn btn-primary">{{ __('Enregistrer') }}</button>
+        <button type="submit" name="send_vulnerability_digest" class="btn btn-outline-secondary" title="{{ __('Sends the report now to its recipients, whatever the frequency.', 'grcmanager') }}"><i class="ti ti-send me-1"></i>{{ __('Send the report now', 'grcmanager') }}</button>
       </div>
     </form>
   </div>

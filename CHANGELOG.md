@@ -7,6 +7,23 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.26.0] - 2026-11-06
+
+### Added
+
+- **Rapport des vulnérabilités du parc par e-mail** (issue #485), à fréquence réglable (tous les jours,
+  toutes les semaines, tous les mois ; désactivé par défaut) : vulnérabilités exploitées (CISA KEV),
+  probablement exploitées (EPSS), critiques et élevées, machines exposées, nouveautés depuis le
+  rapport précédent. L'objet donne l'urgence d'un coup d'œil, par exemple « [URGENT] 2
+  vulnérabilités exploitées activement, 14 machines exposées ». Envoyé au groupe RSSI, seulement aux
+  destinataires qui peuvent lire les vulnérabilités de tout le parc. Bouton « Envoyer le rapport
+  maintenant » dans la configuration.
+
+### Fixed
+
+- **GLPI 12** : un refus d'accès sur le lien entre une fiche du registre des traitements et un incident
+  donnait une erreur 500 ; il répond de nouveau 403.
+
 ## [2.25.0] - 2026-11-06
 
 ### Added

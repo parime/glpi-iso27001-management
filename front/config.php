@@ -216,6 +216,32 @@ if (isset($_POST['update_nvd_config'])) {
     ]);
     // Issue #160, phase 2 : seuils des tickets automatiques des vulnérabilités du parc.
     \GlpiPlugin\Grcmanager\ParkVulnerability::saveTicketThresholds($_POST);
+    // Issue #485 : rapport des vulnérabilités du parc par e-mail.
+    \GlpiPlugin\Grcmanager\VulnerabilityDigest::saveSettings($_POST);
+
+    Html::back();
+}
+
+// Issue #485 : envoi immédiat du rapport des vulnérabilités, pour l'essayer sans attendre la tâche.
+if (isset($_POST['send_vulnerability_digest'])) {
+    Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
+    if (!\GlpiPlugin\Grcmanager\Services\Cve\ParkVulnerabilitySync::isEnabled()) {
+        Session::addMessageAfterRedirect(htmlescape(__(
+            'Enable the NVD enrichment first: without it, the report would wrongly say that nothing is exposed.',
+            'grcmanager'
+        )), false, ERROR);
+    } elseif (\GlpiPlugin\Grcmanager\VulnerabilityDigest::send() > 0) {
+        Session::addMessageAfterRedirect(htmlescape(__(
+            'The report has been queued for sending to its recipients.',
+            'grcmanager'
+        )));
+    } else {
+        Session::addMessageAfterRedirect(htmlescape(__(
+            'The report could not be sent: check that notifications are enabled in GLPI and that the '
+                . 'notification "GRC Manager - Fleet vulnerability report" is active.',
+            'grcmanager'
+        )), false, ERROR);
+    }
 
     Html::back();
 }
@@ -247,6 +273,7 @@ Html::header(
     ]),
     'nvd_config'                => NvdConfig::load(),
     'park_thresholds'           => \GlpiPlugin\Grcmanager\ParkVulnerability::getTicketThresholds(),
+    'digest'                    => \GlpiPlugin\Grcmanager\VulnerabilityDigest::configData(),
     'max_tickets'               => \GlpiPlugin\Grcmanager\ParkVulnerability::MAX_TICKETS_PER_RUN,
     'ciso_groups_id'            => \GlpiPlugin\Grcmanager\AuditTeam::getCisoGroupId(),
     'controltest_ciso_mode'     => \GlpiPlugin\Grcmanager\ControlTestReminder::cisoMode(),
