@@ -18,8 +18,6 @@
 use Glpi\Search\Input\QueryBuilder;
 use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
 
-include('../../../inc/includes.php');
-
 // Issue #378 : indicateurs de risque (KRI), registre sensible ; la liste ne montre que les KRI des
 // entités de l'utilisateur (moteur de recherche de GLPI).
 Session::checkRight(\GlpiPlugin\Grcmanager\RiskIndicator::$rightname, READ);

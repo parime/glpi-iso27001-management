@@ -20,8 +20,6 @@ use Glpi\Search\Input\QueryBuilder;
 use GlpiPlugin\Grcmanager\ProcessingActivity;
 use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
 
-include('../../../inc/includes.php');
-
 // Issue #375 : registre des activités de traitement (RGPD, article 30). Donnée sensible : droit dédié.
 Session::checkRight(ProcessingActivity::$rightname, READ);
 

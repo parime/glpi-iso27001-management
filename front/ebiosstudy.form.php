@@ -17,8 +17,6 @@
 
 use GlpiPlugin\Grcmanager\EbiosStudy;
 
-include('../../../inc/includes.php');
-
 // Issue #376 : fiche d'une étude EBIOS Risk Manager.
 $item = new EbiosStudy();
 

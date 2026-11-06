@@ -20,8 +20,6 @@ use GlpiPlugin\Grcmanager\Control;
 use GlpiPlugin\Grcmanager\ControlTest;
 use GlpiPlugin\Grcmanager\Services\Control\ControlTestRules;
 
-include('../../../inc/includes.php');
-
 // Issue #380 : registre des tests d'efficacité des mesures, avec en tête les tests en retard ou
 // proches de leur échéance. Mêmes droits que la SoA (lecture des mesures).
 Session::checkRight(ControlTest::RIGHTNAME, READ);

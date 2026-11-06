@@ -15,8 +15,6 @@
  * -------------------------------------------------------------------------
  */
 
-include('../../../inc/includes.php');
-
 // Ni menu, ni écran de recherche propres : ce contrôleur ne fait qu'ajouter/mettre à jour/supprimer
 // une action de traitement pour un risque donné puis revenir sur le formulaire de ce risque, voir
 // \GlpiPlugin\Grcmanager\Risk::showTreatmentPlan() (même esprit que front/objectivemeasurement.form.php,

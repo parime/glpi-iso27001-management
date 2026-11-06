@@ -18,8 +18,6 @@
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Pdf\PdfRenderer;
 
-include('../../../inc/includes.php');
-
 // Issue #144, phase 2 : rapport PDF de la matrice des flux, généré à la demande (jamais persisté).
 Session::checkRight(\GlpiPlugin\Grcmanager\NetworkFlow::$rightname, READ);
 // Registre sensible : chaque export est tracé (Administration > Journaux).

@@ -21,8 +21,6 @@
 // planning de GLPI (front/planning.php?genical=1), puis charge ses entités et son profil par
 // défaut : le flux ne contient que ce que cet utilisateur voit dans le calendrier.
 
-include('../../../inc/includes.php');
-
 $token = (string) ($_GET['token'] ?? '');
 $user = $token !== '' ? Session::authWithToken($token, 'personal_token', null, null) : false;
 if (!$user instanceof User) {

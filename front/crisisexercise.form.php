@@ -17,8 +17,6 @@
 
 use Glpi\Application\View\TemplateRenderer;
 
-include('../../../inc/includes.php');
-
 // Issue #168 : salle de crise d'un exercice (étapes chronométrées, fin et rapport).
 // Issue #185 : la même salle sert de cellule de crise sur un incident réel.
 Session::checkRightsOr(

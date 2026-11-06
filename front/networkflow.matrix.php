@@ -18,8 +18,6 @@
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Services\Network\NetworkFlowMatrix;
 
-include('../../../inc/includes.php');
-
 // Issue #144, phase 3 : vue zone × zone (ou site × site) de la matrice des flux. Registre sensible.
 Session::checkRight(\GlpiPlugin\Grcmanager\NetworkFlow::$rightname, READ);
 

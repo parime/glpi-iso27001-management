@@ -15,8 +15,6 @@
  * -------------------------------------------------------------------------
  */
 
-include('../../../inc/includes.php');
-
 // Ni menu, ni écran de recherche propres : ce contrôleur ne fait qu'ajouter/supprimer une mesure
 // pour un objectif donné puis revenir sur le formulaire de cet objectif, voir
 // \GlpiPlugin\Grcmanager\Objective::showMeasurementHistory() (même esprit que

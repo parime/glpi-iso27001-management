@@ -19,8 +19,6 @@ use Glpi\Application\View\TemplateRenderer;
 use Glpi\Search\Input\QueryBuilder;
 use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
 
-include('../../../inc/includes.php');
-
 Session::checkRight(\GlpiPlugin\Grcmanager\AccessReview::$rightname, READ);
 
 Html::header(

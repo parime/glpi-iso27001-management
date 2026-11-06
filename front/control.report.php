@@ -18,8 +18,6 @@
 use GlpiPlugin\Grcmanager\Pdf\PdfRenderer;
 use GlpiPlugin\Grcmanager\Services\Control\SoaReportBuilder;
 
-include('../../../inc/includes.php');
-
 // Export à la demande, jamais persisté (pas de Document GLPI créé) : ce PDF n'est qu'une mise en
 // forme des données déjà réelles de la Déclaration d'Applicabilité (ROADMAP.md "Version 1.5").
 Session::checkRight(\GlpiPlugin\Grcmanager\Control::$rightname, READ);

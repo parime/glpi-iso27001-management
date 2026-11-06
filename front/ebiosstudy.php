@@ -20,8 +20,6 @@ use Glpi\Search\Input\QueryBuilder;
 use GlpiPlugin\Grcmanager\EbiosStudy;
 use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
 
-include('../../../inc/includes.php');
-
 // Issue #376 : études EBIOS Risk Manager.
 Session::checkRight(EbiosStudy::$rightname, READ);
 

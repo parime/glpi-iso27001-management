@@ -24,8 +24,6 @@ use GlpiPlugin\Grcmanager\EbiosStrategicScenario;
 use GlpiPlugin\Grcmanager\EbiosSupport;
 use GlpiPlugin\Grcmanager\EbiosValue;
 
-include('../../../inc/includes.php');
-
 // Issue #376 : éléments des ateliers d'une étude EBIOS RM (ajout, modification, retrait), toujours
 // avec retour sur l'onglet. Le type vient d'une liste fermée, les droits sont ceux de l'étude.
 $classes = [

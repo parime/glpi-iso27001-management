@@ -17,8 +17,6 @@
 
 use GlpiPlugin\Grcmanager\Services\Risk\RiskHeatmapService;
 
-include('../../../inc/includes.php');
-
 Session::checkRight(\GlpiPlugin\Grcmanager\Risk::$rightname, READ);
 
 Html::header(

@@ -27,8 +27,6 @@ use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentModuleConfig;
 use GlpiPlugin\Grcmanager\Services\Notification\SensitiveNotification;
 use GlpiPlugin\Grcmanager\Services\Risk\RiskMatrixConfig;
 
-include('../../../inc/includes.php');
-
 Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, READ);
 
 if (isset($_POST['update_risk_matrix'])) {

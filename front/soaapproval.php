@@ -17,8 +17,6 @@
 
 use GlpiPlugin\Grcmanager\Services\Control\SoaApprovalLogic;
 
-include('../../../inc/includes.php');
-
 global $CFG_GLPI;
 
 // Issue #112 : approbation de la Déclaration d'Applicabilité par la direction. Lecture : même

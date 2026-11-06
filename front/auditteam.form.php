@@ -15,8 +15,6 @@
  * -------------------------------------------------------------------------
  */
 
-include('../../../inc/includes.php');
-
 /**
  * Issue #140 : ajout et retrait d'un membre de l'équipe d'audit (onglet « Équipe »). Il faut
  * pouvoir modifier l'audit.

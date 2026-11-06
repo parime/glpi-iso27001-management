@@ -19,8 +19,6 @@ use Glpi\Application\View\TemplateRenderer;
 use Glpi\Dashboard\Dashboard;
 use Glpi\Dashboard\Grid;
 
-include('../../../inc/includes.php');
-
 // Issue #247 : tableau de bord du menu GRC & Conformité (même rendu que Parc > Tableau de bord).
 Session::checkRight(\GlpiPlugin\Grcmanager\Dashboard::RIGHTNAME, READ);
 

@@ -15,8 +15,6 @@
  * -------------------------------------------------------------------------
  */
 
-include('../../../inc/includes.php');
-
 $item = new \GlpiPlugin\Grcmanager\IsmsRequirement();
 
 // Issue #403 : écran propre à ISO 27001, refusé (lecture et modification) quand ce référentiel

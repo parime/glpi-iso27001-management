@@ -15,8 +15,6 @@
  * -------------------------------------------------------------------------
  */
 
-include('../../../inc/includes.php');
-
 // Issue #378 : ajout ou suppression d'un relevé depuis la fiche du KRI, avec les droits et l'entité
 // de ce KRI. Pas de fiche ni de liste propres.
 $kri = new \GlpiPlugin\Grcmanager\RiskIndicator();
