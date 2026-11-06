@@ -7,6 +7,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.26.0] - 2026-11-06
+
 ### Added
 
 - **Rapport des vulnérabilités du parc par e-mail** (issue #485), à fréquence réglable (tous les jours,
