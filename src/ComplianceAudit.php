@@ -232,6 +232,39 @@ class ComplianceAudit extends CommonGLPI
     }
 
     /**
+     * Issue #380 : un seul contrôle, avec les mêmes droits et le même périmètre que run() (test
+     * d'efficacité alimenté par ce contrôle). Contrôle inconnu : non évalué.
+     *
+     * @return array{evaluated: bool, total: int, gaps: list<array<string, mixed>>}
+     */
+    public static function runCheck(string $check, int $approvals = 1, ?string $now = null): array
+    {
+        $now ??= Session::getCurrentTime();
+        if (in_array($check, ['antivirus', 'encryption', 'inventory'], true)) {
+            if (!Computer::canView()) {
+                return self::notEvaluated();
+            }
+            $computers = self::computers();
+
+            return match ($check) {
+                'antivirus'  => self::antivirus($computers, $now),
+                'encryption' => self::encryption($computers),
+                default      => self::inventory($computers, $now),
+            };
+        }
+        if ($check === 'change_validation') {
+            return Session::haveRight(Change::$rightname, Change::READALL)
+                ? self::changeValidation($approvals, $now)
+                : self::notEvaluated();
+        }
+        if ($check === 'accounts') {
+            return AccountHygiene::canView() ? self::accounts($now) : self::notEvaluated();
+        }
+
+        return self::notEvaluated();
+    }
+
+    /**
      * Issue #378 : part des ordinateurs en écart (en %) pour un contrôle technique (antivirus ou
      * chiffrement) sur les entités données, pour alimenter un indicateur de risque. Null si aucun
      * ordinateur n'est concerné. L'appelant vérifie les droits (RiskIndicator::canUseSource()).

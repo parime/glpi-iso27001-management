@@ -23,10 +23,13 @@ use Document;
 use Dropdown;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\ControlTestBase;
+use GlpiPlugin\Grcmanager\Services\Compliance\ComplianceAuditScore;
 use GlpiPlugin\Grcmanager\Services\Control\ControlTestRules;
+use GlpiPlugin\Grcmanager\Services\Control\EvidenceUploadRules;
 use GlpiPlugin\Grcmanager\Services\Ui\Badge;
 use Html;
 use Session;
+use Toolbox;
 use User;
 
 /**
@@ -365,6 +368,201 @@ class ControlTest extends ControlTestBase
     }
 
     /**
+     * Envoi direct d'une preuve depuis le formulaire du test : mêmes droits que l'onglet Documents
+     * de la mesure (la modifier ou la lire, et créer un document), même entité (entité active) ;
+     * types et taille maximale de GLPI ; type réel du contenu vérifié (EvidenceUploadRules). Le
+     * nom vient du navigateur mais n'est jamais un chemin : le fichier est copié sous un nom
+     * aléatoire dans le dossier temporaire de GLPI, qui le range ensuite lui-même.
+     *
+     * Le document devient un document de la mesure, au registre des documents restreints : seul
+     * qui lit la mesure le lit (RestrictedDocument), et il disparaît à la désinstallation.
+     *
+     * @param string $path       fichier reçu (déjà vérifié par is_uploaded_file() côté formulaire)
+     * @param string $clientName nom annoncé par le navigateur
+     * @return int document créé, 0 en cas de refus (message en session)
+     */
+    public static function storeEvidenceFile(Control $control, string $path, string $clientName): int
+    {
+        global $CFG_GLPI, $DB;
+
+        $refuse = static function (string $message): int {
+            Session::addMessageAfterRedirect(htmlescape($message), false, ERROR);
+
+            return 0;
+        };
+        if ($control->isNewItem() || !$control->canAddItem('Document') || !Document::canCreate()) {
+            return $refuse(__('You are not allowed to add a document to this control.', 'grcmanager'));
+        }
+        $name = EvidenceUploadRules::safeName($clientName);
+        if ($name === null || !is_file($path)) {
+            return $refuse(__('The file name is not valid.', 'grcmanager'));
+        }
+        $maxBytes = (int) $CFG_GLPI['document_max_size'] * 1024 * 1024;
+        $size = (int) filesize($path);
+        $error = EvidenceUploadRules::uploadError(UPLOAD_ERR_OK, $size, $maxBytes);
+        if ($error !== null) {
+            return $refuse(self::uploadErrorMessage($error));
+        }
+        if ((string) Document::isValidDoc($name) === '') {
+            return $refuse(sprintf(
+                __('Files of type .%s are not allowed by GLPI (Setup > Dropdowns > Document types).', 'grcmanager'),
+                EvidenceUploadRules::extension($name)
+            ));
+        }
+        $extension = EvidenceUploadRules::extension($name);
+        $type = $DB->request([
+            'SELECT' => ['mime'],
+            'FROM'   => 'glpi_documenttypes',
+            'WHERE'  => ['is_uploadable' => 1, 'ext' => ['LIKE', $extension]],
+            'LIMIT'  => 1,
+        ])->current();
+        $detected = (string) Toolbox::getMime($path);
+        if (!EvidenceUploadRules::realTypeMatches($extension, $detected, $type['mime'] ?? null)) {
+            return $refuse(sprintf(
+                __('The content of the file (%1$s) does not match its extension (.%2$s).', 'grcmanager'),
+                $detected,
+                $extension
+            ));
+        }
+
+        $prefix = bin2hex(random_bytes(8)) . '_';
+        $temporary = GLPI_TMP_DIR . '/' . $prefix . $name;
+        if (!copy($path, $temporary)) {
+            return $refuse(__('The file could not be saved.', 'grcmanager'));
+        }
+        $input = [
+            'name'                    => $name,
+            'entities_id'             => (int) Session::getActiveEntity(),
+            'is_recursive'            => 0,
+            '_filename'               => [$prefix . $name],
+            '_prefix_filename'        => [$prefix],
+            '_only_if_upload_succeed' => 1,
+            'itemtype'                => Control::class,
+            'items_id'                => $control->getID(),
+        ];
+        $document = new Document();
+        $documentsId = $document->can(-1, CREATE, $input) ? (int) $document->add($input) : 0;
+        if (is_file($temporary)) {
+            // Chemin construit ici : GLPI_TMP_DIR, préfixe aléatoire et nom réduit par
+            // EvidenceUploadRules::safeName() (sans séparateur de dossier), jamais un chemin envoyé.
+            unlink($temporary); // nosemgrep: php.lang.security.unlink-use.unlink-use
+        }
+        if ($documentsId <= 0) {
+            return $refuse(__('The file could not be saved.', 'grcmanager'));
+        }
+        RestrictedDocument::register($documentsId, $control);
+
+        return $documentsId;
+    }
+
+    public static function uploadErrorMessage(string $error): string
+    {
+        global $CFG_GLPI;
+
+        return match ($error) {
+            EvidenceUploadRules::ERROR_TOO_LARGE => sprintf(
+                __('The file exceeds the maximum size allowed by GLPI (%d MiB).', 'grcmanager'),
+                (int) $CFG_GLPI['document_max_size']
+            ),
+            EvidenceUploadRules::ERROR_EMPTY     => __('The file is empty.', 'grcmanager'),
+            default                              => __('The file could not be received.', 'grcmanager'),
+        };
+    }
+
+    /**
+     * Issue #380 (#162) : enregistre comme test d'efficacité le résultat actuel d'un contrôle
+     * technique automatique rattaché à la mesure. Tout est recalculé ici (rien ne vient du
+     * formulaire hormis le nom du contrôle), sur toutes les entités : la mesure est globale, un
+     * résultat calculé sur une partie du parc ne la prouverait pas.
+     *
+     * @return int test créé, 0 sinon (message en session)
+     */
+    public static function recordTechnicalCheck(Control $control, string $check): int
+    {
+        $refuse = static function (string $message): int {
+            Session::addMessageAfterRedirect(htmlescape($message), false, ERROR);
+
+            return 0;
+        };
+        $code = (string) ($control->fields['code'] ?? '');
+        if (!in_array($check, ControlTestRules::technicalChecksFor($code, ComplianceAuditScore::CHECKS), true)) {
+            return $refuse(__('This automated check is not related to this control.', 'grcmanager'));
+        }
+        if (!Session::canViewAllEntities()) {
+            return $refuse(__('Select all entities to record the result of an automated check.', 'grcmanager'));
+        }
+        $outcome = ComplianceAudit::runCheck($check);
+        $gaps = count($outcome['gaps']);
+        $result = $outcome['evaluated']
+            ? ControlTestRules::resultFromTechnicalCheck($gaps, $outcome['total'])
+            : null;
+        if ($result === null) {
+            return $refuse(__('The automated check has nothing to evaluate: no test was recorded.', 'grcmanager'));
+        }
+
+        return (int) (new self())->add([
+            'plugin_grcmanager_controls_id' => $control->getID(),
+            'test_date'                     => date('Y-m-d'),
+            'method'                        => 'technical',
+            'result'                        => $result,
+            'users_id'                      => (int) Session::getLoginUserID(),
+            'comment'                       => self::technicalCheckComment($check, $gaps, $outcome['total']),
+        ]);
+    }
+
+    private static function technicalCheckComment(string $check, int $gaps, int $total): string
+    {
+        $label = ComplianceAudit::getCheckLabels()[$check]['label'] ?? $check;
+
+        return sprintf(
+            _n(
+                'Automated technical check "%1$s": %2$d gap out of %3$d, %4$d%% compliant.',
+                'Automated technical check "%1$s": %2$d gaps out of %3$d, %4$d%% compliant.',
+                $gaps,
+                'grcmanager'
+            ),
+            $label,
+            $gaps,
+            $total,
+            (int) ComplianceAuditScore::rate($gaps, $total)
+        );
+    }
+
+    /**
+     * Contrôles techniques rattachés à la mesure, avec leur résultat actuel (onglet des tests).
+     *
+     * @return list<array<string, mixed>>
+     */
+    private static function technicalChecksInfo(Control $control): array
+    {
+        $checks = ControlTestRules::technicalChecksFor((string) $control->fields['code'], ComplianceAuditScore::CHECKS);
+        if ($checks === []) {
+            return [];
+        }
+        $labels = ComplianceAudit::getCheckLabels();
+        $results = self::getResults();
+        $info = [];
+        foreach ($checks as $check) {
+            $outcome = ComplianceAudit::runCheck($check);
+            $gaps = count($outcome['gaps']);
+            $result = $outcome['evaluated']
+                ? ControlTestRules::resultFromTechnicalCheck($gaps, $outcome['total'])
+                : null;
+            $info[] = [
+                'key'       => $check,
+                'label'     => $labels[$check]['label'] ?? $check,
+                'evaluated' => $outcome['evaluated'],
+                'gaps'      => $gaps,
+                'total'     => $outcome['total'],
+                'rate'      => ComplianceAuditScore::rate($gaps, $outcome['total']),
+                'result'    => $result === null ? null : $results[$result],
+            ];
+        }
+
+        return $info;
+    }
+
+    /**
      * Tests d'une mesure, du plus récent au plus ancien.
      *
      * @return list<array<string, mixed>>
@@ -531,6 +729,13 @@ class ControlTest extends ControlTestBase
             'methods'         => self::getMethods(),
             'results'         => self::getResults(),
             'documents'       => $canEdit ? Evidence::getDocumentsFor($control) : [],
+            // Envoi direct d'une preuve : droits de l'onglet Documents (storeEvidenceFile()).
+            'can_upload'      => $canEdit && $control->canAddItem('Document') && Document::canCreate(),
+            'max_upload'      => Document::getMaxUploadSize(),
+            // Issue #380 (#162) : contrôles techniques automatiques rattachés à la mesure.
+            'technical_checks' => $canEdit ? self::technicalChecksInfo($control) : [],
+            'all_entities'    => Session::canViewAllEntities(),
+            'technical_threshold' => ControlTestRules::TECHNICAL_PARTIAL_THRESHOLD,
             'documents_url'   => Control::getFormURLWithID($controlsId) . '&forcetab=Document_Item$1',
             'today'           => date('Y-m-d'),
             'form_url'        => $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/controltest.form.php',

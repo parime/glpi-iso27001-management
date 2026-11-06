@@ -108,4 +108,24 @@ final class ControlTestRulesTest extends TestCase
         self::assertFalse(ControlTestRules::opensNonconformity('partial'));
         self::assertFalse(ControlTestRules::opensNonconformity('effective'));
     }
+
+    public function testResultFromATechnicalCheck(): void
+    {
+        self::assertNull(ControlTestRules::resultFromTechnicalCheck(0, 0), 'rien à évaluer');
+        self::assertSame('effective', ControlTestRules::resultFromTechnicalCheck(0, 40));
+        self::assertSame('partial', ControlTestRules::resultFromTechnicalCheck(8, 40), '80 % : partiel');
+        self::assertSame('ineffective', ControlTestRules::resultFromTechnicalCheck(9, 40), 'moins de 80 %');
+        self::assertSame('ineffective', ControlTestRules::resultFromTechnicalCheck(99, 40));
+    }
+
+    public function testTechnicalChecksAreFoundByTheirIsoReference(): void
+    {
+        $checks = [
+            'antivirus' => ['iso27001' => 'A.8.7', 'nis2' => 'art. 21.2 g)'],
+            'gdpr_only' => ['gdpr' => 'art. 32'],
+            'other'     => ['iso27001' => 'A.8.24'],
+        ];
+        self::assertSame(['antivirus'], ControlTestRules::technicalChecksFor('A.8.7', $checks));
+        self::assertSame([], ControlTestRules::technicalChecksFor('A.5.1', $checks));
+    }
 }

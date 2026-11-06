@@ -15,6 +15,19 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Tests d'efficacité des contrôles, troisième étape** (issue #380) :
+  - **preuve envoyée depuis le formulaire du test** : le fichier devient un document du contrôle,
+    avec les droits de l'onglet Documents (modifier le contrôle et créer un document) et dans
+    l'entité active. Les types et la taille maximale sont ceux de GLPI, et le type réel du contenu
+    doit correspondre à l'extension (un faux PDF, une page web ou un script sont refusés). Le
+    document n'est lisible que par qui lit le contrôle, et il est retiré à la désinstallation ;
+  - **carte « Tests d'efficacité en retard »** pour les tableaux de bord (et la vue ISMS), visible
+    seulement avec le droit de lire les contrôles ;
+  - **tests alimentés par les contrôles techniques automatiques** (#162) : l'onglet des tests
+    d'A.8.7, A.8.24, A.5.9, A.8.32 et A.5.18 affiche le résultat actuel du contrôle technique
+    correspondant et l'enregistre comme test technique en un clic, recalculé à l'enregistrement
+    (aucun écart : efficace ; au moins 80 % de conformité : partiellement efficace ; sinon
+    inefficace, ce qui ouvre une non-conformité). Toutes les entités doivent être sélectionnées.
 - **Processus métier : rappels, indicateurs et carte des dépendances** (issue #377, quatrième et
   dernière étape) :
   - rappel d'une BIA à revoir (date de la dernière BIA plus la fréquence de la revue périodique

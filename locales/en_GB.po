@@ -9069,3 +9069,70 @@ msgid "%d item or process you cannot see is not shown."
 msgid_plural "%d items or processes you cannot see are not shown."
 msgstr[0] "%d item or process you cannot see is not shown."
 msgstr[1] "%d items or processes you cannot see are not shown."
+
+msgid "You are not allowed to add a document to this control."
+msgstr "You are not allowed to add a document to this control."
+
+msgid "The file name is not valid."
+msgstr "The file name is not valid."
+
+#, php-format
+msgid "Files of type .%s are not allowed by GLPI (Setup > Dropdowns > Document types)."
+msgstr "Files of type .%s are not allowed by GLPI (Setup > Dropdowns > Document types)."
+
+#, php-format
+msgid "The content of the file (%1$s) does not match its extension (.%2$s)."
+msgstr "The content of the file (%1$s) does not match its extension (.%2$s)."
+
+msgid "The file could not be saved."
+msgstr "The file could not be saved."
+
+#, php-format
+msgid "The file exceeds the maximum size allowed by GLPI (%d MiB)."
+msgstr "The file exceeds the maximum size allowed by GLPI (%d MiB)."
+
+msgid "The file is empty."
+msgstr "The file is empty."
+
+msgid "This automated check is not related to this control."
+msgstr "This automated check is not related to this control."
+
+msgid "Select all entities to record the result of an automated check."
+msgstr "Select all entities to record the result of an automated check."
+
+msgid "The automated check has nothing to evaluate: no test was recorded."
+msgstr "The automated check has nothing to evaluate: no test was recorded."
+
+#, php-format
+msgid "Automated technical check \"%1$s\": %2$d gap out of %3$d, %4$d%% compliant."
+msgid_plural "Automated technical check \"%1$s\": %2$d gaps out of %3$d, %4$d%% compliant."
+msgstr[0] "Automated technical check \"%1$s\": %2$d gap out of %3$d, %4$d%% compliant."
+msgstr[1] "Automated technical check \"%1$s\": %2$d gaps out of %3$d, %4$d%% compliant."
+
+msgid "Choose an existing document or send a file, not both."
+msgstr "Choose an existing document or send a file, not both."
+
+#, php-format
+msgid "%1$d gap out of %2$d"
+msgid_plural "%1$d gaps out of %2$d"
+msgstr[0] "%1$d gap out of %2$d"
+msgstr[1] "%1$d gaps out of %2$d"
+
+msgid "Record as a test"
+msgstr "Record as a test"
+
+#, php-format
+msgid "The result is computed again when it is recorded, as a technical test dated today: no gap gives an effective test, at least %d%% compliant a partially effective test, below an ineffective test."
+msgstr "The result is computed again when it is recorded, as a technical test dated today: no gap gives an effective test, at least %d%% compliant a partially effective test, below an ineffective test."
+
+msgid "Select all entities to record it: the control covers the whole organisation."
+msgstr "Select all entities to record it: the control covers the whole organisation."
+
+msgid "Or send a file"
+msgstr "Or send a file"
+
+msgid "It becomes a document of the control, readable only by those who read the control."
+msgstr "It becomes a document of the control, readable only by those who read the control."
+
+msgid "Overdue effectiveness tests"
+msgstr "Overdue effectiveness tests"

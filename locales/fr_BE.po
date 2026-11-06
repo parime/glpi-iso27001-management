@@ -9069,3 +9069,70 @@ msgid "%d item or process you cannot see is not shown."
 msgid_plural "%d items or processes you cannot see are not shown."
 msgstr[0] "%d élément ou processus que vous ne pouvez pas voir n'est pas affiché."
 msgstr[1] "%d éléments ou processus que vous ne pouvez pas voir ne sont pas affichés."
+
+msgid "You are not allowed to add a document to this control."
+msgstr "Vous n'avez pas le droit d'ajouter un document à ce contrôle."
+
+msgid "The file name is not valid."
+msgstr "Le nom du fichier n'est pas valide."
+
+#, php-format
+msgid "Files of type .%s are not allowed by GLPI (Setup > Dropdowns > Document types)."
+msgstr "Les fichiers de type .%s ne sont pas autorisés par GLPI (Configuration > Intitulés > Types de documents)."
+
+#, php-format
+msgid "The content of the file (%1$s) does not match its extension (.%2$s)."
+msgstr "Le contenu du fichier (%1$s) ne correspond pas à son extension (.%2$s)."
+
+msgid "The file could not be saved."
+msgstr "Le fichier n'a pas pu être enregistré."
+
+#, php-format
+msgid "The file exceeds the maximum size allowed by GLPI (%d MiB)."
+msgstr "Le fichier dépasse la taille maximale autorisée par GLPI (%d Mio)."
+
+msgid "The file is empty."
+msgstr "Le fichier est vide."
+
+msgid "This automated check is not related to this control."
+msgstr "Ce contrôle automatique ne porte pas sur ce contrôle de l'Annexe A."
+
+msgid "Select all entities to record the result of an automated check."
+msgstr "Sélectionnez toutes les entités pour enregistrer le résultat d'un contrôle automatique."
+
+msgid "The automated check has nothing to evaluate: no test was recorded."
+msgstr "Le contrôle automatique n'a rien à évaluer : aucun test n'a été enregistré."
+
+#, php-format
+msgid "Automated technical check \"%1$s\": %2$d gap out of %3$d, %4$d%% compliant."
+msgid_plural "Automated technical check \"%1$s\": %2$d gaps out of %3$d, %4$d%% compliant."
+msgstr[0] "Contrôle technique automatique « %1$s » : %2$d écart sur %3$d, %4$d %% de conformité."
+msgstr[1] "Contrôle technique automatique « %1$s » : %2$d écarts sur %3$d, %4$d %% de conformité."
+
+msgid "Choose an existing document or send a file, not both."
+msgstr "Choisissez un document existant ou envoyez un fichier, pas les deux."
+
+#, php-format
+msgid "%1$d gap out of %2$d"
+msgid_plural "%1$d gaps out of %2$d"
+msgstr[0] "%1$d écart sur %2$d"
+msgstr[1] "%1$d écarts sur %2$d"
+
+msgid "Record as a test"
+msgstr "Enregistrer comme test"
+
+#, php-format
+msgid "The result is computed again when it is recorded, as a technical test dated today: no gap gives an effective test, at least %d%% compliant a partially effective test, below an ineffective test."
+msgstr "Le résultat est recalculé à l'enregistrement, comme un test technique daté du jour : aucun écart donne un test efficace, au moins %d %% de conformité un test partiellement efficace, en dessous un test inefficace."
+
+msgid "Select all entities to record it: the control covers the whole organisation."
+msgstr "Sélectionnez toutes les entités pour l'enregistrer : le contrôle couvre toute l'organisation."
+
+msgid "Or send a file"
+msgstr "Ou envoyer un fichier"
+
+msgid "It becomes a document of the control, readable only by those who read the control."
+msgstr "Il devient un document du contrôle, lisible seulement par qui lit le contrôle."
+
+msgid "Overdue effectiveness tests"
+msgstr "Tests d'efficacité en retard"
