@@ -52,6 +52,7 @@ final class RiskAppetiteKriTest extends GrcmanagerIntegrationTestCase
 
     protected function tearDown(): void
     {
+        RiskAppetite::setDirectionGroupId(0);
         $_SESSION['glpiactiveentities'] = $this->activeEntities;
         RiskAppetite::clearCache();
         parent::tearDown();
@@ -134,6 +135,58 @@ final class RiskAppetiteKriTest extends GrcmanagerIntegrationTestCase
         $risk->update(['id' => $id, 'treatment' => 'mitigate']);
         $risk->getFromDB($id);
         $this->assertSame(0, (int) $risk->fields['users_id_acceptance']);
+    }
+
+    public function testBeyondTheToleranceOnlyManagementCanAccept(): void
+    {
+        $this->setAppetite('technical', 'medium', 'high');
+        $direction = (int) (new \Group())->add([
+            'name' => 'Direction fictive', 'entities_id' => 0, 'is_recursive' => 1,
+        ]);
+        RiskAppetite::setDirectionGroupId($direction);
+        $this->assertSame($direction, RiskAppetite::getDirectionGroupId());
+        $accept = ['treatment' => 'accept', 'justification' => 'Décision de la direction fictive'];
+
+        // Hors direction : refusé au-delà de la tolérance, accepté au-dessus de l'appétence seulement.
+        $risk = new Risk();
+        $critical = $this->criticalRisk('technical');
+        $this->assertFalse($risk->update(['id' => $critical] + $accept));
+        $risk->getFromDB($critical);
+        $this->assertSame('', $risk->fields['treatment']);
+        $high = (int) (new Risk())->add([
+            'title' => 'Risque fictif élevé ' . uniqid(), 'category' => 'technical',
+            'probability' => 'probable', 'impact' => 'high',
+        ]);
+        $this->assertSame(RiskAppetiteRules::ABOVE_APPETITE, RiskAppetite::positionFor('technical', 'high'));
+        $this->assertTrue($risk->update(['id' => $high] + $accept));
+        $risk->getFromDB($high);
+        $this->assertSame(0, (int) $risk->fields['is_direction_acceptance']);
+
+        // Membre de la direction : accepté et marqué « Direction » ; l'appétence qu'il enregistre aussi.
+        (new \Group_User())->add(['groups_id' => $direction, 'users_id' => 2]);
+        $this->assertTrue(RiskAppetite::isDirection(2));
+        $this->assertTrue($risk->update(['id' => $critical] + $accept));
+        $risk->getFromDB($critical);
+        $this->assertSame(1, (int) $risk->fields['is_direction_acceptance']);
+        $this->assertSame(2, (int) $risk->fields['users_id_acceptance']);
+        // Le marquage ne vient jamais de la requête.
+        $risk->update(['id' => $high, 'is_direction_acceptance' => 1, 'description' => 'x']);
+        $risk->getFromDB($high);
+        // Repris à son compte par la direction en enregistrant.
+        $this->assertSame(1, (int) $risk->fields['is_direction_acceptance']);
+
+        $this->setAppetite('people', 'low', 'medium');
+        $this->assertSame(1, (int) RiskAppetite::all()['people']['is_direction_approval']);
+
+        // Décision changée : la signature et la mention tombent.
+        $risk->update(['id' => $critical, 'treatment' => 'mitigate']);
+        $risk->getFromDB($critical);
+        $this->assertSame(0, (int) $risk->fields['is_direction_acceptance']);
+        $this->assertSame(0, (int) $risk->fields['users_id_acceptance']);
+
+        // Un groupe inexistant n'est pas enregistré.
+        RiskAppetite::setDirectionGroupId(999999);
+        $this->assertSame(0, RiskAppetite::getDirectionGroupId());
     }
 
     public function testNothingChangesWithoutAppetite(): void

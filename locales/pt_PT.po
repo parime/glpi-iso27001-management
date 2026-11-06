@@ -9331,3 +9331,30 @@ msgstr "Configurar"
 msgctxt "vulnerability"
 msgid "New"
 msgstr "Nova"
+
+#, php-format
+msgid "This risk exceeds the tolerance of its category: only a member of the management group (%s) can accept it. Choose a treatment, or ask management to sign the acceptance."
+msgstr "Este risco excede a tolerância de sua categoria: somente um membro do grupo de direção (%s) pode aceitá-lo. Escolha um tratamento ou peça à direção que assine a aceitação."
+
+#, php-format
+msgid "A treatment is required. Only management (group %s) can accept this risk."
+msgstr "É necessário um tratamento. Somente a direção (grupo %s) pode aceitar este risco."
+
+msgid "Management"
+msgstr "Direção"
+
+#, php-format
+msgid "Now above tolerance: management (group %s) must sign this acceptance again, by saving the risk."
+msgstr "Agora acima da tolerância: a direção (grupo %s) deve assinar novamente esta aceitação, salvando o risco."
+
+msgid "Beyond the tolerance, only management can accept a risk: the members of the group below. Their acceptances and approvals are marked \"Management\"."
+msgstr "Acima da tolerância, somente a direção pode aceitar um risco: os membros do grupo indicado. Suas aceitações e aprovações trazem a menção \"Direção\"."
+
+msgid "No management group is set: anyone who can edit the register can accept a risk beyond the tolerance. Choose the group whose members represent management."
+msgstr "Nenhum grupo de direção definido: qualquer pessoa que possa editar o registro pode aceitar um risco acima da tolerância. Escolha o grupo cujos membros representam a direção."
+
+msgid "Management group"
+msgstr "Grupo de direção"
+
+msgid "To be signed by management"
+msgstr "A assinar pela direção"

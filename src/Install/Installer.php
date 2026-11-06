@@ -4687,6 +4687,7 @@ final class Installer
                 `tolerance_level` varchar(16) NOT NULL DEFAULT '' COMMENT 'Vide = appetite_level',
                 `statement` text,
                 `users_id_approval` int {$keySign} NOT NULL DEFAULT 0,
+                `is_direction_approval` tinyint NOT NULL DEFAULT 0,
                 `date_approval` timestamp NULL DEFAULT NULL,
                 `date_mod` timestamp NULL DEFAULT NULL,
                 PRIMARY KEY (`id`),
@@ -4749,6 +4750,21 @@ final class Installer
             $migration->addField(self::RISKS_TABLE, 'date_acceptance', 'timestamp', ['after' => 'users_id_acceptance']);
             $migration->addKey(self::RISKS_TABLE, 'users_id_acceptance');
             $migration->migrationOneTable(self::RISKS_TABLE);
+        }
+        // Issue #378, troisième étape : acceptation signée par un membre du groupe Direction (au-delà de la
+        // tolérance, seule la direction peut accepter), et appétence approuvée par la direction.
+        if (!$DB->fieldExists(self::RISKS_TABLE, 'is_direction_acceptance')) {
+            $migration->addField(self::RISKS_TABLE, 'is_direction_acceptance', 'bool', ['after' => 'date_acceptance']);
+            $migration->migrationOneTable(self::RISKS_TABLE);
+        }
+        if (
+            $DB->tableExists(self::RISK_APPETITES_TABLE)
+            && !$DB->fieldExists(self::RISK_APPETITES_TABLE, 'is_direction_approval')
+        ) {
+            $migration->addField(self::RISK_APPETITES_TABLE, 'is_direction_approval', 'bool', [
+                'after' => 'users_id_approval',
+            ]);
+            $migration->migrationOneTable(self::RISK_APPETITES_TABLE);
         }
 
         // Issue #378, deuxième étape : dernière alerte envoyée pour un KRI (\GlpiPlugin\Grcmanager\KriAlert),
