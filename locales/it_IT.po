@@ -9136,3 +9136,194 @@ msgstr "Diventa un documento del controllo, leggibile solo da chi può leggere i
 
 msgid "Overdue effectiveness tests"
 msgstr "Test di efficacia in ritardo"
+
+msgid "Never (disabled)"
+msgstr "Mai (disattivato)"
+
+msgid "Every day"
+msgstr "Ogni giorno"
+
+msgid "Every week"
+msgstr "Ogni settimana"
+
+msgid "Every month"
+msgstr "Ogni mese"
+
+msgid "URGENT"
+msgstr "URGENTE"
+
+msgid "HIGH"
+msgstr "ALTO"
+
+msgid "TO WATCH"
+msgstr "DA MONITORARE"
+
+msgid "Actively exploited (CISA KEV)"
+msgstr "Sfruttate attivamente (CISA KEV)"
+
+msgid "Likely to be exploited (EPSS)"
+msgstr "Probabilmente sfruttate (EPSS)"
+
+msgid "Critical (CVSS 9 or more)"
+msgstr "Critiche (CVSS 9 o più)"
+
+msgid "Fleet vulnerability report by email"
+msgstr "Report delle vulnerabilità del parco via e-mail"
+
+#, php-format
+msgid "%d more vulnerabilities in GLPI."
+msgstr "%d altre vulnerabilità in GLPI."
+
+msgid "No critical, high or exploited vulnerability in the fleet"
+msgstr "Nessuna vulnerabilità critica, alta o sfruttata nel parco"
+
+#, php-format
+msgid "%1$s, %2$s"
+msgstr "%1$s, %2$s"
+
+#, php-format
+msgid "CVSS %s"
+msgstr "CVSS %s"
+
+msgid "exploited, used by ransomware"
+msgstr "sfruttata, usata da ransomware"
+
+msgid "exploited"
+msgstr "sfruttata"
+
+#, php-format
+msgid "fix by %s (CISA)"
+msgstr "da correggere entro il %s (CISA)"
+
+#, php-format
+msgid "exploitation probability %d %%"
+msgstr "probabilità di sfruttamento %d %%"
+
+msgid "Subject"
+msgstr "Oggetto"
+
+msgid "Urgency"
+msgstr "Urgenza"
+
+msgid "Machines exposed"
+msgstr "Macchine esposte"
+
+msgid "New since the last report"
+msgstr "Nuove dall'ultimo report"
+
+msgid "Vulnerabilities not listed"
+msgstr "Vulnerabilità non elencate"
+
+msgid "Score and exploitation"
+msgstr "Punteggio e sfruttamento"
+
+msgid "A regular email listing the vulnerabilities of the fleet that are exploited, likely to be exploited, critical or high. Its subject shows the urgency at a glance, for instance \"[URGENT] 2 actively exploited vulnerabilities, 14 machines exposed\"."
+msgstr "Un'e-mail periodica con le vulnerabilità del parco sfruttate, probabilmente sfruttate, critiche o alte. L'oggetto mostra l'urgenza a colpo d'occhio, ad esempio «[URGENTE] 2 vulnerabilità sfruttate attivamente, 14 macchine esposte»."
+
+msgid "Send the report"
+msgstr "Invia il report"
+
+msgid "Include vulnerabilities from CVSS"
+msgstr "Includi le vulnerabilità da CVSS"
+
+msgid "7 = high and critical. Exploited vulnerabilities are always included."
+msgstr "7 = alte e critiche. Le vulnerabilità sfruttate sono sempre incluse."
+
+msgid "Last report"
+msgstr "Ultimo report"
+
+msgid "none yet"
+msgstr "nessuno per ora"
+
+msgid "Next report"
+msgstr "Prossimo report"
+
+msgid "Recipients: the CISO group, and anyone added to the notification who can read the vulnerabilities of the whole fleet."
+msgstr "Destinatari: il gruppo CISO e chiunque sia aggiunto alla notifica e possa leggere le vulnerabilità di tutto il parco."
+
+msgid "Change the recipients or the text"
+msgstr "Modifica i destinatari o il testo"
+
+msgid "The vulnerability watch (NVD enrichment) is disabled: no report is sent."
+msgstr "La sorveglianza delle vulnerabilità (arricchimento NVD) è disattivata: nessun report viene inviato."
+
+msgid "Email notifications are disabled in GLPI (Setup > Notifications): the report cannot reach anyone."
+msgstr "Le notifiche e-mail sono disattivate in GLPI (Configurazione > Notifiche): il report non può raggiungere nessuno."
+
+msgid "No CISO group is set (Audit team section above): add recipients to the notification, or the report will reach nobody."
+msgstr "Nessun gruppo CISO definito (sezione Team di audit sopra): aggiungete destinatari alla notifica, altrimenti il report non raggiungerà nessuno."
+
+msgid "The notification \"GRC Manager - Fleet vulnerability report\" is inactive."
+msgstr "La notifica «GRC Manager - Rapport des vulnérabilités du parc» non è attiva."
+
+msgid "Sends the report now to its recipients, whatever the frequency."
+msgstr "Invia ora il report ai destinatari, qualunque sia la frequenza."
+
+msgid "Send the report now"
+msgstr "Invia ora il report"
+
+msgid "Enable the NVD enrichment first: without it, the report would wrongly say that nothing is exposed."
+msgstr "Attivate prima l'arricchimento NVD: senza di esso, il report direbbe erroneamente che nulla è esposto."
+
+msgid "The report has been queued for sending to its recipients."
+msgstr "Il report è stato messo in coda per l'invio ai destinatari."
+
+msgid "The report could not be sent: check that notifications are enabled in GLPI and that the notification \"GRC Manager - Fleet vulnerability report\" is active."
+msgstr "Impossibile inviare il report: verificate che le notifiche siano attive in GLPI e che la notifica «GRC Manager - Rapport des vulnérabilités du parc» sia attiva."
+
+msgid "Fleet vulnerability report"
+msgid_plural "Fleet vulnerability reports"
+msgstr[0] "Report delle vulnerabilità del parco"
+msgstr[1] "Report delle vulnerabilità del parco"
+
+#, php-format
+msgid "%d vulnerability is used by ransomware groups."
+msgid_plural "%d vulnerabilities are used by ransomware groups."
+msgstr[0] "%d vulnerabilità è usata da gruppi ransomware."
+msgstr[1] "%d vulnerabilità sono usate da gruppi ransomware."
+
+#, php-format
+msgid "%d machine exposed"
+msgid_plural "%d machines exposed"
+msgstr[0] "%d macchina esposta"
+msgstr[1] "%d macchine esposte"
+
+#, php-format
+msgid "%d actively exploited vulnerability"
+msgid_plural "%d actively exploited vulnerabilities"
+msgstr[0] "%d vulnerabilità sfruttata attivamente"
+msgstr[1] "%d vulnerabilità sfruttate attivamente"
+
+#, php-format
+msgid "%d vulnerability likely to be exploited"
+msgid_plural "%d vulnerabilities likely to be exploited"
+msgstr[0] "%d vulnerabilità probabilmente sfruttata"
+msgstr[1] "%d vulnerabilità probabilmente sfruttate"
+
+#, php-format
+msgid "%d critical or high vulnerability"
+msgid_plural "%d critical or high vulnerabilities"
+msgstr[0] "%d vulnerabilità critica o alta"
+msgstr[1] "%d vulnerabilità critiche o alte"
+
+#, php-format
+msgid "(%d new)"
+msgid_plural "(%d new)"
+msgstr[0] "(%d nuova)"
+msgstr[1] "(%d nuove)"
+
+msgid "High (below CVSS 9)"
+msgstr "Alte (CVSS inferiore a 9)"
+
+msgid "Urgency colour"
+msgstr "Colore dell'urgenza"
+
+#, php-format
+msgid "Report by email: %1$s, next one on %2$s."
+msgstr "Report via e-mail: %1$s, il prossimo il %2$s."
+
+msgid "No report by email."
+msgstr "Nessun report via e-mail."
+
+msgid "Set it up"
+msgstr "Configuralo"

@@ -10550,3 +10550,201 @@ msgstr "Staje się dokumentem zabezpieczenia, dostępnym tylko dla osób, które
 
 msgid "Overdue effectiveness tests"
 msgstr "Zaległe testy skuteczności"
+
+msgid "Never (disabled)"
+msgstr "Nigdy (wyłączone)"
+
+msgid "Every day"
+msgstr "Codziennie"
+
+msgid "Every week"
+msgstr "Co tydzień"
+
+msgid "Every month"
+msgstr "Co miesiąc"
+
+msgid "URGENT"
+msgstr "PILNE"
+
+msgid "HIGH"
+msgstr "WYSOKI"
+
+msgid "TO WATCH"
+msgstr "DO OBSERWACJI"
+
+msgid "Actively exploited (CISA KEV)"
+msgstr "Aktywnie wykorzystywane (CISA KEV)"
+
+msgid "Likely to be exploited (EPSS)"
+msgstr "Prawdopodobnie wykorzystywane (EPSS)"
+
+msgid "Critical (CVSS 9 or more)"
+msgstr "Krytyczne (CVSS 9 lub więcej)"
+
+msgid "Fleet vulnerability report by email"
+msgstr "Raport o podatnościach w infrastrukturze e-mailem"
+
+#, php-format
+msgid "%d more vulnerabilities in GLPI."
+msgstr "%d kolejnych podatności w GLPI."
+
+msgid "No critical, high or exploited vulnerability in the fleet"
+msgstr "Brak krytycznych, wysokich lub wykorzystywanych podatności w infrastrukturze"
+
+#, php-format
+msgid "%1$s, %2$s"
+msgstr "%1$s, %2$s"
+
+#, php-format
+msgid "CVSS %s"
+msgstr "CVSS %s"
+
+msgid "exploited, used by ransomware"
+msgstr "wykorzystywana, także przez ransomware"
+
+msgid "exploited"
+msgstr "wykorzystywana"
+
+#, php-format
+msgid "fix by %s (CISA)"
+msgstr "do usunięcia do %s (CISA)"
+
+#, php-format
+msgid "exploitation probability %d %%"
+msgstr "prawdopodobieństwo wykorzystania %d %%"
+
+msgid "Subject"
+msgstr "Temat"
+
+msgid "Urgency"
+msgstr "Pilność"
+
+msgid "Machines exposed"
+msgstr "Narażone urządzenia"
+
+msgid "New since the last report"
+msgstr "Nowe od ostatniego raportu"
+
+msgid "Vulnerabilities not listed"
+msgstr "Niewymienione podatności"
+
+msgid "Score and exploitation"
+msgstr "Ocena i wykorzystanie"
+
+msgid "A regular email listing the vulnerabilities of the fleet that are exploited, likely to be exploited, critical or high. Its subject shows the urgency at a glance, for instance \"[URGENT] 2 actively exploited vulnerabilities, 14 machines exposed\"."
+msgstr "Regularny e-mail z podatnościami infrastruktury wykorzystywanymi, prawdopodobnie wykorzystywanymi, krytycznymi lub wysokimi. Temat od razu pokazuje pilność, na przykład „[PILNE] 2 aktywnie wykorzystywane podatności, 14 narażonych urządzeń\"."
+
+msgid "Send the report"
+msgstr "Wysyłaj raport"
+
+msgid "Include vulnerabilities from CVSS"
+msgstr "Uwzględnij podatności od CVSS"
+
+msgid "7 = high and critical. Exploited vulnerabilities are always included."
+msgstr "7 = wysokie i krytyczne. Wykorzystywane podatności są zawsze uwzględniane."
+
+msgid "Last report"
+msgstr "Ostatni raport"
+
+msgid "none yet"
+msgstr "jeszcze brak"
+
+msgid "Next report"
+msgstr "Następny raport"
+
+msgid "Recipients: the CISO group, and anyone added to the notification who can read the vulnerabilities of the whole fleet."
+msgstr "Odbiorcy: grupa CISO oraz każda osoba dodana do powiadomienia, która może odczytać podatności całej infrastruktury."
+
+msgid "Change the recipients or the text"
+msgstr "Zmień odbiorców lub treść"
+
+msgid "The vulnerability watch (NVD enrichment) is disabled: no report is sent."
+msgstr "Monitorowanie podatności (wzbogacanie NVD) jest wyłączone: raport nie jest wysyłany."
+
+msgid "Email notifications are disabled in GLPI (Setup > Notifications): the report cannot reach anyone."
+msgstr "Powiadomienia e-mail są wyłączone w GLPI (Konfiguracja > Powiadomienia): raport nie dotrze do nikogo."
+
+msgid "No CISO group is set (Audit team section above): add recipients to the notification, or the report will reach nobody."
+msgstr "Nie ustawiono grupy CISO (sekcja Zespół audytowy powyżej): dodaj odbiorców do powiadomienia, inaczej raport nie dotrze do nikogo."
+
+msgid "The notification \"GRC Manager - Fleet vulnerability report\" is inactive."
+msgstr "Powiadomienie „GRC Manager - Rapport des vulnérabilités du parc\" jest nieaktywne."
+
+msgid "Sends the report now to its recipients, whatever the frequency."
+msgstr "Wysyła raport teraz do odbiorców, niezależnie od częstotliwości."
+
+msgid "Send the report now"
+msgstr "Wyślij raport teraz"
+
+msgid "Enable the NVD enrichment first: without it, the report would wrongly say that nothing is exposed."
+msgstr "Najpierw włącz wzbogacanie NVD: bez niego raport błędnie stwierdzi, że nic nie jest narażone."
+
+msgid "The report has been queued for sending to its recipients."
+msgstr "Raport został dodany do kolejki wysyłki do odbiorców."
+
+msgid "The report could not be sent: check that notifications are enabled in GLPI and that the notification \"GRC Manager - Fleet vulnerability report\" is active."
+msgstr "Nie udało się wysłać raportu: sprawdź, czy powiadomienia są włączone w GLPI i czy powiadomienie „GRC Manager - Rapport des vulnérabilités du parc\" jest aktywne."
+
+msgid "Fleet vulnerability report"
+msgid_plural "Fleet vulnerability reports"
+msgstr[0] "Raport o podatnościach infrastruktury"
+msgstr[1] "Raporty o podatnościach infrastruktury"
+msgstr[2] "Raporty o podatnościach infrastruktury"
+
+#, php-format
+msgid "%d vulnerability is used by ransomware groups."
+msgid_plural "%d vulnerabilities are used by ransomware groups."
+msgstr[0] "%d podatność jest wykorzystywana przez grupy ransomware."
+msgstr[1] "%d podatności są wykorzystywane przez grupy ransomware."
+msgstr[2] "%d podatności są wykorzystywane przez grupy ransomware."
+
+#, php-format
+msgid "%d machine exposed"
+msgid_plural "%d machines exposed"
+msgstr[0] "%d narażone urządzenie"
+msgstr[1] "%d narażonych urządzeń"
+msgstr[2] "%d narażonych urządzeń"
+
+#, php-format
+msgid "%d actively exploited vulnerability"
+msgid_plural "%d actively exploited vulnerabilities"
+msgstr[0] "%d aktywnie wykorzystywana podatność"
+msgstr[1] "%d aktywnie wykorzystywanych podatności"
+msgstr[2] "%d aktywnie wykorzystywanych podatności"
+
+#, php-format
+msgid "%d vulnerability likely to be exploited"
+msgid_plural "%d vulnerabilities likely to be exploited"
+msgstr[0] "%d prawdopodobnie wykorzystywana podatność"
+msgstr[1] "%d prawdopodobnie wykorzystywanych podatności"
+msgstr[2] "%d prawdopodobnie wykorzystywanych podatności"
+
+#, php-format
+msgid "%d critical or high vulnerability"
+msgid_plural "%d critical or high vulnerabilities"
+msgstr[0] "%d krytyczna lub wysoka podatność"
+msgstr[1] "%d krytycznych lub wysokich podatności"
+msgstr[2] "%d krytycznych lub wysokich podatności"
+
+#, php-format
+msgid "(%d new)"
+msgid_plural "(%d new)"
+msgstr[0] "(%d nowa)"
+msgstr[1] "(%d nowych)"
+msgstr[2] "(%d nowych)"
+
+msgid "High (below CVSS 9)"
+msgstr "Wysokie (CVSS poniżej 9)"
+
+msgid "Urgency colour"
+msgstr "Kolor pilności"
+
+#, php-format
+msgid "Report by email: %1$s, next one on %2$s."
+msgstr "Raport e-mailem: %1$s, następny %2$s."
+
+msgid "No report by email."
+msgstr "Brak raportu e-mailem."
+
+msgid "Set it up"
+msgstr "Skonfiguruj"

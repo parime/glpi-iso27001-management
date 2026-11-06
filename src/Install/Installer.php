@@ -4338,7 +4338,7 @@ final class Installer
             ['label' => 'Exploitées activement (CISA KEV)', 'tag' => '##vulndigest.exploited##', 'color' => '#d63939'],
             ['label' => 'Probablement exploitées (EPSS)', 'tag' => '##vulndigest.likely##', 'color' => '#f76707'],
             ['label' => 'Critiques (CVSS 9 ou plus)', 'tag' => '##vulndigest.critical##', 'color' => '#f59f00'],
-            ['label' => 'Élevées', 'tag' => '##vulndigest.high##', 'color' => '#1a1a2e'],
+            ['label' => 'Élevées (CVSS inférieur à 9)', 'tag' => '##vulndigest.high##', 'color' => '#1a1a2e'],
             ['label' => 'Machines exposées', 'tag' => '##vulndigest.machines##', 'color' => '#1a1a2e'],
             ['label' => 'Nouvelles depuis le dernier rapport', 'tag' => '##vulndigest.new##', 'color' => '#1a1a2e'],
         ];
@@ -4350,9 +4350,10 @@ final class Installer
             $text .= $row['label'] . ' : ' . $row['tag'] . "\n";
         }
         $text .= "##vulndigest.ransomware##\n\n"
-            . "##FOREACHvulnerabilities##- ##vulnerability.cve## ##vulnerability.isnew## : "
+            . "##FOREACHvulnerabilities##- ##vulnerability.cve## : "
             . "##vulnerability.product## (##vulnerability.versions##), ##vulnerability.category##, "
-            . "##vulnerability.signal##, ##vulnerability.machines## machine(s)\n##ENDFOREACHvulnerabilities##"
+            . "##vulnerability.signal##, ##vulnerability.machines## machine(s) ##vulnerability.isnew##\n"
+            . "##ENDFOREACHvulnerabilities##"
             . "##vulndigest.more##\n\n" . $advice . "\n\nVoir les vulnérabilités du parc : ##vulndigest.url##";
         $html = NotificationHtml::renderVulnerabilityDigest(
             'Rapport des vulnérabilités du parc',
