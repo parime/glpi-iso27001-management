@@ -23,6 +23,7 @@ use GlpiPlugin\Grcmanager\Services\Control\ControlCrosswalkDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig;
 use GlpiPlugin\Grcmanager\Services\Control\FrameworkSelection;
 use GlpiPlugin\Grcmanager\Services\Control\Iso27090CatalogDefaults;
+use GlpiPlugin\Grcmanager\Services\Control\DoraCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\Nis2CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\NistCsfCatalogDefaults;
 
@@ -144,6 +145,29 @@ foreach (Nis2CatalogDefaults::ARTICLES as $article => $articleTitle) {
     $nis2[] = ['article' => (string) $article, 'title' => $articleTitle[$nis2Lang], 'requirements' => $requirements];
 }
 
+// Issue #379 : DORA dans la langue de l'utilisateur (intitulés officiels FR/EN, exigences résumées
+// par ce projet), correspondance Annexe A indicative.
+$dora = [];
+foreach (DoraCatalogDefaults::ARTICLES as $article => $articleTitle) {
+    $requirements = [];
+    foreach (DoraCatalogDefaults::REQUIREMENTS as $code => $requirement) {
+        if ($requirement['article'] !== (string) $article) {
+            continue;
+        }
+        $controls = [];
+        foreach ($requirement['annex_a'] as $annexACode) {
+            $controls[] = ['code' => $annexACode, 'id' => $idsByCode[$annexACode] ?? null];
+        }
+        $requirements[] = [
+            'reference' => DoraCatalogDefaults::reference((string) $code),
+            'text'      => $requirement[$nis2Lang],
+            'summary'   => $requirement['summary'],
+            'controls'  => $controls,
+        ];
+    }
+    $dora[] = ['article' => (string) $article, 'title' => $articleTitle[$nis2Lang], 'requirements' => $requirements];
+}
+
 // Issue #111 : guide d'hygiène ANSSI : intitulés officiels en français, traduction anglaise
 // indicative pour les autres langues ; mesures regroupées par thème.
 $anssi = [];
@@ -190,6 +214,8 @@ foreach (Iso27090CatalogDefaults::CHAPTERS as $chapter => $chapterTitle) {
     'cis_controls' => $isEnabled(FrameworkSelection::CIS_CONTROLS) ? $cisControls : [],
     'nis2'         => $isEnabled(FrameworkSelection::NIS2) ? $nis2 : [],
     'nis2_source'  => Nis2CatalogDefaults::SOURCE_URL,
+    'dora'         => $isEnabled(FrameworkSelection::DORA) ? $dora : [],
+    'dora_source'  => DoraCatalogDefaults::SOURCE_URL,
     'anssi'        => $isEnabled(FrameworkSelection::ANSSI) ? $anssi : [],
     'anssi_source' => AnssiHygieneCatalogDefaults::SOURCE_URL,
     'anssi_lang'   => $nis2Lang,

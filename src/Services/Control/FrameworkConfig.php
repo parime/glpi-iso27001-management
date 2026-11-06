@@ -35,6 +35,8 @@ final class FrameworkConfig
 {
     public const CONFIG_CONTEXT = 'plugin:grcmanager';
     public const CONFIG_KEY = 'frameworks_disabled';
+    /** Issue #379 : référentiels connus au dernier enregistrement (un optionnel ajouté depuis reste désactivé). */
+    public const KNOWN_KEY = 'frameworks_known';
 
     /** @var list<string>|null lu une fois par requête, oublié à l'enregistrement */
     private static ?array $disabled = null;
@@ -45,10 +47,20 @@ final class FrameworkConfig
     public static function disabled(): array
     {
         if (self::$disabled === null) {
-            $values = Config::getConfigurationValues(self::CONFIG_CONTEXT, [self::CONFIG_KEY]);
-            self::$disabled = FrameworkSelection::decode(
+            $values = Config::getConfigurationValues(self::CONFIG_CONTEXT, [self::CONFIG_KEY, self::KNOWN_KEY]);
+            $disabled = FrameworkSelection::decode(
                 isset($values[self::CONFIG_KEY]) ? (string) $values[self::CONFIG_KEY] : null
             );
+            $known = FrameworkSelection::decode(
+                isset($values[self::KNOWN_KEY]) ? (string) $values[self::KNOWN_KEY] : null
+            );
+            // Un référentiel optionnel jamais présenté à l'enregistrement reste désactivé.
+            foreach (FrameworkSelection::OPTIONAL as $optional) {
+                if (!in_array($optional, $known, true) && !in_array($optional, $disabled, true)) {
+                    $disabled[] = $optional;
+                }
+            }
+            self::$disabled = $disabled;
         }
 
         return self::$disabled;
@@ -111,6 +123,11 @@ final class FrameworkConfig
                 'AI security catalog and its references in the catalog of typical risks.',
                 'grcmanager'
             ),
+            FrameworkSelection::DORA         => __(
+                'Financial sector (Regulation (EU) 2022/2554): DORA requirements, their references on the '
+                    . 'controls and DORA score. Disabled by default.',
+                'grcmanager'
+            ),
         ];
     }
 
@@ -121,10 +138,10 @@ final class FrameworkConfig
      */
     public static function save(array $enabled): void
     {
-        Config::setConfigurationValues(
-            self::CONFIG_CONTEXT,
-            [self::CONFIG_KEY => FrameworkSelection::encode($enabled)]
-        );
+        Config::setConfigurationValues(self::CONFIG_CONTEXT, [
+            self::CONFIG_KEY => FrameworkSelection::encode($enabled),
+            self::KNOWN_KEY  => (string) json_encode(array_keys(FrameworkSelection::FRAMEWORKS)),
+        ]);
         self::$disabled = null;
     }
 }

@@ -26,6 +26,7 @@ use GlpiPlugin\Grcmanager\Services\Control\ControlCrosswalkDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\ControlTestRules;
 use GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig;
 use GlpiPlugin\Grcmanager\Services\Control\FrameworkSelection;
+use GlpiPlugin\Grcmanager\Services\Control\DoraCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\Nis2CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Maturity\MaturityScore;
 
@@ -62,6 +63,9 @@ final class PilotageCards
                 => (ControlCrosswalkDefaults::CROSSWALK[preg_replace('/^A\./', '', $code)]['nist_csf'] ?? []) !== []],
             'CIS Controls v8' => [FrameworkSelection::CIS_CONTROLS, static fn (string $code): bool
                 => CisControlsCatalogDefaults::controlsForAnnexA($code) !== []],
+            // Issue #379 : DORA, correspondance indicative du plugin (DoraCatalogDefaults).
+            'DORA'         => [FrameworkSelection::DORA, static fn (string $code): bool
+                => DoraCatalogDefaults::requirementsForControl($code) !== []],
         ];
         $rates = [];
         foreach ($filters as $framework => [$key, $covers]) {

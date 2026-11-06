@@ -183,6 +183,55 @@
 </div>
 {% endif %}
 
+{# Issue #379 : DORA, règlement (UE) 2022/2554 (secteur financier). #}
+{% if dora is not empty %}
+<div class="card mb-3">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <h3 class="card-title mb-0">{{ __('DORA Regulation (EU) 2022/2554', 'grcmanager') }}</h3>
+    <input type="search" class="form-control form-control-sm w-auto grcmanager-ref-filter"
+           data-target="grcmanager-dora-body" placeholder="{{ __('Filter…', 'grcmanager') }}">
+  </div>
+  <div class="card-body" id="grcmanager-dora-body">
+    <p class="text-muted small">{{ __('Digital operational resilience of the financial sector. Requirements summarised by this project; refer to the official text.', 'grcmanager') }}</p>
+    {% for article in dora %}
+      <details class="mb-2">
+        <summary class="fw-bold">{{ __('Article', 'grcmanager') }} {{ article.article }} - {{ article.title }}</summary>
+        <table class="table table-sm ms-3 mt-2">
+          <tbody>
+            {% for requirement in article.requirements %}
+              <tr>
+                <td class="text-nowrap"><code>{{ requirement.reference }}</code></td>
+                <td>
+                  {{ requirement.text }}
+                  {% if requirement.summary %}
+                    <span class="badge bg-secondary-lt ms-1">{{ __('summary', 'grcmanager') }}</span>
+                  {% endif %}
+                </td>
+                <td>
+                  {% for control in requirement.controls %}
+                    {% if control.id %}
+                      <a class="badge bg-azure-lt" href="{{ path('/plugins/grcmanager/front/control.form.php') }}?id={{ control.id }}">{{ control.code }}</a>
+                    {% else %}
+                      <span class="badge bg-azure-lt">{{ control.code }}</span>
+                    {% endif %}
+                  {% endfor %}
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </details>
+    {% endfor %}
+  </div>
+  {# Mention de source exigée pour la réutilisation des textes EUR-Lex (décision 2011/833/UE). #}
+  <div class="card-footer text-muted small">
+    <i class="ti ti-license me-1"></i>
+    {{ __('Source: Regulation (EU) 2022/2554 (DORA), © European Union, EUR-Lex. Requirements are summarised and the mapping to ISO 27001 Annex A is indicative, both made by this project.', 'grcmanager') }}
+    <a href="{{ dora_source }}" target="_blank" rel="noopener noreferrer">eur-lex.europa.eu</a>
+  </div>
+</div>
+{% endif %}
+
 {% if anssi is not empty %}
 <div class="card mb-3">
   <div class="card-header d-flex justify-content-between align-items-center">
