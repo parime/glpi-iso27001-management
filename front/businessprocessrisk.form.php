@@ -15,8 +15,6 @@
  * -------------------------------------------------------------------------
  */
 
-include('../../../inc/includes.php');
-
 // Issue #377 : risques liés à un processus métier (onglet « Risques »). Il faut pouvoir modifier le
 // processus (droit de la continuité et entité) et lire le registre des risques (droit des registres
 // sensibles) ; proposer un risque pour un élément trop lent exige en plus de pouvoir créer un risque

@@ -20,8 +20,6 @@ use GlpiPlugin\Grcmanager\ControlTest;
 use GlpiPlugin\Grcmanager\Evidence;
 use GlpiPlugin\Grcmanager\Services\Control\EvidenceUploadRules;
 
-include('../../../inc/includes.php');
-
 global $CFG_GLPI;
 
 // Issue #380 : onglet « Tests d'efficacité » d'une mesure (plan de test, enregistrement et

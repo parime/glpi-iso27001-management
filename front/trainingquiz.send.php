@@ -18,8 +18,6 @@
 use Glpi\Exception\Http\AccessDeniedHttpException;
 use Glpi\Exception\Http\NotFoundHttpException;
 
-include('../../../inc/includes.php');
-
 /**
  * Issue #139 : téléchargement d'une copie de quiz, pour le participant, le formateur de la
  * session ou le groupe RSSI, même sans droit Documents ni droit sur le plugin. Chaque

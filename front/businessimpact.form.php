@@ -15,8 +15,6 @@
  * -------------------------------------------------------------------------
  */
 
-include('../../../inc/includes.php');
-
 // Issue #377 : enregistrer la BIA d'un processus métier exige de pouvoir modifier ce processus
 // (droit et entité).
 Session::checkRight(\GlpiPlugin\Grcmanager\BusinessProcess::$rightname, UPDATE);

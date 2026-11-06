@@ -15,8 +15,6 @@
  * -------------------------------------------------------------------------
  */
 
-include('../../../inc/includes.php');
-
 /**
  * Issue #139 : joindre ou retirer la copie de quiz d'un participant (onglet « Copies de quiz »
  * de la session). Il faut pouvoir modifier la session.

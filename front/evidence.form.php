@@ -15,8 +15,6 @@
  * -------------------------------------------------------------------------
  */
 
-include('../../../inc/includes.php');
-
 // Issue #145 : enregistre ou retire la date de validité d'un document de preuve, depuis l'onglet
 // « Validités des preuves » de l'élément porteur, puis revient sur sa fiche. Droit de modification
 // sur CET élément (entité comprise), jamais le seul droit global du plugin.

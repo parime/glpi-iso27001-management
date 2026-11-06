@@ -15,8 +15,6 @@
  * -------------------------------------------------------------------------
  */
 
-include('../../../inc/includes.php');
-
 // Issue #377, troisième étape : temps de reprise mesuré d'un processus (onglet « Stratégie de
 // reprise », ou salle de crise). Ajouter ou retirer un test exige de pouvoir modifier le processus
 // (droit de la continuité et entité) ; le rattacher à un exercice exige de pouvoir lire son incident.

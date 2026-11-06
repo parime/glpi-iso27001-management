@@ -22,8 +22,6 @@ use GlpiPlugin\Grcmanager\ProcessingActivity;
 use GlpiPlugin\Grcmanager\Services\Notification\SensitiveNotification;
 use GlpiPlugin\Grcmanager\Services\Privacy\ProcessingActivityRules;
 
-include('../../../inc/includes.php');
-
 // Issue #375 : export du registre des traitements (article 30), à la demande et jamais persisté.
 // Seules les fiches des entités de la session ; les éléments liés que la personne ne peut pas lire
 // ne sont pas nommés.

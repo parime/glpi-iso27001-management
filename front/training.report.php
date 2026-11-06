@@ -17,8 +17,6 @@
 
 use GlpiPlugin\Grcmanager\Pdf\PdfRenderer;
 
-include('../../../inc/includes.php');
-
 // Issue #139, phase 2 : rapport PDF d'une session (émargement, notes, taux de réussite),
 // généré à la demande pour l'auditeur.
 Session::checkRight(\GlpiPlugin\Grcmanager\Training::$rightname, READ);

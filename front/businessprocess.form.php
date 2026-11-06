@@ -15,8 +15,6 @@
  * -------------------------------------------------------------------------
  */
 
-include('../../../inc/includes.php');
-
 // Issue #377 : fiche d'un processus métier. Chaque action contrôle le droit ET l'entité du processus
 // (CommonDBTM::check()), y compris l'entité choisie à la création.
 $item = new \GlpiPlugin\Grcmanager\BusinessProcess();

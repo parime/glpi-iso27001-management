@@ -15,8 +15,6 @@
  * -------------------------------------------------------------------------
  */
 
-include('../../../inc/includes.php');
-
 // Issue #141 : revues périodiques du SMSI (activation = ticket récurrent natif de GLPI).
 Session::checkRight(\GlpiPlugin\Grcmanager\PeriodicReview::$rightname, READ);
 

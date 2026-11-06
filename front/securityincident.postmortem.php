@@ -15,8 +15,6 @@
  * -------------------------------------------------------------------------
  */
 
-include('../../../inc/includes.php');
-
 // Issue #169 : génère et archive le rapport post-incident (PDF) de l'incident.
 Session::checkRight('document', CREATE);
 $incident = new PluginGrcmanagerSecurityIncident();

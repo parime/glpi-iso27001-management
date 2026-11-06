@@ -18,8 +18,6 @@
 use Glpi\Search\Input\QueryBuilder;
 use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
 
-include('../../../inc/includes.php');
-
 // Issue #164 : règles de couverture des preuves.
 Session::checkRight(\GlpiPlugin\Grcmanager\CoverageRule::$rightname, READ);
 

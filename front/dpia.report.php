@@ -21,8 +21,6 @@ use GlpiPlugin\Grcmanager\Pdf\PdfRenderer;
 use GlpiPlugin\Grcmanager\ProcessingActivity;
 use GlpiPlugin\Grcmanager\Services\Notification\SensitiveNotification;
 
-include('../../../inc/includes.php');
-
 // Issue #375 : rapport PDF de l'AIPD d'une fiche, à la demande et jamais persisté.
 Session::checkRight(Dpia::RIGHTNAME, READ);
 

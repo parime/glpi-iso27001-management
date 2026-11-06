@@ -15,8 +15,6 @@
  * -------------------------------------------------------------------------
  */
 
-include('../../../inc/includes.php');
-
 // Issue #183 : une exposition n'est jamais créée à la main (tâche planifiée) ; le RSSI en change le
 // statut et le commentaire (prepareInputForUpdate() ignore tout autre champ), ou la supprime.
 $item = new \GlpiPlugin\Grcmanager\BreachExposure();

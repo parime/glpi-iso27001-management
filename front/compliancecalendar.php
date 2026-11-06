@@ -15,8 +15,6 @@
  * -------------------------------------------------------------------------
  */
 
-include('../../../inc/includes.php');
-
 // Issue #142 : calendrier de conformité (écran et export iCal).
 Session::checkRight(\GlpiPlugin\Grcmanager\ComplianceEvent::$rightname, READ);
 

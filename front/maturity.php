@@ -17,8 +17,6 @@
 
 use Glpi\Application\View\TemplateRenderer;
 
-include('../../../inc/includes.php');
-
 // Issue #166 : score de maturité cyber et détail du calcul.
 Session::checkRight(\GlpiPlugin\Grcmanager\Maturity::RIGHTNAME, READ);
 

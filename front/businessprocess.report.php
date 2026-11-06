@@ -20,8 +20,6 @@ use GlpiPlugin\Grcmanager\BusinessProcess;
 use GlpiPlugin\Grcmanager\Pdf\PdfRenderer;
 use GlpiPlugin\Grcmanager\Services\Notification\SensitiveNotification;
 
-include('../../../inc/includes.php');
-
 // Issue #377 : plan de continuité (PCA / PRA) en PDF, à la demande et jamais persisté. Sans « id » :
 // tous les processus lisibles (droit et entité) ; avec : ce seul processus, s'il est lisible.
 Session::checkRight(BusinessProcess::$rightname, READ);

@@ -15,8 +15,6 @@
  * -------------------------------------------------------------------------
  */
 
-include('../../../inc/includes.php');
-
 // Issue #377 : dépendance entre processus métier (onglet « Processus liés »). Le lien appartient au
 // processus qui dépend de l'autre : l'ajouter ou le retirer exige de pouvoir le modifier (droit et
 // entité) ; l'ajouter exige aussi de pouvoir lire le processus amont.

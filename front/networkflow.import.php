@@ -18,8 +18,6 @@
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Services\Network\NetworkFlowRules;
 
-include('../../../inc/includes.php');
-
 // Issue #144 : import d'une matrice des flux au format CSV, simulation d'abord.
 Session::checkRight(\GlpiPlugin\Grcmanager\NetworkFlow::$rightname, CREATE);
 

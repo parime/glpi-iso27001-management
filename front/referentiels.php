@@ -26,8 +26,6 @@ use GlpiPlugin\Grcmanager\Services\Control\Iso27090CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\Nis2CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\NistCsfCatalogDefaults;
 
-include('../../../inc/includes.php');
-
 // Reuses \GlpiPlugin\Grcmanager\Control's own right rather than a dedicated one: this screen only
 // displays the same Annexe A catalog (plus two purely-consultative reference libraries), no
 // meaningful access boundary of its own: same reasoning as \GlpiPlugin\Grcmanager\SecurityIncidentCve

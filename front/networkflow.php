@@ -18,8 +18,6 @@
 use Glpi\Search\Input\QueryBuilder;
 use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
 
-include('../../../inc/includes.php');
-
 // Issue #144 : matrice des flux réseau.
 Session::checkRight(\GlpiPlugin\Grcmanager\NetworkFlow::$rightname, READ);
 

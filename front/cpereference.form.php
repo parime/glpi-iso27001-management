@@ -15,8 +15,6 @@
  * -------------------------------------------------------------------------
  */
 
-include('../../../inc/includes.php');
-
 // Ni menu, ni écran de recherche propres : ce contrôleur ne fait qu'ajouter/supprimer un
 // identifiant CPE pour un produit donné puis revenir sur le formulaire de ce produit, même esprit
 // que front/objectivemeasurement.form.php.

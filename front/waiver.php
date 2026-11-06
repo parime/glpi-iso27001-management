@@ -18,8 +18,6 @@
 use Glpi\Search\Input\QueryBuilder;
 use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
 
-include('../../../inc/includes.php');
-
 // Issue #170 : registre des dérogations de sécurité.
 Session::checkRight(\GlpiPlugin\Grcmanager\Waiver::$rightname, READ);
 

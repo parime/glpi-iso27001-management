@@ -17,8 +17,6 @@
 
 use GlpiPlugin\Grcmanager\ProcessingActivity;
 
-include('../../../inc/includes.php');
-
 // Issue #375 : fiche du registre des traitements. Chaque action vérifie le droit dédié et l'entité
 // de la fiche (check() du cœur) ; le jeton CSRF est contrôlé par GLPI sur tout POST.
 $item = new ProcessingActivity();

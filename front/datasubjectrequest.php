@@ -18,8 +18,6 @@
 use Glpi\Search\Input\QueryBuilder;
 use GlpiPlugin\Grcmanager\DataSubjectRequest;
 
-include('../../../inc/includes.php');
-
 // Issue #375 : demandes d'exercice des droits (RGPD). Donnée sensible : droit dédié.
 Session::checkRight(DataSubjectRequest::$rightname, READ);
 

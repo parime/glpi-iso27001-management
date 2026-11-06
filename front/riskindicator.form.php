@@ -15,8 +15,6 @@
  * -------------------------------------------------------------------------
  */
 
-include('../../../inc/includes.php');
-
 // Issue #378 : fiche d'un indicateur de risque. Chaque action vérifie le droit des registres
 // sensibles ET l'entité du KRI (CommonDBTM::check()).
 $item = new \GlpiPlugin\Grcmanager\RiskIndicator();

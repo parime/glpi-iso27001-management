@@ -18,8 +18,6 @@
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\AuditLog;
 
-include('../../../inc/includes.php');
-
 // Issue #371 : journal d'audit des incidents de sécurité (lecture, vérification, export CSV).
 Session::checkRight(AuditLog::RIGHTNAME, READ);
 

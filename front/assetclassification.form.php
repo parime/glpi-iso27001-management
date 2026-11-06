@@ -17,8 +17,6 @@
 
 use GlpiPlugin\Grcmanager\Services\Risk\RiskItemLinkNormalizer;
 
-include('../../../inc/includes.php');
-
 // Pas de $_GET['id'] classique : ce contrôleur n'a pas de formulaire propre (voir
 // \GlpiPlugin\Grcmanager\AssetClassification::displayTabContentForItem(), le seul écran qui poste ici),
 // il est toujours atteint depuis l'onglet "Classification C/I/D" d'un actif réel, identifié par

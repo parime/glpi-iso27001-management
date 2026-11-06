@@ -18,8 +18,6 @@
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Services\Compliance\ComplianceAuditScore;
 
-include('../../../inc/includes.php');
-
 // Issue #162 : audit de conformité technique (score par référentiel, écarts, tickets).
 Session::checkRight(\GlpiPlugin\Grcmanager\ComplianceAudit::RIGHTNAME, READ);
 
