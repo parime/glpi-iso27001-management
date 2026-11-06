@@ -4751,6 +4751,24 @@ final class Installer
             $migration->addKey(self::RISKS_TABLE, 'users_id_acceptance');
             $migration->migrationOneTable(self::RISKS_TABLE);
         }
+        // Issue #378, quatrième étape : risque résiduel, après traitement (vide : non évalué).
+        if (!$DB->fieldExists(self::RISKS_TABLE, 'residual_level')) {
+            $migration->addField(self::RISKS_TABLE, 'residual_probability', 'string', [
+                'value' => '',
+                'after' => 'impact',
+            ]);
+            $migration->addField(self::RISKS_TABLE, 'residual_impact', 'string', [
+                'value' => '',
+                'after' => 'residual_probability',
+            ]);
+            $migration->addField(self::RISKS_TABLE, 'residual_level', 'string', [
+                'value'   => '',
+                'after'   => 'residual_impact',
+                'comment' => 'Calcule depuis residual_probability x residual_impact',
+            ]);
+            $migration->addKey(self::RISKS_TABLE, 'residual_level');
+            $migration->migrationOneTable(self::RISKS_TABLE);
+        }
         // Issue #378, troisième étape : acceptation signée par un membre du groupe Direction (au-delà de la
         // tolérance, seule la direction peut accepter), et appétence approuvée par la direction.
         if (!$DB->fieldExists(self::RISKS_TABLE, 'is_direction_acceptance')) {

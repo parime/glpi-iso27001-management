@@ -9358,3 +9358,24 @@ msgstr "Management group"
 
 msgid "To be signed by management"
 msgstr "To be signed by management"
+
+msgid "Residual probability"
+msgstr "Residual probability"
+
+msgid "Residual impact"
+msgstr "Residual impact"
+
+msgid "Residual risk level"
+msgstr "Residual risk level"
+
+msgid "To be assessed"
+msgstr "To be assessed"
+
+msgid "After the treatment. Leave \"To be assessed\" until the treatment is defined: the initial risk is then compared to the appetite."
+msgstr "After the treatment. Leave \"To be assessed\" until the treatment is defined: the initial risk is then compared to the appetite."
+
+msgid "Compared on the residual risk level."
+msgstr "Compared on the residual risk level."
+
+msgid "Compared on the initial risk level: assess the residual risk once the treatment is defined."
+msgstr "Compared on the initial risk level: assess the residual risk once the treatment is defined."
