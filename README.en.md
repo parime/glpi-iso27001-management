@@ -83,8 +83,10 @@ classification fields merged directly onto it.
 - **Supplier security watch** (CERT-FR advisories naming the supplier), **typical infrastructure
   risk catalogue**, **domino effect** between risks and incidents, **security exemptions**.
 - **Business processes and business impact analysis (BIA)**: owner, criticality, MTPD, RTO, RPO,
-  impact by duration of interruption, GLPI items each process depends on, assets slower than the
-  process reported, export for the business continuity plan.
+  impact by duration of interruption, GLPI items and other processes each process depends on,
+  assets and processes slower than the process reported, linked risks (and a risk proposed for a
+  slow asset), recovery strategy and measured tests, dependency map, reminders of BIAs to review
+  and recovery tests due, dashboard indicators, business continuity plan as PDF and CSV export.
 - **Crisis exercises** (ransomware, data leak, outage): fictitious incident, timed steps, exercise
   report archived as evidence (A.5.29, A.5.30).
 - **Crisis team** on a real incident: response plan, recovery of affected items against their RTO,
@@ -94,7 +96,7 @@ classification fields merged directly onto it.
 
 **Steering**
 - Default ISMS dashboard and KPIs to add to GLPI dashboards, including compliance by framework
-  (ISO 27001, NIS2, ANSSI), deadlines within 90 days, access review progress and NIS2 / GDPR
+  (ISO 27001, NIS2, ANSSI, NIST CSF, CIS Controls), deadlines within 90 days, access review progress and NIS2 / GDPR
   deadlines at risk; GRC & Compliance > Dashboard menu, ISMS and Management views, monthly trend.
 - **Scored trainings**, in one or several sessions (trainer, location, score, pass threshold, retake,
   PDF report with attendance sheet, each participant's quiz copy restricted to the participant, the
@@ -226,7 +228,8 @@ and documentation only identifies the framework the plugin helps you track.
   © Center for Internet Security, Inc. CIS Controls® and CIS Critical Security Controls® are
   trademarks of the Center for Internet Security, Inc. This project is not affiliated with or
   endorsed by CIS. This excerpt is not covered by the plugin's GPLv3 license and may not be reused
-  for commercial purposes.
+  for commercial purposes. The mapping between the 18 controls and ISO 27001 Annex A, used for the
+  CIS score, is indicative and made by this project: it is not taken from CIS.
 - **NIST Cybersecurity Framework (CSF) 2.0**: published by the
   [National Institute of Standards and Technology](https://www.nist.gov/cyberframework)
   (U.S. federal government), in the public domain.

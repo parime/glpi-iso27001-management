@@ -21,14 +21,63 @@ namespace GlpiPlugin\Grcmanager\Services\Control;
  * 14.7/14.8/14.9/17.9 rétrogradées vers IG1, 9.7/15.5 montées vers IG3), d'où la répartition
  * réelle ici (58/73/22) qui ne correspond plus à ce chiffre devenu obsolète.
  *
- * Catalogue de référence, purement consultable : contrairement à NistCsfCatalogDefaults, PAS
- * de correspondance avec l'Annexe A ISO 27001 dans ControlCrosswalkDefaults : CIS ne publie sa
- * correspondance officielle vers ISO/IEC 27001:2022 que dans un livre blanc nécessitant la
- * création d'un compte (learn.cisecurity.org), non récupérable automatiquement : voir le
- * docblock de ControlCrosswalkDefaults.
+ * Correspondance `ANNEX_A` (issue #143, score CIS) : indicative, établie par ce projet, comme
+ * celles de l'ANSSI et de NIS2 (AnssiHygieneCatalogDefaults, Nis2CatalogDefaults), et non dans
+ * ControlCrosswalkDefaults, réservé aux correspondances officielles. La correspondance que publie
+ * le CIS vers ISO/IEC 27001:2022 n'est ni reprise ni dérivée : sa licence ne permet pas de
+ * l'embarquer (décision du 29/10/2026 sur #143). Elle relie chacun des 18 contrôles, pas les 153
+ * sauvegardes, aux mesures de l'Annexe A qui en traitent l'objet, d'après les seuls intitulés des
+ * deux référentiels ; elle reste à faire relire par quelqu'un qui connaît les deux.
  */
 final class CisControlsCatalogDefaults
 {
+    /**
+     * Correspondance indicative établie par ce projet : numéro de contrôle CIS => mesures de
+     * l'Annexe A ISO 27001 (code avec le préfixe "A.") qui en traitent l'objet.
+     *
+     * @var array<int, list<string>>
+     */
+    public const ANNEX_A = [
+        1  => ['A.5.9', 'A.8.1'],
+        2  => ['A.5.9', 'A.8.19'],
+        3  => [
+            'A.5.12', 'A.5.13', 'A.5.14', 'A.5.33', 'A.5.34', 'A.7.14', 'A.8.10', 'A.8.11', 'A.8.12',
+            'A.8.24',
+        ],
+        4  => ['A.7.7', 'A.8.1', 'A.8.9'],
+        5  => ['A.5.16', 'A.5.18', 'A.8.2'],
+        6  => ['A.5.15', 'A.5.17', 'A.5.18', 'A.8.2', 'A.8.3', 'A.8.5'],
+        7  => ['A.8.8'],
+        8  => ['A.8.15', 'A.8.17'],
+        9  => ['A.5.14', 'A.8.23'],
+        10 => ['A.7.10', 'A.8.7'],
+        11 => ['A.8.13'],
+        12 => ['A.8.20', 'A.8.21', 'A.8.22'],
+        13 => ['A.8.16', 'A.8.20', 'A.8.22'],
+        14 => ['A.6.3'],
+        15 => ['A.5.19', 'A.5.20', 'A.5.21', 'A.5.22', 'A.5.23'],
+        16 => ['A.8.25', 'A.8.26', 'A.8.27', 'A.8.28', 'A.8.29', 'A.8.31'],
+        17 => ['A.5.5', 'A.5.24', 'A.5.25', 'A.5.26', 'A.5.27', 'A.6.8'],
+        18 => ['A.5.35', 'A.8.8'],
+    ];
+
+    /**
+     * Correspondance inverse : contrôle Annexe A => numéros des contrôles CIS qui y renvoient.
+     *
+     * @return list<int>
+     */
+    public static function controlsForAnnexA(string $annexACode): array
+    {
+        $numbers = [];
+        foreach (self::ANNEX_A as $number => $codes) {
+            if (in_array($annexACode, $codes, true)) {
+                $numbers[] = $number;
+            }
+        }
+
+        return $numbers;
+    }
+
     /** @var array<int, string> Numéro de contrôle => intitulé. */
     public const CONTROLS = [
         1 => 'Inventory and Control of Enterprise Assets',

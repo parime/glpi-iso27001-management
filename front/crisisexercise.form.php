@@ -17,8 +17,6 @@
 
 use Glpi\Application\View\TemplateRenderer;
 
-include('../../../inc/includes.php');
-
 // Issue #168 : salle de crise d'un exercice (étapes chronométrées, fin et rapport).
 // Issue #185 : la même salle sert de cellule de crise sur un incident réel.
 Session::checkRightsOr(
@@ -90,7 +88,17 @@ Html::header(
     \GlpiPlugin\Grcmanager\AccessReview::class,
     \GlpiPlugin\Grcmanager\CrisisExercise::class
 );
-TemplateRenderer::getInstance()->display('@grcmanager/crisis_room.html.twig', $exercise->collect() + [
+// Issue #377, troisième étape : temps de reprise des processus mesurés pendant l'exercice (droit de la
+// continuité ; seuls les processus lisibles sont nommés, seuls ceux modifiables sont proposés).
+$data = $exercise->collect();
+// Possible aussi après la fin de l'exercice (retour d'expérience).
+$canRecord = \GlpiPlugin\Grcmanager\BusinessProcess::canUpdate();
+TemplateRenderer::getInstance()->display('@grcmanager/crisis_room.html.twig', $data + [
+    'show_processes'      => \GlpiPlugin\Grcmanager\BusinessProcess::canView(),
+    'process_recoveries'  => \GlpiPlugin\Grcmanager\BusinessProcessRecovery::forExercise($exercise),
+    'recovery_processes'  => $canRecord ? \GlpiPlugin\Grcmanager\BusinessProcessRecovery::processChoices() : [],
+    'recovery_url'        => \GlpiPlugin\Grcmanager\BusinessProcessRecovery::getFormURL(),
+    'recovery_minutes'    => (int) $data['exercise']['duration'],
     'can_act'     => $incident->canUpdateItem(),
     'can_journal' => $incident->canAddFollowups(),
     'action'      => \GlpiPlugin\Grcmanager\CrisisExercise::getFormURL(),

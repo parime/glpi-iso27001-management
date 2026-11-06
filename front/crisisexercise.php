@@ -18,8 +18,6 @@
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Services\Exercise\CrisisExercise;
 
-include('../../../inc/includes.php');
-
 // Issue #168 : choix du scénario, lancement et historique des exercices de crise.
 Session::checkRightsOr(
     \GlpiPlugin\Grcmanager\CrisisExercise::RIGHTNAME,

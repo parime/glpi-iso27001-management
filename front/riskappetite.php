@@ -18,8 +18,6 @@
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Services\Risk\RiskAppetiteRules;
 
-include('../../../inc/includes.php');
-
 // Issue #378 : appétence et tolérance au risque par catégorie, et risques qui les dépassent.
 // Registre sensible : lecture avec son droit, modification avec UPDATE.
 Session::checkRight(\GlpiPlugin\Grcmanager\RiskAppetite::RIGHTNAME, READ);

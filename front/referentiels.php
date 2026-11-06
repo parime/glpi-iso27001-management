@@ -26,8 +26,6 @@ use GlpiPlugin\Grcmanager\Services\Control\Iso27090CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\Nis2CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\NistCsfCatalogDefaults;
 
-include('../../../inc/includes.php');
-
 // Reuses \GlpiPlugin\Grcmanager\Control's own right rather than a dedicated one: this screen only
 // displays the same Annexe A catalog (plus two purely-consultative reference libraries), no
 // meaningful access boundary of its own: same reasoning as \GlpiPlugin\Grcmanager\SecurityIncidentCve
@@ -108,7 +106,17 @@ foreach (CisControlsCatalogDefaults::CONTROLS as $controlNumber => $controlName)
             $safeguards[] = ['code' => $safeguardCode, 'text' => $safeguard['text'], 'ig' => $safeguard['ig']];
         }
     }
-    $cisControls[] = ['number' => $controlNumber, 'name' => $controlName, 'safeguards' => $safeguards];
+    // Issue #143 : correspondance Annexe A indicative, reliée aux fiches de contrôle.
+    $controls = [];
+    foreach (CisControlsCatalogDefaults::ANNEX_A[$controlNumber] as $annexACode) {
+        $controls[] = ['code' => $annexACode, 'id' => $idsByCode[$annexACode] ?? null];
+    }
+    $cisControls[] = [
+        'number'     => $controlNumber,
+        'name'       => $controlName,
+        'safeguards' => $safeguards,
+        'controls'   => $controls,
+    ];
 }
 
 // Issue #110 : NIS2 dans la langue de l'utilisateur (versions officielles FR/EN de la directive,

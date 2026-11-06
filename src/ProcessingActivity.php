@@ -46,6 +46,12 @@ class ProcessingActivity extends ProcessingActivityBase
 
     public const ITEMS_TABLE = 'glpi_plugin_grcmanager_processingactivities_items';
 
+    /**
+     * Incident de sécurité (violation de données) : relié depuis l'incident, jamais choisi dans une
+     * liste sur la fiche, pour ne pas montrer à un DPO des incidents que le cloisonnement lui cache.
+     */
+    public const INCIDENT_ITEMTYPE = 'PluginGrcmanagerSecurityIncident';
+
     /** Contact du DPO : réglage du plugin, nettoyé avec son contexte à la désinstallation. */
     private const DPO_CONFIG_KEY = 'gdpr_dpo_contact';
 
@@ -379,7 +385,7 @@ class ProcessingActivity extends ProcessingActivityBase
      */
     public static function canSeeLinkedItem(string $itemtype, int $itemsId): bool
     {
-        $allowed = array_merge(self::getLinkableItemtypes(), [Control::class]);
+        $allowed = array_merge(self::getLinkableItemtypes(), [Control::class, self::INCIDENT_ITEMTYPE]);
         if ($itemsId <= 0 || !in_array($itemtype, $allowed, true)) {
             return false;
         }
@@ -755,6 +761,7 @@ class ProcessingActivity extends ProcessingActivityBase
         $rows = [];
         foreach ($DB->request($criteria) as $row) {
             $rows[] = [
+                'id'      => (int) $row['id'],
                 'url'     => self::getFormURLWithID((int) $row['id']),
                 'name'    => (string) $row['name'],
                 'status'  => self::getStatuses()[(string) $row['status']] ?? '',
@@ -770,7 +777,7 @@ class ProcessingActivity extends ProcessingActivityBase
     {
         if (
             !$item instanceof CommonDBTM || $item->isNewItem() || !self::canView()
-            || !in_array($item::class, self::getLinkableItemtypes(), true)
+            || !in_array($item::class, self::getTabItemtypes(), true)
         ) {
             return '';
         }
@@ -780,15 +787,108 @@ class ProcessingActivity extends ProcessingActivityBase
 
     public static function displayTabContentForItem(CommonGLPI $item, $tabnum = 1, $withtemplate = 0)
     {
-        // ajax/common.tabs.php sert le contenu sans passer par getTabNameForItem() : même contrôle ici.
-        if (!$item instanceof CommonDBTM || !self::canView()) {
+        // ajax/common.tabs.php sert le contenu sans passer par getTabNameForItem() : même contrôle ici,
+        // plus la lecture de l'élément lui-même (un incident cloisonné ne révèle pas ses traitements).
+        if (
+            !$item instanceof CommonDBTM || !self::canView() || $item->isNewItem()
+            || !in_array($item::class, self::getTabItemtypes(), true) || !$item->can((int) $item->getID(), READ)
+        ) {
             return false;
         }
+        $isIncident = $item::class === self::INCIDENT_ITEMTYPE;
+        $canLink = $isIncident && $item->can((int) $item->getID(), UPDATE);
         TemplateRenderer::getInstance()->display('@grcmanager/processing_activity_tab.html.twig', [
-            'activities' => self::getForItem($item),
+            'activities'   => self::getForItem($item),
+            'is_incident'  => $isIncident,
+            'can_link'     => $canLink,
+            'incident_id'  => (int) $item->getID(),
+            'action'       => self::getFormURL(),
+            'choices'      => $canLink ? self::linkChoices($item) : [],
         ]);
 
         return true;
+    }
+
+    /**
+     * Types qui portent l'onglet : éléments citables depuis la fiche, et incidents de sécurité.
+     *
+     * @return list<string>
+     */
+    public static function getTabItemtypes(): array
+    {
+        return array_merge(self::getLinkableItemtypes(), [self::INCIDENT_ITEMTYPE]);
+    }
+
+    /**
+     * Fiches que la personne peut lire, pas encore reliées à l'incident.
+     *
+     * @return array<int, string>
+     */
+    private static function linkChoices(CommonDBTM $incident): array
+    {
+        global $DB;
+
+        $table = self::getTable();
+        $linked = array_column(self::getForItem($incident), 'id');
+        $choices = [];
+        foreach (
+            $DB->request([
+                'SELECT' => ['id', 'name'],
+                'FROM'   => $table,
+                'WHERE'  => ['is_deleted' => 0] + getEntitiesRestrictCriteria($table, '', '', true),
+                'ORDER'  => 'name',
+            ]) as $row
+        ) {
+            if (!in_array((int) $row['id'], $linked, true)) {
+                $choices[(int) $row['id']] = (string) $row['name'];
+            }
+        }
+
+        return $choices;
+    }
+
+    /**
+     * Relie (ou délie) une fiche du registre et un incident : il faut pouvoir modifier l'incident et
+     * lire la fiche (droit RGPD et entité). Rien d'autre n'est modifié sur la fiche.
+     */
+    public static function setIncidentLink(int $activityId, int $incidentId, bool $linked): bool
+    {
+        global $DB;
+
+        $incident = getItemForItemtype(self::INCIDENT_ITEMTYPE);
+        $activity = new self();
+        if (
+            !$incident instanceof CommonDBTM || !$incident->can($incidentId, UPDATE)
+            || !$activity->can($activityId, READ) || (int) $activity->fields['is_deleted'] === 1
+        ) {
+            return false;
+        }
+        $row = [
+            'plugin_grcmanager_processingactivities_id' => $activityId,
+            'itemtype'                                  => self::INCIDENT_ITEMTYPE,
+            'items_id'                                  => $incidentId,
+        ];
+        $exists = countElementsInTable(self::ITEMS_TABLE, $row) > 0;
+        if ($linked && !$exists) {
+            $DB->insert(self::ITEMS_TABLE, $row + ['date_creation' => date('Y-m-d H:i:s')]);
+        } elseif (!$linked && $exists) {
+            $DB->delete(self::ITEMS_TABLE, $row);
+        }
+        AuditLog::record($linked ? 'link' : 'unlink', self::class, $activityId, $incidentId);
+
+        return true;
+    }
+
+    /**
+     * Hooks::ITEM_PURGE : un élément supprimé définitivement ne reste pas cité par le registre.
+     */
+    public static function forgetItem(CommonDBTM $item): void
+    {
+        global $DB;
+
+        if ($DB->tableExists(self::ITEMS_TABLE)) {
+            $DB->delete(self::ITEMS_TABLE, ['itemtype' => $item::class, 'items_id' => (int) $item->getID()]);
+        }
     }
 
     /**

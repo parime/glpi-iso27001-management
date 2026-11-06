@@ -7,6 +7,142 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.25.0] - 2026-11-06
+
+### Added
+
+- **Tests d'efficacité des contrôles, troisième étape** (issue #380) :
+  - **preuve envoyée depuis le formulaire du test** : le fichier devient un document du contrôle,
+    avec les droits de l'onglet Documents (modifier le contrôle et créer un document) et dans
+    l'entité active. Les types et la taille maximale sont ceux de GLPI, et le type réel du contenu
+    doit correspondre à l'extension (un faux PDF, une page web ou un script sont refusés). Le
+    document n'est lisible que par qui lit le contrôle, et il est retiré à la désinstallation ;
+  - **carte « Tests d'efficacité en retard »** pour les tableaux de bord (et la vue ISMS), visible
+    seulement avec le droit de lire les contrôles ;
+  - **tests alimentés par les contrôles techniques automatiques** (#162) : l'onglet des tests
+    d'A.8.7, A.8.24, A.5.9, A.8.32 et A.5.18 affiche le résultat actuel du contrôle technique
+    correspondant et l'enregistre comme test technique en un clic, recalculé à l'enregistrement
+    (aucun écart : efficace ; au moins 80 % de conformité : partiellement efficace ; sinon
+    inefficace, ce qui ouvre une non-conformité). Toutes les entités doivent être sélectionnées.
+- **Processus métier : rappels, indicateurs et carte des dépendances** (issue #377, quatrième et
+  dernière étape) :
+  - rappel d'une BIA à revoir (date de la dernière BIA plus la fréquence de la revue périodique
+    « Revue de l'analyse d'impact sur l'activité », annuelle par défaut) et du prochain test de
+    reprise (date du dernier test plus la fréquence de la revue « Test du plan de continuité et de
+    reprise », annuelle par défaut) : tâche planifiée quotidienne
+    `businessprocessreminder`, deux notifications modifiables (« GRC Manager - Analyse d'impact
+    (BIA) à revoir », « GRC Manager - Test de reprise à refaire »), un rappel quand l'échéance
+    approche (30 jours) puis un quand elle est dépassée, une seule fois par échéance. Destinataires :
+    le responsable du processus et le groupe RSSI, seulement s'ils ont le droit de la continuité
+    dans l'entité du processus. Même mécanisme et même charte que le rappel des tests d'efficacité ;
+  - deux cartes du tableau de bord, ajoutées à la vue d'ensemble ISMS : processus sans BIA ou à BIA
+    échue, processus dont le dernier test de reprise dépasse le RTO. Elles ne comptent que les
+    processus des entités de la personne et restent vides sans le droit de la continuité ;
+  - onglet « Carte des dépendances » du processus : graphe des processus amont et aval et des
+    éléments dont il dépend (directement ou par l'analyse d'impact de GLPI), avec ceux qui ne
+    tiennent pas ses objectifs. Un processus ou un élément illisible n'y figure pas : il est
+    seulement compté.
+  - Mise à jour : deux colonnes ajoutées aux processus ; les échéances déjà proches ou dépassées
+    sont tenues pour rappelées, sans rafale de messages. Notifications, tâche et colonnes retirées à
+    la désinstallation.
+- **Score de conformité CIS Controls v8** (issue #143) : la carte « Mesures mises en œuvre par
+  référentiel » affiche le taux de mise en œuvre des mesures applicables de l'Annexe A liées à un
+  contrôle CIS, calculé comme ceux de NIS2 et de l'ANSSI. La correspondance entre les 18 contrôles
+  CIS et l'Annexe A est indicative, établie par ce projet (la correspondance publiée par le CIS ne
+  peut pas être embarquée) ; elle est affichée sur la fiche de chaque mesure et dans la carte CIS
+  de la page Référentiels. Rien n'apparaît quand le référentiel CIS est désactivé.
+- **Processus métier : objectifs de reprise des applications, bases et fournisseurs, stratégie de
+  reprise et lien avec les exercices de crise** (issue #377, troisième étape) :
+  - l'onglet « Classification C/I/D » (disponibilité, RTO, RPO) existe désormais aussi sur les
+    applications, les instances de bases de données et les fournisseurs. L'onglet « Dépendances »
+    d'un processus les contrôle comme les actifs : élément plus lent que le processus, qui peut
+    perdre plus de données, ou sans RTO. Une classification disparaît avec l'élément supprimé
+    définitivement ;
+  - onglet « Stratégie de reprise » du processus : mode dégradé, solution de secours, procédure de
+    reprise, et tests de reprise (date, temps mesuré, exercice de crise éventuel). Le dernier temps
+    mesuré est comparé au RTO : un écart est signalé dans la BIA, l'onglet et le plan de
+    continuité. Une stratégie non décrite ou jamais testée est signalée dans l'onglet ;
+  - salle de crise : section « Processus métier testés », pour enregistrer le temps de reprise
+    mesuré d'un processus pendant l'exercice (ou la cellule de crise) et voir l'écart avec son RTO ;
+  - plan de continuité en PDF : stratégie de reprise, dernier test et historique des tests, colonne
+    « Dernier test de reprise » dans la synthèse ; export CSV : temps mesuré au dernier test.
+  - Droits : la classification garde le droit général du SMSI, et son onglet revérifie aussi la
+    lecture de l'élément (droit et entité). Enregistrer un test exige de pouvoir modifier le
+    processus (droit de la continuité et entité) ; le rattacher à un exercice exige de pouvoir lire
+    l'incident de l'exercice. Un processus ou un exercice illisible n'est jamais nommé.
+  - Mise à jour : trois colonnes ajoutées aux processus et une table pour les tests, données
+    existantes conservées ; retirées à la désinstallation.
+- **Indicateurs de risque (KRI) : alerte, courbe et carte de tendance** (issue #378, deuxième
+  étape) :
+  - notifications modifiables « GRC Manager - Indicateur de risque en alerte » et « ... revenu au
+    vert », au responsable du KRI et au groupe RSSI (celui de Configuration GLPI Auto s'il est
+    installé), une seule fois par changement d'état, que le relevé soit manuel ou fait par la
+    tâche planifiée. Réglage Configuration > « Alertes des indicateurs de risque (KRI) » : au
+    rouge (défaut) ou dès l'orange. À la mise à jour, un KRI déjà au rouge ne prévient pas ;
+  - un destinataire ne reçoit rien s'il ne peut pas lire le KRI et, pour une source automatique,
+    les données mesurées dans l'entité et toutes ses sous-entités ;
+  - couleur des e-mails reprise de la charte de Configuration GLPI Auto, comme pour le rappel des
+    tests d'efficacité (mécanisme commun, `NotificationSupport`) ;
+  - courbe de tendance sur la fiche du KRI (180 derniers relevés, seuils orange et rouge) ;
+  - carte « Indicateurs de risque (KRI) au rouge et à l'orange par mois » sur douze mois, ajoutée
+    aux tableaux de bord « Direction » et « Vue d'ensemble ISMS ».
+- **Processus métier : dépendances entre processus, risques liés et plan de continuité en PDF**
+  (issue #377, deuxième étape) :
+  - onglet « Processus liés » : processus dont dépend un processus (la paie a besoin de la gestion
+    des temps), directement ou non, avec un signalement de ceux qui reprennent plus lentement
+    (RTO), peuvent perdre plus de données (RPO) ou n'ont pas de RTO ; processus qui en dépendent et
+    objectifs qu'ils lui imposent (le plus court RTO et le plus court RPO). Un lien qui fermerait
+    une boucle est refusé ;
+  - onglet « Risques » du processus et onglet « Processus métier » du risque : lien avec le
+    registre des risques. Depuis l'onglet « Dépendances », un actif qui ne tient pas les objectifs
+    du processus peut donner lieu à un risque proposé, lié à l'actif et au processus, à apprécier
+    dans le registre ;
+  - plan de continuité (PCA / PRA) en PDF, pour tous les processus lisibles (liste) ou pour un
+    seul (onglet « Analyse d'impact ») : synthèse, objectifs, grille de la BIA, contrôles de
+    cohérence, éléments et processus dont il dépend, risques liés. Chaque export est tracé
+    (journal d'audit, Administration > Journaux).
+  - Droits : celui de la continuité, avec l'entité du processus ; les risques ne sont montrés,
+    liés ou proposés qu'avec le droit des registres sensibles (et celui de créer un risque). Un
+    processus ou un élément que la personne ne peut pas lire n'est jamais nommé, ni à l'écran ni
+    dans le PDF : il est seulement compté.
+  - Mise à jour : deux tables ajoutées, aucune donnée existante modifiée ; retirées à la
+    désinstallation.
+- **Traitements concernés par un incident** (issue #375) : sur la fiche d'un incident de sécurité, un
+  onglet relie les traitements du registre dont les données personnelles sont touchées, pour
+  apprécier la notification RGPD. Il faut pouvoir modifier l'incident et lire la fiche ; une
+  personne qui ne lit pas l'incident ne voit pas l'onglet. Le lien se fait depuis l'incident, jamais
+  dans une liste d'incidents sur la fiche, pour ne pas montrer d'incident cloisonné à un DPO.
+- **Rappel des tests d'efficacité** (issue #380, deuxième étape) : une tâche planifiée quotidienne
+  (`controltestreminder`) prévient le responsable du plan de test d'un test en retard ou à réaliser
+  dans les 30 jours, une fois par échéance, par la notification modifiable « GRC Manager - Test
+  d'efficacité à réaliser ». Le groupe RSSI est prévenu selon un réglage (jamais, tests en retard
+  seulement, ou tous les rappels) ; c'est celui de la configuration du plugin, que Configuration GLPI
+  Auto peut fournir, et la couleur de sa charte des notifications est reprise quand il la publie.
+  Seul un utilisateur qui peut lire la mesure reçoit le rappel.
+- **État « Vérifié » échu** : la même tâche le retire d'une mesure dont le test suivant est en
+  retard (elle redevient « mise en œuvre »), avec une trace dans le journal d'audit. Ce retrait ne
+  marque pas la SoA comme revue.
+- **SoA** : colonnes « Dernier test » et « Prochain test » dans la liste des mesures.
+
+### Changed
+
+- **Export PDF du registre des traitements** : la ligne « Contrôles » (écarts internes, par exemple
+  « Pas de finalité ») n'y figure plus, car ce document peut être remis à l'autorité de contrôle.
+  Elle reste à l'écran et dans l'export CSV.
+
+### Fixed
+
+- **Installation depuis la marketplace de GLPI** (issue #479) : les pages du plugin ne chargent plus
+  `inc/includes.php` par un chemin relatif, qui ne fonctionnait que dans le dossier `plugins/`. Installé
+  dans le dossier `marketplace`, le plugin ne s'ouvrait plus (GLPI 11.0.12). GLPI 11 charge lui-même
+  son environnement avant d'appeler une page de plugin.
+- **Désinstallation** : le journal des analyses d'impact (AIPD) et les préférences des éléments EBIOS
+  sont retirés ; une ligne du journal de l'AIPD restait depuis la 2.23.0. Le contrôle commun des
+  restes crée désormais une AIPD avant de désinstaller, pour détecter une régression.
+
+- **Liens orphelins du registre des traitements** : un élément ou un incident supprimé
+  définitivement n'est plus cité par le registre.
+
 ## [2.24.0] - 2026-11-04
 
 ### Added

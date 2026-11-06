@@ -18,8 +18,6 @@
 use Glpi\Search\Input\QueryBuilder;
 use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
 
-include('../../../inc/includes.php');
-
 // Issue #183 : expositions à des fuites de données (registre sensible).
 Session::checkRight(\GlpiPlugin\Grcmanager\BreachExposure::$rightname, READ);
 

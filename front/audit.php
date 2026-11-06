@@ -19,8 +19,6 @@ use Glpi\Application\View\TemplateRenderer;
 use Glpi\Search\Input\QueryBuilder;
 use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
 
-include('../../../inc/includes.php');
-
 // Les pages front sont incluses depuis une méthode du routeur GLPI : $CFG_GLPI n'y est
 // visible qu'après une déclaration globale explicite.
 global $CFG_GLPI;

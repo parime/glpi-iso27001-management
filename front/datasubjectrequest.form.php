@@ -17,8 +17,6 @@
 
 use GlpiPlugin\Grcmanager\DataSubjectRequest;
 
-include('../../../inc/includes.php');
-
 // Issue #375 : demande d'exercice des droits. Chaque action vérifie le droit dédié et l'entité de la
 // fiche (check() du cœur) ; le jeton CSRF est contrôlé par GLPI sur tout POST.
 $item = new DataSubjectRequest();

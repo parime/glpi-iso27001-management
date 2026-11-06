@@ -19,8 +19,6 @@ use GlpiPlugin\Grcmanager\EbiosStudy;
 use GlpiPlugin\Grcmanager\Pdf\PdfRenderer;
 use GlpiPlugin\Grcmanager\Services\Notification\SensitiveNotification;
 
-include('../../../inc/includes.php');
-
 // Issue #376 : rapport PDF d'une étude EBIOS RM, complet ou limité à un atelier, à la demande.
 Session::checkRight(EbiosStudy::RIGHTNAME, READ);
 

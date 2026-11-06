@@ -17,8 +17,6 @@
 
 use Glpi\Application\View\TemplateRenderer;
 
-include('../../../inc/includes.php');
-
 // Issue #181 : machines les plus exposées (mêmes droits que les vulnérabilités du parc : droit du
 // plugin et lecture native des logiciels). Lecture seule.
 Session::checkRight(\GlpiPlugin\Grcmanager\ParkVulnerability::RIGHTNAME, READ);

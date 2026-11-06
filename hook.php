@@ -163,6 +163,13 @@ function plugin_grcmanager_dashboard_cards(?array $cards = null): array
             'group' => $group,
             'provider' => SecuredDashboardCards::class . '::periodicReviewsOverdue',
         ],
+        // Issue #380 : mesures dont le test d'efficacité est en retard.
+        'grcmanager_overdue_control_tests' => [
+            'widgettype' => ['bigNumber'],
+            'label' => __('Overdue effectiveness tests', 'grcmanager'),
+            'group' => $group,
+            'provider' => SecuredDashboardCards::class . '::overdueControlTests',
+        ],
         'grcmanager_critical_suppliers_without_assessment' => [
             'widgettype' => ['bigNumber'],
             'label' => __('Critical suppliers not assessed', 'grcmanager'),
@@ -320,6 +327,25 @@ function plugin_grcmanager_dashboard_cards(?array $cards = null): array
             'label' => __('Risk indicators (KRI) in the red', 'grcmanager'),
             'group' => $group,
             'provider' => SecuredDashboardCards::class . '::riskIndicatorsRedCount',
+        ],
+        'grcmanager_risk_indicators_trend' => [
+            'widgettype' => ['lines', 'areas', 'bars', 'stackedbars'],
+            'label' => __('Risk indicators (KRI) in the red and orange by month', 'grcmanager'),
+            'group' => $group,
+            'provider' => SecuredDashboardCards::class . '::riskIndicatorsTrend',
+        ],
+        // Issue #377 (processus métier et BIA), sous le droit de la continuité.
+        'grcmanager_business_processes_bia_due' => [
+            'widgettype' => ['bigNumber'],
+            'label' => __('Business processes without a BIA or with an overdue BIA', 'grcmanager'),
+            'group' => $group,
+            'provider' => SecuredDashboardCards::class . '::businessProcessesBiaDueCount',
+        ],
+        'grcmanager_business_processes_recovery_above_rto' => [
+            'widgettype' => ['bigNumber'],
+            'label' => __('Business processes whose last recovery test exceeded the RTO', 'grcmanager'),
+            'group' => $group,
+            'provider' => SecuredDashboardCards::class . '::businessProcessesRecoveryAboveRtoCount',
         ],
     ];
 
@@ -615,6 +641,9 @@ function plugin_grcmanager_purge_security_incident_links(CommonDBTM $item): void
         plugin_grcmanager_audit_purge($item);
     }
 
+    // Issue #375 : un incident ou un ticket supprimé définitivement n'est plus cité par le registre.
+    \GlpiPlugin\Grcmanager\ProcessingActivity::forgetItem($item);
+
     $field = $item instanceof Ticket ? 'tickets_id' : 'plugin_grcmanager_securityincidents_id';
     if ($DB->tableExists(\GlpiPlugin\Grcmanager\SecurityIncidentTicket::TABLE)) {
         $DB->delete(\GlpiPlugin\Grcmanager\SecurityIncidentTicket::TABLE, [$field => (int) $item->getID()]);
@@ -691,6 +720,8 @@ function plugin_grcmanager_audit_restore(CommonDBTM $item): void
 function plugin_grcmanager_audit_purge(CommonDBTM $item): void
 {
     plugin_grcmanager_audit_event($item, 'purge');
+    // Issue #375 : un seul rappel de purge par type : les liens du registre des traitements aussi.
+    \GlpiPlugin\Grcmanager\ProcessingActivity::forgetItem($item);
     // Issue #371 : document retiré d'un incident, conservé au registre des preuves.
     if ($item instanceof Document_Item) {
         \GlpiPlugin\Grcmanager\SecurityIncidentEvidence::onDocumentUnlinked($item);
@@ -742,6 +773,19 @@ function plugin_grcmanager_forget_business_process_item(CommonDBTM $item): void
     if ($DB->tableExists($table)) {
         $DB->delete($table, ['itemtype' => $item::class, 'items_id' => (int) $item->getID()]);
     }
+    // Issue #377, troisième étape : un seul rappel de purge par type, et ces types sont tous
+    // classables : la classification C/I/D (RTO, RPO) de l'élément disparaît avec lui.
+    \GlpiPlugin\Grcmanager\AssetClassification::forgetItem($item);
+    // Issue #375 : un seul rappel de purge par type : les liens du registre des traitements aussi.
+    \GlpiPlugin\Grcmanager\ProcessingActivity::forgetItem($item);
+}
+
+/**
+ * Issue #375 : Hooks::ITEM_PURGE sur les éléments cités par le registre des traitements (setup.php).
+ */
+function plugin_grcmanager_forget_processing_activity_item(CommonDBTM $item): void
+{
+    \GlpiPlugin\Grcmanager\ProcessingActivity::forgetItem($item);
 }
 
 /**

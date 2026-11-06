@@ -1,0 +1,145 @@
+{# Issue #377, troisième étape : stratégie de reprise d'un processus et temps de reprise mesurés, voir
+   GlpiPlugin\\Grcmanager\\BusinessProcessRecovery::displayTabContentForItem(). #}
+{% set fields_labels = {
+   'degraded_mode': [__('Degraded mode', 'grcmanager'), __('How the activity continues while the system is down (paper forms, manual workaround…).', 'grcmanager')],
+   'backup_solution': [__('Backup solution', 'grcmanager'), __('Backup site, standby system, alternative supplier…', 'grcmanager')],
+   'recovery_procedure': [__('Recovery procedure', 'grcmanager'), __('Main steps to restore the process, or reference of the detailed procedure.', 'grcmanager')],
+} %}
+
+<div class="row g-3 mb-3">
+  <div class="col-md-4">
+    <div class="card card-body">
+      <div class="text-muted small">RTO</div>
+      <div class="fs-3">{{ durations[item.fields['rto_hours']] ?? __('Not set', 'grcmanager') }}</div>
+    </div>
+  </div>
+  <div class="col-md-8">
+    <div class="card card-body">
+      <div class="text-muted small">{{ __('Recovery time measured at the last test', 'grcmanager') }}</div>
+      {% if strategy.last %}
+        <div class="fs-3">
+          {{ strategy.last.duration }}
+          {% if strategy.last.exceeds %}<span class="badge bg-red-lt ms-2 grcmanager-recovery-late">{{ __('Above the RTO', 'grcmanager') }}</span>{% else %}<span class="badge bg-green-lt ms-2">{{ __('Within the RTO', 'grcmanager') }}</span>{% endif %}
+        </div>
+        <div class="small text-muted">{{ strategy.last.date }}{% if strategy.last.exercise %} - {{ strategy.last.exercise }}{% endif %}</div>
+      {% else %}
+        <div class="fs-3 text-muted">{{ __('Never tested', 'grcmanager') }}</div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% if strategy.issues is not empty %}
+  <div class="alert alert-warning" role="alert">
+    <ul class="mb-0">
+      {% for code in strategy.issues %}<li>{{ issues[code] ?? code }}</li>{% endfor %}
+    </ul>
+  </div>
+{% endif %}
+
+<h3>{{ __('Recovery strategy', 'grcmanager') }}</h3>
+{% if can_edit %}
+  <form method="post" action="{{ process_url }}" class="mb-4">
+    <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+    <input type="hidden" name="id" value="{{ item.getID() }}">
+    {% for field, label in fields_labels %}
+      <div class="mb-2">
+        <label class="form-label" for="grc-strategy-{{ field }}">{{ label[0] }}</label>
+        <textarea id="grc-strategy-{{ field }}" name="{{ field }}" class="form-control" rows="3">{{ strategy[field] }}</textarea>
+        <div class="form-hint">{{ label[1] }}</div>
+      </div>
+    {% endfor %}
+    <button type="submit" name="update" value="1" class="btn btn-primary"><i class="ti ti-device-floppy me-1"></i>{{ __('Save') }}</button>
+  </form>
+{% else %}
+  <dl class="mb-4">
+    {% for field, label in fields_labels %}
+      <dt>{{ label[0] }}</dt>
+      <dd>{% if strategy[field] is not empty %}{{ strategy[field]|nl2br }}{% else %}<span class="text-muted">{{ __('Not described', 'grcmanager') }}</span>{% endif %}</dd>
+    {% endfor %}
+  </dl>
+{% endif %}
+
+<h3>{{ _n('Recovery test', 'Recovery tests', 2, 'grcmanager') }}</h3>
+<p class="text-muted">{{ __('Time actually needed to restore the process during a test or a crisis exercise, compared with its RTO. A test can also be recorded from the crisis room.', 'grcmanager') }}</p>
+
+{% if can_edit %}
+  <form method="post" action="{{ form_url }}" class="card card-body mb-3">
+    <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+    <input type="hidden" name="plugin_grcmanager_businessprocesses_id" value="{{ item.getID() }}">
+    <div class="row g-2 align-items-end">
+      <div class="col-md-2">
+        <label class="form-label" for="grc-recovery-date">{{ __('Date') }}</label>
+        <input type="date" id="grc-recovery-date" name="test_date" class="form-control" value="{{ today }}">
+      </div>
+      <div class="col-md-2">
+        <label class="form-label" for="grc-recovery-minutes">{{ __('Measured time (minutes)', 'grcmanager') }}</label>
+        <input type="number" id="grc-recovery-minutes" name="measured_minutes" class="form-control" min="1" required>
+      </div>
+      <div class="col-md-3">
+        <label class="form-label" for="grc-recovery-exercise">{{ __('Crisis exercise', 'grcmanager') }}</label>
+        <select id="grc-recovery-exercise" name="plugin_grcmanager_crisisexercises_id" class="form-select">
+          <option value="0">{{ __('None (test outside an exercise)', 'grcmanager') }}</option>
+          {% for id, label in exercises %}<option value="{{ id }}">{{ label }}</option>{% endfor %}
+        </select>
+      </div>
+      <div class="col-md-3">
+        <label class="form-label" for="grc-recovery-comment">{{ __('Comment', 'grcmanager') }}</label>
+        <input type="text" id="grc-recovery-comment" name="comment" class="form-control" maxlength="255">
+      </div>
+      <div class="col-md-2">
+        <button type="submit" name="add" value="1" class="btn btn-primary w-100"><i class="ti ti-plus me-1"></i>{{ __('Add', 'grcmanager') }}</button>
+      </div>
+    </div>
+  </form>
+{% endif %}
+
+{% if strategy.tests is empty %}
+  <p class="text-muted">{{ __('No recovery test recorded yet.', 'grcmanager') }}</p>
+{% else %}
+  <div class="table-responsive">
+    <table class="table table-sm table-hover align-middle">
+      <thead>
+        <tr>
+          <th scope="col">{{ __('Date') }}</th>
+          <th scope="col">{{ __('Measured time', 'grcmanager') }}</th>
+          <th scope="col">{{ __('Crisis exercise', 'grcmanager') }}</th>
+          <th scope="col">{{ __('Comment', 'grcmanager') }}</th>
+          <th scope="col">{{ __('Recorded by', 'grcmanager') }}</th>
+          {% if can_edit %}<th scope="col"><span class="visually-hidden">{{ __('Actions', 'grcmanager') }}</span></th>{% endif %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for test in strategy.tests %}
+          <tr>
+            <td>{{ test.date }}</td>
+            <td>
+              {{ test.duration }}
+              {% if test.exceeds %}<span class="badge bg-red-lt ms-1">{{ __('Above the RTO', 'grcmanager') }}</span>{% endif %}
+            </td>
+            <td>
+              {% if test.exercise_url %}
+                <a href="{{ test.exercise_url }}">{{ test.exercise }}</a>
+              {% elseif test.exercise_hidden %}
+                <span class="text-muted">{{ __('Exercise you cannot see', 'grcmanager') }}</span>
+              {% endif %}
+            </td>
+            <td>{{ test.comment }}</td>
+            <td>{{ test.by }}</td>
+            {% if can_edit %}
+              <td>
+                <form method="post" action="{{ form_url }}">
+                  <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                  <input type="hidden" name="id" value="{{ test.id }}">
+                  <button type="submit" name="purge" value="1" class="btn btn-sm btn-ghost-danger"
+                          title="{{ __('Remove', 'grcmanager') }}" aria-label="{{ __('Remove', 'grcmanager') }}"
+                          onclick="return confirm('{{ __('Remove this recovery test?', 'grcmanager')|e('js') }}');"><i class="ti ti-trash"></i></button>
+                </form>
+              </td>
+            {% endif %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endif %}

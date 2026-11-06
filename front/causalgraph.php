@@ -17,8 +17,6 @@
 
 use Glpi\Application\View\TemplateRenderer;
 
-include('../../../inc/includes.php');
-
 // Issue #171 : effet domino de l'ensemble des risques et incidents reliés.
 Session::checkRight(\GlpiPlugin\Grcmanager\CausalLink::$rightname, READ);
 

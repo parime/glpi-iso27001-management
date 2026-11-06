@@ -15,8 +15,6 @@
  * -------------------------------------------------------------------------
  */
 
-include('../../../inc/includes.php');
-
 $item = new \GlpiPlugin\Grcmanager\Policy();
 
 if (isset($_POST['add'])) {

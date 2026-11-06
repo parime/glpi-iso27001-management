@@ -5093,7 +5093,6 @@ msgstr "Nenhuma regra de filtragem no backup do pfSense."
 msgid "Choose a CSV file or a pfSense backup (XML) of 2 MB at most."
 msgstr "Escolha um arquivo CSV ou um backup do pfSense (XML) de no máximo 2 MB."
 
-
 msgid "Partner network conflicting with an internal network"
 msgstr "Rede de parceiro em conflito com uma rede interna"
 
@@ -5372,7 +5371,6 @@ msgstr "Remover a prova"
 
 msgid "You are not enrolled in any training."
 msgstr "Você não está inscrito em nenhum treinamento."
-
 
 msgid "Sensitive registers"
 msgstr "Registros sensíveis"
@@ -5678,7 +5676,6 @@ msgstr "Não foi possível contatar o Have I Been Pwned (código %d)."
 
 msgid "Internet-facing interface"
 msgstr "Interface voltada para a Internet"
-
 
 #, php-format
 msgid "Internet-facing interface: %s. Rules on this interface from anywhere are publications; elsewhere, rules towards anywhere or towards everything except private networks are Internet access. Change it above and analyse the file again if needed."
@@ -6971,9 +6968,6 @@ msgstr "Medidas do guia de higiene de TI, suas referências nos controles e pont
 
 msgid "CSF 2.0 catalog, its equivalences on the controls and NIST score."
 msgstr "Catálogo CSF 2.0, suas equivalências nos controles e pontuação NIST."
-
-msgid "CIS Controls v8 catalog."
-msgstr "Catálogo dos CIS Controls v8."
 
 msgid "AI security catalog and its references in the catalog of typical risks."
 msgstr "Catálogo de segurança de IA e suas referências no catálogo de riscos típicos."
@@ -8729,3 +8723,416 @@ msgid "%d day late"
 msgid_plural "%d days late"
 msgstr[0] "%d dia de atraso"
 msgstr[1] "%d dias de atraso"
+
+msgid "Unlink"
+msgstr "Desvincular"
+
+msgid "Processing activities whose personal data are affected by this incident: they help assess the GDPR notification."
+msgstr "Atividades de tratamento cujos dados pessoais são afetados por este incidente: ajudam a avaliar a notificação RGPD."
+
+msgid "Business continuity plan"
+msgstr "Plano de continuidade de negócios"
+
+msgid "Business continuity plan (PDF)"
+msgstr "Plano de continuidade de negócios (PDF)"
+
+#, php-format
+msgid "Business continuity plan: %s"
+msgstr "Plano de continuidade de negócios: %s"
+
+msgid "Choose a process to link."
+msgstr "Escolha um processo para vincular."
+
+msgid "Choose a risk to link."
+msgstr "Escolha um risco para vincular."
+
+msgid "Consistency checks: objectives of the process, plus items and processes it depends on that do not meet them."
+msgstr "Verificações de coerência: objetivos do processo, mais os itens e processos dos quais ele depende que não os cumprem."
+
+msgid "Continuity plan of this process (PDF)"
+msgstr "Plano de continuidade deste processo (PDF)"
+
+msgid "Disruption"
+msgstr "Interrupção"
+
+msgid "E.g. \"Provides the time sheets\""
+msgstr "Ex.: \"Fornece as folhas de ponto\""
+
+msgid "Each of them must recover at least as fast as this process (RTO) and lose no more data (RPO)."
+msgstr "Cada um deve se recuperar pelo menos tão rápido quanto este processo (RTO) e não perder mais dados (RPO)."
+
+msgid "Improve the recovery of this item (backup, redundancy, contract) or accept the risk."
+msgstr "Melhore a recuperação deste item (backup, redundância, contrato) ou aceite o risco."
+
+#, php-format
+msgid "Insufficient recovery of %1$s for the process %2$s"
+msgstr "Recuperação insuficiente de %1$s para o processo %2$s"
+
+msgid "Items it depends on"
+msgstr "Itens dos quais depende"
+
+msgid "Linked processes"
+msgstr "Processos vinculados"
+
+msgid "No RTO set on this process"
+msgstr "Nenhum RTO definido neste processo"
+
+msgid "No business process you can see is linked to this risk."
+msgstr "Nenhum processo de negócio que você pode ver está vinculado a este risco."
+
+msgid "No business process you can see."
+msgstr "Nenhum processo de negócio que você pode ver."
+
+msgid "No dependency you can see."
+msgstr "Nenhuma dependência que você pode ver."
+
+msgid "No linked process you can see."
+msgstr "Nenhum processo vinculado que você pode ver."
+
+msgid "No process you can see depends on this process."
+msgstr "Nenhum processo que você pode ver depende deste processo."
+
+msgid "No risk linked to this process."
+msgstr "Nenhum risco vinculado a este processo."
+
+msgid "Processes that depend on this process"
+msgstr "Processos que dependem deste processo"
+
+msgid "Processes this process depends on"
+msgstr "Processos dos quais este processo depende"
+
+msgid "Propose a risk"
+msgstr "Propor um risco"
+
+msgid "Remove this link?"
+msgstr "Remover este vínculo?"
+
+#, php-format
+msgid "Required RPO: %1$s (process %2$s)"
+msgstr "RPO exigido: %1$s (processo %2$s)"
+
+#, php-format
+msgid "Required RTO: %1$s (process %2$s)"
+msgstr "RTO exigido: %1$s (processo %2$s)"
+
+msgid "Risk linked to the process, to be assessed in the register."
+msgstr "Risco vinculado ao processo, a ser avaliado no registro."
+
+msgid "Risks of the register that threaten the continuity of this process. A risk can also be proposed from the Dependencies tab for an item that does not meet the objectives."
+msgstr "Riscos do registro que ameaçam a continuidade deste processo. Um risco também pode ser proposto na aba Dependências para um item que não cumpre os objetivos."
+
+msgid "The objectives of the process are consistent with its analysis."
+msgstr "Os objetivos do processo são coerentes com sua análise."
+
+#, php-format
+msgid "The process %1$s requires a recovery within %2$s (RTO) with a data loss of at most %3$s (RPO)."
+msgstr "O processo %1$s exige uma recuperação em %2$s (RTO) com uma perda de dados de no máximo %3$s (RPO)."
+
+msgid "This link would create a loop: the chosen process already depends on this one."
+msgstr "Este vínculo criaria um ciclo: o processo escolhido já depende deste."
+
+msgid "This process depends on"
+msgstr "Este processo depende de"
+
+msgid "This process depends on no other process you can see."
+msgstr "Este processo não depende de nenhum outro processo que você pode ver."
+
+msgid "This process is already linked."
+msgstr "Este processo já está vinculado."
+
+msgid "This risk is already linked to the process."
+msgstr "Este risco já está vinculado ao processo."
+
+#, php-format
+msgid "%d other process you cannot see is not listed."
+msgid_plural "%d other processes you cannot see are not listed."
+msgstr[0] "%d outro processo que você não pode ver não é listado."
+msgstr[1] "%d outros processos que você não pode ver não são listados."
+
+msgid "Effectiveness test overdue or due soon"
+msgstr "Teste de eficácia atrasado ou próximo do prazo"
+
+msgid "Test plan owner"
+msgstr "Responsável pelo plano de teste"
+
+msgid "The \"Verified\" status was withdrawn: the last effectiveness test has expired."
+msgstr "O estado \"Verificado\" foi retirado: o último teste de eficácia expirou."
+
+msgid "Verified status withdrawn"
+msgstr "Estado \"Verificado\" retirado"
+
+msgid "Notification colour"
+msgstr "Cor da notificação"
+
+msgid "Reminds overdue or upcoming effectiveness tests and withdraws the expired \"Verified\" status"
+msgstr "Lembra os testes de eficácia atrasados ou próximos e retira o estado \"Verificado\" expirado"
+
+msgid "Overdue tests only"
+msgstr "Somente testes atrasados"
+
+msgid "Overdue tests and tests due soon"
+msgstr "Testes atrasados e próximos do prazo"
+
+msgid "Effectiveness test reminders"
+msgstr "Lembretes dos testes de eficácia"
+
+msgid "The test plan owner is reminded of an overdue test or a test due within 30 days. An overdue test withdraws the \"Verified\" status of the control."
+msgstr "O responsável pelo plano de teste é avisado de um teste atrasado ou previsto para os próximos 30 dias. Um teste atrasado retira o estado \"Verificado\" do controle."
+
+msgid "Also remind the CISO group"
+msgstr "Avisar também o grupo CISO"
+
+msgid "No CISO group is set (Internal audits above, or Configuration GLPI Auto): only the test plan owner is reminded."
+msgstr "Nenhum grupo CISO definido (Auditorias internas acima, ou Configuration GLPI Auto): somente o responsável pelo plano de teste é avisado."
+
+msgid "E-mail colour taken from the notification branding of Configuration GLPI Auto:"
+msgstr "Cor dos e-mails obtida da identidade visual das notificações do Configuration GLPI Auto:"
+
+msgid "E-mail colour:"
+msgstr "Cor dos e-mails:"
+
+msgid "Risk indicator (KRI) in alert"
+msgstr "Indicador de risco (KRI) em alerta"
+
+msgid "Risk indicator (KRI) back to green"
+msgstr "Indicador de risco (KRI) de volta ao verde"
+
+msgid "Risk indicator owner"
+msgstr "Responsável pelo indicador de risco"
+
+msgid "Previous status"
+msgstr "Status anterior"
+
+msgid "When an indicator turns red"
+msgstr "Quando um indicador fica vermelho"
+
+msgid "From orange"
+msgstr "A partir do laranja"
+
+msgid "Risk indicator (KRI) alerts"
+msgstr "Alertas dos indicadores de risco (KRI)"
+
+msgid "Alert level"
+msgstr "Nível de alerta"
+
+msgid "Trend of the indicator with its thresholds"
+msgstr "Tendência do indicador com os seus limites"
+
+msgid "Risk indicators (KRI) in the red and orange by month"
+msgstr "Indicadores de risco (KRI) no vermelho e laranja por mês"
+
+msgid "The owner of the indicator and the CISO group are notified once when an indicator reaches the alert level, then when it is back to green. Only recipients who can read the indicator and the data it measures receive it."
+msgstr "O responsável pelo indicador e o grupo CISO são avisados uma vez quando um indicador atinge o nível de alerta e depois quando volta ao verde. Só o recebem os destinatários que podem ler o indicador e os dados que ele mede."
+
+msgid "Recovery strategy"
+msgstr "Estratégia de recuperação"
+
+#, php-format
+msgid "%d min"
+msgstr "%d min"
+
+#, php-format
+msgid "%1$d h %2$02d min"
+msgstr "%1$d h %2$02d min"
+
+#, php-format
+msgid "Crisis team: %s"
+msgstr "Célula de crise: %s"
+
+msgid "Enter the measured recovery time, in minutes."
+msgstr "Informe o tempo de recuperação medido, em minutos."
+
+msgid "The recovery time measured at the last test exceeds the RTO."
+msgstr "O tempo de recuperação medido no último teste excede o RTO."
+
+msgid "No recovery strategy described (degraded mode, backup solution or procedure)."
+msgstr "Nenhuma estratégia de recuperação descrita (modo degradado, solução de contingência ou procedimento)."
+
+msgid "Recovery never tested: record the time measured during a test or a crisis exercise."
+msgstr "Recuperação nunca testada: registre o tempo medido durante um teste ou um exercício de crise."
+
+msgid "Recovery time measured at the last test"
+msgstr "Tempo de recuperação medido no último teste"
+
+msgid "Degraded mode"
+msgstr "Modo degradado"
+
+msgid "Backup solution"
+msgstr "Solução de contingência"
+
+msgid "Recovery procedure"
+msgstr "Procedimento de recuperação"
+
+msgid "Last recovery test"
+msgstr "Último teste de recuperação"
+
+msgid "Not described"
+msgstr "Não descrito"
+
+msgid "Above the RTO"
+msgstr "Acima do RTO"
+
+msgid "Within the RTO"
+msgstr "Dentro do RTO"
+
+msgid "How the activity continues while the system is down (paper forms, manual workaround…)."
+msgstr "Como a atividade continua enquanto o sistema está fora do ar (formulários em papel, contorno manual…)."
+
+msgid "Backup site, standby system, alternative supplier…"
+msgstr "Site de contingência, sistema em espera, fornecedor alternativo…"
+
+msgid "Main steps to restore the process, or reference of the detailed procedure."
+msgstr "Principais etapas para restabelecer o processo, ou referência do procedimento detalhado."
+
+msgid "Time actually needed to restore the process during a test or a crisis exercise, compared with its RTO. A test can also be recorded from the crisis room."
+msgstr "Tempo realmente necessário para restabelecer o processo durante um teste ou exercício de crise, comparado com seu RTO. Um teste também pode ser registrado a partir da sala de crise."
+
+msgid "Measured time (minutes)"
+msgstr "Tempo medido (minutos)"
+
+msgid "None (test outside an exercise)"
+msgstr "Nenhum (teste fora de um exercício)"
+
+msgid "No recovery test recorded yet."
+msgstr "Nenhum teste de recuperação registrado ainda."
+
+msgid "Measured time"
+msgstr "Tempo medido"
+
+msgid "Recorded by"
+msgstr "Registrado por"
+
+msgid "Exercise you cannot see"
+msgstr "Exercício que você não pode ver"
+
+msgid "Remove this recovery test?"
+msgstr "Remover este teste de recuperação?"
+
+msgid "Business processes tested"
+msgstr "Processos de negócio testados"
+
+msgid "No recovery time recorded for a business process during this exercise."
+msgstr "Nenhum tempo de recuperação registrado para um processo de negócio durante este exercício."
+
+msgid "Record"
+msgstr "Registrar"
+
+msgid "The measured time is compared with the RTO of the process and becomes its last recovery test."
+msgstr "O tempo medido é comparado com o RTO do processo e se torna seu último teste de recuperação."
+
+msgid "Recovery test"
+msgid_plural "Recovery tests"
+msgstr[0] "Teste de recuperação"
+msgstr[1] "Testes de recuperação"
+
+msgid "CIS Controls v8 catalog, its indicative references on the controls and CIS score."
+msgstr "Catálogo dos CIS Controls v8, seus mapeamentos indicativos nos controles e pontuação CIS."
+
+msgid "ISO 27001 Annex A (indicative):"
+msgstr "Anexo A da ISO 27001 (indicativo):"
+
+msgid "Mapping to ISO 27001 Annex A is indicative and made by this project, not taken from CIS."
+msgstr "O mapeamento para o Anexo A da ISO 27001 é indicativo e feito por este projeto, não foi extraído do CIS."
+
+msgid "Business impact analysis to review"
+msgstr "Análise de impacto no negócio a revisar"
+
+msgid "Recovery test due"
+msgstr "Teste de recuperação pendente"
+
+msgid "Business process owner"
+msgstr "Responsável pelo processo de negócio"
+
+msgid "Reminds business impact analyses to review and recovery tests due"
+msgstr "Lembra as análises de impacto a revisar e os testes de recuperação pendentes"
+
+msgid "Business processes without a BIA or with an overdue BIA"
+msgstr "Processos de negócio sem BIA ou com BIA vencida"
+
+msgid "Business processes whose last recovery test exceeded the RTO"
+msgstr "Processos de negócio cujo último teste de recuperação excedeu o RTO"
+
+msgid "Dependency map"
+msgstr "Mapa de dependências"
+
+msgid "Items and processes this process depends on, and processes that depend on it. Click a node to open it."
+msgstr "Itens e processos dos quais este processo depende, e processos que dependem dele. Clique em um nó para abri-lo."
+
+msgid "No dependency recorded yet: link items in the \"Dependencies\" tab and processes in the \"Linked processes\" tab."
+msgstr "Nenhuma dependência registrada ainda: vincule itens na aba \"Dependências\" e processos na aba \"Processos vinculados\"."
+
+msgid "Does not meet the objectives of the process (RTO, RPO)"
+msgstr "Não atende aos objetivos do processo (RTO, RPO)"
+
+#, php-format
+msgid "%d item or process you cannot see is not shown."
+msgid_plural "%d items or processes you cannot see are not shown."
+msgstr[0] "%d item ou processo que você não pode ver não é exibido."
+msgstr[1] "%d itens ou processos que você não pode ver não são exibidos."
+
+msgid "You are not allowed to add a document to this control."
+msgstr "Você não tem permissão para adicionar um documento a este controle."
+
+msgid "The file name is not valid."
+msgstr "O nome do arquivo não é válido."
+
+#, php-format
+msgid "Files of type .%s are not allowed by GLPI (Setup > Dropdowns > Document types)."
+msgstr "O GLPI não permite arquivos do tipo .%s (Configurar > Listas suspensas > Tipos de documento)."
+
+#, php-format
+msgid "The content of the file (%1$s) does not match its extension (.%2$s)."
+msgstr "O conteúdo do arquivo (%1$s) não corresponde à sua extensão (.%2$s)."
+
+msgid "The file could not be saved."
+msgstr "Não foi possível salvar o arquivo."
+
+#, php-format
+msgid "The file exceeds the maximum size allowed by GLPI (%d MiB)."
+msgstr "O arquivo excede o tamanho máximo permitido pelo GLPI (%d MiB)."
+
+msgid "The file is empty."
+msgstr "O arquivo está vazio."
+
+msgid "This automated check is not related to this control."
+msgstr "Esta verificação automática não se refere a este controle."
+
+msgid "Select all entities to record the result of an automated check."
+msgstr "Selecione todas as entidades para registrar o resultado de uma verificação automática."
+
+msgid "The automated check has nothing to evaluate: no test was recorded."
+msgstr "A verificação automática não tem nada a avaliar: nenhum teste foi registrado."
+
+#, php-format
+msgid "Automated technical check \"%1$s\": %2$d gap out of %3$d, %4$d%% compliant."
+msgid_plural "Automated technical check \"%1$s\": %2$d gaps out of %3$d, %4$d%% compliant."
+msgstr[0] "Verificação técnica automatizada \"%1$s\": %2$d desvio de %3$d, %4$d%% de conformidade."
+msgstr[1] "Verificação técnica automatizada \"%1$s\": %2$d desvios de %3$d, %4$d%% de conformidade."
+
+msgid "Choose an existing document or send a file, not both."
+msgstr "Escolha um documento existente ou envie um arquivo, não os dois."
+
+#, php-format
+msgid "%1$d gap out of %2$d"
+msgid_plural "%1$d gaps out of %2$d"
+msgstr[0] "%1$d desvio de %2$d"
+msgstr[1] "%1$d desvios de %2$d"
+
+msgid "Record as a test"
+msgstr "Registrar como teste"
+
+#, php-format
+msgid "The result is computed again when it is recorded, as a technical test dated today: no gap gives an effective test, at least %d%% compliant a partially effective test, below an ineffective test."
+msgstr "O resultado é recalculado ao registrar, como um teste técnico com a data de hoje: nenhum desvio dá um teste eficaz, pelo menos %d%% de conformidade um teste parcialmente eficaz, abaixo disso um teste ineficaz."
+
+msgid "Select all entities to record it: the control covers the whole organisation."
+msgstr "Selecione todas as entidades para registrá-lo: o controle abrange toda a organização."
+
+msgid "Or send a file"
+msgstr "Ou enviar um arquivo"
+
+msgid "It becomes a document of the control, readable only by those who read the control."
+msgstr "Ele se torna um documento do controle, legível apenas por quem pode ler o controle."
+
+msgid "Overdue effectiveness tests"
+msgstr "Testes de eficácia atrasados"

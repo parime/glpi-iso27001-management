@@ -19,8 +19,6 @@ use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\SecurityIncidentEdrImport;
 use GlpiPlugin\Grcmanager\Services\Incident\EdrCsvImport;
 
-include('../../../inc/includes.php');
-
 // Issue #370 : import d'un export CSV d'EDR / XDR (fichier, correspondance des colonnes, résultat).
 Session::checkRight(PluginGrcmanagerSecurityIncident::$rightname, CREATE);
 

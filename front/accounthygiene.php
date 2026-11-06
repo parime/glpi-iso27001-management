@@ -17,8 +17,6 @@
 
 use GlpiPlugin\Grcmanager\Services\Access\AccountHygieneRules;
 
-include('../../../inc/includes.php');
-
 // Issue #184 : hygiène des comptes (droit du plugin + lecture native des utilisateurs).
 Session::checkRight(\GlpiPlugin\Grcmanager\AccountHygiene::RIGHTNAME, READ);
 Session::checkRight(User::$rightname, READ);

@@ -1,5 +1,21 @@
-{# Issue #375 : traitements de données personnelles qui citent cet élément (registre RGPD) #}
+{# Issue #375 : traitements de données personnelles qui citent cet élément (registre RGPD) ; sur un
+   incident de sécurité, traitements concernés par la violation, reliés depuis cet onglet. #}
 <div class="container-fluid">
+   {% if is_incident %}
+      <p class="text-muted"><i class="ti ti-info-circle me-1"></i>{{ __('Processing activities whose personal data are affected by this incident: they help assess the GDPR notification.', 'grcmanager') }}</p>
+   {% endif %}
+   {% if can_link and choices is not empty %}
+      <form method="post" action="{{ action }}" class="d-flex flex-wrap gap-2 align-items-center mb-3">
+         <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+         <input type="hidden" name="incidents_id" value="{{ incident_id }}">
+         <select name="plugin_grcmanager_processingactivities_id" class="form-select" style="max-width: 420px;" aria-label="{{ __('Processing activity', 'grcmanager') }}">
+            {% for id, name in choices %}
+               <option value="{{ id }}">{{ name }}</option>
+            {% endfor %}
+         </select>
+         <button type="submit" name="link_incident" value="1" class="btn btn-primary"><i class="ti ti-link me-1"></i>{{ __('Link', 'grcmanager') }}</button>
+      </form>
+   {% endif %}
    {% if activities is empty %}
       <div class="text-muted"><i class="ti ti-info-circle me-1"></i>{{ __('No processing activity cites this item.', 'grcmanager') }}</div>
    {% else %}
@@ -10,6 +26,7 @@
                <th>{{ __('Status', 'grcmanager') }}</th>
                <th>{{ __('Role of the organisation', 'grcmanager') }}</th>
                <th>{{ __('Purpose', 'grcmanager') }}</th>
+               {% if can_link %}<th></th>{% endif %}
             </tr>
          </thead>
          <tbody>
@@ -19,6 +36,16 @@
                <td>{{ a.status }}</td>
                <td>{{ a.role }}</td>
                <td>{{ a.purpose }}</td>
+               {% if can_link %}
+                  <td class="text-end">
+                     <form method="post" action="{{ action }}" class="d-inline">
+                        <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                        <input type="hidden" name="incidents_id" value="{{ incident_id }}">
+                        <input type="hidden" name="plugin_grcmanager_processingactivities_id" value="{{ a.id }}">
+                        <button type="submit" name="unlink_incident" value="1" class="btn btn-sm btn-outline-danger" title="{{ __('Unlink', 'grcmanager') }}" aria-label="{{ __('Unlink', 'grcmanager') }}"><i class="ti ti-unlink"></i></button>
+                     </form>
+                  </td>
+               {% endif %}
             </tr>
          {% endfor %}
          </tbody>

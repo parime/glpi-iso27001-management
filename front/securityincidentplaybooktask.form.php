@@ -15,8 +15,6 @@
  * -------------------------------------------------------------------------
  */
 
-include('../../../inc/includes.php');
-
 // Issue #370 : onglet « Remédiation » de l'incident : appliquer une procédure, renseigner les
 // tâches (statut, compte rendu, assignation), ajouter une tâche propre à l'incident.
 use GlpiPlugin\Grcmanager\SecurityIncidentPlaybookTask;

@@ -15,8 +15,6 @@
  * -------------------------------------------------------------------------
  */
 
-include('../../../inc/includes.php');
-
 // Issue #370 : étapes d'une procédure (onglet « Étapes »), avec retour sur la procédure.
 $item = new \GlpiPlugin\Grcmanager\PlaybookStep();
 

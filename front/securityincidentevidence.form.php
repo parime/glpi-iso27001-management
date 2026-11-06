@@ -15,8 +15,6 @@
  * -------------------------------------------------------------------------
  */
 
-include('../../../inc/includes.php');
-
 // Issue #371 : onglet « Intégrité et preuves » de l'incident : vérification des preuves.
 $incident = new PluginGrcmanagerSecurityIncident();
 $incident->check((int) ($_POST['plugin_grcmanager_securityincidents_id'] ?? 0), UPDATE);

@@ -18,8 +18,6 @@
 use Glpi\Search\Input\QueryBuilder;
 use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
 
-include('../../../inc/includes.php');
-
 // Issue #370 : bibliothèque des procédures de remédiation.
 Session::checkRight(\GlpiPlugin\Grcmanager\Playbook::$rightname, READ);
 

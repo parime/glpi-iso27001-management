@@ -18,8 +18,6 @@
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Services\Cve\ParkVulnerabilitySync;
 
-include('../../../inc/includes.php');
-
 global $CFG_GLPI;
 
 // Issue #160 : logiciels à surveiller (droit du plugin + lecture native des logiciels).

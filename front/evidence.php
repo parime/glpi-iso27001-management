@@ -17,8 +17,6 @@
 
 use Glpi\Application\View\TemplateRenderer;
 
-include('../../../inc/includes.php');
-
 // Issue #145 : liste des preuves datées, de la plus proche de l'expiration à la plus lointaine.
 // Search::show() applique la restriction d'entité de la table (entities_id/is_recursive, repris de
 // l'élément porteur à la création).

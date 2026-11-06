@@ -48,14 +48,43 @@ final class PilotageCardsTest extends TestCase
         ]);
         $this->assertSame(50.0, $rates['ISO 27001'], 'Les mesures non applicables ne comptent pas.');
         $this->assertSame(100.0, $rates['NIS2'], 'Seules les mesures liées à NIS2 comptent.');
-        $this->assertSame([], array_diff(['ISO 27001', 'NIS2', 'ANSSI', 'NIST CSF 2.0'], array_keys($rates)));
+        $this->assertSame(
+            [],
+            array_diff(['ISO 27001', 'NIS2', 'ANSSI', 'NIST CSF 2.0', 'CIS Controls v8'], array_keys($rates))
+        );
     }
 
     public function testFrameworkRatesWithoutControls(): void
     {
         $this->assertSame(
-            ['ISO 27001' => null, 'NIS2' => null, 'ANSSI' => null, 'NIST CSF 2.0' => null],
+            [
+                'ISO 27001' => null, 'NIS2' => null, 'ANSSI' => null, 'NIST CSF 2.0' => null,
+                'CIS Controls v8' => null,
+            ],
             PilotageCards::frameworkRates([])
+        );
+    }
+
+    public function testCisControlsUseTheIndicativeMappingOnly(): void
+    {
+        // Issue #143 : A.8.13 (sauvegarde) relève du contrôle CIS 11 ; A.5.1 (politiques) d'aucun.
+        $controls = [
+            'A.8.13' => ['applicability' => 'yes', 'implementation_status' => 'implemented'],
+            'A.8.8'  => ['applicability' => 'yes', 'implementation_status' => 'not_started'],
+            'A.8.7'  => ['applicability' => 'no', 'implementation_status' => 'not_started'],
+            'A.5.1'  => ['applicability' => 'yes', 'implementation_status' => 'not_started'],
+        ];
+        $rates = PilotageCards::frameworkRates($controls);
+        $this->assertSame(50.0, $rates['CIS Controls v8'], 'A.5.1 non liée, A.8.7 non applicable.');
+
+        // Issue #418 : désactivé, le score CIS disparaît ; seul actif, il reste.
+        $this->assertArrayNotHasKey(
+            'CIS Controls v8',
+            PilotageCards::frameworkRates($controls, [FrameworkSelection::ISO27001, FrameworkSelection::NIS2])
+        );
+        $this->assertSame(
+            ['CIS Controls v8' => 50.0],
+            PilotageCards::frameworkRates($controls, [FrameworkSelection::CIS_CONTROLS])
         );
     }
 

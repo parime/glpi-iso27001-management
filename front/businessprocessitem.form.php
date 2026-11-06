@@ -15,8 +15,6 @@
  * -------------------------------------------------------------------------
  */
 
-include('../../../inc/includes.php');
-
 // Issue #377 : dépendances d'un processus métier (onglet « Dépendances »). Lier ou retirer un élément
 // exige de pouvoir modifier le processus (droit et entité) ; lier exige aussi de pouvoir lire
 // l'élément (BusinessProcessItem::prepareInputForAdd()).

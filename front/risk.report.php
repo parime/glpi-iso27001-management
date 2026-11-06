@@ -18,8 +18,6 @@
 use GlpiPlugin\Grcmanager\Pdf\PdfRenderer;
 use GlpiPlugin\Grcmanager\Services\Dashboard\DashboardCardService;
 
-include('../../../inc/includes.php');
-
 // Export à la demande, jamais persisté (pas de Document GLPI créé) : ROADMAP.md "Version 1.5".
 Session::checkRight(\GlpiPlugin\Grcmanager\Risk::$rightname, READ);
 // Registre sensible : chaque export est tracé (Administration > Journaux).

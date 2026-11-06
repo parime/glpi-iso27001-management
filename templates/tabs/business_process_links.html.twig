@@ -1,0 +1,137 @@
+{# Issue #377 : dépendances entre processus métier, voir
+   GlpiPlugin\\Grcmanager\\BusinessProcessLink::displayTabContentForItem(). #}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+
+{% if can_edit %}
+<form method="post" action="{{ form_url }}" class="card card-body mb-3">
+  <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+  <input type="hidden" name="plugin_grcmanager_businessprocesses_id" value="{{ item.getID() }}">
+  <div class="row g-2 align-items-end">
+    <div class="col-md-7">
+      {{ fields.dropdownField('GlpiPlugin\\Grcmanager\\BusinessProcess', 'plugin_grcmanager_businessprocesses_id_upstream', 0, __('This process depends on', 'grcmanager'), {
+         'used': used,
+         'is_horizontal': false,
+         'full_width': true,
+      }) }}
+    </div>
+    <div class="col-md-3">
+      <label class="form-label" for="grc-process-link-comment">{{ __('Role', 'grcmanager') }}</label>
+      <input type="text" id="grc-process-link-comment" name="comment" class="form-control" maxlength="255"
+             placeholder="{{ __('E.g. "Provides the time sheets"', 'grcmanager') }}">
+    </div>
+    <div class="col-md-2">
+      <button type="submit" name="add" value="1" class="btn btn-primary w-100"><i class="ti ti-plus me-1"></i>{{ __('Add', 'grcmanager') }}</button>
+    </div>
+  </div>
+</form>
+{% endif %}
+
+<h3 class="h4">{{ __('Processes this process depends on', 'grcmanager') }}</h3>
+<p class="text-muted">{{ __('Each of them must recover at least as fast as this process (RTO) and lose no more data (RPO).', 'grcmanager') }}</p>
+{% if analysis.upstream is empty %}
+  <p class="text-muted">{{ __('This process depends on no other process you can see.', 'grcmanager') }}</p>
+{% else %}
+  <div class="table-responsive">
+    <table class="table table-sm table-hover align-middle">
+      <thead>
+        <tr>
+          <th scope="col">{{ _n('Business process', 'Business processes', 1, 'grcmanager') }}</th>
+          <th scope="col">{{ __('Dependency', 'grcmanager') }}</th>
+          <th scope="col">{{ __('Role', 'grcmanager') }}</th>
+          <th scope="col">{{ __('MTPD', 'grcmanager') }}</th>
+          <th scope="col">RTO</th>
+          <th scope="col">RPO</th>
+          <th scope="col">{{ __('Consistency checks', 'grcmanager') }}</th>
+          {% if can_edit %}<th scope="col"><span class="visually-hidden">{{ __('Actions', 'grcmanager') }}</span></th>{% endif %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for node in analysis.upstream %}
+          <tr>
+            <td><a href="{{ node.url }}">{{ node.name }}</a></td>
+            <td>
+              {% if node.depth == 1 %}
+                <span class="badge bg-blue-lt">{{ __('Direct', 'grcmanager') }}</span>
+              {% else %}
+                <span class="badge bg-secondary-lt">{{ __('Indirect (level %d)', 'grcmanager')|format(node.depth - 1) }}</span>
+              {% endif %}
+            </td>
+            <td>{{ node.comment }}</td>
+            <td>{{ durations[node.mtpd] ?? '' }}</td>
+            <td>{{ durations[node.rto] ?? '' }}</td>
+            <td>{{ durations[node.rpo] ?? '' }}</td>
+            <td>
+              {% for code in node.issues %}
+                <span class="badge bg-orange-lt d-block mb-1 text-wrap">{{ issues[code] ?? code }}</span>
+              {% else %}
+                <span class="badge bg-green-lt">{{ __('OK', 'grcmanager') }}</span>
+              {% endfor %}
+            </td>
+            {% if can_edit %}
+              <td>
+                {% if node.link_id > 0 %}
+                  <form method="post" action="{{ form_url }}">
+                    <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                    <input type="hidden" name="id" value="{{ node.link_id }}">
+                    <button type="submit" name="purge" value="1" class="btn btn-sm btn-ghost-danger"
+                            title="{{ __('Remove', 'grcmanager') }}" aria-label="{{ __('Remove', 'grcmanager') }}"
+                            onclick="return confirm('{{ __('Remove this dependency?', 'grcmanager')|e('js') }}');"><i class="ti ti-trash"></i></button>
+                  </form>
+                {% endif %}
+              </td>
+            {% endif %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endif %}
+
+<h3 class="h4 mt-4">{{ __('Processes that depend on this process', 'grcmanager') }}</h3>
+{% if analysis.downstream is empty %}
+  <p class="text-muted">{{ __('No process you can see depends on this process.', 'grcmanager') }}</p>
+{% else %}
+  {% if analysis.required.rto > 0 or analysis.required.rpo > 0 %}
+    <div class="alert alert-info">
+      {% if analysis.required.rto > 0 %}
+        <div>{{ __('Required RTO: %1$s (process %2$s)', 'grcmanager')|format(durations[analysis.required.rto] ?? '', analysis.required.rto_from) }}</div>
+      {% endif %}
+      {% if analysis.required.rpo > 0 %}
+        <div>{{ __('Required RPO: %1$s (process %2$s)', 'grcmanager')|format(durations[analysis.required.rpo] ?? '', analysis.required.rpo_from) }}</div>
+      {% endif %}
+    </div>
+  {% endif %}
+  <div class="table-responsive">
+    <table class="table table-sm table-hover align-middle">
+      <thead>
+        <tr>
+          <th scope="col">{{ _n('Business process', 'Business processes', 1, 'grcmanager') }}</th>
+          <th scope="col">{{ __('Dependency', 'grcmanager') }}</th>
+          <th scope="col">{{ __('MTPD', 'grcmanager') }}</th>
+          <th scope="col">RTO</th>
+          <th scope="col">RPO</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for node in analysis.downstream %}
+          <tr>
+            <td><a href="{{ node.url }}">{{ node.name }}</a></td>
+            <td>
+              {% if node.depth == 1 %}
+                <span class="badge bg-blue-lt">{{ __('Direct', 'grcmanager') }}</span>
+              {% else %}
+                <span class="badge bg-secondary-lt">{{ __('Indirect (level %d)', 'grcmanager')|format(node.depth - 1) }}</span>
+              {% endif %}
+            </td>
+            <td>{{ durations[node.mtpd] ?? '' }}</td>
+            <td>{{ durations[node.rto] ?? '' }}</td>
+            <td>{{ durations[node.rpo] ?? '' }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endif %}
+{% if analysis.hidden > 0 %}
+  <p class="text-muted small">{{ _n('%d other process you cannot see is not listed.', '%d other processes you cannot see are not listed.', analysis.hidden, 'grcmanager')|format(analysis.hidden) }}</p>
+{% endif %}

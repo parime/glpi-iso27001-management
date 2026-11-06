@@ -29,6 +29,17 @@ contains() { # libelle, texte, attendu (oui|non), contenu
 tab() { # itemtype, onglet, id
   body "$BASE/ajax/common.tabs.php?_target=/plugins/grcmanager/front/x.php&_itemtype=$1&_glpi_tab=$2&id=$3"
 }
+# Issue #380 : preuve envoyee depuis le formulaire d'un test (vrai PDF, et faux PDF contenant du PHP).
+EVIDENCE_PDF=$(mktemp); FAKE_PDF=$(mktemp)
+trap 'rm -f "$EVIDENCE_PDF" "$FAKE_PDF"' EXIT
+printf '%%PDF-1.4\n1 0 obj << /Type /Catalog >> endobj\ntrailer << /Root 1 0 R >>\n%%%%EOF\n' > "$EVIDENCE_PDF"
+printf "<?php echo 'securite';\n" > "$FAKE_PDF"
+upload_evidence() { # fichier, nom annonce, [jeton CSRF : oui|non]
+  local token=(-F "_glpi_csrf_token=$(csrf)")
+  [ "${3:-oui}" = non ] && token=()
+  code -F add=1 -F "plugin_grcmanager_controls_id=$(id control)" -F result=effective \
+    -F "evidence_file=@$1;filename=$2" "${token[@]}" "$BASE/plugins/grcmanager/front/controltest.form.php"
+}
 
 for try in 1 2 3 4 5; do
   rm -f "$JAR"
@@ -60,7 +71,7 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/processingactivity.php front/datasubjectrequest.php front/processingactivity.export.php?format=pdf
   front/processingactivity.export.php?format=csv
   front/riskappetite.php front/riskindicator.php
-  front/businessprocess.php front/businessprocess.php?export=csv"
+  front/businessprocess.php front/businessprocess.php?export=csv front/businessprocess.report.php"
 # Creations : refusees sans droit comme en lecture seule (etat en base compare par la CI).
 create_attempts() { # code attendu, code attendu pour la classification (404 sans droit sur l'actif)
   local incident; incident=$(id incident_A)
@@ -156,12 +167,28 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
     "$(code -d "add=1&plugin_grcmanager_businessprocesses_id=$(id process_A)&itemtype=Computer&items_id=$(id computer_A)&_glpi_csrf_token=$(csrf)" "$P/businessprocessitem.form.php")"
   expect "front/businessimpact.form.php : enregistrer la BIA" "$1" \
     "$(code -d "save=1&plugin_grcmanager_businessprocesses_id=$(id process_A)&levels[4][financial]=4&_glpi_csrf_token=$(csrf)" "$P/businessimpact.form.php")"
+  # Issue #377, deuxieme etape : dependance entre processus, risque lie, risque propose pour un actif.
+  expect "front/businessprocesslink.form.php : lier un processus" "$1" \
+    "$(code -d "add=1&plugin_grcmanager_businessprocesses_id=$(id process_A)&plugin_grcmanager_businessprocesses_id_upstream=$(id process_B)&_glpi_csrf_token=$(csrf)" "$P/businessprocesslink.form.php")"
+  expect "front/businessprocessrisk.form.php : lier un risque" "$1" \
+    "$(code -d "add=1&plugin_grcmanager_businessprocesses_id=$(id process_A)&plugin_grcmanager_risks_id=$(id risk)&_glpi_csrf_token=$(csrf)" "$P/businessprocessrisk.form.php")"
+  expect "front/businessprocessrisk.form.php : proposer un risque" "$1" \
+    "$(code -d "create_risk=1&plugin_grcmanager_businessprocesses_id=$(id process_A)&itemtype=Computer&items_id=$(id computer_A)&_glpi_csrf_token=$(csrf)" "$P/businessprocessrisk.form.php")"
+  # Issue #377, troisieme etape : temps de reprise mesure d'un processus (droit de le modifier).
+  expect "front/businessprocessrecovery.form.php : enregistrer un test de reprise" "$1" \
+    "$(code -d "add=1&plugin_grcmanager_businessprocesses_id=$(id process_A)&measured_minutes=60&_glpi_csrf_token=$(csrf)" "$P/businessprocessrecovery.form.php")"
+  expect "front/businessprocess.form.php : modifier la strategie de reprise" "$1" \
+    "$(code -d "update=1&id=$(id process_A)&degraded_mode=securite&_glpi_csrf_token=$(csrf)" "$P/businessprocess.form.php")"
   # Issue #372 : declarer un incident depuis un element (droit de creer un incident).
   expect "front/securityincidentlinkeditem.form.php : declarer un incident" "$1" \
     "$(code -d "declare=1&itemtype=Computer&items_id=$(id computer_A)&_glpi_csrf_token=$(csrf)" "$P/securityincidentlinkeditem.form.php")"
   # Issue #380 : plan de test d'une mesure (droit de modifier la mesure).
   expect "front/controltest.form.php : plan de test" "$1" \
     "$(code -d "save_plan=1&plugin_grcmanager_controls_id=$(id control)&test_frequency_months=12&_glpi_csrf_token=$(csrf)" "$P/controltest.form.php")"
+  # Issue #380, troisieme etape : envoyer une preuve, ou enregistrer le resultat d'un controle technique.
+  expect "front/controltest.form.php : envoyer une preuve" "$1" "$(upload_evidence "$EVIDENCE_PDF" preuve-securite.pdf)"
+  expect "front/controltest.form.php : resultat d'un controle technique" "$1" \
+    "$(code -d "record_check=antivirus&plugin_grcmanager_controls_id=$(id control)&_glpi_csrf_token=$(csrf)" "$P/controltest.form.php")"
   # Issue #139 : joindre ou retirer une copie de quiz exige de pouvoir modifier la session.
   expect "front/trainingquiz.form.php : retirer une copie" "$1" \
     "$(code -d "remove=1&participations_id=$(id quiz)&_glpi_csrf_token=$(csrf)" "$P/trainingquiz.form.php")"
@@ -182,8 +209,23 @@ contains "carte incidents par entite : entite B" "Securite ISO B" $SEE_B "$by_en
 contains "carte incidents ouverts : chiffre" "big-number" $SEE_INCIDENTS "$(card securityincidents_bn_open bigNumber)"
 contains "page du tableau de bord : vue incidents proposee" "view=incidents" $SEE_INCIDENTS \
   "$(curl -s -c "$JAR" -b "$JAR" "$P/dashboard.php")"
+# Issue #380 : tests d'efficacite en retard, seulement pour qui lit les mesures.
+SEE_CONTROLS=oui
+[ "$ROLE" = none ] && SEE_CONTROLS=non
+contains "carte tests d'efficacite en retard : chiffre" "big-number" $SEE_CONTROLS \
+  "$(body "$BASE/ajax/dashboard.php?action=get_card&dashboard=grcmanager-isms-overview&card_id=grcmanager_overdue_control_tests&args%5Bwidgettype%5D=bigNumber&args%5Bgridstack_id%5D=matrice&args%5Bforce%5D=1")"
 contains "page du tableau de bord, vue incidents : grille" "\"current\":\"grcmanager-security-incidents\"" $SEE_INCIDENTS \
   "$(curl -s -c "$JAR" -b "$JAR" "$P/dashboard.php?view=incidents")"
+# Issue #377, quatrieme etape : indicateurs des processus metier (BIA a revoir, reprise au-dela du
+# RTO), sous le seul droit de la continuite. Sans lui, la carte est videe : ni chiffre ni lien.
+isms_card() { # identifiant de la carte
+  body "$BASE/ajax/dashboard.php?action=get_card&dashboard=grcmanager-isms-overview&card_id=$1&args%5Bwidgettype%5D=bigNumber&args%5Bgridstack_id%5D=matrice&args%5Bforce%5D=1"
+}
+SEE_CONTINUITY=oui
+case $ROLE in none|general) SEE_CONTINUITY=non ;; esac
+for c in grcmanager_business_processes_bia_due grcmanager_business_processes_recovery_above_rto; do
+  contains "carte $c : lien vers les processus" "businessprocess.php" $SEE_CONTINUITY "$(isms_card $c)"
+done
 
 if [ "$ROLE" = none ]; then
   for p in $READABLE; do expect "$p : sans droit" 403 "$(code "$BASE/plugins/grcmanager/$p")"; done
@@ -194,6 +236,8 @@ if [ "$ROLE" = none ]; then
   done
   expect "front/training.report.php : sans droit" 403 "$(code "$P/training.report.php?id=$(id training)")"
   expect "front/ebiosstudy.report.php : sans droit" 403 "$(code "$P/ebiosstudy.report.php?id=1")"
+  expect "front/businessprocess.report.php : PCA d'un processus, sans droit" 403 \
+    "$(code "$P/businessprocess.report.php?id=$(id process_A)")"
   expect "front/riskindicator.form.php : sans droit" 403 "$(code "$P/riskindicator.form.php?id=$(id kri_A)")"
   expect "front/trainingquiz.send.php : copie d'un autre, sans droit" 403 "$(code "$P/trainingquiz.send.php?id=$(id quiz)")"
   # Page des responsables de revue : ouverte a toute session, ne montre que leurs propres lignes.
@@ -210,9 +254,33 @@ if [ "$ROLE" = none ]; then
            'GlpiPlugin%5CGrcmanager%5CBusinessProcessItem$1'; do
     contains "onglet $t d'un ordinateur : sans droit" "plugins/grcmanager" non "$(tab Computer "$t" "$(id computer_A)")"
   done
+  # Issue #377, troisieme etape : classification et processus d'une application et d'un fournisseur
+  # lisibles, demandes directement sans aucun droit du plugin.
+  for t in 'GlpiPlugin%5CGrcmanager%5CAssetClassification$1' 'GlpiPlugin%5CGrcmanager%5CBusinessProcessItem$1'; do
+    contains "onglet $t d'une application : sans droit" "plugins/grcmanager" non "$(tab Appliance "$t" "$(id appliance_A)")"
+    contains "onglet $t d'un fournisseur : sans droit" "plugins/grcmanager" non "$(tab Supplier "$t" "$(id supplier)")"
+  done
+  contains "onglet Processus metier d'un risque : sans droit" "Processus securite" non \
+    "$(tab GlpiPlugin%5CGrcmanager%5CRisk 'GlpiPlugin%5CGrcmanager%5CBusinessProcessRisk$1' "$(id risk)")"
+  # Issue #377, quatrieme etape : carte des dependances demandee directement, sans droit.
+  contains "onglet Carte des dependances d'un processus : sans droit" "Processus securite" non \
+    "$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessProcessLink$2' "$(id process_A)")"
   # Issue #403 : les referentiels actifs se reglent avec le droit de modifier la configuration.
   expect "front/config.php : desactiver les referentiels" 403 \
     "$(code -d "update_frameworks=1&_glpi_csrf_token=$(csrf)" "$P/config.php")"
+  # Issue #380 : le rappel des tests au groupe RSSI se regle avec le droit de modifier la configuration.
+  expect "front/config.php : rappel des tests au groupe RSSI" 403 \
+    "$(code -d "update_controltest_reminder=1&controltest_reminder_ciso=always&_glpi_csrf_token=$(csrf)" "$P/config.php")"
+  # Issue #378 : le niveau d'alerte des KRI se regle avec le droit de modifier la configuration.
+  expect "front/config.php : niveau d'alerte des KRI" 403 \
+    "$(code -d "update_kri_alert=1&kri_alert_level=orange&_glpi_csrf_token=$(csrf)" "$P/config.php")"
+  # Issue #375 : relier un traitement a un incident exige de pouvoir modifier l'incident.
+  expect "front/processingactivity.form.php : relier un incident en lecture seule" 403 \
+    "$(code -d "link_incident=1&plugin_grcmanager_processingactivities_id=$(id processing_A)&incidents_id=$(id incident_A)&_glpi_csrf_token=$(csrf)" "$P/processingactivity.form.php")"
+  # Issue #380 : la preuve envoyee pour une mesure, dans son entite A, lui est refusee malgre son
+  # droit Documents : il ne lit pas les mesures.
+  expect "preuve envoyee d'une mesure : droit Documents sans lecture des mesures" 403 \
+    "$(code "$BASE/front/document.send.php?docid=$(id evidence_upload)")"
   create_attempts 403 403
   rm -f "$JAR"; exit $FAIL
 fi
@@ -224,9 +292,25 @@ if [ "$ROLE" = general ]; then
            front/networkflow.php front/networkflow.report.php front/networkflow.matrix.php front/parkvulnerability.php \
            front/impactanalysis.php front/causalgraph.php front/breachexposure.php \
            front/riskappetite.php front/riskindicator.php \
-           front/businessprocess.php front/businessprocess.php?export=csv; do
+           front/businessprocess.php front/businessprocess.php?export=csv front/businessprocess.report.php; do
     expect "$p : sans le droit des registres sensibles" 403 "$(code "$BASE/plugins/grcmanager/$p")"
   done
+  expect "front/businessprocess.report.php : PCA d'un processus, sans le droit de la continuite" 403 \
+    "$(code "$P/businessprocess.report.php?id=$(id process_A)")"
+  contains "onglet Processus metier d'un risque : rien" "Processus securite" non \
+    "$(tab GlpiPlugin%5CGrcmanager%5CRisk 'GlpiPlugin%5CGrcmanager%5CBusinessProcessRisk$1' "$(id risk)")"
+  contains "onglet Risques d'un processus : rien" "Risque securite" non \
+    "$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessProcessRisk$1' "$(id process_A)")"
+  # Issue #377, troisieme etape : ni strategie de reprise ni test sans le droit de la continuite.
+  contains "onglet Strategie de reprise d'un processus : rien" "Test de reprise A" non \
+    "$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessProcessRecovery$1' "$(id process_A)")"
+  # Issue #377, quatrieme etape : ni carte des dependances sans le droit de la continuite.
+  contains "onglet Carte des dependances d'un processus : rien" "Processus securite" non \
+    "$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessProcessLink$2' "$(id process_A)")"
+  expect "front/businessprocessrecovery.form.php : sans le droit de la continuite" 403 \
+    "$(code -d "add=1&plugin_grcmanager_businessprocesses_id=$(id process_A)&measured_minutes=60&_glpi_csrf_token=$(csrf)" "$P/businessprocessrecovery.form.php")"
+  contains "onglet Processus metier d'une application : rien" "Processus securite" non \
+    "$(tab Appliance 'GlpiPlugin%5CGrcmanager%5CBusinessProcessItem$1' "$(id appliance_A)")"
   expect "front/risk.form.php : sans le droit des registres sensibles" 403 "$(code "$P/risk.form.php?id=$(id risk)")"
   expect "front/riskindicator.form.php : sans le droit des registres sensibles" 403 "$(code "$P/riskindicator.form.php?id=$(id kri_A)")"
   # Issue #183 : la surveillance des fuites (cle d'API, domaines) se regle avec le droit des registres
@@ -292,12 +376,49 @@ if [ "$ROLE" = reader ]; then
   # Issue #403 : les referentiels actifs se reglent avec le droit de modifier la configuration.
   expect "front/config.php : desactiver les referentiels" 403 \
     "$(code -d "update_frameworks=1&_glpi_csrf_token=$(csrf)" "$P/config.php")"
+  # Issue #380 : le rappel des tests au groupe RSSI se regle avec le droit de modifier la configuration.
+  expect "front/config.php : rappel des tests au groupe RSSI" 403 \
+    "$(code -d "update_controltest_reminder=1&controltest_reminder_ciso=always&_glpi_csrf_token=$(csrf)" "$P/config.php")"
+  # Issue #378 : le niveau d'alerte des KRI se regle avec le droit de modifier la configuration.
+  expect "front/config.php : niveau d'alerte des KRI" 403 \
+    "$(code -d "update_kri_alert=1&kri_alert_level=orange&_glpi_csrf_token=$(csrf)" "$P/config.php")"
+  # Issue #375 : relier un traitement a un incident exige de pouvoir modifier l'incident.
+  expect "front/processingactivity.form.php : relier un incident en lecture seule" 403 \
+    "$(code -d "link_incident=1&plugin_grcmanager_processingactivities_id=$(id processing_A)&incidents_id=$(id incident_A)&_glpi_csrf_token=$(csrf)" "$P/processingactivity.form.php")"
   create_attempts 403 403
   rm -f "$JAR"; exit $FAIL
 fi
 
 if [ "$ROLE" = admin ]; then
   for p in $READABLE; do expect "$p : super-admin" 200 "$(code "$BASE/plugins/grcmanager/$p")"; done
+  # Issue #380 : reglage du rappel des tests d'efficacite au groupe RSSI. Sans jeton CSRF, refuse
+  # et inchange ; avec, enregistre ; une valeur inconnue revient au reglage par defaut.
+  expect "front/config.php : rappel des tests, sans jeton CSRF" 403 \
+    "$(code -d "update_controltest_reminder=1&controltest_reminder_ciso=always" "$P/config.php")"
+  contains "front/config.php : rappel des tests inchange sans jeton" 'value="always" selected' non \
+    "$(curl -s -c "$JAR" -b "$JAR" "$P/config.php")"
+  expect "front/config.php : rappel des tests au groupe RSSI" 302 \
+    "$(code -d "update_controltest_reminder=1&controltest_reminder_ciso=always&_glpi_csrf_token=$(csrf)" "$P/config.php")"
+  contains "front/config.php : rappel des tests enregistre" 'value="always" selected' oui \
+    "$(curl -s -c "$JAR" -b "$JAR" "$P/config.php")"
+  expect "front/config.php : rappel des tests, valeur inconnue" 302 \
+    "$(code -d "update_controltest_reminder=1&controltest_reminder_ciso=x&_glpi_csrf_token=$(csrf)" "$P/config.php")"
+  contains "front/config.php : rappel des tests par defaut" 'value="overdue" selected' oui \
+    "$(curl -s -c "$JAR" -b "$JAR" "$P/config.php")"
+  # Issue #378 : niveau d'alerte des KRI. Sans jeton CSRF, refuse et inchange ; avec, enregistre ;
+  # une valeur inconnue revient au rouge.
+  expect "front/config.php : alerte des KRI, sans jeton CSRF" 403 \
+    "$(code -d "update_kri_alert=1&kri_alert_level=orange" "$P/config.php")"
+  contains "front/config.php : alerte des KRI inchangee sans jeton" 'value="orange" selected' non \
+    "$(curl -s -c "$JAR" -b "$JAR" "$P/config.php")"
+  expect "front/config.php : alerte des KRI des l'orange" 302 \
+    "$(code -d "update_kri_alert=1&kri_alert_level=orange&_glpi_csrf_token=$(csrf)" "$P/config.php")"
+  contains "front/config.php : alerte des KRI enregistree" 'value="orange" selected' oui \
+    "$(curl -s -c "$JAR" -b "$JAR" "$P/config.php")"
+  expect "front/config.php : alerte des KRI, valeur inconnue" 302 \
+    "$(code -d "update_kri_alert=1&kri_alert_level=x&_glpi_csrf_token=$(csrf)" "$P/config.php")"
+  contains "front/config.php : alerte des KRI par defaut" 'value="red" selected' oui \
+    "$(curl -s -c "$JAR" -b "$JAR" "$P/config.php")"
 fi
 
 expect "incident, entite A"            200    "$(code "$P/securityincident.form.php?id=$(id incident_A)")"
@@ -426,6 +547,61 @@ pca_export=$(curl -s -c "$JAR" -b "$JAR" "$P/businessprocess.php?export=csv")
 contains "export PCA : processus de A" "Processus securite A" oui "$pca_export"
 contains "export PCA : processus de B" "Processus securite B" $SEE_B "$pca_export"
 contains "export PCA : PC de B" "PC securite B" $SEE_B "$pca_export"
+# Issue #377, deuxieme etape : processus lies, risques lies et PCA en PDF. Le processus de B, dont
+# depend celui de A, n'est nomme ni dans l'onglet ni dans le PDF ; il ne peut pas etre lie.
+expect "PCA (PDF) d'un processus de A" 200 "$(code "$P/businessprocess.report.php?id=$(id process_A)")"
+expect "PCA (PDF) d'un processus de B" $DENY "$(code "$P/businessprocess.report.php?id=$(id process_B)")"
+links=$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessProcessLink$1' "$(id process_A)")
+contains "processus lies de A : processus de B" "Processus securite B" $SEE_B "$links"
+contains "processus lies de A : role du lien" "Amont B" $SEE_B "$links"
+contains "risques du processus A : risque" "Risque securite" oui \
+  "$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessProcessRisk$1' "$(id process_A)")"
+risk_procs=$(tab GlpiPlugin%5CGrcmanager%5CRisk 'GlpiPlugin%5CGrcmanager%5CBusinessProcessRisk$1' "$(id risk)")
+contains "processus metier du risque : processus de A" "Processus securite A" oui "$risk_procs"
+contains "processus metier du risque : processus de B" "Processus securite B" $SEE_B "$risk_procs"
+expect "lier un processus a un processus de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
+  "$(code -d "add=1&plugin_grcmanager_businessprocesses_id=$(id process_B)&plugin_grcmanager_businessprocesses_id_upstream=$(id process_A)&_glpi_csrf_token=$(csrf)" "$P/businessprocesslink.form.php")"
+expect "lier un risque a un processus de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
+  "$(code -d "add=1&plugin_grcmanager_businessprocesses_id=$(id process_B)&plugin_grcmanager_risks_id=$(id risk)&_glpi_csrf_token=$(csrf)" "$P/businessprocessrisk.form.php")"
+expect "lier un processus sans jeton CSRF" 403 \
+  "$(code -d "add=1&plugin_grcmanager_businessprocesses_id=$(id process_A)&plugin_grcmanager_businessprocesses_id_upstream=$(id process_B)" "$P/businessprocesslink.form.php")"
+if [ "$ROLE" = limited ]; then
+  expect "lier le processus de B (illisible) au processus A" 404 \
+    "$(code -d "add=1&plugin_grcmanager_businessprocesses_id=$(id process_A)&plugin_grcmanager_businessprocesses_id_upstream=$(id process_B)&_glpi_csrf_token=$(csrf)" "$P/businessprocesslink.form.php")"
+  expect "proposer un risque pour le PC de B (illisible)" 404 \
+    "$(code -d "create_risk=1&plugin_grcmanager_businessprocesses_id=$(id process_A)&itemtype=Computer&items_id=$(id computer_B)&_glpi_csrf_token=$(csrf)" "$P/businessprocessrisk.form.php")"
+  expect "test de reprise rattache a un exercice inexistant" 404 \
+    "$(code -d "add=1&plugin_grcmanager_businessprocesses_id=$(id process_A)&measured_minutes=60&plugin_grcmanager_crisisexercises_id=999999&_glpi_csrf_token=$(csrf)" "$P/businessprocessrecovery.form.php")"
+fi
+# Issue #377, troisieme etape : RTO des applications (classification) et strategie de reprise.
+expect "classification d'une application de A" 302 \
+  "$(code -d "save=1&itemtype=Appliance&items_id=$(id appliance_A)&availability=high&rto_hours=4&_glpi_csrf_token=$(csrf)" "$P/assetclassification.form.php")"
+expect "classification d'une application de B" "$([ "$ROLE" = admin ] && echo 302 || echo 404)" \
+  "$(code -d "save=1&itemtype=Appliance&items_id=$(id appliance_B)&availability=low&_glpi_csrf_token=$(csrf)" "$P/assetclassification.form.php")"
+contains "onglet classification d'une application de A" "rto_hours" oui \
+  "$(tab Appliance 'GlpiPlugin%5CGrcmanager%5CAssetClassification$1' "$(id appliance_A)")"
+contains "dependances du processus A : application de A" "Application securite A" oui "$deps"
+strategy=$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessProcessRecovery$1' "$(id process_A)")
+contains "strategie de reprise du processus A : test" "Test de reprise A" oui "$strategy"
+contains "strategie de reprise du processus A : mode degrade" "Mode degrade A" oui "$strategy"
+contains "strategie de reprise du processus A : test de B" "Test de reprise B" non "$strategy"
+expect "test de reprise d'un processus de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
+  "$(code -d "add=1&plugin_grcmanager_businessprocesses_id=$(id process_B)&measured_minutes=60&_glpi_csrf_token=$(csrf)" "$P/businessprocessrecovery.form.php")"
+expect "strategie de reprise d'un processus de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
+  "$(code -d "update=1&id=$(id process_B)&degraded_mode=securite&_glpi_csrf_token=$(csrf)" "$P/businessprocess.form.php")"
+expect "test de reprise sans jeton CSRF" 403 \
+  "$(code -d "add=1&plugin_grcmanager_businessprocesses_id=$(id process_A)&measured_minutes=60" "$P/businessprocessrecovery.form.php")"
+# Issue #377, quatrieme etape : carte des dependances du processus de A. Le processus de B dont il
+# depend et le PC de B qu'il utilise ne sont ni nommes ni designes pour un profil limite a A.
+map=$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessProcessLink$2' "$(id process_A)")
+contains "carte des dependances de A : graphe" "data-elements=" oui "$map"
+contains "carte des dependances de A : processus A" "Processus securite A" oui "$map"
+contains "carte des dependances de A : PC de A" "PC securite A" oui "$map"
+contains "carte des dependances de A : processus de B" "Processus securite B" $SEE_B "$map"
+contains "carte des dependances de A : PC de B" "PC securite B" $SEE_B "$map"
+contains "carte des dependances de A : identifiant du PC de B" "Computer:$(id computer_B)&quot;" $SEE_B "$map"
+contains "carte des dependances d'un processus de B" "Processus securite B" $SEE_B \
+  "$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessProcessLink$2' "$(id process_B)")"
 
 # Issue #145 : preuves datées, uniquement celles de ses entités.
 evidences=$(curl -s -c "$JAR" -b "$JAR" "$P/evidence.php")
@@ -446,6 +622,26 @@ expect "test d'efficacite, preuve de B" "$([ "$ROLE" = admin ] && echo 302 || ec
   "$(code -d "add=1&plugin_grcmanager_controls_id=$(id control)&result=effective&documents_id=$(id document_B)&_glpi_csrf_token=$(csrf)" "$P/controltest.form.php")"
 expect "test d'efficacite, document d'un autre objet" 404 \
   "$(code -d "add=1&plugin_grcmanager_controls_id=$(id control)&result=effective&documents_id=$(id audit_document)&_glpi_csrf_token=$(csrf)" "$P/controltest.form.php")"
+
+# Issue #380, troisieme etape : preuve envoyee depuis le formulaire du test. Memes droits que l'onglet
+# Documents : le gestionnaire limite (droit Documents en lecture seule) ne peut pas en envoyer. Le
+# type reel est verifie : un faux PDF n'est pas enregistre. La preuve envoyee se lit par qui lit la
+# mesure et le document (entite A).
+expect "preuve envoyee d'une mesure, lecture" 200 "$(code "$BASE/front/document.send.php?docid=$(id evidence_upload)")"
+expect "envoyer une preuve sans jeton CSRF" 403 "$(upload_evidence "$EVIDENCE_PDF" preuve-securite.pdf non)"
+if [ "$ROLE" = admin ]; then
+  expect "envoyer une preuve (PDF)" 302 "$(upload_evidence "$EVIDENCE_PDF" preuve-securite-admin.pdf)"
+  expect "envoyer un faux PDF" 302 "$(upload_evidence "$FAKE_PDF" faux-securite.pdf)"
+  test_tab=$(tab GlpiPlugin%5CGrcmanager%5CControl 'GlpiPlugin%5CGrcmanager%5CControlTest$1' "$(id control)")
+  contains "onglet des tests : preuve envoyee" "preuve-securite-admin.pdf" oui "$test_tab"
+  contains "onglet des tests : faux PDF refuse" "faux-securite.pdf" non "$test_tab"
+  contains "onglet des tests : envoi propose" 'name="evidence_file"' oui "$test_tab"
+else
+  expect "envoyer une preuve sans le droit de creer un document" 403 \
+    "$(upload_evidence "$EVIDENCE_PDF" preuve-securite-limite.pdf)"
+  contains "onglet des tests : pas d'envoi sans droit de creer un document" 'name="evidence_file"' non \
+    "$(tab GlpiPlugin%5CGrcmanager%5CControl 'GlpiPlugin%5CGrcmanager%5CControlTest$1' "$(id control)")"
+fi
 
 if [ "$ROLE" = limited ]; then
   # Enregistre le risque (objet global) avec l'actif de A : le lien vers B, invisible pour lui,

@@ -15,8 +15,6 @@
  * -------------------------------------------------------------------------
  */
 
-include('../../../inc/includes.php');
-
 // Issue #370 : procédure de remédiation de la bibliothèque.
 $item = new \GlpiPlugin\Grcmanager\Playbook();
 

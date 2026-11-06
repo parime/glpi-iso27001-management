@@ -21,7 +21,9 @@ namespace GlpiPlugin\Grcmanager\Services\Dashboard;
 
 use GlpiPlugin\Grcmanager\Services\Access\AccessReviewLogic;
 use GlpiPlugin\Grcmanager\Services\Control\AnssiHygieneCatalogDefaults;
+use GlpiPlugin\Grcmanager\Services\Control\CisControlsCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\ControlCrosswalkDefaults;
+use GlpiPlugin\Grcmanager\Services\Control\ControlTestRules;
 use GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig;
 use GlpiPlugin\Grcmanager\Services\Control\FrameworkSelection;
 use GlpiPlugin\Grcmanager\Services\Control\Nis2CatalogDefaults;
@@ -38,8 +40,9 @@ final class PilotageCards
      * Taux de mise en œuvre des mesures applicables de l'Annexe A liées à chaque référentiel :
      * toutes pour ISO 27001, celles qui répondent à une exigence NIS2 ou à une mesure du guide
      * d'hygiène de l'ANSSI (correspondances indicatives du plugin), et celles que le NIST relie
-     * lui-même au CSF 2.0 (correspondance officielle, ControlCrosswalkDefaults). Pas de CIS
-     * Controls : aucune correspondance officielle librement disponible (voir ce même fichier).
+     * lui-même au CSF 2.0 (correspondance officielle, ControlCrosswalkDefaults). CIS Controls v8 :
+     * celles que relie un contrôle CIS (correspondance indicative du plugin,
+     * CisControlsCatalogDefaults::ANNEX_A, la correspondance du CIS ne pouvant pas être embarquée).
      *
      * Issue #403 : seuls les référentiels de $enabled (tous si null) sont calculés.
      *
@@ -57,6 +60,8 @@ final class PilotageCards
                 => AnssiHygieneCatalogDefaults::measuresForControl($code) !== []],
             'NIST CSF 2.0' => [FrameworkSelection::NIST_CSF, static fn (string $code): bool
                 => (ControlCrosswalkDefaults::CROSSWALK[preg_replace('/^A\./', '', $code)]['nist_csf'] ?? []) !== []],
+            'CIS Controls v8' => [FrameworkSelection::CIS_CONTROLS, static fn (string $code): bool
+                => CisControlsCatalogDefaults::controlsForAnnexA($code) !== []],
         ];
         $rates = [];
         foreach ($filters as $framework => [$key, $covers]) {
@@ -429,6 +434,30 @@ final class PilotageCards
             'data'  => self::trendSeries($byMonth),
             'label' => $params['label'] ?? __('Risks and non-conformities by month', 'grcmanager'),
             'icon'  => 'ti ti-chart-line',
+        ];
+    }
+
+    /**
+     * Issue #380 : mesures dont le test d'efficacité est en retard, comme en tête de la page
+     * « Tests d'efficacité » (même calcul, ControlTest::getSchedule()). Droit de lecture des
+     * mesures vérifié par SecuredDashboardCards. Les mesures de l'Annexe A sont globales (sans
+     * entité, comme la SoA) : le compte est le même dans toutes les entités.
+     */
+    public static function overdueControlTests(array $params = []): array
+    {
+        $today = date('Y-m-d');
+        $count = 0;
+        foreach (\GlpiPlugin\Grcmanager\ControlTest::getSchedule() as $entry) {
+            if (ControlTestRules::dueStatus($entry['next'], $today) === ControlTestRules::DUE_OVERDUE) {
+                $count++;
+            }
+        }
+
+        return [
+            'number' => $count,
+            'url'    => \GlpiPlugin\Grcmanager\ControlTest::getSearchURL(),
+            'label'  => $params['label'] ?? __('Overdue effectiveness tests', 'grcmanager'),
+            'icon'   => 'ti ti-test-pipe',
         ];
     }
 

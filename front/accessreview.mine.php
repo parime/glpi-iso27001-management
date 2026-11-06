@@ -18,8 +18,6 @@
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Services\Access\AccessReviewLogic;
 
-include('../../../inc/includes.php');
-
 // Issue #126 : un responsable n'a souvent aucun droit sur le plugin. Cette page n'exige qu'une
 // session : elle ne montre que les lignes confiées à l'utilisateur connecté, et decide() vérifie
 // pour chaque ligne qu'il en est le responsable (ou qu'il gère les campagnes).

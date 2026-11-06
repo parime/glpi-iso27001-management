@@ -20,8 +20,6 @@ use Glpi\Search\Input\QueryBuilder;
 use GlpiPlugin\Grcmanager\Services\Control\SoaApprovalLogic;
 use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
 
-include('../../../inc/includes.php');
-
 Session::checkRight(\GlpiPlugin\Grcmanager\Control::$rightname, READ);
 
 Html::header(

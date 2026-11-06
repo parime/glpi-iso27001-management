@@ -91,6 +91,104 @@ final class KriRules
     }
 
     /**
+     * Niveau à partir duquel un KRI déclenche une alerte : au rouge seulement (défaut), ou dès
+     * l'orange. Une valeur inconnue revient au défaut.
+     */
+    public static function normalizeAlertLevel(mixed $level): string
+    {
+        return $level === self::ORANGE ? self::ORANGE : self::RED;
+    }
+
+    /**
+     * Le statut est-il une alerte pour ce niveau ?
+     */
+    public static function isAlert(string $status, string $level): bool
+    {
+        return $status === self::RED
+            || ($status === self::ORANGE && self::normalizeAlertLevel($level) === self::ORANGE);
+    }
+
+    /**
+     * Notification à envoyer quand le statut d'un KRI change, une seule fois par changement d'état.
+     *
+     * - $notified : statut de la dernière alerte envoyée (orange ou rouge), vide si aucune n'est en cours.
+     * - Une alerte part quand le statut atteint un niveau d'alerte plus grave que la dernière envoyée
+     *   (vert vers rouge, orange vers rouge...). Une amélioration qui reste en alerte (rouge vers
+     *   orange, niveau orange) ne prévient pas mais permet une nouvelle alerte au retour au rouge.
+     * - Le retour au vert après une alerte prévient une fois. Sortir de l'alerte sans revenir au vert
+     *   (rouge vers orange au niveau rouge, seuils retirés) réarme l'alerte sans rien envoyer.
+     *
+     * @return array{event: ?string, notified: string} event : 'alert', 'cleared' ou null
+     */
+    public static function alertTransition(string $notified, string $status, string $level): array
+    {
+        $rank = static fn (string $value): int => match ($value) {
+            self::RED    => 2,
+            self::ORANGE => 1,
+            default      => 0,
+        };
+        if (self::isAlert($status, $level)) {
+            return [
+                'event'    => $rank($status) > $rank($notified) ? 'alert' : null,
+                'notified' => $status,
+            ];
+        }
+        if ($notified !== '' && $status === self::GREEN) {
+            return ['event' => 'cleared', 'notified' => ''];
+        }
+
+        return ['event' => null, 'notified' => ''];
+    }
+
+    /**
+     * Nombre de KRI au rouge et à l'orange à la fin de chaque mois : le statut retenu est celui du
+     * dernier relevé du KRI à cette date (statut enregistré au moment du relevé).
+     *
+     * @param array<int, list<array{date: string, status: string}>> $valuesByKri relevés chronologiques
+     * @param list<string>                                           $months      mois « AAAA-MM »
+     * @return array<string, array{red: int, orange: int}>
+     */
+    public static function monthlyStatusCounts(array $valuesByKri, array $months): array
+    {
+        $result = [];
+        foreach ($months as $month) {
+            $end = $month . '-31';
+            $counts = [self::RED => 0, self::ORANGE => 0];
+            foreach ($valuesByKri as $values) {
+                $status = null;
+                foreach ($values as $value) {
+                    if ($value['date'] > $end) {
+                        break;
+                    }
+                    $status = $value['status'];
+                }
+                if ($status !== null && isset($counts[$status])) {
+                    $counts[$status]++;
+                }
+            }
+            $result[$month] = ['red' => $counts[self::RED], 'orange' => $counts[self::ORANGE]];
+        }
+
+        return $result;
+    }
+
+    /**
+     * Les douze derniers mois « AAAA-MM », du plus ancien au mois de la date donnée.
+     *
+     * @return list<string>
+     */
+    public static function lastMonths(string $today, int $count = 12): array
+    {
+        $first = new \DateTimeImmutable(substr($today, 0, 7) . '-01');
+        $months = [];
+        for ($i = $count - 1; $i >= 0; $i--) {
+            $months[] = $first->modify(sprintf('-%d months', $i))->format('Y-m');
+        }
+
+        return $months;
+    }
+
+    /**
      * Taux en pourcentage (une décimale), null quand rien n'est mesurable.
      */
     public static function rate(int $count, int $total): ?float

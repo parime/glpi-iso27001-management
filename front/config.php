@@ -27,8 +27,6 @@ use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentModuleConfig;
 use GlpiPlugin\Grcmanager\Services\Notification\SensitiveNotification;
 use GlpiPlugin\Grcmanager\Services\Risk\RiskMatrixConfig;
 
-include('../../../inc/includes.php');
-
 Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, READ);
 
 if (isset($_POST['update_risk_matrix'])) {
@@ -165,6 +163,35 @@ if (isset($_POST['update_dpo_contact'])) {
     Html::back();
 }
 
+// Issue #380 : groupe RSSI prévenu des tests d'efficacité en retard ou proches de l'échéance.
+if (isset($_POST['update_controltest_reminder'])) {
+    Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
+
+    // Énumération fermée : une valeur inconnue revient au réglage par défaut.
+    $cisoMode = (string) ($_POST['controltest_reminder_ciso'] ?? '');
+    if (\GlpiPlugin\Grcmanager\ControlTestReminder::saveCisoMode($cisoMode)) {
+        \GlpiPlugin\Grcmanager\AuditLog::record('config_change', 'Config', 0, 0, 'success', [
+            'changes' => ['controltest_reminder_ciso' => \GlpiPlugin\Grcmanager\ControlTestReminder::cisoMode()],
+        ]);
+    }
+
+    Html::back();
+}
+
+// Issue #378 : niveau d'alerte des indicateurs de risque (rouge seulement, ou dès l'orange).
+if (isset($_POST['update_kri_alert'])) {
+    Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
+
+    // Énumération fermée : une valeur inconnue revient au réglage par défaut.
+    if (\GlpiPlugin\Grcmanager\KriAlert::saveLevel((string) ($_POST['kri_alert_level'] ?? ''))) {
+        \GlpiPlugin\Grcmanager\AuditLog::record('config_change', 'Config', 0, 0, 'success', [
+            'changes' => ['kri_alert_level' => \GlpiPlugin\Grcmanager\KriAlert::level()],
+        ]);
+    }
+
+    Html::back();
+}
+
 if (isset($_POST['update_audit_config'])) {
     Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
 
@@ -222,6 +249,12 @@ Html::header(
     'park_thresholds'           => \GlpiPlugin\Grcmanager\ParkVulnerability::getTicketThresholds(),
     'max_tickets'               => \GlpiPlugin\Grcmanager\ParkVulnerability::MAX_TICKETS_PER_RUN,
     'ciso_groups_id'            => \GlpiPlugin\Grcmanager\AuditTeam::getCisoGroupId(),
+    'controltest_ciso_mode'     => \GlpiPlugin\Grcmanager\ControlTestReminder::cisoMode(),
+    'controltest_ciso_modes'    => \GlpiPlugin\Grcmanager\ControlTestReminder::getCisoModes(),
+    'controltest_brand_color'   => \GlpiPlugin\Grcmanager\ControlTestReminder::brandColor(),
+    'controltest_cga_branding'  => \GlpiPlugin\Grcmanager\ControlTestReminder::isCgaActive(),
+    'kri_alert_level'           => \GlpiPlugin\Grcmanager\KriAlert::level(),
+    'kri_alert_levels'          => \GlpiPlugin\Grcmanager\KriAlert::getLevels(),
     'notifications_minimal'     => SensitiveNotification::isMinimal(),
     'can_edit_sensitive'        => Session::haveRight(Installer::SENSITIVE_RIGHT, UPDATE),
     'breach_enabled'            => BreachMonitorConfig::isEnabled(),

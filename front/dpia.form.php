@@ -18,8 +18,6 @@
 use GlpiPlugin\Grcmanager\Dpia;
 use GlpiPlugin\Grcmanager\ProcessingActivity;
 
-include('../../../inc/includes.php');
-
 // Issue #375 : AIPD d'une fiche du registre des traitements. Droits et entité de la fiche (check() du
 // cœur) ; le jeton CSRF est contrôlé par GLPI sur tout POST.
 Session::checkRight(Dpia::RIGHTNAME, UPDATE);

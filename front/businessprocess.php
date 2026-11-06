@@ -18,8 +18,6 @@
 use Glpi\Search\Input\QueryBuilder;
 use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
 
-include('../../../inc/includes.php');
-
 // Issue #377 : registre des processus métier et export pour le plan de continuité.
 Session::checkRight(\GlpiPlugin\Grcmanager\BusinessProcess::$rightname, READ);
 
@@ -57,6 +55,7 @@ Html::header(
     'new_url'    => \GlpiPlugin\Grcmanager\BusinessProcess::canCreate()
         ? \GlpiPlugin\Grcmanager\BusinessProcess::getFormURL() : '',
     'export_url' => \GlpiPlugin\Grcmanager\BusinessProcess::getSearchURL() . '?export=csv',
+    'report_url' => \GlpiPlugin\Grcmanager\BusinessProcess::getContinuityReportURL(),
 ]);
 
 $params = QueryBuilder::manageParams(\GlpiPlugin\Grcmanager\BusinessProcess::class, $_GET);

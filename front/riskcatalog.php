@@ -20,8 +20,6 @@ use GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig;
 use GlpiPlugin\Grcmanager\Services\Control\FrameworkSelection;
 use GlpiPlugin\Grcmanager\Services\Risk\InfrastructureRiskCatalog;
 
-include('../../../inc/includes.php');
-
 // Issue #178 : catalogue de risques types d'infrastructure.
 Session::checkRight(\GlpiPlugin\Grcmanager\Risk::$rightname, READ);
 

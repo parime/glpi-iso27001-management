@@ -87,8 +87,11 @@ archivé), avec ses champs de classification ISO 27001 fusionnés dessus.
   reprise **RTO/RPO** et export pour le plan de continuité.
 - **Couverture des preuves** : quels actifs doivent avoir quel document.
 - **Processus métier et analyse d'impact sur l'activité (BIA)** : responsable, criticité, DMIA, RTO,
-  RPO, impacts par durée d'interruption, éléments GLPI dont dépend chaque processus, signalement des
-  actifs plus lents que le processus, export pour le PCA / PRA.
+  RPO, impacts par durée d'interruption, éléments GLPI et autres processus dont dépend chaque
+  processus, signalement des actifs et processus plus lents que lui, risques liés (et risque proposé
+  pour un actif trop lent), stratégie de reprise et tests mesurés, carte des dépendances, rappels
+  des BIA à revoir et des tests de reprise à refaire, indicateurs du tableau de bord, plan de
+  continuité (PCA / PRA) en PDF et export CSV.
 - **Exercices de crise** (rançongiciel, fuite de données, panne) : incident fictif, étapes
   chronométrées, rapport d'exercice archivé comme preuve (A.5.29, A.5.30).
 - **Cellule de crise** sur un incident réel : plan de réponse, reprise des éléments touchés face à
@@ -98,7 +101,7 @@ archivé), avec ses champs de classification ISO 27001 fusionnés dessus.
 
 **Pilotage**
 - Tableau de bord ISMS par défaut et indicateurs à ajouter aux tableaux de bord GLPI, dont la
-  conformité par référentiel (ISO 27001, NIS2, ANSSI), les échéances à 90 jours, la revue des accès
+  conformité par référentiel (ISO 27001, NIS2, ANSSI, NIST CSF, CIS Controls), les échéances à 90 jours, la revue des accès
   et les délais NIS2 / RGPD en alerte ; menu GRC & Conformité > Tableau de bord, vues ISMS et
   Direction, tendance mensuelle.
 - **Formations notées**, en une ou plusieurs sessions (formateur, lieu, note, seuil de réussite,
@@ -259,7 +262,8 @@ du dépôt et dans la documentation indique uniquement le référentiel que le p
   © Center for Internet Security, Inc. CIS Controls® et CIS Critical Security Controls® sont des
   marques du Center for Internet Security, Inc. Ce projet n'est ni affilié ni approuvé par le CIS.
   Cet extrait n'est pas couvert par la licence GPLv3 du plugin et ne peut pas être réutilisé à
-  des fins commerciales.
+  des fins commerciales. La correspondance entre les 18 contrôles et l'Annexe A d'ISO 27001, qui
+  sert au score CIS, est indicative et établie par ce projet : elle ne reprend pas celle du CIS.
 - **NIST Cybersecurity Framework (CSF) 2.0** : publication du
   [National Institute of Standards and Technology](https://www.nist.gov/cyberframework)
   (gouvernement fédéral des États-Unis), dans le domaine public.

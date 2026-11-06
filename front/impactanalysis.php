@@ -17,8 +17,6 @@
 
 use Glpi\Application\View\TemplateRenderer;
 
-include('../../../inc/includes.php');
-
 // Issue #177 : points de défaillance uniques, et création du risque correspondant à la demande.
 Session::checkRight(\GlpiPlugin\Grcmanager\ImpactAnalysis::RIGHTNAME, READ);
 

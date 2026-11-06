@@ -128,6 +128,11 @@ if ($mode === 'xss') {
         'plugin_grcmanager_riskindicators_id' => $out['kri'], 'value_date' => date('Y-m-d'), 'value' => 12,
         'status' => 'red', 'comment' => $canary,
     ]);
+    // Deuxième relevé : la courbe de tendance de la fiche s'affiche (libellés et unité piégés).
+    $insert('riskindicatorvalues', [
+        'plugin_grcmanager_riskindicators_id' => $out['kri'], 'value_date' => date('Y-m-d', strtotime('-1 day')),
+        'value' => 4, 'status' => 'green', 'comment' => $canary,
+    ]);
     $DB->updateOrInsert('glpi_plugin_grcmanager_riskappetites', [
         'category' => 'process', 'appetite_level' => 'low', 'tolerance_level' => 'low', 'statement' => $canary,
     ], ['category' => 'process']);
@@ -154,8 +159,32 @@ if ($mode === 'xss') {
         'plugin_grcmanager_businessprocesses_id' => $out['process'], 'itemtype' => 'Computer',
         'items_id' => (int) $ids['computer_A'], 'comment' => $canary,
     ]);
+    // Issue #377, deuxième étape : processus amont, role du lien, risque lie et son commentaire.
+    $upstream = $insert('businessprocesses', ['name' => $canary, 'description' => $canary, 'rto_hours' => 24]);
+    $insert('businessprocesses_businessprocesses', [
+        'plugin_grcmanager_businessprocesses_id' => $out['process'],
+        'plugin_grcmanager_businessprocesses_id_upstream' => $upstream, 'comment' => $canary,
+    ]);
+    $insert('businessprocesses_risks', [
+        'plugin_grcmanager_businessprocesses_id' => $out['process'],
+        'plugin_grcmanager_risks_id' => (int) $ids['risk'], 'comment' => $canary,
+    ]);
+    // Issue #377, troisième étape : stratégie de reprise et commentaire d'un test mesuré.
+    $update('businessprocesses', [
+        'degraded_mode' => $canary, 'backup_solution' => $canary, 'recovery_procedure' => $canary,
+    ], $out['process']);
+    $insert('businessprocessrecoveries', [
+        'plugin_grcmanager_businessprocesses_id' => $out['process'], 'test_date' => date('Y-m-d'),
+        'measured_minutes' => 90, 'comment' => $canary,
+    ]);
     // Issue #145 : nom du document de preuve, affiché par l'onglet et la liste des validités.
     $DB->update('glpi_documents', ['name' => $canary], ['id' => (int) $ids['document_A']]);
+    // Issue #380 : nom de la preuve envoyée depuis le formulaire, citée par un test (onglet).
+    $DB->update('glpi_documents', ['name' => $canary], ['id' => (int) $ids['evidence_upload']]);
+    $insert('controltests', [
+        'plugin_grcmanager_controls_id' => (int) $ids['control'], 'test_date' => date('Y-m-d'),
+        'result' => 'effective', 'documents_id' => (int) $ids['evidence_upload'],
+    ]);
     echo json_encode($out), "\n";
     exit(0);
 }
@@ -249,7 +278,7 @@ $manager = $userId('iso-gestionnaire', $a, $profileId('Securite ISO - gestionnai
     'plugin_grcmanager_continuity'       => ALLSTANDARDRIGHT,
     'plugin_grcmanager_securityincident' => ALLSTANDARDRIGHT | CommonITILObject::READALL | CommonITILObject::READMY,
     'computer' => READ, 'contract' => READ, 'supplier' => READ, 'user' => READ, 'document' => READ,
-    'software' => READ, 'dashboard' => READ,
+    'software' => READ, 'dashboard' => READ, 'appliance' => READ,
 ]));
 $reader = $userId('iso-lecteur', $a, $profileId('Securite ISO - lecteur A', [
     'plugin_grcmanager'                  => READ,
@@ -258,7 +287,7 @@ $reader = $userId('iso-lecteur', $a, $profileId('Securite ISO - lecteur A', [
     'plugin_grcmanager_continuity'       => READ,
     'plugin_grcmanager_securityincident' => CommonITILObject::READALL,
     'computer' => READ, 'contract' => READ, 'supplier' => READ, 'user' => READ, 'software' => READ,
-    'dashboard' => READ,
+    'dashboard' => READ, 'appliance' => READ,
 ]));
 
 // Sans droit : aucun droit sur le plugin, chaque page doit lui être refusée. Il lit les
@@ -272,8 +301,14 @@ $noRight = $userId('iso-sans-droit', $a, $profileId('Securite ISO - sans droit',
     'plugin_grcmanager_securityincident' => 0,
     'computer'                           => READ,
     'software'                           => READ,
+    // Issue #377 : lit aussi les applications et les fournisseurs, dont les onglets du plugin
+    // (classification, processus métier) ne lui montrent rien.
+    'appliance'                          => READ,
+    'supplier'                           => READ,
     // Issue #143 : voit les tableaux de bord, pas les cartes du plugin.
     'dashboard'                          => READ,
+    // Issue #380 : lit les documents de son entité, sauf la preuve d'une mesure qu'il ne lit pas.
+    'document'                           => READ,
 ]));
 
 // Registres sensibles : tout le SMSI en gestion, mais pas le droit dédié (risques, vulnérabilités du
@@ -303,7 +338,9 @@ $controlId = (int) $control['id'];
 $supplier = $add(new Supplier(), [
     'name' => 'Fournisseur securite ' . uniqid(), 'entities_id' => 0, 'is_recursive' => 1,
 ]);
-$ids = ['a' => $a, 'b' => $b, 'manager' => $manager, 'reader' => $reader, 'control' => $controlId];
+$ids = [
+    'a' => $a, 'b' => $b, 'manager' => $manager, 'reader' => $reader, 'control' => $controlId, 'supplier' => $supplier,
+];
 foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
     $ids['incident_' . $suffix] = $add(new PluginGrcmanagerSecurityIncident(), [
         'name'        => 'Incident securite ' . $suffix,
@@ -325,6 +362,10 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
     ]);
     $add(new Contract_Supplier(), ['contracts_id' => $contract, 'suppliers_id' => $supplier]);
     $ids['computer_' . $suffix] = $add(new Computer(), ['name' => 'PC securite ' . $suffix, 'entities_id' => $entity]);
+    // Issue #377, troisième étape : application classable (RTO) de l'entité.
+    $ids['appliance_' . $suffix] = $add(new Appliance(), [
+        'name' => 'Application securite ' . $suffix, 'entities_id' => $entity,
+    ]);
     // Issue #378 : indicateur de risque de l'entité.
     $ids['kri_' . $suffix] = $add(new \GlpiPlugin\Grcmanager\RiskIndicator(), [
         'name' => 'KRI securite ' . $suffix, 'entities_id' => $entity,
@@ -431,6 +472,42 @@ $DB->insert('glpi_plugin_grcmanager_businessprocesses_items', [
     'plugin_grcmanager_businessprocesses_id' => $ids['process_A'],
     'itemtype' => 'Computer', 'items_id' => $ids['computer_B'], 'comment' => 'Serveur B',
 ]);
+// Issue #377, deuxième étape : le processus de A dépend de celui de B (jamais nommé pour un profil
+// limité à A), et le risque est lié aux deux processus.
+$DB->insert('glpi_plugin_grcmanager_businessprocesses_businessprocesses', [
+    'plugin_grcmanager_businessprocesses_id' => $ids['process_A'],
+    'plugin_grcmanager_businessprocesses_id_upstream' => $ids['process_B'], 'comment' => 'Amont B',
+]);
+foreach (['A', 'B'] as $suffix) {
+    $DB->insert('glpi_plugin_grcmanager_businessprocesses_risks', [
+        'plugin_grcmanager_businessprocesses_id' => $ids['process_' . $suffix],
+        'plugin_grcmanager_risks_id' => (int) $ids['risk'],
+    ]);
+    // Issue #377, troisième étape : stratégie de reprise et test mesuré, historisé sur le processus,
+    // pour que le contrôle commun des restes après désinstallation voie aussi ce journal.
+    (new \GlpiPlugin\Grcmanager\BusinessProcess())->update([
+        'id' => $ids['process_' . $suffix], 'degraded_mode' => 'Mode degrade ' . $suffix,
+    ]);
+    $add(new \GlpiPlugin\Grcmanager\BusinessProcessRecovery(), [
+        'plugin_grcmanager_businessprocesses_id' => $ids['process_' . $suffix],
+        'measured_minutes' => 300, 'comment' => 'Test de reprise ' . $suffix,
+    ]);
+    $DB->insert('glpi_plugin_grcmanager_businessprocesses_items', [
+        'plugin_grcmanager_businessprocesses_id' => $ids['process_' . $suffix],
+        'itemtype' => 'Appliance', 'items_id' => $ids['appliance_' . $suffix], 'comment' => 'Application ' . $suffix,
+    ]);
+    $add(new \GlpiPlugin\Grcmanager\AssetClassification(), [
+        'itemtype' => 'Appliance', 'items_id' => $ids['appliance_' . $suffix], 'availability' => 'high',
+        'rto_hours' => 24, 'rpo_hours' => 4,
+    ]);
+}
+// Issue #377, quatrième étape : BIA échue du processus de A, rappelée par la tâche planifiée (message
+// en file d'attente si l'envoi est actif), pour que le contrôle des restes après désinstallation porte
+// aussi sur ces rappels.
+$DB->update('glpi_plugin_grcmanager_businessprocesses', [
+    'bia_date' => date('Y-m-d', strtotime('-400 days')), 'users_id' => $manager,
+], ['id' => $ids['process_A']]);
+\GlpiPlugin\Grcmanager\BusinessProcessReminder::run(date('Y-m-d'));
 
 $ids['breachexposure'] = (int) current(
     (new \GlpiPlugin\Grcmanager\BreachExposure())->find($exposure, [], 1)
@@ -449,6 +526,10 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
         ]);
     }
     $ids['processing_' . $suffix] = (int) $processing->getID();
+    // Analyse d'impact historisée : le contrôle commun des restes doit voir son journal nettoyé.
+    if ($suffix === 'A' && \GlpiPlugin\Grcmanager\Dpia::forActivity($ids['processing_A']) === null) {
+        \GlpiPlugin\Grcmanager\Dpia::saveForm($ids['processing_A'], ['necessity' => 'Necessite fictive']);
+    }
 
     $dsr = new \GlpiPlugin\Grcmanager\DataSubjectRequest();
     if (!$dsr->getFromDBByCrit(['name' => 'Demande securite ' . $suffix])) {
@@ -460,5 +541,24 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
     }
     $ids['dsr_' . $suffix] = (int) $dsr->getID();
 }
+
+// Issue #380, troisième étape : preuve envoyée depuis le formulaire d'un test, par le même chemin
+// (type réel vérifié, document de la mesure au registre des documents restreints), puis rangée dans
+// l'entité A : seuls ceux qui lisent la mesure la lisent, pas un simple droit Documents dans A.
+$evidenceFile = tempnam(sys_get_temp_dir(), 'grc');
+file_put_contents($evidenceFile, "%PDF-1.4\n1 0 obj << /Type /Catalog >> endobj\ntrailer << /Root 1 0 R >>\n%%EOF\n");
+$evidenceControl = new \GlpiPlugin\Grcmanager\Control();
+$evidenceControl->getFromDB($controlId);
+$ids['evidence_upload'] = \GlpiPlugin\Grcmanager\ControlTest::storeEvidenceFile(
+    $evidenceControl,
+    $evidenceFile,
+    'Preuve envoyee securite.pdf'
+);
+unlink($evidenceFile);
+if ($ids['evidence_upload'] <= 0) {
+    fwrite(STDERR, "Envoi de la preuve impossible\n");
+    exit(1);
+}
+$DB->update('glpi_documents', ['entities_id' => $a], ['id' => $ids['evidence_upload']]);
 
 echo json_encode($ids), "\n";

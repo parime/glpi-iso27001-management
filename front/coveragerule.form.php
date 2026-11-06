@@ -15,8 +15,6 @@
  * -------------------------------------------------------------------------
  */
 
-include('../../../inc/includes.php');
-
 $item = new \GlpiPlugin\Grcmanager\CoverageRule();
 
 if (isset($_POST['add'])) {

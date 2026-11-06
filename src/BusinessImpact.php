@@ -158,6 +158,7 @@ class BusinessImpact extends BusinessImpactBase
             'issues'        => BusinessProcess::getIssueLabels(),
             'can_edit'      => $item->canUpdateItem(),
             'form_url'      => self::getFormURL(),
+            'report_url'    => BusinessProcess::getContinuityReportURL((int) $item->getID()),
         ]);
 
         return true;

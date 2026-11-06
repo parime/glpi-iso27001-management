@@ -17,8 +17,6 @@
 
 use GlpiPlugin\Grcmanager\Services\Control\ControlCsvImportService;
 
-include('../../../inc/includes.php');
-
 // ROADMAP.md "Version 1.5" (import/export de la SoA au format standard) : contrairement au CSV
 // natif de Search::showList() (colonne "Contrôle" combinant code+intitulé, libellés non pensés
 // pour un aller-retour), ce contrôleur produit/lit un CSV dédié dont les colonnes sont conçues

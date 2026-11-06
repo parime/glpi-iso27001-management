@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace GlpiPlugin\Grcmanager\Services\Dashboard;
 
 use Glpi\DBAL\QueryExpression;
+use GlpiPlugin\Grcmanager\Services\Risk\KriRules;
 
 /**
  * Data providers for the plugin's `Hooks::DASHBOARD_CARDS` entries (registered in
@@ -916,6 +917,33 @@ final class DashboardCardService
     }
 
     /**
+     * Issue #378 : nombre de KRI au rouge et à l'orange à la fin de chaque mois, sur douze mois,
+     * pour la direction. Seulement les KRI visibles de l'utilisateur (entités et règle des sources
+     * automatiques, RiskIndicator::getSystemSQLCriteria()).
+     *
+     * @param array<string, mixed> $params
+     * @return array<string, mixed>
+     */
+    public static function riskIndicatorsTrend(array $params = []): array
+    {
+        $months = KriRules::lastMonths(date('Y-m-d'));
+        $counts = KriRules::monthlyStatusCounts(\GlpiPlugin\Grcmanager\RiskIndicator::visibleValuesByKri(), $months);
+        $labels = \GlpiPlugin\Grcmanager\RiskIndicator::getStatuses();
+
+        return [
+            'data'  => [
+                'labels' => $months,
+                'series' => [
+                    ['name' => $labels[KriRules::RED], 'data' => array_column($counts, 'red')],
+                    ['name' => $labels[KriRules::ORANGE], 'data' => array_column($counts, 'orange')],
+                ],
+            ],
+            'label' => $params['label'] ?? __('Risk indicators (KRI) in the red and orange by month', 'grcmanager'),
+            'icon'  => 'ti ti-chart-line',
+        ];
+    }
+
+    /**
      * Issue #378 : KRI actifs au rouge, dans les entités de l'utilisateur.
      *
      * @param array<string, mixed> $params
@@ -930,6 +958,46 @@ final class DashboardCardService
             ]),
             'label'  => $params['label'] ?? __('Risk indicators (KRI) in the red', 'grcmanager'),
             'icon'   => 'ti ti-alert-octagon',
+        ];
+    }
+
+    /**
+     * Issue #377 : processus métier sans BIA, ou dont la BIA est à revoir depuis son échéance, dans
+     * les entités de l'utilisateur (droit de la continuité vérifié par SecuredDashboardCards).
+     *
+     * @param array<string, mixed> $params
+     * @return array<string, mixed>
+     */
+    public static function businessProcessesBiaDueCount(array $params = []): array
+    {
+        $counts = \GlpiPlugin\Grcmanager\BusinessProcessReminder::dashboardCounts(date('Y-m-d'));
+
+        return [
+            'number' => $counts['bia_due'],
+            'url'    => \GlpiPlugin\Grcmanager\BusinessProcess::getSearchURL(),
+            'label'  => $params['label']
+                ?? __('Business processes without a BIA or with an overdue BIA', 'grcmanager'),
+            'icon'   => 'ti ti-calendar-exclamation',
+        ];
+    }
+
+    /**
+     * Issue #377 : processus métier dont le dernier test de reprise a dépassé le RTO, dans les
+     * entités de l'utilisateur.
+     *
+     * @param array<string, mixed> $params
+     * @return array<string, mixed>
+     */
+    public static function businessProcessesRecoveryAboveRtoCount(array $params = []): array
+    {
+        $counts = \GlpiPlugin\Grcmanager\BusinessProcessReminder::dashboardCounts(date('Y-m-d'));
+
+        return [
+            'number' => $counts['recovery_above_rto'],
+            'url'    => \GlpiPlugin\Grcmanager\BusinessProcess::getSearchURL(),
+            'label'  => $params['label']
+                ?? __('Business processes whose last recovery test exceeded the RTO', 'grcmanager'),
+            'icon'   => 'ti ti-clock-exclamation',
         ];
     }
 }

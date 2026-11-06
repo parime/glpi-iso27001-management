@@ -15,8 +15,6 @@
  * -------------------------------------------------------------------------
  */
 
-include('../../../inc/includes.php');
-
 $item = new \GlpiPlugin\Grcmanager\Control();
 
 if (isset($_POST['add'])) {

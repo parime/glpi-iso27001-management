@@ -31,7 +31,10 @@ final class PilotageCardsTest extends GrcmanagerIntegrationTestCase
     public function testEveryCardReturnsAUsableValue(): void
     {
         $framework = SecuredDashboardCards::complianceByFramework();
-        $this->assertSame(['ISO 27001', 'NIS2', 'ANSSI', 'NIST CSF 2.0'], array_column($framework['data'], 'label'));
+        $this->assertSame(
+            ['ISO 27001', 'NIS2', 'ANSSI', 'NIST CSF 2.0', 'CIS Controls v8'],
+            array_column($framework['data'], 'label')
+        );
         foreach ($framework['data'] as $entry) {
             $this->assertGreaterThanOrEqual(0, $entry['number']);
             $this->assertLessThanOrEqual(100, $entry['number']);
@@ -39,7 +42,7 @@ final class PilotageCardsTest extends GrcmanagerIntegrationTestCase
         foreach (
             ['upcomingComplianceDeadlines', 'accessReviewProgress', 'securityIncidentRegulatoryDeadlines',
                 'supplierQuestionnaireAverage', 'periodicReviewsOverdue', 'criticalSuppliersWithoutAssessment',
-                'accessReviewLateReviewers', 'trainingRetakeParticipants'] as $card
+                'accessReviewLateReviewers', 'trainingRetakeParticipants', 'overdueControlTests'] as $card
         ) {
             $result = SecuredDashboardCards::$card();
             $this->assertIsInt($result['number'], $card);
@@ -199,7 +202,8 @@ final class PilotageCardsTest extends GrcmanagerIntegrationTestCase
             'FROM'  => \Glpi\Dashboard\Item::getTable(),
             'WHERE' => ['dashboards_dashboards_id' => $dashboard->fields['id']],
         ]), false);
-        $this->assertCount(15, $items); // Issue #378 : 4 cartes (appétence, tolérance, KRI).
+        // Issue #378 : 4 cartes (appétence, tolérance, KRI), puis la tendance des KRI.
+        $this->assertCount(16, $items);
         foreach ($items as $item) {
             $this->assertArrayHasKey($item['card_id'], $cards, $item['card_id']);
         }

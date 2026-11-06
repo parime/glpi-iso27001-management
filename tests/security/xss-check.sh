@@ -71,6 +71,16 @@ check "front/businessprocess.php"              "$P/businessprocess.php"
 check "onglet BIA d'un processus"              "$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessImpact$1' "$(xid process)")"
 check "onglet dependances d'un processus"      "$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessProcessItem$1' "$(xid process)")"
 check "onglet processus metier d'un ordinateur" "$(tab Computer 'GlpiPlugin%5CGrcmanager%5CBusinessProcessItem$1' "$(id computer_A)")"
+# Issue #377, deuxieme etape : processus lies, risques d'un processus, processus d'un risque.
+check "onglet processus lies d'un processus"   "$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessProcessLink$1' "$(xid process)")"
+check "onglet risques d'un processus"          "$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessProcessRisk$1' "$(xid process)")"
+check "onglet processus metier d'un risque"    "$(tab GlpiPlugin%5CGrcmanager%5CRisk 'GlpiPlugin%5CGrcmanager%5CBusinessProcessRisk$1' "$(id risk)")"
+# Issue #377, troisieme etape : strategie de reprise et tests mesures ; classification d'une application.
+check "onglet strategie de reprise d'un processus" "$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessProcessRecovery$1' "$(xid process)")"
+check "onglet classification d'une application" "$(tab Appliance 'GlpiPlugin%5CGrcmanager%5CAssetClassification$1' "$(id appliance_A)")"
+# Issue #377, quatrieme etape : carte des dependances (noms piege du processus, du processus amont et
+# de l'ordinateur, passes au graphe par un attribut echappe).
+check "onglet carte des dependances d'un processus" "$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessProcessLink$2' "$(xid process)")"
 check "onglet validites des preuves"          "$(tab 'GlpiPlugin%5CGrcmanager%5CPolicy' 'GlpiPlugin%5CGrcmanager%5CEvidence$1' "$(id policy_A)")"
 # Issue #380 : constat d'un test d'efficacite (onglet de la mesure).
 check "onglet tests d'efficacite d'un controle" "$(tab GlpiPlugin%5CGrcmanager%5CControl 'GlpiPlugin%5CGrcmanager%5CControlTest$1' "$(id control)")"

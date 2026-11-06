@@ -127,6 +127,30 @@ final class FrameworkConfigTest extends GrcmanagerIntegrationTestCase
         $this->assertStringContainsString('NIS2 ', (string) ob_get_clean(), 'réactivé : la correspondance revient');
     }
 
+    public function testCisScoreAndMappingFollowTheCisFramework(): void
+    {
+        // Issue #143 : A.8.13 (sauvegarde) relève du contrôle CIS 11.
+        $control = new Control();
+        $this->assertTrue($control->getFromDBByCrit(['code' => 'A.8.13']));
+        $render = static function () use ($control): string {
+            ob_start();
+            $control->showForm($control->getID());
+
+            return (string) ob_get_clean();
+        };
+
+        $this->assertStringContainsString('CIS 11', $render());
+        $this->assertContains('CIS Controls v8', array_column(PilotageCards::complianceByFramework()['data'], 'label'));
+
+        // Issue #418 : désactivé, ni score ni correspondance.
+        FrameworkConfig::save([FrameworkSelection::ISO27001, FrameworkSelection::NIS2]);
+        $this->assertStringNotContainsString('CIS 11', $render());
+        $this->assertNotContains(
+            'CIS Controls v8',
+            array_column(PilotageCards::complianceByFramework()['data'], 'label')
+        );
+    }
+
     public function testNoFrameworkHidesTheReferentialsPage(): void
     {
         FrameworkConfig::save([]);

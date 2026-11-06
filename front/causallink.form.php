@@ -15,8 +15,6 @@
  * -------------------------------------------------------------------------
  */
 
-include('../../../inc/includes.php');
-
 // Issue #171 : lien cause → conséquence (onglet « Effet domino »).
 $link = new \GlpiPlugin\Grcmanager\CausalLink();
 if (isset($_POST['add'])) {

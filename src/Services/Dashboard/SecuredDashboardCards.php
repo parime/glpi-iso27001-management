@@ -73,6 +73,11 @@ final class SecuredDashboardCards
         if (self::isIncidentCard($name)) {
             return self::incidentCardsAllowed();
         }
+        if (self::isContinuityCard($name)) {
+            // Issue #377 : processus métier, sous leur droit dédié (la carte des processus critiques
+            // est sensible), pas le droit général du SMSI.
+            return (bool) Session::haveRight('plugin_grcmanager_continuity', READ);
+        }
         if (self::isSensitiveCard($name)) {
             // Registres sensibles (risques, risques fournisseurs, plans de traitement, tendances) :
             // leur droit dédié, pas le seul droit général du SMSI.
@@ -100,7 +105,7 @@ final class SecuredDashboardCards
     private const FRAMEWORK_CARDS = [
         'complianceByFramework' => [
             FrameworkSelection::ISO27001, FrameworkSelection::NIS2,
-            FrameworkSelection::ANSSI, FrameworkSelection::NIST_CSF,
+            FrameworkSelection::ANSSI, FrameworkSelection::NIST_CSF, FrameworkSelection::CIS_CONTROLS,
         ],
     ];
 
@@ -137,6 +142,14 @@ final class SecuredDashboardCards
             return self::isIncidentCard($name) ? $incidents : self::canShow($name);
         });
     }
+    /**
+     * Issue #377 : carte tirée des processus métier (continuité).
+     */
+    public static function isContinuityCard(string $name): bool
+    {
+        return str_starts_with($name, 'businessProcess');
+    }
+
     /**
      * Carte tirée des registres sensibles : risques, risques fournisseurs, plans de traitement, et
      * tendances / indicateurs qui comptent les risques ouverts.
