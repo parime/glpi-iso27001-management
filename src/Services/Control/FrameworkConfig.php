@@ -143,6 +143,11 @@ final class FrameworkConfig
                     . 'to the AI risks, impact assessments and suppliers. Disabled by default.',
                 'grcmanager'
             ),
+            FrameworkSelection::PCI_DSS      => __(
+                'Payment cards: the twelve PCI DSS requirements, their references on the controls and links to '
+                    . 'network flows, vulnerabilities and access reviews. Disabled by default.',
+                'grcmanager'
+            ),
         ];
     }
 
