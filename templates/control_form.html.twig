@@ -75,6 +75,14 @@
       {% endset %}
       {{ fields.htmlField('', iso42001_html, __('ISO 42001 control groups', 'grcmanager'), {'full_width': true}) }}
    {% endif %}
+   {# Issue #379 : exigences PCI DSS, correspondance indicative établie par ce projet. #}
+   {% if pci_dss is not empty %}
+      {% set pci_dss_html %}
+         {% for c in pci_dss %}<span class="badge bg-lime-lt me-1">PCI DSS {{ c }}</span>{% endfor %}
+         {{ _self.referentials_hint(__('Indicative mapping made by this project: see', 'grcmanager'), referentials_url) }}
+      {% endset %}
+      {{ fields.htmlField('', pci_dss_html, __('PCI DSS requirements', 'grcmanager'), {'full_width': true}) }}
+   {% endif %}
    {% if anssi is not empty %}
       {% set anssi_html %}
          {% for m in anssi %}<span class="badge bg-teal-lt me-1" title="{{ m.title }}">{{ __('Measure %d', 'grcmanager')|format(m.number) }}</span>{% endfor %}

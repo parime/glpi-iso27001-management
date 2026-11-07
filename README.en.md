@@ -61,6 +61,10 @@ classification fields merged directly onto it.
   Annex A (A.2 to A.10) summarised and gathered by theme, mapped to ISO 27001 Annex A and to the
   plugin modules (typical AI risks, DPIA, record of processing, incidents, suppliers), references on
   the controls and ISO 42001 compliance rate. Complements ISO/IEC 27090 (AI security).
+- **PCI DSS v4.0.1 payment cards**, optional and disabled by default: the twelve principal
+  requirements summarised and gathered by objective, mapped to ISO 27001 Annex A and to the plugin
+  modules (network flows, account hygiene, vulnerabilities, access reviews, policies, trainings,
+  suppliers, risks, incidents), references on the controls and PCI DSS rate.
 - **Security of AI systems (ISO/IEC 27090:2026)**: sections of the standard mapped to Annex A, and
   typical AI risks (public AI services, prompt injection, data leaks, supply chain, poisoning,
   model theft, unlisted AI systems) to import into the register from the risk catalog.
@@ -111,7 +115,7 @@ classification fields merged directly onto it.
 
 **Steering**
 - Default ISMS dashboard and KPIs to add to GLPI dashboards, including compliance by framework
-  (ISO 27001, NIS2, ANSSI, NIST CSF, CIS Controls, and DORA, ISO 27701, ISO 22301, ISO 42001 when enabled), deadlines within 90 days, access review progress and NIS2 / GDPR
+  (ISO 27001, NIS2, ANSSI, NIST CSF, CIS Controls, and DORA, ISO 27701, ISO 22301, ISO 42001, PCI DSS when enabled), deadlines within 90 days, access review progress and NIS2 / GDPR
   deadlines at risk; GRC & Compliance > Dashboard menu, ISMS and Management views, monthly trend.
 - **Scored trainings**, in one or several sessions (trainer, location, score, pass threshold, retake,
   PDF report with attendance sheet, each participant's quiz copy restricted to the participant, the
@@ -271,6 +275,10 @@ and documentation only identifies the framework the plugin helps you track.
   numbers are used; themes and summaries are written by this project and the mapping to ISO 27001
   Annex A is indicative. This project is not affiliated with ISO or IEC:
   [iso.org](https://www.iso.org/standard/81230.html).
+- **PCI DSS v4.0.1**: standard protected by copyright (© PCI Security Standards Council). Only the
+  numbers of the twelve requirements are used; summaries and grouping are written by this project
+  and the mapping to ISO 27001 Annex A is indicative. This project is not affiliated with the PCI SSC:
+  [pcisecuritystandards.org](https://www.pcisecuritystandards.org/document_library/).
 - **ANSSI IT hygiene guide (42 measures)**: titles of the 42 measures and 10 themes reproduced
   from the guide "Renforcer la sécurité de son système d'information en 42 mesures", version 2.0
   of September 2017, published by

@@ -9448,3 +9448,18 @@ msgstr "Groupes de mesures de l'Annexe A, rassemblés par thème par ce projet. 
 
 msgid "ISO/IEC 42001:2023 is protected by copyright: only its Annex A group numbers are used here; themes, summaries and the mapping to ISO 27001 Annex A are written by this project, which is not affiliated with ISO or IEC."
 msgstr "ISO/IEC 42001:2023 est protégée par le droit d'auteur : seuls les numéros des groupes de son Annexe A sont repris ici ; les thèmes, les résumés et la correspondance avec l'Annexe A d'ISO 27001 sont rédigés par ce projet, sans lien avec l'ISO ni la CEI."
+
+msgid "Payment cards: the twelve PCI DSS requirements, their references on the controls and links to network flows, vulnerabilities and access reviews. Disabled by default."
+msgstr "Cartes de paiement : les douze exigences PCI DSS, leurs références sur les mesures et liens vers les flux réseau, vulnérabilités et revues des accès. Désactivé par défaut."
+
+msgid "PCI DSS requirements"
+msgstr "Exigences PCI DSS"
+
+msgid "PCI DSS v4.0.1: Payment card data security"
+msgstr "PCI DSS v4.0.1 : sécurité des données de cartes de paiement"
+
+msgid "The twelve principal requirements, gathered by objective by this project. The last column links to the modules of this plugin that already help meet them."
+msgstr "Les douze exigences principales, rassemblées par objectif par ce projet. La dernière colonne renvoie vers les modules de ce plugin qui aident déjà à les satisfaire."
+
+msgid "PCI DSS is protected by copyright (PCI Security Standards Council): only its requirement numbers are used here; summaries, grouping and the mapping to ISO 27001 Annex A are written by this project, which is not affiliated with the PCI SSC."
+msgstr "PCI DSS est protégé par le droit d'auteur (PCI Security Standards Council) : seuls ses numéros d'exigences sont repris ici ; les résumés, le regroupement et la correspondance avec l'Annexe A d'ISO 27001 sont rédigés par ce projet, sans lien avec le PCI SSC."
