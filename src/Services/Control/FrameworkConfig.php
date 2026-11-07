@@ -138,6 +138,11 @@ final class FrameworkConfig
                     . 'to crisis exercises, risks and reviews. Disabled by default.',
                 'grcmanager'
             ),
+            FrameworkSelection::ISO42001     => __(
+                'AI management (AIMS): ISO/IEC 42001 control groups, their references on the controls and links '
+                    . 'to the AI risks, impact assessments and suppliers. Disabled by default.',
+                'grcmanager'
+            ),
         ];
     }
 

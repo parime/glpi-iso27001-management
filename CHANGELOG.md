@@ -7,6 +7,20 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Added
+
+- **Management de l'IA ISO/IEC 42001:2023** (issue #379) : référentiel optionnel, désactivé par
+  défaut. Les neuf groupes de mesures de l'Annexe A (A.2 à A.10), résumés par le projet sans le
+  texte de la norme et rassemblés en trois thèmes. Carte dans Référentiels avec liens vers les
+  modules qui y répondent (catalogue des risques types d'IA, AIPD, registre, incidents,
+  fournisseurs), badges « ISO 42001 » sur les mesures et taux de conformité dans les tableaux de
+  bord.
+
+### Changed
+
+- Les cartes ISO 27701, ISO 22301 et ISO 42001 de la page Référentiels partagent un même gabarit
+  Twig et un même constructeur.
+
 ## [2.32.0] - 2026-11-07
 
 ### Added

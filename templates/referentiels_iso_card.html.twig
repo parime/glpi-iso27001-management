@@ -1,0 +1,62 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+
+{# Issue #379 : carte d'une norme ISO dont seuls les numéros sont repris (ISO 27701, 22301, 42001).
+   Variables : card_id, title, intro, footer, source, badge_class et groups, une liste de
+   {code, title, open, rows: [{code, text, controls: [{code, id}], modules: [{label, url}]}]}. #}
+<div class="card mb-3">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <h3 class="card-title mb-0">{{ title }}</h3>
+    <input type="search" class="form-control form-control-sm w-auto grcmanager-ref-filter"
+           data-target="grcmanager-{{ card_id }}-body" placeholder="{{ __('Filter…', 'grcmanager') }}">
+  </div>
+  <div class="card-body" id="grcmanager-{{ card_id }}-body">
+    <p class="text-muted small">{{ intro }}</p>
+    {% for group in groups %}
+      <details class="mb-2"{% if group.open %} open{% endif %}>
+        <summary class="fw-bold">{% if group.code %}{{ group.code }} - {% endif %}{{ group.title }}</summary>
+        <table class="table table-sm ms-3 mt-2">
+          <tbody>
+            {% for row in group.rows %}
+              <tr>
+                <td class="text-nowrap"><code>{{ row.code }}</code></td>
+                <td>{{ row.text }}</td>
+                <td>
+                  {% for control in row.controls %}
+                    {% if control.id %}
+                      <a class="badge bg-azure-lt" href="{{ path('/plugins/grcmanager/front/control.form.php') }}?id={{ control.id }}">{{ control.code }}</a>
+                    {% else %}
+                      <span class="badge bg-azure-lt">{{ control.code }}</span>
+                    {% endif %}
+                  {% endfor %}
+                </td>
+                <td>
+                  {% for module in row.modules %}
+                    <a class="badge {{ badge_class }} text-nowrap" href="{{ module.url }}"><i class="ti ti-arrow-right me-1"></i>{{ module.label }}</a>
+                  {% endfor %}
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </details>
+    {% endfor %}
+  </div>
+  <div class="card-footer text-muted small">
+    <i class="ti ti-license me-1"></i>
+    {{ footer }}
+    <a href="{{ source }}" target="_blank" rel="noopener noreferrer">iso.org</a>
+  </div>
+</div>

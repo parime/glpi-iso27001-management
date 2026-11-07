@@ -26,6 +26,8 @@ use GlpiPlugin\Grcmanager\Services\Control\Iso27090CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\DoraCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\Iso22301CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\Iso27701CatalogDefaults;
+use GlpiPlugin\Grcmanager\Services\Control\Iso42001CatalogDefaults;
+use GlpiPlugin\Grcmanager\RiskCatalog;
 use GlpiPlugin\Grcmanager\Audit;
 use GlpiPlugin\Grcmanager\CrisisExercise;
 use GlpiPlugin\Grcmanager\ManagementReview;
@@ -196,7 +198,7 @@ foreach (AnssiHygieneCatalogDefaults::THEMES as $themeCode => $themeTitle) {
     $anssi[] = ['code' => $themeCode, 'title' => $themeTitle[$nis2Lang], 'measures' => $measures];
 }
 
-// Issue #379 : modules du plugin cités par ISO 27701 et ISO 22301, liés seulement si l'utilisateur
+// Issue #379 : modules du plugin cités par ISO 27701, 22301 et 42001, liés seulement si l'utilisateur
 // peut les ouvrir.
 $moduleClasses = [
     'processing' => ProcessingActivity::class,
@@ -208,6 +210,7 @@ $moduleClasses = [
     'exercises'  => CrisisExercise::class,
     'audits'     => Audit::class,
     'reviews'    => ManagementReview::class,
+    'riskcatalog' => RiskCatalog::class,
 ];
 /**
  * @param list<string> $keys
@@ -225,51 +228,49 @@ $moduleLinks = static function (array $keys) use ($moduleClasses): array {
     return $links;
 };
 
-// Issue #379 : ISO/IEC 27701:2025 (vie privée), objectifs résumés par ce projet (texte de la norme
-// protégé), correspondance Annexe A indicative et liens vers les modules RGPD qui y répondent.
-$iso27701 = [];
-foreach (Iso27701CatalogDefaults::TABLES as $table => $tableTitle) {
-    $objectives = [];
-    foreach (Iso27701CatalogDefaults::OBJECTIVES as $code => $objective) {
-        if ($objective['table'] !== $table) {
-            continue;
+/**
+ * Issue #379 : groupes d'une norme ISO dont seuls les numéros sont repris (27701, 22301, 42001) :
+ * objet résumé par ce projet, correspondance Annexe A indicative, liens vers les modules.
+ *
+ * @param array<int|string, array{fr: string, en: string}> $groups
+ * @param array<int|string, array{fr: string, en: string, annex_a: list<string>, modules: list<string>}> $items
+ * @return list<array{code: string, title: string, open: bool, rows: list<array<string, mixed>>}>
+ */
+$isoGroups = static function (
+    array $groups,
+    array $items,
+    string $groupField,
+    bool $showGroupCode,
+    ?string $openGroup = null
+) use ($idsByCode, $nis2Lang, $moduleLinks): array {
+    $result = [];
+    foreach ($groups as $group => $groupTitle) {
+        $rows = [];
+        foreach ($items as $code => $item) {
+            if ((string) $item[$groupField] !== (string) $group) {
+                continue;
+            }
+            $controls = [];
+            foreach ($item['annex_a'] as $annexACode) {
+                $controls[] = ['code' => $annexACode, 'id' => $idsByCode[$annexACode] ?? null];
+            }
+            $rows[] = [
+                'code'     => (string) $code,
+                'text'     => $item[$nis2Lang],
+                'controls' => $controls,
+                'modules'  => $moduleLinks($item['modules']),
+            ];
         }
-        $controls = [];
-        foreach ($objective['annex_a'] as $annexACode) {
-            $controls[] = ['code' => $annexACode, 'id' => $idsByCode[$annexACode] ?? null];
-        }
-        $objectives[] = [
-            'code'     => $code,
-            'text'     => $objective[$nis2Lang],
-            'controls' => $controls,
-            'modules'  => $moduleLinks($objective['modules']),
+        $result[] = [
+            'code'  => $showGroupCode ? (string) $group : '',
+            'title' => $groupTitle[$nis2Lang],
+            'open'  => $openGroup !== null && (string) $group === $openGroup,
+            'rows'  => $rows,
         ];
     }
-    $iso27701[] = ['table' => $table, 'title' => $tableTitle[$nis2Lang], 'objectives' => $objectives];
-}
 
-// Issue #379 : ISO 22301:2019 (continuité d'activité), articles résumés par ce projet (texte de la
-// norme protégé), correspondance Annexe A indicative et liens vers les modules qui y répondent.
-$iso22301 = [];
-foreach (Iso22301CatalogDefaults::CLAUSES as $clause => $clauseTitle) {
-    $requirements = [];
-    foreach (Iso22301CatalogDefaults::REQUIREMENTS as $code => $requirement) {
-        if ($requirement['clause'] !== (string) $clause) {
-            continue;
-        }
-        $controls = [];
-        foreach ($requirement['annex_a'] as $annexACode) {
-            $controls[] = ['code' => $annexACode, 'id' => $idsByCode[$annexACode] ?? null];
-        }
-        $requirements[] = [
-            'code'     => $code,
-            'text'     => $requirement[$nis2Lang],
-            'controls' => $controls,
-            'modules'  => $moduleLinks($requirement['modules']),
-        ];
-    }
-    $iso22301[] = ['clause' => (string) $clause, 'title' => $clauseTitle[$nis2Lang], 'requirements' => $requirements];
-}
+    return $result;
+};
 
 // ISO/IEC 27090:2026 (sécurité des systèmes d'IA) : numéros de section et objet résumé par ce
 // projet (texte de la norme protégé), correspondance Annexe A indicative.
@@ -301,10 +302,28 @@ foreach (Iso27090CatalogDefaults::CHAPTERS as $chapter => $chapterTitle) {
     'nis2_source'  => Nis2CatalogDefaults::SOURCE_URL,
     'dora'         => $isEnabled(FrameworkSelection::DORA) ? $dora : [],
     'dora_source'  => DoraCatalogDefaults::SOURCE_URL,
-    'iso27701'        => $isEnabled(FrameworkSelection::ISO27701) ? $iso27701 : [],
+    'iso27701'        => $isEnabled(FrameworkSelection::ISO27701) ? $isoGroups(
+        Iso27701CatalogDefaults::TABLES,
+        Iso27701CatalogDefaults::OBJECTIVES,
+        'table',
+        true
+    ) : [],
     'iso27701_source' => Iso27701CatalogDefaults::SOURCE_URL,
-    'iso22301'        => $isEnabled(FrameworkSelection::ISO22301) ? $iso22301 : [],
+    'iso22301'        => $isEnabled(FrameworkSelection::ISO22301) ? $isoGroups(
+        Iso22301CatalogDefaults::CLAUSES,
+        Iso22301CatalogDefaults::REQUIREMENTS,
+        'clause',
+        true,
+        '8'
+    ) : [],
     'iso22301_source' => Iso22301CatalogDefaults::SOURCE_URL,
+    'iso42001'        => $isEnabled(FrameworkSelection::ISO42001) ? $isoGroups(
+        Iso42001CatalogDefaults::THEMES,
+        Iso42001CatalogDefaults::OBJECTIVES,
+        'theme',
+        false
+    ) : [],
+    'iso42001_source' => Iso42001CatalogDefaults::SOURCE_URL,
     'anssi'        => $isEnabled(FrameworkSelection::ANSSI) ? $anssi : [],
     'anssi_source' => AnssiHygieneCatalogDefaults::SOURCE_URL,
     'anssi_lang'   => $nis2Lang,
