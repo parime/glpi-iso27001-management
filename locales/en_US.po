@@ -9549,3 +9549,22 @@ msgstr "Wazuh coverage"
 #, php-format
 msgid "Computers covered by Wazuh (%)"
 msgstr "Computers covered by Wazuh (%)"
+
+msgid "Also detected by the Wazuh agents"
+msgstr "Also detected by the Wazuh agents"
+
+#, php-format
+msgid "Wazuh: %d computer(s)"
+msgstr "Wazuh: %d computer(s)"
+
+msgid "Detected by Wazuh only"
+msgstr "Detected by Wazuh only"
+
+msgid "Wazuh reports no vulnerability beyond those listed above."
+msgstr "Wazuh reports no vulnerability beyond those listed above."
+
+msgid "Vulnerabilities seen by the Wazuh agents on your computers and not found by the software watch. Read only, from the Wazuh plugin."
+msgstr "Vulnerabilities seen by the Wazuh agents on your computers and not found by the software watch. Read only, from the Wazuh plugin."
+
+msgid "Packages"
+msgstr "Packages"
