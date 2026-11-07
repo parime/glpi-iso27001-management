@@ -15,7 +15,7 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   score, signaux KEV et EPSS déjà connus), une ligne par CVE. Lecture seule, carte absente sans le
   plugin Wazuh.
 
-## [2.36.0] - 2026-11-08
+## [2.37.0] - 2026-11-08
 
 ### Added
 
@@ -25,6 +25,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   tableau de bord « Ordinateurs couverts par Wazuh (%) », proposée seulement quand le plugin Wazuh
   est actif. Lecture seule, tolérante aux variations de schéma du plugin (bêta) : si une table ou
   une colonne manque, rien n'est affiché.
+
+## [2.36.0] - 2026-11-08
 
 ### Added
 
