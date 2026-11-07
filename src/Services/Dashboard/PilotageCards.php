@@ -30,6 +30,7 @@ use GlpiPlugin\Grcmanager\Services\Control\DoraCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\Iso22301CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\Iso27701CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\Iso42001CatalogDefaults;
+use GlpiPlugin\Grcmanager\Services\Control\PciDssCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\Nis2CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Maturity\MaturityScore;
 
@@ -75,6 +76,8 @@ final class PilotageCards
                 => Iso22301CatalogDefaults::requirementsForControl($code) !== []],
             'ISO 42001'    => [FrameworkSelection::ISO42001, static fn (string $code): bool
                 => Iso42001CatalogDefaults::objectivesForControl($code) !== []],
+            'PCI DSS'      => [FrameworkSelection::PCI_DSS, static fn (string $code): bool
+                => PciDssCatalogDefaults::requirementsForControl($code) !== []],
         ];
         $rates = [];
         foreach ($filters as $framework => [$key, $covers]) {

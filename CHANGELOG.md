@@ -7,6 +7,21 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Added
+
+- **Cartes de paiement PCI DSS v4.0.1** (issue #379) : référentiel optionnel, désactivé par défaut.
+  Les douze exigences principales résumées par le projet sans le texte du standard et rassemblées
+  en six objectifs. Carte dans Référentiels avec liens vers les modules qui y répondent (flux
+  réseau, hygiène des comptes, vulnérabilités, revues des accès, politiques, formations,
+  fournisseurs, risques, incidents), badges « PCI DSS » sur les mesures et taux dans les tableaux
+  de bord.
+
+### Changed
+
+- ISO 22301 : l'analyse d'impact (8.2), le contexte (4.1) et l'amélioration (10.1) renvoient aussi
+  vers l'analyse d'impact d'une panne (points de défaillance uniques), les processus métier et les
+  non-conformités.
+
 ## [2.33.0] - 2026-11-07
 
 ### Added

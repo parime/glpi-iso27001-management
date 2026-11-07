@@ -27,6 +27,16 @@ use GlpiPlugin\Grcmanager\Services\Control\DoraCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\Iso22301CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\Iso27701CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\Iso42001CatalogDefaults;
+use GlpiPlugin\Grcmanager\Services\Control\PciDssCatalogDefaults;
+use GlpiPlugin\Grcmanager\AccessReview;
+use GlpiPlugin\Grcmanager\AccountHygiene;
+use GlpiPlugin\Grcmanager\BusinessProcess;
+use GlpiPlugin\Grcmanager\ImpactAnalysis;
+use GlpiPlugin\Grcmanager\NetworkFlow;
+use GlpiPlugin\Grcmanager\Nonconformity;
+use GlpiPlugin\Grcmanager\ParkVulnerability;
+use GlpiPlugin\Grcmanager\Policy;
+use GlpiPlugin\Grcmanager\Training;
 use GlpiPlugin\Grcmanager\RiskCatalog;
 use GlpiPlugin\Grcmanager\Audit;
 use GlpiPlugin\Grcmanager\CrisisExercise;
@@ -198,7 +208,7 @@ foreach (AnssiHygieneCatalogDefaults::THEMES as $themeCode => $themeTitle) {
     $anssi[] = ['code' => $themeCode, 'title' => $themeTitle[$nis2Lang], 'measures' => $measures];
 }
 
-// Issue #379 : modules du plugin cités par ISO 27701, 22301 et 42001, liés seulement si l'utilisateur
+// Issue #379 : modules du plugin cités par ISO 27701, 22301, 42001 et PCI DSS, liés seulement si l'utilisateur
 // peut les ouvrir.
 $moduleClasses = [
     'processing' => ProcessingActivity::class,
@@ -211,6 +221,15 @@ $moduleClasses = [
     'audits'     => Audit::class,
     'reviews'    => ManagementReview::class,
     'riskcatalog' => RiskCatalog::class,
+    'impactanalysis'   => ImpactAnalysis::class,
+    'businessprocesses' => BusinessProcess::class,
+    'nonconformities'  => Nonconformity::class,
+    'networkflows'     => NetworkFlow::class,
+    'accounthygiene'   => AccountHygiene::class,
+    'vulnerabilities'  => ParkVulnerability::class,
+    'accessreviews'    => AccessReview::class,
+    'policies'         => Policy::class,
+    'trainings'        => Training::class,
 ];
 /**
  * @param list<string> $keys
@@ -328,6 +347,13 @@ foreach (Iso27090CatalogDefaults::CHAPTERS as $chapter => $chapterTitle) {
         false
     ) : [],
     'iso42001_source' => Iso42001CatalogDefaults::SOURCE_URL,
+    'pci_dss'         => $isEnabled(FrameworkSelection::PCI_DSS) ? $isoGroups(
+        PciDssCatalogDefaults::GOALS,
+        PciDssCatalogDefaults::REQUIREMENTS,
+        'goal',
+        false
+    ) : [],
+    'pci_dss_source'  => PciDssCatalogDefaults::SOURCE_URL,
     'anssi'        => $isEnabled(FrameworkSelection::ANSSI) ? $anssi : [],
     'anssi_source' => AnssiHygieneCatalogDefaults::SOURCE_URL,
     'anssi_lang'   => $nis2Lang,

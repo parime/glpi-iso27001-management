@@ -48,7 +48,10 @@ final class Iso22301CatalogDefaults
     ];
 
     /** Modules du plugin qu'une exigence peut citer (liens résolus par front/referentiels.php). */
-    public const MODULES = ['risks', 'exercises', 'audits', 'reviews', 'incidents', 'suppliers'];
+    public const MODULES = [
+        'risks', 'exercises', 'audits', 'reviews', 'incidents', 'suppliers', 'impactanalysis',
+        'businessprocesses', 'nonconformities',
+    ];
 
     /**
      * Article => thème, objet résumé par ce projet (fr, en), mesures de l'Annexe A ISO 27001
@@ -63,7 +66,7 @@ final class Iso22301CatalogDefaults
             'fr'      => 'Connaître l\'organisation, ses activités, ses dépendances et ce qui peut les interrompre.',
             'en'      => 'Know the organisation, its activities, its dependencies and what could disrupt them.',
             'annex_a' => ['A.5.9', 'A.5.29'],
-            'modules' => ['risks'],
+            'modules' => ['businessprocesses', 'risks'],
         ],
         '4.2' => [
             'clause'  => '4',
@@ -118,7 +121,7 @@ final class Iso22301CatalogDefaults
             'en'      => 'Business impact analysis (tolerable downtime and data loss) and assessment of '
                 . 'disruption risks.',
             'annex_a' => ['A.5.29', 'A.5.30'],
-            'modules' => ['risks'],
+            'modules' => ['impactanalysis', 'risks'],
         ],
         '8.3' => [
             'clause'  => '8',
@@ -172,7 +175,7 @@ final class Iso22301CatalogDefaults
             'fr'      => 'Traiter les écarts et les causes des interruptions par des actions correctives.',
             'en'      => 'Handle nonconformities and the causes of disruptions with corrective actions.',
             'annex_a' => ['A.5.27'],
-            'modules' => ['incidents', 'audits'],
+            'modules' => ['nonconformities', 'incidents'],
         ],
     ];
 
