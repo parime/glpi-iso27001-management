@@ -70,6 +70,10 @@ archivé), avec ses champs de classification ISO 27001 fusionnés dessus.
   principales résumées et rassemblées par objectif, reliées à l'Annexe A ISO 27001 et aux modules du
   plugin (flux réseau, hygiène des comptes, vulnérabilités, revues des accès, politiques,
   formations, fournisseurs, risques, incidents), références sur les mesures et taux PCI DSS.
+- **SOC 2 (Trust Services Criteria 2017)**, optionnel et désactivé par défaut : critères communs CC1
+  à CC9 et critères complémentaires (disponibilité, confidentialité, intégrité du traitement, vie
+  privée) résumés, reliés à l'Annexe A ISO 27001 et aux modules qui produisent les preuves,
+  références sur les mesures et taux SOC 2.
 - **Sécurité des systèmes d'IA (ISO/IEC 27090:2026)** : sections de la norme reliées à l'Annexe A,
   et risques types d'IA (services d'IA publics, injection de prompt, fuite de données, chaîne
   d'approvisionnement, empoisonnement, vol de modèle, systèmes non inventoriés) à importer dans le
@@ -120,7 +124,7 @@ archivé), avec ses champs de classification ISO 27001 fusionnés dessus.
 
 **Pilotage**
 - Tableau de bord ISMS par défaut et indicateurs à ajouter aux tableaux de bord GLPI, dont la
-  conformité par référentiel (ISO 27001, NIS2, ANSSI, NIST CSF, CIS Controls, et DORA, ISO 27701, ISO 22301, ISO 42001, PCI DSS si activés), les échéances à 90 jours, la revue des accès
+  conformité par référentiel (ISO 27001, NIS2, ANSSI, NIST CSF, CIS Controls, et DORA, ISO 27701, ISO 22301, ISO 42001, PCI DSS, SOC 2 si activés), les échéances à 90 jours, la revue des accès
   et les délais NIS2 / RGPD en alerte ; menu GRC & Conformité > Tableau de bord, vues ISMS et
   Direction, tendance mensuelle.
 - **Formations notées**, en une ou plusieurs sessions (formateur, lieu, note, seuil de réussite,
@@ -314,6 +318,10 @@ du dépôt et dans la documentation indique uniquement le référentiel que le p
   Seuls les numéros des douze exigences sont repris ; résumés et regroupement sont rédigés par ce
   projet et la correspondance avec l'Annexe A ISO 27001 est indicative. Ce projet n'est pas affilié
   au PCI SSC : [pcisecuritystandards.org](https://www.pcisecuritystandards.org/document_library/).
+- **SOC 2 / Trust Services Criteria** : critères protégés par le droit d'auteur (© AICPA). Seuls
+  leurs identifiants sont repris ; les résumés sont rédigés par ce projet et la correspondance avec
+  l'Annexe A ISO 27001 est indicative (elle ne reprend pas celle de l'AICPA). Ce projet n'est pas
+  affilié à l'AICPA : [aicpa-cima.com](https://www.aicpa-cima.com/topic/audit-assurance/audit-and-assurance-greater-than-soc-2).
 - **Guide d'hygiène informatique de l'ANSSI (42 mesures)** : intitulés des 42 mesures et des
   10 thèmes reproduits d'après le guide « Renforcer la sécurité de son système d'information en
   42 mesures », version 2.0 de septembre 2017, publié par l'

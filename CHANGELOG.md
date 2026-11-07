@@ -7,6 +7,16 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.35.0] - 2026-11-08
+
+### Added
+
+- **SOC 2 (Trust Services Criteria 2017)** (issue #379) : référentiel optionnel, désactivé par
+  défaut. Critères communs CC1 à CC9 et critères complémentaires (A1, C1, PI1, vie privée P1 à P8)
+  résumés par le projet sans le texte de l'AICPA. Carte dans Référentiels avec liens vers les
+  modules qui produisent les preuves, badges « SOC 2 » sur les mesures et taux dans les tableaux de
+  bord.
+
 ## [2.34.0] - 2026-11-08
 
 ### Added

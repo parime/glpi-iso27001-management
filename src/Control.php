@@ -34,6 +34,7 @@ use GlpiPlugin\Grcmanager\Services\Control\Iso22301CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\Iso27701CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\Iso42001CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\PciDssCatalogDefaults;
+use GlpiPlugin\Grcmanager\Services\Control\Soc2CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\Nis2CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Ui\Badge;
 use GlpiPlugin\Grcmanager\Services\Ui\Fragment;
@@ -660,6 +661,7 @@ class Control extends ControlBase
         $showIso22301 = FrameworkConfig::isEnabled(FrameworkSelection::ISO22301);
         $showIso42001 = FrameworkConfig::isEnabled(FrameworkSelection::ISO42001);
         $showPciDss = FrameworkConfig::isEnabled(FrameworkSelection::PCI_DSS);
+        $showSoc2 = FrameworkConfig::isEnabled(FrameworkSelection::SOC2);
         $showNist = FrameworkConfig::isEnabled(FrameworkSelection::NIST_CSF);
         $measures = FrameworkConfig::isEnabled(FrameworkSelection::ANSSI)
             ? AnssiHygieneCatalogDefaults::measuresForControl($code)
@@ -731,6 +733,7 @@ class Control extends ControlBase
             'iso22301'                => $showIso22301 ? Iso22301CatalogDefaults::requirementsForControl($code) : [],
             'iso42001'                => $showIso42001 ? Iso42001CatalogDefaults::objectivesForControl($code) : [],
             'pci_dss'                 => $showPciDss ? PciDssCatalogDefaults::requirementsForControl($code) : [],
+            'soc2'                    => $showSoc2 ? Soc2CatalogDefaults::criteriaForControl($code) : [],
             'anssi'                   => $anssi,
             'cis'                     => $cis,
             'assetsign_sheets'        => $sheets,
