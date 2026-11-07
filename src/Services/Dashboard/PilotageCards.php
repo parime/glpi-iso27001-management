@@ -43,22 +43,15 @@ use GlpiPlugin\Grcmanager\Services\Maturity\MaturityScore;
 final class PilotageCards
 {
     /**
-     * Taux de mise en œuvre des mesures applicables de l'Annexe A liées à chaque référentiel :
-     * toutes pour ISO 27001, celles qui répondent à une exigence NIS2 ou à une mesure du guide
-     * d'hygiène de l'ANSSI (correspondances indicatives du plugin), et celles que le NIST relie
-     * lui-même au CSF 2.0 (correspondance officielle, ControlCrosswalkDefaults). CIS Controls v8 :
-     * celles que relie un contrôle CIS (correspondance indicative du plugin,
-     * CisControlsCatalogDefaults::ANNEX_A, la correspondance du CIS ne pouvant pas être embarquée).
+     * Issue #379 : référentiels mesurables à partir de l'Annexe A, avec leur clé d'activation et la
+     * règle qui dit si une mesure en relève (correspondance indicative de chaque catalogue). Partagé
+     * par la carte « conformité par référentiel » et l'évaluation par référentiel.
      *
-     * Issue #403 : seuls les référentiels de $enabled (tous si null) sont calculés.
-     *
-     * @param array<string, array{applicability: string, implementation_status: string}> $controls code => ligne
-     * @param list<string>|null $enabled référentiels actifs (FrameworkSelection)
-     * @return array<string, ?float> référentiel => taux (null si aucune mesure concernée)
+     * @return array<string, array{0: string, 1: callable(string): bool}>
      */
-    public static function frameworkRates(array $controls, ?array $enabled = null): array
+    public static function frameworkFilters(): array
     {
-        $filters = [
+        return [
             'ISO 27001'    => [FrameworkSelection::ISO27001, static fn (string $code): bool => true],
             'NIS2'         => [FrameworkSelection::NIS2, static fn (string $code): bool
                 => Nis2CatalogDefaults::requirementsForControl($code) !== []],
@@ -82,6 +75,25 @@ final class PilotageCards
             'SOC 2'        => [FrameworkSelection::SOC2, static fn (string $code): bool
                 => Soc2CatalogDefaults::criteriaForControl($code) !== []],
         ];
+    }
+
+    /**
+     * Taux de mise en œuvre des mesures applicables de l'Annexe A liées à chaque référentiel :
+     * toutes pour ISO 27001, celles qui répondent à une exigence NIS2 ou à une mesure du guide
+     * d'hygiène de l'ANSSI (correspondances indicatives du plugin), et celles que le NIST relie
+     * lui-même au CSF 2.0 (correspondance officielle, ControlCrosswalkDefaults). CIS Controls v8 :
+     * celles que relie un contrôle CIS (correspondance indicative du plugin,
+     * CisControlsCatalogDefaults::ANNEX_A, la correspondance du CIS ne pouvant pas être embarquée).
+     *
+     * Issue #403 : seuls les référentiels de $enabled (tous si null) sont calculés.
+     *
+     * @param array<string, array{applicability: string, implementation_status: string}> $controls code => ligne
+     * @param list<string>|null $enabled référentiels actifs (FrameworkSelection)
+     * @return array<string, ?float> référentiel => taux (null si aucune mesure concernée)
+     */
+    public static function frameworkRates(array $controls, ?array $enabled = null): array
+    {
+        $filters = self::frameworkFilters();
         $rates = [];
         foreach ($filters as $framework => [$key, $covers]) {
             if ($enabled !== null && !in_array($key, $enabled, true)) {

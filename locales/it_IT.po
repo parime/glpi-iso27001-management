@@ -9478,3 +9478,50 @@ msgstr "I criteri comuni (sicurezza) rientrano sempre nel perimetro di un report
 
 msgid "The Trust Services Criteria are protected by copyright (AICPA): only their identifiers are used here; summaries and the mapping to ISO 27001 Annex A are written by this project, which is not affiliated with the AICPA."
 msgstr "I Trust Services Criteria sono protetti dal diritto d'autore (AICPA): qui sono usati solo i loro identificativi; i riassunti e la corrispondenza con l'Allegato A di ISO 27001 sono scritti da questo progetto, non affiliato all'AICPA."
+
+msgid "Assessment by framework"
+msgstr "Valutazione per framework"
+
+msgid "Proven"
+msgstr "Comprovato"
+
+msgid "Evidence expired"
+msgstr "Evidenza scaduta"
+
+msgid "No evidence"
+msgstr "Nessuna evidenza"
+
+msgid "Each framework is assessed on the Annex A controls it maps to. The score counts the applicable controls that are both implemented (or verified) and proven by at least one evidence document that has not expired: a control declared done without evidence does not count."
+msgstr "Ogni framework è valutato sui controlli dell'Allegato A che gli corrispondono. Il punteggio conta i controlli applicabili sia attuati (o verificati) sia comprovati da almeno un documento di evidenza non scaduto: un controllo dichiarato fatto senza evidenza non conta."
+
+msgid "No framework is enabled."
+msgstr "Nessun framework è attivato."
+
+msgid "Configure the frameworks"
+msgstr "Configurare i framework"
+
+msgid "Framework"
+msgstr "Framework"
+
+msgid "Applicable controls"
+msgstr "Controlli applicabili"
+
+msgid "Implementation"
+msgstr "Attuazione"
+
+#, php-format
+msgid "Gaps for %s"
+msgstr "Lacune per %s"
+
+#, php-format
+msgid "%1$d of %2$d applicable controls are implemented and proven. Open a control to update its status or attach the missing evidence."
+msgstr "%1$d controlli applicabili su %2$d sono attuati e comprovati. Aprite un controllo per aggiornarne lo stato o allegare l'evidenza mancante."
+
+msgid "Assessment by framework: for each enabled framework, how many of its controls are implemented, how many are proven by valid evidence, and the resulting score."
+msgstr "Valutazione per framework: per ogni framework attivato, quanti dei suoi controlli sono attuati, quanti sono comprovati da un'evidenza valida, e il punteggio risultante."
+
+msgid "Open the gaps of a framework, then update each control or attach the missing evidence; an expired document no longer counts. Present the scores at the management review."
+msgstr "Aprite le lacune di un framework, poi aggiornate ogni controllo o allegate l'evidenza mancante; un documento scaduto non conta più. Presentate i punteggi al riesame della direzione."
+
+msgid "ISO 27001, 9.1 and 9.3; mapping of each framework to Annex A"
+msgstr "ISO 27001, 9.1 e 9.3; corrispondenza di ogni framework con l'Allegato A"
