@@ -9478,3 +9478,50 @@ msgstr "Les critères communs (sécurité) sont toujours dans le périmètre d'u
 
 msgid "The Trust Services Criteria are protected by copyright (AICPA): only their identifiers are used here; summaries and the mapping to ISO 27001 Annex A are written by this project, which is not affiliated with the AICPA."
 msgstr "Les Trust Services Criteria sont protégés par le droit d'auteur (AICPA) : seuls leurs identifiants sont repris ici ; les résumés et la correspondance avec l'Annexe A d'ISO 27001 sont rédigés par ce projet, sans lien avec l'AICPA."
+
+msgid "Assessment by framework"
+msgstr "Évaluation par référentiel"
+
+msgid "Proven"
+msgstr "Prouvée"
+
+msgid "Evidence expired"
+msgstr "Preuve expirée"
+
+msgid "No evidence"
+msgstr "Aucune preuve"
+
+msgid "Each framework is assessed on the Annex A controls it maps to. The score counts the applicable controls that are both implemented (or verified) and proven by at least one evidence document that has not expired: a control declared done without evidence does not count."
+msgstr "Chaque référentiel est évalué sur les mesures de l'Annexe A qui lui correspondent. Le score compte les mesures applicables à la fois mises en œuvre (ou vérifiées) et prouvées par au moins un document de preuve non expiré : une mesure déclarée faite sans preuve ne compte pas."
+
+msgid "No framework is enabled."
+msgstr "Aucun référentiel n'est activé."
+
+msgid "Configure the frameworks"
+msgstr "Configurer les référentiels"
+
+msgid "Framework"
+msgstr "Référentiel"
+
+msgid "Applicable controls"
+msgstr "Mesures applicables"
+
+msgid "Implementation"
+msgstr "Mise en œuvre"
+
+#, php-format
+msgid "Gaps for %s"
+msgstr "Écarts pour %s"
+
+#, php-format
+msgid "%1$d of %2$d applicable controls are implemented and proven. Open a control to update its status or attach the missing evidence."
+msgstr "Mesures applicables mises en œuvre et prouvées : %1$d sur %2$d. Ouvrez une mesure pour mettre à jour son état ou joindre la preuve manquante."
+
+msgid "Assessment by framework: for each enabled framework, how many of its controls are implemented, how many are proven by valid evidence, and the resulting score."
+msgstr "Évaluation par référentiel : pour chaque référentiel activé, combien de ses mesures sont mises en œuvre, combien sont prouvées par une preuve valide, et le score qui en résulte."
+
+msgid "Open the gaps of a framework, then update each control or attach the missing evidence; an expired document no longer counts. Present the scores at the management review."
+msgstr "Ouvrez les écarts d'un référentiel, puis mettez à jour chaque mesure ou joignez la preuve manquante ; un document expiré ne compte plus. Présentez les scores en revue de direction."
+
+msgid "ISO 27001, 9.1 and 9.3; mapping of each framework to Annex A"
+msgstr "ISO 27001, 9.1 et 9.3 ; correspondance de chaque référentiel avec l'Annexe A"

@@ -141,6 +141,9 @@ archivé), avec ses champs de classification ISO 27001 fusionnés dessus.
   signalée), vue matrice zone × zone et site × site (chaque case colorée selon le pire écart de ses
   flux), réseaux partenaires en conflit avec un réseau interne, rapport PDF pour l'auditeur.
 - **Score de maturité** cyber (0 à 100) avec le détail du calcul et son historique mensuel.
+- **Évaluation par référentiel** : pour chaque référentiel activé, taux de mise en œuvre, taux de
+  preuve (documents non expirés rattachés aux mesures) et score des mesures à la fois faites et
+  prouvées, avec la liste des écarts menant à chaque mesure.
 - **Contrôles techniques automatiques** : score ISO 27001, NIS2 et RGPD à partir des données de GLPI
   (antivirus, chiffrement, inventaire, validation des changements, comptes) et ticket de mise en
   conformité par contrôle.
@@ -168,7 +171,7 @@ tête de page et par le fil d'Ariane.
 
 | Rubrique | Pages |
 |---|---|
-| Tableau de bord | Tableau de bord, Score de maturité, Calendrier de conformité |
+| Tableau de bord | Tableau de bord, Score de maturité, Évaluation par référentiel, Calendrier de conformité |
 | Risques | Risques, Risques fournisseurs, Analyse d'impact, Effet domino, Dérogations |
 | Conformité | Contrôles Annexe A (SoA), Référentiels, Exigences SMSI, Obligations, Registre des traitements, Politiques, Preuves, Couverture des preuves |
 | Audits et amélioration | Audits internes, Non-conformités, Objectifs ISMS, Revues de direction |

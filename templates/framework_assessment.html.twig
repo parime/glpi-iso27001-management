@@ -1,0 +1,100 @@
+{# Issue #379 : évaluation de conformité par référentiel. Score = mesures mises en œuvre ET prouvées
+   (une preuve non expirée), sur les mesures applicables du référentiel : voir
+   FrameworkAssessmentRules. Lecture seule. #}
+{% macro rate_bar(value, color) %}
+   {% if value is null %}
+      <span class="text-muted">-</span>
+   {% else %}
+      <div class="d-flex align-items-center gap-2">
+         <div class="progress progress-sm flex-fill" style="min-width: 80px;">
+            <div class="progress-bar bg-{{ color }}" style="width: {{ value }}%" role="progressbar"
+                 aria-valuenow="{{ value }}" aria-valuemin="0" aria-valuemax="100"></div>
+         </div>
+         <span class="text-nowrap">{{ value|number_format(1, ',') }} %</span>
+      </div>
+   {% endif %}
+{% endmacro %}
+{% set evidence_badges = {
+   'proven':  ['bg-green-lt', 'ti-file-check', __('Proven', 'grcmanager')],
+   'expired': ['bg-red-lt', 'ti-file-alert', __('Evidence expired', 'grcmanager')],
+   'none':    ['bg-secondary-lt', 'ti-file-off', __('No evidence', 'grcmanager')],
+} %}
+<div class="container-fluid my-2">
+   <div class="card mb-3">
+      <div class="card-header">
+         <h3 class="card-title"><i class="ti ti-list-check me-2"></i>{{ __('Assessment by framework', 'grcmanager') }}</h3>
+      </div>
+      <div class="card-body">
+         <p class="text-muted small">
+            <i class="ti ti-info-circle me-1"></i>{{ __('Each framework is assessed on the Annex A controls it maps to. The score counts the applicable controls that are both implemented (or verified) and proven by at least one evidence document that has not expired: a control declared done without evidence does not count.', 'grcmanager') }}
+         </p>
+         {% if assessments is empty %}
+            <p class="text-muted">{{ __('No framework is enabled.', 'grcmanager') }} <a href="{{ config_url }}">{{ __('Configure the frameworks', 'grcmanager') }}</a></p>
+         {% else %}
+         <table class="table table-sm table-vcenter" id="grc-framework-assessment">
+            <thead>
+               <tr>
+                  <th>{{ __('Framework', 'grcmanager') }}</th>
+                  <th class="text-end text-nowrap">{{ __('Applicable controls', 'grcmanager') }}</th>
+                  <th>{{ __('Implementation', 'grcmanager') }}</th>
+                  <th>{{ __('Evidence', 'grcmanager') }}</th>
+                  <th>{{ __('Score', 'grcmanager') }}</th>
+                  <th class="text-end text-nowrap">{{ __('Gaps', 'grcmanager') }}</th>
+               </tr>
+            </thead>
+            <tbody>
+            {% for label, a in assessments %}
+               {% set score_color = a.score is null ? 'secondary' : (a.score >= 80 ? 'green' : (a.score >= 50 ? 'yellow' : 'red')) %}
+               <tr{% if detail and detail.key == a.key %} class="table-active"{% endif %}>
+                  <td class="fw-bold">{{ label }}</td>
+                  <td class="text-end">{{ a.applicable }}</td>
+                  <td>{{ _self.rate_bar(a.implementation_rate, 'blue') }}</td>
+                  <td>{{ _self.rate_bar(a.evidence_rate, 'azure') }}</td>
+                  <td>{{ _self.rate_bar(a.score, score_color) }}</td>
+                  <td class="text-end">
+                     {% if a.gaps is empty %}
+                        <span class="badge bg-green-lt"><i class="ti ti-check me-1"></i>0</span>
+                     {% else %}
+                        <a class="badge bg-orange-lt" href="{{ page_url }}?framework={{ a.key|url_encode }}#grc-assessment-gaps">
+                           <i class="ti ti-list-search me-1"></i>{{ a.gaps|length }}
+                        </a>
+                     {% endif %}
+                  </td>
+               </tr>
+            {% endfor %}
+            </tbody>
+         </table>
+         {% endif %}
+      </div>
+   </div>
+
+   {% if detail %}
+   <div class="card" id="grc-assessment-gaps">
+      <div class="card-header">
+         <h3 class="card-title"><i class="ti ti-list-search me-2"></i>{{ __('Gaps for %s', 'grcmanager')|format(detail.label) }}</h3>
+      </div>
+      <div class="card-body">
+         <p class="text-muted small">{{ __('%1$d of %2$d applicable controls are implemented and proven. Open a control to update its status or attach the missing evidence.', 'grcmanager')|format(detail.compliant, detail.applicable) }}</p>
+         <table class="table table-sm table-vcenter">
+            <thead>
+               <tr>
+                  <th>{{ __('Control', 'grcmanager') }}</th>
+                  <th>{{ __('Implementation status', 'grcmanager') }}</th>
+                  <th>{{ __('Evidence', 'grcmanager') }}</th>
+               </tr>
+            </thead>
+            <tbody>
+            {% for gap in detail.gaps %}
+               {% set badge = evidence_badges[gap.evidence] %}
+               <tr>
+                  <td><a href="{{ control_url }}?id={{ gap.id }}"><code>{{ gap.code }}</code> {{ gap.title }}</a></td>
+                  <td>{{ statuses[gap.implementation_status] ?? gap.implementation_status }}</td>
+                  <td><span class="badge {{ badge[0] }}"><i class="ti {{ badge[1] }} me-1"></i>{{ badge[2] }}</span></td>
+               </tr>
+            {% endfor %}
+            </tbody>
+         </table>
+      </div>
+   </div>
+   {% endif %}
+</div>
