@@ -36,12 +36,13 @@ final class FrameworkSelection
     public const CIS_CONTROLS = 'cis_controls';
     public const ISO27090 = 'iso27090';
     public const DORA = 'dora';
+    public const ISO27701 = 'iso27701';
 
     /**
      * Issue #379 : référentiels sectoriels, désactivés tant que personne ne les a activés (une
      * installation existante ne les voit pas apparaître d'office).
      */
-    public const OPTIONAL = [self::DORA];
+    public const OPTIONAL = [self::DORA, self::ISO27701];
 
     /**
      * Référentiels activables, dans l'ordre d'affichage, avec leur nom (nom propre, non traduit).
@@ -56,6 +57,7 @@ final class FrameworkSelection
         self::CIS_CONTROLS => 'CIS Controls v8',
         self::ISO27090     => 'ISO/IEC 27090:2026',
         self::DORA         => 'DORA',
+        self::ISO27701     => 'ISO/IEC 27701:2025',
     ];
 
     /**

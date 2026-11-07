@@ -24,6 +24,11 @@ use GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig;
 use GlpiPlugin\Grcmanager\Services\Control\FrameworkSelection;
 use GlpiPlugin\Grcmanager\Services\Control\Iso27090CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\DoraCatalogDefaults;
+use GlpiPlugin\Grcmanager\Services\Control\Iso27701CatalogDefaults;
+use GlpiPlugin\Grcmanager\DataSubjectRequest;
+use GlpiPlugin\Grcmanager\Dpia;
+use GlpiPlugin\Grcmanager\ProcessingActivity;
+use GlpiPlugin\Grcmanager\SupplierRisk;
 use GlpiPlugin\Grcmanager\Services\Control\Nis2CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\NistCsfCatalogDefaults;
 
@@ -186,6 +191,47 @@ foreach (AnssiHygieneCatalogDefaults::THEMES as $themeCode => $themeTitle) {
     $anssi[] = ['code' => $themeCode, 'title' => $themeTitle[$nis2Lang], 'measures' => $measures];
 }
 
+// Issue #379 : ISO/IEC 27701:2025 (vie privée), objectifs résumés par ce projet (texte de la norme
+// protégé), correspondance Annexe A indicative et liens vers les modules RGPD qui y répondent.
+$privacyModules = [
+    'processing' => ProcessingActivity::class,
+    'dpia'       => Dpia::class,
+    'requests'   => DataSubjectRequest::class,
+    'incidents'  => PluginGrcmanagerSecurityIncident::class,
+    'suppliers'  => SupplierRisk::class,
+];
+$iso27701 = [];
+foreach (Iso27701CatalogDefaults::TABLES as $table => $tableTitle) {
+    $objectives = [];
+    foreach (Iso27701CatalogDefaults::OBJECTIVES as $code => $objective) {
+        if ($objective['table'] !== $table) {
+            continue;
+        }
+        $controls = [];
+        foreach ($objective['annex_a'] as $annexACode) {
+            $controls[] = ['code' => $annexACode, 'id' => $idsByCode[$annexACode] ?? null];
+        }
+        // Lien seulement vers un module que l'utilisateur peut ouvrir.
+        $modules = [];
+        foreach ($objective['modules'] as $module) {
+            $class = $privacyModules[$module];
+            if ($class::canView()) {
+                $modules[] = [
+                    'label' => $class::getTypeName(Session::getPluralNumber()),
+                    'url'   => $class::getSearchURL(),
+                ];
+            }
+        }
+        $objectives[] = [
+            'code'     => $code,
+            'text'     => $objective[$nis2Lang],
+            'controls' => $controls,
+            'modules'  => $modules,
+        ];
+    }
+    $iso27701[] = ['table' => $table, 'title' => $tableTitle[$nis2Lang], 'objectives' => $objectives];
+}
+
 // ISO/IEC 27090:2026 (sécurité des systèmes d'IA) : numéros de section et objet résumé par ce
 // projet (texte de la norme protégé), correspondance Annexe A indicative.
 $iso27090 = [];
@@ -216,6 +262,8 @@ foreach (Iso27090CatalogDefaults::CHAPTERS as $chapter => $chapterTitle) {
     'nis2_source'  => Nis2CatalogDefaults::SOURCE_URL,
     'dora'         => $isEnabled(FrameworkSelection::DORA) ? $dora : [],
     'dora_source'  => DoraCatalogDefaults::SOURCE_URL,
+    'iso27701'        => $isEnabled(FrameworkSelection::ISO27701) ? $iso27701 : [],
+    'iso27701_source' => Iso27701CatalogDefaults::SOURCE_URL,
     'anssi'        => $isEnabled(FrameworkSelection::ANSSI) ? $anssi : [],
     'anssi_source' => AnssiHygieneCatalogDefaults::SOURCE_URL,
     'anssi_lang'   => $nis2Lang,

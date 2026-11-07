@@ -128,6 +128,11 @@ final class FrameworkConfig
                     . 'controls and DORA score. Disabled by default.',
                 'grcmanager'
             ),
+            FrameworkSelection::ISO27701     => __(
+                'Privacy (PIMS): ISO/IEC 27701 objectives, their references on the controls and links to the '
+                    . 'GDPR modules. Disabled by default.',
+                'grcmanager'
+            ),
         ];
     }
 

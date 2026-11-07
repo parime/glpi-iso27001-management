@@ -30,6 +30,7 @@ use GlpiPlugin\Grcmanager\Services\Control\ControlTestRules;
 use GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig;
 use GlpiPlugin\Grcmanager\Services\Control\FrameworkSelection;
 use GlpiPlugin\Grcmanager\Services\Control\DoraCatalogDefaults;
+use GlpiPlugin\Grcmanager\Services\Control\Iso27701CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\Nis2CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Ui\Badge;
 use GlpiPlugin\Grcmanager\Services\Ui\Fragment;
@@ -652,6 +653,7 @@ class Control extends ControlBase
         // Issue #403 : correspondances des référentiels désactivés masquées.
         $showNis2 = FrameworkConfig::isEnabled(FrameworkSelection::NIS2);
         $showDora = FrameworkConfig::isEnabled(FrameworkSelection::DORA);
+        $showIso27701 = FrameworkConfig::isEnabled(FrameworkSelection::ISO27701);
         $showNist = FrameworkConfig::isEnabled(FrameworkSelection::NIST_CSF);
         $measures = FrameworkConfig::isEnabled(FrameworkSelection::ANSSI)
             ? AnssiHygieneCatalogDefaults::measuresForControl($code)
@@ -719,6 +721,7 @@ class Control extends ControlBase
                 static fn (string $doraCode): string => DoraCatalogDefaults::reference($doraCode),
                 DoraCatalogDefaults::requirementsForControl($code)
             ) : [],
+            'iso27701'                => $showIso27701 ? Iso27701CatalogDefaults::objectivesForControl($code) : [],
             'anssi'                   => $anssi,
             'cis'                     => $cis,
             'assetsign_sheets'        => $sheets,

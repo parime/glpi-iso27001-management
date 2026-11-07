@@ -59,7 +59,7 @@ final class PilotageCardsTest extends TestCase
         $this->assertSame(
             [
                 'ISO 27001' => null, 'NIS2' => null, 'ANSSI' => null, 'NIST CSF 2.0' => null,
-                'CIS Controls v8' => null, 'DORA' => null,
+                'CIS Controls v8' => null, 'DORA' => null, 'ISO 27701' => null,
             ],
             PilotageCards::frameworkRates([])
         );

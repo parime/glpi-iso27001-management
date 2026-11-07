@@ -10824,3 +10824,18 @@ msgstr "Operacyjna odporność cyfrowa sektora finansowego. Wymagania streszczon
 
 msgid "Source: Regulation (EU) 2022/2554 (DORA), © European Union, EUR-Lex. Requirements are summarised and the mapping to ISO 27001 Annex A is indicative, both made by this project."
 msgstr "Źródło: rozporządzenie (UE) 2022/2554 (DORA), © Unia Europejska, EUR-Lex. Wymagania są streszczone, a mapowanie na załącznik A ISO 27001 ma charakter orientacyjny; oba przygotował ten projekt."
+
+msgid "Privacy (PIMS): ISO/IEC 27701 objectives, their references on the controls and links to the GDPR modules. Disabled by default."
+msgstr "Prywatność (PIMS): cele ISO/IEC 27701, odniesienia do nich przy zabezpieczeniach i odnośniki do modułów RODO. Domyślnie wyłączone."
+
+msgid "ISO 27701 objectives"
+msgstr "Cele ISO 27701"
+
+msgid "ISO/IEC 27701:2025: Privacy information management"
+msgstr "ISO/IEC 27701:2025: zarządzanie prywatnością informacji"
+
+msgid "Objectives of Annex A by role. The last column links to the modules of this plugin that already help meet them."
+msgstr "Cele załącznika A według roli. Ostatnia kolumna prowadzi do modułów tej wtyczki, które już pomagają je osiągnąć."
+
+msgid "ISO/IEC 27701:2025 is protected by copyright: only its table and objective numbers are used here; summaries and the mapping to ISO 27001 Annex A are written by this project, which is not affiliated with ISO or IEC."
+msgstr "ISO/IEC 27701:2025 jest chroniona prawem autorskim: używane są tu tylko numery jej tabel i celów; streszczenia i powiązanie z załącznikiem A normy ISO 27001 opracował ten projekt, niezwiązany z ISO ani IEC."
