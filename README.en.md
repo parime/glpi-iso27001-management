@@ -53,6 +53,10 @@ classification fields merged directly onto it.
   (PII controller, PII processor, shared security) summarised, mapped to ISO 27001 Annex A and to the
   GDPR modules of the plugin (record of processing, DPIA, data subject requests, incidents,
   suppliers), references shown on the controls and ISO 27701 compliance rate.
+- **ISO 22301:2019 business continuity**, optional and disabled by default: main requirements of
+  clauses 4 to 10 summarised, mapped to ISO 27001 Annex A and to the plugin modules (risks, crisis
+  exercises, incidents, suppliers, audits, management review), references on the controls and
+  ISO 22301 compliance rate.
 - **Security of AI systems (ISO/IEC 27090:2026)**: sections of the standard mapped to Annex A, and
   typical AI risks (public AI services, prompt injection, data leaks, supply chain, poisoning,
   model theft, unlisted AI systems) to import into the register from the risk catalog.
@@ -103,7 +107,7 @@ classification fields merged directly onto it.
 
 **Steering**
 - Default ISMS dashboard and KPIs to add to GLPI dashboards, including compliance by framework
-  (ISO 27001, NIS2, ANSSI, NIST CSF, CIS Controls, DORA and ISO 27701 when enabled), deadlines within 90 days, access review progress and NIS2 / GDPR
+  (ISO 27001, NIS2, ANSSI, NIST CSF, CIS Controls, and DORA, ISO 27701, ISO 22301 when enabled), deadlines within 90 days, access review progress and NIS2 / GDPR
   deadlines at risk; GRC & Compliance > Dashboard menu, ISMS and Management views, monthly trend.
 - **Scored trainings**, in one or several sessions (trainer, location, score, pass threshold, retake,
   PDF report with attendance sheet, each participant's quiz copy restricted to the participant, the
@@ -256,6 +260,9 @@ and documentation only identifies the framework the plugin helps you track.
   objective numbers of Annex A are used; their purpose is summarised by this project and the mapping
   to ISO 27001 Annex A is indicative. This project is not affiliated with ISO or IEC:
   [iso.org](https://www.iso.org/standard/27701).
+- **ISO 22301:2019**: standard protected by copyright (© ISO). Only the clause numbers are used;
+  their purpose is summarised by this project and the mapping to ISO 27001 Annex A is indicative.
+  This project is not affiliated with ISO: [iso.org](https://www.iso.org/standard/75106.html).
 - **ANSSI IT hygiene guide (42 measures)**: titles of the 42 measures and 10 themes reproduced
   from the guide "Renforcer la sécurité de son système d'information en 42 mesures", version 2.0
   of September 2017, published by

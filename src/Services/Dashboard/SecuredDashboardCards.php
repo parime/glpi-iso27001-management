@@ -106,7 +106,7 @@ final class SecuredDashboardCards
         'complianceByFramework' => [
             FrameworkSelection::ISO27001, FrameworkSelection::NIS2,
             FrameworkSelection::ANSSI, FrameworkSelection::NIST_CSF, FrameworkSelection::CIS_CONTROLS,
-            FrameworkSelection::DORA, FrameworkSelection::ISO27701,
+            FrameworkSelection::DORA, FrameworkSelection::ISO27701, FrameworkSelection::ISO22301,
         ],
     ];
 

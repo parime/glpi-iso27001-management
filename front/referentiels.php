@@ -24,7 +24,12 @@ use GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig;
 use GlpiPlugin\Grcmanager\Services\Control\FrameworkSelection;
 use GlpiPlugin\Grcmanager\Services\Control\Iso27090CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\DoraCatalogDefaults;
+use GlpiPlugin\Grcmanager\Services\Control\Iso22301CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\Iso27701CatalogDefaults;
+use GlpiPlugin\Grcmanager\Audit;
+use GlpiPlugin\Grcmanager\CrisisExercise;
+use GlpiPlugin\Grcmanager\ManagementReview;
+use GlpiPlugin\Grcmanager\Risk;
 use GlpiPlugin\Grcmanager\DataSubjectRequest;
 use GlpiPlugin\Grcmanager\Dpia;
 use GlpiPlugin\Grcmanager\ProcessingActivity;
@@ -191,15 +196,37 @@ foreach (AnssiHygieneCatalogDefaults::THEMES as $themeCode => $themeTitle) {
     $anssi[] = ['code' => $themeCode, 'title' => $themeTitle[$nis2Lang], 'measures' => $measures];
 }
 
-// Issue #379 : ISO/IEC 27701:2025 (vie privée), objectifs résumés par ce projet (texte de la norme
-// protégé), correspondance Annexe A indicative et liens vers les modules RGPD qui y répondent.
-$privacyModules = [
+// Issue #379 : modules du plugin cités par ISO 27701 et ISO 22301, liés seulement si l'utilisateur
+// peut les ouvrir.
+$moduleClasses = [
     'processing' => ProcessingActivity::class,
     'dpia'       => Dpia::class,
     'requests'   => DataSubjectRequest::class,
     'incidents'  => PluginGrcmanagerSecurityIncident::class,
     'suppliers'  => SupplierRisk::class,
+    'risks'      => Risk::class,
+    'exercises'  => CrisisExercise::class,
+    'audits'     => Audit::class,
+    'reviews'    => ManagementReview::class,
 ];
+/**
+ * @param list<string> $keys
+ * @return list<array{label: string, url: string}>
+ */
+$moduleLinks = static function (array $keys) use ($moduleClasses): array {
+    $links = [];
+    foreach ($keys as $key) {
+        $class = $moduleClasses[$key];
+        if ($class::canView()) {
+            $links[] = ['label' => $class::getTypeName(Session::getPluralNumber()), 'url' => $class::getSearchURL()];
+        }
+    }
+
+    return $links;
+};
+
+// Issue #379 : ISO/IEC 27701:2025 (vie privée), objectifs résumés par ce projet (texte de la norme
+// protégé), correspondance Annexe A indicative et liens vers les modules RGPD qui y répondent.
 $iso27701 = [];
 foreach (Iso27701CatalogDefaults::TABLES as $table => $tableTitle) {
     $objectives = [];
@@ -211,25 +238,37 @@ foreach (Iso27701CatalogDefaults::TABLES as $table => $tableTitle) {
         foreach ($objective['annex_a'] as $annexACode) {
             $controls[] = ['code' => $annexACode, 'id' => $idsByCode[$annexACode] ?? null];
         }
-        // Lien seulement vers un module que l'utilisateur peut ouvrir.
-        $modules = [];
-        foreach ($objective['modules'] as $module) {
-            $class = $privacyModules[$module];
-            if ($class::canView()) {
-                $modules[] = [
-                    'label' => $class::getTypeName(Session::getPluralNumber()),
-                    'url'   => $class::getSearchURL(),
-                ];
-            }
-        }
         $objectives[] = [
             'code'     => $code,
             'text'     => $objective[$nis2Lang],
             'controls' => $controls,
-            'modules'  => $modules,
+            'modules'  => $moduleLinks($objective['modules']),
         ];
     }
     $iso27701[] = ['table' => $table, 'title' => $tableTitle[$nis2Lang], 'objectives' => $objectives];
+}
+
+// Issue #379 : ISO 22301:2019 (continuité d'activité), articles résumés par ce projet (texte de la
+// norme protégé), correspondance Annexe A indicative et liens vers les modules qui y répondent.
+$iso22301 = [];
+foreach (Iso22301CatalogDefaults::CLAUSES as $clause => $clauseTitle) {
+    $requirements = [];
+    foreach (Iso22301CatalogDefaults::REQUIREMENTS as $code => $requirement) {
+        if ($requirement['clause'] !== (string) $clause) {
+            continue;
+        }
+        $controls = [];
+        foreach ($requirement['annex_a'] as $annexACode) {
+            $controls[] = ['code' => $annexACode, 'id' => $idsByCode[$annexACode] ?? null];
+        }
+        $requirements[] = [
+            'code'     => $code,
+            'text'     => $requirement[$nis2Lang],
+            'controls' => $controls,
+            'modules'  => $moduleLinks($requirement['modules']),
+        ];
+    }
+    $iso22301[] = ['clause' => (string) $clause, 'title' => $clauseTitle[$nis2Lang], 'requirements' => $requirements];
 }
 
 // ISO/IEC 27090:2026 (sécurité des systèmes d'IA) : numéros de section et objet résumé par ce
@@ -264,6 +303,8 @@ foreach (Iso27090CatalogDefaults::CHAPTERS as $chapter => $chapterTitle) {
     'dora_source'  => DoraCatalogDefaults::SOURCE_URL,
     'iso27701'        => $isEnabled(FrameworkSelection::ISO27701) ? $iso27701 : [],
     'iso27701_source' => Iso27701CatalogDefaults::SOURCE_URL,
+    'iso22301'        => $isEnabled(FrameworkSelection::ISO22301) ? $iso22301 : [],
+    'iso22301_source' => Iso22301CatalogDefaults::SOURCE_URL,
     'anssi'        => $isEnabled(FrameworkSelection::ANSSI) ? $anssi : [],
     'anssi_source' => AnssiHygieneCatalogDefaults::SOURCE_URL,
     'anssi_lang'   => $nis2Lang,

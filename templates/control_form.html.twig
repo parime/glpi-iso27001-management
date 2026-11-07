@@ -59,6 +59,14 @@
       {% endset %}
       {{ fields.htmlField('', iso27701_html, __('ISO 27701 objectives', 'grcmanager'), {'full_width': true}) }}
    {% endif %}
+   {# Issue #379 : articles ISO 22301 (continuité), correspondance indicative établie par ce projet. #}
+   {% if iso22301 is not empty %}
+      {% set iso22301_html %}
+         {% for c in iso22301 %}<span class="badge bg-orange-lt me-1">ISO 22301 {{ c }}</span>{% endfor %}
+         {{ _self.referentials_hint(__('Indicative mapping made by this project: see', 'grcmanager'), referentials_url) }}
+      {% endset %}
+      {{ fields.htmlField('', iso22301_html, __('ISO 22301 requirements', 'grcmanager'), {'full_width': true}) }}
+   {% endif %}
    {% if anssi is not empty %}
       {% set anssi_html %}
          {% for m in anssi %}<span class="badge bg-teal-lt me-1" title="{{ m.title }}">{{ __('Measure %d', 'grcmanager')|format(m.number) }}</span>{% endfor %}

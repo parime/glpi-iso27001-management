@@ -89,6 +89,12 @@ final class FrameworkConfigTest extends GrcmanagerIntegrationTestCase
         $this->assertTrue(FrameworkConfig::isEnabled(FrameworkSelection::DORA));
         $controls = ['A.5.19' => ['applicability' => 'yes', 'implementation_status' => 'implemented']];
         $this->assertArrayHasKey('DORA', PilotageCards::frameworkRates($controls, FrameworkConfig::enabled()));
+
+        FrameworkConfig::save(array_keys(FrameworkSelection::FRAMEWORKS));
+        $controls['A.5.30'] = ['applicability' => 'yes', 'implementation_status' => 'not_started'];
+        $rates = PilotageCards::frameworkRates($controls, FrameworkConfig::enabled());
+        $this->assertSame(100.0, $rates['ISO 27701'], 'A.5.19 relève de l\'objectif A.1.5.');
+        $this->assertSame(0.0, $rates['ISO 22301'], 'A.5.30 (non démarrée) seule relève d\'ISO 22301.');
     }
 
     public function testDisablingIso27001HidesIsmsRequirementsAndKeepsTheirData(): void

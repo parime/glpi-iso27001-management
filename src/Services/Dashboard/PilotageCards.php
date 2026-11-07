@@ -27,6 +27,7 @@ use GlpiPlugin\Grcmanager\Services\Control\ControlTestRules;
 use GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig;
 use GlpiPlugin\Grcmanager\Services\Control\FrameworkSelection;
 use GlpiPlugin\Grcmanager\Services\Control\DoraCatalogDefaults;
+use GlpiPlugin\Grcmanager\Services\Control\Iso22301CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\Iso27701CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\Nis2CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Maturity\MaturityScore;
@@ -69,6 +70,8 @@ final class PilotageCards
                 => DoraCatalogDefaults::requirementsForControl($code) !== []],
             'ISO 27701'    => [FrameworkSelection::ISO27701, static fn (string $code): bool
                 => Iso27701CatalogDefaults::objectivesForControl($code) !== []],
+            'ISO 22301'    => [FrameworkSelection::ISO22301, static fn (string $code): bool
+                => Iso22301CatalogDefaults::requirementsForControl($code) !== []],
         ];
         $rates = [];
         foreach ($filters as $framework => [$key, $covers]) {
