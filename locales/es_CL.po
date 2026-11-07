@@ -9525,3 +9525,27 @@ msgstr "Abra las brechas de un marco y luego actualice cada control o adjunte la
 
 msgid "ISO 27001, 9.1 and 9.3; mapping of each framework to Annex A"
 msgstr "ISO 27001, 9.1 y 9.3; correspondencia de cada marco con el Anexo A"
+
+#, php-format
+msgid "%1$d active agent(s) out of %2$d"
+msgstr "%1$d agente(s) activo(s) de %2$d"
+
+msgid "no computer in your entities"
+msgstr "ningún ordenador en sus entidades"
+
+#, php-format
+msgid "%1$d of %2$d computers covered (%3$s %%)"
+msgstr "%1$d de %2$d ordenadores cubiertos (%3$s %%)"
+
+msgid "View agents"
+msgstr "Ver los agentes"
+
+msgid "Read live from the Wazuh plugin: a computer is covered when an active agent is linked to it."
+msgstr "Leído en directo del plugin Wazuh: un ordenador está cubierto cuando tiene vinculado un agente activo."
+
+msgid "Wazuh coverage"
+msgstr "Cobertura Wazuh"
+
+#, php-format
+msgid "Computers covered by Wazuh (%)"
+msgstr "Ordenadores cubiertos por Wazuh (%)"

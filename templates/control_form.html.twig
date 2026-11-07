@@ -135,4 +135,21 @@
       {% endset %}
       {{ fields.htmlField('', assetsign_html, __('assetsign evidence', 'grcmanager'), {'full_width': true}) }}
    {% endif %}
+
+   {# Issue #368 : couverture Wazuh, lue en direct dans le plugin Wazuh ; ligne absente s'il n'est pas exploitable. #}
+   {% if wazuh is not null %}
+      {% set wazuh_html %}
+         <div class="mb-1">
+            <span class="badge bg-blue-lt me-1"><i class="ti ti-heartbeat me-1"></i>{{ __('%1$d active agent(s) out of %2$d', 'grcmanager')|format(wazuh.active, wazuh.agents) }}</span>
+            {% if wazuh.rate is null %}
+               <span class="text-muted">{{ __('no computer in your entities', 'grcmanager') }}</span>
+            {% else %}
+               <span class="badge {{ wazuh.rate >= 90 ? 'bg-green-lt' : (wazuh.rate >= 60 ? 'bg-yellow-lt' : 'bg-red-lt') }} me-1"><i class="ti ti-device-desktop me-1"></i>{{ __('%1$d of %2$d computers covered (%3$s %%)', 'grcmanager')|format(wazuh.covered, wazuh.computers, wazuh.rate|number_format(1, ',')) }}</span>
+            {% endif %}
+            {% if wazuh_agents_url %}<a href="{{ wazuh_agents_url }}">{{ __('View agents', 'grcmanager') }}</a>{% endif %}
+         </div>
+         <small class="form-hint d-block">{{ __('Read live from the Wazuh plugin: a computer is covered when an active agent is linked to it.', 'grcmanager') }}</small>
+      {% endset %}
+      {{ fields.htmlField('', wazuh_html, __('Wazuh coverage', 'grcmanager'), {'full_width': true}) }}
+   {% endif %}
 {% endblock %}

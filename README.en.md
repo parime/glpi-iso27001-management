@@ -86,6 +86,9 @@ classification fields merged directly onto it.
 - With the [assetsign](https://github.com/parime/assetsign-glpi) plugin: signed equipment
   handovers and returns as evidence for controls A.5.9 to A.5.11, and the IT charter signature
   rate on A.5.10 and A.6.3.
+- With the [Wazuh](https://github.com/initiativa/wazuh) plugin (optional, read only): active agents
+  and share of computers covered as evidence for controls A.8.16 and A.8.7, and a "Wazuh coverage"
+  dashboard card. Without the plugin, nothing changes.
 
 **Security incidents**
 - A full ITIL object in the Assistance menu (actors, workflow, tasks, notifications, CVE

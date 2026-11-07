@@ -6,6 +6,7 @@ namespace GlpiPlugin\Grcmanager\Services\Dashboard;
 
 use GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig;
 use GlpiPlugin\Grcmanager\Services\Control\FrameworkSelection;
+use GlpiPlugin\Grcmanager\Services\Control\WazuhEvidenceProvider;
 use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentModuleConfig;
 use Session;
 
@@ -72,6 +73,10 @@ final class SecuredDashboardCards
     {
         if (self::isIncidentCard($name)) {
             return self::incidentCardsAllowed();
+        }
+        if ($name === 'wazuhCoverage') {
+            // Issue #368 : proposée seulement si le plugin Wazuh est installé, actif et lisible.
+            return (bool) Session::haveRight('plugin_grcmanager', READ) && WazuhEvidenceProvider::isAvailable();
         }
         if (self::isContinuityCard($name)) {
             // Issue #377 : processus métier, sous leur droit dédié (la carte des processus critiques

@@ -32,6 +32,7 @@ use GlpiPlugin\Grcmanager\Services\Control\Iso27701CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\Iso42001CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\PciDssCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\Soc2CatalogDefaults;
+use GlpiPlugin\Grcmanager\Services\Control\WazuhEvidenceProvider;
 use GlpiPlugin\Grcmanager\Services\Control\Nis2CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Maturity\MaturityScore;
 
@@ -186,6 +187,22 @@ final class PilotageCards
             'url'    => \GlpiPlugin\Grcmanager\AccessReview::getSearchURL(),
             'label'  => $params['label'] ?? __('Access review: % reviewed', 'grcmanager'),
             'icon'   => 'ti ti-user-check',
+        ];
+    }
+
+    /**
+     * Issue #368 : part des ordinateurs couverts par un agent Wazuh actif (carte proposée seulement
+     * si le plugin Wazuh est exploitable, voir SecuredDashboardCards::canShow()).
+     */
+    public static function wazuhCoverage(array $params = []): array
+    {
+        $coverage = WazuhEvidenceProvider::fetchCoverage();
+
+        return [
+            'number' => $coverage['rate'] ?? 0,
+            'url'    => WazuhEvidenceProvider::agentsUrl() ?? '',
+            'label'  => $params['label'] ?? __('Computers covered by Wazuh (%)', 'grcmanager'),
+            'icon'   => 'ti ti-heartbeat',
         ];
     }
 
