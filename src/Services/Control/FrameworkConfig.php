@@ -148,6 +148,11 @@ final class FrameworkConfig
                     . 'network flows, vulnerabilities and access reviews. Disabled by default.',
                 'grcmanager'
             ),
+            FrameworkSelection::SOC2         => __(
+                'SOC 2 report: Trust Services Criteria, their references on the controls and links to the '
+                    . 'modules that produce the evidence. Disabled by default.',
+                'grcmanager'
+            ),
         ];
     }
 

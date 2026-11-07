@@ -309,6 +309,15 @@
     footer: __('PCI DSS is protected by copyright (PCI Security Standards Council): only its requirement numbers are used here; summaries, grouping and the mapping to ISO 27001 Annex A are written by this project, which is not affiliated with the PCI SSC.', 'grcmanager'),
   }) }}
 {% endif %}
+{% if soc2 is not empty %}
+  {{ include('@grcmanager/referentiels_iso_card.html.twig', {
+    card_id: 'soc2', groups: soc2, source: soc2_source, source_label: 'aicpa-cima.com',
+    badge_class: 'bg-purple-lt',
+    title: __('SOC 2: Trust Services Criteria (2017)', 'grcmanager'),
+    intro: __('The common criteria (security) are always in the scope of a SOC 2 report, the additional criteria only if chosen. The last column links to the modules of this plugin that already produce the evidence.', 'grcmanager'),
+    footer: __('The Trust Services Criteria are protected by copyright (AICPA): only their identifiers are used here; summaries and the mapping to ISO 27001 Annex A are written by this project, which is not affiliated with the AICPA.', 'grcmanager'),
+  }) }}
+{% endif %}
 {% if iso42001 is not empty %}
   {{ include('@grcmanager/referentiels_iso_card.html.twig', {
     card_id: 'iso42001', groups: iso42001, source: iso42001_source, badge_class: 'bg-teal-lt',

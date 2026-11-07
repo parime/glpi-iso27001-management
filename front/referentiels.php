@@ -28,6 +28,7 @@ use GlpiPlugin\Grcmanager\Services\Control\Iso22301CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\Iso27701CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\Iso42001CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\PciDssCatalogDefaults;
+use GlpiPlugin\Grcmanager\Services\Control\Soc2CatalogDefaults;
 use GlpiPlugin\Grcmanager\AccessReview;
 use GlpiPlugin\Grcmanager\AccountHygiene;
 use GlpiPlugin\Grcmanager\BusinessProcess;
@@ -208,7 +209,7 @@ foreach (AnssiHygieneCatalogDefaults::THEMES as $themeCode => $themeTitle) {
     $anssi[] = ['code' => $themeCode, 'title' => $themeTitle[$nis2Lang], 'measures' => $measures];
 }
 
-// Issue #379 : modules du plugin cités par ISO 27701, 22301, 42001 et PCI DSS, liés seulement si l'utilisateur
+// Issue #379 : modules du plugin cités par ISO 27701, 22301, 42001, PCI DSS et SOC 2, liés si l'utilisateur
 // peut les ouvrir.
 $moduleClasses = [
     'processing' => ProcessingActivity::class,
@@ -354,6 +355,14 @@ foreach (Iso27090CatalogDefaults::CHAPTERS as $chapter => $chapterTitle) {
         false
     ) : [],
     'pci_dss_source'  => PciDssCatalogDefaults::SOURCE_URL,
+    'soc2'            => $isEnabled(FrameworkSelection::SOC2) ? $isoGroups(
+        Soc2CatalogDefaults::CATEGORIES,
+        Soc2CatalogDefaults::CRITERIA,
+        'category',
+        false,
+        'common'
+    ) : [],
+    'soc2_source'     => Soc2CatalogDefaults::SOURCE_URL,
     'anssi'        => $isEnabled(FrameworkSelection::ANSSI) ? $anssi : [],
     'anssi_source' => AnssiHygieneCatalogDefaults::SOURCE_URL,
     'anssi_lang'   => $nis2Lang,
