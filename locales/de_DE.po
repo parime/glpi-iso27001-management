@@ -9463,3 +9463,18 @@ msgstr "Die zwölf Hauptanforderungen, von diesem Projekt nach Zielen geordnet. 
 
 msgid "PCI DSS is protected by copyright (PCI Security Standards Council): only its requirement numbers are used here; summaries, grouping and the mapping to ISO 27001 Annex A are written by this project, which is not affiliated with the PCI SSC."
 msgstr "PCI DSS ist urheberrechtlich geschützt (PCI Security Standards Council): Hier werden nur die Nummern der Anforderungen verwendet; Zusammenfassungen, Gruppierung und die Zuordnung zu Anhang A der ISO 27001 stammen von diesem Projekt, das nicht mit dem PCI SSC verbunden ist."
+
+msgid "SOC 2 report: Trust Services Criteria, their references on the controls and links to the modules that produce the evidence. Disabled by default."
+msgstr "SOC-2-Bericht: Trust Services Criteria, ihre Verweise bei den Maßnahmen und Links zu den Modulen, die die Nachweise liefern. Standardmäßig deaktiviert."
+
+msgid "SOC 2 criteria"
+msgstr "SOC-2-Kriterien"
+
+msgid "SOC 2: Trust Services Criteria (2017)"
+msgstr "SOC 2: Trust Services Criteria (2017)"
+
+msgid "The common criteria (security) are always in the scope of a SOC 2 report, the additional criteria only if chosen. The last column links to the modules of this plugin that already produce the evidence."
+msgstr "Die gemeinsamen Kriterien (Sicherheit) gehören immer zum Umfang eines SOC-2-Berichts, die zusätzlichen Kriterien nur, wenn sie gewählt werden. Die letzte Spalte verweist auf die Module dieses Plugins, die bereits die Nachweise liefern."
+
+msgid "The Trust Services Criteria are protected by copyright (AICPA): only their identifiers are used here; summaries and the mapping to ISO 27001 Annex A are written by this project, which is not affiliated with the AICPA."
+msgstr "Die Trust Services Criteria sind urheberrechtlich geschützt (AICPA): Hier werden nur ihre Kennungen verwendet; die Zusammenfassungen und die Zuordnung zu Anhang A der ISO 27001 stammen von diesem Projekt, das nicht mit dem AICPA verbunden ist."

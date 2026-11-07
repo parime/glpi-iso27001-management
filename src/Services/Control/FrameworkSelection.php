@@ -40,12 +40,15 @@ final class FrameworkSelection
     public const ISO22301 = 'iso22301';
     public const ISO42001 = 'iso42001';
     public const PCI_DSS = 'pci_dss';
+    public const SOC2 = 'soc2';
 
     /**
      * Issue #379 : référentiels sectoriels, désactivés tant que personne ne les a activés (une
      * installation existante ne les voit pas apparaître d'office).
      */
-    public const OPTIONAL = [self::DORA, self::ISO27701, self::ISO22301, self::ISO42001, self::PCI_DSS];
+    public const OPTIONAL = [
+        self::DORA, self::ISO27701, self::ISO22301, self::ISO42001, self::PCI_DSS, self::SOC2,
+    ];
 
     /**
      * Référentiels activables, dans l'ordre d'affichage, avec leur nom (nom propre, non traduit).
@@ -64,6 +67,7 @@ final class FrameworkSelection
         self::ISO22301     => 'ISO 22301:2019',
         self::ISO42001     => 'ISO/IEC 42001:2023',
         self::PCI_DSS      => 'PCI DSS v4.0.1',
+        self::SOC2         => 'SOC 2 (TSC 2017)',
     ];
 
     /**

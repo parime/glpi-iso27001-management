@@ -83,6 +83,14 @@
       {% endset %}
       {{ fields.htmlField('', pci_dss_html, __('PCI DSS requirements', 'grcmanager'), {'full_width': true}) }}
    {% endif %}
+   {# Issue #379 : critères SOC 2, correspondance indicative établie par ce projet. #}
+   {% if soc2 is not empty %}
+      {% set soc2_html %}
+         {% for c in soc2 %}<span class="badge bg-purple-lt me-1">SOC 2 {{ c }}</span>{% endfor %}
+         {{ _self.referentials_hint(__('Indicative mapping made by this project: see', 'grcmanager'), referentials_url) }}
+      {% endset %}
+      {{ fields.htmlField('', soc2_html, __('SOC 2 criteria', 'grcmanager'), {'full_width': true}) }}
+   {% endif %}
    {% if anssi is not empty %}
       {% set anssi_html %}
          {% for m in anssi %}<span class="badge bg-teal-lt me-1" title="{{ m.title }}">{{ __('Measure %d', 'grcmanager')|format(m.number) }}</span>{% endfor %}
