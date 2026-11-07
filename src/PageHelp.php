@@ -56,6 +56,19 @@ class PageHelp
                     'grcmanager'
                 ),
             ],
+            'frameworkassessment' => [
+                'purpose'   => __(
+                    'Assessment by framework: for each enabled framework, how many of its controls are implemented, '
+                        . 'how many are proven by valid evidence, and the resulting score.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Open the gaps of a framework, then update each control or attach the missing evidence; an '
+                        . 'expired document no longer counts. Present the scores at the management review.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO 27001, 9.1 and 9.3; mapping of each framework to Annex A', 'grcmanager'),
+            ],
             'complianceaudit' => [
                 'purpose'   => __(
                     'Automated technical checks: checks computed from GLPI data (antivirus, disk encryption, '

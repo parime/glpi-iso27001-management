@@ -9478,3 +9478,50 @@ msgstr "The common criteria (security) are always in the scope of a SOC 2 report
 
 msgid "The Trust Services Criteria are protected by copyright (AICPA): only their identifiers are used here; summaries and the mapping to ISO 27001 Annex A are written by this project, which is not affiliated with the AICPA."
 msgstr "The Trust Services Criteria are protected by copyright (AICPA): only their identifiers are used here; summaries and the mapping to ISO 27001 Annex A are written by this project, which is not affiliated with the AICPA."
+
+msgid "Assessment by framework"
+msgstr "Assessment by framework"
+
+msgid "Proven"
+msgstr "Proven"
+
+msgid "Evidence expired"
+msgstr "Evidence expired"
+
+msgid "No evidence"
+msgstr "No evidence"
+
+msgid "Each framework is assessed on the Annex A controls it maps to. The score counts the applicable controls that are both implemented (or verified) and proven by at least one evidence document that has not expired: a control declared done without evidence does not count."
+msgstr "Each framework is assessed on the Annex A controls it maps to. The score counts the applicable controls that are both implemented (or verified) and proven by at least one evidence document that has not expired: a control declared done without evidence does not count."
+
+msgid "No framework is enabled."
+msgstr "No framework is enabled."
+
+msgid "Configure the frameworks"
+msgstr "Configure the frameworks"
+
+msgid "Framework"
+msgstr "Framework"
+
+msgid "Applicable controls"
+msgstr "Applicable controls"
+
+msgid "Implementation"
+msgstr "Implementation"
+
+#, php-format
+msgid "Gaps for %s"
+msgstr "Gaps for %s"
+
+#, php-format
+msgid "%1$d of %2$d applicable controls are implemented and proven. Open a control to update its status or attach the missing evidence."
+msgstr "%1$d of %2$d applicable controls are implemented and proven. Open a control to update its status or attach the missing evidence."
+
+msgid "Assessment by framework: for each enabled framework, how many of its controls are implemented, how many are proven by valid evidence, and the resulting score."
+msgstr "Assessment by framework: for each enabled framework, how many of its controls are implemented, how many are proven by valid evidence, and the resulting score."
+
+msgid "Open the gaps of a framework, then update each control or attach the missing evidence; an expired document no longer counts. Present the scores at the management review."
+msgstr "Open the gaps of a framework, then update each control or attach the missing evidence; an expired document no longer counts. Present the scores at the management review."
+
+msgid "ISO 27001, 9.1 and 9.3; mapping of each framework to Annex A"
+msgstr "ISO 27001, 9.1 and 9.3; mapping of each framework to Annex A"

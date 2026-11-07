@@ -7,6 +7,13 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Added
+
+- **Évaluation par référentiel** (issue #379), dans Tableau de bord : pour chaque référentiel
+  activé, nombre de mesures applicables, taux de mise en œuvre, taux de preuve (au moins un
+  document non expiré rattaché à la mesure) et score des mesures à la fois mises en œuvre et
+  prouvées. Les écarts de chaque référentiel mènent à la mesure à compléter. Lecture seule.
+
 ## [2.35.0] - 2026-11-08
 
 ### Added

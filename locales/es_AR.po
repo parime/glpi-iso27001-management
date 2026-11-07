@@ -9478,3 +9478,50 @@ msgstr "Los criterios comunes (seguridad) siempre están en el alcance de un inf
 
 msgid "The Trust Services Criteria are protected by copyright (AICPA): only their identifiers are used here; summaries and the mapping to ISO 27001 Annex A are written by this project, which is not affiliated with the AICPA."
 msgstr "Los Trust Services Criteria están protegidos por derechos de autor (AICPA): aquí solo se usan sus identificadores; los resúmenes y la correspondencia con el Anexo A de ISO 27001 los redacta este proyecto, sin vínculo con el AICPA."
+
+msgid "Assessment by framework"
+msgstr "Evaluación por marco"
+
+msgid "Proven"
+msgstr "Demostrado"
+
+msgid "Evidence expired"
+msgstr "Evidencia caducada"
+
+msgid "No evidence"
+msgstr "Sin evidencia"
+
+msgid "Each framework is assessed on the Annex A controls it maps to. The score counts the applicable controls that are both implemented (or verified) and proven by at least one evidence document that has not expired: a control declared done without evidence does not count."
+msgstr "Cada marco se evalúa sobre los controles del Anexo A que le corresponden. La puntuación cuenta los controles aplicables que están implementados (o verificados) y demostrados por al menos un documento de evidencia no caducado: un control declarado hecho sin evidencia no cuenta."
+
+msgid "No framework is enabled."
+msgstr "Ningún marco está activado."
+
+msgid "Configure the frameworks"
+msgstr "Configurar los marcos"
+
+msgid "Framework"
+msgstr "Marco"
+
+msgid "Applicable controls"
+msgstr "Controles aplicables"
+
+msgid "Implementation"
+msgstr "Implementación"
+
+#, php-format
+msgid "Gaps for %s"
+msgstr "Brechas para %s"
+
+#, php-format
+msgid "%1$d of %2$d applicable controls are implemented and proven. Open a control to update its status or attach the missing evidence."
+msgstr "%1$d de %2$d controles aplicables están implementados y demostrados. Abra un control para actualizar su estado o adjuntar la evidencia que falta."
+
+msgid "Assessment by framework: for each enabled framework, how many of its controls are implemented, how many are proven by valid evidence, and the resulting score."
+msgstr "Evaluación por marco: para cada marco activado, cuántos de sus controles están implementados, cuántos están demostrados por una evidencia válida, y la puntuación resultante."
+
+msgid "Open the gaps of a framework, then update each control or attach the missing evidence; an expired document no longer counts. Present the scores at the management review."
+msgstr "Abra las brechas de un marco y luego actualice cada control o adjunte la evidencia que falta; un documento caducado ya no cuenta. Presente las puntuaciones en la revisión por la dirección."
+
+msgid "ISO 27001, 9.1 and 9.3; mapping of each framework to Annex A"
+msgstr "ISO 27001, 9.1 y 9.3; correspondencia de cada marco con el Anexo A"

@@ -70,7 +70,7 @@ class Menu extends CommonGLPI
         return [
             // Pilotage.
             Dashboard::class => [
-                Maturity::class, ComplianceEvent::class,
+                Maturity::class, FrameworkAssessment::class, ComplianceEvent::class,
             ],
             // Appréciation et traitement des risques.
             Risk::class => [

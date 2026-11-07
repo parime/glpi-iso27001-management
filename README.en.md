@@ -130,6 +130,9 @@ classification fields merged directly onto it.
   matrix view, partner networks conflicting with an internal
   network, PDF report for the auditor.
 - Cyber **maturity score** (0 to 100) with the calculation details and its monthly history.
+- **Assessment by framework**: for each enabled framework, implementation rate, evidence rate
+  (unexpired documents attached to the controls) and score of the controls both done and proven,
+  with the list of gaps leading to each control.
 - **Record of processing activities (GDPR, article 30)**: one entry per processing (purpose, legal basis,
   data subjects and data, recipients, transfers outside the EU, retention, security measures), linked to GLPI
   applications, assets and suppliers and to SoA controls, with its gaps, a yearly review and a PDF or CSV
@@ -151,7 +154,7 @@ page and through the breadcrumb.
 
 | Section | Pages |
 |---|---|
-| Dashboard | Dashboard, Maturity score, Compliance calendar |
+| Dashboard | Dashboard, Maturity score, Assessment by framework, Compliance calendar |
 | Risks | Risks, Supplier risks, Impact analysis, Domino effect, Waivers |
 | Compliance | Annex A controls (SoA), Reference frameworks, ISMS requirements, Obligations, Record of processing activities, Policies, Evidence, Evidence coverage |
 | Audits and improvement | Internal audits, Non-conformities, ISMS objectives, Management reviews |
