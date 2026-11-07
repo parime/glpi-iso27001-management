@@ -55,7 +55,7 @@ class FrameworkAssessment extends CommonGLPI
 
     public static function canView(): bool
     {
-        return Session::haveRight(self::RIGHTNAME, READ);
+        return (bool) Session::haveRight(self::RIGHTNAME, READ);
     }
 
     public static function getMenuContent()

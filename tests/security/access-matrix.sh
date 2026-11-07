@@ -66,7 +66,7 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/coveragerule.php front/playbook.php front/impactanalysis.php front/causalgraph.php
   front/ebiosstudy.php
   front/auditlog.php front/controltest.php
-  front/impactanalysis.php?export=continuity front/maturity.php front/crisisexercise.php front/complianceaudit.php
+  front/impactanalysis.php?export=continuity front/maturity.php front/frameworkassessment.php front/crisisexercise.php front/complianceaudit.php
   front/dashboard.php front/networkflow.report.php front/breachexposure.php front/networkflow.matrix.php
   front/processingactivity.php front/datasubjectrequest.php front/processingactivity.export.php?format=pdf
   front/processingactivity.export.php?format=csv
