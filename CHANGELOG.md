@@ -11,6 +11,15 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Pont optionnel avec le plugin Wazuh, premier lot** (issue #368) : sur les mesures A.8.16
+  (surveillance) et A.8.7 (protection contre les logiciels malveillants), nombre d'agents Wazuh
+  actifs et part des ordinateurs couverts par un agent actif, lus en direct. Nouvelle carte de
+  tableau de bord « Ordinateurs couverts par Wazuh (%) », proposée seulement quand le plugin Wazuh
+  est actif. Lecture seule, tolérante aux variations de schéma du plugin (bêta) : si une table ou
+  une colonne manque, rien n'est affiché.
+
+### Added
+
 - **Évaluation par référentiel** (issue #379), dans Tableau de bord : pour chaque référentiel
   activé, nombre de mesures applicables, taux de mise en œuvre, taux de preuve (au moins un
   document non expiré rattaché à la mesure) et score des mesures à la fois mises en œuvre et

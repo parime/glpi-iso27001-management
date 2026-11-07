@@ -41,6 +41,8 @@ parameters:
         - src/Services/Risk/RiskMatrixConfig.php
         # Issue #109 : lit la table d'assetsign via le global $DB, Plugin et Session, même raison.
         - src/Services/Control/AssetsignEvidenceProvider.php
+        # Issue #368 : lit les tables du plugin Wazuh via le global $DB, Plugin et Computer, même raison.
+        - src/Services/Control/WazuhEvidenceProvider.php
         # Issue #403 : lit et écrit la configuration de GLPI (Config), même raison.
         # FrameworkSelection.php, dans le même dossier, reste dans le périmètre : PHP pur.
         - src/Services/Control/FrameworkConfig.php

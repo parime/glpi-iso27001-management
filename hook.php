@@ -139,6 +139,13 @@ function plugin_grcmanager_dashboard_cards(?array $cards = null): array
             'group' => $group,
             'provider' => SecuredDashboardCards::class . '::upcomingComplianceDeadlines',
         ],
+        // Issue #368 : couverture Wazuh, carte retirée du catalogue si le plugin Wazuh est absent.
+        'grcmanager_wazuh_coverage' => [
+            'widgettype' => ['bigNumber'],
+            'label' => __('Computers covered by Wazuh (%)', 'grcmanager'),
+            'group' => $group,
+            'provider' => SecuredDashboardCards::class . '::wazuhCoverage',
+        ],
         'grcmanager_access_review_progress' => [
             'widgettype' => ['bigNumber'],
             'label' => __('Access review: % reviewed', 'grcmanager'),
