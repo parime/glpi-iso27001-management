@@ -52,8 +52,12 @@ archivé), avec ses champs de classification ISO 27001 fusionnés dessus.
 - **Référentiels NIS2** (directive (UE) 2022/2555) et **guide d'hygiène informatique de l'ANSSI**
   reliés à l'Annexe A.
 - **Référentiel DORA** (règlement (UE) 2022/2554, secteur financier), optionnel et désactivé par
-  défaut : exigences de 19 articles clés (5 à 30) résumées, reliées à l'Annexe A, références affichées sur les
+  défaut : exigences de 19 articles clés (5 à 45) résumées, reliées à l'Annexe A, références affichées sur les
   mesures et taux de conformité DORA.
+- **Vie privée ISO/IEC 27701:2025**, optionnel et désactivé par défaut : objectifs de l'Annexe A par
+  rôle (responsable de traitement, sous-traitant, sécurité commune) résumés, reliés à l'Annexe A
+  ISO 27001 et aux modules RGPD du plugin (registre, AIPD, demandes des personnes, incidents,
+  fournisseurs), références affichées sur les mesures et taux de conformité ISO 27701.
 - **Sécurité des systèmes d'IA (ISO/IEC 27090:2026)** : sections de la norme reliées à l'Annexe A,
   et risques types d'IA (services d'IA publics, injection de prompt, fuite de données, chaîne
   d'approvisionnement, empoisonnement, vol de modèle, systèmes non inventoriés) à importer dans le
@@ -104,7 +108,7 @@ archivé), avec ses champs de classification ISO 27001 fusionnés dessus.
 
 **Pilotage**
 - Tableau de bord ISMS par défaut et indicateurs à ajouter aux tableaux de bord GLPI, dont la
-  conformité par référentiel (ISO 27001, NIS2, ANSSI, NIST CSF, CIS Controls, DORA si activé), les échéances à 90 jours, la revue des accès
+  conformité par référentiel (ISO 27001, NIS2, ANSSI, NIST CSF, CIS Controls, DORA et ISO 27701 si activés), les échéances à 90 jours, la revue des accès
   et les délais NIS2 / RGPD en alerte ; menu GRC & Conformité > Tableau de bord, vues ISMS et
   Direction, tendance mensuelle.
 - **Formations notées**, en une ou plusieurs sessions (formateur, lieu, note, seuil de réussite,
@@ -276,12 +280,16 @@ du dépôt et dans la documentation indique uniquement le référentiel que le p
   sont résumés. © Union européenne, https://eur-lex.europa.eu/ - réutilisation autorisée
   (décision 2011/833/UE de la Commission). Seule la version publiée au Journal officiel de l'UE
   fait foi. La correspondance avec l'Annexe A ISO 27001 est indicative et établie par ce projet.
-- **Règlement (UE) 2022/2554 « DORA »** : intitulés de 19 articles clés (5 à 30) d'après les versions
+- **Règlement (UE) 2022/2554 « DORA »** : intitulés de 19 articles clés (5 à 45) d'après les versions
   officielles française et anglaise publiées sur
   [EUR-Lex](https://eur-lex.europa.eu/eli/reg/2022/2554/oj) ; les exigences sont résumées par ce
   projet, pas reproduites. © Union européenne, https://eur-lex.europa.eu/ - réutilisation autorisée
   (décision 2011/833/UE de la Commission). Seule la version publiée au Journal officiel de l'UE fait
   foi. La correspondance avec l'Annexe A ISO 27001 est indicative et établie par ce projet.
+- **ISO/IEC 27701:2025** : norme protégée par le droit d'auteur (© ISO/IEC). Seuls les numéros
+  des tables et des objectifs de l'Annexe A sont repris ; leur objet est résumé par ce projet et la
+  correspondance avec l'Annexe A ISO 27001 est indicative. Ce projet n'est pas affilié à l'ISO ni à
+  la CEI : [iso.org](https://www.iso.org/standard/27701).
 - **Guide d'hygiène informatique de l'ANSSI (42 mesures)** : intitulés des 42 mesures et des
   10 thèmes reproduits d'après le guide « Renforcer la sécurité de son système d'information en
   42 mesures », version 2.0 de septembre 2017, publié par l'

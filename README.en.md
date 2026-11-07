@@ -47,8 +47,12 @@ classification fields merged directly onto it.
 - **NIS2** (Directive (EU) 2022/2555) and the **ANSSI IT hygiene guide** frameworks, mapped to
   Annex A.
 - **DORA** framework (Regulation (EU) 2022/2554, financial sector), optional and disabled by
-  default: requirements of 19 key articles (5 to 30) summarised, mapped to Annex A, references shown on the
+  default: requirements of 19 key articles (5 to 45) summarised, mapped to Annex A, references shown on the
   controls and DORA compliance rate.
+- **ISO/IEC 27701:2025 privacy**, optional and disabled by default: Annex A objectives by role
+  (PII controller, PII processor, shared security) summarised, mapped to ISO 27001 Annex A and to the
+  GDPR modules of the plugin (record of processing, DPIA, data subject requests, incidents,
+  suppliers), references shown on the controls and ISO 27701 compliance rate.
 - **Security of AI systems (ISO/IEC 27090:2026)**: sections of the standard mapped to Annex A, and
   typical AI risks (public AI services, prompt injection, data leaks, supply chain, poisoning,
   model theft, unlisted AI systems) to import into the register from the risk catalog.
@@ -99,7 +103,7 @@ classification fields merged directly onto it.
 
 **Steering**
 - Default ISMS dashboard and KPIs to add to GLPI dashboards, including compliance by framework
-  (ISO 27001, NIS2, ANSSI, NIST CSF, CIS Controls, DORA when enabled), deadlines within 90 days, access review progress and NIS2 / GDPR
+  (ISO 27001, NIS2, ANSSI, NIST CSF, CIS Controls, DORA and ISO 27701 when enabled), deadlines within 90 days, access review progress and NIS2 / GDPR
   deadlines at risk; GRC & Compliance > Dashboard menu, ISMS and Management views, monthly trend.
 - **Scored trainings**, in one or several sessions (trainer, location, score, pass threshold, retake,
   PDF report with attendance sheet, each participant's quiz copy restricted to the participant, the
@@ -242,12 +246,16 @@ and documentation only identifies the framework the plugin helps you track.
   summarised. © European Union, https://eur-lex.europa.eu/ - reuse authorised (Commission
   Decision 2011/833/EU). Only the version published in the Official Journal of the EU is
   authentic. The mapping to ISO 27001 Annex A is indicative and made by this project.
-- **Regulation (EU) 2022/2554 "DORA"**: titles of 19 key articles (5 to 30) from the official French and
+- **Regulation (EU) 2022/2554 "DORA"**: titles of 19 key articles (5 to 45) from the official French and
   English language versions published on
   [EUR-Lex](https://eur-lex.europa.eu/eli/reg/2022/2554/oj); the requirements are summarised by this
   project, not reproduced. © European Union, https://eur-lex.europa.eu/ - reuse authorised
   (Commission Decision 2011/833/EU). Only the version published in the Official Journal of the EU is
   authentic. The mapping to ISO 27001 Annex A is indicative and made by this project.
+- **ISO/IEC 27701:2025**: standard protected by copyright (© ISO/IEC). Only the table and
+  objective numbers of Annex A are used; their purpose is summarised by this project and the mapping
+  to ISO 27001 Annex A is indicative. This project is not affiliated with ISO or IEC:
+  [iso.org](https://www.iso.org/standard/27701).
 - **ANSSI IT hygiene guide (42 measures)**: titles of the 42 measures and 10 themes reproduced
   from the guide "Renforcer la sécurité de son système d'information en 42 mesures", version 2.0
   of September 2017, published by
