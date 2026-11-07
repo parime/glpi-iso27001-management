@@ -7,6 +7,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.38.0] - 2026-11-08
+
 ## [2.37.0] - 2026-11-08
 
 ## [2.36.0] - 2026-11-08
