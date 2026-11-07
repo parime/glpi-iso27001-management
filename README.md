@@ -58,6 +58,10 @@ archivé), avec ses champs de classification ISO 27001 fusionnés dessus.
   rôle (responsable de traitement, sous-traitant, sécurité commune) résumés, reliés à l'Annexe A
   ISO 27001 et aux modules RGPD du plugin (registre, AIPD, demandes des personnes, incidents,
   fournisseurs), références affichées sur les mesures et taux de conformité ISO 27701.
+- **Continuité d'activité ISO 22301:2019**, optionnel et désactivé par défaut : principales exigences
+  des articles 4 à 10 résumées, reliées à l'Annexe A ISO 27001 et aux modules du plugin (risques,
+  exercices de crise, incidents, fournisseurs, audits, revue de direction), références sur les
+  mesures et taux de conformité ISO 22301.
 - **Sécurité des systèmes d'IA (ISO/IEC 27090:2026)** : sections de la norme reliées à l'Annexe A,
   et risques types d'IA (services d'IA publics, injection de prompt, fuite de données, chaîne
   d'approvisionnement, empoisonnement, vol de modèle, systèmes non inventoriés) à importer dans le
@@ -108,7 +112,7 @@ archivé), avec ses champs de classification ISO 27001 fusionnés dessus.
 
 **Pilotage**
 - Tableau de bord ISMS par défaut et indicateurs à ajouter aux tableaux de bord GLPI, dont la
-  conformité par référentiel (ISO 27001, NIS2, ANSSI, NIST CSF, CIS Controls, DORA et ISO 27701 si activés), les échéances à 90 jours, la revue des accès
+  conformité par référentiel (ISO 27001, NIS2, ANSSI, NIST CSF, CIS Controls, et DORA, ISO 27701, ISO 22301 si activés), les échéances à 90 jours, la revue des accès
   et les délais NIS2 / RGPD en alerte ; menu GRC & Conformité > Tableau de bord, vues ISMS et
   Direction, tendance mensuelle.
 - **Formations notées**, en une ou plusieurs sessions (formateur, lieu, note, seuil de réussite,
@@ -290,6 +294,10 @@ du dépôt et dans la documentation indique uniquement le référentiel que le p
   des tables et des objectifs de l'Annexe A sont repris ; leur objet est résumé par ce projet et la
   correspondance avec l'Annexe A ISO 27001 est indicative. Ce projet n'est pas affilié à l'ISO ni à
   la CEI : [iso.org](https://www.iso.org/standard/27701).
+- **ISO 22301:2019** : norme protégée par le droit d'auteur (© ISO). Seuls les numéros d'articles
+  sont repris ; leur objet est résumé par ce projet et la correspondance avec l'Annexe A ISO 27001
+  est indicative. Ce projet n'est pas affilié à l'ISO :
+  [iso.org](https://www.iso.org/standard/75106.html).
 - **Guide d'hygiène informatique de l'ANSSI (42 mesures)** : intitulés des 42 mesures et des
   10 thèmes reproduits d'après le guide « Renforcer la sécurité de son système d'information en
   42 mesures », version 2.0 de septembre 2017, publié par l'

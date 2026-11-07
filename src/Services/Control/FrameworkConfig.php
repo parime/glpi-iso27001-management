@@ -133,6 +133,11 @@ final class FrameworkConfig
                     . 'GDPR modules. Disabled by default.',
                 'grcmanager'
             ),
+            FrameworkSelection::ISO22301     => __(
+                'Business continuity (BCMS): ISO 22301 requirements, their references on the controls and links '
+                    . 'to crisis exercises, risks and reviews. Disabled by default.',
+                'grcmanager'
+            ),
         ];
     }
 
