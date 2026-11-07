@@ -242,7 +242,11 @@ $isoGroups = static function (
     string $groupField,
     bool $showGroupCode,
     ?string $openGroup = null
-) use ($idsByCode, $nis2Lang, $moduleLinks): array {
+) use (
+    $idsByCode,
+    $nis2Lang,
+    $moduleLinks
+): array {
     $result = [];
     foreach ($groups as $group => $groupTitle) {
         $rows = [];
