@@ -7,13 +7,28 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.31.0] - 2026-11-07
+
+### Added
+
+- **Vie privée ISO/IEC 27701:2025** (issue #379) : référentiel optionnel, désactivé par défaut.
+  Objectifs de l'Annexe A par rôle (A.1 responsable de traitement, A.2 sous-traitant, A.3 sécurité
+  commune) résumés par le projet, sans le texte de la norme. Carte dans Référentiels avec liens vers
+  les modules RGPD qui y répondent (registre, AIPD, demandes des personnes, incidents, fournisseurs),
+  badges « ISO 27701 » sur les mesures et taux de conformité dans les tableaux de bord.
+
+### Fixed
+
+- Référentiel DORA : la documentation annonçait les articles 5 à 30, le catalogue va jusqu'à
+  l'article 45 (partage d'informations).
+
 ## [2.30.0] - 2026-11-06
 
 ### Added
 
 - **Référentiel DORA** (règlement (UE) 2022/2554, issue #379) : optionnel, désactivé par défaut (y
   compris sur les installations existantes) et activable dans la configuration des référentiels.
-  Exigences de 19 articles clés (5 à 30) résumées par le projet et reliées à l'Annexe A, carte dans
+  Exigences de 19 articles clés (5 à 45) résumées par le projet et reliées à l'Annexe A, carte dans
   Référentiels avec la source EUR-Lex, badges « DORA » sur les mesures concernées et taux de
   conformité DORA dans les tableaux de bord.
 

@@ -9403,3 +9403,18 @@ msgstr "Digital operational resilience of the financial sector. Requirements sum
 
 msgid "Source: Regulation (EU) 2022/2554 (DORA), © European Union, EUR-Lex. Requirements are summarised and the mapping to ISO 27001 Annex A is indicative, both made by this project."
 msgstr "Source: Regulation (EU) 2022/2554 (DORA), © European Union, EUR-Lex. Requirements are summarised and the mapping to ISO 27001 Annex A is indicative, both made by this project."
+
+msgid "Privacy (PIMS): ISO/IEC 27701 objectives, their references on the controls and links to the GDPR modules. Disabled by default."
+msgstr "Privacy (PIMS): ISO/IEC 27701 objectives, their references on the controls and links to the GDPR modules. Disabled by default."
+
+msgid "ISO 27701 objectives"
+msgstr "ISO 27701 objectives"
+
+msgid "ISO/IEC 27701:2025: Privacy information management"
+msgstr "ISO/IEC 27701:2025: Privacy information management"
+
+msgid "Objectives of Annex A by role. The last column links to the modules of this plugin that already help meet them."
+msgstr "Objectives of Annex A by role. The last column links to the modules of this plugin that already help meet them."
+
+msgid "ISO/IEC 27701:2025 is protected by copyright: only its table and objective numbers are used here; summaries and the mapping to ISO 27001 Annex A are written by this project, which is not affiliated with ISO or IEC."
+msgstr "ISO/IEC 27701:2025 is protected by copyright: only its table and objective numbers are used here; summaries and the mapping to ISO 27001 Annex A are written by this project, which is not affiliated with ISO or IEC."

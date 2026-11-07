@@ -68,9 +68,21 @@ final class FrameworkConfigTest extends GrcmanagerIntegrationTestCase
             'name'    => [FrameworkConfig::CONFIG_KEY, FrameworkConfig::KNOWN_KEY],
         ]);
 
-        // Sans réglage (installation antérieure à DORA) : tout reste actif, sauf le référentiel optionnel.
-        $expected = array_values(array_diff(array_keys(FrameworkSelection::FRAMEWORKS), [FrameworkSelection::DORA]));
+        // Sans réglage (installation antérieure à DORA) : tout reste actif, sauf les référentiels optionnels.
+        $expected = array_values(array_diff(array_keys(FrameworkSelection::FRAMEWORKS), FrameworkSelection::OPTIONAL));
         $this->assertSame($expected, FrameworkConfig::enabled());
+
+        // Réglage enregistré avant ISO 27701 (DORA connu et activé) : DORA reste actif, ISO 27701 non.
+        FrameworkConfig::save(array_keys(FrameworkSelection::FRAMEWORKS)); // vide le cache de la requête
+        \Config::setConfigurationValues(FrameworkConfig::CONFIG_CONTEXT, [
+            FrameworkConfig::CONFIG_KEY => '[]',
+            FrameworkConfig::KNOWN_KEY  => (string) json_encode(array_values(array_diff(
+                array_keys(FrameworkSelection::FRAMEWORKS),
+                [FrameworkSelection::ISO27701]
+            ))),
+        ]);
+        $this->assertTrue(FrameworkConfig::isEnabled(FrameworkSelection::DORA));
+        $this->assertFalse(FrameworkConfig::isEnabled(FrameworkSelection::ISO27701));
 
         // Activé une fois, il le reste ; sa correspondance entre dans le score.
         FrameworkConfig::save([FrameworkSelection::ISO27001, FrameworkSelection::DORA]);

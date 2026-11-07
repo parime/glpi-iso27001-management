@@ -51,6 +51,14 @@
       {% endset %}
       {{ fields.htmlField('', dora_html, __('DORA requirements', 'grcmanager'), {'full_width': true}) }}
    {% endif %}
+   {# Issue #379 : objectifs ISO/IEC 27701 (vie privée), correspondance indicative établie par ce projet. #}
+   {% if iso27701 is not empty %}
+      {% set iso27701_html %}
+         {% for c in iso27701 %}<span class="badge bg-pink-lt me-1">ISO 27701 {{ c }}</span>{% endfor %}
+         {{ _self.referentials_hint(__('Indicative mapping made by this project: see', 'grcmanager'), referentials_url) }}
+      {% endset %}
+      {{ fields.htmlField('', iso27701_html, __('ISO 27701 objectives', 'grcmanager'), {'full_width': true}) }}
+   {% endif %}
    {% if anssi is not empty %}
       {% set anssi_html %}
          {% for m in anssi %}<span class="badge bg-teal-lt me-1" title="{{ m.title }}">{{ __('Measure %d', 'grcmanager')|format(m.number) }}</span>{% endfor %}
