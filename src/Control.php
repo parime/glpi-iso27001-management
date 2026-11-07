@@ -30,6 +30,7 @@ use GlpiPlugin\Grcmanager\Services\Control\ControlTestRules;
 use GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig;
 use GlpiPlugin\Grcmanager\Services\Control\FrameworkSelection;
 use GlpiPlugin\Grcmanager\Services\Control\DoraCatalogDefaults;
+use GlpiPlugin\Grcmanager\Services\Control\Iso22301CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\Iso27701CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\Nis2CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Ui\Badge;
@@ -654,6 +655,7 @@ class Control extends ControlBase
         $showNis2 = FrameworkConfig::isEnabled(FrameworkSelection::NIS2);
         $showDora = FrameworkConfig::isEnabled(FrameworkSelection::DORA);
         $showIso27701 = FrameworkConfig::isEnabled(FrameworkSelection::ISO27701);
+        $showIso22301 = FrameworkConfig::isEnabled(FrameworkSelection::ISO22301);
         $showNist = FrameworkConfig::isEnabled(FrameworkSelection::NIST_CSF);
         $measures = FrameworkConfig::isEnabled(FrameworkSelection::ANSSI)
             ? AnssiHygieneCatalogDefaults::measuresForControl($code)
@@ -722,6 +724,7 @@ class Control extends ControlBase
                 DoraCatalogDefaults::requirementsForControl($code)
             ) : [],
             'iso27701'                => $showIso27701 ? Iso27701CatalogDefaults::objectivesForControl($code) : [],
+            'iso22301'                => $showIso22301 ? Iso22301CatalogDefaults::requirementsForControl($code) : [],
             'anssi'                   => $anssi,
             'cis'                     => $cis,
             'assetsign_sheets'        => $sheets,

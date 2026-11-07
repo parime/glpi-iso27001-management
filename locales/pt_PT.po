@@ -9418,3 +9418,18 @@ msgstr "Objetivos do Anexo A por papel. A última coluna leva aos módulos deste
 
 msgid "ISO/IEC 27701:2025 is protected by copyright: only its table and objective numbers are used here; summaries and the mapping to ISO 27001 Annex A are written by this project, which is not affiliated with ISO or IEC."
 msgstr "A ISO/IEC 27701:2025 é protegida por direitos autorais: aqui são usados apenas os números de suas tabelas e objetivos; os resumos e a correspondência com o Anexo A da ISO 27001 são escritos por este projeto, sem vínculo com a ISO ou a IEC."
+
+msgid "Business continuity (BCMS): ISO 22301 requirements, their references on the controls and links to crisis exercises, risks and reviews. Disabled by default."
+msgstr "Continuidade de negócios (SGCN): requisitos da ISO 22301, suas referências nos controles e links para exercícios de crise, riscos e análises críticas. Desativado por padrão."
+
+msgid "ISO 22301 requirements"
+msgstr "Requisitos ISO 22301"
+
+msgid "ISO 22301:2019: Business continuity management"
+msgstr "ISO 22301:2019: gestão da continuidade de negócios"
+
+msgid "Main requirements by clause. The last column links to the modules of this plugin that already help meet them."
+msgstr "Principais requisitos por seção. A última coluna leva aos módulos deste plugin que já ajudam a atendê-los."
+
+msgid "ISO 22301:2019 is protected by copyright: only its clause numbers are used here; summaries and the mapping to ISO 27001 Annex A are written by this project, which is not affiliated with ISO."
+msgstr "A ISO 22301:2019 é protegida por direitos autorais: aqui são usados apenas os números de suas seções; os resumos e a correspondência com o Anexo A da ISO 27001 são escritos por este projeto, sem vínculo com a ISO."

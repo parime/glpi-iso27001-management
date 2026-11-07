@@ -331,6 +331,56 @@
 </div>
 {% endif %}
 
+{# Issue #379 : ISO 22301:2019, continuité d'activité (SMCA). #}
+{% if iso22301 is not empty %}
+<div class="card mb-3">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <h3 class="card-title mb-0">{{ __('ISO 22301:2019: Business continuity management', 'grcmanager') }}</h3>
+    <input type="search" class="form-control form-control-sm w-auto grcmanager-ref-filter"
+           data-target="grcmanager-iso22301-body" placeholder="{{ __('Filter…', 'grcmanager') }}">
+  </div>
+  <div class="card-body" id="grcmanager-iso22301-body">
+    <p class="text-muted small">{{ __('Main requirements by clause. The last column links to the modules of this plugin that already help meet them.', 'grcmanager') }}</p>
+    {% for clause in iso22301 %}
+      <details class="mb-2"{% if clause.clause == '8' %} open{% endif %}>
+        <summary class="fw-bold">{{ clause.clause }} - {{ clause.title }}</summary>
+        <table class="table table-sm ms-3 mt-2">
+          <tbody>
+            {% for requirement in clause.requirements %}
+              <tr>
+                <td class="text-nowrap"><code>{{ requirement.code }}</code></td>
+                <td>{{ requirement.text }}</td>
+                <td>
+                  {% for control in requirement.controls %}
+                    {% if control.id %}
+                      <a class="badge bg-azure-lt" href="{{ path('/plugins/grcmanager/front/control.form.php') }}?id={{ control.id }}">{{ control.code }}</a>
+                    {% else %}
+                      <span class="badge bg-azure-lt">{{ control.code }}</span>
+                    {% endif %}
+                  {% endfor %}
+                </td>
+                <td>
+                  {% for module in requirement.modules %}
+                    <a class="badge bg-orange-lt text-nowrap" href="{{ module.url }}"><i class="ti ti-arrow-right me-1"></i>{{ module.label }}</a>
+                  {% endfor %}
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </details>
+    {% endfor %}
+  </div>
+  {# Texte de la norme protégé (© ISO 2019) : numéros d'articles seulement, objet résumé par ce projet :
+     voir le docblock d'Iso22301CatalogDefaults. #}
+  <div class="card-footer text-muted small">
+    <i class="ti ti-license me-1"></i>
+    {{ __('ISO 22301:2019 is protected by copyright: only its clause numbers are used here; summaries and the mapping to ISO 27001 Annex A are written by this project, which is not affiliated with ISO.', 'grcmanager') }}
+    <a href="{{ iso22301_source }}" target="_blank" rel="noopener noreferrer">iso.org</a>
+  </div>
+</div>
+{% endif %}
+
 {% if iso27090 is not empty %}
 <div class="card mb-3">
   <div class="card-header d-flex justify-content-between align-items-center">

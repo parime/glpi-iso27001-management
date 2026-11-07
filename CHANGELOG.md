@@ -7,6 +7,14 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Added
+
+- **Continuité d'activité ISO 22301:2019** (issue #379) : référentiel optionnel, désactivé par
+  défaut. Quinze exigences principales des articles 4 à 10 résumées par le projet, sans le texte de
+  la norme. Carte dans Référentiels avec liens vers les modules qui y répondent (risques, exercices
+  de crise, incidents, fournisseurs, audits, revue de direction), badges « ISO 22301 » sur les
+  mesures et taux de conformité dans les tableaux de bord.
+
 ## [2.31.0] - 2026-11-07
 
 ### Added
