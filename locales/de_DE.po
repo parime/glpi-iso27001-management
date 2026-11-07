@@ -9433,3 +9433,18 @@ msgstr "Wichtigste Anforderungen nach Abschnitt. Die letzte Spalte verweist auf 
 
 msgid "ISO 22301:2019 is protected by copyright: only its clause numbers are used here; summaries and the mapping to ISO 27001 Annex A are written by this project, which is not affiliated with ISO."
 msgstr "ISO 22301:2019 ist urheberrechtlich geschützt: Hier werden nur ihre Abschnittsnummern verwendet; die Zusammenfassungen und die Zuordnung zu Anhang A der ISO 27001 stammen von diesem Projekt, das nicht mit ISO verbunden ist."
+
+msgid "AI management (AIMS): ISO/IEC 42001 control groups, their references on the controls and links to the AI risks, impact assessments and suppliers. Disabled by default."
+msgstr "KI-Management (AIMS): Maßnahmengruppen der ISO/IEC 42001, ihre Verweise bei den Maßnahmen und Links zu KI-Risiken, Folgenabschätzungen und Lieferanten. Standardmäßig deaktiviert."
+
+msgid "ISO 42001 control groups"
+msgstr "Maßnahmengruppen der ISO 42001"
+
+msgid "ISO/IEC 42001:2023: Artificial intelligence management"
+msgstr "ISO/IEC 42001:2023: Management künstlicher Intelligenz"
+
+msgid "Control groups of Annex A, gathered by theme by this project. The security of AI systems is detailed by ISO/IEC 27090 below. The last column links to the modules of this plugin that already help meet them."
+msgstr "Maßnahmengruppen des Anhangs A, von diesem Projekt nach Themen geordnet. Die Sicherheit von KI-Systemen wird unten durch ISO/IEC 27090 behandelt. Die letzte Spalte verweist auf die Module dieses Plugins, die bereits helfen, sie zu erfüllen."
+
+msgid "ISO/IEC 42001:2023 is protected by copyright: only its Annex A group numbers are used here; themes, summaries and the mapping to ISO 27001 Annex A are written by this project, which is not affiliated with ISO or IEC."
+msgstr "ISO/IEC 42001:2023 ist urheberrechtlich geschützt: Hier werden nur die Gruppennummern ihres Anhangs A verwendet; Themen, Zusammenfassungen und die Zuordnung zu Anhang A der ISO 27001 stammen von diesem Projekt, das nicht mit ISO oder IEC verbunden ist."

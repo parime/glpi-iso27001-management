@@ -62,6 +62,10 @@ archivé), avec ses champs de classification ISO 27001 fusionnés dessus.
   des articles 4 à 10 résumées, reliées à l'Annexe A ISO 27001 et aux modules du plugin (risques,
   exercices de crise, incidents, fournisseurs, audits, revue de direction), références sur les
   mesures et taux de conformité ISO 22301.
+- **Management de l'IA ISO/IEC 42001:2023**, optionnel et désactivé par défaut : les neuf groupes de
+  mesures de l'Annexe A (A.2 à A.10) résumés et rassemblés par thème, reliés à l'Annexe A ISO 27001
+  et aux modules du plugin (risques types d'IA, AIPD, registre, incidents, fournisseurs), références
+  sur les mesures et taux de conformité ISO 42001. Complète ISO/IEC 27090 (sécurité de l'IA).
 - **Sécurité des systèmes d'IA (ISO/IEC 27090:2026)** : sections de la norme reliées à l'Annexe A,
   et risques types d'IA (services d'IA publics, injection de prompt, fuite de données, chaîne
   d'approvisionnement, empoisonnement, vol de modèle, systèmes non inventoriés) à importer dans le
@@ -112,7 +116,7 @@ archivé), avec ses champs de classification ISO 27001 fusionnés dessus.
 
 **Pilotage**
 - Tableau de bord ISMS par défaut et indicateurs à ajouter aux tableaux de bord GLPI, dont la
-  conformité par référentiel (ISO 27001, NIS2, ANSSI, NIST CSF, CIS Controls, et DORA, ISO 27701, ISO 22301 si activés), les échéances à 90 jours, la revue des accès
+  conformité par référentiel (ISO 27001, NIS2, ANSSI, NIST CSF, CIS Controls, et DORA, ISO 27701, ISO 22301, ISO 42001 si activés), les échéances à 90 jours, la revue des accès
   et les délais NIS2 / RGPD en alerte ; menu GRC & Conformité > Tableau de bord, vues ISMS et
   Direction, tendance mensuelle.
 - **Formations notées**, en une ou plusieurs sessions (formateur, lieu, note, seuil de réussite,
@@ -298,6 +302,10 @@ du dépôt et dans la documentation indique uniquement le référentiel que le p
   sont repris ; leur objet est résumé par ce projet et la correspondance avec l'Annexe A ISO 27001
   est indicative. Ce projet n'est pas affilié à l'ISO :
   [iso.org](https://www.iso.org/standard/75106.html).
+- **ISO/IEC 42001:2023** : norme protégée par le droit d'auteur (© ISO/IEC). Seuls les numéros des
+  groupes de l'Annexe A sont repris ; thèmes et résumés sont rédigés par ce projet et la
+  correspondance avec l'Annexe A ISO 27001 est indicative. Ce projet n'est pas affilié à l'ISO ni à
+  la CEI : [iso.org](https://www.iso.org/standard/81230.html).
 - **Guide d'hygiène informatique de l'ANSSI (42 mesures)** : intitulés des 42 mesures et des
   10 thèmes reproduits d'après le guide « Renforcer la sécurité de son système d'information en
   42 mesures », version 2.0 de septembre 2017, publié par l'

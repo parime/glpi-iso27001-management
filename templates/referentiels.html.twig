@@ -281,104 +281,32 @@
 </div>
 {% endif %}
 
-{# Issue #379 : ISO/IEC 27701:2025, vie privée (PIMS). #}
+{# Issue #379 : normes ISO dont seuls les numéros sont repris (texte protégé), objet résumé par ce
+   projet : voir les docblocks d'Iso27701CatalogDefaults, Iso22301CatalogDefaults et
+   Iso42001CatalogDefaults. #}
 {% if iso27701 is not empty %}
-<div class="card mb-3">
-  <div class="card-header d-flex justify-content-between align-items-center">
-    <h3 class="card-title mb-0">{{ __('ISO/IEC 27701:2025: Privacy information management', 'grcmanager') }}</h3>
-    <input type="search" class="form-control form-control-sm w-auto grcmanager-ref-filter"
-           data-target="grcmanager-iso27701-body" placeholder="{{ __('Filter…', 'grcmanager') }}">
-  </div>
-  <div class="card-body" id="grcmanager-iso27701-body">
-    <p class="text-muted small">{{ __('Objectives of Annex A by role. The last column links to the modules of this plugin that already help meet them.', 'grcmanager') }}</p>
-    {% for table in iso27701 %}
-      <details class="mb-2">
-        <summary class="fw-bold">{{ table.table }} - {{ table.title }}</summary>
-        <table class="table table-sm ms-3 mt-2">
-          <tbody>
-            {% for objective in table.objectives %}
-              <tr>
-                <td class="text-nowrap"><code>{{ objective.code }}</code></td>
-                <td>{{ objective.text }}</td>
-                <td>
-                  {% for control in objective.controls %}
-                    {% if control.id %}
-                      <a class="badge bg-azure-lt" href="{{ path('/plugins/grcmanager/front/control.form.php') }}?id={{ control.id }}">{{ control.code }}</a>
-                    {% else %}
-                      <span class="badge bg-azure-lt">{{ control.code }}</span>
-                    {% endif %}
-                  {% endfor %}
-                </td>
-                <td>
-                  {% for module in objective.modules %}
-                    <a class="badge bg-pink-lt text-nowrap" href="{{ module.url }}"><i class="ti ti-arrow-right me-1"></i>{{ module.label }}</a>
-                  {% endfor %}
-                </td>
-              </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-      </details>
-    {% endfor %}
-  </div>
-  {# Texte de la norme protégé (© ISO/IEC 2025) : numéros des objectifs seulement, objet résumé par ce
-     projet : voir le docblock d'Iso27701CatalogDefaults. #}
-  <div class="card-footer text-muted small">
-    <i class="ti ti-license me-1"></i>
-    {{ __('ISO/IEC 27701:2025 is protected by copyright: only its table and objective numbers are used here; summaries and the mapping to ISO 27001 Annex A are written by this project, which is not affiliated with ISO or IEC.', 'grcmanager') }}
-    <a href="{{ iso27701_source }}" target="_blank" rel="noopener noreferrer">iso.org</a>
-  </div>
-</div>
+  {{ include('@grcmanager/referentiels_iso_card.html.twig', {
+    card_id: 'iso27701', groups: iso27701, source: iso27701_source, badge_class: 'bg-pink-lt',
+    title: __('ISO/IEC 27701:2025: Privacy information management', 'grcmanager'),
+    intro: __('Objectives of Annex A by role. The last column links to the modules of this plugin that already help meet them.', 'grcmanager'),
+    footer: __('ISO/IEC 27701:2025 is protected by copyright: only its table and objective numbers are used here; summaries and the mapping to ISO 27001 Annex A are written by this project, which is not affiliated with ISO or IEC.', 'grcmanager'),
+  }) }}
 {% endif %}
-
-{# Issue #379 : ISO 22301:2019, continuité d'activité (SMCA). #}
 {% if iso22301 is not empty %}
-<div class="card mb-3">
-  <div class="card-header d-flex justify-content-between align-items-center">
-    <h3 class="card-title mb-0">{{ __('ISO 22301:2019: Business continuity management', 'grcmanager') }}</h3>
-    <input type="search" class="form-control form-control-sm w-auto grcmanager-ref-filter"
-           data-target="grcmanager-iso22301-body" placeholder="{{ __('Filter…', 'grcmanager') }}">
-  </div>
-  <div class="card-body" id="grcmanager-iso22301-body">
-    <p class="text-muted small">{{ __('Main requirements by clause. The last column links to the modules of this plugin that already help meet them.', 'grcmanager') }}</p>
-    {% for clause in iso22301 %}
-      <details class="mb-2"{% if clause.clause == '8' %} open{% endif %}>
-        <summary class="fw-bold">{{ clause.clause }} - {{ clause.title }}</summary>
-        <table class="table table-sm ms-3 mt-2">
-          <tbody>
-            {% for requirement in clause.requirements %}
-              <tr>
-                <td class="text-nowrap"><code>{{ requirement.code }}</code></td>
-                <td>{{ requirement.text }}</td>
-                <td>
-                  {% for control in requirement.controls %}
-                    {% if control.id %}
-                      <a class="badge bg-azure-lt" href="{{ path('/plugins/grcmanager/front/control.form.php') }}?id={{ control.id }}">{{ control.code }}</a>
-                    {% else %}
-                      <span class="badge bg-azure-lt">{{ control.code }}</span>
-                    {% endif %}
-                  {% endfor %}
-                </td>
-                <td>
-                  {% for module in requirement.modules %}
-                    <a class="badge bg-orange-lt text-nowrap" href="{{ module.url }}"><i class="ti ti-arrow-right me-1"></i>{{ module.label }}</a>
-                  {% endfor %}
-                </td>
-              </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-      </details>
-    {% endfor %}
-  </div>
-  {# Texte de la norme protégé (© ISO 2019) : numéros d'articles seulement, objet résumé par ce projet :
-     voir le docblock d'Iso22301CatalogDefaults. #}
-  <div class="card-footer text-muted small">
-    <i class="ti ti-license me-1"></i>
-    {{ __('ISO 22301:2019 is protected by copyright: only its clause numbers are used here; summaries and the mapping to ISO 27001 Annex A are written by this project, which is not affiliated with ISO.', 'grcmanager') }}
-    <a href="{{ iso22301_source }}" target="_blank" rel="noopener noreferrer">iso.org</a>
-  </div>
-</div>
+  {{ include('@grcmanager/referentiels_iso_card.html.twig', {
+    card_id: 'iso22301', groups: iso22301, source: iso22301_source, badge_class: 'bg-orange-lt',
+    title: __('ISO 22301:2019: Business continuity management', 'grcmanager'),
+    intro: __('Main requirements by clause. The last column links to the modules of this plugin that already help meet them.', 'grcmanager'),
+    footer: __('ISO 22301:2019 is protected by copyright: only its clause numbers are used here; summaries and the mapping to ISO 27001 Annex A are written by this project, which is not affiliated with ISO.', 'grcmanager'),
+  }) }}
+{% endif %}
+{% if iso42001 is not empty %}
+  {{ include('@grcmanager/referentiels_iso_card.html.twig', {
+    card_id: 'iso42001', groups: iso42001, source: iso42001_source, badge_class: 'bg-teal-lt',
+    title: __('ISO/IEC 42001:2023: Artificial intelligence management', 'grcmanager'),
+    intro: __('Control groups of Annex A, gathered by theme by this project. The security of AI systems is detailed by ISO/IEC 27090 below. The last column links to the modules of this plugin that already help meet them.', 'grcmanager'),
+    footer: __('ISO/IEC 42001:2023 is protected by copyright: only its Annex A group numbers are used here; themes, summaries and the mapping to ISO 27001 Annex A are written by this project, which is not affiliated with ISO or IEC.', 'grcmanager'),
+  }) }}
 {% endif %}
 
 {% if iso27090 is not empty %}

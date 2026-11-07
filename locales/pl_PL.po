@@ -10854,3 +10854,18 @@ msgstr "Główne wymagania według rozdziałów. Ostatnia kolumna prowadzi do mo
 
 msgid "ISO 22301:2019 is protected by copyright: only its clause numbers are used here; summaries and the mapping to ISO 27001 Annex A are written by this project, which is not affiliated with ISO."
 msgstr "ISO 22301:2019 jest chroniona prawem autorskim: używane są tu tylko numery jej rozdziałów; streszczenia i powiązanie z załącznikiem A normy ISO 27001 opracował ten projekt, niezwiązany z ISO."
+
+msgid "AI management (AIMS): ISO/IEC 42001 control groups, their references on the controls and links to the AI risks, impact assessments and suppliers. Disabled by default."
+msgstr "Zarządzanie AI (AIMS): grupy zabezpieczeń ISO/IEC 42001, odniesienia do nich przy zabezpieczeniach i odnośniki do ryzyk AI, ocen skutków i dostawców. Domyślnie wyłączone."
+
+msgid "ISO 42001 control groups"
+msgstr "Grupy zabezpieczeń ISO 42001"
+
+msgid "ISO/IEC 42001:2023: Artificial intelligence management"
+msgstr "ISO/IEC 42001:2023: zarządzanie sztuczną inteligencją"
+
+msgid "Control groups of Annex A, gathered by theme by this project. The security of AI systems is detailed by ISO/IEC 27090 below. The last column links to the modules of this plugin that already help meet them."
+msgstr "Grupy zabezpieczeń załącznika A, pogrupowane tematycznie przez ten projekt. Bezpieczeństwo systemów AI opisuje poniżej ISO/IEC 27090. Ostatnia kolumna prowadzi do modułów tej wtyczki, które już pomagają je spełnić."
+
+msgid "ISO/IEC 42001:2023 is protected by copyright: only its Annex A group numbers are used here; themes, summaries and the mapping to ISO 27001 Annex A are written by this project, which is not affiliated with ISO or IEC."
+msgstr "ISO/IEC 42001:2023 jest chroniona prawem autorskim: używane są tu tylko numery grup jej załącznika A; tematy, streszczenia i powiązanie z załącznikiem A normy ISO 27001 opracował ten projekt, niezwiązany z ISO ani IEC."

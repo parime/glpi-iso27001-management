@@ -9433,3 +9433,18 @@ msgstr "Principales exigences par article. La dernière colonne renvoie vers les
 
 msgid "ISO 22301:2019 is protected by copyright: only its clause numbers are used here; summaries and the mapping to ISO 27001 Annex A are written by this project, which is not affiliated with ISO."
 msgstr "ISO 22301:2019 est protégée par le droit d'auteur : seuls ses numéros d'articles sont repris ici ; les résumés et la correspondance avec l'Annexe A d'ISO 27001 sont rédigés par ce projet, sans lien avec l'ISO."
+
+msgid "AI management (AIMS): ISO/IEC 42001 control groups, their references on the controls and links to the AI risks, impact assessments and suppliers. Disabled by default."
+msgstr "Management de l'IA (SMIA) : groupes de mesures ISO/IEC 42001, leurs références sur les mesures et liens vers les risques d'IA, analyses d'impact et fournisseurs. Désactivé par défaut."
+
+msgid "ISO 42001 control groups"
+msgstr "Groupes de mesures ISO 42001"
+
+msgid "ISO/IEC 42001:2023: Artificial intelligence management"
+msgstr "ISO/IEC 42001:2023 : management de l'intelligence artificielle"
+
+msgid "Control groups of Annex A, gathered by theme by this project. The security of AI systems is detailed by ISO/IEC 27090 below. The last column links to the modules of this plugin that already help meet them."
+msgstr "Groupes de mesures de l'Annexe A, rassemblés par thème par ce projet. La sécurité des systèmes d'IA est détaillée par ISO/IEC 27090 ci-dessous. La dernière colonne renvoie vers les modules de ce plugin qui aident déjà à les satisfaire."
+
+msgid "ISO/IEC 42001:2023 is protected by copyright: only its Annex A group numbers are used here; themes, summaries and the mapping to ISO 27001 Annex A are written by this project, which is not affiliated with ISO or IEC."
+msgstr "ISO/IEC 42001:2023 est protégée par le droit d'auteur : seuls les numéros des groupes de son Annexe A sont repris ici ; les thèmes, les résumés et la correspondance avec l'Annexe A d'ISO 27001 sont rédigés par ce projet, sans lien avec l'ISO ni la CEI."
