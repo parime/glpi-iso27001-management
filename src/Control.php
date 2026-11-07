@@ -35,6 +35,8 @@ use GlpiPlugin\Grcmanager\Services\Control\Iso27701CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\Iso42001CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\PciDssCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\Soc2CatalogDefaults;
+use GlpiPlugin\Grcmanager\Services\Control\WazuhEvidence;
+use GlpiPlugin\Grcmanager\Services\Control\WazuhEvidenceProvider;
 use GlpiPlugin\Grcmanager\Services\Control\Nis2CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Ui\Badge;
 use GlpiPlugin\Grcmanager\Services\Ui\Fragment;
@@ -706,6 +708,9 @@ class Control extends ControlBase
             ], $charter);
         }
 
+        // Issue #368 : couverture Wazuh (A.8.16, A.8.7), ligne absente si le plugin Wazuh n'est pas exploitable.
+        $wazuh = WazuhEvidence::isRelevantControl($code) ? WazuhEvidenceProvider::fetchCoverage() : null;
+
         TemplateRenderer::getInstance()->display('@grcmanager/control_form.html.twig', [
             'item'                    => $this,
             // Les 93 mesures sont un catalogue fixe semé à l'installation : jamais supprimées.
@@ -739,6 +744,8 @@ class Control extends ControlBase
             'assetsign_sheets'        => $sheets,
             'assetsign_charter'       => $charter,
             'campaigns_url'           => $charter !== null ? AssetsignEvidenceProvider::campaignsUrl() : null,
+            'wazuh'                   => $wazuh,
+            'wazuh_agents_url'        => $wazuh !== null ? WazuhEvidenceProvider::agentsUrl() : null,
             'referentials_url'        => $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/referentiels.php',
         ]);
 

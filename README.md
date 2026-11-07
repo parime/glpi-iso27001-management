@@ -92,6 +92,9 @@ archivé), avec ses champs de classification ISO 27001 fusionnés dessus.
 - Avec le plugin [assetsign](https://github.com/parime/assetsign-glpi) : remises et restitutions
   de matériel signées comme preuves des mesures A.5.9 à A.5.11, et taux de signature de la charte
   informatique sur A.5.10 et A.6.3.
+- Avec le plugin [Wazuh](https://github.com/initiativa/wazuh) (optionnel, lecture seule) : agents
+  actifs et part des ordinateurs couverts comme preuve des mesures A.8.16 et A.8.7, et carte de
+  tableau de bord « couverture Wazuh ». Sans le plugin, rien ne change.
 
 **Incidents de sécurité**
 - Objet ITIL complet dans le menu Assistance (acteurs, workflow, tâches, notifications, suivi
