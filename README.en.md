@@ -57,6 +57,10 @@ classification fields merged directly onto it.
   clauses 4 to 10 summarised, mapped to ISO 27001 Annex A and to the plugin modules (risks, crisis
   exercises, incidents, suppliers, audits, management review), references on the controls and
   ISO 22301 compliance rate.
+- **ISO/IEC 42001:2023 AI management**, optional and disabled by default: the nine control groups of
+  Annex A (A.2 to A.10) summarised and gathered by theme, mapped to ISO 27001 Annex A and to the
+  plugin modules (typical AI risks, DPIA, record of processing, incidents, suppliers), references on
+  the controls and ISO 42001 compliance rate. Complements ISO/IEC 27090 (AI security).
 - **Security of AI systems (ISO/IEC 27090:2026)**: sections of the standard mapped to Annex A, and
   typical AI risks (public AI services, prompt injection, data leaks, supply chain, poisoning,
   model theft, unlisted AI systems) to import into the register from the risk catalog.
@@ -107,7 +111,7 @@ classification fields merged directly onto it.
 
 **Steering**
 - Default ISMS dashboard and KPIs to add to GLPI dashboards, including compliance by framework
-  (ISO 27001, NIS2, ANSSI, NIST CSF, CIS Controls, and DORA, ISO 27701, ISO 22301 when enabled), deadlines within 90 days, access review progress and NIS2 / GDPR
+  (ISO 27001, NIS2, ANSSI, NIST CSF, CIS Controls, and DORA, ISO 27701, ISO 22301, ISO 42001 when enabled), deadlines within 90 days, access review progress and NIS2 / GDPR
   deadlines at risk; GRC & Compliance > Dashboard menu, ISMS and Management views, monthly trend.
 - **Scored trainings**, in one or several sessions (trainer, location, score, pass threshold, retake,
   PDF report with attendance sheet, each participant's quiz copy restricted to the participant, the
@@ -263,6 +267,10 @@ and documentation only identifies the framework the plugin helps you track.
 - **ISO 22301:2019**: standard protected by copyright (© ISO). Only the clause numbers are used;
   their purpose is summarised by this project and the mapping to ISO 27001 Annex A is indicative.
   This project is not affiliated with ISO: [iso.org](https://www.iso.org/standard/75106.html).
+- **ISO/IEC 42001:2023**: standard protected by copyright (© ISO/IEC). Only the Annex A group
+  numbers are used; themes and summaries are written by this project and the mapping to ISO 27001
+  Annex A is indicative. This project is not affiliated with ISO or IEC:
+  [iso.org](https://www.iso.org/standard/81230.html).
 - **ANSSI IT hygiene guide (42 measures)**: titles of the 42 measures and 10 themes reproduced
   from the guide "Renforcer la sécurité de son système d'information en 42 mesures", version 2.0
   of September 2017, published by

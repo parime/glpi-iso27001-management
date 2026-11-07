@@ -95,6 +95,7 @@ final class FrameworkConfigTest extends GrcmanagerIntegrationTestCase
         $rates = PilotageCards::frameworkRates($controls, FrameworkConfig::enabled());
         $this->assertSame(100.0, $rates['ISO 27701'], 'A.5.19 relève de l\'objectif A.1.5.');
         $this->assertSame(0.0, $rates['ISO 22301'], 'A.5.30 (non démarrée) seule relève d\'ISO 22301.');
+        $this->assertSame(100.0, $rates['ISO 42001'], 'A.5.19 relève du groupe A.10.');
     }
 
     public function testDisablingIso27001HidesIsmsRequirementsAndKeepsTheirData(): void

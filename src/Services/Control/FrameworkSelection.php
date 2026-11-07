@@ -38,12 +38,13 @@ final class FrameworkSelection
     public const DORA = 'dora';
     public const ISO27701 = 'iso27701';
     public const ISO22301 = 'iso22301';
+    public const ISO42001 = 'iso42001';
 
     /**
      * Issue #379 : référentiels sectoriels, désactivés tant que personne ne les a activés (une
      * installation existante ne les voit pas apparaître d'office).
      */
-    public const OPTIONAL = [self::DORA, self::ISO27701, self::ISO22301];
+    public const OPTIONAL = [self::DORA, self::ISO27701, self::ISO22301, self::ISO42001];
 
     /**
      * Référentiels activables, dans l'ordre d'affichage, avec leur nom (nom propre, non traduit).
@@ -60,6 +61,7 @@ final class FrameworkSelection
         self::DORA         => 'DORA',
         self::ISO27701     => 'ISO/IEC 27701:2025',
         self::ISO22301     => 'ISO 22301:2019',
+        self::ISO42001     => 'ISO/IEC 42001:2023',
     ];
 
     /**
