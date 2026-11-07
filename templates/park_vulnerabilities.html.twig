@@ -94,6 +94,9 @@
                      <td class="text-nowrap">
                         {% if row.priority %}<i class="ti ti-alert-triangle text-red me-1" title="{{ _x('singular', 'Priority', 'grcmanager') }}"></i>{% endif %}
                         <a href="https://nvd.nist.gov/vuln/detail/{{ row.cve_id }}" target="_blank" rel="noopener">{{ row.cve_id }}</a>
+                        {% if wazuh and wazuh.also[row.cve_id] is defined %}
+                           <div><span class="badge bg-blue-lt" title="{{ __('Also detected by the Wazuh agents', 'grcmanager') }}"><i class="ti ti-heartbeat me-1"></i>{{ __('Wazuh: %d computer(s)', 'grcmanager')|format(wazuh.also[row.cve_id]) }}</span></div>
+                        {% endif %}
                      </td>
                      <td>
                         {{ row.product }}
@@ -131,4 +134,57 @@
          </div>
       {% endif %}
    </div>
+
+   {# Issue #368 : CVE vues par les agents Wazuh et absentes de la veille ci-dessus (sans doublon). #}
+   {% if wazuh %}
+   <div class="card mt-3" id="grc-wazuh-vulnerabilities">
+      <div class="card-header">
+         <h3 class="card-title"><i class="ti ti-heartbeat me-2"></i>{{ __('Detected by Wazuh only', 'grcmanager') }}</h3>
+      </div>
+      {% if wazuh.only is empty %}
+         <div class="card-body text-muted"><i class="ti ti-circle-check me-1 text-green"></i>{{ __('Wazuh reports no vulnerability beyond those listed above.', 'grcmanager') }}</div>
+      {% else %}
+         <div class="card-body pb-0">
+            <p class="text-muted small mb-2">{{ __('Vulnerabilities seen by the Wazuh agents on your computers and not found by the software watch. Read only, from the Wazuh plugin.', 'grcmanager') }}</p>
+            {% if wazuh.total > wazuh.only|length %}<p class="small">{{ __('%1$d vulnerabilities: the %2$d highest-priority ones are shown.', 'grcmanager')|format(wazuh.total, wazuh.only|length) }}</p>{% endif %}
+         </div>
+         <div class="table-responsive">
+            <table class="table table-vcenter card-table">
+               <thead>
+                  <tr>
+                     <th>{{ __('CVE', 'grcmanager') }}</th>
+                     <th>{{ __('Packages', 'grcmanager') }}</th>
+                     <th class="text-end">{{ __('Machines', 'grcmanager') }}</th>
+                     <th>{{ __('CVSS', 'grcmanager') }}</th>
+                     <th>{{ __('EPSS', 'grcmanager') }}</th>
+                     <th>{{ __('Exploited', 'grcmanager') }}</th>
+                  </tr>
+               </thead>
+               <tbody>
+               {% for row in wazuh.only %}
+                  {% set cvss_class = row.score is null ? 'bg-secondary-lt' : (row.score >= 9 ? 'bg-red text-white' : (row.score >= 7 ? 'bg-orange text-white' : (row.score >= 4 ? 'bg-yellow text-dark' : 'bg-green-lt'))) %}
+                  <tr>
+                     <td class="text-nowrap">
+                        {% if row.priority %}<i class="ti ti-alert-triangle text-red me-1" title="{{ _x('singular', 'Priority', 'grcmanager') }}"></i>{% endif %}
+                        <a href="https://nvd.nist.gov/vuln/detail/{{ row.cve_id }}" target="_blank" rel="noopener">{{ row.cve_id }}</a>
+                     </td>
+                     <td>{% for p in row.packages %}<span class="badge bg-azure-lt me-1">{{ p }}</span>{% endfor %}</td>
+                     <td class="text-end"><strong>{{ row.machines }}</strong></td>
+                     <td><span class="badge {{ cvss_class }}">{{ row.score is null ? (row.severity ?: __('n/a', 'grcmanager')) : row.score|number_format(1, ',') }}</span></td>
+                     <td class="text-nowrap">{{ row.epss is null ? '-' : (row.epss * 100)|number_format(1, ',') ~ ' %' }}</td>
+                     <td class="text-nowrap">
+                        {% if row.is_kev %}
+                           <span class="badge bg-red text-white" title="{{ __('CISA catalog of known exploited vulnerabilities', 'grcmanager') }}"><i class="ti ti-flame me-1"></i>KEV</span>
+                        {% else %}
+                           <span class="text-muted">-</span>
+                        {% endif %}
+                     </td>
+                  </tr>
+               {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      {% endif %}
+   </div>
+   {% endif %}
 </div>

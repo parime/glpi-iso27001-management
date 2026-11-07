@@ -7,6 +7,14 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Added
+
+- **Pont Wazuh, vulnérabilités** (issue #368) : dans « Vulnérabilités du parc », une CVE déjà
+  trouvée par la veille des logiciels affiche aussi le nombre d'ordinateurs où les agents Wazuh la
+  voient, et une carte « Détectées par Wazuh seulement » liste les autres (paquets, ordinateurs,
+  score, signaux KEV et EPSS déjà connus), une ligne par CVE. Lecture seule, carte absente sans le
+  plugin Wazuh.
+
 ## [2.36.0] - 2026-11-08
 
 ### Added
