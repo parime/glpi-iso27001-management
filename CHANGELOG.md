@@ -7,6 +7,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.31.0] - 2026-11-07
+
 ### Added
 
 - **Vie privée ISO/IEC 27701:2025** (issue #379) : référentiel optionnel, désactivé par défaut.
