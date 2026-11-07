@@ -7,6 +7,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.32.0] - 2026-11-07
+
 ### Added
 
 - **Continuité d'activité ISO 22301:2019** (issue #379) : référentiel optionnel, désactivé par
