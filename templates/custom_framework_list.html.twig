@@ -1,0 +1,181 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+
+{# Issue #537 : référentiels personnalisés, modèle de fichier, analyse puis import confirmé. #}
+
+{% if analysis %}
+  <div class="card mb-3 border-primary">
+    <div class="card-header">
+      <h3 class="card-title mb-0"><i class="ti ti-report-search me-1"></i>{{ __('Analysis of the file for "%s"', 'grcmanager')|format(analysis.name) }}</h3>
+    </div>
+    <div class="card-body">
+      <div class="d-flex flex-wrap gap-2 mb-3">
+        <span class="badge bg-green-lt fs-5"><i class="ti ti-circle-check me-1"></i>{{ __('%d valid lines', 'grcmanager')|format(analysis.valid) }}</span>
+        <span class="badge {{ analysis.errors is empty ? 'bg-secondary-lt' : 'bg-red-lt' }} fs-5"><i class="ti ti-circle-x me-1"></i>{{ __('%d rejected lines', 'grcmanager')|format(analysis.errors|length) }}</span>
+        {% if analysis.target %}
+          <span class="badge bg-green-lt">{{ __('%1$s: %2$d', 'grcmanager')|format(__('New', 'grcmanager'), analysis.summary.create) }}</span>
+          <span class="badge bg-blue-lt">{{ __('%1$s: %2$d', 'grcmanager')|format(__('Changed', 'grcmanager'), analysis.summary.update) }}</span>
+          <span class="badge bg-teal-lt">{{ __('%1$s: %2$d', 'grcmanager')|format(__('Restored', 'grcmanager'), analysis.summary.restore) }}</span>
+          <span class="badge bg-secondary-lt">{{ __('%1$s: %2$d', 'grcmanager')|format(__('Unchanged', 'grcmanager'), analysis.summary.unchanged) }}</span>
+          <span class="badge bg-orange-lt">{{ __('%1$s: %2$d', 'grcmanager')|format(__('Removed', 'grcmanager'), analysis.summary.remove) }}</span>
+        {% endif %}
+      </div>
+
+      {% if analysis.errors is not empty %}
+        <div class="alert alert-warning">
+          <h4 class="alert-title"><i class="ti ti-alert-triangle me-1"></i>{{ __('Rejected lines', 'grcmanager') }}</h4>
+          <div class="text-secondary mb-2">{{ __('These lines will not be imported. Correct them in your file and analyse it again, or import the valid lines now.', 'grcmanager') }}</div>
+          <table class="table table-sm mb-0">
+            <thead><tr><th>{{ __('Line', 'grcmanager') }}</th><th>{{ __('Code') }}</th><th>{{ __('Reason', 'grcmanager') }}</th></tr></thead>
+            <tbody>
+              {% for error in analysis.errors %}
+                <tr><td>{{ error.line }}</td><td>{% if error.code %}<code>{{ error.code }}</code>{% endif %}</td><td>{{ error.message }}</td></tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% endif %}
+
+      {% if analysis.steps is not empty %}
+        {% if analysis.target and analysis.summary.remove > 0 %}
+          <div class="alert alert-info"><i class="ti ti-info-circle me-1"></i>{{ __('Requirements missing from this version are marked as removed: they are no longer counted, but nothing is deleted and their status comes back if they reappear in a later version.', 'grcmanager') }}</div>
+        {% endif %}
+        <div class="table-responsive">
+          <table class="table table-sm table-vcenter">
+            <thead><tr><th>{{ __('Line', 'grcmanager') }}</th><th>{{ __('Code') }}</th><th>{{ _x('label', 'Title', 'grcmanager') }}</th><th>{{ __('Annex A', 'grcmanager') }}</th><th>{{ __('Change', 'grcmanager') }}</th></tr></thead>
+            <tbody>
+              {% for step in analysis.steps %}
+                <tr>
+                  <td class="text-secondary">{{ step.line ?: '' }}</td>
+                  <td class="text-nowrap"><code>{{ step.code }}</code></td>
+                  <td>{{ step.title }}</td>
+                  <td>{% for code in step.annex_a %}<span class="badge bg-azure-lt me-1">{{ code }}</span>{% endfor %}</td>
+                  <td><span class="badge {{ step.class }}"><i class="{{ step.icon }} me-1"></i>{{ step.label }}</span>{% if step.changed %} <small class="text-secondary">{{ step.changed }}</small>{% endif %}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <form method="post" action="{{ page_url }}" class="d-flex gap-2 mt-2">
+          <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+          <input type="hidden" name="import_token" value="{{ analysis.token }}">
+          <button type="submit" name="confirm_import" value="1" class="btn btn-primary"><i class="ti ti-check me-1"></i>{{ __('Confirm the import', 'grcmanager') }}</button>
+          <a href="{{ page_url }}" class="btn btn-outline-secondary">{{ __('Cancel', 'grcmanager') }}</a>
+        </form>
+      {% else %}
+        <div class="alert alert-danger mb-0"><i class="ti ti-file-off me-1"></i>{{ __('No line can be imported: correct the file and analyse it again.', 'grcmanager') }}</div>
+      {% endif %}
+    </div>
+  </div>
+{% endif %}
+
+{% if can_create or (can_update and target) %}
+  <div class="card mb-3">
+    <div class="card-header">
+      <h3 class="card-title mb-0"><i class="ti ti-file-import me-1"></i>{{ target ? __('Import a new version of "%s"', 'grcmanager')|format(target_name) : __('Import a framework from a file', 'grcmanager') }}</h3>
+    </div>
+    <div class="card-body">
+      <p>{{ __('Group security requirements, a sector or contractual framework, a customer security assurance plan: describe it in a spreadsheet, save it as CSV and import it. It then works like the built-in frameworks: it can be enabled, its requirements appear on the controls and its compliance rate on the dashboard.', 'grcmanager') }}</p>
+      <div class="row g-3 mb-3">
+        <div class="col-md-7">
+          <div class="text-secondary small">
+            <strong>{{ __('Expected columns', 'grcmanager') }}</strong>
+            <ul class="mb-1">
+              <li><code>code</code> : {{ __('unique identifier of the requirement, required (for example GRP-01)', 'grcmanager') }}</li>
+              <li><code>theme</code> : {{ __('chapter or theme used to group the requirements', 'grcmanager') }}</li>
+              <li><code>title</code> : {{ __('short title, required', 'grcmanager') }}</li>
+              <li><code>description</code> : {{ __('full text of the requirement', 'grcmanager') }}</li>
+              <li><code>annex_a</code> : {{ __('ISO 27001 Annex A controls that meet it, separated by a comma or a space (A.5.1, A.8.5): they give the compliance rate', 'grcmanager') }}</li>
+            </ul>
+            {{ __('Semicolon or comma separator, UTF-8 encoding (a file saved by Excel is also accepted). %d requirements at most. French column names are accepted too.', 'grcmanager')|format(max_rows) }}
+          </div>
+        </div>
+        <div class="col-md-5 d-flex align-items-start">
+          <a href="{{ template_url }}" class="btn btn-outline-primary"><i class="ti ti-download me-1"></i>{{ __('Download the template', 'grcmanager') }}</a>
+        </div>
+      </div>
+      <form method="post" enctype="multipart/form-data" action="{{ page_url }}">
+        <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+        <input type="hidden" name="target" value="{{ target }}">
+        <div class="row g-3">
+          {% if not target %}
+            <div class="col-md-4">
+              <label class="form-label required" for="grc-cf-name">{{ __('Framework name', 'grcmanager') }}</label>
+              <input type="text" class="form-control" id="grc-cf-name" name="name" maxlength="255" required placeholder="{{ __('For example: Group security requirements', 'grcmanager') }}">
+            </div>
+          {% endif %}
+          <div class="col-md-2">
+            <label class="form-label" for="grc-cf-version">{{ __('Version', 'grcmanager') }}</label>
+            <input type="text" class="form-control" id="grc-cf-version" name="version" maxlength="255" placeholder="2026">
+          </div>
+          <div class="col-md-3">
+            <label class="form-label" for="grc-cf-source">{{ __('Source', 'grcmanager') }}</label>
+            <input type="text" class="form-control" id="grc-cf-source" name="source" maxlength="255" placeholder="{{ __('Issuer or document', 'grcmanager') }}">
+          </div>
+          <div class="col-md-3">
+            <label class="form-label required" for="grc-cf-file">{{ __('CSV file', 'grcmanager') }}</label>
+            <input type="file" class="form-control" id="grc-cf-file" name="csv_file" accept=".csv,text/csv,.txt" required>
+          </div>
+        </div>
+        <div class="d-flex gap-2 mt-3">
+          <button type="submit" name="analyse" value="1" class="btn btn-primary"><i class="ti ti-report-search me-1"></i>{{ __('Analyse the file', 'grcmanager') }}</button>
+          {% if target %}<a href="{{ page_url }}" class="btn btn-outline-secondary">{{ __('Cancel', 'grcmanager') }}</a>{% endif %}
+        </div>
+        <div class="form-hint mt-2"><i class="ti ti-shield-check me-1"></i>{{ __('Nothing is saved before you confirm: the analysis first shows the rejected lines and what will change.', 'grcmanager') }}</div>
+      </form>
+    </div>
+  </div>
+{% endif %}
+
+<div class="card mb-3">
+  <div class="card-header">
+    <h3 class="card-title mb-0"><i class="ti ti-books me-1"></i>{{ __('Imported frameworks', 'grcmanager') }}</h3>
+  </div>
+  {% if frameworks is empty %}
+    <div class="card-body text-secondary"><i class="ti ti-info-circle me-1"></i>{{ __('No custom framework yet: download the template, fill it in and import it above.', 'grcmanager') }}</div>
+  {% else %}
+    <div class="table-responsive">
+      <table class="table table-vcenter card-table">
+        <thead><tr>
+          <th>{{ __('Name') }}</th><th>{{ __('Version', 'grcmanager') }}</th><th>{{ __('Requirements', 'grcmanager') }}</th>
+          <th>{{ __('Self-assessed', 'grcmanager') }}</th><th>{{ __('State', 'grcmanager') }}</th><th>{{ __('Last import', 'grcmanager') }}</th><th></th>
+        </tr></thead>
+        <tbody>
+          {% for fw in frameworks %}
+            <tr>
+              <td><a href="{{ form_url }}?id={{ fw.id }}" class="fw-bold">{{ fw.name }}</a></td>
+              <td>{{ fw.version }}</td>
+              <td>{{ fw.active }}{% if fw.removed > 0 %} <span class="badge bg-orange-lt" title="{{ __('Removed by a later version, kept with their status', 'grcmanager') }}"><i class="ti ti-archive me-1"></i>{{ __('%d removed', 'grcmanager')|format(fw.removed) }}</span>{% endif %}</td>
+              <td>{{ fw.assessed }} / {{ fw.active }}</td>
+              <td>
+                {% if fw.enabled %}
+                  <span class="badge bg-green-lt"><i class="ti ti-toggle-right me-1"></i>{{ __('Enabled', 'grcmanager') }}</span>
+                {% else %}
+                  <span class="badge bg-secondary-lt"><i class="ti ti-toggle-left me-1"></i>{{ __('Disabled', 'grcmanager') }}</span>
+                {% endif %}
+              </td>
+              <td class="text-secondary">{{ fw.imported }}</td>
+              <td class="text-nowrap">
+                <a href="{{ form_url }}?id={{ fw.id }}" class="btn btn-sm btn-outline-primary"><i class="ti ti-list-details me-1"></i>{{ __('Requirements', 'grcmanager') }}</a>
+                {% if can_update %}<a href="{{ page_url }}?target={{ fw.id }}" class="btn btn-sm btn-outline-secondary"><i class="ti ti-refresh me-1"></i>{{ __('New version', 'grcmanager') }}</a>{% endif %}
+                {% if fw.enabled %}<a href="{{ assessment_url }}?framework={{ fw.key }}" class="btn btn-sm btn-outline-secondary"><i class="ti ti-list-check me-1"></i>{{ __('Assessment', 'grcmanager') }}</a>{% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% endif %}
+</div>

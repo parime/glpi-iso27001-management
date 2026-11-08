@@ -34,6 +34,8 @@
           <div class="form-hint">{{ frameworks_help[key] ?? '' }}</div>
         </div>
       {% endfor %}
+      {# Issue #537 : référentiels personnalisés importés depuis un fichier. #}
+      <div class="form-hint mb-2"><i class="ti ti-file-spreadsheet me-1"></i>{{ __('A framework of your own (group requirements, customer security plan)?', 'grcmanager') }} <a href="{{ custom_frameworks_url }}">{{ __('Import a custom framework', 'grcmanager') }}</a></div>
       {% if can_edit_config %}
         <div class="d-flex gap-2 mt-2">
           <button type="submit" name="update_frameworks" class="btn btn-primary">{{ __('Enregistrer') }}</button>

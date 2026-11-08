@@ -347,6 +347,9 @@ final class Installer
     private const RISK_INDICATOR_VALUES_TABLE = 'glpi_plugin_grcmanager_riskindicatorvalues';
     // Issue #380 : tests d'efficacité des mesures, voir \GlpiPlugin\Grcmanager\ControlTest.
     private const CONTROL_TESTS_TABLE = 'glpi_plugin_grcmanager_controltests';
+    // Issue #537 : référentiels personnalisés importés et leurs exigences.
+    private const CUSTOM_FRAMEWORKS_TABLE = 'glpi_plugin_grcmanager_customframeworks';
+    private const CUSTOM_REQUIREMENTS_TABLE = 'glpi_plugin_grcmanager_customrequirements';
 
     /**
      * Création et mise à jour du schéma. Les ordres DDL passent par $DB->doQuery(), qui lève une
@@ -626,6 +629,53 @@ final class Installer
                 KEY `documents_id` (`documents_id`),
                 KEY `next_test_date` (`next_test_date`),
                 KEY `plugin_grcmanager_nonconformities_id` (`plugin_grcmanager_nonconformities_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query);
+        }
+
+        // Issue #537 : référentiels personnalisés importés depuis un fichier CSV (voir
+        // \GlpiPlugin\Grcmanager\CustomFramework). Une exigence absente d'une nouvelle version est
+        // marquée retirée (is_removed), jamais supprimée : son statut et son commentaire restent.
+        if (!$DB->tableExists(self::CUSTOM_FRAMEWORKS_TABLE)) {
+            $query = "CREATE TABLE `" . self::CUSTOM_FRAMEWORKS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `name` varchar(255) NOT NULL DEFAULT '',
+                `version` varchar(255) NOT NULL DEFAULT '',
+                `source` varchar(255) NOT NULL DEFAULT '' COMMENT 'Origine du referentiel (fichier, emetteur)',
+                `comment` text,
+                `users_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Auteur du dernier import',
+                `date_import` timestamp NULL DEFAULT NULL,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `name` (`name`),
+                KEY `users_id` (`users_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query);
+        }
+        if (!$DB->tableExists(self::CUSTOM_REQUIREMENTS_TABLE)) {
+            $query = "CREATE TABLE `" . self::CUSTOM_REQUIREMENTS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_customframeworks_id` int {$keySign} NOT NULL DEFAULT 0,
+                `code` varchar(50) NOT NULL DEFAULT '',
+                `theme` varchar(255) NOT NULL DEFAULT '',
+                `title` varchar(255) NOT NULL DEFAULT '',
+                `description` text,
+                `annex_a` text COMMENT 'Codes de l Annexe A separes par une virgule',
+                `rank` int NOT NULL DEFAULT 0,
+                `is_removed` tinyint NOT NULL DEFAULT 0,
+                `date_removed` timestamp NULL DEFAULT NULL,
+                `status` varchar(16) NOT NULL DEFAULT ''
+                    COMMENT 'vide (non evaluee), compliant, partial, non_compliant, not_applicable',
+                `comment` text,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity` (`plugin_grcmanager_customframeworks_id`, `code`),
+                KEY `is_removed` (`is_removed`),
+                KEY `status` (`status`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
 
             $DB->doQuery($query);
@@ -5327,6 +5377,8 @@ final class Installer
         $migration->dropTable(self::CANONICAL_PRODUCTS_TABLE);
         $migration->dropTable(self::CONTROLS_RISKS_TABLE);
         $migration->dropTable(self::CONTROL_TESTS_TABLE);
+        $migration->dropTable(self::CUSTOM_REQUIREMENTS_TABLE);
+        $migration->dropTable(self::CUSTOM_FRAMEWORKS_TABLE);
         $migration->dropTable(self::CONTROLS_TABLE);
         $migration->dropTable(self::ISMS_REQUIREMENTS_TABLE);
         $migration->dropTable(self::SOA_VERSIONS_USERS_TABLE);
