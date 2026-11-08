@@ -54,6 +54,36 @@ final class WazuhEvidenceTest extends TestCase
         $this->assertNull(WazuhEvidence::coverage(1, 1, 0, 0)['rate'], 'Aucun ordinateur : pas de taux.');
     }
 
+    public function testWazuhVulnerabilitiesAreMergedWithoutDuplicatingTheSoftwareWatch(): void
+    {
+        $finding = static fn (string $cve, int $computer, ?float $score, string $package): array => [
+            'cve' => $cve, 'computers_id' => $computer, 'score' => $score, 'severity' => 'High',
+            'package' => $package, 'version' => '1.0',
+        ];
+        $result = WazuhEvidence::aggregateVulnerabilities([
+            $finding('CVE-2026-0001', 41, 9.8, 'openssl'),
+            $finding('CVE-2026-0001', 42, 9.8, 'openssl'),
+            $finding('cve-2026-0002', 41, 5.0, 'curl'),
+            $finding('CVE-2026-0002', 41, 7.5, 'libcurl'),
+            $finding('CVE-2026-0003', 43, null, 'zlib'),
+            $finding('CVE-2026-0009', 44, 8.1, 'nginx'),
+            $finding('not-a-cve', 44, 9.0, 'x'),
+            $finding('CVE-2026-0004', 0, 9.0, 'y'),
+        ], ['CVE-2026-0009' => true]);
+
+        $this->assertSame(['CVE-2026-0009' => 1], $result['also'], 'CVE déjà dans la veille : pas de ligne en plus.');
+        $this->assertSame(
+            ['CVE-2026-0001', 'CVE-2026-0002', 'CVE-2026-0003'],
+            array_column($result['only'], 'cve_id'),
+            'Tri par score décroissant, score inconnu en dernier.'
+        );
+        $this->assertSame(2, $result['only'][0]['machines']);
+        $this->assertSame(1, $result['only'][1]['machines'], 'Deux paquets sur le même ordinateur : un seul.');
+        $this->assertSame(7.5, $result['only'][1]['score']);
+        $this->assertSame(['curl 1.0', 'libcurl 1.0'], $result['only'][1]['packages']);
+        $this->assertNull($result['only'][2]['score']);
+    }
+
     public function testOnlyMonitoringAndMalwareControlsShowTheCoverage(): void
     {
         $this->assertTrue(WazuhEvidence::isRelevantControl('A.8.16'));

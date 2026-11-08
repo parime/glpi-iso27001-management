@@ -20,6 +20,8 @@ declare(strict_types=1);
 namespace GlpiPlugin\Grcmanager\Services\Control;
 
 use Computer;
+use GlpiPlugin\Grcmanager\Services\Cve\ParkVulnerabilityRules;
+use GlpiPlugin\Grcmanager\Services\Cve\ParkVulnerabilitySync;
 
 /**
  * Issue #368 : lecture seule des tables du plugin Wazuh (voir WazuhEvidence). Toute absence (plugin
@@ -103,18 +105,7 @@ final class WazuhEvidenceProvider
                 }
             }
 
-            // Seuls comptent les ordinateurs réels et visibles de l'utilisateur.
-            $computerIds = [];
-            foreach (
-                $DB->request([
-                    'SELECT' => ['id'],
-                    'FROM'   => Computer::getTable(),
-                    'WHERE'  => ['is_deleted' => 0, 'is_template' => 0]
-                        + \getEntitiesRestrictCriteria(Computer::getTable(), '', '', true),
-                ]) as $row
-            ) {
-                $computerIds[(int) $row['id']] = true;
-            }
+            $computerIds = self::visibleComputerIds();
         } catch (\Throwable $e) {
             return null;
         }
@@ -125,6 +116,116 @@ final class WazuhEvidenceProvider
             count(array_intersect_key($covered, $computerIds)),
             count($computerIds)
         );
+    }
+
+    /**
+     * Ordinateurs réels et visibles de l'utilisateur (entités actives), par id.
+     *
+     * @return array<int, true>
+     */
+    private static function visibleComputerIds(): array
+    {
+        global $DB;
+
+        $ids = [];
+        foreach (
+            $DB->request([
+                'SELECT' => ['id'],
+                'FROM'   => Computer::getTable(),
+                'WHERE'  => ['is_deleted' => 0, 'is_template' => 0]
+                    + \getEntitiesRestrictCriteria(Computer::getTable(), '', '', true),
+            ]) as $row
+        ) {
+            $ids[(int) $row['id']] = true;
+        }
+
+        return $ids;
+    }
+
+    /**
+     * Issue #368 : vulnérabilités que Wazuh voit sur les ordinateurs visibles, regroupées sans doublon
+     * avec la veille NVD (voir WazuhEvidence::aggregateVulnerabilities()), enrichies des signaux KEV et
+     * EPSS déjà connus du plugin. Null si le plugin Wazuh ou sa table manque.
+     *
+     * @param array<string, true> $knownCves CVE déjà listées par la veille
+     * @return array{also: array<string, int>, only: list<array{cve_id: string, packages: list<string>,
+     *     machines: int, score: float|null, severity: string, is_kev: bool, epss: float|null,
+     *     priority: bool}>}|null
+     */
+    public static function fetchVulnerabilities(array $knownCves): ?array
+    {
+        global $DB;
+
+        if (self::agentTable() === null) {
+            return null;
+        }
+        $table = WazuhEvidence::resolveTable(
+            WazuhEvidence::VULNERABILITY_TABLES,
+            WazuhEvidence::VULNERABILITY_COLUMNS,
+            static fn (string $name): bool => $DB->tableExists($name),
+            static fn (string $name, string $column): bool => $DB->fieldExists($name, $column)
+        );
+        if ($table === null) {
+            return null;
+        }
+        try {
+            $visible = self::visibleComputerIds();
+            $findings = [];
+            if ($visible !== []) {
+                foreach (
+                    $DB->request([
+                        'SELECT' => ['name', 'computers_id', 'v_severity', 'v_score', 'p_name', 'p_version'],
+                        'FROM'   => $table,
+                        'WHERE'  => [
+                            'is_deleted'     => 0,
+                            'is_discontinue' => 0,
+                            'computers_id'   => array_keys($visible),
+                        ],
+                    ]) as $row
+                ) {
+                    $findings[] = [
+                        'cve'          => (string) $row['name'],
+                        'computers_id' => (int) $row['computers_id'],
+                        'score'        => $row['v_score'] !== null && (float) $row['v_score'] > 0
+                            ? (float) $row['v_score'] : null,
+                        'severity'     => (string) ($row['v_severity'] ?? ''),
+                        'package'      => (string) ($row['p_name'] ?? ''),
+                        'version'      => (string) ($row['p_version'] ?? ''),
+                    ];
+                }
+            }
+            $result = WazuhEvidence::aggregateVulnerabilities($findings, $knownCves);
+
+            // Signaux d'exploitation déjà collectés par la veille (KEV, EPSS), pour la même priorisation.
+            $signals = [];
+            $cves = array_column($result['only'], 'cve_id');
+            if ($cves !== [] && $DB->tableExists(ParkVulnerabilitySync::SIGNALS_TABLE)) {
+                foreach (
+                    $DB->request([
+                        'SELECT' => ['cve_id', 'is_kev', 'epss'],
+                        'FROM'   => ParkVulnerabilitySync::SIGNALS_TABLE,
+                        'WHERE'  => ['cve_id' => $cves],
+                    ]) as $row
+                ) {
+                    $signals[(string) $row['cve_id']] = $row;
+                }
+            }
+        } catch (\Throwable $e) {
+            return null;
+        }
+        $only = [];
+        foreach ($result['only'] as $row) {
+            $signal = $signals[$row['cve_id']] ?? null;
+            $isKev = (bool) ($signal['is_kev'] ?? false);
+            $epss = isset($signal['epss']) ? (float) $signal['epss'] : null;
+            $only[] = $row + [
+                'is_kev'   => $isKev,
+                'epss'     => $epss,
+                'priority' => ParkVulnerabilityRules::isPriority($row['score'], $isKev, $epss),
+            ];
+        }
+
+        return ['also' => $result['also'], 'only' => $only];
     }
 
     /** Liste des agents dans le plugin Wazuh, si sa classe expose une recherche. */

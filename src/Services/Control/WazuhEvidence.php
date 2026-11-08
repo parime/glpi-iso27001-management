@@ -40,6 +40,12 @@ final class WazuhEvidence
     public const RELATION_TABLE = 'glpi_plugin_wazuh_agentassets';
     public const RELATION_COLUMNS = ['pluginwazuhagent_id', 'itemtype', 'items_id'];
 
+    /** Vulnérabilités détectées par Wazuh sur les ordinateurs (une ligne par CVE, paquet et ordinateur). */
+    public const VULNERABILITY_TABLES = ['glpi_plugin_wazuh_computertabs'];
+    public const VULNERABILITY_COLUMNS = [
+        'name', 'computers_id', 'v_severity', 'v_score', 'p_name', 'p_version', 'is_deleted', 'is_discontinue',
+    ];
+
     /** Statut Wazuh d'un agent qui remonte des données. */
     public const ACTIVE_STATUS = 'active';
 
@@ -79,6 +85,62 @@ final class WazuhEvidence
         }
 
         return null;
+    }
+
+    /**
+     * Issue #368 : regroupe les vulnérabilités Wazuh par CVE, sans doublon avec la veille NVD.
+     * - une CVE déjà listée par la veille (`$knownCves`) n'ajoute pas de ligne : on retient seulement
+     *   le nombre d'ordinateurs où Wazuh la voit, affiché sur la ligne existante ;
+     * - les autres forment une ligne par CVE (paquets et versions touchés, ordinateurs distincts,
+     *   score et sévérité les plus élevés), triées par score décroissant.
+     * Une même CVE vue deux fois sur un même ordinateur (deux paquets) compte un seul ordinateur.
+     *
+     * @param list<array{cve: string, computers_id: int, score: float|null, severity: string,
+     *     package: string, version: string}> $findings
+     * @param array<string, true> $knownCves
+     * @return array{also: array<string, int>, only: list<array{cve_id: string, packages: list<string>,
+     *     machines: int, score: float|null, severity: string}>}
+     */
+    public static function aggregateVulnerabilities(array $findings, array $knownCves): array
+    {
+        $machines = [];
+        $only = [];
+        foreach ($findings as $finding) {
+            $cve = strtoupper(trim($finding['cve']));
+            if (preg_match('/^CVE-\d{4}-\d{4,}$/', $cve) !== 1 || $finding['computers_id'] <= 0) {
+                continue;
+            }
+            $machines[$cve][$finding['computers_id']] = true;
+            if (isset($knownCves[$cve])) {
+                continue;
+            }
+            $row = $only[$cve] ?? ['cve_id' => $cve, 'packages' => [], 'score' => null, 'severity' => ''];
+            $package = trim($finding['package'] . ' ' . $finding['version']);
+            if ($package !== '' && !in_array($package, $row['packages'], true)) {
+                $row['packages'][] = $package;
+            }
+            if ($finding['score'] !== null && ($row['score'] === null || $finding['score'] > $row['score'])) {
+                $row['score'] = $finding['score'];
+                $row['severity'] = $finding['severity'];
+            } elseif ($row['severity'] === '') {
+                $row['severity'] = $finding['severity'];
+            }
+            $only[$cve] = $row;
+        }
+
+        $also = [];
+        foreach ($machines as $cve => $ids) {
+            if (isset($knownCves[$cve])) {
+                $also[$cve] = count($ids);
+            } else {
+                $only[$cve]['machines'] = count($ids);
+            }
+        }
+        $only = array_values($only);
+        usort($only, static fn (array $a, array $b): int => [$b['score'] ?? -1.0, $a['cve_id']]
+            <=> [$a['score'] ?? -1.0, $b['cve_id']]);
+
+        return ['also' => $also, 'only' => $only];
     }
 
     /**
