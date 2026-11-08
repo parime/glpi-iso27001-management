@@ -7,6 +7,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.40.0] - 2026-11-08
+
 ### Added
 
 - **AI Act** (règlement (UE) 2024/1689, issue #379) : référentiel optionnel, désactivé par défaut,
