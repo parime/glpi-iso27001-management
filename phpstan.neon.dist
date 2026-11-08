@@ -21,7 +21,12 @@ parameters:
         - src/Services/Cve
         - src/Services/Evidence
         - src/Services/Privacy
+        - src/Services/Workspace
     excludePaths:
+        # Issue #539 : lit les registres du plugin via le $DB global, Session et les classes
+        # CommonDBTM du plugin, même raison que RiskMatrixConfig.php ci-dessous. MySpaceRules.php,
+        # dans le même dossier, reste dans le périmètre : PHP pur.
+        - src/Services/Workspace/MySpaceProvider.php
         # Depends on GLPI's legacy global-namespace CommonDBTM classes (PluginGrcmanager*), not
         # available for static analysis, see above. src/Install/ is entirely GLPI-dependent and
         # stays out of `paths` altogether for the same reason.

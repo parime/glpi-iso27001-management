@@ -67,6 +67,19 @@ function plugin_grcmanager_dashboard_cards(?array $cards = null): array
             'group' => $group,
             'provider' => SecuredDashboardCards::class . '::risksPendingReviewCount',
         ],
+        // Issue #539 : « Mon espace GRC », ce qui attend l'utilisateur connecté.
+        'grcmanager_myspace_count' => [
+            'widgettype' => ['bigNumber'],
+            'label' => __('My GRC to-dos', 'grcmanager'),
+            'group' => $group,
+            'provider' => SecuredDashboardCards::class . '::mySpaceCount',
+        ],
+        'grcmanager_myspace_list' => [
+            'widgettype' => ['articleList'],
+            'label' => __('My GRC space', 'grcmanager'),
+            'group' => $group,
+            'provider' => SecuredDashboardCards::class . '::mySpaceList',
+        ],
         // Issue #145 : preuves expirées ou expirant sous 30 jours.
         'grcmanager_evidences_to_renew' => [
             'widgettype' => ['bigNumber'],
