@@ -11026,3 +11026,18 @@ msgstr "Wersja ujednolicona z 27 lipca 2026 r., z omnibusem cyfrowym (rozporząd
 
 msgid "Source: Regulation (EU) 2024/1689 as amended, © European Union, EUR-Lex. Article titles are the official ones; obligations are summarised and the mapping to ISO 27001 Annex A is indicative, both made by this project. Only the version published in the Official Journal of the EU is authentic."
 msgstr "Źródło: rozporządzenie (UE) 2024/1689 ze zmianami, © Unia Europejska, EUR-Lex. Tytuły artykułów są urzędowe; obowiązki są streszczone, a powiązanie z załącznikiem A normy ISO 27001 ma charakter orientacyjny, oba opracowane przez ten projekt. Autentyczna jest wyłącznie wersja opublikowana w Dzienniku Urzędowym UE."
+
+msgid "French health data hosting certification (HDS v2.0): requirements on the ISMS, the customer contract and data sovereignty, references on the controls. Disabled by default."
+msgstr "Francuska certyfikacja hostingu danych o zdrowiu (HDS v2.0): wymagania dotyczące SZBI, umowy z klientem i suwerenności danych, odniesienia przy zabezpieczeniach. Domyślnie wyłączone."
+
+msgid "HDS requirements"
+msgstr "Wymagania HDS"
+
+msgid "HDS: health data hosting certification (v2.0)"
+msgstr "HDS: certyfikacja hostingu danych o zdrowiu (v2.0)"
+
+msgid "Requirements added to an ISO 27001 certified ISMS to host health data in France: the ISMS itself, the clauses of the customer contract and data sovereignty. The last column links to the modules of this plugin that already help meet them."
+msgstr "Wymagania dodawane do SZBI certyfikowanego na zgodność z ISO 27001, aby hostować dane o zdrowiu we Francji: sam SZBI, klauzule umowy z klientem i suwerenność danych. Ostatnia kolumna prowadzi do modułów tej wtyczki, które już pomagają je spełnić."
+
+msgid "Source: HDS certification framework v2.0, French Digital Health Agency (ANS), approved by the order of 26 April 2024; public document. Requirement numbers are the official ones; summaries and the mapping to ISO 27001 Annex A are made by this project. Draft v2.1 splits requirement 23 into 23-1 to 23-3. Only the framework published by the ANS is authentic."
+msgstr "Źródło: ramy certyfikacji HDS v2.0, francuska Agencja ds. Cyfrowego Zdrowia (ANS), zatwierdzone rozporządzeniem z 26 kwietnia 2024 r.; dokument publiczny. Numery wymagań są urzędowe; streszczenia i powiązanie z załącznikiem A normy ISO 27001 opracował ten projekt. Projekt v2.1 dzieli wymaganie 23 na 23-1 do 23-3. Autentyczne są wyłącznie ramy opublikowane przez ANS."

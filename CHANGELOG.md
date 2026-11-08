@@ -16,6 +16,12 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   organisation, déployeurs, fournisseurs), intitulé officiel, obligation résumée et date
   d'application ; carte Référentiels avec la source EUR-Lex, badges « AI Act Art. n » sur les
   mesures, taux dans les tableaux de bord et l'évaluation par référentiel.
+- **HDS v2.0** (Hébergeur de données de santé, issue #379) : référentiel optionnel, désactivé par
+  défaut. Les 31 exigences du référentiel de certification de l'ANS (arrêté du 26/04/2024) par
+  chapitre (SMSI, contrat avec le client, souveraineté des données), résumées par ce projet et
+  reliées à l'Annexe A ISO 27001 ; le projet de v2.1 (exigence 23 détaillée en 23-1 à 23-3) est
+  signalé. Carte Référentiels, badges « HDS EXI n » sur les mesures, taux dans les tableaux de bord
+  et l'évaluation par référentiel.
 
 ## [2.39.0] - 2026-11-08
 

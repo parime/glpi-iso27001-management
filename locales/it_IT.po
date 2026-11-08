@@ -9605,3 +9605,18 @@ msgstr "Versione consolidata del 27 luglio 2026, omnibus digitale compreso (Rego
 
 msgid "Source: Regulation (EU) 2024/1689 as amended, © European Union, EUR-Lex. Article titles are the official ones; obligations are summarised and the mapping to ISO 27001 Annex A is indicative, both made by this project. Only the version published in the Official Journal of the EU is authentic."
 msgstr "Fonte: Regolamento (UE) 2024/1689 modificato, © Unione europea, EUR-Lex. I titoli degli articoli sono quelli ufficiali; gli obblighi sono riassunti e la corrispondenza con l'Allegato A di ISO 27001 è indicativa, entrambi a cura di questo progetto. Fa fede solo la versione pubblicata nella Gazzetta ufficiale dell'UE."
+
+msgid "French health data hosting certification (HDS v2.0): requirements on the ISMS, the customer contract and data sovereignty, references on the controls. Disabled by default."
+msgstr "Certificazione francese per l'hosting di dati sanitari (HDS v2.0): requisiti sull'SGSI, sul contratto con il cliente e sulla sovranità dei dati, riferimenti sui controlli. Disattivato per impostazione predefinita."
+
+msgid "HDS requirements"
+msgstr "Requisiti HDS"
+
+msgid "HDS: health data hosting certification (v2.0)"
+msgstr "HDS: certificazione per l'hosting di dati sanitari (v2.0)"
+
+msgid "Requirements added to an ISO 27001 certified ISMS to host health data in France: the ISMS itself, the clauses of the customer contract and data sovereignty. The last column links to the modules of this plugin that already help meet them."
+msgstr "Requisiti che si aggiungono a un SGSI certificato ISO 27001 per ospitare dati sanitari in Francia: l'SGSI stesso, le clausole del contratto con il cliente e la sovranità dei dati. L'ultima colonna rimanda ai moduli di questo plugin che aiutano già a soddisfarli."
+
+msgid "Source: HDS certification framework v2.0, French Digital Health Agency (ANS), approved by the order of 26 April 2024; public document. Requirement numbers are the official ones; summaries and the mapping to ISO 27001 Annex A are made by this project. Draft v2.1 splits requirement 23 into 23-1 to 23-3. Only the framework published by the ANS is authentic."
+msgstr "Fonte: quadro di certificazione HDS v2.0, Agenzia francese per la sanità digitale (ANS), approvato con decreto del 26 aprile 2024; documento pubblico. I numeri dei requisiti sono quelli ufficiali; i riassunti e la corrispondenza con l'Allegato A di ISO 27001 sono a cura di questo progetto. La bozza v2.1 suddivide il requisito 23 in 23-1 a 23-3. Fa fede solo il quadro pubblicato dall'ANS."

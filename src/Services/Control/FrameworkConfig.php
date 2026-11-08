@@ -158,6 +158,11 @@ final class FrameworkConfig
                     . 'application date, references on the controls. Disabled by default.',
                 'grcmanager'
             ),
+            FrameworkSelection::HDS          => __(
+                'French health data hosting certification (HDS v2.0): requirements on the ISMS, the customer '
+                    . 'contract and data sovereignty, references on the controls. Disabled by default.',
+                'grcmanager'
+            ),
         ];
     }
 

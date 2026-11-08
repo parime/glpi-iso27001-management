@@ -99,6 +99,14 @@
       {% endset %}
       {{ fields.htmlField('', ai_act_html, __('AI Act articles', 'grcmanager'), {'full_width': true}) }}
    {% endif %}
+   {# Issue #379 : exigences HDS v2.0, correspondance indicative établie par ce projet. #}
+   {% if hds is not empty %}
+      {% set hds_html %}
+         {% for c in hds %}<span class="badge bg-pink-lt me-1">HDS {{ c }}</span>{% endfor %}
+         {{ _self.referentials_hint(__('Indicative mapping made by this project: see', 'grcmanager'), referentials_url) }}
+      {% endset %}
+      {{ fields.htmlField('', hds_html, __('HDS requirements', 'grcmanager'), {'full_width': true}) }}
+   {% endif %}
    {% if anssi is not empty %}
       {% set anssi_html %}
          {% for m in anssi %}<span class="badge bg-teal-lt me-1" title="{{ m.title }}">{{ __('Measure %d', 'grcmanager')|format(m.number) }}</span>{% endfor %}

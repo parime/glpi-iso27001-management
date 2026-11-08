@@ -29,6 +29,7 @@ use GlpiPlugin\Grcmanager\Services\Control\Iso27701CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\Iso42001CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\PciDssCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\AiActCatalogDefaults;
+use GlpiPlugin\Grcmanager\Services\Control\HdsCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\Soc2CatalogDefaults;
 use GlpiPlugin\Grcmanager\AccessReview;
 use GlpiPlugin\Grcmanager\AccountHygiene;
@@ -311,6 +312,12 @@ foreach (AiActCatalogDefaults::ARTICLES as $number => $article) {
     ];
 }
 
+// Issue #379 : référentiel HDS v2.0, numéro officiel au format « EXI 05 », exigence résumée.
+$hdsItems = [];
+foreach (HdsCatalogDefaults::REQUIREMENTS as $code => $requirement) {
+    $hdsItems[HdsCatalogDefaults::label($code)] = $requirement;
+}
+
 // ISO/IEC 27090:2026 (sécurité des systèmes d'IA) : numéros de section et objet résumé par ce
 // projet (texte de la norme protégé), correspondance Annexe A indicative.
 $iso27090 = [];
@@ -386,6 +393,14 @@ foreach (Iso27090CatalogDefaults::CHAPTERS as $chapter => $chapterTitle) {
         'all'
     ) : [],
     'ai_act_source'   => AiActCatalogDefaults::SOURCE_URL,
+    'hds'             => $isEnabled(FrameworkSelection::HDS) ? $isoGroups(
+        HdsCatalogDefaults::CHAPTERS,
+        $hdsItems,
+        'chapter',
+        false,
+        'smsi'
+    ) : [],
+    'hds_source'      => HdsCatalogDefaults::SOURCE_URL,
     'anssi'        => $isEnabled(FrameworkSelection::ANSSI) ? $anssi : [],
     'anssi_source' => AnssiHygieneCatalogDefaults::SOURCE_URL,
     'anssi_lang'   => $nis2Lang,

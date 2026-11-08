@@ -73,6 +73,9 @@ classification fields merged directly onto it.
   27/07/2026 (digital omnibus 2026/1744 included), obligations by role (any organisation, deployers,
   providers of high-risk systems) with their application date, mapped to ISO 27001 Annex A and to the
   plugin modules, references on the controls and AI Act rate.
+- **HDS v2.0 (French health data hosting)**, optional and disabled by default: the 31 requirements
+  of the certification framework (ISMS, customer contract clauses, data sovereignty), mapped to ISO
+  27001 Annex A and to the plugin modules, "HDS EXI n" badges on the controls and HDS rate.
 - **Security of AI systems (ISO/IEC 27090:2026)**: sections of the standard mapped to Annex A, and
   typical AI risks (public AI services, prompt injection, data leaks, supply chain, poisoning,
   model theft, unlisted AI systems) to import into the register from the risk catalog.
@@ -126,7 +129,7 @@ classification fields merged directly onto it.
 
 **Steering**
 - Default ISMS dashboard and KPIs to add to GLPI dashboards, including compliance by framework
-  (ISO 27001, NIS2, ANSSI, NIST CSF, CIS Controls, and DORA, ISO 27701, ISO 22301, ISO 42001, PCI DSS, SOC 2, AI Act when enabled), deadlines within 90 days, access review progress and NIS2 / GDPR
+  (ISO 27001, NIS2, ANSSI, NIST CSF, CIS Controls, and DORA, ISO 27701, ISO 22301, ISO 42001, PCI DSS, SOC 2, AI Act, HDS when enabled), deadlines within 90 days, access review progress and NIS2 / GDPR
   deadlines at risk; GRC & Compliance > Dashboard menu, ISMS and Management views, monthly trend.
 - **Scored trainings**, in one or several sessions (trainer, location, score, pass threshold, retake,
   PDF report with attendance sheet, each participant's quiz copy restricted to the participant, the
@@ -298,6 +301,11 @@ and documentation only identifies the framework the plugin helps you track.
   obligations are summarised by this project. © European Union, https://eur-lex.europa.eu/ - reuse
   authorised (Commission Decision 2011/833/EU). Only the version published in the Official Journal of
   the EU is authentic. The mapping to ISO 27001 Annex A is indicative.
+- **HDS certification framework v2.0**: published by the French Digital Health Agency
+  ([esante.gouv.fr](https://esante.gouv.fr/offres-services/hds/certification-hebergeur-de-donnees-de-sante)),
+  approved by the order of 26 April 2024, public document. Requirement numbers are the official
+  ones; requirements are summarised by this project and the mapping to ISO 27001 Annex A is
+  indicative. Only the framework published by the ANS is authentic.
 - **SOC 2 / Trust Services Criteria**: criteria protected by copyright (© AICPA). Only their
   identifiers are used; summaries are written by this project and the mapping to ISO 27001 Annex A
   is indicative (it does not reuse the AICPA one). This project is not affiliated with the AICPA:

@@ -42,6 +42,7 @@ final class FrameworkSelection
     public const PCI_DSS = 'pci_dss';
     public const SOC2 = 'soc2';
     public const AI_ACT = 'ai_act';
+    public const HDS = 'hds';
 
     /**
      * Issue #379 : référentiels sectoriels, désactivés tant que personne ne les a activés (une
@@ -49,6 +50,7 @@ final class FrameworkSelection
      */
     public const OPTIONAL = [
         self::DORA, self::ISO27701, self::ISO22301, self::ISO42001, self::PCI_DSS, self::SOC2, self::AI_ACT,
+        self::HDS,
     ];
 
     /**
@@ -70,6 +72,7 @@ final class FrameworkSelection
         self::PCI_DSS      => 'PCI DSS v4.0.1',
         self::SOC2         => 'SOC 2 (TSC 2017)',
         self::AI_ACT       => 'AI Act (UE 2024/1689)',
+        self::HDS          => 'HDS v2.0',
     ];
 
     /**
