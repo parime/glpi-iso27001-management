@@ -123,6 +123,7 @@ final class SecuredDashboardCards
             FrameworkSelection::ANSSI, FrameworkSelection::NIST_CSF, FrameworkSelection::CIS_CONTROLS,
             FrameworkSelection::DORA, FrameworkSelection::ISO27701, FrameworkSelection::ISO22301,
             FrameworkSelection::ISO42001, FrameworkSelection::PCI_DSS, FrameworkSelection::SOC2,
+            FrameworkSelection::AI_ACT, FrameworkSelection::HDS,
         ],
     ];
 
