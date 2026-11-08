@@ -9916,7 +9916,7 @@ msgid "%d rejected lines"
 msgstr "%d lignes rejetées"
 
 msgid "Removed"
-msgstr "Retirées"
+msgstr "Retirée"
 
 msgid "Rejected lines"
 msgstr "Lignes rejetées"
@@ -10028,3 +10028,9 @@ msgstr "Il manque un référentiel interne, sectoriel ou contractuel ? Importez-
 
 msgid "Custom frameworks"
 msgstr "Référentiels personnalisés"
+
+msgid "Added"
+msgstr "Ajoutée"
+
+msgid "Choose another file"
+msgstr "Choisir un autre fichier"

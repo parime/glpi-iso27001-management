@@ -142,7 +142,7 @@ if (isset($_POST['analyse'])) {
         'rejected' => count($parsed['errors']),
     ];
     $actions = [
-        CustomFrameworkSync::CREATE    => ['bg-green-lt', 'ti ti-plus', __('New', 'grcmanager')],
+        CustomFrameworkSync::CREATE    => ['bg-green-lt', 'ti ti-plus', __('Added', 'grcmanager')],
         CustomFrameworkSync::UPDATE    => ['bg-blue-lt', 'ti ti-pencil', __('Changed', 'grcmanager')],
         CustomFrameworkSync::RESTORE   => ['bg-teal-lt', 'ti ti-arrow-back-up', __('Restored', 'grcmanager')],
         CustomFrameworkSync::UNCHANGED => ['bg-secondary-lt', 'ti ti-equal', __('Unchanged', 'grcmanager')],

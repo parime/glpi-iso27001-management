@@ -10028,3 +10028,9 @@ msgstr "Falta um framework interno, setorial ou contratual? Importe-o de uma pla
 
 msgid "Custom frameworks"
 msgstr "Frameworks personalizados"
+
+msgid "Added"
+msgstr "Adicionado"
+
+msgid "Choose another file"
+msgstr "Escolher outro arquivo"

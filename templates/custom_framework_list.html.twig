@@ -25,7 +25,7 @@
         <span class="badge bg-green-lt fs-5"><i class="ti ti-circle-check me-1"></i>{{ __('%d valid lines', 'grcmanager')|format(analysis.valid) }}</span>
         <span class="badge {{ analysis.errors is empty ? 'bg-secondary-lt' : 'bg-red-lt' }} fs-5"><i class="ti ti-circle-x me-1"></i>{{ __('%d rejected lines', 'grcmanager')|format(analysis.errors|length) }}</span>
         {% if analysis.target %}
-          <span class="badge bg-green-lt">{{ __('%1$s: %2$d', 'grcmanager')|format(__('New', 'grcmanager'), analysis.summary.create) }}</span>
+          <span class="badge bg-green-lt">{{ __('%1$s: %2$d', 'grcmanager')|format(__('Added', 'grcmanager'), analysis.summary.create) }}</span>
           <span class="badge bg-blue-lt">{{ __('%1$s: %2$d', 'grcmanager')|format(__('Changed', 'grcmanager'), analysis.summary.update) }}</span>
           <span class="badge bg-teal-lt">{{ __('%1$s: %2$d', 'grcmanager')|format(__('Restored', 'grcmanager'), analysis.summary.restore) }}</span>
           <span class="badge bg-secondary-lt">{{ __('%1$s: %2$d', 'grcmanager')|format(__('Unchanged', 'grcmanager'), analysis.summary.unchanged) }}</span>
@@ -34,7 +34,7 @@
       </div>
 
       {% if analysis.errors is not empty %}
-        <div class="alert alert-warning">
+        <div class="alert alert-warning d-block">
           <h4 class="alert-title"><i class="ti ti-alert-triangle me-1"></i>{{ __('Rejected lines', 'grcmanager') }}</h4>
           <div class="text-secondary mb-2">{{ __('These lines will not be imported. Correct them in your file and analyse it again, or import the valid lines now.', 'grcmanager') }}</div>
           <table class="table table-sm mb-0">
@@ -76,12 +76,13 @@
         </form>
       {% else %}
         <div class="alert alert-danger mb-0"><i class="ti ti-file-off me-1"></i>{{ __('No line can be imported: correct the file and analyse it again.', 'grcmanager') }}</div>
+        <a href="{{ page_url }}{{ analysis.target ? '?target=' ~ analysis.target : '' }}" class="btn btn-outline-secondary mt-2"><i class="ti ti-arrow-left me-1"></i>{{ __('Choose another file', 'grcmanager') }}</a>
       {% endif %}
     </div>
   </div>
 {% endif %}
 
-{% if can_create or (can_update and target) %}
+{% if not analysis and (can_create or (can_update and target)) %}
   <div class="card mb-3">
     <div class="card-header">
       <h3 class="card-title mb-0"><i class="ti ti-file-import me-1"></i>{{ target ? __('Import a new version of "%s"', 'grcmanager')|format(target_name) : __('Import a framework from a file', 'grcmanager') }}</h3>

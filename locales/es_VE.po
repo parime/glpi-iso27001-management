@@ -10028,3 +10028,9 @@ msgstr "¿Falta un marco interno, sectorial o contractual? Impórtelo desde una 
 
 msgid "Custom frameworks"
 msgstr "Marcos personalizados"
+
+msgid "Added"
+msgstr "Añadido"
+
+msgid "Choose another file"
+msgstr "Elegir otro archivo"

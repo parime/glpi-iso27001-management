@@ -10028,3 +10028,9 @@ msgstr "An internal, sector or contractual framework is missing? Import it from 
 
 msgid "Custom frameworks"
 msgstr "Custom frameworks"
+
+msgid "Added"
+msgstr "Added"
+
+msgid "Choose another file"
+msgstr "Choose another file"

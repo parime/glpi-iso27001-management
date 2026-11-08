@@ -10028,3 +10028,9 @@ msgstr "Fehlt ein internes, Branchen- oder Vertragsrahmenwerk? Importieren Sie e
 
 msgid "Custom frameworks"
 msgstr "Eigene Rahmenwerke"
+
+msgid "Added"
+msgstr "Hinzugefügt"
+
+msgid "Choose another file"
+msgstr "Andere Datei wählen"

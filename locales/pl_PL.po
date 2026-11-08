@@ -11451,3 +11451,9 @@ msgstr "Brakuje wewnętrznej, sektorowej lub umownej ramy? Zaimportuj ją z arku
 
 msgid "Custom frameworks"
 msgstr "Własne ramy odniesienia"
+
+msgid "Added"
+msgstr "Dodane"
+
+msgid "Choose another file"
+msgstr "Wybierz inny plik"
