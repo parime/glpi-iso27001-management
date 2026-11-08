@@ -8,6 +8,7 @@ use GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig;
 use GlpiPlugin\Grcmanager\Services\Control\FrameworkSelection;
 use GlpiPlugin\Grcmanager\Services\Control\WazuhEvidenceProvider;
 use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentModuleConfig;
+use GlpiPlugin\Grcmanager\Services\Workspace\MySpaceProvider;
 use Session;
 
 /**
@@ -51,6 +52,10 @@ final class SecuredDashboardCards
             // Issue #143 : cartes de pilotage.
             return PilotageCards::class;
         }
+        if (method_exists(MySpaceProvider::class, $name)) {
+            // Issue #539 : « Mon espace GRC ».
+            return MySpaceProvider::class;
+        }
         throw new \BadMethodCallException(sprintf('Unknown dashboard card provider "%s".', $name));
     }
 
@@ -71,6 +76,11 @@ final class SecuredDashboardCards
      */
     public static function canShow(string $name): bool
     {
+        if (str_starts_with($name, 'mySpace')) {
+            // Issue #539 : la carte ne compte que ce qui est confié à l'utilisateur et qu'il peut
+            // voir, source par source (MySpaceProvider) : une session suffit.
+            return Session::getLoginUserID() !== false;
+        }
         if (self::isIncidentCard($name)) {
             return self::incidentCardsAllowed();
         }
@@ -113,6 +123,7 @@ final class SecuredDashboardCards
             FrameworkSelection::ANSSI, FrameworkSelection::NIST_CSF, FrameworkSelection::CIS_CONTROLS,
             FrameworkSelection::DORA, FrameworkSelection::ISO27701, FrameworkSelection::ISO22301,
             FrameworkSelection::ISO42001, FrameworkSelection::PCI_DSS, FrameworkSelection::SOC2,
+            FrameworkSelection::AI_ACT, FrameworkSelection::HDS,
         ],
     ];
 

@@ -9582,3 +9582,123 @@ msgstr "Las %1$d alertas más recientes de los últimos %2$d días, leídas del 
 
 msgid "Recent Wazuh alerts"
 msgstr "Alertas Wazuh recientes"
+
+msgid "My GRC space"
+msgstr "Mi espacio GRC"
+
+msgid "Risk to review"
+msgstr "Riesgo por revisar"
+
+msgid "Treatment action"
+msgstr "Acción de tratamiento"
+
+msgid "Control effectiveness test"
+msgstr "Prueba de eficacia de un control"
+
+msgid "Nonconformity"
+msgstr "No conformidad"
+
+msgid "Policy to review"
+msgstr "Política por revisar"
+
+msgid "Training to attend"
+msgstr "Formación por realizar"
+
+msgid "Training to renew"
+msgstr "Formación por renovar"
+
+msgid "Supplier risk to review"
+msgstr "Riesgo de proveedor por revisar"
+
+msgid "Obligation to review"
+msgstr "Obligación por revisar"
+
+msgid "Audit"
+msgstr "Auditoría"
+
+msgid "Security objective"
+msgstr "Objetivo de seguridad"
+
+msgid "My GRC to-dos"
+msgstr "Mis tareas GRC"
+
+#, php-format
+msgid "%d overdue"
+msgstr "%d con retraso"
+
+msgid "No due date"
+msgstr "Sin fecha límite"
+
+#, php-format
+msgid "%d day(s) late"
+msgstr "%d día(s) de retraso"
+
+#, php-format
+msgid "%1$d of %2$d account(s) still to decide"
+msgstr "%1$d de %2$d cuenta(s) aún por decidir"
+
+#, php-format
+msgid "Statement of Applicability, version %d"
+msgstr "Declaración de aplicabilidad, versión %d"
+
+msgid "Items waiting for you"
+msgstr "Elementos que le esperan"
+
+#, php-format
+msgid "%d to do"
+msgstr "%d pendientes"
+
+#, php-format
+msgid "%1$d due within %2$d days"
+msgstr "%1$d vencen en %2$d días"
+
+#, php-format
+msgid "Open tasks assigned to you are always listed. Periodic deadlines (reviews, tests, evidence to renew) appear %d days before they fall due. Only items you are allowed to see are shown."
+msgstr "Las tareas abiertas que se le asignan siempre se muestran. Los plazos periódicos (revisiones, pruebas, evidencias por renovar) aparecen %d días antes de su vencimiento. Solo se muestran los elementos que tiene permiso para ver."
+
+msgid "Nothing is waiting for you at the moment."
+msgstr "Nada le espera por el momento."
+
+msgid "Everything waiting for you in the security management system, on one page and sorted by due date."
+msgstr "Todo lo que le espera en el sistema de gestión de la seguridad, en una sola página y ordenado por fecha límite."
+
+msgid "Start with the overdue items highlighted in red, then open each line to act on it. The number next to the menu entry counts these items."
+msgstr "Empiece por los elementos con retraso resaltados en rojo y luego abra cada línea para tratarla. El número junto a la entrada del menú cuenta estos elementos."
+
+msgid "European AI Act (Regulation (EU) 2024/1689, consolidated in 2026): obligations by role with their application date, references on the controls. Disabled by default."
+msgstr "Reglamento europeo de IA (Reglamento (UE) 2024/1689, consolidado en 2026): obligaciones por rol con su fecha de aplicación, referencias en los controles. Desactivado por defecto."
+
+#, php-format
+msgid "Art. %s"
+msgstr "Art. %s"
+
+msgid "AI Act articles"
+msgstr "Artículos del Reglamento de IA"
+
+#, php-format
+msgid "Applies from %s."
+msgstr "Aplicable a partir del %s."
+
+msgid "AI Act: Regulation (EU) 2024/1689 on artificial intelligence"
+msgstr "AI Act: Reglamento (UE) 2024/1689 de inteligencia artificial"
+
+msgid "Consolidated version of 27 July 2026, including the digital omnibus (Regulation (EU) 2026/1744). Obligations grouped by role, each with its application date. The last column links to the modules of this plugin that already help meet them."
+msgstr "Versión consolidada del 27 de julio de 2026, incluido el ómnibus digital (Reglamento (UE) 2026/1744). Obligaciones agrupadas por rol, cada una con su fecha de aplicación. La última columna enlaza con los módulos de este plugin que ya ayudan a cumplirlas."
+
+msgid "Source: Regulation (EU) 2024/1689 as amended, © European Union, EUR-Lex. Article titles are the official ones; obligations are summarised and the mapping to ISO 27001 Annex A is indicative, both made by this project. Only the version published in the Official Journal of the EU is authentic."
+msgstr "Fuente: Reglamento (UE) 2024/1689 modificado, © Unión Europea, EUR-Lex. Los títulos de los artículos son los oficiales; las obligaciones están resumidas y la correspondencia con el Anexo A de ISO 27001 es indicativa, ambas elaboradas por este proyecto. Solo la versión publicada en el Diario Oficial de la UE es auténtica."
+
+msgid "French health data hosting certification (HDS v2.0): requirements on the ISMS, the customer contract and data sovereignty, references on the controls. Disabled by default."
+msgstr "Certificación francesa de alojamiento de datos de salud (HDS v2.0): requisitos sobre el SGSI, el contrato con el cliente y la soberanía de los datos, referencias en los controles. Desactivado por defecto."
+
+msgid "HDS requirements"
+msgstr "Requisitos HDS"
+
+msgid "HDS: health data hosting certification (v2.0)"
+msgstr "HDS: certificación de alojamiento de datos de salud (v2.0)"
+
+msgid "Requirements added to an ISO 27001 certified ISMS to host health data in France: the ISMS itself, the clauses of the customer contract and data sovereignty. The last column links to the modules of this plugin that already help meet them."
+msgstr "Requisitos que se suman a un SGSI certificado ISO 27001 para alojar datos de salud en Francia: el propio SGSI, las cláusulas del contrato con el cliente y la soberanía de los datos. La última columna enlaza con los módulos de este plugin que ya ayudan a cumplirlos."
+
+msgid "Source: HDS certification framework v2.0, French Digital Health Agency (ANS), approved by the order of 26 April 2024; public document. Requirement numbers are the official ones; summaries and the mapping to ISO 27001 Annex A are made by this project. Draft v2.1 splits requirement 23 into 23-1 to 23-3. Only the framework published by the ANS is authentic."
+msgstr "Fuente: marco de certificación HDS v2.0, Agencia francesa de Salud Digital (ANS), aprobado por la orden del 26 de abril de 2024; documento público. Los números de los requisitos son los oficiales; los resúmenes y la correspondencia con el Anexo A de ISO 27001 son de este proyecto. El borrador v2.1 divide el requisito 23 en 23-1 a 23-3. Solo el marco publicado por la ANS es auténtico."

@@ -153,6 +153,16 @@ final class FrameworkConfig
                     . 'modules that produce the evidence. Disabled by default.',
                 'grcmanager'
             ),
+            FrameworkSelection::AI_ACT       => __(
+                'European AI Act (Regulation (EU) 2024/1689, consolidated in 2026): obligations by role with their '
+                    . 'application date, references on the controls. Disabled by default.',
+                'grcmanager'
+            ),
+            FrameworkSelection::HDS          => __(
+                'French health data hosting certification (HDS v2.0): requirements on the ISMS, the customer '
+                    . 'contract and data sovereignty, references on the controls. Disabled by default.',
+                'grcmanager'
+            ),
         ];
     }
 

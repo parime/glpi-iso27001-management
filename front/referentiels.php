@@ -28,6 +28,8 @@ use GlpiPlugin\Grcmanager\Services\Control\Iso22301CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\Iso27701CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\Iso42001CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\PciDssCatalogDefaults;
+use GlpiPlugin\Grcmanager\Services\Control\AiActCatalogDefaults;
+use GlpiPlugin\Grcmanager\Services\Control\HdsCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\Soc2CatalogDefaults;
 use GlpiPlugin\Grcmanager\AccessReview;
 use GlpiPlugin\Grcmanager\AccountHygiene;
@@ -296,6 +298,26 @@ $isoGroups = static function (
     return $result;
 };
 
+// Issue #379 : AI Act, intitulé officiel, obligation résumée par ce projet et date d'application
+// (article 113 consolidé), dans la langue de l'utilisateur.
+$aiActItems = [];
+foreach (AiActCatalogDefaults::ARTICLES as $number => $article) {
+    $applies = sprintf(__('Applies from %s.', 'grcmanager'), Html::convDate($article['applies']));
+    $aiActItems[sprintf(__('Art. %s', 'grcmanager'), (string) $number)] = [
+        'role'    => $article['role'],
+        'fr'      => $article['title_fr'] . ' : ' . $article['fr'] . ' ' . $applies,
+        'en'      => $article['title_en'] . ': ' . $article['en'] . ' ' . $applies,
+        'annex_a' => $article['annex_a'],
+        'modules' => $article['modules'],
+    ];
+}
+
+// Issue #379 : référentiel HDS v2.0, numéro officiel au format « EXI 05 », exigence résumée.
+$hdsItems = [];
+foreach (HdsCatalogDefaults::REQUIREMENTS as $code => $requirement) {
+    $hdsItems[HdsCatalogDefaults::label($code)] = $requirement;
+}
+
 // ISO/IEC 27090:2026 (sécurité des systèmes d'IA) : numéros de section et objet résumé par ce
 // projet (texte de la norme protégé), correspondance Annexe A indicative.
 $iso27090 = [];
@@ -363,6 +385,22 @@ foreach (Iso27090CatalogDefaults::CHAPTERS as $chapter => $chapterTitle) {
         'common'
     ) : [],
     'soc2_source'     => Soc2CatalogDefaults::SOURCE_URL,
+    'ai_act'          => $isEnabled(FrameworkSelection::AI_ACT) ? $isoGroups(
+        AiActCatalogDefaults::ROLES,
+        $aiActItems,
+        'role',
+        false,
+        'all'
+    ) : [],
+    'ai_act_source'   => AiActCatalogDefaults::SOURCE_URL,
+    'hds'             => $isEnabled(FrameworkSelection::HDS) ? $isoGroups(
+        HdsCatalogDefaults::CHAPTERS,
+        $hdsItems,
+        'chapter',
+        false,
+        'smsi'
+    ) : [],
+    'hds_source'      => HdsCatalogDefaults::SOURCE_URL,
     'anssi'        => $isEnabled(FrameworkSelection::ANSSI) ? $anssi : [],
     'anssi_source' => AnssiHygieneCatalogDefaults::SOURCE_URL,
     'anssi_lang'   => $nis2Lang,

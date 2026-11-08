@@ -7,6 +7,34 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.40.0] - 2026-11-08
+
+### Added
+
+- **AI Act** (règlement (UE) 2024/1689, issue #379) : référentiel optionnel, désactivé par défaut,
+  établi sur la version consolidée du 27/07/2026 qui intègre le règlement (UE) 2026/1744 (omnibus
+  numérique : article 4 assoupli, obligations des systèmes à haut risque de l'annexe III reportées
+  au 2/12/2027, nouvelles interdictions au 2/12/2026). Seize articles regroupés par rôle (toute
+  organisation, déployeurs, fournisseurs), intitulé officiel, obligation résumée et date
+  d'application ; carte Référentiels avec la source EUR-Lex, badges « AI Act Art. n » sur les
+  mesures, taux dans les tableaux de bord et l'évaluation par référentiel.
+- **HDS v2.0** (Hébergeur de données de santé, issue #379) : référentiel optionnel, désactivé par
+  défaut. Les 31 exigences du référentiel de certification de l'ANS (arrêté du 26/04/2024) par
+  chapitre (SMSI, contrat avec le client, souveraineté des données), résumées par ce projet et
+  reliées à l'Annexe A ISO 27001 ; le projet de v2.1 (exigence 23 détaillée en 23-1 à 23-3) est
+  signalé. Carte Référentiels, badges « HDS EXI n » sur les mesures, taux dans les tableaux de bord
+  et l'évaluation par référentiel.
+- **Mon espace GRC** (issue #539) : une page personnelle, en lecture seule, avec tout ce qui attend
+  l'utilisateur connecté, triée par échéance, les retards surlignés en rouge et un lien vers chaque
+  élément : risques à revoir et actions de traitement, tests d'efficacité des mesures, preuves à
+  renouveler, non-conformités, revues périodiques, lignes de revue des accès à décider, politiques à
+  revoir, formations à suivre ou à renouveler, risques fournisseurs et obligations à revoir,
+  versions de la SoA à approuver, demandes RGPD, audits, objectifs et événements du calendrier. Les
+  tâches ouvertes sont toujours listées, les échéances périodiques 30 jours avant leur date. Entrée
+  du menu avec le nombre d'éléments en attente, et deux cartes de tableau de bord. Chaque source
+  respecte les droits de l'utilisateur (registres sensibles compris) ; une session suffit pour les
+  revues d'accès, les formations et les approbations de la SoA, comme leurs pages personnelles.
+
 ## [2.39.0] - 2026-11-08
 
 ### Added

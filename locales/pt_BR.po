@@ -9582,3 +9582,123 @@ msgstr "Os %1$d alertas mais recentes dos últimos %2$d dias, lidos do plugin Wa
 
 msgid "Recent Wazuh alerts"
 msgstr "Alertas recentes do Wazuh"
+
+msgid "My GRC space"
+msgstr "Meu espaço GRC"
+
+msgid "Risk to review"
+msgstr "Risco a revisar"
+
+msgid "Treatment action"
+msgstr "Ação de tratamento"
+
+msgid "Control effectiveness test"
+msgstr "Teste de eficácia de um controle"
+
+msgid "Nonconformity"
+msgstr "Não conformidade"
+
+msgid "Policy to review"
+msgstr "Política a revisar"
+
+msgid "Training to attend"
+msgstr "Treinamento a realizar"
+
+msgid "Training to renew"
+msgstr "Treinamento a renovar"
+
+msgid "Supplier risk to review"
+msgstr "Risco de fornecedor a revisar"
+
+msgid "Obligation to review"
+msgstr "Obrigação a revisar"
+
+msgid "Audit"
+msgstr "Auditoria"
+
+msgid "Security objective"
+msgstr "Objetivo de segurança"
+
+msgid "My GRC to-dos"
+msgstr "Minhas tarefas GRC"
+
+#, php-format
+msgid "%d overdue"
+msgstr "%d em atraso"
+
+msgid "No due date"
+msgstr "Sem prazo"
+
+#, php-format
+msgid "%d day(s) late"
+msgstr "%d dia(s) de atraso"
+
+#, php-format
+msgid "%1$d of %2$d account(s) still to decide"
+msgstr "%1$d de %2$d conta(s) ainda a decidir"
+
+#, php-format
+msgid "Statement of Applicability, version %d"
+msgstr "Declaração de aplicabilidade, versão %d"
+
+msgid "Items waiting for you"
+msgstr "Itens aguardando você"
+
+#, php-format
+msgid "%d to do"
+msgstr "%d a fazer"
+
+#, php-format
+msgid "%1$d due within %2$d days"
+msgstr "%1$d vencem em %2$d dias"
+
+#, php-format
+msgid "Open tasks assigned to you are always listed. Periodic deadlines (reviews, tests, evidence to renew) appear %d days before they fall due. Only items you are allowed to see are shown."
+msgstr "As tarefas abertas atribuídas a você são sempre listadas. Os prazos periódicos (revisões, testes, evidências a renovar) aparecem %d dias antes do vencimento. Somente os itens que você pode ver são exibidos."
+
+msgid "Nothing is waiting for you at the moment."
+msgstr "Nada aguarda você no momento."
+
+msgid "Everything waiting for you in the security management system, on one page and sorted by due date."
+msgstr "Tudo o que aguarda você no sistema de gestão da segurança, em uma única página e ordenado por prazo."
+
+msgid "Start with the overdue items highlighted in red, then open each line to act on it. The number next to the menu entry counts these items."
+msgstr "Comece pelos itens em atraso destacados em vermelho e depois abra cada linha para tratá-la. O número ao lado da entrada do menu conta esses itens."
+
+msgid "European AI Act (Regulation (EU) 2024/1689, consolidated in 2026): obligations by role with their application date, references on the controls. Disabled by default."
+msgstr "Regulamento europeu de IA (Regulamento (UE) 2024/1689, consolidado em 2026): obrigações por papel com a data de aplicação, referências nos controles. Desativado por padrão."
+
+#, php-format
+msgid "Art. %s"
+msgstr "Art. %s"
+
+msgid "AI Act articles"
+msgstr "Artigos do AI Act"
+
+#, php-format
+msgid "Applies from %s."
+msgstr "Aplicável a partir de %s."
+
+msgid "AI Act: Regulation (EU) 2024/1689 on artificial intelligence"
+msgstr "AI Act: Regulamento (UE) 2024/1689 sobre inteligência artificial"
+
+msgid "Consolidated version of 27 July 2026, including the digital omnibus (Regulation (EU) 2026/1744). Obligations grouped by role, each with its application date. The last column links to the modules of this plugin that already help meet them."
+msgstr "Versão consolidada de 27 de julho de 2026, incluindo o omnibus digital (Regulamento (UE) 2026/1744). Obrigações agrupadas por papel, cada uma com sua data de aplicação. A última coluna leva aos módulos deste plugin que já ajudam a atendê-las."
+
+msgid "Source: Regulation (EU) 2024/1689 as amended, © European Union, EUR-Lex. Article titles are the official ones; obligations are summarised and the mapping to ISO 27001 Annex A is indicative, both made by this project. Only the version published in the Official Journal of the EU is authentic."
+msgstr "Fonte: Regulamento (UE) 2024/1689 alterado, © União Europeia, EUR-Lex. Os títulos dos artigos são os oficiais; as obrigações são resumidas e a correspondência com o Anexo A da ISO 27001 é indicativa, ambas elaboradas por este projeto. Só a versão publicada no Jornal Oficial da UE faz fé."
+
+msgid "French health data hosting certification (HDS v2.0): requirements on the ISMS, the customer contract and data sovereignty, references on the controls. Disabled by default."
+msgstr "Certificação francesa de hospedagem de dados de saúde (HDS v2.0): requisitos sobre o SGSI, o contrato com o cliente e a soberania dos dados, referências nos controles. Desativado por padrão."
+
+msgid "HDS requirements"
+msgstr "Requisitos HDS"
+
+msgid "HDS: health data hosting certification (v2.0)"
+msgstr "HDS: certificação de hospedagem de dados de saúde (v2.0)"
+
+msgid "Requirements added to an ISO 27001 certified ISMS to host health data in France: the ISMS itself, the clauses of the customer contract and data sovereignty. The last column links to the modules of this plugin that already help meet them."
+msgstr "Requisitos que se somam a um SGSI certificado ISO 27001 para hospedar dados de saúde na França: o próprio SGSI, as cláusulas do contrato com o cliente e a soberania dos dados. A última coluna leva aos módulos deste plugin que já ajudam a atendê-los."
+
+msgid "Source: HDS certification framework v2.0, French Digital Health Agency (ANS), approved by the order of 26 April 2024; public document. Requirement numbers are the official ones; summaries and the mapping to ISO 27001 Annex A are made by this project. Draft v2.1 splits requirement 23 into 23-1 to 23-3. Only the framework published by the ANS is authentic."
+msgstr "Fonte: referencial de certificação HDS v2.0, Agência francesa de Saúde Digital (ANS), aprovado pela portaria de 26 de abril de 2024; documento público. Os números dos requisitos são os oficiais; os resumos e a correspondência com o Anexo A da ISO 27001 são deste projeto. O projeto v2.1 divide o requisito 23 em 23-1 a 23-3. Só o referencial publicado pela ANS faz fé."

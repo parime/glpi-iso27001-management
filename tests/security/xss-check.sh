@@ -51,7 +51,8 @@ for url in \
   "riskindicator.form.php?id=$(xid kri)" riskindicator.php riskappetite.php \
   risk.php control.php supplierrisk.php securityincident.php accessreview.php audit.php complianceobligation.php \
   managementreview.php nonconformity.php objective.php policy.php training.php canonicalproduct.php \
-  ismsrequirement.php referentiels.php riskheatmap.php soaapproval.php config.php evidence.php controltest.php; do
+  ismsrequirement.php referentiels.php riskheatmap.php soaapproval.php config.php evidence.php controltest.php \
+  myspace.php; do
   check "front/$url" "$P/$url"
 done
 check "onglet risques d'un ordinateur"        "$(tab Computer 'GlpiPlugin%5CGrcmanager%5CRisk$1' "$(id computer_A)")"
