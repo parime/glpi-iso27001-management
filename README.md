@@ -143,6 +143,11 @@ archivé), avec ses champs de classification ISO 27001 fusionnés dessus.
   règles, redirections et réseaux des tunnels sont lus, le fichier n'est jamais conservé et une sauvegarde contenant des secrets est
   signalée), vue matrice zone × zone et site × site (chaque case colorée selon le pire écart de ses
   flux), réseaux partenaires en conflit avec un réseau interne, rapport PDF pour l'auditeur.
+- **Mon espace GRC** : une page personnelle avec tout ce qui attend l'utilisateur connecté (risques
+  et actions de traitement, tests de mesures, preuves à renouveler, non-conformités, revues
+  périodiques et revues d'accès, politiques, formations, approbations de la SoA...), triée par
+  échéance, retards surlignés, nombre d'éléments en attente dans le menu. Rien de ce que
+  l'utilisateur n'a pas le droit de voir.
 - **Score de maturité** cyber (0 à 100) avec le détail du calcul et son historique mensuel.
 - **Évaluation par référentiel** : pour chaque référentiel activé, taux de mise en œuvre, taux de
   preuve (documents non expirés rattachés aux mesures) et score des mesures à la fois faites et
@@ -170,7 +175,8 @@ affectation. Il crée le ticket ou la notification, et l'équipe décide.
 
 Le menu **GRC & Conformité** compte six rubriques, dans l'ordre du cycle du SMSI. Chaque rubrique
 ouvre sa première page ; les autres pages de la rubrique sont accessibles par la barre d'onglets en
-tête de page et par le fil d'Ariane.
+tête de page et par le fil d'Ariane. Juste après le tableau de bord, **Mon espace GRC** affiche le
+nombre d'éléments qui attendent l'utilisateur.
 
 | Rubrique | Pages |
 |---|---|
