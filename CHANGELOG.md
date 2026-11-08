@@ -7,6 +7,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.39.0] - 2026-11-08
+
 ### Added
 
 - **Pont Wazuh, alertes sur les risques** (issue #368) : sur la fiche d'un risque, les dix alertes
