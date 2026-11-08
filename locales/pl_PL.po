@@ -10989,3 +10989,17 @@ msgstr "Podatności wykryte przez agenty Wazuh na twoich komputerach, których n
 
 msgid "Packages"
 msgstr "Pakiety"
+
+#, php-format
+msgid "No Wazuh alert on the linked computers in the last %d days."
+msgstr "Brak alertów Wazuh na powiązanych komputerach w ciągu ostatnich dni: %d."
+
+msgid "Rule"
+msgstr "Reguła"
+
+#, php-format
+msgid "The %1$d most recent alerts of the last %2$d days, read from the Wazuh plugin. Only computers you can see are included."
+msgstr "Najnowsze alerty (%1$d) z ostatnich dni (%2$d), odczytane z wtyczki Wazuh. Uwzględnione są tylko komputery, które możesz zobaczyć."
+
+msgid "Recent Wazuh alerts"
+msgstr "Ostatnie alerty Wazuh"

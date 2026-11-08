@@ -84,6 +84,27 @@ final class WazuhEvidenceTest extends TestCase
         $this->assertNull($result['only'][2]['score']);
     }
 
+    public function testAlertRuleIsReadFromTheStoredJsonWithoutFailingOnBadContent(): void
+    {
+        $this->assertSame(
+            ['level' => 12, 'description' => 'Multiple authentication failures.', 'id' => '5763'],
+            WazuhEvidence::parseRule('{"level":12,"description":" Multiple authentication failures. ","id":"5763"}')
+        );
+        $this->assertSame(15, WazuhEvidence::parseRule('{"level":"99"}')['level'], 'Niveau borné à 15.');
+        $empty = ['level' => null, 'description' => '', 'id' => ''];
+        $this->assertSame($empty, WazuhEvidence::parseRule(null));
+        $this->assertSame($empty, WazuhEvidence::parseRule('pas du json'));
+        $this->assertSame($empty, WazuhEvidence::parseRule('""'), 'Le plugin Wazuh stocke "" sans règle.');
+    }
+
+    public function testAlertSeverityFollowsTheWazuhLevels(): void
+    {
+        $this->assertSame('high', WazuhEvidence::alertSeverity(12));
+        $this->assertSame('medium', WazuhEvidence::alertSeverity(7));
+        $this->assertSame('low', WazuhEvidence::alertSeverity(6));
+        $this->assertSame('unknown', WazuhEvidence::alertSeverity(null));
+    }
+
     public function testOnlyMonitoringAndMalwareControlsShowTheCoverage(): void
     {
         $this->assertTrue(WazuhEvidence::isRelevantControl('A.8.16'));

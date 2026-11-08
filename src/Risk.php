@@ -24,6 +24,8 @@ use Dropdown;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\RiskBase;
 use GlpiPlugin\Grcmanager\Services\Classification\ClassificationLevels;
+use GlpiPlugin\Grcmanager\Services\Control\WazuhEvidence;
+use GlpiPlugin\Grcmanager\Services\Control\WazuhEvidenceProvider;
 use GlpiPlugin\Grcmanager\Services\Risk\LinkableItemtypes;
 use GlpiPlugin\Grcmanager\Services\Risk\ReviewReminderService;
 use GlpiPlugin\Grcmanager\Services\Risk\RiskAppetiteRules;
@@ -570,10 +572,27 @@ class Risk extends RiskBase
             ];
         }
 
+        // Issue #368 : alertes Wazuh récentes des ordinateurs liés (déjà filtrés sur les droits de
+        // l'utilisateur par getLinkedAssets()), lecture seule ; rien si le plugin Wazuh est absent.
+        $wazuhAlerts = null;
+        if (!$isNew && WazuhEvidenceProvider::isAvailable()) {
+            $wazuhAlerts = WazuhEvidenceProvider::fetchRecentAlerts(
+                array_map('intval', $linkedIdsByType[\Computer::class] ?? []),
+                date('Y-m-d H:i:s', (int) strtotime('-' . WazuhEvidence::ALERT_DAYS . ' days'))
+            );
+            foreach ($wazuhAlerts ?? [] as $key => $alert) {
+                $wazuhAlerts[$key]['computer'] = Dropdown::getDropdownName('glpi_computers', $alert['computers_id']);
+                $wazuhAlerts[$key]['computer_url'] = \Computer::getFormURLWithID($alert['computers_id']);
+            }
+        }
+
         TemplateRenderer::getInstance()->display('@grcmanager/risk_form.html.twig', [
             'item'                => $this,
             'params'              => $options,
             'is_new'              => $isNew,
+            'wazuh_alerts'        => $wazuhAlerts,
+            'wazuh_alert_days'    => WazuhEvidence::ALERT_DAYS,
+            'wazuh_alert_max'     => WazuhEvidence::MAX_ALERTS,
             'categories'          => self::getCategories(),
             'probabilities'       => self::getProbabilities(),
             'impacts'             => self::getImpacts(),
