@@ -71,7 +71,8 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/processingactivity.php front/datasubjectrequest.php front/processingactivity.export.php?format=pdf
   front/processingactivity.export.php?format=csv
   front/riskappetite.php front/riskindicator.php
-  front/businessprocess.php front/businessprocess.php?export=csv front/businessprocess.report.php"
+  front/businessprocess.php front/businessprocess.php?export=csv front/businessprocess.report.php
+  front/customframework.php front/customframework.php?template=1"
 # Creations : refusees sans droit comme en lecture seule (etat en base compare par la CI).
 create_attempts() { # code attendu, code attendu pour la classification (404 sans droit sur l'actif)
   local incident; incident=$(id incident_A)
@@ -91,6 +92,16 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
     front/processingactivity.form.php front/datasubjectrequest.form.php \
     front/businessprocess.form.php front/riskindicator.form.php; do
     expect "$form : creation" "$1" "$(code -d "add=1&name=securite&title=securite&_glpi_csrf_token=$(csrf)" "$BASE/plugins/grcmanager/$form")"
+  done
+  # Issue #537 : analyser un fichier, confirmer un import, et modifier un referentiel personnalise
+  # (statuts, description, activation, suppression) sont refuses sans droit comme en lecture seule.
+  expect "front/customframework.php : analyser un fichier" "$1" \
+    "$(code -F analyse=1 -F name=securite -F "csv_file=@$EVIDENCE_PDF;filename=ref.csv" -F "_glpi_csrf_token=$(csrf)" "$P/customframework.php")"
+  expect "front/customframework.php : confirmer un import" "$1" \
+    "$(code -d "confirm_import=1&import_token=x&_glpi_csrf_token=$(csrf)" "$P/customframework.php")"
+  for action in "save_statuses=1&status%5B1%5D=compliant" "update=1&name=securite" "toggle_framework=1&enable=0" "purge=1"; do
+    expect "front/customframework.form.php : ${action%%=*}" "$1" \
+      "$(code -d "$action&id=$(id custom_framework)&_glpi_csrf_token=$(csrf)" "$P/customframework.form.php")"
   done
   expect "front/ismsrequirement.form.php : modification" "$1" \
     "$(code -d "update=1&id=1&status=done&_glpi_csrf_token=$(csrf)" "$P/ismsrequirement.form.php")"
@@ -231,7 +242,7 @@ if [ "$ROLE" = none ]; then
   for p in $READABLE; do expect "$p : sans droit" 403 "$(code "$BASE/plugins/grcmanager/$p")"; done
   for p in "risk.form.php?id=$(id risk)" "control.form.php?id=$(id control)" "securityincident.form.php?id=$(id incident_A)" \
            "accessreview.form.php?id=$(id campaign_A)" "supplierrisk.form.php?id=$(id supplierrisk)" \
-           "businessprocess.form.php?id=$(id process_A)"; do
+           "businessprocess.form.php?id=$(id process_A)" "customframework.form.php?id=$(id custom_framework)"; do
     expect "front/$p : sans droit" 403 "$(code "$P/$p")"
   done
   expect "front/training.report.php : sans droit" 403 "$(code "$P/training.report.php?id=$(id training)")"
@@ -359,7 +370,7 @@ if [ "$ROLE" = reader ]; then
   for p in $READABLE; do expect "$p : en lecture" 200 "$(code "$BASE/plugins/grcmanager/$p")"; done
   for p in "risk.form.php?id=$(id risk)" "control.form.php?id=$(id control)" "securityincident.form.php?id=$(id incident_A)" \
            "accessreview.form.php?id=$(id campaign_A)" "supplierrisk.form.php?id=$(id supplierrisk)" \
-           "businessprocess.form.php?id=$(id process_A)"; do
+           "businessprocess.form.php?id=$(id process_A)" "customframework.form.php?id=$(id custom_framework)"; do
     expect "front/$p : en lecture" 200 "$(code "$P/$p")"
   done
   expect "front/training.report.php : en lecture" 200 "$(code "$P/training.report.php?id=$(id training)")"

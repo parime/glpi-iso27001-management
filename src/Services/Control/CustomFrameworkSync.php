@@ -54,7 +54,7 @@ final class CustomFrameworkSync
         }
         $plan = [];
         $matched = [];
-        foreach (array_values($rows) as $rank => $row) {
+        foreach ($rows as $rank => $row) {
             $fields = [
                 'code'        => $row['code'],
                 'theme'       => $row['theme'],

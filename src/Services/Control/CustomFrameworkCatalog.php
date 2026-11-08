@@ -31,8 +31,6 @@ final class CustomFrameworkCatalog
 {
     public const KEY_PREFIX = 'custom_';
 
-    private const LOADER = 'GlpiPlugin\\Grcmanager\\CustomFramework::catalogRows';
-
     /**
      * @var array<string, array{id: int, name: string, label: string,
      *     requirements: array<string, array{code: string, theme: string, title: string, annex_a: list<string>}>}>|null
@@ -47,8 +45,8 @@ final class CustomFrameworkCatalog
     public static function all(): array
     {
         if (self::$frameworks === null) {
-            $rows = isset($GLOBALS['DB']) && is_callable(self::LOADER) ? call_user_func(self::LOADER) : [];
-            self::set(is_array($rows) ? $rows : []);
+            // Sans base (tests unitaires), aucun référentiel personnalisé.
+            self::set(isset($GLOBALS['DB']) ? \GlpiPlugin\Grcmanager\CustomFramework::catalogRows() : []);
         }
 
         return self::$frameworks ?? [];

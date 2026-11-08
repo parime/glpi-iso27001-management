@@ -46,6 +46,8 @@ if ($target > 0 && !$targetItem->getFromDB($target)) {
 }
 
 if (isset($_POST['confirm_import'])) {
+    // Droit vérifié avant tout : création d'un référentiel ou nouvelle version d'un existant.
+    Session::checkRightsOr(CustomFramework::RIGHTNAME, [CREATE, UPDATE]);
     $token = (string) ($_POST['import_token'] ?? '');
     $pending = $_SESSION[$sessionKey] ?? null;
     unset($_SESSION[$sessionKey]);
@@ -84,12 +86,19 @@ if (isset($_POST['confirm_import'])) {
     $plan = CustomFrameworkSync::plan(CustomFramework::getExistingForSync($frameworkId), $pending['rows']);
     CustomFramework::applyPlan($frameworkId, $plan);
     $summary = CustomFrameworkSync::summary($plan);
-    \GlpiPlugin\Grcmanager\AuditLog::record('custom_framework_import', CustomFramework::class, $frameworkId, 0, 'success', [
-        'summary' => $summary,
-        'rejected' => (int) $pending['rejected'],
-    ]);
+    \GlpiPlugin\Grcmanager\AuditLog::record(
+        'custom_framework_import',
+        CustomFramework::class,
+        $frameworkId,
+        0,
+        'success',
+        ['summary' => $summary, 'rejected' => (int) $pending['rejected']]
+    );
     Session::addMessageAfterRedirect(htmlescape(sprintf(
-        __('Import finished: %1$d requirements added, %2$d updated, %3$d restored, %4$d marked as removed.', 'grcmanager'),
+        __(
+            'Import finished: %1$d requirements added, %2$d updated, %3$d restored, %4$d marked as removed.',
+            'grcmanager'
+        ),
         $summary[CustomFrameworkSync::CREATE],
         $summary[CustomFrameworkSync::UPDATE],
         $summary[CustomFrameworkSync::RESTORE],
@@ -106,7 +115,8 @@ if (isset($_POST['analyse'])) {
         && is_uploaded_file((string) $file['tmp_name']) && (int) $file['size'] <= 2 * 1024 * 1024;
     $name = trim((string) ($_POST['name'] ?? ''));
     if (!$uploaded) {
-        Session::addMessageAfterRedirect(htmlescape(__('Choose a CSV file of 2 MB at most.', 'grcmanager')), false, ERROR);
+        $message = __('Choose a CSV file of 2 MB at most.', 'grcmanager');
+        Session::addMessageAfterRedirect(htmlescape($message), false, ERROR);
         Html::redirect(CustomFramework::getSearchURL() . ($target > 0 ? '?target=' . $target : ''));
     }
     if ($target === 0 && $name === '') {
@@ -136,7 +146,11 @@ if (isset($_POST['analyse'])) {
         CustomFrameworkSync::UPDATE    => ['bg-blue-lt', 'ti ti-pencil', __('Changed', 'grcmanager')],
         CustomFrameworkSync::RESTORE   => ['bg-teal-lt', 'ti ti-arrow-back-up', __('Restored', 'grcmanager')],
         CustomFrameworkSync::UNCHANGED => ['bg-secondary-lt', 'ti ti-equal', __('Unchanged', 'grcmanager')],
-        CustomFrameworkSync::REMOVE    => ['bg-orange-lt', 'ti ti-archive', __('Removed (kept with its status)', 'grcmanager')],
+        CustomFrameworkSync::REMOVE    => [
+            'bg-orange-lt',
+            'ti ti-archive',
+            __('Removed (kept with its status)', 'grcmanager'),
+        ],
     ];
     $fieldLabels = [
         'theme'       => __('Theme', 'grcmanager'),
@@ -156,7 +170,10 @@ if (isset($_POST['analyse'])) {
             'class'       => $actions[$step['action']][0],
             'icon'        => $actions[$step['action']][1],
             'label'       => $actions[$step['action']][2],
-            'changed'     => implode(', ', array_map(static fn (string $f): string => $fieldLabels[$f] ?? $f, $step['changed'])),
+            'changed'     => implode(', ', array_map(
+                static fn (string $field): string => $fieldLabels[$field] ?? $field,
+                $step['changed']
+            )),
         ];
     }
     $errors = [];

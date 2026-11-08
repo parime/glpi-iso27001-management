@@ -9702,3 +9702,329 @@ msgstr "Exigences qui s'ajoutent à un SMSI certifié ISO 27001 pour héberger d
 
 msgid "Source: HDS certification framework v2.0, French Digital Health Agency (ANS), approved by the order of 26 April 2024; public document. Requirement numbers are the official ones; summaries and the mapping to ISO 27001 Annex A are made by this project. Draft v2.1 splits requirement 23 into 23-1 to 23-3. Only the framework published by the ANS is authentic."
 msgstr "Source : référentiel de certification HDS v2.0, Agence du Numérique en Santé (ANS), approuvé par l'arrêté du 26 avril 2024 ; document public. Les numéros d'exigences sont les numéros officiels ; les résumés et la correspondance avec l'Annexe A d'ISO 27001 sont établis par ce projet. Le projet de v2.1 détaille l'exigence 23 en 23-1 à 23-3. Seul le référentiel publié par l'ANS fait foi."
+
+msgid "Custom framework"
+msgid_plural "Custom frameworks"
+msgstr[0] "Référentiel personnalisé"
+msgstr[1] "Référentiels personnalisés"
+
+msgid "Custom requirement"
+msgid_plural "Custom requirements"
+msgstr[0] "Exigence personnalisée"
+msgstr[1] "Exigences personnalisées"
+
+#, php-format
+msgid "%d requirements updated."
+msgstr "%d exigences mises à jour."
+
+msgid "Without theme"
+msgstr "Sans thème"
+
+msgid "This analysis has expired: choose the file again."
+msgstr "Cette analyse a expiré : choisissez à nouveau le fichier."
+
+#, php-format
+msgid "Import finished: %1$d requirements added, %2$d updated, %3$d restored, %4$d marked as removed."
+msgstr "Import terminé : %1$d exigences ajoutées, %2$d modifiées, %3$d rétablies, %4$d marquées comme retirées."
+
+msgid "Choose a CSV file of 2 MB at most."
+msgstr "Choisissez un fichier CSV de 2 Mo au plus."
+
+msgid "Give the framework a name."
+msgstr "Donnez un nom au référentiel."
+
+msgid "Changed"
+msgstr "Modifiée"
+
+msgid "Unchanged"
+msgstr "Inchangée"
+
+msgid "Removed (kept with its status)"
+msgstr "Retirée (conservée avec son statut)"
+
+msgid "Annex A"
+msgstr "Annexe A"
+
+msgid "Header line without the \"code\" and \"title\" columns: start from the template."
+msgstr "Ligne d'en-tête sans les colonnes « code » et « title » : partez du modèle."
+
+msgid "Code missing."
+msgstr "Code absent."
+
+msgid "Title missing."
+msgstr "Intitulé absent."
+
+#, php-format
+msgid "Code longer than %d characters."
+msgstr "Code de plus de %d caractères."
+
+#, php-format
+msgid "Code already used on line %s."
+msgstr "Code déjà utilisé ligne %s."
+
+#, php-format
+msgid "Unknown ISO 27001 Annex A control: %s (expected format: A.5.1)."
+msgstr "Mesure de l'Annexe A d'ISO 27001 inconnue : %s (format attendu : A.5.1)."
+
+#, php-format
+msgid "More than %s requirements: the following lines were not read."
+msgstr "Plus de %s exigences : les lignes suivantes n'ont pas été lues."
+
+msgid "Governance"
+msgstr "Gouvernance"
+
+msgid "Information security policy approved by management"
+msgstr "Politique de sécurité de l'information approuvée par la direction"
+
+msgid "The policy is reviewed every year and published to all staff."
+msgstr "La politique est revue chaque année et diffusée à tout le personnel."
+
+msgid "Access"
+msgstr "Accès"
+
+msgid "Multi-factor authentication for remote access"
+msgstr "Authentification multifacteur pour les accès à distance"
+
+msgid "Every remote access to the information system requires a second factor."
+msgstr "Tout accès à distance au système d'information exige un second facteur."
+
+msgid "Suppliers"
+msgstr "Fournisseurs"
+
+msgid "Security clause in supplier contracts"
+msgstr "Clause de sécurité dans les contrats fournisseurs"
+
+msgid "Custom frameworks: follow a framework that is not built in (group requirements, sector or contractual framework, customer security plan) by importing it from a spreadsheet."
+msgstr "Référentiels personnalisés : suivez un référentiel absent du plugin (exigences de groupe, référentiel sectoriel ou contractuel, plan d'assurance sécurité d'un client) en l'important depuis un tableur."
+
+msgid "Download the template, fill in one line per requirement with the Annex A controls that meet it, import it, then enable the framework. A new version of the file updates it without losing the statuses already entered."
+msgstr "Téléchargez le modèle, remplissez une ligne par exigence avec les mesures de l'Annexe A qui y répondent, importez-le, puis activez le référentiel. Une nouvelle version du fichier le met à jour sans perdre les statuts déjà saisis."
+
+msgid "Custom framework imported from a file: its requirements, their references on the controls and its score. Disabled until you enable it."
+msgstr "Référentiel personnalisé importé depuis un fichier : ses exigences, leurs références sur les mesures et son score. Désactivé tant que vous ne l'activez pas."
+
+msgid "A framework of your own (group requirements, customer security plan)?"
+msgstr "Un référentiel qui vous est propre (exigences de groupe, plan d'assurance sécurité d'un client) ?"
+
+msgid "Import a custom framework"
+msgstr "Importer un référentiel personnalisé"
+
+msgid "Mapping given by the imported file: see"
+msgstr "Correspondance donnée par le fichier importé : voir"
+
+msgid "the requirements of this framework"
+msgstr "les exigences de ce référentiel"
+
+#, php-format
+msgid "Last import on %1$s by %2$s"
+msgstr "Dernier import le %1$s par %2$s"
+
+#, php-format
+msgid "Last import on %s"
+msgstr "Dernier import le %s"
+
+msgid "Enabled"
+msgstr "Activé"
+
+msgid "Disabled"
+msgstr "Désactivé"
+
+msgid "Import a new version"
+msgstr "Importer une nouvelle version"
+
+msgid "All custom frameworks"
+msgstr "Tous les référentiels personnalisés"
+
+msgid "This framework is disabled: enable it to show it on the Reference frameworks screen, on the controls and in the dashboard rates."
+msgstr "Ce référentiel est désactivé : activez-le pour l'afficher sur l'écran Référentiels, sur les mesures et dans les taux du tableau de bord."
+
+msgid "See it on the Reference frameworks screen"
+msgstr "Le voir sur l'écran Référentiels"
+
+msgid "Implemented controls"
+msgstr "Mesures mises en œuvre"
+
+msgid "Annex A controls cited by the requirements, implemented or verified: the rate shown on the dashboard."
+msgstr "Mesures de l'Annexe A citées par les exigences, mises en œuvre ou vérifiées : le taux affiché au tableau de bord."
+
+msgid "Score (implemented and proven)"
+msgstr "Score (mises en œuvre et prouvées)"
+
+msgid "Same controls, also proven by a valid evidence document."
+msgstr "Mêmes mesures, prouvées en plus par un document de preuve valide."
+
+msgid "Self-assessment"
+msgstr "Auto-évaluation"
+
+msgid "Compliant requirements among the applicable ones you assessed (partially compliant counts half)."
+msgstr "Exigences conformes parmi les applicables que vous avez évaluées (partiellement conforme compte pour moitié)."
+
+msgid "Requirements assessed"
+msgstr "Exigences évaluées"
+
+#, php-format
+msgid "%1$s: %2$d"
+msgstr "%1$s : %2$d"
+
+msgid "Requirements"
+msgstr "Exigences"
+
+msgid "No requirement: import a file."
+msgstr "Aucune exigence : importez un fichier."
+
+msgid "No Annex A control"
+msgstr "Aucune mesure de l'Annexe A"
+
+msgid "Save the statuses"
+msgstr "Enregistrer les statuts"
+
+msgid "Statuses and comments are kept when a new version of the file is imported."
+msgstr "Les statuts et commentaires sont conservés lors de l'import d'une nouvelle version du fichier."
+
+msgid "Requirements removed by a later version"
+msgstr "Exigences retirées par une version ultérieure"
+
+msgid "They are no longer counted. Their status and comment are kept, and come back if the code reappears in a later version."
+msgstr "Elles ne sont plus comptées. Leur statut et leur commentaire sont conservés, et reviennent si le code réapparaît dans une version ultérieure."
+
+#, php-format
+msgid "Removed on %s"
+msgstr "Retirée le %s"
+
+msgid "Description of the framework"
+msgstr "Description du référentiel"
+
+msgid "Framework name"
+msgstr "Nom du référentiel"
+
+msgid "Delete this framework and all its requirements, statuses and comments? This cannot be undone."
+msgstr "Supprimer ce référentiel et toutes ses exigences, statuts et commentaires ? Cette action est irréversible."
+
+msgid "Delete the framework"
+msgstr "Supprimer le référentiel"
+
+#, php-format
+msgid "Analysis of the file for \"%s\""
+msgstr "Analyse du fichier pour « %s »"
+
+#, php-format
+msgid "%d valid lines"
+msgstr "%d lignes valides"
+
+#, php-format
+msgid "%d rejected lines"
+msgstr "%d lignes rejetées"
+
+msgid "Removed"
+msgstr "Retirées"
+
+msgid "Rejected lines"
+msgstr "Lignes rejetées"
+
+msgid "These lines will not be imported. Correct them in your file and analyse it again, or import the valid lines now."
+msgstr "Ces lignes ne seront pas importées. Corrigez-les dans votre fichier et analysez-le à nouveau, ou importez dès maintenant les lignes valides."
+
+msgid "Reason"
+msgstr "Raison"
+
+msgid "Requirements missing from this version are marked as removed: they are no longer counted, but nothing is deleted and their status comes back if they reappear in a later version."
+msgstr "Les exigences absentes de cette version sont marquées comme retirées : elles ne sont plus comptées, mais rien n'est supprimé et leur statut revient si elles réapparaissent dans une version ultérieure."
+
+msgid "Change"
+msgstr "Changement"
+
+msgid "Confirm the import"
+msgstr "Confirmer l'import"
+
+msgid "Cancel"
+msgstr "Annuler"
+
+msgid "No line can be imported: correct the file and analyse it again."
+msgstr "Aucune ligne ne peut être importée : corrigez le fichier et analysez-le à nouveau."
+
+#, php-format
+msgid "Import a new version of \"%s\""
+msgstr "Importer une nouvelle version de « %s »"
+
+msgid "Import a framework from a file"
+msgstr "Importer un référentiel depuis un fichier"
+
+msgid "Group security requirements, a sector or contractual framework, a customer security assurance plan: describe it in a spreadsheet, save it as CSV and import it. It then works like the built-in frameworks: it can be enabled, its requirements appear on the controls and its compliance rate on the dashboard."
+msgstr "Exigences de sécurité d'un groupe, référentiel sectoriel ou contractuel, plan d'assurance sécurité d'un client : décrivez-le dans un tableur, enregistrez-le en CSV et importez-le. Il fonctionne ensuite comme les référentiels intégrés : il s'active, ses exigences apparaissent sur les mesures et son taux de conformité au tableau de bord."
+
+msgid "Expected columns"
+msgstr "Colonnes attendues"
+
+msgid "unique identifier of the requirement, required (for example GRP-01)"
+msgstr "identifiant unique de l'exigence, obligatoire (par exemple GRP-01)"
+
+msgid "chapter or theme used to group the requirements"
+msgstr "chapitre ou thème servant à regrouper les exigences"
+
+msgid "short title, required"
+msgstr "intitulé court, obligatoire"
+
+msgid "full text of the requirement"
+msgstr "texte complet de l'exigence"
+
+msgid "ISO 27001 Annex A controls that meet it, separated by a comma or a space (A.5.1, A.8.5): they give the compliance rate"
+msgstr "mesures de l'Annexe A d'ISO 27001 qui y répondent, séparées par une virgule ou un espace (A.5.1, A.8.5) : elles donnent le taux de conformité"
+
+#, php-format
+msgid "Semicolon or comma separator, UTF-8 encoding (a file saved by Excel is also accepted). %d requirements at most. French column names are accepted too."
+msgstr "Séparateur point-virgule ou virgule, encodage UTF-8 (un fichier enregistré par Excel est aussi accepté). %d exigences au plus. Les noms de colonnes en français sont aussi acceptés."
+
+msgid "Download the template"
+msgstr "Télécharger le modèle"
+
+msgid "For example: Group security requirements"
+msgstr "Par exemple : Exigences de sécurité du groupe"
+
+msgid "Issuer or document"
+msgstr "Émetteur ou document"
+
+msgid "Nothing is saved before you confirm: the analysis first shows the rejected lines and what will change."
+msgstr "Rien n'est enregistré avant votre confirmation : l'analyse montre d'abord les lignes rejetées et ce qui va changer."
+
+msgid "Imported frameworks"
+msgstr "Référentiels importés"
+
+msgid "No custom framework yet: download the template, fill it in and import it above."
+msgstr "Aucun référentiel personnalisé pour l'instant : téléchargez le modèle, remplissez-le et importez-le ci-dessus."
+
+msgid "Self-assessed"
+msgstr "Auto-évaluées"
+
+msgid "State"
+msgstr "État"
+
+msgid "Last import"
+msgstr "Dernier import"
+
+msgid "Removed by a later version, kept with their status"
+msgstr "Retirées par une version ultérieure, conservées avec leur statut"
+
+#, php-format
+msgid "%d removed"
+msgstr "%d retirées"
+
+msgid "New version"
+msgstr "Nouvelle version"
+
+msgid "Requirements and self-assessment"
+msgstr "Exigences et auto-évaluation"
+
+msgid "custom framework"
+msgstr "référentiel personnalisé"
+
+msgid "Framework imported by your organisation from a file. Each requirement shows the ISO 27001 Annex A controls that meet it: they give its compliance rate on the dashboard."
+msgstr "Référentiel importé par votre organisation depuis un fichier. Chaque exigence indique les mesures de l'Annexe A d'ISO 27001 qui y répondent : elles donnent son taux de conformité au tableau de bord."
+
+msgid "Content provided by your organisation, imported in this plugin."
+msgstr "Contenu fourni par votre organisation, importé dans ce plugin."
+
+msgid "An internal, sector or contractual framework is missing? Import it from a spreadsheet."
+msgstr "Il manque un référentiel interne, sectoriel ou contractuel ? Importez-le depuis un tableur."
+
+msgid "Custom frameworks"
+msgstr "Référentiels personnalisés"

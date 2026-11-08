@@ -166,17 +166,20 @@ TemplateRenderer::getInstance()->display('@grcmanager/custom_framework_form.html
     'active'          => $active,
     'assessed'        => $assessed,
     'self_rate'       => $applicable > 0
-        ? (int) round(100 * ($counts[CustomRequirement::STATUS_COMPLIANT] + 0.5 * $counts[CustomRequirement::STATUS_PARTIAL]) / $applicable)
+        ? (int) round(100 * ($counts[CustomRequirement::STATUS_COMPLIANT]
+            + 0.5 * $counts[CustomRequirement::STATUS_PARTIAL]) / $applicable)
         : null,
     'assessment'      => $assessment,
     'imported'        => $framework->fields['date_import'] !== null
         ? Html::convDateTime((string) $framework->fields['date_import']) : '',
-    'imported_by'     => (int) $framework->fields['users_id'] > 0 ? getUserName((int) $framework->fields['users_id']) : '',
+    'imported_by'     => (int) $framework->fields['users_id'] > 0
+        ? getUserName((int) $framework->fields['users_id']) : '',
     'form_url'        => CustomFramework::getFormURL(),
     'list_url'        => CustomFramework::getSearchURL(),
     'control_url'     => Control::getFormURL(),
     'assessment_url'  => FrameworkAssessment::getSearchURL() . '?framework=' . $key,
-    'referentials_url' => $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/referentiels.php#grcmanager-' . $key . '-body',
+    'referentials_url' => $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/referentiels.php#grcmanager-'
+        . $key . '-body',
     'can_update'      => Session::haveRight(CustomFramework::RIGHTNAME, UPDATE),
     'can_purge'       => Session::haveRight(CustomFramework::RIGHTNAME, PURGE),
     'can_toggle'      => Session::haveRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE),
