@@ -265,11 +265,11 @@ final class MySpaceProvider
             $list[] = self::candidate(
                 'treatment_action',
                 (int) $row['id'],
-                (string) $row['title'],
+                self::excerpt((string) $row['description']),
                 $row['due_date'],
                 Risk::getFormURLWithID((int) $row['plugin_grcmanager_risks_id']),
                 true,
-                self::excerpt((string) $row['description'])
+                sprintf(__('%1$s: %2$s'), Risk::getTypeName(1), (string) $row['title'])
             );
         }
 

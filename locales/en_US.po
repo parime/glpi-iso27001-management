@@ -9582,3 +9582,85 @@ msgstr "The %1$d most recent alerts of the last %2$d days, read from the Wazuh p
 
 msgid "Recent Wazuh alerts"
 msgstr "Recent Wazuh alerts"
+
+msgid "My GRC space"
+msgstr "My GRC space"
+
+msgid "Risk to review"
+msgstr "Risk to review"
+
+msgid "Treatment action"
+msgstr "Treatment action"
+
+msgid "Control effectiveness test"
+msgstr "Control effectiveness test"
+
+msgid "Nonconformity"
+msgstr "Nonconformity"
+
+msgid "Policy to review"
+msgstr "Policy to review"
+
+msgid "Training to attend"
+msgstr "Training to attend"
+
+msgid "Training to renew"
+msgstr "Training to renew"
+
+msgid "Supplier risk to review"
+msgstr "Supplier risk to review"
+
+msgid "Obligation to review"
+msgstr "Obligation to review"
+
+msgid "Audit"
+msgstr "Audit"
+
+msgid "Security objective"
+msgstr "Security objective"
+
+msgid "My GRC to-dos"
+msgstr "My GRC to-dos"
+
+#, php-format
+msgid "%d overdue"
+msgstr "%d overdue"
+
+msgid "No due date"
+msgstr "No due date"
+
+#, php-format
+msgid "%d day(s) late"
+msgstr "%d day(s) late"
+
+#, php-format
+msgid "%1$d of %2$d account(s) still to decide"
+msgstr "%1$d of %2$d account(s) still to decide"
+
+#, php-format
+msgid "Statement of Applicability, version %d"
+msgstr "Statement of Applicability, version %d"
+
+msgid "Items waiting for you"
+msgstr "Items waiting for you"
+
+#, php-format
+msgid "%d to do"
+msgstr "%d to do"
+
+#, php-format
+msgid "%1$d due within %2$d days"
+msgstr "%1$d due within %2$d days"
+
+#, php-format
+msgid "Open tasks assigned to you are always listed. Periodic deadlines (reviews, tests, evidence to renew) appear %d days before they fall due. Only items you are allowed to see are shown."
+msgstr "Open tasks assigned to you are always listed. Periodic deadlines (reviews, tests, evidence to renew) appear %d days before they fall due. Only items you are allowed to see are shown."
+
+msgid "Nothing is waiting for you at the moment."
+msgstr "Nothing is waiting for you at the moment."
+
+msgid "Everything waiting for you in the security management system, on one page and sorted by due date."
+msgstr "Everything waiting for you in the security management system, on one page and sorted by due date."
+
+msgid "Start with the overdue items highlighted in red, then open each line to act on it. The number next to the menu entry counts these items."
+msgstr "Start with the overdue items highlighted in red, then open each line to act on it. The number next to the menu entry counts these items."
