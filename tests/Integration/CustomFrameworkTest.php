@@ -162,7 +162,9 @@ final class CustomFrameworkTest extends GrcmanagerIntegrationTestCase
         $this->import($id, self::VERSION_1);
         $this->import($id, self::VERSION_2);
         $first = $this->requirements($id)['PHPU-02'];
-        (new CustomRequirement())->update(['id' => (int) $first['id'], 'status' => CustomRequirement::STATUS_NON_COMPLIANT]);
+        (new CustomRequirement())->update([
+            'id' => (int) $first['id'], 'status' => CustomRequirement::STATUS_NON_COMPLIANT,
+        ]);
 
         $rows = array_column(CustomFramework::getList(), null, 'id');
         $this->assertSame(3, $rows[$id]['active']);

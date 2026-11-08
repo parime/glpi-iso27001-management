@@ -75,7 +75,8 @@ final class FrameworkSelectionTest extends TestCase
         $stored = FrameworkSelection::encode(['iso27001', 'custom_3'], $keys);
 
         $this->assertNotContains('custom_3', FrameworkSelection::decode($stored, $keys));
-        $this->assertContains('custom_3', FrameworkSelection::enabled(FrameworkSelection::decode($stored, $keys), $keys));
+        $enabled = FrameworkSelection::enabled(FrameworkSelection::decode($stored, $keys), $keys);
+        $this->assertContains('custom_3', $enabled);
         $this->assertSame([], FrameworkSelection::decode('["custom_3"]'));
         $this->assertSame(['custom_3'], FrameworkSelection::decode('["custom_3", "custom_4"]', $keys));
     }

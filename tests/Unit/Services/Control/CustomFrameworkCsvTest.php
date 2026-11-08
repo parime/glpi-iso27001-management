@@ -101,7 +101,10 @@ final class CustomFrameworkCsvTest extends TestCase
             CustomFrameworkCsv::ERROR_MISSING_COLUMNS,
             CustomFrameworkCsv::parse("foo;bar\n1;2\n", $this->annexA())['errors'][0]['reason']
         );
-        $this->assertSame(CustomFrameworkCsv::ERROR_EMPTY, CustomFrameworkCsv::parse("\xEF\xBB\xBF\n \n", [])['errors'][0]['reason']);
+        $this->assertSame(
+            CustomFrameworkCsv::ERROR_EMPTY,
+            CustomFrameworkCsv::parse("\xEF\xBB\xBF\n \n", [])['errors'][0]['reason']
+        );
     }
 
     public function testTooLongCodeAndRowLimit(): void
