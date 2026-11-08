@@ -9582,3 +9582,85 @@ msgstr "I %1$d avvisi più recenti degli ultimi %2$d giorni, letti dal plugin Wa
 
 msgid "Recent Wazuh alerts"
 msgstr "Avvisi Wazuh recenti"
+
+msgid "My GRC space"
+msgstr "Il mio spazio GRC"
+
+msgid "Risk to review"
+msgstr "Rischio da riesaminare"
+
+msgid "Treatment action"
+msgstr "Azione di trattamento"
+
+msgid "Control effectiveness test"
+msgstr "Test di efficacia di un controllo"
+
+msgid "Nonconformity"
+msgstr "Non conformità"
+
+msgid "Policy to review"
+msgstr "Politica da riesaminare"
+
+msgid "Training to attend"
+msgstr "Formazione da seguire"
+
+msgid "Training to renew"
+msgstr "Formazione da rinnovare"
+
+msgid "Supplier risk to review"
+msgstr "Rischio fornitore da riesaminare"
+
+msgid "Obligation to review"
+msgstr "Obbligo da riesaminare"
+
+msgid "Audit"
+msgstr "Audit"
+
+msgid "Security objective"
+msgstr "Obiettivo di sicurezza"
+
+msgid "My GRC to-dos"
+msgstr "Le mie attività GRC"
+
+#, php-format
+msgid "%d overdue"
+msgstr "%d in ritardo"
+
+msgid "No due date"
+msgstr "Senza scadenza"
+
+#, php-format
+msgid "%d day(s) late"
+msgstr "%d giorno/i di ritardo"
+
+#, php-format
+msgid "%1$d of %2$d account(s) still to decide"
+msgstr "%1$d di %2$d account ancora da decidere"
+
+#, php-format
+msgid "Statement of Applicability, version %d"
+msgstr "Dichiarazione di applicabilità, versione %d"
+
+msgid "Items waiting for you"
+msgstr "Elementi in attesa"
+
+#, php-format
+msgid "%d to do"
+msgstr "%d da fare"
+
+#, php-format
+msgid "%1$d due within %2$d days"
+msgstr "%1$d in scadenza entro %2$d giorni"
+
+#, php-format
+msgid "Open tasks assigned to you are always listed. Periodic deadlines (reviews, tests, evidence to renew) appear %d days before they fall due. Only items you are allowed to see are shown."
+msgstr "Le attività aperte assegnate a te sono sempre elencate. Le scadenze periodiche (riesami, test, evidenze da rinnovare) compaiono %d giorni prima della scadenza. Sono mostrati solo gli elementi che puoi vedere."
+
+msgid "Nothing is waiting for you at the moment."
+msgstr "Al momento non c'è nulla in attesa."
+
+msgid "Everything waiting for you in the security management system, on one page and sorted by due date."
+msgstr "Tutto ciò che ti attende nel sistema di gestione della sicurezza, in una sola pagina e ordinato per scadenza."
+
+msgid "Start with the overdue items highlighted in red, then open each line to act on it. The number next to the menu entry counts these items."
+msgstr "Inizia dagli elementi in ritardo evidenziati in rosso, poi apri ogni riga per gestirla. Il numero accanto alla voce di menu conta questi elementi."

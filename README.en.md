@@ -132,6 +132,10 @@ classification fields merged directly onto it.
   zones, port forwards linked to their rule, IPsec tunnels as site-to-site flows), zone by zone
   matrix view, partner networks conflicting with an internal
   network, PDF report for the auditor.
+- **My GRC space**: a personal page with everything waiting for the logged-in user (risks and
+  treatment actions, control tests, evidence to renew, nonconformities, periodic and access reviews,
+  policies, trainings, SoA approvals...), sorted by due date, overdue items highlighted, number of
+  waiting items in the menu. Nothing the user is not allowed to see.
 - Cyber **maturity score** (0 to 100) with the calculation details and its monthly history.
 - **Assessment by framework**: for each enabled framework, implementation rate, evidence rate
   (unexpired documents attached to the controls) and score of the controls both done and proven,
@@ -153,7 +157,8 @@ creates the ticket or the notification, and the team decides.
 
 The **GRC & Conformité** menu has six sections, in the order of the ISMS cycle. Each section opens
 its first page; the other pages of the section are reached through the tab bar at the top of the
-page and through the breadcrumb.
+page and through the breadcrumb. Right after the dashboard, **My GRC space** shows the number of
+items waiting for the user.
 
 | Section | Pages |
 |---|---|

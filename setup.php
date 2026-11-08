@@ -98,6 +98,8 @@ function plugin_init_grcmanager(): void
             \GlpiPlugin\Grcmanager\Menu::class,
             // Issue #247 : tableau de bord en tête, comme dans Parc et Assistance.
             \GlpiPlugin\Grcmanager\Dashboard::class,
+            // Issue #539 : tout ce qui attend l'utilisateur connecté, avec leur nombre dans le menu.
+            \GlpiPlugin\Grcmanager\MySpace::class,
             \GlpiPlugin\Grcmanager\Risk::class,
             \GlpiPlugin\Grcmanager\Control::class,
             \GlpiPlugin\Grcmanager\Audit::class,
@@ -366,6 +368,14 @@ function plugin_init_grcmanager(): void
 function plugin_grcmanager_redefine_menus(array $menu): array
 {
     unset($menu['grcmanager']['content'][strtolower(\GlpiPlugin\Grcmanager\Menu::class)]);
+
+    // Issue #539 : le menu est gardé en session ; le nombre d'éléments en attente de « Mon espace
+    // GRC » est donc ajouté ici, à chaque page (MySpace::menuTitle() le recalcule au plus toutes
+    // les cinq minutes).
+    $mySpace = strtolower(\GlpiPlugin\Grcmanager\MySpace::class);
+    if (isset($menu['grcmanager']['content'][$mySpace]['title'])) {
+        $menu['grcmanager']['content'][$mySpace]['title'] = \GlpiPlugin\Grcmanager\MySpace::menuTitle();
+    }
 
     return $menu;
 }

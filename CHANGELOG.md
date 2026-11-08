@@ -7,6 +7,19 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Added
+
+- **Mon espace GRC** (issue #539) : une page personnelle, en lecture seule, avec tout ce qui attend
+  l'utilisateur connecté, triée par échéance, les retards surlignés en rouge et un lien vers chaque
+  élément : risques à revoir et actions de traitement, tests d'efficacité des mesures, preuves à
+  renouveler, non-conformités, revues périodiques, lignes de revue des accès à décider, politiques à
+  revoir, formations à suivre ou à renouveler, risques fournisseurs et obligations à revoir,
+  versions de la SoA à approuver, demandes RGPD, audits, objectifs et événements du calendrier. Les
+  tâches ouvertes sont toujours listées, les échéances périodiques 30 jours avant leur date. Entrée
+  du menu avec le nombre d'éléments en attente, et deux cartes de tableau de bord. Chaque source
+  respecte les droits de l'utilisateur (registres sensibles compris) ; une session suffit pour les
+  revues d'accès, les formations et les approbations de la SoA, comme leurs pages personnelles.
+
 ## [2.39.0] - 2026-11-08
 
 ### Added

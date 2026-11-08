@@ -56,6 +56,17 @@ class PageHelp
                     'grcmanager'
                 ),
             ],
+            'myspace' => [
+                'purpose'  => __(
+                    'Everything waiting for you in the security management system, on one page and sorted by due date.',
+                    'grcmanager'
+                ),
+                'expected' => __(
+                    'Start with the overdue items highlighted in red, then open each line to act on it. The number '
+                        . 'next to the menu entry counts these items.',
+                    'grcmanager'
+                ),
+            ],
             'frameworkassessment' => [
                 'purpose'   => __(
                     'Assessment by framework: for each enabled framework, how many of its controls are implemented, '

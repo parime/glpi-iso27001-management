@@ -643,6 +643,15 @@ else
     "$(tab GlpiPlugin%5CGrcmanager%5CControl 'GlpiPlugin%5CGrcmanager%5CControlTest$1' "$(id control)")"
 fi
 
+# Issue #539 : « Mon espace GRC », ouvert a toute session, ne montre que ce qui est confie a
+# l'utilisateur connecte (le risque du jeu de donnees n'a pas de proprietaire ; glpi est inscrit a
+# la formation, sans l'avoir suivie).
+expect "front/myspace.php : ouverte a toute session" 200 "$(code "$P/myspace.php")"
+myspace=$(curl -s -c "$JAR" -b "$JAR" "$P/myspace.php")
+contains "front/myspace.php : aucun element confie a un autre" "Risque securite" non "$myspace"
+contains "front/myspace.php : formation a suivre" "Formation securite" "$([ "$ROLE" = admin ] && echo oui || echo non)" \
+  "$myspace"
+
 if [ "$ROLE" = limited ]; then
   # Enregistre le risque (objet global) avec l'actif de A : le lien vers B, invisible pour lui,
   # doit rester (verifie en base par la CI). Puis demande d'approbation de la SoA en se designant

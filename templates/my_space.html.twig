@@ -1,0 +1,58 @@
+{# Issue #539 : « Mon espace GRC ». Tout ce qui attend l'utilisateur connecté, trié par échéance
+   (les retards d'abord, les éléments sans échéance à la fin). Lecture seule : chaque ligne mène à
+   l'élément. Filtrage et tri : MySpaceRules. #}
+<div class="container-fluid my-2">
+   <div class="card">
+      <div class="card-header">
+         <h3 class="card-title"><i class="ti ti-user-check me-2"></i>{{ __('My GRC space', 'grcmanager') }}</h3>
+         <div class="card-actions d-flex gap-2">
+            <span class="badge bg-blue-lt" title="{{ __('Items waiting for you', 'grcmanager') }}"><i class="ti ti-list-check me-1"></i>{{ __('%d to do', 'grcmanager')|format(summary.total) }}</span>
+            <span class="badge {{ summary.overdue > 0 ? 'bg-red-lt' : 'bg-secondary-lt' }}"><i class="ti ti-alarm me-1"></i>{{ __('%d overdue', 'grcmanager')|format(summary.overdue) }}</span>
+            <span class="badge {{ summary.soon > 0 ? 'bg-orange-lt' : 'bg-secondary-lt' }}"><i class="ti ti-clock me-1"></i>{{ __('%1$d due within %2$d days', 'grcmanager')|format(summary.soon, horizon_days) }}</span>
+         </div>
+      </div>
+      <div class="card-body">
+         <p class="text-muted small">
+            <i class="ti ti-info-circle me-1"></i>{{ __('Open tasks assigned to you are always listed. Periodic deadlines (reviews, tests, evidence to renew) appear %d days before they fall due. Only items you are allowed to see are shown.', 'grcmanager')|format(horizon_days) }}
+         </p>
+         {% if rows is empty %}
+            <div class="alert alert-success mb-0" id="grc-myspace-empty">
+               <i class="ti ti-circle-check me-1"></i>{{ __('Nothing is waiting for you at the moment.', 'grcmanager') }}
+            </div>
+         {% else %}
+         <table class="table table-sm table-vcenter" id="grc-myspace">
+            <thead>
+               <tr>
+                  <th class="text-nowrap">{{ __('Due date', 'grcmanager') }}</th>
+                  <th>{{ __('Type', 'grcmanager') }}</th>
+                  <th>{{ __('Item', 'grcmanager') }}</th>
+                  <th>{{ __('Details', 'grcmanager') }}</th>
+               </tr>
+            </thead>
+            <tbody>
+            {% for row in rows %}
+               <tr class="grc-myspace-{{ row.urgency }}{% if row.urgency == 'overdue' %} table-danger{% endif %}">
+                  <td class="text-nowrap">
+                     {% if row.urgency == 'overdue' %}
+                        <span class="fw-bold text-danger">{{ row.due_text }}</span>
+                        <span class="badge bg-red-lt ms-1"><i class="ti ti-alarm me-1"></i>{{ __('%d day(s) late', 'grcmanager')|format(row.days_late) }}</span>
+                     {% elseif row.urgency == 'soon' %}
+                        {{ row.due_text }}
+                        <span class="badge bg-orange-lt ms-1"><i class="ti ti-clock me-1"></i>{{ __('Due soon', 'grcmanager') }}</span>
+                     {% elseif row.urgency == 'later' %}
+                        {{ row.due_text }}
+                     {% else %}
+                        <span class="text-muted">{{ __('No due date', 'grcmanager') }}</span>
+                     {% endif %}
+                  </td>
+                  <td class="text-nowrap"><i class="ti {{ row.icon }} me-1"></i>{{ row.label }}</td>
+                  <td><a href="{{ row.url }}">{{ row.name }}</a></td>
+                  <td class="text-muted small">{{ row.detail }}</td>
+               </tr>
+            {% endfor %}
+            </tbody>
+         </table>
+         {% endif %}
+      </div>
+   </div>
+</div>
