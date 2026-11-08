@@ -153,6 +153,11 @@ final class FrameworkConfig
                     . 'modules that produce the evidence. Disabled by default.',
                 'grcmanager'
             ),
+            FrameworkSelection::AI_ACT       => __(
+                'European AI Act (Regulation (EU) 2024/1689, consolidated in 2026): obligations by role with their '
+                    . 'application date, references on the controls. Disabled by default.',
+                'grcmanager'
+            ),
         ];
     }
 

@@ -7,6 +7,16 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Added
+
+- **AI Act** (règlement (UE) 2024/1689, issue #379) : référentiel optionnel, désactivé par défaut,
+  établi sur la version consolidée du 27/07/2026 qui intègre le règlement (UE) 2026/1744 (omnibus
+  numérique : article 4 assoupli, obligations des systèmes à haut risque de l'annexe III reportées
+  au 2/12/2027, nouvelles interdictions au 2/12/2026). Seize articles regroupés par rôle (toute
+  organisation, déployeurs, fournisseurs), intitulé officiel, obligation résumée et date
+  d'application ; carte Référentiels avec la source EUR-Lex, badges « AI Act Art. n » sur les
+  mesures, taux dans les tableaux de bord et l'évaluation par référentiel.
+
 ## [2.39.0] - 2026-11-08
 
 ### Added

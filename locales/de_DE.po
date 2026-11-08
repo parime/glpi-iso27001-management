@@ -9582,3 +9582,26 @@ msgstr "Die %1$d neuesten Warnungen der letzten %2$d Tage, aus dem Wazuh-Plugin 
 
 msgid "Recent Wazuh alerts"
 msgstr "Neueste Wazuh-Warnungen"
+
+msgid "European AI Act (Regulation (EU) 2024/1689, consolidated in 2026): obligations by role with their application date, references on the controls. Disabled by default."
+msgstr "Europäische KI-Verordnung (Verordnung (EU) 2024/1689, konsolidiert 2026): Pflichten nach Rolle mit ihrem Geltungsbeginn, Verweise bei den Maßnahmen. Standardmäßig deaktiviert."
+
+#, php-format
+msgid "Art. %s"
+msgstr "Art. %s"
+
+msgid "AI Act articles"
+msgstr "Artikel der KI-Verordnung"
+
+#, php-format
+msgid "Applies from %s."
+msgstr "Gilt ab dem %s."
+
+msgid "AI Act: Regulation (EU) 2024/1689 on artificial intelligence"
+msgstr "KI-Verordnung: Verordnung (EU) 2024/1689 über künstliche Intelligenz"
+
+msgid "Consolidated version of 27 July 2026, including the digital omnibus (Regulation (EU) 2026/1744). Obligations grouped by role, each with its application date. The last column links to the modules of this plugin that already help meet them."
+msgstr "Konsolidierte Fassung vom 27. Juli 2026, einschließlich des digitalen Omnibus (Verordnung (EU) 2026/1744). Pflichten nach Rolle gruppiert, jeweils mit Geltungsbeginn. Die letzte Spalte verweist auf die Module dieses Plugins, die bereits helfen, sie zu erfüllen."
+
+msgid "Source: Regulation (EU) 2024/1689 as amended, © European Union, EUR-Lex. Article titles are the official ones; obligations are summarised and the mapping to ISO 27001 Annex A is indicative, both made by this project. Only the version published in the Official Journal of the EU is authentic."
+msgstr "Quelle: Verordnung (EU) 2024/1689 in geänderter Fassung, © Europäische Union, EUR-Lex. Die Artikelüberschriften sind die amtlichen; die Pflichten sind zusammengefasst und die Zuordnung zu Anhang A der ISO 27001 ist indikativ, beides von diesem Projekt. Nur die im Amtsblatt der EU veröffentlichte Fassung ist verbindlich."

@@ -31,6 +31,7 @@ use GlpiPlugin\Grcmanager\Services\Control\Iso22301CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\Iso27701CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\Iso42001CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\PciDssCatalogDefaults;
+use GlpiPlugin\Grcmanager\Services\Control\AiActCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\Soc2CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\WazuhEvidenceProvider;
 use GlpiPlugin\Grcmanager\Services\Control\Nis2CatalogDefaults;
@@ -75,6 +76,8 @@ final class PilotageCards
                 => PciDssCatalogDefaults::requirementsForControl($code) !== []],
             'SOC 2'        => [FrameworkSelection::SOC2, static fn (string $code): bool
                 => Soc2CatalogDefaults::criteriaForControl($code) !== []],
+            'AI Act'       => [FrameworkSelection::AI_ACT, static fn (string $code): bool
+                => AiActCatalogDefaults::articlesForControl($code) !== []],
         ];
     }
 

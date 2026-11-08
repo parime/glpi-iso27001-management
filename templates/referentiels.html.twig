@@ -318,6 +318,15 @@
     footer: __('The Trust Services Criteria are protected by copyright (AICPA): only their identifiers are used here; summaries and the mapping to ISO 27001 Annex A are written by this project, which is not affiliated with the AICPA.', 'grcmanager'),
   }) }}
 {% endif %}
+{% if ai_act is not empty %}
+  {{ include('@grcmanager/referentiels_iso_card.html.twig', {
+    card_id: 'ai-act', groups: ai_act, source: ai_act_source, source_label: 'eur-lex.europa.eu',
+    badge_class: 'bg-cyan-lt',
+    title: __('AI Act: Regulation (EU) 2024/1689 on artificial intelligence', 'grcmanager'),
+    intro: __('Consolidated version of 27 July 2026, including the digital omnibus (Regulation (EU) 2026/1744). Obligations grouped by role, each with its application date. The last column links to the modules of this plugin that already help meet them.', 'grcmanager'),
+    footer: __('Source: Regulation (EU) 2024/1689 as amended, © European Union, EUR-Lex. Article titles are the official ones; obligations are summarised and the mapping to ISO 27001 Annex A is indicative, both made by this project. Only the version published in the Official Journal of the EU is authentic.', 'grcmanager'),
+  }) }}
+{% endif %}
 {% if iso42001 is not empty %}
   {{ include('@grcmanager/referentiels_iso_card.html.twig', {
     card_id: 'iso42001', groups: iso42001, source: iso42001_source, badge_class: 'bg-teal-lt',
