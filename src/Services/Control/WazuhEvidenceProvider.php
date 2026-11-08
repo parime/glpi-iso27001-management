@@ -228,6 +228,66 @@ final class WazuhEvidenceProvider
         return ['also' => $result['also'], 'only' => $only];
     }
 
+    /**
+     * Issue #368 : alertes Wazuh récentes des ordinateurs donnés (actifs liés à un risque, déjà
+     * filtrés sur les droits de l'utilisateur), les plus récentes d'abord. Null si le plugin Wazuh
+     * ou sa table des alertes manque.
+     *
+     * @param list<int> $computerIds
+     * @return list<array{date: string, computers_id: int, level: int|null, severity: string,
+     *     description: string, rule_id: string}>|null
+     */
+    public static function fetchRecentAlerts(array $computerIds, string $since): ?array
+    {
+        global $DB;
+
+        if (self::agentTable() === null) {
+            return null;
+        }
+        $table = WazuhEvidence::resolveTable(
+            WazuhEvidence::ALERT_TABLES,
+            WazuhEvidence::ALERT_COLUMNS,
+            static fn (string $name): bool => $DB->tableExists($name),
+            static fn (string $name, string $column): bool => $DB->fieldExists($name, $column)
+        );
+        if ($table === null) {
+            return null;
+        }
+        if ($computerIds === []) {
+            return [];
+        }
+        $alerts = [];
+        try {
+            foreach (
+                $DB->request([
+                    'SELECT' => ['computers_id', 'rule', 'source_timestamp'],
+                    'FROM'   => $table,
+                    'WHERE'  => [
+                        'is_deleted'   => 0,
+                        'computers_id' => $computerIds,
+                        ['source_timestamp' => ['>=', $since]],
+                    ],
+                    'ORDER'  => ['source_timestamp DESC'],
+                    'LIMIT'  => WazuhEvidence::MAX_ALERTS,
+                ]) as $row
+            ) {
+                $rule = WazuhEvidence::parseRule($row['rule'] !== null ? (string) $row['rule'] : null);
+                $alerts[] = [
+                    'date'         => (string) $row['source_timestamp'],
+                    'computers_id' => (int) $row['computers_id'],
+                    'level'        => $rule['level'],
+                    'severity'     => WazuhEvidence::alertSeverity($rule['level']),
+                    'description'  => $rule['description'],
+                    'rule_id'      => $rule['id'],
+                ];
+            }
+        } catch (\Throwable $e) {
+            return null;
+        }
+
+        return $alerts;
+    }
+
     /** Liste des agents dans le plugin Wazuh, si sa classe expose une recherche. */
     public static function agentsUrl(): ?string
     {

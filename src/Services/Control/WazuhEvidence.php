@@ -46,6 +46,13 @@ final class WazuhEvidence
         'name', 'computers_id', 'v_severity', 'v_score', 'p_name', 'p_version', 'is_deleted', 'is_discontinue',
     ];
 
+    /** Alertes Wazuh des ordinateurs (règle déclenchée stockée en JSON dans `rule`). */
+    public const ALERT_TABLES = ['glpi_plugin_wazuh_computeralertstabs'];
+    public const ALERT_COLUMNS = ['computers_id', 'rule', 'source_timestamp', 'is_deleted'];
+    /** Fenêtre et nombre d'alertes récentes affichées sur un risque. */
+    public const ALERT_DAYS = 30;
+    public const MAX_ALERTS = 10;
+
     /** Statut Wazuh d'un agent qui remonte des données. */
     public const ACTIVE_STATUS = 'active';
 
@@ -141,6 +148,37 @@ final class WazuhEvidence
             <=> [$a['score'] ?? -1.0, $b['cve_id']]);
 
         return ['also' => $also, 'only' => $only];
+    }
+
+    /**
+     * Règle Wazuh d'une alerte (JSON stocké par le plugin Wazuh) : niveau 0 à 15, description et
+     * identifiant. Contenu illisible : niveau inconnu et description vide, sans erreur.
+     *
+     * @return array{level: int|null, description: string, id: string}
+     */
+    public static function parseRule(?string $json): array
+    {
+        $rule = json_decode((string) $json, true);
+        if (!is_array($rule)) {
+            return ['level' => null, 'description' => '', 'id' => ''];
+        }
+        $level = $rule['level'] ?? null;
+
+        return [
+            'level'       => is_numeric($level) ? max(0, min(15, (int) $level)) : null,
+            'description' => is_scalar($rule['description'] ?? null) ? trim((string) $rule['description']) : '',
+            'id'          => is_scalar($rule['id'] ?? null) ? (string) $rule['id'] : '',
+        ];
+    }
+
+    /** Gravité d'un niveau de règle Wazuh : 12 et plus élevée, 7 à 11 moyenne, en dessous faible. */
+    public static function alertSeverity(?int $level): string
+    {
+        if ($level === null) {
+            return 'unknown';
+        }
+
+        return $level >= 12 ? 'high' : ($level >= 7 ? 'medium' : 'low');
     }
 
     /**

@@ -7,6 +7,15 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.39.0] - 2026-11-08
+
+### Added
+
+- **Pont Wazuh, alertes sur les risques** (issue #368) : sur la fiche d'un risque, les dix alertes
+  Wazuh les plus récentes (30 jours) des ordinateurs liés au risque, avec leur niveau et la règle
+  déclenchée. Lecture seule, limitée aux ordinateurs visibles de l'utilisateur, section absente
+  sans le plugin Wazuh.
+
 ## [2.38.0] - 2026-11-08
 
 ### Added
