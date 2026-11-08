@@ -74,6 +74,14 @@ archivé), avec ses champs de classification ISO 27001 fusionnés dessus.
   à CC9 et critères complémentaires (disponibilité, confidentialité, intégrité du traitement, vie
   privée) résumés, reliés à l'Annexe A ISO 27001 et aux modules qui produisent les preuves,
   références sur les mesures et taux SOC 2.
+- **AI Act (règlement (UE) 2024/1689)**, optionnel et désactivé par défaut : version consolidée du
+  27/07/2026 (omnibus numérique 2026/1744 compris), obligations par rôle (toute organisation,
+  déployeurs, fournisseurs de systèmes à haut risque) avec leur date d'application, reliées à
+  l'Annexe A ISO 27001 et aux modules du plugin, références sur les mesures et taux AI Act.
+- **HDS v2.0 (Hébergeur de données de santé)**, optionnel et désactivé par défaut : les 31
+  exigences du référentiel de certification (SMSI, clauses du contrat client, souveraineté des
+  données), reliées à l'Annexe A ISO 27001 et aux modules du plugin, badges « HDS EXI n » sur les
+  mesures et taux HDS.
 - **Sécurité des systèmes d'IA (ISO/IEC 27090:2026)** : sections de la norme reliées à l'Annexe A,
   et risques types d'IA (services d'IA publics, injection de prompt, fuite de données, chaîne
   d'approvisionnement, empoisonnement, vol de modèle, systèmes non inventoriés) à importer dans le
@@ -127,7 +135,7 @@ archivé), avec ses champs de classification ISO 27001 fusionnés dessus.
 
 **Pilotage**
 - Tableau de bord ISMS par défaut et indicateurs à ajouter aux tableaux de bord GLPI, dont la
-  conformité par référentiel (ISO 27001, NIS2, ANSSI, NIST CSF, CIS Controls, et DORA, ISO 27701, ISO 22301, ISO 42001, PCI DSS, SOC 2 si activés), les échéances à 90 jours, la revue des accès
+  conformité par référentiel (ISO 27001, NIS2, ANSSI, NIST CSF, CIS Controls, et DORA, ISO 27701, ISO 22301, ISO 42001, PCI DSS, SOC 2, AI Act, HDS si activés), les échéances à 90 jours, la revue des accès
   et les délais NIS2 / RGPD en alerte ; menu GRC & Conformité > Tableau de bord, vues ISMS et
   Direction, tendance mensuelle.
 - **Formations notées**, en une ou plusieurs sessions (formateur, lieu, note, seuil de réussite,
@@ -330,6 +338,16 @@ du dépôt et dans la documentation indique uniquement le référentiel que le p
   Seuls les numéros des douze exigences sont repris ; résumés et regroupement sont rédigés par ce
   projet et la correspondance avec l'Annexe A ISO 27001 est indicative. Ce projet n'est pas affilié
   au PCI SSC : [pcisecuritystandards.org](https://www.pcisecuritystandards.org/document_library/).
+- **Règlement (UE) 2024/1689 « AI Act »** : intitulés officiels des articles d'après la version
+  consolidée publiée sur [EUR-Lex](https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:02024R1689-20260727) ;
+  les obligations sont résumées par ce projet. © Union européenne, https://eur-lex.europa.eu/ -
+  réutilisation autorisée (décision 2011/833/UE de la Commission). Seule la version publiée au
+  Journal officiel de l'UE fait foi. La correspondance avec l'Annexe A ISO 27001 est indicative.
+- **Référentiel de certification HDS v2.0** : publié par l'Agence du Numérique en Santé
+  ([esante.gouv.fr](https://esante.gouv.fr/offres-services/hds/certification-hebergeur-de-donnees-de-sante)),
+  approuvé par l'arrêté du 26 avril 2024, document public. Les numéros d'exigences sont les numéros
+  officiels ; les exigences sont résumées par ce projet et la correspondance avec l'Annexe A ISO
+  27001 est indicative. Seul le référentiel publié par l'ANS fait foi.
 - **SOC 2 / Trust Services Criteria** : critères protégés par le droit d'auteur (© AICPA). Seuls
   leurs identifiants sont repris ; les résumés sont rédigés par ce projet et la correspondance avec
   l'Annexe A ISO 27001 est indicative (elle ne reprend pas celle de l'AICPA). Ce projet n'est pas
