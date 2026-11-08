@@ -82,4 +82,30 @@
          'full_width': true,
       }) }}
    {% endfor %}
+
+   {# Issue #368 : alertes Wazuh récentes des ordinateurs liés, lues dans le plugin Wazuh (lecture seule). #}
+   {% if wazuh_alerts is not null %}
+      {% set alert_badges = {'high': 'bg-red text-white', 'medium': 'bg-orange-lt', 'low': 'bg-secondary-lt', 'unknown': 'bg-secondary-lt'} %}
+      {% set wazuh_html %}
+         {% if wazuh_alerts is empty %}
+            <span class="text-muted">{{ __('No Wazuh alert on the linked computers in the last %d days.', 'grcmanager')|format(wazuh_alert_days) }}</span>
+         {% else %}
+            <table class="table table-sm table-vcenter mb-1">
+               <thead><tr><th>{{ __('Date') }}</th><th>{{ __('Computer') }}</th><th>{{ __('Level', 'grcmanager') }}</th><th>{{ __('Rule', 'grcmanager') }}</th></tr></thead>
+               <tbody>
+               {% for alert in wazuh_alerts %}
+                  <tr>
+                     <td class="text-nowrap">{{ alert.date|formatted_datetime }}</td>
+                     <td><a href="{{ alert.computer_url }}">{{ alert.computer }}</a></td>
+                     <td><span class="badge {{ alert_badges[alert.severity] }}">{{ alert.level ?? '?' }}</span></td>
+                     <td>{{ alert.description }}{% if alert.rule_id %} <span class="text-muted small">({{ alert.rule_id }})</span>{% endif %}</td>
+                  </tr>
+               {% endfor %}
+               </tbody>
+            </table>
+         {% endif %}
+         <small class="form-hint d-block">{{ __('The %1$d most recent alerts of the last %2$d days, read from the Wazuh plugin. Only computers you can see are included.', 'grcmanager')|format(wazuh_alert_max, wazuh_alert_days) }}</small>
+      {% endset %}
+      {{ fields.htmlField('', wazuh_html, __('Recent Wazuh alerts', 'grcmanager'), {'full_width': true}) }}
+   {% endif %}
 {% endblock %}

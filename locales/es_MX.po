@@ -9568,3 +9568,17 @@ msgstr "Vulnerabilidades vistas por los agentes Wazuh en sus ordenadores y no en
 
 msgid "Packages"
 msgstr "Paquetes"
+
+#, php-format
+msgid "No Wazuh alert on the linked computers in the last %d days."
+msgstr "Ninguna alerta Wazuh en los ordenadores vinculados en los últimos %d días."
+
+msgid "Rule"
+msgstr "Regla"
+
+#, php-format
+msgid "The %1$d most recent alerts of the last %2$d days, read from the Wazuh plugin. Only computers you can see are included."
+msgstr "Las %1$d alertas más recientes de los últimos %2$d días, leídas del plugin Wazuh. Solo se incluyen los ordenadores que puede ver."
+
+msgid "Recent Wazuh alerts"
+msgstr "Alertas Wazuh recientes"
