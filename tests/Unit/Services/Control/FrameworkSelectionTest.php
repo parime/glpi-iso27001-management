@@ -67,4 +67,16 @@ final class FrameworkSelectionTest extends TestCase
         $this->assertSame('[]', FrameworkSelection::encode(array_keys(FrameworkSelection::FRAMEWORKS)));
         $this->assertSame([], FrameworkSelection::enabled(FrameworkSelection::decode(FrameworkSelection::encode([]))));
     }
+
+    public function testCustomFrameworkKeysAreKnownOnlyWhenGiven(): void
+    {
+        // Issue #537 : les clés des référentiels personnalisés sont fournies par FrameworkConfig.
+        $keys = array_merge(array_keys(FrameworkSelection::FRAMEWORKS), ['custom_3']);
+        $stored = FrameworkSelection::encode(['iso27001', 'custom_3'], $keys);
+
+        $this->assertNotContains('custom_3', FrameworkSelection::decode($stored, $keys));
+        $this->assertContains('custom_3', FrameworkSelection::enabled(FrameworkSelection::decode($stored, $keys), $keys));
+        $this->assertSame([], FrameworkSelection::decode('["custom_3"]'));
+        $this->assertSame(['custom_3'], FrameworkSelection::decode('["custom_3", "custom_4"]', $keys));
+    }
 }
