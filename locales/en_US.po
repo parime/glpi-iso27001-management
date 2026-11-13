@@ -10034,3 +10034,265 @@ msgstr "Added"
 
 msgid "Choose another file"
 msgstr "Choose another file"
+
+#, php-format
+msgid "%1$s: %2$s"
+msgstr "%1$s: %2$s"
+
+msgid "View the supplier risk"
+msgstr "View the supplier risk"
+
+msgid "View the obligation"
+msgstr "View the obligation"
+
+msgid "View the non-conformity"
+msgstr "View the non-conformity"
+
+msgid "View the supplier risk (Security watch tab)"
+msgstr "View the supplier risk (Security watch tab)"
+
+msgid "Renew the document (new certificate, report or attestation), then update its validity date. A renewal ticket will be opened if the evidence expires."
+msgstr "Renew the document (new certificate, report or attestation), then update its validity date. A renewal ticket will be opened if the evidence expires."
+
+msgid "View the item"
+msgstr "View the item"
+
+msgid "Begin"
+msgstr "Begin"
+
+msgid "Prepare the event: invitations, expected documents, access for the service provider. Nothing is changed automatically."
+msgstr "Prepare the event: invitations, expected documents, access for the service provider. Nothing is changed automatically."
+
+msgid "View the event"
+msgstr "View the event"
+
+msgid "Run the test and record its result in the \"Effectiveness tests\" tab of the control. An overdue test removes the \"Verified\" state of the control in the SoA."
+msgstr "Run the test and record its result in the \"Effectiveness tests\" tab of the control. An overdue test removes the \"Verified\" state of the control in the SoA."
+
+msgid "View the control"
+msgstr "View the control"
+
+msgid "Recorded on"
+msgstr "Recorded on"
+
+#, php-format
+msgid "Status: %1$s (before: %2$s)"
+msgstr "Status: %1$s (before: %2$s)"
+
+#, php-format
+msgid "Last value: %1$s, recorded on %2$s"
+msgstr "Last value: %1$s, recorded on %2$s"
+
+#, php-format
+msgid "Thresholds: orange %1$s, red %2$s"
+msgstr "Thresholds: orange %1$s, red %2$s"
+
+msgid "View the indicator"
+msgstr "View the indicator"
+
+msgid "Analyse the cause, decide on a treatment and, if needed, create the ticket proposed on the indicator form."
+msgstr "Analyse the cause, decide on a treatment and, if needed, create the ticket proposed on the indicator form."
+
+msgid "The indicator is back below its thresholds. Check whether the related ticket, if any, can be closed."
+msgstr "The indicator is back below its thresholds. Check whether the related ticket, if any, can be closed."
+
+msgid "To review on"
+msgstr "To review on"
+
+msgid "Last BIA"
+msgstr "Last BIA"
+
+msgid "Test due on"
+msgstr "Test due on"
+
+msgid "RTO"
+msgstr "RTO"
+
+msgid "Criticality"
+msgstr "Criticality"
+
+msgid "Review with the owner the impacts of an interruption over time, the MTPD, the RTO and the RPO, then record the BIA in the \"Business impact analysis (BIA)\" tab of the process."
+msgstr "Review with the owner the impacts of an interruption over time, the MTPD, the RTO and the RPO, then record the BIA in the \"Business impact analysis (BIA)\" tab of the process."
+
+msgid "View the BIA"
+msgstr "View the BIA"
+
+msgid "Plan a test or a crisis exercise, then record the measured recovery time in the \"Recovery strategy\" tab of the process."
+msgstr "Plan a test or a crisis exercise, then record the measured recovery time in the \"Recovery strategy\" tab of the process."
+
+msgid "View the recovery strategy"
+msgstr "View the recovery strategy"
+
+msgid "Reassess the waiver: extend it with a new end date if the exception is still needed, or close it once the situation has been regularised. A reassessment ticket will be opened on the due date."
+msgstr "Reassess the waiver: extend it with a new end date if the exception is still needed, or close it once the situation has been regularised. A reassessment ticket will be opened on the due date."
+
+msgid "View the waiver"
+msgstr "View the waiver"
+
+msgid "Nothing was changed automatically."
+msgstr "Nothing was changed automatically."
+
+msgid "Open the audit log"
+msgstr "Open the audit log"
+
+msgid "Work addresses found in known data breaches."
+msgstr "Work addresses found in known data breaches."
+
+msgid "Details in the register (restricted access)"
+msgstr "Details in the register (restricted access)"
+
+msgid "Details in the register (restricted access)."
+msgstr "Details in the register (restricted access)."
+
+msgid "Open the register"
+msgstr "Open the register"
+
+msgid "Probably exploited (EPSS)"
+msgstr "Probably exploited (EPSS)"
+
+msgid "High (CVSS below 9)"
+msgstr "High (CVSS below 9)"
+
+msgid "Exposed machines"
+msgstr "Exposed machines"
+
+msgid "Handle the exploited vulnerabilities first: update the software or apply the vendor's workaround. The full list, the affected machines and ticket creation are in GLPI."
+msgstr "Handle the exploited vulnerabilities first: update the software or apply the vendor's workaround. The full list, the affected machines and ticket creation are in GLPI."
+
+#, php-format
+msgid "- %1$s: %2$s (%3$s), %4$s, %5$s, %6$s machine(s) %7$s"
+msgstr "- %1$s: %2$s (%3$s), %4$s, %5$s, %6$s machine(s) %7$s"
+
+msgid "View the asset vulnerabilities"
+msgstr "View the asset vulnerabilities"
+
+msgid "Asset vulnerability report"
+msgstr "Asset vulnerability report"
+
+msgid "View the policy"
+msgstr "View the policy"
+
+#, php-format
+msgid "version %s"
+msgstr "version %s"
+
+#, php-format
+msgid "%1$s asks you to approve version %2$s of the Statement of Applicability (%3$s)."
+msgstr "%1$s asks you to approve version %2$s of the Statement of Applicability (%3$s)."
+
+msgid "Read the frozen version and answer"
+msgstr "Read the frozen version and answer"
+
+#, php-format
+msgid "%1$s asks you to review the access rights of your team's accounts before %2$s (campaign \"%3$s\")."
+msgstr "%1$s asks you to review the access rights of your team's accounts before %2$s (campaign \"%3$s\")."
+
+msgid "Complete my access review"
+msgstr "Complete my access review"
+
+#, php-format
+msgid "Reminder: access review %s"
+msgstr "Reminder: access review %s"
+
+#, php-format
+msgid "The %1$s deadline has passed and accounts of your team are still waiting for your decision (campaign \"%2$s\")."
+msgstr "The %1$s deadline has passed and accounts of your team are still waiting for your decision (campaign \"%2$s\")."
+
+msgid "Finish my access review"
+msgstr "Finish my access review"
+
+msgid "Security notice about a supplier"
+msgstr "Security notice about a supplier"
+
+msgid "Effectiveness test to perform"
+msgstr "Effectiveness test to perform"
+
+msgid "Risk indicator in alert"
+msgstr "Risk indicator in alert"
+
+msgid "Risk indicator back to green"
+msgstr "Risk indicator back to green"
+
+msgid "Business impact analysis (BIA) to review"
+msgstr "Business impact analysis (BIA) to review"
+
+msgid "Recovery test to redo"
+msgstr "Recovery test to redo"
+
+msgid "Waiver expiring soon"
+msgstr "Waiver expiring soon"
+
+msgid "Overdue training renewal"
+msgstr "Overdue training renewal"
+
+msgid "Security incident access changed"
+msgstr "Security incident access changed"
+
+msgid "Security incident module disabled"
+msgstr "Security incident module disabled"
+
+msgid "Access to the security incident module changed"
+msgstr "Access to the security incident module changed"
+
+msgid "Security policy review due"
+msgstr "Security policy review due"
+
+msgid "Sent by the GRC Manager automatic task when a risk reaches or passes its review date."
+msgstr "Sent by the GRC Manager automatic task when a risk reaches or passes its review date."
+
+msgid "Sent by the GRC Manager automatic task when a supplier risk reaches or passes its review date."
+msgstr "Sent by the GRC Manager automatic task when a supplier risk reaches or passes its review date."
+
+msgid "Sent by the GRC Manager automatic task when an obligation reaches or passes its review date."
+msgstr "Sent by the GRC Manager automatic task when an obligation reaches or passes its review date."
+
+msgid "Sent by the GRC Manager automatic task when a non-conformity passes its due date without being closed or verified."
+msgstr "Sent by the GRC Manager automatic task when a non-conformity passes its due date without being closed or verified."
+
+msgid "Sent by the asset vulnerability task when a new CERT-FR notice mentions the supplier of a risk in the register."
+msgstr "Sent by the asset vulnerability task when a new CERT-FR notice mentions the supplier of a risk in the register."
+
+msgid "Sent by the GRC Manager automatic task when an evidence document reaches the end of its validity."
+msgstr "Sent by the GRC Manager automatic task when an evidence document reaches the end of its validity."
+
+msgid "Sent by the GRC Manager automatic task 15 days before an event of the compliance calendar (audit, pentest, certification...)."
+msgstr "Sent by the GRC Manager automatic task 15 days before an event of the compliance calendar (audit, pentest, certification...)."
+
+msgid "Sent by the GRC Manager automatic task when an effectiveness test of an Annex A control is overdue or due within 30 days."
+msgstr "Sent by the GRC Manager automatic task when an effectiveness test of an Annex A control is overdue or due within 30 days."
+
+msgid "Sent by GRC Manager when a key risk indicator (KRI) turns red, or orange depending on the setting, once per change of state."
+msgstr "Sent by GRC Manager when a key risk indicator (KRI) turns red, or orange depending on the setting, once per change of state."
+
+msgid "Sent by GRC Manager when a key risk indicator (KRI) in alert goes back to green."
+msgstr "Sent by GRC Manager when a key risk indicator (KRI) in alert goes back to green."
+
+msgid "Sent by the GRC Manager automatic task when the business impact analysis (BIA) of a business process must be reviewed within 30 days or is overdue (date of the last BIA plus the frequency of the periodic review)."
+msgstr "Sent by the GRC Manager automatic task when the business impact analysis (BIA) of a business process must be reviewed within 30 days or is overdue (date of the last BIA plus the frequency of the periodic review)."
+
+msgid "Sent by the GRC Manager automatic task when the next recovery test of a business process is due within 30 days or overdue (date of the last test plus the frequency of the periodic review of the BCP / DRP tests)."
+msgstr "Sent by the GRC Manager automatic task when the next recovery test of a business process is due within 30 days or overdue (date of the last test plus the frequency of the periodic review of the BCP / DRP tests)."
+
+msgid "Sent by the GRC Manager automatic task 15 days before the end of a security waiver."
+msgstr "Sent by the GRC Manager automatic task 15 days before the end of a security waiver."
+
+msgid "Sent by the GRC Manager automatic task when a participant is overdue for the renewal of a training."
+msgstr "Sent by the GRC Manager automatic task when a participant is overdue for the renewal of a training."
+
+msgid "Sent by the \"accesswatch\" task or when the module is disabled."
+msgstr "Sent by the \"accesswatch\" task or when the module is disabled."
+
+msgid "Sent by the \"breachmonitor\" automatic task (Have I Been Pwned)."
+msgstr "Sent by the \"breachmonitor\" automatic task (Have I Been Pwned)."
+
+msgid "Sent by the \"vulnerabilitydigest\" automatic task at the frequency chosen in the GRC Manager configuration (exploited, probably exploited, critical and high vulnerabilities of the assets)."
+msgstr "Sent by the \"vulnerabilitydigest\" automatic task at the frequency chosen in the GRC Manager configuration (exploited, probably exploited, critical and high vulnerabilities of the assets)."
+
+msgid "Sent by the GRC Manager automatic task when a security policy reaches or passes its next review date."
+msgstr "Sent by the GRC Manager automatic task when a security policy reaches or passes its next review date."
+
+msgid "Sent by the GRC Manager automatic task when an action of a risk treatment plan passes its due date without being completed."
+msgstr "Sent by the GRC Manager automatic task when an action of a risk treatment plan passes its due date without being completed."
+
+msgid "Sent to the designated approvers when a version of the Statement of Applicability is frozen and submitted for approval."
+msgstr "Sent to the designated approvers when a version of the Statement of Applicability is frozen and submitted for approval."

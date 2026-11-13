@@ -10034,3 +10034,265 @@ msgstr "Aggiunto"
 
 msgid "Choose another file"
 msgstr "Scegli un altro file"
+
+#, php-format
+msgid "%1$s: %2$s"
+msgstr "%1$s: %2$s"
+
+msgid "View the supplier risk"
+msgstr "Visualizza il rischio fornitore"
+
+msgid "View the obligation"
+msgstr "Visualizza l'obbligo"
+
+msgid "View the non-conformity"
+msgstr "Visualizza la non conformità"
+
+msgid "View the supplier risk (Security watch tab)"
+msgstr "Visualizza il rischio fornitore (scheda Monitoraggio della sicurezza)"
+
+msgid "Renew the document (new certificate, report or attestation), then update its validity date. A renewal ticket will be opened if the evidence expires."
+msgstr "Rinnovare il documento (nuovo certificato, rapporto o attestazione), poi aggiornarne la data di validità. Se l'evidenza scade verrà aperto un ticket di rinnovo."
+
+msgid "View the item"
+msgstr "Visualizza l'elemento"
+
+msgid "Begin"
+msgstr "Inizio"
+
+msgid "Prepare the event: invitations, expected documents, access for the service provider. Nothing is changed automatically."
+msgstr "Preparare l'evento: convocazioni, documenti attesi, accessi del fornitore. Nulla viene modificato automaticamente."
+
+msgid "View the event"
+msgstr "Visualizza l'evento"
+
+msgid "Run the test and record its result in the \"Effectiveness tests\" tab of the control. An overdue test removes the \"Verified\" state of the control in the SoA."
+msgstr "Eseguire il test e registrarne il risultato nella scheda «Test di efficacia» del controllo. Un test in ritardo toglie al controllo lo stato «Verificato» nella SoA."
+
+msgid "View the control"
+msgstr "Visualizza il controllo"
+
+msgid "Recorded on"
+msgstr "Rilevato il"
+
+#, php-format
+msgid "Status: %1$s (before: %2$s)"
+msgstr "Stato: %1$s (prima: %2$s)"
+
+#, php-format
+msgid "Last value: %1$s, recorded on %2$s"
+msgstr "Ultimo valore: %1$s, rilevato il %2$s"
+
+#, php-format
+msgid "Thresholds: orange %1$s, red %2$s"
+msgstr "Soglie: arancione %1$s, rossa %2$s"
+
+msgid "View the indicator"
+msgstr "Visualizza l'indicatore"
+
+msgid "Analyse the cause, decide on a treatment and, if needed, create the ticket proposed on the indicator form."
+msgstr "Analizzare la causa, decidere un trattamento e, se necessario, creare il ticket proposto nella scheda dell'indicatore."
+
+msgid "The indicator is back below its thresholds. Check whether the related ticket, if any, can be closed."
+msgstr "L'indicatore è tornato sotto le sue soglie. Verificare se l'eventuale ticket può essere chiuso."
+
+msgid "To review on"
+msgstr "Da riesaminare il"
+
+msgid "Last BIA"
+msgstr "Ultima BIA"
+
+msgid "Test due on"
+msgstr "Test previsto il"
+
+msgid "RTO"
+msgstr "RTO"
+
+msgid "Criticality"
+msgstr "Criticità"
+
+msgid "Review with the owner the impacts of an interruption over time, the MTPD, the RTO and the RPO, then record the BIA in the \"Business impact analysis (BIA)\" tab of the process."
+msgstr "Riesaminare con il responsabile gli impatti di un'interruzione nel tempo, il MTPD, l'RTO e l'RPO, poi registrare la BIA nella scheda «Analisi d'impatto (BIA)» del processo."
+
+msgid "View the BIA"
+msgstr "Visualizza la BIA"
+
+msgid "Plan a test or a crisis exercise, then record the measured recovery time in the \"Recovery strategy\" tab of the process."
+msgstr "Pianificare un test o un'esercitazione di crisi, poi registrare il tempo di ripristino misurato nella scheda «Strategia di ripristino» del processo."
+
+msgid "View the recovery strategy"
+msgstr "Visualizza la strategia di ripristino"
+
+msgid "Reassess the waiver: extend it with a new end date if the exception is still needed, or close it once the situation has been regularised. A reassessment ticket will be opened on the due date."
+msgstr "Rivalutare la deroga: prorogarla con una nuova data di fine se l'eccezione è ancora necessaria, oppure chiuderla una volta regolarizzata la situazione. Alla scadenza verrà aperto un ticket di rivalutazione."
+
+msgid "View the waiver"
+msgstr "Visualizza la deroga"
+
+msgid "Nothing was changed automatically."
+msgstr "Nulla è stato modificato automaticamente."
+
+msgid "Open the audit log"
+msgstr "Apri il registro di audit"
+
+msgid "Work addresses found in known data breaches."
+msgstr "Indirizzi professionali trovati in violazioni di dati note."
+
+msgid "Details in the register (restricted access)"
+msgstr "Dettagli nel registro (accesso riservato)"
+
+msgid "Details in the register (restricted access)."
+msgstr "Dettagli nel registro (accesso riservato)."
+
+msgid "Open the register"
+msgstr "Apri il registro"
+
+msgid "Probably exploited (EPSS)"
+msgstr "Probabilmente sfruttate (EPSS)"
+
+msgid "High (CVSS below 9)"
+msgstr "Elevate (CVSS inferiore a 9)"
+
+msgid "Exposed machines"
+msgstr "Macchine esposte"
+
+msgid "Handle the exploited vulnerabilities first: update the software or apply the vendor's workaround. The full list, the affected machines and ticket creation are in GLPI."
+msgstr "Trattare per prime le vulnerabilità sfruttate: aggiornare il software o applicare la soluzione alternativa del produttore. L'elenco completo, le macchine interessate e la creazione dei ticket sono in GLPI."
+
+#, php-format
+msgid "- %1$s: %2$s (%3$s), %4$s, %5$s, %6$s machine(s) %7$s"
+msgstr "- %1$s: %2$s (%3$s), %4$s, %5$s, %6$s macchina/e %7$s"
+
+msgid "View the asset vulnerabilities"
+msgstr "Visualizza le vulnerabilità del parco"
+
+msgid "Asset vulnerability report"
+msgstr "Rapporto sulle vulnerabilità del parco"
+
+msgid "View the policy"
+msgstr "Visualizza la politica"
+
+#, php-format
+msgid "version %s"
+msgstr "versione %s"
+
+#, php-format
+msgid "%1$s asks you to approve version %2$s of the Statement of Applicability (%3$s)."
+msgstr "%1$s le chiede di approvare la versione %2$s della Dichiarazione di Applicabilità (%3$s)."
+
+msgid "Read the frozen version and answer"
+msgstr "Leggi la versione congelata e rispondi"
+
+#, php-format
+msgid "%1$s asks you to review the access rights of your team's accounts before %2$s (campaign \"%3$s\")."
+msgstr "%1$s le chiede di riesaminare gli accessi degli account del suo team entro il %2$s (campagna «%3$s»)."
+
+msgid "Complete my access review"
+msgstr "Completa il mio riesame degli accessi"
+
+#, php-format
+msgid "Reminder: access review %s"
+msgstr "Promemoria: riesame degli accessi %s"
+
+#, php-format
+msgid "The %1$s deadline has passed and accounts of your team are still waiting for your decision (campaign \"%2$s\")."
+msgstr "La scadenza del %1$s è superata e alcuni account del suo team attendono ancora la sua decisione (campagna «%2$s»)."
+
+msgid "Finish my access review"
+msgstr "Termina il mio riesame degli accessi"
+
+msgid "Security notice about a supplier"
+msgstr "Avviso di sicurezza relativo a un fornitore"
+
+msgid "Effectiveness test to perform"
+msgstr "Test di efficacia da eseguire"
+
+msgid "Risk indicator in alert"
+msgstr "Indicatore di rischio in allerta"
+
+msgid "Risk indicator back to green"
+msgstr "Indicatore di rischio tornato al verde"
+
+msgid "Business impact analysis (BIA) to review"
+msgstr "Analisi d'impatto (BIA) da riesaminare"
+
+msgid "Recovery test to redo"
+msgstr "Test di ripristino da ripetere"
+
+msgid "Waiver expiring soon"
+msgstr "Deroga in scadenza"
+
+msgid "Overdue training renewal"
+msgstr "Rinnovo della formazione in ritardo"
+
+msgid "Security incident access changed"
+msgstr "Accessi agli incidenti di sicurezza modificati"
+
+msgid "Security incident module disabled"
+msgstr "Modulo degli incidenti di sicurezza disattivato"
+
+msgid "Access to the security incident module changed"
+msgstr "Accessi al modulo degli incidenti di sicurezza modificati"
+
+msgid "Security policy review due"
+msgstr "Riesame della politica di sicurezza in scadenza"
+
+msgid "Sent by the GRC Manager automatic task when a risk reaches or passes its review date."
+msgstr "Inviata dall'attività automatica di GRC Manager quando un rischio raggiunge o supera la data di riesame."
+
+msgid "Sent by the GRC Manager automatic task when a supplier risk reaches or passes its review date."
+msgstr "Inviata dall'attività automatica di GRC Manager quando un rischio fornitore raggiunge o supera la data di riesame."
+
+msgid "Sent by the GRC Manager automatic task when an obligation reaches or passes its review date."
+msgstr "Inviata dall'attività automatica di GRC Manager quando un obbligo raggiunge o supera la data di riesame."
+
+msgid "Sent by the GRC Manager automatic task when a non-conformity passes its due date without being closed or verified."
+msgstr "Inviata dall'attività automatica di GRC Manager quando una non conformità supera la scadenza senza essere chiusa né verificata."
+
+msgid "Sent by the asset vulnerability task when a new CERT-FR notice mentions the supplier of a risk in the register."
+msgstr "Inviata dall'attività delle vulnerabilità del parco quando un nuovo avviso del CERT-FR cita il fornitore di un rischio del registro."
+
+msgid "Sent by the GRC Manager automatic task when an evidence document reaches the end of its validity."
+msgstr "Inviata dall'attività automatica di GRC Manager quando un documento di evidenza arriva alla fine della sua validità."
+
+msgid "Sent by the GRC Manager automatic task 15 days before an event of the compliance calendar (audit, pentest, certification...)."
+msgstr "Inviata dall'attività automatica di GRC Manager 15 giorni prima di un evento del calendario di conformità (audit, pentest, certificazione...)."
+
+msgid "Sent by the GRC Manager automatic task when an effectiveness test of an Annex A control is overdue or due within 30 days."
+msgstr "Inviata dall'attività automatica di GRC Manager quando un test di efficacia di un controllo dell'Allegato A è in ritardo o da eseguire entro 30 giorni."
+
+msgid "Sent by GRC Manager when a key risk indicator (KRI) turns red, or orange depending on the setting, once per change of state."
+msgstr "Inviata da GRC Manager quando un indicatore di rischio (KRI) passa al rosso, o all'arancione secondo l'impostazione, una volta per cambio di stato."
+
+msgid "Sent by GRC Manager when a key risk indicator (KRI) in alert goes back to green."
+msgstr "Inviata da GRC Manager quando un indicatore di rischio (KRI) in allerta torna al verde."
+
+msgid "Sent by the GRC Manager automatic task when the business impact analysis (BIA) of a business process must be reviewed within 30 days or is overdue (date of the last BIA plus the frequency of the periodic review)."
+msgstr "Inviata dall'attività automatica di GRC Manager quando l'analisi d'impatto sull'operatività (BIA) di un processo aziendale deve essere riesaminata entro 30 giorni o è in ritardo (data dell'ultima BIA più la frequenza del riesame periodico)."
+
+msgid "Sent by the GRC Manager automatic task when the next recovery test of a business process is due within 30 days or overdue (date of the last test plus the frequency of the periodic review of the BCP / DRP tests)."
+msgstr "Inviata dall'attività automatica di GRC Manager quando il prossimo test di ripristino di un processo aziendale è previsto entro 30 giorni o è in ritardo (data dell'ultimo test più la frequenza del riesame periodico dei test del BCP / DRP)."
+
+msgid "Sent by the GRC Manager automatic task 15 days before the end of a security waiver."
+msgstr "Inviata dall'attività automatica di GRC Manager 15 giorni prima della fine di una deroga di sicurezza."
+
+msgid "Sent by the GRC Manager automatic task when a participant is overdue for the renewal of a training."
+msgstr "Inviata dall'attività automatica di GRC Manager quando un partecipante è in ritardo con il rinnovo di una formazione."
+
+msgid "Sent by the \"accesswatch\" task or when the module is disabled."
+msgstr "Inviata dall'attività «accesswatch» o alla disattivazione del modulo."
+
+msgid "Sent by the \"breachmonitor\" automatic task (Have I Been Pwned)."
+msgstr "Inviata dall'attività automatica «breachmonitor» (Have I Been Pwned)."
+
+msgid "Sent by the \"vulnerabilitydigest\" automatic task at the frequency chosen in the GRC Manager configuration (exploited, probably exploited, critical and high vulnerabilities of the assets)."
+msgstr "Inviata dall'attività automatica «vulnerabilitydigest» con la frequenza scelta nella configurazione di GRC Manager (vulnerabilità sfruttate, probabilmente sfruttate, critiche ed elevate del parco)."
+
+msgid "Sent by the GRC Manager automatic task when a security policy reaches or passes its next review date."
+msgstr "Inviata dall'attività automatica di GRC Manager quando una politica di sicurezza raggiunge o supera la prossima data di riesame."
+
+msgid "Sent by the GRC Manager automatic task when an action of a risk treatment plan passes its due date without being completed."
+msgstr "Inviata dall'attività automatica di GRC Manager quando un'azione del piano di trattamento di un rischio supera la scadenza senza essere stata realizzata."
+
+msgid "Sent to the designated approvers when a version of the Statement of Applicability is frozen and submitted for approval."
+msgstr "Inviata agli approvatori designati quando una versione della Dichiarazione di Applicabilità è congelata e sottoposta ad approvazione."
