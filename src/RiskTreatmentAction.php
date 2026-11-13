@@ -218,7 +218,7 @@ class RiskTreatmentAction extends RiskTreatmentActionBase
 
         $task->addVolume($result->getNotified());
         $task->log(sprintf(
-            '%d action(s) de traitement de risque en retard, %d notification(s) déclenchée(s).',
+            __('%d overdue risk treatment action(s), %d notification(s) raised.', 'grcmanager'),
             $result->getDue(),
             $result->getNotified()
         ));

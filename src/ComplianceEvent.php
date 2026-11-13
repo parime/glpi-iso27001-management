@@ -829,7 +829,7 @@ class ComplianceEvent extends ComplianceEventBase
     {
         $notified = self::runReminders(date('Y-m-d'));
         $task->addVolume($notified);
-        $task->log(sprintf('%d rappel(s) d\'événement de conformité.', $notified));
+        $task->log(sprintf(__('%d compliance event reminder(s).', 'grcmanager'), $notified));
 
         return $notified > 0 ? 1 : 0;
     }

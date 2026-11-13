@@ -821,8 +821,10 @@ class Training extends TrainingBase
 
         $task->addVolume($result->getNotified());
         $task->log(sprintf(
-            '%d formation(s) avec au moins un participant en retard de renouvellement, '
-            . '%d notification(s) déclenchée(s).',
+            __(
+                '%d training(s) with at least one participant overdue for renewal, %d notification(s) raised.',
+                'grcmanager'
+            ),
             $result->getDue(),
             $result->getNotified()
         ));

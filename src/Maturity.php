@@ -285,7 +285,7 @@ class Maturity extends CommonGLPI
     public static function cronMaturitysnapshot(CronTask $task): int
     {
         $task->addVolume(1);
-        $task->log(sprintf('Score de maturité : %d', self::snapshot()));
+        $task->log(sprintf(__('Maturity score: %d', 'grcmanager'), self::snapshot()));
 
         return 1;
     }

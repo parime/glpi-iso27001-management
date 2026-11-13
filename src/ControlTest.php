@@ -650,7 +650,7 @@ class ControlTest extends ControlTestBase
         $result = ControlTestReminder::run(date('Y-m-d'));
         $task->addVolume($result['notified'] + $result['withdrawn']);
         $task->log(sprintf(
-            '%d rappel(s), %d état(s) « Vérifié » retiré(s).',
+            __('%d reminder(s), %d "Verified" state(s) removed.', 'grcmanager'),
             $result['notified'],
             $result['withdrawn']
         ));

@@ -10296,3 +10296,55 @@ msgstr "Von der automatischen Aufgabe von GRC Manager gesendet, wenn eine Maßna
 
 msgid "Sent to the designated approvers when a version of the Statement of Applicability is frozen and submitted for approval."
 msgstr "An die benannten Freigebenden gesendet, wenn eine Version der Erklärung zur Anwendbarkeit festgeschrieben und zur Freigabe vorgelegt wird."
+
+#, php-format
+msgid "%d BIA reminder(s), %d recovery test reminder(s)."
+msgstr "%d BIA-Erinnerung(en), %d Erinnerung(en) an Wiederanlauftests."
+
+#, php-format
+msgid "%d compliance event reminder(s)."
+msgstr "%d Erinnerung(en) an Konformitätsereignisse."
+
+#, php-format
+msgid "%d obligation(s) awaiting review, %d notification(s) raised."
+msgstr "%d Verpflichtung(en) zur Überprüfung, %d Benachrichtigung(en) ausgelöst."
+
+#, php-format
+msgid "%d reminder(s), %d \"Verified\" state(s) removed."
+msgstr "%d Erinnerung(en), %d Zustand/Zustände „Verifiziert“ entfernt."
+
+#, php-format
+msgid "%d reminder(s), %d renewal ticket(s)."
+msgstr "%d Erinnerung(en), %d Erneuerungsticket(s)."
+
+#, php-format
+msgid "Maturity score: %d"
+msgstr "Reifegrad: %d"
+
+#, php-format
+msgid "%d overdue corrective/preventive action(s), %d notification(s) raised."
+msgstr "%d überfällige Korrektur-/Vorbeugemaßnahme(n), %d Benachrichtigung(en) ausgelöst."
+
+#, php-format
+msgid "%d policy(ies) awaiting review, %d notification(s) raised."
+msgstr "%d Richtlinie(n) zur Überprüfung, %d Benachrichtigung(en) ausgelöst."
+
+#, php-format
+msgid "%d risk(s) awaiting review, %d notification(s) raised."
+msgstr "%d Risiko/Risiken zur Überprüfung, %d Benachrichtigung(en) ausgelöst."
+
+#, php-format
+msgid "%d overdue risk treatment action(s), %d notification(s) raised."
+msgstr "%d überfällige Risikobehandlungsmaßnahme(n), %d Benachrichtigung(en) ausgelöst."
+
+#, php-format
+msgid "%1$d CVE(s) refreshed from the NVD out of %2$d tracked."
+msgstr "%1$d von %2$d verfolgten CVE(s) aus der NVD aktualisiert."
+
+#, php-format
+msgid "%d supplier risk(s) awaiting review, %d notification(s) raised."
+msgstr "%d Lieferantenrisiko/-risiken zur Überprüfung, %d Benachrichtigung(en) ausgelöst."
+
+#, php-format
+msgid "%d training(s) with at least one participant overdue for renewal, %d notification(s) raised."
+msgstr "%d Schulung(en) mit mindestens einem Teilnehmer im Erneuerungsverzug, %d Benachrichtigung(en) ausgelöst."

@@ -101,7 +101,11 @@ class SecurityIncidentCve extends SecurityIncidentCveBase
 
         $refreshed = NvdCveEnrichmentService::refreshDue($trackedCveIds);
         $task->addVolume($refreshed);
-        $task->log(sprintf('%d CVE rafraîchie(s) depuis le NVD sur %d suivie(s).', $refreshed, count($trackedCveIds)));
+        $task->log(sprintf(
+            __('%1$d CVE(s) refreshed from the NVD out of %2$d tracked.', 'grcmanager'),
+            $refreshed,
+            count($trackedCveIds)
+        ));
 
         return $refreshed > 0 ? 1 : 0;
     }

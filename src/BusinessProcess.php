@@ -205,7 +205,7 @@ class BusinessProcess extends BusinessProcessBase
         $total = array_sum($result);
         $task->addVolume($total);
         $task->log(sprintf(
-            '%d rappel(s) de BIA, %d rappel(s) de test de reprise.',
+            __('%d BIA reminder(s), %d recovery test reminder(s).', 'grcmanager'),
             $result[BusinessProcessReminder::EVENT_BIA],
             $result[BusinessProcessReminder::EVENT_RECOVERY]
         ));

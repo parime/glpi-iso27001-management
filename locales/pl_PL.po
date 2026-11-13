@@ -11719,3 +11719,55 @@ msgstr "Wysyłane przez zadanie automatyczne GRC Manager, gdy działanie z planu
 
 msgid "Sent to the designated approvers when a version of the Statement of Applicability is frozen and submitted for approval."
 msgstr "Wysyłane do wyznaczonych zatwierdzających, gdy wersja Deklaracji stosowania zostaje zamrożona i przekazana do zatwierdzenia."
+
+#, php-format
+msgid "%d BIA reminder(s), %d recovery test reminder(s)."
+msgstr "Przypomnienia o BIA: %d, przypomnienia o testach odtwarzania: %d."
+
+#, php-format
+msgid "%d compliance event reminder(s)."
+msgstr "Przypomnienia o wydarzeniach zgodności: %d."
+
+#, php-format
+msgid "%d obligation(s) awaiting review, %d notification(s) raised."
+msgstr "Obowiązki oczekujące na przegląd: %d, wysłane powiadomienia: %d."
+
+#, php-format
+msgid "%d reminder(s), %d \"Verified\" state(s) removed."
+msgstr "Przypomnienia: %d, usunięte stany „Zweryfikowane”: %d."
+
+#, php-format
+msgid "%d reminder(s), %d renewal ticket(s)."
+msgstr "Przypomnienia: %d, zgłoszenia odnowienia: %d."
+
+#, php-format
+msgid "Maturity score: %d"
+msgstr "Wynik dojrzałości: %d"
+
+#, php-format
+msgid "%d overdue corrective/preventive action(s), %d notification(s) raised."
+msgstr "Zaległe działania korygujące/zapobiegawcze: %d, wysłane powiadomienia: %d."
+
+#, php-format
+msgid "%d policy(ies) awaiting review, %d notification(s) raised."
+msgstr "Polityki oczekujące na przegląd: %d, wysłane powiadomienia: %d."
+
+#, php-format
+msgid "%d risk(s) awaiting review, %d notification(s) raised."
+msgstr "Ryzyka oczekujące na przegląd: %d, wysłane powiadomienia: %d."
+
+#, php-format
+msgid "%d overdue risk treatment action(s), %d notification(s) raised."
+msgstr "Zaległe działania postępowania z ryzykiem: %d, wysłane powiadomienia: %d."
+
+#, php-format
+msgid "%1$d CVE(s) refreshed from the NVD out of %2$d tracked."
+msgstr "Odświeżone CVE z NVD: %1$d z %2$d śledzonych."
+
+#, php-format
+msgid "%d supplier risk(s) awaiting review, %d notification(s) raised."
+msgstr "Ryzyka dostawców oczekujące na przegląd: %d, wysłane powiadomienia: %d."
+
+#, php-format
+msgid "%d training(s) with at least one participant overdue for renewal, %d notification(s) raised."
+msgstr "Szkolenia z co najmniej jednym uczestnikiem z zaległym odnowieniem: %d, wysłane powiadomienia: %d."
