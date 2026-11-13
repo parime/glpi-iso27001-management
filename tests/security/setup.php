@@ -185,6 +185,19 @@ if ($mode === 'xss') {
         'plugin_grcmanager_controls_id' => (int) $ids['control'], 'test_date' => date('Y-m-d'),
         'result' => 'effective', 'documents_id' => (int) $ids['evidence_upload'],
     ]);
+    // Issue #537 : référentiel personnalisé piégé, activé pour que ses cartes, ses badges sur la
+    // mesure du jeu de données et son taux soient rendus.
+    $controlCode = (string) ($DB->request([
+        'SELECT' => 'code', 'FROM' => 'glpi_plugin_grcmanager_controls', 'WHERE' => ['id' => (int) $ids['control']],
+    ])->current()['code'] ?? 'A.5.1');
+    $out['customframework'] = $insert('customframeworks', [
+        'name' => $canary, 'version' => $canary, 'source' => $canary, 'comment' => $canary,
+    ]);
+    $insert('customrequirements', [
+        'plugin_grcmanager_customframeworks_id' => $out['customframework'], 'code' => $canary, 'theme' => $canary,
+        'title' => $canary, 'description' => $canary, 'annex_a' => $controlCode, 'rank' => 1, 'comment' => $canary,
+    ]);
+    \GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig::setEnabled('custom_' . $out['customframework'], true);
     echo json_encode($out), "\n";
     exit(0);
 }
@@ -560,5 +573,16 @@ if ($ids['evidence_upload'] <= 0) {
     exit(1);
 }
 $DB->update('glpi_documents', ['entities_id' => $a], ['id' => $ids['evidence_upload']]);
+
+// Issue #537 : référentiel personnalisé (fiche consultée par les profils de la matrice d'accès).
+$customFramework = new \GlpiPlugin\Grcmanager\CustomFramework();
+if (!$customFramework->getFromDBByCrit(['name' => 'Referentiel securite'])) {
+    $add($customFramework, ['name' => 'Referentiel securite', 'version' => '1']);
+    (new \GlpiPlugin\Grcmanager\CustomRequirement())->add([
+        'plugin_grcmanager_customframeworks_id' => $customFramework->getID(), 'code' => 'SEC-01',
+        'title' => 'Exigence securite', 'annex_a' => 'A.5.1', 'rank' => 1,
+    ]);
+}
+$ids['custom_framework'] = (int) $customFramework->getID();
 
 echo json_encode($ids), "\n";

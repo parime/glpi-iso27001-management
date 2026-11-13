@@ -82,7 +82,7 @@ class Menu extends CommonGLPI
             ],
             // Conformité : SoA, référentiels, exigences du SMSI, obligations, politiques, preuves.
             Control::class => [
-                Referentials::class, IsmsRequirement::class,
+                Referentials::class, CustomFramework::class, IsmsRequirement::class,
                 ComplianceObligation::class, ProcessingActivity::class, DataSubjectRequest::class, Policy::class,
                 Evidence::class, CoverageRule::class, ControlTest::class,
             ],

@@ -23,6 +23,7 @@ use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\ControlBase;
 use GlpiPlugin\Grcmanager\Services\Control\AnssiHygieneCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\AssetsignEvidence;
+use GlpiPlugin\Grcmanager\Services\Control\CatalogLanguage;
 use GlpiPlugin\Grcmanager\Services\Control\AssetsignEvidenceProvider;
 use GlpiPlugin\Grcmanager\Services\Control\CisControlsCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\ControlCrosswalkDefaults;
@@ -36,6 +37,7 @@ use GlpiPlugin\Grcmanager\Services\Control\Iso42001CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\PciDssCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\AiActCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\HdsCatalogDefaults;
+use GlpiPlugin\Grcmanager\Services\Control\CustomFrameworkCatalog;
 use GlpiPlugin\Grcmanager\Services\Control\Soc2CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\WazuhEvidence;
 use GlpiPlugin\Grcmanager\Services\Control\WazuhEvidenceProvider;
@@ -669,17 +671,31 @@ class Control extends ControlBase
         $showAiAct = FrameworkConfig::isEnabled(FrameworkSelection::AI_ACT);
         $showHds = FrameworkConfig::isEnabled(FrameworkSelection::HDS);
         $showNist = FrameworkConfig::isEnabled(FrameworkSelection::NIST_CSF);
+        // Issue #537 : exigences des référentiels personnalisés actifs qui citent cette mesure.
+        $customFrameworks = [];
+        foreach (CustomFrameworkCatalog::all() as $customKey => $customFramework) {
+            $customCodes = FrameworkConfig::isEnabled($customKey)
+                ? CustomFrameworkCatalog::requirementsForControl($customKey, $code)
+                : [];
+            if ($customCodes !== []) {
+                $customFrameworks[] = [
+                    'label' => $customFramework['label'],
+                    'codes' => $customCodes,
+                    'url'   => CustomFramework::getFormURL() . '?id=' . $customFramework['id'],
+                ];
+            }
+        }
         $measures = FrameworkConfig::isEnabled(FrameworkSelection::ANSSI)
             ? AnssiHygieneCatalogDefaults::measuresForControl($code)
             : [];
 
-        // Issue #111 : mesures du guide d'hygiène ANSSI, intitulé dans la langue de la session.
-        $anssiLang = str_starts_with((string) ($_SESSION['glpilanguage'] ?? 'fr_FR'), 'fr') ? 'fr' : 'en';
+        // Issue #111 : mesures du guide d'hygiène ANSSI, intitulé dans la langue de la session (issue
+        // #582 : sinon l'anglais, voir CatalogLanguage).
         $anssi = [];
         foreach ($measures as $measureNumber) {
             $anssi[] = [
                 'number' => $measureNumber,
-                'title'  => AnssiHygieneCatalogDefaults::MEASURES[$measureNumber][$anssiLang],
+                'title'  => CatalogLanguage::pick(AnssiHygieneCatalogDefaults::MEASURES[$measureNumber]),
             ];
         }
 
@@ -745,6 +761,7 @@ class Control extends ControlBase
             'soc2'                    => $showSoc2 ? Soc2CatalogDefaults::criteriaForControl($code) : [],
             'ai_act'                  => $showAiAct ? AiActCatalogDefaults::articlesForControl($code) : [],
             'hds'                     => $showHds ? HdsCatalogDefaults::requirementsForControl($code) : [],
+            'custom_frameworks'       => $customFrameworks,
             'anssi'                   => $anssi,
             'cis'                     => $cis,
             'assetsign_sheets'        => $sheets,

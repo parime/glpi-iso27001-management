@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace GlpiPlugin\Grcmanager\Services\Dashboard;
 
+use GlpiPlugin\Grcmanager\Services\Control\CustomFrameworkCatalog;
 use GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig;
 use GlpiPlugin\Grcmanager\Services\Control\FrameworkSelection;
 use GlpiPlugin\Grcmanager\Services\Control\WazuhEvidenceProvider;
@@ -133,8 +134,17 @@ final class SecuredDashboardCards
     public static function frameworkAvailable(string $name, array $enabled): bool
     {
         $needed = self::FRAMEWORK_CARDS[$name] ?? null;
+        if ($needed === null) {
+            return true;
+        }
+        // Issue #537 : un référentiel personnalisé actif suffit à la carte de conformité.
+        foreach ($enabled as $key) {
+            if (CustomFrameworkCatalog::isCustomKey($key)) {
+                return true;
+            }
+        }
 
-        return $needed === null || array_intersect($needed, $enabled) !== [];
+        return array_intersect($needed, $enabled) !== [];
     }
 
     /**

@@ -13,8 +13,10 @@ namespace GlpiPlugin\Grcmanager\Services\Control;
  *
  * Droits : texte législatif de l'Union publié sur EUR-Lex, réutilisation autorisée sous réserve de
  * mentionner la source (décision 2011/833/UE de la Commission, « © Union européenne,
- * https://eur-lex.europa.eu/ »). Les intitulés d'articles sont ceux des versions officielles française
- * et anglaise (CELEX 32022R2554, JO L 333 du 27.12.2022) ; les exigences sont résumées par ce projet
+ * https://eur-lex.europa.eu/ »). Les intitulés d'articles sont ceux des versions officielles française,
+ * anglaise et italienne (CELEX 32022R2554, JO L 333 du 27.12.2022 ; le tiret de l'intitulé italien de
+ * l'article 12 est écrit en trait d'union) ; les exigences sont résumées par ce projet en français et
+ * en anglais (un utilisateur italien les lit en anglais, issue #582)
  * (`summary` = true), les articles étant trop longs pour être recopiés. Les délais de notification des
  * incidents majeurs viennent des normes techniques de réglementation prises en application de
  * l'article 20.
@@ -27,53 +29,90 @@ final class DoraCatalogDefaults
     public const SOURCE_URL = 'https://eur-lex.europa.eu/eli/reg/2022/2554/oj';
 
     /**
-     * @var array<int, array{fr: string, en: string}> Article => intitulé officiel.
+     * @var array<int, array{fr: string, en: string, it: string}> Article => intitulé officiel.
      */
     public const ARTICLES = [
-        '5'  => ['fr' => 'Gouvernance et organisation', 'en' => 'Governance and organisation'],
-        '6'  => ['fr' => 'Cadre de gestion du risque lié aux TIC', 'en' => 'ICT risk management framework'],
-        '7'  => ['fr' => 'Systèmes, protocoles et outils de TIC', 'en' => 'ICT systems, protocols and tools'],
-        '8'  => ['fr' => 'Identification', 'en' => 'Identification'],
-        '9'  => ['fr' => 'Protection et prévention', 'en' => 'Protection and prevention'],
-        '10' => ['fr' => 'Détection', 'en' => 'Detection'],
-        '11' => ['fr' => 'Réponse et rétablissement', 'en' => 'Response and recovery'],
+        '5' => [
+            'fr' => 'Gouvernance et organisation',
+            'en' => 'Governance and organisation',
+            'it' => 'Governance e organizzazione',
+        ],
+        '6' => [
+            'fr' => 'Cadre de gestion du risque lié aux TIC',
+            'en' => 'ICT risk management framework',
+            'it' => 'Quadro per la gestione dei rischi informatici',
+        ],
+        '7' => [
+            'fr' => 'Systèmes, protocoles et outils de TIC',
+            'en' => 'ICT systems, protocols and tools',
+            'it' => 'Sistemi, protocolli e strumenti di TIC',
+        ],
+        '8'  => ['fr' => 'Identification', 'en' => 'Identification', 'it' => 'Identificazione'],
+        '9' => [
+            'fr' => 'Protection et prévention',
+            'en' => 'Protection and prevention',
+            'it' => 'Protezione e prevenzione',
+        ],
+        '10' => ['fr' => 'Détection', 'en' => 'Detection', 'it' => 'Individuazione'],
+        '11' => ['fr' => 'Réponse et rétablissement', 'en' => 'Response and recovery', 'it' => 'Risposta e ripristino'],
         '12' => [
             'fr' => 'Politiques et procédures de sauvegarde, procédures et méthodes de restauration et de '
                 . 'rétablissement',
             'en' => 'Backup policies and procedures, restoration and recovery procedures and methods',
+            'it' => 'Politiche e procedure di backup - Procedure e metodi di ripristino e recupero',
         ],
-        '13' => ['fr' => 'Apprentissage et évolution', 'en' => 'Learning and evolving'],
-        '14' => ['fr' => 'Communication', 'en' => 'Communication'],
+        '13' => [
+            'fr' => 'Apprentissage et évolution',
+            'en' => 'Learning and evolving',
+            'it' => 'Apprendimento ed evoluzione',
+        ],
+        '14' => ['fr' => 'Communication', 'en' => 'Communication', 'it' => 'Comunicazione'],
         '17' => [
             'fr' => 'Processus de gestion des incidents liés aux TIC',
             'en' => 'ICT-related incident management process',
+            'it' => 'Processo di gestione degli incidenti connessi alle TIC',
         ],
         '18' => [
             'fr' => 'Classification des incidents liés aux TIC et des cybermenaces',
             'en' => 'Classification of ICT-related incidents and cyber threats',
+            'it' => 'Classificazione degli incidenti connessi alle TIC e delle minacce informatiche',
         ],
         '19' => [
             'fr' => 'Notification des incidents majeurs liés aux TIC et notification volontaire des '
                 . 'cybermenaces importantes',
             'en' => 'Reporting of major ICT-related incidents and voluntary notification of significant '
                 . 'cyber threats',
+            'it' => 'Segnalazione dei gravi incidenti TIC e notifica volontaria delle minacce informatiche '
+                . 'significative',
         ],
         '24' => [
             'fr' => 'Exigences générales applicables à la réalisation des tests de résilience opérationnelle '
                 . 'numérique',
             'en' => 'General requirements for the performance of digital operational resilience testing',
+            'it' => 'Requisiti generali per lo svolgimento dei test di resilienza operativa digitale',
         ],
-        '25' => ['fr' => 'Tests des outils et systèmes de TIC', 'en' => 'Testing of ICT tools and systems'],
+        '25' => [
+            'fr' => 'Tests des outils et systèmes de TIC',
+            'en' => 'Testing of ICT tools and systems',
+            'it' => 'Test di strumenti e sistemi di TIC',
+        ],
         '26' => [
             'fr' => 'Tests avancés d\'outils, de systèmes et de processus de TIC basés sur des tests de '
                 . 'pénétration fondés sur la menace',
             'en' => 'Advanced testing of ICT tools, systems and processes based on TLPT',
+            'it' => 'Test avanzati di strumenti, sistemi e processi di TIC basati su test di penetrazione guidati '
+                . 'dalla minaccia (TLPT)',
         ],
-        '28' => ['fr' => 'Principes généraux', 'en' => 'General principles'],
-        '30' => ['fr' => 'Principales dispositions contractuelles', 'en' => 'Key contractual provisions'],
+        '28' => ['fr' => 'Principes généraux', 'en' => 'General principles', 'it' => 'Principi generali'],
+        '30' => [
+            'fr' => 'Principales dispositions contractuelles',
+            'en' => 'Key contractual provisions',
+            'it' => 'Principali disposizioni contrattuali',
+        ],
         '45' => [
             'fr' => 'Dispositifs de partage d\'informations et de renseignements sur les cybermenaces',
             'en' => 'Information-sharing arrangements on cyber threat information and intelligence',
+            'it' => 'Meccanismi di condivisione delle informazioni e delle analisi delle minacce informatiche',
         ],
     ];
 

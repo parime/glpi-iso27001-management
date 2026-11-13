@@ -15,7 +15,7 @@
 
 {# Issue #379 : carte d'un référentiel protégé dont seuls les numéros sont repris (ISO 27701, 22301,
    42001, PCI DSS). Variables : card_id, title, intro, footer, source, source_label (iso.org par
-   défaut), badge_class et groups, une liste de
+   défaut ; vide : pas de lien, issue #537), badge_class et groups, une liste de
    {code, title, open, rows: [{code, text, controls: [{code, id}], modules: [{label, url}]}]}. #}
 <div class="card mb-3">
   <div class="card-header d-flex justify-content-between align-items-center">
@@ -58,6 +58,6 @@
   <div class="card-footer text-muted small">
     <i class="ti ti-license me-1"></i>
     {{ footer }}
-    <a href="{{ source }}" target="_blank" rel="noopener noreferrer">{{ source_label|default('iso.org') }}</a>
+    {% if source %}<a href="{{ source }}" target="_blank" rel="noopener noreferrer">{{ source_label|default('iso.org') }}</a>{% endif %}
   </div>
 </div>

@@ -1,0 +1,206 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+
+{# Issue #537 : un référentiel personnalisé, activation, taux et auto-évaluation des exigences. #}
+
+{% macro rate(value, label, color, hint) %}
+  <div class="col-sm-6 col-lg-3">
+    <div class="card card-sm"><div class="card-body">
+      <div class="text-secondary small">{{ label }}</div>
+      <div class="h2 mb-1">{{ value is null ? '-' : value ~ ' %' }}</div>
+      {% if value is not null %}<div class="progress progress-sm"><div class="progress-bar bg-{{ color }}" style="width: {{ value }}%"></div></div>{% endif %}
+      <div class="text-secondary small mt-1">{{ hint }}</div>
+    </div></div>
+  </div>
+{% endmacro %}
+
+<div class="card mb-3">
+  <div class="card-header d-flex flex-wrap justify-content-between align-items-center gap-2">
+    <div>
+      <h3 class="card-title mb-0"><i class="ti ti-file-spreadsheet me-1"></i>{{ framework.name }}{% if framework.version %} <span class="badge bg-blue-lt ms-1">{{ framework.version }}</span>{% endif %}</h3>
+      <div class="text-secondary small mt-1">
+        {% if framework.source %}<i class="ti ti-building me-1"></i>{{ framework.source }} · {% endif %}
+        {% if imported %}<i class="ti ti-clock me-1"></i>{{ imported_by ? __('Last import on %1$s by %2$s', 'grcmanager')|format(imported, imported_by) : __('Last import on %s', 'grcmanager')|format(imported) }}{% endif %}
+      </div>
+    </div>
+    <div class="d-flex flex-wrap gap-2 align-items-center">
+      {% if enabled %}
+        <span class="badge bg-green-lt fs-5"><i class="ti ti-toggle-right me-1"></i>{{ __('Enabled', 'grcmanager') }}</span>
+      {% else %}
+        <span class="badge bg-secondary-lt fs-5"><i class="ti ti-toggle-left me-1"></i>{{ __('Disabled', 'grcmanager') }}</span>
+      {% endif %}
+      {% if can_toggle %}
+        <form method="post" action="{{ form_url }}" class="d-inline">
+          <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+          <input type="hidden" name="id" value="{{ framework.id }}">
+          <input type="hidden" name="enable" value="{{ enabled ? 0 : 1 }}">
+          <button type="submit" name="toggle_framework" value="1" class="btn {{ enabled ? 'btn-outline-secondary' : 'btn-success' }}">
+            <i class="ti {{ enabled ? 'ti-player-pause' : 'ti-player-play' }} me-1"></i>{{ enabled ? __('Disable', 'grcmanager') : __('Enable', 'grcmanager') }}
+          </button>
+        </form>
+      {% endif %}
+      {% if can_update %}<a href="{{ list_url }}?target={{ framework.id }}" class="btn btn-outline-primary"><i class="ti ti-refresh me-1"></i>{{ __('Import a new version', 'grcmanager') }}</a>{% endif %}
+      <a href="{{ list_url }}" class="btn btn-outline-secondary"><i class="ti ti-arrow-left me-1"></i>{{ __('All custom frameworks', 'grcmanager') }}</a>
+    </div>
+  </div>
+  <div class="card-body">
+    {% if not enabled %}
+      <div class="alert alert-info"><i class="ti ti-info-circle me-1"></i>{{ __('This framework is disabled: enable it to show it on the Reference frameworks screen, on the controls and in the dashboard rates.', 'grcmanager') }}</div>
+    {% else %}
+      <div class="mb-3 d-flex flex-wrap gap-2">
+        <a href="{{ referentials_url }}" class="btn btn-sm btn-outline-secondary"><i class="ti ti-books me-1"></i>{{ __('See it on the Reference frameworks screen', 'grcmanager') }}</a>
+        <a href="{{ assessment_url }}" class="btn btn-sm btn-outline-secondary"><i class="ti ti-list-check me-1"></i>{{ __('Assessment by framework', 'grcmanager') }}</a>
+      </div>
+    {% endif %}
+    {% if framework.comment %}<p class="text-secondary">{{ framework.comment|nl2br }}</p>{% endif %}
+
+    <div class="row g-3 mb-2">
+      {{ _self.rate(assessment ? assessment.implementation_rate : null, __('Implemented controls', 'grcmanager'), 'blue', __('Annex A controls cited by the requirements, implemented or verified: the rate shown on the dashboard.', 'grcmanager')) }}
+      {{ _self.rate(assessment ? assessment.score : null, __('Score (implemented and proven)', 'grcmanager'), 'green', __('Same controls, also proven by a valid evidence document.', 'grcmanager')) }}
+      {{ _self.rate(self_rate, __('Self-assessment', 'grcmanager'), 'teal', __('Compliant requirements among the applicable ones you assessed (partially compliant counts half).', 'grcmanager')) }}
+      <div class="col-sm-6 col-lg-3">
+        <div class="card card-sm"><div class="card-body">
+          <div class="text-secondary small">{{ __('Requirements assessed', 'grcmanager') }}</div>
+          <div class="h2 mb-1">{{ assessed }} / {{ active }}</div>
+          <div class="d-flex flex-wrap gap-1">
+            {% for key, status in statuses %}{% if counts[key] > 0 %}<span class="badge {{ status.class }}"><i class="{{ status.icon }} me-1"></i>{{ __('%1$s: %2$d', 'grcmanager')|format(status.label, counts[key]) }}</span>{% endif %}{% endfor %}
+          </div>
+        </div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<form method="post" action="{{ form_url }}">
+  <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+  <input type="hidden" name="id" value="{{ framework.id }}">
+  <div class="card mb-3">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h3 class="card-title mb-0"><i class="ti ti-list-details me-1"></i>{{ __('Requirements', 'grcmanager') }}</h3>
+      <input type="search" class="form-control form-control-sm w-auto grcmanager-ref-filter" data-target="grcmanager-cf-requirements" placeholder="{{ __('Filter…', 'grcmanager') }}">
+    </div>
+    <div class="card-body" id="grcmanager-cf-requirements">
+      {% if groups is empty %}
+        <div class="text-secondary">{{ __('No requirement: import a file.', 'grcmanager') }}</div>
+      {% endif %}
+      {% for theme, requirements in groups %}
+        <h4 class="mt-2"><i class="ti ti-folder me-1"></i>{{ theme }} <span class="badge bg-secondary-lt">{{ requirements|length }}</span></h4>
+        <div class="table-responsive">
+          <table class="table table-sm table-vcenter">
+            <thead><tr><th style="width: 9rem">{{ __('Code') }}</th><th>{{ __('Requirement', 'grcmanager') }}</th><th style="width: 12rem">{{ __('Annex A', 'grcmanager') }}</th><th style="width: 13rem">{{ __('Status') }}</th><th style="width: 18rem">{{ __('Comment', 'grcmanager') }}</th></tr></thead>
+            <tbody>
+              {% for r in requirements %}
+                <tr>
+                  <td class="text-nowrap"><code>{{ r.code }}</code></td>
+                  <td><div class="fw-bold">{{ r.title }}</div>{% if r.description %}<div class="text-secondary small">{{ r.description|nl2br }}</div>{% endif %}</td>
+                  <td>
+                    {% for c in r.controls %}
+                      {% if c.id %}<a class="badge bg-azure-lt me-1" href="{{ control_url }}?id={{ c.id }}">{{ c.code }}</a>{% else %}<span class="badge bg-azure-lt me-1">{{ c.code }}</span>{% endif %}
+                    {% else %}
+                      <span class="text-secondary small">{{ __('No Annex A control', 'grcmanager') }}</span>
+                    {% endfor %}
+                  </td>
+                  <td>
+                    {% if can_update %}
+                      <select name="status[{{ r.id }}]" class="form-select form-select-sm" aria-label="{{ __('Status') }} {{ r.code }}">
+                        {% for key, status in statuses %}<option value="{{ key }}" {{ key == r.status ? 'selected' }}>{{ status.label }}</option>{% endfor %}
+                      </select>
+                    {% else %}
+                      <span class="badge {{ statuses[r.status].class }}"><i class="{{ statuses[r.status].icon }} me-1"></i>{{ statuses[r.status].label }}</span>
+                    {% endif %}
+                  </td>
+                  <td>
+                    {% if can_update %}
+                      <input type="text" name="comment_requirement[{{ r.id }}]" value="{{ r.comment }}" class="form-control form-control-sm" aria-label="{{ __('Comment', 'grcmanager') }} {{ r.code }}">
+                    {% else %}
+                      <span class="small">{{ r.comment }}</span>
+                    {% endif %}
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% endfor %}
+    </div>
+    {% if can_update and groups is not empty %}
+      <div class="card-footer d-flex align-items-center gap-3">
+        <button type="submit" name="save_statuses" value="1" class="btn btn-primary"><i class="ti ti-device-floppy me-1"></i>{{ __('Save the statuses', 'grcmanager') }}</button>
+        <span class="text-secondary small"><i class="ti ti-shield-check me-1"></i>{{ __('Statuses and comments are kept when a new version of the file is imported.', 'grcmanager') }}</span>
+      </div>
+    {% endif %}
+  </div>
+</form>
+
+{% if removed is not empty %}
+  <div class="card mb-3">
+    <div class="card-header"><h3 class="card-title mb-0"><i class="ti ti-archive me-1"></i>{{ __('Requirements removed by a later version', 'grcmanager') }} <span class="badge bg-orange-lt">{{ removed|length }}</span></h3></div>
+    <div class="card-body">
+      <p class="text-secondary small">{{ __('They are no longer counted. Their status and comment are kept, and come back if the code reappears in a later version.', 'grcmanager') }}</p>
+      <table class="table table-sm table-vcenter">
+        <tbody>
+          {% for r in removed %}
+            <tr class="text-secondary">
+              <td class="text-nowrap"><code>{{ r.code }}</code></td>
+              <td>{{ r.title }}</td>
+              <td><span class="badge {{ statuses[r.status].class }}"><i class="{{ statuses[r.status].icon }} me-1"></i>{{ statuses[r.status].label }}</span></td>
+              <td class="small">{{ r.comment }}</td>
+              <td class="small text-nowrap">{% if r.removed_on %}{{ __('Removed on %s', 'grcmanager')|format(r.removed_on) }}{% endif %}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endif %}
+
+{% if can_update %}
+  <div class="card mb-3">
+    <div class="card-header"><h3 class="card-title mb-0"><i class="ti ti-pencil me-1"></i>{{ __('Description of the framework', 'grcmanager') }}</h3></div>
+    <div class="card-body">
+      <form method="post" action="{{ form_url }}">
+        <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+        <input type="hidden" name="id" value="{{ framework.id }}">
+        <div class="row g-3">
+          <div class="col-md-4"><label class="form-label required" for="grc-cf-name">{{ __('Framework name', 'grcmanager') }}</label><input type="text" class="form-control" id="grc-cf-name" name="name" value="{{ framework.name }}" maxlength="255" required></div>
+          <div class="col-md-2"><label class="form-label" for="grc-cf-version">{{ __('Version', 'grcmanager') }}</label><input type="text" class="form-control" id="grc-cf-version" name="version" value="{{ framework.version }}" maxlength="255"></div>
+          <div class="col-md-6"><label class="form-label" for="grc-cf-source">{{ __('Source', 'grcmanager') }}</label><input type="text" class="form-control" id="grc-cf-source" name="source" value="{{ framework.source }}" maxlength="255"></div>
+          <div class="col-12"><label class="form-label" for="grc-cf-comment">{{ __('Comment', 'grcmanager') }}</label><textarea class="form-control" id="grc-cf-comment" name="comment" rows="2">{{ framework.comment }}</textarea></div>
+        </div>
+        <button type="submit" name="update" value="1" class="btn btn-primary mt-3"><i class="ti ti-device-floppy me-1"></i>{{ __('Save') }}</button>
+      </form>
+    </div>
+  </div>
+{% endif %}
+
+{% if can_purge %}
+  <form method="post" action="{{ form_url }}" class="mb-3" data-grc-confirm="{{ __('Delete this framework and all its requirements, statuses and comments? This cannot be undone.', 'grcmanager') }}">
+    <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+    <input type="hidden" name="id" value="{{ framework.id }}">
+    <button type="submit" name="purge" value="1" class="btn btn-outline-danger"><i class="ti ti-trash me-1"></i>{{ __('Delete the framework', 'grcmanager') }}</button>
+  </form>
+  {% include '@grcmanager/_confirm_forms.html.twig' %}
+{% endif %}
+
+<script>
+  document.querySelectorAll('.grcmanager-ref-filter').forEach(function (input) {
+    input.addEventListener('input', function () {
+      var needle = input.value.toLowerCase();
+      document.querySelectorAll('#' + input.dataset.target + ' tbody tr').forEach(function (row) {
+        row.style.display = row.textContent.toLowerCase().indexOf(needle) === -1 ? 'none' : '';
+      });
+    });
+  });
+</script>

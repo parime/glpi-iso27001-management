@@ -7,6 +7,54 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.41.0] - 2026-11-13
+
+### Added
+
+- **Vulnérabilités du parc : liens vers l'inventaire** (issue #580) : le nom du logiciel ouvre sa fiche
+  dans l'inventaire (un lien par logiciel quand plusieurs sont regroupés sous le même produit), et
+  chaque version vulnérable ouvre directement la liste des ordinateurs qui l'ont installée. Seuls les
+  logiciels visibles par l'utilisateur (droit de lecture, entités actives) sont liés.
+- **Référentiels personnalisés** (issue #537) : import d'un référentiel absent du plugin (exigences
+  de sécurité d'un groupe, référentiel sectoriel ou contractuel, plan d'assurance sécurité d'un
+  client) depuis un fichier CSV (code, thème, intitulé, description, mesures de l'Annexe A ; UTF-8
+  avec ou sans BOM, séparateur « ; » ou « , », fichier Excel accepté). Modèle téléchargeable ;
+  analyse avant tout enregistrement avec le rapport des lignes rejetées (numéro de ligne et raison :
+  code ou intitulé absent, code en double, mesure de l'Annexe A inconnue) et l'aperçu des
+  changements. Activable comme les référentiels intégrés (désactivé à l'import) : carte
+  Référentiels, badges sur les mesures, taux dans les tableaux de bord et l'évaluation par
+  référentiel, calculés sur les mesures de l'Annexe A citées. Auto-évaluation de chaque exigence
+  (statut et commentaire). Réimport d'une nouvelle version rapproché par code : exigences ajoutées,
+  modifiées, rétablies, et celles absentes du fichier marquées retirées, jamais supprimées ; statuts
+  et commentaires conservés.
+- **Référentiels en italien** (issue #582) : NIS2 en italien (intitulés officiels des articles 20,
+  21 et 23 et mesures de l'article 21 §2 d'après la version italienne consolidée de la directive
+  (UE) 2022/2555 sur EUR-Lex, articles 20 et 23 résumés par ce projet), intitulés officiels
+  italiens des articles de DORA, intitulés, rôles et obligations de l'AI Act en italien.
+
+### Changed
+
+- **Modèles de notification multilingues** (issue #582) : les 23 modèles du plugin n'avaient
+  qu'une traduction par défaut, en français, reçue par tous les destinataires. Ils ont maintenant
+  une traduction par défaut en anglais, comme les modèles de GLPI, et une traduction en français
+  (fr_FR, fr_BE, fr_CA), italien, allemand, espagnol, polonais et portugais du Brésil : chaque
+  destinataire reçoit le modèle de sa langue. À la mise à jour, une traduction française d'origine
+  est remplacée par l'anglais et les langues manquantes sont ajoutées ; une traduction modifiée par
+  l'administrateur n'est jamais changée (et aucune traduction française n'est ajoutée par-dessus un
+  texte par défaut modifié). Les noms des modèles, qui n'existent qu'en une langue dans GLPI,
+  suivent la langue par défaut de l'instance ; un nom modifié est conservé.
+- **Langue des référentiels** (issue #582) : chaque texte s'affiche dans la langue de
+  l'utilisateur si le référentiel l'a, sinon en anglais, sinon en français (avant : français pour
+  une langue fr_*, anglais sinon). Un utilisateur italien lit NIS2 en italien et les autres
+  référentiels en anglais.
+- Les messages des tâches automatiques dans le journal des actions automatiques (rappels, revues,
+  CVE rafraîchies, score de maturité) sont traduits au lieu d'être écrits en français.
+
+### Fixed
+
+- L'en-tête « Intitulé » de la table de l'Annexe A (page Référentiels et rapport PDF de la SoA)
+  restait en français dans toutes les langues (issue #582).
+
 ## [2.40.0] - 2026-11-08
 
 ### Added

@@ -393,7 +393,7 @@ class ComplianceObligation extends ComplianceObligationBase
 
         $task->addVolume($result->getNotified());
         $task->log(sprintf(
-            '%d obligation(s) en attente de revue, %d notification(s) déclenchée(s).',
+            __('%d obligation(s) awaiting review, %d notification(s) raised.', 'grcmanager'),
             $result->getDue(),
             $result->getNotified()
         ));

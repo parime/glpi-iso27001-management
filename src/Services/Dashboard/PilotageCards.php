@@ -33,6 +33,7 @@ use GlpiPlugin\Grcmanager\Services\Control\Iso42001CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\PciDssCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\AiActCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\HdsCatalogDefaults;
+use GlpiPlugin\Grcmanager\Services\Control\CustomFrameworkCatalog;
 use GlpiPlugin\Grcmanager\Services\Control\Soc2CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\WazuhEvidenceProvider;
 use GlpiPlugin\Grcmanager\Services\Control\Nis2CatalogDefaults;
@@ -53,6 +54,45 @@ final class PilotageCards
      * @return array<string, array{0: string, 1: callable(string): bool}>
      */
     public static function frameworkFilters(): array
+    {
+        $filters = self::builtinFrameworkFilters();
+        foreach (self::customFrameworkFilters() as $label => $filter) {
+            // Nom identique à un référentiel intégré : le personnalisé reste distinct.
+            $filters[isset($filters[$label]) ? $label . ' (#' . substr($filter[0], 7) . ')' : $label] = $filter;
+        }
+
+        return $filters;
+    }
+
+    /**
+     * Issue #537 : référentiels personnalisés importés, mesurés comme les intégrés par les mesures de
+     * l'Annexe A que leurs exigences (non retirées) citent.
+     *
+     * @return array<string, array{0: string, 1: callable(string): bool}>
+     */
+    public static function customFrameworkFilters(): array
+    {
+        $filters = [];
+        foreach (CustomFrameworkCatalog::all() as $key => $framework) {
+            $covered = [];
+            foreach ($framework['requirements'] as $requirement) {
+                foreach ($requirement['annex_a'] as $annexACode) {
+                    $covered[$annexACode] = true;
+                }
+            }
+            $filters[$framework['label']] = [
+                $key,
+                static fn (string $code): bool => isset($covered[$code]),
+            ];
+        }
+
+        return $filters;
+    }
+
+    /**
+     * @return array<string, array{0: string, 1: callable(string): bool}>
+     */
+    private static function builtinFrameworkFilters(): array
     {
         return [
             'ISO 27001'    => [FrameworkSelection::ISO27001, static fn (string $code): bool => true],

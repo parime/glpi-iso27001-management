@@ -359,7 +359,7 @@ class Policy extends PolicyBase
 
         $task->addVolume($result->getNotified());
         $task->log(sprintf(
-            '%d politique(s) en attente de revue, %d notification(s) déclenchée(s).',
+            __('%d policy(ies) awaiting review, %d notification(s) raised.', 'grcmanager'),
             $result->getDue(),
             $result->getNotified()
         ));

@@ -42,6 +42,21 @@ final class Nis2CatalogDefaultsTest extends TestCase
         }
     }
 
+    /** Issue #582 : version italienne complète (intitulés officiels, texte de l'article 21 §2). */
+    public function testEveryArticleAndRequirementHasAnItalianText(): void
+    {
+        foreach (Nis2CatalogDefaults::ARTICLES as $article => $title) {
+            self::assertNotSame('', trim($title['it']), "Article $article it");
+        }
+        foreach (Nis2CatalogDefaults::REQUIREMENTS as $code => $requirement) {
+            self::assertNotSame('', trim($requirement['it']), "$code it");
+        }
+        self::assertSame('Obblighi di segnalazione', Nis2CatalogDefaults::ARTICLES[23]['it']);
+        self::assertStringContainsString('24 ore', Nis2CatalogDefaults::REQUIREMENTS['23.4.a']['it']);
+        self::assertStringContainsString('72 ore', Nis2CatalogDefaults::REQUIREMENTS['23.4.b']['it']);
+        self::assertStringContainsString('un mese', Nis2CatalogDefaults::REQUIREMENTS['23.4.d']['it']);
+    }
+
     public function testEveryAnnexAReferenceExistsInTheAnnexACatalog(): void
     {
         foreach (Nis2CatalogDefaults::REQUIREMENTS as $code => $requirement) {

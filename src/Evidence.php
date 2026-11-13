@@ -464,7 +464,11 @@ class Evidence extends EvidenceBase
     {
         $result = self::runReminders(date('Y-m-d'));
         $task->addVolume($result['notified'] + $result['tickets']);
-        $task->log(sprintf('%d rappel(s), %d ticket(s) de renouvellement.', $result['notified'], $result['tickets']));
+        $task->log(sprintf(
+            __('%d reminder(s), %d renewal ticket(s).', 'grcmanager'),
+            $result['notified'],
+            $result['tickets']
+        ));
 
         return ($result['notified'] + $result['tickets']) > 0 ? 1 : 0;
     }

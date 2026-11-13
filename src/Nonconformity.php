@@ -690,7 +690,7 @@ class Nonconformity extends NonconformityBase
 
         $task->addVolume($result->getNotified());
         $task->log(sprintf(
-            '%d action(s) corrective(s)/préventive(s) en retard, %d notification(s) déclenchée(s).',
+            __('%d overdue corrective/preventive action(s), %d notification(s) raised.', 'grcmanager'),
             $result->getDue(),
             $result->getNotified()
         ));

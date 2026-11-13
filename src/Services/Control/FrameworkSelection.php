@@ -79,9 +79,12 @@ final class FrameworkSelection
      * Référentiels désactivés lus depuis la valeur enregistrée (liste JSON). Une valeur absente,
      * illisible ou inconnue ne désactive rien.
      *
+     * Issue #537 : $keys, référentiels connus (intégrés et personnalisés) ; par défaut les intégrés.
+     *
+     * @param list<string>|null $keys
      * @return list<string>
      */
-    public static function decode(?string $stored): array
+    public static function decode(?string $stored, ?array $keys = null): array
     {
         if ($stored === null || $stored === '') {
             return [];
@@ -91,42 +94,54 @@ final class FrameworkSelection
             return [];
         }
 
-        return self::known($decoded);
+        return self::known($decoded, $keys);
     }
 
     /**
      * Valeur à enregistrer pour les référentiels cochés : ceux qui ne le sont pas (liste JSON).
      *
      * @param array<mixed> $enabled
+     * @param list<string>|null $keys
      */
-    public static function encode(array $enabled): string
+    public static function encode(array $enabled, ?array $keys = null): string
     {
-        $enabled = self::known($enabled);
+        $enabled = self::known($enabled, $keys);
 
-        return (string) json_encode(array_values(array_diff(array_keys(self::FRAMEWORKS), $enabled)));
+        return (string) json_encode(array_values(array_diff(self::keys($keys), $enabled)));
     }
 
     /**
      * Référentiels actifs, dans l'ordre d'affichage.
      *
      * @param list<string> $disabled
+     * @param list<string>|null $keys
      * @return list<string>
      */
-    public static function enabled(array $disabled): array
+    public static function enabled(array $disabled, ?array $keys = null): array
     {
-        return array_values(array_diff(array_keys(self::FRAMEWORKS), $disabled));
+        return array_values(array_diff(self::keys($keys), $disabled));
+    }
+
+    /**
+     * @param list<string>|null $keys
+     * @return list<string>
+     */
+    private static function keys(?array $keys): array
+    {
+        return $keys ?? array_keys(self::FRAMEWORKS);
     }
 
     /**
      * Valeurs connues seulement, sans doublon, dans l'ordre d'affichage.
      *
      * @param array<mixed> $values
+     * @param list<string>|null $keys
      * @return list<string>
      */
-    private static function known(array $values): array
+    private static function known(array $values, ?array $keys = null): array
     {
         $values = array_map('strval', array_filter($values, 'is_scalar'));
 
-        return array_values(array_intersect(array_keys(self::FRAMEWORKS), $values));
+        return array_values(array_intersect(self::keys($keys), $values));
     }
 }

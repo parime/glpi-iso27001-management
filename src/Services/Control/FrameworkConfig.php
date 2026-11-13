@@ -48,14 +48,19 @@ final class FrameworkConfig
     {
         if (self::$disabled === null) {
             $values = Config::getConfigurationValues(self::CONFIG_CONTEXT, [self::CONFIG_KEY, self::KNOWN_KEY]);
+            $keys = self::keys();
             $disabled = FrameworkSelection::decode(
-                isset($values[self::CONFIG_KEY]) ? (string) $values[self::CONFIG_KEY] : null
+                isset($values[self::CONFIG_KEY]) ? (string) $values[self::CONFIG_KEY] : null,
+                $keys
             );
             $known = FrameworkSelection::decode(
-                isset($values[self::KNOWN_KEY]) ? (string) $values[self::KNOWN_KEY] : null
+                isset($values[self::KNOWN_KEY]) ? (string) $values[self::KNOWN_KEY] : null,
+                $keys
             );
-            // Un référentiel optionnel jamais présenté à l'enregistrement reste désactivé.
-            foreach (FrameworkSelection::OPTIONAL as $optional) {
+            // Un référentiel optionnel jamais présenté à l'enregistrement reste désactivé. Issue #537 :
+            // un référentiel personnalisé aussi, tant que personne ne l'a activé.
+            $optionals = array_merge(FrameworkSelection::OPTIONAL, array_keys(CustomFrameworkCatalog::labels()));
+            foreach ($optionals as $optional) {
                 if (!in_array($optional, $known, true) && !in_array($optional, $disabled, true)) {
                     $disabled[] = $optional;
                 }
@@ -71,7 +76,44 @@ final class FrameworkConfig
      */
     public static function enabled(): array
     {
-        return FrameworkSelection::enabled(self::disabled());
+        return FrameworkSelection::enabled(self::disabled(), self::keys());
+    }
+
+    /**
+     * Issue #537 : référentiels activables, intégrés puis personnalisés, avec leur nom.
+     *
+     * @return array<string, string>
+     */
+    public static function frameworks(): array
+    {
+        return FrameworkSelection::FRAMEWORKS + CustomFrameworkCatalog::labels();
+    }
+
+    /**
+     * @return list<string>
+     */
+    public static function keys(): array
+    {
+        return array_keys(self::frameworks());
+    }
+
+    /**
+     * Issue #537 : active ou désactive un seul référentiel, sans toucher aux autres.
+     */
+    public static function setEnabled(string $framework, bool $enabled): void
+    {
+        $current = self::enabled();
+        $current = $enabled
+            ? array_values(array_unique(array_merge($current, [$framework])))
+            : array_values(array_diff($current, [$framework]));
+        self::save($current);
+    }
+
+    /** Relit le réglage et les référentiels personnalisés à la prochaine demande. */
+    public static function reset(): void
+    {
+        self::$disabled = null;
+        CustomFrameworkCatalog::reset();
     }
 
     public static function isEnabled(string $framework): bool
@@ -163,7 +205,14 @@ final class FrameworkConfig
                     . 'contract and data sovereignty, references on the controls. Disabled by default.',
                 'grcmanager'
             ),
-        ];
+        ] + array_map(
+            static fn (string $label): string => __(
+                'Custom framework imported from a file: its requirements, their references on the controls and its '
+                    . 'score. Disabled until you enable it.',
+                'grcmanager'
+            ),
+            CustomFrameworkCatalog::labels()
+        );
     }
 
     /**
@@ -174,8 +223,8 @@ final class FrameworkConfig
     public static function save(array $enabled): void
     {
         Config::setConfigurationValues(self::CONFIG_CONTEXT, [
-            self::CONFIG_KEY => FrameworkSelection::encode($enabled),
-            self::KNOWN_KEY  => (string) json_encode(array_keys(FrameworkSelection::FRAMEWORKS)),
+            self::CONFIG_KEY => FrameworkSelection::encode($enabled, self::keys()),
+            self::KNOWN_KEY  => (string) json_encode(self::keys()),
         ]);
         self::$disabled = null;
     }
