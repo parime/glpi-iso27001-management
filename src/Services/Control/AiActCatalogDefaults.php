@@ -128,7 +128,8 @@ final class AiActCatalogDefaults
             'en'       => 'Tell people they are interacting with an AI, mark generated content and disclose deep '
                 . 'fakes; systems already on the market: marking by 2 December 2026.',
             'title_it' => 'Obblighi di trasparenza per i fornitori e i deployer di determinati sistemi di IA',
-            'it'       => 'Informare le persone che interagiscono con un\'IA, marcare i contenuti generati e segnalare i '
+            'it'       => 'Informare le persone che interagiscono con un\'IA, marcare i contenuti generati e '
+                . 'segnalare i '
                 . 'deep fake; sistemi già sul mercato: marcatura entro il 2 dicembre 2026.',
             'applies'  => '2026-08-02',
             'annex_a'  => ['A.5.10', 'A.5.34'],
@@ -158,7 +159,8 @@ final class AiActCatalogDefaults
             'en'       => 'Public bodies, public services and some Annex III deployers: assess the impact on '
                 . 'fundamental rights before putting into service (complements the DPIA).',
             'title_it' => 'Valutazione d\'impatto sui diritti fondamentali per i sistemi di IA ad alto rischio',
-            'it'       => 'Organismi pubblici, servizi pubblici e alcuni deployer dell\'allegato III: valutare l\'impatto '
+            'it'       => 'Organismi pubblici, servizi pubblici e alcuni deployer dell\'allegato III: valutare '
+                . 'l\'impatto '
                 . 'sui diritti fondamentali prima della messa in servizio (completa la DPIA).',
             'applies'  => '2027-12-02',
             'annex_a'  => ['A.5.34'],
@@ -184,7 +186,8 @@ final class AiActCatalogDefaults
                 . 'représentativité, biais.',
             'en'       => 'Control training, validation and test data: quality, representativeness, bias.',
             'title_it' => 'Dati e governance dei dati',
-            'it'       => 'Governare i dati di addestramento, convalida e prova: qualità, rappresentatività, distorsioni.',
+            'it'       => 'Governare i dati di addestramento, convalida e prova: qualità, rappresentatività, '
+                . 'distorsioni.',
             'applies'  => '2027-12-02',
             'annex_a'  => ['A.5.12', 'A.5.33', 'A.5.34'],
             'modules'  => ['processing', 'dpia'],
@@ -196,7 +199,8 @@ final class AiActCatalogDefaults
             'fr'       => 'Établir et tenir à jour la documentation technique avant la mise sur le marché.',
             'en'       => 'Draw up and keep up to date the technical documentation before placing on the market.',
             'title_it' => 'Documentazione tecnica',
-            'it'       => 'Redigere e mantenere aggiornata la documentazione tecnica prima dell\'immissione sul mercato.',
+            'it'       => 'Redigere e mantenere aggiornata la documentazione tecnica prima dell\'immissione sul '
+                . 'mercato.',
             'applies'  => '2027-12-02',
             'annex_a'  => ['A.5.37'],
             'modules'  => [],
@@ -261,7 +265,8 @@ final class AiActCatalogDefaults
                 . 'contrôles).',
             'en'       => 'Set up a documented quality management system (policies, procedures, controls).',
             'title_it' => 'Sistema di gestione della qualità',
-            'it'       => 'Istituire un sistema di gestione della qualità documentato (politiche, procedure, controlli).',
+            'it'       => 'Istituire un sistema di gestione della qualità documentato (politiche, procedure, '
+                . 'controlli).',
             'applies'  => '2027-12-02',
             'annex_a'  => ['A.5.1', 'A.5.36'],
             'modules'  => ['policies'],

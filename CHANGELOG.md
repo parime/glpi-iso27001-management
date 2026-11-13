@@ -21,6 +21,28 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   (statut et commentaire). Réimport d'une nouvelle version rapproché par code : exigences ajoutées,
   modifiées, rétablies, et celles absentes du fichier marquées retirées, jamais supprimées ; statuts
   et commentaires conservés.
+- **Référentiels en italien** (issue #582) : NIS2 en italien (intitulés officiels des articles 20,
+  21 et 23 et mesures de l'article 21 §2 d'après la version italienne consolidée de la directive
+  (UE) 2022/2555 sur EUR-Lex, articles 20 et 23 résumés par ce projet), intitulés officiels
+  italiens des articles de DORA, intitulés, rôles et obligations de l'AI Act en italien.
+
+### Changed
+
+- **Modèles de notification multilingues** (issue #582) : les 23 modèles du plugin n'avaient
+  qu'une traduction par défaut, en français, reçue par tous les destinataires. Ils ont maintenant
+  une traduction par défaut en anglais, comme les modèles de GLPI, et une traduction en français
+  (fr_FR, fr_BE, fr_CA), italien, allemand, espagnol, polonais et portugais du Brésil : chaque
+  destinataire reçoit le modèle de sa langue. À la mise à jour, une traduction française d'origine
+  est remplacée par l'anglais et les langues manquantes sont ajoutées ; une traduction modifiée par
+  l'administrateur n'est jamais changée (et aucune traduction française n'est ajoutée par-dessus un
+  texte par défaut modifié). Les noms des modèles, qui n'existent qu'en une langue dans GLPI,
+  suivent la langue par défaut de l'instance ; un nom modifié est conservé.
+- **Langue des référentiels** (issue #582) : chaque texte s'affiche dans la langue de
+  l'utilisateur si le référentiel l'a, sinon en anglais, sinon en français (avant : français pour
+  une langue fr_*, anglais sinon). Un utilisateur italien lit NIS2 en italien et les autres
+  référentiels en anglais.
+- Les messages des tâches automatiques dans le journal des actions automatiques (rappels, revues,
+  CVE rafraîchies, score de maturité) sont traduits au lieu d'être écrits en français.
 
 ## [2.40.0] - 2026-11-08
 

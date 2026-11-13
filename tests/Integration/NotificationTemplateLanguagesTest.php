@@ -38,8 +38,9 @@ final class NotificationTemplateLanguagesTest extends GrcmanagerIntegrationTestC
             foreach (array_merge([''], NotificationTemplateDefaults::LANGUAGES) as $language) {
                 $this->assertArrayHasKey($language, $rows, "$key [$language]");
             }
+            $english = NotificationTemplateDefaults::build($key, MoCatalog::translator(''));
             $this->assertTrue(
-                NotificationTemplateDefaults::sameContent($rows[''], NotificationTemplateDefaults::build($key, MoCatalog::translator(''))),
+                NotificationTemplateDefaults::sameContent($rows[''], $english),
                 "$key : traduction par défaut en anglais"
             );
             $this->assertNotSame(
@@ -102,7 +103,8 @@ final class NotificationTemplateLanguagesTest extends GrcmanagerIntegrationTestC
         $key = 'policy_review';
         $templateId = $this->templateId($key);
         $DB->delete('glpi_notificationtemplatetranslations', ['notificationtemplates_id' => $templateId]);
-        foreach (['' => 'Revue de la politique ##policy.title##', 'it_IT' => 'Testo di prova ##policy.title##'] as $language => $text) {
+        $custom = ['' => 'Revue de la politique ##policy.title##', 'it_IT' => 'Testo di prova ##policy.title##'];
+        foreach ($custom as $language => $text) {
             $DB->insert('glpi_notificationtemplatetranslations', [
                 'notificationtemplates_id' => $templateId,
                 'language'                 => $language,
@@ -116,8 +118,8 @@ final class NotificationTemplateLanguagesTest extends GrcmanagerIntegrationTestC
         $this->migrate();
 
         $rows = $this->translations($templateId);
-        $this->assertSame('Revue de la politique ##policy.title##', $rows['']['content_text'], 'défaut modifié conservé');
-        $this->assertSame('Testo di prova ##policy.title##', $rows['it_IT']['content_text'], 'traduction modifiée conservée');
+        $this->assertSame($custom[''], $rows['']['content_text'], 'défaut modifié conservé');
+        $this->assertSame($custom['it_IT'], $rows['it_IT']['content_text'], 'traduction modifiée conservée');
         $this->assertArrayHasKey('de_DE', $rows, 'langue manquante ajoutée');
         $this->assertArrayNotHasKey('fr_FR', $rows, 'pas de français par-dessus un défaut modifié');
         $template = $DB->request(['FROM' => 'glpi_notificationtemplates', 'WHERE' => ['id' => $templateId]])->current();
@@ -181,7 +183,11 @@ final class NotificationTemplateLanguagesTest extends GrcmanagerIntegrationTestC
         global $DB;
 
         $rows = [];
-        foreach ($DB->request(['FROM' => 'glpi_notificationtemplatetranslations', 'WHERE' => ['notificationtemplates_id' => $templateId]]) as $row) {
+        $translations = $DB->request([
+            'FROM'  => 'glpi_notificationtemplatetranslations',
+            'WHERE' => ['notificationtemplates_id' => $templateId],
+        ]);
+        foreach ($translations as $row) {
             $rows[(string) $row['language']] = $row;
         }
 

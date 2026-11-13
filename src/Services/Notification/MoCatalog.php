@@ -85,8 +85,8 @@ final class MoCatalog
         $translations = self::word($data, 16, $format);
         $messages = [];
         for ($i = 0; $i < $count; $i++) {
-            $msgid = substr($data, self::word($data, $originals + 8 * $i + 4, $format), self::word($data, $originals + 8 * $i, $format));
-            $msgstr = substr($data, self::word($data, $translations + 8 * $i + 4, $format), self::word($data, $translations + 8 * $i, $format));
+            $msgid = self::entry($data, $originals + 8 * $i, $format);
+            $msgstr = self::entry($data, $translations + 8 * $i, $format);
             if ($msgid === '' || $msgstr === '') {
                 continue;
             }
@@ -102,6 +102,12 @@ final class MoCatalog
         }
 
         return $messages;
+    }
+
+    /** Chaîne décrite à `$offset` d'une table : longueur puis position. */
+    private static function entry(string $data, int $offset, string $format): string
+    {
+        return substr($data, self::word($data, $offset + 4, $format), self::word($data, $offset, $format));
     }
 
     private static function word(string $data, int $offset, string $format): int

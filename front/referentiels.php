@@ -372,7 +372,11 @@ foreach (Iso27090CatalogDefaults::CHAPTERS as $chapter => $chapterTitle) {
         }
         $topics[] = ['code' => (string) $code, 'text' => CatalogLanguage::pick($topic), 'controls' => $controls];
     }
-    $iso27090[] = ['chapter' => (string) $chapter, 'title' => CatalogLanguage::pick($chapterTitle), 'topics' => $topics];
+    $iso27090[] = [
+        'chapter' => (string) $chapter,
+        'title'   => CatalogLanguage::pick($chapterTitle),
+        'topics'  => $topics,
+    ];
 }
 
 \Glpi\Application\View\TemplateRenderer::getInstance()->display('@grcmanager/referentiels.html.twig', [

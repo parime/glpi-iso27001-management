@@ -70,7 +70,10 @@ final class CatalogLanguageTest extends TestCase
             'Misure di gestione dei rischi di cibersicurezza',
             CatalogLanguage::pick(Nis2CatalogDefaults::ARTICLES[21])
         );
-        self::assertSame('gestione degli incidenti', CatalogLanguage::pick(Nis2CatalogDefaults::REQUIREMENTS['21.2.b']));
+        self::assertSame(
+            'gestione degli incidenti',
+            CatalogLanguage::pick(Nis2CatalogDefaults::REQUIREMENTS['21.2.b'])
+        );
         // DORA : intitulés officiels en italien, exigences résumées en anglais seulement.
         self::assertSame('Comunicazione', CatalogLanguage::pick(DoraCatalogDefaults::ARTICLES[14]));
         $doraRequirement = DoraCatalogDefaults::REQUIREMENTS[array_key_first(DoraCatalogDefaults::REQUIREMENTS)];

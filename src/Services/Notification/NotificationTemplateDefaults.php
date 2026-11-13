@@ -487,8 +487,10 @@ final class NotificationTemplateDefaults
                 return self::simple($title, $title, [
                     $line('Item', '##evidence.item##'),
                     $line('Valid until', '##evidence.validuntil##'),
-                ], [$t('Renew the document (new certificate, report or attestation), then update its validity date. '
-                    . 'A renewal ticket will be opened if the evidence expires.')], '##evidence.url##', $t('View the item'), $head);
+                ], [
+                    $t('Renew the document (new certificate, report or attestation), then update its validity '
+                        . 'date. A renewal ticket will be opened if the evidence expires.'),
+                ], '##evidence.url##', $t('View the item'), $head);
 
             case 'complianceevent_reminder':
                 $title = $head('##complianceevent.action##', '##complianceevent.name##');
@@ -615,7 +617,10 @@ final class NotificationTemplateDefaults
                 }
 
                 return [
-                    'subject'      => $head('##businessprocess.duestatus##', '##businessprocess.action## - ##businessprocess.name##'),
+                    'subject'      => $head(
+                        '##businessprocess.duestatus##',
+                        '##businessprocess.action## - ##businessprocess.name##'
+                    ),
                     'content_text' => $text . "\n" . $advice . "\n\n" . $head($button, '##businessprocess.url##'),
                     'content_html' => NotificationHtml::renderBranded(
                         '##businessprocess.brandcolor##',
@@ -754,7 +759,8 @@ final class NotificationTemplateDefaults
                 if ($key === 'accessreview_request') {
                     $subject = $line('Access review to complete', '##accessreview.name##');
                     $text = sprintf(
-                        $t('%1$s asks you to review the access rights of your team\'s accounts before %2$s (campaign "%3$s").'),
+                        $t('%1$s asks you to review the access rights of your team\'s accounts before %2$s '
+                            . '(campaign "%3$s").'),
                         '##accessreview.owner##',
                         '##accessreview.duedate##',
                         '##accessreview.name##'
