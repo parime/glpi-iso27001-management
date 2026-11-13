@@ -7,6 +7,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.41.0] - 2026-11-13
+
 ### Added
 
 - **Vulnérabilités du parc : liens vers l'inventaire** (issue #580) : le nom du logiciel ouvre sa fiche
