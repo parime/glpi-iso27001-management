@@ -480,6 +480,20 @@ class PageHelp
                     'grcmanager'
                 ),
             ],
+            // Issue #537 : référentiels personnalisés importés depuis un fichier CSV.
+            'customframework' => [
+                'purpose'  => __(
+                    'Custom frameworks: follow a framework that is not built in (group requirements, sector or '
+                        . 'contractual framework, customer security plan) by importing it from a spreadsheet.',
+                    'grcmanager'
+                ),
+                'expected' => __(
+                    'Download the template, fill in one line per requirement with the Annex A controls that meet '
+                        . 'it, import it, then enable the framework. A new version of the file updates it without '
+                        . 'losing the statuses already entered.',
+                    'grcmanager'
+                ),
+            ],
             'coveragerule' => [
                 'purpose'  => __(
                     'Coverage rules: which assets must have which document (for example, every server must have its '

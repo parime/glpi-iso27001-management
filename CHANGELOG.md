@@ -7,6 +7,21 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Added
+
+- **Référentiels personnalisés** (issue #537) : import d'un référentiel absent du plugin (exigences
+  de sécurité d'un groupe, référentiel sectoriel ou contractuel, plan d'assurance sécurité d'un
+  client) depuis un fichier CSV (code, thème, intitulé, description, mesures de l'Annexe A ; UTF-8
+  avec ou sans BOM, séparateur « ; » ou « , », fichier Excel accepté). Modèle téléchargeable ;
+  analyse avant tout enregistrement avec le rapport des lignes rejetées (numéro de ligne et raison :
+  code ou intitulé absent, code en double, mesure de l'Annexe A inconnue) et l'aperçu des
+  changements. Activable comme les référentiels intégrés (désactivé à l'import) : carte
+  Référentiels, badges sur les mesures, taux dans les tableaux de bord et l'évaluation par
+  référentiel, calculés sur les mesures de l'Annexe A citées. Auto-évaluation de chaque exigence
+  (statut et commentaire). Réimport d'une nouvelle version rapproché par code : exigences ajoutées,
+  modifiées, rétablies, et celles absentes du fichier marquées retirées, jamais supprimées ; statuts
+  et commentaires conservés.
+
 ## [2.40.0] - 2026-11-08
 
 ### Added

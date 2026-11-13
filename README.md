@@ -82,6 +82,11 @@ archivé), avec ses champs de classification ISO 27001 fusionnés dessus.
   exigences du référentiel de certification (SMSI, clauses du contrat client, souveraineté des
   données), reliées à l'Annexe A ISO 27001 et aux modules du plugin, badges « HDS EXI n » sur les
   mesures et taux HDS.
+- **Référentiels personnalisés** : un référentiel absent du plugin (exigences d'un groupe, plan
+  d'assurance sécurité d'un client) s'importe depuis un tableur enregistré en CSV, à partir d'un
+  modèle téléchargeable, avec le rapport des lignes rejetées. Activable comme les autres, mesuré par
+  les mesures de l'Annexe A citées, auto-évaluation par exigence ; une nouvelle version du fichier
+  le met à jour sans perdre les statuts saisis.
 - **Sécurité des systèmes d'IA (ISO/IEC 27090:2026)** : sections de la norme reliées à l'Annexe A,
   et risques types d'IA (services d'IA publics, injection de prompt, fuite de données, chaîne
   d'approvisionnement, empoisonnement, vol de modèle, systèmes non inventoriés) à importer dans le

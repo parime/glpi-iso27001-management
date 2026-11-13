@@ -76,6 +76,11 @@ classification fields merged directly onto it.
 - **HDS v2.0 (French health data hosting)**, optional and disabled by default: the 31 requirements
   of the certification framework (ISMS, customer contract clauses, data sovereignty), mapped to ISO
   27001 Annex A and to the plugin modules, "HDS EXI n" badges on the controls and HDS rate.
+- **Custom frameworks**: a framework that is not built in (group requirements, a customer security
+  assurance plan) is imported from a spreadsheet saved as CSV, from a downloadable template, with a
+  report of the rejected lines. It can be enabled like the others, is measured through the Annex A
+  controls it cites, and each requirement can be self-assessed; a new version of the file updates it
+  without losing the statuses already entered.
 - **Security of AI systems (ISO/IEC 27090:2026)**: sections of the standard mapped to Annex A, and
   typical AI risks (public AI services, prompt injection, data leaks, supply chain, poisoning,
   model theft, unlisted AI systems) to import into the register from the risk catalog.

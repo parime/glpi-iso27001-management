@@ -19,7 +19,6 @@ use GlpiPlugin\Grcmanager\Install\Installer;
 use GlpiPlugin\Grcmanager\Services\Breach\BreachMonitorConfig;
 use GlpiPlugin\Grcmanager\Services\Breach\HibpClient;
 use GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig;
-use GlpiPlugin\Grcmanager\Services\Control\FrameworkSelection;
 use GlpiPlugin\Grcmanager\Services\Cve\NvdConfig;
 use GlpiPlugin\Grcmanager\Services\GithubVersionChecker;
 use GlpiPlugin\Grcmanager\IncidentSecurityGroup;
@@ -287,7 +286,8 @@ Html::header(
     'breach_enabled'            => BreachMonitorConfig::isEnabled(),
     'breach_has_key'            => BreachMonitorConfig::hasApiKey(),
     'breach_domains'            => implode(', ', BreachMonitorConfig::domains()),
-    'frameworks'                => FrameworkSelection::FRAMEWORKS,
+    'frameworks'                => FrameworkConfig::frameworks(),
+    'custom_frameworks_url'     => \GlpiPlugin\Grcmanager\CustomFramework::getSearchURL(),
     'frameworks_help'           => FrameworkConfig::helpTexts(),
     'frameworks_enabled'        => FrameworkConfig::enabled(),
     'dpo_contact'               => \GlpiPlugin\Grcmanager\ProcessingActivity::dpoContact(),

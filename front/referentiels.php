@@ -30,6 +30,7 @@ use GlpiPlugin\Grcmanager\Services\Control\Iso42001CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\PciDssCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\AiActCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\HdsCatalogDefaults;
+use GlpiPlugin\Grcmanager\Services\Control\CustomFrameworkCatalog;
 use GlpiPlugin\Grcmanager\Services\Control\Soc2CatalogDefaults;
 use GlpiPlugin\Grcmanager\AccessReview;
 use GlpiPlugin\Grcmanager\AccountHygiene;
@@ -318,6 +319,34 @@ foreach (HdsCatalogDefaults::REQUIREMENTS as $code => $requirement) {
     $hdsItems[HdsCatalogDefaults::label($code)] = $requirement;
 }
 
+// Issue #537 : référentiels personnalisés actifs, mêmes cartes que les catalogues intégrés (thème du
+// fichier en groupe, intitulé, correspondance Annexe A).
+$customFrameworks = [];
+foreach (CustomFrameworkCatalog::all() as $customKey => $customFramework) {
+    if (!$isEnabled($customKey)) {
+        continue;
+    }
+    $customGroups = [];
+    $customItems = [];
+    foreach ($customFramework['requirements'] as $requirement) {
+        $theme = $requirement['theme'] !== '' ? $requirement['theme'] : __('Without theme', 'grcmanager');
+        $customGroups[$theme] = ['fr' => $theme, 'en' => $theme];
+        $customItems[$requirement['code']] = [
+            'theme'   => $theme,
+            'fr'      => $requirement['title'],
+            'en'      => $requirement['title'],
+            'annex_a' => $requirement['annex_a'],
+            'modules' => [],
+        ];
+    }
+    $customFrameworks[] = [
+        'card_id' => $customKey,
+        'title'   => $customFramework['label'],
+        'groups'  => $isoGroups($customGroups, $customItems, 'theme', false, (string) array_key_first($customGroups)),
+        'url'     => \GlpiPlugin\Grcmanager\CustomFramework::getFormURL() . '?id=' . $customFramework['id'],
+    ];
+}
+
 // ISO/IEC 27090:2026 (sécurité des systèmes d'IA) : numéros de section et objet résumé par ce
 // projet (texte de la norme protégé), correspondance Annexe A indicative.
 $iso27090 = [];
@@ -401,6 +430,9 @@ foreach (Iso27090CatalogDefaults::CHAPTERS as $chapter => $chapterTitle) {
         'smsi'
     ) : [],
     'hds_source'      => HdsCatalogDefaults::SOURCE_URL,
+    'custom_frameworks'    => $customFrameworks,
+    'custom_frameworks_url' => \GlpiPlugin\Grcmanager\CustomFramework::getSearchURL(),
+    'can_import_framework' => Session::haveRight(\GlpiPlugin\Grcmanager\CustomFramework::RIGHTNAME, CREATE),
     'anssi'        => $isEnabled(FrameworkSelection::ANSSI) ? $anssi : [],
     'anssi_source' => AnssiHygieneCatalogDefaults::SOURCE_URL,
     'anssi_lang'   => $nis2Lang,

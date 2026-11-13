@@ -36,6 +36,7 @@ use GlpiPlugin\Grcmanager\Services\Control\Iso42001CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\PciDssCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\AiActCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\HdsCatalogDefaults;
+use GlpiPlugin\Grcmanager\Services\Control\CustomFrameworkCatalog;
 use GlpiPlugin\Grcmanager\Services\Control\Soc2CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\WazuhEvidence;
 use GlpiPlugin\Grcmanager\Services\Control\WazuhEvidenceProvider;
@@ -669,6 +670,20 @@ class Control extends ControlBase
         $showAiAct = FrameworkConfig::isEnabled(FrameworkSelection::AI_ACT);
         $showHds = FrameworkConfig::isEnabled(FrameworkSelection::HDS);
         $showNist = FrameworkConfig::isEnabled(FrameworkSelection::NIST_CSF);
+        // Issue #537 : exigences des référentiels personnalisés actifs qui citent cette mesure.
+        $customFrameworks = [];
+        foreach (CustomFrameworkCatalog::all() as $customKey => $customFramework) {
+            $customCodes = FrameworkConfig::isEnabled($customKey)
+                ? CustomFrameworkCatalog::requirementsForControl($customKey, $code)
+                : [];
+            if ($customCodes !== []) {
+                $customFrameworks[] = [
+                    'label' => $customFramework['label'],
+                    'codes' => $customCodes,
+                    'url'   => CustomFramework::getFormURL() . '?id=' . $customFramework['id'],
+                ];
+            }
+        }
         $measures = FrameworkConfig::isEnabled(FrameworkSelection::ANSSI)
             ? AnssiHygieneCatalogDefaults::measuresForControl($code)
             : [];
@@ -745,6 +760,7 @@ class Control extends ControlBase
             'soc2'                    => $showSoc2 ? Soc2CatalogDefaults::criteriaForControl($code) : [],
             'ai_act'                  => $showAiAct ? AiActCatalogDefaults::articlesForControl($code) : [],
             'hds'                     => $showHds ? HdsCatalogDefaults::requirementsForControl($code) : [],
+            'custom_frameworks'       => $customFrameworks,
             'anssi'                   => $anssi,
             'cis'                     => $cis,
             'assetsign_sheets'        => $sheets,
