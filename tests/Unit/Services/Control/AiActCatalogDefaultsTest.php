@@ -20,7 +20,7 @@ final class AiActCatalogDefaultsTest extends TestCase
         foreach (AiActCatalogDefaults::ARTICLES as $number => $article) {
             $label = 'Art. ' . $number;
             self::assertArrayHasKey($article['role'], AiActCatalogDefaults::ROLES, $label);
-            foreach (['title_fr', 'title_en', 'fr', 'en'] as $field) {
+            foreach (['title_fr', 'title_en', 'fr', 'en', 'title_it', 'it'] as $field) {
                 self::assertNotSame('', trim($article[$field]), "$label $field");
             }
             self::assertContains($article['applies'], self::APPLICATION_DATES, $label);

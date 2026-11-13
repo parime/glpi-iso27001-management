@@ -23,6 +23,7 @@ use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\ControlBase;
 use GlpiPlugin\Grcmanager\Services\Control\AnssiHygieneCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\AssetsignEvidence;
+use GlpiPlugin\Grcmanager\Services\Control\CatalogLanguage;
 use GlpiPlugin\Grcmanager\Services\Control\AssetsignEvidenceProvider;
 use GlpiPlugin\Grcmanager\Services\Control\CisControlsCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\ControlCrosswalkDefaults;
@@ -688,13 +689,13 @@ class Control extends ControlBase
             ? AnssiHygieneCatalogDefaults::measuresForControl($code)
             : [];
 
-        // Issue #111 : mesures du guide d'hygiène ANSSI, intitulé dans la langue de la session.
-        $anssiLang = str_starts_with((string) ($_SESSION['glpilanguage'] ?? 'fr_FR'), 'fr') ? 'fr' : 'en';
+        // Issue #111 : mesures du guide d'hygiène ANSSI, intitulé dans la langue de la session (issue
+        // #582 : sinon l'anglais, voir CatalogLanguage).
         $anssi = [];
         foreach ($measures as $measureNumber) {
             $anssi[] = [
                 'number' => $measureNumber,
-                'title'  => AnssiHygieneCatalogDefaults::MEASURES[$measureNumber][$anssiLang],
+                'title'  => CatalogLanguage::pick(AnssiHygieneCatalogDefaults::MEASURES[$measureNumber]),
             ];
         }
 
