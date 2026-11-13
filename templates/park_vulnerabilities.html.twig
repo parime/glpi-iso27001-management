@@ -99,11 +99,28 @@
                         {% endif %}
                      </td>
                      <td>
-                        {{ row.product }}
+                        {# Issue #580 : fiche du logiciel dans l'inventaire (un lien par logiciel regroupé sous ce produit). #}
+                        {% if row.software_links|length == 1 %}
+                           <a href="{{ row.software_links[0].url }}" title="{{ __('Open the software in the inventory', 'grcmanager') }}"><i class="ti ti-apps me-1"></i>{{ row.product }}</a>
+                        {% else %}
+                           {{ row.product }}
+                           {% for link in row.software_links %}
+                              <div class="small"><a href="{{ link.url }}" title="{{ __('Open the software in the inventory', 'grcmanager') }}"><i class="ti ti-apps me-1"></i>{{ link.name }}</a></div>
+                           {% endfor %}
+                        {% endif %}
                         {% if row.certfr %}<a href="{{ row.certfr.link }}" target="_blank" rel="noopener" class="badge bg-orange-lt ms-1" title="{{ row.certfr.title }}"><i class="ti ti-alert-octagon me-1"></i>CERT-FR</a>{% endif %}
                         {% if row.description %}<div class="text-muted small text-truncate" style="max-width: 22rem" title="{{ row.description }}">{{ row.description }}</div>{% endif %}
                      </td>
-                     <td>{% for v in row.versions %}<span class="badge bg-azure-lt me-1">{{ v }}</span>{% endfor %}</td>
+                     {# Issue #580 : chaque version ouvre la liste des machines qui l'ont installée. #}
+                     <td>
+                        {% for v in row.version_links %}
+                           {% for link in v.links %}
+                              <a href="{{ link.url }}" class="badge bg-azure-lt me-1 mb-1" title="{{ __('Computers where %s is installed', 'grcmanager')|format(link.name ~ ' ' ~ v.version) }}"><i class="ti ti-device-desktop me-1"></i>{{ v.version }}</a>
+                           {% else %}
+                              <span class="badge bg-azure-lt me-1 mb-1">{{ v.version }}</span>
+                           {% endfor %}
+                        {% endfor %}
+                     </td>
                      <td class="text-end"><strong>{{ row.machines }}</strong></td>
                      <td><span class="badge {{ cvss_class }}">{{ row.cvss is null ? __('n/a', 'grcmanager') : row.cvss|number_format(1, ',') }}</span></td>
                      <td class="text-nowrap">{{ row.epss is null ? '-' : (row.epss * 100)|number_format(1, ',') ~ ' %' }}</td>

@@ -10035,6 +10035,13 @@ msgstr "Adicionado"
 msgid "Choose another file"
 msgstr "Escolher outro arquivo"
 
+msgid "Open the software in the inventory"
+msgstr "Abrir o software no inventário"
+
+#, php-format
+msgid "Computers where %s is installed"
+msgstr "Computadores onde %s está instalado"
+
 #, php-format
 msgid "%1$s: %2$s"
 msgstr "%1$s: %2$s"

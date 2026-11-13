@@ -9,6 +9,10 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Vulnérabilités du parc : liens vers l'inventaire** (issue #580) : le nom du logiciel ouvre sa fiche
+  dans l'inventaire (un lien par logiciel quand plusieurs sont regroupés sous le même produit), et
+  chaque version vulnérable ouvre directement la liste des ordinateurs qui l'ont installée. Seuls les
+  logiciels visibles par l'utilisateur (droit de lecture, entités actives) sont liés.
 - **Référentiels personnalisés** (issue #537) : import d'un référentiel absent du plugin (exigences
   de sécurité d'un groupe, référentiel sectoriel ou contractuel, plan d'assurance sécurité d'un
   client) depuis un fichier CSV (code, thème, intitulé, description, mesures de l'Annexe A ; UTF-8

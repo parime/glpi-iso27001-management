@@ -11458,6 +11458,13 @@ msgstr "Dodane"
 msgid "Choose another file"
 msgstr "Wybierz inny plik"
 
+msgid "Open the software in the inventory"
+msgstr "Otwórz oprogramowanie w inwentarzu"
+
+#, php-format
+msgid "Computers where %s is installed"
+msgstr "Komputery, na których zainstalowano %s"
+
 #, php-format
 msgid "%1$s: %2$s"
 msgstr "%1$s: %2$s"
