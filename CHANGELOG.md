@@ -44,6 +44,11 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 - Les messages des tâches automatiques dans le journal des actions automatiques (rappels, revues,
   CVE rafraîchies, score de maturité) sont traduits au lieu d'être écrits en français.
 
+### Fixed
+
+- L'en-tête « Intitulé » de la table de l'Annexe A (page Référentiels et rapport PDF de la SoA)
+  restait en français dans toutes les langues (issue #582).
+
 ## [2.40.0] - 2026-11-08
 
 ### Added
