@@ -281,6 +281,10 @@ les audits/CAPA, avec une capture d'écran réelle par étape (disponible en fra
 - Interface en 6 langues : français, anglais, allemand, espagnol, italien et portugais du Brésil.
   Les titres des mesures de l'Annexe A dans les langues autres que le français et l'anglais sont
   une traduction de ce projet, pas le texte des éditions nationales de la norme.
+- Modèles de notification avec une traduction par langue (anglais par défaut, français, italien,
+  allemand, espagnol, polonais, portugais du Brésil) : chaque destinataire reçoit sa langue.
+  Référentiels affichés dans la langue de l'utilisateur quand ils l'ont (NIS2, DORA et AI Act en
+  italien), en anglais sinon.
 
 ## Avertissement : ISO 27001 et référentiels tiers
 
@@ -316,13 +320,13 @@ du dépôt et dans la documentation indique uniquement le référentiel que le p
   [National Institute of Standards and Technology](https://www.nist.gov/cyberframework)
   (gouvernement fédéral des États-Unis), dans le domaine public.
 - **Directive (UE) 2022/2555 « NIS2 »** : articles 20, 21 §2 et 23 §4. Les dix mesures de
-  l'article 21 §2 sont reproduites d'après les versions officielles française et anglaise
-  publiées sur [EUR-Lex](https://eur-lex.europa.eu/eli/dir/2022/2555/oj), les articles 20 et 23
-  sont résumés. © Union européenne, https://eur-lex.europa.eu/ - réutilisation autorisée
+  l'article 21 §2 sont reproduites d'après les versions officielles française, anglaise et
+  italienne (version consolidée) publiées sur [EUR-Lex](https://eur-lex.europa.eu/eli/dir/2022/2555/oj),
+  les articles 20 et 23 sont résumés. © Union européenne, https://eur-lex.europa.eu/ - réutilisation autorisée
   (décision 2011/833/UE de la Commission). Seule la version publiée au Journal officiel de l'UE
   fait foi. La correspondance avec l'Annexe A ISO 27001 est indicative et établie par ce projet.
 - **Règlement (UE) 2022/2554 « DORA »** : intitulés de 19 articles clés (5 à 45) d'après les versions
-  officielles française et anglaise publiées sur
+  officielles française, anglaise et italienne publiées sur
   [EUR-Lex](https://eur-lex.europa.eu/eli/reg/2022/2554/oj) ; les exigences sont résumées par ce
   projet, pas reproduites. © Union européenne, https://eur-lex.europa.eu/ - réutilisation autorisée
   (décision 2011/833/UE de la Commission). Seule la version publiée au Journal officiel de l'UE fait

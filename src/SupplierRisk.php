@@ -339,7 +339,7 @@ class SupplierRisk extends SupplierRiskBase
 
         $task->addVolume($result->getNotified() + $tickets);
         $task->log(sprintf(
-            '%d risque(s) fournisseur en attente de revue, %d notification(s) déclenchée(s).',
+            __('%d supplier risk(s) awaiting review, %d notification(s) raised.', 'grcmanager'),
             $result->getDue(),
             $result->getNotified()
         ));

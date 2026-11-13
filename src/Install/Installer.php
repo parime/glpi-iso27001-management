@@ -20,7 +20,9 @@ use GlpiPlugin\Grcmanager\Services\Dashboard\DefaultDashboardService;
 use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
 use GlpiPlugin\Grcmanager\Services\Incident\LegacySecurityIncidentMigrator;
 use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentModuleConfig;
+use GlpiPlugin\Grcmanager\Services\Notification\MoCatalog;
 use GlpiPlugin\Grcmanager\Services\Notification\NotificationHtml;
+use GlpiPlugin\Grcmanager\Services\Notification\NotificationTemplateDefaults;
 use GlpiPlugin\Grcmanager\Services\Cve\NvdConfigDefaults;
 use GlpiPlugin\Grcmanager\Services\Review\PeriodicReviewCatalog;
 use GlpiPlugin\Grcmanager\Services\Risk\RiskMatrixDefaults;
@@ -3077,44 +3079,11 @@ final class Installer
 
         $this->seedControls();
         $this->seedClauses();
-        $this->seedSoaApprovalNotification();
 
         $this->seedSecurityIncidentNotifications();
 
-        $this->seedReviewReminderNotification(
-            'GlpiPlugin\\Grcmanager\\Risk',
-            'risk',
-            'Revue de risque à échéance',
-            'risque'
-        );
-        $this->seedReviewReminderNotification(
-            'GlpiPlugin\\Grcmanager\\SupplierRisk',
-            'supplierrisk',
-            'Revue de risque fournisseur à échéance',
-            'risque fournisseur'
-        );
-        $this->seedReviewReminderNotification(
-            'GlpiPlugin\\Grcmanager\\ComplianceObligation',
-            'complianceobligation',
-            'Revue d\'obligation à échéance',
-            'obligation',
-            ['type' => 'Type', 'status' => 'Statut de conformité']
-        );
-        $this->seedCapaOverdueNotification();
-        $this->seedSecurityWatchNotification();
-        $this->seedTrainingRenewalNotification();
-        $this->seedBreachExposureNotification();
-        $this->seedVulnerabilityDigestNotification();
-        $this->seedIncidentAccessWatchNotifications();
-        $this->seedPolicyReviewReminderNotification();
-        $this->seedTreatmentActionOverdueNotification();
-        $this->seedAccessReviewNotifications();
-        $this->seedEvidenceExpiringNotification();
-        $this->seedWaiverExpiringNotification();
-        $this->seedComplianceEventReminderNotification();
-        $this->seedControlTestReminderNotification();
-        $this->seedKriAlertNotifications();
-        $this->seedBusinessProcessReminderNotifications();
+        $this->seedPluginNotifications();
+        $this->migrateNotificationTemplateLanguages();
         $this->migrateResponsibleTargets();
 
         // Issue #126 : relance hebdomadaire des responsables en retard sur une revue des accès.
@@ -3494,816 +3463,55 @@ final class Installer
     }
 
     /**
-     * Seeds the Notification/NotificationTemplate/translation/target rows a review-date reminder
-     * Cron task (\GlpiPlugin\Grcmanager\Risk::cronReviewreminder(), and since Sprint 5
-     * \GlpiPlugin\Grcmanager\SupplierRisk::cronReviewreminder(), and since issue #30
-     * \GlpiPlugin\Grcmanager\ComplianceObligation::cronReviewreminder()) needs to actually send something
-     * via NotificationEvent::raiseEvent('review_due', ...), see inc/notificationtargetrisk.class.php /
-     * inc/notificationtargetsupplierrisk.class.php / inc/notificationtargetcomplianceobligation.class.php
-     * for the NotificationTarget classes and their tag lists. Idempotent per itemtype: skipped
-     * entirely if a Notification for that itemtype/event already exists (an admin may have edited
-     * the template's wording since, never overwritten here). Generalized at Sprint 5 (was
-     * \GlpiPlugin\Grcmanager\Risk-only before) so every review-reminder itemtype is seeded from the exact
-     * same implementation, only their tag prefix/wording differ.
+     * Notifications du plugin (une par type d'objet et événement, voir
+     * NotificationTemplateDefaults::definitions()) : modèle, traductions, notification et cibles,
+     * créés une seule fois. Une notification déjà présente (éventuellement modifiée par un
+     * administrateur) n'est jamais réécrite ; migrateNotificationTemplateLanguages() complète les
+     * langues des modèles existants.
      *
-     * @param string $itemtype    '\GlpiPlugin\Grcmanager\Risk', '\GlpiPlugin\Grcmanager\SupplierRisk' or
-     *                            '\GlpiPlugin\Grcmanager\ComplianceObligation'.
-     * @param string $tagPrefix   Matches the NotificationTarget's own tag prefix
-     *                            ('risk'/'supplierrisk'/'complianceobligation').
-     * @param string $name        Human-readable Notification/NotificationTemplate name suffix.
-     * @param string $noun        French noun used in the seeded comment
-     *                            ('risque'/'risque fournisseur'/'obligation').
-     * @param array<string, string> $detailLines Tag suffix => French label for the two body lines
-     *                            between the title and the review date. Defaults to
-     *                            category/risklevel (\GlpiPlugin\Grcmanager\Risk/\GlpiPlugin\Grcmanager\SupplierRisk's
-     *                            own tags, unchanged since Sprint 2/5) so existing callers see no
-     *                            behaviour change; issue #30 passes type/status instead, matching
-     *                            \GlpiPlugin\Grcmanager\ComplianceObligation's own fields (no
-     *                            category/risklevel on that itemtype).
+     * Issue #582 : traduction par défaut en anglais (comme les modèles de GLPI) et une traduction par
+     * langue du plugin ; nom et commentaire du modèle dans la langue par défaut de l'instance (un
+     * modèle n'a qu'un nom dans GLPI).
      */
-    private function seedReviewReminderNotification(
-        string $itemtype,
-        string $tagPrefix,
-        string $name,
-        string $noun,
-        array $detailLines = ['category' => 'Catégorie', 'risklevel' => 'Niveau de risque']
-    ): void {
-        global $DB;
-
-        $event = 'review_due';
-
-        $alreadySeeded = $DB->request([
-            'FROM'  => 'glpi_notifications',
-            'WHERE' => ['itemtype' => $itemtype, 'event' => $event],
-        ])->count() > 0;
-
-        if ($alreadySeeded) {
-            return;
-        }
-
-        $template = new NotificationTemplate();
-        $templateId = $template->add([
-            'name'     => 'GRC Manager - ' . $name,
-            'itemtype' => $itemtype,
-            'comment'  => 'Notification envoyée par la tâche automatique GRC Manager lorsqu\'un '
-                . $noun . ' atteint ou dépasse sa date de revue.',
-        ]);
-
-        $detailText = '';
-        $detailLinesHtml = [];
-        foreach ($detailLines as $tagSuffix => $label) {
-            $detailText .= "{$label} : ##{$tagPrefix}.{$tagSuffix}##\n";
-            $detailLinesHtml[] = "{$label} : ##{$tagPrefix}.{$tagSuffix}##";
-        }
-        $detailLinesHtml[] = "Date de revue : ##{$tagPrefix}.reviewdate##";
-
-        $DB->insert('glpi_notificationtemplatetranslations', [
-            'notificationtemplates_id' => $templateId,
-            'language'                 => '',
-            'subject'                  => "##{$tagPrefix}.action## : ##{$tagPrefix}.title##",
-            'content_text'             => "##{$tagPrefix}.action## : ##{$tagPrefix}.title##\n\n"
-                . $detailText
-                . "Date de revue : ##{$tagPrefix}.reviewdate##\n\n"
-                . "Voir le " . $noun . " : ##{$tagPrefix}.url##",
-            'content_html'             => NotificationHtml::render([
-                NotificationHtml::strong("##{$tagPrefix}.action## : ##{$tagPrefix}.title##"),
-                NotificationHtml::lines($detailLinesHtml),
-                NotificationHtml::link("##{$tagPrefix}.url##", 'Voir le ' . $noun),
-            ]),
-        ]);
-
-        $notification = new Notification();
-        $notificationId = $notification->add([
-            'name'         => 'GRC Manager - ' . $name,
-            'entities_id'  => 0,
-            'is_recursive' => 1,
-            'itemtype'     => $itemtype,
-            'event'        => $event,
-            'is_active'    => 1,
-        ]);
-
-        $DB->insert('glpi_notifications_notificationtemplates', [
-            'notifications_id'         => $notificationId,
-            'mode'                     => 'mailing',
-            'notificationtemplates_id' => $templateId,
-        ]);
-
-        // Default recipient: the risk's own owner (Notification::ITEM_USER, resolved generically
-        // by GLPI core from the `users_id` field, see NotificationTarget::addItemOwner() and
-        // inc/notificationtargetrisk.class.php / inc/notificationtargetsupplierrisk.class.php's
-        // own addAdditionalTargets()). Without this row, NotificationEvent::raiseEvent() finds the
-        // Notification above but no configured recipient and silently sends nothing.
-        $DB->insert('glpi_notificationtargets', [
-            'items_id'         => Notification::ITEM_USER,
-            'type'             => Notification::USER_TYPE,
-            'notifications_id' => $notificationId,
-        ]);
-    }
-
-    /**
-     * Same structure as seedReviewReminderNotification() above, for the Sprint 4 overdue-CAPA Cron
-     * task (\GlpiPlugin\Grcmanager\Nonconformity::cronOverduecapa(), event 'capa_overdue', see
-     * inc/notificationtargetnonconformity.class.php). Idempotent for the same reason.
-     */
-    private function seedCapaOverdueNotification(): void
+    private function seedPluginNotifications(): void
     {
         global $DB;
 
-        $itemtype = 'GlpiPlugin\\Grcmanager\\Nonconformity';
-        $event    = 'capa_overdue';
-
-        $alreadySeeded = $DB->request([
-            'FROM'  => 'glpi_notifications',
-            'WHERE' => ['itemtype' => $itemtype, 'event' => $event],
-        ])->count() > 0;
-
-        if ($alreadySeeded) {
-            return;
-        }
-
-        $template = new NotificationTemplate();
-        $templateId = $template->add([
-            'name'     => 'GRC Manager - Action corrective/préventive en retard',
-            'itemtype' => $itemtype,
-            'comment'  => 'Notification envoyée par la tâche automatique GRC Manager lorsqu\'une '
-                . 'non-conformité dépasse son échéance sans être clôturée ni vérifiée.',
-        ]);
-
-        $DB->insert('glpi_notificationtemplatetranslations', [
-            'notificationtemplates_id' => $templateId,
-            'language'                 => '',
-            'subject'                  => '##nc.action## : ##nc.title##',
-            'content_text'             => "##nc.action## : ##nc.title##\n\n"
-                . "Audit : ##nc.audit##\n"
-                . "Sévérité : ##nc.severity##\n"
-                . "Échéance : ##nc.duedate##\n\n"
-                . "Voir la non-conformité : ##nc.url##",
-            'content_html'             => NotificationHtml::render([
-                NotificationHtml::strong('##nc.action## : ##nc.title##'),
-                NotificationHtml::lines([
-                    'Audit : ##nc.audit##',
-                    'Sévérité : ##nc.severity##',
-                    'Échéance : ##nc.duedate##',
-                ]),
-                NotificationHtml::link('##nc.url##', 'Voir la non-conformité'),
-            ]),
-        ]);
-
-        $notification = new Notification();
-        $notificationId = $notification->add([
-            'name'         => 'GRC Manager - Action corrective/préventive en retard',
-            'entities_id'  => 0,
-            'is_recursive' => 1,
-            'itemtype'     => $itemtype,
-            'event'        => $event,
-            'is_active'    => 1,
-        ]);
-
-        $DB->insert('glpi_notifications_notificationtemplates', [
-            'notifications_id'         => $notificationId,
-            'mode'                     => 'mailing',
-            'notificationtemplates_id' => $templateId,
-        ]);
-
-        // Default recipient: the non-conformity's own responsible owner (`users_id`), same
-        // generic resolution as seedReviewReminderNotification() above.
-        $DB->insert('glpi_notificationtargets', [
-            'items_id'         => Notification::ITEM_USER,
-            'type'             => Notification::USER_TYPE,
-            'notifications_id' => $notificationId,
-        ]);
-    }
-
-    /**
-     * Issue #167 : nouvel avis du CERT-FR qui cite le fournisseur d'un risque (événement
-     * 'security_watch', voir \GlpiPlugin\Grcmanager\SecurityWatch::notifyOwners()), adressé au
-     * propriétaire du risque. Idempotent, même structure que seedCapaOverdueNotification().
-     */
-    private function seedSecurityWatchNotification(): void
-    {
-        global $DB;
-
-        $itemtype = 'GlpiPlugin\\Grcmanager\\SupplierRisk';
-        $event    = 'security_watch';
-
-        if (
-            $DB->request([
-                'FROM'  => 'glpi_notifications',
-                'WHERE' => ['itemtype' => $itemtype, 'event' => $event],
-            ])->count() > 0
-        ) {
-            return;
-        }
-
-        $templateId = (new NotificationTemplate())->add([
-            'name'     => 'GRC Manager - Avis de sécurité concernant un fournisseur',
-            'itemtype' => $itemtype,
-            'comment'  => 'Notification envoyée par la tâche des vulnérabilités du parc lorsqu\'un nouvel '
-                . 'avis du CERT-FR cite le fournisseur d\'un risque du registre.',
-        ]);
-
-        $DB->insert('glpi_notificationtemplatetranslations', [
-            'notificationtemplates_id' => $templateId,
-            'language'                 => '',
-            'subject'                  => '##supplierrisk.action## : ##supplierrisk.supplier##',
-            // Texte seul : la liste des avis est déjà une liste de lignes, et un modèle HTML écrit
-            // ici ajouterait du HTML en PHP (exigence Marketplace, voir check-marketplace-readiness).
-            'content_text'             => "##supplierrisk.action## : ##supplierrisk.supplier##\n\n"
-                . "##supplierrisk.notices##\n\n"
-                . "Risque fournisseur : ##supplierrisk.title##\n"
-                . "Voir le risque fournisseur (onglet Veille sécurité) : ##supplierrisk.url##",
-        ]);
-
-        $notificationId = (new Notification())->add([
-            'name'         => 'GRC Manager - Avis de sécurité concernant un fournisseur',
-            'entities_id'  => 0,
-            'is_recursive' => 1,
-            'itemtype'     => $itemtype,
-            'event'        => $event,
-            'is_active'    => 1,
-        ]);
-
-        $DB->insert('glpi_notifications_notificationtemplates', [
-            'notifications_id'         => $notificationId,
-            'mode'                     => 'mailing',
-            'notificationtemplates_id' => $templateId,
-        ]);
-
-        $DB->insert('glpi_notificationtargets', [
-            'items_id'         => Notification::ITEM_USER,
-            'type'             => Notification::USER_TYPE,
-            'notifications_id' => $notificationId,
-        ]);
-    }
-
-    /**
-     * Same structure as seedCapaOverdueNotification() above, for the Sprint 6 training-renewal Cron
-     * task (\GlpiPlugin\Grcmanager\Training::cronRenewaldue(), event 'training_renewal_due', see
-     * inc/notificationtargettraining.class.php). Idempotent for the same reason.
-     *
-     * Deliberately does NOT insert a `glpi_notificationtargets` row (unlike every notification
-     * seeded above): a training has no single "item owner" field to resolve a default recipient
-     * from, its recipients are the (possibly several) overdue participants,
-     * \GlpiPlugin\Grcmanager\NotificationTargetTraining::addAdditionalTargets() resolves and adds every
-     * one of them itself, unconditionally, regardless of any configured target row (see its own
-     * docblock).
-     */
-    /**
-     * Issue #145 : rappel au responsable du renouvellement d'une preuve qui arrive à échéance
-     * (\GlpiPlugin\Grcmanager\Evidence::runReminders(), inc/notificationtargetevidence.class.php), avec sa
-     * cible « Responsable du renouvellement ». Idempotent, comme les autres notifications seedées.
-     */
-    private function seedEvidenceExpiringNotification(): void
-    {
-        global $DB;
-
-        $itemtype = 'GlpiPlugin\\Grcmanager\\Evidence';
-        $event    = 'evidence_expiring';
-
-        $existing = $DB->request([
-            'FROM'  => 'glpi_notifications',
-            'WHERE' => ['itemtype' => $itemtype, 'event' => $event],
-        ]);
-        if ($existing->count() > 0) {
-            return;
-        }
-
-        $templateId = (new NotificationTemplate())->add([
-            'name'     => 'GRC Manager - Preuve à renouveler',
-            'itemtype' => $itemtype,
-            'comment'  => 'Notification envoyée par la tâche automatique GRC Manager lorsqu\'un document '
-                . 'de preuve arrive à la fin de sa validité.',
-        ]);
-
-        $DB->insert('glpi_notificationtemplatetranslations', [
-            'notificationtemplates_id' => $templateId,
-            'language'                 => '',
-            'subject'                  => '##evidence.action## : ##evidence.document##',
-            'content_text'             => "##evidence.action## : ##evidence.document##\n\n"
-                . "Élément : ##evidence.item##\n"
-                . "Valide jusqu'au : ##evidence.validuntil##\n\n"
-                . "Renouvelez le document (nouveau certificat, rapport ou attestation) puis mettez à jour sa "
-                . "date de validité. Un ticket de renouvellement sera ouvert si la preuve expire.\n\n"
-                . "Voir l'élément : ##evidence.url##",
-            'content_html'             => NotificationHtml::render([
-                NotificationHtml::strong('##evidence.action## : ##evidence.document##'),
-                NotificationHtml::lines([
-                    'Élément : ##evidence.item##',
-                    'Valide jusqu\'au : ##evidence.validuntil##',
-                ]),
-                NotificationHtml::lines([
-                    'Renouvelez le document (nouveau certificat, rapport ou attestation) puis mettez à jour '
-                        . 'sa date de validité. Un ticket de renouvellement sera ouvert si la preuve expire.',
-                ]),
-                NotificationHtml::link('##evidence.url##', 'Voir l\'élément'),
-            ]),
-        ]);
-
-        $notificationId = (new Notification())->add([
-            'name'         => 'GRC Manager - Preuve à renouveler',
-            'entities_id'  => 0,
-            'is_recursive' => 1,
-            'itemtype'     => $itemtype,
-            'event'        => $event,
-            'is_active'    => 1,
-        ]);
-
-        $DB->insert('glpi_notifications_notificationtemplates', [
-            'notifications_id'         => $notificationId,
-            'mode'                     => 'mailing',
-            'notificationtemplates_id' => $templateId,
-        ]);
-        $DB->insert('glpi_notificationtargets', [
-            'notifications_id' => $notificationId,
-            'type'             => Notification::USER_TYPE,
-            'items_id'         => \GlpiPlugin\Grcmanager\NotificationTargetEvidence::TARGET_RESPONSIBLE,
-        ]);
-    }
-
-    /**
-     * Issue #170 : avis au responsable d'une dérogation 15 jours avant sa fin. Le contenu HTML est
-     * dérivé du texte (aucun gabarit HTML écrit en PHP, cf. exigences du Marketplace GLPI).
-     */
-    /**
-     * Issue #142, phase 2 : rappel au responsable 15 jours avant un événement du calendrier de
-     * conformité. Le contenu HTML est dérivé du texte, comme pour les dérogations.
-     */
-    private function seedComplianceEventReminderNotification(): void
-    {
-        global $DB;
-
-        $itemtype = 'GlpiPlugin\\Grcmanager\\ComplianceEvent';
-        $event    = 'complianceevent_reminder';
-        $where = ['itemtype' => $itemtype, 'event' => $event];
-        if ($DB->request(['FROM' => 'glpi_notifications', 'WHERE' => $where])->count() > 0) {
-            return;
-        }
-
-        $templateId = (new NotificationTemplate())->add([
-            'name'     => 'GRC Manager - Événement de conformité à venir',
-            'itemtype' => $itemtype,
-            'comment'  => 'Notification envoyée par la tâche automatique GRC Manager 15 jours avant un '
-                . 'événement du calendrier de conformité (audit, pentest, certification...).',
-        ]);
-        $text = "##complianceevent.action## : ##complianceevent.name##\n\n"
-            . "Type : ##complianceevent.type##\n"
-            . "Début : ##complianceevent.begin##\n"
-            . "Périmètre : ##complianceevent.scope##\n\n"
-            . "Préparez l'événement : convocations, documents attendus, accès du prestataire. Rien n'est "
-            . "modifié automatiquement.\n\n"
-            . "Voir l'événement : ##complianceevent.url##";
-        $DB->insert('glpi_notificationtemplatetranslations', [
-            'notificationtemplates_id' => $templateId,
-            'language'                 => '',
-            'subject'                  => '##complianceevent.action## : ##complianceevent.name##',
-            'content_text'             => $text,
-            'content_html'             => nl2br(htmlescape($text)),
-        ]);
-
-        $notificationId = (new Notification())->add([
-            'name'         => 'GRC Manager - Événement de conformité à venir',
-            'entities_id'  => 0,
-            'is_recursive' => 1,
-            'itemtype'     => $itemtype,
-            'event'        => $event,
-            'is_active'    => 1,
-        ]);
-        $DB->insert('glpi_notifications_notificationtemplates', [
-            'notifications_id'         => $notificationId,
-            'mode'                     => 'mailing',
-            'notificationtemplates_id' => $templateId,
-        ]);
-        $DB->insert('glpi_notificationtargets', [
-            'notifications_id' => $notificationId,
-            'type'             => Notification::USER_TYPE,
-            'items_id'         => \GlpiPlugin\Grcmanager\NotificationTargetComplianceEvent::TARGET_RESPONSIBLE,
-        ]);
-    }
-
-    /**
-     * Issue #380, deuxième étape : rappel d'un test d'efficacité en retard ou à réaliser dans les
-     * 30 jours (\GlpiPlugin\Grcmanager\ControlTestReminder), au responsable du plan de test et au
-     * groupe RSSI (selon le réglage). Habillage sur la structure de la charte des notifications de
-     * Configuration GLPI Auto, sa couleur étant lue à l'envoi. Idempotent : une notification déjà
-     * présente (éventuellement modifiée par un administrateur) n'est jamais réécrite.
-     */
-    private function seedControlTestReminderNotification(): void
-    {
-        $advice = 'Réalisez le test et enregistrez son résultat dans l\'onglet « Tests d\'efficacité » de la '
-            . 'mesure. Un test en retard retire l\'état « Vérifié » de la mesure dans la SoA.';
-        $text = "##controltest.duestatus## : ##controltest.control##\n\n"
-            . "Prochain test : ##controltest.nextdate##\n"
-            . "Dernier test : ##controltest.lastdate## (##controltest.lastresult##)\n"
-            . "Responsable du plan de test : ##controltest.tester##\n"
-            . "État de mise en œuvre : ##controltest.status##\n"
-            . "##IFcontroltest.withdrawn##\n##controltest.withdrawn##\n##ENDIFcontroltest.withdrawn##\n"
-            . $advice . "\n\n"
-            . "Voir la mesure : ##controltest.url##";
-        $this->seedBrandedNotification(
-            \GlpiPlugin\Grcmanager\Control::class,
-            \GlpiPlugin\Grcmanager\ControlTestReminder::EVENT,
-            'GRC Manager - Test d\'efficacité à réaliser',
-            'Notification envoyée par la tâche automatique GRC Manager lorsqu\'un test '
-                . 'd\'efficacité d\'une mesure de l\'Annexe A est en retard ou à réaliser dans les 30 jours.',
-            '##controltest.duestatus## : ##controltest.control##',
-            $text,
-            NotificationHtml::renderBranded(
-                '##controltest.brandcolor##',
-                '##controltest.duestatus## : ##controltest.control##',
-                '##controltest.action##',
-                [
-                    ['label' => 'Prochain test', 'tag' => '##controltest.nextdate##'],
-                    ['label' => 'Dernier test', 'tag' => '##controltest.lastdate##'],
-                    ['label' => 'Résultat', 'tag' => '##controltest.lastresult##'],
-                    ['label' => 'Responsable du plan de test', 'tag' => '##controltest.tester##'],
-                    ['label' => 'État de mise en œuvre', 'tag' => '##controltest.status##'],
-                ],
-                ['tag' => '##controltest.withdrawn##', 'if_tag' => 'controltest.withdrawn'],
-                [$advice],
-                ['url' => '##controltest.url##', 'text' => 'Voir la mesure']
-            ),
-            [
-                \GlpiPlugin\Grcmanager\NotificationTargetControl::TARGET_TESTER,
-                \GlpiPlugin\Grcmanager\NotificationTargetControl::TARGET_CISO_GROUP,
-            ]
-        );
-    }
-
-    /**
-     * Issue #378, deuxième étape : alerte d'un indicateur de risque passé au rouge (ou à l'orange,
-     * selon le réglage) et retour au vert (\GlpiPlugin\Grcmanager\KriAlert), au responsable du KRI et
-     * au groupe RSSI. Même habillage et même idempotence que le rappel des tests d'efficacité.
-     */
-    private function seedKriAlertNotifications(): void
-    {
-        $rows = [
-            ['label' => 'Statut', 'tag' => '##kri.status##'],
-            ['label' => 'Statut précédent', 'tag' => '##kri.previousstatus##'],
-            ['label' => 'Dernière valeur', 'tag' => '##kri.value##'],
-            ['label' => 'Relevée le', 'tag' => '##kri.date##'],
-            ['label' => 'Seuil orange', 'tag' => '##kri.warning##'],
-            ['label' => 'Seuil rouge', 'tag' => '##kri.critical##'],
-            ['label' => 'Source', 'tag' => '##kri.source##'],
-            ['label' => 'Entité', 'tag' => '##kri.entity##'],
-            ['label' => 'Responsable', 'tag' => '##kri.owner##'],
-        ];
-        $text = "##kri.action## : ##kri.name##\n\n"
-            . "Statut : ##kri.status## (avant : ##kri.previousstatus##)\n"
-            . "Dernière valeur : ##kri.value##, relevée le ##kri.date##\n"
-            . "Seuils : orange ##kri.warning##, rouge ##kri.critical##\n"
-            . "Source : ##kri.source##\n"
-            . "Entité : ##kri.entity##\n"
-            . "Responsable : ##kri.owner##\n\n";
-        $targets = [
-            \GlpiPlugin\Grcmanager\NotificationTargetRiskIndicator::TARGET_OWNER,
-            \GlpiPlugin\Grcmanager\NotificationTargetRiskIndicator::TARGET_CISO_GROUP,
-        ];
-        $events = [
-            \GlpiPlugin\Grcmanager\KriAlert::EVENT_ALERT => [
-                'GRC Manager - Indicateur de risque en alerte',
-                'Notification envoyée par GRC Manager lorsqu\'un indicateur de risque (KRI) passe au rouge, '
-                    . 'ou à l\'orange selon le réglage, une fois par changement d\'état.',
-                'Analysez la cause, décidez d\'un traitement et, si besoin, créez le ticket proposé sur la '
-                    . 'fiche de l\'indicateur.',
-            ],
-            \GlpiPlugin\Grcmanager\KriAlert::EVENT_CLEARED => [
-                'GRC Manager - Indicateur de risque revenu au vert',
-                'Notification envoyée par GRC Manager lorsqu\'un indicateur de risque (KRI) en alerte '
-                    . 'revient au vert.',
-                'L\'indicateur est revenu sous ses seuils. Vérifiez si le ticket éventuel peut être clos.',
-            ],
-        ];
-        foreach ($events as $event => [$name, $comment, $advice]) {
-            $this->seedBrandedNotification(
-                \GlpiPlugin\Grcmanager\RiskIndicator::class,
-                $event,
-                $name,
-                $comment,
-                '##kri.action## : ##kri.name##',
-                $text . $advice . "\n\nVoir l'indicateur : ##kri.url##",
-                NotificationHtml::renderBranded(
-                    '##kri.brandcolor##',
-                    '##kri.action## : ##kri.name##',
-                    '##kri.category##',
-                    $rows,
-                    null,
-                    [$advice],
-                    ['url' => '##kri.url##', 'text' => 'Voir l\'indicateur']
-                ),
-                $targets
-            );
-        }
-    }
-
-    /**
-     * Issue #377, quatrième étape : rappel d'une BIA à revoir et d'un test de reprise à refaire
-     * (\GlpiPlugin\Grcmanager\BusinessProcessReminder), au responsable du processus et au groupe
-     * RSSI. Même habillage et même idempotence que le rappel des tests d'efficacité.
-     */
-    private function seedBusinessProcessReminderNotifications(): void
-    {
-        $targets = [
-            \GlpiPlugin\Grcmanager\NotificationTargetBusinessProcess::TARGET_OWNER,
-            \GlpiPlugin\Grcmanager\NotificationTargetBusinessProcess::TARGET_CISO_GROUP,
-        ];
-        $subject = '##businessprocess.duestatus## : ##businessprocess.action## - ##businessprocess.name##';
-        $events = [
-            \GlpiPlugin\Grcmanager\BusinessProcessReminder::EVENT_BIA => [
-                'GRC Manager - Analyse d\'impact (BIA) à revoir',
-                'Notification envoyée par la tâche automatique GRC Manager lorsque l\'analyse d\'impact sur '
-                    . 'l\'activité (BIA) d\'un processus métier doit être revue dans les 30 jours ou est en retard '
-                    . '(date de la dernière BIA plus la fréquence de la revue périodique).',
-                [
-                    ['label' => 'À revoir le', 'tag' => '##businessprocess.duedate##'],
-                    ['label' => 'Dernière BIA', 'tag' => '##businessprocess.biadate##'],
-                ],
-                'Revoyez avec le responsable les impacts d\'une interruption dans le temps, la DMIA, le RTO et '
-                    . 'le RPO, puis enregistrez la BIA dans l\'onglet « Analyse d\'impact (BIA) » du processus.',
-                'Voir la BIA',
-            ],
-            \GlpiPlugin\Grcmanager\BusinessProcessReminder::EVENT_RECOVERY => [
-                'GRC Manager - Test de reprise à refaire',
-                'Notification envoyée par la tâche automatique GRC Manager lorsque le prochain test de reprise '
-                    . 'd\'un processus métier est dû dans les 30 jours ou en retard (date du dernier test plus la '
-                    . 'fréquence de la revue périodique des tests du PCA / PRA).',
-                [
-                    ['label' => 'Test dû le', 'tag' => '##businessprocess.duedate##'],
-                    ['label' => 'Dernier test', 'tag' => '##businessprocess.lasttest##'],
-                    ['label' => 'Temps mesuré', 'tag' => '##businessprocess.measured##'],
-                    ['label' => 'RTO', 'tag' => '##businessprocess.rto##'],
-                ],
-                'Planifiez un test ou un exercice de crise, puis enregistrez le temps de reprise mesuré dans '
-                    . 'l\'onglet « Stratégie de reprise » du processus.',
-                'Voir la stratégie de reprise',
-            ],
-        ];
-        $common = [
-            ['label' => 'Responsable', 'tag' => '##businessprocess.owner##'],
-            ['label' => 'Criticité', 'tag' => '##businessprocess.criticity##'],
-            ['label' => 'Entité', 'tag' => '##businessprocess.entity##'],
-        ];
-        foreach ($events as $event => [$name, $comment, $rows, $advice, $button]) {
-            $text = "##businessprocess.duestatus## : ##businessprocess.action##\n"
-                . "Processus : ##businessprocess.name##\n\n";
-            foreach (array_merge($rows, $common) as $row) {
-                $text .= $row['label'] . ' : ' . $row['tag'] . "\n";
-            }
-            $this->seedBrandedNotification(
-                \GlpiPlugin\Grcmanager\BusinessProcess::class,
-                $event,
-                $name,
-                $comment,
-                $subject,
-                $text . "\n" . $advice . "\n\n" . $button . ' : ##businessprocess.url##',
-                NotificationHtml::renderBranded(
-                    '##businessprocess.brandcolor##',
-                    '##businessprocess.duestatus## : ##businessprocess.name##',
-                    '##businessprocess.action##',
-                    array_merge($rows, $common),
-                    null,
-                    [$advice],
-                    ['url' => '##businessprocess.url##', 'text' => $button]
-                ),
-                $targets
-            );
-        }
-    }
-
-    /**
-     * Notification, modèle (traduction par défaut, en français) et cibles propres au plugin, créés
-     * une seule fois : une notification déjà présente (éventuellement modifiée par un
-     * administrateur) n'est jamais réécrite.
-     *
-     * @param list<int> $targets cibles propres (constantes >= 1000 de la classe NotificationTarget)
-     */
-    private function seedBrandedNotification(
-        string $itemtype,
-        string $event,
-        string $name,
-        string $comment,
-        string $subject,
-        string $text,
-        string $html,
-        array $targets
-    ): void {
-        global $DB;
-
-        $where = ['itemtype' => $itemtype, 'event' => $event];
-        if ($DB->request(['FROM' => 'glpi_notifications', 'WHERE' => $where])->count() > 0) {
-            return;
-        }
-
-        $templateId = (new NotificationTemplate())->add([
-            'name'     => $name,
-            'itemtype' => $itemtype,
-            'comment'  => $comment,
-        ]);
-        $DB->insert('glpi_notificationtemplatetranslations', [
-            'notificationtemplates_id' => $templateId,
-            'language'                 => '',
-            'subject'                  => $subject,
-            'content_text'             => $text,
-            'content_html'             => $html,
-        ]);
-
-        $notificationId = (new Notification())->add([
-            'name'         => $name,
-            'entities_id'  => 0,
-            'is_recursive' => 1,
-            'itemtype'     => $itemtype,
-            'event'        => $event,
-            'is_active'    => 1,
-        ]);
-        $DB->insert('glpi_notifications_notificationtemplates', [
-            'notifications_id'         => $notificationId,
-            'mode'                     => 'mailing',
-            'notificationtemplates_id' => $templateId,
-        ]);
-        foreach ($targets as $target) {
-            $DB->insert('glpi_notificationtargets', [
-                'notifications_id' => $notificationId,
-                'type'             => Notification::USER_TYPE,
-                'items_id'         => $target,
-            ]);
-        }
-    }
-
-    private function seedWaiverExpiringNotification(): void
-    {
-        global $DB;
-
-        $itemtype = 'GlpiPlugin\\Grcmanager\\Waiver';
-        $event    = 'waiver_expiring';
-        $where = ['itemtype' => $itemtype, 'event' => $event];
-        if ($DB->request(['FROM' => 'glpi_notifications', 'WHERE' => $where])->count() > 0) {
-            return;
-        }
-
-        $templateId = (new NotificationTemplate())->add([
-            'name'     => 'GRC Manager - Dérogation bientôt échue',
-            'itemtype' => $itemtype,
-            'comment'  => 'Notification envoyée par la tâche automatique GRC Manager 15 jours avant la fin '
-                . 'd\'une dérogation de sécurité.',
-        ]);
-        $text = "##waiver.action## : ##waiver.name##\n\n"
-            . "Date de fin : ##waiver.dateend##\n\n"
-            . "Réévaluez la dérogation : prolongez-la avec une nouvelle date de fin si l'exception est toujours "
-            . "nécessaire, ou close-la une fois la situation régularisée. Un ticket de réévaluation sera ouvert "
-            . "à l'échéance.\n\n"
-            . "Voir la dérogation : ##waiver.url##";
-        $DB->insert('glpi_notificationtemplatetranslations', [
-            'notificationtemplates_id' => $templateId,
-            'language'                 => '',
-            'subject'                  => '##waiver.action## : ##waiver.name##',
-            'content_text'             => $text,
-            'content_html'             => nl2br(htmlescape($text)),
-        ]);
-
-        $notificationId = (new Notification())->add([
-            'name'         => 'GRC Manager - Dérogation bientôt échue',
-            'entities_id'  => 0,
-            'is_recursive' => 1,
-            'itemtype'     => $itemtype,
-            'event'        => $event,
-            'is_active'    => 1,
-        ]);
-        $DB->insert('glpi_notifications_notificationtemplates', [
-            'notifications_id'         => $notificationId,
-            'mode'                     => 'mailing',
-            'notificationtemplates_id' => $templateId,
-        ]);
-        $DB->insert('glpi_notificationtargets', [
-            'notifications_id' => $notificationId,
-            'type'             => Notification::USER_TYPE,
-            'items_id'         => \GlpiPlugin\Grcmanager\NotificationTargetWaiver::TARGET_RESPONSIBLE,
-        ]);
-    }
-
-    private function seedTrainingRenewalNotification(): void
-    {
-        global $DB;
-
-        $itemtype = 'GlpiPlugin\\Grcmanager\\Training';
-        $event    = 'training_renewal_due';
-
-        $alreadySeeded = $DB->request([
-            'FROM'  => 'glpi_notifications',
-            'WHERE' => ['itemtype' => $itemtype, 'event' => $event],
-        ])->count() > 0;
-
-        if ($alreadySeeded) {
-            return;
-        }
-
-        $template = new NotificationTemplate();
-        $templateId = $template->add([
-            'name'     => 'GRC Manager - Renouvellement de formation en retard',
-            'itemtype' => $itemtype,
-            'comment'  => 'Notification envoyée par la tâche automatique GRC Manager lorsqu\'un '
-                . 'participant est en retard de renouvellement pour une formation.',
-        ]);
-
-        $DB->insert('glpi_notificationtemplatetranslations', [
-            'notificationtemplates_id' => $templateId,
-            'language'                 => '',
-            'subject'                  => '##training.action## : ##training.title##',
-            'content_text'             => "##training.action## : ##training.title##\n\n"
-                . "Format : ##training.format##\n"
-                . "Renouvellement (mois) : ##training.renewalmonths##\n\n"
-                . "Voir la formation : ##training.url##",
-            'content_html'             => NotificationHtml::render([
-                NotificationHtml::strong('##training.action## : ##training.title##'),
-                NotificationHtml::lines([
-                    'Format : ##training.format##',
-                    'Renouvellement (mois) : ##training.renewalmonths##',
-                ]),
-                NotificationHtml::link('##training.url##', 'Voir la formation'),
-            ]),
-        ]);
-
-        $notification = new Notification();
-        $notificationId = $notification->add([
-            'name'         => 'GRC Manager - Renouvellement de formation en retard',
-            'entities_id'  => 0,
-            'is_recursive' => 1,
-            'itemtype'     => $itemtype,
-            'event'        => $event,
-            'is_active'    => 1,
-        ]);
-
-        $DB->insert('glpi_notifications_notificationtemplates', [
-            'notifications_id'         => $notificationId,
-            'mode'                     => 'mailing',
-            'notificationtemplates_id' => $templateId,
-        ]);
-        $DB->insert('glpi_notificationtargets', [
-            'notifications_id' => $notificationId,
-            'type'             => Notification::USER_TYPE,
-            'items_id'         => NotificationTargetTraining::TARGET_OVERDUE_PARTICIPANTS,
-        ]);
-    }
-
-    /**
-     * Issue #371 : alertes d'accès au module des incidents (droits étendus, profil attribué,
-     * module désactivé), au groupe RSSI et à l'administrateur GLPI. Idempotent.
-     */
-    private function seedIncidentAccessWatchNotifications(): void
-    {
-        global $DB;
-
-        $itemtype = \GlpiPlugin\Grcmanager\IncidentAccessWatch::class;
-        $events = [
-            \GlpiPlugin\Grcmanager\IncidentAccessWatch::ACCESS_CHANGED_EVENT  => [
-                'GRC Manager - Accès aux incidents de sécurité modifiés',
-                'Accès au module des incidents de sécurité modifiés',
-            ],
-            \GlpiPlugin\Grcmanager\IncidentAccessWatch::MODULE_DISABLED_EVENT => [
-                'GRC Manager - Module des incidents de sécurité désactivé',
-                'Module des incidents de sécurité désactivé',
-            ],
-        ];
-        foreach ($events as $event => [$name, $title]) {
-            $existing = ['itemtype' => $itemtype, 'event' => $event];
-            if ($DB->request(['FROM' => 'glpi_notifications', 'WHERE' => $existing])->count() > 0) {
+        $names = MoCatalog::translator(self::instanceLanguage());
+        foreach (NotificationTemplateDefaults::definitions() as $key => $definition) {
+            $where = ['itemtype' => $definition['itemtype'], 'event' => $definition['event']];
+            if ($DB->request(['FROM' => 'glpi_notifications', 'WHERE' => $where])->count() > 0) {
                 continue;
             }
-            $templateId = (new NotificationTemplate())->add([
+
+            $name = NotificationTemplateDefaults::NAME_PREFIX . $names($definition['name']);
+            $templateId = (int) (new NotificationTemplate())->add([
                 'name'     => $name,
-                'itemtype' => $itemtype,
-                'comment'  => 'Issue #371 : envoyée par la tâche « accesswatch » ou à la désactivation du module.',
+                'itemtype' => $definition['itemtype'],
+                'comment'  => $definition['comment'] === '' ? '' : $names($definition['comment']),
             ]);
-            $DB->insert('glpi_notificationtemplatetranslations', [
-                'notificationtemplates_id' => $templateId,
-                'language'                 => '',
-                'subject'                  => '##accesswatch.action##',
-                'content_text'             => "##accesswatch.action##\n\n##accesswatch.changes##\n\n"
-                    . "Rien n'a été modifié automatiquement. Journal d'audit : ##accesswatch.url##",
-                'content_html'             => NotificationHtml::render([
-                    NotificationHtml::strong('##accesswatch.action##'),
-                    NotificationHtml::lines(['##accesswatch.changes##', "Rien n'a été modifié automatiquement."]),
-                    NotificationHtml::link('##accesswatch.url##', "Ouvrir le journal d'audit"),
-                ]),
-            ]);
-            $notificationId = (new Notification())->add([
+            foreach (array_merge([''], NotificationTemplateDefaults::LANGUAGES) as $language) {
+                $this->insertTemplateTranslation($key, $templateId, $language);
+            }
+
+            $notification = [
                 'name'         => $name,
                 'entities_id'  => 0,
                 'is_recursive' => 1,
-                'itemtype'     => $itemtype,
-                'event'        => $event,
+                'itemtype'     => $definition['itemtype'],
+                'event'        => $definition['event'],
                 'is_active'    => 1,
-                'comment'      => $title,
-            ]);
+            ];
+            if ($definition['notification_comment'] !== '') {
+                $notification['comment'] = $names($definition['notification_comment']);
+            }
+            $notificationId = (new Notification())->add($notification);
             $DB->insert('glpi_notifications_notificationtemplates', [
                 'notifications_id'         => $notificationId,
                 'mode'                     => 'mailing',
                 'notificationtemplates_id' => $templateId,
             ]);
-            foreach (
-                [
-                    \GlpiPlugin\Grcmanager\NotificationTargetIncidentAccessWatch::TARGET_CISO_GROUP,
-                    Notification::GLOBAL_ADMINISTRATOR,
-                ] as $target
-            ) {
+            foreach ($definition['targets'] as $target) {
                 $DB->insert('glpi_notificationtargets', [
                     'notifications_id' => $notificationId,
                     'type'             => Notification::USER_TYPE,
@@ -4314,269 +3522,129 @@ final class Installer
     }
 
     /**
-     * Issue #183 : « nouvelles expositions à des fuites de données », au groupe RSSI et à
-     * l'administrateur GLPI. Contenu minimal (registre sensible). Idempotent.
+     * Issue #582 : les modèles créés par les versions précédentes n'avaient qu'une traduction par
+     * défaut, en français. Pour chaque modèle du plugin :
+     * - traduction par défaut d'origine (texte français reconnu mot pour mot, voir
+     *   NotificationTemplateDefaults::LEGACY_FR) : remplacée par l'anglais ;
+     * - traduction par défaut modifiée par l'administrateur : conservée telle quelle, et aucune
+     *   traduction française n'est ajoutée (les destinataires francophones gardent son texte) ;
+     * - langues manquantes ajoutées ; une traduction déjà présente n'est jamais modifiée ;
+     * - nom et commentaire d'origine (français) traduits dans la langue de l'instance, un nom
+     *   modifié est conservé.
+     * Idempotent : un modèle déjà migré ne change plus.
      */
-    private function seedBreachExposureNotification(): void
+    private function migrateNotificationTemplateLanguages(): void
     {
         global $DB;
 
-        $itemtype = \GlpiPlugin\Grcmanager\BreachExposure::class;
-        $event    = \GlpiPlugin\Grcmanager\BreachExposure::NEW_EXPOSURES_EVENT;
-        $criteria = ['itemtype' => $itemtype, 'event' => $event];
-        if ($DB->request(['FROM' => 'glpi_notifications', 'WHERE' => $criteria])->count() > 0) {
-            return;
-        }
-
-        $templateId = (new NotificationTemplate())->add([
-            'name'     => 'GRC Manager - Nouvelles expositions à des fuites de données',
-            'itemtype' => $itemtype,
-            'comment'  => 'Envoyée par la tâche automatique « breachmonitor » (Have I Been Pwned).',
-        ]);
-        $DB->insert('glpi_notificationtemplatetranslations', [
-            'notificationtemplates_id' => $templateId,
-            'language'                 => '',
-            'subject'                  => '##breachexposure.action## : ##breachexposure.count##',
-            'content_text'             => "##breachexposure.action## : ##breachexposure.count##\n\n"
-                . "Adresses professionnelles trouvées dans des fuites de données connues. Détail dans le "
-                . "registre (accès restreint) : ##breachexposure.url##",
-            'content_html'             => NotificationHtml::render([
-                NotificationHtml::strong('##breachexposure.action## : ##breachexposure.count##'),
-                NotificationHtml::lines([
-                    'Adresses professionnelles trouvées dans des fuites de données connues.',
-                    'Détail dans le registre (accès restreint).',
-                ]),
-                NotificationHtml::link('##breachexposure.url##', 'Ouvrir le registre'),
-            ]),
-        ]);
-        $notificationId = (new Notification())->add([
-            'name'         => 'GRC Manager - Nouvelles expositions à des fuites de données',
-            'entities_id'  => 0,
-            'is_recursive' => 1,
-            'itemtype'     => $itemtype,
-            'event'        => $event,
-            'is_active'    => 1,
-        ]);
-        $DB->insert('glpi_notifications_notificationtemplates', [
-            'notifications_id'         => $notificationId,
-            'mode'                     => 'mailing',
-            'notificationtemplates_id' => $templateId,
-        ]);
-        foreach (
-            [
-                \GlpiPlugin\Grcmanager\NotificationTargetBreachExposure::TARGET_CISO_GROUP,
-                Notification::GLOBAL_ADMINISTRATOR,
-            ] as $target
-        ) {
-            $DB->insert('glpi_notificationtargets', [
-                'notifications_id' => $notificationId,
-                'type'             => Notification::USER_TYPE,
-                'items_id'         => $target,
+        $names = MoCatalog::translator(self::instanceLanguage());
+        foreach (NotificationTemplateDefaults::definitions() as $key => $definition) {
+            $name = NotificationTemplateDefaults::NAME_PREFIX . $names($definition['name']);
+            $templateIds = [];
+            $notifications = $DB->request([
+                'FROM'  => 'glpi_notifications',
+                'WHERE' => ['itemtype' => $definition['itemtype'], 'event' => $definition['event']],
             ]);
+            foreach ($notifications as $notification) {
+                $changes = [];
+                if ($notification['name'] === $definition['legacy_name'] && $name !== $definition['legacy_name']) {
+                    $changes['name'] = $name;
+                }
+                if (
+                    $definition['legacy_notification_comment'] !== ''
+                    && $notification['comment'] === $definition['legacy_notification_comment']
+                ) {
+                    $changes['comment'] = $names($definition['notification_comment']);
+                }
+                if ($changes !== []) {
+                    $DB->update('glpi_notifications', $changes, ['id' => $notification['id']]);
+                }
+                $links = $DB->request([
+                    'SELECT' => 'notificationtemplates_id',
+                    'FROM'   => 'glpi_notifications_notificationtemplates',
+                    'WHERE'  => ['notifications_id' => $notification['id']],
+                ]);
+                foreach ($links as $link) {
+                    $templateIds[(int) $link['notificationtemplates_id']] = true;
+                }
+            }
+
+            foreach (array_keys($templateIds) as $templateId) {
+                $template = $DB->request([
+                    'FROM'  => 'glpi_notificationtemplates',
+                    'WHERE' => ['id' => $templateId, 'itemtype' => $definition['itemtype']],
+                ])->current();
+                if (!is_array($template)) {
+                    continue;
+                }
+                $changes = [];
+                if ($template['name'] === $definition['legacy_name'] && $name !== $definition['legacy_name']) {
+                    $changes['name'] = $name;
+                }
+                if ($definition['legacy_comment'] !== '' && $template['comment'] === $definition['legacy_comment']) {
+                    $changes['comment'] = $names($definition['comment']);
+                }
+                if ($changes !== []) {
+                    $DB->update('glpi_notificationtemplates', $changes, ['id' => $templateId]);
+                }
+                $this->completeTemplateLanguages($key, $templateId);
+            }
         }
     }
 
-    /**
-     * Issue #485 : rapport périodique des vulnérabilités du parc, au groupe RSSI (seuls les
-     * destinataires qui lisent les vulnérabilités de tout le parc le reçoivent). Titre calculé à
-     * l'envoi, qui donne l'urgence. Idempotent : une notification modifiée n'est jamais réécrite.
-     */
-    private function seedVulnerabilityDigestNotification(): void
-    {
-        $name = 'GRC Manager - Rapport des vulnérabilités du parc';
-        $rows = [
-            ['label' => 'Exploitées activement (CISA KEV)', 'tag' => '##vulndigest.exploited##', 'color' => '#d63939'],
-            ['label' => 'Probablement exploitées (EPSS)', 'tag' => '##vulndigest.likely##', 'color' => '#f76707'],
-            ['label' => 'Critiques (CVSS 9 ou plus)', 'tag' => '##vulndigest.critical##', 'color' => '#f59f00'],
-            ['label' => 'Élevées (CVSS inférieur à 9)', 'tag' => '##vulndigest.high##', 'color' => '#1a1a2e'],
-            ['label' => 'Machines exposées', 'tag' => '##vulndigest.machines##', 'color' => '#1a1a2e'],
-            ['label' => 'Nouvelles depuis le dernier rapport', 'tag' => '##vulndigest.new##', 'color' => '#1a1a2e'],
-        ];
-        $advice = 'Traitez d\'abord les vulnérabilités exploitées : mettez à jour le logiciel ou appliquez '
-            . 'la mesure de contournement de l\'éditeur. La liste complète, les machines concernées et la '
-            . 'création de tickets sont dans GLPI.';
-        $text = "##vulndigest.subject##\n\n";
-        foreach ($rows as $row) {
-            $text .= $row['label'] . ' : ' . $row['tag'] . "\n";
-        }
-        $text .= "##vulndigest.ransomware##\n\n"
-            . "##FOREACHvulnerabilities##- ##vulnerability.cve## : "
-            . "##vulnerability.product## (##vulnerability.versions##), ##vulnerability.category##, "
-            . "##vulnerability.signal##, ##vulnerability.machines## machine(s) ##vulnerability.isnew##\n"
-            . "##ENDFOREACHvulnerabilities##"
-            . "##vulndigest.more##\n\n" . $advice . "\n\nVoir les vulnérabilités du parc : ##vulndigest.url##";
-        $html = NotificationHtml::renderVulnerabilityDigest(
-            'Rapport des vulnérabilités du parc',
-            $rows,
-            ['CVE', 'Logiciel', 'Catégorie', 'Machines'],
-            [$advice],
-            'Voir les vulnérabilités du parc'
-        );
-        $this->seedBrandedNotification(
-            \GlpiPlugin\Grcmanager\VulnerabilityDigest::class,
-            \GlpiPlugin\Grcmanager\VulnerabilityDigest::EVENT,
-            $name,
-            'Envoyée par la tâche automatique « vulnerabilitydigest » selon la fréquence choisie dans la '
-                . 'configuration de GRC Manager (vulnérabilités exploitées, probablement exploitées, '
-                . 'critiques et élevées du parc).',
-            '##vulndigest.subject##',
-            $text,
-            $html,
-            [\GlpiPlugin\Grcmanager\NotificationTargetVulnerabilityDigest::TARGET_CISO_GROUP]
-        );
-    }
-
-    /**
-     * Same structure as seedReviewReminderNotification() above, for the issue #28 policy
-     * review-reminder Cron task (\GlpiPlugin\Grcmanager\Policy::cronReviewreminder(), event
-     * 'policy_review_due', see inc/notificationtargetpolicy.class.php). Idempotent for the same
-     * reason. Kept as its own dedicated method rather than a third call to
-     * seedReviewReminderNotification(): that method's event is hardcoded to 'review_due' and its
-     * tags to `##<prefix>.risklevel##`/`##<prefix>.reviewdate##`-shaped risk wording, which doesn't
-     * fit this itemtype's own event name and tag set (title/version/status/reviewdate), same
-     * reasoning as PolicyReviewReminderService not simply reusing ReviewReminderService (see its
-     * own docblock).
-     */
-    private function seedPolicyReviewReminderNotification(): void
+    private function completeTemplateLanguages(string $key, int $templateId): void
     {
         global $DB;
 
-        $itemtype = 'GlpiPlugin\\Grcmanager\\Policy';
-        $event    = 'policy_review_due';
-
-        $alreadySeeded = $DB->request([
-            'FROM'  => 'glpi_notifications',
-            'WHERE' => ['itemtype' => $itemtype, 'event' => $event],
-        ])->count() > 0;
-
-        if ($alreadySeeded) {
-            return;
+        $rows = [];
+        $translations = $DB->request([
+            'FROM'  => 'glpi_notificationtemplatetranslations',
+            'WHERE' => ['notificationtemplates_id' => $templateId],
+            'ORDER' => 'id',
+        ]);
+        foreach ($translations as $row) {
+            $rows[(string) $row['language']] ??= $row;
         }
 
-        $template = new NotificationTemplate();
-        $templateId = $template->add([
-            'name'     => 'GRC Manager - Revue de politique de sécurité à échéance',
-            'itemtype' => $itemtype,
-            'comment'  => 'Notification envoyée par la tâche automatique GRC Manager lorsqu\'une '
-                . 'politique de sécurité atteint ou dépasse sa prochaine date de revue.',
-        ]);
+        $english = NotificationTemplateDefaults::build($key, MoCatalog::translator(''));
+        $customDefault = false;
+        if (!isset($rows[''])) {
+            $this->insertTemplateTranslation($key, $templateId, '');
+        } elseif (
+            NotificationTemplateDefaults::sameContent(
+                $rows[''],
+                NotificationTemplateDefaults::build($key, NotificationTemplateDefaults::legacyTranslator())
+            )
+        ) {
+            $DB->update('glpi_notificationtemplatetranslations', $english, ['id' => $rows['']['id']]);
+        } elseif (!NotificationTemplateDefaults::sameContent($rows[''], $english)) {
+            $customDefault = true;
+        }
 
-        $DB->insert('glpi_notificationtemplatetranslations', [
-            'notificationtemplates_id' => $templateId,
-            'language'                 => '',
-            'subject'                  => '##policy.action## : ##policy.title##',
-            'content_text'             => "##policy.action## : ##policy.title##\n\n"
-                . "Version : ##policy.version##\n"
-                . "Statut : ##policy.status##\n"
-                . "Prochaine revue : ##policy.reviewdate##\n\n"
-                . "Voir la politique : ##policy.url##",
-            'content_html'             => NotificationHtml::render([
-                NotificationHtml::strong('##policy.action## : ##policy.title##'),
-                NotificationHtml::lines([
-                    'Version : ##policy.version##',
-                    'Statut : ##policy.status##',
-                    'Prochaine revue : ##policy.reviewdate##',
-                ]),
-                NotificationHtml::link('##policy.url##', 'Voir la politique'),
-            ]),
-        ]);
-
-        $notification = new Notification();
-        $notificationId = $notification->add([
-            'name'         => 'GRC Manager - Revue de politique de sécurité à échéance',
-            'entities_id'  => 0,
-            'is_recursive' => 1,
-            'itemtype'     => $itemtype,
-            'event'        => $event,
-            'is_active'    => 1,
-        ]);
-
-        $DB->insert('glpi_notifications_notificationtemplates', [
-            'notifications_id'         => $notificationId,
-            'mode'                     => 'mailing',
-            'notificationtemplates_id' => $templateId,
-        ]);
-
-        // Default recipient: the policy's own owner (`users_id`), same generic resolution as
-        // seedReviewReminderNotification() above.
-        $DB->insert('glpi_notificationtargets', [
-            'items_id'         => Notification::ITEM_USER,
-            'type'             => Notification::USER_TYPE,
-            'notifications_id' => $notificationId,
-        ]);
+        foreach (NotificationTemplateDefaults::LANGUAGES as $language) {
+            if (isset($rows[$language]) || ($customDefault && str_starts_with($language, 'fr'))) {
+                continue;
+            }
+            $this->insertTemplateTranslation($key, $templateId, $language);
+        }
     }
 
-    /**
-     * Same structure as seedCapaOverdueNotification() above, for the issue #31 overdue treatment
-     * action Cron task (\GlpiPlugin\Grcmanager\RiskTreatmentAction::cronOverduetreatmentaction(), event
-     * 'treatment_action_overdue', see inc/notificationtargetrisktreatmentaction.class.php).
-     * Idempotent for the same reason.
-     */
-    private function seedTreatmentActionOverdueNotification(): void
+    private function insertTemplateTranslation(string $key, int $templateId, string $language): void
     {
         global $DB;
 
-        $itemtype = 'GlpiPlugin\\Grcmanager\\RiskTreatmentAction';
-        $event    = 'treatment_action_overdue';
-
-        $alreadySeeded = $DB->request([
-            'FROM'  => 'glpi_notifications',
-            'WHERE' => ['itemtype' => $itemtype, 'event' => $event],
-        ])->count() > 0;
-
-        if ($alreadySeeded) {
-            return;
-        }
-
-        $template = new NotificationTemplate();
-        $templateId = $template->add([
-            'name'     => 'GRC Manager - Action de traitement de risque en retard',
-            'itemtype' => $itemtype,
-            'comment'  => 'Notification envoyée par la tâche automatique GRC Manager lorsqu\'une '
-                . 'action du plan de traitement d\'un risque dépasse son échéance sans être réalisée.',
-        ]);
-
         $DB->insert('glpi_notificationtemplatetranslations', [
             'notificationtemplates_id' => $templateId,
-            'language'                 => '',
-            'subject'                  => '##treatmentaction.action## : ##treatmentaction.risktitle##',
-            'content_text'             => "##treatmentaction.action## : ##treatmentaction.risktitle##\n\n"
-                . "Action : ##treatmentaction.description##\n"
-                . "Échéance : ##treatmentaction.duedate##\n\n"
-                . "Voir le risque : ##treatmentaction.url##",
-            'content_html'             => NotificationHtml::render([
-                NotificationHtml::strong('##treatmentaction.action## : ##treatmentaction.risktitle##'),
-                NotificationHtml::lines([
-                    'Action : ##treatmentaction.description##',
-                    'Échéance : ##treatmentaction.duedate##',
-                ]),
-                NotificationHtml::link('##treatmentaction.url##', 'Voir le risque'),
-            ]),
-        ]);
+            'language'                 => $language,
+        ] + NotificationTemplateDefaults::build($key, MoCatalog::translator($language)));
+    }
 
-        $notification = new Notification();
-        $notificationId = $notification->add([
-            'name'         => 'GRC Manager - Action de traitement de risque en retard',
-            'entities_id'  => 0,
-            'is_recursive' => 1,
-            'itemtype'     => $itemtype,
-            'event'        => $event,
-            'is_active'    => 1,
-        ]);
+    /** Langue par défaut de l'instance (Configuration générale), pour les noms des modèles. */
+    private static function instanceLanguage(): string
+    {
+        global $CFG_GLPI;
 
-        $DB->insert('glpi_notifications_notificationtemplates', [
-            'notifications_id'         => $notificationId,
-            'mode'                     => 'mailing',
-            'notificationtemplates_id' => $templateId,
-        ]);
-
-        // Default recipient: the treatment action's own responsible owner (`users_id`), same
-        // generic resolution as seedCapaOverdueNotification() above.
-        $DB->insert('glpi_notificationtargets', [
-            'items_id'         => Notification::ITEM_USER,
-            'type'             => Notification::USER_TYPE,
-            'notifications_id' => $notificationId,
-        ]);
+        return (string) ($CFG_GLPI['language'] ?? 'en_GB');
     }
 
     /**
@@ -5105,180 +4173,6 @@ final class Installer
                 'status'        => IsmsClauseCatalog::STATUS_NOT_STARTED,
                 'date_creation' => date('Y-m-d H:i:s'),
                 'date_mod'      => date('Y-m-d H:i:s'),
-            ]);
-        }
-    }
-
-    /**
-     * Issue #112 : prévient les approbateurs désignés qu'une version de la SoA attend leur
-     * approbation (cible « Approbateurs désignés », voir \GlpiPlugin\Grcmanager\NotificationTargetSoaVersion).
-     */
-    private function seedSoaApprovalNotification(): void
-    {
-        global $DB;
-
-        $itemtype = 'GlpiPlugin\\Grcmanager\\SoaVersion';
-        $event    = 'soa_approval_request';
-
-        $alreadySeeded = $DB->request([
-            'FROM'  => 'glpi_notifications',
-            'WHERE' => ['itemtype' => $itemtype, 'event' => $event],
-        ])->count() > 0;
-
-        if ($alreadySeeded) {
-            return;
-        }
-
-        $template = new NotificationTemplate();
-        $templateId = $template->add([
-            'name'     => 'GRC Manager - Approbation de la SoA demandée',
-            'itemtype' => $itemtype,
-            'comment'  => 'Envoyée aux approbateurs désignés quand une version de la Déclaration '
-                . 'd\'Applicabilité est figée et soumise à approbation.',
-        ]);
-
-        // Modèle FR par défaut + EN pour les destinataires en anglais (sinon libellés traduits et
-        // texte français se mélangent dans le même e-mail).
-        $translations = [
-            ''      => [
-                'subject' => '##soa.action## : version ##soa.version##',
-                'ask'     => '##soa.requester## vous demande d\'approuver la version ##soa.version## de la '
-                    . 'Déclaration d\'Applicabilité (##soa.date##).',
-                'link'    => 'Lire la version figée et répondre',
-                'sep'     => ' : ',
-            ],
-            'en_GB' => [
-                'subject' => '##soa.action##: version ##soa.version##',
-                'ask'     => '##soa.requester## asks you to approve version ##soa.version## of the Statement '
-                    . 'of Applicability (##soa.date##).',
-                'link'    => 'Read the frozen version and answer',
-                'sep'     => ': ',
-            ],
-        ];
-        foreach ($translations as $language => $t) {
-            $DB->insert('glpi_notificationtemplatetranslations', [
-                'notificationtemplates_id' => $templateId,
-                'language'                 => $language,
-                'subject'                  => $t['subject'],
-                'content_text'             => $t['ask'] . "\n\n##soa.comment##\n\n"
-                    . $t['link'] . $t['sep'] . '##soa.url##',
-                'content_html'             => NotificationHtml::render([
-                    NotificationHtml::lines([$t['ask']]),
-                    NotificationHtml::lines(['##soa.comment##']),
-                    NotificationHtml::link('##soa.url##', $t['link']),
-                ]),
-            ]);
-        }
-
-        $notification = new Notification();
-        $notificationId = $notification->add([
-            'name'         => 'GRC Manager - Approbation de la SoA demandée',
-            'entities_id'  => 0,
-            'is_recursive' => 1,
-            'itemtype'     => $itemtype,
-            'event'        => $event,
-            'is_active'    => 1,
-        ]);
-
-        $DB->insert('glpi_notifications_notificationtemplates', [
-            'notifications_id'         => $notificationId,
-            'mode'                     => 'mailing',
-            'notificationtemplates_id' => $templateId,
-        ]);
-
-        $DB->insert('glpi_notificationtargets', [
-            'items_id'         => \GlpiPlugin\Grcmanager\NotificationTargetSoaVersion::APPROVERS_TARGET,
-            'type'             => Notification::USER_TYPE,
-            'notifications_id' => $notificationId,
-        ]);
-    }
-
-    /**
-     * Issue #126 : notifications de la revue des accès (lancement, puis relances des responsables
-     * en retard), cible « Responsables ayant des comptes à revoir ».
-     */
-    private function seedAccessReviewNotifications(): void
-    {
-        global $DB;
-
-        $itemtype = 'GlpiPlugin\\Grcmanager\\AccessReview';
-        $events = [
-            'access_review_request'  => [
-                'name' => 'GRC Manager - Revue des accès à réaliser',
-                ''     => [
-                    'Revue des accès à réaliser : ##accessreview.name##',
-                    '##accessreview.owner## vous demande de revoir les accès des comptes de votre équipe '
-                        . 'avant le ##accessreview.duedate## (campagne « ##accessreview.name## »).',
-                    'Faire ma revue des accès',
-                ],
-                'en_GB' => [
-                    'Access review to complete: ##accessreview.name##',
-                    '##accessreview.owner## asks you to review the access rights of your team\'s accounts '
-                        . 'before ##accessreview.duedate## (campaign "##accessreview.name##").',
-                    'Complete my access review',
-                ],
-            ],
-            'access_review_reminder' => [
-                'name' => 'GRC Manager - Relance de la revue des accès',
-                ''     => [
-                    'Relance : revue des accès ##accessreview.name##',
-                    'L\'échéance du ##accessreview.duedate## est dépassée et des comptes de votre équipe '
-                        . 'attendent encore votre décision (campagne « ##accessreview.name## »).',
-                    'Terminer ma revue des accès',
-                ],
-                'en_GB' => [
-                    'Reminder: access review ##accessreview.name##',
-                    'The ##accessreview.duedate## deadline has passed and accounts of your team are still '
-                        . 'waiting for your decision (campaign "##accessreview.name##").',
-                    'Finish my access review',
-                ],
-            ],
-        ];
-
-        foreach ($events as $event => $definition) {
-            $alreadySeeded = $DB->request([
-                'FROM'  => 'glpi_notifications',
-                'WHERE' => ['itemtype' => $itemtype, 'event' => $event],
-            ])->count() > 0;
-            if ($alreadySeeded) {
-                continue;
-            }
-
-            $templateId = (new NotificationTemplate())->add([
-                'name'     => $definition['name'],
-                'itemtype' => $itemtype,
-            ]);
-            foreach (['', 'en_GB'] as $language) {
-                [$subject, $text, $link] = $definition[$language];
-                $DB->insert('glpi_notificationtemplatetranslations', [
-                    'notificationtemplates_id' => $templateId,
-                    'language'                 => $language,
-                    'subject'                  => $subject,
-                    'content_text'             => $text . "\n\n" . $link . ' : ##accessreview.url##',
-                    'content_html'             => NotificationHtml::render([
-                        NotificationHtml::lines([$text]),
-                        NotificationHtml::link('##accessreview.url##', $link),
-                    ]),
-                ]);
-            }
-
-            $notificationId = (new Notification())->add([
-                'name'         => $definition['name'],
-                'entities_id'  => 0,
-                'is_recursive' => 1,
-                'itemtype'     => $itemtype,
-                'event'        => $event,
-                'is_active'    => 1,
-            ]);
-            $DB->insert('glpi_notifications_notificationtemplates', [
-                'notifications_id'         => $notificationId,
-                'mode'                     => 'mailing',
-                'notificationtemplates_id' => $templateId,
-            ]);
-            $DB->insert('glpi_notificationtargets', [
-                'items_id'         => \GlpiPlugin\Grcmanager\NotificationTargetAccessReview::REVIEWERS_TARGET,
-                'type'             => Notification::USER_TYPE,
-                'notifications_id' => $notificationId,
             ]);
         }
     }

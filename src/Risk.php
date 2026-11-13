@@ -1038,7 +1038,7 @@ class Risk extends RiskBase
 
         $task->addVolume($result->getNotified());
         $task->log(sprintf(
-            '%d risque(s) en attente de revue, %d notification(s) déclenchée(s).',
+            __('%d risk(s) awaiting review, %d notification(s) raised.', 'grcmanager'),
             $result->getDue(),
             $result->getNotified()
         ));

@@ -25,6 +25,15 @@ final class DoraCatalogDefaultsTest extends TestCase
         }
     }
 
+    /** Issue #582 : intitulés officiels italiens (les exigences résumées restent en français et anglais). */
+    public function testEveryArticleHasAnItalianTitle(): void
+    {
+        foreach (DoraCatalogDefaults::ARTICLES as $article => $title) {
+            self::assertNotSame('', trim($title['it']), "Article $article it");
+            self::assertStringNotContainsString("\u{2014}", $title['it'], "Article $article");
+        }
+    }
+
     public function testEveryArticleHasAtLeastOneRequirement(): void
     {
         $articles = array_unique(array_map(

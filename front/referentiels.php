@@ -16,6 +16,7 @@
  */
 
 use GlpiPlugin\Grcmanager\Services\Control\AnssiHygieneCatalogDefaults;
+use GlpiPlugin\Grcmanager\Services\Control\CatalogLanguage;
 use GlpiPlugin\Grcmanager\Services\Control\CisControlsCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\ControlCatalogDefaults;
 use Glpi\Exception\Http\AccessDeniedHttpException;
@@ -146,10 +147,10 @@ foreach (CisControlsCatalogDefaults::CONTROLS as $controlNumber => $controlName)
     ];
 }
 
-// Issue #110 : NIS2 dans la langue de l'utilisateur (versions officielles FR/EN de la directive,
-// le français pour toute langue fr_*, l'anglais sinon), correspondance Annexe A indicative reliée
-// aux fiches de contrôle quand elles existent.
-$nis2Lang = str_starts_with((string) ($_SESSION['glpilanguage'] ?? 'fr_FR'), 'fr') ? 'fr' : 'en';
+// Issue #110 : NIS2 dans la langue de l'utilisateur (versions officielles de la directive),
+// correspondance Annexe A indicative reliée aux fiches de contrôle quand elles existent. Issue #582 :
+// langue de chaque texte choisie par CatalogLanguage (langue de l'utilisateur si le catalogue l'a,
+// sinon l'anglais, sinon le français), pour tous les catalogues de cette page.
 $nis2 = [];
 foreach (Nis2CatalogDefaults::ARTICLES as $article => $articleTitle) {
     $requirements = [];
@@ -163,12 +164,16 @@ foreach (Nis2CatalogDefaults::ARTICLES as $article => $articleTitle) {
         }
         $requirements[] = [
             'reference' => Nis2CatalogDefaults::reference($code),
-            'text'      => $requirement[$nis2Lang],
+            'text'      => CatalogLanguage::pick($requirement),
             'summary'   => $requirement['summary'],
             'controls'  => $controls,
         ];
     }
-    $nis2[] = ['article' => (string) $article, 'title' => $articleTitle[$nis2Lang], 'requirements' => $requirements];
+    $nis2[] = [
+        'article'      => (string) $article,
+        'title'        => CatalogLanguage::pick($articleTitle),
+        'requirements' => $requirements,
+    ];
 }
 
 // Issue #379 : DORA dans la langue de l'utilisateur (intitulés officiels FR/EN, exigences résumées
@@ -186,12 +191,16 @@ foreach (DoraCatalogDefaults::ARTICLES as $article => $articleTitle) {
         }
         $requirements[] = [
             'reference' => DoraCatalogDefaults::reference((string) $code),
-            'text'      => $requirement[$nis2Lang],
+            'text'      => CatalogLanguage::pick($requirement),
             'summary'   => $requirement['summary'],
             'controls'  => $controls,
         ];
     }
-    $dora[] = ['article' => (string) $article, 'title' => $articleTitle[$nis2Lang], 'requirements' => $requirements];
+    $dora[] = [
+        'article'      => (string) $article,
+        'title'        => CatalogLanguage::pick($articleTitle),
+        'requirements' => $requirements,
+    ];
 }
 
 // Issue #111 : guide d'hygiène ANSSI : intitulés officiels en français, traduction anglaise
@@ -207,9 +216,9 @@ foreach (AnssiHygieneCatalogDefaults::THEMES as $themeCode => $themeTitle) {
         foreach ($measure['annex_a'] as $annexACode) {
             $controls[] = ['code' => $annexACode, 'id' => $idsByCode[$annexACode] ?? null];
         }
-        $measures[] = ['number' => $number, 'text' => $measure[$nis2Lang], 'controls' => $controls];
+        $measures[] = ['number' => $number, 'text' => CatalogLanguage::pick($measure), 'controls' => $controls];
     }
-    $anssi[] = ['code' => $themeCode, 'title' => $themeTitle[$nis2Lang], 'measures' => $measures];
+    $anssi[] = ['code' => $themeCode, 'title' => CatalogLanguage::pick($themeTitle), 'measures' => $measures];
 }
 
 // Issue #379 : modules du plugin cités par ISO 27701, 22301, 42001, PCI DSS et SOC 2, liés si l'utilisateur
@@ -267,7 +276,6 @@ $isoGroups = static function (
     ?string $openGroup = null
 ) use (
     $idsByCode,
-    $nis2Lang,
     $moduleLinks
 ): array {
     $result = [];
@@ -283,14 +291,14 @@ $isoGroups = static function (
             }
             $rows[] = [
                 'code'     => (string) $code,
-                'text'     => $item[$nis2Lang],
+                'text'     => CatalogLanguage::pick($item),
                 'controls' => $controls,
                 'modules'  => $moduleLinks($item['modules']),
             ];
         }
         $result[] = [
             'code'  => $showGroupCode ? (string) $group : '',
-            'title' => $groupTitle[$nis2Lang],
+            'title' => CatalogLanguage::pick($groupTitle),
             'open'  => $openGroup !== null && (string) $group === $openGroup,
             'rows'  => $rows,
         ];
@@ -304,10 +312,12 @@ $isoGroups = static function (
 $aiActItems = [];
 foreach (AiActCatalogDefaults::ARTICLES as $number => $article) {
     $applies = sprintf(__('Applies from %s.', 'grcmanager'), Html::convDate($article['applies']));
+    // Intitulé et obligation dans la même langue que le reste de la carte (CatalogLanguage).
+    $language = CatalogLanguage::resolve($article);
     $aiActItems[sprintf(__('Art. %s', 'grcmanager'), (string) $number)] = [
         'role'    => $article['role'],
-        'fr'      => $article['title_fr'] . ' : ' . $article['fr'] . ' ' . $applies,
-        'en'      => $article['title_en'] . ': ' . $article['en'] . ' ' . $applies,
+        $language => CatalogLanguage::pick($article, 'title_', $language) . ($language === 'fr' ? ' : ' : ': ')
+            . CatalogLanguage::pick($article, '', $language) . ' ' . $applies,
         'annex_a' => $article['annex_a'],
         'modules' => $article['modules'],
     ];
@@ -360,9 +370,13 @@ foreach (Iso27090CatalogDefaults::CHAPTERS as $chapter => $chapterTitle) {
         foreach ($topic['annex_a'] as $annexACode) {
             $controls[] = ['code' => $annexACode, 'id' => $idsByCode[$annexACode] ?? null];
         }
-        $topics[] = ['code' => (string) $code, 'text' => $topic[$nis2Lang], 'controls' => $controls];
+        $topics[] = ['code' => (string) $code, 'text' => CatalogLanguage::pick($topic), 'controls' => $controls];
     }
-    $iso27090[] = ['chapter' => (string) $chapter, 'title' => $chapterTitle[$nis2Lang], 'topics' => $topics];
+    $iso27090[] = [
+        'chapter' => (string) $chapter,
+        'title'   => CatalogLanguage::pick($chapterTitle),
+        'topics'  => $topics,
+    ];
 }
 
 \Glpi\Application\View\TemplateRenderer::getInstance()->display('@grcmanager/referentiels.html.twig', [
@@ -435,7 +449,7 @@ foreach (Iso27090CatalogDefaults::CHAPTERS as $chapter => $chapterTitle) {
     'can_import_framework' => Session::haveRight(\GlpiPlugin\Grcmanager\CustomFramework::RIGHTNAME, CREATE),
     'anssi'        => $isEnabled(FrameworkSelection::ANSSI) ? $anssi : [],
     'anssi_source' => AnssiHygieneCatalogDefaults::SOURCE_URL,
-    'anssi_lang'   => $nis2Lang,
+    'anssi_lang'   => CatalogLanguage::resolve(['fr' => 'fr', 'en' => 'en']),
 ]);
 
 Html::footer();
