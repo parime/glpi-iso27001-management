@@ -11092,3 +11092,872 @@ msgstr "Enviada"
 msgctxt "feminine"
 msgid "Accepted"
 msgstr "Aceita"
+
+msgid "DORA register of information"
+msgstr "Registro de informações DORA"
+
+msgid "DORA register"
+msgstr "Registro DORA"
+
+msgid "Credit institution"
+msgstr "Instituição de crédito"
+
+msgid "Payment institution"
+msgstr "Instituição de pagamento"
+
+msgid "Account information service provider"
+msgstr "Prestador de serviços de informação sobre contas"
+
+msgid "Electronic money institution"
+msgstr "Instituição de moeda eletrônica"
+
+msgid "Investment firm"
+msgstr "Empresa de investimento"
+
+msgid "Crypto-asset service provider"
+msgstr "Prestador de serviços de criptoativos"
+
+msgid "Issuer of asset-referenced tokens"
+msgstr "Emitente de tokens referenciados a ativos"
+
+msgid "Central securities depository"
+msgstr "Central depositária de valores mobiliários"
+
+msgid "Central counterparty"
+msgstr "Contraparte central"
+
+msgid "Trading venue"
+msgstr "Plataforma de negociação"
+
+msgid "Trade repository"
+msgstr "Repositório de transações"
+
+msgid "Manager of alternative investment funds"
+msgstr "Gestor de fundos de investimento alternativos"
+
+msgid "Management company"
+msgstr "Sociedade gestora"
+
+msgid "Data reporting service provider"
+msgstr "Prestador de serviços de comunicação de dados"
+
+msgid "Insurance or reinsurance undertaking"
+msgstr "Empresa de seguros ou de resseguros"
+
+msgid "Insurance or reinsurance intermediary"
+msgstr "Intermediário de seguros ou de resseguros"
+
+msgid "Institution for occupational retirement provision"
+msgstr "Instituição de previdência complementar"
+
+msgid "Credit rating agency"
+msgstr "Agência de classificação de risco"
+
+msgid "Administrator of critical benchmarks"
+msgstr "Administrador de índices de referência críticos"
+
+msgid "Crowdfunding service provider"
+msgstr "Prestador de serviços de financiamento coletivo"
+
+msgid "Securitisation repository"
+msgstr "Repositório de securitizações"
+
+msgid "Other financial entity"
+msgstr "Outra entidade financeira"
+
+msgid "Ultimate parent undertaking of the group"
+msgstr "Empresa-mãe final do grupo"
+
+msgid "Parent undertaking of a sub-group"
+msgstr "Empresa-mãe de um subgrupo"
+
+msgid "Subsidiary in the group"
+msgstr "Subsidiária do grupo"
+
+msgid "Not part of a group"
+msgstr "Não pertence a um grupo"
+
+msgid "Service provider to which all operational activities are outsourced"
+msgstr "Prestador de serviços ao qual todas as atividades operacionais são terceirizadas"
+
+msgid "Standalone arrangement"
+msgstr "Acordo autônomo"
+
+msgid "Overarching or master arrangement"
+msgstr "Acordo-quadro ou principal"
+
+msgid "Subsequent or associated arrangement"
+msgstr "Acordo subsequente ou associado"
+
+msgid "Expired and not renewed"
+msgstr "Expirado e não renovado"
+
+msgid "Terminated: breach of law, regulation or contract by the provider"
+msgstr "Rescindido: violação de lei, regulamento ou contrato pelo prestador"
+
+msgid "Terminated: impediments that could alter the supported function"
+msgstr "Rescindido: impedimentos que podem alterar a função suportada"
+
+msgid "Terminated: weaknesses in the security of sensitive data"
+msgstr "Rescindido: falhas na segurança de dados sensíveis"
+
+msgid "Terminated at the request of a competent authority"
+msgstr "Rescindido a pedido de uma autoridade competente"
+
+msgid "Terminated for another reason"
+msgstr "Rescindido por outro motivo"
+
+msgid "Assessment not performed"
+msgstr "Avaliação não realizada"
+
+msgid "Not significant"
+msgstr "Não significativo"
+
+msgid "Low reliance: quickly resolved, minimal impact"
+msgstr "Dependência baixa: resolvida rapidamente, impacto mínimo"
+
+msgid "Material reliance: significant impact after a few minutes or hours"
+msgstr "Dependência relevante: impacto significativo após alguns minutos ou horas"
+
+msgid "Full reliance: immediate and severe interruption"
+msgstr "Dependência total: interrupção imediata e grave"
+
+msgid "Legal person"
+msgstr "Pessoa jurídica"
+
+msgid "Individual acting in a business capacity"
+msgstr "Pessoa física atuando em atividade empresarial"
+
+msgid "Critical or important"
+msgstr "Crítica ou importante"
+
+msgid "Not critical or important"
+msgstr "Não crítica nem importante"
+
+msgid "Not substitutable"
+msgstr "Não substituível"
+
+msgid "Highly complex to substitute"
+msgstr "Substituição muito complexa"
+
+msgid "Medium complexity to substitute"
+msgstr "Substituição de complexidade média"
+
+msgid "Easily substitutable"
+msgstr "Facilmente substituível"
+
+msgid "No real alternative on the market"
+msgstr "Nenhuma alternativa real no mercado"
+
+msgid "Difficult migration of data and workloads"
+msgstr "Migração difícil de dados e cargas de trabalho"
+
+msgid "Both reasons"
+msgstr "Ambos os motivos"
+
+msgid "Easy"
+msgstr "Fácil"
+
+msgid "Difficult"
+msgstr "Difícil"
+
+msgid "Highly complex"
+msgstr "Muito complexa"
+
+msgid "LEI (legal entity identifier)"
+msgstr "LEI (identificador de pessoa jurídica)"
+
+msgid "EUID (European unique identifier)"
+msgstr "EUID (identificador único europeu)"
+
+msgid "Company registration number"
+msgstr "Número de registro da empresa"
+
+msgid "VAT number"
+msgstr "Número de IVA"
+
+msgid "Passport number"
+msgstr "Número do passaporte"
+
+msgid "National identity number"
+msgstr "Número de identidade nacional"
+
+msgid "ICT project management"
+msgstr "Gestão de projetos de TIC"
+
+msgid "ICT development"
+msgstr "Desenvolvimento de TIC"
+
+msgid "ICT help desk and first level support"
+msgstr "Help desk de TIC e suporte de primeiro nível"
+
+msgid "ICT security management services"
+msgstr "Serviços de gestão da segurança de TIC"
+
+msgid "Provision of data"
+msgstr "Fornecimento de dados"
+
+msgid "Data analysis"
+msgstr "Análise de dados"
+
+msgid "ICT, facilities and hosting services (excluding cloud)"
+msgstr "Serviços de TIC, instalações e hospedagem (exceto nuvem)"
+
+msgid "Computation"
+msgstr "Computação"
+
+msgid "Non-cloud data storage"
+msgstr "Armazenamento de dados fora da nuvem"
+
+msgid "Telecom carrier"
+msgstr "Operadora de telecomunicações"
+
+msgid "Network infrastructure"
+msgstr "Infraestrutura de rede"
+
+msgid "Hardware and physical devices"
+msgstr "Hardware e dispositivos físicos"
+
+msgid "Software licensing (excluding SaaS)"
+msgstr "Licenciamento de software (exceto SaaS)"
+
+msgid "ICT operation management (including maintenance)"
+msgstr "Gestão de operações de TIC (incluindo manutenção)"
+
+msgid "ICT consulting"
+msgstr "Consultoria de TIC"
+
+msgid "ICT risk management"
+msgstr "Gestão de riscos de TIC"
+
+msgid "Cloud services: IaaS"
+msgstr "Serviços em nuvem: IaaS"
+
+msgid "Cloud services: PaaS"
+msgstr "Serviços em nuvem: PaaS"
+
+msgid "Cloud services: SaaS"
+msgstr "Serviços em nuvem: SaaS"
+
+msgid "LEI of the financial entity"
+msgstr "LEI da entidade financeira"
+
+msgid "Legal name of the financial entity"
+msgstr "Razão social da entidade financeira"
+
+msgid "Country of the financial entity"
+msgstr "País da entidade financeira"
+
+msgid "Type of financial entity"
+msgstr "Tipo de entidade financeira"
+
+msgid "Competent authority"
+msgstr "Autoridade competente"
+
+msgid "Position in the group"
+msgstr "Posição no grupo"
+
+msgid "LEI of the direct parent undertaking"
+msgstr "LEI da empresa-mãe direta"
+
+msgid "Value of total assets"
+msgstr "Valor do ativo total"
+
+msgid "Currency"
+msgstr "Moeda"
+
+msgid "Contract reference number"
+msgstr "Número de referência do contrato"
+
+msgid "Type of contractual arrangement"
+msgstr "Tipo de acordo contratual"
+
+msgid "Reference of the overarching arrangement"
+msgstr "Referência do acordo-quadro"
+
+msgid "Annual cost for the past year"
+msgstr "Custo anual do último ano"
+
+msgid "ICT third-party service provider"
+msgstr "Prestador terceiro de serviços de TIC"
+
+msgid "Type of ICT services"
+msgstr "Tipo de serviços de TIC"
+
+msgid "Supported functions"
+msgstr "Funções suportadas"
+
+msgid "Start date of the contract"
+msgstr "Data de início do contrato"
+
+msgid "Reason for the end of the contract"
+msgstr "Motivo do término do contrato"
+
+msgid "Notice period for the financial entity"
+msgstr "Prazo de aviso prévio para a entidade financeira"
+
+msgid "Notice period for the provider"
+msgstr "Prazo de aviso prévio para o prestador"
+
+msgid "Country of the governing law"
+msgstr "País da lei aplicável"
+
+msgid "Country of provision of the services"
+msgstr "País de prestação dos serviços"
+
+msgid "Storage of data"
+msgstr "Armazenamento de dados"
+
+msgid "Location of the data at rest"
+msgstr "Localização dos dados em repouso"
+
+msgid "Location of data processing"
+msgstr "Localização do processamento de dados"
+
+msgid "Sensitiveness of the data"
+msgstr "Sensibilidade dos dados"
+
+msgid "Level of reliance on the service"
+msgstr "Nível de dependência do serviço"
+
+msgid "Substitutability of the provider"
+msgstr "Substituibilidade do prestador"
+
+msgid "Reason why it is hard to substitute"
+msgstr "Motivo da difícil substituição"
+
+msgid "Exit plan"
+msgstr "Plano de saída"
+
+msgid "Possibility of reintegration"
+msgstr "Possibilidade de reinternalização"
+
+msgid "Impact of discontinuing the services"
+msgstr "Impacto da interrupção dos serviços"
+
+msgid "Alternative providers identified"
+msgstr "Prestadores alternativos identificados"
+
+msgid "Identification code of the provider"
+msgstr "Código de identificação do prestador"
+
+msgid "Type of identification code"
+msgstr "Tipo de código de identificação"
+
+msgid "Legal name of the provider"
+msgstr "Razão social do prestador"
+
+msgid "Type of person"
+msgstr "Tipo de pessoa"
+
+msgid "Country of the headquarters"
+msgstr "País da sede"
+
+msgid "Licensed activity"
+msgstr "Atividade autorizada"
+
+msgid "Critical or important function"
+msgstr "Função crítica ou importante"
+
+msgid "Date of the last criticality assessment"
+msgstr "Data da última avaliação de criticidade"
+
+msgid "Entity maintaining the register"
+msgstr "Entidade que mantém o registro"
+
+msgid "Entities within the scope of the register"
+msgstr "Entidades no âmbito do registro"
+
+msgid "Branches outside the home country"
+msgstr "Filiais fora do país de origem"
+
+msgid "Contractual arrangements: general information"
+msgstr "Acordos contratuais: informações gerais"
+
+msgid "Contractual arrangements: services, functions and data locations"
+msgstr "Acordos contratuais: serviços, funções e localização dos dados"
+
+msgid "Intra-group contractual arrangements"
+msgstr "Acordos contratuais intragrupo"
+
+msgid "Entities signing the arrangements"
+msgstr "Entidades signatárias dos acordos"
+
+msgid "Providers signing the arrangements"
+msgstr "Prestadores signatários dos acordos"
+
+msgid "Entities providing ICT services within the group"
+msgstr "Entidades que prestam serviços de TIC no grupo"
+
+msgid "Entities making use of the ICT services"
+msgstr "Entidades que utilizam os serviços de TIC"
+
+msgid "ICT third-party service providers"
+msgstr "Prestadores terceiros de serviços de TIC"
+
+msgid "ICT service supply chains (subcontracting)"
+msgstr "Cadeias de fornecimento de serviços de TIC (subcontratação)"
+
+msgid "Functions supported"
+msgstr "Funções suportadas"
+
+msgid "Assessment of the services supporting critical functions"
+msgstr "Avaliação dos serviços que suportam funções críticas"
+
+msgid "Definitions used by the entity"
+msgstr "Definições utilizadas pela entidade"
+
+msgid "Financial entity"
+msgstr "Entidade financeira"
+
+msgid "DORA function"
+msgstr "Função DORA"
+
+msgid "Not assessed yet"
+msgstr "Ainda não avaliado"
+
+msgid "Supplier not visible"
+msgstr "Fornecedor não visível"
+
+msgid "Direct provider"
+msgstr "Prestador direto"
+
+#, php-format
+msgid "%s (direct provider)"
+msgstr "%s (prestador direto)"
+
+msgid "DORA register: provider information updated"
+msgstr "Registro DORA: informações do prestador atualizadas"
+
+msgid "Contractual arrangement"
+msgstr "Acordo contratual"
+
+msgid "DORA register: supported function added"
+msgstr "Registro DORA: função suportada adicionada"
+
+msgid "DORA register: supported function removed"
+msgstr "Registro DORA: função suportada removida"
+
+msgid "DORA register: subcontractor added"
+msgstr "Registro DORA: subcontratado adicionado"
+
+msgid "DORA register: subcontractor removed"
+msgstr "Registro DORA: subcontratado removido"
+
+msgid "DORA register: contract added"
+msgstr "Registro DORA: contrato adicionado"
+
+msgid "DORA register: information updated"
+msgstr "Registro DORA: informações atualizadas"
+
+msgid "DORA register: contract removed"
+msgstr "Registro DORA: contrato removido"
+
+msgid "DORA register: function information updated"
+msgstr "Registro DORA: informações da função atualizadas"
+
+msgid "The register of all the contracts with ICT third-party service providers that DORA requires: contracts, providers and their subcontractors, functions supported and their criticality, data locations, substitutability and exit plans. It is built from GLPI contracts, suppliers and business processes."
+msgstr "O registro de todos os contratos com prestadores terceiros de serviços de TIC exigido pelo DORA: contratos, prestadores e seus subcontratados, funções suportadas e sua criticidade, localização dos dados, substituibilidade e planos de saída. Ele é construído a partir dos contratos, fornecedores e processos de negócio do GLPI."
+
+msgid "Fill in the financial entity below, then add each ICT contract from its \"DORA register\" tab and complete the missing fields listed here. When nothing is missing, download the templates and give them to your reporting tool."
+msgstr "Preencha a entidade financeira abaixo, depois adicione cada contrato de TIC pela sua aba \"Registro DORA\" e complete os campos faltantes listados aqui. Quando nada estiver faltando, baixe os modelos e entregue-os à sua ferramenta de reporte."
+
+msgid "DORA, article 28(3); Implementing Regulation (EU) 2024/2956"
+msgstr "DORA, artigo 28, parágrafo 3;Regulamento de Execução (UE) 2024/2956"
+
+msgid "The DORA register has been updated."
+msgstr "O registro DORA foi atualizado."
+
+msgid "The contract has been added to the DORA register."
+msgstr "O contrato foi adicionado ao registro DORA."
+
+msgid "The contract has been removed from the DORA register."
+msgstr "O contrato foi removido do registro DORA."
+
+msgid "This supplier is already in the subcontracting chain of the contract."
+msgstr "Este fornecedor já está na cadeia de subcontratação do contrato."
+
+msgid "Financial entities must keep a register of all their contracts for ICT services (DORA, article 28). Add this contract if it covers an ICT service: its number, dates, duration, notice and costs are taken from GLPI; you only add what is specific to DORA."
+msgstr "As entidades financeiras devem manter um registro de todos os seus contratos de serviços de TIC (DORA, artigo 28). Adicione este contrato se ele abranger um serviço de TIC: número, datas, duração, aviso prévio e custos vêm do GLPI; você só adiciona o que é específico do DORA."
+
+msgid "Add this contract to the DORA register"
+msgstr "Adicionar este contrato ao registro DORA"
+
+msgid "In the DORA register"
+msgstr "No registro DORA"
+
+msgid "Supports a critical or important function"
+msgstr "Suporta uma função crítica ou importante"
+
+msgid "No critical or important function supported: fewer fields are required"
+msgstr "Nenhuma função crítica ou importante suportada: menos campos são obrigatórios"
+
+msgid "Open the DORA register"
+msgstr "Abrir o registro DORA"
+
+msgid "Missing for the register"
+msgstr "Faltando para o registro"
+
+#, php-format
+msgid "%d field(s) are missing on the provider of this contract."
+msgstr "%d campo(s) faltando no prestador deste contrato."
+
+msgid "Complete the provider"
+msgstr "Completar o prestador"
+
+msgid "Empty: the number of the contract in GLPI. It must stay the same over time."
+msgstr "Vazio: o número do contrato no GLPI. Ele deve permanecer o mesmo ao longo do tempo."
+
+msgid "Only for a subsequent or associated arrangement."
+msgstr "Somente para um acordo subsequente ou associado."
+
+#, php-format
+msgid "Empty: the costs of the contract over the last twelve months (Costs tab), currently %s."
+msgstr "Vazio: os custos do contrato nos últimos doze meses (aba Custos), atualmente %s."
+
+msgid "Empty: the costs of the contract over the last twelve months (Costs tab of the contract): none entered yet."
+msgstr "Vazio: os custos do contrato nos últimos doze meses (aba Custos do contrato): nenhum informado ainda."
+
+msgid "Link the provider to this contract first (Suppliers tab of the contract)."
+msgstr "Vincule primeiro o prestador a este contrato (aba Fornecedores do contrato)."
+
+msgid "Not filled in"
+msgstr "Não preenchido"
+
+msgid "Provider information"
+msgstr "Informações do prestador"
+
+msgid "Dates of the contract (from GLPI)"
+msgstr "Datas do contrato (do GLPI)"
+
+msgid "Start date missing in the contract"
+msgstr "Data de início ausente no contrato"
+
+msgid "No end date"
+msgstr "Sem data de término"
+
+msgid "Notice, law and data"
+msgstr "Aviso prévio, lei e dados"
+
+msgid "Required: critical or important function"
+msgstr "Obrigatório: função crítica ou importante"
+
+#, php-format
+msgid "Notice in the contract: %d month(s)."
+msgstr "Aviso prévio no contrato: %d mês(es)."
+
+msgid "Does the service store data, even temporarily?"
+msgstr "O serviço armazena dados, mesmo temporariamente?"
+
+msgid "Countries: two-letter ISO codes separated by commas, for example FR, DE, IE. Each country becomes a line of the register."
+msgstr "Países: códigos ISO de duas letras separados por vírgulas, por exemplo FR, DE, IE. Cada país se torna uma linha do registro."
+
+msgid "Reliance, substitutability and exit"
+msgstr "Dependência, substituibilidade e saída"
+
+msgid "Only if the provider is not or hardly substitutable."
+msgstr "Somente se o prestador não for substituível ou for dificilmente substituível."
+
+msgid "Could the service be brought back in-house?"
+msgstr "O serviço poderia ser reinternalizado?"
+
+msgid "Date of the last audit of the provider"
+msgstr "Data da última auditoria do prestador"
+
+msgid "Empty: no audit performed."
+msgstr "Vazio: nenhuma auditoria realizada."
+
+msgid "Which alternative providers?"
+msgstr "Quais prestadores alternativos?"
+
+msgid "The business processes that rely on this contract. Whether a function is critical or important is set on the process, in its \"DORA function\" tab."
+msgstr "Os processos de negócio que dependem deste contrato. Se uma função é crítica ou importante é definido no processo, na sua aba \"Função DORA\"."
+
+msgid "No function linked yet."
+msgstr "Nenhuma função vinculada ainda."
+
+#, php-format
+msgid "%d function(s) you cannot see."
+msgstr "%d função(ões) que você não pode ver."
+
+msgid "Depends on this provider"
+msgstr "Depende deste prestador"
+
+msgid "Add a function"
+msgstr "Adicionar uma função"
+
+msgid "You need read access to business processes to link functions."
+msgstr "Você precisa de acesso de leitura aos processos de negócio para vincular funções."
+
+msgid "Subcontracting chain"
+msgstr "Cadeia de subcontratação"
+
+msgid "The subcontractors that effectively provide part of the service, and for whom they work. The rank is computed: 1 for the direct provider, 2 for its subcontractors, and so on."
+msgstr "Os subcontratados que efetivamente prestam parte do serviço, e para quem trabalham. O nível é calculado: 1 para o prestador direto, 2 para seus subcontratados, e assim por diante."
+
+msgid "No subcontractor declared."
+msgstr "Nenhum subcontratado declarado."
+
+#, php-format
+msgid "Rank %d"
+msgstr "Nível %d"
+
+msgid "Subcontractor (GLPI supplier)"
+msgstr "Subcontratado (fornecedor do GLPI)"
+
+msgid "Works for"
+msgstr "Trabalha para"
+
+msgid "Add a subcontractor"
+msgstr "Adicionar um subcontratado"
+
+msgid "Remove this contract from the DORA register? Its DORA information will be deleted; the contract itself is kept."
+msgstr "Remover este contrato do registro DORA? Suas informações DORA serão excluídas; o próprio contrato é mantido."
+
+msgid "Remove from the register"
+msgstr "Remover do registro"
+
+msgid "In the DORA register, this business process is a function supported by ICT services. Its name, recovery objectives and the impact of an interruption come from the process and its BIA; only the licensed activity and the criticality assessment are specific to DORA."
+msgstr "No registro DORA, este processo de negócio é uma função suportada por serviços de TIC. Seu nome, objetivos de recuperação e o impacto de uma interrupção vêm do processo e da sua BIA; somente a atividade autorizada e a avaliação de criticidade são específicas do DORA."
+
+msgid "Function identifier"
+msgstr "Identificador da função"
+
+msgid "RTO of the process"
+msgstr "RTO do processo"
+
+msgid "RPO of the process"
+msgstr "RPO do processo"
+
+msgid "Impact of discontinuing (BIA)"
+msgstr "Impacto da interrupção (BIA)"
+
+#, php-format
+msgid "The BIA reaches an unacceptable impact after %s: the function is probably critical or important."
+msgstr "A BIA atinge um impacto inaceitável após %s: a função é provavelmente crítica ou importante."
+
+#, php-format
+msgid "Business criticality in GLPI: %s."
+msgstr "Criticidade de negócio no GLPI: %s."
+
+msgid "A function whose disruption would materially impair the financial performance, the soundness or the continuity of the services of the entity, or its compliance (DORA, article 3, point 22)."
+msgstr "Uma função cuja perturbação prejudicaria significativamente o desempenho financeiro, a solidez ou a continuidade dos serviços da entidade, ou sua conformidade (DORA, artigo 3, ponto 22)."
+
+#, php-format
+msgid "Empty: the date of the BIA (%s)."
+msgstr "Vazio: a data da BIA (%s)."
+
+msgid "Empty: the date of the BIA, not set yet."
+msgstr "Vazio: a data da BIA, ainda não definida."
+
+#, php-format
+msgid "The licensed or registered activity this function serves, as listed for your type of entity (annex II of the implementing regulation). For a function not linked to such an activity, enter \"%s\"."
+msgstr "A atividade autorizada ou registrada à qual esta função serve, conforme listada para o seu tipo de entidade (anexo II do regulamento de execução). Para uma função não vinculada a tal atividade, informe \"%s\"."
+
+msgid "Reasons for criticality or importance"
+msgstr "Motivos da criticidade ou importância"
+
+msgid "300 characters maximum."
+msgstr "Máximo de 300 caracteres."
+
+msgid "Contracts supporting this function"
+msgstr "Contratos que suportam esta função"
+
+msgid "No contract of the DORA register supports this function yet. Link it from the \"DORA register\" tab of each contract."
+msgstr "Nenhum contrato do registro DORA suporta esta função ainda. Vincule-a pela aba \"Registro DORA\" de cada contrato."
+
+msgid "If this supplier provides ICT services under a contract in the DORA register, or is a subcontractor of such a provider, describe it here as the regulation requires. The name and the country of the supplier are used when the fields below are left empty."
+msgstr "Se este fornecedor presta serviços de TIC sob um contrato do registro DORA, ou é subcontratado de tal prestador, descreva-o aqui conforme exige o regulamento. O nome e o país do fornecedor são usados quando os campos abaixo ficam vazios."
+
+msgid "Identification"
+msgstr "Identificação"
+
+msgid "A company is identified by its LEI or its EUID; a non-European company only by its LEI. Other codes are only for an individual."
+msgstr "Uma empresa é identificada pelo seu LEI ou EUID; uma empresa não europeia somente pelo seu LEI. Os outros códigos são apenas para pessoas físicas."
+
+msgid "20 characters for a LEI"
+msgstr "20 caracteres para um LEI"
+
+msgid "Issuing country (national code)"
+msgstr "País emissor (código nacional)"
+
+msgid "Empty: the name of the supplier in GLPI."
+msgstr "Vazio: o nome do fornecedor no GLPI."
+
+msgid "Name in Latin alphabet"
+msgstr "Nome em alfabeto latino"
+
+msgid "Only if the legal name is written in another alphabet."
+msgstr "Somente se a razão social estiver escrita em outro alfabeto."
+
+msgid "Two-letter ISO code, for example FR, DE, IE or US."
+msgstr "Código ISO de duas letras, por exemplo FR, DE, IE ou US."
+
+msgid "Additional code (optional)"
+msgstr "Código adicional (opcional)"
+
+msgid "Cost and group"
+msgstr "Custo e grupo"
+
+msgid "Total annual cost of the provider"
+msgstr "Custo anual total do prestador"
+
+#, php-format
+msgid "Empty: the sum of its contracts in the register, currently %s."
+msgstr "Vazio: a soma dos seus contratos no registro, atualmente %s."
+
+msgid "Empty: the sum of its contracts in the register."
+msgstr "Vazio: a soma dos seus contratos no registro."
+
+msgid "Code of the ultimate parent company"
+msgstr "Código da empresa-mãe final"
+
+msgid "Leave empty if the provider is not part of a group: its own code is then reported."
+msgstr "Deixe vazio se o prestador não pertencer a um grupo: o seu próprio código será então reportado."
+
+msgid "Contracts of this supplier"
+msgstr "Contratos deste fornecedor"
+
+msgid "No contract of this supplier is visible to you. Link the supplier to its contracts in GLPI (Contracts tab), then add them to the register from the contract."
+msgstr "Nenhum contrato deste fornecedor está visível para você. Vincule o fornecedor aos seus contratos no GLPI (aba Contratos) e depois adicione-os ao registro a partir do contrato."
+
+msgid "In the register"
+msgstr "No registro"
+
+msgid "You need read access to contracts and suppliers to see the register."
+msgstr "Você precisa de acesso de leitura a contratos e fornecedores para ver o registro."
+
+msgid "Completeness"
+msgstr "Completude"
+
+msgid "Contracts in the register"
+msgstr "Contratos no registro"
+
+msgid "ICT providers and subcontractors"
+msgstr "Prestadores de TIC e subcontratados"
+
+#, php-format
+msgid "%d critical or important"
+msgstr "%d críticas ou importantes"
+
+msgid "Missing fields before the export"
+msgstr "Campos faltantes antes da exportação"
+
+msgid "No contract in the register yet: open a contract with an ICT provider, then its \"DORA register\" tab."
+msgstr "Nenhum contrato no registro ainda: abra um contrato com um prestador de TIC e depois sua aba \"Registro DORA\"."
+
+msgid "Every required field is filled in: the register can be exported."
+msgstr "Todos os campos obrigatórios estão preenchidos: o registro pode ser exportado."
+
+#, php-format
+msgid "%d required field(s) missing or invalid out of %d checked. Click a line to complete it where it is entered."
+msgstr "%d campo(s) obrigatório(s) faltando ou inválido(s) de %d verificados. Clique em uma linha para completá-la onde ela é informada."
+
+msgid "Field"
+msgstr "Campo"
+
+msgid "Column"
+msgstr "Coluna"
+
+msgid "Problem"
+msgstr "Problema"
+
+msgid "Invalid format"
+msgstr "Formato inválido"
+
+msgid "Contractual arrangements"
+msgstr "Acordos contratuais"
+
+msgid "All contracts"
+msgstr "Todos os contratos"
+
+msgid "To add a contract: open it in GLPI (Management > Contracts), then its \"DORA register\" tab."
+msgstr "Para adicionar um contrato: abra-o no GLPI (Gestão > Contratos) e depois sua aba \"Registro DORA\"."
+
+msgid "ICT services"
+msgstr "Serviços de TIC"
+
+msgid "Functions"
+msgstr "Funções"
+
+msgid "Subcontractors"
+msgstr "Subcontratados"
+
+#, php-format
+msgid "%d missing"
+msgstr "%d faltando"
+
+msgid "Contracts of ICT providers not in the register yet"
+msgstr "Contratos de prestadores de TIC ainda fora do registro"
+
+msgid "Financial entity maintaining the register"
+msgstr "Entidade financeira que mantém o registro"
+
+msgid "This is not a valid LEI (20 characters with a check digit)."
+msgstr "Este não é um LEI válido (20 caracteres com dígito verificador)."
+
+msgid "Country"
+msgstr "País"
+
+msgid "Default currency of the amounts."
+msgstr "Moeda padrão dos valores."
+
+msgid "The supervisor to which the register is reported."
+msgstr "A autoridade de supervisão à qual o registro é reportado."
+
+msgid "From the last annual financial statements, in units."
+msgstr "Das últimas demonstrações financeiras anuais, em unidades."
+
+msgid "Date of integration in the register"
+msgstr "Data de inclusão no registro"
+
+msgid "Empty: the date the first contract was added."
+msgstr "Vazio: a data em que o primeiro contrato foi adicionado."
+
+msgid "Export for the supervisor"
+msgstr "Exportação para a autoridade de supervisão"
+
+msgid "Download all the templates (ZIP)"
+msgstr "Baixar todos os modelos (ZIP)"
+
+msgid "One CSV file per template of the implementing regulation, with the official column codes (c0010...), as in an xBRL-CSV report package. Closed lists are written with their official English wording: your reporting tool converts them into the codes of the EBA taxonomy and adds the package files (report.json, parameters, filing indicators)."
+msgstr "Um arquivo CSV por modelo do regulamento de execução, com os códigos oficiais de coluna (c0010...), como em um pacote de reporte xBRL-CSV. As listas fechadas são escritas com sua redação oficial em inglês: sua ferramenta de reporte as converte nos códigos da taxonomia da EBA e adiciona os arquivos do pacote (report.json, parâmetros, filing indicators)."
+
+msgid "Template"
+msgstr "Modelo"
+
+msgid "Content"
+msgstr "Conteúdo"
+
+msgid "Filled in by GLPI"
+msgstr "Preenchido pelo GLPI"
+
+msgid "Lines"
+msgstr "Linhas"
+
+msgid "Partly: complete by hand"
+msgstr "Parcialmente: completar manualmente"
+
+msgid "By hand (groups and branches)"
+msgstr "Manualmente (grupos e filiais)"
+
+msgid "Sources:"
+msgstr "Fontes:"
+
+msgid "Regulation (EU) 2022/2554 (DORA), article 28"
+msgstr "Regulamento (UE) 2022/2554 (DORA), artigo 28"
+
+msgid "Implementing Regulation (EU) 2024/2956 (templates of the register)"
+msgstr "Regulamento de Execução (UE) 2024/2956 (modelos do registro)"
+
+msgid "Required in the register"
+msgstr "Obrigatório no registro"
+
+msgid "Column of the official template"
+msgstr "Coluna do modelo oficial"
+
+msgid "Nothing is missing here for the register."
+msgstr "Nada está faltando aqui para o registro."
+
+msgid "Missing field"
+msgstr "Ausente"

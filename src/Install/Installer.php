@@ -145,6 +145,13 @@ final class Installer
     private const POLICY_AUDIENCES_TABLE = 'glpi_plugin_grcmanager_policyaudiences';
     private const POLICY_CAMPAIGNS_TABLE = 'glpi_plugin_grcmanager_policycampaigns';
     private const POLICY_CAMPAIGNS_USERS_TABLE = 'glpi_plugin_grcmanager_policycampaigns_users';
+    // Issue #540 : registre d'informations DORA (champs propres à DORA des fournisseurs, contrats et
+    // processus métier de GLPI, fonctions soutenues et chaîne de sous-traitance).
+    private const DORA_PROVIDERS_TABLE = 'glpi_plugin_grcmanager_doraproviders';
+    private const DORA_ARRANGEMENTS_TABLE = 'glpi_plugin_grcmanager_doraarrangements';
+    private const DORA_ARRANGEMENT_FUNCTIONS_TABLE = 'glpi_plugin_grcmanager_doraarrangements_functions';
+    private const DORA_SUBCONTRACTORS_TABLE = 'glpi_plugin_grcmanager_dorasubcontractors';
+    private const DORA_FUNCTIONS_TABLE = 'glpi_plugin_grcmanager_dorafunctions';
 
     // Issue #30 (registre des obligations légales/réglementaires/contractuelles), même dérivation
     // de nom de table que toutes les autres tables ci-dessus.
@@ -295,6 +302,10 @@ final class Installer
         \GlpiPlugin\Grcmanager\NotificationTargetRiskIndicator::class,
         // Issue #377, quatrième étape : rappels des BIA à revoir et des tests de reprise.
         \GlpiPlugin\Grcmanager\NotificationTargetBusinessProcess::class,
+        // Issue #540 : registre d'informations DORA des prestataires TIC.
+        \GlpiPlugin\Grcmanager\DoraProvider::class,
+        \GlpiPlugin\Grcmanager\DoraArrangement::class,
+        \GlpiPlugin\Grcmanager\DoraFunction::class,
     ];
     // Issue #375 : registre des activités de traitement (RGPD, article 30) et éléments GLPI cités,
     // voir \GlpiPlugin\Grcmanager\ProcessingActivity.
@@ -1307,6 +1318,7 @@ final class Installer
         }
         $this->installPolicyAcknowledgementTables($keySign, $charset, $collation);
         $this->installAuditEvidenceRequestTables($keySign, $charset, $collation);
+        $this->installDoraRegisterTables($keySign, $charset, $collation);
 
         // Issue #30 (registre des obligations légales/réglementaires/contractuelles, clause 4.2
         // ISO 27001 "parties intéressées et leurs exigences", Annexe A A.5.31-36) : lien optionnel
@@ -3902,6 +3914,116 @@ final class Installer
     }
 
     /**
+     * Issue #540 : registre d'informations DORA. Champs propres à DORA rattachés aux objets de GLPI
+     * sans les dupliquer : fournisseur (prestataire TIC, B_05.01), contrat (accord contractuel,
+     * B_02.01, B_02.02, B_07.01), processus métier (fonction, B_06.01) ; fonctions soutenues par un
+     * accord et chaîne de sous-traitance (B_05.02). Tables nouvelles, créées aussi à la mise à jour.
+     */
+    private function installDoraRegisterTables(string $keySign, string $charset, string $collation): void
+    {
+        global $DB;
+
+        if (!$DB->tableExists(self::DORA_PROVIDERS_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::DORA_PROVIDERS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `suppliers_id` int {$keySign} NOT NULL DEFAULT 0,
+                `code` varchar(64) NOT NULL DEFAULT '' COMMENT 'LEI, EUID ou code national (B_05.01.0010)',
+                `code_type` varchar(8) NOT NULL DEFAULT '' COMMENT 'LEI, EUID, CRN, VAT, PNR, NIN',
+                `code_country` char(2) NOT NULL DEFAULT '' COMMENT 'Pays d emission d un code national',
+                `additional_code` varchar(64) NOT NULL DEFAULT '',
+                `additional_code_type` varchar(8) NOT NULL DEFAULT '',
+                `legal_name` varchar(255) NOT NULL DEFAULT '' COMMENT 'Vide = nom du fournisseur',
+                `latin_name` varchar(255) NOT NULL DEFAULT '',
+                `person_type` tinyint NOT NULL DEFAULT 1 COMMENT '1 personne morale, 2 personne physique',
+                `hq_country` char(2) NOT NULL DEFAULT '',
+                `currency` char(3) NOT NULL DEFAULT '' COMMENT 'Vide = devise du registre',
+                `annual_cost` decimal(20,2) DEFAULT NULL COMMENT 'Vide = somme de ses accords',
+                `parent_code` varchar(64) NOT NULL DEFAULT '' COMMENT 'Vide = hors groupe',
+                `parent_code_type` varchar(8) NOT NULL DEFAULT '',
+                `parent_code_country` char(2) NOT NULL DEFAULT '',
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `suppliers_id` (`suppliers_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+        if (!$DB->tableExists(self::DORA_ARRANGEMENTS_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::DORA_ARRANGEMENTS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `contracts_id` int {$keySign} NOT NULL DEFAULT 0,
+                `reference` varchar(255) NOT NULL DEFAULT '' COMMENT 'Vide = numero du contrat',
+                `arrangement_type` tinyint NOT NULL DEFAULT 0,
+                `overarching_reference` varchar(255) NOT NULL DEFAULT '',
+                `suppliers_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT '0 = fournisseur unique du contrat',
+                `service_types` varchar(255) NOT NULL DEFAULT '' COMMENT 'S01 a S19, separes par des virgules',
+                `currency` char(3) NOT NULL DEFAULT '' COMMENT 'Vide = devise du registre',
+                `annual_cost` decimal(20,2) DEFAULT NULL COMMENT 'Vide = couts du contrat sur un an',
+                `termination_reason` tinyint NOT NULL DEFAULT 0,
+                `notice_entity_days` int DEFAULT NULL,
+                `notice_provider_days` int DEFAULT NULL,
+                `governing_law_country` char(2) NOT NULL DEFAULT '',
+                `provision_country` char(2) NOT NULL DEFAULT '',
+                `data_storage` tinyint NOT NULL DEFAULT 0 COMMENT '1 oui, 2 non',
+                `storage_countries` varchar(255) NOT NULL DEFAULT '',
+                `processing_countries` varchar(255) NOT NULL DEFAULT '',
+                `data_sensitivity` tinyint NOT NULL DEFAULT 0,
+                `reliance` tinyint NOT NULL DEFAULT 0,
+                `substitutability` tinyint NOT NULL DEFAULT 0,
+                `non_substitutable_reason` tinyint NOT NULL DEFAULT 0,
+                `last_audit_date` date DEFAULT NULL,
+                `exit_plan` tinyint NOT NULL DEFAULT 0 COMMENT '1 oui, 2 non',
+                `reintegration` tinyint NOT NULL DEFAULT 0,
+                `discontinuing_impact` tinyint NOT NULL DEFAULT 0,
+                `alternatives` tinyint NOT NULL DEFAULT 0 COMMENT '1 oui, 2 non, 7 non evalue',
+                `alternative_providers` text,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `contracts_id` (`contracts_id`),
+                KEY `suppliers_id` (`suppliers_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+        if (!$DB->tableExists(self::DORA_ARRANGEMENT_FUNCTIONS_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::DORA_ARRANGEMENT_FUNCTIONS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `contracts_id` int {$keySign} NOT NULL DEFAULT 0,
+                `plugin_grcmanager_businessprocesses_id` int {$keySign} NOT NULL DEFAULT 0,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity` (`contracts_id`, `plugin_grcmanager_businessprocesses_id`),
+                KEY `plugin_grcmanager_businessprocesses_id` (`plugin_grcmanager_businessprocesses_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+        if (!$DB->tableExists(self::DORA_SUBCONTRACTORS_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::DORA_SUBCONTRACTORS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `contracts_id` int {$keySign} NOT NULL DEFAULT 0,
+                `suppliers_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Sous-traitant',
+                `suppliers_id_recipient` int {$keySign} NOT NULL DEFAULT 0
+                    COMMENT 'Qui lui sous-traite, 0 = prestataire direct',
+                `date_creation` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity` (`contracts_id`, `suppliers_id`),
+                KEY `suppliers_id` (`suppliers_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+        if (!$DB->tableExists(self::DORA_FUNCTIONS_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::DORA_FUNCTIONS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_businessprocesses_id` int {$keySign} NOT NULL DEFAULT 0,
+                `licensed_activity` varchar(255) NOT NULL DEFAULT '',
+                `criticality` tinyint NOT NULL DEFAULT 0 COMMENT '1 oui, 2 non, 3 non evaluee',
+                `criticality_reasons` varchar(300) NOT NULL DEFAULT '',
+                `assessment_date` date DEFAULT NULL COMMENT 'Vide = date de la BIA',
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `plugin_grcmanager_businessprocesses_id` (`plugin_grcmanager_businessprocesses_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+    }
+
+    /**
      * Issue #535 : public cible d'une politique (groupes, profils, entités), campagnes de prise de
      * connaissance (une par version approuvée) et confirmation de chaque personne du public.
      */
@@ -4456,6 +4578,11 @@ final class Installer
         $migration->dropTable(self::AUDIT_EVIDENCE_PIECES_TABLE);
         $migration->dropTable(self::AUDIT_EVIDENCE_REQUESTS_TABLE);
         $migration->dropTable(self::AUDITOR_ACCESSES_TABLE);
+        $migration->dropTable(self::DORA_PROVIDERS_TABLE);
+        $migration->dropTable(self::DORA_ARRANGEMENTS_TABLE);
+        $migration->dropTable(self::DORA_ARRANGEMENT_FUNCTIONS_TABLE);
+        $migration->dropTable(self::DORA_SUBCONTRACTORS_TABLE);
+        $migration->dropTable(self::DORA_FUNCTIONS_TABLE);
         $migration->dropTable(self::NONCONFORMITIES_TABLE);
         $migration->dropTable(self::AUDITS_TABLE);
         $migration->dropTable(self::TRAININGS_USERS_TABLE);

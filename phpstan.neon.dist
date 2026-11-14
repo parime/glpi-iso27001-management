@@ -22,6 +22,7 @@ parameters:
         - src/Services/Evidence
         - src/Services/Privacy
         - src/Services/Workspace
+        - src/Services/Dora
     excludePaths:
         # Issue #539 : lit les registres du plugin via le $DB global, Session et les classes
         # CommonDBTM du plugin, même raison que RiskMatrixConfig.php ci-dessous. MySpaceRules.php,

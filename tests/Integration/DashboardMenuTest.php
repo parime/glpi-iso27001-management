@@ -46,6 +46,9 @@ final class DashboardMenuTest extends GrcmanagerIntegrationTestCase
     {
         global $PLUGIN_HOOKS;
 
+        // Issue #540 : le registre DORA n'apparaît qu'avec son référentiel, optionnel (annulé avec la transaction).
+        \GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig::setEnabled('dora', true);
+        \GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig::reset();
         $entries = $PLUGIN_HOOKS['menu_toadd']['grcmanager']['grcmanager'];
         $this->assertSame(count($entries), count(array_unique($entries)), 'Aucune entrée en double.');
         foreach (\GlpiPlugin\Grcmanager\Menu::sections() as $parent => $children) {
@@ -60,6 +63,7 @@ final class DashboardMenuTest extends GrcmanagerIntegrationTestCase
             __('Automated technical checks', 'grcmanager'),
             \GlpiPlugin\Grcmanager\ComplianceAudit::getTypeName()
         );
+        \GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig::reset();
     }
 
     /**
