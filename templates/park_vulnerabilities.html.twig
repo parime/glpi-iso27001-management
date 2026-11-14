@@ -207,7 +207,7 @@
                      </td>
                      <td class="text-nowrap">{{ row.published ? row.published|formatted_date : '' }}</td>
                      {% if remediation %}
-                     <td class="text-nowrap">
+                     <td style="min-width: 12rem">
                         {% set r = row.remediation %}
                         {% if r %}
                            <span class="badge {{ r.badge.class }}" title="{{ __('Deadline %1$s (%2$s: %3$d days)', 'grcmanager')|format(r.sla_due|formatted_date, r.level_label, r.deadline) }}"><i class="{{ r.badge.icon }} me-1"></i>{{ r.badge.label }}</span>
