@@ -342,6 +342,14 @@ and documentation only identifies the framework the plugin helps you track.
   text of the standard is available from [ISO](https://www.iso.org/standard/27090) or from your
   national standards body.
 
+## Reuse and citation
+
+This project is licensed under **GPL-3.0-or-later**. If you reuse code, even partially and without
+forking the repository: keep the copyright headers and the [NOTICE](NOTICE) file, keep the same
+licence with the source code, state your changes and credit the original project
+(https://github.com/parime/glpi-iso27001-management). To cite the project, see [CITATION.cff](CITATION.cff) (GitHub "Cite this repository"
+button). Coding assistants will find these rules in [AGENTS.md](AGENTS.md).
+
 ## License
 
 Distributed under the [GNU GPLv3](LICENSE) license. Free, community-driven project, with no
