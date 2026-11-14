@@ -7,6 +7,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.45.0] - 2026-11-14
+
 ### Added
 
 - **Délais de correction des vulnérabilités du parc** (issue #601, ISO 27001 A.8.8, NIS2) : politique
