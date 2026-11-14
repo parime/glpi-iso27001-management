@@ -44,6 +44,8 @@ use GlpiPlugin\Grcmanager\NotificationTargetTraining;
 use GlpiPlugin\Grcmanager\NotificationTargetVulnerabilityDigest;
 use GlpiPlugin\Grcmanager\NotificationTargetWaiver;
 use GlpiPlugin\Grcmanager\NotificationTargetPolicy;
+use GlpiPlugin\Grcmanager\AuditEvidenceRequest;
+use GlpiPlugin\Grcmanager\NotificationTargetAuditEvidenceRequest;
 use GlpiPlugin\Grcmanager\Policy;
 use GlpiPlugin\Grcmanager\PolicyAcknowledgement;
 use GlpiPlugin\Grcmanager\Risk;
@@ -419,6 +421,35 @@ final class NotificationTemplateDefaults
                 [NotificationTargetPolicy::TARGET_AUDIENCE],
                 'Relance de lecture d\'une politique de sécurité',
                 $legacyByTask . 'lorsque l\'échéance de prise de connaissance d\'une politique est dépassée.',
+            ],
+            // Issue #538 : demandes de preuves d'un audit (demande, relance, soumission, à compléter).
+            'evidence_request_new' => [
+                AuditEvidenceRequest::class, AuditEvidenceRequest::NEW_EVENT, 'Audit evidence to provide',
+                'Sent to the person who must provide a piece of evidence requested for an audit.',
+                [NotificationTargetAuditEvidenceRequest::TARGET_ASSIGNEE],
+                'Preuve d\'audit à fournir',
+                'Envoyée à la personne qui doit fournir une preuve demandée pour un audit.',
+            ],
+            'evidence_request_reminder' => [
+                AuditEvidenceRequest::class, AuditEvidenceRequest::REMINDER_EVENT, 'Audit evidence reminder',
+                $sentByTask . 'an audit evidence request is due within a week or late (at most once a week).',
+                [NotificationTargetAuditEvidenceRequest::TARGET_ASSIGNEE],
+                'Relance de preuve d\'audit',
+                $legacyByTask . 'lorsqu\'une preuve d\'audit arrive à échéance ou est en retard.',
+            ],
+            'evidence_request_submitted' => [
+                AuditEvidenceRequest::class, AuditEvidenceRequest::SUBMITTED_EVENT, 'Audit evidence submitted',
+                'Sent to the auditor and the owner of the audit when evidence is submitted for review.',
+                [NotificationTargetAuditEvidenceRequest::TARGET_AUDIT_LEADS],
+                'Preuve d\'audit soumise',
+                'Envoyée à l\'auditeur et au responsable de l\'audit lorsqu\'une preuve est soumise.',
+            ],
+            'evidence_request_to_complete' => [
+                AuditEvidenceRequest::class, AuditEvidenceRequest::TO_COMPLETE_EVENT, 'Audit evidence to complete',
+                'Sent to the person who provided audit evidence when the audit asks for it to be completed.',
+                [NotificationTargetAuditEvidenceRequest::TARGET_ASSIGNEE],
+                'Preuve d\'audit à compléter',
+                'Envoyée à la personne qui a fourni une preuve d\'audit lorsque l\'audit demande de la compléter.',
             ],
         ];
 
@@ -834,6 +865,44 @@ final class NotificationTemplateDefaults
                         NotificationHtml::link('##policy.acknowledgeurl##', $link),
                     ]),
                 ];
+
+            case 'evidence_request_new':
+            case 'evidence_request_reminder':
+            case 'evidence_request_to_complete':
+                $title = $head('##evidencerequest.action##', '##evidencerequest.reference##');
+                $subject = $key === 'evidence_request_reminder'
+                    ? sprintf($t('Reminder: audit evidence %s to provide'), '##evidencerequest.reference##')
+                    : $title;
+                $advice = [match ($key) {
+                    'evidence_request_new' => $t('Add the requested documents on the "My evidence requests" page, '
+                        . 'then submit them to the audit. Nobody outside the audit team sees them before you submit.'),
+                    'evidence_request_reminder' => $t('This evidence is still expected. Add the documents and '
+                        . 'submit them to the audit; nothing else happens if it is late.'),
+                    default => sprintf(
+                        $t('The audit asks you to complete this evidence: %s'),
+                        '##evidencerequest.reviewcomment##'
+                    ),
+                }];
+
+                return self::simple($subject, $title, [
+                    $line('Audit', '##evidencerequest.audit##'),
+                    $line('Control', '##evidencerequest.control##'),
+                    $line('Description', '##evidencerequest.description##'),
+                    $line('Due date', '##evidencerequest.duedate##'),
+                ], $advice, '##evidencerequest.mineurl##', $t('Open my evidence requests'), $head);
+
+            case 'evidence_request_submitted':
+                $title = $head('##evidencerequest.action##', '##evidencerequest.reference##');
+
+                return self::simple($title, $title, [
+                    $line('Audit', '##evidencerequest.audit##'),
+                    $line('Control', '##evidencerequest.control##'),
+                    $line('Submitted by', '##evidencerequest.assignee##'),
+                    $line('Comment', '##evidencerequest.comment##'),
+                ], [
+                    $t('Review the documents in the "Evidence requests" tab of the audit, then accept them or ask '
+                        . 'for them to be completed.'),
+                ], '##evidencerequest.auditurl##', $t('Review the evidence'), $head);
         }
 
         throw new \InvalidArgumentException('Unknown notification template: ' . $key);
