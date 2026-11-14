@@ -89,7 +89,10 @@ final class ParkRemediation
             'days'             => $days,
             'critical_percent' => $input['park_sla_critical_percent'] ?? null,
         ]);
-        $values = ['park_sla_enabled' => (int) $settings['enabled'], 'park_sla_critical_percent' => $settings['critical_percent']];
+        $values = [
+            'park_sla_enabled'          => (int) $settings['enabled'],
+            'park_sla_critical_percent' => $settings['critical_percent'],
+        ];
         foreach ($settings['days'] as $level => $value) {
             $values['park_sla_days_' . $level] = $value;
         }

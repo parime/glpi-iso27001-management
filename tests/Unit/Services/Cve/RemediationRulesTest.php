@@ -57,7 +57,10 @@ final class RemediationRulesTest extends TestCase
     {
         $settings = Rules::settings([]);
         $this->assertFalse($settings['enabled']);
-        $this->assertSame(['kev' => 7, 'critical' => 15, 'high' => 30, 'medium' => 90, 'low' => 180], $settings['days']);
+        $this->assertSame(
+            ['kev' => 7, 'critical' => 15, 'high' => 30, 'medium' => 90, 'low' => 180],
+            $settings['days']
+        );
         $this->assertSame(50, $settings['critical_percent']);
 
         $custom = Rules::settings([
@@ -114,7 +117,11 @@ final class RemediationRulesTest extends TestCase
         $this->assertSame(21, $state['days']);
 
         $this->assertSame(Rules::STATUS_DUE_SOON, Rules::state($record, null, '2026-10-25', $settings)['status']);
-        $this->assertSame(Rules::STATUS_DUE_SOON, Rules::state($record, null, '2026-10-31', $settings)['status'], 'Le jour de l\'échéance compte encore.');
+        $this->assertSame(
+            Rules::STATUS_DUE_SOON,
+            Rules::state($record, null, '2026-10-31', $settings)['status'],
+            'Le jour de l\'échéance compte encore.'
+        );
 
         $overdue = Rules::state($record, null, '2026-11-05', $settings);
         $this->assertSame(Rules::STATUS_OVERDUE, $overdue['status']);
@@ -183,7 +190,8 @@ final class RemediationRulesTest extends TestCase
         $this->assertSame('2026-08-16', $expired['due']);
 
         // Corrigée avant la fin de la dérogation : dans les délais.
-        $fixed = Rules::state(self::record('2026-08-01', Rules::CRITICAL, '2026-11-20'), '2026-11-30', '2026-12-01', $settings);
+        $fixedRecord = self::record('2026-08-01', Rules::CRITICAL, '2026-11-20');
+        $fixed = Rules::state($fixedRecord, '2026-11-30', '2026-12-01', $settings);
         $this->assertSame(Rules::STATUS_FIXED, $fixed['status']);
         $this->assertTrue($fixed['on_time']);
         $this->assertSame(111, $fixed['days']);

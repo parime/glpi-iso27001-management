@@ -44,6 +44,7 @@ final class ParkRemediationTest extends GrcmanagerIntegrationTestCase
     private const CRITICAL = 'CVE-2099-60102';
     private const HIGH = 'CVE-2099-60103';
     private const LOW = 'CVE-2099-60104';
+    private const ALL = [self::KEV, self::CRITICAL, self::HIGH, self::LOW];
 
     /** @var array<string, mixed> */
     private array $savedSettings = [];
@@ -99,8 +100,11 @@ final class ParkRemediationTest extends GrcmanagerIntegrationTestCase
             ]);
             $this->computers[] = $computerId;
         }
-        $this->productId = (int) ParkVulnerability::confirm($name, 'cpe:2.3:a:phpunitremediation:viewer:4.0:*:*:*:*:*:*:*');
-        ParkVulnerabilitySync::replaceParkCves($this->productId, '4.0', [self::KEV, self::CRITICAL, self::HIGH, self::LOW]);
+        $this->productId = (int) ParkVulnerability::confirm(
+            $name,
+            'cpe:2.3:a:phpunitremediation:viewer:4.0:*:*:*:*:*:*:*'
+        );
+        ParkVulnerabilitySync::replaceParkCves($this->productId, '4.0', self::ALL);
         foreach ([self::KEV => 6.5, self::CRITICAL => 9.8, self::HIGH => 7.5, self::LOW => 3.1] as $cve => $cvss) {
             $DB->delete('glpi_plugin_grcmanager_cveenrichments', ['cve_id' => $cve]);
             $DB->insert('glpi_plugin_grcmanager_cveenrichments', [
@@ -199,7 +203,7 @@ final class ParkRemediationTest extends GrcmanagerIntegrationTestCase
         $this->assertSame([$this->entityId], $records[self::HIGH]['entities']);
 
         // Nouvelle vérification auprès de NVD : la table des CVE du parc est vidée puis remplie.
-        ParkVulnerabilitySync::replaceParkCves($this->productId, '4.0', [self::KEV, self::CRITICAL, self::HIGH, self::LOW]);
+        ParkVulnerabilitySync::replaceParkCves($this->productId, '4.0', self::ALL);
         ParkRemediation::sync('2026-10-20');
         $records = $this->ourRecords();
         $this->assertSame('2026-10-01', $records[self::HIGH]['date_first_seen']);
@@ -308,7 +312,9 @@ final class ParkRemediationTest extends GrcmanagerIntegrationTestCase
         $this->assertStringContainsString('2', $report['remediation'], 'Au moins nos deux vulnérabilités en retard.');
 
         $digest = new VulnerabilityDigest();
-        $digest->getFromDB((int) $digest->add(['entities_id' => 0, 'urgency' => $report['urgency'], 'cve_keys' => '[]']));
+        $digest->getFromDB((int) $digest->add([
+            'entities_id' => 0, 'urgency' => $report['urgency'], 'cve_keys' => '[]',
+        ]));
         $target = NotificationTarget::getInstance($digest, VulnerabilityDigest::EVENT, ['report' => $report]);
         $this->assertInstanceOf(NotificationTargetVulnerabilityDigest::class, $target);
         $target->addDataForTemplate(VulnerabilityDigest::EVENT, ['report' => $report]);
@@ -316,7 +322,7 @@ final class ParkRemediationTest extends GrcmanagerIntegrationTestCase
         $signals = array_column($target->data['vulnerabilities'], '##vulnerability.signal##', '##vulnerability.cve##');
         $this->assertArrayHasKey(self::KEV, $signals);
         $due = (string) \Html::convDate(date('Y-m-d', strtotime('-33 days')));
-        $this->assertStringContainsString($due, $signals[self::KEV], 'Échéance des vulnérabilités exploitées (7 jours).');
+        $this->assertStringContainsString($due, $signals[self::KEV], 'Échéance des exploitées (7 jours).');
 
         ParkRemediation::saveSettings([]);
         $this->assertSame('', VulnerabilityDigest::build()['remediation'], 'Politique désactivée : section vide.');
@@ -333,10 +339,16 @@ final class ParkRemediationTest extends GrcmanagerIntegrationTestCase
         );
 
         // Modèle d'une version précédente : la balise est ajoutée après celle des rançongiciels.
-        $old = NotificationTemplateDefaults::withRemediation('Avant ##vulndigest.ransomware## après', '<p>##IFvulndigest.ransomware##x##ENDIFvulndigest.ransomware##</p>');
+        $old = NotificationTemplateDefaults::withRemediation(
+            'Avant ##vulndigest.ransomware## après',
+            '<p>##IFvulndigest.ransomware##x##ENDIFvulndigest.ransomware##</p>'
+        );
         $this->assertNotNull($old);
         $this->assertSame("Avant ##vulndigest.ransomware##\n##vulndigest.remediation## après", $old['content_text']);
-        $this->assertStringContainsString('##ENDIFvulndigest.ransomware####IFvulndigest.remediation##', $old['content_html']);
+        $this->assertStringContainsString(
+            '##ENDIFvulndigest.ransomware####IFvulndigest.remediation##',
+            $old['content_html']
+        );
         $this->assertNull(NotificationTemplateDefaults::withRemediation('Texte réécrit', '<p>Texte réécrit</p>'));
     }
 
@@ -347,7 +359,8 @@ final class ParkRemediationTest extends GrcmanagerIntegrationTestCase
         $this->assertTrue(SecuredDashboardCards::canShow('vulnerabilityRemediationOverdue'));
         $this->assertGreaterThanOrEqual(2, SecuredDashboardCards::vulnerabilityRemediationOverdue()['number']);
         $this->assertCount(5, SecuredDashboardCards::vulnerabilityRemediationOverdueByLevel()['data']);
-        $this->assertCount(Rules::TREND_MONTHS, SecuredDashboardCards::vulnerabilityRemediationTrend()['data']['labels']);
+        $trend = SecuredDashboardCards::vulnerabilityRemediationTrend()['data'];
+        $this->assertCount(Rules::TREND_MONTHS, $trend['labels']);
 
         $saved = $_SESSION['glpiactiveprofile']['plugin_grcmanager_sensitive'] ?? 0;
         $_SESSION['glpiactiveprofile']['plugin_grcmanager_sensitive'] = 0;
@@ -372,7 +385,7 @@ final class ParkRemediationTest extends GrcmanagerIntegrationTestCase
         $ticket = new \Ticket();
         $this->assertTrue($ticket->getFromDB($ticketsId));
         $due = (string) \Html::convDate(date('Y-m-d', strtotime('-33 days')));
-        $this->assertStringContainsString($due, (string) $ticket->fields['content'], 'Échéance la plus proche : la KEV, 7 jours.');
-        $this->assertSame(5, (int) $ticket->fields['urgency'], 'Urgence calculée comme avant, sans tenir compte du retard.');
+        $this->assertStringContainsString($due, (string) $ticket->fields['content'], 'La plus proche : KEV, 7 jours.');
+        $this->assertSame(5, (int) $ticket->fields['urgency'], 'Urgence calculée comme avant, sans le retard.');
     }
 }

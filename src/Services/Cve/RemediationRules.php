@@ -344,7 +344,9 @@ final class RemediationRules
             'previous_rate'   => self::percent($previous['fixed_on_time'], $previous['fixed']),
             'mttr'            => $fixDays === [] ? null : round(array_sum($fixDays) / count($fixDays), 1),
             'oldest_overdue'  => $overdueDays === [] ? null : max($overdueDays),
-            'average_overdue' => $overdueDays === [] ? null : (int) round(array_sum($overdueDays) / count($overdueDays)),
+            'average_overdue' => $overdueDays === []
+                ? null
+                : (int) round(array_sum($overdueDays) / count($overdueDays)),
             'window_days'     => self::WINDOW_DAYS,
             'by_level'        => $byLevel,
             'trend'           => $trendRows,
