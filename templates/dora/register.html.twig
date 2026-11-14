@@ -22,8 +22,9 @@
       </div>
       <div class="card-body">
          {% if arrangements is empty %}
-            <p class="text-muted mb-0">{{ __('No contract in the register yet: open a contract with an ICT provider, then its "DORA register" tab.', 'grcmanager') }}</p>
-         {% elseif completeness.issues is empty %}
+            <p class="text-muted">{{ __('No contract in the register yet: open a contract with an ICT provider, then its "DORA register" tab.', 'grcmanager') }}</p>
+         {% endif %}
+         {% if completeness.issues is empty %}
             <div class="alert alert-success mb-0" id="grc-dora-all-complete"><i class="ti ti-circle-check me-1"></i>{{ __('Every required field is filled in: the register can be exported.', 'grcmanager') }}</div>
          {% else %}
             <p class="text-muted small"><i class="ti ti-info-circle me-1"></i>{{ __('%d required field(s) missing or invalid out of %d checked. Click a line to complete it where it is entered.', 'grcmanager')|format(completeness.issues|length, completeness.checked) }}</p>
