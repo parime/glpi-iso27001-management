@@ -7,8 +7,6 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
-## [2.45.0] - 2026-11-14
-
 ### Added
 
 - **Délais de correction des vulnérabilités du parc** (issue #601, ISO 27001 A.8.8, NIS2) : politique
@@ -31,6 +29,11 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   rapport par e-mail (balise `##vulndigest.remediation##` ajoutée aux modèles existants) et échéance de
   chaque ligne, échéance dans le ticket de mise à jour. Rien n'est modifié automatiquement : ni la
   priorité ni le statut des tickets, ni les dérogations.
+
+
+## [2.45.0] - 2026-11-14
+
+### Added
 
 - **Registre des violations de données personnelles** (issue #620, RGPD article 33.5) : page
   « Registre des violations » (rubrique Conformité) réservée au droit « Protection des données
