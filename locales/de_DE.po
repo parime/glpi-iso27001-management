@@ -11961,3 +11961,303 @@ msgstr "Hier fehlt nichts für das Register."
 
 msgid "Missing field"
 msgstr "Fehlt"
+
+msgid "Recorded data breach"
+msgid_plural "Recorded data breaches"
+msgstr[0] "Datenschutzverletzung"
+msgstr[1] "Datenschutzverletzungen"
+
+#, php-format
+msgid "%d hour left"
+msgid_plural "%d hours left"
+msgstr[0] "%d Stunde verbleibend"
+msgstr[1] "%d Stunden verbleibend"
+
+#, php-format
+msgid "%d hour late"
+msgid_plural "%d hours late"
+msgstr[0] "%d Stunde verspätet"
+msgstr[1] "%d Stunden verspätet"
+
+msgid "Breach register"
+msgstr "Verzeichnis der Datenschutzverletzungen"
+
+msgid "Confidentiality (disclosure or unauthorised access)"
+msgstr "Vertraulichkeit (Offenlegung oder unbefugter Zugriff)"
+
+msgid "Integrity (unauthorised alteration)"
+msgstr "Integrität (unbefugte Veränderung)"
+
+msgid "Availability (loss or destruction)"
+msgstr "Verfügbarkeit (Verlust oder Vernichtung)"
+
+msgid "Unlikely to result in a risk"
+msgstr "Voraussichtlich kein Risiko"
+
+msgid "Risk for the people concerned"
+msgstr "Risiko für die betroffenen Personen"
+
+msgid "High risk for the people concerned"
+msgstr "Hohes Risiko für die betroffenen Personen"
+
+msgid "Decision pending"
+msgstr "Entscheidung ausstehend"
+
+msgid "Notified to the supervisory authority"
+msgstr "Der Aufsichtsbehörde gemeldet"
+
+msgid "People informed"
+msgstr "Personen benachrichtigt"
+
+msgid "People not informed"
+msgstr "Personen nicht benachrichtigt"
+
+msgid "72 h deadline passed"
+msgstr "72-Stunden-Frist überschritten"
+
+msgid "Notified on time"
+msgstr "Fristgerecht gemeldet"
+
+msgid "Notified late"
+msgstr "Verspätet gemeldet"
+
+msgid "Not notified (decision recorded)"
+msgstr "Nicht gemeldet (Entscheidung dokumentiert)"
+
+msgid "The nature of the breach is not set."
+msgstr "Die Art der Verletzung ist nicht angegeben."
+
+msgid "Give at least an approximate number of people or records concerned."
+msgstr "Geben Sie mindestens eine ungefähre Zahl betroffener Personen oder Datensätze an."
+
+msgid "The risk for the people concerned is not assessed yet."
+msgstr "Das Risiko für die betroffenen Personen ist noch nicht bewertet."
+
+msgid "Not notified although a risk was found: only a breach unlikely to result in a risk may stay unnotified (article 33.1)."
+msgstr "Nicht gemeldet, obwohl ein Risiko festgestellt wurde: Nur eine Verletzung, die voraussichtlich kein Risiko birgt, darf ungemeldet bleiben (Artikel 33 Abs. 1)."
+
+msgid "High risk: decide whether the people concerned must be informed (article 34)."
+msgstr "Hohes Risiko: Entscheiden Sie, ob die betroffenen Personen benachrichtigt werden müssen (Artikel 34)."
+
+msgid "No measure taken or planned is described."
+msgstr "Es ist keine ergriffene oder geplante Maßnahme beschrieben."
+
+msgid "This incident is already recorded in the breach register (look in the trash bin too)."
+msgstr "Dieser Vorfall ist bereits im Verzeichnis der Datenschutzverletzungen erfasst (sehen Sie auch im Papierkorb nach)."
+
+msgid "The date and time the breach became known are required: the 72 h deadline runs from them."
+msgstr "Datum und Uhrzeit des Bekanntwerdens der Verletzung sind erforderlich: Ab dann läuft die 72-Stunden-Frist."
+
+msgid "A breach that is not notified needs the reason for the decision (GDPR, article 33.5)."
+msgstr "Für eine nicht gemeldete Verletzung muss die Begründung der Entscheidung angegeben werden (DSGVO, Artikel 33 Abs. 5)."
+
+msgid "Enter the date and time of the notification."
+msgstr "Geben Sie Datum und Uhrzeit der Meldung ein."
+
+msgid "The notification cannot be dated before the breach became known."
+msgstr "Die Meldung kann nicht vor dem Bekanntwerden der Verletzung datiert sein."
+
+msgid "Notified more than 72 h after the breach became known: give the reasons for the delay (article 33.1)."
+msgstr "Mehr als 72 Stunden nach Bekanntwerden gemeldet: Geben Sie die Gründe für die Verzögerung an (Artikel 33 Abs. 1)."
+
+msgid "Give the reason why the people concerned are not informed (article 34)."
+msgstr "Geben Sie an, warum die betroffenen Personen nicht benachrichtigt werden (Artikel 34)."
+
+#, php-format
+msgid "Breach known on %s"
+msgstr "Verletzung bekannt seit %s"
+
+msgid "Became known on"
+msgstr "Bekannt geworden am"
+
+msgid "Notification to the authority"
+msgstr "Meldung an die Behörde"
+
+msgid "Information of the people concerned"
+msgstr "Benachrichtigung der betroffenen Personen"
+
+msgid "People concerned (approx.)"
+msgstr "Betroffene Personen (ca.)"
+
+msgid "Nature of the breach"
+msgstr "Art der Verletzung"
+
+msgid "Records concerned (approx.)"
+msgstr "Betroffene Datensätze (ca.)"
+
+msgid "Breach started on"
+msgstr "Beginn der Verletzung"
+
+msgid "Facts and circumstances"
+msgstr "Sachverhalt und Umstände"
+
+msgid "Processing activities concerned"
+msgstr "Betroffene Verarbeitungstätigkeiten"
+
+msgid "Categories of people concerned"
+msgstr "Kategorien betroffener Personen"
+
+msgid "Likely consequences"
+msgstr "Wahrscheinliche Folgen"
+
+msgid "Measures taken"
+msgstr "Ergriffene Maßnahmen"
+
+msgid "Measures planned"
+msgstr "Geplante Maßnahmen"
+
+msgid "72 h deadline"
+msgstr "72-Stunden-Frist"
+
+msgid "Situation"
+msgstr "Stand"
+
+msgid "Reason for not notifying"
+msgstr "Begründung für die Nichtmeldung"
+
+msgid "Reasons for the delay"
+msgstr "Gründe für die Verzögerung"
+
+msgid "Reason for not informing them"
+msgstr "Begründung für die Nichtbenachrichtigung"
+
+msgid "Register of personal data breaches"
+msgstr "Verzeichnis der Verletzungen des Schutzes personenbezogener Daten"
+
+msgid "The register of personal data breaches: every breach is documented, whether or not it was notified, with its facts, effects and the measures taken."
+msgstr "Das Verzeichnis der Datenschutzverletzungen: Jede Verletzung wird dokumentiert, ob gemeldet oder nicht, mit Sachverhalt, Auswirkungen und ergriffenen Maßnahmen."
+
+msgid "Record each breach as soon as it is known (from the security incident when there is one), decide within 72 h whether to notify the supervisory authority and write down why, decide whether to inform the people concerned, then export the register when the authority asks for it."
+msgstr "Erfassen Sie jede Verletzung, sobald sie bekannt ist (aus dem Sicherheitsvorfall, falls vorhanden), entscheiden Sie innerhalb von 72 Stunden über die Meldung an die Aufsichtsbehörde und begründen Sie dies, entscheiden Sie über die Benachrichtigung der betroffenen Personen und exportieren Sie das Verzeichnis, wenn die Behörde es anfordert."
+
+msgid "GDPR, articles 33 and 34"
+msgstr "DSGVO, Artikel 33 und 34"
+
+msgid "Proposal prepared from the security incident: check and complete it, then click Add. Nothing is recorded until you do, and the incident is not changed."
+msgstr "Aus dem Sicherheitsvorfall vorbereiteter Vorschlag: Prüfen und ergänzen Sie ihn und klicken Sie dann auf Hinzufügen. Vorher wird nichts gespeichert, und der Vorfall wird nicht geändert."
+
+msgid "its Regulatory notifications section shows the deadlines"
+msgstr "sein Abschnitt Behördliche Meldungen zeigt die Fristen"
+
+msgid "linked, but you cannot open it"
+msgstr "verknüpft, aber Sie können ihn nicht öffnen"
+
+msgid "The breach"
+msgstr "Die Verletzung"
+
+msgid "A short description, without the names of the people concerned."
+msgstr "Eine kurze Beschreibung, ohne die Namen der betroffenen Personen."
+
+#, php-format
+msgid "When the organisation became reasonably certain that personal data were affected: the %d h deadline to notify runs from then (article 33.1)."
+msgstr "Der Zeitpunkt, zu dem die Organisation hinreichend sicher war, dass personenbezogene Daten betroffen sind: Ab dann läuft die Meldefrist von %d Stunden (Artikel 33 Abs. 1)."
+
+msgid "Optional, if known."
+msgstr "Optional, falls bekannt."
+
+#, php-format
+msgid "Taken from the record of processing activities. %d other linked activity is not shown to you."
+msgstr "Aus dem Verzeichnis der Verarbeitungstätigkeiten. %d weitere verknüpfte Tätigkeit wird Ihnen nicht angezeigt."
+
+msgid "Taken from the record of processing activities."
+msgstr "Aus dem Verzeichnis der Verarbeitungstätigkeiten."
+
+msgid "What happened, how it was discovered, how long it lasted."
+msgstr "Was geschehen ist, wie es entdeckt wurde, wie lange es dauerte."
+
+msgid "People and data concerned"
+msgstr "Betroffene Personen und Daten"
+
+msgid "An approximate number is enough; leave empty if unknown."
+msgstr "Eine ungefähre Zahl genügt; leer lassen, falls unbekannt."
+
+msgid "The kind of data, never the data themselves (e.g. \"name, salary, bank details\")."
+msgstr "Die Art der Daten, nie die Daten selbst (z. B. \"Name, Gehalt, Bankverbindung\")."
+
+msgid "Effects and measures"
+msgstr "Auswirkungen und Maßnahmen"
+
+msgid "For the people concerned: loss of control of their data, fraud, discrimination, damage to reputation..."
+msgstr "Für die betroffenen Personen: Kontrollverlust über ihre Daten, Betrug, Diskriminierung, Rufschädigung..."
+
+msgid "Unlikely: notification not required. Risk: notify the authority. High risk: inform the people concerned too."
+msgstr "Unwahrscheinlich: keine Meldung erforderlich. Risiko: der Behörde melden. Hohes Risiko: auch die betroffenen Personen benachrichtigen."
+
+msgid "Notification to the supervisory authority (article 33)"
+msgstr "Meldung an die Aufsichtsbehörde (Artikel 33)"
+
+msgid "Every breach stays in the register, notified or not. Not notifying is possible only if the breach is unlikely to result in a risk, and the reason must be written down."
+msgstr "Jede Verletzung bleibt im Verzeichnis, ob gemeldet oder nicht. Eine Nichtmeldung ist nur möglich, wenn voraussichtlich kein Risiko besteht, und die Begründung muss festgehalten werden."
+
+msgid "Required when the breach is not notified."
+msgstr "Erforderlich, wenn die Verletzung nicht gemeldet wird."
+
+msgid "Supervisory authority"
+msgstr "Aufsichtsbehörde"
+
+msgid "For example the CNIL in France."
+msgstr "Zum Beispiel die CNIL in Frankreich."
+
+msgid "Reference of the notification"
+msgstr "Aktenzeichen der Meldung"
+
+msgid "Required when the notification is made more than 72 h after the breach became known."
+msgstr "Erforderlich, wenn die Meldung mehr als 72 Stunden nach Bekanntwerden erfolgt."
+
+msgid "Information of the people concerned (article 34)"
+msgstr "Benachrichtigung der betroffenen Personen (Artikel 34)"
+
+msgid "Required when the risk is high, unless an exception applies (data made unintelligible, risk removed since, disproportionate effort: then a public communication)."
+msgstr "Erforderlich bei hohem Risiko, außer bei einer Ausnahme (Daten unverständlich gemacht, Risiko inzwischen beseitigt, unverhältnismäßiger Aufwand: dann öffentliche Bekanntmachung)."
+
+msgid "Required when the people are not informed."
+msgstr "Erforderlich, wenn die Personen nicht benachrichtigt werden."
+
+msgid "Informed on"
+msgstr "Benachrichtigt am"
+
+msgid "Means of information"
+msgstr "Art der Benachrichtigung"
+
+msgid "E-mail, letter, notice on the website..."
+msgstr "E-Mail, Brief, Hinweis auf der Website..."
+
+msgid "Data protection officer"
+msgstr "Datenschutzbeauftragter"
+
+msgid "Attach the evidence (acknowledgement of the authority, message sent to the people...) in the Documents tab: only the readers of this register can open it."
+msgstr "Fügen Sie die Nachweise (Eingangsbestätigung der Behörde, an die Personen gesendete Nachricht...) im Reiter Dokumente hinzu: Nur die Leser dieses Verzeichnisses können sie öffnen."
+
+msgid "In the trash bin"
+msgstr "Im Papierkorb"
+
+msgid "Open the register entry"
+msgstr "Verzeichniseintrag öffnen"
+
+msgid "This breach is recorded in the register of another entity, which you cannot open."
+msgstr "Diese Verletzung ist im Verzeichnis einer anderen Einheit erfasst, die Sie nicht öffnen können."
+
+msgid "Not recorded in the breach register yet"
+msgstr "Noch nicht im Verzeichnis der Datenschutzverletzungen erfasst"
+
+msgid "The GDPR (article 33.5) requires every personal data breach to be documented, even when it is not notified: facts, effects, measures and the reasoned decision to notify or not."
+msgstr "Die DSGVO (Artikel 33 Abs. 5) verlangt, jede Verletzung des Schutzes personenbezogener Daten zu dokumentieren, auch ohne Meldung: Sachverhalt, Auswirkungen, Maßnahmen und begründete Entscheidung über die Meldung."
+
+msgid "Record this breach in the register"
+msgstr "Diese Verletzung im Verzeichnis erfassen"
+
+msgid "The form is prefilled from the incident; you check it before saving."
+msgstr "Das Formular wird aus dem Vorfall vorausgefüllt; Sie prüfen es vor dem Speichern."
+
+msgid "Breaches in the register"
+msgstr "Verletzungen im Verzeichnis"
+
+#, php-format
+msgid "No. %s"
+msgstr "Nr. %s"
+
+msgid "The register contains no breach."
+msgstr "Das Verzeichnis enthält keine Verletzung."
+
+msgid "Breach register entry"
+msgstr "Eintrag im Verzeichnis der Verletzungen"

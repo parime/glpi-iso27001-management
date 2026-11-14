@@ -134,6 +134,12 @@ class SecurityIncidentPlaybookTask extends SecurityIncidentPlaybookTaskBase
             'library_url' => Playbook::getSearchURL(),
             'form_url'  => self::getFormURL(),
             'pdf_url'   => self::getFormURL() . '?pdf=' . (int) $item->getID(),
+            // Issue #620 : l'étape « Inscrire la violation au registre » mène au registre des violations.
+            'breach'    => DataBreach::canView() ? DataBreach::incidentLink($item) : null,
+            'breach_task_ids' => array_values(array_map(
+                static fn (array $task): int => (int) $task['id'],
+                array_filter($tasks, DataBreach::isRegisterStep(...))
+            )),
         ]);
 
         return true;

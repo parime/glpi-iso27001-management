@@ -203,6 +203,13 @@ archivé), avec ses champs de classification ISO 27001 fusionnés dessus.
   et un export PDF ou CSV pour l'autorité de contrôle. Droit dédié « Protection des données personnelles »
   (avec la lecture du droit général pour voir l'entrée dans le menu). AIPD et demandes d'exercice des droits
   à venir.
+- **Registre des violations de données personnelles (RGPD, article 33.5)** : chaque violation est
+  documentée, notifiée ou non (faits, nature, personnes et données concernées, traitements touchés,
+  conséquences, mesures), avec le délai de 72 h, la décision motivée de notifier ou non l'autorité de
+  contrôle (motifs du retard au-delà de 72 h) et celle d'informer les personnes (article 34), plus l'avis
+  du DPO. Création depuis l'incident de sécurité qualifié de violation (proposition préremplie, l'incident
+  n'est jamais modifié), lien depuis l'étape du plan de remédiation, export PDF ou CSV pour l'autorité.
+  Même droit « Protection des données personnelles » que le registre des traitements.
 - Chaque écran du menu explique à quoi il sert et ce qui est attendu. Les écrans d'un même travail
   sont regroupés en rubriques (une entrée de menu, une barre d'onglets commune), dans l'ordre du
   cycle du SMSI.
@@ -221,7 +228,7 @@ nombre d'éléments qui attendent l'utilisateur.
 |---|---|
 | Tableau de bord | Tableau de bord, Score de maturité, Évaluation par référentiel, Calendrier de conformité |
 | Risques | Risques, Risques fournisseurs, Analyse d'impact, Effet domino, Dérogations |
-| Conformité | Contrôles Annexe A (SoA), Référentiels, Exigences SMSI, Obligations, Registre des traitements, Politiques, Preuves, Couverture des preuves |
+| Conformité | Contrôles Annexe A (SoA), Référentiels, Exigences SMSI, Obligations, Registre des traitements, Registre des violations, Politiques, Preuves, Couverture des preuves |
 | Audits et amélioration | Audits internes, Non-conformités, Objectifs ISMS, Revues de direction |
 | Opérations | Revues des accès, Hygiène des comptes, Revues périodiques, Formations, Exercices de crise, Processus métier |
 | Sécurité technique | Contrôles techniques automatiques, Vulnérabilités du parc, Machines les plus exposées, Logiciels à surveiller, Produits, Matrice des flux, Fuites de données |

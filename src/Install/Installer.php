@@ -152,6 +152,10 @@ final class Installer
     private const DORA_ARRANGEMENT_FUNCTIONS_TABLE = 'glpi_plugin_grcmanager_doraarrangements_functions';
     private const DORA_SUBCONTRACTORS_TABLE = 'glpi_plugin_grcmanager_dorasubcontractors';
     private const DORA_FUNCTIONS_TABLE = 'glpi_plugin_grcmanager_dorafunctions';
+    // Issue #620 : registre des violations de données personnelles (RGPD, article 33.5) et traitements
+    // concernés.
+    private const DATA_BREACHES_TABLE = 'glpi_plugin_grcmanager_databreaches';
+    private const DATA_BREACHES_ACTIVITIES_TABLE = 'glpi_plugin_grcmanager_databreaches_processingactivities';
 
     // Issue #30 (registre des obligations légales/réglementaires/contractuelles), même dérivation
     // de nom de table que toutes les autres tables ci-dessus.
@@ -270,6 +274,8 @@ final class Installer
         // Issue #375 : registre des activités de traitement (RGPD).
         \GlpiPlugin\Grcmanager\ProcessingActivity::class,
         \GlpiPlugin\Grcmanager\DataSubjectRequest::class,
+        // Issue #620 : registre des violations de données personnelles.
+        \GlpiPlugin\Grcmanager\DataBreach::class,
         // Issue #378 : indicateurs de risque et leurs relevés.
         \GlpiPlugin\Grcmanager\RiskIndicator::class,
         \GlpiPlugin\Grcmanager\RiskIndicatorValue::class,
@@ -1319,6 +1325,7 @@ final class Installer
         $this->installPolicyAcknowledgementTables($keySign, $charset, $collation);
         $this->installAuditEvidenceRequestTables($keySign, $charset, $collation);
         $this->installDoraRegisterTables($keySign, $charset, $collation);
+        $this->installDataBreachTables($keySign, $charset, $collation);
 
         // Issue #30 (registre des obligations légales/réglementaires/contractuelles, clause 4.2
         // ISO 27001 "parties intéressées et leurs exigences", Annexe A A.5.31-36) : lien optionnel
@@ -4024,6 +4031,74 @@ final class Installer
     }
 
     /**
+     * Issue #620 : registre des violations de données personnelles (RGPD, article 33.5). Une fiche par
+     * violation, liée au besoin à l'incident de sécurité (0 = aucun) et aux traitements concernés.
+     */
+    private function installDataBreachTables(string $keySign, string $charset, string $collation): void
+    {
+        global $DB;
+
+        if (!$DB->tableExists(self::DATA_BREACHES_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::DATA_BREACHES_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `entities_id` int {$keySign} NOT NULL DEFAULT 0,
+                `name` varchar(255) NOT NULL DEFAULT '',
+                `plugin_grcmanager_securityincidents_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT '0 = aucun',
+                `date_start` timestamp NULL DEFAULT NULL,
+                `date_awareness` timestamp NULL DEFAULT NULL COMMENT 'Point de depart des 72 h (article 33.1)',
+                `description` text,
+                `nature` varchar(100) NOT NULL DEFAULT '[]'
+                    COMMENT 'JSON : confidentiality, integrity, availability',
+                `data_subjects` text COMMENT 'JSON, categories du registre des traitements',
+                `subjects_count` int DEFAULT NULL COMMENT 'Nombre approximatif, NULL = inconnu',
+                `data_categories` text COMMENT 'JSON, categories du registre des traitements',
+                `records_count` int DEFAULT NULL COMMENT 'Nombre approximatif, NULL = inconnu',
+                `data_details` text,
+                `consequences` text,
+                `risk_level` varchar(16) NOT NULL DEFAULT '' COMMENT 'unlikely, risk, high, vide = non evalue',
+                `measures_taken` text,
+                `measures_planned` text,
+                `authority_decision` varchar(16) NOT NULL DEFAULT 'pending'
+                    COMMENT 'pending, notified, not_notified',
+                `authority_reason` text COMMENT 'Obligatoire si not_notified (article 33.5)',
+                `authority_name` varchar(255) NOT NULL DEFAULT '',
+                `date_notified` timestamp NULL DEFAULT NULL,
+                `authority_reference` varchar(255) NOT NULL DEFAULT '',
+                `delay_reason` text COMMENT 'Obligatoire si notifiee apres 72 h',
+                `subjects_decision` varchar(16) NOT NULL DEFAULT 'pending'
+                    COMMENT 'pending, informed, not_informed (article 34)',
+                `subjects_reason` text,
+                `date_subjects_informed` date DEFAULT NULL,
+                `subjects_means` varchar(255) NOT NULL DEFAULT '',
+                `dpo_opinion` text,
+                `users_id` int {$keySign} NOT NULL DEFAULT 0,
+                `comment` text,
+                `is_deleted` tinyint NOT NULL DEFAULT 0,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `entities_id` (`entities_id`),
+                KEY `plugin_grcmanager_securityincidents_id` (`plugin_grcmanager_securityincidents_id`),
+                KEY `authority_decision` (`authority_decision`),
+                KEY `date_awareness` (`date_awareness`),
+                KEY `users_id` (`users_id`),
+                KEY `is_deleted` (`is_deleted`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+        if (!$DB->tableExists(self::DATA_BREACHES_ACTIVITIES_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::DATA_BREACHES_ACTIVITIES_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_databreaches_id` int {$keySign} NOT NULL DEFAULT 0,
+                `plugin_grcmanager_processingactivities_id` int {$keySign} NOT NULL DEFAULT 0,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity` (`plugin_grcmanager_databreaches_id`, `plugin_grcmanager_processingactivities_id`),
+                KEY `plugin_grcmanager_processingactivities_id` (`plugin_grcmanager_processingactivities_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+    }
+
+    /**
      * Issue #535 : public cible d'une politique (groupes, profils, entités), campagnes de prise de
      * connaissance (une par version approuvée) et confirmation de chaque personne du public.
      */
@@ -4633,6 +4708,8 @@ final class Installer
         $migration->dropTable(self::BUSINESS_PROCESSES_TABLE);
         $migration->dropTable(self::DPIAS_TABLE);
         $migration->dropTable(self::DATA_SUBJECT_REQUESTS_TABLE);
+        $migration->dropTable(self::DATA_BREACHES_ACTIVITIES_TABLE);
+        $migration->dropTable(self::DATA_BREACHES_TABLE);
         $migration->dropTable(self::EBIOS_STUDIES_TABLE);
         $migration->dropTable(self::EBIOS_VALUES_TABLE);
         $migration->dropTable(self::EBIOS_FEARED_EVENTS_TABLE);

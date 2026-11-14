@@ -144,6 +144,20 @@ if ($mode === 'xss') {
         'comment' => $canary, 'data_subjects' => '[]', 'data_categories' => '[]', 'sensitive_data' => '[]',
         'status' => 'active',
     ]);
+    // Issue #620 : chaque champ texte d'une violation de données.
+    $out['breach'] = $insert('databreaches', [
+        'name' => $canary, 'description' => $canary, 'data_details' => $canary, 'consequences' => $canary,
+        'measures_taken' => $canary, 'measures_planned' => $canary, 'authority_reason' => $canary,
+        'authority_name' => $canary, 'authority_reference' => $canary, 'delay_reason' => $canary,
+        'subjects_reason' => $canary, 'subjects_means' => $canary, 'dpo_opinion' => $canary, 'comment' => $canary,
+        'nature' => '["confidentiality"]', 'data_subjects' => '[]', 'data_categories' => '[]',
+        'date_awareness' => date('Y-m-d H:i:s'), 'authority_decision' => 'not_notified',
+        'plugin_grcmanager_securityincidents_id' => (int) $ids['incident_A'],
+    ]);
+    $insert('databreaches_processingactivities', [
+        'plugin_grcmanager_databreaches_id' => $out['breach'],
+        'plugin_grcmanager_processingactivities_id' => $out['processing'],
+    ]);
     $insert('processingactivities_items', [
         'plugin_grcmanager_processingactivities_id' => $out['processing'],
         'itemtype' => 'Computer', 'items_id' => (int) $ids['computer_A'],
@@ -618,6 +632,19 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
         ]);
     }
     $ids['dsr_' . $suffix] = (int) $dsr->getID();
+
+    // Issue #620 : violation de données inscrite au registre, non notifiée avec sa justification.
+    $breach = new \GlpiPlugin\Grcmanager\DataBreach();
+    if (!$breach->getFromDBByCrit(['name' => 'Violation securite ' . $suffix])) {
+        $add($breach, [
+            'name'               => 'Violation securite ' . $suffix,
+            'entities_id'        => $entity,
+            'date_awareness'     => date('Y-m-d H:i:s'),
+            'authority_decision' => 'not_notified',
+            'authority_reason'   => 'Risque improbable (fictif)',
+        ]);
+    }
+    $ids['breach_' . $suffix] = (int) $breach->getID();
 }
 
 // Issue #380, troisième étape : preuve envoyée depuis le formulaire d'un test, par le même chemin

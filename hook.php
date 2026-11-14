@@ -559,7 +559,9 @@ function plugin_grcmanager_pre_itil_info_section(array $params): void
     }
     $labels = PluginGrcmanagerSecurityIncident::getRegulatoryLabels();
     $banners = [];
-    foreach (GlpiPlugin\Grcmanager\Services\Incident\RegulatoryDeadlines::banners($item->fields) as $row) {
+    // Issue #620 : décision motivée de ne pas notifier, inscrite au registre des violations.
+    $regulatoryFields = \GlpiPlugin\Grcmanager\DataBreach::withAuthorityDecision($item->fields);
+    foreach (GlpiPlugin\Grcmanager\Services\Incident\RegulatoryDeadlines::banners($regulatoryFields) as $row) {
         $banners[] = $row + ['label' => $labels[$row['key']] ?? $row['key']];
     }
     // Issue #371 : consultation de l'incident, tracée dans le journal d'audit.
@@ -639,7 +641,12 @@ function plugin_grcmanager_post_itil_info_section(array $params): void
     $renderer->display('@grcmanager/itil_regulatory_section.html.twig', [
         'item'        => $item,
         'rand'        => $rand,
-        'deadlines'   => GlpiPlugin\Grcmanager\Services\Incident\RegulatoryDeadlines::compute($item->fields),
+        'deadlines'   => GlpiPlugin\Grcmanager\Services\Incident\RegulatoryDeadlines::compute(
+            \GlpiPlugin\Grcmanager\DataBreach::withAuthorityDecision($item->fields)
+        ),
+        // Issue #620 : fiche du registre des violations (droit RGPD), ou proposition de l'y inscrire.
+        'breach'      => \GlpiPlugin\Grcmanager\DataBreach::canView()
+            ? \GlpiPlugin\Grcmanager\DataBreach::incidentLink($item) : null,
         'labels'      => PluginGrcmanagerSecurityIncident::getRegulatoryLabels(),
         'done_fields' => array_map(
             static fn (array $deadline): string => $deadline[2],
@@ -663,6 +670,8 @@ function plugin_grcmanager_purge_security_incident_links(CommonDBTM $item): void
 
     // Issue #375 : un incident ou un ticket supprimé définitivement n'est plus cité par le registre.
     \GlpiPlugin\Grcmanager\ProcessingActivity::forgetItem($item);
+    // Issue #620 : la violation reste au registre, sans lien vers l'incident supprimé.
+    \GlpiPlugin\Grcmanager\DataBreach::forgetIncident($item);
 
     $field = $item instanceof Ticket ? 'tickets_id' : 'plugin_grcmanager_securityincidents_id';
     if ($DB->tableExists(\GlpiPlugin\Grcmanager\SecurityIncidentTicket::TABLE)) {

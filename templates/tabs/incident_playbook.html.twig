@@ -89,6 +89,19 @@
           {% endif %}
         </div>
         {% if task.description %}<div class="text-muted small mt-1">{{ task.description }}</div>{% endif %}
+        {# Issue #620 : l'étape du registre des violations mène à la fiche, ou propose de la créer. #}
+        {% if breach is defined and breach and task.id in breach_task_ids %}
+          <div class="mt-1">
+            {% if breach.readable %}
+              <a href="{{ breach.url }}" class="btn btn-sm btn-outline-secondary"><i class="ti ti-file-alert me-1"></i>{{ __('Breach register entry', 'grcmanager') }}</a>
+              <span class="badge {{ breach.state.class }} ms-1">{{ breach.state.label }}</span>
+            {% elseif breach.can_create %}
+              <a href="{{ breach.create_url }}" class="btn btn-sm btn-outline-primary"><i class="ti ti-file-plus me-1"></i>{{ __('Record this breach in the register', 'grcmanager') }}</a>
+            {% else %}
+              <a href="{{ breach.register_url }}" class="btn btn-sm btn-ghost-secondary"><i class="ti ti-list me-1"></i>{{ __('Breach register', 'grcmanager') }}</a>
+            {% endif %}
+          </div>
+        {% endif %}
         {% if can_edit %}
           <form method="post" action="{{ form_url }}" class="row g-2 mt-1 align-items-center">
             <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
