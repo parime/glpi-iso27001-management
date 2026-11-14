@@ -66,6 +66,8 @@ TemplateRenderer::getInstance()->display('@grcmanager/risk_list_actions.html.twi
     'heatmap_url'  => $riskHeatmapURL,
     'my_risks_url' => $myRisksURL,
     'report_url'   => $riskReportURL,
+    // Issue #602 : import et export CSV du registre.
+    'import_url'   => $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/riskimport.php',
 ]);
 
 // Sprint 1 passed an empty array here, which silently discarded any criteria/sort/pagination in

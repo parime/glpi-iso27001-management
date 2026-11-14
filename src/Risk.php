@@ -174,6 +174,9 @@ class Risk extends RiskBase
             return false;
         }
 
+        if (array_key_exists('external_ref', $input)) {
+            $input['external_ref'] = mb_substr(trim((string) $input['external_ref']), 0, 100);
+        }
         $input = $this->computeRiskLevel($input);
         $input = $this->computeResidualLevel($input);
 
@@ -431,6 +434,15 @@ class Risk extends RiskBase
                 'massiveaction' => false,
             ];
         }
+
+        // Issue #602 : référence du risque dans le registre tenu en tableur (clé de l'import CSV).
+        $tab[] = [
+            'id'       => 16,
+            'table'    => $this->getTable(),
+            'field'    => 'external_ref',
+            'name'     => __('External reference', 'grcmanager'),
+            'datatype' => 'string',
+        ];
 
         return $tab;
     }
@@ -921,6 +933,17 @@ class Risk extends RiskBase
         }
 
         self::syncLinkedAssets((int) $this->fields['id'], $pairs);
+    }
+
+    /**
+     * Issue #602 : liens vers les actifs donnés par l'import CSV du registre, mêmes règles que le
+     * formulaire (seuls les actifs visibles sont remplacés, voir syncLinkedAssets()).
+     *
+     * @param array<int, array{itemtype:string, items_id:int}> $pairs
+     */
+    public static function syncImportedAssets(int $riskId, array $pairs): void
+    {
+        self::syncLinkedAssets($riskId, $pairs);
     }
 
     private static function linkedAssetFieldName(string $itemtype): string

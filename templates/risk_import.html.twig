@@ -1,0 +1,175 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+
+{# Issue #602 : import CSV du registre des risques (analyse à blanc, confirmation) et export. #}
+
+{% if analysis %}
+  <div class="card mb-3 border-primary" id="grc-risk-import-analysis">
+    <div class="card-header">
+      <h3 class="card-title mb-0"><i class="ti ti-report-search me-1"></i>{{ __('Analysis of the file "%s"', 'grcmanager')|format(analysis.file) }}</h3>
+    </div>
+    <div class="card-body">
+      <div class="d-flex flex-wrap gap-2 mb-3">
+        <span class="badge bg-green-lt fs-5" data-count="create"><i class="ti ti-plus me-1"></i>{{ __('%d risks to add', 'grcmanager')|format(analysis.summary.create) }}</span>
+        <span class="badge bg-blue-lt fs-5" data-count="update"><i class="ti ti-pencil me-1"></i>{{ __('%d risks to update', 'grcmanager')|format(analysis.summary.update) }}</span>
+        <span class="badge bg-secondary-lt fs-5" data-count="unchanged"><i class="ti ti-equal me-1"></i>{{ __('%d risks unchanged', 'grcmanager')|format(analysis.summary.unchanged) }}</span>
+        <span class="badge {{ analysis.errors is empty ? 'bg-secondary-lt' : 'bg-red-lt' }} fs-5" data-count="rejected"><i class="ti ti-circle-x me-1"></i>{{ __('%d rejected lines', 'grcmanager')|format(analysis.errors|length) }}</span>
+      </div>
+
+      <div class="alert alert-info d-block">
+        <h4 class="alert-title"><i class="ti ti-shield-check me-1"></i>{{ __('Nothing has been saved yet', 'grcmanager') }}</h4>
+        <ul class="mb-0">
+          <li>{{ __('An empty cell, or a column missing from the file, keeps the value already saved in GLPI.', 'grcmanager') }}</li>
+          <li>{{ __('The risk level is computed by the risk matrix of the plugin, never taken from the file.', 'grcmanager') }}</li>
+          {% if analysis.status_changes > 0 %}
+            <li class="fw-bold">{{ __('The file changes the status of %d existing risks: these changes are highlighted below.', 'grcmanager')|format(analysis.status_changes) }}</li>
+          {% else %}
+            <li>{{ __('No status of an existing risk is changed: a status only changes when the file gives one.', 'grcmanager') }}</li>
+          {% endif %}
+          {% if analysis.missing is not empty %}
+            <li>{{ __('Columns not found in the file, left as they are: %s', 'grcmanager')|format(analysis.missing|join(', ')) }}</li>
+          {% endif %}
+          <li>{{ __('Numeric scores read on a scale of 1 to %d.', 'grcmanager')|format(analysis.scale) }}</li>
+        </ul>
+      </div>
+
+      {% if analysis.errors is not empty %}
+        <div class="alert alert-warning d-block" id="grc-risk-import-rejected">
+          <h4 class="alert-title"><i class="ti ti-alert-triangle me-1"></i>{{ __('Rejected lines', 'grcmanager') }}</h4>
+          <div class="text-secondary mb-2">{{ __('These lines will not be imported. Correct them in your file and analyse it again, or import the valid lines now.', 'grcmanager') }}</div>
+          <table class="table table-sm mb-0">
+            <thead><tr><th>{{ __('Line', 'grcmanager') }}</th><th>{{ __('Reference', 'grcmanager') }}</th><th>{{ __('Reason', 'grcmanager') }}</th></tr></thead>
+            <tbody>
+              {% for error in analysis.errors %}
+                <tr><td>{{ error.line }}</td><td>{% if error.reference %}<code>{{ error.reference }}</code>{% endif %}</td><td>{{ error.message }}</td></tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% endif %}
+
+      {% if analysis.steps is not empty %}
+        <div class="table-responsive">
+          <table class="table table-sm table-vcenter" id="grc-risk-import-steps">
+            <thead><tr><th>{{ __('Line', 'grcmanager') }}</th><th>{{ __('Reference', 'grcmanager') }}</th><th>{{ __('Title', 'grcmanager') }}</th><th>{{ __('Change', 'grcmanager') }}</th><th>{{ __('Details', 'grcmanager') }}</th></tr></thead>
+            <tbody>
+              {% for step in analysis.steps %}
+                <tr>
+                  <td class="text-secondary">{{ step.line }}</td>
+                  <td class="text-nowrap"><code>{{ step.reference }}</code></td>
+                  <td>{% if step.url %}<a href="{{ step.url }}" target="_blank">{{ step.title }}</a>{% else %}{{ step.title }}{% endif %}</td>
+                  <td class="text-nowrap"><span class="badge {{ step.class }}"><i class="{{ step.icon }} me-1"></i>{{ step.label }}</span></td>
+                  <td class="small">
+                    {% for change in step.changes %}
+                      <div{% if change.status and not step.create %} class="fw-bold text-warning"{% endif %}>
+                        {% if change.status and not step.create %}<i class="ti ti-alert-triangle me-1"></i>{% endif %}
+                        <span class="text-secondary">{{ change.field }} :</span>
+                        {% if step.create %}
+                          {{ change.new }}
+                        {% else %}
+                          <span class="text-decoration-line-through text-secondary">{{ change.old ?: __('(empty)', 'grcmanager') }}</span>
+                          <i class="ti ti-arrow-right mx-1"></i>{{ change.new ?: __('(empty)', 'grcmanager') }}
+                        {% endif %}
+                      </div>
+                    {% endfor %}
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <form method="post" action="{{ page_url }}" class="d-flex gap-2 mt-2">
+          <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+          <input type="hidden" name="import_token" value="{{ analysis.token }}">
+          <button type="submit" name="confirm_import" value="1" class="btn btn-primary"><i class="ti ti-check me-1"></i>{{ __('Confirm the import', 'grcmanager') }}</button>
+          <a href="{{ page_url }}" class="btn btn-outline-secondary">{{ __('Cancel', 'grcmanager') }}</a>
+        </form>
+      {% else %}
+        <div class="alert alert-danger mb-0"><i class="ti ti-file-off me-1"></i>{{ __('No line can be imported: correct the file and analyse it again.', 'grcmanager') }}</div>
+        <a href="{{ page_url }}" class="btn btn-outline-secondary mt-2"><i class="ti ti-arrow-left me-1"></i>{{ __('Choose another file', 'grcmanager') }}</a>
+      {% endif %}
+    </div>
+  </div>
+{% endif %}
+
+<div class="card mb-3">
+  <div class="card-header">
+    <h3 class="card-title mb-0"><i class="ti ti-file-export me-1"></i>{{ __('Export the register', 'grcmanager') }}</h3>
+  </div>
+  <div class="card-body">
+    <p class="mb-2">{{ __('Download every risk of the register in the import format: edit it in your spreadsheet, then import it again to update the risks. The risk levels are added at the end of each line for information; they are recomputed at import.', 'grcmanager') }}</p>
+    <div class="d-flex flex-wrap gap-2">
+      <a href="{{ export_url }}" class="btn btn-outline-primary"><i class="ti ti-download me-1"></i>{{ __('Export the register (CSV)', 'grcmanager') }}</a>
+      <a href="{{ list_url }}" class="btn btn-outline-secondary"><i class="ti ti-list me-1"></i>{{ __('Back to the risk register', 'grcmanager') }}</a>
+    </div>
+  </div>
+</div>
+
+{% if not analysis and can_import %}
+  <div class="card mb-3">
+    <div class="card-header">
+      <h3 class="card-title mb-0"><i class="ti ti-file-import me-1"></i>{{ __('Import a risk register from a file', 'grcmanager') }}</h3>
+    </div>
+    <div class="card-body">
+      <p>{{ __('Your risk register is kept in a spreadsheet? Save it as CSV and import it here instead of entering each risk again. Each risk keeps its reference: importing the file again updates the risks already imported, without creating duplicates.', 'grcmanager') }}</p>
+      <div class="row g-3 mb-3">
+        <div class="col-lg-8">
+          <div class="text-secondary small">
+            <strong>{{ __('Expected columns', 'grcmanager') }}</strong>
+            <ul class="mb-1">
+              <li><code>reference</code> : {{ __('unique reference of the risk in your register, required (for example R-001)', 'grcmanager') }}</li>
+              <li><code>title</code> : {{ __('short title, required', 'grcmanager') }}</li>
+              <li><code>category</code> : {{ categories }}</li>
+              <li><code>probability</code>, <code>impact</code>, <code>residual_probability</code>, <code>residual_impact</code> : {{ __('%1$s / %2$s, or a score (1 = lowest)', 'grcmanager')|format(probabilities, impacts) }}</li>
+              <li><code>treatment</code> : {{ treatments }}</li>
+              <li><code>owner</code> : {{ __('login, e-mail address or first and last name of a GLPI user; nobody is created', 'grcmanager') }}</li>
+              <li><code>review_date</code> : {{ __('31/12/2026 or 2026-12-31', 'grcmanager') }}</li>
+              <li><code>status</code> : {{ statuses }}</li>
+              <li><code>annex_a</code> : {{ __('ISO 27001 Annex A controls, separated by a comma or a space (A.5.1, A.8.5)', 'grcmanager') }}</li>
+              <li><code>assets</code> : {{ __('names or inventory numbers of GLPI assets, separated by a comma', 'grcmanager') }}</li>
+              <li><code>description</code>, <code>justification</code> : {{ __('free text', 'grcmanager') }}</li>
+            </ul>
+            {{ __('Semicolon or comma separator, UTF-8 encoding (a file saved by Excel is also accepted). %d risks at most. French column names and values are accepted too.', 'grcmanager')|format(max_rows) }}
+          </div>
+        </div>
+        <div class="col-lg-4 d-flex align-items-start">
+          <a href="{{ template_url }}" class="btn btn-outline-primary"><i class="ti ti-download me-1"></i>{{ __('Download the template', 'grcmanager') }}</a>
+        </div>
+      </div>
+      <form method="post" enctype="multipart/form-data" action="{{ page_url }}">
+        <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label required" for="grc-risk-file">{{ __('CSV file', 'grcmanager') }}</label>
+            <input type="file" class="form-control" id="grc-risk-file" name="csv_file" accept=".csv,text/csv,.txt" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label" for="grc-risk-scale">{{ __('Scores in the file', 'grcmanager') }}</label>
+            <select class="form-select" id="grc-risk-scale" name="scale">
+              {% for scale in scales %}
+                <option value="{{ scale }}"{% if scale == 4 %} selected{% endif %}>{{ __('From 1 to %d', 'grcmanager')|format(scale) }}</option>
+              {% endfor %}
+            </select>
+            <div class="form-hint">{{ __('The plugin matrix has 4 levels: a score on another scale is converted (the lowest and highest scores match).', 'grcmanager') }}</div>
+          </div>
+        </div>
+        <div class="d-flex gap-2 mt-3">
+          <button type="submit" name="analyse" value="1" class="btn btn-primary"><i class="ti ti-report-search me-1"></i>{{ __('Analyse the file', 'grcmanager') }}</button>
+        </div>
+        <div class="form-hint mt-2"><i class="ti ti-shield-check me-1"></i>{{ __('Nothing is saved before you confirm: the analysis first shows the rejected lines and what will change.', 'grcmanager') }}</div>
+      </form>
+    </div>
+  </div>
+{% endif %}
