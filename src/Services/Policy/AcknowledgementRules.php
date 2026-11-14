@@ -84,8 +84,7 @@ final class AcknowledgementRules
         bool $hasAudience,
         ?string $lastCampaignVersion,
         string $version
-    ): bool
-    {
+    ): bool {
         return $policyStatus === PolicyLifecycle::STATUS_APPROVED
             && $hasAudience
             && ($lastCampaignVersion === null || $lastCampaignVersion !== $version);
@@ -100,8 +99,7 @@ final class AcknowledgementRules
         bool $hasAudience,
         ?string $lastCampaignVersion,
         string $version
-    ): bool
-    {
+    ): bool {
         return $lastCampaignVersion !== null
             && self::canLaunch($policyStatus, $hasAudience, $lastCampaignVersion, $version);
     }
@@ -159,8 +157,7 @@ final class AcknowledgementRules
         ?int $defaultEntity,
         array $authorizationEntities,
         array $matchedEntities
-    ): int
-    {
+    ): int {
         $candidates = $matchedEntities !== [] ? $matchedEntities : $authorizationEntities;
         if ($defaultEntity !== null && in_array($defaultEntity, $candidates, true)) {
             return $defaultEntity;
@@ -266,8 +263,7 @@ final class AcknowledgementRules
         string $dueDate,
         ?string $lastReminder,
         string $today
-    ): bool
-    {
+    ): bool {
         return ($acknowledgedAt === null || $acknowledgedAt === '')
             && AccessReviewLogic::isReminderDue($dueDate, $lastReminder, $today);
     }

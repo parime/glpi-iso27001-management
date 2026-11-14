@@ -312,7 +312,7 @@ class Policy extends PolicyBase
     public function post_updateItem($history = true)
     {
         parent::post_updateItem($history);
-        if (array_intersect(['version', 'status'], $this->updates ?? []) === []) {
+        if (array_intersect(['version', 'status'], $this->updates) === []) {
             return;
         }
         $count = PolicyAcknowledgement::relaunchIfNewVersion($this);
