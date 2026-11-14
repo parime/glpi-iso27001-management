@@ -24,6 +24,14 @@ final class RegulatoryDeadlines
     public const STATUS_OVERDUE = 'overdue';
     public const STATUS_DUE_SOON = 'due_soon';
     public const STATUS_PENDING = 'pending';
+    /** Issue #620 : violation inscrite au registre avec la décision motivée de ne pas notifier. */
+    public const STATUS_NOT_REQUIRED = 'not_required';
+
+    /**
+     * Issue #620 : champ ajouté en mémoire (jamais en base) par DataBreach::withAuthorityDecisions()
+     * quand le registre des violations porte la décision motivée de ne pas notifier l'autorité.
+     */
+    public const GDPR_NOT_NOTIFIED_FLAG = '_gdpr_not_notified';
 
     /**
      * Échéances : clé => [condition d'application, délai, champ « notifié le »].
@@ -63,7 +71,10 @@ final class RegulatoryDeadlines
                 'key'     => $key,
                 'due'     => date('Y-m-d H:i:s', $due),
                 'done_at' => $doneAt,
-                'status'  => self::status($start, $due, $doneAt, $now),
+                'status'  => $key === 'gdpr_notification' && $doneAt === null
+                    && !empty($fields[self::GDPR_NOT_NOTIFIED_FLAG])
+                    ? self::STATUS_NOT_REQUIRED
+                    : self::status($start, $due, $doneAt, $now),
             ];
         }
 
@@ -95,7 +106,7 @@ final class RegulatoryDeadlines
         $now ??= time();
         $rows = [];
         foreach (self::compute($fields, $now) as $row) {
-            if ($row['done_at'] !== null) {
+            if ($row['done_at'] !== null || $row['status'] === self::STATUS_NOT_REQUIRED) {
                 continue;
             }
             $row['hours_left'] = max(0, (int) floor(((int) strtotime($row['due']) - $now) / 3600));

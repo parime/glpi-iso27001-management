@@ -142,6 +142,8 @@ function plugin_init_grcmanager(): void
     $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\Policy::class;
     // Issue #375 : preuve de la réponse à une demande d'exercice des droits.
     $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\DataSubjectRequest::class;
+    // Issue #620 : pièces d'une violation de données (accusé de réception de l'autorité, avis du DPO...).
+    $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\DataBreach::class;
     // Issue #170 : validation signée d'une dérogation, analyse de risque jointe.
     $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\Waiver::class;
     // Issue #139 : feuille d'émargement, support et quiz d'une session de formation.
@@ -230,6 +232,10 @@ function plugin_init_grcmanager(): void
 
     // Issue #169 : onglet « Rapport post-incident » sur les incidents de sécurité.
     Plugin::registerClass(\GlpiPlugin\Grcmanager\SecurityIncidentPostMortem::class, [
+        'addtabon' => [PluginGrcmanagerSecurityIncident::class],
+    ]);
+    // Issue #620 : onglet « Violation de données personnelles » de l'incident qualifié de violation.
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\DataBreach::class, [
         'addtabon' => [PluginGrcmanagerSecurityIncident::class],
     ]);
     // Issue #185 : onglet « Cellule de crise » de l'incident.

@@ -1,0 +1,27 @@
+{# Issue #620 : registre des violations de données personnelles (RGPD, article 33.5), pour l'autorité de contrôle #}
+{% include '@grcmanager/pdf/_pdf_style.html.twig' %}
+
+<h2>{{ __('Organisation', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-summary">
+  <tr><td>{{ __('Entity', 'grcmanager') }}</td><td>{{ organisation.name }}</td></tr>
+  <tr><td>{{ __('Data protection officer (DPO)', 'grcmanager') }}</td><td>{{ organisation.dpo ?: __('Not set', 'grcmanager') }}</td></tr>
+  <tr><td>{{ __('Breaches in the register', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ rows|length }}</td></tr>
+</table>
+
+{% for row in rows %}
+  <h2>{{ __('No. %s', 'grcmanager')|format(row.id) }} - {{ row.name }}</h2>
+  <table class="grcmanager-pdf-table">
+    <tbody>
+      {% for key, label in columns %}
+        {% if key not in ['id', 'name'] and row[key] is not empty %}
+          <tr>
+            <th style="width: 30%;">{{ label }}</th>
+            <td>{{ row[key]|nl2br }}</td>
+          </tr>
+        {% endif %}
+      {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <p>{{ __('The register contains no breach.', 'grcmanager') }}</p>
+{% endfor %}

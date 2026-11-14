@@ -4,13 +4,14 @@
 {% import 'components/form/fields_macros.html.twig' as fields %}
 {% import '@grcmanager/_hint.html.twig' as hints %}
 
-{% set badge_class = {'done': 'bg-green-lt', 'overdue': 'bg-red-lt', 'due_soon': 'bg-orange-lt', 'pending': 'bg-blue-lt'} %}
-{% set badge_icon = {'done': 'ti-circle-check', 'overdue': 'ti-alert-octagon', 'due_soon': 'ti-clock-exclamation', 'pending': 'ti-clock'} %}
+{% set badge_class = {'done': 'bg-green-lt', 'overdue': 'bg-red-lt', 'due_soon': 'bg-orange-lt', 'pending': 'bg-blue-lt', 'not_required': 'bg-secondary-lt'} %}
+{% set badge_icon = {'done': 'ti-circle-check', 'overdue': 'ti-alert-octagon', 'due_soon': 'ti-clock-exclamation', 'pending': 'ti-clock', 'not_required': 'ti-file-check'} %}
 {% set status_labels = {
    'done': _x('task', 'Done', 'grcmanager'),
    'overdue': _x('deadline passed', 'Overdue', 'grcmanager'),
    'due_soon': __('Due soon', 'grcmanager'),
-   'pending': __('To do', 'grcmanager')
+   'pending': __('To do', 'grcmanager'),
+   'not_required': __('Not notified (decision recorded)', 'grcmanager')
 } %}
 {% set nb_alerts = deadlines|filter(d => d.status in ['overdue', 'due_soon'])|length %}
 
@@ -38,6 +39,19 @@
             __('Personal data breach', 'grcmanager'),
             {'full_width': true, 'disabled': not item.canUpdateItem(), 'rand': rand, 'add_field_html': hints.hint(__('GDPR: notification to the supervisory authority (the CNIL in France) within 72 h.', 'grcmanager'))}
          ) }}
+
+         {# Issue #620 : registre des violations (droit RGPD) : la fiche, ou la proposition de l'y inscrire. #}
+         {% if breach is defined and breach and (breach.flagged or breach.exists) %}
+            <div class="col-12 mt-1 mb-2">
+               {% if breach.readable %}
+                  <a href="{{ breach.url }}" class="btn btn-sm btn-outline-secondary"><i class="ti ti-file-alert me-1"></i>{{ __('Breach register entry', 'grcmanager') }}</a>
+                  <span class="badge {{ breach.state.class }} ms-1"><i class="ti {{ breach.state.icon }} me-1"></i>{{ breach.state.label }}</span>
+               {% elseif breach.can_create %}
+                  <a href="{{ breach.create_url }}" class="btn btn-sm btn-outline-primary"><i class="ti ti-file-plus me-1"></i>{{ __('Record this breach in the register', 'grcmanager') }}</a>
+                  <span class="text-muted small ms-1">{{ __('Required by the GDPR (article 33.5) even without notification.', 'grcmanager') }}</span>
+               {% endif %}
+            </div>
+         {% endif %}
 
          {% if deadlines|length %}
             <div class="col-12 mt-2">

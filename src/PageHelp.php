@@ -301,6 +301,21 @@ class PageHelp
                 ),
                 'reference' => __('GDPR, articles 12 and 15 to 22', 'grcmanager'),
             ],
+            'databreach' => [
+                'purpose'   => __(
+                    'The register of personal data breaches: every breach is documented, whether or not it was '
+                        . 'notified, with its facts, effects and the measures taken.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Record each breach as soon as it is known (from the security incident when there is one), '
+                        . 'decide within 72 h whether to notify the supervisory authority and write down why, decide '
+                        . 'whether to inform the people concerned, then export the register when the authority asks '
+                        . 'for it.',
+                    'grcmanager'
+                ),
+                'reference' => __('GDPR, articles 33 and 34', 'grcmanager'),
+            ],
             'audit' => [
                 'purpose'   => __(
                     'The internal audit programme: scope, dates, auditors, report and findings.',

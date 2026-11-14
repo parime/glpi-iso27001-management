@@ -83,7 +83,9 @@ class Menu extends CommonGLPI
             // Conformité : SoA, référentiels, exigences du SMSI, obligations, politiques, preuves.
             Control::class => [
                 Referentials::class, CustomFramework::class, IsmsRequirement::class,
-                ComplianceObligation::class, ProcessingActivity::class, DataSubjectRequest::class, Policy::class,
+                ComplianceObligation::class, ProcessingActivity::class, DataSubjectRequest::class,
+                // Issue #620 : registre des violations de données personnelles.
+                DataBreach::class, Policy::class,
                 Evidence::class, CoverageRule::class, ControlTest::class,
                 // Issue #540 : registre d'informations DORA (référentiel DORA activé).
                 DoraRegister::class,

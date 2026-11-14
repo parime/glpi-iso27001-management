@@ -7,6 +7,29 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Added
+
+- **Registre des violations de données personnelles** (issue #620, RGPD article 33.5) : page
+  « Registre des violations » (rubrique Conformité) réservée au droit « Protection des données
+  personnelles ». Chaque violation est documentée, notifiée ou non : prise de connaissance et début,
+  faits, nature (confidentialité, intégrité, disponibilité), traitements concernés (registre des
+  traitements), catégories et nombre approximatif de personnes et d'enregistrements, conséquences
+  probables, risque, mesures prises et envisagées, avis du DPO. Délai de 72 h calculé depuis la prise de
+  connaissance (article 33.1), avec badge et heures restantes. Décision de notification motivée : une
+  violation non notifiée exige sa justification, une notification au-delà de 72 h exige les motifs du
+  retard, une notification ne peut précéder la prise de connaissance ; information des personnes
+  (article 34) : informées (date, moyen) ou non, avec justification. Points d'attention non bloquants
+  (nature, nombres, risque non évalué, non notifiée malgré un risque, risque élevé sans décision
+  d'information). Export PDF ou CSV pour l'autorité de contrôle (exports tracés, cellules neutralisées).
+  Pièces jointes réservées aux lecteurs du registre (registre des documents restreints).
+- **Lien avec les incidents de sécurité** : onglet « Violation de données personnelles » sur l'incident
+  qualifié de violation, avec la fiche du registre ou le bouton « Inscrire cette violation au registre »
+  (formulaire prérempli : titre, date d'ouverture, nature, traitements liés, notification déjà saisie ;
+  rien n'est enregistré sans validation, l'incident n'est jamais modifié). Même lien dans la section
+  « Notifications réglementaires » et sur l'étape « Inscrire la violation au registre » du plan de
+  remédiation. Une décision motivée de ne pas notifier, inscrite au registre, retire l'échéance RGPD des
+  bandeaux, des alertes et du tableau de bord (statut « Non notifiée (décision consignée) »).
+
 ## [2.44.0] - 2026-11-14
 
 ### Added

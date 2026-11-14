@@ -1,0 +1,149 @@
+{# Issue #620 : violation de données personnelles, inscrite au registre (RGPD, article 33.5). #}
+{% extends 'generic_show_form.html.twig' %}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+{% import '@grcmanager/_hint.html.twig' as hints %}
+
+{% block form_fields %}
+   <input type="hidden" name="{{ lists_marker }}" value="1">
+   <input type="hidden" name="{{ incident_fk }}" value="{{ item.fields[incident_fk]|default(0) }}">
+
+   {% if prefilled %}
+      <div class="col-12">
+         <div class="alert alert-info d-flex align-items-start">
+            <i class="ti ti-info-circle me-2 mt-1"></i>
+            <div>{{ __('Proposal prepared from the security incident: check and complete it, then click Add. Nothing is recorded until you do, and the incident is not changed.', 'grcmanager') }}</div>
+         </div>
+      </div>
+   {% endif %}
+
+   <div class="col-12 mb-3">
+      <div class="d-flex flex-wrap align-items-center gap-2">
+         <span class="badge {{ state.class }} fs-5"><i class="ti {{ state.icon }} me-1"></i>{{ state.label }}</span>
+         {% if state.deadline %}
+            <span>{{ __('72 h deadline', 'grcmanager') }} : <strong>{{ state.deadline|formatted_datetime }}</strong></span>
+         {% endif %}
+         {% if state.hours_left is not null %}
+            <span class="text-muted">
+               {{ state.hours_left >= 0
+                  ? _n('%d hour left', '%d hours left', state.hours_left, 'grcmanager')|format(state.hours_left)
+                  : _n('%d hour late', '%d hours late', -state.hours_left, 'grcmanager')|format(-state.hours_left) }}
+            </span>
+         {% endif %}
+         {% if incident %}
+            <span class="ms-auto">
+               <i class="ti ti-shield-exclamation me-1"></i>{{ __('Security incident', 'grcmanager') }} :
+               {% if incident.readable %}
+                  <a href="{{ incident.url }}">{{ incident.name }}</a>
+                  <span class="text-muted small">({{ __('its Regulatory notifications section shows the deadlines', 'grcmanager') }})</span>
+               {% else %}
+                  <span class="text-muted">{{ __('linked, but you cannot open it', 'grcmanager') }}</span>
+               {% endif %}
+            </span>
+         {% endif %}
+      </div>
+      {% if checks is not empty %}
+         <ul class="list-unstyled mt-2 mb-0">
+            {% for check in checks %}
+               <li class="text-warning"><i class="ti ti-alert-triangle me-1"></i>{{ check }}</li>
+            {% endfor %}
+         </ul>
+      {% endif %}
+   </div>
+
+   {{ fields.smallTitle(__('The breach', 'grcmanager'), 'ti ti-file-alert') }}
+   {{ fields.textField('name', item.fields['name'], __('Title', 'grcmanager'), {
+      'add_field_html': hints.hint(__('A short description, without the names of the people concerned.', 'grcmanager')),
+   }) }}
+   {{ fields.dropdownField('User', 'users_id', item.fields['users_id'], __('Handled by', 'grcmanager'), {
+      'right': 'all',
+   }) }}
+   {{ fields.datetimeField('date_awareness', item.fields['date_awareness'], __('Became known on', 'grcmanager'), {
+      'required': true,
+      'add_field_html': hints.hint(__('When the organisation became reasonably certain that personal data were affected: the %d h deadline to notify runs from then (article 33.1).', 'grcmanager')|format(hours_to_notify)),
+   }) }}
+   {{ fields.datetimeField('date_start', item.fields['date_start'], __('Breach started on', 'grcmanager'), {
+      'add_field_html': hints.hint(__('Optional, if known.', 'grcmanager')),
+   }) }}
+   {{ fields.dropdownArrayField('nature', '', natures, __('Nature of the breach', 'grcmanager'), {
+      'multiple': true, 'values': values.nature,
+   }) }}
+   {{ fields.dropdownArrayField(activities_field, '', activity_choices, __('Processing activities concerned', 'grcmanager'), {
+      'multiple': true, 'values': activity_values,
+      'add_field_html': hints.hint(hidden_activities > 0
+         ? __('Taken from the record of processing activities. %d other linked activity is not shown to you.', 'grcmanager')|format(hidden_activities)
+         : __('Taken from the record of processing activities.', 'grcmanager')),
+   }) }}
+   {{ fields.textareaField('description', item.fields['description'], __('Facts and circumstances', 'grcmanager'), {
+      'full_width': true,
+      'add_field_html': hints.hint(__('What happened, how it was discovered, how long it lasted.', 'grcmanager')),
+   }) }}
+
+   {{ fields.smallTitle(__('People and data concerned', 'grcmanager'), 'ti ti-users') }}
+   {{ fields.dropdownArrayField('data_subjects', '', data_subjects, __('Categories of people concerned', 'grcmanager'), {
+      'multiple': true, 'values': values.data_subjects,
+   }) }}
+   {{ fields.textField('subjects_count', item.fields['subjects_count'], __('People concerned (approx.)', 'grcmanager'), {
+      'min': 0,
+      'add_field_html': hints.hint(__('An approximate number is enough; leave empty if unknown.', 'grcmanager')),
+   }) }}
+   {{ fields.dropdownArrayField('data_categories', '', data_categories, __('Categories of personal data', 'grcmanager'), {
+      'multiple': true, 'values': values.data_categories,
+   }) }}
+   {{ fields.textField('records_count', item.fields['records_count'], __('Records concerned (approx.)', 'grcmanager'), {
+      'min': 0,
+   }) }}
+   {{ fields.textareaField('data_details', item.fields['data_details'], __('Details of the data', 'grcmanager'), {
+      'full_width': true,
+      'add_field_html': hints.hint(__('The kind of data, never the data themselves (e.g. "name, salary, bank details").', 'grcmanager')),
+   }) }}
+
+   {{ fields.smallTitle(__('Effects and measures', 'grcmanager'), 'ti ti-shield-half') }}
+   {{ fields.textareaField('consequences', item.fields['consequences'], __('Likely consequences', 'grcmanager'), {
+      'full_width': true,
+      'add_field_html': hints.hint(__('For the people concerned: loss of control of their data, fraud, discrimination, damage to reputation...', 'grcmanager')),
+   }) }}
+   {{ fields.dropdownArrayField('risk_level', item.fields['risk_level'], risk_levels, __('Risk for the people concerned', 'grcmanager'), {
+      'add_field_html': hints.hint(__('Unlikely: notification not required. Risk: notify the authority. High risk: inform the people concerned too.', 'grcmanager')),
+   }) }}
+   {{ fields.textareaField('measures_taken', item.fields['measures_taken'], __('Measures taken', 'grcmanager'), {
+      'full_width': true,
+   }) }}
+   {{ fields.textareaField('measures_planned', item.fields['measures_planned'], __('Measures planned', 'grcmanager'), {
+      'full_width': true,
+   }) }}
+
+   {{ fields.smallTitle(__('Notification to the supervisory authority (article 33)', 'grcmanager'), 'ti ti-building-bank') }}
+   {{ fields.dropdownArrayField('authority_decision', item.fields['authority_decision'] ?: 'pending', authority_decisions, __('Decision', 'grcmanager'), {
+      'add_field_html': hints.hint(__('Every breach stays in the register, notified or not. Not notifying is possible only if the breach is unlikely to result in a risk, and the reason must be written down.', 'grcmanager')),
+   }) }}
+   {{ fields.textareaField('authority_reason', item.fields['authority_reason'], __('Reason for not notifying', 'grcmanager'), {
+      'add_field_html': hints.hint(__('Required when the breach is not notified.', 'grcmanager')),
+   }) }}
+   {{ fields.textField('authority_name', item.fields['authority_name'], __('Supervisory authority', 'grcmanager'), {
+      'add_field_html': hints.hint(__('For example the CNIL in France.', 'grcmanager')),
+   }) }}
+   {{ fields.datetimeField('date_notified', item.fields['date_notified'], __('Notified on', 'grcmanager')) }}
+   {{ fields.textField('authority_reference', item.fields['authority_reference'], __('Reference of the notification', 'grcmanager')) }}
+   {{ fields.textareaField('delay_reason', item.fields['delay_reason'], __('Reasons for the delay', 'grcmanager'), {
+      'add_field_html': hints.hint(__('Required when the notification is made more than 72 h after the breach became known.', 'grcmanager')),
+   }) }}
+
+   {{ fields.smallTitle(__('Information of the people concerned (article 34)', 'grcmanager'), 'ti ti-mail') }}
+   {{ fields.dropdownArrayField('subjects_decision', item.fields['subjects_decision'] ?: 'pending', subjects_decisions, __('Decision', 'grcmanager'), {
+      'add_field_html': hints.hint(__('Required when the risk is high, unless an exception applies (data made unintelligible, risk removed since, disproportionate effort: then a public communication).', 'grcmanager')),
+   }) }}
+   {{ fields.textareaField('subjects_reason', item.fields['subjects_reason'], __('Reason for not informing them', 'grcmanager'), {
+      'add_field_html': hints.hint(__('Required when the people are not informed.', 'grcmanager')),
+   }) }}
+   {{ fields.dateField('date_subjects_informed', item.fields['date_subjects_informed'], __('Informed on', 'grcmanager')) }}
+   {{ fields.textField('subjects_means', item.fields['subjects_means'], __('Means of information', 'grcmanager'), {
+      'add_field_html': hints.hint(__('E-mail, letter, notice on the website...', 'grcmanager')),
+   }) }}
+
+   {{ fields.smallTitle(__('Data protection officer', 'grcmanager'), 'ti ti-user-shield') }}
+   {{ fields.textareaField('dpo_opinion', item.fields['dpo_opinion'], __('Opinion of the DPO', 'grcmanager'), {
+      'full_width': true,
+   }) }}
+   {{ fields.textareaField('comment', item.fields['comment'], __('Comments'), {'full_width': true}) }}
+   <div class="col-12 text-muted small mt-2"><i class="ti ti-paperclip me-1"></i>{{ __('Attach the evidence (acknowledgement of the authority, message sent to the people...) in the Documents tab: only the readers of this register can open it.', 'grcmanager') }}</div>
+{% endblock %}

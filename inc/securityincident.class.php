@@ -941,7 +941,11 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
         foreach ($rows as $row) {
             $alerted = json_decode((string) ($row['regulatory_alerts'] ?? ''), true);
             $alerted = is_array($alerted) ? array_values(array_map('strval', $alerted)) : [];
-            $toAlert = RegulatoryDeadlines::toAlert($row, $alerted);
+            // Issue #620 : pas d'alerte RGPD quand le registre porte la décision motivée de ne pas notifier.
+            $toAlert = RegulatoryDeadlines::toAlert(
+                \GlpiPlugin\Grcmanager\DataBreach::withAuthorityDecision($row),
+                $alerted
+            );
             if ($toAlert === []) {
                 continue;
             }

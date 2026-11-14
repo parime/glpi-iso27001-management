@@ -40,6 +40,8 @@ use Glpi\DBAL\QuerySubQuery;
  * RSSI (AuditTeam), et chaque téléchargement est historisé
  * (DocumentAccess).
  *
+ * Issue #620 : les pièces d'une violation de données personnelles ont pour source sa fiche du registre.
+ *
  * Issue #139 : les copies de quiz des participants ont pour source leur ligne de participation
  * (TrainingQuiz) : le participant, le formateur de la session et le groupe RSSI.
  */
@@ -99,6 +101,14 @@ class RestrictedDocument
         $audit = self::auditOf((string) ($link->fields['itemtype'] ?? ''), (int) ($link->fields['items_id'] ?? 0));
         if ($audit !== null) {
             self::registerIfAbsent((int) $link->fields['documents_id'], $audit);
+        }
+        // Issue #620 : une pièce d'une violation de données se lit avec le droit du registre et l'entité
+        // de la fiche, pas avec le seul droit Documents de GLPI.
+        if (($link->fields['itemtype'] ?? '') === DataBreach::class) {
+            $breach = new DataBreach();
+            if ($breach->getFromDB((int) ($link->fields['items_id'] ?? 0))) {
+                self::registerIfAbsent((int) $link->fields['documents_id'], $breach);
+            }
         }
     }
 
