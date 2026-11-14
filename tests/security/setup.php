@@ -115,6 +115,24 @@ if ($mode === 'xss') {
     $insert('policycampaigns_users', [
         'plugin_grcmanager_policycampaigns_id' => $out['ack_campaign'], 'users_id' => 2, 'entities_id' => 0,
     ]);
+    // Issue #538 : demande de preuve piégée de l'audit piégé (référence, description, commentaires),
+    // confiée à glpi et renvoyée à compléter, avec le document piégé soumis ; accès auditeur de glpi
+    // (onglet de l'audit, « Mes demandes de preuves », espace auditeur).
+    $now = date('Y-m-d H:i:s');
+    $out['evreq'] = $insert('auditevidencerequests', [
+        'plugin_grcmanager_audits_id' => $out['audit'], 'plugin_grcmanager_controls_id' => (int) $ids['control'],
+        'reference' => $canary, 'description' => $canary, 'users_id' => 2, 'status' => 'to_complete',
+        'submission_comment' => $canary, 'review_comment' => $canary, 'date_submitted' => $now,
+        'date_last_submission' => $now, 'due_date' => date('Y-m-d', strtotime('-1 day')),
+    ]);
+    $insert('auditevidencepieces', [
+        'plugin_grcmanager_auditevidencerequests_id' => $out['evreq'], 'documents_id' => (int) $ids['document_A'],
+        'origin' => 'existing', 'users_id' => 2, 'is_submitted' => 1, 'date_submitted' => $now,
+    ]);
+    $insert('auditoraccesses', [
+        'plugin_grcmanager_audits_id' => $out['audit'], 'users_id' => 2, 'date_begin' => date('Y-m-d'),
+        'date_end' => date('Y-m-d', strtotime('+5 days')), 'users_id_grantor' => 2, 'date_creation' => $now,
+    ]);
     $out['training'] = $insert('trainings', [
         'title' => $canary, 'description' => $canary, 'target_audience' => $canary,
     ]);
@@ -226,7 +244,9 @@ if ($mode === 'counts') {
         $name = $table['TABLE_NAME'];
         // Issue #371 : le journal d'audit enregistre par conception les consultations et les accès
         // refusés de ces profils (il ne contient rien d'autre que ces traces).
-        if ($name === 'glpi_plugin_grcmanager_auditlogs') {
+        // Issue #538 : de même, l'historique des téléchargements trace par conception la pièce
+        // soumise que l'auditeur (iso-sans-droit) télécharge.
+        if (in_array($name, ['glpi_plugin_grcmanager_auditlogs', 'glpi_plugin_grcmanager_documentaccesses'], true)) {
             continue;
         }
         $counts[$name] = countElementsInTable($name);
@@ -629,6 +649,55 @@ $ids['ack_line'] = (int) ($DB->request([
 ])->current()['id'] ?? 0);
 if ($ids['ack_line'] <= 0) {
     fwrite(STDERR, "Campagne de prise de connaissance impossible\n");
+    exit(1);
+}
+
+// Issue #538 : deux demandes de preuves de « Audit securite » confiées à glpi, l'une soumise avec sa
+// pièce, l'autre en préparation (pièce non soumise). iso-sans-droit, sans aucun droit sur le plugin,
+// a un accès auditeur en vigueur à cet audit seulement ; un second audit lui reste fermé.
+$evidenceDocument = static function (string $name) use ($add, $ids): int {
+    $file = 'preuve-securite-' . uniqid() . '.txt';
+    file_put_contents(GLPI_TMP_DIR . '/' . $file, $name . "\n");
+    $documentsId = $add(new Document(), [
+        'name' => $name, 'entities_id' => 0, 'is_recursive' => 1,
+        '_filename' => [$file], '_tag_filename' => [$file],
+    ]);
+    $add(new Document_Item(), [
+        'documents_id' => $documentsId, 'itemtype' => \GlpiPlugin\Grcmanager\Audit::class, 'items_id' => $ids['audit'],
+    ]);
+
+    return $documentsId;
+};
+$ids['audit_other'] = $add(
+    new \GlpiPlugin\Grcmanager\Audit(),
+    ['title' => 'Audit hors perimetre securite', 'users_id' => 2]
+);
+foreach (['submitted' => 'REQ securite soumise', 'draft' => 'REQ securite brouillon'] as $key => $reference) {
+    $ids['evreq_' . $key] = $add(new \GlpiPlugin\Grcmanager\AuditEvidenceRequest(), [
+        'plugin_grcmanager_audits_id'   => $ids['audit'],
+        'plugin_grcmanager_controls_id' => $controlId,
+        'reference'                     => $reference,
+        'description'                   => 'Preuve fictive demandee pour le test',
+        'users_id'                      => 2,
+        'due_date'                      => date('Y-m-d', strtotime('+10 days')),
+    ]);
+    $DB->insert(\GlpiPlugin\Grcmanager\AuditEvidenceRequest::PIECES_TABLE, [
+        'plugin_grcmanager_auditevidencerequests_id' => $ids['evreq_' . $key],
+        'documents_id'                               => $evidenceDocument('Piece securite ' . $key),
+        'origin'                                     => 'upload',
+        'users_id'                                   => 2,
+        'is_submitted'                               => 0,
+        'date_creation'                              => date('Y-m-d H:i:s'),
+    ]);
+    $ids['evpiece_' . $key] = (int) $DB->insertId();
+}
+if (\GlpiPlugin\Grcmanager\AuditEvidenceRequest::submit($ids['evreq_submitted'], 2) !== '') {
+    fwrite(STDERR, "Soumission de la demande de preuve impossible\n");
+    exit(1);
+}
+$accessEnd = date('Y-m-d', strtotime('+30 days'));
+if (\GlpiPlugin\Grcmanager\AuditorAccess::grant($ids['audit'], $noRight, $accessEnd, 2) !== '') {
+    fwrite(STDERR, "Accès auditeur impossible\n");
     exit(1);
 }
 

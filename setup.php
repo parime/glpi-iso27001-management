@@ -291,7 +291,8 @@ function plugin_init_grcmanager(): void
         $helpdeskEntry = \GlpiPlugin\Grcmanager\AuditorAccess::helpdeskMenuEntry();
         if ($helpdeskEntry !== null) {
             $PLUGIN_HOOKS[Hooks::HELPDESK_MENU_ENTRY]['grcmanager'] = $helpdeskEntry;
-            $PLUGIN_HOOKS[Hooks::HELPDESK_MENU_ENTRY_ICON]['grcmanager'] = \GlpiPlugin\Grcmanager\AuditorAccess::getIcon();
+            $PLUGIN_HOOKS[Hooks::HELPDESK_MENU_ENTRY_ICON]['grcmanager']
+                = \GlpiPlugin\Grcmanager\AuditorAccess::getIcon();
         }
     }
     // Onglet « GRC Manager » des profils : attribuer les droits du plugin sans passer par la base.

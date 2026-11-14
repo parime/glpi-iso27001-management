@@ -163,7 +163,9 @@ final class AuditEvidenceRequestTest extends GrcmanagerIntegrationTestCase
         $this->assertSame(0, (int) $free->fields['plugin_grcmanager_controls_id'], 'mesure inconnue : exigence libre');
 
         // Une modification ordinaire ne touche ni au statut ni à l'audit.
-        $request->update(['id' => $request->getID(), 'status' => Rules::STATUS_ACCEPTED, 'plugin_grcmanager_audits_id' => 1]);
+        $request->update([
+            'id' => $request->getID(), 'status' => Rules::STATUS_ACCEPTED, 'plugin_grcmanager_audits_id' => 1,
+        ]);
         $request->getFromDB($request->getID());
         $this->assertSame(Rules::STATUS_REQUESTED, $request->fields['status']);
         $this->assertSame($audit->getID(), (int) $request->fields['plugin_grcmanager_audits_id']);
@@ -192,7 +194,10 @@ final class AuditEvidenceRequestTest extends GrcmanagerIntegrationTestCase
             AuditEvidenceRequest::addUploadedPiece($id, $this->ids['bob'], $this->pdf(), 'revue.pdf'),
             'une autre personne'
         );
-        $this->assertSame('', AuditEvidenceRequest::addUploadedPiece($id, $this->ids['alice'], $this->pdf(), 'revue.pdf'));
+        $this->assertSame(
+            '',
+            AuditEvidenceRequest::addUploadedPiece($id, $this->ids['alice'], $this->pdf(), 'revue.pdf')
+        );
 
         $pieces = AuditEvidenceRequest::getPieces($id);
         $this->assertCount(1, $pieces);
@@ -330,7 +335,8 @@ final class AuditEvidenceRequestTest extends GrcmanagerIntegrationTestCase
         ]);
         $oscar = $this->ids['oscar'];
 
-        $this->assertNotSame('', AuditorAccess::grant($audit->getID(), $oscar, date('Y-m-d', strtotime('+400 days')), 2));
+        $tooLate = date('Y-m-d', strtotime('+400 days'));
+        $this->assertNotSame('', AuditorAccess::grant($audit->getID(), $oscar, $tooLate, 2), 'plus d\'un an');
         $this->assertNotSame('', AuditorAccess::grant($audit->getID(), 999999999, date('Y-m-d'), 2), 'compte inconnu');
         $this->assertSame('', AuditorAccess::grant($audit->getID(), $oscar, date('Y-m-d', strtotime('+10 days')), 2));
         $this->assertTrue(AuditorAccess::isActive($audit->getID(), $oscar));
@@ -348,7 +354,8 @@ final class AuditEvidenceRequestTest extends GrcmanagerIntegrationTestCase
 
         $space = AuditorAccess::buildSpace($audit, $oscar);
         $this->assertSame([$submitted->getID()], array_column($space['requests'], 'id'), 'demandes soumises seulement');
-        $this->assertSame(['soumise.pdf'], array_column($space['requests'][0]['pieces'], 'name'), 'pièces soumises seulement');
+        $names = array_column($space['requests'][0]['pieces'], 'name');
+        $this->assertSame(['soumise.pdf'], $names, 'pièces soumises seulement');
         $this->assertNotSame('', $space['requests'][0]['pieces'][0]['url']);
         $this->assertCount(2, $space['controls']);
         $this->assertCount(1, $space['findings']);
@@ -366,9 +373,15 @@ final class AuditEvidenceRequestTest extends GrcmanagerIntegrationTestCase
         $laterPiece = AuditEvidenceRequest::getPieceRow($piece($submitted->getID(), 'x.pdf')['id']);
         $this->assertTrue(AuditEvidenceRequest::canDownloadPiece($submittedPiece, $oscar));
         $this->assertFalse(AuditEvidenceRequest::canDownloadPiece($draftPiece, $oscar), 'demande jamais soumise');
-        $this->assertFalse(AuditEvidenceRequest::canDownloadPiece($laterPiece, $oscar), 'pièce ajoutée après la soumission');
+        $this->assertFalse(
+            AuditEvidenceRequest::canDownloadPiece($laterPiece, $oscar),
+            'pièce ajoutée après la soumission'
+        );
         $this->assertFalse(AuditEvidenceRequest::canDownloadPiece($submittedPiece, $this->ids['bob']));
-        $this->assertTrue(AuditEvidenceRequest::canDownloadPiece($draftPiece, $this->ids['alice']), 'la personne désignée');
+        $this->assertTrue(
+            AuditEvidenceRequest::canDownloadPiece($draftPiece, $this->ids['alice']),
+            'la personne désignée'
+        );
         $this->assertTrue(AuditEvidenceRequest::canDownloadPiece($draftPiece, 2), 'l\'auditeur de la fiche (équipe)');
 
         // Révocation : plus rien, sans rien supprimer.
@@ -380,7 +393,8 @@ final class AuditEvidenceRequestTest extends GrcmanagerIntegrationTestCase
         $this->assertFalse(AuditorAccess::revoke($other->getID(), $accesses[0]['id'], 2), 'accès d\'un autre audit');
 
         DocumentAccess::log($submittedPiece['documents_id'], Audit::class, $audit->getID(), $oscar);
-        $this->assertCount(1, DocumentAccess::getAccesses(Audit::class, $audit->getID()), 'téléchargement historisé');
+        $accesses = DocumentAccess::getAccesses(Audit::class, $audit->getID());
+        $this->assertCount(1, $accesses, 'téléchargement historisé');
     }
 
     public function testExistingEvidenceOfTheControlCanBeCitedNotOtherDocuments(): void
@@ -400,18 +414,30 @@ final class AuditEvidenceRequestTest extends GrcmanagerIntegrationTestCase
         RestrictedDocument::registerFor($documents['Copie de quiz'], TrainingQuiz::class, 1);
 
         $selectable = array_column(AuditEvidenceRequest::getSelectableDocuments($request->fields), 'documents_id');
-        $this->assertSame([$documents['Rapport de sauvegarde']], $selectable, 'preuve de la mesure, hors document restreint d\'une autre source');
+        $this->assertSame(
+            [$documents['Rapport de sauvegarde']],
+            $selectable,
+            'preuve de la mesure, hors document restreint d\'une autre source'
+        );
         $this->assertNotSame(
             '',
             AuditEvidenceRequest::addExistingPiece($request->getID(), $this->ids['alice'], $documents['Autre document'])
         );
         $this->assertNotSame(
             '',
-            AuditEvidenceRequest::addExistingPiece($request->getID(), $this->ids['bob'], $documents['Rapport de sauvegarde'])
+            AuditEvidenceRequest::addExistingPiece(
+                $request->getID(),
+                $this->ids['bob'],
+                $documents['Rapport de sauvegarde']
+            )
         );
         $this->assertSame(
             '',
-            AuditEvidenceRequest::addExistingPiece($request->getID(), $this->ids['alice'], $documents['Rapport de sauvegarde'])
+            AuditEvidenceRequest::addExistingPiece(
+                $request->getID(),
+                $this->ids['alice'],
+                $documents['Rapport de sauvegarde']
+            )
         );
         $this->assertSame([], AuditEvidenceRequest::getSelectableDocuments($request->fields), 'déjà jointe');
         $this->assertNull(RestrictedDocument::sourceOf($documents['Rapport de sauvegarde']), 'audience inchangée');
@@ -486,10 +512,13 @@ final class AuditEvidenceRequestTest extends GrcmanagerIntegrationTestCase
         $this->assertArrayHasKey(AuditEvidenceRequest::TO_COMPLETE_EVENT, $target->getEvents());
 
         global $DB;
-        // Une habilitation dans une sous-entité suffit : l'audit est global.
-        $entity = $this->createTestEntity(0, 'PHPUnit Filiale');
+        // Une habilitation non récursive suffit : l'audit est global. Pas d'entité de test : la liste
+        // des sous-entités en cache survivrait au retour en arrière (KriAlertTest).
+        $entity = 0;
         foreach ([$this->ids['alice'], $this->ids['bob'], 2] as $usersId) {
-            (new \UserEmail())->add(['users_id' => $usersId, 'email' => "phpunit$usersId@example.com", 'is_default' => 1]);
+            (new \UserEmail())->add([
+                'users_id' => $usersId, 'email' => "phpunit$usersId@example.com", 'is_default' => 1,
+            ]);
             if ($usersId !== 2) {
                 $DB->insert('glpi_profiles_users', [
                     'users_id' => $usersId, 'profiles_id' => 1, 'entities_id' => $entity, 'is_recursive' => 0,
@@ -525,7 +554,10 @@ final class AuditEvidenceRequestTest extends GrcmanagerIntegrationTestCase
         $this->assertSame(0, countElementsInTable(AuditEvidenceRequest::PIECES_TABLE, [
             'plugin_grcmanager_auditevidencerequests_id' => $request->getID(),
         ]));
-        $this->assertSame(0, countElementsInTable(AuditorAccess::TABLE, ['plugin_grcmanager_audits_id' => $audit->getID()]));
+        $this->assertSame(
+            0,
+            countElementsInTable(AuditorAccess::TABLE, ['plugin_grcmanager_audits_id' => $audit->getID()])
+        );
         (new Document())->delete(['id' => $documentsId], true);
     }
 }

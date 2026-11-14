@@ -283,7 +283,8 @@ class AuditEvidenceRequest extends AuditEvidenceRequestBase
         if (array_key_exists('plugin_grcmanager_controls_id', $input)) {
             $controlId = max(0, (int) $input['plugin_grcmanager_controls_id']);
             $control = new Control();
-            $input['plugin_grcmanager_controls_id'] = $controlId > 0 && $control->getFromDB($controlId) ? $controlId : 0;
+            $known = $controlId > 0 && $control->getFromDB($controlId);
+            $input['plugin_grcmanager_controls_id'] = $known ? $controlId : 0;
         }
         if (array_key_exists('users_id', $input)) {
             $usersId = max(0, (int) $input['users_id']);
@@ -470,7 +471,9 @@ class AuditEvidenceRequest extends AuditEvidenceRequestBase
         return array_values(iterator_to_array($DB->request([
             'SELECT'     => ['r.*', 'a.title AS audit_title', 'a.status AS audit_status'],
             'FROM'       => self::getTable() . ' AS r',
-            'INNER JOIN' => [Audit::getTable() . ' AS a' => ['FKEY' => ['r' => 'plugin_grcmanager_audits_id', 'a' => 'id']]],
+            'INNER JOIN' => [
+                Audit::getTable() . ' AS a' => ['FKEY' => ['r' => 'plugin_grcmanager_audits_id', 'a' => 'id']],
+            ],
             'WHERE'      => $where,
             'ORDER'      => ['r.due_date', 'r.id'],
         ]), false));
@@ -493,7 +496,9 @@ class AuditEvidenceRequest extends AuditEvidenceRequestBase
         return array_values(iterator_to_array($DB->request([
             'SELECT'     => ['r.*', 'a.title AS audit_title'],
             'FROM'       => self::getTable() . ' AS r',
-            'INNER JOIN' => [Audit::getTable() . ' AS a' => ['FKEY' => ['r' => 'plugin_grcmanager_audits_id', 'a' => 'id']]],
+            'INNER JOIN' => [
+                Audit::getTable() . ' AS a' => ['FKEY' => ['r' => 'plugin_grcmanager_audits_id', 'a' => 'id']],
+            ],
             'WHERE'      => [
                 'r.status' => Rules::STATUS_SUBMITTED,
                 'a.status' => ['planned', 'in_progress'],
@@ -574,7 +579,10 @@ class AuditEvidenceRequest extends AuditEvidenceRequestBase
         $documentsId = ControlTest::createEvidenceDocument($path, $clientName, [
             'itemtype' => Audit::class,
             'items_id' => $auditId,
-            'comment'  => sprintf(__('Evidence provided for the request "%s"', 'grcmanager'), self::label($request->fields)),
+            'comment'  => sprintf(
+                __('Evidence provided for the request "%s"', 'grcmanager'),
+                self::label($request->fields)
+            ),
         ], false);
         if ($documentsId <= 0) {
             // Motif déjà en session (createEvidenceDocument()).
@@ -649,7 +657,8 @@ class AuditEvidenceRequest extends AuditEvidenceRequestBase
         if (is_string($request)) {
             return $request;
         }
-        if (!in_array($documentsId, array_column(self::getSelectableDocuments($request->fields), 'documents_id'), true)) {
+        $selectable = array_column(self::getSelectableDocuments($request->fields), 'documents_id');
+        if (!in_array($documentsId, $selectable, true)) {
             return __('This document cannot be added to the request.', 'grcmanager');
         }
         $DB->insert(self::PIECES_TABLE, [
@@ -1020,7 +1029,9 @@ class AuditEvidenceRequest extends AuditEvidenceRequestBase
             );
             $pieces[] = $piece + [
                 'url'            => $canDownload ? self::getDownloadURL($piece['id']) : '',
-                'submitted_text' => $piece['date_submitted'] !== null ? Html::convDateTime($piece['date_submitted']) : '',
+                'submitted_text' => $piece['date_submitted'] !== null
+                    ? Html::convDateTime($piece['date_submitted'])
+                    : '',
             ];
         }
 
@@ -1045,7 +1056,9 @@ class AuditEvidenceRequest extends AuditEvidenceRequestBase
             'can_review'         => Rules::canReview($status),
             'submission_comment' => (string) ($row['submission_comment'] ?? ''),
             'review_comment'     => (string) ($row['review_comment'] ?? ''),
-            'submitted_text'     => $row['date_last_submission'] ? (string) Html::convDateTime($row['date_last_submission']) : '',
+            'submitted_text'     => $row['date_last_submission']
+                ? (string) Html::convDateTime($row['date_last_submission'])
+                : '',
             'review_text'        => $row['date_review'] ? (string) Html::convDateTime($row['date_review']) : '',
             'reminder_text'      => $row['date_reminder'] ? (string) Html::convDateTime($row['date_reminder']) : '',
             'reviewer'           => (int) ($row['users_id_reviewer'] ?? 0) > 0

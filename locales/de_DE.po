@@ -10631,3 +10631,464 @@ msgstr "Lesen und bestätigen"
 
 msgid "Reading acknowledgement"
 msgstr "Kenntnisnahme"
+
+msgid "To provide"
+msgstr "Bereitzustellen"
+
+msgid "To complete"
+msgstr "Zu ergänzen"
+
+msgid "Audit not found."
+msgstr "Audit nicht gefunden."
+
+msgid "Give at least a reference or a description of the requested evidence."
+msgstr "Geben Sie mindestens eine Referenz oder eine Beschreibung des angeforderten Nachweises an."
+
+msgid "This evidence request is not assigned to you."
+msgstr "Diese Nachweisanforderung ist Ihnen nicht zugewiesen."
+
+msgid "This audit has been cancelled."
+msgstr "Dieses Audit wurde abgesagt."
+
+msgid "This request is no longer waiting for evidence."
+msgstr "Diese Anforderung erwartet keinen Nachweis mehr."
+
+#, php-format
+msgid "Evidence provided for the request \"%s\""
+msgstr "Nachweis für die Anforderung „%s“"
+
+msgid "This document cannot be added to the request."
+msgstr "Dieses Dokument kann der Anforderung nicht hinzugefügt werden."
+
+msgid "This document cannot be removed."
+msgstr "Dieses Dokument kann nicht entfernt werden."
+
+msgid "A document already submitted to the audit cannot be removed."
+msgstr "Ein bereits dem Audit übermitteltes Dokument kann nicht entfernt werden."
+
+msgid "Add at least one document before submitting."
+msgstr "Fügen Sie vor dem Übermitteln mindestens ein Dokument hinzu."
+
+msgid "You are not allowed to review this request."
+msgstr "Sie dürfen diese Anforderung nicht prüfen."
+
+msgid "Give the reason why the evidence must be completed."
+msgstr "Geben Sie an, warum der Nachweis ergänzt werden muss."
+
+msgid "Only a submitted request can be reviewed."
+msgstr "Nur eine übermittelte Anforderung kann geprüft werden."
+
+msgid "Reminds the people who must provide audit evidence, one week before the deadline then weekly"
+msgstr "Erinnert die Personen, die Auditnachweise liefern müssen, eine Woche vor der Frist und danach wöchentlich"
+
+#, php-format
+msgid "Line %1$d: unknown control \"%2$s\"."
+msgstr "Zeile %1$d: unbekannte Maßnahme „%2$s“."
+
+#, php-format
+msgid "Line %1$d: no active account with the login \"%2$s\"."
+msgstr "Zeile %1$d: kein aktives Konto mit der Anmeldung „%2$s“."
+
+msgid "The file has no recognised header line: name the columns \"Reference\", \"Control\", \"Description\", \"Due date\" and \"Assignee\"."
+msgstr "Die Datei hat keine erkannte Kopfzeile: Benennen Sie die Spalten „Reference“, „Control“, „Description“, „Due date“ und „Assignee“."
+
+#, php-format
+msgid "Line %1$d: at most %2$d requests per import, the following lines were ignored."
+msgstr "Zeile %1$d: höchstens %2$d Anforderungen pro Import, die folgenden Zeilen wurden ignoriert."
+
+#, php-format
+msgid "Line %d: the due date is not a valid date (YYYY-MM-DD or DD/MM/YYYY)."
+msgstr "Zeile %d: die Frist ist kein gültiges Datum (JJJJ-MM-TT oder TT/MM/JJJJ)."
+
+#, php-format
+msgid "Line %d: no reference and no description."
+msgstr "Zeile %d: weder Referenz noch Beschreibung."
+
+msgid "Evidence request"
+msgstr "Nachweisanforderung"
+
+msgid "Evidence requests"
+msgstr "Nachweisanforderungen"
+
+msgid "Auditor space"
+msgstr "Auditorenbereich"
+
+msgid "Choose an active account."
+msgstr "Wählen Sie ein aktives Konto."
+
+#, php-format
+msgid "Give an end date between today and %d days from now."
+msgstr "Geben Sie ein Enddatum zwischen heute und in %d Tagen an."
+
+msgid "Audit evidence to provide"
+msgstr "Bereitzustellender Auditnachweis"
+
+msgid "Audit evidence reminder"
+msgstr "Erinnerung an Auditnachweis"
+
+msgid "Audit evidence submitted"
+msgstr "Auditnachweis übermittelt"
+
+msgid "Audit evidence to complete"
+msgstr "Zu ergänzender Auditnachweis"
+
+msgid "Person who provides the evidence"
+msgstr "Person, die den Nachweis liefert"
+
+msgid "Auditor and owner of the audit"
+msgstr "Auditor und Verantwortlicher des Audits"
+
+msgid "My evidence requests page URL"
+msgstr "URL der Seite Meine Nachweisanforderungen"
+
+msgid "Audit URL"
+msgstr "URL des Audits"
+
+msgid "The documents an audit is waiting for from you: each request says what is expected, for which control and by when."
+msgstr "Die Dokumente, die ein Audit von Ihnen erwartet: Jede Anforderung gibt an, was erwartet wird, für welche Maßnahme und bis wann."
+
+msgid "Add the files (or an existing evidence of the control) to each request, then submit it to the audit. If the audit asks you to complete a request, its reason is shown in red."
+msgstr "Fügen Sie jeder Anforderung die Dateien (oder einen vorhandenen Nachweis der Maßnahme) hinzu und übermitteln Sie sie dann dem Audit. Wenn das Audit Sie um eine Ergänzung bittet, wird der Grund rot angezeigt."
+
+msgid "ISO/IEC 27001, clause 9.2 (internal audit)"
+msgstr "ISO/IEC 27001, Abschnitt 9.2 (internes Audit)"
+
+msgid "The audits you have been given access to, in read only: controls, progress, submitted evidence and findings."
+msgstr "Die Audits, auf die Ihnen Lesezugriff gewährt wurde: Maßnahmen, Fortschritt, übermittelte Nachweise und Feststellungen."
+
+msgid "Open an audit, then download the submitted documents. Every download is recorded. Your access ends on the date set by the organisation."
+msgstr "Öffnen Sie ein Audit und laden Sie die übermittelten Dokumente herunter. Jeder Download wird protokolliert. Ihr Zugriff endet an dem von der Organisation festgelegten Datum."
+
+msgid "Audit evidence to review"
+msgstr "Zu prüfender Auditnachweis"
+
+msgid "Audit to consult as auditor"
+msgstr "Als Auditor einzusehendes Audit"
+
+#, php-format
+msgid "Audit: %s"
+msgstr "Audit: %s"
+
+#, php-format
+msgid "Read only access until %s"
+msgstr "Lesezugriff bis %s"
+
+#, php-format
+msgid "Reminder: audit evidence %s to provide"
+msgstr "Erinnerung: Auditnachweis %s bereitzustellen"
+
+msgid "Add the requested documents on the \"My evidence requests\" page, then submit them to the audit. Nobody outside the audit team sees them before you submit."
+msgstr "Fügen Sie die angeforderten Dokumente auf der Seite „Meine Nachweisanforderungen“ hinzu und übermitteln Sie sie dann dem Audit. Vor der Übermittlung sieht sie niemand außerhalb des Auditteams."
+
+msgid "This evidence is still expected. Add the documents and submit them to the audit; nothing else happens if it is late."
+msgstr "Dieser Nachweis wird weiterhin erwartet. Fügen Sie die Dokumente hinzu und übermitteln Sie sie dem Audit; bei Verspätung geschieht nichts weiter."
+
+#, php-format
+msgid "The audit asks you to complete this evidence: %s"
+msgstr "Das Audit bittet Sie, diesen Nachweis zu ergänzen: %s"
+
+msgid "Open my evidence requests"
+msgstr "Meine Nachweisanforderungen öffnen"
+
+msgid "Review the documents in the \"Evidence requests\" tab of the audit, then accept them or ask for them to be completed."
+msgstr "Prüfen Sie die Dokumente auf der Registerkarte „Nachweisanforderungen“ des Audits und akzeptieren Sie sie oder fordern Sie eine Ergänzung an."
+
+msgid "Review the evidence"
+msgstr "Nachweis prüfen"
+
+msgid "Submitted by"
+msgstr "Übermittelt von"
+
+msgid "Sent to the person who must provide a piece of evidence requested for an audit."
+msgstr "Wird an die Person gesendet, die einen für ein Audit angeforderten Nachweis liefern muss."
+
+msgid "Sent by the GRC Manager automatic task when an audit evidence request is due within a week or late (at most once a week)."
+msgstr "Wird von der automatischen Aufgabe von GRC Manager gesendet, wenn eine Auditnachweisanforderung innerhalb einer Woche fällig oder überfällig ist (höchstens einmal pro Woche)."
+
+msgid "Sent to the auditor and the owner of the audit when evidence is submitted for review."
+msgstr "Wird an den Auditor und den Verantwortlichen des Audits gesendet, wenn ein Nachweis zur Prüfung übermittelt wird."
+
+msgid "Sent to the person who provided audit evidence when the audit asks for it to be completed."
+msgstr "Wird an die Person gesendet, die einen Auditnachweis geliefert hat, wenn das Audit eine Ergänzung anfordert."
+
+msgid "Evidence request added."
+msgstr "Nachweisanforderung hinzugefügt."
+
+msgid "Evidence accepted."
+msgstr "Nachweis akzeptiert."
+
+msgid "The person has been asked to complete the evidence."
+msgstr "Die Person wurde gebeten, den Nachweis zu ergänzen."
+
+#, php-format
+msgid "%d evidence request(s) imported."
+msgstr "%d Nachweisanforderung(en) importiert."
+
+msgid "Auditor access granted."
+msgstr "Auditorzugriff gewährt."
+
+msgid "Auditor access revoked."
+msgstr "Auditorzugriff widerrufen."
+
+msgid "Document added. Submit the request when everything is ready."
+msgstr "Dokument hinzugefügt. Übermitteln Sie die Anforderung, wenn alles bereit ist."
+
+msgid "Document removed from the request."
+msgstr "Dokument aus der Anforderung entfernt."
+
+msgid "Evidence submitted to the audit. Thank you."
+msgstr "Nachweis an das Audit übermittelt. Vielen Dank."
+
+msgid "My evidence requests"
+msgstr "Meine Nachweisanforderungen"
+
+msgid "Evidence requested by the auditor"
+msgstr "Vom Auditor angeforderte Nachweise"
+
+msgid "Accepted requests"
+msgstr "Akzeptierte Anforderungen"
+
+#, php-format
+msgid "%d %% accepted"
+msgstr "%d %% akzeptiert"
+
+#, php-format
+msgid "%d to provide"
+msgstr "%d bereitzustellen"
+
+#, php-format
+msgid "%d to review"
+msgstr "%d zu prüfen"
+
+#, php-format
+msgid "%d to complete"
+msgstr "%d zu ergänzen"
+
+#, php-format
+msgid "%d accepted"
+msgstr "%d akzeptiert"
+
+#, php-format
+msgid "Each request is assigned to one person, who adds the documents from the \"My evidence requests\" page (reachable from \"My GRC space\", even without any right on this plugin) and submits them. You then accept the evidence or ask for it to be completed, giving the reason. The person is reminded by email %d days before the due date, then every week while the request is late; nothing else happens automatically."
+msgstr "Jede Anforderung wird einer Person zugewiesen, die die Dokumente auf der Seite „Meine Nachweisanforderungen“ hinzufügt (erreichbar über „Mein GRC-Bereich“, auch ohne Rechte auf dieses Plugin) und übermittelt. Sie akzeptieren dann den Nachweis oder fordern unter Angabe des Grundes eine Ergänzung an. Die Person wird %d Tage vor der Frist per E-Mail erinnert, danach jede Woche, solange die Anforderung überfällig ist; sonst geschieht nichts automatisch."
+
+msgid "Submitted"
+msgstr "Übermittelt"
+
+#, php-format
+msgid "%1$d of %2$d request(s) accepted (%3$d %%)."
+msgstr "%1$d von %2$d Anforderung(en) akzeptiert (%3$d %%)."
+
+msgid "No evidence requested yet. Add the requests one by one below, or import the list sent by the auditor."
+msgstr "Noch keine Nachweise angefordert. Fügen Sie die Anforderungen unten einzeln hinzu oder importieren Sie die vom Auditor gesendete Liste."
+
+msgid "Assignee"
+msgstr "Zuständige Person"
+
+msgid "Documents"
+msgstr "Dokumente"
+
+msgid "Nobody assigned"
+msgstr "Niemand zugewiesen"
+
+#, php-format
+msgid "Reminded on %s"
+msgstr "Erinnert am %s"
+
+#, php-format
+msgid "Submitted on %s"
+msgstr "Übermittelt am %s"
+
+msgid "Existing evidence of the control"
+msgstr "Vorhandener Nachweis der Maßnahme"
+
+msgid "File provided for the request"
+msgstr "Für die Anforderung bereitgestellte Datei"
+
+msgid "Not submitted yet: the auditor cannot see it"
+msgstr "Noch nicht übermittelt: der Auditor sieht es nicht"
+
+msgid "None yet"
+msgstr "Noch keine"
+
+msgid "Reason (required to ask for completion)"
+msgstr "Grund (erforderlich, um eine Ergänzung anzufordern)"
+
+msgid "Ask to complete"
+msgstr "Ergänzung anfordern"
+
+msgid "Edit"
+msgstr "Bearbeiten"
+
+msgid "Delete this request and its link to the documents?"
+msgstr "Diese Anforderung und ihre Verknüpfung mit den Dokumenten löschen?"
+
+msgid "Delete"
+msgstr "Löschen"
+
+msgid "Remind everyone who still has evidence to provide"
+msgstr "Alle erinnern, die noch Nachweise liefern müssen"
+
+msgid "An email to each person, nothing else changes."
+msgstr "Eine E-Mail an jede Person, sonst ändert sich nichts."
+
+msgid "Request evidence"
+msgstr "Nachweis anfordern"
+
+msgid "Number or title in the auditor's list"
+msgstr "Nummer oder Titel in der Liste des Auditors"
+
+msgid "Evidence requested"
+msgstr "Angeforderter Nachweis"
+
+msgid "Only the controls in the scope of this audit are offered. Edit the request afterwards to choose another control."
+msgstr "Nur die Maßnahmen im Umfang dieses Audits werden angeboten. Bearbeiten Sie die Anforderung anschließend, um eine andere Maßnahme zu wählen."
+
+msgid "Request this evidence"
+msgstr "Diesen Nachweis anfordern"
+
+msgid "The assignee is notified by email."
+msgstr "Die zuständige Person wird per E-Mail benachrichtigt."
+
+msgid "Import the auditor's list (CSV)"
+msgstr "Liste des Auditors importieren (CSV)"
+
+#, php-format
+msgid "One line per requested evidence, with a header line. Recognised columns: Reference, Control (code such as A.5.15), Description, Due date (YYYY-MM-DD or DD/MM/YYYY), Assignee (login). Separator \";\" or \",\". At most %d lines; invalid lines are listed and not imported."
+msgstr "Eine Zeile pro angefordertem Nachweis, mit einer Kopfzeile. Erkannte Spalten: Reference, Control (Code wie A.5.15), Description, Due date (JJJJ-MM-TT oder TT/MM/JJJJ), Assignee (Anmeldename). Trennzeichen „;“ oder „,“. Höchstens %d Zeilen; ungültige Zeilen werden aufgelistet und nicht importiert."
+
+msgid "Default assignee"
+msgstr "Standardmäßig zuständige Person"
+
+msgid "Default due date"
+msgstr "Standardfrist"
+
+msgid "Auditor access (read only)"
+msgstr "Auditorzugriff (nur Lesen)"
+
+msgid "An internal or external auditor can consult this audit only: its controls, the progress, the requests already submitted with their submitted documents, and the findings. Documents still being prepared, the working documents and the notes of the audit stay hidden. The access ends on its end date and can be revoked at any time; every download is recorded in the \"Document access\" tab."
+msgstr "Ein interner oder externer Auditor kann nur dieses Audit einsehen: seine Maßnahmen, den Fortschritt, die bereits übermittelten Anforderungen mit ihren übermittelten Dokumenten und die Feststellungen. Dokumente in Vorbereitung, Arbeitsdokumente und Notizen des Audits bleiben verborgen. Der Zugriff endet am Enddatum und kann jederzeit widerrufen werden; jeder Download wird auf der Registerkarte „Dokumentenzugriff“ protokolliert."
+
+msgid "The auditor's account does not need any right on this plugin: a simplified interface profile is enough. Give them the address of the auditor space:"
+msgstr "Das Konto des Auditors benötigt keine Rechte auf dieses Plugin: ein Profil der vereinfachten Oberfläche genügt. Geben Sie ihm die Adresse des Auditorenbereichs:"
+
+msgid "Until"
+msgstr "Bis"
+
+msgid "Last visit"
+msgstr "Letzter Besuch"
+
+#, php-format
+msgid "Granted by %s"
+msgstr "Gewährt von %s"
+
+msgid "Revoked"
+msgstr "Widerrufen"
+
+msgid "Revoke"
+msgstr "Widerrufen"
+
+msgid "No auditor has access to this audit."
+msgstr "Kein Auditor hat Zugriff auf dieses Audit."
+
+msgid "Auditor account"
+msgstr "Konto des Auditors"
+
+msgid "Access until"
+msgstr "Zugriff bis"
+
+#, php-format
+msgid "At most %d days"
+msgstr "Höchstens %d Tage"
+
+msgid "Give read access to this audit"
+msgstr "Lesezugriff auf dieses Audit gewähren"
+
+#, php-format
+msgid "%d waiting for you"
+msgstr "%d warten auf Sie"
+
+msgid "An audit needs these documents from you. For each request, add one or more files (or an existing evidence of the control), then click \"Submit to the audit\". Until you submit, nobody outside the audit team sees your documents; once submitted, the auditor can read them."
+msgstr "Ein Audit benötigt diese Dokumente von Ihnen. Fügen Sie jeder Anforderung eine oder mehrere Dateien (oder einen vorhandenen Nachweis der Maßnahme) hinzu und klicken Sie dann auf „An das Audit übermitteln“. Vor der Übermittlung sieht niemand außerhalb des Auditteams Ihre Dokumente; nach der Übermittlung kann der Auditor sie lesen."
+
+msgid "No evidence is waiting for you."
+msgstr "Kein Nachweis wartet auf Sie."
+
+#, php-format
+msgid "Due %1$s, %2$d day(s) late"
+msgstr "Fällig %1$s, %2$d Tag(e) verspätet"
+
+#, php-format
+msgid "Due %s"
+msgstr "Fällig %s"
+
+msgid "The audit asks you to complete this evidence:"
+msgstr "Das Audit bittet Sie, diesen Nachweis zu ergänzen:"
+
+msgid "Documents of this request"
+msgstr "Dokumente dieser Anforderung"
+
+msgid "No document yet."
+msgstr "Noch kein Dokument."
+
+msgid "Not submitted yet"
+msgstr "Noch nicht übermittelt"
+
+msgid "Add a file"
+msgstr "Datei hinzufügen"
+
+msgid "PDF, image, office document... The file types allowed by GLPI are accepted."
+msgstr "PDF, Bild, Office-Dokument... Die von GLPI erlaubten Dateitypen werden akzeptiert."
+
+msgid "Or use an existing evidence of the control"
+msgstr "Oder einen vorhandenen Nachweis der Maßnahme verwenden"
+
+msgid "Comment for the audit (optional)"
+msgstr "Kommentar für das Audit (optional)"
+
+msgid "Submit to the audit"
+msgstr "An das Audit übermitteln"
+
+msgid "Evidence already submitted"
+msgstr "Bereits übermittelte Nachweise"
+
+msgid "You have no access to an audit at the moment. Your access is given by the organisation being audited, for a limited time."
+msgstr "Sie haben derzeit keinen Zugriff auf ein Audit. Ihr Zugriff wird von der auditierten Organisation für eine begrenzte Zeit gewährt."
+
+msgid "Audits you can consult, in read only:"
+msgstr "Audits, die Sie lesend einsehen können:"
+
+#, php-format
+msgid "Access until %s"
+msgstr "Zugriff bis %s"
+
+#, php-format
+msgid "Read only. Your access ends on %s."
+msgstr "Nur Lesen. Ihr Zugriff endet am %s."
+
+msgid "My audits"
+msgstr "Meine Audits"
+
+msgid "Lead auditor"
+msgstr "Leitender Auditor"
+
+#, php-format
+msgid "%d submitted, waiting for review."
+msgstr "%d übermittelt, Prüfung ausstehend."
+
+msgid "Submitted evidence"
+msgstr "Übermittelte Nachweise"
+
+msgid "No evidence has been submitted yet."
+msgstr "Es wurden noch keine Nachweise übermittelt."
+
+msgid "No control is linked to this audit."
+msgstr "Mit diesem Audit ist keine Maßnahme verknüpft."
+
+msgctxt "feminine"
+msgid "Submitted"
+msgstr "Übermittelt"
+
+msgctxt "feminine"
+msgid "Accepted"
+msgstr "Akzeptiert"

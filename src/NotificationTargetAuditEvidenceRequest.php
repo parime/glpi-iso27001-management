@@ -61,16 +61,24 @@ class NotificationTargetAuditEvidenceRequest extends NotificationTarget
         return true;
     }
 
+    /**
+     * @return array<string, mixed> champs de la demande notifiée
+     */
+    private function requestFields(): array
+    {
+        return $this->obj instanceof AuditEvidenceRequest ? $this->obj->fields : [];
+    }
+
     #[Override]
     public function addSpecificTargets($data, $options)
     {
         $target = (int) ($data['items_id'] ?? 0);
         $users = [];
         if ($target === self::TARGET_ASSIGNEE) {
-            $users[] = (int) ($this->obj->fields['users_id'] ?? 0);
+            $users[] = (int) ($this->requestFields()['users_id'] ?? 0);
         } elseif ($target === self::TARGET_AUDIT_LEADS) {
             $audit = new Audit();
-            if ($audit->getFromDB((int) ($this->obj->fields['plugin_grcmanager_audits_id'] ?? 0))) {
+            if ($audit->getFromDB((int) ($this->requestFields()['plugin_grcmanager_audits_id'] ?? 0))) {
                 $users[] = (int) $audit->fields['users_id'];
                 $users[] = (int) ($audit->fields['users_id_responsible'] ?? 0);
             }
@@ -88,7 +96,12 @@ class NotificationTargetAuditEvidenceRequest extends NotificationTarget
             }
             $this->addToRecipientsList([
                 'language' => $user->fields['language'] ?: ($GLOBALS['CFG_GLPI']['language'] ?? 'en_GB'),
-                'name'     => formatUserName(0, $user->fields['name'], $user->fields['realname'], $user->fields['firstname']),
+                'name'     => formatUserName(
+                    0,
+                    $user->fields['name'],
+                    $user->fields['realname'],
+                    $user->fields['firstname']
+                ),
                 'email'    => $email,
                 'users_id' => $usersId,
             ]);
@@ -99,7 +112,7 @@ class NotificationTargetAuditEvidenceRequest extends NotificationTarget
     public function addDataForTemplate($event, $options = [])
     {
         $events = $this->getAllEvents();
-        $fields = $this->obj->fields;
+        $fields = $this->requestFields();
         $audit = new Audit();
         $audit->getFromDB((int) ($fields['plugin_grcmanager_audits_id'] ?? 0));
 
@@ -111,7 +124,9 @@ class NotificationTargetAuditEvidenceRequest extends NotificationTarget
         );
         $this->data['##evidencerequest.audit##']         = (string) ($audit->fields['title'] ?? '');
         $this->data['##evidencerequest.duedate##']       = (string) Html::convDate($fields['due_date'] ?? null);
-        $this->data['##evidencerequest.status##']        = AuditEvidenceRequest::getStatusLabel((string) ($fields['status'] ?? ''));
+        $this->data['##evidencerequest.status##']        = AuditEvidenceRequest::getStatusLabel(
+            (string) ($fields['status'] ?? '')
+        );
         $this->data['##evidencerequest.assignee##']      = (int) ($fields['users_id'] ?? 0) > 0
             ? (string) getUserName((int) $fields['users_id'])
             : '';

@@ -95,9 +95,13 @@ class AuditorAccess extends CommonGLPI
                 'begin'      => (string) Html::convDate($row['date_begin']),
                 'end'        => (string) Html::convDate($row['date_end']),
                 'state'      => $state,
-                'grantor'    => (int) $row['users_id_grantor'] > 0 ? (string) getUserName((int) $row['users_id_grantor']) : '',
+                'grantor'    => (int) $row['users_id_grantor'] > 0
+                    ? (string) getUserName((int) $row['users_id_grantor'])
+                    : '',
                 'revoked'    => $row['date_revoked'] !== null ? (string) Html::convDateTime($row['date_revoked']) : '',
-                'last_visit' => $row['date_last_visit'] !== null ? (string) Html::convDateTime($row['date_last_visit']) : '',
+                'last_visit' => $row['date_last_visit'] !== null
+                    ? (string) Html::convDateTime($row['date_last_visit'])
+                    : '',
             ];
         }
 
@@ -218,15 +222,20 @@ class AuditorAccess extends CommonGLPI
         $audits = [];
         foreach (
             $DB->request([
-                'SELECT'     => ['x.plugin_grcmanager_audits_id', 'x.date_begin', 'x.date_end', 'x.date_revoked', 'a.title'],
+                'SELECT'     => [
+                    'x.plugin_grcmanager_audits_id', 'x.date_begin', 'x.date_end', 'x.date_revoked', 'a.title',
+                ],
                 'FROM'       => self::TABLE . ' AS x',
-                'INNER JOIN' => [Audit::getTable() . ' AS a' => ['FKEY' => ['x' => 'plugin_grcmanager_audits_id', 'a' => 'id']]],
+                'INNER JOIN' => [
+                    Audit::getTable() . ' AS a' => ['FKEY' => ['x' => 'plugin_grcmanager_audits_id', 'a' => 'id']],
+                ],
                 'WHERE'      => ['x.users_id' => $usersId, 'x.date_revoked' => null],
                 'ORDER'      => ['x.date_end DESC'],
             ]) as $row
         ) {
             $auditId = (int) $row['plugin_grcmanager_audits_id'];
-            if (isset($audits[$auditId]) || !Rules::isAccessActive($row['date_begin'], $row['date_end'], null, $today)) {
+            $active = Rules::isAccessActive($row['date_begin'], $row['date_end'], null, $today);
+            if (isset($audits[$auditId]) || !$active) {
                 continue;
             }
             $audits[$auditId] = [
@@ -285,8 +294,11 @@ class AuditorAccess extends CommonGLPI
                 'scope'   => (string) ($audit->fields['scope'] ?? ''),
                 'planned' => (string) Html::convDate($audit->fields['planned_date'] ?? null),
                 'actual'  => (string) Html::convDate($audit->fields['actual_date'] ?? null),
-                'status'  => Audit::getStatuses()[$audit->fields['status'] ?? ''] ?? (string) ($audit->fields['status'] ?? ''),
-                'auditor' => (int) $audit->fields['users_id'] > 0 ? (string) getUserName((int) $audit->fields['users_id']) : '',
+                'status'  => Audit::getStatuses()[(string) ($audit->fields['status'] ?? '')]
+                    ?? (string) ($audit->fields['status'] ?? ''),
+                'auditor' => (int) $audit->fields['users_id'] > 0
+                    ? (string) getUserName((int) $audit->fields['users_id'])
+                    : '',
             ],
             'controls'     => $controls,
             'requests'     => $requests,
@@ -350,7 +362,8 @@ class AuditorAccess extends CommonGLPI
 
     public static function showSpace(Audit $audit, int $usersId): void
     {
-        TemplateRenderer::getInstance()->display('@grcmanager/auditor_space.html.twig', self::buildSpace($audit, $usersId) + [
+        $data = self::buildSpace($audit, $usersId);
+        TemplateRenderer::getInstance()->display('@grcmanager/auditor_space.html.twig', $data + [
             'audits'   => self::getActiveAudits($usersId),
             'list_url' => self::getSpaceURL(),
         ]);
