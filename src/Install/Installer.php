@@ -137,6 +137,10 @@ final class Installer
     // Issue #28 (bibliothèque de politiques de sécurité versionnées, A.5.1), même dérivation de
     // nom de table que toutes les autres tables ci-dessus.
     private const POLICIES_TABLE = 'glpi_plugin_grcmanager_policies';
+    // Issue #535 : public cible des politiques, campagnes de prise de connaissance et confirmations.
+    private const POLICY_AUDIENCES_TABLE = 'glpi_plugin_grcmanager_policyaudiences';
+    private const POLICY_CAMPAIGNS_TABLE = 'glpi_plugin_grcmanager_policycampaigns';
+    private const POLICY_CAMPAIGNS_USERS_TABLE = 'glpi_plugin_grcmanager_policycampaigns_users';
 
     // Issue #30 (registre des obligations légales/réglementaires/contractuelles), même dérivation
     // de nom de table que toutes les autres tables ci-dessus.
@@ -1287,6 +1291,17 @@ final class Installer
                 ['value' => 0, 'after' => 'description']
             );
         }
+
+        // Issue #535 : délai de réponse des campagnes de prise de connaissance, en jours.
+        if (!$DB->fieldExists(self::POLICIES_TABLE, 'acknowledgement_days')) {
+            $migration->addField(
+                self::POLICIES_TABLE,
+                'acknowledgement_days',
+                'integer',
+                ['value' => 30, 'after' => 'is_it_charter']
+            );
+        }
+        $this->installPolicyAcknowledgementTables($keySign, $charset, $collation);
 
         // Issue #30 (registre des obligations légales/réglementaires/contractuelles, clause 4.2
         // ISO 27001 "parties intéressées et leurs exigences", Annexe A A.5.31-36) : lien optionnel
@@ -3086,6 +3101,18 @@ final class Installer
         $this->migrateNotificationTemplateLanguages();
         $this->migrateResponsibleTargets();
 
+        // Issue #535 : relance hebdomadaire des personnes en retard de prise de connaissance d'une
+        // politique (une notification, jamais une sanction).
+        CronTask::Register(
+            'GlpiPlugin\\Grcmanager\\PolicyAcknowledgement',
+            'policyacknowledgementreminder',
+            DAY_TIMESTAMP,
+            [
+                'comment' => 'Relance les personnes qui n\'ont pas pris connaissance d\'une politique a l\'echeance',
+                'mode'    => CronTask::MODE_EXTERNAL,
+            ]
+        );
+
         // Issue #126 : relance hebdomadaire des responsables en retard sur une revue des accès.
         CronTask::Register(
             'GlpiPlugin\\Grcmanager\\AccessReview',
@@ -3785,6 +3812,62 @@ final class Installer
      * et règles passent par leur classe, pour que leurs propres nettoyages s'exécutent.
      */
     /**
+     * Issue #535 : public cible d'une politique (groupes, profils, entités), campagnes de prise de
+     * connaissance (une par version approuvée) et confirmation de chaque personne du public.
+     */
+    private function installPolicyAcknowledgementTables(string $keySign, string $charset, string $collation): void
+    {
+        global $DB;
+
+        if (!$DB->tableExists(self::POLICY_AUDIENCES_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::POLICY_AUDIENCES_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_policies_id` int {$keySign} NOT NULL DEFAULT 0,
+                `itemtype` varchar(100) NOT NULL DEFAULT '' COMMENT 'Group, Profile, Entity',
+                `items_id` int {$keySign} NOT NULL DEFAULT 0,
+                `is_recursive` tinyint NOT NULL DEFAULT 0 COMMENT 'Entite : sous-entites comprises',
+                `date_creation` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity` (`plugin_grcmanager_policies_id`, `itemtype`, `items_id`),
+                KEY `item` (`itemtype`, `items_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+        if (!$DB->tableExists(self::POLICY_CAMPAIGNS_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::POLICY_CAMPAIGNS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_policies_id` int {$keySign} NOT NULL DEFAULT 0,
+                `version` varchar(16) NOT NULL DEFAULT '',
+                `status` varchar(16) NOT NULL DEFAULT 'open' COMMENT 'open, closed',
+                `users_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Lancee par',
+                `date_launch` timestamp NULL DEFAULT NULL,
+                `due_date` date DEFAULT NULL,
+                `date_close` timestamp NULL DEFAULT NULL,
+                `documents_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Rapport archive a la cloture',
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `plugin_grcmanager_policies_id` (`plugin_grcmanager_policies_id`),
+                KEY `status` (`status`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+        if (!$DB->tableExists(self::POLICY_CAMPAIGNS_USERS_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::POLICY_CAMPAIGNS_USERS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_policycampaigns_id` int {$keySign} NOT NULL DEFAULT 0,
+                `users_id` int {$keySign} NOT NULL DEFAULT 0,
+                `entities_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Entite ou la personne est comptee',
+                `date_acknowledged` timestamp NULL DEFAULT NULL,
+                `date_reminder` timestamp NULL DEFAULT NULL,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity` (`plugin_grcmanager_policycampaigns_id`, `users_id`),
+                KEY `users_id` (`users_id`),
+                KEY `entities_id` (`entities_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+    }
+
+    /**
      * Issue #378 : appétence et tolérance par catégorie de risque, indicateurs de risque (KRI) et
      * leur historique, signature de l'acceptation formelle d'un risque. Création ou ajout des
      * colonnes manquantes : une mise à jour garde les données existantes.
@@ -4286,6 +4369,9 @@ final class Installer
         $migration->dropTable(self::MANAGEMENT_REVIEWS_TABLE);
         $migration->dropTable(self::RISKS_ITEMS_TABLE);
         $migration->dropTable(self::ASSET_CLASSIFICATIONS_TABLE);
+        $migration->dropTable(self::POLICY_CAMPAIGNS_USERS_TABLE);
+        $migration->dropTable(self::POLICY_CAMPAIGNS_TABLE);
+        $migration->dropTable(self::POLICY_AUDIENCES_TABLE);
         $migration->dropTable(self::POLICIES_TABLE);
         $migration->dropTable(self::COMPLIANCE_OBLIGATIONS_TABLE);
         $migration->dropTable(self::MANAGEMENT_REVIEWS_OBJECTIVES_TABLE);

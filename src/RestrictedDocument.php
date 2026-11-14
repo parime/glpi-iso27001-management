@@ -159,6 +159,10 @@ class RestrictedDocument
         if ($itemtype === TrainingQuiz::class) {
             return TrainingQuiz::canRead($source['items_id']);
         }
+        // Issue #535 : rapport de prise de connaissance d'une politique (noms des retardataires).
+        if ($itemtype === PolicyAcknowledgement::class) {
+            return PolicyAcknowledgement::canReadReport($source['items_id']);
+        }
         if (!is_a($itemtype, CommonDBTM::class, true)) {
             return false;
         }

@@ -21,6 +21,7 @@ use Html;
 use Notification;
 use NotificationTarget;
 use Override;
+use User;
 
 /**
  * GLPI notification target for Policy (issue #28 review-date reminders, see
@@ -33,11 +34,20 @@ use Override;
  */
 class NotificationTargetPolicy extends NotificationTarget
 {
+    /**
+     * Issue #535 : personnes du public cible qui n'ont pas encore pris connaissance de la politique
+     * (pour une relance, seulement celles que la tâche planifiée a désignées, option « users »).
+     * Identifiant hors de la plage des constantes de Notification.
+     */
+    public const TARGET_AUDIENCE = 1190;
+
     #[Override]
     public function getEvents()
     {
         return [
             Policy::REVIEW_DUE_EVENT => __('Policy review due', 'grcmanager'),
+            PolicyAcknowledgement::REQUEST_EVENT  => __('Policy to acknowledge', 'grcmanager'),
+            PolicyAcknowledgement::REMINDER_EVENT => __('Policy acknowledgement reminder', 'grcmanager'),
         ];
     }
 
@@ -51,6 +61,33 @@ class NotificationTargetPolicy extends NotificationTarget
     public function addAdditionalTargets($event = '')
     {
         $this->addTarget(Notification::ITEM_USER, __('Policy owner', 'grcmanager'));
+        $this->addTarget(
+            self::TARGET_AUDIENCE,
+            __('Audience members who have not acknowledged the policy', 'grcmanager')
+        );
+    }
+
+    #[Override]
+    public function addSpecificTargets($data, $options)
+    {
+        if ((int) ($data['items_id'] ?? 0) !== self::TARGET_AUDIENCE) {
+            return;
+        }
+        $users = PolicyAcknowledgement::getPendingUserIds((int) ($this->obj->fields['id'] ?? 0));
+        if (isset($options['users']) && is_array($options['users'])) {
+            $users = array_values(array_intersect($users, array_map('intval', $options['users'])));
+        }
+        foreach ($users as $usersId) {
+            $user = new User();
+            if (!$user->getFromDB($usersId)) {
+                continue;
+            }
+            $this->addToRecipientsList([
+                'users_id' => $usersId,
+                'email'    => $user->getDefaultEmail(),
+                'language' => (string) ($user->fields['language'] ?? ''),
+            ]);
+        }
     }
 
     #[Override]
@@ -67,6 +104,11 @@ class NotificationTargetPolicy extends NotificationTarget
         $this->data['##policy.version##']    = $policy->fields['version'] ?? '';
         $this->data['##policy.status##']     = $statuses[$policy->fields['status'] ?? ''] ?? '';
         $this->data['##policy.reviewdate##'] = Html::convDate($policy->fields['next_review_date'] ?? null);
+        $campaign = PolicyAcknowledgement::getCurrentCampaign($policy->getID());
+        $this->data['##policy.duedate##']    = Html::convDate(
+            ($options['due_date'] ?? '') !== '' ? $options['due_date'] : ($campaign['due_date'] ?? null)
+        );
+        $this->data['##policy.acknowledgeurl##'] = PolicyAcknowledgement::getMineAbsoluteURL();
         $this->data['##policy.url##']        = $this->formatURL(
             $options['additionnaloption']['usertype'] ?? self::GLPI_USER,
             Policy::class . '_' . $policy->getID()
@@ -89,6 +131,8 @@ class NotificationTargetPolicy extends NotificationTarget
             'policy.version'    => __('Version', 'grcmanager'),
             'policy.status'     => __('Status', 'grcmanager'),
             'policy.reviewdate' => __('Next review', 'grcmanager'),
+            'policy.duedate'    => __('Acknowledgement deadline', 'grcmanager'),
+            'policy.acknowledgeurl' => __('Acknowledgement page URL', 'grcmanager'),
             'policy.url'        => __('URL'),
         ];
 

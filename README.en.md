@@ -148,6 +148,10 @@ classification fields merged directly onto it.
   treatment actions, control tests, evidence to renew, nonconformities, periodic and access reviews,
   policies, trainings, SoA approvals...), sorted by due date, overdue items highlighted, number of
   waiting items in the menu. Nothing the user is not allowed to see.
+- **Policy acknowledgement**: target audience (groups, profiles, entities) and response deadline on
+  each approved policy, one campaign per version, confirmation by each person from their
+  preferences or My GRC space, rate per policy and per entity, weekly reminders, list of latecomers
+  (CSV, PDF) archived as evidence on control A.5.1.
 - Cyber **maturity score** (0 to 100) with the calculation details and its monthly history.
 - **Assessment by framework**: for each enabled framework, implementation rate, evidence rate
   (unexpired documents attached to the controls) and score of the controls both done and proven,

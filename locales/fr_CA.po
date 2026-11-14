@@ -10355,3 +10355,279 @@ msgstr "%d risque(s) fournisseur en attente de revue, %d notification(s) déclen
 #, php-format
 msgid "%d training(s) with at least one participant overdue for renewal, %d notification(s) raised."
 msgstr "%d formation(s) avec au moins un participant en retard de renouvellement, %d notification(s) déclenchée(s)."
+
+msgid "Policy acknowledgement"
+msgstr "Prise de connaissance des politiques"
+
+msgid "This policy is not waiting for your acknowledgement."
+msgstr "Cette politique n'attend pas votre prise de connaissance."
+
+msgid "This acknowledgement campaign is closed or replaced by a newer version."
+msgstr "Cette campagne de prise de connaissance est close ou remplacée par une version plus récente."
+
+#, php-format
+msgid "Policy acknowledgement: %1$s, version %2$s"
+msgstr "Prise de connaissance : %1$s, version %2$s"
+
+#, php-format
+msgid "Policy acknowledgement report - %1$s %2$s"
+msgstr "Rapport de prise de connaissance - %1$s %2$s"
+
+msgid "Policies to read"
+msgstr "Politiques à lire"
+
+msgid "Reminds people who have not acknowledged a security policy by its deadline"
+msgstr "Relance les personnes qui n'ont pas pris connaissance d'une politique de sécurité à l'échéance"
+
+#, php-format
+msgid "New version %1$s: an acknowledgement campaign has been launched for %2$d person(s)."
+msgstr "Nouvelle version %1$s : une campagne de prise de connaissance a été lancée auprès de %2$d personne(s)."
+
+msgid "Policy to acknowledge"
+msgstr "Politique à lire"
+
+msgid "Policy acknowledgement reminder"
+msgstr "Relance de prise de connaissance d'une politique"
+
+msgid "Audience members who have not acknowledged the policy"
+msgstr "Public cible n'ayant pas encore pris connaissance de la politique"
+
+msgid "Acknowledgement deadline"
+msgstr "Échéance de prise de connaissance"
+
+msgid "Acknowledgement page URL"
+msgstr "URL de la page de prise de connaissance"
+
+msgid "Policy to read"
+msgstr "Politique à lire"
+
+#, php-format
+msgid "Version %s"
+msgstr "Version %s"
+
+msgid "Tick the box to confirm that you have read the policy."
+msgstr "Cochez la case pour confirmer que vous avez lu la politique."
+
+msgid "Thank you: your acknowledgement has been recorded."
+msgstr "Merci : votre prise de connaissance est enregistrée."
+
+msgid "Choose a group, a profile or an entity to add."
+msgstr "Choisissez un groupe, un profil ou une entité à ajouter."
+
+#, php-format
+msgid "Campaign launched: %d person(s) have been asked to read and confirm the policy."
+msgstr "Campagne lancée : %d personne(s) sont invitées à lire et confirmer la politique."
+
+msgid "No active account matches the audience of this policy."
+msgstr "Aucun compte actif ne correspond au public de cette politique."
+
+msgid "A campaign can only be launched on an approved policy with an audience, once per version."
+msgstr "Une campagne ne se lance que sur une politique approuvée dont le public est défini, une fois par version."
+
+#, php-format
+msgid "%d reminder(s) sent."
+msgstr "%d relance(s) envoyée(s)."
+
+#, php-format
+msgid "Campaign closed: the report has been archived as evidence on control %s and on the policy."
+msgstr "Campagne close : le rapport est archivé comme preuve sur la mesure %s et sur la politique."
+
+msgid "The campaign could not be closed or its report could not be archived."
+msgstr "La campagne n'a pas pu être close ou son rapport n'a pas pu être archivé."
+
+msgid "Person"
+msgstr "Personne"
+
+msgid "Last reminder"
+msgstr "Dernière relance"
+
+#, php-format
+msgid "%d person(s) currently match"
+msgstr "%d personne(s) concernée(s) aujourd'hui"
+
+msgid "Who must read this policy: every active account in one of these groups, with one of these profiles or with an authorization in one of these entities. The audience is frozen when a campaign is launched."
+msgstr "Qui doit lire cette politique : chaque compte actif membre d'un de ces groupes, ayant un de ces profils ou une habilitation dans une de ces entités. Le public est figé au lancement d'une campagne."
+
+msgid "No audience defined yet: add at least one group, profile or entity."
+msgstr "Aucun public défini : ajoutez au moins un groupe, un profil ou une entité."
+
+msgid "Add a group"
+msgstr "Ajouter un groupe"
+
+msgid "Add a profile"
+msgstr "Ajouter un profil"
+
+msgid "Add an entity"
+msgstr "Ajouter une entité"
+
+msgid "Sub-entities"
+msgstr "Sous-entités"
+
+msgid "Response deadline"
+msgstr "Délai de réponse"
+
+msgid "days"
+msgstr "jours"
+
+msgid "Counted from the launch of each campaign. Late people are reminded by email once a week; nothing else happens to them."
+msgstr "Compté à partir du lancement de chaque campagne. Les retardataires reçoivent une relance par e-mail chaque semaine, sans autre conséquence."
+
+msgid "Acknowledgement campaign"
+msgstr "Campagne de prise de connaissance"
+
+msgid "Only an approved policy can be sent to its audience: approve it first (status and approval date)."
+msgstr "Seule une politique approuvée peut être diffusée à son public : approuvez-la d'abord (statut et date d'approbation)."
+
+#, php-format
+msgid "Version %s has not been sent to the audience yet."
+msgstr "La version %s n'a pas encore été diffusée au public."
+
+#, php-format
+msgid "Launch the campaign for version %s"
+msgstr "Lancer la campagne pour la version %s"
+
+msgid "Each person of the audience is notified and confirms from \"My GRC space\" or the \"Policies to read\" tab of their preferences. A later new version launches a new campaign automatically."
+msgstr "Chaque personne du public est prévenue et confirme depuis « Mon espace GRC » ou l'onglet « Politiques à lire » de ses préférences. Une nouvelle version lancera ensuite une nouvelle campagne automatiquement."
+
+msgid "No campaign yet."
+msgstr "Aucune campagne pour l'instant."
+
+msgid "Acknowledgement rate"
+msgstr "Taux de prise de connaissance"
+
+msgid "Confirmed"
+msgstr "Confirmé"
+
+msgid "Waiting"
+msgstr "En attente"
+
+msgid "Late"
+msgstr "En retard"
+
+#, php-format
+msgid "Launched on %1$s by %2$s, deadline %3$s"
+msgstr "Lancée le %1$s par %2$s, échéance le %3$s"
+
+#, php-format
+msgid "Closed on %s"
+msgstr "Close le %s"
+
+msgid "Rate per entity"
+msgstr "Taux par entité"
+
+msgid "Rate"
+msgstr "Taux"
+
+msgid "No person of this campaign in your entities."
+msgstr "Aucune personne de cette campagne dans vos entités."
+
+msgid "Latecomers"
+msgstr "Retardataires"
+
+msgid "Nobody is late."
+msgstr "Personne n'est en retard."
+
+msgid "The deadline has not passed yet: nobody is late."
+msgstr "L'échéance n'est pas encore passée : personne n'est en retard."
+
+msgid "Show every person of the campaign"
+msgstr "Afficher toutes les personnes de la campagne"
+
+#, php-format
+msgid "Read on %s"
+msgstr "Lue le %s"
+
+msgid "Latecomers (CSV)"
+msgstr "Retardataires (CSV)"
+
+#, php-format
+msgid "Archived evidence (%s)"
+msgstr "Preuve archivée (%s)"
+
+#, php-format
+msgid "Send a reminder email now to the %d person(s) who have not confirmed yet?"
+msgstr "Envoyer maintenant une relance par e-mail aux %d personne(s) qui n'ont pas encore confirmé ?"
+
+msgid "Remind now"
+msgstr "Relancer maintenant"
+
+#, php-format
+msgid "Close the campaign? Nobody can confirm any more, and the report (rates and latecomers) is archived as evidence on control %s."
+msgstr "Clore la campagne ? Plus personne ne pourra confirmer, et le rapport (taux et retardataires) sera archivé comme preuve sur la mesure %s."
+
+#, php-format
+msgid "Close and archive as evidence (%s)"
+msgstr "Clore et archiver comme preuve (%s)"
+
+msgid "Previous campaigns"
+msgstr "Campagnes précédentes"
+
+msgid "Replaced by a newer version"
+msgstr "Remplacée par une version plus récente"
+
+msgid "Security policies to read"
+msgstr "Politiques de sécurité à lire"
+
+#, php-format
+msgid "%d to read"
+msgstr "%d à lire"
+
+msgid "Your organisation asks you to read these security policies. Open the document, read it, then tick the box and confirm. Your confirmation is recorded with its date."
+msgstr "Votre organisation vous demande de lire ces politiques de sécurité. Ouvrez le document, lisez-le, puis cochez la case et confirmez. Votre confirmation est enregistrée avec sa date."
+
+msgid "No policy is waiting for you. Thank you!"
+msgstr "Aucune politique ne vous attend. Merci !"
+
+#, php-format
+msgid "Expected by %s"
+msgstr "Attendue pour le %s"
+
+msgid "No document is attached to this policy: its description above is the text to read."
+msgstr "Aucun document n'est joint à cette politique : sa description ci-dessus est le texte à lire."
+
+#, php-format
+msgid "Open: %s"
+msgstr "Ouvrir : %s"
+
+#, php-format
+msgid "I have read and understood version %s of this policy."
+msgstr "J'ai lu et compris la version %s de cette politique."
+
+msgid "Policies already read"
+msgstr "Politiques déjà lues"
+
+msgid "Confirmed on"
+msgstr "Confirmée le"
+
+msgid "Confirmations"
+msgstr "Confirmations"
+
+msgid "Security policy to acknowledge"
+msgstr "Politique de sécurité à lire"
+
+msgid "Sent to the audience of a security policy when an acknowledgement campaign is launched."
+msgstr "Envoyée au public d'une politique de sécurité au lancement d'une campagne de prise de connaissance."
+
+msgid "Security policy acknowledgement reminder"
+msgstr "Relance de lecture d'une politique de sécurité"
+
+msgid "Sent by the GRC Manager automatic task when the acknowledgement deadline of a security policy has passed (at most once a week)."
+msgstr "Notification envoyée par la tâche automatique GRC Manager lorsque l'échéance de prise de connaissance d'une politique de sécurité est dépassée (au plus une fois par semaine)."
+
+#, php-format
+msgid "Please read version %1$s of the security policy \"%2$s\" and confirm that you have read it before %3$s."
+msgstr "Merci de lire la version %1$s de la politique de sécurité « %2$s » et de confirmer l'avoir lue avant le %3$s."
+
+#, php-format
+msgid "Reminder: security policy %s to acknowledge"
+msgstr "Relance : politique de sécurité %s à lire"
+
+#, php-format
+msgid "The %1$s deadline has passed and you have not yet confirmed that you have read version %2$s of the security policy \"%3$s\"."
+msgstr "L'échéance du %1$s est passée et vous n'avez pas encore confirmé avoir lu la version %2$s de la politique de sécurité « %3$s »."
+
+msgid "Read and confirm"
+msgstr "Lire et confirmer"
+
+msgid "Reading acknowledgement"
+msgstr "Prise de connaissance"

@@ -677,5 +677,36 @@ if [ "$ROLE" = limited ]; then
   echo "    (risque enregistre et approbation SoA demandee : verification en base par la CI)"
 fi
 
+# Issue #535 : prise de connaissance des politiques. Seul glpi (admin) est dans le public de la
+# politique : les autres ne la voient ni dans leurs preferences ni dans leur espace, ne lisent pas
+# ses documents et ne peuvent pas confirmer a sa place (sa ligne reste a confirmer, verifie par
+# l'admin, dernier passage de la CI). Les exports exigent la lecture des politiques.
+IS_ADMIN=non; [ "$ROLE" = admin ] && IS_ADMIN=oui
+READ_POLICY=200; [ "$ROLE" = none ] && READ_POLICY=403
+mine_tab=$(tab Preference 'GlpiPlugin%5CGrcmanager%5CPolicyAcknowledgement$1' 2)
+contains "onglet Politiques a lire : politique du public" "Politique lecture securite" $IS_ADMIN "$mine_tab"
+contains "front/myspace.php : politique a lire" "Politique lecture securite" $IS_ADMIN "$(curl -s -c "$JAR" -b "$JAR" "$P/myspace.php")"
+expect "front/policyacknowledgement.send.php : document de la politique" "$([ "$ROLE" = admin ] && echo 404 || echo 403)" \
+  "$(code "$P/policyacknowledgement.send.php?policies_id=$(id policy_ack)&documents_id=$(id document_A)")"
+expect "front/policyacknowledgement.send.php : document d'une autre politique" 403 \
+  "$(code "$P/policyacknowledgement.send.php?policies_id=$(id policy_ack)&documents_id=$(id audit_document)")"
+for format in csv pdf; do
+  expect "front/policyacknowledgement.export.php : $format" $READ_POLICY \
+    "$(code "$P/policyacknowledgement.export.php?id=$(id ack_campaign)&format=$format")"
+done
+contains "onglet Prise de connaissance d'une politique" "grc-ack-members" "$([ "$ROLE" = none ] && echo non || echo oui)" \
+  "$(tab GlpiPlugin%5CGrcmanager%5CPolicy 'GlpiPlugin%5CGrcmanager%5CPolicyAcknowledgement$1' "$(id policy_ack)")"
+if [ "$ROLE" = admin ]; then
+  contains "ligne de glpi toujours a confirmer" "name=\"lines_id\" value=\"$(id ack_line)\"" oui "$mine_tab"
+else
+  code -d "acknowledge=1&confirm_read=1&lines_id=$(id ack_line)&_glpi_csrf_token=$(csrf)" "$P/policyacknowledgement.form.php" > /dev/null
+fi
+if [ "$ROLE" = none ] || [ "$ROLE" = reader ]; then
+  for action in launch=1 remind=1 close=1 add_audience=1 save_days=1; do
+    expect "front/policyacknowledgement.form.php : ${action%%=*}" 403 \
+      "$(code -d "$action&policies_id=$(id policy_ack)&campaigns_id=$(id ack_campaign)&itemtype=Group&items_id=1&acknowledgement_days=3&_glpi_csrf_token=$(csrf)" "$P/policyacknowledgement.form.php")"
+  done
+fi
+
 rm -f "$JAR"
 exit $FAIL

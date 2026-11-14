@@ -161,6 +161,10 @@ archivé), avec ses champs de classification ISO 27001 fusionnés dessus.
   périodiques et revues d'accès, politiques, formations, approbations de la SoA...), triée par
   échéance, retards surlignés, nombre d'éléments en attente dans le menu. Rien de ce que
   l'utilisateur n'a pas le droit de voir.
+- **Prise de connaissance des politiques** : public cible (groupes, profils, entités) et délai
+  de réponse sur chaque politique approuvée, campagne par version, confirmation par chacun depuis
+  ses préférences ou Mon espace GRC, taux par politique et par entité, relances hebdomadaires,
+  liste des retardataires (CSV, PDF) archivée comme preuve sur la mesure A.5.1.
 - **Score de maturité** cyber (0 à 100) avec le détail du calcul et son historique mensuel.
 - **Évaluation par référentiel** : pour chaque référentiel activé, taux de mise en œuvre, taux de
   preuve (documents non expirés rattachés aux mesures) et score des mesures à la fois faites et

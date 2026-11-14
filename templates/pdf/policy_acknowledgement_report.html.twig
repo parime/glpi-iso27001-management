@@ -1,0 +1,48 @@
+{# Issue #535 : rapport d'une campagne de prise de connaissance d'une politique (taux par entité,
+   retardataires), exporté à la demande ou archivé comme preuve sur la mesure A.5.1 à la clôture. #}
+{% include '@grcmanager/pdf/_pdf_style.html.twig' %}
+
+<h2>{{ __('Summary', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-summary">
+  <tr><td>{{ __('Version', 'grcmanager') }}</td><td>{{ campaign.version }}</td></tr>
+  <tr><td>{{ __('SoA control', 'grcmanager') }}</td><td>{{ control }}</td></tr>
+  <tr><td>{{ __('Launched on', 'grcmanager') }}</td><td>{{ dates.launch }} ({{ launched_by }})</td></tr>
+  <tr><td>{{ __('Deadline', 'grcmanager') }}</td><td>{{ dates.due }}</td></tr>
+  {% if not is_open %}<tr><td>{{ __('Closed on', 'grcmanager') }}</td><td>{{ dates.close }}</td></tr>{% endif %}
+  <tr><td>{{ __('Acknowledgement rate', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ progress.done }} / {{ progress.total }} ({{ progress.rate }} %)</td></tr>
+  <tr><td>{{ __('Latecomers', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ latecomers|length }}</td></tr>
+</table>
+
+<h2>{{ __('Rate per entity', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-table">
+  <thead><tr><th>{{ __('Entity', 'grcmanager') }}</th><th>{{ __('Confirmed', 'grcmanager') }}</th><th>{{ __('Late', 'grcmanager') }}</th><th>{{ __('Rate', 'grcmanager') }}</th></tr></thead>
+  <tbody>
+    {% for e in by_entity %}
+      <tr><td>{{ e.entity }}</td><td>{{ e.done }} / {{ e.total }}</td><td>{{ e.late }}</td><td>{{ e.rate }} %</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h2>{{ __('Latecomers', 'grcmanager') }}</h2>
+{% if latecomers is empty %}
+  <p>{{ late ? __('Nobody is late.', 'grcmanager') : __('The deadline has not passed yet: nobody is late.', 'grcmanager') }}</p>
+{% else %}
+  <table class="grcmanager-pdf-table">
+    <thead><tr><th>{{ __('Person', 'grcmanager') }}</th><th>{{ __('Entity', 'grcmanager') }}</th><th>{{ __('Last reminder', 'grcmanager') }}</th></tr></thead>
+    <tbody>
+      {% for l in latecomers %}
+        <tr><td>{{ l.user_name }}</td><td>{{ l.entity }}</td><td>{{ l.date_reminder ? l.date_reminder|formatted_datetime : '-' }}</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}
+
+<h2>{{ __('Confirmations', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-table">
+  <thead><tr><th>{{ __('Person', 'grcmanager') }}</th><th>{{ __('Entity', 'grcmanager') }}</th><th>{{ __('Confirmed on', 'grcmanager') }}</th></tr></thead>
+  <tbody>
+    {% for l in lines %}
+      <tr><td>{{ l.user_name }}</td><td>{{ l.entity }}</td><td>{{ l.date_acknowledged ? l.date_acknowledged|formatted_datetime : (l.late ? __('Late', 'grcmanager') : __('Waiting', 'grcmanager')) }}</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
