@@ -23,6 +23,8 @@ use CommonDBTM;
 use Dropdown;
 use GlpiPlugin\Grcmanager\AccessReview;
 use GlpiPlugin\Grcmanager\Audit;
+use GlpiPlugin\Grcmanager\AuditEvidenceRequest;
+use GlpiPlugin\Grcmanager\AuditorAccess;
 use GlpiPlugin\Grcmanager\ComplianceEvent;
 use GlpiPlugin\Grcmanager\ComplianceObligation;
 use GlpiPlugin\Grcmanager\Control;
@@ -88,6 +90,9 @@ final class MySpaceProvider
             self::soaApprovals($usersId),
             self::dataSubjectRequests($usersId),
             self::audits($usersId),
+            self::evidenceRequests($usersId),
+            self::evidenceReviews($usersId),
+            self::auditAccesses($usersId),
             self::objectives($usersId),
             self::events($usersId)
         ), $today);
@@ -655,6 +660,81 @@ final class MySpaceProvider
      *
      * @return list<array<string, mixed>>
      */
+    /**
+     * Issue #538 : demandes de preuves d'audit confiées à la personne, sans droit sur le plugin : le
+     * lien ouvre « Mes demandes de preuves ».
+     *
+     * @return list<array<string, mixed>>
+     */
+    private static function evidenceRequests(int $usersId): array
+    {
+        $list = [];
+        foreach (AuditEvidenceRequest::getAssignedTo($usersId, true) as $row) {
+            $list[] = self::candidate(
+                'evidence_request',
+                (int) $row['id'],
+                AuditEvidenceRequest::label($row),
+                $row['due_date'],
+                AuditEvidenceRequest::getMineURL() . '#grc-evreq-' . (int) $row['id'],
+                true,
+                sprintf(__('Audit: %s', 'grcmanager'), (string) $row['audit_title'])
+            );
+        }
+
+        return $list;
+    }
+
+    /**
+     * Issue #538 : preuves soumises qui attendent la revue, sur les audits dont la personne est
+     * l'auditeur ou le responsable (droit de lecture des audits).
+     *
+     * @return list<array<string, mixed>>
+     */
+    private static function evidenceReviews(int $usersId): array
+    {
+        if (!Audit::canView()) {
+            return [];
+        }
+        $list = [];
+        foreach (AuditEvidenceRequest::getToReviewBy($usersId) as $row) {
+            $list[] = self::candidate(
+                'evidence_review',
+                (int) $row['id'],
+                AuditEvidenceRequest::label($row),
+                null,
+                AuditEvidenceRequest::getAuditTabURL((int) $row['plugin_grcmanager_audits_id']),
+                true,
+                sprintf(__('Audit: %s', 'grcmanager'), (string) $row['audit_title'])
+            );
+        }
+
+        return $list;
+    }
+
+    /**
+     * Issue #538 : audits que la personne peut consulter comme auditeur (accès en vigueur), sans
+     * droit sur le plugin ; échéance : la fin de l'accès.
+     *
+     * @return list<array<string, mixed>>
+     */
+    private static function auditAccesses(int $usersId): array
+    {
+        $list = [];
+        foreach (AuditorAccess::getActiveAudits($usersId) as $audit) {
+            $list[] = self::candidate(
+                'audit_access',
+                $audit['id'],
+                $audit['title'],
+                $audit['date_end'],
+                AuditorAccess::getSpaceURL($audit['id']),
+                true,
+                sprintf(__('Read only access until %s', 'grcmanager'), $audit['end_text'])
+            );
+        }
+
+        return $list;
+    }
+
     private static function audits(int $usersId): array
     {
         if (!Audit::canView()) {

@@ -111,6 +111,10 @@ final class Installer
     private const AUDITS_TABLE = 'glpi_plugin_grcmanager_audits';
     private const NONCONFORMITIES_TABLE = 'glpi_plugin_grcmanager_nonconformities';
     private const AUDITS_CONTROLS_TABLE = 'glpi_plugin_grcmanager_audits_controls';
+    // Issue #538 : demandes de preuves d'un audit, pièces fournies et accès de l'auditeur.
+    private const AUDIT_EVIDENCE_REQUESTS_TABLE = 'glpi_plugin_grcmanager_auditevidencerequests';
+    private const AUDIT_EVIDENCE_PIECES_TABLE = 'glpi_plugin_grcmanager_auditevidencepieces';
+    private const AUDITOR_ACCESSES_TABLE = 'glpi_plugin_grcmanager_auditoraccesses';
 
     // Sprint 5 (risques fournisseurs/tiers), same table-name derivation rule.
     private const SUPPLIER_RISKS_TABLE = 'glpi_plugin_grcmanager_supplierrisks';
@@ -1302,6 +1306,7 @@ final class Installer
             );
         }
         $this->installPolicyAcknowledgementTables($keySign, $charset, $collation);
+        $this->installAuditEvidenceRequestTables($keySign, $charset, $collation);
 
         // Issue #30 (registre des obligations légales/réglementaires/contractuelles, clause 4.2
         // ISO 27001 "parties intéressées et leurs exigences", Annexe A A.5.31-36) : lien optionnel
@@ -3101,6 +3106,18 @@ final class Installer
         $this->migrateNotificationTemplateLanguages();
         $this->migrateResponsibleTargets();
 
+        // Issue #538 : relance des personnes qui doivent fournir une preuve d'audit, une semaine
+        // avant l'échéance puis chaque semaine de retard (une notification, rien d'autre).
+        CronTask::Register(
+            'GlpiPlugin\\Grcmanager\\AuditEvidenceRequest',
+            'auditevidencereminder',
+            DAY_TIMESTAMP,
+            [
+                'comment' => 'Relance les personnes qui doivent fournir une preuve d\'audit avant l\'echeance',
+                'mode'    => CronTask::MODE_EXTERNAL,
+            ]
+        );
+
         // Issue #535 : relance hebdomadaire des personnes en retard de prise de connaissance d'une
         // politique (une notification, jamais une sanction).
         CronTask::Register(
@@ -3812,6 +3829,79 @@ final class Installer
      * et règles passent par leur classe, pour que leurs propres nettoyages s'exécutent.
      */
     /**
+     * Issue #538 : demandes de preuves d'un audit (mesure ou exigence, responsable, échéance,
+     * statut), pièces fournies pour chaque demande (document déposé ou preuve existante de la
+     * mesure, soumise ou en préparation) et accès en lecture d'un auditeur à un seul audit, limité
+     * dans le temps.
+     */
+    private function installAuditEvidenceRequestTables(string $keySign, string $charset, string $collation): void
+    {
+        global $DB;
+
+        if (!$DB->tableExists(self::AUDIT_EVIDENCE_REQUESTS_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::AUDIT_EVIDENCE_REQUESTS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_audits_id` int {$keySign} NOT NULL DEFAULT 0,
+                `plugin_grcmanager_controls_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT '0 = exigence libre',
+                `reference` varchar(255) NOT NULL DEFAULT '' COMMENT 'Reference de la liste de l auditeur',
+                `description` text,
+                `users_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Personne qui fournit les pieces',
+                `users_id_requester` int {$keySign} NOT NULL DEFAULT 0,
+                `due_date` date DEFAULT NULL,
+                `status` varchar(16) NOT NULL DEFAULT 'requested'
+                    COMMENT 'requested, submitted, to_complete, accepted',
+                `submission_comment` text,
+                `review_comment` text COMMENT 'Motif du renvoi a completer',
+                `users_id_reviewer` int {$keySign} NOT NULL DEFAULT 0,
+                `date_submitted` timestamp NULL DEFAULT NULL COMMENT 'Premiere soumission',
+                `date_last_submission` timestamp NULL DEFAULT NULL,
+                `date_review` timestamp NULL DEFAULT NULL,
+                `date_reminder` timestamp NULL DEFAULT NULL,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `plugin_grcmanager_audits_id` (`plugin_grcmanager_audits_id`),
+                KEY `plugin_grcmanager_controls_id` (`plugin_grcmanager_controls_id`),
+                KEY `users_id` (`users_id`),
+                KEY `status` (`status`),
+                KEY `due_date` (`due_date`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+        if (!$DB->tableExists(self::AUDIT_EVIDENCE_PIECES_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::AUDIT_EVIDENCE_PIECES_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_auditevidencerequests_id` int {$keySign} NOT NULL DEFAULT 0,
+                `documents_id` int {$keySign} NOT NULL DEFAULT 0,
+                `origin` varchar(16) NOT NULL DEFAULT 'upload' COMMENT 'upload, existing',
+                `users_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Ajoutee par',
+                `is_submitted` tinyint NOT NULL DEFAULT 0 COMMENT 'Visible de l auditeur une fois soumise',
+                `date_submitted` timestamp NULL DEFAULT NULL,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity` (`plugin_grcmanager_auditevidencerequests_id`, `documents_id`),
+                KEY `documents_id` (`documents_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+        if (!$DB->tableExists(self::AUDITOR_ACCESSES_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::AUDITOR_ACCESSES_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_audits_id` int {$keySign} NOT NULL DEFAULT 0,
+                `users_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Auditeur interne ou externe',
+                `date_begin` date DEFAULT NULL,
+                `date_end` date DEFAULT NULL,
+                `users_id_grantor` int {$keySign} NOT NULL DEFAULT 0,
+                `date_revoked` timestamp NULL DEFAULT NULL,
+                `users_id_revoker` int {$keySign} NOT NULL DEFAULT 0,
+                `date_last_visit` timestamp NULL DEFAULT NULL,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `plugin_grcmanager_audits_id` (`plugin_grcmanager_audits_id`),
+                KEY `users_id` (`users_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+    }
+
+    /**
      * Issue #535 : public cible d'une politique (groupes, profils, entités), campagnes de prise de
      * connaissance (une par version approuvée) et confirmation de chaque personne du public.
      */
@@ -4324,6 +4414,8 @@ final class Installer
         $this->unseedNotification(\GlpiPlugin\Grcmanager\RiskIndicator::class);
         // Issue #377, quatrième étape : rappels des BIA et des tests de reprise.
         $this->unseedNotification(\GlpiPlugin\Grcmanager\BusinessProcess::class);
+        // Issue #538 : demandes de preuves d'audit.
+        $this->unseedNotification(\GlpiPlugin\Grcmanager\AuditEvidenceRequest::class);
 
         // Absorption de glpi-security-incidents (ROADMAP.md "Version 2.0") : colonnes ajoutées sur
         // les tables cœur pour la gestion de modèles - même dérivation que le plugin absorbé
@@ -4361,6 +4453,9 @@ final class Installer
         $migration->dropTable(self::SOA_VERSIONS_USERS_TABLE);
         $migration->dropTable(self::SOA_VERSIONS_TABLE);
         $migration->dropTable(self::AUDITS_CONTROLS_TABLE);
+        $migration->dropTable(self::AUDIT_EVIDENCE_PIECES_TABLE);
+        $migration->dropTable(self::AUDIT_EVIDENCE_REQUESTS_TABLE);
+        $migration->dropTable(self::AUDITOR_ACCESSES_TABLE);
         $migration->dropTable(self::NONCONFORMITIES_TABLE);
         $migration->dropTable(self::AUDITS_TABLE);
         $migration->dropTable(self::TRAININGS_USERS_TABLE);

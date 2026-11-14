@@ -1,0 +1,259 @@
+{# Issue #538 : onglet « Demandes de preuves » d'un audit : avancement, liste des pièces demandées
+   (mesure ou exigence, personne désignée, échéance, statut, pièces), revue (accepter, renvoyer à
+   compléter avec un motif), ajout et import CSV, relances, et accès en lecture des auditeurs. #}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+{% set v = {'is_horizontal': false} %}
+
+<div class="row g-3">
+   {# ---------------------------------------------------------------- Avancement #}
+   <div class="col-12">
+      <div class="card">
+         <div class="card-header">
+            <h3 class="card-title"><i class="ti ti-file-search me-2"></i>{{ __('Evidence requested by the auditor', 'grcmanager') }}</h3>
+            <div class="card-actions d-flex flex-wrap gap-1">
+               <span class="badge bg-{{ progress.color }}-lt" id="grc-evreq-progress" title="{{ __('Accepted requests', 'grcmanager') }}"><i class="ti ti-chart-pie me-1"></i>{{ __('%d %% accepted', 'grcmanager')|format(progress.percent) }}</span>
+               <span class="badge bg-orange-lt"><i class="ti ti-hourglass me-1"></i>{{ __('%d to provide', 'grcmanager')|format(progress.requested) }}</span>
+               <span class="badge bg-blue-lt"><i class="ti ti-send me-1"></i>{{ __('%d to review', 'grcmanager')|format(progress.submitted) }}</span>
+               <span class="badge bg-red-lt"><i class="ti ti-alert-circle me-1"></i>{{ __('%d to complete', 'grcmanager')|format(progress.to_complete) }}</span>
+               <span class="badge bg-green-lt"><i class="ti ti-circle-check me-1"></i>{{ __('%d accepted', 'grcmanager')|format(progress.accepted) }}</span>
+            </div>
+         </div>
+         <div class="card-body">
+            <p class="text-muted small mb-2">
+               <i class="ti ti-info-circle me-1"></i>{{ __('Each request is assigned to one person, who adds the documents from the "My evidence requests" page (reachable from "My GRC space", even without any right on this plugin) and submits them. You then accept the evidence or ask for it to be completed, giving the reason. The person is reminded by email %d days before the due date, then every week while the request is late; nothing else happens automatically.', 'grcmanager')|format(reminder_days) }}
+            </p>
+            {% if progress.total > 0 %}
+               <div class="progress progress-separated mb-1" style="height: .75rem" title="{{ __('%d %% accepted', 'grcmanager')|format(progress.percent) }}">
+                  <div class="progress-bar bg-green" role="progressbar" style="width: {{ progress.total > 0 ? (progress.accepted * 100 / progress.total)|round : 0 }}%" aria-label="{{ __('Accepted', 'grcmanager') }}"></div>
+                  <div class="progress-bar bg-blue" role="progressbar" style="width: {{ progress.total > 0 ? (progress.submitted * 100 / progress.total)|round : 0 }}%" aria-label="{{ __('Submitted', 'grcmanager') }}"></div>
+                  <div class="progress-bar bg-red" role="progressbar" style="width: {{ progress.total > 0 ? (progress.to_complete * 100 / progress.total)|round : 0 }}%" aria-label="{{ __('To complete', 'grcmanager') }}"></div>
+               </div>
+               <div class="text-muted small mb-3">{{ __('%1$d of %2$d request(s) accepted (%3$d %%).', 'grcmanager')|format(progress.accepted, progress.total, progress.percent) }}</div>
+            {% endif %}
+
+            {% if rows is empty %}
+               <div class="alert alert-info mb-0" id="grc-evreq-empty"><i class="ti ti-info-circle me-1"></i>{{ __('No evidence requested yet. Add the requests one by one below, or import the list sent by the auditor.', 'grcmanager') }}</div>
+            {% else %}
+            <div class="table-responsive">
+            <table class="table table-sm table-vcenter card-table" id="grc-evreq-list">
+               <thead>
+                  <tr>
+                     <th>{{ __('Request', 'grcmanager') }}</th>
+                     <th>{{ __('Assignee', 'grcmanager') }}</th>
+                     <th class="text-nowrap">{{ __('Due date', 'grcmanager') }}</th>
+                     <th>{{ __('Status', 'grcmanager') }}</th>
+                     <th>{{ __('Documents', 'grcmanager') }}</th>
+                  </tr>
+               </thead>
+               <tbody>
+               {% for row in rows %}
+                  <tr id="grc-evreq-{{ row.id }}" class="grc-evreq-row grc-evreq-status-{{ row.status }}{% if row.overdue %} table-danger{% endif %}">
+                     <td>
+                        <div class="fw-bold">{{ row.label }}</div>
+                        {% if row.control %}<span class="badge bg-azure-lt"><i class="ti ti-shield-check me-1"></i>{{ row.control }}</span>{% endif %}
+                        {% if row.description and row.description != row.label %}<div class="text-muted small mt-1">{{ row.description|nl2br }}</div>{% endif %}
+                     </td>
+                     <td>{% if row.assignee %}<i class="ti ti-user me-1"></i>{{ row.assignee }}{% else %}<span class="badge bg-yellow-lt"><i class="ti ti-user-question me-1"></i>{{ __('Nobody assigned', 'grcmanager') }}</span>{% endif %}</td>
+                     <td class="text-nowrap">
+                        {% if row.due_text %}
+                           {% if row.overdue %}
+                              <span class="fw-bold text-danger">{{ row.due_text }}</span>
+                              <span class="badge bg-red-lt ms-1"><i class="ti ti-alarm me-1"></i>{{ __('%d day(s) late', 'grcmanager')|format(row.days_late) }}</span>
+                           {% else %}{{ row.due_text }}{% endif %}
+                        {% else %}<span class="text-muted">{{ __('No due date', 'grcmanager') }}</span>{% endif %}
+                        {% if row.reminder_text %}<div class="text-muted small"><i class="ti ti-bell me-1"></i>{{ __('Reminded on %s', 'grcmanager')|format(row.reminder_text) }}</div>{% endif %}
+                     </td>
+                     <td>
+                        <span class="badge {{ row.status_class }} grc-evreq-badge"><i class="ti {{ row.status_icon }} me-1"></i>{{ row.status_label }}</span>
+                        {% if row.submitted_text %}<div class="text-muted small">{{ __('Submitted on %s', 'grcmanager')|format(row.submitted_text) }}</div>{% endif %}
+                        {% if row.review_comment %}<div class="small mt-1 {{ row.status == 'to_complete' ? 'text-danger' : 'text-muted' }}"><i class="ti ti-message-circle me-1"></i>{{ row.review_comment }}</div>{% endif %}
+                     </td>
+                     <td>
+                        {% for piece in row.pieces %}
+                           <div class="text-nowrap">
+                              <i class="ti {{ piece.origin == 'existing' ? 'ti-link' : 'ti-file' }} me-1" title="{{ piece.origin == 'existing' ? __('Existing evidence of the control', 'grcmanager') : __('File provided for the request', 'grcmanager') }}"></i>
+                              {% if piece.url %}<a href="{{ piece.url }}">{{ piece.name }}</a>{% else %}{{ piece.name }}{% endif %}
+                              {% if not piece.is_submitted %}<span class="badge bg-secondary-lt ms-1" title="{{ __('Not submitted yet: the auditor cannot see it', 'grcmanager') }}"><i class="ti ti-pencil me-1"></i>{{ __('Draft', 'grcmanager') }}</span>{% endif %}
+                           </div>
+                        {% else %}
+                           <span class="text-muted small">{{ __('None yet', 'grcmanager') }}</span>
+                        {% endfor %}
+                        {% if row.submission_comment %}<div class="text-muted small mt-1"><i class="ti ti-message me-1"></i>{{ row.submission_comment }}</div>{% endif %}
+                     </td>
+                  </tr>
+                  {% if can_update %}
+                  <tr class="grc-evreq-actions">
+                     <td colspan="5" class="border-top-0 pt-0">
+                        <div class="d-flex flex-wrap gap-2 align-items-start">
+                        {% if row.can_review %}
+                           <form method="post" action="{{ action }}" class="d-flex flex-wrap gap-2 align-items-center grc-evreq-review">
+                              <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                              <input type="hidden" name="plugin_grcmanager_audits_id" value="{{ audit_id }}">
+                              <input type="hidden" name="id" value="{{ row.id }}">
+                              <button type="submit" name="accept" value="1" class="btn btn-sm btn-success"><i class="ti ti-check me-1"></i>{{ __('Accept', 'grcmanager') }}</button>
+                              <input type="text" class="form-control form-control-sm" style="min-width: 18rem" name="review_comment" maxlength="1000" placeholder="{{ __('Reason (required to ask for completion)', 'grcmanager') }}" aria-label="{{ __('Reason', 'grcmanager') }}">
+                              <button type="submit" name="ask_completion" value="1" class="btn btn-sm btn-outline-danger"><i class="ti ti-arrow-back-up me-1"></i>{{ __('Ask to complete', 'grcmanager') }}</button>
+                           </form>
+                        {% endif %}
+                        <details class="grc-evreq-edit">
+                           <summary class="btn btn-sm btn-ghost-secondary"><i class="ti ti-pencil me-1"></i>{{ __('Edit', 'grcmanager') }}</summary>
+                           <form method="post" action="{{ action }}" class="row g-2 mt-1">
+                              <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                              <input type="hidden" name="plugin_grcmanager_audits_id" value="{{ audit_id }}">
+                              <input type="hidden" name="id" value="{{ row.id }}">
+                              {{ fields.textField('reference', row.reference, __('Reference', 'grcmanager'), v|merge({'field_class': 'col-md-3'})) }}
+                              {{ fields.dropdownArrayField('plugin_grcmanager_controls_id', row.control_id, all_controls, __('Control', 'grcmanager'), v|merge({'field_class': 'col-md-4', 'display_emptychoice': true})) }}
+                              {{ fields.dropdownField('User', 'users_id', row.users_id, __('Assignee', 'grcmanager'), v|merge({'field_class': 'col-md-3', 'right': 'all'})) }}
+                              {{ fields.dateField('due_date', row.due_date, __('Due date', 'grcmanager'), v|merge({'field_class': 'col-md-2'})) }}
+                              {{ fields.textareaField('description', row.description, __('Description', 'grcmanager'), v|merge({'field_class': 'col-12', 'rows': 2})) }}
+                              <div class="col-12 d-flex gap-2">
+                                 <button type="submit" name="update" value="1" class="btn btn-sm btn-primary"><i class="ti ti-device-floppy me-1"></i>{{ __('Save', 'grcmanager') }}</button>
+                                 <button type="submit" name="purge" value="1" class="btn btn-sm btn-ghost-danger" onclick="return confirm('{{ __('Delete this request and its link to the documents?', 'grcmanager')|e('js') }}');"><i class="ti ti-trash me-1"></i>{{ __('Delete', 'grcmanager') }}</button>
+                              </div>
+                           </form>
+                        </details>
+                        </div>
+                     </td>
+                  </tr>
+                  {% endif %}
+               {% endfor %}
+               </tbody>
+            </table>
+            </div>
+            {% endif %}
+         </div>
+         {% if can_update and rows is not empty and audit_status in ['planned', 'in_progress'] %}
+         <div class="card-footer">
+            <form method="post" action="{{ action }}" class="d-flex flex-wrap align-items-center gap-2">
+               <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+               <input type="hidden" name="plugin_grcmanager_audits_id" value="{{ audit_id }}">
+               <button type="submit" name="remind" value="1" class="btn btn-sm btn-outline-primary" id="grc-evreq-remind"><i class="ti ti-bell-ringing me-1"></i>{{ __('Remind everyone who still has evidence to provide', 'grcmanager') }}</button>
+               <span class="form-hint">{{ __('An email to each person, nothing else changes.', 'grcmanager') }}</span>
+            </form>
+         </div>
+         {% endif %}
+      </div>
+   </div>
+
+   {% if can_update %}
+   {# ---------------------------------------------------------------- Ajout et import #}
+   <div class="col-12 col-xl-7">
+      <div class="card h-100">
+         <div class="card-header"><h3 class="card-title"><i class="ti ti-plus me-2"></i>{{ __('Request evidence', 'grcmanager') }}</h3></div>
+         <div class="card-body">
+            <form method="post" action="{{ action }}" class="row g-2" id="grc-evreq-add">
+               <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+               <input type="hidden" name="plugin_grcmanager_audits_id" value="{{ audit_id }}">
+               {{ fields.textField('reference', '', __('Reference', 'grcmanager'), v|merge({'field_class': 'col-md-4', 'add_field_html': '<div class="form-hint">' ~ __('Number or title in the auditor\'s list', 'grcmanager')|e ~ '</div>'})) }}
+               {{ fields.dropdownArrayField('plugin_grcmanager_controls_id', 0, linked_controls is not empty ? linked_controls : all_controls, __('Control', 'grcmanager'), v|merge({'field_class': 'col-md-8', 'display_emptychoice': true, 'rand': 'grcevreqctl'})) }}
+               {{ fields.textareaField('description', '', __('Evidence requested', 'grcmanager'), v|merge({'field_class': 'col-12', 'rows': 2})) }}
+               {{ fields.dropdownField('User', 'users_id', 0, __('Assignee', 'grcmanager'), v|merge({'field_class': 'col-md-6', 'right': 'all', 'rand': 'grcevrequser'})) }}
+               {{ fields.dateField('due_date', '', __('Due date', 'grcmanager'), v|merge({'field_class': 'col-md-6'})) }}
+               {% if linked_controls is not empty %}
+                  <div class="col-12 form-hint">{{ __('Only the controls in the scope of this audit are offered. Edit the request afterwards to choose another control.', 'grcmanager') }}</div>
+               {% endif %}
+               <div class="col-12">
+                  <button type="submit" name="add" value="1" class="btn btn-primary"><i class="ti ti-send me-1"></i>{{ __('Request this evidence', 'grcmanager') }}</button>
+                  <span class="form-hint ms-2">{{ __('The assignee is notified by email.', 'grcmanager') }}</span>
+               </div>
+            </form>
+         </div>
+      </div>
+   </div>
+   <div class="col-12 col-xl-5">
+      <div class="card h-100">
+         <div class="card-header"><h3 class="card-title"><i class="ti ti-file-import me-2"></i>{{ __('Import the auditor\'s list (CSV)', 'grcmanager') }}</h3></div>
+         <div class="card-body">
+            <p class="text-muted small">{{ __('One line per requested evidence, with a header line. Recognised columns: Reference, Control (code such as A.5.15), Description, Due date (YYYY-MM-DD or DD/MM/YYYY), Assignee (login). Separator ";" or ",". At most %d lines; invalid lines are listed and not imported.', 'grcmanager')|format(csv_max_rows) }}</p>
+            <pre class="small bg-light p-2 mb-3">Reference;Control;Description;Due date;Assignee
+REQ-01;A.5.15;Access review of the last quarter;30/11/2026;jdupont</pre>
+            <form method="post" action="{{ action }}" enctype="multipart/form-data" class="row g-2" id="grc-evreq-import">
+               <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+               <input type="hidden" name="plugin_grcmanager_audits_id" value="{{ audit_id }}">
+               <div class="col-12">
+                  <label class="form-label" for="grc-evreq-csv">{{ __('CSV file', 'grcmanager') }}</label>
+                  <input type="file" class="form-control" id="grc-evreq-csv" name="csv_file" accept=".csv,text/csv,text/plain" required>
+               </div>
+               {{ fields.dropdownField('User', 'users_id', 0, __('Default assignee', 'grcmanager'), v|merge({'field_class': 'col-md-6', 'right': 'all', 'rand': 'grcevreqimpuser'})) }}
+               {{ fields.dateField('due_date', '', __('Default due date', 'grcmanager'), v|merge({'field_class': 'col-md-6'})) }}
+               <div class="col-12">
+                  <button type="submit" name="import_csv" value="1" class="btn btn-outline-primary"><i class="ti ti-upload me-1"></i>{{ __('Import', 'grcmanager') }}</button>
+               </div>
+            </form>
+         </div>
+      </div>
+   </div>
+   {% endif %}
+
+   {# ---------------------------------------------------------------- Accès des auditeurs #}
+   <div class="col-12">
+      <div class="card">
+         <div class="card-header">
+            <h3 class="card-title"><i class="ti ti-eye-check me-2"></i>{{ __('Auditor access (read only)', 'grcmanager') }}</h3>
+         </div>
+         <div class="card-body">
+            <p class="text-muted small">
+               <i class="ti ti-lock me-1"></i>{{ __('An internal or external auditor can consult this audit only: its controls, the progress, the requests already submitted with their submitted documents, and the findings. Documents still being prepared, the working documents and the notes of the audit stay hidden. The access ends on its end date and can be revoked at any time; every download is recorded in the "Document access" tab.', 'grcmanager') }}
+               {{ __('The auditor\'s account does not need any right on this plugin: a simplified interface profile is enough. Give them the address of the auditor space:', 'grcmanager') }}
+               <a href="{{ space_url }}" id="grc-evreq-space-url">{{ space_url }}</a>
+            </p>
+            <table class="table table-sm table-vcenter" id="grc-auditor-accesses">
+               <thead>
+                  <tr>
+                     <th>{{ __('Auditor', 'grcmanager') }}</th>
+                     <th>{{ __('From', 'grcmanager') }}</th>
+                     <th>{{ __('Until', 'grcmanager') }}</th>
+                     <th>{{ __('State', 'grcmanager') }}</th>
+                     <th>{{ __('Last visit', 'grcmanager') }}</th>
+                     {% if can_update %}<th></th>{% endif %}
+                  </tr>
+               </thead>
+               <tbody>
+               {% for access in accesses %}
+                  <tr class="grc-access-{{ access.state }}">
+                     <td><i class="ti ti-user-search me-1"></i>{{ access.name }}{% if access.grantor %}<div class="text-muted small">{{ __('Granted by %s', 'grcmanager')|format(access.grantor) }}</div>{% endif %}</td>
+                     <td>{{ access.begin }}</td>
+                     <td>{{ access.end }}</td>
+                     <td>
+                        {% if access.state == 'active' %}
+                           <span class="badge bg-green-lt"><i class="ti ti-lock-open me-1"></i>{{ __('Active', 'grcmanager') }}</span>
+                        {% elseif access.state == 'revoked' %}
+                           <span class="badge bg-red-lt" title="{{ access.revoked }}"><i class="ti ti-ban me-1"></i>{{ __('Revoked', 'grcmanager') }}</span>
+                        {% else %}
+                           <span class="badge bg-secondary-lt"><i class="ti ti-clock-off me-1"></i>{{ __('Ended', 'grcmanager') }}</span>
+                        {% endif %}
+                     </td>
+                     <td>{{ access.last_visit ?: '-' }}</td>
+                     {% if can_update %}
+                        <td class="text-end">
+                           {% if access.state == 'active' %}
+                           <form method="post" action="{{ action }}" class="m-0">
+                              <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                              <input type="hidden" name="plugin_grcmanager_audits_id" value="{{ audit_id }}">
+                              <input type="hidden" name="accesses_id" value="{{ access.id }}">
+                              <button type="submit" name="revoke_access" value="1" class="btn btn-sm btn-ghost-danger"><i class="ti ti-ban me-1"></i>{{ __('Revoke', 'grcmanager') }}</button>
+                           </form>
+                           {% endif %}
+                        </td>
+                     {% endif %}
+                  </tr>
+               {% else %}
+                  <tr><td colspan="6" class="text-muted">{{ __('No auditor has access to this audit.', 'grcmanager') }}</td></tr>
+               {% endfor %}
+               </tbody>
+            </table>
+            {% if can_update %}
+            <form method="post" action="{{ action }}" class="row g-2 align-items-end" id="grc-auditor-grant">
+               <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+               <input type="hidden" name="plugin_grcmanager_audits_id" value="{{ audit_id }}">
+               {{ fields.dropdownField('User', 'users_id', 0, __('Auditor account', 'grcmanager'), v|merge({'field_class': 'col-md-5', 'right': 'all', 'rand': 'grcauditoruser'})) }}
+               {{ fields.dateField('date_end', access_default_end, __('Access until', 'grcmanager'), v|merge({'field_class': 'col-md-3', 'add_field_html': '<div class="form-hint">' ~ __('At most %d days', 'grcmanager')|format(access_max_days)|e ~ '</div>'})) }}
+               <div class="col-md-4">
+                  <button type="submit" name="grant_access" value="1" class="btn btn-outline-primary"><i class="ti ti-key me-1"></i>{{ __('Give read access to this audit', 'grcmanager') }}</button>
+               </div>
+            </form>
+            {% endif %}
+         </div>
+      </div>
+   </div>
+</div>

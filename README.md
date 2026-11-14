@@ -161,6 +161,11 @@ archivé), avec ses champs de classification ISO 27001 fusionnés dessus.
   périodiques et revues d'accès, politiques, formations, approbations de la SoA...), triée par
   échéance, retards surlignés, nombre d'éléments en attente dans le menu. Rien de ce que
   l'utilisateur n'a pas le droit de voir.
+- **Demandes de preuves d'audit** : liste des pièces demandées par l'auditeur (saisie ou import
+  CSV), personne désignée et échéance, soumission depuis « Mes demandes de preuves » sans droit sur
+  le plugin, revue (acceptée ou à compléter avec motif), relances, avancement ; accès en lecture
+  d'un auditeur limité à un audit et dans le temps, pièces soumises seulement, téléchargements
+  historisés.
 - **Prise de connaissance des politiques** : public cible (groupes, profils, entités) et délai
   de réponse sur chaque politique approuvée, campagne par version, confirmation par chacun depuis
   ses préférences ou Mon espace GRC, taux par politique et par entité, relances hebdomadaires,

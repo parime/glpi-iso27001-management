@@ -145,6 +145,9 @@ class MySpace extends CommonGLPI
             'soa_approval'         => [__('SoA approval', 'grcmanager'), 'ti-signature'],
             'data_subject_request' => [__('Data subject request', 'grcmanager'), 'ti-user-shield'],
             'audit'                => [__('Audit', 'grcmanager'), 'ti-clipboard-check'],
+            'evidence_request'     => [__('Audit evidence to provide', 'grcmanager'), 'ti-file-upload'],
+            'evidence_review'      => [__('Audit evidence to review', 'grcmanager'), 'ti-file-search'],
+            'audit_access'         => [__('Audit to consult as auditor', 'grcmanager'), 'ti-eye-check'],
             'objective'            => [__('Security objective', 'grcmanager'), 'ti-target'],
             'event'                => [__('Compliance event', 'grcmanager'), 'ti-calendar-event'],
         ];

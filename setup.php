@@ -31,7 +31,7 @@ if (is_readable(__DIR__ . '/vendor/autoload.php')) {
     \GlpiPlugin\Grcmanager\Install\ItemtypeRenames::registerAliases();
 }
 
-define('PLUGIN_GRCMANAGER_VERSION', '2.42.0');
+define('PLUGIN_GRCMANAGER_VERSION', '2.43.0');
 define('PLUGIN_GRCMANAGER_MIN_GLPI', '11.0.0');
 // GLPI 11 and 12 from a single code base (see src/Compatibility/).
 define('PLUGIN_GRCMANAGER_MAX_GLPI', '12.99.99');
@@ -285,6 +285,16 @@ function plugin_init_grcmanager(): void
     Plugin::registerClass(\GlpiPlugin\Grcmanager\TrainingQuiz::class, ['addtabon' => [Preference::class]]);
     // Issue #535 : « Politiques à lire », dans les préférences de chaque utilisateur.
     Plugin::registerClass(\GlpiPlugin\Grcmanager\PolicyAcknowledgement::class, ['addtabon' => [Preference::class]]);
+    // Issue #538 : dans l'interface simplifiée, une entrée « GRC Manager » mène l'auditeur à son
+    // espace (accès en vigueur à un audit), ou la personne à ses demandes de preuves en attente.
+    if (Session::getCurrentInterface() === 'helpdesk') {
+        $helpdeskEntry = \GlpiPlugin\Grcmanager\AuditorAccess::helpdeskMenuEntry();
+        if ($helpdeskEntry !== null) {
+            $PLUGIN_HOOKS[Hooks::HELPDESK_MENU_ENTRY]['grcmanager'] = $helpdeskEntry;
+            $PLUGIN_HOOKS[Hooks::HELPDESK_MENU_ENTRY_ICON]['grcmanager']
+                = \GlpiPlugin\Grcmanager\AuditorAccess::getIcon();
+        }
+    }
     // Onglet « GRC Manager » des profils : attribuer les droits du plugin sans passer par la base.
     Plugin::registerClass(\GlpiPlugin\Grcmanager\Profile::class, ['addtabon' => [Profile::class]]);
     // Issue #141 : le ticket créé par le ticket récurrent d'une revue devient son ticket en cours ;

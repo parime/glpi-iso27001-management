@@ -88,6 +88,12 @@ check "onglet validites des preuves"          "$(tab 'GlpiPlugin%5CGrcmanager%5C
 check "onglet Politiques a lire"              "$(tab Preference 'GlpiPlugin%5CGrcmanager%5CPolicyAcknowledgement$1' 2)"
 check "onglet prise de connaissance"          "$(tab 'GlpiPlugin%5CGrcmanager%5CPolicy' 'GlpiPlugin%5CGrcmanager%5CPolicyAcknowledgement$1' "$(xid policy)")"
 check "export CSV de prise de connaissance"   "$P/policyacknowledgement.export.php?id=$(xid ack_campaign)&format=csv"
+# Issue #538 : demande de preuve piegee (onglet de l'audit, page de la personne designee, espace
+# auditeur et sa liste).
+check "onglet demandes de preuves d'un audit" "$(tab 'GlpiPlugin%5CGrcmanager%5CAudit' 'GlpiPlugin%5CGrcmanager%5CAuditEvidenceRequest$1' "$(xid audit)")"
+check "mes demandes de preuves"               "$P/auditevidencerequest.mine.php"
+check "espace auditeur d'un audit"            "$P/auditorspace.php?id=$(xid audit)"
+check "liste de l'espace auditeur"            "$P/auditorspace.php"
 # Issue #380 : constat d'un test d'efficacite (onglet de la mesure).
 check "onglet tests d'efficacite d'un controle" "$(tab GlpiPlugin%5CGrcmanager%5CControl 'GlpiPlugin%5CGrcmanager%5CControlTest$1' "$(id control)")"
 

@@ -391,6 +391,9 @@ class Audit extends AuditBase
     {
         AuditTeam::purgeAudit($this->getID());
         DocumentAccess::purgeItem(self::class, $this->getID());
+        // Issue #538 : demandes de preuves, pièces et accès des auditeurs.
+        AuditEvidenceRequest::purgeAudit($this->getID());
+        AuditorAccess::purgeAudit($this->getID());
     }
 
     public function post_addItem()
@@ -422,6 +425,8 @@ class Audit extends AuditBase
         $tabs = [];
         // Issue #140 : plan d'audit, preuves collectées, rapport signé.
         $this->addDefaultFormTab($tabs)
+            // Issue #538 : liste des pièces demandées par l'auditeur et accès de l'auditeur.
+            ->addStandardTab(AuditEvidenceRequest::class, $tabs, $options)
             ->addStandardTab(Nonconformity::class, $tabs, $options)
             ->addStandardTab(AuditTeam::class, $tabs, $options)
             ->addStandardTab(Document_Item::class, $tabs, $options)
@@ -488,6 +493,18 @@ class Audit extends AuditBase
             ),
             'controls'           => array_values(self::getLinkedControls($audit->getID())),
             'findings'           => self::getFindings($audit->getID()),
+            // Issue #538 : avancement et état des demandes de preuves.
+            'evidence_progress'  => AuditEvidenceRequest::progressForAudit($audit->getID()),
+            'evidence_requests'  => array_map(
+                static fn (array $row): array => [
+                    'label'    => AuditEvidenceRequest::label($row),
+                    'control'  => AuditEvidenceRequest::controlLabel((int) $row['plugin_grcmanager_controls_id']),
+                    'status'   => AuditEvidenceRequest::getStatusLabel((string) $row['status']),
+                    'assignee' => (int) $row['users_id'] > 0 ? (string) getUserName((int) $row['users_id']) : '',
+                    'due_date' => (string) Html::convDate($row['due_date']),
+                ],
+                AuditEvidenceRequest::getForAudit($audit->getID())
+            ),
         ]);
     }
 
