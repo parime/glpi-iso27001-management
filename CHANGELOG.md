@@ -7,6 +7,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.45.0] - 2026-11-14
+
 ### Added
 
 - **Registre des violations de données personnelles** (issue #620, RGPD article 33.5) : page
