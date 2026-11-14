@@ -82,14 +82,14 @@
    {{ fields.dropdownArrayField('data_subjects', '', data_subjects, __('Categories of people concerned', 'grcmanager'), {
       'multiple': true, 'values': values.data_subjects,
    }) }}
-   {{ fields.numberField('subjects_count', item.fields['subjects_count'], __('People concerned (approx.)', 'grcmanager'), {
+   {{ fields.textField('subjects_count', item.fields['subjects_count'], __('People concerned (approx.)', 'grcmanager'), {
       'min': 0,
       'add_field_html': hints.hint(__('An approximate number is enough; leave empty if unknown.', 'grcmanager')),
    }) }}
    {{ fields.dropdownArrayField('data_categories', '', data_categories, __('Categories of personal data', 'grcmanager'), {
       'multiple': true, 'values': values.data_categories,
    }) }}
-   {{ fields.numberField('records_count', item.fields['records_count'], __('Records concerned (approx.)', 'grcmanager'), {
+   {{ fields.textField('records_count', item.fields['records_count'], __('Records concerned (approx.)', 'grcmanager'), {
       'min': 0,
    }) }}
    {{ fields.textareaField('data_details', item.fields['data_details'], __('Details of the data', 'grcmanager'), {
