@@ -1,0 +1,140 @@
+{# Issue #540 : onglet « Registre DORA » d'un fournisseur : prestataire de services TIC (modèle B_05.01). #}
+{% import '@grcmanager/dora/_macros.html.twig' as m %}
+
+<div class="grc-dora-provider">
+   <div class="alert alert-info d-flex mb-3">
+      <i class="ti ti-info-circle me-2 mt-1"></i>
+      <div>
+         {{ __('If this supplier provides ICT services under a contract in the DORA register, or is a subcontractor of such a provider, describe it here as the regulation requires. The name and the country of the supplier are used when the fields below are left empty.', 'grcmanager') }}
+         <a href="{{ register_url }}" class="ms-1"><i class="ti ti-building-bank me-1"></i>{{ __('Open the DORA register', 'grcmanager') }}</a>
+      </div>
+   </div>
+
+   {% if not is_new %}
+      {{ m.issues(issues, __('Missing for the register', 'grcmanager')) }}
+   {% endif %}
+
+   <form method="post" action="{{ action }}" id="grc-dora-provider-form">
+      <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+      <input type="hidden" name="suppliers_id" value="{{ supplier_id }}">
+      <fieldset {{ can_edit ? '' : 'disabled' }}>
+      <div class="card mb-3">
+         <div class="card-header"><h3 class="card-title"><i class="ti ti-id me-2"></i>{{ __('Identification', 'grcmanager') }}</h3></div>
+         <div class="card-body row g-3">
+            <div class="col-12 col-md-4">
+               {{ m.label('grc-dora-code-type', __('Type of identification code', 'grcmanager'), 'B_05.01.0020', issues, true) }}
+               <select class="form-select" name="code_type" id="grc-dora-code-type">
+                  <option value="">{{ __('Not filled in', 'grcmanager') }}</option>
+                  {% for key, label in code_types %}
+                     <option value="{{ key }}" {{ (dora.code_type ?? (data.code_type == 'LEI' ? 'LEI' : '')) == key ? 'selected' : '' }}>{{ label }}</option>
+                  {% endfor %}
+               </select>
+               <div class="form-hint">{{ __('A company is identified by its LEI or its EUID; a non-European company only by its LEI. Other codes are only for an individual.', 'grcmanager') }}</div>
+            </div>
+            <div class="col-12 col-md-5">
+               {{ m.label('grc-dora-code', __('Identification code of the provider', 'grcmanager'), 'B_05.01.0010', issues, true) }}
+               <input type="text" class="form-control" name="code" id="grc-dora-code" maxlength="64" value="{{ data.code }}" placeholder="{{ __('20 characters for a LEI', 'grcmanager') }}">
+            </div>
+            <div class="col-12 col-md-3">
+               <label class="form-label" for="grc-dora-code-country">{{ __('Issuing country (national code)', 'grcmanager') }}</label>
+               <input type="text" class="form-control text-uppercase" name="code_country" id="grc-dora-code-country" maxlength="2" value="{{ dora.code_country ?? '' }}" placeholder="FR">
+            </div>
+            <div class="col-12 col-md-6">
+               {{ m.label('grc-dora-legal-name', __('Legal name of the provider', 'grcmanager'), 'B_05.01.0050', issues, true) }}
+               <input type="text" class="form-control" name="legal_name" id="grc-dora-legal-name" maxlength="255" value="{{ dora.legal_name ?? '' }}" placeholder="{{ supplier_name }}">
+               <div class="form-hint">{{ __('Empty: the name of the supplier in GLPI.', 'grcmanager') }}</div>
+            </div>
+            <div class="col-12 col-md-6">
+               {{ m.label('grc-dora-latin-name', __('Name in Latin alphabet', 'grcmanager'), 'B_05.01.0060', issues, false) }}
+               <input type="text" class="form-control" name="latin_name" id="grc-dora-latin-name" maxlength="255" value="{{ dora.latin_name ?? '' }}">
+               <div class="form-hint">{{ __('Only if the legal name is written in another alphabet.', 'grcmanager') }}</div>
+            </div>
+            <div class="col-12 col-md-4">
+               {{ m.label('grc-dora-person', __('Type of person', 'grcmanager'), 'B_05.01.0070', issues, true) }}
+               <select class="form-select" name="person_type" id="grc-dora-person">
+                  {% for key, label in person_types %}
+                     <option value="{{ key }}" {{ data.person_type == key ? 'selected' : '' }}>{{ label }}</option>
+                  {% endfor %}
+               </select>
+            </div>
+            <div class="col-12 col-md-4">
+               {{ m.label('grc-dora-hq', __('Country of the headquarters', 'grcmanager'), 'B_05.01.0080', issues, true) }}
+               <input type="text" class="form-control text-uppercase" name="hq_country" id="grc-dora-hq" maxlength="2" value="{{ dora.hq_country ?? data.hq_country }}" placeholder="FR">
+               <div class="form-hint">{{ __('Two-letter ISO code, for example FR, DE, IE or US.', 'grcmanager') }}</div>
+            </div>
+            <div class="col-12 col-md-4">
+               <label class="form-label" for="grc-dora-add-code">{{ __('Additional code (optional)', 'grcmanager') }} <span class="badge bg-secondary-lt fw-normal">B_05.01.0030</span></label>
+               <div class="input-group">
+                  <select class="form-select" name="additional_code_type" style="max-width: 7rem" aria-label="{{ __('Type of identification code', 'grcmanager') }}">
+                     <option value="">-</option>
+                     {% for key, label in code_types %}
+                        <option value="{{ key }}" {{ (dora.additional_code_type ?? '') == key ? 'selected' : '' }}>{{ key }}</option>
+                     {% endfor %}
+                  </select>
+                  <input type="text" class="form-control" name="additional_code" id="grc-dora-add-code" maxlength="64" value="{{ dora.additional_code ?? '' }}">
+               </div>
+            </div>
+         </div>
+      </div>
+
+      <div class="card mb-3">
+         <div class="card-header"><h3 class="card-title"><i class="ti ti-coin-euro me-2"></i>{{ __('Cost and group', 'grcmanager') }}</h3></div>
+         <div class="card-body row g-3">
+            <div class="col-12 col-md-4">
+               {{ m.label('grc-dora-cost', __('Total annual cost of the provider', 'grcmanager'), 'B_05.01.0100', issues, false) }}
+               <div class="input-group">
+                  <input type="text" class="form-control" name="annual_cost" id="grc-dora-cost" value="{{ dora.annual_cost ?? '' }}" inputmode="decimal">
+                  <input type="text" class="form-control text-uppercase" name="currency" maxlength="3" style="max-width: 5.5rem" value="{{ dora.currency ?? '' }}" placeholder="{{ currency }}" aria-label="{{ __('Currency', 'grcmanager') }}">
+               </div>
+               <div class="form-hint">
+                  {% if computed_cost is not null %}
+                     {{ __('Empty: the sum of its contracts in the register, currently %s.', 'grcmanager')|format(computed_cost|number_format(2, ',', ' ') ~ ' ' ~ currency) }}
+                  {% else %}
+                     {{ __('Empty: the sum of its contracts in the register.', 'grcmanager') }}
+                  {% endif %}
+               </div>
+            </div>
+            <div class="col-12 col-md-8">
+               {{ m.label('grc-dora-parent', __('Code of the ultimate parent company', 'grcmanager'), 'B_05.01.0110', issues, false) }}
+               <div class="input-group">
+                  <select class="form-select" name="parent_code_type" style="max-width: 7rem" aria-label="{{ __('Type of identification code', 'grcmanager') }}">
+                     <option value="">-</option>
+                     {% for key, label in code_types %}
+                        <option value="{{ key }}" {{ (dora.parent_code_type ?? '') == key ? 'selected' : '' }}>{{ key }}</option>
+                     {% endfor %}
+                  </select>
+                  <input type="text" class="form-control" name="parent_code" id="grc-dora-parent" maxlength="64" value="{{ dora.parent_code ?? '' }}">
+                  <input type="text" class="form-control text-uppercase" name="parent_code_country" maxlength="2" style="max-width: 5rem" value="{{ dora.parent_code_country ?? '' }}" placeholder="FR" aria-label="{{ __('Issuing country (national code)', 'grcmanager') }}">
+               </div>
+               <div class="form-hint">{{ __('Leave empty if the provider is not part of a group: its own code is then reported.', 'grcmanager') }}</div>
+            </div>
+         </div>
+      </div>
+      </fieldset>
+      {% if can_edit %}
+         <button type="submit" name="save_provider" value="1" class="btn btn-primary mb-3" id="grc-dora-provider-save"><i class="ti ti-device-floppy me-1"></i>{{ __('Save', 'grcmanager') }}</button>
+      {% endif %}
+   </form>
+
+   <div class="card">
+      <div class="card-header"><h3 class="card-title"><i class="ti ti-file-certificate me-2"></i>{{ __('Contracts of this supplier', 'grcmanager') }}</h3></div>
+      <div class="card-body">
+         {% if contracts is empty %}
+            <p class="text-muted mb-0">{{ __('No contract of this supplier is visible to you. Link the supplier to its contracts in GLPI (Contracts tab), then add them to the register from the contract.', 'grcmanager') }}</p>
+         {% else %}
+            <ul class="list-group">
+               {% for contract in contracts %}
+                  <li class="list-group-item d-flex align-items-center gap-2">
+                     <a href="{{ contract.url }}" class="flex-grow-1"><i class="ti ti-file-certificate me-1"></i>{{ contract.name }}</a>
+                     {% if contract.in_register %}
+                        <span class="badge bg-green-lt"><i class="ti ti-check me-1"></i>{{ __('In the register', 'grcmanager') }}</span>
+                     {% else %}
+                        <span class="badge bg-secondary-lt"><i class="ti ti-minus me-1"></i>{{ __('Not in the register', 'grcmanager') }}</span>
+                     {% endif %}
+                  </li>
+               {% endfor %}
+            </ul>
+         {% endif %}
+      </div>
+   </div>
+</div>

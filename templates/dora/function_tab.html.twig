@@ -1,0 +1,79 @@
+{# Issue #540 : onglet « Fonction DORA » d'un processus métier (modèle B_06.01). #}
+{% import '@grcmanager/dora/_macros.html.twig' as m %}
+
+<div class="grc-dora-function">
+   <div class="alert alert-info d-flex mb-3">
+      <i class="ti ti-info-circle me-2 mt-1"></i>
+      <div>{{ __('In the DORA register, this business process is a function supported by ICT services. Its name, recovery objectives and the impact of an interruption come from the process and its BIA; only the licensed activity and the criticality assessment are specific to DORA.', 'grcmanager') }}</div>
+   </div>
+
+   {% if contracts is not empty %}
+      {{ m.issues(issues, __('Missing for the register', 'grcmanager')) }}
+   {% endif %}
+
+   <div class="row g-3 mb-3">
+      <div class="col-6 col-md-3"><div class="card card-sm"><div class="card-body"><div class="text-muted small">{{ __('Function identifier', 'grcmanager') }}</div><div class="h3 mb-0"><span class="badge bg-purple-lt" id="grc-dora-identifier">{{ data.identifier }}</span></div></div></div></div>
+      <div class="col-6 col-md-3"><div class="card card-sm"><div class="card-body"><div class="text-muted small">{{ __('RTO of the process', 'grcmanager') }} <span class="badge bg-secondary-lt fw-normal">B_06.01.0090</span></div><div class="h3 mb-0">{{ rto_label ?: __('Not defined', 'grcmanager') }}</div></div></div></div>
+      <div class="col-6 col-md-3"><div class="card card-sm"><div class="card-body"><div class="text-muted small">{{ __('RPO of the process', 'grcmanager') }} <span class="badge bg-secondary-lt fw-normal">B_06.01.0100</span></div><div class="h3 mb-0">{{ rpo_label ?: __('Not defined', 'grcmanager') }}</div></div></div></div>
+      <div class="col-6 col-md-3"><div class="card card-sm"><div class="card-body"><div class="text-muted small">{{ __('Impact of discontinuing (BIA)', 'grcmanager') }} <span class="badge bg-secondary-lt fw-normal">B_06.01.0110</span></div><div class="h3 mb-0"><span class="badge {{ data.impact == 3 ? 'bg-red-lt' : (data.impact == 2 ? 'bg-orange-lt' : (data.impact == 1 ? 'bg-green-lt' : 'bg-secondary-lt')) }}" id="grc-dora-impact">{{ impacts[data.impact] }}</span></div></div></div></div>
+   </div>
+
+   <form method="post" action="{{ action }}" id="grc-dora-function-form">
+      <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+      <input type="hidden" name="plugin_grcmanager_businessprocesses_id" value="{{ process_id }}">
+      <fieldset {{ can_edit ? '' : 'disabled' }}>
+      <div class="card mb-3">
+         <div class="card-header"><h3 class="card-title"><i class="ti ti-briefcase me-2"></i>{{ __('DORA function', 'grcmanager') }}</h3></div>
+         <div class="card-body row g-3">
+            <div class="col-12 col-md-6">
+               {{ m.label('grc-dora-criticality', __('Critical or important function', 'grcmanager'), 'B_06.01.0060', issues, true) }}
+               {{ m.select('criticality', criticalities, dora.criticality ?? 0, 'grc-dora-criticality') }}
+               {% if unacceptable_label %}
+                  <div class="form-hint text-danger" id="grc-dora-bia-hint"><i class="ti ti-bulb me-1"></i>{{ __('The BIA reaches an unacceptable impact after %s: the function is probably critical or important.', 'grcmanager')|format(unacceptable_label) }}</div>
+               {% endif %}
+               {% if business_criticity %}
+                  <div class="form-hint">{{ __('Business criticality in GLPI: %s.', 'grcmanager')|format(business_criticity) }}</div>
+               {% endif %}
+               <div class="form-hint">{{ __('A function whose disruption would materially impair the financial performance, the soundness or the continuity of the services of the entity, or its compliance (DORA, article 3, point 22).', 'grcmanager') }}</div>
+            </div>
+            <div class="col-12 col-md-6">
+               {{ m.label('grc-dora-assessment-date', __('Date of the last criticality assessment', 'grcmanager'), 'B_06.01.0080', issues, true) }}
+               <input type="date" class="form-control" name="assessment_date" id="grc-dora-assessment-date" value="{{ dora.assessment_date ?? '' }}">
+               <div class="form-hint">
+                  {% if bia_date %}{{ __('Empty: the date of the BIA (%s).', 'grcmanager')|format(bia_date|formatted_date) }}{% else %}{{ __('Empty: the date of the BIA, not set yet.', 'grcmanager') }}{% endif %}
+               </div>
+            </div>
+            <div class="col-12 col-md-6">
+               {{ m.label('grc-dora-activity', __('Licensed activity', 'grcmanager'), 'B_06.01.0020', issues, true) }}
+               <input type="text" class="form-control" name="licensed_activity" id="grc-dora-activity" maxlength="255" value="{{ dora.licensed_activity ?? '' }}" list="grc-dora-activities">
+               <datalist id="grc-dora-activities"><option value="{{ support_functions }}"></option></datalist>
+               <div class="form-hint">{{ __('The licensed or registered activity this function serves, as listed for your type of entity (annex II of the implementing regulation). For a function not linked to such an activity, enter "%s".', 'grcmanager')|format(support_functions) }}</div>
+            </div>
+            <div class="col-12 col-md-6">
+               {{ m.label('grc-dora-reasons', __('Reasons for criticality or importance', 'grcmanager'), 'B_06.01.0070', issues, false) }}
+               <textarea class="form-control" name="criticality_reasons" id="grc-dora-reasons" maxlength="300" rows="3">{{ dora.criticality_reasons ?? '' }}</textarea>
+               <div class="form-hint">{{ __('300 characters maximum.', 'grcmanager') }}</div>
+            </div>
+         </div>
+      </div>
+      </fieldset>
+      {% if can_edit %}
+         <button type="submit" name="save_function" value="1" class="btn btn-primary mb-3" id="grc-dora-function-save"><i class="ti ti-device-floppy me-1"></i>{{ __('Save', 'grcmanager') }}</button>
+      {% endif %}
+   </form>
+
+   <div class="card">
+      <div class="card-header"><h3 class="card-title"><i class="ti ti-file-certificate me-2"></i>{{ __('Contracts supporting this function', 'grcmanager') }}</h3></div>
+      <div class="card-body">
+         {% if contracts is empty %}
+            <p class="text-muted mb-0" id="grc-dora-no-contract">{{ __('No contract of the DORA register supports this function yet. Link it from the "DORA register" tab of each contract.', 'grcmanager') }}</p>
+         {% else %}
+            <ul class="list-group">
+               {% for contract in contracts %}
+                  <li class="list-group-item"><a href="{{ contract.url }}"><i class="ti ti-file-certificate me-1"></i>{{ contract.name }}</a></li>
+               {% endfor %}
+            </ul>
+         {% endif %}
+      </div>
+   </div>
+</div>

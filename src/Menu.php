@@ -85,6 +85,8 @@ class Menu extends CommonGLPI
                 Referentials::class, CustomFramework::class, IsmsRequirement::class,
                 ComplianceObligation::class, ProcessingActivity::class, DataSubjectRequest::class, Policy::class,
                 Evidence::class, CoverageRule::class, ControlTest::class,
+                // Issue #540 : registre d'informations DORA (référentiel DORA activé).
+                DoraRegister::class,
             ],
             // Contrôle et amélioration continue (ISO 27001 chapitres 9 et 10).
             Audit::class => [

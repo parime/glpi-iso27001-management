@@ -1,0 +1,47 @@
+{# Issue #540 : éléments communs du registre d'informations DORA. #}
+
+{# Liste déroulante d'une liste fermée ; valeur vide = non renseigné. #}
+{% macro select(name, options, value, id, disabled) %}
+   <select class="form-select" name="{{ name }}" id="{{ id }}" {{ disabled ? 'disabled' : '' }}>
+      <option value="0">{{ __('Not filled in', 'grcmanager') }}</option>
+      {% for key, label in options %}
+         <option value="{{ key }}" {{ value is not null and key == value ? 'selected' : '' }}>{{ label }}</option>
+      {% endfor %}
+   </select>
+{% endmacro %}
+
+{# Libellé d'un champ, avec la colonne officielle du modèle et, s'il manque, un repère rouge. #}
+{% macro label(for, text, column, issues, required) %}
+   {% set missing = issues|filter(i => i.column == column)|length > 0 %}
+   <label class="form-label {{ missing ? 'text-danger' : '' }}" for="{{ for }}">
+      {% if missing %}<i class="ti ti-alert-circle me-1"></i>{% endif %}{{ text }}
+      {% if required %}<span class="text-danger" title="{{ __('Required in the register', 'grcmanager') }}">*</span>{% endif %}
+      <span class="badge bg-secondary-lt ms-1 fw-normal" title="{{ __('Column of the official template', 'grcmanager') }}">{{ column }}</span>
+   </label>
+{% endmacro %}
+
+{# Champs manquants ou mal saisis d'un objet. #}
+{% macro issues(issues, title) %}
+   {% if issues is empty %}
+      <div class="alert alert-success d-flex align-items-center mb-3 grc-dora-complete"><i class="ti ti-circle-check me-2"></i>{{ __('Nothing is missing here for the register.', 'grcmanager') }}</div>
+   {% else %}
+      <div class="alert alert-warning mb-3 grc-dora-issues">
+         <div class="fw-bold mb-1"><i class="ti ti-alert-triangle me-1"></i>{{ title }}</div>
+         <ul class="mb-0">
+            {% for issue in issues %}
+               <li class="grc-dora-issue" data-column="{{ issue.column }}">
+                  {{ issue.label }}
+                  <span class="badge {{ issue.kind == 'invalid' ? 'bg-red-lt' : 'bg-orange-lt' }} ms-1">{{ issue.kind == 'invalid' ? __('Invalid format', 'grcmanager') : __('Missing', 'grcmanager') }}</span>
+                  <span class="text-muted small ms-1">{{ issue.column }}</span>
+               </li>
+            {% endfor %}
+         </ul>
+      </div>
+   {% endif %}
+{% endmacro %}
+
+{# Taux de complétude coloré. #}
+{% macro rate(rate) %}
+   {% set color = rate >= 100 ? 'green' : (rate >= 70 ? 'orange' : 'red') %}
+   <span class="badge bg-{{ color }}-lt fs-5 grc-dora-rate"><i class="ti {{ color == 'green' ? 'ti-circle-check' : 'ti-alert-triangle' }} me-1"></i>{{ rate }} %</span>
+{% endmacro %}

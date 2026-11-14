@@ -253,6 +253,12 @@ function plugin_init_grcmanager(): void
         'addtabon' => \GlpiPlugin\Grcmanager\BusinessProcessItem::getItemtypes(),
     ]);
 
+    // Issue #540 : onglet « Registre DORA » des fournisseurs (prestataires TIC), des contrats (accords
+    // contractuels) et des processus métier (fonctions soutenues), si le référentiel DORA est activé.
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\DoraRegister::class, [
+        'addtabon' => [Supplier::class, Contract::class, \GlpiPlugin\Grcmanager\BusinessProcess::class],
+    ]);
+
     // Issue #164 : onglet « Couverture des preuves » sur les mesures et les exigences du SMSI.
     Plugin::registerClass(\GlpiPlugin\Grcmanager\CoverageRule::class, [
         'addtabon' => [\GlpiPlugin\Grcmanager\Control::class, \GlpiPlugin\Grcmanager\IsmsRequirement::class],
@@ -324,6 +330,9 @@ function plugin_init_grcmanager(): void
     foreach (\GlpiPlugin\Grcmanager\Services\Incident\AuditedItems::ITEMTYPES as $auditedItemtype) {
         $PLUGIN_HOOKS[Hooks::ITEM_PURGE]['grcmanager'][$auditedItemtype] ??= 'plugin_grcmanager_audit_purge';
     }
+    // Issue #540 : un contrat supprimé définitivement quitte le registre DORA (les fournisseurs passent
+    // par les rappels ci-dessous, qui oublient aussi leurs champs DORA).
+    $PLUGIN_HOOKS[Hooks::ITEM_PURGE]['grcmanager'][Contract::class] ??= 'plugin_grcmanager_forget_dora_item';
     // Issue #377 : un élément supprimé définitivement n'est plus une dépendance d'un processus métier.
     foreach (\GlpiPlugin\Grcmanager\BusinessProcessItem::getItemtypes() as $processItemtype) {
         $PLUGIN_HOOKS[Hooks::ITEM_PURGE]['grcmanager'][$processItemtype]

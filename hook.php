@@ -798,6 +798,8 @@ function plugin_grcmanager_forget_business_process_item(CommonDBTM $item): void
     \GlpiPlugin\Grcmanager\AssetClassification::forgetItem($item);
     // Issue #375 : un seul rappel de purge par type : les liens du registre des traitements aussi.
     \GlpiPlugin\Grcmanager\ProcessingActivity::forgetItem($item);
+    // Issue #540 : et les champs DORA d'un fournisseur.
+    \GlpiPlugin\Grcmanager\DoraRegister::forgetItem($item);
 }
 
 /**
@@ -805,6 +807,16 @@ function plugin_grcmanager_forget_business_process_item(CommonDBTM $item): void
  */
 function plugin_grcmanager_forget_processing_activity_item(CommonDBTM $item): void
 {
+    \GlpiPlugin\Grcmanager\ProcessingActivity::forgetItem($item);
+    \GlpiPlugin\Grcmanager\DoraRegister::forgetItem($item);
+}
+
+/**
+ * Issue #540 : Hooks::ITEM_PURGE sur les contrats (setup.php) : le contrat quitte le registre DORA.
+ */
+function plugin_grcmanager_forget_dora_item(CommonDBTM $item): void
+{
+    \GlpiPlugin\Grcmanager\DoraRegister::forgetItem($item);
     \GlpiPlugin\Grcmanager\ProcessingActivity::forgetItem($item);
 }
 
