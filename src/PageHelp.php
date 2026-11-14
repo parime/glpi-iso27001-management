@@ -93,6 +93,23 @@ class PageHelp
                     'grcmanager'
                 ),
             ],
+            // Issue #540 : registre d'informations DORA des prestataires TIC.
+            'doraregister' => [
+                'purpose'   => __(
+                    'The register of all the contracts with ICT third-party service providers that DORA requires: '
+                        . 'contracts, providers and their subcontractors, functions supported and their criticality, '
+                        . 'data locations, substitutability and exit plans. It is built from GLPI contracts, '
+                        . 'suppliers and business processes.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Fill in the financial entity below, then add each ICT contract from its "DORA register" tab and '
+                        . 'complete the missing fields listed here. When nothing is missing, download the templates '
+                        . 'and give them to your reporting tool.',
+                    'grcmanager'
+                ),
+                'reference' => __('DORA, article 28(3); Implementing Regulation (EU) 2024/2956', 'grcmanager'),
+            ],
             'frameworkassessment' => [
                 'purpose'   => __(
                     'Assessment by framework: for each enabled framework, how many of its controls are implemented, '

@@ -179,6 +179,8 @@ class BusinessProcess extends BusinessProcessBase
         (new BusinessProcessRecovery())->deleteByCriteria(
             ['plugin_grcmanager_businessprocesses_id' => $this->getID()]
         );
+        // Issue #540 : la fonction quitte le registre d'informations DORA.
+        DoraRegister::forgetItem($this);
     }
 
     /**
