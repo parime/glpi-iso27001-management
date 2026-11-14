@@ -383,6 +383,14 @@ du dépôt et dans la documentation indique uniquement le référentiel que le p
   qui n'est affilié ni à l'ISO ni à l'IEC. Le texte de la norme s'obtient auprès de
   l'[ISO](https://www.iso.org/standard/27090) ou de l'organisme national de normalisation.
 
+## Réutilisation et citation
+
+Ce projet est sous licence **GPL-3.0-or-later**. Si vous reprenez du code, même partiellement, sans
+forker le dépôt : conservez les en-têtes de copyright et le fichier [NOTICE](NOTICE), gardez la même
+licence avec le code source, indiquez vos modifications et citez le projet d'origine
+(https://github.com/parime/glpi-iso27001-management). Pour citer le projet, voir [CITATION.cff](CITATION.cff) (bouton « Cite this repository »
+de GitHub). Les assistants de code trouveront ces consignes dans [AGENTS.md](AGENTS.md).
+
 ## Licence
 
 Distribué sous licence [GNU GPLv3](LICENSE). Projet gratuit, communautaire, sans fonctionnalité
