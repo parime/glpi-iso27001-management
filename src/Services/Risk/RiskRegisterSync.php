@@ -77,9 +77,11 @@ final class RiskRegisterSync
         foreach ($rows as $row) {
             $key = mb_strtolower($row['reference']);
             $ids = $byReference[$key] ?? [];
-            if ($ids === [] && preg_match('/^' . RiskRegisterCsv::INTERNAL_PREFIX . '(\d+)$/i', $row['reference'], $m) === 1) {
+            $internal = '/^' . RiskRegisterCsv::INTERNAL_PREFIX . '(\d+)$/i';
+            if ($ids === [] && preg_match($internal, $row['reference'], $m) === 1) {
                 $candidate = (int) $m[1];
-                if (isset($existing[$candidate]) && trim((string) ($existing[$candidate]['external_ref'] ?? '')) === '') {
+                $candidateRef = trim((string) ($existing[$candidate]['external_ref'] ?? ''));
+                if (isset($existing[$candidate]) && $candidateRef === '') {
                     $ids = [$candidate];
                 }
             }
@@ -234,8 +236,14 @@ final class RiskRegisterSync
      *     fields: array<string, mixed>, lists: array<string, list<string>>,
      *     changes: array<string, array{old: mixed, new: mixed}>}
      */
-    private static function step(string $action, int $id, array $row, array $fields, array $lists, array $changes): array
-    {
+    private static function step(
+        string $action,
+        int $id,
+        array $row,
+        array $fields,
+        array $lists,
+        array $changes
+    ): array {
         return [
             'action'    => $action,
             'id'        => $id,

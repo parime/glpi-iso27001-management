@@ -63,7 +63,9 @@ final class RiskRegisterSyncTest extends TestCase
     {
         $plan = RiskRegisterSync::plan($this->existing(), [
             // Même risque, casse différente, seuls titre et impact donnés : la description reste.
-            $this->row(2, 'r-01', ['title' => 'Vol de portable', 'impact' => 'critical', 'annex_a' => ['A.5.1', 'A.8.5']]),
+            $this->row(2, 'r-01', [
+                'title' => 'Vol de portable', 'impact' => 'critical', 'annex_a' => ['A.5.1', 'A.8.5'],
+            ]),
             $this->row(3, 'R-NEW', ['title' => 'Nouveau risque', 'impact' => 'low', 'assets' => ['Computer:5']]),
             $this->row(4, 'GLPI-RISK-20', ['title' => 'Saisi dans GLPI', 'probability' => 'rare']),
             $this->row(5, 'dup', ['title' => 'Ambigu']),

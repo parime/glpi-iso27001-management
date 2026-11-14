@@ -43,7 +43,9 @@ final class RiskRegisterImportTest extends GrcmanagerIntegrationTestCase
         $userId = $this->createTestUser('Alice', 'Demo' . $this->suffix, [
             '_useremails' => ['-1' => 'alice.demo' . $this->suffix . '@example.org'],
         ]);
-        (new \Profile_User())->add(['users_id' => $userId, 'profiles_id' => 4, 'entities_id' => 0, 'is_recursive' => 1]);
+        (new \Profile_User())->add([
+            'users_id' => $userId, 'profiles_id' => 4, 'entities_id' => 0, 'is_recursive' => 1,
+        ]);
         $this->login = $this->userLogin($userId);
         $this->computer = 'PHPU-SRV-' . $this->suffix;
         (new \Computer())->add([
@@ -94,10 +96,13 @@ final class RiskRegisterImportTest extends GrcmanagerIntegrationTestCase
     {
         $ref = 'PHPU-' . $this->suffix;
 
-        return "reference;title;description;category;probability;impact;treatment;owner;review_date;status;annex_a;assets\n"
-            . "$ref-01;Vol de portable;Disque non chiffré;technical;3;4;mitigate;{$this->login};31/12/2026;;A.8.1 A.8.24;{$this->computer}\n"
+        return "reference;title;description;category;probability;impact;treatment;owner;review_date;status;"
+            . "annex_a;assets\n"
+            . "$ref-01;Vol de portable;Disque non chiffré;technical;3;4;mitigate;{$this->login};31/12/2026;;"
+            . "A.8.1 A.8.24;{$this->computer}\n"
             . "$ref-02;Panne de l'hébergeur;;third_party;2;3;transfer;alice.demo{$this->suffix}@example.org;;;A.5.19;\n"
-            . "$ref-03;Hameçonnage ciblé;;people;probable;high;;Alice Demo{$this->suffix};;in_treatment;;INV-{$this->suffix}\n"
+            . "$ref-03;Hameçonnage ciblé;;people;probable;high;;Alice Demo{$this->suffix};;in_treatment;;"
+            . "INV-{$this->suffix}\n"
             . "$ref-04;Propriétaire inconnu;;process;1;1;;nobody.phpu{$this->suffix};;;;\n"
             . "$ref-05;Mesure inconnue;;process;1;1;;;;;A.99.9;\n";
     }

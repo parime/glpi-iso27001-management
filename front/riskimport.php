@@ -123,7 +123,8 @@ if (isset($_POST['analyse'])) {
     $uploaded = is_array($file) && ($file['error'] ?? UPLOAD_ERR_NO_FILE) === UPLOAD_ERR_OK
         && is_uploaded_file((string) $file['tmp_name']) && (int) $file['size'] <= 2 * 1024 * 1024;
     if (!$uploaded) {
-        Session::addMessageAfterRedirect(htmlescape(__('Choose a CSV file of 2 MB at most.', 'grcmanager')), false, ERROR);
+        $message = __('Choose a CSV file of 2 MB at most.', 'grcmanager');
+        Session::addMessageAfterRedirect(htmlescape($message), false, ERROR);
         Html::redirect($pageUrl);
     }
     $scale = (int) ($_POST['scale'] ?? 4);

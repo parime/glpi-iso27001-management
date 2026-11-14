@@ -121,7 +121,8 @@ final class RiskRegisterImport
             }
         }
         if ($logins !== []) {
-            foreach ($DB->request(['FROM' => 'glpi_useremails', 'WHERE' => ['users_id' => array_keys($logins)]]) as $row) {
+            $emails = $DB->request(['FROM' => 'glpi_useremails', 'WHERE' => ['users_id' => array_keys($logins)]]);
+            foreach ($emails as $row) {
                 self::addKey($users, (string) $row['email'], (int) $row['users_id']);
             }
         }
@@ -412,7 +413,8 @@ final class RiskRegisterImport
         $statuses = Risk::getStatuses();
         $logins = self::lookups(true)['logins'];
         $rows = [];
-        $label = static fn (array $labels, $value): string => (string) ($labels[(string) $value] ?? $value);
+        // Valeur hors liste (donnée ancienne) : cellule vide, que l'import lit comme « garder la valeur ».
+        $label = static fn (array $labels, $value): string => (string) ($labels[(string) $value] ?? '');
         foreach (self::existing() as $id => $risk) {
             $owner = (int) $risk['users_id'];
             $rows[] = [
@@ -422,7 +424,8 @@ final class RiskRegisterImport
                 $label($categories, $risk['category']),
                 $label($probabilities, $risk['probability']),
                 $label($impacts, $risk['impact']),
-                (string) $risk['residual_probability'] !== '' ? $label($probabilities, $risk['residual_probability']) : '',
+                (string) $risk['residual_probability'] !== ''
+                    ? $label($probabilities, $risk['residual_probability']) : '',
                 (string) $risk['residual_impact'] !== '' ? $label($impacts, $risk['residual_impact']) : '',
                 (string) $risk['treatment'] !== '' ? $label($treatments, $risk['treatment']) : '',
                 (string) $risk['justification'],
@@ -497,7 +500,10 @@ final class RiskRegisterImport
             ),
             RiskRegisterCsv::ERROR_UNKNOWN_VALUE      => self::unknownValueLabel($detail, $columns),
             RiskRegisterCsv::ERROR_UNKNOWN_OWNER      => sprintf(
-                __('Owner not found: %s (expected: login, e-mail address or first and last name of a GLPI user).', 'grcmanager'),
+                __(
+                    'Owner not found: %s (expected: login, e-mail address or first and last name of a GLPI user).',
+                    'grcmanager'
+                ),
                 $detail
             ),
             RiskRegisterCsv::ERROR_AMBIGUOUS_OWNER    => sprintf(
@@ -509,7 +515,10 @@ final class RiskRegisterImport
                 $detail
             ),
             RiskRegisterCsv::ERROR_UNKNOWN_ASSET      => sprintf(
-                __('Asset not found in GLPI: %s (expected: name or inventory number of an asset you can see).', 'grcmanager'),
+                __(
+                    'Asset not found in GLPI: %s (expected: name or inventory number of an asset you can see).',
+                    'grcmanager'
+                ),
                 $detail
             ),
             RiskRegisterCsv::ERROR_AMBIGUOUS_ASSET    => sprintf(
@@ -529,7 +538,8 @@ final class RiskRegisterImport
                 $detail
             ),
             RiskRegisterSync::ERROR_CLOSE_WITHOUT_PLAN => __(
-                'A risk being mitigated or transferred cannot be closed without a treatment plan: add its actions in GLPI first.',
+                'A risk being mitigated or transferred cannot be closed without a treatment plan: add its actions '
+                    . 'in GLPI first.',
                 'grcmanager'
             ),
             'no_create_right'                         => __('You are not allowed to create risks.', 'grcmanager'),
@@ -556,7 +566,10 @@ final class RiskRegisterImport
 
         return sprintf(
             $numeric
-                ? __('Unknown value for "%1$s": %2$s. Expected: %3$s, or a score within the scale chosen below.', 'grcmanager')
+                ? __(
+                    'Unknown value for "%1$s": %2$s. Expected: %3$s, or a score within the scale chosen below.',
+                    'grcmanager'
+                )
                 : __('Unknown value for "%1$s": %2$s. Expected: %3$s.', 'grcmanager'),
             $columns[$column] ?? $column,
             $value,
