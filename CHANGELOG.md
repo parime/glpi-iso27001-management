@@ -7,6 +7,31 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Added
+
+- **Registre d'informations DORA des prestataires TIC** (issue #540, DORA article 28, paragraphe 3 ;
+  règlement d'exécution (UE) 2024/2956) : visible seulement si le référentiel DORA est activé.
+  Registre construit depuis les objets de GLPI, sans les dupliquer : contrats (numéro, dates, durée,
+  préavis, coûts des douze derniers mois), fournisseurs (nom, pays, numéro d'immatriculation s'il
+  est un LEI) et processus métier du plugin (nom, RTO, RPO, date et impact de la BIA). Seuls les
+  champs propres à DORA se saisissent, dans un nouvel onglet « Registre DORA » du contrat (type
+  d'accord, types de services S01 à S19, préavis, droit applicable, pays de fourniture, lieux de
+  stockage et de traitement, sensibilité des données, dépendance, substituabilité, réinternalisation,
+  plan de sortie, prestataires de remplacement, fonctions soutenues avec les processus qui dépendent
+  du fournisseur proposés, chaîne de sous-traitance avec rangs calculés), du fournisseur (code LEI,
+  EUID ou national, type de personne, pays du siège, entreprise mère ultime) et du processus métier
+  (« Fonction DORA » : critique ou importante, avec une suggestion tirée de la BIA, activité agréée,
+  raisons, date d'évaluation). Page « Registre DORA » (rubrique Conformité) : entité financière qui
+  tient le registre (LEI vérifié, type, autorité compétente, total du bilan), taux de complétude et
+  champs obligatoires manquants ou invalides avant l'export (y compris ceux exigés quand une
+  fonction critique ou importante est soutenue), chacun avec un lien vers la fiche à compléter,
+  liste des accords et contrats de prestataires TIC pas encore au registre. Export à la demande et
+  tracé : un CSV par modèle B_01.01 à B_99.01 (codes officiels des colonnes, UTF-8, virgule) ou tous
+  dans une archive, comme les tableaux d'un paquet xBRL-CSV ; succursales, accords intragroupe,
+  définitions de B_99.01, codes de la taxonomie de l'EBA et fichiers du paquet restent à compléter
+  par l'outil de déclaration (voir le README). Aucun contrat, fournisseur ou processus n'est modifié ;
+  modifications historisées sur la fiche concernée. Traductions (fr, de, es, it, pl, pt_BR).
+
 ## [2.43.0] - 2026-11-14
 
 ### Added

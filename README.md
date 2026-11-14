@@ -166,6 +166,23 @@ archivé), avec ses champs de classification ISO 27001 fusionnés dessus.
   le plugin, revue (acceptée ou à compléter avec motif), relances, avancement ; accès en lecture
   d'un auditeur limité à un audit et dans le temps, pièces soumises seulement, téléchargements
   historisés.
+- **Registre d'informations DORA** (référentiel DORA activé) : registre des contrats avec des
+  prestataires tiers de services TIC exigé par l'article 28, paragraphe 3, du règlement (UE)
+  2022/2554, construit depuis les contrats, fournisseurs et processus métier de GLPI sans les
+  dupliquer. Onglet « Registre DORA » du contrat (type d'accord, services S01 à S19, préavis, droit
+  applicable, lieux de stockage et de traitement, sensibilité, dépendance, substituabilité, plan de
+  sortie, fonctions soutenues, chaîne de sous-traitance avec rangs calculés), du fournisseur (LEI ou
+  autre code, pays du siège, groupe) et du processus métier (fonction critique ou importante, activité
+  agréée ; RTO, RPO et impact repris de la BIA). Contrôle des champs obligatoires avant l'export,
+  avec renvoi vers la fiche à compléter. **Export** : un CSV par modèle du règlement d'exécution (UE)
+  2024/2956 (B_01.01 à B_99.01), en-têtes c0010..., UTF-8, virgule, dans une archive `reports/`
+  comme un paquet xBRL-CSV. **Reste à faire à la main** : succursales (B_01.03), accords
+  intragroupe (B_02.03, B_03.03) et entités d'un groupe (B_01.02 ne contient que l'entité qui tient
+  le registre, B_04.01 ne déclare aucune succursale), définitions internes de B_99.01, conversion
+  des listes fermées (écrites avec leur libellé officiel anglais) en codes de la taxonomie de l'EBA
+  et fichiers du paquet (report.json, paramètres, indicateurs de dépôt), par votre outil de
+  déclaration. Sources : [règlement (UE) 2022/2554](https://eur-lex.europa.eu/eli/reg/2022/2554/oj),
+  [règlement d'exécution (UE) 2024/2956](https://eur-lex.europa.eu/eli/reg_impl/2024/2956/oj).
 - **Prise de connaissance des politiques** : public cible (groupes, profils, entités) et délai
   de réponse sur chaque politique approuvée, campagne par version, confirmation par chacun depuis
   ses préférences ou Mon espace GRC, taux par politique et par entité, relances hebdomadaires,

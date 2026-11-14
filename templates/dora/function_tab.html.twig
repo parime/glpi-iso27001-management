@@ -28,7 +28,7 @@
             <div class="col-12 col-md-6">
                {{ m.label('grc-dora-criticality', __('Critical or important function', 'grcmanager'), 'B_06.01.0060', issues, true) }}
                {{ m.select('criticality', criticalities, dora.criticality ?? 0, 'grc-dora-criticality') }}
-               {% if unacceptable_label %}
+               {% if unacceptable_label and (dora.criticality ?? 0) != 1 %}
                   <div class="form-hint text-danger" id="grc-dora-bia-hint"><i class="ti ti-bulb me-1"></i>{{ __('The BIA reaches an unacceptable impact after %s: the function is probably critical or important.', 'grcmanager')|format(unacceptable_label) }}</div>
                {% endif %}
                {% if business_criticity %}

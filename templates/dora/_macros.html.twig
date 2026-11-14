@@ -31,7 +31,7 @@
             {% for issue in issues %}
                <li class="grc-dora-issue" data-column="{{ issue.column }}">
                   {{ issue.label }}
-                  <span class="badge {{ issue.kind == 'invalid' ? 'bg-red-lt' : 'bg-orange-lt' }} ms-1">{{ issue.kind == 'invalid' ? __('Invalid format', 'grcmanager') : __('Missing', 'grcmanager') }}</span>
+                  <span class="badge {{ issue.kind == 'invalid' ? 'bg-red-lt' : 'bg-orange-lt' }} ms-1">{{ issue.kind == 'invalid' ? __('Invalid format', 'grcmanager') : __('Missing field', 'grcmanager') }}</span>
                   <span class="text-muted small ms-1">{{ issue.column }}</span>
                </li>
             {% endfor %}

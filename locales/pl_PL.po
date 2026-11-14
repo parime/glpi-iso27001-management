@@ -13382,3 +13382,6 @@ msgstr "Kolumna oficjalnego szablonu"
 
 msgid "Nothing is missing here for the register."
 msgstr "Tutaj niczego nie brakuje do rejestru."
+
+msgid "Missing field"
+msgstr "Brak"

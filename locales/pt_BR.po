@@ -11958,3 +11958,6 @@ msgstr "Coluna do modelo oficial"
 
 msgid "Nothing is missing here for the register."
 msgstr "Nada está faltando aqui para o registro."
+
+msgid "Missing field"
+msgstr "Ausente"

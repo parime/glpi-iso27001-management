@@ -37,7 +37,7 @@
                            <td><span class="badge bg-azure-lt me-1">{{ issue.object_type }}</span><a href="{{ issue.url }}">{{ issue.object_name ?: '-' }}</a></td>
                            <td>{{ issue.label }}</td>
                            <td class="text-muted small">{{ issue.column }}</td>
-                           <td><span class="badge {{ issue.kind == 'invalid' ? 'bg-red-lt' : 'bg-orange-lt' }}"><i class="ti {{ issue.kind == 'invalid' ? 'ti-forbid' : 'ti-alert-circle' }} me-1"></i>{{ issue.kind == 'invalid' ? __('Invalid format', 'grcmanager') : __('Missing', 'grcmanager') }}</span></td>
+                           <td><span class="badge {{ issue.kind == 'invalid' ? 'bg-red-lt' : 'bg-orange-lt' }}"><i class="ti {{ issue.kind == 'invalid' ? 'ti-forbid' : 'ti-alert-circle' }} me-1"></i>{{ issue.kind == 'invalid' ? __('Invalid format', 'grcmanager') : __('Missing field', 'grcmanager') }}</span></td>
                         </tr>
                      {% endfor %}
                   </tbody>
@@ -102,7 +102,7 @@
 
    <div class="row g-3">
       {# ---------------------------------------------------------------- Entité #}
-      <div class="col-12 col-xl-6">
+      <div class="col-12 col-xxl-5">
          <div class="card h-100" id="grc-dora-settings">
             <div class="card-header"><h3 class="card-title"><i class="ti ti-building-bank me-2"></i>{{ __('Financial entity maintaining the register', 'grcmanager') }} <span class="badge bg-secondary-lt fw-normal">B_01.01 / B_01.02</span></h3></div>
             <div class="card-body">
@@ -164,7 +164,7 @@
       </div>
 
       {# ---------------------------------------------------------------- Export #}
-      <div class="col-12 col-xl-6">
+      <div class="col-12 col-xxl-7">
          <div class="card h-100" id="grc-dora-export">
             <div class="card-header">
                <h3 class="card-title"><i class="ti ti-file-export me-2"></i>{{ __('Export for the supervisor', 'grcmanager') }}</h3>

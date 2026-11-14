@@ -152,6 +152,23 @@ classification fields merged directly onto it.
   from CSV), assignee and due date, submission from "My evidence requests" without any right on
   the plugin, review (accepted or to complete with a reason), reminders, progress; read-only access
   for an auditor limited to one audit and in time, submitted documents only, downloads recorded.
+- **DORA register of information** (DORA framework enabled): the register of contracts with ICT
+  third-party service providers required by Article 28(3) of Regulation (EU) 2022/2554, built from
+  GLPI contracts, suppliers and business processes without duplicating them. "DORA register" tab on
+  the contract (type of arrangement, services S01 to S19, notice periods, governing law, storage and
+  processing locations, sensitiveness, reliance, substitutability, exit plan, supported functions,
+  subcontracting chain with computed ranks), on the supplier (LEI or other code, headquarters,
+  group) and on the business process (critical or important function, licensed activity; RTO, RPO
+  and impact taken from the BIA). Required fields are checked before the export, with a link to the
+  record to complete. **Export**: one CSV per template of Implementing Regulation (EU) 2024/2956
+  (B_01.01 to B_99.01), c0010... headers, UTF-8, comma, in a `reports/` archive as in an xBRL-CSV
+  package. **Still to do by hand**: branches (B_01.03), intra-group arrangements (B_02.03, B_03.03)
+  and group entities (B_01.02 only holds the entity maintaining the register, B_04.01 declares no
+  branch), internal definitions of B_99.01, conversion of closed lists (written with their official
+  English wording) into EBA taxonomy codes and the package files (report.json, parameters, filing
+  indicators), by your reporting tool. Sources:
+  [Regulation (EU) 2022/2554](https://eur-lex.europa.eu/eli/reg/2022/2554/oj),
+  [Implementing Regulation (EU) 2024/2956](https://eur-lex.europa.eu/eli/reg_impl/2024/2956/oj).
 - **Policy acknowledgement**: target audience (groups, profiles, entities) and response deadline on
   each approved policy, one campaign per version, confirmation by each person from their
   preferences or My GRC space, rate per policy and per entity, weekly reminders, list of latecomers

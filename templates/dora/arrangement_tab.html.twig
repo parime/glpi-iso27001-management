@@ -239,10 +239,10 @@
                {% else %}
                   <ul class="list-group mb-3" id="grc-dora-functions">
                      {% for function in functions %}
-                        <li class="list-group-item d-flex align-items-center gap-2">
+                        <li class="list-group-item d-flex flex-wrap align-items-center gap-2">
                            <span class="badge bg-purple-lt">{{ function.identifier }}</span>
                            <a href="{{ function.url }}" class="flex-grow-1">{{ function.name }}</a>
-                           <span class="badge {{ function.criticality == 1 ? 'bg-red-lt' : (function.criticality == 2 ? 'bg-green-lt' : 'bg-orange-lt') }}">{{ function.criticality_label }}</span>
+                           <span class="badge text-wrap {{ function.criticality == 1 ? 'bg-red-lt' : (function.criticality == 2 ? 'bg-green-lt' : 'bg-orange-lt') }}">{{ function.criticality_label }}</span>
                            {% if can_edit %}
                               <form method="post" action="{{ action }}" class="m-0">
                                  <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
@@ -294,7 +294,7 @@
                   <ul class="list-group mb-3" id="grc-dora-chain">
                      {% for sub in chain %}
                         <li class="list-group-item d-flex align-items-center gap-2">
-                           <span class="badge bg-indigo-lt">{{ __('Rank %d', 'grcmanager')|format(sub.rank) }}</span>
+                           <span class="badge bg-indigo-lt text-nowrap">{{ __('Rank %d', 'grcmanager')|format(sub.rank) }}</span>
                            <a href="{{ sub.url }}" class="flex-grow-1">{{ sub.name }}</a>
                            <span class="text-muted small"><i class="ti ti-arrow-right me-1"></i>{{ sub.recipient }}</span>
                            {% if can_edit %}

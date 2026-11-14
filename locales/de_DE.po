@@ -11958,3 +11958,6 @@ msgstr "Spalte des offiziellen Meldebogens"
 
 msgid "Nothing is missing here for the register."
 msgstr "Hier fehlt nichts für das Register."
+
+msgid "Missing field"
+msgstr "Fehlt"
