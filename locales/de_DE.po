@@ -12358,17 +12358,8 @@ msgstr "Risikoregister importieren oder exportieren"
 msgid "Analysis of the file \"%s\""
 msgstr "Analyse der Datei \"%s\""
 
-#, php-format
-msgid "%d risks to add"
-msgstr "%d Risiken hinzuzufügen"
 
-#, php-format
-msgid "%d risks to update"
-msgstr "%d Risiken zu aktualisieren"
 
-#, php-format
-msgid "%d risks unchanged"
-msgstr "%d Risiken unverändert"
 
 msgid "Nothing has been saved yet"
 msgstr "Noch wurde nichts gespeichert"
@@ -12379,9 +12370,6 @@ msgstr "Eine leere Zelle oder eine in der Datei fehlende Spalte behält den bere
 msgid "The risk level is computed by the risk matrix of the plugin, never taken from the file."
 msgstr "Die Risikostufe wird von der Risikomatrix des Plugins berechnet, nie aus der Datei übernommen."
 
-#, php-format
-msgid "The file changes the status of %d existing risks: these changes are highlighted below."
-msgstr "Die Datei ändert den Status von %d bestehenden Risiken: Diese Änderungen sind unten hervorgehoben."
 
 msgid "No status of an existing risk is changed: a status only changes when the file gives one."
 msgstr "Kein Status eines bestehenden Risikos wird geändert: Ein Status ändert sich nur, wenn die Datei einen angibt."
@@ -12468,3 +12456,32 @@ msgstr "Laden Sie die Vorlage herunter oder exportieren Sie das Register, fülle
 
 msgid "ISO 27001, 6.1.2 and 8.2"
 msgstr "ISO 27001, 6.1.2 und 8.2"
+
+#, php-format
+msgid "Risks to add: %d"
+msgstr "Hinzuzufügende Risiken: %d"
+
+#, php-format
+msgid "Risks to update: %d"
+msgstr "Zu aktualisierende Risiken: %d"
+
+#, php-format
+msgid "Risks unchanged: %d"
+msgstr "Unveränderte Risiken: %d"
+
+#, php-format
+msgid "Rejected lines: %d"
+msgstr "Abgelehnte Zeilen: %d"
+
+#, php-format
+msgid "Existing risks whose status the file changes: %d. These changes are highlighted below."
+msgstr "Bestehende Risiken, deren Status die Datei ändert: %d. Diese Änderungen sind unten hervorgehoben."
+
+msgid "To add"
+msgstr "Hinzuzufügen"
+
+msgid "To update"
+msgstr "Zu aktualisieren"
+
+msgid "No change"
+msgstr "Keine Änderung"

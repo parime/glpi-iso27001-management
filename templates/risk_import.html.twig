@@ -22,10 +22,10 @@
     </div>
     <div class="card-body">
       <div class="d-flex flex-wrap gap-2 mb-3">
-        <span class="badge bg-green-lt fs-5" data-count="create"><i class="ti ti-plus me-1"></i>{{ __('%d risks to add', 'grcmanager')|format(analysis.summary.create) }}</span>
-        <span class="badge bg-blue-lt fs-5" data-count="update"><i class="ti ti-pencil me-1"></i>{{ __('%d risks to update', 'grcmanager')|format(analysis.summary.update) }}</span>
-        <span class="badge bg-secondary-lt fs-5" data-count="unchanged"><i class="ti ti-equal me-1"></i>{{ __('%d risks unchanged', 'grcmanager')|format(analysis.summary.unchanged) }}</span>
-        <span class="badge {{ analysis.errors is empty ? 'bg-secondary-lt' : 'bg-red-lt' }} fs-5" data-count="rejected"><i class="ti ti-circle-x me-1"></i>{{ __('%d rejected lines', 'grcmanager')|format(analysis.errors|length) }}</span>
+        <span class="badge bg-green-lt fs-5" data-count="create"><i class="ti ti-plus me-1"></i>{{ __('Risks to add: %d', 'grcmanager')|format(analysis.summary.create) }}</span>
+        <span class="badge bg-blue-lt fs-5" data-count="update"><i class="ti ti-pencil me-1"></i>{{ __('Risks to update: %d', 'grcmanager')|format(analysis.summary.update) }}</span>
+        <span class="badge bg-secondary-lt fs-5" data-count="unchanged"><i class="ti ti-equal me-1"></i>{{ __('Risks unchanged: %d', 'grcmanager')|format(analysis.summary.unchanged) }}</span>
+        <span class="badge {{ analysis.errors is empty ? 'bg-secondary-lt' : 'bg-red-lt' }} fs-5" data-count="rejected"><i class="ti ti-circle-x me-1"></i>{{ __('Rejected lines: %d', 'grcmanager')|format(analysis.errors|length) }}</span>
       </div>
 
       <div class="alert alert-info d-block">
@@ -34,7 +34,7 @@
           <li>{{ __('An empty cell, or a column missing from the file, keeps the value already saved in GLPI.', 'grcmanager') }}</li>
           <li>{{ __('The risk level is computed by the risk matrix of the plugin, never taken from the file.', 'grcmanager') }}</li>
           {% if analysis.status_changes > 0 %}
-            <li class="fw-bold">{{ __('The file changes the status of %d existing risks: these changes are highlighted below.', 'grcmanager')|format(analysis.status_changes) }}</li>
+            <li class="fw-bold">{{ __('Existing risks whose status the file changes: %d. These changes are highlighted below.', 'grcmanager')|format(analysis.status_changes) }}</li>
           {% else %}
             <li>{{ __('No status of an existing risk is changed: a status only changes when the file gives one.', 'grcmanager') }}</li>
           {% endif %}

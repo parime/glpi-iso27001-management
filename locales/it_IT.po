@@ -12358,17 +12358,8 @@ msgstr "Importare o esportare il registro dei rischi"
 msgid "Analysis of the file \"%s\""
 msgstr "Analisi del file \"%s\""
 
-#, php-format
-msgid "%d risks to add"
-msgstr "%d rischi da aggiungere"
 
-#, php-format
-msgid "%d risks to update"
-msgstr "%d rischi da aggiornare"
 
-#, php-format
-msgid "%d risks unchanged"
-msgstr "%d rischi invariati"
 
 msgid "Nothing has been saved yet"
 msgstr "Non è ancora stato salvato nulla"
@@ -12379,9 +12370,6 @@ msgstr "Una cella vuota, o una colonna assente dal file, mantiene il valore già
 msgid "The risk level is computed by the risk matrix of the plugin, never taken from the file."
 msgstr "Il livello di rischio è calcolato dalla matrice dei rischi del plugin, mai preso dal file."
 
-#, php-format
-msgid "The file changes the status of %d existing risks: these changes are highlighted below."
-msgstr "Il file cambia lo stato di %d rischi esistenti: queste modifiche sono evidenziate qui sotto."
 
 msgid "No status of an existing risk is changed: a status only changes when the file gives one."
 msgstr "Nessuno stato di un rischio esistente viene modificato: uno stato cambia solo se il file lo indica."
@@ -12468,3 +12456,32 @@ msgstr "Scaricate il modello o esportate il registro, compilatelo, poi analizzat
 
 msgid "ISO 27001, 6.1.2 and 8.2"
 msgstr "ISO 27001, 6.1.2 e 8.2"
+
+#, php-format
+msgid "Risks to add: %d"
+msgstr "Rischi da aggiungere: %d"
+
+#, php-format
+msgid "Risks to update: %d"
+msgstr "Rischi da aggiornare: %d"
+
+#, php-format
+msgid "Risks unchanged: %d"
+msgstr "Rischi invariati: %d"
+
+#, php-format
+msgid "Rejected lines: %d"
+msgstr "Righe rifiutate: %d"
+
+#, php-format
+msgid "Existing risks whose status the file changes: %d. These changes are highlighted below."
+msgstr "Rischi esistenti di cui il file cambia lo stato: %d. Queste modifiche sono evidenziate qui sotto."
+
+msgid "To add"
+msgstr "Da aggiungere"
+
+msgid "To update"
+msgstr "Da aggiornare"
+
+msgid "No change"
+msgstr "Nessuna modifica"

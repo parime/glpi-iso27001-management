@@ -149,9 +149,9 @@ if (isset($_POST['analyse'])) {
         'rejected' => count($errors),
     ];
     $actions = [
-        RiskRegisterSync::CREATE    => ['bg-green-lt', 'ti ti-plus', __('Added', 'grcmanager')],
-        RiskRegisterSync::UPDATE    => ['bg-blue-lt', 'ti ti-pencil', __('Changed', 'grcmanager')],
-        RiskRegisterSync::UNCHANGED => ['bg-secondary-lt', 'ti ti-equal', __('Unchanged', 'grcmanager')],
+        RiskRegisterSync::CREATE    => ['bg-green-lt', 'ti ti-plus', __('To add', 'grcmanager')],
+        RiskRegisterSync::UPDATE    => ['bg-blue-lt', 'ti ti-pencil', __('To update', 'grcmanager')],
+        RiskRegisterSync::UNCHANGED => ['bg-secondary-lt', 'ti ti-equal', __('No change', 'grcmanager')],
     ];
     $labels = RiskRegisterImport::columnLabels();
     $steps = [];

@@ -12358,17 +12358,8 @@ msgstr "Importer ou exporter le registre des risques"
 msgid "Analysis of the file \"%s\""
 msgstr "Analyse du fichier « %s »"
 
-#, php-format
-msgid "%d risks to add"
-msgstr "%d risques à ajouter"
 
-#, php-format
-msgid "%d risks to update"
-msgstr "%d risques à mettre à jour"
 
-#, php-format
-msgid "%d risks unchanged"
-msgstr "%d risques inchangés"
 
 msgid "Nothing has been saved yet"
 msgstr "Rien n'est encore enregistré"
@@ -12379,9 +12370,6 @@ msgstr "Une cellule vide, ou une colonne absente du fichier, garde la valeur dé
 msgid "The risk level is computed by the risk matrix of the plugin, never taken from the file."
 msgstr "Le niveau de risque est calculé par la matrice des risques du plugin, jamais repris du fichier."
 
-#, php-format
-msgid "The file changes the status of %d existing risks: these changes are highlighted below."
-msgstr "Le fichier change le statut de %d risques existants : ces changements sont mis en évidence ci-dessous."
 
 msgid "No status of an existing risk is changed: a status only changes when the file gives one."
 msgstr "Aucun statut de risque existant ne change : un statut ne change que si le fichier en donne un."
@@ -12468,3 +12456,32 @@ msgstr "Téléchargez le modèle ou exportez le registre, complétez-le, puis an
 
 msgid "ISO 27001, 6.1.2 and 8.2"
 msgstr "ISO 27001, 6.1.2 et 8.2"
+
+#, php-format
+msgid "Risks to add: %d"
+msgstr "Risques à ajouter : %d"
+
+#, php-format
+msgid "Risks to update: %d"
+msgstr "Risques à mettre à jour : %d"
+
+#, php-format
+msgid "Risks unchanged: %d"
+msgstr "Risques sans changement : %d"
+
+#, php-format
+msgid "Rejected lines: %d"
+msgstr "Lignes rejetées : %d"
+
+#, php-format
+msgid "Existing risks whose status the file changes: %d. These changes are highlighted below."
+msgstr "Risques existants dont le fichier change le statut : %d. Ces changements sont mis en évidence ci-dessous."
+
+msgid "To add"
+msgstr "À ajouter"
+
+msgid "To update"
+msgstr "À mettre à jour"
+
+msgid "No change"
+msgstr "Sans changement"
