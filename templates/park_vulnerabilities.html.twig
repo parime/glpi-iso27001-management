@@ -91,8 +91,8 @@
                   <tr>
                      <th>{{ __('Level', 'grcmanager') }}</th>
                      <th class="text-end">{{ __('Deadline', 'grcmanager') }}</th>
-                     <th class="text-end">{{ _x('vulnerabilities', 'Open', 'grcmanager') }}</th>
-                     <th class="text-end">{{ __('Overdue', 'grcmanager') }}</th>
+                     <th class="text-end">{{ __('Still open', 'grcmanager') }}</th>
+                     <th class="text-end">{{ __('Past the deadline', 'grcmanager') }}</th>
                      <th class="text-end">{{ __('Fixed (last %d days)', 'grcmanager')|format(remediation.window_days) }}</th>
                      <th class="text-end">{{ __('Fixed on time', 'grcmanager') }}</th>
                   </tr>
@@ -122,7 +122,7 @@
       <div class="btn-group" role="group">
          <a class="btn {{ priority_only or overdue_only ? 'btn-outline-primary' : 'btn-primary' }}" href="{{ action }}">{{ _x('feminine', 'All', 'grcmanager') }}</a>
          <a class="btn {{ priority_only ? 'btn-primary' : 'btn-outline-primary' }}" href="{{ action }}?priority=1">{{ __('Priority', 'grcmanager') }}</a>
-         {% if remediation %}<a class="btn {{ overdue_only ? 'btn-primary' : 'btn-outline-primary' }}" href="{{ action }}?overdue=1"><i class="ti ti-alarm me-1"></i>{{ __('Overdue', 'grcmanager') }}</a>{% endif %}
+         {% if remediation %}<a class="btn {{ overdue_only ? 'btn-primary' : 'btn-outline-primary' }}" href="{{ action }}?overdue=1"><i class="ti ti-alarm me-1"></i>{{ __('Past the deadline', 'grcmanager') }}</a>{% endif %}
       </div>
       <span class="text-muted small">{{ __('Priority: actively exploited (CISA KEV), CVSS of at least 9 or exploitation probability (EPSS) of at least 50%.', 'grcmanager') }}</span>
    </div>

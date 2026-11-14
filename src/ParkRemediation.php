@@ -122,14 +122,14 @@ final class ParkRemediation
 
         return match ($state['status']) {
             Rules::STATUS_OVERDUE  => [
-                'label' => sprintf(_n('Overdue by %d day', 'Overdue by %d days', -$state['days'], 'grcmanager'), -$state['days']),
+                'label' => sprintf(__('%d day(s) overdue', 'grcmanager'), -$state['days']),
                 'class' => 'bg-red text-white',
                 'icon'  => 'ti ti-alarm',
             ],
             Rules::STATUS_DUE_SOON => [
                 'label' => $state['days'] === 0
                     ? __('Due today', 'grcmanager')
-                    : sprintf(_n('Due in %d day', 'Due in %d days', $state['days'], 'grcmanager'), $state['days']),
+                    : sprintf(__('Due in %d day(s)', 'grcmanager'), $state['days']),
                 'class' => 'bg-orange text-white',
                 'icon'  => 'ti ti-hourglass-high',
             ],
@@ -305,14 +305,12 @@ final class ParkRemediation
             $levels = [];
             foreach ($indicators['by_level'] as $counts) {
                 if ($counts['overdue'] > 0) {
-                    $levels[] = sprintf(__('%1$d %2$s', 'grcmanager'), $counts['overdue'], mb_strtolower($counts['label']));
+                    $levels[] = sprintf(__('%1$s: %2$s', 'grcmanager'), $counts['label'], $counts['overdue']);
                 }
             }
             $parts[] = sprintf(
-                _n(
-                    '%1$d vulnerability past its remediation deadline (%2$s), the oldest by %3$d days',
-                    '%1$d vulnerabilities past their remediation deadline (%2$s), the oldest by %3$d days',
-                    $indicators['overdue'],
+                __(
+                    '%1$d vulnerability(ies) past the remediation deadline (%2$s), the oldest by %3$d day(s)',
                     'grcmanager'
                 ),
                 $indicators['overdue'],
@@ -332,7 +330,7 @@ final class ParkRemediation
         }
         if ($indicators['waived'] > 0) {
             $parts[] = sprintf(
-                _n('%d covered by a waiver', '%d covered by a waiver', $indicators['waived'], 'grcmanager'),
+                __('%d covered by a waiver', 'grcmanager'),
                 $indicators['waived']
             );
         }
