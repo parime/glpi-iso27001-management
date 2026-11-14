@@ -168,6 +168,18 @@ final class DataBreachTest extends GrcmanagerIntegrationTestCase
         $this->assertSame('40', $rows[0]['subjects_count']);
         $this->assertSame('Risque improbable, justification conservée.', $rows[0]['authority_reason']);
 
+        // Session limitée à une sous-entité (cas d'un DPO d'une filiale) : seules ses violations.
+        $childId = $this->createTestEntity(0, 'PHPUnit filiale RGPD');
+        $child = $this->breach(['name' => 'PHPUnit violation filiale', 'entities_id' => $childId]);
+        $savedEntities = [$_SESSION['glpiactiveentities'], $_SESSION['glpiactiveentities_string']];
+        try {
+            $_SESSION['glpiactiveentities'] = [$childId];
+            $_SESSION['glpiactiveentities_string'] = "'" . $childId . "'";
+            $this->assertSame([(string) $child->getID()], array_column(DataBreach::registerRows(), 'id'));
+        } finally {
+            [$_SESSION['glpiactiveentities'], $_SESSION['glpiactiveentities_string']] = $savedEntities;
+        }
+
         // Une fiche à la corbeille sort de l'export ; elle reste lisible pour la restaurer.
         $breach->delete(['id' => $id]);
         $ids = array_column(DataBreach::registerRows(), 'id');

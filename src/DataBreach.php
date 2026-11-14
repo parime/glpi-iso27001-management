@@ -945,7 +945,7 @@ class DataBreach extends DataBreachBase
         foreach (
             $DB->request([
                 'FROM'  => $table,
-                'WHERE' => ["$table.is_deleted" => 0] + getEntitiesRestrictCriteria($table, '', '', true),
+                'WHERE' => ["$table.is_deleted" => 0] + getEntitiesRestrictCriteria($table),
                 'ORDER' => ['date_awareness DESC', 'id DESC'],
             ]) as $row
         ) {
