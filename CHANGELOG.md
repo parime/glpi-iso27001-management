@@ -7,8 +7,6 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
-## [2.45.0] - 2026-11-14
-
 ### Added
 
 - **Import CSV d'un registre des risques existant** (issue #602, ISO 27001 6.1.2 et 8.2) : bouton
@@ -27,6 +25,11 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   Import tracé dans le journal du module et le journal des événements de GLPI.
 - **Export CSV du registre des risques** au format de l'import (aller-retour avec le tableur), niveaux
   calculés en fin de ligne, cellules neutralisées contre les formules, export tracé.
+
+## [2.45.0] - 2026-11-14
+
+### Added
+
 - **Registre des violations de données personnelles** (issue #620, RGPD article 33.5) : page
   « Registre des violations » (rubrique Conformité) réservée au droit « Protection des données
   personnelles ». Chaque violation est documentée, notifiée ou non : prise de connaissance et début,
