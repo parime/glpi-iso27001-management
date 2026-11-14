@@ -67,6 +67,32 @@ class PageHelp
                     'grcmanager'
                 ),
             ],
+            // Issue #538 : pages ouvertes sans droit sur le plugin.
+            'auditevidencerequest.mine' => [
+                'purpose'  => __(
+                    'The documents an audit is waiting for from you: each request says what is expected, for '
+                        . 'which control and by when.',
+                    'grcmanager'
+                ),
+                'expected' => __(
+                    'Add the files (or an existing evidence of the control) to each request, then submit it to '
+                        . 'the audit. If the audit asks you to complete a request, its reason is shown in red.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO/IEC 27001, clause 9.2 (internal audit)', 'grcmanager'),
+            ],
+            'auditorspace' => [
+                'purpose'  => __(
+                    'The audits you have been given access to, in read only: controls, progress, submitted '
+                        . 'evidence and findings.',
+                    'grcmanager'
+                ),
+                'expected' => __(
+                    'Open an audit, then download the submitted documents. Every download is recorded. Your '
+                        . 'access ends on the date set by the organisation.',
+                    'grcmanager'
+                ),
+            ],
             'frameworkassessment' => [
                 'purpose'   => __(
                     'Assessment by framework: for each enabled framework, how many of its controls are implemented, '

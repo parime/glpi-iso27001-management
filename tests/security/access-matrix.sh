@@ -708,5 +708,49 @@ if [ "$ROLE" = none ] || [ "$ROLE" = reader ]; then
   done
 fi
 
+# Issue #538 : demandes de preuves d'audit et espace auditeur. iso-sans-droit (aucun droit sur le
+# plugin) a un acces auditeur en vigueur a « Audit securite » seulement : il y voit la demande
+# soumise et telecharge sa piece, jamais la demande en preparation ni sa piece, ni un autre audit,
+# ni les documents de travail de l'audit (document.send.php ci-dessus). glpi est la personne
+# designee des deux demandes ; personne d'autre ne peut fournir ou soumettre a sa place (la
+# demande en preparation reste a fournir, verifie par l'admin, dernier passage de la CI).
+IS_AUDITOR=non; [ "$ROLE" = none ] && IS_AUDITOR=oui
+OPEN_AUDIT=403; [ "$ROLE" = none ] && OPEN_AUDIT=200
+expect "front/auditorspace.php : liste ouverte a toute session" 200 "$(code "$P/auditorspace.php")"
+expect "front/auditorspace.php : audit de l'acces auditeur" $OPEN_AUDIT "$(code "$P/auditorspace.php?id=$(id audit)")"
+expect "front/auditorspace.php : audit hors de l'acces" 403 "$(code "$P/auditorspace.php?id=$(id audit_other)")"
+space=$(curl -s -c "$JAR" -b "$JAR" "$P/auditorspace.php?id=$(id audit)")
+contains "espace auditeur : demande soumise" "REQ securite soumise" $IS_AUDITOR "$space"
+contains "espace auditeur : demande en preparation absente" "REQ securite brouillon" non "$space"
+contains "espace auditeur : document de travail absent" "Plan d&#039;audit securite" non "$space"
+contains "front/auditorspace.php : liste de l'auditeur" "Audit securite" $IS_AUDITOR "$(curl -s -c "$JAR" -b "$JAR" "$P/auditorspace.php")"
+SEND_SUBMITTED=403; { [ "$ROLE" = none ] || [ "$ROLE" = admin ]; } && SEND_SUBMITTED=200
+expect "front/auditevidencerequest.send.php : piece soumise" $SEND_SUBMITTED \
+  "$(code "$P/auditevidencerequest.send.php?id=$(id evpiece_submitted)")"
+expect "front/auditevidencerequest.send.php : piece en preparation" "$([ "$ROLE" = admin ] && echo 200 || echo 403)" \
+  "$(code "$P/auditevidencerequest.send.php?id=$(id evpiece_draft)")"
+expect "front/auditevidencerequest.mine.php : ouverte a toute session" 200 "$(code "$P/auditevidencerequest.mine.php")"
+contains "front/auditevidencerequest.mine.php : demande confiee a glpi" "REQ securite brouillon" $IS_ADMIN \
+  "$(curl -s -c "$JAR" -b "$JAR" "$P/auditevidencerequest.mine.php")"
+evtab=$(tab GlpiPlugin%5CGrcmanager%5CAudit 'GlpiPlugin%5CGrcmanager%5CAuditEvidenceRequest$1' "$(id audit)")
+contains "onglet Demandes de preuves d'un audit" "grc-evreq-list" "$([ "$ROLE" = none ] && echo non || echo oui)" "$evtab"
+if [ "$ROLE" = admin ]; then
+  contains "demande en preparation toujours a fournir" "id=\"grc-evreq-$(id evreq_draft)\" class=\"grc-evreq-row grc-evreq-status-requested" oui "$evtab"
+  contains "demande soumise toujours soumise" "id=\"grc-evreq-$(id evreq_submitted)\" class=\"grc-evreq-row grc-evreq-status-submitted" oui "$evtab"
+else
+  for action in submit_request=1 remove_piece=1 add_existing=1; do
+    code -d "$action&requests_id=$(id evreq_draft)&pieces_id=$(id evpiece_draft)&documents_id=$(id document_A)&_glpi_csrf_token=$(csrf)" \
+      "$P/auditevidencerequest.mine.php" > /dev/null
+  done
+fi
+if [ "$ROLE" = none ] || [ "$ROLE" = reader ]; then
+  for action in add=1 accept=1 ask_completion=1 update=1 purge=1 remind=1 grant_access=1 revoke_access=1; do
+    expect "front/auditevidencerequest.form.php : ${action%%=*}" 403 \
+      "$(code -d "$action&plugin_grcmanager_audits_id=$(id audit)&id=$(id evreq_submitted)&reference=securite&review_comment=x&users_id=2&date_end=$(date +%Y-%m-%d)&accesses_id=1&_glpi_csrf_token=$(csrf)" "$P/auditevidencerequest.form.php")"
+  done
+  expect "front/auditevidencerequest.form.php : import CSV" 403 \
+    "$(code -F import_csv=1 -F "plugin_grcmanager_audits_id=$(id audit)" -F "csv_file=@$EVIDENCE_PDF;filename=liste.csv" -F "_glpi_csrf_token=$(csrf)" "$P/auditevidencerequest.form.php")"
+fi
+
 rm -f "$JAR"
 exit $FAIL

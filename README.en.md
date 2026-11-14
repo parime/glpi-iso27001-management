@@ -148,6 +148,10 @@ classification fields merged directly onto it.
   treatment actions, control tests, evidence to renew, nonconformities, periodic and access reviews,
   policies, trainings, SoA approvals...), sorted by due date, overdue items highlighted, number of
   waiting items in the menu. Nothing the user is not allowed to see.
+- **Audit evidence requests**: list of the evidence requested by the auditor (entered or imported
+  from CSV), assignee and due date, submission from "My evidence requests" without any right on
+  the plugin, review (accepted or to complete with a reason), reminders, progress; read-only access
+  for an auditor limited to one audit and in time, submitted documents only, downloads recorded.
 - **Policy acknowledgement**: target audience (groups, profiles, entities) and response deadline on
   each approved policy, one campaign per version, confirmation by each person from their
   preferences or My GRC space, rate per policy and per entity, weekly reminders, list of latecomers

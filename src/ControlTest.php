@@ -383,6 +383,47 @@ class ControlTest extends ControlTestBase
      */
     public static function storeEvidenceFile(Control $control, string $path, string $clientName): int
     {
+        if ($control->isNewItem() || !$control->canAddItem('Document') || !Document::canCreate()) {
+            Session::addMessageAfterRedirect(
+                htmlescape(__('You are not allowed to add a document to this control.', 'grcmanager')),
+                false,
+                ERROR
+            );
+
+            return 0;
+        }
+        $documentsId = self::createEvidenceDocument(
+            $path,
+            $clientName,
+            ['itemtype' => Control::class, 'items_id' => $control->getID()],
+            true
+        );
+        if ($documentsId > 0) {
+            RestrictedDocument::register($documentsId, $control);
+        }
+
+        return $documentsId;
+    }
+
+    /**
+     * Contrôles communs d'un fichier de preuve reçu (nom, taille et types de GLPI, type réel du
+     * contenu), puis création du document dans l'entité active. Les droits sur l'élément sont
+     * vérifiés par l'appelant : la mesure (storeEvidenceFile(), qui exige aussi le droit de créer
+     * un document) ou la demande de preuve d'audit confiée à l'utilisateur (issue #538,
+     * AuditEvidenceRequest::addUploadedPiece() : c'est la demande qui l'autorise à déposer).
+     *
+     * @param string               $path            fichier reçu (déjà vérifié par is_uploaded_file())
+     * @param string               $clientName      nom annoncé par le navigateur
+     * @param array<string, mixed> $extra           champs ajoutés au document (itemtype, items_id)
+     * @param bool                 $checkCreateRight exiger le droit GLPI de créer ce document
+     * @return int document créé, 0 en cas de refus (message en session)
+     */
+    public static function createEvidenceDocument(
+        string $path,
+        string $clientName,
+        array $extra = [],
+        bool $checkCreateRight = true
+    ): int {
         global $CFG_GLPI, $DB;
 
         $refuse = static function (string $message): int {
@@ -390,9 +431,6 @@ class ControlTest extends ControlTestBase
 
             return 0;
         };
-        if ($control->isNewItem() || !$control->canAddItem('Document') || !Document::canCreate()) {
-            return $refuse(__('You are not allowed to add a document to this control.', 'grcmanager'));
-        }
         $name = EvidenceUploadRules::safeName($clientName);
         if ($name === null || !is_file($path)) {
             return $refuse(__('The file name is not valid.', 'grcmanager'));
@@ -437,11 +475,10 @@ class ControlTest extends ControlTestBase
             '_filename'               => [$prefix . $name],
             '_prefix_filename'        => [$prefix],
             '_only_if_upload_succeed' => 1,
-            'itemtype'                => Control::class,
-            'items_id'                => $control->getID(),
-        ];
+        ] + $extra;
         $document = new Document();
-        $documentsId = $document->can(-1, CREATE, $input) ? (int) $document->add($input) : 0;
+        $allowed = !$checkCreateRight || $document->can(-1, CREATE, $input);
+        $documentsId = $allowed ? (int) $document->add($input) : 0;
         if (is_file($temporary)) {
             // Chemin construit ici : GLPI_TMP_DIR, préfixe aléatoire et nom réduit par
             // EvidenceUploadRules::safeName() (sans séparateur de dossier), jamais un chemin envoyé.
@@ -450,7 +487,6 @@ class ControlTest extends ControlTestBase
         if ($documentsId <= 0) {
             return $refuse(__('The file could not be saved.', 'grcmanager'));
         }
-        RestrictedDocument::register($documentsId, $control);
 
         return $documentsId;
     }

@@ -7,6 +7,29 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Added
+
+- **Demandes de preuves d'un audit et accès de l'auditeur en lecture** (issue #538, clause 9.2) :
+  sur un audit, nouvel onglet « Demandes de preuves » qui remplace le suivi par courriel de la liste
+  de pièces remise par l'auditeur. Chaque demande vise une mesure (celles du périmètre de l'audit
+  sont proposées) ou une exigence libre, est confiée à une personne avec une échéance, et suit le
+  cycle « à fournir », « soumise », « à compléter » (avec un motif obligatoire) et « acceptée ».
+  La liste se saisit une à une ou s'importe d'un fichier CSV (colonnes en français ou en anglais,
+  lignes invalides signalées avec leur numéro). Avancement en pourcentage dans l'onglet et dans le
+  rapport d'audit archivé. La personne désignée, même sans aucun droit sur le plugin, fournit les
+  pièces depuis la nouvelle page « Mes demandes de preuves » (lien dans « Mon espace GRC ») : dépôt
+  d'un fichier (types et taille de GLPI, type réel vérifié), qui devient un document de l'audit
+  réservé à son équipe, ou preuve existante de la mesure qu'elle peut lire, puis soumission.
+  Notifications multilingues à la demande, à la soumission et au renvoi « à compléter » ; relance
+  une semaine avant l'échéance puis chaque semaine de retard (tâche « auditevidencereminder ») ou à
+  la demande, sans jamais changer un statut, une échéance ou une attribution. Accès en lecture d'un
+  auditeur interne ou externe à un seul audit, jusqu'à une date de fin (un an au plus), révocable :
+  son « Espace auditeur » (interface standard ou simplifiée, aucun droit sur le plugin requis)
+  montre les mesures, l'avancement, les seules demandes déjà soumises avec leurs seules pièces
+  soumises, et les constats ; jamais les pièces en préparation, les documents de travail ni les
+  notes de l'audit. Chaque téléchargement est historisé dans l'onglet « Accès aux documents » et la
+  dernière visite de l'auditeur est affichée.
+
 ## [2.42.0] - 2026-11-14
 
 ### Added

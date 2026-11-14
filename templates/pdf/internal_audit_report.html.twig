@@ -22,6 +22,34 @@
   </ul>
 {% endif %}
 
+{# Issue #538 : demandes de preuves de l'auditeur et leur état à la date du rapport. #}
+{% if evidence_requests is not empty %}
+  <h2>{{ _n('Evidence request', 'Evidence requests', 2, 'grcmanager') }}</h2>
+  <p>{{ __('%1$d of %2$d request(s) accepted (%3$d %%).', 'grcmanager')|format(evidence_progress.accepted, evidence_progress.total, evidence_progress.percent) }}</p>
+  <table class="grcmanager-pdf-table">
+    <thead>
+      <tr>
+        <th>{{ __('Request', 'grcmanager') }}</th>
+        <th>{{ __('Control', 'grcmanager') }}</th>
+        <th>{{ __('Assignee', 'grcmanager') }}</th>
+        <th>{{ __('Due date', 'grcmanager') }}</th>
+        <th>{{ __('Status', 'grcmanager') }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for r in evidence_requests %}
+        <tr>
+          <td>{{ r.label }}</td>
+          <td>{{ r.control }}</td>
+          <td>{{ r.assignee }}</td>
+          <td>{{ r.due_date }}</td>
+          <td>{{ r.status }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}
+
 <h2>{{ __('Findings', 'grcmanager') }}</h2>
 {% if findings is empty %}
   <p>{{ __('No finding for this audit.', 'grcmanager') }}</p>
