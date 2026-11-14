@@ -12261,3 +12261,210 @@ msgstr "Le registre ne contient aucune violation."
 
 msgid "Breach register entry"
 msgstr "Fiche du registre des violations"
+
+msgid "Theft of a laptop containing customer data"
+msgstr "Vol d'un ordinateur portable contenant des données clients"
+
+msgid "A laptop is stolen while travelling; its disk holds customer files."
+msgstr "Un portable est volé lors d'un déplacement ; son disque contient des fichiers clients."
+
+msgid "Disk encryption deployed on every laptop."
+msgstr "Chiffrement du disque déployé sur tous les portables."
+
+msgid "Prolonged outage of the hosting provider"
+msgstr "Panne prolongée de l'hébergeur"
+
+msgid "Penalties and recovery time written into the contract."
+msgstr "Pénalités et délai de rétablissement inscrits au contrat."
+
+msgid "Targeted phishing of the accounting team"
+msgstr "Hameçonnage ciblé du service comptable"
+
+msgid "Header line without the \"reference\" and \"title\" columns: start from the template."
+msgstr "Ligne d'en-tête sans les colonnes « reference » et « title » : partez du modèle."
+
+msgid "Reference missing: each risk needs its own reference, so that a later import updates it instead of creating a duplicate."
+msgstr "Référence manquante : chaque risque doit avoir sa propre référence, pour qu'un import ultérieur le mette à jour au lieu de créer un doublon."
+
+#, php-format
+msgid "Reference longer than %d characters."
+msgstr "Référence de plus de %d caractères."
+
+#, php-format
+msgid "Reference already used on line %s."
+msgstr "Référence déjà utilisée ligne %s."
+
+#, php-format
+msgid "Owner not found: %s (expected: login, e-mail address or first and last name of a GLPI user)."
+msgstr "Propriétaire introuvable : %s (attendu : identifiant, adresse e-mail ou prénom et nom d'un utilisateur GLPI)."
+
+#, php-format
+msgid "Several users match the owner %s: use their login or e-mail address."
+msgstr "Plusieurs utilisateurs correspondent au propriétaire %s : utilisez son identifiant ou son adresse e-mail."
+
+#, php-format
+msgid "Asset not found in GLPI: %s (expected: name or inventory number of an asset you can see)."
+msgstr "Actif introuvable dans GLPI : %s (attendu : nom ou numéro d'inventaire d'un actif que vous voyez)."
+
+#, php-format
+msgid "Several assets are named %s: use their inventory number."
+msgstr "Plusieurs actifs s'appellent %s : utilisez leur numéro d'inventaire."
+
+#, php-format
+msgid "Invalid review date: %s (expected: 31/12/2026 or 2026-12-31)."
+msgstr "Date de revue invalide : %s (attendu : 31/12/2026 ou 2026-12-31)."
+
+#, php-format
+msgid "More than %s risks: the following lines were not read."
+msgstr "Plus de %s risques : les lignes suivantes n'ont pas été lues."
+
+#, php-format
+msgid "%s risks of the register already carry this reference: correct them in GLPI first."
+msgstr "%s risques du registre portent déjà cette référence : corrigez-les d'abord dans GLPI."
+
+msgid "A risk being mitigated or transferred cannot be closed without a treatment plan: add its actions in GLPI first."
+msgstr "Un risque en cours de réduction ou de transfert ne peut pas être clos sans plan de traitement : ajoutez d'abord ses actions dans GLPI."
+
+msgid "You are not allowed to create risks."
+msgstr "Vous n'avez pas le droit de créer des risques."
+
+msgid "You are not allowed to modify risks."
+msgstr "Vous n'avez pas le droit de modifier des risques."
+
+#, php-format
+msgid "Unknown value for \"%1$s\": %2$s. Expected: %3$s, or a score within the scale chosen below."
+msgstr "Valeur inconnue pour « %1$s » : %2$s. Attendu : %3$s, ou une note dans l'échelle choisie ci-dessous."
+
+#, php-format
+msgid "Unknown value for \"%1$s\": %2$s. Expected: %3$s."
+msgstr "Valeur inconnue pour « %1$s » : %2$s. Attendu : %3$s."
+
+#, php-format
+msgid "%1$s imports the risk register: %2$d risks added, %3$d updated."
+msgstr "%1$s importe le registre des risques : %2$d risques ajoutés, %3$d mis à jour."
+
+#, php-format
+msgid "Import finished: %1$d risks added, %2$d updated, %3$d unchanged."
+msgstr "Import terminé : %1$d risques ajoutés, %2$d mis à jour, %3$d inchangés."
+
+#, php-format
+msgid "Not saved, refused by the register rules (see the messages above): %s"
+msgstr "Non enregistrés, refusés par les règles du registre (voir les messages ci-dessus) : %s"
+
+msgid "Import or export the risk register"
+msgstr "Importer ou exporter le registre des risques"
+
+#, php-format
+msgid "Analysis of the file \"%s\""
+msgstr "Analyse du fichier « %s »"
+
+#, php-format
+msgid "%d risks to add"
+msgstr "%d risques à ajouter"
+
+#, php-format
+msgid "%d risks to update"
+msgstr "%d risques à mettre à jour"
+
+#, php-format
+msgid "%d risks unchanged"
+msgstr "%d risques inchangés"
+
+msgid "Nothing has been saved yet"
+msgstr "Rien n'est encore enregistré"
+
+msgid "An empty cell, or a column missing from the file, keeps the value already saved in GLPI."
+msgstr "Une cellule vide, ou une colonne absente du fichier, garde la valeur déjà enregistrée dans GLPI."
+
+msgid "The risk level is computed by the risk matrix of the plugin, never taken from the file."
+msgstr "Le niveau de risque est calculé par la matrice des risques du plugin, jamais repris du fichier."
+
+#, php-format
+msgid "The file changes the status of %d existing risks: these changes are highlighted below."
+msgstr "Le fichier change le statut de %d risques existants : ces changements sont mis en évidence ci-dessous."
+
+msgid "No status of an existing risk is changed: a status only changes when the file gives one."
+msgstr "Aucun statut de risque existant ne change : un statut ne change que si le fichier en donne un."
+
+#, php-format
+msgid "Columns not found in the file, left as they are: %s"
+msgstr "Colonnes absentes du fichier, laissées telles quelles : %s"
+
+#, php-format
+msgid "Numeric scores read on a scale of 1 to %d."
+msgstr "Notes chiffrées lues sur une échelle de 1 à %d."
+
+msgid "(empty)"
+msgstr "(vide)"
+
+msgid "Export the register"
+msgstr "Exporter le registre"
+
+msgid "Download every risk of the register in the import format: edit it in your spreadsheet, then import it again to update the risks. The risk levels are added at the end of each line for information; they are recomputed at import."
+msgstr "Téléchargez tous les risques du registre au format de l'import : modifiez-le dans votre tableur, puis importez-le à nouveau pour mettre les risques à jour. Les niveaux de risque sont ajoutés en fin de ligne pour information ; ils sont recalculés à l'import."
+
+msgid "Export the register (CSV)"
+msgstr "Exporter le registre (CSV)"
+
+msgid "Back to the risk register"
+msgstr "Retour au registre des risques"
+
+msgid "Import a risk register from a file"
+msgstr "Importer un registre des risques depuis un fichier"
+
+msgid "Your risk register is kept in a spreadsheet? Save it as CSV and import it here instead of entering each risk again. Each risk keeps its reference: importing the file again updates the risks already imported, without creating duplicates."
+msgstr "Votre registre des risques est tenu dans un tableur ? Enregistrez-le en CSV et importez-le ici au lieu de ressaisir chaque risque. Chaque risque garde sa référence : importer à nouveau le fichier met à jour les risques déjà importés, sans créer de doublons."
+
+msgid "unique reference of the risk in your register, required (for example R-001)"
+msgstr "référence unique du risque dans votre registre, obligatoire (par exemple R-001)"
+
+#, php-format
+msgid "%1$s / %2$s, or a score (1 = lowest)"
+msgstr "%1$s / %2$s, ou une note (1 = la plus basse)"
+
+msgid "login, e-mail address or first and last name of a GLPI user; nobody is created"
+msgstr "identifiant, adresse e-mail ou prénom et nom d'un utilisateur GLPI ; personne n'est créé"
+
+msgid "31/12/2026 or 2026-12-31"
+msgstr "31/12/2026 ou 2026-12-31"
+
+msgid "ISO 27001 Annex A controls, separated by a comma or a space (A.5.1, A.8.5)"
+msgstr "mesures de l'Annexe A de l'ISO 27001, séparées par une virgule ou un espace (A.5.1, A.8.5)"
+
+msgid "names or inventory numbers of GLPI assets, separated by a comma"
+msgstr "noms ou numéros d'inventaire d'actifs GLPI, séparés par une virgule"
+
+msgid "free text"
+msgstr "texte libre"
+
+#, php-format
+msgid "Semicolon or comma separator, UTF-8 encoding (a file saved by Excel is also accepted). %d risks at most. French column names and values are accepted too."
+msgstr "Séparateur point-virgule ou virgule, encodage UTF-8 (un fichier enregistré par Excel est aussi accepté). %d risques au plus. Les noms de colonnes et les valeurs en français sont aussi acceptés."
+
+msgid "Scores in the file"
+msgstr "Notes du fichier"
+
+#, php-format
+msgid "From 1 to %d"
+msgstr "De 1 à %d"
+
+msgid "The plugin matrix has 4 levels: a score on another scale is converted (the lowest and highest scores match)."
+msgstr "La matrice du plugin a 4 niveaux : une note sur une autre échelle est convertie (les notes extrêmes se correspondent)."
+
+msgid "External reference"
+msgstr "Référence externe"
+
+msgid "Reference of the risk in your spreadsheet register: a CSV import updates the risk that carries it."
+msgstr "Référence du risque dans votre registre tenu en tableur : un import CSV met à jour le risque qui la porte."
+
+msgid "Import / export CSV"
+msgstr "Import / export CSV"
+
+msgid "Bring an existing risk register kept in a spreadsheet into the plugin, and take it back out in the same format."
+msgstr "Reprendre dans le plugin un registre des risques tenu dans un tableur, et le ressortir au même format."
+
+msgid "Download the template or export the register, fill it in, then analyse the file: nothing is saved before you have read the report and confirmed. Importing the same file again updates the risks without duplicates."
+msgstr "Téléchargez le modèle ou exportez le registre, complétez-le, puis analysez le fichier : rien n'est enregistré avant que vous ayez lu le rapport et confirmé. Importer à nouveau le même fichier met les risques à jour sans doublons."
+
+msgid "ISO 27001, 6.1.2 and 8.2"
+msgstr "ISO 27001, 6.1.2 et 8.2"
