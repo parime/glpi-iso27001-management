@@ -47,10 +47,82 @@
       </div></div></div>
    </div>
 
+   {# Issue #601 : délais de correction par niveau et indicateurs de respect (A.8.8). #}
+   {% if remediation %}
+   <div class="card mb-3" id="grc-remediation">
+      <div class="card-header">
+         <h3 class="card-title"><i class="ti ti-calendar-time me-2"></i>{{ __('Remediation deadlines', 'grcmanager') }}</h3>
+         {% if can_config %}<a class="ms-auto small" href="{{ config_url }}#grc-remediation-settings"><i class="ti ti-settings me-1"></i>{{ __('Change the deadlines', 'grcmanager') }}</a>{% endif %}
+      </div>
+      <div class="card-body">
+         <div class="row row-cards mb-3">
+            <div class="col-sm-6 col-lg-3"><div class="card card-sm"><div class="card-body">
+               <div class="text-muted" title="{{ __('Open vulnerabilities not overdue and vulnerabilities fixed on time, out of all those open or fixed over the period. A vulnerability covered by a waiver in progress counts as within the deadline.', 'grcmanager') }}">{{ __('Within the deadline', 'grcmanager') }} <i class="ti ti-info-circle"></i></div>
+               <div class="h2 mb-0 {{ remediation.compliance is null ? '' : (remediation.compliance >= 90 ? 'text-green' : (remediation.compliance >= 70 ? 'text-orange' : 'text-red')) }}">{{ remediation.compliance is null ? '-' : remediation.compliance ~ ' %' }}</div>
+            </div></div></div>
+            <div class="col-sm-6 col-lg-3"><div class="card card-sm"><div class="card-body">
+               <div class="text-muted">{{ __('Fixed on time (last %d days)', 'grcmanager')|format(remediation.window_days) }}</div>
+               <div class="h2 mb-0">{{ remediation.rate is null ? '-' : remediation.rate ~ ' %' }}</div>
+               <div class="small text-muted">
+                  {% if remediation.previous_rate is not null and remediation.rate is not null %}
+                     {% if remediation.rate > remediation.previous_rate %}<i class="ti ti-trending-up text-green me-1"></i>{% elseif remediation.rate < remediation.previous_rate %}<i class="ti ti-trending-down text-red me-1"></i>{% else %}<i class="ti ti-minus me-1"></i>{% endif %}
+                     {{ __('previous period: %d %%', 'grcmanager')|format(remediation.previous_rate) }}
+                  {% else %}
+                     {{ __('%d fixed', 'grcmanager')|format(remediation.fixed) }}
+                  {% endif %}
+               </div>
+            </div></div></div>
+            <div class="col-sm-6 col-lg-3"><div class="card card-sm"><div class="card-body">
+               <div class="text-muted">{{ __('Overdue vulnerabilities', 'grcmanager') }}</div>
+               <div class="h2 mb-0 {{ remediation.overdue > 0 ? 'text-red' : 'text-green' }}">{{ remediation.overdue }}</div>
+               <div class="small text-muted">
+                  {% if remediation.oldest_overdue is not null %}{{ __('oldest: %1$d days late, average %2$d', 'grcmanager')|format(remediation.oldest_overdue, remediation.average_overdue) }}{% else %}{{ __('%d due soon', 'grcmanager')|format(remediation.due_soon) }}{% endif %}
+               </div>
+            </div></div></div>
+            <div class="col-sm-6 col-lg-3"><div class="card card-sm"><div class="card-body">
+               <div class="text-muted">{{ __('Mean time to remediate', 'grcmanager') }}</div>
+               <div class="h2 mb-0">{{ remediation.mttr is null ? '-' : __('%s days', 'grcmanager')|format(remediation.mttr|number_format(1, ',')) }}</div>
+               <div class="small text-muted">{{ __('%d covered by a waiver', 'grcmanager')|format(remediation.waived) }}</div>
+            </div></div></div>
+         </div>
+         <div class="table-responsive">
+            <table class="table table-sm table-vcenter mb-0">
+               <thead>
+                  <tr>
+                     <th>{{ __('Level', 'grcmanager') }}</th>
+                     <th class="text-end">{{ __('Deadline', 'grcmanager') }}</th>
+                     <th class="text-end">{{ _x('vulnerabilities', 'Open', 'grcmanager') }}</th>
+                     <th class="text-end">{{ __('Overdue', 'grcmanager') }}</th>
+                     <th class="text-end">{{ __('Fixed (last %d days)', 'grcmanager')|format(remediation.window_days) }}</th>
+                     <th class="text-end">{{ __('Fixed on time', 'grcmanager') }}</th>
+                  </tr>
+               </thead>
+               <tbody>
+               {% for level, counts in remediation.by_level %}
+                  <tr>
+                     <td>{{ counts.label }}</td>
+                     <td class="text-end">{{ __('%d days', 'grcmanager')|format(counts.days) }}</td>
+                     <td class="text-end">{{ counts.open }}</td>
+                     <td class="text-end">{% if counts.overdue > 0 %}<span class="badge bg-red text-white">{{ counts.overdue }}</span>{% else %}0{% endif %}</td>
+                     <td class="text-end">{{ counts.fixed }}</td>
+                     <td class="text-end">{{ counts.rate is null ? '-' : counts.rate ~ ' %' }}</td>
+                  </tr>
+               {% endfor %}
+               </tbody>
+            </table>
+         </div>
+         <p class="text-muted small mt-2 mb-0"><i class="ti ti-info-circle me-1"></i>{{ __('The deadline runs from the first detection by the plugin. A vulnerability that is no longer found in the fleet counts as fixed. A waiver in progress replaces the deadline by its end date. Nothing is changed automatically.', 'grcmanager') }}</p>
+      </div>
+   </div>
+   {% elseif can_config %}
+      <p class="text-muted small mb-3"><i class="ti ti-calendar-time me-1"></i>{{ __('No remediation deadline policy: set a deadline per level to track overdue vulnerabilities.', 'grcmanager') }} <a href="{{ config_url }}#grc-remediation-settings">{{ __('Set the deadlines', 'grcmanager') }}</a></p>
+   {% endif %}
+
    <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
       <div class="btn-group" role="group">
-         <a class="btn {{ priority_only ? 'btn-outline-primary' : 'btn-primary' }}" href="{{ action }}">{{ _x('feminine', 'All', 'grcmanager') }}</a>
+         <a class="btn {{ priority_only or overdue_only ? 'btn-outline-primary' : 'btn-primary' }}" href="{{ action }}">{{ _x('feminine', 'All', 'grcmanager') }}</a>
          <a class="btn {{ priority_only ? 'btn-primary' : 'btn-outline-primary' }}" href="{{ action }}?priority=1">{{ __('Priority', 'grcmanager') }}</a>
+         {% if remediation %}<a class="btn {{ overdue_only ? 'btn-primary' : 'btn-outline-primary' }}" href="{{ action }}?overdue=1"><i class="ti ti-alarm me-1"></i>{{ __('Overdue', 'grcmanager') }}</a>{% endif %}
       </div>
       <span class="text-muted small">{{ __('Priority: actively exploited (CISA KEV), CVSS of at least 9 or exploitation probability (EPSS) of at least 50%.', 'grcmanager') }}</span>
    </div>
@@ -84,6 +156,7 @@
                      <th>{{ __('EPSS', 'grcmanager') }}</th>
                      <th>{{ __('Exploited', 'grcmanager') }}</th>
                      <th>{{ __('Published', 'grcmanager') }}</th>
+                     {% if remediation %}<th>{{ __('Remediation deadline', 'grcmanager') }}</th>{% endif %}
                      <th>{{ __('Ticket', 'grcmanager') }}</th>
                   </tr>
                </thead>
@@ -133,6 +206,23 @@
                         {% endif %}
                      </td>
                      <td class="text-nowrap">{{ row.published ? row.published|formatted_date : '' }}</td>
+                     {% if remediation %}
+                     <td class="text-nowrap">
+                        {% set r = row.remediation %}
+                        {% if r %}
+                           <span class="badge {{ r.badge.class }}" title="{{ __('Deadline %1$s (%2$s: %3$d days)', 'grcmanager')|format(r.sla_due|formatted_date, r.level_label, r.deadline) }}"><i class="{{ r.badge.icon }} me-1"></i>{{ r.badge.label }}</span>
+                           {% if r.critical %}<span class="badge bg-purple-lt ms-1" title="{{ __('Installed on an asset with a high C/I/A classification: shorter deadline.', 'grcmanager') }}"><i class="ti ti-shield-lock"></i></span>{% endif %}
+                           <div class="small text-muted">{{ __('Detected on %s', 'grcmanager')|format(r.first_seen|formatted_date) }}</div>
+                           {% if r.waiver and r.waiver.url %}
+                              <div class="small"><a href="{{ r.waiver.url }}"><i class="ti ti-file-alert me-1"></i>{{ r.waiver.name }}</a></div>
+                           {% elseif r.status == 'overdue' and waiver_new_url %}
+                              <div class="small"><a href="{{ waiver_new_url }}?cve_ids={{ row.cve_id|url_encode }}" title="{{ __('If the vulnerability cannot be fixed in time, document the exception and its compensating controls.', 'grcmanager') }}"><i class="ti ti-file-plus me-1"></i>{{ __('Request a waiver', 'grcmanager') }}</a></div>
+                           {% endif %}
+                        {% else %}
+                           <span class="text-muted small">{{ __('Tracked from the next check', 'grcmanager') }}</span>
+                        {% endif %}
+                     </td>
+                     {% endif %}
                      <td class="text-nowrap">
                         {% if row.tickets_id %}
                            <a href="{{ config('root_doc') }}/front/ticket.form.php?id={{ row.tickets_id }}">#{{ row.tickets_id }}</a>

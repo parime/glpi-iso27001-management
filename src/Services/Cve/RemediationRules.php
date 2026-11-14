@@ -345,6 +345,7 @@ final class RemediationRules
             'mttr'            => $fixDays === [] ? null : round(array_sum($fixDays) / count($fixDays), 1),
             'oldest_overdue'  => $overdueDays === [] ? null : max($overdueDays),
             'average_overdue' => $overdueDays === [] ? null : (int) round(array_sum($overdueDays) / count($overdueDays)),
+            'window_days'     => self::WINDOW_DAYS,
             'by_level'        => $byLevel,
             'trend'           => $trendRows,
         ];

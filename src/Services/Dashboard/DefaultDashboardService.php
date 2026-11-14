@@ -345,6 +345,13 @@ final class DefaultDashboardService
             // Rangée 10 (y=40) : continuité des processus métier (issue #377).
             $bigNumber('grcmanager_business_processes_bia_due', 0, 40, '#f8911f', 6),
             $bigNumber('grcmanager_business_processes_recovery_above_rto', 6, 40, '#cc2936', 6),
+            // Issue #601 : délais de correction des vulnérabilités du parc (x=12..24 de la rangée 10,
+            // puis rangée 11 à y=42).
+            $bigNumber('grcmanager_vulnerability_remediation_compliance', 12, 40, '#27ab3c'),
+            $bigNumber('grcmanager_vulnerability_remediation_overdue', 16, 40, '#cc2936'),
+            $bigNumber('grcmanager_vulnerability_remediation_mean_time', 20, 40, '#0e87a0'),
+            self::chart('grcmanager_vulnerability_remediation_trend', 'stackedbars', 0, 42, 12, 6),
+            self::chart('grcmanager_vulnerability_remediation_overdue_by_level', 'hbar', 12, 42, 12, 6),
         ];
     }
 }

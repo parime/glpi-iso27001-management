@@ -51,6 +51,7 @@ if (isset($_POST['add'])) {
         'id'        => (int) ($_GET['id'] ?? 0),
         'link_itemtype' => (string) ($_GET['link_itemtype'] ?? ''),
         'link_items_id' => (int) ($_GET['link_items_id'] ?? 0),
+        'cve_ids'       => (string) ($_GET['cve_ids'] ?? ''),
     ]);
 
     Html::footer();

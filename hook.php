@@ -202,6 +202,37 @@ function plugin_grcmanager_dashboard_cards(?array $cards = null): array
             'group' => $group,
             'provider' => SecuredDashboardCards::class . '::monthlyTrend',
         ],
+        // Issue #601 : délais de correction des vulnérabilités du parc.
+        'grcmanager_vulnerability_remediation_compliance' => [
+            'widgettype' => ['bigNumber'],
+            'label' => __('Vulnerabilities within the remediation deadline (%)', 'grcmanager'),
+            'group' => $group,
+            'provider' => SecuredDashboardCards::class . '::vulnerabilityRemediationCompliance',
+        ],
+        'grcmanager_vulnerability_remediation_overdue' => [
+            'widgettype' => ['bigNumber'],
+            'label' => __('Vulnerabilities past their remediation deadline', 'grcmanager'),
+            'group' => $group,
+            'provider' => SecuredDashboardCards::class . '::vulnerabilityRemediationOverdue',
+        ],
+        'grcmanager_vulnerability_remediation_mean_time' => [
+            'widgettype' => ['bigNumber'],
+            'label' => __('Mean time to remediate a vulnerability (days)', 'grcmanager'),
+            'group' => $group,
+            'provider' => SecuredDashboardCards::class . '::vulnerabilityRemediationMeanTime',
+        ],
+        'grcmanager_vulnerability_remediation_overdue_by_level' => [
+            'widgettype' => ['multipleNumber', 'pie', 'donut', 'bar', 'hbar'],
+            'label' => __('Overdue vulnerabilities by level', 'grcmanager'),
+            'group' => $group,
+            'provider' => SecuredDashboardCards::class . '::vulnerabilityRemediationOverdueByLevel',
+        ],
+        'grcmanager_vulnerability_remediation_trend' => [
+            'widgettype' => ['bars', 'stackedbars', 'lines', 'areas'],
+            'label' => __('Vulnerabilities fixed on time and late, by month', 'grcmanager'),
+            'group' => $group,
+            'provider' => SecuredDashboardCards::class . '::vulnerabilityRemediationTrend',
+        ],
         'grcmanager_access_review_late_reviewers' => [
             'widgettype' => ['bigNumber'],
             'label' => __('Late reviewers (access)', 'grcmanager'),

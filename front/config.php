@@ -215,6 +215,8 @@ if (isset($_POST['update_nvd_config'])) {
     ]);
     // Issue #160, phase 2 : seuils des tickets automatiques des vulnérabilités du parc.
     \GlpiPlugin\Grcmanager\ParkVulnerability::saveTicketThresholds($_POST);
+    // Issue #601 : délais de correction des vulnérabilités du parc.
+    \GlpiPlugin\Grcmanager\ParkRemediation::saveSettings($_POST);
     // Issue #485 : rapport des vulnérabilités du parc par e-mail.
     \GlpiPlugin\Grcmanager\VulnerabilityDigest::saveSettings($_POST);
 
@@ -273,6 +275,8 @@ Html::header(
     'nvd_config'                => NvdConfig::load(),
     'park_thresholds'           => \GlpiPlugin\Grcmanager\ParkVulnerability::getTicketThresholds(),
     'digest'                    => \GlpiPlugin\Grcmanager\VulnerabilityDigest::configData(),
+    'remediation_settings'      => \GlpiPlugin\Grcmanager\ParkRemediation::getSettings(),
+    'remediation_levels'        => \GlpiPlugin\Grcmanager\ParkRemediation::getLevelLabels(),
     'max_tickets'               => \GlpiPlugin\Grcmanager\ParkVulnerability::MAX_TICKETS_PER_RUN,
     'ciso_groups_id'            => \GlpiPlugin\Grcmanager\AuditTeam::getCisoGroupId(),
     'controltest_ciso_mode'     => \GlpiPlugin\Grcmanager\ControlTestReminder::cisoMode(),
