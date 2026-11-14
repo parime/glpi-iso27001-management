@@ -310,7 +310,8 @@ final class ParkRemediationTest extends GrcmanagerIntegrationTestCase
         $report = VulnerabilityDigest::build();
         $this->assertNotSame('', $report['remediation']);
         $this->assertSame(ParkRemediation::digestSummary(), $report['remediation']);
-        $this->assertGreaterThanOrEqual(3, ParkRemediation::indicators(false)['overdue'] ?? 0, 'KEV, critique, élevée.');
+        $overdue = ParkRemediation::indicators(false)['overdue'] ?? 0;
+        $this->assertGreaterThanOrEqual(3, $overdue, 'KEV, critique, élevée.');
 
         $digest = new VulnerabilityDigest();
         $digest->getFromDB((int) $digest->add([
