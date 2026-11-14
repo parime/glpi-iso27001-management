@@ -45,7 +45,8 @@ if (isset($_GET['export'])) {
         header('Content-Disposition: attachment; filename="dora-register-' . $date . '.zip"');
         header('Content-Length: ' . (string) filesize($path));
         readfile($path);
-        unlink($path);
+        // Archive temporaire créée par buildZip() (tempnam dans GLPI_TMP_DIR), jamais un chemin reçu.
+        unlink($path); // nosemgrep: php.lang.security.unlink-use.unlink-use
         exit;
     }
     if (!isset(RegisterTemplates::TEMPLATES[$export])) {
