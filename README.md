@@ -121,6 +121,10 @@ archivé), avec ses champs de classification ISO 27001 fusionnés dessus.
 - **Vulnérabilités du parc** : CVE des logiciels installés (NVD), exploitation réelle (CISA KEV,
   FIRST EPSS), avis du CERT-FR, un ticket de mise à jour par logiciel (création automatique
   désactivée par défaut), onglet « Vulnérabilités » sur les ordinateurs.
+- **Délais de correction** par niveau (exploitée, critique, élevée, moyenne, faible ; désactivés par
+  défaut, raccourcis pour les actifs classés élevés en C/I/D) : échéance et retard de chaque
+  vulnérabilité, dérogations prises en compte, taux de correction dans les délais, délai moyen de
+  correction, sur la page, le tableau de bord et le rapport par e-mail.
 - Suivi EPSS/KEV des CVE des incidents, et **plan d'action (CAPA) proposé** à partir d'une CVE.
 - **Impact d'une panne** (analyse d'impact de GLPI), points de défaillance uniques, objectifs de
   reprise **RTO/RPO** et export pour le plan de continuité.

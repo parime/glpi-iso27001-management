@@ -9,6 +9,27 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Délais de correction des vulnérabilités du parc** (issue #601, ISO 27001 A.8.8, NIS2) : politique
+  désactivée par défaut, réglée dans la configuration (section NVD) avec un délai par niveau, proposé
+  et modifiable : exploitée activement (CISA KEV) 7 jours, critique 15, élevée 30, moyenne 90 (ou
+  score inconnu), faible 180 ; délai réduit (50 % par défaut) quand une machine touchée porte une
+  classification C/I/D élevée. Date de première détection conservée pour chaque couple CVE et logiciel,
+  même quand NVD est interrogé de nouveau ; une CVE dont le niveau s'aggrave (entrée au catalogue KEV)
+  suit le délai du nouveau niveau à partir de ce jour, sans jamais reculer l'échéance connue ; une
+  vulnérabilité qui disparaît du parc est corrigée ce jour-là, et si elle réapparaît dans les 30 jours
+  la correction est annulée (disparition passagère), au-delà le délai repart (nouvelle exposition, la
+  première détection reste). États « dans les délais », « échéance proche », « en retard »,
+  « corrigée ». Une dérogation validée peut couvrir des CVE (nouveau champ du formulaire, et lien
+  « Demander une dérogation » sur une vulnérabilité en retard) : tant qu'elle court, l'échéance devient
+  sa date de fin ; échue, la vulnérabilité redevient en retard. Indicateurs sur la page des
+  vulnérabilités du parc (part dans les délais, part corrigée dans les délais sur 90 jours et tendance
+  par rapport aux 90 jours précédents, retards et leur ancienneté, délai moyen de correction, tableau
+  par niveau, filtre « En retard »), cinq cartes de tableau de bord (dont la tendance mensuelle,
+  ajoutées au tableau de bord « Vue d'ensemble du SMSI ») sous les droits de la page, section du
+  rapport par e-mail (balise `##vulndigest.remediation##` ajoutée aux modèles existants) et échéance de
+  chaque ligne, échéance dans le ticket de mise à jour. Rien n'est modifié automatiquement : ni la
+  priorité ni le statut des tickets, ni les dérogations.
+
 - **Registre des violations de données personnelles** (issue #620, RGPD article 33.5) : page
   « Registre des violations » (rubrique Conformité) réservée au droit « Protection des données
   personnelles ». Chaque violation est documentée, notifiée ou non : prise de connaissance et début,
