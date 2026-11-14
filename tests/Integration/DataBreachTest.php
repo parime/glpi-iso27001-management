@@ -119,7 +119,8 @@ final class DataBreachTest extends GrcmanagerIntegrationTestCase
         ]);
         $id = (int) $breach->getID();
         $this->assertSame(DataBreachRules::STATE_NOT_NOTIFIED, DataBreach::stateOf($breach->fields)['state']);
-        $this->assertFalse($breach->update(['id' => $id, 'authority_reason' => ' ']), 'Justification effacée : refusée.');
+        $erased = $breach->update(['id' => $id, 'authority_reason' => ' ']);
+        $this->assertFalse($erased, 'Justification effacée : refusée.');
 
         $late = (int) strtotime('2026-04-01 00:00:00');
         $fields = DataBreach::withAuthorityDecision($incident->fields);
@@ -157,7 +158,10 @@ final class DataBreachTest extends GrcmanagerIntegrationTestCase
         $this->assertSame('["confidentiality"]', $breach->fields['nature'], 'Valeur inconnue écartée.');
         $this->assertSame([$activityId], DataBreach::getActivityIds($id), 'Fiche inexistante non liée.');
 
-        $rows = array_values(array_filter(DataBreach::registerRows(), static fn (array $r): bool => $r['id'] === (string) $id));
+        $rows = array_values(array_filter(
+            DataBreach::registerRows(),
+            static fn (array $r): bool => $r['id'] === (string) $id
+        ));
         $this->assertCount(1, $rows);
         $this->assertSame(array_keys(DataBreach::registerColumns()), array_keys($rows[0]));
         $this->assertSame('PHPUnit dossiers RH', $rows[0]['activities']);

@@ -128,7 +128,9 @@ final class RegulatoryDeadlinesTest extends TestCase
 
         self::assertSame(RegulatoryDeadlines::STATUS_NOT_REQUIRED, $rows['gdpr_notification']['status']);
         self::assertSame(RegulatoryDeadlines::STATUS_OVERDUE, $rows['nis2_notification']['status']);
-        self::assertNotContains('gdpr_notification', array_column(RegulatoryDeadlines::banners($incident, $late), 'key'));
-        self::assertNotContains('gdpr_notification', array_column(RegulatoryDeadlines::toAlert($incident, [], $late), 'key'));
+        $banners = array_column(RegulatoryDeadlines::banners($incident, $late), 'key');
+        self::assertNotContains('gdpr_notification', $banners);
+        $alerts = array_column(RegulatoryDeadlines::toAlert($incident, [], $late), 'key');
+        self::assertNotContains('gdpr_notification', $alerts);
     }
 }
