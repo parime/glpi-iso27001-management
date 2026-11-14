@@ -115,4 +115,20 @@ final class RegulatoryDeadlinesTest extends TestCase
         $keys = array_map(static fn (array $r): string => $r['key'] . ':' . $r['status'], $later);
         self::assertSame(['nis2_early_warning:overdue'], $keys);
     }
+
+    /**
+     * Issue #620 : la décision motivée de ne pas notifier, inscrite au registre des violations, retire
+     * l'échéance RGPD des bandeaux et des alertes, sans toucher aux échéances NIS2.
+     */
+    public function testRecordedDecisionNotToNotifyStopsTheGdprReminder(): void
+    {
+        $late = (int) strtotime('2026-11-30 00:00:00');
+        $incident = self::incident(['personal_data_breach' => 1, RegulatoryDeadlines::GDPR_NOT_NOTIFIED_FLAG => true]);
+        $rows = self::byKey(RegulatoryDeadlines::compute($incident, $late));
+
+        self::assertSame(RegulatoryDeadlines::STATUS_NOT_REQUIRED, $rows['gdpr_notification']['status']);
+        self::assertSame(RegulatoryDeadlines::STATUS_OVERDUE, $rows['nis2_notification']['status']);
+        self::assertNotContains('gdpr_notification', array_column(RegulatoryDeadlines::banners($incident, $late), 'key'));
+        self::assertNotContains('gdpr_notification', array_column(RegulatoryDeadlines::toAlert($incident, [], $late), 'key'));
+    }
 }

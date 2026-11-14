@@ -11961,3 +11961,303 @@ msgstr "Nothing is missing here for the register."
 
 msgid "Missing field"
 msgstr "Missing field"
+
+msgid "Recorded data breach"
+msgid_plural "Recorded data breaches"
+msgstr[0] "Recorded data breach"
+msgstr[1] "Recorded data breaches"
+
+#, php-format
+msgid "%d hour left"
+msgid_plural "%d hours left"
+msgstr[0] "%d hour left"
+msgstr[1] "%d hours left"
+
+#, php-format
+msgid "%d hour late"
+msgid_plural "%d hours late"
+msgstr[0] "%d hour late"
+msgstr[1] "%d hours late"
+
+msgid "Breach register"
+msgstr "Breach register"
+
+msgid "Confidentiality (disclosure or unauthorised access)"
+msgstr "Confidentiality (disclosure or unauthorised access)"
+
+msgid "Integrity (unauthorised alteration)"
+msgstr "Integrity (unauthorised alteration)"
+
+msgid "Availability (loss or destruction)"
+msgstr "Availability (loss or destruction)"
+
+msgid "Unlikely to result in a risk"
+msgstr "Unlikely to result in a risk"
+
+msgid "Risk for the people concerned"
+msgstr "Risk for the people concerned"
+
+msgid "High risk for the people concerned"
+msgstr "High risk for the people concerned"
+
+msgid "Decision pending"
+msgstr "Decision pending"
+
+msgid "Notified to the supervisory authority"
+msgstr "Notified to the supervisory authority"
+
+msgid "People informed"
+msgstr "People informed"
+
+msgid "People not informed"
+msgstr "People not informed"
+
+msgid "72 h deadline passed"
+msgstr "72 h deadline passed"
+
+msgid "Notified on time"
+msgstr "Notified on time"
+
+msgid "Notified late"
+msgstr "Notified late"
+
+msgid "Not notified (decision recorded)"
+msgstr "Not notified (decision recorded)"
+
+msgid "The nature of the breach is not set."
+msgstr "The nature of the breach is not set."
+
+msgid "Give at least an approximate number of people or records concerned."
+msgstr "Give at least an approximate number of people or records concerned."
+
+msgid "The risk for the people concerned is not assessed yet."
+msgstr "The risk for the people concerned is not assessed yet."
+
+msgid "Not notified although a risk was found: only a breach unlikely to result in a risk may stay unnotified (article 33.1)."
+msgstr "Not notified although a risk was found: only a breach unlikely to result in a risk may stay unnotified (article 33.1)."
+
+msgid "High risk: decide whether the people concerned must be informed (article 34)."
+msgstr "High risk: decide whether the people concerned must be informed (article 34)."
+
+msgid "No measure taken or planned is described."
+msgstr "No measure taken or planned is described."
+
+msgid "This incident is already recorded in the breach register (look in the trash bin too)."
+msgstr "This incident is already recorded in the breach register (look in the trash bin too)."
+
+msgid "The date and time the breach became known are required: the 72 h deadline runs from them."
+msgstr "The date and time the breach became known are required: the 72 h deadline runs from them."
+
+msgid "A breach that is not notified needs the reason for the decision (GDPR, article 33.5)."
+msgstr "A breach that is not notified needs the reason for the decision (GDPR, article 33.5)."
+
+msgid "Enter the date and time of the notification."
+msgstr "Enter the date and time of the notification."
+
+msgid "The notification cannot be dated before the breach became known."
+msgstr "The notification cannot be dated before the breach became known."
+
+msgid "Notified more than 72 h after the breach became known: give the reasons for the delay (article 33.1)."
+msgstr "Notified more than 72 h after the breach became known: give the reasons for the delay (article 33.1)."
+
+msgid "Give the reason why the people concerned are not informed (article 34)."
+msgstr "Give the reason why the people concerned are not informed (article 34)."
+
+#, php-format
+msgid "Breach known on %s"
+msgstr "Breach known on %s"
+
+msgid "Became known on"
+msgstr "Became known on"
+
+msgid "Notification to the authority"
+msgstr "Notification to the authority"
+
+msgid "Information of the people concerned"
+msgstr "Information of the people concerned"
+
+msgid "People concerned (approx.)"
+msgstr "People concerned (approx.)"
+
+msgid "Nature of the breach"
+msgstr "Nature of the breach"
+
+msgid "Records concerned (approx.)"
+msgstr "Records concerned (approx.)"
+
+msgid "Breach started on"
+msgstr "Breach started on"
+
+msgid "Facts and circumstances"
+msgstr "Facts and circumstances"
+
+msgid "Processing activities concerned"
+msgstr "Processing activities concerned"
+
+msgid "Categories of people concerned"
+msgstr "Categories of people concerned"
+
+msgid "Likely consequences"
+msgstr "Likely consequences"
+
+msgid "Measures taken"
+msgstr "Measures taken"
+
+msgid "Measures planned"
+msgstr "Measures planned"
+
+msgid "72 h deadline"
+msgstr "72 h deadline"
+
+msgid "Situation"
+msgstr "Situation"
+
+msgid "Reason for not notifying"
+msgstr "Reason for not notifying"
+
+msgid "Reasons for the delay"
+msgstr "Reasons for the delay"
+
+msgid "Reason for not informing them"
+msgstr "Reason for not informing them"
+
+msgid "Register of personal data breaches"
+msgstr "Register of personal data breaches"
+
+msgid "The register of personal data breaches: every breach is documented, whether or not it was notified, with its facts, effects and the measures taken."
+msgstr "The register of personal data breaches: every breach is documented, whether or not it was notified, with its facts, effects and the measures taken."
+
+msgid "Record each breach as soon as it is known (from the security incident when there is one), decide within 72 h whether to notify the supervisory authority and write down why, decide whether to inform the people concerned, then export the register when the authority asks for it."
+msgstr "Record each breach as soon as it is known (from the security incident when there is one), decide within 72 h whether to notify the supervisory authority and write down why, decide whether to inform the people concerned, then export the register when the authority asks for it."
+
+msgid "GDPR, articles 33 and 34"
+msgstr "GDPR, articles 33 and 34"
+
+msgid "Proposal prepared from the security incident: check and complete it, then click Add. Nothing is recorded until you do, and the incident is not changed."
+msgstr "Proposal prepared from the security incident: check and complete it, then click Add. Nothing is recorded until you do, and the incident is not changed."
+
+msgid "its Regulatory notifications section shows the deadlines"
+msgstr "its Regulatory notifications section shows the deadlines"
+
+msgid "linked, but you cannot open it"
+msgstr "linked, but you cannot open it"
+
+msgid "The breach"
+msgstr "The breach"
+
+msgid "A short description, without the names of the people concerned."
+msgstr "A short description, without the names of the people concerned."
+
+#, php-format
+msgid "When the organisation became reasonably certain that personal data were affected: the %d h deadline to notify runs from then (article 33.1)."
+msgstr "When the organisation became reasonably certain that personal data were affected: the %d h deadline to notify runs from then (article 33.1)."
+
+msgid "Optional, if known."
+msgstr "Optional, if known."
+
+#, php-format
+msgid "Taken from the record of processing activities. %d other linked activity is not shown to you."
+msgstr "Taken from the record of processing activities. %d other linked activity is not shown to you."
+
+msgid "Taken from the record of processing activities."
+msgstr "Taken from the record of processing activities."
+
+msgid "What happened, how it was discovered, how long it lasted."
+msgstr "What happened, how it was discovered, how long it lasted."
+
+msgid "People and data concerned"
+msgstr "People and data concerned"
+
+msgid "An approximate number is enough; leave empty if unknown."
+msgstr "An approximate number is enough; leave empty if unknown."
+
+msgid "The kind of data, never the data themselves (e.g. \"name, salary, bank details\")."
+msgstr "The kind of data, never the data themselves (e.g. \"name, salary, bank details\")."
+
+msgid "Effects and measures"
+msgstr "Effects and measures"
+
+msgid "For the people concerned: loss of control of their data, fraud, discrimination, damage to reputation..."
+msgstr "For the people concerned: loss of control of their data, fraud, discrimination, damage to reputation..."
+
+msgid "Unlikely: notification not required. Risk: notify the authority. High risk: inform the people concerned too."
+msgstr "Unlikely: notification not required. Risk: notify the authority. High risk: inform the people concerned too."
+
+msgid "Notification to the supervisory authority (article 33)"
+msgstr "Notification to the supervisory authority (article 33)"
+
+msgid "Every breach stays in the register, notified or not. Not notifying is possible only if the breach is unlikely to result in a risk, and the reason must be written down."
+msgstr "Every breach stays in the register, notified or not. Not notifying is possible only if the breach is unlikely to result in a risk, and the reason must be written down."
+
+msgid "Required when the breach is not notified."
+msgstr "Required when the breach is not notified."
+
+msgid "Supervisory authority"
+msgstr "Supervisory authority"
+
+msgid "For example the CNIL in France."
+msgstr "For example the CNIL in France."
+
+msgid "Reference of the notification"
+msgstr "Reference of the notification"
+
+msgid "Required when the notification is made more than 72 h after the breach became known."
+msgstr "Required when the notification is made more than 72 h after the breach became known."
+
+msgid "Information of the people concerned (article 34)"
+msgstr "Information of the people concerned (article 34)"
+
+msgid "Required when the risk is high, unless an exception applies (data made unintelligible, risk removed since, disproportionate effort: then a public communication)."
+msgstr "Required when the risk is high, unless an exception applies (data made unintelligible, risk removed since, disproportionate effort: then a public communication)."
+
+msgid "Required when the people are not informed."
+msgstr "Required when the people are not informed."
+
+msgid "Informed on"
+msgstr "Informed on"
+
+msgid "Means of information"
+msgstr "Means of information"
+
+msgid "E-mail, letter, notice on the website..."
+msgstr "E-mail, letter, notice on the website..."
+
+msgid "Data protection officer"
+msgstr "Data protection officer"
+
+msgid "Attach the evidence (acknowledgement of the authority, message sent to the people...) in the Documents tab: only the readers of this register can open it."
+msgstr "Attach the evidence (acknowledgement of the authority, message sent to the people...) in the Documents tab: only the readers of this register can open it."
+
+msgid "In the trash bin"
+msgstr "In the trash bin"
+
+msgid "Open the register entry"
+msgstr "Open the register entry"
+
+msgid "This breach is recorded in the register of another entity, which you cannot open."
+msgstr "This breach is recorded in the register of another entity, which you cannot open."
+
+msgid "Not recorded in the breach register yet"
+msgstr "Not recorded in the breach register yet"
+
+msgid "The GDPR (article 33.5) requires every personal data breach to be documented, even when it is not notified: facts, effects, measures and the reasoned decision to notify or not."
+msgstr "The GDPR (article 33.5) requires every personal data breach to be documented, even when it is not notified: facts, effects, measures and the reasoned decision to notify or not."
+
+msgid "Record this breach in the register"
+msgstr "Record this breach in the register"
+
+msgid "The form is prefilled from the incident; you check it before saving."
+msgstr "The form is prefilled from the incident; you check it before saving."
+
+msgid "Breaches in the register"
+msgstr "Breaches in the register"
+
+#, php-format
+msgid "No. %s"
+msgstr "No. %s"
+
+msgid "The register contains no breach."
+msgstr "The register contains no breach."
+
+msgid "Breach register entry"
+msgstr "Breach register entry"

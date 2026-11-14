@@ -70,7 +70,7 @@ class DataBreach extends DataBreachBase
 
     public static function getTypeName($nb = 0)
     {
-        return _n('Personal data breach', 'Personal data breaches', $nb, 'grcmanager');
+        return _n('Recorded data breach', 'Recorded data breaches', $nb, 'grcmanager');
     }
 
     public static function getIcon()
@@ -736,7 +736,7 @@ class DataBreach extends DataBreachBase
 
     public function getTabNameForItem(CommonGLPI $item, $withtemplate = 0)
     {
-        if (!self::isTabShownFor($item)) {
+        if (!$item instanceof PluginGrcmanagerSecurityIncident || !self::isTabShownFor($item)) {
             return '';
         }
 

@@ -182,6 +182,13 @@ classification fields merged directly onto it.
   applications, assets and suppliers and to SoA controls, with its gaps, a yearly review and a PDF or CSV
   export for the supervisory authority. Dedicated right "Personal data protection" (plus read on the general
   right to see the menu entry). DPIA and data subject requests to come.
+- **Register of personal data breaches (GDPR, article 33.5)**: every breach is documented, notified or
+  not (facts, nature, people and data concerned, processing activities, consequences, measures), with the
+  72 h deadline, the reasoned decision to notify the supervisory authority or not (reasons for any delay
+  beyond 72 h), the decision to inform the people concerned (article 34) and the DPO opinion. Created from
+  the security incident flagged as a breach (prefilled proposal, the incident is never changed), linked from
+  the remediation plan step, PDF or CSV export for the authority. Same "Personal data protection" right as
+  the record of processing.
 - **Automated technical checks**: ISO 27001, NIS2 and GDPR score from GLPI data (antivirus,
   encryption, inventory, change validation, accounts) and one remediation ticket per check.
 - Every menu screen explains what it is for and what is expected. Screens that belong to the same

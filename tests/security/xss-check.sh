@@ -68,6 +68,10 @@ check "onglet references CPE d'un produit"    "$(tab GlpiPlugin%5CGrcmanager%5CC
 check "onglet alias d'un produit"             "$(tab GlpiPlugin%5CGrcmanager%5CCanonicalProduct 'GlpiPlugin%5CGrcmanager%5CProductAlias$1' "$(xid product)")"
 check "onglet registre des traitements d'un ordinateur" "$(tab Computer 'GlpiPlugin%5CGrcmanager%5CProcessingActivity$1' "$(id computer_A)")"
 check "fiche d'un traitement (onglet principal)" "$(tab GlpiPlugin%5CGrcmanager%5CProcessingActivity 'GlpiPlugin%5CGrcmanager%5CProcessingActivity$main' "$(xid processing)")"
+# Issue #620 : violation piegee (fiche, liste, onglet de l'incident, export CSV).
+check "front/databreach.form.php"             "$P/databreach.form.php?id=$(xid breach)"
+check "front/databreach.php"                  "$P/databreach.php"
+check "onglet violation de donnees d'un incident" "$(tab PluginGrcmanagerSecurityIncident 'GlpiPlugin%5CGrcmanager%5CDataBreach$1' "$(id incident_A)")"
 check "front/businessprocess.form.php"         "$P/businessprocess.form.php?id=$(xid process)"
 check "front/businessprocess.php"              "$P/businessprocess.php"
 check "onglet BIA d'un processus"              "$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessImpact$1' "$(xid process)")"

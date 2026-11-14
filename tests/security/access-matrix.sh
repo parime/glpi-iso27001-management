@@ -70,6 +70,7 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/dashboard.php front/networkflow.report.php front/breachexposure.php front/networkflow.matrix.php
   front/processingactivity.php front/datasubjectrequest.php front/processingactivity.export.php?format=pdf
   front/processingactivity.export.php?format=csv
+  front/databreach.php front/databreach.form.php front/databreach.export.php?format=pdf front/databreach.export.php?format=csv
   front/riskappetite.php front/riskindicator.php
   front/businessprocess.php front/businessprocess.php?export=csv front/businessprocess.report.php
   front/customframework.php front/customframework.php?template=1
@@ -90,7 +91,7 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
     front/securityincidentteam.form.php \
     front/cpereference.form.php front/productalias.form.php \
     front/waiver.form.php front/coveragerule.form.php front/controltest.form.php \
-    front/processingactivity.form.php front/datasubjectrequest.form.php \
+    front/processingactivity.form.php front/datasubjectrequest.form.php front/databreach.form.php \
     front/businessprocess.form.php front/riskindicator.form.php; do
     expect "$form : creation" "$1" "$(code -d "add=1&name=securite&title=securite&_glpi_csrf_token=$(csrf)" "$BASE/plugins/grcmanager/$form")"
   done
@@ -339,7 +340,9 @@ if [ "$ROLE" = general ]; then
   # du SMSI : liste, fiche, exports, modification et onglet des actifs lui sont refuses.
   for p in front/processingactivity.php front/datasubjectrequest.php "front/datasubjectrequest.form.php?id=$(id dsr_A)" \
            "front/processingactivity.export.php?format=pdf" \
-           "front/processingactivity.export.php?format=csv" "front/processingactivity.form.php?id=$(id processing_A)"; do
+           "front/processingactivity.export.php?format=csv" "front/processingactivity.form.php?id=$(id processing_A)" \
+           front/databreach.php "front/databreach.form.php?id=$(id breach_A)" "front/databreach.export.php?format=csv" \
+           "front/databreach.export.php?format=pdf"; do
     expect "$p : sans le droit du registre des traitements" 403 "$(code "$BASE/plugins/grcmanager/$p")"
   done
   expect "front/dpia.report.php : sans le droit du registre des traitements" 403 \
@@ -492,6 +495,13 @@ expect "ticket d'une demande RGPD de B" "$([ "$ROLE" = admin ] && echo 302 || ec
   "$(code -d "create_ticket=1&id=$(id dsr_B)&_glpi_csrf_token=$(csrf)" "$P/datasubjectrequest.form.php")"
 expect "enregistrer l'AIPD d'un traitement de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
   "$(code -d "save=1&plugin_grcmanager_processingactivities_id=$(id processing_B)&_glpi_csrf_token=$(csrf)" "$P/dpia.form.php")"
+# Issue #620 : registre des violations, rattache a l'entite de la fiche (lecture, modification, export).
+expect "violation de donnees, entite A" 200   "$(code "$P/databreach.form.php?id=$(id breach_A)")"
+expect "violation de donnees, entite B" $DENY "$(code "$P/databreach.form.php?id=$(id breach_B)")"
+expect "modifier une violation de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
+  "$(code -d "update=1&id=$(id breach_B)&comment=securite&_glpi_csrf_token=$(csrf)" "$P/databreach.form.php")"
+contains "export du registre des violations : violation de B" "Violation securite B" $SEE_B \
+  "$(curl -s -c "$JAR" -b "$JAR" "$P/databreach.export.php?format=csv")"
 expect "modifier un traitement de B"   "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
   "$(code -d "update=1&id=$(id processing_B)&comment=securite&_glpi_csrf_token=$(csrf)" "$P/processingactivity.form.php")"
 processing_page=$(tab GlpiPlugin%5CGrcmanager%5CProcessingActivity 'GlpiPlugin%5CGrcmanager%5CProcessingActivity$main' "$(id processing_A)")
