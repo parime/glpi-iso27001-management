@@ -32,6 +32,11 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   par l'outil de déclaration (voir le README). Aucun contrat, fournisseur ou processus n'est modifié ;
   modifications historisées sur la fiche concernée. Traductions (fr, de, es, it, pl, pt_BR).
 
+### Changed
+
+- Fichiers de citation et d'attribution : `CITATION.cff`, `NOTICE`, `AGENTS.md` (consignes de licence
+  pour les assistants de code) et section « Réutilisation et citation » des README.
+
 ## [2.43.0] - 2026-11-14
 
 ### Added

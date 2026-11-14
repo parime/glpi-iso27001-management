@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: >-
+  If you reuse this project (code, data structures, templates or ideas), please cite it
+  and keep its copyright notices. Si vous réutilisez ce projet (code, structures de données,
+  gabarits ou idées), merci de le citer et de conserver ses mentions de copyright.
+title: "GRC Manager for GLPI"
+type: software
+authors:
+  - family-names: GUILLOTTE
+    given-names: Vincent
+repository-code: "https://github.com/parime/glpi-iso27001-management"
+url: "https://github.com/parime/glpi-iso27001-management"
+license: GPL-3.0-or-later
+abstract: >-
+  GLPI plugin to run an ISO/IEC 27001 information security management system: risks, Statement of Applicability, controls and evidence, audits, policies, incidents, vulnerabilities, suppliers, GDPR and compliance frameworks (NIS2, DORA, AI Act, HDS, PCI DSS, SOC 2 and custom frameworks).
+keywords:
+  - glpi
+  - glpi-plugin
+  - iso27001
+  - isms
+  - grc
+  - compliance
+  - nis2
+  - dora
+  - risk-management
