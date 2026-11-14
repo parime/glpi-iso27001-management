@@ -13688,3 +13688,196 @@ msgstr "Rejestr nie zawiera żadnego naruszenia."
 
 msgid "Breach register entry"
 msgstr "Wpis w rejestrze naruszeń"
+
+#, php-format
+msgid "%1$d %% fixed on time over %2$d days, in %3$s days on average"
+msgstr "%1$d %% usuniętych w terminie w ciągu %2$d dni, średnio w %3$s dni"
+
+#, php-format
+msgid "%1$d vulnerability(ies) past the remediation deadline (%2$s), the oldest by %3$d day(s)"
+msgstr "%1$d podatność(ci) po terminie usunięcia (%2$s), najstarsza o %3$d dzień(dni)"
+
+#, php-format
+msgid "%d covered by a waiver"
+msgstr "%d objętych wyjątkiem"
+
+#, php-format
+msgid "%d day(s) overdue"
+msgstr "Opóźnienie %d dzień(dni)"
+
+#, php-format
+msgid "%d due soon"
+msgstr "%d z bliskim terminem"
+
+#, php-format
+msgid "%d fixed"
+msgstr "%d usuniętych"
+
+#, php-format
+msgid "%s (remediation deadlines not enabled)"
+msgstr "%s (terminy usuwania nie są włączone)"
+
+#, php-format
+msgid "%s days"
+msgstr "%s dni"
+
+msgid "50 = half the normal deadline when a vulnerable machine is classified high in confidentiality, integrity or availability. 100 = no shorter deadline."
+msgstr "50 = połowa zwykłego terminu, gdy podatna maszyna ma wysoką klasyfikację poufności, integralności lub dostępności. 100 = bez skrócenia terminu."
+
+msgid "CVE identifiers separated by commas, e.g. CVE-2099-10001. Once the waiver is approved, these vulnerabilities follow its end date instead of the remediation deadline, then become overdue again if it expires."
+msgstr "Identyfikatory CVE rozdzielone przecinkami, np. CVE-2099-10001. Po zatwierdzeniu wyjątku te podatności podlegają jego dacie końcowej zamiast terminowi usunięcia, a po jego wygaśnięciu znów są po terminie."
+
+msgid "Change the deadlines"
+msgstr "Zmień terminy"
+
+#, php-format
+msgid "Deadline %1$s (%2$s: %3$d days)"
+msgstr "Termin %1$s (%2$s: %3$d dni)"
+
+#, php-format
+msgid "Deadline on assets with a high C/I/A classification (%)"
+msgstr "Termin dla zasobów o wysokiej klasyfikacji P/I/D (%)"
+
+#, php-format
+msgid "Detected on %s"
+msgstr "Wykryto %s"
+
+#, php-format
+msgid "Due in %d day(s)"
+msgstr "Termin za %d dzień(dni)"
+
+msgid "Due today"
+msgstr "Termin dzisiaj"
+
+#, php-format
+msgid "Fixed (last %d days)"
+msgstr "Usunięte (ostatnie %d dni)"
+
+msgid "Fixed late"
+msgstr "Usunięta po terminie"
+
+msgid "Fixed on time"
+msgstr "Usunięta w terminie"
+
+#, php-format
+msgid "Fixed on time (last %d days)"
+msgstr "Usunięte w terminie (ostatnie %d dni)"
+
+msgid "Fleet vulnerabilities covered (CVE)"
+msgstr "Objęte podatności floty (CVE)"
+
+msgid "High (CVSS 7 to 8.9)"
+msgstr "Wysokie (CVSS 7 do 8,9)"
+
+msgid "How many days the team has to fix a vulnerability of the fleet, by level (ISO 27001 A.8.8). The fleet vulnerabilities page, the dashboard cards and the report by email then show the due dates, the overdue vulnerabilities and the share fixed on time."
+msgstr "Ile dni zespół ma na usunięcie podatności floty, według poziomu (ISO 27001 A.8.8). Strona podatności floty, karty pulpitu i raport e-mail pokazują wtedy terminy, podatności po terminie i odsetek usuniętych w terminie."
+
+msgid "If the vulnerability cannot be fixed in time, document the exception and its compensating controls."
+msgstr "Jeśli podatności nie można usunąć na czas, udokumentuj wyjątek i środki kompensujące."
+
+msgid "Installed on an asset with a high C/I/A classification: shorter deadline."
+msgstr "Zainstalowana na zasobie o wysokiej klasyfikacji P/I/D: krótszy termin."
+
+msgid "Low (CVSS below 4)"
+msgstr "Niskie (CVSS poniżej 4)"
+
+msgid "Mean time to remediate"
+msgstr "Średni czas usunięcia"
+
+msgid "Mean time to remediate a vulnerability (days)"
+msgstr "Średni czas usunięcia podatności (dni)"
+
+msgid "Medium (CVSS 4 to 6.9, or unknown)"
+msgstr "Średnie (CVSS 4 do 6,9 lub nieznany)"
+
+msgid "No remediation deadline policy: set a deadline per level to track overdue vulnerabilities."
+msgstr "Brak polityki terminów usuwania: ustaw termin dla każdego poziomu, aby śledzić podatności po terminie."
+
+msgid "No vulnerability past its remediation deadline"
+msgstr "Brak podatności po terminie usunięcia"
+
+msgid "Open vulnerabilities not overdue and vulnerabilities fixed on time, out of all those open or fixed over the period. A vulnerability covered by a waiver in progress counts as within the deadline."
+msgstr "Otwarte podatności przed terminem i podatności usunięte w terminie, spośród wszystkich otwartych lub usuniętych w okresie. Podatność objęta trwającym wyjątkiem liczy się jako w terminie."
+
+msgid "Overdue vulnerabilities"
+msgstr "Podatności po terminie"
+
+msgid "Overdue vulnerabilities by level"
+msgstr "Podatności po terminie według poziomu"
+
+msgid "Past the deadline"
+msgstr "Po terminie"
+
+msgid "Remediation deadline"
+msgstr "Termin usunięcia"
+
+msgid "Remediation deadlines"
+msgstr "Terminy usuwania"
+
+#, php-format
+msgid "Remediation deadlines: %s."
+msgstr "Terminy usuwania: %s."
+
+msgid "Request a waiver"
+msgstr "Wnioskuj o wyjątek"
+
+msgid "Set the deadlines"
+msgstr "Ustaw terminy"
+
+msgid "Still open"
+msgstr "Otwarte"
+
+msgid "The deadline runs from the first detection by the plugin. A vulnerability that is no longer found in the fleet counts as fixed. A waiver in progress replaces the deadline by its end date. Nothing is changed automatically."
+msgstr "Termin biegnie od pierwszego wykrycia przez wtyczkę. Podatność, której nie ma już we flocie, liczy się jako usunięta. Trwający wyjątek zastępuje termin swoją datą końcową. Nic nie jest zmieniane automatycznie."
+
+msgid "The deadline runs from the first detection of the vulnerability. A vulnerability covered by an approved waiver in progress follows the end date of the waiver, and becomes overdue again when it expires. Tickets show the due date, but their priority and status are never changed."
+msgstr "Termin biegnie od pierwszego wykrycia podatności. Podatność objęta zatwierdzonym, trwającym wyjątkiem podlega jego dacie końcowej i po jego wygaśnięciu znów jest po terminie. Zgłoszenia pokazują termin, ale ich priorytet i status nigdy nie są zmieniane."
+
+msgid "Track remediation deadlines"
+msgstr "Śledź terminy usuwania"
+
+msgid "Tracked from the next check"
+msgstr "Śledzona od następnego sprawdzenia"
+
+msgid "Vulnerabilities fixed on time and late, by month"
+msgstr "Podatności usunięte w terminie i po terminie, według miesięcy"
+
+msgid "Vulnerabilities past their remediation deadline"
+msgstr "Podatności po terminie usunięcia"
+
+#, php-format
+msgid "Vulnerabilities within the remediation deadline (%)"
+msgstr "Podatności w terminie usunięcia (%)"
+
+msgid "Vulnerability remediation deadlines"
+msgstr "Terminy usuwania podatności"
+
+#, php-format
+msgid "Waiver until %s"
+msgstr "Wyjątek do %s"
+
+msgid "Within the deadline"
+msgstr "W terminie"
+
+#, php-format
+msgid "deadline %1$s, %2$d day(s) overdue"
+msgstr "termin %1$s, opóźnienie %2$d dzień(dni)"
+
+#, php-format
+msgid "deadline %s"
+msgstr "termin %s"
+
+#, php-format
+msgid "oldest: %1$d days late, average %2$d"
+msgstr "najstarsza: %1$d dni opóźnienia, średnio %2$d"
+
+msgid "overdue"
+msgstr "przekroczony"
+
+#, php-format
+msgid "previous period: %d %%"
+msgstr "poprzedni okres: %d %%"
+
+#, php-format
+msgid "waiver until %s"
+msgstr "wyjątek do %s"

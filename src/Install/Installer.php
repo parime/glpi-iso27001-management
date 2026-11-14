@@ -142,6 +142,9 @@ final class Installer
     // nom de table que toutes les autres tables ci-dessus.
     private const POLICIES_TABLE = 'glpi_plugin_grcmanager_policies';
     // Issue #535 : public cible des politiques, campagnes de prise de connaissance et confirmations.
+    // Issue #601 : délais de correction des vulnérabilités du parc, et CVE couvertes par une dérogation.
+    private const PARK_CVE_REMEDIATIONS_TABLE = 'glpi_plugin_grcmanager_parkcveremediations';
+    private const WAIVERS_CVES_TABLE = 'glpi_plugin_grcmanager_waivers_cves';
     private const POLICY_AUDIENCES_TABLE = 'glpi_plugin_grcmanager_policyaudiences';
     private const POLICY_CAMPAIGNS_TABLE = 'glpi_plugin_grcmanager_policycampaigns';
     private const POLICY_CAMPAIGNS_USERS_TABLE = 'glpi_plugin_grcmanager_policycampaigns_users';
@@ -1326,6 +1329,7 @@ final class Installer
         $this->installAuditEvidenceRequestTables($keySign, $charset, $collation);
         $this->installDoraRegisterTables($keySign, $charset, $collation);
         $this->installDataBreachTables($keySign, $charset, $collation);
+        $this->installParkRemediationTables($keySign, $charset, $collation);
 
         // Issue #30 (registre des obligations légales/réglementaires/contractuelles, clause 4.2
         // ISO 27001 "parties intéressées et leurs exigences", Annexe A A.5.31-36) : lien optionnel
@@ -3123,6 +3127,7 @@ final class Installer
 
         $this->seedPluginNotifications();
         $this->migrateNotificationTemplateLanguages();
+        $this->addRemediationToVulnerabilityDigest();
         $this->migrateResponsibleTargets();
 
         // Issue #538 : relance des personnes qui doivent fournir une preuve d'audit, une semaine
@@ -4155,6 +4160,95 @@ final class Installer
     }
 
     /**
+     * Issue #601 : suivi des délais de correction de chaque vulnérabilité du parc (couple CVE et
+     * produit du catalogue) : première détection, conservée même quand NVD est interrogé de nouveau,
+     * niveau, échéance connue avant un changement de niveau, date de correction. Et les CVE couvertes
+     * par une dérogation de sécurité.
+     */
+    private function installParkRemediationTables(string $keySign, string $charset, string $collation): void
+    {
+        global $DB;
+
+        if (!$DB->tableExists(self::PARK_CVE_REMEDIATIONS_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::PARK_CVE_REMEDIATIONS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_canonicalproducts_id` int {$keySign} NOT NULL DEFAULT 0,
+                `cve_id` varchar(20) NOT NULL DEFAULT '',
+                `date_first_seen` date DEFAULT NULL COMMENT 'Premiere detection, jamais modifiee',
+                `date_start` date DEFAULT NULL COMMENT 'Debut du delai (premiere detection ou reapparition)',
+                `date_last_seen` date DEFAULT NULL,
+                `date_fixed` date DEFAULT NULL COMMENT 'Disparue du parc ce jour-la',
+                `level` varchar(10) NOT NULL DEFAULT 'medium' COMMENT 'kev, critical, high, medium, low',
+                `is_critical` tinyint NOT NULL DEFAULT 0 COMMENT 'Actif de classification C/I/D elevee',
+                `date_level` date DEFAULT NULL COMMENT 'Niveau actuel constate depuis',
+                `previous_due` date DEFAULT NULL COMMENT 'Echeance connue avant le dernier changement de niveau',
+                `entities` text COMMENT 'Entites des machines touchees (JSON)',
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity` (`plugin_grcmanager_canonicalproducts_id`, `cve_id`),
+                KEY `cve_id` (`cve_id`),
+                KEY `date_fixed` (`date_fixed`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+        if (!$DB->tableExists(self::WAIVERS_CVES_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::WAIVERS_CVES_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_waivers_id` int {$keySign} NOT NULL DEFAULT 0,
+                `cve_id` varchar(20) NOT NULL DEFAULT '',
+                `date_creation` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity` (`plugin_grcmanager_waivers_id`, `cve_id`),
+                KEY `cve_id` (`cve_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+    }
+
+    /**
+     * Issue #601 : le rapport des vulnérabilités par e-mail gagne une section « délais de
+     * correction » (balise ##vulndigest.remediation##, vide tant que la politique est désactivée).
+     * Les traductions existantes ne sont jamais réécrites (migrateNotificationTemplateLanguages()) :
+     * la balise est seulement insérée après celle des rançongiciels, dans chaque traduction qui ne
+     * l'a pas encore, y compris un texte modifié par l'administrateur. Idempotent.
+     */
+    private function addRemediationToVulnerabilityDigest(): void
+    {
+        global $DB;
+
+        $templates = [];
+        foreach (
+            $DB->request([
+                'SELECT' => 'notificationtemplates_id',
+                'FROM'   => 'glpi_notifications_notificationtemplates',
+                'WHERE'  => ['notifications_id' => new \Glpi\DBAL\QuerySubQuery([
+                    'SELECT' => 'id',
+                    'FROM'   => 'glpi_notifications',
+                    'WHERE'  => ['itemtype' => \GlpiPlugin\Grcmanager\VulnerabilityDigest::class],
+                ])],
+            ]) as $link
+        ) {
+            $templates[] = (int) $link['notificationtemplates_id'];
+        }
+        if ($templates === []) {
+            return;
+        }
+        foreach (
+            $DB->request([
+                'FROM'  => 'glpi_notificationtemplatetranslations',
+                'WHERE' => ['notificationtemplates_id' => $templates],
+            ]) as $row
+        ) {
+            $changes = NotificationTemplateDefaults::withRemediation(
+                (string) $row['content_text'],
+                (string) $row['content_html']
+            );
+            if ($changes !== null) {
+                $DB->update('glpi_notificationtemplatetranslations', $changes, ['id' => $row['id']]);
+            }
+        }
+    }
+
+    /**
      * Issue #378 : appétence et tolérance par catégorie de risque, indicateurs de risque (KRI) et
      * leur historique, signature de l'acceptation formelle d'un risque. Création ou ajout des
      * colonnes manquantes : une mise à jour garde les données existantes.
@@ -4696,6 +4790,8 @@ final class Installer
         $migration->dropTable(self::RISK_CATALOG_IMPORTS_TABLE);
         $migration->dropTable(self::WAIVERS_TABLE);
         $migration->dropTable(self::WAIVERS_ITEMS_TABLE);
+        $migration->dropTable(self::WAIVERS_CVES_TABLE);
+        $migration->dropTable(self::PARK_CVE_REMEDIATIONS_TABLE);
         $migration->dropTable(self::COVERAGE_RULES_TABLE);
         $migration->dropTable(self::CRISIS_RECOVERIES_TABLE);
         $migration->dropTable(self::COMPLIANCE_AUDIT_TICKETS_TABLE);

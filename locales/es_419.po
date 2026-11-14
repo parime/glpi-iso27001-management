@@ -12261,3 +12261,196 @@ msgstr "El registro no contiene ninguna violación."
 
 msgid "Breach register entry"
 msgstr "Ficha del registro de violaciones"
+
+#, php-format
+msgid "%1$d %% fixed on time over %2$d days, in %3$s days on average"
+msgstr "%1$d %% corregidas a tiempo en %2$d días, en %3$s días de media"
+
+#, php-format
+msgid "%1$d vulnerability(ies) past the remediation deadline (%2$s), the oldest by %3$d day(s)"
+msgstr "%1$d vulnerabilidad(es) fuera del plazo de corrección (%2$s), la más antigua por %3$d día(s)"
+
+#, php-format
+msgid "%d covered by a waiver"
+msgstr "%d cubierta(s) por una excepción"
+
+#, php-format
+msgid "%d day(s) overdue"
+msgstr "%d día(s) de retraso"
+
+#, php-format
+msgid "%d due soon"
+msgstr "%d próximas a vencer"
+
+#, php-format
+msgid "%d fixed"
+msgstr "%d corregida(s)"
+
+#, php-format
+msgid "%s (remediation deadlines not enabled)"
+msgstr "%s (plazos de corrección no activados)"
+
+#, php-format
+msgid "%s days"
+msgstr "%s días"
+
+msgid "50 = half the normal deadline when a vulnerable machine is classified high in confidentiality, integrity or availability. 100 = no shorter deadline."
+msgstr "50 = la mitad del plazo normal cuando una máquina vulnerable está clasificada alta en confidencialidad, integridad o disponibilidad. 100 = sin plazo reducido."
+
+msgid "CVE identifiers separated by commas, e.g. CVE-2099-10001. Once the waiver is approved, these vulnerabilities follow its end date instead of the remediation deadline, then become overdue again if it expires."
+msgstr "Identificadores CVE separados por comas, p. ej. CVE-2099-10001. Una vez aprobada la excepción, estas vulnerabilidades siguen su fecha de fin en lugar del plazo de corrección y vuelven a estar fuera de plazo cuando vence."
+
+msgid "Change the deadlines"
+msgstr "Cambiar los plazos"
+
+#, php-format
+msgid "Deadline %1$s (%2$s: %3$d days)"
+msgstr "Vencimiento %1$s (%2$s: %3$d días)"
+
+#, php-format
+msgid "Deadline on assets with a high C/I/A classification (%)"
+msgstr "Plazo en activos con clasificación C/I/D alta (%)"
+
+#, php-format
+msgid "Detected on %s"
+msgstr "Detectada el %s"
+
+#, php-format
+msgid "Due in %d day(s)"
+msgstr "Vence en %d día(s)"
+
+msgid "Due today"
+msgstr "Vence hoy"
+
+#, php-format
+msgid "Fixed (last %d days)"
+msgstr "Corregidas (últimos %d días)"
+
+msgid "Fixed late"
+msgstr "Corregida con retraso"
+
+msgid "Fixed on time"
+msgstr "Corregida a tiempo"
+
+#, php-format
+msgid "Fixed on time (last %d days)"
+msgstr "Corregidas a tiempo (últimos %d días)"
+
+msgid "Fleet vulnerabilities covered (CVE)"
+msgstr "Vulnerabilidades del parque cubiertas (CVE)"
+
+msgid "High (CVSS 7 to 8.9)"
+msgstr "Altas (CVSS 7 a 8,9)"
+
+msgid "How many days the team has to fix a vulnerability of the fleet, by level (ISO 27001 A.8.8). The fleet vulnerabilities page, the dashboard cards and the report by email then show the due dates, the overdue vulnerabilities and the share fixed on time."
+msgstr "Cuántos días tiene el equipo para corregir una vulnerabilidad del parque, por nivel (ISO 27001 A.8.8). La página de vulnerabilidades del parque, las tarjetas del panel y el informe por correo muestran entonces los vencimientos, las vulnerabilidades fuera de plazo y la parte corregida a tiempo."
+
+msgid "If the vulnerability cannot be fixed in time, document the exception and its compensating controls."
+msgstr "Si la vulnerabilidad no puede corregirse a tiempo, documente la excepción y sus medidas compensatorias."
+
+msgid "Installed on an asset with a high C/I/A classification: shorter deadline."
+msgstr "Instalada en un activo con clasificación C/I/D alta: plazo reducido."
+
+msgid "Low (CVSS below 4)"
+msgstr "Bajas (CVSS inferior a 4)"
+
+msgid "Mean time to remediate"
+msgstr "Tiempo medio de corrección"
+
+msgid "Mean time to remediate a vulnerability (days)"
+msgstr "Tiempo medio de corrección de una vulnerabilidad (días)"
+
+msgid "Medium (CVSS 4 to 6.9, or unknown)"
+msgstr "Medias (CVSS 4 a 6,9, o desconocido)"
+
+msgid "No remediation deadline policy: set a deadline per level to track overdue vulnerabilities."
+msgstr "Sin política de plazos de corrección: fije un plazo por nivel para seguir las vulnerabilidades fuera de plazo."
+
+msgid "No vulnerability past its remediation deadline"
+msgstr "Ninguna vulnerabilidad fuera de su plazo de corrección"
+
+msgid "Open vulnerabilities not overdue and vulnerabilities fixed on time, out of all those open or fixed over the period. A vulnerability covered by a waiver in progress counts as within the deadline."
+msgstr "Vulnerabilidades abiertas dentro de plazo y vulnerabilidades corregidas a tiempo, entre todas las abiertas o corregidas en el período. Una vulnerabilidad cubierta por una excepción en curso cuenta como dentro de plazo."
+
+msgid "Overdue vulnerabilities"
+msgstr "Vulnerabilidades fuera de plazo"
+
+msgid "Overdue vulnerabilities by level"
+msgstr "Vulnerabilidades fuera de plazo por nivel"
+
+msgid "Past the deadline"
+msgstr "Fuera de plazo"
+
+msgid "Remediation deadline"
+msgstr "Plazo de corrección"
+
+msgid "Remediation deadlines"
+msgstr "Plazos de corrección"
+
+#, php-format
+msgid "Remediation deadlines: %s."
+msgstr "Plazos de corrección: %s."
+
+msgid "Request a waiver"
+msgstr "Solicitar una excepción"
+
+msgid "Set the deadlines"
+msgstr "Fijar los plazos"
+
+msgid "Still open"
+msgstr "Abiertas"
+
+msgid "The deadline runs from the first detection by the plugin. A vulnerability that is no longer found in the fleet counts as fixed. A waiver in progress replaces the deadline by its end date. Nothing is changed automatically."
+msgstr "El plazo corre desde la primera detección por el plugin. Una vulnerabilidad que ya no se encuentra en el parque cuenta como corregida. Una excepción en curso sustituye el vencimiento por su fecha de fin. No se modifica nada automáticamente."
+
+msgid "The deadline runs from the first detection of the vulnerability. A vulnerability covered by an approved waiver in progress follows the end date of the waiver, and becomes overdue again when it expires. Tickets show the due date, but their priority and status are never changed."
+msgstr "El plazo corre desde la primera detección de la vulnerabilidad. Una vulnerabilidad cubierta por una excepción aprobada en curso sigue la fecha de fin de la excepción y vuelve a estar fuera de plazo cuando vence. Los tiques muestran el vencimiento, pero su prioridad y su estado nunca se modifican."
+
+msgid "Track remediation deadlines"
+msgstr "Seguir los plazos de corrección"
+
+msgid "Tracked from the next check"
+msgstr "Seguida desde la próxima comprobación"
+
+msgid "Vulnerabilities fixed on time and late, by month"
+msgstr "Vulnerabilidades corregidas a tiempo y con retraso, por mes"
+
+msgid "Vulnerabilities past their remediation deadline"
+msgstr "Vulnerabilidades fuera de su plazo de corrección"
+
+#, php-format
+msgid "Vulnerabilities within the remediation deadline (%)"
+msgstr "Vulnerabilidades dentro del plazo de corrección (%)"
+
+msgid "Vulnerability remediation deadlines"
+msgstr "Plazos de corrección de vulnerabilidades"
+
+#, php-format
+msgid "Waiver until %s"
+msgstr "Excepción hasta el %s"
+
+msgid "Within the deadline"
+msgstr "Dentro del plazo"
+
+#, php-format
+msgid "deadline %1$s, %2$d day(s) overdue"
+msgstr "vencimiento %1$s, %2$d día(s) de retraso"
+
+#, php-format
+msgid "deadline %s"
+msgstr "vencimiento %s"
+
+#, php-format
+msgid "oldest: %1$d days late, average %2$d"
+msgstr "la más antigua: %1$d días de retraso, media %2$d"
+
+msgid "overdue"
+msgstr "vencido"
+
+#, php-format
+msgid "previous period: %d %%"
+msgstr "período anterior: %d %%"
+
+#, php-format
+msgid "waiver until %s"
+msgstr "excepción hasta el %s"

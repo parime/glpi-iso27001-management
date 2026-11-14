@@ -91,6 +91,16 @@ final class NotificationHtml
         ]));
     }
 
+    /**
+     * Issue #601 : section « délais de correction » du rapport des vulnérabilités (masquée quand la
+     * balise est vide).
+     */
+    public static function renderDigestRemediation(): string
+    {
+        return trim(self::environment()
+            ->load('@grcmanager/notifications/vulnerability_digest_remediation.html.twig')->render([]));
+    }
+
     /** @return array{type: string, text: string} ligne de titre en gras */
     public static function strong(string $text): array
     {
