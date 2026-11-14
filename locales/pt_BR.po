@@ -10628,3 +10628,6 @@ msgstr "O prazo de %1$s passou e você ainda não confirmou ter lido a versão %
 
 msgid "Read and confirm"
 msgstr "Ler e confirmar"
+
+msgid "Reading acknowledgement"
+msgstr "Ciência"

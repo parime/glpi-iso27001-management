@@ -11,11 +11,9 @@
       <div class="card h-100">
          <div class="card-header">
             <h3 class="card-title"><i class="ti ti-users me-2"></i>{{ __('Target audience', 'grcmanager') }}</h3>
-            <div class="card-actions">
-               <span class="badge bg-blue-lt" id="grc-ack-members"><i class="ti ti-user me-1"></i>{{ __('%d person(s) currently match', 'grcmanager')|format(members_count) }}</span>
-            </div>
          </div>
          <div class="card-body">
+            <p><span class="badge bg-blue-lt" id="grc-ack-members"><i class="ti ti-user me-1"></i>{{ __('%d person(s) currently match', 'grcmanager')|format(members_count) }}</span></p>
             <p class="text-muted small"><i class="ti ti-info-circle me-1"></i>{{ __('Who must read this policy: every active account in one of these groups, with one of these profiles or with an authorization in one of these entities. The audience is frozen when a campaign is launched.', 'grcmanager') }}</p>
             {% if audience is empty %}
                <div class="alert alert-warning" id="grc-ack-no-audience"><i class="ti ti-alert-circle me-1"></i>{{ __('No audience defined yet: add at least one group, profile or entity.', 'grcmanager') }}</div>
@@ -40,11 +38,12 @@
 
             {% if can_update %}
                {% for type, cfg in {'Group': [__('Add a group', 'grcmanager'), 'ti-users-group'], 'Profile': [__('Add a profile', 'grcmanager'), 'ti-id-badge-2'], 'Entity': [__('Add an entity', 'grcmanager'), 'ti-building']} %}
-                  <form method="post" action="{{ action }}" class="d-flex flex-wrap align-items-center gap-2 mb-2 grc-ack-add-{{ type|lower }}">
+                  <form method="post" action="{{ action }}" class="mb-3 grc-ack-add-{{ type|lower }}">
                      <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
                      <input type="hidden" name="policies_id" value="{{ policy_id }}">
                      <input type="hidden" name="itemtype" value="{{ type }}">
-                     <label class="form-label mb-0 text-nowrap" style="min-width: 9rem"><i class="ti {{ cfg[1] }} me-1"></i>{{ cfg[0] }}</label>
+                     <label class="form-label"><i class="ti {{ cfg[1] }} me-1"></i>{{ cfg[0] }}</label>
+                     <div class="d-flex flex-wrap align-items-center gap-2">
                      <div class="flex-grow-1">
                         {% if type == 'Group' %}{{ group_dropdown|raw }}{% elseif type == 'Profile' %}{{ profile_dropdown|raw }}{% else %}{{ entity_dropdown|raw }}{% endif %}
                      </div>
@@ -52,6 +51,7 @@
                         <label class="form-check mb-0"><input class="form-check-input" type="checkbox" name="is_recursive" value="1" checked> <span class="form-check-label">{{ __('Sub-entities', 'grcmanager') }}</span></label>
                      {% endif %}
                      <button type="submit" name="add_audience" value="1" class="btn btn-sm btn-outline-primary"><i class="ti ti-plus me-1"></i>{{ __('Add', 'grcmanager') }}</button>
+                     </div>
                   </form>
                {% endfor %}
 

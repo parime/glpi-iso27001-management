@@ -10628,3 +10628,6 @@ msgstr "La scadenza del %1$s è passata e non ha ancora confermato di aver letto
 
 msgid "Read and confirm"
 msgstr "Leggi e conferma"
+
+msgid "Reading acknowledgement"
+msgstr "Presa visione"

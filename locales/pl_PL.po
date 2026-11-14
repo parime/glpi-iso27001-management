@@ -12051,3 +12051,6 @@ msgstr "Termin %1$s minął, a nie potwierdziłeś jeszcze przeczytania wersji %
 
 msgid "Read and confirm"
 msgstr "Przeczytaj i potwierdź"
+
+msgid "Reading acknowledgement"
+msgstr "Zapoznanie się"

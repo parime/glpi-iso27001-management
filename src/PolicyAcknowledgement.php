@@ -920,7 +920,7 @@ class PolicyAcknowledgement extends CommonGLPI
             return '';
         }
 
-        return self::createTabEntry(__('Acknowledgement', 'grcmanager'), 0, null, 'ti ti-file-check');
+        return self::createTabEntry(__('Reading acknowledgement', 'grcmanager'), 0, null, 'ti ti-file-check');
     }
 
     public static function displayTabContentForItem(CommonGLPI $item, $tabnum = 1, $withtemplate = 0)
@@ -998,7 +998,7 @@ class PolicyAcknowledgement extends CommonGLPI
             'good_rate'       => AcknowledgementRules::GOOD_RATE,
             'group_dropdown'  => Group::dropdown([
                 'name' => 'items_id', 'display' => false, 'entity' => $_SESSION['glpiactiveentities'] ?? 0,
-                'entity_sons' => true, 'rand' => 'grcackgroup',
+                'rand' => 'grcackgroup',
             ]),
             'profile_dropdown' => Profile::dropdown([
                 'name' => 'items_id', 'display' => false, 'rand' => 'grcackprofile',

@@ -10628,3 +10628,6 @@ msgstr "L'échéance du %1$s est passée et vous n'avez pas encore confirmé avo
 
 msgid "Read and confirm"
 msgstr "Lire et confirmer"
+
+msgid "Reading acknowledgement"
+msgstr "Prise de connaissance"

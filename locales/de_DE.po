@@ -10628,3 +10628,6 @@ msgstr "Die Frist vom %1$s ist abgelaufen und Sie haben noch nicht bestätigt, V
 
 msgid "Read and confirm"
 msgstr "Lesen und bestätigen"
+
+msgid "Reading acknowledgement"
+msgstr "Kenntnisnahme"

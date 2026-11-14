@@ -10628,3 +10628,6 @@ msgstr "The %1$s deadline has passed and you have not yet confirmed that you hav
 
 msgid "Read and confirm"
 msgstr "Read and confirm"
+
+msgid "Reading acknowledgement"
+msgstr "Reading acknowledgement"
