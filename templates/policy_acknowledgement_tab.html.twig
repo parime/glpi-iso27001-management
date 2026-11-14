@@ -113,7 +113,7 @@
             {% else %}
                {% set p = current.progress %}
                <div class="row g-2 mb-3 text-center">
-                  <div class="col-6 col-md-3"><div class="card card-sm"><div class="card-body"><div class="h2 mb-0" id="grc-ack-rate">{{ p.rate }} %</div><div class="text-muted small">{{ __('Acknowledgement rate', 'grcmanager') }}</div></div></div></div>
+                  <div class="col-6 col-md-3"><div class="card card-sm"><div class="card-body"><div class="h2 mb-0 text-{{ p.color }}" id="grc-ack-rate">{{ p.rate }} %</div><div class="text-muted small">{{ __('Rate', 'grcmanager') }}</div></div></div></div>
                   <div class="col-6 col-md-3"><div class="card card-sm"><div class="card-body"><div class="h2 mb-0 text-green">{{ p.done }} / {{ p.total }}</div><div class="text-muted small">{{ __('Confirmed', 'grcmanager') }}</div></div></div></div>
                   <div class="col-6 col-md-3"><div class="card card-sm"><div class="card-body"><div class="h2 mb-0 text-orange">{{ p.pending }}</div><div class="text-muted small">{{ __('Waiting', 'grcmanager') }}</div></div></div></div>
                   <div class="col-6 col-md-3"><div class="card card-sm"><div class="card-body"><div class="h2 mb-0 {{ p.late > 0 ? 'text-red' : '' }}">{{ p.late }}</div><div class="text-muted small">{{ __('Late', 'grcmanager') }}</div></div></div></div>
