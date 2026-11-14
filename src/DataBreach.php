@@ -151,11 +151,15 @@ class DataBreach extends DataBreachBase
     {
         return [
             Rules::STATE_PENDING       => ['bg-blue-lt', 'ti-clock', __('Decision pending', 'grcmanager')],
-            Rules::STATE_SOON          => ['bg-orange-lt', 'ti-clock-exclamation', __('Deadline approaching', 'grcmanager')],
+            Rules::STATE_SOON          => [
+                'bg-orange-lt', 'ti-clock-exclamation', __('Deadline approaching', 'grcmanager'),
+            ],
             Rules::STATE_OVERDUE       => ['bg-red-lt', 'ti-alert-octagon', __('72 h deadline passed', 'grcmanager')],
             Rules::STATE_NOTIFIED      => ['bg-green-lt', 'ti-circle-check', __('Notified on time', 'grcmanager')],
             Rules::STATE_NOTIFIED_LATE => ['bg-orange-lt', 'ti-clock-pause', __('Notified late', 'grcmanager')],
-            Rules::STATE_NOT_NOTIFIED  => ['bg-secondary-lt', 'ti-file-check', __('Not notified (decision recorded)', 'grcmanager')],
+            Rules::STATE_NOT_NOTIFIED  => [
+                'bg-secondary-lt', 'ti-file-check', __('Not notified (decision recorded)', 'grcmanager'),
+            ],
         ];
     }
 
@@ -163,7 +167,10 @@ class DataBreach extends DataBreachBase
     {
         return match ($check) {
             Rules::CHECK_NO_NATURE => __('The nature of the breach is not set.', 'grcmanager'),
-            Rules::CHECK_NO_COUNTS => __('Give at least an approximate number of people or records concerned.', 'grcmanager'),
+            Rules::CHECK_NO_COUNTS => __(
+                'Give at least an approximate number of people or records concerned.',
+                'grcmanager'
+            ),
             Rules::CHECK_NO_RISK   => __('The risk for the people concerned is not assessed yet.', 'grcmanager'),
             Rules::CHECK_NOT_NOTIFIED_DESPITE_RISK => __(
                 'Not notified although a risk was found: only a breach unlikely to result in a risk may stay '
@@ -268,7 +275,10 @@ class DataBreach extends DataBreachBase
             }
             if ($incidentId > 0 && self::breachIdForIncident($incidentId, (int) ($this->fields['id'] ?? 0)) > 0) {
                 Session::addMessageAfterRedirect(
-                    __('This incident is already recorded in the breach register (look in the trash bin too).', 'grcmanager'),
+                    __(
+                        'This incident is already recorded in the breach register (look in the trash bin too).',
+                        'grcmanager'
+                    ),
                     false,
                     ERROR
                 );
@@ -337,7 +347,8 @@ class DataBreach extends DataBreachBase
         parent::post_updateItem($history);
         $this->syncActivitiesFromInput();
         if ($this->updates !== []) {
-            AuditLog::record('update', self::class, (int) $this->getID(), (int) ($this->fields[self::INCIDENT_FK] ?? 0), 'success', [
+            $incidentId = (int) ($this->fields[self::INCIDENT_FK] ?? 0);
+            AuditLog::record('update', self::class, (int) $this->getID(), $incidentId, 'success', [
                 'fields' => array_values($this->updates),
             ]);
         }
@@ -751,10 +762,16 @@ class DataBreach extends DataBreachBase
     {
         // ajax/common.tabs.php sert le contenu sans passer par getTabNameForItem() : même contrôle ici,
         // plus la lecture de l'incident lui-même.
-        if (!self::isTabShownFor($item) || !$item instanceof PluginGrcmanagerSecurityIncident || !$item->can((int) $item->getID(), READ)) {
+        if (
+            !self::isTabShownFor($item) || !$item instanceof PluginGrcmanagerSecurityIncident
+            || !$item->can((int) $item->getID(), READ)
+        ) {
             return false;
         }
-        TemplateRenderer::getInstance()->display('@grcmanager/tabs/incident_data_breach.html.twig', self::incidentLink($item));
+        TemplateRenderer::getInstance()->display(
+            '@grcmanager/tabs/incident_data_breach.html.twig',
+            self::incidentLink($item)
+        );
 
         return true;
     }
@@ -790,6 +807,28 @@ class DataBreach extends DataBreachBase
             'register_url' => self::getSearchURL(),
             'flagged'     => !empty($incident->fields['personal_data_breach']),
         ];
+    }
+
+    /**
+     * Étape « Inscrire la violation au registre » d'un plan de remédiation (procédure « Fuite de
+     * données » fournie, ou tâche équivalente) : phase post-incident, intitulé fourni (dans la langue de
+     * l'installation ou en anglais) ou description qui cite l'article 33.5, quelle que soit sa langue
+     * (« 33.5 », « 33 Abs. 5 », « 33 ust. 5 »).
+     *
+     * @param array<string, mixed> $task
+     */
+    public static function isRegisterStep(array $task): bool
+    {
+        if ((string) ($task['phase'] ?? '') !== 'post_incident') {
+            return false;
+        }
+        $name = trim((string) ($task['name'] ?? ''));
+        $step = 'Record the breach in the breach register';
+        if ($name === $step || $name === __($step, 'grcmanager')) {
+            return true;
+        }
+
+        return preg_match('/\b33\D{1,8}5\b/u', (string) ($task['description'] ?? '')) === 1;
     }
 
     public function rawSearchOptions()
@@ -939,10 +978,9 @@ class DataBreach extends DataBreachBase
         }
         $subjects = self::getSubjectsDecisions()[(string) $row['subjects_decision']] ?? '';
         if ((string) $row['subjects_decision'] === 'informed') {
-            $subjects .= trim(
-                ' - ' . (!empty($row['date_subjects_informed']) ? Html::convDate((string) $row['date_subjects_informed']) : '')
-                    . ((string) $row['subjects_means'] !== '' ? ' - ' . $row['subjects_means'] : '')
-            );
+            $informed = !empty($row['date_subjects_informed'])
+                ? ' - ' . Html::convDate((string) $row['date_subjects_informed']) : '';
+            $subjects .= $informed . ((string) $row['subjects_means'] !== '' ? ' - ' . $row['subjects_means'] : '');
         }
 
         return [
@@ -965,7 +1003,10 @@ class DataBreach extends DataBreachBase
             'subjects_count'   => $count($row['subjects_count'] ?? null),
             'data_categories'  => $labels(
                 ProcessingActivity::getDataCategories(),
-                ProcessingActivityRules::decodeList($row['data_categories'] ?? '', ProcessingActivityRules::DATA_CATEGORIES)
+                ProcessingActivityRules::decodeList(
+                    $row['data_categories'] ?? '',
+                    ProcessingActivityRules::DATA_CATEGORIES
+                )
             ),
             'records_count'    => $count($row['records_count'] ?? null),
             'data_details'     => (string) $row['data_details'],

@@ -1,0 +1,40 @@
+{# Issue #620 : fiche du registre des violations de l'incident, voir
+   GlpiPlugin\\Grcmanager\\DataBreach::displayTabContentForItem(). L'incident n'est jamais modifié ici. #}
+{% if readable %}
+   <div class="card">
+      <div class="card-body">
+         <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+            <span class="badge {{ state.class }} fs-5"><i class="ti {{ state.icon }} me-1"></i>{{ state.label }}</span>
+            {% if is_deleted %}<span class="badge bg-red-lt"><i class="ti ti-trash me-1"></i>{{ __('In the trash bin', 'grcmanager') }}</span>{% endif %}
+            <a href="{{ url }}" class="fw-bold">{{ name }}</a>
+         </div>
+         <dl class="row mb-2">
+            <dt class="col-sm-4">{{ __('Notification to the authority', 'grcmanager') }}</dt><dd class="col-sm-8">{{ authority }}</dd>
+            <dt class="col-sm-4">{{ __('Information of the people concerned', 'grcmanager') }}</dt><dd class="col-sm-8">{{ subjects }}</dd>
+            {% if state.deadline %}
+               <dt class="col-sm-4">{{ __('72 h deadline', 'grcmanager') }}</dt><dd class="col-sm-8">{{ state.deadline|formatted_datetime }}</dd>
+            {% endif %}
+            <dt class="col-sm-4">{{ __('Processing activities concerned', 'grcmanager') }}</dt>
+            <dd class="col-sm-8">
+               {% for a in activities %}<a href="{{ a.url }}" class="me-2">{{ a.name }}</a>{% else %}<span class="text-muted">{{ __('None', 'grcmanager') }}</span>{% endfor %}
+            </dd>
+         </dl>
+         <a href="{{ url }}" class="btn btn-sm btn-outline-primary"><i class="ti ti-pencil me-1"></i>{{ __('Open the register entry', 'grcmanager') }}</a>
+         <a href="{{ register_url }}" class="btn btn-sm btn-ghost-secondary"><i class="ti ti-list me-1"></i>{{ __('Breach register', 'grcmanager') }}</a>
+      </div>
+   </div>
+{% elseif exists %}
+   <div class="alert alert-info"><i class="ti ti-lock me-1"></i>{{ __('This breach is recorded in the register of another entity, which you cannot open.', 'grcmanager') }}</div>
+{% else %}
+   <div class="empty">
+      <div class="empty-icon"><i class="ti ti-file-alert fs-1"></i></div>
+      <p class="empty-title">{{ __('Not recorded in the breach register yet', 'grcmanager') }}</p>
+      <p class="empty-subtitle text-muted">{{ __('The GDPR (article 33.5) requires every personal data breach to be documented, even when it is not notified: facts, effects, measures and the reasoned decision to notify or not.', 'grcmanager') }}</p>
+      {% if can_create %}
+         <div class="empty-action">
+            <a href="{{ create_url }}" class="btn btn-primary"><i class="ti ti-file-plus me-1"></i>{{ __('Record this breach in the register', 'grcmanager') }}</a>
+            <div class="form-hint mt-1">{{ __('The form is prefilled from the incident; you check it before saving.', 'grcmanager') }}</div>
+         </div>
+      {% endif %}
+   </div>
+{% endif %}

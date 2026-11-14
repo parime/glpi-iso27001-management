@@ -488,10 +488,13 @@ final class SecurityIncidentCardProvider
             $select[] = "$table.$doneField";
         }
 
-        return iterator_to_array($DB->request(['SELECT' => $select] + self::scope($params, [
-            ['NOT' => ["$table.status" => PluginGrcmanagerSecurityIncident::getClosedStatusArray()]],
-            ['OR' => ["$table.nis2_applicable" => 1, "$table.personal_data_breach" => 1]],
-        ])), false);
+        // Issue #620 : décisions motivées de ne pas notifier, inscrites au registre des violations.
+        return \GlpiPlugin\Grcmanager\DataBreach::withAuthorityDecisions(
+            iterator_to_array($DB->request(['SELECT' => $select] + self::scope($params, [
+                ['NOT' => ["$table.status" => PluginGrcmanagerSecurityIncident::getClosedStatusArray()]],
+                ['OR' => ["$table.nis2_applicable" => 1, "$table.personal_data_breach" => 1]],
+            ])), false)
+        );
     }
 
     /**
