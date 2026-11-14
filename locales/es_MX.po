@@ -10705,10 +10705,10 @@ msgid "Line %d: no reference and no description."
 msgstr "Línea %d: sin referencia ni descripción."
 
 msgid "Evidence request"
-msgstr "Solicitud de evidencia"
+msgid_plural "Evidence requests"
+msgstr[0] "Solicitud de evidencia"
+msgstr[1] "Solicitudes de evidencias"
 
-msgid "Evidence requests"
-msgstr "Solicitudes de evidencias"
 
 msgid "Auditor space"
 msgstr "Espacio del auditor"

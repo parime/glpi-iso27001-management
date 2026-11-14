@@ -12128,10 +12128,11 @@ msgid "Line %d: no reference and no description."
 msgstr "Wiersz %d: brak odniesienia i opisu."
 
 msgid "Evidence request"
-msgstr "Żądanie dowodu"
+msgid_plural "Evidence requests"
+msgstr[0] "Żądanie dowodu"
+msgstr[1] "Żądania dowodów"
+msgstr[2] "Żądań dowodów"
 
-msgid "Evidence requests"
-msgstr "Żądania dowodów"
 
 msgid "Auditor space"
 msgstr "Przestrzeń audytora"

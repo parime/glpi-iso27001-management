@@ -37,7 +37,6 @@ if (!$audit->getFromDB($auditId)) {
     throw new BadRequestHttpException();
 }
 $audit->check($auditId, UPDATE);
-$back = AuditEvidenceRequest::getAuditTabURL($auditId);
 
 /**
  * Demande de cet audit désignée par le formulaire, droit $right vérifié.
@@ -140,4 +139,5 @@ if (isset($_POST['add'])) {
     throw new BadRequestHttpException();
 }
 
-Html::redirect($back);
+// Retour sur la fiche de l'audit : GLPI y rouvre le dernier onglet affiché (« Demandes de preuves »).
+Html::back();
