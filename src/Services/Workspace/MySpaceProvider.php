@@ -34,6 +34,7 @@ use GlpiPlugin\Grcmanager\Nonconformity;
 use GlpiPlugin\Grcmanager\Objective;
 use GlpiPlugin\Grcmanager\PeriodicReview;
 use GlpiPlugin\Grcmanager\Policy;
+use GlpiPlugin\Grcmanager\PolicyAcknowledgement;
 use GlpiPlugin\Grcmanager\Risk;
 use GlpiPlugin\Grcmanager\RiskTreatmentAction;
 use GlpiPlugin\Grcmanager\Services\Objective\ObjectiveStatuses;
@@ -54,7 +55,8 @@ use Session;
  * lecture de l'objet (droit dédié pour les registres sensibles), entités de la session pour les
  * objets rattachés à une entité. Trois sources ne demandent aucun droit sur le plugin, comme les
  * pages qu'elles ouvrent : les lignes de revue des accès confiées à la personne (« Mes revues
- * d'accès »), ses formations (« Mes formations ») et les versions de la SoA qu'elle doit approuver.
+ * d'accès »), ses formations (« Mes formations »), les politiques qu'elle doit lire (« Politiques à
+ * lire ») et les versions de la SoA qu'elle doit approuver.
  *
  * Le tri, le filtrage et les retards sont calculés par MySpaceRules (PHP pur, testé seul).
  */
@@ -79,6 +81,7 @@ final class MySpaceProvider
             self::periodicReviews($usersId),
             self::accessReviews($usersId),
             self::policies($usersId),
+            self::policyAcknowledgements($usersId),
             self::trainings($usersId),
             self::supplierRisks($usersId),
             self::obligations($usersId),
@@ -445,6 +448,33 @@ final class MySpaceProvider
                 (string) $row['title'],
                 $row['next_review_date'],
                 Policy::getFormURLWithID($id)
+            );
+        }
+
+        return $list;
+    }
+
+    /**
+     * Issue #535 : politiques que la personne doit lire et confirmer (campagne en vigueur), sans
+     * droit sur le plugin : le lien ouvre l'onglet « Politiques à lire » de ses préférences.
+     *
+     * @return list<array<string, mixed>>
+     */
+    private static function policyAcknowledgements(int $usersId): array
+    {
+        $list = [];
+        foreach (PolicyAcknowledgement::getMine($usersId) as $row) {
+            if (!$row['pending']) {
+                continue;
+            }
+            $list[] = self::candidate(
+                'policy_acknowledgement',
+                $row['line_id'],
+                $row['title'],
+                $row['due_date'],
+                PolicyAcknowledgement::getMineURL(),
+                true,
+                sprintf(__('Version %s', 'grcmanager'), $row['version'])
             );
         }
 

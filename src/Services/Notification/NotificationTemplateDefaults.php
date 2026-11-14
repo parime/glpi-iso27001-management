@@ -43,7 +43,9 @@ use GlpiPlugin\Grcmanager\NotificationTargetSoaVersion;
 use GlpiPlugin\Grcmanager\NotificationTargetTraining;
 use GlpiPlugin\Grcmanager\NotificationTargetVulnerabilityDigest;
 use GlpiPlugin\Grcmanager\NotificationTargetWaiver;
+use GlpiPlugin\Grcmanager\NotificationTargetPolicy;
 use GlpiPlugin\Grcmanager\Policy;
+use GlpiPlugin\Grcmanager\PolicyAcknowledgement;
 use GlpiPlugin\Grcmanager\Risk;
 use GlpiPlugin\Grcmanager\RiskIndicator;
 use GlpiPlugin\Grcmanager\RiskTreatmentAction;
@@ -402,6 +404,21 @@ final class NotificationTemplateDefaults
                 AccessReview::class, 'access_review_reminder', 'Access review reminder', '',
                 [NotificationTargetAccessReview::REVIEWERS_TARGET],
                 'Relance de la revue des accès', '',
+            ],
+            // Issue #535 : prise de connaissance d'une politique par son public, et relance.
+            'policy_acknowledgement' => [
+                Policy::class, PolicyAcknowledgement::REQUEST_EVENT, 'Security policy to acknowledge',
+                'Sent to the audience of a security policy when an acknowledgement campaign is launched.',
+                [NotificationTargetPolicy::TARGET_AUDIENCE],
+                'Politique de sécurité à lire',
+                'Envoyée au public d\'une politique de sécurité au lancement d\'une campagne de prise de connaissance.',
+            ],
+            'policy_acknowledgement_reminder' => [
+                Policy::class, PolicyAcknowledgement::REMINDER_EVENT, 'Security policy acknowledgement reminder',
+                $sentByTask . 'the acknowledgement deadline of a security policy has passed (at most once a week).',
+                [NotificationTargetPolicy::TARGET_AUDIENCE],
+                'Relance de lecture d\'une politique de sécurité',
+                $legacyByTask . 'lorsque l\'échéance de prise de connaissance d\'une politique est dépassée.',
             ],
         ];
 
@@ -783,6 +800,38 @@ final class NotificationTemplateDefaults
                     'content_html' => NotificationHtml::render([
                         NotificationHtml::lines([$text]),
                         NotificationHtml::link('##accessreview.url##', $link),
+                    ]),
+                ];
+
+            case 'policy_acknowledgement':
+            case 'policy_acknowledgement_reminder':
+                if ($key === 'policy_acknowledgement') {
+                    $subject = $line('Security policy to acknowledge', '##policy.title##');
+                    $text = sprintf(
+                        $t('Please read version %1$s of the security policy "%2$s" and confirm that you have read it '
+                            . 'before %3$s.'),
+                        '##policy.version##',
+                        '##policy.title##',
+                        '##policy.duedate##'
+                    );
+                } else {
+                    $subject = sprintf($t('Reminder: security policy %s to acknowledge'), '##policy.title##');
+                    $text = sprintf(
+                        $t('The %1$s deadline has passed and you have not yet confirmed that you have read version '
+                            . '%2$s of the security policy "%3$s".'),
+                        '##policy.duedate##',
+                        '##policy.version##',
+                        '##policy.title##'
+                    );
+                }
+                $link = $t('Read and confirm');
+
+                return [
+                    'subject'      => $subject,
+                    'content_text' => $text . "\n\n" . $head($link, '##policy.acknowledgeurl##'),
+                    'content_html' => NotificationHtml::render([
+                        NotificationHtml::lines([$text]),
+                        NotificationHtml::link('##policy.acknowledgeurl##', $link),
                     ]),
                 ];
         }

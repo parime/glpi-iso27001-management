@@ -283,6 +283,8 @@ function plugin_init_grcmanager(): void
     // Issue #139 : « Mes formations » dans les préférences (résultats et copies de quiz de
     // l'utilisateur, sans droit sur le plugin).
     Plugin::registerClass(\GlpiPlugin\Grcmanager\TrainingQuiz::class, ['addtabon' => [Preference::class]]);
+    // Issue #535 : « Politiques à lire », dans les préférences de chaque utilisateur.
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\PolicyAcknowledgement::class, ['addtabon' => [Preference::class]]);
     // Onglet « GRC Manager » des profils : attribuer les droits du plugin sans passer par la base.
     Plugin::registerClass(\GlpiPlugin\Grcmanager\Profile::class, ['addtabon' => [Profile::class]]);
     // Issue #141 : le ticket créé par le ticket récurrent d'une revue devient son ticket en cours ;

@@ -137,6 +137,7 @@ class MySpace extends CommonGLPI
             'periodic_review'      => [__('Periodic review', 'grcmanager'), 'ti-repeat'],
             'access_review'        => [__('Access review', 'grcmanager'), 'ti-user-search'],
             'policy_review'        => [__('Policy to review', 'grcmanager'), 'ti-file-text'],
+            'policy_acknowledgement' => [__('Policy to read', 'grcmanager'), 'ti-file-check'],
             'training'             => [__('Training to attend', 'grcmanager'), 'ti-school'],
             'training_renewal'     => [__('Training to renew', 'grcmanager'), 'ti-school'],
             'supplier_review'      => [__('Supplier risk to review', 'grcmanager'), 'ti-truck'],
