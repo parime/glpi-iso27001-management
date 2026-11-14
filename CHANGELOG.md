@@ -7,6 +7,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.44.0] - 2026-11-14
+
 ### Added
 
 - **Registre d'informations DORA des prestataires TIC** (issue #540, DORA article 28, paragraphe 3 ;
