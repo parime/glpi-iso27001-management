@@ -22,6 +22,7 @@ use Document_Item;
 use Dropdown;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\PolicyBase;
+use GlpiPlugin\Grcmanager\Services\Policy\AcknowledgementRules;
 use GlpiPlugin\Grcmanager\Services\Policy\CharterSignature;
 use GlpiPlugin\Grcmanager\Services\Policy\PolicyLifecycle;
 use GlpiPlugin\Grcmanager\Services\Policy\PolicyReviewReminderService;
@@ -109,6 +110,7 @@ class Policy extends PolicyBase
     {
         $tabs = [];
         $this->addDefaultFormTab($tabs)
+            ->addStandardTab(PolicyAcknowledgement::class, $tabs, $options)
             ->addStandardTab(Document_Item::class, $tabs, $options);
 
         return $tabs;
@@ -293,11 +295,39 @@ class Policy extends PolicyBase
         }
 
         $input['status'] = $status;
+        if (array_key_exists('acknowledgement_days', $input)) {
+            $input['acknowledgement_days'] = AcknowledgementRules::sanitizeDays($input['acknowledgement_days']);
+        }
         if (array_key_exists('is_it_charter', $input)) {
             $input['is_it_charter'] = empty($input['is_it_charter']) ? 0 : 1;
         }
 
         return $input;
+    }
+
+    /**
+     * Issue #535 : une nouvelle version d'une politique déjà diffusée relance la campagne de prise
+     * de connaissance (PolicyAcknowledgement::relaunchIfNewVersion()). Rien d'autre ne change.
+     */
+    public function post_updateItem($history = true)
+    {
+        parent::post_updateItem($history);
+        if (array_intersect(['version', 'status'], $this->updates ?? []) === []) {
+            return;
+        }
+        $count = PolicyAcknowledgement::relaunchIfNewVersion($this);
+        if ($count > 0) {
+            Session::addMessageAfterRedirect(htmlescape(sprintf(
+                __('New version %1$s: an acknowledgement campaign has been launched for %2$d person(s).', 'grcmanager'),
+                (string) $this->fields['version'],
+                $count
+            )));
+        }
+    }
+
+    public function cleanDBonPurge()
+    {
+        PolicyAcknowledgement::purgePolicy($this->getID());
     }
 
     public function showForm($ID, array $options = []): bool

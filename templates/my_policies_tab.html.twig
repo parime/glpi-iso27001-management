@@ -1,0 +1,67 @@
+{# Issue #535 : « Politiques à lire », dans les préférences de l'utilisateur connecté. Chacun lit la
+   version diffusée et confirme en avoir pris connaissance ; rien d'autre n'est demandé. #}
+<div class="card mb-3">
+   <div class="card-header">
+      <h3 class="card-title"><i class="ti ti-file-check me-2"></i>{{ __('Security policies to read', 'grcmanager') }}</h3>
+      <div class="card-actions">
+         <span class="badge {{ pending is empty ? 'bg-green-lt' : 'bg-orange-lt' }}" id="grc-mypolicies-count"><i class="ti ti-list-check me-1"></i>{{ __('%d to read', 'grcmanager')|format(pending|length) }}</span>
+      </div>
+   </div>
+   <div class="card-body">
+      <p class="text-muted small"><i class="ti ti-info-circle me-1"></i>{{ __('Your organisation asks you to read these security policies. Open the document, read it, then tick the box and confirm. Your confirmation is recorded with its date.', 'grcmanager') }}</p>
+      {% if pending is empty %}
+         <div class="alert alert-success mb-0" id="grc-mypolicies-empty"><i class="ti ti-circle-check me-1"></i>{{ __('No policy is waiting for you. Thank you!', 'grcmanager') }}</div>
+      {% else %}
+         {% for row in pending %}
+            <div class="card card-sm mb-3 grc-mypolicy {{ row.late ? 'border-danger' : '' }}">
+               <div class="card-body">
+                  <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+                     <h4 class="mb-0 flex-grow-1"><i class="ti ti-shield-lock me-1"></i>{{ row.title }}</h4>
+                     <span class="badge bg-purple-lt"><i class="ti ti-versions me-1"></i>{{ __('Version %s', 'grcmanager')|format(row.version) }}</span>
+                     {% if row.late %}
+                        <span class="badge bg-red-lt"><i class="ti ti-alarm me-1"></i>{{ __('Expected by %s', 'grcmanager')|format(row.due_text) }}</span>
+                     {% else %}
+                        <span class="badge bg-orange-lt"><i class="ti ti-clock me-1"></i>{{ __('Expected by %s', 'grcmanager')|format(row.due_text) }}</span>
+                     {% endif %}
+                  </div>
+                  {% if row.description %}
+                     <div class="text-muted mb-2">{{ row.description|nl2br }}</div>
+                  {% endif %}
+                  {% if row.documents is empty %}
+                     <p class="small text-muted mb-2"><i class="ti ti-file-off me-1"></i>{{ __('No document is attached to this policy: its description above is the text to read.', 'grcmanager') }}</p>
+                  {% else %}
+                     <div class="d-flex flex-wrap gap-2 mb-2">
+                        {% for doc in row.documents %}
+                           <a class="btn btn-outline-primary btn-sm grc-mypolicy-doc" href="{{ doc.url }}"><i class="ti ti-file-download me-1"></i>{{ __('Open: %s', 'grcmanager')|format(doc.name) }}</a>
+                        {% endfor %}
+                     </div>
+                  {% endif %}
+                  <form method="post" action="{{ action }}" class="d-flex flex-wrap align-items-center gap-3 mt-2">
+                     <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                     <input type="hidden" name="lines_id" value="{{ row.line_id }}">
+                     <label class="form-check mb-0">
+                        <input class="form-check-input" type="checkbox" name="confirm_read" value="1" required>
+                        <span class="form-check-label">{{ __('I have read and understood version %s of this policy.', 'grcmanager')|format(row.version) }}</span>
+                     </label>
+                     <button type="submit" name="acknowledge" value="1" class="btn btn-success"><i class="ti ti-circle-check me-1"></i>{{ __('Confirm', 'grcmanager') }}</button>
+                  </form>
+               </div>
+            </div>
+         {% endfor %}
+      {% endif %}
+   </div>
+</div>
+
+{% if done is not empty %}
+   <div class="card">
+      <div class="card-header"><h3 class="card-title"><i class="ti ti-history me-2"></i>{{ __('Policies already read', 'grcmanager') }}</h3></div>
+      <table class="table table-sm table-vcenter card-table" id="grc-mypolicies-done">
+         <thead><tr><th>{{ __('Policy', 'grcmanager') }}</th><th>{{ __('Version', 'grcmanager') }}</th><th>{{ __('Confirmed on', 'grcmanager') }}</th></tr></thead>
+         <tbody>
+            {% for row in done %}
+               <tr><td>{{ row.title }}</td><td><span class="badge bg-purple-lt">{{ row.version }}</span></td><td><span class="badge bg-green-lt"><i class="ti ti-circle-check me-1"></i>{{ row.acknowledged_text }}</span></td></tr>
+            {% endfor %}
+         </tbody>
+      </table>
+   </div>
+{% endif %}

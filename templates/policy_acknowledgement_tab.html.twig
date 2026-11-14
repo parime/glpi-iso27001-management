@@ -1,0 +1,245 @@
+{# Issue #535 : onglet « Prise de connaissance » d'une politique : public cible, délai de réponse,
+   campagne en vigueur (taux par entité, retardataires, exports, relance, clôture) et historique. #}
+{% macro rate_badge(progress) %}
+   <span class="badge bg-{{ progress.color }}-lt"><i class="ti {{ progress.color == 'green' ? 'ti-circle-check' : (progress.color == 'orange' ? 'ti-hourglass' : 'ti-alert-triangle') }} me-1"></i>{{ progress.rate }} %</span>
+{% endmacro %}
+{% import _self as ack %}
+
+<div class="row g-3">
+   {# ---------------------------------------------------------------- Public cible #}
+   <div class="col-12 col-xl-5">
+      <div class="card h-100">
+         <div class="card-header">
+            <h3 class="card-title"><i class="ti ti-users me-2"></i>{{ __('Target audience', 'grcmanager') }}</h3>
+            <div class="card-actions">
+               <span class="badge bg-blue-lt" id="grc-ack-members"><i class="ti ti-user me-1"></i>{{ __('%d person(s) currently match', 'grcmanager')|format(members_count) }}</span>
+            </div>
+         </div>
+         <div class="card-body">
+            <p class="text-muted small"><i class="ti ti-info-circle me-1"></i>{{ __('Who must read this policy: every active account in one of these groups, with one of these profiles or with an authorization in one of these entities. The audience is frozen when a campaign is launched.', 'grcmanager') }}</p>
+            {% if audience is empty %}
+               <div class="alert alert-warning" id="grc-ack-no-audience"><i class="ti ti-alert-circle me-1"></i>{{ __('No audience defined yet: add at least one group, profile or entity.', 'grcmanager') }}</div>
+            {% else %}
+               <ul class="list-group mb-3" id="grc-ack-audience">
+                  {% for row in audience %}
+                     <li class="list-group-item d-flex align-items-center gap-2">
+                        <span class="badge bg-azure-lt"><i class="ti {{ row.icon }} me-1"></i>{{ row.type_label }}</span>
+                        <span class="flex-grow-1">{{ row.name }}{% if row.is_recursive %} <span class="text-muted small">{{ __('(and sub-entities)', 'grcmanager') }}</span>{% endif %}</span>
+                        {% if can_update %}
+                           <form method="post" action="{{ action }}" class="m-0">
+                              <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                              <input type="hidden" name="policies_id" value="{{ policy_id }}">
+                              <input type="hidden" name="audience_id" value="{{ row.id }}">
+                              <button type="submit" name="remove_audience" value="1" class="btn btn-sm btn-ghost-danger" title="{{ __('Remove', 'grcmanager') }}"><i class="ti ti-trash"></i></button>
+                           </form>
+                        {% endif %}
+                     </li>
+                  {% endfor %}
+               </ul>
+            {% endif %}
+
+            {% if can_update %}
+               {% for type, cfg in {'Group': [__('Add a group', 'grcmanager'), 'ti-users-group'], 'Profile': [__('Add a profile', 'grcmanager'), 'ti-id-badge-2'], 'Entity': [__('Add an entity', 'grcmanager'), 'ti-building']} %}
+                  <form method="post" action="{{ action }}" class="d-flex flex-wrap align-items-center gap-2 mb-2 grc-ack-add-{{ type|lower }}">
+                     <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                     <input type="hidden" name="policies_id" value="{{ policy_id }}">
+                     <input type="hidden" name="itemtype" value="{{ type }}">
+                     <label class="form-label mb-0 text-nowrap" style="min-width: 9rem"><i class="ti {{ cfg[1] }} me-1"></i>{{ cfg[0] }}</label>
+                     <div class="flex-grow-1">
+                        {% if type == 'Group' %}{{ group_dropdown|raw }}{% elseif type == 'Profile' %}{{ profile_dropdown|raw }}{% else %}{{ entity_dropdown|raw }}{% endif %}
+                     </div>
+                     {% if type == 'Entity' %}
+                        <label class="form-check mb-0"><input class="form-check-input" type="checkbox" name="is_recursive" value="1" checked> <span class="form-check-label">{{ __('Sub-entities', 'grcmanager') }}</span></label>
+                     {% endif %}
+                     <button type="submit" name="add_audience" value="1" class="btn btn-sm btn-outline-primary"><i class="ti ti-plus me-1"></i>{{ __('Add', 'grcmanager') }}</button>
+                  </form>
+               {% endfor %}
+
+               <hr class="my-3">
+               <form method="post" action="{{ action }}" class="d-flex flex-wrap align-items-center gap-2" id="grc-ack-days-form">
+                  <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                  <input type="hidden" name="policies_id" value="{{ policy_id }}">
+                  <label class="form-label mb-0" for="grc-ack-days"><i class="ti ti-calendar-time me-1"></i>{{ __('Response deadline', 'grcmanager') }}</label>
+                  <div class="input-group" style="max-width: 11rem">
+                     <input type="number" class="form-control" id="grc-ack-days" name="acknowledgement_days" min="{{ min_days }}" max="{{ max_days }}" value="{{ days }}">
+                     <span class="input-group-text">{{ __('days', 'grcmanager') }}</span>
+                  </div>
+                  <button type="submit" name="save_days" value="1" class="btn btn-sm btn-outline-primary"><i class="ti ti-device-floppy me-1"></i>{{ __('Save', 'grcmanager') }}</button>
+                  <div class="form-hint w-100">{{ __('Counted from the launch of each campaign. Late people are reminded by email once a week; nothing else happens to them.', 'grcmanager') }}</div>
+               </form>
+            {% else %}
+               <p class="mb-0"><i class="ti ti-calendar-time me-1"></i>{{ __('Response deadline', 'grcmanager') }} : <strong>{{ __('%d days', 'grcmanager')|format(days) }}</strong></p>
+            {% endif %}
+         </div>
+      </div>
+   </div>
+
+   {# ---------------------------------------------------------------- Campagne en vigueur #}
+   <div class="col-12 col-xl-7">
+      <div class="card h-100">
+         <div class="card-header">
+            <h3 class="card-title"><i class="ti ti-speakerphone me-2"></i>{{ __('Acknowledgement campaign', 'grcmanager') }}</h3>
+            {% if current %}
+               <div class="card-actions d-flex flex-wrap gap-1">
+                  <span class="badge bg-purple-lt"><i class="ti ti-versions me-1"></i>{{ __('Version %s', 'grcmanager')|format(current.campaign.version) }}</span>
+                  {% if current.is_open %}
+                     <span class="badge bg-blue-lt"><i class="ti ti-player-play me-1"></i>{{ __('In progress', 'grcmanager') }}</span>
+                  {% else %}
+                     <span class="badge bg-secondary-lt"><i class="ti ti-lock me-1"></i>{{ __('Closed', 'grcmanager') }}</span>
+                  {% endif %}
+               </div>
+            {% endif %}
+         </div>
+         <div class="card-body">
+            {% if not is_approved %}
+               <div class="alert alert-info"><i class="ti ti-info-circle me-1"></i>{{ __('Only an approved policy can be sent to its audience: approve it first (status and approval date).', 'grcmanager') }}</div>
+            {% endif %}
+            {% if needs_new and is_approved %}
+               <div class="alert alert-warning"><i class="ti ti-refresh-alert me-1"></i>{{ __('Version %s has not been sent to the audience yet.', 'grcmanager')|format(version) }}</div>
+            {% endif %}
+            {% if can_launch %}
+               <form method="post" action="{{ action }}" class="mb-3">
+                  <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                  <input type="hidden" name="policies_id" value="{{ policy_id }}">
+                  <button type="submit" name="launch" value="1" class="btn btn-primary" id="grc-ack-launch"><i class="ti ti-send me-1"></i>{{ __('Launch the campaign for version %s', 'grcmanager')|format(version) }}</button>
+                  <div class="form-hint">{{ __('Each person of the audience is notified and confirms from "My GRC space" or the "Policies to read" tab of their preferences. A later new version launches a new campaign automatically.', 'grcmanager') }}</div>
+               </form>
+            {% endif %}
+
+            {% if current is null %}
+               {% if not can_launch and is_approved %}
+                  <p class="text-muted mb-0">{{ __('No campaign yet.', 'grcmanager') }}</p>
+               {% endif %}
+            {% else %}
+               {% set p = current.progress %}
+               <div class="row g-2 mb-3 text-center">
+                  <div class="col-6 col-md-3"><div class="card card-sm"><div class="card-body"><div class="h2 mb-0" id="grc-ack-rate">{{ p.rate }} %</div><div class="text-muted small">{{ __('Acknowledgement rate', 'grcmanager') }}</div></div></div></div>
+                  <div class="col-6 col-md-3"><div class="card card-sm"><div class="card-body"><div class="h2 mb-0 text-green">{{ p.done }} / {{ p.total }}</div><div class="text-muted small">{{ __('Confirmed', 'grcmanager') }}</div></div></div></div>
+                  <div class="col-6 col-md-3"><div class="card card-sm"><div class="card-body"><div class="h2 mb-0 text-orange">{{ p.pending }}</div><div class="text-muted small">{{ __('Waiting', 'grcmanager') }}</div></div></div></div>
+                  <div class="col-6 col-md-3"><div class="card card-sm"><div class="card-body"><div class="h2 mb-0 {{ p.late > 0 ? 'text-red' : '' }}">{{ p.late }}</div><div class="text-muted small">{{ __('Late', 'grcmanager') }}</div></div></div></div>
+               </div>
+               <div class="progress progress-sm mb-2"><div class="progress-bar bg-{{ p.color }}" style="width: {{ p.rate }}%"></div></div>
+               <p class="small text-muted">
+                  <i class="ti ti-calendar me-1"></i>{{ __('Launched on %1$s by %2$s, deadline %3$s', 'grcmanager')|format(current.dates.launch, current.launched_by, current.dates.due) }}
+                  {% if not current.is_open %} &middot; {{ __('Closed on %s', 'grcmanager')|format(current.dates.close) }}{% endif %}
+               </p>
+
+               <h4 class="mt-3"><i class="ti ti-building me-1"></i>{{ __('Rate per entity', 'grcmanager') }}</h4>
+               <table class="table table-sm table-vcenter" id="grc-ack-entities">
+                  <thead><tr><th>{{ __('Entity', 'grcmanager') }}</th><th class="text-end">{{ __('Confirmed', 'grcmanager') }}</th><th class="text-end">{{ __('Late', 'grcmanager') }}</th><th class="text-end">{{ __('Rate', 'grcmanager') }}</th></tr></thead>
+                  <tbody>
+                     {% for e in current.by_entity %}
+                        <tr><td>{{ e.entity }}</td><td class="text-end">{{ e.done }} / {{ e.total }}</td><td class="text-end">{{ e.late }}</td><td class="text-end">{{ ack.rate_badge(e) }}</td></tr>
+                     {% else %}
+                        <tr><td colspan="4" class="text-muted">{{ __('No person of this campaign in your entities.', 'grcmanager') }}</td></tr>
+                     {% endfor %}
+                  </tbody>
+               </table>
+
+               <h4 class="mt-3"><i class="ti ti-alarm me-1"></i>{{ __('Latecomers', 'grcmanager') }} <span class="badge {{ current.latecomers is empty ? 'bg-green-lt' : 'bg-red-lt' }}">{{ current.latecomers|length }}</span></h4>
+               {% if current.latecomers is empty %}
+                  <p class="text-muted" id="grc-ack-no-late"><i class="ti ti-circle-check me-1 text-green"></i>{{ current.late ? __('Nobody is late.', 'grcmanager') : __('The deadline has not passed yet: nobody is late.', 'grcmanager') }}</p>
+               {% else %}
+                  <table class="table table-sm table-vcenter" id="grc-ack-late">
+                     <thead><tr><th>{{ __('Person', 'grcmanager') }}</th><th>{{ __('Entity', 'grcmanager') }}</th><th>{{ __('Last reminder', 'grcmanager') }}</th></tr></thead>
+                     <tbody>
+                        {% for l in current.latecomers %}
+                           <tr><td><i class="ti ti-user me-1 text-muted"></i>{{ l.user_name }}</td><td>{{ l.entity }}</td><td>{{ l.date_reminder ? l.date_reminder|formatted_datetime : '-' }}</td></tr>
+                        {% endfor %}
+                     </tbody>
+                  </table>
+               {% endif %}
+
+               <details class="mt-2">
+                  <summary class="text-muted small">{{ __('Show every person of the campaign', 'grcmanager') }}</summary>
+                  <table class="table table-sm table-vcenter mt-2" id="grc-ack-lines">
+                     <thead><tr><th>{{ __('Person', 'grcmanager') }}</th><th>{{ __('Entity', 'grcmanager') }}</th><th>{{ __('Status', 'grcmanager') }}</th></tr></thead>
+                     <tbody>
+                        {% for l in current.lines %}
+                           <tr>
+                              <td>{{ l.user_name }}</td><td>{{ l.entity }}</td>
+                              <td>
+                                 {% if l.date_acknowledged %}
+                                    <span class="badge bg-green-lt"><i class="ti ti-circle-check me-1"></i>{{ __('Read on %s', 'grcmanager')|format(l.date_acknowledged|formatted_datetime) }}</span>
+                                 {% elseif l.late %}
+                                    <span class="badge bg-red-lt"><i class="ti ti-alarm me-1"></i>{{ __('Late', 'grcmanager') }}</span>
+                                 {% else %}
+                                    <span class="badge bg-orange-lt"><i class="ti ti-hourglass me-1"></i>{{ __('Waiting', 'grcmanager') }}</span>
+                                 {% endif %}
+                              </td>
+                           </tr>
+                        {% endfor %}
+                     </tbody>
+                  </table>
+               </details>
+
+               <div class="d-flex flex-wrap gap-2 mt-3">
+                  <a class="btn btn-outline-secondary" href="{{ csv_url }}" id="grc-ack-csv"><i class="ti ti-file-spreadsheet me-1"></i>{{ __('Latecomers (CSV)', 'grcmanager') }}</a>
+                  <a class="btn btn-outline-secondary" href="{{ pdf_url }}" id="grc-ack-pdf"><i class="ti ti-file-type-pdf me-1"></i>{{ __('Report (PDF)', 'grcmanager') }}</a>
+                  {% if report_url %}
+                     <a class="btn btn-outline-success" href="{{ report_url }}"><i class="ti ti-file-certificate me-1"></i>{{ __('Archived evidence (%s)', 'grcmanager')|format(control_code) }}</a>
+                  {% endif %}
+                  {% if can_update and current.is_open %}
+                     <form method="post" action="{{ action }}" class="d-flex gap-2 m-0">
+                        <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                        <input type="hidden" name="policies_id" value="{{ policy_id }}">
+                        <input type="hidden" name="campaigns_id" value="{{ current.campaign.id }}">
+                        {% if p.pending > 0 %}
+                           <button type="submit" name="remind" value="1" class="btn btn-outline-warning" id="grc-ack-remind"
+                              onclick="return confirm('{{ __('Send a reminder email now to the %d person(s) who have not confirmed yet?', 'grcmanager')|format(p.pending)|e('js') }}');">
+                              <i class="ti ti-bell-ringing me-1"></i>{{ __('Remind now', 'grcmanager') }}</button>
+                        {% endif %}
+                        <button type="submit" name="close" value="1" class="btn btn-success" id="grc-ack-close"
+                           onclick="return confirm('{{ __('Close the campaign? Nobody can confirm any more, and the report (rates and latecomers) is archived as evidence on control %s.', 'grcmanager')|format(control_code)|e('js') }}');">
+                           <i class="ti ti-archive me-1"></i>{{ __('Close and archive as evidence (%s)', 'grcmanager')|format(control_code) }}</button>
+                     </form>
+                  {% endif %}
+               </div>
+            {% endif %}
+         </div>
+      </div>
+   </div>
+
+   {# ---------------------------------------------------------------- Historique #}
+   {% if history is not empty %}
+      <div class="col-12">
+         <div class="card">
+            <div class="card-header"><h3 class="card-title"><i class="ti ti-history me-2"></i>{{ __('Previous campaigns', 'grcmanager') }}</h3></div>
+            <div class="card-body">
+               <table class="table table-sm table-vcenter" id="grc-ack-history">
+                  <thead><tr><th>{{ __('Version', 'grcmanager') }}</th><th>{{ __('Launched on', 'grcmanager') }}</th><th>{{ __('Status', 'grcmanager') }}</th><th class="text-end">{{ __('Confirmed', 'grcmanager') }}</th><th class="text-end">{{ __('Rate', 'grcmanager') }}</th><th></th></tr></thead>
+                  <tbody>
+                     {% for h in history %}
+                        <tr>
+                           <td><span class="badge bg-purple-lt">{{ h.version }}</span></td>
+                           <td>{{ h.launch }}</td>
+                           <td>
+                              {% if h.status == 'open' %}
+                                 <span class="badge bg-secondary-lt"><i class="ti ti-arrow-forward me-1"></i>{{ __('Replaced by a newer version', 'grcmanager') }}</span>
+                              {% else %}
+                                 <span class="badge bg-secondary-lt"><i class="ti ti-lock me-1"></i>{{ __('Closed on %s', 'grcmanager')|format(h.close) }}</span>
+                              {% endif %}
+                           </td>
+                           <td class="text-end">{{ h.progress.done }} / {{ h.progress.total }}</td>
+                           <td class="text-end">{{ ack.rate_badge(h.progress) }}</td>
+                           <td class="text-end text-nowrap">
+                              <a href="{{ h.csv_url }}" class="btn btn-sm btn-ghost-secondary" title="{{ __('Latecomers (CSV)', 'grcmanager') }}"><i class="ti ti-file-spreadsheet"></i></a>
+                              {% if h.report_url %}<a href="{{ h.report_url }}" class="btn btn-sm btn-ghost-success" title="{{ __('Archived evidence (%s)', 'grcmanager')|format(control_code) }}"><i class="ti ti-file-certificate"></i></a>{% endif %}
+                              {% if can_update and h.status == 'open' %}
+                                 <form method="post" action="{{ action }}" class="d-inline m-0">
+                                    <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                                    <input type="hidden" name="policies_id" value="{{ policy_id }}">
+                                    <input type="hidden" name="campaigns_id" value="{{ h.id }}">
+                                    <button type="submit" name="close" value="1" class="btn btn-sm btn-ghost-success" title="{{ __('Close and archive as evidence (%s)', 'grcmanager')|format(control_code) }}"><i class="ti ti-archive"></i></button>
+                                 </form>
+                              {% endif %}
+                           </td>
+                        </tr>
+                     {% endfor %}
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+   {% endif %}
+</div>
