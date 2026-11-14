@@ -120,6 +120,9 @@ classification fields merged directly onto it.
 - **Evidence coverage**: which assets must have which document.
 - **Supplier security watch** (CERT-FR advisories naming the supplier), **typical infrastructure
   risk catalogue**, **domino effect** between risks and incidents, **security exemptions**.
+- **CSV import of a risk register kept in a spreadsheet**: downloadable template, dry-run analysis
+  (rejected lines with their reason, planned changes), re-import without duplicates thanks to the
+  external reference, export in the same format for the round trip with the spreadsheet.
 - **Business processes and business impact analysis (BIA)**: owner, criticality, MTPD, RTO, RPO,
   impact by duration of interruption, GLPI items and other processes each process depends on,
   assets and processes slower than the process reported, linked risks (and a risk proposed for a
