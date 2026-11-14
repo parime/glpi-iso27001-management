@@ -74,6 +74,7 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/riskappetite.php front/riskindicator.php
   front/businessprocess.php front/businessprocess.php?export=csv front/businessprocess.report.php
   front/customframework.php front/customframework.php?template=1
+  front/riskimport.php front/riskimport.php?template=1 front/riskimport.php?export=1
   front/doraregister.php front/doraregister.php?export=B_02.01 front/doraregister.php?export=zip"
 # Creations : refusees sans droit comme en lecture seule (etat en base compare par la CI).
 create_attempts() { # code attendu, code attendu pour la classification (404 sans droit sur l'actif)
@@ -101,6 +102,9 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
     "$(code -F analyse=1 -F name=securite -F "csv_file=@$EVIDENCE_PDF;filename=ref.csv" -F "_glpi_csrf_token=$(csrf)" "$P/customframework.php")"
   expect "front/customframework.php : confirmer un import" "$1" \
     "$(code -d "confirm_import=1&import_token=x&_glpi_csrf_token=$(csrf)" "$P/customframework.php")"
+  # Issue #602 : analyser un registre des risques, confirmer son import.
+  expect "front/riskimport.php : analyser un fichier" "$1"     "$(code -F analyse=1 -F "csv_file=@$EVIDENCE_PDF;filename=registre.csv" -F "_glpi_csrf_token=$(csrf)" "$P/riskimport.php")"
+  expect "front/riskimport.php : confirmer un import" "$1"     "$(code -d "confirm_import=1&import_token=x&_glpi_csrf_token=$(csrf)" "$P/riskimport.php")"
   for action in "save_statuses=1&status%5B1%5D=compliant" "update=1&name=securite" "toggle_framework=1&enable=0" "purge=1"; do
     expect "front/customframework.form.php : ${action%%=*}" "$1" \
       "$(code -d "$action&id=$(id custom_framework)&_glpi_csrf_token=$(csrf)" "$P/customframework.form.php")"

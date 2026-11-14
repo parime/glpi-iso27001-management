@@ -7,6 +7,27 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.46.0] - 2026-11-14
+
+### Added
+
+- **Import CSV d'un registre des risques existant** (issue #602, ISO 27001 6.1.2 et 8.2) : bouton
+  « Import / export CSV » sur la liste des risques, réservé au droit « Registres sensibles ». Modèle
+  téléchargeable (trois risques fictifs) ; fichier UTF-8 ou Windows-1252, séparateur « ; » ou « , »,
+  en-têtes et valeurs en français ou en anglais, notes chiffrées sur une échelle de 1 à 3, 4, 5 ou 10
+  ramenées aux 4 niveaux de la matrice. Analyse à blanc avant tout enregistrement : risques à ajouter,
+  à mettre à jour (ancienne et nouvelle valeur), inchangés, et lignes rejetées avec leur numéro et leur
+  motif (référence manquante ou en double, valeur inconnue, propriétaire ou actif introuvable ou
+  ambigu, mesure de l'Annexe A inconnue, date invalide, clôture sans plan de traitement, droit
+  manquant). Propriétaires rapprochés par identifiant, adresse e-mail ou nom, actifs par nom ou numéro
+  d'inventaire, dans les entités de la session ; rien n'est créé hors des risques. Réimport sans
+  doublon grâce à la nouvelle **référence externe** du risque (migration, champ du formulaire, colonne
+  de recherche) ; une cellule vide ou une colonne absente garde la valeur enregistrée, le statut ne
+  change que si le fichier le donne (signalé dans l'aperçu), le niveau reste calculé par la matrice.
+  Import tracé dans le journal du module et le journal des événements de GLPI.
+- **Export CSV du registre des risques** au format de l'import (aller-retour avec le tableur), niveaux
+  calculés en fin de ligne, cellules neutralisées contre les formules, export tracé.
+
 ## [2.45.0] - 2026-11-14
 
 ### Added

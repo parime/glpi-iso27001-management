@@ -4263,6 +4263,13 @@ final class Installer
             $migration->addField(self::RISKS_TABLE, 'is_direction_acceptance', 'bool', ['after' => 'date_acceptance']);
             $migration->migrationOneTable(self::RISKS_TABLE);
         }
+        // Issue #602 : référence du risque dans le registre tenu en tableur, clé de l'import CSV
+        // (un nouvel import met à jour le risque au lieu d'en créer un second).
+        if (!$DB->fieldExists(self::RISKS_TABLE, 'external_ref')) {
+            $migration->addField(self::RISKS_TABLE, 'external_ref', 'string', ['value' => '', 'after' => 'id']);
+            $migration->addKey(self::RISKS_TABLE, 'external_ref');
+            $migration->migrationOneTable(self::RISKS_TABLE);
+        }
         if (
             $DB->tableExists(self::RISK_APPETITES_TABLE)
             && !$DB->fieldExists(self::RISK_APPETITES_TABLE, 'is_direction_approval')
