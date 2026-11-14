@@ -397,6 +397,9 @@ final class RegisterTemplates
     /** Codes nationaux, préfixés du pays d'émission (« FR_CRN »). */
     public const NATIONAL_CODES = ['CRN', 'VAT', 'PNR', 'NIN'];
 
+    private const SENSITIVENESS_COLUMN = 'B_02.02.0170';
+    private const SENSITIVENESS_NAME = 'Sensitiveness of the data stored by the ICT third-party service provider';
+
     /**
      * B_99.01 : lignes prévues par le modèle (code de ligne => colonne, intitulé, option), dont
      * la définition interne reste à rédiger par l'entité.
@@ -407,9 +410,9 @@ final class RegisterTemplates
         'R0010' => ['B_02.01.0020', 'Type of contractual arrangement', '1. Standalone arrangement'],
         'R0020' => ['B_02.01.0020', 'Type of contractual arrangement', '2. Overarching arrangement'],
         'R0030' => ['B_02.01.0020', 'Type of contractual arrangement', '3. Subsequent or associated arrangement'],
-        'R0040' => ['B_02.02.0170', 'Sensitiveness of the data stored by the ICT third-party service provider', '1. Low'],
-        'R0050' => ['B_02.02.0170', 'Sensitiveness of the data stored by the ICT third-party service provider', '2. Medium'],
-        'R0060' => ['B_02.02.0170', 'Sensitiveness of the data stored by the ICT third-party service provider', '3. High'],
+        'R0040' => [self::SENSITIVENESS_COLUMN, self::SENSITIVENESS_NAME, '1. Low'],
+        'R0050' => [self::SENSITIVENESS_COLUMN, self::SENSITIVENESS_NAME, '2. Medium'],
+        'R0060' => [self::SENSITIVENESS_COLUMN, self::SENSITIVENESS_NAME, '3. High'],
         'R0070' => ['B_06.01.0110', 'Impact of discontinuing the function', '1. Low'],
         'R0080' => ['B_06.01.0110', 'Impact of discontinuing the function', '2. Medium'],
         'R0090' => ['B_06.01.0110', 'Impact of discontinuing the function', '3. High'],
@@ -424,7 +427,11 @@ final class RegisterTemplates
             'Substitutability of the ICT third-party service provider',
             '3. Medium complexity in terms of substitutability',
         ],
-        'R0130' => ['B_07.01.0050', 'Substitutability of the ICT third-party service provider', '4. Easily substitutable'],
+        'R0130' => [
+            'B_07.01.0050',
+            'Substitutability of the ICT third-party service provider',
+            '4. Easily substitutable',
+        ],
         'R0140' => ['B_07.01.0090', 'Possibility of reintegration of the contracted ICT service', '1. Easy'],
         'R0150' => ['B_07.01.0090', 'Possibility of reintegration of the contracted ICT service', '2. Difficult'],
         'R0160' => ['B_07.01.0090', 'Possibility of reintegration of the contracted ICT service', '3. Highly complex'],
@@ -434,7 +441,8 @@ final class RegisterTemplates
     ];
 
     /** Codes de pays ISO 3166-1 alpha-2 attribués. */
-    public const COUNTRIES = 'AD AE AF AG AI AL AM AO AQ AR AS AT AU AW AX AZ BA BB BD BE BF BG BH BI BJ BL BM BN BO BQ '
+    public const COUNTRIES = 'AD AE AF AG AI AL AM AO AQ AR AS AT AU AW AX AZ BA BB BD BE BF BG BH BI BJ '
+        . 'BL BM BN BO BQ '
         . 'BR BS BT BV BW BY BZ CA CC CD CF CG CH CI CK CL CM CN CO CR CU CV CW CX CY CZ DE DJ DK DM DO DZ EC EE EG '
         . 'EH ER ES ET FI FJ FK FM FO FR GA GB GD GE GF GG GH GI GL GM GN GP GQ GR GS GT GU GW GY HK HM HN HR HT HU '
         . 'ID IE IL IM IN IO IQ IR IS IT JE JM JO JP KE KG KH KI KM KN KP KR KW KY KZ LA LB LC LI LK LR LS LT LU LV '

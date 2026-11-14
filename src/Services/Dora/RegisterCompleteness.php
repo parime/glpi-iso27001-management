@@ -79,7 +79,13 @@ final class RegisterCompleteness
         $checkedFunctions = [];
         foreach ($arrangements as $arrangement) {
             $key = (int) ($arrangement['key'] ?? 0);
-            $checker->expect('arrangement', $key, 'reference', 'B_02.01.0010', (string) ($arrangement['reference'] ?? '') !== '');
+            $checker->expect(
+                'arrangement',
+                $key,
+                'reference',
+                'B_02.01.0010',
+                (string) ($arrangement['reference'] ?? '') !== ''
+            );
             $arrangementType = (int) ($arrangement['type'] ?? 0);
             $checker->expect('arrangement', $key, 'type', 'B_02.01.0020', $arrangementType > 0);
             if ($arrangementType === RegisterTemplates::ARRANGEMENT_SUBSEQUENT) {
@@ -91,17 +97,41 @@ final class RegisterCompleteness
                     (string) ($arrangement['overarching'] ?? '') !== ''
                 );
             }
-            $checker->expect('arrangement', $key, 'currency', 'B_02.01.0040', (string) ($arrangement['currency'] ?? '') !== '');
-            $checker->expect('arrangement', $key, 'annual_cost', 'B_02.01.0050', ($arrangement['annual_cost'] ?? null) !== null);
+            $checker->expect(
+                'arrangement',
+                $key,
+                'currency',
+                'B_02.01.0040',
+                (string) ($arrangement['currency'] ?? '') !== ''
+            );
+            $checker->expect(
+                'arrangement',
+                $key,
+                'annual_cost',
+                'B_02.01.0050',
+                ($arrangement['annual_cost'] ?? null) !== null
+            );
             $providerKey = (int) ($arrangement['provider'] ?? 0);
             $checker->expect('arrangement', $key, 'provider', 'B_02.02.0030', isset($providers[$providerKey]));
-            $checker->expect('arrangement', $key, 'service_types', 'B_02.02.0060', (array) ($arrangement['service_types'] ?? []) !== []);
+            $checker->expect(
+                'arrangement',
+                $key,
+                'service_types',
+                'B_02.02.0060',
+                (array) ($arrangement['service_types'] ?? []) !== []
+            );
             $linked = array_filter(
                 array_map('intval', (array) ($arrangement['functions'] ?? [])),
                 static fn (int $f): bool => isset($functions[$f])
             );
             $checker->expect('arrangement', $key, 'functions', 'B_02.02.0050', $linked !== []);
-            $checker->expect('arrangement', $key, 'start_date', 'B_02.02.0070', ($arrangement['start_date'] ?? null) !== null);
+            $checker->expect(
+                'arrangement',
+                $key,
+                'start_date',
+                'B_02.02.0070',
+                ($arrangement['start_date'] ?? null) !== null
+            );
             $end = $arrangement['end_date'] ?? null;
             if ($end !== null && (string) $end < $today) {
                 $checker->expect(
@@ -114,7 +144,13 @@ final class RegisterCompleteness
             }
 
             if (RegisterBuilder::supportsCritical($arrangement, $functions)) {
-                $checker->expect('arrangement', $key, 'notice_entity', 'B_02.02.0100', ($arrangement['notice_entity'] ?? null) !== null);
+                $checker->expect(
+                    'arrangement',
+                    $key,
+                    'notice_entity',
+                    'B_02.02.0100',
+                    ($arrangement['notice_entity'] ?? null) !== null
+                );
                 $checker->expect(
                     'arrangement',
                     $key,
@@ -122,7 +158,13 @@ final class RegisterCompleteness
                     'B_02.02.0110',
                     ($arrangement['notice_provider'] ?? null) !== null
                 );
-                $checker->expect('arrangement', $key, 'governing_law', 'B_02.02.0120', (string) ($arrangement['governing_law'] ?? '') !== '');
+                $checker->expect(
+                    'arrangement',
+                    $key,
+                    'governing_law',
+                    'B_02.02.0120',
+                    (string) ($arrangement['governing_law'] ?? '') !== ''
+                );
                 $checker->expect(
                     'arrangement',
                     $key,
@@ -140,7 +182,13 @@ final class RegisterCompleteness
                         'B_02.02.0150',
                         (array) ($arrangement['storage_countries'] ?? []) !== []
                     );
-                    $checker->expect('arrangement', $key, 'sensitivity', 'B_02.02.0170', (int) ($arrangement['sensitivity'] ?? 0) > 0);
+                    $checker->expect(
+                        'arrangement',
+                        $key,
+                        'sensitivity',
+                        'B_02.02.0170',
+                        (int) ($arrangement['sensitivity'] ?? 0) > 0
+                    );
                 }
                 $checker->expect(
                     'arrangement',
@@ -149,7 +197,13 @@ final class RegisterCompleteness
                     'B_02.02.0160',
                     (array) ($arrangement['processing_countries'] ?? []) !== []
                 );
-                $checker->expect('arrangement', $key, 'reliance', 'B_02.02.0180', (int) ($arrangement['reliance'] ?? 0) > 0);
+                $checker->expect(
+                    'arrangement',
+                    $key,
+                    'reliance',
+                    'B_02.02.0180',
+                    (int) ($arrangement['reliance'] ?? 0) > 0
+                );
                 $substitutability = (int) ($arrangement['substitutability'] ?? 0);
                 $checker->expect('arrangement', $key, 'substitutability', 'B_07.01.0050', $substitutability > 0);
                 if (in_array($substitutability, [1, 2], true)) {
@@ -161,8 +215,20 @@ final class RegisterCompleteness
                         (int) ($arrangement['non_substitutable_reason'] ?? 0) > 0
                     );
                 }
-                $checker->expect('arrangement', $key, 'exit_plan', 'B_07.01.0080', (int) ($arrangement['exit_plan'] ?? 0) > 0);
-                $checker->expect('arrangement', $key, 'reintegration', 'B_07.01.0090', (int) ($arrangement['reintegration'] ?? 0) > 0);
+                $checker->expect(
+                    'arrangement',
+                    $key,
+                    'exit_plan',
+                    'B_07.01.0080',
+                    (int) ($arrangement['exit_plan'] ?? 0) > 0
+                );
+                $checker->expect(
+                    'arrangement',
+                    $key,
+                    'reintegration',
+                    'B_07.01.0090',
+                    (int) ($arrangement['reintegration'] ?? 0) > 0
+                );
                 $checker->expect(
                     'arrangement',
                     $key,
@@ -170,12 +236,21 @@ final class RegisterCompleteness
                     'B_07.01.0100',
                     (int) ($arrangement['discontinuing_impact'] ?? 0) > 0
                 );
-                $checker->expect('arrangement', $key, 'alternatives', 'B_07.01.0110', (int) ($arrangement['alternatives'] ?? 0) > 0);
+                $checker->expect(
+                    'arrangement',
+                    $key,
+                    'alternatives',
+                    'B_07.01.0110',
+                    (int) ($arrangement['alternatives'] ?? 0) > 0
+                );
             }
 
             $chain = array_merge(
                 $providerKey > 0 ? [$providerKey] : [],
-                array_map(static fn ($s): int => (int) ($s['provider'] ?? 0), (array) ($arrangement['subcontractors'] ?? []))
+                array_map(
+                    static fn ($s): int => (int) ($s['provider'] ?? 0),
+                    (array) ($arrangement['subcontractors'] ?? [])
+                )
             );
             foreach ($chain as $index => $chainKey) {
                 if (!isset($providers[$chainKey]) || isset($checkedProviders[$chainKey])) {
@@ -231,11 +306,29 @@ final class RegisterCompleteness
                 || RegisterRules::isProviderCodeValid($code, $type, (int) ($provider['person_type'] ?? 0))
         );
         $checker->expect('provider', $key, 'code_type', 'B_05.01.0020', $type !== '');
-        $checker->expect('provider', $key, 'legal_name', 'B_05.01.0050', trim((string) ($provider['legal_name'] ?? '')) !== '');
+        $checker->expect(
+            'provider',
+            $key,
+            'legal_name',
+            'B_05.01.0050',
+            trim((string) ($provider['legal_name'] ?? '')) !== ''
+        );
         $checker->expect('provider', $key, 'person_type', 'B_05.01.0070', (int) ($provider['person_type'] ?? 0) > 0);
-        $checker->expect('provider', $key, 'hq_country', 'B_05.01.0080', (string) ($provider['hq_country'] ?? '') !== '');
+        $checker->expect(
+            'provider',
+            $key,
+            'hq_country',
+            'B_05.01.0080',
+            (string) ($provider['hq_country'] ?? '') !== ''
+        );
         if ($direct) {
-            $checker->expect('provider', $key, 'currency', 'B_05.01.0090', (string) ($provider['currency'] ?? '') !== '');
+            $checker->expect(
+                'provider',
+                $key,
+                'currency',
+                'B_05.01.0090',
+                (string) ($provider['currency'] ?? '') !== ''
+            );
         }
     }
 

@@ -233,6 +233,27 @@ if ($mode === 'xss') {
         'title' => $canary, 'description' => $canary, 'annex_a' => $controlCode, 'rank' => 1, 'comment' => $canary,
     ]);
     \GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig::setEnabled('custom_' . $out['customframework'], true);
+    // Issue #540 : registre DORA piégé : entité, prestataire (fournisseur du jeu de données), accord
+    // du contrat de A, fonction (processus piégé) liée à l'accord.
+    \Config::setConfigurationValues('plugin:grcmanager', ['dora_register' => json_encode([
+        'name' => $canary, 'authority' => $canary, 'lei' => $canary,
+    ])]);
+    $DB->delete('glpi_plugin_grcmanager_doraproviders', ['suppliers_id' => (int) $ids['supplier']]);
+    $insert('doraproviders', [
+        'suppliers_id' => (int) $ids['supplier'], 'legal_name' => $canary, 'latin_name' => $canary, 'code' => $canary,
+        'parent_code' => $canary,
+    ]);
+    $DB->update('glpi_plugin_grcmanager_doraarrangements', [
+        'reference' => $canary, 'overarching_reference' => $canary, 'alternative_providers' => $canary,
+        'storage_countries' => $canary,
+    ], ['contracts_id' => (int) $ids['contract_A']]);
+    $insert('doraarrangements_functions', [
+        'contracts_id' => (int) $ids['contract_A'], 'plugin_grcmanager_businessprocesses_id' => $out['process'],
+    ]);
+    $insert('dorafunctions', [
+        'plugin_grcmanager_businessprocesses_id' => $out['process'], 'licensed_activity' => $canary,
+        'criticality' => 1, 'criticality_reasons' => $canary,
+    ]);
     echo json_encode($out), "\n";
     exit(0);
 }
@@ -411,6 +432,13 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
         'duration'    => 12,
     ]);
     $add(new Contract_Supplier(), ['contracts_id' => $contract, 'suppliers_id' => $supplier]);
+    // Issue #540 : contrat de l'entité au registre DORA (référence propre à l'entité).
+    $ids['contract_' . $suffix] = $contract;
+    if (countElementsInTable('glpi_plugin_grcmanager_doraarrangements', ['contracts_id' => $contract]) === 0) {
+        $DB->insert('glpi_plugin_grcmanager_doraarrangements', [
+            'contracts_id' => $contract, 'reference' => 'DORA-securite-' . $suffix, 'service_types' => 'S19',
+        ]);
+    }
     $ids['computer_' . $suffix] = $add(new Computer(), ['name' => 'PC securite ' . $suffix, 'entities_id' => $entity]);
     // Issue #377, troisième étape : application classable (RTO) de l'entité.
     $ids['appliance_' . $suffix] = $add(new Appliance(), [
@@ -701,4 +729,6 @@ if (\GlpiPlugin\Grcmanager\AuditorAccess::grant($ids['audit'], $noRight, $access
     exit(1);
 }
 
+// Issue #540 : référentiel DORA activé, pour que le registre et ses onglets soient testés.
+\GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig::setEnabled('dora', true);
 echo json_encode($ids), "\n";

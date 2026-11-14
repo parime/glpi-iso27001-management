@@ -44,7 +44,7 @@ class DoraFunction extends DoraFunctionBase
 
     public static function getTypeName($nb = 0)
     {
-        return _n('DORA function', 'DORA functions', $nb, 'grcmanager');
+        return __('DORA function', 'grcmanager');
     }
 
     public static function getIcon()

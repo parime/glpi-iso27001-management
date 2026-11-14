@@ -45,7 +45,7 @@ class DoraProvider extends DoraProviderBase
 
     public static function getTypeName($nb = 0)
     {
-        return _n('ICT third-party service provider', 'ICT third-party service providers', $nb, 'grcmanager');
+        return __('ICT third-party service provider', 'grcmanager');
     }
 
     public static function getIcon()

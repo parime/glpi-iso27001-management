@@ -22,7 +22,6 @@ use GlpiPlugin\Grcmanager\Control;
 use GlpiPlugin\Grcmanager\DoraArrangement;
 use GlpiPlugin\Grcmanager\DoraRegister;
 use GlpiPlugin\Grcmanager\Menu;
-use GlpiPlugin\Grcmanager\PageHelp;
 use GlpiPlugin\Grcmanager\Services\Dora\RegisterTemplates;
 
 // Issue #540 : registre d'informations DORA. Lecture du plugin, et référentiel DORA activé : sinon
@@ -62,6 +61,6 @@ if (isset($_GET['export'])) {
 
 Html::header(DoraRegister::getTypeName(1), $_SERVER['PHP_SELF'], 'grcmanager', Control::class, DoraRegister::class);
 Menu::showSection(Control::class, DoraRegister::class);
-PageHelp::show('doraregister');
+\GlpiPlugin\Grcmanager\PageHelp::show('doraregister');
 DoraRegister::showRegisterPage();
 Html::footer();

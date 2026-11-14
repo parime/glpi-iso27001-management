@@ -191,10 +191,14 @@ final class DoraRegisterTest extends GrcmanagerIntegrationTestCase
             'licensed_activity' => DoraFunction::SUPPORT_FUNCTIONS, 'criticality' => 2,
         ]));
         $this->assertTrue(DoraArrangement::addFunction((int) $s['saas']->getID(), (int) $s['payments']->getID()));
-        $this->assertFalse(DoraArrangement::addFunction((int) $s['saas']->getID(), (int) $s['payments']->getID()), 'déjà liée');
+        $this->assertFalse(
+            DoraArrangement::addFunction((int) $s['saas']->getID(), (int) $s['payments']->getID()),
+            'déjà liée'
+        );
         $this->assertTrue(DoraArrangement::addFunction((int) $s['support']->getID(), (int) $s['payroll']->getID()));
-        $this->assertTrue(DoraArrangement::addSubcontractor((int) $s['saas']->getID(), (int) $s['hosting']->getID(), 0));
-        $this->assertFalse(DoraArrangement::addSubcontractor((int) $s['saas']->getID(), (int) $s['hosting']->getID(), 0));
+        $saasId = (int) $s['saas']->getID();
+        $this->assertTrue(DoraArrangement::addSubcontractor($saasId, (int) $s['hosting']->getID(), 0));
+        $this->assertFalse(DoraArrangement::addSubcontractor($saasId, (int) $s['hosting']->getID(), 0));
 
         $update = static function (Contract $contract, array $input): void {
             $row = DoraArrangement::forContract((int) $contract->getID());
@@ -237,17 +241,27 @@ final class DoraRegisterTest extends GrcmanagerIntegrationTestCase
         $this->assertSame('F' . $s['payments']->getID(), $function['identifier']);
         $this->assertSame([4, 1, 3], [$function['rto'], $function['rpo'], $function['impact']]);
         $this->assertNotNull($function['assessment_date']);
-        $this->assertSame(1, $data['register']['functions'][$s['payroll']->getID()]['impact'], 'BIA négligeable : impact faible');
+        $this->assertSame(
+            1,
+            $data['register']['functions'][$s['payroll']->getID()]['impact'],
+            'BIA négligeable : impact faible'
+        );
 
         // Export : un CSV par modèle, codes de colonnes et valeurs officielles.
         $files = DoraRegister::exportFiles();
         $this->assertStringStartsWith("c0010,c0020,c0030,c0040,c0050\r\n", $files['b_02.01.csv']);
         $this->assertStringContainsString('CTR-2026-01,standalone arrangement,,EUR,120000', $files['b_02.01.csv']);
-        $this->assertStringContainsString(self::HOSTING_LEI . ',LEI,2,' . self::CLOUD_LEI . ',LEI', $files['b_05.02.csv']);
+        $this->assertStringContainsString(
+            self::HOSTING_LEI . ',LEI,2,' . self::CLOUD_LEI . ',LEI',
+            $files['b_05.02.csv']
+        );
         $this->assertStringContainsString(self::BANK_LEI, $files['b_01.01.csv']);
         $rows = RegisterBuilder::build($data['register']);
         $this->assertCount(2, $rows['B_07.01'], 'contrat critique, deux types de services');
-        $this->assertCount(4, array_filter($rows['B_02.02'], static fn (array $r): bool => $r['c0010'] === 'CTR-2026-01'));
+        $this->assertCount(
+            4,
+            array_filter($rows['B_02.02'], static fn (array $r): bool => $r['c0010'] === 'CTR-2026-01')
+        );
 
         $zip = DoraRegister::buildZip();
         if ($zip !== null) {
@@ -331,7 +345,10 @@ final class DoraRegisterTest extends GrcmanagerIntegrationTestCase
             $this->assertTrue(DoraRegister::displayTabContentForItem($item, $tab));
             $this->assertStringContainsString($marker, (string) ob_get_clean());
         }
-        $this->assertFalse(DoraRegister::displayTabContentForItem($s['saas'], DoraRegister::TAB_PROVIDER), 'mauvais onglet');
+        $this->assertFalse(
+            DoraRegister::displayTabContentForItem($s['saas'], DoraRegister::TAB_PROVIDER),
+            'mauvais onglet'
+        );
 
         ob_start();
         DoraRegister::showRegisterPage();

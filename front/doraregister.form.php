@@ -77,6 +77,9 @@ if (isset($_POST['save_function'])) {
 }
 
 $contract = $readable(Contract::class, (int) ($_POST['contracts_id'] ?? 0));
+if (!$contract instanceof Contract) {
+    throw new BadRequestHttpException();
+}
 $contractsId = (int) $contract->getID();
 
 if (isset($_POST['include'])) {

@@ -25,17 +25,95 @@ use GlpiPlugin\Grcmanager\Services\Dora\RegisterCsv;
 use GlpiPlugin\Grcmanager\Services\Dora\RegisterTemplates;
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . '/RegisterFixture.php';
-
 /**
  * Issue #540 : correspondance du registre avec les modèles B_01.01 à B_99.01, contrôle des champs
  * obligatoires et format CSV de l'export.
  */
 final class RegisterBuilderTest extends TestCase
 {
+    private const BANK_LEI = '9999000EXEMPLEBANQ61';
+    private const CLOUD_LEI = '9999000NUAGEDEMO0132';
+    private const HOSTING_LEI = '9999000HEBERGFICT174';
+
+    /**
+     * @return array<string, mixed>
+     */
+    private static function register(): array
+    {
+        return [
+            'today'        => '2026-11-14',
+            'entity'       => [
+                'lei' => self::BANK_LEI, 'name' => 'Banque Exemple SA', 'country' => 'FR', 'type' => 1,
+                'authority' => 'Autorité fictive', 'currency' => 'EUR', 'total_assets' => 1500000000.0,
+                'hierarchy' => 4, 'parent_lei' => '', 'integration_date' => '2026-01-15',
+                'last_update' => '2026-11-10', 'reporting_date' => '2026-11-14',
+            ],
+            'providers'    => [
+                10 => [
+                    'code' => self::CLOUD_LEI, 'code_type' => 'LEI', 'additional_code' => '',
+                    'additional_code_type' => '', 'legal_name' => 'Nuage Démo SAS', 'latin_name' => '',
+                    'person_type' => 1, 'hq_country' => 'FR', 'currency' => 'EUR', 'annual_cost' => null,
+                    'parent_code' => '', 'parent_code_type' => '',
+                ],
+                11 => [
+                    'code' => self::HOSTING_LEI, 'code_type' => 'LEI', 'additional_code' => 'FR12345678901',
+                    'additional_code_type' => 'VAT', 'legal_name' => 'Hébergement Fictif SARL',
+                    'latin_name' => 'Hebergement Fictif SARL', 'person_type' => 1, 'hq_country' => 'DE',
+                    'currency' => 'EUR', 'annual_cost' => 5000.0, 'parent_code' => '', 'parent_code_type' => '',
+                ],
+            ],
+            'functions'    => [
+                5 => [
+                    'identifier' => 'F5', 'name' => 'Paiements clients', 'licensed_activity' => 'Payment services',
+                    'criticality' => 1, 'reasons' => '=Interruption bloquante', 'assessment_date' => '2026-06-30',
+                    'rto' => 4, 'rpo' => 1, 'impact' => 3,
+                ],
+                6 => [
+                    'identifier' => 'F6', 'name' => 'Paie', 'licensed_activity' => 'support functions',
+                    'criticality' => 2, 'reasons' => '', 'assessment_date' => '2026-06-30',
+                    'rto' => 72, 'rpo' => 24, 'impact' => 1,
+                ],
+            ],
+            'arrangements' => [
+                [
+                    'key' => 100, 'reference' => 'CTR-2026-01', 'type' => 1, 'overarching' => '', 'currency' => 'EUR',
+                    'annual_cost' => 120000.5, 'provider' => 10, 'service_types' => ['S17', 'S19'],
+                    'start_date' => '2026-01-01', 'end_date' => '2029-01-01', 'termination_reason' => 0,
+                    'notice_entity' => 90, 'notice_provider' => 180, 'governing_law' => 'FR',
+                    'provision_country' => 'FR', 'data_storage' => 1, 'storage_countries' => ['FR', 'DE'],
+                    'processing_countries' => ['FR'], 'sensitivity' => 3, 'reliance' => 4, 'substitutability' => 2,
+                    'non_substitutable_reason' => 2, 'last_audit_date' => null, 'exit_plan' => 1,
+                    'reintegration' => 3, 'discontinuing_impact' => 3, 'alternatives' => 1,
+                    'alternative_providers' => 'Autre nuage fictif', 'functions' => [5],
+                    'subcontractors' => [['provider' => 11, 'rank' => 2, 'recipient' => 0]],
+                ],
+                [
+                    'key' => 101, 'reference' => 'CTR-2026-02', 'type' => 1, 'overarching' => '', 'currency' => 'EUR',
+                    'annual_cost' => 8000.0, 'provider' => 11, 'service_types' => ['S03'],
+                    'start_date' => '2025-01-01', 'end_date' => '9999-12-31', 'termination_reason' => 0,
+                    'notice_entity' => null, 'notice_provider' => null, 'governing_law' => '',
+                    'provision_country' => '', 'data_storage' => 0, 'storage_countries' => [],
+                    'processing_countries' => [], 'sensitivity' => 0, 'reliance' => 0, 'substitutability' => 0,
+                    'non_substitutable_reason' => 0, 'last_audit_date' => null, 'exit_plan' => 0,
+                    'reintegration' => 0, 'discontinuing_impact' => 0, 'alternatives' => 0,
+                    'alternative_providers' => '', 'functions' => [6], 'subcontractors' => [],
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * @param list<array<string, string>> $rows
+     * @return list<array<string, string>>
+     */
+    private static function rowsOf(array $rows, string $reference): array
+    {
+        return array_values(array_filter($rows, static fn (array $r): bool => $r['c0010'] === $reference));
+    }
+
     public function testEveryTemplateIsBuiltWithItsOfficialColumns(): void
     {
-        $rows = RegisterBuilder::build(RegisterFixture::register());
+        $rows = RegisterBuilder::build(self::register());
 
         self::assertSame(array_keys(RegisterTemplates::TEMPLATES), array_keys($rows));
         foreach ($rows as $template => $templateRows) {
@@ -56,25 +134,28 @@ final class RegisterBuilderTest extends TestCase
 
     public function testEntityAndArrangements(): void
     {
-        $rows = RegisterBuilder::build(RegisterFixture::register());
+        $rows = RegisterBuilder::build(self::register());
 
-        self::assertSame(RegisterFixture::BANK_LEI, $rows['B_01.01'][0]['c0010']);
+        self::assertSame(self::BANK_LEI, $rows['B_01.01'][0]['c0010']);
         self::assertSame('credit institutions', $rows['B_01.01'][0]['c0040']);
         self::assertSame('9999-12-31', $rows['B_01.02'][0]['c0090'], 'entité jamais supprimée');
         self::assertSame('1500000000', $rows['B_01.02'][0]['c0110']);
         self::assertSame('EUR', $rows['B_01.02'][0]['c0100']);
 
         self::assertCount(2, $rows['B_02.01']);
-        self::assertSame(['CTR-2026-01', 'standalone arrangement', '', 'EUR', '120000.50'], array_values($rows['B_02.01'][0]));
-        self::assertSame(['CTR-2026-01', RegisterFixture::BANK_LEI], array_values($rows['B_03.01'][0]));
-        self::assertSame(['CTR-2026-01', RegisterFixture::CLOUD_LEI, 'LEI'], array_values($rows['B_03.02'][0]));
+        self::assertSame(
+            ['CTR-2026-01', 'standalone arrangement', '', 'EUR', '120000.50'],
+            array_values($rows['B_02.01'][0])
+        );
+        self::assertSame(['CTR-2026-01', self::BANK_LEI], array_values($rows['B_03.01'][0]));
+        self::assertSame(['CTR-2026-01', self::CLOUD_LEI, 'LEI'], array_values($rows['B_03.02'][0]));
         self::assertSame(RegisterTemplates::NATURES[2], $rows['B_04.01'][0]['c0030']);
     }
 
     public function testSpecificInformationHasOneRowPerFunctionServiceAndCountry(): void
     {
-        $rows = RegisterBuilder::build(RegisterFixture::register());
-        $first = array_values(array_filter($rows['B_02.02'], static fn (array $r): bool => $r['c0010'] === 'CTR-2026-01'));
+        $rows = RegisterBuilder::build(self::register());
+        $first = self::rowsOf($rows['B_02.02'], 'CTR-2026-01');
 
         // 1 fonction x 2 types de services x 2 pays de stockage.
         self::assertCount(4, $first);
@@ -89,42 +170,45 @@ final class RegisterBuilderTest extends TestCase
         self::assertSame('High', $first[0]['c0170']);
         self::assertSame('Full reliance', $first[0]['c0180']);
 
-        $second = array_values(array_filter($rows['B_02.02'], static fn (array $r): bool => $r['c0010'] === 'CTR-2026-02'));
+        $second = self::rowsOf($rows['B_02.02'], 'CTR-2026-02');
         self::assertCount(1, $second);
         self::assertSame('', $second[0]['c0170'], 'sans stockage : pas de sensibilité');
     }
 
     public function testSupplyChainProvidersAndFunctions(): void
     {
-        $rows = RegisterBuilder::build(RegisterFixture::register());
+        $rows = RegisterBuilder::build(self::register());
 
-        $chain = array_values(array_filter($rows['B_05.02'], static fn (array $r): bool => $r['c0010'] === 'CTR-2026-01'));
+        $chain = self::rowsOf($rows['B_05.02'], 'CTR-2026-01');
         self::assertCount(4, $chain, 'prestataire direct et sous-traitant, pour chaque type de service');
         self::assertSame(['1', '', ''], [$chain[0]['c0050'], $chain[0]['c0060'], $chain[0]['c0070']]);
         self::assertSame(
-            [RegisterFixture::HOSTING_LEI, '2', RegisterFixture::CLOUD_LEI, 'LEI'],
+            [self::HOSTING_LEI, '2', self::CLOUD_LEI, 'LEI'],
             [$chain[1]['c0030'], $chain[1]['c0050'], $chain[1]['c0060'], $chain[1]['c0070']]
         );
 
         self::assertCount(2, $rows['B_05.01']);
         $byCode = array_column($rows['B_05.01'], null, 'c0010');
-        $cloud = $byCode[RegisterFixture::CLOUD_LEI];
+        $cloud = $byCode[self::CLOUD_LEI];
         self::assertSame('120000.50', $cloud['c0100'], 'coût annuel : somme de ses accords');
         self::assertSame('Nuage Démo SAS', $cloud['c0060'], 'nom latin : repris du nom légal');
-        self::assertSame([RegisterFixture::CLOUD_LEI, 'LEI'], [$cloud['c0110'], $cloud['c0120']], 'hors groupe');
-        $hosting = $byCode[RegisterFixture::HOSTING_LEI];
+        self::assertSame([self::CLOUD_LEI, 'LEI'], [$cloud['c0110'], $cloud['c0120']], 'hors groupe');
+        $hosting = $byCode[self::HOSTING_LEI];
         self::assertSame(['FR12345678901', 'VAT', '5000'], [$hosting['c0030'], $hosting['c0040'], $hosting['c0100']]);
 
         $functions = array_column($rows['B_06.01'], null, 'c0010');
         self::assertSame(['F5', 'F6'], array_keys($functions));
         self::assertSame('Yes', $functions['F5']['c0060']);
         self::assertSame("'=Interruption bloquante", $functions['F5']['c0070'], 'formule neutralisée');
-        self::assertSame(['4', '1', 'High'], [$functions['F5']['c0090'], $functions['F5']['c0100'], $functions['F5']['c0110']]);
+        self::assertSame(
+            ['4', '1', 'High'],
+            [$functions['F5']['c0090'], $functions['F5']['c0100'], $functions['F5']['c0110']]
+        );
     }
 
     public function testAssessmentOnlyForCriticalFunctions(): void
     {
-        $rows = RegisterBuilder::build(RegisterFixture::register());
+        $rows = RegisterBuilder::build(self::register());
 
         self::assertCount(2, $rows['B_07.01'], 'un accord critique, deux types de services');
         $row = $rows['B_07.01'][0];
@@ -140,18 +224,18 @@ final class RegisterBuilderTest extends TestCase
 
     public function testEndedArrangementReportsItsReason(): void
     {
-        $register = RegisterFixture::register();
+        $register = self::register();
         $register['arrangements'][1]['end_date'] = '2026-06-30';
         $register['arrangements'][1]['termination_reason'] = 1;
         $rows = RegisterBuilder::build($register);
-        $second = array_values(array_filter($rows['B_02.02'], static fn (array $r): bool => $r['c0010'] === 'CTR-2026-02'));
+        $second = self::rowsOf($rows['B_02.02'], 'CTR-2026-02');
 
         self::assertSame('Termination not for cause', $second[0]['c0090']);
     }
 
     public function testCompleteRegisterHasNoIssue(): void
     {
-        $result = RegisterCompleteness::check(RegisterFixture::register());
+        $result = RegisterCompleteness::check(self::register());
 
         self::assertSame([], $result['issues']);
         self::assertSame(100, $result['rate']);
@@ -160,7 +244,7 @@ final class RegisterBuilderTest extends TestCase
 
     public function testMissingAndInvalidFieldsAreReported(): void
     {
-        $register = RegisterFixture::register();
+        $register = self::register();
         $register['entity']['lei'] = '9999000EXEMPLEBANQ62';
         $register['entity']['authority'] = '';
         $register['arrangements'][0]['notice_entity'] = null;
@@ -176,7 +260,8 @@ final class RegisterBuilderTest extends TestCase
 
         $result = RegisterCompleteness::check($register);
         $found = array_map(
-            static fn (array $i): string => $i['scope'] . ':' . $i['key'] . ':' . $i['field'] . ':' . $i['column'] . ':' . $i['kind'],
+            static fn (array $i): string
+                => implode(':', [$i['scope'], $i['key'], $i['field'], $i['column'], $i['kind']]),
             $result['issues']
         );
         sort($found);
@@ -198,10 +283,14 @@ final class RegisterBuilderTest extends TestCase
 
     public function testNonCriticalArrangementNeedsFewerFields(): void
     {
-        $register = RegisterFixture::register();
+        $register = self::register();
         $register['arrangements'] = [$register['arrangements'][1]];
 
-        self::assertSame([], RegisterCompleteness::check($register)['issues'], 'pas de préavis exigé hors fonction critique');
+        self::assertSame(
+            [],
+            RegisterCompleteness::check($register)['issues'],
+            'pas de préavis exigé hors fonction critique'
+        );
 
         $register['functions'][6]['criticality'] = 1;
         $columns = array_column(RegisterCompleteness::check($register)['issues'], 'column');
@@ -211,7 +300,7 @@ final class RegisterBuilderTest extends TestCase
 
     public function testCsvFilesFollowTheXbrlCsvTableLayout(): void
     {
-        $files = RegisterCsv::files(RegisterBuilder::build(RegisterFixture::register()));
+        $files = RegisterCsv::files(RegisterBuilder::build(self::register()));
 
         self::assertCount(count(RegisterTemplates::TEMPLATES), $files);
         self::assertArrayHasKey('b_02.02.csv', $files);

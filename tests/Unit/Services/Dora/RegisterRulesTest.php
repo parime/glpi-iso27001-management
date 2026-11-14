@@ -23,17 +23,18 @@ use GlpiPlugin\Grcmanager\Services\Dora\RegisterRules;
 use GlpiPlugin\Grcmanager\Services\Dora\RegisterTemplates;
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . '/RegisterFixture.php';
-
 /**
  * Issue #540 : formats du registre d'informations DORA.
  */
 final class RegisterRulesTest extends TestCase
 {
+    private const BANK_LEI = '9999000EXEMPLEBANQ61';
+    private const CLOUD_LEI = '9999000NUAGEDEMO0132';
+
     public function testLeiChecksum(): void
     {
-        self::assertTrue(RegisterRules::isLei(RegisterFixture::BANK_LEI));
-        self::assertTrue(RegisterRules::isLei(strtolower(RegisterFixture::CLOUD_LEI)), 'casse indifférente');
+        self::assertTrue(RegisterRules::isLei(self::BANK_LEI));
+        self::assertTrue(RegisterRules::isLei(strtolower(self::CLOUD_LEI)), 'casse indifférente');
         self::assertFalse(RegisterRules::isLei('9999000EXEMPLEBANQ62'), 'clé de contrôle fausse');
         self::assertFalse(RegisterRules::isLei('9999000EXEMPLEBANQ6'), 'trop court');
         self::assertFalse(RegisterRules::isLei('9999000EXEMPLEBANQAB'), 'clé non numérique');
@@ -80,7 +81,7 @@ final class RegisterRulesTest extends TestCase
         self::assertSame('', RegisterRules::codeType('VAT'), 'pays d\'émission requis');
         self::assertSame('', RegisterRules::codeType('SIRET', 'FR'));
 
-        self::assertTrue(RegisterRules::isProviderCodeValid(RegisterFixture::CLOUD_LEI, 'LEI', 1));
+        self::assertTrue(RegisterRules::isProviderCodeValid(self::CLOUD_LEI, 'LEI', 1));
         self::assertFalse(RegisterRules::isProviderCodeValid('123', 'LEI', 1), 'LEI invalide');
         self::assertFalse(RegisterRules::isProviderCodeValid('FR123', 'FR_VAT', 1), 'personne morale : LEI ou EUID');
         self::assertTrue(RegisterRules::isProviderCodeValid('FR123', 'FR_VAT', 2), 'personne physique : code national');

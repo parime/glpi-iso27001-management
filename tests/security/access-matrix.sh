@@ -72,7 +72,8 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/processingactivity.export.php?format=csv
   front/riskappetite.php front/riskindicator.php
   front/businessprocess.php front/businessprocess.php?export=csv front/businessprocess.report.php
-  front/customframework.php front/customframework.php?template=1"
+  front/customframework.php front/customframework.php?template=1
+  front/doraregister.php front/doraregister.php?export=B_02.01 front/doraregister.php?export=zip"
 # Creations : refusees sans droit comme en lecture seule (etat en base compare par la CI).
 create_attempts() { # code attendu, code attendu pour la classification (404 sans droit sur l'actif)
   local incident; incident=$(id incident_A)
@@ -750,6 +751,24 @@ if [ "$ROLE" = none ] || [ "$ROLE" = reader ]; then
   done
   expect "front/auditevidencerequest.form.php : import CSV" 403 \
     "$(code -F import_csv=1 -F "plugin_grcmanager_audits_id=$(id audit)" -F "csv_file=@$EVIDENCE_PDF;filename=liste.csv" -F "_glpi_csrf_token=$(csrf)" "$P/auditevidencerequest.form.php")"
+fi
+
+# Issue #540 : registre d'informations DORA (referentiel DORA active par setup.php). Le contrat de
+# chaque entite est au registre ; le gestionnaire et le lecteur limites a A ne voient pas celui de B,
+# ni dans la page ni dans l'export. Toute saisie est refusee sans droit comme en lecture seule (etat
+# en base compare par la CI) ; l'onglet du contrat est vide sans droit sur le plugin.
+register=$(curl -s -c "$JAR" -b "$JAR" "$P/doraregister.php?export=B_02.01")
+SEE_A=oui; [ "$ROLE" = none ] && SEE_A=non
+contains "export DORA : contrat de A" "DORA-securite-A" $SEE_A "$register"
+contains "export DORA : contrat de B" "DORA-securite-B" $SEE_B "$register"
+contains "onglet registre DORA d'un contrat" "grc-dora-arrangement-form" $SEE_A   "$(tab Contract 'GlpiPlugin%5CGrcmanager%5CDoraRegister$2' "$(id contract_A)")"
+if [ "$ROLE" = none ] || [ "$ROLE" = reader ]; then
+  for action in save_settings=1 save_provider=1 save_function=1 include=1 exclude=1 save_arrangement=1 add_function=1     remove_function=1 add_subcontractor=1 remove_subcontractor=1; do
+    expect "front/doraregister.form.php : ${action%%=*}" 403       "$(code -d "$action&contracts_id=$(id contract_A)&suppliers_id=$(id supplier)&name=securite&reference=securite&_glpi_csrf_token=$(csrf)" "$P/doraregister.form.php")"
+  done
+fi
+if [ "$ROLE" = limited ]; then
+  expect "front/doraregister.form.php : contrat de B" 403     "$(code -d "save_arrangement=1&contracts_id=$(id contract_B)&reference=securite&_glpi_csrf_token=$(csrf)" "$P/doraregister.form.php")"
 fi
 
 rm -f "$JAR"

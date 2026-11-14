@@ -147,7 +147,10 @@ final class RegisterBuilder
                             'c0070' => (string) ($arrangement['start_date'] ?? ''),
                             'c0080' => (string) ($arrangement['end_date'] ?? ''),
                             'c0090' => $ended || (int) ($arrangement['termination_reason'] ?? 0) > 0
-                                ? self::label(RegisterTemplates::TERMINATION_REASONS, $arrangement['termination_reason'] ?? 0)
+                                ? self::label(
+                                    RegisterTemplates::TERMINATION_REASONS,
+                                    $arrangement['termination_reason'] ?? 0
+                                )
                                 : '',
                             'c0100' => self::number($arrangement['notice_entity'] ?? null),
                             'c0110' => self::number($arrangement['notice_provider'] ?? null),

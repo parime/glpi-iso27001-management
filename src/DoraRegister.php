@@ -153,7 +153,7 @@ class DoraRegister extends CommonGLPI
     private static function cleanSettings(array $input): array
     {
         return [
-            'lei'              => strtoupper(str_replace(' ', '', mb_substr(trim((string) ($input['lei'] ?? '')), 0, 20))),
+            'lei'              => self::cleanLei($input['lei'] ?? ''),
             'name'             => mb_substr(trim((string) ($input['name'] ?? '')), 0, 255),
             'country'          => RegisterRules::country($input['country'] ?? ''),
             'type'             => RegisterRules::option($input['type'] ?? 0, RegisterTemplates::ENTITY_TYPES),
@@ -161,9 +161,20 @@ class DoraRegister extends CommonGLPI
             'currency'         => RegisterRules::currency($input['currency'] ?? '') ?: 'EUR',
             'total_assets'     => RegisterRules::amount($input['total_assets'] ?? null),
             'hierarchy'        => RegisterRules::option($input['hierarchy'] ?? 4, RegisterTemplates::HIERARCHIES),
-            'parent_lei'       => strtoupper(str_replace(' ', '', mb_substr(trim((string) ($input['parent_lei'] ?? '')), 0, 20))),
+            'parent_lei'       => self::cleanLei($input['parent_lei'] ?? ''),
             'integration_date' => RegisterRules::date($input['integration_date'] ?? ''),
         ];
+    }
+
+    /** LEI saisi : sans espace, en majuscules, 20 caractères au plus (vérifié par le contrôle). */
+    private static function cleanLei(mixed $value): string
+    {
+        return strtoupper(str_replace(' ', '', mb_substr(trim(is_scalar($value) ? (string) $value : ''), 0, 20)));
+    }
+
+    private static function nullableInt(mixed $value): ?int
+    {
+        return $value === null ? null : (int) $value;
     }
 
     // ------------------------------------------------------------------ Libellés
@@ -462,22 +473,25 @@ class DoraRegister extends CommonGLPI
                 $supplierIds = array_merge($supplierIds, [$provider], array_column($subcontractors, 'suppliers_id'));
                 $processIds = array_merge($processIds, $functions);
                 $begin = RegisterRules::date((string) ($row['contract_begin'] ?? ''));
-                $cost = $row['annual_cost'] === null ? self::contractCost($contractsId, $today) : (float) $row['annual_cost'];
+                $cost = $row['annual_cost'] === null
+                    ? self::contractCost($contractsId, $today)
+                    : (float) $row['annual_cost'];
                 $arrangements[] = [
                     'key'                      => $contractsId,
                     'reference'                => (string) $row['reference'] !== ''
                         ? (string) $row['reference'] : trim((string) $row['contract_num']),
                     'type'                     => (int) $row['arrangement_type'],
                     'overarching'              => (string) $row['overarching_reference'],
-                    'currency'                 => (string) $row['currency'] !== '' ? (string) $row['currency'] : $settings['currency'],
+                    'currency'                 => (string) $row['currency'] !== ''
+                        ? (string) $row['currency'] : $settings['currency'],
                     'annual_cost'              => $cost,
                     'provider'                 => $provider,
                     'service_types'            => RegisterRules::serviceTypes((string) $row['service_types']),
                     'start_date'               => $begin,
                     'end_date'                 => RegisterRules::endDate($begin, (int) $row['contract_duration']),
                     'termination_reason'       => (int) $row['termination_reason'],
-                    'notice_entity'            => $row['notice_entity_days'] === null ? null : (int) $row['notice_entity_days'],
-                    'notice_provider'          => $row['notice_provider_days'] === null ? null : (int) $row['notice_provider_days'],
+                    'notice_entity'            => self::nullableInt($row['notice_entity_days']),
+                    'notice_provider'          => self::nullableInt($row['notice_provider_days']),
                     'governing_law'            => (string) $row['governing_law_country'],
                     'provision_country'        => (string) $row['provision_country'],
                     'data_storage'             => (int) $row['data_storage'],
@@ -487,7 +501,8 @@ class DoraRegister extends CommonGLPI
                     'reliance'                 => (int) $row['reliance'],
                     'substitutability'         => (int) $row['substitutability'],
                     'non_substitutable_reason' => (int) $row['non_substitutable_reason'],
-                    'last_audit_date'          => $row['last_audit_date'] === null ? null : (string) $row['last_audit_date'],
+                    'last_audit_date'          => $row['last_audit_date'] === null
+                        ? null : (string) $row['last_audit_date'],
                     'exit_plan'                => (int) $row['exit_plan'],
                     'reintegration'            => (int) $row['reintegration'],
                     'discontinuing_impact'     => (int) $row['discontinuing_impact'],
@@ -666,7 +681,8 @@ class DoraRegister extends CommonGLPI
             'person_type'          => (int) ($dora['person_type'] ?? RegisterTemplates::LEGAL_PERSON),
             'hq_country'           => (string) ($dora['hq_country'] ?? '') !== ''
                 ? (string) $dora['hq_country'] : RegisterRules::country($supplier['country'] ?? ''),
-            'currency'             => (string) ($dora['currency'] ?? '') !== '' ? (string) $dora['currency'] : $currency,
+            'currency'             => (string) ($dora['currency'] ?? '') !== ''
+                ? (string) $dora['currency'] : $currency,
             'annual_cost'          => isset($dora['annual_cost']) ? (float) $dora['annual_cost'] : null,
             'parent_code'          => $parentCode,
             'parent_code_type'     => $parentCode === '' ? '' : RegisterRules::codeType(
@@ -785,7 +801,10 @@ class DoraRegister extends CommonGLPI
                     'FKEY' => [Contract_Supplier::getTable() => 'contracts_id', Contract::getTable() => 'id'],
                 ],
                 DoraProvider::getTable()      => [
-                    'FKEY' => [DoraProvider::getTable() => 'suppliers_id', Contract_Supplier::getTable() => 'suppliers_id'],
+                    'FKEY' => [
+                        DoraProvider::getTable()      => 'suppliers_id',
+                        Contract_Supplier::getTable() => 'suppliers_id',
+                    ],
                 ],
                 Supplier::getTable()          => [
                     'FKEY' => [Supplier::getTable() => 'id', Contract_Supplier::getTable() => 'suppliers_id'],
@@ -952,7 +971,8 @@ class DoraRegister extends CommonGLPI
             }
         }
 
-        TemplateRenderer::getInstance()->display('@grcmanager/dora/provider_tab.html.twig', self::commonTemplateData() + [
+        $template = '@grcmanager/dora/provider_tab.html.twig';
+        TemplateRenderer::getInstance()->display($template, self::commonTemplateData() + [
             'supplier_id'   => $id,
             'dora'          => $dora,
             'data'          => $data,
@@ -1021,16 +1041,21 @@ class DoraRegister extends CommonGLPI
                 'id'          => (int) $process['id'],
                 'identifier'  => $data['identifier'],
                 'name'        => (string) $process['name'],
-                'url'         => self::tabURL(BusinessProcess::getFormURLWithID((int) $process['id']), self::TAB_FUNCTION),
+                'url'         => self::tabURL(
+                    BusinessProcess::getFormURLWithID((int) $process['id']),
+                    self::TAB_FUNCTION
+                ),
                 'criticality' => (int) $data['criticality'],
-                'criticality_label' => $criticalities[(int) $data['criticality']] ?? __('Not assessed yet', 'grcmanager'),
+                'criticality_label' => $criticalities[(int) $data['criticality']]
+                    ?? __('Not assessed yet', 'grcmanager'),
             ];
         }
         $hiddenFunctions = count($functionIds) - count($functions);
 
         // Processus qui dépendent d'un fournisseur du contrat (onglet « Dépendances ») : proposés.
         $proposalIds = [];
-        foreach ((new BusinessProcessItem())->find(['itemtype' => Supplier::class, 'items_id' => $supplierIds ?: [0]]) as $link) {
+        $links = (new BusinessProcessItem())->find(['itemtype' => Supplier::class, 'items_id' => $supplierIds ?: [0]]);
+        foreach ($links as $link) {
             $processId = (int) $link['plugin_grcmanager_businessprocesses_id'];
             if (!in_array($processId, $functionIds, true)) {
                 $proposalIds[] = $processId;
@@ -1056,7 +1081,8 @@ class DoraRegister extends CommonGLPI
                 'url'       => self::tabURL(Supplier::getFormURLWithID($sub['suppliers_id']), self::TAB_PROVIDER),
                 'rank'      => $ranks[$sub['suppliers_id']] ?? 2,
                 'recipient' => $sub['recipient'] > 0
-                    ? ($names[$sub['recipient']] ?? '') : ($suppliers[$provider] ?? __('Direct provider', 'grcmanager')),
+                    ? ($names[$sub['recipient']] ?? '')
+                    : ($suppliers[$provider] ?? __('Direct provider', 'grcmanager')),
             ];
         }
         usort($chain, static fn (array $a, array $b): int => [$a['rank'], $a['name']] <=> [$b['rank'], $b['name']]);
@@ -1158,7 +1184,8 @@ class DoraRegister extends CommonGLPI
         }
         $criticity = (int) ($process->fields['businesscriticities_id'] ?? 0);
 
-        TemplateRenderer::getInstance()->display('@grcmanager/dora/function_tab.html.twig', self::commonTemplateData() + [
+        $template = '@grcmanager/dora/function_tab.html.twig';
+        TemplateRenderer::getInstance()->display($template, self::commonTemplateData() + [
             'process_id'     => $id,
             'dora'           => $dora,
             'data'           => $data,
@@ -1166,7 +1193,8 @@ class DoraRegister extends CommonGLPI
             'impacts'        => self::options('impact'),
             'rto_label'      => $durations[$data['rto']] ?? '',
             'rpo_label'      => $durations[$data['rpo']] ?? '',
-            'unacceptable_label' => $data['unacceptable_after'] > 0 ? ($durations[$data['unacceptable_after']] ?? '') : '',
+            'unacceptable_label' => $data['unacceptable_after'] > 0
+                ? ($durations[$data['unacceptable_after']] ?? '') : '',
             'bia_date'       => $process->fields['bia_date'] ?? null,
             'business_criticity' => $criticity > 0
                 ? \Dropdown::getDropdownName(BusinessCriticity::getTable(), $criticity) : '',
@@ -1199,7 +1227,8 @@ class DoraRegister extends CommonGLPI
                     $functionNames[] = [
                         'name'     => $data['meta']['functions'][$functionKey]['name'],
                         'url'      => $data['meta']['functions'][$functionKey]['url'],
-                        'critical' => (int) $register['functions'][$functionKey]['criticality'] === RegisterTemplates::CRITICAL,
+                        'critical' => (int) $register['functions'][$functionKey]['criticality']
+                            === RegisterTemplates::CRITICAL,
                     ];
                 }
             }

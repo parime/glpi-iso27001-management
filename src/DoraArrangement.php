@@ -48,7 +48,7 @@ class DoraArrangement extends DoraArrangementBase
 
     public static function getTypeName($nb = 0)
     {
-        return _n('Contractual arrangement', 'Contractual arrangements', $nb, 'grcmanager');
+        return __('Contractual arrangement', 'grcmanager');
     }
 
     public static function getIcon()
@@ -124,7 +124,10 @@ class DoraArrangement extends DoraArrangementBase
             'data_sensitivity'         => $option('data_sensitivity', RegisterTemplates::SENSITIVENESS),
             'reliance'                 => $option('reliance', RegisterTemplates::RELIANCE),
             'substitutability'         => $option('substitutability', RegisterTemplates::SUBSTITUTABILITY),
-            'non_substitutable_reason' => $option('non_substitutable_reason', RegisterTemplates::NON_SUBSTITUTABLE_REASONS),
+            'non_substitutable_reason' => $option(
+                'non_substitutable_reason',
+                RegisterTemplates::NON_SUBSTITUTABLE_REASONS
+            ),
             'last_audit_date'          => RegisterRules::date($input['last_audit_date'] ?? '') ?? 'NULL',
             'exit_plan'                => $option('exit_plan', RegisterTemplates::YES_NO),
             'reintegration'            => $option('reintegration', RegisterTemplates::REINTEGRATION),
@@ -218,7 +221,10 @@ class DoraArrangement extends DoraArrangementBase
                 'ORDER' => 'id',
             ]) as $row
         ) {
-            $rows[] = ['suppliers_id' => (int) $row['suppliers_id'], 'recipient' => (int) $row['suppliers_id_recipient']];
+            $rows[] = [
+                'suppliers_id' => (int) $row['suppliers_id'],
+                'recipient'    => (int) $row['suppliers_id_recipient'],
+            ];
         }
 
         return $rows;
@@ -294,7 +300,10 @@ class DoraArrangement extends DoraArrangementBase
     public function post_updateItem($history = true)
     {
         if ($this->updates !== []) {
-            self::logOnContract((int) $this->fields['contracts_id'], __('DORA register: information updated', 'grcmanager'));
+            self::logOnContract(
+                (int) $this->fields['contracts_id'],
+                __('DORA register: information updated', 'grcmanager')
+            );
         }
     }
 
