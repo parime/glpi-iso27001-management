@@ -24,7 +24,7 @@
 
 {# Issue #538 : demandes de preuves de l'auditeur et leur état à la date du rapport. #}
 {% if evidence_requests is not empty %}
-  <h2>{{ __('Evidence requests', 'grcmanager') }}</h2>
+  <h2>{{ _n('Evidence request', 'Evidence requests', 2, 'grcmanager') }}</h2>
   <p>{{ __('%1$d of %2$d request(s) accepted (%3$d %%).', 'grcmanager')|format(evidence_progress.accepted, evidence_progress.total, evidence_progress.percent) }}</p>
   <table class="grcmanager-pdf-table">
     <thead>
