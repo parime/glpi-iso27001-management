@@ -11778,3 +11778,276 @@ msgstr "Ryzyka dostawców oczekujące na przegląd: %d, wysłane powiadomienia: 
 #, php-format
 msgid "%d training(s) with at least one participant overdue for renewal, %d notification(s) raised."
 msgstr "Szkolenia z co najmniej jednym uczestnikiem z zaległym odnowieniem: %d, wysłane powiadomienia: %d."
+
+msgid "Policy acknowledgement"
+msgstr "Zapoznanie się z politykami"
+
+msgid "This policy is not waiting for your acknowledgement."
+msgstr "Ta polityka nie oczekuje na Twoje zapoznanie się."
+
+msgid "This acknowledgement campaign is closed or replaced by a newer version."
+msgstr "Ta kampania zapoznania się jest zamknięta lub zastąpiona nowszą wersją."
+
+#, php-format
+msgid "Policy acknowledgement: %1$s, version %2$s"
+msgstr "Zapoznanie się: %1$s, wersja %2$s"
+
+#, php-format
+msgid "Policy acknowledgement report - %1$s %2$s"
+msgstr "Raport z zapoznania się - %1$s %2$s"
+
+msgid "Policies to read"
+msgstr "Polityki do przeczytania"
+
+msgid "Reminds people who have not acknowledged a security policy by its deadline"
+msgstr "Przypomina osobom, które nie zapoznały się z polityką bezpieczeństwa w terminie"
+
+#, php-format
+msgid "New version %1$s: an acknowledgement campaign has been launched for %2$d person(s)."
+msgstr "Nowa wersja %1$s: uruchomiono kampanię zapoznania się dla %2$d osób."
+
+msgid "Policy to acknowledge"
+msgstr "Polityka do zapoznania się"
+
+msgid "Policy acknowledgement reminder"
+msgstr "Przypomnienie o zapoznaniu się z polityką"
+
+msgid "Audience members who have not acknowledged the policy"
+msgstr "Odbiorcy, którzy nie zapoznali się jeszcze z polityką"
+
+msgid "Acknowledgement deadline"
+msgstr "Termin zapoznania się"
+
+msgid "Acknowledgement page URL"
+msgstr "Adres strony zapoznania się"
+
+msgid "Policy to read"
+msgstr "Polityka do przeczytania"
+
+#, php-format
+msgid "Version %s"
+msgstr "Wersja %s"
+
+msgid "Tick the box to confirm that you have read the policy."
+msgstr "Zaznacz pole, aby potwierdzić, że przeczytałeś politykę."
+
+msgid "Thank you: your acknowledgement has been recorded."
+msgstr "Dziękujemy: Twoje zapoznanie się zostało zapisane."
+
+msgid "Choose a group, a profile or an entity to add."
+msgstr "Wybierz grupę, profil lub jednostkę do dodania."
+
+#, php-format
+msgid "Campaign launched: %d person(s) have been asked to read and confirm the policy."
+msgstr "Kampania uruchomiona: %d osób poproszono o przeczytanie i potwierdzenie polityki."
+
+msgid "No active account matches the audience of this policy."
+msgstr "Żadne aktywne konto nie należy do odbiorców tej polityki."
+
+msgid "A campaign can only be launched on an approved policy with an audience, once per version."
+msgstr "Kampanię można uruchomić tylko dla zatwierdzonej polityki z określonymi odbiorcami, raz na wersję."
+
+#, php-format
+msgid "%d reminder(s) sent."
+msgstr "Wysłano przypomnień: %d."
+
+#, php-format
+msgid "Campaign closed: the report has been archived as evidence on control %s and on the policy."
+msgstr "Kampania zamknięta: raport zarchiwizowano jako dowód przy zabezpieczeniu %s i przy polityce."
+
+msgid "The campaign could not be closed or its report could not be archived."
+msgstr "Nie udało się zamknąć kampanii lub zarchiwizować jej raportu."
+
+msgid "Person"
+msgstr "Osoba"
+
+msgid "Last reminder"
+msgstr "Ostatnie przypomnienie"
+
+#, php-format
+msgid "%d person(s) currently match"
+msgstr "Obecnie pasujących osób: %d"
+
+msgid "Who must read this policy: every active account in one of these groups, with one of these profiles or with an authorization in one of these entities. The audience is frozen when a campaign is launched."
+msgstr "Kto musi przeczytać tę politykę: każde aktywne konto w jednej z tych grup, z jednym z tych profili lub z uprawnieniem w jednej z tych jednostek. Odbiorcy są ustalani w chwili uruchomienia kampanii."
+
+msgid "No audience defined yet: add at least one group, profile or entity."
+msgstr "Nie określono jeszcze odbiorców: dodaj co najmniej jedną grupę, profil lub jednostkę."
+
+msgid "Add a group"
+msgstr "Dodaj grupę"
+
+msgid "Add a profile"
+msgstr "Dodaj profil"
+
+msgid "Add an entity"
+msgstr "Dodaj jednostkę"
+
+msgid "Sub-entities"
+msgstr "Jednostki podrzędne"
+
+msgid "Response deadline"
+msgstr "Termin odpowiedzi"
+
+msgid "days"
+msgstr "dni"
+
+msgid "Counted from the launch of each campaign. Late people are reminded by email once a week; nothing else happens to them."
+msgstr "Liczony od uruchomienia każdej kampanii. Spóźnione osoby otrzymują przypomnienie e-mailem raz w tygodniu, bez innych konsekwencji."
+
+msgid "Acknowledgement campaign"
+msgstr "Kampania zapoznania się"
+
+msgid "Only an approved policy can be sent to its audience: approve it first (status and approval date)."
+msgstr "Tylko zatwierdzoną politykę można przekazać odbiorcom: najpierw ją zatwierdź (status i data zatwierdzenia)."
+
+#, php-format
+msgid "Version %s has not been sent to the audience yet."
+msgstr "Wersja %s nie została jeszcze przekazana odbiorcom."
+
+#, php-format
+msgid "Launch the campaign for version %s"
+msgstr "Uruchom kampanię dla wersji %s"
+
+msgid "Each person of the audience is notified and confirms from \"My GRC space\" or the \"Policies to read\" tab of their preferences. A later new version launches a new campaign automatically."
+msgstr "Każda osoba z odbiorców otrzymuje powiadomienie i potwierdza w „Moja przestrzeń GRC” lub na karcie „Polityki do przeczytania” w swoich preferencjach. Późniejsza nowa wersja automatycznie uruchomi nową kampanię."
+
+msgid "No campaign yet."
+msgstr "Brak kampanii."
+
+msgid "Acknowledgement rate"
+msgstr "Wskaźnik zapoznania się"
+
+msgid "Confirmed"
+msgstr "Potwierdzono"
+
+msgid "Waiting"
+msgstr "Oczekuje"
+
+msgid "Late"
+msgstr "Spóźnione"
+
+#, php-format
+msgid "Launched on %1$s by %2$s, deadline %3$s"
+msgstr "Uruchomiona %1$s przez %2$s, termin %3$s"
+
+#, php-format
+msgid "Closed on %s"
+msgstr "Zamknięta %s"
+
+msgid "Rate per entity"
+msgstr "Wskaźnik według jednostki"
+
+msgid "Rate"
+msgstr "Wskaźnik"
+
+msgid "No person of this campaign in your entities."
+msgstr "Brak osób z tej kampanii w Twoich jednostkach."
+
+msgid "Latecomers"
+msgstr "Spóźnieni"
+
+msgid "Nobody is late."
+msgstr "Nikt się nie spóźnia."
+
+msgid "The deadline has not passed yet: nobody is late."
+msgstr "Termin jeszcze nie minął: nikt się nie spóźnia."
+
+msgid "Show every person of the campaign"
+msgstr "Pokaż wszystkie osoby z kampanii"
+
+#, php-format
+msgid "Read on %s"
+msgstr "Przeczytano %s"
+
+msgid "Latecomers (CSV)"
+msgstr "Spóźnieni (CSV)"
+
+#, php-format
+msgid "Archived evidence (%s)"
+msgstr "Zarchiwizowany dowód (%s)"
+
+#, php-format
+msgid "Send a reminder email now to the %d person(s) who have not confirmed yet?"
+msgstr "Wysłać teraz przypomnienie e-mail do %d osób, które jeszcze nie potwierdziły?"
+
+msgid "Remind now"
+msgstr "Przypomnij teraz"
+
+#, php-format
+msgid "Close the campaign? Nobody can confirm any more, and the report (rates and latecomers) is archived as evidence on control %s."
+msgstr "Zamknąć kampanię? Nikt nie będzie mógł już potwierdzić, a raport (wskaźniki i spóźnieni) zostanie zarchiwizowany jako dowód przy zabezpieczeniu %s."
+
+#, php-format
+msgid "Close and archive as evidence (%s)"
+msgstr "Zamknij i zarchiwizuj jako dowód (%s)"
+
+msgid "Previous campaigns"
+msgstr "Poprzednie kampanie"
+
+msgid "Replaced by a newer version"
+msgstr "Zastąpiona nowszą wersją"
+
+msgid "Security policies to read"
+msgstr "Polityki bezpieczeństwa do przeczytania"
+
+#, php-format
+msgid "%d to read"
+msgstr "Do przeczytania: %d"
+
+msgid "Your organisation asks you to read these security policies. Open the document, read it, then tick the box and confirm. Your confirmation is recorded with its date."
+msgstr "Twoja organizacja prosi o przeczytanie tych polityk bezpieczeństwa. Otwórz dokument, przeczytaj go, zaznacz pole i potwierdź. Potwierdzenie jest zapisywane wraz z datą."
+
+msgid "No policy is waiting for you. Thank you!"
+msgstr "Żadna polityka na Ciebie nie czeka. Dziękujemy!"
+
+#, php-format
+msgid "Expected by %s"
+msgstr "Oczekiwane do %s"
+
+msgid "No document is attached to this policy: its description above is the text to read."
+msgstr "Do tej polityki nie dołączono dokumentu: powyższy opis jest tekstem do przeczytania."
+
+#, php-format
+msgid "Open: %s"
+msgstr "Otwórz: %s"
+
+#, php-format
+msgid "I have read and understood version %s of this policy."
+msgstr "Przeczytałem i zrozumiałem wersję %s tej polityki."
+
+msgid "Policies already read"
+msgstr "Polityki już przeczytane"
+
+msgid "Confirmed on"
+msgstr "Potwierdzono"
+
+msgid "Confirmations"
+msgstr "Potwierdzenia"
+
+msgid "Security policy to acknowledge"
+msgstr "Polityka bezpieczeństwa do zapoznania się"
+
+msgid "Sent to the audience of a security policy when an acknowledgement campaign is launched."
+msgstr "Wysyłane do odbiorców polityki bezpieczeństwa po uruchomieniu kampanii zapoznania się."
+
+msgid "Security policy acknowledgement reminder"
+msgstr "Przypomnienie o zapoznaniu się z polityką bezpieczeństwa"
+
+msgid "Sent by the GRC Manager automatic task when the acknowledgement deadline of a security policy has passed (at most once a week)."
+msgstr "Wysyłane przez zadanie automatyczne GRC Manager, gdy minął termin zapoznania się z polityką bezpieczeństwa (najwyżej raz w tygodniu)."
+
+#, php-format
+msgid "Please read version %1$s of the security policy \"%2$s\" and confirm that you have read it before %3$s."
+msgstr "Przeczytaj wersję %1$s polityki bezpieczeństwa „%2$s” i potwierdź jej przeczytanie przed %3$s."
+
+#, php-format
+msgid "Reminder: security policy %s to acknowledge"
+msgstr "Przypomnienie: polityka bezpieczeństwa %s do zapoznania się"
+
+#, php-format
+msgid "The %1$s deadline has passed and you have not yet confirmed that you have read version %2$s of the security policy \"%3$s\"."
+msgstr "Termin %1$s minął, a nie potwierdziłeś jeszcze przeczytania wersji %2$s polityki bezpieczeństwa „%3$s”."
+
+msgid "Read and confirm"
+msgstr "Przeczytaj i potwierdź"

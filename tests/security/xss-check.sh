@@ -84,6 +84,10 @@ check "onglet classification d'une application" "$(tab Appliance 'GlpiPlugin%5CG
 # de l'ordinateur, passes au graphe par un attribut echappe).
 check "onglet carte des dependances d'un processus" "$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessProcessLink$2' "$(xid process)")"
 check "onglet validites des preuves"          "$(tab 'GlpiPlugin%5CGrcmanager%5CPolicy' 'GlpiPlugin%5CGrcmanager%5CEvidence$1' "$(id policy_A)")"
+# Issue #535 : politique piegee a lire (preferences) et onglet de prise de connaissance (groupe piege).
+check "onglet Politiques a lire"              "$(tab Preference 'GlpiPlugin%5CGrcmanager%5CPolicyAcknowledgement$1' 2)"
+check "onglet prise de connaissance"          "$(tab 'GlpiPlugin%5CGrcmanager%5CPolicy' 'GlpiPlugin%5CGrcmanager%5CPolicyAcknowledgement$1' "$(xid policy)")"
+check "export CSV de prise de connaissance"   "$P/policyacknowledgement.export.php?id=$(xid ack_campaign)&format=csv"
 # Issue #380 : constat d'un test d'efficacite (onglet de la mesure).
 check "onglet tests d'efficacite d'un controle" "$(tab GlpiPlugin%5CGrcmanager%5CControl 'GlpiPlugin%5CGrcmanager%5CControlTest$1' "$(id control)")"
 

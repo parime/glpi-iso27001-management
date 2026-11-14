@@ -485,13 +485,23 @@ class PolicyAcknowledgement extends CommonGLPI
                 'users_id'          => (int) $row['users_id'],
                 'entities_id'       => (int) $row['entities_id'],
                 'user_name'         => (string) getUserName((int) $row['users_id']),
-                'entity'            => (string) Dropdown::getDropdownName(Entity::getTable(), (int) $row['entities_id']),
+                'entity'            => (string) Dropdown::getDropdownName(
+                    Entity::getTable(),
+                    (int) $row['entities_id']
+                ),
                 'date_acknowledged' => $acknowledged,
                 'date_reminder'     => $row['date_reminder'] ?: null,
-                'late'              => AcknowledgementRules::isLate($acknowledged, (string) $campaign['due_date'], $today),
+                'late'              => AcknowledgementRules::isLate(
+                    $acknowledged,
+                    (string) $campaign['due_date'],
+                    $today
+                ),
             ];
         }
-        usort($lines, static fn (array $a, array $b): int => [$a['entity'], $a['user_name']] <=> [$b['entity'], $b['user_name']]);
+        usort(
+            $lines,
+            static fn (array $a, array $b): int => [$a['entity'], $a['user_name']] <=> [$b['entity'], $b['user_name']]
+        );
 
         return $lines;
     }
@@ -579,7 +589,10 @@ class PolicyAcknowledgement extends CommonGLPI
             $DB->request([
                 'SELECT' => ['users_id'],
                 'FROM'   => self::LINES_TABLE,
-                'WHERE'  => ['plugin_grcmanager_policycampaigns_id' => (int) $campaign['id'], 'date_acknowledged' => null],
+                'WHERE'  => [
+                    'plugin_grcmanager_policycampaigns_id' => (int) $campaign['id'],
+                    'date_acknowledged'                    => null,
+                ],
             ]) as $row
         ) {
             $ids[] = (int) $row['users_id'];
@@ -686,7 +699,10 @@ class PolicyAcknowledgement extends CommonGLPI
                 (string) ($policy->fields['title'] ?? ''),
                 (string) $campaign['version']
             ),
-            'generated_at_label' => sprintf(__('Generated on %s', 'grcmanager'), Html::convDateTime(date('Y-m-d H:i:s'))),
+            'generated_at_label' => sprintf(
+                __('Generated on %s', 'grcmanager'),
+                Html::convDateTime(date('Y-m-d H:i:s'))
+            ),
             'control'            => self::CONTROL_CODE . ' ' . Control::getControlTitle(self::CONTROL_CODE),
         ] + self::summarize($campaign));
     }
@@ -699,7 +715,8 @@ class PolicyAcknowledgement extends CommonGLPI
         global $DB;
 
         $fileName = sprintf('prise-de-connaissance-%d-%s.pdf', (int) $campaign['id'], date('Ymd-His'));
-        if (file_put_contents(GLPI_TMP_DIR . '/' . $fileName, PdfRenderer::renderHtmlToPdf(self::renderReport($campaign))) === false) {
+        $pdf = PdfRenderer::renderHtmlToPdf(self::renderReport($campaign));
+        if (file_put_contents(GLPI_TMP_DIR . '/' . $fileName, $pdf) === false) {
             return 0;
         }
         $policyId = (int) $campaign['plugin_grcmanager_policies_id'];
@@ -983,7 +1000,9 @@ class PolicyAcknowledgement extends CommonGLPI
                 'name' => 'items_id', 'display' => false, 'entity' => $_SESSION['glpiactiveentities'] ?? 0,
                 'entity_sons' => true, 'rand' => 'grcackgroup',
             ]),
-            'profile_dropdown' => Profile::dropdown(['name' => 'items_id', 'display' => false, 'rand' => 'grcackprofile']),
+            'profile_dropdown' => Profile::dropdown([
+                'name' => 'items_id', 'display' => false, 'rand' => 'grcackprofile',
+            ]),
             'entity_dropdown' => Entity::dropdown([
                 'name' => 'items_id', 'display' => false, 'entity' => $_SESSION['glpiactiveentities'] ?? 0,
                 'rand' => 'grcackentity',
@@ -1017,7 +1036,12 @@ class PolicyAcknowledgement extends CommonGLPI
      */
     public static function cronInfo(string $name): array
     {
-        return ['description' => __('Reminds people who have not acknowledged a security policy by its deadline', 'grcmanager')];
+        return [
+            'description' => __(
+                'Reminds people who have not acknowledged a security policy by its deadline',
+                'grcmanager'
+            ),
+        ];
     }
 
     public static function cronPolicyacknowledgementreminder(CronTask $task): int

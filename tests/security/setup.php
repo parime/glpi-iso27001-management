@@ -97,7 +97,24 @@ if ($mode === 'xss') {
         'plugin_grcmanager_controls_id' => (int) $ids['control'], 'test_date' => date('Y-m-d'),
         'result' => 'partial', 'comment' => $canary,
     ]);
-    $out['policy'] = $insert('policies', ['title' => $canary, 'description' => $canary]);
+    $out['policy'] = $insert('policies', [
+        'title' => $canary, 'description' => $canary, 'version' => '1.0', 'status' => 'approved',
+        'approval_date' => date('Y-m-d'),
+    ]);
+    // Issue #535 : campagne de prise de connaissance de la politique piégée, à lire par glpi, et
+    // groupe piégé dans son public (onglet de la politique, onglet « Politiques à lire »).
+    $DB->insert('glpi_groups', ['name' => $canary, 'entities_id' => 0, 'is_recursive' => 1]);
+    $xssGroup = (int) $DB->insertId();
+    $insert('policyaudiences', [
+        'plugin_grcmanager_policies_id' => $out['policy'], 'itemtype' => 'Group', 'items_id' => $xssGroup,
+    ]);
+    $out['ack_campaign'] = $insert('policycampaigns', [
+        'plugin_grcmanager_policies_id' => $out['policy'], 'version' => '1.0', 'status' => 'open',
+        'users_id' => 2, 'date_launch' => date('Y-m-d H:i:s'), 'due_date' => date('Y-m-d', strtotime('-1 day')),
+    ]);
+    $insert('policycampaigns_users', [
+        'plugin_grcmanager_policycampaigns_id' => $out['ack_campaign'], 'users_id' => 2, 'entities_id' => 0,
+    ]);
     $out['training'] = $insert('trainings', [
         'title' => $canary, 'description' => $canary, 'target_audience' => $canary,
     ]);
@@ -584,5 +601,35 @@ if (!$customFramework->getFromDBByCrit(['name' => 'Referentiel securite'])) {
     ]);
 }
 $ids['custom_framework'] = (int) $customFramework->getID();
+
+// Issue #535 : politique approuvée diffusée au seul groupe « Lecteurs politique securite » (glpi).
+// Les autres profils sont hors du public : ni la politique à lire, ni ses documents.
+$ackPolicy = new \GlpiPlugin\Grcmanager\Policy();
+if (!$ackPolicy->getFromDBByCrit(['title' => 'Politique lecture securite'])) {
+    $add($ackPolicy, [
+        'title' => 'Politique lecture securite', 'version' => '1.0', 'status' => 'approved',
+        'approval_date' => date('Y-m-d'), 'description' => 'Texte de la politique fictive',
+    ]);
+    $ackGroup = $add(new Group(), ['name' => 'Lecteurs politique securite', 'entities_id' => 0, 'is_recursive' => 1]);
+    $DB->insert('glpi_groups_users', ['groups_id' => $ackGroup, 'users_id' => 2]);
+    \GlpiPlugin\Grcmanager\PolicyAcknowledgement::addAudience($ackPolicy->getID(), 'Group', $ackGroup);
+    $add(new Document_Item(), [
+        'documents_id' => $ids['document_A'],
+        'itemtype' => \GlpiPlugin\Grcmanager\Policy::class, 'items_id' => $ackPolicy->getID(),
+    ]);
+    \GlpiPlugin\Grcmanager\PolicyAcknowledgement::launch($ackPolicy, 2);
+}
+$ids['policy_ack'] = (int) $ackPolicy->getID();
+$ackCampaign = \GlpiPlugin\Grcmanager\PolicyAcknowledgement::getCurrentCampaign($ids['policy_ack']);
+$ids['ack_campaign'] = (int) ($ackCampaign['id'] ?? 0);
+$ids['ack_line'] = (int) ($DB->request([
+    'SELECT' => ['id'],
+    'FROM'   => \GlpiPlugin\Grcmanager\PolicyAcknowledgement::LINES_TABLE,
+    'WHERE'  => ['plugin_grcmanager_policycampaigns_id' => $ids['ack_campaign'], 'users_id' => 2],
+])->current()['id'] ?? 0);
+if ($ids['ack_line'] <= 0) {
+    fwrite(STDERR, "Campagne de prise de connaissance impossible\n");
+    exit(1);
+}
 
 echo json_encode($ids), "\n";

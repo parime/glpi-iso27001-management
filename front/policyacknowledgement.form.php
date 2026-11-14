@@ -65,7 +65,11 @@ if (isset($_POST['add_audience'])) {
         !empty($_POST['is_recursive'])
     );
     if (!$added) {
-        Session::addMessageAfterRedirect(__('Choose a group, a profile or an entity to add.', 'grcmanager'), false, ERROR);
+        Session::addMessageAfterRedirect(
+            __('Choose a group, a profile or an entity to add.', 'grcmanager'),
+            false,
+            ERROR
+        );
     }
 } elseif (isset($_POST['remove_audience'])) {
     PolicyAcknowledgement::removeAudience($policyId, (int) ($_POST['audience_id'] ?? 0));
@@ -79,10 +83,17 @@ if (isset($_POST['add_audience'])) {
             $count
         ));
     } elseif ($count === 0) {
-        Session::addMessageAfterRedirect(__('No active account matches the audience of this policy.', 'grcmanager'), false, ERROR);
+        Session::addMessageAfterRedirect(
+            __('No active account matches the audience of this policy.', 'grcmanager'),
+            false,
+            ERROR
+        );
     } else {
         Session::addMessageAfterRedirect(
-            __('A campaign can only be launched on an approved policy with an audience, once per version.', 'grcmanager'),
+            __(
+                'A campaign can only be launched on an approved policy with an audience, once per version.',
+                'grcmanager'
+            ),
             false,
             ERROR
         );
@@ -97,11 +108,18 @@ if (isset($_POST['add_audience'])) {
         Session::addMessageAfterRedirect(sprintf(__('%d reminder(s) sent.', 'grcmanager'), $count));
     } elseif (PolicyAcknowledgement::close((int) $campaign['id']) > 0) {
         Session::addMessageAfterRedirect(sprintf(
-            __('Campaign closed: the report has been archived as evidence on control %s and on the policy.', 'grcmanager'),
+            __(
+                'Campaign closed: the report has been archived as evidence on control %s and on the policy.',
+                'grcmanager'
+            ),
             PolicyAcknowledgement::CONTROL_CODE
         ));
     } else {
-        Session::addMessageAfterRedirect(__('The campaign could not be closed or its report could not be archived.', 'grcmanager'), false, ERROR);
+        Session::addMessageAfterRedirect(
+            __('The campaign could not be closed or its report could not be archived.', 'grcmanager'),
+            false,
+            ERROR
+        );
     }
 }
 Html::back();

@@ -7,6 +7,23 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Added
+
+- **Prise de connaissance des politiques de sécurité** (issue #535, A.5.1 et A.6.3) : sur une
+  politique, nouvel onglet « Prise de connaissance » pour définir son public cible (groupes, profils,
+  entités avec ou sans sous-entités, réunis) et un délai de réponse (30 jours par défaut). Une fois
+  la politique approuvée, le responsable lance la campagne de la version en cours : le public est
+  figé (comptes actifs) et prévenu par une notification multilingue « Politique de sécurité à
+  lire ». Chacun lit le document de la politique (téléchargement réservé à son public, historisé)
+  et confirme depuis l'onglet « Politiques à lire » de ses préférences ou depuis « Mon espace
+  GRC », sans aucun droit sur le plugin. Taux de prise de connaissance de la politique et par
+  entité, retardataires, liste des retardataires en CSV et rapport en PDF ; les retardataires sont
+  relancés une fois par semaine par une notification (tâche « policyacknowledgementreminder ») ou à
+  la demande, sans autre conséquence. Une nouvelle version d'une politique déjà diffusée relance
+  automatiquement une campagne, la précédente restant en historique. À la clôture, le rapport (taux
+  et retardataires) est archivé comme preuve sur la mesure A.5.1 et sur la politique, lisible par
+  qui lit les politiques. La charte informatique reste signée par les campagnes d'assetsign.
+
 ## [2.41.0] - 2026-11-13
 
 ### Added

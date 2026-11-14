@@ -16,12 +16,21 @@ final class AcknowledgementRulesTest extends TestCase
     public function testAudienceIsTheUnionOfGroupsProfilesAndEntities(): void
     {
         $users = [
-            10 => ['default_entity' => 1, 'groups' => [5], 'authorizations' => [['profiles_id' => 1, 'entities_id' => 1]]],
-            11 => ['default_entity' => 0, 'groups' => [], 'authorizations' => [['profiles_id' => 7, 'entities_id' => 2]]],
+            10 => [
+                'default_entity' => 1, 'groups' => [5],
+                'authorizations' => [['profiles_id' => 1, 'entities_id' => 1]],
+            ],
+            11 => [
+                'default_entity' => 0, 'groups' => [],
+                'authorizations' => [['profiles_id' => 7, 'entities_id' => 2]],
+            ],
             12 => ['default_entity' => 3, 'groups' => [], 'authorizations' => [
                 ['profiles_id' => 1, 'entities_id' => 4], ['profiles_id' => 1, 'entities_id' => 3],
             ]],
-            13 => ['default_entity' => 0, 'groups' => [6], 'authorizations' => [['profiles_id' => 1, 'entities_id' => 9]]],
+            13 => [
+                'default_entity' => 0, 'groups' => [6],
+                'authorizations' => [['profiles_id' => 1, 'entities_id' => 9]],
+            ],
         ];
         $members = AcknowledgementRules::members(['groups' => [5], 'profiles' => [7], 'entities' => [3, 4]], $users);
 
@@ -66,7 +75,11 @@ final class AcknowledgementRulesTest extends TestCase
             ['total' => 4, 'done' => 3, 'pending' => 1, 'late' => 1, 'rate' => 75, 'color' => 'orange'],
             $progress
         );
-        self::assertSame(0, AcknowledgementRules::progress($lines, '2026-11-10', '2026-11-05')['late'], 'avant l\'échéance');
+        self::assertSame(
+            0,
+            AcknowledgementRules::progress($lines, '2026-11-10', '2026-11-05')['late'],
+            'avant l\'échéance'
+        );
 
         $byEntity = AcknowledgementRules::progressByEntity($lines, '2026-11-10', '2026-11-12');
         self::assertSame(50, $byEntity[1]['rate']);
@@ -99,7 +112,10 @@ final class AcknowledgementRulesTest extends TestCase
         self::assertTrue(AcknowledgementRules::isReminderDue(null, '2026-11-10', null, '2026-11-11'));
         self::assertFalse(AcknowledgementRules::isReminderDue(null, '2026-11-10', '2026-11-11 08:00:00', '2026-11-15'));
         self::assertTrue(AcknowledgementRules::isReminderDue(null, '2026-11-10', '2026-11-11 08:00:00', '2026-11-18'));
-        self::assertFalse(AcknowledgementRules::isReminderDue('2026-11-12', '2026-11-10', null, '2026-11-20'), 'confirmé');
+        self::assertFalse(
+            AcknowledgementRules::isReminderDue('2026-11-12', '2026-11-10', null, '2026-11-20'),
+            'confirmé'
+        );
     }
 
     public function testCsvCellsCannotInjectFormulas(): void

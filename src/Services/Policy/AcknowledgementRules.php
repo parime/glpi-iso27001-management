@@ -79,7 +79,12 @@ final class AcknowledgementRules
      * Une campagne ne se lance que sur une politique approuvée dont le public est défini, et pas
      * deux fois pour la même version.
      */
-    public static function canLaunch(string $policyStatus, bool $hasAudience, ?string $lastCampaignVersion, string $version): bool
+    public static function canLaunch(
+        string $policyStatus,
+        bool $hasAudience,
+        ?string $lastCampaignVersion,
+        string $version
+    ): bool
     {
         return $policyStatus === PolicyLifecycle::STATUS_APPROVED
             && $hasAudience
@@ -90,9 +95,15 @@ final class AcknowledgementRules
      * Nouvelle version : relance automatique d'une campagne, seulement si une campagne a déjà été
      * lancée pour une autre version (la première campagne est toujours lancée à la main).
      */
-    public static function shouldRelaunch(string $policyStatus, bool $hasAudience, ?string $lastCampaignVersion, string $version): bool
+    public static function shouldRelaunch(
+        string $policyStatus,
+        bool $hasAudience,
+        ?string $lastCampaignVersion,
+        string $version
+    ): bool
     {
-        return $lastCampaignVersion !== null && self::canLaunch($policyStatus, $hasAudience, $lastCampaignVersion, $version);
+        return $lastCampaignVersion !== null
+            && self::canLaunch($policyStatus, $hasAudience, $lastCampaignVersion, $version);
     }
 
     /**
@@ -144,7 +155,11 @@ final class AcknowledgementRules
      * @param list<int> $authorizationEntities
      * @param list<int> $matchedEntities
      */
-    public static function countingEntity(?int $defaultEntity, array $authorizationEntities, array $matchedEntities): int
+    public static function countingEntity(
+        ?int $defaultEntity,
+        array $authorizationEntities,
+        array $matchedEntities
+    ): int
     {
         $candidates = $matchedEntities !== [] ? $matchedEntities : $authorizationEntities;
         if ($defaultEntity !== null && in_array($defaultEntity, $candidates, true)) {
@@ -246,7 +261,12 @@ final class AcknowledgementRules
      * Relance due : en retard, et pas de relance depuis au moins une semaine (même rythme que les
      * revues des accès).
      */
-    public static function isReminderDue(?string $acknowledgedAt, string $dueDate, ?string $lastReminder, string $today): bool
+    public static function isReminderDue(
+        ?string $acknowledgedAt,
+        string $dueDate,
+        ?string $lastReminder,
+        string $today
+    ): bool
     {
         return ($acknowledgedAt === null || $acknowledgedAt === '')
             && AccessReviewLogic::isReminderDue($dueDate, $lastReminder, $today);

@@ -30,7 +30,12 @@ if ($campaign === null) {
     throw new NotFoundHttpException();
 }
 $format = ($_GET['format'] ?? 'csv') === 'pdf' ? 'pdf' : 'csv';
-$filename = sprintf('retardataires-politique-%d-v%s-%s', (int) $campaign['plugin_grcmanager_policies_id'], preg_replace('/[^A-Za-z0-9.]/', '', (string) $campaign['version']), date('Y-m-d'));
+$filename = sprintf(
+    'retardataires-politique-%d-v%s-%s',
+    (int) $campaign['plugin_grcmanager_policies_id'],
+    preg_replace('/[^A-Za-z0-9.]/', '', (string) $campaign['version']),
+    date('Y-m-d')
+);
 
 if ($format === 'csv') {
     $summary = PolicyAcknowledgement::summarize($campaign);

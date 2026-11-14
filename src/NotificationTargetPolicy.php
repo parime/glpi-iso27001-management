@@ -61,7 +61,10 @@ class NotificationTargetPolicy extends NotificationTarget
     public function addAdditionalTargets($event = '')
     {
         $this->addTarget(Notification::ITEM_USER, __('Policy owner', 'grcmanager'));
-        $this->addTarget(self::TARGET_AUDIENCE, __('Audience members who have not acknowledged the policy', 'grcmanager'));
+        $this->addTarget(
+            self::TARGET_AUDIENCE,
+            __('Audience members who have not acknowledged the policy', 'grcmanager')
+        );
     }
 
     #[Override]
