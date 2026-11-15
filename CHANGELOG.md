@@ -28,6 +28,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   l'approbation de la nouvelle version. Les politiques déjà approuvées restent approuvées, marquées
   « approuvées avant le circuit », sans empreinte. Actions tracées dans le journal du module.
 
+## [2.48.0] - 2026-11-15
+
 ## [2.47.0] - 2026-11-15
 
 ### Added
