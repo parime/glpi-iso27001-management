@@ -19,7 +19,7 @@ namespace GlpiPlugin\Grcmanager;
 
 use CommonGLPI;
 use Glpi\Application\View\TemplateRenderer;
-use GlpiPlugin\Grcmanager\Compatibility\Base\BusinessImpactBase;
+use GlpiPlugin\Grcmanager\Compat\Base\BusinessImpactBase;
 use GlpiPlugin\Grcmanager\Install\Installer;
 use GlpiPlugin\Grcmanager\Services\Continuity\BusinessImpactRules;
 use Log;

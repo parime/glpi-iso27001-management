@@ -21,7 +21,7 @@ use CommonDBTM;
 use Dropdown;
 use Entity;
 use Glpi\Application\View\TemplateRenderer;
-use GlpiPlugin\Grcmanager\Compatibility\Base\NetworkFlowBase;
+use GlpiPlugin\Grcmanager\Compat\Base\NetworkFlowBase;
 use GlpiPlugin\Grcmanager\Services\Network\NetworkFlowCsv;
 use GlpiPlugin\Grcmanager\Services\Network\NetworkFlowMatrix;
 use GlpiPlugin\Grcmanager\Services\Network\NetworkFlowPfsense;

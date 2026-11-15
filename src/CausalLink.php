@@ -20,7 +20,7 @@ namespace GlpiPlugin\Grcmanager;
 use CommonDBTM;
 use CommonGLPI;
 use Glpi\Application\View\TemplateRenderer;
-use GlpiPlugin\Grcmanager\Compatibility\Base\CausalLinkBase;
+use GlpiPlugin\Grcmanager\Compat\Base\CausalLinkBase;
 use GlpiPlugin\Grcmanager\Services\Risk\CausalGraph;
 use PluginGrcmanagerSecurityIncident;
 use Session;

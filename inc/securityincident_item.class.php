@@ -15,7 +15,7 @@
  * -------------------------------------------------------------------------
  */
 
-use GlpiPlugin\Grcmanager\Compatibility\Base\SecurityIncidentItemBase;
+use GlpiPlugin\Grcmanager\Compat\Base\SecurityIncidentItemBase;
 
 /**
  * Polymorphic link (any GLPI asset itemtype) between a PluginGrcmanagerSecurityIncident and

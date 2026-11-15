@@ -17,7 +17,7 @@
 
 namespace GlpiPlugin\Grcmanager;
 
-use GlpiPlugin\Grcmanager\Compatibility\Base\EbiosElementBase;
+use GlpiPlugin\Grcmanager\Compat\Base\EbiosElementBase;
 use Session;
 
 /**

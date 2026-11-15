@@ -19,7 +19,7 @@ namespace GlpiPlugin\Grcmanager;
 
 use CommonGLPI;
 use Glpi\Application\View\TemplateRenderer;
-use GlpiPlugin\Grcmanager\Compatibility\Base\SecurityIncidentIocBase;
+use GlpiPlugin\Grcmanager\Compat\Base\SecurityIncidentIocBase;
 use GlpiPlugin\Grcmanager\Services\Incident\IocParser;
 use PluginGrcmanagerSecurityIncident;
 use Session;

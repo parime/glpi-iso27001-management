@@ -15,7 +15,7 @@
  * -------------------------------------------------------------------------
  */
 
-use GlpiPlugin\Grcmanager\Compatibility\Base\SecurityIncidentGroupBase;
+use GlpiPlugin\Grcmanager\Compat\Base\SecurityIncidentGroupBase;
 
 /**
  * Relation between PluginGrcmanagerSecurityIncident and Group: same minimal shape as GLPI

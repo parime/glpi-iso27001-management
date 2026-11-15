@@ -20,7 +20,7 @@ namespace GlpiPlugin\Grcmanager;
 use CommonITILObject;
 use Dropdown;
 use Glpi\Application\View\TemplateRenderer;
-use GlpiPlugin\Grcmanager\Compatibility\Base\PeriodicReviewBase;
+use GlpiPlugin\Grcmanager\Compat\Base\PeriodicReviewBase;
 use GlpiPlugin\Grcmanager\Services\Review\PeriodicReviewCatalog;
 use Group;
 use Profile;

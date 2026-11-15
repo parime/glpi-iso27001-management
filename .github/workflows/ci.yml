@@ -445,7 +445,7 @@ jobs:
 
   real-glpi12-install:
     name: Installation reelle sur GLPI 12 (Docker)
-    # Meme cycle que le job ci-dessus, sur GLPI 12 (cf. src/Compatibility/), plus la suite
+    # Meme cycle que le job ci-dessus, sur GLPI 12 (cf. src/Compat/), plus la suite
     # d'integration : sans ce job, la compatibilite GLPI 12 pourrait regresser silencieusement.
     # Job separe plutot qu'une matrice : une matrice renommerait le check existant.
     needs: detect

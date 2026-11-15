@@ -24,7 +24,7 @@ use Document_Item;
 use Dropdown;
 use Entity;
 use Glpi\Application\View\TemplateRenderer;
-use GlpiPlugin\Grcmanager\Compatibility\Base\AccessReviewBase;
+use GlpiPlugin\Grcmanager\Compat\Base\AccessReviewBase;
 use GlpiPlugin\Grcmanager\Pdf\PdfRenderer;
 use GlpiPlugin\Grcmanager\Services\Access\AccessReviewLogic;
 use Group;

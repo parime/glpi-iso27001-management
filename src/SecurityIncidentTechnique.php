@@ -19,7 +19,7 @@ namespace GlpiPlugin\Grcmanager;
 
 use CommonGLPI;
 use Glpi\Application\View\TemplateRenderer;
-use GlpiPlugin\Grcmanager\Compatibility\Base\SecurityIncidentTechniqueBase;
+use GlpiPlugin\Grcmanager\Compat\Base\SecurityIncidentTechniqueBase;
 use GlpiPlugin\Grcmanager\Services\Incident\MitreAttack;
 use PluginGrcmanagerSecurityIncident;
 use Session;

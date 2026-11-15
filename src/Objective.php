@@ -19,7 +19,7 @@ namespace GlpiPlugin\Grcmanager;
 
 use Dropdown;
 use Glpi\Application\View\TemplateRenderer;
-use GlpiPlugin\Grcmanager\Compatibility\Base\ObjectiveBase;
+use GlpiPlugin\Grcmanager\Compat\Base\ObjectiveBase;
 use GlpiPlugin\Grcmanager\Services\Objective\ObjectiveStatuses;
 use GlpiPlugin\Grcmanager\Services\Ui\Badge;
 use Session;

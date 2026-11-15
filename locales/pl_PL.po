@@ -17106,3 +17106,25 @@ msgid ""
 msgstr ""
 "Od %1$d do %2$d dni. Domyślnie: 365 dni, aby zasubskrybowany kalendarz "
 "działał przez rok bez żadnych działań."
+
+msgid "Outgoing connections"
+msgstr "Połączenia wychodzące"
+
+msgid "Internal addresses allowed"
+msgstr "Adresy wewnętrzne dozwolone"
+
+msgid "Internal addresses refused"
+msgstr "Adresy wewnętrzne odrzucane"
+
+msgid "For security, the plugin never calls an internal address (the server itself, a private network, the metadata of a cloud provider) and never follows a redirection. Allow internal addresses only if your organisation reaches these services through an internal mirror or relay. This setting applies to all entities."
+msgstr "Ze względów bezpieczeństwa wtyczka nigdy nie wywołuje adresu wewnętrznego (samego serwera, sieci prywatnej, metadanych dostawcy chmury) i nigdy nie podąża za przekierowaniem. Zezwalaj na adresy wewnętrzne tylko wtedy, gdy organizacja łączy się z tymi usługami przez wewnętrzny serwer lustrzany lub przekaźnik. To ustawienie dotyczy wszystkich jednostek."
+
+msgid "Allow internal addresses"
+msgstr "Zezwalaj na adresy wewnętrzne"
+
+msgid "Only a GLPI administrator (right to update the general configuration) can change this setting."
+msgstr "Tylko administrator GLPI (uprawnienie do zmiany konfiguracji ogólnej) może zmienić to ustawienie."
+
+#, php-format
+msgid "GLPI also refuses internal addresses for this plugin: add %s to the constant GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/local_define.php)."
+msgstr "GLPI również odrzuca adresy wewnętrzne dla tej wtyczki: dodaj %s do stałej GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/local_define.php)."

@@ -17,7 +17,7 @@
 
 namespace GlpiPlugin\Grcmanager;
 
-use GlpiPlugin\Grcmanager\Compatibility\Base\CpeReferenceBase;
+use GlpiPlugin\Grcmanager\Compat\Base\CpeReferenceBase;
 use Session;
 
 /**

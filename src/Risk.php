@@ -22,7 +22,7 @@ use CommonGLPI;
 use CronTask;
 use Dropdown;
 use Glpi\Application\View\TemplateRenderer;
-use GlpiPlugin\Grcmanager\Compatibility\Base\RiskBase;
+use GlpiPlugin\Grcmanager\Compat\Base\RiskBase;
 use GlpiPlugin\Grcmanager\Services\Classification\ClassificationLevels;
 use GlpiPlugin\Grcmanager\Services\Control\WazuhEvidence;
 use GlpiPlugin\Grcmanager\Services\Control\WazuhEvidenceProvider;

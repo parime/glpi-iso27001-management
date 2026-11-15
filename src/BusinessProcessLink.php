@@ -19,7 +19,7 @@ namespace GlpiPlugin\Grcmanager;
 
 use CommonGLPI;
 use Glpi\Application\View\TemplateRenderer;
-use GlpiPlugin\Grcmanager\Compatibility\Base\BusinessProcessLinkBase;
+use GlpiPlugin\Grcmanager\Compat\Base\BusinessProcessLinkBase;
 use GlpiPlugin\Grcmanager\Install\Installer;
 use GlpiPlugin\Grcmanager\Services\Continuity\ProcessDependencyRules;
 use GlpiPlugin\Grcmanager\Services\Impact\ImpactGraph;

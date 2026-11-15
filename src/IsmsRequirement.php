@@ -20,7 +20,7 @@ namespace GlpiPlugin\Grcmanager;
 use Document_Item;
 use Dropdown;
 use Glpi\Application\View\TemplateRenderer;
-use GlpiPlugin\Grcmanager\Compatibility\Base\IsmsRequirementBase;
+use GlpiPlugin\Grcmanager\Compat\Base\IsmsRequirementBase;
 use GlpiPlugin\Grcmanager\Services\Clause\IsmsClauseCatalog;
 use GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig;
 use GlpiPlugin\Grcmanager\Services\Control\FrameworkSelection;

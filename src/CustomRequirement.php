@@ -19,7 +19,7 @@ declare(strict_types=1);
 
 namespace GlpiPlugin\Grcmanager;
 
-use GlpiPlugin\Grcmanager\Compatibility\Base\CustomRequirementBase;
+use GlpiPlugin\Grcmanager\Compat\Base\CustomRequirementBase;
 
 /**
  * Issue #537 : exigence d'un référentiel personnalisé. Code, thème, intitulé, description et

@@ -22,7 +22,7 @@ use CommonGLPI;
 use Dropdown;
 use Entity;
 use Glpi\Application\View\TemplateRenderer;
-use GlpiPlugin\Grcmanager\Compatibility\Base\ProcessingActivityBase;
+use GlpiPlugin\Grcmanager\Compat\Base\ProcessingActivityBase;
 use GlpiPlugin\Grcmanager\Install\Installer;
 use GlpiPlugin\Grcmanager\Services\Privacy\ProcessingActivityRules as Rules;
 use Html;

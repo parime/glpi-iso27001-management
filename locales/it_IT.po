@@ -17187,3 +17187,25 @@ msgid ""
 msgstr ""
 "Tra %1$d e %2$d giorni. Predefinito: 365 giorni, così un calendario abbonato "
 "funziona per un anno senza alcuna azione."
+
+msgid "Outgoing connections"
+msgstr "Connessioni in uscita"
+
+msgid "Internal addresses allowed"
+msgstr "Indirizzi interni consentiti"
+
+msgid "Internal addresses refused"
+msgstr "Indirizzi interni rifiutati"
+
+msgid "For security, the plugin never calls an internal address (the server itself, a private network, the metadata of a cloud provider) and never follows a redirection. Allow internal addresses only if your organisation reaches these services through an internal mirror or relay. This setting applies to all entities."
+msgstr "Per sicurezza, il plugin non chiama mai un indirizzo interno (il server stesso, una rete privata, i metadati di un provider cloud) e non segue mai un reindirizzamento. Consenti gli indirizzi interni solo se la tua organizzazione raggiunge questi servizi tramite un mirror o un relay interno. Questa impostazione vale per tutte le entità."
+
+msgid "Allow internal addresses"
+msgstr "Consenti indirizzi interni"
+
+msgid "Only a GLPI administrator (right to update the general configuration) can change this setting."
+msgstr "Solo un amministratore di GLPI (diritto di modificare la configurazione generale) può cambiare questa impostazione."
+
+#, php-format
+msgid "GLPI also refuses internal addresses for this plugin: add %s to the constant GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/local_define.php)."
+msgstr "Anche GLPI rifiuta gli indirizzi interni per questo plugin: aggiungi %s alla costante GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/local_define.php)."

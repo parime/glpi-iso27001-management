@@ -19,7 +19,7 @@ namespace GlpiPlugin\Grcmanager;
 
 use Document;
 use Document_Item;
-use GlpiPlugin\Grcmanager\Compatibility\Base\SoaVersionBase;
+use GlpiPlugin\Grcmanager\Compat\Base\SoaVersionBase;
 use GlpiPlugin\Grcmanager\Pdf\PdfRenderer;
 use GlpiPlugin\Grcmanager\Services\Control\SoaApprovalLogic;
 use GlpiPlugin\Grcmanager\Services\Control\SoaReportBuilder;

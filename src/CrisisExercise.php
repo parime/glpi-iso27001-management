@@ -22,7 +22,7 @@ use Document;
 use Document_Item;
 use Glpi\Application\View\TemplateRenderer;
 use Glpi\RichText\RichText;
-use GlpiPlugin\Grcmanager\Compatibility\Base\CrisisExerciseBase;
+use GlpiPlugin\Grcmanager\Compat\Base\CrisisExerciseBase;
 use GlpiPlugin\Grcmanager\Pdf\PdfRenderer;
 use GlpiPlugin\Grcmanager\Services\Exercise\CrisisExercise as ExerciseRules;
 use GlpiPlugin\Grcmanager\Services\Exercise\RecoveryTracker;

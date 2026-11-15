@@ -19,7 +19,7 @@ declare(strict_types=1);
 
 namespace GlpiPlugin\Grcmanager;
 
-use GlpiPlugin\Grcmanager\Compatibility\Base\CustomFrameworkBase;
+use GlpiPlugin\Grcmanager\Compat\Base\CustomFrameworkBase;
 use GlpiPlugin\Grcmanager\Services\Control\ControlCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\CustomFrameworkCatalog;
 use GlpiPlugin\Grcmanager\Services\Control\CustomFrameworkCsv;

@@ -17,7 +17,7 @@
 
 namespace GlpiPlugin\Grcmanager;
 
-use GlpiPlugin\Grcmanager\Compatibility\Base\ProductAliasBase;
+use GlpiPlugin\Grcmanager\Compat\Base\ProductAliasBase;
 use Session;
 
 /**

@@ -19,7 +19,7 @@ namespace GlpiPlugin\Grcmanager;
 
 use CommonGLPI;
 use Glpi\Application\View\TemplateRenderer;
-use GlpiPlugin\Grcmanager\Compatibility\Base\DpiaBase;
+use GlpiPlugin\Grcmanager\Compat\Base\DpiaBase;
 use GlpiPlugin\Grcmanager\Services\Privacy\DpiaRules;
 use GlpiPlugin\Grcmanager\Services\Risk\RiskMatrixConfig;
 use GlpiPlugin\Grcmanager\Services\Risk\RiskScoringService;

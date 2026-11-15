@@ -19,7 +19,7 @@ namespace GlpiPlugin\Grcmanager;
 
 use CommonGLPI;
 use Glpi\Application\View\TemplateRenderer;
-use GlpiPlugin\Grcmanager\Compatibility\Base\EbiosStudyBase;
+use GlpiPlugin\Grcmanager\Compat\Base\EbiosStudyBase;
 use GlpiPlugin\Grcmanager\Services\Risk\EbiosRules;
 use GlpiPlugin\Grcmanager\Services\Risk\RiskMatrixConfig;
 use Html;

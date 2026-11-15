@@ -16,7 +16,7 @@
  */
 
 use Glpi\ContentTemplates\Parameters\CommonITILObjectParameters;
-use GlpiPlugin\Grcmanager\Compatibility\Base\SecurityIncidentBase;
+use GlpiPlugin\Grcmanager\Compat\Base\SecurityIncidentBase;
 use GlpiPlugin\Grcmanager\Services\Incident\IncidentPhases;
 use GlpiPlugin\Grcmanager\Services\Incident\CraReportingConfig;
 use GlpiPlugin\Grcmanager\Services\Incident\RegulatoryDeadlines;

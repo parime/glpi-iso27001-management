@@ -24,7 +24,7 @@ use Document_Item;
 use Dropdown;
 use Glpi\Application\View\TemplateRenderer;
 use Glpi\DBAL\QuerySubQuery;
-use GlpiPlugin\Grcmanager\Compatibility\Base\WaiverBase;
+use GlpiPlugin\Grcmanager\Compat\Base\WaiverBase;
 use GlpiPlugin\Grcmanager\Services\Waiver\WaiverRules;
 use Html;
 use Item_Ticket;
