@@ -483,9 +483,11 @@ expect "document d'audit (equipe de l'audit seulement)" "$([ "$ROLE" = admin ] &
 # Issue #139 : la copie de quiz de glpi ne se lit que par lui (ni formateur ni groupe RSSI ici).
 expect "front/trainingquiz.send.php : copie d'un autre" "$([ "$ROLE" = admin ] && echo 200 || echo 403)" \
   "$(code "$P/trainingquiz.send.php?id=$(id quiz)")"
-# Issue #142 : le flux iCal d'abonnement ignore la session et n'accepte qu'un jeton personnel valide.
+# Issue #142, #664 : le flux iCal d'abonnement ignore la session et n'accepte qu'un jeton dedie au
+# calendrier valide (jamais le jeton personnel GLPI).
 expect "front/compliancecalendar.ics.php : sans jeton" 403    "$(curl -s -o /dev/null -w '%{http_code}' "$P/compliancecalendar.ics.php")"
 expect "front/compliancecalendar.ics.php : jeton invalide" 403    "$(code "$P/compliancecalendar.ics.php?token=jeton-invalide")"
+expect "front/compliancecalendar.ics.php : jeton au bon format inconnu" 403   "$(code "$P/compliancecalendar.ics.php?token=1.$(printf '0%.0s' $(seq 64))")"
 # Issue #375 : registre des traitements rattache a une entite ; un element lie d'une autre entite
 # n'est jamais nomme, ni sur la fiche, ni dans l'export, ni dans l'onglet de l'actif.
 expect "traitement, entite A"          200    "$(code "$P/processingactivity.form.php?id=$(id processing_A)")"

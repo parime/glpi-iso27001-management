@@ -6376,15 +6376,6 @@ msgstr ""
 "Link de assinatura para o seu calendário (Outlook, Thunderbird, Google "
 "Agenda…)"
 
-msgid ""
-"Personal link: it gives access to your deadlines with your rights, without a "
-"password. Do not share it. To revoke it, regenerate your personal token in "
-"your preferences."
-msgstr ""
-"Link pessoal: dá acesso aos seus prazos com os seus direitos, sem senha. Não "
-"o compartilhe. Para revogá-lo, gere novamente o seu token pessoal nas suas "
-"preferências."
-
 #, php-format
 msgid "Groups changed less than %d days ago, profiles not reviewed"
 msgstr "Grupos alterados há menos de %d dias, perfis não revisados"
@@ -16306,3 +16297,59 @@ msgstr "Adiciona aos incidentes de segurança os prazos de notificação do Cybe
 
 msgid "Regulatory notification to make"
 msgstr "Notificação regulatória a fazer"
+
+msgid "New subscription link created. The previous link no longer works."
+msgstr "Novo link de assinatura criado. O link anterior não funciona mais."
+
+msgid "Subscription link revoked: calendars using it no longer receive your deadlines."
+msgstr "Link de assinatura revogado: os calendários que o usam não recebem mais seus prazos."
+
+msgid "Copy your link now: for your security, it will not be shown again. If you lose it, create a new one."
+msgstr "Copie seu link agora: por segurança, ele não será exibido novamente. Se perdê-lo, crie um novo."
+
+msgid "Copy"
+msgstr "Copiar"
+
+#, php-format
+msgid "Created on %s"
+msgstr "Criado em %s"
+
+#, php-format
+msgid "Expires on %s"
+msgstr "Expira em %s"
+
+#, php-format
+msgid "Last read by a calendar on %s"
+msgstr "Última leitura por um calendário em %s"
+
+msgid "Not used yet"
+msgstr "Ainda não utilizado"
+
+msgid "You have no subscription link yet. Create one to see your deadlines in your calendar application."
+msgstr "Você ainda não tem um link de assinatura. Crie um para ver seus prazos no seu aplicativo de calendário."
+
+msgid "Regenerate the link"
+msgstr "Regenerar o link"
+
+msgid "Create a subscription link"
+msgstr "Criar um link de assinatura"
+
+msgid "Revoke the link"
+msgstr "Revogar o link"
+
+#, php-format
+msgid "This link only gives read access to the compliance calendar, with your rights, without a password; it does not give access to GLPI or its API. Do not share it. It expires after %d days; regenerating or revoking it disables the previous link immediately."
+msgstr "Este link dá apenas acesso de leitura ao calendário de conformidade, com seus direitos, sem senha; ele não dá acesso ao GLPI nem à sua API. Não o compartilhe. Ele expira após %d dias; regenerá-lo ou revogá-lo desativa imediatamente o link anterior."
+
+msgid "Calendar subscription links"
+msgstr "Links de assinatura do calendário"
+
+msgid "Each user creates a personal link to subscribe their calendar application to the compliance calendar. The link only reads the calendar, can be revoked by its owner, and expires after the duration below. A new duration applies to links created afterwards."
+msgstr "Cada usuário cria um link pessoal para assinar o calendário de conformidade no seu aplicativo de calendário. O link apenas lê o calendário, pode ser revogado por seu proprietário e expira após a duração abaixo. Uma nova duração se aplica aos links criados depois."
+
+msgid "Link lifetime (days)"
+msgstr "Validade do link (dias)"
+
+#, php-format
+msgid "Between %1$d and %2$d days. Default: 365 days, so that a subscribed calendar keeps working for a year without any action."
+msgstr "Entre %1$d e %2$d dias. Padrão: 365 dias, para que um calendário assinado funcione por um ano sem nenhuma ação."

@@ -32,7 +32,7 @@
          {% if token %}
             <p class="mb-2">
                {% if token.expired %}
-                  <span class="badge bg-red-lt"><i class="ti ti-clock-x me-1"></i>{{ __('Expired', 'grcmanager') }}</span>
+                  <span class="badge bg-red-lt"><i class="ti ti-clock-x me-1"></i>{{ _x('masculine', 'Expired', 'grcmanager') }}</span>
                {% else %}
                   <span class="badge bg-green-lt"><i class="ti ti-circle-check me-1"></i>{{ __('Active', 'grcmanager') }}</span>
                {% endif %}
