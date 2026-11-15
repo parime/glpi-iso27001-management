@@ -379,6 +379,15 @@ and documentation only identifies the framework the plugin helps you track.
   text of the standard is available from [ISO](https://www.iso.org/standard/27090) or from your
   national standards body.
 
+## Translations
+
+[![Translation status](https://hosted.weblate.org/widget/glpi-iso27001-management/svg-badge.svg)](https://hosted.weblate.org/engage/glpi-iso27001-management/)
+
+The plugin is translated into French, English, German, Spanish, Italian, Polish and Portuguese
+(Brazil). **Translation contributions are welcome on [Hosted Weblate](https://hosted.weblate.org/engage/glpi-iso27001-management/)**: fixing a term,
+improving domain vocabulary or adding a language is done directly in the browser, without Git.
+Weblate then proposes the translations through a Pull Request, reviewed before being merged.
+
 ## Reuse and citation
 
 This project is licensed under **GPL-3.0-or-later**. If you reuse code, even partially and without
