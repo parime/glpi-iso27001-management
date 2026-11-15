@@ -16,14 +16,23 @@
  */
 
 // Issue #142, phase 2 : flux iCal du calendrier de conformité pour un agenda externe, sans
-// session. Seule page du plugin ouverte sans session (Firewall::STRATEGY_NO_CHECK, setup.php) :
-// elle s'authentifie elle-même par le jeton personnel de l'utilisateur, comme le flux iCal du
-// planning de GLPI (front/planning.php?genical=1), puis charge ses entités et son profil par
-// défaut : le flux ne contient que ce que cet utilisateur voit dans le calendrier.
+// session. Seule page du plugin ouverte sans session (Firewall::STRATEGY_NO_CHECK, setup.php).
+// Issue #664 : elle s'authentifie par le jeton dédié au calendrier (CalendarToken), en lecture
+// seule sur ce flux, révocable et à durée limitée ; le jeton personnel GLPI (qui ouvre l'API) n'y
+// est plus accepté. Elle charge ensuite les entités et le profil par défaut du propriétaire du
+// jeton : le flux ne contient que ce que cet utilisateur voit dans le calendrier.
 
-$token = (string) ($_GET['token'] ?? '');
-$user = $token !== '' ? Session::authWithToken($token, 'personal_token', null, null) : false;
-if (!$user instanceof User) {
+$usersId = \GlpiPlugin\Grcmanager\CalendarToken::findUser((string) ($_GET['token'] ?? ''));
+$user = new User();
+if ($usersId === null || !$user->getFromDB($usersId)) {
+    throw new \Glpi\Exception\Http\AccessDeniedHttpException();
+}
+$auth = new Auth();
+$auth->auth_succeded = true;
+$auth->user = $user;
+// Session::init() refuse un compte désactivé, supprimé ou hors de ses dates de validité.
+Session::init($auth);
+if ((int) Session::getLoginUserID() !== $usersId) {
     throw new \Glpi\Exception\Http\AccessDeniedHttpException();
 }
 $_SESSION['glpidefault_entity'] = $user->fields['entities_id'];

@@ -201,6 +201,20 @@ if (isset($_POST['update_kri_alert'])) {
     Html::back();
 }
 
+// Issue #664 : durée de vie des liens d'abonnement au calendrier (jeton dédié). S'applique aux liens
+// créés ensuite ; ceux déjà créés gardent leur date d'expiration.
+if (isset($_POST['update_calendar_token'])) {
+    Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
+
+    if (\GlpiPlugin\Grcmanager\CalendarToken::saveLifetime($_POST['calendar_token_lifetime_days'] ?? null)) {
+        \GlpiPlugin\Grcmanager\AuditLog::record('config_change', 'Config', 0, 0, 'success', [
+            'changes' => ['calendar_token_lifetime_days' => \GlpiPlugin\Grcmanager\CalendarToken::lifetimeDays()],
+        ]);
+    }
+
+    Html::back();
+}
+
 // Issue #611 : circuit d'approbation des politiques de sécurité par la direction.
 if (isset($_POST['update_policy_approval'])) {
     Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
@@ -312,6 +326,12 @@ Html::header(
     'controltest_cga_branding'  => \GlpiPlugin\Grcmanager\ControlTestReminder::isCgaActive(),
     'kri_alert_level'           => \GlpiPlugin\Grcmanager\KriAlert::level(),
     'kri_alert_levels'          => \GlpiPlugin\Grcmanager\KriAlert::getLevels(),
+    // Issue #664 : durée de vie des liens d'abonnement au calendrier.
+    'calendar_token_lifetime'   => \GlpiPlugin\Grcmanager\CalendarToken::lifetimeDays(),
+    'calendar_token_bounds'     => [
+        \GlpiPlugin\Grcmanager\CalendarToken::MIN_LIFETIME_DAYS,
+        \GlpiPlugin\Grcmanager\CalendarToken::MAX_LIFETIME_DAYS,
+    ],
     'notifications_minimal'     => SensitiveNotification::isMinimal(),
     'can_edit_sensitive'        => Session::haveRight(Installer::SENSITIVE_RIGHT, UPDATE),
     'breach_enabled'            => BreachMonitorConfig::isEnabled(),
