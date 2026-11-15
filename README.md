@@ -442,6 +442,16 @@ du dépôt et dans la documentation indique uniquement le référentiel que le p
   qui n'est affilié ni à l'ISO ni à l'IEC. Le texte de la norme s'obtient auprès de
   l'[ISO](https://www.iso.org/standard/27090) ou de l'organisme national de normalisation.
 
+## Traductions
+
+[![État de la traduction](https://hosted.weblate.org/widget/glpi-iso27001-management/svg-badge.svg)](https://hosted.weblate.org/engage/glpi-iso27001-management/)
+
+Le plugin est traduit en français, anglais, allemand, espagnol, italien, polonais et portugais
+(Brésil). **Les contributions de traduction sont bienvenues sur [Hosted Weblate](https://hosted.weblate.org/engage/glpi-iso27001-management/)** :
+corriger un terme, améliorer le vocabulaire métier ou ajouter une langue se fait directement dans
+le navigateur, sans Git. Weblate propose ensuite les traductions par une Pull Request, relue avant
+d'être fusionnée.
+
 ## Réutilisation et citation
 
 Ce projet est sous licence **GPL-3.0-or-later**. Si vous reprenez du code, même partiellement, sans
