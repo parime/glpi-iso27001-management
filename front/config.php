@@ -271,6 +271,18 @@ if (isset($_POST['update_audit_config'])) {
     Html::back();
 }
 
+// Issue #656 : groupe Direction de l'appétence au risque (issue #378), déplacé ici depuis la page
+// de l'appétence (aucun réglage hors de la page de configuration). Registre sensible.
+if (isset($_POST['update_risk_appetite_config'])) {
+    Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\RiskAppetite::RIGHTNAME, UPDATE);
+
+    // Journal d'audit tenu par setDirectionGroupId().
+    \GlpiPlugin\Grcmanager\RiskAppetite::setDirectionGroupId((int) ($_POST['direction_groups_id'] ?? 0));
+
+    Html::back();
+}
+
 if (isset($_POST['update_nvd_config'])) {
     Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
 
@@ -356,6 +368,10 @@ Html::header(
     'remediation_levels'        => \GlpiPlugin\Grcmanager\ParkRemediation::getLevelLabels(),
     'max_tickets'               => \GlpiPlugin\Grcmanager\ParkVulnerability::MAX_TICKETS_PER_RUN,
     'ciso_groups_id'            => \GlpiPlugin\Grcmanager\AuditTeam::getCisoGroupId(),
+    // Issue #656 : groupe Direction de l'appétence au risque.
+    'direction_groups_id'       => \GlpiPlugin\Grcmanager\RiskAppetite::getDirectionGroupId(),
+    'risk_appetite_title'       => \GlpiPlugin\Grcmanager\RiskAppetite::getTypeName(),
+    'risk_appetite_url'         => \GlpiPlugin\Grcmanager\RiskAppetite::getSearchURL(),
     'controltest_ciso_mode'     => \GlpiPlugin\Grcmanager\ControlTestReminder::cisoMode(),
     'controltest_ciso_modes'    => \GlpiPlugin\Grcmanager\ControlTestReminder::getCisoModes(),
     'controltest_brand_color'   => \GlpiPlugin\Grcmanager\ControlTestReminder::brandColor(),

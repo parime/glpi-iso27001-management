@@ -22,12 +22,9 @@ use GlpiPlugin\Grcmanager\Services\Risk\RiskAppetiteRules;
 // Registre sensible : lecture avec son droit, modification avec UPDATE.
 Session::checkRight(\GlpiPlugin\Grcmanager\RiskAppetite::RIGHTNAME, READ);
 
-// Issue #378, troisième étape : groupe Direction, seul à pouvoir accepter un risque au-delà de la tolérance.
-if (isset($_POST['save_direction_group'])) {
-    Session::checkRight(\GlpiPlugin\Grcmanager\RiskAppetite::RIGHTNAME, UPDATE);
-    \GlpiPlugin\Grcmanager\RiskAppetite::setDirectionGroupId((int) ($_POST['direction_groups_id'] ?? 0));
-    Html::back();
-}
+// Issue #378, troisième étape : groupe Direction, seul à pouvoir accepter un risque au-delà de la
+// tolérance. Issue #656 : il se choisit dans la page de configuration du plugin (front/config.php),
+// cette page ne fait que l'afficher.
 
 if (isset($_POST['save_appetite'])) {
     Session::checkRight(\GlpiPlugin\Grcmanager\RiskAppetite::RIGHTNAME, UPDATE);
@@ -106,6 +103,9 @@ TemplateRenderer::getInstance()->display('@grcmanager/risk_appetite.html.twig', 
     'risks'      => $risks,
     'kri_url'    => \GlpiPlugin\Grcmanager\RiskIndicator::getSearchURL(),
     'direction_groups_id' => \GlpiPlugin\Grcmanager\RiskAppetite::getDirectionGroupId(),
+    // Issue #656 : lien vers le réglage, pour qui peut le modifier.
+    'can_open_config' => \GlpiPlugin\Grcmanager\RiskAppetite::canUpdate()
+        && Session::haveRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE),
     'direction_group_name' => Dropdown::getDropdownName(
         'glpi_groups',
         \GlpiPlugin\Grcmanager\RiskAppetite::getDirectionGroupId()

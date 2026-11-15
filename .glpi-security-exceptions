@@ -1,0 +1,16 @@
+# Exceptions justifiées des contrôles de sécurité communs (parime/glpi-plugin-security).
+# Format : « <contrôle> <identifiant> : <justification> », une par ligne ; « # » : commentaire.
+# Charte commune : parime/glpi-plugin-template, CHARTE.md, section 9 (menus et réglages).
+
+# Issue #656 : outil métier complet. Le secteur « GRC & Conformité » regroupe les écrans d'usage
+# (Tableau de bord, Mon espace, Risques, Mesures, Audits, Revues d'accès, Audits de conformité),
+# chacun pour des publics différents ; tous les réglages restent dans la page de configuration du
+# plugin (front/config.php, ouverte depuis Configuration > Plugins).
+menus-secteur-metier : application GRC complète (risques, mesures, audits, revues d'accès, conformité)
+
+# Entrée Assistance > Incidents de sécurité (PluginGrcmanagerSecurityIncident, affichée seulement si
+# le module est activé) : c'est un objet ITIL (CommonITILObject : acteurs, tâches, gabarits, SLA,
+# règles, notifications), géré au quotidien par l'équipe de support et de sécurité, à côté des
+# tickets, problèmes et changements natifs ; GLPI range ses objets ITIL dans Assistance. Seule entrée
+# hors du secteur GRC, gardée volontairement (pas d'identifiant reconnu par le contrôle « menus »
+# pour l'instant : cette justification reste un commentaire, voir l'issue #656).

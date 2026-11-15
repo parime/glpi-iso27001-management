@@ -27,6 +27,14 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   L'ancien espace de noms `GlpiPlugin\Grcmanager\Compatibility\` reste utilisable le temps d'une
   version (alias). Les classes ITIL des incidents de sécurité restent dans `inc/` (voir TECH_DEBT.md).
 
+- **Menus et réglages : charte commune, exception « outil métier complet »** (issue #656) : le
+  secteur « GRC & Conformité » est déclaré dans `.glpi-security-exceptions`
+  (`menus-secteur-metier`) ; l'entrée Assistance > Incidents de sécurité est gardée et justifiée
+  (objet ITIL, à côté des tickets, problèmes et changements). Le groupe Direction de l'appétence au
+  risque se choisit désormais dans la page de configuration du plugin (carte « Appétence et
+  tolérance au risque ») ; la page de l'appétence l'affiche avec un lien vers ce réglage. Plus aucun
+  réglage hors de la page de configuration.
+
 ## [2.50.0] - 2026-11-15
 
 ### Added
