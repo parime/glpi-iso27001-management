@@ -25,6 +25,7 @@ use GlpiPlugin\Grcmanager\IncidentSecurityGroup;
 use GlpiPlugin\Grcmanager\Services\Incident\CraReportingConfig;
 use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentModuleConfig;
 use GlpiPlugin\Grcmanager\Services\Notification\SensitiveNotification;
+use GlpiPlugin\Grcmanager\Services\Policy\PolicyApprovalConfig;
 use GlpiPlugin\Grcmanager\Services\Risk\RiskMatrixConfig;
 
 Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, READ);
@@ -214,6 +215,22 @@ if (isset($_POST['update_consistency_rules'])) {
     Html::back();
 }
 
+// Issue #611 : circuit d'approbation des politiques de sécurité par la direction.
+if (isset($_POST['update_policy_approval'])) {
+    Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
+
+    PolicyApprovalConfig::save(
+        !empty($_POST['policy_approval_enabled']),
+        PolicyApprovalConfig::fromForm(
+            (array) ($_POST['policy_approval_users'] ?? []),
+            (array) ($_POST['policy_approval_groups'] ?? [])
+        ),
+        (int) ($_POST['policy_approval_quorum'] ?? 0)
+    );
+
+    Html::back();
+}
+
 if (isset($_POST['update_audit_config'])) {
     Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
 
@@ -323,6 +340,37 @@ Html::header(
     'frameworks_enabled'        => FrameworkConfig::enabled(),
     'dpo_contact'               => \GlpiPlugin\Grcmanager\ProcessingActivity::dpoContact(),
     'can_edit_config'           => Session::haveRight(Installer::RIGHT_NAME, UPDATE),
+    // Issue #611 : approbation des politiques.
+    'policy_approval'           => [
+        'enabled'        => PolicyApprovalConfig::isEnabled(),
+        'quorum'         => PolicyApprovalConfig::defaultQuorum(),
+        'quorum_choices' => PolicyApprovalConfig::quorumChoices(false),
+    ],
+    'policy_approval_user_dropdown' => User::dropdown([
+        'name'     => 'policy_approval_users[]',
+        'value'    => array_column(array_filter(
+            PolicyApprovalConfig::defaultApprovers(),
+            static fn (array $a): bool => $a['itemtype'] === User::class
+        ), 'items_id'),
+        'multiple' => true,
+        'right'    => 'all',
+        'width'    => '100%',
+        'display'  => false,
+        'rand'     => mt_rand(),
+    ]),
+    'policy_approval_group_dropdown' => Group::dropdown([
+        'name'        => 'policy_approval_groups[]',
+        'values'      => array_column(array_filter(
+            PolicyApprovalConfig::defaultApprovers(),
+            static fn (array $a): bool => $a['itemtype'] === Group::class
+        ), 'items_id'),
+        'multiple'    => true,
+        'entity'      => 0,
+        'entity_sons' => true,
+        'width'       => '100%',
+        'display'     => false,
+        'rand'        => mt_rand(),
+    ]),
 ]);
 
 Html::footer();

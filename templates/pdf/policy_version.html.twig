@@ -1,0 +1,34 @@
+{# Issue #611 : version figée d'une politique de sécurité soumise à l'approbation de la direction
+   (contenu, documents joints et leurs empreintes, approbateurs, empreinte du contenu). #}
+{% include '@grcmanager/pdf/_pdf_style.html.twig' %}
+
+<h2>{{ __('Version submitted for approval', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-summary">
+  <tr><td>{{ __('Policy', 'grcmanager') }}</td><td>{{ policy.title }}</td></tr>
+  <tr><td>{{ __('Version', 'grcmanager') }}</td><td>{{ policy.version }}</td></tr>
+  {% if policy.owner %}<tr><td>{{ _x('owner', 'Owner', 'grcmanager') }}</td><td>{{ policy.owner }}</td></tr>{% endif %}
+  <tr><td>{{ __('SoA control', 'grcmanager') }}</td><td>{{ control }}</td></tr>
+  <tr><td>{{ __('Requested', 'grcmanager') }}</td><td>{{ requested_at }} ({{ requested_by }})</td></tr>
+  <tr><td>{{ __('Approvers', 'grcmanager') }}</td><td>{{ approvers|join(', ') }}</td></tr>
+  <tr><td>{{ __('Approval rule', 'grcmanager') }}</td><td>{{ rule }}</td></tr>
+  <tr><td>{{ __('Content fingerprint (SHA-256)', 'grcmanager') }}</td><td style="font-family: monospace; font-size: 8px;">{{ fingerprint }}</td></tr>
+</table>
+{% if comment %}<p><em>{{ comment }}</em></p>{% endif %}
+
+<h2>{{ __('Description', 'grcmanager') }}</h2>
+<p style="white-space: pre-wrap;">{{ policy.description|default('-') }}</p>
+
+<h2>{{ __('Attached documents', 'grcmanager') }}</h2>
+{% if documents is empty %}
+  <p>{{ __('No document attached to the policy.', 'grcmanager') }}</p>
+{% else %}
+  <table class="grcmanager-pdf-table">
+    <thead><tr><th>{{ __('Document', 'grcmanager') }}</th><th>{{ __('File', 'grcmanager') }}</th><th>SHA-1</th></tr></thead>
+    <tbody>
+      {% for d in documents %}
+        <tr><td>{{ d.name }}</td><td>{{ d.filename }}</td><td style="font-family: monospace; font-size: 8px;">{{ d.sha1sum }}</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}
+<p style="font-size: 8px; color: #6c757d;">{{ __('Any change to the title, version, description or attached documents changes the content fingerprint and requires a new version.', 'grcmanager') }}</p>

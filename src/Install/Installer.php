@@ -148,6 +148,10 @@ final class Installer
     private const POLICY_AUDIENCES_TABLE = 'glpi_plugin_grcmanager_policyaudiences';
     private const POLICY_CAMPAIGNS_TABLE = 'glpi_plugin_grcmanager_policycampaigns';
     private const POLICY_CAMPAIGNS_USERS_TABLE = 'glpi_plugin_grcmanager_policycampaigns_users';
+    // Issue #611 : versions soumises à approbation, réponses des approbateurs, approbateurs désignés.
+    private const POLICY_VERSIONS_TABLE = 'glpi_plugin_grcmanager_policyversions';
+    private const POLICY_VERSIONS_USERS_TABLE = 'glpi_plugin_grcmanager_policyversions_users';
+    private const POLICY_APPROVERS_TABLE = 'glpi_plugin_grcmanager_policyapprovers';
     // Issue #540 : registre d'informations DORA (champs propres à DORA des fournisseurs, contrats et
     // processus métier de GLPI, fonctions soutenues et chaîne de sous-traitance).
     private const DORA_PROVIDERS_TABLE = 'glpi_plugin_grcmanager_doraproviders';
@@ -1328,6 +1332,7 @@ final class Installer
             );
         }
         $this->installPolicyAcknowledgementTables($keySign, $charset, $collation);
+        $this->installPolicyApprovalTables($migration, $keySign, $charset, $collation);
         $this->installAuditEvidenceRequestTables($keySign, $charset, $collation);
         $this->installDoraRegisterTables($keySign, $charset, $collation);
         $this->installDataBreachTables($keySign, $charset, $collation);
@@ -4207,6 +4212,88 @@ final class Installer
     }
 
     /**
+     * Issue #611 : approbation des politiques par la direction. Une ligne par version soumise
+     * (PDF figé = Document GLPI lié, `pdf_sha256` = empreinte du fichier, `fingerprint` = empreinte
+     * du contenu, voir PolicyApprovalRules), une ligne par approbateur et sa réponse, les
+     * approbateurs désignés de chaque politique, et la règle de validation de la politique
+     * (`approval_quorum` : -1 = règle de la configuration, 0 = tous, N = au moins N).
+     *
+     * Les politiques déjà approuvées gardent leur statut : une version « approuvée avant le
+     * circuit » (`is_legacy`, sans empreinte) les distingue (PolicyVersion::markLegacyApproved()).
+     */
+    private function installPolicyApprovalTables(
+        Migration $migration,
+        string $keySign,
+        string $charset,
+        string $collation
+    ): void {
+        global $DB;
+
+        if (!$DB->tableExists(self::POLICY_VERSIONS_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::POLICY_VERSIONS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_policies_id` int {$keySign} NOT NULL DEFAULT 0,
+                `version` varchar(16) NOT NULL DEFAULT '' COMMENT 'Numero de version de la politique',
+                `revision` int NOT NULL DEFAULT 0 COMMENT 'Numero de la demande pour cette politique',
+                `status` varchar(16) NOT NULL DEFAULT 'pending'
+                    COMMENT 'pending, approved, rejected, withdrawn',
+                `quorum` int NOT NULL DEFAULT 0 COMMENT '0 = tous, N = au moins N approbations',
+                `is_legacy` tinyint NOT NULL DEFAULT 0 COMMENT 'Approuvee avant le circuit, sans empreinte',
+                `fingerprint` char(64) NOT NULL DEFAULT '' COMMENT 'SHA-256 du contenu de la politique',
+                `pdf_sha256` char(64) NOT NULL DEFAULT '' COMMENT 'SHA-256 du PDF fige',
+                `documents_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'PDF fige',
+                `record_documents_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Proces-verbal d approbation',
+                `users_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Demandeur',
+                `comment` text,
+                `date_answered` timestamp NULL DEFAULT NULL,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `plugin_grcmanager_policies_id` (`plugin_grcmanager_policies_id`),
+                KEY `status` (`status`),
+                KEY `users_id` (`users_id`),
+                KEY `documents_id` (`documents_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+        if (!$DB->tableExists(self::POLICY_VERSIONS_USERS_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::POLICY_VERSIONS_USERS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_policyversions_id` int {$keySign} NOT NULL DEFAULT 0,
+                `users_id` int {$keySign} NOT NULL DEFAULT 0,
+                `status` varchar(16) NOT NULL DEFAULT 'pending' COMMENT 'pending, approved, rejected',
+                `comment` text,
+                `date_answered` timestamp NULL DEFAULT NULL,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity_link` (`plugin_grcmanager_policyversions_id`, `users_id`),
+                KEY `users_id` (`users_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+        if (!$DB->tableExists(self::POLICY_APPROVERS_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::POLICY_APPROVERS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_policies_id` int {$keySign} NOT NULL DEFAULT 0,
+                `itemtype` varchar(100) NOT NULL DEFAULT '' COMMENT 'User, Group',
+                `items_id` int {$keySign} NOT NULL DEFAULT 0,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity` (`plugin_grcmanager_policies_id`, `itemtype`, `items_id`),
+                KEY `item` (`itemtype`, `items_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+        if (!$DB->fieldExists(self::POLICIES_TABLE, 'approval_quorum')) {
+            $migration->addField(
+                self::POLICIES_TABLE,
+                'approval_quorum',
+                'integer',
+                ['value' => -1, 'after' => 'acknowledgement_days']
+            );
+            $migration->migrationOneTable(self::POLICIES_TABLE);
+        }
+        \GlpiPlugin\Grcmanager\PolicyVersion::markLegacyApproved();
+    }
+
+    /**
      * Issue #601 : suivi des délais de correction de chaque vulnérabilité du parc (couple CVE et
      * produit du catalogue) : première détection, conservée même quand NVD est interrogé de nouveau,
      * niveau, échéance connue avant un changement de niveau, date de correction. Et les CVE couvertes
@@ -4744,6 +4831,8 @@ final class Installer
         $this->unseedNotification('GlpiPlugin\\Grcmanager\\Nonconformity');
         $this->unseedNotification('GlpiPlugin\\Grcmanager\\Training');
         $this->unseedNotification('GlpiPlugin\\Grcmanager\\Policy');
+        // Issue #611 : approbation des politiques.
+        $this->unseedNotification(\GlpiPlugin\Grcmanager\PolicyVersion::class);
         $this->unseedNotification('GlpiPlugin\\Grcmanager\\RiskTreatmentAction');
         $this->unseedNotification('GlpiPlugin\\Grcmanager\\Evidence');
         $this->unseedNotification('GlpiPlugin\\Grcmanager\\Waiver');
@@ -4814,6 +4903,9 @@ final class Installer
         $migration->dropTable(self::MANAGEMENT_REVIEWS_TABLE);
         $migration->dropTable(self::RISKS_ITEMS_TABLE);
         $migration->dropTable(self::ASSET_CLASSIFICATIONS_TABLE);
+        $migration->dropTable(self::POLICY_VERSIONS_USERS_TABLE);
+        $migration->dropTable(self::POLICY_VERSIONS_TABLE);
+        $migration->dropTable(self::POLICY_APPROVERS_TABLE);
         $migration->dropTable(self::POLICY_CAMPAIGNS_USERS_TABLE);
         $migration->dropTable(self::POLICY_CAMPAIGNS_TABLE);
         $migration->dropTable(self::POLICY_AUDIENCES_TABLE);

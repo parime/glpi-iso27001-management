@@ -1,0 +1,31 @@
+{# Issue #611 : procès-verbal des approbations d'une politique (une version, ou tout l'historique) :
+   preuve d'approbation par la direction pour la mesure A.5.1. #}
+{% include '@grcmanager/pdf/_pdf_style.html.twig' %}
+
+<table class="grcmanager-pdf-summary">
+  <tr><td>{{ __('Policy', 'grcmanager') }}</td><td>{{ policy_title }}</td></tr>
+  <tr><td>{{ __('SoA control', 'grcmanager') }}</td><td>{{ control }}</td></tr>
+</table>
+
+{% for row in history %}
+  <h2>{{ __('Version %s', 'grcmanager')|format(row.version) }} - {{ row.is_legacy ? __('Approved before the workflow', 'grcmanager') : row.status_label }}{% if row.answered_at %} ({{ row.answered_at }}){% endif %}</h2>
+  {% if row.is_legacy %}
+    <p>{{ __('No frozen version: approval date entered manually.', 'grcmanager') }}</p>
+  {% else %}
+    <table class="grcmanager-pdf-summary">
+      <tr><td>{{ __('Requested', 'grcmanager') }}</td><td>{{ row.requested_at }} ({{ row.requested_by }})</td></tr>
+      <tr><td>{{ __('Approval rule', 'grcmanager') }}</td><td>{{ row.rule }}</td></tr>
+      {% if row.comment %}<tr><td>{{ __('Comment', 'grcmanager') }}</td><td>{{ row.comment }}</td></tr>{% endif %}
+      <tr><td>{{ __('Content fingerprint (SHA-256)', 'grcmanager') }}</td><td style="font-family: monospace; font-size: 8px;">{{ row.fingerprint }}</td></tr>
+      <tr><td>{{ __('Frozen PDF (SHA-256)', 'grcmanager') }}</td><td style="font-family: monospace; font-size: 8px;">{{ row.pdf_sha256 }}</td></tr>
+    </table>
+    <table class="grcmanager-pdf-table">
+      <thead><tr><th>{{ __('Approver', 'grcmanager') }}</th><th>{{ __('Decision', 'grcmanager') }}</th><th>{{ __('Date', 'grcmanager') }}</th><th>{{ __('Comment', 'grcmanager') }}</th></tr></thead>
+      <tbody>
+        {% for a in row.approvers %}
+          <tr><td>{{ a.name }}</td><td>{{ a.status_label }}</td><td>{{ a.answered_text|default('-') }}</td><td>{{ a.comment }}</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+{% endfor %}

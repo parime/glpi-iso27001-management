@@ -4,15 +4,32 @@
 {% import '@grcmanager/_hint.html.twig' as hints %}
 
 {% block form_fields %}
-   {{ fields.textField('title', item.fields['title'], __('Title', 'grcmanager'), {'full_width': true}) }}
-   {{ fields.textField('version', item.fields['version'] ?: '1.0', __('Version', 'grcmanager')) }}
+   {% if content_locked %}
+      {# Issue #611 : contenu figé pendant l'approbation et après. #}
+      <div class="alert alert-info d-flex align-items-center gap-2 w-100" role="status">
+         <i class="ti ti-lock"></i>
+         <div>{{ __('The content of this version is frozen by the approval workflow (title, version, description). Use the "Approval" tab to withdraw the request or to prepare a new version.', 'grcmanager') }}</div>
+      </div>
+   {% endif %}
+   {{ fields.textField('title', item.fields['title'], __('Title', 'grcmanager'), {'full_width': true, 'readonly': content_locked}) }}
+   {{ fields.textField('version', item.fields['version'] ?: '1.0', __('Version', 'grcmanager'), {'readonly': content_locked}) }}
    {{ fields.dropdownField('User', 'users_id', item.fields['users_id'], _x('owner', 'Owner', 'grcmanager'), {'right': 'all'}) }}
-   {{ fields.dropdownArrayField('status', item.fields['status'] ?: default_status, statuses, __('Status', 'grcmanager'), {
-      'add_field_html': hints.hint(__('An approval date is required to switch to the "Approved" status.', 'grcmanager')),
-   }) }}
-   {{ fields.dateField('approval_date', item.fields['approval_date'], __('Approval date', 'grcmanager')) }}
+   {% if approval_workflow %}
+      {{ fields.dropdownArrayField('status', item.fields['status'] ?: default_status, statuses, __('Status', 'grcmanager'), {
+         'add_field_html': hints.hint(__('The "Approved" status is given by the designated approvers, from the "Approval" tab.', 'grcmanager')),
+      }) }}
+      {{ fields.dateField('approval_date', item.fields['approval_date'], __('Approval date', 'grcmanager'), {
+         'disabled': true,
+         'add_field_html': hints.hint(__('Date of the last approval, filled in by the approval workflow.', 'grcmanager')),
+      }) }}
+   {% else %}
+      {{ fields.dropdownArrayField('status', item.fields['status'] ?: default_status, statuses, __('Status', 'grcmanager'), {
+         'add_field_html': hints.hint(__('An approval date is required to switch to the "Approved" status.', 'grcmanager')),
+      }) }}
+      {{ fields.dateField('approval_date', item.fields['approval_date'], __('Approval date', 'grcmanager')) }}
+   {% endif %}
    {{ fields.dateField('next_review_date', item.fields['next_review_date'], __('Next review', 'grcmanager')) }}
-   {{ fields.textareaField('description', item.fields['description'], __('Description', 'grcmanager'), {'full_width': true}) }}
+   {{ fields.textareaField('description', item.fields['description'], __('Description', 'grcmanager'), {'full_width': true, 'readonly': content_locked}) }}
    {{ fields.checkboxField('is_it_charter', item.fields['is_it_charter'] ?? 0, __('IT charter', 'grcmanager'), {
       'add_field_html': hints.hint(__('Reference version for assetsign charter campaigns: the most recent approved version is shown in them, and a new approved version calls for a new signature.', 'grcmanager')),
    }) }}

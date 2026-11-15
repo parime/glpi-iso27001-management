@@ -143,6 +143,7 @@ class MySpace extends CommonGLPI
             'supplier_review'      => [__('Supplier risk to review', 'grcmanager'), 'ti-truck'],
             'obligation_review'    => [__('Obligation to review', 'grcmanager'), 'ti-scale'],
             'soa_approval'         => [__('SoA approval', 'grcmanager'), 'ti-signature'],
+            'policy_approval'      => [__('Policy to approve', 'grcmanager'), 'ti-signature'],
             'data_subject_request' => [__('Data subject request', 'grcmanager'), 'ti-user-shield'],
             'audit'                => [__('Audit', 'grcmanager'), 'ti-clipboard-check'],
             'evidence_request'     => [__('Audit evidence to provide', 'grcmanager'), 'ti-file-upload'],

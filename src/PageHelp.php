@@ -269,6 +269,19 @@ class PageHelp
                 ),
                 'reference' => __('ISO 27001, 6.1.3 d)', 'grcmanager'),
             ],
+            // Issue #611 : approbation des politiques de sécurité par la direction.
+            'policyapproval' => [
+                'purpose'   => __(
+                    'The security policies awaiting your approval: read the frozen version, then approve or '
+                        . 'reject it with a comment.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Answer each request; a rejection needs a comment so that the author can correct the policy.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO 27001, A.5.1', 'grcmanager'),
+            ],
             'soaapproval' => [
                 'purpose'  => __(
                     'Approved versions of the Statement of Applicability, with the approver and the date.',
