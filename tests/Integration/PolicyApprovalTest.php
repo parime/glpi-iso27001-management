@@ -91,7 +91,8 @@ final class PolicyApprovalTest extends GrcmanagerIntegrationTestCase
         Config::setConfigurationValues(PolicyApprovalConfig::CONTEXT, [PolicyApprovalConfig::ENABLED_KEY => '0']);
         $this->assertFalse(PolicyApprovalConfig::isEnabled());
         $policy = $this->policy();
-        $this->assertTrue($policy->update(['id' => $policy->getID(), 'status' => 'approved', 'approval_date' => '2026-02-01']));
+        $approve = ['id' => $policy->getID(), 'status' => 'approved', 'approval_date' => '2026-02-01'];
+        $this->assertTrue($policy->update($approve));
         $this->assertSame('approved', $this->reload($policy)->fields['status']);
         $this->assertSame(0, PolicyVersion::submit($this->policy(), ''), 'circuit désactivé');
     }
@@ -100,9 +101,10 @@ final class PolicyApprovalTest extends GrcmanagerIntegrationTestCase
     {
         $this->enable();
         $policy = $this->policy();
-        $this->assertFalse($policy->update(['id' => $policy->getID(), 'status' => 'approved', 'approval_date' => '2026-02-01']));
+        $approve = ['status' => 'approved', 'approval_date' => '2026-02-01'];
+        $this->assertFalse($policy->update(['id' => $policy->getID()] + $approve));
         $this->assertSame('draft', $this->reload($policy)->fields['status']);
-        $this->assertFalse((bool) (new Policy())->add(['title' => 'Autre', 'status' => 'approved', 'approval_date' => '2026-02-01']));
+        $this->assertFalse((bool) (new Policy())->add(['title' => 'Autre'] + $approve));
         // La date d'approbation n'est plus saisie à la main.
         $policy->update(['id' => $policy->getID(), 'approval_date' => '2026-02-01']);
         $this->assertNull($this->reload($policy)->fields['approval_date']);
@@ -164,7 +166,8 @@ final class PolicyApprovalTest extends GrcmanagerIntegrationTestCase
         $version->getFromDB($version->getID());
         $this->assertSame(Rules::VERSION_APPROVED, $version->fields['status']);
         $this->assertSame('up_to_date', PolicyVersion::currentState($policy));
-        $this->assertNotContains('policy_approval', array_column(MySpaceProvider::items($bruno, date('Y-m-d')), 'source'));
+        $sources = array_column(MySpaceProvider::items($bruno, date('Y-m-d')), 'source');
+        $this->assertNotContains('policy_approval', $sources);
 
         // Procès-verbal archivé comme preuve sur la politique et sur A.5.1, réservé.
         $recordId = (int) $version->fields['record_documents_id'];
@@ -178,7 +181,11 @@ final class PolicyApprovalTest extends GrcmanagerIntegrationTestCase
             'documents_id' => $recordId, 'itemtype' => Policy::class, 'items_id' => $policy->getID(),
         ]));
         $this->assertNotNull(RestrictedDocument::sourceOf($recordId));
-        $this->assertSame([], PolicyVersion::policyDocuments($policy->getID()), 'le procès-verbal n\'entre pas dans l\'empreinte');
+        $this->assertSame(
+            [],
+            PolicyVersion::policyDocuments($policy->getID()),
+            'le procès-verbal n\'entre pas dans l\'empreinte'
+        );
     }
 
     public function testMinimumNumberOfApprovalsAndGroups(): void
@@ -247,7 +254,10 @@ final class PolicyApprovalTest extends GrcmanagerIntegrationTestCase
         $this->reload($policy);
 
         $this->assertFalse($policy->update(['id' => $policy->getID(), 'title' => 'Autre titre']));
-        $this->assertFalse($policy->update(['id' => $policy->getID(), 'version' => '1.3']), 'nouvelle version explicite');
+        $this->assertFalse(
+            $policy->update(['id' => $policy->getID(), 'version' => '1.3']),
+            'nouvelle version explicite'
+        );
         $this->assertSame('approved', $this->reload($policy)->fields['status']);
         $this->assertFalse(PolicyVersion::prepareNewVersion($policy, '1.2'), 'numéro déjà approuvé');
 

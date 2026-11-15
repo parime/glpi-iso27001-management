@@ -82,13 +82,15 @@ if (isset($_POST['answer'])) {
     $approve = ($_POST['decision'] ?? '') === 'approve';
     $comment = trim((string) ($_POST['comment'] ?? ''));
     if (!$approve && $comment === '') {
-        Session::addMessageAfterRedirect(htmlescape(__('Please give the reason for the rejection.', 'grcmanager')), false, ERROR);
+        $message = __('Please give the reason for the rejection.', 'grcmanager');
+        Session::addMessageAfterRedirect(htmlescape($message), false, ERROR);
     } elseif (PolicyVersion::answer((int) ($_POST['versions_id'] ?? 0), $usersId, $approve, $comment)) {
         Session::addMessageAfterRedirect(htmlescape($approve
             ? __('Approval recorded.', 'grcmanager')
             : __('Rejection recorded.', 'grcmanager')));
     } else {
-        Session::addMessageAfterRedirect(htmlescape(__('This version is not awaiting your answer.', 'grcmanager')), false, ERROR);
+        $message = __('This version is not awaiting your answer.', 'grcmanager');
+        Session::addMessageAfterRedirect(htmlescape($message), false, ERROR);
     }
     Html::redirect($selfUrl);
 }
@@ -124,7 +126,8 @@ if (isset($_POST['withdraw'])) {
         && (int) $version->fields['plugin_grcmanager_policies_id'] === $policy->getID()
         && PolicyVersion::withdraw($versionId)
     ) {
-        Session::addMessageAfterRedirect(htmlescape(__('Approval request withdrawn: the content can be modified again.', 'grcmanager')));
+        $message = __('Approval request withdrawn: the content can be modified again.', 'grcmanager');
+        Session::addMessageAfterRedirect(htmlescape($message));
     }
     Html::back();
 }
@@ -132,7 +135,8 @@ if (isset($_POST['withdraw'])) {
 if (isset($_POST['new_version_submit'])) {
     $policy = $editablePolicy();
     if (PolicyVersion::prepareNewVersion($policy, (string) ($_POST['new_version'] ?? ''))) {
-        Session::addMessageAfterRedirect(htmlescape(__('New version prepared: the policy is back to draft until it is approved.', 'grcmanager')));
+        $message = __('New version prepared: the policy is back to draft until it is approved.', 'grcmanager');
+        Session::addMessageAfterRedirect(htmlescape($message));
     }
     Html::back();
 }

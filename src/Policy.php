@@ -340,7 +340,8 @@ class Policy extends PolicyBase
         $wanted = (string) ($input['status'] ?? $currentStatus);
         if ($wanted === PolicyLifecycle::STATUS_APPROVED && $currentStatus !== PolicyLifecycle::STATUS_APPROVED) {
             Session::addMessageAfterRedirect(htmlescape(__(
-                'With the approval workflow, a policy becomes "Approved" only once its designated approvers have approved it: use the "Approval" tab.',
+                'With the approval workflow, a policy becomes "Approved" only once its designated approvers have '
+                    . 'approved it: use the "Approval" tab.',
                 'grcmanager'
             )), false, ERROR);
 
@@ -354,9 +355,17 @@ class Policy extends PolicyBase
             PolicyApprovalRules::isContentLocked($currentStatus, $hasPending)
             && PolicyApprovalRules::changedContentFields($this->fields, $input) !== []
         ) {
-            Session::addMessageAfterRedirect(htmlescape($hasPending
-                ? __('This version is awaiting approval: its content is frozen. Withdraw the request to modify it.', 'grcmanager')
-                : __('This version has been approved: its content is frozen. Prepare a new version from the "Approval" tab to modify it.', 'grcmanager')), false, ERROR);
+            $message = $hasPending
+                ? __(
+                    'This version is awaiting approval: its content is frozen. Withdraw the request to modify it.',
+                    'grcmanager'
+                )
+                : __(
+                    'This version has been approved: its content is frozen. Prepare a new version from the '
+                        . '"Approval" tab to modify it.',
+                    'grcmanager'
+                );
+            Session::addMessageAfterRedirect(htmlescape($message), false, ERROR);
 
             return false;
         }

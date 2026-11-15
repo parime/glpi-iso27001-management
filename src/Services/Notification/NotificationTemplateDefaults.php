@@ -830,8 +830,12 @@ final class NotificationTemplateDefaults
                 $link = $t('Read the frozen version and answer');
 
                 return [
-                    'subject'      => $head('##policyapproval.action##', '##policyapproval.title## ##policyapproval.version##'),
-                    'content_text' => $ask . "\n\n##policyapproval.comment##\n\n" . $head($link, '##policyapproval.url##'),
+                    'subject'      => $head(
+                        '##policyapproval.action##',
+                        '##policyapproval.title## ##policyapproval.version##'
+                    ),
+                    'content_text' => $ask . "\n\n##policyapproval.comment##\n\n"
+                        . $head($link, '##policyapproval.url##'),
                     'content_html' => NotificationHtml::render([
                         NotificationHtml::lines([$ask]),
                         NotificationHtml::lines(['##policyapproval.comment##']),
@@ -846,8 +850,8 @@ final class NotificationTemplateDefaults
                     $line('Decision', '##policyapproval.decision##'),
                     $line('Comments of the approvers', '##policyapproval.comments##'),
                 ], [
-                    $t('If the version is rejected, the policy stays in draft: take the comments into account, then submit '
-                        . 'it again.'),
+                    $t('If the version is rejected, the policy stays in draft: take the comments into account, '
+                        . 'then submit it again.'),
                 ], '##policyapproval.policyurl##', $t('View the policy'), $head);
 
             case 'accessreview_request':

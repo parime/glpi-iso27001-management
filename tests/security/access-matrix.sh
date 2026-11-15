@@ -58,7 +58,7 @@ if [ "$ROLE" = admin ]; then SEE_B=oui; DENY=200; else SEE_B=non; DENY=403; fi
 READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php front/complianceobligation.php
   front/control.php front/ismsrequirement.php front/managementreview.php front/nonconformity.php
   front/objective.php front/policy.php front/risk.php front/securityincident.php front/supplierrisk.php
-  front/training.php front/referentiels.php front/riskheatmap.php front/soaapproval.php front/config.php
+  front/training.php front/referentiels.php front/riskheatmap.php front/soaapproval.php front/policyapproval.php front/config.php
   front/audit.report.php front/control.report.php front/risk.report.php front/control.csv.php?action=export
   front/evidence.php front/periodicreview.php front/networkflow.php front/accounthygiene.php
   front/compliancecalendar.php front/compliancecalendar.php?ics=1 front/complianceevent.php
@@ -720,6 +720,17 @@ if [ "$ROLE" = none ] || [ "$ROLE" = reader ]; then
   for action in launch=1 remind=1 close=1 add_audience=1 save_days=1; do
     expect "front/policyacknowledgement.form.php : ${action%%=*}" 403 \
       "$(code -d "$action&policies_id=$(id policy_ack)&campaigns_id=$(id ack_campaign)&itemtype=Group&items_id=1&acknowledgement_days=3&_glpi_csrf_token=$(csrf)" "$P/policyacknowledgement.form.php")"
+  done
+fi
+
+# Issue #611 : approbation des politiques. Exporter l'historique exige la lecture des politiques ;
+# demander, retirer, preparer une version ou designer les approbateurs exige leur modification ; un
+# PDF fige n'est servi qu'aux lecteurs ou a l'approbateur designe de la version.
+expect "front/policyapproval.php : export de l'historique" $READ_POLICY   "$(code "$P/policyapproval.php?export=$(id policy_ack)")"
+expect "front/policyapproval.php : PDF fige inexistant" 404 "$(code "$P/policyapproval.php?pdf=999999999")"
+if [ "$ROLE" = none ] || [ "$ROLE" = reader ]; then
+  for action in submit_approval=1 save_approvers=1 withdraw=1 new_version_submit=1; do
+    expect "front/policyapproval.php : ${action%%=*}" 403       "$(code -d "$action&policies_id=$(id policy_ack)&versions_id=1&new_version=9.9&approver_users[]=2&_glpi_csrf_token=$(csrf)" "$P/policyapproval.php")"
   done
 fi
 

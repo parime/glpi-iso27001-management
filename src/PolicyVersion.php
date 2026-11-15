@@ -508,7 +508,10 @@ class PolicyVersion extends PolicyVersionBase
         }
         if (PolicyApprovalRules::needsNewVersion($versionLabel, self::approvedVersionLabels($policyId))) {
             return $error(sprintf(
-                __('Version %s has already been approved: change the version number to submit a new version.', 'grcmanager'),
+                __(
+                    'Version %s has already been approved: change the version number to submit a new version.',
+                    'grcmanager'
+                ),
                 $versionLabel
             ));
         }
@@ -519,7 +522,10 @@ class PolicyVersion extends PolicyVersionBase
         if (in_array($requesterId, $approverIds, true)) {
             $approverIds = array_values(array_diff($approverIds, [$requesterId]));
             Session::addMessageAfterRedirect(
-                htmlescape(__('You cannot approve your own request: you have been removed from the approvers.', 'grcmanager')),
+                htmlescape(__(
+                    'You cannot approve your own request: you have been removed from the approvers.',
+                    'grcmanager'
+                )),
                 false,
                 WARNING
             );
@@ -573,7 +579,11 @@ class PolicyVersion extends PolicyVersionBase
             $version,
             $pdf,
             sprintf('politique-%d-v%s-%s.pdf', $policyId, self::fileSafe($versionLabel), date('Ymd-His')),
-            sprintf(__('%1$s - version %2$s submitted for approval', 'grcmanager'), $policy->fields['title'], $versionLabel),
+            sprintf(
+                __('%1$s - version %2$s submitted for approval', 'grcmanager'),
+                $policy->fields['title'],
+                $versionLabel
+            ),
             [[self::class, $id]]
         );
         $version->update([
@@ -666,7 +676,8 @@ class PolicyVersion extends PolicyVersionBase
             'status'        => PolicyApprovalRules::VERSION_WITHDRAWN,
             'date_answered' => date('Y-m-d H:i:s'),
         ]);
-        AuditLog::record('update', Policy::class, (int) $version->fields['plugin_grcmanager_policies_id'], 0, 'success', [
+        $policyId = (int) $version->fields['plugin_grcmanager_policies_id'];
+        AuditLog::record('update', Policy::class, $policyId, 0, 'success', [
             'approval_withdrawn' => (string) $version->fields['version'],
         ]);
 
@@ -749,6 +760,27 @@ class PolicyVersion extends PolicyVersionBase
     // Documents : version figée, procès-verbal, historique
     // ---------------------------------------------------------------------------------------------
 
+    private static function generatedAt(): string
+    {
+        return sprintf(__('Generated on %s', 'grcmanager'), Html::convDateTime(date('Y-m-d H:i:s')));
+    }
+
+    /**
+     * @param list<array{itemtype: string, items_id: int}> $approvers
+     * @return list<int>
+     */
+    public static function idsOf(array $approvers, string $itemtype): array
+    {
+        $ids = [];
+        foreach ($approvers as $approver) {
+            if ($approver['itemtype'] === $itemtype) {
+                $ids[] = $approver['items_id'];
+            }
+        }
+
+        return $ids;
+    }
+
     private static function fileSafe(string $text): string
     {
         return (string) preg_replace('/[^A-Za-z0-9._-]+/', '-', $text);
@@ -762,11 +794,13 @@ class PolicyVersion extends PolicyVersionBase
                 (string) $policy->fields['title'],
                 (string) $version->fields['version']
             ),
-            'generated_at_label' => sprintf(__('Generated on %s', 'grcmanager'), Html::convDateTime(date('Y-m-d H:i:s'))),
+            'generated_at_label' => self::generatedAt(),
             'policy'             => [
                 'title'       => (string) $policy->fields['title'],
                 'version'     => (string) $policy->fields['version'],
-                'owner'       => (int) $policy->fields['users_id'] > 0 ? getUserName((int) $policy->fields['users_id']) : '',
+                'owner'       => (int) $policy->fields['users_id'] > 0
+                    ? getUserName((int) $policy->fields['users_id'])
+                    : '',
                 'description' => (string) ($policy->fields['description'] ?? ''),
             ],
             'documents'          => self::policyDocuments($policy->getID()),
@@ -819,7 +853,9 @@ class PolicyVersion extends PolicyVersionBase
                 'rule'         => self::ruleLabel((int) $row['quorum']),
                 'fingerprint'  => (string) $row['fingerprint'],
                 'pdf_sha256'   => (string) $row['pdf_sha256'],
-                'pdf_url'      => (int) $row['documents_id'] > 0 ? self::getPageURL() . '?pdf=' . (int) $row['id'] : null,
+                'pdf_url'      => (int) $row['documents_id'] > 0
+                    ? self::getPageURL() . '?pdf=' . (int) $row['id']
+                    : null,
                 'approvers'    => $approvers,
             ];
         }
@@ -836,7 +872,7 @@ class PolicyVersion extends PolicyVersionBase
     {
         return TemplateRenderer::getInstance()->render('@grcmanager/pdf/policy_approval_record.html.twig', [
             'report_title'       => sprintf(__('Approval record: %s', 'grcmanager'), (string) $policy->fields['title']),
-            'generated_at_label' => sprintf(__('Generated on %s', 'grcmanager'), Html::convDateTime(date('Y-m-d H:i:s'))),
+            'generated_at_label' => self::generatedAt(),
             'policy_title'       => (string) $policy->fields['title'],
             'control'            => self::CONTROL_CODE . ' ' . Control::getControlTitle(self::CONTROL_CODE),
             'history'            => self::present($rows),
@@ -951,7 +987,10 @@ class PolicyVersion extends PolicyVersionBase
             return '';
         }
         // Circuit désactivé : l'onglet ne reste que pour l'historique des versions réellement soumises.
-        $submitted = array_filter(self::getVersions($item->getID()), static fn (array $row): bool => empty($row['is_legacy']));
+        $submitted = array_filter(
+            self::getVersions($item->getID()),
+            static fn (array $row): bool => empty($row['is_legacy'])
+        );
         if (!PolicyApprovalConfig::isEnabled() && $submitted === []) {
             return '';
         }
@@ -1007,7 +1046,7 @@ class PolicyVersion extends PolicyVersionBase
             'policy_quorum'    => $policyQuorum,
             'user_dropdown'    => $canUpdate ? User::dropdown([
                 'name'     => 'approver_users',
-                'value'    => array_column(array_filter($own, static fn (array $a): bool => $a['itemtype'] === User::class), 'items_id'),
+                'value'    => self::idsOf($own, User::class),
                 'multiple' => true,
                 'width'    => '100%',
                 'right'    => 'all',
@@ -1016,7 +1055,7 @@ class PolicyVersion extends PolicyVersionBase
             ]) : '',
             'group_dropdown'   => $canUpdate ? Group::dropdown([
                 'name'     => 'approver_groups',
-                'values'   => array_column(array_filter($own, static fn (array $a): bool => $a['itemtype'] === Group::class), 'items_id'),
+                'values'   => self::idsOf($own, Group::class),
                 'multiple' => true,
                 'width'    => '100%',
                 'entity'   => 0,
