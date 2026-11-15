@@ -92,7 +92,11 @@ if (isset($_POST['answer'])) {
         $message = __('This version is not awaiting your answer.', 'grcmanager');
         Session::addMessageAfterRedirect(htmlescape($message), false, ERROR);
     }
-    Html::redirect($selfUrl);
+    // Un approbateur sans droit sur les politiques qui n'a plus rien à approuver retourne à son
+    // espace, ouvert à toute session (cette page lui serait refusée).
+    Html::redirect($canRead || PolicyVersion::pendingForUser($usersId) !== []
+        ? $selfUrl
+        : \GlpiPlugin\Grcmanager\MySpace::getSearchURL());
 }
 
 if (isset($_POST['save_approvers'])) {

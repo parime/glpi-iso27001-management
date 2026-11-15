@@ -315,7 +315,7 @@ Html::header(
         'quorum'         => PolicyApprovalConfig::defaultQuorum(),
         'quorum_choices' => PolicyApprovalConfig::quorumChoices(false),
         'user_dropdown'  => User::dropdown([
-            'name'     => 'policy_approval_users',
+            'name'     => 'policy_approval_users[]',
             'value'    => array_column(array_filter(
                 PolicyApprovalConfig::defaultApprovers(),
                 static fn (array $a): bool => $a['itemtype'] === User::class
@@ -324,10 +324,10 @@ Html::header(
             'right'    => 'all',
             'width'    => '100%',
             'display'  => false,
-            'rand'     => 'grcpolicyapprovalusers',
+            'rand'     => mt_rand(),
         ]),
         'group_dropdown' => Group::dropdown([
-            'name'        => 'policy_approval_groups',
+            'name'        => 'policy_approval_groups[]',
             'values'      => array_column(array_filter(
                 PolicyApprovalConfig::defaultApprovers(),
                 static fn (array $a): bool => $a['itemtype'] === Group::class
@@ -337,7 +337,7 @@ Html::header(
             'entity_sons' => true,
             'width'       => '100%',
             'display'     => false,
-            'rand'        => 'grcpolicyapprovalgroups',
+            'rand'        => mt_rand(),
         ]),
     ],
 ]);

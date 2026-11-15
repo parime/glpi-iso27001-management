@@ -190,6 +190,10 @@ archivé), avec ses champs de classification ISO 27001 fusionnés dessus.
   de réponse sur chaque politique approuvée, campagne par version, confirmation par chacun depuis
   ses préférences ou Mon espace GRC, taux par politique et par entité, relances hebdomadaires,
   liste des retardataires (CSV, PDF) archivée comme preuve sur la mesure A.5.1.
+- **Approbation des politiques par la direction** (à activer) : approbateurs désignés et règle de
+  validation, version figée en PDF avec empreinte SHA-256, approbation ou refus motivé depuis Mon
+  espace GRC, contenu figé après approbation (nouvelle version), historique exportable et
+  procès-verbal archivé comme preuve sur la mesure A.5.1.
 - **Score de maturité** cyber (0 à 100) avec le détail du calcul et son historique mensuel.
 - **Évaluation par référentiel** : pour chaque référentiel activé, taux de mise en œuvre, taux de
   preuve (documents non expirés rattachés aux mesures) et score des mesures à la fois faites et

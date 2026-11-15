@@ -1045,23 +1045,23 @@ class PolicyVersion extends PolicyVersionBase
             'quorum_choices'   => PolicyApprovalConfig::quorumChoices(true),
             'policy_quorum'    => $policyQuorum,
             'user_dropdown'    => $canUpdate ? User::dropdown([
-                'name'     => 'approver_users',
+                'name'     => 'approver_users[]',
                 'value'    => self::idsOf($own, User::class),
                 'multiple' => true,
                 'width'    => '100%',
                 'right'    => 'all',
                 'display'  => false,
-                'rand'     => 'grcpolicyapprovers',
+                'rand'     => mt_rand(),
             ]) : '',
             'group_dropdown'   => $canUpdate ? Group::dropdown([
-                'name'     => 'approver_groups',
+                'name'     => 'approver_groups[]',
                 'values'   => self::idsOf($own, Group::class),
                 'multiple' => true,
                 'width'    => '100%',
                 'entity'   => 0,
                 'entity_sons' => true,
                 'display'  => false,
-                'rand'     => 'grcpolicyapprovergroups',
+                'rand'     => mt_rand(),
             ]) : '',
         ]);
     }
