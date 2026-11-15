@@ -15,17 +15,27 @@
  * -------------------------------------------------------------------------
  */
 
+
+use GlpiPlugin\Grcmanager\CalendarToken;
+use User;
+
 // Issue #142, phase 2 : flux iCal du calendrier de conformité pour un agenda externe, sans
-// session. Seule page du plugin ouverte sans session (Firewall::STRATEGY_NO_CHECK, setup.php) :
-// elle s'authentifie elle-même par le jeton personnel de l'utilisateur, comme le flux iCal du
-// planning de GLPI (front/planning.php?genical=1), puis charge ses entités et son profil par
-// défaut : le flux ne contient que ce que cet utilisateur voit dans le calendrier.
+// session. Seule page du plugin ouverte sans session (Firewall::STRATEGY_NO_CHECK, setup.php).
+// Issue #XXX : utilise désormais un jeton dédié au calendrier (CalendarToken) au lieu du jeton
+// personnel GLPI, pour limiter la portée en cas de fuite de l'URL.
 
 $token = (string) ($_GET['token'] ?? '');
-$user = $token !== '' ? Session::authWithToken($token, 'personal_token', null, null) : false;
-if (!$user instanceof User) {
+$users_id = CalendarToken::validate($token);
+if ($users_id === false) {
     throw new \Glpi\Exception\Http\AccessDeniedHttpException();
 }
+
+// Charger l'utilisateur à partir de l'ID
+$user = new User();
+if (!$user->getFromDB($users_id)) {
+    throw new \Glpi\Exception\Http\AccessDeniedHttpException();
+}
+
 $_SESSION['glpidefault_entity'] = $user->fields['entities_id'];
 Session::initEntityProfiles($user->getID());
 $profiles = $_SESSION['glpiprofiles'] ?? [];

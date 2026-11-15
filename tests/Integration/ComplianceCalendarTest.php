@@ -100,7 +100,7 @@ final class ComplianceCalendarTest extends GrcmanagerIntegrationTestCase
     }
 
     /** Issue #142, phase 2 : lien d'abonnement avec le jeton personnel de l'utilisateur. */
-    public function testSubscriptionUrlCarriesThePersonalToken(): void
+    public function testSubscriptionUrlCarriesADedicatedCalendarToken(): void
     {
         $user = new \User();
         $user->getFromDB(2);

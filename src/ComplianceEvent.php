@@ -30,6 +30,7 @@ use NotificationEvent;
 use Planning;
 use Session;
 use User;
+use GlpiPlugin\Grcmanager\CalendarToken;
 
 /**
  * Issue #142 : calendrier de conformité. Deux choses à la fois :
@@ -771,8 +772,12 @@ class ComplianceEvent extends ComplianceEventBase
     {
         global $CFG_GLPI;
 
-        $token = User::getToken((int) Session::getLoginUserID(), 'personal_token');
-        if (!is_string($token) || $token === '') {
+        $users_id = (int) Session::getLoginUserID();
+        $token = CalendarToken::getForUser($users_id);
+        if ($token === null) {
+            $token = CalendarToken::generateForUser($users_id);
+        }
+        if ($token === '') {
             return '';
         }
 
