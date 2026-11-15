@@ -40,6 +40,18 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   dans `AGENTS.md` et les README ; contrôles de sécurité communs v1.7.0 (charte commune et
   menus, en avertissement).
 
+### Security
+
+- **Lien d'abonnement au calendrier protégé** (issue #664) : le lien iCal ne porte plus le jeton
+  personnel GLPI (qui ouvre aussi l'API) mais un jeton dédié au calendrier : aléatoire (32 octets),
+  conservé seulement sous forme d'empreinte SHA-256, comparé en temps constant, en lecture seule sur
+  le seul flux du calendrier, avec les droits et les entités de son propriétaire. Il expire (durée
+  réglable dans la configuration du plugin, 365 jours par défaut pour qu'un agenda abonné tienne un
+  an sans intervention) et chacun le crée, le régénère ou le révoque depuis le calendrier ; le lien
+  complet n'est montré qu'une fois. **Les anciens liens (jeton personnel) sont refusés** : chaque
+  utilisateur abonné doit créer un nouveau lien depuis « Calendrier de conformité », bouton
+  « S'abonner ».
+
 ## [2.49.0] - 2026-11-15
 
 ### Added

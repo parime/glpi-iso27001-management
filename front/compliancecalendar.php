@@ -18,6 +18,30 @@
 // Issue #142 : calendrier de conformité (écran et export iCal).
 Session::checkRight(\GlpiPlugin\Grcmanager\ComplianceEvent::$rightname, READ);
 
+// Issue #664 : lien d'abonnement du calendrier, porté par un jeton dédié que l'utilisateur crée,
+// régénère ou révoque lui-même (jeton CSRF vérifié par GLPI sur ce POST).
+if (isset($_POST['generate_calendar_token']) || isset($_POST['revoke_calendar_token'])) {
+    $usersId = (int) Session::getLoginUserID();
+    if (isset($_POST['generate_calendar_token'])) {
+        \GlpiPlugin\Grcmanager\CalendarToken::rememberForDisplay(
+            \GlpiPlugin\Grcmanager\CalendarToken::generate($usersId)
+        );
+        Session::addMessageAfterRedirect(htmlescape(__(
+            'New subscription link created. The previous link no longer works.',
+            'grcmanager'
+        )));
+    } elseif (\GlpiPlugin\Grcmanager\CalendarToken::revoke($usersId)) {
+        Session::addMessageAfterRedirect(htmlescape(__(
+            'Subscription link revoked: calendars using it no longer receive your deadlines.',
+            'grcmanager'
+        )));
+    }
+    Html::redirect(
+        \GlpiPlugin\Grcmanager\ComplianceEvent::getCalendarURL() . (!empty($_POST['mine']) ? '?mine=1' : '')
+        . '#grcmanager-ical-subscription'
+    );
+}
+
 $mine = !empty($_GET['mine']);
 
 if (!empty($_GET['ics'])) {

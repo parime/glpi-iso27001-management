@@ -265,6 +265,28 @@
   </div>
 </div>
 
+{# Issue #664 : liens d'abonnement au calendrier de conformité, portés par un jeton dédié qui expire. #}
+<div class="card mb-3" id="grc-calendar-token-config">
+  <div class="card-body">
+    <h4><i class="ti ti-calendar-share me-1"></i>{{ __('Calendar subscription links', 'grcmanager') }}</h4>
+    <p class="text-muted">
+      {{ __('Each user creates a personal link to subscribe their calendar application to the compliance calendar. The link only reads the calendar, can be revoked by its owner, and expires after the duration below. A new duration applies to links created afterwards.', 'grcmanager') }}
+    </p>
+    <form method="post" action="{{ config('root_doc') }}/plugins/grcmanager/front/config.php">
+      <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
+      <label class="form-label" for="grc-calendar-token-lifetime">{{ __('Link lifetime (days)', 'grcmanager') }}</label>
+      <input type="number" class="form-control" style="max-width: 10rem;" id="grc-calendar-token-lifetime" name="calendar_token_lifetime_days"
+             min="{{ calendar_token_bounds[0] }}" max="{{ calendar_token_bounds[1] }}" value="{{ calendar_token_lifetime }}" {{ can_edit_config ? '' : 'disabled' }}>
+      <div class="form-hint">{{ __('Between %1$d and %2$d days. Default: 365 days, so that a subscribed calendar keeps working for a year without any action.', 'grcmanager')|format(calendar_token_bounds[0], calendar_token_bounds[1]) }}</div>
+      {% if can_edit_config %}
+        <div class="d-flex gap-2 mt-2">
+          <button type="submit" name="update_calendar_token" class="btn btn-primary">{{ __('Enregistrer') }}</button>
+        </div>
+      {% endif %}
+    </form>
+  </div>
+</div>
+
 {# Issue #611 : circuit d'approbation des politiques de sécurité par la direction (A.5.1). Désactivé
    par défaut ; les politiques déjà approuvées le restent, marquées « approuvées avant le circuit ». #}
 <div class="card mb-3" id="grc-policy-approval-config">

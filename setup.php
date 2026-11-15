@@ -53,8 +53,8 @@ function plugin_init_grcmanager(): void
     }
 
     // Issue #142, phase 2 : le flux iCal d'abonnement est lu par un agenda externe, sans session.
-    // Seule page du plugin ainsi ouverte : elle s'authentifie elle-même par le jeton personnel de
-    // l'utilisateur (voir front/compliancecalendar.ics.php).
+    // Seule page du plugin ainsi ouverte : elle s'authentifie elle-même par le jeton dédié au
+    // calendrier (issue #664, CalendarToken ; voir front/compliancecalendar.ics.php).
     \Glpi\Http\Firewall::addPluginStrategyForLegacyScripts(
         'grcmanager',
         '#^/front/compliancecalendar\.ics\.php$#',
