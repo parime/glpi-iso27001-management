@@ -7,6 +7,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.49.0] - 2026-11-15
+
 ### Added
 
 - **Approbation des politiques de sécurité par la direction** (issue #611, ISO 27001 A.5.1) : circuit
