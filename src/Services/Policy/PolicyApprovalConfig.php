@@ -131,7 +131,7 @@ final class PolicyApprovalConfig
         }
         $choices[PolicyApprovalRules::QUORUM_ALL] = __('All approvers', 'grcmanager');
         for ($n = 1; $n <= PolicyApprovalRules::MAX_QUORUM; $n++) {
-            $choices[$n] = sprintf(_n('At least %d approval', 'At least %d approvals', $n, 'grcmanager'), $n);
+            $choices[$n] = sprintf(__('At least %d approval(s)', 'grcmanager'), $n);
         }
 
         return $choices;

@@ -12485,3 +12485,307 @@ msgstr "À mettre à jour"
 
 msgid "No change"
 msgstr "Sans changement"
+
+#, php-format
+msgid "%1$s - version %2$s submitted for approval"
+msgstr "%1$s - version %2$s soumise à approbation"
+
+#, php-format
+msgid "%1$s asks you to approve version %2$s of the security policy \"%3$s\" (%4$s)."
+msgstr "%1$s vous demande d'approuver la version %2$s de la politique de sécurité « %3$s » (%4$s)."
+
+#, php-format
+msgid "%1$s, version %2$s"
+msgstr "%1$s, version %2$s"
+
+#, php-format
+msgid "%1$s, version %2$s, is awaiting your approval"
+msgstr "%1$s, version %2$s, attend votre approbation"
+
+#, php-format
+msgid "%d active account(s) will be asked."
+msgstr "%d compte(s) actif(s) seront sollicités."
+
+msgid "A version of this policy is already awaiting approval."
+msgstr "Une version de cette politique attend déjà une approbation."
+
+msgid "All approvers"
+msgstr "Tous les approbateurs"
+
+msgid "All security policies"
+msgstr "Toutes les politiques de sécurité"
+
+msgid "An approved version can no longer be modified. To change the policy, prepare a new version: it goes back to draft until the new version is approved, and the approved version stays in the history."
+msgstr "Une version approuvée ne se modifie plus. Pour faire évoluer la politique, préparez une nouvelle version : elle repasse en brouillon jusqu'à l'approbation de la nouvelle version, et la version approuvée reste dans l'historique."
+
+msgid "An archived policy is not submitted for approval."
+msgstr "Une politique archivée n'est pas soumise à approbation."
+
+msgid "Answer each request; a rejection needs a comment so that the author can correct the policy."
+msgstr "Répondez à chaque demande ; un refus demande un commentaire pour que le rédacteur puisse corriger la politique."
+
+msgid "Any change to the title, version, description or attached documents changes the content fingerprint and requires a new version."
+msgstr "Toute modification du titre, de la version, de la description ou des documents joints change l'empreinte du contenu et demande une nouvelle version."
+
+msgid "Approval"
+msgstr "Approbation"
+
+msgid "Approval decision"
+msgstr "Décision d'approbation"
+
+msgid "Approval history"
+msgstr "Historique des approbations"
+
+msgid "Approval of security policies by management"
+msgstr "Approbation des politiques de sécurité par la direction"
+
+msgid "Approval page URL"
+msgstr "URL de la page d'approbation"
+
+#, php-format
+msgid "Approval record - %1$s %2$s"
+msgstr "Procès-verbal d'approbation - %1$s %2$s"
+
+#, php-format
+msgid "Approval record: %s"
+msgstr "Procès-verbal d'approbation : %s"
+
+msgid "Approval request withdrawn: the content can be modified again."
+msgstr "Demande d'approbation retirée : le contenu est de nouveau modifiable."
+
+msgid "Approval requested"
+msgstr "Approbation demandée"
+
+msgid "Approval rule"
+msgstr "Règle de validation"
+
+msgid "Approved before the workflow"
+msgstr "Approuvée avant le circuit"
+
+msgid "Approvers (groups)"
+msgstr "Approbateurs (groupes)"
+
+msgid "Approvers (people)"
+msgstr "Approbateurs (personnes)"
+
+msgid "Approvers saved."
+msgstr "Approbateurs enregistrés."
+
+msgid "Approvers specific to this policy."
+msgstr "Approbateurs propres à cette politique."
+
+#, php-format
+msgid "At least %d approval(s)"
+msgstr "Au moins %d approbation(s)"
+
+msgid "Attached documents"
+msgstr "Documents joints"
+
+msgid "Changed since approval"
+msgstr "Modifiée depuis l'approbation"
+
+msgid "Comments of the approvers"
+msgstr "Commentaires des approbateurs"
+
+msgid "Date of the last approval, filled in by the approval workflow."
+msgstr "Date de la dernière approbation, renseignée par le circuit d'approbation."
+
+msgid "Decisions"
+msgstr "Décisions"
+
+msgid "Default approval rule"
+msgstr "Règle de validation par défaut"
+
+msgid "Default approvers (groups)"
+msgstr "Approbateurs par défaut (groupes)"
+
+msgid "Default approvers (people)"
+msgstr "Approbateurs par défaut (personnes)"
+
+msgid "Default approvers of the configuration."
+msgstr "Approbateurs par défaut de la configuration."
+
+msgid "Default rule of the configuration"
+msgstr "Règle par défaut de la configuration"
+
+msgid "Designate at least one approver (on the policy or in the configuration)."
+msgstr "Désignez au moins un approbateur (sur la politique ou dans la configuration)."
+
+msgid "Enable the approval workflow for security policies"
+msgstr "Activer le circuit d'approbation des politiques de sécurité"
+
+msgid "Enter a new version number, different from the approved versions."
+msgstr "Saisissez un nouveau numéro de version, différent des versions approuvées."
+
+msgid "Export the history (PDF)"
+msgstr "Exporter l'historique (PDF)"
+
+#, php-format
+msgid "Freezes version %s into a dated PDF (kept in GLPI documents with its SHA-256 fingerprint) and sends it to the approvers. The content can no longer be modified until their decision; the policy becomes \"Approved\" only once the rule is met."
+msgstr "Fige la version %s dans un PDF daté (conservé dans les documents GLPI avec son empreinte SHA-256) et l'envoie aux approbateurs. Le contenu ne peut plus être modifié jusqu'à leur décision ; la politique ne passe « Approuvée » qu'une fois la règle atteinte."
+
+msgid "Frozen PDF (SHA-256)"
+msgstr "PDF figé (SHA-256)"
+
+msgid "Frozen version"
+msgstr "Version figée"
+
+msgid "Give the policy a version number first."
+msgstr "Donnez d'abord un numéro de version à la politique."
+
+msgid "Have this policy approved"
+msgstr "Faire approuver cette politique"
+
+msgid "ISO 27001, A.5.1"
+msgstr "ISO 27001, A.5.1"
+
+msgid "If the version is rejected, the policy stays in draft: take the comments into account, then submit it again."
+msgstr "Si la version est refusée, la politique reste en brouillon : tenez compte des commentaires, puis soumettez-la de nouveau."
+
+msgid "Leave the lists empty to use the default approvers of the configuration."
+msgstr "Laissez les listes vides pour utiliser les approbateurs par défaut de la configuration."
+
+msgid "New version number"
+msgstr "Numéro de la nouvelle version"
+
+msgid "New version prepared: the policy is back to draft until it is approved."
+msgstr "Nouvelle version préparée : la politique repasse en brouillon jusqu'à son approbation."
+
+msgid "No approver designated: choose them below or in the configuration."
+msgstr "Aucun approbateur désigné : choisissez-les ci-dessous ou dans la configuration."
+
+msgid "No document attached to the policy."
+msgstr "Aucun document joint à la politique."
+
+msgid "No frozen version: approval date entered manually."
+msgstr "Pas de version figée : date d'approbation saisie manuellement."
+
+msgid "No security policy is awaiting your approval."
+msgstr "Aucune politique de sécurité n'attend votre approbation."
+
+msgid "No version submitted yet."
+msgstr "Aucune version soumise pour l'instant."
+
+msgid "One rejection is enough to reject the version."
+msgstr "Un refus suffit à refuser la version."
+
+msgid "Only a draft policy can be submitted for approval."
+msgstr "Seule une politique en brouillon peut être soumise à approbation."
+
+msgid "Person who submitted the version"
+msgstr "Personne qui a soumis la version"
+
+msgid "Policy approval"
+msgstr "Approbation de politique"
+
+msgid "Policy approval decision"
+msgstr "Décision d'approbation d'une politique"
+
+msgid "Policy approval requested"
+msgstr "Approbation d'une politique demandée"
+
+msgid "Policy to approve"
+msgstr "Politique à approuver"
+
+msgid "Prepare a new version"
+msgstr "Préparer une nouvelle version"
+
+#, php-format
+msgid "Requested by %1$s on %2$s."
+msgstr "Demandée par %1$s le %2$s."
+
+#, php-format
+msgid "Rule: %s."
+msgstr "Règle : %s."
+
+msgid "Save the approvers"
+msgstr "Enregistrer les approbateurs"
+
+msgid "Security policy approval decision"
+msgstr "Décision d'approbation de politique de sécurité"
+
+msgid "Security policy approval requested"
+msgstr "Approbation de politique de sécurité demandée"
+
+msgid "Sent to the designated approvers when a version of a security policy is frozen and submitted for approval."
+msgstr "Envoyée aux approbateurs désignés quand une version d'une politique de sécurité est figée et soumise à approbation."
+
+msgid "Sent to the person who submitted a version of a security policy and to the policy owner when the version is approved or rejected."
+msgstr "Envoyée à la personne qui a soumis une version d'une politique de sécurité et au responsable de la politique quand la version est approuvée ou refusée."
+
+msgid "The \"Approved\" status is given by the designated approvers, from the \"Approval\" tab."
+msgstr "Le statut « Approuvée » est donné par les approbateurs désignés, depuis l'onglet « Approbation »."
+
+#, php-format
+msgid "The approval rule requires %1$d approvals but only %2$d approver(s) can answer."
+msgstr "La règle de validation demande %1$d approbations mais seuls %2$d approbateur(s) peuvent répondre."
+
+msgid "The approval workflow is disabled in the configuration: only the history is shown."
+msgstr "Le circuit d'approbation est désactivé dans la configuration : seul l'historique est affiché."
+
+#, php-format
+msgid "The attached documents have changed since version %s was approved: prepare a new version and have it approved."
+msgstr "Les documents joints ont changé depuis l'approbation de la version %s : préparez une nouvelle version et faites-la approuver."
+
+msgid "The content of this version is frozen by the approval workflow (title, version, description). Use the \"Approval\" tab to withdraw the request or to prepare a new version."
+msgstr "Le contenu de cette version est figé par le circuit d'approbation (titre, version, description). Utilisez l'onglet « Approbation » pour retirer la demande ou préparer une nouvelle version."
+
+msgid "The policy approval workflow is not enabled."
+msgstr "Le circuit d'approbation des politiques n'est pas activé."
+
+msgid "The security policies awaiting your approval: read the frozen version, then approve or reject it with a comment."
+msgstr "Les politiques de sécurité qui attendent votre approbation : lisez la version figée, puis approuvez-la ou refusez-la avec un commentaire."
+
+msgid "This version has been approved: its content is frozen. Prepare a new version from the \"Approval\" tab to modify it."
+msgstr "Cette version a été approuvée : son contenu est figé. Préparez une nouvelle version depuis l'onglet « Approbation » pour la modifier."
+
+msgid "This version is awaiting approval: its content is frozen. Withdraw the request to modify it."
+msgstr "Cette version attend une approbation : son contenu est figé. Retirez la demande pour la modifier."
+
+msgid "This version is awaiting your decision."
+msgstr "Cette version attend votre décision."
+
+#, php-format
+msgid "Version %s has already been approved: change the version number to submit a new version."
+msgstr "La version %s a déjà été approuvée : changez le numéro de version pour soumettre une nouvelle version."
+
+#, php-format
+msgid "Version %s has been approved by management and has not changed since."
+msgstr "La version %s a été approuvée par la direction et n'a pas changé depuis."
+
+#, php-format
+msgid "Version %s has been submitted to the approvers; its content is frozen until their decision."
+msgstr "La version %s a été soumise aux approbateurs ; son contenu est figé jusqu'à leur décision."
+
+#, php-format
+msgid "Version %s is a draft: submit it for approval once it is ready."
+msgstr "La version %s est un brouillon : soumettez-la à approbation quand elle est prête."
+
+#, php-format
+msgid "Version %s is awaiting approval. To change its content, withdraw the request: the approvers will no longer be able to answer."
+msgstr "La version %s attend une approbation. Pour modifier son contenu, retirez la demande : les approbateurs ne pourront plus répondre."
+
+#, php-format
+msgid "Version %s was marked as approved before the approval workflow was enabled: no frozen version exists. The next version will go through the workflow."
+msgstr "La version %s a été marquée approuvée avant l'activation du circuit d'approbation : il n'en existe pas de version figée. La prochaine version passera par le circuit."
+
+msgid "Whatever the rule, one rejection rejects the version."
+msgstr "Quelle que soit la règle, un refus refuse la version."
+
+msgid "When enabled, a policy becomes \"Approved\" only once its designated approvers have approved a frozen version (PDF and SHA-256 fingerprint). Policies already approved stay approved; they are marked \"approved before the workflow\". Each policy can have its own approvers and rule in its \"Approval\" tab."
+msgstr "Une fois activé, une politique ne passe « Approuvée » qu'après l'approbation d'une version figée (PDF et empreinte SHA-256) par ses approbateurs désignés. Les politiques déjà approuvées le restent ; elles sont marquées « approuvées avant le circuit ». Chaque politique peut avoir ses propres approbateurs et sa règle dans son onglet « Approbation »."
+
+msgid "With the approval workflow, a policy becomes \"Approved\" only once its designated approvers have approved it: use the \"Approval\" tab."
+msgstr "Avec le circuit d'approbation, une politique ne passe « Approuvée » qu'une fois approuvée par ses approbateurs désignés : utilisez l'onglet « Approbation »."
+
+msgid "Withdraw the approval request?"
+msgstr "Retirer la demande d'approbation ?"
+
+msgid "Withdraw the request"
+msgstr "Retirer la demande"
+
+msgid "Withdrawn"
+msgstr "Retirée"
+
+msgid "You do not have the right to modify this policy."
+msgstr "Vous n'avez pas le droit de modifier cette politique."

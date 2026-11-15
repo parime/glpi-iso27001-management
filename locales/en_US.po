@@ -12485,3 +12485,307 @@ msgstr "To update"
 
 msgid "No change"
 msgstr "No change"
+
+#, php-format
+msgid "%1$s - version %2$s submitted for approval"
+msgstr "%1$s - version %2$s submitted for approval"
+
+#, php-format
+msgid "%1$s asks you to approve version %2$s of the security policy \"%3$s\" (%4$s)."
+msgstr "%1$s asks you to approve version %2$s of the security policy \"%3$s\" (%4$s)."
+
+#, php-format
+msgid "%1$s, version %2$s"
+msgstr "%1$s, version %2$s"
+
+#, php-format
+msgid "%1$s, version %2$s, is awaiting your approval"
+msgstr "%1$s, version %2$s, is awaiting your approval"
+
+#, php-format
+msgid "%d active account(s) will be asked."
+msgstr "%d active account(s) will be asked."
+
+msgid "A version of this policy is already awaiting approval."
+msgstr "A version of this policy is already awaiting approval."
+
+msgid "All approvers"
+msgstr "All approvers"
+
+msgid "All security policies"
+msgstr "All security policies"
+
+msgid "An approved version can no longer be modified. To change the policy, prepare a new version: it goes back to draft until the new version is approved, and the approved version stays in the history."
+msgstr "An approved version can no longer be modified. To change the policy, prepare a new version: it goes back to draft until the new version is approved, and the approved version stays in the history."
+
+msgid "An archived policy is not submitted for approval."
+msgstr "An archived policy is not submitted for approval."
+
+msgid "Answer each request; a rejection needs a comment so that the author can correct the policy."
+msgstr "Answer each request; a rejection needs a comment so that the author can correct the policy."
+
+msgid "Any change to the title, version, description or attached documents changes the content fingerprint and requires a new version."
+msgstr "Any change to the title, version, description or attached documents changes the content fingerprint and requires a new version."
+
+msgid "Approval"
+msgstr "Approval"
+
+msgid "Approval decision"
+msgstr "Approval decision"
+
+msgid "Approval history"
+msgstr "Approval history"
+
+msgid "Approval of security policies by management"
+msgstr "Approval of security policies by management"
+
+msgid "Approval page URL"
+msgstr "Approval page URL"
+
+#, php-format
+msgid "Approval record - %1$s %2$s"
+msgstr "Approval record - %1$s %2$s"
+
+#, php-format
+msgid "Approval record: %s"
+msgstr "Approval record: %s"
+
+msgid "Approval request withdrawn: the content can be modified again."
+msgstr "Approval request withdrawn: the content can be modified again."
+
+msgid "Approval requested"
+msgstr "Approval requested"
+
+msgid "Approval rule"
+msgstr "Approval rule"
+
+msgid "Approved before the workflow"
+msgstr "Approved before the workflow"
+
+msgid "Approvers (groups)"
+msgstr "Approvers (groups)"
+
+msgid "Approvers (people)"
+msgstr "Approvers (people)"
+
+msgid "Approvers saved."
+msgstr "Approvers saved."
+
+msgid "Approvers specific to this policy."
+msgstr "Approvers specific to this policy."
+
+#, php-format
+msgid "At least %d approval(s)"
+msgstr "At least %d approval(s)"
+
+msgid "Attached documents"
+msgstr "Attached documents"
+
+msgid "Changed since approval"
+msgstr "Changed since approval"
+
+msgid "Comments of the approvers"
+msgstr "Comments of the approvers"
+
+msgid "Date of the last approval, filled in by the approval workflow."
+msgstr "Date of the last approval, filled in by the approval workflow."
+
+msgid "Decisions"
+msgstr "Decisions"
+
+msgid "Default approval rule"
+msgstr "Default approval rule"
+
+msgid "Default approvers (groups)"
+msgstr "Default approvers (groups)"
+
+msgid "Default approvers (people)"
+msgstr "Default approvers (people)"
+
+msgid "Default approvers of the configuration."
+msgstr "Default approvers of the configuration."
+
+msgid "Default rule of the configuration"
+msgstr "Default rule of the configuration"
+
+msgid "Designate at least one approver (on the policy or in the configuration)."
+msgstr "Designate at least one approver (on the policy or in the configuration)."
+
+msgid "Enable the approval workflow for security policies"
+msgstr "Enable the approval workflow for security policies"
+
+msgid "Enter a new version number, different from the approved versions."
+msgstr "Enter a new version number, different from the approved versions."
+
+msgid "Export the history (PDF)"
+msgstr "Export the history (PDF)"
+
+#, php-format
+msgid "Freezes version %s into a dated PDF (kept in GLPI documents with its SHA-256 fingerprint) and sends it to the approvers. The content can no longer be modified until their decision; the policy becomes \"Approved\" only once the rule is met."
+msgstr "Freezes version %s into a dated PDF (kept in GLPI documents with its SHA-256 fingerprint) and sends it to the approvers. The content can no longer be modified until their decision; the policy becomes \"Approved\" only once the rule is met."
+
+msgid "Frozen PDF (SHA-256)"
+msgstr "Frozen PDF (SHA-256)"
+
+msgid "Frozen version"
+msgstr "Frozen version"
+
+msgid "Give the policy a version number first."
+msgstr "Give the policy a version number first."
+
+msgid "Have this policy approved"
+msgstr "Have this policy approved"
+
+msgid "ISO 27001, A.5.1"
+msgstr "ISO 27001, A.5.1"
+
+msgid "If the version is rejected, the policy stays in draft: take the comments into account, then submit it again."
+msgstr "If the version is rejected, the policy stays in draft: take the comments into account, then submit it again."
+
+msgid "Leave the lists empty to use the default approvers of the configuration."
+msgstr "Leave the lists empty to use the default approvers of the configuration."
+
+msgid "New version number"
+msgstr "New version number"
+
+msgid "New version prepared: the policy is back to draft until it is approved."
+msgstr "New version prepared: the policy is back to draft until it is approved."
+
+msgid "No approver designated: choose them below or in the configuration."
+msgstr "No approver designated: choose them below or in the configuration."
+
+msgid "No document attached to the policy."
+msgstr "No document attached to the policy."
+
+msgid "No frozen version: approval date entered manually."
+msgstr "No frozen version: approval date entered manually."
+
+msgid "No security policy is awaiting your approval."
+msgstr "No security policy is awaiting your approval."
+
+msgid "No version submitted yet."
+msgstr "No version submitted yet."
+
+msgid "One rejection is enough to reject the version."
+msgstr "One rejection is enough to reject the version."
+
+msgid "Only a draft policy can be submitted for approval."
+msgstr "Only a draft policy can be submitted for approval."
+
+msgid "Person who submitted the version"
+msgstr "Person who submitted the version"
+
+msgid "Policy approval"
+msgstr "Policy approval"
+
+msgid "Policy approval decision"
+msgstr "Policy approval decision"
+
+msgid "Policy approval requested"
+msgstr "Policy approval requested"
+
+msgid "Policy to approve"
+msgstr "Policy to approve"
+
+msgid "Prepare a new version"
+msgstr "Prepare a new version"
+
+#, php-format
+msgid "Requested by %1$s on %2$s."
+msgstr "Requested by %1$s on %2$s."
+
+#, php-format
+msgid "Rule: %s."
+msgstr "Rule: %s."
+
+msgid "Save the approvers"
+msgstr "Save the approvers"
+
+msgid "Security policy approval decision"
+msgstr "Security policy approval decision"
+
+msgid "Security policy approval requested"
+msgstr "Security policy approval requested"
+
+msgid "Sent to the designated approvers when a version of a security policy is frozen and submitted for approval."
+msgstr "Sent to the designated approvers when a version of a security policy is frozen and submitted for approval."
+
+msgid "Sent to the person who submitted a version of a security policy and to the policy owner when the version is approved or rejected."
+msgstr "Sent to the person who submitted a version of a security policy and to the policy owner when the version is approved or rejected."
+
+msgid "The \"Approved\" status is given by the designated approvers, from the \"Approval\" tab."
+msgstr "The \"Approved\" status is given by the designated approvers, from the \"Approval\" tab."
+
+#, php-format
+msgid "The approval rule requires %1$d approvals but only %2$d approver(s) can answer."
+msgstr "The approval rule requires %1$d approvals but only %2$d approver(s) can answer."
+
+msgid "The approval workflow is disabled in the configuration: only the history is shown."
+msgstr "The approval workflow is disabled in the configuration: only the history is shown."
+
+#, php-format
+msgid "The attached documents have changed since version %s was approved: prepare a new version and have it approved."
+msgstr "The attached documents have changed since version %s was approved: prepare a new version and have it approved."
+
+msgid "The content of this version is frozen by the approval workflow (title, version, description). Use the \"Approval\" tab to withdraw the request or to prepare a new version."
+msgstr "The content of this version is frozen by the approval workflow (title, version, description). Use the \"Approval\" tab to withdraw the request or to prepare a new version."
+
+msgid "The policy approval workflow is not enabled."
+msgstr "The policy approval workflow is not enabled."
+
+msgid "The security policies awaiting your approval: read the frozen version, then approve or reject it with a comment."
+msgstr "The security policies awaiting your approval: read the frozen version, then approve or reject it with a comment."
+
+msgid "This version has been approved: its content is frozen. Prepare a new version from the \"Approval\" tab to modify it."
+msgstr "This version has been approved: its content is frozen. Prepare a new version from the \"Approval\" tab to modify it."
+
+msgid "This version is awaiting approval: its content is frozen. Withdraw the request to modify it."
+msgstr "This version is awaiting approval: its content is frozen. Withdraw the request to modify it."
+
+msgid "This version is awaiting your decision."
+msgstr "This version is awaiting your decision."
+
+#, php-format
+msgid "Version %s has already been approved: change the version number to submit a new version."
+msgstr "Version %s has already been approved: change the version number to submit a new version."
+
+#, php-format
+msgid "Version %s has been approved by management and has not changed since."
+msgstr "Version %s has been approved by management and has not changed since."
+
+#, php-format
+msgid "Version %s has been submitted to the approvers; its content is frozen until their decision."
+msgstr "Version %s has been submitted to the approvers; its content is frozen until their decision."
+
+#, php-format
+msgid "Version %s is a draft: submit it for approval once it is ready."
+msgstr "Version %s is a draft: submit it for approval once it is ready."
+
+#, php-format
+msgid "Version %s is awaiting approval. To change its content, withdraw the request: the approvers will no longer be able to answer."
+msgstr "Version %s is awaiting approval. To change its content, withdraw the request: the approvers will no longer be able to answer."
+
+#, php-format
+msgid "Version %s was marked as approved before the approval workflow was enabled: no frozen version exists. The next version will go through the workflow."
+msgstr "Version %s was marked as approved before the approval workflow was enabled: no frozen version exists. The next version will go through the workflow."
+
+msgid "Whatever the rule, one rejection rejects the version."
+msgstr "Whatever the rule, one rejection rejects the version."
+
+msgid "When enabled, a policy becomes \"Approved\" only once its designated approvers have approved a frozen version (PDF and SHA-256 fingerprint). Policies already approved stay approved; they are marked \"approved before the workflow\". Each policy can have its own approvers and rule in its \"Approval\" tab."
+msgstr "When enabled, a policy becomes \"Approved\" only once its designated approvers have approved a frozen version (PDF and SHA-256 fingerprint). Policies already approved stay approved; they are marked \"approved before the workflow\". Each policy can have its own approvers and rule in its \"Approval\" tab."
+
+msgid "With the approval workflow, a policy becomes \"Approved\" only once its designated approvers have approved it: use the \"Approval\" tab."
+msgstr "With the approval workflow, a policy becomes \"Approved\" only once its designated approvers have approved it: use the \"Approval\" tab."
+
+msgid "Withdraw the approval request?"
+msgstr "Withdraw the approval request?"
+
+msgid "Withdraw the request"
+msgstr "Withdraw the request"
+
+msgid "Withdrawn"
+msgstr "Withdrawn"
+
+msgid "You do not have the right to modify this policy."
+msgstr "You do not have the right to modify this policy."

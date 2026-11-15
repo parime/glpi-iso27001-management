@@ -73,7 +73,7 @@ class PolicyVersion extends PolicyVersionBase
 
     public static function getTypeName($nb = 0)
     {
-        return _n('Policy approval', 'Policy approvals', $nb, 'grcmanager');
+        return __('Policy approval', 'grcmanager');
     }
 
     public static function getIcon()
