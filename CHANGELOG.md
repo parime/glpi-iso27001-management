@@ -120,6 +120,7 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   vers l'analyse d'impact d'une panne (points de défaillance uniques), les processus métier et les
   non-conformités.
 
+- Identifiant de licence standardisé sur **GPL-3.0-or-later** (charte commune) : `setup.php`.
 ## [2.33.0] - 2026-11-07
 
 ### Added

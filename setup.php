@@ -389,7 +389,7 @@ function plugin_version_grcmanager(): array
         'name'         => 'GLPI GRC Manager',
         'version'      => PLUGIN_GRCMANAGER_VERSION,
         'author'       => 'Vincent GUILLOTTE',
-        'license'      => 'GPLv3',
+        'license'      => 'GPL-3.0-or-later',
         'homepage'     => 'https://github.com/parime/glpi-grc-manager',
         'requirements' => [
             'glpi' => [
