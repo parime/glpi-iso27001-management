@@ -195,6 +195,24 @@ class SoaVersion extends SoaVersionBase
     }
 
     /**
+     * Liste des approbateurs du formulaire de demande d'approbation (front/soaapproval.php).
+     *
+     * Issue #648 : User::dropdown ne suffixe pas le nom d'une liste multiple ; sans « [] », PHP ne
+     * garde que la dernière valeur envoyée et un seul approbateur était enregistré.
+     */
+    public static function approverDropdown(): string
+    {
+        return (string) \User::dropdown([
+            'name'     => 'approvers[]',
+            'value'    => [],
+            'multiple' => true,
+            'width'    => '100%',
+            'right'    => 'all',
+            'display'  => false,
+        ]);
+    }
+
+    /**
      * Fige la SoA actuelle et la soumet aux approbateurs.
      *
      * @param list<int> $approverIds

@@ -84,6 +84,9 @@ class AuditLog extends CommonGLPI
             'access_denied' => __('Access denied', 'grcmanager'),
             // Issue #378 : acceptation formelle d'un risque au-dessus de l'appétence.
             'risk_acceptance' => __('Formal risk acceptance', 'grcmanager'),
+            // Issue #611 : approbation des politiques de sécurité par la direction.
+            'approval_request'  => __('Approval requested', 'grcmanager'),
+            'approval_decision' => __('Approval decision', 'grcmanager'),
         ];
     }
 

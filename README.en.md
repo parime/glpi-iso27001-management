@@ -180,6 +180,10 @@ classification fields merged directly onto it.
   each approved policy, one campaign per version, confirmation by each person from their
   preferences or My GRC space, rate per policy and per entity, weekly reminders, list of latecomers
   (CSV, PDF) archived as evidence on control A.5.1.
+- **Approval of policies by management** (to enable): designated approvers and approval rule,
+  version frozen as a PDF with a SHA-256 fingerprint, approval or reasoned rejection from My GRC
+  space, content frozen after approval (new version), exportable history and approval record
+  archived as evidence on control A.5.1.
 - Cyber **maturity score** (0 to 100) with the calculation details and its monthly history.
 - **Assessment by framework**: for each enabled framework, implementation rate, evidence rate
   (unexpired documents attached to the controls) and score of the controls both done and proven,
