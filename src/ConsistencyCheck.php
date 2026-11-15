@@ -1279,7 +1279,7 @@ class ConsistencyCheck extends CommonGLPI
             $areas[$area] ??= [
                 'key'    => $area,
                 'label'  => $areaLabels[$area],
-                'clause' => ConsistencyRules::AREAS[$area],
+                'clause' => $area === 'operations' ? __('Annex A', 'grcmanager') : ConsistencyRules::AREAS[$area],
                 'gaps'   => 0,
                 'rules'  => [],
             ];

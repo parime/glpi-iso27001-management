@@ -114,7 +114,7 @@
          <div class="card-header d-flex align-items-center">
             <h3 class="card-title mb-0">
                <i class="ti ti-folder me-2"></i>{{ area.label }}
-               <span class="text-muted small ms-1">{{ __('ISO 27001 %s', 'grcmanager')|format(area.clause == 'Annex A' ? __('Annex A', 'grcmanager') : area.clause) }}</span>
+               <span class="text-muted small ms-1">{{ __('ISO 27001 %s', 'grcmanager')|format(area.clause) }}</span>
             </h3>
             <span class="ms-auto badge {{ area.gaps > 0 ? 'bg-red-lt' : 'bg-green-lt' }}">
                {% if area.gaps > 0 %}
@@ -179,14 +179,14 @@
       const draw = function () {
          const points = JSON.parse(chart.dataset.history);
          window.echarts.init(chart).setOption({
-            grid: {left: 40, right: 40, top: 30, bottom: 30},
-            legend: {data: [chart.dataset.scoreLabel, chart.dataset.gapsLabel]},
+            grid: {left: 40, right: 40, top: 20, bottom: 50},
+            legend: {bottom: 0, data: [chart.dataset.scoreLabel, chart.dataset.gapsLabel]},
             tooltip: {trigger: 'axis'},
             xAxis: {type: 'category', data: points.map(function (p) { return p.month; })},
             yAxis: [{type: 'value', min: 0, max: 100}, {type: 'value', minInterval: 1}],
             series: [
                {name: chart.dataset.scoreLabel, type: 'line', smooth: true, data: points.map(function (p) { return p.score; })},
-               {name: chart.dataset.gapsLabel, type: 'bar', yAxisIndex: 1, itemStyle: {color: '#d63939'}, data: points.map(function (p) { return p.gaps; })}
+               {name: chart.dataset.gapsLabel, type: 'bar', barMaxWidth: 40, yAxisIndex: 1, itemStyle: {color: '#d63939'}, data: points.map(function (p) { return p.gaps; })}
             ]
          });
       };

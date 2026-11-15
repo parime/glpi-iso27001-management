@@ -23,7 +23,7 @@
 <p>{{ __('Only the items the person who exported this report can read are counted. Nothing has been modified: each gap is fixed from the item concerned.', 'grcmanager') }}</p>
 
 {% for area in areas %}
-  <h2>{{ area.label }} ({{ __('ISO 27001 %s', 'grcmanager')|format(area.clause == 'Annex A' ? __('Annex A', 'grcmanager') : area.clause) }})</h2>
+  <h2>{{ area.label }} ({{ __('ISO 27001 %s', 'grcmanager')|format(area.clause) }})</h2>
   {% for rule in area.rules %}
     <p>
       <span class="grc-sev grc-sev-{{ rule.severity.key }}">{{ rule.severity.label }}</span>

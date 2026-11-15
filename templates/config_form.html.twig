@@ -209,11 +209,14 @@
                 <td><span class="badge {{ row.severity.class }}"><i class="ti {{ row.severity.icon }} me-1"></i>{{ row.severity.label }}</span></td>
                 <td>
                   {% if row.unit == 'level' %}
-                    <select class="form-select form-select-sm" name="consistency[{{ row.key }}][threshold]" aria-label="{{ row.unit_label }}" title="{{ row.unit_label }}" {{ can_edit_config ? '' : 'disabled' }}>
-                      {% for key, label in consistency_levels %}
-                        <option value="{{ key }}" {{ key == row.threshold ? 'selected' }}>{{ row.unit_label }} : {{ label }}</option>
-                      {% endfor %}
-                    </select>
+                    <div class="input-group input-group-sm" style="max-width: 280px;">
+                      <span class="input-group-text">{{ row.unit_label }}</span>
+                      <select class="form-select" name="consistency[{{ row.key }}][threshold]" aria-label="{{ row.unit_label }}" {{ can_edit_config ? '' : 'disabled' }}>
+                        {% for key, label in consistency_levels %}
+                          <option value="{{ key }}" {{ key == row.threshold ? 'selected' }}>{{ label }}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
                   {% elseif row.unit %}
                     <div class="input-group input-group-sm" style="max-width: 280px;">
                       <span class="input-group-text">{{ row.unit_label }}</span>
