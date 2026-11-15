@@ -34,6 +34,25 @@ final class DashboardCardService
         ];
     }
 
+    /**
+     * Issue #614 : nombre d'écarts de cohérence du SMSI, calculé à la demande avec les droits et les
+     * entités de la personne qui regarde le tableau de bord (ConsistencyCheck::run()).
+     *
+     * @param array<string, mixed> $params
+     * @return array<string, mixed>
+     */
+    public static function ismsConsistencyGaps(array $params = []): array
+    {
+        $summary = \GlpiPlugin\Grcmanager\ConsistencyCheck::summarize(\GlpiPlugin\Grcmanager\ConsistencyCheck::run());
+
+        return [
+            'number' => $summary['gaps'],
+            'label'  => $params['label'] ?? __('ISMS consistency gaps to fix before the audit', 'grcmanager'),
+            'icon'   => 'ti ti-list-check',
+            'url'    => \GlpiPlugin\Grcmanager\ConsistencyCheck::getSearchURL(),
+        ];
+    }
+
     public static function openRisksCount(array $params = []): array
     {
         global $DB;

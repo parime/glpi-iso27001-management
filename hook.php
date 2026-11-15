@@ -258,6 +258,13 @@ function plugin_grcmanager_dashboard_cards(?array $cards = null): array
             'group' => $group,
             'provider' => SecuredDashboardCards::class . '::maturityScore',
         ],
+        // Issue #614 : écarts de cohérence du SMSI, détail sur la page « Contrôles de cohérence ».
+        'grcmanager_isms_consistency_gaps' => [
+            'widgettype' => ['bigNumber'],
+            'label' => __('ISMS consistency gaps', 'grcmanager'),
+            'group' => $group,
+            'provider' => SecuredDashboardCards::class . '::ismsConsistencyGaps',
+        ],
         // Sprint 6 (formations et revues de direction, clauses 7.2/7.3/9.3).
         'grcmanager_training_completion_rate' => [
             'widgettype' => ['bigNumber'],

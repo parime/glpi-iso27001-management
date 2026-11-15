@@ -176,6 +176,70 @@
   </div>
 </div>
 
+{# Issue #614 : contrôles de cohérence du SMSI, chaque règle activable et son seuil réglable. #}
+<div class="card mb-3" id="grc-consistency-rules">
+  <div class="card-body">
+    <h4><i class="ti ti-list-check me-1"></i>{{ __('ISMS consistency checks', 'grcmanager') }}</h4>
+    <p class="text-muted">
+      {{ __('Untick a rule that does not apply to your organisation: it is no longer checked nor counted in the score. The thresholds set how strict each rule is. Nothing is ever modified by these checks.', 'grcmanager') }}
+      <a href="{{ consistency_url }}"><i class="ti ti-external-link me-1"></i>{{ __('Open the consistency checks', 'grcmanager') }}</a>
+    </p>
+    <form method="post" action="{{ config('root_doc') }}/plugins/grcmanager/front/config.php">
+      <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
+      <div class="table-responsive">
+        <table class="table table-sm table-vcenter">
+          <thead>
+            <tr>
+              <th>{{ __('Active', 'grcmanager') }}</th>
+              <th>{{ __('Rule', 'grcmanager') }}</th>
+              <th>{{ __('Area', 'grcmanager') }}</th>
+              <th>{{ __('Severity', 'grcmanager') }}</th>
+              <th>{{ __('Threshold', 'grcmanager') }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in consistency_rows %}
+              <tr>
+                <td>
+                  <input type="hidden" name="consistency[{{ row.key }}][enabled]" value="0">
+                  <input class="form-check-input" type="checkbox" id="grc-consistency-{{ row.key }}" name="consistency[{{ row.key }}][enabled]" value="1" {{ row.enabled ? 'checked' }} {{ can_edit_config ? '' : 'disabled' }}>
+                </td>
+                <td><label for="grc-consistency-{{ row.key }}">{{ row.label }}</label></td>
+                <td class="small text-muted">{{ row.area }}</td>
+                <td><span class="badge {{ row.severity.class }}"><i class="ti {{ row.severity.icon }} me-1"></i>{{ row.severity.label }}</span></td>
+                <td>
+                  {% if row.unit == 'level' %}
+                    <div class="input-group input-group-sm" style="max-width: 280px;">
+                      <span class="input-group-text">{{ row.unit_label }}</span>
+                      <select class="form-select" name="consistency[{{ row.key }}][threshold]" aria-label="{{ row.unit_label }}" {{ can_edit_config ? '' : 'disabled' }}>
+                        {% for key, label in consistency_levels %}
+                          <option value="{{ key }}" {{ key == row.threshold ? 'selected' }}>{{ label }}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                  {% elseif row.unit %}
+                    <div class="input-group input-group-sm" style="max-width: 280px;">
+                      <span class="input-group-text">{{ row.unit_label }}</span>
+                      <input type="number" class="form-control" name="consistency[{{ row.key }}][threshold]" value="{{ row.threshold }}" min="{{ row.min }}" max="{{ row.max }}" {{ can_edit_config ? '' : 'disabled' }}>
+                    </div>
+                  {% else %}
+                    <span class="text-muted small">-</span>
+                  {% endif %}
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% if can_edit_config %}
+        <div class="d-flex gap-2 mt-2">
+          <button type="submit" name="update_consistency_rules" class="btn btn-primary">{{ __('Enregistrer') }}</button>
+        </div>
+      {% endif %}
+    </form>
+  </div>
+</div>
+
 {# Issue #378 : alerte des indicateurs de risque (KRI), au responsable du KRI et au groupe RSSI,
    une fois par changement d'état, puis au retour au vert. #}
 <div class="card mb-3">

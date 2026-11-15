@@ -1,4 +1,4 @@
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: grcmanager\n"
@@ -1412,9 +1412,9 @@ msgstr ""
 "de comparaison."
 
 msgid ""
-"A CPE identifier as reported by the NVD for this product (e.g. "
-"\"cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point "
-"to the same product."
+"A CPE identifier as reported by the NVD for this product (e.g. \"cpe:2.3:a:"
+"apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point to the same "
+"product."
 msgstr ""
 "Un identifiant CPE tel que rapporté par le NVD pour ce produit (ex. "
 "\"cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*\"). Plusieurs identifiants peuvent "
@@ -3470,8 +3470,8 @@ msgstr "Versions vérifiées par passage"
 
 msgid "Pick a suggestion or enter a valid CPE 2.3 (cpe:2.3:a:vendor:product)."
 msgstr ""
-"Choisissez une suggestion ou saisissez un CPE 2.3 valide "
-"(cpe:2.3:a:éditeur:produit)."
+"Choisissez une suggestion ou saisissez un CPE 2.3 valide (cpe:2.3:a:éditeur:"
+"produit)."
 
 #, php-format
 msgid "\"%s\" is now watched."
@@ -8341,8 +8341,8 @@ msgstr ""
 "référence ci-dessus :"
 
 msgid ""
-"Useful evidence formats (to allow in the GLPI document "
-"types): .log, .evtx, .json, .pcap, .eml, .csv, .zip."
+"Useful evidence formats (to allow in the GLPI document types): .log, .evtx, ."
+"json, .pcap, .eml, .csv, .zip."
 msgstr ""
 "Formats de preuve utiles (à autoriser dans les types de documents de "
 "GLPI) : .log, .evtx, .json, .pcap, .eml, .csv, .zip."
@@ -14999,8 +14999,8 @@ msgid ""
 "One CSV file per template of the implementing regulation, with the official "
 "column codes (c0010...), as in an xBRL-CSV report package. Closed lists are "
 "written with their official English wording: your reporting tool converts "
-"them into the codes of the EBA taxonomy and adds the package files "
-"(report.json, parameters, filing indicators)."
+"them into the codes of the EBA taxonomy and adds the package files (report."
+"json, parameters, filing indicators)."
 msgstr ""
 "Un fichier CSV par modèle du règlement d'exécution, avec les codes officiels "
 "des colonnes (c0010...), comme dans un paquet de déclaration xBRL-CSV. Les "
@@ -16027,8 +16027,11 @@ msgid "%1$s - version %2$s submitted for approval"
 msgstr "%1$s - version %2$s soumise à approbation"
 
 #, php-format
-msgid "%1$s asks you to approve version %2$s of the security policy \"%3$s\" (%4$s)."
-msgstr "%1$s vous demande d'approuver la version %2$s de la politique de sécurité « %3$s » (%4$s)."
+msgid ""
+"%1$s asks you to approve version %2$s of the security policy \"%3$s\" (%4$s)."
+msgstr ""
+"%1$s vous demande d'approuver la version %2$s de la politique de sécurité "
+"« %3$s » (%4$s)."
 
 #, php-format
 msgid "%1$s, version %2$s"
@@ -16051,17 +16054,33 @@ msgstr "Tous les approbateurs"
 msgid "All security policies"
 msgstr "Toutes les politiques de sécurité"
 
-msgid "An approved version can no longer be modified. To change the policy, prepare a new version: it goes back to draft until the new version is approved, and the approved version stays in the history."
-msgstr "Une version approuvée ne se modifie plus. Pour faire évoluer la politique, préparez une nouvelle version : elle repasse en brouillon jusqu'à l'approbation de la nouvelle version, et la version approuvée reste dans l'historique."
+msgid ""
+"An approved version can no longer be modified. To change the policy, prepare "
+"a new version: it goes back to draft until the new version is approved, and "
+"the approved version stays in the history."
+msgstr ""
+"Une version approuvée ne se modifie plus. Pour faire évoluer la politique, "
+"préparez une nouvelle version : elle repasse en brouillon jusqu'à "
+"l'approbation de la nouvelle version, et la version approuvée reste dans "
+"l'historique."
 
 msgid "An archived policy is not submitted for approval."
 msgstr "Une politique archivée n'est pas soumise à approbation."
 
-msgid "Answer each request; a rejection needs a comment so that the author can correct the policy."
-msgstr "Répondez à chaque demande ; un refus demande un commentaire pour que le rédacteur puisse corriger la politique."
+msgid ""
+"Answer each request; a rejection needs a comment so that the author can "
+"correct the policy."
+msgstr ""
+"Répondez à chaque demande ; un refus demande un commentaire pour que le "
+"rédacteur puisse corriger la politique."
 
-msgid "Any change to the title, version, description or attached documents changes the content fingerprint and requires a new version."
-msgstr "Toute modification du titre, de la version, de la description ou des documents joints change l'empreinte du contenu et demande une nouvelle version."
+msgid ""
+"Any change to the title, version, description or attached documents changes "
+"the content fingerprint and requires a new version."
+msgstr ""
+"Toute modification du titre, de la version, de la description ou des "
+"documents joints change l'empreinte du contenu et demande une nouvelle "
+"version."
 
 msgid "Approval"
 msgstr "Approbation"
@@ -16124,7 +16143,8 @@ msgid "Comments of the approvers"
 msgstr "Commentaires des approbateurs"
 
 msgid "Date of the last approval, filled in by the approval workflow."
-msgstr "Date de la dernière approbation, renseignée par le circuit d'approbation."
+msgstr ""
+"Date de la dernière approbation, renseignée par le circuit d'approbation."
 
 msgid "Decisions"
 msgstr "Décisions"
@@ -16144,21 +16164,32 @@ msgstr "Approbateurs par défaut de la configuration."
 msgid "Default rule of the configuration"
 msgstr "Règle par défaut de la configuration"
 
-msgid "Designate at least one approver (on the policy or in the configuration)."
-msgstr "Désignez au moins un approbateur (sur la politique ou dans la configuration)."
+msgid ""
+"Designate at least one approver (on the policy or in the configuration)."
+msgstr ""
+"Désignez au moins un approbateur (sur la politique ou dans la configuration)."
 
 msgid "Enable the approval workflow for security policies"
 msgstr "Activer le circuit d'approbation des politiques de sécurité"
 
 msgid "Enter a new version number, different from the approved versions."
-msgstr "Saisissez un nouveau numéro de version, différent des versions approuvées."
+msgstr ""
+"Saisissez un nouveau numéro de version, différent des versions approuvées."
 
 msgid "Export the history (PDF)"
 msgstr "Exporter l'historique (PDF)"
 
 #, php-format
-msgid "Freezes version %s into a dated PDF (kept in GLPI documents with its SHA-256 fingerprint) and sends it to the approvers. The content can no longer be modified until their decision; the policy becomes \"Approved\" only once the rule is met."
-msgstr "Fige la version %s dans un PDF daté (conservé dans les documents GLPI avec son empreinte SHA-256) et l'envoie aux approbateurs. Le contenu ne peut plus être modifié jusqu'à leur décision ; la politique ne passe « Approuvée » qu'une fois la règle atteinte."
+msgid ""
+"Freezes version %s into a dated PDF (kept in GLPI documents with its SHA-256 "
+"fingerprint) and sends it to the approvers. The content can no longer be "
+"modified until their decision; the policy becomes \"Approved\" only once the "
+"rule is met."
+msgstr ""
+"Fige la version %s dans un PDF daté (conservé dans les documents GLPI avec "
+"son empreinte SHA-256) et l'envoie aux approbateurs. Le contenu ne peut plus "
+"être modifié jusqu'à leur décision ; la politique ne passe « Approuvée » "
+"qu'une fois la règle atteinte."
 
 msgid "Frozen PDF (SHA-256)"
 msgstr "PDF figé (SHA-256)"
@@ -16175,20 +16206,31 @@ msgstr "Faire approuver cette politique"
 msgid "ISO 27001, A.5.1"
 msgstr "ISO 27001, A.5.1"
 
-msgid "If the version is rejected, the policy stays in draft: take the comments into account, then submit it again."
-msgstr "Si la version est refusée, la politique reste en brouillon : tenez compte des commentaires, puis soumettez-la de nouveau."
+msgid ""
+"If the version is rejected, the policy stays in draft: take the comments "
+"into account, then submit it again."
+msgstr ""
+"Si la version est refusée, la politique reste en brouillon : tenez compte "
+"des commentaires, puis soumettez-la de nouveau."
 
-msgid "Leave the lists empty to use the default approvers of the configuration."
-msgstr "Laissez les listes vides pour utiliser les approbateurs par défaut de la configuration."
+msgid ""
+"Leave the lists empty to use the default approvers of the configuration."
+msgstr ""
+"Laissez les listes vides pour utiliser les approbateurs par défaut de la "
+"configuration."
 
 msgid "New version number"
 msgstr "Numéro de la nouvelle version"
 
 msgid "New version prepared: the policy is back to draft until it is approved."
-msgstr "Nouvelle version préparée : la politique repasse en brouillon jusqu'à son approbation."
+msgstr ""
+"Nouvelle version préparée : la politique repasse en brouillon jusqu'à son "
+"approbation."
 
 msgid "No approver designated: choose them below or in the configuration."
-msgstr "Aucun approbateur désigné : choisissez-les ci-dessous ou dans la configuration."
+msgstr ""
+"Aucun approbateur désigné : choisissez-les ci-dessous ou dans la "
+"configuration."
 
 msgid "No document attached to the policy."
 msgstr "Aucun document joint à la politique."
@@ -16243,76 +16285,153 @@ msgstr "Décision d'approbation de politique de sécurité"
 msgid "Security policy approval requested"
 msgstr "Approbation de politique de sécurité demandée"
 
-msgid "Sent to the designated approvers when a version of a security policy is frozen and submitted for approval."
-msgstr "Envoyée aux approbateurs désignés quand une version d'une politique de sécurité est figée et soumise à approbation."
+msgid ""
+"Sent to the designated approvers when a version of a security policy is "
+"frozen and submitted for approval."
+msgstr ""
+"Envoyée aux approbateurs désignés quand une version d'une politique de "
+"sécurité est figée et soumise à approbation."
 
-msgid "Sent to the person who submitted a version of a security policy and to the policy owner when the version is approved or rejected."
-msgstr "Envoyée à la personne qui a soumis une version d'une politique de sécurité et au responsable de la politique quand la version est approuvée ou refusée."
+msgid ""
+"Sent to the person who submitted a version of a security policy and to the "
+"policy owner when the version is approved or rejected."
+msgstr ""
+"Envoyée à la personne qui a soumis une version d'une politique de sécurité "
+"et au responsable de la politique quand la version est approuvée ou refusée."
 
-msgid "The \"Approved\" status is given by the designated approvers, from the \"Approval\" tab."
-msgstr "Le statut « Approuvée » est donné par les approbateurs désignés, depuis l'onglet « Approbation »."
+msgid ""
+"The \"Approved\" status is given by the designated approvers, from the "
+"\"Approval\" tab."
+msgstr ""
+"Le statut « Approuvée » est donné par les approbateurs désignés, depuis "
+"l'onglet « Approbation »."
 
 #, php-format
-msgid "The approval rule requires %1$d approvals but only %2$d approver(s) can answer."
-msgstr "La règle de validation demande %1$d approbations mais seuls %2$d approbateur(s) peuvent répondre."
+msgid ""
+"The approval rule requires %1$d approvals but only %2$d approver(s) can "
+"answer."
+msgstr ""
+"La règle de validation demande %1$d approbations mais seuls %2$d "
+"approbateur(s) peuvent répondre."
 
-msgid "The approval workflow is disabled in the configuration: only the history is shown."
-msgstr "Le circuit d'approbation est désactivé dans la configuration : seul l'historique est affiché."
+msgid ""
+"The approval workflow is disabled in the configuration: only the history is "
+"shown."
+msgstr ""
+"Le circuit d'approbation est désactivé dans la configuration : seul "
+"l'historique est affiché."
 
 #, php-format
-msgid "The attached documents have changed since version %s was approved: prepare a new version and have it approved."
-msgstr "Les documents joints ont changé depuis l'approbation de la version %s : préparez une nouvelle version et faites-la approuver."
+msgid ""
+"The attached documents have changed since version %s was approved: prepare a "
+"new version and have it approved."
+msgstr ""
+"Les documents joints ont changé depuis l'approbation de la version %s : "
+"préparez une nouvelle version et faites-la approuver."
 
-msgid "The content of this version is frozen by the approval workflow (title, version, description). Use the \"Approval\" tab to withdraw the request or to prepare a new version."
-msgstr "Le contenu de cette version est figé par le circuit d'approbation (titre, version, description). Utilisez l'onglet « Approbation » pour retirer la demande ou préparer une nouvelle version."
+msgid ""
+"The content of this version is frozen by the approval workflow (title, "
+"version, description). Use the \"Approval\" tab to withdraw the request or "
+"to prepare a new version."
+msgstr ""
+"Le contenu de cette version est figé par le circuit d'approbation (titre, "
+"version, description). Utilisez l'onglet « Approbation » pour retirer la "
+"demande ou préparer une nouvelle version."
 
 msgid "The policy approval workflow is not enabled."
 msgstr "Le circuit d'approbation des politiques n'est pas activé."
 
-msgid "The security policies awaiting your approval: read the frozen version, then approve or reject it with a comment."
-msgstr "Les politiques de sécurité qui attendent votre approbation : lisez la version figée, puis approuvez-la ou refusez-la avec un commentaire."
+msgid ""
+"The security policies awaiting your approval: read the frozen version, then "
+"approve or reject it with a comment."
+msgstr ""
+"Les politiques de sécurité qui attendent votre approbation : lisez la "
+"version figée, puis approuvez-la ou refusez-la avec un commentaire."
 
-msgid "This version has been approved: its content is frozen. Prepare a new version from the \"Approval\" tab to modify it."
-msgstr "Cette version a été approuvée : son contenu est figé. Préparez une nouvelle version depuis l'onglet « Approbation » pour la modifier."
+msgid ""
+"This version has been approved: its content is frozen. Prepare a new version "
+"from the \"Approval\" tab to modify it."
+msgstr ""
+"Cette version a été approuvée : son contenu est figé. Préparez une nouvelle "
+"version depuis l'onglet « Approbation » pour la modifier."
 
-msgid "This version is awaiting approval: its content is frozen. Withdraw the request to modify it."
-msgstr "Cette version attend une approbation : son contenu est figé. Retirez la demande pour la modifier."
+msgid ""
+"This version is awaiting approval: its content is frozen. Withdraw the "
+"request to modify it."
+msgstr ""
+"Cette version attend une approbation : son contenu est figé. Retirez la "
+"demande pour la modifier."
 
 msgid "This version is awaiting your decision."
 msgstr "Cette version attend votre décision."
 
 #, php-format
-msgid "Version %s has already been approved: change the version number to submit a new version."
-msgstr "La version %s a déjà été approuvée : changez le numéro de version pour soumettre une nouvelle version."
+msgid ""
+"Version %s has already been approved: change the version number to submit a "
+"new version."
+msgstr ""
+"La version %s a déjà été approuvée : changez le numéro de version pour "
+"soumettre une nouvelle version."
 
 #, php-format
 msgid "Version %s has been approved by management and has not changed since."
-msgstr "La version %s a été approuvée par la direction et n'a pas changé depuis."
+msgstr ""
+"La version %s a été approuvée par la direction et n'a pas changé depuis."
 
 #, php-format
-msgid "Version %s has been submitted to the approvers; its content is frozen until their decision."
-msgstr "La version %s a été soumise aux approbateurs ; son contenu est figé jusqu'à leur décision."
+msgid ""
+"Version %s has been submitted to the approvers; its content is frozen until "
+"their decision."
+msgstr ""
+"La version %s a été soumise aux approbateurs ; son contenu est figé jusqu'à "
+"leur décision."
 
 #, php-format
 msgid "Version %s is a draft: submit it for approval once it is ready."
-msgstr "La version %s est un brouillon : soumettez-la à approbation quand elle est prête."
+msgstr ""
+"La version %s est un brouillon : soumettez-la à approbation quand elle est "
+"prête."
 
 #, php-format
-msgid "Version %s is awaiting approval. To change its content, withdraw the request: the approvers will no longer be able to answer."
-msgstr "La version %s attend une approbation. Pour modifier son contenu, retirez la demande : les approbateurs ne pourront plus répondre."
+msgid ""
+"Version %s is awaiting approval. To change its content, withdraw the "
+"request: the approvers will no longer be able to answer."
+msgstr ""
+"La version %s attend une approbation. Pour modifier son contenu, retirez la "
+"demande : les approbateurs ne pourront plus répondre."
 
 #, php-format
-msgid "Version %s was marked as approved before the approval workflow was enabled: no frozen version exists. The next version will go through the workflow."
-msgstr "La version %s a été marquée approuvée avant l'activation du circuit d'approbation : il n'en existe pas de version figée. La prochaine version passera par le circuit."
+msgid ""
+"Version %s was marked as approved before the approval workflow was enabled: "
+"no frozen version exists. The next version will go through the workflow."
+msgstr ""
+"La version %s a été marquée approuvée avant l'activation du circuit "
+"d'approbation : il n'en existe pas de version figée. La prochaine version "
+"passera par le circuit."
 
 msgid "Whatever the rule, one rejection rejects the version."
 msgstr "Quelle que soit la règle, un refus refuse la version."
 
-msgid "When enabled, a policy becomes \"Approved\" only once its designated approvers have approved a frozen version (PDF and SHA-256 fingerprint). Policies already approved stay approved; they are marked \"approved before the workflow\". Each policy can have its own approvers and rule in its \"Approval\" tab."
-msgstr "Une fois activé, une politique ne passe « Approuvée » qu'après l'approbation d'une version figée (PDF et empreinte SHA-256) par ses approbateurs désignés. Les politiques déjà approuvées le restent ; elles sont marquées « approuvées avant le circuit ». Chaque politique peut avoir ses propres approbateurs et sa règle dans son onglet « Approbation »."
+msgid ""
+"When enabled, a policy becomes \"Approved\" only once its designated "
+"approvers have approved a frozen version (PDF and SHA-256 fingerprint). "
+"Policies already approved stay approved; they are marked \"approved before "
+"the workflow\". Each policy can have its own approvers and rule in its "
+"\"Approval\" tab."
+msgstr ""
+"Une fois activé, une politique ne passe « Approuvée » qu'après l'approbation "
+"d'une version figée (PDF et empreinte SHA-256) par ses approbateurs "
+"désignés. Les politiques déjà approuvées le restent ; elles sont marquées "
+"« approuvées avant le circuit ». Chaque politique peut avoir ses propres "
+"approbateurs et sa règle dans son onglet « Approbation »."
 
-msgid "With the approval workflow, a policy becomes \"Approved\" only once its designated approvers have approved it: use the \"Approval\" tab."
-msgstr "Avec le circuit d'approbation, une politique ne passe « Approuvée » qu'une fois approuvée par ses approbateurs désignés : utilisez l'onglet « Approbation »."
+msgid ""
+"With the approval workflow, a policy becomes \"Approved\" only once its "
+"designated approvers have approved it: use the \"Approval\" tab."
+msgstr ""
+"Avec le circuit d'approbation, une politique ne passe « Approuvée » qu'une "
+"fois approuvée par ses approbateurs désignés : utilisez l'onglet "
+"« Approbation »."
 
 msgid "Withdraw the approval request?"
 msgstr "Retirer la demande d'approbation ?"
@@ -16342,7 +16461,8 @@ msgid "CRA: corrective measure available on"
 msgstr "CRA : mesure corrective disponible le"
 
 msgid "DORA: initial notification (4 h after classification, 24 h at most)"
-msgstr "DORA : notification initiale (4 h après la classification, 24 h au plus)"
+msgstr ""
+"DORA : notification initiale (4 h après la classification, 24 h au plus)"
 
 msgid "DORA: intermediate report (72 h)"
 msgstr "DORA : rapport intermédiaire (72 h)"
@@ -16365,56 +16485,648 @@ msgstr "Vulnérabilité activement exploitée"
 msgid "Severe incident affecting the product"
 msgstr "Incident grave touchant le produit"
 
-msgid "Reports NIS2 / GDPR / DORA / CRA notification deadlines that are near or past with a follow-up"
-msgstr "Signale par un suivi les échéances de notification NIS2 / RGPD / DORA / CRA proches ou dépassées"
+msgid ""
+"Reports NIS2 / GDPR / DORA / CRA notification deadlines that are near or "
+"past with a follow-up"
+msgstr ""
+"Signale par un suivi les échéances de notification NIS2 / RGPD / DORA / CRA "
+"proches ou dépassées"
 
 msgid "Regulatory notification deadlines at risk"
 msgstr "Échéances de notification réglementaire à risque"
 
-msgid "Starts when a corrective or mitigating measure is available: enter its date above."
-msgstr "Démarre quand une mesure corrective ou d'atténuation est disponible : saisissez sa date ci-dessus."
+msgid ""
+"Starts when a corrective or mitigating measure is available: enter its date "
+"above."
+msgstr ""
+"Démarre quand une mesure corrective ou d'atténuation est disponible : "
+"saisissez sa date ci-dessus."
 
 msgid "The incident was detected before this regulation applied."
-msgstr "L'incident a été détecté avant l'entrée en application de ce règlement."
+msgstr ""
+"L'incident a été détecté avant l'entrée en application de ce règlement."
 
-msgid "Financial entity, incident classified as major: initial notification within 4 h of the classification and no later than 24 h after detection, intermediate report within 72 h, final report within one month (Regulation (EU) 2022/2554, article 19)."
-msgstr "Entité financière, incident classé majeur : notification initiale dans les 4 h suivant la classification et au plus tard 24 h après la détection, rapport intermédiaire sous 72 h, rapport final sous un mois (règlement (UE) 2022/2554, article 19)."
+msgid ""
+"Financial entity, incident classified as major: initial notification within "
+"4 h of the classification and no later than 24 h after detection, "
+"intermediate report within 72 h, final report within one month (Regulation "
+"(EU) 2022/2554, article 19)."
+msgstr ""
+"Entité financière, incident classé majeur : notification initiale dans les 4 "
+"h suivant la classification et au plus tard 24 h après la détection, rapport "
+"intermédiaire sous 72 h, rapport final sous un mois (règlement (UE) "
+"2022/2554, article 19)."
 
-msgid "Leave empty until the incident is classified: the 24 h limit after detection then applies."
-msgstr "Laissez vide tant que l'incident n'est pas classé : la limite de 24 h après la détection s'applique alors."
+msgid ""
+"Leave empty until the incident is classified: the 24 h limit after detection "
+"then applies."
+msgstr ""
+"Laissez vide tant que l'incident n'est pas classé : la limite de 24 h après "
+"la détection s'applique alors."
 
 msgid "Not reportable"
 msgstr "Non concerné"
 
-msgid "Manufacturer of a product with digital elements: early warning within 24 h, notification within 72 h, final report 14 days after a corrective measure (vulnerability) or one month after the notification (incident). Regulation (EU) 2024/2847, article 14, applicable since 11 September 2026."
-msgstr "Fabricant d'un produit comportant des éléments numériques : alerte précoce sous 24 h, notification sous 72 h, rapport final 14 jours après une mesure corrective (vulnérabilité) ou un mois après la notification (incident). Règlement (UE) 2024/2847, article 14, applicable depuis le 11 septembre 2026."
+msgid ""
+"Manufacturer of a product with digital elements: early warning within 24 h, "
+"notification within 72 h, final report 14 days after a corrective measure "
+"(vulnerability) or one month after the notification (incident). Regulation "
+"(EU) 2024/2847, article 14, applicable since 11 September 2026."
+msgstr ""
+"Fabricant d'un produit comportant des éléments numériques : alerte précoce "
+"sous 24 h, notification sous 72 h, rapport final 14 jours après une mesure "
+"corrective (vulnérabilité) ou un mois après la notification (incident). "
+"Règlement (UE) 2024/2847, article 14, applicable depuis le 11 septembre 2026."
 
-msgid "After changing these choices, save the incident to see the matching dates and deadlines."
-msgstr "Après avoir modifié ces choix, enregistrez l'incident pour voir les dates et échéances correspondantes."
+msgid ""
+"After changing these choices, save the incident to see the matching dates "
+"and deadlines."
+msgstr ""
+"Après avoir modifié ces choix, enregistrez l'incident pour voir les dates et "
+"échéances correspondantes."
 
-msgid "Deadlines computed from the incident's opening date (its detection) or from the date entered for the step. Nothing is sent automatically: make the notification, then enter its date here."
-msgstr "Échéances calculées depuis la date d'ouverture de l'incident (sa détection) ou depuis la date saisie pour l'étape. Rien n'est envoyé automatiquement : faites la notification, puis saisissez sa date ici."
+msgid ""
+"Deadlines computed from the incident's opening date (its detection) or from "
+"the date entered for the step. Nothing is sent automatically: make the "
+"notification, then enter its date here."
+msgstr ""
+"Échéances calculées depuis la date d'ouverture de l'incident (sa détection) "
+"ou depuis la date saisie pour l'étape. Rien n'est envoyé automatiquement : "
+"faites la notification, puis saisissez sa date ici."
 
 msgid "Waiting for the corrective measure"
 msgstr "En attente de la mesure corrective"
 
 msgid "CRA reporting (manufacturers of products with digital elements)"
-msgstr "Signalement CRA (fabricants de produits comportant des éléments numériques)"
+msgstr ""
+"Signalement CRA (fabricants de produits comportant des éléments numériques)"
 
-msgid "Adds to security incidents the reporting deadlines of the Cyber Resilience Act (Regulation (EU) 2024/2847, article 14): actively exploited vulnerability or severe incident affecting a product you place on the market. The DORA deadlines appear when the DORA framework is enabled."
-msgstr "Ajoute aux incidents de sécurité les délais de signalement du règlement sur la cyberrésilience (règlement (UE) 2024/2847, article 14) : vulnérabilité activement exploitée ou incident grave touchant un produit que vous mettez sur le marché. Les délais DORA apparaissent quand le référentiel DORA est activé."
+msgid ""
+"Adds to security incidents the reporting deadlines of the Cyber Resilience "
+"Act (Regulation (EU) 2024/2847, article 14): actively exploited "
+"vulnerability or severe incident affecting a product you place on the "
+"market. The DORA deadlines appear when the DORA framework is enabled."
+msgstr ""
+"Ajoute aux incidents de sécurité les délais de signalement du règlement sur "
+"la cyberrésilience (règlement (UE) 2024/2847, article 14) : vulnérabilité "
+"activement exploitée ou incident grave touchant un produit que vous mettez "
+"sur le marché. Les délais DORA apparaissent quand le référentiel DORA est "
+"activé."
 
 msgid "Regulatory notification to make"
 msgstr "Notification réglementaire à faire"
 
+msgid "ISMS consistency checks"
+msgstr "Contrôles de cohérence du SMSI"
+
+msgid "Policies and roles"
+msgstr "Politiques et rôles"
+
+msgid "Risk treatment and Statement of Applicability"
+msgstr "Traitement des risques et Déclaration d'Applicabilité"
+
+msgid "Evidence and monitoring"
+msgstr "Preuves et surveillance"
+
+msgid "Nonconformities and corrective actions"
+msgstr "Non-conformités et actions correctives"
+
+msgid "Annex A operations"
+msgstr "Fonctionnement des mesures de l'Annexe A"
+
+#, php-format
+msgid "Approved policies whose review is overdue by more than %d days"
+msgstr "Politiques approuvées dont la revue a plus de %d jours de retard"
+
+msgid "Approved policies whose review date has passed or is missing"
+msgstr "Politiques approuvées dont la date de revue est passée ou absente"
+
+msgid ""
+"Open the policy, review it with its owner, then set the next review date "
+"(and a new version if it changed)."
+msgstr ""
+"Ouvrez la politique, revoyez-la avec son responsable, puis fixez la "
+"prochaine date de revue (et une nouvelle version si elle a changé)."
+
+msgid "Policies without an owner"
+msgstr "Politiques sans responsable"
+
+msgid ""
+"Open the policy and choose the person responsible for keeping it up to date."
+msgstr ""
+"Ouvrez la politique et choisissez la personne chargée de la tenir à jour."
+
+msgid "Open risks without an owner"
+msgstr "Risques ouverts sans propriétaire"
+
+msgid ""
+"Open the risk and choose its owner: the person accountable for the risk and "
+"its treatment."
+msgstr ""
+"Ouvrez le risque et choisissez son propriétaire : la personne qui répond du "
+"risque et de son traitement."
+
+#, php-format
+msgid "Open risks whose review is overdue by more than %d days"
+msgstr "Risques ouverts dont la revue a plus de %d jours de retard"
+
+msgid "Open risks whose review date has passed or is missing"
+msgstr "Risques ouverts dont la date de revue est passée ou absente"
+
+msgid ""
+"Reassess the risk with its owner (probability, impact, treatment), then set "
+"the next review date."
+msgstr ""
+"Réévaluez le risque avec son propriétaire (probabilité, impact, traitement), "
+"puis fixez la prochaine date de revue."
+
+#, php-format
+msgid "Open risks of level %s or above without a treatment decision"
+msgstr "Risques ouverts de niveau %s ou plus sans décision de traitement"
+
+msgid ""
+"Open the risk and choose a treatment (mitigate, transfer, avoid or accept) "
+"with its justification."
+msgstr ""
+"Ouvrez le risque et choisissez un traitement (réduire, transférer, éviter ou "
+"accepter) avec sa justification."
+
+#, php-format
+msgid "Risks of level %s or above accepted without a formal approval"
+msgstr "Risques de niveau %s ou plus acceptés sans approbation formelle"
+
+msgid ""
+"Have the acceptance signed by the risk owner or management: save the risk "
+"again with the \"Accept\" treatment and its justification, or choose another "
+"treatment."
+msgstr ""
+"Faites signer l'acceptation par le propriétaire du risque ou la direction : "
+"enregistrez de nouveau le risque avec le traitement « Accepter » et sa "
+"justification, ou choisissez un autre traitement."
+
+#, php-format
+msgid ""
+"Excluded or partially applicable controls with a justification under %d "
+"characters"
+msgstr ""
+"Mesures exclues ou partiellement applicables avec une justification de moins "
+"de %d caractères"
+
+msgid ""
+"Open the control and explain why it is excluded (no such activity, risk "
+"accepted, covered elsewhere): the auditor checks every exclusion."
+msgstr ""
+"Ouvrez la mesure et expliquez pourquoi elle est exclue (activité "
+"inexistante, risque accepté, couvert ailleurs) : l'auditeur vérifie chaque "
+"exclusion."
+
+msgid "Applicable controls linked to no risk"
+msgstr "Mesures applicables liées à aucun risque"
+
+msgid ""
+"Link the control to the risks it treats (\"Risks\" tab of the control, or "
+"\"Controls\" tab of the risk): it justifies its inclusion in the SoA."
+msgstr ""
+"Liez la mesure aux risques qu'elle traite (onglet « Risques » de la mesure, "
+"ou onglet « Mesures » du risque) : cela justifie sa présence dans la SoA."
+
+msgid "Statement of Applicability not approved in its current version"
+msgstr "Déclaration d'Applicabilité non approuvée dans sa version actuelle"
+
+msgid ""
+"Open \"SoA approval\" and request the approval of the current version by "
+"management."
+msgstr ""
+"Ouvrez « Approbation de la SoA » et demandez l'approbation de la version "
+"actuelle par la direction."
+
+#, php-format
+msgid "Risk treatment actions overdue by more than %d days"
+msgstr "Actions de traitement des risques en retard de plus de %d jours"
+
+msgid ""
+"Open the risk, \"Risk treatment actions\" tab: mark the action as done, or "
+"set a realistic new due date."
+msgstr ""
+"Ouvrez le risque, onglet « Actions de traitement de risque » : marquez "
+"l'action comme terminée, ou fixez une nouvelle échéance réaliste."
+
+msgid "Approved waivers past their end date"
+msgstr "Dérogations validées dont la date de fin est passée"
+
+msgid "Open the waiver: close it, or reassess it and set a new end date."
+msgstr ""
+"Ouvrez la dérogation : clôturez-la, ou réévaluez-la et fixez une nouvelle "
+"date de fin."
+
+#, php-format
+msgid ""
+"Implemented controls without valid evidence nor a test in the last %d months"
+msgstr "Mesures mises en œuvre sans preuve valide ni test depuis %d mois"
+
+msgid ""
+"Attach a document proving the control works (\"Documents\" tab), or record "
+"an effectiveness test."
+msgstr ""
+"Joignez un document qui prouve que la mesure fonctionne (onglet "
+"« Documents »), ou enregistrez un test d'efficacité."
+
+msgid "Expired evidence still attached"
+msgstr "Preuves expirées encore rattachées"
+
+msgid ""
+"Open the item, \"Evidence validities\" tab: attach an up-to-date document "
+"and remove or renew the expired one."
+msgstr ""
+"Ouvrez l'élément, onglet « Validités des preuves » : joignez un document à "
+"jour, et retirez ou renouvelez celui qui a expiré."
+
+#, php-format
+msgid "No internal audit completed in the last %d months"
+msgstr "Aucun audit interne terminé depuis %d mois"
+
+msgid "Plan an internal audit and record it as completed with its actual date."
+msgstr ""
+"Planifiez un audit interne et enregistrez-le comme terminé avec sa date de "
+"réalisation."
+
+#, php-format
+msgid "No management review held in the last %d months"
+msgstr "Aucune revue de direction tenue depuis %d mois"
+
+msgid ""
+"Hold a management review and record it as completed with its date and "
+"decisions."
+msgstr ""
+"Tenez une revue de direction et enregistrez-la comme terminée avec sa date "
+"et ses décisions."
+
+msgid "Nonconformities closed without a corrective action"
+msgstr "Non-conformités closes sans action corrective"
+
+msgid ""
+"Open the nonconformity and describe the corrective action taken; reopen it "
+"if nothing was done."
+msgstr ""
+"Ouvrez la non-conformité et décrivez l'action corrective menée ; rouvrez-la "
+"si rien n'a été fait."
+
+#, php-format
+msgid "Open nonconformities overdue by more than %d days"
+msgstr "Non-conformités ouvertes en retard de plus de %d jours"
+
+msgid "Open nonconformities past their due date"
+msgstr "Non-conformités ouvertes dont l'échéance est passée"
+
+msgid ""
+"Complete the corrective action and close the nonconformity, or set a new due "
+"date."
+msgstr ""
+"Terminez l'action corrective et clôturez la non-conformité, ou fixez une "
+"nouvelle échéance."
+
+#, php-format
+msgid "Supplier risks whose review is overdue by more than %d days"
+msgstr "Risques fournisseurs dont la revue a plus de %d jours de retard"
+
+msgid "Supplier risks whose review date has passed or is missing"
+msgstr "Risques fournisseurs dont la date de revue est passée ou absente"
+
+msgid ""
+"Reassess the supplier (questionnaire, contracts), then set the next review "
+"date."
+msgstr ""
+"Réévaluez le fournisseur (questionnaire, contrats), puis fixez la prochaine "
+"date de revue."
+
+msgid "Business processes without a recovery time objective (RTO)"
+msgstr "Processus métier sans durée maximale d'interruption admissible (RTO)"
+
+msgid ""
+"Open the process and set its RTO, ideally after its business impact analysis "
+"(BIA)."
+msgstr ""
+"Ouvrez le processus et fixez son RTO, idéalement après son analyse d'impact "
+"sur l'activité (BIA)."
+
+msgid "Processing activities whose required DPIA is not done"
+msgstr "Traitements dont l'AIPD requise n'est pas faite"
+
+msgid ""
+"Open the processing activity, \"DPIA\" tab: carry out the DPIA, then mark it "
+"as done."
+msgstr ""
+"Ouvrez le traitement, onglet « AIPD » : réalisez l'analyse d'impact, puis "
+"indiquez qu'elle est faite."
+
+#, php-format
+msgid "Compliance obligations whose review is overdue by more than %d days"
+msgstr "Obligations de conformité dont la revue a plus de %d jours de retard"
+
+msgid "Compliance obligations past their review date"
+msgstr "Obligations de conformité dont la date de revue est passée"
+
+msgid ""
+"Check the compliance status of the obligation, then set the next review date."
+msgstr ""
+"Vérifiez l'état de conformité de l'obligation, puis fixez la prochaine date "
+"de revue."
+
+#, php-format
+msgid "Access review campaigns overdue by more than %d days"
+msgstr "Campagnes de revue des accès en retard de plus de %d jours"
+
+msgid "Access review campaigns past their due date"
+msgstr "Campagnes de revue des accès dont l'échéance est passée"
+
+msgid ""
+"Remind the reviewers, then close the campaign once every access has been "
+"reviewed."
+msgstr ""
+"Relancez les valideurs, puis clôturez la campagne une fois tous les accès "
+"revus."
+
+msgid "Tolerance (days)"
+msgstr "Tolérance (jours)"
+
+msgid "Period (months)"
+msgstr "Période (mois)"
+
+msgid "Minimum length (characters)"
+msgstr "Longueur minimale (caractères)"
+
+msgid "From risk level"
+msgstr "À partir du niveau de risque"
+
+#, php-format
+msgid "%1$s (ID %2$d)"
+msgstr "%1$s (ID %2$d)"
+
+msgid "No review date"
+msgstr "Aucune date de revue"
+
+#, php-format
+msgid "Review was due on %s"
+msgstr "Revue prévue le %s"
+
+#, php-format
+msgid "Due on %s"
+msgstr "Échéance le %s"
+
+#, php-format
+msgid "Level: %s"
+msgstr "Niveau : %s"
+
+#, php-format
+msgid "Accepted at level %s, no signed acceptance"
+msgstr "Accepté au niveau %s, sans acceptation signée"
+
+#, php-format
+msgid "Justification too short: \"%s\""
+msgstr "Justification trop courte : « %s »"
+
+msgid "No linked risk"
+msgstr "Aucun risque lié"
+
+msgid "No valid document, never tested"
+msgstr "Aucun document valide, jamais testée"
+
+#, php-format
+msgid "No valid document, last test on %s"
+msgstr "Aucun document valide, dernier test le %s"
+
+msgid "Statement of Applicability"
+msgstr "Déclaration d'Applicabilité"
+
+#, php-format
+msgid "Changed since version %s was approved"
+msgstr "Modifiée depuis l'approbation de la version %s"
+
+#, php-format
+msgid "Action \"%1$s\" due on %2$s"
+msgstr "Action « %1$s » prévue le %2$s"
+
+#, php-format
+msgid "Ended on %s"
+msgstr "Terminée le %s"
+
+#, php-format
+msgid "Valid until %s"
+msgstr "Valable jusqu'au %s"
+
+msgid "None recorded as completed"
+msgstr "Aucun enregistré comme terminé"
+
+#, php-format
+msgid "Last one on %s"
+msgstr "Dernier le %s"
+
+msgid "Closed without a corrective action"
+msgstr "Close sans action corrective"
+
+msgid "DPIA required, not done"
+msgstr "AIPD requise, non faite"
+
+msgid "ISMS consistency checks: audit readiness"
+msgstr "Contrôles de cohérence du SMSI : préparation à l'audit"
+
+msgid ""
+"Before an audit, this page gathers the inconsistencies of your security "
+"management system: risks without an owner, controls without evidence, "
+"expired evidence, policies not reviewed, nonconformities closed without "
+"action, and more."
+msgstr ""
+"Avant un audit, cette page rassemble les incohérences de votre système de "
+"management de la sécurité : risques sans propriétaire, mesures sans preuve, "
+"preuves expirées, politiques non revues, non-conformités closes sans action, "
+"et d'autres."
+
+msgid ""
+"Start with the high severity gaps. Click an item to open it, fix it, then "
+"come back: the page is computed again each time. Nothing is changed "
+"automatically. Export the list (CSV or PDF) to follow the preparation of the "
+"audit."
+msgstr ""
+"Commencez par les écarts de gravité haute. Cliquez sur un élément pour "
+"l'ouvrir, corrigez-le, puis revenez : la page est recalculée à chaque fois. "
+"Rien n'est modifié automatiquement. Exportez la liste (CSV ou PDF) pour "
+"suivre la préparation de l'audit."
+
+msgid "Area"
+msgstr "Domaine"
+
+msgid "Clause"
+msgstr "Clause"
+
+msgid "How to fix"
+msgstr "Comment corriger"
+
+msgid "ISMS consistency gaps to fix before the audit"
+msgstr "Écarts de cohérence du SMSI à corriger avant l'audit"
+
+msgid "ISMS consistency gaps"
+msgstr "Écarts de cohérence du SMSI"
+
+msgid "Consistency score"
+msgstr "Score de cohérence"
+
+msgid "Nothing to check yet: no rule could examine any item."
+msgstr ""
+"Rien à contrôler pour l'instant : aucune règle n'a pu examiner d'élément."
+
+msgid "No gap: ready for the audit"
+msgstr "Aucun écart : prêt pour l'audit"
+
+#, php-format
+msgid "Gaps to fix: %d"
+msgstr "Écarts à corriger : %d"
+
+msgid ""
+"Share of the checked items without a gap, weighted by severity (high counts "
+"three times, medium twice)."
+msgstr ""
+"Part des éléments contrôlés sans écart, pondérée par la gravité (haute "
+"compte trois fois, moyenne deux fois)."
+
+msgid "Gaps by severity"
+msgstr "Écarts par gravité"
+
+msgid "Show only this severity"
+msgstr "N'afficher que cette gravité"
+
+#, php-format
+msgid "Rules checked: %d"
+msgstr "Règles contrôlées : %d"
+
+#, php-format
+msgid "Disabled in the configuration: %d"
+msgstr "Désactivées dans la configuration : %d"
+
+msgid ""
+"Your profile cannot read the items these rules check (for example the risk "
+"register or the processing register)."
+msgstr ""
+"Votre profil ne peut pas lire les éléments que ces règles contrôlent (par "
+"exemple le registre des risques ou le registre des traitements)."
+
+#, php-format
+msgid "Outside your rights: %d"
+msgstr "Hors de vos droits : %d"
+
+msgid "Export the gaps (CSV)"
+msgstr "Exporter les écarts (CSV)"
+
+msgid "Audit readiness report (PDF)"
+msgstr "Rapport de préparation à l'audit (PDF)"
+
+msgid "Rules and thresholds"
+msgstr "Règles et seuils"
+
+msgid ""
+"The trend builds up month after month: each time you open this page, the "
+"result of the month is recorded for you and your current entity."
+msgstr ""
+"La tendance se construit mois après mois : chaque fois que vous ouvrez cette "
+"page, le résultat du mois est enregistré pour vous et votre entité courante."
+
+msgid "All areas"
+msgstr "Tous les domaines"
+
+msgid "All severities"
+msgstr "Toutes les gravités"
+
+msgid "All rules"
+msgstr "Toutes les règles"
+
+msgid "Show everything"
+msgstr "Tout afficher"
+
+msgid "No rule matches these filters."
+msgstr "Aucune règle ne correspond à ces filtres."
+
+msgid "No rule can be checked with your rights, or every rule is disabled."
+msgstr ""
+"Aucune règle ne peut être contrôlée avec vos droits, ou toutes les règles "
+"sont désactivées."
+
+#, php-format
+msgid "ISO 27001 %s"
+msgstr "ISO 27001 %s"
+
+#, php-format
+msgid "Gaps: %d"
+msgstr "Écarts : %d"
+
+msgid "Consistent"
+msgstr "Cohérent"
+
+msgid "Change since the previous month"
+msgstr "Évolution depuis le mois précédent"
+
+#, php-format
+msgid "OK (%d checked)"
+msgstr "OK (%d contrôlés)"
+
+msgid "Nothing to check"
+msgstr "Rien à contrôler"
+
+#, php-format
+msgid "Items to fix (%d)"
+msgstr "Éléments à corriger (%d)"
+
+#, php-format
+msgid "Only the first %1$d items are listed; the CSV export gives all %2$d."
+msgstr ""
+"Seuls les %1$d premiers éléments sont listés ; l'export CSV donne les %2$d."
+
+msgid "Gaps to fix"
+msgstr "Écarts à corriger"
+
+msgid "Rules checked"
+msgstr "Règles contrôlées"
+
+msgid "Exported by"
+msgstr "Exporté par"
+
+msgid ""
+"Only the items the person who exported this report can read are counted. "
+"Nothing has been modified: each gap is fixed from the item concerned."
+msgstr ""
+"Seuls les éléments que la personne qui a exporté ce rapport peut lire sont "
+"comptés. Rien n'a été modifié : chaque écart se corrige depuis l'élément "
+"concerné."
+
+msgid ""
+"Untick a rule that does not apply to your organisation: it is no longer "
+"checked nor counted in the score. The thresholds set how strict each rule "
+"is. Nothing is ever modified by these checks."
+msgstr ""
+"Décochez une règle qui ne concerne pas votre organisation : elle n'est plus "
+"contrôlée ni comptée dans le score. Les seuils règlent la sévérité de chaque "
+"règle. Ces contrôles ne modifient jamais rien."
+
+msgid "Open the consistency checks"
+msgstr "Ouvrir les contrôles de cohérence"
+
+msgid "Threshold"
+msgstr "Seuil"
+
 msgid "New subscription link created. The previous link no longer works."
 msgstr "Nouveau lien d'abonnement créé. L'ancien lien ne fonctionne plus."
 
-msgid "Subscription link revoked: calendars using it no longer receive your deadlines."
-msgstr "Lien d'abonnement révoqué : les agendas qui l'utilisent ne reçoivent plus vos échéances."
+msgid ""
+"Subscription link revoked: calendars using it no longer receive your "
+"deadlines."
+msgstr ""
+"Lien d'abonnement révoqué : les agendas qui l'utilisent ne reçoivent plus "
+"vos échéances."
 
-msgid "Copy your link now: for your security, it will not be shown again. If you lose it, create a new one."
-msgstr "Copiez votre lien maintenant : pour votre sécurité, il ne sera plus affiché. Si vous le perdez, créez-en un nouveau."
+msgid ""
+"Copy your link now: for your security, it will not be shown again. If you "
+"lose it, create a new one."
+msgstr ""
+"Copiez votre lien maintenant : pour votre sécurité, il ne sera plus affiché. "
+"Si vous le perdez, créez-en un nouveau."
 
 msgid "Copy"
 msgstr "Copier"
@@ -16434,8 +17146,12 @@ msgstr "Dernière lecture par un agenda le %s"
 msgid "Not used yet"
 msgstr "Pas encore utilisé"
 
-msgid "You have no subscription link yet. Create one to see your deadlines in your calendar application."
-msgstr "Vous n'avez pas encore de lien d'abonnement. Créez-en un pour voir vos échéances dans votre application d'agenda."
+msgid ""
+"You have no subscription link yet. Create one to see your deadlines in your "
+"calendar application."
+msgstr ""
+"Vous n'avez pas encore de lien d'abonnement. Créez-en un pour voir vos "
+"échéances dans votre application d'agenda."
 
 msgid "Regenerate the link"
 msgstr "Régénérer le lien"
@@ -16447,18 +17163,38 @@ msgid "Revoke the link"
 msgstr "Révoquer le lien"
 
 #, php-format
-msgid "This link only gives read access to the compliance calendar, with your rights, without a password; it does not give access to GLPI or its API. Do not share it. It expires after %d days; regenerating or revoking it disables the previous link immediately."
-msgstr "Ce lien donne seulement accès en lecture au calendrier de conformité, avec vos droits, sans mot de passe ; il ne donne accès ni à GLPI ni à son API. Ne le partagez pas. Il expire au bout de %d jours ; le régénérer ou le révoquer désactive aussitôt l'ancien lien."
+msgid ""
+"This link only gives read access to the compliance calendar, with your "
+"rights, without a password; it does not give access to GLPI or its API. Do "
+"not share it. It expires after %d days; regenerating or revoking it disables "
+"the previous link immediately."
+msgstr ""
+"Ce lien donne seulement accès en lecture au calendrier de conformité, avec "
+"vos droits, sans mot de passe ; il ne donne accès ni à GLPI ni à son API. Ne "
+"le partagez pas. Il expire au bout de %d jours ; le régénérer ou le révoquer "
+"désactive aussitôt l'ancien lien."
 
 msgid "Calendar subscription links"
 msgstr "Liens d'abonnement au calendrier"
 
-msgid "Each user creates a personal link to subscribe their calendar application to the compliance calendar. The link only reads the calendar, can be revoked by its owner, and expires after the duration below. A new duration applies to links created afterwards."
-msgstr "Chaque utilisateur crée un lien personnel pour abonner son application d'agenda au calendrier de conformité. Le lien lit seulement le calendrier, peut être révoqué par son propriétaire et expire après la durée ci-dessous. Une nouvelle durée s'applique aux liens créés ensuite."
+msgid ""
+"Each user creates a personal link to subscribe their calendar application to "
+"the compliance calendar. The link only reads the calendar, can be revoked by "
+"its owner, and expires after the duration below. A new duration applies to "
+"links created afterwards."
+msgstr ""
+"Chaque utilisateur crée un lien personnel pour abonner son application "
+"d'agenda au calendrier de conformité. Le lien lit seulement le calendrier, "
+"peut être révoqué par son propriétaire et expire après la durée ci-dessous. "
+"Une nouvelle durée s'applique aux liens créés ensuite."
 
 msgid "Link lifetime (days)"
 msgstr "Durée de validité du lien (jours)"
 
 #, php-format
-msgid "Between %1$d and %2$d days. Default: 365 days, so that a subscribed calendar keeps working for a year without any action."
-msgstr "Entre %1$d et %2$d jours. Par défaut : 365 jours, pour qu'un agenda abonné fonctionne un an sans aucune action."
+msgid ""
+"Between %1$d and %2$d days. Default: 365 days, so that a subscribed calendar "
+"keeps working for a year without any action."
+msgstr ""
+"Entre %1$d et %2$d jours. Par défaut : 365 jours, pour qu'un agenda abonné "
+"fonctionne un an sans aucune action."
