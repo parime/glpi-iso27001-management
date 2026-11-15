@@ -13,7 +13,7 @@
                {% elseif summary.gaps == 0 %}
                   <span class="badge bg-green-lt mt-2"><i class="ti ti-circle-check me-1"></i>{{ __('No gap: ready for the audit', 'grcmanager') }}</span>
                {% else %}
-                  <span class="badge bg-{{ summary.color }}-lt mt-2"><i class="ti ti-alert-triangle me-1"></i>{{ _n('%d gap to fix', '%d gaps to fix', summary.gaps, 'grcmanager')|format(summary.gaps) }}</span>
+                  <span class="badge bg-{{ summary.color }}-lt mt-2"><i class="ti ti-alert-triangle me-1"></i>{{ __('Gaps to fix: %d', 'grcmanager')|format(summary.gaps) }}</span>
                {% endif %}
                <p class="text-muted small mt-2 mb-0">{{ __('Share of the checked items without a gap, weighted by severity (high counts three times, medium twice).', 'grcmanager') }}</p>
             </div>
@@ -31,12 +31,12 @@
                   {% endfor %}
                </div>
                <p class="small text-muted mb-2">
-                  <i class="ti ti-checklist me-1"></i>{{ _n('%d rule checked', '%d rules checked', summary.evaluated, 'grcmanager')|format(summary.evaluated) }}
+                  <i class="ti ti-checklist me-1"></i>{{ __('Rules checked: %d', 'grcmanager')|format(summary.evaluated) }}
                   {% if summary.disabled > 0 %}
-                     · {{ _n('%d rule disabled in the configuration', '%d rules disabled in the configuration', summary.disabled, 'grcmanager')|format(summary.disabled) }}
+                     · {{ __('Disabled in the configuration: %d', 'grcmanager')|format(summary.disabled) }}
                   {% endif %}
                   {% if summary.not_evaluated > 0 %}
-                     · <span title="{{ __('Your profile cannot read the items these rules check (for example the risk register or the processing register).', 'grcmanager') }}">{{ _n('%d rule outside your rights', '%d rules outside your rights', summary.not_evaluated, 'grcmanager')|format(summary.not_evaluated) }} <i class="ti ti-lock"></i></span>
+                     · <span title="{{ __('Your profile cannot read the items these rules check (for example the risk register or the processing register).', 'grcmanager') }}">{{ __('Outside your rights: %d', 'grcmanager')|format(summary.not_evaluated) }} <i class="ti ti-lock"></i></span>
                   {% endif %}
                </p>
                <div class="d-flex flex-wrap gap-2">
@@ -118,7 +118,7 @@
             </h3>
             <span class="ms-auto badge {{ area.gaps > 0 ? 'bg-red-lt' : 'bg-green-lt' }}">
                {% if area.gaps > 0 %}
-                  <i class="ti ti-alert-triangle me-1"></i>{{ _n('%d gap', '%d gaps', area.gaps, 'grcmanager')|format(area.gaps) }}
+                  <i class="ti ti-alert-triangle me-1"></i>{{ __('Gaps: %d', 'grcmanager')|format(area.gaps) }}
                {% else %}
                   <i class="ti ti-circle-check me-1"></i>{{ __('Consistent', 'grcmanager') }}
                {% endif %}
@@ -147,7 +147,7 @@
                   {% if rule.gap_count > 0 %}
                      <p class="small text-muted mt-1 mb-1"><i class="ti ti-tool me-1"></i><strong>{{ __('How to fix', 'grcmanager') }} :</strong> {{ rule.fix }}</p>
                      <details {{ rule.gap_count <= 5 or filters.rule == rule.key ? 'open' }}>
-                        <summary class="small">{{ _n('Show the item to fix', 'Show the %d items to fix', rule.gap_count, 'grcmanager')|format(rule.gap_count) }}</summary>
+                        <summary class="small">{{ __('Items to fix (%d)', 'grcmanager')|format(rule.gap_count) }}</summary>
                         <table class="table table-sm table-vcenter mb-0 mt-1">
                            <tbody>
                               {% for gap in rule.gaps|slice(0, max_gaps) %}

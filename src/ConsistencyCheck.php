@@ -129,17 +129,17 @@ class ConsistencyCheck extends CommonGLPI
     {
         return [
             ConsistencyRules::SEVERITY_HIGH   => [
-                'label' => _x('severity', 'High', 'grcmanager'),
+                'label' => __('High', 'grcmanager'),
                 'class' => 'bg-red-lt',
                 'icon'  => 'ti-alert-octagon',
             ],
             ConsistencyRules::SEVERITY_MEDIUM => [
-                'label' => _x('severity', 'Medium', 'grcmanager'),
+                'label' => __('Medium', 'grcmanager'),
                 'class' => 'bg-orange-lt',
                 'icon'  => 'ti-alert-triangle',
             ],
             ConsistencyRules::SEVERITY_LOW    => [
-                'label' => _x('severity', 'Low', 'grcmanager'),
+                'label' => __('Low', 'grcmanager'),
                 'class' => 'bg-yellow-lt',
                 'icon'  => 'ti-info-circle',
             ],
@@ -258,7 +258,8 @@ class ConsistencyCheck extends CommonGLPI
                     )
                     : __('Overdue risk treatment actions', 'grcmanager'),
                 'fix'   => __(
-                    'Open the risk, "Treatment plan" tab: mark the action as done, or set a realistic new due date.',
+                    'Open the risk, "Risk treatment actions" tab: mark the action as done, or set a realistic new '
+                        . 'due date.',
                     'grcmanager'
                 ),
             ],
@@ -279,7 +280,7 @@ class ConsistencyCheck extends CommonGLPI
             'evidence_expired'                     => [
                 'label' => __('Expired evidence still attached', 'grcmanager'),
                 'fix'   => __(
-                    'Open the item, "Evidence validity" tab: attach an up-to-date document and remove or renew the '
+                    'Open the item, "Evidence validities" tab: attach an up-to-date document and remove or renew the '
                         . 'expired one.',
                     'grcmanager'
                 ),
@@ -342,7 +343,7 @@ class ConsistencyCheck extends CommonGLPI
             'processing_dpia_pending'              => [
                 'label' => __('Processing activities whose required DPIA is not done', 'grcmanager'),
                 'fix'   => __(
-                    'Open the processing activity, "Data protection impact assessment" tab: carry out the DPIA, then '
+                    'Open the processing activity, "DPIA" tab: carry out the DPIA, then '
                         . 'mark it as done.',
                     'grcmanager'
                 ),

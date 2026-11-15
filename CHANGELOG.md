@@ -7,6 +7,31 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Added
+
+- **Contrôles de cohérence du SMSI avant un audit** (issue #614) : nouvelle page « Contrôles de
+  cohérence » dans la rubrique Tableau de bord (aucune nouvelle entrée de menu). 22 règles regroupées
+  par domaine du SMSI (politiques 5.2/7.5, appréciation des risques 6.1.2/8.2, traitement des risques
+  et SoA 6.1.3/8.3, preuves et surveillance 9.1, audit interne 9.2, revue de direction 9.3,
+  non-conformités 10.2, fonctionnement de l'Annexe A), chacune avec sa gravité (haute, moyenne,
+  basse), sa clause, un « comment corriger » et le lien vers chaque fiche à corriger : risque ouvert
+  sans propriétaire, revue de risque dépassée ou absente, risque élevé sans décision de traitement,
+  risque élevé accepté sans acceptation signée, mesure exclue mal justifiée, mesure applicable liée à
+  aucun risque, SoA non approuvée dans sa version actuelle, action de traitement en retard, dérogation
+  validée échue, mesure mise en œuvre sans preuve valide ni test depuis 12 mois, preuve expirée encore
+  rattachée, pas d'audit interne ni de revue de direction depuis 12 mois, non-conformité close sans
+  action corrective ou en retard, risque fournisseur à revoir, processus métier sans RTO, AIPD requise
+  non faite, obligation de conformité à revoir, campagne de revue des accès en retard. Score de
+  cohérence pondéré par la gravité, écarts par gravité, filtres (domaine, gravité, règle), évolution
+  par règle et tendance mensuelle (résumé du mois enregistré par personne et entité, sans aucun
+  élément), export CSV et rapport PDF de préparation à l'audit, carte « Écarts de cohérence du SMSI »
+  sur le tableau de bord « Vue d'ensemble ISMS ». Règles activables une par une et seuils modifiables
+  (tolérance en jours, période en mois, longueur minimale d'une justification, niveau de risque) dans
+  la configuration du plugin. Calcul à la demande, sans tâche planifiée, en lecture seule : rien n'est
+  corrigé ni changé de statut. Une règle n'est évaluée que si la personne peut lire les éléments
+  concernés (registres sensibles, continuité et RGPD compris), dans ses entités, et chaque élément
+  listé est vérifié un par un.
+
 ## [2.49.0] - 2026-11-15
 
 ### Added

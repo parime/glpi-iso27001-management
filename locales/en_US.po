@@ -16107,3 +16107,406 @@ msgstr "Adds to security incidents the reporting deadlines of the Cyber Resilien
 
 msgid "Regulatory notification to make"
 msgstr "Regulatory notification to make"
+
+msgid "ISMS consistency checks"
+msgstr "ISMS consistency checks"
+
+msgid "Policies and roles"
+msgstr "Policies and roles"
+
+msgid "Risk treatment and Statement of Applicability"
+msgstr "Risk treatment and Statement of Applicability"
+
+msgid "Evidence and monitoring"
+msgstr "Evidence and monitoring"
+
+msgid "Nonconformities and corrective actions"
+msgstr "Nonconformities and corrective actions"
+
+msgid "Annex A operations"
+msgstr "Annex A operations"
+
+#, php-format
+msgid "Approved policies whose review is overdue by more than %d days"
+msgstr "Approved policies whose review is overdue by more than %d days"
+
+msgid "Approved policies whose review date has passed or is missing"
+msgstr "Approved policies whose review date has passed or is missing"
+
+msgid "Open the policy, review it with its owner, then set the next review date (and a new version if it changed)."
+msgstr "Open the policy, review it with its owner, then set the next review date (and a new version if it changed)."
+
+msgid "Policies without an owner"
+msgstr "Policies without an owner"
+
+msgid "Open the policy and choose the person responsible for keeping it up to date."
+msgstr "Open the policy and choose the person responsible for keeping it up to date."
+
+msgid "Open risks without an owner"
+msgstr "Open risks without an owner"
+
+msgid "Open the risk and choose its owner: the person accountable for the risk and its treatment."
+msgstr "Open the risk and choose its owner: the person accountable for the risk and its treatment."
+
+#, php-format
+msgid "Open risks whose review is overdue by more than %d days"
+msgstr "Open risks whose review is overdue by more than %d days"
+
+msgid "Open risks whose review date has passed or is missing"
+msgstr "Open risks whose review date has passed or is missing"
+
+msgid "Reassess the risk with its owner (probability, impact, treatment), then set the next review date."
+msgstr "Reassess the risk with its owner (probability, impact, treatment), then set the next review date."
+
+#, php-format
+msgid "Open risks of level %s or above without a treatment decision"
+msgstr "Open risks of level %s or above without a treatment decision"
+
+msgid "Open the risk and choose a treatment (mitigate, transfer, avoid or accept) with its justification."
+msgstr "Open the risk and choose a treatment (mitigate, transfer, avoid or accept) with its justification."
+
+#, php-format
+msgid "Risks of level %s or above accepted without a formal approval"
+msgstr "Risks of level %s or above accepted without a formal approval"
+
+msgid "Have the acceptance signed by the risk owner or management: save the risk again with the \"Accept\" treatment and its justification, or choose another treatment."
+msgstr "Have the acceptance signed by the risk owner or management: save the risk again with the \"Accept\" treatment and its justification, or choose another treatment."
+
+#, php-format
+msgid "Excluded or partially applicable controls with a justification under %d characters"
+msgstr "Excluded or partially applicable controls with a justification under %d characters"
+
+msgid "Open the control and explain why it is excluded (no such activity, risk accepted, covered elsewhere): the auditor checks every exclusion."
+msgstr "Open the control and explain why it is excluded (no such activity, risk accepted, covered elsewhere): the auditor checks every exclusion."
+
+msgid "Applicable controls linked to no risk"
+msgstr "Applicable controls linked to no risk"
+
+msgid "Link the control to the risks it treats (\"Risks\" tab of the control, or \"Controls\" tab of the risk): it justifies its inclusion in the SoA."
+msgstr "Link the control to the risks it treats (\"Risks\" tab of the control, or \"Controls\" tab of the risk): it justifies its inclusion in the SoA."
+
+msgid "Statement of Applicability not approved in its current version"
+msgstr "Statement of Applicability not approved in its current version"
+
+msgid "Open \"SoA approval\" and request the approval of the current version by management."
+msgstr "Open \"SoA approval\" and request the approval of the current version by management."
+
+#, php-format
+msgid "Risk treatment actions overdue by more than %d days"
+msgstr "Risk treatment actions overdue by more than %d days"
+
+msgid "Open the risk, \"Risk treatment actions\" tab: mark the action as done, or set a realistic new due date."
+msgstr "Open the risk, \"Risk treatment actions\" tab: mark the action as done, or set a realistic new due date."
+
+msgid "Approved waivers past their end date"
+msgstr "Approved waivers past their end date"
+
+msgid "Open the waiver: close it, or reassess it and set a new end date."
+msgstr "Open the waiver: close it, or reassess it and set a new end date."
+
+#, php-format
+msgid "Implemented controls without valid evidence nor a test in the last %d months"
+msgstr "Implemented controls without valid evidence nor a test in the last %d months"
+
+msgid "Attach a document proving the control works (\"Documents\" tab), or record an effectiveness test."
+msgstr "Attach a document proving the control works (\"Documents\" tab), or record an effectiveness test."
+
+msgid "Expired evidence still attached"
+msgstr "Expired evidence still attached"
+
+msgid "Open the item, \"Evidence validities\" tab: attach an up-to-date document and remove or renew the expired one."
+msgstr "Open the item, \"Evidence validities\" tab: attach an up-to-date document and remove or renew the expired one."
+
+#, php-format
+msgid "No internal audit completed in the last %d months"
+msgstr "No internal audit completed in the last %d months"
+
+msgid "Plan an internal audit and record it as completed with its actual date."
+msgstr "Plan an internal audit and record it as completed with its actual date."
+
+#, php-format
+msgid "No management review held in the last %d months"
+msgstr "No management review held in the last %d months"
+
+msgid "Hold a management review and record it as completed with its date and decisions."
+msgstr "Hold a management review and record it as completed with its date and decisions."
+
+msgid "Nonconformities closed without a corrective action"
+msgstr "Nonconformities closed without a corrective action"
+
+msgid "Open the nonconformity and describe the corrective action taken; reopen it if nothing was done."
+msgstr "Open the nonconformity and describe the corrective action taken; reopen it if nothing was done."
+
+#, php-format
+msgid "Open nonconformities overdue by more than %d days"
+msgstr "Open nonconformities overdue by more than %d days"
+
+msgid "Open nonconformities past their due date"
+msgstr "Open nonconformities past their due date"
+
+msgid "Complete the corrective action and close the nonconformity, or set a new due date."
+msgstr "Complete the corrective action and close the nonconformity, or set a new due date."
+
+#, php-format
+msgid "Supplier risks whose review is overdue by more than %d days"
+msgstr "Supplier risks whose review is overdue by more than %d days"
+
+msgid "Supplier risks whose review date has passed or is missing"
+msgstr "Supplier risks whose review date has passed or is missing"
+
+msgid "Reassess the supplier (questionnaire, contracts), then set the next review date."
+msgstr "Reassess the supplier (questionnaire, contracts), then set the next review date."
+
+msgid "Business processes without a recovery time objective (RTO)"
+msgstr "Business processes without a recovery time objective (RTO)"
+
+msgid "Open the process and set its RTO, ideally after its business impact analysis (BIA)."
+msgstr "Open the process and set its RTO, ideally after its business impact analysis (BIA)."
+
+msgid "Processing activities whose required DPIA is not done"
+msgstr "Processing activities whose required DPIA is not done"
+
+msgid "Open the processing activity, \"DPIA\" tab: carry out the DPIA, then mark it as done."
+msgstr "Open the processing activity, \"DPIA\" tab: carry out the DPIA, then mark it as done."
+
+#, php-format
+msgid "Compliance obligations whose review is overdue by more than %d days"
+msgstr "Compliance obligations whose review is overdue by more than %d days"
+
+msgid "Compliance obligations past their review date"
+msgstr "Compliance obligations past their review date"
+
+msgid "Check the compliance status of the obligation, then set the next review date."
+msgstr "Check the compliance status of the obligation, then set the next review date."
+
+#, php-format
+msgid "Access review campaigns overdue by more than %d days"
+msgstr "Access review campaigns overdue by more than %d days"
+
+msgid "Access review campaigns past their due date"
+msgstr "Access review campaigns past their due date"
+
+msgid "Remind the reviewers, then close the campaign once every access has been reviewed."
+msgstr "Remind the reviewers, then close the campaign once every access has been reviewed."
+
+msgid "Tolerance (days)"
+msgstr "Tolerance (days)"
+
+msgid "Period (months)"
+msgstr "Period (months)"
+
+msgid "Minimum length (characters)"
+msgstr "Minimum length (characters)"
+
+msgid "From risk level"
+msgstr "From risk level"
+
+#, php-format
+msgid "%1$s (ID %2$d)"
+msgstr "%1$s (ID %2$d)"
+
+msgid "No review date"
+msgstr "No review date"
+
+#, php-format
+msgid "Review was due on %s"
+msgstr "Review was due on %s"
+
+#, php-format
+msgid "Due on %s"
+msgstr "Due on %s"
+
+#, php-format
+msgid "Level: %s"
+msgstr "Level: %s"
+
+#, php-format
+msgid "Accepted at level %s, no signed acceptance"
+msgstr "Accepted at level %s, no signed acceptance"
+
+#, php-format
+msgid "Justification too short: \"%s\""
+msgstr "Justification too short: \"%s\""
+
+msgid "No linked risk"
+msgstr "No linked risk"
+
+msgid "No valid document, never tested"
+msgstr "No valid document, never tested"
+
+#, php-format
+msgid "No valid document, last test on %s"
+msgstr "No valid document, last test on %s"
+
+msgid "Statement of Applicability"
+msgstr "Statement of Applicability"
+
+#, php-format
+msgid "Changed since version %s was approved"
+msgstr "Changed since version %s was approved"
+
+#, php-format
+msgid "Action \"%1$s\" due on %2$s"
+msgstr "Action \"%1$s\" due on %2$s"
+
+#, php-format
+msgid "Ended on %s"
+msgstr "Ended on %s"
+
+#, php-format
+msgid "Valid until %s"
+msgstr "Valid until %s"
+
+msgid "None recorded as completed"
+msgstr "None recorded as completed"
+
+#, php-format
+msgid "Last one on %s"
+msgstr "Last one on %s"
+
+msgid "Closed without a corrective action"
+msgstr "Closed without a corrective action"
+
+msgid "DPIA required, not done"
+msgstr "DPIA required, not done"
+
+msgid "ISMS consistency checks: audit readiness"
+msgstr "ISMS consistency checks: audit readiness"
+
+msgid "Before an audit, this page gathers the inconsistencies of your security management system: risks without an owner, controls without evidence, expired evidence, policies not reviewed, nonconformities closed without action, and more."
+msgstr "Before an audit, this page gathers the inconsistencies of your security management system: risks without an owner, controls without evidence, expired evidence, policies not reviewed, nonconformities closed without action, and more."
+
+msgid "Start with the high severity gaps. Click an item to open it, fix it, then come back: the page is computed again each time. Nothing is changed automatically. Export the list (CSV or PDF) to follow the preparation of the audit."
+msgstr "Start with the high severity gaps. Click an item to open it, fix it, then come back: the page is computed again each time. Nothing is changed automatically. Export the list (CSV or PDF) to follow the preparation of the audit."
+
+msgid "Area"
+msgstr "Area"
+
+msgid "Clause"
+msgstr "Clause"
+
+msgid "How to fix"
+msgstr "How to fix"
+
+msgid "ISMS consistency gaps to fix before the audit"
+msgstr "ISMS consistency gaps to fix before the audit"
+
+msgid "ISMS consistency gaps"
+msgstr "ISMS consistency gaps"
+
+msgid "Consistency score"
+msgstr "Consistency score"
+
+msgid "Nothing to check yet: no rule could examine any item."
+msgstr "Nothing to check yet: no rule could examine any item."
+
+msgid "No gap: ready for the audit"
+msgstr "No gap: ready for the audit"
+
+#, php-format
+msgid "Gaps to fix: %d"
+msgstr "Gaps to fix: %d"
+
+msgid "Share of the checked items without a gap, weighted by severity (high counts three times, medium twice)."
+msgstr "Share of the checked items without a gap, weighted by severity (high counts three times, medium twice)."
+
+msgid "Gaps by severity"
+msgstr "Gaps by severity"
+
+msgid "Show only this severity"
+msgstr "Show only this severity"
+
+#, php-format
+msgid "Rules checked: %d"
+msgstr "Rules checked: %d"
+
+#, php-format
+msgid "Disabled in the configuration: %d"
+msgstr "Disabled in the configuration: %d"
+
+msgid "Your profile cannot read the items these rules check (for example the risk register or the processing register)."
+msgstr "Your profile cannot read the items these rules check (for example the risk register or the processing register)."
+
+#, php-format
+msgid "Outside your rights: %d"
+msgstr "Outside your rights: %d"
+
+msgid "Export the gaps (CSV)"
+msgstr "Export the gaps (CSV)"
+
+msgid "Audit readiness report (PDF)"
+msgstr "Audit readiness report (PDF)"
+
+msgid "Rules and thresholds"
+msgstr "Rules and thresholds"
+
+msgid "The trend builds up month after month: each time you open this page, the result of the month is recorded for you and your current entity."
+msgstr "The trend builds up month after month: each time you open this page, the result of the month is recorded for you and your current entity."
+
+msgid "All areas"
+msgstr "All areas"
+
+msgid "All severities"
+msgstr "All severities"
+
+msgid "All rules"
+msgstr "All rules"
+
+msgid "Show everything"
+msgstr "Show everything"
+
+msgid "No rule matches these filters."
+msgstr "No rule matches these filters."
+
+msgid "No rule can be checked with your rights, or every rule is disabled."
+msgstr "No rule can be checked with your rights, or every rule is disabled."
+
+#, php-format
+msgid "ISO 27001 %s"
+msgstr "ISO 27001 %s"
+
+#, php-format
+msgid "Gaps: %d"
+msgstr "Gaps: %d"
+
+msgid "Consistent"
+msgstr "Consistent"
+
+msgid "Change since the previous month"
+msgstr "Change since the previous month"
+
+#, php-format
+msgid "OK (%d checked)"
+msgstr "OK (%d checked)"
+
+msgid "Nothing to check"
+msgstr "Nothing to check"
+
+#, php-format
+msgid "Items to fix (%d)"
+msgstr "Items to fix (%d)"
+
+#, php-format
+msgid "Only the first %1$d items are listed; the CSV export gives all %2$d."
+msgstr "Only the first %1$d items are listed; the CSV export gives all %2$d."
+
+msgid "Gaps to fix"
+msgstr "Gaps to fix"
+
+msgid "Rules checked"
+msgstr "Rules checked"
+
+msgid "Exported by"
+msgstr "Exported by"
+
+msgid "Only the items the person who exported this report can read are counted. Nothing has been modified: each gap is fixed from the item concerned."
+msgstr "Only the items the person who exported this report can read are counted. Nothing has been modified: each gap is fixed from the item concerned."
+
+msgid "Untick a rule that does not apply to your organisation: it is no longer checked nor counted in the score. The thresholds set how strict each rule is. Nothing is ever modified by these checks."
+msgstr "Untick a rule that does not apply to your organisation: it is no longer checked nor counted in the score. The thresholds set how strict each rule is. Nothing is ever modified by these checks."
+
+msgid "Open the consistency checks"
+msgstr "Open the consistency checks"
+
+msgid "Threshold"
+msgstr "Threshold"

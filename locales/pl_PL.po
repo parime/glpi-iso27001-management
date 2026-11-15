@@ -16333,3 +16333,406 @@ msgstr "Dodaje do incydentów bezpieczeństwa terminy zgłoszeń z aktu o cybero
 
 msgid "Regulatory notification to make"
 msgstr "Zgłoszenie regulacyjne do wykonania"
+
+msgid "ISMS consistency checks"
+msgstr "Kontrole spójności SZBI"
+
+msgid "Policies and roles"
+msgstr "Polityki i role"
+
+msgid "Risk treatment and Statement of Applicability"
+msgstr "Postępowanie z ryzykiem i deklaracja stosowania"
+
+msgid "Evidence and monitoring"
+msgstr "Dowody i monitorowanie"
+
+msgid "Nonconformities and corrective actions"
+msgstr "Niezgodności i działania korygujące"
+
+msgid "Annex A operations"
+msgstr "Funkcjonowanie zabezpieczeń z załącznika A"
+
+#, php-format
+msgid "Approved policies whose review is overdue by more than %d days"
+msgstr "Zatwierdzone polityki, których przegląd jest opóźniony o ponad %d dni"
+
+msgid "Approved policies whose review date has passed or is missing"
+msgstr "Zatwierdzone polityki z minioną lub brakującą datą przeglądu"
+
+msgid "Open the policy, review it with its owner, then set the next review date (and a new version if it changed)."
+msgstr "Otwórz politykę, przejrzyj ją z właścicielem, a następnie ustaw datę kolejnego przeglądu (oraz nową wersję, jeśli uległa zmianie)."
+
+msgid "Policies without an owner"
+msgstr "Polityki bez właściciela"
+
+msgid "Open the policy and choose the person responsible for keeping it up to date."
+msgstr "Otwórz politykę i wybierz osobę odpowiedzialną za jej aktualizowanie."
+
+msgid "Open risks without an owner"
+msgstr "Otwarte ryzyka bez właściciela"
+
+msgid "Open the risk and choose its owner: the person accountable for the risk and its treatment."
+msgstr "Otwórz ryzyko i wybierz jego właściciela: osobę odpowiedzialną za ryzyko i postępowanie z nim."
+
+#, php-format
+msgid "Open risks whose review is overdue by more than %d days"
+msgstr "Otwarte ryzyka, których przegląd jest opóźniony o ponad %d dni"
+
+msgid "Open risks whose review date has passed or is missing"
+msgstr "Otwarte ryzyka z minioną lub brakującą datą przeglądu"
+
+msgid "Reassess the risk with its owner (probability, impact, treatment), then set the next review date."
+msgstr "Oceń ponownie ryzyko z właścicielem (prawdopodobieństwo, skutek, postępowanie), a następnie ustaw datę kolejnego przeglądu."
+
+#, php-format
+msgid "Open risks of level %s or above without a treatment decision"
+msgstr "Otwarte ryzyka poziomu %s lub wyższego bez decyzji o postępowaniu"
+
+msgid "Open the risk and choose a treatment (mitigate, transfer, avoid or accept) with its justification."
+msgstr "Otwórz ryzyko i wybierz sposób postępowania (ograniczenie, przeniesienie, unikanie lub akceptacja) wraz z uzasadnieniem."
+
+#, php-format
+msgid "Risks of level %s or above accepted without a formal approval"
+msgstr "Ryzyka poziomu %s lub wyższego zaakceptowane bez formalnego zatwierdzenia"
+
+msgid "Have the acceptance signed by the risk owner or management: save the risk again with the \"Accept\" treatment and its justification, or choose another treatment."
+msgstr "Poproś właściciela ryzyka lub kierownictwo o podpisanie akceptacji: zapisz ponownie ryzyko z postępowaniem „Akceptuj” i uzasadnieniem albo wybierz inne postępowanie."
+
+#, php-format
+msgid "Excluded or partially applicable controls with a justification under %d characters"
+msgstr "Zabezpieczenia wyłączone lub częściowo stosowane z uzasadnieniem krótszym niż %d znaków"
+
+msgid "Open the control and explain why it is excluded (no such activity, risk accepted, covered elsewhere): the auditor checks every exclusion."
+msgstr "Otwórz zabezpieczenie i wyjaśnij, dlaczego jest wyłączone (brak takiej działalności, ryzyko zaakceptowane, pokryte gdzie indziej): audytor sprawdza każde wyłączenie."
+
+msgid "Applicable controls linked to no risk"
+msgstr "Stosowane zabezpieczenia niepowiązane z żadnym ryzykiem"
+
+msgid "Link the control to the risks it treats (\"Risks\" tab of the control, or \"Controls\" tab of the risk): it justifies its inclusion in the SoA."
+msgstr "Powiąż zabezpieczenie z ryzykami, którym przeciwdziała (karta „Ryzyka” zabezpieczenia lub karta „Zabezpieczenia” ryzyka): uzasadnia to jego obecność w SoA."
+
+msgid "Statement of Applicability not approved in its current version"
+msgstr "Deklaracja stosowania niezatwierdzona w obecnej wersji"
+
+msgid "Open \"SoA approval\" and request the approval of the current version by management."
+msgstr "Otwórz „Zatwierdzenie SoA” i poproś kierownictwo o zatwierdzenie obecnej wersji."
+
+#, php-format
+msgid "Risk treatment actions overdue by more than %d days"
+msgstr "Działania postępowania z ryzykiem opóźnione o ponad %d dni"
+
+msgid "Open the risk, \"Risk treatment actions\" tab: mark the action as done, or set a realistic new due date."
+msgstr "Otwórz ryzyko, karta „Działania postępowania z ryzykiem”: oznacz działanie jako wykonane lub ustaw nowy realny termin."
+
+msgid "Approved waivers past their end date"
+msgstr "Zatwierdzone wyjątki po dacie zakończenia"
+
+msgid "Open the waiver: close it, or reassess it and set a new end date."
+msgstr "Otwórz wyjątek: zamknij go albo oceń ponownie i ustaw nową datę zakończenia."
+
+#, php-format
+msgid "Implemented controls without valid evidence nor a test in the last %d months"
+msgstr "Wdrożone zabezpieczenia bez ważnego dowodu ani testu w ciągu ostatnich %d miesięcy"
+
+msgid "Attach a document proving the control works (\"Documents\" tab), or record an effectiveness test."
+msgstr "Dołącz dokument potwierdzający działanie zabezpieczenia (karta „Dokumenty”) lub zarejestruj test skuteczności."
+
+msgid "Expired evidence still attached"
+msgstr "Wygasłe dowody nadal powiązane"
+
+msgid "Open the item, \"Evidence validities\" tab: attach an up-to-date document and remove or renew the expired one."
+msgstr "Otwórz element, karta „Ważność dowodów”: dołącz aktualny dokument i usuń lub odnów ten, który wygasł."
+
+#, php-format
+msgid "No internal audit completed in the last %d months"
+msgstr "Brak zakończonego audytu wewnętrznego w ciągu ostatnich %d miesięcy"
+
+msgid "Plan an internal audit and record it as completed with its actual date."
+msgstr "Zaplanuj audyt wewnętrzny i zarejestruj go jako zakończony z faktyczną datą."
+
+#, php-format
+msgid "No management review held in the last %d months"
+msgstr "Brak przeglądu zarządzania w ciągu ostatnich %d miesięcy"
+
+msgid "Hold a management review and record it as completed with its date and decisions."
+msgstr "Przeprowadź przegląd zarządzania i zarejestruj go jako zakończony wraz z datą i decyzjami."
+
+msgid "Nonconformities closed without a corrective action"
+msgstr "Niezgodności zamknięte bez działania korygującego"
+
+msgid "Open the nonconformity and describe the corrective action taken; reopen it if nothing was done."
+msgstr "Otwórz niezgodność i opisz podjęte działanie korygujące; otwórz ją ponownie, jeśli nic nie zrobiono."
+
+#, php-format
+msgid "Open nonconformities overdue by more than %d days"
+msgstr "Otwarte niezgodności opóźnione o ponad %d dni"
+
+msgid "Open nonconformities past their due date"
+msgstr "Otwarte niezgodności po terminie"
+
+msgid "Complete the corrective action and close the nonconformity, or set a new due date."
+msgstr "Zakończ działanie korygujące i zamknij niezgodność albo ustaw nowy termin."
+
+#, php-format
+msgid "Supplier risks whose review is overdue by more than %d days"
+msgstr "Ryzyka dostawców, których przegląd jest opóźniony o ponad %d dni"
+
+msgid "Supplier risks whose review date has passed or is missing"
+msgstr "Ryzyka dostawców z minioną lub brakującą datą przeglądu"
+
+msgid "Reassess the supplier (questionnaire, contracts), then set the next review date."
+msgstr "Oceń ponownie dostawcę (kwestionariusz, umowy), a następnie ustaw datę kolejnego przeglądu."
+
+msgid "Business processes without a recovery time objective (RTO)"
+msgstr "Procesy biznesowe bez docelowego czasu odtworzenia (RTO)"
+
+msgid "Open the process and set its RTO, ideally after its business impact analysis (BIA)."
+msgstr "Otwórz proces i ustaw jego RTO, najlepiej po analizie wpływu na działalność (BIA)."
+
+msgid "Processing activities whose required DPIA is not done"
+msgstr "Czynności przetwarzania, dla których nie wykonano wymaganej DPIA"
+
+msgid "Open the processing activity, \"DPIA\" tab: carry out the DPIA, then mark it as done."
+msgstr "Otwórz czynność przetwarzania, karta „DPIA”: przeprowadź ocenę skutków, a następnie oznacz ją jako wykonaną."
+
+#, php-format
+msgid "Compliance obligations whose review is overdue by more than %d days"
+msgstr "Zobowiązania zgodności, których przegląd jest opóźniony o ponad %d dni"
+
+msgid "Compliance obligations past their review date"
+msgstr "Zobowiązania zgodności po dacie przeglądu"
+
+msgid "Check the compliance status of the obligation, then set the next review date."
+msgstr "Sprawdź stan zgodności zobowiązania, a następnie ustaw datę kolejnego przeglądu."
+
+#, php-format
+msgid "Access review campaigns overdue by more than %d days"
+msgstr "Kampanie przeglądu dostępu opóźnione o ponad %d dni"
+
+msgid "Access review campaigns past their due date"
+msgstr "Kampanie przeglądu dostępu po terminie"
+
+msgid "Remind the reviewers, then close the campaign once every access has been reviewed."
+msgstr "Przypomnij weryfikatorom, a następnie zamknij kampanię, gdy wszystkie dostępy zostaną przejrzane."
+
+msgid "Tolerance (days)"
+msgstr "Tolerancja (dni)"
+
+msgid "Period (months)"
+msgstr "Okres (miesiące)"
+
+msgid "Minimum length (characters)"
+msgstr "Minimalna długość (znaki)"
+
+msgid "From risk level"
+msgstr "Od poziomu ryzyka"
+
+#, php-format
+msgid "%1$s (ID %2$d)"
+msgstr "%1$s (ID %2$d)"
+
+msgid "No review date"
+msgstr "Brak daty przeglądu"
+
+#, php-format
+msgid "Review was due on %s"
+msgstr "Przegląd przypadał na %s"
+
+#, php-format
+msgid "Due on %s"
+msgstr "Termin: %s"
+
+#, php-format
+msgid "Level: %s"
+msgstr "Poziom: %s"
+
+#, php-format
+msgid "Accepted at level %s, no signed acceptance"
+msgstr "Zaakceptowane na poziomie %s, bez podpisanej akceptacji"
+
+#, php-format
+msgid "Justification too short: \"%s\""
+msgstr "Zbyt krótkie uzasadnienie: „%s”"
+
+msgid "No linked risk"
+msgstr "Brak powiązanego ryzyka"
+
+msgid "No valid document, never tested"
+msgstr "Brak ważnego dokumentu, nigdy nie testowano"
+
+#, php-format
+msgid "No valid document, last test on %s"
+msgstr "Brak ważnego dokumentu, ostatni test: %s"
+
+msgid "Statement of Applicability"
+msgstr "Deklaracja stosowania"
+
+#, php-format
+msgid "Changed since version %s was approved"
+msgstr "Zmieniona od zatwierdzenia wersji %s"
+
+#, php-format
+msgid "Action \"%1$s\" due on %2$s"
+msgstr "Działanie „%1$s” z terminem %2$s"
+
+#, php-format
+msgid "Ended on %s"
+msgstr "Zakończono %s"
+
+#, php-format
+msgid "Valid until %s"
+msgstr "Ważne do %s"
+
+msgid "None recorded as completed"
+msgstr "Żadnego nie zarejestrowano jako zakończone"
+
+#, php-format
+msgid "Last one on %s"
+msgstr "Ostatni: %s"
+
+msgid "Closed without a corrective action"
+msgstr "Zamknięta bez działania korygującego"
+
+msgid "DPIA required, not done"
+msgstr "DPIA wymagana, niewykonana"
+
+msgid "ISMS consistency checks: audit readiness"
+msgstr "Kontrole spójności SZBI: gotowość do audytu"
+
+msgid "Before an audit, this page gathers the inconsistencies of your security management system: risks without an owner, controls without evidence, expired evidence, policies not reviewed, nonconformities closed without action, and more."
+msgstr "Przed audytem ta strona zbiera niespójności systemu zarządzania bezpieczeństwem: ryzyka bez właściciela, zabezpieczenia bez dowodów, wygasłe dowody, nieprzejrzane polityki, niezgodności zamknięte bez działania i inne."
+
+msgid "Start with the high severity gaps. Click an item to open it, fix it, then come back: the page is computed again each time. Nothing is changed automatically. Export the list (CSV or PDF) to follow the preparation of the audit."
+msgstr "Zacznij od odchyleń o wysokiej istotności. Kliknij element, aby go otworzyć, popraw go i wróć: strona jest przeliczana za każdym razem. Nic nie jest zmieniane automatycznie. Wyeksportuj listę (CSV lub PDF), aby śledzić przygotowania do audytu."
+
+msgid "Area"
+msgstr "Obszar"
+
+msgid "Clause"
+msgstr "Punkt"
+
+msgid "How to fix"
+msgstr "Jak poprawić"
+
+msgid "ISMS consistency gaps to fix before the audit"
+msgstr "Niespójności SZBI do poprawienia przed audytem"
+
+msgid "ISMS consistency gaps"
+msgstr "Niespójności SZBI"
+
+msgid "Consistency score"
+msgstr "Wynik spójności"
+
+msgid "Nothing to check yet: no rule could examine any item."
+msgstr "Na razie nic do sprawdzenia: żadna reguła nie mogła zbadać żadnego elementu."
+
+msgid "No gap: ready for the audit"
+msgstr "Brak odchyleń: gotowe do audytu"
+
+#, php-format
+msgid "Gaps to fix: %d"
+msgstr "Odchylenia do poprawienia: %d"
+
+msgid "Share of the checked items without a gap, weighted by severity (high counts three times, medium twice)."
+msgstr "Odsetek sprawdzonych elementów bez odchyleń, ważony istotnością (wysoka liczy się trzykrotnie, średnia dwukrotnie)."
+
+msgid "Gaps by severity"
+msgstr "Odchylenia według istotności"
+
+msgid "Show only this severity"
+msgstr "Pokaż tylko tę istotność"
+
+#, php-format
+msgid "Rules checked: %d"
+msgstr "Sprawdzone reguły: %d"
+
+#, php-format
+msgid "Disabled in the configuration: %d"
+msgstr "Wyłączone w konfiguracji: %d"
+
+msgid "Your profile cannot read the items these rules check (for example the risk register or the processing register)."
+msgstr "Twój profil nie może odczytać elementów sprawdzanych przez te reguły (na przykład rejestru ryzyk lub rejestru czynności przetwarzania)."
+
+#, php-format
+msgid "Outside your rights: %d"
+msgstr "Poza Twoimi uprawnieniami: %d"
+
+msgid "Export the gaps (CSV)"
+msgstr "Eksportuj odchylenia (CSV)"
+
+msgid "Audit readiness report (PDF)"
+msgstr "Raport gotowości do audytu (PDF)"
+
+msgid "Rules and thresholds"
+msgstr "Reguły i progi"
+
+msgid "The trend builds up month after month: each time you open this page, the result of the month is recorded for you and your current entity."
+msgstr "Trend powstaje miesiąc po miesiącu: przy każdym otwarciu tej strony wynik miesiąca jest zapisywany dla Ciebie i Twojej bieżącej jednostki."
+
+msgid "All areas"
+msgstr "Wszystkie obszary"
+
+msgid "All severities"
+msgstr "Wszystkie istotności"
+
+msgid "All rules"
+msgstr "Wszystkie reguły"
+
+msgid "Show everything"
+msgstr "Pokaż wszystko"
+
+msgid "No rule matches these filters."
+msgstr "Żadna reguła nie pasuje do tych filtrów."
+
+msgid "No rule can be checked with your rights, or every rule is disabled."
+msgstr "Żadnej reguły nie można sprawdzić z Twoimi uprawnieniami albo wszystkie reguły są wyłączone."
+
+#, php-format
+msgid "ISO 27001 %s"
+msgstr "ISO 27001 %s"
+
+#, php-format
+msgid "Gaps: %d"
+msgstr "Odchylenia: %d"
+
+msgid "Consistent"
+msgstr "Spójne"
+
+msgid "Change since the previous month"
+msgstr "Zmiana od poprzedniego miesiąca"
+
+#, php-format
+msgid "OK (%d checked)"
+msgstr "OK (sprawdzono: %d)"
+
+msgid "Nothing to check"
+msgstr "Nic do sprawdzenia"
+
+#, php-format
+msgid "Items to fix (%d)"
+msgstr "Elementy do poprawienia (%d)"
+
+#, php-format
+msgid "Only the first %1$d items are listed; the CSV export gives all %2$d."
+msgstr "Wyświetlono tylko pierwsze %1$d elementów; eksport CSV zawiera wszystkie %2$d."
+
+msgid "Gaps to fix"
+msgstr "Odchylenia do poprawienia"
+
+msgid "Rules checked"
+msgstr "Sprawdzone reguły"
+
+msgid "Exported by"
+msgstr "Wyeksportował(a)"
+
+msgid "Only the items the person who exported this report can read are counted. Nothing has been modified: each gap is fixed from the item concerned."
+msgstr "Liczone są tylko elementy, które osoba eksportująca raport może odczytać. Niczego nie zmieniono: każde odchylenie poprawia się w danym elemencie."
+
+msgid "Untick a rule that does not apply to your organisation: it is no longer checked nor counted in the score. The thresholds set how strict each rule is. Nothing is ever modified by these checks."
+msgstr "Odznacz regułę, która nie dotyczy Twojej organizacji: przestanie być sprawdzana i liczona w wyniku. Progi określają, jak rygorystyczna jest każda reguła. Te kontrole nigdy niczego nie zmieniają."
+
+msgid "Open the consistency checks"
+msgstr "Otwórz kontrole spójności"
+
+msgid "Threshold"
+msgstr "Próg"
