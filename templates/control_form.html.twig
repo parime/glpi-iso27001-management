@@ -176,4 +176,217 @@
       {% endset %}
       {{ fields.htmlField('', wazuh_html, __('Wazuh coverage', 'grcmanager'), {'full_width': true}) }}
    {% endif %}
+
+   {# Docker Inventory #10 : preuves du plugin Inventaire Docker, lues par son API ; ligne absente sans lui. #}
+   {% if docker is not null %}
+      {% set docker_html %}
+         <div id="grc-docker-evidence">
+         {% if docker.inventory is defined %}
+            {% set inv = docker.inventory %}
+            <div class="mb-1" data-docker-section="inventory">
+               <span class="badge bg-blue-lt me-1"><i class="ti ti-box me-1"></i>
+                  {{- __('%d service(s)', 'grcmanager')|format(inv.services) }}</span>
+               <span class="badge bg-azure-lt me-1"><i class="ti ti-stack-2 me-1"></i>
+                  {{- __('%d stack(s)', 'grcmanager')|format(inv.stacks) }}</span>
+               <span class="badge bg-cyan-lt me-1"><i class="ti ti-server me-1"></i>
+                  {{- __('%d node(s)', 'grcmanager')|format(inv.nodes) }}</span>
+               {% if inv.retired_services > 0 %}
+                  <span class="badge bg-secondary-lt me-1"><i class="ti ti-archive me-1"></i>
+                     {{- __('%d retired', 'grcmanager')|format(inv.retired_services) }}</span>
+               {% endif %}
+               {% if inv.services_url %}<a href="{{ inv.services_url }}">{{ __('View services', 'grcmanager') }}</a>{% endif %}
+            </div>
+            {% if inv.connections is not empty %}
+               <ul class="mb-1">
+                  {% for c in inv.connections %}
+                     <li>
+                        {% if c.url %}<a href="{{ c.url }}">{{ c.name }}</a>{% else %}{{ c.name }}{% endif %}
+                        <span class="text-muted">({{ c.type_label }})</span> :
+                        {% if c.freshness == 'never' %}
+                           <span class="badge bg-red-lt"><i class="ti ti-clock-x me-1"></i>
+                              {{- __('no successful import yet', 'grcmanager') }}</span>
+                           {% if c.last_status_label %}
+                              <span class="text-muted">{{ __('last reading: %s', 'grcmanager')|format(c.last_status_label) }}</span>
+                           {% endif %}
+                        {% elseif c.freshness == 'stale' %}
+                           <span class="badge bg-yellow-lt"
+                                 title="{{ __('More than 48 hours ago: the inventory may be out of date.', 'grcmanager') }}">
+                              <i class="ti ti-clock-exclamation me-1"></i>
+                              {{- __('last successful import: %s', 'grcmanager')|format(c.last_success_date|formatted_datetime) }}</span>
+                        {% else %}
+                           <span class="badge bg-green-lt"><i class="ti ti-clock-check me-1"></i>
+                              {{- __('last successful import: %s', 'grcmanager')|format(c.last_success_date|formatted_datetime) }}</span>
+                        {% endif %}
+                     </li>
+                  {% endfor %}
+               </ul>
+            {% elseif not inv.can_view_connections %}
+               <small class="text-muted d-block">
+                  {{- __('The import dates of the connections are shown to the administrators of the Docker inventory.', 'grcmanager') -}}
+               </small>
+            {% endif %}
+         {% endif %}
+
+         {% if docker.gaps is defined %}
+            {% set gaps = docker.gaps %}
+            <div class="mb-1" data-docker-section="gaps"><strong>{{ __('Version gaps', 'grcmanager') }}</strong> :
+               {% for g in gaps.counts %}
+                  <span class="badge bg-{{ g.color }}-lt me-1"><i class="{{ g.icon }} me-1"></i>{{ g.label }} : {{ g.count }}</span>
+               {% endfor %}
+               {% if gaps.page_url %}<a href="{{ gaps.page_url }}">{{ __('View versions', 'grcmanager') }}</a>{% endif %}
+            </div>
+            {% if gaps.rows is not empty %}
+               <ul class="mb-1">
+                  {% for r in gaps.rows %}
+                     <li>
+                        {% if r.url %}<a href="{{ r.url }}">{{ r.service }}</a>{% else %}{{ r.service }}{% endif %}
+                        {% if r.stack %}<span class="text-muted">({{ r.stack }})</span>{% endif %} :
+                        <code>{{ r.image }}:{{ r.deployed_tag }}</code> <i class="ti ti-arrow-right"></i> <code>{{ r.latest_tag }}</code>
+                        <span class="badge bg-{{ r.gap.color }}-lt"><i class="{{ r.gap.icon }} me-1"></i>{{ r.gap.label }}</span>
+                     </li>
+                  {% endfor %}
+               </ul>
+               {% if gaps.total > gaps.rows|length %}
+                  <small class="text-muted d-block">
+                     {{- __('%1$d services to update: the %2$d most urgent are shown.', 'grcmanager')|format(gaps.total, gaps.rows|length) -}}
+                  </small>
+               {% endif %}
+            {% endif %}
+         {% endif %}
+
+         {% if docker.vulnerabilities is defined %}
+            {% set vul = docker.vulnerabilities %}
+            <div class="mb-1" data-docker-section="vulnerabilities">
+               <strong>{{ __('Image vulnerabilities (Harbor)', 'grcmanager') }}</strong> :
+               {% if not vul.has_harbor %}
+                  <span class="text-muted">{{ __('no Harbor connection: the images are not analysed', 'grcmanager') }}</span>
+               {% else %}
+                  {% for v in vul.counts %}
+                     {% if v.count > 0 %}
+                        <span class="badge bg-{{ v.color }}-lt me-1"><i class="{{ v.icon }} me-1"></i>{{ v.label }} : {{ v.count }}</span>
+                     {% endif %}
+                  {% endfor %}
+                  {% if vul.page_url %}<a href="{{ vul.page_url }}">{{ __('View Harbor images', 'grcmanager') }}</a>{% endif %}
+               {% endif %}
+            </div>
+            {% if vul.rows is not empty %}
+               <ul class="mb-1">
+                  {% for r in vul.rows %}
+                     <li>
+                        {% if r.url %}<a href="{{ r.url }}">{{ r.service }}</a>{% else %}{{ r.service }}{% endif %}
+                        <code>{{ r.image }}:{{ r.tag }}</code> :
+                        {% if r.critical > 0 %}
+                           <span class="badge bg-red-lt me-1"><i class="ti ti-alert-octagon me-1"></i>
+                              {{- __('%d critical', 'grcmanager')|format(r.critical) }}</span>
+                        {% endif %}
+                        {% if r.high > 0 %}
+                           <span class="badge bg-orange-lt me-1"><i class="ti ti-alert-triangle me-1"></i>
+                              {{- __('%d high', 'grcmanager')|format(r.high) }}</span>
+                        {% endif %}
+                     </li>
+                  {% endfor %}
+               </ul>
+            {% endif %}
+            {% if vul.has_harbor %}
+               <small class="form-hint d-block">
+                  {{- __('Services counted by the most severe vulnerability of the image they run.', 'grcmanager') -}}
+               </small>
+            {% endif %}
+         {% endif %}
+
+         {% if docker.configuration is defined %}
+            {% set conf = docker.configuration %}
+            <div class="mb-1" data-docker-section="configuration">
+               <span class="badge bg-blue-lt me-1"><i class="ti ti-settings me-1"></i>
+                  {{- __('%d service(s)', 'grcmanager')|format(conf.total) }}</span>
+               {% if conf.managed_share is null %}
+                  <span class="text-muted">{{ __('image origin not evaluated: no controlled registry declared', 'grcmanager') }}</span>
+               {% else %}
+                  {% set share_class = conf.managed_share >= 90 ? 'bg-green-lt' : (conf.managed_share >= 60 ? 'bg-yellow-lt' : 'bg-red-lt') %}
+                  <span class="badge {{ share_class }} me-1"><i class="ti ti-building-warehouse me-1"></i>
+                     {{- __('%1$d of %2$d images from a controlled registry (%3$s %%)', 'grcmanager')
+                        |format(conf.managed, conf.evaluated, conf.managed_share|number_format(1, ',')) }}</span>
+               {% endif %}
+               {% if conf.services_url %}<a href="{{ conf.services_url }}">{{ __('View services', 'grcmanager') }}</a>{% endif %}
+            </div>
+            {% if conf.rows is not empty %}
+               <div class="table-responsive mb-1">
+                  <table class="table table-sm table-vcenter mb-0">
+                     <thead>
+                        <tr>
+                           <th>{{ __('Service', 'grcmanager') }}</th>
+                           <th>{{ __('Image', 'grcmanager') }}</th>
+                           <th>{{ __('Origin', 'grcmanager') }}</th>
+                           <th>{{ __('Replicas', 'grcmanager') }}</th>
+                           <th>{{ __('Ports', 'grcmanager') }}</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        {% for r in conf.rows %}
+                           <tr>
+                              <td>
+                                 {% if r.url %}<a href="{{ r.url }}">{{ r.service }}</a>{% else %}{{ r.service }}{% endif %}
+                                 {% if r.stack %}<span class="text-muted">({{ r.stack }})</span>{% endif %}
+                              </td>
+                              <td>
+                                 <code>{{ r.image }}{% if r.tag %}:{{ r.tag }}{% endif %}</code>
+                                 {% if r.digest %}
+                                    <small class="d-block text-muted" title="{{ __('Fingerprint', 'grcmanager') }}">
+                                       <i class="ti ti-fingerprint me-1"></i>{{ r.digest }}</small>
+                                 {% endif %}
+                              </td>
+                              <td>
+                                 <span class="badge bg-{{ r.provenance.color }}-lt">
+                                    <i class="{{ r.provenance.icon }} me-1"></i>{{ r.provenance.label }}</span>
+                              </td>
+                              <td><span class="badge {{ r.replicas_ok ? 'bg-green-lt' : 'bg-yellow-lt' }}">{{ r.replicas }}</span></td>
+                              <td>
+                                 {% for p in r.ports %}<span class="badge bg-azure-lt me-1">{{ p }}</span>
+                                 {% else %}<span class="text-muted">-</span>{% endfor %}
+                              </td>
+                           </tr>
+                        {% endfor %}
+                     </tbody>
+                  </table>
+               </div>
+               {% if conf.total > conf.rows|length %}
+                  <small class="text-muted d-block">
+                     {{- __('%1$d services: the first %2$d are shown.', 'grcmanager')|format(conf.total, conf.rows|length) -}}
+                  </small>
+               {% endif %}
+            {% endif %}
+         {% endif %}
+
+         {% if docker.changes is defined %}
+            {% set chg = docker.changes %}
+            <div class="mb-1" data-docker-section="changes">
+               <span class="badge {{ chg.total > 0 ? 'bg-blue-lt' : 'bg-secondary-lt' }} me-1"><i class="ti ti-git-commit me-1"></i>
+                  {{- __('%1$d version change(s) observed over the last %2$d days', 'grcmanager')|format(chg.total, chg.days) }}</span>
+            </div>
+            {% if chg.rows is not empty %}
+               <ul class="mb-1">
+                  {% for r in chg.rows %}
+                     <li>
+                        <span class="text-muted">{{ r.date|formatted_datetime }}</span>
+                        {% if r.url %}<a href="{{ r.url }}">{{ r.service }}</a>{% else %}{{ r.service }}{% endif %}
+                        {% if r.stack %}<span class="text-muted">({{ r.stack }})</span>{% endif %} :
+                        <code>{{ r.old }}</code> <i class="ti ti-arrow-right"></i> <code>{{ r.new }}</code>
+                        <span class="badge bg-azure-lt">{{ r.kind_label }}</span>
+                     </li>
+                  {% endfor %}
+               </ul>
+               {% if chg.total > chg.rows|length %}
+                  <small class="text-muted d-block">
+                     {{- __('%1$d changes: the %2$d most recent are shown.', 'grcmanager')|format(chg.total, chg.rows|length) -}}
+                  </small>
+               {% endif %}
+            {% endif %}
+         {% endif %}
+         <small class="form-hint d-block mt-1">
+            {{- __('Read live from the Docker inventory plugin, on your active entities and within your rights there. Read only: nothing is changed.', 'grcmanager') -}}
+         </small>
+         </div>
+      {% endset %}
+      {{ fields.htmlField('', docker_html, __('Docker inventory evidence', 'grcmanager'), {'full_width': true}) }}
+   {% endif %}
 {% endblock %}

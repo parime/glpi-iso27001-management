@@ -101,6 +101,13 @@ classification fields merged directly onto it.
 - With the [Wazuh](https://github.com/initiativa/wazuh) plugin (optional, read only): active agents
   and share of computers covered as evidence for controls A.8.16 and A.8.7, and a "Wazuh coverage"
   dashboard card. Without the plugin, nothing changes.
+- With the [Docker Inventory](https://github.com/parime/glpi-docker-inventory) plugin (optional,
+  read only): services, stacks, nodes and the last successful import of each connection on A.5.9;
+  version gaps and Harbor image vulnerabilities on A.8.8; service configuration and share of images
+  coming from a controlled registry on A.8.9; version changes of the last 90 days on A.8.32. The
+  vulnerable images (critical or high) also appear on the park vulnerabilities page. You only see
+  what you see in the Docker inventory (rights, active entities). Without the plugin, nothing
+  changes.
 
 **Security incidents**
 - A full ITIL object in the Assistance menu (actors, workflow, tasks, notifications, CVE

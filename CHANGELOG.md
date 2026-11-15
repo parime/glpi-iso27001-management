@@ -7,6 +7,21 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Added
+
+- **Preuves de l'inventaire Docker** ([parime/glpi-docker-inventory#10](https://github.com/parime/glpi-docker-inventory/issues/10),
+  conception #179) : nouvelle source de preuves facultative, active seulement si le plugin
+  Inventaire Docker (version avec son API de lecture) est installé et activé. Sur la fiche des
+  mesures : A.5.9 (services, stacks et nœuds inventoriés, dernier import réussi de chaque connexion,
+  signalé s'il date de plus de 48 heures), A.8.8 (écarts de version correctif, mineure et majeure ;
+  vulnérabilités des images Harbor par gravité), A.8.9 (image, tag, empreinte, réplicas et ports
+  des services ; part des images venant d'un registre maîtrisé) et A.8.32 (changements de version
+  des 90 derniers jours). Les images déployées avec des vulnérabilités critiques ou hautes
+  rejoignent la page des vulnérabilités du parc. Lecture seule par l'API du plugin : on ne voit que
+  ce que l'on voit dans l'inventaire Docker (droit de lecture des services, entités actives),
+  chaque ligne étant revérifiée ; aucun ticket, statut ni droit modifié. Sans le plugin, rien ne
+  change et aucune erreur n'apparaît.
+
 ### Changed
 
 - CI : contrôles de sécurité communs v1.7.1 (exceptions de menus de la charte, correction du jeu de données du contrôle de désinstallation).
