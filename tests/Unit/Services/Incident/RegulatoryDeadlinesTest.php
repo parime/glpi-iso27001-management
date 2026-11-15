@@ -206,7 +206,7 @@ final class RegulatoryDeadlinesTest extends TestCase
         ]);
 
         self::assertSame(RegulatoryDeadlines::STATUS_DONE, $rows['dora_initial']['status']);
-        self::assertSame('2026-10-21 11:00:00', $rows['dora_intermediate']['due'], '72 h après la notification initiale');
+        self::assertSame('2026-10-21 11:00:00', $rows['dora_intermediate']['due'], '72 h après l\'initiale');
         self::assertSame('2026-11-20 15:00:00', $rows['dora_final']['due'], 'un mois après le rapport intermédiaire');
     }
 
@@ -214,7 +214,8 @@ final class RegulatoryDeadlinesTest extends TestCase
     {
         $classified = ['dora_classified_at' => '2026-10-18 08:00:00'];
         $soon = (int) strtotime('2026-10-18 11:30:00');
-        self::assertSame(RegulatoryDeadlines::STATUS_DUE_SOON, self::dora($classified, $soon)['dora_initial']['status']);
+        $status = self::dora($classified, $soon)['dora_initial']['status'];
+        self::assertSame(RegulatoryDeadlines::STATUS_DUE_SOON, $status);
         $late = (int) strtotime('2026-10-18 12:01:00');
         self::assertSame(RegulatoryDeadlines::STATUS_OVERDUE, self::dora($classified, $late)['dora_initial']['status']);
         self::assertSame(

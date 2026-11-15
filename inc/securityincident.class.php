@@ -965,7 +965,10 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
             'nis2_final_report'  => __('NIS2: final report (1 month)', 'grcmanager'),
             'gdpr_notification'  => __('GDPR: notification to the supervisory authority (72 h)', 'grcmanager'),
             // Issue #600 : règlement délégué (UE) 2025/301, article 5 ; règlement (UE) 2024/2847, article 14.
-            'dora_initial'       => __('DORA: initial notification (4 h after classification, 24 h at most)', 'grcmanager'),
+            'dora_initial'       => __(
+                'DORA: initial notification (4 h after classification, 24 h at most)',
+                'grcmanager'
+            ),
             'dora_intermediate'  => __('DORA: intermediate report (72 h)', 'grcmanager'),
             'dora_final'         => __('DORA: final report (1 month)', 'grcmanager'),
             'cra_early_warning'  => __('CRA: early warning (24 h)', 'grcmanager'),

@@ -204,7 +204,8 @@ final class SecurityIncidentDoraCraTest extends GrcmanagerIntegrationTestCase
         PluginGrcmanagerSecurityIncident::cronRegulatorydeadlines(new CronTask());
         $this->assertSame($before + 1, $count(), 'une seule alerte « proche »');
         $incident->getFromDB($id);
-        $this->assertSame(['dora_initial:due_soon'], json_decode((string) $incident->fields['regulatory_alerts'], true));
+        $alerts = json_decode((string) $incident->fields['regulatory_alerts'], true);
+        $this->assertSame(['dora_initial:due_soon'], $alerts);
         $this->assertSame(1, (int) $incident->fields['dora_major']);
     }
 

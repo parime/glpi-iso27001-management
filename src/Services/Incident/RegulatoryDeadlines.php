@@ -148,7 +148,9 @@ final class RegulatoryDeadlines
 
             if ($reason === self::REASON_BEFORE_APPLICATION) {
                 $status = self::STATUS_NOT_APPLICABLE;
-            } elseif ($key === 'gdpr_notification' && $doneAt === null && !empty($fields[self::GDPR_NOT_NOTIFIED_FLAG])) {
+            } elseif (
+                $key === 'gdpr_notification' && $doneAt === null && !empty($fields[self::GDPR_NOT_NOTIFIED_FLAG])
+            ) {
                 $status = self::STATUS_NOT_REQUIRED;
             } elseif ($doneAt !== null) {
                 $status = self::STATUS_DONE;
