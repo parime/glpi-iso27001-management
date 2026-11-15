@@ -474,7 +474,7 @@ final class SecurityIncidentCardProvider
     }
 
     /**
-     * Incidents en cours soumis à NIS2 ou au RGPD (une seule requête).
+     * Incidents en cours soumis à NIS2, au RGPD, à DORA ou au CRA (une seule requête).
      *
      * @return list<array<string, mixed>>
      */
@@ -484,21 +484,26 @@ final class SecurityIncidentCardProvider
 
         $table = PluginGrcmanagerSecurityIncident::getTable();
         $select = ["$table.id", "$table.name", "$table.date", "$table.nis2_applicable", "$table.personal_data_breach"];
+        // Issue #600 : cases et points de départ DORA / CRA.
+        foreach (['dora_major', 'cra_report_type', ...RegulatoryDeadlines::START_FIELDS] as $field) {
+            $select[] = "$table.$field";
+        }
         foreach (RegulatoryDeadlines::DEADLINES as [, , $doneField]) {
             $select[] = "$table.$doneField";
         }
 
         // Issue #620 : décisions motivées de ne pas notifier, inscrites au registre des violations.
-        return \GlpiPlugin\Grcmanager\DataBreach::withAuthorityDecisions(
+        // Issue #600 : DORA et CRA seulement si leur référentiel ou leur option est activé.
+        return PluginGrcmanagerSecurityIncident::regulatoryFieldsList(
             iterator_to_array($DB->request(['SELECT' => $select] + self::scope($params, [
                 ['NOT' => ["$table.status" => PluginGrcmanagerSecurityIncident::getClosedStatusArray()]],
-                ['OR' => ["$table.nis2_applicable" => 1, "$table.personal_data_breach" => 1]],
+                ['OR' => PluginGrcmanagerSecurityIncident::regulatedCriteria($table)],
             ])), false)
         );
     }
 
     /**
-     * Notifications NIS2 / RGPD non encore faites, la plus urgente d'abord.
+     * Notifications réglementaires (NIS2, RGPD, DORA, CRA) non encore faites, la plus urgente d'abord.
      *
      * @param list<array<string, mixed>> $incidents
      * @return list<array{id: int, name: string, key: string, due: string, status: string}>
@@ -559,7 +564,7 @@ final class SecurityIncidentCardProvider
     }
 
     /**
-     * Nombre d'échéances NIS2 / RGPD proches ou dépassées (carte de pilotage, issue #143).
+     * Nombre d'échéances réglementaires proches ou dépassées (carte de pilotage, issue #143).
      */
     public static function regulatoryDeadlinesAtRisk(array $params = []): int
     {

@@ -591,7 +591,8 @@ function plugin_grcmanager_pre_itil_info_section(array $params): void
     $labels = PluginGrcmanagerSecurityIncident::getRegulatoryLabels();
     $banners = [];
     // Issue #620 : décision motivée de ne pas notifier, inscrite au registre des violations.
-    $regulatoryFields = \GlpiPlugin\Grcmanager\DataBreach::withAuthorityDecision($item->fields);
+    // Issue #600 : DORA et CRA seulement si leur référentiel ou leur option est activé.
+    $regulatoryFields = PluginGrcmanagerSecurityIncident::regulatoryFields($item->fields);
     foreach (GlpiPlugin\Grcmanager\Services\Incident\RegulatoryDeadlines::banners($regulatoryFields) as $row) {
         $banners[] = $row + ['label' => $labels[$row['key']] ?? $row['key']];
     }
@@ -668,13 +669,18 @@ function plugin_grcmanager_post_itil_info_section(array $params): void
         'editable' => GlpiPlugin\Grcmanager\Services\Incident\IncidentPhases::EDITABLE,
     ]);
 
-    // Issue #128 : délais de notification réglementaires (NIS2, RGPD).
+    // Issue #128 : délais de notification réglementaires (NIS2, RGPD). Issue #600 : DORA, CRA.
     $renderer->display('@grcmanager/itil_regulatory_section.html.twig', [
         'item'        => $item,
         'rand'        => $rand,
         'deadlines'   => GlpiPlugin\Grcmanager\Services\Incident\RegulatoryDeadlines::compute(
-            \GlpiPlugin\Grcmanager\DataBreach::withAuthorityDecision($item->fields)
+            PluginGrcmanagerSecurityIncident::regulatoryFields($item->fields)
         ),
+        'dora_enabled' => \GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig::isEnabled(
+            \GlpiPlugin\Grcmanager\Services\Control\FrameworkSelection::DORA
+        ),
+        'cra_enabled'  => \GlpiPlugin\Grcmanager\Services\Incident\CraReportingConfig::isEnabled(),
+        'cra_types'    => PluginGrcmanagerSecurityIncident::getCraReportTypes(),
         // Issue #620 : fiche du registre des violations (droit RGPD), ou proposition de l'y inscrire.
         'breach'      => \GlpiPlugin\Grcmanager\DataBreach::canView()
             ? \GlpiPlugin\Grcmanager\DataBreach::incidentLink($item) : null,

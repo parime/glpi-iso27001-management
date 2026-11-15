@@ -1,6 +1,6 @@
 {# Issue #169 : rapport post-incident (enseignements tirés, A.5.27), archivé comme preuve #}
 {% include '@grcmanager/pdf/_pdf_style.html.twig' %}
-{% set outcomes = {'met': __('Met', 'grcmanager'), 'late': __('Overdue', 'grcmanager'), 'missing': __('Not notified', 'grcmanager')} %}
+{% set outcomes = {'met': __('Met', 'grcmanager'), 'late': __('Overdue', 'grcmanager'), 'missing': __('Not notified', 'grcmanager'), 'not_required': __('Not notified (decision recorded)', 'grcmanager'), 'waiting': __('Waiting for the corrective measure', 'grcmanager'), 'not_applicable': __('Not applicable', 'grcmanager')} %}
 
 <h2>{{ __('Summary', 'grcmanager') }}</h2>
 <table class="grcmanager-pdf-summary">
@@ -39,7 +39,7 @@
   <thead><tr><th>{{ __('Due date', 'grcmanager') }}</th><th>{{ __('Deadline', 'grcmanager') }}</th><th>{{ _x('feminine', 'Notified on', 'grcmanager') }}</th><th>{{ __('Outcome', 'grcmanager') }}</th></tr></thead>
   <tbody>
     {% for d in deadlines %}
-      <tr><td>{{ d.label }}</td><td>{{ d.due }}</td><td>{{ d.done_at ?: '-' }}</td><td>{{ outcomes[d.outcome] }}</td></tr>
+      <tr><td>{{ d.label }}</td><td>{{ d.due ?: '-' }}</td><td>{{ d.done_at ?: '-' }}</td><td>{{ outcomes[d.outcome] }}</td></tr>
     {% endfor %}
   </tbody>
 </table>

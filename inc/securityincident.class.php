@@ -18,6 +18,7 @@
 use Glpi\ContentTemplates\Parameters\CommonITILObjectParameters;
 use GlpiPlugin\Grcmanager\Compatibility\Base\SecurityIncidentBase;
 use GlpiPlugin\Grcmanager\Services\Incident\IncidentPhases;
+use GlpiPlugin\Grcmanager\Services\Incident\CraReportingConfig;
 use GlpiPlugin\Grcmanager\Services\Incident\RegulatoryDeadlines;
 use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentModuleConfig;
 use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentParameters;
@@ -686,7 +687,7 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
 
         // Issue #128 : cases « Soumis à NIS2 » / « Violation de données personnelles » et dates
         // auxquelles l'équipe a effectivement notifié (vide = pas encore).
-        foreach (['nis2_applicable', 'personal_data_breach', 'is_exercise'] as $flag) {
+        foreach (['nis2_applicable', 'personal_data_breach', 'is_exercise', 'dora_major'] as $flag) {
             if (array_key_exists($flag, $input)) {
                 $input[$flag] = empty($input[$flag]) ? 0 : 1;
             }
@@ -702,7 +703,20 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
                 }
             }
         }
-        foreach (RegulatoryDeadlines::DEADLINES as [, , $doneField]) {
+        // Issue #600 : type de signalement CRA (énumération fermée) et produit concerné.
+        if (array_key_exists('cra_report_type', $input)) {
+            $craType = (string) $input['cra_report_type'];
+            $input['cra_report_type'] = in_array($craType, RegulatoryDeadlines::CRA_TYPES, true) ? $craType : '';
+        }
+        if (array_key_exists('cra_product', $input)) {
+            $input['cra_product'] = mb_substr(trim((string) $input['cra_product']), 0, 255);
+        }
+        // Issue #600 : points de départ DORA / CRA, même saisie que les dates « notifié le ».
+        $dateFields = array_merge(
+            array_column(RegulatoryDeadlines::DEADLINES, 2),
+            RegulatoryDeadlines::START_FIELDS
+        );
+        foreach ($dateFields as $doneField) {
             if (!array_key_exists($doneField, $input)) {
                 continue;
             }
@@ -830,7 +844,55 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
             'datatype' => 'bool',
         ];
         $id = 228;
-        foreach (self::getRegulatoryLabels() as $key => $label) {
+        // Les quatre premières échéances (NIS2, RGPD) gardent leurs numéros 228 à 231.
+        foreach (array_slice(self::getRegulatoryLabels(), 0, 4, true) as $key => $label) {
+            $tab[] = [
+                'id'       => $id++,
+                'table'    => $this->getTable(),
+                'field'    => RegulatoryDeadlines::DEADLINES[$key][2],
+                'name'     => sprintf(__('%s: notified on', 'grcmanager'), $label),
+                'datatype' => 'datetime',
+            ];
+        }
+        // Issue #600 : DORA et CRA, numéros 260 et suivants.
+        $tab[] = [
+            'id'       => 260,
+            'table'    => $this->getTable(),
+            'field'    => 'dora_major',
+            'name'     => __('Major ICT-related incident (DORA)', 'grcmanager'),
+            'datatype' => 'bool',
+        ];
+        $tab[] = [
+            'id'       => 261,
+            'table'    => $this->getTable(),
+            'field'    => 'dora_classified_at',
+            'name'     => __('DORA: classified as major on', 'grcmanager'),
+            'datatype' => 'datetime',
+        ];
+        $tab[] = [
+            'id'         => 262,
+            'table'      => $this->getTable(),
+            'field'      => 'cra_report_type',
+            'name'       => __('CRA reporting', 'grcmanager'),
+            'datatype'   => 'specific',
+            'searchtype' => ['equals', 'notequals'],
+        ];
+        $tab[] = [
+            'id'       => 263,
+            'table'    => $this->getTable(),
+            'field'    => 'cra_product',
+            'name'     => __('CRA: product concerned', 'grcmanager'),
+            'datatype' => 'string',
+        ];
+        $tab[] = [
+            'id'       => 264,
+            'table'    => $this->getTable(),
+            'field'    => 'cra_fix_available_at',
+            'name'     => __('CRA: corrective measure available on', 'grcmanager'),
+            'datatype' => 'datetime',
+        ];
+        $id = 265;
+        foreach (array_slice(self::getRegulatoryLabels(), 4, null, true) as $key => $label) {
             $tab[] = [
                 'id'       => $id++,
                 'table'    => $this->getTable(),
@@ -902,7 +964,54 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
             'nis2_notification'  => __('NIS2: incident notification (72 h)', 'grcmanager'),
             'nis2_final_report'  => __('NIS2: final report (1 month)', 'grcmanager'),
             'gdpr_notification'  => __('GDPR: notification to the supervisory authority (72 h)', 'grcmanager'),
+            // Issue #600 : règlement délégué (UE) 2025/301, article 5 ; règlement (UE) 2024/2847, article 14.
+            'dora_initial'       => __(
+                'DORA: initial notification (4 h after classification, 24 h at most)',
+                'grcmanager'
+            ),
+            'dora_intermediate'  => __('DORA: intermediate report (72 h)', 'grcmanager'),
+            'dora_final'         => __('DORA: final report (1 month)', 'grcmanager'),
+            'cra_early_warning'  => __('CRA: early warning (24 h)', 'grcmanager'),
+            'cra_notification'   => __('CRA: notification (72 h)', 'grcmanager'),
+            'cra_final_report'   => __('CRA: final report', 'grcmanager'),
         ];
+    }
+
+    /**
+     * Issue #600 : types de signalement CRA (règlement (UE) 2024/2847, article 14).
+     *
+     * @return array<string, string>
+     */
+    public static function getCraReportTypes(): array
+    {
+        return [
+            RegulatoryDeadlines::CRA_VULNERABILITY => __('Actively exploited vulnerability', 'grcmanager'),
+            RegulatoryDeadlines::CRA_INCIDENT      => __('Severe incident affecting the product', 'grcmanager'),
+        ];
+    }
+
+    /**
+     * Issue #600 : champs utilisés pour les échéances réglementaires : régimes désactivés retirés
+     * (référentiel DORA, option CRA) et décision RGPD du registre des violations (issue #620).
+     *
+     * @param list<array<string, mixed>> $incidents
+     * @return list<array<string, mixed>>
+     */
+    public static function regulatoryFieldsList(array $incidents): array
+    {
+        return array_map(
+            [CraReportingConfig::class, 'restrict'],
+            array_values(\GlpiPlugin\Grcmanager\DataBreach::withAuthorityDecisions($incidents))
+        );
+    }
+
+    /**
+     * @param array<string, mixed> $fields
+     * @return array<string, mixed>
+     */
+    public static function regulatoryFields(array $fields): array
+    {
+        return self::regulatoryFieldsList([$fields])[0];
     }
 
     /**
@@ -912,7 +1021,7 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
     {
         return $name === 'regulatorydeadlines'
             ? ['description' => __(
-                'Reports NIS2 / GDPR notification deadlines that are near or past with a follow-up',
+                'Reports NIS2 / GDPR / DORA / CRA notification deadlines that are near or past with a follow-up',
                 'grcmanager'
             )]
             : [];
@@ -935,17 +1044,15 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
             'WHERE' => [
                 'is_deleted' => 0,
                 'NOT'        => ['status' => self::getClosedStatusArray()],
-                'OR'         => ['nis2_applicable' => 1, 'personal_data_breach' => 1],
+                'OR'         => self::regulatedCriteria(),
             ],
         ]);
         foreach ($rows as $row) {
             $alerted = json_decode((string) ($row['regulatory_alerts'] ?? ''), true);
             $alerted = is_array($alerted) ? array_values(array_map('strval', $alerted)) : [];
             // Issue #620 : pas d'alerte RGPD quand le registre porte la décision motivée de ne pas notifier.
-            $toAlert = RegulatoryDeadlines::toAlert(
-                \GlpiPlugin\Grcmanager\DataBreach::withAuthorityDecision($row),
-                $alerted
-            );
+            // Issue #600 : DORA et CRA seulement si leur référentiel ou leur option est activé.
+            $toAlert = RegulatoryDeadlines::toAlert(self::regulatoryFields($row), $alerted);
             if ($toAlert === []) {
                 continue;
             }
@@ -980,6 +1087,23 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
         return $count > 0 ? 1 : 0;
     }
 
+    /**
+     * Issue #600 : incidents soumis à au moins un régime de notification (critère OR).
+     *
+     * @return array<string, mixed>
+     */
+    public static function regulatedCriteria(string $table = ''): array
+    {
+        $prefix = $table !== '' ? $table . '.' : '';
+
+        return [
+            $prefix . 'nis2_applicable'      => 1,
+            $prefix . 'personal_data_breach' => 1,
+            $prefix . 'dora_major'           => 1,
+            $prefix . 'cra_report_type'      => RegulatoryDeadlines::CRA_TYPES,
+        ];
+    }
+
     public static function getSpecificValueToDisplay($field, $values, array $options = [])
     {
         if (!is_array($values)) {
@@ -1002,6 +1126,10 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
             case 'source':
                 $source = (string) ($values[$field] ?? '');
                 return $source === '' ? '' : htmlescape(self::getSources()[$source] ?? $source);
+
+            case 'cra_report_type':
+                $craType = (string) ($values[$field] ?? '');
+                return $craType === '' ? '' : htmlescape(self::getCraReportTypes()[$craType] ?? $craType);
         }
 
         return parent::getSpecificValueToDisplay($field, $values, $options);
@@ -1029,6 +1157,9 @@ class PluginGrcmanagerSecurityIncident extends SecurityIncidentBase
 
             case 'source':
                 return Dropdown::showFromArray($name, self::getSources(), $options);
+
+            case 'cra_report_type':
+                return Dropdown::showFromArray($name, self::getCraReportTypes(), $options);
         }
 
         return parent::getSpecificValueToSelect($field, $name, $values, $options);

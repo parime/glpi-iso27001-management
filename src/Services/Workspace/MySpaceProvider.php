@@ -39,6 +39,7 @@ use GlpiPlugin\Grcmanager\Policy;
 use GlpiPlugin\Grcmanager\PolicyAcknowledgement;
 use GlpiPlugin\Grcmanager\Risk;
 use GlpiPlugin\Grcmanager\RiskTreatmentAction;
+use GlpiPlugin\Grcmanager\Services\Incident\RegulatoryDeadlines;
 use GlpiPlugin\Grcmanager\Services\Objective\ObjectiveStatuses;
 use GlpiPlugin\Grcmanager\Services\Policy\PolicyLifecycle;
 use GlpiPlugin\Grcmanager\Services\Privacy\DataSubjectRequestRules;
@@ -94,7 +95,8 @@ final class MySpaceProvider
             self::evidenceReviews($usersId),
             self::auditAccesses($usersId),
             self::objectives($usersId),
-            self::events($usersId)
+            self::events($usersId),
+            self::regulatoryNotifications($usersId)
         ), $today);
     }
 
@@ -812,6 +814,65 @@ final class MySpaceProvider
                 false,
                 (string) (ComplianceEvent::getEventTypes()[(string) $row['event_type']] ?? '')
             );
+        }
+
+        return $list;
+    }
+
+    /**
+     * Issue #600 : notifications réglementaires (NIS2, RGPD, DORA, CRA) à faire sur les incidents de
+     * sécurité ouverts dont la personne est chargée, une ligne par échéance datée.
+     *
+     * @return list<array<string, mixed>>
+     */
+    private static function regulatoryNotifications(int $usersId): array
+    {
+        global $DB;
+
+        if (!\PluginGrcmanagerSecurityIncident::canView()) {
+            return [];
+        }
+        $table = \PluginGrcmanagerSecurityIncident::getTable();
+        $actors = \PluginGrcmanagerSecurityIncident_User::getTable();
+        $rows = iterator_to_array($DB->request([
+            'SELECT'     => ["$table.*"],
+            'DISTINCT'   => true,
+            'FROM'       => $table,
+            'INNER JOIN' => [
+                $actors => ['ON' => [$actors => 'plugin_grcmanager_securityincidents_id', $table => 'id']],
+            ],
+            'WHERE'      => array_values(array_filter([
+                [
+                    "$actors.users_id" => $usersId,
+                    "$actors.type"     => \CommonITILActor::ASSIGN,
+                    "$table.is_deleted" => 0,
+                    ['NOT' => ["$table.status" => \PluginGrcmanagerSecurityIncident::getClosedStatusArray()]],
+                    ['OR' => \PluginGrcmanagerSecurityIncident::regulatedCriteria($table)],
+                ],
+                getEntitiesRestrictCriteria($table, '', '', true),
+            ])),
+        ]), false);
+
+        $labels = \PluginGrcmanagerSecurityIncident::getRegulatoryLabels();
+        $incident = new \PluginGrcmanagerSecurityIncident();
+        $list = [];
+        foreach (\PluginGrcmanagerSecurityIncident::regulatoryFieldsList($rows) as $row) {
+            $id = (int) $row['id'];
+            // Issue #371 : groupe sécurité et observateurs, comme à l'ouverture de l'incident.
+            if (!$incident->getFromDB($id) || !$incident->canViewItem()) {
+                continue;
+            }
+            foreach (RegulatoryDeadlines::banners($row) as $deadline) {
+                $list[] = self::candidate(
+                    'regulatory_notification',
+                    $id,
+                    (string) $row['name'],
+                    $deadline['due'],
+                    \PluginGrcmanagerSecurityIncident::getFormURLWithID($id),
+                    true,
+                    $labels[$deadline['key']] ?? $deadline['key']
+                );
+            }
         }
 
         return $list;
