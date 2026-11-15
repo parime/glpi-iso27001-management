@@ -7,6 +7,12 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Fixed
+
+- Approbation de la SoA : quand plusieurs approbateurs étaient choisis, seul le dernier était
+  enregistré (la liste multiple n'était pas envoyée comme un tableau). Tous les approbateurs
+  choisis reçoivent désormais la demande (issue #648).
+
 ## [2.48.0] - 2026-11-15
 
 ## [2.47.0] - 2026-11-15
