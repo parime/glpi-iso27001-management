@@ -44,6 +44,7 @@ use GlpiPlugin\Grcmanager\Services\Policy\PolicyLifecycle;
 use GlpiPlugin\Grcmanager\Services\Privacy\DataSubjectRequestRules;
 use GlpiPlugin\Grcmanager\Services\Review\PeriodicReviewCatalog;
 use GlpiPlugin\Grcmanager\Services\Risk\TreatmentPlanRules;
+use GlpiPlugin\Grcmanager\PolicyVersion;
 use GlpiPlugin\Grcmanager\SoaVersion;
 use GlpiPlugin\Grcmanager\SupplierRisk;
 use GlpiPlugin\Grcmanager\Training;
@@ -88,6 +89,7 @@ final class MySpaceProvider
             self::supplierRisks($usersId),
             self::obligations($usersId),
             self::soaApprovals($usersId),
+            self::policyApprovals($usersId),
             self::dataSubjectRequests($usersId),
             self::audits($usersId),
             self::evidenceRequests($usersId),
@@ -617,6 +619,29 @@ final class MySpaceProvider
                 sprintf(__('Statement of Applicability, version %d', 'grcmanager'), (int) $row['version']),
                 null,
                 $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/soaapproval.php',
+                true
+            );
+        }
+
+        return $list;
+    }
+
+    /**
+     * Issue #611 : versions de politiques de sécurité que la personne doit approuver (page ouverte
+     * sans droit sur les politiques, front/policyapproval.php).
+     *
+     * @return list<array<string, mixed>>
+     */
+    private static function policyApprovals(int $usersId): array
+    {
+        $list = [];
+        foreach (PolicyVersion::pendingForUser($usersId) as $row) {
+            $list[] = self::candidate(
+                'policy_approval',
+                (int) $row['id'],
+                sprintf(__('%1$s, version %2$s', 'grcmanager'), (string) $row['title'], (string) $row['version']),
+                null,
+                PolicyVersion::getPageURL(),
                 true
             );
         }

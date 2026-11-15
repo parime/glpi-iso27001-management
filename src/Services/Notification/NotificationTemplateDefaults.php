@@ -44,10 +44,12 @@ use GlpiPlugin\Grcmanager\NotificationTargetTraining;
 use GlpiPlugin\Grcmanager\NotificationTargetVulnerabilityDigest;
 use GlpiPlugin\Grcmanager\NotificationTargetWaiver;
 use GlpiPlugin\Grcmanager\NotificationTargetPolicy;
+use GlpiPlugin\Grcmanager\NotificationTargetPolicyVersion;
 use GlpiPlugin\Grcmanager\AuditEvidenceRequest;
 use GlpiPlugin\Grcmanager\NotificationTargetAuditEvidenceRequest;
 use GlpiPlugin\Grcmanager\Policy;
 use GlpiPlugin\Grcmanager\PolicyAcknowledgement;
+use GlpiPlugin\Grcmanager\PolicyVersion;
 use GlpiPlugin\Grcmanager\Risk;
 use GlpiPlugin\Grcmanager\RiskIndicator;
 use GlpiPlugin\Grcmanager\RiskTreatmentAction;
@@ -396,6 +398,21 @@ final class NotificationTemplateDefaults
                 'Approbation de la SoA demandée',
                 'Envoyée aux approbateurs désignés quand une version de la Déclaration d\'Applicabilité est '
                     . 'figée et soumise à approbation.',
+            ],
+            // Issue #611 : approbation des politiques de sécurité par la direction.
+            'policy_approval_request' => [
+                PolicyVersion::class, PolicyVersion::REQUEST_EVENT, 'Security policy approval requested',
+                'Sent to the designated approvers when a version of a security policy is frozen and submitted '
+                    . 'for approval.',
+                [NotificationTargetPolicyVersion::APPROVERS_TARGET],
+                'Approbation de politique de sécurité demandée', '',
+            ],
+            'policy_approval_decision' => [
+                PolicyVersion::class, PolicyVersion::DECISION_EVENT, 'Security policy approval decision',
+                'Sent to the person who submitted a version of a security policy and to the policy owner when '
+                    . 'the version is approved or rejected.',
+                [NotificationTargetPolicyVersion::REQUESTER_TARGET, NotificationTargetPolicyVersion::OWNER_TARGET],
+                'Décision d\'approbation de politique de sécurité', '',
             ],
             'accessreview_request' => [
                 AccessReview::class, 'access_review_request', 'Access review to complete', '',
@@ -801,6 +818,37 @@ final class NotificationTemplateDefaults
                         NotificationHtml::link('##soa.url##', $link),
                     ]),
                 ];
+
+            case 'policy_approval_request':
+                $ask = sprintf(
+                    $t('%1$s asks you to approve version %2$s of the security policy "%3$s" (%4$s).'),
+                    '##policyapproval.requester##',
+                    '##policyapproval.version##',
+                    '##policyapproval.title##',
+                    '##policyapproval.date##'
+                );
+                $link = $t('Read the frozen version and answer');
+
+                return [
+                    'subject'      => $head('##policyapproval.action##', '##policyapproval.title## ##policyapproval.version##'),
+                    'content_text' => $ask . "\n\n##policyapproval.comment##\n\n" . $head($link, '##policyapproval.url##'),
+                    'content_html' => NotificationHtml::render([
+                        NotificationHtml::lines([$ask]),
+                        NotificationHtml::lines(['##policyapproval.comment##']),
+                        NotificationHtml::link('##policyapproval.url##', $link),
+                    ]),
+                ];
+
+            case 'policy_approval_decision':
+                $title = $head('##policyapproval.title## ##policyapproval.version##', '##policyapproval.decision##');
+
+                return self::simple($head('##policyapproval.action##', $title), $title, [
+                    $line('Decision', '##policyapproval.decision##'),
+                    $line('Comments of the approvers', '##policyapproval.comments##'),
+                ], [
+                    $t('If the version is rejected, the policy stays in draft: take the comments into account, then submit '
+                        . 'it again.'),
+                ], '##policyapproval.policyurl##', $t('View the policy'), $head);
 
             case 'accessreview_request':
             case 'accessreview_reminder':
