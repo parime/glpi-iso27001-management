@@ -5,6 +5,10 @@
 
 {% block form_fields %}
    {{ fields.textField('title', item.fields['title'], __('Title', 'grcmanager'), {'full_width': true}) }}
+   {{ fields.textField('external_ref', item.fields['external_ref']|default(''), __('External reference', 'grcmanager'), {
+      'maxlength': 100,
+      'helper': __('Reference of the risk in your spreadsheet register: a CSV import updates the risk that carries it.', 'grcmanager')
+   }) }}
    {{ fields.dropdownArrayField('category', item.fields['category'] ?: 'process', categories, __('Category', 'grcmanager')) }}
    {{ fields.dropdownField('User', 'users_id', item.fields['users_id'], _x('owner', 'Owner', 'grcmanager'), {'right': 'all'}) }}
    {{ fields.dropdownArrayField('probability', item.fields['probability'] ?: 'possible', probabilities, __('Probability', 'grcmanager')) }}

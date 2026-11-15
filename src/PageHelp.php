@@ -163,6 +163,21 @@ class PageHelp
                 ),
                 'reference' => __('ISO 27001, 6.1.2 and 6.1.3; 8.2 and 8.3', 'grcmanager'),
             ],
+            // Issue #602 : import et export CSV du registre des risques.
+            'riskimport' => [
+                'purpose'   => __(
+                    'Bring an existing risk register kept in a spreadsheet into the plugin, and take it back out '
+                        . 'in the same format.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'Download the template or export the register, fill it in, then analyse the file: nothing is '
+                        . 'saved before you have read the report and confirmed. Importing the same file again updates '
+                        . 'the risks without duplicates.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO 27001, 6.1.2 and 8.2', 'grcmanager'),
+            ],
             'riskheatmap' => [
                 'purpose'  => __(
                     'The risk heat map: how risks are spread by likelihood and impact, to see at a glance where '

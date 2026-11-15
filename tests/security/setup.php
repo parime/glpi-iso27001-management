@@ -166,7 +166,10 @@ if ($mode === 'xss') {
     $insert('cpereferences', ['plugin_grcmanager_canonicalproducts_id' => $out['product'], 'cpe' => $canary]);
     $insert('productaliases', ['plugin_grcmanager_canonicalproducts_id' => $out['product'], 'alias' => $canary]);
     $insert('risktreatmentactions', ['plugin_grcmanager_risks_id' => (int) $ids['risk'], 'description' => $canary]);
-    $update('risks', ['title' => $canary, 'description' => $canary, 'justification' => $canary], (int) $ids['risk']);
+    $update('risks', [
+        'title' => $canary, 'description' => $canary, 'justification' => $canary,
+        'external_ref' => mb_substr($canary, 0, 100),
+    ], (int) $ids['risk']);
     $update('controls', ['justification' => $canary], (int) $ids['control']);
     // Issue #378 : KRI, relevé et énoncé d'appétence.
     $out['kri'] = $insert('riskindicators', [

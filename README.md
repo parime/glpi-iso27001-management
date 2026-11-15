@@ -37,6 +37,9 @@ archivé), avec ses champs de classification ISO 27001 fusionnés dessus.
   (score, contrats GLPI du fournisseur, preuves, ticket de réévaluation à l'échéance) et
   **veille de sécurité** (avis du CERT-FR qui citent le fournisseur, notification au propriétaire).
 - **Catalogue de risques types d'infrastructure**, à importer dans le registre.
+- **Import CSV d'un registre des risques tenu en tableur** : modèle téléchargeable, analyse à blanc
+  (lignes rejetées avec leur motif, changements prévus), réimport sans doublon grâce à la référence
+  externe, export au même format pour l'aller-retour avec le tableur.
 - **Effet domino** : liens cause → conséquence entre risques et incidents, en graphe.
 - **Dérogations de sécurité** : exceptions limitées dans le temps, validées et réévaluées.
 

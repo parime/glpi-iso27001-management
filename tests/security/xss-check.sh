@@ -52,7 +52,7 @@ for url in \
   risk.php control.php supplierrisk.php securityincident.php accessreview.php audit.php complianceobligation.php \
   managementreview.php nonconformity.php objective.php policy.php training.php canonicalproduct.php \
   ismsrequirement.php referentiels.php riskheatmap.php soaapproval.php config.php evidence.php controltest.php \
-  myspace.php customframework.php "customframework.form.php?id=$(xid customframework)" \
+  myspace.php customframework.php riskimport.php "customframework.form.php?id=$(xid customframework)" \
   frameworkassessment.php "frameworkassessment.php?framework=custom_$(xid customframework)"; do
   check "front/$url" "$P/$url"
 done

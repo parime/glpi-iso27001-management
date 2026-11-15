@@ -199,7 +199,7 @@ final class CustomFrameworkCsv
      *
      * @return list<array{0: int, 1: list<string>}>
      */
-    private static function records(string $content): array
+    public static function records(string $content): array
     {
         $content = str_replace(["\r\n", "\r"], "\n", $content);
         $firstLine = '';
