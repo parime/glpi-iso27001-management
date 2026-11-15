@@ -275,6 +275,8 @@ php bin/console plugin:activate grcmanager
 
 ## Documentation
 
+Rules shared by all parime plugins, to read before contributing: [common plugin charter](https://github.com/parime/glpi-plugin-template/blob/main/CHARTE.md) (in French).
+
 📖 **[See the full tutorial](docs/TUTORIAL.md)**: the plugin's whole flow, from activation to the
 dashboard, through the risk register, the probability x impact matrix, the SoA and audits/CAPA,
 with a real screenshot for every step (available in French and English).
@@ -380,6 +382,15 @@ and documentation only identifies the framework the plugin helps you track.
   to ISO 27001 Annex A are written by this project, which is not affiliated with ISO or IEC. The
   text of the standard is available from [ISO](https://www.iso.org/standard/27090) or from your
   national standards body.
+
+## Translations
+
+[![Translation status](https://hosted.weblate.org/widget/glpi-iso27001-management/svg-badge.svg)](https://hosted.weblate.org/engage/glpi-iso27001-management/)
+
+The plugin is translated into French, English, German, Spanish, Italian, Polish and Portuguese
+(Brazil). **Translation contributions are welcome on [Hosted Weblate](https://hosted.weblate.org/engage/glpi-iso27001-management/)**: fixing a term,
+improving domain vocabulary or adding a language is done directly in the browser, without Git.
+Weblate then proposes the translations through a Pull Request, reviewed before being merged.
 
 ## Reuse and citation
 
