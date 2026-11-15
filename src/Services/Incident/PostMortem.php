@@ -30,9 +30,34 @@ final class PostMortem
 
     public const DEADLINE_MISSING = 'missing';
 
+    /** Issue #600 : décision motivée de ne pas notifier (registre des violations, issue #620). */
+    public const DEADLINE_NOT_REQUIRED = 'not_required';
+
+    /** Issue #600 : point de départ pas encore connu (mesure corrective du CRA). */
+    public const DEADLINE_WAITING = 'waiting';
+
+    /** Issue #600 : régime pas encore applicable à la détection de l'incident. */
+    public const DEADLINE_NOT_APPLICABLE = 'not_applicable';
+
     /**
      * Une échéance réglementaire a-t-elle été tenue ? « Non notifiée » si aucune date n'est saisie.
      */
+    /**
+     * Issue #600 : issue d'une échéance réglementaire selon son statut (RegulatoryDeadlines) : sans
+     * date d'échéance, elle est écartée par une décision, en attente de son point de départ ou pas
+     * applicable ; sinon tenue, en retard ou pas faite.
+     */
+    public static function outcomeOf(string $status, ?string $doneAt, ?string $due): string
+    {
+        return match (true) {
+            $status === RegulatoryDeadlines::STATUS_NOT_REQUIRED   => self::DEADLINE_NOT_REQUIRED,
+            $status === RegulatoryDeadlines::STATUS_NOT_APPLICABLE => self::DEADLINE_NOT_APPLICABLE,
+            $due === null && ($doneAt === null || $doneAt === '') => self::DEADLINE_WAITING,
+            $due === null                                          => self::DEADLINE_MET,
+            default                                                => self::deadlineOutcome($doneAt, $due),
+        };
+    }
+
     public static function deadlineOutcome(?string $doneAt, string $due): string
     {
         if ($doneAt === null || $doneAt === '') {

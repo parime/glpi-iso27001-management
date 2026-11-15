@@ -406,7 +406,7 @@ final class PilotageCards
             // Issue #143 : incidents visibles seulement (cloisonnement).
             'number' => SecurityIncidentCardProvider::regulatoryDeadlinesAtRisk(),
             'url'    => \PluginGrcmanagerSecurityIncident::getSearchURL(),
-            'label'  => $params['label'] ?? __('NIS2 / GDPR deadlines at risk', 'grcmanager'),
+            'label'  => $params['label'] ?? __('Regulatory notification deadlines at risk', 'grcmanager'),
             'icon'   => 'ti ti-alarm',
         ];
     }

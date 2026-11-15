@@ -235,6 +235,12 @@
           <input class="form-check-input" type="checkbox" role="switch" id="securityincident_dashboard_enabled" name="securityincident_dashboard_enabled" {{ securityincident_modules.securityincident_dashboard_enabled ? 'checked' : '' }}>
           <label class="form-check-label" for="securityincident_dashboard_enabled">{{ __('Dashboard cards', 'grcmanager') }}</label>
         </div>
+        {# Issue #600 : signalement CRA (fabricants), désactivé par défaut. Les délais DORA suivent le référentiel DORA. #}
+        <div class="form-check form-switch mb-2">
+          <input class="form-check-input" type="checkbox" role="switch" id="cra_reporting_enabled" name="cra_reporting_enabled" {{ cra_reporting_enabled ? 'checked' : '' }}>
+          <label class="form-check-label" for="cra_reporting_enabled"><i class="ti ti-package me-1"></i>{{ __('CRA reporting (manufacturers of products with digital elements)', 'grcmanager') }}</label>
+          <div class="form-hint">{{ __('Adds to security incidents the reporting deadlines of the Cyber Resilience Act (Regulation (EU) 2024/2847, article 14): actively exploited vulnerability or severe incident affecting a product you place on the market. The DORA deadlines appear when the DORA framework is enabled.', 'grcmanager') }}</div>
+        </div>
       </div>
 
       {# Issue #371 : groupe sécurité optionnel. #}
