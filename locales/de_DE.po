@@ -17505,3 +17505,7 @@ msgstr "%1$d Dienste: die %2$d am stärksten gefährdeten werden angezeigt."
 
 msgid "Fixable"
 msgstr "Behebbar"
+
+#, php-format
+msgid "last reading: %s"
+msgstr "letzter Lesevorgang: %s"

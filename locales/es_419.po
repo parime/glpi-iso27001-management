@@ -17365,3 +17365,7 @@ msgstr "%1$d servicios: se muestran los %2$d más expuestos."
 
 msgid "Fixable"
 msgstr "Corregibles"
+
+#, php-format
+msgid "last reading: %s"
+msgstr "última lectura: %s"

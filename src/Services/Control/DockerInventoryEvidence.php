@@ -207,6 +207,7 @@ final class DockerInventoryEvidence
                 'type_label'        => self::text($row['type_label'] ?? ''),
                 'last_success_date' => $last,
                 'freshness'         => self::freshness($last, $now),
+                'last_status_label' => self::text($row['last_status_label'] ?? ''),
                 'url'               => self::url($row['url'] ?? ''),
             ];
         }

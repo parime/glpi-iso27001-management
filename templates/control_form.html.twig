@@ -205,6 +205,9 @@
                         {% if c.freshness == 'never' %}
                            <span class="badge bg-red-lt"><i class="ti ti-clock-x me-1"></i>
                               {{- __('no successful import yet', 'grcmanager') }}</span>
+                           {% if c.last_status_label %}
+                              <span class="text-muted">{{ __('last reading: %s', 'grcmanager')|format(c.last_status_label) }}</span>
+                           {% endif %}
                         {% elseif c.freshness == 'stale' %}
                            <span class="badge bg-yellow-lt"
                                  title="{{ __('More than 48 hours ago: the inventory may be out of date.', 'grcmanager') }}">
@@ -313,10 +316,9 @@
                         <tr>
                            <th>{{ __('Service', 'grcmanager') }}</th>
                            <th>{{ __('Image', 'grcmanager') }}</th>
-                           <th>{{ __('Fingerprint', 'grcmanager') }}</th>
+                           <th>{{ __('Origin', 'grcmanager') }}</th>
                            <th>{{ __('Replicas', 'grcmanager') }}</th>
                            <th>{{ __('Ports', 'grcmanager') }}</th>
-                           <th>{{ __('Origin', 'grcmanager') }}</th>
                         </tr>
                      </thead>
                      <tbody>
@@ -326,16 +328,21 @@
                                  {% if r.url %}<a href="{{ r.url }}">{{ r.service }}</a>{% else %}{{ r.service }}{% endif %}
                                  {% if r.stack %}<span class="text-muted">({{ r.stack }})</span>{% endif %}
                               </td>
-                              <td><code>{{ r.image }}{% if r.tag %}:{{ r.tag }}{% endif %}</code></td>
-                              <td><code>{{ r.digest ?: '-' }}</code></td>
-                              <td><span class="badge {{ r.replicas_ok ? 'bg-green-lt' : 'bg-yellow-lt' }}">{{ r.replicas }}</span></td>
                               <td>
-                                 {% for p in r.ports %}<span class="badge bg-azure-lt me-1">{{ p }}</span>
-                                 {% else %}<span class="text-muted">-</span>{% endfor %}
+                                 <code>{{ r.image }}{% if r.tag %}:{{ r.tag }}{% endif %}</code>
+                                 {% if r.digest %}
+                                    <small class="d-block text-muted" title="{{ __('Fingerprint', 'grcmanager') }}">
+                                       <i class="ti ti-fingerprint me-1"></i>{{ r.digest }}</small>
+                                 {% endif %}
                               </td>
                               <td>
                                  <span class="badge bg-{{ r.provenance.color }}-lt">
                                     <i class="{{ r.provenance.icon }} me-1"></i>{{ r.provenance.label }}</span>
+                              </td>
+                              <td><span class="badge {{ r.replicas_ok ? 'bg-green-lt' : 'bg-yellow-lt' }}">{{ r.replicas }}</span></td>
+                              <td>
+                                 {% for p in r.ports %}<span class="badge bg-azure-lt me-1">{{ p }}</span>
+                                 {% else %}<span class="text-muted">-</span>{% endfor %}
                               </td>
                            </tr>
                         {% endfor %}

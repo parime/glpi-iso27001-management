@@ -17020,3 +17020,7 @@ msgstr "%1$d services: the %2$d most exposed are shown."
 
 msgid "Fixable"
 msgstr "Fixable"
+
+#, php-format
+msgid "last reading: %s"
+msgstr "last reading: %s"

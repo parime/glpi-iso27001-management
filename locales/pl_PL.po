@@ -17263,3 +17263,7 @@ msgstr "%1$d usług: wyświetlono %2$d najbardziej narażonych."
 
 msgid "Fixable"
 msgstr "Do naprawy"
+
+#, php-format
+msgid "last reading: %s"
+msgstr "ostatni odczyt: %s"
