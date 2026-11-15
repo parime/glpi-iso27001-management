@@ -271,6 +271,8 @@ php bin/console plugin:activate grcmanager
 
 ## Documentation
 
+Rules shared by all parime plugins, to read before contributing: [common plugin charter](https://github.com/parime/glpi-plugin-template/blob/main/CHARTE.md) (in French).
+
 📖 **[See the full tutorial](docs/TUTORIAL.md)**: the plugin's whole flow, from activation to the
 dashboard, through the risk register, the probability x impact matrix, the SoA and audits/CAPA,
 with a real screenshot for every step (available in French and English).
