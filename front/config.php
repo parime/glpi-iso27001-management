@@ -328,32 +328,32 @@ Html::header(
         'enabled'        => PolicyApprovalConfig::isEnabled(),
         'quorum'         => PolicyApprovalConfig::defaultQuorum(),
         'quorum_choices' => PolicyApprovalConfig::quorumChoices(false),
-        'user_dropdown'  => User::dropdown([
-            'name'     => 'policy_approval_users[]',
-            'value'    => array_column(array_filter(
-                PolicyApprovalConfig::defaultApprovers(),
-                static fn (array $a): bool => $a['itemtype'] === User::class
-            ), 'items_id'),
-            'multiple' => true,
-            'right'    => 'all',
-            'width'    => '100%',
-            'display'  => false,
-            'rand'     => mt_rand(),
-        ]),
-        'group_dropdown' => Group::dropdown([
-            'name'        => 'policy_approval_groups[]',
-            'values'      => array_column(array_filter(
-                PolicyApprovalConfig::defaultApprovers(),
-                static fn (array $a): bool => $a['itemtype'] === Group::class
-            ), 'items_id'),
-            'multiple'    => true,
-            'entity'      => 0,
-            'entity_sons' => true,
-            'width'       => '100%',
-            'display'     => false,
-            'rand'        => mt_rand(),
-        ]),
     ],
+    'policy_approval_user_dropdown' => User::dropdown([
+        'name'     => 'policy_approval_users[]',
+        'value'    => array_column(array_filter(
+            PolicyApprovalConfig::defaultApprovers(),
+            static fn (array $a): bool => $a['itemtype'] === User::class
+        ), 'items_id'),
+        'multiple' => true,
+        'right'    => 'all',
+        'width'    => '100%',
+        'display'  => false,
+        'rand'     => mt_rand(),
+    ]),
+    'policy_approval_group_dropdown' => Group::dropdown([
+        'name'        => 'policy_approval_groups[]',
+        'values'      => array_column(array_filter(
+            PolicyApprovalConfig::defaultApprovers(),
+            static fn (array $a): bool => $a['itemtype'] === Group::class
+        ), 'items_id'),
+        'multiple'    => true,
+        'entity'      => 0,
+        'entity_sons' => true,
+        'width'       => '100%',
+        'display'     => false,
+        'rand'        => mt_rand(),
+    ]),
 ]);
 
 Html::footer();

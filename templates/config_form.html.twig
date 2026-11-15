@@ -218,11 +218,11 @@
       <div class="row g-2">
         <div class="col-md-6">
           <label class="form-label">{{ __('Default approvers (people)', 'grcmanager') }}</label>
-          {{ policy_approval.user_dropdown|raw }}
+          {{ policy_approval_user_dropdown|raw }}
         </div>
         <div class="col-md-6">
           <label class="form-label">{{ __('Default approvers (groups)', 'grcmanager') }}</label>
-          {{ policy_approval.group_dropdown|raw }}
+          {{ policy_approval_group_dropdown|raw }}
         </div>
         <div class="col-md-6">
           <label class="form-label" for="grc-policy-approval-quorum">{{ __('Default approval rule', 'grcmanager') }}</label>
