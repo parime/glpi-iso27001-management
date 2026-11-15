@@ -99,18 +99,20 @@ final class ComplianceCalendarTest extends GrcmanagerIntegrationTestCase
         $this->assertSame(1, substr_count($ics, 'BEGIN:VEVENT'), 'Seulement ses échéances.');
     }
 
-    /** Issue #142, phase 2 : lien d'abonnement avec le jeton personnel de l'utilisateur. */
-    public function testSubscriptionUrlCarriesThePersonalToken(): void
+    /** Issue #664 : le lien d'abonnement porte un jeton dédié au calendrier, jamais le jeton personnel. */
+    public function testSubscriptionUrlCarriesADedicatedCalendarToken(): void
     {
+        $token = \GlpiPlugin\Grcmanager\CalendarToken::generate(2);
+        $urls = \GlpiPlugin\Grcmanager\ComplianceEvent::getSubscriptionURLs($token);
+
+        $this->assertStringContainsString('/plugins/grcmanager/front/compliancecalendar.ics.php?', $urls['all']);
+        $this->assertStringContainsString('token=' . $token, $urls['all']);
+        $this->assertStringNotContainsString('mine=', $urls['all']);
+        $this->assertStringContainsString('mine=1', $urls['mine']);
+
         $user = new \User();
         $user->getFromDB(2);
-        $token = (string) $user->getAuthToken('personal_token');
-
-        $all = \GlpiPlugin\Grcmanager\ComplianceEvent::getSubscriptionURL(false);
-        $mine = \GlpiPlugin\Grcmanager\ComplianceEvent::getSubscriptionURL(true);
-        $this->assertStringContainsString('/plugins/grcmanager/front/compliancecalendar.ics.php?', $all);
-        $this->assertStringContainsString('token=' . $token, $all);
-        $this->assertStringNotContainsString('mine=', $all);
-        $this->assertStringContainsString('mine=1', $mine);
+        $personal = (string) $user->getAuthToken('personal_token');
+        $this->assertStringNotContainsString($personal, $urls['all'], 'Plus jamais le jeton personnel GLPI.');
     }
 }

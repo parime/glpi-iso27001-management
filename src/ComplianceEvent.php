@@ -29,7 +29,6 @@ use Log;
 use NotificationEvent;
 use Planning;
 use Session;
-use User;
 
 /**
  * Issue #142 : calendrier de conformité. Deux choses à la fois :
@@ -746,9 +745,26 @@ class ComplianceEvent extends ComplianceEventBase
             'url'        => self::getCalendarURL(),
             'form_url'   => self::getFormURL(),
             'ics_url'    => self::getIcsURL($mine),
-            'subscription_url' => self::getSubscriptionURL($mine),
+            // Issue #664 : lien d'abonnement (jeton dédié), montré une seule fois après sa création.
+            'subscription'     => self::subscriptionData(),
             'can_create' => self::canCreate(),
         ]);
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    private static function subscriptionData(): array
+    {
+        $usersId = (int) Session::getLoginUserID();
+        $token = CalendarToken::pullForDisplay();
+
+        return [
+            'status'         => CalendarToken::status($usersId),
+            'new_urls'       => $token !== null ? self::getSubscriptionURLs($token) : null,
+            'lifetime_days'  => CalendarToken::lifetimeDays(),
+            'action_url'     => self::getCalendarURL(),
+        ];
     }
 
     private static function monthLabel(string $yearMonth): string
@@ -762,23 +778,18 @@ class ComplianceEvent extends ComplianceEventBase
     }
 
     /**
-     * Issue #142, phase 2 : lien d'abonnement pour un agenda externe, sans session GLPI. Il porte
-     * le jeton personnel de l'utilisateur (le même que le flux iCal du planning de GLPI), et le
-     * flux se calcule avec ses droits et ses entités. Régénérer ce jeton dans ses préférences
-     * invalide le lien.
+     * Issue #142, phase 2, puis issue #664 : liens d'abonnement pour un agenda externe, sans
+     * session GLPI, portés par un jeton dédié au calendrier (CalendarToken), jamais par le jeton
+     * personnel. Le flux se calcule avec les droits et les entités du propriétaire du jeton.
+     *
+     * @return array{all: string, mine: string}
      */
-    public static function getSubscriptionURL(bool $mine): string
+    public static function getSubscriptionURLs(string $token): array
     {
-        global $CFG_GLPI;
-
-        $token = User::getToken((int) Session::getLoginUserID(), 'personal_token');
-        if (!is_string($token) || $token === '') {
-            return '';
-        }
-
-        return rtrim((string) ($CFG_GLPI['url_base'] ?? ''), '/')
-            . '/plugins/grcmanager/front/compliancecalendar.ics.php?'
-            . http_build_query(['token' => $token] + ($mine ? ['mine' => 1] : []));
+        return [
+            'all'  => CalendarToken::feedURL($token, false),
+            'mine' => CalendarToken::feedURL($token, true),
+        ];
     }
 
     public static function getIcsURL(bool $mine): string

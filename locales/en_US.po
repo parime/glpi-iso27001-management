@@ -6275,15 +6275,6 @@ msgid ""
 msgstr ""
 "Subscription link for your calendar (Outlook, Thunderbird, Google Calendar…)"
 
-msgid ""
-"Personal link: it gives access to your deadlines with your rights, without a "
-"password. Do not share it. To revoke it, regenerate your personal token in "
-"your preferences."
-msgstr ""
-"Personal link: it gives access to your deadlines with your rights, without a "
-"password. Do not share it. To revoke it, regenerate your personal token in "
-"your preferences."
-
 #, php-format
 msgid "Groups changed less than %d days ago, profiles not reviewed"
 msgstr "Groups changed less than %d days ago, profiles not reviewed"
@@ -16107,3 +16098,59 @@ msgstr "Adds to security incidents the reporting deadlines of the Cyber Resilien
 
 msgid "Regulatory notification to make"
 msgstr "Regulatory notification to make"
+
+msgid "New subscription link created. The previous link no longer works."
+msgstr "New subscription link created. The previous link no longer works."
+
+msgid "Subscription link revoked: calendars using it no longer receive your deadlines."
+msgstr "Subscription link revoked: calendars using it no longer receive your deadlines."
+
+msgid "Copy your link now: for your security, it will not be shown again. If you lose it, create a new one."
+msgstr "Copy your link now: for your security, it will not be shown again. If you lose it, create a new one."
+
+msgid "Copy"
+msgstr "Copy"
+
+#, php-format
+msgid "Created on %s"
+msgstr "Created on %s"
+
+#, php-format
+msgid "Expires on %s"
+msgstr "Expires on %s"
+
+#, php-format
+msgid "Last read by a calendar on %s"
+msgstr "Last read by a calendar on %s"
+
+msgid "Not used yet"
+msgstr "Not used yet"
+
+msgid "You have no subscription link yet. Create one to see your deadlines in your calendar application."
+msgstr "You have no subscription link yet. Create one to see your deadlines in your calendar application."
+
+msgid "Regenerate the link"
+msgstr "Regenerate the link"
+
+msgid "Create a subscription link"
+msgstr "Create a subscription link"
+
+msgid "Revoke the link"
+msgstr "Revoke the link"
+
+#, php-format
+msgid "This link only gives read access to the compliance calendar, with your rights, without a password; it does not give access to GLPI or its API. Do not share it. It expires after %d days; regenerating or revoking it disables the previous link immediately."
+msgstr "This link only gives read access to the compliance calendar, with your rights, without a password; it does not give access to GLPI or its API. Do not share it. It expires after %d days; regenerating or revoking it disables the previous link immediately."
+
+msgid "Calendar subscription links"
+msgstr "Calendar subscription links"
+
+msgid "Each user creates a personal link to subscribe their calendar application to the compliance calendar. The link only reads the calendar, can be revoked by its owner, and expires after the duration below. A new duration applies to links created afterwards."
+msgstr "Each user creates a personal link to subscribe their calendar application to the compliance calendar. The link only reads the calendar, can be revoked by its owner, and expires after the duration below. A new duration applies to links created afterwards."
+
+msgid "Link lifetime (days)"
+msgstr "Link lifetime (days)"
+
+#, php-format
+msgid "Between %1$d and %2$d days. Default: 365 days, so that a subscribed calendar keeps working for a year without any action."
+msgstr "Between %1$d and %2$d days. Default: 365 days, so that a subscribed calendar keeps working for a year without any action."
