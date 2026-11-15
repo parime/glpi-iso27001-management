@@ -16162,3 +16162,84 @@ msgstr "Zu aktualisieren"
 
 msgid "No change"
 msgstr "Keine Änderung"
+
+msgid "Major ICT-related incident (DORA)"
+msgstr "Schwerwiegender IKT-bezogener Vorfall (DORA)"
+
+msgid "DORA: classified as major on"
+msgstr "DORA: als schwerwiegend eingestuft am"
+
+msgid "CRA reporting"
+msgstr "CRA-Meldung"
+
+msgid "CRA: product concerned"
+msgstr "CRA: betroffenes Produkt"
+
+msgid "CRA: corrective measure available on"
+msgstr "CRA: Korrekturmaßnahme verfügbar am"
+
+msgid "DORA: initial notification (4 h after classification, 24 h at most)"
+msgstr "DORA: Erstmeldung (4 Std. nach Einstufung, höchstens 24 Std.)"
+
+msgid "DORA: intermediate report (72 h)"
+msgstr "DORA: Zwischenbericht (72 Std.)"
+
+msgid "DORA: final report (1 month)"
+msgstr "DORA: Abschlussbericht (1 Monat)"
+
+msgid "CRA: early warning (24 h)"
+msgstr "CRA: Frühwarnung (24 Std.)"
+
+msgid "CRA: notification (72 h)"
+msgstr "CRA: Meldung (72 Std.)"
+
+msgid "CRA: final report"
+msgstr "CRA: Abschlussbericht"
+
+msgid "Actively exploited vulnerability"
+msgstr "Aktiv ausgenutzte Schwachstelle"
+
+msgid "Severe incident affecting the product"
+msgstr "Schwerwiegender Sicherheitsvorfall beim Produkt"
+
+msgid "Reports NIS2 / GDPR / DORA / CRA notification deadlines that are near or past with a follow-up"
+msgstr "Meldet nahe oder überschrittene NIS2- / DSGVO- / DORA- / CRA-Meldefristen mit einer Nachverfolgung"
+
+msgid "Regulatory notification deadlines at risk"
+msgstr "Gefährdete regulatorische Meldefristen"
+
+msgid "Starts when a corrective or mitigating measure is available: enter its date above."
+msgstr "Beginnt, sobald eine Korrektur- oder Abhilfemaßnahme verfügbar ist: Datum oben eingeben."
+
+msgid "The incident was detected before this regulation applied."
+msgstr "Der Vorfall wurde erkannt, bevor diese Verordnung galt."
+
+msgid "Financial entity, incident classified as major: initial notification within 4 h of the classification and no later than 24 h after detection, intermediate report within 72 h, final report within one month (Regulation (EU) 2022/2554, article 19)."
+msgstr "Finanzunternehmen, als schwerwiegend eingestufter Vorfall: Erstmeldung binnen 4 Std. nach der Einstufung und spätestens 24 Std. nach der Erkennung, Zwischenbericht binnen 72 Std., Abschlussbericht binnen eines Monats (Verordnung (EU) 2022/2554, Artikel 19)."
+
+msgid "Leave empty until the incident is classified: the 24 h limit after detection then applies."
+msgstr "Leer lassen, bis der Vorfall eingestuft ist: Dann gilt die Grenze von 24 Std. nach der Erkennung."
+
+msgid "Not reportable"
+msgstr "Nicht meldepflichtig"
+
+msgid "Manufacturer of a product with digital elements: early warning within 24 h, notification within 72 h, final report 14 days after a corrective measure (vulnerability) or one month after the notification (incident). Regulation (EU) 2024/2847, article 14, applicable since 11 September 2026."
+msgstr "Hersteller eines Produkts mit digitalen Elementen: Frühwarnung binnen 24 Std., Meldung binnen 72 Std., Abschlussbericht 14 Tage nach einer Korrekturmaßnahme (Schwachstelle) oder einen Monat nach der Meldung (Vorfall). Verordnung (EU) 2024/2847, Artikel 14, anwendbar seit dem 11. September 2026."
+
+msgid "After changing these choices, save the incident to see the matching dates and deadlines."
+msgstr "Nach dem Ändern dieser Auswahl den Vorfall speichern, um die zugehörigen Daten und Fristen zu sehen."
+
+msgid "Deadlines computed from the incident's opening date (its detection) or from the date entered for the step. Nothing is sent automatically: make the notification, then enter its date here."
+msgstr "Fristen ab dem Eröffnungsdatum des Vorfalls (seiner Erkennung) oder ab dem für den Schritt erfassten Datum berechnet. Nichts wird automatisch gesendet: Meldung vornehmen, dann ihr Datum hier eintragen."
+
+msgid "Waiting for the corrective measure"
+msgstr "Warten auf die Korrekturmaßnahme"
+
+msgid "CRA reporting (manufacturers of products with digital elements)"
+msgstr "CRA-Meldung (Hersteller von Produkten mit digitalen Elementen)"
+
+msgid "Adds to security incidents the reporting deadlines of the Cyber Resilience Act (Regulation (EU) 2024/2847, article 14): actively exploited vulnerability or severe incident affecting a product you place on the market. The DORA deadlines appear when the DORA framework is enabled."
+msgstr "Ergänzt Sicherheitsvorfälle um die Meldefristen des Cyber Resilience Act (Verordnung (EU) 2024/2847, Artikel 14): aktiv ausgenutzte Schwachstelle oder schwerwiegender Vorfall bei einem Produkt, das Sie in Verkehr bringen. Die DORA-Fristen erscheinen, wenn das DORA-Rahmenwerk aktiviert ist."
+
+msgid "Regulatory notification to make"
+msgstr "Vorzunehmende behördliche Meldung"

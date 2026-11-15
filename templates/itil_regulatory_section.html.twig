@@ -1,18 +1,31 @@
-{# Issue #128 : délais de notification réglementaires (NIS2, RGPD) d'un incident de sécurité, rendus
+{# Issue #128 : délais de notification réglementaires (NIS2, RGPD, et depuis l'issue #600 DORA et CRA) d'un incident de sécurité, rendus
    dans le panneau principal de l'objet ITIL (plugin_grcmanager_post_itil_info_section()). Les dates
    « notifié le » sont saisies par l'équipe : le plugin n'envoie jamais rien à une autorité. #}
 {% import 'components/form/fields_macros.html.twig' as fields %}
 {% import '@grcmanager/_hint.html.twig' as hints %}
+{% import _self as regmacros %}
 
-{% set badge_class = {'done': 'bg-green-lt', 'overdue': 'bg-red-lt', 'due_soon': 'bg-orange-lt', 'pending': 'bg-blue-lt', 'not_required': 'bg-secondary-lt'} %}
-{% set badge_icon = {'done': 'ti-circle-check', 'overdue': 'ti-alert-octagon', 'due_soon': 'ti-clock-exclamation', 'pending': 'ti-clock', 'not_required': 'ti-file-check'} %}
+{% set badge_class = {'done': 'bg-green-lt', 'overdue': 'bg-red-lt', 'due_soon': 'bg-orange-lt', 'pending': 'bg-blue-lt', 'not_required': 'bg-secondary-lt', 'waiting': 'bg-purple-lt', 'not_applicable': 'bg-secondary-lt'} %}
+{% set badge_icon = {'done': 'ti-circle-check', 'overdue': 'ti-alert-octagon', 'due_soon': 'ti-clock-exclamation', 'pending': 'ti-clock', 'not_required': 'ti-file-check', 'waiting': 'ti-hourglass', 'not_applicable': 'ti-circle-off'} %}
 {% set status_labels = {
    'done': _x('task', 'Done', 'grcmanager'),
    'overdue': _x('deadline passed', 'Overdue', 'grcmanager'),
    'due_soon': __('Due soon', 'grcmanager'),
    'pending': __('To do', 'grcmanager'),
-   'not_required': __('Not notified (decision recorded)', 'grcmanager')
+   'not_required': __('Not notified (decision recorded)', 'grcmanager'),
+   'waiting': __('Waiting', 'grcmanager'),
+   'not_applicable': __('Not applicable', 'grcmanager')
 } %}
+{% set reason_labels = {
+   'awaiting_fix': __('Starts when a corrective or mitigating measure is available: enter its date above.', 'grcmanager'),
+   'before_application': __('The incident was detected before this regulation applied.', 'grcmanager')
+} %}
+{% set can_edit = item.canUpdateItem() %}
+{% macro date_input(name, value, label, can_edit) %}
+   <input type="datetime-local" class="form-control form-control-sm" style="max-width: 220px;"
+      name="{{ name }}" id="{{ name }}" value="{{ value ? value|date('Y-m-d\\TH:i') : '' }}"
+      aria-label="{{ label }}" {{ not can_edit ? 'disabled' : '' }}>
+{% endmacro %}
 {% set nb_alerts = deadlines|filter(d => d.status in ['overdue', 'due_soon'])|length %}
 
 <section class="accordion-item" aria-label="{{ __('Regulatory notifications', 'grcmanager') }}">
@@ -40,6 +53,54 @@
             {'full_width': true, 'disabled': not item.canUpdateItem(), 'rand': rand, 'add_field_html': hints.hint(__('GDPR: notification to the supervisory authority (the CNIL in France) within 72 h.', 'grcmanager'))}
          ) }}
 
+         {# Issue #600 : DORA (référentiel activé) : incident TIC majeur, avec sa date de classification. #}
+         {% if dora_enabled|default(false) %}
+            {{ fields.checkboxField(
+               'dora_major',
+               item.fields['dora_major']|default(0),
+               __('Major ICT-related incident (DORA)', 'grcmanager'),
+               {'full_width': true, 'disabled': not can_edit, 'rand': rand, 'add_field_html': hints.hint(__('Financial entity, incident classified as major: initial notification within 4 h of the classification and no later than 24 h after detection, intermediate report within 72 h, final report within one month (Regulation (EU) 2022/2554, article 19).', 'grcmanager'))}
+            ) }}
+            {% if item.fields['dora_major']|default(0) %}
+               {{ fields.field(
+                  'dora_classified_at',
+                  regmacros.date_input('dora_classified_at', item.fields['dora_classified_at']|default(null), __('DORA: classified as major on', 'grcmanager'), can_edit),
+                  __('DORA: classified as major on', 'grcmanager'),
+                  {'full_width': true, 'add_field_html': '<div class="form-text">' ~ __('Leave empty until the incident is classified: the 24 h limit after detection then applies.', 'grcmanager')|e ~ '</div>'}
+               ) }}
+            {% endif %}
+         {% endif %}
+
+         {# Issue #600 : CRA (option activée) : vulnérabilité activement exploitée ou incident grave d'un produit. #}
+         {% if cra_enabled|default(false) %}
+            {{ fields.dropdownArrayField(
+               'cra_report_type',
+               item.fields['cra_report_type']|default(''),
+               cra_types,
+               __('CRA reporting', 'grcmanager'),
+               {'full_width': true, 'disabled': not can_edit, 'rand': rand, 'display_emptychoice': true, 'emptylabel': __('Not reportable', 'grcmanager'), 'add_field_html': hints.hint(__('Manufacturer of a product with digital elements: early warning within 24 h, notification within 72 h, final report 14 days after a corrective measure (vulnerability) or one month after the notification (incident). Regulation (EU) 2024/2847, article 14, applicable since 11 September 2026.', 'grcmanager'))}
+            ) }}
+            {% if item.fields['cra_report_type']|default('') in cra_types|keys %}
+               {{ fields.textField(
+                  'cra_product',
+                  item.fields['cra_product']|default(''),
+                  __('CRA: product concerned', 'grcmanager'),
+                  {'full_width': true, 'disabled': not can_edit, 'rand': rand}
+               ) }}
+               {% if item.fields['cra_report_type'] == 'vulnerability' %}
+                  {{ fields.field(
+                     'cra_fix_available_at',
+                     regmacros.date_input('cra_fix_available_at', item.fields['cra_fix_available_at']|default(null), __('CRA: corrective measure available on', 'grcmanager'), can_edit),
+                     __('CRA: corrective measure available on', 'grcmanager'),
+                     {'full_width': true}
+                  ) }}
+               {% endif %}
+            {% endif %}
+         {% endif %}
+         {% if (dora_enabled|default(false) and not item.fields['dora_major']|default(0)) or (cra_enabled|default(false) and item.fields['cra_report_type']|default('') == '') %}
+            <div class="col-12"><p class="text-muted small mb-1"><i class="ti ti-info-circle me-1"></i>{{ __('After changing these choices, save the incident to see the matching dates and deadlines.', 'grcmanager') }}</p></div>
+         {% endif %}
+
          {# Issue #620 : registre des violations (droit RGPD) : la fiche, ou la proposition de l'y inscrire. #}
          {% if breach is defined and breach and (breach.flagged or breach.exists) %}
             <div class="col-12 mt-1 mb-2">
@@ -55,17 +116,21 @@
 
          {% if deadlines|length %}
             <div class="col-12 mt-2">
-               <p class="text-muted small mb-2">{{ __('Deadlines computed from the incident\'s opening date. Nothing is sent automatically: make the notification, then enter its date here.', 'grcmanager') }}</p>
+               <p class="text-muted small mb-2">{{ __('Deadlines computed from the incident\'s opening date (its detection) or from the date entered for the step. Nothing is sent automatically: make the notification, then enter its date here.', 'grcmanager') }}</p>
             </div>
             {% for d in deadlines %}
                {% set notified_field %}
                   <div class="d-flex flex-wrap align-items-center gap-2">
                      <span class="badge {{ badge_class[d.status] }}"><i class="ti {{ badge_icon[d.status] }} me-1"></i>{{ status_labels[d.status] }}</span>
-                     <span class="text-muted small">{{ __('no later than %s', 'grcmanager')|format(d.due|formatted_datetime) }}</span>
+                     {% if d.due %}
+                        <span class="text-muted small">{{ __('no later than %s', 'grcmanager')|format(d.due|formatted_datetime) }}</span>
+                     {% elseif d.reason %}
+                        <span class="text-muted small">{{ reason_labels[d.reason] }}</span>
+                     {% endif %}
                      <input type="datetime-local" class="form-control form-control-sm" style="max-width: 220px;"
                         name="{{ done_fields[d.key] }}" value="{{ d.done_at ? d.done_at|date('Y-m-d\\TH:i') : '' }}"
                         aria-label="{{ __('Notified on', 'grcmanager') }}"
-                        {{ not item.canUpdateItem() ? 'disabled' : '' }}>
+                        {{ not can_edit or d.status == 'not_applicable' ? 'disabled' : '' }}>
                   </div>
                {% endset %}
                {{ fields.field(done_fields[d.key], notified_field, labels[d.key], {'full_width': true}) }}
