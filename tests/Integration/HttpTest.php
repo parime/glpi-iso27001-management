@@ -101,7 +101,8 @@ final class HttpTest extends GrcmanagerIntegrationTestCase
             return;
         }
         self::assertStringStartsWith(Http::ERROR_REDIRECT, (string) $error);
-        self::assertSame(['/redirect'], array_column($this->requests(), 'uri'), 'La cible de la redirection n\'est jamais appelée.');
+        // La cible de la redirection n'est jamais appelée.
+        self::assertSame(['/redirect'], array_column($this->requests(), 'uri'));
 
         $response = Http::request("http://127.0.0.1:$port/ok", [
             'Session-Token' => 'secret-session', 'App-Token' => 'secret-app', 'Cookie' => 'glpi=1', 'X-Test' => 'kept',
@@ -147,7 +148,8 @@ final class HttpTest extends GrcmanagerIntegrationTestCase
         file_put_contents($this->workDir . '/router.php', <<<'PHP'
 <?php
 $log = __DIR__ . '/requests.log';
-file_put_contents($log, json_encode(['uri' => $_SERVER['REQUEST_URI'], 'headers' => getallheaders()]) . "\n", FILE_APPEND);
+$entry = json_encode(['uri' => $_SERVER['REQUEST_URI'], 'headers' => getallheaders()]);
+file_put_contents($log, $entry . "\n", FILE_APPEND);
 if ($_SERVER['REQUEST_URI'] === '/redirect') {
     header('Location: http://127.0.0.1:' . $_SERVER['SERVER_PORT'] . '/target', true, 302);
     return true;
@@ -161,7 +163,11 @@ return true;
 PHP);
         $this->server = proc_open(
             [PHP_BINARY, '-S', '127.0.0.1:' . $port, $this->workDir . '/router.php'],
-            [0 => ['pipe', 'r'], 1 => ['file', $this->workDir . '/out.log', 'a'], 2 => ['file', $this->workDir . '/out.log', 'a']],
+            [
+                0 => ['pipe', 'r'],
+                1 => ['file', $this->workDir . '/out.log', 'a'],
+                2 => ['file', $this->workDir . '/out.log', 'a'],
+            ],
             $pipes
         );
         for ($i = 0; $i < 50; $i++) {

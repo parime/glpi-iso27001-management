@@ -34,7 +34,8 @@ final class HttpTest extends TestCase
     {
         $urls = [
             'ftp://example.com/x', 'file:///etc/passwd', 'gopher://example.com/', 'javascript:alert(1)',
-            'dict://example.com:11211/', 'php://filter/resource=/etc/passwd', 'phar:///tmp/x.phar', 'pas une adresse', '',
+            'dict://example.com:11211/', 'php://filter/resource=/etc/passwd', 'phar:///tmp/x.phar',
+            'pas une adresse', '',
         ];
         foreach ($urls as $url) {
             self::assertSame(Http::ERROR_SCHEME, Http::checkUrl($url, false, true), $url);
