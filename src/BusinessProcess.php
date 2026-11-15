@@ -20,7 +20,7 @@ namespace GlpiPlugin\Grcmanager;
 use CronTask;
 use Dropdown;
 use Glpi\Application\View\TemplateRenderer;
-use GlpiPlugin\Grcmanager\Compatibility\Base\BusinessProcessBase;
+use GlpiPlugin\Grcmanager\Compat\Base\BusinessProcessBase;
 use GlpiPlugin\Grcmanager\Install\Installer;
 use GlpiPlugin\Grcmanager\Services\Continuity\BusinessImpactRules;
 use GlpiPlugin\Grcmanager\Services\Continuity\RecoveryStrategyRules;

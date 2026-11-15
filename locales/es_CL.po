@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: grcmanager\n"
-"Language: es_CL\n"
+"Language: es_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -17208,3 +17208,25 @@ msgid ""
 msgstr ""
 "Entre %1$d y %2$d días. Por defecto: 365 días, para que un calendario "
 "suscrito funcione un año sin ninguna acción."
+
+msgid "Outgoing connections"
+msgstr "Conexiones salientes"
+
+msgid "Internal addresses allowed"
+msgstr "Direcciones internas permitidas"
+
+msgid "Internal addresses refused"
+msgstr "Direcciones internas rechazadas"
+
+msgid "For security, the plugin never calls an internal address (the server itself, a private network, the metadata of a cloud provider) and never follows a redirection. Allow internal addresses only if your organisation reaches these services through an internal mirror or relay. This setting applies to all entities."
+msgstr "Por seguridad, el plugin nunca llama a una dirección interna (el propio servidor, una red privada, los metadatos de un proveedor cloud) y nunca sigue una redirección. Permita las direcciones internas solo si su organización accede a estos servicios mediante un espejo o un relé interno. Este ajuste se aplica a todas las entidades."
+
+msgid "Allow internal addresses"
+msgstr "Permitir direcciones internas"
+
+msgid "Only a GLPI administrator (right to update the general configuration) can change this setting."
+msgstr "Solo un administrador de GLPI (derecho a modificar la configuración general) puede cambiar este ajuste."
+
+#, php-format
+msgid "GLPI also refuses internal addresses for this plugin: add %s to the constant GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/local_define.php)."
+msgstr "GLPI también rechaza las direcciones internas para este plugin: añada %s a la constante GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/local_define.php)."

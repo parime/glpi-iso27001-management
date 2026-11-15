@@ -22,7 +22,7 @@ use CronTask;
 use Document_Item;
 use Dropdown;
 use Glpi\Application\View\TemplateRenderer;
-use GlpiPlugin\Grcmanager\Compatibility\Base\NonconformityBase;
+use GlpiPlugin\Grcmanager\Compat\Base\NonconformityBase;
 use GlpiPlugin\Grcmanager\Services\Capa\CapaRequirementService;
 use GlpiPlugin\Grcmanager\Services\Capa\CveCapaRules;
 use GlpiPlugin\Grcmanager\Services\Capa\OverdueCapaService;

@@ -15,7 +15,7 @@
  * -------------------------------------------------------------------------
  */
 
-use GlpiPlugin\Grcmanager\Compatibility\Base\SecurityIncidentTemplatePredefinedFieldBase;
+use GlpiPlugin\Grcmanager\Compat\Base\SecurityIncidentTemplatePredefinedFieldBase;
 
 /**
  * Same minimal shape as GLPI core's own `ChangeTemplatePredefinedField`.

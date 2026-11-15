@@ -7,6 +7,26 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Security
+
+- **Appels HTTP sortants : point de passage unique et durci** (issue #658) : NVD, CISA KEV, EPSS,
+  flux du CERT-FR, Have I Been Pwned et vérification de la dernière version passent tous par
+  `Compat\Http::send()`. Client HTTP du cœur avec le contexte du plugin en GLPI 12 (un administrateur
+  peut autoriser un réseau privé en ajoutant `GlpiPlugin\Grcmanager\Menu` à
+  `GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS`),
+  `Toolbox::getGuzzleClient()` en GLPI 11 ; délai d'expiration total ; redirections jamais suivies
+  (une réponse 3xx est un échec) ; http et https seulement ; adresses internes refusées (boucle locale,
+  réseaux privés, lien local dont 169.254.169.254, IPv4 dans IPv6, écritures numériques), sauf
+  autorisation d'un administrateur de GLPI dans la page de configuration (carte « Connexions
+  sortantes ») ; connexion épinglée sur l'adresse contrôlée ; jetons GLPI (session, application,
+  cookie) jamais transmis.
+
+### Changed
+
+- Couche de compatibilité renommée `src/Compatibility` en `src/Compat` (charte commune, issue #658).
+  L'ancien espace de noms `GlpiPlugin\Grcmanager\Compatibility\` reste utilisable le temps d'une
+  version (alias). Les classes ITIL des incidents de sécurité restent dans `inc/` (voir TECH_DEBT.md).
+
 ## [2.50.0] - 2026-11-15
 
 ### Added

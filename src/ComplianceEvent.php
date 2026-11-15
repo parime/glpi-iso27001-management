@@ -21,7 +21,7 @@ use CronTask;
 use Document_Item;
 use Dropdown;
 use Glpi\Application\View\TemplateRenderer;
-use GlpiPlugin\Grcmanager\Compatibility\Base\ComplianceEventBase;
+use GlpiPlugin\Grcmanager\Compat\Base\ComplianceEventBase;
 use GlpiPlugin\Grcmanager\Services\Privacy\DataSubjectRequestRules;
 use GlpiPlugin\Grcmanager\Services\Calendar\ComplianceCalendarRules;
 use GlpiPlugin\Grcmanager\Services\Ui\Fragment;

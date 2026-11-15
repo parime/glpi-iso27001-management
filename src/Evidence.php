@@ -25,7 +25,7 @@ use Document_Item;
 use Dropdown;
 use Entity;
 use Glpi\Application\View\TemplateRenderer;
-use GlpiPlugin\Grcmanager\Compatibility\Base\EvidenceBase;
+use GlpiPlugin\Grcmanager\Compat\Base\EvidenceBase;
 use GlpiPlugin\Grcmanager\Services\Evidence\EvidenceValidity;
 use GlpiPlugin\Grcmanager\Services\Ui\Badge;
 use GlpiPlugin\Grcmanager\Services\Ui\Fragment;

@@ -20,7 +20,7 @@ namespace GlpiPlugin\Grcmanager;
 use Document_Item;
 use Dropdown;
 use Glpi\Application\View\TemplateRenderer;
-use GlpiPlugin\Grcmanager\Compatibility\Base\ControlBase;
+use GlpiPlugin\Grcmanager\Compat\Base\ControlBase;
 use GlpiPlugin\Grcmanager\Services\Control\AnssiHygieneCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\AssetsignEvidence;
 use GlpiPlugin\Grcmanager\Services\Control\CatalogLanguage;

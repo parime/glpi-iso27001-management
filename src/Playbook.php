@@ -19,7 +19,7 @@ namespace GlpiPlugin\Grcmanager;
 
 use CommonGLPI;
 use Glpi\Application\View\TemplateRenderer;
-use GlpiPlugin\Grcmanager\Compatibility\Base\PlaybookBase;
+use GlpiPlugin\Grcmanager\Compat\Base\PlaybookBase;
 use GlpiPlugin\Grcmanager\Services\Incident\PlaybookDefaults;
 use GlpiPlugin\Grcmanager\Services\Incident\PlaybookRules;
 use Log;

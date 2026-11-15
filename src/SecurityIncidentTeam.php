@@ -22,7 +22,7 @@ use CommonITILActor;
 use Glpi\Application\View\TemplateRenderer;
 use Glpi\DBAL\QueryExpression;
 use Glpi\DBAL\QuerySubQuery;
-use GlpiPlugin\Grcmanager\Compatibility\Base\SecurityIncidentTeamBase;
+use GlpiPlugin\Grcmanager\Compat\Base\SecurityIncidentTeamBase;
 use PluginGrcmanagerSecurityIncident;
 use Session;
 

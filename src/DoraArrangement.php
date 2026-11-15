@@ -20,7 +20,7 @@ declare(strict_types=1);
 namespace GlpiPlugin\Grcmanager;
 
 use Contract;
-use GlpiPlugin\Grcmanager\Compatibility\Base\DoraArrangementBase;
+use GlpiPlugin\Grcmanager\Compat\Base\DoraArrangementBase;
 use GlpiPlugin\Grcmanager\Services\Dora\RegisterRules;
 use GlpiPlugin\Grcmanager\Services\Dora\RegisterTemplates;
 use Log;

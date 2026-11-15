@@ -23,7 +23,7 @@ use CommonGLPI;
 use CronTask;
 use Dropdown;
 use Glpi\Application\View\TemplateRenderer;
-use GlpiPlugin\Grcmanager\Compatibility\Base\BreachExposureBase;
+use GlpiPlugin\Grcmanager\Compat\Base\BreachExposureBase;
 use GlpiPlugin\Grcmanager\Services\Breach\BreachMonitor;
 use GlpiPlugin\Grcmanager\Services\Breach\BreachMonitorConfig;
 use GlpiPlugin\Grcmanager\Services\Breach\BreachRules;

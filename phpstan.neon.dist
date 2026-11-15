@@ -7,7 +7,7 @@ parameters:
     # exclusion rationale as the sibling plugin glpi-vulnerability-manager (same author). Extend
     # `paths` as GLPI-independent services are added under src/.
     paths:
-        - src/Compatibility
+        - src/Compat
         - src/Services/Risk
         - src/Services/Control
         - src/Services/Clause
@@ -115,6 +115,6 @@ parameters:
         # \Toolbox / Glpi\Toolbox\HttpClient (each only present in one GLPI version), same
         # rationale as RiskMatrixConfig.php above. Base/ holds the parents of the inc/ classes,
         # which extend GLPI core classes (CommonDBTM, CommonITILObject...).
-        - src/Compatibility/GlpiVersion.php
-        - src/Compatibility/Http.php
-        - src/Compatibility/Base
+        - src/Compat/GlpiVersion.php
+        - src/Compat/Http.php
+        - src/Compat/Base

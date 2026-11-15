@@ -15,7 +15,7 @@
  * -------------------------------------------------------------------------
  */
 
-use GlpiPlugin\Grcmanager\Compatibility\Base\RuleSecurityIncidentCollectionBase;
+use GlpiPlugin\Grcmanager\Compat\Base\RuleSecurityIncidentCollectionBase;
 
 /**
  * Required, not optional: same class of surprise as `PluginGrcmanagerSecurityIncidentCost`/

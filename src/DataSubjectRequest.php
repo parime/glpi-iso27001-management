@@ -21,7 +21,7 @@ use Document_Item;
 use Dropdown;
 use Entity;
 use Glpi\Application\View\TemplateRenderer;
-use GlpiPlugin\Grcmanager\Compatibility\Base\DataSubjectRequestBase;
+use GlpiPlugin\Grcmanager\Compat\Base\DataSubjectRequestBase;
 use GlpiPlugin\Grcmanager\Services\Privacy\DataSubjectRequestRules as Rules;
 use Html;
 use Log;

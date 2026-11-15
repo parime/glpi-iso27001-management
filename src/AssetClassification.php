@@ -20,7 +20,7 @@ namespace GlpiPlugin\Grcmanager;
 use CommonDBTM;
 use CommonGLPI;
 use Glpi\Application\View\TemplateRenderer;
-use GlpiPlugin\Grcmanager\Compatibility\Base\AssetClassificationBase;
+use GlpiPlugin\Grcmanager\Compat\Base\AssetClassificationBase;
 use GlpiPlugin\Grcmanager\Services\Classification\ClassificationLevels;
 use GlpiPlugin\Grcmanager\Services\Impact\RecoveryObjectives;
 use GlpiPlugin\Grcmanager\Services\Ui\Badge;

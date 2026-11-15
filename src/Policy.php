@@ -21,7 +21,7 @@ use CronTask;
 use Document_Item;
 use Dropdown;
 use Glpi\Application\View\TemplateRenderer;
-use GlpiPlugin\Grcmanager\Compatibility\Base\PolicyBase;
+use GlpiPlugin\Grcmanager\Compat\Base\PolicyBase;
 use GlpiPlugin\Grcmanager\Services\Policy\AcknowledgementRules;
 use GlpiPlugin\Grcmanager\Services\Policy\CharterSignature;
 use GlpiPlugin\Grcmanager\Services\Policy\PolicyApprovalConfig;

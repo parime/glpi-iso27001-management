@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace GlpiPlugin\Grcmanager\Services;
 
-use GlpiPlugin\Grcmanager\Compatibility\Http;
+use GlpiPlugin\Grcmanager\Compat\Http;
 
 /**
  * Dernière version publiée sur GitHub (release la plus récente, hors pre-release), pour affichage
@@ -16,7 +16,8 @@ use GlpiPlugin\Grcmanager\Compatibility\Http;
  * Mise en cache 24h (même durée/mécanisme que `RSSFeed::getRSSFeed()` du cœur GLPI, `$GLPI_CACHE`) :
  * l'API GitHub non authentifiée est limitée à 60 requêtes/heure par IP, largement insuffisant si
  * appelée à chaque affichage de la page. Client HTTP du cœur GLPI (pas un appel HTTP direct), via
- * `Compatibility\Http` (GLPI 11 et 12) : réutilise la gestion de proxy/timeout/erreurs déjà établie
+ * `Compat\Http` (GLPI 11 et 12, point de passage unique des appels sortants) : réutilise la
+ * gestion de proxy/timeout/erreurs déjà établie
  * par le cœur GLPI pour ce type d'appel.
  */
 final class GithubVersionChecker

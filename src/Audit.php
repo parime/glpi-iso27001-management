@@ -21,7 +21,7 @@ use Document;
 use Document_Item;
 use Dropdown;
 use Glpi\Application\View\TemplateRenderer;
-use GlpiPlugin\Grcmanager\Compatibility\Base\AuditBase;
+use GlpiPlugin\Grcmanager\Compat\Base\AuditBase;
 use GlpiPlugin\Grcmanager\Services\Ui\Badge;
 use Html;
 use Log;
