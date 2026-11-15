@@ -29,6 +29,31 @@ final class SoaVersionTest extends GrcmanagerIntegrationTestCase
         return $version;
     }
 
+    /**
+     * Issue #648 : la liste des approbateurs doit envoyer tous les choix, pas seulement le dernier.
+     * On rejoue l'envoi du navigateur (champ caché vide puis une valeur par option choisie) avec
+     * les noms réellement rendus, puis la demande d'approbation avec ce que PHP en a lu.
+     */
+    public function testTheApproverListSendsEverySelectedApprover(): void
+    {
+        $html = SoaVersion::approverDropdown();
+        $this->assertMatchesRegularExpression('/<select name="approvers\[\]"[^>]*multiple/', $html);
+        $this->assertSame(1, preg_match('/<select name="([^"]+)"/', $html, $select));
+        $this->assertSame(1, preg_match('/<input type="hidden" name="([^"]+)" value=""/', $html, $hidden));
+
+        $alice = $this->approver('alice');
+        $bob = $this->approver('bob');
+        parse_str(http_build_query([$hidden[1] => '']) . '&'
+            . rawurlencode($select[1]) . '=' . $alice . '&' . rawurlencode($select[1]) . '=' . $bob, $post);
+        $this->assertSame([(string) $alice, (string) $bob], $post['approvers']);
+
+        $version = $this->request(array_map('intval', (array) $post['approvers']));
+        $this->assertSame(
+            [$alice, $bob],
+            array_column(SoaVersion::getApprovers($version->getID()), 'users_id')
+        );
+    }
+
     public function testRequestFreezesTheSoaInADocumentWithBothFingerprints(): void
     {
         $alice = $this->approver('alice');
