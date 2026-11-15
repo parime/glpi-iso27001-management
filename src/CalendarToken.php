@@ -70,7 +70,9 @@ final class CalendarToken
         }
         $days = (int) $days;
 
-        return $days >= self::MIN_LIFETIME_DAYS && $days <= self::MAX_LIFETIME_DAYS ? $days : self::DEFAULT_LIFETIME_DAYS;
+        return $days >= self::MIN_LIFETIME_DAYS && $days <= self::MAX_LIFETIME_DAYS
+            ? $days
+            : self::DEFAULT_LIFETIME_DAYS;
     }
 
     /**

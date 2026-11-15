@@ -121,7 +121,10 @@ final class CalendarTokenTest extends GrcmanagerIntegrationTestCase
             $this->assertSame(CalendarToken::DEFAULT_LIFETIME_DAYS, CalendarToken::lifetimeDays());
             CalendarToken::saveLifetime('abc');
             $this->assertSame(CalendarToken::DEFAULT_LIFETIME_DAYS, CalendarToken::lifetimeDays());
-            $this->assertSame(CalendarToken::MAX_LIFETIME_DAYS, CalendarToken::normalizeLifetime(CalendarToken::MAX_LIFETIME_DAYS));
+            $this->assertSame(
+                CalendarToken::MAX_LIFETIME_DAYS,
+                CalendarToken::normalizeLifetime(CalendarToken::MAX_LIFETIME_DAYS)
+            );
         } finally {
             CalendarToken::saveLifetime(CalendarToken::DEFAULT_LIFETIME_DAYS);
         }
