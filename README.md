@@ -111,6 +111,13 @@ archivé), avec ses champs de classification ISO 27001 fusionnés dessus.
 - Avec le plugin [Wazuh](https://github.com/initiativa/wazuh) (optionnel, lecture seule) : agents
   actifs et part des ordinateurs couverts comme preuve des mesures A.8.16 et A.8.7, et carte de
   tableau de bord « couverture Wazuh ». Sans le plugin, rien ne change.
+- Avec le plugin [Inventaire Docker](https://github.com/parime/glpi-docker-inventory) (optionnel,
+  lecture seule) : services, stacks, nœuds et dernier import réussi de chaque connexion sur A.5.9 ;
+  écarts de version et vulnérabilités Harbor des images sur A.8.8 ; configuration des services et
+  part des images venant d'un registre maîtrisé sur A.8.9 ; changements de version des 90 derniers
+  jours sur A.8.32. Les images vulnérables (critiques ou hautes) apparaissent aussi sur la page des
+  vulnérabilités du parc. On ne voit que ce que l'on voit dans l'inventaire Docker (droits, entités
+  actives). Sans le plugin, rien ne change.
 
 **Incidents de sécurité**
 - Objet ITIL complet dans le menu Assistance (acteurs, workflow, tâches, notifications, suivi

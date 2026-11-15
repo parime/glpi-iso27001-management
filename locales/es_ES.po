@@ -17253,3 +17253,115 @@ msgstr ""
 "GLPI también rechaza las direcciones internas para este plugin: añada %s a "
 "la constante GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/"
 "local_define.php)."
+
+#, php-format
+msgid "%d service(s)"
+msgstr "%d servicio(s)"
+
+#, php-format
+msgid "%d stack(s)"
+msgstr "%d stack(s)"
+
+#, php-format
+msgid "%d node(s)"
+msgstr "%d nodo(s)"
+
+#, php-format
+msgid "%d retired"
+msgstr "%d retirado(s)"
+
+msgid "View services"
+msgstr "Ver los servicios"
+
+msgid "no successful import yet"
+msgstr "ninguna importación correcta por ahora"
+
+msgid "More than 48 hours ago: the inventory may be out of date."
+msgstr "Hace más de 48 horas: el inventario puede estar desactualizado."
+
+#, php-format
+msgid "last successful import: %s"
+msgstr "última importación correcta: %s"
+
+msgid "The import dates of the connections are shown to the administrators of the Docker inventory."
+msgstr "Las fechas de importación de las conexiones se muestran a los administradores del inventario Docker."
+
+msgid "Version gaps"
+msgstr "Diferencias de versión"
+
+msgid "View versions"
+msgstr "Ver las versiones"
+
+#, php-format
+msgid "%1$d services to update: the %2$d most urgent are shown."
+msgstr "%1$d servicios por actualizar: se muestran los %2$d más urgentes."
+
+msgid "Image vulnerabilities (Harbor)"
+msgstr "Vulnerabilidades de las imágenes (Harbor)"
+
+msgid "no Harbor connection: the images are not analysed"
+msgstr "ninguna conexión Harbor: las imágenes no se analizan"
+
+msgid "View Harbor images"
+msgstr "Ver las imágenes Harbor"
+
+#, php-format
+msgid "%d critical"
+msgstr "%d crítica(s)"
+
+#, php-format
+msgid "%d high"
+msgstr "%d alta(s)"
+
+msgid "Services counted by the most severe vulnerability of the image they run."
+msgstr "Servicios contados según la vulnerabilidad más grave de la imagen que ejecutan."
+
+msgid "image origin not evaluated: no controlled registry declared"
+msgstr "procedencia de las imágenes no evaluada: ningún registro controlado declarado"
+
+#, php-format
+msgid "%1$d of %2$d images from a controlled registry (%3$s %%)"
+msgstr "%1$d de %2$d imágenes de un registro controlado (%3$s %%)"
+
+msgid "Image"
+msgstr "Imagen"
+
+msgid "Fingerprint"
+msgstr "Huella"
+
+msgid "Replicas"
+msgstr "Réplicas"
+
+#, php-format
+msgid "%1$d services: the first %2$d are shown."
+msgstr "%1$d servicios: se muestran los %2$d primeros."
+
+#, php-format
+msgid "%1$d version change(s) observed over the last %2$d days"
+msgstr "%1$d cambio(s) de versión observado(s) en los últimos %2$d días"
+
+#, php-format
+msgid "%1$d changes: the %2$d most recent are shown."
+msgstr "%1$d cambios: se muestran los %2$d más recientes."
+
+msgid "Read live from the Docker inventory plugin, on your active entities and within your rights there. Read only: nothing is changed."
+msgstr "Leído en directo del plugin Inventario Docker, en sus entidades activas y según sus derechos en él. Solo lectura: no se modifica nada."
+
+msgid "Docker inventory evidence"
+msgstr "Evidencias del inventario Docker"
+
+msgid "Container images (Harbor)"
+msgstr "Imágenes de contenedores (Harbor)"
+
+msgid "No deployed container image has critical or high vulnerabilities."
+msgstr "Ninguna imagen de contenedor desplegada tiene vulnerabilidades críticas o altas."
+
+msgid "Services of the Docker inventory whose running image has critical or high vulnerabilities in its Harbor analysis. Read only, from the Docker inventory plugin."
+msgstr "Servicios del inventario Docker cuya imagen en ejecución tiene vulnerabilidades críticas o altas en su análisis Harbor. Solo lectura, desde el plugin Inventario Docker."
+
+#, php-format
+msgid "%1$d services: the %2$d most exposed are shown."
+msgstr "%1$d servicios: se muestran los %2$d más expuestos."
+
+msgid "Fixable"
+msgstr "Corregibles"
