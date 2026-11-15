@@ -7,6 +7,12 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Changed
+
+- Documentation : lien vers la charte commune des plugins ([CHARTE.md](https://github.com/parime/glpi-plugin-template/blob/main/CHARTE.md))
+  dans `AGENTS.md` et les README ; contrôles de sécurité communs v1.7.0 (charte commune et
+  menus, en avertissement).
+
 ## [2.49.0] - 2026-11-15
 
 ### Added
