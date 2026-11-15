@@ -207,7 +207,7 @@ final class ConsistencyRules
             return $spec['default'];
         }
 
-        return max($spec['min'] ?? 0, min($spec['max'] ?? PHP_INT_MAX, (int) $value));
+        return max((int) $spec['min'], min((int) $spec['max'], (int) $value));
     }
 
     // ------------------------------------------------------------------ Outils de date et de texte.
@@ -370,6 +370,8 @@ final class ConsistencyRules
 
     /**
      * Mesure mise en œuvre sans preuve valide (document non expiré) ni test depuis $months mois.
+     *
+     * @param array<string, mixed> $control
      */
     public static function implementedWithoutEvidence(
         array $control,
