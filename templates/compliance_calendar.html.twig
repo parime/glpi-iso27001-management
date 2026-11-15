@@ -9,17 +9,55 @@
          <a class="btn btn-sm btn-primary" href="{{ form_url }}"><i class="ti ti-plus me-1"></i>{{ __('Add an event', 'grcmanager') }}</a>
       {% endif %}
       <a class="btn btn-sm btn-outline-primary ms-auto" href="{{ ics_url }}"><i class="ti ti-calendar-down me-1"></i>{{ __('Export (iCal)', 'grcmanager') }}</a>
-      {% if subscription_url %}
-         <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#grcmanager-ical-subscription"><i class="ti ti-calendar-share me-1"></i>{{ __('Subscribe', 'grcmanager') }}</button>
-      {% endif %}
+      <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#grcmanager-ical-subscription" aria-expanded="{{ subscription.new_urls ? 'true' : 'false' }}"><i class="ti ti-calendar-share me-1"></i>{{ __('Subscribe', 'grcmanager') }}</button>
    </div>
-   {% if subscription_url %}
-      <div class="collapse mb-3" id="grcmanager-ical-subscription">
-         <label class="form-label" for="grcmanager-ical-url">{{ __('Subscription link for your calendar (Outlook, Thunderbird, Google Calendar…)', 'grcmanager') }}</label>
-         <input type="text" class="form-control" id="grcmanager-ical-url" readonly value="{{ subscription_url }}" onfocus="this.select()">
-         <div class="form-hint">{{ __('Personal link: it gives access to your deadlines with your rights, without a password. Do not share it. To revoke it, regenerate your personal token in your preferences.', 'grcmanager') }}</div>
-      </div>
-   {% endif %}
+   {# Issue #664 : lien d'abonnement porté par un jeton dédié au calendrier (lecture seule, à durée
+      limitée, révocable), jamais par le jeton personnel GLPI. Le lien n'est montré qu'une fois. #}
+   {% set token = subscription.status %}
+   <div class="collapse mb-3 {{ subscription.new_urls ? 'show' }}" id="grcmanager-ical-subscription">
+      <div class="card card-sm"><div class="card-body">
+         <h4 class="card-title"><i class="ti ti-calendar-share me-1"></i>{{ __('Subscription link for your calendar (Outlook, Thunderbird, Google Calendar…)', 'grcmanager') }}</h4>
+         {% if subscription.new_urls %}
+            <div class="alert alert-warning">
+               <i class="ti ti-alert-triangle me-1"></i>{{ __('Copy your link now: for your security, it will not be shown again. If you lose it, create a new one.', 'grcmanager') }}
+            </div>
+            {% for key, label in {'all': __('All deadlines', 'grcmanager'), 'mine': __('My deadlines', 'grcmanager')} %}
+               <label class="form-label" for="grcmanager-ical-url-{{ key }}">{{ label }}</label>
+               <div class="input-group mb-2">
+                  <input type="text" class="form-control" id="grcmanager-ical-url-{{ key }}" readonly value="{{ subscription.new_urls[key] }}" onfocus="this.select()">
+                  <button type="button" class="btn btn-outline-secondary" title="{{ __('Copy', 'grcmanager') }}" onclick="navigator.clipboard.writeText(document.getElementById('grcmanager-ical-url-{{ key }}').value)"><i class="ti ti-copy"></i></button>
+               </div>
+            {% endfor %}
+         {% endif %}
+         {% if token %}
+            <p class="mb-2">
+               {% if token.expired %}
+                  <span class="badge bg-red-lt"><i class="ti ti-clock-x me-1"></i>{{ _x('masculine', 'Expired', 'grcmanager') }}</span>
+               {% else %}
+                  <span class="badge bg-green-lt"><i class="ti ti-circle-check me-1"></i>{{ __('Active', 'grcmanager') }}</span>
+               {% endif %}
+               <span class="text-muted ms-2">
+                  {{ __('Created on %s', 'grcmanager')|format(token.date_creation|formatted_datetime) }} ·
+                  {{ __('Expires on %s', 'grcmanager')|format(token.date_expiration|formatted_datetime) }} ·
+                  {% if token.date_last_use %}{{ __('Last read by a calendar on %s', 'grcmanager')|format(token.date_last_use|formatted_datetime) }}{% else %}{{ __('Not used yet', 'grcmanager') }}{% endif %}
+               </span>
+            </p>
+         {% else %}
+            <p class="text-muted mb-2">{{ __('You have no subscription link yet. Create one to see your deadlines in your calendar application.', 'grcmanager') }}</p>
+         {% endif %}
+         <form method="post" action="{{ subscription.action_url }}" class="d-flex flex-wrap gap-2">
+            <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+            {% if mine %}<input type="hidden" name="mine" value="1">{% endif %}
+            <button type="submit" name="generate_calendar_token" value="1" class="btn btn-sm btn-primary">
+               {% if token %}<i class="ti ti-refresh me-1"></i>{{ __('Regenerate the link', 'grcmanager') }}{% else %}<i class="ti ti-link-plus me-1"></i>{{ __('Create a subscription link', 'grcmanager') }}{% endif %}
+            </button>
+            {% if token %}
+               <button type="submit" name="revoke_calendar_token" value="1" class="btn btn-sm btn-outline-danger"><i class="ti ti-link-off me-1"></i>{{ __('Revoke the link', 'grcmanager') }}</button>
+            {% endif %}
+         </form>
+         <div class="form-hint mt-2">{{ __('This link only gives read access to the compliance calendar, with your rights, without a password; it does not give access to GLPI or its API. Do not share it. It expires after %d days; regenerating or revoking it disables the previous link immediately.', 'grcmanager')|format(subscription.lifetime_days) }}</div>
+      </div></div>
+   </div>
    <p class="text-muted small"><i class="ti ti-info-circle me-1"></i>{{ __('Events entered here and deadlines from the other registers (audits, management reviews, access reviews, periodic reviews, policies, obligations, evidence). Each deadline also appears in the GLPI planning of its owner.', 'grcmanager') }}</p>
 
    {% for month in months %}

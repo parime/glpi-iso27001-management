@@ -1,0 +1,202 @@
+{# Issue #614 : contrôles de cohérence du SMSI avant un audit (score, écarts par domaine et par règle,
+   lien vers chaque fiche à corriger, tendance mensuelle). Lecture seule. #}
+{% set score_text = summary.score is null ? '-' : summary.score ~ ' / 100' %}
+<div class="container-fluid my-2" id="grc-consistency">
+   <div class="row g-3">
+      <div class="col-md-6 col-xl-3">
+         <div class="card h-100">
+            <div class="card-header"><h3 class="card-title"><i class="ti ti-target-arrow me-2"></i>{{ __('Consistency score', 'grcmanager') }}</h3></div>
+            <div class="card-body text-center">
+               <div class="display-6 fw-bold text-{{ summary.color }}" id="grc-consistency-score">{{ score_text }}</div>
+               {% if summary.score is null %}
+                  <p class="text-muted small mb-0">{{ __('Nothing to check yet: no rule could examine any item.', 'grcmanager') }}</p>
+               {% elseif summary.gaps == 0 %}
+                  <span class="badge bg-green-lt mt-2"><i class="ti ti-circle-check me-1"></i>{{ __('No gap: ready for the audit', 'grcmanager') }}</span>
+               {% else %}
+                  <span class="badge bg-{{ summary.color }}-lt mt-2"><i class="ti ti-alert-triangle me-1"></i>{{ __('Gaps to fix: %d', 'grcmanager')|format(summary.gaps) }}</span>
+               {% endif %}
+               <p class="text-muted small mt-2 mb-0">{{ __('Share of the checked items without a gap, weighted by severity (high counts three times, medium twice).', 'grcmanager') }}</p>
+            </div>
+         </div>
+      </div>
+      <div class="col-md-6 col-xl-4">
+         <div class="card h-100">
+            <div class="card-header"><h3 class="card-title"><i class="ti ti-list-details me-2"></i>{{ __('Gaps by severity', 'grcmanager') }}</h3></div>
+            <div class="card-body">
+               <div class="d-flex flex-wrap gap-2 mb-3">
+                  {% for key, s in severities %}
+                     <a class="badge {{ s.class }} fs-4 text-decoration-none" href="{{ action }}?severity={{ key }}" title="{{ __('Show only this severity', 'grcmanager') }}">
+                        <i class="ti {{ s.icon }} me-1"></i>{{ s.label }} : {{ summary.by_severity[key] ?? 0 }}
+                     </a>
+                  {% endfor %}
+               </div>
+               <p class="small text-muted mb-2">
+                  <i class="ti ti-checklist me-1"></i>{{ __('Rules checked: %d', 'grcmanager')|format(summary.evaluated) }}
+                  {% if summary.disabled > 0 %}
+                     · {{ __('Disabled in the configuration: %d', 'grcmanager')|format(summary.disabled) }}
+                  {% endif %}
+                  {% if summary.not_evaluated > 0 %}
+                     · <span title="{{ __('Your profile cannot read the items these rules check (for example the risk register or the processing register).', 'grcmanager') }}">{{ __('Outside your rights: %d', 'grcmanager')|format(summary.not_evaluated) }} <i class="ti ti-lock"></i></span>
+                  {% endif %}
+               </p>
+               <div class="d-flex flex-wrap gap-2">
+                  <a class="btn btn-sm btn-outline-secondary" href="{{ csv_url }}"><i class="ti ti-file-spreadsheet me-1"></i>{{ __('Export the gaps (CSV)', 'grcmanager') }}</a>
+                  <a class="btn btn-sm btn-outline-secondary" href="{{ pdf_url }}"><i class="ti ti-file-type-pdf me-1"></i>{{ __('Audit readiness report (PDF)', 'grcmanager') }}</a>
+                  {% if config_url %}
+                     <a class="btn btn-sm btn-ghost-secondary" href="{{ config_url }}"><i class="ti ti-adjustments me-1"></i>{{ __('Rules and thresholds', 'grcmanager') }}</a>
+                  {% endif %}
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="col-xl-5">
+         <div class="card h-100">
+            <div class="card-header"><h3 class="card-title"><i class="ti ti-chart-line me-2"></i>{{ __('Monthly trend', 'grcmanager') }}</h3></div>
+            <div class="card-body">
+               {% if history|length < 2 %}
+                  <p class="text-muted small">{{ __('The trend builds up month after month: each time you open this page, the result of the month is recorded for you and your current entity.', 'grcmanager') }}</p>
+               {% endif %}
+               {% if history is not empty %}
+                  <div id="grc-consistency-history" style="height: 200px;" data-history="{{ history|json_encode }}"
+                       data-score-label="{{ __('Consistency score', 'grcmanager') }}" data-gaps-label="{{ __('Gaps', 'grcmanager') }}"></div>
+               {% endif %}
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <form method="get" action="{{ action }}" class="card mt-3">
+      <div class="card-body d-flex flex-wrap align-items-end gap-3 py-2">
+         <div>
+            <label class="form-label mb-1" for="grc-consistency-area">{{ __('Area', 'grcmanager') }}</label>
+            <select class="form-select form-select-sm" id="grc-consistency-area" name="area">
+               <option value="">{{ __('All areas', 'grcmanager') }}</option>
+               {% for key, label in area_labels %}
+                  <option value="{{ key }}" {{ filters.area == key ? 'selected' }}>{{ label }}</option>
+               {% endfor %}
+            </select>
+         </div>
+         <div>
+            <label class="form-label mb-1" for="grc-consistency-severity">{{ __('Severity', 'grcmanager') }}</label>
+            <select class="form-select form-select-sm" id="grc-consistency-severity" name="severity">
+               <option value="">{{ __('All severities', 'grcmanager') }}</option>
+               {% for key, s in severities %}
+                  <option value="{{ key }}" {{ filters.severity == key ? 'selected' }}>{{ s.label }}</option>
+               {% endfor %}
+            </select>
+         </div>
+         <div style="min-width: 260px; max-width: 480px;">
+            <label class="form-label mb-1" for="grc-consistency-rule">{{ __('Rule', 'grcmanager') }}</label>
+            <select class="form-select form-select-sm" id="grc-consistency-rule" name="rule">
+               <option value="">{{ __('All rules', 'grcmanager') }}</option>
+               {% for key, label in rule_options %}
+                  <option value="{{ key }}" {{ filters.rule == key ? 'selected' }}>{{ label }}</option>
+               {% endfor %}
+            </select>
+         </div>
+         <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-sm btn-primary"><i class="ti ti-filter me-1"></i>{{ __('Filter', 'grcmanager') }}</button>
+            {% if filtered %}
+               <a class="btn btn-sm btn-ghost-secondary" href="{{ action }}"><i class="ti ti-x me-1"></i>{{ __('Show everything', 'grcmanager') }}</a>
+            {% endif %}
+         </div>
+      </div>
+   </form>
+
+   {% if areas is empty %}
+      <div class="alert alert-info mt-3">
+         <i class="ti ti-info-circle me-1"></i>{{ filtered ? __('No rule matches these filters.', 'grcmanager') : __('No rule can be checked with your rights, or every rule is disabled.', 'grcmanager') }}
+      </div>
+   {% endif %}
+
+   {% for area in areas %}
+      <div class="card mt-3 grc-consistency-area" data-area="{{ area.key }}">
+         <div class="card-header d-flex align-items-center">
+            <h3 class="card-title mb-0">
+               <i class="ti ti-folder me-2"></i>{{ area.label }}
+               <span class="text-muted small ms-1">{{ __('ISO 27001 %s', 'grcmanager')|format(area.clause) }}</span>
+            </h3>
+            <span class="ms-auto badge {{ area.gaps > 0 ? 'bg-red-lt' : 'bg-green-lt' }}">
+               {% if area.gaps > 0 %}
+                  <i class="ti ti-alert-triangle me-1"></i>{{ __('Gaps: %d', 'grcmanager')|format(area.gaps) }}
+               {% else %}
+                  <i class="ti ti-circle-check me-1"></i>{{ __('Consistent', 'grcmanager') }}
+               {% endif %}
+            </span>
+         </div>
+         <div class="list-group list-group-flush">
+            {% for rule in area.rules %}
+               <div class="list-group-item grc-consistency-rule" data-rule="{{ rule.key }}" data-gaps="{{ rule.gap_count }}">
+                  <div class="d-flex flex-wrap align-items-center gap-2">
+                     <span class="badge {{ rule.severity.class }}" title="{{ __('Severity', 'grcmanager') }}"><i class="ti {{ rule.severity.icon }} me-1"></i>{{ rule.severity.label }}</span>
+                     <strong>{{ rule.label }}</strong>
+                     <span class="text-muted small">{{ rule.clause }}</span>
+                     <span class="ms-auto d-flex align-items-center gap-2">
+                        {% if rule.delta is not null and rule.delta != 0 %}
+                           <span class="small {{ rule.delta > 0 ? 'text-red' : 'text-green' }}" title="{{ __('Change since the previous month', 'grcmanager') }}">
+                              <i class="ti {{ rule.delta > 0 ? 'ti-trending-up' : 'ti-trending-down' }}"></i>{{ rule.delta > 0 ? '+' : '' }}{{ rule.delta }}
+                           </span>
+                        {% endif %}
+                        {% if rule.gap_count > 0 %}
+                           <span class="badge bg-red text-white">{{ rule.gap_count }} / {{ rule.total }}</span>
+                        {% else %}
+                           <span class="badge bg-green-lt"><i class="ti ti-check me-1"></i>{{ rule.total > 0 ? __('OK (%d checked)', 'grcmanager')|format(rule.total) : __('Nothing to check', 'grcmanager') }}</span>
+                        {% endif %}
+                     </span>
+                  </div>
+                  {% if rule.gap_count > 0 %}
+                     <p class="small text-muted mt-1 mb-1"><i class="ti ti-tool me-1"></i><strong>{{ __('How to fix', 'grcmanager') }} :</strong> {{ rule.fix }}</p>
+                     <details {{ rule.gap_count <= 5 or filters.rule == rule.key ? 'open' }}>
+                        <summary class="small">{{ __('Items to fix (%d)', 'grcmanager')|format(rule.gap_count) }}</summary>
+                        <table class="table table-sm table-vcenter mb-0 mt-1">
+                           <tbody>
+                              {% for gap in rule.gaps|slice(0, max_gaps) %}
+                                 <tr>
+                                    <td class="text-nowrap text-muted small" style="width: 1%;">{{ gap.type_label }}</td>
+                                    <td><a href="{{ gap.url }}" class="grc-consistency-fix"><i class="ti ti-edit me-1"></i>{{ gap.name }}</a></td>
+                                    <td class="small">{{ gap.detail }}</td>
+                                 </tr>
+                              {% endfor %}
+                           </tbody>
+                        </table>
+                        {% if rule.gap_count > max_gaps %}
+                           <p class="small text-muted mt-1 mb-0">{{ __('Only the first %1$d items are listed; the CSV export gives all %2$d.', 'grcmanager')|format(max_gaps, rule.gap_count) }}</p>
+                        {% endif %}
+                     </details>
+                  {% endif %}
+               </div>
+            {% endfor %}
+         </div>
+      </div>
+   {% endfor %}
+</div>
+<script>
+   (function () {
+      const chart = document.getElementById('grc-consistency-history');
+      if (!chart) {
+         return;
+      }
+      const draw = function () {
+         const points = JSON.parse(chart.dataset.history);
+         window.echarts.init(chart).setOption({
+            grid: {left: 40, right: 40, top: 20, bottom: 50},
+            legend: {bottom: 0, data: [chart.dataset.scoreLabel, chart.dataset.gapsLabel]},
+            tooltip: {trigger: 'axis'},
+            xAxis: {type: 'category', data: points.map(function (p) { return p.month; })},
+            yAxis: [{type: 'value', min: 0, max: 100}, {type: 'value', minInterval: 1}],
+            series: [
+               {name: chart.dataset.scoreLabel, type: 'line', smooth: true, data: points.map(function (p) { return p.score; })},
+               {name: chart.dataset.gapsLabel, type: 'bar', barMaxWidth: 40, yAxisIndex: 1, itemStyle: {color: '#d63939'}, data: points.map(function (p) { return p.gaps; })}
+            ]
+         });
+      };
+      if (typeof window.echarts === 'undefined') {
+         const script = document.createElement('script');
+         script.src = '{{ config('root_doc') }}/lib/echarts.min.js';
+         script.onload = draw;
+         document.head.appendChild(script);
+      } else {
+         draw();
+      }
+   })();
+</script>

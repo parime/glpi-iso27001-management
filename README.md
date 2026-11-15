@@ -215,6 +215,10 @@ archivé), avec ses champs de classification ISO 27001 fusionnés dessus.
   espace GRC, contenu figé après approbation (nouvelle version), historique exportable et
   procès-verbal archivé comme preuve sur la mesure A.5.1.
 - **Score de maturité** cyber (0 à 100) avec le détail du calcul et son historique mensuel.
+- **Contrôles de cohérence du SMSI avant un audit** : 22 règles (risque sans propriétaire, mesure
+  mise en œuvre sans preuve ni test, preuve expirée, politique non revue, non-conformité close sans
+  action...) avec gravité, lien vers la fiche à corriger, score, tendance mensuelle, export CSV/PDF et
+  carte de tableau de bord ; règles et seuils réglables, en lecture seule.
 - **Évaluation par référentiel** : pour chaque référentiel activé, taux de mise en œuvre, taux de
   preuve (documents non expirés rattachés aux mesures) et score des mesures à la fois faites et
   prouvées, avec la liste des écarts menant à chaque mesure.
@@ -253,7 +257,7 @@ nombre d'éléments qui attendent l'utilisateur.
 
 | Rubrique | Pages |
 |---|---|
-| Tableau de bord | Tableau de bord, Score de maturité, Évaluation par référentiel, Calendrier de conformité |
+| Tableau de bord | Tableau de bord, Score de maturité, Évaluation par référentiel, Calendrier de conformité, Contrôles de cohérence |
 | Risques | Risques, Risques fournisseurs, Analyse d'impact, Effet domino, Dérogations |
 | Conformité | Contrôles Annexe A (SoA), Référentiels, Exigences SMSI, Obligations, Registre des traitements, Registre des violations, Politiques, Preuves, Couverture des preuves |
 | Audits et amélioration | Audits internes, Non-conformités, Objectifs ISMS, Revues de direction |
@@ -323,6 +327,8 @@ php bin/console plugin:activate grcmanager
 ```
 
 ## Documentation
+
+Règles communes à tous les plugins de parime, à lire avant de contribuer : [charte commune des plugins](https://github.com/parime/glpi-plugin-template/blob/main/CHARTE.md).
 
 📖 **[Voir le tutoriel complet](docs/TUTORIAL.md)** : le flux entier du plugin, de l'activation au
 tableau de bord, en passant par le registre de risques, la matrice probabilité x impact, la SoA et
@@ -439,6 +445,16 @@ du dépôt et dans la documentation indique uniquement le référentiel que le p
   risques types d'IA et la correspondance avec l'Annexe A ISO 27001 sont rédigés par ce projet,
   qui n'est affilié ni à l'ISO ni à l'IEC. Le texte de la norme s'obtient auprès de
   l'[ISO](https://www.iso.org/standard/27090) ou de l'organisme national de normalisation.
+
+## Traductions
+
+[![État de la traduction](https://hosted.weblate.org/widget/glpi-iso27001-management/svg-badge.svg)](https://hosted.weblate.org/engage/glpi-iso27001-management/)
+
+Le plugin est traduit en français, anglais, allemand, espagnol, italien, polonais et portugais
+(Brésil). **Les contributions de traduction sont bienvenues sur [Hosted Weblate](https://hosted.weblate.org/engage/glpi-iso27001-management/)** :
+corriger un terme, améliorer le vocabulaire métier ou ajouter une langue se fait directement dans
+le navigateur, sans Git. Weblate propose ensuite les traductions par une Pull Request, relue avant
+d'être fusionnée.
 
 ## Réutilisation et citation
 

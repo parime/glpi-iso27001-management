@@ -284,7 +284,14 @@ if ($mode === 'counts') {
         // refusés de ces profils (il ne contient rien d'autre que ces traces).
         // Issue #538 : de même, l'historique des téléchargements trace par conception la pièce
         // soumise que l'auditeur (iso-sans-droit) télécharge.
-        if (in_array($name, ['glpi_plugin_grcmanager_auditlogs', 'glpi_plugin_grcmanager_documentaccesses'], true)) {
+        // Issue #614 : la tendance des contrôles de cohérence enregistre, par conception, le résumé du
+        // mois de chaque personne qui ouvre la page (score et nombres, aucun élément du SMSI).
+        if (
+            in_array($name, [
+                'glpi_plugin_grcmanager_auditlogs', 'glpi_plugin_grcmanager_documentaccesses',
+                'glpi_plugin_grcmanager_consistencysnapshots',
+            ], true)
+        ) {
             continue;
         }
         $counts[$name] = countElementsInTable($name);
@@ -621,6 +628,10 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
         ]);
     }
     $ids['processing_' . $suffix] = (int) $processing->getID();
+    // Issue #614 : AIPD requise non faite, signalee par les controles de coherence.
+    $DB->update('glpi_plugin_grcmanager_processingactivities', ['dpia_status' => 'required'], [
+        'id' => $ids['processing_' . $suffix],
+    ]);
     // Analyse d'impact historisée : le contrôle commun des restes doit voir son journal nettoyé.
     if ($suffix === 'A' && \GlpiPlugin\Grcmanager\Dpia::forActivity($ids['processing_A']) === null) {
         \GlpiPlugin\Grcmanager\Dpia::saveForm($ids['processing_A'], ['necessity' => 'Necessite fictive']);

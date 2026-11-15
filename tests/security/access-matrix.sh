@@ -75,7 +75,8 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/businessprocess.php front/businessprocess.php?export=csv front/businessprocess.report.php
   front/customframework.php front/customframework.php?template=1
   front/riskimport.php front/riskimport.php?template=1 front/riskimport.php?export=1
-  front/doraregister.php front/doraregister.php?export=B_02.01 front/doraregister.php?export=zip"
+  front/doraregister.php front/doraregister.php?export=B_02.01 front/doraregister.php?export=zip
+  front/consistencycheck.php front/consistencycheck.export.php?format=csv front/consistencycheck.export.php?format=pdf"
 # Creations : refusees sans droit comme en lecture seule (etat en base compare par la CI).
 create_attempts() { # code attendu, code attendu pour la classification (404 sans droit sur l'actif)
   local incident; incident=$(id incident_A)
@@ -483,9 +484,11 @@ expect "document d'audit (equipe de l'audit seulement)" "$([ "$ROLE" = admin ] &
 # Issue #139 : la copie de quiz de glpi ne se lit que par lui (ni formateur ni groupe RSSI ici).
 expect "front/trainingquiz.send.php : copie d'un autre" "$([ "$ROLE" = admin ] && echo 200 || echo 403)" \
   "$(code "$P/trainingquiz.send.php?id=$(id quiz)")"
-# Issue #142 : le flux iCal d'abonnement ignore la session et n'accepte qu'un jeton personnel valide.
+# Issue #142, #664 : le flux iCal d'abonnement ignore la session et n'accepte qu'un jeton dedie au
+# calendrier valide (jamais le jeton personnel GLPI).
 expect "front/compliancecalendar.ics.php : sans jeton" 403    "$(curl -s -o /dev/null -w '%{http_code}' "$P/compliancecalendar.ics.php")"
 expect "front/compliancecalendar.ics.php : jeton invalide" 403    "$(code "$P/compliancecalendar.ics.php?token=jeton-invalide")"
+expect "front/compliancecalendar.ics.php : jeton au bon format inconnu" 403   "$(code "$P/compliancecalendar.ics.php?token=1.$(printf '0%.0s' $(seq 64))")"
 # Issue #375 : registre des traitements rattache a une entite ; un element lie d'une autre entite
 # n'est jamais nomme, ni sur la fiche, ni dans l'export, ni dans l'onglet de l'actif.
 expect "traitement, entite A"          200    "$(code "$P/processingactivity.form.php?id=$(id processing_A)")"
@@ -515,6 +518,12 @@ processing_csv=$(curl -s -c "$JAR" -b "$JAR" "$P/processingactivity.export.php?f
 contains "export CSV du registre : traitement de A" "Traitement securite A" oui "$processing_csv"
 contains "export CSV du registre : traitement de B" "Traitement securite B" $SEE_B "$processing_csv"
 contains "export CSV du registre : actif de B" "PC securite B" $SEE_B "$processing_csv"
+# Issue #614 : controles de coherence, AIPD requise non faite sur les traitements de A et de B :
+# le traitement de B n'est jamais cite pour un profil limite a A (page et export).
+consistency_csv=$(curl -s -c "$JAR" -b "$JAR" "$P/consistencycheck.export.php?format=csv&rule=processing_dpia_pending")
+contains "coherence, export CSV : traitement de A" "Traitement securite A" oui "$consistency_csv"
+contains "coherence, export CSV : traitement de B" "Traitement securite B" $SEE_B "$consistency_csv"
+contains "coherence, page : traitement de B" "Traitement securite B" $SEE_B   "$(curl -s -c "$JAR" -b "$JAR" "$P/consistencycheck.php?rule=processing_dpia_pending")"
 contains "onglet Registre des traitements d'un ordinateur de A" "Traitement securite A" oui \
   "$(tab Computer 'GlpiPlugin%5CGrcmanager%5CProcessingActivity$1' "$(id computer_A)")"
 

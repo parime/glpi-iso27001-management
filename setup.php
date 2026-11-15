@@ -31,7 +31,7 @@ if (is_readable(__DIR__ . '/vendor/autoload.php')) {
     \GlpiPlugin\Grcmanager\Install\ItemtypeRenames::registerAliases();
 }
 
-define('PLUGIN_GRCMANAGER_VERSION', '2.49.0');
+define('PLUGIN_GRCMANAGER_VERSION', '2.50.0');
 define('PLUGIN_GRCMANAGER_MIN_GLPI', '11.0.0');
 // GLPI 11 and 12 from a single code base (see src/Compatibility/).
 define('PLUGIN_GRCMANAGER_MAX_GLPI', '12.99.99');
@@ -53,8 +53,8 @@ function plugin_init_grcmanager(): void
     }
 
     // Issue #142, phase 2 : le flux iCal d'abonnement est lu par un agenda externe, sans session.
-    // Seule page du plugin ainsi ouverte : elle s'authentifie elle-même par le jeton personnel de
-    // l'utilisateur (voir front/compliancecalendar.ics.php).
+    // Seule page du plugin ainsi ouverte : elle s'authentifie elle-même par le jeton dédié au
+    // calendrier (issue #664, CalendarToken ; voir front/compliancecalendar.ics.php).
     \Glpi\Http\Firewall::addPluginStrategyForLegacyScripts(
         'grcmanager',
         '#^/front/compliancecalendar\.ics\.php$#',

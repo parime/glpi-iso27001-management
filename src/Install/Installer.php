@@ -326,6 +326,8 @@ final class Installer
     private const PROCESSING_ACTIVITIES_ITEMS_TABLE = 'glpi_plugin_grcmanager_processingactivities_items';
     // Issue #142 : evenements du calendrier de conformite, voir \GlpiPlugin\Grcmanager\ComplianceEvent.
     private const COMPLIANCE_EVENTS_TABLE = 'glpi_plugin_grcmanager_complianceevents';
+    // Issue #664 : jetons dédiés au lien d'abonnement du calendrier, voir \GlpiPlugin\Grcmanager\CalendarToken.
+    private const CALENDAR_TOKENS_TABLE = 'glpi_plugin_grcmanager_calendartokens';
     // Issue #160 : vulnérabilités du parc, voir GlpiPlugin\Grcmanager\Services\Cve\ParkVulnerabilitySync.
     private const IGNORED_SOFTWARES_TABLE = 'glpi_plugin_grcmanager_ignoredsoftwares';
     private const PARK_VERSION_CHECKS_TABLE = 'glpi_plugin_grcmanager_parkversionchecks';
@@ -335,6 +337,8 @@ final class Installer
     private const CERTFR_NOTICES_TABLE = 'glpi_plugin_grcmanager_certfrnotices';
     // Issue #166 : score de maturité enregistré chaque mois.
     private const MATURITY_SNAPSHOTS_TABLE = 'glpi_plugin_grcmanager_maturitysnapshots';
+    /** Issue #614 : résumé mensuel des contrôles de cohérence, par personne et entité active. */
+    private const CONSISTENCY_SNAPSHOTS_TABLE = 'glpi_plugin_grcmanager_consistencysnapshots';
     // Issue #171 : liens cause → conséquence entre risques et incidents (effet domino).
     private const CAUSAL_LINKS_TABLE = 'glpi_plugin_grcmanager_causallinks';
     private const CERTFR_NOTIFIED_TABLE = 'glpi_plugin_grcmanager_certfrnotices_supplierrisks';
@@ -1506,6 +1510,21 @@ final class Installer
             $migration->addField(self::COMPLIANCE_EVENTS_TABLE, 'date_notified', 'timestamp', ['after' => 'comment']);
             $migration->migrationOneTable(self::COMPLIANCE_EVENTS_TABLE);
         }
+        // Issue #664 : jeton dédié au lien d'abonnement du calendrier (un par utilisateur), à la
+        // place du jeton personnel GLPI qui ouvrait aussi l'API. Seule l'empreinte SHA-256 du secret
+        // est conservée ; les anciens liens (jeton personnel) sont refusés par le flux.
+        if (!$DB->tableExists(self::CALENDAR_TOKENS_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::CALENDAR_TOKENS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `users_id` int {$keySign} NOT NULL DEFAULT 0,
+                `token_hash` char(64) NOT NULL DEFAULT '' COMMENT 'SHA-256 du secret, jamais le secret',
+                `date_expiration` timestamp NULL DEFAULT NULL,
+                `date_last_use` timestamp NULL DEFAULT NULL,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `users_id` (`users_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
 
         if (!$DB->tableExists(self::NETWORK_FLOWS_TABLE)) {
             $query = "CREATE TABLE `" . self::NETWORK_FLOWS_TABLE . "` (
@@ -1833,6 +1852,27 @@ final class Installer
         if (!$DB->fieldExists(self::MATURITY_SNAPSHOTS_TABLE, 'indicators')) {
             $migration->addField(self::MATURITY_SNAPSHOTS_TABLE, 'indicators', 'text', ['after' => 'details']);
             $migration->migrationOneTable(self::MATURITY_SNAPSHOTS_TABLE);
+        }
+
+        // Issue #614 : contrôles de cohérence du SMSI, tendance mensuelle (score et nombre d'écarts
+        // par règle, jamais les éléments eux-mêmes), par personne et entité active : les écarts
+        // dépendent de ce que chacun peut lire.
+        if (!$DB->tableExists(self::CONSISTENCY_SNAPSHOTS_TABLE)) {
+            $query = "CREATE TABLE `" . self::CONSISTENCY_SNAPSHOTS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `users_id` int {$keySign} NOT NULL DEFAULT 0,
+                `entities_id` int {$keySign} NOT NULL DEFAULT 0,
+                `month` char(7) NOT NULL,
+                `score` int DEFAULT NULL,
+                `gaps` int NOT NULL DEFAULT 0,
+                `details` text,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity` (`users_id`, `entities_id`, `month`),
+                KEY `entities_id` (`entities_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}";
+
+            $DB->doQuery($query);
         }
 
         // Issue #171 : effet domino, un lien par couple cause → conséquence.
@@ -4901,6 +4941,7 @@ final class Installer
         $migration->dropTable(self::PROCESSING_ACTIVITIES_ITEMS_TABLE);
         $migration->dropTable(self::PROCESSING_ACTIVITIES_TABLE);
         $migration->dropTable(self::COMPLIANCE_EVENTS_TABLE);
+        $migration->dropTable(self::CALENDAR_TOKENS_TABLE);
         $migration->dropTable(self::IGNORED_SOFTWARES_TABLE);
         $migration->dropTable(self::PARK_VERSION_CHECKS_TABLE);
         $migration->dropTable(self::PARK_CVES_TABLE);
@@ -4909,6 +4950,7 @@ final class Installer
         $migration->dropTable(self::CERTFR_NOTICES_TABLE);
         $migration->dropTable(self::CAUSAL_LINKS_TABLE);
         $migration->dropTable(self::MATURITY_SNAPSHOTS_TABLE);
+        $migration->dropTable(self::CONSISTENCY_SNAPSHOTS_TABLE);
         $migration->dropTable(self::CERTFR_NOTIFIED_TABLE);
         $migration->dropTable(self::RISK_CATALOG_IMPORTS_TABLE);
         $migration->dropTable(self::WAIVERS_TABLE);

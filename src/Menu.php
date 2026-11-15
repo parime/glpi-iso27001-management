@@ -71,6 +71,8 @@ class Menu extends CommonGLPI
             // Pilotage.
             Dashboard::class => [
                 Maturity::class, FrameworkAssessment::class, ComplianceEvent::class,
+                // Issue #614 : contrôles de cohérence du SMSI avant un audit.
+                ConsistencyCheck::class,
             ],
             // Appréciation et traitement des risques.
             Risk::class => [

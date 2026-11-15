@@ -185,6 +185,10 @@ classification fields merged directly onto it.
   space, content frozen after approval (new version), exportable history and approval record
   archived as evidence on control A.5.1.
 - Cyber **maturity score** (0 to 100) with the calculation details and its monthly history.
+- **ISMS consistency checks before an audit**: 22 rules (risk without an owner, implemented control
+  without evidence nor test, expired evidence, policy not reviewed, nonconformity closed without
+  action...) with severity, link to the item to fix, score, monthly trend, CSV/PDF export and
+  dashboard card; configurable rules and thresholds, read only.
 - **Assessment by framework**: for each enabled framework, implementation rate, evidence rate
   (unexpired documents attached to the controls) and score of the controls both done and proven,
   with the list of gaps leading to each control.
@@ -217,7 +221,7 @@ items waiting for the user.
 
 | Section | Pages |
 |---|---|
-| Dashboard | Dashboard, Maturity score, Assessment by framework, Compliance calendar |
+| Dashboard | Dashboard, Maturity score, Assessment by framework, Compliance calendar, Consistency checks |
 | Risks | Risks, Supplier risks, Impact analysis, Domino effect, Waivers |
 | Compliance | Annex A controls (SoA), Reference frameworks, ISMS requirements, Obligations, Record of processing activities, Policies, Evidence, Evidence coverage |
 | Audits and improvement | Internal audits, Non-conformities, ISMS objectives, Management reviews |
@@ -270,6 +274,8 @@ php bin/console plugin:activate grcmanager
 ```
 
 ## Documentation
+
+Rules shared by all parime plugins, to read before contributing: [common plugin charter](https://github.com/parime/glpi-plugin-template/blob/main/CHARTE.md) (in French).
 
 📖 **[See the full tutorial](docs/TUTORIAL.md)**: the plugin's whole flow, from activation to the
 dashboard, through the risk register, the probability x impact matrix, the SoA and audits/CAPA,
@@ -376,6 +382,15 @@ and documentation only identifies the framework the plugin helps you track.
   to ISO 27001 Annex A are written by this project, which is not affiliated with ISO or IEC. The
   text of the standard is available from [ISO](https://www.iso.org/standard/27090) or from your
   national standards body.
+
+## Translations
+
+[![Translation status](https://hosted.weblate.org/widget/glpi-iso27001-management/svg-badge.svg)](https://hosted.weblate.org/engage/glpi-iso27001-management/)
+
+The plugin is translated into French, English, German, Spanish, Italian, Polish and Portuguese
+(Brazil). **Translation contributions are welcome on [Hosted Weblate](https://hosted.weblate.org/engage/glpi-iso27001-management/)**: fixing a term,
+improving domain vocabulary or adding a language is done directly in the browser, without Git.
+Weblate then proposes the translations through a Pull Request, reviewed before being merged.
 
 ## Reuse and citation
 
