@@ -19,6 +19,8 @@ declare(strict_types=1);
 
 namespace GlpiPlugin\Grcmanager\Services\Dashboard;
 
+use GlpiPlugin\Grcmanager\ParkRemediation;
+use GlpiPlugin\Grcmanager\ParkVulnerability;
 use GlpiPlugin\Grcmanager\Services\Access\AccessReviewLogic;
 use GlpiPlugin\Grcmanager\Services\Control\AnssiHygieneCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\CisControlsCatalogDefaults;
@@ -234,6 +236,133 @@ final class PilotageCards
             'label'  => $params['label'] ?? __('Access review: % reviewed', 'grcmanager'),
             'icon'   => 'ti ti-user-check',
         ];
+    }
+
+    /**
+     * Issue #601 : part des vulnérabilités du parc dans les délais de correction (ouvertes non en
+     * retard et corrigées à temps sur la période), dans les entités de l'utilisateur.
+     *
+     * @param array<string, mixed> $params
+     * @return array<string, mixed>
+     */
+    public static function vulnerabilityRemediationCompliance(array $params = []): array
+    {
+        $indicators = ParkRemediation::indicators();
+
+        return [
+            'number' => $indicators['compliance'] ?? 0,
+            'url'    => ParkVulnerability::getSearchURL(),
+            'label'  => $params['label'] ?? self::remediationLabel(
+                __('Vulnerabilities within the remediation deadline (%)', 'grcmanager'),
+                $indicators
+            ),
+            'icon'   => 'ti ti-calendar-check',
+        ];
+    }
+
+    /**
+     * Issue #601 : vulnérabilités du parc en retard sur leur délai de correction.
+     *
+     * @param array<string, mixed> $params
+     * @return array<string, mixed>
+     */
+    public static function vulnerabilityRemediationOverdue(array $params = []): array
+    {
+        $indicators = ParkRemediation::indicators();
+
+        return [
+            'number' => $indicators['overdue'] ?? 0,
+            'url'    => ParkVulnerability::getSearchURL() . '?overdue=1',
+            'label'  => $params['label'] ?? self::remediationLabel(
+                __('Vulnerabilities past their remediation deadline', 'grcmanager'),
+                $indicators
+            ),
+            'icon'   => 'ti ti-alarm',
+        ];
+    }
+
+    /**
+     * Issue #601 : délai moyen de correction, en jours, sur la période.
+     *
+     * @param array<string, mixed> $params
+     * @return array<string, mixed>
+     */
+    public static function vulnerabilityRemediationMeanTime(array $params = []): array
+    {
+        $indicators = ParkRemediation::indicators();
+
+        return [
+            'number' => (int) round((float) ($indicators['mttr'] ?? 0)),
+            'url'    => ParkVulnerability::getSearchURL(),
+            'label'  => $params['label'] ?? self::remediationLabel(
+                __('Mean time to remediate a vulnerability (days)', 'grcmanager'),
+                $indicators
+            ),
+            'icon'   => 'ti ti-clock-check',
+        ];
+    }
+
+    /**
+     * Issue #601 : vulnérabilités en retard par niveau.
+     *
+     * @param array<string, mixed> $params
+     * @return array<string, mixed>
+     */
+    public static function vulnerabilityRemediationOverdueByLevel(array $params = []): array
+    {
+        $indicators = ParkRemediation::indicators();
+        $data = [];
+        foreach (ParkRemediation::getLevelLabels() as $level => $label) {
+            $data[] = ['label' => $label, 'number' => (int) ($indicators['by_level'][$level]['overdue'] ?? 0)];
+        }
+
+        return [
+            'data'  => $data,
+            'label' => $params['label'] ?? self::remediationLabel(
+                __('Overdue vulnerabilities by level', 'grcmanager'),
+                $indicators
+            ),
+            'icon'  => 'ti ti-chart-pie',
+        ];
+    }
+
+    /**
+     * Issue #601 : corrections dans les délais et en retard, par mois (six derniers mois).
+     *
+     * @param array<string, mixed> $params
+     * @return array<string, mixed>
+     */
+    public static function vulnerabilityRemediationTrend(array $params = []): array
+    {
+        $indicators = ParkRemediation::indicators();
+        $trend = $indicators['trend'] ?? [];
+
+        return [
+            'data'  => [
+                'labels' => array_column($trend, 'month'),
+                'series' => [
+                    ['name' => __('Fixed on time', 'grcmanager'), 'data' => array_column($trend, 'on_time')],
+                    ['name' => __('Fixed late', 'grcmanager'), 'data' => array_column($trend, 'late')],
+                ],
+            ],
+            'label' => $params['label'] ?? self::remediationLabel(
+                __('Vulnerabilities fixed on time and late, by month', 'grcmanager'),
+                $indicators
+            ),
+            'icon'  => 'ti ti-chart-bar',
+        ];
+    }
+
+    /**
+     * Libellé d'une carte des délais : signale une politique désactivée (la carte reste à zéro).
+     *
+     * @param array<string, mixed>|null $indicators
+     */
+    private static function remediationLabel(string $label, ?array $indicators): string
+    {
+        return $indicators === null
+            ? sprintf(__('%s (remediation deadlines not enabled)', 'grcmanager'), $label)
+            : $label;
     }
 
     /**

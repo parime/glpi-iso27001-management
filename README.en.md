@@ -114,6 +114,10 @@ classification fields merged directly onto it.
 - **Fleet vulnerabilities**: CVEs of installed software (NVD), real-world exploitation (CISA KEV,
   FIRST EPSS), CERT-FR advisories, one update ticket per software (automatic creation off by
   default), "Vulnerabilities" tab on computers.
+- **Remediation deadlines** by level (exploited, critical, high, medium, low; off by default,
+  shorter for assets classified high in C/I/A): due date and delay of each vulnerability, waivers
+  taken into account, share fixed on time, mean time to remediate, on the page, the dashboard and the
+  report by email.
 - EPSS/KEV tracking of incident CVEs, and an **action plan (CAPA) proposed** from a CVE.
 - **Outage impact** (GLPI impact analysis), single points of failure, **RTO/RPO** recovery
   objectives and an export for the business continuity plan.

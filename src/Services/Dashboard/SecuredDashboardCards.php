@@ -85,6 +85,11 @@ final class SecuredDashboardCards
         if (self::isIncidentCard($name)) {
             return self::incidentCardsAllowed();
         }
+        if (str_starts_with($name, 'vulnerabilityRemediation')) {
+            // Issue #601 : délais de correction des vulnérabilités du parc, sous les droits de leur
+            // page (registre sensible et lecture des logiciels).
+            return \GlpiPlugin\Grcmanager\ParkVulnerability::canView();
+        }
         if ($name === 'wazuhCoverage') {
             // Issue #368 : proposée seulement si le plugin Wazuh est installé, actif et lisible.
             return (bool) Session::haveRight('plugin_grcmanager', READ) && WazuhEvidenceProvider::isAvailable();
