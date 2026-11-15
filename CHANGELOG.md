@@ -7,6 +7,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.51.0] - 2026-11-15
+
 ### Security
 
 - **Appels HTTP sortants : point de passage unique et durci** (issue #658) : NVD, CISA KEV, EPSS,
