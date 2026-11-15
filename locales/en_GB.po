@@ -12485,3 +12485,84 @@ msgstr "To update"
 
 msgid "No change"
 msgstr "No change"
+
+msgid "Major ICT-related incident (DORA)"
+msgstr "Major ICT-related incident (DORA)"
+
+msgid "DORA: classified as major on"
+msgstr "DORA: classified as major on"
+
+msgid "CRA reporting"
+msgstr "CRA reporting"
+
+msgid "CRA: product concerned"
+msgstr "CRA: product concerned"
+
+msgid "CRA: corrective measure available on"
+msgstr "CRA: corrective measure available on"
+
+msgid "DORA: initial notification (4 h after classification, 24 h at most)"
+msgstr "DORA: initial notification (4 h after classification, 24 h at most)"
+
+msgid "DORA: intermediate report (72 h)"
+msgstr "DORA: intermediate report (72 h)"
+
+msgid "DORA: final report (1 month)"
+msgstr "DORA: final report (1 month)"
+
+msgid "CRA: early warning (24 h)"
+msgstr "CRA: early warning (24 h)"
+
+msgid "CRA: notification (72 h)"
+msgstr "CRA: notification (72 h)"
+
+msgid "CRA: final report"
+msgstr "CRA: final report"
+
+msgid "Actively exploited vulnerability"
+msgstr "Actively exploited vulnerability"
+
+msgid "Severe incident affecting the product"
+msgstr "Severe incident affecting the product"
+
+msgid "Reports NIS2 / GDPR / DORA / CRA notification deadlines that are near or past with a follow-up"
+msgstr "Reports NIS2 / GDPR / DORA / CRA notification deadlines that are near or past with a follow-up"
+
+msgid "Regulatory notification deadlines at risk"
+msgstr "Regulatory notification deadlines at risk"
+
+msgid "Starts when a corrective or mitigating measure is available: enter its date above."
+msgstr "Starts when a corrective or mitigating measure is available: enter its date above."
+
+msgid "The incident was detected before this regulation applied."
+msgstr "The incident was detected before this regulation applied."
+
+msgid "Financial entity, incident classified as major: initial notification within 4 h of the classification and no later than 24 h after detection, intermediate report within 72 h, final report within one month (Regulation (EU) 2022/2554, article 19)."
+msgstr "Financial entity, incident classified as major: initial notification within 4 h of the classification and no later than 24 h after detection, intermediate report within 72 h, final report within one month (Regulation (EU) 2022/2554, article 19)."
+
+msgid "Leave empty until the incident is classified: the 24 h limit after detection then applies."
+msgstr "Leave empty until the incident is classified: the 24 h limit after detection then applies."
+
+msgid "Not reportable"
+msgstr "Not reportable"
+
+msgid "Manufacturer of a product with digital elements: early warning within 24 h, notification within 72 h, final report 14 days after a corrective measure (vulnerability) or one month after the notification (incident). Regulation (EU) 2024/2847, article 14, applicable since 11 September 2026."
+msgstr "Manufacturer of a product with digital elements: early warning within 24 h, notification within 72 h, final report 14 days after a corrective measure (vulnerability) or one month after the notification (incident). Regulation (EU) 2024/2847, article 14, applicable since 11 September 2026."
+
+msgid "After changing these choices, save the incident to see the matching dates and deadlines."
+msgstr "After changing these choices, save the incident to see the matching dates and deadlines."
+
+msgid "Deadlines computed from the incident's opening date (its detection) or from the date entered for the step. Nothing is sent automatically: make the notification, then enter its date here."
+msgstr "Deadlines computed from the incident's opening date (its detection) or from the date entered for the step. Nothing is sent automatically: make the notification, then enter its date here."
+
+msgid "Waiting for the corrective measure"
+msgstr "Waiting for the corrective measure"
+
+msgid "CRA reporting (manufacturers of products with digital elements)"
+msgstr "CRA reporting (manufacturers of products with digital elements)"
+
+msgid "Adds to security incidents the reporting deadlines of the Cyber Resilience Act (Regulation (EU) 2024/2847, article 14): actively exploited vulnerability or severe incident affecting a product you place on the market. The DORA deadlines appear when the DORA framework is enabled."
+msgstr "Adds to security incidents the reporting deadlines of the Cyber Resilience Act (Regulation (EU) 2024/2847, article 14): actively exploited vulnerability or severe incident affecting a product you place on the market. The DORA deadlines appear when the DORA framework is enabled."
+
+msgid "Regulatory notification to make"
+msgstr "Regulatory notification to make"

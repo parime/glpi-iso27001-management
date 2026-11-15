@@ -118,6 +118,22 @@ archivé), avec ses champs de classification ISO 27001 fusionnés dessus.
   obligatoires à la clôture) fusionnée dessus (Annexe A A.5.24-27).
 - Qualification d'un ticket en incident de sécurité, et **délais de notification NIS2 (24 h,
   72 h, 1 mois) et RGPD (72 h)** suivis par une tâche planifiée.
+- **Délais DORA et CRA** (issue #600), avec les mêmes bandeaux, alertes et dates « notifié le » :
+  - case « Incident TIC majeur (DORA) », visible quand le référentiel DORA est activé : notification
+    initiale dans les 4 h suivant la classification comme majeur et au plus tard 24 h après la
+    détection (4 h depuis la classification si elle intervient après ces 24 h), rapport
+    intermédiaire sous 72 h après la notification initiale, rapport final un mois après le rapport
+    intermédiaire (règlement (UE) 2022/2554, article 19, et règlement délégué (UE) 2025/301,
+    article 5) ;
+  - « Signalement CRA », visible quand l'option est activée dans la configuration du module
+    (fabricants de produits comportant des éléments numériques) : vulnérabilité activement exploitée
+    ou incident grave touchant le produit, alerte précoce sous 24 h, notification sous 72 h, rapport
+    final 14 jours après la mise à disposition d'une mesure corrective (vulnérabilité) ou un mois
+    après la notification (incident) (règlement (UE) 2024/2847, article 14, applicable depuis le
+    11 septembre 2026) ;
+  - le plugin n'envoie rien à une autorité et ne change ni le statut, ni la priorité, ni
+    l'attribution de l'incident. Le report au jour ouvré suivant prévu par DORA (règlement délégué
+    2025/301, article 5.4) n'est pas appliqué : l'échéance affichée reste la plus prudente.
 - Chaque partie du module est activable/désactivable indépendamment (Configuration > Plugins).
 
 **Vulnérabilités et continuité**
@@ -138,13 +154,13 @@ archivé), avec ses champs de classification ISO 27001 fusionnés dessus.
   chronométrées, rapport d'exercice archivé comme preuve (A.5.29, A.5.30).
 - **Cellule de crise** sur un incident réel : plan de réponse, reprise des éléments touchés face à
   leur RTO, journal de crise et rapport.
-- **Rapport post-incident** en PDF (chronologie, notifications NIS2/RGPD, enseignements), archivé
+- **Rapport post-incident** en PDF (chronologie, notifications NIS2, RGPD, DORA et CRA tenues ou non, enseignements), archivé
   comme preuve (A.5.27).
 
 **Pilotage**
 - Tableau de bord ISMS par défaut et indicateurs à ajouter aux tableaux de bord GLPI, dont la
   conformité par référentiel (ISO 27001, NIS2, ANSSI, NIST CSF, CIS Controls, et DORA, ISO 27701, ISO 22301, ISO 42001, PCI DSS, SOC 2, AI Act, HDS si activés), les échéances à 90 jours, la revue des accès
-  et les délais NIS2 / RGPD en alerte ; menu GRC & Conformité > Tableau de bord, vues ISMS et
+  et les délais de notification (NIS2, RGPD, DORA, CRA) en alerte ; menu GRC & Conformité > Tableau de bord, vues ISMS et
   Direction, tendance mensuelle.
 - **Formations notées**, en une ou plusieurs sessions (formateur, lieu, note, seuil de réussite,
   rattrapage, rapport PDF avec émargement, copie de quiz de chaque participant réservée au
@@ -367,6 +383,12 @@ du dépôt et dans la documentation indique uniquement le référentiel que le p
   projet, pas reproduites. © Union européenne, https://eur-lex.europa.eu/ - réutilisation autorisée
   (décision 2011/833/UE de la Commission). Seule la version publiée au Journal officiel de l'UE fait
   foi. La correspondance avec l'Annexe A ISO 27001 est indicative et établie par ce projet.
+- **Délais de notification DORA et CRA** : règlement délégué (UE) 2025/301, article 5 (délais de
+  notification des incidents TIC majeurs), et règlement (UE) 2024/2847, articles 14 et 71.2
+  (signalement des vulnérabilités activement exploitées et des incidents graves) ; seuls les délais
+  sont repris, résumés par ce projet. © Union européenne, https://eur-lex.europa.eu/ - réutilisation
+  autorisée (décision 2011/833/UE de la Commission). Seule la version publiée au Journal officiel de
+  l'UE fait foi.
 - **ISO/IEC 27701:2025** : norme protégée par le droit d'auteur (© ISO/IEC). Seuls les numéros
   des tables et des objectifs de l'Annexe A sont repris ; leur objet est résumé par ce projet et la
   correspondance avec l'Annexe A ISO 27001 est indicative. Ce projet n'est pas affilié à l'ISO ni à
