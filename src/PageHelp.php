@@ -56,6 +56,21 @@ class PageHelp
                     'grcmanager'
                 ),
             ],
+            // Issue #614 : contrôles de cohérence du SMSI avant un audit.
+            'consistencycheck' => [
+                'purpose'  => __(
+                    'Before an audit, this page gathers the inconsistencies of your security management system: '
+                        . 'risks without an owner, controls without evidence, expired evidence, policies not reviewed, '
+                        . 'nonconformities closed without action, and more.',
+                    'grcmanager'
+                ),
+                'expected' => __(
+                    'Start with the high severity gaps. Click an item to open it, fix it, then come back: the page is '
+                        . 'computed again each time. Nothing is changed automatically. Export the list (CSV or PDF) to '
+                        . 'follow the preparation of the audit.',
+                    'grcmanager'
+                ),
+            ],
             'myspace' => [
                 'purpose'  => __(
                     'Everything waiting for you in the security management system, on one page and sorted by due date.',

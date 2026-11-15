@@ -1,0 +1,51 @@
+{# Issue #614 : rapport de préparation à l'audit, écarts de cohérence du SMSI par domaine et par
+   règle, calculé à la demande avec les droits de la personne qui l'exporte. #}
+{% include '@grcmanager/pdf/_pdf_style.html.twig' %}
+<style>
+  .grc-sev { padding: 1px 4px; border-radius: 3px; font-size: 8px; font-weight: bold; }
+  .grc-sev-high { background: #fbe0e0; color: #a61e1e; }
+  .grc-sev-medium { background: #fdebd3; color: #a35200; }
+  .grc-sev-low { background: #fff4cc; color: #7a5d00; }
+  .grc-ok { color: #2b8a3e; font-weight: bold; }
+  .grc-fix { color: #495057; font-style: italic; margin: 2px 0 6px 0; }
+</style>
+
+<h2>{{ __('Summary', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-summary">
+  <tr><td>{{ __('Consistency score', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ summary.score is null ? '-' : summary.score ~ ' / 100' }}</td></tr>
+  <tr><td>{{ __('Gaps to fix', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ summary.gaps }}</td></tr>
+  {% for key, s in severities %}
+    <tr><td>{{ __('Severity', 'grcmanager') }} : {{ s.label }}</td><td class="grcmanager-pdf-summary-number">{{ summary.by_severity[key] ?? 0 }}</td></tr>
+  {% endfor %}
+  <tr><td>{{ __('Rules checked', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ summary.evaluated }}</td></tr>
+  <tr><td>{{ __('Exported by', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ generated_by }}</td></tr>
+</table>
+<p>{{ __('Only the items the person who exported this report can read are counted. Nothing has been modified: each gap is fixed from the item concerned.', 'grcmanager') }}</p>
+
+{% for area in areas %}
+  <h2>{{ area.label }} ({{ __('ISO 27001 %s', 'grcmanager')|format(area.clause == 'Annex A' ? __('Annex A', 'grcmanager') : area.clause) }})</h2>
+  {% for rule in area.rules %}
+    <p>
+      <span class="grc-sev grc-sev-{{ rule.severity.key }}">{{ rule.severity.label }}</span>
+      <strong>{{ rule.label }}</strong> ({{ rule.clause }}) :
+      {% if rule.gap_count > 0 %}
+        {{ rule.gap_count }} / {{ rule.total }}
+      {% else %}
+        <span class="grc-ok">{{ __('OK', 'grcmanager') }}</span>
+      {% endif %}
+    </p>
+    {% if rule.gap_count > 0 %}
+      <p class="grc-fix">{{ __('How to fix', 'grcmanager') }} : {{ rule.fix }}</p>
+      <table class="grcmanager-pdf-table">
+        <thead><tr><th>{{ __('Type', 'grcmanager') }}</th><th>{{ __('Item', 'grcmanager') }}</th><th>{{ __('Detail', 'grcmanager') }}</th></tr></thead>
+        <tbody>
+          {% for gap in rule.gaps %}
+            <tr><td>{{ gap.type_label }}</td><td>{{ gap.name }}</td><td>{{ gap.detail }}</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% endif %}
+  {% endfor %}
+{% else %}
+  <p>{{ __('No rule can be checked with your rights, or every rule is disabled.', 'grcmanager') }}</p>
+{% endfor %}

@@ -319,6 +319,8 @@ final class DefaultDashboardService
             $pie('grcmanager_security_incidents_by_severity', 6, 16),
             $bigNumber('grcmanager_overdue_treatment_actions', 12, 16, '#cc2936'),
             $bigNumber('grcmanager_risks_missing_treatment_plan', 16, 16, '#f8911f'),
+            // Issue #614 : écarts de cohérence du SMSI avant un audit (x=20..24 de la rangée 6).
+            $bigNumber('grcmanager_isms_consistency_gaps', 20, 16, '#cc2936'),
             // Rangée 7 (y=20) : cartes de pilotage (issue #143), conformité par référentiel puis
             // échéances, revue des accès, délais réglementaires et revues périodiques.
             self::chart('grcmanager_compliance_by_framework', 'hbar', 0, 20, 8, 4),

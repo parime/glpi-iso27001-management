@@ -200,6 +200,20 @@ if (isset($_POST['update_kri_alert'])) {
     Html::back();
 }
 
+// Issue #614 : contrôles de cohérence du SMSI, règles actives et seuils.
+if (isset($_POST['update_consistency_rules'])) {
+    Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
+
+    $posted = $_POST['consistency'] ?? [];
+    if (\GlpiPlugin\Grcmanager\ConsistencyCheck::saveSettings(is_array($posted) ? $posted : [])) {
+        \GlpiPlugin\Grcmanager\AuditLog::record('config_change', 'Config', 0, 0, 'success', [
+            'changes' => ['consistency_rules' => true],
+        ]);
+    }
+
+    Html::back();
+}
+
 if (isset($_POST['update_audit_config'])) {
     Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
 
@@ -293,6 +307,9 @@ Html::header(
     'controltest_ciso_modes'    => \GlpiPlugin\Grcmanager\ControlTestReminder::getCisoModes(),
     'controltest_brand_color'   => \GlpiPlugin\Grcmanager\ControlTestReminder::brandColor(),
     'controltest_cga_branding'  => \GlpiPlugin\Grcmanager\ControlTestReminder::isCgaActive(),
+    'consistency_rows'          => \GlpiPlugin\Grcmanager\ConsistencyCheck::getConfigRows(),
+    'consistency_levels'        => array_slice(\GlpiPlugin\Grcmanager\Risk::getImpacts(), 1, null, true),
+    'consistency_url'           => \GlpiPlugin\Grcmanager\ConsistencyCheck::getSearchURL(),
     'kri_alert_level'           => \GlpiPlugin\Grcmanager\KriAlert::level(),
     'kri_alert_levels'          => \GlpiPlugin\Grcmanager\KriAlert::getLevels(),
     'notifications_minimal'     => SensitiveNotification::isMinimal(),
