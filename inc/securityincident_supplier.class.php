@@ -15,7 +15,7 @@
  * -------------------------------------------------------------------------
  */
 
-use GlpiPlugin\Grcmanager\Compatibility\Base\SecurityIncidentSupplierBase;
+use GlpiPlugin\Grcmanager\Compat\Base\SecurityIncidentSupplierBase;
 
 /**
  * Relation between PluginGrcmanagerSecurityIncident and Supplier: same minimal shape as

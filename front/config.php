@@ -15,6 +15,7 @@
  * -------------------------------------------------------------------------
  */
 
+use GlpiPlugin\Grcmanager\Compat\Http;
 use GlpiPlugin\Grcmanager\Install\Installer;
 use GlpiPlugin\Grcmanager\Services\Breach\BreachMonitorConfig;
 use GlpiPlugin\Grcmanager\Services\Breach\HibpClient;
@@ -245,10 +246,39 @@ if (isset($_POST['update_policy_approval'])) {
     Html::back();
 }
 
+// Issue #658 : adresses internes pour les appels sortants. Réglage global (toutes les entités),
+// réservé au droit de modifier la configuration générale de GLPI.
+if (isset($_POST['update_http_config'])) {
+    Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
+    Session::checkRight('config', UPDATE);
+
+    $allow = !empty($_POST['http_allow_private_networks']);
+    if ($allow !== Http::allowsPrivateNetworks()) {
+        Http::setAllowPrivateNetworks($allow);
+        \GlpiPlugin\Grcmanager\AuditLog::record('config_change', 'Config', 0, 0, 'success', [
+            'changes' => ['http_allow_private_networks' => (int) $allow],
+        ]);
+    }
+
+    Html::back();
+}
+
 if (isset($_POST['update_audit_config'])) {
     Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
 
     \GlpiPlugin\Grcmanager\AuditTeam::setCisoGroupId((int) ($_POST['ciso_groups_id'] ?? 0));
+
+    Html::back();
+}
+
+// Issue #656 : groupe Direction de l'appétence au risque (issue #378), déplacé ici depuis la page
+// de l'appétence (aucun réglage hors de la page de configuration). Registre sensible.
+if (isset($_POST['update_risk_appetite_config'])) {
+    Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
+    Session::checkRight(\GlpiPlugin\Grcmanager\RiskAppetite::RIGHTNAME, UPDATE);
+
+    // Journal d'audit tenu par setDirectionGroupId().
+    \GlpiPlugin\Grcmanager\RiskAppetite::setDirectionGroupId((int) ($_POST['direction_groups_id'] ?? 0));
 
     Html::back();
 }
@@ -327,6 +357,10 @@ Html::header(
         'display' => false,
         'width'   => '100%',
     ]),
+    // Issue #658 : adresses internes pour les appels sortants (administrateurs de GLPI seulement).
+    'http_allow_private'        => Http::allowsPrivateNetworks(),
+    'http_can_edit_private'     => Session::haveRight('config', UPDATE),
+    'http_glpi12_context_hint'  => Http::glpi12ContextHint(),
     'nvd_config'                => NvdConfig::load(),
     'park_thresholds'           => \GlpiPlugin\Grcmanager\ParkVulnerability::getTicketThresholds(),
     'digest'                    => \GlpiPlugin\Grcmanager\VulnerabilityDigest::configData(),
@@ -334,6 +368,10 @@ Html::header(
     'remediation_levels'        => \GlpiPlugin\Grcmanager\ParkRemediation::getLevelLabels(),
     'max_tickets'               => \GlpiPlugin\Grcmanager\ParkVulnerability::MAX_TICKETS_PER_RUN,
     'ciso_groups_id'            => \GlpiPlugin\Grcmanager\AuditTeam::getCisoGroupId(),
+    // Issue #656 : groupe Direction de l'appétence au risque.
+    'direction_groups_id'       => \GlpiPlugin\Grcmanager\RiskAppetite::getDirectionGroupId(),
+    'risk_appetite_title'       => \GlpiPlugin\Grcmanager\RiskAppetite::getTypeName(),
+    'risk_appetite_url'         => \GlpiPlugin\Grcmanager\RiskAppetite::getSearchURL(),
     'controltest_ciso_mode'     => \GlpiPlugin\Grcmanager\ControlTestReminder::cisoMode(),
     'controltest_ciso_modes'    => \GlpiPlugin\Grcmanager\ControlTestReminder::getCisoModes(),
     'controltest_brand_color'   => \GlpiPlugin\Grcmanager\ControlTestReminder::brandColor(),

@@ -22,7 +22,7 @@ use Document_Item;
 use Dropdown;
 use Glpi\Application\View\TemplateRenderer;
 use Glpi\DBAL\QueryExpression;
-use GlpiPlugin\Grcmanager\Compatibility\Base\TrainingBase;
+use GlpiPlugin\Grcmanager\Compat\Base\TrainingBase;
 use GlpiPlugin\Grcmanager\Services\Training\TrainingRenewalService;
 use GlpiPlugin\Grcmanager\Services\Training\TrainingScore;
 use GlpiPlugin\Grcmanager\Services\Ui\Badge;

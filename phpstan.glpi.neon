@@ -17,7 +17,7 @@ parameters:
     excludePaths:
         # Une classe par version de GLPI (11 et 12) dans chaque fichier : la branche de l'autre
         # version est forcément fausse pour PHPStan. Couvert par le job de compatibilité PHP x GLPI.
-        - src/Compatibility/Base
+        - src/Compat/Base
     scanDirectories:
         - ../../src
         - ../../inc

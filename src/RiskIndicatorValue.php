@@ -19,7 +19,7 @@ declare(strict_types=1);
 
 namespace GlpiPlugin\Grcmanager;
 
-use GlpiPlugin\Grcmanager\Compatibility\Base\RiskIndicatorValueBase;
+use GlpiPlugin\Grcmanager\Compat\Base\RiskIndicatorValueBase;
 
 /**
  * Issue #378 : un relevé de l'historique d'un indicateur de risque (date, valeur, statut au moment

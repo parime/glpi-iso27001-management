@@ -21,7 +21,7 @@ ci-dessous sont remplis. Aucune étape n'est sautée : Analyse → Conception �
 
 ## Qualité
 
-- [ ] Tests unitaires ajoutés/mis à jour pour toute logique pure (`src/Services/`, `src/Compatibility/`).
+- [ ] Tests unitaires ajoutés/mis à jour pour toute logique pure (`src/Services/`, `src/Compat/`).
 - [ ] `composer test`, `composer stan`, `composer cs` passent localement.
 - [ ] CI verte (syntaxe, PHPStan, PHPCS, PHPUnit, installation réelle sur GLPI, sécurité).
 

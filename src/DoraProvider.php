@@ -19,7 +19,7 @@ declare(strict_types=1);
 
 namespace GlpiPlugin\Grcmanager;
 
-use GlpiPlugin\Grcmanager\Compatibility\Base\DoraProviderBase;
+use GlpiPlugin\Grcmanager\Compat\Base\DoraProviderBase;
 use GlpiPlugin\Grcmanager\Services\Dora\RegisterRules;
 use GlpiPlugin\Grcmanager\Services\Dora\RegisterTemplates;
 use Log;

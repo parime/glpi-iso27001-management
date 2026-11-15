@@ -22,7 +22,7 @@ use CronTask;
 use Document;
 use Dropdown;
 use Glpi\Application\View\TemplateRenderer;
-use GlpiPlugin\Grcmanager\Compatibility\Base\ControlTestBase;
+use GlpiPlugin\Grcmanager\Compat\Base\ControlTestBase;
 use GlpiPlugin\Grcmanager\Services\Compliance\ComplianceAuditScore;
 use GlpiPlugin\Grcmanager\Services\Control\ControlTestRules;
 use GlpiPlugin\Grcmanager\Services\Control\EvidenceUploadRules;

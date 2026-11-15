@@ -16,7 +16,7 @@
  */
 
 use Glpi\Plugin\Hooks;
-use GlpiPlugin\Grcmanager\Compatibility\RequirementChecker;
+use GlpiPlugin\Grcmanager\Compat\RequirementChecker;
 use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentModuleConfig;
 
 // GLPI does NOT autoload plugin src/ classes on its own (confirmed against a real GLPI 11
@@ -29,11 +29,13 @@ if (is_readable(__DIR__ . '/vendor/autoload.php')) {
     require_once __DIR__ . '/vendor/autoload.php';
     // Issue #293 : anciens noms PluginGrcmanagerX des classes passées dans src/.
     \GlpiPlugin\Grcmanager\Install\ItemtypeRenames::registerAliases();
+    // Issue #658 : ancien espace de noms Compatibility\ (devenu Compat\), le temps d'une version.
+    \GlpiPlugin\Grcmanager\Compat\LegacyNamespace::register();
 }
 
-define('PLUGIN_GRCMANAGER_VERSION', '2.50.0');
+define('PLUGIN_GRCMANAGER_VERSION', '2.51.0');
 define('PLUGIN_GRCMANAGER_MIN_GLPI', '11.0.0');
-// GLPI 11 and 12 from a single code base (see src/Compatibility/).
+// GLPI 11 and 12 from a single code base (see src/Compat/).
 define('PLUGIN_GRCMANAGER_MAX_GLPI', '12.99.99');
 // Relevé de 8.1.0 à 8.2.0 en v2.0.0 : exigence héritée du module Incidents de sécurité absorbé
 // depuis glpi-security-incidents (ROADMAP.md "Version 2.0"), qui exigeait déjà PHP 8.2 minimum.

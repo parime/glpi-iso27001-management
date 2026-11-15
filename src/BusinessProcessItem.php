@@ -20,7 +20,7 @@ namespace GlpiPlugin\Grcmanager;
 use CommonDBTM;
 use CommonGLPI;
 use Glpi\Application\View\TemplateRenderer;
-use GlpiPlugin\Grcmanager\Compatibility\Base\BusinessProcessItemBase;
+use GlpiPlugin\Grcmanager\Compat\Base\BusinessProcessItemBase;
 use GlpiPlugin\Grcmanager\Install\Installer;
 use Session;
 

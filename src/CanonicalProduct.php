@@ -18,7 +18,7 @@
 namespace GlpiPlugin\Grcmanager;
 
 use Glpi\Application\View\TemplateRenderer;
-use GlpiPlugin\Grcmanager\Compatibility\Base\CanonicalProductBase;
+use GlpiPlugin\Grcmanager\Compat\Base\CanonicalProductBase;
 use Session;
 
 /**

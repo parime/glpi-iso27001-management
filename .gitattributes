@@ -12,3 +12,4 @@
 /phpunit.xml.dist export-ignore
 /phpunit-integration.xml.dist export-ignore
 /phpcs.xml.dist export-ignore
+/.glpi-security-exceptions export-ignore

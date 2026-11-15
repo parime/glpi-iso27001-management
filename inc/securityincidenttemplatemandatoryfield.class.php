@@ -15,7 +15,7 @@
  * -------------------------------------------------------------------------
  */
 
-use GlpiPlugin\Grcmanager\Compatibility\Base\SecurityIncidentTemplateMandatoryFieldBase;
+use GlpiPlugin\Grcmanager\Compat\Base\SecurityIncidentTemplateMandatoryFieldBase;
 
 /**
  * Required by `ITILTemplate` (naming-convention resolved): same minimal shape as GLPI core's own

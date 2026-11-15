@@ -15,7 +15,7 @@
  * -------------------------------------------------------------------------
  */
 
-use GlpiPlugin\Grcmanager\Compatibility\Base\SecurityIncidentCostBase;
+use GlpiPlugin\Grcmanager\Compat\Base\SecurityIncidentCostBase;
 
 /**
  * Required, not optional: same class of surprise as `PluginGrcmanagerSecurityIncidentTemplate`

@@ -23,7 +23,7 @@ use CommonGLPI;
 use Dropdown;
 use Glpi\Application\View\TemplateRenderer;
 use Glpi\DBAL\QuerySubQuery;
-use GlpiPlugin\Grcmanager\Compatibility\Base\CoverageRuleBase;
+use GlpiPlugin\Grcmanager\Compat\Base\CoverageRuleBase;
 use GlpiPlugin\Grcmanager\Services\Evidence\CoverageRules;
 use Log;
 use Session;

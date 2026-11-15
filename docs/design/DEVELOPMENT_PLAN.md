@@ -35,7 +35,7 @@ dans ce document.
 ## Environnement de développement et tests
 
 - Instance GLPI 11 réelle (Docker) pour toute validation, jamais une simple relecture de code.
-- Niveaux de tests : unitaires (`tests/Unit`, logique pure sous `src/Compatibility/` et
+- Niveaux de tests : unitaires (`tests/Unit`, logique pure sous `src/Compat/` et
   `src/Services/Risk/`), installation réelle sur GLPI (job CI dédié).
 - CI GitHub Actions : syntaxe PHP, PHPStan, PHP_CodeSniffer, PHPUnit, Semgrep, Gitleaks, Trivy,
   installation réelle sur GLPI (Docker) ; voir [.github/workflows/ci.yml](../../.github/workflows/ci.yml).

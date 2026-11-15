@@ -18,7 +18,7 @@
 namespace GlpiPlugin\Grcmanager;
 
 use CronTask;
-use GlpiPlugin\Grcmanager\Compatibility\Base\RiskTreatmentActionBase;
+use GlpiPlugin\Grcmanager\Compat\Base\RiskTreatmentActionBase;
 use GlpiPlugin\Grcmanager\Services\Risk\OverdueTreatmentActionService;
 use GlpiPlugin\Grcmanager\Services\Risk\TreatmentPlanRules;
 use GlpiPlugin\Grcmanager\Services\Ui\Badge;

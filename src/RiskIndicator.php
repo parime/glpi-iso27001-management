@@ -24,7 +24,7 @@ use CronTask;
 use Dropdown;
 use Entity;
 use Glpi\Application\View\TemplateRenderer;
-use GlpiPlugin\Grcmanager\Compatibility\Base\RiskIndicatorBase;
+use GlpiPlugin\Grcmanager\Compat\Base\RiskIndicatorBase;
 use GlpiPlugin\Grcmanager\Services\Dashboard\DashboardCardService;
 use GlpiPlugin\Grcmanager\Services\Dashboard\PilotageCards;
 use GlpiPlugin\Grcmanager\Services\Risk\KriRules;

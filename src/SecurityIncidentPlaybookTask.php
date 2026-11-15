@@ -19,7 +19,7 @@ namespace GlpiPlugin\Grcmanager;
 
 use CommonGLPI;
 use Glpi\Application\View\TemplateRenderer;
-use GlpiPlugin\Grcmanager\Compatibility\Base\SecurityIncidentPlaybookTaskBase;
+use GlpiPlugin\Grcmanager\Compat\Base\SecurityIncidentPlaybookTaskBase;
 use GlpiPlugin\Grcmanager\Pdf\PdfRenderer;
 use GlpiPlugin\Grcmanager\Services\Incident\PlaybookRules;
 use Html;

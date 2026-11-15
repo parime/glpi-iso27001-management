@@ -17,7 +17,7 @@
 
 namespace GlpiPlugin\Grcmanager;
 
-use GlpiPlugin\Grcmanager\Compatibility\Base\ObjectiveMeasurementBase;
+use GlpiPlugin\Grcmanager\Compat\Base\ObjectiveMeasurementBase;
 use GlpiPlugin\Grcmanager\Services\Objective\ObjectiveMeasurementValidator;
 use Session;
 

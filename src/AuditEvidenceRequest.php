@@ -23,7 +23,7 @@ use CommonGLPI;
 use CronTask;
 use Document;
 use Glpi\Application\View\TemplateRenderer;
-use GlpiPlugin\Grcmanager\Compatibility\Base\AuditEvidenceRequestBase;
+use GlpiPlugin\Grcmanager\Compat\Base\AuditEvidenceRequestBase;
 use GlpiPlugin\Grcmanager\Services\Audit\EvidenceRequestCsv;
 use GlpiPlugin\Grcmanager\Services\Audit\EvidenceRequestRules as Rules;
 use GlpiPlugin\Grcmanager\Services\Evidence\EvidenceValidity;
