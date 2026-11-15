@@ -20,7 +20,7 @@ namespace GlpiPlugin\Grcmanager;
 use CronTask;
 use Dropdown;
 use Glpi\Application\View\TemplateRenderer;
-use GlpiPlugin\Grcmanager\Compatibility\Base\ComplianceObligationBase;
+use GlpiPlugin\Grcmanager\Compat\Base\ComplianceObligationBase;
 use GlpiPlugin\Grcmanager\Services\Compliance\ComplianceObligationRules;
 use GlpiPlugin\Grcmanager\Services\Risk\ReviewReminderService;
 use GlpiPlugin\Grcmanager\Services\Ui\Badge;

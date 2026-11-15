@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace GlpiPlugin\Grcmanager\Services\Cve;
 
-use GlpiPlugin\Grcmanager\Compatibility\Http;
+use GlpiPlugin\Grcmanager\Compat\Http;
 
 /**
  * Fetches real data (CVSS score/vector, severity, description, patch links) for one CVE reference
@@ -19,7 +19,8 @@ use GlpiPlugin\Grcmanager\Compatibility\Http;
  * `cve_id` (unique), same reasoning, just generalized from RiskMatrixConfig's single row to one
  * row per CVE.
  *
- * Uses GLPI core's HTTP client (via Compatibility\Http, GLPI 11 and 12) rather than a raw HTTP
+ * Uses GLPI core's HTTP client (via Compat\Http, the plugin's single outgoing HTTP gateway,
+ * GLPI 11 and 12) rather than a raw HTTP
  * client: same choice, and same reasoning, as the sibling GithubVersionChecker::getLatestGithubVersion():
  * reuses GLPI core's own proxy/timeout/error handling instead of reinventing it.
  *

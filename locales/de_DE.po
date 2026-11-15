@@ -17351,3 +17351,45 @@ msgstr ""
 
 msgid "Change it in the plugin configuration"
 msgstr "In der Plugin-Konfiguration ändern"
+
+msgid "Outgoing connections"
+msgstr "Ausgehende Verbindungen"
+
+msgid "Internal addresses allowed"
+msgstr "Interne Adressen erlaubt"
+
+msgid "Internal addresses refused"
+msgstr "Interne Adressen abgelehnt"
+
+msgid ""
+"For security, the plugin never calls an internal address (the server itself, "
+"a private network, the metadata of a cloud provider) and never follows a "
+"redirection. Allow internal addresses only if your organisation reaches "
+"these services through an internal mirror or relay. This setting applies to "
+"all entities."
+msgstr ""
+"Aus Sicherheitsgründen ruft das Plugin nie eine interne Adresse auf (den "
+"Server selbst, ein privates Netz, die Metadaten eines Cloud-Anbieters) und "
+"folgt nie einer Weiterleitung. Erlauben Sie interne Adressen nur, wenn Ihre "
+"Organisation diese Dienste über einen internen Spiegel oder Relay erreicht. "
+"Diese Einstellung gilt für alle Entitäten."
+
+msgid "Allow internal addresses"
+msgstr "Interne Adressen erlauben"
+
+msgid ""
+"Only a GLPI administrator (right to update the general configuration) can "
+"change this setting."
+msgstr ""
+"Nur ein GLPI-Administrator (Recht, die allgemeine Konfiguration zu ändern) "
+"kann diese Einstellung ändern."
+
+#, php-format
+msgid ""
+"GLPI also refuses internal addresses for this plugin: add %s to the constant "
+"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/local_define."
+"php)."
+msgstr ""
+"GLPI lehnt interne Adressen für dieses Plugin ebenfalls ab: Fügen Sie %s der "
+"Konstante GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS hinzu "
+"(config/local_define.php)."

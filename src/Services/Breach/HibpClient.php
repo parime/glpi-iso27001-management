@@ -20,7 +20,7 @@ declare(strict_types=1);
 namespace GlpiPlugin\Grcmanager\Services\Breach;
 
 use Closure;
-use GlpiPlugin\Grcmanager\Compatibility\Http;
+use GlpiPlugin\Grcmanager\Compat\Http;
 
 /**
  * Issue #183 : client de l'API v3 de Have I Been Pwned (https://haveibeenpwned.com/API/v3).

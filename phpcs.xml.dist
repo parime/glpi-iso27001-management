@@ -45,11 +45,11 @@
     <!-- inc/ holds GLPI's legacy global-namespace CommonDBTM subclasses (PluginGrcmanager*),
          GLPI's own plugin autoloader requires this shape (no namespace), not an oversight.
          front/ scripts are also global-namespace by the same GLPI convention. -->
-    <!-- src/Compatibility/Base/: each file declares its class twice, in mutually exclusive branches
+    <!-- src/Compat/Base/: each file declares its class twice, in mutually exclusive branches
          (typed properties on GLPI 12, untyped on GLPI 11) - only one is ever declared at runtime. -->
     <rule ref="PSR1.Classes.ClassDeclaration">
         <exclude-pattern>inc/*</exclude-pattern>
-        <exclude-pattern>src/Compatibility/Base/*</exclude-pattern>
+        <exclude-pattern>src/Compat/Base/*</exclude-pattern>
     </rule>
 
     <!-- GLPI core's own ITIL actor/relation classes are always named "Type_Relation" with an

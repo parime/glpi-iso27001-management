@@ -15,7 +15,7 @@
  * -------------------------------------------------------------------------
  */
 
-use GlpiPlugin\Grcmanager\Compatibility\Base\SecurityIncidentTemplateHiddenFieldBase;
+use GlpiPlugin\Grcmanager\Compat\Base\SecurityIncidentTemplateHiddenFieldBase;
 
 /**
  * Required by `ITILTemplate` (naming-convention resolved, `$itiltype . 'TemplateHiddenField'`) -

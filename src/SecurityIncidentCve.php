@@ -20,7 +20,7 @@ namespace GlpiPlugin\Grcmanager;
 use CommonGLPI;
 use CronTask;
 use Glpi\Application\View\TemplateRenderer;
-use GlpiPlugin\Grcmanager\Compatibility\Base\SecurityIncidentCveBase;
+use GlpiPlugin\Grcmanager\Compat\Base\SecurityIncidentCveBase;
 use GlpiPlugin\Grcmanager\Services\Cve\InventoryCveMatcher;
 use GlpiPlugin\Grcmanager\Services\Cve\NvdConfig;
 use GlpiPlugin\Grcmanager\Services\Cve\NvdCveEnrichmentService;

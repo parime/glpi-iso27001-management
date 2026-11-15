@@ -614,3 +614,22 @@ Journal des limites connues et compromis assumés, tenu à jour à chaque sprint
   même besoin (« pourquoi tel choix a été fait, à quoi faire attention si on le change ») qu'une
   ADR. À réévaluer si le projet gagne des contributeurs externes qui auraient besoin d'un point
   d'entrée unique de type `ARCHITECTURE.md` plutôt que de devoir lire tout `TECH_DEBT.md`.
+
+## Structure : inc/ et src/Compat (issue #658, charte commune sections 3 et 4)
+
+- **Les 15 classes ITIL des incidents de sécurité restent dans `inc/`** (`PluginGrcmanagerSecurityIncident`
+  et ses satellites : acteurs, tâches, coûts, gabarits et leurs champs, cible de notification, règles).
+  Vérifié pour l'issue #658 : le cœur de GLPI dérive des identifiants internes de
+  `strtolower(static::class)` sans tenir compte des espaces de noms. `CommonITILObject::getITILTemplateToUse()`
+  construit un nom de colonne à partir du nom de classe (requête cassée avec un nom à espace de noms,
+  constaté sur le plugin d'origine), et `NotificationTargetCommonITILObject` construit les balises
+  `##plugingrcmanagersecurityincident.xxx##`, que l'analyseur `##IF##`/`##FOREACH##` n'accepte qu'en
+  `[a-z0-9._-]` : un nom `GlpiPlugin\Grcmanager\SecurityIncident` casserait tous les modèles de
+  notification, y compris ceux personnalisés par les clients. Les autres classes ont quitté `inc/`
+  (issue #293, `Install\ItemtypeRenames`). Exception assumée et documentée, à réévaluer si le cœur
+  rend ces mécanismes compatibles avec les espaces de noms.
+- **Alias `GlpiPlugin\Grcmanager\Compatibility\*` vers `Compat\*`** (`Compat\LegacyNamespace`, appelé
+  par setup.php) : à retirer à la version suivante (une version de transition seulement).
+- **Contexte HTTP GLPI 12 = `GlpiPlugin\Grcmanager\Menu`** (`Compat\Http::CONTEXT`) : c'est ce nom
+  que l'administrateur ajoute à `GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS`. Le renommer
+  obligerait chaque instance à modifier sa constante : ne pas le changer sans note de version.

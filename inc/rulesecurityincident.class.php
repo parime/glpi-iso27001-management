@@ -15,7 +15,7 @@
  * -------------------------------------------------------------------------
  */
 
-use GlpiPlugin\Grcmanager\Compatibility\Base\RuleSecurityIncidentBase;
+use GlpiPlugin\Grcmanager\Compat\Base\RuleSecurityIncidentBase;
 
 /**
  * Paired with `RulePluginGrcmanagerSecurityIncidentCollection` - see that class's own

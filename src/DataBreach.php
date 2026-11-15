@@ -23,7 +23,7 @@ use Document_Item;
 use Dropdown;
 use Entity;
 use Glpi\Application\View\TemplateRenderer;
-use GlpiPlugin\Grcmanager\Compatibility\Base\DataBreachBase;
+use GlpiPlugin\Grcmanager\Compat\Base\DataBreachBase;
 use GlpiPlugin\Grcmanager\Services\Incident\RegulatoryDeadlines;
 use GlpiPlugin\Grcmanager\Services\Privacy\DataBreachRules as Rules;
 use GlpiPlugin\Grcmanager\Services\Privacy\ProcessingActivityRules;

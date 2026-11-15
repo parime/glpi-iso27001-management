@@ -40,7 +40,7 @@ use Ticket_User;
  * un suivi privé au ticket ; le ticket lui-même n'est pas modifié (ni statut ni attribution).
  *
  * Simple fournisseur d'onglets (CommonGLPI) plutôt qu'un CommonDBRelation : les propriétés héritées
- * de ce dernier sont typées en GLPI 12 et non en GLPI 11 (voir src/Compatibility/Base), et ce lien
+ * de ce dernier sont typées en GLPI 12 et non en GLPI 11 (voir src/Compat/Base), et ce lien
  * n'a besoin ni de formulaire ni d'historique propres : la table est lue et écrite directement.
  */
 class SecurityIncidentTicket extends CommonGLPI

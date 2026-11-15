@@ -19,7 +19,7 @@ namespace GlpiPlugin\Grcmanager;
 
 use Dropdown;
 use Glpi\Application\View\TemplateRenderer;
-use GlpiPlugin\Grcmanager\Compatibility\Base\ManagementReviewBase;
+use GlpiPlugin\Grcmanager\Compat\Base\ManagementReviewBase;
 use GlpiPlugin\Grcmanager\Services\Ui\Badge;
 
 /**

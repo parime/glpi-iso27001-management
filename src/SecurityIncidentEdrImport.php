@@ -19,7 +19,7 @@ namespace GlpiPlugin\Grcmanager;
 
 use Computer;
 use Glpi\Application\View\TemplateRenderer;
-use GlpiPlugin\Grcmanager\Compatibility\Base\SecurityIncidentEdrImportBase;
+use GlpiPlugin\Grcmanager\Compat\Base\SecurityIncidentEdrImportBase;
 use GlpiPlugin\Grcmanager\Services\Incident\EdrCsvImport;
 use PluginGrcmanagerSecurityIncident;
 use PluginGrcmanagerSecurityIncident_Item;

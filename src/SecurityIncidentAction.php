@@ -19,7 +19,7 @@ namespace GlpiPlugin\Grcmanager;
 
 use CommonGLPI;
 use Glpi\Application\View\TemplateRenderer;
-use GlpiPlugin\Grcmanager\Compatibility\Base\SecurityIncidentActionBase;
+use GlpiPlugin\Grcmanager\Compat\Base\SecurityIncidentActionBase;
 use GlpiPlugin\Grcmanager\Pdf\PdfRenderer;
 use GlpiPlugin\Grcmanager\Services\Incident\ActionLog;
 use GlpiPlugin\Grcmanager\Services\Incident\IncidentPhases;

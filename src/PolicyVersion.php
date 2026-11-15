@@ -21,7 +21,7 @@ use CommonGLPI;
 use Document;
 use Document_Item;
 use Glpi\Application\View\TemplateRenderer;
-use GlpiPlugin\Grcmanager\Compatibility\Base\PolicyVersionBase;
+use GlpiPlugin\Grcmanager\Compat\Base\PolicyVersionBase;
 use GlpiPlugin\Grcmanager\Pdf\PdfRenderer;
 use GlpiPlugin\Grcmanager\Services\Policy\PolicyApprovalConfig;
 use GlpiPlugin\Grcmanager\Services\Policy\PolicyApprovalRules;

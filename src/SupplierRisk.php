@@ -22,7 +22,7 @@ use CronTask;
 use Document_Item;
 use Dropdown;
 use Glpi\Application\View\TemplateRenderer;
-use GlpiPlugin\Grcmanager\Compatibility\Base\SupplierRiskBase;
+use GlpiPlugin\Grcmanager\Compat\Base\SupplierRiskBase;
 use GlpiPlugin\Grcmanager\Services\Risk\ReviewReminderService;
 use GlpiPlugin\Grcmanager\Services\Ui\Fragment;
 use GlpiPlugin\Grcmanager\Traits\RiskAssessmentTrait;

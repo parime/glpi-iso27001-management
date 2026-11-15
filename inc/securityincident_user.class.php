@@ -15,7 +15,7 @@
  * -------------------------------------------------------------------------
  */
 
-use GlpiPlugin\Grcmanager\Compatibility\Base\SecurityIncidentUserBase;
+use GlpiPlugin\Grcmanager\Compat\Base\SecurityIncidentUserBase;
 
 /**
  * Relation between PluginGrcmanagerSecurityIncident and User (requester/observer/assign) -
