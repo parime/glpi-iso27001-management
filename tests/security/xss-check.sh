@@ -91,6 +91,8 @@ check "onglet validites des preuves"          "$(tab 'GlpiPlugin%5CGrcmanager%5C
 # Issue #535 : politique piegee a lire (preferences) et onglet de prise de connaissance (groupe piege).
 check "onglet Politiques a lire"              "$(tab Preference 'GlpiPlugin%5CGrcmanager%5CPolicyAcknowledgement$1' 2)"
 check "onglet prise de connaissance"          "$(tab 'GlpiPlugin%5CGrcmanager%5CPolicy' 'GlpiPlugin%5CGrcmanager%5CPolicyAcknowledgement$1' "$(xid policy)")"
+# Issue #614 : controles de coherence (noms pieges des risques, politiques, traitements...).
+check "front/consistencycheck.php"            "$P/consistencycheck.php"
 check "export CSV de prise de connaissance"   "$P/policyacknowledgement.export.php?id=$(xid ack_campaign)&format=csv"
 # Issue #540 : registre DORA piege (page, onglets du contrat, du fournisseur et du processus, export).
 check "registre DORA"                         "$P/doraregister.php"

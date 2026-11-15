@@ -621,6 +621,10 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
         ]);
     }
     $ids['processing_' . $suffix] = (int) $processing->getID();
+    // Issue #614 : AIPD requise non faite, signalee par les controles de coherence.
+    $DB->update('glpi_plugin_grcmanager_processingactivities', ['dpia_status' => 'required'], [
+        'id' => $ids['processing_' . $suffix],
+    ]);
     // Analyse d'impact historisée : le contrôle commun des restes doit voir son journal nettoyé.
     if ($suffix === 'A' && \GlpiPlugin\Grcmanager\Dpia::forActivity($ids['processing_A']) === null) {
         \GlpiPlugin\Grcmanager\Dpia::saveForm($ids['processing_A'], ['necessity' => 'Necessite fictive']);

@@ -75,7 +75,8 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/businessprocess.php front/businessprocess.php?export=csv front/businessprocess.report.php
   front/customframework.php front/customframework.php?template=1
   front/riskimport.php front/riskimport.php?template=1 front/riskimport.php?export=1
-  front/doraregister.php front/doraregister.php?export=B_02.01 front/doraregister.php?export=zip"
+  front/doraregister.php front/doraregister.php?export=B_02.01 front/doraregister.php?export=zip
+  front/consistencycheck.php front/consistencycheck.export.php?format=csv front/consistencycheck.export.php?format=pdf"
 # Creations : refusees sans droit comme en lecture seule (etat en base compare par la CI).
 create_attempts() { # code attendu, code attendu pour la classification (404 sans droit sur l'actif)
   local incident; incident=$(id incident_A)
@@ -515,6 +516,12 @@ processing_csv=$(curl -s -c "$JAR" -b "$JAR" "$P/processingactivity.export.php?f
 contains "export CSV du registre : traitement de A" "Traitement securite A" oui "$processing_csv"
 contains "export CSV du registre : traitement de B" "Traitement securite B" $SEE_B "$processing_csv"
 contains "export CSV du registre : actif de B" "PC securite B" $SEE_B "$processing_csv"
+# Issue #614 : controles de coherence, AIPD requise non faite sur les traitements de A et de B :
+# le traitement de B n'est jamais cite pour un profil limite a A (page et export).
+consistency_csv=$(curl -s -c "$JAR" -b "$JAR" "$P/consistencycheck.export.php?format=csv&rule=processing_dpia_pending")
+contains "coherence, export CSV : traitement de A" "Traitement securite A" oui "$consistency_csv"
+contains "coherence, export CSV : traitement de B" "Traitement securite B" $SEE_B "$consistency_csv"
+contains "coherence, page : traitement de B" "Traitement securite B" $SEE_B   "$(curl -s -c "$JAR" -b "$JAR" "$P/consistencycheck.php?rule=processing_dpia_pending")"
 contains "onglet Registre des traitements d'un ordinateur de A" "Traitement securite A" oui \
   "$(tab Computer 'GlpiPlugin%5CGrcmanager%5CProcessingActivity$1' "$(id computer_A)")"
 
