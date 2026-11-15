@@ -38,6 +38,12 @@
       'add_field_html': hints.hint(__('What reduces the risk during the waiver (network isolation, closer monitoring, restricted access...).', 'grcmanager')),
    }) }}
 
+   {# Issue #601 : CVE du parc couvertes, qui suivent la date de fin de la dérogation. #}
+   {{ fields.textField('cve_ids', cve_ids, __('Fleet vulnerabilities covered (CVE)', 'grcmanager'), {
+      'full_width': true,
+      'add_field_html': hints.hint(__('CVE identifiers separated by commas, e.g. CVE-2099-10001. Once the waiver is approved, these vulnerabilities follow its end date instead of the remediation deadline, then become overdue again if it expires.', 'grcmanager')),
+   }) }}
+
    {{ fields.smallTitle(__('Assets concerned', 'grcmanager'), 'ti ti-device-desktop') }}
    {% for group in groups %}
       {{ fields.dropdownField(group.itemtype, group.field, group.values, group.label, {'multiple': true}) }}

@@ -298,6 +298,31 @@
       </div>
       <div class="form-hint mb-2">{{ __('A single open ticket per software, detailing its vulnerabilities and linked to the affected machines. At most %d tickets are created per run, most severe first. A followup is added when more machines are affected, when a vulnerability becomes actively exploited, or when no machine is vulnerable anymore. The ticket is never closed and its priority never changed automatically.', 'grcmanager')|format(max_tickets) }}</div>
 
+      {# Issue #601 : délais de correction des vulnérabilités du parc, par niveau. #}
+      <h5 class="mt-4" id="grc-remediation-settings"><i class="ti ti-calendar-time me-1"></i>{{ __('Vulnerability remediation deadlines', 'grcmanager') }}</h5>
+      <p class="text-muted mb-2">{{ __('How many days the team has to fix a vulnerability of the fleet, by level (ISO 27001 A.8.8). The fleet vulnerabilities page, the dashboard cards and the report by email then show the due dates, the overdue vulnerabilities and the share fixed on time.', 'grcmanager') }}</p>
+      <div class="form-check form-switch mb-2">
+        <input class="form-check-input" type="checkbox" role="switch" id="park_sla_enabled" name="park_sla_enabled" value="1" {{ remediation_settings.enabled ? 'checked' : '' }}>
+        <label class="form-check-label" for="park_sla_enabled">{{ __('Track remediation deadlines', 'grcmanager') }}</label>
+      </div>
+      <div class="d-flex flex-wrap gap-3 mb-2">
+        {% for level, label in remediation_levels %}
+        <div style="max-width: 200px;">
+          <label class="form-label" for="park_sla_days_{{ level }}">{{ label }}</label>
+          <div class="input-group">
+            <input type="number" class="form-control" id="park_sla_days_{{ level }}" name="park_sla_days_{{ level }}" min="1" max="3650" step="1" value="{{ remediation_settings.days[level] }}">
+            <span class="input-group-text">{{ __('days', 'grcmanager') }}</span>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="mb-2" style="max-width: 320px;">
+        <label class="form-label" for="park_sla_critical_percent">{{ __('Deadline on assets with a high C/I/A classification (%)', 'grcmanager') }}</label>
+        <input type="number" class="form-control" id="park_sla_critical_percent" name="park_sla_critical_percent" min="10" max="100" step="5" value="{{ remediation_settings.critical_percent }}">
+        <div class="form-hint">{{ __('50 = half the normal deadline when a vulnerable machine is classified high in confidentiality, integrity or availability. 100 = no shorter deadline.', 'grcmanager') }}</div>
+      </div>
+      <div class="form-hint mb-2">{{ __('The deadline runs from the first detection of the vulnerability. A vulnerability covered by an approved waiver in progress follows the end date of the waiver, and becomes overdue again when it expires. Tickets show the due date, but their priority and status are never changed.', 'grcmanager') }}</div>
+
       {# Issue #485 : rapport des vulnérabilités du parc par e-mail. #}
       <h5 class="mt-4"><i class="ti ti-mail-bolt me-1"></i>{{ __('Fleet vulnerability report by email', 'grcmanager') }}</h5>
       <p class="text-muted mb-2">{{ __('A regular email listing the vulnerabilities of the fleet that are exploited, likely to be exploited, critical or high. Its subject shows the urgency at a glance, for instance "[URGENT] 2 actively exploited vulnerabilities, 14 machines exposed".', 'grcmanager') }}</p>

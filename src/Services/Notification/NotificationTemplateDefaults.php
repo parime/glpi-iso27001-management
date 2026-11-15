@@ -754,17 +754,19 @@ final class NotificationTemplateDefaults
                     . "\n##ENDFOREACHvulnerabilities####vulndigest.more##\n\n" . $advice . "\n\n"
                     . $line('View the asset vulnerabilities', '##vulndigest.url##');
 
-                return [
-                    'subject'      => '##vulndigest.subject##',
+                $html = NotificationHtml::renderVulnerabilityDigest(
+                    $t('Asset vulnerability report'),
+                    $rows,
+                    ['CVE', $t('Software'), $t('Category'), $t('Machines')],
+                    [$advice],
+                    $t('View the asset vulnerabilities')
+                );
+
+                // Issue #601 : section des délais de correction, comme l'ajoute la mise à jour.
+                return ['subject' => '##vulndigest.subject##'] + (self::withRemediation($text, $html) ?? [
                     'content_text' => $text,
-                    'content_html' => NotificationHtml::renderVulnerabilityDigest(
-                        $t('Asset vulnerability report'),
-                        $rows,
-                        ['CVE', $t('Software'), $t('Category'), $t('Machines')],
-                        [$advice],
-                        $t('View the asset vulnerabilities')
-                    ),
-                ];
+                    'content_html' => $html,
+                ]);
 
             case 'policy_review':
                 $title = $head('##policy.action##', '##policy.title##');
@@ -915,6 +917,42 @@ final class NotificationTemplateDefaults
      * @param array<string, mixed> $row ligne de glpi_notificationtemplatetranslations
      * @param array{subject: string, content_text: string, content_html: string} $expected
      */
+    /**
+     * Issue #601 : ajoute la balise ##vulndigest.remediation## (délais de correction) au rapport des
+     * vulnérabilités, juste après celle des rançongiciels. Null si rien n'est à changer : balise
+     * déjà présente, ou texte sans la balise des rançongiciels (modèle réécrit par l'administrateur).
+     *
+     * @return array{content_text: string, content_html: string}|null
+     */
+    public static function withRemediation(string $text, string $html): ?array
+    {
+        $tag = '##vulndigest.remediation##';
+        $changed = false;
+        if (!str_contains($text, $tag) && str_contains($text, '##vulndigest.ransomware##')) {
+            $text = self::insertAfter($text, '##vulndigest.ransomware##', "\n" . $tag);
+            $changed = true;
+        }
+        if (!str_contains($html, $tag) && str_contains($html, '##ENDIFvulndigest.ransomware##')) {
+            $html = self::insertAfter(
+                $html,
+                '##ENDIFvulndigest.ransomware##',
+                NotificationHtml::renderDigestRemediation()
+            );
+            $changed = true;
+        }
+
+        return $changed ? ['content_text' => $text, 'content_html' => $html] : null;
+    }
+
+    private static function insertAfter(string $haystack, string $needle, string $insert): string
+    {
+        $position = strpos($haystack, $needle);
+
+        return $position === false
+            ? $haystack
+            : substr_replace($haystack, $needle . $insert, $position, strlen($needle));
+    }
+
     public static function sameContent(array $row, array $expected): bool
     {
         return self::normalize((string) ($row['subject'] ?? '')) === self::normalize($expected['subject'])
