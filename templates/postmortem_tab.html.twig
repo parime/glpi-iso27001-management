@@ -1,5 +1,5 @@
 {# Issue #169 : aperçu du rapport post-incident et génération du PDF #}
-{% set outcomes = {'met': ['bg-green-lt', __('Met', 'grcmanager')], 'late': ['bg-red-lt', __('Overdue', 'grcmanager')], 'missing': ['bg-orange-lt', __('Not notified', 'grcmanager')]} %}
+{% set outcomes = {'met': ['bg-green-lt', __('Met', 'grcmanager')], 'late': ['bg-red-lt', __('Overdue', 'grcmanager')], 'missing': ['bg-orange-lt', __('Not notified', 'grcmanager')], 'not_required': ['bg-secondary-lt', __('Not notified (decision recorded)', 'grcmanager')], 'waiting': ['bg-purple-lt', __('Waiting for the corrective measure', 'grcmanager')], 'not_applicable': ['bg-secondary-lt', __('Not applicable', 'grcmanager')]} %}
 <div class="container-fluid">
    {% if not incident.closed %}
       <div class="alert alert-info"><i class="ti ti-info-circle me-1"></i>{{ __('The incident is not closed: the report will be marked as provisional. Fill in the root cause and the lessons learned before closing.', 'grcmanager') }}</div>

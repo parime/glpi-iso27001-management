@@ -22,6 +22,7 @@ use GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig;
 use GlpiPlugin\Grcmanager\Services\Cve\NvdConfig;
 use GlpiPlugin\Grcmanager\Services\GithubVersionChecker;
 use GlpiPlugin\Grcmanager\IncidentSecurityGroup;
+use GlpiPlugin\Grcmanager\Services\Incident\CraReportingConfig;
 use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentModuleConfig;
 use GlpiPlugin\Grcmanager\Services\Notification\SensitiveNotification;
 use GlpiPlugin\Grcmanager\Services\Policy\PolicyApprovalConfig;
@@ -58,11 +59,19 @@ if (isset($_POST['update_securityincident_modules'])) {
         'securityincident_templates_enabled' => isset($_POST['securityincident_templates_enabled']),
         'securityincident_dashboard_enabled' => isset($_POST['securityincident_dashboard_enabled']),
     ];
-    $before = SecurityIncidentModuleConfig::load() + ['security_groups_id' => IncidentSecurityGroup::groupId()];
+    $before = SecurityIncidentModuleConfig::load() + [
+        'security_groups_id'    => IncidentSecurityGroup::groupId(),
+        'cra_reporting_enabled' => CraReportingConfig::isEnabled(),
+    ];
     SecurityIncidentModuleConfig::save($modules);
     // Issue #371 : groupe sécurité optionnel.
     IncidentSecurityGroup::save((int) ($_POST['security_groups_id'] ?? 0));
-    $after = $modules + ['security_groups_id' => IncidentSecurityGroup::groupId()];
+    // Issue #600 : option « signalement CRA ».
+    CraReportingConfig::save(isset($_POST['cra_reporting_enabled']));
+    $after = $modules + [
+        'security_groups_id'    => IncidentSecurityGroup::groupId(),
+        'cra_reporting_enabled' => CraReportingConfig::isEnabled(),
+    ];
     $changes = array_diff_assoc(array_map('intval', $after), array_map('intval', $before));
     if ($changes !== []) {
         \GlpiPlugin\Grcmanager\AuditLog::record('config_change', 'Config', 0, 0, 'success', ['changes' => $changes]);
@@ -279,6 +288,7 @@ Html::header(
     'installed_version'     => PLUGIN_GRCMANAGER_VERSION,
     'latest_github_version' => GithubVersionChecker::getLatestGithubVersion(),
     'securityincident_modules' => SecurityIncidentModuleConfig::load(),
+    'cra_reporting_enabled'    => CraReportingConfig::isEnabled(),
     'security_group_rand'      => $securityGroupRand = mt_rand(),
     'security_group_dropdown'  => Group::dropdown([
         'name'    => 'security_groups_id',

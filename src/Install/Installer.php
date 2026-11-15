@@ -2069,6 +2069,17 @@ final class Installer
                 `contained_at` timestamp NULL DEFAULT NULL,
                 `eradicated_at` timestamp NULL DEFAULT NULL,
                 `recovered_at` timestamp NULL DEFAULT NULL,
+                `dora_major` tinyint NOT NULL DEFAULT 0 COMMENT 'Incident TIC majeur DORA (issue #600)',
+                `dora_classified_at` timestamp NULL DEFAULT NULL,
+                `dora_initial_at` timestamp NULL DEFAULT NULL,
+                `dora_intermediate_at` timestamp NULL DEFAULT NULL,
+                `dora_final_at` timestamp NULL DEFAULT NULL,
+                `cra_report_type` varchar(16) NOT NULL DEFAULT '' COMMENT 'vulnerability, incident (CRA, issue #600)',
+                `cra_product` varchar(255) NOT NULL DEFAULT '',
+                `cra_fix_available_at` timestamp NULL DEFAULT NULL,
+                `cra_early_warning_at` timestamp NULL DEFAULT NULL,
+                `cra_notification_at` timestamp NULL DEFAULT NULL,
+                `cra_final_report_at` timestamp NULL DEFAULT NULL,
                 PRIMARY KEY (`id`),
                 KEY `entities_id` (`entities_id`),
                 KEY `is_recursive` (`is_recursive`),
@@ -2953,6 +2964,19 @@ final class Installer
             'contained_at'    => 'timestamp NULL DEFAULT NULL',
             'eradicated_at'   => 'timestamp NULL DEFAULT NULL',
             'recovered_at'    => 'timestamp NULL DEFAULT NULL',
+            // Issue #600 : délais de notification DORA (incident TIC majeur) et CRA (produit
+            // comportant des éléments numériques), avec leurs points de départ propres.
+            'dora_major'           => 'tinyint NOT NULL DEFAULT 0',
+            'dora_classified_at'   => 'timestamp NULL DEFAULT NULL',
+            'dora_initial_at'      => 'timestamp NULL DEFAULT NULL',
+            'dora_intermediate_at' => 'timestamp NULL DEFAULT NULL',
+            'dora_final_at'        => 'timestamp NULL DEFAULT NULL',
+            'cra_report_type'      => "varchar(16) NOT NULL DEFAULT ''",
+            'cra_product'          => "varchar(255) NOT NULL DEFAULT ''",
+            'cra_fix_available_at' => 'timestamp NULL DEFAULT NULL',
+            'cra_early_warning_at' => 'timestamp NULL DEFAULT NULL',
+            'cra_notification_at'  => 'timestamp NULL DEFAULT NULL',
+            'cra_final_report_at'  => 'timestamp NULL DEFAULT NULL',
         ];
         foreach ($incidentColumns as $field => $definition) {
             if (!$DB->fieldExists(self::SECURITY_INCIDENTS_TABLE, $field, false)) {

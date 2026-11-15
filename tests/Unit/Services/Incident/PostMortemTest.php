@@ -33,6 +33,20 @@ final class PostMortemTest extends TestCase
         $this->assertSame(PostMortem::DEADLINE_MISSING, PostMortem::deadlineOutcome('', $due));
     }
 
+    /**
+     * Issue #600 : le rapport liste aussi les notifications sans échéance, avec leur motif.
+     */
+    public function testOutcomeOfDeadlinesWithoutDueDate(): void
+    {
+        $due = '2099-01-03 10:00:00';
+        $this->assertSame(PostMortem::DEADLINE_LATE, PostMortem::outcomeOf('done', '2099-01-04 10:00:00', $due));
+        $this->assertSame(PostMortem::DEADLINE_MISSING, PostMortem::outcomeOf('overdue', null, $due));
+        $this->assertSame(PostMortem::DEADLINE_WAITING, PostMortem::outcomeOf('waiting', null, null));
+        $this->assertSame(PostMortem::DEADLINE_MET, PostMortem::outcomeOf('done', '2099-01-04 10:00:00', null));
+        $this->assertSame(PostMortem::DEADLINE_NOT_APPLICABLE, PostMortem::outcomeOf('not_applicable', null, null));
+        $this->assertSame(PostMortem::DEADLINE_NOT_REQUIRED, PostMortem::outcomeOf('not_required', null, $due));
+    }
+
     public function testCostTotalUsesGlpiFormula(): void
     {
         $this->assertSame(275.0, PostMortem::costTotal([

@@ -156,12 +156,15 @@ class SecurityIncidentPostMortem extends CommonGLPI
 
         $deadlines = [];
         $labels = PluginGrcmanagerSecurityIncident::getRegulatoryLabels();
-        foreach (RegulatoryDeadlines::compute($fields) as $row) {
+        // Issue #600 : toutes les notifications (NIS2, RGPD, DORA, CRA), tenues ou non, et celles qui
+        // n'ont pas d'échéance (décision de ne pas notifier, mesure corrective attendue, régime non
+        // encore applicable).
+        foreach (RegulatoryDeadlines::compute(PluginGrcmanagerSecurityIncident::regulatoryFields($fields)) as $row) {
             $deadlines[] = [
                 'label'   => $labels[$row['key']] ?? $row['key'],
-                'due'     => $row['due'],
+                'due'     => (string) ($row['due'] ?? ''),
                 'done_at' => $row['done_at'],
-                'outcome' => PostMortem::deadlineOutcome($row['done_at'], $row['due']),
+                'outcome' => PostMortem::outcomeOf($row['status'], $row['done_at'], $row['due']),
             ];
         }
 

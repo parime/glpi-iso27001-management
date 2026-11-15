@@ -151,6 +151,8 @@ class MySpace extends CommonGLPI
             'audit_access'         => [__('Audit to consult as auditor', 'grcmanager'), 'ti-eye-check'],
             'objective'            => [__('Security objective', 'grcmanager'), 'ti-target'],
             'event'                => [__('Compliance event', 'grcmanager'), 'ti-calendar-event'],
+            // Issue #600 : échéances de notification des incidents de sécurité confiés à la personne.
+            'regulatory_notification' => [__('Regulatory notification to make', 'grcmanager'), 'ti-building-bank'],
         ];
     }
 

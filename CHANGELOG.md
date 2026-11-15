@@ -73,6 +73,21 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   Import tracé dans le journal du module et le journal des événements de GLPI.
 - **Export CSV du registre des risques** au format de l'import (aller-retour avec le tableur), niveaux
   calculés en fin de ligne, cellules neutralisées contre les formules, export tracé.
+- **Délais de notification DORA et CRA des incidents de sécurité** (issue #600), à côté de NIS2 et du
+  RGPD. Case « Incident TIC majeur (DORA) », visible quand le référentiel DORA est activé, avec la date
+  de classification : notification initiale 4 h après la classification et 24 h au plus après la
+  détection (4 h depuis une classification plus tardive), rapport intermédiaire 72 h après la
+  notification initiale, rapport final un mois après le rapport intermédiaire (règlement délégué (UE)
+  2025/301, article 5). « Signalement CRA » (vulnérabilité activement exploitée ou incident grave, avec
+  le produit concerné), visible quand la nouvelle option de la configuration du module est activée :
+  alerte précoce 24 h, notification 72 h, rapport final 14 jours après la mesure corrective
+  (vulnérabilité, « en attente » tant qu'elle n'est pas datée) ou un mois après la notification
+  (incident) (règlement (UE) 2024/2847, article 14, applicable depuis le 11 septembre 2026 ; « non
+  applicable » pour un incident détecté avant). Mêmes badges, bandeaux, alertes « proche » et
+  « en retard » de la tâche planifiée et dates « notifié le » que NIS2 ; échéances dans le tableau
+  de bord, dans « Mon espace GRC » (incidents dont la personne est chargée) et dans le rapport
+  post-incident, qui liste toutes les notifications, tenues ou non. Nouvelles colonnes de recherche.
+  Rien n'est envoyé à une autorité ni changé sur l'incident ; sans case cochée, rien ne change.
 
 ## [2.45.0] - 2026-11-14
 
