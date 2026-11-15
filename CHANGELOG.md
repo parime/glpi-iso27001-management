@@ -7,6 +7,17 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Changed
+
+- **Menus et réglages : charte commune, exception « outil métier complet »** (issue #656) : le
+  secteur « GRC & Conformité » est déclaré dans `.glpi-security-exceptions`
+  (`menus-secteur-metier`) ; l'entrée Assistance > Incidents de sécurité est gardée et justifiée
+  (objet ITIL, à côté des tickets, problèmes et changements). Le groupe Direction de l'appétence au
+  risque se choisit désormais dans la page de configuration du plugin (carte « Appétence et
+  tolérance au risque ») ; la page de l'appétence l'affiche avec un lien vers ce réglage. Plus aucun
+  réglage hors de la page de configuration.
+
+
 ## [2.50.0] - 2026-11-15
 
 ### Added

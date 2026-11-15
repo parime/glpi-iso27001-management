@@ -17070,3 +17070,6 @@ msgid ""
 msgstr ""
 "Entre %1$d e %2$d dias. Padrão: 365 dias, para que um calendário assinado "
 "funcione por um ano sem nenhuma ação."
+
+msgid "Change it in the plugin configuration"
+msgstr "Alterar na configuração do plugin"

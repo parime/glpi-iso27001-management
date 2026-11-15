@@ -17106,3 +17106,6 @@ msgid ""
 msgstr ""
 "Od %1$d do %2$d dni. Domyślnie: 365 dni, aby zasubskrybowany kalendarz "
 "działał przez rok bez żadnych działań."
+
+msgid "Change it in the plugin configuration"
+msgstr "Zmień w konfiguracji wtyczki"

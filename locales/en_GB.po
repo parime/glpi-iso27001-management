@@ -16863,3 +16863,6 @@ msgid ""
 msgstr ""
 "Between %1$d and %2$d days. Default: 365 days, so that a subscribed calendar "
 "keeps working for a year without any action."
+
+msgid "Change it in the plugin configuration"
+msgstr "Change it in the plugin configuration"

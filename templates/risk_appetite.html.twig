@@ -13,14 +13,12 @@
             {{ __('No management group is set: anyone who can edit the register can accept a risk beyond the tolerance. Choose the group whose members represent management.', 'grcmanager') }}
          {% endif %}
       </div>
-      {% if can_update %}
-         <form method="post" action="{{ action }}" class="d-flex flex-wrap gap-2 align-items-end" style="max-width: 520px;">
-            <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
-            {{ fields.dropdownField('Group', 'direction_groups_id', direction_groups_id, __('Management group', 'grcmanager'), {'entity': -1, 'full_width': true, 'is_horizontal': false, 'mb': ''}) }}
-            <button type="submit" name="save_direction_group" value="1" class="btn btn-primary mb-1">{{ __('Save') }}</button>
-         </form>
-      {% elseif direction_groups_id %}
+      {% if direction_groups_id %}
          <strong>{{ direction_group_name }}</strong>
+      {% endif %}
+      {# Issue #656 : le groupe se choisit dans la page de configuration du plugin. #}
+      {% if can_open_config %}
+         <a href="{{ config('root_doc') }}/plugins/grcmanager/front/config.php#grc-risk-appetite-config" class="ms-2"><i class="ti ti-settings me-1"></i>{{ __('Change it in the plugin configuration', 'grcmanager') }}</a>
       {% endif %}
    </div>
    {% if can_update %}<form method="post" action="{{ action }}">{% endif %}

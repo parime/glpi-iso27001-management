@@ -17348,3 +17348,6 @@ msgid ""
 msgstr ""
 "Zwischen %1$d und %2$d Tagen. Standard: 365 Tage, damit ein abonnierter "
 "Kalender ein Jahr lang ohne Zutun funktioniert."
+
+msgid "Change it in the plugin configuration"
+msgstr "In der Plugin-Konfiguration ändern"

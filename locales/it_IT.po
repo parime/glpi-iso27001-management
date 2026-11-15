@@ -17187,3 +17187,6 @@ msgid ""
 msgstr ""
 "Tra %1$d e %2$d giorni. Predefinito: 365 giorni, così un calendario abbonato "
 "funziona per un anno senza alcuna azione."
+
+msgid "Change it in the plugin configuration"
+msgstr "Modificalo nella configurazione del plugin"

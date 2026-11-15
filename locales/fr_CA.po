@@ -17198,3 +17198,6 @@ msgid ""
 msgstr ""
 "Entre %1$d et %2$d jours. Par défaut : 365 jours, pour qu'un agenda abonné "
 "fonctionne un an sans aucune action."
+
+msgid "Change it in the plugin configuration"
+msgstr "Le changer dans la configuration du plugin"
