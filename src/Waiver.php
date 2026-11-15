@@ -175,6 +175,11 @@ class Waiver extends WaiverBase
                 ? getUserName((int) $this->fields['users_id_approver']) : '',
             'requester' => (int) ($this->fields['users_id_requester'] ?? 0) > 0
                 ? getUserName((int) $this->fields['users_id_requester']) : '',
+            // Issue #601 : CVE du parc couvertes (une nouvelle dérogation peut venir de la page des
+            // vulnérabilités, la CVE est alors préremplie).
+            'cve_ids'  => implode(', ', $this->isNewItem()
+                ? Services\Cve\RemediationRules::parseCveIds((string) ($options['cve_ids'] ?? ''))
+                : ParkRemediation::getWaiverCves((int) $ID)),
         ]);
 
         return true;
@@ -272,12 +277,14 @@ class Waiver extends WaiverBase
     {
         parent::post_addItem();
         $this->syncLinkedItemsFromInput();
+        $this->syncCvesFromInput();
     }
 
     public function post_updateItem($history = true)
     {
         parent::post_updateItem($history);
         $this->syncLinkedItemsFromInput();
+        $this->syncCvesFromInput();
     }
 
     public function post_purgeItem()
@@ -286,6 +293,18 @@ class Waiver extends WaiverBase
 
         parent::post_purgeItem();
         $DB->delete(self::ITEMS_TABLE, ['plugin_grcmanager_waivers_id' => $this->fields['id']]);
+        ParkRemediation::removeWaiverCves((int) $this->fields['id']);
+    }
+
+    /**
+     * Issue #601 : CVE du parc couvertes par la dérogation (champ du formulaire, texte libre dont
+     * seuls les identifiants CVE sont gardés). Un appel qui ne transmet pas le champ ne change rien.
+     */
+    private function syncCvesFromInput(): void
+    {
+        if (array_key_exists('cve_ids', $this->input)) {
+            ParkRemediation::setWaiverCves((int) $this->fields['id'], (string) $this->input['cve_ids']);
+        }
     }
 
     public static function linkedFieldName(string $itemtype): string
