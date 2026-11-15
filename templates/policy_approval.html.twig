@@ -1,0 +1,39 @@
+{# Issue #611 : politiques de sécurité qui attendent la décision de l'approbateur connecté. Ouvert sans
+   droit sur le plugin aux approbateurs désignés. #}
+{% if my_pending is empty %}
+   <div class="card mb-3">
+      <div class="card-body">
+         <p class="mb-0"><i class="ti ti-circle-check text-success me-1"></i>{{ __('No security policy is awaiting your approval.', 'grcmanager') }}</p>
+      </div>
+   </div>
+{% endif %}
+
+{% for version in my_pending %}
+   <div class="card mb-3 border-primary">
+      <div class="card-header">
+         <h3 class="card-title"><i class="ti ti-signature me-2"></i>{{ __('%1$s, version %2$s, is awaiting your approval', 'grcmanager')|format(version.title, version.version) }}</h3>
+      </div>
+      <div class="card-body">
+         <p>{{ __('Requested by %1$s on %2$s.', 'grcmanager')|format(version.requested_by, version.requested_at) }}
+            {{ __('Rule: %s.', 'grcmanager')|format(version.rule) }}</p>
+         {% if version.comment %}<p class="fst-italic">« {{ version.comment }} »</p>{% endif %}
+         {% if version.pdf_url %}
+            <p><a href="{{ version.pdf_url }}" class="btn btn-outline-secondary btn-sm" target="_blank" rel="noopener"><i class="ti ti-file-type-pdf me-1"></i>{{ __('Read the frozen version (PDF)', 'grcmanager') }}</a>
+               <span class="text-muted small ms-2" title="{{ version.pdf_sha256 }}">SHA-256 {{ version.pdf_sha256|slice(0, 12) }}...</span></p>
+         {% endif %}
+         <form method="post" action="{{ action }}">
+            <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
+            <input type="hidden" name="answer" value="1">
+            <input type="hidden" name="versions_id" value="{{ version.id }}">
+            <label class="form-label" for="grc-policy-answer-{{ version.id }}">{{ __('Comment (required to reject)', 'grcmanager') }}</label>
+            <textarea class="form-control mb-2" name="comment" id="grc-policy-answer-{{ version.id }}" rows="2"></textarea>
+            <button type="submit" name="decision" value="approve" class="btn btn-success"><i class="ti ti-check me-1"></i>{{ __('I approve this version', 'grcmanager') }}</button>
+            <button type="submit" name="decision" value="reject" class="btn btn-outline-danger"><i class="ti ti-x me-1"></i>{{ __('Reject', 'grcmanager') }}</button>
+         </form>
+      </div>
+   </div>
+{% endfor %}
+
+{% if policies_url %}
+   <a href="{{ policies_url }}" class="btn btn-link"><i class="ti ti-shield-lock me-1"></i>{{ __('All security policies', 'grcmanager') }}</a>
+{% endif %}

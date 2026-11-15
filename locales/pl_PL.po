@@ -15949,6 +15949,310 @@ msgstr "Do aktualizacji"
 msgid "No change"
 msgstr "Bez zmian"
 
+#, php-format
+msgid "%1$s - version %2$s submitted for approval"
+msgstr "%1$s - wersja %2$s przekazana do zatwierdzenia"
+
+#, php-format
+msgid "%1$s asks you to approve version %2$s of the security policy \"%3$s\" (%4$s)."
+msgstr "%1$s prosi o zatwierdzenie wersji %2$s polityki bezpieczeństwa „%3$s” (%4$s)."
+
+#, php-format
+msgid "%1$s, version %2$s"
+msgstr "%1$s, wersja %2$s"
+
+#, php-format
+msgid "%1$s, version %2$s, is awaiting your approval"
+msgstr "%1$s, wersja %2$s, czeka na Twoje zatwierdzenie"
+
+#, php-format
+msgid "%d active account(s) will be asked."
+msgstr "Zapytanych zostanie %d aktywnych kont."
+
+msgid "A version of this policy is already awaiting approval."
+msgstr "Wersja tej polityki już czeka na zatwierdzenie."
+
+msgid "All approvers"
+msgstr "Wszyscy zatwierdzający"
+
+msgid "All security policies"
+msgstr "Wszystkie polityki bezpieczeństwa"
+
+msgid "An approved version can no longer be modified. To change the policy, prepare a new version: it goes back to draft until the new version is approved, and the approved version stays in the history."
+msgstr "Zatwierdzonej wersji nie można już zmieniać. Aby zmienić politykę, przygotuj nową wersję: wraca ona do wersji roboczej do czasu zatwierdzenia nowej wersji, a zatwierdzona wersja pozostaje w historii."
+
+msgid "An archived policy is not submitted for approval."
+msgstr "Zarchiwizowana polityka nie jest przekazywana do zatwierdzenia."
+
+msgid "Answer each request; a rejection needs a comment so that the author can correct the policy."
+msgstr "Odpowiedz na każdą prośbę; odrzucenie wymaga komentarza, aby autor mógł poprawić politykę."
+
+msgid "Any change to the title, version, description or attached documents changes the content fingerprint and requires a new version."
+msgstr "Każda zmiana tytułu, wersji, opisu lub załączonych dokumentów zmienia odcisk treści i wymaga nowej wersji."
+
+msgid "Approval"
+msgstr "Zatwierdzenie"
+
+msgid "Approval decision"
+msgstr "Decyzja o zatwierdzeniu"
+
+msgid "Approval history"
+msgstr "Historia zatwierdzeń"
+
+msgid "Approval of security policies by management"
+msgstr "Zatwierdzanie polityk bezpieczeństwa przez kierownictwo"
+
+msgid "Approval page URL"
+msgstr "URL strony zatwierdzania"
+
+#, php-format
+msgid "Approval record - %1$s %2$s"
+msgstr "Protokół zatwierdzenia - %1$s %2$s"
+
+#, php-format
+msgid "Approval record: %s"
+msgstr "Protokół zatwierdzenia: %s"
+
+msgid "Approval request withdrawn: the content can be modified again."
+msgstr "Prośba o zatwierdzenie wycofana: treść można ponownie zmieniać."
+
+msgid "Approval requested"
+msgstr "Zatwierdzenie zażądane"
+
+msgid "Approval rule"
+msgstr "Reguła zatwierdzania"
+
+msgid "Approved before the workflow"
+msgstr "Zatwierdzona przed obiegiem"
+
+msgid "Approvers (groups)"
+msgstr "Zatwierdzający (grupy)"
+
+msgid "Approvers (people)"
+msgstr "Zatwierdzający (osoby)"
+
+msgid "Approvers saved."
+msgstr "Zatwierdzający zapisani."
+
+msgid "Approvers specific to this policy."
+msgstr "Zatwierdzający właściwi dla tej polityki."
+
+#, php-format
+msgid "At least %d approval(s)"
+msgstr "Co najmniej %d zatwierdzeń"
+
+msgid "Attached documents"
+msgstr "Załączone dokumenty"
+
+msgid "Changed since approval"
+msgstr "Zmieniona od zatwierdzenia"
+
+msgid "Comments of the approvers"
+msgstr "Komentarze zatwierdzających"
+
+msgid "Date of the last approval, filled in by the approval workflow."
+msgstr "Data ostatniego zatwierdzenia, uzupełniana przez obieg zatwierdzania."
+
+msgid "Decisions"
+msgstr "Decyzje"
+
+msgid "Default approval rule"
+msgstr "Domyślna reguła zatwierdzania"
+
+msgid "Default approvers (groups)"
+msgstr "Domyślni zatwierdzający (grupy)"
+
+msgid "Default approvers (people)"
+msgstr "Domyślni zatwierdzający (osoby)"
+
+msgid "Default approvers of the configuration."
+msgstr "Domyślni zatwierdzający z konfiguracji."
+
+msgid "Default rule of the configuration"
+msgstr "Domyślna reguła z konfiguracji"
+
+msgid "Designate at least one approver (on the policy or in the configuration)."
+msgstr "Wyznacz co najmniej jednego zatwierdzającego (w polityce lub w konfiguracji)."
+
+msgid "Enable the approval workflow for security policies"
+msgstr "Włącz obieg zatwierdzania polityk bezpieczeństwa"
+
+msgid "Enter a new version number, different from the approved versions."
+msgstr "Wpisz nowy numer wersji, inny niż zatwierdzone wersje."
+
+msgid "Export the history (PDF)"
+msgstr "Eksportuj historię (PDF)"
+
+#, php-format
+msgid "Freezes version %s into a dated PDF (kept in GLPI documents with its SHA-256 fingerprint) and sends it to the approvers. The content can no longer be modified until their decision; the policy becomes \"Approved\" only once the rule is met."
+msgstr "Zamraża wersję %s w datowanym pliku PDF (przechowywanym w dokumentach GLPI z odciskiem SHA-256) i wysyła ją do zatwierdzających. Treści nie można zmieniać aż do ich decyzji; polityka staje się „Zatwierdzona” dopiero po spełnieniu reguły."
+
+msgid "Frozen PDF (SHA-256)"
+msgstr "Zamrożony PDF (SHA-256)"
+
+msgid "Frozen version"
+msgstr "Zamrożona wersja"
+
+msgid "Give the policy a version number first."
+msgstr "Najpierw nadaj polityce numer wersji."
+
+msgid "Have this policy approved"
+msgstr "Przekaż tę politykę do zatwierdzenia"
+
+msgid "ISO 27001, A.5.1"
+msgstr "ISO 27001, A.5.1"
+
+msgid "If the version is rejected, the policy stays in draft: take the comments into account, then submit it again."
+msgstr "Jeśli wersja zostanie odrzucona, polityka pozostaje wersją roboczą: uwzględnij komentarze, a następnie prześlij ją ponownie."
+
+msgid "Leave the lists empty to use the default approvers of the configuration."
+msgstr "Pozostaw listy puste, aby użyć domyślnych zatwierdzających z konfiguracji."
+
+msgid "New version number"
+msgstr "Numer nowej wersji"
+
+msgid "New version prepared: the policy is back to draft until it is approved."
+msgstr "Przygotowano nową wersję: polityka wraca do wersji roboczej do czasu zatwierdzenia."
+
+msgid "No approver designated: choose them below or in the configuration."
+msgstr "Nie wyznaczono zatwierdzających: wybierz ich poniżej lub w konfiguracji."
+
+msgid "No document attached to the policy."
+msgstr "Brak dokumentów załączonych do polityki."
+
+msgid "No frozen version: approval date entered manually."
+msgstr "Brak zamrożonej wersji: data zatwierdzenia wpisana ręcznie."
+
+msgid "No security policy is awaiting your approval."
+msgstr "Żadna polityka bezpieczeństwa nie czeka na Twoje zatwierdzenie."
+
+msgid "No version submitted yet."
+msgstr "Nie przesłano jeszcze żadnej wersji."
+
+msgid "One rejection is enough to reject the version."
+msgstr "Jedno odrzucenie wystarczy, by odrzucić wersję."
+
+msgid "Only a draft policy can be submitted for approval."
+msgstr "Do zatwierdzenia można przekazać tylko politykę w wersji roboczej."
+
+msgid "Person who submitted the version"
+msgstr "Osoba, która przesłała wersję"
+
+msgid "Policy approval"
+msgstr "Zatwierdzenie polityki"
+
+msgid "Policy approval decision"
+msgstr "Decyzja o zatwierdzeniu polityki"
+
+msgid "Policy approval requested"
+msgstr "Zażądano zatwierdzenia polityki"
+
+msgid "Policy to approve"
+msgstr "Polityka do zatwierdzenia"
+
+msgid "Prepare a new version"
+msgstr "Przygotuj nową wersję"
+
+#, php-format
+msgid "Requested by %1$s on %2$s."
+msgstr "Zażądane przez %1$s dnia %2$s."
+
+#, php-format
+msgid "Rule: %s."
+msgstr "Reguła: %s."
+
+msgid "Save the approvers"
+msgstr "Zapisz zatwierdzających"
+
+msgid "Security policy approval decision"
+msgstr "Decyzja o zatwierdzeniu polityki bezpieczeństwa"
+
+msgid "Security policy approval requested"
+msgstr "Zażądano zatwierdzenia polityki bezpieczeństwa"
+
+msgid "Sent to the designated approvers when a version of a security policy is frozen and submitted for approval."
+msgstr "Wysyłane do wyznaczonych zatwierdzających, gdy wersja polityki bezpieczeństwa zostaje zamrożona i przekazana do zatwierdzenia."
+
+msgid "Sent to the person who submitted a version of a security policy and to the policy owner when the version is approved or rejected."
+msgstr "Wysyłane do osoby, która przesłała wersję polityki bezpieczeństwa, oraz do właściciela polityki, gdy wersja zostanie zatwierdzona lub odrzucona."
+
+msgid "The \"Approved\" status is given by the designated approvers, from the \"Approval\" tab."
+msgstr "Status „Zatwierdzona” nadają wyznaczeni zatwierdzający w zakładce „Zatwierdzenie”."
+
+#, php-format
+msgid "The approval rule requires %1$d approvals but only %2$d approver(s) can answer."
+msgstr "Reguła zatwierdzania wymaga %1$d zatwierdzeń, ale odpowiedzieć może tylko %2$d zatwierdzających."
+
+msgid "The approval workflow is disabled in the configuration: only the history is shown."
+msgstr "Obieg zatwierdzania jest wyłączony w konfiguracji: wyświetlana jest tylko historia."
+
+#, php-format
+msgid "The attached documents have changed since version %s was approved: prepare a new version and have it approved."
+msgstr "Załączone dokumenty zmieniły się od zatwierdzenia wersji %s: przygotuj nową wersję i przekaż ją do zatwierdzenia."
+
+msgid "The content of this version is frozen by the approval workflow (title, version, description). Use the \"Approval\" tab to withdraw the request or to prepare a new version."
+msgstr "Treść tej wersji jest zamrożona przez obieg zatwierdzania (tytuł, wersja, opis). Użyj zakładki „Zatwierdzenie”, aby wycofać prośbę lub przygotować nową wersję."
+
+msgid "The policy approval workflow is not enabled."
+msgstr "Obieg zatwierdzania polityk nie jest włączony."
+
+msgid "The security policies awaiting your approval: read the frozen version, then approve or reject it with a comment."
+msgstr "Polityki bezpieczeństwa czekające na Twoje zatwierdzenie: przeczytaj zamrożoną wersję, a następnie zatwierdź ją lub odrzuć z komentarzem."
+
+msgid "This version has been approved: its content is frozen. Prepare a new version from the \"Approval\" tab to modify it."
+msgstr "Ta wersja została zatwierdzona: jej treść jest zamrożona. Aby ją zmienić, przygotuj nową wersję w zakładce „Zatwierdzenie”."
+
+msgid "This version is awaiting approval: its content is frozen. Withdraw the request to modify it."
+msgstr "Ta wersja czeka na zatwierdzenie: jej treść jest zamrożona. Wycofaj prośbę, aby ją zmienić."
+
+msgid "This version is awaiting your decision."
+msgstr "Ta wersja czeka na Twoją decyzję."
+
+#, php-format
+msgid "Version %s has already been approved: change the version number to submit a new version."
+msgstr "Wersja %s została już zatwierdzona: zmień numer wersji, aby przesłać nową wersję."
+
+#, php-format
+msgid "Version %s has been approved by management and has not changed since."
+msgstr "Wersja %s została zatwierdzona przez kierownictwo i od tego czasu się nie zmieniła."
+
+#, php-format
+msgid "Version %s has been submitted to the approvers; its content is frozen until their decision."
+msgstr "Wersja %s została przekazana zatwierdzającym; jej treść jest zamrożona do czasu ich decyzji."
+
+#, php-format
+msgid "Version %s is a draft: submit it for approval once it is ready."
+msgstr "Wersja %s jest wersją roboczą: przekaż ją do zatwierdzenia, gdy będzie gotowa."
+
+#, php-format
+msgid "Version %s is awaiting approval. To change its content, withdraw the request: the approvers will no longer be able to answer."
+msgstr "Wersja %s czeka na zatwierdzenie. Aby zmienić jej treść, wycofaj prośbę: zatwierdzający nie będą mogli już odpowiedzieć."
+
+#, php-format
+msgid "Version %s was marked as approved before the approval workflow was enabled: no frozen version exists. The next version will go through the workflow."
+msgstr "Wersja %s została oznaczona jako zatwierdzona przed włączeniem obiegu zatwierdzania: nie istnieje jej zamrożona wersja. Następna wersja przejdzie przez obieg."
+
+msgid "Whatever the rule, one rejection rejects the version."
+msgstr "Niezależnie od reguły jedno odrzucenie odrzuca wersję."
+
+msgid "When enabled, a policy becomes \"Approved\" only once its designated approvers have approved a frozen version (PDF and SHA-256 fingerprint). Policies already approved stay approved; they are marked \"approved before the workflow\". Each policy can have its own approvers and rule in its \"Approval\" tab."
+msgstr "Po włączeniu polityka staje się „Zatwierdzona” dopiero, gdy jej wyznaczeni zatwierdzający zatwierdzą zamrożoną wersję (PDF i odcisk SHA-256). Polityki już zatwierdzone pozostają zatwierdzone; są oznaczane jako „zatwierdzone przed obiegiem”. Każda polityka może mieć własnych zatwierdzających i regułę w zakładce „Zatwierdzenie”."
+
+msgid "With the approval workflow, a policy becomes \"Approved\" only once its designated approvers have approved it: use the \"Approval\" tab."
+msgstr "W obiegu zatwierdzania polityka staje się „Zatwierdzona” dopiero po zatwierdzeniu przez wyznaczonych zatwierdzających: użyj zakładki „Zatwierdzenie”."
+
+msgid "Withdraw the approval request?"
+msgstr "Wycofać prośbę o zatwierdzenie?"
+
+msgid "Withdraw the request"
+msgstr "Wycofaj prośbę"
+
+msgid "Withdrawn"
+msgstr "Wycofana"
+
+msgid "You do not have the right to modify this policy."
+msgstr "Nie masz uprawnień do zmiany tej polityki."
+
 msgid "Major ICT-related incident (DORA)"
 msgstr "Poważny incydent związany z ICT (DORA)"
 

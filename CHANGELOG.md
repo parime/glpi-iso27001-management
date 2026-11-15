@@ -7,6 +7,27 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Added
+
+- **Approbation des politiques de sécurité par la direction** (issue #611, ISO 27001 A.5.1) : circuit
+  à activer dans la configuration (désactivé par défaut, rien ne change sans cela). Approbateurs
+  désignés par défaut (personnes, groupes) et règle de validation (tous, ou un nombre minimal
+  d'approbations), remplaçables politique par politique dans le nouvel onglet « Approbation ». La
+  demande fige la version : PDF daté de la politique (contenu, documents joints et leurs empreintes)
+  conservé dans les documents GLPI, empreinte SHA-256 du fichier et du contenu ; les approbateurs sont
+  prévenus. Chacun approuve ou refuse (commentaire obligatoire) depuis « Mon espace GRC » ou la page
+  d'approbation, sans droit sur le plugin ; un refus refuse la version, la politique reste en
+  brouillon. La politique ne passe « Approuvée » qu'une fois la règle atteinte, à la date de la
+  dernière approbation ; le statut « Approuvée » et la date ne se saisissent plus à la main. Le
+  contenu (titre, version, description) est figé pendant l'approbation et après : retirer la demande,
+  ou préparer une nouvelle version explicitement (retour en brouillon, la version approuvée reste
+  dans l'historique). Historique des versions et des décisions exportable en PDF, procès-verbal
+  archivé comme preuve sur la politique et sur la mesure A.5.1 (document réservé), modifications du
+  contenu détectées par l'empreinte. Deux notifications modifiables (demande aux approbateurs,
+  décision au rédacteur et au responsable). La campagne de prise de connaissance ne part qu'à
+  l'approbation de la nouvelle version. Les politiques déjà approuvées restent approuvées, marquées
+  « approuvées avant le circuit », sans empreinte. Actions tracées dans le journal du module.
+
 ## [2.48.0] - 2026-11-15
 
 ## [2.47.0] - 2026-11-15

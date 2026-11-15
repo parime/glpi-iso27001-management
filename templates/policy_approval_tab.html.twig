@@ -1,0 +1,190 @@
+{# Issue #611 : onglet « Approbation » d'une politique de sécurité (approbateurs désignés, demande,
+   historique des versions et des décisions). #}
+{% set status_classes = {
+   'approved': 'bg-green-lt', 'pending': 'bg-blue-lt', 'rejected': 'bg-red-lt', 'withdrawn': 'bg-secondary-lt'
+} %}
+
+<div class="card mb-3">
+   <div class="card-body d-flex flex-wrap align-items-center gap-3">
+      {% if pending is not null %}
+         <span class="badge bg-blue-lt fs-5"><i class="ti ti-hourglass me-1"></i>{{ __('Awaiting approval', 'grcmanager') }}</span>
+         <span>{{ __('Version %s has been submitted to the approvers; its content is frozen until their decision.', 'grcmanager')|format(pending.version) }}</span>
+      {% elseif state == 'up_to_date' %}
+         <span class="badge bg-green-lt fs-5"><i class="ti ti-circle-check me-1"></i>{{ __('Approved', 'grcmanager') }}</span>
+         <span>{{ __('Version %s has been approved by management and has not changed since.', 'grcmanager')|format(version) }}</span>
+      {% elseif state == 'changed' %}
+         <span class="badge bg-yellow-lt fs-5"><i class="ti ti-alert-triangle me-1"></i>{{ __('Changed since approval', 'grcmanager') }}</span>
+         <span>{{ __('The attached documents have changed since version %s was approved: prepare a new version and have it approved.', 'grcmanager')|format(version) }}</span>
+      {% elseif state == 'legacy' %}
+         <span class="badge bg-green-lt fs-5"><i class="ti ti-circle-check me-1"></i>{{ __('Approved before the workflow', 'grcmanager') }}</span>
+         <span>{{ __('Version %s was marked as approved before the approval workflow was enabled: no frozen version exists. The next version will go through the workflow.', 'grcmanager')|format(version) }}</span>
+      {% elseif status == 'archived' %}
+         <span class="badge bg-yellow-lt fs-5"><i class="ti ti-archive me-1"></i>{{ __('Archived', 'grcmanager') }}</span>
+      {% else %}
+         <span class="badge bg-secondary-lt fs-5"><i class="ti ti-pencil me-1"></i>{{ __('Draft', 'grcmanager') }}</span>
+         <span>{{ __('Version %s is a draft: submit it for approval once it is ready.', 'grcmanager')|format(version) }}</span>
+      {% endif %}
+      {% if not enabled %}
+         <span class="text-muted small ms-auto">{{ __('The approval workflow is disabled in the configuration: only the history is shown.', 'grcmanager') }}</span>
+      {% endif %}
+   </div>
+</div>
+
+{% if pending is not null and pending.is_approver %}
+   <div class="alert alert-primary d-flex align-items-center gap-2">
+      <i class="ti ti-signature"></i>
+      <div class="flex-grow-1">{{ __('This version is awaiting your decision.', 'grcmanager') }}</div>
+      <a href="{{ answer_url }}" class="btn btn-primary btn-sm"><i class="ti ti-signature me-1"></i>{{ __('Answer', 'grcmanager') }}</a>
+   </div>
+{% endif %}
+
+{% if enabled %}
+<div class="row g-3 mb-3">
+   <div class="col-lg-6">
+      <div class="card h-100">
+         <div class="card-header"><h3 class="card-title"><i class="ti ti-users me-2"></i>{{ __('Designated approvers', 'grcmanager') }}</h3></div>
+         <div class="card-body">
+            {% if approvers is empty %}
+               <p class="text-danger mb-2"><i class="ti ti-alert-circle me-1"></i>{{ __('No approver designated: choose them below or in the configuration.', 'grcmanager') }}</p>
+            {% else %}
+               <ul class="list-unstyled mb-2">
+                  {% for approver in approvers %}
+                     <li><i class="ti {{ approver.icon }} me-1"></i>{{ approver.name }}</li>
+                  {% endfor %}
+               </ul>
+               <p class="text-muted small mb-2">
+                  {{ uses_default ? __('Default approvers of the configuration.', 'grcmanager') : __('Approvers specific to this policy.', 'grcmanager') }}
+                  {{ __('%d active account(s) will be asked.', 'grcmanager')|format(approver_count) }}
+               </p>
+            {% endif %}
+            <p class="mb-3"><strong>{{ __('Approval rule', 'grcmanager') }} :</strong> {{ rule }}.
+               <span class="text-muted small">{{ __('One rejection is enough to reject the version.', 'grcmanager') }}</span></p>
+            {% if can_update %}
+               <form method="post" action="{{ action }}">
+                  <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
+                  <input type="hidden" name="policies_id" value="{{ policy_id }}">
+                  <div class="mb-2">
+                     <label class="form-label">{{ __('Approvers (people)', 'grcmanager') }}</label>
+                     {{ user_dropdown|raw }}
+                  </div>
+                  <div class="mb-2">
+                     <label class="form-label">{{ __('Approvers (groups)', 'grcmanager') }}</label>
+                     {{ group_dropdown|raw }}
+                  </div>
+                  <div class="mb-2">
+                     <label class="form-label" for="grc-approval-quorum">{{ __('Approval rule', 'grcmanager') }}</label>
+                     <select class="form-select" name="approval_quorum" id="grc-approval-quorum">
+                        {% for value, label in quorum_choices %}
+                           <option value="{{ value }}" {{ value == policy_quorum ? 'selected' : '' }}>{{ label }}</option>
+                        {% endfor %}
+                     </select>
+                  </div>
+                  <p class="text-muted small">{{ __('Leave the lists empty to use the default approvers of the configuration.', 'grcmanager') }}</p>
+                  <button type="submit" name="save_approvers" value="1" class="btn btn-outline-primary"><i class="ti ti-device-floppy me-1"></i>{{ __('Save the approvers', 'grcmanager') }}</button>
+               </form>
+            {% endif %}
+         </div>
+      </div>
+   </div>
+   <div class="col-lg-6">
+      <div class="card h-100">
+         <div class="card-header"><h3 class="card-title"><i class="ti ti-send me-2"></i>{{ __('Have this policy approved', 'grcmanager') }}</h3></div>
+         <div class="card-body">
+            {% if can_submit %}
+               <p class="text-muted">{{ __('Freezes version %s into a dated PDF (kept in GLPI documents with its SHA-256 fingerprint) and sends it to the approvers. The content can no longer be modified until their decision; the policy becomes "Approved" only once the rule is met.', 'grcmanager')|format(version) }}</p>
+               <form method="post" action="{{ action }}">
+                  <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
+                  <input type="hidden" name="policies_id" value="{{ policy_id }}">
+                  <label class="form-label" for="grc-approval-comment">{{ __('Message to the approvers (optional)', 'grcmanager') }}</label>
+                  <textarea class="form-control mb-2" name="comment" id="grc-approval-comment" rows="2"></textarea>
+                  <button type="submit" name="submit_approval" value="1" class="btn btn-primary"><i class="ti ti-send me-1"></i>{{ __('Freeze and send for approval', 'grcmanager') }}</button>
+               </form>
+            {% elseif pending is not null and can_update %}
+               <p>{{ __('Version %s is awaiting approval. To change its content, withdraw the request: the approvers will no longer be able to answer.', 'grcmanager')|format(pending.version) }}</p>
+               <form method="post" action="{{ action }}" onsubmit="return confirm({{ __('Withdraw the approval request?', 'grcmanager')|json_encode }});">
+                  <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
+                  <input type="hidden" name="policies_id" value="{{ policy_id }}">
+                  <input type="hidden" name="versions_id" value="{{ pending.id }}">
+                  <button type="submit" name="withdraw" value="1" class="btn btn-outline-danger"><i class="ti ti-arrow-back-up me-1"></i>{{ __('Withdraw the request', 'grcmanager') }}</button>
+               </form>
+            {% elseif can_new_version %}
+               <p>{{ __('An approved version can no longer be modified. To change the policy, prepare a new version: it goes back to draft until the new version is approved, and the approved version stays in the history.', 'grcmanager') }}</p>
+               <form method="post" action="{{ action }}" class="d-flex flex-wrap gap-2 align-items-end">
+                  <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
+                  <input type="hidden" name="policies_id" value="{{ policy_id }}">
+                  <div>
+                     <label class="form-label" for="grc-new-version">{{ __('New version number', 'grcmanager') }}</label>
+                     <input type="text" class="form-control" name="new_version" id="grc-new-version" maxlength="16" required>
+                  </div>
+                  <button type="submit" name="new_version_submit" value="1" class="btn btn-primary"><i class="ti ti-file-plus me-1"></i>{{ __('Prepare a new version', 'grcmanager') }}</button>
+               </form>
+            {% elseif status == 'archived' %}
+               <p class="text-muted mb-0">{{ __('An archived policy is not submitted for approval.', 'grcmanager') }}</p>
+            {% else %}
+               <p class="text-muted mb-0">{{ __('You do not have the right to modify this policy.', 'grcmanager') }}</p>
+            {% endif %}
+         </div>
+      </div>
+   </div>
+</div>
+{% endif %}
+
+<div class="card">
+   <div class="card-header d-flex align-items-center">
+      <h3 class="card-title"><i class="ti ti-history me-2"></i>{{ __('Approval history', 'grcmanager') }}</h3>
+      {% if history is not empty %}
+         <a href="{{ export_url }}" class="btn btn-outline-secondary btn-sm ms-auto"><i class="ti ti-file-type-pdf me-1"></i>{{ __('Export the history (PDF)', 'grcmanager') }}</a>
+      {% endif %}
+   </div>
+   <div class="card-body p-0">
+      {% if history is empty %}
+         <p class="text-muted p-3 mb-0">{{ __('No version submitted yet.', 'grcmanager') }}</p>
+      {% else %}
+         <div class="table-responsive">
+         <table class="table table-vcenter mb-0">
+            <thead>
+               <tr>
+                  <th>{{ __('Version', 'grcmanager') }}</th>
+                  <th>{{ __('Status', 'grcmanager') }}</th>
+                  <th>{{ __('Requested', 'grcmanager') }}</th>
+                  <th>{{ __('Decisions', 'grcmanager') }}</th>
+                  <th>{{ __('Frozen version', 'grcmanager') }}</th>
+               </tr>
+            </thead>
+            <tbody>
+               {% for row in history %}
+                  <tr>
+                     <td><strong>{{ row.version }}</strong></td>
+                     <td>
+                        <span class="badge {{ status_classes[row.status]|default('bg-secondary-lt') }}">{{ row.is_legacy ? __('Approved before the workflow', 'grcmanager') : row.status_label }}</span>
+                        {% if row.answered_at %}<div class="text-muted small">{{ row.answered_at }}</div>{% endif %}
+                     </td>
+                     <td>
+                        {% if row.is_legacy %}
+                           <span class="text-muted small">{{ __('No frozen version: approval date entered manually.', 'grcmanager') }}</span>
+                        {% else %}
+                           {{ row.requested_at }}<div class="text-muted small">{{ row.requested_by }} - {{ row.rule }}</div>
+                           {% if row.comment %}<div class="small">{{ row.comment }}</div>{% endif %}
+                        {% endif %}
+                     </td>
+                     <td>
+                        {% for approver in row.approvers %}
+                           <div>{{ approver.name }} :
+                              <span class="badge {{ approver.status == 'approved' ? 'bg-green-lt' : (approver.status == 'rejected' ? 'bg-red-lt' : 'bg-secondary-lt') }}">{{ approver.status_label }}</span>
+                              {% if approver.answered_text %}<span class="text-muted small">{{ approver.answered_text }}</span>{% endif %}
+                              {% if approver.comment %}<div class="small text-muted">« {{ approver.comment }} »</div>{% endif %}
+                           </div>
+                        {% endfor %}
+                     </td>
+                     <td>
+                        {% if row.pdf_url %}<a href="{{ row.pdf_url }}"><i class="ti ti-file-type-pdf me-1"></i>PDF</a>{% endif %}
+                        {% if row.pdf_sha256 %}<div class="text-muted small" title="{{ row.pdf_sha256 }}">SHA-256 {{ row.pdf_sha256|slice(0, 12) }}...</div>{% endif %}
+                     </td>
+                  </tr>
+               {% endfor %}
+            </tbody>
+         </table>
+         </div>
+      {% endif %}
+   </div>
+</div>

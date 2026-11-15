@@ -24,6 +24,8 @@ use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compatibility\Base\PolicyBase;
 use GlpiPlugin\Grcmanager\Services\Policy\AcknowledgementRules;
 use GlpiPlugin\Grcmanager\Services\Policy\CharterSignature;
+use GlpiPlugin\Grcmanager\Services\Policy\PolicyApprovalConfig;
+use GlpiPlugin\Grcmanager\Services\Policy\PolicyApprovalRules;
 use GlpiPlugin\Grcmanager\Services\Policy\PolicyLifecycle;
 use GlpiPlugin\Grcmanager\Services\Policy\PolicyReviewReminderService;
 use GlpiPlugin\Grcmanager\Services\Ui\Badge;
@@ -110,6 +112,7 @@ class Policy extends PolicyBase
     {
         $tabs = [];
         $this->addDefaultFormTab($tabs)
+            ->addStandardTab(PolicyVersion::class, $tabs, $options)
             ->addStandardTab(PolicyAcknowledgement::class, $tabs, $options)
             ->addStandardTab(Document_Item::class, $tabs, $options);
 
@@ -256,6 +259,10 @@ class Policy extends PolicyBase
      * prepareInputForUpdate(), with a real, visible error message, same convention already used by
      * Control::prepareInputForAdd()/prepareInputForUpdate().
      *
+     * Issue #611 : circuit d'approbation activé, « Approuvée » ne s'obtient que par les approbateurs
+     * désignés (PolicyVersion::answer()), la date d'approbation n'est plus saisie, et le contenu est
+     * figé pendant l'approbation et après (nouvelle version à préparer).
+     *
      * @param array<string, mixed> $input
      * @return array<string, mixed>|false
      */
@@ -279,6 +286,12 @@ class Policy extends PolicyBase
      */
     private function validateStatus(array $input)
     {
+        $fromWorkflow = !empty($input['_policy_approval']);
+        unset($input['_policy_approval']);
+        if (!$fromWorkflow && PolicyApprovalConfig::isEnabled() && !$this->checkApprovalWorkflow($input)) {
+            return false;
+        }
+
         $status = PolicyLifecycle::sanitize(
             (string) ($input['status'] ?? ($this->fields['status'] ?? PolicyLifecycle::STATUS_DRAFT))
         );
@@ -301,8 +314,63 @@ class Policy extends PolicyBase
         if (array_key_exists('is_it_charter', $input)) {
             $input['is_it_charter'] = empty($input['is_it_charter']) ? 0 : 1;
         }
+        if (array_key_exists('approval_quorum', $input)) {
+            $input['approval_quorum'] = PolicyApprovalRules::sanitizeQuorum($input['approval_quorum']);
+        }
 
         return $input;
+    }
+
+    /**
+     * Issue #611 : règles d'une saisie manuelle quand le circuit est activé. La date d'approbation
+     * saisie est ignorée ; passer à « Approuvée » est refusé ; le contenu figé ne change pas.
+     *
+     * @param array<string, mixed> $input
+     */
+    private function checkApprovalWorkflow(array &$input): bool
+    {
+        $currentStatus = (string) ($this->fields['status'] ?? '');
+        if (array_key_exists('approval_date', $input)) {
+            if ($this->isNewItem()) {
+                unset($input['approval_date']);
+            } else {
+                $input['approval_date'] = $this->fields['approval_date'];
+            }
+        }
+        $wanted = (string) ($input['status'] ?? $currentStatus);
+        if ($wanted === PolicyLifecycle::STATUS_APPROVED && $currentStatus !== PolicyLifecycle::STATUS_APPROVED) {
+            Session::addMessageAfterRedirect(htmlescape(__(
+                'With the approval workflow, a policy becomes "Approved" only once its designated approvers have '
+                    . 'approved it: use the "Approval" tab.',
+                'grcmanager'
+            )), false, ERROR);
+
+            return false;
+        }
+        if ($this->isNewItem()) {
+            return true;
+        }
+        $hasPending = PolicyVersion::hasPending($this->getID());
+        if (
+            PolicyApprovalRules::isContentLocked($currentStatus, $hasPending)
+            && PolicyApprovalRules::changedContentFields($this->fields, $input) !== []
+        ) {
+            $message = $hasPending
+                ? __(
+                    'This version is awaiting approval: its content is frozen. Withdraw the request to modify it.',
+                    'grcmanager'
+                )
+                : __(
+                    'This version has been approved: its content is frozen. Prepare a new version from the '
+                        . '"Approval" tab to modify it.',
+                    'grcmanager'
+                );
+            Session::addMessageAfterRedirect(htmlescape($message), false, ERROR);
+
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -328,16 +396,31 @@ class Policy extends PolicyBase
     public function cleanDBonPurge()
     {
         PolicyAcknowledgement::purgePolicy($this->getID());
+        PolicyVersion::purgePolicy($this->getID());
     }
 
     public function showForm($ID, array $options = []): bool
     {
         $this->initForm($ID, $options);
+        $statuses = self::getStatuses();
+        if (
+            PolicyApprovalConfig::isEnabled()
+            && ($this->fields['status'] ?? '') !== PolicyLifecycle::STATUS_APPROVED
+        ) {
+            unset($statuses[PolicyLifecycle::STATUS_APPROVED]);
+        }
         TemplateRenderer::getInstance()->display('@grcmanager/policy_form.html.twig', [
             'item'           => $this,
             'params'         => $options,
-            'statuses'       => self::getStatuses(),
+            'statuses'       => $statuses,
             'default_status' => PolicyLifecycle::STATUS_DRAFT,
+            // Issue #611 : circuit d'approbation activé, « Approuvée » ne se choisit plus ici.
+            'approval_workflow' => PolicyApprovalConfig::isEnabled(),
+            'content_locked'    => PolicyApprovalConfig::isEnabled() && !$this->isNewItem()
+                && PolicyApprovalRules::isContentLocked(
+                    (string) ($this->fields['status'] ?? ''),
+                    PolicyVersion::hasPending($this->getID())
+                ),
         ]);
         if (!$this->isNewItem() && !empty($this->fields['is_it_charter'])) {
             $this->showCharterSignatures();

@@ -201,6 +201,48 @@
   </div>
 </div>
 
+{# Issue #611 : circuit d'approbation des politiques de sécurité par la direction (A.5.1). Désactivé
+   par défaut ; les politiques déjà approuvées le restent, marquées « approuvées avant le circuit ». #}
+<div class="card mb-3" id="grc-policy-approval-config">
+  <div class="card-body">
+    <h4><i class="ti ti-signature me-1"></i>{{ __('Approval of security policies by management', 'grcmanager') }}</h4>
+    <p class="text-muted">
+      {{ __('When enabled, a policy becomes "Approved" only once its designated approvers have approved a frozen version (PDF and SHA-256 fingerprint). Policies already approved stay approved; they are marked "approved before the workflow". Each policy can have its own approvers and rule in its "Approval" tab.', 'grcmanager') }}
+    </p>
+    <form method="post" action="{{ config('root_doc') }}/plugins/grcmanager/front/config.php">
+      <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
+      <label class="form-check form-switch mb-3">
+        <input type="checkbox" class="form-check-input" name="policy_approval_enabled" value="1" {{ policy_approval.enabled ? 'checked' }} {{ can_edit_config ? '' : 'disabled' }}>
+        <span class="form-check-label">{{ __('Enable the approval workflow for security policies', 'grcmanager') }}</span>
+      </label>
+      <div class="row g-2">
+        <div class="col-md-6">
+          <label class="form-label">{{ __('Default approvers (people)', 'grcmanager') }}</label>
+          {{ policy_approval_user_dropdown|raw }}
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">{{ __('Default approvers (groups)', 'grcmanager') }}</label>
+          {{ policy_approval_group_dropdown|raw }}
+        </div>
+        <div class="col-md-6">
+          <label class="form-label" for="grc-policy-approval-quorum">{{ __('Default approval rule', 'grcmanager') }}</label>
+          <select class="form-select" id="grc-policy-approval-quorum" name="policy_approval_quorum" {{ can_edit_config ? '' : 'disabled' }}>
+            {% for value, label in policy_approval.quorum_choices %}
+              <option value="{{ value }}" {{ value == policy_approval.quorum ? 'selected' }}>{{ label }}</option>
+            {% endfor %}
+          </select>
+          <div class="form-text">{{ __('Whatever the rule, one rejection rejects the version.', 'grcmanager') }}</div>
+        </div>
+      </div>
+      {% if can_edit_config %}
+        <div class="d-flex gap-2 mt-2">
+          <button type="submit" name="update_policy_approval" class="btn btn-primary">{{ __('Enregistrer') }}</button>
+        </div>
+      {% endif %}
+    </form>
+  </div>
+</div>
+
 {# Absorption de glpi-security-incidents (ROADMAP.md "Version 2.0") : interrupteurs
    module/CVE/modèles/tableau de bord, un par fonctionnalité plutôt qu'un seul bouton global
    (voir front/config.php, SecurityIncidentModuleConfig). Le sous-module technique
