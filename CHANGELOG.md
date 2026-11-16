@@ -7,6 +7,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.53.0] - 2026-11-16
+
 ### Added
 
 - **Périmètres multiples, premier lot : registre des risques et SoA par entité GLPI** (issue #536,
