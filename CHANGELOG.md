@@ -7,6 +7,12 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Changed
+
+- **CI** : contrôles des points d'entrée, de la matrice d'accès et des exigences marketplace repris
+  par les contrôles communs (glpi-plugin-security v1.8.0, issue parime/glpi-plugin-security#11) ;
+  les copies de `.github/scripts/` sont retirées. Les fichiers de réglage restent dans ce dépôt.
+
 ## [2.53.0] - 2026-11-16
 
 ### Added
