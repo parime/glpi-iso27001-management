@@ -848,6 +848,7 @@ ncs=$(curl -s -c "$JAR" -b "$JAR" "$P/nonconformity.php")
 contains "liste des non-conformites : constat de A" "Constat securite A" \
   "$(case $ROLE in none) echo non ;; *) echo oui ;; esac)" "$ncs"
 contains "liste des non-conformites : constat de B" "Constat securite B" $SEE_B "$ncs"
+contains "export CSV de la recherche des non-conformites : constat de B" "Constat securite B" $SEE_B   "$(curl -s -c "$JAR" -b "$JAR" "$BASE/front/report.dynamic.php?item_type=GlpiPlugin%5CGrcmanager%5CNonconformity&display_type=3&export_all=1&criteria%5B0%5D%5Bfield%5D=view&criteria%5B0%5D%5Bsearchtype%5D=contains&criteria%5B0%5D%5Bvalue%5D=securite")"
 contains "controles de coherence (CSV) : constat de B en retard" "Constat securite B" $SEE_B \
   "$(curl -s -c "$JAR" -b "$JAR" "$P/consistencycheck.export.php?format=csv")"
 myspace_b=$(curl -s -c "$JAR" -b "$JAR" "$P/myspace.php")
