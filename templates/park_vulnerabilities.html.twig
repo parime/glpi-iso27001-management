@@ -294,4 +294,62 @@
       {% endif %}
    </div>
    {% endif %}
+   {# Docker Inventory #10 : images de conteneurs déployées et vulnérables, d'après les analyses Harbor. #}
+   {% if docker_images %}
+   <div class="card mt-3" id="grc-docker-vulnerabilities">
+      <div class="card-header">
+         <h3 class="card-title"><i class="ti ti-brand-docker me-2"></i>{{ __('Container images (Harbor)', 'grcmanager') }}</h3>
+         {% if docker_images.page_url %}
+            <div class="card-actions"><a href="{{ docker_images.page_url }}">{{ __('View Harbor images', 'grcmanager') }}</a></div>
+         {% endif %}
+      </div>
+      {% if docker_images.rows is empty %}
+         <div class="card-body text-muted">
+            <i class="ti ti-circle-check me-1 text-green"></i>
+            {{- __('No deployed container image has critical or high vulnerabilities.', 'grcmanager') -}}
+         </div>
+      {% else %}
+         <div class="card-body pb-0">
+            <p class="text-muted small mb-2">
+               {{- __('Services of the Docker inventory whose running image has critical or high vulnerabilities in its Harbor analysis. Read only, from the Docker inventory plugin.', 'grcmanager') -}}
+            </p>
+            {% if docker_images.total > docker_images.rows|length %}
+               <p class="small">{{ __('%1$d services: the %2$d most exposed are shown.', 'grcmanager')|format(docker_images.total, docker_images.rows|length) }}</p>
+            {% endif %}
+         </div>
+         <div class="table-responsive">
+            <table class="table table-vcenter card-table">
+               <thead>
+                  <tr>
+                     <th>{{ __('Service', 'grcmanager') }}</th>
+                     <th>{{ __('Image', 'grcmanager') }}</th>
+                     <th class="text-end">{{ __('Critical', 'grcmanager') }}</th>
+                     <th class="text-end">{{ __('High', 'grcmanager') }}</th>
+                     <th class="text-end">{{ __('Fixable', 'grcmanager') }}</th>
+                  </tr>
+               </thead>
+               <tbody>
+               {% for row in docker_images.rows %}
+                  <tr>
+                     <td>
+                        {% if row.critical > 0 %}<i class="ti ti-alert-octagon text-red me-1"></i>{% endif %}
+                        {% if row.url %}<a href="{{ row.url }}">{{ row.service }}</a>{% else %}{{ row.service }}{% endif %}
+                        {% if row.stack %}<span class="text-muted">({{ row.stack }})</span>{% endif %}
+                     </td>
+                     <td><code>{{ row.image }}{% if row.tag %}:{{ row.tag }}{% endif %}</code></td>
+                     <td class="text-end">
+                        <span class="badge {{ row.critical > 0 ? 'bg-red text-white' : 'bg-secondary-lt' }}">{{ row.critical }}</span>
+                     </td>
+                     <td class="text-end">
+                        <span class="badge {{ row.high > 0 ? 'bg-orange text-white' : 'bg-secondary-lt' }}">{{ row.high }}</span>
+                     </td>
+                     <td class="text-end">{{ row.fixable }}</td>
+                  </tr>
+               {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      {% endif %}
+   </div>
+   {% endif %}
 </div>

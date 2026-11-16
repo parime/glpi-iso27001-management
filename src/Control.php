@@ -25,6 +25,8 @@ use GlpiPlugin\Grcmanager\Services\Control\AnssiHygieneCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\AssetsignEvidence;
 use GlpiPlugin\Grcmanager\Services\Control\CatalogLanguage;
 use GlpiPlugin\Grcmanager\Services\Control\AssetsignEvidenceProvider;
+use GlpiPlugin\Grcmanager\Services\Control\DockerInventoryEvidence;
+use GlpiPlugin\Grcmanager\Services\Control\DockerInventoryEvidenceProvider;
 use GlpiPlugin\Grcmanager\Services\Control\CisControlsCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\ControlCrosswalkDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\ControlTestRules;
@@ -731,6 +733,12 @@ class Control extends ControlBase
         // Issue #368 : couverture Wazuh (A.8.16, A.8.7), ligne absente si le plugin Wazuh n'est pas exploitable.
         $wazuh = WazuhEvidence::isRelevantControl($code) ? WazuhEvidenceProvider::fetchCoverage() : null;
 
+        // Docker Inventory #10 : preuves du plugin Inventaire Docker (A.5.9, A.8.8, A.8.9, A.8.32), lues
+        // par son API ; ligne absente si le plugin n'est pas exploitable.
+        $docker = DockerInventoryEvidence::isRelevantControl($code)
+            ? DockerInventoryEvidenceProvider::fetchForControl($code)
+            : null;
+
         TemplateRenderer::getInstance()->display('@grcmanager/control_form.html.twig', [
             'item'                    => $this,
             // Les 93 mesures sont un catalogue fixe semé à l'installation : jamais supprimées.
@@ -769,6 +777,7 @@ class Control extends ControlBase
             'campaigns_url'           => $charter !== null ? AssetsignEvidenceProvider::campaignsUrl() : null,
             'wazuh'                   => $wazuh,
             'wazuh_agents_url'        => $wazuh !== null ? WazuhEvidenceProvider::agentsUrl() : null,
+            'docker'                  => $docker,
             'referentials_url'        => $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/referentiels.php',
         ]);
 
