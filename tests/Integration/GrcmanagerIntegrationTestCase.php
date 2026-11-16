@@ -32,6 +32,8 @@ abstract class GrcmanagerIntegrationTestCase extends TestCase
                 $_SESSION['glpiactiveprofile'][$row['name']] = (int) $row['rights'];
             }
         }
+        // Issue #536 : entité active des créations (audits, non-conformités...), comme une session réelle.
+        $_SESSION['glpiactive_entity'] ??= 0;
         $_SESSION['glpiactiveentities'] ??= [0];
         $_SESSION['glpiactiveentities_string'] ??= '0';
         $_SESSION['glpiID'] ??= 2; // native "glpi" super-admin account.
