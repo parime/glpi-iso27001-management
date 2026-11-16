@@ -9,6 +9,7 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Changed
 
+- CI : contrôles de sécurité communs v1.8.2 (scripts communs bien pris à la version appelée).
 - **CI** : contrôles des points d'entrée, de la matrice d'accès et des exigences marketplace repris
   par les contrôles communs (glpi-plugin-security v1.8.0, issue parime/glpi-plugin-security#11) ;
   les copies de `.github/scripts/` sont retirées. Les fichiers de réglage restent dans ce dépôt.
