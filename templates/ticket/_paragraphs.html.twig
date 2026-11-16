@@ -1,3 +1,17 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
 {# Issue #199 : contenu de ticket ou de suivi généré par le plugin : paragraphes puis lien éventuel. #}
 {% for p in paragraphs %}<p>{{ p }}</p>{% endfor %}
 {% if link is defined and link.url is not empty %}<p><a href="{{ link.url }}">{{ link.label ?? link.url }}</a></p>{% endif %}
