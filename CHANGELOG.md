@@ -7,6 +7,14 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Added
+
+- **Documentation par rôle** (issue #665) : section « Par où commencer ? » en tête des README et
+  parcours courts par rôle (administrateur du plugin, RSSI, propriétaire de mesure ou de risque,
+  auditeur, direction) dans `docs/ROLES.md` et `docs/ROLES.en.md`, avec les menus et onglets
+  actuels (SoA par entité, contrôles de cohérence, preuves de l'inventaire Docker, lien de
+  calendrier à jeton dédié) ; pages ajoutées au wiki.
+
 ### Changed
 
 - CI : contrôles de sécurité communs v1.8.2 (scripts communs bien pris à la version appelée).

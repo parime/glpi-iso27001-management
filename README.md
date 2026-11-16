@@ -11,6 +11,21 @@
 
 🇫🇷 **Français** | [🇬🇧 English](README.en.md)
 
+## Par où commencer ?
+
+Choisissez votre rôle : chaque parcours tient en quelques étapes, avec les menus exacts
+([tous les parcours](docs/ROLES.md)).
+
+| Vous êtes... | Vous voulez... | Parcours |
+|---|---|---|
+| Administrateur GLPI | Installer le plugin, donner les droits, le régler | [Administrateur du plugin](docs/ROLES.md#administrateur-du-plugin) |
+| RSSI, responsable du SMSI | Tenir les risques et la SoA de chaque entité, préparer la revue de direction | [RSSI](docs/ROLES.md#rssi-ou-responsable-du-smsi) |
+| Propriétaire d'une mesure ou d'un risque | Voir ce qui vous attend et le traiter | [Mon espace GRC](docs/ROLES.md#propriétaire-de-mesure-ou-de-risque) |
+| Auditeur | Conduire un audit, demander et examiner les preuves | [Auditeur](docs/ROLES.md#auditeur) |
+| Direction | Approuver la SoA et les politiques, suivre le tableau de bord | [Direction](docs/ROLES.md#direction) |
+
+Pour découvrir tout le plugin écran par écran : [tutoriel](docs/TUTORIAL.md).
+
 ## Le problème
 
 GLPI sait exactement quels matériels, logiciels et systèmes composent votre organisation. Ce
@@ -364,6 +379,7 @@ les audits/CAPA, avec une capture d'écran réelle par étape (disponible en fra
 
 | Document | Contenu |
 |---|---|
+| [docs/ROLES.md](docs/ROLES.md) | Parcours par rôle : administrateur, RSSI, propriétaire, auditeur, direction |
 | [docs/design/DEVELOPMENT_PLAN.md](docs/design/DEVELOPMENT_PLAN.md) | Plan de développement par sprints |
 | [ROADMAP.md](ROADMAP.md) | Roadmap publique par version |
 | [CHANGELOG.md](CHANGELOG.md) | Historique des évolutions |
