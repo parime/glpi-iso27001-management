@@ -241,7 +241,7 @@ class AuditEvidenceRequest extends AuditEvidenceRequestBase
      * actions du cycle (option interne `_workflow`).
      *
      * @param array<string, mixed> $input
-     * @return array<string, mixed>
+     * @return array<string, mixed>|false
      */
     public function prepareInputForUpdate($input)
     {

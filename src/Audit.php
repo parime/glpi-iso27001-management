@@ -117,7 +117,7 @@ class Audit extends AuditBase
      * (`risk_categories[]` in the form) into the single comma-separated string the column stores.
      *
      * @param array<string, mixed> $input
-     * @return array<string, mixed>
+     * @return array<string, mixed>|false
      */
     public function prepareInputForAdd($input)
     {
