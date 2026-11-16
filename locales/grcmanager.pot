@@ -19661,3 +19661,19 @@ msgstr ""
 #, php-format
 msgid "Re-assess the waiver \"%s\""
 msgstr ""
+
+#: src/RiskTreatmentAction.php
+msgid "You cannot change the treatment plan of this risk."
+msgstr ""
+
+#: src/Audit.php
+msgid "You cannot create an audit in this entity."
+msgstr ""
+
+#: src/Nonconformity.php
+msgid "You cannot create a non-conformity in this entity."
+msgstr ""
+
+#: src/AuditorAccess.php
+msgid "This account has no profile in the entity of the audit."
+msgstr ""

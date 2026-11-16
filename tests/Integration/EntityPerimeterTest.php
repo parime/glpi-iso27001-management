@@ -332,7 +332,8 @@ final class EntityPerimeterTest extends GrcmanagerIntegrationTestCase
         global $DB;
 
         $ids = [];
-        foreach ($DB->request(['SELECT' => ['id'], 'FROM' => $table, 'WHERE' => EntityPerimeter::criteria($table)]) as $row) {
+        $rows = $DB->request(['SELECT' => ['id'], 'FROM' => $table, 'WHERE' => EntityPerimeter::criteria($table)]);
+        foreach ($rows as $row) {
             $ids[] = (int) $row['id'];
         }
 
@@ -535,7 +536,10 @@ final class EntityPerimeterTest extends GrcmanagerIntegrationTestCase
             Risk::getTable(), Control::getTable(), SoaVersion::getTable(),
             RiskTreatmentAction::getTable(), Audit::getTable(), Nonconformity::getTable(),
         ];
-        $counts = static fn (): array => array_map(static fn (string $table): int => countElementsInTable($table), $tables);
+        $counts = static fn (): array => array_map(
+            static fn (string $table): int => countElementsInTable($table),
+            $tables
+        );
         $before = $counts();
 
         $installer = new Installer();
