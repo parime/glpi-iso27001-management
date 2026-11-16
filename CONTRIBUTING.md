@@ -46,7 +46,8 @@ Une PR n'est acceptée que si elle inclut, quand applicable :
 - traductions FR/EN pour toute nouvelle chaîne utilisateur ;
 - `locales/grcmanager.pot` régénéré si une chaîne change : `vendor/bin/extract-locales`, puis
   `git checkout -- locales/en_GB.po` (l'outil réécrit ce fichier) ; la CI échoue si le `.pot`
-  versionné ne correspond plus au code ;
+  versionné ne correspond plus au code. Lancer l'outil avec le gettext de GNU (Debian, Ubuntu,
+  comme la CI) : celui d'Alpine (musl) perd une partie des chaînes ;
 - migration idempotente dans `src/Install/Installer.php` si le modèle de données change ;
 - entrée [CHANGELOG.md](CHANGELOG.md) ;
 - capture d'écran si l'interface est modifiée.

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-16 13:28+0000\n"
+"POT-Creation-Date: 2026-11-16 13:43+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -84,9 +84,10 @@ msgstr ""
 
 #: templates/my_policies_tab.html.twig templates/soa_approval.html.twig
 #: templates/policy_acknowledgement_tab.html.twig
-#: templates/policy_form.html.twig
+#: templates/custom_framework_form.html.twig templates/policy_form.html.twig
 #: templates/pdf/policy_acknowledgement_report.html.twig
 #: templates/pdf/policy_version.html.twig
+#: templates/custom_framework_list.html.twig
 #: templates/policy_approval_tab.html.twig
 #: front/policyacknowledgement.export.php:49
 #: src/NotificationTargetPolicy.php:131
@@ -114,20 +115,22 @@ msgstr ""
 
 #: templates/training_form.html.twig templates/objective_form.html.twig
 #: templates/management_review_form.html.twig
+#: templates/compliance_obligation_form.html.twig
 #: templates/data_subject_request_form.html.twig
 #: templates/supplier_security_watch.html.twig
 #: templates/nonconformity_form.html.twig
 #: templates/tabs/business_process_risks.html.twig
-#: templates/data_breach_form.html.twig templates/risk_asset_tab.html.twig
-#: templates/policy_form.html.twig
+#: templates/data_breach_form.html.twig templates/audit_findings_tab.html.twig
+#: templates/risk_asset_tab.html.twig templates/policy_form.html.twig
 #: templates/pdf/internal_audit_report.html.twig
 #: templates/pdf/business_continuity_report.html.twig
 #: templates/pdf/audit_report.html.twig
-#: templates/pdf/risk_register_report.html.twig templates/risk_import.html.twig
-#: templates/supplier_risk_form.html.twig templates/risk_form.html.twig
-#: src/Audit.php:168 src/ComplianceObligation.php:180
-#: src/ManagementReview.php:287 src/Nonconformity.php:226
-#: src/NotificationTargetComplianceObligation.php:91
+#: templates/pdf/risk_register_report.html.twig
+#: templates/auditor_space.html.twig templates/risk_import.html.twig
+#: templates/supplier_risk_form.html.twig templates/audit_form.html.twig
+#: templates/risk_form.html.twig src/Audit.php:168
+#: src/ComplianceObligation.php:180 src/ManagementReview.php:287
+#: src/Nonconformity.php:226 src/NotificationTargetComplianceObligation.php:91
 #: src/NotificationTargetNonconformity.php:91
 #: src/NotificationTargetPolicy.php:130
 #: src/NotificationTargetPolicyVersion.php:137
@@ -214,12 +217,14 @@ msgid "Pass threshold (%)"
 msgstr ""
 
 #: templates/training_form.html.twig
+#, php-format
 msgid ""
 "E.g. 80: passed from 80% of the maximum score. With a maximum score and a "
 "threshold, each participant's result is computed from their score."
 msgstr ""
 
 #: templates/training_form.html.twig templates/objective_form.html.twig
+#: templates/audit_evidence_requests_tab.html.twig
 #: templates/nonconformity_form.html.twig templates/policy_form.html.twig
 #: templates/risk_indicator_form.html.twig
 #: templates/pdf/training_session_report.html.twig
@@ -233,7 +238,7 @@ msgid "Description"
 msgstr ""
 
 #: templates/training_form.html.twig templates/training_sessions_tab.html.twig
-#: templates/management_review_form.html.twig
+#: templates/management_review_form.html.twig templates/crisis_room.html.twig
 #: templates/pdf/crisis_exercise_report.html.twig
 #: templates/pdf/training_session_report.html.twig
 msgid "Participants"
@@ -275,6 +280,7 @@ msgstr ""
 
 #: templates/training_form.html.twig templates/my_trainings_tab.html.twig
 #: templates/pdf/training_session_report.html.twig
+#: templates/custom_framework_list.html.twig
 msgid "Assessment"
 msgstr ""
 
@@ -286,8 +292,10 @@ msgstr ""
 msgid "Enter the score"
 msgstr ""
 
-#: templates/objective_form.html.twig templates/network_flow_form.html.twig
-#: templates/policy_form.html.twig templates/risk_indicator_form.html.twig
+#: templates/objective_form.html.twig
+#: templates/compliance_obligation_form.html.twig
+#: templates/network_flow_form.html.twig templates/policy_form.html.twig
+#: templates/risk_indicator_form.html.twig
 #: templates/pdf/risk_register_report.html.twig
 #: templates/pdf/policy_version.html.twig
 #: templates/pdf/network_flow_report.html.twig
@@ -305,25 +313,32 @@ msgstr ""
 #: templates/objective_form.html.twig templates/risk_treatment_plan.html.twig
 #: templates/management_review_form.html.twig
 #: templates/my_evidence_requests.html.twig
+#: templates/audit_evidence_requests_tab.html.twig
+#: templates/breach_exposure_form.html.twig
 #: templates/risk_indicator_values.html.twig
 #: templates/policy_acknowledgement_tab.html.twig
 #: templates/evidence_tab.html.twig templates/nonconformity_form.html.twig
 #: templates/tabs/control_access_reviews.html.twig
 #: templates/tabs/breach_exposures.html.twig
 #: templates/tabs/business_process_risks.html.twig
-#: templates/processing_activity_tab.html.twig templates/policy_form.html.twig
+#: templates/processing_activity_tab.html.twig
+#: templates/access_review_form.html.twig templates/control_test_due.html.twig
+#: templates/compliance_event_form.html.twig
+#: templates/audit_findings_tab.html.twig templates/policy_form.html.twig
 #: templates/risk_indicator_form.html.twig
 #: templates/pdf/internal_audit_report.html.twig
 #: templates/pdf/business_continuity_report.html.twig
 #: templates/pdf/postmortem_report.html.twig
 #: templates/pdf/audit_report.html.twig
 #: templates/pdf/risk_register_report.html.twig
-#: templates/dora/register.html.twig templates/policy_approval_tab.html.twig
+#: templates/auditor_space.html.twig templates/dora/register.html.twig
+#: templates/policy_approval_tab.html.twig
 #: templates/supplier_risk_form.html.twig
-#: templates/processing_activity_form.html.twig templates/risk_form.html.twig
-#: src/AccessReview.php:302 src/Audit.php:177 src/BreachExposure.php:132
-#: src/ComplianceEvent.php:226 src/ManagementReview.php:296
-#: src/Nonconformity.php:253 src/NotificationTargetAuditEvidenceRequest.php:159
+#: templates/processing_activity_form.html.twig templates/audit_form.html.twig
+#: templates/risk_form.html.twig src/AccessReview.php:302 src/Audit.php:177
+#: src/BreachExposure.php:132 src/ComplianceEvent.php:226
+#: src/ManagementReview.php:296 src/Nonconformity.php:253
+#: src/NotificationTargetAuditEvidenceRequest.php:159
 #: src/NotificationTargetPolicy.php:132
 #: src/NotificationTargetRiskIndicator.php:148 src/Objective.php:158
 #: src/Policy.php:152 src/ProcessingActivity.php:550
@@ -333,11 +348,15 @@ msgid "Status"
 msgstr ""
 
 #: templates/objective_form.html.twig templates/risk_treatment_plan.html.twig
-#: templates/nonconformity_form.html.twig templates/my_space.html.twig
+#: templates/audit_evidence_requests_tab.html.twig
+#: templates/crisis_room.html.twig templates/nonconformity_form.html.twig
+#: templates/my_space.html.twig templates/access_review_form.html.twig
+#: templates/audit_findings_tab.html.twig
 #: templates/pdf/internal_audit_report.html.twig
 #: templates/pdf/postmortem_report.html.twig
-#: templates/pdf/audit_report.html.twig src/AccessReview.php:323
-#: src/Nonconformity.php:270 src/NotificationTargetAccessReview.php:106
+#: templates/pdf/audit_report.html.twig templates/auditor_space.html.twig
+#: src/AccessReview.php:323 src/Nonconformity.php:270
+#: src/NotificationTargetAccessReview.php:106
 #: src/NotificationTargetAuditEvidenceRequest.php:158
 #: src/NotificationTargetBusinessProcess.php:161
 #: src/NotificationTargetNonconformity.php:93
@@ -380,9 +399,11 @@ msgid "Incident type"
 msgstr ""
 
 #: templates/itil_classification_section.html.twig
+#: templates/custom_framework_form.html.twig
 #: templates/risk_indicator_form.html.twig
 #: templates/network_flow_matrix.html.twig
 #: templates/pdf/network_flow_report.html.twig
+#: templates/custom_framework_list.html.twig
 #: templates/network_flow_import.html.twig inc/securityincident.class.php:940
 #: src/NetworkFlow.php:255 src/NetworkFlow.php:400
 #: src/NotificationTargetRiskIndicator.php:155 src/RiskIndicator.php:733
@@ -395,12 +416,14 @@ msgid "External identifier (EDR, SIEM...)"
 msgstr ""
 
 #: templates/itil_classification_section.html.twig
+#: templates/consistency_check.html.twig templates/config_form.html.twig
 #: templates/nonconformity_form.html.twig
 #: templates/tabs/item_security_incidents.html.twig
 #: templates/tabs/ticket_security_incidents.html.twig
+#: templates/audit_findings_tab.html.twig
 #: templates/pdf/internal_audit_report.html.twig
 #: templates/pdf/audit_report.html.twig
-#: templates/pdf/consistency_report.html.twig
+#: templates/pdf/consistency_report.html.twig templates/auditor_space.html.twig
 #: templates/itil_deadline_banner.html.twig
 #: front/consistencycheck.export.php:50 inc/securityincident.class.php:793
 #: src/Nonconformity.php:245 src/NotificationTargetNonconformity.php:92
@@ -446,15 +469,18 @@ msgid "ISO 27001 Annex A / ISO 27002"
 msgstr ""
 
 #: templates/referentiels.html.twig templates/referentiels_iso_card.html.twig
+#: templates/custom_framework_form.html.twig
 msgid "Filter…"
 msgstr ""
 
-#: templates/referentiels.html.twig templates/pdf/soa_report.html.twig
-#: front/customframework.php:156 src/Control.php:403
+#: templates/referentiels.html.twig templates/control_form.html.twig
+#: templates/pdf/soa_report.html.twig front/customframework.php:156
+#: src/Control.php:403
 msgid "Theme"
 msgstr ""
 
-#: templates/referentiels.html.twig templates/pdf/soa_report.html.twig
+#: templates/referentiels.html.twig templates/control_form.html.twig
+#: templates/pdf/soa_report.html.twig templates/custom_framework_list.html.twig
 #: front/customframework.php:157
 msgctxt "label"
 msgid "Title"
@@ -468,7 +494,7 @@ msgstr ""
 msgid "NIST Cybersecurity Framework (CSF) 2.0"
 msgstr ""
 
-#: templates/referentiels.html.twig
+#: templates/referentiels.html.twig templates/control_form.html.twig
 msgid "CIS Controls v8"
 msgstr ""
 
@@ -716,12 +742,521 @@ msgid ""
 "spreadsheet."
 msgstr ""
 
-#: templates/referentiels.html.twig
+#: templates/referentiels.html.twig templates/config_form.html.twig
 msgid "Import a custom framework"
 msgstr ""
 
 #: templates/referentiels.html.twig
 msgid "Custom frameworks"
+msgstr ""
+
+#: templates/consistency_check.html.twig
+#: templates/pdf/consistency_report.html.twig
+msgid "Consistency score"
+msgstr ""
+
+#: templates/consistency_check.html.twig
+msgid "Nothing to check yet: no rule could examine any item."
+msgstr ""
+
+#: templates/consistency_check.html.twig
+msgid "No gap: ready for the audit"
+msgstr ""
+
+#: templates/consistency_check.html.twig
+#, php-format
+msgid "Gaps to fix: %d"
+msgstr ""
+
+#: templates/consistency_check.html.twig
+msgid ""
+"Share of the checked items without a gap, weighted by severity (high counts "
+"three times, medium twice)."
+msgstr ""
+
+#: templates/consistency_check.html.twig
+msgid "Gaps by severity"
+msgstr ""
+
+#: templates/consistency_check.html.twig
+msgid "Show only this severity"
+msgstr ""
+
+#: templates/consistency_check.html.twig
+#, php-format
+msgid "Rules checked: %d"
+msgstr ""
+
+#: templates/consistency_check.html.twig
+#, php-format
+msgid "Disabled in the configuration: %d"
+msgstr ""
+
+#: templates/consistency_check.html.twig
+msgid ""
+"Your profile cannot read the items these rules check (for example the risk "
+"register or the processing register)."
+msgstr ""
+
+#: templates/consistency_check.html.twig
+#, php-format
+msgid "Outside your rights: %d"
+msgstr ""
+
+#: templates/consistency_check.html.twig
+msgid "Export the gaps (CSV)"
+msgstr ""
+
+#: templates/consistency_check.html.twig
+msgid "Audit readiness report (PDF)"
+msgstr ""
+
+#: templates/consistency_check.html.twig
+msgid "Rules and thresholds"
+msgstr ""
+
+#: templates/consistency_check.html.twig templates/maturity.html.twig
+msgid "Monthly trend"
+msgstr ""
+
+#: templates/consistency_check.html.twig
+msgid ""
+"The trend builds up month after month: each time you open this page, the "
+"result of the month is recorded for you and your current entity."
+msgstr ""
+
+#: templates/consistency_check.html.twig
+#: templates/pdf/network_flow_report.html.twig
+#: templates/framework_assessment.html.twig
+msgid "Gaps"
+msgstr ""
+
+#: templates/consistency_check.html.twig templates/config_form.html.twig
+#: front/consistencycheck.export.php:47
+msgid "Area"
+msgstr ""
+
+#: templates/consistency_check.html.twig
+msgid "All areas"
+msgstr ""
+
+#: templates/consistency_check.html.twig
+msgid "All severities"
+msgstr ""
+
+#: templates/consistency_check.html.twig templates/config_form.html.twig
+#: templates/risk_form.html.twig front/consistencycheck.export.php:49
+msgid "Rule"
+msgstr ""
+
+#: templates/consistency_check.html.twig
+msgid "All rules"
+msgstr ""
+
+#: templates/consistency_check.html.twig templates/audit_log.html.twig
+msgid "Filter"
+msgstr ""
+
+#: templates/consistency_check.html.twig
+msgid "Show everything"
+msgstr ""
+
+#: templates/consistency_check.html.twig
+msgid "No rule matches these filters."
+msgstr ""
+
+#: templates/consistency_check.html.twig
+#: templates/pdf/consistency_report.html.twig
+msgid "No rule can be checked with your rights, or every rule is disabled."
+msgstr ""
+
+#: templates/consistency_check.html.twig
+#: templates/pdf/consistency_report.html.twig
+#, php-format
+msgid "ISO 27001 %s"
+msgstr ""
+
+#: templates/consistency_check.html.twig
+#, php-format
+msgid "Gaps: %d"
+msgstr ""
+
+#: templates/consistency_check.html.twig
+msgid "Consistent"
+msgstr ""
+
+#: templates/consistency_check.html.twig
+msgid "Change since the previous month"
+msgstr ""
+
+#: templates/consistency_check.html.twig
+#, php-format
+msgid "OK (%d checked)"
+msgstr ""
+
+#: templates/consistency_check.html.twig
+msgid "Nothing to check"
+msgstr ""
+
+#: templates/consistency_check.html.twig
+#: templates/pdf/consistency_report.html.twig
+#: front/consistencycheck.export.php:54
+msgid "How to fix"
+msgstr ""
+
+#: templates/consistency_check.html.twig
+#, php-format
+msgid "Items to fix (%d)"
+msgstr ""
+
+#: templates/consistency_check.html.twig
+#, php-format
+msgid "Only the first %1$d items are listed; the CSV export gives all %2$d."
+msgstr ""
+
+#: templates/control_form.html.twig
+#: templates/audit_evidence_requests_tab.html.twig
+#: templates/control_test_due.html.twig
+#: templates/pdf/internal_audit_report.html.twig
+#: templates/framework_assessment.html.twig src/Control.php:388
+#: src/ControlTest.php:814 src/NotificationTargetAuditEvidenceRequest.php:156
+#: src/NotificationTargetControl.php:144
+msgid "Control"
+msgstr ""
+
+#: templates/control_form.html.twig templates/pdf/soa_report.html.twig
+#: src/Control.php:411
+msgid "Applicability"
+msgstr ""
+
+#: templates/control_form.html.twig templates/pdf/soa_report.html.twig
+#: templates/framework_assessment.html.twig src/Control.php:419
+#: src/NotificationTargetControl.php:150
+msgid "Implementation status"
+msgstr ""
+
+#: templates/control_form.html.twig templates/waiver_ticket.html.twig
+#: templates/network_flow_form.html.twig templates/waiver_form.html.twig
+#: templates/pdf/soa_report.html.twig
+#: templates/pdf/network_flow_report.html.twig
+#: templates/supplier_risk_form.html.twig templates/risk_form.html.twig
+#: src/Control.php:427 src/NetworkFlow.php:265 src/RiskRegisterImport.php:596
+msgid "Justification"
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid "Required if the control is not fully applicable."
+msgstr ""
+
+#: templates/control_form.html.twig
+#: templates/pdf/business_continuity_report.html.twig
+#: src/ImpactAnalysis.php:232
+msgid "Linked risks"
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid ""
+"Risk(s) from the register justifying or driving this control's "
+"implementation."
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid "Mapping published by NIST: see"
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid "Equivalent reference frameworks"
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid "Indicative mapping made by this project: see"
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid "NIS2 requirements"
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid "DORA requirements"
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid "ISO 27701 objectives"
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid "ISO 22301 requirements"
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid "ISO 42001 control groups"
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid "PCI DSS requirements"
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid "SOC 2 criteria"
+msgstr ""
+
+#: templates/control_form.html.twig front/referentiels.php:315
+#, php-format
+msgid "Art. %s"
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid "AI Act articles"
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid "HDS requirements"
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid "Mapping given by the imported file: see"
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid "the requirements of this framework"
+msgstr ""
+
+#: templates/control_form.html.twig
+#, php-format
+msgid "Measure %d"
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid "ANSSI hygiene"
+msgstr ""
+
+#: templates/control_form.html.twig
+#, php-format
+msgid "%d signed"
+msgstr ""
+
+#: templates/control_form.html.twig
+#, php-format
+msgid "%d pending"
+msgstr ""
+
+#: templates/control_form.html.twig
+#, php-format
+msgid "%d expired"
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid "View forms"
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid "Signed IT charter"
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid "no charter campaign launched"
+msgstr ""
+
+#: templates/control_form.html.twig
+#, php-format
+msgid "%1$d / %2$d (%3$d %%)"
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid "View campaigns"
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid ""
+"Counters computed live from the assetsign plugin, on your active entities."
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid "assetsign evidence"
+msgstr ""
+
+#: templates/control_form.html.twig
+#, php-format
+msgid "%1$d active agent(s) out of %2$d"
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid "no computer in your entities"
+msgstr ""
+
+#: templates/control_form.html.twig
+#, php-format
+msgid "%1$d of %2$d computers covered (%3$s %%)"
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid "View agents"
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid ""
+"Read live from the Wazuh plugin: a computer is covered when an active agent "
+"is linked to it."
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid "Wazuh coverage"
+msgstr ""
+
+#: templates/control_form.html.twig
+#, php-format
+msgid "%d service(s)"
+msgstr ""
+
+#: templates/control_form.html.twig
+#, php-format
+msgid "%d stack(s)"
+msgstr ""
+
+#: templates/control_form.html.twig
+#, php-format
+msgid "%d node(s)"
+msgstr ""
+
+#: templates/control_form.html.twig
+#, php-format
+msgid "%d retired"
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid "View services"
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid "no successful import yet"
+msgstr ""
+
+#: templates/control_form.html.twig
+#, php-format
+msgid "last reading: %s"
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid "More than 48 hours ago: the inventory may be out of date."
+msgstr ""
+
+#: templates/control_form.html.twig
+#, php-format
+msgid "last successful import: %s"
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid ""
+"The import dates of the connections are shown to the administrators of the "
+"Docker inventory."
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid "Version gaps"
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid "View versions"
+msgstr ""
+
+#: templates/control_form.html.twig
+#, php-format
+msgid "%1$d services to update: the %2$d most urgent are shown."
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid "Image vulnerabilities (Harbor)"
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid "no Harbor connection: the images are not analysed"
+msgstr ""
+
+#: templates/control_form.html.twig templates/park_vulnerabilities.html.twig
+msgid "View Harbor images"
+msgstr ""
+
+#: templates/control_form.html.twig
+#, php-format
+msgid "%d critical"
+msgstr ""
+
+#: templates/control_form.html.twig
+#, php-format
+msgid "%d high"
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid ""
+"Services counted by the most severe vulnerability of the image they run."
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid "image origin not evaluated: no controlled registry declared"
+msgstr ""
+
+#: templates/control_form.html.twig
+#, php-format
+msgid "%1$d of %2$d images from a controlled registry (%3$s %%)"
+msgstr ""
+
+#: templates/control_form.html.twig templates/park_vulnerabilities.html.twig
+#: templates/network_flow_matrix.html.twig
+msgid "Service"
+msgstr ""
+
+#: templates/control_form.html.twig templates/park_vulnerabilities.html.twig
+msgid "Image"
+msgstr ""
+
+#: templates/control_form.html.twig templates/nonconformity_form.html.twig
+msgid "Origin"
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid "Replicas"
+msgstr ""
+
+#: templates/control_form.html.twig templates/network_flow_form.html.twig
+#: templates/network_flow_import.html.twig src/NetworkFlow.php:262
+msgid "Ports"
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid "Fingerprint"
+msgstr ""
+
+#: templates/control_form.html.twig
+#, php-format
+msgid "%1$d services: the first %2$d are shown."
+msgstr ""
+
+#: templates/control_form.html.twig
+#, php-format
+msgid "%1$d version change(s) observed over the last %2$d days"
+msgstr ""
+
+#: templates/control_form.html.twig
+#, php-format
+msgid "%1$d changes: the %2$d most recent are shown."
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid ""
+"Read live from the Docker inventory plugin, on your active entities and "
+"within your rights there. Read only: nothing is changed."
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid "Docker inventory evidence"
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid "the Reference frameworks screen"
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid "for details."
 msgstr ""
 
 #: templates/training_sessions_tab.html.twig
@@ -768,9 +1303,12 @@ msgid "Example: \"Customer portal 2027\", \"Head office information system\"."
 msgstr ""
 
 #: templates/ebios_study_form.html.twig templates/risk_treatment_plan.html.twig
+#: templates/business_process_form.html.twig
 #: templates/isms_requirement_form.html.twig
 #: templates/nonconformity_form.html.twig
 #: templates/tabs/_access_review_rows.html.twig
+#: templates/compliance_event_form.html.twig
+#: templates/audit_findings_tab.html.twig
 #: templates/pdf/internal_audit_report.html.twig
 #: templates/pdf/business_continuity_report.html.twig
 #: templates/pdf/access_review_report.html.twig
@@ -782,11 +1320,12 @@ msgid "Owner"
 msgstr ""
 
 #: templates/ebios_study_form.html.twig
+#: templates/compliance_event_form.html.twig
 #: templates/pdf/internal_audit_report.html.twig
 #: templates/pdf/postmortem_report.html.twig
-#: templates/pdf/ebios_study_report.html.twig src/Audit.php:218
-#: src/ComplianceEvent.php:232 src/EbiosStudy.php:597
-#: src/NotificationTargetComplianceEvent.php:113
+#: templates/pdf/ebios_study_report.html.twig templates/auditor_space.html.twig
+#: templates/audit_form.html.twig src/Audit.php:218 src/ComplianceEvent.php:232
+#: src/EbiosStudy.php:597 src/NotificationTargetComplianceEvent.php:113
 msgid "Scope"
 msgstr ""
 
@@ -834,8 +1373,9 @@ msgstr ""
 msgid "Columns"
 msgstr ""
 
-#: templates/edr_import.html.twig templates/tabs/action_log.html.twig
-#: templates/pdf/action_log.html.twig src/AuditLog.php:234
+#: templates/edr_import.html.twig templates/audit_log.html.twig
+#: templates/tabs/action_log.html.twig templates/pdf/action_log.html.twig
+#: templates/control_test_tab.html.twig src/AuditLog.php:234
 #: src/ControlTest.php:840 src/NotificationTargetControl.php:148
 msgid "Result"
 msgstr ""
@@ -848,7 +1388,9 @@ msgid ""
 "at the next step."
 msgstr ""
 
-#: templates/edr_import.html.twig templates/risk_import.html.twig
+#: templates/edr_import.html.twig
+#: templates/audit_evidence_requests_tab.html.twig
+#: templates/risk_import.html.twig templates/custom_framework_list.html.twig
 #: templates/network_flow_import.html.twig
 msgid "CSV file"
 msgstr ""
@@ -903,7 +1445,9 @@ msgstr ""
 msgid "Preview"
 msgstr ""
 
-#: templates/edr_import.html.twig src/AuditLog.php:79
+#: templates/edr_import.html.twig
+#: templates/audit_evidence_requests_tab.html.twig
+#: templates/control_csv.html.twig src/AuditLog.php:79
 msgid "Import"
 msgstr ""
 
@@ -968,10 +1512,12 @@ msgid "This entity only"
 msgstr ""
 
 #: templates/dashboard_perimeters.html.twig
+#: templates/control_list_header.html.twig
 msgid "Own SoA"
 msgstr ""
 
 #: templates/dashboard_perimeters.html.twig
+#: templates/control_list_header.html.twig
 msgid "Inherited SoA"
 msgstr ""
 
@@ -1030,7 +1576,8 @@ msgstr ""
 msgid "Action description"
 msgstr ""
 
-#: templates/risk_treatment_plan.html.twig templates/postmortem_tab.html.twig
+#: templates/risk_treatment_plan.html.twig templates/crisis_room.html.twig
+#: templates/postmortem_tab.html.twig
 #: templates/pdf/crisis_exercise_report.html.twig
 #: templates/pdf/postmortem_report.html.twig
 #: templates/periodic_reviews.html.twig src/DataSubjectRequest.php:111
@@ -1042,6 +1589,7 @@ msgid "Update"
 msgstr ""
 
 #: templates/risk_treatment_plan.html.twig
+#: templates/canonical_product_lists.html.twig
 #: templates/risk_indicator_values.html.twig
 #: templates/objective_measurements.html.twig
 msgid "Confirm deletion?"
@@ -1052,6 +1600,7 @@ msgid "No treatment action recorded yet."
 msgstr ""
 
 #: templates/management_review_form.html.twig
+#: templates/compliance_obligation_form.html.twig
 #: templates/pdf/risk_register_report.html.twig
 #: templates/supplier_risk_form.html.twig templates/risk_form.html.twig
 #: src/ComplianceObligation.php:222 src/ManagementReview.php:304
@@ -1086,6 +1635,63 @@ msgid ""
 "meeting."
 msgstr ""
 
+#: templates/canonical_product_form.html.twig src/CanonicalProduct.php:135
+msgid "Vendor / manufacturer"
+msgstr ""
+
+#: templates/canonical_product_form.html.twig
+msgid ""
+"Short name, e.g. \"Apache\", \"Microsoft\" - used only as a label, never for "
+"matching."
+msgstr ""
+
+#: templates/canonical_product_form.html.twig src/CanonicalProduct.php:144
+msgid "Product"
+msgstr ""
+
+#: templates/compliance_obligation_form.html.twig
+#: templates/park_machines.html.twig templates/network_flow_form.html.twig
+#: templates/tabs/ioc.html.twig templates/my_space.html.twig
+#: templates/compliance_event_form.html.twig
+#: templates/network_flow_matrix.html.twig
+#: templates/pdf/consistency_report.html.twig
+#: templates/network_flow_import.html.twig front/consistencycheck.export.php:51
+#: src/ComplianceEvent.php:220 src/ComplianceObligation.php:189
+#: src/NetworkFlow.php:253 src/NotificationTargetComplianceEvent.php:111
+#: src/NotificationTargetComplianceObligation.php:92
+msgid "Type"
+msgstr ""
+
+#: templates/compliance_obligation_form.html.twig
+#: src/ComplianceObligation.php:197
+msgid "Reference / source"
+msgstr ""
+
+#: templates/compliance_obligation_form.html.twig
+msgid "E.g. \"GDPR\", \"Client contract Acme Ltd\", \"Act No. ...\"."
+msgstr ""
+
+#: templates/compliance_obligation_form.html.twig
+#: src/ComplianceObligation.php:205
+#: src/NotificationTargetComplianceObligation.php:93
+msgid "Compliance status"
+msgstr ""
+
+#: templates/compliance_obligation_form.html.twig
+msgid "Linked risk (optional)"
+msgstr ""
+
+#: templates/compliance_obligation_form.html.twig
+msgid ""
+"Only fill in if failing to meet this obligation constitutes a risk "
+"identified in the risk register."
+msgstr ""
+
+#: templates/compliance_obligation_form.html.twig
+#: src/ComplianceObligation.php:238
+msgid "Description / notes"
+msgstr ""
+
 #: templates/park_machines.html.twig
 msgid "No machine has a known vulnerability among the watched software."
 msgstr ""
@@ -1099,17 +1705,6 @@ msgstr ""
 
 #: templates/park_machines.html.twig
 msgid "Machine"
-msgstr ""
-
-#: templates/park_machines.html.twig templates/network_flow_form.html.twig
-#: templates/tabs/ioc.html.twig templates/my_space.html.twig
-#: templates/network_flow_matrix.html.twig
-#: templates/pdf/consistency_report.html.twig
-#: templates/network_flow_import.html.twig front/consistencycheck.export.php:51
-#: src/ComplianceEvent.php:220 src/ComplianceObligation.php:189
-#: src/NetworkFlow.php:253 src/NotificationTargetComplianceEvent.php:111
-#: src/NotificationTargetComplianceObligation.php:92
-msgid "Type"
 msgstr ""
 
 #: templates/park_machines.html.twig templates/supplier_risk_form.html.twig
@@ -1154,7 +1749,9 @@ msgstr ""
 
 #: templates/ticket/access_review_request.html.twig
 #: templates/my_evidence_requests.html.twig
+#: templates/audit_evidence_requests_tab.html.twig
 #: templates/pdf/internal_audit_report.html.twig
+#: templates/auditor_space.html.twig
 msgid "Request"
 msgstr ""
 
@@ -1269,6 +1866,8 @@ msgid "No document yet."
 msgstr ""
 
 #: templates/my_evidence_requests.html.twig
+#: templates/audit_evidence_requests_tab.html.twig
+#: templates/auditor_space.html.twig
 #, php-format
 msgid "Submitted on %s"
 msgstr ""
@@ -1277,7 +1876,7 @@ msgstr ""
 msgid "Not submitted yet"
 msgstr ""
 
-#: templates/my_evidence_requests.html.twig
+#: templates/my_evidence_requests.html.twig templates/audit_team_tab.html.twig
 #: templates/policy_acknowledgement_tab.html.twig
 #: templates/tabs/ebios_workshop1.html.twig templates/tabs/ioc.html.twig
 #: templates/tabs/business_process_items.html.twig
@@ -1291,6 +1890,7 @@ msgstr ""
 #: templates/tabs/business_process_recovery.html.twig
 #: templates/tabs/mitre_attack.html.twig
 #: templates/dora/arrangement_tab.html.twig
+#: templates/control_test_tab.html.twig
 msgid "Remove"
 msgstr ""
 
@@ -1298,10 +1898,10 @@ msgstr ""
 msgid "Add a file"
 msgstr ""
 
-#: templates/my_evidence_requests.html.twig
+#: templates/my_evidence_requests.html.twig templates/audit_team_tab.html.twig
 #: templates/policy_acknowledgement_tab.html.twig
-#: templates/tabs/ebios_workshop1.html.twig templates/tabs/ioc.html.twig
-#: templates/tabs/business_process_items.html.twig
+#: templates/crisis_room.html.twig templates/tabs/ebios_workshop1.html.twig
+#: templates/tabs/ioc.html.twig templates/tabs/business_process_items.html.twig
 #: templates/tabs/business_process_links.html.twig
 #: templates/tabs/ebios_workshop2.html.twig
 #: templates/tabs/playbook_steps.html.twig
@@ -1330,12 +1930,13 @@ msgstr ""
 
 #: templates/my_evidence_requests.html.twig
 #: templates/risk_indicator_values.html.twig
-#: templates/isms_requirement_form.html.twig
+#: templates/isms_requirement_form.html.twig templates/crisis_room.html.twig
 #: templates/objective_measurements.html.twig
 #: templates/tabs/risk_business_processes.html.twig
 #: templates/tabs/business_process_risks.html.twig
 #: templates/tabs/business_process_recovery.html.twig
-#: templates/tabs/mitre_attack.html.twig
+#: templates/tabs/mitre_attack.html.twig templates/access_review_form.html.twig
+#: templates/custom_framework_form.html.twig
 #: templates/pdf/business_continuity_report.html.twig
 #: templates/pdf/policy_approval_record.html.twig
 #: templates/pdf/access_review_report.html.twig src/IsmsRequirement.php:288
@@ -1364,10 +1965,170 @@ msgid "Audit"
 msgstr ""
 
 #: templates/my_evidence_requests.html.twig
+#: templates/audit_evidence_requests_tab.html.twig
+#: templates/auditor_space.html.twig
 msgid "Documents"
 msgstr ""
 
-#: templates/maturity.html.twig hook.php:257 src/Maturity.php:42
+#: templates/causal_tab.html.twig
+msgid ""
+"No link yet. Link this item to what it can lead to, or to what can cause it, "
+"to see the domino effect of an attack."
+msgstr ""
+
+#: templates/causal_tab.html.twig
+msgid "Can be caused by"
+msgstr ""
+
+#: templates/causal_tab.html.twig
+msgid "Can lead to"
+msgstr ""
+
+#: templates/causal_tab.html.twig
+msgid "Remove this link"
+msgstr ""
+
+#: templates/causal_tab.html.twig
+msgid "This item"
+msgstr ""
+
+#: templates/causal_tab.html.twig
+msgid "can lead to…"
+msgstr ""
+
+#: templates/causal_tab.html.twig
+msgid "can be caused by…"
+msgstr ""
+
+#: templates/causal_tab.html.twig
+msgid "Linked item"
+msgstr ""
+
+#: templates/causal_tab.html.twig templates/processing_activity_tab.html.twig
+#: front/consistencycheck.export.php:55
+msgid "Link"
+msgstr ""
+
+#: templates/causal_tab.html.twig
+msgid "See the whole domino effect"
+msgstr ""
+
+#: templates/audit_team_tab.html.twig
+msgid ""
+"Only team members can read the documents of the audit and its findings, even "
+"with the GLPI Documents right. Auditees can read them but cannot add "
+"anything."
+msgstr ""
+
+#: templates/audit_team_tab.html.twig
+#, php-format
+msgid "The CISO group (%s) can access them too."
+msgstr ""
+
+#: templates/audit_team_tab.html.twig
+msgid "No CISO group is set in the plugin configuration."
+msgstr ""
+
+#: templates/audit_team_tab.html.twig templates/tabs/incident_team.html.twig
+msgid "Member"
+msgstr ""
+
+#: templates/audit_team_tab.html.twig
+#: templates/tabs/business_process_items.html.twig
+#: templates/tabs/business_process_links.html.twig
+#: templates/tabs/incident_team.html.twig
+#: templates/tabs/item_business_processes.html.twig
+#: templates/pdf/business_continuity_report.html.twig
+msgid "Role"
+msgstr ""
+
+#: templates/audit_team_tab.html.twig
+msgid "audit form"
+msgstr ""
+
+#: templates/audit_team_tab.html.twig
+msgid "No member: set the auditor or the owner on the form."
+msgstr ""
+
+#: templates/crisis_exercises.html.twig
+msgid "Start a crisis exercise"
+msgstr ""
+
+#: templates/crisis_exercises.html.twig
+msgid ""
+"Start the exercise now? A fictitious \"EXERCISE\" incident will be created "
+"and the timer will start."
+msgstr ""
+
+#: templates/crisis_exercises.html.twig
+msgid "Start the exercise"
+msgstr ""
+
+#: templates/crisis_exercises.html.twig
+msgid "Exercises carried out"
+msgstr ""
+
+#: templates/crisis_exercises.html.twig
+msgid ""
+"No exercise yet. The standard requires testing continuity plans at planned "
+"intervals: start a first exercise above."
+msgstr ""
+
+#: templates/crisis_exercises.html.twig
+#: templates/tabs/ebios_workshop5.html.twig
+#: templates/tabs/ebios_workshop3.html.twig
+#: templates/tabs/ebios_workshop4.html.twig
+#: templates/pdf/crisis_exercise_report.html.twig
+#: templates/pdf/ebios_study_report.html.twig
+msgid "Scenario"
+msgstr ""
+
+#: templates/crisis_exercises.html.twig
+#: templates/tabs/supplier_contracts.html.twig
+#: templates/compliance_event_form.html.twig src/ComplianceEvent.php:222
+#: src/NotificationTargetComplianceEvent.php:112
+msgid "Start"
+msgstr ""
+
+#: templates/crisis_exercises.html.twig templates/crisis_room.html.twig
+#: templates/pdf/crisis_exercise_report.html.twig
+msgid "Duration"
+msgstr ""
+
+#: templates/crisis_exercises.html.twig templates/crisis_room.html.twig
+#: templates/pdf/crisis_exercise_report.html.twig
+msgid "Steps on time"
+msgstr ""
+
+#: templates/crisis_exercises.html.twig templates/crisis_room.html.twig
+#: templates/pdf/crisis_exercise_report.html.twig
+msgid "Average reaction time"
+msgstr ""
+
+#: templates/crisis_exercises.html.twig templates/crisis_tab.html.twig
+#: templates/tabs/control_access_reviews.html.twig
+#: templates/tabs/incident_playbook.html.twig
+#: templates/pdf/remediation_plan.html.twig
+msgid "Report"
+msgstr ""
+
+#: templates/crisis_exercises.html.twig
+#: templates/policy_acknowledgement_tab.html.twig src/AccessReview.php:104
+#: src/Audit.php:95 src/Audit.php:294 src/Control.php:135 src/Control.php:597
+#: src/DataSubjectRequest.php:97 src/EbiosStudy.php:90
+#: src/IsmsRequirement.php:154 src/RiskTreatmentAction.php:88
+#: src/RiskTreatmentAction.php:159 src/SecurityIncidentPlaybookTask.php:64
+#: src/Waiver.php:101
+msgid "In progress"
+msgstr ""
+
+#: templates/crisis_exercises.html.twig
+msgctxt "verb"
+msgid "Open"
+msgstr ""
+
+#: templates/maturity.html.twig templates/compliance_audit.html.twig
+#: hook.php:257 src/Maturity.php:42
 msgid "Maturity score"
 msgstr ""
 
@@ -1435,16 +2196,380 @@ msgid "No control declared applicable in the SoA."
 msgstr ""
 
 #: templates/maturity.html.twig
-msgid "Monthly trend"
-msgstr ""
-
-#: templates/maturity.html.twig
 msgid ""
 "The history builds up month after month: the scheduled task records the "
 "score every day for the current month."
 msgstr ""
 
+#: templates/asset_classification_tab.html.twig
+#: inc/securityincident.class.php:274 src/AssetClassification.php:119
+msgid "Confidentiality"
+msgstr ""
+
+#: templates/asset_classification_tab.html.twig
+#: inc/securityincident.class.php:275 src/AssetClassification.php:127
+msgid "Integrity"
+msgstr ""
+
+#: templates/asset_classification_tab.html.twig
+#: templates/tabs/business_process_items.html.twig
+#: templates/impact_tab.html.twig inc/securityincident.class.php:276
+#: src/AssetClassification.php:135 src/ImpactAnalysis.php:226
+msgid "Availability"
+msgstr ""
+
+#: templates/asset_classification_tab.html.twig src/AssetClassification.php:189
+#: src/Risk.php:837
+msgid "Not classified"
+msgstr ""
+
+#: templates/asset_classification_tab.html.twig
+msgid ""
+"This asset has not been classified yet (confidentiality/integrity/"
+"availability)."
+msgstr ""
+
+#: templates/asset_classification_tab.html.twig src/AssetClassification.php:143
+msgid "RTO (maximum downtime)"
+msgstr ""
+
+#: templates/asset_classification_tab.html.twig
+#: templates/dora/function_tab.html.twig
+msgid "Not defined"
+msgstr ""
+
+#: templates/asset_classification_tab.html.twig
+msgid "Time beyond which an outage of this asset becomes unacceptable."
+msgstr ""
+
+#: templates/asset_classification_tab.html.twig src/AssetClassification.php:151
+msgid "RPO (maximum data loss)"
+msgstr ""
+
+#: templates/asset_classification_tab.html.twig
+msgid "Maximum acceptable age of restored data (backup frequency)."
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+msgid "Evidence requested by the auditor"
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+msgid "Accepted requests"
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+#: templates/auditor_space.html.twig
+#, php-format
+msgid "%d %% accepted"
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+#, php-format
+msgid "%d to provide"
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+#, php-format
+msgid "%d to review"
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+#, php-format
+msgid "%d to complete"
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+#, php-format
+msgid "%d accepted"
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+#, php-format
+msgid ""
+"Each request is assigned to one person, who adds the documents from the \"My "
+"evidence requests\" page (reachable from \"My GRC space\", even without any "
+"right on this plugin) and submits them. You then accept the evidence or ask "
+"for it to be completed, giving the reason. The person is reminded by email "
+"%d days before the due date, then every week while the request is late; "
+"nothing else happens automatically."
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+#: templates/auditor_space.html.twig src/Traits/RiskAssessmentTrait.php:98
+#: src/Traits/RiskAssessmentTrait.php:225
+msgid "Accepted"
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+#: templates/auditor_space.html.twig
+msgid "Submitted"
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+#: src/AuditEvidenceRequest.php:146
+msgid "To complete"
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+#: templates/pdf/internal_audit_report.html.twig
+#: templates/auditor_space.html.twig
+#, php-format
+msgid "%1$d of %2$d request(s) accepted (%3$d %%)."
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+msgid ""
+"No evidence requested yet. Add the requests one by one below, or import the "
+"list sent by the auditor."
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+#: templates/pdf/internal_audit_report.html.twig
+msgid "Assignee"
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+msgid "Nobody assigned"
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig templates/my_space.html.twig
+#: src/Services/Workspace/MySpaceProvider.php:138
+#, php-format
+msgid "%d day(s) late"
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig templates/my_space.html.twig
+#: src/Services/Workspace/MySpaceProvider.php:136
+msgid "No due date"
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+#, php-format
+msgid "Reminded on %s"
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+msgid "Existing evidence of the control"
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+msgid "File provided for the request"
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+msgid "Not submitted yet: the auditor cannot see it"
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+#: templates/tabs/dpia.html.twig templates/pdf/dpia_report.html.twig
+#: templates/policy_approval_tab.html.twig src/Policy.php:98 src/Policy.php:245
+#: src/ProcessingActivity.php:130
+msgid "Draft"
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+msgid "None yet"
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+#: src/Traits/RiskAssessmentTrait.php:83
+msgid "Accept"
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+msgid "Reason (required to ask for completion)"
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+#: templates/risk_import.html.twig templates/custom_framework_list.html.twig
+#: src/NotificationTargetAuditEvidenceRequest.php:161
+msgid "Reason"
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+msgid "Ask to complete"
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+msgid "Edit"
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+#: templates/supplier_security_watch.html.twig
+#: templates/tabs/item_security_incidents.html.twig
+#: templates/risk_import.html.twig templates/dora/register.html.twig
+#: templates/processing_activity_form.html.twig
+#: inc/securityincident.class.php:932
+#: src/NotificationTargetAuditEvidenceRequest.php:154
+#: src/ProcessingActivity.php:548 src/ProcessingActivity.php:991
+#: src/RiskRegisterImport.php:587
+msgid "Reference"
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+#: templates/policy_acknowledgement_tab.html.twig
+#: templates/dora/function_tab.html.twig templates/dora/register.html.twig
+#: templates/dora/arrangement_tab.html.twig
+#: templates/dora/provider_tab.html.twig templates/periodic_reviews.html.twig
+msgid "Save"
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+msgid "Delete this request and its link to the documents?"
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+msgid "Delete"
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+msgid "Remind everyone who still has evidence to provide"
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+msgid "An email to each person, nothing else changes."
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+msgid "Request evidence"
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+msgid "Number or title in the auditor's list"
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+msgid "Evidence requested"
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+msgid ""
+"Only the controls in the scope of this audit are offered. Edit the request "
+"afterwards to choose another control."
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+msgid "Request this evidence"
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+msgid "The assignee is notified by email."
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+msgid "Import the auditor's list (CSV)"
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+#, php-format
+msgid ""
+"One line per requested evidence, with a header line. Recognised columns: "
+"Reference, Control (code such as A.5.15), Description, Due date (YYYY-MM-DD "
+"or DD/MM/YYYY), Assignee (login). Separator \";\" or \",\". At most %d "
+"lines; invalid lines are listed and not imported."
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+msgid "Default assignee"
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+msgid "Default due date"
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+msgid "Auditor access (read only)"
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+msgid ""
+"An internal or external auditor can consult this audit only: its controls, "
+"the progress, the requests already submitted with their submitted documents, "
+"and the findings. Documents still being prepared, the working documents and "
+"the notes of the audit stay hidden. The access ends on its end date and can "
+"be revoked at any time; every download is recorded in the \"Document "
+"access\" tab."
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+msgid ""
+"The auditor's account does not need any right on this plugin: a simplified "
+"interface profile is enough. Give them the address of the auditor space:"
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+#: templates/pdf/internal_audit_report.html.twig
+#: templates/pdf/audit_report.html.twig templates/audit_form.html.twig
+#: src/Audit.php:185 src/AuditTeam.php:54 src/AuditTeam.php:193
+msgid "Auditor"
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+#: templates/audit_log.html.twig
+msgid "From"
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+msgid "Until"
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+#: templates/custom_framework_list.html.twig
+msgid "State"
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+msgid "Last visit"
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+#, php-format
+msgid "Granted by %s"
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+#: templates/config_form.html.twig templates/network_flow_form.html.twig
+#: templates/compliance_calendar.html.twig src/NetworkFlow.php:270
+msgid "Active"
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+msgid "Revoked"
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+#: templates/dora/arrangement_tab.html.twig src/ProcessingActivity.php:132
+msgid "Ended"
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+msgid "Revoke"
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+msgid "No auditor has access to this audit."
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+msgid "Auditor account"
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+msgid "Access until"
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+#, php-format
+msgid "At most %d days"
+msgstr ""
+
+#: templates/audit_evidence_requests_tab.html.twig
+msgid "Give read access to this audit"
+msgstr ""
+
 #: templates/_network_flow_badges.html.twig
+#: templates/compliance_audit.html.twig
 #: templates/network_flow_summary.html.twig src/ComplianceObligation.php:108
 #: src/ComplianceObligation.php:320 src/CustomRequirement.php:60
 #: src/IsmsRequirement.php:155
@@ -1453,6 +2578,117 @@ msgstr ""
 
 #: templates/_network_flow_badges.html.twig src/NetworkFlow.php:517
 msgid "Asset not visible"
+msgstr ""
+
+#: templates/compliance_audit.html.twig
+#, php-format
+msgid "Average of %d technical check(s)"
+msgstr ""
+
+#: templates/compliance_audit.html.twig
+msgid "No check can be evaluated"
+msgstr ""
+
+#: templates/compliance_audit.html.twig
+msgid ""
+"This score only measures the technical checks below, from GLPI data. "
+"Organisational progress is tracked in the Statement of Applicability (SoA) "
+"and the maturity score."
+msgstr ""
+
+#: templates/compliance_audit.html.twig
+msgctxt "measures"
+msgid "Annex A controls"
+msgstr ""
+
+#: templates/compliance_audit.html.twig
+msgid "Validations required per change"
+msgstr ""
+
+#: templates/compliance_audit.html.twig
+msgid "2 (double validation)"
+msgstr ""
+
+#: templates/compliance_audit.html.twig
+#: templates/tabs/incident_playbook.html.twig
+msgid "Apply"
+msgstr ""
+
+#: templates/compliance_audit.html.twig
+msgid "Computer statuses excluded from the checks"
+msgstr ""
+
+#: templates/compliance_audit.html.twig
+msgid ""
+"For example \"Retired\" or \"In stock\": these computers are counted neither "
+"in the gaps nor in the scores."
+msgstr ""
+
+#: templates/compliance_audit.html.twig
+#, php-format
+msgid "Computers excluded from the checks (status): %s"
+msgstr ""
+
+#: templates/compliance_audit.html.twig templates/control_test_tab.html.twig
+msgid "Not evaluated"
+msgstr ""
+
+#: templates/compliance_audit.html.twig src/SupplierAssessment.php:93
+msgctxt "nothing to assess"
+msgid "Not applicable"
+msgstr ""
+
+#: templates/compliance_audit.html.twig
+msgid ""
+"Your profile cannot read the items concerned: this check is not part of the "
+"score."
+msgstr ""
+
+#: templates/compliance_audit.html.twig
+msgid "No item concerned in your entities."
+msgstr ""
+
+#: templates/compliance_audit.html.twig
+#, php-format
+msgid "… and %d others."
+msgstr ""
+
+#: templates/compliance_audit.html.twig
+msgid "Review these accounts (account hygiene)"
+msgstr ""
+
+#: templates/compliance_audit.html.twig
+#, php-format
+msgid "Remediation ticket in progress (#%d)"
+msgstr ""
+
+#: templates/compliance_audit.html.twig
+msgid "Create the remediation ticket"
+msgstr ""
+
+#: templates/compliance_audit.html.twig
+msgid ""
+"A single ticket, with the items concerned linked. Nothing is changed "
+"automatically."
+msgstr ""
+
+#: templates/causal_graph_page.html.twig src/CausalLink.php:53
+msgid "Domino effect"
+msgstr ""
+
+#: templates/causal_graph_page.html.twig
+msgid ""
+"Chains of causes and consequences between risks, supplier risks and security "
+"incidents. Links are created from the \"Domino effect\" tab of each one. "
+"This is a representation: no probability is computed."
+msgstr ""
+
+#: templates/causal_graph_page.html.twig
+msgid "No link yet."
+msgstr ""
+
+#: templates/causal_graph_page.html.twig
+msgid "Open the risk register"
 msgstr ""
 
 #: templates/soa_approval.html.twig
@@ -1468,7 +2704,7 @@ msgstr ""
 msgid "SoA changed"
 msgstr ""
 
-#: templates/soa_approval.html.twig
+#: templates/soa_approval.html.twig templates/control_list_header.html.twig
 #, php-format
 msgid ""
 "The SoA has changed since approved version %d: a new approval is required."
@@ -1560,6 +2796,62 @@ msgstr ""
 msgid "Frozen PDF"
 msgstr ""
 
+#: templates/crisis_tab.html.twig templates/crisis_room.html.twig
+#: src/Audit.php:96 src/Audit.php:295
+msgid "Completed"
+msgstr ""
+
+#: templates/crisis_tab.html.twig
+#, php-format
+msgid "Active for %d min"
+msgstr ""
+
+#: templates/crisis_tab.html.twig templates/crisis_room.html.twig
+#: templates/pdf/crisis_exercise_report.html.twig
+msgid "Steps done"
+msgstr ""
+
+#: templates/crisis_tab.html.twig templates/crisis_room.html.twig
+#: templates/pdf/crisis_exercise_report.html.twig
+msgid "Items restored"
+msgstr ""
+
+#: templates/crisis_tab.html.twig
+msgid "Open the crisis room"
+msgstr ""
+
+#: templates/crisis_tab.html.twig
+msgid "No crisis room for this exercise incident."
+msgstr ""
+
+#: templates/crisis_tab.html.twig
+msgid ""
+"For a major incident, the crisis team follows the response plan step by step "
+"(each with a target time), tracks the recovery of affected items against "
+"their RTO, and keeps the chronological crisis log."
+msgstr ""
+
+#: templates/crisis_tab.html.twig
+msgid ""
+"Activate the crisis team now? The timer starts and one task is created per "
+"plan step."
+msgstr ""
+
+#: templates/crisis_tab.html.twig
+#: templates/pdf/crisis_exercise_report.html.twig
+msgid "Response plan"
+msgstr ""
+
+#: templates/crisis_tab.html.twig
+msgid "Activate the crisis team"
+msgstr ""
+
+#: templates/crisis_tab.html.twig
+msgid ""
+"First link the affected items to the incident (\"Items\" tab): the crisis "
+"room will track their recovery and that of what depends on them."
+msgstr ""
+
 #: templates/data_subject_request_form.html.twig
 #: templates/park_vulnerabilities.html.twig
 #: templates/pdf/postmortem_report.html.twig
@@ -1646,6 +2938,7 @@ msgid "Reason for the extension"
 msgstr ""
 
 #: templates/data_subject_request_form.html.twig
+#: templates/control_list_header.html.twig
 #: templates/policy_approval_tab.html.twig
 msgid "Answer"
 msgstr ""
@@ -1700,17 +2993,179 @@ msgid ""
 "automatically."
 msgstr ""
 
-#: templates/waiver_ticket.html.twig templates/network_flow_form.html.twig
-#: templates/waiver_form.html.twig templates/pdf/soa_report.html.twig
-#: templates/pdf/network_flow_report.html.twig
-#: templates/supplier_risk_form.html.twig templates/risk_form.html.twig
-#: src/Control.php:427 src/NetworkFlow.php:265 src/RiskRegisterImport.php:596
-msgid "Justification"
-msgstr ""
-
 #: templates/waiver_ticket.html.twig templates/waiver_form.html.twig
 #: src/Waiver.php:511
 msgid "Compensating controls"
+msgstr ""
+
+#: templates/breach_exposure_form.html.twig src/BreachExposure.php:123
+msgid "Email (no GLPI user)"
+msgstr ""
+
+#: templates/breach_exposure_form.html.twig
+#: templates/tabs/breach_exposures.html.twig src/BreachExposure.php:119
+msgid "Breach"
+msgstr ""
+
+#: templates/breach_exposure_form.html.twig src/BreachExposure.php:136
+msgid "Breached site"
+msgstr ""
+
+#: templates/breach_exposure_form.html.twig
+#: templates/tabs/breach_exposures.html.twig src/BreachExposure.php:125
+msgid "Breach date"
+msgstr ""
+
+#: templates/breach_exposure_form.html.twig src/BreachExposure.php:128
+msgid "Published by Have I Been Pwned"
+msgstr ""
+
+#: templates/breach_exposure_form.html.twig
+#: templates/tabs/breach_exposures.html.twig src/BreachExposure.php:130
+msgid "Exposed data"
+msgstr ""
+
+#: templates/breach_exposure_form.html.twig
+msgid ""
+"Passwords were exposed: have the password changed wherever it was used, and "
+"enable multi-factor authentication."
+msgstr ""
+
+#: templates/breach_exposure_form.html.twig
+msgid "Unverified breach"
+msgstr ""
+
+#: templates/breach_exposure_form.html.twig src/BreachExposure.php:139
+msgid "Verified breach"
+msgstr ""
+
+#: templates/breach_exposure_form.html.twig
+#: templates/network_flow_form.html.twig
+#: templates/compliance_event_form.html.twig
+#: templates/processing_activity_form.html.twig src/BreachExposure.php:143
+#: src/NetworkFlow.php:277
+msgid "Comments"
+msgstr ""
+
+#: templates/breach_exposure_form.html.twig
+msgid ""
+"Action taken: password changed, multi-factor authentication enabled, user "
+"informed…"
+msgstr ""
+
+#: templates/audit_log.html.twig
+msgid "Integrity verified"
+msgstr ""
+
+#: templates/audit_log.html.twig
+#, php-format
+msgid ""
+"%d entries checked: the chain is intact, no entry was modified, deleted or "
+"inserted."
+msgstr ""
+
+#: templates/audit_log.html.twig
+msgid "Integrity broken"
+msgstr ""
+
+#: templates/audit_log.html.twig
+#, php-format
+msgid ""
+"The chain breaks at entry #%d: it, or the one before it, was modified, "
+"deleted or inserted outside GLPI."
+msgstr ""
+
+#: templates/audit_log.html.twig
+msgid "To"
+msgstr ""
+
+#: templates/audit_log.html.twig templates/pdf/postmortem_report.html.twig
+#: src/AuditLog.php:233
+msgid "Action"
+msgstr ""
+
+#: templates/audit_log.html.twig templates/tabs/action_log.html.twig
+#: src/NetworkFlow.php:106 src/NetworkFlow.php:667
+#: src/ParkVulnerability.php:126
+msgid "All"
+msgstr ""
+
+#: templates/audit_log.html.twig
+msgid "Allowed"
+msgstr ""
+
+#: templates/audit_log.html.twig
+msgid "Denied"
+msgstr ""
+
+#: templates/audit_log.html.twig templates/crisis_room.html.twig
+#: templates/pdf/crisis_exercise_report.html.twig
+#: templates/pdf/action_log.html.twig templates/pdf/postmortem_report.html.twig
+#: templates/pdf/remediation_plan.html.twig src/AuditLog.php:234
+msgid "Incident"
+msgstr ""
+
+#: templates/audit_log.html.twig
+msgid "Reset"
+msgstr ""
+
+#: templates/audit_log.html.twig
+#, php-format
+msgid "%d entries"
+msgstr ""
+
+#: templates/audit_log.html.twig
+#, php-format
+msgid "the %d most recent shown"
+msgstr ""
+
+#: templates/audit_log.html.twig
+msgid "Check integrity"
+msgstr ""
+
+#: templates/audit_log.html.twig
+msgid "Export (CSV)"
+msgstr ""
+
+#: templates/audit_log.html.twig templates/document_accesses_tab.html.twig
+#: templates/supplier_security_watch.html.twig
+#: templates/tabs/action_log.html.twig
+#: templates/tabs/item_security_incidents.html.twig
+#: templates/pdf/crisis_exercise_report.html.twig
+#: templates/pdf/policy_approval_record.html.twig
+#: templates/pdf/action_log.html.twig templates/pdf/postmortem_report.html.twig
+#: src/AuditLog.php:232
+msgid "Date"
+msgstr ""
+
+#: templates/audit_log.html.twig templates/document_accesses_tab.html.twig
+#: templates/account_hygiene_ticket.html.twig
+#: templates/account_hygiene.html.twig src/AuditLog.php:232
+msgid "User"
+msgstr ""
+
+#: templates/audit_log.html.twig src/AuditLog.php:233
+#: src/PolicyAcknowledgement.php:130
+msgid "Profile"
+msgstr ""
+
+#: templates/audit_log.html.twig
+msgid "Object"
+msgstr ""
+
+#: templates/audit_log.html.twig
+msgid "Impersonation"
+msgstr ""
+
+#: templates/audit_log.html.twig
+msgid "No entry for these filters."
+msgstr ""
+
+#: templates/audit_log.html.twig
+msgid ""
+"Each entry is sealed with the SHA-256 fingerprint of the previous one: the "
+"log is kept when the plugin is uninstalled and any modification made outside "
+"GLPI is detected by the check."
 msgstr ""
 
 #: templates/risk_indicator_values.html.twig
@@ -1773,6 +3228,545 @@ msgstr ""
 msgid "Dashboard"
 msgstr ""
 
+#: templates/config_form.html.twig
+msgid "Plugin version"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Installed version"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Latest version on GitHub"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Compliance frameworks"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid ""
+"Untick a framework your organisation does not follow: it is no longer shown "
+"or counted in the scores. Nothing is deleted, and its data comes back when "
+"it is enabled again."
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "A framework of your own (group requirements, customer security plan)?"
+msgstr ""
+
+#: templates/config_form.html.twig
+#: templates/pdf/processing_register_report.html.twig
+#: templates/pdf/data_breach_register.html.twig
+msgid "Data protection officer (DPO)"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid ""
+"Name and contact details of the data protection officer, shown on the record "
+"of processing activities (GDPR, article 30)."
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Sensitive registers"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid ""
+"The risk register, fleet vulnerabilities and network flow matrix describe "
+"the organisation's weak points. They have their own right (GRC Manager tab "
+"of profiles): give it only to the CISO and risk owners."
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid ""
+"E-mails without details: \"Risk no. X\" and the link to the record, without "
+"title, category, level or supplier"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid ""
+"An e-mail travels in clear text and stays in mailboxes and archives. The "
+"recipient reads the details in GLPI, with their own rights."
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Data breach monitoring"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid ""
+"Every day, the work email addresses of active users are checked with Have I "
+"Been Pwned; each exposure is recorded in a sensitive register and the CISO "
+"group is notified. Personal addresses are never sent. A verified domain "
+"needs a single request; otherwise addresses are checked one by one, within "
+"the rate limit of the key."
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Enable data breach monitoring"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Work email domains to monitor"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Only addresses on these domains are checked."
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Have I Been Pwned API key"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Key saved (leave empty to keep it)"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Encrypted with the GLPI key and never displayed again."
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Delete the saved key"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Test the key"
+msgstr ""
+
+#: templates/config_form.html.twig templates/pdf/audit_report.html.twig
+msgid "Internal audits"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid ""
+"The documents of an audit can only be read by its team (auditors, owner, "
+"auditees) and by the members of this group, even with the GLPI Documents "
+"right."
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "CISO group"
+msgstr ""
+
+#: templates/config_form.html.twig templates/risk_appetite.html.twig
+msgid ""
+"Beyond the tolerance, only management can accept a risk: the members of the "
+"group below. Their acceptances and approvals are marked \"Management\"."
+msgstr ""
+
+#: templates/config_form.html.twig templates/risk_appetite.html.twig
+msgid ""
+"No management group is set: anyone who can edit the register can accept a "
+"risk beyond the tolerance. Choose the group whose members represent "
+"management."
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Management group"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Effectiveness test reminders"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid ""
+"The test plan owner is reminded of an overdue test or a test due within 30 "
+"days. An overdue test withdraws the \"Verified\" status of the control."
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Also remind the CISO group"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid ""
+"No CISO group is set (Internal audits above, or Configuration GLPI Auto): "
+"only the test plan owner is reminded."
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid ""
+"E-mail colour taken from the notification branding of Configuration GLPI "
+"Auto:"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "E-mail colour:"
+msgstr ""
+
+#: templates/config_form.html.twig src/ConsistencyCheck.php:58
+msgid "ISMS consistency checks"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid ""
+"Untick a rule that does not apply to your organisation: it is no longer "
+"checked nor counted in the score. The thresholds set how strict each rule "
+"is. Nothing is ever modified by these checks."
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Open the consistency checks"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Threshold"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Risk indicator (KRI) alerts"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid ""
+"The owner of the indicator and the CISO group are notified once when an "
+"indicator reaches the alert level, then when it is back to green. Only "
+"recipients who can read the indicator and the data it measures receive it."
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Alert level"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Calendar subscription links"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid ""
+"Each user creates a personal link to subscribe their calendar application to "
+"the compliance calendar. The link only reads the calendar, can be revoked by "
+"its owner, and expires after the duration below. A new duration applies to "
+"links created afterwards."
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Link lifetime (days)"
+msgstr ""
+
+#: templates/config_form.html.twig
+#, php-format
+msgid ""
+"Between %1$d and %2$d days. Default: 365 days, so that a subscribed calendar "
+"keeps working for a year without any action."
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Approval of security policies by management"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid ""
+"When enabled, a policy becomes \"Approved\" only once its designated "
+"approvers have approved a frozen version (PDF and SHA-256 fingerprint). "
+"Policies already approved stay approved; they are marked \"approved before "
+"the workflow\". Each policy can have its own approvers and rule in its "
+"\"Approval\" tab."
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Enable the approval workflow for security policies"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Default approvers (people)"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Default approvers (groups)"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Default approval rule"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Whatever the rule, one rejection rejects the version."
+msgstr ""
+
+#: templates/config_form.html.twig hook.php:427
+#: src/Services/Dashboard/SecurityIncidentCardProvider.php:232
+msgid "Security incidents"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid ""
+"Enables or disables each part of the security incident management module "
+"(dedicated ITIL object, visible in the Assistance menu)."
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Security incidents module (Assistance menu)"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "CVE tracking"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Incident templates"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Dashboard cards"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "CRA reporting (manufacturers of products with digital elements)"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid ""
+"Adds to security incidents the reporting deadlines of the Cyber Resilience "
+"Act (Regulation (EU) 2024/2847, article 14): actively exploited "
+"vulnerability or severe incident affecting a product you place on the "
+"market. The DORA deadlines appear when the DORA framework is enabled."
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Security group (optional)"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid ""
+"If set, only the members of this group use the security incidents module, "
+"whatever the rights of their profile. A GLPI administrator is never blocked, "
+"but each of their consultations outside the group is flagged in the audit "
+"log."
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Outgoing connections"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Internal addresses allowed"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Internal addresses refused"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid ""
+"For security, the plugin never calls an internal address (the server itself, "
+"a private network, the metadata of a cloud provider) and never follows a "
+"redirection. Allow internal addresses only if your organisation reaches "
+"these services through an internal mirror or relay. This setting applies to "
+"all entities."
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Allow internal addresses"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid ""
+"Only a GLPI administrator (right to update the general configuration) can "
+"change this setting."
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "CVE enrichment (NVD)"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid ""
+"Automatically retrieves the CVSS score, severity, description and patch "
+"links for each tracked CVE, from the public NVD (National Vulnerability "
+"Database). No data is ever invented: if the NVD hasn't analyzed a CVE yet, "
+"nothing is shown until it has."
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Enable NVD enrichment"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Alert threshold (CVSS score)"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "A CVE with an equal or higher score is highlighted as urgent."
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Fleet vulnerability tickets"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Automatically create a ticket for each vulnerability above a threshold"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Actively exploited vulnerability (CISA KEV catalog)"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "or CVSS of at least"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "or exploitation probability (EPSS, %) of at least"
+msgstr ""
+
+#: templates/config_form.html.twig
+#, php-format
+msgid ""
+"A single open ticket per software, detailing its vulnerabilities and linked "
+"to the affected machines. At most %d tickets are created per run, most "
+"severe first. A followup is added when more machines are affected, when a "
+"vulnerability becomes actively exploited, or when no machine is vulnerable "
+"anymore. The ticket is never closed and its priority never changed "
+"automatically."
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Vulnerability remediation deadlines"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid ""
+"How many days the team has to fix a vulnerability of the fleet, by level "
+"(ISO 27001 A.8.8). The fleet vulnerabilities page, the dashboard cards and "
+"the report by email then show the due dates, the overdue vulnerabilities and "
+"the share fixed on time."
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Track remediation deadlines"
+msgstr ""
+
+#: templates/config_form.html.twig
+#: templates/policy_acknowledgement_tab.html.twig
+#: templates/dora/arrangement_tab.html.twig
+msgid "days"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Deadline on assets with a high C/I/A classification (%)"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid ""
+"50 = half the normal deadline when a vulnerable machine is classified high "
+"in confidentiality, integrity or availability. 100 = no shorter deadline."
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid ""
+"The deadline runs from the first detection of the vulnerability. A "
+"vulnerability covered by an approved waiver in progress follows the end date "
+"of the waiver, and becomes overdue again when it expires. Tickets show the "
+"due date, but their priority and status are never changed."
+msgstr ""
+
+#: templates/config_form.html.twig src/VulnerabilityDigest.php:268
+msgid "Fleet vulnerability report by email"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid ""
+"A regular email listing the vulnerabilities of the fleet that are exploited, "
+"likely to be exploited, critical or high. Its subject shows the urgency at a "
+"glance, for instance \"[URGENT] 2 actively exploited vulnerabilities, 14 "
+"machines exposed\"."
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Send the report"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Include vulnerabilities from CVSS"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "7 = high and critical. Exploited vulnerabilities are always included."
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Last report"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "none yet"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Next report"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid ""
+"Recipients: the CISO group, and anyone added to the notification who can "
+"read the vulnerabilities of the whole fleet."
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Change the recipients or the text"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid ""
+"The vulnerability watch (NVD enrichment) is disabled: no report is sent."
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid ""
+"Email notifications are disabled in GLPI (Setup > Notifications): the report "
+"cannot reach anyone."
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid ""
+"No CISO group is set (Audit team section above): add recipients to the "
+"notification, or the report will reach nobody."
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid ""
+"The notification \"GRC Manager - Fleet vulnerability report\" is inactive."
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Sends the report now to its recipients, whatever the frequency."
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Send the report now"
+msgstr ""
+
+#: templates/config_form.html.twig templates/tabs/ebios_workshop4.html.twig
+#: templates/pdf/ebios_study_report.html.twig
+msgid "Risk matrix"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid ""
+"Automatically determines a risk's level (low/medium/high/critical) from its "
+"probability and impact. The default values below reproduce exactly the "
+"register's behaviour before this screen existed: no existing risk changes "
+"level until you edit the grid."
+msgstr ""
+
+#: templates/config_form.html.twig templates/risk_heatmap.html.twig
+#: templates/supplier_risk_form.html.twig templates/risk_form.html.twig
+#: src/Risk.php:362 src/RiskRegisterImport.php:591 src/SupplierRisk.php:192
+msgid "Probability"
+msgstr ""
+
+#: templates/config_form.html.twig templates/tabs/business_impact.html.twig
+#: templates/risk_heatmap.html.twig templates/supplier_risk_form.html.twig
+#: templates/itil_analysis_section.html.twig templates/risk_form.html.twig
+#: src/Risk.php:370 src/RiskRegisterImport.php:592
+#: src/SecurityIncidentTechnique.php:67 src/SupplierRisk.php:200
+msgid "Impact"
+msgstr ""
+
 #: templates/policy_acknowledgement_tab.html.twig
 #, php-format
 msgid "%d person(s) currently match"
@@ -1815,40 +3809,19 @@ msgid "Response deadline"
 msgstr ""
 
 #: templates/policy_acknowledgement_tab.html.twig
-#: templates/dora/arrangement_tab.html.twig
-msgid "days"
-msgstr ""
-
-#: templates/policy_acknowledgement_tab.html.twig
-#: templates/dora/function_tab.html.twig templates/dora/register.html.twig
-#: templates/dora/arrangement_tab.html.twig
-#: templates/dora/provider_tab.html.twig templates/periodic_reviews.html.twig
-msgid "Save"
-msgstr ""
-
-#: templates/policy_acknowledgement_tab.html.twig
 msgid ""
 "Counted from the launch of each campaign. Late people are reminded by email "
 "once a week; nothing else happens to them."
 msgstr ""
 
 #: templates/policy_acknowledgement_tab.html.twig
-#: templates/park_vulnerabilities.html.twig
+#: templates/park_vulnerabilities.html.twig templates/account_hygiene.html.twig
 #, php-format
 msgid "%d days"
 msgstr ""
 
 #: templates/policy_acknowledgement_tab.html.twig
 msgid "Acknowledgement campaign"
-msgstr ""
-
-#: templates/policy_acknowledgement_tab.html.twig src/AccessReview.php:104
-#: src/Audit.php:95 src/Audit.php:294 src/Control.php:135 src/Control.php:597
-#: src/DataSubjectRequest.php:97 src/EbiosStudy.php:90
-#: src/IsmsRequirement.php:154 src/RiskTreatmentAction.php:88
-#: src/RiskTreatmentAction.php:159 src/SecurityIncidentPlaybookTask.php:64
-#: src/Waiver.php:101
-msgid "In progress"
 msgstr ""
 
 #: templates/policy_acknowledgement_tab.html.twig src/AccessReview.php:105
@@ -2019,6 +3992,59 @@ msgstr ""
 msgid "Replaced by a newer version"
 msgstr ""
 
+#: templates/business_process_form.html.twig
+msgid "Example: \"Payroll\", \"Order taking\", \"Customer support\"."
+msgstr ""
+
+#: templates/business_process_form.html.twig
+#: templates/tabs/business_process_items.html.twig
+#: templates/pdf/business_continuity_report.html.twig
+#: src/BusinessProcess.php:545 src/BusinessProcess.php:624
+#: src/NotificationTargetBusinessProcess.php:159
+msgid "Business criticality"
+msgstr ""
+
+#: templates/business_process_form.html.twig
+msgid ""
+"Same list as the business criticality of assets (financial information)."
+msgstr ""
+
+#: templates/business_process_form.html.twig
+#: templates/tabs/business_impact.html.twig
+#: templates/tabs/risk_business_processes.html.twig
+#: templates/tabs/business_process_links.html.twig
+#: templates/tabs/item_business_processes.html.twig
+#: templates/pdf/business_continuity_report.html.twig
+#: src/BusinessProcess.php:546 src/BusinessProcess.php:628
+msgid "MTPD"
+msgstr ""
+
+#: templates/business_process_form.html.twig
+msgid ""
+"Maximum tolerable period of disruption: beyond it, the impact is no longer "
+"acceptable."
+msgstr ""
+
+#: templates/business_process_form.html.twig
+msgid ""
+"Recovery time objective: time within which the process must be running again."
+msgstr ""
+
+#: templates/business_process_form.html.twig
+msgid "Recovery point objective: maximum acceptable data loss."
+msgstr ""
+
+#: templates/business_process_form.html.twig
+#: templates/pdf/business_continuity_report.html.twig
+#: src/BusinessProcess.php:549 src/BusinessProcess.php:641
+#: src/NotificationTargetBusinessProcess.php:162
+msgid "Last business impact analysis"
+msgstr ""
+
+#: templates/business_process_form.html.twig
+msgid "Set automatically when the analysis is saved."
+msgstr ""
+
 #: templates/waiver_tab.html.twig
 msgid "New waiver for this item"
 msgstr ""
@@ -2049,6 +4075,7 @@ msgid "Single points of failure"
 msgstr ""
 
 #: templates/impact_spof.html.twig
+#: templates/business_process_list_header.html.twig
 msgid "Export for the business continuity plan (CSV)"
 msgstr ""
 
@@ -2077,6 +4104,95 @@ msgstr ""
 msgid "See the impact"
 msgstr ""
 
+#: templates/control_csv.html.twig
+msgid ""
+"Export the current state of the Statement of Applicability, edit it in a "
+"spreadsheet, then re-import the file to apply the changes at once."
+msgstr ""
+
+#: templates/control_csv.html.twig
+msgid "Download the current CSV"
+msgstr ""
+
+#: templates/control_csv.html.twig
+msgid ""
+"No usable row was found in this file: check that it is really a CSV exported "
+"from this screen (semicolon-separated columns)."
+msgstr ""
+
+#: templates/control_csv.html.twig
+#, php-format
+msgid "%d control(s) updated."
+msgstr ""
+
+#: templates/control_csv.html.twig
+#, php-format
+msgid "%d row(s) rejected:"
+msgstr ""
+
+#: templates/control_csv.html.twig
+msgid "(empty row)"
+msgstr ""
+
+#: templates/control_csv.html.twig
+msgid "Import a modified CSV"
+msgstr ""
+
+#: templates/control_csv.html.twig
+msgid ""
+"Expected file: the one downloaded above, possibly edited (semicolon-"
+"separated columns). Only the applicabilite, etat_mise_en_oeuvre and "
+"justification columns are applied, matched by the control's code. No row is "
+"ever created or deleted."
+msgstr ""
+
+#: templates/control_list_header.html.twig
+#, php-format
+msgid "Statement of Applicability of the entity \"%s\"."
+msgstr ""
+
+#: templates/control_list_header.html.twig
+#, php-format
+msgid "The entity \"%1$s\" follows the SoA of the entity \"%2$s\"."
+msgstr ""
+
+#: templates/control_list_header.html.twig
+msgid ""
+"Create a separate SoA for this entity? Its 93 controls start from the "
+"current applicability and justifications, and every control has to be "
+"implemented again in this entity."
+msgstr ""
+
+#: templates/control_list_header.html.twig
+msgid "Create the SoA of this entity"
+msgstr ""
+
+#: templates/control_list_header.html.twig
+msgid ""
+"Statement of Applicability (SoA) - ISO/IEC 27001:2022 clause 6.1.3, Annex A "
+"(93 controls)."
+msgstr ""
+
+#: templates/control_list_header.html.twig
+#: templates/isms_requirement_list_header.html.twig
+#: templates/risk_list_actions.html.twig front/audit.php:47
+#: front/databreach.php:44 front/processingactivity.php:44
+msgid "Export PDF"
+msgstr ""
+
+#: templates/control_list_header.html.twig
+msgid "CSV import/export"
+msgstr ""
+
+#: templates/control_list_header.html.twig templates/pdf/soa_report.html.twig
+msgid "Management approval"
+msgstr ""
+
+#: templates/control_list_header.html.twig
+#, php-format
+msgid "Version %d of the SoA is awaiting your approval."
+msgstr ""
+
 #: templates/document_accesses_tab.html.twig
 msgid ""
 "Every download of a document of the audit or its findings, by a team member "
@@ -2085,21 +4201,6 @@ msgstr ""
 
 #: templates/document_accesses_tab.html.twig
 msgid "No document of this audit has been downloaded yet."
-msgstr ""
-
-#: templates/document_accesses_tab.html.twig
-#: templates/supplier_security_watch.html.twig
-#: templates/tabs/action_log.html.twig
-#: templates/tabs/item_security_incidents.html.twig
-#: templates/pdf/crisis_exercise_report.html.twig
-#: templates/pdf/policy_approval_record.html.twig
-#: templates/pdf/action_log.html.twig templates/pdf/postmortem_report.html.twig
-#: src/AuditLog.php:232
-msgid "Date"
-msgstr ""
-
-#: templates/document_accesses_tab.html.twig src/AuditLog.php:232
-msgid "User"
 msgstr ""
 
 #: templates/document_accesses_tab.html.twig templates/evidence_tab.html.twig
@@ -2172,17 +4273,6 @@ msgid "Last CERT-FR check: %s."
 msgstr ""
 
 #: templates/supplier_security_watch.html.twig
-#: templates/tabs/item_security_incidents.html.twig
-#: templates/risk_import.html.twig templates/dora/register.html.twig
-#: templates/processing_activity_form.html.twig
-#: inc/securityincident.class.php:932
-#: src/NotificationTargetAuditEvidenceRequest.php:154
-#: src/ProcessingActivity.php:548 src/ProcessingActivity.php:991
-#: src/RiskRegisterImport.php:587
-msgid "Reference"
-msgstr ""
-
-#: templates/supplier_security_watch.html.twig
 msgid "Alert"
 msgstr ""
 
@@ -2222,12 +4312,6 @@ msgstr ""
 msgid ""
 "Management system requirements - ISO/IEC 27001:2022 clauses 4 to 10 "
 "(references and short titles only)."
-msgstr ""
-
-#: templates/isms_requirement_list_header.html.twig
-#: templates/risk_list_actions.html.twig front/audit.php:47
-#: front/databreach.php:44 front/processingactivity.php:44
-msgid "Export PDF"
 msgstr ""
 
 #: templates/isms_requirement_list_header.html.twig
@@ -2288,7 +4372,7 @@ msgstr ""
 msgid "CISA KEV catalog updated"
 msgstr ""
 
-#: templates/park_vulnerabilities.html.twig
+#: templates/park_vulnerabilities.html.twig templates/account_hygiene.html.twig
 #: templates/periodic_reviews.html.twig src/ControlTestReminder.php:79
 msgid "Never"
 msgstr ""
@@ -2556,10 +4640,6 @@ msgid "Container images (Harbor)"
 msgstr ""
 
 #: templates/park_vulnerabilities.html.twig
-msgid "View Harbor images"
-msgstr ""
-
-#: templates/park_vulnerabilities.html.twig
 msgid "No deployed container image has critical or high vulnerabilities."
 msgstr ""
 
@@ -2573,15 +4653,6 @@ msgstr ""
 #: templates/park_vulnerabilities.html.twig
 #, php-format
 msgid "%1$d services: the %2$d most exposed are shown."
-msgstr ""
-
-#: templates/park_vulnerabilities.html.twig
-#: templates/network_flow_matrix.html.twig
-msgid "Service"
-msgstr ""
-
-#: templates/park_vulnerabilities.html.twig
-msgid "Image"
 msgstr ""
 
 #: templates/park_vulnerabilities.html.twig templates/risk_heatmap.html.twig
@@ -2604,7 +4675,8 @@ msgstr ""
 msgid "Fixable"
 msgstr ""
 
-#: templates/isms_requirement_form.html.twig templates/pdf/soa_report.html.twig
+#: templates/isms_requirement_form.html.twig
+#: templates/custom_framework_form.html.twig templates/pdf/soa_report.html.twig
 #: src/IsmsRequirement.php:254
 msgid "Requirement"
 msgstr ""
@@ -2628,8 +4700,298 @@ msgstr ""
 msgid "This plugin module already produces evidence for this requirement."
 msgstr ""
 
+#: templates/crisis_room.html.twig
+#: templates/pdf/crisis_exercise_report.html.twig
+#: src/DataSubjectRequest.php:109
+msgid "On time"
+msgstr ""
+
+#: templates/crisis_room.html.twig
+#: templates/pdf/crisis_exercise_report.html.twig
+#: templates/itil_regulatory_section.html.twig
+#: src/SecurityIncidentPlaybookTask.php:61
+msgid "To do"
+msgstr ""
+
+#: templates/crisis_room.html.twig
+#: templates/pdf/crisis_exercise_report.html.twig
+msgid "Not done"
+msgstr ""
+
+#: templates/crisis_room.html.twig
+#: templates/pdf/crisis_exercise_report.html.twig
+msgid "Restored within RTO"
+msgstr ""
+
+#: templates/crisis_room.html.twig
+#: templates/pdf/crisis_exercise_report.html.twig
+msgid "Restored after RTO"
+msgstr ""
+
+#: templates/crisis_room.html.twig
+#: templates/pdf/crisis_exercise_report.html.twig
+#: templates/custom_framework_list.html.twig front/customframework.php:147
+msgid "Restored"
+msgstr ""
+
+#: templates/crisis_room.html.twig
+#: templates/pdf/crisis_exercise_report.html.twig
+msgid "Recovery in progress"
+msgstr ""
+
+#: templates/crisis_room.html.twig
+#: templates/pdf/crisis_exercise_report.html.twig
+msgid "RTO exceeded"
+msgstr ""
+
+#: templates/crisis_room.html.twig
+#: templates/pdf/crisis_exercise_report.html.twig src/ConsistencyCheck.php:1185
+msgid "RTO not set"
+msgstr ""
+
+#: templates/crisis_room.html.twig
+#: templates/pdf/crisis_exercise_report.html.twig
+msgid "EXERCISE"
+msgstr ""
+
+#: templates/crisis_room.html.twig
+msgid ""
+"no real incident is in progress. The steps are also tasks of the exercise "
+"incident."
+msgstr ""
+
+#: templates/crisis_room.html.twig
+msgid "CRISIS TEAM"
+msgstr ""
+
+#: templates/crisis_room.html.twig
+msgid ""
+"real incident. The steps are incident tasks and the log is saved in its "
+"followups."
+msgstr ""
+
+#: templates/crisis_room.html.twig
+#: templates/pdf/crisis_exercise_report.html.twig
+msgid "Exercise incident"
+msgstr ""
+
+#: templates/crisis_room.html.twig
+msgid "All exercises"
+msgstr ""
+
+#: templates/crisis_room.html.twig
+#, php-format
+msgid "Started on %1$s by %2$s."
+msgstr ""
+
+#: templates/crisis_room.html.twig
+msgid "Plan steps"
+msgstr ""
+
+#: templates/crisis_room.html.twig templates/tabs/playbook_steps.html.twig
+#: templates/pdf/crisis_exercise_report.html.twig
+msgid "Step"
+msgstr ""
+
+#: templates/crisis_room.html.twig
+#: templates/pdf/crisis_exercise_report.html.twig
+msgid "Target"
+msgstr ""
+
+#: templates/crisis_room.html.twig
+#: templates/pdf/crisis_exercise_report.html.twig
+msgid "Done at"
+msgstr ""
+
+#: templates/crisis_room.html.twig
+#: templates/pdf/crisis_exercise_report.html.twig
+#: templates/pdf/postmortem_report.html.twig
+msgid "Outcome"
+msgstr ""
+
+#: templates/crisis_room.html.twig templates/itil_regulatory_section.html.twig
+msgctxt "task"
+msgid "Done"
+msgstr ""
+
+#: templates/crisis_room.html.twig
+#: templates/pdf/crisis_exercise_report.html.twig
+msgid "Recovery of affected items"
+msgstr ""
+
+#: templates/crisis_room.html.twig
+msgid ""
+"No item linked to the incident. Add the affected items in the incident's "
+"\"Items\" tab: their recovery, and that of what depends on them, will be "
+"tracked here against their RTO."
+msgstr ""
+
+#: templates/crisis_room.html.twig
+#: templates/tabs/business_process_items.html.twig
+#: templates/impact_tab.html.twig templates/my_space.html.twig
+#: templates/compliance_audit_ticket.html.twig
+#: templates/pdf/crisis_exercise_report.html.twig
+#: templates/pdf/business_continuity_report.html.twig
+#: templates/pdf/consistency_report.html.twig templates/dora/register.html.twig
+#: front/consistencycheck.export.php:52 src/Evidence.php:387
+#: src/ImpactAnalysis.php:225 src/NotificationTargetEvidence.php:113
+msgid "Item"
+msgstr ""
+
+#: templates/crisis_room.html.twig
+msgid "Affected by the incident"
+msgstr ""
+
+#: templates/crisis_room.html.twig
+msgid "Depends on an affected item"
+msgstr ""
+
+#: templates/crisis_room.html.twig
+#, php-format
+msgid "restored by %s"
+msgstr ""
+
+#: templates/crisis_room.html.twig
+msgid ""
+"The RTO is set in each item's \"Classification\" tab; it is counted from the "
+"opening of the crisis room."
+msgstr ""
+
+#: templates/crisis_room.html.twig
+msgid "Business processes tested"
+msgstr ""
+
+#: templates/crisis_room.html.twig
+msgid "No recovery time recorded for a business process during this exercise."
+msgstr ""
+
+#: templates/crisis_room.html.twig templates/tabs/ebios_workshop1.html.twig
+#: templates/tabs/risk_business_processes.html.twig
+#: templates/tabs/business_process_links.html.twig
+#: templates/tabs/item_business_processes.html.twig
+#: templates/_impact_graph.html.twig
+#: templates/pdf/business_continuity_report.html.twig
+#: src/BusinessProcess.php:53
+msgid "Business process"
+msgid_plural "Business processes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/crisis_room.html.twig
+#: templates/tabs/business_process_recovery.html.twig
+#: templates/pdf/business_continuity_report.html.twig
+msgid "Measured time"
+msgstr ""
+
+#: templates/crisis_room.html.twig
+#: templates/tabs/business_process_recovery.html.twig
+#: templates/pdf/business_continuity_report.html.twig
+msgid "Above the RTO"
+msgstr ""
+
+#: templates/crisis_room.html.twig
+#: templates/tabs/business_process_links.html.twig
+#: templates/pdf/business_continuity_report.html.twig
+#, php-format
+msgid "%d other process you cannot see is not listed."
+msgid_plural "%d other processes you cannot see are not listed."
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/crisis_room.html.twig
+#: templates/tabs/business_process_recovery.html.twig
+msgid "Measured time (minutes)"
+msgstr ""
+
+#: templates/crisis_room.html.twig
+msgid "Record"
+msgstr ""
+
+#: templates/crisis_room.html.twig
+msgid ""
+"The measured time is compared with the RTO of the process and becomes its "
+"last recovery test."
+msgstr ""
+
+#: templates/crisis_room.html.twig
+#: templates/pdf/crisis_exercise_report.html.twig
+msgid "Crisis log"
+msgstr ""
+
+#: templates/crisis_room.html.twig
+msgid "Decision, finding, call made… (timestamped automatically)"
+msgstr ""
+
+#: templates/crisis_room.html.twig
+msgid "New log entry"
+msgstr ""
+
+#: templates/crisis_room.html.twig
+msgid "No entry yet."
+msgstr ""
+
+#: templates/crisis_room.html.twig
+msgid "Private"
+msgstr ""
+
+#: templates/crisis_room.html.twig
+msgctxt "summary"
+msgid "Outcome"
+msgstr ""
+
+#: templates/crisis_room.html.twig
+msgid "RTOs exceeded"
+msgstr ""
+
+#: templates/crisis_room.html.twig
+msgid "Open the exercise report"
+msgstr ""
+
+#: templates/crisis_room.html.twig
+msgid "Open the crisis report"
+msgstr ""
+
+#: templates/crisis_room.html.twig
+msgid "Regenerate the report"
+msgstr ""
+
+#: templates/crisis_room.html.twig
+msgid ""
+"Fill in the lessons learned on the incident, then regenerate the report to "
+"include them."
+msgstr ""
+
+#: templates/crisis_room.html.twig
+msgid "Finish the exercise? Steps not done will be counted as missed."
+msgstr ""
+
+#: templates/crisis_room.html.twig
+msgid "Finish the exercise and generate the report"
+msgstr ""
+
+#: templates/crisis_room.html.twig
+msgid ""
+"The PDF report is archived on the exercise incident and as evidence on SoA "
+"controls A.5.29 and A.5.30."
+msgstr ""
+
+#: templates/crisis_room.html.twig
+msgid "Close the crisis team? The timer stops; the incident itself stays open."
+msgstr ""
+
+#: templates/crisis_room.html.twig
+msgid "Close the crisis team and generate the report"
+msgstr ""
+
+#: templates/crisis_room.html.twig
+msgid ""
+"The PDF report is archived on the incident and as evidence on SoA controls "
+"A.5.26 and A.5.29."
+msgstr ""
+
 #: templates/network_flow_form.html.twig
 #: templates/processing_activity_tab.html.twig
+#: templates/compliance_event_form.html.twig
 #: templates/network_flow_matrix.html.twig
 #: templates/pdf/network_flow_report.html.twig
 #: templates/processing_activity_form.html.twig
@@ -2641,10 +5003,6 @@ msgstr ""
 
 #: templates/network_flow_form.html.twig
 msgid "If left empty, it is built from the source and destination."
-msgstr ""
-
-#: templates/network_flow_form.html.twig src/NetworkFlow.php:270
-msgid "Active"
 msgstr ""
 
 #: templates/network_flow_form.html.twig
@@ -2664,11 +5022,6 @@ msgid "Protocol"
 msgstr ""
 
 #: templates/network_flow_form.html.twig
-#: templates/network_flow_import.html.twig src/NetworkFlow.php:262
-msgid "Ports"
-msgstr ""
-
-#: templates/network_flow_form.html.twig
 msgid "Empty: all ports."
 msgstr ""
 
@@ -2680,12 +5033,6 @@ msgstr ""
 
 #: templates/network_flow_form.html.twig
 msgid "For a temporary flow (migration, contractor)."
-msgstr ""
-
-#: templates/network_flow_form.html.twig
-#: templates/processing_activity_form.html.twig src/BreachExposure.php:143
-#: src/NetworkFlow.php:277
-msgid "Comments"
 msgstr ""
 
 #: templates/network_flow_form.html.twig
@@ -2728,18 +5075,16 @@ msgid "Console:"
 msgstr ""
 
 #: templates/nonconformity_form.html.twig
-msgid "Origin"
-msgstr ""
-
-#: templates/nonconformity_form.html.twig
 msgid ""
 "Action plan proposed from the CVE: review and adapt each field, then click "
 "\"Add\". Nothing is created before."
 msgstr ""
 
 #: templates/nonconformity_form.html.twig
+#: templates/audit_findings_tab.html.twig
 #: templates/pdf/internal_audit_report.html.twig
-#: templates/pdf/audit_report.html.twig src/Nonconformity.php:237
+#: templates/pdf/audit_report.html.twig templates/auditor_space.html.twig
+#: src/Nonconformity.php:237
 msgid "Finding type"
 msgstr ""
 
@@ -2756,6 +5101,74 @@ msgstr ""
 msgid "Preventive action"
 msgstr ""
 
+#: templates/coverage_result.html.twig
+msgid "No asset of this type in your entities: nothing to cover."
+msgstr ""
+
+#: templates/coverage_result.html.twig
+#, php-format
+msgid "%1$d of %2$d asset(s) covered"
+msgstr ""
+
+#: templates/coverage_result.html.twig
+msgid "All assets have the required document."
+msgstr ""
+
+#: templates/coverage_result.html.twig
+msgid "Assets without the required document"
+msgstr ""
+
+#: templates/coverage_result.html.twig
+msgid "Each link opens the asset's Documents tab, to attach the document."
+msgstr ""
+
+#: templates/coverage_result.html.twig
+msgid "Only the first assets are listed."
+msgstr ""
+
+#: templates/coverage_rule_form.html.twig
+msgid "Example: \"Firewall filtering policy\"."
+msgstr ""
+
+#: templates/coverage_rule_form.html.twig src/AssetClassification.php:111
+#: src/CoverageRule.php:332
+msgid "Asset type"
+msgstr ""
+
+#: templates/coverage_rule_form.html.twig
+msgid "Subtype (optional)"
+msgstr ""
+
+#: templates/coverage_rule_form.html.twig
+msgid ""
+"To count only part of the assets, for example only the firewalls among "
+"network devices."
+msgstr ""
+
+#: templates/coverage_rule_form.html.twig
+msgid "Save the rule to choose a subtype, if this asset type has any."
+msgstr ""
+
+#: templates/coverage_rule_form.html.twig src/CoverageRule.php:337
+msgid "Required document category"
+msgstr ""
+
+#: templates/coverage_rule_form.html.twig
+msgid ""
+"An asset is covered if it has at least one document of this category in its "
+"Documents tab."
+msgstr ""
+
+#: templates/coverage_rule_form.html.twig templates/waiver_form.html.twig
+#: src/CoverageRule.php:341 src/Waiver.php:499
+msgctxt "measure"
+msgid "Annex A control"
+msgstr ""
+
+#: templates/coverage_rule_form.html.twig src/CoverageRule.php:345
+msgid "ISMS requirement"
+msgstr ""
+
 #: templates/tabs/ebios_workshop1.html.twig
 msgid ""
 "List what must be protected (business values), what you fear for it and how "
@@ -2769,18 +5182,6 @@ msgstr ""
 #: templates/tabs/ebios_workshop1.html.twig
 msgid "e.g. Taking customer orders"
 msgstr ""
-
-#: templates/tabs/ebios_workshop1.html.twig
-#: templates/tabs/risk_business_processes.html.twig
-#: templates/tabs/business_process_links.html.twig
-#: templates/tabs/item_business_processes.html.twig
-#: templates/_impact_graph.html.twig
-#: templates/pdf/business_continuity_report.html.twig
-#: src/BusinessProcess.php:53
-msgid "Business process"
-msgid_plural "Business processes"
-msgstr[0] ""
-msgstr[1] ""
 
 #: templates/tabs/ebios_workshop1.html.twig
 #: templates/pdf/ebios_study_report.html.twig
@@ -2848,15 +5249,6 @@ msgid "Continuity plan of this process (PDF)"
 msgstr ""
 
 #: templates/tabs/business_impact.html.twig
-#: templates/tabs/risk_business_processes.html.twig
-#: templates/tabs/business_process_links.html.twig
-#: templates/tabs/item_business_processes.html.twig
-#: templates/pdf/business_continuity_report.html.twig
-#: src/BusinessProcess.php:546 src/BusinessProcess.php:628
-msgid "MTPD"
-msgstr ""
-
-#: templates/tabs/business_impact.html.twig
 #: templates/tabs/business_process_recovery.html.twig
 #: templates/pdf/processing_register_report.html.twig
 #: templates/pdf/data_breach_register.html.twig
@@ -2880,14 +5272,6 @@ msgid ""
 "Rate the impact of an interruption of the process for each duration, from "
 "negligible to critical. The MTPD must not exceed the first duration rated "
 "serious, and the RTO must not exceed the MTPD."
-msgstr ""
-
-#: templates/tabs/business_impact.html.twig templates/risk_heatmap.html.twig
-#: templates/supplier_risk_form.html.twig
-#: templates/itil_analysis_section.html.twig templates/risk_form.html.twig
-#: src/Risk.php:370 src/RiskRegisterImport.php:592
-#: src/SecurityIncidentTechnique.php:67 src/SupplierRisk.php:200
-msgid "Impact"
 msgstr ""
 
 #: templates/tabs/business_impact.html.twig
@@ -2966,24 +5350,6 @@ msgid "Remove this indicator?"
 msgstr ""
 
 #: templates/tabs/business_process_items.html.twig
-#: templates/impact_tab.html.twig templates/my_space.html.twig
-#: templates/pdf/crisis_exercise_report.html.twig
-#: templates/pdf/business_continuity_report.html.twig
-#: templates/pdf/consistency_report.html.twig templates/dora/register.html.twig
-#: front/consistencycheck.export.php:52 src/Evidence.php:387
-#: src/ImpactAnalysis.php:225 src/NotificationTargetEvidence.php:113
-msgid "Item"
-msgstr ""
-
-#: templates/tabs/business_process_items.html.twig
-#: templates/tabs/business_process_links.html.twig
-#: templates/tabs/incident_team.html.twig
-#: templates/tabs/item_business_processes.html.twig
-#: templates/pdf/business_continuity_report.html.twig
-msgid "Role"
-msgstr ""
-
-#: templates/tabs/business_process_items.html.twig
 msgid "E.g. \"Payroll application\", \"Main database\""
 msgstr ""
 
@@ -3004,19 +5370,6 @@ msgstr ""
 #: templates/tabs/business_process_links.html.twig
 #: templates/impact_tab.html.twig
 msgid "Dependency"
-msgstr ""
-
-#: templates/tabs/business_process_items.html.twig
-#: templates/pdf/business_continuity_report.html.twig
-#: src/BusinessProcess.php:545 src/BusinessProcess.php:624
-#: src/NotificationTargetBusinessProcess.php:159
-msgid "Business criticality"
-msgstr ""
-
-#: templates/tabs/business_process_items.html.twig
-#: templates/impact_tab.html.twig inc/securityincident.class.php:276
-#: src/AssetClassification.php:135 src/ImpactAnalysis.php:226
-msgid "Availability"
 msgstr ""
 
 #: templates/tabs/business_process_items.html.twig
@@ -3086,19 +5439,14 @@ msgid "Campaign"
 msgstr ""
 
 #: templates/tabs/control_access_reviews.html.twig
-#: templates/waiver_form.html.twig src/AccessReview.php:316 src/Waiver.php:506
+#: templates/access_review_form.html.twig templates/waiver_form.html.twig
+#: src/AccessReview.php:316 src/Waiver.php:506
 msgid "Start date"
 msgstr ""
 
 #: templates/tabs/control_access_reviews.html.twig
 #: templates/pdf/access_review_report.html.twig
 msgid "Accounts reviewed"
-msgstr ""
-
-#: templates/tabs/control_access_reviews.html.twig
-#: templates/tabs/incident_playbook.html.twig
-#: templates/pdf/remediation_plan.html.twig
-msgid "Report"
 msgstr ""
 
 #: templates/tabs/control_access_reviews.html.twig
@@ -3155,14 +5503,6 @@ msgstr ""
 msgid "Required RPO: %1$s (process %2$s)"
 msgstr ""
 
-#: templates/tabs/business_process_links.html.twig
-#: templates/pdf/business_continuity_report.html.twig
-#, php-format
-msgid "%d other process you cannot see is not listed."
-msgid_plural "%d other processes you cannot see are not listed."
-msgstr[0] ""
-msgstr[1] ""
-
 #: templates/tabs/action_log.html.twig
 msgid "action(s)"
 msgstr ""
@@ -3187,7 +5527,8 @@ msgstr ""
 msgid "Exact command or operation"
 msgstr ""
 
-#: templates/tabs/action_log.html.twig src/ControlTest.php:865
+#: templates/tabs/action_log.html.twig templates/control_test_tab.html.twig
+#: src/ControlTest.php:865
 msgid "Finding"
 msgstr ""
 
@@ -3222,11 +5563,6 @@ msgstr ""
 msgid "Filter by result"
 msgstr ""
 
-#: templates/tabs/action_log.html.twig src/NetworkFlow.php:106
-#: src/NetworkFlow.php:667 src/ParkVulnerability.php:126
-msgid "All"
-msgstr ""
-
 #: templates/tabs/action_log.html.twig
 msgid "Remove this action from the log?"
 msgstr ""
@@ -3252,6 +5588,7 @@ msgid "Launch the campaign"
 msgstr ""
 
 #: templates/tabs/access_review_lines.html.twig
+#: templates/access_review_mine.html.twig
 #, php-format
 msgid "%1$d of %2$d account(s) reviewed"
 msgstr ""
@@ -3280,6 +5617,7 @@ msgid "Prepare the next campaign"
 msgstr ""
 
 #: templates/tabs/access_review_lines.html.twig
+#: templates/access_review_mine.html.twig
 msgid "Save decisions"
 msgstr ""
 
@@ -3402,12 +5740,6 @@ msgstr ""
 #: src/Policy.php:99 src/Policy.php:246 src/PolicyVersion.php:116
 #: src/SoaVersion.php:91
 msgid "Approved"
-msgstr ""
-
-#: templates/tabs/dpia.html.twig templates/pdf/dpia_report.html.twig
-#: templates/policy_approval_tab.html.twig src/Policy.php:98 src/Policy.php:245
-#: src/ProcessingActivity.php:130
-msgid "Draft"
 msgstr ""
 
 #: templates/tabs/dpia.html.twig
@@ -3585,14 +5917,6 @@ msgid "In the risk register"
 msgstr ""
 
 #: templates/tabs/ebios_workshop5.html.twig
-#: templates/tabs/ebios_workshop3.html.twig
-#: templates/tabs/ebios_workshop4.html.twig
-#: templates/pdf/crisis_exercise_report.html.twig
-#: templates/pdf/ebios_study_report.html.twig
-msgid "Scenario"
-msgstr ""
-
-#: templates/tabs/ebios_workshop5.html.twig
 #: templates/tabs/ebios_workshop4.html.twig
 #: templates/tabs/business_process_risks.html.twig
 #: templates/risk_asset_tab.html.twig
@@ -3625,10 +5949,6 @@ msgstr ""
 #: templates/dora/arrangement_tab.html.twig
 #: templates/dora/provider_tab.html.twig
 msgid "Not in the register"
-msgstr ""
-
-#: templates/tabs/incident_team.html.twig
-msgid "Member"
 msgstr ""
 
 #: templates/tabs/incident_team.html.twig
@@ -3668,11 +5988,6 @@ msgstr ""
 #: templates/tabs/playbook_steps.html.twig
 #: templates/tabs/incident_playbook.html.twig
 msgid "Phase"
-msgstr ""
-
-#: templates/tabs/playbook_steps.html.twig
-#: templates/pdf/crisis_exercise_report.html.twig
-msgid "Step"
 msgstr ""
 
 #: templates/tabs/playbook_steps.html.twig
@@ -3801,10 +6116,6 @@ msgstr ""
 
 #: templates/tabs/incident_playbook.html.twig
 msgid "already applied"
-msgstr ""
-
-#: templates/tabs/incident_playbook.html.twig
-msgid "Apply"
 msgstr ""
 
 #: templates/tabs/incident_playbook.html.twig
@@ -4067,18 +6378,6 @@ msgstr ""
 msgid "Data breach monitoring is not enabled (GRC Manager configuration)."
 msgstr ""
 
-#: templates/tabs/breach_exposures.html.twig src/BreachExposure.php:119
-msgid "Breach"
-msgstr ""
-
-#: templates/tabs/breach_exposures.html.twig src/BreachExposure.php:125
-msgid "Breach date"
-msgstr ""
-
-#: templates/tabs/breach_exposures.html.twig src/BreachExposure.php:130
-msgid "Exposed data"
-msgstr ""
-
 #: templates/tabs/security_incident_tickets.html.twig
 msgid "Create a linked ticket"
 msgstr ""
@@ -4146,11 +6445,6 @@ msgstr ""
 
 #: templates/tabs/ebios_workshop4.html.twig
 msgid "Start with the strategic scenarios on the most serious feared events."
-msgstr ""
-
-#: templates/tabs/ebios_workshop4.html.twig
-#: templates/pdf/ebios_study_report.html.twig
-msgid "Risk matrix"
 msgstr ""
 
 #: templates/tabs/ebios_workshop4.html.twig
@@ -4328,12 +6622,8 @@ msgstr ""
 msgid "Contract"
 msgstr ""
 
-#: templates/tabs/supplier_contracts.html.twig src/ComplianceEvent.php:222
-#: src/NotificationTargetComplianceEvent.php:112
-msgid "Start"
-msgstr ""
-
 #: templates/tabs/supplier_contracts.html.twig
+#: templates/compliance_event_form.html.twig
 #: templates/pdf/network_flow_report.html.twig src/ComplianceEvent.php:224
 msgid "End"
 msgstr ""
@@ -4406,16 +6696,12 @@ msgid "Recovery time measured at the last test"
 msgstr ""
 
 #: templates/tabs/business_process_recovery.html.twig
-#: templates/pdf/business_continuity_report.html.twig
-msgid "Above the RTO"
-msgstr ""
-
-#: templates/tabs/business_process_recovery.html.twig
 msgid "Within the RTO"
 msgstr ""
 
 #: templates/tabs/business_process_recovery.html.twig
 #: templates/pdf/business_continuity_report.html.twig
+#: templates/control_test_tab.html.twig
 msgid "Never tested"
 msgstr ""
 
@@ -4445,10 +6731,6 @@ msgid ""
 msgstr ""
 
 #: templates/tabs/business_process_recovery.html.twig
-msgid "Measured time (minutes)"
-msgstr ""
-
-#: templates/tabs/business_process_recovery.html.twig
 #: templates/pdf/business_continuity_report.html.twig
 #: templates/itil_deadline_banner.html.twig inc/securityincident.class.php:909
 #: src/ComplianceEvent.php:117 src/CrisisExercise.php:67
@@ -4461,11 +6743,6 @@ msgstr ""
 
 #: templates/tabs/business_process_recovery.html.twig
 msgid "No recovery test recorded yet."
-msgstr ""
-
-#: templates/tabs/business_process_recovery.html.twig
-#: templates/pdf/business_continuity_report.html.twig
-msgid "Measured time"
 msgstr ""
 
 #: templates/tabs/business_process_recovery.html.twig
@@ -4582,11 +6859,6 @@ msgid "Processing activity"
 msgid_plural "Record of processing activities"
 msgstr[0] ""
 msgstr[1] ""
-
-#: templates/processing_activity_tab.html.twig
-#: front/consistencycheck.export.php:55
-msgid "Link"
-msgstr ""
 
 #: templates/processing_activity_tab.html.twig
 msgid "No processing activity cites this item."
@@ -4716,19 +6988,42 @@ msgstr ""
 msgid "Details"
 msgstr ""
 
-#: templates/my_space.html.twig src/Services/Workspace/MySpaceProvider.php:138
-#, php-format
-msgid "%d day(s) late"
-msgstr ""
-
 #: templates/my_space.html.twig templates/itil_regulatory_section.html.twig
 #: src/ControlTest.php:144 src/NotificationTargetBusinessProcess.php:127
 #: src/NotificationTargetControl.php:110
 msgid "Due soon"
 msgstr ""
 
-#: templates/my_space.html.twig src/Services/Workspace/MySpaceProvider.php:136
-msgid "No due date"
+#: templates/access_review_form.html.twig
+msgid "E.g.: Access review Q4 2026"
+msgstr ""
+
+#: templates/access_review_form.html.twig
+#: templates/pdf/access_review_report.html.twig
+#: templates/control_test_tab.html.twig templates/periodic_reviews.html.twig
+#: src/AccessReview.php:309
+msgid "Frequency"
+msgstr ""
+
+#: templates/access_review_form.html.twig
+#: templates/pdf/access_review_report.html.twig src/AccessReview.php:330
+#: src/NotificationTargetAccessReview.php:105
+msgctxt "process pilot"
+msgid "Owner"
+msgstr ""
+
+#: templates/access_review_form.html.twig
+#: templates/pdf/policy_approval_record.html.twig
+#: templates/pdf/access_review_report.html.twig
+#: templates/pdf/policy_acknowledgement_report.html.twig
+#: templates/pdf/policy_version.html.twig
+msgid "SoA control"
+msgstr ""
+
+#: templates/access_review_form.html.twig
+msgid ""
+"Once saved, open the \"Accounts to review\" tab to launch the campaign. "
+"Reviewers are notified; the plugin never changes any right."
 msgstr ""
 
 #: templates/_causal_graph.html.twig src/SupplierRisk.php:77
@@ -4739,6 +7034,20 @@ msgstr[1] ""
 
 #: templates/_causal_graph.html.twig
 msgid "cause → consequence; click an item to open it"
+msgstr ""
+
+#: templates/control_test_due.html.twig
+msgid "Tests to carry out"
+msgstr ""
+
+#: templates/control_test_due.html.twig templates/control_test_tab.html.twig
+#: src/Control.php:477 src/ControlTest.php:857
+#: src/NotificationTargetControl.php:146
+msgid "Next test"
+msgstr ""
+
+#: templates/control_test_due.html.twig templates/control_test_tab.html.twig
+msgid "Test owner"
 msgstr ""
 
 #: templates/playbook_list_header.html.twig
@@ -4766,6 +7075,159 @@ msgstr ""
 
 #: templates/policy_approval.html.twig
 msgid "All security policies"
+msgstr ""
+
+#: templates/custom_framework_form.html.twig
+#, php-format
+msgid "Last import on %1$s by %2$s"
+msgstr ""
+
+#: templates/custom_framework_form.html.twig
+#, php-format
+msgid "Last import on %s"
+msgstr ""
+
+#: templates/custom_framework_form.html.twig
+#: templates/custom_framework_list.html.twig
+msgid "Enabled"
+msgstr ""
+
+#: templates/custom_framework_form.html.twig
+#: templates/custom_framework_list.html.twig
+msgid "Disabled"
+msgstr ""
+
+#: templates/custom_framework_form.html.twig
+#: templates/periodic_reviews.html.twig
+msgid "Disable"
+msgstr ""
+
+#: templates/custom_framework_form.html.twig
+#: templates/periodic_reviews.html.twig
+msgid "Enable"
+msgstr ""
+
+#: templates/custom_framework_form.html.twig
+msgid "Import a new version"
+msgstr ""
+
+#: templates/custom_framework_form.html.twig
+msgid "All custom frameworks"
+msgstr ""
+
+#: templates/custom_framework_form.html.twig
+msgid ""
+"This framework is disabled: enable it to show it on the Reference frameworks "
+"screen, on the controls and in the dashboard rates."
+msgstr ""
+
+#: templates/custom_framework_form.html.twig
+msgid "See it on the Reference frameworks screen"
+msgstr ""
+
+#: templates/custom_framework_form.html.twig
+#: templates/framework_assessment.html.twig src/FrameworkAssessment.php:41
+msgid "Assessment by framework"
+msgstr ""
+
+#: templates/custom_framework_form.html.twig
+msgid "Implemented controls"
+msgstr ""
+
+#: templates/custom_framework_form.html.twig
+msgid ""
+"Annex A controls cited by the requirements, implemented or verified: the "
+"rate shown on the dashboard."
+msgstr ""
+
+#: templates/custom_framework_form.html.twig
+msgid "Score (implemented and proven)"
+msgstr ""
+
+#: templates/custom_framework_form.html.twig
+msgid "Same controls, also proven by a valid evidence document."
+msgstr ""
+
+#: templates/custom_framework_form.html.twig
+msgid "Self-assessment"
+msgstr ""
+
+#: templates/custom_framework_form.html.twig
+msgid ""
+"Compliant requirements among the applicable ones you assessed (partially "
+"compliant counts half)."
+msgstr ""
+
+#: templates/custom_framework_form.html.twig
+msgid "Requirements assessed"
+msgstr ""
+
+#: templates/custom_framework_form.html.twig
+#: templates/custom_framework_list.html.twig
+#, php-format
+msgid "%1$s: %2$d"
+msgstr ""
+
+#: templates/custom_framework_form.html.twig
+#: templates/custom_framework_list.html.twig
+msgid "Requirements"
+msgstr ""
+
+#: templates/custom_framework_form.html.twig
+msgid "No requirement: import a file."
+msgstr ""
+
+#: templates/custom_framework_form.html.twig
+#: templates/custom_framework_list.html.twig front/customframework.php:159
+#: src/ConsistencyCheck.php:1295
+msgid "Annex A"
+msgstr ""
+
+#: templates/custom_framework_form.html.twig
+msgid "No Annex A control"
+msgstr ""
+
+#: templates/custom_framework_form.html.twig
+msgid "Save the statuses"
+msgstr ""
+
+#: templates/custom_framework_form.html.twig
+msgid ""
+"Statuses and comments are kept when a new version of the file is imported."
+msgstr ""
+
+#: templates/custom_framework_form.html.twig
+msgid "Requirements removed by a later version"
+msgstr ""
+
+#: templates/custom_framework_form.html.twig
+msgid ""
+"They are no longer counted. Their status and comment are kept, and come back "
+"if the code reappears in a later version."
+msgstr ""
+
+#: templates/custom_framework_form.html.twig
+#, php-format
+msgid "Removed on %s"
+msgstr ""
+
+#: templates/custom_framework_form.html.twig
+msgid "Description of the framework"
+msgstr ""
+
+#: templates/custom_framework_form.html.twig
+#: templates/custom_framework_list.html.twig
+msgid "Framework name"
+msgstr ""
+
+#: templates/custom_framework_form.html.twig
+msgid ""
+"Delete this framework and all its requirements, statuses and comments? This "
+"cannot be undone."
+msgstr ""
+
+#: templates/custom_framework_form.html.twig
+msgid "Delete the framework"
 msgstr ""
 
 #: templates/software_watch.html.twig front/softwarewatch.php:69
@@ -5127,12 +7589,6 @@ msgstr ""
 msgid "Back to the risk list"
 msgstr ""
 
-#: templates/risk_heatmap.html.twig templates/supplier_risk_form.html.twig
-#: templates/risk_form.html.twig src/Risk.php:362
-#: src/RiskRegisterImport.php:591 src/SupplierRisk.php:192
-msgid "Probability"
-msgstr ""
-
 #: templates/risk_heatmap.html.twig src/AssetClassification.php:92
 #: src/AssetClassification.php:183 src/ConsistencyCheck.php:142
 #: src/DoraRegister.php:236 src/DoraRegister.php:241
@@ -5155,11 +7611,6 @@ msgstr ""
 msgid ""
 "A waiver is temporary. The owner is warned 15 days before; when it ends, a "
 "re-assessment ticket is opened. Nothing is extended or closed automatically."
-msgstr ""
-
-#: templates/waiver_form.html.twig src/CoverageRule.php:341 src/Waiver.php:499
-msgctxt "measure"
-msgid "Annex A control"
 msgstr ""
 
 #: templates/waiver_form.html.twig
@@ -5227,6 +7678,47 @@ msgstr ""
 
 #: templates/training_quiz_tab.html.twig
 msgid "Remove the copy"
+msgstr ""
+
+#: templates/compliance_audit_ticket.html.twig
+#, php-format
+msgid "Gaps found by the automated technical checks (GRC & Compliance): %s."
+msgstr ""
+
+#: templates/compliance_audit_ticket.html.twig
+msgid "References"
+msgstr ""
+
+#: templates/compliance_audit_ticket.html.twig
+msgid "Gap"
+msgstr ""
+
+#: templates/compliance_audit_ticket.html.twig
+#, php-format
+msgid "… and %d more, visible in the automated technical checks."
+msgstr ""
+
+#: templates/compliance_audit_ticket.html.twig
+msgid ""
+"Fix each item, then run the checks again to verify. Nothing was changed "
+"automatically."
+msgstr ""
+
+#: templates/compliance_event_form.html.twig
+msgid "If left empty, the type is used as the name."
+msgstr ""
+
+#: templates/compliance_event_form.html.twig
+msgid "Empty: the day of the start."
+msgstr ""
+
+#: templates/compliance_event_form.html.twig
+msgid "The event appears in their GLPI planning."
+msgstr ""
+
+#: templates/compliance_event_form.html.twig templates/dora/register.html.twig
+#: src/ComplianceEvent.php:230
+msgid "Provider"
 msgstr ""
 
 #: templates/postmortem_tab.html.twig templates/pdf/postmortem_report.html.twig
@@ -5297,6 +7789,23 @@ msgstr ""
 msgid ""
 "The PDF is archived in the incident's documents, readable only by people who "
 "can see the incident."
+msgstr ""
+
+#: templates/audit_findings_tab.html.twig
+msgid ""
+"Non-conformities and observations raised during this audit. When the audit "
+"is closed (status \"Completed\"), the PDF report is archived in the "
+"Documents tab."
+msgstr ""
+
+#: templates/audit_findings_tab.html.twig
+msgid "Add a finding"
+msgstr ""
+
+#: templates/audit_findings_tab.html.twig
+#: templates/pdf/internal_audit_report.html.twig
+#: templates/auditor_space.html.twig
+msgid "No finding for this audit."
 msgstr ""
 
 #: templates/my_trainings_tab.html.twig
@@ -5389,6 +7898,18 @@ msgstr ""
 msgid "Alert: reached from this value (inclusive). A ticket is then offered."
 msgstr ""
 
+#: templates/coverage_tab.html.twig
+msgid "New coverage rule"
+msgstr ""
+
+#: templates/coverage_tab.html.twig
+msgid "No coverage rule for this item."
+msgstr ""
+
+#: templates/coverage_tab.html.twig
+msgid "No asset to cover"
+msgstr ""
+
 #: templates/_impact_graph.html.twig
 msgid "High availability"
 msgstr ""
@@ -5403,6 +7924,23 @@ msgstr ""
 
 #: templates/_impact_graph.html.twig
 msgid "an outage of the source affects the item pointed to"
+msgstr ""
+
+#: templates/account_hygiene_ticket.html.twig
+msgid ""
+"Active GLPI accounts to check (\"Account hygiene\" screen). For each one: "
+"confirm the need, or disable the account and remove its authorizations. "
+"Nothing was changed automatically."
+msgstr ""
+
+#: templates/account_hygiene_ticket.html.twig
+#: templates/account_hygiene.html.twig
+msgid "Login"
+msgstr ""
+
+#: templates/account_hygiene_ticket.html.twig
+#: templates/account_hygiene.html.twig
+msgid "Points to check"
 msgstr ""
 
 #: templates/network_flow_matrix.html.twig
@@ -5463,49 +8001,6 @@ msgid "GRC Manager"
 msgstr ""
 
 #: templates/pdf/crisis_exercise_report.html.twig
-#: src/DataSubjectRequest.php:109
-msgid "On time"
-msgstr ""
-
-#: templates/pdf/crisis_exercise_report.html.twig
-#: templates/itil_regulatory_section.html.twig
-#: src/SecurityIncidentPlaybookTask.php:61
-msgid "To do"
-msgstr ""
-
-#: templates/pdf/crisis_exercise_report.html.twig
-msgid "Not done"
-msgstr ""
-
-#: templates/pdf/crisis_exercise_report.html.twig
-msgid "Restored within RTO"
-msgstr ""
-
-#: templates/pdf/crisis_exercise_report.html.twig
-msgid "Restored after RTO"
-msgstr ""
-
-#: templates/pdf/crisis_exercise_report.html.twig front/customframework.php:147
-msgid "Restored"
-msgstr ""
-
-#: templates/pdf/crisis_exercise_report.html.twig
-msgid "Recovery in progress"
-msgstr ""
-
-#: templates/pdf/crisis_exercise_report.html.twig
-msgid "RTO exceeded"
-msgstr ""
-
-#: templates/pdf/crisis_exercise_report.html.twig src/ConsistencyCheck.php:1185
-msgid "RTO not set"
-msgstr ""
-
-#: templates/pdf/crisis_exercise_report.html.twig
-msgid "EXERCISE"
-msgstr ""
-
-#: templates/pdf/crisis_exercise_report.html.twig
 msgid ""
 "this report covers a fictitious incident, simulated to test the continuity "
 "plan."
@@ -5530,20 +8025,6 @@ msgid "Summary"
 msgstr ""
 
 #: templates/pdf/crisis_exercise_report.html.twig
-msgid "Response plan"
-msgstr ""
-
-#: templates/pdf/crisis_exercise_report.html.twig
-msgid "Exercise incident"
-msgstr ""
-
-#: templates/pdf/crisis_exercise_report.html.twig
-#: templates/pdf/action_log.html.twig templates/pdf/postmortem_report.html.twig
-#: templates/pdf/remediation_plan.html.twig src/AuditLog.php:234
-msgid "Incident"
-msgstr ""
-
-#: templates/pdf/crisis_exercise_report.html.twig
 msgid "Organised by"
 msgstr ""
 
@@ -5556,48 +8037,11 @@ msgid "Start / end"
 msgstr ""
 
 #: templates/pdf/crisis_exercise_report.html.twig
-msgid "Duration"
-msgstr ""
-
-#: templates/pdf/crisis_exercise_report.html.twig
-msgid "Steps done"
-msgstr ""
-
-#: templates/pdf/crisis_exercise_report.html.twig
-msgid "Steps on time"
-msgstr ""
-
-#: templates/pdf/crisis_exercise_report.html.twig
-msgid "Average reaction time"
-msgstr ""
-
-#: templates/pdf/crisis_exercise_report.html.twig
-msgid "Items restored"
-msgstr ""
-
-#: templates/pdf/crisis_exercise_report.html.twig
 msgid "Course of the exercise"
 msgstr ""
 
 #: templates/pdf/crisis_exercise_report.html.twig
-msgid "Target"
-msgstr ""
-
-#: templates/pdf/crisis_exercise_report.html.twig
-msgid "Done at"
-msgstr ""
-
-#: templates/pdf/crisis_exercise_report.html.twig
 msgid "By"
-msgstr ""
-
-#: templates/pdf/crisis_exercise_report.html.twig
-#: templates/pdf/postmortem_report.html.twig
-msgid "Outcome"
-msgstr ""
-
-#: templates/pdf/crisis_exercise_report.html.twig
-msgid "Recovery of affected items"
 msgstr ""
 
 #: templates/pdf/crisis_exercise_report.html.twig
@@ -5606,10 +8050,6 @@ msgstr ""
 
 #: templates/pdf/crisis_exercise_report.html.twig
 msgid "dependent"
-msgstr ""
-
-#: templates/pdf/crisis_exercise_report.html.twig
-msgid "Crisis log"
 msgstr ""
 
 #: templates/pdf/crisis_exercise_report.html.twig
@@ -5625,12 +8065,6 @@ msgid "Not filled in: complete them on the incident and regenerate the report."
 msgstr ""
 
 #: templates/pdf/internal_audit_report.html.twig
-#: templates/pdf/audit_report.html.twig src/Audit.php:185 src/AuditTeam.php:54
-#: src/AuditTeam.php:193
-msgid "Auditor"
-msgstr ""
-
-#: templates/pdf/internal_audit_report.html.twig
 msgid "Planned / actual date"
 msgstr ""
 
@@ -5638,11 +8072,13 @@ msgstr ""
 msgid "Risk categories"
 msgstr ""
 
-#: templates/pdf/internal_audit_report.html.twig src/Nonconformity.php:487
+#: templates/pdf/internal_audit_report.html.twig
+#: templates/auditor_space.html.twig src/Nonconformity.php:487
 msgid "Findings"
 msgstr ""
 
 #: templates/pdf/internal_audit_report.html.twig
+#: templates/auditor_space.html.twig
 msgid "Audited controls"
 msgstr ""
 
@@ -5653,27 +8089,8 @@ msgid_plural "Evidence requests"
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/pdf/internal_audit_report.html.twig
-#, php-format
-msgid "%1$d of %2$d request(s) accepted (%3$d %%)."
-msgstr ""
-
-#: templates/pdf/internal_audit_report.html.twig
-#: templates/framework_assessment.html.twig src/Control.php:388
-#: src/ControlTest.php:814 src/NotificationTargetAuditEvidenceRequest.php:156
-#: src/NotificationTargetControl.php:144
-msgid "Control"
-msgstr ""
-
-#: templates/pdf/internal_audit_report.html.twig
-msgid "Assignee"
-msgstr ""
-
-#: templates/pdf/internal_audit_report.html.twig
-msgid "No finding for this audit."
-msgstr ""
-
-#: templates/pdf/internal_audit_report.html.twig src/Audit.php:226
+#: templates/pdf/internal_audit_report.html.twig templates/audit_form.html.twig
+#: src/Audit.php:226
 msgid "Conclusion"
 msgstr ""
 
@@ -5708,12 +8125,6 @@ msgstr ""
 
 #: templates/pdf/business_continuity_report.html.twig
 msgid "No business process you can see."
-msgstr ""
-
-#: templates/pdf/business_continuity_report.html.twig
-#: src/BusinessProcess.php:549 src/BusinessProcess.php:641
-#: src/NotificationTargetBusinessProcess.php:162
-msgid "Last business impact analysis"
 msgstr ""
 
 #: templates/pdf/business_continuity_report.html.twig
@@ -5756,21 +8167,9 @@ msgstr ""
 msgid "No linked process you can see."
 msgstr ""
 
-#: templates/pdf/business_continuity_report.html.twig
-#: src/ImpactAnalysis.php:232
-msgid "Linked risks"
-msgstr ""
-
 #: templates/pdf/_pdf_style.html.twig
 #, php-format
 msgid "Perimeter: %s"
-msgstr ""
-
-#: templates/pdf/policy_approval_record.html.twig
-#: templates/pdf/access_review_report.html.twig
-#: templates/pdf/policy_acknowledgement_report.html.twig
-#: templates/pdf/policy_version.html.twig
-msgid "SoA control"
 msgstr ""
 
 #: templates/pdf/policy_approval_record.html.twig
@@ -5845,17 +8244,6 @@ msgstr ""
 msgid ""
 "This fingerprint is recorded in the incident history each time the log is "
 "printed."
-msgstr ""
-
-#: templates/pdf/access_review_report.html.twig src/AccessReview.php:330
-#: src/NotificationTargetAccessReview.php:105
-msgctxt "process pilot"
-msgid "Owner"
-msgstr ""
-
-#: templates/pdf/access_review_report.html.twig
-#: templates/periodic_reviews.html.twig src/AccessReview.php:309
-msgid "Frequency"
 msgstr ""
 
 #: templates/pdf/access_review_report.html.twig
@@ -5938,10 +8326,6 @@ msgstr ""
 msgid "No action plan (nonconformity) linked to the incident."
 msgstr ""
 
-#: templates/pdf/postmortem_report.html.twig src/AuditLog.php:233
-msgid "Action"
-msgstr ""
-
 #: templates/pdf/processing_register_report.html.twig
 #: templates/pdf/data_breach_register.html.twig
 msgid "Organisation"
@@ -5961,11 +8345,6 @@ msgid "Phone"
 msgstr ""
 
 #: templates/pdf/processing_register_report.html.twig
-#: templates/pdf/data_breach_register.html.twig
-msgid "Data protection officer (DPO)"
-msgstr ""
-
-#: templates/pdf/processing_register_report.html.twig
 msgid "Processing activities in the register"
 msgstr ""
 
@@ -5974,18 +8353,16 @@ msgid "The register contains no processing activity."
 msgstr ""
 
 #: templates/pdf/audit_report.html.twig
-msgid "Internal audits"
-msgstr ""
-
-#: templates/pdf/audit_report.html.twig
 msgid "Audits"
 msgstr ""
 
-#: templates/pdf/audit_report.html.twig src/Audit.php:194
+#: templates/pdf/audit_report.html.twig templates/auditor_space.html.twig
+#: templates/audit_form.html.twig src/Audit.php:194
 msgid "Planned date"
 msgstr ""
 
-#: templates/pdf/audit_report.html.twig src/Audit.php:202
+#: templates/pdf/audit_report.html.twig templates/auditor_space.html.twig
+#: templates/audit_form.html.twig src/Audit.php:202
 msgid "Actual date"
 msgstr ""
 
@@ -6105,25 +8482,8 @@ msgstr ""
 msgid "Control details"
 msgstr ""
 
-#: templates/pdf/soa_report.html.twig src/Control.php:411
-msgid "Applicability"
-msgstr ""
-
-#: templates/pdf/soa_report.html.twig templates/framework_assessment.html.twig
-#: src/Control.php:419 src/NotificationTargetControl.php:150
-msgid "Implementation status"
-msgstr ""
-
 #: templates/pdf/soa_report.html.twig
 msgid "ISMS requirements (clauses 4 to 10)"
-msgstr ""
-
-#: templates/pdf/soa_report.html.twig
-msgid "Management approval"
-msgstr ""
-
-#: templates/pdf/consistency_report.html.twig
-msgid "Consistency score"
 msgstr ""
 
 #: templates/pdf/consistency_report.html.twig
@@ -6142,20 +8502,6 @@ msgstr ""
 msgid ""
 "Only the items the person who exported this report can read are counted. "
 "Nothing has been modified: each gap is fixed from the item concerned."
-msgstr ""
-
-#: templates/pdf/consistency_report.html.twig
-#, php-format
-msgid "ISO 27001 %s"
-msgstr ""
-
-#: templates/pdf/consistency_report.html.twig
-#: front/consistencycheck.export.php:54
-msgid "How to fix"
-msgstr ""
-
-#: templates/pdf/consistency_report.html.twig
-msgid "No rule can be checked with your rights, or every rule is disabled."
 msgstr ""
 
 #: templates/pdf/remediation_plan.html.twig
@@ -6209,11 +8555,6 @@ msgid "Protocol and ports"
 msgstr ""
 
 #: templates/pdf/network_flow_report.html.twig
-#: templates/framework_assessment.html.twig
-msgid "Gaps"
-msgstr ""
-
-#: templates/pdf/network_flow_report.html.twig
 msgid "No active flow."
 msgstr ""
 
@@ -6263,6 +8604,55 @@ msgstr ""
 msgid "Charter campaigns (assetsign)"
 msgstr ""
 
+#: templates/auditor_space.html.twig src/AuditorAccess.php:50
+msgid "Auditor space"
+msgstr ""
+
+#: templates/auditor_space.html.twig
+msgid ""
+"You have no access to an audit at the moment. Your access is given by the "
+"organisation being audited, for a limited time."
+msgstr ""
+
+#: templates/auditor_space.html.twig
+msgid "Audits you can consult, in read only:"
+msgstr ""
+
+#: templates/auditor_space.html.twig
+#, php-format
+msgid "Access until %s"
+msgstr ""
+
+#: templates/auditor_space.html.twig
+#, php-format
+msgid "Read only. Your access ends on %s."
+msgstr ""
+
+#: templates/auditor_space.html.twig
+msgid "My audits"
+msgstr ""
+
+#: templates/auditor_space.html.twig
+msgid "Lead auditor"
+msgstr ""
+
+#: templates/auditor_space.html.twig
+#, php-format
+msgid "%d submitted, waiting for review."
+msgstr ""
+
+#: templates/auditor_space.html.twig
+msgid "Submitted evidence"
+msgstr ""
+
+#: templates/auditor_space.html.twig
+msgid "No evidence has been submitted yet."
+msgstr ""
+
+#: templates/auditor_space.html.twig
+msgid "No control is linked to this audit."
+msgstr ""
+
 #: templates/itil_phases_section.html.twig
 #: templates/itil_deadline_banner.html.twig
 msgid "Response phases"
@@ -6287,6 +8677,29 @@ msgstr ""
 #: templates/itil_phases_section.html.twig
 #: templates/itil_deadline_banner.html.twig
 msgid "Not reached"
+msgstr ""
+
+#: templates/account_hygiene.html.twig
+msgid ""
+"Active accounts in the entities you can see that deserve a check. Nothing is "
+"disabled automatically: tick the accounts and open a review ticket, or "
+"handle them in an access review campaign."
+msgstr ""
+
+#: templates/account_hygiene.html.twig
+msgid "Inactivity beyond"
+msgstr ""
+
+#: templates/account_hygiene.html.twig
+msgid "No account to check."
+msgstr ""
+
+#: templates/account_hygiene.html.twig
+msgid "Last login"
+msgstr ""
+
+#: templates/account_hygiene.html.twig
+msgid "Open a review ticket for the ticked accounts"
 msgstr ""
 
 #: templates/risk_import.html.twig
@@ -6353,26 +8766,22 @@ msgstr ""
 msgid "Numeric scores read on a scale of 1 to %d."
 msgstr ""
 
-#: templates/risk_import.html.twig
+#: templates/risk_import.html.twig templates/custom_framework_list.html.twig
 msgid "Rejected lines"
 msgstr ""
 
-#: templates/risk_import.html.twig
+#: templates/risk_import.html.twig templates/custom_framework_list.html.twig
 msgid ""
 "These lines will not be imported. Correct them in your file and analyse it "
 "again, or import the valid lines now."
 msgstr ""
 
-#: templates/risk_import.html.twig templates/network_flow_import.html.twig
+#: templates/risk_import.html.twig templates/custom_framework_list.html.twig
+#: templates/network_flow_import.html.twig
 msgid "Line"
 msgstr ""
 
-#: templates/risk_import.html.twig
-#: src/NotificationTargetAuditEvidenceRequest.php:161
-msgid "Reason"
-msgstr ""
-
-#: templates/risk_import.html.twig
+#: templates/risk_import.html.twig templates/custom_framework_list.html.twig
 msgid "Change"
 msgstr ""
 
@@ -6380,19 +8789,19 @@ msgstr ""
 msgid "(empty)"
 msgstr ""
 
-#: templates/risk_import.html.twig
+#: templates/risk_import.html.twig templates/custom_framework_list.html.twig
 msgid "Confirm the import"
 msgstr ""
 
-#: templates/risk_import.html.twig
+#: templates/risk_import.html.twig templates/custom_framework_list.html.twig
 msgid "Cancel"
 msgstr ""
 
-#: templates/risk_import.html.twig
+#: templates/risk_import.html.twig templates/custom_framework_list.html.twig
 msgid "No line can be imported: correct the file and analyse it again."
 msgstr ""
 
-#: templates/risk_import.html.twig
+#: templates/risk_import.html.twig templates/custom_framework_list.html.twig
 msgid "Choose another file"
 msgstr ""
 
@@ -6427,7 +8836,7 @@ msgid ""
 "creating duplicates."
 msgstr ""
 
-#: templates/risk_import.html.twig
+#: templates/risk_import.html.twig templates/custom_framework_list.html.twig
 msgid "Expected columns"
 msgstr ""
 
@@ -6436,7 +8845,7 @@ msgid ""
 "unique reference of the risk in your register, required (for example R-001)"
 msgstr ""
 
-#: templates/risk_import.html.twig
+#: templates/risk_import.html.twig templates/custom_framework_list.html.twig
 msgid "short title, required"
 msgstr ""
 
@@ -6475,7 +8884,7 @@ msgid ""
 "accepted). %d risks at most. French column names and values are accepted too."
 msgstr ""
 
-#: templates/risk_import.html.twig
+#: templates/risk_import.html.twig templates/custom_framework_list.html.twig
 msgid "Download the template"
 msgstr ""
 
@@ -6494,11 +8903,12 @@ msgid ""
 "lowest and highest scores match)."
 msgstr ""
 
-#: templates/risk_import.html.twig templates/network_flow_import.html.twig
+#: templates/risk_import.html.twig templates/custom_framework_list.html.twig
+#: templates/network_flow_import.html.twig
 msgid "Analyse the file"
 msgstr ""
 
-#: templates/risk_import.html.twig
+#: templates/risk_import.html.twig templates/custom_framework_list.html.twig
 msgid ""
 "Nothing is saved before you confirm: the analysis first shows the rejected "
 "lines and what will change."
@@ -6513,6 +8923,22 @@ msgstr ""
 #: templates/itil_deadline_banner.html.twig
 #, php-format
 msgid "Due no later than %1$s (%2$d h left)"
+msgstr ""
+
+#: templates/access_review_mine.html.twig
+msgid ""
+"For each account in your team, approve its access or request a change or "
+"removal, stating what to change. A request creates a ticket for the support "
+"team: no right is changed automatically."
+msgstr ""
+
+#: templates/access_review_mine.html.twig
+msgid "No access review is waiting for you."
+msgstr ""
+
+#: templates/access_review_mine.html.twig
+#, php-format
+msgid "Due: %s"
 msgstr ""
 
 #: templates/risk_list_actions.html.twig templates/risk_catalog.html.twig
@@ -6552,10 +8978,6 @@ msgstr ""
 
 #: templates/dora/function_tab.html.twig
 msgid "RTO of the process"
-msgstr ""
-
-#: templates/dora/function_tab.html.twig
-msgid "Not defined"
 msgstr ""
 
 #: templates/dora/function_tab.html.twig
@@ -6715,10 +9137,6 @@ msgstr ""
 msgid ""
 "To add a contract: open it in GLPI (Management > Contracts), then its \"DORA "
 "register\" tab."
-msgstr ""
-
-#: templates/dora/register.html.twig src/ComplianceEvent.php:230
-msgid "Provider"
 msgstr ""
 
 #: templates/dora/register.html.twig
@@ -6987,10 +9405,6 @@ msgstr ""
 
 #: templates/dora/arrangement_tab.html.twig
 msgid "No end date"
-msgstr ""
-
-#: templates/dora/arrangement_tab.html.twig src/ProcessingActivity.php:132
-msgid "Ended"
 msgstr ""
 
 #: templates/dora/arrangement_tab.html.twig src/DoraRegister.php:336
@@ -7289,6 +9703,126 @@ msgstr ""
 msgid "In the register"
 msgstr ""
 
+#: templates/custom_framework_list.html.twig
+#, php-format
+msgid "Analysis of the file for \"%s\""
+msgstr ""
+
+#: templates/custom_framework_list.html.twig
+#, php-format
+msgid "%d valid lines"
+msgstr ""
+
+#: templates/custom_framework_list.html.twig
+#, php-format
+msgid "%d rejected lines"
+msgstr ""
+
+#: templates/custom_framework_list.html.twig front/customframework.php:145
+msgid "Added"
+msgstr ""
+
+#: templates/custom_framework_list.html.twig front/customframework.php:146
+msgid "Changed"
+msgstr ""
+
+#: templates/custom_framework_list.html.twig front/customframework.php:148
+msgid "Unchanged"
+msgstr ""
+
+#: templates/custom_framework_list.html.twig
+msgid "Removed"
+msgstr ""
+
+#: templates/custom_framework_list.html.twig
+msgid ""
+"Requirements missing from this version are marked as removed: they are no "
+"longer counted, but nothing is deleted and their status comes back if they "
+"reappear in a later version."
+msgstr ""
+
+#: templates/custom_framework_list.html.twig
+#, php-format
+msgid "Import a new version of \"%s\""
+msgstr ""
+
+#: templates/custom_framework_list.html.twig
+msgid "Import a framework from a file"
+msgstr ""
+
+#: templates/custom_framework_list.html.twig
+msgid ""
+"Group security requirements, a sector or contractual framework, a customer "
+"security assurance plan: describe it in a spreadsheet, save it as CSV and "
+"import it. It then works like the built-in frameworks: it can be enabled, "
+"its requirements appear on the controls and its compliance rate on the "
+"dashboard."
+msgstr ""
+
+#: templates/custom_framework_list.html.twig
+msgid "unique identifier of the requirement, required (for example GRP-01)"
+msgstr ""
+
+#: templates/custom_framework_list.html.twig
+msgid "chapter or theme used to group the requirements"
+msgstr ""
+
+#: templates/custom_framework_list.html.twig
+msgid "full text of the requirement"
+msgstr ""
+
+#: templates/custom_framework_list.html.twig
+msgid ""
+"ISO 27001 Annex A controls that meet it, separated by a comma or a space "
+"(A.5.1, A.8.5): they give the compliance rate"
+msgstr ""
+
+#: templates/custom_framework_list.html.twig
+#, php-format
+msgid ""
+"Semicolon or comma separator, UTF-8 encoding (a file saved by Excel is also "
+"accepted). %d requirements at most. French column names are accepted too."
+msgstr ""
+
+#: templates/custom_framework_list.html.twig
+msgid "For example: Group security requirements"
+msgstr ""
+
+#: templates/custom_framework_list.html.twig
+msgid "Issuer or document"
+msgstr ""
+
+#: templates/custom_framework_list.html.twig
+msgid "Imported frameworks"
+msgstr ""
+
+#: templates/custom_framework_list.html.twig
+msgid ""
+"No custom framework yet: download the template, fill it in and import it "
+"above."
+msgstr ""
+
+#: templates/custom_framework_list.html.twig
+msgid "Self-assessed"
+msgstr ""
+
+#: templates/custom_framework_list.html.twig
+msgid "Last import"
+msgstr ""
+
+#: templates/custom_framework_list.html.twig
+msgid "Removed by a later version, kept with their status"
+msgstr ""
+
+#: templates/custom_framework_list.html.twig
+#, php-format
+msgid "%d removed"
+msgstr ""
+
+#: templates/custom_framework_list.html.twig
+msgid "New version"
+msgstr ""
+
 #: templates/risk_catalog.html.twig
 msgid ""
 "These risks recur from one infrastructure to another and can be spotted on a "
@@ -7338,19 +9872,6 @@ msgid ""
 "level beyond which the risk can no longer be borne. A risk above the "
 "appetite needs a treatment or a formal, justified acceptance. Saving records "
 "you as the approver, with today's date."
-msgstr ""
-
-#: templates/risk_appetite.html.twig
-msgid ""
-"Beyond the tolerance, only management can accept a risk: the members of the "
-"group below. Their acceptances and approvals are marked \"Management\"."
-msgstr ""
-
-#: templates/risk_appetite.html.twig
-msgid ""
-"No management group is set: anyone who can edit the register can accept a "
-"risk beyond the tolerance. Choose the group whose members represent "
-"management."
 msgstr ""
 
 #: templates/risk_appetite.html.twig
@@ -7411,6 +9932,14 @@ msgstr ""
 
 #: templates/risk_appetite.html.twig templates/risk_form.html.twig
 msgid "Risk indicators (KRI)"
+msgstr ""
+
+#: templates/business_process_list_header.html.twig
+msgid "New business process"
+msgstr ""
+
+#: templates/business_process_list_header.html.twig
+msgid "Business continuity plan (PDF)"
 msgstr ""
 
 #: templates/policy_approval_tab.html.twig src/PolicyVersion.php:115
@@ -7583,12 +10112,242 @@ msgstr ""
 msgid "Frozen version"
 msgstr ""
 
+#: templates/compliance_calendar.html.twig
+msgid "All deadlines"
+msgstr ""
+
+#: templates/compliance_calendar.html.twig
+msgid "My deadlines"
+msgstr ""
+
+#: templates/compliance_calendar.html.twig
+msgid "Add an event"
+msgstr ""
+
+#: templates/compliance_calendar.html.twig
+msgid "Export (iCal)"
+msgstr ""
+
+#: templates/compliance_calendar.html.twig
+msgid "Subscribe"
+msgstr ""
+
+#: templates/compliance_calendar.html.twig
+msgid ""
+"Subscription link for your calendar (Outlook, Thunderbird, Google Calendar…)"
+msgstr ""
+
+#: templates/compliance_calendar.html.twig
+msgid ""
+"Copy your link now: for your security, it will not be shown again. If you "
+"lose it, create a new one."
+msgstr ""
+
+#: templates/compliance_calendar.html.twig
+msgid "Copy"
+msgstr ""
+
+#: templates/compliance_calendar.html.twig src/NetworkFlow.php:115
+msgctxt "masculine"
+msgid "Expired"
+msgstr ""
+
+#: templates/compliance_calendar.html.twig
+#, php-format
+msgid "Created on %s"
+msgstr ""
+
+#: templates/compliance_calendar.html.twig
+#, php-format
+msgid "Expires on %s"
+msgstr ""
+
+#: templates/compliance_calendar.html.twig
+#, php-format
+msgid "Last read by a calendar on %s"
+msgstr ""
+
+#: templates/compliance_calendar.html.twig
+msgid "Not used yet"
+msgstr ""
+
+#: templates/compliance_calendar.html.twig
+msgid ""
+"You have no subscription link yet. Create one to see your deadlines in your "
+"calendar application."
+msgstr ""
+
+#: templates/compliance_calendar.html.twig
+msgid "Regenerate the link"
+msgstr ""
+
+#: templates/compliance_calendar.html.twig
+msgid "Create a subscription link"
+msgstr ""
+
+#: templates/compliance_calendar.html.twig
+msgid "Revoke the link"
+msgstr ""
+
+#: templates/compliance_calendar.html.twig
+#, php-format
+msgid ""
+"This link only gives read access to the compliance calendar, with your "
+"rights, without a password; it does not give access to GLPI or its API. Do "
+"not share it. It expires after %d days; regenerating or revoking it disables "
+"the previous link immediately."
+msgstr ""
+
+#: templates/compliance_calendar.html.twig
+msgid ""
+"Events entered here and deadlines from the other registers (audits, "
+"management reviews, access reviews, periodic reviews, policies, obligations, "
+"evidence). Each deadline also appears in the GLPI planning of its owner."
+msgstr ""
+
+#: templates/compliance_calendar.html.twig src/ComplianceEvent.php:131
+msgctxt "masculine"
+msgid "Done"
+msgstr ""
+
+#: templates/compliance_calendar.html.twig
+msgid "Deadline passed"
+msgstr ""
+
+#: templates/compliance_calendar.html.twig
+msgid "No deadline in this period."
+msgstr ""
+
 #: templates/network_flow_summary.html.twig front/networkflow.matrix.php:31
 msgid "Zone matrix"
 msgstr ""
 
 #: templates/network_flow_summary.html.twig
 msgid "Import a CSV file"
+msgstr ""
+
+#: templates/control_test_tab.html.twig src/Control.php:467
+#: src/NotificationTargetControl.php:147
+msgid "Last test"
+msgstr ""
+
+#: templates/control_test_tab.html.twig
+msgid "Test plan"
+msgstr ""
+
+#: templates/control_test_tab.html.twig src/ControlTest.php:832
+msgid "Method"
+msgstr ""
+
+#: templates/control_test_tab.html.twig
+msgid "Save the plan"
+msgstr ""
+
+#: templates/control_test_tab.html.twig
+msgid ""
+"The next test is due at the date of the last test plus this frequency, "
+"unless another date is entered with the test."
+msgstr ""
+
+#: templates/control_test_tab.html.twig src/ComplianceAudit.php:73
+msgid "Automated technical checks"
+msgstr ""
+
+#: templates/control_test_tab.html.twig
+#, php-format
+msgid "%1$d gap out of %2$d"
+msgid_plural "%1$d gaps out of %2$d"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/control_test_tab.html.twig
+msgid "Record as a test"
+msgstr ""
+
+#: templates/control_test_tab.html.twig
+#, php-format
+msgid ""
+"The result is computed again when it is recorded, as a technical test dated "
+"today: no gap gives an effective test, at least %d%% compliant a partially "
+"effective test, below an ineffective test."
+msgstr ""
+
+#: templates/control_test_tab.html.twig
+msgid ""
+"Select all entities to record it: the control covers the whole organisation."
+msgstr ""
+
+#: templates/control_test_tab.html.twig
+msgid "Record a test"
+msgstr ""
+
+#: templates/control_test_tab.html.twig src/ControlTest.php:824
+msgid "Test date"
+msgstr ""
+
+#: templates/control_test_tab.html.twig src/ControlTest.php:848
+msgid "Tester"
+msgstr ""
+
+#: templates/control_test_tab.html.twig
+msgid "Sample checked, observed gaps, people interviewed..."
+msgstr ""
+
+#: templates/control_test_tab.html.twig
+msgid ""
+"Required if the control is not fully effective. An ineffective control opens "
+"a non-conformity."
+msgstr ""
+
+#: templates/control_test_tab.html.twig
+#: templates/framework_assessment.html.twig src/Evidence.php:82
+msgid "Evidence"
+msgstr ""
+
+#: templates/control_test_tab.html.twig
+msgid "Or send a file"
+msgstr ""
+
+#: templates/control_test_tab.html.twig
+msgid ""
+"It becomes a document of the control, readable only by those who read the "
+"control."
+msgstr ""
+
+#: templates/control_test_tab.html.twig
+msgid "A document of the control:"
+msgstr ""
+
+#: templates/control_test_tab.html.twig
+msgid "add it first in the Documents tab"
+msgstr ""
+
+#: templates/control_test_tab.html.twig
+msgid "Empty: computed from the test plan."
+msgstr ""
+
+#: templates/control_test_tab.html.twig
+msgid "Record the test"
+msgstr ""
+
+#: templates/control_test_tab.html.twig
+msgid "No effectiveness test recorded yet"
+msgstr ""
+
+#: templates/control_test_tab.html.twig
+msgid ""
+"A control in place is not yet a control that works: test it (inspection, "
+"sampling, technical test or interview), keep the evidence and schedule the "
+"next test."
+msgstr ""
+
+#: templates/control_test_tab.html.twig
+#, php-format
+msgid "Non-conformity #%d"
+msgstr ""
+
+#: templates/control_test_tab.html.twig
+msgid "Delete this test?"
 msgstr ""
 
 #: templates/periodic_reviews.html.twig
@@ -7646,14 +10405,6 @@ msgstr ""
 msgid "Open the recurrent ticket"
 msgstr ""
 
-#: templates/periodic_reviews.html.twig
-msgid "Disable"
-msgstr ""
-
-#: templates/periodic_reviews.html.twig
-msgid "Enable"
-msgstr ""
-
 #: templates/ticket_security_section.html.twig
 msgid "Security"
 msgstr ""
@@ -7690,10 +10441,6 @@ msgstr ""
 msgid "No evidence"
 msgstr ""
 
-#: templates/framework_assessment.html.twig src/FrameworkAssessment.php:41
-msgid "Assessment by framework"
-msgstr ""
-
 #: templates/framework_assessment.html.twig
 msgid ""
 "Each framework is assessed on the Annex A controls it maps to. The score "
@@ -7720,10 +10467,6 @@ msgstr ""
 
 #: templates/framework_assessment.html.twig
 msgid "Implementation"
-msgstr ""
-
-#: templates/framework_assessment.html.twig src/Evidence.php:82
-msgid "Evidence"
 msgstr ""
 
 #: templates/framework_assessment.html.twig
@@ -7913,9 +10656,21 @@ msgid_plural "%d linked items are not visible to you and stay linked."
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/itil_regulatory_section.html.twig
-msgctxt "task"
-msgid "Done"
+#: templates/audit_form.html.twig src/AuditTeam.php:198
+msgid "Audit owner"
+msgstr ""
+
+#: templates/audit_form.html.twig
+msgid ""
+"Free-text description of the audited scope (processes, sites, systems...)."
+msgstr ""
+
+#: templates/audit_form.html.twig src/Audit.php:210
+msgid "Risk categories covered"
+msgstr ""
+
+#: templates/audit_form.html.twig
+msgid "Annex A controls covered"
 msgstr ""
 
 #: templates/itil_regulatory_section.html.twig src/ControlTest.php:143
@@ -8291,10 +11046,6 @@ msgstr ""
 msgid "No Wazuh alert on the linked computers in the last %d days."
 msgstr ""
 
-#: templates/risk_form.html.twig front/consistencycheck.export.php:49
-msgid "Rule"
-msgstr ""
-
 #: templates/risk_form.html.twig
 #, php-format
 msgid ""
@@ -8464,10 +11215,6 @@ msgid ""
 "active."
 msgstr ""
 
-#: front/consistencycheck.export.php:47
-msgid "Area"
-msgstr ""
-
 #: front/consistencycheck.export.php:48
 msgid "Clause"
 msgstr ""
@@ -8555,24 +11302,8 @@ msgstr ""
 msgid "Give the framework a name."
 msgstr ""
 
-#: front/customframework.php:145
-msgid "Added"
-msgstr ""
-
-#: front/customframework.php:146
-msgid "Changed"
-msgstr ""
-
-#: front/customframework.php:148
-msgid "Unchanged"
-msgstr ""
-
 #: front/customframework.php:152
 msgid "Removed (kept with its status)"
-msgstr ""
-
-#: front/customframework.php:159 src/ConsistencyCheck.php:1295
-msgid "Annex A"
 msgstr ""
 
 #: front/databreach.export.php:64
@@ -8775,11 +11506,6 @@ msgstr ""
 #: front/referentiels.php:312
 #, php-format
 msgid "Applies from %s."
-msgstr ""
-
-#: front/referentiels.php:315
-#, php-format
-msgid "Art. %s"
 msgstr ""
 
 #: front/riskappetite.php:36
@@ -9175,10 +11901,6 @@ msgstr ""
 msgid "Business processes whose last recovery test exceeded the RTO"
 msgstr ""
 
-#: hook.php:427 src/Services/Dashboard/SecurityIncidentCardProvider.php:232
-msgid "Security incidents"
-msgstr ""
-
 #: hook.php:435 src/Services/Dashboard/SecurityIncidentCardProvider.php:245
 msgctxt "security incidents"
 msgid "Open"
@@ -9350,14 +12072,6 @@ msgstr ""
 #: inc/securityincident.class.php:263 inc/securityincident.class.php:1191
 #: src/Nonconformity.php:104 src/Nonconformity.php:406
 msgid "Major"
-msgstr ""
-
-#: inc/securityincident.class.php:274 src/AssetClassification.php:119
-msgid "Confidentiality"
-msgstr ""
-
-#: inc/securityincident.class.php:275 src/AssetClassification.php:127
-msgid "Integrity"
 msgstr ""
 
 #: inc/securityincident.class.php:742
@@ -9634,22 +12348,6 @@ msgid_plural "C/I/A classifications"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/AssetClassification.php:111 src/CoverageRule.php:332
-msgid "Asset type"
-msgstr ""
-
-#: src/AssetClassification.php:143
-msgid "RTO (maximum downtime)"
-msgstr ""
-
-#: src/AssetClassification.php:151
-msgid "RPO (maximum data loss)"
-msgstr ""
-
-#: src/AssetClassification.php:189 src/Risk.php:837
-msgid "Not classified"
-msgstr ""
-
 #: src/AssetClassification.php:360
 msgid "1 hour"
 msgstr ""
@@ -9694,16 +12392,8 @@ msgctxt "masculine"
 msgid "Planned"
 msgstr ""
 
-#: src/Audit.php:96 src/Audit.php:295
-msgid "Completed"
-msgstr ""
-
 #: src/Audit.php:97 src/Audit.php:296 src/ComplianceEvent.php:132
 msgid "Cancelled"
-msgstr ""
-
-#: src/Audit.php:210
-msgid "Risk categories covered"
 msgstr ""
 
 #: src/Audit.php:480
@@ -9727,10 +12417,6 @@ msgstr ""
 #: src/AuditEvidenceRequest.php:145
 msgctxt "feminine"
 msgid "Submitted"
-msgstr ""
-
-#: src/AuditEvidenceRequest.php:146
-msgid "To complete"
 msgstr ""
 
 #: src/AuditEvidenceRequest.php:147
@@ -9915,14 +12601,6 @@ msgstr ""
 msgid "Real user (impersonation)"
 msgstr ""
 
-#: src/AuditLog.php:233 src/PolicyAcknowledgement.php:130
-msgid "Profile"
-msgstr ""
-
-#: src/AuditorAccess.php:50
-msgid "Auditor space"
-msgstr ""
-
 #: src/AuditorAccess.php:125
 msgid "Choose an active account."
 msgstr ""
@@ -9938,10 +12616,6 @@ msgstr ""
 
 #: src/AuditTeam.php:173
 msgid "Team"
-msgstr ""
-
-#: src/AuditTeam.php:198
-msgid "Audit owner"
 msgstr ""
 
 #: src/BreachExposure.php:64
@@ -9965,24 +12639,8 @@ msgctxt "breach"
 msgid "Not applicable"
 msgstr ""
 
-#: src/BreachExposure.php:123
-msgid "Email (no GLPI user)"
-msgstr ""
-
-#: src/BreachExposure.php:128
-msgid "Published by Have I Been Pwned"
-msgstr ""
-
 #: src/BreachExposure.php:134
 msgid "Detected on"
-msgstr ""
-
-#: src/BreachExposure.php:136
-msgid "Breached site"
-msgstr ""
-
-#: src/BreachExposure.php:139
-msgid "Verified breach"
 msgstr ""
 
 #: src/BreachExposure.php:141
@@ -10236,14 +12894,6 @@ msgstr ""
 msgid "A product \"%s / %s\" already exists."
 msgstr ""
 
-#: src/CanonicalProduct.php:135
-msgid "Vendor / manufacturer"
-msgstr ""
-
-#: src/CanonicalProduct.php:144
-msgid "Product"
-msgstr ""
-
 #: src/CanonicalProduct.php:185
 msgid "CPE identifiers"
 msgstr ""
@@ -10274,10 +12924,6 @@ msgstr ""
 msgid "No alias yet."
 msgstr ""
 
-#: src/CausalLink.php:53
-msgid "Domino effect"
-msgstr ""
-
 #: src/CausalLink.php:125 src/ImpactAnalysis.php:136
 msgid "Item not visible"
 msgstr ""
@@ -10297,10 +12943,6 @@ msgid ""
 "GLPI also refuses internal addresses for this plugin: add %s to the constant "
 "GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/"
 "local_define.php)."
-msgstr ""
-
-#: src/ComplianceAudit.php:73
-msgid "Automated technical checks"
 msgstr ""
 
 #: src/ComplianceAudit.php:100
@@ -10430,11 +13072,6 @@ msgstr[1] ""
 msgid "Certificate renewal"
 msgstr ""
 
-#: src/ComplianceEvent.php:131
-msgctxt "masculine"
-msgid "Done"
-msgstr ""
-
 #: src/ComplianceEvent.php:149
 msgid "Policy review"
 msgstr ""
@@ -10541,26 +13178,9 @@ msgstr ""
 msgid "Not assessed"
 msgstr ""
 
-#: src/ComplianceObligation.php:197
-msgid "Reference / source"
-msgstr ""
-
-#: src/ComplianceObligation.php:205
-#: src/NotificationTargetComplianceObligation.php:93
-msgid "Compliance status"
-msgstr ""
-
-#: src/ComplianceObligation.php:238
-msgid "Description / notes"
-msgstr ""
-
 #: src/ComplianceObligation.php:403
 #, php-format
 msgid "%d obligation(s) awaiting review, %d notification(s) raised."
-msgstr ""
-
-#: src/ConsistencyCheck.php:58
-msgid "ISMS consistency checks"
 msgstr ""
 
 #: src/ConsistencyCheck.php:114
@@ -11386,15 +14006,6 @@ msgstr ""
 msgid "Last update"
 msgstr ""
 
-#: src/Control.php:467 src/NotificationTargetControl.php:147
-msgid "Last test"
-msgstr ""
-
-#: src/Control.php:477 src/ControlTest.php:857
-#: src/NotificationTargetControl.php:146
-msgid "Next test"
-msgstr ""
-
 #: src/Control.php:787
 msgid "Returns"
 msgstr ""
@@ -11559,18 +14170,6 @@ msgstr ""
 msgid "%d reminder(s), %d \"Verified\" state(s) removed."
 msgstr ""
 
-#: src/ControlTest.php:824
-msgid "Test date"
-msgstr ""
-
-#: src/ControlTest.php:832
-msgid "Method"
-msgstr ""
-
-#: src/ControlTest.php:848
-msgid "Tester"
-msgstr ""
-
 #: src/ControlTestReminder.php:80
 msgid "Overdue tests only"
 msgstr ""
@@ -11599,14 +14198,6 @@ msgstr ""
 
 #: src/CoverageRule.php:292
 msgid "Coverage rate"
-msgstr ""
-
-#: src/CoverageRule.php:337
-msgid "Required document category"
-msgstr ""
-
-#: src/CoverageRule.php:345
-msgid "ISMS requirement"
 msgstr ""
 
 #: src/CpeReference.php:43
@@ -13147,11 +15738,6 @@ msgstr ""
 
 #: src/NetworkFlow.php:90 src/SecurityIncidentAction.php:61
 msgid "Backup"
-msgstr ""
-
-#: src/NetworkFlow.php:115
-msgctxt "masculine"
-msgid "Expired"
 msgstr ""
 
 #: src/NetworkFlow.php:116
@@ -16847,11 +19433,6 @@ msgstr ""
 msgid "The contract includes security and confidentiality clauses."
 msgstr ""
 
-#: src/SupplierAssessment.php:93
-msgctxt "nothing to assess"
-msgid "Not applicable"
-msgstr ""
-
 #: src/SupplierAssessment.php:106
 msgid "Supplier contracts"
 msgstr ""
@@ -16976,10 +19557,6 @@ msgstr ""
 msgid "No decision"
 msgstr ""
 
-#: src/Traits/RiskAssessmentTrait.php:83
-msgid "Accept"
-msgstr ""
-
 #: src/Traits/RiskAssessmentTrait.php:84
 msgid "Mitigate"
 msgstr ""
@@ -16994,10 +19571,6 @@ msgstr ""
 
 #: src/Traits/RiskAssessmentTrait.php:96 src/Traits/RiskAssessmentTrait.php:223
 msgid "Identified"
-msgstr ""
-
-#: src/Traits/RiskAssessmentTrait.php:98 src/Traits/RiskAssessmentTrait.php:225
-msgid "Accepted"
 msgstr ""
 
 #: src/Traits/RiskAssessmentTrait.php:99 src/Traits/RiskAssessmentTrait.php:226
@@ -17037,10 +19610,6 @@ msgstr ""
 
 #: src/VulnerabilityDigest.php:110
 msgid "TO WATCH"
-msgstr ""
-
-#: src/VulnerabilityDigest.php:268
-msgid "Fleet vulnerability report by email"
 msgstr ""
 
 #: src/Waiver.php:62
