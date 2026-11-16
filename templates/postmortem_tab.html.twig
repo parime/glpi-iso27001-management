@@ -1,3 +1,17 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
 {# Issue #169 : aperçu du rapport post-incident et génération du PDF #}
 {% set outcomes = {'met': ['bg-green-lt', __('Met', 'grcmanager')], 'late': ['bg-red-lt', __('Overdue', 'grcmanager')], 'missing': ['bg-orange-lt', __('Not notified', 'grcmanager')], 'not_required': ['bg-secondary-lt', __('Not notified (decision recorded)', 'grcmanager')], 'waiting': ['bg-purple-lt', __('Waiting for the corrective measure', 'grcmanager')], 'not_applicable': ['bg-secondary-lt', __('Not applicable', 'grcmanager')]} %}
 <div class="container-fluid">
