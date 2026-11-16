@@ -87,10 +87,8 @@ $titles = \GlpiPlugin\Grcmanager\Control::getControlTitles();
 $themes = \GlpiPlugin\Grcmanager\Control::getThemes();
 
 global $DB;
-$idsByCode = [];
-foreach ($DB->request(['SELECT' => ['id', 'code'], 'FROM' => \GlpiPlugin\Grcmanager\Control::getTable()]) as $row) {
-    $idsByCode[$row['code']] = (int) $row['id'];
-}
+// Issue #536 : mesures de la SoA suivie par l'entité active.
+$idsByCode = \GlpiPlugin\Grcmanager\EntityPerimeter::controlIdsByCode();
 
 $annexA = [];
 foreach (ControlCatalogDefaults::CONTROLS as $code => $theme) {

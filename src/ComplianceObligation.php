@@ -336,7 +336,7 @@ class ComplianceObligation extends ComplianceObligationBase
         }
 
         $risk = new Risk();
-        if (!$risk->getFromDB($riskId)) {
+        if (!$risk->getFromDB($riskId) || !$risk->canViewItem()) {
             return '';
         }
 
@@ -357,7 +357,14 @@ class ComplianceObligation extends ComplianceObligationBase
         $canViewRisks = Risk::canView();
         $riskTitles = [0 => Dropdown::EMPTY_VALUE];
         if ($canViewRisks) {
-            foreach ($DB->request(['SELECT' => ['id', 'title'], 'FROM' => Risk::getTable()]) as $row) {
+            // Issue #536 : risques des entités de la session.
+            foreach (
+                $DB->request([
+                    'SELECT' => ['id', 'title'],
+                    'FROM'   => Risk::getTable(),
+                    'WHERE'  => EntityPerimeter::criteria(Risk::getTable()),
+                ]) as $row
+            ) {
                 $riskTitles[(int) $row['id']] = $row['title'];
             }
         }

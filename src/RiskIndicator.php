@@ -363,7 +363,7 @@ class RiskIndicator extends RiskIndicatorBase
         }
         if (array_key_exists('plugin_grcmanager_risks_id', $input)) {
             $riskId = (int) $input['plugin_grcmanager_risks_id'];
-            $input['plugin_grcmanager_risks_id'] = $riskId > 0 && (new Risk())->getFromDB($riskId) ? $riskId : 0;
+            $input['plugin_grcmanager_risks_id'] = $riskId > 0 && (new Risk())->can($riskId, READ) ? $riskId : 0;
         }
         foreach (['threshold_warning', 'threshold_critical'] as $field) {
             if (array_key_exists($field, $input)) {
@@ -798,7 +798,15 @@ class RiskIndicator extends RiskIndicatorBase
         $this->initForm($ID, $options);
         $isNew = $this->isNewID($ID);
         $risks = [0 => Dropdown::EMPTY_VALUE];
-        foreach ($DB->request(['SELECT' => ['id', 'title'], 'FROM' => Risk::getTable(), 'ORDER' => 'title']) as $row) {
+        // Issue #536 : risques des entités de la session.
+        foreach (
+            $DB->request([
+                'SELECT' => ['id', 'title'],
+                'FROM'   => Risk::getTable(),
+                'WHERE'  => EntityPerimeter::criteria(Risk::getTable()),
+                'ORDER'  => 'title',
+            ]) as $row
+        ) {
             $risks[(int) $row['id']] = (string) $row['title'];
         }
         TemplateRenderer::getInstance()->display('@grcmanager/risk_indicator_form.html.twig', [

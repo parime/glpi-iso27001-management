@@ -559,10 +559,9 @@ class Audit extends AuditBase
         $this->initForm($ID, $options);
 
         $controlTitles = [];
-        $controlRows   = $DB->request(['SELECT' => ['id', 'code'], 'FROM' => Control::getTable()]);
-        foreach ($controlRows as $row) {
-            $controlTitles[(int) $row['id']] = $row['code'] . ' - '
-                . Control::getControlTitle($row['code']);
+        // Issue #536 : mesures de la SoA suivie par l'entité active.
+        foreach (EntityPerimeter::controlIdsByCode() as $code => $controlId) {
+            $controlTitles[$controlId] = $code . ' - ' . Control::getControlTitle($code);
         }
         asort($controlTitles);
 

@@ -170,6 +170,8 @@ final class PilotageCards
             $DB->request([
                 'SELECT' => ['code', 'applicability', 'implementation_status'],
                 'FROM'   => \GlpiPlugin\Grcmanager\Control::getTable(),
+                // Issue #536 : mesures de la SoA suivie par l'entité active.
+                'WHERE'  => \GlpiPlugin\Grcmanager\EntityPerimeter::controlCriteria(),
             ]) as $row
         ) {
             $controls[(string) $row['code']] = [

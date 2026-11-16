@@ -7,6 +7,42 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Added
+
+- **Périmètres multiples, premier lot : registre des risques et SoA par entité GLPI** (issue #536,
+  demande de skreu dans #547). Les risques, les mesures de la Déclaration d'Applicabilité et les
+  versions approuvées de la SoA appartiennent désormais à une entité GLPI, avec l'option « sous-entités ».
+  Les droits d'entité standards de GLPI s'appliquent partout : listes, recherches, fiches, listes
+  déroulantes, API, notifications, cartes du tableau de bord, exports CSV et PDF, contrôles de
+  cohérence (#614), Mon espace GRC. Un profil limité à une filiale ne voit ni ne modifie jamais un
+  risque, une mesure, une version de SoA ou un export d'une autre filiale ; une création forcée dans
+  une autre entité est refusée.
+  - **Une SoA par entité** : la SoA commune (93 mesures de l'Annexe A) reste dans l'entité racine,
+    lisible des sous-entités. Depuis la liste des mesures, une entité peut **créer sa propre SoA** :
+    ses 93 mesures reprennent l'applicabilité et la justification de la SoA qu'elle suivait, chaque
+    mesure reste à revoir et à mettre en œuvre. L'entité et ses sous-entités suivent alors cette SoA
+    (export, rapport PDF, approbation par la direction, numérotation des versions, empreinte,
+    évaluation par référentiel, score de maturité). Une entité sans SoA propre lit celle de son
+    parent sans pouvoir la modifier ni la soumettre à approbation.
+  - **Vue « Périmètres »** du tableau de bord, dans une entité qui a des sous-entités : pour l'entité
+    et chacune de ses entités enfants (sous-entités comprises), SoA suivie, taux de mise en œuvre,
+    dernière version approuvée et risques ouverts par niveau.
+  - Fiche du risque : entité et sous-entités dans l'en-tête, comme les objets de GLPI ; colonnes
+    « Entité » et « Sous-entités » dans la recherche, modifiables en masse vers une entité de la
+    session. Un risque proposé depuis un processus métier, un traitement (AIPD) ou l'analyse d'impact
+    naît dans l'entité de cet objet.
+
+### Changed
+
+- **Migration** (issue #536) : les risques, les mesures et les versions de la SoA existants sont
+  rattachés à l'entité racine. La SoA et ses versions restent visibles des sous-entités, comme avant ;
+  les risques sont dans la seule entité racine. Un administrateur de la racine voit tout ; pour
+  ouvrir un risque à une filiale, déplacez-le dans son entité (modification en masse, colonne
+  « Entité ») ou cochez « Sous-entités ». La migration peut être rejouée sans effet.
+- Un profil limité à une sous-entité qui suit la SoA de la racine la lit sans la modifier : donnez-lui
+  sa propre SoA, ou des droits sur l'entité racine.
+- Les audits, non-conformités et actions de traitement suivent dans un second lot (#536).
+
 ## [2.52.0] - 2026-11-16
 
 ### Added

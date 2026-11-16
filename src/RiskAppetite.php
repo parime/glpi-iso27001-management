@@ -284,7 +284,11 @@ class RiskAppetite extends CommonGLPI
         foreach (
             $DB->request([
                 'FROM'  => Risk::getTable(),
-                'WHERE' => ['status' => ['<>', 'closed'], 'category' => array_keys($settings)],
+                // Issue #536 : risques des entités de la session.
+                'WHERE' => array_merge(
+                    ['status' => ['<>', 'closed'], 'category' => array_keys($settings)],
+                    EntityPerimeter::criteria(Risk::getTable())
+                ),
                 'ORDER' => ['computed_score DESC', 'title'],
             ]) as $row
         ) {

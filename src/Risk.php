@@ -21,6 +21,7 @@ use CommonDBTM;
 use CommonGLPI;
 use CronTask;
 use Dropdown;
+use Entity;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compat\Base\RiskBase;
 use GlpiPlugin\Grcmanager\Services\Classification\ClassificationLevels;
@@ -134,6 +135,20 @@ class Risk extends RiskBase
      */
     public function prepareInputForAdd($input)
     {
+        // Issue #536 : un risque appartient à une entité (par défaut l'entité active), sans ses
+        // sous-entités sauf choix contraire.
+        $input['entities_id']  = (int) ($input['entities_id'] ?? EntityPerimeter::activeEntity());
+        $input['is_recursive'] = (int) (bool) ($input['is_recursive'] ?? 0);
+        if (EntityPerimeter::hasSession() && !Session::haveAccessToEntity($input['entities_id'])) {
+            Session::addMessageAfterRedirect(
+                __('You cannot create a risk in this entity.', 'grcmanager'),
+                false,
+                ERROR
+            );
+
+            return false;
+        }
+
         return $this->validateTreatmentPlanAndComputeRiskLevel($input);
     }
 
@@ -143,6 +158,15 @@ class Risk extends RiskBase
      */
     public function prepareInputForUpdate($input)
     {
+        // Issue #536 : un risque ne part que vers une entité de la session (modification en masse).
+        if (
+            isset($input['entities_id'])
+            && EntityPerimeter::hasSession()
+            && !Session::haveAccessToEntity((int) $input['entities_id'])
+        ) {
+            unset($input['entities_id']);
+        }
+
         return $this->validateTreatmentPlanAndComputeRiskLevel($input);
     }
 
@@ -442,6 +466,22 @@ class Risk extends RiskBase
             'field'    => 'external_ref',
             'name'     => __('External reference', 'grcmanager'),
             'datatype' => 'string',
+        ];
+
+        // Issue #536 : périmètre du risque (entité GLPI) et visibilité dans les sous-entités.
+        $tab[] = [
+            'id'       => 80,
+            'table'    => 'glpi_entities',
+            'field'    => 'completename',
+            'name'     => Entity::getTypeName(1),
+            'datatype' => 'dropdown',
+        ];
+        $tab[] = [
+            'id'       => 86,
+            'table'    => $this->getTable(),
+            'field'    => 'is_recursive',
+            'name'     => __('Child entities'),
+            'datatype' => 'bool',
         ];
 
         return $tab;
@@ -825,10 +865,11 @@ class Risk extends RiskBase
 
         $risks = [];
 
+        // Issue #536 : seuls les risques des entités de la session.
         $rows = $DB->request([
             'SELECT' => ['id', 'title', 'risk_level'],
             'FROM'   => self::getTable(),
-            'WHERE'  => ['id' => $riskIds],
+            'WHERE'  => array_merge(['id' => $riskIds], EntityPerimeter::criteria(self::getTable())),
         ]);
 
         foreach ($rows as $row) {

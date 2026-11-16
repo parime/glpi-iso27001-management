@@ -192,7 +192,15 @@ class BusinessProcessRisk extends BusinessProcessRiskBase
         global $DB;
 
         $choices = [0 => \Dropdown::EMPTY_VALUE];
-        foreach ($DB->request(['SELECT' => ['id', 'title'], 'FROM' => Risk::getTable(), 'ORDER' => 'title']) as $row) {
+        // Issue #536 : risques des entités de la session.
+        foreach (
+            $DB->request([
+                'SELECT' => ['id', 'title'],
+                'FROM'   => Risk::getTable(),
+                'WHERE'  => EntityPerimeter::criteria(Risk::getTable()),
+                'ORDER'  => 'title',
+            ]) as $row
+        ) {
             if (!in_array((int) $row['id'], $used, true)) {
                 $choices[(int) $row['id']] = (string) $row['title'];
             }
@@ -278,6 +286,8 @@ class BusinessProcessRisk extends BusinessProcessRiskBase
                 'grcmanager'
             );
             $riskId = (int) (new Risk())->add([
+                // Issue #536 : le risque naît dans l'entité du processus.
+                'entities_id' => (int) $process->fields['entities_id'],
                 'title'       => $title,
                 'description' => $description,
                 'category'    => 'technical',

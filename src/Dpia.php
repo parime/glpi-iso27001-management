@@ -307,6 +307,8 @@ class Dpia extends DpiaBase
             return 0;
         }
         $riskId = (new Risk())->add([
+            // Issue #536 : le risque naît dans l'entité du traitement.
+            'entities_id' => (int) $activity->fields['entities_id'],
             'title'       => sprintf(__('%1$s: %2$s'), self::getTypeName(1), (string) $activity->fields['name']),
             'description' => sprintf(
                 __('%1$s: %2$s'),
@@ -413,7 +415,7 @@ class Dpia extends DpiaBase
     {
         $riskId = (int) ($fields[Risk::getForeignKeyField()] ?? 0);
         $risk = new Risk();
-        if ($riskId <= 0 || !Risk::canView() || !$risk->getFromDB($riskId)) {
+        if ($riskId <= 0 || !Risk::canView() || !$risk->getFromDB($riskId) || !$risk->canViewItem()) {
             return null;
         }
         $matrix = RiskMatrixConfig::load();

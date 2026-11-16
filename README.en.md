@@ -248,6 +248,26 @@ points: an ideal map for an attacker. The plugin protects them at its own level:
   appear nowhere, neither in other records nor in the dashboard;
 - **history** of risk changes, and a **trace of register exports** in GLPI's event log;
 - **e-mails without details** by default ("Risk no. X" and the link to the record).
+## Perimeters (GLPI entities)
+
+The ISMS can be split along GLPI entities (issue #536, first batch). **Risks**, **SoA controls** and
+the **approved SoA versions** belong to an entity: a user only sees and changes the ones of the
+entities of their profile, everywhere (lists, forms, exports, dashboard, API, notifications,
+consistency checks).
+
+- **Shared data**: reference frameworks, the Annex A catalogue and policies stay shared by every
+  entity. The common SoA sits in the root entity and is readable from sub-entities.
+- **One SoA per entity**: in a subsidiary, the control list (Compliance > Annex A controls) shows
+  which SoA applies and offers **Create the SoA of this entity**. The copy keeps the applicability
+  and justifications; every control has to be reviewed and implemented again in the subsidiary. Its
+  sub-entities follow that SoA. Management approval and version numbers are specific to each SoA.
+- **Consolidated view**: in a parent entity, in tree view, Dashboard > **Perimeters** shows for each
+  child entity the SoA it follows, its implementation rate, its last approved version and its open
+  risks by level.
+- **After the update**, all existing data is in the root entity (the SoA recursive). Move risks into
+  their entities with a massive update (column "Entity").
+- Audits, non-conformities and treatment actions: second batch of issue #536.
+
 ## Project status
 
 **Stable**, published and installable right now, for GLPI 11 and 12: see the

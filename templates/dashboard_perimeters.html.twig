@@ -1,0 +1,96 @@
+{# Issue #536 : tableau consolidé d'une entité parente, une ligne par entité enfant (avec ses sous-entités). #}
+{% set level_badges = {
+   'critical': 'bg-red-lt',
+   'high': 'bg-orange-lt',
+   'medium': 'bg-yellow-lt',
+   'low': 'bg-green-lt',
+} %}
+<div class="card" id="grcmanager-perimeters">
+   <div class="card-header">
+      <h3 class="card-title"><i class="ti ti-sitemap me-2"></i>{{ __('Consolidation by perimeter', 'grcmanager') }}</h3>
+   </div>
+   <div class="card-body">
+      <p class="text-secondary mb-3">
+         {{ __('One row for the current entity and one per child entity, sub-entities included. The rate counts the applicable controls of the SoA each entity follows: implemented or verified count fully, in progress counts half.', 'grcmanager') }}
+      </p>
+      <div class="table-responsive">
+         <table class="table table-vcenter card-table">
+            <thead>
+               <tr>
+                  <th>{{ __('Entity') }}</th>
+                  <th>{{ __('SoA followed', 'grcmanager') }}</th>
+                  <th>{{ __('Implementation rate', 'grcmanager') }}</th>
+                  <th>{{ __('Approved SoA version', 'grcmanager') }}</th>
+                  {% if can_risks %}
+                     <th>{{ __('Open risks', 'grcmanager') }}</th>
+                  {% endif %}
+               </tr>
+            </thead>
+            <tbody>
+               {% for row in rows %}
+                  <tr>
+                     <td>
+                        <i class="ti {{ row.is_self ? 'ti-building' : 'ti-building-community' }} me-1"></i>
+                        <strong>{{ row.name }}</strong>
+                        {% if row.is_self %}
+                           <span class="text-secondary small d-block">{{ __('This entity only', 'grcmanager') }}</span>
+                        {% endif %}
+                     </td>
+                     <td>
+                        {% if row.own_soa %}
+                           <span class="badge bg-green-lt"><i class="ti ti-circle-check me-1"></i>{{ __('Own SoA', 'grcmanager') }}</span>
+                        {% else %}
+                           <span class="badge bg-azure-lt"><i class="ti ti-arrow-up-right me-1"></i>{{ __('Inherited SoA', 'grcmanager') }}</span>
+                           <span class="text-secondary small d-block">{{ row.soa_name }}</span>
+                        {% endif %}
+                     </td>
+                     <td style="min-width: 10rem;">
+                        {% if row.rate is null %}
+                           <span class="badge bg-secondary-lt">{{ __('No applicable control', 'grcmanager') }}</span>
+                        {% else %}
+                           <div class="d-flex align-items-center gap-2">
+                              <div class="progress progress-sm flex-fill">
+                                 <div class="progress-bar {{ row.rate >= 80 ? 'bg-green' : (row.rate >= 50 ? 'bg-yellow' : 'bg-red') }}"
+                                      style="width: {{ row.rate|round }}%" role="progressbar"
+                                      aria-valuenow="{{ row.rate|round }}" aria-valuemin="0" aria-valuemax="100"
+                                      aria-label="{{ __('Implementation rate', 'grcmanager') }}"></div>
+                              </div>
+                              <span class="fw-bold">{{ row.rate|round }}%</span>
+                           </div>
+                           <span class="text-secondary small">{{ __('%d applicable controls', 'grcmanager')|format(row.applicable) }}</span>
+                        {% endif %}
+                     </td>
+                     <td>
+                        {% if row.approved_version %}
+                           <span class="badge bg-teal-lt"><i class="ti ti-signature me-1"></i>{{ __('Version %d', 'grcmanager')|format(row.approved_version) }}</span>
+                        {% else %}
+                           <span class="badge bg-orange-lt"><i class="ti ti-alert-triangle me-1"></i>{{ __('Not approved yet', 'grcmanager') }}</span>
+                        {% endif %}
+                     </td>
+                     {% if can_risks %}
+                        <td>
+                           {% if row.risks.open == 0 %}
+                              <span class="badge bg-secondary-lt">{{ __('None', 'grcmanager') }}</span>
+                           {% else %}
+                              <span class="fw-bold me-1">{{ row.risks.open }}</span>
+                              {% for level, badge in level_badges %}
+                                 {% if row.risks[level] > 0 %}
+                                    <span class="badge {{ badge }} me-1">{{ __('%1$s: %2$s')|format(levels[level]|default(level), row.risks[level]) }}</span>
+                                 {% endif %}
+                              {% endfor %}
+                           {% endif %}
+                        </td>
+                     {% endif %}
+                  </tr>
+               {% endfor %}
+            </tbody>
+         </table>
+      </div>
+      <div class="mt-3 d-flex flex-wrap gap-2">
+         <a href="{{ soa_url }}" class="btn btn-outline-secondary btn-sm"><i class="ti ti-checklist me-1"></i>{{ __('Statement of Applicability', 'grcmanager') }}</a>
+         {% if can_risks %}
+            <a href="{{ risk_url }}" class="btn btn-outline-secondary btn-sm"><i class="ti ti-shield-exclamation me-1"></i>{{ __('Risk register', 'grcmanager') }}</a>
+         {% endif %}
+      </div>
+   </div>
+</div>

@@ -268,10 +268,11 @@ final class MySpaceProvider
                         'FKEY' => ['actions' => 'plugin_grcmanager_risks_id', 'risks' => 'id'],
                     ],
                 ],
-                'WHERE'      => [
+                // Issue #536 : actions des risques des entités de la session.
+                'WHERE'      => array_merge([
                     'actions.users_id' => $usersId,
                     'actions.status'   => ['<>', TreatmentPlanRules::STATUS_DONE],
-                ],
+                ], \GlpiPlugin\Grcmanager\EntityPerimeter::criteria('risks')),
             ]) as $row
         ) {
             $list[] = self::candidate(

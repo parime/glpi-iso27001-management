@@ -300,6 +300,27 @@ informez les salariés. Le plugin limite les données au strict nécessaire :
 - la **clé d'API** est chiffrée avec la clé de GLPI, masquée dans l'historique et jamais réaffichée ;
 - consultation et traitement réservés au droit « Registres sensibles » ; seuls le statut et le
   commentaire sont modifiables.
+## Périmètres (entités GLPI)
+
+Le SMSI se découpe selon les entités de GLPI (issue #536, premier lot). Les **risques**, les
+**mesures de la SoA** et ses **versions approuvées** appartiennent à une entité : un utilisateur ne
+voit et ne modifie que ceux des entités de son profil, partout (listes, fiches, exports, tableau de
+bord, API, notifications, contrôles de cohérence).
+
+- **Données communes** : les référentiels, le catalogue de l'Annexe A et les politiques restent
+  communs à toutes les entités. La SoA commune est dans l'entité racine, lisible des sous-entités.
+- **Une SoA par entité** : dans une filiale, la liste des mesures (Conformité > Contrôles Annexe A)
+  indique la SoA suivie et propose **Créer la SoA de cette entité**. La copie reprend l'applicabilité
+  et les justifications ; chaque mesure est à revoir et à mettre en œuvre dans la filiale. Ses
+  sous-entités suivent cette SoA. L'approbation par la direction et la numérotation des versions sont
+  propres à chaque SoA.
+- **Vue consolidée** : dans une entité parente, en vue arborescente, Tableau de bord > **Périmètres**
+  donne pour chaque entité enfant la SoA suivie, son taux de mise en œuvre, sa dernière version
+  approuvée et ses risques ouverts par niveau.
+- **Après la mise à jour**, toutes les données existantes sont dans l'entité racine (la SoA en
+  récursif). Rangez les risques dans leurs entités par une modification en masse (colonne « Entité »).
+- Audits, non-conformités et actions de traitement : second lot de l'issue #536.
+
 ## État du projet
 
 **Stable**, publié et installable dès maintenant, pour GLPI 11 et 12 : voir la

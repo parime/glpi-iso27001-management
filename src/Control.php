@@ -19,6 +19,7 @@ namespace GlpiPlugin\Grcmanager;
 
 use Document_Item;
 use Dropdown;
+use Entity;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compat\Base\ControlBase;
 use GlpiPlugin\Grcmanager\Services\Control\AnssiHygieneCatalogDefaults;
@@ -290,6 +291,10 @@ class Control extends ControlBase
 
     public function prepareInputForAdd($input)
     {
+        // Issue #536 : une mesure appartient à la SoA d'une entité, visible de ses sous-entités.
+        $input['entities_id']  = (int) ($input['entities_id'] ?? EntityPerimeter::activeEntity());
+        $input['is_recursive'] = 1;
+
         return $this->validateAndMarkReviewed($input);
     }
 
@@ -299,7 +304,27 @@ class Control extends ControlBase
      */
     public function prepareInputForUpdate($input)
     {
+        // Issue #536 : une mesure ne change ni d'entité ni de code (un code par SoA d'entité), et
+        // reste visible des sous-entités qui suivent cette SoA.
+        unset($input['entities_id'], $input['is_recursive'], $input['code']);
+
         return $this->validateAndMarkReviewed($input);
+    }
+
+    /**
+     * Issue #536 : la recherche, les listes déroulantes et l'API ne montrent que les mesures des
+     * SoA suivies par les entités actives (dans une entité qui tient sa SoA, les siennes ; à la
+     * racine en vue arborescente, toutes). Sans cela, une entité dotée de sa SoA verrait chaque
+     * mesure deux fois : la sienne et celle, récursive, de la SoA commune.
+     */
+    public static function getSystemSQLCriteria(?string $tablename = null): array
+    {
+        if (!EntityPerimeter::hasSession()) {
+            return [];
+        }
+        $field = ($tablename !== null && $tablename !== '' ? $tablename . '.' : '') . 'entities_id';
+
+        return [$field => EntityPerimeter::activeSoaEntities()];
     }
 
     /**
@@ -333,8 +358,8 @@ class Control extends ControlBase
         }
 
         // Issue #380 : le plan de test et l'état posé par un test (ControlTest) ne sont pas une
-        // revue de la SoA.
-        if (!empty($input['_grcmanager_from_test'])) {
+        // revue de la SoA. Issue #536 : une SoA d'entité qui vient d'être créée non plus.
+        if (!empty($input['_grcmanager_from_test']) || !empty($input['_grcmanager_new_soa'])) {
             return $input;
         }
 
@@ -456,6 +481,16 @@ class Control extends ControlBase
                 . ' DATE_ADD(`t`.`test_date`, INTERVAL TABLE.`test_frequency_months` MONTH), NULL))'
                 . " FROM `{$tests}` AS `t` WHERE `t`.`plugin_grcmanager_controls_id` = TABLE.`id`"
                 . ' ORDER BY `t`.`test_date` DESC, `t`.`id` DESC LIMIT 1)',
+        ];
+
+        // Issue #536 : entité de la SoA à laquelle appartient la mesure.
+        $tab[] = [
+            'id'            => 80,
+            'table'         => 'glpi_entities',
+            'field'         => 'completename',
+            'name'          => Entity::getTypeName(1),
+            'datatype'      => 'dropdown',
+            'massiveaction' => false,
         ];
 
         return $tab;
@@ -589,7 +624,10 @@ class Control extends ControlBase
                     ],
                 ],
             ],
-            'WHERE' => ['links.plugin_grcmanager_controls_id' => $controlId],
+            'WHERE' => array_merge(
+                ['links.plugin_grcmanager_controls_id' => $controlId],
+                EntityPerimeter::criteria('risks')
+            ),
         ]);
 
         foreach ($rows as $row) {
@@ -618,11 +656,36 @@ class Control extends ControlBase
     {
         global $DB;
 
-        $DB->delete(self::LINK_TABLE, ['plugin_grcmanager_controls_id' => $controlId]);
+        // Issue #536 : seuls les liens vers des risques visibles (entités de la session) sont
+        // remplacés ; un lien vers un risque d'une autre entité est conservé, jamais créé.
+        $visibleLinked = self::getLinkedRiskIds($controlId);
+        if ($visibleLinked !== []) {
+            $DB->delete(self::LINK_TABLE, [
+                'plugin_grcmanager_controls_id' => $controlId,
+                'plugin_grcmanager_risks_id'    => $visibleLinked,
+            ]);
+        }
 
         $riskIds = array_unique(array_filter(array_map('intval', $riskIds), static fn ($id) => $id > 0));
+        if ($riskIds !== []) {
+            $visible = [];
+            foreach (
+                $DB->request([
+                    'SELECT' => ['id'],
+                    'FROM'   => Risk::getTable(),
+                    'WHERE'  => array_merge(['id' => $riskIds], EntityPerimeter::criteria(Risk::getTable())),
+                ]) as $row
+            ) {
+                $visible[] = (int) $row['id'];
+            }
+            $riskIds = array_intersect($riskIds, $visible);
+        }
 
         foreach ($riskIds as $riskId) {
+            $link = ['plugin_grcmanager_controls_id' => $controlId, 'plugin_grcmanager_risks_id' => $riskId];
+            if (countElementsInTable(self::LINK_TABLE, $link) > 0) {
+                continue;
+            }
             $DB->insert(self::LINK_TABLE, [
                 'plugin_grcmanager_controls_id' => $controlId,
                 'plugin_grcmanager_risks_id'    => $riskId,
@@ -656,7 +719,11 @@ class Control extends ControlBase
         $canViewRisks = Risk::canView();
         $riskTitles = [];
         if ($canViewRisks) {
-            $risks = $DB->request(['SELECT' => ['id', 'title'], 'FROM' => Risk::getTable()]);
+            $risks = $DB->request([
+                'SELECT' => ['id', 'title'],
+                'FROM'   => Risk::getTable(),
+                'WHERE'  => EntityPerimeter::criteria(Risk::getTable()),
+            ]);
             foreach ($risks as $row) {
                 $riskTitles[(int) $row['id']] = $row['title'];
             }
