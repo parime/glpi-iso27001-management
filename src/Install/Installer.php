@@ -3189,6 +3189,7 @@ final class Installer
             );
         }
 
+        $this->migrateEntityPerimeters($migration);
         $this->seedControls();
         $this->seedClauses();
 
@@ -4745,14 +4746,91 @@ final class Installer
      * a row nor overwrites an admin's own applicability/justification/status edits on an existing
      * one.
      */
+    /**
+     * Issue #536 : périmètres multiples. Risques, mesures de la SoA et versions approuvées de la
+     * SoA rattachés à une entité GLPI. Toutes les lignes existantes vont dans l'entité racine (0) :
+     * la SoA et ses versions en récursif (communes aux sous-entités, comme avant), les risques
+     * dans la seule entité racine (un administrateur de la racine les voit tous ; il les range
+     * ensuite dans leurs entités). Rejouable : chaque étape vérifie l'état de la table.
+     */
+    private function migrateEntityPerimeters(Migration $migration): void
+    {
+        global $DB;
+
+        $tables = [
+            self::RISKS_TABLE        => 0,
+            self::CONTROLS_TABLE     => 1,
+            self::SOA_VERSIONS_TABLE => 1,
+        ];
+        foreach ($tables as $table => $recursive) {
+            if (!$DB->fieldExists($table, 'entities_id')) {
+                $migration->addField($table, 'entities_id', 'fkey', ['after' => 'id', 'value' => 0]);
+            }
+            if (!$DB->fieldExists($table, 'is_recursive')) {
+                $migration->addField($table, 'is_recursive', 'bool', ['after' => 'entities_id', 'value' => $recursive]);
+            }
+            $migration->addKey($table, 'entities_id', 'entities_id');
+            $migration->addKey($table, 'is_recursive', 'is_recursive');
+            $migration->migrationOneTable($table);
+        }
+
+        // Un code de mesure (A.5.1...) et un numéro de version sont uniques par entité, non plus
+        // dans toute l'instance : chaque entité qui tient sa SoA a ses 93 mesures et ses versions.
+        $uniqueKeys = [
+            self::CONTROLS_TABLE     => ['unicity_code', ['code', 'entities_id']],
+            self::SOA_VERSIONS_TABLE => ['unicity_version', ['entities_id', 'version']],
+        ];
+        foreach ($uniqueKeys as $table => [$name, $columns]) {
+            if ($this->indexColumns($table, $name) === $columns) {
+                continue;
+            }
+            if ($this->indexColumns($table, $name) !== []) {
+                $migration->dropKey($table, $name);
+                $migration->migrationOneTable($table);
+            }
+            $migration->addKey($table, $columns, $name, 'UNIQUE');
+            $migration->migrationOneTable($table);
+        }
+    }
+
+    /**
+     * Colonnes d'un index, dans l'ordre ; liste vide si l'index n'existe pas.
+     *
+     * @return list<string>
+     */
+    private function indexColumns(string $table, string $name): array
+    {
+        global $DB;
+
+        $columns = [];
+        foreach (
+            $DB->request([
+                'SELECT' => ['COLUMN_NAME'],
+                'FROM'   => 'information_schema.STATISTICS',
+                'WHERE'  => [
+                    'TABLE_SCHEMA' => $DB->dbdefault,
+                    'TABLE_NAME'   => $table,
+                    'INDEX_NAME'   => $name,
+                ],
+                'ORDER'  => 'SEQ_IN_INDEX',
+            ]) as $row
+        ) {
+            $columns[] = (string) $row['COLUMN_NAME'];
+        }
+
+        return $columns;
+    }
+
     private function seedControls(): void
     {
         global $DB;
 
+        // Issue #536 : le catalogue semé est la SoA commune, dans l'entité racine et visible des
+        // sous-entités ; une entité qui tient sa propre SoA en a une copie (EntityPerimeter).
         foreach (ControlCatalogDefaults::CONTROLS as $code => $theme) {
             $exists = $DB->request([
                 'FROM'  => self::CONTROLS_TABLE,
-                'WHERE' => ['code' => $code],
+                'WHERE' => ['code' => $code, 'entities_id' => 0],
             ])->count() > 0;
 
             if ($exists) {
@@ -4760,6 +4838,8 @@ final class Installer
             }
 
             $DB->insert(self::CONTROLS_TABLE, [
+                'entities_id'           => 0,
+                'is_recursive'          => 1,
                 'code'                  => $code,
                 'theme'                 => $theme,
                 'applicability'         => 'yes',

@@ -17024,3 +17024,65 @@ msgstr "Fixable"
 #, php-format
 msgid "last reading: %s"
 msgstr "last reading: %s"
+
+msgid "You cannot create a risk in this entity."
+msgstr "You cannot create a risk in this entity."
+
+#, php-format
+msgid "This entity now has its own Statement of Applicability (%d controls to review)."
+msgstr "This entity now has its own Statement of Applicability (%d controls to review)."
+
+msgid "This entity follows the SoA of a parent entity: only that entity can submit it for approval."
+msgstr "This entity follows the SoA of a parent entity: only that entity can submit it for approval."
+
+#, php-format
+msgid "Perimeter: %s"
+msgstr "Perimeter: %s"
+
+msgid "Own SoA"
+msgstr "Own SoA"
+
+#, php-format
+msgid "Statement of Applicability of the entity \"%s\"."
+msgstr "Statement of Applicability of the entity \"%s\"."
+
+msgid "Inherited SoA"
+msgstr "Inherited SoA"
+
+#, php-format
+msgid "The entity \"%1$s\" follows the SoA of the entity \"%2$s\"."
+msgstr "The entity \"%1$s\" follows the SoA of the entity \"%2$s\"."
+
+msgid "Create a separate SoA for this entity? Its 93 controls start from the current applicability and justifications, and every control has to be implemented again in this entity."
+msgstr "Create a separate SoA for this entity? Its 93 controls start from the current applicability and justifications, and every control has to be implemented again in this entity."
+
+msgid "Create the SoA of this entity"
+msgstr "Create the SoA of this entity"
+
+msgid "Perimeters"
+msgstr "Perimeters"
+
+msgid "Consolidation by perimeter"
+msgstr "Consolidation by perimeter"
+
+msgid "One row for the current entity and one per child entity, sub-entities included. The rate counts the applicable controls of the SoA each entity follows: implemented or verified count fully, in progress counts half."
+msgstr "One row for the current entity and one per child entity, sub-entities included. The rate counts the applicable controls of the SoA each entity follows: implemented or verified count fully, in progress counts half."
+
+msgid "SoA followed"
+msgstr "SoA followed"
+
+msgid "Implementation rate"
+msgstr "Implementation rate"
+
+msgid "This entity only"
+msgstr "This entity only"
+
+msgid "No applicable control"
+msgstr "No applicable control"
+
+#, php-format
+msgid "%d applicable controls"
+msgstr "%d applicable controls"
+
+msgid "Not approved yet"
+msgstr "Not approved yet"

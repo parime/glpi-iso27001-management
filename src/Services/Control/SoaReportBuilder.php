@@ -26,8 +26,10 @@ final class SoaReportBuilder
      * @param array{
      *     version: int, requested_at: string, requested_by: string, fingerprint: string, approvers: list<string>
      * }|null $approval
+     * @param int|null $entityId issue #536 : entité dont la SoA est rendue (par défaut la SoA
+     *     suivie par l'entité active)
      */
-    public static function renderHtml(?array $approval = null): string
+    public static function renderHtml(?int $entityId = null, ?array $approval = null): string
     {
         global $DB;
 
@@ -37,7 +39,15 @@ final class SoaReportBuilder
         $implementationStatuses = \GlpiPlugin\Grcmanager\Control::getImplementationStatuses();
 
         $controls = [];
-        foreach ($DB->request(['FROM' => \GlpiPlugin\Grcmanager\Control::getTable(), 'ORDER' => 'code ASC']) as $row) {
+        $entityId ??= \GlpiPlugin\Grcmanager\EntityPerimeter::soaEntity();
+        $soaParams = ['grcmanager_soa_entity' => $entityId];
+        foreach (
+            $DB->request([
+                'FROM'  => \GlpiPlugin\Grcmanager\Control::getTable(),
+                'WHERE' => \GlpiPlugin\Grcmanager\EntityPerimeter::controlCriteria($entityId),
+                'ORDER' => 'code ASC',
+            ]) as $row
+        ) {
             $controls[] = [
                 'code'                  => $row['code'],
                 'theme'                 => $themes[$row['theme']] ?? $row['theme'],
@@ -68,10 +78,14 @@ final class SoaReportBuilder
                 'Generated on %s',
                 'grcmanager'
             ), Html::convDateTime(date('Y-m-d H:i:s'))),
+            // Issue #536 : périmètre (entité) de la SoA, affiché quand l'instance en a plusieurs.
+            'perimeter'          => count(\GlpiPlugin\Grcmanager\EntityPerimeter::parents()) > 1
+                ? \Dropdown::getDropdownName('glpi_entities', $entityId)
+                : '',
             'controls'           => $controls,
-            'by_applicability'   => DashboardCardService::soaByApplicability(),
-            'by_status'          => DashboardCardService::soaByImplementationStatus(),
-            'reviewed_count'     => DashboardCardService::soaReviewedCount(),
+            'by_applicability'   => DashboardCardService::soaByApplicability($soaParams),
+            'by_status'          => DashboardCardService::soaByImplementationStatus($soaParams),
+            'reviewed_count'     => DashboardCardService::soaReviewedCount($soaParams),
             'total_count'        => count($controls),
             // Issue #109 : null si assetsign absent, la section est alors omise du PDF.
             'assetsign_evidence' => AssetsignEvidenceProvider::fetchSummary(),

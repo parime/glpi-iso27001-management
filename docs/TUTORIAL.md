@@ -336,6 +336,20 @@ Chaque échéance apparaît aussi dans le **planning GLPI** de son responsable, 
 
 ![Échéances de conformité dans le planning GLPI](screenshots/tutorial/51-planning-compliance-events.png)
 
+### Étape 19 : Découper le SMSI par entité (périmètres)
+
+Avec plusieurs entités GLPI (par exemple « Filiale Nord » et « Filiale Sud » sous l'entité racine),
+chaque risque appartient à une entité : un utilisateur limité à Filiale Nord ne voit que les risques
+de Filiale Nord. Pour qu'une filiale tienne sa propre Déclaration d'Applicabilité :
+
+1. Choisissez l'entité Filiale Nord dans le sélecteur d'entité de GLPI.
+2. Ouvrez Conformité > Contrôles Annexe A : l'encadré indique « Filiale Nord suit la SoA de Entité
+   racine ». Cliquez sur **Créer la SoA de cette entité** et confirmez.
+3. Les 93 mesures de Filiale Nord reprennent l'applicabilité et les justifications de la SoA commune ;
+   revoyez-les une à une, puis demandez l'approbation de la direction comme pour la SoA commune.
+4. Revenez à l'entité racine en vue arborescente : Tableau de bord > **Périmètres** compare les deux
+   filiales (SoA suivie, taux de mise en œuvre, version approuvée, risques ouverts par niveau).
+
 ## 🇬🇧 English
 
 **Tutorial: Using GLPI GRC Manager**
@@ -659,3 +673,17 @@ obligations, evidence. It can be exported to iCal.
 Each deadline also appears in its owner's **GLPI planning**, read only.
 
 ![Compliance deadlines in the GLPI planning](screenshots/tutorial/51-planning-compliance-events.png)
+
+### Step 19: Split the ISMS by entity (perimeters)
+
+With several GLPI entities (for instance "North subsidiary" and "South subsidiary" under the root
+entity), each risk belongs to an entity: a user limited to the North subsidiary only sees its risks.
+To give a subsidiary its own Statement of Applicability:
+
+1. Pick the North subsidiary in the GLPI entity selector.
+2. Open Compliance > Annex A controls: the banner says the subsidiary follows the SoA of the root
+   entity. Click **Create the SoA of this entity** and confirm.
+3. The 93 controls of the subsidiary keep the applicability and justifications of the common SoA;
+   review them one by one, then ask for management approval as for the common SoA.
+4. Go back to the root entity in tree view: Dashboard > **Perimeters** compares both subsidiaries
+   (SoA followed, implementation rate, approved version, open risks by level).

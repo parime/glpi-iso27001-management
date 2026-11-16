@@ -95,6 +95,10 @@
 <div class="grcmanager-pdf-header">
   <h1>{{ report_title }}</h1>
   <div class="grcmanager-pdf-meta">{{ generated_at_label }}</div>
+  {# Issue #536 : périmètre (entité GLPI) du rapport, quand l'instance en a plusieurs. #}
+  {% if perimeter|default('') %}
+    <div class="grcmanager-pdf-meta">{{ __('Perimeter: %s', 'grcmanager')|format(perimeter) }}</div>
+  {% endif %}
 </div>
 <div class="grcmanager-pdf-footer">
   <span>GLPI GRC Manager - {{ report_title }}</span>

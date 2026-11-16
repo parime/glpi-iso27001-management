@@ -366,7 +366,13 @@ class ImpactAnalysis extends CommonGLPI
             );
         $field = 'linked_items_' . str_replace('\\', '_', $item::class);
 
+        // Issue #536 : le risque naît dans l'entité de l'élément, si la personne y a accès.
+        $entityId = $item->isEntityAssign() && Session::haveAccessToEntity($item->getEntityID())
+            ? $item->getEntityID()
+            : EntityPerimeter::activeEntity();
+
         return (int) (new Risk())->add([
+            'entities_id' => $entityId,
             'title'       => $title,
             'description' => $description,
             'category'    => 'technical',

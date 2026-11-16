@@ -704,7 +704,14 @@ class ConsistencyCheck extends CommonGLPI
         }
         if (!isset($cache['risks'])) {
             $cache['risks'] = [];
-            foreach ($DB->request(['FROM' => Risk::getTable(), 'ORDER' => 'title']) as $row) {
+            // Issue #536 : risques des entités de la session.
+            foreach (
+                $DB->request([
+                    'FROM'  => Risk::getTable(),
+                    'WHERE' => EntityPerimeter::criteria(Risk::getTable()),
+                    'ORDER' => 'title',
+                ]) as $row
+            ) {
                 $cache['risks'][] = $row + ['residual_level' => '', 'users_id_acceptance' => 0];
             }
         }
@@ -760,7 +767,9 @@ class ConsistencyCheck extends CommonGLPI
 
         if (!isset($cache['controls'])) {
             $cache['controls'] = [];
-            foreach ($DB->request(['FROM' => Control::getTable()]) as $row) {
+            // Issue #536 : mesures de la SoA suivie par l'entité active.
+            $rows = $DB->request(['FROM' => Control::getTable(), 'WHERE' => EntityPerimeter::controlCriteria()]);
+            foreach ($rows as $row) {
                 $cache['controls'][] = $row;
             }
             usort(
@@ -963,7 +972,11 @@ class ConsistencyCheck extends CommonGLPI
                 'SELECT'     => ["$actions.*", "$risks.title AS risk_title"],
                 'FROM'       => $actions,
                 'INNER JOIN' => [$risks => ['ON' => [$actions => 'plugin_grcmanager_risks_id', $risks => 'id']]],
-                'WHERE'      => ['NOT' => ["$actions.status" => 'done']],
+                // Issue #536 : actions des risques des entités de la session.
+                'WHERE'      => array_merge(
+                    ['NOT' => ["$actions.status" => 'done']],
+                    EntityPerimeter::criteria($risks)
+                ),
                 'ORDER'      => "$actions.due_date",
             ]) as $row
         ) {

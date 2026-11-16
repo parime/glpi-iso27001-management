@@ -456,7 +456,7 @@ class EbiosStudy extends EbiosStudyBase
             $scenario['risk'] = null;
             $risk = new Risk();
             $riskId = (int) $scenario[Risk::getForeignKeyField()];
-            if ($riskId > 0 && $risk->getFromDB($riskId)) {
+            if ($riskId > 0 && $risk->getFromDB($riskId) && $risk->canViewItem()) {
                 $registered++;
                 $probability = EbiosRules::likelihoodToProbability((int) $scenario['likelihood']);
                 $impact = EbiosRules::severityToImpact((int) $scenario['severity']);

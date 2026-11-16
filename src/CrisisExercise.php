@@ -645,7 +645,9 @@ class CrisisExercise extends CrisisExerciseBase
                 $DB->request([
                     'SELECT' => ['id'],
                     'FROM'   => Control::getTable(),
-                    'WHERE'  => ['code' => self::DRILL_CONTROL_CODES],
+                    // Issue #536 : mesures de la SoA suivie par l'entité de l'exercice.
+                    'WHERE'  => ['code' => self::DRILL_CONTROL_CODES]
+                        + EntityPerimeter::controlCriteria((int) $this->fields['entities_id']),
                 ]) as $control
             ) {
                 $targets[] = [Control::class, (int) $control['id']];

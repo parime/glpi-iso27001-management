@@ -194,14 +194,8 @@ final class RiskRegisterImport
      */
     private static function controlIds(): array
     {
-        global $DB;
-
-        $ids = [];
-        foreach ($DB->request(['SELECT' => ['id', 'code'], 'FROM' => Control::getTable()]) as $row) {
-            $ids[(string) $row['code']] = (int) $row['id'];
-        }
-
-        return $ids;
+        // Issue #536 : mesures de la SoA suivie par l'entité active.
+        return EntityPerimeter::controlIdsByCode();
     }
 
     /**
@@ -214,7 +208,14 @@ final class RiskRegisterImport
         global $DB;
 
         $risks = [];
-        foreach ($DB->request(['FROM' => Risk::getTable(), 'ORDER' => 'id']) as $row) {
+        // Issue #536 : risques des entités de la session (export, rapprochement de l'import).
+        foreach (
+            $DB->request([
+                'FROM'  => Risk::getTable(),
+                'WHERE' => EntityPerimeter::criteria(Risk::getTable()),
+                'ORDER' => 'id',
+            ]) as $row
+        ) {
             $risk = ['external_ref' => (string) ($row['external_ref'] ?? '')];
             foreach (RiskRegisterSync::FIELDS as $field) {
                 $risk[$field] = $row[$field] ?? null;
@@ -303,7 +304,7 @@ final class RiskRegisterImport
                 }
                 $result['create']++;
             } else {
-                if (!$risk->getFromDB($riskId)) {
+                if (!$risk->getFromDB($riskId) || !$risk->canUpdateItem()) {
                     $result['failed'][] = $step['reference'];
                     continue;
                 }

@@ -110,6 +110,8 @@ class FrameworkAssessment extends CommonGLPI
             $DB->request([
                 'SELECT' => ['id', 'code', 'applicability', 'implementation_status'],
                 'FROM'   => Control::getTable(),
+                // Issue #536 : mesures de la SoA suivie par l'entité active.
+                'WHERE'  => EntityPerimeter::controlCriteria(),
             ]) as $row
         ) {
             $id = (int) $row['id'];

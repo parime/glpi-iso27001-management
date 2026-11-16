@@ -651,7 +651,12 @@ class ControlTest extends ControlTestBase
         $schedule = [];
         $controls = $DB->request([
             'FROM'  => Control::getTable(),
-            'WHERE' => ['id' => array_keys($latest), 'applicability' => ['yes', 'partial']],
+            // Issue #536 : mesures des SoA suivies par les entités actives.
+            'WHERE' => [
+                'id'            => array_keys($latest),
+                'applicability' => ['yes', 'partial'],
+                'entities_id'   => EntityPerimeter::activeSoaEntities(),
+            ],
         ]);
         foreach ($controls as $row) {
             $next = self::nextDueDate($row, $latest[(int) $row['id']]);

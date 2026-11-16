@@ -275,7 +275,8 @@ class AccessReview extends AccessReviewBase
         $row = $DB->request([
             'SELECT' => ['id'],
             'FROM'   => Control::getTable(),
-            'WHERE'  => ['code' => AccessReviewLogic::DEFAULT_CONTROL_CODE],
+            // Issue #536 : mesure de la SoA suivie par l'entité active.
+            'WHERE'  => ['code' => AccessReviewLogic::DEFAULT_CONTROL_CODE] + EntityPerimeter::controlCriteria(),
             'LIMIT'  => 1,
         ])->current();
 
@@ -397,8 +398,9 @@ class AccessReview extends AccessReviewBase
         global $DB;
 
         $choices = [0 => Dropdown::EMPTY_VALUE];
-        foreach ($DB->request(['SELECT' => ['id', 'code'], 'FROM' => Control::getTable()]) as $row) {
-            $choices[(int) $row['id']] = $row['code'] . ' - ' . Control::getControlTitle($row['code']);
+        // Issue #536 : mesures de la SoA suivie par l'entité active.
+        foreach (EntityPerimeter::controlIdsByCode() as $code => $id) {
+            $choices[$id] = $code . ' - ' . Control::getControlTitle($code);
         }
         asort($choices);
 

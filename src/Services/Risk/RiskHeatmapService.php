@@ -34,6 +34,8 @@ final class RiskHeatmapService
         $rows = $DB->request([
             'SELECT'  => ['probability', 'impact', new QueryExpression('COUNT(*) AS c')],
             'FROM'    => 'glpi_plugin_grcmanager_risks',
+            // Issue #536 : risques des entités de la session.
+            'WHERE'   => \GlpiPlugin\Grcmanager\EntityPerimeter::criteria('glpi_plugin_grcmanager_risks'),
             'GROUPBY' => ['probability', 'impact'],
         ]);
 
