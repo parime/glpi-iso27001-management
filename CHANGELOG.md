@@ -7,6 +7,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.52.0] - 2026-11-16
+
 ### Added
 
 - **Preuves de l'inventaire Docker** ([parime/glpi-docker-inventory#10](https://github.com/parime/glpi-docker-inventory/issues/10),
