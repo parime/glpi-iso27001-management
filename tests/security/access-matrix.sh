@@ -837,5 +837,51 @@ contains "approbations de la SoA : version de B" "Version securite B" non \
 contains "tableau de bord consolide par perimetre" "grcmanager-perimeters" $IS_ADMIN \
   "$(curl -s -c "$JAR" -b "$JAR" "$P/dashboard.php?view=perimeters")"
 
+# Issue #536, lot 2 : actions de traitement, audits, non-conformites et demandes de preuves
+# appartiennent a une entite. Un profil limite a A ne voit, ne modifie ni ne cree jamais ceux de B
+# (fiche, liste, export, Mon espace GRC, controles de coherence), meme confies a lui ; un acces
+# auditeur a un audit de B ne lui ouvre rien. Le super-admin, a la racine, voit A et B.
+expect "audit de l'entite B" $DENY "$(code "$P/audit.form.php?id=$(id audit_B)")"
+expect "non-conformite de l'entite B" $DENY "$(code "$P/nonconformity.form.php?id=$(id nc_B)")"
+contains "liste des audits : audit de B" "Audit securite B" $SEE_B "$(curl -s -c "$JAR" -b "$JAR" "$P/audit.php")"
+ncs=$(curl -s -c "$JAR" -b "$JAR" "$P/nonconformity.php")
+contains "liste des non-conformites : constat de A" "Constat securite A" \
+  "$(case $ROLE in none) echo non ;; *) echo oui ;; esac)" "$ncs"
+contains "liste des non-conformites : constat de B" "Constat securite B" $SEE_B "$ncs"
+contains "controles de coherence (CSV) : constat de B en retard" "Constat securite B" $SEE_B \
+  "$(curl -s -c "$JAR" -b "$JAR" "$P/consistencycheck.export.php?format=csv")"
+myspace_b=$(curl -s -c "$JAR" -b "$JAR" "$P/myspace.php")
+contains "Mon espace GRC : constat de A confie au gestionnaire" "Constat securite A" \
+  "$([ "$ROLE" = limited ] && echo oui || echo non)" "$myspace_b"
+contains "Mon espace GRC : constat de B, meme confie" "Constat securite B" non "$myspace_b"
+contains "Mon espace GRC : action de B, meme confiee" "Action securite B" non "$myspace_b"
+contains "front/auditevidencerequest.mine.php : demande de B, meme confiee" "REQ securite B" non \
+  "$(curl -s -c "$JAR" -b "$JAR" "$P/auditevidencerequest.mine.php")"
+expect "front/auditorspace.php : audit de B, meme avec un acces" 403 "$(code "$P/auditorspace.php?id=$(id audit_B)")"
+contains "front/auditorspace.php : liste sans l'audit de B" "Audit securite B" non \
+  "$(curl -s -c "$JAR" -b "$JAR" "$P/auditorspace.php")"
+NOT_ADMIN_403="$([ "$ROLE" = admin ] && echo 302 || echo 403)"
+expect "creer un audit dans l'entite B" "$NOT_ADMIN_403" \
+  "$(code -d "add=1&title=Audit%20cree%20securite&entities_id=$(id b)&_glpi_csrf_token=$(csrf)" "$P/audit.form.php")"
+expect "modifier un audit de B" "$NOT_ADMIN_403" \
+  "$(code -d "update=1&id=$(id audit_B)&title=Audit%20securite%20B&_glpi_csrf_token=$(csrf)" "$P/audit.form.php")"
+expect "modifier une non-conformite de B" "$NOT_ADMIN_403" \
+  "$(code -d "update=1&id=$(id nc_B)&title=Constat%20securite%20B&_glpi_csrf_token=$(csrf)" "$P/nonconformity.form.php")"
+expect "ajouter une action de traitement a un risque de B" "$NOT_ADMIN_403" \
+  "$(code -d "add=1&plugin_grcmanager_risks_id=$(id risk_B)&description=Action%20creee%20securite&_glpi_csrf_token=$(csrf)" "$P/risktreatmentaction.form.php")"
+expect "modifier une action de traitement de B" "$NOT_ADMIN_403" \
+  "$(code -d "update=1&id=$(id action_B)&plugin_grcmanager_risks_id=$(id risk_B)&description=Action%20securite%20B&_glpi_csrf_token=$(csrf)" "$P/risktreatmentaction.form.php")"
+if [ "$ROLE" != admin ]; then
+  expect "supprimer un audit de B" 403 "$(code -d "purge=1&id=$(id audit_B)&_glpi_csrf_token=$(csrf)" "$P/audit.form.php")"
+  expect "supprimer une action de traitement de B" 403 \
+    "$(code -d "purge=1&id=$(id action_B)&plugin_grcmanager_risks_id=$(id risk_B)&_glpi_csrf_token=$(csrf)" "$P/risktreatmentaction.form.php")"
+  expect "donner un acces auditeur a un audit de B" 403 \
+    "$(code -d "grant_access=1&plugin_grcmanager_audits_id=$(id audit_B)&users_id=2&date_end=$(date +%Y-%m-%d)&_glpi_csrf_token=$(csrf)" "$P/auditevidencerequest.form.php")"
+  expect "ajouter un membre a l'equipe d'un audit de B" 403 \
+    "$(code -d "add=1&plugin_grcmanager_audits_id=$(id audit_B)&users_id=2&role=auditee&_glpi_csrf_token=$(csrf)" "$P/auditteam.form.php")"
+fi
+contains "tableau de bord consolide : non-conformites ouvertes par entite" "grcmanager-perimeters-findings" \
+  $IS_ADMIN "$(curl -s -c "$JAR" -b "$JAR" "$P/dashboard.php?view=perimeters")"
+
 rm -f "$JAR"
 exit $FAIL

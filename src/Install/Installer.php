@@ -4772,11 +4772,18 @@ final class Installer
     {
         global $DB;
 
+        // Lot 2 : actions de traitement, audits et non-conformités, hors des sous-entités comme
+        // les risques. Les non-conformités qui reçoivent la colonne maintenant prennent ensuite
+        // l'entité de leur audit ou de leur incident (assignLegacyFindings()).
         $tables = [
-            self::RISKS_TABLE        => 0,
-            self::CONTROLS_TABLE     => 1,
-            self::SOA_VERSIONS_TABLE => 1,
+            self::RISKS_TABLE                  => 0,
+            self::CONTROLS_TABLE               => 1,
+            self::SOA_VERSIONS_TABLE           => 1,
+            self::RISK_TREATMENT_ACTIONS_TABLE => 0,
+            self::AUDITS_TABLE                 => 0,
+            self::NONCONFORMITIES_TABLE        => 0,
         ];
+        $legacyFindings = !$DB->fieldExists(self::NONCONFORMITIES_TABLE, 'entities_id');
         foreach ($tables as $table => $recursive) {
             if (!$DB->fieldExists($table, 'entities_id')) {
                 $migration->addField($table, 'entities_id', 'fkey', ['after' => 'id', 'value' => 0]);
@@ -4805,6 +4812,75 @@ final class Installer
             }
             $migration->addKey($table, $columns, $name, 'UNIQUE');
             $migration->migrationOneTable($table);
+        }
+
+        if ($legacyFindings) {
+            $this->assignLegacyFindings();
+        }
+        $this->alignTreatmentActions();
+    }
+
+    /**
+     * Issue #536, lot 2 : une action de traitement appartient à l'entité de son risque. Rejouable :
+     * seules les actions qui s'en écartent sont mises à jour (entité et visibilité, rien d'autre).
+     */
+    private function alignTreatmentActions(): void
+    {
+        global $DB;
+
+        foreach (
+            $DB->request([
+                'SELECT'     => ['a.id', 'r.entities_id', 'r.is_recursive'],
+                'FROM'       => self::RISK_TREATMENT_ACTIONS_TABLE . ' AS a',
+                'INNER JOIN' => [
+                    self::RISKS_TABLE . ' AS r' => ['FKEY' => ['a' => 'plugin_grcmanager_risks_id', 'r' => 'id']],
+                ],
+                'WHERE'      => [
+                    'OR' => [
+                        new \Glpi\DBAL\QueryExpression('a.entities_id <> r.entities_id'),
+                        new \Glpi\DBAL\QueryExpression('a.is_recursive <> r.is_recursive'),
+                    ],
+                ],
+            ]) as $row
+        ) {
+            $DB->update(self::RISK_TREATMENT_ACTIONS_TABLE, [
+                'entities_id'  => (int) $row['entities_id'],
+                'is_recursive' => (int) $row['is_recursive'],
+            ], ['id' => (int) $row['id']]);
+        }
+    }
+
+    /**
+     * Issue #536, lot 2 : à l'ajout de la colonne, une non-conformité prend l'entité de son audit,
+     * sinon celle de l'incident de sécurité à son origine ; si les deux existent et diffèrent, ou
+     * sans origine, elle reste dans l'entité racine. Ni statut, ni responsable ne changent.
+     */
+    private function assignLegacyFindings(): void
+    {
+        global $DB;
+
+        $entityOf = static function (string $table, int $id) use ($DB): ?int {
+            if ($id <= 0 || !$DB->tableExists($table) || !$DB->fieldExists($table, 'entities_id')) {
+                return null;
+            }
+            $row = $DB->request(['SELECT' => ['entities_id'], 'FROM' => $table, 'WHERE' => ['id' => $id]])->current();
+
+            return $row === null ? null : (int) $row['entities_id'];
+        };
+        foreach (
+            $DB->request([
+                'SELECT' => ['id', 'plugin_grcmanager_audits_id', 'plugin_grcmanager_securityincidents_id'],
+                'FROM'   => self::NONCONFORMITIES_TABLE,
+                'WHERE'  => ['entities_id' => 0],
+            ]) as $row
+        ) {
+            $candidates = array_values(array_unique(array_filter([
+                $entityOf(self::AUDITS_TABLE, (int) $row['plugin_grcmanager_audits_id']),
+                $entityOf(self::SECURITY_INCIDENTS_TABLE, (int) $row['plugin_grcmanager_securityincidents_id']),
+            ], static fn (?int $entity): bool => $entity !== null)));
+            if (count($candidates) === 1 && $candidates[0] > 0) {
+                $DB->update(self::NONCONFORMITIES_TABLE, ['entities_id' => $candidates[0]], ['id' => (int) $row['id']]);
+            }
         }
     }
 

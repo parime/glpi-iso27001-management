@@ -165,7 +165,9 @@ if ($mode === 'xss') {
     $out['product'] = $insert('canonicalproducts', ['manufacturer' => $canary, 'product' => $canary]);
     $insert('cpereferences', ['plugin_grcmanager_canonicalproducts_id' => $out['product'], 'cpe' => $canary]);
     $insert('productaliases', ['plugin_grcmanager_canonicalproducts_id' => $out['product'], 'alias' => $canary]);
-    $insert('risktreatmentactions', ['plugin_grcmanager_risks_id' => (int) $ids['risk'], 'description' => $canary]);
+    $insert('risktreatmentactions', [
+        'plugin_grcmanager_risks_id' => (int) $ids['risk'], 'entities_id' => (int) $ids['a'], 'description' => $canary,
+    ]);
     $update('risks', [
         'title' => $canary, 'description' => $canary, 'justification' => $canary,
         'external_ref' => mb_substr($canary, 0, 100),
@@ -557,7 +559,11 @@ if (countElementsInTable('glpi_plugin_grcmanager_controls_risks', $linkWhere) ==
 }
 // Issue #140 : audit avec équipe, document restreint, note, groupe RSSI et accès historisé, pour
 // que le contrôle des restes après désinstallation porte aussi sur ces données.
-$ids['audit'] = $add(new \GlpiPlugin\Grcmanager\Audit(), ['title' => 'Audit securite', 'users_id' => 2]);
+// Issue #536 : l'audit appartient à l'entité A, comme les profils testés.
+$ids['audit'] = $add(
+    new \GlpiPlugin\Grcmanager\Audit(),
+    ['title' => 'Audit securite', 'users_id' => 2, 'entities_id' => $a]
+);
 // Vrai fichier : document.send.php répond 404 avant tout contrôle d'accès sans lui.
 $auditFile = 'plan-audit-securite-' . uniqid() . '.txt';
 file_put_contents(GLPI_TMP_DIR . '/' . $auditFile, "Plan d'audit securite\n");
@@ -771,7 +777,7 @@ $evidenceDocument = static function (string $name) use ($add, $ids): int {
 };
 $ids['audit_other'] = $add(
     new \GlpiPlugin\Grcmanager\Audit(),
-    ['title' => 'Audit hors perimetre securite', 'users_id' => 2]
+    ['title' => 'Audit hors perimetre securite', 'users_id' => 2, 'entities_id' => $a]
 );
 foreach (['submitted' => 'REQ securite soumise', 'draft' => 'REQ securite brouillon'] as $key => $reference) {
     $ids['evreq_' . $key] = $add(new \GlpiPlugin\Grcmanager\AuditEvidenceRequest(), [
@@ -801,6 +807,50 @@ if (\GlpiPlugin\Grcmanager\AuditorAccess::grant($ids['audit'], $noRight, $access
     fwrite(STDERR, "Accès auditeur impossible\n");
     exit(1);
 }
+
+// Issue #536, lot 2 : audit, constat et action de traitement de l'entité B, jamais montrés aux
+// profils limités à A, même confiés au gestionnaire de A. Une demande de preuve de l'audit de B
+// confiée à ce gestionnaire et un accès auditeur à cet audit donné avant les périmètres (insérés
+// tels quels, l'application les refuserait désormais) ne lui ouvrent rien non plus.
+$overdue = date('Y-m-d', strtotime('-60 days'));
+$ids['audit_B'] = $add(
+    new \GlpiPlugin\Grcmanager\Audit(),
+    ['title' => 'Audit securite B', 'users_id' => 2, 'entities_id' => $b]
+);
+foreach (['A' => $ids['audit'], 'B' => $ids['audit_B']] as $suffix => $auditId) {
+    $ids['nc_' . $suffix] = $add(new \GlpiPlugin\Grcmanager\Nonconformity(), [
+        'title'                       => 'Constat securite ' . $suffix,
+        'plugin_grcmanager_audits_id' => $auditId,
+        'finding_type'                => 'nonconformity',
+        'severity'                    => 'major',
+        'status'                      => 'open',
+        'users_id'                    => $manager,
+        'due_date'                    => $overdue,
+    ]);
+}
+$ids['action_B'] = $add(new \GlpiPlugin\Grcmanager\RiskTreatmentAction(), [
+    'plugin_grcmanager_risks_id' => $ids['risk_B'],
+    'description'                => 'Action securite B',
+    'users_id'                   => $manager,
+    'due_date'                   => $overdue,
+]);
+$DB->insert(\GlpiPlugin\Grcmanager\AuditEvidenceRequest::getTable(), [
+    'plugin_grcmanager_audits_id' => $ids['audit_B'],
+    'reference'                   => 'REQ securite B',
+    'users_id'                    => $manager,
+    'users_id_requester'          => 2,
+    'status'                      => 'requested',
+    'date_creation'               => date('Y-m-d H:i:s'),
+]);
+$ids['evreq_B'] = (int) $DB->insertId();
+$DB->insert(\GlpiPlugin\Grcmanager\AuditorAccess::TABLE, [
+    'plugin_grcmanager_audits_id' => $ids['audit_B'],
+    'users_id'                    => $noRight,
+    'date_begin'                  => date('Y-m-d'),
+    'date_end'                    => $accessEnd,
+    'users_id_grantor'            => 2,
+    'date_creation'               => date('Y-m-d H:i:s'),
+]);
 
 // Issue #540 : référentiel DORA activé, pour que le registre et ses onglets soient testés.
 \GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig::setEnabled('dora', true);

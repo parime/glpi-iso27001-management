@@ -19,10 +19,16 @@ declare(strict_types=1);
 
 namespace GlpiPlugin\Grcmanager\Tests\Integration;
 
+use GlpiPlugin\Grcmanager\Audit;
+use GlpiPlugin\Grcmanager\AuditEvidenceRequest;
+use GlpiPlugin\Grcmanager\AuditorAccess;
+use GlpiPlugin\Grcmanager\AuditTeam;
 use GlpiPlugin\Grcmanager\Control;
 use GlpiPlugin\Grcmanager\EntityPerimeter;
 use GlpiPlugin\Grcmanager\Install\Installer;
+use GlpiPlugin\Grcmanager\Nonconformity;
 use GlpiPlugin\Grcmanager\Risk;
+use GlpiPlugin\Grcmanager\RiskTreatmentAction;
 use GlpiPlugin\Grcmanager\Services\Control\ControlCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\SoaApprovalLogic;
 use GlpiPlugin\Grcmanager\Services\Dashboard\DashboardCardService;
@@ -280,6 +286,244 @@ final class EntityPerimeterTest extends GrcmanagerIntegrationTestCase
         $this->assertSame([$this->north], $ids);
     }
 
+    private function audit(int $entityId, string $title): int
+    {
+        $id = (int) (new Audit())->add(['title' => $title, 'entities_id' => $entityId, 'status' => 'in_progress']);
+        $this->assertGreaterThan(0, $id);
+
+        return $id;
+    }
+
+    private function finding(int $auditId, string $title, array $extra = []): int
+    {
+        $id = (int) (new Nonconformity())->add($extra + [
+            'title'                       => $title,
+            'plugin_grcmanager_audits_id' => $auditId,
+            'finding_type'                => 'nonconformity',
+            'severity'                    => 'major',
+            'status'                      => 'open',
+        ]);
+        $this->assertGreaterThan(0, $id);
+
+        return $id;
+    }
+
+    /**
+     * Compte dont le seul profil est dans l'entité donnée (sans sous-entité).
+     */
+    private function userOnlyIn(int $entityId): int
+    {
+        global $DB;
+
+        $usersId = $this->createTestUser('PHPUnit', 'Auditeur' . $entityId);
+        $DB->delete('glpi_profiles_users', ['users_id' => $usersId]);
+        $DB->insert('glpi_profiles_users', [
+            'users_id' => $usersId, 'profiles_id' => 1, 'entities_id' => $entityId, 'is_recursive' => 0,
+        ]);
+
+        return $usersId;
+    }
+
+    /**
+     * @return list<int>
+     */
+    private function visibleIds(string $table): array
+    {
+        global $DB;
+
+        $ids = [];
+        foreach ($DB->request(['SELECT' => ['id'], 'FROM' => $table, 'WHERE' => EntityPerimeter::criteria($table)]) as $row) {
+            $ids[] = (int) $row['id'];
+        }
+
+        return $ids;
+    }
+
+    public function testATreatmentActionFollowsTheEntityOfItsRisk(): void
+    {
+        $this->limitTo($this->south);
+        $southOverdue = DashboardCardService::overdueTreatmentActionsCount()['number'];
+        $this->rootTree();
+        $riskId = $this->risk($this->north, 'PHPUnit risque Nord avec plan');
+        $actionId = (int) (new RiskTreatmentAction())->add([
+            'plugin_grcmanager_risks_id' => $riskId,
+            'description'                => 'PHPUnit action Nord',
+            'due_date'                   => date('Y-m-d', strtotime('-5 days')),
+        ]);
+        $this->assertGreaterThan(0, $actionId);
+        $action = RiskTreatmentAction::getById($actionId);
+        $this->assertSame($this->north, (int) $action->fields['entities_id']);
+
+        // L'autre filiale ne voit ni l'action ni son retard, et ne peut pas en ajouter.
+        $this->limitTo($this->south);
+        $this->assertNotContains($actionId, $this->visibleIds(RiskTreatmentAction::getTable()));
+        $this->assertFalse((new RiskTreatmentAction())->can($actionId, READ));
+        $this->assertSame($southOverdue, DashboardCardService::overdueTreatmentActionsCount()['number']);
+        $this->assertFalse((new RiskTreatmentAction())->add([
+            'plugin_grcmanager_risks_id' => $riskId,
+            'description'                => 'PHPUnit action forcée',
+        ]));
+        $this->assertFalse((new RiskTreatmentAction())->update(['id' => $actionId, 'status' => 'done']));
+
+        $this->limitTo($this->north);
+        $this->assertContains($actionId, $this->visibleIds(RiskTreatmentAction::getTable()));
+        $this->assertTrue((new RiskTreatmentAction())->can($actionId, UPDATE));
+        $this->assertGreaterThanOrEqual(1, DashboardCardService::overdueTreatmentActionsCount()['number']);
+
+        // Le risque change d'entité : son action le suit, sans rien changer d'autre.
+        $this->rootTree();
+        $this->assertTrue((new Risk())->update(['id' => $riskId, 'entities_id' => $this->south]));
+        $action = RiskTreatmentAction::getById($actionId);
+        $this->assertSame($this->south, (int) $action->fields['entities_id']);
+        $this->assertSame('planned', (string) $action->fields['status']);
+    }
+
+    public function testAuditsAndFindingsBelongToAnEntity(): void
+    {
+        $this->rootTree();
+        $northAudit = $this->audit($this->north, 'PHPUnit audit Nord');
+        $southAudit = $this->audit($this->south, 'PHPUnit audit Sud');
+        $northFinding = $this->finding($northAudit, 'PHPUnit constat Nord');
+        $southFinding = $this->finding($southAudit, 'PHPUnit constat Sud');
+        // Le constat prend l'entité de son audit, même si le formulaire en annonçait une autre.
+        $this->assertSame($this->north, (int) Nonconformity::getById($northFinding)->fields['entities_id']);
+        $this->assertSame(
+            $this->south,
+            (int) Nonconformity::getById($this->finding($southAudit, 'PHPUnit constat', ['entities_id' => 0]))
+                ->fields['entities_id']
+        );
+
+        $this->limitTo($this->north);
+        $this->assertTrue((new Audit())->can($northAudit, READ));
+        $this->assertFalse((new Audit())->can($southAudit, READ), 'fiche de l\'audit de l\'autre filiale');
+        $this->assertFalse((new Nonconformity())->can($southFinding, READ));
+        $this->assertNotContains($southAudit, $this->visibleIds(Audit::getTable()));
+        $this->assertNotContains($southFinding, $this->visibleIds(Nonconformity::getTable()));
+        $this->assertSame([], Audit::getFindings($southAudit));
+        $this->assertSame([$northFinding], array_column(Audit::getFindings($northAudit), 'id'));
+
+        // Créations forcées dans l'autre filiale : refusées.
+        $this->assertFalse((new Audit())->add(['title' => 'PHPUnit audit forcé', 'entities_id' => $this->south]));
+        $this->assertFalse((new Nonconformity())->add([
+            'title' => 'PHPUnit constat forcé', 'plugin_grcmanager_audits_id' => $southAudit,
+        ]));
+        $this->assertFalse((new Nonconformity())->add([
+            'title' => 'PHPUnit constat forcé', 'entities_id' => $this->south,
+        ]));
+        // Modification en masse vers l'autre filiale : l'entité ne change pas.
+        (new Audit())->update(['id' => $northAudit, 'entities_id' => $this->south]);
+        $this->assertSame($this->north, (int) Audit::getById($northAudit)->fields['entities_id']);
+
+        // Cartes : le constat de l'autre filiale ne compte pas.
+        $open = DashboardCardService::openNonconformitiesCount()['number'];
+        $this->rootTree();
+        $this->finding($southAudit, 'PHPUnit autre constat Sud');
+        $this->limitTo($this->north);
+        $this->assertSame($open, DashboardCardService::openNonconformitiesCount()['number']);
+
+        // L'audit change d'entité : ses constats le suivent ; statut et gravité ne changent pas.
+        $this->rootTree();
+        $this->assertTrue((new Audit())->update(['id' => $northAudit, 'entities_id' => $this->south]));
+        $moved = Nonconformity::getById($northFinding);
+        $this->assertSame($this->south, (int) $moved->fields['entities_id']);
+        $this->assertSame('open', (string) $moved->fields['status']);
+        $this->assertSame('major', (string) $moved->fields['severity']);
+    }
+
+    public function testAnAuditorLimitedToOneEntitySeesNothingOfAnother(): void
+    {
+        global $DB;
+
+        $this->rootTree();
+        $northAudit = $this->audit($this->north, 'PHPUnit audit Nord auditeur');
+        $southAudit = $this->audit($this->south, 'PHPUnit audit Sud auditeur');
+        $auditor = $this->userOnlyIn($this->north);
+        $end = date('Y-m-d', strtotime('+10 days'));
+
+        // Personnes désignées : profil exigé dans l'entité de l'audit.
+        $this->assertNotSame('', AuditorAccess::grant($southAudit, $auditor, $end, 2));
+        $this->assertSame('', AuditorAccess::grant($northAudit, $auditor, $end, 2));
+        $this->assertFalse(AuditTeam::addMember($southAudit, $auditor, AuditTeam::ROLE_AUDITEE));
+        $this->assertTrue(AuditTeam::addMember($northAudit, $auditor, AuditTeam::ROLE_AUDITEE));
+        $this->assertFalse((new AuditEvidenceRequest())->add([
+            'plugin_grcmanager_audits_id' => $southAudit, 'reference' => 'PHPUnit REQ Sud', 'users_id' => $auditor,
+        ]));
+        $this->assertGreaterThan(0, (int) (new AuditEvidenceRequest())->add([
+            'plugin_grcmanager_audits_id' => $northAudit, 'reference' => 'PHPUnit REQ Nord', 'users_id' => $auditor,
+        ]));
+
+        // Accès et demande donnés avant les périmètres sur l'audit de Sud : rien ne s'ouvre.
+        $DB->insert(AuditorAccess::TABLE, [
+            'plugin_grcmanager_audits_id' => $southAudit, 'users_id' => $auditor,
+            'date_begin' => date('Y-m-d'), 'date_end' => $end, 'users_id_grantor' => 2,
+        ]);
+        $DB->insert(AuditEvidenceRequest::getTable(), [
+            'plugin_grcmanager_audits_id' => $southAudit, 'reference' => 'PHPUnit REQ Sud héritée',
+            'users_id' => $auditor, 'status' => 'requested',
+        ]);
+        $this->limitTo($this->north);
+        $this->assertTrue(AuditorAccess::isActive($northAudit, $auditor));
+        $this->assertFalse(AuditorAccess::isActive($southAudit, $auditor));
+        $this->assertSame([$northAudit], array_column(AuditorAccess::getActiveAudits($auditor), 'id'));
+        $references = array_column(AuditEvidenceRequest::getAssignedTo($auditor), 'reference');
+        $this->assertContains('PHPUnit REQ Nord', $references);
+        $this->assertNotContains('PHPUnit REQ Sud héritée', $references);
+    }
+
+    public function testTheConsolidationCountsOpenFindingsPerChild(): void
+    {
+        $this->rootTree();
+        $audit = $this->audit($this->north, 'PHPUnit audit Nord consolidé');
+        $this->finding($audit, 'PHPUnit constat majeur', ['severity' => 'major']);
+        $this->finding($audit, 'PHPUnit constat critique', ['severity' => 'critical']);
+        $this->finding($audit, 'PHPUnit constat clos', ['status' => 'closed', 'corrective_action' => 'Corrigé']);
+        $this->finding($audit, 'PHPUnit observation', ['finding_type' => 'observation']);
+
+        $rows = [];
+        foreach (EntityPerimeter::consolidation() as $row) {
+            $rows[(int) $row['entities_id']] = $row;
+        }
+        $this->assertSame(2, $rows[$this->north]['nonconformities']['open']);
+        $this->assertSame(1, $rows[$this->north]['nonconformities']['critical']);
+        $this->assertSame(0, $rows[$this->south]['nonconformities']['open']);
+    }
+
+    /**
+     * Données d'une version 2.53.0 (sans entité sur les actions, audits et constats) : chaque
+     * action prend l'entité de son risque ; un constat celle de son audit, ou reste à la racine.
+     */
+    public function testLegacyRowsAreAssignedWithoutAmbiguity(): void
+    {
+        global $DB;
+
+        $this->rootTree();
+        $riskId = $this->risk($this->north, 'PHPUnit risque Nord migré');
+        $auditId = $this->audit($this->north, 'PHPUnit audit Nord migré');
+        $DB->insert(RiskTreatmentAction::getTable(), [
+            'plugin_grcmanager_risks_id' => $riskId, 'description' => 'PHPUnit action migrée', 'status' => 'planned',
+        ]);
+        $actionId = (int) $DB->insertId();
+        $DB->insert(Nonconformity::getTable(), [
+            'title' => 'PHPUnit constat migré', 'plugin_grcmanager_audits_id' => $auditId, 'status' => 'in_progress',
+        ]);
+        $linked = (int) $DB->insertId();
+        $DB->insert(Nonconformity::getTable(), ['title' => 'PHPUnit constat sans origine', 'status' => 'open']);
+        $orphan = (int) $DB->insertId();
+
+        $installer = new Installer();
+        foreach (['alignTreatmentActions', 'assignLegacyFindings'] as $step) {
+            $method = new \ReflectionMethod($installer, $step);
+            $method->invoke($installer);
+            $method->invoke($installer);
+        }
+
+        $this->assertSame($this->north, (int) RiskTreatmentAction::getById($actionId)->fields['entities_id']);
+        $finding = Nonconformity::getById($linked);
+        $this->assertSame($this->north, (int) $finding->fields['entities_id']);
+        $this->assertSame('in_progress', (string) $finding->fields['status']);
+        $this->assertSame(0, (int) Nonconformity::getById($orphan)->fields['entities_id']);
+    }
+
     /**
      * Migration rejouée : colonnes et clés uniques par entité en place, aucune ligne perdue.
      */
@@ -287,11 +531,11 @@ final class EntityPerimeterTest extends GrcmanagerIntegrationTestCase
     {
         global $DB;
 
-        $counts = static fn (): array => [
-            countElementsInTable(Risk::getTable()),
-            countElementsInTable(Control::getTable()),
-            countElementsInTable(SoaVersion::getTable()),
+        $tables = [
+            Risk::getTable(), Control::getTable(), SoaVersion::getTable(),
+            RiskTreatmentAction::getTable(), Audit::getTable(), Nonconformity::getTable(),
         ];
+        $counts = static fn (): array => array_map(static fn (string $table): int => countElementsInTable($table), $tables);
         $before = $counts();
 
         $installer = new Installer();
@@ -300,7 +544,7 @@ final class EntityPerimeterTest extends GrcmanagerIntegrationTestCase
         $method->invoke($installer, new Migration(PLUGIN_GRCMANAGER_VERSION));
 
         $this->assertSame($before, $counts());
-        foreach ([Risk::getTable(), Control::getTable(), SoaVersion::getTable()] as $table) {
+        foreach ($tables as $table) {
             $this->assertTrue($DB->fieldExists($table, 'entities_id'), $table);
             $this->assertTrue($DB->fieldExists($table, 'is_recursive'), $table);
         }

@@ -208,7 +208,8 @@ class AuditEvidenceRequest extends AuditEvidenceRequestBase
      */
     public function prepareInputForAdd($input)
     {
-        if (self::loadAudit((int) ($input['plugin_grcmanager_audits_id'] ?? 0)) === null) {
+        $audit = self::loadAudit((int) ($input['plugin_grcmanager_audits_id'] ?? 0));
+        if ($audit === null) {
             Session::addMessageAfterRedirect(__('Audit not found.', 'grcmanager'), false, ERROR);
 
             return false;
@@ -217,6 +218,9 @@ class AuditEvidenceRequest extends AuditEvidenceRequestBase
             unset($input[$field]);
         }
         $input = self::normalizeInput($input);
+        if (!self::assigneeReachesAudit($input, $audit)) {
+            return false;
+        }
         if (($input['reference'] ?? '') === '' && trim((string) ($input['description'] ?? '')) === '') {
             Session::addMessageAfterRedirect(
                 __('Give at least a reference or a description of the requested evidence.', 'grcmanager'),
@@ -248,6 +252,15 @@ class AuditEvidenceRequest extends AuditEvidenceRequestBase
             }
         }
         $input = self::normalizeInput($input);
+        // Personne désignée changée : elle doit avoir un profil dans l'entité de l'audit.
+        $audit = $this->getAudit();
+        if (
+            $audit !== null && array_key_exists('users_id', $input)
+            && (int) $input['users_id'] !== (int) ($this->fields['users_id'] ?? 0)
+            && !self::assigneeReachesAudit($input, $audit)
+        ) {
+            return false;
+        }
         if (
             array_key_exists('reference', $input) && $input['reference'] === ''
             && trim((string) ($input['description'] ?? ($this->fields['description'] ?? ''))) === ''
@@ -292,6 +305,38 @@ class AuditEvidenceRequest extends AuditEvidenceRequestBase
         }
 
         return $input;
+    }
+
+    /**
+     * Issue #536 : la personne désignée a un profil dans l'entité de l'audit ; limitée à une autre
+     * entité, elle ne verrait jamais la demande.
+     *
+     * @param array<string, mixed> $input
+     */
+    private static function assigneeReachesAudit(array $input, Audit $audit): bool
+    {
+        $usersId = (int) ($input['users_id'] ?? 0);
+        if ($usersId <= 0 || EntityPerimeter::userReachesItem($usersId, $audit)) {
+            return true;
+        }
+        Session::addMessageAfterRedirect(
+            __('This account has no profile in the entity of the audit.', 'grcmanager'),
+            false,
+            ERROR
+        );
+
+        return false;
+    }
+
+    /**
+     * Issue #536 : l'audit est-il dans les entités de la session (toujours vrai hors session) ?
+     */
+    private static function auditInSession(?Audit $audit): bool
+    {
+        return $audit !== null && (
+            !EntityPerimeter::hasSession()
+            || Session::haveAccessToEntity((int) $audit->fields['entities_id'], (bool) $audit->fields['is_recursive'])
+        );
     }
 
     private static function isActiveUser(int $usersId): bool
@@ -467,6 +512,8 @@ class AuditEvidenceRequest extends AuditEvidenceRequestBase
         if ($waitingOnly) {
             $where['r.status'] = [Rules::STATUS_REQUESTED, Rules::STATUS_TO_COMPLETE];
         }
+        // Issue #536 : demandes des audits des entités de la session.
+        $where = array_merge($where, EntityPerimeter::criteria('a'));
 
         return array_values(iterator_to_array($DB->request([
             'SELECT'     => ['r.*', 'a.title AS audit_title', 'a.status AS audit_status'],
@@ -499,11 +546,12 @@ class AuditEvidenceRequest extends AuditEvidenceRequestBase
             'INNER JOIN' => [
                 Audit::getTable() . ' AS a' => ['FKEY' => ['r' => 'plugin_grcmanager_audits_id', 'a' => 'id']],
             ],
-            'WHERE'      => [
+            // Issue #536 : audits des entités de la session.
+            'WHERE'      => array_merge([
                 'r.status' => Rules::STATUS_SUBMITTED,
                 'a.status' => ['planned', 'in_progress'],
                 'OR'       => ['a.users_id' => $usersId, 'a.users_id_responsible' => $usersId],
-            ],
+            ], EntityPerimeter::criteria('a')),
             'ORDER'      => ['r.date_last_submission', 'r.id'],
         ]), false));
     }
@@ -550,6 +598,10 @@ class AuditEvidenceRequest extends AuditEvidenceRequestBase
             return __('This evidence request is not assigned to you.', 'grcmanager');
         }
         $audit = $request->getAudit();
+        // Issue #536 : audit d'une entité hors de la session, comme s'il n'était pas confié.
+        if ($audit !== null && !self::auditInSession($audit)) {
+            return __('This evidence request is not assigned to you.', 'grcmanager');
+        }
         if ($audit === null || ($audit->fields['status'] ?? '') === 'cancelled') {
             return __('This audit has been cancelled.', 'grcmanager');
         }
@@ -882,7 +934,8 @@ class AuditEvidenceRequest extends AuditEvidenceRequestBase
                     'SELECT' => ['id'],
                     'FROM'   => Control::getTable(),
                     // Issue #536 : mesure de la SoA suivie par l'entité active.
-                    'WHERE'  => ['code' => $row['control']] + EntityPerimeter::controlCriteria(),
+                    'WHERE'  => ['code' => $row['control']]
+                        + EntityPerimeter::controlCriteria((int) $audit->fields['entities_id']),
                     'LIMIT'  => 1,
                 ])->current();
                 if ($control === null) {
@@ -968,8 +1021,12 @@ class AuditEvidenceRequest extends AuditEvidenceRequestBase
             return false;
         }
         $auditId = (int) $request['plugin_grcmanager_audits_id'];
-        if ((int) $request['users_id'] === $usersId || AuditTeam::canAccessDocuments($auditId, $usersId)) {
+        if (AuditTeam::canAccessDocuments($auditId, $usersId)) {
             return true;
+        }
+        // Issue #536 : la personne désignée, pour un audit des entités de sa session.
+        if ((int) $request['users_id'] === $usersId) {
+            return self::auditInSession(self::loadAudit($auditId));
         }
 
         return AuditorAccess::isActive($auditId, $usersId)
@@ -1091,7 +1148,10 @@ class AuditEvidenceRequest extends AuditEvidenceRequestBase
             'can_update'      => $audit->can($auditId, UPDATE),
             'action'          => self::getFormURL(),
             'linked_controls' => $controls,
-            'all_controls'    => self::controlChoices(),
+            'all_controls'    => self::controlChoices((int) $audit->fields['entities_id']),
+            // Issue #536 : personnes proposées, celles qui ont un profil dans l'entité de l'audit.
+            'user_entity'      => (int) $audit->fields['entities_id'],
+            'user_entity_sons' => (bool) $audit->fields['is_recursive'],
             'mine_url'        => self::getMineURL(),
             'csv_max_rows'    => EvidenceRequestCsv::MAX_ROWS,
             'reminder_days'   => Rules::REMINDER_DAYS_BEFORE,
@@ -1108,13 +1168,11 @@ class AuditEvidenceRequest extends AuditEvidenceRequestBase
      *
      * @return array<int, string>
      */
-    public static function controlChoices(): array
+    public static function controlChoices(?int $entityId = null): array
     {
-        global $DB;
-
         $choices = [];
-        // Issue #536 : mesures de la SoA suivie par l'entité active.
-        foreach (EntityPerimeter::controlIdsByCode() as $code => $id) {
+        // Issue #536 : mesures de la SoA suivie par l'entité de l'audit (par défaut l'entité active).
+        foreach (EntityPerimeter::controlIdsByCode($entityId) as $code => $id) {
             $choices[$id] = $code . ' - ' . Control::getControlTitle($code);
         }
         asort($choices, SORT_NATURAL);

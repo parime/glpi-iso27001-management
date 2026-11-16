@@ -397,7 +397,8 @@ class ComplianceEvent extends ComplianceEventBase
             return [];
         }
         $list = [];
-        foreach ($DB->request(['FROM' => Audit::getTable()]) as $row) {
+        // Issue #536 : audits des entités de la session.
+        foreach ($DB->request(['FROM' => Audit::getTable(), 'WHERE' => EntityPerimeter::criteria(Audit::getTable())]) as $row) {
             $id = (int) $row['id'];
             $list[] = self::deadline(
                 'audit',

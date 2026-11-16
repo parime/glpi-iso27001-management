@@ -17,11 +17,13 @@
 
 namespace GlpiPlugin\Grcmanager;
 
+use CommonDBTM;
 use Dropdown;
 use GlpiPlugin\Grcmanager\Services\Control\ControlCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\SoaApprovalLogic;
 use GlpiPlugin\Grcmanager\Services\Maturity\MaturityScore;
 use GlpiPlugin\Grcmanager\Services\Perimeter\PerimeterRules;
+use Profile_User;
 use Session;
 
 /**
@@ -33,6 +35,9 @@ use Session;
  *   criteria() : les entités actives de la session, sous-entités et objets récursifs compris.
  *   Hors session (tâches planifiées, console), aucune restriction : les destinataires des
  *   notifications sont déjà choisis par entité.
+ * - Lot 2 : actions de traitement (entité de leur risque), audits et non-conformités. Les
+ *   personnes désignées sur un audit (équipe, demandes de preuves, accès auditeur) doivent avoir un
+ *   profil dans son entité (userReachesEntity()).
  * - La SoA commune (93 mesures) est dans l'entité racine, en récursif. Une entité peut tenir sa
  *   propre SoA (createSoa()) ; elle et ses sous-entités suivent alors celle-ci (soaEntity()).
  */
@@ -71,6 +76,37 @@ final class EntityPerimeter
         }
 
         return [getEntitiesRestrictCriteria($table, '', '', $recursive)];
+    }
+
+    /**
+     * Une personne a-t-elle un profil dans l'entité de l'élément (ou au-dessous, s'il est visible
+     * des sous-entités) ? Sert aux personnes désignées sur un audit : un auditeur limité à une
+     * entité ne reçoit rien d'une autre.
+     */
+    public static function userReachesEntity(int $usersId, int $entityId, bool $recursive = false): bool
+    {
+        if ($usersId <= 0) {
+            return false;
+        }
+
+        return PerimeterRules::reaches(
+            array_map('intval', Profile_User::getUserEntities($usersId, true)),
+            $entityId,
+            $recursive,
+            self::parents()
+        );
+    }
+
+    /**
+     * Même chose pour un élément rattaché à une entité (audit, demande de son audit...).
+     */
+    public static function userReachesItem(int $usersId, CommonDBTM $item): bool
+    {
+        return self::userReachesEntity(
+            $usersId,
+            (int) ($item->fields['entities_id'] ?? 0),
+            (bool) ($item->fields['is_recursive'] ?? false)
+        );
     }
 
     /**
@@ -292,7 +328,8 @@ final class EntityPerimeter
 
     /**
      * Tableau consolidé (entité active et ses enfants directs, chacun avec ses sous-entités) :
-     * SoA suivie, taux de mise en œuvre, dernière version approuvée, risques ouverts par niveau.
+     * SoA suivie, taux de mise en œuvre, dernière version approuvée, risques ouverts par niveau,
+     * non-conformités ouvertes par gravité (null sans le droit de les lire).
      * Seules les entités visibles dans la session comptent.
      *
      * @return list<array<string, mixed>>
@@ -349,6 +386,26 @@ final class EntityPerimeter
                 }
             }
 
+            // Lot 2 : non-conformités ouvertes du périmètre, par gravité.
+            $findings = null;
+            if (Nonconformity::canView()) {
+                $list = [];
+                foreach (
+                    $DB->request([
+                        'SELECT' => ['severity', 'status', 'finding_type'],
+                        'FROM'   => Nonconformity::getTable(),
+                        'WHERE'  => ['entities_id' => $entities],
+                    ]) as $row
+                ) {
+                    $list[] = [
+                        'severity'     => (string) $row['severity'],
+                        'status'       => (string) $row['status'],
+                        'finding_type' => (string) $row['finding_type'],
+                    ];
+                }
+                $findings = PerimeterRules::nonconformityCounts($list);
+            }
+
             $rows[] = [
                 'entities_id'      => $entityId,
                 'name'             => Dropdown::getDropdownName('glpi_entities', $entityId),
@@ -361,6 +418,7 @@ final class EntityPerimeter
                 'approved_version' => $approved !== null ? (int) $approved['version'] : 0,
                 'approved_date'    => $approved !== null ? (string) ($approved['date_answered'] ?? '') : '',
                 'risks'            => PerimeterRules::riskCounts($risks),
+                'nonconformities'  => $findings,
             ];
         }
 
