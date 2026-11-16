@@ -475,6 +475,8 @@ class Risk extends RiskBase
             'field'    => 'completename',
             'name'     => Entity::getTypeName(1),
             'datatype' => 'dropdown',
+            // Modification en masse permise : ranger les risques migrés dans leurs entités.
+            'massiveaction' => true,
         ];
         $tab[] = [
             'id'       => 86,
