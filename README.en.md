@@ -11,6 +11,20 @@
 
 [🇫🇷 Français](README.md) | 🇬🇧 **English**
 
+## Where to start?
+
+Pick your role: each guide is a few steps, with the exact menus ([all guides](docs/ROLES.en.md)).
+
+| You are... | You want to... | Guide |
+|---|---|---|
+| GLPI administrator | Install the plugin, grant rights, configure it | [Plugin administrator](docs/ROLES.en.md#plugin-administrator) |
+| CISO, ISMS manager | Keep the risks and each entity's SoA, prepare the management review | [CISO](docs/ROLES.en.md#ciso-or-isms-manager) |
+| Control or risk owner | See what is waiting for you and handle it | [My GRC space](docs/ROLES.en.md#control-or-risk-owner) |
+| Auditor | Run an audit, request and review evidence | [Auditor](docs/ROLES.en.md#auditor) |
+| Top management | Approve the SoA and policies, follow the dashboard | [Top management](docs/ROLES.en.md#top-management) |
+
+To explore the whole plugin screen by screen: [tutorial](docs/TUTORIAL.md#-english).
+
 ## The problem
 
 GLPI knows exactly which hardware, software and systems make up your organization. What it can't
@@ -310,6 +324,7 @@ with a real screenshot for every step (available in French and English).
 
 | Document | Content |
 |---|---|
+| [docs/ROLES.en.md](docs/ROLES.en.md) | Guides by role: administrator, CISO, owner, auditor, top management |
 | [docs/design/DEVELOPMENT_PLAN.md](docs/design/DEVELOPMENT_PLAN.md) | Sprint-by-sprint development plan |
 | [ROADMAP.md](ROADMAP.md) | Public roadmap by version |
 | [CHANGELOG.md](CHANGELOG.md) | Change history |
