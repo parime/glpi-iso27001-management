@@ -12,6 +12,12 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 - **CI** : contrôles des points d'entrée, de la matrice d'accès et des exigences marketplace repris
   par les contrôles communs (glpi-plugin-security v1.8.0, issue parime/glpi-plugin-security#11) ;
   les copies de `.github/scripts/` sont retirées. Les fichiers de réglage restent dans ce dépôt.
+- **Licence** (charte commune, section 1, issues #655, #660 et #661) : identifiant SPDX exact
+  `GPL-3.0-or-later` dans `plugin_version_grcmanager()` (au lieu de `GPLv3`), comme `composer.json`
+  et `CITATION.cff`. Le bloc de licence de `tools/HEADER` est ajouté en tête des 336 fichiers PHP et
+  Twig qui ne l'avaient pas encore (`src/Compat/Base/`, services, gabarits). Commentaires seulement :
+  aucun changement de comportement ni de rendu. Le contrôle « Charte commune » passe en bloquant
+  (`charter-mode: error`).
 
 ## [2.53.0] - 2026-11-16
 
