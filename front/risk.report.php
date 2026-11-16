@@ -37,6 +37,8 @@ $risks = [];
 foreach (
     $DB->request([
         'FROM'  => \GlpiPlugin\Grcmanager\Risk::getTable(),
+        // Issue #536 : risques des entités de la session.
+        'WHERE' => \GlpiPlugin\Grcmanager\EntityPerimeter::criteria(\GlpiPlugin\Grcmanager\Risk::getTable()),
         'ORDER' => 'title ASC',
     ]) as $row
 ) {

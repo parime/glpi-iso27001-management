@@ -881,7 +881,8 @@ class AuditEvidenceRequest extends AuditEvidenceRequestBase
                 $control = $DB->request([
                     'SELECT' => ['id'],
                     'FROM'   => Control::getTable(),
-                    'WHERE'  => ['code' => $row['control']],
+                    // Issue #536 : mesure de la SoA suivie par l'entité active.
+                    'WHERE'  => ['code' => $row['control']] + EntityPerimeter::controlCriteria(),
                     'LIMIT'  => 1,
                 ])->current();
                 if ($control === null) {
@@ -1112,8 +1113,9 @@ class AuditEvidenceRequest extends AuditEvidenceRequestBase
         global $DB;
 
         $choices = [];
-        foreach ($DB->request(['SELECT' => ['id', 'code'], 'FROM' => Control::getTable()]) as $row) {
-            $choices[(int) $row['id']] = $row['code'] . ' - ' . Control::getControlTitle((string) $row['code']);
+        // Issue #536 : mesures de la SoA suivie par l'entité active.
+        foreach (EntityPerimeter::controlIdsByCode() as $code => $id) {
+            $choices[$id] = $code . ' - ' . Control::getControlTitle($code);
         }
         asort($choices, SORT_NATURAL);
 

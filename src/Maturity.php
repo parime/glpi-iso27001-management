@@ -115,7 +115,8 @@ class Maturity extends CommonGLPI
             $DB->request([
                 'SELECT'  => ['theme', 'implementation_status', 'COUNT' => '* AS c'],
                 'FROM'    => Control::getTable(),
-                'WHERE'   => ['applicability' => ['yes', 'partial']],
+                // Issue #536 : mesures de la SoA suivie par l'entité active.
+                'WHERE'   => ['applicability' => ['yes', 'partial']] + EntityPerimeter::controlCriteria(),
                 'GROUPBY' => ['theme', 'implementation_status'],
             ]) as $row
         ) {

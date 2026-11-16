@@ -45,7 +45,13 @@ if (($_GET['action'] ?? '') === 'export') {
     $csvText = static fn (?string $value): string => preg_match('/^[=+\-@\t\r]/', (string) $value)
         ? "'" . $value
         : (string) $value;
-    foreach ($DB->request(['FROM' => \GlpiPlugin\Grcmanager\Control::getTable(), 'ORDER' => 'code ASC']) as $row) {
+    // Issue #536 : SoA suivie par l'entité active.
+    $soaRows = $DB->request([
+        'FROM'  => \GlpiPlugin\Grcmanager\Control::getTable(),
+        'WHERE' => \GlpiPlugin\Grcmanager\EntityPerimeter::controlCriteria(),
+        'ORDER' => 'code ASC',
+    ]);
+    foreach ($soaRows as $row) {
         fputcsv($out, [
             $csvText($row['code']),
             $themes[$row['theme']] ?? $csvText($row['theme']),
@@ -94,9 +100,8 @@ if (isset($_POST['import'])) {
 
         global $DB;
         $existingCodes = [];
-        foreach ($DB->request(['SELECT' => ['code'], 'FROM' => \GlpiPlugin\Grcmanager\Control::getTable()]) as $row) {
-            $existingCodes[] = $row['code'];
-        }
+        // Issue #536 : SoA suivie par l'entité active.
+        $existingCodes = array_keys(\GlpiPlugin\Grcmanager\EntityPerimeter::controlIdsByCode());
 
         $result = ControlCsvImportService::process(
             $rows,
@@ -109,7 +114,13 @@ if (isset($_POST['import'])) {
         // a changé l'applicabilité ou la justification par l'import (preuve d'audit de la SoA).
         foreach ($result['valid'] as $validRow) {
             $control = new \GlpiPlugin\Grcmanager\Control();
-            if (!$control->getFromDBByCrit(['code' => $validRow['code']])) {
+            // Issue #536 : mesure de la SoA suivie par l'entité active, modifiable dans cette entité.
+            if (
+                !$control->getFromDBByCrit(
+                    ['code' => $validRow['code']] + \GlpiPlugin\Grcmanager\EntityPerimeter::controlCriteria()
+                )
+                || !$control->canUpdateItem()
+            ) {
                 continue;
             }
             $control->update([

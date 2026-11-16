@@ -17267,3 +17267,65 @@ msgstr "Do naprawy"
 #, php-format
 msgid "last reading: %s"
 msgstr "ostatni odczyt: %s"
+
+msgid "You cannot create a risk in this entity."
+msgstr "Nie możesz utworzyć ryzyka w tej jednostce."
+
+#, php-format
+msgid "This entity now has its own Statement of Applicability (%d controls to review)."
+msgstr "Ta jednostka ma teraz własną Deklarację stosowania (%d zabezpieczeń do przeglądu)."
+
+msgid "This entity follows the SoA of a parent entity: only that entity can submit it for approval."
+msgstr "Ta jednostka stosuje SoA jednostki nadrzędnej: tylko tamta jednostka może przekazać ją do zatwierdzenia."
+
+#, php-format
+msgid "Perimeter: %s"
+msgstr "Zakres: %s"
+
+msgid "Own SoA"
+msgstr "Własna SoA"
+
+#, php-format
+msgid "Statement of Applicability of the entity \"%s\"."
+msgstr "Deklaracja stosowania jednostki „%s”."
+
+msgid "Inherited SoA"
+msgstr "SoA dziedziczona"
+
+#, php-format
+msgid "The entity \"%1$s\" follows the SoA of the entity \"%2$s\"."
+msgstr "Jednostka „%1$s” stosuje SoA jednostki „%2$s”."
+
+msgid "Create a separate SoA for this entity? Its 93 controls start from the current applicability and justifications, and every control has to be implemented again in this entity."
+msgstr "Utworzyć własną SoA dla tej jednostki? Jej 93 zabezpieczenia przejmują obecne stosowanie i uzasadnienia, a każde zabezpieczenie trzeba wdrożyć w tej jednostce."
+
+msgid "Create the SoA of this entity"
+msgstr "Utwórz SoA tej jednostki"
+
+msgid "Perimeters"
+msgstr "Zakresy"
+
+msgid "Consolidation by perimeter"
+msgstr "Konsolidacja według zakresu"
+
+msgid "One row for the current entity and one per child entity, sub-entities included. The rate counts the applicable controls of the SoA each entity follows: implemented or verified count fully, in progress counts half."
+msgstr "Jeden wiersz dla bieżącej jednostki i jeden dla każdej jednostki podrzędnej, łącznie z jej jednostkami podrzędnymi. Wskaźnik obejmuje mające zastosowanie zabezpieczenia SoA stosowanej przez każdą jednostkę: wdrożone lub zweryfikowane liczy się w całości, w trakcie w połowie."
+
+msgid "SoA followed"
+msgstr "Stosowana SoA"
+
+msgid "Implementation rate"
+msgstr "Wskaźnik wdrożenia"
+
+msgid "This entity only"
+msgstr "Tylko ta jednostka"
+
+msgid "No applicable control"
+msgstr "Brak mających zastosowanie zabezpieczeń"
+
+#, php-format
+msgid "%d applicable controls"
+msgstr "Zabezpieczenia mające zastosowanie: %d"
+
+msgid "Not approved yet"
+msgstr "Jeszcze niezatwierdzona"

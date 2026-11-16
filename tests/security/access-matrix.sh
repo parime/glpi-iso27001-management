@@ -805,5 +805,37 @@ if [ "$ROLE" = limited ]; then
   expect "front/doraregister.form.php : contrat de B" 403     "$(code -d "save_arrangement=1&contracts_id=$(id contract_B)&reference=securite&_glpi_csrf_token=$(csrf)" "$P/doraregister.form.php")"
 fi
 
+# Issue #536 : perimetres. Risques, mesures de la SoA et versions approuvees appartiennent a une
+# entite : un profil limite a A ne voit ni ne modifie jamais ceux de B (fiche, liste, export CSV,
+# historique des approbations), ne cree rien dans B. Le consolide n'est propose qu'a une entite
+# parente (ici le super-admin, a la racine), sans jamais etre ouvert aux profils limites a A.
+SEE_RISKS_A=oui; case $ROLE in none|general) SEE_RISKS_A=non ;; esac
+SEE_SOA_A=oui; case $ROLE in none|admin) SEE_SOA_A=non ;; esac
+expect "risque de l'entite B" $DENY "$(code "$P/risk.form.php?id=$(id risk_B)")"
+risks=$(curl -s -c "$JAR" -b "$JAR" "$P/risk.php")
+contains "liste des risques : risque de A" "Risque securite" $SEE_RISKS_A "$risks"
+contains "liste des risques : risque de B" "Risque securite B" $SEE_B "$risks"
+contains "export du registre (CSV) : risque de B" "RISQUE-SECURITE-B" $SEE_B \
+  "$(curl -s -c "$JAR" -b "$JAR" "$P/riskimport.php?export=1")"
+expect "creer un risque dans l'entite B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
+  "$(code -d "add=1&title=Risque%20cree%20securite&entities_id=$(id b)&_glpi_csrf_token=$(csrf)" "$P/risk.form.php")"
+expect "modifier un risque de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
+  "$(code -d "update=1&id=$(id risk_B)&title=Risque%20securite%20B&_glpi_csrf_token=$(csrf)" "$P/risk.form.php")"
+if [ "$ROLE" != admin ]; then
+  expect "supprimer un risque de B" 403 "$(code -d "purge=1&id=$(id risk_B)&_glpi_csrf_token=$(csrf)" "$P/risk.form.php")"
+fi
+expect "mesure de la SoA de B" $DENY "$(code "$P/control.form.php?id=$(id control_B)")"
+expect "modifier une mesure de la SoA de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
+  "$(code -d "update=1&id=$(id control_B)&applicability=yes&justification=Justification%20securite%20B&_glpi_csrf_token=$(csrf)" "$P/control.form.php")"
+expect "creer une SoA pour une entite qui en a deja une" 403 \
+  "$(code -d "create_entity_soa=1&_glpi_csrf_token=$(csrf)" "$P/control.form.php")"
+soa_csv=$(curl -s -c "$JAR" -b "$JAR" "$P/control.csv.php?action=export")
+contains "export de la SoA (CSV) : SoA de A" "Justification securite A" $SEE_SOA_A "$soa_csv"
+contains "export de la SoA (CSV) : SoA de B" "Justification securite B" non "$soa_csv"
+contains "approbations de la SoA : version de B" "Version securite B" non \
+  "$(curl -s -c "$JAR" -b "$JAR" "$P/soaapproval.php")"
+contains "tableau de bord consolide par perimetre" "grcmanager-perimeters" $IS_ADMIN \
+  "$(curl -s -c "$JAR" -b "$JAR" "$P/dashboard.php?view=perimeters")"
+
 rm -f "$JAR"
 exit $FAIL

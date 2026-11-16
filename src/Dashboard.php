@@ -71,6 +71,7 @@ class Dashboard extends CommonGLPI
     /**
      * Issue #143 : tableaux de bord proposés sur la page. La vue des incidents n'apparaît que si
      * l'utilisateur peut voir leurs cartes (droit, groupe sécurité, module et cartes actifs).
+     * Issue #536 : la vue « Périmètres » n'est pas un tableau de bord GLPI (clé vide).
      *
      * @return array<string, array{key: string, label: string, icon: string}>
      */
@@ -91,6 +92,34 @@ class Dashboard extends CommonGLPI
             ];
         }
 
+        // Issue #536 : vue consolidée d'une entité parente (conformité et risques par entité enfant).
+        if (self::canShowPerimeters()) {
+            $views['perimeters'] = [
+                'key'   => '',
+                'label' => __('Perimeters', 'grcmanager'),
+                'icon'  => 'ti ti-sitemap',
+            ];
+        }
+
         return $views;
+    }
+
+    /**
+     * Issue #536 : la vue consolidée n'a de sens que dans une entité qui a des sous-entités
+     * visibles (vue arborescente).
+     */
+    public static function canShowPerimeters(): bool
+    {
+        if (!EntityPerimeter::isMultiEntity() || !EntityPerimeter::hasSession()) {
+            return false;
+        }
+        $active = EntityPerimeter::activeEntity();
+        foreach ((array) $_SESSION['glpiactiveentities'] as $entityId) {
+            if ((int) $entityId !== $active) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

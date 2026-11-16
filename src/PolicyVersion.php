@@ -892,7 +892,8 @@ class PolicyVersion extends PolicyVersionBase
             $DB->request([
                 'SELECT' => ['id'],
                 'FROM'   => Control::getTable(),
-                'WHERE'  => ['code' => self::CONTROL_CODE],
+                // Issue #536 : mesure de la SoA suivie par l'entité active.
+                'WHERE'  => ['code' => self::CONTROL_CODE] + EntityPerimeter::controlCriteria(),
             ]) as $control
         ) {
             $targets[] = [Control::class, (int) $control['id']];

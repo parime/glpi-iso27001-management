@@ -40,6 +40,12 @@ if (isset($_GET['pdf'])) {
     if (
         !$allowed
         || !$version->getFromDB($versionId)
+        // Issue #536 : un lecteur ne lit que les versions des SoA de ses entités.
+        || ($canRead && !$version->canViewItem() && !in_array(
+            $versionId,
+            array_map('intval', array_column($myPending, 'id')),
+            true
+        ))
         || !$document->getFromDB((int) $version->fields['documents_id'])
         || !is_file(GLPI_DOC_DIR . '/' . $document->fields['filepath'])
     ) {
@@ -110,7 +116,12 @@ $history  = [];
 // Historique et état de la SoA : réservés aux lecteurs de la SoA (un approbateur sans droit ne
 // voit que ses propres versions à approuver).
 $historyRows = $canRead
-    ? $DB->request(['FROM' => \GlpiPlugin\Grcmanager\SoaVersion::getTable(), 'ORDER' => 'version DESC'])
+    ? $DB->request([
+        'FROM'  => \GlpiPlugin\Grcmanager\SoaVersion::getTable(),
+        // Issue #536 : versions de la SoA suivie par l'entité active.
+        'WHERE' => \GlpiPlugin\Grcmanager\SoaVersion::entityCriteria(),
+        'ORDER' => 'version DESC',
+    ])
     : [];
 foreach ($historyRows as $row) {
     $approvers = \GlpiPlugin\Grcmanager\SoaVersion::getApprovers((int) $row['id']);

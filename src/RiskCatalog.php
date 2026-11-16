@@ -18,6 +18,7 @@
 namespace GlpiPlugin\Grcmanager;
 
 use CommonGLPI;
+use Glpi\DBAL\QuerySubQuery;
 use GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig;
 use GlpiPlugin\Grcmanager\Services\Control\FrameworkSelection;
 use GlpiPlugin\Grcmanager\Services\Risk\InfrastructureRiskCatalog;
@@ -411,6 +412,8 @@ class RiskCatalog extends CommonGLPI
                 'INNER JOIN' => [
                     $risks => ['FKEY' => [self::IMPORTS_TABLE => 'plugin_grcmanager_risks_id', $risks => 'id']],
                 ],
+                // Issue #536 : chaque entité importe ses propres risques types.
+                'WHERE'      => EntityPerimeter::criteria($risks, false),
             ]) as $row
         ) {
             $imported[(string) $row['catalog_key']] = (int) $row['plugin_grcmanager_risks_id'];
@@ -430,10 +433,8 @@ class RiskCatalog extends CommonGLPI
         global $DB;
 
         $entries = self::getEntries();
-        $controlIds = [];
-        foreach ($DB->request(['SELECT' => ['id', 'code'], 'FROM' => Control::getTable()]) as $row) {
-            $controlIds[(string) $row['code']] = (int) $row['id'];
-        }
+        // Issue #536 : mesures de la SoA suivie par l'entité active.
+        $controlIds = EntityPerimeter::controlIdsByCode();
 
         $created = [];
         $imported = self::importedRisks();
@@ -473,7 +474,15 @@ class RiskCatalog extends CommonGLPI
                     ]);
                 }
             }
-            $DB->delete(self::IMPORTS_TABLE, ['catalog_key' => $key]);
+            // Issue #536 : seule une trace orpheline (risque supprimé) est remplacée ; celle d'une
+            // autre entité reste.
+            $DB->delete(self::IMPORTS_TABLE, [
+                'catalog_key' => $key,
+                'NOT'         => ['plugin_grcmanager_risks_id' => new QuerySubQuery([
+                    'SELECT' => 'id',
+                    'FROM'   => Risk::getTable(),
+                ])],
+            ]);
             $DB->insert(self::IMPORTS_TABLE, [
                 'catalog_key'                => $key,
                 'plugin_grcmanager_risks_id' => $risksId,

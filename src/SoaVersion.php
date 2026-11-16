@@ -106,24 +106,41 @@ class SoaVersion extends SoaVersionBase
         ];
     }
 
-    public static function currentFingerprint(): string
+    /**
+     * Issue #536 : empreinte de la SoA suivie par l'entité (par défaut l'entité active).
+     */
+    public static function currentFingerprint(?int $entityId = null): string
     {
         global $DB;
 
-        return SoaApprovalLogic::fingerprint($DB->request(['FROM' => Control::getTable()]));
+        return SoaApprovalLogic::fingerprint($DB->request([
+            'FROM'  => Control::getTable(),
+            'WHERE' => EntityPerimeter::controlCriteria($entityId),
+        ]));
     }
 
     /**
-     * @return array<string, mixed>|null dernière version au statut donné
+     * Issue #536 : versions de la SoA suivie par l'entité (par défaut l'entité active).
+     *
+     * @return array<string, int>
      */
-    public static function latest(string $status): ?array
+    public static function entityCriteria(?int $entityId = null): array
+    {
+        return [self::getTable() . '.entities_id' => EntityPerimeter::soaEntity($entityId)];
+    }
+
+    /**
+     * @return array<string, mixed>|null dernière version au statut donné, pour la SoA suivie par
+     *     l'entité (par défaut l'entité active)
+     */
+    public static function latest(string $status, ?int $entityId = null): ?array
     {
         global $DB;
 
         foreach (
             $DB->request([
                 'FROM'  => self::getTable(),
-                'WHERE' => ['status' => $status],
+                'WHERE' => ['status' => $status] + self::entityCriteria($entityId),
                 'ORDER' => 'version DESC',
                 'LIMIT' => 1,
             ]) as $row
@@ -244,12 +261,28 @@ class SoaVersion extends SoaVersionBase
             return 0;
         }
 
+        // Issue #536 : la version porte sur la SoA suivie par l'entité active ; numérotation et
+        // versions en attente propres à cette SoA.
+        $entityId = EntityPerimeter::soaEntity();
+        if (EntityPerimeter::hasSession() && !Session::haveAccessToEntity($entityId)) {
+            Session::addMessageAfterRedirect(
+                __(
+                    'This entity follows the SoA of a parent entity: only that entity can submit it for approval.',
+                    'grcmanager'
+                ),
+                false,
+                ERROR
+            );
+
+            return 0;
+        }
         $lastVersion = (int) ($DB->request([
             'SELECT' => ['MAX' => 'version AS v'],
             'FROM'   => self::getTable(),
+            'WHERE'  => ['entities_id' => $entityId],
         ])->current()['v'] ?? 0);
         $versionNumber = $lastVersion + 1;
-        $fingerprint   = self::currentFingerprint();
+        $fingerprint   = self::currentFingerprint($entityId);
         $requestedBy   = (int) Session::getLoginUserID();
         $now           = date('Y-m-d H:i:s');
 
@@ -257,11 +290,13 @@ class SoaVersion extends SoaVersionBase
         $DB->update(
             self::getTable(),
             ['status' => SoaApprovalLogic::VERSION_OBSOLETE, 'date_mod' => $now],
-            ['status' => SoaApprovalLogic::VERSION_PENDING]
+            ['status' => SoaApprovalLogic::VERSION_PENDING, 'entities_id' => $entityId]
         );
 
         $version = new self();
         $id = (int) $version->add([
+            'entities_id'  => $entityId,
+            'is_recursive' => 1,
             'version'     => $versionNumber,
             'status'      => SoaApprovalLogic::VERSION_PENDING,
             'fingerprint' => $fingerprint,
@@ -281,7 +316,7 @@ class SoaVersion extends SoaVersionBase
             ]);
         }
 
-        $pdf = PdfRenderer::renderHtmlToPdf(SoaReportBuilder::renderHtml([
+        $pdf = PdfRenderer::renderHtmlToPdf(SoaReportBuilder::renderHtml($entityId, [
             'version'      => $versionNumber,
             'requested_at' => Html::convDateTime($now),
             'requested_by' => getUserName($requestedBy),
@@ -296,7 +331,7 @@ class SoaVersion extends SoaVersionBase
             'pdf_sha256'   => hash('sha256', $pdf),
         ]);
 
-        NotificationEvent::raiseEvent(self::REQUEST_EVENT, $version, ['entities_id' => 0]);
+        NotificationEvent::raiseEvent(self::REQUEST_EVENT, $version, ['entities_id' => $entityId]);
 
         return $id;
     }

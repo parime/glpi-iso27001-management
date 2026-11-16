@@ -46,7 +46,16 @@ TemplateRenderer::getInstance()->display('@grcmanager/dashboard_views.html.twig'
 ]);
 
 $key = $views[$view]['key'];
-if ((new Dashboard($key))->canViewCurrent()) {
+if ($view === 'perimeters') {
+    // Issue #536 : consolidé de l'entité active, par entité enfant (entités de la session seules).
+    TemplateRenderer::getInstance()->display('@grcmanager/dashboard_perimeters.html.twig', [
+        'rows'       => \GlpiPlugin\Grcmanager\EntityPerimeter::consolidation(),
+        'can_risks'  => \GlpiPlugin\Grcmanager\Risk::canView(),
+        'levels'     => \GlpiPlugin\Grcmanager\Risk::getImpacts(),
+        'soa_url'    => \GlpiPlugin\Grcmanager\Control::getSearchURL(),
+        'risk_url'   => \GlpiPlugin\Grcmanager\Risk::getSearchURL(),
+    ]);
+} elseif ((new Dashboard($key))->canViewCurrent()) {
     // Vue d'ensemble ISMS : 48 rangées, au-delà des 24 par défaut (sans quoi GLPI les superpose).
     (new Grid($key, 26, 48))->showDefault();
 } else {

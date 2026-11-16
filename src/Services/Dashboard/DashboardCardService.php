@@ -53,6 +53,24 @@ final class DashboardCardService
         ];
     }
 
+    /**
+     * Issue #536 : mesures de la SoA suivie par l'entité active, ou par l'entité donnée par le
+     * rapport PDF de la SoA (clé grcmanager_soa_entity).
+     *
+     * @param array<string, mixed> $params
+     * @return array<string, int>
+     */
+    private static function soaCriteria(array $params): array
+    {
+        $entityId = isset($params['grcmanager_soa_entity'])
+            ? (int) $params['grcmanager_soa_entity']
+            : null;
+
+        $soaEntity = \GlpiPlugin\Grcmanager\EntityPerimeter::soaEntity($entityId);
+
+        return ['glpi_plugin_grcmanager_controls.entities_id' => $soaEntity];
+    }
+
     public static function openRisksCount(array $params = []): array
     {
         global $DB;
@@ -60,7 +78,10 @@ final class DashboardCardService
         $count = (int) $DB->request([
             'COUNT' => 'c',
             'FROM' => 'glpi_plugin_grcmanager_risks',
-            'WHERE' => ['status' => ['identified', 'in_treatment']],
+            'WHERE' => array_merge(
+                ['status' => ['identified', 'in_treatment']],
+                \GlpiPlugin\Grcmanager\EntityPerimeter::criteria('glpi_plugin_grcmanager_risks')
+            ),
         ])->current()['c'];
 
         return [
@@ -79,6 +100,7 @@ final class DashboardCardService
         $rows = $DB->request([
             'SELECT' => ['risk_level', new QueryExpression('COUNT(*) AS c')],
             'FROM' => 'glpi_plugin_grcmanager_risks',
+            'WHERE' => \GlpiPlugin\Grcmanager\EntityPerimeter::criteria('glpi_plugin_grcmanager_risks'),
             'GROUPBY' => 'risk_level',
         ]);
 
@@ -112,6 +134,7 @@ final class DashboardCardService
         $rows = $DB->request([
             'SELECT' => ['category', new QueryExpression('COUNT(*) AS c')],
             'FROM' => 'glpi_plugin_grcmanager_risks',
+            'WHERE' => \GlpiPlugin\Grcmanager\EntityPerimeter::criteria('glpi_plugin_grcmanager_risks'),
             'GROUPBY' => 'category',
         ]);
 
@@ -140,10 +163,10 @@ final class DashboardCardService
         $count = (int) $DB->request([
             'COUNT' => 'c',
             'FROM' => 'glpi_plugin_grcmanager_risks',
-            'WHERE' => [
+            'WHERE' => array_merge([
                 'status' => ['<>', 'closed'],
                 new QueryExpression('(review_date IS NULL OR review_date <= CURDATE())'),
-            ],
+            ], \GlpiPlugin\Grcmanager\EntityPerimeter::criteria('glpi_plugin_grcmanager_risks')),
         ])->current()['c'];
 
         return [
@@ -192,15 +215,17 @@ final class DashboardCardService
     {
         global $DB;
 
+        $soa = self::soaCriteria($params);
         $total = (int) $DB->request([
             'COUNT' => 'c',
             'FROM'  => 'glpi_plugin_grcmanager_controls',
+            'WHERE' => $soa,
         ])->current()['c'];
 
         $reviewed = (int) $DB->request([
             'COUNT' => 'c',
             'FROM'  => 'glpi_plugin_grcmanager_controls',
-            'WHERE' => ['is_reviewed' => 1],
+            'WHERE' => ['is_reviewed' => 1] + $soa,
         ])->current()['c'];
 
         return [
@@ -222,6 +247,7 @@ final class DashboardCardService
         $rows = $DB->request([
             'SELECT' => ['applicability', new QueryExpression('COUNT(*) AS c')],
             'FROM' => 'glpi_plugin_grcmanager_controls',
+            'WHERE' => self::soaCriteria($params),
             'GROUPBY' => 'applicability',
         ]);
 
@@ -255,6 +281,7 @@ final class DashboardCardService
         $rows = $DB->request([
             'SELECT' => ['implementation_status', new QueryExpression('COUNT(*) AS c')],
             'FROM' => 'glpi_plugin_grcmanager_controls',
+            'WHERE' => self::soaCriteria($params),
             'GROUPBY' => 'implementation_status',
         ]);
 

@@ -17231,3 +17231,65 @@ msgstr "Corrigíveis"
 #, php-format
 msgid "last reading: %s"
 msgstr "última leitura: %s"
+
+msgid "You cannot create a risk in this entity."
+msgstr "Você não pode criar um risco nesta entidade."
+
+#, php-format
+msgid "This entity now has its own Statement of Applicability (%d controls to review)."
+msgstr "Esta entidade agora tem sua própria Declaração de Aplicabilidade (%d controles a revisar)."
+
+msgid "This entity follows the SoA of a parent entity: only that entity can submit it for approval."
+msgstr "Esta entidade segue a SoA de uma entidade pai: somente essa entidade pode submetê-la à aprovação."
+
+#, php-format
+msgid "Perimeter: %s"
+msgstr "Perímetro: %s"
+
+msgid "Own SoA"
+msgstr "SoA própria"
+
+#, php-format
+msgid "Statement of Applicability of the entity \"%s\"."
+msgstr "Declaração de Aplicabilidade da entidade \"%s\"."
+
+msgid "Inherited SoA"
+msgstr "SoA herdada"
+
+#, php-format
+msgid "The entity \"%1$s\" follows the SoA of the entity \"%2$s\"."
+msgstr "A entidade \"%1$s\" segue a SoA da entidade \"%2$s\"."
+
+msgid "Create a separate SoA for this entity? Its 93 controls start from the current applicability and justifications, and every control has to be implemented again in this entity."
+msgstr "Criar uma SoA própria para esta entidade? Seus 93 controles partem da aplicabilidade e das justificativas atuais, e cada controle deve ser implementado nesta entidade."
+
+msgid "Create the SoA of this entity"
+msgstr "Criar a SoA desta entidade"
+
+msgid "Perimeters"
+msgstr "Perímetros"
+
+msgid "Consolidation by perimeter"
+msgstr "Consolidação por perímetro"
+
+msgid "One row for the current entity and one per child entity, sub-entities included. The rate counts the applicable controls of the SoA each entity follows: implemented or verified count fully, in progress counts half."
+msgstr "Uma linha para a entidade atual e uma por entidade filha, subentidades incluídas. A taxa conta os controles aplicáveis da SoA seguida por cada entidade: implementado ou verificado conta inteiro, em andamento conta a metade."
+
+msgid "SoA followed"
+msgstr "SoA seguida"
+
+msgid "Implementation rate"
+msgstr "Taxa de implementação"
+
+msgid "This entity only"
+msgstr "Somente esta entidade"
+
+msgid "No applicable control"
+msgstr "Nenhum controle aplicável"
+
+#, php-format
+msgid "%d applicable controls"
+msgstr "%d controles aplicáveis"
+
+msgid "Not approved yet"
+msgstr "Ainda não aprovada"

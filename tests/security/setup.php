@@ -364,6 +364,10 @@ $add = static function (CommonDBTM $item, array $input): int {
 
 $a = $entityId('Securite ISO A');
 $b = $entityId('Securite ISO B');
+// Issue #536 : entités créées après la connexion, ajoutées aux entités actives de la session (un
+// risque ou une SoA ne se crée que dans une entité de la session).
+Session::changeActiveEntities(0, true);
+\GlpiPlugin\Grcmanager\EntityPerimeter::reset();
 
 // Gestionnaire : tous les droits du plugin ; lecteur : lecture seule. Tous deux limités à A.
 $manager = $userId('iso-gestionnaire', $a, $profileId('Securite ISO - gestionnaire A', [
@@ -418,23 +422,47 @@ $general = $userId('iso-general', $a, $profileId('Securite ISO - sans registres 
     'dashboard' => READ,
 ]));
 
-$control = $DB->request([
-    'SELECT' => ['id'],
-    'FROM'   => 'glpi_plugin_grcmanager_controls',
-    'ORDER'  => 'id',
-    'LIMIT'  => 1,
-])->current();
-if ($control === null) {
-    fwrite(STDERR, "Aucun contrôle (annexe A) : installation du plugin incomplète\n");
-    exit(1);
+// Issue #536 : chaque entité tient sa propre SoA (copie des 93 mesures) ; la mesure testée est
+// celle de A, que le gestionnaire de A peut modifier. Celle de B ne doit jamais lui être ouverte.
+$soaControl = static function (int $entity): int {
+    global $DB;
+
+    if (!\GlpiPlugin\Grcmanager\EntityPerimeter::hasOwnSoa($entity)) {
+        \GlpiPlugin\Grcmanager\EntityPerimeter::createSoa($entity);
+    }
+    $control = $DB->request([
+        'SELECT' => ['id'],
+        'FROM'   => 'glpi_plugin_grcmanager_controls',
+        'WHERE'  => ['entities_id' => $entity],
+        'ORDER'  => 'id',
+        'LIMIT'  => 1,
+    ])->current();
+    if ($control === null) {
+        fwrite(STDERR, "Aucune mesure (annexe A) dans l'entité $entity : SoA de l'entité non créée\n");
+        exit(1);
+    }
+
+    return (int) $control['id'];
+};
+$controlId = $soaControl($a);
+$controlB = $soaControl($b);
+$DB->update('glpi_plugin_grcmanager_controls', ['justification' => 'Justification securite A'], ['id' => $controlId]);
+$DB->update('glpi_plugin_grcmanager_controls', ['justification' => 'Justification securite B'], ['id' => $controlB]);
+// Version approuvée de la SoA de B (historique de l'approbation, jamais montré à A).
+if (countElementsInTable('glpi_plugin_grcmanager_soaversions', ['entities_id' => $b]) === 0) {
+    $DB->insert('glpi_plugin_grcmanager_soaversions', [
+        'entities_id' => $b, 'is_recursive' => 1, 'version' => 1, 'status' => 'approved',
+        'comment' => 'Version securite B', 'users_id' => 2, 'date_creation' => date('Y-m-d H:i:s'),
+        'date_answered' => date('Y-m-d H:i:s'),
+    ]);
 }
-$controlId = (int) $control['id'];
 
 $supplier = $add(new Supplier(), [
     'name' => 'Fournisseur securite ' . uniqid(), 'entities_id' => 0, 'is_recursive' => 1,
 ]);
 $ids = [
-    'a' => $a, 'b' => $b, 'manager' => $manager, 'reader' => $reader, 'control' => $controlId, 'supplier' => $supplier,
+    'a' => $a, 'b' => $b, 'manager' => $manager, 'reader' => $reader, 'control' => $controlId,
+    'control_B' => $controlB, 'supplier' => $supplier,
 ];
 foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
     $ids['incident_' . $suffix] = $add(new PluginGrcmanagerSecurityIncident(), [
@@ -514,8 +542,12 @@ $ids['quiz'] = \GlpiPlugin\Grcmanager\TrainingQuiz::getParticipationId($ids['tra
 $quizPrefix = uniqid('', true);
 file_put_contents(GLPI_TMP_DIR . '/' . $quizPrefix . 'copie-quiz.txt', "Copie de quiz securite\n");
 \GlpiPlugin\Grcmanager\TrainingQuiz::attach($ids['quiz'], $quizPrefix . 'copie-quiz.txt', $quizPrefix);
+// Issue #536 : le risque appartient à l'entité A ; celui de B n'est jamais montré aux profils de A.
 $ids['risk'] = $add(new \GlpiPlugin\Grcmanager\Risk(), [
-    'title' => 'Risque securite', 'linked_items_Computer' => [$ids['computer_B']],
+    'title' => 'Risque securite', 'entities_id' => $a, 'linked_items_Computer' => [$ids['computer_B']],
+]);
+$ids['risk_B'] = $add(new \GlpiPlugin\Grcmanager\Risk(), [
+    'title' => 'Risque securite B', 'entities_id' => $b, 'external_ref' => 'RISQUE-SECURITE-B',
 ]);
 // Registres sensibles : la fiche du contrôle, lisible sans le droit dédié, ne doit pas montrer ce
 // risque lié.

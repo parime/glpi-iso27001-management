@@ -17359,3 +17359,65 @@ msgstr "Corrigeables"
 #, php-format
 msgid "last reading: %s"
 msgstr "dernière lecture : %s"
+
+msgid "You cannot create a risk in this entity."
+msgstr "Vous ne pouvez pas créer de risque dans cette entité."
+
+#, php-format
+msgid "This entity now has its own Statement of Applicability (%d controls to review)."
+msgstr "Cette entité a maintenant sa propre Déclaration d'Applicabilité (%d mesures à revoir)."
+
+msgid "This entity follows the SoA of a parent entity: only that entity can submit it for approval."
+msgstr "Cette entité suit la SoA d'une entité parente : seule cette entité peut la soumettre à approbation."
+
+#, php-format
+msgid "Perimeter: %s"
+msgstr "Périmètre : %s"
+
+msgid "Own SoA"
+msgstr "SoA propre"
+
+#, php-format
+msgid "Statement of Applicability of the entity \"%s\"."
+msgstr "Déclaration d'Applicabilité de l'entité « %s »."
+
+msgid "Inherited SoA"
+msgstr "SoA héritée"
+
+#, php-format
+msgid "The entity \"%1$s\" follows the SoA of the entity \"%2$s\"."
+msgstr "L'entité « %1$s » suit la SoA de l'entité « %2$s »."
+
+msgid "Create a separate SoA for this entity? Its 93 controls start from the current applicability and justifications, and every control has to be implemented again in this entity."
+msgstr "Créer une SoA propre à cette entité ? Ses 93 mesures reprennent l'applicabilité et les justifications actuelles, et chaque mesure est à mettre en œuvre dans cette entité."
+
+msgid "Create the SoA of this entity"
+msgstr "Créer la SoA de cette entité"
+
+msgid "Perimeters"
+msgstr "Périmètres"
+
+msgid "Consolidation by perimeter"
+msgstr "Consolidation par périmètre"
+
+msgid "One row for the current entity and one per child entity, sub-entities included. The rate counts the applicable controls of the SoA each entity follows: implemented or verified count fully, in progress counts half."
+msgstr "Une ligne pour l'entité courante et une par entité enfant, sous-entités comprises. Le taux porte sur les mesures applicables de la SoA suivie par chaque entité : mise en œuvre ou vérifiée compte pour une, en cours pour moitié."
+
+msgid "SoA followed"
+msgstr "SoA suivie"
+
+msgid "Implementation rate"
+msgstr "Taux de mise en œuvre"
+
+msgid "This entity only"
+msgstr "Cette entité seule"
+
+msgid "No applicable control"
+msgstr "Aucune mesure applicable"
+
+#, php-format
+msgid "%d applicable controls"
+msgstr "%d mesures applicables"
+
+msgid "Not approved yet"
+msgstr "Pas encore approuvée"

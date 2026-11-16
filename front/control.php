@@ -49,6 +49,8 @@ TemplateRenderer::getInstance()->display('@grcmanager/control_list_header.html.t
     'approval_url'    => $front . 'soaapproval.php',
     'pending_version' => $myPendingVersions !== [] ? (int) $myPendingVersions[0]['version'] : 0,
     'changed_since'   => $changedSince ? (int) $lastApprovedVersion['version'] : 0,
+    // Issue #536 : SoA de quelle entité, et création de la SoA propre à l'entité active.
+    'perimeter'       => \GlpiPlugin\Grcmanager\EntityPerimeter::soaBanner(),
 ]);
 
 // Same URL-driven search fix as front/risk.php (Search::showList()'s $params must be pre-merged

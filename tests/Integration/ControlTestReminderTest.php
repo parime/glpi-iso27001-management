@@ -274,6 +274,11 @@ final class ControlTestReminderTest extends GrcmanagerIntegrationTestCase
         $other = $this->control('A.5.22', 'implemented', 0, 12);
         $this->addTest($other, '2026-03-01', 'partial', '2026-09-15');
 
+        // Issue #536 : les mesures portent une entité ; recherche dans la seule entité racine, sans
+        // les entités laissées dans la session par un test précédent.
+        $_SESSION['glpiactiveentities'] = [0];
+        $_SESSION['glpiactiveentities_string'] = "'0'";
+        $_SESSION['glpiparententities'] = [];
         $data = \Search::getDatas(Control::class, [
             'criteria' => [['field' => 1, 'searchtype' => 'contains', 'value' => 'A.5.2']],
         ], [1, 9, 10]);
