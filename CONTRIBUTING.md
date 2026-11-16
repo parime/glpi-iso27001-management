@@ -44,6 +44,9 @@ Une PR n'est acceptée que si elle inclut, quand applicable :
 
 - code + tests (unitaires, installation réelle sur GLPI selon le périmètre) ;
 - traductions FR/EN pour toute nouvelle chaîne utilisateur ;
+- `locales/grcmanager.pot` régénéré si une chaîne change : `vendor/bin/extract-locales`, puis
+  `git checkout -- locales/en_GB.po` (l'outil réécrit ce fichier) ; la CI échoue si le `.pot`
+  versionné ne correspond plus au code ;
 - migration idempotente dans `src/Install/Installer.php` si le modèle de données change ;
 - entrée [CHANGELOG.md](CHANGELOG.md) ;
 - capture d'écran si l'interface est modifiée.

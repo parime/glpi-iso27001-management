@@ -25,6 +25,9 @@ release). It is the single reference for every parime GLPI plugin.
 - Display through Twig templates only; no raw SQL outside the installer; migrations in the
   installer, with uninstall.
 - User interface strings are translated (`locales/*.po`); keep every language complete.
+  `locales/grcmanager.pot` is the versioned source read by Hosted Weblate: after adding or changing a
+  string, run `vendor/bin/extract-locales`, then `git checkout -- locales/en_GB.po` (the tool
+  overwrites it), and commit the `.pot`. CI fails when it no longer matches the code.
 - Tests: PHPUnit (unit and integration), PHPStan, PHPCS; test the user interface as a non-technical
   user would. Fictitious data only in tests, screenshots and documentation.
 - Each pull request updates `CHANGELOG.md` (section `[Unreleased]`).
