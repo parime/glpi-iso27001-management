@@ -12,6 +12,11 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 - **CI** : contrôles des points d'entrée, de la matrice d'accès et des exigences marketplace repris
   par les contrôles communs (glpi-plugin-security v1.8.0, issue parime/glpi-plugin-security#11) ;
   les copies de `.github/scripts/` sont retirées. Les fichiers de réglage restent dans ce dépôt.
+- **Traductions** (charte commune, sections 2 et 2 bis, issues #657 et #662) : `locales/grcmanager.pot`
+  est versionné (4 104 chaînes, généré par `vendor/bin/extract-locales`), source unique que lira
+  Hosted Weblate. Le job « Locale completeness » échoue désormais si ce `.pot` ne correspond plus au
+  code, ou si un fichier `.po` est invalide (formats `%s`, `%d` différents de la source), en plus du
+  contrôle existant : chaque langue traduit chaque chaîne du `.pot`.
 - **Licence** (charte commune, section 1, issues #655, #660 et #661) : identifiant SPDX exact
   `GPL-3.0-or-later` dans `plugin_version_grcmanager()` (au lieu de `GPLv3`), comme `composer.json`
   et `CITATION.cff`. Le bloc de licence de `tools/HEADER` est ajouté en tête des 336 fichiers PHP et
