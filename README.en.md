@@ -264,8 +264,9 @@ points: an ideal map for an attacker. The plugin protects them at its own level:
 - **e-mails without details** by default ("Risk no. X" and the link to the record).
 ## Perimeters (GLPI entities)
 
-The ISMS can be split along GLPI entities (issue #536, first batch). **Risks**, **SoA controls** and
-the **approved SoA versions** belong to an entity: a user only sees and changes the ones of the
+The ISMS can be split along GLPI entities (issue #536). **Risks** and their **treatment actions**,
+**SoA controls** and the **approved SoA versions**, **internal audits** and **non-conformities** belong
+to an entity: a user only sees and changes the ones of the
 entities of their profile, everywhere (lists, forms, exports, dashboard, API, notifications,
 consistency checks).
 
@@ -277,10 +278,16 @@ consistency checks).
   sub-entities follow that SoA. Management approval and version numbers are specific to each SoA.
 - **Consolidated view**: in a parent entity, in tree view, Dashboard > **Perimeters** shows for each
   child entity the SoA it follows, its implementation rate, its last approved version and its open
-  risks by level.
-- **After the update**, all existing data is in the root entity (the SoA recursive). Move risks into
-  their entities with a massive update (column "Entity").
-- Audits, non-conformities and treatment actions: second batch of issue #536.
+  risks by level and its open non-conformities by severity.
+- **Audits**: a treatment action follows the entity of its risk, a non-conformity the entity of its
+  audit. Team members, people providing evidence and invited auditors must have a profile in the
+  entity of the audit; an auditor limited to one entity sees nothing of another.
+- **After the update**, existing data is in the root entity (the SoA recursive), except treatment
+  actions (entity of their risk) and non-conformities whose audit or incident points without
+  ambiguity to another entity. Move risks, audits and non-conformities into their entities with a
+  massive update (column "Entity").
+- Supplier risks, trainings, management reviews, objectives and other registers: third batch of
+  issue #536, depending on feedback.
 
 ## Project status
 

@@ -348,7 +348,12 @@ de Filiale Nord. Pour qu'une filiale tienne sa propre Déclaration d'Applicabili
 3. Les 93 mesures de Filiale Nord reprennent l'applicabilité et les justifications de la SoA commune ;
    revoyez-les une à une, puis demandez l'approbation de la direction comme pour la SoA commune.
 4. Revenez à l'entité racine en vue arborescente : Tableau de bord > **Périmètres** compare les deux
-   filiales (SoA suivie, taux de mise en œuvre, version approuvée, risques ouverts par niveau).
+   filiales (SoA suivie, taux de mise en œuvre, version approuvée, risques ouverts par niveau,
+   non-conformités ouvertes par gravité).
+5. Les audits suivent la même logique : créé dans Filiale Nord, un audit, ses constats et ses demandes
+   de preuves ne sont visibles que de Filiale Nord (et de l'entité racine en vue arborescente). Les
+   listes de l'équipe, des preuves et de l'accès auditeur ne proposent que les comptes qui ont un
+   profil dans Filiale Nord. Les actions de traitement d'un risque suivent l'entité du risque.
 
 ## 🇬🇧 English
 
@@ -686,4 +691,9 @@ To give a subsidiary its own Statement of Applicability:
 3. The 93 controls of the subsidiary keep the applicability and justifications of the common SoA;
    review them one by one, then ask for management approval as for the common SoA.
 4. Go back to the root entity in tree view: Dashboard > **Perimeters** compares both subsidiaries
-   (SoA followed, implementation rate, approved version, open risks by level).
+   (SoA followed, implementation rate, approved version, open risks by level, open
+   non-conformities by severity).
+5. Audits follow the same logic: created in the North subsidiary, an audit, its findings and its
+   evidence requests are only visible from the North subsidiary (and from the root entity in tree
+   view). The team, evidence and auditor access lists only offer accounts with a profile in the North
+   subsidiary. The treatment actions of a risk follow the entity of the risk.

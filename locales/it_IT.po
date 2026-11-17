@@ -17410,3 +17410,15 @@ msgstr "%d controlli applicabili"
 
 msgid "Not approved yet"
 msgstr "Non ancora approvata"
+
+msgid "You cannot change the treatment plan of this risk."
+msgstr "Non puoi modificare il piano di trattamento di questo rischio."
+
+msgid "You cannot create an audit in this entity."
+msgstr "Non puoi creare un audit in questa entità."
+
+msgid "You cannot create a non-conformity in this entity."
+msgstr "Non puoi creare una non conformità in questa entità."
+
+msgid "This account has no profile in the entity of the audit."
+msgstr "Questo account non ha alcun profilo nell'entità dell'audit."

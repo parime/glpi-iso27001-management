@@ -334,10 +334,11 @@ final class DashboardCardService
         $count = (int) $DB->request([
             'COUNT' => 'c',
             'FROM' => 'glpi_plugin_grcmanager_nonconformities',
-            'WHERE' => [
+            // Issue #536 : non-conformités des entités de la session.
+            'WHERE' => array_merge([
                 'status'       => ['open', 'in_progress'],
                 'finding_type' => 'nonconformity',
-            ],
+            ], \GlpiPlugin\Grcmanager\EntityPerimeter::criteria('glpi_plugin_grcmanager_nonconformities')),
         ])->current()['c'];
 
         return [
@@ -360,11 +361,11 @@ final class DashboardCardService
         $count = (int) $DB->request([
             'COUNT' => 'c',
             'FROM' => 'glpi_plugin_grcmanager_nonconformities',
-            'WHERE' => [
+            'WHERE' => array_merge([
                 'status' => ['NOT IN', ['closed', 'verified']],
                 new QueryExpression('due_date IS NOT NULL'),
                 new QueryExpression('due_date < CURDATE()'),
-            ],
+            ], \GlpiPlugin\Grcmanager\EntityPerimeter::criteria('glpi_plugin_grcmanager_nonconformities')),
         ])->current()['c'];
 
         return [
@@ -386,6 +387,8 @@ final class DashboardCardService
         $rows = $DB->request([
             'SELECT' => ['status', new QueryExpression('COUNT(*) AS c')],
             'FROM' => 'glpi_plugin_grcmanager_audits',
+            // Issue #536 : audits des entités de la session.
+            'WHERE' => \GlpiPlugin\Grcmanager\EntityPerimeter::criteria('glpi_plugin_grcmanager_audits'),
             'GROUPBY' => 'status',
         ]);
 
@@ -832,11 +835,12 @@ final class DashboardCardService
         $count = (int) $DB->request([
             'COUNT' => 'c',
             'FROM' => 'glpi_plugin_grcmanager_risktreatmentactions',
-            'WHERE' => [
+            // Issue #536 : actions des entités de la session (celles de leur risque).
+            'WHERE' => array_merge([
                 'status' => ['<>', 'done'],
                 new QueryExpression('due_date IS NOT NULL'),
                 new QueryExpression('due_date < CURDATE()'),
-            ],
+            ], \GlpiPlugin\Grcmanager\EntityPerimeter::criteria('glpi_plugin_grcmanager_risktreatmentactions')),
         ])->current()['c'];
 
         return [
@@ -867,11 +871,12 @@ final class DashboardCardService
                     'FKEY' => ['r' => 'id', 'a' => 'plugin_grcmanager_risks_id'],
                 ],
             ],
-            'WHERE' => [
+            // Issue #536 : risques des entités de la session.
+            'WHERE' => array_merge([
                 'r.treatment' => ['mitigate', 'transfer'],
                 'r.status'    => ['identified', 'in_treatment'],
                 new QueryExpression('a.id IS NULL'),
-            ],
+            ], \GlpiPlugin\Grcmanager\EntityPerimeter::criteria('r')),
         ])->current()['c'];
 
         return [

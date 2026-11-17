@@ -20,6 +20,7 @@ namespace GlpiPlugin\Grcmanager;
 use Document;
 use Document_Item;
 use Dropdown;
+use Entity;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compat\Base\AuditBase;
 use GlpiPlugin\Grcmanager\Services\Ui\Badge;
@@ -116,10 +117,24 @@ class Audit extends AuditBase
      * (`risk_categories[]` in the form) into the single comma-separated string the column stores.
      *
      * @param array<string, mixed> $input
-     * @return array<string, mixed>
+     * @return array<string, mixed>|false
      */
     public function prepareInputForAdd($input)
     {
+        // Issue #536 : un audit appartient à une entité (par défaut l'entité active), sans ses
+        // sous-entités sauf choix contraire.
+        $input['entities_id']  = (int) ($input['entities_id'] ?? EntityPerimeter::activeEntity());
+        $input['is_recursive'] = (int) (bool) ($input['is_recursive'] ?? 0);
+        if (EntityPerimeter::hasSession() && !Session::haveAccessToEntity($input['entities_id'])) {
+            Session::addMessageAfterRedirect(
+                __('You cannot create an audit in this entity.', 'grcmanager'),
+                false,
+                ERROR
+            );
+
+            return false;
+        }
+
         return $this->normalizeInput($input);
     }
 
@@ -129,6 +144,15 @@ class Audit extends AuditBase
      */
     public function prepareInputForUpdate($input)
     {
+        // Issue #536 : un audit ne part que vers une entité de la session (modification en masse).
+        if (
+            isset($input['entities_id'])
+            && EntityPerimeter::hasSession()
+            && !Session::haveAccessToEntity((int) $input['entities_id'])
+        ) {
+            unset($input['entities_id']);
+        }
+
         return $this->normalizeInput($input);
     }
 
@@ -236,6 +260,24 @@ class Audit extends AuditBase
             'name'     => __('ID'),
             'datatype' => 'itemlink',
             'itemtype' => self::class,
+        ];
+
+        // Issue #536 : périmètre de l'audit (entité GLPI) et visibilité dans les sous-entités.
+        $tab[] = [
+            'id'       => 80,
+            'table'    => 'glpi_entities',
+            'field'    => 'completename',
+            'name'     => Entity::getTypeName(1),
+            'datatype' => 'dropdown',
+            // Modification en masse permise : ranger les audits migrés dans leurs entités.
+            'massiveaction' => true,
+        ];
+        $tab[] = [
+            'id'       => 86,
+            'table'    => $this->getTable(),
+            'field'    => 'is_recursive',
+            'name'     => __('Child entities'),
+            'datatype' => 'bool',
         ];
 
         return $tab;
@@ -367,13 +409,17 @@ class Audit extends AuditBase
      *
      * @param array<int, int> $controlIds
      */
-    private static function syncLinkedControls(int $auditId, array $controlIds): void
+    private static function syncLinkedControls(int $auditId, array $controlIds, int $entityId = 0): void
     {
         global $DB;
 
         $DB->delete(self::LINK_TABLE, ['plugin_grcmanager_audits_id' => $auditId]);
 
-        $controlIds = array_unique(array_filter(array_map('intval', $controlIds), static fn ($id) => $id > 0));
+        // Issue #536 : seules les mesures de la SoA que suit l'entité de l'audit.
+        $controlIds = array_intersect(
+            array_unique(array_filter(array_map('intval', $controlIds), static fn ($id) => $id > 0)),
+            EntityPerimeter::controlIdsByCode($entityId)
+        );
 
         foreach ($controlIds as $controlId) {
             $DB->insert(self::LINK_TABLE, [
@@ -401,7 +447,11 @@ class Audit extends AuditBase
         parent::post_addItem();
 
         if (array_key_exists('linked_controls', $this->input)) {
-            self::syncLinkedControls((int) $this->fields['id'], (array) $this->input['linked_controls']);
+            self::syncLinkedControls(
+                (int) $this->fields['id'],
+                (array) $this->input['linked_controls'],
+                (int) $this->fields['entities_id']
+            );
         }
     }
 
@@ -410,7 +460,20 @@ class Audit extends AuditBase
         parent::post_updateItem($history);
 
         if (array_key_exists('linked_controls', $this->input)) {
-            self::syncLinkedControls((int) $this->fields['id'], (array) $this->input['linked_controls']);
+            self::syncLinkedControls(
+                (int) $this->fields['id'],
+                (array) $this->input['linked_controls'],
+                (int) $this->fields['entities_id']
+            );
+        }
+
+        // Issue #536 : les constats de l'audit restés dans son ancienne entité le suivent.
+        if (in_array('entities_id', $this->updates, true)) {
+            Nonconformity::followAudit(
+                $this->getID(),
+                (int) ($this->oldvalues['entities_id'] ?? 0),
+                (int) $this->fields['entities_id']
+            );
         }
 
         // Issue #140 : à la clôture (passage à « Terminé »), le rapport d'audit est archivé en
@@ -453,7 +516,11 @@ class Audit extends AuditBase
         foreach (
             $DB->request([
                 'FROM'  => Nonconformity::getTable(),
-                'WHERE' => ['plugin_grcmanager_audits_id' => $auditId],
+                // Issue #536 : constats des entités de la session.
+                'WHERE' => array_merge(
+                    ['plugin_grcmanager_audits_id' => $auditId],
+                    EntityPerimeter::criteria(Nonconformity::getTable())
+                ),
                 'ORDER' => 'id',
             ]) as $row
         ) {
@@ -528,10 +595,10 @@ class Audit extends AuditBase
         $messagesBefore = $_SESSION['MESSAGE_AFTER_REDIRECT'] ?? [];
         $documentsId = (int) (new Document())->add([
             'name'          => sprintf(__('Internal audit report - %s', 'grcmanager'), $this->fields['title']),
-            // L'audit est global : le document ne se lit qu'avec le droit de lire l'audit
-            // (RestrictedDocument), jamais avec le seul droit Documents d'une
-            // entité ; non récursif pour ne pas descendre dans les sous-entités.
-            'entities_id'   => (int) ($_SESSION['glpiactive_entity'] ?? 0),
+            // Le document ne se lit qu'avec le droit de lire l'audit (RestrictedDocument), jamais
+            // avec le seul droit Documents d'une entité ; issue #536 : dans l'entité de l'audit,
+            // non récursif pour ne pas descendre dans les sous-entités.
+            'entities_id'   => (int) ($this->fields['entities_id'] ?? 0),
             'is_recursive'  => 0,
             '_filename'     => [$fileName],
             '_tag_filename' => [$fileName],
@@ -559,8 +626,12 @@ class Audit extends AuditBase
         $this->initForm($ID, $options);
 
         $controlTitles = [];
-        // Issue #536 : mesures de la SoA suivie par l'entité active.
-        foreach (EntityPerimeter::controlIdsByCode() as $code => $controlId) {
+        // Issue #536 : mesures de la SoA suivie par l'entité de l'audit (l'entité active pour un
+        // nouvel audit).
+        $entityId = $this->isNewID($ID)
+            ? EntityPerimeter::activeEntity()
+            : (int) ($this->fields['entities_id'] ?? 0);
+        foreach (EntityPerimeter::controlIdsByCode($entityId) as $code => $controlId) {
             $controlTitles[$controlId] = $code . ' - ' . Control::getControlTitle($code);
         }
         asort($controlTitles);

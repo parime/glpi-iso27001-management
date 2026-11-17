@@ -21,6 +21,7 @@ use CommonGLPI;
 use CronTask;
 use Document_Item;
 use Dropdown;
+use Entity;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compat\Base\NonconformityBase;
 use GlpiPlugin\Grcmanager\Services\Capa\CapaRequirementService;
@@ -150,7 +151,9 @@ class Nonconformity extends NonconformityBase
      */
     public function prepareInputForAdd($input)
     {
-        return $this->validateAndNormalize($input);
+        $input = $this->assignEntity($input, true);
+
+        return $input === false ? false : $this->validateAndNormalize($input);
     }
 
     /**
@@ -159,7 +162,75 @@ class Nonconformity extends NonconformityBase
      */
     public function prepareInputForUpdate($input)
     {
-        return $this->validateAndNormalize($input);
+        $input = $this->assignEntity($input, false);
+
+        return $input === false ? false : $this->validateAndNormalize($input);
+    }
+
+    /**
+     * Issue #536 : une non-conformité appartient à l'entité de son audit ; sans audit, à celle de
+     * l'incident de sécurité à son origine, sinon à l'entité choisie (par défaut l'entité active).
+     * L'audit doit être lisible, l'entité dans la session ; une modification en masse vers une
+     * entité hors de la session est ignorée. Ni statut, ni gravité, ni responsable ne changent.
+     *
+     * @param array<string, mixed> $input
+     * @return array<string, mixed>|false
+     */
+    private function assignEntity(array $input, bool $isNew)
+    {
+        $session = EntityPerimeter::hasSession();
+        $auditId = (int) ($input['plugin_grcmanager_audits_id'] ?? 0);
+        $auditChanged = array_key_exists('plugin_grcmanager_audits_id', $input)
+            && ($isNew || $auditId !== (int) ($this->fields['plugin_grcmanager_audits_id'] ?? 0));
+
+        if ($auditChanged && $auditId > 0) {
+            $audit = new Audit();
+            if (!$audit->getFromDB($auditId) || ($session && !$audit->can($auditId, READ))) {
+                Session::addMessageAfterRedirect(__('Audit not found.', 'grcmanager'), false, ERROR);
+
+                return false;
+            }
+            $input['entities_id']  = (int) $audit->fields['entities_id'];
+            $input['is_recursive'] = (int) $audit->fields['is_recursive'];
+        } elseif ($isNew) {
+            $incident = new PluginGrcmanagerSecurityIncident();
+            $incidentId = (int) ($input['plugin_grcmanager_securityincidents_id'] ?? 0);
+            if ($incidentId > 0 && $incident->getFromDB($incidentId)) {
+                $input['entities_id'] = (int) $incident->fields['entities_id'];
+            }
+            $input['entities_id']  = (int) ($input['entities_id'] ?? EntityPerimeter::activeEntity());
+            $input['is_recursive'] = (int) (bool) ($input['is_recursive'] ?? 0);
+        }
+
+        if (!$session || !isset($input['entities_id']) || Session::haveAccessToEntity((int) $input['entities_id'])) {
+            return $input;
+        }
+        if ($isNew) {
+            Session::addMessageAfterRedirect(
+                __('You cannot create a non-conformity in this entity.', 'grcmanager'),
+                false,
+                ERROR
+            );
+
+            return false;
+        }
+        unset($input['entities_id'], $input['is_recursive']);
+
+        return $input;
+    }
+
+    /**
+     * Issue #536 : quand un audit change d'entité, ses constats restés dans l'ancienne le suivent
+     * (entité seulement).
+     */
+    public static function followAudit(int $auditId, int $fromEntity, int $toEntity): void
+    {
+        global $DB;
+
+        $DB->update(self::getTable(), ['entities_id' => $toEntity], [
+            'plugin_grcmanager_audits_id' => $auditId,
+            'entities_id'                 => $fromEntity,
+        ]);
     }
 
     /**
@@ -330,6 +401,25 @@ class Nonconformity extends NonconformityBase
             'itemtype' => self::class,
         ];
 
+        // Issue #536 : périmètre de la non-conformité (entité GLPI) et visibilité dans les
+        // sous-entités.
+        $tab[] = [
+            'id'       => 80,
+            'table'    => 'glpi_entities',
+            'field'    => 'completename',
+            'name'     => Entity::getTypeName(1),
+            'datatype' => 'dropdown',
+            // Modification en masse permise : ranger les non-conformités migrées dans leurs entités.
+            'massiveaction' => true,
+        ];
+        $tab[] = [
+            'id'       => 86,
+            'table'    => $this->getTable(),
+            'field'    => 'is_recursive',
+            'name'     => __('Child entities'),
+            'datatype' => 'bool',
+        ];
+
         return $tab;
     }
 
@@ -482,7 +572,11 @@ class Nonconformity extends NonconformityBase
         if (!$item instanceof Audit || $item->isNewItem() || !self::canView()) {
             return '';
         }
-        $count = countElementsInTable(self::getTable(), ['plugin_grcmanager_audits_id' => $item->getID()]);
+        // Issue #536 : constats des entités de la session.
+        $count = countElementsInTable(self::getTable(), array_merge(
+            ['plugin_grcmanager_audits_id' => $item->getID()],
+            EntityPerimeter::criteria(self::getTable())
+        ));
 
         return self::createTabEntry(__('Findings', 'grcmanager'), $count, null, self::getIcon());
     }
@@ -524,7 +618,15 @@ class Nonconformity extends NonconformityBase
         }
 
         $auditTitles = [0 => Dropdown::EMPTY_VALUE];
-        foreach ($DB->request(['SELECT' => ['id', 'title'], 'FROM' => Audit::getTable()]) as $row) {
+        // Issue #536 : audits des entités de la session seulement.
+        foreach (
+            $DB->request([
+                'SELECT' => ['id', 'title'],
+                'FROM'   => Audit::getTable(),
+                'WHERE'  => EntityPerimeter::criteria(Audit::getTable()),
+                'ORDER'  => 'title',
+            ]) as $row
+        ) {
             $auditTitles[(int) $row['id']] = $row['title'];
         }
         $incident = null;
@@ -563,10 +665,11 @@ class Nonconformity extends NonconformityBase
      */
     public static function findForIncidentCve(int $incidentId, string $cveId): int
     {
-        $found = (new self())->find([
+        // Issue #536 : non-conformités des entités de la session.
+        $found = (new self())->find(array_merge([
             'plugin_grcmanager_securityincidents_id' => $incidentId,
             'cve_id'                                 => $cveId,
-        ], ['id DESC'], 1);
+        ], EntityPerimeter::criteria(self::getTable())), ['id DESC'], 1);
 
         return $found === [] ? 0 : (int) array_key_first($found);
     }

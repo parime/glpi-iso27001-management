@@ -80,4 +80,30 @@ final class PerimeterRulesTest extends TestCase
             $counts
         );
     }
+
+    public function testAnItemIsReachedFromItsEntityOrFromBelowWhenRecursive(): void
+    {
+        // Profil limité à Nord (2) : un audit de Nord, oui ; un audit de Sud (3), non.
+        $this->assertTrue(PerimeterRules::reaches([2], 2, false, self::PARENTS));
+        $this->assertFalse(PerimeterRules::reaches([2], 3, false, self::PARENTS));
+        // Un élément du groupe (1) ne descend vers Nord que s'il est visible des sous-entités.
+        $this->assertFalse(PerimeterRules::reaches([2], 1, false, self::PARENTS));
+        $this->assertTrue(PerimeterRules::reaches([2], 1, true, self::PARENTS));
+        // Profil récursif sur le groupe : ses sous-entités sont dans la liste fournie.
+        $this->assertTrue(PerimeterRules::reaches([1, 2, 3, 4], 4, false, self::PARENTS));
+        $this->assertFalse(PerimeterRules::reaches([], 0, true, self::PARENTS));
+    }
+
+    public function testOpenNonconformitiesAreCountedBySeverity(): void
+    {
+        $counts = PerimeterRules::nonconformityCounts([
+            ['severity' => 'major', 'status' => 'open', 'finding_type' => 'nonconformity'],
+            ['severity' => 'critical', 'status' => 'in_progress', 'finding_type' => 'nonconformity'],
+            ['severity' => 'minor', 'status' => 'closed', 'finding_type' => 'nonconformity'],
+            // Une observation n'est pas une non-conformité, même ouverte.
+            ['severity' => 'major', 'status' => 'open', 'finding_type' => 'observation'],
+        ]);
+
+        $this->assertSame(['minor' => 0, 'major' => 1, 'critical' => 1, 'open' => 2, 'total' => 4], $counts);
+    }
 }

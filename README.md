@@ -317,8 +317,9 @@ informez les salariés. Le plugin limite les données au strict nécessaire :
   commentaire sont modifiables.
 ## Périmètres (entités GLPI)
 
-Le SMSI se découpe selon les entités de GLPI (issue #536, premier lot). Les **risques**, les
-**mesures de la SoA** et ses **versions approuvées** appartiennent à une entité : un utilisateur ne
+Le SMSI se découpe selon les entités de GLPI (issue #536). Les **risques** et leurs **actions de
+traitement**, les **mesures de la SoA** et ses **versions approuvées**, les **audits internes** et les
+**non-conformités** appartiennent à une entité : un utilisateur ne
 voit et ne modifie que ceux des entités de son profil, partout (listes, fiches, exports, tableau de
 bord, API, notifications, contrôles de cohérence).
 
@@ -331,10 +332,16 @@ bord, API, notifications, contrôles de cohérence).
   propres à chaque SoA.
 - **Vue consolidée** : dans une entité parente, en vue arborescente, Tableau de bord > **Périmètres**
   donne pour chaque entité enfant la SoA suivie, son taux de mise en œuvre, sa dernière version
-  approuvée et ses risques ouverts par niveau.
-- **Après la mise à jour**, toutes les données existantes sont dans l'entité racine (la SoA en
-  récursif). Rangez les risques dans leurs entités par une modification en masse (colonne « Entité »).
-- Audits, non-conformités et actions de traitement : second lot de l'issue #536.
+  approuvée, ses risques ouverts par niveau et ses non-conformités ouvertes par gravité.
+- **Audits** : une action de traitement suit l'entité de son risque, une non-conformité celle de son
+  audit. L'équipe, les personnes qui fournissent les preuves et les auditeurs invités doivent avoir un
+  profil dans l'entité de l'audit ; un auditeur limité à une entité ne voit rien d'une autre.
+- **Après la mise à jour**, les données existantes sont dans l'entité racine (la SoA en récursif),
+  sauf les actions de traitement (entité de leur risque) et les non-conformités dont l'audit ou
+  l'incident désigne sans ambiguïté une autre entité. Rangez risques, audits et non-conformités dans
+  leurs entités par une modification en masse (colonne « Entité »).
+- Risques fournisseurs, formations, revues de direction, objectifs et autres registres : troisième
+  lot de l'issue #536, selon les retours.
 
 ## État du projet
 

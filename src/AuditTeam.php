@@ -141,6 +141,11 @@ class AuditTeam extends CommonGLPI
         if ($auditsId <= 0 || $usersId <= 0 || !array_key_exists($role, self::getRoles())) {
             return false;
         }
+        // Issue #536 : un membre de l'équipe a un profil dans l'entité de l'audit.
+        $audit = new Audit();
+        if (!$audit->getFromDB($auditsId) || !EntityPerimeter::userReachesItem($usersId, $audit)) {
+            return false;
+        }
 
         return (bool) $DB->updateOrInsert(
             self::TABLE,

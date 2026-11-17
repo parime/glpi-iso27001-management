@@ -139,4 +139,47 @@ final class PerimeterRules
 
         return $counts;
     }
+
+    /**
+     * Un élément de l'entité $entityId est-il à la portée d'une personne dont les profils couvrent
+     * $userEntities (sous-entités des profils récursifs comprises) ? Comme les droits d'entité de
+     * GLPI : l'entité elle-même, ou une de ses sous-entités si l'élément est visible des
+     * sous-entités.
+     *
+     * @param list<int> $userEntities
+     * @param array<int, int> $parents id de l'entité => id du parent
+     */
+    public static function reaches(array $userEntities, int $entityId, bool $recursive, array $parents): bool
+    {
+        $targets = $recursive ? self::subtree($entityId, $parents) : [$entityId];
+
+        return array_intersect($targets, array_map('intval', $userEntities)) !== [];
+    }
+
+    /**
+     * Non-conformités ouvertes (ouvertes ou en traitement, observations exclues) par gravité, et le
+     * total des constats.
+     *
+     * @param list<array{severity: string, status: string, finding_type: string}> $findings
+     * @return array{minor: int, major: int, critical: int, open: int, total: int}
+     */
+    public static function nonconformityCounts(array $findings): array
+    {
+        $counts = ['minor' => 0, 'major' => 0, 'critical' => 0, 'open' => 0, 'total' => 0];
+        foreach ($findings as $finding) {
+            $counts['total']++;
+            if (
+                $finding['finding_type'] !== 'nonconformity'
+                || !in_array($finding['status'], ['open', 'in_progress'], true)
+            ) {
+                continue;
+            }
+            $counts['open']++;
+            if (in_array($finding['severity'], ['minor', 'major', 'critical'], true)) {
+                $counts[$finding['severity']]++;
+            }
+        }
+
+        return $counts;
+    }
 }
