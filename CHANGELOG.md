@@ -7,6 +7,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.54.0] - 2026-11-17
+
 ### Added
 
 - **Documentation par rôle** (issue #665) : section « Par où commencer ? » en tête des README et
