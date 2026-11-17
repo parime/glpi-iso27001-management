@@ -61,6 +61,11 @@ archivé), avec ses champs de classification ISO 27001 fusionnés dessus.
 **Conformité**
 - **Déclaration d'Applicabilité (SoA)** : les 93 contrôles de l'Annexe A ISO 27001:2022 (clause
   6.1.3), export PDF.
+- **Attributs des mesures (ISO/IEC 27002:2022)** : type de mesure, propriétés de sécurité, concepts
+  de cybersécurité, capacités opérationnelles et domaines de sécurité livrés pour les 93 mesures
+  (modifiables sur la fiche), filtres et colonnes dans la SoA, synthèse « taux de mise en œuvre par
+  attribut » au-dessus de la liste, carte « Mise en œuvre par fonction », attributs dans les exports
+  CSV et PDF.
 - **Approbation de la SoA par la direction** : version figée et datée (PDF conservé dans les
   documents GLPI avec son empreinte SHA-256), approbateurs désignés qui approuvent depuis GLPI,
   historique des versions ; toute modification ultérieure de la SoA demande une nouvelle version.

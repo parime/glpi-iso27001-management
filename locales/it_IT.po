@@ -17411,6 +17411,126 @@ msgstr "%d controlli applicabili"
 msgid "Not approved yet"
 msgstr "Non ancora approvata"
 
+msgid "Summary by attribute"
+msgstr "Sintesi per attributo"
+
+msgid "Implementation rate by control type, security property, cybersecurity concept, operational capability and security domain."
+msgstr "Tasso di attuazione per tipo di controllo, proprietà di sicurezza, concetto di cybersicurezza, capacità operativa e dominio di sicurezza."
+
+msgid "Show the applicable controls with this value"
+msgstr "Mostra i controlli applicabili con questo valore"
+
+msgid "Controls marked not applicable are left out of the rate; \"in progress\" counts for half. A control can carry several values of the same attribute. Click a value to filter the list below."
+msgstr "I controlli non applicabili sono esclusi dal tasso; \"In corso\" conta per metà. Un controllo può avere più valori dello stesso attributo. Fare clic su un valore per filtrare l'elenco sottostante."
+
+msgid "Attribute"
+msgstr "Attributo"
+
+msgid "Attributes delivered with the catalogue: they filter the SoA and feed the summary by attribute. You can adjust them."
+msgstr "Attributi forniti con il catalogo: filtrano la SoA e alimentano la sintesi per attributo. È possibile modificarli."
+
+msgid "Implementation by function (%)"
+msgstr "Attuazione per funzione (%)"
+
+msgid "Implementation by control type (%)"
+msgstr "Attuazione per tipo di controllo (%)"
+
+msgid "Implementation by security property (%)"
+msgstr "Attuazione per proprietà di sicurezza (%)"
+
+msgid "Control type"
+msgstr "Tipo di controllo"
+
+msgid "Security properties"
+msgstr "Proprietà di sicurezza"
+
+msgid "Cybersecurity concepts"
+msgstr "Concetti di cybersicurezza"
+
+msgid "Operational capabilities"
+msgstr "Capacità operative"
+
+msgid "Security domains"
+msgstr "Domini di sicurezza"
+
+msgid "Preventive"
+msgstr "Preventivo"
+
+msgid "Detective"
+msgstr "Rilevativo"
+
+msgid "Corrective"
+msgstr "Correttivo"
+
+msgid "Identify"
+msgstr "Identificare"
+
+msgid "Protect"
+msgstr "Proteggere"
+
+msgid "Detect"
+msgstr "Rilevare"
+
+msgid "Respond"
+msgstr "Rispondere"
+
+msgid "Recover"
+msgstr "Ripristinare"
+
+msgid "Asset management"
+msgstr "Gestione degli asset"
+
+msgid "Information protection"
+msgstr "Protezione delle informazioni"
+
+msgid "Human resource security"
+msgstr "Sicurezza delle risorse umane"
+
+msgid "Physical security"
+msgstr "Sicurezza fisica"
+
+msgid "System and network security"
+msgstr "Sicurezza dei sistemi e delle reti"
+
+msgid "Application security"
+msgstr "Sicurezza delle applicazioni"
+
+msgid "Secure configuration"
+msgstr "Configurazione sicura"
+
+msgid "Identity and access management"
+msgstr "Gestione delle identità e degli accessi"
+
+msgid "Threat and vulnerability management"
+msgstr "Gestione delle minacce e delle vulnerabilità"
+
+msgid "Continuity"
+msgstr "Continuità"
+
+msgid "Supplier relationships security"
+msgstr "Sicurezza nei rapporti con i fornitori"
+
+msgid "Legal and compliance"
+msgstr "Legale e conformità"
+
+msgid "Information security event management"
+msgstr "Gestione degli eventi di sicurezza delle informazioni"
+
+msgid "Information security assurance"
+msgstr "Garanzia della sicurezza delle informazioni"
+
+msgid "Governance and ecosystem"
+msgstr "Governance ed ecosistema"
+
+msgid "Protection"
+msgstr "Protezione"
+
+msgid "Defence"
+msgstr "Difesa"
+
+msgid "Resilience"
+msgstr "Resilienza"
+
 msgid "You cannot change the treatment plan of this risk."
 msgstr "Non puoi modificare il piano di trattamento di questo rischio."
 

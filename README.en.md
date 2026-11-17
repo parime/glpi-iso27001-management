@@ -52,6 +52,11 @@ classification fields merged directly onto it.
 **Compliance**
 - **Statement of Applicability (SoA)**: the 93 ISO 27001:2022 Annex A controls (clause 6.1.3),
   PDF export.
+- **Control attributes (ISO/IEC 27002:2022)**: control type, security properties, cybersecurity
+  concepts, operational capabilities and security domains delivered for the 93 controls (editable
+  on the control form), filters and columns in the SoA, an "implementation rate by attribute"
+  summary above the list, an "Implementation by function" dashboard card, attributes in the CSV and
+  PDF exports.
 - **Management approval of the SoA**: frozen, dated version (PDF kept in GLPI documents with its
   SHA-256 fingerprint), designated approvers who approve from GLPI, version history; any later
   change to the SoA requires a new version.

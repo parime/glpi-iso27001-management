@@ -31,6 +31,15 @@
       'full_width': true,
       'add_field_html': hints.hint(__('Required if the control is not fully applicable.', 'grcmanager')),
    }) }}
+   {# Issue #610 : attributs ISO/IEC 27002:2022 livrés avec le catalogue, modifiables. #}
+   <input type="hidden" name="_grcmanager_attributes" value="1">
+   {% for attribute in attributes %}
+   {{ fields.dropdownArrayField(attribute.field, null, attribute.options, attribute.label, {
+      'multiple': true,
+      'values': attribute.values,
+      'add_field_html': loop.first ? hints.hint(__('Attributes delivered with the catalogue: they filter the SoA and feed the summary by attribute. You can adjust them.', 'grcmanager')) : '',
+   }) }}
+   {% endfor %}
    {# Registre sensible : champ absent sans son droit (les liens existants sont conservés). #}
    {% if can_view_risks %}
    {{ fields.dropdownArrayField('linked_risks', null, risks, __('Linked risks', 'grcmanager'), {

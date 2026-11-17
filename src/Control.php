@@ -25,6 +25,8 @@ use GlpiPlugin\Grcmanager\Compat\Base\ControlBase;
 use GlpiPlugin\Grcmanager\Services\Control\AnssiHygieneCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\AssetsignEvidence;
 use GlpiPlugin\Grcmanager\Services\Control\CatalogLanguage;
+use GlpiPlugin\Grcmanager\Services\Control\ControlAttributeCatalog;
+use GlpiPlugin\Grcmanager\Services\Control\ControlAttributeSummary;
 use GlpiPlugin\Grcmanager\Services\Control\AssetsignEvidenceProvider;
 use GlpiPlugin\Grcmanager\Services\Control\DockerInventoryEvidence;
 use GlpiPlugin\Grcmanager\Services\Control\DockerInventoryEvidenceProvider;
@@ -136,6 +138,169 @@ class Control extends ControlBase
             'implemented' => __('Implemented', 'grcmanager'),
             'verified'    => __('Verified', 'grcmanager'),
         ];
+    }
+
+    /**
+     * Issue #610 : noms des cinq attributs des mesures (ISO/IEC 27002:2022), par colonne.
+     *
+     * @return array<string, string>
+     */
+    public static function getAttributeNames(): array
+    {
+        return [
+            ControlAttributeCatalog::CONTROL_TYPES            => __('Control type', 'grcmanager'),
+            ControlAttributeCatalog::SECURITY_PROPERTIES      => __('Security properties', 'grcmanager'),
+            ControlAttributeCatalog::CYBERSECURITY_CONCEPTS   => __('Cybersecurity concepts', 'grcmanager'),
+            ControlAttributeCatalog::OPERATIONAL_CAPABILITIES => __('Operational capabilities', 'grcmanager'),
+            ControlAttributeCatalog::SECURITY_DOMAINS         => __('Security domains', 'grcmanager'),
+        ];
+    }
+
+    /**
+     * Issue #610 : libellés des valeurs d'un attribut, dans l'ordre du catalogue.
+     *
+     * @return array<string, string>
+     */
+    public static function getAttributeValues(string $attribute): array
+    {
+        $labels = [
+            ControlAttributeCatalog::CONTROL_TYPES => [
+                'preventive' => __('Preventive', 'grcmanager'),
+                'detective'  => __('Detective', 'grcmanager'),
+                'corrective' => __('Corrective', 'grcmanager'),
+            ],
+            ControlAttributeCatalog::SECURITY_PROPERTIES => [
+                'confidentiality' => __('Confidentiality', 'grcmanager'),
+                'integrity'       => __('Integrity', 'grcmanager'),
+                'availability'    => __('Availability', 'grcmanager'),
+            ],
+            ControlAttributeCatalog::CYBERSECURITY_CONCEPTS => [
+                'identify' => __('Identify', 'grcmanager'),
+                'protect'  => __('Protect', 'grcmanager'),
+                'detect'   => __('Detect', 'grcmanager'),
+                'respond'  => __('Respond', 'grcmanager'),
+                'recover'  => __('Recover', 'grcmanager'),
+            ],
+            ControlAttributeCatalog::OPERATIONAL_CAPABILITIES => [
+                'governance'                      => __('Governance', 'grcmanager'),
+                'asset_management'                => __('Asset management', 'grcmanager'),
+                'information_protection'          => __('Information protection', 'grcmanager'),
+                'human_resource_security'         => __('Human resource security', 'grcmanager'),
+                'physical_security'               => __('Physical security', 'grcmanager'),
+                'system_network_security'         => __('System and network security', 'grcmanager'),
+                'application_security'            => __('Application security', 'grcmanager'),
+                'secure_configuration'            => __('Secure configuration', 'grcmanager'),
+                'identity_access_management'      => __('Identity and access management', 'grcmanager'),
+                'threat_vulnerability_management' => __('Threat and vulnerability management', 'grcmanager'),
+                'continuity'                      => __('Continuity', 'grcmanager'),
+                'supplier_relationships_security' => __('Supplier relationships security', 'grcmanager'),
+                'legal_compliance'                => __('Legal and compliance', 'grcmanager'),
+                'event_management'                => __('Information security event management', 'grcmanager'),
+                'assurance'                       => __('Information security assurance', 'grcmanager'),
+            ],
+            ControlAttributeCatalog::SECURITY_DOMAINS => [
+                'governance_ecosystem' => __('Governance and ecosystem', 'grcmanager'),
+                'protection'           => __('Protection', 'grcmanager'),
+                'defence'              => __('Defence', 'grcmanager'),
+                'resilience'           => __('Resilience', 'grcmanager'),
+            ],
+        ];
+
+        return $labels[$attribute] ?? [];
+    }
+
+    /**
+     * Issue #610 : numéro de l'option de recherche de chaque attribut (11 à 15).
+     *
+     * @return array<int, string>
+     */
+    public static function attributeSearchOptions(): array
+    {
+        return array_combine(range(11, 15), ControlAttributeCatalog::attributes());
+    }
+
+    /**
+     * Issue #610 : adresse de la liste des mesures applicables filtrée sur une valeur d'attribut.
+     */
+    public static function attributeSearchURL(string $attribute, string $value): string
+    {
+        $option = array_search($attribute, self::attributeSearchOptions(), true);
+
+        return self::getSearchURL() . '?' . http_build_query([
+            'criteria' => [
+                ['field' => $option, 'searchtype' => 'equals', 'value' => $value],
+                ['link' => 'AND', 'field' => 3, 'searchtype' => 'notequals', 'value' => 'no'],
+            ],
+        ]);
+    }
+
+    /**
+     * Issue #610 : critère de recherche d'une option d'attribut (11 à 15), null pour une autre
+     * option ou une valeur inconnue. Les valeurs d'un même attribut ne se contiennent pas l'une
+     * l'autre (ControlAttributeCatalog::VALUES) : la recherche dans la liste stockée suffit.
+     *
+     * @return array<string, mixed>|null
+     */
+    public static function attributeSearchCriteria(int $option, string $value, string $searchtype, bool $nott): ?array
+    {
+        $attribute = self::attributeSearchOptions()[$option] ?? null;
+        if (
+            $attribute === null
+            || !in_array($value, ControlAttributeCatalog::VALUES[$attribute], true)
+            || !in_array($searchtype, ['equals', 'notequals'], true)
+        ) {
+            return null;
+        }
+        $exclude = ($searchtype === 'notequals') !== $nott;
+        $column = self::getTable() . '.' . $attribute;
+
+        return $exclude
+            ? ['OR' => [[$column => null], [$column => ['NOT LIKE', '%' . $value . '%']]]]
+            : [$column => ['LIKE', '%' . $value . '%']];
+    }
+
+    /**
+     * Issue #610 : synthèse de la SoA suivie par l'entité (par défaut l'entité active) pour chaque
+     * attribut : par valeur, mesures applicables, mises en œuvre, taux et lien vers la liste filtrée.
+     *
+     * @param list<string>|null $attributes attributs voulus (par défaut les cinq)
+     * @return list<array{attribute: string, label: string, class: string, icon: string,
+     *     lines: list<array{value: string, label: string, url: string, total: int, applicable: int,
+     *     implemented: int, in_progress: int, rate: ?float}>}>
+     */
+    public static function attributeSummary(?int $entityId = null, ?array $attributes = null): array
+    {
+        global $DB;
+
+        $attributes ??= ControlAttributeCatalog::attributes();
+        $rows = iterator_to_array($DB->request([
+            'SELECT' => array_merge(['applicability', 'implementation_status'], $attributes),
+            'FROM'   => self::getTable(),
+            'WHERE'  => EntityPerimeter::controlCriteria($entityId),
+        ]), false);
+
+        $names = self::getAttributeNames();
+        $summary = [];
+        foreach ($attributes as $attribute) {
+            $labels = self::getAttributeValues($attribute);
+            [$class, $icon] = self::attributeStyle($attribute);
+            $lines = [];
+            foreach (ControlAttributeSummary::byValue($rows, $attribute) as $line) {
+                $lines[] = $line + [
+                    'label' => $labels[$line['value']] ?? $line['value'],
+                    'url'   => self::attributeSearchURL($attribute, $line['value']),
+                ];
+            }
+            $summary[] = [
+                'attribute' => $attribute,
+                'label'     => $names[$attribute] ?? $attribute,
+                'class'     => $class,
+                'icon'      => $icon,
+                'lines'     => $lines,
+            ];
+        }
+
+        return $summary;
     }
 
     /**
@@ -295,6 +460,13 @@ class Control extends ControlBase
         $input['entities_id']  = (int) ($input['entities_id'] ?? EntityPerimeter::activeEntity());
         $input['is_recursive'] = 1;
 
+        // Issue #610 : une mesure créée (SoA d'une entité) reçoit les attributs livrés du catalogue.
+        foreach (ControlAttributeCatalog::defaultsFor((string) ($input['code'] ?? '')) as $attribute => $stored) {
+            if (!array_key_exists($attribute, $input)) {
+                $input[$attribute] = $stored;
+            }
+        }
+
         return $this->validateAndMarkReviewed($input);
     }
 
@@ -344,6 +516,16 @@ class Control extends ControlBase
             );
 
             return false;
+        }
+
+        // Issue #610 : attributs saisis dans le formulaire (listes à choix multiples). Une liste
+        // vidée n'est pas envoyée par le navigateur : le marqueur du formulaire la remet à vide.
+        foreach (ControlAttributeCatalog::attributes() as $attribute) {
+            if (array_key_exists($attribute, $input)) {
+                $input[$attribute] = ControlAttributeCatalog::encode($attribute, $input[$attribute]);
+            } elseif (!empty($input['_grcmanager_attributes'])) {
+                $input[$attribute] = '';
+            }
         }
 
         // Issue #380 : plan de test d'efficacité (fréquence, méthode, responsable).
@@ -483,6 +665,21 @@ class Control extends ControlBase
                 . ' ORDER BY `t`.`test_date` DESC, `t`.`id` DESC LIMIT 1)',
         ];
 
+        // Issue #610 : attributs des mesures ; filtre « est » / « n'est pas » sur une valeur
+        // (plugin_grcmanager_addWhere() la cherche dans la liste stockée).
+        $attributeNames = self::getAttributeNames();
+        foreach (self::attributeSearchOptions() as $option => $attribute) {
+            $tab[] = [
+                'id'            => $option,
+                'table'         => $this->getTable(),
+                'field'         => $attribute,
+                'name'          => $attributeNames[$attribute],
+                'datatype'      => 'specific',
+                'searchtype'    => ['equals', 'notequals'],
+                'massiveaction' => false,
+            ];
+        }
+
         // Issue #536 : entité de la SoA à laquelle appartient la mesure.
         $tab[] = [
             'id'            => 80,
@@ -533,6 +730,10 @@ class Control extends ControlBase
                 return self::implementationStatusBadge($values[$field] ?? null);
         }
 
+        if (ControlAttributeCatalog::isAttribute((string) $field)) {
+            return self::attributeBadges((string) $field, (string) ($values[$field] ?? ''));
+        }
+
         return parent::getSpecificValueToDisplay($field, $values, $options);
     }
 
@@ -562,6 +763,10 @@ class Control extends ControlBase
                 return Dropdown::showFromArray($name, self::getImplementationStatuses(), $options);
         }
 
+        if (ControlAttributeCatalog::isAttribute((string) $field)) {
+            return Dropdown::showFromArray($name, self::getAttributeValues((string) $field), $options);
+        }
+
         return parent::getSpecificValueToSelect($field, $name, $values, $options);
     }
 
@@ -575,6 +780,50 @@ class Control extends ControlBase
         }
 
         return Badge::html('bg-azure-lt', null, $label);
+    }
+
+    /**
+     * Issue #610 : couleur et icône Tabler de chaque attribut.
+     *
+     * @return array{string, string}
+     */
+    public static function attributeStyle(string $attribute): array
+    {
+        return [
+            ControlAttributeCatalog::CONTROL_TYPES            => ['bg-indigo-lt', 'ti-shield-half'],
+            ControlAttributeCatalog::SECURITY_PROPERTIES      => ['bg-teal-lt', 'ti-lock'],
+            ControlAttributeCatalog::CYBERSECURITY_CONCEPTS   => ['bg-orange-lt', 'ti-target-arrow'],
+            ControlAttributeCatalog::OPERATIONAL_CAPABILITIES => ['bg-cyan-lt', 'ti-tool'],
+            ControlAttributeCatalog::SECURITY_DOMAINS         => ['bg-purple-lt', 'ti-layout-grid'],
+        ][$attribute] ?? ['bg-secondary-lt', 'ti-tag'];
+    }
+
+    /**
+     * Issue #610 : valeurs d'un attribut, une pastille par valeur.
+     */
+    public static function attributeBadges(string $attribute, ?string $stored): string
+    {
+        [$class, $icon] = self::attributeStyle($attribute);
+        $labels = self::getAttributeValues($attribute);
+        $badges = [];
+        foreach (ControlAttributeCatalog::decode($attribute, $stored) as $value) {
+            $badges[] = Badge::html($class . ' me-1', $icon, $labels[$value] ?? $value);
+        }
+
+        return implode('', $badges);
+    }
+
+    /**
+     * Issue #610 : libellés des valeurs d'un attribut, séparés par des virgules (exports).
+     */
+    public static function attributeLabels(string $attribute, ?string $stored): string
+    {
+        $labels = self::getAttributeValues($attribute);
+
+        return implode(', ', array_map(
+            static fn (string $value): string => $labels[$value] ?? $value,
+            ControlAttributeCatalog::decode($attribute, $stored)
+        ));
     }
 
     private static function applicabilityBadge(?string $value): string
@@ -704,6 +953,27 @@ class Control extends ControlBase
         }
     }
 
+    /**
+     * Issue #610 : attributs de la mesure pour le formulaire (listes à choix multiples).
+     *
+     * @param array<string, mixed> $fields
+     * @return list<array{field: string, label: string, options: array<string, string>, values: list<string>}>
+     */
+    private static function formAttributes(array $fields): array
+    {
+        $attributes = [];
+        foreach (self::getAttributeNames() as $attribute => $label) {
+            $attributes[] = [
+                'field'   => $attribute,
+                'label'   => $label,
+                'options' => self::getAttributeValues($attribute),
+                'values'  => ControlAttributeCatalog::decode($attribute, (string) ($fields[$attribute] ?? '')),
+            ];
+        }
+
+        return $attributes;
+    }
+
     public function showForm($ID, array $options = []): bool
     {
         global $DB, $CFG_GLPI;
@@ -815,6 +1085,7 @@ class Control extends ControlBase
             'theme_badge'             => self::themeBadge((string) ($this->fields['theme'] ?? '')),
             'applicabilities'         => self::getApplicabilities(),
             'implementation_statuses' => self::getImplementationStatuses(),
+            'attributes'              => self::formAttributes($this->fields),
             'risks'                   => $riskTitles,
             'linked_risks'            => $this->isNewID($ID) || !$canViewRisks ? [] : self::getLinkedRiskIds((int) $ID),
             'can_view_risks'          => $canViewRisks,

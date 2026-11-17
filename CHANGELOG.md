@@ -40,6 +40,15 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
     sans ambiguïté, sinon l'entité racine. Migration rejouable, aucune donnée perdue, un administrateur
     de la racine voit tout. Ni statut, ni gravité, ni responsable, ni droit ne changent. Rangez ensuite
     audits et non-conformités par une modification en masse (colonne « Entité »).
+- **Attributs des mesures de l'Annexe A** (issue #610) : les cinq attributs de l'ISO/IEC 27002:2022
+  (type de mesure, propriétés de sécurité, concepts de cybersécurité, capacités opérationnelles,
+  domaines de sécurité) sont livrés pour les 93 mesures, valeurs seulement, sans texte de la norme.
+  Ils sont ajoutés à la mise à jour sans toucher à l'applicabilité, aux états ni aux justifications,
+  et restent modifiables sur la fiche de la mesure. La SoA gagne un filtre et une colonne par
+  attribut, une « Synthèse par attribut » repliable (mesures applicables, mises en œuvre, taux,
+  lien vers la liste filtrée) et trois cartes de tableau de bord (par fonction, par type, par
+  propriété) ; la carte « Mise en œuvre par fonction » est ajoutée aux vues Direction et SMSI. Les
+  exports CSV et PDF de la SoA reprennent les attributs. Tout suit la SoA de l'entité active (#536).
 
 ### Changed
 
