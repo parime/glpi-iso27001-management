@@ -49,7 +49,11 @@ final class PilotageCardsTest extends GrcmanagerIntegrationTestCase
             $this->assertNotSame('', $result['label'], $card);
         }
         // Issue #610 : une barre par valeur d'attribut, taux entre 0 et 100, lien vers la liste filtrée.
-        $attributeCards = ['soaImplementationByConcept' => 5, 'soaImplementationByType' => 3, 'soaImplementationByProperty' => 3];
+        $attributeCards = [
+            'soaImplementationByConcept'  => 5,
+            'soaImplementationByType'     => 3,
+            'soaImplementationByProperty' => 3,
+        ];
         foreach ($attributeCards as $card => $bars) {
             $result = SecuredDashboardCards::$card();
             $this->assertCount($bars, $result['data'], $card);
