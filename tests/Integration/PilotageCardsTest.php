@@ -48,6 +48,17 @@ final class PilotageCardsTest extends GrcmanagerIntegrationTestCase
             $this->assertIsInt($result['number'], $card);
             $this->assertNotSame('', $result['label'], $card);
         }
+        // Issue #610 : une barre par valeur d'attribut, taux entre 0 et 100, lien vers la liste filtrée.
+        $attributeCards = ['soaImplementationByConcept' => 5, 'soaImplementationByType' => 3, 'soaImplementationByProperty' => 3];
+        foreach ($attributeCards as $card => $bars) {
+            $result = SecuredDashboardCards::$card();
+            $this->assertCount($bars, $result['data'], $card);
+            foreach ($result['data'] as $entry) {
+                $this->assertGreaterThanOrEqual(0, $entry['number']);
+                $this->assertLessThanOrEqual(100, $entry['number']);
+                $this->assertStringContainsString('control.php', $entry['url']);
+            }
+        }
     }
 
     public function testTrendKeepsTheLastTwelveRecordedMonthsInOrder(): void
@@ -202,8 +213,9 @@ final class PilotageCardsTest extends GrcmanagerIntegrationTestCase
             'FROM'  => \Glpi\Dashboard\Item::getTable(),
             'WHERE' => ['dashboards_dashboards_id' => $dashboard->fields['id']],
         ]), false);
-        // Issue #378 : 4 cartes (appétence, tolérance, KRI), puis la tendance des KRI.
-        $this->assertCount(16, $items);
+        // Issue #378 : 4 cartes (appétence, tolérance, KRI), puis la tendance des KRI. Issue #610 :
+        // mise en œuvre par fonction.
+        $this->assertCount(17, $items);
         foreach ($items as $item) {
             $this->assertArrayHasKey($item['card_id'], $cards, $item['card_id']);
         }
