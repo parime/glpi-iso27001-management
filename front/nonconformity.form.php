@@ -18,7 +18,8 @@
 $item = new \GlpiPlugin\Grcmanager\Nonconformity();
 
 if (isset($_POST['add'])) {
-    Session::checkRight(\GlpiPlugin\Grcmanager\Nonconformity::$rightname, CREATE);
+    // Issue #536 : droit de création dans l'entité demandée (check), pas le seul droit global.
+    $item->check(-1, CREATE, $_POST);
     $newID = $item->add($_POST);
     // Issue #163 : après création (notamment depuis un plan d'action proposé), ouvrir la fiche créée.
     if ($newID) {
@@ -26,15 +27,18 @@ if (isset($_POST['add'])) {
     }
     Html::back();
 } elseif (isset($_POST['delete'])) {
-    Session::checkRight(\GlpiPlugin\Grcmanager\Nonconformity::$rightname, DELETE);
+    // Issue #536 : droit ET entité de l'élément visé (check), pas le seul droit global.
+    $item->check((int) ($_POST['id'] ?? 0), DELETE);
     $item->delete($_POST);
     Html::redirect(\GlpiPlugin\Grcmanager\Nonconformity::getSearchURL());
 } elseif (isset($_POST['purge'])) {
-    Session::checkRight(\GlpiPlugin\Grcmanager\Nonconformity::$rightname, PURGE);
+    // Issue #536 : droit ET entité de l'élément visé (check), pas le seul droit global.
+    $item->check((int) ($_POST['id'] ?? 0), PURGE);
     $item->delete($_POST, true);
     Html::redirect(\GlpiPlugin\Grcmanager\Nonconformity::getSearchURL());
 } elseif (isset($_POST['update'])) {
-    Session::checkRight(\GlpiPlugin\Grcmanager\Nonconformity::$rightname, UPDATE);
+    // Issue #536 : droit ET entité de l'élément visé (check), pas le seul droit global.
+    $item->check((int) ($_POST['id'] ?? 0), UPDATE);
     $item->update($_POST);
     Html::back();
 } else {

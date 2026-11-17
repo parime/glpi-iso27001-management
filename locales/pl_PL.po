@@ -17449,3 +17449,15 @@ msgstr "Obrona"
 
 msgid "Resilience"
 msgstr "Odporność"
+
+msgid "You cannot change the treatment plan of this risk."
+msgstr "Nie możesz zmienić planu postępowania z tym ryzykiem."
+
+msgid "You cannot create an audit in this entity."
+msgstr "Nie możesz utworzyć audytu w tej jednostce."
+
+msgid "You cannot create a non-conformity in this entity."
+msgstr "Nie możesz utworzyć niezgodności w tej jednostce."
+
+msgid "This account has no profile in the entity of the audit."
+msgstr "To konto nie ma profilu w jednostce audytu."

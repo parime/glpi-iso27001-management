@@ -11,6 +11,21 @@
 
 🇫🇷 **Français** | [🇬🇧 English](README.en.md)
 
+## Par où commencer ?
+
+Choisissez votre rôle : chaque parcours tient en quelques étapes, avec les menus exacts
+([tous les parcours](docs/ROLES.md)).
+
+| Vous êtes... | Vous voulez... | Parcours |
+|---|---|---|
+| Administrateur GLPI | Installer le plugin, donner les droits, le régler | [Administrateur du plugin](docs/ROLES.md#administrateur-du-plugin) |
+| RSSI, responsable du SMSI | Tenir les risques et la SoA de chaque entité, préparer la revue de direction | [RSSI](docs/ROLES.md#rssi-ou-responsable-du-smsi) |
+| Propriétaire d'une mesure ou d'un risque | Voir ce qui vous attend et le traiter | [Mon espace GRC](docs/ROLES.md#propriétaire-de-mesure-ou-de-risque) |
+| Auditeur | Conduire un audit, demander et examiner les preuves | [Auditeur](docs/ROLES.md#auditeur) |
+| Direction | Approuver la SoA et les politiques, suivre le tableau de bord | [Direction](docs/ROLES.md#direction) |
+
+Pour découvrir tout le plugin écran par écran : [tutoriel](docs/TUTORIAL.md).
+
 ## Le problème
 
 GLPI sait exactement quels matériels, logiciels et systèmes composent votre organisation. Ce
@@ -307,8 +322,9 @@ informez les salariés. Le plugin limite les données au strict nécessaire :
   commentaire sont modifiables.
 ## Périmètres (entités GLPI)
 
-Le SMSI se découpe selon les entités de GLPI (issue #536, premier lot). Les **risques**, les
-**mesures de la SoA** et ses **versions approuvées** appartiennent à une entité : un utilisateur ne
+Le SMSI se découpe selon les entités de GLPI (issue #536). Les **risques** et leurs **actions de
+traitement**, les **mesures de la SoA** et ses **versions approuvées**, les **audits internes** et les
+**non-conformités** appartiennent à une entité : un utilisateur ne
 voit et ne modifie que ceux des entités de son profil, partout (listes, fiches, exports, tableau de
 bord, API, notifications, contrôles de cohérence).
 
@@ -321,10 +337,16 @@ bord, API, notifications, contrôles de cohérence).
   propres à chaque SoA.
 - **Vue consolidée** : dans une entité parente, en vue arborescente, Tableau de bord > **Périmètres**
   donne pour chaque entité enfant la SoA suivie, son taux de mise en œuvre, sa dernière version
-  approuvée et ses risques ouverts par niveau.
-- **Après la mise à jour**, toutes les données existantes sont dans l'entité racine (la SoA en
-  récursif). Rangez les risques dans leurs entités par une modification en masse (colonne « Entité »).
-- Audits, non-conformités et actions de traitement : second lot de l'issue #536.
+  approuvée, ses risques ouverts par niveau et ses non-conformités ouvertes par gravité.
+- **Audits** : une action de traitement suit l'entité de son risque, une non-conformité celle de son
+  audit. L'équipe, les personnes qui fournissent les preuves et les auditeurs invités doivent avoir un
+  profil dans l'entité de l'audit ; un auditeur limité à une entité ne voit rien d'une autre.
+- **Après la mise à jour**, les données existantes sont dans l'entité racine (la SoA en récursif),
+  sauf les actions de traitement (entité de leur risque) et les non-conformités dont l'audit ou
+  l'incident désigne sans ambiguïté une autre entité. Rangez risques, audits et non-conformités dans
+  leurs entités par une modification en masse (colonne « Entité »).
+- Risques fournisseurs, formations, revues de direction, objectifs et autres registres : troisième
+  lot de l'issue #536, selon les retours.
 
 ## État du projet
 
@@ -369,6 +391,7 @@ les audits/CAPA, avec une capture d'écran réelle par étape (disponible en fra
 
 | Document | Contenu |
 |---|---|
+| [docs/ROLES.md](docs/ROLES.md) | Parcours par rôle : administrateur, RSSI, propriétaire, auditeur, direction |
 | [docs/design/DEVELOPMENT_PLAN.md](docs/design/DEVELOPMENT_PLAN.md) | Plan de développement par sprints |
 | [ROADMAP.md](ROADMAP.md) | Roadmap publique par version |
 | [CHANGELOG.md](CHANGELOG.md) | Historique des évolutions |

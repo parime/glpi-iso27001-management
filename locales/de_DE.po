@@ -17691,3 +17691,15 @@ msgstr "Verteidigung"
 
 msgid "Resilience"
 msgstr "Resilienz"
+
+msgid "You cannot change the treatment plan of this risk."
+msgstr "Sie können den Behandlungsplan dieses Risikos nicht ändern."
+
+msgid "You cannot create an audit in this entity."
+msgstr "Sie können in dieser Einheit kein Audit anlegen."
+
+msgid "You cannot create a non-conformity in this entity."
+msgstr "Sie können in dieser Einheit keine Nichtkonformität anlegen."
+
+msgid "This account has no profile in the entity of the audit."
+msgstr "Dieses Konto hat kein Profil in der Einheit des Audits."

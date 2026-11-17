@@ -1004,6 +1004,14 @@ class Risk extends RiskBase
     {
         parent::post_updateItem($history);
         $this->syncLinkedAssetsFromInput();
+        // Issue #536 : les actions de traitement suivent le risque dans sa nouvelle entité.
+        if (array_intersect(['entities_id', 'is_recursive'], $this->updates) !== []) {
+            RiskTreatmentAction::followRisk(
+                $this->getID(),
+                (int) $this->fields['entities_id'],
+                (int) $this->fields['is_recursive']
+            );
+        }
     }
 
     /**

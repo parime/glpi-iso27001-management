@@ -9,6 +9,37 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Documentation par rôle** (issue #665) : section « Par où commencer ? » en tête des README et
+  parcours courts par rôle (administrateur du plugin, RSSI, propriétaire de mesure ou de risque,
+  auditeur, direction) dans `docs/ROLES.md` et `docs/ROLES.en.md`, avec les menus et onglets
+  actuels (SoA par entité, contrôles de cohérence, preuves de l'inventaire Docker, lien de
+  calendrier à jeton dédié) ; pages ajoutées au wiki.
+- **Périmètres multiples, second lot : actions de traitement, audits et non-conformités par entité
+  GLPI** (issue #536, demande de skreu dans #547).
+  - Une **action de traitement** appartient à l'entité de son risque ; elle le suit quand il change
+    d'entité. L'ajouter ou la modifier exige le droit de modifier ce risque, entité comprise.
+  - Un **audit interne** appartient à une entité (par défaut l'entité active) ; ses mesures auditées
+    sont celles de la SoA que suit cette entité. Une **non-conformité** prend l'entité de son audit
+    (sinon celle de l'incident de sécurité à son origine) ; quand l'audit change d'entité, ses
+    constats le suivent. Colonnes « Entité » et « Sous-entités » dans les recherches, modifiables en
+    masse vers une entité de la session.
+  - **Équipe, demandes de preuves, accès auditeur** : la personne ajoutée à l'équipe, désignée pour
+    fournir une preuve ou invitée comme auditeur doit avoir un profil dans l'entité de l'audit (les
+    listes déroulantes ne proposent qu'elles). Un auditeur limité à une entité ne voit rien d'une
+    autre, même avec un accès donné avant la mise à jour : espace auditeur, « Mes demandes de
+    preuves » et téléchargement des pièces suivent les entités de sa session.
+  - **Filtrage partout** : listes, fiches, recherches et leurs exports CSV et PDF, listes déroulantes,
+    API, notifications (destinataires choisis dans l'entité de l'élément), cartes du tableau de bord
+    (non-conformités ouvertes, actions correctives et actions de traitement en retard, audits par
+    statut, risques sans plan de traitement), rapport PDF du programme d'audit, contrôles de
+    cohérence (#614), maturité, calendrier de conformité, rapport post-incident et Mon espace GRC.
+  - **Vue Périmètres** : nouvelle colonne des non-conformités ouvertes par entité enfant, par gravité
+    (les observations ne comptent pas).
+  - **À la mise à jour** : chaque action de traitement prend l'entité de son risque ; un audit va dans
+    l'entité racine ; une non-conformité prend l'entité de son audit ou de son incident quand elle est
+    sans ambiguïté, sinon l'entité racine. Migration rejouable, aucune donnée perdue, un administrateur
+    de la racine voit tout. Ni statut, ni gravité, ni responsable, ni droit ne changent. Rangez ensuite
+    audits et non-conformités par une modification en masse (colonne « Entité »).
 - **Attributs des mesures de l'Annexe A** (issue #610) : les cinq attributs de l'ISO/IEC 27002:2022
   (type de mesure, propriétés de sécurité, concepts de cybersécurité, capacités opérationnelles,
   domaines de sécurité) sont livrés pour les 93 mesures, valeurs seulement, sans texte de la norme.

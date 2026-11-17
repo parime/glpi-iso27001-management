@@ -169,7 +169,9 @@ class SecurityIncidentPostMortem extends CommonGLPI
         }
 
         $actions = [];
-        foreach ((new Nonconformity())->find($byIncident) as $row) {
+        // Issue #536 : non-conformités des entités de la session.
+        $findingsOf = array_merge($byIncident, EntityPerimeter::criteria(Nonconformity::getTable()));
+        foreach ((new Nonconformity())->find($findingsOf) as $row) {
             $actions[] = [
                 'title'  => (string) $row['title'],
                 'status' => Nonconformity::getStatuses()[$row['status']] ?? $row['status'],

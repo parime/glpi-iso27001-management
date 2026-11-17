@@ -59,7 +59,7 @@
   <form method="post" action="{{ action }}" class="row g-2 align-items-end">
     <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
     <input type="hidden" name="plugin_grcmanager_audits_id" value="{{ audit.getID() }}">
-    {{ fields.dropdownField('User', 'users_id', 0, __('Member', 'grcmanager'), {'right': 'all', 'field_class': 'col-md-5'}) }}
+    {{ fields.dropdownField('User', 'users_id', 0, __('Member', 'grcmanager'), {'right': 'all', 'field_class': 'col-md-5', 'entity': audit.fields['entities_id'], 'entity_sons': audit.fields['is_recursive'] ? true : false}) }}
     {{ fields.dropdownArrayField('role', 'auditor', roles, __('Role', 'grcmanager'), {'field_class': 'col-md-4'}) }}
     <div class="col-md-3">
       <button type="submit" name="add" class="btn btn-primary"><i class="ti ti-user-plus me-1"></i>{{ __('Add', 'grcmanager') }}</button>

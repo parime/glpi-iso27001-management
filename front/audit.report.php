@@ -29,6 +29,8 @@ $audits = [];
 foreach (
     $DB->request([
         'FROM'  => \GlpiPlugin\Grcmanager\Audit::getTable(),
+        // Issue #536 : audits des entités de la session.
+        'WHERE' => \GlpiPlugin\Grcmanager\EntityPerimeter::criteria(\GlpiPlugin\Grcmanager\Audit::getTable()),
         'ORDER' => 'planned_date ASC',
     ]) as $row
 ) {
@@ -49,6 +51,8 @@ $findings = [];
 foreach (
     $DB->request([
         'FROM'  => \GlpiPlugin\Grcmanager\Nonconformity::getTable(),
+        // Issue #536 : non-conformités des entités de la session.
+        'WHERE' => \GlpiPlugin\Grcmanager\EntityPerimeter::criteria(\GlpiPlugin\Grcmanager\Nonconformity::getTable()),
         'ORDER' => 'due_date ASC',
     ]) as $row
 ) {
