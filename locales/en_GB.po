@@ -17086,3 +17086,123 @@ msgstr "%d applicable controls"
 
 msgid "Not approved yet"
 msgstr "Not approved yet"
+
+msgid "Summary by attribute"
+msgstr "Summary by attribute"
+
+msgid "Implementation rate by control type, security property, cybersecurity concept, operational capability and security domain."
+msgstr "Implementation rate by control type, security property, cybersecurity concept, operational capability and security domain."
+
+msgid "Show the applicable controls with this value"
+msgstr "Show the applicable controls with this value"
+
+msgid "Controls marked not applicable are left out of the rate; \"in progress\" counts for half. A control can carry several values of the same attribute. Click a value to filter the list below."
+msgstr "Controls marked not applicable are left out of the rate; \"in progress\" counts for half. A control can carry several values of the same attribute. Click a value to filter the list below."
+
+msgid "Attribute"
+msgstr "Attribute"
+
+msgid "Attributes delivered with the catalogue: they filter the SoA and feed the summary by attribute. You can adjust them."
+msgstr "Attributes delivered with the catalogue: they filter the SoA and feed the summary by attribute. You can adjust them."
+
+msgid "Implementation by function (%)"
+msgstr "Implementation by function (%)"
+
+msgid "Implementation by control type (%)"
+msgstr "Implementation by control type (%)"
+
+msgid "Implementation by security property (%)"
+msgstr "Implementation by security property (%)"
+
+msgid "Control type"
+msgstr "Control type"
+
+msgid "Security properties"
+msgstr "Security properties"
+
+msgid "Cybersecurity concepts"
+msgstr "Cybersecurity concepts"
+
+msgid "Operational capabilities"
+msgstr "Operational capabilities"
+
+msgid "Security domains"
+msgstr "Security domains"
+
+msgid "Preventive"
+msgstr "Preventive"
+
+msgid "Detective"
+msgstr "Detective"
+
+msgid "Corrective"
+msgstr "Corrective"
+
+msgid "Identify"
+msgstr "Identify"
+
+msgid "Protect"
+msgstr "Protect"
+
+msgid "Detect"
+msgstr "Detect"
+
+msgid "Respond"
+msgstr "Respond"
+
+msgid "Recover"
+msgstr "Recover"
+
+msgid "Asset management"
+msgstr "Asset management"
+
+msgid "Information protection"
+msgstr "Information protection"
+
+msgid "Human resource security"
+msgstr "Human resource security"
+
+msgid "Physical security"
+msgstr "Physical security"
+
+msgid "System and network security"
+msgstr "System and network security"
+
+msgid "Application security"
+msgstr "Application security"
+
+msgid "Secure configuration"
+msgstr "Secure configuration"
+
+msgid "Identity and access management"
+msgstr "Identity and access management"
+
+msgid "Threat and vulnerability management"
+msgstr "Threat and vulnerability management"
+
+msgid "Continuity"
+msgstr "Continuity"
+
+msgid "Supplier relationships security"
+msgstr "Supplier relationships security"
+
+msgid "Legal and compliance"
+msgstr "Legal and compliance"
+
+msgid "Information security event management"
+msgstr "Information security event management"
+
+msgid "Information security assurance"
+msgstr "Information security assurance"
+
+msgid "Governance and ecosystem"
+msgstr "Governance and ecosystem"
+
+msgid "Protection"
+msgstr "Protection"
+
+msgid "Defence"
+msgstr "Defence"
+
+msgid "Resilience"
+msgstr "Resilience"

@@ -17431,3 +17431,123 @@ msgstr "%d controles aplicables"
 
 msgid "Not approved yet"
 msgstr "Aún no aprobada"
+
+msgid "Summary by attribute"
+msgstr "Resumen por atributo"
+
+msgid "Implementation rate by control type, security property, cybersecurity concept, operational capability and security domain."
+msgstr "Tasa de implantación por tipo de control, propiedad de seguridad, concepto de ciberseguridad, capacidad operativa y dominio de seguridad."
+
+msgid "Show the applicable controls with this value"
+msgstr "Mostrar los controles aplicables con este valor"
+
+msgid "Controls marked not applicable are left out of the rate; \"in progress\" counts for half. A control can carry several values of the same attribute. Click a value to filter the list below."
+msgstr "Los controles no aplicables quedan fuera de la tasa; \"En curso\" cuenta la mitad. Un control puede tener varios valores del mismo atributo. Haga clic en un valor para filtrar la lista inferior."
+
+msgid "Attribute"
+msgstr "Atributo"
+
+msgid "Attributes delivered with the catalogue: they filter the SoA and feed the summary by attribute. You can adjust them."
+msgstr "Atributos entregados con el catálogo: filtran la SoA y alimentan el resumen por atributo. Puede ajustarlos."
+
+msgid "Implementation by function (%)"
+msgstr "Implantación por función (%)"
+
+msgid "Implementation by control type (%)"
+msgstr "Implantación por tipo de control (%)"
+
+msgid "Implementation by security property (%)"
+msgstr "Implantación por propiedad de seguridad (%)"
+
+msgid "Control type"
+msgstr "Tipo de control"
+
+msgid "Security properties"
+msgstr "Propiedades de seguridad"
+
+msgid "Cybersecurity concepts"
+msgstr "Conceptos de ciberseguridad"
+
+msgid "Operational capabilities"
+msgstr "Capacidades operativas"
+
+msgid "Security domains"
+msgstr "Dominios de seguridad"
+
+msgid "Preventive"
+msgstr "Preventivo"
+
+msgid "Detective"
+msgstr "Detectivo"
+
+msgid "Corrective"
+msgstr "Correctivo"
+
+msgid "Identify"
+msgstr "Identificar"
+
+msgid "Protect"
+msgstr "Proteger"
+
+msgid "Detect"
+msgstr "Detectar"
+
+msgid "Respond"
+msgstr "Responder"
+
+msgid "Recover"
+msgstr "Recuperar"
+
+msgid "Asset management"
+msgstr "Gestión de activos"
+
+msgid "Information protection"
+msgstr "Protección de la información"
+
+msgid "Human resource security"
+msgstr "Seguridad de los recursos humanos"
+
+msgid "Physical security"
+msgstr "Seguridad física"
+
+msgid "System and network security"
+msgstr "Seguridad de sistemas y redes"
+
+msgid "Application security"
+msgstr "Seguridad de las aplicaciones"
+
+msgid "Secure configuration"
+msgstr "Configuración segura"
+
+msgid "Identity and access management"
+msgstr "Gestión de identidades y accesos"
+
+msgid "Threat and vulnerability management"
+msgstr "Gestión de amenazas y vulnerabilidades"
+
+msgid "Continuity"
+msgstr "Continuidad"
+
+msgid "Supplier relationships security"
+msgstr "Seguridad en las relaciones con proveedores"
+
+msgid "Legal and compliance"
+msgstr "Legal y cumplimiento"
+
+msgid "Information security event management"
+msgstr "Gestión de eventos de seguridad de la información"
+
+msgid "Information security assurance"
+msgstr "Aseguramiento de la seguridad de la información"
+
+msgid "Governance and ecosystem"
+msgstr "Gobernanza y ecosistema"
+
+msgid "Protection"
+msgstr "Protección"
+
+msgid "Defence"
+msgstr "Defensa"
+
+msgid "Resilience"
+msgstr "Resiliencia"

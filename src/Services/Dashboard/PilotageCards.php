@@ -24,6 +24,7 @@ use GlpiPlugin\Grcmanager\ParkVulnerability;
 use GlpiPlugin\Grcmanager\Services\Access\AccessReviewLogic;
 use GlpiPlugin\Grcmanager\Services\Control\AnssiHygieneCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\CisControlsCatalogDefaults;
+use GlpiPlugin\Grcmanager\Services\Control\ControlAttributeCatalog;
 use GlpiPlugin\Grcmanager\Services\Control\ControlCrosswalkDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\ControlTestRules;
 use GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig;
@@ -188,6 +189,78 @@ final class PilotageCards
             'data'  => $data,
             'label' => $params['label'] ?? __('Implemented controls by framework (%)', 'grcmanager'),
             'icon'  => 'ti ti-shield-check',
+        ];
+    }
+
+    /**
+     * Issue #610 : « Mise en œuvre par fonction », taux de mise en œuvre des mesures applicables par
+     * concept de cybersécurité (identifier, protéger, détecter, répondre, rétablir).
+     */
+    public static function soaImplementationByConcept(array $params = []): array
+    {
+        return self::soaImplementationByAttribute(
+            ControlAttributeCatalog::CYBERSECURITY_CONCEPTS,
+            $params['label'] ?? __('Implementation by function (%)', 'grcmanager'),
+            'ti ti-target-arrow',
+            $params
+        );
+    }
+
+    /**
+     * Issue #610 : taux de mise en œuvre par type de mesure (préventive, détective, corrective).
+     */
+    public static function soaImplementationByType(array $params = []): array
+    {
+        return self::soaImplementationByAttribute(
+            ControlAttributeCatalog::CONTROL_TYPES,
+            $params['label'] ?? __('Implementation by control type (%)', 'grcmanager'),
+            'ti ti-shield-half',
+            $params
+        );
+    }
+
+    /**
+     * Issue #610 : taux de mise en œuvre par propriété (confidentialité, intégrité, disponibilité).
+     */
+    public static function soaImplementationByProperty(array $params = []): array
+    {
+        return self::soaImplementationByAttribute(
+            ControlAttributeCatalog::SECURITY_PROPERTIES,
+            $params['label'] ?? __('Implementation by security property (%)', 'grcmanager'),
+            'ti ti-lock',
+            $params
+        );
+    }
+
+    /**
+     * Une barre par valeur de l'attribut, cliquable vers la liste des mesures applicables filtrée.
+     * SoA suivie par l'entité active (issue #536).
+     *
+     * @param array<string, mixed> $params
+     * @return array<string, mixed>
+     */
+    private static function soaImplementationByAttribute(
+        string $attribute,
+        string $label,
+        string $icon,
+        array $params
+    ): array {
+        $entityId = isset($params['grcmanager_soa_entity']) ? (int) $params['grcmanager_soa_entity'] : null;
+        $data = [];
+        foreach (\GlpiPlugin\Grcmanager\Control::attributeSummary($entityId, [$attribute]) as $summary) {
+            foreach ($summary['lines'] as $line) {
+                $data[] = [
+                    'label'  => $line['label'],
+                    'number' => (int) round($line['rate'] ?? 0),
+                    'url'    => $line['url'],
+                ];
+            }
+        }
+
+        return [
+            'data'  => $data,
+            'label' => $label,
+            'icon'  => $icon,
         ];
     }
 

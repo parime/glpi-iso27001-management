@@ -30,6 +30,7 @@ use GlpiPlugin\Grcmanager\NotificationTargetEvidence;
 use GlpiPlugin\Grcmanager\NotificationTargetTraining;
 use GlpiPlugin\Grcmanager\NotificationTargetWaiver;
 use GlpiPlugin\Grcmanager\Services\Clause\IsmsClauseCatalog;
+use GlpiPlugin\Grcmanager\Services\Control\ControlAttributeCatalog;
 use GlpiPlugin\Grcmanager\Services\Control\ControlCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Dashboard\DefaultDashboardService;
 use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
@@ -655,6 +656,21 @@ final class Installer
             ]);
             $migration->migrationOneTable(self::CONTROLS_TABLE);
         }
+
+        // Issue #610 : attributs des mesures (type, propriétés, concepts, capacités, domaines), une
+        // colonne par attribut, valeurs séparées par des virgules ; remplis par
+        // seedControlAttributes() sans toucher aux statuts de la SoA.
+        $attributeAfter = 'test_reminder_key';
+        foreach (ControlAttributeCatalog::attributes() as $attribute) {
+            if (!$DB->fieldExists(self::CONTROLS_TABLE, $attribute)) {
+                $migration->addField(self::CONTROLS_TABLE, $attribute, 'string', [
+                    'value' => '',
+                    'after' => $attributeAfter,
+                ]);
+            }
+            $attributeAfter = $attribute;
+        }
+        $migration->migrationOneTable(self::CONTROLS_TABLE);
 
         // Issue #380 : tests d'efficacité des mesures, une ligne par test (voir
         // \GlpiPlugin\Grcmanager\ControlTest). Preuve = document joint à la mesure ; non-conformité
@@ -3206,6 +3222,7 @@ final class Installer
 
         $this->migrateEntityPerimeters($migration);
         $this->seedControls();
+        $this->seedControlAttributes();
         $this->seedClauses();
 
         $this->seedSecurityIncidentNotifications();
@@ -4863,6 +4880,34 @@ final class Installer
                 'date_creation'         => date('Y-m-d H:i:s'),
                 'date_mod'              => date('Y-m-d H:i:s'),
             ]);
+        }
+    }
+
+    /**
+     * Issue #610 : attributs livrés de chaque mesure, dans toutes les SoA (commune et d'entité).
+     * Rejouable : seule une mesure dont aucun attribut n'est renseigné est complétée, pour ne jamais
+     * écraser ce qu'un administrateur a modifié ; applicabilité, état et justification ne sont pas
+     * touchés.
+     */
+    private function seedControlAttributes(): void
+    {
+        global $DB;
+
+        $empty = [];
+        foreach (ControlAttributeCatalog::attributes() as $attribute) {
+            $empty[] = ['OR' => [[$attribute => null], [$attribute => '']]];
+        }
+        foreach (
+            $DB->request([
+                'SELECT' => ['id', 'code'],
+                'FROM'   => self::CONTROLS_TABLE,
+                'WHERE'  => $empty,
+            ]) as $row
+        ) {
+            $defaults = ControlAttributeCatalog::defaultsFor((string) $row['code']);
+            if ($defaults !== []) {
+                $DB->update(self::CONTROLS_TABLE, $defaults, ['id' => (int) $row['id']]);
+            }
         }
     }
 

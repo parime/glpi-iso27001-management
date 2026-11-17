@@ -19661,3 +19661,170 @@ msgstr ""
 #, php-format
 msgid "Re-assess the waiver \"%s\""
 msgstr ""
+
+#: templates/control_list_header.html.twig templates/pdf/soa_report.html.twig
+msgid "Summary by attribute"
+msgstr ""
+
+#: templates/control_list_header.html.twig
+msgid ""
+"Implementation rate by control type, security property, cybersecurity "
+"concept, operational capability and security domain."
+msgstr ""
+
+#: templates/control_list_header.html.twig
+msgid "Show the applicable controls with this value"
+msgstr ""
+
+#: templates/control_list_header.html.twig
+msgid ""
+"Controls marked not applicable are left out of the rate; \"in progress\" "
+"counts for half. A control can carry several values of the same attribute. "
+"Click a value to filter the list below."
+msgstr ""
+
+#: templates/pdf/soa_report.html.twig
+msgid "Attribute"
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid ""
+"Attributes delivered with the catalogue: they filter the SoA and feed the "
+"summary by attribute. You can adjust them."
+msgstr ""
+
+#: hook.php:152 src/Services/Dashboard/PilotageCards.php:203
+msgid "Implementation by function (%)"
+msgstr ""
+
+#: hook.php:158 src/Services/Dashboard/PilotageCards.php:216
+msgid "Implementation by control type (%)"
+msgstr ""
+
+#: hook.php:164 src/Services/Dashboard/PilotageCards.php:229
+msgid "Implementation by security property (%)"
+msgstr ""
+
+#: src/Control.php:151
+msgid "Control type"
+msgstr ""
+
+#: src/Control.php:152
+msgid "Security properties"
+msgstr ""
+
+#: src/Control.php:153
+msgid "Cybersecurity concepts"
+msgstr ""
+
+#: src/Control.php:154
+msgid "Operational capabilities"
+msgstr ""
+
+#: src/Control.php:155
+msgid "Security domains"
+msgstr ""
+
+#: src/Control.php:168
+msgid "Preventive"
+msgstr ""
+
+#: src/Control.php:169
+msgid "Detective"
+msgstr ""
+
+#: src/Control.php:170
+msgid "Corrective"
+msgstr ""
+
+#: src/Control.php:178
+msgid "Identify"
+msgstr ""
+
+#: src/Control.php:179
+msgid "Protect"
+msgstr ""
+
+#: src/Control.php:180
+msgid "Detect"
+msgstr ""
+
+#: src/Control.php:181
+msgid "Respond"
+msgstr ""
+
+#: src/Control.php:182
+msgid "Recover"
+msgstr ""
+
+#: src/Control.php:186
+msgid "Asset management"
+msgstr ""
+
+#: src/Control.php:187
+msgid "Information protection"
+msgstr ""
+
+#: src/Control.php:188
+msgid "Human resource security"
+msgstr ""
+
+#: src/Control.php:189
+msgid "Physical security"
+msgstr ""
+
+#: src/Control.php:190
+msgid "System and network security"
+msgstr ""
+
+#: src/Control.php:191
+msgid "Application security"
+msgstr ""
+
+#: src/Control.php:192
+msgid "Secure configuration"
+msgstr ""
+
+#: src/Control.php:193
+msgid "Identity and access management"
+msgstr ""
+
+#: src/Control.php:194
+msgid "Threat and vulnerability management"
+msgstr ""
+
+#: src/Control.php:195
+msgid "Continuity"
+msgstr ""
+
+#: src/Control.php:196
+msgid "Supplier relationships security"
+msgstr ""
+
+#: src/Control.php:197
+msgid "Legal and compliance"
+msgstr ""
+
+#: src/Control.php:198
+msgid "Information security event management"
+msgstr ""
+
+#: src/Control.php:199
+msgid "Information security assurance"
+msgstr ""
+
+#: src/Control.php:202
+msgid "Governance and ecosystem"
+msgstr ""
+
+#: src/Control.php:203
+msgid "Protection"
+msgstr ""
+
+#: src/Control.php:204
+msgid "Defence"
+msgstr ""
+
+#: src/Control.php:205
+msgid "Resilience"
+msgstr ""
