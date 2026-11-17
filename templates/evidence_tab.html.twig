@@ -1,3 +1,17 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
 {# Issue #145 : onglet « Validités des preuves » d'un élément (issue #199 : passé de PHP à Twig) #}
 <div class="mb-2 text-muted">{{ __('State until when each document proves something (certificate, report, certification). The owner is notified %d days before the due date, then a "Renew the evidence" ticket is opened; the item\'s status never changes.', 'grcmanager')|format(warning_days) }}</div>
 

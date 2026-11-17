@@ -129,6 +129,19 @@ class RiskTreatmentAction extends RiskTreatmentActionBase
 
             return false;
         }
+        // Issue #536 : une action suit l'entité de son risque, qu'il faut pouvoir modifier (les
+        // risques d'une autre entité restent fermés, même en forçant le formulaire).
+        if (EntityPerimeter::hasSession() && !$risk->can($riskId, UPDATE)) {
+            Session::addMessageAfterRedirect(
+                __('You cannot change the treatment plan of this risk.', 'grcmanager'),
+                false,
+                ERROR
+            );
+
+            return false;
+        }
+        $input['entities_id']  = (int) $risk->fields['entities_id'];
+        $input['is_recursive'] = (int) $risk->fields['is_recursive'];
 
         $input['status'] = TreatmentPlanRules::normalizeStatus(
             $input['status'] ?? ($this->fields['status'] ?? null)
@@ -192,6 +205,20 @@ class RiskTreatmentAction extends RiskTreatmentActionBase
      * cannot be closed with zero recorded treatment actions, see its own docblock) - a plain COUNT
      * rather than getActionsForRisk() to avoid fetching every row just to check "at least one".
      */
+    /**
+     * Issue #536 : les actions suivent le risque quand il change d'entité (entité et visibilité
+     * seulement ; statut, responsable et échéance ne bougent pas).
+     */
+    public static function followRisk(int $riskId, int $entityId, int $isRecursive): void
+    {
+        global $DB;
+
+        $DB->update(self::getTable(), [
+            'entities_id'  => $entityId,
+            'is_recursive' => $isRecursive,
+        ], ['plugin_grcmanager_risks_id' => $riskId]);
+    }
+
     public static function countForRisk(int $riskId): int
     {
         global $DB;

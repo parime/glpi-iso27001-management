@@ -1,9 +1,28 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
 {# Issue #536 : tableau consolidé d'une entité parente, une ligne par entité enfant (avec ses sous-entités). #}
 {% set level_badges = {
    'critical': 'bg-red-lt',
    'high': 'bg-orange-lt',
    'medium': 'bg-yellow-lt',
    'low': 'bg-green-lt',
+} %}
+{% set severity_badges = {
+   'critical': 'bg-red-lt',
+   'major': 'bg-orange-lt',
+   'minor': 'bg-yellow-lt',
 } %}
 <div class="card" id="grcmanager-perimeters">
    <div class="card-header">
@@ -23,6 +42,9 @@
                   <th>{{ __('Approved SoA version', 'grcmanager') }}</th>
                   {% if can_risks %}
                      <th>{{ __('Open risks', 'grcmanager') }}</th>
+                  {% endif %}
+                  {% if can_findings %}
+                     <th id="grcmanager-perimeters-findings">{{ __('Open non-conformities', 'grcmanager') }}</th>
                   {% endif %}
                </tr>
             </thead>
@@ -81,6 +103,20 @@
                            {% endif %}
                         </td>
                      {% endif %}
+                     {% if can_findings %}
+                        <td>
+                           {% if row.nonconformities is null or row.nonconformities.open == 0 %}
+                              <span class="badge bg-secondary-lt"><i class="ti ti-circle-check me-1"></i>{{ __('None', 'grcmanager') }}</span>
+                           {% else %}
+                              <span class="fw-bold me-1">{{ row.nonconformities.open }}</span>
+                              {% for severity, badge in severity_badges %}
+                                 {% if row.nonconformities[severity] > 0 %}
+                                    <span class="badge {{ badge }} me-1">{{ __('%1$s: %2$s')|format(severities[severity]|default(severity), row.nonconformities[severity]) }}</span>
+                                 {% endif %}
+                              {% endfor %}
+                           {% endif %}
+                        </td>
+                     {% endif %}
                   </tr>
                {% endfor %}
             </tbody>
@@ -90,6 +126,9 @@
          <a href="{{ soa_url }}" class="btn btn-outline-secondary btn-sm"><i class="ti ti-checklist me-1"></i>{{ __('Statement of Applicability', 'grcmanager') }}</a>
          {% if can_risks %}
             <a href="{{ risk_url }}" class="btn btn-outline-secondary btn-sm"><i class="ti ti-shield-exclamation me-1"></i>{{ __('Risk register', 'grcmanager') }}</a>
+         {% endif %}
+         {% if can_findings %}
+            <a href="{{ findings_url }}" class="btn btn-outline-secondary btn-sm"><i class="ti ti-alert-hexagon me-1"></i>{{ findings_label }}</a>
          {% endif %}
       </div>
    </div>

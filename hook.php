@@ -146,6 +146,25 @@ function plugin_grcmanager_dashboard_cards(?array $cards = null): array
             'group' => $group,
             'provider' => SecuredDashboardCards::class . '::complianceByFramework',
         ],
+        // Issue #610 : mise en œuvre de la SoA par attribut des mesures (ISO/IEC 27002:2022).
+        'grcmanager_soa_implementation_by_concept' => [
+            'widgettype' => ['hbar', 'bar'],
+            'label' => __('Implementation by function (%)', 'grcmanager'),
+            'group' => $group,
+            'provider' => SecuredDashboardCards::class . '::soaImplementationByConcept',
+        ],
+        'grcmanager_soa_implementation_by_type' => [
+            'widgettype' => ['hbar', 'bar'],
+            'label' => __('Implementation by control type (%)', 'grcmanager'),
+            'group' => $group,
+            'provider' => SecuredDashboardCards::class . '::soaImplementationByType',
+        ],
+        'grcmanager_soa_implementation_by_property' => [
+            'widgettype' => ['hbar', 'bar'],
+            'label' => __('Implementation by security property (%)', 'grcmanager'),
+            'group' => $group,
+            'provider' => SecuredDashboardCards::class . '::soaImplementationByProperty',
+        ],
         'grcmanager_upcoming_compliance_deadlines' => [
             'widgettype' => ['bigNumber'],
             'label' => __('Deadlines within 90 days', 'grcmanager'),
@@ -913,6 +932,27 @@ function plugin_grcmanager_MassiveActions(string $itemtype): array
         \GlpiPlugin\Grcmanager\SecurityIncidentTicket::class . MassiveAction::CLASS_ACTION_SEPARATOR . 'qualify'
             => Fragment::text(__('Qualify as a security incident', 'grcmanager'), 'ti-shield-plus'),
     ];
+}
+
+/**
+ * Issue #610 : filtre de la SoA sur un attribut des mesures (Hooks::AUTO_ADD_WHERE, appelé par la
+ * recherche de GLPI pour les types du plugin). Une mesure porte plusieurs valeurs par attribut :
+ * « est » cherche la valeur dans la liste stockée, « n'est pas » l'exclut.
+ *
+ * @return array<string, mixed>|string critères, ou '' pour laisser GLPI traiter l'option
+ */
+function plugin_grcmanager_addWhere($link, $nott, $itemtype, $ID, $val, $searchtype)
+{
+    if ($itemtype !== \GlpiPlugin\Grcmanager\Control::class) {
+        return '';
+    }
+
+    return \GlpiPlugin\Grcmanager\Control::attributeSearchCriteria(
+        (int) $ID,
+        (string) $val,
+        (string) $searchtype,
+        (bool) $nott
+    ) ?? '';
 }
 
 function plugin_grcmanager_install(): bool

@@ -1,5 +1,20 @@
 <?php
 
+/**
+ * -------------------------------------------------------------------------
+ * GLPI GRC Manager plugin for GLPI
+ * Copyright (C) 2026 Vincent GUILLOTTE
+ * https://github.com/parime/glpi-grc-manager
+ * -------------------------------------------------------------------------
+ * LICENSE
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version. See LICENSE for the full text.
+ * -------------------------------------------------------------------------
+ */
+
 declare(strict_types=1);
 
 namespace GlpiPlugin\Grcmanager\Services\Dashboard;
@@ -185,6 +200,8 @@ final class DefaultDashboardService
             $bigNumber('grcmanager_risk_indicators_red', 12, 10, 6),
             self::chart('grcmanager_risk_indicators_by_status', 'pie', 18, 10, 6, 4),
             self::chart('grcmanager_risk_indicators_trend', 'lines', 0, 12, 18, 5),
+            // Issue #610 : mise en œuvre par fonction (concepts de cybersécurité).
+            self::chart('grcmanager_soa_implementation_by_concept', 'hbar', 0, 17, 12, 5),
         ];
     }
 
@@ -344,6 +361,8 @@ final class DefaultDashboardService
             // Issue #380 : tests d'efficacité en retard, à côté des indicateurs de risque.
             $bigNumber('grcmanager_overdue_control_tests', 18, 30, '#cc2936'),
             self::chart('grcmanager_risk_indicators_trend', 'lines', 0, 34, 12, 6),
+            // Issue #610 : mise en œuvre par fonction (concepts de cybersécurité), à côté.
+            self::chart('grcmanager_soa_implementation_by_concept', 'hbar', 12, 34, 12, 6),
             // Rangée 10 (y=40) : continuité des processus métier (issue #377).
             $bigNumber('grcmanager_business_processes_bia_due', 0, 40, '#f8911f', 6),
             $bigNumber('grcmanager_business_processes_recovery_above_rto', 6, 40, '#cc2936', 6),

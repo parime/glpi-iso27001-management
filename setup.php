@@ -33,7 +33,7 @@ if (is_readable(__DIR__ . '/vendor/autoload.php')) {
     \GlpiPlugin\Grcmanager\Compat\LegacyNamespace::register();
 }
 
-define('PLUGIN_GRCMANAGER_VERSION', '2.53.0');
+define('PLUGIN_GRCMANAGER_VERSION', '2.54.0');
 define('PLUGIN_GRCMANAGER_MIN_GLPI', '11.0.0');
 // GLPI 11 and 12 from a single code base (see src/Compat/).
 define('PLUGIN_GRCMANAGER_MAX_GLPI', '12.99.99');
@@ -418,7 +418,7 @@ function plugin_version_grcmanager(): array
         'name'         => 'GLPI GRC Manager',
         'version'      => PLUGIN_GRCMANAGER_VERSION,
         'author'       => 'Vincent GUILLOTTE',
-        'license'      => 'GPLv3',
+        'license'      => 'GPL-3.0-or-later',
         'homepage'     => 'https://github.com/parime/glpi-grc-manager',
         'requirements' => [
             'glpi' => [

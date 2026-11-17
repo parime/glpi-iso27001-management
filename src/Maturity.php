@@ -168,20 +168,21 @@ class Maturity extends CommonGLPI
             ['valid_until' => null],
             ['valid_until' => ['>=', $today]],
         ]]);
-        $recentAudits = countElementsInTable(Audit::getTable(), [
+        // Issue #536 : audits et non-conformités des entités de la session.
+        $recentAudits = countElementsInTable(Audit::getTable(), array_merge([
             'status'      => 'completed',
             'actual_date' => ['>=', date('Y-m-d', strtotime('-12 months'))],
-        ]);
+        ], EntityPerimeter::criteria(Audit::getTable())));
         $trainingEligible = countElementsInTable('glpi_plugin_grcmanager_trainings_users', [
             'completion_status' => ['<>', 'exempted'],
         ]);
         $trainingDone = countElementsInTable('glpi_plugin_grcmanager_trainings_users', [
             'completion_status' => 'completed',
         ]);
-        $capaOverdue = countElementsInTable(Nonconformity::getTable(), [
+        $capaOverdue = countElementsInTable(Nonconformity::getTable(), array_merge([
             'NOT'      => ['status' => Nonconformity::CLOSED_STATUSES],
             'due_date' => ['<', $today],
-        ]);
+        ], EntityPerimeter::criteria(Nonconformity::getTable())));
         $incidentsOpen = countElementsInTable(PluginGrcmanagerSecurityIncident::getTable(), [
             'is_deleted'  => 0,
             'is_exercise' => 0,

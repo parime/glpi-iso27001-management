@@ -11,6 +11,20 @@
 
 [🇫🇷 Français](README.md) | 🇬🇧 **English**
 
+## Where to start?
+
+Pick your role: each guide is a few steps, with the exact menus ([all guides](docs/ROLES.en.md)).
+
+| You are... | You want to... | Guide |
+|---|---|---|
+| GLPI administrator | Install the plugin, grant rights, configure it | [Plugin administrator](docs/ROLES.en.md#plugin-administrator) |
+| CISO, ISMS manager | Keep the risks and each entity's SoA, prepare the management review | [CISO](docs/ROLES.en.md#ciso-or-isms-manager) |
+| Control or risk owner | See what is waiting for you and handle it | [My GRC space](docs/ROLES.en.md#control-or-risk-owner) |
+| Auditor | Run an audit, request and review evidence | [Auditor](docs/ROLES.en.md#auditor) |
+| Top management | Approve the SoA and policies, follow the dashboard | [Top management](docs/ROLES.en.md#top-management) |
+
+To explore the whole plugin screen by screen: [tutorial](docs/TUTORIAL.md#-english).
+
 ## The problem
 
 GLPI knows exactly which hardware, software and systems make up your organization. What it can't
@@ -38,6 +52,11 @@ classification fields merged directly onto it.
 **Compliance**
 - **Statement of Applicability (SoA)**: the 93 ISO 27001:2022 Annex A controls (clause 6.1.3),
   PDF export.
+- **Control attributes (ISO/IEC 27002:2022)**: control type, security properties, cybersecurity
+  concepts, operational capabilities and security domains delivered for the 93 controls (editable
+  on the control form), filters and columns in the SoA, an "implementation rate by attribute"
+  summary above the list, an "Implementation by function" dashboard card, attributes in the CSV and
+  PDF exports.
 - **Management approval of the SoA**: frozen, dated version (PDF kept in GLPI documents with its
   SHA-256 fingerprint), designated approvers who approve from GLPI, version history; any later
   change to the SoA requires a new version.
@@ -250,8 +269,9 @@ points: an ideal map for an attacker. The plugin protects them at its own level:
 - **e-mails without details** by default ("Risk no. X" and the link to the record).
 ## Perimeters (GLPI entities)
 
-The ISMS can be split along GLPI entities (issue #536, first batch). **Risks**, **SoA controls** and
-the **approved SoA versions** belong to an entity: a user only sees and changes the ones of the
+The ISMS can be split along GLPI entities (issue #536). **Risks** and their **treatment actions**,
+**SoA controls** and the **approved SoA versions**, **internal audits** and **non-conformities** belong
+to an entity: a user only sees and changes the ones of the
 entities of their profile, everywhere (lists, forms, exports, dashboard, API, notifications,
 consistency checks).
 
@@ -263,10 +283,16 @@ consistency checks).
   sub-entities follow that SoA. Management approval and version numbers are specific to each SoA.
 - **Consolidated view**: in a parent entity, in tree view, Dashboard > **Perimeters** shows for each
   child entity the SoA it follows, its implementation rate, its last approved version and its open
-  risks by level.
-- **After the update**, all existing data is in the root entity (the SoA recursive). Move risks into
-  their entities with a massive update (column "Entity").
-- Audits, non-conformities and treatment actions: second batch of issue #536.
+  risks by level and its open non-conformities by severity.
+- **Audits**: a treatment action follows the entity of its risk, a non-conformity the entity of its
+  audit. Team members, people providing evidence and invited auditors must have a profile in the
+  entity of the audit; an auditor limited to one entity sees nothing of another.
+- **After the update**, existing data is in the root entity (the SoA recursive), except treatment
+  actions (entity of their risk) and non-conformities whose audit or incident points without
+  ambiguity to another entity. Move risks, audits and non-conformities into their entities with a
+  massive update (column "Entity").
+- Supplier risks, trainings, management reviews, objectives and other registers: third batch of
+  issue #536, depending on feedback.
 
 ## Project status
 
@@ -310,6 +336,7 @@ with a real screenshot for every step (available in French and English).
 
 | Document | Content |
 |---|---|
+| [docs/ROLES.en.md](docs/ROLES.en.md) | Guides by role: administrator, CISO, owner, auditor, top management |
 | [docs/design/DEVELOPMENT_PLAN.md](docs/design/DEVELOPMENT_PLAN.md) | Sprint-by-sprint development plan |
 | [ROADMAP.md](ROADMAP.md) | Public roadmap by version |
 | [CHANGELOG.md](CHANGELOG.md) | Change history |

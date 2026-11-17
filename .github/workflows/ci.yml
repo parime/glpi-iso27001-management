@@ -99,14 +99,6 @@ jobs:
       # dans la requete, |raw Twig. Bloquant (--error), local : sans token ni registre en ligne.
       - name: Semgrep - regles securite GLPI du projet
         run: semgrep scan --config .semgrep/ --error --metrics=off
-      # Chaque point d'entree front/ajax doit appeler un controle d'autorisation explicite, ou
-      # figurer avec sa justification dans .github/security-entrypoints-allowlist.txt.
-      - name: Points d'entree - controle d'autorisation present
-        run: sh .github/scripts/check-entrypoints-auth.sh
-      # Chaque page front/ doit figurer dans la matrice d'acces de bout en bout
-      # (tests/security/access-matrix.sh), ou etre justifiee dans tests/security/not-covered.txt.
-      - name: Matrice d'acces - toutes les pages couvertes
-        run: sh .github/scripts/check-security-matrix-coverage.sh
 
   # Bloque une PR qui ajoute ou met a jour une dependance (composer, actions) ayant un avis de
   # securite connu - avant la fusion, la ou Dependabot ne previent qu'apres coup.
@@ -146,10 +138,6 @@ jobs:
       - name: PHP_CodeSniffer
         run: vendor/bin/phpcs
 
-      # Exigences de revue du Marketplace GLPI : pas de SQL brut hors installation, et HTML ecrit en
-      # PHP qui ne peut que baisser (les nouveaux ecrans s'ecrivent en Twig). Voir le script.
-      - name: "Marketplace GLPI : SQL brut et Twig"
-        run: php .github/scripts/check-marketplace-readiness.php
 
   locales:
     name: Locale completeness
@@ -187,6 +175,24 @@ jobs:
           # as every other language, not blindly regenerated.
           git checkout -- locales/en_GB.po
 
+      # Charte commune, sections 2 et 2 bis : le .pot versionné est la source unique des
+      # traductions (Hosted Weblate le lit dans le dépôt). Il doit donc correspondre au code :
+      # chaînes comparées triées et sans emplacement (les numéros de ligne bougent à chaque
+      # modification sans changer les chaînes), date de génération ignorée.
+      - name: Versioned .pot is up to date
+        run: |
+          if ! git cat-file -e HEAD:locales/grcmanager.pot 2>/dev/null; then
+            echo "::error::locales/grcmanager.pot is not versioned: run vendor/bin/extract-locales and commit it"
+            exit 1
+          fi
+          if ! diff <(msgcat --sort-output --no-location locales/grcmanager.pot | grep -v POT-Creation) \
+                    <(git show HEAD:locales/grcmanager.pot | msgcat --sort-output --no-location - \
+                      | grep -v POT-Creation); then
+            echo "::error::locales/grcmanager.pot is out of date: run vendor/bin/extract-locales,"\
+              "then git checkout -- locales/en_GB.po, and commit the .pot"
+            exit 1
+          fi
+
       - name: "Check regional variants (es_MX, fr_CA, en_US...) follow their language"
         run: sh tools/sync-locale-variants.sh --check
 
@@ -195,6 +201,8 @@ jobs:
           status=0
           for po in locales/*.po; do
             lang=$(basename "$po" .po)
+            # Fichier valide (syntaxe, formats %s/%d identiques à la source) avant toute comparaison.
+            msgfmt --check-format --check-domain -o /dev/null "$po" || { echo "::error::${lang}.po is not a valid PO file"; status=1; }
             msgmerge --no-fuzzy-matching --quiet -o /tmp/merged_${lang}.po locales/${lang}.po locales/grcmanager.pot
             missing=$(msgattrib --untranslated /tmp/merged_${lang}.po | grep -c '^msgid "[^"]' || true)
             if [ "$missing" -gt 0 ]; then

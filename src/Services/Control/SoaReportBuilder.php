@@ -1,5 +1,20 @@
 <?php
 
+/**
+ * -------------------------------------------------------------------------
+ * GLPI GRC Manager plugin for GLPI
+ * Copyright (C) 2026 Vincent GUILLOTTE
+ * https://github.com/parime/glpi-grc-manager
+ * -------------------------------------------------------------------------
+ * LICENSE
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version. See LICENSE for the full text.
+ * -------------------------------------------------------------------------
+ */
+
 declare(strict_types=1);
 
 namespace GlpiPlugin\Grcmanager\Services\Control;
@@ -38,6 +53,9 @@ final class SoaReportBuilder
         $applicabilities = \GlpiPlugin\Grcmanager\Control::getApplicabilities();
         $implementationStatuses = \GlpiPlugin\Grcmanager\Control::getImplementationStatuses();
 
+        // Issue #610 : nom de chaque attribut => colonne.
+        $attributeNames = array_values(\GlpiPlugin\Grcmanager\Control::getAttributeNames());
+
         $controls = [];
         $entityId ??= \GlpiPlugin\Grcmanager\EntityPerimeter::soaEntity();
         $soaParams = ['grcmanager_soa_entity' => $entityId];
@@ -56,6 +74,14 @@ final class SoaReportBuilder
                 'implementation_status' => $implementationStatuses[$row['implementation_status']]
                     ?? $row['implementation_status'],
                 'justification'         => $row['justification'],
+                // Issue #610 : attributs de la mesure, libellés traduits.
+                'attributes'            => array_filter(array_map(
+                    static fn (string $attribute): string => \GlpiPlugin\Grcmanager\Control::attributeLabels(
+                        $attribute,
+                        (string) ($row[$attribute] ?? '')
+                    ),
+                    array_combine($attributeNames, ControlAttributeCatalog::attributes())
+                )),
             ];
         }
 
@@ -87,6 +113,12 @@ final class SoaReportBuilder
             'by_status'          => DashboardCardService::soaByImplementationStatus($soaParams),
             'reviewed_count'     => DashboardCardService::soaReviewedCount($soaParams),
             'total_count'        => count($controls),
+            // Issue #610 : taux de mise en œuvre par type, propriété et concept.
+            'attribute_summary'  => \GlpiPlugin\Grcmanager\Control::attributeSummary($entityId, [
+                ControlAttributeCatalog::CONTROL_TYPES,
+                ControlAttributeCatalog::SECURITY_PROPERTIES,
+                ControlAttributeCatalog::CYBERSECURITY_CONCEPTS,
+            ]),
             // Issue #109 : null si assetsign absent, la section est alors omise du PDF.
             'assetsign_evidence' => AssetsignEvidenceProvider::fetchSummary(),
             'clauses'            => $clauses,

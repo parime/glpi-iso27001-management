@@ -17293,3 +17293,135 @@ msgstr "%d controles aplicáveis"
 
 msgid "Not approved yet"
 msgstr "Ainda não aprovada"
+
+msgid "Summary by attribute"
+msgstr "Resumo por atributo"
+
+msgid "Implementation rate by control type, security property, cybersecurity concept, operational capability and security domain."
+msgstr "Taxa de implementação por tipo de controle, propriedade de segurança, conceito de cibersegurança, capacidade operacional e domínio de segurança."
+
+msgid "Show the applicable controls with this value"
+msgstr "Mostrar os controles aplicáveis com este valor"
+
+msgid "Controls marked not applicable are left out of the rate; \"in progress\" counts for half. A control can carry several values of the same attribute. Click a value to filter the list below."
+msgstr "Os controles não aplicáveis ficam fora da taxa; \"Em andamento\" conta pela metade. Um controle pode ter vários valores do mesmo atributo. Clique em um valor para filtrar a lista abaixo."
+
+msgid "Attribute"
+msgstr "Atributo"
+
+msgid "Attributes delivered with the catalogue: they filter the SoA and feed the summary by attribute. You can adjust them."
+msgstr "Atributos fornecidos com o catálogo: filtram a SoA e alimentam o resumo por atributo. Você pode ajustá-los."
+
+msgid "Implementation by function (%)"
+msgstr "Implementação por função (%)"
+
+msgid "Implementation by control type (%)"
+msgstr "Implementação por tipo de controle (%)"
+
+msgid "Implementation by security property (%)"
+msgstr "Implementação por propriedade de segurança (%)"
+
+msgid "Control type"
+msgstr "Tipo de controle"
+
+msgid "Security properties"
+msgstr "Propriedades de segurança"
+
+msgid "Cybersecurity concepts"
+msgstr "Conceitos de cibersegurança"
+
+msgid "Operational capabilities"
+msgstr "Capacidades operacionais"
+
+msgid "Security domains"
+msgstr "Domínios de segurança"
+
+msgid "Preventive"
+msgstr "Preventivo"
+
+msgid "Detective"
+msgstr "Detectivo"
+
+msgid "Corrective"
+msgstr "Corretivo"
+
+msgid "Identify"
+msgstr "Identificar"
+
+msgid "Protect"
+msgstr "Proteger"
+
+msgid "Detect"
+msgstr "Detectar"
+
+msgid "Respond"
+msgstr "Responder"
+
+msgid "Recover"
+msgstr "Recuperar"
+
+msgid "Asset management"
+msgstr "Gestão de ativos"
+
+msgid "Information protection"
+msgstr "Proteção da informação"
+
+msgid "Human resource security"
+msgstr "Segurança de recursos humanos"
+
+msgid "Physical security"
+msgstr "Segurança física"
+
+msgid "System and network security"
+msgstr "Segurança de sistemas e redes"
+
+msgid "Application security"
+msgstr "Segurança de aplicações"
+
+msgid "Secure configuration"
+msgstr "Configuração segura"
+
+msgid "Identity and access management"
+msgstr "Gestão de identidades e acessos"
+
+msgid "Threat and vulnerability management"
+msgstr "Gestão de ameaças e vulnerabilidades"
+
+msgid "Continuity"
+msgstr "Continuidade"
+
+msgid "Supplier relationships security"
+msgstr "Segurança nas relações com fornecedores"
+
+msgid "Legal and compliance"
+msgstr "Jurídico e conformidade"
+
+msgid "Information security event management"
+msgstr "Gestão de eventos de segurança da informação"
+
+msgid "Information security assurance"
+msgstr "Garantia da segurança da informação"
+
+msgid "Governance and ecosystem"
+msgstr "Governança e ecossistema"
+
+msgid "Protection"
+msgstr "Proteção"
+
+msgid "Defence"
+msgstr "Defesa"
+
+msgid "Resilience"
+msgstr "Resiliência"
+
+msgid "You cannot change the treatment plan of this risk."
+msgstr "Você não pode alterar o plano de tratamento deste risco."
+
+msgid "You cannot create an audit in this entity."
+msgstr "Você não pode criar uma auditoria nesta entidade."
+
+msgid "You cannot create a non-conformity in this entity."
+msgstr "Você não pode criar uma não conformidade nesta entidade."
+
+msgid "This account has no profile in the entity of the audit."
+msgstr "Esta conta não tem nenhum perfil na entidade da auditoria."

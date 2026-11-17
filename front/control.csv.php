@@ -27,6 +27,14 @@ $applicabilities = \GlpiPlugin\Grcmanager\Control::getApplicabilities();
 $implementationStatuses = \GlpiPlugin\Grcmanager\Control::getImplementationStatuses();
 
 $csvHeader = ['code', 'theme', 'titre', 'applicabilite', 'etat_mise_en_oeuvre', 'justification'];
+// Issue #610 : attributs des mesures, en lecture seule (ignorés à l'import, comme le titre).
+$attributeColumns = [
+    \GlpiPlugin\Grcmanager\Services\Control\ControlAttributeCatalog::CONTROL_TYPES            => 'type_mesure',
+    \GlpiPlugin\Grcmanager\Services\Control\ControlAttributeCatalog::SECURITY_PROPERTIES      => 'proprietes',
+    \GlpiPlugin\Grcmanager\Services\Control\ControlAttributeCatalog::CYBERSECURITY_CONCEPTS   => 'concepts',
+    \GlpiPlugin\Grcmanager\Services\Control\ControlAttributeCatalog::OPERATIONAL_CAPABILITIES => 'capacites',
+    \GlpiPlugin\Grcmanager\Services\Control\ControlAttributeCatalog::SECURITY_DOMAINS         => 'domaines',
+];
 
 if (($_GET['action'] ?? '') === 'export') {
     Session::checkRight(\GlpiPlugin\Grcmanager\Control::$rightname, READ);
@@ -38,7 +46,7 @@ if (($_GET['action'] ?? '') === 'export') {
 
     $out = fopen('php://output', 'w');
     fwrite($out, "\xEF\xBB\xBF"); // BOM UTF-8, pour qu'Excel affiche correctement les accents.
-    fputcsv($out, $csvHeader, ';');
+    fputcsv($out, array_merge($csvHeader, array_values($attributeColumns)), ';');
 
     // Justification saisie librement : une cellule commencant par = + - @ (ou tabulation/retour)
     // serait executee comme formule a l'ouverture du fichier dans un tableur.
@@ -59,6 +67,13 @@ if (($_GET['action'] ?? '') === 'export') {
             $applicabilities[$row['applicability']] ?? $csvText($row['applicability']),
             $implementationStatuses[$row['implementation_status']] ?? $csvText($row['implementation_status']),
             $csvText($row['justification']),
+            ...array_map(
+                static fn (string $attribute): string => \GlpiPlugin\Grcmanager\Control::attributeLabels(
+                    $attribute,
+                    (string) ($row[$attribute] ?? '')
+                ),
+                array_keys($attributeColumns)
+            ),
         ], ';');
     }
 

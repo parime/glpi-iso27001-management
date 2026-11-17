@@ -1,5 +1,20 @@
 <?php
 
+/**
+ * -------------------------------------------------------------------------
+ * GLPI GRC Manager plugin for GLPI
+ * Copyright (C) 2026 Vincent GUILLOTTE
+ * https://github.com/parime/glpi-grc-manager
+ * -------------------------------------------------------------------------
+ * LICENSE
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version. See LICENSE for the full text.
+ * -------------------------------------------------------------------------
+ */
+
 declare(strict_types=1);
 
 namespace GlpiPlugin\Grcmanager\Services;
@@ -20,7 +35,7 @@ final class DefaultSearchColumns
         // Sprint 3 (SoA) : id-then-theme-then-code first, same "clickable row first" convention
         // as the risk register above.
         // Issue #380 : dernier test d'efficacité et échéance du suivant.
-        'GlpiPlugin\\Grcmanager\\Control' => [8, 2, 1, 3, 4, 9, 10, 6, 7],
+        'GlpiPlugin\\Grcmanager\\Control' => [8, 2, 1, 3, 4, 11, 13, 9, 10, 6, 7],
         // Issue #113 : exigence (lien) puis article, statut, responsable, dernière modification.
         'GlpiPlugin\\Grcmanager\\IsmsRequirement' => [1, 2, 3, 4, 7],
         // Sprint 4 (audits internes et CAPA), same "id first" convention.

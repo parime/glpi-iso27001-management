@@ -25,14 +25,21 @@ $redirectUrl = \GlpiPlugin\Grcmanager\Risk::getFormURLWithID($riskId);
 
 $item = new \GlpiPlugin\Grcmanager\RiskTreatmentAction();
 
+// Issue #536 : droit ET entité du risque (une action suit l'entité de son risque), et pour une
+// action existante celle de l'action elle-même : un risque d'une autre entité reste fermé.
+$risk = new \GlpiPlugin\Grcmanager\Risk();
 if (isset($_POST['add'])) {
     Session::checkRight(\GlpiPlugin\Grcmanager\Risk::$rightname, CREATE);
+    $risk->check($riskId, UPDATE);
     $item->add($_POST);
 } elseif (isset($_POST['update'])) {
     Session::checkRight(\GlpiPlugin\Grcmanager\Risk::$rightname, UPDATE);
+    $item->check((int) ($_POST['id'] ?? 0), UPDATE);
+    $risk->check($riskId, UPDATE);
     $item->update($_POST);
 } elseif (isset($_POST['purge'])) {
     Session::checkRight(\GlpiPlugin\Grcmanager\Risk::$rightname, PURGE);
+    $item->check((int) ($_POST['id'] ?? 0), PURGE);
     $item->delete($_POST, true);
 }
 

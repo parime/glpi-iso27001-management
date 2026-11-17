@@ -1,3 +1,17 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
 {# En-tête de la liste des mesures de l'Annexe A : SoA, exports, approbation (issue #199 : passé de PHP à Twig) #}
 {# Issue #536 : périmètre de la SoA affichée (entité GLPI), et création de la SoA propre à l'entité. #}
 {% if perimeter %}
@@ -43,4 +57,77 @@
 {% endif %}
 {% if changed_since %}
    <div class="alert alert-warning"><i class="ti ti-alert-triangle me-2"></i>{{ __('The SoA has changed since approved version %d: a new approval is required.', 'grcmanager')|format(changed_since) }} <a href="{{ approval_url }}">{{ __('Management approval', 'grcmanager') }}</a></div>
+{% endif %}
+{# Issue #610 : synthèse de la SoA par attribut des mesures (ISO/IEC 27002:2022), mesures non applicables écartées. #}
+{% if attribute_summary is not empty %}
+   <div class="card mb-2">
+      <div class="card-header py-2">
+         <a class="d-flex align-items-center text-reset text-decoration-none w-100" data-bs-toggle="collapse" href="#grcmanager-attribute-summary" role="button" aria-expanded="false" aria-controls="grcmanager-attribute-summary">
+            <i class="ti ti-chart-bar me-2"></i>
+            <strong class="me-2">{{ __('Summary by attribute', 'grcmanager') }}</strong>
+            <span class="text-secondary small">{{ __('Implementation rate by control type, security property, cybersecurity concept, operational capability and security domain.', 'grcmanager') }}</span>
+            <i class="ti ti-chevron-down ms-auto"></i>
+         </a>
+      </div>
+      <div class="collapse" id="grcmanager-attribute-summary">
+         <div class="card-body">
+            <ul class="nav nav-tabs mb-3" role="tablist">
+               {% for attribute in attribute_summary %}
+                  <li class="nav-item" role="presentation">
+                     <button type="button" class="nav-link{{ loop.first ? ' active' : '' }}" data-bs-toggle="tab" data-bs-target="#grcmanager-attr-{{ attribute.attribute }}" role="tab">
+                        <i class="ti {{ attribute.icon }} me-1"></i>{{ attribute.label }}
+                     </button>
+                  </li>
+               {% endfor %}
+            </ul>
+            <div class="tab-content">
+               {% for attribute in attribute_summary %}
+                  <div class="tab-pane{{ loop.first ? ' show active' : '' }}" id="grcmanager-attr-{{ attribute.attribute }}" role="tabpanel">
+                     <div class="table-responsive">
+                        <table class="table table-sm table-vcenter mb-0">
+                           <thead>
+                              <tr>
+                                 <th>{{ attribute.label }}</th>
+                                 <th class="text-end">{{ __('Applicable controls', 'grcmanager') }}</th>
+                                 <th class="text-end">{{ __('Implemented', 'grcmanager') }}</th>
+                                 <th class="text-end">{{ __('In progress', 'grcmanager') }}</th>
+                                 <th class="w-25">{{ __('Implementation rate', 'grcmanager') }}</th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              {% for line in attribute.lines %}
+                                 {% set rate = line.rate ?? 0 %}
+                                 <tr>
+                                    <td>
+                                       <a href="{{ line.url }}" title="{{ __('Show the applicable controls with this value', 'grcmanager') }}">
+                                          <span class="badge {{ attribute.class }}"><i class="ti {{ attribute.icon }} me-1"></i>{{ line.label }}</span>
+                                       </a>
+                                    </td>
+                                    <td class="text-end">{{ line.applicable }} / {{ line.total }}</td>
+                                    <td class="text-end">{{ line.implemented }}</td>
+                                    <td class="text-end">{{ line.in_progress }}</td>
+                                    <td>
+                                       {% if line.rate is null %}
+                                          <span class="badge bg-secondary-lt"><i class="ti ti-minus me-1"></i>{{ __('No applicable control', 'grcmanager') }}</span>
+                                       {% else %}
+                                          <div class="d-flex align-items-center gap-2">
+                                             <div class="progress progress-sm flex-grow-1">
+                                                <div class="progress-bar {{ rate >= 80 ? 'bg-green' : (rate >= 40 ? 'bg-yellow' : 'bg-red') }}" style="width: {{ rate }}%" role="progressbar" aria-valuenow="{{ rate }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                             </div>
+                                             <span class="small text-nowrap">{{ rate|round }} %</span>
+                                          </div>
+                                       {% endif %}
+                                    </td>
+                                 </tr>
+                              {% endfor %}
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+               {% endfor %}
+            </div>
+            <small class="form-hint d-block mt-2"><i class="ti ti-info-circle me-1"></i>{{ __('Controls marked not applicable are left out of the rate; "in progress" counts for half. A control can carry several values of the same attribute. Click a value to filter the list below.', 'grcmanager') }}</small>
+         </div>
+      </div>
+   </div>
 {% endif %}

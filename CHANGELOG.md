@@ -7,6 +7,69 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.54.0] - 2026-11-17
+
+### Added
+
+- **Documentation par rôle** (issue #665) : section « Par où commencer ? » en tête des README et
+  parcours courts par rôle (administrateur du plugin, RSSI, propriétaire de mesure ou de risque,
+  auditeur, direction) dans `docs/ROLES.md` et `docs/ROLES.en.md`, avec les menus et onglets
+  actuels (SoA par entité, contrôles de cohérence, preuves de l'inventaire Docker, lien de
+  calendrier à jeton dédié) ; pages ajoutées au wiki.
+- **Périmètres multiples, second lot : actions de traitement, audits et non-conformités par entité
+  GLPI** (issue #536, demande de skreu dans #547).
+  - Une **action de traitement** appartient à l'entité de son risque ; elle le suit quand il change
+    d'entité. L'ajouter ou la modifier exige le droit de modifier ce risque, entité comprise.
+  - Un **audit interne** appartient à une entité (par défaut l'entité active) ; ses mesures auditées
+    sont celles de la SoA que suit cette entité. Une **non-conformité** prend l'entité de son audit
+    (sinon celle de l'incident de sécurité à son origine) ; quand l'audit change d'entité, ses
+    constats le suivent. Colonnes « Entité » et « Sous-entités » dans les recherches, modifiables en
+    masse vers une entité de la session.
+  - **Équipe, demandes de preuves, accès auditeur** : la personne ajoutée à l'équipe, désignée pour
+    fournir une preuve ou invitée comme auditeur doit avoir un profil dans l'entité de l'audit (les
+    listes déroulantes ne proposent qu'elles). Un auditeur limité à une entité ne voit rien d'une
+    autre, même avec un accès donné avant la mise à jour : espace auditeur, « Mes demandes de
+    preuves » et téléchargement des pièces suivent les entités de sa session.
+  - **Filtrage partout** : listes, fiches, recherches et leurs exports CSV et PDF, listes déroulantes,
+    API, notifications (destinataires choisis dans l'entité de l'élément), cartes du tableau de bord
+    (non-conformités ouvertes, actions correctives et actions de traitement en retard, audits par
+    statut, risques sans plan de traitement), rapport PDF du programme d'audit, contrôles de
+    cohérence (#614), maturité, calendrier de conformité, rapport post-incident et Mon espace GRC.
+  - **Vue Périmètres** : nouvelle colonne des non-conformités ouvertes par entité enfant, par gravité
+    (les observations ne comptent pas).
+  - **À la mise à jour** : chaque action de traitement prend l'entité de son risque ; un audit va dans
+    l'entité racine ; une non-conformité prend l'entité de son audit ou de son incident quand elle est
+    sans ambiguïté, sinon l'entité racine. Migration rejouable, aucune donnée perdue, un administrateur
+    de la racine voit tout. Ni statut, ni gravité, ni responsable, ni droit ne changent. Rangez ensuite
+    audits et non-conformités par une modification en masse (colonne « Entité »).
+- **Attributs des mesures de l'Annexe A** (issue #610) : les cinq attributs de l'ISO/IEC 27002:2022
+  (type de mesure, propriétés de sécurité, concepts de cybersécurité, capacités opérationnelles,
+  domaines de sécurité) sont livrés pour les 93 mesures, valeurs seulement, sans texte de la norme.
+  Ils sont ajoutés à la mise à jour sans toucher à l'applicabilité, aux états ni aux justifications,
+  et restent modifiables sur la fiche de la mesure. La SoA gagne un filtre et une colonne par
+  attribut, une « Synthèse par attribut » repliable (mesures applicables, mises en œuvre, taux,
+  lien vers la liste filtrée) et trois cartes de tableau de bord (par fonction, par type, par
+  propriété) ; la carte « Mise en œuvre par fonction » est ajoutée aux vues Direction et SMSI. Les
+  exports CSV et PDF de la SoA reprennent les attributs. Tout suit la SoA de l'entité active (#536).
+
+### Changed
+
+- CI : contrôles de sécurité communs v1.8.2 (scripts communs bien pris à la version appelée).
+- **CI** : contrôles des points d'entrée, de la matrice d'accès et des exigences marketplace repris
+  par les contrôles communs (glpi-plugin-security v1.8.0, issue parime/glpi-plugin-security#11) ;
+  les copies de `.github/scripts/` sont retirées. Les fichiers de réglage restent dans ce dépôt.
+- **Traductions** (charte commune, sections 2 et 2 bis, issues #657 et #662) : `locales/grcmanager.pot`
+  est versionné (4 104 chaînes, généré par `vendor/bin/extract-locales`), source unique que lira
+  Hosted Weblate. Le job « Locale completeness » échoue désormais si ce `.pot` ne correspond plus au
+  code, ou si un fichier `.po` est invalide (formats `%s`, `%d` différents de la source), en plus du
+  contrôle existant : chaque langue traduit chaque chaîne du `.pot`.
+- **Licence** (charte commune, section 1, issues #655, #660 et #661) : identifiant SPDX exact
+  `GPL-3.0-or-later` dans `plugin_version_grcmanager()` (au lieu de `GPLv3`), comme `composer.json`
+  et `CITATION.cff`. Le bloc de licence de `tools/HEADER` est ajouté en tête des 336 fichiers PHP et
+  Twig qui ne l'avaient pas encore (`src/Compat/Base/`, services, gabarits). Commentaires seulement :
+  aucun changement de comportement ni de rendu. Le contrôle « Charte commune » passe en bloquant
+  (`charter-mode: error`).
+
 ## [2.53.0] - 2026-11-16
 
 ### Added

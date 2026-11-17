@@ -30,7 +30,14 @@ if (isset($_POST['add'])) {
     $usersId = (int) ($_POST['users_id'] ?? 0);
     $user = new User();
     $role = (string) ($_POST['role'] ?? '');
-    if (!$user->getFromDB($usersId) || !\GlpiPlugin\Grcmanager\AuditTeam::addMember($auditsId, $usersId, $role)) {
+    if ($user->getFromDB($usersId) && !\GlpiPlugin\Grcmanager\EntityPerimeter::userReachesItem($usersId, $audit)) {
+        // Issue #536 : membre sans profil dans l'entité de l'audit.
+        Session::addMessageAfterRedirect(
+            __('This account has no profile in the entity of the audit.', 'grcmanager'),
+            false,
+            ERROR
+        );
+    } elseif (!$user->getFromDB($usersId) || !\GlpiPlugin\Grcmanager\AuditTeam::addMember($auditsId, $usersId, $role)) {
         Session::addMessageAfterRedirect(__('Choose a member and a role.', 'grcmanager'), false, ERROR);
     }
 } elseif (isset($_POST['remove'])) {

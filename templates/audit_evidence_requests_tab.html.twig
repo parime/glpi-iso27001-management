@@ -1,3 +1,17 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
 {# Issue #538 : onglet « Demandes de preuves » d'un audit : avancement, liste des pièces demandées
    (mesure ou exigence, personne désignée, échéance, statut, pièces), revue (accepter, renvoyer à
    compléter avec un motif), ajout et import CSV, relances, et accès en lecture des auditeurs. #}
@@ -103,7 +117,7 @@
                               <input type="hidden" name="id" value="{{ row.id }}">
                               {{ fields.textField('reference', row.reference, __('Reference', 'grcmanager'), v|merge({'field_class': 'col-md-3'})) }}
                               {{ fields.dropdownArrayField('plugin_grcmanager_controls_id', row.control_id, all_controls, __('Control', 'grcmanager'), v|merge({'field_class': 'col-md-4', 'display_emptychoice': true})) }}
-                              {{ fields.dropdownField('User', 'users_id', row.users_id, __('Assignee', 'grcmanager'), v|merge({'field_class': 'col-md-3', 'right': 'all'})) }}
+                              {{ fields.dropdownField('User', 'users_id', row.users_id, __('Assignee', 'grcmanager'), v|merge({'field_class': 'col-md-3', 'right': 'all', 'entity': user_entity, 'entity_sons': user_entity_sons})) }}
                               {{ fields.dateField('due_date', row.due_date, __('Due date', 'grcmanager'), v|merge({'field_class': 'col-md-2'})) }}
                               {{ fields.textareaField('description', row.description, __('Description', 'grcmanager'), v|merge({'field_class': 'col-12', 'rows': 2})) }}
                               <div class="col-12 d-flex gap-2">
@@ -147,7 +161,7 @@
                {{ fields.textField('reference', '', __('Reference', 'grcmanager'), v|merge({'field_class': 'col-md-4', 'add_field_html': '<div class="form-hint">' ~ __('Number or title in the auditor\'s list', 'grcmanager')|e ~ '</div>'})) }}
                {{ fields.dropdownArrayField('plugin_grcmanager_controls_id', 0, linked_controls is not empty ? linked_controls : all_controls, __('Control', 'grcmanager'), v|merge({'field_class': 'col-md-8', 'display_emptychoice': true, 'rand': 'grcevreqctl'})) }}
                {{ fields.textareaField('description', '', __('Evidence requested', 'grcmanager'), v|merge({'field_class': 'col-12', 'rows': 2})) }}
-               {{ fields.dropdownField('User', 'users_id', 0, __('Assignee', 'grcmanager'), v|merge({'field_class': 'col-md-6', 'right': 'all', 'rand': 'grcevrequser'})) }}
+               {{ fields.dropdownField('User', 'users_id', 0, __('Assignee', 'grcmanager'), v|merge({'field_class': 'col-md-6', 'right': 'all', 'rand': 'grcevrequser', 'entity': user_entity, 'entity_sons': user_entity_sons})) }}
                {{ fields.dateField('due_date', '', __('Due date', 'grcmanager'), v|merge({'field_class': 'col-md-6'})) }}
                {% if linked_controls is not empty %}
                   <div class="col-12 form-hint">{{ __('Only the controls in the scope of this audit are offered. Edit the request afterwards to choose another control.', 'grcmanager') }}</div>
@@ -174,7 +188,7 @@ REQ-01;A.5.15;Access review of the last quarter;30/11/2026;jdupont</pre>
                   <label class="form-label" for="grc-evreq-csv">{{ __('CSV file', 'grcmanager') }}</label>
                   <input type="file" class="form-control" id="grc-evreq-csv" name="csv_file" accept=".csv,text/csv,text/plain" required>
                </div>
-               {{ fields.dropdownField('User', 'users_id', 0, __('Default assignee', 'grcmanager'), v|merge({'field_class': 'col-md-6', 'right': 'all', 'rand': 'grcevreqimpuser'})) }}
+               {{ fields.dropdownField('User', 'users_id', 0, __('Default assignee', 'grcmanager'), v|merge({'field_class': 'col-md-6', 'right': 'all', 'rand': 'grcevreqimpuser', 'entity': user_entity, 'entity_sons': user_entity_sons})) }}
                {{ fields.dateField('due_date', '', __('Default due date', 'grcmanager'), v|merge({'field_class': 'col-md-6'})) }}
                <div class="col-12">
                   <button type="submit" name="import_csv" value="1" class="btn btn-outline-primary"><i class="ti ti-upload me-1"></i>{{ __('Import', 'grcmanager') }}</button>
@@ -246,7 +260,7 @@ REQ-01;A.5.15;Access review of the last quarter;30/11/2026;jdupont</pre>
             <form method="post" action="{{ action }}" class="row g-2 align-items-end" id="grc-auditor-grant">
                <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
                <input type="hidden" name="plugin_grcmanager_audits_id" value="{{ audit_id }}">
-               {{ fields.dropdownField('User', 'users_id', 0, __('Auditor account', 'grcmanager'), v|merge({'field_class': 'col-md-5', 'right': 'all', 'rand': 'grcauditoruser'})) }}
+               {{ fields.dropdownField('User', 'users_id', 0, __('Auditor account', 'grcmanager'), v|merge({'field_class': 'col-md-5', 'right': 'all', 'rand': 'grcauditoruser', 'entity': user_entity, 'entity_sons': user_entity_sons})) }}
                {{ fields.dateField('date_end', access_default_end, __('Access until', 'grcmanager'), v|merge({'field_class': 'col-md-3', 'add_field_html': '<div class="form-hint">' ~ __('At most %d days', 'grcmanager')|format(access_max_days)|e ~ '</div>'})) }}
                <div class="col-md-4">
                   <button type="submit" name="grant_access" value="1" class="btn btn-outline-primary"><i class="ti ti-key me-1"></i>{{ __('Give read access to this audit', 'grcmanager') }}</button>

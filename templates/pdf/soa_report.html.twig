@@ -1,3 +1,17 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
 {% include '@grcmanager/pdf/_pdf_style.html.twig' %}
 
 {# Issue #112 : version figée soumise à l'approbation de la direction. #}
@@ -75,6 +89,35 @@
 </table>
 {% endif %}
 
+{# Issue #610 : taux de mise en œuvre par type de mesure, propriété et concept de cybersécurité. #}
+{% if attribute_summary is not empty %}
+<h2>{{ __('Summary by attribute', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-table">
+  <thead>
+    <tr>
+      <th>{{ __('Attribute', 'grcmanager') }}</th>
+      <th>{{ __('Value', 'grcmanager') }}</th>
+      <th>{{ __('Applicable controls', 'grcmanager') }}</th>
+      <th>{{ __('Implemented', 'grcmanager') }}</th>
+      <th>{{ __('Implementation rate', 'grcmanager') }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for attribute in attribute_summary %}
+      {% for line in attribute.lines %}
+        <tr>
+          <td>{{ loop.first ? attribute.label : '' }}</td>
+          <td>{{ line.label }}</td>
+          <td>{{ line.applicable }} / {{ line.total }}</td>
+          <td>{{ line.implemented }}</td>
+          <td>{{ line.rate is null ? '-' : (line.rate|round ~ ' %') }}</td>
+        </tr>
+      {% endfor %}
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+
 <h2>{{ __('Control details', 'grcmanager') }}</h2>
 <table class="grcmanager-pdf-table">
   <thead>
@@ -92,7 +135,13 @@
       <tr>
         <td>{{ control.code }}</td>
         <td>{{ control.theme }}</td>
-        <td>{{ control.title }}</td>
+        <td>
+          {{ control.title }}
+          {# Issue #610 : attributs de la mesure (ISO/IEC 27002:2022), sous l'intitulé. #}
+          {% for name, values in control.attributes %}
+            <br><small>{{ name }} : {{ values }}</small>
+          {% endfor %}
+        </td>
         <td>{{ control.applicability }}</td>
         <td>{{ control.implementation_status }}</td>
         <td>{{ control.justification }}</td>

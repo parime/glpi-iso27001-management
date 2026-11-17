@@ -54,6 +54,11 @@ if ($view === 'perimeters') {
         'levels'     => \GlpiPlugin\Grcmanager\Risk::getImpacts(),
         'soa_url'    => \GlpiPlugin\Grcmanager\Control::getSearchURL(),
         'risk_url'   => \GlpiPlugin\Grcmanager\Risk::getSearchURL(),
+        // Lot 2 : non-conformités ouvertes par entité enfant.
+        'can_findings'   => \GlpiPlugin\Grcmanager\Nonconformity::canView(),
+        'severities'     => \GlpiPlugin\Grcmanager\Nonconformity::getSeverities(),
+        'findings_url'   => \GlpiPlugin\Grcmanager\Nonconformity::getSearchURL(),
+        'findings_label' => \GlpiPlugin\Grcmanager\Nonconformity::getTypeName(Session::getPluralNumber()),
     ]);
 } elseif ((new Dashboard($key))->canViewCurrent()) {
     // Vue d'ensemble ISMS : 48 rangées, au-delà des 24 par défaut (sans quoi GLPI les superpose).

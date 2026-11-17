@@ -17329,3 +17329,135 @@ msgstr "Zabezpieczenia mające zastosowanie: %d"
 
 msgid "Not approved yet"
 msgstr "Jeszcze niezatwierdzona"
+
+msgid "Summary by attribute"
+msgstr "Podsumowanie według atrybutu"
+
+msgid "Implementation rate by control type, security property, cybersecurity concept, operational capability and security domain."
+msgstr "Wskaźnik wdrożenia według rodzaju zabezpieczenia, właściwości bezpieczeństwa, koncepcji cyberbezpieczeństwa, zdolności operacyjnej i domeny bezpieczeństwa."
+
+msgid "Show the applicable controls with this value"
+msgstr "Pokaż mające zastosowanie zabezpieczenia z tą wartością"
+
+msgid "Controls marked not applicable are left out of the rate; \"in progress\" counts for half. A control can carry several values of the same attribute. Click a value to filter the list below."
+msgstr "Zabezpieczenia niemające zastosowania są pomijane we wskaźniku; \"W toku\" liczy się w połowie. Zabezpieczenie może mieć kilka wartości tego samego atrybutu. Kliknij wartość, aby przefiltrować listę poniżej."
+
+msgid "Attribute"
+msgstr "Atrybut"
+
+msgid "Attributes delivered with the catalogue: they filter the SoA and feed the summary by attribute. You can adjust them."
+msgstr "Atrybuty dostarczane z katalogiem: filtrują SoA i zasilają podsumowanie według atrybutu. Można je dostosować."
+
+msgid "Implementation by function (%)"
+msgstr "Wdrożenie według funkcji (%)"
+
+msgid "Implementation by control type (%)"
+msgstr "Wdrożenie według rodzaju zabezpieczenia (%)"
+
+msgid "Implementation by security property (%)"
+msgstr "Wdrożenie według właściwości bezpieczeństwa (%)"
+
+msgid "Control type"
+msgstr "Rodzaj zabezpieczenia"
+
+msgid "Security properties"
+msgstr "Właściwości bezpieczeństwa"
+
+msgid "Cybersecurity concepts"
+msgstr "Koncepcje cyberbezpieczeństwa"
+
+msgid "Operational capabilities"
+msgstr "Zdolności operacyjne"
+
+msgid "Security domains"
+msgstr "Domeny bezpieczeństwa"
+
+msgid "Preventive"
+msgstr "Zapobiegawcze"
+
+msgid "Detective"
+msgstr "Wykrywające"
+
+msgid "Corrective"
+msgstr "Korygujące"
+
+msgid "Identify"
+msgstr "Identyfikacja"
+
+msgid "Protect"
+msgstr "Ochrona"
+
+msgid "Detect"
+msgstr "Wykrywanie"
+
+msgid "Respond"
+msgstr "Reagowanie"
+
+msgid "Recover"
+msgstr "Odtwarzanie"
+
+msgid "Asset management"
+msgstr "Zarządzanie aktywami"
+
+msgid "Information protection"
+msgstr "Ochrona informacji"
+
+msgid "Human resource security"
+msgstr "Bezpieczeństwo zasobów ludzkich"
+
+msgid "Physical security"
+msgstr "Bezpieczeństwo fizyczne"
+
+msgid "System and network security"
+msgstr "Bezpieczeństwo systemów i sieci"
+
+msgid "Application security"
+msgstr "Bezpieczeństwo aplikacji"
+
+msgid "Secure configuration"
+msgstr "Bezpieczna konfiguracja"
+
+msgid "Identity and access management"
+msgstr "Zarządzanie tożsamością i dostępem"
+
+msgid "Threat and vulnerability management"
+msgstr "Zarządzanie zagrożeniami i podatnościami"
+
+msgid "Continuity"
+msgstr "Ciągłość działania"
+
+msgid "Supplier relationships security"
+msgstr "Bezpieczeństwo relacji z dostawcami"
+
+msgid "Legal and compliance"
+msgstr "Prawo i zgodność"
+
+msgid "Information security event management"
+msgstr "Zarządzanie zdarzeniami bezpieczeństwa informacji"
+
+msgid "Information security assurance"
+msgstr "Zapewnienie bezpieczeństwa informacji"
+
+msgid "Governance and ecosystem"
+msgstr "Nadzór i ekosystem"
+
+msgid "Protection"
+msgstr "Ochrona"
+
+msgid "Defence"
+msgstr "Obrona"
+
+msgid "Resilience"
+msgstr "Odporność"
+
+msgid "You cannot change the treatment plan of this risk."
+msgstr "Nie możesz zmienić planu postępowania z tym ryzykiem."
+
+msgid "You cannot create an audit in this entity."
+msgstr "Nie możesz utworzyć audytu w tej jednostce."
+
+msgid "You cannot create a non-conformity in this entity."
+msgstr "Nie możesz utworzyć niezgodności w tej jednostce."
+
+msgid "This account has no profile in the entity of the audit."
+msgstr "To konto nie ma profilu w jednostce audytu."

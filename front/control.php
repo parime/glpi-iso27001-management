@@ -51,6 +51,8 @@ TemplateRenderer::getInstance()->display('@grcmanager/control_list_header.html.t
     'changed_since'   => $changedSince ? (int) $lastApprovedVersion['version'] : 0,
     // Issue #536 : SoA de quelle entité, et création de la SoA propre à l'entité active.
     'perimeter'       => \GlpiPlugin\Grcmanager\EntityPerimeter::soaBanner(),
+    // Issue #610 : synthèse de la SoA par attribut des mesures (type, propriété, concept...).
+    'attribute_summary' => \GlpiPlugin\Grcmanager\Control::attributeSummary(),
 ]);
 
 // Same URL-driven search fix as front/risk.php (Search::showList()'s $params must be pre-merged

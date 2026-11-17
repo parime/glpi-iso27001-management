@@ -975,7 +975,8 @@ class ConsistencyCheck extends CommonGLPI
                 // Issue #536 : actions des risques des entités de la session.
                 'WHERE'      => array_merge(
                     ['NOT' => ["$actions.status" => 'done']],
-                    EntityPerimeter::criteria($risks)
+                    EntityPerimeter::criteria($risks),
+                    EntityPerimeter::criteria($actions)
                 ),
                 'ORDER'      => "$actions.due_date",
             ]) as $row
@@ -1083,7 +1084,11 @@ class ConsistencyCheck extends CommonGLPI
         $row = $DB->request([
             'SELECT' => ['MAX' => "$dateField AS last_date"],
             'FROM'   => $itemtype::getTable(),
-            'WHERE'  => ['status' => 'completed'],
+            // Issue #536 : audits (ou revues) des entités de la session, quand ils en ont une.
+            'WHERE'  => array_merge(
+                ['status' => 'completed'],
+                (new $itemtype())->isEntityAssign() ? EntityPerimeter::criteria($itemtype::getTable()) : []
+            ),
         ])->current();
         $last = $row['last_date'] ?? null;
         if (!ConsistencyRules::noRecentEvent($last !== null ? (string) $last : null, $today, $months)) {
@@ -1127,7 +1132,12 @@ class ConsistencyCheck extends CommonGLPI
 
         return self::collect(
             Nonconformity::class,
-            $DB->request(['FROM' => Nonconformity::getTable(), 'ORDER' => 'title']),
+            // Issue #536 : non-conformités des entités de la session.
+            $DB->request([
+                'FROM'  => Nonconformity::getTable(),
+                'WHERE' => EntityPerimeter::criteria(Nonconformity::getTable()),
+                'ORDER' => 'title',
+            ]),
             $candidate,
             $detail,
             static fn (array $n): string => (string) $n['title']

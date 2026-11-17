@@ -124,6 +124,12 @@ class AuditorAccess extends CommonGLPI
         ) {
             return __('Choose an active account.', 'grcmanager');
         }
+        // Issue #536 : l'auditeur doit avoir un profil dans l'entité de l'audit ; limité à une
+        // autre entité, il n'en verrait rien.
+        $audit = new Audit();
+        if (!$audit->getFromDB($auditId) || !EntityPerimeter::userReachesItem($usersId, $audit)) {
+            return __('This account has no profile in the entity of the audit.', 'grcmanager');
+        }
         $today = date('Y-m-d');
         $end = Rules::accessEnd($endInput, $today);
         if ($end === null) {
@@ -182,7 +188,7 @@ class AuditorAccess extends CommonGLPI
     {
         global $DB;
 
-        if ($auditId <= 0 || $usersId <= 0) {
+        if ($auditId <= 0 || $usersId <= 0 || !self::auditInSession($auditId)) {
             return null;
         }
         $today ??= date('Y-m-d');
@@ -199,6 +205,21 @@ class AuditorAccess extends CommonGLPI
         }
 
         return null;
+    }
+
+    /**
+     * Issue #536 : l'audit est-il dans les entités de la session (toujours vrai hors session) ? Un
+     * auditeur limité à une entité ne voit rien d'une autre, même avec un accès en vigueur.
+     */
+    private static function auditInSession(int $auditId): bool
+    {
+        if (!EntityPerimeter::hasSession()) {
+            return true;
+        }
+        $audit = new Audit();
+
+        return $audit->getFromDB($auditId)
+            && Session::haveAccessToEntity((int) $audit->fields['entities_id'], (bool) $audit->fields['is_recursive']);
     }
 
     public static function isActive(int $auditId, int $usersId, ?string $today = null): bool
@@ -229,7 +250,11 @@ class AuditorAccess extends CommonGLPI
                 'INNER JOIN' => [
                     Audit::getTable() . ' AS a' => ['FKEY' => ['x' => 'plugin_grcmanager_audits_id', 'a' => 'id']],
                 ],
-                'WHERE'      => ['x.users_id' => $usersId, 'x.date_revoked' => null],
+                // Issue #536 : audits des entités de la session.
+                'WHERE'      => array_merge(
+                    ['x.users_id' => $usersId, 'x.date_revoked' => null],
+                    EntityPerimeter::criteria('a')
+                ),
                 'ORDER'      => ['x.date_end DESC'],
             ]) as $row
         ) {
