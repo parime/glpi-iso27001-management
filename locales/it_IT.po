@@ -17673,6 +17673,27 @@ msgstr "La matrice del plugin ha %d livelli: un punteggio su un'altra scala vien
 msgid "The proposed correspondence is the one that changes the fewest risk levels between the current grid and the grid of the new size."
 msgstr "La corrispondenza proposta è quella che cambia il minor numero di livelli di rischio tra la griglia attuale e quella della nuova dimensione."
 
+msgid "Export the map"
+msgstr "Esporta la mappa"
+
+msgid "Download the map as shown, to put it in a document or a presentation"
+msgstr "Scarica la mappa così come è visualizzata, per inserirla in un documento o in una presentazione"
+
+msgid "Image (PNG)"
+msgstr "Immagine (PNG)"
+
+msgid "Image (JPEG)"
+msgstr "Immagine (JPEG)"
+
+msgid "Vector image (SVG), sharp at any size"
+msgstr "Immagine vettoriale (SVG), nitida a qualsiasi dimensione"
+
+msgid "Dependency map: %s"
+msgstr "Mappa delle dipendenze: %s"
+
+msgid "Exported on %s"
+msgstr "Esportata il %s"
+
 #: issue-609
 msgid "Deduced from the risks linked to this control and from the obligations of the register attached to them."
 msgstr "Dedotto dai rischi collegati a questo controllo e dagli obblighi del registro a essi associati."

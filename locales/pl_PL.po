@@ -17594,6 +17594,27 @@ msgstr "Macierz wtyczki ma %d poziomów: ocena w innej skali jest przeliczana (n
 msgid "The proposed correspondence is the one that changes the fewest risk levels between the current grid and the grid of the new size."
 msgstr "Proponowana odpowiedniość to ta, która zmienia najmniej poziomów ryzyka między obecną siatką a siatką nowego rozmiaru."
 
+msgid "Export the map"
+msgstr "Eksportuj mapę"
+
+msgid "Download the map as shown, to put it in a document or a presentation"
+msgstr "Pobierz mapę w takiej postaci, w jakiej jest wyświetlana, aby umieścić ją w dokumencie lub prezentacji"
+
+msgid "Image (PNG)"
+msgstr "Obraz (PNG)"
+
+msgid "Image (JPEG)"
+msgstr "Obraz (JPEG)"
+
+msgid "Vector image (SVG), sharp at any size"
+msgstr "Obraz wektorowy (SVG), ostry w każdym rozmiarze"
+
+msgid "Dependency map: %s"
+msgstr "Mapa zależności: %s"
+
+msgid "Exported on %s"
+msgstr "Wyeksportowano %s"
+
 #: issue-609
 msgid "Deduced from the risks linked to this control and from the obligations of the register attached to them."
 msgstr "Wywnioskowane z ryzyk powiązanych z tym zabezpieczeniem oraz z przypisanych do nich obowiązków z rejestru."

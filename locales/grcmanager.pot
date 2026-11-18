@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-18 19:36+0000\n"
+"POT-Creation-Date: 2026-11-18 19:51+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6970,6 +6970,13 @@ msgid "No business process you can see depends on this item."
 msgstr ""
 
 #: templates/tabs/business_process_map.html.twig
+#, php-format
+msgid "%d item or process you cannot see is not shown."
+msgid_plural "%d items or processes you cannot see are not shown."
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/tabs/business_process_map.html.twig
 msgid ""
 "Items and processes this process depends on, and processes that depend on "
 "it. Click a node to open it."
@@ -6980,13 +6987,6 @@ msgid ""
 "No dependency recorded yet: link items in the \"Dependencies\" tab and "
 "processes in the \"Linked processes\" tab."
 msgstr ""
-
-#: templates/tabs/business_process_map.html.twig
-#, php-format
-msgid "%d item or process you cannot see is not shown."
-msgid_plural "%d items or processes you cannot see are not shown."
-msgstr[0] ""
-msgstr[1] ""
 
 #: templates/tabs/business_process_recovery.html.twig
 #: templates/pdf/business_continuity_report.html.twig
@@ -8260,6 +8260,36 @@ msgstr ""
 msgid "an outage of the source affects the item pointed to"
 msgstr ""
 
+#: templates/_impact_graph.html.twig
+msgid "Image (PNG)"
+msgstr ""
+
+#: templates/_impact_graph.html.twig
+msgid "Image (JPEG)"
+msgstr ""
+
+#: templates/_impact_graph.html.twig
+msgid "Vector image (SVG), sharp at any size"
+msgstr ""
+
+#: templates/_impact_graph.html.twig
+#, php-format
+msgid "Dependency map: %s"
+msgstr ""
+
+#: templates/_impact_graph.html.twig
+#, php-format
+msgid "Exported on %s"
+msgstr ""
+
+#: templates/_impact_graph.html.twig
+msgid "Download the map as shown, to put it in a document or a presentation"
+msgstr ""
+
+#: templates/_impact_graph.html.twig
+msgid "Export the map"
+msgstr ""
+
 #: templates/account_hygiene_ticket.html.twig
 msgid ""
 "Active GLPI accounts to check (\"Account hygiene\" screen). For each one: "
@@ -8493,7 +8523,7 @@ msgid "No dependency you can see."
 msgstr ""
 
 #: templates/pdf/business_continuity_report.html.twig
-#: src/BusinessProcessLink.php:53
+#: src/BusinessProcessLink.php:55
 msgid "Linked processes"
 msgstr ""
 
@@ -16134,21 +16164,21 @@ msgid ""
 "objective)."
 msgstr ""
 
-#: src/BusinessProcessLink.php:259
+#: src/BusinessProcessLink.php:261 src/BusinessProcessLink.php:281
 msgid "Dependency map"
 msgstr ""
 
-#: src/BusinessProcessLink.php:307
+#: src/BusinessProcessLink.php:321
 msgid "Choose a process to link."
 msgstr ""
 
-#: src/BusinessProcessLink.php:314
+#: src/BusinessProcessLink.php:328
 msgid ""
 "This link would create a loop: the chosen process already depends on this "
 "one."
 msgstr ""
 
-#: src/BusinessProcessLink.php:326
+#: src/BusinessProcessLink.php:340
 msgid "This process is already linked."
 msgstr ""
 
