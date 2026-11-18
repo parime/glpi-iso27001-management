@@ -231,8 +231,11 @@ function plugin_init_grcmanager(): void
     // Issue #183 : onglet « Expositions à des fuites de données » sur la fiche de l'utilisateur (registre
     // sensible), et clé d'API Have I Been Pwned chiffrée par GLPI (configuration sécurisée).
     Plugin::registerClass(\GlpiPlugin\Grcmanager\BreachExposure::class, ['addtabon' => [User::class]]);
-    $PLUGIN_HOOKS[Hooks::SECURED_CONFIGS]['grcmanager']
-        = \GlpiPlugin\Grcmanager\Services\Breach\BreachMonitorConfig::SECURED;
+    // Issue #707 : jeton d'API SentinelOne, chiffré de la même façon.
+    $PLUGIN_HOOKS[Hooks::SECURED_CONFIGS]['grcmanager'] = array_merge(
+        \GlpiPlugin\Grcmanager\Services\Breach\BreachMonitorConfig::SECURED,
+        \GlpiPlugin\Grcmanager\Services\Incident\SentinelOneConfig::SECURED
+    );
 
     // Issue #169 : onglet « Rapport post-incident » sur les incidents de sécurité.
     Plugin::registerClass(\GlpiPlugin\Grcmanager\SecurityIncidentPostMortem::class, [

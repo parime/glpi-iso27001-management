@@ -240,6 +240,10 @@ final class Installer
     // Issue #370 : imports CSV d'EDR / XDR (lignes brutes) et identifiants d'alerte déjà importés.
     private const SECURITY_INCIDENT_EDR_IMPORTS_TABLE = 'glpi_plugin_grcmanager_securityincidentedrimports';
     private const SECURITY_INCIDENT_EDR_ALERTS_TABLE = 'glpi_plugin_grcmanager_securityincidentedralerts';
+    // Issue #707 : connecteur SentinelOne (propositions d'incidents, agents, vulnérabilités applicatives).
+    private const SENTINELONE_ALERTS_TABLE = 'glpi_plugin_grcmanager_sentinelonealerts';
+    private const SENTINELONE_AGENTS_TABLE = 'glpi_plugin_grcmanager_sentineloneagents';
+    private const SENTINELONE_VULNERABILITIES_TABLE = 'glpi_plugin_grcmanager_sentinelonevulnerabilities';
     private const PLAYBOOK_STEPS_TABLE = 'glpi_plugin_grcmanager_playbooksteps';
     private const SECURITY_INCIDENT_PLAYBOOK_TASKS_TABLE = 'glpi_plugin_grcmanager_securityincidentplaybooktasks';
 
@@ -1403,6 +1407,7 @@ final class Installer
         $this->installDataBreachTables($keySign, $charset, $collation);
         $this->installContextTables($keySign, $charset, $collation);
         $this->installParkRemediationTables($keySign, $charset, $collation);
+        $this->installSentinelOneTables($keySign, $charset, $collation);
 
         // Issue #30 (registre des obligations légales/réglementaires/contractuelles, clause 4.2
         // ISO 27001 "parties intéressées et leurs exigences", Annexe A A.5.31-36) : lien optionnel
@@ -3342,6 +3347,20 @@ final class Installer
             ]
         );
 
+        // Issue #707 : connecteur SentinelOne (lecture seule), DÉSACTIVÉ à l'installation : il est
+        // activé avec le connecteur dans la configuration du plugin. Un réglage existant est gardé
+        // (Register ne modifie pas une tâche déjà enregistrée).
+        CronTask::Register(
+            \GlpiPlugin\Grcmanager\SentinelOneAlert::class,
+            'sentinelone',
+            HOUR_TIMESTAMP,
+            [
+                'comment' => 'Lit les nouvelles menaces, alertes et vulnerabilites de SentinelOne (lecture seule)',
+                'mode'    => CronTask::MODE_EXTERNAL,
+                'state'   => CronTask::STATE_DISABLE,
+            ]
+        );
+
         // Issue #183 : surveillance des fuites de données (Have I Been Pwned). Sans effet tant
         // qu'elle n'est pas activée avec une clé d'API dans la configuration du plugin.
         CronTask::Register(
@@ -4507,6 +4526,81 @@ final class Installer
      * niveau, échéance connue avant un changement de niveau, date de correction. Et les CVE couvertes
      * par une dérogation de sécurité.
      */
+    /**
+     * Issue #707 : connecteur SentinelOne en lecture seule. Propositions d'incidents (menaces et
+     * alertes à vérifier), agents de la console rapprochés des ordinateurs, vulnérabilités
+     * applicatives. Création seulement si absentes : rejouable.
+     */
+    private function installSentinelOneTables(string $keySign, string $charset, string $collation): void
+    {
+        global $DB;
+
+        if (!$DB->tableExists(self::SENTINELONE_ALERTS_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::SENTINELONE_ALERTS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `external_id` varchar(64) NOT NULL DEFAULT '' COMMENT 'Identifiant SentinelOne (anti-doublon)',
+                `kind` varchar(10) NOT NULL DEFAULT 'threat' COMMENT 'threat ou alert',
+                `name` varchar(255) NOT NULL DEFAULT '',
+                `detected_at` timestamp NULL DEFAULT NULL,
+                `severity` varchar(10) NOT NULL DEFAULT 'minor',
+                `hostname` varchar(255) NOT NULL DEFAULT '',
+                `username` varchar(255) NOT NULL DEFAULT '',
+                `agent_id` varchar(64) NOT NULL DEFAULT '',
+                `computers_id` int {$keySign} NOT NULL DEFAULT 0,
+                `entities_id` int {$keySign} NOT NULL DEFAULT 0,
+                `is_recursive` tinyint NOT NULL DEFAULT 0,
+                `data` longtext COMMENT 'Champs lus dans l API (JSON), jamais modifies',
+                `status` varchar(10) NOT NULL DEFAULT 'pending' COMMENT 'pending, imported, ignored',
+                `plugin_grcmanager_securityincidents_id` int {$keySign} NOT NULL DEFAULT 0,
+                `users_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Qui a importe ou ecarte',
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `external_id` (`external_id`),
+                KEY `status` (`status`),
+                KEY `entities_id` (`entities_id`),
+                KEY `computers_id` (`computers_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+        if (!$DB->tableExists(self::SENTINELONE_AGENTS_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::SENTINELONE_AGENTS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `agent_id` varchar(64) NOT NULL DEFAULT '',
+                `uuid` varchar(64) NOT NULL DEFAULT '',
+                `computer_name` varchar(255) NOT NULL DEFAULT '',
+                `serial` varchar(255) NOT NULL DEFAULT '',
+                `os` varchar(255) NOT NULL DEFAULT '',
+                `is_active` tinyint NOT NULL DEFAULT 0,
+                `last_active` timestamp NULL DEFAULT NULL,
+                `computers_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Par numero de serie ou nom exact',
+                `entities_id` int {$keySign} NOT NULL DEFAULT 0,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `agent_id` (`agent_id`),
+                KEY `computers_id` (`computers_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+        if (!$DB->tableExists(self::SENTINELONE_VULNERABILITIES_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::SENTINELONE_VULNERABILITIES_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `unicity` char(40) NOT NULL DEFAULT '' COMMENT 'SHA-1 de CVE, poste, application, version',
+                `cve_id` varchar(20) NOT NULL DEFAULT '',
+                `endpoint_id` varchar(64) NOT NULL DEFAULT '',
+                `endpoint_name` varchar(255) NOT NULL DEFAULT '',
+                `application` varchar(255) NOT NULL DEFAULT '',
+                `version` varchar(100) NOT NULL DEFAULT '',
+                `score` decimal(3,1) DEFAULT NULL,
+                `severity` varchar(20) NOT NULL DEFAULT '',
+                `computers_id` int {$keySign} NOT NULL DEFAULT 0,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity` (`unicity`),
+                KEY `cve_id` (`cve_id`),
+                KEY `computers_id` (`computers_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+    }
+
     private function installParkRemediationTables(string $keySign, string $charset, string $collation): void
     {
         global $DB;
@@ -5377,6 +5471,9 @@ final class Installer
         $migration->dropTable(self::PLAYBOOKS_TABLE);
         $migration->dropTable(self::SECURITY_INCIDENT_EDR_IMPORTS_TABLE);
         $migration->dropTable(self::SECURITY_INCIDENT_EDR_ALERTS_TABLE);
+        $migration->dropTable(self::SENTINELONE_ALERTS_TABLE);
+        $migration->dropTable(self::SENTINELONE_AGENTS_TABLE);
+        $migration->dropTable(self::SENTINELONE_VULNERABILITIES_TABLE);
         $migration->dropTable(self::SECURITY_INCIDENT_TEAMS_TABLE);
         $migration->dropTable(self::SECURITY_INCIDENT_TASKS_TABLE);
         $migration->dropTable(self::SECURITY_INCIDENTS_TICKETS_TABLE);
