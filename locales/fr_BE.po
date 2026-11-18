@@ -4296,13 +4296,25 @@ msgstr "Voir l'impact"
 msgid "More machines affected: %d now."
 msgstr "Plus de machines touchées : %d désormais."
 
-msgid "%d new machine linked to the ticket. Machines that are no longer vulnerable stay linked."
-msgid_plural "%d new machines linked to the ticket. Machines that are no longer vulnerable stay linked."
-msgstr[0] "%d nouvelle machine liée au ticket. Les machines qui ne sont plus vulnérables restent liées."
-msgstr[1] "%d nouvelles machines liées au ticket. Les machines qui ne sont plus vulnérables restent liées."
+msgid ""
+"%d new machine linked to the ticket. Machines that are no longer vulnerable "
+"stay linked."
+msgid_plural ""
+"%d new machines linked to the ticket. Machines that are no longer vulnerable "
+"stay linked."
+msgstr[0] ""
+"%d nouvelle machine liée au ticket. Les machines qui ne sont plus "
+"vulnérables restent liées."
+msgstr[1] ""
+"%d nouvelles machines liées au ticket. Les machines qui ne sont plus "
+"vulnérables restent liées."
 
-msgid "The ticket has reached the limit of %d linked items: the other machines are not linked, see the Fleet vulnerabilities page."
-msgstr "Le ticket a atteint la limite de %d éléments liés : les autres machines ne sont pas liées, consultez la page Vulnérabilités du parc."
+msgid ""
+"The ticket has reached the limit of %d linked items: the other machines are "
+"not linked, see the Fleet vulnerabilities page."
+msgstr ""
+"Le ticket a atteint la limite de %d éléments liés : les autres machines ne "
+"sont pas liées, consultez la page Vulnérabilités du parc."
 
 msgid ""
 "No vulnerable machine is inventoried anymore: check, then close the ticket."
@@ -17281,8 +17293,12 @@ msgstr "Il y a plus de 48 heures : l'inventaire n'est peut-être plus à jour."
 msgid "last successful import: %s"
 msgstr "dernier import réussi : %s"
 
-msgid "The import dates of the connections are shown to the administrators of the Docker inventory."
-msgstr "Les dates d'import des connexions sont affichées aux administrateurs de l'inventaire Docker."
+msgid ""
+"The import dates of the connections are shown to the administrators of the "
+"Docker inventory."
+msgstr ""
+"Les dates d'import des connexions sont affichées aux administrateurs de "
+"l'inventaire Docker."
 
 msgid "Version gaps"
 msgstr "Écarts de version"
@@ -17311,8 +17327,11 @@ msgstr "%d critique(s)"
 msgid "%d high"
 msgstr "%d haute(s)"
 
-msgid "Services counted by the most severe vulnerability of the image they run."
-msgstr "Services comptés selon la vulnérabilité la plus grave de l'image qu'ils exécutent."
+msgid ""
+"Services counted by the most severe vulnerability of the image they run."
+msgstr ""
+"Services comptés selon la vulnérabilité la plus grave de l'image qu'ils "
+"exécutent."
 
 msgid "image origin not evaluated: no controlled registry declared"
 msgstr "provenance des images non évaluée : aucun registre maîtrisé déclaré"
@@ -17342,8 +17361,12 @@ msgstr "%1$d changement(s) de version observé(s) ces %2$d derniers jours"
 msgid "%1$d changes: the %2$d most recent are shown."
 msgstr "%1$d changements : les %2$d plus récents sont affichés."
 
-msgid "Read live from the Docker inventory plugin, on your active entities and within your rights there. Read only: nothing is changed."
-msgstr "Lu en direct dans le plugin Inventaire Docker, sur vos entités actives et selon vos droits dans ce plugin. Lecture seule : rien n'est modifié."
+msgid ""
+"Read live from the Docker inventory plugin, on your active entities and "
+"within your rights there. Read only: nothing is changed."
+msgstr ""
+"Lu en direct dans le plugin Inventaire Docker, sur vos entités actives et "
+"selon vos droits dans ce plugin. Lecture seule : rien n'est modifié."
 
 msgid "Docker inventory evidence"
 msgstr "Preuves de l'inventaire Docker"
@@ -17352,10 +17375,17 @@ msgid "Container images (Harbor)"
 msgstr "Images de conteneurs (Harbor)"
 
 msgid "No deployed container image has critical or high vulnerabilities."
-msgstr "Aucune image de conteneur déployée n'a de vulnérabilité critique ou haute."
+msgstr ""
+"Aucune image de conteneur déployée n'a de vulnérabilité critique ou haute."
 
-msgid "Services of the Docker inventory whose running image has critical or high vulnerabilities in its Harbor analysis. Read only, from the Docker inventory plugin."
-msgstr "Services de l'inventaire Docker dont l'image en cours d'exécution a des vulnérabilités critiques ou hautes dans son analyse Harbor. Lecture seule, depuis le plugin Inventaire Docker."
+msgid ""
+"Services of the Docker inventory whose running image has critical or high "
+"vulnerabilities in its Harbor analysis. Read only, from the Docker inventory "
+"plugin."
+msgstr ""
+"Services de l'inventaire Docker dont l'image en cours d'exécution a des "
+"vulnérabilités critiques ou hautes dans son analyse Harbor. Lecture seule, "
+"depuis le plugin Inventaire Docker."
 
 #, php-format
 msgid "%1$d services: the %2$d most exposed are shown."
@@ -17372,11 +17402,19 @@ msgid "You cannot create a risk in this entity."
 msgstr "Vous ne pouvez pas créer de risque dans cette entité."
 
 #, php-format
-msgid "This entity now has its own Statement of Applicability (%d controls to review)."
-msgstr "Cette entité a maintenant sa propre Déclaration d'Applicabilité (%d mesures à revoir)."
+msgid ""
+"This entity now has its own Statement of Applicability (%d controls to "
+"review)."
+msgstr ""
+"Cette entité a maintenant sa propre Déclaration d'Applicabilité (%d mesures "
+"à revoir)."
 
-msgid "This entity follows the SoA of a parent entity: only that entity can submit it for approval."
-msgstr "Cette entité suit la SoA d'une entité parente : seule cette entité peut la soumettre à approbation."
+msgid ""
+"This entity follows the SoA of a parent entity: only that entity can submit "
+"it for approval."
+msgstr ""
+"Cette entité suit la SoA d'une entité parente : seule cette entité peut la "
+"soumettre à approbation."
 
 #, php-format
 msgid "Perimeter: %s"
@@ -17396,8 +17434,14 @@ msgstr "SoA héritée"
 msgid "The entity \"%1$s\" follows the SoA of the entity \"%2$s\"."
 msgstr "L'entité « %1$s » suit la SoA de l'entité « %2$s »."
 
-msgid "Create a separate SoA for this entity? Its 93 controls start from the current applicability and justifications, and every control has to be implemented again in this entity."
-msgstr "Créer une SoA propre à cette entité ? Ses 93 mesures reprennent l'applicabilité et les justifications actuelles, et chaque mesure est à mettre en œuvre dans cette entité."
+msgid ""
+"Create a separate SoA for this entity? Its 93 controls start from the "
+"current applicability and justifications, and every control has to be "
+"implemented again in this entity."
+msgstr ""
+"Créer une SoA propre à cette entité ? Ses 93 mesures reprennent "
+"l'applicabilité et les justifications actuelles, et chaque mesure est à "
+"mettre en œuvre dans cette entité."
 
 msgid "Create the SoA of this entity"
 msgstr "Créer la SoA de cette entité"
@@ -17408,8 +17452,15 @@ msgstr "Périmètres"
 msgid "Consolidation by perimeter"
 msgstr "Consolidation par périmètre"
 
-msgid "One row for the current entity and one per child entity, sub-entities included. The rate counts the applicable controls of the SoA each entity follows: implemented or verified count fully, in progress counts half."
-msgstr "Une ligne pour l'entité courante et une par entité enfant, sous-entités comprises. Le taux porte sur les mesures applicables de la SoA suivie par chaque entité : mise en œuvre ou vérifiée compte pour une, en cours pour moitié."
+msgid ""
+"One row for the current entity and one per child entity, sub-entities "
+"included. The rate counts the applicable controls of the SoA each entity "
+"follows: implemented or verified count fully, in progress counts half."
+msgstr ""
+"Une ligne pour l'entité courante et une par entité enfant, sous-entités "
+"comprises. Le taux porte sur les mesures applicables de la SoA suivie par "
+"chaque entité : mise en œuvre ou vérifiée compte pour une, en cours pour "
+"moitié."
 
 msgid "SoA followed"
 msgstr "SoA suivie"
@@ -17433,20 +17484,34 @@ msgstr "Pas encore approuvée"
 msgid "Summary by attribute"
 msgstr "Synthèse par attribut"
 
-msgid "Implementation rate by control type, security property, cybersecurity concept, operational capability and security domain."
-msgstr "Taux de mise en œuvre par type de mesure, propriété de sécurité, concept de cybersécurité, capacité opérationnelle et domaine de sécurité."
+msgid ""
+"Implementation rate by control type, security property, cybersecurity "
+"concept, operational capability and security domain."
+msgstr ""
+"Taux de mise en œuvre par type de mesure, propriété de sécurité, concept de "
+"cybersécurité, capacité opérationnelle et domaine de sécurité."
 
 msgid "Show the applicable controls with this value"
 msgstr "Afficher les mesures applicables qui ont cette valeur"
 
-msgid "Controls marked not applicable are left out of the rate; \"in progress\" counts for half. A control can carry several values of the same attribute. Click a value to filter the list below."
-msgstr "Les mesures non applicables sont écartées du taux ; « en cours » compte pour moitié. Une mesure peut porter plusieurs valeurs d'un même attribut. Cliquez sur une valeur pour filtrer la liste ci-dessous."
+msgid ""
+"Controls marked not applicable are left out of the rate; \"in progress\" "
+"counts for half. A control can carry several values of the same attribute. "
+"Click a value to filter the list below."
+msgstr ""
+"Les mesures non applicables sont écartées du taux ; « en cours » compte pour "
+"moitié. Une mesure peut porter plusieurs valeurs d'un même attribut. Cliquez "
+"sur une valeur pour filtrer la liste ci-dessous."
 
 msgid "Attribute"
 msgstr "Attribut"
 
-msgid "Attributes delivered with the catalogue: they filter the SoA and feed the summary by attribute. You can adjust them."
-msgstr "Attributs livrés avec le catalogue : ils filtrent la SoA et alimentent la synthèse par attribut. Vous pouvez les ajuster."
+msgid ""
+"Attributes delivered with the catalogue: they filter the SoA and feed the "
+"summary by attribute. You can adjust them."
+msgstr ""
+"Attributs livrés avec le catalogue : ils filtrent la SoA et alimentent la "
+"synthèse par attribut. Vous pouvez les ajuster."
 
 msgid "Implementation by function (%)"
 msgstr "Mise en œuvre par fonction (%)"
@@ -17574,8 +17639,12 @@ msgstr "5 x 5 : cinq niveaux de probabilité et d'impact"
 msgid "%1$d x %1$d"
 msgstr "%1$d x %1$d"
 
-msgid "Risk matrix changed from %1$s to %2$s: values converted with the correspondence validated by the administrator"
-msgstr "Matrice des risques passée de %1$s à %2$s : valeurs converties selon la correspondance validée par l'administrateur"
+msgid ""
+"Risk matrix changed from %1$s to %2$s: values converted with the "
+"correspondence validated by the administrator"
+msgstr ""
+"Matrice des risques passée de %1$s à %2$s : valeurs converties selon la "
+"correspondance validée par l'administrateur"
 
 msgid "Choose a matrix size different from the current one."
 msgstr "Choisissez une taille de matrice différente de la taille actuelle."
@@ -17583,8 +17652,12 @@ msgstr "Choisissez une taille de matrice différente de la taille actuelle."
 msgid "Tick the box to confirm that you have checked the correspondence."
 msgstr "Cochez la case pour confirmer que vous avez vérifié la correspondance."
 
-msgid "The risk matrix is now %1$s. Risks updated: %2$d (see the history of each risk)."
-msgstr "La matrice des risques est maintenant en %1$s. Risques mis à jour : %2$d (voir l'historique de chaque risque)."
+msgid ""
+"The risk matrix is now %1$s. Risks updated: %2$d (see the history of each "
+"risk)."
+msgstr ""
+"La matrice des risques est maintenant en %1$s. Risques mis à jour : %2$d "
+"(voir l'historique de chaque risque)."
 
 msgid "Change the risk matrix size"
 msgstr "Changer la taille de la matrice des risques"
@@ -17598,8 +17671,15 @@ msgstr "Correspondance des valeurs"
 msgid "Check the effect and apply"
 msgstr "Vérifier l'effet et appliquer"
 
-msgid "Each value used today by the risks is converted into a value of the new scale. A correspondence is proposed below: check it and change it if needed, then look at its effect. Nothing is changed in the register before you apply."
-msgstr "Chaque valeur utilisée aujourd'hui par les risques est convertie en une valeur de la nouvelle échelle. Une correspondance est proposée ci-dessous : vérifiez-la, modifiez-la si besoin, puis regardez son effet. Rien ne change dans le registre avant que vous appliquiez."
+msgid ""
+"Each value used today by the risks is converted into a value of the new "
+"scale. A correspondence is proposed below: check it and change it if needed, "
+"then look at its effect. Nothing is changed in the register before you apply."
+msgstr ""
+"Chaque valeur utilisée aujourd'hui par les risques est convertie en une "
+"valeur de la nouvelle échelle. Une correspondance est proposée ci-dessous : "
+"vérifiez-la, modifiez-la si besoin, puis regardez son effet. Rien ne change "
+"dans le registre avant que vous appliquiez."
 
 msgid "Current value"
 msgstr "Valeur actuelle"
@@ -17610,14 +17690,19 @@ msgstr "Risques qui l'utilisent"
 msgid "New value"
 msgstr "Nouvelle valeur"
 
-msgid "The new values that no current value goes to stay available for the next assessments."
-msgstr "Les nouvelles valeurs vers lesquelles ne va aucune valeur actuelle restent disponibles pour les prochaines appréciations."
+msgid ""
+"The new values that no current value goes to stay available for the next "
+"assessments."
+msgstr ""
+"Les nouvelles valeurs vers lesquelles ne va aucune valeur actuelle restent "
+"disponibles pour les prochaines appréciations."
 
 msgid "Effect on the register"
 msgstr "Effet sur le registre"
 
 msgid "No risk changes: their values and levels stay the same."
-msgstr "Aucun risque ne change : leurs valeurs et leurs niveaux restent les mêmes."
+msgstr ""
+"Aucun risque ne change : leurs valeurs et leurs niveaux restent les mêmes."
 
 msgid "%1$d risk out of %2$d will be updated."
 msgid_plural "%1$d risks out of %2$d will be updated."
@@ -17630,8 +17715,13 @@ msgstr "Risques dont le niveau monte : %d."
 msgid "Risks whose level goes down: %d."
 msgstr "Risques dont le niveau baisse : %d."
 
-msgid "Each change is recorded in the history of the risk. Accepted risks keep their decision: check those whose level goes up against the risk appetite."
-msgstr "Chaque modification est enregistrée dans l'historique du risque. Les risques acceptés gardent leur décision : vérifiez ceux dont le niveau monte au regard de l'appétence au risque."
+msgid ""
+"Each change is recorded in the history of the risk. Accepted risks keep "
+"their decision: check those whose level goes up against the risk appetite."
+msgstr ""
+"Chaque modification est enregistrée dans l'historique du risque. Les risques "
+"acceptés gardent leur décision : vérifiez ceux dont le niveau monte au "
+"regard de l'appétence au risque."
 
 msgid "Current level"
 msgstr "Niveau actuel"
@@ -17645,8 +17735,12 @@ msgstr "Nombre de risques"
 msgid "Risk matrix after the change"
 msgstr "Matrice des risques après le changement"
 
-msgid "Default grid of the new size. You can adjust it afterwards in the configuration."
-msgstr "Grille par défaut de la nouvelle taille. Vous pourrez l'ajuster ensuite dans la configuration."
+msgid ""
+"Default grid of the new size. You can adjust it afterwards in the "
+"configuration."
+msgstr ""
+"Grille par défaut de la nouvelle taille. Vous pourrez l'ajuster ensuite dans "
+"la configuration."
 
 msgid "See the effect"
 msgstr "Voir l'effet"
@@ -17666,8 +17760,14 @@ msgstr "Taille de la matrice"
 msgid "Current size: %s."
 msgstr "Taille actuelle : %s."
 
-msgid "Changing the size converts the probability and impact of every existing risk: you first choose how the current values correspond to the new ones, and see the effect before applying it."
-msgstr "Changer la taille convertit la probabilité et l'impact de chaque risque existant : vous choisissez d'abord la correspondance entre les valeurs actuelles et les nouvelles, et vous voyez l'effet avant de l'appliquer."
+msgid ""
+"Changing the size converts the probability and impact of every existing "
+"risk: you first choose how the current values correspond to the new ones, "
+"and see the effect before applying it."
+msgstr ""
+"Changer la taille convertit la probabilité et l'impact de chaque risque "
+"existant : vous choisissez d'abord la correspondance entre les valeurs "
+"actuelles et les nouvelles, et vous voyez l'effet avant de l'appliquer."
 
 msgid "New size"
 msgstr "Nouvelle taille"
@@ -17675,20 +17775,34 @@ msgstr "Nouvelle taille"
 msgid "Prepare the change"
 msgstr "Préparer le changement"
 
-msgid "Changing the size requires the right to update the plugin configuration and the sensitive registers."
-msgstr "Changer la taille demande le droit de modifier la configuration du plugin et les registres sensibles."
+msgid ""
+"Changing the size requires the right to update the plugin configuration and "
+"the sensitive registers."
+msgstr ""
+"Changer la taille demande le droit de modifier la configuration du plugin et "
+"les registres sensibles."
 
-msgid "The plugin matrix has %d levels: a score on another scale is converted (the lowest and highest scores match)."
-msgstr "La matrice du plugin a %d niveaux : une note sur une autre échelle est convertie (les notes extrêmes se correspondent)."
+msgid ""
+"The plugin matrix has %d levels: a score on another scale is converted (the "
+"lowest and highest scores match)."
+msgstr ""
+"La matrice du plugin a %d niveaux : une note sur une autre échelle est "
+"convertie (les notes extrêmes se correspondent)."
 
-msgid "The proposed correspondence is the one that changes the fewest risk levels between the current grid and the grid of the new size."
-msgstr "La correspondance proposée est celle qui change le moins de niveaux de risque entre la grille actuelle et la grille de la nouvelle taille."
+msgid ""
+"The proposed correspondence is the one that changes the fewest risk levels "
+"between the current grid and the grid of the new size."
+msgstr ""
+"La correspondance proposée est celle qui change le moins de niveaux de "
+"risque entre la grille actuelle et la grille de la nouvelle taille."
 
 msgid "Export the map"
 msgstr "Exporter la carte"
 
 msgid "Download the map as shown, to put it in a document or a presentation"
-msgstr "Télécharger la carte telle qu'elle est affichée, pour la mettre dans un document ou une présentation"
+msgstr ""
+"Télécharger la carte telle qu'elle est affichée, pour la mettre dans un "
+"document ou une présentation"
 
 msgid "Image (PNG)"
 msgstr "Image (PNG)"
@@ -17706,20 +17820,32 @@ msgid "Exported on %s"
 msgstr "Exportée le %s"
 
 #: issue-609
-msgid "Deduced from the risks linked to this control and from the obligations of the register attached to them."
-msgstr "Déduit des risques liés à cette mesure et des obligations du registre qui leur sont rattachées."
+msgid ""
+"Deduced from the risks linked to this control and from the obligations of "
+"the register attached to them."
+msgstr ""
+"Déduit des risques liés à cette mesure et des obligations du registre qui "
+"leur sont rattachées."
 
 #: issue-609
 msgid "From the links"
 msgstr "D'après les liens"
 
 #: issue-609
-msgid "The ticked reasons are deduced from the linked risks and obligations: check them, then save."
-msgstr "Les motifs cochés sont déduits des risques et obligations liés : vérifiez-les, puis enregistrez."
+msgid ""
+"The ticked reasons are deduced from the linked risks and obligations: check "
+"them, then save."
+msgstr ""
+"Les motifs cochés sont déduits des risques et obligations liés : vérifiez-"
+"les, puis enregistrez."
 
 #: issue-609
-msgid "Why this control is included: several reasons are possible. Linking a new risk ticks the risk assessment reason."
-msgstr "Pourquoi cette mesure est retenue : plusieurs motifs sont possibles. Lier un nouveau risque coche le motif d'appréciation des risques."
+msgid ""
+"Why this control is included: several reasons are possible. Linking a new "
+"risk ticks the risk assessment reason."
+msgstr ""
+"Pourquoi cette mesure est retenue : plusieurs motifs sont possibles. Lier un "
+"nouveau risque coche le motif d'appréciation des risques."
 
 #: issue-609
 msgid "Reasons for selection"
@@ -17730,8 +17856,12 @@ msgid "Exclusion category"
 msgstr "Catégorie d'exclusion"
 
 #: issue-609
-msgid "Why the control is left out, for example: no premises of its own, hosting by a certified provider."
-msgstr "Pourquoi la mesure est écartée, par exemple : aucun local propre, hébergement chez un prestataire certifié."
+msgid ""
+"Why the control is left out, for example: no premises of its own, hosting by "
+"a certified provider."
+msgstr ""
+"Pourquoi la mesure est écartée, par exemple : aucun local propre, "
+"hébergement chez un prestataire certifié."
 
 #: issue-609
 msgid "Residual risk"
@@ -17742,16 +17872,24 @@ msgid "Risk that remains once the compensating measures are in place."
 msgstr "Risque qui subsiste une fois les mesures compensatoires en place."
 
 #: issue-609
-msgid "Controls of this SoA that make up for the exclusion, for example A.5.20 for an audit clause in the provider contract."
-msgstr "Mesures de cette SoA qui compensent l'exclusion, par exemple A.5.20 pour une clause d'audit dans le contrat du prestataire."
+msgid ""
+"Controls of this SoA that make up for the exclusion, for example A.5.20 for "
+"an audit clause in the provider contract."
+msgstr ""
+"Mesures de cette SoA qui compensent l'exclusion, par exemple A.5.20 pour une "
+"clause d'audit dans le contrat du prestataire."
 
 #: issue-609
 msgid "Compensating measures"
 msgstr "Mesures compensatoires (description)"
 
 #: issue-609
-msgid "Other compensating measures, in your own words (contract clause, provider certificate...)."
-msgstr "Autres mesures compensatoires, avec vos propres mots (clause du contrat, certificat du prestataire...)."
+msgid ""
+"Other compensating measures, in your own words (contract clause, provider "
+"certificate...)."
+msgstr ""
+"Autres mesures compensatoires, avec vos propres mots (clause du contrat, "
+"certificat du prestataire...)."
 
 #: issue-609
 msgid "Summary by theme"
@@ -17790,8 +17928,13 @@ msgid "Total"
 msgstr "Total"
 
 #: issue-609
-msgid "\"Implemented\" counts implemented and verified controls; \"Planned\" counts applicable controls not started yet. Click a theme to filter the list below."
-msgstr "\"Mis en œuvre\" compte les mesures mises en œuvre et vérifiées ; \"Planifié\" compte les mesures applicables pas encore démarrées. Cliquez sur un thème pour filtrer la liste ci-dessous."
+msgid ""
+"\"Implemented\" counts implemented and verified controls; \"Planned\" counts "
+"applicable controls not started yet. Click a theme to filter the list below."
+msgstr ""
+"\"Mis en œuvre\" compte les mesures mises en œuvre et vérifiées ; "
+"\"Planifié\" compte les mesures applicables pas encore démarrées. Cliquez "
+"sur un thème pour filtrer la liste ci-dessous."
 
 #: issue-609
 msgid "Risk assessment result"
@@ -17825,6 +17968,303 @@ msgstr "Assurée par un prestataire certifié"
 msgid "Out of the ISMS scope"
 msgstr "Hors du périmètre du SMSI"
 
+msgid "Interested party"
+msgstr "Partie intéressée"
+
+msgid ""
+"For example \"Key account customers\" or \"Data protection authority\". "
+"Leave empty to use the name of the supplier or group chosen below."
+msgstr ""
+"Par exemple « Clients grands comptes » ou « Autorité de protection des "
+"données ». Laissez vide pour reprendre le nom du fournisseur ou du groupe "
+"choisi plus bas."
+
+msgid "Type of interested party"
+msgstr "Type de partie intéressée"
+
+msgid "Supplier in GLPI"
+msgstr "Fournisseur dans GLPI"
+
+msgid "Optional: when the party is a supplier already recorded in GLPI."
+msgstr ""
+"Facultatif : quand la partie est un fournisseur déjà enregistré dans GLPI."
+
+msgid "Group in GLPI"
+msgstr "Groupe dans GLPI"
+
+msgid "Optional: when the party is a team or a department recorded as a group."
+msgstr ""
+"Facultatif : quand la partie est une équipe ou un service enregistré comme "
+"groupe."
+
+msgid "Needs and expectations"
+msgstr "Besoins et attentes"
+
+msgid ""
+"What this party expects from you about information security, e.g. \"incident "
+"notification within 24 hours\"."
+msgstr ""
+"Ce que cette partie attend de vous en matière de sécurité de l'information, "
+"par exemple « notification d'incident sous 24 h »."
+
+msgid "Internal or external issue"
+msgstr "Enjeu interne ou externe"
+
+msgid ""
+"Since the 2024 amendment of ISO 27001, the organization must determine "
+"whether climate change is a relevant issue. Answer yes or no, and write why: "
+"requirement 4.1 cannot be marked compliant until this is done."
+msgstr ""
+"Depuis l'amendement de 2024 de l'ISO 27001, l'organisme doit déterminer si "
+"le changement climatique est un enjeu pertinent. Répondez oui ou non, et "
+"écrivez pourquoi : l'exigence 4.1 ne peut pas être marquée conforme avant."
+
+msgid ""
+"A short title, e.g. \"New cyber security law\" or \"Growth of remote work\"."
+msgstr ""
+"Un titre court, par exemple « Nouvelle loi cyber » ou « Développement du "
+"télétravail »."
+
+msgid "Internal or external"
+msgstr "Interne ou externe"
+
+msgid "Effect on the ISMS"
+msgstr "Effet sur le SMSI"
+
+msgid ""
+"How this issue can affect the ability of the ISMS to achieve its intended "
+"results."
+msgstr ""
+"Comment cet enjeu peut influer sur la capacité du SMSI à atteindre les "
+"résultats attendus."
+
+msgid "Decision of the ISMS"
+msgstr "Décision du SMSI"
+
+msgid "Is climate change relevant?"
+msgstr "Le changement climatique est-il pertinent ?"
+
+msgid ""
+"\"Retained by the ISMS\" means relevant; \"Not retained\" means not "
+"relevant. A justification is required in both cases."
+msgstr ""
+"« Retenu par le SMSI » signifie pertinent ; « Non retenu » signifie non "
+"pertinent. Une justification est demandée dans les deux cas."
+
+msgid "Retained: the ISMS takes it into account. Not retained: write why."
+msgstr "Retenu : le SMSI le prend en compte. Non retenu : écrivez pourquoi."
+
+msgid "Requirements retained by the ISMS"
+msgstr "Exigences retenues par le SMSI"
+
+msgid ""
+"Which of these expectations become requirements of the ISMS. Link below the "
+"obligations and the controls that answer them."
+msgstr ""
+"Lesquelles de ces attentes deviennent des exigences du SMSI. Liez plus bas "
+"les obligations et les mesures qui y répondent."
+
+msgid "Links with the ISMS"
+msgstr "Liens avec le SMSI"
+
+msgid "Related obligations"
+msgstr "Obligations liées"
+
+msgid "Controls that respond"
+msgstr "Mesures qui y répondent"
+
+msgid "Follow-up"
+msgstr "Suivi"
+
+msgid "The owner receives a reminder 30 days before this date."
+msgstr "Le propriétaire reçoit un rappel 30 jours avant cette date."
+
+msgid "Climate change"
+msgstr "Changement climatique"
+
+#, php-format
+msgid "the question is answered (%s)."
+msgstr "la question a une réponse (%s)."
+
+msgid ""
+"say whether climate change is a relevant issue for your ISMS, and why. "
+"Required before requirement 4.1 can be marked compliant."
+msgstr ""
+"dites si le changement climatique est un enjeu pertinent pour votre SMSI, et "
+"pourquoi. Obligatoire avant de pouvoir marquer l'exigence 4.1 conforme."
+
+msgid "Open the answer"
+msgstr "Ouvrir la réponse"
+
+msgid "Answer the question"
+msgstr "Répondre à la question"
+
+msgid "Add an issue"
+msgstr "Ajouter un enjeu"
+
+msgid "Add an interested party"
+msgstr "Ajouter une partie intéressée"
+
+msgid "Climate change question answered"
+msgstr "Question du changement climatique traitée"
+
+msgid "Climate change question not answered yet"
+msgstr "Question du changement climatique pas encore traitée"
+
+msgid "Open the context of the organization"
+msgstr "Ouvrir le contexte de l'organisation"
+
+msgid "Context review due"
+msgstr "Revue du contexte à échéance"
+
+msgid "Owner of the issue or interested party"
+msgstr "Propriétaire de l'enjeu ou de la partie intéressée"
+
+msgid "Kind"
+msgstr "Nature de la fiche"
+
+msgid "Internal"
+msgstr "Interne"
+
+msgid "External"
+msgstr "Externe"
+
+msgid "Economic"
+msgstr "Économique"
+
+msgid "Human"
+msgstr "Humain"
+
+msgid "Organisational"
+msgstr "Organisationnel"
+
+msgid "Political"
+msgstr "Politique"
+
+msgid "Environmental"
+msgstr "Environnemental"
+
+msgid "Authority or regulator"
+msgstr "Autorité ou régulateur"
+
+msgid "Supplier or service provider"
+msgstr "Fournisseur ou prestataire"
+
+msgid "Shareholder or owner"
+msgstr "Actionnaire ou propriétaire"
+
+msgid "Insurer"
+msgstr "Assureur"
+
+msgid "Neighbours and public"
+msgstr "Riverains et public"
+
+msgid "Retained by the ISMS"
+msgstr "Retenu par le SMSI"
+
+msgid "Not retained"
+msgstr "Non retenu"
+
+msgid "Give the issue or the interested party a name."
+msgstr "Donnez un nom à l'enjeu ou à la partie intéressée."
+
+msgid ""
+"Explain why climate change is or is not a relevant issue: auditors check "
+"this justification."
+msgstr ""
+"Expliquez pourquoi le changement climatique est ou n'est pas un enjeu "
+"pertinent : les auditeurs vérifient cette justification."
+
+msgid "Explain why this item is not retained by the ISMS."
+msgstr "Expliquez pourquoi cette fiche n'est pas retenue par le SMSI."
+
+#, php-format
+msgid "%d context item(s) awaiting review, %d notification(s) raised."
+msgstr "%d fiche(s) du contexte à revoir, %d notification(s) émise(s)."
+
+msgid ""
+"Answer the climate change question in the context of the organization before "
+"marking this requirement compliant."
+msgstr ""
+"Répondez à la question du changement climatique dans le contexte de "
+"l'organisation avant de marquer cette exigence conforme."
+
+msgid ""
+"The context of the organization: the internal and external issues that "
+"affect information security, and the interested parties with their "
+"expectations and what the ISMS retains."
+msgstr ""
+"Le contexte de l'organisation : les enjeux internes et externes qui influent "
+"sur la sécurité de l'information, et les parties intéressées avec leurs "
+"attentes et ce que le SMSI en retient."
+
+msgid ""
+"List the issues and the interested parties, decide for each one whether the "
+"ISMS retains it, link the related risks, obligations and controls, answer "
+"the climate change question, and review each item at least once a year. Use "
+"the export of the list for the auditor."
+msgstr ""
+"Listez les enjeux et les parties intéressées, décidez pour chacun si le SMSI "
+"le retient, liez les risques, obligations et mesures concernés, répondez à "
+"la question du changement climatique, et revoyez chaque fiche au moins une "
+"fois par an. Utilisez l'export de la liste pour l'auditeur."
+
+msgid "ISO/IEC 27001, clauses 4.1 and 4.2"
+msgstr "ISO/IEC 27001, articles 4.1 et 4.2"
+
+msgid "View the context item"
+msgstr "Voir la fiche du contexte"
+
+msgid ""
+"Check that the issue or the interested party is still accurate "
+"(expectations, decision, links with risks and controls), then set the next "
+"review date."
+msgstr ""
+"Vérifiez que l'enjeu ou la partie intéressée est toujours exact (attentes, "
+"décision, liens avec les risques et les mesures), puis fixez la prochaine "
+"date de revue."
+
+msgid ""
+"Sent by the GRC Manager automatic task when an issue or an interested party "
+"reaches or approaches its review date."
+msgstr ""
+"Envoyée par la tâche automatique de GRC Manager quand un enjeu ou une partie "
+"intéressée atteint ou approche sa date de revue."
+
+#, php-format
+msgid "%d other linked item is not shown to you."
+msgid_plural "%d other linked items are not shown to you."
+msgstr[0] "%d autre élément lié ne vous est pas montré."
+msgstr[1] "%d autres éléments liés ne vous sont pas montrés."
+
+#, php-format
+msgid "%d internal or external issue"
+msgid_plural "%d internal or external issues"
+msgstr[0] "%d enjeu interne ou externe"
+msgstr[1] "%d enjeux internes ou externes"
+
+#, php-format
+msgid "%d interested party"
+msgid_plural "%d interested parties"
+msgstr[0] "%d partie intéressée"
+msgstr[1] "%d parties intéressées"
+
+#, php-format
+msgid "%1$d item changed since %2$s"
+msgid_plural "%1$d items changed since %2$s"
+msgstr[0] "%1$d fiche modifiée depuis le %2$s"
+msgstr[1] "%1$d fiches modifiées depuis le %2$s"
+
+#, php-format
+msgid "%d item past its review date"
+msgid_plural "%d items past their review date"
+msgstr[0] "%d fiche dont la date de revue est passée"
+msgstr[1] "%d fiches dont la date de revue est passée"
+
+msgid "Issue or interested party"
+msgid_plural "Issues and interested parties"
+msgstr[0] "Enjeu ou partie intéressée"
+msgstr[1] "Enjeux et parties intéressées"
 
 msgid "Firmware"
 msgstr "Firmware"

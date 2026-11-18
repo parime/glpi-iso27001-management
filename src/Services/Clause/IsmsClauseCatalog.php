@@ -45,8 +45,9 @@ final class IsmsClauseCatalog
      * @var array<string, array{clause: string, module: string|null}>
      */
     public const SUBCLAUSES = [
-        '4.1'   => ['clause' => '4', 'module' => null],
-        '4.2'   => ['clause' => '4', 'module' => 'GlpiPlugin\\Grcmanager\\ComplianceObligation'],
+        // Issue #608 : registre du contexte (enjeux pour 4.1, parties intéressées pour 4.2).
+        '4.1'   => ['clause' => '4', 'module' => 'GlpiPlugin\\Grcmanager\\ContextItem'],
+        '4.2'   => ['clause' => '4', 'module' => 'GlpiPlugin\\Grcmanager\\ContextItem'],
         '4.3'   => ['clause' => '4', 'module' => null],
         '4.4'   => ['clause' => '4', 'module' => null],
         '5.1'   => ['clause' => '5', 'module' => 'GlpiPlugin\\Grcmanager\\ManagementReview'],

@@ -164,6 +164,15 @@ class ComplianceObligation extends ComplianceObligationBase
         return $input;
     }
 
+    /**
+     * Issue #608 : une obligation supprimée définitivement n'est plus citée par le contexte.
+     */
+    public function post_purgeItem()
+    {
+        parent::post_purgeItem();
+        ContextItem::forgetLinkedItem($this);
+    }
+
     public function rawSearchOptions()
     {
         $tab = [];

@@ -389,6 +389,25 @@ de Filiale Nord. Pour qu'une filiale tienne sa propre Déclaration d'Applicabili
    listes de l'équipe, des preuves et de l'accès auditeur ne proposent que les comptes qui ont un
    profil dans Filiale Nord. Les actions de traitement d'un risque suivent l'entité du risque.
 
+### Étape 20 : Décrire le contexte de l'organisation (articles 4.1 et 4.2)
+
+1. Ouvrez Conformité > **Contexte de l'organisation**. L'encadré « À quoi sert cette page ? » rappelle
+   ce qui est attendu.
+2. Cliquez sur **Répondre à la question** dans l'encadré du changement climatique : dites s'il est
+   pertinent (« Retenu par le SMSI ») ou non (« Non retenu ») et écrivez pourquoi. Tant que ce n'est
+   pas fait, l'exigence 4.1 ne peut pas passer à « Conforme ».
+3. **Ajouter un enjeu** : par exemple « Nouvelle loi cyber », externe, catégorie réglementaire, avec
+   son effet sur le SMSI et les risques liés.
+4. **Ajouter une partie intéressée** : par exemple « Clients grands comptes », type client, qui
+   attendent une notification d'incident sous 24 h. Choisissez « Retenu par le SMSI », écrivez
+   l'exigence retenue, puis liez l'obligation contractuelle et la mesure A.5.24. Une partie peut être
+   un fournisseur ou un groupe déjà enregistré dans GLPI.
+5. Donnez un propriétaire et une date de revue : il reçoit un rappel 30 jours avant. La première
+   fiche fait passer l'exigence 4.1 (enjeu) ou 4.2 (partie) de « Non commencé » à « En cours ».
+6. La fiche d'une revue de direction résume le contexte : nombre d'enjeux et de parties, fiches
+   modifiées depuis la revue précédente, revues dépassées. Pour l'auditeur, exportez la liste
+   (CSV ou PDF) avec le bouton d'export de GLPI.
+
 ## 🇬🇧 English
 
 **Tutorial: Using GLPI GRC Manager**
@@ -764,3 +783,22 @@ To give a subsidiary its own Statement of Applicability:
    evidence requests are only visible from the North subsidiary (and from the root entity in tree
    view). The team, evidence and auditor access lists only offer accounts with a profile in the North
    subsidiary. The treatment actions of a risk follow the entity of the risk.
+
+### Step 20: Describe the context of the organization (clauses 4.1 and 4.2)
+
+1. Open Compliance > **Context of the organization**. The "What is this page for?" box explains what
+   is expected.
+2. Click **Answer the question** in the climate change box: say whether it is relevant ("Retained by
+   the ISMS") or not ("Not retained") and write why. Until then, requirement 4.1 cannot be marked
+   compliant.
+3. **Add an issue**: for instance "New cyber security law", external, regulatory category, with its
+   effect on the ISMS and the related risks.
+4. **Add an interested party**: for instance "Key account customers", customer type, who expect an
+   incident notification within 24 hours. Choose "Retained by the ISMS", write the retained
+   requirement, then link the contractual obligation and control A.5.24. A party can be a supplier or
+   a group already recorded in GLPI.
+5. Set an owner and a review date: the owner gets a reminder 30 days before. The first item moves
+   requirement 4.1 (issue) or 4.2 (party) from "Not started" to "In progress".
+6. The management review form summarises the context: number of issues and parties, items changed
+   since the previous review, overdue reviews. For the auditor, export the list (CSV or PDF) with the
+   GLPI export button.

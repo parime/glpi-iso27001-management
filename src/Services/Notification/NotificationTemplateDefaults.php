@@ -25,6 +25,7 @@ use GlpiPlugin\Grcmanager\BusinessProcess;
 use GlpiPlugin\Grcmanager\BusinessProcessReminder;
 use GlpiPlugin\Grcmanager\ComplianceEvent;
 use GlpiPlugin\Grcmanager\ComplianceObligation;
+use GlpiPlugin\Grcmanager\ContextItem;
 use GlpiPlugin\Grcmanager\Control;
 use GlpiPlugin\Grcmanager\ControlTestReminder;
 use GlpiPlugin\Grcmanager\Evidence;
@@ -247,6 +248,13 @@ final class NotificationTemplateDefaults
                 $sentByTask . 'an obligation reaches or passes its review date.', $owner,
                 'Revue d\'obligation à échéance',
                 $legacyByTask . 'lorsqu\'un obligation atteint ou dépasse sa date de revue.',
+            ],
+            // Issue #608 : enjeu ou partie intéressée à revoir.
+            'context_review' => [
+                ContextItem::class, ContextItem::REVIEW_DUE_EVENT, 'Context review due',
+                $sentByTask . 'an issue or an interested party reaches or approaches its review date.', $owner,
+                'Revue du contexte à échéance',
+                $legacyByTask . 'lorsqu\'un enjeu ou une partie intéressée atteint ou approche sa date de revue.',
             ],
             'capa_overdue' => [
                 Nonconformity::class, 'capa_overdue', 'Overdue corrective/preventive action',
@@ -524,6 +532,18 @@ final class NotificationTemplateDefaults
                 $lines[] = $line('Review date', "##{$prefix}.reviewdate##");
 
                 return self::simple($title, $title, $lines, [], "##{$prefix}.url##", $t($view), $head);
+
+            case 'context_review':
+                $title = $head('##contextitem.action##', '##contextitem.name##');
+
+                return self::simple($title, $title, [
+                    $line('Kind', '##contextitem.kind##'),
+                    $line('Decision', '##contextitem.decision##'),
+                    $line('Review date', '##contextitem.reviewdate##'),
+                ], [
+                    $t('Check that the issue or the interested party is still accurate (expectations, decision, links '
+                        . 'with risks and controls), then set the next review date.'),
+                ], '##contextitem.url##', $t('View the context item'), $head);
 
             case 'capa_overdue':
                 $title = $head('##nc.action##', '##nc.title##');

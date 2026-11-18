@@ -1,0 +1,37 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #608 : en tête du registre du contexte, question du changement climatique et ajouts. #}
+<div class="alert {{ climate.answered ? 'alert-success' : 'alert-warning' }} d-flex align-items-center flex-wrap gap-2">
+   <i class="ti ti-temperature me-1"></i>
+   <div class="me-auto">
+      <strong>{{ __('Climate change', 'grcmanager') }} :</strong>
+      {% if climate.answered %}
+         {{ __('the question is answered (%s).', 'grcmanager')|format(climate.relevance) }}
+      {% else %}
+         {{ __('say whether climate change is a relevant issue for your ISMS, and why. Required before requirement 4.1 can be marked compliant.', 'grcmanager') }}
+      {% endif %}
+   </div>
+   {% if climate.answered or can_create %}
+      <a href="{{ climate.url }}" class="btn btn-sm {{ climate.answered ? 'btn-outline-secondary' : 'btn-warning' }}">
+         {{ climate.answered ? __('Open the answer', 'grcmanager') : __('Answer the question', 'grcmanager') }}
+      </a>
+   {% endif %}
+</div>
+{% if can_create %}
+   <div class="d-flex justify-content-end mb-2 gap-2">
+      <a href="{{ form_url }}?kind={{ kind_issue }}" class="btn btn-outline-secondary btn-sm"><i class="ti ti-world me-1"></i>{{ __('Add an issue', 'grcmanager') }}</a>
+      <a href="{{ form_url }}?kind={{ kind_party }}" class="btn btn-outline-secondary btn-sm"><i class="ti ti-users-group me-1"></i>{{ __('Add an interested party', 'grcmanager') }}</a>
+   </div>
+{% endif %}

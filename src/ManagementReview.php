@@ -404,8 +404,36 @@ class ManagementReview extends ManagementReviewBase
             'attendees'         => $this->isNewID($ID) ? [] : self::getAttendeeIds((int) $ID),
             'objectives'        => $objectiveTitles,
             'linked_objectives' => $this->isNewID($ID) ? [] : self::getLinkedObjectiveIds((int) $ID),
+            // Issue #608 : changements du contexte depuis la revue précédente (9.3.2 b et c).
+            'context'           => ContextItem::canView()
+                ? ContextItem::summary($this->previousReviewDate()) : null,
         ]);
 
         return true;
+    }
+
+    /**
+     * Date de la revue de direction précédente (avant celle-ci, ou avant aujourd'hui pour une
+     * nouvelle revue), null s'il n'y en a pas.
+     */
+    public function previousReviewDate(): ?string
+    {
+        global $DB;
+
+        $before = (string) ($this->fields['review_date'] ?? '');
+        if ($before === '' || str_starts_with($before, '0000')) {
+            $before = date('Y-m-d');
+        }
+        $where = ['review_date' => ['<', $before]];
+        if (!$this->isNewItem()) {
+            $where['id'] = ['<>', (int) $this->getID()];
+        }
+        $row = $DB->request([
+            'SELECT' => ['MAX' => 'review_date AS previous'],
+            'FROM'   => self::getTable(),
+            'WHERE'  => $where,
+        ])->current();
+
+        return empty($row['previous']) ? null : (string) $row['previous'];
     }
 }

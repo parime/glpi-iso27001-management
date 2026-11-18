@@ -6858,8 +6858,8 @@ msgstr ""
 
 #: templates/tabs/incident_evidence.html.twig
 msgid ""
-"Useful evidence formats (to allow in the GLPI document "
-"types): .log, .evtx, .json, .pcap, .eml, .csv, .zip."
+"Useful evidence formats (to allow in the GLPI document types): .log, .evtx, ."
+"json, .pcap, .eml, .csv, .zip."
 msgstr ""
 
 #: templates/tabs/ticket_security_incidents.html.twig
@@ -9609,8 +9609,8 @@ msgid ""
 "One CSV file per template of the implementing regulation, with the official "
 "column codes (c0010...), as in an xBRL-CSV report package. Closed lists are "
 "written with their official English wording: your reporting tool converts "
-"them into the codes of the EBA taxonomy and adds the package files "
-"(report.json, parameters, filing indicators)."
+"them into the codes of the EBA taxonomy and adds the package files (report."
+"json, parameters, filing indicators)."
 msgstr ""
 
 #: templates/dora/register.html.twig
@@ -15648,9 +15648,9 @@ msgstr ""
 
 #: src/CanonicalProduct.php:187
 msgid ""
-"A CPE identifier as reported by the NVD for this product (e.g. "
-"\"cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point "
-"to the same product."
+"A CPE identifier as reported by the NVD for this product (e.g. \"cpe:2.3:a:"
+"apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point to the same "
+"product."
 msgstr ""
 
 #: src/CanonicalProduct.php:196
@@ -18747,8 +18747,8 @@ msgstr ""
 #, php-format
 msgid ""
 "GLPI also refuses internal addresses for this plugin: add %s to the constant "
-"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/"
-"local_define.php)."
+"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/local_define."
+"php)."
 msgstr ""
 
 #: src/BusinessProcessRecovery.php:69
@@ -20253,4 +20253,319 @@ msgstr ""
 
 #: templates/software_watch.html.twig
 msgid "Firmware of network equipment, printers, phones or computers"
+msgstr ""
+
+#: templates/context_item_form.html.twig src/ContextItem.php:109
+msgid "Interested party"
+msgstr ""
+
+#: templates/context_item_form.html.twig
+msgid ""
+"For example \"Key account customers\" or \"Data protection authority\". "
+"Leave empty to use the name of the supplier or group chosen below."
+msgstr ""
+
+#: templates/context_item_form.html.twig src/ContextItem.php:537
+msgid "Type of interested party"
+msgstr ""
+
+#: templates/context_item_form.html.twig
+msgid "Supplier in GLPI"
+msgstr ""
+
+#: templates/context_item_form.html.twig
+msgid "Optional: when the party is a supplier already recorded in GLPI."
+msgstr ""
+
+#: templates/context_item_form.html.twig
+msgid "Group in GLPI"
+msgstr ""
+
+#: templates/context_item_form.html.twig
+msgid "Optional: when the party is a team or a department recorded as a group."
+msgstr ""
+
+#: templates/context_item_form.html.twig src/ContextItem.php:555
+msgid "Needs and expectations"
+msgstr ""
+
+#: templates/context_item_form.html.twig
+msgid ""
+"What this party expects from you about information security, e.g. \"incident "
+"notification within 24 hours\"."
+msgstr ""
+
+#: templates/context_item_form.html.twig src/ContextItem.php:108
+msgid "Internal or external issue"
+msgstr ""
+
+#: templates/context_item_form.html.twig
+msgid ""
+"Since the 2024 amendment of ISO 27001, the organization must determine "
+"whether climate change is a relevant issue. Answer yes or no, and write why: "
+"requirement 4.1 cannot be marked compliant until this is done."
+msgstr ""
+
+#: templates/context_item_form.html.twig
+msgid ""
+"A short title, e.g. \"New cyber security law\" or \"Growth of remote work\"."
+msgstr ""
+
+#: templates/context_item_form.html.twig src/ContextItem.php:535
+msgid "Internal or external"
+msgstr ""
+
+#: templates/context_item_form.html.twig src/ContextItem.php:557
+msgid "Effect on the ISMS"
+msgstr ""
+
+#: templates/context_item_form.html.twig
+msgid ""
+"How this issue can affect the ability of the ISMS to achieve its intended "
+"results."
+msgstr ""
+
+#: templates/context_item_form.html.twig
+msgid "Decision of the ISMS"
+msgstr ""
+
+#: templates/context_item_form.html.twig
+msgid "Is climate change relevant?"
+msgstr ""
+
+#: templates/context_item_form.html.twig
+msgid ""
+"\"Retained by the ISMS\" means relevant; \"Not retained\" means not "
+"relevant. A justification is required in both cases."
+msgstr ""
+
+#: templates/context_item_form.html.twig
+msgid "Retained: the ISMS takes it into account. Not retained: write why."
+msgstr ""
+
+#: templates/context_item_form.html.twig src/ContextItem.php:556
+msgid "Requirements retained by the ISMS"
+msgstr ""
+
+#: templates/context_item_form.html.twig
+msgid ""
+"Which of these expectations become requirements of the ISMS. Link below the "
+"obligations and the controls that answer them."
+msgstr ""
+
+#: templates/context_item_form.html.twig
+msgid "Links with the ISMS"
+msgstr ""
+
+#: templates/context_item_form.html.twig
+msgid "Related obligations"
+msgstr ""
+
+#: templates/context_item_form.html.twig
+msgid "Controls that respond"
+msgstr ""
+
+#: templates/context_item_form.html.twig
+#, php-format
+msgid "%d other linked item is not shown to you."
+msgid_plural "%d other linked items are not shown to you."
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/context_item_form.html.twig
+msgid "Follow-up"
+msgstr ""
+
+#: templates/context_item_form.html.twig
+msgid "The owner receives a reminder 30 days before this date."
+msgstr ""
+
+#: templates/context_overview.html.twig src/ContextItem.php:133
+#: src/ContextItem.php:654
+msgid "Climate change"
+msgstr ""
+
+#: templates/context_overview.html.twig
+#, php-format
+msgid "the question is answered (%s)."
+msgstr ""
+
+#: templates/context_overview.html.twig
+msgid ""
+"say whether climate change is a relevant issue for your ISMS, and why. "
+"Required before requirement 4.1 can be marked compliant."
+msgstr ""
+
+#: templates/context_overview.html.twig
+msgid "Open the answer"
+msgstr ""
+
+#: templates/context_overview.html.twig
+msgid "Answer the question"
+msgstr ""
+
+#: templates/context_overview.html.twig
+msgid "Add an issue"
+msgstr ""
+
+#: templates/context_overview.html.twig
+msgid "Add an interested party"
+msgstr ""
+
+#: templates/_context_summary.html.twig
+#, php-format
+msgid "%d internal or external issue"
+msgid_plural "%d internal or external issues"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/_context_summary.html.twig
+#, php-format
+msgid "%d interested party"
+msgid_plural "%d interested parties"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/_context_summary.html.twig
+#, php-format
+msgid "%1$d item changed since %2$s"
+msgid_plural "%1$d items changed since %2$s"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/_context_summary.html.twig
+#, php-format
+msgid "%d item past its review date"
+msgid_plural "%d items past their review date"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/_context_summary.html.twig
+msgid "Climate change question answered"
+msgstr ""
+
+#: templates/_context_summary.html.twig
+msgid "Climate change question not answered yet"
+msgstr ""
+
+#: templates/_context_summary.html.twig
+msgid "Open the context of the organization"
+msgstr ""
+
+#: src/NotificationTargetContextItem.php:35
+msgid "Context review due"
+msgstr ""
+
+#: src/NotificationTargetContextItem.php:42
+msgid "Owner of the issue or interested party"
+msgstr ""
+
+#: src/NotificationTargetContextItem.php:76 src/ContextItem.php:534
+msgid "Kind"
+msgstr ""
+
+#: src/ContextItem.php:79
+msgid "Issue or interested party"
+msgid_plural "Issues and interested parties"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/ContextItem.php:117
+msgid "Internal"
+msgstr ""
+
+#: src/ContextItem.php:118
+msgid "External"
+msgstr ""
+
+#: src/ContextItem.php:128
+msgid "Economic"
+msgstr ""
+
+#: src/ContextItem.php:129
+msgid "Human"
+msgstr ""
+
+#: src/ContextItem.php:130
+msgid "Organisational"
+msgstr ""
+
+#: src/ContextItem.php:131
+msgid "Political"
+msgstr ""
+
+#: src/ContextItem.php:132
+msgid "Environmental"
+msgstr ""
+
+#: src/ContextItem.php:143
+msgid "Authority or regulator"
+msgstr ""
+
+#: src/ContextItem.php:145
+msgid "Supplier or service provider"
+msgstr ""
+
+#: src/ContextItem.php:146
+msgid "Shareholder or owner"
+msgstr ""
+
+#: src/ContextItem.php:148
+msgid "Insurer"
+msgstr ""
+
+#: src/ContextItem.php:149
+msgid "Neighbours and public"
+msgstr ""
+
+#: src/ContextItem.php:159
+msgid "Retained by the ISMS"
+msgstr ""
+
+#: src/ContextItem.php:160
+msgid "Not retained"
+msgstr ""
+
+#: src/ContextItem.php:243
+msgid "Give the issue or the interested party a name."
+msgstr ""
+
+#: src/ContextItem.php:245
+msgid ""
+"Explain why climate change is or is not a relevant issue: auditors check "
+"this justification."
+msgstr ""
+
+#: src/ContextItem.php:246
+msgid "Explain why this item is not retained by the ISMS."
+msgstr ""
+
+#: src/ContextItem.php:711
+#, php-format
+msgid "%d context item(s) awaiting review, %d notification(s) raised."
+msgstr ""
+
+#: src/IsmsRequirement.php:234
+msgid ""
+"Answer the climate change question in the context of the organization before "
+"marking this requirement compliant."
+msgstr ""
+
+#: src/PageHelp.php:349
+msgid ""
+"The context of the organization: the internal and external issues that "
+"affect information security, and the interested parties with their "
+"expectations and what the ISMS retains."
+msgstr ""
+
+#: src/PageHelp.php:354
+msgid ""
+"List the issues and the interested parties, decide for each one whether the "
+"ISMS retains it, link the related risks, obligations and controls, answer "
+"the climate change question, and review each item at least once a year. Use "
+"the export of the list for the auditor."
+msgstr ""
+
+#: src/PageHelp.php:359
+msgid "ISO/IEC 27001, clauses 4.1 and 4.2"
 msgstr ""
