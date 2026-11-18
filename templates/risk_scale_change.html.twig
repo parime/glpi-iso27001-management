@@ -1,0 +1,194 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #706 : changement de taille de la matrice des risques (front/riskscale.php). Deux étapes :
+   correspondance des valeurs actuelles vers les nouvelles (proposée, modifiable), puis effet sur
+   les niveaux et confirmation. Rien n'est écrit avant « Appliquer ». #}
+{% set level_classes = {'low': 'bg-green-lt', 'medium': 'bg-yellow-lt', 'high': 'bg-orange-lt', 'critical': 'bg-red-lt'} %}
+{% macro level_badge(level, levels, classes) %}
+  {%- if level == '' -%}
+    <span class="badge bg-secondary-lt">{{ __('Not assessed', 'grcmanager') }}</span>
+  {%- else -%}
+    <span class="badge {{ classes[level]|default('bg-secondary-lt') }}">{{ levels[level]|default(level) }}</span>
+  {%- endif -%}
+{% endmacro %}
+
+<div class="card mb-3">
+  <div class="card-body">
+    <h2 class="card-title">{{ title }}</h2>
+    <p class="mb-2">
+      {{ __('Current size: %1$s. New size: %2$s.', 'grcmanager')|format(from_name, to_name) }}
+    </p>
+    <ol class="list-inline mb-0">
+      <li class="list-inline-item">
+        <span class="badge {{ step == 'mapping' ? 'bg-primary text-white' : 'bg-secondary-lt' }}">1</span>
+        {{ __('Correspondence of the values', 'grcmanager') }}
+      </li>
+      <li class="list-inline-item ms-3">
+        <span class="badge {{ step == 'confirm' ? 'bg-primary text-white' : 'bg-secondary-lt' }}">2</span>
+        {{ __('Check the effect and apply', 'grcmanager') }}
+      </li>
+    </ol>
+  </div>
+</div>
+
+<form method="post" action="{{ page_url }}">
+  <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+  <input type="hidden" name="size" value="{{ preview.to }}">
+
+  {% if step == 'mapping' %}
+    <div class="alert alert-info"><div>
+      <p class="mb-1">{{ __('The proposed correspondence is the one that changes the fewest risk levels between the current grid and the grid of the new size.', 'grcmanager') }}</p>
+      {{ __('Each value used today by the risks is converted into a value of the new scale. A correspondence is proposed below: check it and change it if needed, then look at its effect. Nothing is changed in the register before you apply.', 'grcmanager') }}
+    </div></div>
+  {% endif %}
+
+  <div class="row g-3">
+    {% for axis_key, axis in preview.axes %}
+      <div class="col-lg-6">
+        <div class="card h-100">
+          <div class="card-body">
+            <h3 class="card-title">{{ axis.title }}</h3>
+            <table class="table table-sm align-middle mb-0">
+              <thead>
+                <tr>
+                  <th>{{ __('Current value', 'grcmanager') }}</th>
+                  <th class="text-end">{{ __('Risks using it', 'grcmanager') }}</th>
+                  <th>{{ __('New value', 'grcmanager') }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for row in axis.rows %}
+                  <tr>
+                    <td><label for="grc-scale-{{ axis_key }}-{{ row.key }}">{{ row.label }}</label></td>
+                    <td class="text-end">{{ row.uses }}</td>
+                    <td>
+                      {% if step == 'mapping' %}
+                        <select class="form-select form-select-sm" id="grc-scale-{{ axis_key }}-{{ row.key }}" name="mapping[{{ axis_key }}][{{ row.key }}]">
+                          {% for target_key, target_label in axis.targets %}
+                            <option value="{{ target_key }}"{% if target_key == row.target %} selected{% endif %}>{{ target_label }}</option>
+                          {% endfor %}
+                        </select>
+                      {% else %}
+                        <input type="hidden" name="mapping[{{ axis_key }}][{{ row.key }}]" value="{{ row.target }}">
+                        <i class="ti ti-arrow-right me-1 text-muted"></i>{{ axis.targets[row.target]|default(row.target) }}
+                      {% endif %}
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            {% if axis.targets|length > axis.rows|length %}
+              <div class="form-hint mt-2">{{ __('The new values that no current value goes to stay available for the next assessments.', 'grcmanager') }}</div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  {% if step == 'confirm' %}
+    {% set summary = preview.summary %}
+    <div class="card mt-3">
+      <div class="card-body">
+        <h3 class="card-title">{{ __('Effect on the register', 'grcmanager') }}</h3>
+        {% if summary.changed == 0 %}
+          <div class="alert alert-success mb-0">
+            {{ __('No risk changes: their values and levels stay the same.', 'grcmanager') }}
+          </div>
+        {% else %}
+          <div class="alert alert-warning"><div>
+            <div>{{ _n('%1$d risk out of %2$d will be updated.', '%1$d risks out of %2$d will be updated.', summary.changed, 'grcmanager')|format(summary.changed, summary.total) }}</div>
+            {% if summary.raised > 0 %}<div>{{ __('Risks whose level goes up: %d.', 'grcmanager')|format(summary.raised) }}</div>{% endif %}
+            {% if summary.lowered > 0 %}<div>{{ __('Risks whose level goes down: %d.', 'grcmanager')|format(summary.lowered) }}</div>{% endif %}
+            <div>{{ __('Each change is recorded in the history of the risk. Accepted risks keep their decision: check those whose level goes up against the risk appetite.', 'grcmanager') }}</div>
+          </div></div>
+          {% for moves_key, moves_title in {'level_moves': __('Risk level', 'grcmanager'), 'residual_moves': __('Residual risk level', 'grcmanager')} %}
+            {% if summary[moves_key] is not empty %}
+              <h4>{{ moves_title }}</h4>
+              <table class="table table-sm align-middle" style="max-width: 520px;">
+                <thead>
+                  <tr>
+                    <th>{{ __('Current level', 'grcmanager') }}</th>
+                    <th>{{ __('New level', 'grcmanager') }}</th>
+                    <th class="text-end">{{ __('Number of risks', 'grcmanager') }}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for from_level, targets in summary[moves_key] %}
+                    {% for to_level, count in targets %}
+                      <tr>
+                        <td>{{ _self.level_badge(from_level, preview.levels, level_classes) }}</td>
+                        <td><i class="ti ti-arrow-right me-1 text-muted"></i>{{ _self.level_badge(to_level, preview.levels, level_classes) }}</td>
+                        <td class="text-end">{{ count }}</td>
+                      </tr>
+                    {% endfor %}
+                  {% endfor %}
+                </tbody>
+              </table>
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+  {% endif %}
+
+  <div class="card mt-3">
+    <div class="card-body">
+      <h3 class="card-title">{{ __('Risk matrix after the change', 'grcmanager') }}</h3>
+      <p class="text-muted">{{ __('Default grid of the new size. You can adjust it afterwards in the configuration.', 'grcmanager') }}</p>
+      <div class="table-responsive">
+        <table class="table table-bordered table-sm text-center align-middle" style="max-width: 760px;">
+          <thead>
+            <tr>
+              <th>{{ __('Probability', 'grcmanager') }} \ {{ __('Impact', 'grcmanager') }}</th>
+              {% for impact_label in preview.target_impacts %}<th>{{ impact_label }}</th>{% endfor %}
+            </tr>
+          </thead>
+          <tbody>
+            {% for probability_key, probability_label in preview.target_probabilities %}
+              <tr>
+                <th class="text-start">{{ probability_label }}</th>
+                {% for impact_key, impact_label in preview.target_impacts %}
+                  <td>{{ _self.level_badge(preview.matrix[probability_key][impact_key]|default(''), preview.levels, level_classes) }}</td>
+                {% endfor %}
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mt-3">
+    <div class="card-body">
+      {% if step == 'mapping' %}
+        <div class="d-flex flex-wrap gap-2">
+          <button type="submit" name="preview" value="1" class="btn btn-primary"><i class="ti ti-eye me-1"></i>{{ __('See the effect', 'grcmanager') }}</button>
+          <a href="{{ config_url }}" class="btn btn-outline-secondary">{{ __('Cancel', 'grcmanager') }}</a>
+        </div>
+      {% else %}
+        <label class="form-check mb-3">
+          <input class="form-check-input" type="checkbox" name="confirm" value="1" required>
+          <span class="form-check-label">{{ __('I have checked the correspondence and its effect on the risk levels.', 'grcmanager') }}</span>
+        </label>
+        <div class="d-flex flex-wrap gap-2">
+          <button type="submit" name="apply" value="1" class="btn btn-primary"><i class="ti ti-check me-1"></i>{{ __('Apply the new size', 'grcmanager') }}</button>
+          <button type="submit" name="edit" value="1" class="btn btn-outline-secondary" formnovalidate><i class="ti ti-arrow-left me-1"></i>{{ __('Change the correspondence', 'grcmanager') }}</button>
+          <a href="{{ config_url }}" class="btn btn-outline-secondary">{{ __('Cancel', 'grcmanager') }}</a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</form>

@@ -22,6 +22,8 @@ namespace GlpiPlugin\Grcmanager\Tests\Integration;
 use GlpiPlugin\Grcmanager\Control;
 use GlpiPlugin\Grcmanager\Risk;
 use GlpiPlugin\Grcmanager\RiskRegisterImport;
+use GlpiPlugin\Grcmanager\Services\Risk\RiskMatrixConfig;
+use GlpiPlugin\Grcmanager\Services\Risk\RiskMatrixDefaults;
 use GlpiPlugin\Grcmanager\Services\Risk\RiskRegisterCsv;
 use GlpiPlugin\Grcmanager\Services\Risk\RiskRegisterSync;
 
@@ -284,5 +286,43 @@ final class RiskRegisterImportTest extends GrcmanagerIntegrationTestCase
         $import = $this->import("reference;title;impact\n$ref-01;Existant;1\n", 4, true, false);
         $this->assertSame(['no_update_right'], array_column($import['errors'], 'reason'));
         $this->assertSame('critical', $this->risk("$ref-01")->fields['impact']);
+    }
+
+    /**
+     * Issue #706 : registre en matrice 5x5, libellés et notes de 1 à 5 lus sur 5 niveaux.
+     */
+    public function testFiveByFiveRegisterImportsTheFiveLevels(): void
+    {
+        RiskMatrixConfig::saveScale(5, RiskMatrixDefaults::MATRIX_5);
+        try {
+            $ref = 'PHPU-' . $this->suffix;
+            $parsed = RiskRegisterCsv::parse(
+                "reference;title;probability;impact;residual_probability;residual_impact\n"
+                    . "$ref-01;Panne fictive;Très rare;Négligeable;;\n"
+                    . "$ref-02;Fuite fictive;5;4;1;1\n",
+                RiskRegisterImport::lookups(true),
+                5,
+                RiskMatrixConfig::size()
+            );
+            $this->assertSame([], $parsed['errors']);
+            $plan = RiskRegisterSync::plan(RiskRegisterImport::existing(), $parsed['rows']);
+            RiskRegisterImport::apply($plan['steps']);
+
+            $first = $this->risk("$ref-01")->fields;
+            $this->assertSame(
+                ['very_rare', 'negligible', 'low'],
+                [$first['probability'], $first['impact'], $first['risk_level']]
+            );
+            $second = $this->risk("$ref-02")->fields;
+            $this->assertSame(
+                ['certain', 'high', 'critical'],
+                [$second['probability'], $second['impact'], $second['risk_level']]
+            );
+            $this->assertSame(['very_rare', 'negligible', 'low'], [
+                $second['residual_probability'], $second['residual_impact'], $second['residual_level'],
+            ]);
+        } finally {
+            RiskMatrixConfig::reset();
+        }
     }
 }

@@ -7,6 +7,28 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Added
+
+- **Matrice des risques 5 x 5 au choix** (issue #706, premier lot). La matrice reste en 4 x 4 par
+  défaut : aucune installation ne change sans action de l'administrateur.
+  - Dans la configuration, « Taille de la matrice » passe en 5 x 5 (très rare, rare, possible,
+    probable, quasi certaine ; négligeable, faible, moyen, élevé, critique) ou revient en 4 x 4.
+  - Écran de correspondance en deux étapes (`front/riskscale.php`) : nombre de risques par valeur
+    actuelle, nouvelle valeur proposée (celle qui change le moins de niveaux de risque) et
+    modifiable, puis effet sur les niveaux initiaux et résiduels et confirmation. Rien n'est
+    écrit avant « Appliquer ».
+  - Conversion des risques et des risques fournisseurs dans une transaction ; l'historique de
+    chaque risque garde l'ancienne et la nouvelle valeur, avec un message de conversion, et le
+    journal d'audit du plugin garde la correspondance appliquée. Ni notification, ni signature
+    d'acceptation au nom de l'administrateur.
+  - Saisie, calcul du score et du niveau, risque résiduel, carte de chaleur, import et export CSV
+    du registre suivent la taille choisie. Le niveau de risque garde ses quatre valeurs : appétence,
+    indicateurs, contrôles de cohérence et notifications sont inchangés.
+  - Une probabilité ou un impact hors de l'échelle configurée (formulaire forgé, valeur de l'autre
+    taille) n'est pas enregistré : la valeur actuelle est gardée.
+  - Réservé au droit de modifier la configuration du plugin et les registres sensibles. Les
+    échelles EBIOS RM et AIPD ne changent pas.
+
 ### Fixed
 
 - **Tickets de vulnérabilité du parc : les nouvelles machines vulnérables sont liées au ticket
