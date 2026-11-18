@@ -59,14 +59,31 @@ final class SoaReportBuilder
         $controls = [];
         $entityId ??= \GlpiPlugin\Grcmanager\EntityPerimeter::soaEntity();
         $soaParams = ['grcmanager_soa_entity' => $entityId];
-        foreach (
-            $DB->request([
-                'FROM'  => \GlpiPlugin\Grcmanager\Control::getTable(),
-                'WHERE' => \GlpiPlugin\Grcmanager\EntityPerimeter::controlCriteria($entityId),
-                'ORDER' => 'code ASC',
-            ]) as $row
-        ) {
+        $exclusionCategories = \GlpiPlugin\Grcmanager\Control::getExclusionCategories();
+        $residualLevels = \GlpiPlugin\Grcmanager\Control::getResidualRiskLevels();
+        $rows = iterator_to_array($DB->request([
+            'FROM'  => \GlpiPlugin\Grcmanager\Control::getTable(),
+            'WHERE' => \GlpiPlugin\Grcmanager\EntityPerimeter::controlCriteria($entityId),
+            'ORDER' => 'code ASC',
+        ]), false);
+        // Issue #609 : mesures compensatoires liées, par mesure exclue.
+        $compensating = \GlpiPlugin\Grcmanager\Control::compensatingCodesByControl(array_map(
+            static fn (array $row): int => (int) $row['id'],
+            $rows
+        ));
+        foreach ($rows as $row) {
+            $isExclusion = SoaSelectionRules::isExclusion((string) $row['applicability']);
             $controls[] = [
+                // Issue #609 : motifs de sélection et détail de l'exclusion.
+                'selection_reasons'     => \GlpiPlugin\Grcmanager\Control::selectionReasonLabels(
+                    $row['selection_reasons'] ?? null
+                ),
+                'exclusion'             => $isExclusion ? array_filter([
+                    'category'     => $exclusionCategories[$row['exclusion_category'] ?? ''] ?? '',
+                    'controls'     => implode(', ', $compensating[(int) $row['id']] ?? []),
+                    'measures'     => (string) ($row['compensating_measures'] ?? ''),
+                    'residual'     => $residualLevels[$row['residual_risk'] ?? ''] ?? '',
+                ], static fn (string $value): bool => $value !== '') : [],
                 'code'                  => $row['code'],
                 'theme'                 => $themes[$row['theme']] ?? $row['theme'],
                 'title'                 => $titles[$row['code']] ?? $row['code'],
@@ -113,6 +130,8 @@ final class SoaReportBuilder
             'by_status'          => DashboardCardService::soaByImplementationStatus($soaParams),
             'reviewed_count'     => DashboardCardService::soaReviewedCount($soaParams),
             'total_count'        => count($controls),
+            // Issue #609 : synthèse par thème (applicables, exclues, mises en œuvre...).
+            'theme_summary'      => \GlpiPlugin\Grcmanager\Control::themeSummary($entityId),
             // Issue #610 : taux de mise en œuvre par type, propriété et concept.
             'attribute_summary'  => \GlpiPlugin\Grcmanager\Control::attributeSummary($entityId, [
                 ControlAttributeCatalog::CONTROL_TYPES,

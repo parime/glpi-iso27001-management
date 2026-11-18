@@ -45,6 +45,36 @@ final class SoaApprovalLogicTest extends TestCase
         }
     }
 
+    /**
+     * Issue #609 : une SoA approuvée avant les motifs de sélection garde son empreinte tant qu'ils
+     * restent vides ; les renseigner appelle une nouvelle version.
+     */
+    public function testSelectionFieldsCountOnlyOnceFilledIn(): void
+    {
+        $reference = SoaApprovalLogic::fingerprint(self::rows());
+
+        $migrated = self::rows();
+        foreach ($migrated as &$row) {
+            $row += [
+                'selection_reasons' => null, 'exclusion_category' => '', 'compensating_measures' => null,
+                'residual_risk' => '', 'compensating_controls' => '',
+            ];
+        }
+        unset($row);
+        self::assertSame($reference, SoaApprovalLogic::fingerprint($migrated));
+
+        $changes = [
+            'selection_reasons' => 'risk_assessment', 'exclusion_category' => 'certified_provider',
+            'compensating_measures' => 'Clause d\'audit du contrat', 'residual_risk' => 'low',
+            'compensating_controls' => 'A.5.20',
+        ];
+        foreach ($changes as $field => $value) {
+            $rows = $migrated;
+            $rows[1][$field] = $value;
+            self::assertNotSame($reference, SoaApprovalLogic::fingerprint($rows), $field);
+        }
+    }
+
     public function testVersionStatusNeedsEveryApproverAndOneRefusalIsEnough(): void
     {
         self::assertSame('pending', SoaApprovalLogic::versionStatus([]));

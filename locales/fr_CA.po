@@ -17704,3 +17704,123 @@ msgstr "Carte des dépendances : %s"
 
 msgid "Exported on %s"
 msgstr "Exportée le %s"
+
+#: issue-609
+msgid "Deduced from the risks linked to this control and from the obligations of the register attached to them."
+msgstr "Déduit des risques liés à cette mesure et des obligations du registre qui leur sont rattachées."
+
+#: issue-609
+msgid "From the links"
+msgstr "D'après les liens"
+
+#: issue-609
+msgid "The ticked reasons are deduced from the linked risks and obligations: check them, then save."
+msgstr "Les motifs cochés sont déduits des risques et obligations liés : vérifiez-les, puis enregistrez."
+
+#: issue-609
+msgid "Why this control is included: several reasons are possible. Linking a new risk ticks the risk assessment reason."
+msgstr "Pourquoi cette mesure est retenue : plusieurs motifs sont possibles. Lier un nouveau risque coche le motif d'appréciation des risques."
+
+#: issue-609
+msgid "Reasons for selection"
+msgstr "Motifs de sélection"
+
+#: issue-609
+msgid "Exclusion category"
+msgstr "Catégorie d'exclusion"
+
+#: issue-609
+msgid "Why the control is left out, for example: no premises of its own, hosting by a certified provider."
+msgstr "Pourquoi la mesure est écartée, par exemple : aucun local propre, hébergement chez un prestataire certifié."
+
+#: issue-609
+msgid "Residual risk"
+msgstr "Risque résiduel"
+
+#: issue-609
+msgid "Risk that remains once the compensating measures are in place."
+msgstr "Risque qui subsiste une fois les mesures compensatoires en place."
+
+#: issue-609
+msgid "Controls of this SoA that make up for the exclusion, for example A.5.20 for an audit clause in the provider contract."
+msgstr "Mesures de cette SoA qui compensent l'exclusion, par exemple A.5.20 pour une clause d'audit dans le contrat du prestataire."
+
+#: issue-609
+msgid "Compensating measures"
+msgstr "Mesures compensatoires (description)"
+
+#: issue-609
+msgid "Other compensating measures, in your own words (contract clause, provider certificate...)."
+msgstr "Autres mesures compensatoires, avec vos propres mots (clause du contrat, certificat du prestataire...)."
+
+#: issue-609
+msgid "Summary by theme"
+msgstr "Synthèse par thème"
+
+#: issue-609
+msgid "%d applicable"
+msgstr "%d applicable(s)"
+
+#: issue-609
+msgid "%d excluded"
+msgstr "%d exclue(s)"
+
+#: issue-609
+msgid "%d implemented"
+msgstr "%d mise(s) en œuvre"
+
+#: issue-609
+msgid "Controls"
+msgstr "Mesures"
+
+#: issue-609
+msgid "Excluded"
+msgstr "Exclues"
+
+#: issue-609
+msgid "Show the controls of this theme"
+msgstr "Afficher les mesures de ce thème"
+
+#: issue-609
+msgid "%d partially"
+msgstr "dont %d partiellement"
+
+#: issue-609
+msgid "Total"
+msgstr "Total"
+
+#: issue-609
+msgid "\"Implemented\" counts implemented and verified controls; \"Planned\" counts applicable controls not started yet. Click a theme to filter the list below."
+msgstr "\"Mis en œuvre\" compte les mesures mises en œuvre et vérifiées ; \"Planifié\" compte les mesures applicables pas encore démarrées. Cliquez sur un thème pour filtrer la liste ci-dessous."
+
+#: issue-609
+msgid "Risk assessment result"
+msgstr "Résultat de l'appréciation des risques"
+
+#: issue-609
+msgid "Legal or regulatory obligation"
+msgstr "Obligation légale ou réglementaire"
+
+#: issue-609
+msgid "Contractual requirement"
+msgstr "Exigence contractuelle"
+
+#: issue-609
+msgid "Interested party expectation"
+msgstr "Attente d'une partie intéressée"
+
+#: issue-609
+msgid "Good practice"
+msgstr "Bonne pratique"
+
+#: issue-609
+msgid "Activity not carried out"
+msgstr "Activité absente"
+
+#: issue-609
+msgid "Handled by a certified provider"
+msgstr "Assurée par un prestataire certifié"
+
+#: issue-609
+msgid "Out of the ISMS scope"
+msgstr "Hors du périmètre du SMSI"
