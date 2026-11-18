@@ -22567,11 +22567,136 @@ msgstr "Dependency map: %s"
 msgid "Exported on %s"
 msgstr "Exported on %s"
 
+#: issue-609
+msgid "Deduced from the risks linked to this control and from the obligations of the register attached to them."
+msgstr "Deduced from the risks linked to this control and from the obligations of the register attached to them."
+
+#: issue-609
+msgid "From the links"
+msgstr "From the links"
+
+#: issue-609
+msgid "The ticked reasons are deduced from the linked risks and obligations: check them, then save."
+msgstr "The ticked reasons are deduced from the linked risks and obligations: check them, then save."
+
+#: issue-609
+msgid "Why this control is included: several reasons are possible. Linking a new risk ticks the risk assessment reason."
+msgstr "Why this control is included: several reasons are possible. Linking a new risk ticks the risk assessment reason."
+
+#: issue-609
+msgid "Reasons for selection"
+msgstr "Reasons for selection"
+
+#: issue-609
+msgid "Exclusion category"
+msgstr "Exclusion category"
+
+#: issue-609
+msgid "Why the control is left out, for example: no premises of its own, hosting by a certified provider."
+msgstr "Why the control is left out, for example: no premises of its own, hosting by a certified provider."
+
+#: issue-609
+msgid "Residual risk"
+msgstr "Residual risk"
+
+#: issue-609
+msgid "Risk that remains once the compensating measures are in place."
+msgstr "Risk that remains once the compensating measures are in place."
+
+#: issue-609
+msgid "Controls of this SoA that make up for the exclusion, for example A.5.20 for an audit clause in the provider contract."
+msgstr "Controls of this SoA that make up for the exclusion, for example A.5.20 for an audit clause in the provider contract."
+
+#: issue-609
+msgid "Compensating measures"
+msgstr "Compensating measures"
+
+#: issue-609
+msgid "Other compensating measures, in your own words (contract clause, provider certificate...)."
+msgstr "Other compensating measures, in your own words (contract clause, provider certificate...)."
+
+#: issue-609
+msgid "Summary by theme"
+msgstr "Summary by theme"
+
+#: issue-609
+msgid "%d applicable"
+msgstr "%d applicable"
+
+#: issue-609
+msgid "%d excluded"
+msgstr "%d excluded"
+
+#: issue-609
+msgid "%d implemented"
+msgstr "%d implemented"
+
+#: issue-609
+msgid "Controls"
+msgstr "Controls"
+
+#: issue-609
+msgid "Excluded"
+msgstr "Excluded"
+
+#: issue-609
+msgid "Show the controls of this theme"
+msgstr "Show the controls of this theme"
+
+#: issue-609
+msgid "%d partially"
+msgstr "%d partially"
+
+#: issue-609
+msgid "Total"
+msgstr "Total"
+
+#: issue-609
+msgid "\"Implemented\" counts implemented and verified controls; \"Planned\" counts applicable controls not started yet. Click a theme to filter the list below."
+msgstr "\"Implemented\" counts implemented and verified controls; \"Planned\" counts applicable controls not started yet. Click a theme to filter the list below."
+
+#: issue-609
+msgid "Risk assessment result"
+msgstr "Risk assessment result"
+
+#: issue-609
+msgid "Legal or regulatory obligation"
+msgstr "Legal or regulatory obligation"
+
+#: issue-609
+msgid "Contractual requirement"
+msgstr "Contractual requirement"
+
+#: issue-609
+msgid "Interested party expectation"
+msgstr "Interested party expectation"
+
+#: issue-609
+msgid "Good practice"
+msgstr "Good practice"
+
+#: issue-609
+msgid "Activity not carried out"
+msgstr "Activity not carried out"
+
+#: issue-609
+msgid "Handled by a certified provider"
+msgstr "Handled by a certified provider"
+
+#: issue-609
+msgid "Out of the ISMS scope"
+msgstr "Out of the ISMS scope"
+
+
 msgid "Interested party"
 msgstr "Interested party"
 
-msgid "For example \"Key account customers\" or \"Data protection authority\". Leave empty to use the name of the supplier or group chosen below."
-msgstr "For example \"Key account customers\" or \"Data protection authority\". Leave empty to use the name of the supplier or group chosen below."
+msgid ""
+"For example \"Key account customers\" or \"Data protection authority\". "
+"Leave empty to use the name of the supplier or group chosen below."
+msgstr ""
+"For example \"Key account customers\" or \"Data protection authority\". "
+"Leave empty to use the name of the supplier or group chosen below."
 
 msgid "Type of interested party"
 msgstr "Type of interested party"
@@ -22586,22 +22711,35 @@ msgid "Group in GLPI"
 msgstr "Group in GLPI"
 
 msgid "Optional: when the party is a team or a department recorded as a group."
-msgstr "Optional: when the party is a team or a department recorded as a group."
+msgstr ""
+"Optional: when the party is a team or a department recorded as a group."
 
 msgid "Needs and expectations"
 msgstr "Needs and expectations"
 
-msgid "What this party expects from you about information security, e.g. \"incident notification within 24 hours\"."
-msgstr "What this party expects from you about information security, e.g. \"incident notification within 24 hours\"."
+msgid ""
+"What this party expects from you about information security, e.g. \"incident "
+"notification within 24 hours\"."
+msgstr ""
+"What this party expects from you about information security, e.g. \"incident "
+"notification within 24 hours\"."
 
 msgid "Internal or external issue"
 msgstr "Internal or external issue"
 
-msgid "Since the 2024 amendment of ISO 27001, the organization must determine whether climate change is a relevant issue. Answer yes or no, and write why: requirement 4.1 cannot be marked compliant until this is done."
-msgstr "Since the 2024 amendment of ISO 27001, the organization must determine whether climate change is a relevant issue. Answer yes or no, and write why: requirement 4.1 cannot be marked compliant until this is done."
+msgid ""
+"Since the 2024 amendment of ISO 27001, the organization must determine "
+"whether climate change is a relevant issue. Answer yes or no, and write why: "
+"requirement 4.1 cannot be marked compliant until this is done."
+msgstr ""
+"Since the 2024 amendment of ISO 27001, the organization must determine "
+"whether climate change is a relevant issue. Answer yes or no, and write why: "
+"requirement 4.1 cannot be marked compliant until this is done."
 
-msgid "A short title, e.g. \"New cyber security law\" or \"Growth of remote work\"."
-msgstr "A short title, e.g. \"New cyber security law\" or \"Growth of remote work\"."
+msgid ""
+"A short title, e.g. \"New cyber security law\" or \"Growth of remote work\"."
+msgstr ""
+"A short title, e.g. \"New cyber security law\" or \"Growth of remote work\"."
 
 msgid "Internal or external"
 msgstr "Internal or external"
@@ -22609,8 +22747,12 @@ msgstr "Internal or external"
 msgid "Effect on the ISMS"
 msgstr "Effect on the ISMS"
 
-msgid "How this issue can affect the ability of the ISMS to achieve its intended results."
-msgstr "How this issue can affect the ability of the ISMS to achieve its intended results."
+msgid ""
+"How this issue can affect the ability of the ISMS to achieve its intended "
+"results."
+msgstr ""
+"How this issue can affect the ability of the ISMS to achieve its intended "
+"results."
 
 msgid "Decision of the ISMS"
 msgstr "Decision of the ISMS"
@@ -22618,8 +22760,12 @@ msgstr "Decision of the ISMS"
 msgid "Is climate change relevant?"
 msgstr "Is climate change relevant?"
 
-msgid "\"Retained by the ISMS\" means relevant; \"Not retained\" means not relevant. A justification is required in both cases."
-msgstr "\"Retained by the ISMS\" means relevant; \"Not retained\" means not relevant. A justification is required in both cases."
+msgid ""
+"\"Retained by the ISMS\" means relevant; \"Not retained\" means not "
+"relevant. A justification is required in both cases."
+msgstr ""
+"\"Retained by the ISMS\" means relevant; \"Not retained\" means not "
+"relevant. A justification is required in both cases."
 
 msgid "Retained: the ISMS takes it into account. Not retained: write why."
 msgstr "Retained: the ISMS takes it into account. Not retained: write why."
@@ -22627,8 +22773,12 @@ msgstr "Retained: the ISMS takes it into account. Not retained: write why."
 msgid "Requirements retained by the ISMS"
 msgstr "Requirements retained by the ISMS"
 
-msgid "Which of these expectations become requirements of the ISMS. Link below the obligations and the controls that answer them."
-msgstr "Which of these expectations become requirements of the ISMS. Link below the obligations and the controls that answer them."
+msgid ""
+"Which of these expectations become requirements of the ISMS. Link below the "
+"obligations and the controls that answer them."
+msgstr ""
+"Which of these expectations become requirements of the ISMS. Link below the "
+"obligations and the controls that answer them."
 
 msgid "Links with the ISMS"
 msgstr "Links with the ISMS"
@@ -22652,8 +22802,12 @@ msgstr "Climate change"
 msgid "the question is answered (%s)."
 msgstr "the question is answered (%s)."
 
-msgid "say whether climate change is a relevant issue for your ISMS, and why. Required before requirement 4.1 can be marked compliant."
-msgstr "say whether climate change is a relevant issue for your ISMS, and why. Required before requirement 4.1 can be marked compliant."
+msgid ""
+"say whether climate change is a relevant issue for your ISMS, and why. "
+"Required before requirement 4.1 can be marked compliant."
+msgstr ""
+"say whether climate change is a relevant issue for your ISMS, and why. "
+"Required before requirement 4.1 can be marked compliant."
 
 msgid "Open the answer"
 msgstr "Open the answer"
@@ -22730,8 +22884,12 @@ msgstr "Not retained"
 msgid "Give the issue or the interested party a name."
 msgstr "Give the issue or the interested party a name."
 
-msgid "Explain why climate change is or is not a relevant issue: auditors check this justification."
-msgstr "Explain why climate change is or is not a relevant issue: auditors check this justification."
+msgid ""
+"Explain why climate change is or is not a relevant issue: auditors check "
+"this justification."
+msgstr ""
+"Explain why climate change is or is not a relevant issue: auditors check "
+"this justification."
 
 msgid "Explain why this item is not retained by the ISMS."
 msgstr "Explain why this item is not retained by the ISMS."
@@ -22740,14 +22898,32 @@ msgstr "Explain why this item is not retained by the ISMS."
 msgid "%d context item(s) awaiting review, %d notification(s) raised."
 msgstr "%d context item(s) awaiting review, %d notification(s) raised."
 
-msgid "Answer the climate change question in the context of the organization before marking this requirement compliant."
-msgstr "Answer the climate change question in the context of the organization before marking this requirement compliant."
+msgid ""
+"Answer the climate change question in the context of the organization before "
+"marking this requirement compliant."
+msgstr ""
+"Answer the climate change question in the context of the organization before "
+"marking this requirement compliant."
 
-msgid "The context of the organization: the internal and external issues that affect information security, and the interested parties with their expectations and what the ISMS retains."
-msgstr "The context of the organization: the internal and external issues that affect information security, and the interested parties with their expectations and what the ISMS retains."
+msgid ""
+"The context of the organization: the internal and external issues that "
+"affect information security, and the interested parties with their "
+"expectations and what the ISMS retains."
+msgstr ""
+"The context of the organization: the internal and external issues that "
+"affect information security, and the interested parties with their "
+"expectations and what the ISMS retains."
 
-msgid "List the issues and the interested parties, decide for each one whether the ISMS retains it, link the related risks, obligations and controls, answer the climate change question, and review each item at least once a year. Use the export of the list for the auditor."
-msgstr "List the issues and the interested parties, decide for each one whether the ISMS retains it, link the related risks, obligations and controls, answer the climate change question, and review each item at least once a year. Use the export of the list for the auditor."
+msgid ""
+"List the issues and the interested parties, decide for each one whether the "
+"ISMS retains it, link the related risks, obligations and controls, answer "
+"the climate change question, and review each item at least once a year. Use "
+"the export of the list for the auditor."
+msgstr ""
+"List the issues and the interested parties, decide for each one whether the "
+"ISMS retains it, link the related risks, obligations and controls, answer "
+"the climate change question, and review each item at least once a year. Use "
+"the export of the list for the auditor."
 
 msgid "ISO/IEC 27001, clauses 4.1 and 4.2"
 msgstr "ISO/IEC 27001, clauses 4.1 and 4.2"
@@ -22755,11 +22931,21 @@ msgstr "ISO/IEC 27001, clauses 4.1 and 4.2"
 msgid "View the context item"
 msgstr "View the context item"
 
-msgid "Check that the issue or the interested party is still accurate (expectations, decision, links with risks and controls), then set the next review date."
-msgstr "Check that the issue or the interested party is still accurate (expectations, decision, links with risks and controls), then set the next review date."
+msgid ""
+"Check that the issue or the interested party is still accurate "
+"(expectations, decision, links with risks and controls), then set the next "
+"review date."
+msgstr ""
+"Check that the issue or the interested party is still accurate "
+"(expectations, decision, links with risks and controls), then set the next "
+"review date."
 
-msgid "Sent by the GRC Manager automatic task when an issue or an interested party reaches or approaches its review date."
-msgstr "Sent by the GRC Manager automatic task when an issue or an interested party reaches or approaches its review date."
+msgid ""
+"Sent by the GRC Manager automatic task when an issue or an interested party "
+"reaches or approaches its review date."
+msgstr ""
+"Sent by the GRC Manager automatic task when an issue or an interested party "
+"reaches or approaches its review date."
 
 #, php-format
 msgid "%d other linked item is not shown to you."

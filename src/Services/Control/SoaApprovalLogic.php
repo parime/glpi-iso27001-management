@@ -24,7 +24,8 @@ namespace GlpiPlugin\Grcmanager\Services\Control;
  * (versions figées, voir \GlpiPlugin\Grcmanager\SoaVersion).
  *
  * L'empreinte de CONTENU (fingerprint) ne porte que sur ce qui fait la SoA : pour chaque contrôle :
- * code, applicabilité, état de mise en œuvre, justification : dans un ordre canonique (tri par
+ * code, applicabilité, état de mise en œuvre, justification (issue #609 : et les motifs de
+ * sélection et le détail des exclusions quand ils sont renseignés) : dans un ordre canonique (tri par
  * code, JSON stable). Elle permet de savoir, sans régénérer de PDF, si la SoA a changé depuis la
  * dernière version approuvée : toute modification d'un de ces champs exige une nouvelle version.
  * L'empreinte du PDF figé (SHA-256 du fichier) est distincte : elle prouve quel document exact a
@@ -44,6 +45,17 @@ final class SoaApprovalLogic
     private const CONTENT_FIELDS = ['code', 'applicability', 'implementation_status', 'justification'];
 
     /**
+     * Issue #609 : motifs de sélection et détail des exclusions, comptés seulement quand ils sont
+     * renseignés. Une SoA approuvée avant ces champs garde donc la même empreinte après la mise à
+     * jour : elle n'est pas modifiée, et ce qu'on y ajoute entre dans la version suivante.
+     * `compensating_controls` : codes des mesures compensatoires liées, séparés par des virgules.
+     */
+    private const OPTIONAL_CONTENT_FIELDS = [
+        'selection_reasons', 'exclusion_category', 'compensating_measures', 'residual_risk',
+        'compensating_controls',
+    ];
+
+    /**
      * @param iterable<array<string, mixed>> $controlRows lignes de glpi_plugin_grcmanager_controls
      */
     public static function fingerprint(iterable $controlRows): string
@@ -53,6 +65,12 @@ final class SoaApprovalLogic
             $entry = [];
             foreach (self::CONTENT_FIELDS as $field) {
                 $entry[$field] = trim((string) ($row[$field] ?? ''));
+            }
+            foreach (self::OPTIONAL_CONTENT_FIELDS as $field) {
+                $value = trim((string) ($row[$field] ?? ''));
+                if ($value !== '') {
+                    $entry[$field] = $value;
+                }
             }
             $canonical[$entry['code']] = $entry;
         }

@@ -17615,11 +17615,136 @@ msgstr "Mapa zależności: %s"
 msgid "Exported on %s"
 msgstr "Wyeksportowano %s"
 
+#: issue-609
+msgid "Deduced from the risks linked to this control and from the obligations of the register attached to them."
+msgstr "Wywnioskowane z ryzyk powiązanych z tym zabezpieczeniem oraz z przypisanych do nich obowiązków z rejestru."
+
+#: issue-609
+msgid "From the links"
+msgstr "Z powiązań"
+
+#: issue-609
+msgid "The ticked reasons are deduced from the linked risks and obligations: check them, then save."
+msgstr "Zaznaczone powody wynikają z powiązanych ryzyk i obowiązków: sprawdź je, a następnie zapisz."
+
+#: issue-609
+msgid "Why this control is included: several reasons are possible. Linking a new risk ticks the risk assessment reason."
+msgstr "Dlaczego to zabezpieczenie jest uwzględnione: możliwych jest kilka powodów. Powiązanie nowego ryzyka zaznacza powód oceny ryzyka."
+
+#: issue-609
+msgid "Reasons for selection"
+msgstr "Powody wyboru"
+
+#: issue-609
+msgid "Exclusion category"
+msgstr "Kategoria wyłączenia"
+
+#: issue-609
+msgid "Why the control is left out, for example: no premises of its own, hosting by a certified provider."
+msgstr "Dlaczego zabezpieczenie jest wyłączone, na przykład: brak własnych pomieszczeń, hosting u certyfikowanego dostawcy."
+
+#: issue-609
+msgid "Residual risk"
+msgstr "Ryzyko szczątkowe"
+
+#: issue-609
+msgid "Risk that remains once the compensating measures are in place."
+msgstr "Ryzyko pozostające po wdrożeniu środków kompensujących."
+
+#: issue-609
+msgid "Controls of this SoA that make up for the exclusion, for example A.5.20 for an audit clause in the provider contract."
+msgstr "Zabezpieczenia z tej SoA kompensujące wyłączenie, na przykład A.5.20 dla klauzuli audytu w umowie z dostawcą."
+
+#: issue-609
+msgid "Compensating measures"
+msgstr "Środki kompensujące (opis)"
+
+#: issue-609
+msgid "Other compensating measures, in your own words (contract clause, provider certificate...)."
+msgstr "Inne środki kompensujące, własnymi słowami (klauzula umowy, certyfikat dostawcy...)."
+
+#: issue-609
+msgid "Summary by theme"
+msgstr "Podsumowanie według tematu"
+
+#: issue-609
+msgid "%d applicable"
+msgstr "Mające zastosowanie: %d"
+
+#: issue-609
+msgid "%d excluded"
+msgstr "Wyłączone: %d"
+
+#: issue-609
+msgid "%d implemented"
+msgstr "Wdrożone: %d"
+
+#: issue-609
+msgid "Controls"
+msgstr "Zabezpieczenia"
+
+#: issue-609
+msgid "Excluded"
+msgstr "Wyłączone"
+
+#: issue-609
+msgid "Show the controls of this theme"
+msgstr "Pokaż zabezpieczenia z tego tematu"
+
+#: issue-609
+msgid "%d partially"
+msgstr "w tym częściowo: %d"
+
+#: issue-609
+msgid "Total"
+msgstr "Razem"
+
+#: issue-609
+msgid "\"Implemented\" counts implemented and verified controls; \"Planned\" counts applicable controls not started yet. Click a theme to filter the list below."
+msgstr "\"Wdrożone\" obejmuje zabezpieczenia wdrożone i zweryfikowane; \"Zaplanowany\" obejmuje zabezpieczenia mające zastosowanie, jeszcze nierozpoczęte. Kliknij temat, aby przefiltrować listę poniżej."
+
+#: issue-609
+msgid "Risk assessment result"
+msgstr "Wynik oceny ryzyka"
+
+#: issue-609
+msgid "Legal or regulatory obligation"
+msgstr "Obowiązek prawny lub regulacyjny"
+
+#: issue-609
+msgid "Contractual requirement"
+msgstr "Wymóg umowny"
+
+#: issue-609
+msgid "Interested party expectation"
+msgstr "Oczekiwanie strony zainteresowanej"
+
+#: issue-609
+msgid "Good practice"
+msgstr "Dobra praktyka"
+
+#: issue-609
+msgid "Activity not carried out"
+msgstr "Działalność nieprowadzona"
+
+#: issue-609
+msgid "Handled by a certified provider"
+msgstr "Realizowane przez certyfikowanego dostawcę"
+
+#: issue-609
+msgid "Out of the ISMS scope"
+msgstr "Poza zakresem SZBI"
+
+
 msgid "Interested party"
 msgstr "Strona zainteresowana"
 
-msgid "For example \"Key account customers\" or \"Data protection authority\". Leave empty to use the name of the supplier or group chosen below."
-msgstr "Na przykład „Kluczowi klienci” lub „Organ ochrony danych”. Pozostaw puste, aby użyć nazwy dostawcy lub grupy wybranej poniżej."
+msgid ""
+"For example \"Key account customers\" or \"Data protection authority\". "
+"Leave empty to use the name of the supplier or group chosen below."
+msgstr ""
+"Na przykład „Kluczowi klienci” lub „Organ ochrony danych”. Pozostaw puste, "
+"aby użyć nazwy dostawcy lub grupy wybranej poniżej."
 
 msgid "Type of interested party"
 msgstr "Rodzaj strony zainteresowanej"
@@ -17634,22 +17759,36 @@ msgid "Group in GLPI"
 msgstr "Grupa w GLPI"
 
 msgid "Optional: when the party is a team or a department recorded as a group."
-msgstr "Opcjonalnie: gdy strona jest zespołem lub działem zapisanym jako grupa."
+msgstr ""
+"Opcjonalnie: gdy strona jest zespołem lub działem zapisanym jako grupa."
 
 msgid "Needs and expectations"
 msgstr "Potrzeby i oczekiwania"
 
-msgid "What this party expects from you about information security, e.g. \"incident notification within 24 hours\"."
-msgstr "Czego ta strona oczekuje od Was w zakresie bezpieczeństwa informacji, np. „powiadomienie o incydencie w ciągu 24 godzin”."
+msgid ""
+"What this party expects from you about information security, e.g. \"incident "
+"notification within 24 hours\"."
+msgstr ""
+"Czego ta strona oczekuje od Was w zakresie bezpieczeństwa informacji, np. "
+"„powiadomienie o incydencie w ciągu 24 godzin”."
 
 msgid "Internal or external issue"
 msgstr "Kwestia wewnętrzna lub zewnętrzna"
 
-msgid "Since the 2024 amendment of ISO 27001, the organization must determine whether climate change is a relevant issue. Answer yes or no, and write why: requirement 4.1 cannot be marked compliant until this is done."
-msgstr "Od zmiany ISO 27001 z 2024 r. organizacja musi ustalić, czy zmiana klimatu jest istotną kwestią. Odpowiedz tak lub nie i napisz dlaczego: wymagania 4.1 nie można oznaczyć jako zgodnego, dopóki tego nie zrobisz."
+msgid ""
+"Since the 2024 amendment of ISO 27001, the organization must determine "
+"whether climate change is a relevant issue. Answer yes or no, and write why: "
+"requirement 4.1 cannot be marked compliant until this is done."
+msgstr ""
+"Od zmiany ISO 27001 z 2024 r. organizacja musi ustalić, czy zmiana klimatu "
+"jest istotną kwestią. Odpowiedz tak lub nie i napisz dlaczego: wymagania 4.1 "
+"nie można oznaczyć jako zgodnego, dopóki tego nie zrobisz."
 
-msgid "A short title, e.g. \"New cyber security law\" or \"Growth of remote work\"."
-msgstr "Krótki tytuł, np. „Nowa ustawa o cyberbezpieczeństwie” lub „Rozwój pracy zdalnej”."
+msgid ""
+"A short title, e.g. \"New cyber security law\" or \"Growth of remote work\"."
+msgstr ""
+"Krótki tytuł, np. „Nowa ustawa o cyberbezpieczeństwie” lub „Rozwój pracy "
+"zdalnej”."
 
 msgid "Internal or external"
 msgstr "Wewnętrzna lub zewnętrzna"
@@ -17657,8 +17796,12 @@ msgstr "Wewnętrzna lub zewnętrzna"
 msgid "Effect on the ISMS"
 msgstr "Wpływ na SZBI"
 
-msgid "How this issue can affect the ability of the ISMS to achieve its intended results."
-msgstr "Jak ta kwestia może wpłynąć na zdolność SZBI do osiągnięcia zamierzonych wyników."
+msgid ""
+"How this issue can affect the ability of the ISMS to achieve its intended "
+"results."
+msgstr ""
+"Jak ta kwestia może wpłynąć na zdolność SZBI do osiągnięcia zamierzonych "
+"wyników."
 
 msgid "Decision of the ISMS"
 msgstr "Decyzja SZBI"
@@ -17666,17 +17809,26 @@ msgstr "Decyzja SZBI"
 msgid "Is climate change relevant?"
 msgstr "Czy zmiana klimatu jest istotna?"
 
-msgid "\"Retained by the ISMS\" means relevant; \"Not retained\" means not relevant. A justification is required in both cases."
-msgstr "„Uwzględnione przez SZBI” oznacza istotne, „Nieuwzględnione” oznacza nieistotne. W obu przypadkach wymagane jest uzasadnienie."
+msgid ""
+"\"Retained by the ISMS\" means relevant; \"Not retained\" means not "
+"relevant. A justification is required in both cases."
+msgstr ""
+"„Uwzględnione przez SZBI” oznacza istotne, „Nieuwzględnione” oznacza "
+"nieistotne. W obu przypadkach wymagane jest uzasadnienie."
 
 msgid "Retained: the ISMS takes it into account. Not retained: write why."
-msgstr "Uwzględnione: SZBI bierze to pod uwagę. Nieuwzględnione: napisz dlaczego."
+msgstr ""
+"Uwzględnione: SZBI bierze to pod uwagę. Nieuwzględnione: napisz dlaczego."
 
 msgid "Requirements retained by the ISMS"
 msgstr "Wymagania uwzględnione przez SZBI"
 
-msgid "Which of these expectations become requirements of the ISMS. Link below the obligations and the controls that answer them."
-msgstr "Które z tych oczekiwań stają się wymaganiami SZBI. Powiąż poniżej obowiązki i zabezpieczenia, które na nie odpowiadają."
+msgid ""
+"Which of these expectations become requirements of the ISMS. Link below the "
+"obligations and the controls that answer them."
+msgstr ""
+"Które z tych oczekiwań stają się wymaganiami SZBI. Powiąż poniżej obowiązki "
+"i zabezpieczenia, które na nie odpowiadają."
 
 msgid "Links with the ISMS"
 msgstr "Powiązania z SZBI"
@@ -17700,8 +17852,12 @@ msgstr "Zmiana klimatu"
 msgid "the question is answered (%s)."
 msgstr "pytanie ma odpowiedź (%s)."
 
-msgid "say whether climate change is a relevant issue for your ISMS, and why. Required before requirement 4.1 can be marked compliant."
-msgstr "określ, czy zmiana klimatu jest istotną kwestią dla Twojego SZBI, i dlaczego. Wymagane przed oznaczeniem wymagania 4.1 jako zgodnego."
+msgid ""
+"say whether climate change is a relevant issue for your ISMS, and why. "
+"Required before requirement 4.1 can be marked compliant."
+msgstr ""
+"określ, czy zmiana klimatu jest istotną kwestią dla Twojego SZBI, i "
+"dlaczego. Wymagane przed oznaczeniem wymagania 4.1 jako zgodnego."
 
 msgid "Open the answer"
 msgstr "Otwórz odpowiedź"
@@ -17778,8 +17934,12 @@ msgstr "Nieuwzględnione"
 msgid "Give the issue or the interested party a name."
 msgstr "Nadaj nazwę kwestii lub stronie zainteresowanej."
 
-msgid "Explain why climate change is or is not a relevant issue: auditors check this justification."
-msgstr "Wyjaśnij, dlaczego zmiana klimatu jest lub nie jest istotną kwestią: audytorzy sprawdzają to uzasadnienie."
+msgid ""
+"Explain why climate change is or is not a relevant issue: auditors check "
+"this justification."
+msgstr ""
+"Wyjaśnij, dlaczego zmiana klimatu jest lub nie jest istotną kwestią: "
+"audytorzy sprawdzają to uzasadnienie."
 
 msgid "Explain why this item is not retained by the ISMS."
 msgstr "Wyjaśnij, dlaczego ten wpis nie jest uwzględniony przez SZBI."
@@ -17788,14 +17948,32 @@ msgstr "Wyjaśnij, dlaczego ten wpis nie jest uwzględniony przez SZBI."
 msgid "%d context item(s) awaiting review, %d notification(s) raised."
 msgstr "%d wpis(y) kontekstu do przeglądu, wysłano %d powiadomienie(-a)."
 
-msgid "Answer the climate change question in the context of the organization before marking this requirement compliant."
-msgstr "Odpowiedz na pytanie o zmianę klimatu w kontekście organizacji, zanim oznaczysz to wymaganie jako zgodne."
+msgid ""
+"Answer the climate change question in the context of the organization before "
+"marking this requirement compliant."
+msgstr ""
+"Odpowiedz na pytanie o zmianę klimatu w kontekście organizacji, zanim "
+"oznaczysz to wymaganie jako zgodne."
 
-msgid "The context of the organization: the internal and external issues that affect information security, and the interested parties with their expectations and what the ISMS retains."
-msgstr "Kontekst organizacji: kwestie wewnętrzne i zewnętrzne wpływające na bezpieczeństwo informacji oraz strony zainteresowane z ich oczekiwaniami i tym, co uwzględnia SZBI."
+msgid ""
+"The context of the organization: the internal and external issues that "
+"affect information security, and the interested parties with their "
+"expectations and what the ISMS retains."
+msgstr ""
+"Kontekst organizacji: kwestie wewnętrzne i zewnętrzne wpływające na "
+"bezpieczeństwo informacji oraz strony zainteresowane z ich oczekiwaniami i "
+"tym, co uwzględnia SZBI."
 
-msgid "List the issues and the interested parties, decide for each one whether the ISMS retains it, link the related risks, obligations and controls, answer the climate change question, and review each item at least once a year. Use the export of the list for the auditor."
-msgstr "Wypisz kwestie i strony zainteresowane, zdecyduj dla każdej, czy SZBI ją uwzględnia, powiąż odpowiednie ryzyka, obowiązki i zabezpieczenia, odpowiedz na pytanie o zmianę klimatu i przeglądaj każdy wpis co najmniej raz w roku. Użyj eksportu listy dla audytora."
+msgid ""
+"List the issues and the interested parties, decide for each one whether the "
+"ISMS retains it, link the related risks, obligations and controls, answer "
+"the climate change question, and review each item at least once a year. Use "
+"the export of the list for the auditor."
+msgstr ""
+"Wypisz kwestie i strony zainteresowane, zdecyduj dla każdej, czy SZBI ją "
+"uwzględnia, powiąż odpowiednie ryzyka, obowiązki i zabezpieczenia, odpowiedz "
+"na pytanie o zmianę klimatu i przeglądaj każdy wpis co najmniej raz w roku. "
+"Użyj eksportu listy dla audytora."
 
 msgid "ISO/IEC 27001, clauses 4.1 and 4.2"
 msgstr "ISO/IEC 27001, rozdziały 4.1 i 4.2"
@@ -17803,11 +17981,21 @@ msgstr "ISO/IEC 27001, rozdziały 4.1 i 4.2"
 msgid "View the context item"
 msgstr "Zobacz wpis kontekstu"
 
-msgid "Check that the issue or the interested party is still accurate (expectations, decision, links with risks and controls), then set the next review date."
-msgstr "Sprawdź, czy kwestia lub strona zainteresowana jest nadal aktualna (oczekiwania, decyzja, powiązania z ryzykami i zabezpieczeniami), a następnie ustal datę następnego przeglądu."
+msgid ""
+"Check that the issue or the interested party is still accurate "
+"(expectations, decision, links with risks and controls), then set the next "
+"review date."
+msgstr ""
+"Sprawdź, czy kwestia lub strona zainteresowana jest nadal aktualna "
+"(oczekiwania, decyzja, powiązania z ryzykami i zabezpieczeniami), a "
+"następnie ustal datę następnego przeglądu."
 
-msgid "Sent by the GRC Manager automatic task when an issue or an interested party reaches or approaches its review date."
-msgstr "Wysyłane przez zadanie automatyczne GRC Manager, gdy kwestia lub strona zainteresowana osiąga lub zbliża się do daty przeglądu."
+msgid ""
+"Sent by the GRC Manager automatic task when an issue or an interested party "
+"reaches or approaches its review date."
+msgstr ""
+"Wysyłane przez zadanie automatyczne GRC Manager, gdy kwestia lub strona "
+"zainteresowana osiąga lub zbliża się do daty przeglądu."
 
 #, php-format
 msgid "%d other linked item is not shown to you."

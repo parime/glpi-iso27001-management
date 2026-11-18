@@ -122,6 +122,8 @@ final class Installer
     // (both sides already lowercased+concatenated class-name suffixes), matching GLPI core's own
     // `Left_Right` relation-table convention (e.g. glpi_documents_items).
     private const CONTROLS_RISKS_TABLE = 'glpi_plugin_grcmanager_controls_risks';
+    // Issue #609 : mesures compensatoires d'une exclusion, autres mesures de la même SoA.
+    private const CONTROLS_COMPENSATIONS_TABLE = 'glpi_plugin_grcmanager_controls_compensations';
 
     // Sprint 4 (audits internes et CAPA, clause 9.2/10.2), same table-name derivation rule.
     private const AUDITS_TABLE = 'glpi_plugin_grcmanager_audits';
@@ -689,6 +691,8 @@ final class Installer
             $attributeAfter = $attribute;
         }
         $migration->migrationOneTable(self::CONTROLS_TABLE);
+
+        $this->installSoaSelectionFields($migration, $attributeAfter, $keySign, $charset, $collation);
 
         // Issue #380 : tests d'efficacité des mesures, une ligne par test (voir
         // \GlpiPlugin\Grcmanager\ControlTest). Preuve = document joint à la mesure ; non-conformité
@@ -3991,6 +3995,61 @@ final class Installer
      * mesure, soumise ou en préparation) et accès en lecture d'un auditeur à un seul audit, limité
      * dans le temps.
      */
+    /**
+     * Issue #609 : motifs de sélection (NULL tant que personne ne les a renseignés : le formulaire
+     * propose alors ceux déduits des risques et obligations liés) et détail d'une exclusion de la
+     * SoA, avec la table des mesures compensatoires. Colonnes ajoutées vides : la justification et
+     * les statuts ne bougent pas, et l'empreinte d'une SoA déjà approuvée reste la même
+     * (SoaApprovalLogic::fingerprint()). Rejouable.
+     */
+    private function installSoaSelectionFields(
+        Migration $migration,
+        string $after,
+        string $keySign,
+        string $charset,
+        string $collation
+    ): void {
+        global $DB;
+
+        $selectionFields = [
+            'selection_reasons'     => [
+                'varchar(255) DEFAULT NULL',
+                'risk_assessment, legal, contractual, stakeholder, best_practice',
+            ],
+            'exclusion_category'    => [
+                "varchar(32) NOT NULL DEFAULT ''",
+                'activity_absent, certified_provider, out_of_scope',
+            ],
+            'compensating_measures' => ['text', 'Mesures compensatoires d une exclusion, texte libre'],
+            'residual_risk'         => ["varchar(16) NOT NULL DEFAULT ''", 'low, medium, high, critical'],
+        ];
+        foreach ($selectionFields as $field => [$type, $comment]) {
+            if (!$DB->fieldExists(self::CONTROLS_TABLE, $field)) {
+                $migration->addField(self::CONTROLS_TABLE, $field, $type, [
+                    'comment' => $comment,
+                    'after'   => $after,
+                ]);
+            }
+            $after = $field;
+        }
+        $migration->migrationOneTable(self::CONTROLS_TABLE);
+
+        if (!$DB->tableExists(self::CONTROLS_COMPENSATIONS_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::CONTROLS_COMPENSATIONS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_controls_id` int {$keySign} NOT NULL COMMENT 'Mesure exclue',
+                `plugin_grcmanager_controls_id_compensating` int {$keySign} NOT NULL
+                    COMMENT 'Mesure compensatoire, dans la meme SoA',
+                `date_creation` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity_link`
+                    (`plugin_grcmanager_controls_id`, `plugin_grcmanager_controls_id_compensating`),
+                KEY `controls_id` (`plugin_grcmanager_controls_id`),
+                KEY `controls_id_compensating` (`plugin_grcmanager_controls_id_compensating`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+    }
+
     private function installAuditEvidenceRequestTables(string $keySign, string $charset, string $collation): void
     {
         global $DB;
@@ -5203,6 +5262,7 @@ final class Installer
         $migration->dropTable(self::PRODUCT_ALIASES_TABLE);
         $migration->dropTable(self::CANONICAL_PRODUCTS_TABLE);
         $migration->dropTable(self::CONTROLS_RISKS_TABLE);
+        $migration->dropTable(self::CONTROLS_COMPENSATIONS_TABLE);
         $migration->dropTable(self::CONTROL_TESTS_TABLE);
         $migration->dropTable(self::CUSTOM_REQUIREMENTS_TABLE);
         $migration->dropTable(self::CUSTOM_FRAMEWORKS_TABLE);

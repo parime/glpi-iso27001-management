@@ -113,10 +113,22 @@ class SoaVersion extends SoaVersionBase
     {
         global $DB;
 
-        return SoaApprovalLogic::fingerprint($DB->request([
+        $rows = iterator_to_array($DB->request([
             'FROM'  => Control::getTable(),
             'WHERE' => EntityPerimeter::controlCriteria($entityId),
-        ]));
+        ]), false);
+
+        // Issue #609 : codes des mesures compensatoires liées, partie du contenu de la SoA.
+        $compensating = Control::compensatingCodesByControl(array_map(
+            static fn (array $row): int => (int) $row['id'],
+            $rows
+        ));
+        foreach ($rows as &$row) {
+            $row['compensating_controls'] = implode(',', $compensating[(int) $row['id']] ?? []);
+        }
+        unset($row);
+
+        return SoaApprovalLogic::fingerprint($rows);
     }
 
     /**

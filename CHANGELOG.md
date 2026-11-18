@@ -26,6 +26,24 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   - Droit général du plugin et entité de la fiche ; désinstallation complète (tables, tâche,
     notification).
 
+- **Déclaration d'applicabilité : motifs de sélection et mesures compensatoires des exclusions**
+  (issue #609, ISO 27001 6.1.3 d).
+  - Motifs de sélection à cocher sur chaque mesure, plusieurs possibles : appréciation des risques,
+    obligation légale ou réglementaire, exigence contractuelle, partie intéressée, bonne pratique.
+    Tant qu'ils ne sont pas renseignés, le formulaire coche ceux déduits des risques liés et des
+    obligations du registre rattachées à ces risques ; un risque nouvellement lié coche
+    l'appréciation des risques. Les cases restent modifiables.
+  - Pour une mesure non applicable ou partiellement applicable : catégorie d'exclusion (activité
+    absente, prestataire certifié, hors périmètre), mesures compensatoires liées à d'autres mesures
+    de la même SoA (jamais d'une autre entité), description libre et risque résiduel. La
+    justification reste obligatoire ; le détail est vidé quand la mesure redevient applicable.
+  - Synthèse par thème (applicables, exclues, mises en œuvre, en cours, planifiées) en tête de la
+    liste et dans le PDF ; colonnes ajoutées au PDF, à l'export CSV (en lecture seule à l'import)
+    et à la recherche.
+  - Migration sans perte : colonnes ajoutées vides, justifications et statuts intacts. L'empreinte
+    d'une SoA déjà approuvée ne change pas : les nouveaux champs entrent dans la version suivante.
+  - La SoA propre à une entité reprend ces champs et relie les mesures compensatoires à ses propres
+    mesures. Mêmes droits que la SoA.
 - **Processus métier : export de la carte des dépendances en image** (issue #701). Bouton
   « Exporter la carte » au-dessus du graphe de l'onglet « Carte des dépendances », pour présenter
   la carte à la direction ou l'insérer dans un document.

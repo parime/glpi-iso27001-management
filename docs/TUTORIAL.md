@@ -116,6 +116,22 @@ Une fois la justification renseignée, l'enregistrement réussit.
 
 ![Contrôle enregistré avec sa justification](screenshots/tutorial/16-control-form-justified-saved.png)
 
+**Motifs de sélection et mesures compensatoires.** Sous la justification, cochez pourquoi la mesure
+est retenue : résultat de l'appréciation des risques, obligation légale ou réglementaire, exigence
+contractuelle, attente d'une partie intéressée, bonne pratique (plusieurs motifs possibles). Tant
+que personne ne les a renseignés, les motifs déduits des liens sont déjà cochés, avec la mention
+« D'après les liens » : un risque lié coche l'appréciation des risques, une obligation du registre
+rattachée à ce risque coche le motif légal ou contractuel. Vous pouvez les décocher. Pour une
+mesure non applicable ou partiellement applicable, quatre champs apparaissent : catégorie
+d'exclusion (activité absente, assurée par un prestataire certifié, hors du périmètre du SMSI),
+mesures compensatoires choisies parmi les autres mesures de la même SoA, description libre et
+risque résiduel. Exemple fictif : A.7.4 non applicable, aucun local propre, hébergement chez un
+prestataire certifié ; mesure compensatoire A.5.20 (clause d'audit du contrat). La justification
+reste obligatoire. Ces informations figurent dans la liste (filtres « Motifs de sélection »,
+« Catégorie d'exclusion », « Risque résiduel »), dans l'export CSV et dans le PDF, avec une synthèse
+par thème (mesures applicables, exclues, mises en œuvre, en cours, planifiées). Une SoA déjà
+approuvée n'est pas modifiée : ce que vous ajoutez entre dans la version suivante à faire approuver.
+
 ### Étape 5 : Créer un audit et une non-conformité, jusqu'à la clôture CAPA
 
 Depuis **GRC & Conformité > Audits et amélioration**, la liste est vide tant qu'aucun audit n'existe.
@@ -502,6 +518,22 @@ Once the justification is filled in, the save succeeds.
 ![Justification filled in before saving](screenshots/tutorial/15-control-form-justified-before-save.png)
 
 ![Saved control with its justification](screenshots/tutorial/16-control-form-justified-saved.png)
+
+**Reasons for selection and compensating controls.** Below the justification, tick why the control
+is included: risk assessment result, legal or regulatory obligation, contractual requirement,
+interested party expectation, good practice (several reasons are possible). As long as nobody has
+set them, the reasons deduced from the links are already ticked and marked "From the links": a
+linked risk ticks the risk assessment, an obligation of the register attached to that risk ticks
+the legal or contractual reason. You can untick them. For a control not applicable or partially
+applicable, four fields appear: exclusion category (activity not carried out, handled by a
+certified provider, out of the ISMS scope), compensating controls chosen among the other controls
+of the same SoA, a free description and the residual risk. Fictitious example: A.7.4 not
+applicable, no premises of its own, hosting by a certified provider; compensating control A.5.20
+(audit clause in the contract). The justification stays mandatory. This information appears in the
+list (filters "Reasons for selection", "Exclusion category", "Residual risk"), in the CSV export and
+in the PDF, with a summary by theme (applicable, excluded, implemented, in progress, planned
+controls). An SoA already approved is not changed: what you add goes into the next version to
+approve.
 
 ### Step 5: Create an audit and a non-conformity, through to CAPA closure
 
