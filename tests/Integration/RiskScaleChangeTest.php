@@ -193,4 +193,40 @@ final class RiskScaleChangeTest extends GrcmanagerIntegrationTestCase
 
         return (string) ($row[$field] ?? '');
     }
+
+    /**
+     * Issue #706, lot 2 : libellés personnalisés des niveaux, sans effet sur les clés ni les risques.
+     */
+    public function testCustomLabelsReplaceTheDefaultOnes(): void
+    {
+        RiskMatrixConfig::saveLabels([
+            'probability' => ['rare' => 'Exceptionnel', 'possible' => '   '],
+            'impact'      => ['critical' => 'Vital', 'bogus' => 'Ignoré'],
+        ]);
+
+        $probabilities = Risk::getProbabilities();
+        $this->assertSame(['rare', 'possible', 'probable', 'certain'], array_keys($probabilities));
+        $this->assertSame('Exceptionnel', $probabilities['rare']);
+        $this->assertSame(Risk::getDefaultProbabilityLabels()['possible'], $probabilities['possible']);
+        $this->assertSame('Vital', Risk::getImpacts()['critical']);
+        $this->assertSame(['critical' => 'Vital'], RiskMatrixConfig::labels()['impact']);
+        $this->assertStringContainsString('Vital', Risk::impactBadge('critical'));
+
+        // Le niveau de risque garde ses libellés.
+        $this->assertSame(['low', 'medium', 'high', 'critical'], array_keys(Risk::getRiskLevels()));
+
+        // Retour aux libellés par défaut.
+        RiskMatrixConfig::saveLabels([]);
+        $this->assertSame(Risk::getDefaultProbabilityLabels()['rare'], Risk::getProbabilities()['rare']);
+    }
+
+    public function testCustomLabelsSurviveASizeChange(): void
+    {
+        RiskMatrixConfig::saveLabels(['probability' => ['very_rare' => 'Exceptionnel']]);
+        $this->assertArrayNotHasKey('very_rare', Risk::getProbabilities());
+
+        RiskMatrixConfig::saveScale(5, RiskMatrixDefaults::MATRIX_5);
+        $this->assertSame('Exceptionnel', Risk::getProbabilities()['very_rare']);
+        $this->assertSame('Exceptionnel', Risk::getProbabilities(5)['very_rare']);
+    }
 }

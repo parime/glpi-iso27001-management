@@ -651,6 +651,46 @@
     {% else %}
       <div class="form-hint">{{ __('Changing the size requires the right to update the plugin configuration and the sensitive registers.', 'grcmanager') }}</div>
     {% endif %}
+
+    {# Issue #706, lot 2 : libellés des niveaux de la taille actuelle. Un champ vide garde le libellé
+       par défaut, traduit dans la langue de chaque utilisateur. Seules les clés connues sont gardées
+       (RiskScale::sanitizeLabels), le libellé est échappé à l'affichage. #}
+    <hr>
+    <h4><i class="ti ti-tags me-1"></i>{{ __('Level labels', 'grcmanager') }}</h4>
+    <p class="text-muted">
+      {{ __('Rename the levels of probability and impact to match your method, for example the wording of your risk management policy. Leave a field empty to keep the default label, translated into the language of each user; a label you enter is shown as is in every language. Renaming a level changes nothing in existing risks.', 'grcmanager') }}
+    </p>
+    <form method="post" action="{{ config('root_doc') }}/plugins/grcmanager/front/config.php">
+      <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
+      <div class="row g-3">
+        {% for axis, axis_data in {
+          'probability': {'title': __('Probability', 'grcmanager'), 'values': risk_probabilities, 'defaults': risk_default_probabilities, 'icon': 'ti-dice-3'},
+          'impact': {'title': __('Impact', 'grcmanager'), 'values': risk_impacts, 'defaults': risk_default_impacts, 'icon': 'ti-flame'}
+        } %}
+          <div class="col-md-6">
+            <h5><i class="ti {{ axis_data.icon }} me-1"></i>{{ axis_data.title }}</h5>
+            {% for key, label in axis_data.values %}
+              <div class="mb-2">
+                <label class="form-label" for="grc-scale-label-{{ axis }}-{{ key }}">
+                  <span class="badge bg-secondary-subtle text-secondary-emphasis me-1">{{ loop.index }}</span>
+                  {{ __('Default label: %s', 'grcmanager')|format(axis_data.defaults[key]|default(key)) }}
+                </label>
+                <input type="text" class="form-control" id="grc-scale-label-{{ axis }}-{{ key }}"
+                       name="scale_labels[{{ axis }}][{{ key }}]"
+                       value="{{ risk_scale_labels[axis][key]|default('') }}"
+                       placeholder="{{ axis_data.defaults[key]|default(key) }}"
+                       maxlength="{{ risk_label_max_length }}"
+                       {{ can_edit_config ? '' : 'disabled' }}>
+              </div>
+            {% endfor %}
+          </div>
+        {% endfor %}
+      </div>
+      <div class="form-hint mb-2">{{ __('Levels are listed from the lowest (1) to the highest.', 'grcmanager') }}</div>
+      {% if can_edit_config %}
+        <button type="submit" name="update_risk_scale_labels" class="btn btn-primary"><i class="ti ti-device-floppy me-1"></i>{{ _x('button', 'Save') }}</button>
+      {% endif %}
+    </form>
   </div>
 </div>
 

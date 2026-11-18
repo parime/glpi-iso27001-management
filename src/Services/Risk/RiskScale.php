@@ -74,6 +74,9 @@ final class RiskScale
         5 => ['medium' => 5, 'high' => 10, 'critical' => 16],
     ];
 
+    /** Longueur maximale d'un libellé de niveau personnalisé. */
+    public const LABEL_MAX_LENGTH = 60;
+
     public static function normalizeSize(int $size): int
     {
         return in_array($size, self::SIZES, true) ? $size : self::DEFAULT_SIZE;
@@ -255,5 +258,74 @@ final class RiskScale
         }
 
         return $mapping;
+    }
+
+    /**
+     * Libellés personnalisés des niveaux, ramenés à une énumération fermée : seules les clés connues
+     * d'un axe (toutes tailles confondues, pour qu'un libellé survive à un changement de taille) sont
+     * gardées ; espaces normalisés, caractères de contrôle retirés, longueur limitée. Un libellé vide
+     * n'est pas gardé : le libellé par défaut, traduit, s'applique.
+     *
+     * @param array<mixed> $posted ['probability' => [clé => libellé], 'impact' => [...]]
+     * @return array{probability: array<string, string>, impact: array<string, string>}
+     */
+    public static function sanitizeLabels(array $posted): array
+    {
+        $labels = ['probability' => [], 'impact' => []];
+        foreach (['probability' => self::PROBABILITIES[5], 'impact' => self::IMPACTS[5]] as $axis => $keys) {
+            $values = is_array($posted[$axis] ?? null) ? $posted[$axis] : [];
+            foreach ($keys as $key) {
+                $value = $values[$key] ?? null;
+                if (!is_string($value)) {
+                    continue;
+                }
+                $value = (string) preg_replace('/[\p{Cc}\p{Cf}]+/u', ' ', $value);
+                $value = trim((string) preg_replace('/\s+/u', ' ', $value));
+                if ($value === '') {
+                    continue;
+                }
+                $labels[$axis][$key] = mb_substr($value, 0, self::LABEL_MAX_LENGTH);
+            }
+        }
+
+        return $labels;
+    }
+
+    /**
+     * Libellés d'un axe pour une liste de clés : le libellé personnalisé s'il existe, sinon le
+     * libellé par défaut, sinon la clé.
+     *
+     * @param array<string, string> $defaults clé => libellé par défaut (traduit)
+     * @param array<string, string> $custom clé => libellé personnalisé
+     * @param list<string> $keys
+     * @return array<string, string>
+     */
+    public static function labelsFor(array $defaults, array $custom, array $keys): array
+    {
+        $result = [];
+        foreach ($keys as $key) {
+            $label = $custom[$key] ?? '';
+            $result[$key] = $label !== '' ? $label : ($defaults[$key] ?? $key);
+        }
+
+        return $result;
+    }
+
+    /**
+     * Valeur de l'échelle configurée pour une valeur exprimée sur quatre niveaux (vraisemblance et
+     * gravité EBIOS RM, AIPD, qui suivent leur méthode sur 4 niveaux). En 4x4, la valeur est
+     * inchangée ; en 5x5, la correspondance proposée entre les grilles par défaut, celle qui change le
+     * moins de niveaux de risque : un scénario garde le niveau qu'il aurait en 4x4.
+     */
+    public static function fromFourLevels(string $axis, string $key, int $size): string
+    {
+        $size = self::normalizeSize($size);
+        if ($size === self::DEFAULT_SIZE) {
+            return $key;
+        }
+        static $mappings = [];
+        $mappings[$size] ??= self::proposedMapping(self::DEFAULT_SIZE, $size);
+
+        return $mappings[$size][$axis === 'probability' ? 'probability' : 'impact'][$key] ?? $key;
     }
 }

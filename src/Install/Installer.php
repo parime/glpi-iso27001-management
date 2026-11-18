@@ -495,6 +495,16 @@ final class Installer
             $migration->migrationOneTable(self::RISK_MATRIX_CONFIG_TABLE);
         }
 
+        // Issue #706, lot 2 : libellés personnalisés des niveaux de probabilité et d'impact (JSON).
+        // Vide pour toute installation existante : les libellés par défaut, traduits, s'appliquent.
+        if (!$DB->fieldExists(self::RISK_MATRIX_CONFIG_TABLE, 'scale_labels')) {
+            $migration->addField(self::RISK_MATRIX_CONFIG_TABLE, 'scale_labels', 'text', [
+                'after'   => 'matrix',
+                'comment' => 'JSON - libelles personnalises des niveaux de probabilite et d impact',
+            ]);
+            $migration->migrationOneTable(self::RISK_MATRIX_CONFIG_TABLE);
+        }
+
         // Enrichissement CVE via NVD (cf. ROADMAP.md) : mêmes deux réglages que
         // NvdConfigDefaults, seedés ici pour qu'une instance existante ne voie aucun changement de
         // comportement tant qu'un administrateur n'active pas l'enrichissement (voir

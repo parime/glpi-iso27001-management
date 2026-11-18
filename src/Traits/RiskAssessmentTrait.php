@@ -63,37 +63,65 @@ trait RiskAssessmentTrait
     }
 
     /**
+     * Issue #706 : valeurs de probabilité de la taille de matrice configurée (ou de $size), avec les
+     * libellés personnalisés de la configuration quand ils existent.
+     *
      * @return array<string, string>
      */
     public static function getProbabilities(?int $size = null): array
     {
-        $labels = [
+        return RiskScale::labelsFor(
+            self::getDefaultProbabilityLabels(),
+            RiskMatrixConfig::labels()['probability'],
+            RiskScale::probabilityKeys($size ?? RiskMatrixConfig::size())
+        );
+    }
+
+    /**
+     * Issue #706 : valeurs d'impact de la taille de matrice configurée (ou de $size), avec les
+     * libellés personnalisés de la configuration quand ils existent.
+     *
+     * @return array<string, string>
+     */
+    public static function getImpacts(?int $size = null): array
+    {
+        return RiskScale::labelsFor(
+            self::getDefaultImpactLabels(),
+            RiskMatrixConfig::labels()['impact'],
+            RiskScale::impactKeys($size ?? RiskMatrixConfig::size())
+        );
+    }
+
+    /**
+     * Libellés par défaut, traduits, de toutes les probabilités (toutes tailles).
+     *
+     * @return array<string, string>
+     */
+    public static function getDefaultProbabilityLabels(): array
+    {
+        return [
             'very_rare' => __('Very rare', 'grcmanager'),
             'rare'      => __('Rare', 'grcmanager'),
             'possible'  => __('Possible', 'grcmanager'),
             'probable'  => __('Probable', 'grcmanager'),
             'certain'   => __('Almost certain', 'grcmanager'),
         ];
-
-        return self::scaleLabels($labels, RiskScale::probabilityKeys($size ?? RiskMatrixConfig::size()));
     }
 
     /**
-     * Issue #706 : valeurs d'impact de la taille de matrice configurée (ou de $size).
+     * Libellés par défaut, traduits, de tous les impacts (toutes tailles).
      *
      * @return array<string, string>
      */
-    public static function getImpacts(?int $size = null): array
+    public static function getDefaultImpactLabels(): array
     {
-        $labels = [
+        return [
             'negligible' => __('Negligible', 'grcmanager'),
             'low'        => __('Low', 'grcmanager'),
             'medium'     => __('Medium', 'grcmanager'),
             'high'       => __('High', 'grcmanager'),
             'critical'   => __('Critical', 'grcmanager'),
         ];
-
-        return self::scaleLabels($labels, RiskScale::impactKeys($size ?? RiskMatrixConfig::size()));
     }
 
     /**
@@ -110,21 +138,6 @@ trait RiskAssessmentTrait
             'high'     => __('High', 'grcmanager'),
             'critical' => __('Critical', 'grcmanager'),
         ];
-    }
-
-    /**
-     * @param array<string, string> $labels
-     * @param list<string> $keys
-     * @return array<string, string>
-     */
-    private static function scaleLabels(array $labels, array $keys): array
-    {
-        $result = [];
-        foreach ($keys as $key) {
-            $result[$key] = $labels[$key] ?? $key;
-        }
-
-        return $result;
     }
 
     /**
@@ -216,7 +229,8 @@ trait RiskAssessmentTrait
     {
         return match ($field) {
             'category'             => self::plainBadge('bg-azure-lt', self::getCategories(), $value),
-            'probability'          => self::plainBadge('bg-blue-lt', self::getProbabilities(), $value),
+            // Toutes les tailles : une valeur d'une autre taille reste lisible.
+            'probability'          => self::plainBadge('bg-blue-lt', self::getProbabilities(5), $value),
             'impact'               => self::impactBadge($value),
             'risk_level'           => self::riskLevelBadge($value),
             'treatment'            => self::plainBadge('bg-purple-lt', self::getTreatments(), $value),
@@ -263,15 +277,25 @@ trait RiskAssessmentTrait
     }
 
     /**
-     * Impact : mêmes couleurs que le niveau de risque, plus « négligeable » en matrice 5x5.
+     * Impact : mêmes couleurs que le niveau de risque, plus « négligeable » en matrice 5x5, avec le
+     * libellé configuré (issue #706).
      */
     public static function impactBadge(?string $value): string
     {
-        if ($value === 'negligible') {
-            return Badge::html('bg-teal-lt', null, __('Negligible', 'grcmanager'));
+        $labels = self::getImpacts(5);
+        if ($value === null || !isset($labels[$value])) {
+            return self::riskLevelBadge($value);
         }
+        $class = [
+            'negligible' => 'bg-teal-lt',
+            'low'        => 'bg-green-lt',
+            'medium'     => 'bg-yellow-lt',
+            'high'       => 'bg-orange-lt',
+            'critical'   => 'bg-red-lt',
+        ][$value];
+        $icon = in_array($value, ['high', 'critical'], true) ? 'ti-alert-triangle' : null;
 
-        return self::riskLevelBadge($value);
+        return Badge::html($class, $icon, $labels[$value]);
     }
 
     /**
