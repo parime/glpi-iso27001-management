@@ -269,10 +269,10 @@ final class EntityPerimeter
         }
 
         $created = 0;
+        $createdIds = [];
         foreach (ControlCatalogDefaults::CONTROLS as $code => $theme) {
             $source = $inherited[$code] ?? [];
-            $control = new Control();
-            $id = $control->add([
+            $input = [
                 'entities_id'          => $entityId,
                 'is_recursive'         => 1,
                 'code'                 => $code,
@@ -281,11 +281,27 @@ final class EntityPerimeter
                 'justification'        => (string) ($source['justification'] ?? ''),
                 'implementation_status' => 'not_started',
                 '_grcmanager_new_soa'  => true,
-            ]);
+            ];
+            // Issue #609 : motifs de sélection et détail des exclusions repris aussi (des motifs
+            // jamais renseignés le restent).
+            if (($source['selection_reasons'] ?? null) !== null) {
+                $input['selection_reasons'] = (string) $source['selection_reasons'];
+            }
+            foreach (['exclusion_category', 'compensating_measures', 'residual_risk'] as $field) {
+                $input[$field] = (string) ($source[$field] ?? '');
+            }
+            $control = new Control();
+            $id = $control->add($input);
             if ($id) {
                 $created++;
+                $createdIds[$code] = (int) $id;
             }
         }
+        // Issue #609 : mesures compensatoires reliées aux mesures de la nouvelle SoA, par code.
+        Control::copyCompensations(
+            array_map(static fn (array $row): int => (int) $row['id'], $inherited),
+            $createdIds
+        );
         self::reset();
 
         return $created;

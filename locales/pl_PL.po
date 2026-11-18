@@ -17594,8 +17594,152 @@ msgstr "Macierz wtyczki ma %d poziomów: ocena w innej skali jest przeliczana (n
 msgid "The proposed correspondence is the one that changes the fewest risk levels between the current grid and the grid of the new size."
 msgstr "Proponowana odpowiedniość to ta, która zmienia najmniej poziomów ryzyka między obecną siatką a siatką nowego rozmiaru."
 
+msgid "Export the map"
+msgstr "Eksportuj mapę"
+
+msgid "Download the map as shown, to put it in a document or a presentation"
+msgstr "Pobierz mapę w takiej postaci, w jakiej jest wyświetlana, aby umieścić ją w dokumencie lub prezentacji"
+
+msgid "Image (PNG)"
+msgstr "Obraz (PNG)"
+
+msgid "Image (JPEG)"
+msgstr "Obraz (JPEG)"
+
+msgid "Vector image (SVG), sharp at any size"
+msgstr "Obraz wektorowy (SVG), ostry w każdym rozmiarze"
+
+msgid "Dependency map: %s"
+msgstr "Mapa zależności: %s"
+
+msgid "Exported on %s"
+msgstr "Wyeksportowano %s"
+
+#: issue-609
+msgid "Deduced from the risks linked to this control and from the obligations of the register attached to them."
+msgstr "Wywnioskowane z ryzyk powiązanych z tym zabezpieczeniem oraz z przypisanych do nich obowiązków z rejestru."
+
+#: issue-609
+msgid "From the links"
+msgstr "Z powiązań"
+
+#: issue-609
+msgid "The ticked reasons are deduced from the linked risks and obligations: check them, then save."
+msgstr "Zaznaczone powody wynikają z powiązanych ryzyk i obowiązków: sprawdź je, a następnie zapisz."
+
+#: issue-609
+msgid "Why this control is included: several reasons are possible. Linking a new risk ticks the risk assessment reason."
+msgstr "Dlaczego to zabezpieczenie jest uwzględnione: możliwych jest kilka powodów. Powiązanie nowego ryzyka zaznacza powód oceny ryzyka."
+
+#: issue-609
+msgid "Reasons for selection"
+msgstr "Powody wyboru"
+
+#: issue-609
+msgid "Exclusion category"
+msgstr "Kategoria wyłączenia"
+
+#: issue-609
+msgid "Why the control is left out, for example: no premises of its own, hosting by a certified provider."
+msgstr "Dlaczego zabezpieczenie jest wyłączone, na przykład: brak własnych pomieszczeń, hosting u certyfikowanego dostawcy."
+
+#: issue-609
+msgid "Residual risk"
+msgstr "Ryzyko szczątkowe"
+
+#: issue-609
+msgid "Risk that remains once the compensating measures are in place."
+msgstr "Ryzyko pozostające po wdrożeniu środków kompensujących."
+
+#: issue-609
+msgid "Controls of this SoA that make up for the exclusion, for example A.5.20 for an audit clause in the provider contract."
+msgstr "Zabezpieczenia z tej SoA kompensujące wyłączenie, na przykład A.5.20 dla klauzuli audytu w umowie z dostawcą."
+
+#: issue-609
+msgid "Compensating measures"
+msgstr "Środki kompensujące (opis)"
+
+#: issue-609
+msgid "Other compensating measures, in your own words (contract clause, provider certificate...)."
+msgstr "Inne środki kompensujące, własnymi słowami (klauzula umowy, certyfikat dostawcy...)."
+
+#: issue-609
+msgid "Summary by theme"
+msgstr "Podsumowanie według tematu"
+
+#: issue-609
+msgid "%d applicable"
+msgstr "Mające zastosowanie: %d"
+
+#: issue-609
+msgid "%d excluded"
+msgstr "Wyłączone: %d"
+
+#: issue-609
+msgid "%d implemented"
+msgstr "Wdrożone: %d"
+
+#: issue-609
+msgid "Controls"
+msgstr "Zabezpieczenia"
+
+#: issue-609
+msgid "Excluded"
+msgstr "Wyłączone"
+
+#: issue-609
+msgid "Show the controls of this theme"
+msgstr "Pokaż zabezpieczenia z tego tematu"
+
+#: issue-609
+msgid "%d partially"
+msgstr "w tym częściowo: %d"
+
+#: issue-609
+msgid "Total"
+msgstr "Razem"
+
+#: issue-609
+msgid "\"Implemented\" counts implemented and verified controls; \"Planned\" counts applicable controls not started yet. Click a theme to filter the list below."
+msgstr "\"Wdrożone\" obejmuje zabezpieczenia wdrożone i zweryfikowane; \"Zaplanowany\" obejmuje zabezpieczenia mające zastosowanie, jeszcze nierozpoczęte. Kliknij temat, aby przefiltrować listę poniżej."
+
+#: issue-609
+msgid "Risk assessment result"
+msgstr "Wynik oceny ryzyka"
+
+#: issue-609
+msgid "Legal or regulatory obligation"
+msgstr "Obowiązek prawny lub regulacyjny"
+
+#: issue-609
+msgid "Contractual requirement"
+msgstr "Wymóg umowny"
+
+#: issue-609
+msgid "Interested party expectation"
+msgstr "Oczekiwanie strony zainteresowanej"
+
+#: issue-609
+msgid "Good practice"
+msgstr "Dobra praktyka"
+
+#: issue-609
+msgid "Activity not carried out"
+msgstr "Działalność nieprowadzona"
+
+#: issue-609
+msgid "Handled by a certified provider"
+msgstr "Realizowane przez certyfikowanego dostawcę"
+
+#: issue-609
+msgid "Out of the ISMS scope"
+msgstr "Poza zakresem SZBI"
+
+
 msgid "Firmware"
 msgstr "Oprogramowanie układowe"
 
 msgid "Firmware of network equipment, printers, phones or computers"
-msgstr "Oprogramowanie układowe urządzeń sieciowych, drukarek, telefonów lub komputerów"
+msgstr ""
+"Oprogramowanie układowe urządzeń sieciowych, drukarek, telefonów lub "
+"komputerów"

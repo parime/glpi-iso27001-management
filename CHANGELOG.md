@@ -27,6 +27,38 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   - Entités et droits inchangés : un utilisateur ne voit et ne compte que les matériels de ses
     entités, d'un type qu'il peut lire dans l'onglet CVE, comme pour les logiciels.
 
+
+- **Déclaration d'applicabilité : motifs de sélection et mesures compensatoires des exclusions**
+  (issue #609, ISO 27001 6.1.3 d).
+  - Motifs de sélection à cocher sur chaque mesure, plusieurs possibles : appréciation des risques,
+    obligation légale ou réglementaire, exigence contractuelle, partie intéressée, bonne pratique.
+    Tant qu'ils ne sont pas renseignés, le formulaire coche ceux déduits des risques liés et des
+    obligations du registre rattachées à ces risques ; un risque nouvellement lié coche
+    l'appréciation des risques. Les cases restent modifiables.
+  - Pour une mesure non applicable ou partiellement applicable : catégorie d'exclusion (activité
+    absente, prestataire certifié, hors périmètre), mesures compensatoires liées à d'autres mesures
+    de la même SoA (jamais d'une autre entité), description libre et risque résiduel. La
+    justification reste obligatoire ; le détail est vidé quand la mesure redevient applicable.
+  - Synthèse par thème (applicables, exclues, mises en œuvre, en cours, planifiées) en tête de la
+    liste et dans le PDF ; colonnes ajoutées au PDF, à l'export CSV (en lecture seule à l'import)
+    et à la recherche.
+  - Migration sans perte : colonnes ajoutées vides, justifications et statuts intacts. L'empreinte
+    d'une SoA déjà approuvée ne change pas : les nouveaux champs entrent dans la version suivante.
+  - La SoA propre à une entité reprend ces champs et relie les mesures compensatoires à ses propres
+    mesures. Mêmes droits que la SoA.
+- **Processus métier : export de la carte des dépendances en image** (issue #701). Bouton
+  « Exporter la carte » au-dessus du graphe de l'onglet « Carte des dépendances », pour présenter
+  la carte à la direction ou l'insérer dans un document.
+  - Trois formats : PNG, JPEG et SVG (vectoriel, net à toutes les tailles).
+  - L'image reprend le graphe tel qu'il est affiché (mêmes nœuds, même disposition, y compris
+    après déplacement des nœuds), avec un titre (nom du processus), la date d'export et la légende.
+  - Elle ne contient que ce que la personne voit à l'écran : l'image est produite dans le
+    navigateur depuis la carte déjà filtrée par les droits et les entités. Comme à l'écran, les
+    éléments et processus qu'elle ne peut pas lire ne sont jamais nommés, seulement comptés.
+  - Aucune nouvelle page ni aucun droit : sans le droit de la continuité ou pour un processus d'une
+    autre entité, ni carte ni bouton.
+  - Nom du fichier : « carte-des-dépendances-<processus>-<date> », sans caractère interdit par
+    Windows.
 - **Matrice des risques 5 x 5 au choix** (issue #706, premier lot). La matrice reste en 4 x 4 par
   défaut : aucune installation ne change sans action de l'administrateur.
   - Dans la configuration, « Taille de la matrice » passe en 5 x 5 (très rare, rare, possible,

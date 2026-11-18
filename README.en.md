@@ -156,7 +156,8 @@ classification fields merged directly onto it.
 - **Business processes and business impact analysis (BIA)**: owner, criticality, MTPD, RTO, RPO,
   impact by duration of interruption, GLPI items and other processes each process depends on,
   assets and processes slower than the process reported, linked risks (and a risk proposed for a
-  slow asset), recovery strategy and measured tests, dependency map, reminders of BIAs to review
+  slow asset), recovery strategy and measured tests, dependency map (exportable as a PNG, JPEG or SVG image for
+  a document or a presentation), reminders of BIAs to review
   and recovery tests due, dashboard indicators, business continuity plan as PDF and CSV export.
 - **Crisis exercises** (ransomware, data leak, outage): fictitious incident, timed steps, exercise
   report archived as evidence (A.5.29, A.5.30).

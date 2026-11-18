@@ -178,7 +178,8 @@ archivé), avec ses champs de classification ISO 27001 fusionnés dessus.
 - **Processus métier et analyse d'impact sur l'activité (BIA)** : responsable, criticité, DMIA, RTO,
   RPO, impacts par durée d'interruption, éléments GLPI et autres processus dont dépend chaque
   processus, signalement des actifs et processus plus lents que lui, risques liés (et risque proposé
-  pour un actif trop lent), stratégie de reprise et tests mesurés, carte des dépendances, rappels
+  pour un actif trop lent), stratégie de reprise et tests mesurés, carte des dépendances (exportable en image PNG, JPEG ou SVG
+  pour un document ou une présentation), rappels
   des BIA à revoir et des tests de reprise à refaire, indicateurs du tableau de bord, plan de
   continuité (PCA / PRA) en PDF et export CSV.
 - **Exercices de crise** (rançongiciel, fuite de données, panne) : incident fictif, étapes
