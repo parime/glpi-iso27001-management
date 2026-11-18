@@ -71,7 +71,7 @@ class BusinessProcessRisk extends BusinessProcessRiskBase
      */
     public static function getRisksForProcess(int $processId): array
     {
-        $levels = Risk::getImpacts();
+        $levels = Risk::getRiskLevels();
         $statuses = Risk::getStatuses();
         $treatments = Risk::getTreatments();
         $risk = new Risk();

@@ -609,7 +609,7 @@
                   {% set current_level = risk_matrix[probability_key][impact_key]|default('medium') %}
                   <td class="grcmanager-matrix-cell grcmanager-level-{{ current_level }}">
                     <select name="matrix_{{ probability_key }}_{{ impact_key }}" class="form-select form-select-sm grcmanager-level-select" data-level="{{ current_level }}">
-                      {% for level_key, level_label in risk_impacts %}
+                      {% for level_key, level_label in risk_levels %}
                         <option value="{{ level_key }}" {{ current_level == level_key ? 'selected' : '' }}>{{ level_label }}</option>
                       {% endfor %}
                     </select>
@@ -625,6 +625,32 @@
         <button type="submit" name="update_risk_matrix" class="btn btn-primary">{{ __('Enregistrer') }}</button>
       </div>
     </form>
+
+    {# Issue #706 : taille de la matrice (4x4 par défaut, 5x5 au choix). Le changement passe par un
+       écran de correspondance (front/riskscale.php) : simple lien GET ici, rien n'est écrit. #}
+    <hr>
+    <h4>{{ __('Matrix size', 'grcmanager') }}</h4>
+    <p class="text-muted">
+      {{ __('Current size: %s.', 'grcmanager')|format(risk_scale_sizes[risk_scale_size]|default(risk_scale_size)) }}
+      {{ __('Changing the size converts the probability and impact of every existing risk: you first choose how the current values correspond to the new ones, and see the effect before applying it.', 'grcmanager') }}
+    </p>
+    {% if can_edit_config and can_edit_sensitive %}
+      <form method="get" action="{{ risk_scale_url }}" class="d-flex flex-wrap align-items-end gap-2">
+        <div>
+          <label class="form-label" for="grc-risk-scale-size">{{ __('New size', 'grcmanager') }}</label>
+          <select class="form-select" id="grc-risk-scale-size" name="size">
+            {% for size_key, size_label in risk_scale_sizes %}
+              {% if size_key != risk_scale_size %}
+                <option value="{{ size_key }}">{{ size_label }}</option>
+              {% endif %}
+            {% endfor %}
+          </select>
+        </div>
+        <button type="submit" class="btn btn-outline-primary"><i class="ti ti-arrows-exchange me-1"></i>{{ __('Prepare the change', 'grcmanager') }}</button>
+      </form>
+    {% else %}
+      <div class="form-hint">{{ __('Changing the size requires the right to update the plugin configuration and the sensitive registers.', 'grcmanager') }}</div>
+    {% endif %}
   </div>
 </div>
 

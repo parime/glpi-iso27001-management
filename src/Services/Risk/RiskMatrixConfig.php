@@ -30,27 +30,43 @@ namespace GlpiPlugin\Grcmanager\Services\Risk;
  * NOTE: depends on GLPI's runtime global $DB, not unit-tested in isolation, same exclusion
  * rationale as the sibling plugin glpi-vulnerability-manager, see phpstan.neon.dist. The pure
  * lookup logic (RiskScoringService) IS unit-tested independently.
+ *
+ * Issue #706 : the same row stores the matrix size (`scale_size`, 4 by default). load() always
+ * returns a complete grid for that size, whatever is stored (see RiskScale::normalizeMatrix()).
+ * The size only changes through RiskScaleChange, after the administrator validated the
+ * correspondence of the old values to the new ones.
  */
 final class RiskMatrixConfig
 {
     private const TABLE = 'glpi_plugin_grcmanager_riskmatrixconfig';
+
+    /** @var array{size: int, matrix: array<mixed>}|null */
+    private static ?array $cache = null;
+
+    /**
+     * Taille de la matrice (4 ou 5). 4 tant que la colonne n'existe pas (mise à jour en cours).
+     */
+    public static function size(): int
+    {
+        return self::read()['size'];
+    }
 
     /**
      * @return array<string, array<string, string>> probability => impact => risk_level
      */
     public static function load(): array
     {
-        global $DB;
+        $stored = self::read();
 
-        $matrix = RiskMatrixDefaults::MATRIX;
+        return RiskScale::normalizeMatrix($stored['matrix'], $stored['size']);
+    }
 
-        foreach ($DB->request(['FROM' => self::TABLE]) as $row) {
-            $decoded = json_decode((string) $row['matrix'], true);
-            $matrix  = is_array($decoded) ? $decoded : $matrix;
-            break;
-        }
-
-        return $matrix;
+    /**
+     * Service de calcul configuré avec la grille et la taille enregistrées.
+     */
+    public static function scoring(): RiskScoringService
+    {
+        return new RiskScoringService(self::load(), self::size());
     }
 
     /**
@@ -61,8 +77,60 @@ final class RiskMatrixConfig
         global $DB;
 
         $DB->update(self::TABLE, [
-            'matrix'   => json_encode($matrix),
+            'matrix'   => json_encode(RiskScale::normalizeMatrix($matrix, self::size())),
             'date_mod' => date('Y-m-d H:i:s'),
         ], ['id' => 1]);
+        self::reset();
+    }
+
+    /**
+     * Change la taille et la grille ensemble (seul appelant : RiskScaleChange::apply()).
+     *
+     * @param array<string, array<string, string>> $matrix
+     */
+    public static function saveScale(int $size, array $matrix): void
+    {
+        global $DB;
+
+        $size = RiskScale::normalizeSize($size);
+        $DB->update(self::TABLE, [
+            'scale_size' => $size,
+            'matrix'     => json_encode(RiskScale::normalizeMatrix($matrix, $size)),
+            'date_mod'   => date('Y-m-d H:i:s'),
+        ], ['id' => 1]);
+        self::reset();
+    }
+
+    /**
+     * Oublie la configuration lue (après une écriture, ou dans les tests).
+     */
+    public static function reset(): void
+    {
+        self::$cache = null;
+    }
+
+    /**
+     * @return array{size: int, matrix: array<mixed>}
+     */
+    private static function read(): array
+    {
+        global $DB;
+
+        if (self::$cache !== null) {
+            return self::$cache;
+        }
+        $size = RiskScale::DEFAULT_SIZE;
+        $matrix = RiskMatrixDefaults::MATRIX;
+        if ($DB->tableExists(self::TABLE)) {
+            $hasSize = $DB->fieldExists(self::TABLE, 'scale_size');
+            foreach ($DB->request(['FROM' => self::TABLE, 'ORDER' => 'id', 'LIMIT' => 1]) as $row) {
+                $decoded = json_decode((string) $row['matrix'], true);
+                $matrix = is_array($decoded) ? $decoded : $matrix;
+                $size = $hasSize ? RiskScale::normalizeSize((int) $row['scale_size']) : $size;
+            }
+        }
+        self::$cache = ['size' => $size, 'matrix' => $matrix];
+
+        return self::$cache;
     }
 }

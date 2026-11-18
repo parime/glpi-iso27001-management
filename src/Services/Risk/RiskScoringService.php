@@ -34,44 +34,29 @@ namespace GlpiPlugin\Grcmanager\Services\Risk;
  * install), never read from a global here, so this class stays GLPI-free. The numeric
  * `computed_score` (still shown on the form for context) keeps Sprint 1's fixed ordinal weights:
  * only the probability x impact -> level mapping is administrable, not the underlying score.
+ *
+ * Issue #706 : the matrix size (4x4 by default, or 5x5) is injected too. Weights are the rank of
+ * the value on its axis for that size (see RiskScale), so a 4x4 register scores exactly as before.
  */
 final class RiskScoringService
 {
     /**
-     * @var array<string, int>
-     */
-    private const PROBABILITY_WEIGHTS = [
-        'rare'     => 1,
-        'possible' => 2,
-        'probable' => 3,
-        'certain'  => 4,
-    ];
-
-    /**
-     * @var array<string, int>
-     */
-    private const IMPACT_WEIGHTS = [
-        'low'      => 1,
-        'medium'   => 2,
-        'high'     => 3,
-        'critical' => 4,
-    ];
-
-    /**
      * @param array<string, array<string, string>> $matrix probability => impact => risk_level,
      *                                                      defaults to Sprint 1's original grid.
+     * @param int $size matrix size (4 or 5), see RiskScale.
      */
     public function __construct(
-        private readonly array $matrix = RiskMatrixDefaults::MATRIX
+        private readonly array $matrix = RiskMatrixDefaults::MATRIX,
+        private readonly int $size = RiskScale::DEFAULT_SIZE
     ) {
     }
 
     public function score(string $probability, string $impact): float
     {
-        $probabilityWeight = self::PROBABILITY_WEIGHTS[$probability] ?? 0;
-        $impactWeight       = self::IMPACT_WEIGHTS[$impact] ?? 0;
-
-        return (float) ($probabilityWeight * $impactWeight);
+        return (float) (
+            RiskScale::weight('probability', $probability, $this->size)
+            * RiskScale::weight('impact', $impact, $this->size)
+        );
     }
 
     /**
@@ -82,18 +67,9 @@ final class RiskScoringService
      */
     public function level(string $probability, string $impact): string
     {
-        return $this->matrix[$probability][$impact] ?? $this->levelFromScore(
-            $this->score($probability, $impact)
+        return $this->matrix[$probability][$impact] ?? RiskScale::levelFromScore(
+            $this->score($probability, $impact),
+            $this->size
         );
-    }
-
-    private function levelFromScore(float $score): string
-    {
-        return match (true) {
-            $score >= 12 => 'critical',
-            $score >= 8  => 'high',
-            $score >= 4  => 'medium',
-            default      => 'low',
-        };
     }
 }
