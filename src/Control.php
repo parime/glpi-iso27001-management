@@ -1687,6 +1687,8 @@ class Control extends ControlBase
             'wazuh'                   => $wazuh,
             'wazuh_agents_url'        => $wazuh !== null ? WazuhEvidenceProvider::agentsUrl() : null,
             'docker'                  => $docker,
+            // Issue #704 : fin de support du parc (endoflife.date), preuve des mesures A.8.8 et A.8.9.
+            'endoflife'               => EndOfLife::evidence($code),
             'referentials_url'        => $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/referentiels.php',
         ]);
 

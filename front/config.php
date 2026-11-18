@@ -21,6 +21,7 @@ use GlpiPlugin\Grcmanager\Services\Breach\BreachMonitorConfig;
 use GlpiPlugin\Grcmanager\Services\Breach\HibpClient;
 use GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig;
 use GlpiPlugin\Grcmanager\Services\Cve\NvdConfig;
+use GlpiPlugin\Grcmanager\Services\Lifecycle\EndOfLifeStore;
 use GlpiPlugin\Grcmanager\Services\GithubVersionChecker;
 use GlpiPlugin\Grcmanager\IncidentSecurityGroup;
 use GlpiPlugin\Grcmanager\Services\Incident\CraReportingConfig;
@@ -286,6 +287,61 @@ if (isset($_POST['update_risk_appetite_config'])) {
     Html::back();
 }
 
+// Issue #704 : fin de vie des logiciels, systèmes et firmwares (endoflife.date). Source désactivée
+// par défaut ; les correspondances manuelles servent à rapprocher un nom de GLPI d'un produit.
+if (
+    isset($_POST['update_endoflife_config']) || isset($_POST['refresh_endoflife'])
+    || isset($_POST['add_endoflife_mapping']) || isset($_POST['delete_endoflife_mapping'])
+) {
+    Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
+
+    if (isset($_POST['update_endoflife_config'])) {
+        $before = EndOfLifeStore::settings();
+        EndOfLifeStore::save(
+            !empty($_POST['endoflife_enabled']),
+            is_numeric($_POST['endoflife_warning_days'] ?? null)
+                ? (int) $_POST['endoflife_warning_days']
+                : EndOfLifeStore::DEFAULT_WARNING_DAYS
+        );
+        $changes = array_diff_assoc(array_map('intval', EndOfLifeStore::settings()), array_map('intval', $before));
+        if ($changes !== []) {
+            \GlpiPlugin\Grcmanager\AuditLog::record(
+                'config_change',
+                'Config',
+                0,
+                0,
+                'success',
+                ['changes' => $changes]
+            );
+        }
+    } elseif (isset($_POST['refresh_endoflife'])) {
+        // Quelques produits seulement : le reste suit avec la tâche automatique quotidienne.
+        $report = \GlpiPlugin\Grcmanager\EndOfLife::refresh(30);
+        Session::addMessageAfterRedirect(
+            htmlescape(\GlpiPlugin\Grcmanager\EndOfLife::refreshMessage($report)),
+            false,
+            $report['status'] === 'partial' ? WARNING : INFO
+        );
+    } elseif (isset($_POST['add_endoflife_mapping'])) {
+        $saved = EndOfLifeStore::saveMapping(
+            (string) ($_POST['endoflife_kind'] ?? ''),
+            (string) ($_POST['endoflife_name'] ?? ''),
+            (string) ($_POST['endoflife_product'] ?? '')
+        );
+        if (!$saved) {
+            Session::addMessageAfterRedirect(htmlescape(__(
+                'Link not saved: give the exact name shown in GLPI and an endoflife.date product identifier '
+                    . '(lower case letters, digits and dashes, for instance "debian").',
+                'grcmanager'
+            )), false, ERROR);
+        }
+    } else {
+        EndOfLifeStore::deleteMapping((int) $_POST['delete_endoflife_mapping']);
+    }
+
+    Html::redirect(\GlpiPlugin\Grcmanager\EndOfLife::getConfigURL());
+}
+
 if (isset($_POST['update_nvd_config'])) {
     Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
 
@@ -370,6 +426,8 @@ Html::header(
     'http_can_edit_private'     => Session::haveRight('config', UPDATE),
     'http_glpi12_context_hint'  => Http::glpi12ContextHint(),
     'nvd_config'                => NvdConfig::load(),
+    // Issue #704 : fin de vie (endoflife.date).
+    'endoflife'                 => \GlpiPlugin\Grcmanager\EndOfLife::configData(),
     'park_thresholds'           => \GlpiPlugin\Grcmanager\ParkVulnerability::getTicketThresholds(),
     'digest'                    => \GlpiPlugin\Grcmanager\VulnerabilityDigest::configData(),
     'remediation_settings'      => \GlpiPlugin\Grcmanager\ParkRemediation::getSettings(),

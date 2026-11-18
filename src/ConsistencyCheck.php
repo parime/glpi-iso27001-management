@@ -372,6 +372,16 @@ class ConsistencyCheck extends CommonGLPI
                     'grcmanager'
                 ),
             ],
+            'asset_end_of_life'                    => [
+                'label' => __(
+                    'Assets running software, a system or a firmware that is no longer supported',
+                    'grcmanager'
+                ),
+                'fix'   => __(
+                    'Upgrade to a supported version, or record a waiver with compensating measures until the upgrade.',
+                    'grcmanager'
+                ),
+            ],
         ];
     }
 
@@ -561,6 +571,7 @@ class ConsistencyCheck extends CommonGLPI
             'processing_dpia_pending'              => self::processingActivities(),
             'obligation_review_overdue'            => self::obligations($today, $number),
             'access_review_overdue'                => self::accessReviews($today, $number),
+            'asset_end_of_life'                    => self::endOfLifeAssets($today),
             default                                => null,
         };
     }
@@ -1273,6 +1284,34 @@ class ConsistencyCheck extends CommonGLPI
                 : null,
             static fn (array $c): string => (string) $c['name']
         );
+    }
+
+    /**
+     * Issue #704 : actifs visibles portant un élément plus supporté (endoflife.date). Non évaluable
+     * tant que la source est désactivée.
+     *
+     * @return array{total: int, gaps: list<array<string, mixed>>}|null
+     */
+    private static function endOfLifeAssets(string $today): ?array
+    {
+        $assets = EndOfLife::unsupportedAssets($today);
+        if ($assets === null) {
+            return null;
+        }
+        $gaps = [];
+        foreach ($assets as $asset) {
+            if (!is_a($asset['itemtype'], CommonDBTM::class, true)) {
+                continue;
+            }
+            $gaps[] = self::gap(
+                $asset['itemtype'],
+                $asset['items_id'],
+                $asset['item_name'],
+                sprintf(__('No longer supported: %s', 'grcmanager'), implode(', ', $asset['details']))
+            );
+        }
+
+        return ['total' => count($assets), 'gaps' => $gaps];
     }
 
     // ------------------------------------------------------------------ Présentation et export.
