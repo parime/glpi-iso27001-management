@@ -9,6 +9,19 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Processus métier : export de la carte des dépendances en image** (issue #701). Bouton
+  « Exporter la carte » au-dessus du graphe de l'onglet « Carte des dépendances », pour présenter
+  la carte à la direction ou l'insérer dans un document.
+  - Trois formats : PNG, JPEG et SVG (vectoriel, net à toutes les tailles).
+  - L'image reprend le graphe tel qu'il est affiché (mêmes nœuds, même disposition, y compris
+    après déplacement des nœuds), avec un titre (nom du processus), la date d'export et la légende.
+  - Elle ne contient que ce que la personne voit à l'écran : l'image est produite dans le
+    navigateur depuis la carte déjà filtrée par les droits et les entités. Comme à l'écran, les
+    éléments et processus qu'elle ne peut pas lire ne sont jamais nommés, seulement comptés.
+  - Aucune nouvelle page ni aucun droit : sans le droit de la continuité ou pour un processus d'une
+    autre entité, ni carte ni bouton.
+  - Nom du fichier : « carte-des-dépendances-<processus>-<date> », sans caractère interdit par
+    Windows.
 - **Matrice des risques 5 x 5 au choix** (issue #706, premier lot). La matrice reste en 4 x 4 par
   défaut : aucune installation ne change sans action de l'administrateur.
   - Dans la configuration, « Taille de la matrice » passe en 5 x 5 (très rare, rare, possible,

@@ -17683,3 +17683,24 @@ msgstr "La matrice du plugin a %d niveaux : une note sur une autre échelle est 
 
 msgid "The proposed correspondence is the one that changes the fewest risk levels between the current grid and the grid of the new size."
 msgstr "La correspondance proposée est celle qui change le moins de niveaux de risque entre la grille actuelle et la grille de la nouvelle taille."
+
+msgid "Export the map"
+msgstr "Exporter la carte"
+
+msgid "Download the map as shown, to put it in a document or a presentation"
+msgstr "Télécharger la carte telle qu'elle est affichée, pour la mettre dans un document ou une présentation"
+
+msgid "Image (PNG)"
+msgstr "Image (PNG)"
+
+msgid "Image (JPEG)"
+msgstr "Image (JPEG)"
+
+msgid "Vector image (SVG), sharp at any size"
+msgstr "Image vectorielle (SVG), nette à toutes les tailles"
+
+msgid "Dependency map: %s"
+msgstr "Carte des dépendances : %s"
+
+msgid "Exported on %s"
+msgstr "Exportée le %s"

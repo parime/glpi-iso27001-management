@@ -413,6 +413,65 @@ final class BusinessProcessReminderTest extends GrcmanagerIntegrationTestCase
         $this->assertStringNotContainsString('Annuaire DEMO B', $html);
     }
 
+    /**
+     * Issue #701 : l'export en image est fait depuis le graphe de l'onglet. Il ne peut donc contenir
+     * que ce que la personne voit : sans le droit, ou pour un processus d'une autre entité, ni carte
+     * ni bouton ; sinon, ni le titre, ni le nom du fichier, ni la mention des éléments cachés ne
+     * nomment ce qu'elle ne peut pas lire.
+     */
+    public function testDependencyMapExportOffersOnlyWhatCanBeSeen(): void
+    {
+        $other = $this->createTestEntity(0, 'BIA DEMO export B ' . bin2hex(random_bytes(3)));
+        $process = $this->process('Paie DEMO export', 0, ['rto_hours' => 24]);
+        $upstream = $this->process('Temps DEMO export', 0, []);
+        $hidden = $this->process('Annuaire DEMO export B', 0, ['entities_id' => $other]);
+        foreach ([$upstream, $hidden] as $up) {
+            $this->assertGreaterThan(0, (int) (new BusinessProcessLink())->add([
+                'plugin_grcmanager_businessprocesses_id' => $process->getID(),
+                BusinessProcessLink::UPSTREAM_FIELD      => $up->getID(),
+            ]));
+        }
+        $render = static function (BusinessProcess $item): array {
+            ob_start();
+            $shown = BusinessProcessLink::displayTabContentForItem($item, 2);
+
+            return [$shown, (string) ob_get_clean()];
+        };
+
+        $_SESSION['glpiactiveentities'] = array_values(array_diff($_SESSION['glpiactiveentities'], [$other]));
+        $_SESSION['glpiactiveentities_string'] = implode("','", $_SESSION['glpiactiveentities']);
+
+        [$shown, $html] = $render($process);
+        $this->assertTrue($shown);
+        $this->assertStringContainsString('grc-map-export', $html, 'Bouton d\'export proposé.');
+        foreach (['png', 'jpg', 'svg'] as $format) {
+            $this->assertStringContainsString('data-grc-export="' . $format . '"', $html);
+        }
+        $this->assertMatchesRegularExpression('/data-file-name="[^"]*paie-demo-export-\d{4}-\d{2}-\d{2}"/', $html);
+        $this->assertStringContainsString('Paie DEMO export', $html);
+        $this->assertStringContainsString('Temps DEMO export', $html);
+        $this->assertStringContainsString('data-note="1 ', $html, 'Comme l\'écran, l\'export compte ce qui est caché.');
+        $this->assertStringNotContainsString('Annuaire DEMO export B', $html, 'Jamais nommé, à l\'écran ou exporté.');
+        $this->assertStringNotContainsString(BusinessProcess::class . ':' . $hidden->getID(), $html);
+
+        // Processus d'une autre entité : ni carte, ni bouton.
+        [$shown, $html] = $render($hidden);
+        $this->assertFalse($shown);
+        $this->assertSame('', $html);
+
+        // Sans le droit de la continuité : ni carte, ni bouton.
+        $saved = $_SESSION['glpiactiveprofile'][BusinessProcess::RIGHTNAME];
+        $_SESSION['glpiactiveprofile'][BusinessProcess::RIGHTNAME] = 0;
+        try {
+            [$shown, $html] = $render($process);
+            $this->assertFalse($shown);
+            $this->assertStringNotContainsString('grc-map-export', $html);
+            $this->assertStringNotContainsString('Paie DEMO export', $html);
+        } finally {
+            $_SESSION['glpiactiveprofile'][BusinessProcess::RIGHTNAME] = $saved;
+        }
+    }
+
     private function day(int $offset): string
     {
         return date('Y-m-d', strtotime(sprintf('%+d days', $offset)));

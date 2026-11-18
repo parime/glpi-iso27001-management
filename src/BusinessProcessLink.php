@@ -21,8 +21,10 @@ use CommonGLPI;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compat\Base\BusinessProcessLinkBase;
 use GlpiPlugin\Grcmanager\Install\Installer;
+use GlpiPlugin\Grcmanager\Services\Continuity\DependencyMapExport;
 use GlpiPlugin\Grcmanager\Services\Continuity\ProcessDependencyRules;
 use GlpiPlugin\Grcmanager\Services\Impact\ImpactGraph;
+use Html;
 use Log;
 use Session;
 
@@ -270,8 +272,20 @@ class BusinessProcessLink extends BusinessProcessLinkBase
             return false;
         }
         if ((int) $tabnum === 2) {
+            // Issue #701 : export en image du graphe affiché, rien de plus (voir DependencyMapExport).
+            $today = date('Y-m-d');
             TemplateRenderer::getInstance()->display('@grcmanager/tabs/business_process_map.html.twig', [
-                'map' => self::mapElements($item),
+                'map'    => self::mapElements($item),
+                'export' => [
+                    'file_name' => DependencyMapExport::fileName(
+                        __('Dependency map', 'grcmanager'),
+                        (string) $item->fields['name'],
+                        $today
+                    ),
+                    'process'   => (string) $item->fields['name'],
+                    'date'      => Html::convDate($today),
+                    'formats'   => DependencyMapExport::formats(),
+                ],
             ]);
 
             return true;
