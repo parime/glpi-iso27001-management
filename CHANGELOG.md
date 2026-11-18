@@ -7,6 +7,23 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Fixed
+
+- **Tickets de vulnérabilité du parc : les nouvelles machines vulnérables sont liées au ticket
+  ouvert** (issue #702, signalée par dmontebello). Le suivi « Plus de machines touchées » était
+  ajouté, mais seules les machines présentes à la création restaient dans les éléments du ticket.
+  - La tâche planifiée lie désormais au ticket ouvert les machines qui ne le sont pas encore, sans
+    doublon, et le suivi indique combien ont été liées.
+  - Plafond de 50 éléments liés par ticket, liens ajoutés à la main compris : quand il est atteint,
+    le suivi le signale et renvoie à la page Vulnérabilités du parc.
+  - Une machine qui n'est plus vulnérable n'est jamais déliée : l'historique et les liens ajoutés à
+    la main sont conservés.
+  - Seules les machines de l'entité du ticket lui sont liées (entité de la machine relue), à la
+    création comme lors des mises à jour, comme le formulaire d'éléments de GLPI. Avant, la tâche
+    planifiée pouvait lier au ticket des machines d'autres entités.
+  - Ticket résolu ou clos : comportement inchangé, il n'est plus modifié ; si le logiciel reste
+    vulnérable au-dessus des seuils, un nouveau ticket est créé.
+
 ### Changed
 
 - CI : contrôles de sécurité communs glpi-plugin-security v1.9.0 (charte commune et contrôle des menus bloquants par défaut).
