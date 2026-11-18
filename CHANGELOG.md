@@ -7,6 +7,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.55.0] - 2026-11-18
+
 ### Added
 
 - **Contexte de l'organisation : enjeux et parties intéressées** (issue #608, premier lot ; ISO 27001,
