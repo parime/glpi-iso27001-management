@@ -50,7 +50,8 @@ final class AcnCatalogDefaultsTest extends TestCase
                 self::assertNotSame('', trim($measure[$lang]), "$code $lang");
             }
             self::assertNotEmpty($measure['points'], $code);
-            self::assertSame(range(1, count($measure['points'])), array_keys($measure['points']), "$code : points 1..n");
+            $numbers = array_keys($measure['points']);
+            self::assertSame(range(1, count($measure['points'])), $numbers, "$code : points 1..n");
             foreach ($measure['points'] as $point => $entry) {
                 foreach (['it', 'en', 'fr'] as $lang) {
                     self::assertNotSame('', trim($entry[$lang]), "$code punto $point $lang");

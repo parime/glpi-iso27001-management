@@ -41,7 +41,10 @@ final class AcnRulesTest extends TestCase
     public function testJustificationIsRequiredWhenNotFullyApplicable(): void
     {
         self::assertSame([], Rules::errors(['applicability' => 'yes']));
-        self::assertSame([Rules::ERROR_JUSTIFICATION], Rules::errors(['applicability' => 'no', 'justification' => ' ']));
+        self::assertSame(
+            [Rules::ERROR_JUSTIFICATION],
+            Rules::errors(['applicability' => 'no', 'justification' => ' '])
+        );
         self::assertSame([], Rules::errors(['applicability' => 'partial', 'justification' => 'Sito unico.']));
     }
 
@@ -83,7 +86,10 @@ final class AcnRulesTest extends TestCase
             ['code' => 'GV.OC-04', 'point' => 1],
             ['code' => 'ID.AM-03', 'point' => 1],
         ];
-        $important = array_map(static fn (array $r): string => $r['code'] . '#' . $r['point'], Rules::inCatalog($rows, 'important'));
+        $important = array_map(
+            static fn (array $r): string => $r['code'] . '#' . $r['point'],
+            Rules::inCatalog($rows, 'important')
+        );
         self::assertSame(['GV.OC-04#1', 'RC.RP-01#1'], $important);
         self::assertCount(4, Rules::inCatalog($rows, 'essential'));
         self::assertSame([], Rules::inCatalog($rows, ''));

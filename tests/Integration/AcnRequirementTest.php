@@ -48,7 +48,8 @@ final class AcnRequirementTest extends GrcmanagerIntegrationTestCase
     {
         parent::setUp();
 
-        foreach (['glpiactiveentities', 'glpiactiveentities_string', 'glpiactive_entity', 'glpiparententities'] as $key) {
+        $keys = ['glpiactiveentities', 'glpiactiveentities_string', 'glpiactive_entity', 'glpiparententities'];
+        foreach ($keys as $key) {
             $this->savedSession[$key] = $_SESSION[$key] ?? null;
         }
         $this->savedFrameworks = FrameworkConfig::enabled();
@@ -103,7 +104,9 @@ final class AcnRequirementTest extends GrcmanagerIntegrationTestCase
     private function pointId(int $entityId, string $code, int $point): int
     {
         $requirement = new AcnRequirement();
-        $this->assertTrue($requirement->getFromDBByCrit(['entities_id' => $entityId, 'code' => $code, 'point' => $point]));
+        $this->assertTrue($requirement->getFromDBByCrit([
+            'entities_id' => $entityId, 'code' => $code, 'point' => $point,
+        ]));
 
         return (int) $requirement->getID();
     }
@@ -176,7 +179,9 @@ final class AcnRequirementTest extends GrcmanagerIntegrationTestCase
         $this->assertNull($requirement->fields['due_date']);
 
         // Point hors catalogue : jamais créé.
-        $this->assertFalse((new AcnRequirement())->add(['entities_id' => $this->italy, 'code' => 'XX.YY-01', 'point' => 1]));
+        $this->assertFalse((new AcnRequirement())->add([
+            'entities_id' => $this->italy, 'code' => 'XX.YY-01', 'point' => 1,
+        ]));
         $this->assertFalse(AcnRequirement::canCreate());
         $this->assertFalse(AcnRequirement::canPurge());
     }
@@ -185,7 +190,9 @@ final class AcnRequirementTest extends GrcmanagerIntegrationTestCase
     {
         AcnRequirement::setCategory($this->italy, 'essential');
         $id = $this->pointId($this->italy, 'RS.MA-01', 2);
-        (new AcnRequirement())->update(['id' => $id, 'implementation_status' => 'verified', 'approval_date' => '2026-04-01']);
+        (new AcnRequirement())->update([
+            'id' => $id, 'implementation_status' => 'verified', 'approval_date' => '2026-04-01',
+        ]);
 
         $dashboard = AcnRequirement::dashboard($this->italy);
         $this->assertSame(2, $dashboard['annex']);

@@ -149,7 +149,11 @@ class AcnRequirement extends AcnRequirementBase
     {
         return $category === Catalog::CATEGORY_ESSENTIAL
             ? Badge::html('bg-red-subtle text-red-emphasis', 'ti-shield-star', self::getCategories()[$category])
-            : Badge::html('bg-blue-subtle text-blue-emphasis', 'ti-shield', self::getCategories()[Catalog::CATEGORY_IMPORTANT]);
+            : Badge::html(
+                'bg-blue-subtle text-blue-emphasis',
+                'ti-shield',
+                self::getCategories()[Catalog::CATEGORY_IMPORTANT]
+            );
     }
 
     public static function statusBadge(string $status): string
@@ -243,7 +247,11 @@ class AcnRequirement extends AcnRequirementBase
                 'entities_id' => $entityId, 'category' => $category, 'date_creation' => $now, 'date_mod' => $now,
             ]);
         } elseif ((string) $existing['category'] !== $category) {
-            $DB->update(self::ENTITIES_TABLE, ['category' => $category, 'date_mod' => $now], ['entities_id' => $entityId]);
+            $DB->update(
+                self::ENTITIES_TABLE,
+                ['category' => $category, 'date_mod' => $now],
+                ['entities_id' => $entityId]
+            );
         }
         self::resetCategories();
 
@@ -429,7 +437,10 @@ class AcnRequirement extends AcnRequirementBase
         }
         if (Rules::errors(array_merge($current, $input)) !== []) {
             Session::addMessageAfterRedirect(
-                htmlescape(__('A justification is required whenever a requirement is not fully applicable.', 'grcmanager')),
+                htmlescape(__(
+                    'A justification is required whenever a requirement is not fully applicable.',
+                    'grcmanager'
+                )),
                 false,
                 ERROR
             );
@@ -493,7 +504,8 @@ class AcnRequirement extends AcnRequirementBase
             return [];
         }
         $choices = [];
-        foreach ($DB->request(['SELECT' => ['id', 'title'], 'FROM' => Policy::getTable(), 'ORDER' => 'title']) as $row) {
+        $request = ['SELECT' => ['id', 'title'], 'FROM' => Policy::getTable(), 'ORDER' => 'title'];
+        foreach ($DB->request($request) as $row) {
             $choices[(int) $row['id']] = (string) $row['title'];
         }
 
@@ -546,7 +558,9 @@ class AcnRequirement extends AcnRequirementBase
         $existing = self::getLinkedPolicyIds($requirementId);
         foreach (array_diff($existing, $wanted) as $id) {
             if (isset($choices[$id])) {
-                $DB->delete(self::LINKS_TABLE, [self::FK => $requirementId, 'itemtype' => Policy::class, 'items_id' => $id]);
+                $DB->delete(self::LINKS_TABLE, [
+                    self::FK => $requirementId, 'itemtype' => Policy::class, 'items_id' => $id,
+                ]);
             }
         }
         foreach (array_diff($wanted, $existing) as $id) {
@@ -656,8 +670,12 @@ class AcnRequirement extends AcnRequirementBase
             'summary'           => Catalog::pointSummary($code, $point),
             'applicability'     => (string) $row['applicability'],
             'status'            => (string) $row['implementation_status'],
-            'applicability_label' => Control::getApplicabilities()[Rules::normalizeApplicability($row['applicability'])],
-            'status_label'      => Control::getImplementationStatuses()[Rules::normalizeStatus($row['implementation_status'])],
+            'applicability_label' => Control::getApplicabilities()[
+                Rules::normalizeApplicability($row['applicability'])
+            ],
+            'status_label'      => Control::getImplementationStatuses()[
+                Rules::normalizeStatus($row['implementation_status'])
+            ],
             'owner'             => $usersId > 0 ? getUserName($usersId) : '',
             'due_date'          => (string) ($row['due_date'] ?? ''),
             'overdue'           => Rules::isOverdue($row, $today),
@@ -682,7 +700,10 @@ class AcnRequirement extends AcnRequirementBase
         $functions = [];
         foreach (Catalog::MEASURES as $code => $measure) {
             $all = count($measure['points']);
-            $essentialOnly = count(array_filter($measure['points'], static fn (array $p): bool => !empty($p['essential'])));
+            $essentialOnly = count(array_filter(
+                $measure['points'],
+                static fn (array $p): bool => !empty($p['essential'])
+            ));
             $functions[Catalog::functionOf($code)]['measures'][] = [
                 'code'      => $code,
                 'title'     => Catalog::measureTitle($code),
@@ -698,8 +719,14 @@ class AcnRequirement extends AcnRequirementBase
 
         return [
             'functions'        => $functions,
-            'important'        => [count(Catalog::measuresFor(Catalog::CATEGORY_IMPORTANT)), count(Catalog::pointsFor(Catalog::CATEGORY_IMPORTANT))],
-            'essential'        => [count(Catalog::measuresFor(Catalog::CATEGORY_ESSENTIAL)), count(Catalog::pointsFor(Catalog::CATEGORY_ESSENTIAL))],
+            'important'        => [
+                count(Catalog::measuresFor(Catalog::CATEGORY_IMPORTANT)),
+                count(Catalog::pointsFor(Catalog::CATEGORY_IMPORTANT)),
+            ],
+            'essential'        => [
+                count(Catalog::measuresFor(Catalog::CATEGORY_ESSENTIAL)),
+                count(Catalog::pointsFor(Catalog::CATEGORY_ESSENTIAL)),
+            ],
             'register_url'     => self::getSearchURL(),
             'has_register'     => self::availableRegisters() !== [],
             'own_category'     => $own !== null ? (self::getCategories()[self::categoryOf($own)] ?? '') : '',
@@ -770,8 +797,14 @@ class AcnRequirement extends AcnRequirementBase
         $dashboard = self::dashboard($entityId);
 
         return TemplateRenderer::getInstance()->render('@grcmanager/pdf/acn_report.html.twig', $dashboard + [
-            'report_title'       => sprintf(__('NIS2 Italy compliance (ACN determination %s)', 'grcmanager'), Catalog::DETERMINATION),
-            'generated_at_label' => sprintf(__('Generated on %s', 'grcmanager'), \Html::convDateTime(date('Y-m-d H:i:s'))),
+            'report_title'       => sprintf(
+                __('NIS2 Italy compliance (ACN determination %s)', 'grcmanager'),
+                Catalog::DETERMINATION
+            ),
+            'generated_at_label' => sprintf(
+                __('Generated on %s', 'grcmanager'),
+                \Html::convDateTime(date('Y-m-d H:i:s'))
+            ),
             'perimeter'          => $dashboard['entity'],
             'category_label'     => self::getCategories()[$dashboard['category']] ?? '',
             'determination'      => Catalog::DETERMINATION,
@@ -861,10 +894,13 @@ class AcnRequirement extends AcnRequirementBase
             'applicabilities'  => Control::getApplicabilities(),
             'statuses'         => Control::getImplementationStatuses(),
             'nis2'             => FrameworkConfig::isEnabled(FrameworkSelection::NIS2) ? Catalog::nis2For($code) : [],
-            'nist_text'        => FrameworkConfig::isEnabled(FrameworkSelection::NIST_CSF) ? Catalog::nistText($code) : '',
+            'nist_text'        => FrameworkConfig::isEnabled(FrameworkSelection::NIST_CSF)
+                ? Catalog::nistText($code) : '',
             'annex_a'          => $showIso ? $annexA : [],
             'policy_choices'   => $policies,
-            'policy_values'    => array_values(array_filter($linked, static fn (int $id): bool => isset($policies[$id]))),
+            'policy_values'    => array_values(
+                array_filter($linked, static fn (int $id): bool => isset($policies[$id]))
+            ),
             'policy_hidden'    => count(array_filter($linked, static fn (int $id): bool => !isset($policies[$id]))),
             'policies'         => self::linkedPolicies((int) $ID),
             'can_link_policy'  => Policy::canView(),
