@@ -22545,3 +22545,124 @@ msgstr "The plugin matrix has %d levels: a score on another scale is converted (
 
 msgid "The proposed correspondence is the one that changes the fewest risk levels between the current grid and the grid of the new size."
 msgstr "The proposed correspondence is the one that changes the fewest risk levels between the current grid and the grid of the new size."
+
+#: issue-609
+msgid "Deduced from the risks linked to this control and from the obligations of the register attached to them."
+msgstr "Deduced from the risks linked to this control and from the obligations of the register attached to them."
+
+#: issue-609
+msgid "From the links"
+msgstr "From the links"
+
+#: issue-609
+msgid "The ticked reasons are deduced from the linked risks and obligations: check them, then save."
+msgstr "The ticked reasons are deduced from the linked risks and obligations: check them, then save."
+
+#: issue-609
+msgid "Why this control is included: several reasons are possible. Linking a new risk ticks the risk assessment reason."
+msgstr "Why this control is included: several reasons are possible. Linking a new risk ticks the risk assessment reason."
+
+#: issue-609
+msgid "Reasons for selection"
+msgstr "Reasons for selection"
+
+#: issue-609
+msgid "Exclusion category"
+msgstr "Exclusion category"
+
+#: issue-609
+msgid "Why the control is left out, for example: no premises of its own, hosting by a certified provider."
+msgstr "Why the control is left out, for example: no premises of its own, hosting by a certified provider."
+
+#: issue-609
+msgid "Residual risk"
+msgstr "Residual risk"
+
+#: issue-609
+msgid "Risk that remains once the compensating measures are in place."
+msgstr "Risk that remains once the compensating measures are in place."
+
+#: issue-609
+msgid "Controls of this SoA that make up for the exclusion, for example A.5.20 for an audit clause in the provider contract."
+msgstr "Controls of this SoA that make up for the exclusion, for example A.5.20 for an audit clause in the provider contract."
+
+#: issue-609
+msgid "Compensating measures"
+msgstr "Compensating measures"
+
+#: issue-609
+msgid "Other compensating measures, in your own words (contract clause, provider certificate...)."
+msgstr "Other compensating measures, in your own words (contract clause, provider certificate...)."
+
+#: issue-609
+msgid "Summary by theme"
+msgstr "Summary by theme"
+
+#: issue-609
+msgid "%d applicable"
+msgstr "%d applicable"
+
+#: issue-609
+msgid "%d excluded"
+msgstr "%d excluded"
+
+#: issue-609
+msgid "%d implemented"
+msgstr "%d implemented"
+
+#: issue-609
+msgid "Controls"
+msgstr "Controls"
+
+#: issue-609
+msgid "Excluded"
+msgstr "Excluded"
+
+#: issue-609
+msgid "Show the controls of this theme"
+msgstr "Show the controls of this theme"
+
+#: issue-609
+msgid "%d partially"
+msgstr "%d partially"
+
+#: issue-609
+msgid "Total"
+msgstr "Total"
+
+#: issue-609
+msgid "\"Implemented\" counts implemented and verified controls; \"Planned\" counts applicable controls not started yet. Click a theme to filter the list below."
+msgstr "\"Implemented\" counts implemented and verified controls; \"Planned\" counts applicable controls not started yet. Click a theme to filter the list below."
+
+#: issue-609
+msgid "Risk assessment result"
+msgstr "Risk assessment result"
+
+#: issue-609
+msgid "Legal or regulatory obligation"
+msgstr "Legal or regulatory obligation"
+
+#: issue-609
+msgid "Contractual requirement"
+msgstr "Contractual requirement"
+
+#: issue-609
+msgid "Interested party expectation"
+msgstr "Interested party expectation"
+
+#: issue-609
+msgid "Good practice"
+msgstr "Good practice"
+
+#: issue-609
+msgid "Activity not carried out"
+msgstr "Activity not carried out"
+
+#: issue-609
+msgid "Handled by a certified provider"
+msgstr "Handled by a certified provider"
+
+#: issue-609
+msgid "Out of the ISMS scope"
+msgstr "Out of the ISMS scope"
+

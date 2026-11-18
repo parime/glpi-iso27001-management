@@ -17672,3 +17672,124 @@ msgstr "La matrice del plugin ha %d livelli: un punteggio su un'altra scala vien
 
 msgid "The proposed correspondence is the one that changes the fewest risk levels between the current grid and the grid of the new size."
 msgstr "La corrispondenza proposta è quella che cambia il minor numero di livelli di rischio tra la griglia attuale e quella della nuova dimensione."
+
+#: issue-609
+msgid "Deduced from the risks linked to this control and from the obligations of the register attached to them."
+msgstr "Dedotto dai rischi collegati a questo controllo e dagli obblighi del registro a essi associati."
+
+#: issue-609
+msgid "From the links"
+msgstr "Dai collegamenti"
+
+#: issue-609
+msgid "The ticked reasons are deduced from the linked risks and obligations: check them, then save."
+msgstr "I motivi selezionati sono dedotti dai rischi e dagli obblighi collegati: verificateli, poi salvate."
+
+#: issue-609
+msgid "Why this control is included: several reasons are possible. Linking a new risk ticks the risk assessment reason."
+msgstr "Perché questo controllo è incluso: sono possibili più motivi. Collegare un nuovo rischio seleziona il motivo della valutazione dei rischi."
+
+#: issue-609
+msgid "Reasons for selection"
+msgstr "Motivi della selezione"
+
+#: issue-609
+msgid "Exclusion category"
+msgstr "Categoria di esclusione"
+
+#: issue-609
+msgid "Why the control is left out, for example: no premises of its own, hosting by a certified provider."
+msgstr "Perché il controllo è escluso, ad esempio: nessun locale proprio, hosting presso un fornitore certificato."
+
+#: issue-609
+msgid "Residual risk"
+msgstr "Rischio residuo"
+
+#: issue-609
+msgid "Risk that remains once the compensating measures are in place."
+msgstr "Rischio che permane una volta attuate le misure compensative."
+
+#: issue-609
+msgid "Controls of this SoA that make up for the exclusion, for example A.5.20 for an audit clause in the provider contract."
+msgstr "Controlli di questa SoA che compensano l'esclusione, ad esempio A.5.20 per una clausola di audit nel contratto del fornitore."
+
+#: issue-609
+msgid "Compensating measures"
+msgstr "Misure compensative (descrizione)"
+
+#: issue-609
+msgid "Other compensating measures, in your own words (contract clause, provider certificate...)."
+msgstr "Altre misure compensative, con parole vostre (clausola del contratto, certificato del fornitore...)."
+
+#: issue-609
+msgid "Summary by theme"
+msgstr "Sintesi per tema"
+
+#: issue-609
+msgid "%d applicable"
+msgstr "%d applicabile/i"
+
+#: issue-609
+msgid "%d excluded"
+msgstr "%d escluso/i"
+
+#: issue-609
+msgid "%d implemented"
+msgstr "%d attuato/i"
+
+#: issue-609
+msgid "Controls"
+msgstr "Controlli"
+
+#: issue-609
+msgid "Excluded"
+msgstr "Esclusi"
+
+#: issue-609
+msgid "Show the controls of this theme"
+msgstr "Mostra i controlli di questo tema"
+
+#: issue-609
+msgid "%d partially"
+msgstr "%d parzialmente"
+
+#: issue-609
+msgid "Total"
+msgstr "Totale"
+
+#: issue-609
+msgid "\"Implemented\" counts implemented and verified controls; \"Planned\" counts applicable controls not started yet. Click a theme to filter the list below."
+msgstr "\"Attuato\" conta i controlli attuati e verificati; \"Pianificato\" conta i controlli applicabili non ancora avviati. Fate clic su un tema per filtrare l'elenco sottostante."
+
+#: issue-609
+msgid "Risk assessment result"
+msgstr "Esito della valutazione dei rischi"
+
+#: issue-609
+msgid "Legal or regulatory obligation"
+msgstr "Obbligo legale o normativo"
+
+#: issue-609
+msgid "Contractual requirement"
+msgstr "Requisito contrattuale"
+
+#: issue-609
+msgid "Interested party expectation"
+msgstr "Aspettativa di una parte interessata"
+
+#: issue-609
+msgid "Good practice"
+msgstr "Buona pratica"
+
+#: issue-609
+msgid "Activity not carried out"
+msgstr "Attività non svolta"
+
+#: issue-609
+msgid "Handled by a certified provider"
+msgstr "Gestita da un fornitore certificato"
+
+#: issue-609
+msgid "Out of the ISMS scope"
+msgstr "Fuori dal perimetro del SGSI"
+

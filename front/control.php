@@ -53,6 +53,8 @@ TemplateRenderer::getInstance()->display('@grcmanager/control_list_header.html.t
     'perimeter'       => \GlpiPlugin\Grcmanager\EntityPerimeter::soaBanner(),
     // Issue #610 : synthèse de la SoA par attribut des mesures (type, propriété, concept...).
     'attribute_summary' => \GlpiPlugin\Grcmanager\Control::attributeSummary(),
+    // Issue #609 : synthèse par thème (applicables, exclues, mises en œuvre, en cours, prévues).
+    'theme_summary'     => \GlpiPlugin\Grcmanager\Control::themeSummary(),
 ]);
 
 // Same URL-driven search fix as front/risk.php (Search::showList()'s $params must be pre-merged

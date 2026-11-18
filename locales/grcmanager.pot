@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-18 19:05+0000\n"
+"POT-Creation-Date: 2026-11-18 19:36+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -474,8 +474,8 @@ msgid "Filter…"
 msgstr ""
 
 #: templates/referentiels.html.twig templates/control_form.html.twig
-#: templates/pdf/soa_report.html.twig src/Control.php:585
-#: front/customframework.php:156
+#: templates/control_list_header.html.twig templates/pdf/soa_report.html.twig
+#: src/Control.php:1025 front/customframework.php:156
 msgid "Theme"
 msgstr ""
 
@@ -919,19 +919,19 @@ msgstr ""
 #: templates/control_test_due.html.twig
 #: templates/pdf/internal_audit_report.html.twig
 #: templates/framework_assessment.html.twig
-#: src/NotificationTargetControl.php:144 src/Control.php:570
+#: src/NotificationTargetControl.php:144 src/Control.php:1010
 #: src/ControlTest.php:814 src/NotificationTargetAuditEvidenceRequest.php:156
 msgid "Control"
 msgstr ""
 
 #: templates/control_form.html.twig templates/pdf/soa_report.html.twig
-#: src/Control.php:593
+#: src/Control.php:1033
 msgid "Applicability"
 msgstr ""
 
 #: templates/control_form.html.twig templates/pdf/soa_report.html.twig
 #: templates/framework_assessment.html.twig
-#: src/NotificationTargetControl.php:150 src/Control.php:601
+#: src/NotificationTargetControl.php:150 src/Control.php:1041
 msgid "Implementation status"
 msgstr ""
 
@@ -940,12 +940,82 @@ msgstr ""
 #: templates/pdf/soa_report.html.twig
 #: templates/pdf/network_flow_report.html.twig
 #: templates/supplier_risk_form.html.twig templates/risk_form.html.twig
-#: src/Control.php:609 src/NetworkFlow.php:265 src/RiskRegisterImport.php:596
+#: src/Control.php:1049 src/NetworkFlow.php:265 src/RiskRegisterImport.php:596
 msgid "Justification"
 msgstr ""
 
 #: templates/control_form.html.twig
 msgid "Required if the control is not fully applicable."
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid ""
+"Deduced from the risks linked to this control and from the obligations of "
+"the register attached to them."
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid "From the links"
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid ""
+"The ticked reasons are deduced from the linked risks and obligations: check "
+"them, then save."
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid ""
+"Why this control is included: several reasons are possible. Linking a new "
+"risk ticks the risk assessment reason."
+msgstr ""
+
+#: templates/control_form.html.twig templates/pdf/soa_report.html.twig
+#: src/Control.php:1129
+msgid "Reasons for selection"
+msgstr ""
+
+#: templates/control_form.html.twig templates/pdf/soa_report.html.twig
+#: src/Control.php:1138
+msgid "Exclusion category"
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid ""
+"Why the control is left out, for example: no premises of its own, hosting by "
+"a certified provider."
+msgstr ""
+
+#: templates/control_form.html.twig templates/pdf/soa_report.html.twig
+#: src/Control.php:1155
+msgid "Residual risk"
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid "Risk that remains once the compensating measures are in place."
+msgstr ""
+
+#: templates/control_form.html.twig templates/waiver_ticket.html.twig
+#: templates/waiver_form.html.twig templates/pdf/soa_report.html.twig
+#: src/Control.php:1166 src/Waiver.php:511
+msgid "Compensating controls"
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid ""
+"Controls of this SoA that make up for the exclusion, for example A.5.20 for "
+"an audit clause in the provider contract."
+msgstr ""
+
+#: templates/control_form.html.twig templates/pdf/soa_report.html.twig
+#: src/Control.php:1147
+msgid "Compensating measures"
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid ""
+"Other compensating measures, in your own words (contract clause, provider "
+"certificate...)."
 msgstr ""
 
 #: templates/control_form.html.twig
@@ -2289,11 +2359,12 @@ msgstr ""
 
 #: templates/crisis_exercises.html.twig
 #: templates/policy_acknowledgement_tab.html.twig
-#: templates/control_list_header.html.twig src/DataSubjectRequest.php:97
-#: src/SecurityIncidentPlaybookTask.php:64 src/Control.php:137
-#: src/Control.php:846 src/Audit.php:96 src/Audit.php:336 src/Waiver.php:101
-#: src/RiskTreatmentAction.php:88 src/RiskTreatmentAction.php:172
-#: src/EbiosStudy.php:90 src/AccessReview.php:104 src/IsmsRequirement.php:154
+#: templates/control_list_header.html.twig templates/pdf/soa_report.html.twig
+#: src/DataSubjectRequest.php:97 src/SecurityIncidentPlaybookTask.php:64
+#: src/Control.php:154 src/Control.php:1364 src/Audit.php:96 src/Audit.php:336
+#: src/Waiver.php:101 src/RiskTreatmentAction.php:88
+#: src/RiskTreatmentAction.php:172 src/EbiosStudy.php:90
+#: src/AccessReview.php:104 src/IsmsRequirement.php:154
 msgid "In progress"
 msgstr ""
 
@@ -2376,19 +2447,19 @@ msgid ""
 "score every day for the current month."
 msgstr ""
 
-#: templates/asset_classification_tab.html.twig src/Control.php:173
+#: templates/asset_classification_tab.html.twig src/Control.php:557
 #: src/AssetClassification.php:119 inc/securityincident.class.php:274
 msgid "Confidentiality"
 msgstr ""
 
-#: templates/asset_classification_tab.html.twig src/Control.php:174
+#: templates/asset_classification_tab.html.twig src/Control.php:558
 #: src/AssetClassification.php:127 inc/securityincident.class.php:275
 msgid "Integrity"
 msgstr ""
 
 #: templates/asset_classification_tab.html.twig
 #: templates/tabs/business_process_items.html.twig
-#: templates/impact_tab.html.twig src/Control.php:175
+#: templates/impact_tab.html.twig src/Control.php:559
 #: src/AssetClassification.php:135 src/ImpactAnalysis.php:226
 #: inc/securityincident.class.php:276
 msgid "Availability"
@@ -3166,11 +3237,6 @@ msgid ""
 "Re-assess it: extend it with a new end date if the exception is still "
 "needed, or close it once the situation is resolved. Nothing was changed "
 "automatically."
-msgstr ""
-
-#: templates/waiver_ticket.html.twig templates/waiver_form.html.twig
-#: src/Waiver.php:511
-msgid "Compensating controls"
 msgstr ""
 
 #: templates/breach_exposure_form.html.twig src/BreachExposure.php:123
@@ -4385,6 +4451,68 @@ msgid "Version %d of the SoA is awaiting your approval."
 msgstr ""
 
 #: templates/control_list_header.html.twig templates/pdf/soa_report.html.twig
+msgid "Summary by theme"
+msgstr ""
+
+#: templates/control_list_header.html.twig
+#, php-format
+msgid "%d applicable"
+msgstr ""
+
+#: templates/control_list_header.html.twig
+#, php-format
+msgid "%d excluded"
+msgstr ""
+
+#: templates/control_list_header.html.twig
+#, php-format
+msgid "%d implemented"
+msgstr ""
+
+#: templates/control_list_header.html.twig templates/pdf/soa_report.html.twig
+msgid "Controls"
+msgstr ""
+
+#: templates/control_list_header.html.twig templates/pdf/soa_report.html.twig
+#: src/Control.php:141 src/Control.php:1350
+msgid "Applicable"
+msgstr ""
+
+#: templates/control_list_header.html.twig templates/pdf/soa_report.html.twig
+msgid "Excluded"
+msgstr ""
+
+#: templates/control_list_header.html.twig templates/pdf/soa_report.html.twig
+#: src/Control.php:155 src/Control.php:1365
+msgid "Implemented"
+msgstr ""
+
+#: templates/control_list_header.html.twig templates/pdf/soa_report.html.twig
+#: src/RiskTreatmentAction.php:87 src/RiskTreatmentAction.php:171
+#: src/ManagementReview.php:80 src/ManagementReview.php:377
+msgid "Planned"
+msgstr ""
+
+#: templates/control_list_header.html.twig
+msgid "Show the controls of this theme"
+msgstr ""
+
+#: templates/control_list_header.html.twig templates/pdf/soa_report.html.twig
+#, php-format
+msgid "%d partially"
+msgstr ""
+
+#: templates/control_list_header.html.twig templates/pdf/soa_report.html.twig
+msgid "Total"
+msgstr ""
+
+#: templates/control_list_header.html.twig
+msgid ""
+"\"Implemented\" counts implemented and verified controls; \"Planned\" counts "
+"applicable controls not started yet. Click a theme to filter the list below."
+msgstr ""
+
+#: templates/control_list_header.html.twig templates/pdf/soa_report.html.twig
 msgid "Summary by attribute"
 msgstr ""
 
@@ -4397,11 +4525,6 @@ msgstr ""
 #: templates/control_list_header.html.twig templates/pdf/soa_report.html.twig
 #: templates/framework_assessment.html.twig
 msgid "Applicable controls"
-msgstr ""
-
-#: templates/control_list_header.html.twig templates/pdf/soa_report.html.twig
-#: src/Control.php:138 src/Control.php:847
-msgid "Implemented"
 msgstr ""
 
 #: templates/control_list_header.html.twig
@@ -4878,7 +5001,8 @@ msgid "%1$d services: the %2$d most exposed are shown."
 msgstr ""
 
 #: templates/park_vulnerabilities.html.twig templates/risk_heatmap.html.twig
-#: src/Traits/RiskAssessmentTrait.php:93 src/Traits/RiskAssessmentTrait.php:111
+#: src/Control.php:201 src/Traits/RiskAssessmentTrait.php:93
+#: src/Traits/RiskAssessmentTrait.php:111
 #: src/Traits/RiskAssessmentTrait.php:286 src/Nonconformity.php:106
 #: src/Nonconformity.php:497 src/BusinessImpact.php:75
 #: inc/securityincident.class.php:264 inc/securityincident.class.php:1192
@@ -4886,7 +5010,7 @@ msgid "Critical"
 msgstr ""
 
 #: templates/park_vulnerabilities.html.twig templates/risk_heatmap.html.twig
-#: src/DoraRegister.php:238 src/DoraRegister.php:243
+#: src/Control.php:200 src/DoraRegister.php:238 src/DoraRegister.php:243
 #: src/AssetClassification.php:94 src/AssetClassification.php:185
 #: src/Traits/RiskAssessmentTrait.php:92 src/Traits/RiskAssessmentTrait.php:110
 #: src/Traits/RiskAssessmentTrait.php:285 src/ConsistencyCheck.php:132
@@ -7249,7 +7373,7 @@ msgid "Tests to carry out"
 msgstr ""
 
 #: templates/control_test_due.html.twig templates/control_test_tab.html.twig
-#: src/NotificationTargetControl.php:146 src/Control.php:659
+#: src/NotificationTargetControl.php:146 src/Control.php:1099
 #: src/ControlTest.php:857
 msgid "Next test"
 msgstr ""
@@ -7797,18 +7921,18 @@ msgstr ""
 msgid "Back to the risk list"
 msgstr ""
 
-#: templates/risk_heatmap.html.twig src/DoraRegister.php:236
-#: src/DoraRegister.php:241 src/AssetClassification.php:92
-#: src/AssetClassification.php:183 src/Traits/RiskAssessmentTrait.php:90
-#: src/Traits/RiskAssessmentTrait.php:108
+#: templates/risk_heatmap.html.twig src/Control.php:198
+#: src/DoraRegister.php:236 src/DoraRegister.php:241
+#: src/AssetClassification.php:92 src/AssetClassification.php:183
+#: src/Traits/RiskAssessmentTrait.php:90 src/Traits/RiskAssessmentTrait.php:108
 #: src/Traits/RiskAssessmentTrait.php:283 src/ConsistencyCheck.php:142
 msgid "Low"
 msgstr ""
 
-#: templates/risk_heatmap.html.twig src/DoraRegister.php:237
-#: src/DoraRegister.php:242 src/AssetClassification.php:93
-#: src/AssetClassification.php:184 src/Traits/RiskAssessmentTrait.php:91
-#: src/Traits/RiskAssessmentTrait.php:109
+#: templates/risk_heatmap.html.twig src/Control.php:199
+#: src/DoraRegister.php:237 src/DoraRegister.php:242
+#: src/AssetClassification.php:93 src/AssetClassification.php:184
+#: src/Traits/RiskAssessmentTrait.php:91 src/Traits/RiskAssessmentTrait.php:109
 #: src/Traits/RiskAssessmentTrait.php:284 src/ConsistencyCheck.php:137
 msgid "Medium"
 msgstr ""
@@ -7951,8 +8075,8 @@ msgstr ""
 
 #: templates/postmortem_tab.html.twig templates/pdf/postmortem_report.html.twig
 #: templates/itil_regulatory_section.html.twig
-#: src/SecurityIncidentPlaybookTask.php:70 src/Control.php:125
-#: src/Control.php:833 src/CustomRequirement.php:66
+#: src/SecurityIncidentPlaybookTask.php:70 src/Control.php:142
+#: src/Control.php:1351 src/CustomRequirement.php:66
 msgid "Not applicable"
 msgstr ""
 
@@ -10437,7 +10561,7 @@ msgid "Import a CSV file"
 msgstr ""
 
 #: templates/control_test_tab.html.twig src/NotificationTargetControl.php:147
-#: src/Control.php:649
+#: src/Control.php:1089
 msgid "Last test"
 msgstr ""
 
@@ -11887,7 +12011,7 @@ msgstr ""
 #: src/Training.php:725 src/Audit.php:549 src/Dpia.php:445
 #: src/CrisisExercise.php:613 src/PolicyAcknowledgement.php:703
 #: src/EbiosStudy.php:313 src/ConsistencyCheck.php:1341
-#: src/AccessReview.php:745 src/Services/Control/SoaReportBuilder.php:104
+#: src/AccessReview.php:745 src/Services/Control/SoaReportBuilder.php:121
 #: src/PolicyVersion.php:765 src/SecurityIncidentPostMortem.php:242
 #: front/processingactivity.export.php:64 front/networkflow.report.php:31
 #: front/risk.report.php:67 front/databreach.export.php:65
@@ -12265,7 +12389,7 @@ msgstr ""
 msgid "More than %s requirements: the following lines were not read."
 msgstr ""
 
-#: src/CustomFramework.php:353 src/Control.php:185
+#: src/CustomFramework.php:353 src/Control.php:569
 msgid "Governance"
 msgstr ""
 
@@ -12371,562 +12495,590 @@ msgstr ""
 msgid "Open the supplier risk"
 msgstr ""
 
-#: src/Control.php:81
+#: src/Control.php:98
 msgid "Annex A control"
 msgid_plural "Annex A controls"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Control.php:99
+#: src/Control.php:116
 msgid "Compliance"
 msgstr ""
 
-#: src/Control.php:111
+#: src/Control.php:128
 msgid "Organizational"
 msgstr ""
 
-#: src/Control.php:112 src/Traits/RiskAssessmentTrait.php:57
+#: src/Control.php:129 src/Traits/RiskAssessmentTrait.php:57
 msgid "People"
 msgstr ""
 
-#: src/Control.php:113 src/Traits/RiskAssessmentTrait.php:59
+#: src/Control.php:130 src/Traits/RiskAssessmentTrait.php:59
 msgid "Physical"
 msgstr ""
 
-#: src/Control.php:114
+#: src/Control.php:131
 msgid "Technological"
 msgstr ""
 
-#: src/Control.php:124 src/Control.php:832
-msgid "Applicable"
-msgstr ""
-
-#: src/Control.php:126 src/Control.php:834
+#: src/Control.php:143 src/Control.php:1352
 msgid "Partially applicable"
 msgstr ""
 
-#: src/Control.php:136 src/Control.php:845 src/Objective.php:81
+#: src/Control.php:153 src/Control.php:1363 src/Objective.php:81
 #: src/Objective.php:256
 msgid "Not started"
 msgstr ""
 
-#: src/Control.php:139 src/Control.php:848
+#: src/Control.php:156 src/Control.php:1366
 msgid "Verified"
 msgstr ""
 
-#: src/Control.php:151
-msgid "Control type"
-msgstr ""
-
-#: src/Control.php:152
-msgid "Security properties"
-msgstr ""
-
-#: src/Control.php:153
-msgid "Cybersecurity concepts"
-msgstr ""
-
-#: src/Control.php:154
-msgid "Operational capabilities"
-msgstr ""
-
-#: src/Control.php:155
-msgid "Security domains"
-msgstr ""
-
 #: src/Control.php:168
-msgid "Preventive"
+msgid "Risk assessment result"
 msgstr ""
 
 #: src/Control.php:169
-msgid "Detective"
+msgid "Legal or regulatory obligation"
 msgstr ""
 
 #: src/Control.php:170
-msgid "Corrective"
+msgid "Contractual requirement"
 msgstr ""
 
-#: src/Control.php:178
-msgid "Identify"
+#: src/Control.php:171
+msgid "Interested party expectation"
 msgstr ""
 
-#: src/Control.php:179
-msgid "Protect"
+#: src/Control.php:172
+msgid "Good practice"
 msgstr ""
 
-#: src/Control.php:180
-msgid "Detect"
+#: src/Control.php:184
+msgid "Activity not carried out"
 msgstr ""
 
-#: src/Control.php:181
-msgid "Respond"
-msgstr ""
-
-#: src/Control.php:182
-msgid "Recover"
+#: src/Control.php:185
+msgid "Handled by a certified provider"
 msgstr ""
 
 #: src/Control.php:186
+msgid "Out of the ISMS scope"
+msgstr ""
+
+#: src/Control.php:535
+msgid "Control type"
+msgstr ""
+
+#: src/Control.php:536
+msgid "Security properties"
+msgstr ""
+
+#: src/Control.php:537
+msgid "Cybersecurity concepts"
+msgstr ""
+
+#: src/Control.php:538
+msgid "Operational capabilities"
+msgstr ""
+
+#: src/Control.php:539
+msgid "Security domains"
+msgstr ""
+
+#: src/Control.php:552
+msgid "Preventive"
+msgstr ""
+
+#: src/Control.php:553
+msgid "Detective"
+msgstr ""
+
+#: src/Control.php:554
+msgid "Corrective"
+msgstr ""
+
+#: src/Control.php:562
+msgid "Identify"
+msgstr ""
+
+#: src/Control.php:563
+msgid "Protect"
+msgstr ""
+
+#: src/Control.php:564
+msgid "Detect"
+msgstr ""
+
+#: src/Control.php:565
+msgid "Respond"
+msgstr ""
+
+#: src/Control.php:566
+msgid "Recover"
+msgstr ""
+
+#: src/Control.php:570
 msgid "Asset management"
 msgstr ""
 
-#: src/Control.php:187
+#: src/Control.php:571
 msgid "Information protection"
 msgstr ""
 
-#: src/Control.php:188
+#: src/Control.php:572
 msgid "Human resource security"
 msgstr ""
 
-#: src/Control.php:189
+#: src/Control.php:573
 msgid "Physical security"
 msgstr ""
 
-#: src/Control.php:190
+#: src/Control.php:574
 msgid "System and network security"
 msgstr ""
 
-#: src/Control.php:191
+#: src/Control.php:575
 msgid "Application security"
 msgstr ""
 
-#: src/Control.php:192
+#: src/Control.php:576
 msgid "Secure configuration"
 msgstr ""
 
-#: src/Control.php:193
+#: src/Control.php:577
 msgid "Identity and access management"
 msgstr ""
 
-#: src/Control.php:194
+#: src/Control.php:578
 msgid "Threat and vulnerability management"
 msgstr ""
 
-#: src/Control.php:195
+#: src/Control.php:579
 msgid "Continuity"
 msgstr ""
 
-#: src/Control.php:196
+#: src/Control.php:580
 msgid "Supplier relationships security"
 msgstr ""
 
-#: src/Control.php:197
+#: src/Control.php:581
 msgid "Legal and compliance"
 msgstr ""
 
-#: src/Control.php:198
+#: src/Control.php:582
 msgid "Information security event management"
 msgstr ""
 
-#: src/Control.php:199
+#: src/Control.php:583
 msgid "Information security assurance"
 msgstr ""
 
-#: src/Control.php:202
+#: src/Control.php:586
 msgid "Governance and ecosystem"
 msgstr ""
 
-#: src/Control.php:203
+#: src/Control.php:587
 msgid "Protection"
 msgstr ""
 
-#: src/Control.php:204
+#: src/Control.php:588
 msgid "Defence"
 msgstr ""
 
-#: src/Control.php:205
+#: src/Control.php:589
 msgid "Resilience"
 msgstr ""
 
-#: src/Control.php:318
+#: src/Control.php:709
 msgid "Policies for information security"
 msgstr ""
 
-#: src/Control.php:319
+#: src/Control.php:710
 msgid "Information security roles and responsibilities"
 msgstr ""
 
-#: src/Control.php:320
+#: src/Control.php:711
 msgid "Segregation of duties"
 msgstr ""
 
-#: src/Control.php:321
+#: src/Control.php:712
 msgid "Management responsibilities"
 msgstr ""
 
-#: src/Control.php:322
+#: src/Control.php:713
 msgid "Contact with authorities"
 msgstr ""
 
-#: src/Control.php:323
+#: src/Control.php:714
 msgid "Contact with special interest groups"
 msgstr ""
 
-#: src/Control.php:324
+#: src/Control.php:715
 msgid "Threat intelligence"
 msgstr ""
 
-#: src/Control.php:325
+#: src/Control.php:716
 msgid "Information security in project management"
 msgstr ""
 
-#: src/Control.php:326
+#: src/Control.php:717
 msgid "Inventory of information and other associated assets"
 msgstr ""
 
-#: src/Control.php:327
+#: src/Control.php:718
 msgid "Acceptable use of information and other associated assets"
 msgstr ""
 
-#: src/Control.php:328
+#: src/Control.php:719
 msgid "Return of assets"
 msgstr ""
 
-#: src/Control.php:329
+#: src/Control.php:720
 msgid "Classification of information"
 msgstr ""
 
-#: src/Control.php:330
+#: src/Control.php:721
 msgid "Labelling of information"
 msgstr ""
 
-#: src/Control.php:331
+#: src/Control.php:722
 msgid "Information transfer"
 msgstr ""
 
-#: src/Control.php:332
+#: src/Control.php:723
 msgid "Access control"
 msgstr ""
 
-#: src/Control.php:333
+#: src/Control.php:724
 msgid "Identity management"
 msgstr ""
 
-#: src/Control.php:334
+#: src/Control.php:725
 msgid "Authentication information"
 msgstr ""
 
-#: src/Control.php:335
+#: src/Control.php:726
 msgid "Access rights"
 msgstr ""
 
-#: src/Control.php:336
+#: src/Control.php:727
 msgid "Information security in supplier relationships"
 msgstr ""
 
-#: src/Control.php:337
+#: src/Control.php:728
 msgid "Addressing information security within supplier agreements"
 msgstr ""
 
-#: src/Control.php:338
+#: src/Control.php:729
 msgid "Managing information security in the ICT supply chain"
 msgstr ""
 
-#: src/Control.php:339
+#: src/Control.php:730
 msgid "Monitoring, review and change management of supplier services"
 msgstr ""
 
-#: src/Control.php:340
+#: src/Control.php:731
 msgid "Information security for use of cloud services"
 msgstr ""
 
-#: src/Control.php:341
+#: src/Control.php:732
 msgid "Information security incident management planning and preparation"
 msgstr ""
 
-#: src/Control.php:342
+#: src/Control.php:733
 msgid "Assessment and decision on information security events"
 msgstr ""
 
-#: src/Control.php:343
+#: src/Control.php:734
 msgid "Response to information security incidents"
 msgstr ""
 
-#: src/Control.php:344
+#: src/Control.php:735
 msgid "Learning from information security incidents"
 msgstr ""
 
-#: src/Control.php:345
+#: src/Control.php:736
 msgid "Collection of evidence"
 msgstr ""
 
-#: src/Control.php:346
+#: src/Control.php:737
 msgid "Information security during disruption"
 msgstr ""
 
-#: src/Control.php:347
+#: src/Control.php:738
 msgid "ICT readiness for business continuity"
 msgstr ""
 
-#: src/Control.php:348
+#: src/Control.php:739
 msgid "Legal, statutory, regulatory and contractual requirements"
 msgstr ""
 
-#: src/Control.php:349
+#: src/Control.php:740
 msgid "Intellectual property rights"
 msgstr ""
 
-#: src/Control.php:350
+#: src/Control.php:741
 msgid "Protection of records"
 msgstr ""
 
-#: src/Control.php:351
+#: src/Control.php:742
 msgid "Privacy and protection of PII"
 msgstr ""
 
-#: src/Control.php:352
+#: src/Control.php:743
 msgid "Independent review of information security"
 msgstr ""
 
-#: src/Control.php:353
+#: src/Control.php:744
 msgid "Compliance with policies, rules and standards for information security"
 msgstr ""
 
-#: src/Control.php:354
+#: src/Control.php:745
 msgid "Documented operating procedures"
 msgstr ""
 
-#: src/Control.php:357
+#: src/Control.php:748
 msgid "Screening"
 msgstr ""
 
-#: src/Control.php:358
+#: src/Control.php:749
 msgid "Terms and conditions of employment"
 msgstr ""
 
-#: src/Control.php:359
+#: src/Control.php:750
 msgid "Information security awareness, education and training"
 msgstr ""
 
-#: src/Control.php:360
+#: src/Control.php:751
 msgid "Disciplinary process"
 msgstr ""
 
-#: src/Control.php:361
+#: src/Control.php:752
 msgid "Responsibilities after termination or change of employment"
 msgstr ""
 
-#: src/Control.php:362
+#: src/Control.php:753
 msgid "Confidentiality or non-disclosure agreements"
 msgstr ""
 
-#: src/Control.php:363
+#: src/Control.php:754
 msgid "Remote working"
 msgstr ""
 
-#: src/Control.php:364
+#: src/Control.php:755
 msgid "Information security event reporting"
 msgstr ""
 
-#: src/Control.php:367
+#: src/Control.php:758
 msgid "Physical security perimeters"
 msgstr ""
 
-#: src/Control.php:368
+#: src/Control.php:759
 msgid "Physical entry"
 msgstr ""
 
-#: src/Control.php:369
+#: src/Control.php:760
 msgid "Securing offices, rooms and facilities"
 msgstr ""
 
-#: src/Control.php:370
+#: src/Control.php:761
 msgid "Physical security monitoring"
 msgstr ""
 
-#: src/Control.php:371
+#: src/Control.php:762
 msgid "Protecting against physical and environmental threats"
 msgstr ""
 
-#: src/Control.php:372
+#: src/Control.php:763
 msgid "Working in secure areas"
 msgstr ""
 
-#: src/Control.php:373
+#: src/Control.php:764
 msgid "Clear desk and clear screen"
 msgstr ""
 
-#: src/Control.php:374
+#: src/Control.php:765
 msgid "Equipment siting and protection"
 msgstr ""
 
-#: src/Control.php:375
+#: src/Control.php:766
 msgid "Security of assets off-premises"
 msgstr ""
 
-#: src/Control.php:376
+#: src/Control.php:767
 msgid "Storage media"
 msgstr ""
 
-#: src/Control.php:377
+#: src/Control.php:768
 msgid "Supporting utilities"
 msgstr ""
 
-#: src/Control.php:378
+#: src/Control.php:769
 msgid "Cabling security"
 msgstr ""
 
-#: src/Control.php:379
+#: src/Control.php:770
 msgid "Equipment maintenance"
 msgstr ""
 
-#: src/Control.php:380
+#: src/Control.php:771
 msgid "Secure disposal or re-use of equipment"
 msgstr ""
 
-#: src/Control.php:383
+#: src/Control.php:774
 msgid "User endpoint devices"
 msgstr ""
 
-#: src/Control.php:384
+#: src/Control.php:775
 msgid "Privileged access rights"
 msgstr ""
 
-#: src/Control.php:385
+#: src/Control.php:776
 msgid "Information access restriction"
 msgstr ""
 
-#: src/Control.php:386
+#: src/Control.php:777
 msgid "Access to source code"
 msgstr ""
 
-#: src/Control.php:387
+#: src/Control.php:778
 msgid "Secure authentication"
 msgstr ""
 
-#: src/Control.php:388
+#: src/Control.php:779
 msgid "Capacity management"
 msgstr ""
 
-#: src/Control.php:389
+#: src/Control.php:780
 msgid "Protection against malware"
 msgstr ""
 
-#: src/Control.php:390
+#: src/Control.php:781
 msgid "Management of technical vulnerabilities"
 msgstr ""
 
-#: src/Control.php:391
+#: src/Control.php:782
 msgid "Configuration management"
 msgstr ""
 
-#: src/Control.php:392
+#: src/Control.php:783
 msgid "Information deletion"
 msgstr ""
 
-#: src/Control.php:393
+#: src/Control.php:784
 msgid "Data masking"
 msgstr ""
 
-#: src/Control.php:394
+#: src/Control.php:785
 msgid "Data leakage prevention"
 msgstr ""
 
-#: src/Control.php:395
+#: src/Control.php:786
 msgid "Information backup"
 msgstr ""
 
-#: src/Control.php:396
+#: src/Control.php:787
 msgid "Redundancy of information processing facilities"
 msgstr ""
 
-#: src/Control.php:397
+#: src/Control.php:788
 msgid "Logging"
 msgstr ""
 
-#: src/Control.php:398
+#: src/Control.php:789
 msgid "Monitoring activities"
 msgstr ""
 
-#: src/Control.php:399
+#: src/Control.php:790
 msgid "Clock synchronization"
 msgstr ""
 
-#: src/Control.php:400
+#: src/Control.php:791
 msgid "Use of privileged utility programs"
 msgstr ""
 
-#: src/Control.php:401
+#: src/Control.php:792
 msgid "Installation of software on operational systems"
 msgstr ""
 
-#: src/Control.php:402
+#: src/Control.php:793
 msgid "Networks security"
 msgstr ""
 
-#: src/Control.php:403
+#: src/Control.php:794
 msgid "Security of network services"
 msgstr ""
 
-#: src/Control.php:404
+#: src/Control.php:795
 msgid "Segregation of networks"
 msgstr ""
 
-#: src/Control.php:405
+#: src/Control.php:796
 msgid "Web filtering"
 msgstr ""
 
-#: src/Control.php:406
+#: src/Control.php:797
 msgid "Use of cryptography"
 msgstr ""
 
-#: src/Control.php:407
+#: src/Control.php:798
 msgid "Secure development life cycle"
 msgstr ""
 
-#: src/Control.php:408
+#: src/Control.php:799
 msgid "Application security requirements"
 msgstr ""
 
-#: src/Control.php:409
+#: src/Control.php:800
 msgid "Secure system architecture and engineering principles"
 msgstr ""
 
-#: src/Control.php:410
+#: src/Control.php:801
 msgid "Secure coding"
 msgstr ""
 
-#: src/Control.php:411
+#: src/Control.php:802
 msgid "Security testing in development and acceptance"
 msgstr ""
 
-#: src/Control.php:412
+#: src/Control.php:803
 msgid "Outsourced development"
 msgstr ""
 
-#: src/Control.php:413
+#: src/Control.php:804
 msgid "Separation of development, test and production environments"
 msgstr ""
 
-#: src/Control.php:414
+#: src/Control.php:805
 msgid "Change management"
 msgstr ""
 
-#: src/Control.php:415
+#: src/Control.php:806
 msgid "Test information"
 msgstr ""
 
-#: src/Control.php:416
+#: src/Control.php:807
 msgid "Protection of information systems during audit testing"
 msgstr ""
 
-#: src/Control.php:513
+#: src/Control.php:923
 msgid "A justification is required whenever a control is not fully applicable."
 msgstr ""
 
-#: src/Control.php:617
+#: src/Control.php:1057
 msgid "Reviewed"
 msgstr ""
 
-#: src/Control.php:625 src/IsmsRequirement.php:296
+#: src/Control.php:1065 src/IsmsRequirement.php:296
 msgid "Last update"
 msgstr ""
 
-#: src/Control.php:1057
+#: src/Control.php:1608
 msgid "Returns"
 msgstr ""
 
-#: src/Control.php:1058
+#: src/Control.php:1609
 msgid "Handovers"
 msgstr ""
 
@@ -14312,11 +14464,6 @@ msgid_plural "Risk treatment actions"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/RiskTreatmentAction.php:87 src/RiskTreatmentAction.php:171
-#: src/ManagementReview.php:80 src/ManagementReview.php:377
-msgid "Planned"
-msgstr ""
-
 #: src/RiskTreatmentAction.php:128
 msgid "Risk not found."
 msgstr ""
@@ -14696,23 +14843,23 @@ msgctxt "masculine"
 msgid "Rejected"
 msgstr ""
 
-#: src/SoaVersion.php:253 src/PolicyVersion.php:526
+#: src/SoaVersion.php:265 src/PolicyVersion.php:526
 msgid ""
 "You cannot approve your own request: you have been removed from the "
 "approvers."
 msgstr ""
 
-#: src/SoaVersion.php:259
+#: src/SoaVersion.php:271
 msgid "Choose at least one approver."
 msgstr ""
 
-#: src/SoaVersion.php:270
+#: src/SoaVersion.php:282
 msgid ""
 "This entity follows the SoA of a parent entity: only that entity can submit "
 "it for approval."
 msgstr ""
 
-#: src/SoaVersion.php:389
+#: src/SoaVersion.php:401
 #, php-format
 msgid "Statement of Applicability - version %d"
 msgstr ""
@@ -18808,7 +18955,7 @@ msgid ""
 "the controls and its score. Disabled until you enable it."
 msgstr ""
 
-#: src/Services/Control/SoaReportBuilder.php:102
+#: src/Services/Control/SoaReportBuilder.php:119
 msgid "Statement of Applicability: ISO/IEC 27001:2022 Annex A"
 msgstr ""
 
@@ -19926,27 +20073,27 @@ msgstr ""
 msgid "%d requirements updated."
 msgstr ""
 
-#: front/control.csv.php:95
+#: front/control.csv.php:56
 msgid "No valid file was uploaded."
 msgstr ""
 
-#: front/control.csv.php:152
+#: front/control.csv.php:113
 msgid "Code unknown in the Annex A catalogue."
 msgstr ""
 
-#: front/control.csv.php:154
+#: front/control.csv.php:115
 msgid "Unrecognized applicability value."
 msgstr ""
 
-#: front/control.csv.php:156
+#: front/control.csv.php:117
 msgid "Unrecognized implementation status value."
 msgstr ""
 
-#: front/control.csv.php:158
+#: front/control.csv.php:119
 msgid "Justification required: this control is not fully applicable."
 msgstr ""
 
-#: front/control.csv.php:179
+#: front/control.csv.php:140
 msgid "CSV import/export: Annex A"
 msgstr ""
 
