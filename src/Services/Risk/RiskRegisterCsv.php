@@ -118,22 +118,29 @@ final class RiskRegisterCsv
             'catastrophic', 'catastrophique', 'vital', 'maximal', 'maximum'],
     ];
 
-    private const PROBABILITY_KEYS = [1 => 'rare', 2 => 'possible', 3 => 'probable', 4 => 'certain'];
-    private const IMPACT_KEYS = [1 => 'low', 2 => 'medium', 3 => 'high', 4 => 'critical'];
+    /**
+     * Issue #706 : même échelle commune pour une matrice 5x5, un niveau « négligeable » en bas.
+     */
+    private const GENERIC_LEVELS_5 = [
+        1 => ['very_low', 'tres_faible', 'minimal', 'minime', 'negligible', 'negligeable', 'insignifiant',
+            'insignificant'],
+        2 => ['low', 'faible', 'bas', 'basse', 'minor', 'mineur', 'limite', 'limited'],
+        3 => self::GENERIC_LEVELS[2],
+        4 => self::GENERIC_LEVELS[3],
+        5 => self::GENERIC_LEVELS[4],
+    ];
+
+    /** Probabilités en bas d'échelle : « rare » en 4x4, « très rare » en 5x5. */
+    private const VERY_RARE_SYNONYMS = ['very_rare', 'tres_rare', 'tres_peu_probable', 'very_unlikely',
+        'exceptionnel', 'exceptionnelle', 'exceptional', 'highly_unlikely', 'extremely_unlikely'];
 
     private const SYNONYMS = [
         'probability' => [
-            'rare'     => ['rare', 'unlikely', 'improbable', 'peu_probable', 'tres_peu_probable', 'very_unlikely'],
+            'rare'     => ['rare', 'unlikely', 'improbable', 'peu_probable'],
             'possible' => ['possible', 'occasional', 'occasionnel', 'occasionnelle', 'plausible'],
             'probable' => ['probable', 'likely', 'vraisemblable', 'frequent', 'frequente'],
             'certain'  => ['certain', 'almost_certain', 'quasi_certain', 'presque_certain', 'tres_probable',
                 'very_likely', 'quasi_certaine'],
-        ],
-        'impact' => [
-            'low'      => [],
-            'medium'   => [],
-            'high'     => [],
-            'critical' => [],
         ],
         'category' => [
             'people'      => ['people', 'humain', 'human', 'personnes', 'personnel', 'rh', 'hr', 'ressources_humaines'],
@@ -176,12 +183,17 @@ final class RiskRegisterCsv
      *     adresse e-mail ou nom en minuscules => utilisateurs ; controls : codes de l'Annexe A ;
      *     assets : nom ou numéro d'inventaire en minuscules => « Itemtype:id »
      * @param int $scale valeur maximale des notes chiffrées du fichier (4 : de 1 à 4)
+     * @param int $size taille de la matrice du plugin (issue #706) : 4 ou 5 niveaux par axe
      * @return array{columns: list<string>, rows: list<array{line: int, reference: string, title: string,
      *     values: array<string, mixed>}>,
      *     errors: list<array{line: int, reference: string, reason: string, detail: string}>}
      */
-    public static function parse(string $content, array $lookups = [], int $scale = 4): array
-    {
+    public static function parse(
+        string $content,
+        array $lookups = [],
+        int $scale = 4,
+        int $size = RiskScale::DEFAULT_SIZE
+    ): array {
         $content = preg_replace('/^\xEF\xBB\xBF/', '', $content) ?? $content;
         $scale = in_array($scale, self::SCALES, true) ? $scale : 4;
         $records = CustomFrameworkCsv::records($content);
@@ -243,7 +255,7 @@ final class RiskRegisterCsv
                 continue;
             }
             $values = ['title' => mb_substr($title, 0, 255)];
-            $error = self::readValues($cells, $lookups, $scale, $values);
+            $error = self::readValues($cells, $lookups, [$scale, $size], $values);
             if ($error !== null) {
                 $errors[] = self::error($line, $reference, $error[0], $error[1]);
                 continue;
@@ -260,10 +272,11 @@ final class RiskRegisterCsv
      *
      * @param array<string, string> $cells
      * @param array<string, mixed>  $lookups
+     * @param array{0: int, 1: int} $scales échelle des notes du fichier, taille de la matrice
      * @param array<string, mixed>  $values
      * @return array{0: string, 1: string}|null
      */
-    private static function readValues(array $cells, array $lookups, int $scale, array &$values): ?array
+    private static function readValues(array $cells, array $lookups, array $scales, array &$values): ?array
     {
         foreach (['description', 'justification'] as $column) {
             if (($cells[$column] ?? '') !== '') {
@@ -275,7 +288,7 @@ final class RiskRegisterCsv
             if ($cell === '') {
                 continue;
             }
-            $value = self::mapValue($column, $cell, $scale, $lookups['labels'][$column] ?? []);
+            $value = self::mapValue($column, $cell, $scales[0], $lookups['labels'][$column] ?? [], $scales[1]);
             if ($value === null) {
                 return [self::ERROR_UNKNOWN_VALUE, $column . "\x1F" . $cell];
             }
@@ -334,9 +347,16 @@ final class RiskRegisterCsv
      * Clé interne d'une valeur de liste (catégorie, probabilité, impact, traitement, statut), ou null.
      *
      * @param array<string, string> $labels libellé affiché => clé (langue de l'utilisateur)
+     * @param int $size taille de la matrice du plugin (issue #706) : 4 ou 5 niveaux par axe
      */
-    public static function mapValue(string $column, string $cell, int $scale = 4, array $labels = []): ?string
-    {
+    public static function mapValue(
+        string $column,
+        string $cell,
+        int $scale = 4,
+        array $labels = [],
+        int $size = RiskScale::DEFAULT_SIZE
+    ): ?string {
+        $size = RiskScale::normalizeSize($size);
         $axis = match ($column) {
             'probability', 'residual_probability' => 'probability',
             'impact', 'residual_impact'           => 'impact',
@@ -348,7 +368,7 @@ final class RiskRegisterCsv
                 return (string) $key;
             }
         }
-        foreach (self::SYNONYMS[$axis] ?? [] as $key => $synonyms) {
+        foreach (self::synonyms($axis, $size) as $key => $synonyms) {
             if ($slug === (string) $key || in_array($slug, $synonyms, true)) {
                 return (string) $key;
             }
@@ -356,19 +376,20 @@ final class RiskRegisterCsv
         if ($axis !== 'probability' && $axis !== 'impact') {
             return null;
         }
-        $keys = $axis === 'probability' ? self::PROBABILITY_KEYS : self::IMPACT_KEYS;
-        // Note chiffrée (« 3 », « 3 - Élevé », « 3/4 ») sur l'échelle choisie, ramenée à 4 niveaux.
+        $keys = $axis === 'probability' ? RiskScale::probabilityKeys($size) : RiskScale::impactKeys($size);
+        // Note chiffrée (« 3 », « 3 - Élevé », « 3/4 ») sur l'échelle choisie, ramenée aux niveaux
+        // de la matrice.
         if (preg_match('/^(\d{1,2})(?:[.,]0+)?(?:\D.*)?$/u', trim($cell), $match) === 1) {
             $number = (int) $match[1];
             if ($number < 1 || $number > $scale) {
                 return null;
             }
 
-            return $keys[self::scaleToLevel($number, $scale)];
+            return $keys[self::scaleToLevel($number, $scale, $size) - 1];
         }
-        foreach (self::GENERIC_LEVELS as $level => $synonyms) {
+        foreach ($size === 5 ? self::GENERIC_LEVELS_5 : self::GENERIC_LEVELS as $level => $synonyms) {
             if (in_array($slug, $synonyms, true)) {
-                return $keys[$level];
+                return $keys[$level - 1];
             }
         }
 
@@ -376,16 +397,37 @@ final class RiskRegisterCsv
     }
 
     /**
-     * Note de 1 à $scale ramenée aux 4 niveaux de la matrice : les extrêmes se correspondent, une note
-     * à mi-chemin entre deux niveaux va au plus bas (de 1 à 5 : 1, 2, 2, 3, 4 ; de 1 à 3 : 1, 2, 4).
+     * Note de 1 à $scale ramenée aux $levels niveaux de la matrice (4 par défaut, 5 en 5x5) : les
+     * extrêmes se correspondent, une note à mi-chemin entre deux niveaux va au plus bas (vers 4
+     * niveaux, de 1 à 5 : 1, 2, 2, 3, 4 ; de 1 à 3 : 1, 2, 4).
      */
-    public static function scaleToLevel(int $value, int $scale): int
+    public static function scaleToLevel(int $value, int $scale, int $levels = 4): int
     {
-        if ($scale === 4 || $scale < 2) {
-            return max(1, min(4, $value));
+        if ($scale === $levels || $scale < 2) {
+            return max(1, min($levels, $value));
         }
 
-        return max(1, min(4, 1 + (int) ceil(($value - 1) * 3 / ($scale - 1) - 0.5)));
+        return max(1, min($levels, 1 + (int) ceil(($value - 1) * ($levels - 1) / ($scale - 1) - 0.5)));
+    }
+
+    /**
+     * Synonymes d'un axe pour une taille de matrice (issue #706) : en 5x5, « très rare » et ses
+     * équivalents désignent la probabilité la plus basse ; en 4x4, ils restent « rare ».
+     *
+     * @return array<string, list<string>>
+     */
+    private static function synonyms(string $axis, int $size): array
+    {
+        $synonyms = self::SYNONYMS[$axis] ?? [];
+        if ($axis !== 'probability') {
+            return $synonyms;
+        }
+        if (RiskScale::normalizeSize($size) === 5) {
+            return ['very_rare' => self::VERY_RARE_SYNONYMS] + $synonyms;
+        }
+        $synonyms['rare'] = array_merge($synonyms['rare'], self::VERY_RARE_SYNONYMS);
+
+        return $synonyms;
     }
 
     /**

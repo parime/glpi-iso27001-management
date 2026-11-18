@@ -175,6 +175,31 @@ final class RiskRegisterCsvTest extends TestCase
         $this->assertSame('closed', RiskRegisterCsv::mapValue('status', 'Clôturé'));
     }
 
+    /**
+     * Issue #706 : registre en matrice 5x5.
+     */
+    public function testFiveByFiveMatrix(): void
+    {
+        $this->assertSame('very_rare', RiskRegisterCsv::mapValue('probability', '1', 5, [], 5));
+        $this->assertSame('certain', RiskRegisterCsv::mapValue('probability', '5', 5, [], 5));
+        $this->assertSame('negligible', RiskRegisterCsv::mapValue('impact', '1', 5, [], 5));
+        $this->assertSame('medium', RiskRegisterCsv::mapValue('impact', '3', 5, [], 5));
+        $this->assertSame('high', RiskRegisterCsv::mapValue('impact', '3', 4, [], 5));
+        $this->assertSame('negligible', RiskRegisterCsv::mapValue('impact', '1', 3, [], 5));
+        $this->assertSame('critical', RiskRegisterCsv::mapValue('impact', '10', 10, [], 5));
+        $this->assertSame('very_rare', RiskRegisterCsv::mapValue('probability', 'Très rare', 4, [], 5));
+        $this->assertSame('very_rare', RiskRegisterCsv::mapValue('probability', 'very unlikely', 4, [], 5));
+        $this->assertSame('rare', RiskRegisterCsv::mapValue('probability', 'Rare', 4, [], 5));
+        $this->assertSame('negligible', RiskRegisterCsv::mapValue('impact', 'Négligeable', 4, [], 5));
+        $this->assertSame('low', RiskRegisterCsv::mapValue('impact', 'Faible', 4, [], 5));
+        $this->assertSame('critical', RiskRegisterCsv::mapValue('residual_impact', 'Critique', 4, [], 5));
+        // En 4x4, les mêmes mots restent sur l'échelle à 4 niveaux.
+        $this->assertSame('rare', RiskRegisterCsv::mapValue('probability', 'Très rare'));
+        $this->assertSame('low', RiskRegisterCsv::mapValue('impact', 'Négligeable'));
+        $this->assertSame(5, RiskRegisterCsv::scaleToLevel(5, 5, 5));
+        $this->assertSame(3, RiskRegisterCsv::scaleToLevel(5, 10, 5));
+    }
+
     public function testWindows1252FileIsConverted(): void
     {
         $csv = mb_convert_encoding("référence;titre;gravité\nR-1;Accès réseau;élevée\n", 'Windows-1252', 'UTF-8');

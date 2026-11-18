@@ -31,7 +31,7 @@ global $DB;
 $categories = \GlpiPlugin\Grcmanager\Risk::getCategories();
 $treatments = \GlpiPlugin\Grcmanager\Risk::getTreatments();
 $statuses   = \GlpiPlugin\Grcmanager\Risk::getStatuses();
-$levels     = \GlpiPlugin\Grcmanager\Risk::getImpacts(); // shared low/medium/high/critical scale
+$levels     = \GlpiPlugin\Grcmanager\Risk::getRiskLevels(); // low/medium/high/critical, any matrix size
 
 $risks = [];
 foreach (

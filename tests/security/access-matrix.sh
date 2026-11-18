@@ -54,6 +54,16 @@ done
 P=$BASE/plugins/grcmanager/front
 if [ "$ROLE" = admin ]; then SEE_B=oui; DENY=200; else SEE_B=non; DENY=403; fi
 
+# Issue #706 : le changement de taille de la matrice des risques exige de modifier la configuration
+# du plugin ET les registres sensibles. Ecran, apercu et application refuses sans ces droits.
+scale_denied() {
+  expect "front/riskscale.php : ecran de changement de taille" 403 "$(code "$P/riskscale.php?size=5")"
+  expect "front/riskscale.php : apercu de la correspondance" 403 \
+    "$(code -d "preview=1&size=5&_glpi_csrf_token=$(csrf)" "$P/riskscale.php")"
+  expect "front/riskscale.php : appliquer une taille" 403 \
+    "$(code -d "apply=1&size=5&confirm=1&_glpi_csrf_token=$(csrf)" "$P/riskscale.php")"
+}
+
 # Pages consultables (listes, rapports, fiches existantes) : refusees sans droit, ouvertes en lecture.
 READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php front/complianceobligation.php
   front/control.php front/ismsrequirement.php front/managementreview.php front/nonconformity.php
@@ -301,6 +311,7 @@ if [ "$ROLE" = none ]; then
   # droit Documents : il ne lit pas les mesures.
   expect "preuve envoyee d'une mesure : droit Documents sans lecture des mesures" 403 \
     "$(code "$BASE/front/document.send.php?docid=$(id evidence_upload)")"
+  scale_denied
   create_attempts 403 403
   rm -f "$JAR"; exit $FAIL
 fi
@@ -376,6 +387,8 @@ if [ "$ROLE" = general ]; then
   # Issue #372 : sans droit sur les incidents, l'onglet de l'ordinateur ne montre aucun incident.
   contains "onglet Incidents de securite d'un ordinateur : rien" "Incident securite" non \
     "$(tab Computer 'GlpiPlugin%5CGrcmanager%5CSecurityIncidentLinkedItem$1' "$(id computer_A)")"
+  # Issue #706 : configuration du plugin en modification, mais pas les registres sensibles.
+  scale_denied
   rm -f "$JAR"; exit $FAIL
 fi
 
@@ -409,11 +422,21 @@ if [ "$ROLE" = reader ]; then
   # Issue #375 : relier un traitement a un incident exige de pouvoir modifier l'incident.
   expect "front/processingactivity.form.php : relier un incident en lecture seule" 403 \
     "$(code -d "link_incident=1&plugin_grcmanager_processingactivities_id=$(id processing_A)&incidents_id=$(id incident_A)&_glpi_csrf_token=$(csrf)" "$P/processingactivity.form.php")"
+  scale_denied
   create_attempts 403 403
   rm -f "$JAR"; exit $FAIL
 fi
 
 if [ "$ROLE" = admin ]; then
+  # Issue #706 : ecran de changement de taille ouvert au super-admin ; l'apercu n'ecrit rien et
+  # l'application est refusee sans jeton CSRF (la matrice reste en 4 x 4).
+  expect "front/riskscale.php : ecran de correspondance" 200 "$(code "$P/riskscale.php?size=5")"
+  expect "front/riskscale.php : apercu de l'effet" 200 \
+    "$(code -d "preview=1&size=5&_glpi_csrf_token=$(csrf)" "$P/riskscale.php")"
+  expect "front/riskscale.php : appliquer sans jeton CSRF" 403 \
+    "$(code -d "apply=1&size=5&confirm=1" "$P/riskscale.php")"
+  contains "front/config.php : matrice toujours en 4 x 4" 'name="matrix_very_rare_negligible"' non \
+    "$(curl -s -c "$JAR" -b "$JAR" "$P/config.php")"
   for p in $READABLE; do expect "$p : super-admin" 200 "$(code "$BASE/plugins/grcmanager/$p")"; done
   # Issue #380 : reglage du rappel des tests d'efficacite au groupe RSSI. Sans jeton CSRF, refuse
   # et inchange ; avec, enregistre ; une valeur inconnue revient au reglage par defaut.
@@ -575,6 +598,9 @@ contains "onglet Processus metier du PC de A" "Processus securite A" oui \
 procs_b=$(tab Computer 'GlpiPlugin%5CGrcmanager%5CBusinessProcessItem$1' "$(id computer_B)")
 contains "onglet Processus metier du PC de B : processus de B" "Processus securite B" $SEE_B "$procs_b"
 if [ "$ROLE" = limited ]; then
+  # Issue #706 : gestionnaire avec la configuration du plugin et les registres sensibles en
+  # modification : l'ecran de changement de taille lui est ouvert, comme la page de configuration.
+  expect "front/riskscale.php : ecran de correspondance" 200 "$(code "$P/riskscale.php?size=5")"
   expect "lier le PC de B au processus A" 404 \
     "$(code -d "add=1&plugin_grcmanager_businessprocesses_id=$(id process_A)&itemtype=Computer&items_id=$(id computer_B)&_glpi_csrf_token=$(csrf)" "$P/businessprocessitem.form.php")"
 fi

@@ -132,7 +132,8 @@ if (isset($_POST['analyse'])) {
     $parsed = RiskRegisterCsv::parse(
         RiskRegisterCsv::toUtf8((string) file_get_contents((string) $file['tmp_name'])),
         $lookups,
-        $scale
+        $scale,
+        \GlpiPlugin\Grcmanager\Services\Risk\RiskMatrixConfig::size()
     );
     $plan = $filterRights(RiskRegisterSync::plan(RiskRegisterImport::existing(), $parsed['rows']));
     $errors = array_merge($parsed['errors'], $plan['errors']);
@@ -214,6 +215,8 @@ TemplateRenderer::getInstance()->display('@grcmanager/risk_import.html.twig', [
     'can_import'   => $canCreate || $canUpdate,
     'max_rows'     => RiskRegisterCsv::MAX_ROWS,
     'scales'       => RiskRegisterCsv::SCALES,
+    // Issue #706 : taille de la matrice (4 ou 5 niveaux par axe), échelle proposée par défaut.
+    'matrix_size'  => \GlpiPlugin\Grcmanager\Services\Risk\RiskMatrixConfig::size(),
     'probabilities' => implode(', ', Risk::getProbabilities()),
     'impacts'       => implode(', ', Risk::getImpacts()),
     'treatments'    => implode(', ', array_filter(Risk::getTreatments())),

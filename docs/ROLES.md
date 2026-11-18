@@ -50,7 +50,8 @@ l'organisation. Compter une demi-heure.
 4. **Ouvrir la configuration** : **Configuration > Plugins**, cliquer sur « GLPI GRC Manager » (ou
    sur l'icône de clé de sa ligne). Tous les réglages sont sur cette page, par section :
    - **Référentiels de conformité** : activer ceux que l'organisation suit (NIS2, DORA, ISO 27701...) ;
-   - **Matrice de risque** : libellés et seuils probabilité x impact ;
+   - **Matrice de risque** : libellés et seuils probabilité x impact, taille 4 x 4 ou 5 x 5 (écran
+     de correspondance avant toute conversion du registre) ;
    - **Appétence et tolérance au risque** : groupe « Direction », seul habilité à accepter un risque
      au-delà de la tolérance ;
    - **Audits internes** : groupe du RSSI, qui lit les documents réservés des audits ;

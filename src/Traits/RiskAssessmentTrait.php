@@ -21,7 +21,7 @@ namespace GlpiPlugin\Grcmanager\Traits;
 
 use Dropdown;
 use GlpiPlugin\Grcmanager\Services\Risk\RiskMatrixConfig;
-use GlpiPlugin\Grcmanager\Services\Risk\RiskScoringService;
+use GlpiPlugin\Grcmanager\Services\Risk\RiskScale;
 use GlpiPlugin\Grcmanager\Services\Ui\Badge;
 
 /**
@@ -65,20 +65,44 @@ trait RiskAssessmentTrait
     /**
      * @return array<string, string>
      */
-    public static function getProbabilities(): array
+    public static function getProbabilities(?int $size = null): array
     {
-        return [
-            'rare'     => __('Rare', 'grcmanager'),
-            'possible' => __('Possible', 'grcmanager'),
-            'probable' => __('Probable', 'grcmanager'),
-            'certain'  => __('Almost certain', 'grcmanager'),
+        $labels = [
+            'very_rare' => __('Very rare', 'grcmanager'),
+            'rare'      => __('Rare', 'grcmanager'),
+            'possible'  => __('Possible', 'grcmanager'),
+            'probable'  => __('Probable', 'grcmanager'),
+            'certain'   => __('Almost certain', 'grcmanager'),
         ];
+
+        return self::scaleLabels($labels, RiskScale::probabilityKeys($size ?? RiskMatrixConfig::size()));
     }
 
     /**
+     * Issue #706 : valeurs d'impact de la taille de matrice configurée (ou de $size).
+     *
      * @return array<string, string>
      */
-    public static function getImpacts(): array
+    public static function getImpacts(?int $size = null): array
+    {
+        $labels = [
+            'negligible' => __('Negligible', 'grcmanager'),
+            'low'        => __('Low', 'grcmanager'),
+            'medium'     => __('Medium', 'grcmanager'),
+            'high'       => __('High', 'grcmanager'),
+            'critical'   => __('Critical', 'grcmanager'),
+        ];
+
+        return self::scaleLabels($labels, RiskScale::impactKeys($size ?? RiskMatrixConfig::size()));
+    }
+
+    /**
+     * Niveaux de risque calculés (initial et résiduel), sur quatre valeurs quelle que soit la taille
+     * de la matrice (issue #706).
+     *
+     * @return array<string, string>
+     */
+    public static function getRiskLevels(): array
     {
         return [
             'low'      => __('Low', 'grcmanager'),
@@ -86,6 +110,21 @@ trait RiskAssessmentTrait
             'high'     => __('High', 'grcmanager'),
             'critical' => __('Critical', 'grcmanager'),
         ];
+    }
+
+    /**
+     * @param array<string, string> $labels
+     * @param list<string> $keys
+     * @return array<string, string>
+     */
+    private static function scaleLabels(array $labels, array $keys): array
+    {
+        $result = [];
+        foreach ($keys as $key) {
+            $result[$key] = $labels[$key] ?? $key;
+        }
+
+        return $result;
     }
 
     /**
@@ -142,6 +181,13 @@ trait RiskAssessmentTrait
      */
     private function computeRiskLevel(array $input): array
     {
+        // Issue #706 : une valeur hors de l'échelle configurée (formulaire forgé, valeur d'une autre
+        // taille de matrice) n'est pas enregistrée ; la valeur actuelle est gardée.
+        foreach (['probability' => self::getProbabilities(), 'impact' => self::getImpacts()] as $field => $allowed) {
+            if (isset($input[$field]) && !array_key_exists((string) $input[$field], $allowed)) {
+                unset($input[$field]);
+            }
+        }
         $probability = $input['probability'] ?? ($this->fields['probability'] ?? null);
         $impact      = $input['impact'] ?? ($this->fields['impact'] ?? null);
 
@@ -151,7 +197,7 @@ trait RiskAssessmentTrait
             // edit takes effect immediately, never just for risks saved after the edit. Shared by
             // every risk-register itemtype using this trait: one matrix, never two copies that
             // could drift apart.
-            $scoringService = new RiskScoringService(RiskMatrixConfig::load());
+            $scoringService = RiskMatrixConfig::scoring();
 
             $input['computed_score'] = $scoringService->score((string) $probability, (string) $impact);
             $input['risk_level']     = $scoringService->level((string) $probability, (string) $impact);
@@ -171,7 +217,8 @@ trait RiskAssessmentTrait
         return match ($field) {
             'category'             => self::plainBadge('bg-azure-lt', self::getCategories(), $value),
             'probability'          => self::plainBadge('bg-blue-lt', self::getProbabilities(), $value),
-            'impact', 'risk_level' => self::riskLevelBadge($value),
+            'impact'               => self::impactBadge($value),
+            'risk_level'           => self::riskLevelBadge($value),
             'treatment'            => self::plainBadge('bg-purple-lt', self::getTreatments(), $value),
             'status'               => self::statusBadge($value),
             default                => null,
@@ -193,7 +240,8 @@ trait RiskAssessmentTrait
         return match ($field) {
             'category'             => Dropdown::showFromArray($name, self::getCategories(), $options),
             'probability'          => Dropdown::showFromArray($name, self::getProbabilities(), $options),
-            'impact', 'risk_level' => Dropdown::showFromArray($name, self::getImpacts(), $options),
+            'impact'               => Dropdown::showFromArray($name, self::getImpacts(), $options),
+            'risk_level'           => Dropdown::showFromArray($name, self::getRiskLevels(), $options),
             'treatment'            => Dropdown::showFromArray($name, self::getTreatments(), $options),
             'status'               => Dropdown::showFromArray($name, self::getStatuses(), $options),
             default                => null,
@@ -212,6 +260,18 @@ trait RiskAssessmentTrait
         }
 
         return Badge::html($class, null, $label);
+    }
+
+    /**
+     * Impact : mêmes couleurs que le niveau de risque, plus « négligeable » en matrice 5x5.
+     */
+    public static function impactBadge(?string $value): string
+    {
+        if ($value === 'negligible') {
+            return Badge::html('bg-teal-lt', null, __('Negligible', 'grcmanager'));
+        }
+
+        return self::riskLevelBadge($value);
     }
 
     /**

@@ -155,7 +155,7 @@ class ConsistencyCheck extends CommonGLPI
     public static function getRuleTexts(?array $settings = null): array
     {
         $settings ??= self::getSettings();
-        $levels = Risk::getImpacts();
+        $levels = Risk::getRiskLevels();
         $t = static fn (string $key): int|string|null => $settings[$key]['threshold'] ?? null;
         $level = static fn (string $key): string => $levels[(string) $t($key)] ?? (string) $t($key);
 
@@ -715,7 +715,7 @@ class ConsistencyCheck extends CommonGLPI
                 $cache['risks'][] = $row + ['residual_level' => '', 'users_id_acceptance' => 0];
             }
         }
-        $levels = Risk::getImpacts();
+        $levels = Risk::getRiskLevels();
         $candidate = match ($key) {
             'risk_without_decision'          => static fn (array $r): bool => ConsistencyRules::isOpenRisk($r)
                 && ConsistencyRules::isLevelAtLeast($r['risk_level'], $level),
