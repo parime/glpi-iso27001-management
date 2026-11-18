@@ -18851,6 +18851,14 @@ msgstr "Update %1$s: %2$d vulnerability(ies), %3$d machine(s)"
 msgid "More machines affected: %d now."
 msgstr "More machines affected: %d now."
 
+msgid "%d new machine linked to the ticket. Machines that are no longer vulnerable stay linked."
+msgid_plural "%d new machines linked to the ticket. Machines that are no longer vulnerable stay linked."
+msgstr[0] "%d new machine linked to the ticket. Machines that are no longer vulnerable stay linked."
+msgstr[1] "%d new machines linked to the ticket. Machines that are no longer vulnerable stay linked."
+
+msgid "The ticket has reached the limit of %d linked items: the other machines are not linked, see the Fleet vulnerabilities page."
+msgstr "The ticket has reached the limit of %d linked items: the other machines are not linked, see the Fleet vulnerabilities page."
+
 #: src/ParkVulnerability.php:745
 msgid ""
 "A vulnerability of this software is now in the CISA KEV catalog: it is "

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-18 18:48+0000\n"
+"POT-Creation-Date: 2026-11-18 19:05+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1689,7 +1689,7 @@ msgstr ""
 
 #: templates/risk_scale_change.html.twig templates/config_form.html.twig
 #: templates/risk_heatmap.html.twig templates/supplier_risk_form.html.twig
-#: templates/risk_form.html.twig src/RiskScaleChange.php:105
+#: templates/risk_form.html.twig src/RiskScaleChange.php:106
 #: src/SupplierRisk.php:192 src/RiskRegisterImport.php:591 src/Risk.php:361
 msgid "Probability"
 msgstr ""
@@ -1698,7 +1698,7 @@ msgstr ""
 #: templates/tabs/business_impact.html.twig templates/risk_heatmap.html.twig
 #: templates/supplier_risk_form.html.twig
 #: templates/itil_analysis_section.html.twig templates/risk_form.html.twig
-#: src/RiskScaleChange.php:105 src/SupplierRisk.php:200
+#: src/RiskScaleChange.php:106 src/SupplierRisk.php:200
 #: src/RiskRegisterImport.php:592 src/SecurityIncidentTechnique.php:67
 #: src/Risk.php:369
 msgid "Impact"
@@ -1898,7 +1898,7 @@ msgstr ""
 msgid "Priority"
 msgstr ""
 
-#: templates/park_machines.html.twig src/ParkVulnerability.php:853
+#: templates/park_machines.html.twig src/ParkVulnerability.php:949
 #: src/NotificationTargetVulnerabilityDigest.php:251
 msgid "Vulnerabilities"
 msgstr ""
@@ -3260,7 +3260,7 @@ msgid "Action"
 msgstr ""
 
 #: templates/audit_log.html.twig templates/tabs/action_log.html.twig
-#: src/ParkVulnerability.php:126 src/NetworkFlow.php:106
+#: src/ParkVulnerability.php:132 src/NetworkFlow.php:106
 #: src/NetworkFlow.php:667
 msgid "All"
 msgstr ""
@@ -4526,7 +4526,7 @@ msgstr ""
 
 #: templates/supplier_security_watch.html.twig
 #: templates/park_vulnerabilities.html.twig templates/park_item_tab.html.twig
-#: src/ParkVulnerability.php:70
+#: src/ParkVulnerability.php:76
 msgid "Fleet vulnerabilities"
 msgstr ""
 
@@ -7499,7 +7499,7 @@ msgctxt "singular"
 msgid "Ignored"
 msgstr ""
 
-#: templates/software_watch.html.twig src/ParkVulnerability.php:122
+#: templates/software_watch.html.twig src/ParkVulnerability.php:128
 msgid "To review"
 msgstr ""
 
@@ -11314,20 +11314,20 @@ msgstr ""
 msgid "This alias is already attached to product \"%s / %s\"."
 msgstr ""
 
-#: src/RiskScaleChange.php:57
+#: src/RiskScaleChange.php:58
 msgid "4 x 4: four levels of probability and of impact"
 msgstr ""
 
-#: src/RiskScaleChange.php:58
+#: src/RiskScaleChange.php:59
 msgid "5 x 5: five levels of probability and of impact"
 msgstr ""
 
-#: src/RiskScaleChange.php:64
+#: src/RiskScaleChange.php:65
 #, php-format
 msgid "%1$d x %1$d"
 msgstr ""
 
-#: src/RiskScaleChange.php:149
+#: src/RiskScaleChange.php:150
 #, php-format
 msgid ""
 "Risk matrix changed from %1$s to %2$s: values converted with the "
@@ -11594,44 +11594,62 @@ msgstr ""
 msgid "%d compliance event reminder(s)."
 msgstr ""
 
-#: src/ParkVulnerability.php:123
+#: src/ParkVulnerability.php:129
 msgid "Exposed, to review"
 msgstr ""
 
-#: src/ParkVulnerability.php:124
+#: src/ParkVulnerability.php:130
 msgid "Watched"
 msgstr ""
 
-#: src/ParkVulnerability.php:125
+#: src/ParkVulnerability.php:131
 msgid "Ignored"
 msgstr ""
 
-#: src/ParkVulnerability.php:421
+#: src/ParkVulnerability.php:427
 msgid ""
 "Fleet and incident vulnerabilities: queries NVD, CISA KEV and FIRST EPSS"
 msgstr ""
 
-#: src/ParkVulnerability.php:424
+#: src/ParkVulnerability.php:430
 msgid "Versions checked per run"
 msgstr ""
 
-#: src/ParkVulnerability.php:606
+#: src/ParkVulnerability.php:613
 #, php-format
 msgid "Update %1$s: %2$d vulnerability(ies), %3$d machine(s)"
 msgstr ""
 
-#: src/ParkVulnerability.php:743
+#: src/ParkVulnerability.php:822
 #, php-format
 msgid "More machines affected: %d now."
 msgstr ""
 
-#: src/ParkVulnerability.php:745
+#: src/ParkVulnerability.php:825
+#, php-format
+msgid ""
+"%d new machine linked to the ticket. Machines that are no longer vulnerable "
+"stay linked."
+msgid_plural ""
+"%d new machines linked to the ticket. Machines that are no longer vulnerable "
+"stay linked."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/ParkVulnerability.php:834
+#, php-format
+msgid ""
+"The ticket has reached the limit of %d linked items: the other machines are "
+"not linked, see the Fleet vulnerabilities page."
+msgstr ""
+
+#: src/ParkVulnerability.php:841
 msgid ""
 "A vulnerability of this software is now in the CISA KEV catalog: it is "
 "actively exploited."
 msgstr ""
 
-#: src/ParkVulnerability.php:749
+#: src/ParkVulnerability.php:845
 msgid ""
 "No vulnerable machine is inventoried anymore: check, then close the ticket."
 msgstr ""
