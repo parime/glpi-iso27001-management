@@ -71,7 +71,7 @@
     <form method="post" action="{{ action }}" class="row g-2 align-items-end mb-3">
       <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
       <div class="col-sm-3">
-        <label class="form-label" for="grc-endoflife-kind">{{ __('Kind', 'grcmanager') }}</label>
+        <label class="form-label" for="grc-endoflife-kind">{{ __('Kind of item', 'grcmanager') }}</label>
         <select class="form-select" id="grc-endoflife-kind" name="endoflife_kind">
           {% for key, label in eol.kinds %}<option value="{{ key }}">{{ label }}</option>{% endfor %}
         </select>
@@ -97,7 +97,7 @@
     <div class="table-responsive mb-3">
       <table class="table table-sm table-vcenter">
         <thead><tr>
-          <th>{{ __('Kind', 'grcmanager') }}</th>
+          <th>{{ __('Kind of item', 'grcmanager') }}</th>
           <th>{{ __('Name in GLPI', 'grcmanager') }}</th>
           <th>{{ __('endoflife.date product', 'grcmanager') }}</th>
           {% if can_edit_config %}<th></th>{% endif %}

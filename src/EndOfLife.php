@@ -476,7 +476,7 @@ class EndOfLife extends CommonGLPI
             __('Status', 'grcmanager'),
             __('Asset', 'grcmanager'),
             __('Asset type', 'grcmanager'),
-            __('Kind', 'grcmanager'),
+            __('Kind of item', 'grcmanager'),
             __('Name in GLPI', 'grcmanager'),
             __('Installed version', 'grcmanager'),
             __('endoflife.date product', 'grcmanager'),

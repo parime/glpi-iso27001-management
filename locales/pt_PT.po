@@ -18143,3 +18143,246 @@ msgstr "Firmware"
 msgid "Firmware of network equipment, printers, phones or computers"
 msgstr ""
 "Firmware de equipamentos de rede, impressoras, telefones ou computadores"
+
+msgid "End of support (endoflife.date)"
+msgstr "Fim do suporte (endoflife.date)"
+
+msgid "Settings and links"
+msgstr "Configurações e correspondências"
+
+msgid "Not enabled: the plugin can show which software, operating systems and firmwares no longer receive security fixes, from the public site endoflife.date."
+msgstr "Não ativado: o plugin pode indicar quais softwares, sistemas operacionais e firmwares não recebem mais correções de segurança, segundo o site público endoflife.date."
+
+msgid "Enable it in the configuration"
+msgstr "Ativar na configuração"
+
+msgid "%d asset"
+msgid_plural "%d assets"
+msgstr[0] "%d ativo"
+msgstr[1] "%d ativos"
+
+msgid "Ended or ending soon"
+msgstr "Encerrado ou em breve"
+
+msgid "All followed items"
+msgstr "Todos os itens acompanhados"
+
+msgid "\"End of support soon\": within %d days."
+msgstr "\"Fim do suporte em breve\": em até %d dias."
+
+msgid "The end of support dates have not been read yet: they arrive with the next daily task, or with the button \"Update now\" of the configuration."
+msgstr "As datas de fim do suporte ainda não foram lidas: chegam com a próxima tarefa diária ou com o botão \"Atualizar agora\" da configuração."
+
+msgid "Some products could not be read during the last update: their previous data is still used."
+msgstr "Alguns produtos não puderam ser lidos na última atualização: seus dados anteriores continuam sendo usados."
+
+msgid "%d name of the inventory is not linked to an endoflife.date product and is not followed."
+msgid_plural "%d names of the inventory are not linked to an endoflife.date product and are not followed."
+msgstr[0] "%d nome do inventário não está vinculado a um produto do endoflife.date e não é acompanhado."
+msgstr[1] "%d nomes do inventário não estão vinculados a um produto do endoflife.date e não são acompanhados."
+
+msgid "Add a link"
+msgstr "Adicionar uma correspondência"
+
+msgid "%1$d items: the %2$d most urgent ones are shown, all of them are in the export."
+msgstr "%1$d itens: os %2$d mais urgentes são exibidos, todos estão na exportação."
+
+msgid "No followed item in your entities."
+msgstr "Nenhum item acompanhado nas suas entidades."
+
+msgid "No followed item has reached or is close to its end of support."
+msgstr "Nenhum item acompanhado atingiu ou está perto do fim do suporte."
+
+msgid "Release cycle"
+msgstr "Ciclo de versão"
+
+msgid "End of support"
+msgstr "Fim do suporte"
+
+msgid "Assets"
+msgstr "Ativos"
+
+msgid "latest: %s"
+msgstr "mais recente: %s"
+
+msgid "%1$d item(s) no longer supported on %2$d asset(s)"
+msgstr "%1$d item(ns) sem suporte em %2$d ativo(s)"
+
+msgid "%1$d ending within %2$d days"
+msgstr "%1$d terminam em até %2$d dias"
+
+msgid "%d supported"
+msgstr "%d com suporte"
+
+msgid "View the details"
+msgstr "Ver o detalhe"
+
+msgid "Shows which installed software, operating systems and firmwares no longer receive security fixes, from the public site endoflife.date (ISO 27001 A.8.8 and A.8.9). Once a day, the plugin reads the end of support dates of the products found in the inventory; only the product name is sent (for instance \"debian\"), never the name of a computer or of an entity. Nothing is changed in the inventory, and no ticket is created."
+msgstr "Indica quais softwares, sistemas operacionais e firmwares instalados não recebem mais correções de segurança, segundo o site público endoflife.date (ISO 27001 A.8.8 e A.8.9). Uma vez por dia, o plugin lê as datas de fim do suporte dos produtos encontrados no inventário; apenas o nome do produto é enviado (por exemplo \"debian\"), nunca o nome de um computador ou de uma entidade. Nada é alterado no inventário e nenhum chamado é criado."
+
+msgid "Read the end of support dates on endoflife.date"
+msgstr "Ler as datas de fim do suporte no endoflife.date"
+
+msgid "Warn this many days before the end of support"
+msgstr "Avisar este número de dias antes do fim do suporte"
+
+msgid "Below this number of days, a version is shown as \"End of support soon\"."
+msgstr "Abaixo deste número de dias, uma versão é exibida como \"Fim do suporte em breve\"."
+
+msgid "Last successful reading"
+msgstr "Última leitura bem-sucedida"
+
+msgid "%d product(s) in cache"
+msgstr "%d produto(s) em cache"
+
+msgid "Reads now the products whose data is more than one day old (the daily task does the rest)."
+msgstr "Lê agora os produtos cujos dados têm mais de um dia (a tarefa diária faz o resto)."
+
+msgid "Update now"
+msgstr "Atualizar agora"
+
+msgid "Links between GLPI names and endoflife.date products"
+msgstr "Correspondências entre nomes do GLPI e produtos do endoflife.date"
+
+msgid "Well-known names are linked automatically (for instance \"Debian GNU/Linux\" or \"Mozilla Firefox\"). For any other name, add a link: type the name exactly as GLPI shows it, and the product identifier found in the address of its page on endoflife.date (for instance \"fortios\" for https://endoflife.date/fortios). Leave the product empty to stop following a name."
+msgstr "Nomes conhecidos são vinculados automaticamente (por exemplo \"Debian GNU/Linux\" ou \"Mozilla Firefox\"). Para qualquer outro nome, adicione uma correspondência: digite o nome exatamente como o GLPI o exibe e o identificador do produto que aparece no endereço da sua página no endoflife.date (por exemplo \"fortios\" para https://endoflife.date/fortios). Deixe o produto vazio para deixar de acompanhar um nome."
+
+msgid "Kind of item"
+msgstr "Tipo de item"
+
+msgid "Name in GLPI"
+msgstr "Nome no GLPI"
+
+msgid "endoflife.date product"
+msgstr "Produto do endoflife.date"
+
+msgid "Not followed"
+msgstr "Não acompanhado"
+
+msgid "Product unknown to the source"
+msgstr "Produto desconhecido pela fonte"
+
+msgid "Delete this link"
+msgstr "Excluir esta correspondência"
+
+msgid "%d name(s) linked automatically"
+msgstr "%d nome(s) vinculado(s) automaticamente"
+
+msgid "%d name(s) of the inventory not linked to a product"
+msgstr "%d nome(s) do inventário sem produto vinculado"
+
+msgid "These names are not followed: add a link above for those that matter (choose them from the list of the \"Name in GLPI\" field)."
+msgstr "Estes nomes não são acompanhados: adicione uma correspondência acima para os que importam (escolha-os na lista do campo \"Nome no GLPI\")."
+
+msgid "%d more not shown."
+msgstr "Mais %d não exibidos."
+
+msgid "Link not saved: give the exact name shown in GLPI and an endoflife.date product identifier (lower case letters, digits and dashes, for instance \"debian\")."
+msgstr "Correspondência não salva: informe o nome exato exibido no GLPI e um identificador de produto do endoflife.date (letras minúsculas, dígitos e hífens, por exemplo \"debian\")."
+
+msgid "Assets running software, a system or a firmware that is no longer supported"
+msgstr "Ativos com um software, sistema ou firmware sem suporte"
+
+msgid "Upgrade to a supported version, or record a waiver with compensating measures until the upgrade."
+msgstr "Atualize para uma versão com suporte ou registre uma exceção com medidas compensatórias até a atualização."
+
+msgid "No longer supported: %s"
+msgstr "Sem suporte: %s"
+
+msgid "No longer supported"
+msgstr "Sem suporte"
+
+msgid "This version no longer receives security fixes."
+msgstr "Esta versão não recebe mais correções de segurança."
+
+msgid "End of support soon"
+msgstr "Fim do suporte em breve"
+
+msgid "Plan the move to a version that is still supported."
+msgstr "Planeje a migração para uma versão ainda com suporte."
+
+msgid "Supported"
+msgstr "Com suporte"
+
+msgid "This version still receives security fixes."
+msgstr "Esta versão ainda recebe correções de segurança."
+
+msgid "Support unknown"
+msgstr "Suporte desconhecido"
+
+msgid "End of support not determined: never counted as supported."
+msgstr "Fim do suporte não determinado: nunca contado como com suporte."
+
+msgid "Not linked to an endoflife.date product."
+msgstr "Não vinculado a um produto do endoflife.date."
+
+msgid "Not read yet: the daily task has not run since this product was linked, or the source could not be reached."
+msgstr "Ainda não lido: a tarefa diária não rodou desde a correspondência, ou a fonte estava inacessível."
+
+msgid "Product unknown to endoflife.date: check the link in the configuration."
+msgstr "Produto desconhecido pelo endoflife.date: verifique a correspondência na configuração."
+
+msgid "No release cycle of this product matches the installed version."
+msgstr "Nenhum ciclo de versão deste produto corresponde à versão instalada."
+
+msgid "Too many requests: the source asked to wait"
+msgstr "Muitas solicitações: a fonte pediu para aguardar"
+
+msgid "Error on the source server"
+msgstr "Erro no servidor da fonte"
+
+msgid "Unexpected answer from the source"
+msgstr "Resposta inesperada da fonte"
+
+msgid "Source unreachable"
+msgstr "Fonte inacessível"
+
+msgid "Not queried (earlier error or limit reached)"
+msgstr "Não consultado (erro anterior ou limite atingido)"
+
+msgid "Operating system"
+msgstr "Sistema operacional"
+
+msgid "Manual link"
+msgstr "Correspondência manual"
+
+msgid "Automatic link"
+msgstr "Correspondência automática"
+
+msgid "Not linked"
+msgstr "Não vinculado"
+
+msgid "Support ended (date not published)."
+msgstr "Suporte encerrado (data não publicada)."
+
+msgid "No end of support announced."
+msgstr "Nenhum fim de suporte anunciado."
+
+msgid "Support ended on %s."
+msgstr "Suporte encerrado em %s."
+
+msgid "Support ends on %1$s (in %2$d day)."
+msgid_plural "Support ends on %1$s (in %2$d days)."
+msgstr[0] "O suporte termina em %1$s (em %2$d dia)."
+msgstr[1] "O suporte termina em %1$s (em %2$d dias)."
+
+msgid "The end of support source is disabled: nothing was read."
+msgstr "A fonte de fim do suporte está desativada: nada foi lido."
+
+msgid "End of support: %1$d products, %2$d read, %3$d already up to date, %4$d unknown to the source."
+msgstr "Fim do suporte: %1$d produtos, %2$d lidos, %3$d já atualizados, %4$d desconhecidos pela fonte."
+
+msgid "%d product(s) not read: the data already in cache is still used."
+msgstr "%d produto(s) não lido(s): os dados já em cache continuam sendo usados."
+
+msgid "End of support of software, systems and firmwares (endoflife.date)"
+msgstr "Fim do suporte de softwares, sistemas e firmwares (endoflife.date)"
+
+msgid "Asset"
+msgstr "Ativo"
+
+msgid "Latest version of the cycle"
+msgstr "Versão mais recente do ciclo"
+
+msgid "How it was linked"
+msgstr "Tipo de correspondência"

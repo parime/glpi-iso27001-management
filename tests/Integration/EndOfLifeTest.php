@@ -36,6 +36,8 @@ final class EndOfLifeTest extends GrcmanagerIntegrationTestCase
 
     private string $product;
 
+    private ?int $softwareId = null;
+
     private int $hiddenEntity;
 
     /** @var list<int> */
@@ -75,9 +77,11 @@ final class EndOfLifeTest extends GrcmanagerIntegrationTestCase
      */
     private function computerWith(string $version, int $entityId = 0): int
     {
-        $softwareId = (int) (new \Software())->add([
+        // Un seul logiciel, plusieurs versions (comme l'inventaire).
+        $this->softwareId ??= (int) (new \Software())->add([
             'name' => $this->software, 'entities_id' => 0, 'is_recursive' => 1,
         ]);
+        $softwareId = $this->softwareId;
         $versionId = (int) (new \SoftwareVersion())->add([
             'name' => $version, 'softwares_id' => $softwareId, 'entities_id' => 0, 'is_recursive' => 1,
         ]);
@@ -155,7 +159,7 @@ final class EndOfLifeTest extends GrcmanagerIntegrationTestCase
 
         $page = EndOfLife::pageData(false, self::TODAY);
         $groups = array_values(array_filter($page['groups'], fn (array $g): bool => $g['name'] === $this->software));
-        $this->assertSame(['eol', 'soon'], array_column($groups, 'status_code'), 'Vue par défaut : fin proche ou atteinte.');
+        $this->assertSame(['eol', 'soon'], array_column($groups, 'status_code'), 'Vue par défaut.');
         $this->assertSame(1, $groups[0]['count']);
 
         $csv = EndOfLife::csvRows(self::TODAY);
