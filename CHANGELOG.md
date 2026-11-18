@@ -9,6 +9,23 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Contexte de l'organisation : enjeux et parties intéressées** (issue #608, premier lot ; ISO 27001,
+  articles 4.1 et 4.2). Nouvelle page dans la rubrique Conformité (`front/contextitem.php`), avec
+  l'encadré « À quoi sert cette page ? ».
+  - Enjeux internes ou externes (catégorie, effet sur le SMSI) et parties intéressées (type, besoins
+    et attentes, exigences retenues), chacun avec une décision (retenu ou non, justifiée), un
+    propriétaire et une date de revue. Une partie peut être un fournisseur ou un groupe de GLPI.
+  - Liens vers les risques, les obligations et les mesures de la SoA existants, sans recopie : seuls
+    les éléments que la personne peut lire sont proposés ou modifiés.
+  - Question du changement climatique (amendement de 2024) : l'exigence 4.1 ne peut pas passer à
+    « Conforme » sans réponse justifiée. Une première fiche fait passer 4.1 ou 4.2 de « Non
+    commencé » à « En cours » ; les fiches de ces exigences et de la revue de direction affichent
+    une synthèse du contexte.
+  - Rappel au propriétaire 30 jours avant la date de revue (tâche `reviewreminder`, notification
+    « Revue du contexte à échéance »). Export CSV ou PDF par la liste de GLPI.
+  - Droit général du plugin et entité de la fiche ; désinstallation complète (tables, tâche,
+    notification).
+
 - **Matrice des risques 5 x 5 au choix** (issue #706, premier lot). La matrice reste en 4 x 4 par
   défaut : aucune installation ne change sans action de l'administrateur.
   - Dans la configuration, « Taille de la matrice » passe en 5 x 5 (très rare, rare, possible,

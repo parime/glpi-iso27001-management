@@ -503,6 +503,10 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
         'name' => 'KRI securite ' . $suffix, 'entities_id' => $entity,
         'threshold_warning' => '5', 'threshold_critical' => '10',
     ]);
+    // Issue #608 : partie intéressée de l'entité (contexte de l'organisation).
+    $ids['context_' . $suffix] = $add(new \GlpiPlugin\Grcmanager\ContextItem(), [
+        'kind' => 'party', 'name' => 'Partie securite ' . $suffix, 'entities_id' => $entity,
+    ]);
     // Issue #145 : politique (globale) avec un document de preuve daté de l'entité.
     $ids['policy_' . $suffix] = $add(new \GlpiPlugin\Grcmanager\Policy(), [
         'title' => 'Politique securite ' . $suffix, 'entities_id' => $entity,

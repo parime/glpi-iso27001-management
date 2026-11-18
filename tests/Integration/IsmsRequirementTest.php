@@ -64,7 +64,12 @@ final class IsmsRequirementTest extends GrcmanagerIntegrationTestCase
         $module = \GlpiPlugin\Grcmanager\IsmsRequirement::getLinkedModule('6.1.3');
         $this->assertNotNull($module);
         $this->assertStringContainsString('control.php', $module['url']);
-        $this->assertNull(\GlpiPlugin\Grcmanager\IsmsRequirement::getLinkedModule('4.1'), 'aucun module ne couvre 4.1');
+        $this->assertNull(\GlpiPlugin\Grcmanager\IsmsRequirement::getLinkedModule('4.3'), 'aucun module ne couvre 4.3');
+        // Issue #608 : 4.1 et 4.2 renvoient au registre du contexte de l'organisation.
+        $this->assertStringContainsString(
+            'contextitem.php',
+            (string) \GlpiPlugin\Grcmanager\IsmsRequirement::getLinkedModule('4.1')['url']
+        );
 
         $before = \GlpiPlugin\Grcmanager\IsmsRequirement::getCompletion();
         $requirement = $this->requirement('9.2.2');

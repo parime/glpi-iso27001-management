@@ -1039,6 +1039,8 @@ class Risk extends RiskBase
         );
         // Issue #377 : le risque n'est plus lié à aucun processus métier.
         $DB->delete(BusinessProcessRisk::getTable(), ['plugin_grcmanager_risks_id' => $this->fields['id']]);
+        // Issue #608 : ni cité par le contexte de l'organisation.
+        ContextItem::forgetLinkedItem($this);
     }
 
     /**

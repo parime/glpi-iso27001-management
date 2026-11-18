@@ -146,6 +146,8 @@ function plugin_init_grcmanager(): void
     $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\DataSubjectRequest::class;
     // Issue #620 : pièces d'une violation de données (accusé de réception de l'autorité, avis du DPO...).
     $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\DataBreach::class;
+    // Issue #608 : analyse du contexte (étude, compte rendu d'entretien avec une partie intéressée).
+    $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\ContextItem::class;
     // Issue #170 : validation signée d'une dérogation, analyse de risque jointe.
     $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\Waiver::class;
     // Issue #139 : feuille d'émargement, support et quiz d'une session de formation.

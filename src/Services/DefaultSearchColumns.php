@@ -67,6 +67,9 @@ final class DefaultSearchColumns
         'GlpiPlugin\\Grcmanager\\DataSubjectRequest' => [1, 3, 4, 5, 6, 8, 80],
         // Issue #620 : nom, prise de connaissance, notification, risque, information, personnes, entité.
         'GlpiPlugin\\Grcmanager\\DataBreach' => [1, 3, 4, 5, 6, 7, 80],
+        // Issue #608 : nom, nature de la fiche, catégorie, type de partie, décision, propriétaire,
+        // date de revue, entité.
+        'GlpiPlugin\\Grcmanager\\ContextItem' => [1, 3, 5, 6, 7, 8, 9, 80],
         // Issue #170 : nom, statut, date de fin, responsable, mesure, politique.
         'GlpiPlugin\\Grcmanager\\Waiver'           => [1, 3, 4, 5, 6, 7],
         // Issue #164 : nom, type d'actif, catégorie de document, mesure, exigence, active.

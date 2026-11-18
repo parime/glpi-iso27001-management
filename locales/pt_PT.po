@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: grcmanager\n"
-"Language: pt_PT\n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -17555,3 +17555,232 @@ msgstr "A matriz do plugin tem %d níveis: uma nota em outra escala é convertid
 
 msgid "The proposed correspondence is the one that changes the fewest risk levels between the current grid and the grid of the new size."
 msgstr "A correspondência proposta é a que altera menos níveis de risco entre a grade atual e a do novo tamanho."
+
+msgid "Interested party"
+msgstr "Parte interessada"
+
+msgid "For example \"Key account customers\" or \"Data protection authority\". Leave empty to use the name of the supplier or group chosen below."
+msgstr "Por exemplo \"Clientes de grandes contas\" ou \"Autoridade de proteção de dados\". Deixe vazio para usar o nome do fornecedor ou do grupo escolhido abaixo."
+
+msgid "Type of interested party"
+msgstr "Tipo de parte interessada"
+
+msgid "Supplier in GLPI"
+msgstr "Fornecedor no GLPI"
+
+msgid "Optional: when the party is a supplier already recorded in GLPI."
+msgstr "Opcional: quando a parte é um fornecedor já registrado no GLPI."
+
+msgid "Group in GLPI"
+msgstr "Grupo no GLPI"
+
+msgid "Optional: when the party is a team or a department recorded as a group."
+msgstr "Opcional: quando a parte é uma equipe ou um departamento registrado como grupo."
+
+msgid "Needs and expectations"
+msgstr "Necessidades e expectativas"
+
+msgid "What this party expects from you about information security, e.g. \"incident notification within 24 hours\"."
+msgstr "O que esta parte espera de você em segurança da informação, por exemplo \"notificação de incidentes em até 24 horas\"."
+
+msgid "Internal or external issue"
+msgstr "Questão interna ou externa"
+
+msgid "Since the 2024 amendment of ISO 27001, the organization must determine whether climate change is a relevant issue. Answer yes or no, and write why: requirement 4.1 cannot be marked compliant until this is done."
+msgstr "Desde a emenda de 2024 da ISO 27001, a organização deve determinar se a mudança climática é uma questão pertinente. Responda sim ou não e explique por quê: o requisito 4.1 não pode ser marcado como conforme antes disso."
+
+msgid "A short title, e.g. \"New cyber security law\" or \"Growth of remote work\"."
+msgstr "Um título curto, por exemplo \"Nova lei de cibersegurança\" ou \"Crescimento do trabalho remoto\"."
+
+msgid "Internal or external"
+msgstr "Interna ou externa"
+
+msgid "Effect on the ISMS"
+msgstr "Efeito no SGSI"
+
+msgid "How this issue can affect the ability of the ISMS to achieve its intended results."
+msgstr "Como esta questão pode afetar a capacidade do SGSI de alcançar os resultados pretendidos."
+
+msgid "Decision of the ISMS"
+msgstr "Decisão do SGSI"
+
+msgid "Is climate change relevant?"
+msgstr "A mudança climática é pertinente?"
+
+msgid "\"Retained by the ISMS\" means relevant; \"Not retained\" means not relevant. A justification is required in both cases."
+msgstr "\"Considerado pelo SGSI\" significa pertinente; \"Não considerado\" significa não pertinente. Uma justificativa é exigida nos dois casos."
+
+msgid "Retained: the ISMS takes it into account. Not retained: write why."
+msgstr "Considerado: o SGSI o leva em conta. Não considerado: explique por quê."
+
+msgid "Requirements retained by the ISMS"
+msgstr "Requisitos considerados pelo SGSI"
+
+msgid "Which of these expectations become requirements of the ISMS. Link below the obligations and the controls that answer them."
+msgstr "Quais dessas expectativas se tornam requisitos do SGSI. Vincule abaixo as obrigações e os controles que as atendem."
+
+msgid "Links with the ISMS"
+msgstr "Vínculos com o SGSI"
+
+msgid "Related obligations"
+msgstr "Obrigações relacionadas"
+
+msgid "Controls that respond"
+msgstr "Controles que respondem"
+
+msgid "Follow-up"
+msgstr "Acompanhamento"
+
+msgid "The owner receives a reminder 30 days before this date."
+msgstr "O responsável recebe um lembrete 30 dias antes desta data."
+
+msgid "Climate change"
+msgstr "Mudança climática"
+
+#, php-format
+msgid "the question is answered (%s)."
+msgstr "a pergunta foi respondida (%s)."
+
+msgid "say whether climate change is a relevant issue for your ISMS, and why. Required before requirement 4.1 can be marked compliant."
+msgstr "diga se a mudança climática é uma questão pertinente para o seu SGSI, e por quê. Obrigatório antes de marcar o requisito 4.1 como conforme."
+
+msgid "Open the answer"
+msgstr "Abrir a resposta"
+
+msgid "Answer the question"
+msgstr "Responder à pergunta"
+
+msgid "Add an issue"
+msgstr "Adicionar uma questão"
+
+msgid "Add an interested party"
+msgstr "Adicionar uma parte interessada"
+
+msgid "Climate change question answered"
+msgstr "Pergunta sobre a mudança climática respondida"
+
+msgid "Climate change question not answered yet"
+msgstr "Pergunta sobre a mudança climática ainda sem resposta"
+
+msgid "Open the context of the organization"
+msgstr "Abrir o contexto da organização"
+
+msgid "Context review due"
+msgstr "Revisão do contexto pendente"
+
+msgid "Owner of the issue or interested party"
+msgstr "Responsável pela questão ou parte interessada"
+
+msgid "Kind"
+msgstr "Espécie"
+
+msgid "Internal"
+msgstr "Interna"
+
+msgid "External"
+msgstr "Externa"
+
+msgid "Economic"
+msgstr "Econômica"
+
+msgid "Human"
+msgstr "Humana"
+
+msgid "Organisational"
+msgstr "Organizacional"
+
+msgid "Political"
+msgstr "Política"
+
+msgid "Environmental"
+msgstr "Ambiental"
+
+msgid "Authority or regulator"
+msgstr "Autoridade ou regulador"
+
+msgid "Supplier or service provider"
+msgstr "Fornecedor ou prestador de serviços"
+
+msgid "Shareholder or owner"
+msgstr "Acionista ou proprietário"
+
+msgid "Insurer"
+msgstr "Seguradora"
+
+msgid "Neighbours and public"
+msgstr "Vizinhos e público"
+
+msgid "Retained by the ISMS"
+msgstr "Considerado pelo SGSI"
+
+msgid "Not retained"
+msgstr "Não considerado"
+
+msgid "Give the issue or the interested party a name."
+msgstr "Dê um nome à questão ou à parte interessada."
+
+msgid "Explain why climate change is or is not a relevant issue: auditors check this justification."
+msgstr "Explique por que a mudança climática é ou não é uma questão pertinente: os auditores verificam essa justificativa."
+
+msgid "Explain why this item is not retained by the ISMS."
+msgstr "Explique por que este item não é considerado pelo SGSI."
+
+#, php-format
+msgid "%d context item(s) awaiting review, %d notification(s) raised."
+msgstr "%d item(ns) do contexto aguardando revisão, %d notificação(ões) enviada(s)."
+
+msgid "Answer the climate change question in the context of the organization before marking this requirement compliant."
+msgstr "Responda à pergunta sobre a mudança climática no contexto da organização antes de marcar este requisito como conforme."
+
+msgid "The context of the organization: the internal and external issues that affect information security, and the interested parties with their expectations and what the ISMS retains."
+msgstr "O contexto da organização: as questões internas e externas que afetam a segurança da informação, e as partes interessadas com suas expectativas e o que o SGSI considera."
+
+msgid "List the issues and the interested parties, decide for each one whether the ISMS retains it, link the related risks, obligations and controls, answer the climate change question, and review each item at least once a year. Use the export of the list for the auditor."
+msgstr "Liste as questões e as partes interessadas, decida para cada uma se o SGSI a considera, vincule os riscos, obrigações e controles relacionados, responda à pergunta sobre a mudança climática e revise cada item pelo menos uma vez por ano. Use a exportação da lista para o auditor."
+
+msgid "ISO/IEC 27001, clauses 4.1 and 4.2"
+msgstr "ISO/IEC 27001, cláusulas 4.1 e 4.2"
+
+msgid "View the context item"
+msgstr "Ver o item do contexto"
+
+msgid "Check that the issue or the interested party is still accurate (expectations, decision, links with risks and controls), then set the next review date."
+msgstr "Verifique se a questão ou a parte interessada ainda está correta (expectativas, decisão, vínculos com riscos e controles) e defina a próxima data de revisão."
+
+msgid "Sent by the GRC Manager automatic task when an issue or an interested party reaches or approaches its review date."
+msgstr "Enviada pela tarefa automática do GRC Manager quando uma questão ou uma parte interessada atinge ou se aproxima de sua data de revisão."
+
+#, php-format
+msgid "%d other linked item is not shown to you."
+msgid_plural "%d other linked items are not shown to you."
+msgstr[0] "%d outro item vinculado não é exibido para você."
+msgstr[1] "%d outros itens vinculados não são exibidos para você."
+
+#, php-format
+msgid "%d internal or external issue"
+msgid_plural "%d internal or external issues"
+msgstr[0] "%d questão interna ou externa"
+msgstr[1] "%d questões internas ou externas"
+
+#, php-format
+msgid "%d interested party"
+msgid_plural "%d interested parties"
+msgstr[0] "%d parte interessada"
+msgstr[1] "%d partes interessadas"
+
+#, php-format
+msgid "%1$d item changed since %2$s"
+msgid_plural "%1$d items changed since %2$s"
+msgstr[0] "%1$d item alterado desde %2$s"
+msgstr[1] "%1$d itens alterados desde %2$s"
+
+#, php-format
+msgid "%d item past its review date"
+msgid_plural "%d items past their review date"
+msgstr[0] "%d item com a data de revisão vencida"
+msgstr[1] "%d itens com a data de revisão vencida"
+
+msgid "Issue or interested party"
+msgid_plural "Issues and interested parties"
+msgstr[0] "Questão ou parte interessada"
+msgstr[1] "Questões e partes interessadas"

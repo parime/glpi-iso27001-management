@@ -17833,3 +17833,232 @@ msgstr "Die Matrix des Plugins hat %d Stufen: Eine Bewertung auf einer anderen S
 
 msgid "The proposed correspondence is the one that changes the fewest risk levels between the current grid and the grid of the new size."
 msgstr "Die vorgeschlagene Zuordnung ist diejenige, die zwischen dem aktuellen Raster und dem Raster der neuen Größe die wenigsten Risikostufen ändert."
+
+msgid "Interested party"
+msgstr "Interessierte Partei"
+
+msgid "For example \"Key account customers\" or \"Data protection authority\". Leave empty to use the name of the supplier or group chosen below."
+msgstr "Zum Beispiel „Großkunden“ oder „Datenschutzbehörde“. Leer lassen, um den Namen des unten gewählten Lieferanten oder der Gruppe zu übernehmen."
+
+msgid "Type of interested party"
+msgstr "Art der interessierten Partei"
+
+msgid "Supplier in GLPI"
+msgstr "Lieferant in GLPI"
+
+msgid "Optional: when the party is a supplier already recorded in GLPI."
+msgstr "Optional: wenn die Partei ein bereits in GLPI erfasster Lieferant ist."
+
+msgid "Group in GLPI"
+msgstr "Gruppe in GLPI"
+
+msgid "Optional: when the party is a team or a department recorded as a group."
+msgstr "Optional: wenn die Partei ein als Gruppe erfasstes Team oder eine Abteilung ist."
+
+msgid "Needs and expectations"
+msgstr "Erfordernisse und Erwartungen"
+
+msgid "What this party expects from you about information security, e.g. \"incident notification within 24 hours\"."
+msgstr "Was diese Partei in Bezug auf Informationssicherheit von Ihnen erwartet, z. B. „Meldung von Vorfällen innerhalb von 24 Stunden“."
+
+msgid "Internal or external issue"
+msgstr "Internes oder externes Thema"
+
+msgid "Since the 2024 amendment of ISO 27001, the organization must determine whether climate change is a relevant issue. Answer yes or no, and write why: requirement 4.1 cannot be marked compliant until this is done."
+msgstr "Seit der Änderung der ISO 27001 von 2024 muss die Organisation bestimmen, ob der Klimawandel ein relevantes Thema ist. Antworten Sie mit Ja oder Nein und begründen Sie es: Anforderung 4.1 kann erst danach als konform markiert werden."
+
+msgid "A short title, e.g. \"New cyber security law\" or \"Growth of remote work\"."
+msgstr "Ein kurzer Titel, z. B. „Neues Cybersicherheitsgesetz“ oder „Zunahme der Telearbeit“."
+
+msgid "Internal or external"
+msgstr "Intern oder extern"
+
+msgid "Effect on the ISMS"
+msgstr "Auswirkung auf das ISMS"
+
+msgid "How this issue can affect the ability of the ISMS to achieve its intended results."
+msgstr "Wie dieses Thema die Fähigkeit des ISMS beeinflussen kann, seine beabsichtigten Ergebnisse zu erreichen."
+
+msgid "Decision of the ISMS"
+msgstr "Entscheidung des ISMS"
+
+msgid "Is climate change relevant?"
+msgstr "Ist der Klimawandel relevant?"
+
+msgid "\"Retained by the ISMS\" means relevant; \"Not retained\" means not relevant. A justification is required in both cases."
+msgstr "„Vom ISMS berücksichtigt“ bedeutet relevant, „Nicht berücksichtigt“ bedeutet nicht relevant. In beiden Fällen ist eine Begründung erforderlich."
+
+msgid "Retained: the ISMS takes it into account. Not retained: write why."
+msgstr "Berücksichtigt: Das ISMS bezieht es ein. Nicht berücksichtigt: Begründen Sie es."
+
+msgid "Requirements retained by the ISMS"
+msgstr "Vom ISMS übernommene Anforderungen"
+
+msgid "Which of these expectations become requirements of the ISMS. Link below the obligations and the controls that answer them."
+msgstr "Welche dieser Erwartungen zu Anforderungen des ISMS werden. Verknüpfen Sie unten die Pflichten und die Maßnahmen, die sie erfüllen."
+
+msgid "Links with the ISMS"
+msgstr "Verknüpfungen mit dem ISMS"
+
+msgid "Related obligations"
+msgstr "Zugehörige Pflichten"
+
+msgid "Controls that respond"
+msgstr "Maßnahmen, die darauf antworten"
+
+msgid "Follow-up"
+msgstr "Nachverfolgung"
+
+msgid "The owner receives a reminder 30 days before this date."
+msgstr "Der Verantwortliche erhält 30 Tage vor diesem Datum eine Erinnerung."
+
+msgid "Climate change"
+msgstr "Klimawandel"
+
+#, php-format
+msgid "the question is answered (%s)."
+msgstr "die Frage ist beantwortet (%s)."
+
+msgid "say whether climate change is a relevant issue for your ISMS, and why. Required before requirement 4.1 can be marked compliant."
+msgstr "geben Sie an, ob der Klimawandel ein relevantes Thema für Ihr ISMS ist, und warum. Erforderlich, bevor Anforderung 4.1 als konform markiert werden kann."
+
+msgid "Open the answer"
+msgstr "Antwort öffnen"
+
+msgid "Answer the question"
+msgstr "Frage beantworten"
+
+msgid "Add an issue"
+msgstr "Thema hinzufügen"
+
+msgid "Add an interested party"
+msgstr "Interessierte Partei hinzufügen"
+
+msgid "Climate change question answered"
+msgstr "Frage zum Klimawandel beantwortet"
+
+msgid "Climate change question not answered yet"
+msgstr "Frage zum Klimawandel noch nicht beantwortet"
+
+msgid "Open the context of the organization"
+msgstr "Kontext der Organisation öffnen"
+
+msgid "Context review due"
+msgstr "Überprüfung des Kontexts fällig"
+
+msgid "Owner of the issue or interested party"
+msgstr "Verantwortlicher des Themas oder der interessierten Partei"
+
+msgid "Kind"
+msgstr "Art"
+
+msgid "Internal"
+msgstr "Intern"
+
+msgid "External"
+msgstr "Extern"
+
+msgid "Economic"
+msgstr "Wirtschaftlich"
+
+msgid "Human"
+msgstr "Menschlich"
+
+msgid "Organisational"
+msgstr "Organisatorisch"
+
+msgid "Political"
+msgstr "Politisch"
+
+msgid "Environmental"
+msgstr "Umwelt"
+
+msgid "Authority or regulator"
+msgstr "Behörde oder Aufsicht"
+
+msgid "Supplier or service provider"
+msgstr "Lieferant oder Dienstleister"
+
+msgid "Shareholder or owner"
+msgstr "Anteilseigner oder Eigentümer"
+
+msgid "Insurer"
+msgstr "Versicherer"
+
+msgid "Neighbours and public"
+msgstr "Nachbarn und Öffentlichkeit"
+
+msgid "Retained by the ISMS"
+msgstr "Vom ISMS berücksichtigt"
+
+msgid "Not retained"
+msgstr "Nicht berücksichtigt"
+
+msgid "Give the issue or the interested party a name."
+msgstr "Geben Sie dem Thema oder der interessierten Partei einen Namen."
+
+msgid "Explain why climate change is or is not a relevant issue: auditors check this justification."
+msgstr "Erläutern Sie, warum der Klimawandel ein relevantes Thema ist oder nicht: Auditoren prüfen diese Begründung."
+
+msgid "Explain why this item is not retained by the ISMS."
+msgstr "Erläutern Sie, warum dieser Eintrag vom ISMS nicht berücksichtigt wird."
+
+#, php-format
+msgid "%d context item(s) awaiting review, %d notification(s) raised."
+msgstr "%d Kontexteintrag/-einträge zu überprüfen, %d Benachrichtigung(en) ausgelöst."
+
+msgid "Answer the climate change question in the context of the organization before marking this requirement compliant."
+msgstr "Beantworten Sie die Frage zum Klimawandel im Kontext der Organisation, bevor Sie diese Anforderung als konform markieren."
+
+msgid "The context of the organization: the internal and external issues that affect information security, and the interested parties with their expectations and what the ISMS retains."
+msgstr "Der Kontext der Organisation: die internen und externen Themen, die die Informationssicherheit beeinflussen, und die interessierten Parteien mit ihren Erwartungen und dem, was das ISMS davon übernimmt."
+
+msgid "List the issues and the interested parties, decide for each one whether the ISMS retains it, link the related risks, obligations and controls, answer the climate change question, and review each item at least once a year. Use the export of the list for the auditor."
+msgstr "Erfassen Sie die Themen und die interessierten Parteien, entscheiden Sie jeweils, ob das ISMS sie berücksichtigt, verknüpfen Sie die zugehörigen Risiken, Pflichten und Maßnahmen, beantworten Sie die Frage zum Klimawandel und überprüfen Sie jeden Eintrag mindestens einmal pro Jahr. Nutzen Sie den Export der Liste für den Auditor."
+
+msgid "ISO/IEC 27001, clauses 4.1 and 4.2"
+msgstr "ISO/IEC 27001, Abschnitte 4.1 und 4.2"
+
+msgid "View the context item"
+msgstr "Kontexteintrag anzeigen"
+
+msgid "Check that the issue or the interested party is still accurate (expectations, decision, links with risks and controls), then set the next review date."
+msgstr "Prüfen Sie, ob das Thema oder die interessierte Partei noch zutrifft (Erwartungen, Entscheidung, Verknüpfungen mit Risiken und Maßnahmen), und legen Sie dann das nächste Überprüfungsdatum fest."
+
+msgid "Sent by the GRC Manager automatic task when an issue or an interested party reaches or approaches its review date."
+msgstr "Wird von der automatischen Aufgabe von GRC Manager gesendet, wenn ein Thema oder eine interessierte Partei ihr Überprüfungsdatum erreicht oder sich ihm nähert."
+
+#, php-format
+msgid "%d other linked item is not shown to you."
+msgid_plural "%d other linked items are not shown to you."
+msgstr[0] "%d weiteres verknüpftes Element wird Ihnen nicht angezeigt."
+msgstr[1] "%d weitere verknüpfte Elemente werden Ihnen nicht angezeigt."
+
+#, php-format
+msgid "%d internal or external issue"
+msgid_plural "%d internal or external issues"
+msgstr[0] "%d internes oder externes Thema"
+msgstr[1] "%d interne oder externe Themen"
+
+#, php-format
+msgid "%d interested party"
+msgid_plural "%d interested parties"
+msgstr[0] "%d interessierte Partei"
+msgstr[1] "%d interessierte Parteien"
+
+#, php-format
+msgid "%1$d item changed since %2$s"
+msgid_plural "%1$d items changed since %2$s"
+msgstr[0] "%1$d Eintrag seit %2$s geändert"
+msgstr[1] "%1$d Einträge seit %2$s geändert"
+
+#, php-format
+msgid "%d item past its review date"
+msgid_plural "%d items past their review date"
+msgstr[0] "%d Eintrag mit überschrittenem Überprüfungsdatum"
+msgstr[1] "%d Einträge mit überschrittenem Überprüfungsdatum"
+
+msgid "Issue or interested party"
+msgid_plural "Issues and interested parties"
+msgstr[0] "Thema oder interessierte Partei"
+msgstr[1] "Themen und interessierte Parteien"

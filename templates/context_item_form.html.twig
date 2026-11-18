@@ -1,0 +1,102 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #608 : enjeu interne ou externe, ou partie intéressée (ISO 27001, articles 4.1 et 4.2). #}
+{% extends 'generic_show_form.html.twig' %}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+{% import '@grcmanager/_hint.html.twig' as hints %}
+
+{% block form_fields %}
+   <input type="hidden" name="{{ links_marker }}" value="1">
+   <input type="hidden" name="kind" value="{{ item.fields['kind'] }}">
+
+   {% if is_party %}
+      {{ fields.smallTitle(__('Interested party', 'grcmanager'), 'ti ti-users-group') }}
+      {{ fields.textField('name', item.fields['name'], __('Name'), {
+         'add_field_html': hints.hint(__('For example "Key account customers" or "Data protection authority". Leave empty to use the name of the supplier or group chosen below.', 'grcmanager')),
+      }) }}
+      {{ fields.dropdownArrayField('party_type', item.fields['party_type'] ?: 'customer', party_types, __('Type of interested party', 'grcmanager')) }}
+      {{ fields.dropdownField('Supplier', 'suppliers_id', item.fields['suppliers_id'], __('Supplier in GLPI', 'grcmanager'), {
+         'add_field_html': hints.hint(__('Optional: when the party is a supplier already recorded in GLPI.', 'grcmanager')),
+      }) }}
+      {{ fields.dropdownField('Group', 'groups_id', item.fields['groups_id'], __('Group in GLPI', 'grcmanager'), {
+         'add_field_html': hints.hint(__('Optional: when the party is a team or a department recorded as a group.', 'grcmanager')),
+      }) }}
+      {{ fields.textareaField('expectations', item.fields['expectations'], __('Needs and expectations', 'grcmanager'), {
+         'full_width': true,
+         'add_field_html': hints.hint(__('What this party expects from you about information security, e.g. "incident notification within 24 hours".', 'grcmanager')),
+      }) }}
+   {% else %}
+      {{ fields.smallTitle(__('Internal or external issue', 'grcmanager'), 'ti ti-world') }}
+      {% if is_climate %}
+         <div class="col-12">
+            <div class="alert alert-info d-flex align-items-start">
+               <i class="ti ti-temperature me-2 mt-1"></i>
+               <div>{{ __('Since the 2024 amendment of ISO 27001, the organization must determine whether climate change is a relevant issue. Answer yes or no, and write why: requirement 4.1 cannot be marked compliant until this is done.', 'grcmanager') }}</div>
+            </div>
+         </div>
+      {% endif %}
+      {{ fields.textField('name', item.fields['name'], __('Name'), {
+         'add_field_html': hints.hint(__('A short title, e.g. "New cyber security law" or "Growth of remote work".', 'grcmanager')),
+      }) }}
+      {{ fields.dropdownArrayField('nature', item.fields['nature'] ?: 'internal', natures, __('Internal or external', 'grcmanager')) }}
+      {{ fields.dropdownArrayField('category', item.fields['category'] ?: 'other', categories, __('Category', 'grcmanager')) }}
+      {{ fields.textareaField('effect', item.fields['effect'], __('Effect on the ISMS', 'grcmanager'), {
+         'full_width': true,
+         'add_field_html': hints.hint(__('How this issue can affect the ability of the ISMS to achieve its intended results.', 'grcmanager')),
+      }) }}
+   {% endif %}
+
+   {{ fields.smallTitle(__('Decision of the ISMS', 'grcmanager'), 'ti ti-scale') }}
+   {{ fields.dropdownArrayField('relevance', item.fields['relevance'] ?: 'to_assess', relevances, is_climate ? __('Is climate change relevant?', 'grcmanager') : __('Decision', 'grcmanager'), {
+      'add_field_html': hints.hint(is_climate
+         ? __('"Retained by the ISMS" means relevant; "Not retained" means not relevant. A justification is required in both cases.', 'grcmanager')
+         : __('Retained: the ISMS takes it into account. Not retained: write why.', 'grcmanager')),
+   }) }}
+   {% if is_party %}
+      {{ fields.textareaField('requirements', item.fields['requirements'], __('Requirements retained by the ISMS', 'grcmanager'), {
+         'full_width': true,
+         'add_field_html': hints.hint(__('Which of these expectations become requirements of the ISMS. Link below the obligations and the controls that answer them.', 'grcmanager')),
+      }) }}
+   {% endif %}
+   {{ fields.textareaField('justification', item.fields['justification'], __('Justification', 'grcmanager'), {
+      'full_width': true,
+   }) }}
+
+   {{ fields.smallTitle(__('Links with the ISMS', 'grcmanager'), 'ti ti-link') }}
+   {% set link_labels = {
+      '_linked_risks': __('Related risks', 'grcmanager'),
+      '_linked_obligations': __('Related obligations', 'grcmanager'),
+      '_linked_controls': __('Controls that respond', 'grcmanager'),
+   } %}
+   {% for field, link in links %}
+      {% if link.allowed %}
+         {{ fields.dropdownArrayField(field, '', link.choices, link_labels[field], {
+            'multiple': true, 'values': link.values, 'full_width': true,
+            'add_field_html': link.hidden > 0
+               ? hints.hint(_n('%d other linked item is not shown to you.', '%d other linked items are not shown to you.', link.hidden, 'grcmanager')|format(link.hidden))
+               : '',
+         }) }}
+      {% endif %}
+   {% endfor %}
+
+   {{ fields.smallTitle(__('Follow-up', 'grcmanager'), 'ti ti-calendar-repeat') }}
+   {{ fields.dropdownField('User', 'users_id', item.fields['users_id'], _x('owner', 'Owner', 'grcmanager'), {
+      'right': 'all',
+   }) }}
+   {{ fields.dateField('review_date', item.fields['review_date'], __('Review date', 'grcmanager'), {
+      'add_field_html': hints.hint(__('The owner receives a reminder 30 days before this date.', 'grcmanager')),
+   }) }}
+   {{ fields.textareaField('comment', item.fields['comment'], __('Comments'), {'full_width': true}) }}
+{% endblock %}

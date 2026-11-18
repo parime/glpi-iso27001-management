@@ -1,0 +1,41 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #608 : synthèse du contexte de l'organisation (exigences 4.1 et 4.2, revue de direction). #}
+<div class="col-12 mt-2">
+   <div class="card card-sm">
+      <div class="card-body">
+         <div class="fw-bold mb-2"><i class="ti ti-building-community me-1"></i>{{ __('Context of the organization', 'grcmanager') }}</div>
+         <ul class="list-unstyled mb-2">
+            <li>{{ _n('%d internal or external issue', '%d internal or external issues', summary.issues, 'grcmanager')|format(summary.issues) }}</li>
+            <li>{{ _n('%d interested party', '%d interested parties', summary.parties, 'grcmanager')|format(summary.parties) }}</li>
+            {% if summary.since %}
+               <li>{{ _n('%1$d item changed since %2$s', '%1$d items changed since %2$s', summary.changed, 'grcmanager')|format(summary.changed, summary.since|formatted_date) }}</li>
+            {% endif %}
+            <li class="{{ summary.overdue > 0 ? 'text-warning' : '' }}">
+               {{ _n('%d item past its review date', '%d items past their review date', summary.overdue, 'grcmanager')|format(summary.overdue) }}
+            </li>
+            {% if show_climate %}
+               <li class="{{ summary.climate ? 'text-success' : 'text-warning' }}">
+                  <i class="ti {{ summary.climate ? 'ti-circle-check' : 'ti-alert-triangle' }} me-1"></i>
+                  {{ summary.climate
+                     ? __('Climate change question answered', 'grcmanager')
+                     : __('Climate change question not answered yet', 'grcmanager') }}
+               </li>
+            {% endif %}
+         </ul>
+         <a href="{{ summary.url }}"><i class="ti ti-link me-1"></i>{{ __('Open the context of the organization', 'grcmanager') }}</a>
+      </div>
+   </div>
+</div>

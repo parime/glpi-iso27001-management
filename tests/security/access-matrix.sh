@@ -86,7 +86,8 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/customframework.php front/customframework.php?template=1
   front/riskimport.php front/riskimport.php?template=1 front/riskimport.php?export=1
   front/doraregister.php front/doraregister.php?export=B_02.01 front/doraregister.php?export=zip
-  front/consistencycheck.php front/consistencycheck.export.php?format=csv front/consistencycheck.export.php?format=pdf"
+  front/consistencycheck.php front/consistencycheck.export.php?format=csv front/consistencycheck.export.php?format=pdf
+  front/contextitem.php front/contextitem.form.php"
 # Creations : refusees sans droit comme en lecture seule (etat en base compare par la CI).
 create_attempts() { # code attendu, code attendu pour la classification (404 sans droit sur l'actif)
   local incident; incident=$(id incident_A)
@@ -104,7 +105,7 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
     front/cpereference.form.php front/productalias.form.php \
     front/waiver.form.php front/coveragerule.form.php front/controltest.form.php \
     front/processingactivity.form.php front/datasubjectrequest.form.php front/databreach.form.php \
-    front/businessprocess.form.php front/riskindicator.form.php; do
+    front/businessprocess.form.php front/riskindicator.form.php front/contextitem.form.php; do
     expect "$form : creation" "$1" "$(code -d "add=1&name=securite&title=securite&_glpi_csrf_token=$(csrf)" "$BASE/plugins/grcmanager/$form")"
   done
   # Issue #537 : analyser un fichier, confirmer un import, et modifier un referentiel personnalise
@@ -559,6 +560,14 @@ expect "ticket depuis un KRI de B" "$([ "$ROLE" = admin ] && echo 302 || echo 40
   "$(code -d "create_ticket=1&id=$(id kri_B)&_glpi_csrf_token=$(csrf)" "$P/riskindicator.form.php")"
 expect "creer un KRI dans l'entite B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
   "$(code -d "add=1&name=KRI%20cree&entities_id=$(id b)&_glpi_csrf_token=$(csrf)" "$P/riskindicator.form.php")"
+# Issue #608 : une fiche du contexte de l'organisation appartient a son entite.
+expect "contexte, entite A"             200    "$(code "$P/contextitem.form.php?id=$(id context_A)")"
+expect "contexte, entite B"             $DENY  "$(code "$P/contextitem.form.php?id=$(id context_B)")"
+expect "modifier le contexte de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
+  "$(code -d "update=1&id=$(id context_B)&name=securite&_glpi_csrf_token=$(csrf)" "$P/contextitem.form.php")"
+contexts=$(curl -s -c "$JAR" -b "$JAR" "$P/contextitem.php")
+contains "liste du contexte : partie de A" "Partie securite A" oui    "$contexts"
+contains "liste du contexte : partie de B" "Partie securite B" $SEE_B "$contexts"
 kris=$(curl -s -c "$JAR" -b "$JAR" "$P/riskindicator.php")
 contains "liste des KRI : KRI de A" "KRI securite A" oui    "$kris"
 contains "liste des KRI : KRI de B" "KRI securite B" $SEE_B "$kris"

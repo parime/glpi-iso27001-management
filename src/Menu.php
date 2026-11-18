@@ -85,6 +85,8 @@ class Menu extends CommonGLPI
             // Conformité : SoA, référentiels, exigences du SMSI, obligations, politiques, preuves.
             Control::class => [
                 Referentials::class, CustomFramework::class, IsmsRequirement::class,
+                // Issue #608 : contexte de l'organisation (enjeux, parties intéressées).
+                ContextItem::class,
                 ComplianceObligation::class, ProcessingActivity::class, DataSubjectRequest::class,
                 // Issue #620 : registre des violations de données personnelles.
                 DataBreach::class, Policy::class,
