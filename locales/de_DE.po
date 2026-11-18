@@ -17711,3 +17711,9 @@ msgstr "Sie können in dieser Einheit keine Nichtkonformität anlegen."
 
 msgid "This account has no profile in the entity of the audit."
 msgstr "Dieses Konto hat kein Profil in der Einheit des Audits."
+
+msgid "Firmware"
+msgstr "Firmware"
+
+msgid "Firmware of network equipment, printers, phones or computers"
+msgstr "Firmware von Netzwerkgeräten, Druckern, Telefonen oder Computern"

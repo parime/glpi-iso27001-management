@@ -22423,3 +22423,9 @@ msgstr "Re-assess the waiver \"%s\""
 #~ msgstr ""
 #~ "Sent to the person who submitted a version of a security policy and to "
 #~ "the policy owner when the version is approved or rejected."
+
+msgid "Firmware"
+msgstr "Firmware"
+
+msgid "Firmware of network equipment, printers, phones or computers"
+msgstr "Firmware of network equipment, printers, phones or computers"

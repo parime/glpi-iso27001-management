@@ -42,6 +42,9 @@ use GlpiPlugin\Grcmanager\ProductAlias;
  * Printer in stock GLPI 11) rather than hardcoding Computer only: a CVE can just as well affect a
  * NetworkEquipment's firmware as a Computer's software.
  *
+ * Issue #705 : firmwares (`Item_DeviceFirmware`, see FirmwareInventory) are the second source,
+ * resolved through the same declared aliases, their versions compared by FirmwareVersion.
+ *
  * NOTE: depends on GLPI's runtime global $DB/$CFG_GLPI and the legacy PluginGrcmanager* classes,
  * not unit-tested in isolation, same exclusion rationale as RiskMatrixConfig.php, see
  * phpstan.neon.dist. The pure matching logic (CpeIdentity, CpeVersionMatch) IS unit-tested
@@ -49,6 +52,11 @@ use GlpiPlugin\Grcmanager\ProductAlias;
  */
 final class InventoryCveMatcher
 {
+    /** Issue #705 : origine d'un rapprochement, logiciel installé ou firmware de l'actif. */
+    public const SOURCE_SOFTWARE = 'software';
+
+    public const SOURCE_FIRMWARE = 'firmware';
+
     /**
      * @param list<array{
      *     cpe23_uri: string, version_start_including: ?string, version_start_excluding: ?string,
@@ -56,8 +64,9 @@ final class InventoryCveMatcher
      * }> $affectedCpes
      * @return list<array{
      *     itemtype: string, items_id: int, item_name: string, software_name: string,
-     *     version: string, state: string
-     * }> Sorted MATCHED first, then UNKNOWN. EXCLUDED candidates are never returned.
+     *     version: string, source: string, state: string
+     * }> Sorted MATCHED first, then UNKNOWN. EXCLUDED candidates are never returned. `software_name`
+     *    holds the firmware designation when `source` is SOURCE_FIRMWARE (issue #705).
      */
     public static function findMatchingAssets(array $affectedCpes): array
     {
@@ -90,9 +99,15 @@ final class InventoryCveMatcher
 
         $matched = [];
         $unknown = [];
+        $canonicalProductIdByName = [];
 
-        foreach (self::installedSoftware() as $installed) {
-            $canonicalProductId = ProductAlias::resolveCanonicalProductId($installed['software_name']);
+        foreach ([...self::installedSoftware(), ...self::installedFirmware()] as $installed) {
+            // Une même désignation revient sur des dizaines d'actifs : une seule lecture d'alias.
+            $name = $installed['software_name'];
+            if (!array_key_exists($name, $canonicalProductIdByName)) {
+                $canonicalProductIdByName[$name] = ProductAlias::resolveCanonicalProductId($name);
+            }
+            $canonicalProductId = $canonicalProductIdByName[$name];
 
             if ($canonicalProductId === null || !isset($affectedCpesByCanonicalProductId[$canonicalProductId])) {
                 continue;
@@ -100,7 +115,10 @@ final class InventoryCveMatcher
 
             $bestState = null;
             foreach ($affectedCpesByCanonicalProductId[$canonicalProductId] as $affectedCpe) {
-                $state = CpeVersionMatch::evaluate($affectedCpe, $installed['version']);
+                // Issue #705 : un firmware suit ses propres règles de version (FirmwareVersion).
+                $state = $installed['source'] === self::SOURCE_FIRMWARE
+                    ? FirmwareVersion::evaluate($affectedCpe, $installed['version'])
+                    : CpeVersionMatch::evaluate($affectedCpe, $installed['version']);
 
                 if ($state === CpeVersionMatch::MATCHED) {
                     $bestState = CpeVersionMatch::MATCHED;
@@ -149,7 +167,10 @@ final class InventoryCveMatcher
      * appelants (onglet CVE d'un incident, plan d'action pré-rempli) nomment ces actifs à
      * l'écran ou dans une fiche enregistrée (revue de sécurité 2.11.0).
      *
-     * @return list<array{itemtype: string, items_id: int, item_name: string, software_name: string, version: string}>
+     * @return list<array{
+     *     itemtype: string, items_id: int, item_name: string, software_name: string, version: string,
+     *     source: string
+     * }>
      */
     private static function installedSoftware(): array
     {
@@ -209,6 +230,7 @@ final class InventoryCveMatcher
                     'item_name'     => (string) ($row['item_name'] ?? ''),
                     'software_name' => (string) $row['software_name'],
                     'version'       => (string) ($row['version'] ?? ''),
+                    'source'        => self::SOURCE_SOFTWARE,
                 ];
             }
         }
@@ -217,12 +239,39 @@ final class InventoryCveMatcher
     }
 
     /**
+     * Issue #705 : firmwares des actifs que l'utilisateur courant peut voir, même règle de droits
+     * et d'entités que installedSoftware() (FirmwareInventory::visibleToCurrentUser()).
+     *
+     * @return list<array{
+     *     itemtype: string, items_id: int, item_name: string, software_name: string, version: string,
+     *     source: string
+     * }>
+     */
+    private static function installedFirmware(): array
+    {
+        $installed = [];
+        foreach (FirmwareInventory::visibleToCurrentUser() as $firmware) {
+            $installed[] = [
+                'itemtype'      => $firmware['itemtype'],
+                'items_id'      => $firmware['items_id'],
+                'item_name'     => $firmware['item_name'],
+                'software_name' => $firmware['firmware_name'],
+                'version'       => $firmware['version'],
+                'source'        => self::SOURCE_FIRMWARE,
+            ];
+        }
+
+        return $installed;
+    }
+
+    /**
      * @param array{
-     *     itemtype: string, items_id: int, item_name: string, software_name: string, version: string
+     *     itemtype: string, items_id: int, item_name: string, software_name: string, version: string,
+     *     source: string
      * } $installed
      * @return array{
      *     itemtype: string, items_id: int, item_name: string, software_name: string,
-     *     version: string, state: string
+     *     version: string, source: string, state: string
      * }
      */
     private static function toResultRow(array $installed, string $state): array

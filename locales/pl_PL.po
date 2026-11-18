@@ -17470,3 +17470,9 @@ msgstr "Nie możesz utworzyć niezgodności w tej jednostce."
 
 msgid "This account has no profile in the entity of the audit."
 msgstr "To konto nie ma profilu w jednostce audytu."
+
+msgid "Firmware"
+msgstr "Oprogramowanie układowe"
+
+msgid "Firmware of network equipment, printers, phones or computers"
+msgstr "Oprogramowanie układowe urządzeń sieciowych, drukarek, telefonów lub komputerów"

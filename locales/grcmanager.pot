@@ -19862,3 +19862,12 @@ msgstr ""
 #: src/AuditorAccess.php
 msgid "This account has no profile in the entity of the audit."
 msgstr ""
+
+#: templates/park_vulnerabilities.html.twig templates/tabs/cve.html.twig
+#: templates/software_watch.html.twig templates/park_item_tab.html.twig
+msgid "Firmware"
+msgstr ""
+
+#: templates/software_watch.html.twig
+msgid "Firmware of network equipment, printers, phones or computers"
+msgstr ""

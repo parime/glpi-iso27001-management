@@ -17433,3 +17433,9 @@ msgstr "Você não pode criar uma não conformidade nesta entidade."
 
 msgid "This account has no profile in the entity of the audit."
 msgstr "Esta conta não tem nenhum perfil na entidade da auditoria."
+
+msgid "Firmware"
+msgstr "Firmware"
+
+msgid "Firmware of network equipment, printers, phones or computers"
+msgstr "Firmware de equipamentos de rede, impressoras, telefones ou computadores"
