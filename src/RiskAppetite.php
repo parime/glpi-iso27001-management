@@ -152,7 +152,7 @@ class RiskAppetite extends CommonGLPI
         return [
             'class' => $classes[$level] ?? 'bg-secondary-lt',
             'icon'  => in_array($level, ['high', 'critical'], true) ? 'ti-alert-triangle' : null,
-            'label' => Risk::getImpacts()[$level] ?? $level,
+            'label' => Risk::getRiskLevels()[$level] ?? $level,
         ];
     }
 

@@ -122,6 +122,8 @@ final class Installer
     // (both sides already lowercased+concatenated class-name suffixes), matching GLPI core's own
     // `Left_Right` relation-table convention (e.g. glpi_documents_items).
     private const CONTROLS_RISKS_TABLE = 'glpi_plugin_grcmanager_controls_risks';
+    // Issue #609 : mesures compensatoires d'une exclusion, autres mesures de la même SoA.
+    private const CONTROLS_COMPENSATIONS_TABLE = 'glpi_plugin_grcmanager_controls_compensations';
 
     // Sprint 4 (audits internes et CAPA, clause 9.2/10.2), same table-name derivation rule.
     private const AUDITS_TABLE = 'glpi_plugin_grcmanager_audits';
@@ -335,7 +337,13 @@ final class Installer
         \GlpiPlugin\Grcmanager\DoraProvider::class,
         \GlpiPlugin\Grcmanager\DoraArrangement::class,
         \GlpiPlugin\Grcmanager\DoraFunction::class,
+        // Issue #608 : contexte de l'organisation (enjeux et parties intéressées).
+        \GlpiPlugin\Grcmanager\ContextItem::class,
+        \GlpiPlugin\Grcmanager\NotificationTargetContextItem::class,
     ];
+    // Issue #608 : contexte de l'organisation, voir \GlpiPlugin\Grcmanager\ContextItem.
+    private const CONTEXT_ITEMS_TABLE = 'glpi_plugin_grcmanager_contextitems';
+    private const CONTEXT_ITEMS_LINKS_TABLE = 'glpi_plugin_grcmanager_contextitems_items';
     // Issue #375 : registre des activités de traitement (RGPD, article 30) et éléments GLPI cités,
     // voir \GlpiPlugin\Grcmanager\ProcessingActivity.
     private const PROCESSING_ACTIVITIES_TABLE = 'glpi_plugin_grcmanager_processingactivities';
@@ -473,6 +481,18 @@ final class Installer
                 'matrix'   => json_encode(RiskMatrixDefaults::MATRIX),
                 'date_mod' => date('Y-m-d H:i:s'),
             ]);
+        }
+
+        // Issue #706 : taille de la matrice (4x4 ou 5x5). Une installation existante reste en 4x4 :
+        // seule la validation d'une correspondance par l'administrateur (front/riskscale.php) la
+        // change. La table disparaît à la désinstallation (dropTable ci-dessous), colonne comprise.
+        if (!$DB->fieldExists(self::RISK_MATRIX_CONFIG_TABLE, 'scale_size')) {
+            $migration->addField(self::RISK_MATRIX_CONFIG_TABLE, 'scale_size', 'integer', [
+                'value'   => 4,
+                'after'   => 'id',
+                'comment' => 'Taille de la matrice : 4 (4x4) ou 5 (5x5)',
+            ]);
+            $migration->migrationOneTable(self::RISK_MATRIX_CONFIG_TABLE);
         }
 
         // Enrichissement CVE via NVD (cf. ROADMAP.md) : mêmes deux réglages que
@@ -671,6 +691,8 @@ final class Installer
             $attributeAfter = $attribute;
         }
         $migration->migrationOneTable(self::CONTROLS_TABLE);
+
+        $this->installSoaSelectionFields($migration, $attributeAfter, $keySign, $charset, $collation);
 
         // Issue #380 : tests d'efficacité des mesures, une ligne par test (voir
         // \GlpiPlugin\Grcmanager\ControlTest). Preuve = document joint à la mesure ; non-conformité
@@ -1369,6 +1391,7 @@ final class Installer
         $this->installAuditEvidenceRequestTables($keySign, $charset, $collation);
         $this->installDoraRegisterTables($keySign, $charset, $collation);
         $this->installDataBreachTables($keySign, $charset, $collation);
+        $this->installContextTables($keySign, $charset, $collation);
         $this->installParkRemediationTables($keySign, $charset, $collation);
 
         // Issue #30 (registre des obligations légales/réglementaires/contractuelles, clause 4.2
@@ -3353,6 +3376,18 @@ final class Installer
             ]
         );
 
+        // Issue #608 : même rappel de revue pour les enjeux et les parties intéressées.
+        CronTask::Register(
+            'GlpiPlugin\\Grcmanager\\ContextItem',
+            'reviewreminder',
+            DAY_TIMESTAMP,
+            [
+                'comment' => 'Notifie le propriétaire de chaque enjeu ou partie intéressée dont la date '
+                    . 'de revue est dépassée ou approche',
+                'mode'    => CronTask::MODE_EXTERNAL,
+            ]
+        );
+
         // Sprint 4 (CAPA en retard) : évalue chaque jour les non-conformités dont l'échéance est
         // dépassée et qui ne sont ni clôturées ni vérifiées, et déclenche la notification GLPI
         // seedée ci-dessus (voir \GlpiPlugin\Grcmanager\Nonconformity::cronOverduecapa(),
@@ -3960,6 +3995,61 @@ final class Installer
      * mesure, soumise ou en préparation) et accès en lecture d'un auditeur à un seul audit, limité
      * dans le temps.
      */
+    /**
+     * Issue #609 : motifs de sélection (NULL tant que personne ne les a renseignés : le formulaire
+     * propose alors ceux déduits des risques et obligations liés) et détail d'une exclusion de la
+     * SoA, avec la table des mesures compensatoires. Colonnes ajoutées vides : la justification et
+     * les statuts ne bougent pas, et l'empreinte d'une SoA déjà approuvée reste la même
+     * (SoaApprovalLogic::fingerprint()). Rejouable.
+     */
+    private function installSoaSelectionFields(
+        Migration $migration,
+        string $after,
+        string $keySign,
+        string $charset,
+        string $collation
+    ): void {
+        global $DB;
+
+        $selectionFields = [
+            'selection_reasons'     => [
+                'varchar(255) DEFAULT NULL',
+                'risk_assessment, legal, contractual, stakeholder, best_practice',
+            ],
+            'exclusion_category'    => [
+                "varchar(32) NOT NULL DEFAULT ''",
+                'activity_absent, certified_provider, out_of_scope',
+            ],
+            'compensating_measures' => ['text', 'Mesures compensatoires d une exclusion, texte libre'],
+            'residual_risk'         => ["varchar(16) NOT NULL DEFAULT ''", 'low, medium, high, critical'],
+        ];
+        foreach ($selectionFields as $field => [$type, $comment]) {
+            if (!$DB->fieldExists(self::CONTROLS_TABLE, $field)) {
+                $migration->addField(self::CONTROLS_TABLE, $field, $type, [
+                    'comment' => $comment,
+                    'after'   => $after,
+                ]);
+            }
+            $after = $field;
+        }
+        $migration->migrationOneTable(self::CONTROLS_TABLE);
+
+        if (!$DB->tableExists(self::CONTROLS_COMPENSATIONS_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::CONTROLS_COMPENSATIONS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_controls_id` int {$keySign} NOT NULL COMMENT 'Mesure exclue',
+                `plugin_grcmanager_controls_id_compensating` int {$keySign} NOT NULL
+                    COMMENT 'Mesure compensatoire, dans la meme SoA',
+                `date_creation` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity_link`
+                    (`plugin_grcmanager_controls_id`, `plugin_grcmanager_controls_id_compensating`),
+                KEY `controls_id` (`plugin_grcmanager_controls_id`),
+                KEY `controls_id_compensating` (`plugin_grcmanager_controls_id_compensating`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+    }
+
     private function installAuditEvidenceRequestTables(string $keySign, string $charset, string $collation): void
     {
         global $DB;
@@ -4201,6 +4291,64 @@ final class Installer
                 PRIMARY KEY (`id`),
                 UNIQUE KEY `unicity` (`plugin_grcmanager_databreaches_id`, `plugin_grcmanager_processingactivities_id`),
                 KEY `plugin_grcmanager_processingactivities_id` (`plugin_grcmanager_processingactivities_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+    }
+
+    /**
+     * Issue #608 : contexte de l'organisation (ISO 27001, articles 4.1 et 4.2). Enjeux et parties
+     * intéressées dans une même table (`kind`), liens vers les risques, obligations et mesures.
+     */
+    private function installContextTables(string $keySign, string $charset, string $collation): void
+    {
+        global $DB;
+
+        if (!$DB->tableExists(self::CONTEXT_ITEMS_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::CONTEXT_ITEMS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `entities_id` int {$keySign} NOT NULL DEFAULT 0,
+                `is_recursive` tinyint NOT NULL DEFAULT 0,
+                `kind` varchar(16) NOT NULL DEFAULT 'issue' COMMENT 'issue, party',
+                `name` varchar(255) NOT NULL DEFAULT '',
+                `nature` varchar(16) NOT NULL DEFAULT 'internal' COMMENT 'internal, external (enjeux)',
+                `category` varchar(32) NOT NULL DEFAULT 'other' COMMENT 'Categorie de l''enjeu, dont climate_change',
+                `effect` text COMMENT 'Effet de l''enjeu sur le SMSI',
+                `party_type` varchar(32) NOT NULL DEFAULT 'other' COMMENT 'Type de partie interessee',
+                `suppliers_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Fournisseur GLPI, 0 = aucun',
+                `groups_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Groupe GLPI, 0 = aucun',
+                `expectations` text COMMENT 'Besoins et attentes de la partie',
+                `requirements` text COMMENT 'Exigences retenues par le SMSI',
+                `relevance` varchar(16) NOT NULL DEFAULT 'to_assess' COMMENT 'to_assess, retained, not_retained',
+                `justification` text,
+                `users_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Proprietaire',
+                `review_date` date DEFAULT NULL,
+                `comment` text,
+                `is_deleted` tinyint NOT NULL DEFAULT 0,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `entities_id` (`entities_id`),
+                KEY `is_recursive` (`is_recursive`),
+                KEY `kind` (`kind`),
+                KEY `category` (`category`),
+                KEY `suppliers_id` (`suppliers_id`),
+                KEY `groups_id` (`groups_id`),
+                KEY `users_id` (`users_id`),
+                KEY `review_date` (`review_date`),
+                KEY `is_deleted` (`is_deleted`),
+                KEY `date_mod` (`date_mod`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+        if (!$DB->tableExists(self::CONTEXT_ITEMS_LINKS_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::CONTEXT_ITEMS_LINKS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_contextitems_id` int {$keySign} NOT NULL DEFAULT 0,
+                `itemtype` varchar(100) NOT NULL DEFAULT '' COMMENT 'Risque, obligation ou mesure',
+                `items_id` int {$keySign} NOT NULL DEFAULT 0,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity` (`plugin_grcmanager_contextitems_id`, `itemtype`, `items_id`),
+                KEY `item` (`itemtype`, `items_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
         }
     }
@@ -5083,6 +5231,8 @@ final class Installer
         $this->unseedNotification(\GlpiPlugin\Grcmanager\BusinessProcess::class);
         // Issue #538 : demandes de preuves d'audit.
         $this->unseedNotification(\GlpiPlugin\Grcmanager\AuditEvidenceRequest::class);
+        // Issue #608 : revue des enjeux et des parties intéressées.
+        $this->unseedNotification(\GlpiPlugin\Grcmanager\ContextItem::class);
 
         // Absorption de glpi-security-incidents (ROADMAP.md "Version 2.0") : colonnes ajoutées sur
         // les tables cœur pour la gestion de modèles - même dérivation que le plugin absorbé
@@ -5112,6 +5262,7 @@ final class Installer
         $migration->dropTable(self::PRODUCT_ALIASES_TABLE);
         $migration->dropTable(self::CANONICAL_PRODUCTS_TABLE);
         $migration->dropTable(self::CONTROLS_RISKS_TABLE);
+        $migration->dropTable(self::CONTROLS_COMPENSATIONS_TABLE);
         $migration->dropTable(self::CONTROL_TESTS_TABLE);
         $migration->dropTable(self::CUSTOM_REQUIREMENTS_TABLE);
         $migration->dropTable(self::CUSTOM_FRAMEWORKS_TABLE);
@@ -5187,6 +5338,8 @@ final class Installer
         $migration->dropTable(self::DATA_SUBJECT_REQUESTS_TABLE);
         $migration->dropTable(self::DATA_BREACHES_ACTIVITIES_TABLE);
         $migration->dropTable(self::DATA_BREACHES_TABLE);
+        $migration->dropTable(self::CONTEXT_ITEMS_LINKS_TABLE);
+        $migration->dropTable(self::CONTEXT_ITEMS_TABLE);
         $migration->dropTable(self::EBIOS_STUDIES_TABLE);
         $migration->dropTable(self::EBIOS_VALUES_TABLE);
         $migration->dropTable(self::EBIOS_FEARED_EVENTS_TABLE);

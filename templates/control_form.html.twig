@@ -31,6 +31,60 @@
       'full_width': true,
       'add_field_html': hints.hint(__('Required if the control is not fully applicable.', 'grcmanager')),
    }) }}
+   {# Issue #609 : motifs de sélection (ISO/IEC 27001:2022, 6.1.3 d), plusieurs possibles ; les motifs déduits des risques et obligations liés sont cochés tant que personne ne les a renseignés. #}
+   <input type="hidden" name="_grcmanager_selection" value="1">
+   {% set reasons_html %}
+      <div>
+         {% for key, label in selection_reasons %}
+            <label class="form-check form-check-inline mb-1">
+               <input class="form-check-input" type="checkbox" name="selection_reasons[]" value="{{ key }}"{{ key in checked_reasons ? ' checked' : '' }}>
+               <span class="form-check-label">{{ label }}
+                  {% if key in suggested_reasons %}<span class="badge bg-azure-lt ms-1" title="{{ __('Deduced from the risks linked to this control and from the obligations of the register attached to them.', 'grcmanager') }}"><i class="ti ti-link me-1"></i>{{ __('From the links', 'grcmanager') }}</span>{% endif %}
+               </span>
+            </label>
+         {% endfor %}
+      </div>
+      {% if reasons_never_set and suggested_reasons is not empty %}
+         {{ hints.hint(__('The ticked reasons are deduced from the linked risks and obligations: check them, then save.', 'grcmanager')) }}
+      {% else %}
+         {{ hints.hint(__('Why this control is included: several reasons are possible. Linking a new risk ticks the risk assessment reason.', 'grcmanager')) }}
+      {% endif %}
+   {% endset %}
+   {{ fields.htmlField('', reasons_html, __('Reasons for selection', 'grcmanager'), {'full_width': true}) }}
+   {# Issue #609 : détail d'une exclusion (mesure non applicable ou partiellement applicable), masqué pour une mesure applicable. #}
+   <input type="hidden" name="_grcmanager_exclusion" value="1">
+   {{ fields.dropdownArrayField('exclusion_category', item.fields['exclusion_category'], exclusion_categories, __('Exclusion category', 'grcmanager'), {
+      'display_emptychoice': true,
+      'add_field_class': 'grcmanager-exclusion',
+      'add_field_html': hints.hint(__('Why the control is left out, for example: no premises of its own, hosting by a certified provider.', 'grcmanager')),
+   }) }}
+   {{ fields.dropdownArrayField('residual_risk', item.fields['residual_risk'], residual_levels, __('Residual risk', 'grcmanager'), {
+      'display_emptychoice': true,
+      'add_field_class': 'grcmanager-exclusion',
+      'add_field_html': hints.hint(__('Risk that remains once the compensating measures are in place.', 'grcmanager')),
+   }) }}
+   {{ fields.dropdownArrayField('compensating_controls', null, compensating_options, __('Compensating controls', 'grcmanager'), {
+      'multiple': true,
+      'values': compensating_controls,
+      'full_width': true,
+      'add_field_class': 'grcmanager-exclusion',
+      'add_field_html': hints.hint(__('Controls of this SoA that make up for the exclusion, for example A.5.20 for an audit clause in the provider contract.', 'grcmanager')),
+   }) }}
+   {{ fields.textareaField('compensating_measures', item.fields['compensating_measures'], __('Compensating measures', 'grcmanager'), {
+      'full_width': true,
+      'add_field_class': 'grcmanager-exclusion',
+      'add_field_html': hints.hint(__('Other compensating measures, in your own words (contract clause, provider certificate...).', 'grcmanager')),
+   }) }}
+   <script>
+      $(function () {
+         var applicability = $('select[name="applicability"]');
+         var toggle = function () {
+            $('.grcmanager-exclusion').toggleClass('d-none', applicability.val() === 'yes');
+         };
+         applicability.on('change', toggle);
+         toggle();
+      });
+   </script>
    {# Issue #610 : attributs ISO/IEC 27002:2022 livrés avec le catalogue, modifiables. #}
    <input type="hidden" name="_grcmanager_attributes" value="1">
    {% for attribute in attributes %}

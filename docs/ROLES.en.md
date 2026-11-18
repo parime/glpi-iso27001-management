@@ -47,7 +47,8 @@ organization. Allow half an hour.
 4. **Open the configuration**: **Setup > Plugins**, click "GLPI GRC Manager" (or the wrench icon on
    its row). Every setting is on this page, by section:
    - **Compliance frameworks**: enable the ones the organization follows (NIS2, DORA, ISO 27701...);
-   - **Risk matrix**: probability x impact labels and thresholds;
+   - **Risk matrix**: probability x impact labels and thresholds, 4 x 4 or 5 x 5 size (correspondence
+     screen before any conversion of the register);
    - **Risk appetite and tolerance**: the "management" group, the only one allowed to accept a risk
      beyond tolerance;
    - **Internal audits**: the CISO group, which reads the restricted documents of audits;

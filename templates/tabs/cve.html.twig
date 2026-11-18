@@ -24,7 +24,7 @@
     <div class="form-hint">{{ __('One per line, or comma-separated: several at once are supported.', 'grcmanager') }}</div>
   </div>
   <button type="submit" name="add" class="btn btn-primary">
-    <i class="ti ti-plus"></i> {{ __('Ajouter') }}
+    <i class="ti ti-plus"></i> {{ __('Add') }}
   </button>
 </form>
 {% endif %}
@@ -132,6 +132,12 @@
                         {{ asset.item_name }}
                       </a>
                       - {{ asset.software_name }} {{ asset.version }}
+                      {# Issue #705 : logiciel installé ou firmware de l'actif. #}
+                      {% if asset.source|default('software') == 'firmware' %}
+                        <span class="badge bg-secondary-lt"><i class="ti ti-cpu me-1"></i>{{ __('Firmware', 'grcmanager') }}</span>
+                      {% else %}
+                        <span class="badge bg-secondary-lt"><i class="ti ti-apps me-1"></i>{{ __('Software', 'grcmanager') }}</span>
+                      {% endif %}
                       {% if asset.state == 'unknown' %}
                         <span class="text-muted">({{ __('version not verifiable', 'grcmanager') }})</span>
                       {% endif %}

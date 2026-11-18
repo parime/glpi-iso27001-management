@@ -59,6 +59,44 @@
   </tr>
 </table>
 
+{# Issue #609 : synthèse par thème ; mises en œuvre, en cours et non démarrées parmi les mesures applicables. #}
+<h2>{{ __('Summary by theme', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-table">
+  <thead>
+    <tr>
+      <th>{{ __('Theme', 'grcmanager') }}</th>
+      <th>{{ __('Controls', 'grcmanager') }}</th>
+      <th>{{ __('Applicable', 'grcmanager') }}</th>
+      <th>{{ __('Excluded', 'grcmanager') }}</th>
+      <th>{{ __('Implemented', 'grcmanager') }}</th>
+      <th>{{ __('In progress', 'grcmanager') }}</th>
+      <th>{{ __('Planned', 'grcmanager') }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for line in theme_summary.lines %}
+      <tr>
+        <td>{{ line.label }}</td>
+        <td>{{ line.total }}</td>
+        <td>{{ line.applicable }}{% if line.partial > 0 %} ({{ __('%d partially', 'grcmanager')|format(line.partial) }}){% endif %}</td>
+        <td>{{ line.excluded }}</td>
+        <td>{{ line.implemented }}</td>
+        <td>{{ line.in_progress }}</td>
+        <td>{{ line.not_started }}</td>
+      </tr>
+    {% endfor %}
+    <tr>
+      <td><strong>{{ __('Total', 'grcmanager') }}</strong></td>
+      <td><strong>{{ theme_summary.totals.total }}</strong></td>
+      <td><strong>{{ theme_summary.totals.applicable }}</strong>{% if theme_summary.totals.partial > 0 %} ({{ __('%d partially', 'grcmanager')|format(theme_summary.totals.partial) }}){% endif %}</td>
+      <td><strong>{{ theme_summary.totals.excluded }}</strong></td>
+      <td><strong>{{ theme_summary.totals.implemented }}</strong></td>
+      <td><strong>{{ theme_summary.totals.in_progress }}</strong></td>
+      <td><strong>{{ theme_summary.totals.not_started }}</strong></td>
+    </tr>
+  </tbody>
+</table>
+
 {# Issue #109 : preuves agrégées issues du plugin assetsign (A.5.9, A.5.10, A.5.11), section
    absente si assetsign n'est pas installé et actif. Type 0 = remise, 1 = restitution. #}
 {% if assetsign_evidence is not null %}
@@ -127,6 +165,7 @@
       <th>{{ _x('label', 'Title', 'grcmanager') }}</th>
       <th>{{ __('Applicability', 'grcmanager') }}</th>
       <th>{{ __('Implementation status', 'grcmanager') }}</th>
+      <th>{{ __('Reasons for selection', 'grcmanager') }}</th>
       <th>{{ __('Justification', 'grcmanager') }}</th>
     </tr>
   </thead>
@@ -144,7 +183,15 @@
         </td>
         <td>{{ control.applicability }}</td>
         <td>{{ control.implementation_status }}</td>
-        <td>{{ control.justification }}</td>
+        <td>{{ control.selection_reasons }}</td>
+        <td>
+          {{ control.justification }}
+          {# Issue #609 : détail de l'exclusion, sous la justification. #}
+          {% if control.exclusion.category is defined %}<br><small>{{ __('Exclusion category', 'grcmanager') }} : {{ control.exclusion.category }}</small>{% endif %}
+          {% if control.exclusion.controls is defined %}<br><small>{{ __('Compensating controls', 'grcmanager') }} : {{ control.exclusion.controls }}</small>{% endif %}
+          {% if control.exclusion.measures is defined %}<br><small>{{ __('Compensating measures', 'grcmanager') }} : {{ control.exclusion.measures }}</small>{% endif %}
+          {% if control.exclusion.residual is defined %}<br><small>{{ __('Residual risk', 'grcmanager') }} : {{ control.exclusion.residual }}</small>{% endif %}
+        </td>
       </tr>
     {% endfor %}
   </tbody>
@@ -160,7 +207,7 @@
     <tr>
       <th>{{ __('Requirement', 'grcmanager') }}</th>
       <th>{{ _x('label', 'Title', 'grcmanager') }}</th>
-      <th>{{ __('Statut') }}</th>
+      <th>{{ __('Status') }}</th>
       <th>{{ __('Owner', 'grcmanager') }}</th>
     </tr>
   </thead>

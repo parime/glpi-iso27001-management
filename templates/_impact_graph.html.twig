@@ -13,22 +13,292 @@
  # -------------------------------------------------------------------------
  #}
 {# Issue #177, phase 2 : graphe de l'impact d'une panne (Cytoscape, fourni par GLPI). Paramètres : elements,
-   process_legend (issue #377 : carte des dépendances d'un processus métier, nœuds « process » et « late »). #}
+   process_legend (issue #377 : carte des dépendances d'un processus métier, nœuds « process » et « late »),
+   export (issue #701 : bouton d'export en image du graphe affiché, voir DependencyMapExport). #}
 {% set cy_id = 'grc-impact-' ~ random() %}
+{% set legend = [
+   {'label': __('High availability', 'grcmanager'), 'color': '#d63939', 'shape': 'rect'},
+   {'label': __('Medium availability', 'grcmanager'), 'color': '#f59f00', 'shape': 'rect'},
+] %}
+{% if process_legend|default(false) %}
+   {% set legend = legend|merge([
+      {'label': _n('Business process', 'Business processes', 1, 'grcmanager'), 'color': '#206bc4', 'shape': 'ellipse'},
+      {'label': __('Does not meet the objectives of the process (RTO, RPO)', 'grcmanager'), 'color': '#d63939', 'shape': 'border'},
+   ]) %}
+{% endif %}
+{% set legend = legend|merge([{'label': __('an outage of the source affects the item pointed to', 'grcmanager'), 'color': '#adb5bd', 'shape': 'arrow'}]) %}
+{% set export = export|default(null) %}
+{% if export %}
+   {% set format_labels = {
+      'png': __('Image (PNG)', 'grcmanager'),
+      'jpg': __('Image (JPEG)', 'grcmanager'),
+      'svg': __('Vector image (SVG), sharp at any size', 'grcmanager'),
+   } %}
+   <div class="d-flex justify-content-end mb-1">
+      <div class="dropdown grc-map-export" id="{{ cy_id }}-export"
+           data-file-name="{{ export.file_name }}"
+           data-title="{{ __('Dependency map: %s', 'grcmanager')|format(export.process) }}"
+           data-subtitle="{{ __('Exported on %s', 'grcmanager')|format(export.date) }}"
+           data-note="{{ export.note|default('') }}"
+           data-legend="{{ legend|json_encode }}">
+         <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"
+                 title="{{ __('Download the map as shown, to put it in a document or a presentation', 'grcmanager') }}">
+            <i class="ti ti-photo-down me-1"></i>{{ __('Export the map', 'grcmanager') }}
+         </button>
+         <ul class="dropdown-menu dropdown-menu-end">
+            {% for f in export.formats %}
+               <li><button type="button" class="dropdown-item" data-grc-export="{{ f.format }}" data-mime="{{ f.mime }}">
+                  <i class="ti {{ f.vector ? 'ti-vector' : 'ti-photo' }} me-1"></i>{{ format_labels[f.format]|default(f.format|upper) }}
+               </button></li>
+            {% endfor %}
+         </ul>
+      </div>
+   </div>
+{% endif %}
 <div id="{{ cy_id }}" class="border rounded bg-white mb-1" style="height: 340px; width: 100%;" data-elements="{{ elements|json_encode }}"></div>
 <div class="d-flex flex-wrap gap-3 small text-muted mb-2">
-   <span><span class="badge" style="background:#d63939">&nbsp;</span> {{ __('High availability', 'grcmanager') }}</span>
-   <span><span class="badge" style="background:#f59f00">&nbsp;</span> {{ __('Medium availability', 'grcmanager') }}</span>
-   {% if process_legend|default(false) %}
-      <span><span class="badge rounded-pill" style="background:#206bc4">&nbsp;</span> {{ _n('Business process', 'Business processes', 1, 'grcmanager') }}</span>
-      <span><span class="badge" style="background:#fff; border:3px solid #d63939">&nbsp;</span> {{ __('Does not meet the objectives of the process (RTO, RPO)', 'grcmanager') }}</span>
-   {% endif %}
-   <span><i class="ti ti-arrow-right"></i> {{ __('an outage of the source affects the item pointed to', 'grcmanager') }}</span>
+   {% for entry in legend %}
+      {% if entry.shape == 'arrow' %}
+         <span><i class="ti ti-arrow-right"></i> {{ entry.label }}</span>
+      {% elseif entry.shape == 'border' %}
+         <span><span class="badge" style="background:#fff; border:3px solid {{ entry.color }}">&nbsp;</span> {{ entry.label }}</span>
+      {% else %}
+         <span><span class="badge{{ entry.shape == 'ellipse' ? ' rounded-pill' : '' }}" style="background:{{ entry.color }}">&nbsp;</span> {{ entry.label }}</span>
+      {% endif %}
+   {% endfor %}
 </div>
 <script>
    (function () {
       // Données passées par un attribut échappé, jamais injectées telles quelles dans le script.
       const container = document.getElementById('{{ cy_id }}');
+      const exportBox = document.getElementById('{{ cy_id }}-export');
+
+      // Issue #701 : export du graphe tel qu'il est affiché (mêmes nœuds, même disposition). Le SVG est
+      // construit par le DOM (createElementNS, textContent) : les noms ne sont jamais interprétés.
+      const SVG_NS = 'http://www.w3.org/2000/svg';
+      const FONT = "'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif";
+      const TEXT = '#1d273b';
+      const MUTED = '#6c7a91';
+      const svgEl = function (name, attrs, text) {
+         const el = document.createElementNS(SVG_NS, name);
+         Object.keys(attrs).forEach(function (key) {
+            el.setAttribute(key, String(attrs[key]));
+         });
+         if (text !== undefined) {
+            el.textContent = text;
+         }
+         return el;
+      };
+      const measureCtx = document.createElement('canvas').getContext('2d');
+      const measure = function (text, size, bold) {
+         measureCtx.font = (bold ? 'bold ' : '') + size + 'px ' + FONT;
+         return measureCtx.measureText(text).width;
+      };
+      const wrap = function (label, maxWidth, size, bold) {
+         const lines = [];
+         String(label || '').split('\n').forEach(function (part) {
+            let line = '';
+            part.split(/\s+/).filter(Boolean).forEach(function (word) {
+               const candidate = line === '' ? word : line + ' ' + word;
+               if (line !== '' && measure(candidate, size, bold) > maxWidth) {
+                  lines.push(line);
+                  line = word;
+               } else {
+                  line = candidate;
+               }
+            });
+            lines.push(line);
+         });
+         return lines;
+      };
+      const round = function (value) {
+         return Math.round(value * 10) / 10;
+      };
+      const buildSvg = function (cy, meta) {
+         const pad = 24;
+         const lineHeight = 18;
+         const bb = cy.elements().boundingBox({includeLabels: true});
+         const headerHeight = pad + 22 + 8 + 12 + 20;
+         const legendWidth = meta.legend.reduce(function (max, entry) {
+            return Math.max(max, 26 + measure(entry.label, 12, false));
+         }, 0);
+         const width = Math.ceil(Math.max(
+            bb.w + 2 * pad, measure(meta.title, 18, true) + 2 * pad, legendWidth + 2 * pad,
+            meta.note !== '' ? measure(meta.note, 12, false) + 2 * pad : 0, 480
+         ));
+         const legendTop = headerHeight + bb.h + pad;
+         const height = Math.ceil(legendTop + meta.legend.length * lineHeight + (meta.note !== '' ? lineHeight + 6 : 0) + pad);
+         const dx = (width - bb.w) / 2 - bb.x1;
+         const dy = headerHeight - bb.y1;
+         const svg = svgEl('svg', {
+            xmlns: SVG_NS, width: width, height: height, viewBox: '0 0 ' + width + ' ' + height, 'font-family': FONT
+         });
+         svg.appendChild(svgEl('title', {}, meta.title));
+         svg.appendChild(svgEl('rect', {x: 0, y: 0, width: width, height: height, fill: '#ffffff'}));
+         svg.appendChild(svgEl('text', {x: pad, y: pad + 18, 'font-size': 18, 'font-weight': 'bold', fill: TEXT}, meta.title));
+         svg.appendChild(svgEl('text', {x: pad, y: pad + 22 + 8 + 12, 'font-size': 12, fill: MUTED}, meta.subtitle));
+
+         const edges = svgEl('g', {});
+         cy.edges().forEach(function (edge) {
+            const s = edge.sourceEndpoint();
+            const t = edge.targetEndpoint();
+            const cps = edge.controlPoints() || [];
+            const from = cps.length > 0 ? cps[cps.length - 1] : s;
+            const angle = Math.atan2(t.y - from.y, t.x - from.x);
+            const size = 9;
+            const base = {x: t.x - size * Math.cos(angle), y: t.y - size * Math.sin(angle)};
+            let d = 'M' + round(s.x + dx) + ' ' + round(s.y + dy);
+            if (cps.length === 0) {
+               d += ' L' + round(base.x + dx) + ' ' + round(base.y + dy);
+            } else {
+               cps.forEach(function (cp, i) {
+                  const next = i + 1 < cps.length
+                     ? {x: (cp.x + cps[i + 1].x) / 2, y: (cp.y + cps[i + 1].y) / 2}
+                     : base;
+                  d += ' Q' + round(cp.x + dx) + ' ' + round(cp.y + dy) + ' ' + round(next.x + dx) + ' ' + round(next.y + dy);
+               });
+            }
+            const colour = edge.style('line-color');
+            edges.appendChild(svgEl('path', {d: d, fill: 'none', stroke: colour, 'stroke-width': 2}));
+            const left = angle + Math.PI / 2;
+            const half = size * 0.6;
+            edges.appendChild(svgEl('polygon', {
+               fill: edge.style('target-arrow-color'),
+               points: [
+                  [t.x, t.y],
+                  [base.x + half * Math.cos(left), base.y + half * Math.sin(left)],
+                  [base.x - half * Math.cos(left), base.y - half * Math.sin(left)]
+               ].map(function (p) {
+                  return round(p[0] + dx) + ',' + round(p[1] + dy);
+               }).join(' ')
+            }));
+         });
+         svg.appendChild(edges);
+
+         const nodes = svgEl('g', {});
+         cy.nodes().forEach(function (node) {
+            const p = node.position();
+            const w = node.width();
+            const h = node.height();
+            const borderWidth = parseFloat(node.style('border-width')) || 0;
+            const shape = {fill: node.style('background-color')};
+            if (borderWidth > 0) {
+               shape.stroke = node.style('border-color');
+               shape['stroke-width'] = borderWidth;
+            }
+            if (node.style('shape') === 'ellipse') {
+               nodes.appendChild(svgEl('ellipse', Object.assign({
+                  cx: round(p.x + dx), cy: round(p.y + dy), rx: w / 2, ry: h / 2
+               }, shape)));
+            } else {
+               nodes.appendChild(svgEl('rect', Object.assign({
+                  x: round(p.x - w / 2 + dx), y: round(p.y - h / 2 + dy), width: w, height: h, rx: 5
+               }, shape)));
+            }
+            const bold = node.style('font-weight') === 'bold';
+            wrap(node.data('label'), 140, 11, bold).forEach(function (line, i) {
+               nodes.appendChild(svgEl('text', {
+                  x: round(p.x + dx), y: round(p.y + h / 2 + 6 + 11 + i * 13 + dy), 'font-size': 11,
+                  'font-weight': bold ? 'bold' : 'normal', 'text-anchor': 'middle', fill: TEXT
+               }, line));
+            });
+         });
+         svg.appendChild(nodes);
+
+         const legend = svgEl('g', {'font-size': 12, fill: MUTED});
+         meta.legend.forEach(function (entry, i) {
+            const y = legendTop + i * lineHeight;
+            if (entry.shape === 'arrow') {
+               legend.appendChild(svgEl('line', {x1: pad, y1: y + 6, x2: pad + 10, y2: y + 6, stroke: entry.color, 'stroke-width': 2}));
+               legend.appendChild(svgEl('polygon', {
+                  fill: entry.color, points: (pad + 10) + ',' + (y + 2) + ' ' + (pad + 16) + ',' + (y + 6) + ' ' + (pad + 10) + ',' + (y + 10)
+               }));
+            } else if (entry.shape === 'ellipse') {
+               legend.appendChild(svgEl('ellipse', {cx: pad + 8, cy: y + 6, rx: 8, ry: 6, fill: entry.color}));
+            } else if (entry.shape === 'border') {
+               legend.appendChild(svgEl('rect', {
+                  x: pad + 1.5, y: y + 1.5, width: 13, height: 9, rx: 2, fill: '#ffffff', stroke: entry.color, 'stroke-width': 3
+               }));
+            } else {
+               legend.appendChild(svgEl('rect', {x: pad, y: y, width: 16, height: 12, rx: 2, fill: entry.color}));
+            }
+            legend.appendChild(svgEl('text', {x: pad + 26, y: y + 10}, entry.label));
+         });
+         if (meta.note !== '') {
+            legend.appendChild(svgEl('text', {
+               x: pad, y: legendTop + meta.legend.length * lineHeight + 16, 'font-style': 'italic'
+            }, meta.note));
+         }
+         svg.appendChild(legend);
+
+         return {svg: svg, width: width, height: height};
+      };
+      const download = function (blob, name) {
+         const url = URL.createObjectURL(blob);
+         const link = document.createElement('a');
+         link.href = url;
+         link.download = name;
+         document.body.appendChild(link);
+         link.click();
+         link.remove();
+         window.setTimeout(function () {
+            URL.revokeObjectURL(url);
+         }, 1000);
+      };
+      const exportMap = function (cy, format, mime) {
+         let legend = [];
+         try {
+            legend = JSON.parse(exportBox.dataset.legend || '[]');
+         } catch (e) {
+            legend = [];
+         }
+         const meta = {
+            title: exportBox.dataset.title || '', subtitle: exportBox.dataset.subtitle || '',
+            note: exportBox.dataset.note || '', legend: legend
+         };
+         const name = (exportBox.dataset.fileName || 'dependency-map') + '.' + format;
+         const built = buildSvg(cy, meta);
+         const xml = '<?xml version="1.0" encoding="UTF-8"?>\n' + new XMLSerializer().serializeToString(built.svg);
+         if (format === 'svg') {
+            download(new Blob([xml], {type: mime}), name);
+            return;
+         }
+         // Repli : image du graphe seul, par Cytoscape, si le navigateur refuse de dessiner le SVG.
+         const fallback = function () {
+            const options = {output: 'blob', full: true, bg: '#ffffff', scale: 2};
+            download(format === 'jpg' ? cy.jpg(options) : cy.png(options), name);
+         };
+         const url = URL.createObjectURL(new Blob([xml], {type: 'image/svg+xml'}));
+         const image = new Image();
+         image.onload = function () {
+            URL.revokeObjectURL(url);
+            try {
+               const scale = Math.min(2, 8000 / Math.max(built.width, built.height));
+               const canvas = document.createElement('canvas');
+               canvas.width = Math.round(built.width * scale);
+               canvas.height = Math.round(built.height * scale);
+               const ctx = canvas.getContext('2d');
+               ctx.fillStyle = '#ffffff';
+               ctx.fillRect(0, 0, canvas.width, canvas.height);
+               ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+               canvas.toBlob(function (blob) {
+                  if (blob) {
+                     download(blob, name);
+                  } else {
+                     fallback();
+                  }
+               }, mime, 0.92);
+            } catch (e) {
+               fallback();
+            }
+         };
+         image.onerror = function () {
+            URL.revokeObjectURL(url);
+            fallback();
+         };
+         image.src = url;
+      };
+
       const render = function () {
          const cy = window.cytoscape({
             container: container,
@@ -65,6 +335,15 @@
                window.location.href = url;
             }
          });
+         if (exportBox) {
+            exportBox.addEventListener('click', function (event) {
+               const button = event.target.closest('[data-grc-export]');
+               if (button) {
+                  event.preventDefault();
+                  exportMap(cy, button.dataset.grcExport, button.dataset.mime);
+               }
+            });
+         }
       };
       if (typeof window.cytoscape === 'undefined') {
          const script = document.createElement('script');

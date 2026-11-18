@@ -52,7 +52,7 @@
       <div class="form-hint mb-2"><i class="ti ti-file-spreadsheet me-1"></i>{{ __('A framework of your own (group requirements, customer security plan)?', 'grcmanager') }} <a href="{{ custom_frameworks_url }}">{{ __('Import a custom framework', 'grcmanager') }}</a></div>
       {% if can_edit_config %}
         <div class="d-flex gap-2 mt-2">
-          <button type="submit" name="update_frameworks" class="btn btn-primary">{{ __('Enregistrer') }}</button>
+          <button type="submit" name="update_frameworks" class="btn btn-primary">{{ __('Save') }}</button>
         </div>
       {% endif %}
     </form>
@@ -71,7 +71,7 @@
       <input type="text" class="form-control" name="dpo_contact" maxlength="255" value="{{ dpo_contact }}" aria-label="{{ __('Data protection officer (DPO)', 'grcmanager') }}" {{ can_edit_config ? '' : 'disabled' }}>
       {% if can_edit_config %}
         <div class="d-flex gap-2 mt-2">
-          <button type="submit" name="update_dpo_contact" class="btn btn-primary">{{ __('Enregistrer') }}</button>
+          <button type="submit" name="update_dpo_contact" class="btn btn-primary">{{ __('Save') }}</button>
         </div>
       {% endif %}
     </form>
@@ -97,7 +97,7 @@
       <p class="text-muted small mt-1 mb-0">{{ __('An e-mail travels in clear text and stays in mailboxes and archives. The recipient reads the details in GLPI, with their own rights.', 'grcmanager') }}</p>
       {% if can_edit_sensitive %}
         <div class="d-flex gap-2 mt-2">
-          <button type="submit" name="update_sensitive_config" class="btn btn-primary">{{ __('Enregistrer') }}</button>
+          <button type="submit" name="update_sensitive_config" class="btn btn-primary">{{ __('Save') }}</button>
         </div>
       {% endif %}
     </form>
@@ -132,7 +132,7 @@
       {% endif %}
       {% if can_edit_sensitive %}
         <div class="d-flex gap-2 mt-2">
-          <button type="submit" name="update_breach_config" class="btn btn-primary">{{ __('Enregistrer') }}</button>
+          <button type="submit" name="update_breach_config" class="btn btn-primary">{{ __('Save') }}</button>
           {% if breach_has_key %}
             <button type="submit" name="test_breach_config" class="btn btn-outline-secondary">{{ __('Test the key', 'grcmanager') }}</button>
           {% endif %}
@@ -152,7 +152,7 @@
       <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
       {{ fields.dropdownField('Group', 'ciso_groups_id', ciso_groups_id, __('CISO group', 'grcmanager'), {'entity': -1}) }}
       <div class="d-flex gap-2 mt-2">
-        <button type="submit" name="update_audit_config" class="btn btn-primary">{{ __('Enregistrer') }}</button>
+        <button type="submit" name="update_audit_config" class="btn btn-primary">{{ __('Save') }}</button>
       </div>
     </form>
   </div>
@@ -176,7 +176,7 @@
       {{ fields.dropdownField('Group', 'direction_groups_id', direction_groups_id, __('Management group', 'grcmanager'), {'entity': -1, 'readonly': not can_edit_sensitive}) }}
       {% if can_edit_sensitive %}
         <div class="d-flex gap-2 mt-2">
-          <button type="submit" name="update_risk_appetite_config" class="btn btn-primary">{{ __('Enregistrer') }}</button>
+          <button type="submit" name="update_risk_appetite_config" class="btn btn-primary">{{ __('Save') }}</button>
         </div>
       {% endif %}
     </form>
@@ -209,7 +209,7 @@
       </div>
       {% if can_edit_config %}
         <div class="d-flex gap-2 mt-2">
-          <button type="submit" name="update_controltest_reminder" class="btn btn-primary">{{ __('Enregistrer') }}</button>
+          <button type="submit" name="update_controltest_reminder" class="btn btn-primary">{{ __('Save') }}</button>
         </div>
       {% endif %}
     </form>
@@ -273,7 +273,7 @@
       </div>
       {% if can_edit_config %}
         <div class="d-flex gap-2 mt-2">
-          <button type="submit" name="update_consistency_rules" class="btn btn-primary">{{ __('Enregistrer') }}</button>
+          <button type="submit" name="update_consistency_rules" class="btn btn-primary">{{ __('Save') }}</button>
         </div>
       {% endif %}
     </form>
@@ -298,7 +298,7 @@
       </select>
       {% if can_edit_config %}
         <div class="d-flex gap-2 mt-2">
-          <button type="submit" name="update_kri_alert" class="btn btn-primary">{{ __('Enregistrer') }}</button>
+          <button type="submit" name="update_kri_alert" class="btn btn-primary">{{ __('Save') }}</button>
         </div>
       {% endif %}
     </form>
@@ -320,7 +320,7 @@
       <div class="form-hint">{{ __('Between %1$d and %2$d days. Default: 365 days, so that a subscribed calendar keeps working for a year without any action.', 'grcmanager')|format(calendar_token_bounds[0], calendar_token_bounds[1]) }}</div>
       {% if can_edit_config %}
         <div class="d-flex gap-2 mt-2">
-          <button type="submit" name="update_calendar_token" class="btn btn-primary">{{ __('Enregistrer') }}</button>
+          <button type="submit" name="update_calendar_token" class="btn btn-primary">{{ __('Save') }}</button>
         </div>
       {% endif %}
     </form>
@@ -362,7 +362,7 @@
       </div>
       {% if can_edit_config %}
         <div class="d-flex gap-2 mt-2">
-          <button type="submit" name="update_policy_approval" class="btn btn-primary">{{ __('Enregistrer') }}</button>
+          <button type="submit" name="update_policy_approval" class="btn btn-primary">{{ __('Save') }}</button>
         </div>
       {% endif %}
     </form>
@@ -419,7 +419,7 @@
       </div>
 
       <div class="d-flex gap-2 mt-2">
-        <button type="submit" name="update_securityincident_modules" class="btn btn-primary">{{ __('Enregistrer') }}</button>
+        <button type="submit" name="update_securityincident_modules" class="btn btn-primary">{{ __('Save') }}</button>
       </div>
     </form>
   </div>
@@ -452,7 +452,7 @@
         {% if http_glpi12_context_hint %}
           <div class="form-hint mb-2"><i class="ti ti-info-circle me-1"></i>{{ http_glpi12_context_hint }}</div>
         {% endif %}
-        <button type="submit" name="update_http_config" class="btn btn-primary">{{ __('Enregistrer') }}</button>
+        <button type="submit" name="update_http_config" class="btn btn-primary">{{ __('Save') }}</button>
       </form>
     {% else %}
       <div class="form-hint"><i class="ti ti-lock me-1"></i>{{ __('Only a GLPI administrator (right to update the general configuration) can change this setting.', 'grcmanager') }}</div>
@@ -572,7 +572,7 @@
 
 
       <div class="d-flex gap-2 mt-2">
-        <button type="submit" name="update_nvd_config" class="btn btn-primary">{{ __('Enregistrer') }}</button>
+        <button type="submit" name="update_nvd_config" class="btn btn-primary">{{ __('Save') }}</button>
         <button type="submit" name="send_vulnerability_digest" class="btn btn-outline-secondary" title="{{ __('Sends the report now to its recipients, whatever the frequency.', 'grcmanager') }}"><i class="ti ti-send me-1"></i>{{ __('Send the report now', 'grcmanager') }}</button>
       </div>
     </form>
@@ -609,7 +609,7 @@
                   {% set current_level = risk_matrix[probability_key][impact_key]|default('medium') %}
                   <td class="grcmanager-matrix-cell grcmanager-level-{{ current_level }}">
                     <select name="matrix_{{ probability_key }}_{{ impact_key }}" class="form-select form-select-sm grcmanager-level-select" data-level="{{ current_level }}">
-                      {% for level_key, level_label in risk_impacts %}
+                      {% for level_key, level_label in risk_levels %}
                         <option value="{{ level_key }}" {{ current_level == level_key ? 'selected' : '' }}>{{ level_label }}</option>
                       {% endfor %}
                     </select>
@@ -622,9 +622,35 @@
       </div>
 
       <div class="d-flex gap-2 mt-3">
-        <button type="submit" name="update_risk_matrix" class="btn btn-primary">{{ __('Enregistrer') }}</button>
+        <button type="submit" name="update_risk_matrix" class="btn btn-primary">{{ __('Save') }}</button>
       </div>
     </form>
+
+    {# Issue #706 : taille de la matrice (4x4 par défaut, 5x5 au choix). Le changement passe par un
+       écran de correspondance (front/riskscale.php) : simple lien GET ici, rien n'est écrit. #}
+    <hr>
+    <h4>{{ __('Matrix size', 'grcmanager') }}</h4>
+    <p class="text-muted">
+      {{ __('Current size: %s.', 'grcmanager')|format(risk_scale_sizes[risk_scale_size]|default(risk_scale_size)) }}
+      {{ __('Changing the size converts the probability and impact of every existing risk: you first choose how the current values correspond to the new ones, and see the effect before applying it.', 'grcmanager') }}
+    </p>
+    {% if can_edit_config and can_edit_sensitive %}
+      <form method="get" action="{{ risk_scale_url }}" class="d-flex flex-wrap align-items-end gap-2">
+        <div>
+          <label class="form-label" for="grc-risk-scale-size">{{ __('New size', 'grcmanager') }}</label>
+          <select class="form-select" id="grc-risk-scale-size" name="size">
+            {% for size_key, size_label in risk_scale_sizes %}
+              {% if size_key != risk_scale_size %}
+                <option value="{{ size_key }}">{{ size_label }}</option>
+              {% endif %}
+            {% endfor %}
+          </select>
+        </div>
+        <button type="submit" class="btn btn-outline-primary"><i class="ti ti-arrows-exchange me-1"></i>{{ __('Prepare the change', 'grcmanager') }}</button>
+      </form>
+    {% else %}
+      <div class="form-hint">{{ __('Changing the size requires the right to update the plugin configuration and the sensitive registers.', 'grcmanager') }}</div>
+    {% endif %}
   </div>
 </div>
 

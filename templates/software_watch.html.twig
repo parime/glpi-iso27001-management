@@ -61,6 +61,8 @@
                   <tr id="sw-{{ loop.index }}">
                      <td>
                         <strong>{{ row.name }}</strong>
+                        {# Issue #705 : désignation d'un firmware (matériel réseau, imprimante, BIOS...). #}
+                        {% if 'firmware' in row.sources %}<span class="badge bg-secondary-lt ms-1" title="{{ __('Firmware of network equipment, printers, phones or computers', 'grcmanager') }}"><i class="ti ti-cpu me-1"></i>{{ __('Firmware', 'grcmanager') }}</span>{% endif %}
                         {% if row.exposed %}<span class="badge bg-orange-lt ms-1" title="{{ __('Often exposed software (content from the Internet or remote access)', 'grcmanager') }}"><i class="ti ti-world me-1"></i>{{ __('Exposed', 'grcmanager') }}</span>{% endif %}
                      </td>
                      <td class="text-end">{{ row.installs }}</td>

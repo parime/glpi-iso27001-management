@@ -58,6 +58,66 @@
 {% if changed_since %}
    <div class="alert alert-warning"><i class="ti ti-alert-triangle me-2"></i>{{ __('The SoA has changed since approved version %d: a new approval is required.', 'grcmanager')|format(changed_since) }} <a href="{{ approval_url }}">{{ __('Management approval', 'grcmanager') }}</a></div>
 {% endif %}
+{# Issue #609 : synthèse de la SoA par thème ; mises en œuvre, en cours et prévues parmi les mesures applicables. #}
+{% if theme_summary is not empty %}
+   {% set totals = theme_summary.totals %}
+   <div class="card mb-2">
+      <div class="card-header py-2">
+         <a class="d-flex align-items-center text-reset text-decoration-none w-100" data-bs-toggle="collapse" href="#grcmanager-theme-summary" role="button" aria-expanded="false" aria-controls="grcmanager-theme-summary">
+            <i class="ti ti-layout-list me-2"></i>
+            <strong class="me-2">{{ __('Summary by theme', 'grcmanager') }}</strong>
+            <span class="badge bg-green-lt me-1"><i class="ti ti-circle-check me-1"></i>{{ __('%d applicable', 'grcmanager')|format(totals.applicable) }}</span>
+            <span class="badge bg-secondary-lt me-1"><i class="ti ti-circle-x me-1"></i>{{ __('%d excluded', 'grcmanager')|format(totals.excluded) }}</span>
+            <span class="badge bg-teal-lt me-1"><i class="ti ti-check me-1"></i>{{ __('%d implemented', 'grcmanager')|format(totals.implemented) }}</span>
+            <i class="ti ti-chevron-down ms-auto"></i>
+         </a>
+      </div>
+      <div class="collapse" id="grcmanager-theme-summary">
+         <div class="card-body">
+            <div class="table-responsive">
+               <table class="table table-sm table-vcenter mb-0">
+                  <thead>
+                     <tr>
+                        <th>{{ __('Theme', 'grcmanager') }}</th>
+                        <th class="text-end">{{ __('Controls', 'grcmanager') }}</th>
+                        <th class="text-end">{{ __('Applicable', 'grcmanager') }}</th>
+                        <th class="text-end">{{ __('Excluded', 'grcmanager') }}</th>
+                        <th class="text-end">{{ __('Implemented', 'grcmanager') }}</th>
+                        <th class="text-end">{{ __('In progress', 'grcmanager') }}</th>
+                        <th class="text-end">{{ __('Planned', 'grcmanager') }}</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     {% for line in theme_summary.lines %}
+                        <tr>
+                           <td><a href="{{ line.url }}" title="{{ __('Show the controls of this theme', 'grcmanager') }}"><span class="badge bg-azure-lt">{{ line.label }}</span></a></td>
+                           <td class="text-end">{{ line.total }}</td>
+                           <td class="text-end">{{ line.applicable }}{% if line.partial > 0 %} <span class="text-secondary small">({{ __('%d partially', 'grcmanager')|format(line.partial) }})</span>{% endif %}</td>
+                           <td class="text-end">{{ line.excluded }}</td>
+                           <td class="text-end">{{ line.implemented }}</td>
+                           <td class="text-end">{{ line.in_progress }}</td>
+                           <td class="text-end">{{ line.not_started }}</td>
+                        </tr>
+                     {% endfor %}
+                  </tbody>
+                  <tfoot>
+                     <tr class="fw-bold">
+                        <td>{{ __('Total', 'grcmanager') }}</td>
+                        <td class="text-end">{{ totals.total }}</td>
+                        <td class="text-end">{{ totals.applicable }}{% if totals.partial > 0 %} <span class="text-secondary small">({{ __('%d partially', 'grcmanager')|format(totals.partial) }})</span>{% endif %}</td>
+                        <td class="text-end">{{ totals.excluded }}</td>
+                        <td class="text-end">{{ totals.implemented }}</td>
+                        <td class="text-end">{{ totals.in_progress }}</td>
+                        <td class="text-end">{{ totals.not_started }}</td>
+                     </tr>
+                  </tfoot>
+               </table>
+            </div>
+            <small class="form-hint d-block mt-2"><i class="ti ti-info-circle me-1"></i>{{ __('"Implemented" counts implemented and verified controls; "Planned" counts applicable controls not started yet. Click a theme to filter the list below.', 'grcmanager') }}</small>
+         </div>
+      </div>
+   </div>
+{% endif %}
 {# Issue #610 : synthèse de la SoA par attribut des mesures (ISO/IEC 27002:2022), mesures non applicables écartées. #}
 {% if attribute_summary is not empty %}
    <div class="card mb-2">

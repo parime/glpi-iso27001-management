@@ -222,6 +222,27 @@ class IsmsRequirement extends IsmsRequirementBase
             return false;
         }
 
+        // Issue #608 : 4.1 ne passe à « Conforme » qu'une fois la question du changement climatique
+        // tranchée et justifiée (amendement de 2024).
+        if (
+            ($input['status'] ?? '') === IsmsClauseCatalog::STATUS_COMPLIANT
+            && ($this->fields['code'] ?? '') === '4.1'
+            && ($this->fields['status'] ?? '') !== IsmsClauseCatalog::STATUS_COMPLIANT
+            && !ContextItem::isClimateAnswered()
+        ) {
+            Session::addMessageAfterRedirect(
+                __(
+                    'Answer the climate change question in the context of the organization before marking this '
+                        . 'requirement compliant.',
+                    'grcmanager'
+                ),
+                false,
+                ERROR
+            );
+
+            return false;
+        }
+
         return $input;
     }
 
@@ -268,7 +289,7 @@ class IsmsRequirement extends IsmsRequirementBase
             'id'       => 3,
             'table'    => $this->getTable(),
             'field'    => 'status',
-            'name'     => __('Statut'),
+            'name'     => __('Status'),
             'datatype' => 'specific',
         ];
 
@@ -382,6 +403,8 @@ class IsmsRequirement extends IsmsRequirementBase
             'statuses'       => self::getStatuses(),
             'default_status' => IsmsClauseCatalog::STATUS_NOT_STARTED,
             'module'         => self::getLinkedModule($code),
+            // Issue #608 : état du registre du contexte pour 4.1 et 4.2.
+            'context'        => ContextItem::clauseReadiness($code),
         ]);
 
         return true;

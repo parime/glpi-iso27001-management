@@ -97,7 +97,7 @@ foreach (\GlpiPlugin\Grcmanager\RiskAppetite::risksAboveAppetite() as $risk) {
 
 TemplateRenderer::getInstance()->display('@grcmanager/risk_appetite.html.twig', [
     'categories' => $categories,
-    'levels'     => ['' => Dropdown::EMPTY_VALUE] + \GlpiPlugin\Grcmanager\Risk::getImpacts(),
+    'levels'     => ['' => Dropdown::EMPTY_VALUE] + \GlpiPlugin\Grcmanager\Risk::getRiskLevels(),
     'can_update' => \GlpiPlugin\Grcmanager\RiskAppetite::canUpdate(),
     'action'     => \GlpiPlugin\Grcmanager\RiskAppetite::getSearchURL(),
     'risks'      => $risks,

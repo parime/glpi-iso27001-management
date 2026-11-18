@@ -54,6 +54,16 @@ done
 P=$BASE/plugins/grcmanager/front
 if [ "$ROLE" = admin ]; then SEE_B=oui; DENY=200; else SEE_B=non; DENY=403; fi
 
+# Issue #706 : le changement de taille de la matrice des risques exige de modifier la configuration
+# du plugin ET les registres sensibles. Ecran, apercu et application refuses sans ces droits.
+scale_denied() {
+  expect "front/riskscale.php : ecran de changement de taille" 403 "$(code "$P/riskscale.php?size=5")"
+  expect "front/riskscale.php : apercu de la correspondance" 403 \
+    "$(code -d "preview=1&size=5&_glpi_csrf_token=$(csrf)" "$P/riskscale.php")"
+  expect "front/riskscale.php : appliquer une taille" 403 \
+    "$(code -d "apply=1&size=5&confirm=1&_glpi_csrf_token=$(csrf)" "$P/riskscale.php")"
+}
+
 # Pages consultables (listes, rapports, fiches existantes) : refusees sans droit, ouvertes en lecture.
 READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php front/complianceobligation.php
   front/control.php front/ismsrequirement.php front/managementreview.php front/nonconformity.php
@@ -76,7 +86,8 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/customframework.php front/customframework.php?template=1
   front/riskimport.php front/riskimport.php?template=1 front/riskimport.php?export=1
   front/doraregister.php front/doraregister.php?export=B_02.01 front/doraregister.php?export=zip
-  front/consistencycheck.php front/consistencycheck.export.php?format=csv front/consistencycheck.export.php?format=pdf"
+  front/consistencycheck.php front/consistencycheck.export.php?format=csv front/consistencycheck.export.php?format=pdf
+  front/contextitem.php front/contextitem.form.php"
 # Creations : refusees sans droit comme en lecture seule (etat en base compare par la CI).
 create_attempts() { # code attendu, code attendu pour la classification (404 sans droit sur l'actif)
   local incident; incident=$(id incident_A)
@@ -94,7 +105,7 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
     front/cpereference.form.php front/productalias.form.php \
     front/waiver.form.php front/coveragerule.form.php front/controltest.form.php \
     front/processingactivity.form.php front/datasubjectrequest.form.php front/databreach.form.php \
-    front/businessprocess.form.php front/riskindicator.form.php; do
+    front/businessprocess.form.php front/riskindicator.form.php front/contextitem.form.php; do
     expect "$form : creation" "$1" "$(code -d "add=1&name=securite&title=securite&_glpi_csrf_token=$(csrf)" "$BASE/plugins/grcmanager/$form")"
   done
   # Issue #537 : analyser un fichier, confirmer un import, et modifier un referentiel personnalise
@@ -281,8 +292,10 @@ if [ "$ROLE" = none ]; then
   contains "onglet Processus metier d'un risque : sans droit" "Processus securite" non \
     "$(tab GlpiPlugin%5CGrcmanager%5CRisk 'GlpiPlugin%5CGrcmanager%5CBusinessProcessRisk$1' "$(id risk)")"
   # Issue #377, quatrieme etape : carte des dependances demandee directement, sans droit.
-  contains "onglet Carte des dependances d'un processus : sans droit" "Processus securite" non \
-    "$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessProcessLink$2' "$(id process_A)")"
+  map=$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessProcessLink$2' "$(id process_A)")
+  contains "onglet Carte des dependances d'un processus : sans droit" "Processus securite" non "$map"
+  # Issue #701 : ni export en image.
+  contains "onglet Carte des dependances d'un processus : export, sans droit" "grc-map-export" non "$map"
   # Issue #403 : les referentiels actifs se reglent avec le droit de modifier la configuration.
   expect "front/config.php : desactiver les referentiels" 403 \
     "$(code -d "update_frameworks=1&_glpi_csrf_token=$(csrf)" "$P/config.php")"
@@ -299,6 +312,7 @@ if [ "$ROLE" = none ]; then
   # droit Documents : il ne lit pas les mesures.
   expect "preuve envoyee d'une mesure : droit Documents sans lecture des mesures" 403 \
     "$(code "$BASE/front/document.send.php?docid=$(id evidence_upload)")"
+  scale_denied
   create_attempts 403 403
   rm -f "$JAR"; exit $FAIL
 fi
@@ -323,8 +337,10 @@ if [ "$ROLE" = general ]; then
   contains "onglet Strategie de reprise d'un processus : rien" "Test de reprise A" non \
     "$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessProcessRecovery$1' "$(id process_A)")"
   # Issue #377, quatrieme etape : ni carte des dependances sans le droit de la continuite.
-  contains "onglet Carte des dependances d'un processus : rien" "Processus securite" non \
-    "$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessProcessLink$2' "$(id process_A)")"
+  map=$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessProcessLink$2' "$(id process_A)")
+  contains "onglet Carte des dependances d'un processus : rien" "Processus securite" non "$map"
+  # Issue #701 : ni export en image.
+  contains "onglet Carte des dependances d'un processus : export, rien" "grc-map-export" non "$map"
   expect "front/businessprocessrecovery.form.php : sans le droit de la continuite" 403 \
     "$(code -d "add=1&plugin_grcmanager_businessprocesses_id=$(id process_A)&measured_minutes=60&_glpi_csrf_token=$(csrf)" "$P/businessprocessrecovery.form.php")"
   contains "onglet Processus metier d'une application : rien" "Processus securite" non \
@@ -372,6 +388,8 @@ if [ "$ROLE" = general ]; then
   # Issue #372 : sans droit sur les incidents, l'onglet de l'ordinateur ne montre aucun incident.
   contains "onglet Incidents de securite d'un ordinateur : rien" "Incident securite" non \
     "$(tab Computer 'GlpiPlugin%5CGrcmanager%5CSecurityIncidentLinkedItem$1' "$(id computer_A)")"
+  # Issue #706 : configuration du plugin en modification, mais pas les registres sensibles.
+  scale_denied
   rm -f "$JAR"; exit $FAIL
 fi
 
@@ -405,11 +423,21 @@ if [ "$ROLE" = reader ]; then
   # Issue #375 : relier un traitement a un incident exige de pouvoir modifier l'incident.
   expect "front/processingactivity.form.php : relier un incident en lecture seule" 403 \
     "$(code -d "link_incident=1&plugin_grcmanager_processingactivities_id=$(id processing_A)&incidents_id=$(id incident_A)&_glpi_csrf_token=$(csrf)" "$P/processingactivity.form.php")"
+  scale_denied
   create_attempts 403 403
   rm -f "$JAR"; exit $FAIL
 fi
 
 if [ "$ROLE" = admin ]; then
+  # Issue #706 : ecran de changement de taille ouvert au super-admin ; l'apercu n'ecrit rien et
+  # l'application est refusee sans jeton CSRF (la matrice reste en 4 x 4).
+  expect "front/riskscale.php : ecran de correspondance" 200 "$(code "$P/riskscale.php?size=5")"
+  expect "front/riskscale.php : apercu de l'effet" 200 \
+    "$(code -d "preview=1&size=5&_glpi_csrf_token=$(csrf)" "$P/riskscale.php")"
+  expect "front/riskscale.php : appliquer sans jeton CSRF" 403 \
+    "$(code -d "apply=1&size=5&confirm=1" "$P/riskscale.php")"
+  contains "front/config.php : matrice toujours en 4 x 4" 'name="matrix_very_rare_negligible"' non \
+    "$(curl -s -c "$JAR" -b "$JAR" "$P/config.php")"
   for p in $READABLE; do expect "$p : super-admin" 200 "$(code "$BASE/plugins/grcmanager/$p")"; done
   # Issue #380 : reglage du rappel des tests d'efficacite au groupe RSSI. Sans jeton CSRF, refuse
   # et inchange ; avec, enregistre ; une valeur inconnue revient au reglage par defaut.
@@ -536,6 +564,15 @@ expect "ticket depuis un KRI de B" "$([ "$ROLE" = admin ] && echo 302 || echo 40
   "$(code -d "create_ticket=1&id=$(id kri_B)&_glpi_csrf_token=$(csrf)" "$P/riskindicator.form.php")"
 expect "creer un KRI dans l'entite B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
   "$(code -d "add=1&name=KRI%20cree&entities_id=$(id b)&_glpi_csrf_token=$(csrf)" "$P/riskindicator.form.php")"
+# Issue #608 : une fiche du contexte de l'organisation appartient a son entite.
+expect "contexte, entite A"             200    "$(code "$P/contextitem.form.php?id=$(id context_A)")"
+expect "contexte, entite B"             $DENY  "$(code "$P/contextitem.form.php?id=$(id context_B)")"
+contexts=$(curl -s -c "$JAR" -b "$JAR" "$P/contextitem.php")
+contains "liste du contexte : partie de A" "Partie securite A" oui    "$contexts"
+contains "liste du contexte : partie de B" "Partie securite B" $SEE_B "$contexts"
+# Le nom est conserve : la fiche reste reconnaissable pour les profils suivants.
+expect "modifier le contexte de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
+  "$(code -d "update=1&id=$(id context_B)&name=Partie%20securite%20B&_glpi_csrf_token=$(csrf)" "$P/contextitem.form.php")"
 kris=$(curl -s -c "$JAR" -b "$JAR" "$P/riskindicator.php")
 contains "liste des KRI : KRI de A" "KRI securite A" oui    "$kris"
 contains "liste des KRI : KRI de B" "KRI securite B" $SEE_B "$kris"
@@ -571,6 +608,9 @@ contains "onglet Processus metier du PC de A" "Processus securite A" oui \
 procs_b=$(tab Computer 'GlpiPlugin%5CGrcmanager%5CBusinessProcessItem$1' "$(id computer_B)")
 contains "onglet Processus metier du PC de B : processus de B" "Processus securite B" $SEE_B "$procs_b"
 if [ "$ROLE" = limited ]; then
+  # Issue #706 : gestionnaire avec la configuration du plugin et les registres sensibles en
+  # modification : l'ecran de changement de taille lui est ouvert, comme la page de configuration.
+  expect "front/riskscale.php : ecran de correspondance" 200 "$(code "$P/riskscale.php?size=5")"
   expect "lier le PC de B au processus A" 404 \
     "$(code -d "add=1&plugin_grcmanager_businessprocesses_id=$(id process_A)&itemtype=Computer&items_id=$(id computer_B)&_glpi_csrf_token=$(csrf)" "$P/businessprocessitem.form.php")"
 fi
@@ -635,8 +675,13 @@ contains "carte des dependances de A : PC de A" "PC securite A" oui "$map"
 contains "carte des dependances de A : processus de B" "Processus securite B" $SEE_B "$map"
 contains "carte des dependances de A : PC de B" "PC securite B" $SEE_B "$map"
 contains "carte des dependances de A : identifiant du PC de B" "Computer:$(id computer_B)&quot;" $SEE_B "$map"
-contains "carte des dependances d'un processus de B" "Processus securite B" $SEE_B \
-  "$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessProcessLink$2' "$(id process_B)")"
+# Issue #701 : l'export en image part du graphe affiche ; ses titre, nom de fichier et mention des
+# elements caches ne nomment rien de B pour un profil limite a A.
+contains "carte des dependances de A : bouton d'export" "grc-map-export" oui "$map"
+contains "carte des dependances de A : export, nom de fichier" "processus-securite-a-20" oui "$map"
+map_b=$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessProcessLink$2' "$(id process_B)")
+contains "carte des dependances d'un processus de B" "Processus securite B" $SEE_B "$map_b"
+contains "carte des dependances d'un processus de B : bouton d'export" "grc-map-export" $SEE_B "$map_b"
 
 # Issue #145 : preuves datées, uniquement celles de ses entités.
 evidences=$(curl -s -c "$JAR" -b "$JAR" "$P/evidence.php")

@@ -67,6 +67,24 @@ modifiée.
 
 ![Matrice de risque probabilité x impact](screenshots/tutorial/09-config-matrix.png)
 
+**Taille de la matrice (4 x 4 ou 5 x 5).** La matrice est en 4 x 4 par défaut. Sous la grille,
+« Taille de la matrice » permet de passer en 5 x 5 (très rare, rare, possible, probable, quasi
+certaine ; négligeable, faible, moyen, élevé, critique), ou de revenir en 4 x 4. Le changement se
+fait en deux étapes, sans rien modifier avant la confirmation :
+
+1. **Correspondance des valeurs** : pour chaque probabilité et chaque impact utilisés aujourd'hui,
+   le nombre de risques concernés et la nouvelle valeur proposée (celle qui change le moins de
+   niveaux de risque), modifiable ;
+2. **Vérifier l'effet et appliquer** : nombre de risques mis à jour, niveaux qui montent ou
+   baissent, grille de la nouvelle taille ; une case à cocher confirme la vérification.
+
+Les risques et les risques fournisseurs sont alors convertis ; l'historique de chaque risque garde
+l'ancienne et la nouvelle valeur, avec un message qui explique la conversion. Le niveau de risque
+reste sur quatre valeurs (faible, moyen, élevé, critique) : l'appétence, les indicateurs et les
+contrôles de cohérence ne changent pas. Ce changement demande le droit de modifier la
+configuration du plugin et les registres sensibles. Les échelles des études EBIOS RM et des AIPD
+ne sont pas concernées.
+
 ### Étape 4 : Parcourir la Déclaration d'Applicabilité (SoA)
 
 Depuis **GRC & Conformité > Conformité**, les 93 mesures réelles de l'Annexe A ISO/IEC 27001:2022
@@ -97,6 +115,22 @@ Une fois la justification renseignée, l'enregistrement réussit.
 ![Justification renseignée avant enregistrement](screenshots/tutorial/15-control-form-justified-before-save.png)
 
 ![Contrôle enregistré avec sa justification](screenshots/tutorial/16-control-form-justified-saved.png)
+
+**Motifs de sélection et mesures compensatoires.** Sous la justification, cochez pourquoi la mesure
+est retenue : résultat de l'appréciation des risques, obligation légale ou réglementaire, exigence
+contractuelle, attente d'une partie intéressée, bonne pratique (plusieurs motifs possibles). Tant
+que personne ne les a renseignés, les motifs déduits des liens sont déjà cochés, avec la mention
+« D'après les liens » : un risque lié coche l'appréciation des risques, une obligation du registre
+rattachée à ce risque coche le motif légal ou contractuel. Vous pouvez les décocher. Pour une
+mesure non applicable ou partiellement applicable, quatre champs apparaissent : catégorie
+d'exclusion (activité absente, assurée par un prestataire certifié, hors du périmètre du SMSI),
+mesures compensatoires choisies parmi les autres mesures de la même SoA, description libre et
+risque résiduel. Exemple fictif : A.7.4 non applicable, aucun local propre, hébergement chez un
+prestataire certifié ; mesure compensatoire A.5.20 (clause d'audit du contrat). La justification
+reste obligatoire. Ces informations figurent dans la liste (filtres « Motifs de sélection »,
+« Catégorie d'exclusion », « Risque résiduel »), dans l'export CSV et dans le PDF, avec une synthèse
+par thème (mesures applicables, exclues, mises en œuvre, en cours, planifiées). Une SoA déjà
+approuvée n'est pas modifiée : ce que vous ajoutez entre dans la version suivante à faire approuver.
 
 ### Étape 5 : Créer un audit et une non-conformité, jusqu'à la clôture CAPA
 
@@ -355,6 +389,25 @@ de Filiale Nord. Pour qu'une filiale tienne sa propre Déclaration d'Applicabili
    listes de l'équipe, des preuves et de l'accès auditeur ne proposent que les comptes qui ont un
    profil dans Filiale Nord. Les actions de traitement d'un risque suivent l'entité du risque.
 
+### Étape 20 : Décrire le contexte de l'organisation (articles 4.1 et 4.2)
+
+1. Ouvrez Conformité > **Contexte de l'organisation**. L'encadré « À quoi sert cette page ? » rappelle
+   ce qui est attendu.
+2. Cliquez sur **Répondre à la question** dans l'encadré du changement climatique : dites s'il est
+   pertinent (« Retenu par le SMSI ») ou non (« Non retenu ») et écrivez pourquoi. Tant que ce n'est
+   pas fait, l'exigence 4.1 ne peut pas passer à « Conforme ».
+3. **Ajouter un enjeu** : par exemple « Nouvelle loi cyber », externe, catégorie réglementaire, avec
+   son effet sur le SMSI et les risques liés.
+4. **Ajouter une partie intéressée** : par exemple « Clients grands comptes », type client, qui
+   attendent une notification d'incident sous 24 h. Choisissez « Retenu par le SMSI », écrivez
+   l'exigence retenue, puis liez l'obligation contractuelle et la mesure A.5.24. Une partie peut être
+   un fournisseur ou un groupe déjà enregistré dans GLPI.
+5. Donnez un propriétaire et une date de revue : il reçoit un rappel 30 jours avant. La première
+   fiche fait passer l'exigence 4.1 (enjeu) ou 4.2 (partie) de « Non commencé » à « En cours ».
+6. La fiche d'une revue de direction résume le contexte : nombre d'enjeux et de parties, fiches
+   modifiées depuis la revue précédente, revues dépassées. Pour l'auditeur, exportez la liste
+   (CSV ou PDF) avec le bouton d'export de GLPI.
+
 ## 🇬🇧 English
 
 **Tutorial: Using GLPI GRC Manager**
@@ -418,6 +471,23 @@ level until the grid is edited.
 
 ![Probability x impact risk matrix](screenshots/tutorial/09-config-matrix.png)
 
+**Matrix size (4 x 4 or 5 x 5).** The matrix is 4 x 4 by default. Below the grid, "Matrix size"
+switches to 5 x 5 (very rare, rare, possible, probable, almost certain; negligible, low, medium,
+high, critical), or back to 4 x 4. The change takes two steps, and nothing is modified before the
+confirmation:
+
+1. **Correspondence of the values**: for each probability and impact in use today, the number of
+   risks concerned and the proposed new value (the one that changes the fewest risk levels), which
+   can be changed;
+2. **Check the effect and apply**: number of risks updated, levels going up or down, grid of the
+   new size; a checkbox confirms the check.
+
+Risks and supplier risks are then converted; the history of each risk keeps the old and new value,
+with a message explaining the conversion. The risk level stays on four values (low, medium, high,
+critical): appetite, indicators and consistency checks do not change. This change requires the
+right to update the plugin configuration and the sensitive registers. The scales of EBIOS RM
+studies and DPIAs are not affected.
+
 ### Step 4: Browse the Statement of Applicability (SoA)
 
 From **GRC & Conformité > Conformité**, the 93 real ISO/IEC 27001:2022 Annex A controls are
@@ -448,6 +518,22 @@ Once the justification is filled in, the save succeeds.
 ![Justification filled in before saving](screenshots/tutorial/15-control-form-justified-before-save.png)
 
 ![Saved control with its justification](screenshots/tutorial/16-control-form-justified-saved.png)
+
+**Reasons for selection and compensating controls.** Below the justification, tick why the control
+is included: risk assessment result, legal or regulatory obligation, contractual requirement,
+interested party expectation, good practice (several reasons are possible). As long as nobody has
+set them, the reasons deduced from the links are already ticked and marked "From the links": a
+linked risk ticks the risk assessment, an obligation of the register attached to that risk ticks
+the legal or contractual reason. You can untick them. For a control not applicable or partially
+applicable, four fields appear: exclusion category (activity not carried out, handled by a
+certified provider, out of the ISMS scope), compensating controls chosen among the other controls
+of the same SoA, a free description and the residual risk. Fictitious example: A.7.4 not
+applicable, no premises of its own, hosting by a certified provider; compensating control A.5.20
+(audit clause in the contract). The justification stays mandatory. This information appears in the
+list (filters "Reasons for selection", "Exclusion category", "Residual risk"), in the CSV export and
+in the PDF, with a summary by theme (applicable, excluded, implemented, in progress, planned
+controls). An SoA already approved is not changed: what you add goes into the next version to
+approve.
 
 ### Step 5: Create an audit and a non-conformity, through to CAPA closure
 
@@ -697,3 +783,22 @@ To give a subsidiary its own Statement of Applicability:
    evidence requests are only visible from the North subsidiary (and from the root entity in tree
    view). The team, evidence and auditor access lists only offer accounts with a profile in the North
    subsidiary. The treatment actions of a risk follow the entity of the risk.
+
+### Step 20: Describe the context of the organization (clauses 4.1 and 4.2)
+
+1. Open Compliance > **Context of the organization**. The "What is this page for?" box explains what
+   is expected.
+2. Click **Answer the question** in the climate change box: say whether it is relevant ("Retained by
+   the ISMS") or not ("Not retained") and write why. Until then, requirement 4.1 cannot be marked
+   compliant.
+3. **Add an issue**: for instance "New cyber security law", external, regulatory category, with its
+   effect on the ISMS and the related risks.
+4. **Add an interested party**: for instance "Key account customers", customer type, who expect an
+   incident notification within 24 hours. Choose "Retained by the ISMS", write the retained
+   requirement, then link the contractual obligation and control A.5.24. A party can be a supplier or
+   a group already recorded in GLPI.
+5. Set an owner and a review date: the owner gets a reminder 30 days before. The first item moves
+   requirement 4.1 (issue) or 4.2 (party) from "Not started" to "In progress".
+6. The management review form summarises the context: number of issues and parties, items changed
+   since the previous review, overdue reviews. For the auditor, export the list (CSV or PDF) with the
+   GLPI export button.

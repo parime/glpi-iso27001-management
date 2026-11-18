@@ -344,6 +344,20 @@ class PageHelp
                 ),
                 'reference' => __('GDPR, articles 12 and 15 to 22', 'grcmanager'),
             ],
+            'contextitem' => [
+                'purpose'   => __(
+                    'The context of the organization: the internal and external issues that affect information '
+                        . 'security, and the interested parties with their expectations and what the ISMS retains.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'List the issues and the interested parties, decide for each one whether the ISMS retains it, '
+                        . 'link the related risks, obligations and controls, answer the climate change question, and '
+                        . 'review each item at least once a year. Use the export of the list for the auditor.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO/IEC 27001, clauses 4.1 and 4.2', 'grcmanager'),
+            ],
             'databreach' => [
                 'purpose'   => __(
                     'The register of personal data breaches: every breach is documented, whether or not it was '

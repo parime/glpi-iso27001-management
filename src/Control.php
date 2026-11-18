@@ -44,6 +44,7 @@ use GlpiPlugin\Grcmanager\Services\Control\AiActCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\HdsCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\CustomFrameworkCatalog;
 use GlpiPlugin\Grcmanager\Services\Control\Soc2CatalogDefaults;
+use GlpiPlugin\Grcmanager\Services\Control\SoaSelectionRules;
 use GlpiPlugin\Grcmanager\Services\Control\WazuhEvidence;
 use GlpiPlugin\Grcmanager\Services\Control\WazuhEvidenceProvider;
 use GlpiPlugin\Grcmanager\Services\Control\Nis2CatalogDefaults;
@@ -64,12 +65,28 @@ use Session;
  * convention), implementation status, and a link to the risk(s) that justify or drive that
  * control's implementation (many-to-many via glpi_plugin_grcmanager_controls_risks, see
  * getLinkedRiskIds()/syncLinkedRisks() below).
+ *
+ * Issue #609 : the justification stays the free-text "why"; reasons for selection (several, ticked
+ * from the linked risks and obligations while nobody has set them) and, for an exclusion, its
+ * category, compensating controls (other controls of the same SoA, see
+ * glpi_plugin_grcmanager_controls_compensations), compensating measures and residual risk complete
+ * it with values one can filter and count (Services\Control\SoaSelectionRules).
  */
 class Control extends ControlBase
 {
     public const RIGHTNAME = 'plugin_grcmanager';
 
     private const LINK_TABLE = 'glpi_plugin_grcmanager_controls_risks';
+
+    /** Issue #609 : mesures compensatoires d'une exclusion (autres mesures de la même SoA). */
+    public const COMPENSATIONS_TABLE = 'glpi_plugin_grcmanager_controls_compensations';
+
+    /** Issue #609 : options de recherche des motifs de sélection et du détail des exclusions. */
+    public const SEARCH_SELECTION_REASONS = 16;
+    public const SEARCH_EXCLUSION_CATEGORY = 17;
+    public const SEARCH_COMPENSATING_MEASURES = 18;
+    public const SEARCH_RESIDUAL_RISK = 19;
+    public const SEARCH_COMPENSATING_CONTROLS = 20;
 
     public static function getTable($classname = null)
     {
@@ -138,6 +155,373 @@ class Control extends ControlBase
             'implemented' => __('Implemented', 'grcmanager'),
             'verified'    => __('Verified', 'grcmanager'),
         ];
+    }
+
+    /**
+     * Issue #609 : motifs de sélection d'une mesure (ISO/IEC 27001:2022, 6.1.3).
+     *
+     * @return array<string, string>
+     */
+    public static function getSelectionReasons(): array
+    {
+        return [
+            SoaSelectionRules::REASON_RISK_ASSESSMENT => __('Risk assessment result', 'grcmanager'),
+            SoaSelectionRules::REASON_LEGAL           => __('Legal or regulatory obligation', 'grcmanager'),
+            SoaSelectionRules::REASON_CONTRACTUAL     => __('Contractual requirement', 'grcmanager'),
+            SoaSelectionRules::REASON_STAKEHOLDER     => __('Interested party expectation', 'grcmanager'),
+            SoaSelectionRules::REASON_BEST_PRACTICE   => __('Good practice', 'grcmanager'),
+        ];
+    }
+
+    /**
+     * Issue #609 : catégories d'exclusion d'une mesure non applicable.
+     *
+     * @return array<string, string>
+     */
+    public static function getExclusionCategories(): array
+    {
+        return [
+            'activity_absent'    => __('Activity not carried out', 'grcmanager'),
+            'certified_provider' => __('Handled by a certified provider', 'grcmanager'),
+            'out_of_scope'       => __('Out of the ISMS scope', 'grcmanager'),
+        ];
+    }
+
+    /**
+     * Issue #609 : niveaux du risque résiduel d'une exclusion, ceux du registre de risques.
+     *
+     * @return array<string, string>
+     */
+    public static function getResidualRiskLevels(): array
+    {
+        return [
+            'low'      => __('Low', 'grcmanager'),
+            'medium'   => __('Medium', 'grcmanager'),
+            'high'     => __('High', 'grcmanager'),
+            'critical' => __('Critical', 'grcmanager'),
+        ];
+    }
+
+    /**
+     * Issue #609 : libellés des motifs stockés, séparés par des virgules (exports).
+     */
+    public static function selectionReasonLabels(?string $stored): string
+    {
+        $labels = self::getSelectionReasons();
+
+        return implode(', ', array_map(
+            static fn (string $reason): string => $labels[$reason] ?? $reason,
+            SoaSelectionRules::decodeReasons($stored)
+        ));
+    }
+
+    /**
+     * Issue #609 : une pastille par motif de sélection.
+     */
+    public static function selectionReasonBadges(?string $stored): string
+    {
+        $labels = self::getSelectionReasons();
+        $badges = [];
+        foreach (SoaSelectionRules::decodeReasons($stored) as $reason) {
+            $badges[] = Badge::html('bg-blue-lt me-1', 'ti-target', $labels[$reason] ?? $reason);
+        }
+
+        return implode('', $badges);
+    }
+
+    /**
+     * Issue #609 : synthèse par thème de la SoA suivie par l'entité (par défaut l'entité active) :
+     * mesures applicables, exclues, mises en œuvre, en cours et non démarrées, avec le lien vers
+     * la liste filtrée sur le thème.
+     *
+     * @return array{lines: list<array<string, mixed>>, totals: array<string, int>}
+     */
+    public static function themeSummary(?int $entityId = null): array
+    {
+        global $DB;
+
+        $rows = $DB->request([
+            'SELECT' => ['theme', 'applicability', 'implementation_status'],
+            'FROM'   => self::getTable(),
+            'WHERE'  => EntityPerimeter::controlCriteria($entityId),
+        ]);
+        $themes = self::getThemes();
+        $lines = SoaSelectionRules::themeSummary($rows, array_keys($themes));
+        $withLabels = [];
+        foreach ($lines as $line) {
+            $withLabels[] = $line + [
+                'label' => $themes[$line['theme']],
+                'url'   => self::getSearchURL() . '?' . http_build_query([
+                    'criteria' => [['field' => 2, 'searchtype' => 'equals', 'value' => $line['theme']]],
+                ]),
+            ];
+        }
+
+        return ['lines' => $withLabels, 'totals' => SoaSelectionRules::themeTotals($lines)];
+    }
+
+    /**
+     * Export CSV de la SoA suivie par l'entité (par défaut l'entité active), en-tête compris
+     * (ROADMAP « Version 1.5 ») : les six premières colonnes se réimportent telles quelles ; les
+     * attributs (issue #610), les motifs de sélection et le détail des exclusions (issue #609)
+     * sont en lecture seule, ignorés à l'import comme le titre.
+     *
+     * @return list<list<string>>
+     */
+    public static function csvExportRows(?int $entityId = null): array
+    {
+        global $DB;
+
+        $titles = self::getControlTitles();
+        $themes = self::getThemes();
+        $applicabilities = self::getApplicabilities();
+        $implementationStatuses = self::getImplementationStatuses();
+        $exclusionCategories = self::getExclusionCategories();
+        $residualLevels = self::getResidualRiskLevels();
+        $attributeColumns = [
+            ControlAttributeCatalog::CONTROL_TYPES            => 'type_mesure',
+            ControlAttributeCatalog::SECURITY_PROPERTIES      => 'proprietes',
+            ControlAttributeCatalog::CYBERSECURITY_CONCEPTS   => 'concepts',
+            ControlAttributeCatalog::OPERATIONAL_CAPABILITIES => 'capacites',
+            ControlAttributeCatalog::SECURITY_DOMAINS         => 'domaines',
+        ];
+
+        $lines = [array_merge(
+            ['code', 'theme', 'titre', 'applicabilite', 'etat_mise_en_oeuvre', 'justification'],
+            array_values($attributeColumns),
+            [
+                'motifs_selection', 'categorie_exclusion', 'mesures_compensatoires_liees',
+                'mesures_compensatoires', 'risque_residuel',
+            ]
+        )];
+
+        // Texte saisi librement : une cellule commencant par = + - @ (ou tabulation/retour)
+        // serait executee comme formule a l'ouverture du fichier dans un tableur.
+        $csvText = static fn (?string $value): string => preg_match('/^[=+\-@\t\r]/', (string) $value)
+            ? "'" . $value
+            : (string) $value;
+
+        $rows = iterator_to_array($DB->request([
+            'FROM'  => self::getTable(),
+            'WHERE' => EntityPerimeter::controlCriteria($entityId),
+            'ORDER' => 'code ASC',
+        ]), false);
+        $compensating = self::compensatingCodesByControl(array_map(
+            static fn (array $row): int => (int) $row['id'],
+            $rows
+        ));
+        foreach ($rows as $row) {
+            $isExclusion = SoaSelectionRules::isExclusion((string) $row['applicability']);
+            $lines[] = [
+                $csvText($row['code']),
+                $themes[$row['theme']] ?? $csvText($row['theme']),
+                $titles[$row['code']] ?? $csvText($row['code']),
+                $applicabilities[$row['applicability']] ?? $csvText($row['applicability']),
+                $implementationStatuses[$row['implementation_status']] ?? $csvText($row['implementation_status']),
+                $csvText($row['justification']),
+                ...array_map(
+                    static fn (string $attribute): string => self::attributeLabels(
+                        $attribute,
+                        (string) ($row[$attribute] ?? '')
+                    ),
+                    array_keys($attributeColumns)
+                ),
+                self::selectionReasonLabels($row['selection_reasons'] ?? null),
+                $isExclusion ? ($exclusionCategories[$row['exclusion_category'] ?? ''] ?? '') : '',
+                $isExclusion ? implode(', ', $compensating[(int) $row['id']] ?? []) : '',
+                $isExclusion ? $csvText($row['compensating_measures'] ?? '') : '',
+                $isExclusion ? ($residualLevels[$row['residual_risk'] ?? ''] ?? '') : '',
+            ];
+        }
+
+        return $lines;
+    }
+
+    /**
+     * Issue #609 : codes des mesures compensatoires liées, par mesure exclue (exports, empreinte).
+     *
+     * @param list<int>|null $controlIds mesures voulues (par défaut toutes)
+     * @return array<int, list<string>> id de la mesure exclue => codes, triés
+     */
+    public static function compensatingCodesByControl(?array $controlIds = null): array
+    {
+        global $DB;
+
+        if ($controlIds === []) {
+            return [];
+        }
+        $criteria = [
+            'SELECT'     => ['links.plugin_grcmanager_controls_id AS control_id', 'compensating.code AS code'],
+            'FROM'       => self::COMPENSATIONS_TABLE . ' AS links',
+            'INNER JOIN' => [
+                self::getTable() . ' AS compensating' => [
+                    'FKEY' => [
+                        'links'        => 'plugin_grcmanager_controls_id_compensating',
+                        'compensating' => 'id',
+                    ],
+                ],
+            ],
+        ];
+        if ($controlIds !== null) {
+            $criteria['WHERE'] = ['links.plugin_grcmanager_controls_id' => $controlIds];
+        }
+
+        $codes = [];
+        foreach ($DB->request($criteria) as $row) {
+            $codes[(int) $row['control_id']][] = (string) $row['code'];
+        }
+        foreach ($codes as &$list) {
+            usort($list, 'strnatcmp');
+        }
+        unset($list);
+
+        return $codes;
+    }
+
+    /**
+     * Issue #609 : mesures compensatoires liées à une mesure, id => code.
+     *
+     * @return array<int, string>
+     */
+    public static function getCompensatingControls(int $controlId): array
+    {
+        global $DB;
+
+        $controls = [];
+        foreach (
+            $DB->request([
+                'SELECT'     => ['compensating.id', 'compensating.code'],
+                'FROM'       => self::COMPENSATIONS_TABLE . ' AS links',
+                'INNER JOIN' => [
+                    self::getTable() . ' AS compensating' => [
+                        'FKEY' => [
+                            'links'        => 'plugin_grcmanager_controls_id_compensating',
+                            'compensating' => 'id',
+                        ],
+                    ],
+                ],
+                'WHERE'      => ['links.plugin_grcmanager_controls_id' => $controlId],
+            ]) as $row
+        ) {
+            $controls[(int) $row['id']] = (string) $row['code'];
+        }
+        uasort($controls, 'strnatcmp');
+
+        return $controls;
+    }
+
+    /**
+     * Issue #609 : mesures proposées comme compensatoires d'une mesure : celles de la même SoA
+     * (même entité), applicables, hors la mesure elle-même. Jamais une mesure d'une autre SoA.
+     *
+     * @return array<int, string> id => « code intitulé »
+     */
+    public static function compensatingOptions(int $entityId, int $controlId): array
+    {
+        global $DB;
+
+        $options = [];
+        foreach (
+            $DB->request([
+                'SELECT' => ['id', 'code'],
+                'FROM'   => self::getTable(),
+                'WHERE'  => [
+                    'entities_id'   => $entityId,
+                    'NOT'           => ['id' => $controlId],
+                    'applicability' => ['yes', 'partial'],
+                ],
+            ]) as $row
+        ) {
+            $code = (string) $row['code'];
+            $options[(int) $row['id']] = $code . ' ' . self::getControlTitle($code);
+        }
+        uasort($options, 'strnatcmp');
+
+        return $options;
+    }
+
+    /**
+     * Issue #609 : remplace les mesures compensatoires liées par $controlIds, limitées aux mesures
+     * proposées (même SoA, applicables) : un formulaire forgé ne lie pas une mesure d'une autre
+     * entité.
+     *
+     * @param array<int|string, mixed> $controlIds
+     */
+    private static function syncCompensatingControls(int $controlId, int $entityId, array $controlIds): void
+    {
+        global $DB;
+
+        $DB->delete(self::COMPENSATIONS_TABLE, ['plugin_grcmanager_controls_id' => $controlId]);
+
+        $allowed = array_keys(self::compensatingOptions($entityId, $controlId));
+        $controlIds = array_intersect(
+            array_unique(array_map('intval', $controlIds)),
+            $allowed
+        );
+        foreach ($controlIds as $compensatingId) {
+            $DB->insert(self::COMPENSATIONS_TABLE, [
+                'plugin_grcmanager_controls_id'              => $controlId,
+                'plugin_grcmanager_controls_id_compensating' => $compensatingId,
+                'date_creation'                              => date('Y-m-d H:i:s'),
+            ]);
+        }
+    }
+
+    /**
+     * Issue #609 : copie les mesures compensatoires d'une SoA vers une autre, par code (création
+     * de la SoA propre à une entité, EntityPerimeter::createSoa()).
+     *
+     * @param array<string, int> $sourceIds code => id dans la SoA d'origine
+     * @param array<string, int> $targetIds code => id dans la nouvelle SoA
+     */
+    public static function copyCompensations(array $sourceIds, array $targetIds): void
+    {
+        global $DB;
+
+        $sourceCodes = array_flip($sourceIds);
+        foreach (self::compensatingCodesByControl(array_values($sourceIds)) as $sourceId => $codes) {
+            $targetId = $targetIds[$sourceCodes[$sourceId] ?? ''] ?? 0;
+            foreach ($codes as $code) {
+                $compensatingId = $targetIds[$code] ?? 0;
+                if ($targetId <= 0 || $compensatingId <= 0) {
+                    continue;
+                }
+                $DB->insert(self::COMPENSATIONS_TABLE, [
+                    'plugin_grcmanager_controls_id'              => $targetId,
+                    'plugin_grcmanager_controls_id_compensating' => $compensatingId,
+                    'date_creation'                              => date('Y-m-d H:i:s'),
+                ]);
+            }
+        }
+    }
+
+    /**
+     * Issue #609 : motifs déduits des liens de la mesure : risques liés (visibles avec le droit du
+     * registre des risques, dans les entités de la session) et types des obligations du registre
+     * rattachées à ces risques.
+     *
+     * @param list<int> $riskIds risques liés visibles
+     * @return list<string>
+     */
+    public static function suggestedReasons(array $riskIds): array
+    {
+        global $DB;
+
+        $obligationTypes = [];
+        if ($riskIds !== []) {
+            foreach (
+                $DB->request([
+                    'SELECT'   => ['type'],
+                    'DISTINCT' => true,
+                    'FROM'     => ComplianceObligation::getTable(),
+                    'WHERE'    => ['plugin_grcmanager_risks_id' => $riskIds],
+                ]) as $row
+            ) {
+                $obligationTypes[] = (string) $row['type'];
+            }
+        }
+
+        return SoaSelectionRules::suggestedReasons($riskIds !== [], $obligationTypes);
     }
 
     /**
@@ -243,10 +627,17 @@ class Control extends ControlBase
      */
     public static function attributeSearchCriteria(int $option, string $value, string $searchtype, bool $nott): ?array
     {
-        $attribute = self::attributeSearchOptions()[$option] ?? null;
+        // Issue #609 : motifs de sélection, stockés de la même façon que les attributs.
+        $lists = [self::SEARCH_SELECTION_REASONS => SoaSelectionRules::REASONS];
+        foreach (self::attributeSearchOptions() as $attributeOption => $attributeName) {
+            $lists[$attributeOption] = ControlAttributeCatalog::VALUES[$attributeName];
+        }
+        $attribute = $option === self::SEARCH_SELECTION_REASONS
+            ? 'selection_reasons'
+            : (self::attributeSearchOptions()[$option] ?? null);
         if (
             $attribute === null
-            || !in_array($value, ControlAttributeCatalog::VALUES[$attribute], true)
+            || !in_array($value, $lists[$option], true)
             || !in_array($searchtype, ['equals', 'notequals'], true)
         ) {
             return null;
@@ -480,6 +871,25 @@ class Control extends ControlBase
         // reste visible des sous-entités qui suivent cette SoA.
         unset($input['entities_id'], $input['is_recursive'], $input['code']);
 
+        // Issue #609 : un risque nouvellement lié coche le motif « appréciation des risques »
+        // (registre sensible : seulement avec son droit, comme la synchronisation des liens).
+        if (!array_key_exists('selection_reasons', $input) && !empty($input['_grcmanager_selection'])) {
+            $input['selection_reasons'] = '';
+        }
+        if (array_key_exists('linked_risks', $input) && Risk::canView() && !$this->isNewItem()) {
+            $current = self::getLinkedRiskIds((int) $this->getID());
+            $added = array_diff(self::visibleRiskIds((array) $input['linked_risks']), $current);
+            if ($added !== []) {
+                $stored = array_key_exists('selection_reasons', $input)
+                    ? SoaSelectionRules::encodeReasons($input['selection_reasons'])
+                    : ($this->fields['selection_reasons'] ?? null);
+                $input['selection_reasons'] = SoaSelectionRules::addReason(
+                    $stored,
+                    SoaSelectionRules::REASON_RISK_ASSESSMENT
+                );
+            }
+        }
+
         return $this->validateAndMarkReviewed($input);
     }
 
@@ -525,6 +935,36 @@ class Control extends ControlBase
                 $input[$attribute] = ControlAttributeCatalog::encode($attribute, $input[$attribute]);
             } elseif (!empty($input['_grcmanager_attributes'])) {
                 $input[$attribute] = '';
+            }
+        }
+
+        // Issue #609 : motifs de sélection (cases à cocher ; toutes décochées, rien n'est envoyé :
+        // le marqueur du formulaire les remet à vide) et détail d'une exclusion, vidé quand la
+        // mesure redevient pleinement applicable.
+        if (array_key_exists('selection_reasons', $input)) {
+            $input['selection_reasons'] = SoaSelectionRules::encodeReasons($input['selection_reasons']);
+        } elseif (!empty($input['_grcmanager_selection'])) {
+            $input['selection_reasons'] = '';
+        }
+        if (array_key_exists('applicability', $input) && !SoaSelectionRules::isExclusion($applicability)) {
+            foreach (SoaSelectionRules::EXCLUSION_FIELDS as $field) {
+                $input[$field] = '';
+            }
+        } else {
+            if (array_key_exists('exclusion_category', $input)) {
+                $input['exclusion_category'] = SoaSelectionRules::normalizeChoice(
+                    $input['exclusion_category'],
+                    SoaSelectionRules::EXCLUSION_CATEGORIES
+                );
+            }
+            if (array_key_exists('residual_risk', $input)) {
+                $input['residual_risk'] = SoaSelectionRules::normalizeChoice(
+                    $input['residual_risk'],
+                    SoaSelectionRules::RESIDUAL_LEVELS
+                );
+            }
+            if (array_key_exists('compensating_measures', $input)) {
+                $input['compensating_measures'] = trim((string) $input['compensating_measures']);
             }
         }
 
@@ -680,6 +1120,59 @@ class Control extends ControlBase
             ];
         }
 
+        // Issue #609 : motifs de sélection (filtre « est » / « n'est pas » sur un motif, comme les
+        // attributs) et détail des exclusions.
+        $tab[] = [
+            'id'            => self::SEARCH_SELECTION_REASONS,
+            'table'         => $this->getTable(),
+            'field'         => 'selection_reasons',
+            'name'          => __('Reasons for selection', 'grcmanager'),
+            'datatype'      => 'specific',
+            'searchtype'    => ['equals', 'notequals'],
+            'massiveaction' => false,
+        ];
+        $tab[] = [
+            'id'            => self::SEARCH_EXCLUSION_CATEGORY,
+            'table'         => $this->getTable(),
+            'field'         => 'exclusion_category',
+            'name'          => __('Exclusion category', 'grcmanager'),
+            'datatype'      => 'specific',
+            'searchtype'    => ['equals', 'notequals'],
+            'massiveaction' => false,
+        ];
+        $tab[] = [
+            'id'            => self::SEARCH_COMPENSATING_MEASURES,
+            'table'         => $this->getTable(),
+            'field'         => 'compensating_measures',
+            'name'          => __('Compensating measures', 'grcmanager'),
+            'datatype'      => 'text',
+            'massiveaction' => false,
+        ];
+        $tab[] = [
+            'id'            => self::SEARCH_RESIDUAL_RISK,
+            'table'         => $this->getTable(),
+            'field'         => 'residual_risk',
+            'name'          => __('Residual risk', 'grcmanager'),
+            'datatype'      => 'specific',
+            'searchtype'    => ['equals', 'notequals'],
+            'massiveaction' => false,
+        ];
+        // Codes des mesures compensatoires liées (même SoA), calculés par la base.
+        $compensations = self::COMPENSATIONS_TABLE;
+        $tab[] = [
+            'id'            => self::SEARCH_COMPENSATING_CONTROLS,
+            'table'         => $this->getTable(),
+            'field'         => 'id',
+            'name'          => __('Compensating controls', 'grcmanager'),
+            'datatype'      => 'string',
+            'nosearch'      => true,
+            'massiveaction' => false,
+            'computation'   => '(SELECT GROUP_CONCAT(`c`.`code` ORDER BY `c`.`code` SEPARATOR \', \')'
+                . " FROM `{$compensations}` AS `l` INNER JOIN `" . self::getTable() . '` AS `c`'
+                . ' ON `c`.`id` = `l`.`plugin_grcmanager_controls_id_compensating`'
+                . ' WHERE `l`.`plugin_grcmanager_controls_id` = TABLE.`id`)',
+        ];
+
         // Issue #536 : entité de la SoA à laquelle appartient la mesure.
         $tab[] = [
             'id'            => 80,
@@ -728,6 +1221,22 @@ class Control extends ControlBase
 
             case 'implementation_status':
                 return self::implementationStatusBadge($values[$field] ?? null);
+
+            // Issue #609 : motifs de sélection et détail des exclusions.
+            case 'selection_reasons':
+                return self::selectionReasonBadges($values[$field] ?? null);
+
+            case 'exclusion_category':
+                $category = (string) ($values[$field] ?? '');
+
+                return $category === ''
+                    ? ''
+                    : Badge::html('bg-secondary-lt', 'ti-ban', self::getExclusionCategories()[$category] ?? $category);
+
+            case 'residual_risk':
+                $level = (string) ($values[$field] ?? '');
+
+                return $level === '' ? '' : Risk::riskLevelBadge($level);
         }
 
         if (ControlAttributeCatalog::isAttribute((string) $field)) {
@@ -761,6 +1270,15 @@ class Control extends ControlBase
 
             case 'implementation_status':
                 return Dropdown::showFromArray($name, self::getImplementationStatuses(), $options);
+
+            case 'selection_reasons':
+                return Dropdown::showFromArray($name, self::getSelectionReasons(), $options);
+
+            case 'exclusion_category':
+                return Dropdown::showFromArray($name, self::getExclusionCategories(), $options);
+
+            case 'residual_risk':
+                return Dropdown::showFromArray($name, self::getResidualRiskLevels(), $options);
         }
 
         if (ControlAttributeCatalog::isAttribute((string) $field)) {
@@ -915,22 +1433,7 @@ class Control extends ControlBase
             ]);
         }
 
-        $riskIds = array_unique(array_filter(array_map('intval', $riskIds), static fn ($id) => $id > 0));
-        if ($riskIds !== []) {
-            $visible = [];
-            foreach (
-                $DB->request([
-                    'SELECT' => ['id'],
-                    'FROM'   => Risk::getTable(),
-                    'WHERE'  => array_merge(['id' => $riskIds], EntityPerimeter::criteria(Risk::getTable())),
-                ]) as $row
-            ) {
-                $visible[] = (int) $row['id'];
-            }
-            $riskIds = array_intersect($riskIds, $visible);
-        }
-
-        foreach ($riskIds as $riskId) {
+        foreach (self::visibleRiskIds($riskIds) as $riskId) {
             $link = ['plugin_grcmanager_controls_id' => $controlId, 'plugin_grcmanager_risks_id' => $riskId];
             if (countElementsInTable(self::LINK_TABLE, $link) > 0) {
                 continue;
@@ -943,6 +1446,37 @@ class Control extends ControlBase
         }
     }
 
+    /**
+     * Risques parmi $riskIds qui existent et sont visibles (entités de la session), sans doublon.
+     *
+     * @param array<int|string, mixed> $riskIds
+     * @return list<int>
+     */
+    private static function visibleRiskIds(array $riskIds): array
+    {
+        global $DB;
+
+        $riskIds = array_values(array_unique(array_filter(
+            array_map('intval', $riskIds),
+            static fn (int $id): bool => $id > 0
+        )));
+        if ($riskIds === []) {
+            return [];
+        }
+        $visible = [];
+        foreach (
+            $DB->request([
+                'SELECT' => ['id'],
+                'FROM'   => Risk::getTable(),
+                'WHERE'  => array_merge(['id' => $riskIds], EntityPerimeter::criteria(Risk::getTable())),
+            ]) as $row
+        ) {
+            $visible[] = (int) $row['id'];
+        }
+
+        return array_values(array_intersect($riskIds, $visible));
+    }
+
     public function post_updateItem($history = true)
     {
         parent::post_updateItem($history);
@@ -950,6 +1484,23 @@ class Control extends ControlBase
         // Registre sensible : un formulaire forgé sans son droit ne modifie pas les liens.
         if (array_key_exists('linked_risks', $this->input) && Risk::canView()) {
             self::syncLinkedRisks((int) $this->fields['id'], (array) $this->input['linked_risks']);
+        }
+
+        // Issue #609 : mesures compensatoires, retirées quand la mesure redevient applicable.
+        // Même droit que le reste de la mesure (update() n'arrive ici qu'après son contrôle).
+        $controlId = (int) $this->fields['id'];
+        if (!SoaSelectionRules::isExclusion((string) ($this->fields['applicability'] ?? 'yes'))) {
+            global $DB;
+            $DB->delete(self::COMPENSATIONS_TABLE, ['plugin_grcmanager_controls_id' => $controlId]);
+        } elseif (
+            array_key_exists('compensating_controls', $this->input)
+            || !empty($this->input['_grcmanager_exclusion'])
+        ) {
+            self::syncCompensatingControls(
+                $controlId,
+                (int) $this->fields['entities_id'],
+                (array) ($this->input['compensating_controls'] ?? [])
+            );
         }
     }
 
@@ -1076,8 +1627,28 @@ class Control extends ControlBase
             ? DockerInventoryEvidenceProvider::fetchForControl($code)
             : null;
 
+        // Issue #609 : motifs de sélection (déduits des risques et obligations liés tant que
+        // personne ne les a renseignés) et mesures compensatoires de la même SoA.
+        $linkedRiskIds = $this->isNewID($ID) || !$canViewRisks ? [] : self::getLinkedRiskIds((int) $ID);
+        $suggestedReasons = self::suggestedReasons($linkedRiskIds);
+        $storedReasons = $this->fields['selection_reasons'] ?? null;
+        $entityId = (int) ($this->fields['entities_id'] ?? EntityPerimeter::soaEntity());
+
         TemplateRenderer::getInstance()->display('@grcmanager/control_form.html.twig', [
             'item'                    => $this,
+            'selection_reasons'       => self::getSelectionReasons(),
+            'checked_reasons'         => SoaSelectionRules::formReasons(
+                $storedReasons === null ? null : (string) $storedReasons,
+                $suggestedReasons
+            ),
+            'suggested_reasons'       => $suggestedReasons,
+            'reasons_never_set'       => $storedReasons === null,
+            'exclusion_categories'    => self::getExclusionCategories(),
+            'residual_levels'         => self::getResidualRiskLevels(),
+            'compensating_options'    => self::compensatingOptions($entityId, (int) ($this->fields['id'] ?? 0)),
+            'compensating_controls'   => $this->isNewID($ID)
+                ? []
+                : array_keys(self::getCompensatingControls((int) $ID)),
             // Les 93 mesures sont un catalogue fixe semé à l'installation : jamais supprimées.
             'params'                  => $options + ['candel' => false],
             'code'                    => $code,
@@ -1087,7 +1658,7 @@ class Control extends ControlBase
             'implementation_statuses' => self::getImplementationStatuses(),
             'attributes'              => self::formAttributes($this->fields),
             'risks'                   => $riskTitles,
-            'linked_risks'            => $this->isNewID($ID) || !$canViewRisks ? [] : self::getLinkedRiskIds((int) $ID),
+            'linked_risks'            => $linkedRiskIds,
             'can_view_risks'          => $canViewRisks,
             'nist'                    => $showNist
                 ? (ControlCrosswalkDefaults::CROSSWALK[substr($code, 2)]['nist_csf'] ?? [])

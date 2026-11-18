@@ -7,6 +7,120 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.55.0] - 2026-11-18
+
+### Added
+
+- **Contexte de l'organisation : enjeux et parties intéressées** (issue #608, premier lot ; ISO 27001,
+  articles 4.1 et 4.2). Nouvelle page dans la rubrique Conformité (`front/contextitem.php`), avec
+  l'encadré « À quoi sert cette page ? ».
+  - Enjeux internes ou externes (catégorie, effet sur le SMSI) et parties intéressées (type, besoins
+    et attentes, exigences retenues), chacun avec une décision (retenu ou non, justifiée), un
+    propriétaire et une date de revue. Une partie peut être un fournisseur ou un groupe de GLPI.
+  - Liens vers les risques, les obligations et les mesures de la SoA existants, sans recopie : seuls
+    les éléments que la personne peut lire sont proposés ou modifiés.
+  - Question du changement climatique (amendement de 2024) : l'exigence 4.1 ne peut pas passer à
+    « Conforme » sans réponse justifiée. Une première fiche fait passer 4.1 ou 4.2 de « Non
+    commencé » à « En cours » ; les fiches de ces exigences et de la revue de direction affichent
+    une synthèse du contexte.
+  - Rappel au propriétaire 30 jours avant la date de revue (tâche `reviewreminder`, notification
+    « Revue du contexte à échéance »). Export CSV ou PDF par la liste de GLPI.
+  - Droit général du plugin et entité de la fiche ; désinstallation complète (tables, tâche,
+    notification).
+- **Vulnérabilités du parc : les firmwares sont rapprochés des CVE** (issue #705). La version
+  d'un commutateur, d'un routeur ou d'un pare-feu inventorié par SNMP est rangée par GLPI dans un
+  composant firmware, pas dans les logiciels : ces matériels échappaient au suivi.
+  - Seconde source du rapprochement : les firmwares (`Item_DeviceFirmware`, désignation et
+    version) des matériels réseau, imprimantes, téléphones, périphériques et ordinateurs (BIOS,
+    UEFI).
+  - Même règle que les logiciels : une désignation de firmware n'est reliée à un produit que par
+    un alias déclaré, jamais par ressemblance de nom. La page « Logiciels à surveiller » propose
+    aussi les firmwares, signalés par un badge.
+  - Version du firmware ramenée à sa forme publiée (préfixe « v » et numéro de build retirés).
+    Une version avec un train en lettres (« 15.2(7)E3 ») n'est reconnue que face à la même
+    version exacte ; face à une plage, elle reste « version non vérifiable ».
+  - La source (logiciel ou firmware) est affichée dans l'onglet CVE d'un incident, dans
+    « Vulnérabilités du parc » et dans l'onglet « Vulnérabilités » de l'actif. Les tickets de mise
+    à jour lient aussi les matériels concernés par un firmware.
+  - Entités et droits inchangés : un utilisateur ne voit et ne compte que les matériels de ses
+    entités, d'un type qu'il peut lire dans l'onglet CVE, comme pour les logiciels.
+
+
+- **Déclaration d'applicabilité : motifs de sélection et mesures compensatoires des exclusions**
+  (issue #609, ISO 27001 6.1.3 d).
+  - Motifs de sélection à cocher sur chaque mesure, plusieurs possibles : appréciation des risques,
+    obligation légale ou réglementaire, exigence contractuelle, partie intéressée, bonne pratique.
+    Tant qu'ils ne sont pas renseignés, le formulaire coche ceux déduits des risques liés et des
+    obligations du registre rattachées à ces risques ; un risque nouvellement lié coche
+    l'appréciation des risques. Les cases restent modifiables.
+  - Pour une mesure non applicable ou partiellement applicable : catégorie d'exclusion (activité
+    absente, prestataire certifié, hors périmètre), mesures compensatoires liées à d'autres mesures
+    de la même SoA (jamais d'une autre entité), description libre et risque résiduel. La
+    justification reste obligatoire ; le détail est vidé quand la mesure redevient applicable.
+  - Synthèse par thème (applicables, exclues, mises en œuvre, en cours, planifiées) en tête de la
+    liste et dans le PDF ; colonnes ajoutées au PDF, à l'export CSV (en lecture seule à l'import)
+    et à la recherche.
+  - Migration sans perte : colonnes ajoutées vides, justifications et statuts intacts. L'empreinte
+    d'une SoA déjà approuvée ne change pas : les nouveaux champs entrent dans la version suivante.
+  - La SoA propre à une entité reprend ces champs et relie les mesures compensatoires à ses propres
+    mesures. Mêmes droits que la SoA.
+- **Processus métier : export de la carte des dépendances en image** (issue #701). Bouton
+  « Exporter la carte » au-dessus du graphe de l'onglet « Carte des dépendances », pour présenter
+  la carte à la direction ou l'insérer dans un document.
+  - Trois formats : PNG, JPEG et SVG (vectoriel, net à toutes les tailles).
+  - L'image reprend le graphe tel qu'il est affiché (mêmes nœuds, même disposition, y compris
+    après déplacement des nœuds), avec un titre (nom du processus), la date d'export et la légende.
+  - Elle ne contient que ce que la personne voit à l'écran : l'image est produite dans le
+    navigateur depuis la carte déjà filtrée par les droits et les entités. Comme à l'écran, les
+    éléments et processus qu'elle ne peut pas lire ne sont jamais nommés, seulement comptés.
+  - Aucune nouvelle page ni aucun droit : sans le droit de la continuité ou pour un processus d'une
+    autre entité, ni carte ni bouton.
+  - Nom du fichier : « carte-des-dépendances-<processus>-<date> », sans caractère interdit par
+    Windows.
+- **Matrice des risques 5 x 5 au choix** (issue #706, premier lot). La matrice reste en 4 x 4 par
+  défaut : aucune installation ne change sans action de l'administrateur.
+  - Dans la configuration, « Taille de la matrice » passe en 5 x 5 (très rare, rare, possible,
+    probable, quasi certaine ; négligeable, faible, moyen, élevé, critique) ou revient en 4 x 4.
+  - Écran de correspondance en deux étapes (`front/riskscale.php`) : nombre de risques par valeur
+    actuelle, nouvelle valeur proposée (celle qui change le moins de niveaux de risque) et
+    modifiable, puis effet sur les niveaux initiaux et résiduels et confirmation. Rien n'est
+    écrit avant « Appliquer ».
+  - Conversion des risques et des risques fournisseurs dans une transaction ; l'historique de
+    chaque risque garde l'ancienne et la nouvelle valeur, avec un message de conversion, et le
+    journal d'audit du plugin garde la correspondance appliquée. Ni notification, ni signature
+    d'acceptation au nom de l'administrateur.
+  - Saisie, calcul du score et du niveau, risque résiduel, carte de chaleur, import et export CSV
+    du registre suivent la taille choisie. Le niveau de risque garde ses quatre valeurs : appétence,
+    indicateurs, contrôles de cohérence et notifications sont inchangés.
+  - Une probabilité ou un impact hors de l'échelle configurée (formulaire forgé, valeur de l'autre
+    taille) n'est pas enregistré : la valeur actuelle est gardée.
+  - Réservé au droit de modifier la configuration du plugin et les registres sensibles. Les
+    échelles EBIOS RM et AIPD ne changent pas.
+
+### Fixed
+
+- Traductions : boutons et colonnes restés en français dans les autres langues (« Enregistrer », « Nom », « Statut »,
+  « Ajouter », « Supprimer », « Commentaire ») : ces 45 libellés appelaient la traduction sans le domaine du plugin et
+  passent par les libellés du cœur de GLPI, traduits dans toutes les langues (#582, signalé par @dmontebello).
+- **Tickets de vulnérabilité du parc : les nouvelles machines vulnérables sont liées au ticket
+  ouvert** (issue #702, signalée par dmontebello). Le suivi « Plus de machines touchées » était
+  ajouté, mais seules les machines présentes à la création restaient dans les éléments du ticket.
+  - La tâche planifiée lie désormais au ticket ouvert les machines qui ne le sont pas encore, sans
+    doublon, et le suivi indique combien ont été liées.
+  - Plafond de 50 éléments liés par ticket, liens ajoutés à la main compris : quand il est atteint,
+    le suivi le signale et renvoie à la page Vulnérabilités du parc.
+  - Une machine qui n'est plus vulnérable n'est jamais déliée : l'historique et les liens ajoutés à
+    la main sont conservés.
+  - Seules les machines de l'entité du ticket lui sont liées (entité de la machine relue), à la
+    création comme lors des mises à jour, comme le formulaire d'éléments de GLPI. Avant, la tâche
+    planifiée pouvait lier au ticket des machines d'autres entités.
+  - Ticket résolu ou clos : comportement inchangé, il n'est plus modifié ; si le logiciel reste
+    vulnérable au-dessus des seuils, un nouveau ticket est créé.
+
+### Changed
+
+- CI : contrôles de sécurité communs glpi-plugin-security v1.9.0 (charte commune et contrôle des menus bloquants par défaut).
+
 ## [2.54.0] - 2026-11-17
 
 ### Added

@@ -1,4 +1,4 @@
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: grcmanager\n"
@@ -321,8 +321,8 @@ msgstr "Verified breach"
 #: templates/policy_acknowledgement_tab.html.twig
 #: templates/supplier_risk_form.html.twig templates/evidence_tab.html.twig
 #: templates/objective_form.html.twig templates/my_evidence_requests.html.twig
-#: templates/processing_activity_form.html.twig templates/policy_form.html.twig
-#: templates/risk_indicator_form.html.twig
+#: templates/processing_activity_form.html.twig
+#: templates/policy_form.html.twig templates/risk_indicator_form.html.twig
 #: templates/risk_treatment_plan.html.twig
 #: templates/tabs/control_access_reviews.html.twig
 #: templates/tabs/business_process_risks.html.twig
@@ -663,7 +663,8 @@ msgstr "No function linked yet."
 #: templates/my_evidence_requests.html.twig
 #: templates/tabs/playbook_steps.html.twig
 #: templates/tabs/incident_playbook.html.twig
-#: templates/tabs/action_log.html.twig templates/tabs/ebios_workshop4.html.twig
+#: templates/tabs/action_log.html.twig
+#: templates/tabs/ebios_workshop4.html.twig
 #: templates/tabs/business_process_items.html.twig
 #: templates/tabs/business_process_recovery.html.twig
 #: templates/tabs/ebios_workshop2.html.twig
@@ -970,14 +971,14 @@ msgid ""
 "One CSV file per template of the implementing regulation, with the official "
 "column codes (c0010...), as in an xBRL-CSV report package. Closed lists are "
 "written with their official English wording: your reporting tool converts "
-"them into the codes of the EBA taxonomy and adds the package files "
-"(report.json, parameters, filing indicators)."
+"them into the codes of the EBA taxonomy and adds the package files (report."
+"json, parameters, filing indicators)."
 msgstr ""
 "One CSV file per template of the implementing regulation, with the official "
 "column codes (c0010...), as in an xBRL-CSV report package. Closed lists are "
 "written with their official English wording: your reporting tool converts "
-"them into the codes of the EBA taxonomy and adds the package files "
-"(report.json, parameters, filing indicators)."
+"them into the codes of the EBA taxonomy and adds the package files (report."
+"json, parameters, filing indicators)."
 
 #: templates/dora/register.html.twig
 msgid "Template"
@@ -1556,7 +1557,8 @@ msgstr "Save decisions"
 msgid "Perimeter: %s"
 msgstr "Perimeter: %s"
 
-#: templates/pdf/postmortem_report.html.twig templates/postmortem_tab.html.twig
+#: templates/pdf/postmortem_report.html.twig
+#: templates/postmortem_tab.html.twig
 msgid "Met"
 msgstr "Met"
 
@@ -1568,21 +1570,24 @@ msgstr "Met"
 msgid "Overdue"
 msgstr "Overdue"
 
-#: templates/pdf/postmortem_report.html.twig templates/postmortem_tab.html.twig
-#: src/DataBreach.php:131
+#: templates/pdf/postmortem_report.html.twig
+#: templates/postmortem_tab.html.twig src/DataBreach.php:131
 msgid "Not notified"
 msgstr "Not notified"
 
-#: templates/pdf/postmortem_report.html.twig templates/postmortem_tab.html.twig
+#: templates/pdf/postmortem_report.html.twig
+#: templates/postmortem_tab.html.twig
 #: templates/itil_regulatory_section.html.twig src/DataBreach.php:161
 msgid "Not notified (decision recorded)"
 msgstr "Not notified (decision recorded)"
 
-#: templates/pdf/postmortem_report.html.twig templates/postmortem_tab.html.twig
+#: templates/pdf/postmortem_report.html.twig
+#: templates/postmortem_tab.html.twig
 msgid "Waiting for the corrective measure"
 msgstr "Waiting for the corrective measure"
 
-#: templates/pdf/postmortem_report.html.twig templates/postmortem_tab.html.twig
+#: templates/pdf/postmortem_report.html.twig
+#: templates/postmortem_tab.html.twig
 #: templates/itil_regulatory_section.html.twig src/Control.php:125
 #: src/Control.php:833 src/CustomRequirement.php:66
 #: src/SecurityIncidentPlaybookTask.php:70
@@ -1634,7 +1639,8 @@ msgstr "Solved / closed on"
 msgid "Time to resolution"
 msgstr "Time to resolution"
 
-#: templates/pdf/postmortem_report.html.twig templates/postmortem_tab.html.twig
+#: templates/pdf/postmortem_report.html.twig
+#: templates/postmortem_tab.html.twig
 msgid "Total cost"
 msgstr "Total cost"
 
@@ -1651,7 +1657,8 @@ msgstr "Total cost"
 msgid "Description"
 msgstr "Description"
 
-#: templates/pdf/postmortem_report.html.twig templates/postmortem_tab.html.twig
+#: templates/pdf/postmortem_report.html.twig
+#: templates/postmortem_tab.html.twig
 msgid "Timeline"
 msgstr "Timeline"
 
@@ -1689,12 +1696,13 @@ msgstr "Detail"
 msgid "Scope"
 msgstr "Scope"
 
-#: templates/pdf/postmortem_report.html.twig templates/postmortem_tab.html.twig
+#: templates/pdf/postmortem_report.html.twig
+#: templates/postmortem_tab.html.twig
 msgid "Affected items"
 msgstr "Affected items"
 
-#: templates/pdf/postmortem_report.html.twig inc/securityincident.class.php:234
-#: src/SecurityIncidentTicket.php:117
+#: templates/pdf/postmortem_report.html.twig
+#: inc/securityincident.class.php:234 src/SecurityIncidentTicket.php:117
 msgid "Linked tickets"
 msgstr "Linked tickets"
 
@@ -1742,7 +1750,8 @@ msgstr "Notified on"
 msgid "Outcome"
 msgstr "Outcome"
 
-#: templates/pdf/postmortem_report.html.twig templates/postmortem_tab.html.twig
+#: templates/pdf/postmortem_report.html.twig
+#: templates/postmortem_tab.html.twig
 #: templates/itil_classification_section.html.twig
 #: templates/nonconformity_form.html.twig inc/securityincident.class.php:811
 #: src/Nonconformity.php:373
@@ -1766,7 +1775,8 @@ msgctxt "plural"
 msgid "Not filled in."
 msgstr "Not filled in."
 
-#: templates/pdf/postmortem_report.html.twig templates/postmortem_tab.html.twig
+#: templates/pdf/postmortem_report.html.twig
+#: templates/postmortem_tab.html.twig
 msgid "Decided actions"
 msgstr "Decided actions"
 
@@ -2169,7 +2179,8 @@ msgstr "No frozen version: approval date entered manually."
 
 #: templates/pdf/policy_approval_record.html.twig
 #: templates/pdf/policy_version.html.twig templates/soa_approval.html.twig
-#: templates/policy_approval_tab.html.twig src/Waiver.php:86 src/Waiver.php:114
+#: templates/policy_approval_tab.html.twig src/Waiver.php:86
+#: src/Waiver.php:114
 msgid "Requested"
 msgstr "Requested"
 
@@ -2188,7 +2199,8 @@ msgstr "Approval rule"
 #: templates/tabs/risk_business_processes.html.twig
 #: templates/tabs/business_process_recovery.html.twig
 #: templates/tabs/business_process_risks.html.twig
-#: templates/tabs/mitre_attack.html.twig templates/access_review_form.html.twig
+#: templates/tabs/mitre_attack.html.twig
+#: templates/access_review_form.html.twig
 #: templates/custom_framework_form.html.twig
 #: templates/risk_indicator_values.html.twig src/IsmsRequirement.php:288
 #: src/NotificationTargetAccessReview.php:107
@@ -2230,7 +2242,8 @@ msgstr "Audits"
 #: templates/objective_form.html.twig templates/risk_import.html.twig
 #: templates/policy_form.html.twig templates/risk_asset_tab.html.twig
 #: templates/tabs/business_process_risks.html.twig
-#: templates/audit_form.html.twig templates/data_subject_request_form.html.twig
+#: templates/audit_form.html.twig
+#: templates/data_subject_request_form.html.twig
 #: templates/nonconformity_form.html.twig
 #: templates/audit_findings_tab.html.twig templates/risk_form.html.twig
 #: templates/supplier_security_watch.html.twig
@@ -2243,7 +2256,8 @@ msgstr "Audits"
 #: src/NotificationTargetNonconformity.php:91
 #: src/NotificationTargetPolicy.php:130
 #: src/NotificationTargetPolicyVersion.php:137
-#: src/NotificationTargetRisk.php:93 src/NotificationTargetSupplierRisk.php:115
+#: src/NotificationTargetRisk.php:93
+#: src/NotificationTargetSupplierRisk.php:115
 #: src/NotificationTargetTraining.php:125 src/Objective.php:149
 #: src/Policy.php:135 src/Risk.php:345 src/RiskRegisterImport.php:588
 #: src/SupplierRisk.php:160 src/Training.php:528
@@ -2251,7 +2265,8 @@ msgid "Title"
 msgstr "Title"
 
 #: templates/pdf/audit_report.html.twig
-#: templates/pdf/internal_audit_report.html.twig templates/audit_form.html.twig
+#: templates/pdf/internal_audit_report.html.twig
+#: templates/audit_form.html.twig
 #: templates/audit_evidence_requests_tab.html.twig src/Audit.php:209
 #: src/AuditTeam.php:54 src/AuditTeam.php:198
 msgid "Auditor"
@@ -2310,7 +2325,8 @@ msgstr "Severity"
 #: templates/business_process_form.html.twig
 #: templates/periodic_reviews.html.twig src/BusinessProcess.php:544
 #: src/BusinessProcess.php:616 src/ComplianceEvent.php:228
-#: src/EbiosStudy.php:594 src/IsmsRequirement.php:279 src/Nonconformity.php:332
+#: src/EbiosStudy.php:594 src/IsmsRequirement.php:279
+#: src/Nonconformity.php:332
 msgid "Owner"
 msgstr "Owner"
 
@@ -2378,8 +2394,8 @@ msgstr "No finding for this audit."
 msgid "Corrective action"
 msgstr "Corrective action"
 
-#: templates/pdf/internal_audit_report.html.twig templates/audit_form.html.twig
-#: src/Audit.php:250
+#: templates/pdf/internal_audit_report.html.twig
+#: templates/audit_form.html.twig src/Audit.php:250
 msgid "Conclusion"
 msgstr "Conclusion"
 
@@ -2460,9 +2476,9 @@ msgstr "Control details"
 msgid "Theme"
 msgstr "Theme"
 
-#: templates/pdf/soa_report.html.twig templates/custom_framework_list.html.twig
-#: templates/referentiels.html.twig templates/control_form.html.twig
-#: front/customframework.php:157
+#: templates/pdf/soa_report.html.twig
+#: templates/custom_framework_list.html.twig templates/referentiels.html.twig
+#: templates/control_form.html.twig front/customframework.php:157
 msgctxt "label"
 msgid "Title"
 msgstr "Title"
@@ -2497,7 +2513,8 @@ msgstr "ISMS requirements (clauses 4 to 10)"
 msgid "ISMS completeness: %1$d %% (%2$d / %3$d requirements compliant)"
 msgstr "ISMS completeness: %1$d %% (%2$d / %3$d requirements compliant)"
 
-#: templates/pdf/soa_report.html.twig templates/isms_requirement_form.html.twig
+#: templates/pdf/soa_report.html.twig
+#: templates/isms_requirement_form.html.twig
 #: templates/custom_framework_form.html.twig src/IsmsRequirement.php:254
 msgid "Requirement"
 msgstr "Requirement"
@@ -2648,7 +2665,8 @@ msgstr ""
 "Consistency checks: objectives of the process, plus items and processes it "
 "depends on that do not meet them."
 
-#: templates/pdf/business_continuity_report.html.twig src/BusinessImpact.php:44
+#: templates/pdf/business_continuity_report.html.twig
+#: src/BusinessImpact.php:44
 msgid "Business impact analysis"
 msgstr "Business impact analysis"
 
@@ -2818,8 +2836,9 @@ msgstr "No risk linked to this process."
 #: templates/tabs/ebios_workshop5.html.twig
 #: templates/tabs/business_process_risks.html.twig
 #: templates/risk_form.html.twig templates/risk_appetite.html.twig
-#: src/NotificationTargetRisk.php:95 src/NotificationTargetSupplierRisk.php:118
-#: src/Risk.php:378 src/SupplierRisk.php:208
+#: src/NotificationTargetRisk.php:95
+#: src/NotificationTargetSupplierRisk.php:118 src/Risk.php:378
+#: src/SupplierRisk.php:208
 msgid "Risk level"
 msgstr "Risk level"
 
@@ -2910,9 +2929,10 @@ msgstr "Name"
 #: templates/risk_indicator_form.html.twig
 #: templates/itil_classification_section.html.twig
 #: templates/network_flow_import.html.twig
-#: templates/custom_framework_form.html.twig inc/securityincident.class.php:940
-#: src/NetworkFlow.php:255 src/NetworkFlow.php:400
-#: src/NotificationTargetRiskIndicator.php:155 src/RiskIndicator.php:733
+#: templates/custom_framework_form.html.twig
+#: inc/securityincident.class.php:940 src/NetworkFlow.php:255
+#: src/NetworkFlow.php:400 src/NotificationTargetRiskIndicator.php:155
+#: src/RiskIndicator.php:733
 msgid "Source"
 msgstr "Source"
 
@@ -2931,8 +2951,9 @@ msgstr "Protocol and ports"
 #: templates/pdf/policy_version.html.twig
 #: templates/pdf/risk_register_report.html.twig
 #: templates/supplier_risk_form.html.twig templates/objective_form.html.twig
-#: templates/processing_activity_form.html.twig templates/policy_form.html.twig
-#: templates/risk_indicator_form.html.twig templates/risk_form.html.twig
+#: templates/processing_activity_form.html.twig
+#: templates/policy_form.html.twig templates/risk_indicator_form.html.twig
+#: templates/risk_form.html.twig
 #: templates/compliance_obligation_form.html.twig
 #: templates/network_flow_form.html.twig src/ComplianceObligation.php:213
 #: src/NetworkFlow.php:266 src/Objective.php:190 src/Policy.php:176
@@ -3016,8 +3037,9 @@ msgid "Risks in the register"
 msgstr "Risks in the register"
 
 #: templates/pdf/risk_register_report.html.twig
-#: templates/pdf/dpia_report.html.twig templates/park_vulnerabilities.html.twig
-#: templates/tabs/dpia.html.twig templates/risk_form.html.twig
+#: templates/pdf/dpia_report.html.twig
+#: templates/park_vulnerabilities.html.twig templates/tabs/dpia.html.twig
+#: templates/risk_form.html.twig
 msgid "Level"
 msgstr "Level"
 
@@ -3041,8 +3063,9 @@ msgstr "Category"
 #: templates/management_review_form.html.twig src/ComplianceObligation.php:222
 #: src/ManagementReview.php:304
 #: src/NotificationTargetComplianceObligation.php:94
-#: src/NotificationTargetRisk.php:96 src/NotificationTargetSupplierRisk.php:119
-#: src/Risk.php:411 src/RiskRegisterImport.php:599 src/SupplierRisk.php:241
+#: src/NotificationTargetRisk.php:96
+#: src/NotificationTargetSupplierRisk.php:119 src/Risk.php:411
+#: src/RiskRegisterImport.php:599 src/SupplierRisk.php:241
 msgid "Review date"
 msgstr "Review date"
 
@@ -3055,8 +3078,8 @@ msgstr "Approved"
 
 #: templates/pdf/dpia_report.html.twig templates/tabs/dpia.html.twig
 #: templates/audit_evidence_requests_tab.html.twig
-#: templates/policy_approval_tab.html.twig src/Policy.php:98 src/Policy.php:245
-#: src/ProcessingActivity.php:130
+#: templates/policy_approval_tab.html.twig src/Policy.php:98
+#: src/Policy.php:245 src/ProcessingActivity.php:130
 msgid "Draft"
 msgstr "Draft"
 
@@ -3485,9 +3508,10 @@ msgstr "ISO 27001 %s"
 msgid "How to fix"
 msgstr "How to fix"
 
-#: templates/pdf/consistency_report.html.twig templates/park_machines.html.twig
-#: templates/my_space.html.twig templates/network_flow_matrix.html.twig
-#: templates/tabs/ioc.html.twig templates/network_flow_import.html.twig
+#: templates/pdf/consistency_report.html.twig
+#: templates/park_machines.html.twig templates/my_space.html.twig
+#: templates/network_flow_matrix.html.twig templates/tabs/ioc.html.twig
+#: templates/network_flow_import.html.twig
 #: templates/compliance_event_form.html.twig
 #: templates/compliance_obligation_form.html.twig
 #: templates/network_flow_form.html.twig front/consistencycheck.export.php:51
@@ -3911,7 +3935,8 @@ msgstr "Nothing is waiting for you at the moment."
 msgid "Details"
 msgstr "Details"
 
-#: templates/my_space.html.twig templates/audit_evidence_requests_tab.html.twig
+#: templates/my_space.html.twig
+#: templates/audit_evidence_requests_tab.html.twig
 #: src/Services/Workspace/MySpaceProvider.php:138
 #, php-format
 msgid "%d day(s) late"
@@ -3923,7 +3948,8 @@ msgstr "%d day(s) late"
 msgid "Due soon"
 msgstr "Due soon"
 
-#: templates/my_space.html.twig templates/audit_evidence_requests_tab.html.twig
+#: templates/my_space.html.twig
+#: templates/audit_evidence_requests_tab.html.twig
 #: src/Services/Workspace/MySpaceProvider.php:136
 msgid "No due date"
 msgstr "No due date"
@@ -4079,7 +4105,8 @@ msgstr ""
 "once a week; nothing else happens to them."
 
 #: templates/policy_acknowledgement_tab.html.twig
-#: templates/park_vulnerabilities.html.twig templates/account_hygiene.html.twig
+#: templates/park_vulnerabilities.html.twig
+#: templates/account_hygiene.html.twig
 #, php-format
 msgid "%d days"
 msgstr "%d days"
@@ -4152,7 +4179,8 @@ msgstr "Read on %s"
 msgid "Latecomers (CSV)"
 msgstr "Latecomers (CSV)"
 
-#: templates/policy_acknowledgement_tab.html.twig templates/tabs/dpia.html.twig
+#: templates/policy_acknowledgement_tab.html.twig
+#: templates/tabs/dpia.html.twig
 msgid "Report (PDF)"
 msgstr "Report (PDF)"
 
@@ -4249,8 +4277,9 @@ msgstr "Versions to check manually"
 msgid "CISA KEV catalog updated"
 msgstr "CISA KEV catalog updated"
 
-#: templates/park_vulnerabilities.html.twig templates/account_hygiene.html.twig
-#: templates/periodic_reviews.html.twig src/ControlTestReminder.php:79
+#: templates/park_vulnerabilities.html.twig
+#: templates/account_hygiene.html.twig templates/periodic_reviews.html.twig
+#: src/ControlTestReminder.php:79
 msgid "Never"
 msgstr "Never"
 
@@ -4416,8 +4445,8 @@ msgstr "CVSS"
 msgid "EPSS"
 msgstr "EPSS"
 
-#: templates/park_vulnerabilities.html.twig templates/park_cve_ticket.html.twig
-#: templates/park_item_tab.html.twig
+#: templates/park_vulnerabilities.html.twig
+#: templates/park_cve_ticket.html.twig templates/park_item_tab.html.twig
 msgid "Exploited"
 msgstr "Exploited"
 
@@ -4425,7 +4454,8 @@ msgstr "Exploited"
 msgid "Published"
 msgstr "Published"
 
-#: templates/park_vulnerabilities.html.twig templates/park_cve_ticket.html.twig
+#: templates/park_vulnerabilities.html.twig
+#: templates/park_cve_ticket.html.twig
 msgid "Remediation deadline"
 msgstr "Remediation deadline"
 
@@ -5327,7 +5357,8 @@ msgstr ""
 "Per category of data if needed (e.g. \"5 years after the employee leaves, "
 "then archived\")."
 
-#: templates/processing_activity_form.html.twig src/ProcessingActivity.php:1007
+#: templates/processing_activity_form.html.twig
+#: src/ProcessingActivity.php:1007
 msgid "Security measures"
 msgstr "Security measures"
 
@@ -5370,7 +5401,8 @@ msgstr "Last review"
 msgid "The register is reviewed at least once a year (Periodic reviews)."
 msgstr "The register is reviewed at least once a year (Periodic reviews)."
 
-#: templates/processing_activity_form.html.twig src/ProcessingActivity.php:1008
+#: templates/processing_activity_form.html.twig
+#: src/ProcessingActivity.php:1008
 msgid "Applications, assets and suppliers"
 msgstr "Applications, assets and suppliers"
 
@@ -5710,14 +5742,16 @@ msgstr "Back to the risk list"
 #: templates/risk_heatmap.html.twig src/AssetClassification.php:92
 #: src/AssetClassification.php:183 src/ConsistencyCheck.php:142
 #: src/DoraRegister.php:236 src/DoraRegister.php:241
-#: src/Traits/RiskAssessmentTrait.php:84 src/Traits/RiskAssessmentTrait.php:223
+#: src/Traits/RiskAssessmentTrait.php:84
+#: src/Traits/RiskAssessmentTrait.php:223
 msgid "Low"
 msgstr "Low"
 
 #: templates/risk_heatmap.html.twig src/AssetClassification.php:93
 #: src/AssetClassification.php:184 src/ConsistencyCheck.php:137
 #: src/DoraRegister.php:237 src/DoraRegister.php:242
-#: src/Traits/RiskAssessmentTrait.php:85 src/Traits/RiskAssessmentTrait.php:224
+#: src/Traits/RiskAssessmentTrait.php:85
+#: src/Traits/RiskAssessmentTrait.php:224
 msgid "Medium"
 msgstr "Medium"
 
@@ -6379,8 +6413,9 @@ msgid "Record this breach in the register"
 msgstr "Record this breach in the register"
 
 #: templates/tabs/incident_playbook.html.twig
-#: templates/tabs/incident_data_breach.html.twig front/databreach.export.php:35
-#: front/databreach.php:27 src/DataBreach.php:88
+#: templates/tabs/incident_data_breach.html.twig
+#: front/databreach.export.php:35 front/databreach.php:27
+#: src/DataBreach.php:88
 msgid "Breach register"
 msgstr "Breach register"
 
@@ -7315,11 +7350,11 @@ msgstr ""
 
 #: templates/tabs/incident_evidence.html.twig
 msgid ""
-"Useful evidence formats (to allow in the GLPI document "
-"types): .log, .evtx, .json, .pcap, .eml, .csv, .zip."
+"Useful evidence formats (to allow in the GLPI document types): .log, .evtx, ."
+"json, .pcap, .eml, .csv, .zip."
 msgstr ""
-"Useful evidence formats (to allow in the GLPI document "
-"types): .log, .evtx, .json, .pcap, .eml, .csv, .zip."
+"Useful evidence formats (to allow in the GLPI document types): .log, .evtx, ."
+"json, .pcap, .eml, .csv, .zip."
 
 #: templates/tabs/_access_review_rows.html.twig
 msgid "Profiles and groups"
@@ -8844,8 +8879,8 @@ msgstr "Confidentiality"
 msgid "Integrity"
 msgstr "Integrity"
 
-#: templates/asset_classification_tab.html.twig src/AssetClassification.php:189
-#: src/Risk.php:837
+#: templates/asset_classification_tab.html.twig
+#: src/AssetClassification.php:189 src/Risk.php:837
 msgid "Not classified"
 msgstr "Not classified"
 
@@ -8857,7 +8892,8 @@ msgstr ""
 "This asset has not been classified yet (confidentiality/integrity/"
 "availability)."
 
-#: templates/asset_classification_tab.html.twig src/AssetClassification.php:143
+#: templates/asset_classification_tab.html.twig
+#: src/AssetClassification.php:143
 msgid "RTO (maximum downtime)"
 msgstr "RTO (maximum downtime)"
 
@@ -8865,7 +8901,8 @@ msgstr "RTO (maximum downtime)"
 msgid "Time beyond which an outage of this asset becomes unacceptable."
 msgstr "Time beyond which an outage of this asset becomes unacceptable."
 
-#: templates/asset_classification_tab.html.twig src/AssetClassification.php:151
+#: templates/asset_classification_tab.html.twig
+#: src/AssetClassification.php:151
 msgid "RPO (maximum data loss)"
 msgstr "RPO (maximum data loss)"
 
@@ -9327,7 +9364,8 @@ msgid_plural "%d days late"
 msgstr[0] "%d day late"
 msgstr[1] "%d days late"
 
-#: templates/data_subject_request_form.html.twig src/DataSubjectRequest.php:360
+#: templates/data_subject_request_form.html.twig
+#: src/DataSubjectRequest.php:360
 msgid "Right exercised"
 msgstr "Right exercised"
 
@@ -9343,8 +9381,8 @@ msgstr ""
 "Optional. Do not put the name of the person here: it stays in the field "
 "below."
 
-#: templates/data_subject_request_form.html.twig src/DataSubjectRequest.php:385
-#: src/NotificationTargetPolicyVersion.php:139
+#: templates/data_subject_request_form.html.twig
+#: src/DataSubjectRequest.php:385 src/NotificationTargetPolicyVersion.php:139
 #: src/NotificationTargetSoaVersion.php:104
 msgid "Requester"
 msgstr "Requester"
@@ -9353,7 +9391,8 @@ msgstr "Requester"
 msgid "Only what is needed to answer: this field stays on this request."
 msgstr "Only what is needed to answer: this field stays on this request."
 
-#: templates/data_subject_request_form.html.twig src/DataSubjectRequest.php:369
+#: templates/data_subject_request_form.html.twig
+#: src/DataSubjectRequest.php:369
 msgid "Date of receipt"
 msgstr "Date of receipt"
 
@@ -9393,7 +9432,8 @@ msgstr ""
 msgid "Reason for the extension"
 msgstr "Reason for the extension"
 
-#: templates/data_subject_request_form.html.twig src/DataSubjectRequest.php:378
+#: templates/data_subject_request_form.html.twig
+#: src/DataSubjectRequest.php:378
 msgid "Date of the answer"
 msgstr "Date of the answer"
 
@@ -13955,13 +13995,13 @@ msgstr "CPE identifiers"
 
 #: src/CanonicalProduct.php:187
 msgid ""
-"A CPE identifier as reported by the NVD for this product (e.g. "
-"\"cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point "
-"to the same product."
+"A CPE identifier as reported by the NVD for this product (e.g. \"cpe:2.3:a:"
+"apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point to the same "
+"product."
 msgstr ""
-"A CPE identifier as reported by the NVD for this product (e.g. "
-"\"cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point "
-"to the same product."
+"A CPE identifier as reported by the NVD for this product (e.g. \"cpe:2.3:a:"
+"apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point to the same "
+"product."
 
 #: src/CanonicalProduct.php:196
 msgid "No CPE identifier yet."
@@ -14003,12 +14043,12 @@ msgstr ""
 #, php-format
 msgid ""
 "GLPI also refuses internal addresses for this plugin: add %s to the constant "
-"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/"
-"local_define.php)."
+"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/local_define."
+"php)."
 msgstr ""
 "GLPI also refuses internal addresses for this plugin: add %s to the constant "
-"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/"
-"local_define.php)."
+"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/local_define."
+"php)."
 
 #: src/ComplianceAudit.php:100
 msgid "Technical security"
@@ -16848,7 +16888,8 @@ msgstr "From orange"
 msgid "Planned"
 msgstr "Planned"
 
-#: src/ManagementReview.php:81 src/ManagementReview.php:378 src/Training.php:96
+#: src/ManagementReview.php:81 src/ManagementReview.php:378
+#: src/Training.php:96
 msgctxt "feminine"
 msgid "Completed"
 msgstr "Completed"
@@ -18850,6 +18891,26 @@ msgstr "Update %1$s: %2$d vulnerability(ies), %3$d machine(s)"
 #, php-format
 msgid "More machines affected: %d now."
 msgstr "More machines affected: %d now."
+
+msgid ""
+"%d new machine linked to the ticket. Machines that are no longer vulnerable "
+"stay linked."
+msgid_plural ""
+"%d new machines linked to the ticket. Machines that are no longer vulnerable "
+"stay linked."
+msgstr[0] ""
+"%d new machine linked to the ticket. Machines that are no longer vulnerable "
+"stay linked."
+msgstr[1] ""
+"%d new machines linked to the ticket. Machines that are no longer vulnerable "
+"stay linked."
+
+msgid ""
+"The ticket has reached the limit of %d linked items: the other machines are "
+"not linked, see the Fleet vulnerabilities page."
+msgstr ""
+"The ticket has reached the limit of %d linked items: the other machines are "
+"not linked, see the Fleet vulnerabilities page."
 
 #: src/ParkVulnerability.php:745
 msgid ""
@@ -21404,6 +21465,641 @@ msgstr ""
 #, php-format
 msgid "Re-assess the waiver \"%s\""
 msgstr "Re-assess the waiver \"%s\""
+
+msgid "Very rare"
+msgstr "Very rare"
+
+msgid "4 x 4: four levels of probability and of impact"
+msgstr "4 x 4: four levels of probability and of impact"
+
+msgid "5 x 5: five levels of probability and of impact"
+msgstr "5 x 5: five levels of probability and of impact"
+
+msgid "%1$d x %1$d"
+msgstr "%1$d x %1$d"
+
+msgid ""
+"Risk matrix changed from %1$s to %2$s: values converted with the "
+"correspondence validated by the administrator"
+msgstr ""
+"Risk matrix changed from %1$s to %2$s: values converted with the "
+"correspondence validated by the administrator"
+
+msgid "Choose a matrix size different from the current one."
+msgstr "Choose a matrix size different from the current one."
+
+msgid "Tick the box to confirm that you have checked the correspondence."
+msgstr "Tick the box to confirm that you have checked the correspondence."
+
+msgid ""
+"The risk matrix is now %1$s. Risks updated: %2$d (see the history of each "
+"risk)."
+msgstr ""
+"The risk matrix is now %1$s. Risks updated: %2$d (see the history of each "
+"risk)."
+
+msgid "Change the risk matrix size"
+msgstr "Change the risk matrix size"
+
+msgid "Current size: %1$s. New size: %2$s."
+msgstr "Current size: %1$s. New size: %2$s."
+
+msgid "Correspondence of the values"
+msgstr "Correspondence of the values"
+
+msgid "Check the effect and apply"
+msgstr "Check the effect and apply"
+
+msgid ""
+"Each value used today by the risks is converted into a value of the new "
+"scale. A correspondence is proposed below: check it and change it if needed, "
+"then look at its effect. Nothing is changed in the register before you apply."
+msgstr ""
+"Each value used today by the risks is converted into a value of the new "
+"scale. A correspondence is proposed below: check it and change it if needed, "
+"then look at its effect. Nothing is changed in the register before you apply."
+
+msgid "Current value"
+msgstr "Current value"
+
+msgid "Risks using it"
+msgstr "Risks using it"
+
+msgid "New value"
+msgstr "New value"
+
+msgid ""
+"The new values that no current value goes to stay available for the next "
+"assessments."
+msgstr ""
+"The new values that no current value goes to stay available for the next "
+"assessments."
+
+msgid "Effect on the register"
+msgstr "Effect on the register"
+
+msgid "No risk changes: their values and levels stay the same."
+msgstr "No risk changes: their values and levels stay the same."
+
+msgid "%1$d risk out of %2$d will be updated."
+msgid_plural "%1$d risks out of %2$d will be updated."
+msgstr[0] "%1$d risk out of %2$d will be updated."
+msgstr[1] "%1$d risks out of %2$d will be updated."
+
+msgid "Risks whose level goes up: %d."
+msgstr "Risks whose level goes up: %d."
+
+msgid "Risks whose level goes down: %d."
+msgstr "Risks whose level goes down: %d."
+
+msgid ""
+"Each change is recorded in the history of the risk. Accepted risks keep "
+"their decision: check those whose level goes up against the risk appetite."
+msgstr ""
+"Each change is recorded in the history of the risk. Accepted risks keep "
+"their decision: check those whose level goes up against the risk appetite."
+
+msgid "Current level"
+msgstr "Current level"
+
+msgid "New level"
+msgstr "New level"
+
+msgid "Number of risks"
+msgstr "Number of risks"
+
+msgid "Risk matrix after the change"
+msgstr "Risk matrix after the change"
+
+msgid ""
+"Default grid of the new size. You can adjust it afterwards in the "
+"configuration."
+msgstr ""
+"Default grid of the new size. You can adjust it afterwards in the "
+"configuration."
+
+msgid "See the effect"
+msgstr "See the effect"
+
+msgid "I have checked the correspondence and its effect on the risk levels."
+msgstr "I have checked the correspondence and its effect on the risk levels."
+
+msgid "Apply the new size"
+msgstr "Apply the new size"
+
+msgid "Change the correspondence"
+msgstr "Change the correspondence"
+
+msgid "Matrix size"
+msgstr "Matrix size"
+
+msgid "Current size: %s."
+msgstr "Current size: %s."
+
+msgid ""
+"Changing the size converts the probability and impact of every existing "
+"risk: you first choose how the current values correspond to the new ones, "
+"and see the effect before applying it."
+msgstr ""
+"Changing the size converts the probability and impact of every existing "
+"risk: you first choose how the current values correspond to the new ones, "
+"and see the effect before applying it."
+
+msgid "New size"
+msgstr "New size"
+
+msgid "Prepare the change"
+msgstr "Prepare the change"
+
+msgid ""
+"Changing the size requires the right to update the plugin configuration and "
+"the sensitive registers."
+msgstr ""
+"Changing the size requires the right to update the plugin configuration and "
+"the sensitive registers."
+
+msgid ""
+"The plugin matrix has %d levels: a score on another scale is converted (the "
+"lowest and highest scores match)."
+msgstr ""
+"The plugin matrix has %d levels: a score on another scale is converted (the "
+"lowest and highest scores match)."
+
+msgid ""
+"The proposed correspondence is the one that changes the fewest risk levels "
+"between the current grid and the grid of the new size."
+msgstr ""
+"The proposed correspondence is the one that changes the fewest risk levels "
+"between the current grid and the grid of the new size."
+
+msgid "Export the map"
+msgstr "Export the map"
+
+msgid "Download the map as shown, to put it in a document or a presentation"
+msgstr "Download the map as shown, to put it in a document or a presentation"
+
+msgid "Image (PNG)"
+msgstr "Image (PNG)"
+
+msgid "Image (JPEG)"
+msgstr "Image (JPEG)"
+
+msgid "Vector image (SVG), sharp at any size"
+msgstr "Vector image (SVG), sharp at any size"
+
+msgid "Dependency map: %s"
+msgstr "Dependency map: %s"
+
+msgid "Exported on %s"
+msgstr "Exported on %s"
+
+#: issue-609
+msgid ""
+"Deduced from the risks linked to this control and from the obligations of "
+"the register attached to them."
+msgstr ""
+"Deduced from the risks linked to this control and from the obligations of "
+"the register attached to them."
+
+#: issue-609
+msgid "From the links"
+msgstr "From the links"
+
+#: issue-609
+msgid ""
+"The ticked reasons are deduced from the linked risks and obligations: check "
+"them, then save."
+msgstr ""
+"The ticked reasons are deduced from the linked risks and obligations: check "
+"them, then save."
+
+#: issue-609
+msgid ""
+"Why this control is included: several reasons are possible. Linking a new "
+"risk ticks the risk assessment reason."
+msgstr ""
+"Why this control is included: several reasons are possible. Linking a new "
+"risk ticks the risk assessment reason."
+
+#: issue-609
+msgid "Reasons for selection"
+msgstr "Reasons for selection"
+
+#: issue-609
+msgid "Exclusion category"
+msgstr "Exclusion category"
+
+#: issue-609
+msgid ""
+"Why the control is left out, for example: no premises of its own, hosting by "
+"a certified provider."
+msgstr ""
+"Why the control is left out, for example: no premises of its own, hosting by "
+"a certified provider."
+
+#: issue-609
+msgid "Residual risk"
+msgstr "Residual risk"
+
+#: issue-609
+msgid "Risk that remains once the compensating measures are in place."
+msgstr "Risk that remains once the compensating measures are in place."
+
+#: issue-609
+msgid ""
+"Controls of this SoA that make up for the exclusion, for example A.5.20 for "
+"an audit clause in the provider contract."
+msgstr ""
+"Controls of this SoA that make up for the exclusion, for example A.5.20 for "
+"an audit clause in the provider contract."
+
+#: issue-609
+msgid "Compensating measures"
+msgstr "Compensating measures"
+
+#: issue-609
+msgid ""
+"Other compensating measures, in your own words (contract clause, provider "
+"certificate...)."
+msgstr ""
+"Other compensating measures, in your own words (contract clause, provider "
+"certificate...)."
+
+#: issue-609
+msgid "Summary by theme"
+msgstr "Summary by theme"
+
+#: issue-609
+msgid "%d applicable"
+msgstr "%d applicable"
+
+#: issue-609
+msgid "%d excluded"
+msgstr "%d excluded"
+
+#: issue-609
+msgid "%d implemented"
+msgstr "%d implemented"
+
+#: issue-609
+msgid "Controls"
+msgstr "Controls"
+
+#: issue-609
+msgid "Excluded"
+msgstr "Excluded"
+
+#: issue-609
+msgid "Show the controls of this theme"
+msgstr "Show the controls of this theme"
+
+#: issue-609
+msgid "%d partially"
+msgstr "%d partially"
+
+#: issue-609
+msgid "Total"
+msgstr "Total"
+
+#: issue-609
+msgid ""
+"\"Implemented\" counts implemented and verified controls; \"Planned\" counts "
+"applicable controls not started yet. Click a theme to filter the list below."
+msgstr ""
+"\"Implemented\" counts implemented and verified controls; \"Planned\" counts "
+"applicable controls not started yet. Click a theme to filter the list below."
+
+#: issue-609
+msgid "Risk assessment result"
+msgstr "Risk assessment result"
+
+#: issue-609
+msgid "Legal or regulatory obligation"
+msgstr "Legal or regulatory obligation"
+
+#: issue-609
+msgid "Contractual requirement"
+msgstr "Contractual requirement"
+
+#: issue-609
+msgid "Interested party expectation"
+msgstr "Interested party expectation"
+
+#: issue-609
+msgid "Good practice"
+msgstr "Good practice"
+
+#: issue-609
+msgid "Activity not carried out"
+msgstr "Activity not carried out"
+
+#: issue-609
+msgid "Handled by a certified provider"
+msgstr "Handled by a certified provider"
+
+#: issue-609
+msgid "Out of the ISMS scope"
+msgstr "Out of the ISMS scope"
+
+msgid "Interested party"
+msgstr "Interested party"
+
+msgid ""
+"For example \"Key account customers\" or \"Data protection authority\". "
+"Leave empty to use the name of the supplier or group chosen below."
+msgstr ""
+"For example \"Key account customers\" or \"Data protection authority\". "
+"Leave empty to use the name of the supplier or group chosen below."
+
+msgid "Type of interested party"
+msgstr "Type of interested party"
+
+msgid "Supplier in GLPI"
+msgstr "Supplier in GLPI"
+
+msgid "Optional: when the party is a supplier already recorded in GLPI."
+msgstr "Optional: when the party is a supplier already recorded in GLPI."
+
+msgid "Group in GLPI"
+msgstr "Group in GLPI"
+
+msgid "Optional: when the party is a team or a department recorded as a group."
+msgstr ""
+"Optional: when the party is a team or a department recorded as a group."
+
+msgid "Needs and expectations"
+msgstr "Needs and expectations"
+
+msgid ""
+"What this party expects from you about information security, e.g. \"incident "
+"notification within 24 hours\"."
+msgstr ""
+"What this party expects from you about information security, e.g. \"incident "
+"notification within 24 hours\"."
+
+msgid "Internal or external issue"
+msgstr "Internal or external issue"
+
+msgid ""
+"Since the 2024 amendment of ISO 27001, the organization must determine "
+"whether climate change is a relevant issue. Answer yes or no, and write why: "
+"requirement 4.1 cannot be marked compliant until this is done."
+msgstr ""
+"Since the 2024 amendment of ISO 27001, the organization must determine "
+"whether climate change is a relevant issue. Answer yes or no, and write why: "
+"requirement 4.1 cannot be marked compliant until this is done."
+
+msgid ""
+"A short title, e.g. \"New cyber security law\" or \"Growth of remote work\"."
+msgstr ""
+"A short title, e.g. \"New cyber security law\" or \"Growth of remote work\"."
+
+msgid "Internal or external"
+msgstr "Internal or external"
+
+msgid "Effect on the ISMS"
+msgstr "Effect on the ISMS"
+
+msgid ""
+"How this issue can affect the ability of the ISMS to achieve its intended "
+"results."
+msgstr ""
+"How this issue can affect the ability of the ISMS to achieve its intended "
+"results."
+
+msgid "Decision of the ISMS"
+msgstr "Decision of the ISMS"
+
+msgid "Is climate change relevant?"
+msgstr "Is climate change relevant?"
+
+msgid ""
+"\"Retained by the ISMS\" means relevant; \"Not retained\" means not "
+"relevant. A justification is required in both cases."
+msgstr ""
+"\"Retained by the ISMS\" means relevant; \"Not retained\" means not "
+"relevant. A justification is required in both cases."
+
+msgid "Retained: the ISMS takes it into account. Not retained: write why."
+msgstr "Retained: the ISMS takes it into account. Not retained: write why."
+
+msgid "Requirements retained by the ISMS"
+msgstr "Requirements retained by the ISMS"
+
+msgid ""
+"Which of these expectations become requirements of the ISMS. Link below the "
+"obligations and the controls that answer them."
+msgstr ""
+"Which of these expectations become requirements of the ISMS. Link below the "
+"obligations and the controls that answer them."
+
+msgid "Links with the ISMS"
+msgstr "Links with the ISMS"
+
+msgid "Related obligations"
+msgstr "Related obligations"
+
+msgid "Controls that respond"
+msgstr "Controls that respond"
+
+msgid "Follow-up"
+msgstr "Follow-up"
+
+msgid "The owner receives a reminder 30 days before this date."
+msgstr "The owner receives a reminder 30 days before this date."
+
+msgid "Climate change"
+msgstr "Climate change"
+
+#, php-format
+msgid "the question is answered (%s)."
+msgstr "the question is answered (%s)."
+
+msgid ""
+"say whether climate change is a relevant issue for your ISMS, and why. "
+"Required before requirement 4.1 can be marked compliant."
+msgstr ""
+"say whether climate change is a relevant issue for your ISMS, and why. "
+"Required before requirement 4.1 can be marked compliant."
+
+msgid "Open the answer"
+msgstr "Open the answer"
+
+msgid "Answer the question"
+msgstr "Answer the question"
+
+msgid "Add an issue"
+msgstr "Add an issue"
+
+msgid "Add an interested party"
+msgstr "Add an interested party"
+
+msgid "Climate change question answered"
+msgstr "Climate change question answered"
+
+msgid "Climate change question not answered yet"
+msgstr "Climate change question not answered yet"
+
+msgid "Open the context of the organization"
+msgstr "Open the context of the organization"
+
+msgid "Context review due"
+msgstr "Context review due"
+
+msgid "Owner of the issue or interested party"
+msgstr "Owner of the issue or interested party"
+
+msgid "Kind"
+msgstr "Kind"
+
+msgid "Internal"
+msgstr "Internal"
+
+msgid "External"
+msgstr "External"
+
+msgid "Economic"
+msgstr "Economic"
+
+msgid "Human"
+msgstr "Human"
+
+msgid "Organisational"
+msgstr "Organisational"
+
+msgid "Political"
+msgstr "Political"
+
+msgid "Environmental"
+msgstr "Environmental"
+
+msgid "Authority or regulator"
+msgstr "Authority or regulator"
+
+msgid "Supplier or service provider"
+msgstr "Supplier or service provider"
+
+msgid "Shareholder or owner"
+msgstr "Shareholder or owner"
+
+msgid "Insurer"
+msgstr "Insurer"
+
+msgid "Neighbours and public"
+msgstr "Neighbours and public"
+
+msgid "Retained by the ISMS"
+msgstr "Retained by the ISMS"
+
+msgid "Not retained"
+msgstr "Not retained"
+
+msgid "Give the issue or the interested party a name."
+msgstr "Give the issue or the interested party a name."
+
+msgid ""
+"Explain why climate change is or is not a relevant issue: auditors check "
+"this justification."
+msgstr ""
+"Explain why climate change is or is not a relevant issue: auditors check "
+"this justification."
+
+msgid "Explain why this item is not retained by the ISMS."
+msgstr "Explain why this item is not retained by the ISMS."
+
+#, php-format
+msgid "%d context item(s) awaiting review, %d notification(s) raised."
+msgstr "%d context item(s) awaiting review, %d notification(s) raised."
+
+msgid ""
+"Answer the climate change question in the context of the organization before "
+"marking this requirement compliant."
+msgstr ""
+"Answer the climate change question in the context of the organization before "
+"marking this requirement compliant."
+
+msgid ""
+"The context of the organization: the internal and external issues that "
+"affect information security, and the interested parties with their "
+"expectations and what the ISMS retains."
+msgstr ""
+"The context of the organization: the internal and external issues that "
+"affect information security, and the interested parties with their "
+"expectations and what the ISMS retains."
+
+msgid ""
+"List the issues and the interested parties, decide for each one whether the "
+"ISMS retains it, link the related risks, obligations and controls, answer "
+"the climate change question, and review each item at least once a year. Use "
+"the export of the list for the auditor."
+msgstr ""
+"List the issues and the interested parties, decide for each one whether the "
+"ISMS retains it, link the related risks, obligations and controls, answer "
+"the climate change question, and review each item at least once a year. Use "
+"the export of the list for the auditor."
+
+msgid "ISO/IEC 27001, clauses 4.1 and 4.2"
+msgstr "ISO/IEC 27001, clauses 4.1 and 4.2"
+
+msgid "View the context item"
+msgstr "View the context item"
+
+msgid ""
+"Check that the issue or the interested party is still accurate "
+"(expectations, decision, links with risks and controls), then set the next "
+"review date."
+msgstr ""
+"Check that the issue or the interested party is still accurate "
+"(expectations, decision, links with risks and controls), then set the next "
+"review date."
+
+msgid ""
+"Sent by the GRC Manager automatic task when an issue or an interested party "
+"reaches or approaches its review date."
+msgstr ""
+"Sent by the GRC Manager automatic task when an issue or an interested party "
+"reaches or approaches its review date."
+
+#, php-format
+msgid "%d other linked item is not shown to you."
+msgid_plural "%d other linked items are not shown to you."
+msgstr[0] "%d other linked item is not shown to you."
+msgstr[1] "%d other linked items are not shown to you."
+
+#, php-format
+msgid "%d internal or external issue"
+msgid_plural "%d internal or external issues"
+msgstr[0] "%d internal or external issue"
+msgstr[1] "%d internal or external issues"
+
+#, php-format
+msgid "%d interested party"
+msgid_plural "%d interested parties"
+msgstr[0] "%d interested party"
+msgstr[1] "%d interested parties"
+
+#, php-format
+msgid "%1$d item changed since %2$s"
+msgid_plural "%1$d items changed since %2$s"
+msgstr[0] "%1$d item changed since %2$s"
+msgstr[1] "%1$d items changed since %2$s"
+
+#, php-format
+msgid "%d item past its review date"
+msgid_plural "%d items past their review date"
+msgstr[0] "%d item past its review date"
+msgstr[1] "%d items past their review date"
+
+msgid "Issue or interested party"
+msgid_plural "Issues and interested parties"
+msgstr[0] "Issue or interested party"
+msgstr[1] "Issues and interested parties"
+
+msgid "Firmware"
+msgstr "Firmware"
+
+msgid "Firmware of network equipment, printers, phones or computers"
+msgstr "Firmware of network equipment, printers, phones or computers"
 
 #~ msgid "Participant: %s"
 #~ msgstr "Participant: %s"
