@@ -17824,3 +17824,12 @@ msgstr "Assurée par un prestataire certifié"
 #: issue-609
 msgid "Out of the ISMS scope"
 msgstr "Hors du périmètre du SMSI"
+
+
+msgid "Firmware"
+msgstr "Firmware"
+
+msgid "Firmware of network equipment, printers, phones or computers"
+msgstr ""
+"Firmware d'un matériel réseau, d'une imprimante, d'un téléphone ou d'un "
+"ordinateur"

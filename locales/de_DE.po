@@ -17975,3 +17975,9 @@ msgstr "Von einem zertifizierten Dienstleister übernommen"
 msgid "Out of the ISMS scope"
 msgstr "Außerhalb des ISMS-Geltungsbereichs"
 
+
+msgid "Firmware"
+msgstr "Firmware"
+
+msgid "Firmware of network equipment, printers, phones or computers"
+msgstr "Firmware von Netzwerkgeräten, Druckern, Telefonen oder Computern"

@@ -22686,3 +22686,10 @@ msgstr "Handled by a certified provider"
 #: issue-609
 msgid "Out of the ISMS scope"
 msgstr "Out of the ISMS scope"
+
+
+msgid "Firmware"
+msgstr "Firmware"
+
+msgid "Firmware of network equipment, printers, phones or computers"
+msgstr "Firmware of network equipment, printers, phones or computers"

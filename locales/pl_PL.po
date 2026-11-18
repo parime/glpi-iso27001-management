@@ -17735,3 +17735,11 @@ msgstr "Realizowane przez certyfikowanego dostawcę"
 msgid "Out of the ISMS scope"
 msgstr "Poza zakresem SZBI"
 
+
+msgid "Firmware"
+msgstr "Oprogramowanie układowe"
+
+msgid "Firmware of network equipment, printers, phones or computers"
+msgstr ""
+"Oprogramowanie układowe urządzeń sieciowych, drukarek, telefonów lub "
+"komputerów"

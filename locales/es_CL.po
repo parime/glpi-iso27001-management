@@ -17834,3 +17834,10 @@ msgstr "A cargo de un proveedor certificado"
 #: issue-609
 msgid "Out of the ISMS scope"
 msgstr "Fuera del alcance del SGSI"
+
+
+msgid "Firmware"
+msgstr "Firmware"
+
+msgid "Firmware of network equipment, printers, phones or computers"
+msgstr "Firmware de equipos de red, impresoras, teléfonos u ordenadores"

@@ -17697,3 +17697,10 @@ msgstr "A cargo de um fornecedor certificado"
 msgid "Out of the ISMS scope"
 msgstr "Fora do escopo do SGSI"
 
+
+msgid "Firmware"
+msgstr "Firmware"
+
+msgid "Firmware of network equipment, printers, phones or computers"
+msgstr ""
+"Firmware de equipamentos de rede, impressoras, telefones ou computadores"
