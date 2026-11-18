@@ -66,6 +66,18 @@ final class RiskRegisterImport
         ) {
             $labels[$column] = array_flip(array_map('strval', $values));
         }
+        // Issue #706, lot 2 : avec des libellés personnalisés, le libellé par défaut (traduit) reste
+        // reconnu, pour un fichier préparé avant le renommage.
+        $defaults = [
+            'probability' => [Risk::getDefaultProbabilityLabels(), array_keys(Risk::getProbabilities())],
+            'impact'      => [Risk::getDefaultImpactLabels(), array_keys(Risk::getImpacts())],
+        ];
+        foreach (['probability', 'residual_probability', 'impact', 'residual_impact'] as $column) {
+            [$default, $keys] = $defaults[str_replace('residual_', '', $column)];
+            foreach ($keys as $key) {
+                $labels[$column] += [(string) ($default[$key] ?? $key) => $key];
+            }
+        }
         [$users, $logins] = self::userLookup();
         [$assets, $names, $serials] = self::assetLookup();
 
@@ -410,6 +422,7 @@ final class RiskRegisterImport
         $categories = Risk::getCategories();
         $probabilities = Risk::getProbabilities();
         $impacts = Risk::getImpacts();
+        $levels = Risk::getRiskLevels();
         $treatments = Risk::getTreatments();
         $statuses = Risk::getStatuses();
         $logins = self::lookups(true)['logins'];
@@ -435,8 +448,9 @@ final class RiskRegisterImport
                 $label($statuses, $risk['status']),
                 implode(', ', $risk['annex_a']),
                 implode(', ', array_map([self::class, 'assetLabel'], $risk['assets'])),
-                $label($impacts, $risk['risk_level']),
-                (string) $risk['residual_level'] !== '' ? $label($impacts, $risk['residual_level']) : '',
+                // Issue #706 : niveaux de risque (quatre valeurs), jamais les libellés d'impact.
+                $label($levels, $risk['risk_level']),
+                (string) $risk['residual_level'] !== '' ? $label($levels, $risk['residual_level']) : '',
             ];
         }
 

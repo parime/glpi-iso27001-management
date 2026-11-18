@@ -54,6 +54,42 @@ if (isset($_POST['update_risk_matrix'])) {
     Html::back();
 }
 
+if (isset($_POST['update_risk_scale_labels'])) {
+    Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
+
+    // Issue #706, lot 2 : libellés des niveaux de probabilité et d'impact. Seules les clés connues
+    // sont gardées (RiskScale::sanitizeLabels) ; un champ vide remet le libellé par défaut, traduit.
+    // Les libellés des valeurs hors de la taille actuelle sont conservés tels quels.
+    $before = RiskMatrixConfig::labels();
+    $posted = is_array($_POST['scale_labels'] ?? null) ? $_POST['scale_labels'] : [];
+    $after = $before;
+    $size = RiskMatrixConfig::size();
+    foreach (
+        [
+            'probability' => \GlpiPlugin\Grcmanager\Services\Risk\RiskScale::probabilityKeys($size),
+            'impact'      => \GlpiPlugin\Grcmanager\Services\Risk\RiskScale::impactKeys($size),
+        ] as $axis => $keys
+    ) {
+        foreach ($keys as $key) {
+            unset($after[$axis][$key]);
+            $value = $posted[$axis][$key] ?? null;
+            if (is_string($value)) {
+                $after[$axis][$key] = $value;
+            }
+        }
+    }
+    RiskMatrixConfig::saveLabels($after);
+    $saved = RiskMatrixConfig::labels();
+    if ($saved !== $before) {
+        \GlpiPlugin\Grcmanager\AuditLog::record('config_change', 'Config', 0, 0, 'success', [
+            'risk_scale_labels' => ['from' => $before, 'to' => $saved],
+        ]);
+    }
+    Session::addMessageAfterRedirect(__('The level labels have been saved.', 'grcmanager'));
+
+    Html::back();
+}
+
 if (isset($_POST['update_securityincident_modules'])) {
     Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
 
@@ -350,6 +386,11 @@ Html::header(
     'risk_scale_size'    => RiskMatrixConfig::size(),
     'risk_scale_sizes'   => \GlpiPlugin\Grcmanager\RiskScaleChange::sizeLabels(),
     'risk_scale_url'     => \GlpiPlugin\Grcmanager\RiskScaleChange::getPageURL(),
+    // Issue #706, lot 2 : libellés personnalisés (vides : libellé par défaut, traduit).
+    'risk_scale_labels'           => RiskMatrixConfig::labels(),
+    'risk_default_probabilities'  => \GlpiPlugin\Grcmanager\Risk::getDefaultProbabilityLabels(),
+    'risk_default_impacts'        => \GlpiPlugin\Grcmanager\Risk::getDefaultImpactLabels(),
+    'risk_label_max_length'       => \GlpiPlugin\Grcmanager\Services\Risk\RiskScale::LABEL_MAX_LENGTH,
     'csrf_token'         => Session::getNewCSRFToken(),
     'installed_version'     => PLUGIN_GRCMANAGER_VERSION,
     'latest_github_version' => GithubVersionChecker::getLatestGithubVersion(),

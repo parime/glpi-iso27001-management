@@ -18,6 +18,7 @@
 namespace GlpiPlugin\Grcmanager;
 
 use GlpiPlugin\Grcmanager\Services\Risk\EbiosRules;
+use GlpiPlugin\Grcmanager\Services\Risk\RiskMatrixConfig;
 use Session;
 
 /**
@@ -102,8 +103,12 @@ class EbiosOperationalScenario extends EbiosElement
             'title'         => (string) $this->fields['name'],
             'description'   => $this->registerDescription($study, $strategic, $event),
             'category'      => $stakeholderId > 0 ? 'third_party' : 'technical',
-            'probability'   => EbiosRules::likelihoodToProbability((int) $this->fields['likelihood']),
-            'impact'        => EbiosRules::severityToImpact((int) $event->fields['severity']),
+            // Issue #706 : valeurs de l'échelle de la matrice du registre (4x4 ou 5x5).
+            'probability'   => EbiosRules::likelihoodToProbability(
+                (int) $this->fields['likelihood'],
+                RiskMatrixConfig::size()
+            ),
+            'impact'        => EbiosRules::severityToImpact((int) $event->fields['severity'], RiskMatrixConfig::size()),
             'treatment'     => (string) $this->fields['treatment'],
             'justification' => (string) $this->fields['justification'],
             'users_id'      => (int) ($study->fields['users_id'] ?? 0),

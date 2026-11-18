@@ -24,6 +24,10 @@
     <td>{{ open_count.label }}</td>
     <td class="grcmanager-pdf-summary-number">{{ open_count.number }}</td>
   </tr>
+  <tr>
+    <td>{{ __('Risk matrix', 'grcmanager') }}</td>
+    <td class="grcmanager-pdf-summary-number">{{ matrix_size }}</td>
+  </tr>
   {% for entry in by_level.data %}
     <tr>
       <td>{{ __('Level', 'grcmanager') }} : {{ entry.label }}</td>
@@ -38,6 +42,8 @@
     <tr>
       <th>{{ __('Title', 'grcmanager') }}</th>
       <th>{{ __('Category', 'grcmanager') }}</th>
+      <th>{{ __('Probability', 'grcmanager') }}</th>
+      <th>{{ __('Impact', 'grcmanager') }}</th>
       <th>{{ __('Risk level', 'grcmanager') }}</th>
       <th>{{ __('Treatment', 'grcmanager') }}</th>
       <th>{{ __('Status', 'grcmanager') }}</th>
@@ -50,6 +56,8 @@
       <tr>
         <td>{{ risk.title }}</td>
         <td>{{ risk.category }}</td>
+        <td>{{ risk.probability }}</td>
+        <td>{{ risk.impact }}</td>
         <td>{{ risk.risk_level }}</td>
         <td>{{ risk.treatment }}</td>
         <td>{{ risk.status }}</td>
