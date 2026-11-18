@@ -1264,7 +1264,7 @@ final class AcnCatalogDefaults
     {
         $controls = [];
         foreach (ControlCrosswalkDefaults::CROSSWALK as $annexA => $mapping) {
-            if (in_array($code, $mapping['nist_csf'] ?? [], true)) {
+            if (in_array($code, $mapping['nist_csf'], true)) {
                 $controls[] = 'A.' . $annexA;
             }
         }
@@ -1280,11 +1280,9 @@ final class AcnCatalogDefaults
     public static function nis2For(string $code, ?string $language = null): array
     {
         $refs = [];
-        foreach (self::MEASURES[$code]['nis2'] ?? [] as $key) {
-            $requirement = Nis2CatalogDefaults::REQUIREMENTS[$key] ?? null;
-            if ($requirement !== null) {
-                $refs[$key] = CatalogLanguage::pick($requirement, '', $language);
-            }
+        $keys = array_flip(self::MEASURES[$code]['nis2'] ?? []);
+        foreach (array_intersect_key(Nis2CatalogDefaults::REQUIREMENTS, $keys) as $key => $requirement) {
+            $refs[(string) $key] = CatalogLanguage::pick($requirement, '', $language);
         }
 
         return $refs;

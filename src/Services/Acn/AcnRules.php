@@ -73,17 +73,23 @@ final class AcnRules
         return [];
     }
 
+    /** @param array<string, mixed> $row */
     public static function isApplicable(array $row): bool
     {
         return self::normalizeApplicability($row['applicability'] ?? 'yes') !== 'no';
     }
 
+    /** @param array<string, mixed> $row */
     public static function isDone(array $row): bool
     {
         return in_array((string) ($row['implementation_status'] ?? ''), self::DONE_STATUSES, true);
     }
 
-    /** Échéance dépassée d'un point applicable et pas encore mis en œuvre. */
+    /**
+     * Échéance dépassée d'un point applicable et pas encore mis en œuvre.
+     *
+     * @param array<string, mixed> $row
+     */
     public static function isOverdue(array $row, string $today): bool
     {
         $due = (string) ($row['due_date'] ?? '');
@@ -91,7 +97,11 @@ final class AcnRules
         return $due !== '' && $due < $today && self::isApplicable($row) && !self::isDone($row);
     }
 
-    /** Approbation des organes de direction exigée par le point et pas encore enregistrée. */
+    /**
+     * Approbation des organes de direction exigée par le point et pas encore enregistrée.
+     *
+     * @param array<string, mixed> $row
+     */
     public static function isApprovalMissing(array $row): bool
     {
         return AcnCatalogDefaults::requiresApproval((string) ($row['code'] ?? ''), (int) ($row['point'] ?? 0))

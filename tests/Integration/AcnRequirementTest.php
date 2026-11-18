@@ -54,9 +54,19 @@ final class AcnRequirementTest extends GrcmanagerIntegrationTestCase
         $this->savedFrameworks = FrameworkConfig::enabled();
         FrameworkConfig::save(array_merge($this->savedFrameworks, [FrameworkSelection::ACN_IT]));
 
+        // Catégories de l'instance écartées (annulé avec la transaction) : registres de ce test seulement.
+        global $DB;
+        $DB->delete(AcnRequirement::ENTITIES_TABLE, ['id' => ['>', 0]]);
+
         $_SESSION['glpiactive_entity'] = 0;
         $this->italy = $this->createTestEntity(0, 'PHPUnit Filiale Italia');
         $this->site = $this->createTestEntity($this->italy, 'PHPUnit Sito Milano');
+        // Sous-entité : ses ancêtres comprennent la filiale (droits sur les fiches récursives).
+        $DB->update(
+            'glpi_entities',
+            ['level' => 2, 'ancestors_cache' => json_encode([0 => 0, $this->italy => $this->italy])],
+            ['id' => $this->site]
+        );
         $this->other = $this->createTestEntity(0, 'PHPUnit Filiale Altra');
         EntityPerimeter::reset();
         AcnRequirement::resetCategories();
