@@ -25,6 +25,24 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
     « Revue du contexte à échéance »). Export CSV ou PDF par la liste de GLPI.
   - Droit général du plugin et entité de la fiche ; désinstallation complète (tables, tâche,
     notification).
+- **Vulnérabilités du parc : les firmwares sont rapprochés des CVE** (issue #705). La version
+  d'un commutateur, d'un routeur ou d'un pare-feu inventorié par SNMP est rangée par GLPI dans un
+  composant firmware, pas dans les logiciels : ces matériels échappaient au suivi.
+  - Seconde source du rapprochement : les firmwares (`Item_DeviceFirmware`, désignation et
+    version) des matériels réseau, imprimantes, téléphones, périphériques et ordinateurs (BIOS,
+    UEFI).
+  - Même règle que les logiciels : une désignation de firmware n'est reliée à un produit que par
+    un alias déclaré, jamais par ressemblance de nom. La page « Logiciels à surveiller » propose
+    aussi les firmwares, signalés par un badge.
+  - Version du firmware ramenée à sa forme publiée (préfixe « v » et numéro de build retirés).
+    Une version avec un train en lettres (« 15.2(7)E3 ») n'est reconnue que face à la même
+    version exacte ; face à une plage, elle reste « version non vérifiable ».
+  - La source (logiciel ou firmware) est affichée dans l'onglet CVE d'un incident, dans
+    « Vulnérabilités du parc » et dans l'onglet « Vulnérabilités » de l'actif. Les tickets de mise
+    à jour lient aussi les matériels concernés par un firmware.
+  - Entités et droits inchangés : un utilisateur ne voit et ne compte que les matériels de ses
+    entités, d'un type qu'il peut lire dans l'onglet CVE, comme pour les logiciels.
+
 
 - **Déclaration d'applicabilité : motifs de sélection et mesures compensatoires des exclusions**
   (issue #609, ISO 27001 6.1.3 d).
