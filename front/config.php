@@ -161,6 +161,36 @@ if (isset($_POST['update_frameworks'])) {
     Html::back();
 }
 
+// Issue #703 : catégorie NIS2 italienne (importante ou essentielle) de chaque entité, qui crée son
+// registre ACN. Seules les entités de la session sont modifiables ; rien n'est supprimé.
+if (isset($_POST['update_acn_entities'])) {
+    Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
+
+    $changes = [];
+    $created = 0;
+    foreach ((array) ($_POST['acn_category'] ?? []) as $entityId => $category) {
+        $entityId = (int) $entityId;
+        if (!Session::haveAccessToEntity($entityId)) {
+            continue;
+        }
+        $category = \GlpiPlugin\Grcmanager\Services\Acn\AcnRules::normalizeCategory($category);
+        if ($category === \GlpiPlugin\Grcmanager\AcnRequirement::categoryOf($entityId)) {
+            continue;
+        }
+        $created += \GlpiPlugin\Grcmanager\AcnRequirement::setCategory($entityId, $category);
+        $changes['acn_category_' . $entityId] = $category;
+    }
+    if ($changes !== []) {
+        \GlpiPlugin\Grcmanager\AuditLog::record('config_change', 'Config', 0, 0, 'success', ['changes' => $changes]);
+        Session::addMessageAfterRedirect(htmlescape(sprintf(
+            __('Classification saved; %d requirement record(s) created.', 'grcmanager'),
+            $created
+        )));
+    }
+
+    Html::back();
+}
+
 // Issue #375 : contact du DPO, repris sur l'export du registre des traitements (article 30).
 if (isset($_POST['update_dpo_contact'])) {
     Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
@@ -343,6 +373,12 @@ Html::header(
 
 \Glpi\Application\View\TemplateRenderer::getInstance()->display('@grcmanager/config_form.html.twig', [
     'risk_matrix'        => RiskMatrixConfig::load(),
+    // Issue #703 : catégorie NIS2 italienne des entités (registre ACN).
+    'acn_enabled'        => \GlpiPlugin\Grcmanager\AcnRequirement::isFrameworkEnabled(),
+    'acn_entities'       => \GlpiPlugin\Grcmanager\AcnRequirement::isFrameworkEnabled()
+        ? \GlpiPlugin\Grcmanager\AcnRequirement::configRows() : [],
+    'acn_categories'     => \GlpiPlugin\Grcmanager\AcnRequirement::getCategories(),
+    'acn_register_url'   => \GlpiPlugin\Grcmanager\AcnRequirement::getSearchURL(),
     'risk_probabilities' => \GlpiPlugin\Grcmanager\Risk::getProbabilities(),
     'risk_impacts'       => \GlpiPlugin\Grcmanager\Risk::getImpacts(),
     'risk_levels'        => \GlpiPlugin\Grcmanager\Risk::getRiskLevels(),

@@ -397,6 +397,8 @@ class Policy extends PolicyBase
     {
         PolicyAcknowledgement::purgePolicy($this->getID());
         PolicyVersion::purgePolicy($this->getID());
+        // Issue #703 : plus citée par le registre NIS2 Italia - ACN.
+        AcnRequirement::forgetPolicy((int) $this->getID());
     }
 
     public function showForm($ID, array $options = []): bool
