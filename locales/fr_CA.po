@@ -4296,6 +4296,14 @@ msgstr "Voir l'impact"
 msgid "More machines affected: %d now."
 msgstr "Plus de machines touchées : %d désormais."
 
+msgid "%d new machine linked to the ticket. Machines that are no longer vulnerable stay linked."
+msgid_plural "%d new machines linked to the ticket. Machines that are no longer vulnerable stay linked."
+msgstr[0] "%d nouvelle machine liée au ticket. Les machines qui ne sont plus vulnérables restent liées."
+msgstr[1] "%d nouvelles machines liées au ticket. Les machines qui ne sont plus vulnérables restent liées."
+
+msgid "The ticket has reached the limit of %d linked items: the other machines are not linked, see the Fleet vulnerabilities page."
+msgstr "Le ticket a atteint la limite de %d éléments liés : les autres machines ne sont pas liées, consultez la page Vulnérabilités du parc."
+
 msgid ""
 "No vulnerable machine is inventoried anymore: check, then close the ticket."
 msgstr ""
