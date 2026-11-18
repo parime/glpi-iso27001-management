@@ -17694,6 +17694,27 @@ msgstr "La matriz del plugin tiene %d niveles: una nota en otra escala se convie
 msgid "The proposed correspondence is the one that changes the fewest risk levels between the current grid and the grid of the new size."
 msgstr "La correspondencia propuesta es la que cambia menos niveles de riesgo entre la cuadrícula actual y la del nuevo tamaño."
 
+msgid "Export the map"
+msgstr "Exportar el mapa"
+
+msgid "Download the map as shown, to put it in a document or a presentation"
+msgstr "Descargar el mapa tal como se muestra, para incluirlo en un documento o una presentación"
+
+msgid "Image (PNG)"
+msgstr "Imagen (PNG)"
+
+msgid "Image (JPEG)"
+msgstr "Imagen (JPEG)"
+
+msgid "Vector image (SVG), sharp at any size"
+msgstr "Imagen vectorial (SVG), nítida en cualquier tamaño"
+
+msgid "Dependency map: %s"
+msgstr "Mapa de dependencias: %s"
+
+msgid "Exported on %s"
+msgstr "Exportado el %s"
+
 msgid "Interested party"
 msgstr "Parte interesada"
 

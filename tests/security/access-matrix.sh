@@ -292,8 +292,10 @@ if [ "$ROLE" = none ]; then
   contains "onglet Processus metier d'un risque : sans droit" "Processus securite" non \
     "$(tab GlpiPlugin%5CGrcmanager%5CRisk 'GlpiPlugin%5CGrcmanager%5CBusinessProcessRisk$1' "$(id risk)")"
   # Issue #377, quatrieme etape : carte des dependances demandee directement, sans droit.
-  contains "onglet Carte des dependances d'un processus : sans droit" "Processus securite" non \
-    "$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessProcessLink$2' "$(id process_A)")"
+  map=$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessProcessLink$2' "$(id process_A)")
+  contains "onglet Carte des dependances d'un processus : sans droit" "Processus securite" non "$map"
+  # Issue #701 : ni export en image.
+  contains "onglet Carte des dependances d'un processus : export, sans droit" "grc-map-export" non "$map"
   # Issue #403 : les referentiels actifs se reglent avec le droit de modifier la configuration.
   expect "front/config.php : desactiver les referentiels" 403 \
     "$(code -d "update_frameworks=1&_glpi_csrf_token=$(csrf)" "$P/config.php")"
@@ -335,8 +337,10 @@ if [ "$ROLE" = general ]; then
   contains "onglet Strategie de reprise d'un processus : rien" "Test de reprise A" non \
     "$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessProcessRecovery$1' "$(id process_A)")"
   # Issue #377, quatrieme etape : ni carte des dependances sans le droit de la continuite.
-  contains "onglet Carte des dependances d'un processus : rien" "Processus securite" non \
-    "$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessProcessLink$2' "$(id process_A)")"
+  map=$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessProcessLink$2' "$(id process_A)")
+  contains "onglet Carte des dependances d'un processus : rien" "Processus securite" non "$map"
+  # Issue #701 : ni export en image.
+  contains "onglet Carte des dependances d'un processus : export, rien" "grc-map-export" non "$map"
   expect "front/businessprocessrecovery.form.php : sans le droit de la continuite" 403 \
     "$(code -d "add=1&plugin_grcmanager_businessprocesses_id=$(id process_A)&measured_minutes=60&_glpi_csrf_token=$(csrf)" "$P/businessprocessrecovery.form.php")"
   contains "onglet Processus metier d'une application : rien" "Processus securite" non \
@@ -563,11 +567,12 @@ expect "creer un KRI dans l'entite B" "$([ "$ROLE" = admin ] && echo 302 || echo
 # Issue #608 : une fiche du contexte de l'organisation appartient a son entite.
 expect "contexte, entite A"             200    "$(code "$P/contextitem.form.php?id=$(id context_A)")"
 expect "contexte, entite B"             $DENY  "$(code "$P/contextitem.form.php?id=$(id context_B)")"
-expect "modifier le contexte de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
-  "$(code -d "update=1&id=$(id context_B)&name=securite&_glpi_csrf_token=$(csrf)" "$P/contextitem.form.php")"
 contexts=$(curl -s -c "$JAR" -b "$JAR" "$P/contextitem.php")
 contains "liste du contexte : partie de A" "Partie securite A" oui    "$contexts"
 contains "liste du contexte : partie de B" "Partie securite B" $SEE_B "$contexts"
+# Le nom est conserve : la fiche reste reconnaissable pour les profils suivants.
+expect "modifier le contexte de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
+  "$(code -d "update=1&id=$(id context_B)&name=Partie%20securite%20B&_glpi_csrf_token=$(csrf)" "$P/contextitem.form.php")"
 kris=$(curl -s -c "$JAR" -b "$JAR" "$P/riskindicator.php")
 contains "liste des KRI : KRI de A" "KRI securite A" oui    "$kris"
 contains "liste des KRI : KRI de B" "KRI securite B" $SEE_B "$kris"
@@ -670,8 +675,13 @@ contains "carte des dependances de A : PC de A" "PC securite A" oui "$map"
 contains "carte des dependances de A : processus de B" "Processus securite B" $SEE_B "$map"
 contains "carte des dependances de A : PC de B" "PC securite B" $SEE_B "$map"
 contains "carte des dependances de A : identifiant du PC de B" "Computer:$(id computer_B)&quot;" $SEE_B "$map"
-contains "carte des dependances d'un processus de B" "Processus securite B" $SEE_B \
-  "$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessProcessLink$2' "$(id process_B)")"
+# Issue #701 : l'export en image part du graphe affiche ; ses titre, nom de fichier et mention des
+# elements caches ne nomment rien de B pour un profil limite a A.
+contains "carte des dependances de A : bouton d'export" "grc-map-export" oui "$map"
+contains "carte des dependances de A : export, nom de fichier" "processus-securite-a-20" oui "$map"
+map_b=$(tab GlpiPlugin%5CGrcmanager%5CBusinessProcess 'GlpiPlugin%5CGrcmanager%5CBusinessProcessLink$2' "$(id process_B)")
+contains "carte des dependances d'un processus de B" "Processus securite B" $SEE_B "$map_b"
+contains "carte des dependances d'un processus de B : bouton d'export" "grc-map-export" $SEE_B "$map_b"
 
 # Issue #145 : preuves datées, uniquement celles de ses entités.
 evidences=$(curl -s -c "$JAR" -b "$JAR" "$P/evidence.php")

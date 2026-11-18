@@ -22546,6 +22546,27 @@ msgstr "The plugin matrix has %d levels: a score on another scale is converted (
 msgid "The proposed correspondence is the one that changes the fewest risk levels between the current grid and the grid of the new size."
 msgstr "The proposed correspondence is the one that changes the fewest risk levels between the current grid and the grid of the new size."
 
+msgid "Export the map"
+msgstr "Export the map"
+
+msgid "Download the map as shown, to put it in a document or a presentation"
+msgstr "Download the map as shown, to put it in a document or a presentation"
+
+msgid "Image (PNG)"
+msgstr "Image (PNG)"
+
+msgid "Image (JPEG)"
+msgstr "Image (JPEG)"
+
+msgid "Vector image (SVG), sharp at any size"
+msgstr "Vector image (SVG), sharp at any size"
+
+msgid "Dependency map: %s"
+msgstr "Dependency map: %s"
+
+msgid "Exported on %s"
+msgstr "Exported on %s"
+
 msgid "Interested party"
 msgstr "Interested party"
 

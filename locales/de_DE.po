@@ -17834,6 +17834,27 @@ msgstr "Die Matrix des Plugins hat %d Stufen: Eine Bewertung auf einer anderen S
 msgid "The proposed correspondence is the one that changes the fewest risk levels between the current grid and the grid of the new size."
 msgstr "Die vorgeschlagene Zuordnung ist diejenige, die zwischen dem aktuellen Raster und dem Raster der neuen Größe die wenigsten Risikostufen ändert."
 
+msgid "Export the map"
+msgstr "Karte exportieren"
+
+msgid "Download the map as shown, to put it in a document or a presentation"
+msgstr "Die Karte wie angezeigt herunterladen, um sie in ein Dokument oder eine Präsentation einzufügen"
+
+msgid "Image (PNG)"
+msgstr "Bild (PNG)"
+
+msgid "Image (JPEG)"
+msgstr "Bild (JPEG)"
+
+msgid "Vector image (SVG), sharp at any size"
+msgstr "Vektorgrafik (SVG), in jeder Größe scharf"
+
+msgid "Dependency map: %s"
+msgstr "Abhängigkeitskarte: %s"
+
+msgid "Exported on %s"
+msgstr "Exportiert am %s"
+
 msgid "Interested party"
 msgstr "Interessierte Partei"
 
