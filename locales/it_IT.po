@@ -17542,3 +17542,125 @@ msgstr "Non puoi creare una non conformità in questa entità."
 
 msgid "This account has no profile in the entity of the audit."
 msgstr "Questo account non ha alcun profilo nell'entità dell'audit."
+
+msgid "Very rare"
+msgstr "Molto rara"
+
+msgid "4 x 4: four levels of probability and of impact"
+msgstr "4 x 4: quattro livelli di probabilità e di impatto"
+
+msgid "5 x 5: five levels of probability and of impact"
+msgstr "5 x 5: cinque livelli di probabilità e di impatto"
+
+msgid "%1$d x %1$d"
+msgstr "%1$d x %1$d"
+
+msgid "Risk matrix changed from %1$s to %2$s: values converted with the correspondence validated by the administrator"
+msgstr "Matrice dei rischi passata da %1$s a %2$s: valori convertiti secondo la corrispondenza convalidata dall'amministratore"
+
+msgid "Choose a matrix size different from the current one."
+msgstr "Scegliere una dimensione della matrice diversa da quella attuale."
+
+msgid "Tick the box to confirm that you have checked the correspondence."
+msgstr "Spuntare la casella per confermare di aver verificato la corrispondenza."
+
+msgid "The risk matrix is now %1$s. Risks updated: %2$d (see the history of each risk)."
+msgstr "La matrice dei rischi è ora %1$s. Rischi aggiornati: %2$d (vedere la cronologia di ogni rischio)."
+
+msgid "Change the risk matrix size"
+msgstr "Cambiare la dimensione della matrice dei rischi"
+
+msgid "Current size: %1$s. New size: %2$s."
+msgstr "Dimensione attuale: %1$s. Nuova dimensione: %2$s."
+
+msgid "Correspondence of the values"
+msgstr "Corrispondenza dei valori"
+
+msgid "Check the effect and apply"
+msgstr "Verificare l'effetto e applicare"
+
+msgid "Each value used today by the risks is converted into a value of the new scale. A correspondence is proposed below: check it and change it if needed, then look at its effect. Nothing is changed in the register before you apply."
+msgstr "Ogni valore usato oggi dai rischi viene convertito in un valore della nuova scala. Qui sotto è proposta una corrispondenza: verificarla, modificarla se necessario, poi osservarne l'effetto. Nulla cambia nel registro prima dell'applicazione."
+
+msgid "Current value"
+msgstr "Valore attuale"
+
+msgid "Risks using it"
+msgstr "Rischi che lo usano"
+
+msgid "New value"
+msgstr "Nuovo valore"
+
+msgid "The new values that no current value goes to stay available for the next assessments."
+msgstr "I nuovi valori verso cui non va alcun valore attuale restano disponibili per le prossime valutazioni."
+
+msgid "Effect on the register"
+msgstr "Effetto sul registro"
+
+msgid "No risk changes: their values and levels stay the same."
+msgstr "Nessun rischio cambia: valori e livelli restano gli stessi."
+
+msgid "%1$d risk out of %2$d will be updated."
+msgid_plural "%1$d risks out of %2$d will be updated."
+msgstr[0] "%1$d rischio su %2$d sarà aggiornato."
+msgstr[1] "%1$d rischi su %2$d saranno aggiornati."
+
+msgid "Risks whose level goes up: %d."
+msgstr "Rischi il cui livello sale: %d."
+
+msgid "Risks whose level goes down: %d."
+msgstr "Rischi il cui livello scende: %d."
+
+msgid "Each change is recorded in the history of the risk. Accepted risks keep their decision: check those whose level goes up against the risk appetite."
+msgstr "Ogni modifica è registrata nella cronologia del rischio. I rischi accettati mantengono la loro decisione: verificare quelli il cui livello sale rispetto alla propensione al rischio."
+
+msgid "Current level"
+msgstr "Livello attuale"
+
+msgid "New level"
+msgstr "Nuovo livello"
+
+msgid "Number of risks"
+msgstr "Numero di rischi"
+
+msgid "Risk matrix after the change"
+msgstr "Matrice dei rischi dopo il cambiamento"
+
+msgid "Default grid of the new size. You can adjust it afterwards in the configuration."
+msgstr "Griglia predefinita della nuova dimensione. Potrà essere adattata in seguito nella configurazione."
+
+msgid "See the effect"
+msgstr "Vedere l'effetto"
+
+msgid "I have checked the correspondence and its effect on the risk levels."
+msgstr "Ho verificato la corrispondenza e il suo effetto sui livelli di rischio."
+
+msgid "Apply the new size"
+msgstr "Applicare la nuova dimensione"
+
+msgid "Change the correspondence"
+msgstr "Modificare la corrispondenza"
+
+msgid "Matrix size"
+msgstr "Dimensione della matrice"
+
+msgid "Current size: %s."
+msgstr "Dimensione attuale: %s."
+
+msgid "Changing the size converts the probability and impact of every existing risk: you first choose how the current values correspond to the new ones, and see the effect before applying it."
+msgstr "Cambiare la dimensione converte la probabilità e l'impatto di ogni rischio esistente: si sceglie prima come i valori attuali corrispondono ai nuovi e si vede l'effetto prima di applicarlo."
+
+msgid "New size"
+msgstr "Nuova dimensione"
+
+msgid "Prepare the change"
+msgstr "Preparare il cambiamento"
+
+msgid "Changing the size requires the right to update the plugin configuration and the sensitive registers."
+msgstr "Per cambiare la dimensione serve il diritto di modificare la configurazione del plugin e i registri sensibili."
+
+msgid "The plugin matrix has %d levels: a score on another scale is converted (the lowest and highest scores match)."
+msgstr "La matrice del plugin ha %d livelli: un punteggio su un'altra scala viene convertito (il punteggio più basso e il più alto si corrispondono)."
+
+msgid "The proposed correspondence is the one that changes the fewest risk levels between the current grid and the grid of the new size."
+msgstr "La corrispondenza proposta è quella che cambia il minor numero di livelli di rischio tra la griglia attuale e quella della nuova dimensione."

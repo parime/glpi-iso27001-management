@@ -22415,3 +22415,125 @@ msgstr "Re-assess the waiver \"%s\""
 #~ msgstr ""
 #~ "Sent to the person who submitted a version of a security policy and to "
 #~ "the policy owner when the version is approved or rejected."
+
+msgid "Very rare"
+msgstr "Very rare"
+
+msgid "4 x 4: four levels of probability and of impact"
+msgstr "4 x 4: four levels of probability and of impact"
+
+msgid "5 x 5: five levels of probability and of impact"
+msgstr "5 x 5: five levels of probability and of impact"
+
+msgid "%1$d x %1$d"
+msgstr "%1$d x %1$d"
+
+msgid "Risk matrix changed from %1$s to %2$s: values converted with the correspondence validated by the administrator"
+msgstr "Risk matrix changed from %1$s to %2$s: values converted with the correspondence validated by the administrator"
+
+msgid "Choose a matrix size different from the current one."
+msgstr "Choose a matrix size different from the current one."
+
+msgid "Tick the box to confirm that you have checked the correspondence."
+msgstr "Tick the box to confirm that you have checked the correspondence."
+
+msgid "The risk matrix is now %1$s. Risks updated: %2$d (see the history of each risk)."
+msgstr "The risk matrix is now %1$s. Risks updated: %2$d (see the history of each risk)."
+
+msgid "Change the risk matrix size"
+msgstr "Change the risk matrix size"
+
+msgid "Current size: %1$s. New size: %2$s."
+msgstr "Current size: %1$s. New size: %2$s."
+
+msgid "Correspondence of the values"
+msgstr "Correspondence of the values"
+
+msgid "Check the effect and apply"
+msgstr "Check the effect and apply"
+
+msgid "Each value used today by the risks is converted into a value of the new scale. A correspondence is proposed below: check it and change it if needed, then look at its effect. Nothing is changed in the register before you apply."
+msgstr "Each value used today by the risks is converted into a value of the new scale. A correspondence is proposed below: check it and change it if needed, then look at its effect. Nothing is changed in the register before you apply."
+
+msgid "Current value"
+msgstr "Current value"
+
+msgid "Risks using it"
+msgstr "Risks using it"
+
+msgid "New value"
+msgstr "New value"
+
+msgid "The new values that no current value goes to stay available for the next assessments."
+msgstr "The new values that no current value goes to stay available for the next assessments."
+
+msgid "Effect on the register"
+msgstr "Effect on the register"
+
+msgid "No risk changes: their values and levels stay the same."
+msgstr "No risk changes: their values and levels stay the same."
+
+msgid "%1$d risk out of %2$d will be updated."
+msgid_plural "%1$d risks out of %2$d will be updated."
+msgstr[0] "%1$d risk out of %2$d will be updated."
+msgstr[1] "%1$d risks out of %2$d will be updated."
+
+msgid "Risks whose level goes up: %d."
+msgstr "Risks whose level goes up: %d."
+
+msgid "Risks whose level goes down: %d."
+msgstr "Risks whose level goes down: %d."
+
+msgid "Each change is recorded in the history of the risk. Accepted risks keep their decision: check those whose level goes up against the risk appetite."
+msgstr "Each change is recorded in the history of the risk. Accepted risks keep their decision: check those whose level goes up against the risk appetite."
+
+msgid "Current level"
+msgstr "Current level"
+
+msgid "New level"
+msgstr "New level"
+
+msgid "Number of risks"
+msgstr "Number of risks"
+
+msgid "Risk matrix after the change"
+msgstr "Risk matrix after the change"
+
+msgid "Default grid of the new size. You can adjust it afterwards in the configuration."
+msgstr "Default grid of the new size. You can adjust it afterwards in the configuration."
+
+msgid "See the effect"
+msgstr "See the effect"
+
+msgid "I have checked the correspondence and its effect on the risk levels."
+msgstr "I have checked the correspondence and its effect on the risk levels."
+
+msgid "Apply the new size"
+msgstr "Apply the new size"
+
+msgid "Change the correspondence"
+msgstr "Change the correspondence"
+
+msgid "Matrix size"
+msgstr "Matrix size"
+
+msgid "Current size: %s."
+msgstr "Current size: %s."
+
+msgid "Changing the size converts the probability and impact of every existing risk: you first choose how the current values correspond to the new ones, and see the effect before applying it."
+msgstr "Changing the size converts the probability and impact of every existing risk: you first choose how the current values correspond to the new ones, and see the effect before applying it."
+
+msgid "New size"
+msgstr "New size"
+
+msgid "Prepare the change"
+msgstr "Prepare the change"
+
+msgid "Changing the size requires the right to update the plugin configuration and the sensitive registers."
+msgstr "Changing the size requires the right to update the plugin configuration and the sensitive registers."
+
+msgid "The plugin matrix has %d levels: a score on another scale is converted (the lowest and highest scores match)."
+msgstr "The plugin matrix has %d levels: a score on another scale is converted (the lowest and highest scores match)."
+
+msgid "The proposed correspondence is the one that changes the fewest risk levels between the current grid and the grid of the new size."
+msgstr "The proposed correspondence is the one that changes the fewest risk levels between the current grid and the grid of the new size."
