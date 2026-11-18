@@ -18186,3 +18186,189 @@ msgid "Firmware of network equipment, printers, phones or computers"
 msgstr ""
 "Oprogramowanie układowe urządzeń sieciowych, drukarek, telefonów lub "
 "komputerów"
+
+msgid "Classification"
+msgstr "Klasyfikacja"
+
+msgid "ACN determination %s"
+msgstr "decyzja ACN %s"
+
+msgid "Annex %d"
+msgstr "Załącznik %d"
+
+msgid "%d not applicable"
+msgstr "%d nie dotyczy"
+
+msgid "Implemented requirements"
+msgstr "Wdrożone wymagania"
+
+msgid "Approvals to record"
+msgstr "Zatwierdzenia do zarejestrowania"
+
+msgid "Function"
+msgstr "Funkcja"
+
+msgid "Required, not recorded"
+msgstr "Wymagane, nie zarejestrowane"
+
+msgid "Codes and point numbers come from the annexes published by the ACN; titles and summaries are written by this project and do not replace the official text."
+msgstr "Kody i numery punktów pochodzą z załączników opublikowanych przez ACN; tytuły i streszczenia przygotował ten projekt i nie zastępują one tekstu urzędowego."
+
+msgid "Codes and point numbers come from the annexes published by the ACN; titles and summaries are written by this project and do not replace the official text:"
+msgstr "Kody i numery punktów pochodzą z załączników opublikowanych przez ACN; tytuły i streszczenia przygotował ten projekt i nie zastępują one tekstu urzędowego:"
+
+msgid "NIS2 Italy: ACN basic security measures (determination %s)"
+msgstr "NIS2 Włochy: podstawowe środki bezpieczeństwa ACN (decyzja %s)"
+
+msgid "Open the NIS2 Italy register"
+msgstr "Otwórz rejestr NIS2 Włochy"
+
+msgid "Classify the entities"
+msgstr "Sklasyfikuj podmioty"
+
+msgid "Measures of the Italian NIS2 law (D.Lgs. 138/2024). Codes follow the national framework, aligned with NIST CSF 2.0. Each requirement has its own record in the register of the entity, without going through ISO 27001 Annex A."
+msgstr "Środki włoskiej ustawy NIS2 (D.Lgs. 138/2024). Kody odpowiadają krajowym ramom, zgodnym z NIST CSF 2.0. Każde wymaganie ma własną kartę w rejestrze podmiotu, bez przechodzenia przez załącznik A normy ISO 27001."
+
+msgid "Annex 1, important entities: %1$d measures, %2$d requirements"
+msgstr "Załącznik 1, podmioty ważne: %1$d środków, %2$d wymagań"
+
+msgid "Annex 2, essential entities: %1$d measures, %2$d requirements"
+msgstr "Załącznik 2, podmioty kluczowe: %1$d środków, %2$d wymagań"
+
+msgid "Your entity: %s"
+msgstr "Twój podmiot: %s"
+
+msgid "Measure"
+msgstr "Środek"
+
+msgid "Source: ACN determination %s, annexes 1 and 2 (public documents). Codes and point numbers are the official ones; titles, summaries and the mapping to NIS2 are made by this project. Only the text published by the ACN is authentic."
+msgstr "Źródło: decyzja ACN %s, załączniki 1 i 2 (dokumenty publiczne). Kody i numery punktów są urzędowe; tytuły, streszczenia i powiązania z NIS2 przygotował ten projekt. Wiążący jest wyłącznie tekst opublikowany przez ACN."
+
+msgid "ACN requirement"
+msgstr "Wymaganie ACN"
+
+msgid "Management approval required"
+msgstr "Wymagane zatwierdzenie kierownictwa"
+
+msgid "Summary written by this project to help you find the requirement. Only the text published by the ACN is authentic: open the source below."
+msgstr "Streszczenie przygotowane przez ten projekt, aby ułatwić odnalezienie wymagania. Wiążący jest wyłącznie tekst opublikowany przez ACN: otwórz źródło poniżej."
+
+msgid "Official reference"
+msgstr "Odniesienie urzędowe"
+
+msgid "This requirement only applies to essential entities: it is not part of the catalogue of this entity (%s). It is kept in case the classification changes."
+msgstr "To wymaganie dotyczy tylko podmiotów kluczowych: nie należy do katalogu tego podmiotu (%s). Jest zachowane na wypadek zmiany klasyfikacji."
+
+msgid "Required when the requirement is not fully applicable: the ACN accepts exceptions only for reasons that are justified and documented."
+msgstr "Obowiązkowe, gdy wymaganie nie ma pełnego zastosowania: ACN dopuszcza wyjątki tylko z uzasadnionych i udokumentowanych powodów."
+
+msgid "Notes"
+msgstr "Uwagi"
+
+msgid "Approval by the management bodies"
+msgstr "Zatwierdzenie przez organy zarządzające"
+
+msgid "This point requires the approval of the administrative and management bodies. Record the date and attach the minutes in the Documents tab."
+msgstr "Ten punkt wymaga zatwierdzenia przez organy administracyjne i zarządzające. Wpisz datę i dołącz protokół w zakładce Dokumenty."
+
+msgid "Approval reference"
+msgstr "Odniesienie do zatwierdzenia"
+
+msgid "For example \"Board resolution no. 12 of 3 March\"."
+msgstr "Na przykład „Uchwała zarządu nr 12 z 3 marca”."
+
+msgid "Policies and documents"
+msgstr "Polityki i dokumenty"
+
+msgid "Related policies"
+msgstr "Powiązane polityki"
+
+msgid "Policies of this plugin that answer the requirement. Procedures, plans and evidence go in the Documents tab."
+msgstr "Polityki tej wtyczki, które odpowiadają na wymaganie. Procedury, plany i dowody dodaj w zakładce Dokumenty."
+
+msgid "Approval of the linked policies"
+msgstr "Zatwierdzenie powiązanych polityk"
+
+msgid "Related references"
+msgstr "Powiązane odniesienia"
+
+msgid "NIS2 directive (EU)"
+msgstr "Dyrektywa NIS2 (UE)"
+
+msgid "Indicative mapping made by this project."
+msgstr "Orientacyjne powiązanie przygotowane przez ten projekt."
+
+msgid "ISO 27001 Annex A (optional)"
+msgstr "Załącznik A ISO 27001 (opcjonalnie)"
+
+msgid "Controls that NIST links to this subcategory. You do not need the Statement of Applicability to follow this requirement."
+msgstr "Zabezpieczenia, które NIST wiąże z tą podkategorią. Do realizacji tego wymagania deklaracja stosowania nie jest potrzebna."
+
+msgid "Back to the NIS2 Italy register"
+msgstr "Powrót do rejestru NIS2 Włochy"
+
+msgid "Basic security measures of the ACN determination %s (D.Lgs. 138/2024): one record per requirement."
+msgstr "Podstawowe środki bezpieczeństwa decyzji ACN %s (D.Lgs. 138/2024): jedna karta na wymaganie."
+
+msgid "Important or essential entities"
+msgstr "Podmioty ważne lub kluczowe"
+
+msgid "No entity is classified yet. In the configuration of the plugin, say for each GLPI entity whether it is an important entity (annex 1) or an essential entity (annex 2): its register is then created with all the requirements of its annex."
+msgstr "Żaden podmiot nie został jeszcze sklasyfikowany. W konfiguracji wtyczki wskaż dla każdego podmiotu GLPI, czy jest podmiotem ważnym (załącznik 1), czy kluczowym (załącznik 2): jego rejestr zostanie utworzony ze wszystkimi wymaganiami załącznika."
+
+msgid "Ask an administrator of the plugin to do it."
+msgstr "Poproś o to administratora wtyczki."
+
+msgid "%1$d measures, %2$d requirements"
+msgstr "%1$d środków, %2$d wymagań"
+
+msgid "Register"
+msgstr "Rejestr"
+
+msgid "Without owner"
+msgstr "Bez osoby odpowiedzialnej"
+
+msgid "By function of the national framework"
+msgstr "Według funkcji ram krajowych"
+
+msgid "Approval to record"
+msgstr "Zatwierdzenie do zarejestrowania"
+
+msgid "Approved on %s"
+msgstr "Zatwierdzono %s"
+
+msgid "For each GLPI entity subject to the Italian NIS2 law, choose whether it is an important entity (annex 1 of the ACN determination) or an essential entity (annex 2). Its register is created with one record per requirement; sub-entities without a choice follow their parent. Changing or removing the choice never deletes what was entered."
+msgstr "Dla każdego podmiotu GLPI objętego włoską ustawą NIS2 wybierz, czy jest podmiotem ważnym (załącznik 1 decyzji ACN), czy kluczowym (załącznik 2). Jego rejestr powstaje z jedną kartą na wymaganie; podmioty podrzędne bez wyboru korzystają z rejestru nadrzędnego. Zmiana lub usunięcie wyboru nigdy nie kasuje wprowadzonych danych."
+
+msgid "Not subject (or follows its parent)"
+msgstr "Nie podlega (lub korzysta z nadrzędnego)"
+
+msgid "Classification saved; %d requirement record(s) created."
+msgstr "Klasyfikacja zapisana; utworzono kart wymagań: %d."
+
+msgid "Important entity (annex 1)"
+msgstr "Podmiot ważny (załącznik 1)"
+
+msgid "Essential entity (annex 2)"
+msgstr "Podmiot kluczowy (załącznik 2)"
+
+msgid "A justification is required whenever a requirement is not fully applicable."
+msgstr "Uzasadnienie jest wymagane, gdy wymaganie nie ma pełnego zastosowania."
+
+msgid "Annex"
+msgstr "Załącznik"
+
+msgid "NIS2 Italy compliance (ACN determination %s)"
+msgstr "Zgodność z NIS2 Włochy (decyzja ACN %s)"
+
+msgid "Point"
+msgstr "Punkt"
+
+msgid "Italian NIS2 basic security measures (ACN determination 379907/2025): a register with one record per requirement, per GLPI entity set as important or essential below. Disabled by default."
+msgstr "Podstawowe środki bezpieczeństwa włoskiej NIS2 (decyzja ACN 379907/2025): rejestr z jedną kartą na wymaganie dla każdego podmiotu GLPI sklasyfikowanego niżej jako ważny lub kluczowy. Domyślnie wyłączone."
+
+msgid "NIS2 Italy requirement (ACN)"
+msgid_plural "NIS2 Italy requirements (ACN)"
+msgstr[0] "Wymaganie NIS2 Włochy (ACN)"
+msgstr[1] "Wymagania NIS2 Włochy (ACN)"
+msgstr[2] "Wymagań NIS2 Włochy (ACN)"
