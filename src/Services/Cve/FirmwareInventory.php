@@ -48,15 +48,24 @@ final class FirmwareInventory
     private const DEFAULT_ITEMTYPES = ['Computer', 'NetworkEquipment', 'Peripheral', 'Phone', 'Printer'];
 
     /**
+     * Types d'actifs qui portent des firmwares. GLPI 12 range aussi des composants (disques durs,
+     * `Item_DeviceHardDrive`) dans `itemdevicefirmware_types` : seuls les actifs nommés sont
+     * gardés, un composant n'est pas un matériel à nommer dans l'onglet CVE.
+     *
      * @return list<class-string<\CommonDBTM>>
      */
     public static function itemtypes(): array
     {
-        global $CFG_GLPI;
+        global $CFG_GLPI, $DB;
 
         $itemtypes = [];
         foreach ($CFG_GLPI['itemdevicefirmware_types'] ?? self::DEFAULT_ITEMTYPES as $itemtype) {
-            if (is_string($itemtype) && is_a($itemtype, \CommonDBTM::class, true)) {
+            if (
+                is_string($itemtype)
+                && is_a($itemtype, \CommonDBTM::class, true)
+                && !is_a($itemtype, \Item_Devices::class, true)
+                && $DB->fieldExists($itemtype::getTable(), 'name')
+            ) {
                 $itemtypes[] = $itemtype;
             }
         }
