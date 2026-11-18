@@ -97,6 +97,9 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Fixed
 
+- Traductions : boutons et colonnes restés en français dans les autres langues (« Enregistrer », « Nom », « Statut »,
+  « Ajouter », « Supprimer », « Commentaire ») : ces 45 libellés appelaient la traduction sans le domaine du plugin et
+  passent par les libellés du cœur de GLPI, traduits dans toutes les langues (#582, signalé par @dmontebello).
 - **Tickets de vulnérabilité du parc : les nouvelles machines vulnérables sont liées au ticket
   ouvert** (issue #702, signalée par dmontebello). Le suivi « Plus de machines touchées » était
   ajouté, mais seules les machines présentes à la création restaient dans les éléments du ticket.

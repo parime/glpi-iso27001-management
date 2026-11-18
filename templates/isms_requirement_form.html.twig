@@ -20,7 +20,7 @@
 {% block form_fields %}
    {{ fields.htmlField('', '<strong>' ~ code|e ~ '</strong> - ' ~ code_title|e, __('Requirement', 'grcmanager')) }}
    {{ fields.htmlField('', '<span class="badge bg-azure-lt">' ~ (clause ~ ' ' ~ clause_title)|e ~ '</span>', __('Article', 'grcmanager')) }}
-   {{ fields.dropdownArrayField('status', item.fields['status'] ?: default_status, statuses, __('Statut')) }}
+   {{ fields.dropdownArrayField('status', item.fields['status'] ?: default_status, statuses, __('Status')) }}
    {{ fields.dropdownField('User', 'users_id', item.fields['users_id'], __('Owner', 'grcmanager'), {'right': 'all'}) }}
    {{ fields.textareaField('comment', item.fields['comment'], __('Comment', 'grcmanager'), {
       'full_width': true,

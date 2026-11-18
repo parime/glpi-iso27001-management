@@ -41,7 +41,7 @@
                         <input type="hidden" name="itemtype" value="{{ itemtype }}">
                         <input type="hidden" name="items_id" value="{{ items_id }}">
                         <input type="hidden" name="documents_id" value="{{ doc.documents_id }}">
-                        <button type="submit" name="save" value="1" class="btn btn-sm btn-primary" aria-label="{{ __('Enregistrer') }}"><i class="ti ti-device-floppy"></i></button>
+                        <button type="submit" name="save" value="1" class="btn btn-sm btn-primary" aria-label="{{ __('Save') }}"><i class="ti ti-device-floppy"></i></button>
                         {% if doc.evidence_id > 0 %}
                            <button type="submit" name="purge" value="1" class="btn btn-sm btn-outline-danger" title="{{ __('Remove the validity date', 'grcmanager') }}" aria-label="{{ __('Remove the validity date', 'grcmanager') }}"><i class="ti ti-x"></i></button>
                         {% endif %}

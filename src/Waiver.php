@@ -478,12 +478,12 @@ class Waiver extends WaiverBase
         $tab = [];
         $tab[] = ['id' => 'common', 'name' => self::getTypeName(1)];
         $tab[] = [
-            'id' => 1, 'table' => self::getTable(), 'field' => 'name', 'name' => __('Nom'),
+            'id' => 1, 'table' => self::getTable(), 'field' => 'name', 'name' => __('Name'),
             'datatype' => 'itemlink', 'massiveaction' => false,
         ];
         $tab[] = ['id' => 2, 'table' => self::getTable(), 'field' => 'id', 'name' => __('ID'), 'datatype' => 'number'];
         $tab[] = [
-            'id' => 3, 'table' => self::getTable(), 'field' => 'status', 'name' => __('Statut'),
+            'id' => 3, 'table' => self::getTable(), 'field' => 'status', 'name' => __('Status'),
             'datatype' => 'specific', 'searchtype' => ['equals', 'notequals'],
         ];
         $tab[] = [
