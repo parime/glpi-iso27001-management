@@ -207,7 +207,7 @@ class AcnRequirement extends AcnRequirementBase
         return self::$categories;
     }
 
-    public static function reset(): void
+    public static function resetCategories(): void
     {
         self::$categories = null;
     }
@@ -234,7 +234,7 @@ class AcnRequirement extends AcnRequirementBase
             if ($existing !== null) {
                 $DB->delete(self::ENTITIES_TABLE, ['entities_id' => $entityId]);
             }
-            self::reset();
+            self::resetCategories();
 
             return 0;
         }
@@ -245,7 +245,7 @@ class AcnRequirement extends AcnRequirementBase
         } elseif ((string) $existing['category'] !== $category) {
             $DB->update(self::ENTITIES_TABLE, ['category' => $category, 'date_mod' => $now], ['entities_id' => $entityId]);
         }
-        self::reset();
+        self::resetCategories();
 
         return self::seed($entityId);
     }
