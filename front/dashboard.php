@@ -51,7 +51,7 @@ if ($view === 'perimeters') {
     TemplateRenderer::getInstance()->display('@grcmanager/dashboard_perimeters.html.twig', [
         'rows'       => \GlpiPlugin\Grcmanager\EntityPerimeter::consolidation(),
         'can_risks'  => \GlpiPlugin\Grcmanager\Risk::canView(),
-        'levels'     => \GlpiPlugin\Grcmanager\Risk::getImpacts(),
+        'levels'     => \GlpiPlugin\Grcmanager\Risk::getRiskLevels(),
         'soa_url'    => \GlpiPlugin\Grcmanager\Control::getSearchURL(),
         'risk_url'   => \GlpiPlugin\Grcmanager\Risk::getSearchURL(),
         // Lot 2 : non-conformités ouvertes par entité enfant.

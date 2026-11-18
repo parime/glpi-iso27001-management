@@ -34,15 +34,18 @@ Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, READ);
 if (isset($_POST['update_risk_matrix'])) {
     Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
 
+    // Issue #706 : grille de la taille configurée (4x4 ou 5x5) ; la taille elle-même ne change
+    // que par front/riskscale.php, après validation de la correspondance.
     $probabilities = array_keys(\GlpiPlugin\Grcmanager\Risk::getProbabilities());
     $impacts       = array_keys(\GlpiPlugin\Grcmanager\Risk::getImpacts());
+    $levels        = array_keys(\GlpiPlugin\Grcmanager\Risk::getRiskLevels());
 
     $matrix = [];
     foreach ($probabilities as $probability) {
         foreach ($impacts as $impact) {
             $value = $_POST['matrix_' . $probability . '_' . $impact] ?? 'medium';
             // Closed enumeration, never trusted as free text from the request.
-            $matrix[$probability][$impact] = in_array($value, $impacts, true) ? $value : 'medium';
+            $matrix[$probability][$impact] = in_array($value, $levels, true) ? $value : 'medium';
         }
     }
 
@@ -342,6 +345,11 @@ Html::header(
     'risk_matrix'        => RiskMatrixConfig::load(),
     'risk_probabilities' => \GlpiPlugin\Grcmanager\Risk::getProbabilities(),
     'risk_impacts'       => \GlpiPlugin\Grcmanager\Risk::getImpacts(),
+    'risk_levels'        => \GlpiPlugin\Grcmanager\Risk::getRiskLevels(),
+    // Issue #706 : taille de la matrice, changée par l'écran de correspondance.
+    'risk_scale_size'    => RiskMatrixConfig::size(),
+    'risk_scale_sizes'   => \GlpiPlugin\Grcmanager\RiskScaleChange::sizeLabels(),
+    'risk_scale_url'     => \GlpiPlugin\Grcmanager\RiskScaleChange::getPageURL(),
     'csrf_token'         => Session::getNewCSRFToken(),
     'installed_version'     => PLUGIN_GRCMANAGER_VERSION,
     'latest_github_version' => GithubVersionChecker::getLatestGithubVersion(),
@@ -377,7 +385,7 @@ Html::header(
     'controltest_brand_color'   => \GlpiPlugin\Grcmanager\ControlTestReminder::brandColor(),
     'controltest_cga_branding'  => \GlpiPlugin\Grcmanager\ControlTestReminder::isCgaActive(),
     'consistency_rows'          => \GlpiPlugin\Grcmanager\ConsistencyCheck::getConfigRows(),
-    'consistency_levels'        => array_slice(\GlpiPlugin\Grcmanager\Risk::getImpacts(), 1, null, true),
+    'consistency_levels'        => array_slice(\GlpiPlugin\Grcmanager\Risk::getRiskLevels(), 1, null, true),
     'consistency_url'           => \GlpiPlugin\Grcmanager\ConsistencyCheck::getSearchURL(),
     'kri_alert_level'           => \GlpiPlugin\Grcmanager\KriAlert::level(),
     'kri_alert_levels'          => \GlpiPlugin\Grcmanager\KriAlert::getLevels(),

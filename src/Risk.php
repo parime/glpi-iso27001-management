@@ -32,7 +32,6 @@ use GlpiPlugin\Grcmanager\Services\Risk\ReviewReminderService;
 use GlpiPlugin\Grcmanager\Services\Risk\RiskAppetiteRules;
 use GlpiPlugin\Grcmanager\Services\Risk\RiskItemLinkNormalizer;
 use GlpiPlugin\Grcmanager\Services\Risk\RiskMatrixConfig;
-use GlpiPlugin\Grcmanager\Services\Risk\RiskScoringService;
 use GlpiPlugin\Grcmanager\Services\Risk\TreatmentPlanRules;
 use GlpiPlugin\Grcmanager\Traits\RiskAssessmentTrait;
 use Log;
@@ -227,7 +226,7 @@ class Risk extends RiskBase
         $input['residual_probability'] = $probability;
         $input['residual_impact'] = $impact;
         $input['residual_level'] = $probability !== '' && $impact !== ''
-            ? (new RiskScoringService(RiskMatrixConfig::load()))->level($probability, $impact)
+            ? RiskMatrixConfig::scoring()->level($probability, $impact)
             : '';
 
         return $input;

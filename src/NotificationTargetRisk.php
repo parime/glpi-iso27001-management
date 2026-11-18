@@ -59,7 +59,7 @@ class NotificationTargetRisk extends NotificationTarget
         $risk   = $this->obj;
 
         $categories = Risk::getCategories();
-        $levels     = Risk::getImpacts();
+        $levels     = Risk::getRiskLevels();
 
         $this->data['##risk.action##']     = $events[$event] ?? '';
         $this->data['##risk.title##']      = $risk->fields['title'] ?? '';

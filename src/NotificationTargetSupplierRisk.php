@@ -66,7 +66,7 @@ class NotificationTargetSupplierRisk extends NotificationTarget
         $risk   = $this->obj;
 
         $categories = SupplierRisk::getCategories();
-        $levels     = SupplierRisk::getImpacts();
+        $levels     = SupplierRisk::getRiskLevels();
 
         $this->data['##supplierrisk.action##']     = $events[$event] ?? '';
         $this->data['##supplierrisk.title##']      = $risk->fields['title'] ?? '';

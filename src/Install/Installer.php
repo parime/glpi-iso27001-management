@@ -475,6 +475,18 @@ final class Installer
             ]);
         }
 
+        // Issue #706 : taille de la matrice (4x4 ou 5x5). Une installation existante reste en 4x4 :
+        // seule la validation d'une correspondance par l'administrateur (front/riskscale.php) la
+        // change. La table disparaît à la désinstallation (dropTable ci-dessous), colonne comprise.
+        if (!$DB->fieldExists(self::RISK_MATRIX_CONFIG_TABLE, 'scale_size')) {
+            $migration->addField(self::RISK_MATRIX_CONFIG_TABLE, 'scale_size', 'integer', [
+                'value'   => 4,
+                'after'   => 'id',
+                'comment' => 'Taille de la matrice : 4 (4x4) ou 5 (5x5)',
+            ]);
+            $migration->migrationOneTable(self::RISK_MATRIX_CONFIG_TABLE);
+        }
+
         // Enrichissement CVE via NVD (cf. ROADMAP.md) : mêmes deux réglages que
         // NvdConfigDefaults, seedés ici pour qu'une instance existante ne voie aucun changement de
         // comportement tant qu'un administrateur n'active pas l'enrichissement (voir
