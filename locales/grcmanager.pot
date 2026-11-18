@@ -19862,3 +19862,33 @@ msgstr ""
 #: src/AuditorAccess.php
 msgid "This account has no profile in the entity of the audit."
 msgstr ""
+
+#: templates/_impact_graph.html.twig
+msgid "Image (PNG)"
+msgstr ""
+
+#: templates/_impact_graph.html.twig
+msgid "Image (JPEG)"
+msgstr ""
+
+#: templates/_impact_graph.html.twig
+msgid "Vector image (SVG), sharp at any size"
+msgstr ""
+
+#: templates/_impact_graph.html.twig
+#, php-format
+msgid "Dependency map: %s"
+msgstr ""
+
+#: templates/_impact_graph.html.twig
+#, php-format
+msgid "Exported on %s"
+msgstr ""
+
+#: templates/_impact_graph.html.twig
+msgid "Download the map as shown, to put it in a document or a presentation"
+msgstr ""
+
+#: templates/_impact_graph.html.twig
+msgid "Export the map"
+msgstr ""

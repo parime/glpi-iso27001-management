@@ -17433,3 +17433,24 @@ msgstr "Você não pode criar uma não conformidade nesta entidade."
 
 msgid "This account has no profile in the entity of the audit."
 msgstr "Esta conta não tem nenhum perfil na entidade da auditoria."
+
+msgid "Export the map"
+msgstr "Exportar o mapa"
+
+msgid "Download the map as shown, to put it in a document or a presentation"
+msgstr "Baixar o mapa como exibido, para colocá-lo em um documento ou uma apresentação"
+
+msgid "Image (PNG)"
+msgstr "Imagem (PNG)"
+
+msgid "Image (JPEG)"
+msgstr "Imagem (JPEG)"
+
+msgid "Vector image (SVG), sharp at any size"
+msgstr "Imagem vetorial (SVG), nítida em qualquer tamanho"
+
+msgid "Dependency map: %s"
+msgstr "Mapa de dependências: %s"
+
+msgid "Exported on %s"
+msgstr "Exportado em %s"

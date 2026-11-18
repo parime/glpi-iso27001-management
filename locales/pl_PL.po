@@ -17470,3 +17470,24 @@ msgstr "Nie możesz utworzyć niezgodności w tej jednostce."
 
 msgid "This account has no profile in the entity of the audit."
 msgstr "To konto nie ma profilu w jednostce audytu."
+
+msgid "Export the map"
+msgstr "Eksportuj mapę"
+
+msgid "Download the map as shown, to put it in a document or a presentation"
+msgstr "Pobierz mapę w takiej postaci, w jakiej jest wyświetlana, aby umieścić ją w dokumencie lub prezentacji"
+
+msgid "Image (PNG)"
+msgstr "Obraz (PNG)"
+
+msgid "Image (JPEG)"
+msgstr "Obraz (JPEG)"
+
+msgid "Vector image (SVG), sharp at any size"
+msgstr "Obraz wektorowy (SVG), ostry w każdym rozmiarze"
+
+msgid "Dependency map: %s"
+msgstr "Mapa zależności: %s"
+
+msgid "Exported on %s"
+msgstr "Wyeksportowano %s"
