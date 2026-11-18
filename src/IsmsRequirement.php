@@ -268,7 +268,7 @@ class IsmsRequirement extends IsmsRequirementBase
             'id'       => 3,
             'table'    => $this->getTable(),
             'field'    => 'status',
-            'name'     => __('Statut'),
+            'name'     => __('Status'),
             'datatype' => 'specific',
         ];
 

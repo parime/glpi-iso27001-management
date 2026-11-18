@@ -34,7 +34,7 @@
                <input type="text" id="grc-measure-comment" name="comment" class="form-control">
             </div>
             <div class="col-md-2">
-               <button type="submit" name="add" value="1" class="btn btn-primary">{{ __('Ajouter') }}</button>
+               <button type="submit" name="add" value="1" class="btn btn-primary">{{ __('Add') }}</button>
             </div>
          </div>
          <div class="form-hint mt-1">{{ numeric ? __('A numeric value is required for this quantitative objective.', 'grcmanager') : __('Qualitative objective: the value stays optional, but a comment is then required.', 'grcmanager') }}</div>
@@ -54,7 +54,7 @@
                         <input type="hidden" name="id" value="{{ m.id }}">
                         <input type="hidden" name="plugin_grcmanager_objectives_id" value="{{ objective_id }}">
                         <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
-                        <button type="submit" name="purge" value="1" class="btn btn-sm btn-outline-danger" aria-label="{{ __('Supprimer') }}"><i class="ti ti-trash"></i></button>
+                        <button type="submit" name="purge" value="1" class="btn btn-sm btn-outline-danger" aria-label="{{ __('Delete') }}"><i class="ti ti-trash"></i></button>
                      </form>
                   </td>
                {% endif %}

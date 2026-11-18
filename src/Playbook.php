@@ -204,7 +204,7 @@ class Playbook extends PlaybookBase
         $tab = [];
         $tab[] = ['id' => 'common', 'name' => self::getTypeName(1)];
         $tab[] = [
-            'id' => 1, 'table' => self::getTable(), 'field' => 'name', 'name' => __('Nom'),
+            'id' => 1, 'table' => self::getTable(), 'field' => 'name', 'name' => __('Name'),
             'datatype' => 'itemlink', 'massiveaction' => false,
         ];
         $tab[] = ['id' => 2, 'table' => self::getTable(), 'field' => 'id', 'name' => __('ID'), 'datatype' => 'number'];

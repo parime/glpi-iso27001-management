@@ -103,7 +103,7 @@ class NotificationTargetWaiver extends NotificationTarget
     {
         $tags = [
             'waiver.action'  => _n('Event', 'Events', 1),
-            'waiver.name'    => __('Nom'),
+            'waiver.name'    => __('Name'),
             'waiver.dateend' => __('End date', 'grcmanager'),
             'waiver.url'     => __('URL'),
         ];

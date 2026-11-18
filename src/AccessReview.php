@@ -291,7 +291,7 @@ class AccessReview extends AccessReviewBase
             'id'            => 1,
             'table'         => $this->getTable(),
             'field'         => 'name',
-            'name'          => __('Nom'),
+            'name'          => __('Name'),
             'datatype'      => 'itemlink',
             'massiveaction' => false,
         ];

@@ -38,7 +38,7 @@
                   <input type="date" id="grc-action-due" name="due_date" class="form-control">
                </div>
                <div class="col-md-2">
-                  <button type="submit" name="add" value="1" class="btn btn-primary">{{ __('Ajouter') }}</button>
+                  <button type="submit" name="add" value="1" class="btn btn-primary">{{ __('Add') }}</button>
                </div>
             </div>
          </form>
@@ -72,7 +72,7 @@
                            <input type="hidden" name="id" value="{{ a.id }}">
                            <input type="hidden" name="plugin_grcmanager_risks_id" value="{{ risk_id }}">
                            <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
-                           <button type="submit" name="purge" value="1" class="btn btn-sm btn-outline-danger" aria-label="{{ __('Supprimer') }}"><i class="ti ti-trash"></i></button>
+                           <button type="submit" name="purge" value="1" class="btn btn-sm btn-outline-danger" aria-label="{{ __('Delete') }}"><i class="ti ti-trash"></i></button>
                         </form>
                      </td>
                   {% endif %}

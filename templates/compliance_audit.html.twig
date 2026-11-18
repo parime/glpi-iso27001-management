@@ -53,7 +53,7 @@
             'entity': -1,
             'helper': __('For example "Retired" or "In stock": these computers are counted neither in the gaps nor in the scores.', 'grcmanager'),
          }) }}
-         <button type="submit" name="update_excluded_states" class="btn btn-outline-primary btn-sm">{{ __('Enregistrer') }}</button>
+         <button type="submit" name="update_excluded_states" class="btn btn-outline-primary btn-sm">{{ __('Save') }}</button>
       </form>
    {% elseif excluded_names is not empty %}
       <p class="text-muted small">{{ __('Computers excluded from the checks (status): %s', 'grcmanager')|format(excluded_names|join(', ')) }}</p>
