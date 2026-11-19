@@ -40,6 +40,7 @@ final class ManagementReviewDossierRules
         'audits'           => ['9.3.2 d 3', 'ti-clipboard-check'],
         'objectives'       => ['9.3.2 d 4', 'ti-target-arrow'],
         'risks'            => ['9.3.2 f', 'ti-shield-exclamation'],
+        'soa'              => ['9.3.2 f', 'ti-file-certificate'],
         'improvement'      => ['9.3.2 g', 'ti-trending-up'],
     ];
 

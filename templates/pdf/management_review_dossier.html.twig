@@ -1,0 +1,261 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #542 : dossier préparatoire de la revue de direction (ISO 27001, 9.3.2), une section par
+   entrée à examiner, archivé sur la revue avec son empreinte. #}
+{% include '@grcmanager/pdf/_pdf_style.html.twig' %}
+<style>
+  .pill { display: inline-block; padding: 1px 6px; border-radius: 8px; font-size: 8.5px; font-weight: bold; }
+  .pill-clause { background: #e7f0fb; color: #174a85; }
+  .pill-ok { background: #e3f4e8; color: #1b5e2f; }
+  .pill-warn { background: #fdf1db; color: #7a4a00; }
+  .pill-bad { background: #fbe4e4; color: #8a1c1c; }
+  .pill-neutral { background: #eef0f3; color: #3d4652; }
+  .section-summary { color: #4b5563; font-style: italic; margin: 2px 0 6px 0; }
+  .not-included { color: #7a4a00; background: #fdf1db; padding: 4px 6px; }
+  .kpis td { border: 1px solid #dee2e6; padding: 4px 6px; text-align: center; width: 20%; }
+  .kpis .num { font-size: 15px; font-weight: bold; color: #206bc4; display: block; }
+  .kpis .num-bad { color: #b42318; }
+  .muted { color: #6c757d; }
+  h2 { page-break-after: avoid; }
+</style>
+
+{% macro pill(text, tone) %}<span class="pill pill-{{ tone }}">{{ text }}</span>{% endmacro %}
+{% macro trend(t) %}
+  {%- if t -%}
+    {%- set tone = t.direction == 'stable' ? 'neutral' : 'warn' -%}
+    <span class="pill pill-{{ tone }}">{{ t.direction == 'up' ? '+' : '' }}{{ t.delta }}</span>
+  {%- endif -%}
+{% endmacro %}
+{% import _self as m %}
+
+<h2>{{ __('Management review', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-summary">
+  <tr><td>{{ __('Title', 'grcmanager') }}</td><td><strong>{{ review.title }}</strong></td></tr>
+  <tr><td>{{ __('Review date', 'grcmanager') }}</td><td>{{ review.date ?: '-' }} {{ review.status ? m.pill(review.status, 'neutral') }}</td></tr>
+  <tr><td>{{ __('Period covered', 'grcmanager') }}</td><td><strong>{{ period.start }} - {{ period.end }}</strong></td></tr>
+  <tr><td>{{ __('Perimeter', 'grcmanager') }}</td><td>{{ perimeter }}</td></tr>
+  <tr><td>{{ __('Participants', 'grcmanager') }}</td><td>{{ review.attendees is empty ? '-' : review.attendees|join(', ') }}</td></tr>
+  <tr><td>{{ __('Prepared by', 'grcmanager') }}</td><td>{{ author }}</td></tr>
+</table>
+<p class="muted">{{ __('Figures are read from the GRC registers when the file is generated, with the rights and active entities of the person who generated it. A section whose register that person cannot read is marked as not included.', 'grcmanager') }}</p>
+
+<table class="grcmanager-pdf-table">
+  <thead><tr><th>{{ __('Clause', 'grcmanager') }}</th><th>{{ __('Input to review', 'grcmanager') }}</th><th>{{ __('Included', 'grcmanager') }}</th></tr></thead>
+  <tbody>
+    {% for s in sections %}
+      <tr>
+        <td>{{ m.pill(s.clause, 'clause') }}</td>
+        <td>{{ s.title }}</td>
+        <td>{{ s.included ? m.pill(__('Yes', 'grcmanager'), 'ok') : m.pill(__('Not included (no right)', 'grcmanager'), 'warn') }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% for s in sections %}
+  <h2>{{ m.pill(s.clause, 'clause') }} {{ s.title }}</h2>
+  <p class="section-summary">{{ s.summary }}</p>
+  {% set d = s.data %}
+  {% if not s.included %}
+    <p class="not-included">{{ __('Not included: the person who generated this file cannot read this register.', 'grcmanager') }}</p>
+
+  {% elseif s.key == 'previous_actions' %}
+    <table class="kpis"><tr>
+      <td><span class="num">{{ d.summary.total }}</span>{{ __('Actions decided', 'grcmanager') }}</td>
+      <td><span class="num">{{ d.summary.done }}</span>{{ __('Done', 'grcmanager') }}</td>
+      <td><span class="num">{{ d.summary.open }}</span>{{ __('Still open', 'grcmanager') }}</td>
+      <td><span class="num {{ d.summary.overdue > 0 ? 'num-bad' }}">{{ d.summary.overdue }}</span>{{ __('Overdue', 'grcmanager') }}</td>
+      <td><span class="num">{{ d.summary.percent is null ? '-' : d.summary.percent ~ ' %' }}</span>{{ __('Completion', 'grcmanager') }}</td>
+    </tr></table>
+    {% if d.actions is empty %}
+      <p class="muted">{{ __('No action from a previous review is open or was completed during the period.', 'grcmanager') }}</p>
+    {% else %}
+      <table class="grcmanager-pdf-table">
+        <thead><tr><th>{{ __('Review', 'grcmanager') }}</th><th>{{ __('Action description', 'grcmanager') }}</th><th>{{ __('Owner', 'grcmanager') }}</th><th>{{ __('Due date', 'grcmanager') }}</th><th>{{ __('Status', 'grcmanager') }}</th></tr></thead>
+        <tbody>
+          {% for a in d.actions %}
+            <tr>
+              <td>{{ a.review_title }}</td>
+              <td>{{ a.description }}</td>
+              <td>{{ a.user ?: '-' }}</td>
+              <td>{{ a.due_label ?: '-' }}</td>
+              <td>
+                {{ m.pill(a.badge.label, a.status == 'done' ? 'ok' : (a.overdue ? 'bad' : 'neutral')) }}
+                {% if a.overdue %}{{ m.pill(__('Overdue', 'grcmanager'), 'bad') }}{% endif %}
+                {% if a.completion_label %}<br><span class="muted">{{ a.completion_label }}</span>{% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% endif %}
+
+  {% elseif s.key == 'context' %}
+    <table class="kpis"><tr>
+      <td><span class="num">{{ d.issues }}</span>{{ __('Internal and external issues', 'grcmanager') }}</td>
+      <td><span class="num">{{ d.parties }}</span>{{ __('Interested parties', 'grcmanager') }}</td>
+      <td><span class="num">{{ d.changed }}</span>{{ __('Updated during the period', 'grcmanager') }}</td>
+      <td><span class="num {{ d.overdue > 0 ? 'num-bad' }}">{{ d.overdue }}</span>{{ __('Review overdue', 'grcmanager') }}</td>
+      <td><span class="num">{{ d.climate ? __('Yes', 'grcmanager') : __('No', 'grcmanager') }}</span>{{ __('Climate change question answered', 'grcmanager') }}</td>
+    </tr></table>
+
+  {% elseif s.key == 'nonconformities' %}
+    <table class="kpis"><tr>
+      {% for r in d.raised %}<td><span class="num">{{ r.number }}</span>{{ __('Raised during the period', 'grcmanager') }}: {{ r.label }}</td>{% endfor %}
+      <td><span class="num">{{ d.verified }}</span>{{ __('Closure verified during the period', 'grcmanager') }}</td>
+      <td><span class="num">{{ d.open }}</span>{{ __('Open non-conformities', 'grcmanager') }}</td>
+      <td><span class="num {{ d.overdue > 0 ? 'num-bad' }}">{{ d.overdue }}</span>{{ __('Overdue corrective/preventive actions', 'grcmanager') }}</td>
+    </tr></table>
+    {% if d.trend %}
+      <p>{{ __('Open non-conformities: %1$d in %2$s, %3$d in %4$s', 'grcmanager')|format(d.trend.first, d.trend.first_month, d.trend.last, d.trend.last_month) }} {{ m.trend(d.trend) }}</p>
+    {% endif %}
+
+  {% elseif s.key == 'measurement' %}
+    {% if d.kri is not null %}
+      <h3>{{ __('Risk indicators (KRI) by status', 'grcmanager') }}</h3>
+      <table class="kpis"><tr>
+        {% for r in d.kri %}<td><span class="num">{{ r.number }}</span>{{ r.label }}</td>{% endfor %}
+      </tr></table>
+    {% endif %}
+    {% if d.incidents is not null %}
+      <h3>{{ __('Security incidents', 'grcmanager') }}</h3>
+      <table class="kpis"><tr>
+        <td><span class="num">{{ d.incidents.total }}</span>{{ __('Declared during the period', 'grcmanager') }}</td>
+        {% for r in d.incidents.by_severity %}<td><span class="num">{{ r.number }}</span>{{ r.label }}</td>{% endfor %}
+        <td><span class="num">{{ d.incidents.open_now }}</span>{{ __('Still open today', 'grcmanager') }}</td>
+      </tr></table>
+    {% else %}
+      <p class="not-included">{{ __('Security incidents not included: no right to read them, or module disabled.', 'grcmanager') }}</p>
+    {% endif %}
+
+  {% elseif s.key == 'audits' %}
+    <table class="kpis"><tr>
+      {% for r in d.by_status %}<td><span class="num">{{ r.number }}</span>{{ r.label }}</td>{% endfor %}
+    </tr></table>
+    {% if d.completed is empty %}
+      <p class="muted">{{ __('No internal audit was completed during the period.', 'grcmanager') }}</p>
+    {% else %}
+      <table class="grcmanager-pdf-table">
+        <thead><tr><th>{{ __('Audit', 'grcmanager') }}</th><th>{{ __('Date', 'grcmanager') }}</th><th>{{ __('Findings', 'grcmanager') }}</th><th>{{ __('Conclusion', 'grcmanager') }}</th></tr></thead>
+        <tbody>
+          {% for a in d.completed %}
+            <tr>
+              <td>{{ a.title }}</td>
+              <td>{{ a.date }}</td>
+              <td>
+                <strong>{{ a.findings }}</strong>
+                {% for type, count in a.by_type %}<br>{{ type }} : {{ count }}{% endfor %}
+              </td>
+              <td>{{ a.conclusion|striptags }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% endif %}
+
+  {% elseif s.key == 'objectives' %}
+    <table class="kpis"><tr>
+      {% for r in d.by_status %}<td><span class="num">{{ r.number }}</span>{{ r.label }}</td>{% endfor %}
+    </tr></table>
+    {% if d.objectives is empty %}
+      <p class="muted">{{ __('No information security objective recorded.', 'grcmanager') }}</p>
+    {% else %}
+      <table class="grcmanager-pdf-table">
+        <thead><tr><th>{{ __('Objective', 'grcmanager') }}</th><th>{{ __('Target', 'grcmanager') }}</th><th>{{ __('Status', 'grcmanager') }}</th><th>{{ __('Latest measurement in the period', 'grcmanager') }}</th></tr></thead>
+        <tbody>
+          {% for o in d.objectives %}
+            {% set tone = o.status == 'achieved' ? 'ok' : (o.status in ['at_risk', 'missed'] ? 'bad' : 'neutral') %}
+            <tr>
+              <td>{{ o.title }}{% if o.discussed %}<br>{{ m.pill(__('On the agenda of this review', 'grcmanager'), 'clause') }}{% endif %}</td>
+              <td>{{ o.target ?: '-' }}{% if o.target_date %}<br><span class="muted">{{ o.target_date }}</span>{% endif %}</td>
+              <td>{{ m.pill(o.status_label, tone) }}</td>
+              <td>
+                {% if o.measurements > 0 %}
+                  {{ o.last_value ?: '-' }} <span class="muted">({{ o.last_date }})</span><br>
+                  <span class="muted">{{ __('%d measurement(s) in the period', 'grcmanager')|format(o.measurements) }}</span>
+                {% else %}
+                  {{ m.pill(__('No measurement in the period', 'grcmanager'), 'warn') }}
+                {% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% endif %}
+
+  {% elseif s.key == 'risks' %}
+    <table class="kpis"><tr>
+      <td><span class="num">{{ d.open }}</span>{{ __('Open risks', 'grcmanager') }}</td>
+      <td><span class="num">{{ d.identified }}</span>{{ __('Identified during the period', 'grcmanager') }}</td>
+      <td><span class="num {{ d.above_appetite > 0 ? 'num-bad' }}">{{ d.above_appetite }}</span>{{ __('Open risks above appetite', 'grcmanager') }}</td>
+      <td><span class="num {{ d.above_tolerance > 0 ? 'num-bad' }}">{{ d.above_tolerance }}</span>{{ __('Open risks above tolerance', 'grcmanager') }}</td>
+    </tr><tr>
+      <td><span class="num {{ d.overdue_actions > 0 ? 'num-bad' }}">{{ d.overdue_actions }}</span>{{ __('Overdue risk treatment actions', 'grcmanager') }}</td>
+      <td><span class="num {{ d.without_plan > 0 ? 'num-bad' }}">{{ d.without_plan }}</span>{{ __('Risks to mitigate/transfer with no treatment plan', 'grcmanager') }}</td>
+      <td colspan="2">
+        {% for r in d.by_level %}{{ m.pill(r.label ~ ' : ' ~ r.number, r.key in ['high', 'critical'] ? 'bad' : (r.key == 'medium' ? 'warn' : 'ok')) }} {% endfor %}
+        <br>{{ __('Risks by level', 'grcmanager') }}
+      </td>
+    </tr></table>
+    {% if d.trend %}
+      <p>{{ __('Open risks: %1$d in %2$s, %3$d in %4$s', 'grcmanager')|format(d.trend.first, d.trend.first_month, d.trend.last, d.trend.last_month) }} {{ m.trend(d.trend) }}</p>
+    {% endif %}
+
+  {% elseif s.key == 'soa' %}
+    <table class="kpis"><tr>
+      {% for r in d.by_status %}<td><span class="num">{{ r.number }}</span>{{ r.label }}</td>{% endfor %}
+    </tr></table>
+    {% if d.approved %}
+      <p>
+        {{ __('Latest approved version: %1$d, on %2$s', 'grcmanager')|format(d.approved.version, d.approved.date) }}
+        {{ d.approved.changed ? m.pill(__('The SoA has changed since this approval', 'grcmanager'), 'warn') : m.pill(__('Unchanged since this approval', 'grcmanager'), 'ok') }}
+      </p>
+    {% else %}
+      <p>{{ m.pill(__('No approved version of the SoA yet', 'grcmanager'), 'warn') }}</p>
+    {% endif %}
+
+  {% elseif s.key == 'improvement' %}
+    <table class="kpis"><tr>
+      <td><span class="num">{{ d.score }} / 100</span>{{ __('Maturity score (out of 100)', 'grcmanager') }}</td>
+      <td><span class="num">{{ d.level }}</span>{{ __('Maturity level', 'grcmanager') }}</td>
+      <td><span class="num">{{ d.trend ? (d.trend.direction == 'up' ? '+' : '') ~ d.trend.delta : '-' }}</span>{{ __('Change since the start of the period', 'grcmanager') }}</td>
+      {% if d.consistency %}
+        <td><span class="num {{ d.consistency.gaps > 0 ? 'num-bad' }}">{{ d.consistency.gaps }}</span>{{ __('ISMS consistency gaps to fix before the audit', 'grcmanager') }}</td>
+      {% endif %}
+    </tr></table>
+    {% if d.history is not empty %}
+      <table class="grcmanager-pdf-table">
+        <thead><tr>{% for month, score in d.history %}<th>{{ month }}</th>{% endfor %}</tr></thead>
+        <tbody><tr>{% for month, score in d.history %}<td>{{ score }}</td>{% endfor %}</tr></tbody>
+      </table>
+    {% else %}
+      <p class="muted">{{ __('No monthly maturity score recorded during the period.', 'grcmanager') }}</p>
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
+{% if review.agenda %}
+  <h2>{{ __('Agenda', 'grcmanager') }}</h2>
+  <p>{{ review.agenda|striptags|nl2br }}</p>
+{% endif %}
+
+<h2>{{ __('Decisions and actions', 'grcmanager') }}</h2>
+<p class="muted">{{ __('To be completed during the meeting: decisions on improvement opportunities, changes needed to the ISMS, and resources.', 'grcmanager') }}</p>
+<table class="grcmanager-pdf-table">
+  <thead><tr><th style="width: 50%;">{{ __('Decision', 'grcmanager') }}</th><th>{{ __('Owner', 'grcmanager') }}</th><th>{{ __('Due date', 'grcmanager') }}</th></tr></thead>
+  <tbody>
+    {% for i in 1..4 %}<tr><td style="height: 22px;">&nbsp;</td><td></td><td></td></tr>{% endfor %}
+  </tbody>
+</table>

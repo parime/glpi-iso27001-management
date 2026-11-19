@@ -165,6 +165,9 @@ final class Installer
     // Issue #704 : fin de vie des logiciels, systèmes et firmwares (endoflife.date).
     private const ENDOFLIFE_CYCLES_TABLE = 'glpi_plugin_grcmanager_endoflifecycles';
     private const ENDOFLIFE_MAPPINGS_TABLE = 'glpi_plugin_grcmanager_endoflifemappings';
+    // Issue #542 : actions décidées en revue de direction, et dossiers préparatoires générés.
+    private const MANAGEMENT_REVIEW_ACTIONS_TABLE = 'glpi_plugin_grcmanager_managementreviewactions';
+    private const MANAGEMENT_REVIEW_DOSSIERS_TABLE = 'glpi_plugin_grcmanager_managementreviewdossiers';
     private const WAIVERS_CVES_TABLE = 'glpi_plugin_grcmanager_waivers_cves';
     private const POLICY_AUDIENCES_TABLE = 'glpi_plugin_grcmanager_policyaudiences';
     private const POLICY_CAMPAIGNS_TABLE = 'glpi_plugin_grcmanager_policycampaigns';
@@ -1419,6 +1422,7 @@ final class Installer
         $this->installParkRemediationTables($keySign, $charset, $collation);
         $this->installSentinelOneTables($keySign, $charset, $collation);
         $this->installEndOfLifeTables($keySign, $charset, $collation);
+        $this->installManagementReviewDossierTables($keySign, $charset, $collation);
 
         // Issue #30 (registre des obligations légales/réglementaires/contractuelles, clause 4.2
         // ISO 27001 "parties intéressées et leurs exigences", Annexe A A.5.31-36) : lien optionnel
@@ -4729,6 +4733,50 @@ final class Installer
      * Issue #704 : cache des cycles de vie lus sur endoflife.date (un produit par ligne) et
      * correspondances manuelles entre un nom de GLPI et un produit. Idempotent.
      */
+    /**
+     * Issue #542 : actions décidées en revue de direction (suivies jusqu'à leur réalisation, reprises
+     * par le dossier de la revue suivante, 9.3.2 a) et dossiers préparatoires générés (PDF archivé
+     * sur la revue, période couverte et empreinte SHA-256).
+     */
+    private function installManagementReviewDossierTables(string $keySign, string $charset, string $collation): void
+    {
+        global $DB;
+
+        if (!$DB->tableExists(self::MANAGEMENT_REVIEW_ACTIONS_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::MANAGEMENT_REVIEW_ACTIONS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_managementreviews_id` int {$keySign} NOT NULL DEFAULT 0,
+                `description` text,
+                `users_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Responsable de l''action',
+                `due_date` date DEFAULT NULL,
+                `status` varchar(16) NOT NULL DEFAULT 'planned' COMMENT 'planned, in_progress, done',
+                `completion_date` date DEFAULT NULL,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `reviews_id` (`plugin_grcmanager_managementreviews_id`),
+                KEY `users_id` (`users_id`),
+                KEY `status` (`status`),
+                KEY `due_date` (`due_date`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+        if (!$DB->tableExists(self::MANAGEMENT_REVIEW_DOSSIERS_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::MANAGEMENT_REVIEW_DOSSIERS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_managementreviews_id` int {$keySign} NOT NULL DEFAULT 0,
+                `documents_id` int {$keySign} NOT NULL DEFAULT 0,
+                `sha256` varchar(64) NOT NULL DEFAULT '' COMMENT 'Empreinte du PDF archive',
+                `period_start` date DEFAULT NULL,
+                `period_end` date DEFAULT NULL,
+                `users_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Auteur de la generation',
+                `date_creation` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `reviews_id` (`plugin_grcmanager_managementreviews_id`),
+                KEY `documents_id` (`documents_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+    }
+
     private function installEndOfLifeTables(string $keySign, string $charset, string $collation): void
     {
         global $DB;
@@ -5507,6 +5555,8 @@ final class Installer
         $migration->dropTable(self::AUDITS_TABLE);
         $migration->dropTable(self::TRAININGS_USERS_TABLE);
         $migration->dropTable(self::TRAININGS_TABLE);
+        $migration->dropTable(self::MANAGEMENT_REVIEW_ACTIONS_TABLE);
+        $migration->dropTable(self::MANAGEMENT_REVIEW_DOSSIERS_TABLE);
         $migration->dropTable(self::MANAGEMENT_REVIEWS_USERS_TABLE);
         $migration->dropTable(self::MANAGEMENT_REVIEWS_TABLE);
         $migration->dropTable(self::RISKS_ITEMS_TABLE);

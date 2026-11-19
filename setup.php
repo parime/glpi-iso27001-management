@@ -166,6 +166,8 @@ function plugin_init_grcmanager(): void
     $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\Control::class;
     // Issue #142 : documents d'un evenement de conformite (rapport d'audit, de pentest...).
     $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\ComplianceEvent::class;
+    // Issue #542 : dossiers préparatoires archivés et compte rendu de la revue de direction.
+    $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\ManagementReview::class;
     // Echeances de conformite dans le planning GLPI de chaque responsable (lecture seule).
     $CFG_GLPI['planning_types'][] = \GlpiPlugin\Grcmanager\ComplianceEvent::class;
 
