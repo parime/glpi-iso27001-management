@@ -184,6 +184,9 @@
                         {% if wazuh and wazuh.also[row.cve_id] is defined %}
                            <div><span class="badge bg-blue-lt" title="{{ __('Also detected by the Wazuh agents', 'grcmanager') }}"><i class="ti ti-heartbeat me-1"></i>{{ __('Wazuh: %d computer(s)', 'grcmanager')|format(wazuh.also[row.cve_id]) }}</span></div>
                         {% endif %}
+                        {% if sentinelone and sentinelone.also[row.cve_id] is defined %}
+                           <div><span class="badge bg-purple-subtle text-purple-emphasis" title="{{ __('Also detected by SentinelOne', 'grcmanager') }}"><i class="ti ti-shield-search me-1"></i>{{ __('SentinelOne: %d computer(s)', 'grcmanager')|format(sentinelone.also[row.cve_id]) }}</span></div>
+                        {% endif %}
                      </td>
                      <td>
                         {# Issue #580 : fiche du logiciel dans l'inventaire (un lien par logiciel regroupé sous ce produit). #}
@@ -316,6 +319,59 @@
       {% endif %}
    </div>
    {% endif %}
+   {# Issue #707 : CVE vues par SentinelOne (vulnérabilités applicatives) et absentes de la veille. #}
+   {% if sentinelone %}
+   <div class="card mt-3" id="grc-sentinelone-vulnerabilities">
+      <div class="card-header">
+         <h3 class="card-title"><i class="ti ti-shield-search me-2"></i>{{ __('Detected by SentinelOne only', 'grcmanager') }}</h3>
+         {% if sentinelone.updated %}<div class="card-actions text-muted small">{{ __('Last read: %s', 'grcmanager')|format(sentinelone.updated) }}</div>{% endif %}
+      </div>
+      {% if sentinelone.only is empty %}
+         <div class="card-body text-muted"><i class="ti ti-circle-check me-1 text-green"></i>{{ __('SentinelOne reports no vulnerability beyond those listed above.', 'grcmanager') }}</div>
+      {% else %}
+         <div class="card-body pb-0">
+            <p class="text-muted small mb-2">{{ __('Application vulnerabilities seen by SentinelOne on your computers and not found by the software watch. Source: SentinelOne API, read only.', 'grcmanager') }}</p>
+            {% if sentinelone.total > sentinelone.only|length %}<p class="small">{{ __('%1$d vulnerabilities: the %2$d highest-priority ones are shown.', 'grcmanager')|format(sentinelone.total, sentinelone.only|length) }}</p>{% endif %}
+         </div>
+         <div class="table-responsive">
+            <table class="table table-vcenter card-table">
+               <thead>
+                  <tr>
+                     <th>{{ __('CVE', 'grcmanager') }}</th>
+                     <th>{{ __('Applications', 'grcmanager') }}</th>
+                     <th class="text-end">{{ __('Machines', 'grcmanager') }}</th>
+                     <th>{{ __('CVSS', 'grcmanager') }}</th>
+                     <th>{{ __('EPSS', 'grcmanager') }}</th>
+                     <th>{{ __('Exploited', 'grcmanager') }}</th>
+                  </tr>
+               </thead>
+               <tbody>
+               {% for row in sentinelone.only %}
+                  {% set cvss_class = row.score is null ? 'bg-secondary-subtle text-secondary-emphasis' : (row.score >= 9 ? 'bg-red-subtle text-red-emphasis' : (row.score >= 7 ? 'bg-orange-subtle text-orange-emphasis' : (row.score >= 4 ? 'bg-yellow-subtle text-yellow-emphasis' : 'bg-green-subtle text-green-emphasis'))) %}
+                  <tr>
+                     <td class="text-nowrap">
+                        {% if row.priority %}<i class="ti ti-alert-triangle text-red me-1" title="{{ _x('singular', 'Priority', 'grcmanager') }}"></i>{% endif %}
+                        <a href="https://nvd.nist.gov/vuln/detail/{{ row.cve_id }}" target="_blank" rel="noopener">{{ row.cve_id }}</a>
+                     </td>
+                     <td>{% for p in row.packages %}<span class="badge bg-azure-subtle text-azure-emphasis me-1">{{ p }}</span>{% endfor %}</td>
+                     <td class="text-end"><strong>{{ row.machines }}</strong></td>
+                     <td><span class="badge {{ cvss_class }}">{{ row.score is null ? (row.severity ?: __('n/a', 'grcmanager')) : row.score|number_format(1, ',') }}</span></td>
+                     <td class="text-nowrap">{{ row.epss is null ? '-' : (row.epss * 100)|number_format(1, ',') ~ ' %' }}</td>
+                     <td class="text-nowrap">
+                        {% if row.is_kev %}
+                           <span class="badge bg-red-subtle text-red-emphasis" title="{{ __('CISA catalog of known exploited vulnerabilities', 'grcmanager') }}"><i class="ti ti-flame me-1"></i>KEV</span>
+                        {% else %}
+                           <span class="text-muted">-</span>
+                        {% endif %}
+                     </td>
+                  </tr>
+               {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      {% endif %}
+   </div>
+   {% endif %}
    {# Docker Inventory #10 : images de conteneurs déployées et vulnérables, d'après les analyses Harbor. #}
    {% if docker_images %}
    <div class="card mt-3" id="grc-docker-vulnerabilities">
@@ -374,4 +430,6 @@
       {% endif %}
    </div>
    {% endif %}
+   {# Issue #704 : fin de support (endoflife.date). #}
+   {% include '@grcmanager/park_endoflife.html.twig' %}
 </div>

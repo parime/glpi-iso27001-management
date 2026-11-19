@@ -162,6 +162,9 @@ final class Installer
     // Issue #535 : public cible des politiques, campagnes de prise de connaissance et confirmations.
     // Issue #601 : délais de correction des vulnérabilités du parc, et CVE couvertes par une dérogation.
     private const PARK_CVE_REMEDIATIONS_TABLE = 'glpi_plugin_grcmanager_parkcveremediations';
+    // Issue #704 : fin de vie des logiciels, systèmes et firmwares (endoflife.date).
+    private const ENDOFLIFE_CYCLES_TABLE = 'glpi_plugin_grcmanager_endoflifecycles';
+    private const ENDOFLIFE_MAPPINGS_TABLE = 'glpi_plugin_grcmanager_endoflifemappings';
     private const WAIVERS_CVES_TABLE = 'glpi_plugin_grcmanager_waivers_cves';
     private const POLICY_AUDIENCES_TABLE = 'glpi_plugin_grcmanager_policyaudiences';
     private const POLICY_CAMPAIGNS_TABLE = 'glpi_plugin_grcmanager_policycampaigns';
@@ -240,6 +243,10 @@ final class Installer
     // Issue #370 : imports CSV d'EDR / XDR (lignes brutes) et identifiants d'alerte déjà importés.
     private const SECURITY_INCIDENT_EDR_IMPORTS_TABLE = 'glpi_plugin_grcmanager_securityincidentedrimports';
     private const SECURITY_INCIDENT_EDR_ALERTS_TABLE = 'glpi_plugin_grcmanager_securityincidentedralerts';
+    // Issue #707 : connecteur SentinelOne (propositions d'incidents, agents, vulnérabilités applicatives).
+    private const SENTINELONE_ALERTS_TABLE = 'glpi_plugin_grcmanager_sentinelonealerts';
+    private const SENTINELONE_AGENTS_TABLE = 'glpi_plugin_grcmanager_sentineloneagents';
+    private const SENTINELONE_VULNERABILITIES_TABLE = 'glpi_plugin_grcmanager_sentinelonevulnerabilities';
     private const PLAYBOOK_STEPS_TABLE = 'glpi_plugin_grcmanager_playbooksteps';
     private const SECURITY_INCIDENT_PLAYBOOK_TASKS_TABLE = 'glpi_plugin_grcmanager_securityincidentplaybooktasks';
 
@@ -1410,6 +1417,8 @@ final class Installer
         $this->installContextTables($keySign, $charset, $collation);
         $this->installAcnTables($keySign, $charset, $collation);
         $this->installParkRemediationTables($keySign, $charset, $collation);
+        $this->installSentinelOneTables($keySign, $charset, $collation);
+        $this->installEndOfLifeTables($keySign, $charset, $collation);
 
         // Issue #30 (registre des obligations légales/réglementaires/contractuelles, clause 4.2
         // ISO 27001 "parties intéressées et leurs exigences", Annexe A A.5.31-36) : lien optionnel
@@ -3349,6 +3358,20 @@ final class Installer
             ]
         );
 
+        // Issue #707 : connecteur SentinelOne (lecture seule), DÉSACTIVÉ à l'installation : il est
+        // activé avec le connecteur dans la configuration du plugin. Un réglage existant est gardé
+        // (Register ne modifie pas une tâche déjà enregistrée).
+        CronTask::Register(
+            \GlpiPlugin\Grcmanager\SentinelOneAlert::class,
+            'sentinelone',
+            HOUR_TIMESTAMP,
+            [
+                'comment' => 'Lit les nouvelles menaces, alertes et vulnerabilites de SentinelOne (lecture seule)',
+                'mode'    => CronTask::MODE_EXTERNAL,
+                'state'   => CronTask::STATE_DISABLE,
+            ]
+        );
+
         // Issue #183 : surveillance des fuites de données (Have I Been Pwned). Sans effet tant
         // qu'elle n'est pas activée avec une clé d'API dans la configuration du plugin.
         CronTask::Register(
@@ -3526,6 +3549,19 @@ final class Installer
                     . 'CISA KEV et FIRST EPSS',
                 'mode'    => CronTask::MODE_EXTERNAL,
                 'param'   => 20,
+            ]
+        );
+
+        // Issue #704 : fin de vie des logiciels, systèmes et firmwares. Une fois par jour, les
+        // cycles de vie des produits en service sont relus sur endoflife.date (sans effet tant que
+        // la source n'est pas activée dans la configuration).
+        CronTask::Register(
+            \GlpiPlugin\Grcmanager\EndOfLife::class,
+            \GlpiPlugin\Grcmanager\EndOfLife::CRON_NAME,
+            DAY_TIMESTAMP,
+            [
+                'comment' => 'Relit la fin de support des logiciels, systemes et firmwares sur endoflife.date',
+                'mode'    => CronTask::MODE_EXTERNAL,
             ]
         );
 
@@ -4575,6 +4611,81 @@ final class Installer
      * niveau, échéance connue avant un changement de niveau, date de correction. Et les CVE couvertes
      * par une dérogation de sécurité.
      */
+    /**
+     * Issue #707 : connecteur SentinelOne en lecture seule. Propositions d'incidents (menaces et
+     * alertes à vérifier), agents de la console rapprochés des ordinateurs, vulnérabilités
+     * applicatives. Création seulement si absentes : rejouable.
+     */
+    private function installSentinelOneTables(string $keySign, string $charset, string $collation): void
+    {
+        global $DB;
+
+        if (!$DB->tableExists(self::SENTINELONE_ALERTS_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::SENTINELONE_ALERTS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `external_id` varchar(64) NOT NULL DEFAULT '' COMMENT 'Identifiant SentinelOne (anti-doublon)',
+                `kind` varchar(10) NOT NULL DEFAULT 'threat' COMMENT 'threat ou alert',
+                `name` varchar(255) NOT NULL DEFAULT '',
+                `detected_at` timestamp NULL DEFAULT NULL,
+                `severity` varchar(10) NOT NULL DEFAULT 'minor',
+                `hostname` varchar(255) NOT NULL DEFAULT '',
+                `username` varchar(255) NOT NULL DEFAULT '',
+                `agent_id` varchar(64) NOT NULL DEFAULT '',
+                `computers_id` int {$keySign} NOT NULL DEFAULT 0,
+                `entities_id` int {$keySign} NOT NULL DEFAULT 0,
+                `is_recursive` tinyint NOT NULL DEFAULT 0,
+                `data` longtext COMMENT 'Champs lus dans l API (JSON), jamais modifies',
+                `status` varchar(10) NOT NULL DEFAULT 'pending' COMMENT 'pending, imported, ignored',
+                `plugin_grcmanager_securityincidents_id` int {$keySign} NOT NULL DEFAULT 0,
+                `users_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Qui a importe ou ecarte',
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `external_id` (`external_id`),
+                KEY `status` (`status`),
+                KEY `entities_id` (`entities_id`),
+                KEY `computers_id` (`computers_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+        if (!$DB->tableExists(self::SENTINELONE_AGENTS_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::SENTINELONE_AGENTS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `agent_id` varchar(64) NOT NULL DEFAULT '',
+                `uuid` varchar(64) NOT NULL DEFAULT '',
+                `computer_name` varchar(255) NOT NULL DEFAULT '',
+                `serial` varchar(255) NOT NULL DEFAULT '',
+                `os` varchar(255) NOT NULL DEFAULT '',
+                `is_active` tinyint NOT NULL DEFAULT 0,
+                `last_active` timestamp NULL DEFAULT NULL,
+                `computers_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Par numero de serie ou nom exact',
+                `entities_id` int {$keySign} NOT NULL DEFAULT 0,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `agent_id` (`agent_id`),
+                KEY `computers_id` (`computers_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+        if (!$DB->tableExists(self::SENTINELONE_VULNERABILITIES_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::SENTINELONE_VULNERABILITIES_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `unicity` char(40) NOT NULL DEFAULT '' COMMENT 'SHA-1 de CVE, poste, application, version',
+                `cve_id` varchar(20) NOT NULL DEFAULT '',
+                `endpoint_id` varchar(64) NOT NULL DEFAULT '',
+                `endpoint_name` varchar(255) NOT NULL DEFAULT '',
+                `application` varchar(255) NOT NULL DEFAULT '',
+                `version` varchar(100) NOT NULL DEFAULT '',
+                `score` decimal(3,1) DEFAULT NULL,
+                `severity` varchar(20) NOT NULL DEFAULT '',
+                `computers_id` int {$keySign} NOT NULL DEFAULT 0,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity` (`unicity`),
+                KEY `cve_id` (`cve_id`),
+                KEY `computers_id` (`computers_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+    }
+
     private function installParkRemediationTables(string $keySign, string $charset, string $collation): void
     {
         global $DB;
@@ -4610,6 +4721,41 @@ final class Installer
                 PRIMARY KEY (`id`),
                 UNIQUE KEY `unicity` (`plugin_grcmanager_waivers_id`, `cve_id`),
                 KEY `cve_id` (`cve_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+    }
+
+    /**
+     * Issue #704 : cache des cycles de vie lus sur endoflife.date (un produit par ligne) et
+     * correspondances manuelles entre un nom de GLPI et un produit. Idempotent.
+     */
+    private function installEndOfLifeTables(string $keySign, string $charset, string $collation): void
+    {
+        global $DB;
+
+        if (!$DB->tableExists(self::ENDOFLIFE_CYCLES_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::ENDOFLIFE_CYCLES_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `product` varchar(64) NOT NULL DEFAULT '' COMMENT 'Identifiant endoflife.date',
+                `cycles` longtext COMMENT 'Cycles valides (JSON)',
+                `error` varchar(32) NOT NULL DEFAULT '' COMMENT 'Derniere erreur de lecture',
+                `date_checked` timestamp NULL DEFAULT NULL COMMENT 'Dernier essai',
+                `date_success` timestamp NULL DEFAULT NULL COMMENT 'Derniere lecture reussie',
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `product` (`product`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+        if (!$DB->tableExists(self::ENDOFLIFE_MAPPINGS_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::ENDOFLIFE_MAPPINGS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `kind` varchar(16) NOT NULL DEFAULT 'software' COMMENT 'software, os, firmware',
+                `name` varchar(255) NOT NULL DEFAULT '' COMMENT 'Nom exact dans GLPI',
+                `product` varchar(64) NOT NULL DEFAULT '' COMMENT 'Produit endoflife.date, vide : ne pas suivre',
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity` (`kind`, `name`),
+                KEY `product` (`product`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
         }
     }
@@ -5402,6 +5548,8 @@ final class Installer
         $migration->dropTable(self::WAIVERS_ITEMS_TABLE);
         $migration->dropTable(self::WAIVERS_CVES_TABLE);
         $migration->dropTable(self::PARK_CVE_REMEDIATIONS_TABLE);
+        $migration->dropTable(self::ENDOFLIFE_CYCLES_TABLE);
+        $migration->dropTable(self::ENDOFLIFE_MAPPINGS_TABLE);
         $migration->dropTable(self::COVERAGE_RULES_TABLE);
         $migration->dropTable(self::CRISIS_RECOVERIES_TABLE);
         $migration->dropTable(self::COMPLIANCE_AUDIT_TICKETS_TABLE);
@@ -5448,6 +5596,9 @@ final class Installer
         $migration->dropTable(self::PLAYBOOKS_TABLE);
         $migration->dropTable(self::SECURITY_INCIDENT_EDR_IMPORTS_TABLE);
         $migration->dropTable(self::SECURITY_INCIDENT_EDR_ALERTS_TABLE);
+        $migration->dropTable(self::SENTINELONE_ALERTS_TABLE);
+        $migration->dropTable(self::SENTINELONE_AGENTS_TABLE);
+        $migration->dropTable(self::SENTINELONE_VULNERABILITIES_TABLE);
         $migration->dropTable(self::SECURITY_INCIDENT_TEAMS_TABLE);
         $migration->dropTable(self::SECURITY_INCIDENT_TASKS_TABLE);
         $migration->dropTable(self::SECURITY_INCIDENTS_TICKETS_TABLE);

@@ -472,6 +472,9 @@
   </div>
 </div>
 
+{# Issue #707 : connecteur SentinelOne (lecture seule). #}
+{% include '@grcmanager/config_sentinelone.html.twig' %}
+
 {# Issue #658 : les appels sortants (NVD, CISA, FIRST, CERT-FR, Have I Been Pwned, GitHub) refusent
    les adresses internes et ne suivent jamais une redirection. Seul un administrateur de GLPI (droit
    de modifier la configuration générale) peut autoriser les adresses internes, pour toutes les
@@ -625,6 +628,8 @@
     </form>
   </div>
 </div>
+
+{% include '@grcmanager/endoflife_config.html.twig' %}
 
 {# Sprint 2 : matrice probabilité x impact administrable (voir front/config.php,
    RiskMatrixConfig). Un seul écran pour l'instant (pas d'onglets comme le plugin jumeau

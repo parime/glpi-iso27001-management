@@ -144,6 +144,10 @@ final class ConsistencyRules
             'area' => 'operations', 'clause' => 'A.5.18', 'severity' => self::SEVERITY_MEDIUM,
             'threshold' => ['unit' => self::UNIT_DAYS, 'default' => 0, 'min' => 0, 'max' => 365],
         ],
+        // Issue #704 : élément du parc plus supporté (endoflife.date), non évaluable sans la source.
+        'asset_end_of_life'                    => [
+            'area' => 'operations', 'clause' => 'A.8.8', 'severity' => self::SEVERITY_HIGH, 'threshold' => null,
+        ],
     ];
 
     /** Statuts de non-conformité close (voir Nonconformity::CLOSED_STATUSES). */

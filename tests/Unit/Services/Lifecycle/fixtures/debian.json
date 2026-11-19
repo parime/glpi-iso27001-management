@@ -1,0 +1,8 @@
+{"schema_version":"1.2.1","result":{"name":"debian","releases":[
+{"name":"13","codename":"Trixie","isEol":false,"eolFrom":"2028-08-09","latest":{"name":"13.2"}},
+{"name":"12","codename":"Bookworm","isEol":false,"eolFrom":"2026-06-10","latest":{"name":"12.12"}},
+{"name":"11","codename":"Bullseye","isEol":true,"eolFrom":"2024-08-14","latest":{"name":"11.11"}},
+{"name":"","codename":"broken"},
+"not an object",
+{"name":"10\u0007","codename":"Buster","isEol":true,"eolFrom":null,"latest":{"name":"10.13"}}
+]}}

@@ -26,6 +26,46 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   - Intitulés et résumés en italien, anglais et français rédigés par le projet, avec la référence
     exacte vers les allegati publiés par l'ACN. Droits d'entité standards (#536) ; désinstallation
     complète.
+- **Connecteur SentinelOne en lecture seule** (issue #707, demande d'un utilisateur).
+  - Carte « Connecteur SentinelOne » dans la configuration du plugin : adresse de la console
+    (HTTPS), jeton d'API chiffré avec la clé de GLPI (jamais réaffiché ni journalisé), entité des
+    alertes sans ordinateur reconnu, bouton « Tester la connexion » (avertissement si le jeton ne
+    voit rien), bouton « Lire maintenant », bilan de la dernière lecture et agents non rapprochés.
+  - Tâche automatique « sentinelone » (chaque heure), désactivée par défaut et activée avec le
+    connecteur : agents, nouvelles menaces et alertes depuis la dernière lecture (pagination par
+    curseur), vulnérabilités applicatives si la licence les fournit. Les erreurs 401, 403, 404 et
+    429 ne bloquent rien ; la lecture reprend au passage suivant.
+  - Les menaces et alertes sont proposées dans l'écran d'import EDR : un incident n'est créé que
+    pour les alertes cochées, avec le même traitement qu'une ligne de fichier CSV (indicateurs,
+    techniques MITRE ATT&CK, ordinateur rattaché par numéro de série ou nom exact). Aucun doublon,
+    y compris avec un import CSV ; cloisonnement par entité.
+  - Vulnérabilités applicatives sur la page des vulnérabilités du parc (source indiquée), couverture
+    des agents sur les mesures A.8.16 et A.8.7.
+  - Lecture seule stricte : seules des requêtes GET sur une liste fermée de chemins ; aucune action
+    n'est envoyée à SentinelOne. Droits minimaux du jeton (rôle Viewer) dans le README.
+- **Fin de support des logiciels, systèmes et firmwares** (issue #704 ; ISO 27001 A.8.8 et A.8.9),
+  d'après l'API publique d'endoflife.date.
+  - Source désactivée par défaut, activée dans la configuration du plugin (section « Fin de support
+    (endoflife.date) »), avec un seuil de « fin proche » réglable (90 jours par défaut). Lecture
+    seule, par le client sortant durci du plugin (`Compat\Http::send()`) ; seul l'identifiant public
+    du produit est envoyé. Réponses validées (structure et dates) avant d'être gardées en cache.
+  - Cache en base, rafraîchi une fois par jour par la tâche automatique `endoflifesync` et par le
+    bouton « Mettre à jour maintenant » ; jamais à l'affichage d'une page, hors ligne avec le dernier
+    cache. Une limite de requêtes (429) ou une panne arrête seulement les appels de la mise à jour en
+    cours : les données déjà connues restent utilisées et la tâche ne passe pas en erreur.
+  - Logiciels installés (tous les types de `software_types`), systèmes d'exploitation et firmwares
+    des matériels (`Item_DeviceFirmware`, #705) rapprochés d'un produit : automatiquement quand le
+    nom entier correspond à une forme connue (« Debian GNU/Linux », « Mozilla Firefox (x64 fr) »,
+    « Microsoft Windows 11 Professionnel »...), sinon par une correspondance manuelle saisie dans
+    la configuration, qui peut aussi écarter un nom. Les noms non rapprochés sont listés, jamais
+    devinés. Le cycle est retrouvé depuis la version installée (« 12.5 », « 22H2 », nom de code).
+  - Page « Vulnérabilités du parc » : carte « Fin de support » avec les états plus supporté, fin
+    proche, supporté et support inconnu, par nom et version, avec les actifs concernés, dans les
+    entités de la personne (#536), et export CSV d'un élément par ligne.
+  - Preuves des mesures A.8.8 et A.8.9 (fiche de la mesure) et nouvelle règle du contrôle de
+    cohérence « Actifs avec un logiciel, un système ou un firmware qui n'est plus supporté ».
+  - Aucun ticket ni statut n'est créé ou modifié automatiquement, aucune entrée de menu n'est
+    ajoutée.
 - **Matrice des risques : libellés des niveaux personnalisables, EBIOS RM, AIPD et rapport PDF en
   5 x 5** (issue #706, second lot).
   - Dans la configuration, « Libellés des niveaux » renomme chaque niveau de probabilité et d'impact

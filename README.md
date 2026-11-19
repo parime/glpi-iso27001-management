@@ -131,6 +131,8 @@ archivé), avec ses champs de classification ISO 27001 fusionnés dessus.
 - Avec le plugin [Wazuh](https://github.com/initiativa/wazuh) (optionnel, lecture seule) : agents
   actifs et part des ordinateurs couverts comme preuve des mesures A.8.16 et A.8.7, et carte de
   tableau de bord « couverture Wazuh ». Sans le plugin, rien ne change.
+- **Connecteur SentinelOne** (optionnel, lecture seule, voir « Connecteur SentinelOne » plus bas) :
+  agents actifs et part des ordinateurs couverts comme preuve des mesures A.8.16 et A.8.7.
 - Avec le plugin [Inventaire Docker](https://github.com/parime/glpi-docker-inventory) (optionnel,
   lecture seule) : services, stacks, nœuds et dernier import réussi de chaque connexion sur A.5.9 ;
   écarts de version et vulnérabilités Harbor des images sur A.8.8 ; configuration des services et
@@ -321,6 +323,40 @@ informez les salariés. Le plugin limite les données au strict nécessaire :
 - la **clé d'API** est chiffrée avec la clé de GLPI, masquée dans l'historique et jamais réaffichée ;
 - consultation et traitement réservés au droit « Registres sensibles » ; seuls le statut et le
   commentaire sont modifiables.
+## Connecteur SentinelOne (lecture seule)
+
+En plus de l'import d'un fichier CSV d'EDR / XDR, le plugin peut lire directement la console
+SentinelOne (Management API v2.1), dans **Configuration > Plugins > GRC Manager**, carte
+« Connecteur SentinelOne ».
+
+- **Alertes et menaces** : la tâche automatique « sentinelone » (chaque heure, **désactivée** tant
+  que le connecteur n'est pas activé) lit les nouveautés depuis la dernière lecture (30 derniers
+  jours la première fois). Elles sont **proposées** dans l'écran d'import EDR (menu des incidents de
+  sécurité, « Import EDR / XDR »), section « Alertes SentinelOne à vérifier » : chacune devient un
+  incident seulement si vous la cochez, ou peut être écartée. Aucun doublon (identifiant
+  SentinelOne, y compris une alerte déjà importée par un fichier CSV), aucun statut ni affectation
+  modifié automatiquement.
+- **Ordinateurs** : chaque agent est rapproché d'un ordinateur GLPI par numéro de série, puis par
+  nom exact ; jamais par un nom ressemblant. Les agents non rapprochés sont listés dans la carte de
+  configuration. Une proposition prend l'entité de son ordinateur (sinon l'entité choisie dans la
+  configuration) : chacun ne voit et ne traite que les alertes de ses entités.
+- **Vulnérabilités applicatives** (si la licence les fournit) : versées à la page « Vulnérabilités
+  du parc », section « Détectées par SentinelOne seulement », ou en badge sur une CVE déjà suivie.
+- **Lecture seule stricte** : seules des requêtes GET partent vers la console, sur une liste fermée
+  de chemins ; aucune action (isolement, résolution, changement de statut) n'est jamais envoyée.
+  Les erreurs 401, 403, 404 et 429 n'interrompent rien : elles sont affichées dans la carte de
+  configuration et la lecture reprend au passage suivant.
+- **Appels sortants** : HTTPS obligatoire, proxy de GLPI, délai d'attente, redirections refusées ;
+  une console à une adresse interne n'est joignable que si un administrateur autorise les adresses
+  internes (carte « Connexions sortantes »).
+
+**Droits minimaux du jeton d'API** : créez dans SentinelOne un **utilisateur de service** dédié,
+avec le rôle **Viewer** (lecture seule), limité aux comptes ou sites à surveiller, et générez son
+jeton d'API. Aucun autre rôle n'est nécessaire : un rôle plus élevé n'apporte rien au plugin. Le
+jeton est chiffré avec la clé de GLPI, n'est jamais réaffiché ni journalisé ; le bouton « Tester la
+connexion » signale un jeton accepté qui ne voit rien (rôle sans site). Pensez à renouveler le jeton
+avant son expiration (SentinelOne les limite dans le temps).
+
 ## Périmètres (entités GLPI)
 
 Le SMSI se découpe selon les entités de GLPI (issue #536). Les **risques** et leurs **actions de

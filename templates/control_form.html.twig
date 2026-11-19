@@ -254,6 +254,23 @@
       {{ fields.htmlField('', wazuh_html, __('Wazuh coverage', 'grcmanager'), {'full_width': true}) }}
    {% endif %}
 
+   {# Issue #707 : couverture SentinelOne, d'après la dernière lecture de la tâche automatique. #}
+   {% if sentinelone_coverage is not null %}
+      {% set s1 = sentinelone_coverage %}
+      {% set s1_html %}
+         <div class="mb-1" id="grc-sentinelone-coverage">
+            <span class="badge bg-purple-subtle text-purple-emphasis me-1"><i class="ti ti-shield-search me-1"></i>{{ __('%1$d active agent(s) out of %2$d', 'grcmanager')|format(s1.active, s1.agents) }}</span>
+            {% if s1.rate is null %}
+               <span class="text-muted">{{ __('no computer in your entities', 'grcmanager') }}</span>
+            {% else %}
+               <span class="badge {{ s1.rate >= 90 ? 'bg-green-subtle text-green-emphasis' : (s1.rate >= 60 ? 'bg-yellow-subtle text-yellow-emphasis' : 'bg-red-subtle text-red-emphasis') }} me-1"><i class="ti ti-device-desktop me-1"></i>{{ __('%1$d of %2$d computers covered (%3$s %%)', 'grcmanager')|format(s1.covered, s1.computers, s1.rate|number_format(1, ',')) }}</span>
+            {% endif %}
+         </div>
+         <small class="form-hint d-block">{{ __('From the last reading of SentinelOne: a computer is covered when an active agent is matched with it (serial number or exact name).', 'grcmanager') }}</small>
+      {% endset %}
+      {{ fields.htmlField('', s1_html, __('SentinelOne coverage', 'grcmanager'), {'full_width': true}) }}
+   {% endif %}
+
    {# Docker Inventory #10 : preuves du plugin Inventaire Docker, lues par son API ; ligne absente sans lui. #}
    {% if docker is not null %}
       {% set docker_html %}
@@ -465,5 +482,18 @@
          </div>
       {% endset %}
       {{ fields.htmlField('', docker_html, __('Docker inventory evidence', 'grcmanager'), {'full_width': true}) }}
+   {% endif %}
+
+   {# Issue #704 : fin de support du parc (endoflife.date), dans les entités de la personne. #}
+   {% if endoflife is defined and endoflife is not null %}
+      {% set endoflife_html %}
+         <div id="grc-endoflife-evidence">
+            <span class="badge {{ endoflife.eol > 0 ? 'bg-danger-subtle text-danger-emphasis' : 'bg-success-subtle text-success-emphasis' }} me-1"><i class="ti ti-calendar-x me-1"></i>{{ __('%1$d item(s) no longer supported on %2$d asset(s)', 'grcmanager')|format(endoflife.eol, endoflife.eol_assets) }}</span>
+            <span class="badge {{ endoflife.soon > 0 ? 'bg-warning-subtle text-warning-emphasis' : 'bg-secondary-subtle text-secondary-emphasis' }} me-1"><i class="ti ti-hourglass-high me-1"></i>{{ __('%1$d ending within %2$d days', 'grcmanager')|format(endoflife.soon, endoflife.warning_days) }}</span>
+            <span class="badge bg-success-subtle text-success-emphasis me-1"><i class="ti ti-shield-check me-1"></i>{{ __('%d supported', 'grcmanager')|format(endoflife.supported) }}</span>
+            <a href="{{ endoflife.url }}">{{ __('View the details', 'grcmanager') }}</a>
+         </div>
+      {% endset %}
+      {{ fields.htmlField('', endoflife_html, __('End of support (endoflife.date)', 'grcmanager'), {'full_width': true}) }}
    {% endif %}
 {% endblock %}

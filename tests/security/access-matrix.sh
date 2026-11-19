@@ -73,6 +73,7 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/evidence.php front/periodicreview.php front/networkflow.php front/accounthygiene.php
   front/compliancecalendar.php front/compliancecalendar.php?ics=1 front/complianceevent.php
   front/parkvulnerability.php front/parkmachines.php front/softwarewatch.php front/riskcatalog.php front/waiver.php
+  front/endoflife.export.php
   front/coveragerule.php front/playbook.php front/impactanalysis.php front/causalgraph.php
   front/ebiosstudy.php
   front/auditlog.php front/controltest.php
@@ -323,6 +324,7 @@ fi
 if [ "$ROLE" = general ]; then
   for p in front/risk.php front/supplierrisk.php front/riskheatmap.php front/risk.report.php \
            front/networkflow.php front/networkflow.report.php front/networkflow.matrix.php front/parkvulnerability.php \
+           front/endoflife.export.php \
            front/impactanalysis.php front/causalgraph.php front/breachexposure.php \
            front/riskappetite.php front/riskindicator.php \
            front/businessprocess.php front/businessprocess.php?export=csv front/businessprocess.report.php; do
