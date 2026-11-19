@@ -425,6 +425,9 @@
   </div>
 </div>
 
+{# Issue #707 : connecteur SentinelOne (lecture seule). #}
+{% include '@grcmanager/config_sentinelone.html.twig' %}
+
 {# Issue #658 : les appels sortants (NVD, CISA, FIRST, CERT-FR, Have I Been Pwned, GitHub) refusent
    les adresses internes et ne suivent jamais une redirection. Seul un administrateur de GLPI (droit
    de modifier la configuration générale) peut autoriser les adresses internes, pour toutes les

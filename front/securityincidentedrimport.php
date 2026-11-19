@@ -17,6 +17,7 @@
 
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\SecurityIncidentEdrImport;
+use GlpiPlugin\Grcmanager\SentinelOneAlert;
 use GlpiPlugin\Grcmanager\Services\Incident\EdrCsvImport;
 
 // Issue #370 : import d'un export CSV d'EDR / XDR (fichier, correspondance des colonnes, résultat).
@@ -28,6 +29,30 @@ if (isset($_GET['example'])) {
     readfile(dirname(__DIR__) . '/resources/edr-import-example.csv');
 
     return;
+}
+
+// Issue #707 : alertes SentinelOne proposées par la tâche automatique. Elles ne deviennent des
+// incidents que sur ce choix explicite ; « écarter » les retire de la liste. Rien n'est envoyé à
+// SentinelOne. Seules les propositions des entités actives de l'utilisateur sont traitées.
+if (isset($_POST['s1_import']) || isset($_POST['s1_ignore'])) {
+    $ids = array_values(array_filter(array_map('intval', (array) ($_POST['s1_ids'] ?? []))));
+    if ($ids === []) {
+        Session::addMessageAfterRedirect(htmlescape(__('Select at least one alert.', 'grcmanager')), false, WARNING);
+    } elseif (isset($_POST['s1_import'])) {
+        $result = SentinelOneAlert::importProposals($ids);
+        Session::addMessageAfterRedirect(htmlescape(sprintf(
+            __('%1$d incident(s) created, %2$d alert(s) ignored (already imported or not allowed).', 'grcmanager'),
+            count($result['created']),
+            $result['skipped']
+        )));
+        if (count($result['created']) === 1) {
+            Html::redirect(PluginGrcmanagerSecurityIncident::getFormURLWithID($result['created'][0]));
+        }
+    } else {
+        $count = SentinelOneAlert::ignoreProposals($ids);
+        Session::addMessageAfterRedirect(htmlescape(sprintf(__('%d alert(s) set aside.', 'grcmanager'), $count)));
+    }
+    Html::redirect(SecurityIncidentEdrImport::getImportURL() . '#grc-sentinelone-review');
 }
 
 $tmpKey = 'grcmanager_edr_import';
@@ -137,5 +162,8 @@ Html::header(
     PluginGrcmanagerSecurityIncident::class
 );
 \GlpiPlugin\Grcmanager\PageHelp::show('securityincidentedrimport');
-TemplateRenderer::getInstance()->display('@grcmanager/edr_import.html.twig', $params + ['step' => $step]);
+TemplateRenderer::getInstance()->display('@grcmanager/edr_import.html.twig', $params + [
+    'step'        => $step,
+    'sentinelone' => $step === 'upload' ? SentinelOneAlert::reviewData() : null,
+]);
 Html::footer();
