@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: grcmanager\n"
-"Language: es_EC\n"
+"Language: es_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19073,3 +19073,185 @@ msgstr "Aún sin respuesta"
 
 msgid "No item recorded."
 msgstr "Ningún elemento registrado."
+
+msgid "Partially achieved"
+msgstr "Parcialmente alcanzado"
+
+msgid "Not achieved"
+msgstr "No alcanzado"
+
+msgid "To evaluate"
+msgstr "Por evaluar"
+
+msgid "Not visible to you"
+msgstr "No visible para usted"
+
+msgid "Deleted"
+msgstr "Eliminada"
+
+msgid "Objectives of the exercise"
+msgstr "Objetivos del ejercicio"
+
+msgid "No objective defined."
+msgstr "Ningún objetivo definido."
+
+msgid "Objective"
+msgstr "Objetivo"
+
+#, php-format
+msgid "%1$d achieved, %2$d partially, %3$d not achieved, %4$d to evaluate"
+msgstr "%1$d alcanzado(s), %2$d parcialmente, %3$d no alcanzado(s), %4$d por evaluar"
+
+msgid "Findings and improvement plan"
+msgstr "Hallazgos y plan de mejora"
+
+msgid "No finding recorded."
+msgstr "Ningún hallazgo registrado."
+
+msgid "Improvement action"
+msgstr "Acción de mejora"
+
+msgid "No action decided"
+msgstr "Ninguna acción decidida"
+
+#, php-format
+msgid "%1$d finding(s), %2$d action(s) decided, %3$d done"
+msgstr "%1$d hallazgo(s), %2$d acción(es) decidida(s), %3$d realizada(s)"
+
+msgid "Review validation"
+msgstr "Validación del balance"
+
+msgid "Validated"
+msgstr "Validado"
+
+#, php-format
+msgid "on %1$s by %2$s"
+msgstr "el %1$s por %2$s"
+
+msgid "this review has not been validated yet."
+msgstr "este balance aún no ha sido validado."
+
+msgid "Returned to draft"
+msgstr "Devuelto a borrador"
+
+msgid "Exercise review"
+msgstr "Balance del ejercicio"
+
+#, php-format
+msgid "Review validated on %1$s by %2$s: it can no longer be changed unless it is returned to draft."
+msgstr "Balance validado el %1$s por %2$s: ya no se puede modificar salvo devolviéndolo a borrador."
+
+msgid "No objective defined. Objectives say what the exercise must demonstrate (for example: \"the crisis team is convened within 45 minutes\"); they are evaluated when the exercise is finished."
+msgstr "Ningún objetivo definido. Los objetivos indican lo que el ejercicio debe demostrar (por ejemplo: «la célula de crisis se reúne en menos de 45 minutos»); se evalúan al terminar el ejercicio."
+
+msgid "What was observed"
+msgstr "Lo observado"
+
+msgid "New objective, for example: restore the file server within 4 hours"
+msgstr "Nuevo objetivo, por ejemplo: restaurar el servidor de archivos en menos de 4 horas"
+
+msgid "New objective"
+msgstr "Nuevo objetivo"
+
+msgid "Evaluate each objective: the review can be validated once they are all evaluated."
+msgstr "Evalúe cada objetivo: el balance podrá validarse cuando estén todos evaluados."
+
+msgid "No finding yet. Record each gap observed during or after the exercise (delay, missing contact, unusable procedure…)."
+msgstr "Aún no hay hallazgos. Registre cada desviación observada durante o después del ejercicio (retraso, contacto faltante, procedimiento inutilizable…)."
+
+msgid "Create an improvement action"
+msgstr "Crear una acción de mejora"
+
+msgid "Risk (treatment action only)"
+msgstr "Riesgo (solo acción de tratamiento)"
+
+msgid "Create the action"
+msgstr "Crear la acción"
+
+msgid "An improvement action is only created when you click it: a non-conformity linked to the exercise incident, or a treatment action of an existing risk. Its progress is shown here."
+msgstr "Una acción de mejora solo se crea cuando usted hace clic: una no conformidad vinculada al incidente del ejercicio, o una acción de tratamiento de un riesgo existente. Su avance se muestra aquí."
+
+msgid "New finding"
+msgstr "Nuevo hallazgo"
+
+msgid "Validate the review? It will no longer be editable and the validated report will be archived."
+msgstr "¿Validar el balance? Ya no podrá modificarse y el informe validado se archivará."
+
+msgid "Comment (optional)"
+msgstr "Comentario (opcional)"
+
+msgid "Validate the review"
+msgstr "Validar el balance"
+
+msgid "The review is validated by a person holding the \"Validate exercise reviews\" right (Business continuity, in the GRC Manager tab of profiles)."
+msgstr "El balance lo valida una persona con el derecho «Validar los balances de ejercicio» (Continuidad del negocio, pestaña GRC Manager de los perfiles)."
+
+msgid "Return the review to draft? The reason is recorded in the validation history."
+msgstr "¿Devolver el balance a borrador? El motivo se registra en el historial de validaciones."
+
+msgid "Reason for returning to draft (required)"
+msgstr "Motivo de la vuelta a borrador (obligatorio)"
+
+msgid "Return to draft"
+msgstr "Devolver a borrador"
+
+msgid "Objectives of the exercise (one per line)"
+msgstr "Objetivos del ejercicio (uno por línea)"
+
+msgid "For example: convene the crisis team within 45 minutes"
+msgstr "Por ejemplo: reunir la célula de crisis en menos de 45 minutos"
+
+msgid "Evaluated when the exercise is finished; they appear in the report."
+msgstr "Se evalúan al terminar el ejercicio; figuran en el informe."
+
+msgid "Review validated"
+msgstr "Balance validado"
+
+msgid "Objectives achieved"
+msgstr "Objetivos alcanzados"
+
+msgid "Improvement actions overdue"
+msgstr "Acciones de mejora atrasadas"
+
+msgid "Improvement action created."
+msgstr "Acción de mejora creada."
+
+msgid "The review could not be changed."
+msgstr "No se pudo modificar el balance."
+
+msgid "Review validated: the validated report is archived in the incident documents."
+msgstr "Balance validado: el informe validado se archiva en los documentos del incidente."
+
+msgid "The review is back to draft."
+msgstr "El balance ha vuelto a borrador."
+
+msgid "Give the reason for returning the review to draft."
+msgstr "Indique el motivo de la vuelta del balance a borrador."
+
+#, php-format
+msgid "Finding of the crisis exercise #%1$d (%2$s)."
+msgstr "Hallazgo del ejercicio de crisis n.º %1$d (%2$s)."
+
+msgid "The review is already validated."
+msgstr "El balance ya está validado."
+
+msgid "Define at least one objective before validating the review."
+msgstr "Defina al menos un objetivo antes de validar el balance."
+
+msgid "Evaluate every objective (achieved, partially achieved or not achieved) before validating the review."
+msgstr "Evalúe cada objetivo (alcanzado, parcialmente alcanzado o no alcanzado) antes de validar el balance."
+
+msgid "Finish the exercise before validating its review."
+msgstr "Termine el ejercicio antes de validar su balance."
+
+msgid "Validate exercise reviews"
+msgstr "Validar los balances de ejercicio"
+
+msgid "Validate crisis exercise reviews and return them to draft"
+msgstr "Validar los balances de los ejercicios de crisis y devolverlos a borrador"
+
+#, php-format
+msgid "%d action overdue"
+msgid_plural "%d actions overdue"
+msgstr[0] "%d acción atrasada"
+msgstr[1] "%d acciones atrasadas"

@@ -19227,3 +19227,185 @@ msgstr "Noch nicht beantwortet"
 
 msgid "No item recorded."
 msgstr "Kein Eintrag erfasst."
+
+msgid "Partially achieved"
+msgstr "Teilweise erreicht"
+
+msgid "Not achieved"
+msgstr "Nicht erreicht"
+
+msgid "To evaluate"
+msgstr "Zu bewerten"
+
+msgid "Not visible to you"
+msgstr "Für Sie nicht sichtbar"
+
+msgid "Deleted"
+msgstr "Gelöscht"
+
+msgid "Objectives of the exercise"
+msgstr "Ziele der Übung"
+
+msgid "No objective defined."
+msgstr "Kein Ziel festgelegt."
+
+msgid "Objective"
+msgstr "Ziel"
+
+#, php-format
+msgid "%1$d achieved, %2$d partially, %3$d not achieved, %4$d to evaluate"
+msgstr "%1$d erreicht, %2$d teilweise, %3$d nicht erreicht, %4$d zu bewerten"
+
+msgid "Findings and improvement plan"
+msgstr "Feststellungen und Verbesserungsplan"
+
+msgid "No finding recorded."
+msgstr "Keine Feststellung erfasst."
+
+msgid "Improvement action"
+msgstr "Verbesserungsmaßnahme"
+
+msgid "No action decided"
+msgstr "Keine Maßnahme beschlossen"
+
+#, php-format
+msgid "%1$d finding(s), %2$d action(s) decided, %3$d done"
+msgstr "%1$d Feststellung(en), %2$d Maßnahme(n) beschlossen, %3$d erledigt"
+
+msgid "Review validation"
+msgstr "Freigabe der Auswertung"
+
+msgid "Validated"
+msgstr "Freigegeben"
+
+#, php-format
+msgid "on %1$s by %2$s"
+msgstr "am %1$s von %2$s"
+
+msgid "this review has not been validated yet."
+msgstr "diese Auswertung wurde noch nicht freigegeben."
+
+msgid "Returned to draft"
+msgstr "Zurück in den Entwurf"
+
+msgid "Exercise review"
+msgstr "Auswertung der Übung"
+
+#, php-format
+msgid "Review validated on %1$s by %2$s: it can no longer be changed unless it is returned to draft."
+msgstr "Auswertung am %1$s von %2$s freigegeben: Sie kann nur nach Rückkehr in den Entwurf geändert werden."
+
+msgid "No objective defined. Objectives say what the exercise must demonstrate (for example: \"the crisis team is convened within 45 minutes\"); they are evaluated when the exercise is finished."
+msgstr "Kein Ziel festgelegt. Ziele beschreiben, was die Übung nachweisen soll (zum Beispiel: „der Krisenstab ist innerhalb von 45 Minuten einberufen“); sie werden am Ende der Übung bewertet."
+
+msgid "What was observed"
+msgstr "Was beobachtet wurde"
+
+msgid "New objective, for example: restore the file server within 4 hours"
+msgstr "Neues Ziel, zum Beispiel: den Dateiserver innerhalb von 4 Stunden wiederherstellen"
+
+msgid "New objective"
+msgstr "Neues Ziel"
+
+msgid "Evaluate each objective: the review can be validated once they are all evaluated."
+msgstr "Bewerten Sie jedes Ziel: Die Auswertung kann freigegeben werden, sobald alle bewertet sind."
+
+msgid "No finding yet. Record each gap observed during or after the exercise (delay, missing contact, unusable procedure…)."
+msgstr "Noch keine Feststellung. Erfassen Sie jede während oder nach der Übung beobachtete Abweichung (Verzögerung, fehlender Kontakt, unbrauchbares Verfahren…)."
+
+msgid "Create an improvement action"
+msgstr "Verbesserungsmaßnahme anlegen"
+
+msgid "Risk (treatment action only)"
+msgstr "Risiko (nur Behandlungsmaßnahme)"
+
+msgid "Create the action"
+msgstr "Maßnahme anlegen"
+
+msgid "An improvement action is only created when you click it: a non-conformity linked to the exercise incident, or a treatment action of an existing risk. Its progress is shown here."
+msgstr "Eine Verbesserungsmaßnahme wird nur auf Ihren Klick angelegt: eine Nichtkonformität zum Übungsvorfall oder eine Behandlungsmaßnahme eines bestehenden Risikos. Ihr Fortschritt wird hier angezeigt."
+
+msgid "New finding"
+msgstr "Neue Feststellung"
+
+msgid "Validate the review? It will no longer be editable and the validated report will be archived."
+msgstr "Auswertung freigeben? Sie ist danach nicht mehr änderbar, und der freigegebene Bericht wird archiviert."
+
+msgid "Comment (optional)"
+msgstr "Kommentar (optional)"
+
+msgid "Validate the review"
+msgstr "Auswertung freigeben"
+
+msgid "The review is validated by a person holding the \"Validate exercise reviews\" right (Business continuity, in the GRC Manager tab of profiles)."
+msgstr "Die Auswertung wird von einer Person mit dem Recht „Übungsauswertungen freigeben“ freigegeben (Geschäftskontinuität, Registerkarte GRC Manager der Profile)."
+
+msgid "Return the review to draft? The reason is recorded in the validation history."
+msgstr "Auswertung in den Entwurf zurücksetzen? Der Grund wird im Freigabeverlauf festgehalten."
+
+msgid "Reason for returning to draft (required)"
+msgstr "Grund für die Rückkehr in den Entwurf (Pflicht)"
+
+msgid "Return to draft"
+msgstr "Zurück in den Entwurf"
+
+msgid "Objectives of the exercise (one per line)"
+msgstr "Ziele der Übung (eines pro Zeile)"
+
+msgid "For example: convene the crisis team within 45 minutes"
+msgstr "Zum Beispiel: den Krisenstab innerhalb von 45 Minuten einberufen"
+
+msgid "Evaluated when the exercise is finished; they appear in the report."
+msgstr "Am Ende der Übung bewertet; sie erscheinen im Bericht."
+
+msgid "Review validated"
+msgstr "Auswertung freigegeben"
+
+msgid "Objectives achieved"
+msgstr "Erreichte Ziele"
+
+msgid "Improvement actions overdue"
+msgstr "Überfällige Verbesserungsmaßnahmen"
+
+msgid "Improvement action created."
+msgstr "Verbesserungsmaßnahme angelegt."
+
+msgid "The review could not be changed."
+msgstr "Die Auswertung konnte nicht geändert werden."
+
+msgid "Review validated: the validated report is archived in the incident documents."
+msgstr "Auswertung freigegeben: Der freigegebene Bericht ist in den Dokumenten des Vorfalls archiviert."
+
+msgid "The review is back to draft."
+msgstr "Die Auswertung ist wieder ein Entwurf."
+
+msgid "Give the reason for returning the review to draft."
+msgstr "Geben Sie den Grund für die Rückkehr in den Entwurf an."
+
+#, php-format
+msgid "Finding of the crisis exercise #%1$d (%2$s)."
+msgstr "Feststellung der Krisenübung Nr. %1$d (%2$s)."
+
+msgid "The review is already validated."
+msgstr "Die Auswertung ist bereits freigegeben."
+
+msgid "Define at least one objective before validating the review."
+msgstr "Legen Sie vor der Freigabe mindestens ein Ziel fest."
+
+msgid "Evaluate every objective (achieved, partially achieved or not achieved) before validating the review."
+msgstr "Bewerten Sie vor der Freigabe jedes Ziel (erreicht, teilweise erreicht oder nicht erreicht)."
+
+msgid "Finish the exercise before validating its review."
+msgstr "Beenden Sie die Übung, bevor Sie ihre Auswertung freigeben."
+
+msgid "Validate exercise reviews"
+msgstr "Übungsauswertungen freigeben"
+
+msgid "Validate crisis exercise reviews and return them to draft"
+msgstr "Auswertungen von Krisenübungen freigeben und in den Entwurf zurücksetzen"
+
+#, php-format
+msgid "%d action overdue"
+msgid_plural "%d actions overdue"
+msgstr[0] "%d Maßnahme überfällig"
+msgstr[1] "%d Maßnahmen überfällig"

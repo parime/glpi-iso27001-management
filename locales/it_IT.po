@@ -19052,3 +19052,185 @@ msgstr "Non ancora risposto"
 
 msgid "No item recorded."
 msgstr "Nessun elemento registrato."
+
+msgid "Partially achieved"
+msgstr "Parzialmente raggiunto"
+
+msgid "Not achieved"
+msgstr "Non raggiunto"
+
+msgid "To evaluate"
+msgstr "Da valutare"
+
+msgid "Not visible to you"
+msgstr "Non visibile per lei"
+
+msgid "Deleted"
+msgstr "Eliminata"
+
+msgid "Objectives of the exercise"
+msgstr "Obiettivi dell'esercitazione"
+
+msgid "No objective defined."
+msgstr "Nessun obiettivo definito."
+
+msgid "Objective"
+msgstr "Obiettivo"
+
+#, php-format
+msgid "%1$d achieved, %2$d partially, %3$d not achieved, %4$d to evaluate"
+msgstr "%1$d raggiunto/i, %2$d parzialmente, %3$d non raggiunto/i, %4$d da valutare"
+
+msgid "Findings and improvement plan"
+msgstr "Rilievi e piano di miglioramento"
+
+msgid "No finding recorded."
+msgstr "Nessun rilievo registrato."
+
+msgid "Improvement action"
+msgstr "Azione di miglioramento"
+
+msgid "No action decided"
+msgstr "Nessuna azione decisa"
+
+#, php-format
+msgid "%1$d finding(s), %2$d action(s) decided, %3$d done"
+msgstr "%1$d rilievo/i, %2$d azione/i decisa/e, %3$d completata/e"
+
+msgid "Review validation"
+msgstr "Convalida del bilancio"
+
+msgid "Validated"
+msgstr "Convalidato"
+
+#, php-format
+msgid "on %1$s by %2$s"
+msgstr "il %1$s da %2$s"
+
+msgid "this review has not been validated yet."
+msgstr "questo bilancio non è ancora stato convalidato."
+
+msgid "Returned to draft"
+msgstr "Riportato in bozza"
+
+msgid "Exercise review"
+msgstr "Bilancio dell'esercitazione"
+
+#, php-format
+msgid "Review validated on %1$s by %2$s: it can no longer be changed unless it is returned to draft."
+msgstr "Bilancio convalidato il %1$s da %2$s: non è più modificabile, salvo riportarlo in bozza."
+
+msgid "No objective defined. Objectives say what the exercise must demonstrate (for example: \"the crisis team is convened within 45 minutes\"); they are evaluated when the exercise is finished."
+msgstr "Nessun obiettivo definito. Gli obiettivi indicano ciò che l'esercitazione deve dimostrare (ad esempio: «l'unità di crisi è convocata entro 45 minuti»); sono valutati al termine dell'esercitazione."
+
+msgid "What was observed"
+msgstr "Ciò che è stato osservato"
+
+msgid "New objective, for example: restore the file server within 4 hours"
+msgstr "Nuovo obiettivo, ad esempio: ripristinare il file server entro 4 ore"
+
+msgid "New objective"
+msgstr "Nuovo obiettivo"
+
+msgid "Evaluate each objective: the review can be validated once they are all evaluated."
+msgstr "Valuti ogni obiettivo: il bilancio potrà essere convalidato quando saranno tutti valutati."
+
+msgid "No finding yet. Record each gap observed during or after the exercise (delay, missing contact, unusable procedure…)."
+msgstr "Nessun rilievo per ora. Registri ogni scostamento osservato durante o dopo l'esercitazione (ritardo, contatto mancante, procedura inutilizzabile…)."
+
+msgid "Create an improvement action"
+msgstr "Creare un'azione di miglioramento"
+
+msgid "Risk (treatment action only)"
+msgstr "Rischio (solo azione di trattamento)"
+
+msgid "Create the action"
+msgstr "Creare l'azione"
+
+msgid "An improvement action is only created when you click it: a non-conformity linked to the exercise incident, or a treatment action of an existing risk. Its progress is shown here."
+msgstr "Un'azione di miglioramento viene creata solo con il suo clic: una non conformità collegata all'incidente dell'esercitazione, o un'azione di trattamento di un rischio esistente. Il suo avanzamento è mostrato qui."
+
+msgid "New finding"
+msgstr "Nuovo rilievo"
+
+msgid "Validate the review? It will no longer be editable and the validated report will be archived."
+msgstr "Convalidare il bilancio? Non sarà più modificabile e il rapporto convalidato sarà archiviato."
+
+msgid "Comment (optional)"
+msgstr "Commento (facoltativo)"
+
+msgid "Validate the review"
+msgstr "Convalidare il bilancio"
+
+msgid "The review is validated by a person holding the \"Validate exercise reviews\" right (Business continuity, in the GRC Manager tab of profiles)."
+msgstr "Il bilancio è convalidato da una persona con il diritto «Convalidare i bilanci delle esercitazioni» (Continuità operativa, scheda GRC Manager dei profili)."
+
+msgid "Return the review to draft? The reason is recorded in the validation history."
+msgstr "Riportare il bilancio in bozza? Il motivo è registrato nella cronologia delle convalide."
+
+msgid "Reason for returning to draft (required)"
+msgstr "Motivo del ritorno in bozza (obbligatorio)"
+
+msgid "Return to draft"
+msgstr "Riportare in bozza"
+
+msgid "Objectives of the exercise (one per line)"
+msgstr "Obiettivi dell'esercitazione (uno per riga)"
+
+msgid "For example: convene the crisis team within 45 minutes"
+msgstr "Ad esempio: convocare l'unità di crisi entro 45 minuti"
+
+msgid "Evaluated when the exercise is finished; they appear in the report."
+msgstr "Valutati al termine dell'esercitazione; compaiono nel rapporto."
+
+msgid "Review validated"
+msgstr "Bilancio convalidato"
+
+msgid "Objectives achieved"
+msgstr "Obiettivi raggiunti"
+
+msgid "Improvement actions overdue"
+msgstr "Azioni di miglioramento in ritardo"
+
+msgid "Improvement action created."
+msgstr "Azione di miglioramento creata."
+
+msgid "The review could not be changed."
+msgstr "Non è stato possibile modificare il bilancio."
+
+msgid "Review validated: the validated report is archived in the incident documents."
+msgstr "Bilancio convalidato: il rapporto convalidato è archiviato nei documenti dell'incidente."
+
+msgid "The review is back to draft."
+msgstr "Il bilancio è tornato in bozza."
+
+msgid "Give the reason for returning the review to draft."
+msgstr "Indichi il motivo del ritorno del bilancio in bozza."
+
+#, php-format
+msgid "Finding of the crisis exercise #%1$d (%2$s)."
+msgstr "Rilievo dell'esercitazione di crisi n. %1$d (%2$s)."
+
+msgid "The review is already validated."
+msgstr "Il bilancio è già convalidato."
+
+msgid "Define at least one objective before validating the review."
+msgstr "Definisca almeno un obiettivo prima di convalidare il bilancio."
+
+msgid "Evaluate every objective (achieved, partially achieved or not achieved) before validating the review."
+msgstr "Valuti ogni obiettivo (raggiunto, parzialmente raggiunto o non raggiunto) prima di convalidare il bilancio."
+
+msgid "Finish the exercise before validating its review."
+msgstr "Termini l'esercitazione prima di convalidarne il bilancio."
+
+msgid "Validate exercise reviews"
+msgstr "Convalidare i bilanci delle esercitazioni"
+
+msgid "Validate crisis exercise reviews and return them to draft"
+msgstr "Convalidare i bilanci delle esercitazioni di crisi e riportarli in bozza"
+
+#, php-format
+msgid "%d action overdue"
+msgid_plural "%d actions overdue"
+msgstr[0] "%d azione in ritardo"
+msgstr[1] "%d azioni in ritardo"

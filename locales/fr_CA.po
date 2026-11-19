@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: grcmanager\n"
-"Language: fr_CA\n"
+"Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19064,3 +19064,185 @@ msgstr "Pas encore de réponse"
 
 msgid "No item recorded."
 msgstr "Aucune fiche enregistrée."
+
+msgid "Partially achieved"
+msgstr "Partiellement atteint"
+
+msgid "Not achieved"
+msgstr "Non atteint"
+
+msgid "To evaluate"
+msgstr "À évaluer"
+
+msgid "Not visible to you"
+msgstr "Non visible pour vous"
+
+msgid "Deleted"
+msgstr "Supprimée"
+
+msgid "Objectives of the exercise"
+msgstr "Objectifs de l'exercice"
+
+msgid "No objective defined."
+msgstr "Aucun objectif défini."
+
+msgid "Objective"
+msgstr "Objectif"
+
+#, php-format
+msgid "%1$d achieved, %2$d partially, %3$d not achieved, %4$d to evaluate"
+msgstr "%1$d atteint(s), %2$d partiellement, %3$d non atteint(s), %4$d à évaluer"
+
+msgid "Findings and improvement plan"
+msgstr "Constats et plan d'amélioration"
+
+msgid "No finding recorded."
+msgstr "Aucun constat enregistré."
+
+msgid "Improvement action"
+msgstr "Action d'amélioration"
+
+msgid "No action decided"
+msgstr "Aucune action décidée"
+
+#, php-format
+msgid "%1$d finding(s), %2$d action(s) decided, %3$d done"
+msgstr "%1$d constat(s), %2$d action(s) décidée(s), %3$d faite(s)"
+
+msgid "Review validation"
+msgstr "Validation du bilan"
+
+msgid "Validated"
+msgstr "Validé"
+
+#, php-format
+msgid "on %1$s by %2$s"
+msgstr "le %1$s par %2$s"
+
+msgid "this review has not been validated yet."
+msgstr "ce bilan n'a pas encore été validé."
+
+msgid "Returned to draft"
+msgstr "Repassé en brouillon"
+
+msgid "Exercise review"
+msgstr "Bilan de l'exercice"
+
+#, php-format
+msgid "Review validated on %1$s by %2$s: it can no longer be changed unless it is returned to draft."
+msgstr "Bilan validé le %1$s par %2$s : il n'est plus modifiable, sauf à le repasser en brouillon."
+
+msgid "No objective defined. Objectives say what the exercise must demonstrate (for example: \"the crisis team is convened within 45 minutes\"); they are evaluated when the exercise is finished."
+msgstr "Aucun objectif défini. Les objectifs disent ce que l'exercice doit démontrer (par exemple : « la cellule de crise est réunie en moins de 45 minutes ») ; ils sont évalués à la fin de l'exercice."
+
+msgid "What was observed"
+msgstr "Ce qui a été observé"
+
+msgid "New objective, for example: restore the file server within 4 hours"
+msgstr "Nouvel objectif, par exemple : restaurer le serveur de fichiers en moins de 4 heures"
+
+msgid "New objective"
+msgstr "Nouvel objectif"
+
+msgid "Evaluate each objective: the review can be validated once they are all evaluated."
+msgstr "Évaluez chaque objectif : le bilan pourra être validé une fois tous évalués."
+
+msgid "No finding yet. Record each gap observed during or after the exercise (delay, missing contact, unusable procedure…)."
+msgstr "Aucun constat pour l'instant. Enregistrez chaque écart relevé pendant ou après l'exercice (retard, contact manquant, procédure inutilisable…)."
+
+msgid "Create an improvement action"
+msgstr "Créer une action d'amélioration"
+
+msgid "Risk (treatment action only)"
+msgstr "Risque (action de traitement seulement)"
+
+msgid "Create the action"
+msgstr "Créer l'action"
+
+msgid "An improvement action is only created when you click it: a non-conformity linked to the exercise incident, or a treatment action of an existing risk. Its progress is shown here."
+msgstr "Une action d'amélioration n'est créée que sur votre clic : une non-conformité liée à l'incident de l'exercice, ou une action de traitement d'un risque existant. Son avancement s'affiche ici."
+
+msgid "New finding"
+msgstr "Nouveau constat"
+
+msgid "Validate the review? It will no longer be editable and the validated report will be archived."
+msgstr "Valider le bilan ? Il ne sera plus modifiable et le rapport validé sera archivé."
+
+msgid "Comment (optional)"
+msgstr "Commentaire (facultatif)"
+
+msgid "Validate the review"
+msgstr "Valider le bilan"
+
+msgid "The review is validated by a person holding the \"Validate exercise reviews\" right (Business continuity, in the GRC Manager tab of profiles)."
+msgstr "Le bilan est validé par une personne disposant du droit « Valider les bilans d'exercice » (Continuité d'activité, onglet GRC Manager des profils)."
+
+msgid "Return the review to draft? The reason is recorded in the validation history."
+msgstr "Repasser le bilan en brouillon ? Le motif est enregistré dans l'historique des validations."
+
+msgid "Reason for returning to draft (required)"
+msgstr "Motif du retour en brouillon (obligatoire)"
+
+msgid "Return to draft"
+msgstr "Repasser en brouillon"
+
+msgid "Objectives of the exercise (one per line)"
+msgstr "Objectifs de l'exercice (un par ligne)"
+
+msgid "For example: convene the crisis team within 45 minutes"
+msgstr "Par exemple : réunir la cellule de crise en moins de 45 minutes"
+
+msgid "Evaluated when the exercise is finished; they appear in the report."
+msgstr "Évalués à la fin de l'exercice ; ils figurent dans le rapport."
+
+msgid "Review validated"
+msgstr "Bilan validé"
+
+msgid "Objectives achieved"
+msgstr "Objectifs atteints"
+
+msgid "Improvement actions overdue"
+msgstr "Actions d'amélioration en retard"
+
+msgid "Improvement action created."
+msgstr "Action d'amélioration créée."
+
+msgid "The review could not be changed."
+msgstr "Le bilan n'a pas pu être modifié."
+
+msgid "Review validated: the validated report is archived in the incident documents."
+msgstr "Bilan validé : le rapport validé est archivé dans les documents de l'incident."
+
+msgid "The review is back to draft."
+msgstr "Le bilan est repassé en brouillon."
+
+msgid "Give the reason for returning the review to draft."
+msgstr "Indiquez le motif du retour du bilan en brouillon."
+
+#, php-format
+msgid "Finding of the crisis exercise #%1$d (%2$s)."
+msgstr "Constat de l'exercice de crise n° %1$d (%2$s)."
+
+msgid "The review is already validated."
+msgstr "Le bilan est déjà validé."
+
+msgid "Define at least one objective before validating the review."
+msgstr "Définissez au moins un objectif avant de valider le bilan."
+
+msgid "Evaluate every objective (achieved, partially achieved or not achieved) before validating the review."
+msgstr "Évaluez chaque objectif (atteint, partiellement atteint ou non atteint) avant de valider le bilan."
+
+msgid "Finish the exercise before validating its review."
+msgstr "Terminez l'exercice avant de valider son bilan."
+
+msgid "Validate exercise reviews"
+msgstr "Valider les bilans d'exercice"
+
+msgid "Validate crisis exercise reviews and return them to draft"
+msgstr "Valider les bilans d'exercice de crise et les repasser en brouillon"
+
+#, php-format
+msgid "%d action overdue"
+msgid_plural "%d actions overdue"
+msgstr[0] "%d action en retard"
+msgstr[1] "%d actions en retard"

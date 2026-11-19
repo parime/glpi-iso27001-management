@@ -18977,3 +18977,186 @@ msgstr "Brak odpowiedzi"
 
 msgid "No item recorded."
 msgstr "Brak zapisanych pozycji."
+
+msgid "Partially achieved"
+msgstr "Częściowo osiągnięty"
+
+msgid "Not achieved"
+msgstr "Nieosiągnięty"
+
+msgid "To evaluate"
+msgstr "Do oceny"
+
+msgid "Not visible to you"
+msgstr "Niewidoczne dla Ciebie"
+
+msgid "Deleted"
+msgstr "Usunięte"
+
+msgid "Objectives of the exercise"
+msgstr "Cele ćwiczenia"
+
+msgid "No objective defined."
+msgstr "Nie zdefiniowano celu."
+
+msgid "Objective"
+msgstr "Cel"
+
+#, php-format
+msgid "%1$d achieved, %2$d partially, %3$d not achieved, %4$d to evaluate"
+msgstr "Osiągnięte: %1$d, częściowo: %2$d, nieosiągnięte: %3$d, do oceny: %4$d"
+
+msgid "Findings and improvement plan"
+msgstr "Ustalenia i plan doskonalenia"
+
+msgid "No finding recorded."
+msgstr "Nie zarejestrowano ustaleń."
+
+msgid "Improvement action"
+msgstr "Działanie doskonalące"
+
+msgid "No action decided"
+msgstr "Nie podjęto decyzji o działaniu"
+
+#, php-format
+msgid "%1$d finding(s), %2$d action(s) decided, %3$d done"
+msgstr "Ustalenia: %1$d, zdecydowane działania: %2$d, wykonane: %3$d"
+
+msgid "Review validation"
+msgstr "Zatwierdzenie podsumowania"
+
+msgid "Validated"
+msgstr "Zatwierdzone"
+
+#, php-format
+msgid "on %1$s by %2$s"
+msgstr "%1$s, zatwierdził(a): %2$s"
+
+msgid "this review has not been validated yet."
+msgstr "to podsumowanie nie zostało jeszcze zatwierdzone."
+
+msgid "Returned to draft"
+msgstr "Przywrócono do wersji roboczej"
+
+msgid "Exercise review"
+msgstr "Podsumowanie ćwiczenia"
+
+#, php-format
+msgid "Review validated on %1$s by %2$s: it can no longer be changed unless it is returned to draft."
+msgstr "Podsumowanie zatwierdzone %1$s przez %2$s: nie można go już zmieniać bez przywrócenia do wersji roboczej."
+
+msgid "No objective defined. Objectives say what the exercise must demonstrate (for example: \"the crisis team is convened within 45 minutes\"); they are evaluated when the exercise is finished."
+msgstr "Nie zdefiniowano celu. Cele określają, co ćwiczenie ma wykazać (na przykład: „sztab kryzysowy zbiera się w ciągu 45 minut”); są oceniane po zakończeniu ćwiczenia."
+
+msgid "What was observed"
+msgstr "Co zaobserwowano"
+
+msgid "New objective, for example: restore the file server within 4 hours"
+msgstr "Nowy cel, na przykład: przywrócić serwer plików w ciągu 4 godzin"
+
+msgid "New objective"
+msgstr "Nowy cel"
+
+msgid "Evaluate each objective: the review can be validated once they are all evaluated."
+msgstr "Oceń każdy cel: podsumowanie można zatwierdzić, gdy wszystkie zostaną ocenione."
+
+msgid "No finding yet. Record each gap observed during or after the exercise (delay, missing contact, unusable procedure…)."
+msgstr "Brak ustaleń. Zarejestruj każdą rozbieżność zauważoną w trakcie lub po ćwiczeniu (opóźnienie, brak kontaktu, nieprzydatna procedura…)."
+
+msgid "Create an improvement action"
+msgstr "Utwórz działanie doskonalące"
+
+msgid "Risk (treatment action only)"
+msgstr "Ryzyko (tylko działanie postępowania)"
+
+msgid "Create the action"
+msgstr "Utwórz działanie"
+
+msgid "An improvement action is only created when you click it: a non-conformity linked to the exercise incident, or a treatment action of an existing risk. Its progress is shown here."
+msgstr "Działanie doskonalące jest tworzone tylko po kliknięciu: niezgodność powiązana z incydentem ćwiczenia lub działanie postępowania z istniejącym ryzykiem. Jego postęp jest widoczny tutaj."
+
+msgid "New finding"
+msgstr "Nowe ustalenie"
+
+msgid "Validate the review? It will no longer be editable and the validated report will be archived."
+msgstr "Zatwierdzić podsumowanie? Nie będzie można go już zmieniać, a zatwierdzony raport zostanie zarchiwizowany."
+
+msgid "Comment (optional)"
+msgstr "Komentarz (opcjonalnie)"
+
+msgid "Validate the review"
+msgstr "Zatwierdź podsumowanie"
+
+msgid "The review is validated by a person holding the \"Validate exercise reviews\" right (Business continuity, in the GRC Manager tab of profiles)."
+msgstr "Podsumowanie zatwierdza osoba z uprawnieniem „Zatwierdzanie podsumowań ćwiczeń” (Ciągłość działania, karta GRC Manager w profilach)."
+
+msgid "Return the review to draft? The reason is recorded in the validation history."
+msgstr "Przywrócić podsumowanie do wersji roboczej? Powód zostanie zapisany w historii zatwierdzeń."
+
+msgid "Reason for returning to draft (required)"
+msgstr "Powód przywrócenia do wersji roboczej (wymagany)"
+
+msgid "Return to draft"
+msgstr "Przywróć do wersji roboczej"
+
+msgid "Objectives of the exercise (one per line)"
+msgstr "Cele ćwiczenia (jeden w wierszu)"
+
+msgid "For example: convene the crisis team within 45 minutes"
+msgstr "Na przykład: zebrać sztab kryzysowy w ciągu 45 minut"
+
+msgid "Evaluated when the exercise is finished; they appear in the report."
+msgstr "Oceniane po zakończeniu ćwiczenia; pojawiają się w raporcie."
+
+msgid "Review validated"
+msgstr "Podsumowanie zatwierdzone"
+
+msgid "Objectives achieved"
+msgstr "Osiągnięte cele"
+
+msgid "Improvement actions overdue"
+msgstr "Zaległe działania doskonalące"
+
+msgid "Improvement action created."
+msgstr "Utworzono działanie doskonalące."
+
+msgid "The review could not be changed."
+msgstr "Nie udało się zmienić podsumowania."
+
+msgid "Review validated: the validated report is archived in the incident documents."
+msgstr "Podsumowanie zatwierdzone: zatwierdzony raport zarchiwizowano w dokumentach incydentu."
+
+msgid "The review is back to draft."
+msgstr "Podsumowanie wróciło do wersji roboczej."
+
+msgid "Give the reason for returning the review to draft."
+msgstr "Podaj powód przywrócenia podsumowania do wersji roboczej."
+
+#, php-format
+msgid "Finding of the crisis exercise #%1$d (%2$s)."
+msgstr "Ustalenie z ćwiczenia kryzysowego nr %1$d (%2$s)."
+
+msgid "The review is already validated."
+msgstr "Podsumowanie jest już zatwierdzone."
+
+msgid "Define at least one objective before validating the review."
+msgstr "Zdefiniuj co najmniej jeden cel przed zatwierdzeniem podsumowania."
+
+msgid "Evaluate every objective (achieved, partially achieved or not achieved) before validating the review."
+msgstr "Oceń każdy cel (osiągnięty, częściowo osiągnięty lub nieosiągnięty) przed zatwierdzeniem podsumowania."
+
+msgid "Finish the exercise before validating its review."
+msgstr "Zakończ ćwiczenie przed zatwierdzeniem jego podsumowania."
+
+msgid "Validate exercise reviews"
+msgstr "Zatwierdzanie podsumowań ćwiczeń"
+
+msgid "Validate crisis exercise reviews and return them to draft"
+msgstr "Zatwierdzanie podsumowań ćwiczeń kryzysowych i przywracanie ich do wersji roboczej"
+
+#, php-format
+msgid "%d action overdue"
+msgid_plural "%d actions overdue"
+msgstr[0] "Zaległe działania: %d"
+msgstr[1] "Zaległe działania: %d"
+msgstr[2] "Zaległe działania: %d"

@@ -21003,13 +21003,17 @@ msgstr ""
 msgid "SentinelOne reports no vulnerability beyond those listed above."
 msgstr ""
 
-msgid "Application vulnerabilities seen by SentinelOne on your computers and not found by the software watch. Source: SentinelOne API, read only."
+msgid ""
+"Application vulnerabilities seen by SentinelOne on your computers and not "
+"found by the software watch. Source: SentinelOne API, read only."
 msgstr ""
 
 msgid "Applications"
 msgstr ""
 
-msgid "From the last reading of SentinelOne: a computer is covered when an active agent is matched with it (serial number or exact name)."
+msgid ""
+"From the last reading of SentinelOne: a computer is covered when an active "
+"agent is matched with it (serial number or exact name)."
 msgstr ""
 
 msgid "SentinelOne coverage"
@@ -21024,10 +21028,15 @@ msgstr ""
 msgid "No SentinelOne alert waiting for review."
 msgstr ""
 
-msgid "The automatic reading is disabled: enable it in the plugin configuration, or use the button \"Fetch now\" there."
+msgid ""
+"The automatic reading is disabled: enable it in the plugin configuration, or "
+"use the button \"Fetch now\" there."
 msgstr ""
 
-msgid "Tick the alerts that deserve a security incident: each one becomes an incident with its indicators, MITRE ATT&CK techniques and computer. The others can be set aside. Nothing is changed in SentinelOne."
+msgid ""
+"Tick the alerts that deserve a security incident: each one becomes an "
+"incident with its indicators, MITRE ATT&CK techniques and computer. The "
+"others can be set aside. Nothing is changed in SentinelOne."
 msgstr ""
 
 #, php-format
@@ -21055,13 +21064,21 @@ msgstr ""
 msgid "Read only"
 msgstr ""
 
-msgid "Every hour, the threats and alerts detected by SentinelOne are fetched and proposed as security incidents on the EDR import screen: nothing is created without your validation. The agents are matched with the GLPI computers (serial number, then exact name) and the application vulnerabilities join the fleet vulnerabilities. Nothing is ever sent to SentinelOne (no isolation, no resolution)."
+msgid ""
+"Every hour, the threats and alerts detected by SentinelOne are fetched and "
+"proposed as security incidents on the EDR import screen: nothing is created "
+"without your validation. The agents are matched with the GLPI computers "
+"(serial number, then exact name) and the application vulnerabilities join "
+"the fleet vulnerabilities. Nothing is ever sent to SentinelOne (no "
+"isolation, no resolution)."
 msgstr ""
 
 msgid "Fetch automatically from SentinelOne"
 msgstr ""
 
-msgid "Turns on the automatic action that reads SentinelOne every hour. Off by default."
+msgid ""
+"Turns on the automatic action that reads SentinelOne every hour. Off by "
+"default."
 msgstr ""
 
 msgid "Console address"
@@ -21079,7 +21096,9 @@ msgstr ""
 msgid "Token saved"
 msgstr ""
 
-msgid "Token of a service user with the Viewer role only. Encrypted with the GLPI key, never displayed again nor logged."
+msgid ""
+"Token of a service user with the Viewer role only. Encrypted with the GLPI "
+"key, never displayed again nor logged."
 msgstr ""
 
 msgid "Delete the saved token"
@@ -21134,34 +21153,46 @@ msgstr ""
 msgid "all matched with a GLPI computer"
 msgstr ""
 
-msgid "These agents are never matched by a similar name: create or rename the computer in the inventory, or fill in its serial number."
+msgid ""
+"These agents are never matched by a similar name: create or rename the "
+"computer in the inventory, or fill in its serial number."
 msgstr ""
 
 msgid "Computer name in SentinelOne"
 msgstr ""
 
-msgid "The console address was not saved: it must start with https:// and contain no user name or password."
+msgid ""
+"The console address was not saved: it must start with https:// and contain "
+"no user name or password."
 msgstr ""
 
 msgid "Enter the console address and the API token first."
 msgstr ""
 
-msgid "Connection accepted, but the token sees no agent and no threat: check that its user has the Viewer role on the right accounts or sites."
+msgid ""
+"Connection accepted, but the token sees no agent and no threat: check that "
+"its user has the Viewer role on the right accounts or sites."
 msgstr ""
 
 #, php-format
-msgid "Connection to SentinelOne succeeded: %1$d agent(s) and %2$s threat(s) visible."
+msgid ""
+"Connection to SentinelOne succeeded: %1$d agent(s) and %2$s threat(s) "
+"visible."
 msgstr ""
 
 #, php-format
-msgid "SentinelOne read: %1$d new alert(s) to review, %2$d agent(s), %3$d application vulnerabilities."
+msgid ""
+"SentinelOne read: %1$d new alert(s) to review, %2$d agent(s), %3$d "
+"application vulnerabilities."
 msgstr ""
 
 msgid "Select at least one alert."
 msgstr ""
 
 #, php-format
-msgid "%1$d incident(s) created, %2$d alert(s) ignored (already imported or not allowed)."
+msgid ""
+"%1$d incident(s) created, %2$d alert(s) ignored (already imported or not "
+"allowed)."
 msgstr ""
 
 #, php-format
@@ -21171,28 +21202,43 @@ msgstr ""
 msgid "SentinelOne alerts"
 msgstr ""
 
-msgid "SentinelOne: reads new threats, alerts and application vulnerabilities (read only)"
+msgid ""
+"SentinelOne: reads new threats, alerts and application vulnerabilities (read "
+"only)"
 msgstr ""
 
-msgid "SentinelOne refused the API token (401): check that it is valid and has not expired."
+msgid ""
+"SentinelOne refused the API token (401): check that it is valid and has not "
+"expired."
 msgstr ""
 
-msgid "The API token is not allowed to read this information (403): give it the Viewer role on the accounts or sites to read, or check the licence."
+msgid ""
+"The API token is not allowed to read this information (403): give it the "
+"Viewer role on the accounts or sites to read, or check the licence."
 msgstr ""
 
-msgid "This information is not available on this console (404): it may not be included in the licence."
+msgid ""
+"This information is not available on this console (404): it may not be "
+"included in the licence."
 msgstr ""
 
-msgid "SentinelOne limits the number of requests (429): the next run resumes where this one stopped."
+msgid ""
+"SentinelOne limits the number of requests (429): the next run resumes where "
+"this one stopped."
 msgstr ""
 
-msgid "The SentinelOne console could not be reached: check its address, the GLPI proxy and, for an internal address, the setting that allows them."
+msgid ""
+"The SentinelOne console could not be reached: check its address, the GLPI "
+"proxy and, for an internal address, the setting that allows them."
 msgstr ""
 
-msgid "The console address is an internal address, refused by default: an administrator can allow internal addresses in this configuration page."
+msgid ""
+"The console address is an internal address, refused by default: an "
+"administrator can allow internal addresses in this configuration page."
 msgstr ""
 
-msgid "The SentinelOne console sent an unexpected answer: check the console address."
+msgid ""
+"The SentinelOne console sent an unexpected answer: check the console address."
 msgstr ""
 
 msgid "Not read during this run: an earlier step stopped it."
@@ -21570,4 +21616,279 @@ msgstr ""
 
 #: src/ContextItem.php:757 src/ContextItem.php:863
 msgid "Last reviewed by"
+msgstr ""
+
+#: templates/pdf/crisis_exercise_report.html.twig
+#: src/CrisisExerciseReview.php:82
+msgid "Partially achieved"
+msgstr ""
+
+#: templates/pdf/crisis_exercise_report.html.twig
+#: src/CrisisExerciseReview.php:83
+msgid "Not achieved"
+msgstr ""
+
+#: templates/pdf/crisis_exercise_report.html.twig
+#: templates/_crisis_review.html.twig
+msgid "To evaluate"
+msgstr ""
+
+#: templates/pdf/crisis_exercise_report.html.twig
+#: templates/_crisis_review.html.twig
+msgid "Not visible to you"
+msgstr ""
+
+#: templates/pdf/crisis_exercise_report.html.twig
+#: templates/_crisis_review.html.twig
+msgid "Deleted"
+msgstr ""
+
+#: templates/pdf/crisis_exercise_report.html.twig
+#: templates/_crisis_review.html.twig
+msgid "Objectives of the exercise"
+msgstr ""
+
+#: templates/pdf/crisis_exercise_report.html.twig
+msgid "No objective defined."
+msgstr ""
+
+#: templates/pdf/crisis_exercise_report.html.twig
+#: templates/_crisis_review.html.twig
+msgid "Objective"
+msgstr ""
+
+#: templates/pdf/crisis_exercise_report.html.twig
+#: templates/_crisis_review.html.twig
+#, php-format
+msgid "%1$d achieved, %2$d partially, %3$d not achieved, %4$d to evaluate"
+msgstr ""
+
+#: templates/pdf/crisis_exercise_report.html.twig
+#: templates/_crisis_review.html.twig
+msgid "Findings and improvement plan"
+msgstr ""
+
+#: templates/pdf/crisis_exercise_report.html.twig
+msgid "No finding recorded."
+msgstr ""
+
+#: templates/pdf/crisis_exercise_report.html.twig
+#: templates/_crisis_review.html.twig
+msgid "Improvement action"
+msgstr ""
+
+#: templates/pdf/crisis_exercise_report.html.twig
+msgid "No action decided"
+msgstr ""
+
+#: templates/pdf/crisis_exercise_report.html.twig
+#: templates/_crisis_review.html.twig
+#, php-format
+msgid "%1$d finding(s), %2$d action(s) decided, %3$d done"
+msgstr ""
+
+#: templates/pdf/crisis_exercise_report.html.twig
+#: templates/_crisis_review.html.twig
+#, php-format
+msgid "%d action overdue"
+msgid_plural "%d actions overdue"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/pdf/crisis_exercise_report.html.twig
+#: templates/_crisis_review.html.twig
+msgid "Review validation"
+msgstr ""
+
+#: templates/pdf/crisis_exercise_report.html.twig
+#: templates/_crisis_review.html.twig
+msgid "Validated"
+msgstr ""
+
+#: templates/pdf/crisis_exercise_report.html.twig
+#, php-format
+msgid "on %1$s by %2$s"
+msgstr ""
+
+#: templates/pdf/crisis_exercise_report.html.twig
+msgid "this review has not been validated yet."
+msgstr ""
+
+#: templates/pdf/crisis_exercise_report.html.twig
+#: templates/_crisis_review.html.twig
+msgid "Returned to draft"
+msgstr ""
+
+#: templates/_crisis_review.html.twig
+msgid "Exercise review"
+msgstr ""
+
+#: templates/_crisis_review.html.twig
+#, php-format
+msgid ""
+"Review validated on %1$s by %2$s: it can no longer be changed unless it is "
+"returned to draft."
+msgstr ""
+
+#: templates/_crisis_review.html.twig
+msgid ""
+"No objective defined. Objectives say what the exercise must demonstrate (for "
+"example: \"the crisis team is convened within 45 minutes\"); they are "
+"evaluated when the exercise is finished."
+msgstr ""
+
+#: templates/_crisis_review.html.twig
+msgid "What was observed"
+msgstr ""
+
+#: templates/_crisis_review.html.twig
+msgid "New objective, for example: restore the file server within 4 hours"
+msgstr ""
+
+#: templates/_crisis_review.html.twig
+msgid "New objective"
+msgstr ""
+
+#: templates/_crisis_review.html.twig
+msgid ""
+"Evaluate each objective: the review can be validated once they are all "
+"evaluated."
+msgstr ""
+
+#: templates/_crisis_review.html.twig
+msgid ""
+"No finding yet. Record each gap observed during or after the exercise "
+"(delay, missing contact, unusable procedure…)."
+msgstr ""
+
+#: templates/_crisis_review.html.twig
+msgid "Create an improvement action"
+msgstr ""
+
+#: templates/_crisis_review.html.twig
+msgid "Risk (treatment action only)"
+msgstr ""
+
+#: templates/_crisis_review.html.twig
+msgid "Create the action"
+msgstr ""
+
+#: templates/_crisis_review.html.twig
+msgid ""
+"An improvement action is only created when you click it: a non-conformity "
+"linked to the exercise incident, or a treatment action of an existing risk. "
+"Its progress is shown here."
+msgstr ""
+
+#: templates/_crisis_review.html.twig
+msgid "New finding"
+msgstr ""
+
+#: templates/_crisis_review.html.twig
+msgid ""
+"Validate the review? It will no longer be editable and the validated report "
+"will be archived."
+msgstr ""
+
+#: templates/_crisis_review.html.twig
+msgid "Comment (optional)"
+msgstr ""
+
+#: templates/_crisis_review.html.twig
+msgid "Validate the review"
+msgstr ""
+
+#: templates/_crisis_review.html.twig
+msgid ""
+"The review is validated by a person holding the \"Validate exercise "
+"reviews\" right (Business continuity, in the GRC Manager tab of profiles)."
+msgstr ""
+
+#: templates/_crisis_review.html.twig
+msgid ""
+"Return the review to draft? The reason is recorded in the validation history."
+msgstr ""
+
+#: templates/_crisis_review.html.twig
+msgid "Reason for returning to draft (required)"
+msgstr ""
+
+#: templates/_crisis_review.html.twig
+msgid "Return to draft"
+msgstr ""
+
+#: templates/crisis_exercises.html.twig
+msgid "Objectives of the exercise (one per line)"
+msgstr ""
+
+#: templates/crisis_exercises.html.twig
+msgid "For example: convene the crisis team within 45 minutes"
+msgstr ""
+
+#: templates/crisis_exercises.html.twig
+msgid "Evaluated when the exercise is finished; they appear in the report."
+msgstr ""
+
+#: templates/crisis_exercises.html.twig
+msgid "Review validated"
+msgstr ""
+
+#: templates/crisis_room.html.twig
+msgid "Objectives achieved"
+msgstr ""
+
+#: templates/crisis_room.html.twig
+msgid "Improvement actions overdue"
+msgstr ""
+
+#: front/crisisexercise.form.php:123
+msgid "Improvement action created."
+msgstr ""
+
+#: front/crisisexercise.form.php:128
+msgid "The review could not be changed."
+msgstr ""
+
+#: front/crisisexercise.form.php:146
+msgid ""
+"Review validated: the validated report is archived in the incident documents."
+msgstr ""
+
+#: front/crisisexercise.form.php:151
+msgid "The review is back to draft."
+msgstr ""
+
+#: front/crisisexercise.form.php:154
+msgid "Give the reason for returning the review to draft."
+msgstr ""
+
+#: src/CrisisExerciseReview.php:273
+#, php-format
+msgid "Finding of the crisis exercise #%1$d (%2$s)."
+msgstr ""
+
+#: src/CrisisExerciseReview.php:407
+msgid "The review is already validated."
+msgstr ""
+
+#: src/CrisisExerciseReview.php:409
+msgid "Define at least one objective before validating the review."
+msgstr ""
+
+#: src/CrisisExerciseReview.php:413
+msgid ""
+"Evaluate every objective (achieved, partially achieved or not achieved) "
+"before validating the review."
+msgstr ""
+
+#: src/CrisisExerciseReview.php:416
+msgid "Finish the exercise before validating its review."
+msgstr ""
+
+#: src/Profile.php:111
+msgid "Validate exercise reviews"
+msgstr ""
+
+#: src/Profile.php:112
+msgid "Validate crisis exercise reviews and return them to draft"
 msgstr ""

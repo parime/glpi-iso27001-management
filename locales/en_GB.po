@@ -23901,3 +23901,185 @@ msgstr "Not answered yet"
 
 msgid "No item recorded."
 msgstr "No item recorded."
+
+msgid "Partially achieved"
+msgstr "Partially achieved"
+
+msgid "Not achieved"
+msgstr "Not achieved"
+
+msgid "To evaluate"
+msgstr "To evaluate"
+
+msgid "Not visible to you"
+msgstr "Not visible to you"
+
+msgid "Deleted"
+msgstr "Deleted"
+
+msgid "Objectives of the exercise"
+msgstr "Objectives of the exercise"
+
+msgid "No objective defined."
+msgstr "No objective defined."
+
+msgid "Objective"
+msgstr "Objective"
+
+#, php-format
+msgid "%1$d achieved, %2$d partially, %3$d not achieved, %4$d to evaluate"
+msgstr "%1$d achieved, %2$d partially, %3$d not achieved, %4$d to evaluate"
+
+msgid "Findings and improvement plan"
+msgstr "Findings and improvement plan"
+
+msgid "No finding recorded."
+msgstr "No finding recorded."
+
+msgid "Improvement action"
+msgstr "Improvement action"
+
+msgid "No action decided"
+msgstr "No action decided"
+
+#, php-format
+msgid "%1$d finding(s), %2$d action(s) decided, %3$d done"
+msgstr "%1$d finding(s), %2$d action(s) decided, %3$d done"
+
+msgid "Review validation"
+msgstr "Review validation"
+
+msgid "Validated"
+msgstr "Validated"
+
+#, php-format
+msgid "on %1$s by %2$s"
+msgstr "on %1$s by %2$s"
+
+msgid "this review has not been validated yet."
+msgstr "this review has not been validated yet."
+
+msgid "Returned to draft"
+msgstr "Returned to draft"
+
+msgid "Exercise review"
+msgstr "Exercise review"
+
+#, php-format
+msgid "Review validated on %1$s by %2$s: it can no longer be changed unless it is returned to draft."
+msgstr "Review validated on %1$s by %2$s: it can no longer be changed unless it is returned to draft."
+
+msgid "No objective defined. Objectives say what the exercise must demonstrate (for example: \"the crisis team is convened within 45 minutes\"); they are evaluated when the exercise is finished."
+msgstr "No objective defined. Objectives say what the exercise must demonstrate (for example: \"the crisis team is convened within 45 minutes\"); they are evaluated when the exercise is finished."
+
+msgid "What was observed"
+msgstr "What was observed"
+
+msgid "New objective, for example: restore the file server within 4 hours"
+msgstr "New objective, for example: restore the file server within 4 hours"
+
+msgid "New objective"
+msgstr "New objective"
+
+msgid "Evaluate each objective: the review can be validated once they are all evaluated."
+msgstr "Evaluate each objective: the review can be validated once they are all evaluated."
+
+msgid "No finding yet. Record each gap observed during or after the exercise (delay, missing contact, unusable procedure…)."
+msgstr "No finding yet. Record each gap observed during or after the exercise (delay, missing contact, unusable procedure…)."
+
+msgid "Create an improvement action"
+msgstr "Create an improvement action"
+
+msgid "Risk (treatment action only)"
+msgstr "Risk (treatment action only)"
+
+msgid "Create the action"
+msgstr "Create the action"
+
+msgid "An improvement action is only created when you click it: a non-conformity linked to the exercise incident, or a treatment action of an existing risk. Its progress is shown here."
+msgstr "An improvement action is only created when you click it: a non-conformity linked to the exercise incident, or a treatment action of an existing risk. Its progress is shown here."
+
+msgid "New finding"
+msgstr "New finding"
+
+msgid "Validate the review? It will no longer be editable and the validated report will be archived."
+msgstr "Validate the review? It will no longer be editable and the validated report will be archived."
+
+msgid "Comment (optional)"
+msgstr "Comment (optional)"
+
+msgid "Validate the review"
+msgstr "Validate the review"
+
+msgid "The review is validated by a person holding the \"Validate exercise reviews\" right (Business continuity, in the GRC Manager tab of profiles)."
+msgstr "The review is validated by a person holding the \"Validate exercise reviews\" right (Business continuity, in the GRC Manager tab of profiles)."
+
+msgid "Return the review to draft? The reason is recorded in the validation history."
+msgstr "Return the review to draft? The reason is recorded in the validation history."
+
+msgid "Reason for returning to draft (required)"
+msgstr "Reason for returning to draft (required)"
+
+msgid "Return to draft"
+msgstr "Return to draft"
+
+msgid "Objectives of the exercise (one per line)"
+msgstr "Objectives of the exercise (one per line)"
+
+msgid "For example: convene the crisis team within 45 minutes"
+msgstr "For example: convene the crisis team within 45 minutes"
+
+msgid "Evaluated when the exercise is finished; they appear in the report."
+msgstr "Evaluated when the exercise is finished; they appear in the report."
+
+msgid "Review validated"
+msgstr "Review validated"
+
+msgid "Objectives achieved"
+msgstr "Objectives achieved"
+
+msgid "Improvement actions overdue"
+msgstr "Improvement actions overdue"
+
+msgid "Improvement action created."
+msgstr "Improvement action created."
+
+msgid "The review could not be changed."
+msgstr "The review could not be changed."
+
+msgid "Review validated: the validated report is archived in the incident documents."
+msgstr "Review validated: the validated report is archived in the incident documents."
+
+msgid "The review is back to draft."
+msgstr "The review is back to draft."
+
+msgid "Give the reason for returning the review to draft."
+msgstr "Give the reason for returning the review to draft."
+
+#, php-format
+msgid "Finding of the crisis exercise #%1$d (%2$s)."
+msgstr "Finding of the crisis exercise #%1$d (%2$s)."
+
+msgid "The review is already validated."
+msgstr "The review is already validated."
+
+msgid "Define at least one objective before validating the review."
+msgstr "Define at least one objective before validating the review."
+
+msgid "Evaluate every objective (achieved, partially achieved or not achieved) before validating the review."
+msgstr "Evaluate every objective (achieved, partially achieved or not achieved) before validating the review."
+
+msgid "Finish the exercise before validating its review."
+msgstr "Finish the exercise before validating its review."
+
+msgid "Validate exercise reviews"
+msgstr "Validate exercise reviews"
+
+msgid "Validate crisis exercise reviews and return them to draft"
+msgstr "Validate crisis exercise reviews and return them to draft"
+
+#, php-format
+msgid "%d action overdue"
+msgid_plural "%d actions overdue"
+msgstr[0] "%d action overdue"
+msgstr[1] "%d actions overdue"

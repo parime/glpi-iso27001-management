@@ -96,8 +96,9 @@ final class CrisisExerciseReviewTest extends GrcmanagerIntegrationTestCase
         $this->assertTrue(Review::evaluateObjective($exercise, $objectives[1]['id'], Rules::OUTCOME_PARTIAL, ''));
 
         // Plan d'amélioration : non-conformité créée à la demande, rattachée à l'incident d'exercice.
+        $incidentId = (int) $exercise->fields['plugin_grcmanager_securityincidents_id'];
         $this->assertSame(0, countElementsInTable(Nonconformity::getTable(), [
-            'plugin_grcmanager_securityincidents_id' => (int) $exercise->fields['plugin_grcmanager_securityincidents_id'],
+            'plugin_grcmanager_securityincidents_id' => $incidentId,
         ]), 'Aucune action créée automatiquement.');
         $ncId = Review::createAction($exercise, $findingId, Review::ACTION_NONCONFORMITY, 2, '2000-01-01');
         $this->assertGreaterThan(0, $ncId);
