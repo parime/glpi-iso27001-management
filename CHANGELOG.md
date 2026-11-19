@@ -7,8 +7,6 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
-## [2.56.0] - 2026-11-19
-
 ### Added
 
 - **Contexte de l'organisation, deuxième lot : revue tracée, registre pour l'auditeur, vue inverse**
@@ -26,6 +24,10 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   - Onglet « Contexte de l'organisation » sur les risques, les obligations et les mesures : enjeux
     et parties qui les citent, avec « Ajouter un enjeu » ou « Ajouter une partie intéressée » déjà
     relié(e) à l'élément.
+
+## [2.56.0] - 2026-11-19
+
+### Added
 
 - **Référentiel facultatif « NIS2 Italia – ACN »** (issue #703, demandé par un utilisateur italien).
   Mesures de sécurité de base de la déterminazione ACN n. 379907/2025 (D.Lgs. 138/2024) :
