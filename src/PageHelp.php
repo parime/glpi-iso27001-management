@@ -358,6 +358,19 @@ class PageHelp
                 ),
                 'reference' => __('ISO/IEC 27001, clauses 4.1 and 4.2', 'grcmanager'),
             ],
+            'responsibilityactivity' => [
+                'purpose'   => __(
+                    'Who performs, approves, is consulted on or is informed of each activity of the ISMS, with the '
+                        . 'GLPI users and groups. Conflicts of duties and missing approvers are reported here.',
+                    'grcmanager'
+                ),
+                'expected'  => __(
+                    'For each activity, add who performs it and a single approver, mark the sensitive activities, '
+                        . 'fix the alerts, then archive the matrix as evidence before the audit.',
+                    'grcmanager'
+                ),
+                'reference' => __('ISO/IEC 27001, clause 5.3 and control A.5.3', 'grcmanager'),
+            ],
             'databreach' => [
                 'purpose'   => __(
                     'The register of personal data breaches: every breach is documented, whether or not it was '
