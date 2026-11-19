@@ -348,8 +348,8 @@ class ManagementReviewDossier extends CommonGLPI
                 'status'                    => 'verified',
                 'closure_verification_date' => ['>=', $start],
             ], [['closure_verification_date' => ['<=', $end]]], $scope)),
-            'open'     => (int) Cards::openNonconformitiesCount()['number'],
-            'overdue'  => (int) Cards::overdueCapaCount()['number'],
+            'open'     => (int) self::card('openNonconformitiesCount')['number'],
+            'overdue'  => (int) self::card('overdueCapaCount')['number'],
             'trend'    => self::trendFromSnapshots(1, $start, $end),
         ];
     }
@@ -361,17 +361,17 @@ class ManagementReviewDossier extends CommonGLPI
      */
     private static function measurement(string $start, string $end): ?array
     {
-        $kri = Cards::canShow('riskIndicatorsByStatus') ? Cards::riskIndicatorsByStatus()['data'] : null;
+        $kri = Cards::canShow('riskIndicatorsByStatus') ? self::card('riskIndicatorsByStatus')['data'] : null;
         $incidents = null;
         if (Cards::canShow('incidentsTotal')) {
             $params = ['apply_filters' => ['dates' => [$start, $end]]];
             $incidents = [
-                'total'       => (int) Cards::incidentsTotal($params)['number'],
+                'total'       => (int) self::card('incidentsTotal', $params)['number'],
                 'by_severity' => array_values(array_filter(
-                    (array) Cards::bySeverity($params)['data'],
+                    (array) self::card('bySeverity', $params)['data'],
                     static fn (mixed $row): bool => is_array($row) && isset($row['label'], $row['number'])
                 )),
-                'open_now'    => (int) Cards::open()['number'],
+                'open_now'    => (int) self::card('open')['number'],
             ];
         }
         if ($kri === null && $incidents === null) {
@@ -421,7 +421,7 @@ class ManagementReviewDossier extends CommonGLPI
             'by_status' => array_map(static fn (array $row): array => [
                 'label'  => $statuses[$row['label']] ?? (string) $row['label'],
                 'number' => (int) $row['number'],
-            ], (array) Cards::auditsByStatus()['data']),
+            ], (array) self::card('auditsByStatus')['data']),
         ];
     }
 
@@ -466,7 +466,7 @@ class ManagementReviewDossier extends CommonGLPI
             'by_status'  => array_map(static fn (array $row): array => [
                 'label'  => $statuses[$row['label']] ?? (string) $row['label'],
                 'number' => (int) $row['number'],
-            ], (array) Cards::objectivesByStatus()['data']),
+            ], (array) self::card('objectivesByStatus')['data']),
         ];
     }
 
@@ -484,21 +484,21 @@ class ManagementReviewDossier extends CommonGLPI
         $table = Risk::getTable();
 
         return [
-            'open'             => (int) Cards::openRisksCount()['number'],
+            'open'             => (int) self::card('openRisksCount')['number'],
             'by_level'         => array_map(static fn (array $row): array => [
                 'key'    => (string) $row['label'],
                 'label'  => $levels[$row['label']] ?? (string) $row['label'],
                 'number' => (int) $row['number'],
-            ], (array) Cards::risksByLevel()['data']),
+            ], (array) self::card('risksByLevel')['data']),
             'identified'       => countElementsInTable($table, array_merge(
                 ['date_creation' => ['>=', $start . ' 00:00:00']],
                 [['date_creation' => ['<=', $end . ' 23:59:59']]],
                 EntityPerimeter::criteria($table)
             )),
-            'above_appetite'   => (int) Cards::risksAboveAppetiteCount()['number'],
-            'above_tolerance'  => (int) Cards::risksAboveToleranceCount()['number'],
-            'overdue_actions'  => (int) Cards::overdueTreatmentActionsCount()['number'],
-            'without_plan'     => (int) Cards::risksMissingTreatmentPlanCount()['number'],
+            'above_appetite'   => (int) self::card('risksAboveAppetiteCount')['number'],
+            'above_tolerance'  => (int) self::card('risksAboveToleranceCount')['number'],
+            'overdue_actions'  => (int) self::card('overdueTreatmentActionsCount')['number'],
+            'without_plan'     => (int) self::card('risksMissingTreatmentPlanCount')['number'],
             'trend'            => self::trendFromSnapshots(0, $start, $end),
         ];
     }
@@ -520,7 +520,7 @@ class ManagementReviewDossier extends CommonGLPI
             'by_status' => array_map(static fn (array $row): array => [
                 'label'  => $statuses[$row['label']] ?? (string) $row['label'],
                 'number' => (int) $row['number'],
-            ], (array) Cards::soaByImplementationStatus()['data']),
+            ], (array) self::card('soaByImplementationStatus')['data']),
             'approved'  => $approved === null ? null : [
                 'version' => (int) $approved['version'],
                 'date'    => Html::convDateTime($approved['date_answered'] ?? $approved['date_mod'] ?? null),
@@ -574,7 +574,7 @@ class ManagementReviewDossier extends CommonGLPI
         if (!Cards::canShow('monthlyTrend')) {
             return null;
         }
-        $data = (array) (Cards::monthlyTrend()['data'] ?? []);
+        $data = (array) (self::card('monthlyTrend')['data'] ?? []);
         $values = [];
         foreach ((array) ($data['labels'] ?? []) as $i => $month) {
             if (isset($data['series'][$series]['data'][$i])) {
@@ -596,6 +596,18 @@ class ManagementReviewDossier extends CommonGLPI
             'last_month'  => $lastMonth,
             'last'        => $values[$lastMonth],
         ] + $trend;
+    }
+
+    /**
+     * Carte du tableau de bord, avec les droits de la session (SecuredDashboardCards : une carte
+     * que l'utilisateur ne peut pas voir revient vide).
+     *
+     * @param array<string, mixed> $params
+     * @return array<string, mixed>
+     */
+    private static function card(string $name, array $params = []): array
+    {
+        return Cards::__callStatic($name, [$params]);
     }
 
     public static function render(ManagementReview $review, string $start, string $end): string
