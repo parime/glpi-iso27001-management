@@ -18,6 +18,7 @@
 namespace GlpiPlugin\Grcmanager;
 
 use CommonGLPI;
+use Config;
 use CronTask;
 use Document;
 use Dropdown;
@@ -53,6 +54,10 @@ use User;
 class ControlTest extends ControlTestBase
 {
     public const RIGHTNAME = 'plugin_grcmanager';
+
+    /** Issue #607 : relecture des tests par une seconde personne (réglage de la configuration). */
+    public const CONFIG_CONTEXT = 'plugin:grcmanager';
+    public const REVIEW_CONFIG_KEY = 'controltest_review';
 
     public static function getTypeName($nb = 0)
     {
@@ -117,6 +122,56 @@ class ControlTest extends ControlTestBase
                 'label' => __('Ineffective', 'grcmanager'), 'class' => 'bg-red-lt', 'icon' => 'ti-circle-x',
             ],
         ];
+    }
+
+    /**
+     * Issue #607 : la relecture des tests est-elle demandée ? Désactivée par défaut.
+     */
+    public static function isReviewEnabled(): bool
+    {
+        $values = Config::getConfigurationValues(self::CONFIG_CONTEXT, [self::REVIEW_CONFIG_KEY]);
+
+        return (string) ($values[self::REVIEW_CONFIG_KEY] ?? '0') === '1';
+    }
+
+    /**
+     * @return bool vrai si le réglage a changé
+     */
+    public static function saveReviewEnabled(mixed $enabled): bool
+    {
+        $before = self::isReviewEnabled();
+        $after = in_array($enabled, [1, '1', true, 'on'], true);
+        Config::setConfigurationValues(self::CONFIG_CONTEXT, [self::REVIEW_CONFIG_KEY => $after ? '1' : '0']);
+
+        return $before !== $after;
+    }
+
+    /**
+     * @return array<string, array{label: string, class: string, icon: string}>
+     */
+    public static function getReviewStatuses(): array
+    {
+        return [
+            ControlTestRules::REVIEW_PENDING  => [
+                'label' => __('Awaiting review', 'grcmanager'),
+                'class' => 'bg-orange-subtle text-orange-emphasis', 'icon' => 'ti-hourglass',
+            ],
+            ControlTestRules::REVIEW_APPROVED => [
+                'label' => __('Review approved', 'grcmanager'),
+                'class' => 'bg-green-subtle text-green-emphasis', 'icon' => 'ti-user-check',
+            ],
+            ControlTestRules::REVIEW_RETURNED => [
+                'label' => __('Returned by the reviewer', 'grcmanager'),
+                'class' => 'bg-red-subtle text-red-emphasis', 'icon' => 'ti-arrow-back-up',
+            ],
+        ];
+    }
+
+    public static function getPdfURL(int $testsId): string
+    {
+        global $CFG_GLPI;
+
+        return $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/controltest.pdf.php?id=' . $testsId;
     }
 
     /**
@@ -259,6 +314,11 @@ class ControlTest extends ControlTestBase
             ),
             // Rempli par post_addItem(), jamais par la saisie.
             'plugin_grcmanager_nonconformities_id' => 0,
+            // Issue #607 : qui l'enregistre (jamais son relecteur) et relecture demandée ou non.
+            'users_id_recorder'             => (int) Session::getLoginUserID(),
+            'review_status'                 => self::isReviewEnabled()
+                ? ControlTestRules::REVIEW_PENDING
+                : ControlTestRules::REVIEW_NONE,
         ];
     }
 
@@ -282,20 +342,19 @@ class ControlTest extends ControlTestBase
         $result = (string) $this->fields['result'];
         $code = (string) $control->fields['code'];
 
-        // L'état « vérifié » de la SoA s'appuie sur le dernier test.
-        $status = ControlTestRules::statusAfterTest((string) $control->fields['implementation_status'], $result);
-        if ($status !== null) {
-            $updated = $control->update([
-                'id'                    => $control->getID(),
-                'implementation_status' => $status,
-                '_grcmanager_from_test' => true,
-            ]);
-            if ($updated) {
-                Session::addMessageAfterRedirect(sprintf(
-                    __('Implementation status of the control set to "%s".', 'grcmanager'),
-                    Control::getImplementationStatuses()[$status]
-                ));
-            }
+        // L'état « vérifié » de la SoA s'appuie sur le dernier test ; issue #607 : un test
+        // efficace en attente de relecture ne l'apporte qu'à sa validation.
+        $reviewStatus = (string) ($this->fields['review_status'] ?? '');
+        $status = ControlTestRules::statusAtRecording(
+            (string) $control->fields['implementation_status'],
+            $result,
+            $reviewStatus
+        );
+        $this->applyControlStatus($control, $status);
+        if ($reviewStatus === ControlTestRules::REVIEW_PENDING) {
+            Session::addMessageAfterRedirect(htmlescape(
+                __('The test awaits review by another person before it counts for the "Verified" status.', 'grcmanager')
+            ));
         }
 
         if (ControlTestRules::opensNonconformity($result)) {
@@ -307,6 +366,94 @@ class ControlTest extends ControlTestBase
             'result'  => $result,
             'date'    => (string) $this->fields['test_date'],
         ]);
+    }
+
+    private function applyControlStatus(Control $control, ?string $status): void
+    {
+        if ($status === null) {
+            return;
+        }
+        $updated = $control->update([
+            'id'                    => $control->getID(),
+            'implementation_status' => $status,
+            '_grcmanager_from_test' => true,
+        ]);
+        if ($updated) {
+            Session::addMessageAfterRedirect(sprintf(
+                __('Implementation status of the control set to "%s".', 'grcmanager'),
+                Control::getImplementationStatuses()[$status]
+            ));
+        }
+    }
+
+    /**
+     * Issue #607 : la personne connectée peut-elle relire ce test ? Il lui faut pouvoir modifier
+     * la mesure, et n'être ni le testeur ni la personne qui l'a enregistré.
+     *
+     * @param array<string, mixed> $test
+     */
+    public static function canReviewTest(array $test): bool
+    {
+        return ControlTestRules::canReview(
+            ControlTestRules::normalizeReviewStatus($test['review_status'] ?? ''),
+            (int) Session::getLoginUserID(),
+            (int) ($test['users_id'] ?? 0),
+            (int) ($test['users_id_recorder'] ?? 0)
+        ) && self::canEditControl((int) ($test['plugin_grcmanager_controls_id'] ?? 0));
+    }
+
+    /**
+     * Issue #607 : relecture d'un test en attente. Valider le fait compter pour l'état « Vérifié »
+     * (s'il est toujours le dernier test de la mesure) ; le renvoyer exige un commentaire, le test
+     * ne compte pas et son auteur le supprime pour le refaire (l'échantillon se rouvre alors).
+     * Écriture directe : un test enregistré ne se modifie pas (prepareInputForUpdate()).
+     *
+     * @return bool vrai si la relecture est enregistrée (message en session sinon)
+     */
+    public static function review(int $testsId, bool $approve, string $comment): bool
+    {
+        global $DB;
+
+        $test = new self();
+        if (!$test->getFromDB($testsId) || !self::canReviewTest($test->fields)) {
+            return false;
+        }
+        $comment = trim($comment);
+        if (!$approve && $comment === '') {
+            Session::addMessageAfterRedirect(
+                htmlescape(__('Explain why the test is returned.', 'grcmanager')),
+                false,
+                ERROR
+            );
+
+            return false;
+        }
+        $status = $approve ? ControlTestRules::REVIEW_APPROVED : ControlTestRules::REVIEW_RETURNED;
+        $DB->update(self::getTable(), [
+            'review_status'     => $status,
+            'users_id_reviewer' => (int) Session::getLoginUserID(),
+            'review_date'       => date('Y-m-d H:i:s'),
+            'review_comment'    => mb_substr($comment, 0, 5000),
+        ], ['id' => $testsId]);
+        AuditLog::record('update', self::class, $testsId, 0, 'success', [
+            'review'  => $status,
+            'control' => (int) $test->fields['plugin_grcmanager_controls_id'],
+        ]);
+
+        $control = new Control();
+        $controlsId = (int) $test->fields['plugin_grcmanager_controls_id'];
+        $latest = self::getForControl($controlsId)[0] ?? null;
+        if ($approve && $control->getFromDB($controlsId) && (int) ($latest['id'] ?? 0) === $testsId) {
+            $test->applyControlStatus($control, ControlTestRules::statusAfterTest(
+                (string) $control->fields['implementation_status'],
+                (string) $test->fields['result']
+            ));
+        }
+        Session::addMessageAfterRedirect(htmlescape($approve
+            ? __('Test approved: it now counts for the "Verified" status.', 'grcmanager')
+            : __('Test returned to its author: it does not count for the "Verified" status.', 'grcmanager')));
+
+        return true;
     }
 
     /**
@@ -360,6 +507,8 @@ class ControlTest extends ControlTestBase
 
     public function post_purgeItem()
     {
+        // Issue #607 : l'échantillon du test supprimé redevient ouvert, pour être corrigé.
+        ControlTestSample::reopenForTest((int) $this->getID());
         AuditLog::record('purge', self::class, (int) $this->getID(), 0, 'success', [
             'control' => (int) $this->fields['plugin_grcmanager_controls_id'],
             'result'  => (string) $this->fields['result'],
@@ -736,6 +885,18 @@ class ControlTest extends ControlTestBase
         $canEdit = $control->can($controlsId, UPDATE);
         $tests = self::getForControl($controlsId);
         $canViewNc = Nonconformity::canView();
+        // Issue #607 : échantillons de la mesure (ouverts, ou figés avec leur test).
+        $samples = ControlTestSample::getForControl($controlsId);
+        $samplesByTest = [];
+        $openSamples = [];
+        foreach ($samples as $sample) {
+            $sample['url'] = ControlTestSample::getPageURL((int) $sample['id']);
+            if (ControlTestSample::isOpen($sample)) {
+                $openSamples[] = $sample;
+            } else {
+                $samplesByTest[(int) $sample['plugin_grcmanager_controltests_id']] = $sample;
+            }
+        }
         $rows = [];
         foreach ($tests as $test) {
             $documentsId = (int) $test['documents_id'];
@@ -748,6 +909,14 @@ class ControlTest extends ControlTestBase
                 'document_url'  => $readable ? Document::getFormURLWithID($documentsId) : '',
                 'nc_url'        => $ncId > 0 && $canViewNc ? Nonconformity::getFormURLWithID($ncId) : '',
                 'can_purge'     => $canEdit && self::canPurge(),
+                // Issue #607 : échantillon, relecture et rapport du test pour l'auditeur.
+                'sample'        => $samplesByTest[(int) $test['id']] ?? null,
+                'review'        => self::getReviewStatuses()[(string) ($test['review_status'] ?? '')] ?? null,
+                'reviewer_name' => (int) ($test['users_id_reviewer'] ?? 0) > 0
+                    ? getUserName((int) $test['users_id_reviewer'])
+                    : '',
+                'can_review'    => self::canReviewTest($test),
+                'pdf_url'       => self::getPdfURL((int) $test['id']),
             ];
         }
         $latest = $tests[0] ?? null;
@@ -776,6 +945,11 @@ class ControlTest extends ControlTestBase
             // Issue #380 (#162) : contrôles techniques automatiques rattachés à la mesure.
             'technical_checks' => $canEdit ? self::technicalChecksInfo($control) : [],
             'all_entities'    => Session::canViewAllEntities(),
+            'open_samples'    => $openSamples,
+            'populations'     => ControlTestSample::getPopulations(),
+            'sample_form'     => $canEdit ? ControlTestSample::drawFormData() : [],
+            'sample_url'      => ControlTestSample::getFormURL(),
+            'review_enabled'  => self::isReviewEnabled(),
             'technical_threshold' => ControlTestRules::TECHNICAL_PARTIAL_THRESHOLD,
             'documents_url'   => Control::getFormURLWithID($controlsId) . '&forcetab=Document_Item$1',
             'today'           => date('Y-m-d'),
@@ -795,6 +969,43 @@ class ControlTest extends ControlTestBase
                 'display' => false,
                 'width'   => '100%',
             ]) : '',
+        ]);
+    }
+
+    /**
+     * Issue #607 : fiche PDF d'un test pour l'auditeur (mesure, résultat, constat, preuve,
+     * relecture et, s'il y en a un, échantillon tiré avec le résultat de chaque élément). Les droits
+     * sont vérifiés par l'appelant (lecture de la mesure).
+     */
+    public static function renderRecord(self $test): string
+    {
+        $control = new Control();
+        $control->getFromDB((int) $test->fields['plugin_grcmanager_controls_id']);
+        $code = (string) ($control->fields['code'] ?? '');
+        $fields = $test->fields;
+        $documentsId = (int) $fields['documents_id'];
+        $sample = ControlTestSample::getForTest((int) $test->getID());
+
+        return TemplateRenderer::getInstance()->render('@grcmanager/pdf/control_test_record.html.twig', [
+            'report_title'       => sprintf(__('Effectiveness test of %s', 'grcmanager'), $code),
+            'generated_at_label' => sprintf(__('Generated on %s', 'grcmanager'), Html::convDateTime(date('Y-m-d H:i:s'))),
+            'code'               => $code,
+            'control_title'      => Control::getControlTitle($code),
+            'test'               => $fields,
+            'method'             => self::getMethods()[(string) $fields['method']] ?? (string) $fields['method'],
+            'result'             => self::getResults()[(string) $fields['result']]['label'] ?? (string) $fields['result'],
+            'tester'             => (int) $fields['users_id'] > 0 ? getUserName((int) $fields['users_id']) : '',
+            'recorder'           => (int) ($fields['users_id_recorder'] ?? 0) > 0
+                ? getUserName((int) $fields['users_id_recorder'])
+                : '',
+            'document'           => $documentsId > 0 && Evidence::canReadDocument($documentsId)
+                ? Dropdown::getDropdownName('glpi_documents', $documentsId)
+                : '',
+            'review'             => self::getReviewStatuses()[(string) ($fields['review_status'] ?? '')]['label'] ?? '',
+            'reviewer'           => (int) ($fields['users_id_reviewer'] ?? 0) > 0
+                ? getUserName((int) $fields['users_id_reviewer'])
+                : '',
+            'sample_view'        => $sample === null ? null : ControlTestSample::viewData($sample),
         ]);
     }
 
@@ -876,6 +1087,15 @@ class ControlTest extends ControlTestBase
             'massiveaction' => false,
         ];
 
+        // Issue #607 : relecture du test.
+        $tab[] = [
+            'id'       => 9,
+            'table'    => $this->getTable(),
+            'field'    => 'review_status',
+            'name'     => __('Review', 'grcmanager'),
+            'datatype' => 'specific',
+        ];
+
         return $tab;
     }
 
@@ -893,6 +1113,11 @@ class ControlTest extends ControlTestBase
                 $result = self::getResults()[$values[$field] ?? ''] ?? null;
 
                 return $result === null ? '' : Badge::html($result['class'], $result['icon'], $result['label']);
+
+            case 'review_status':
+                $review = self::getReviewStatuses()[$values[$field] ?? ''] ?? null;
+
+                return $review === null ? '' : Badge::html($review['class'], $review['icon'], $review['label']);
         }
 
         return parent::getSpecificValueToDisplay($field, $values, $options);
@@ -914,6 +1139,13 @@ class ControlTest extends ControlTestBase
                 return Dropdown::showFromArray(
                     $name,
                     array_map(static fn (array $r): string => $r['label'], self::getResults()),
+                    $options
+                );
+
+            case 'review_status':
+                return Dropdown::showFromArray(
+                    $name,
+                    array_map(static fn (array $r): string => $r['label'], self::getReviewStatuses()),
                     $options
                 );
         }

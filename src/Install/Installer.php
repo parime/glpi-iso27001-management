@@ -430,6 +430,9 @@ final class Installer
     private const RISK_INDICATOR_VALUES_TABLE = 'glpi_plugin_grcmanager_riskindicatorvalues';
     // Issue #380 : tests d'efficacité des mesures, voir \GlpiPlugin\Grcmanager\ControlTest.
     private const CONTROL_TESTS_TABLE = 'glpi_plugin_grcmanager_controltests';
+    // Issue #607 : échantillons tirés dans GLPI pour un test d'efficacité, et leurs éléments.
+    private const CONTROL_TEST_SAMPLES_TABLE = 'glpi_plugin_grcmanager_controltestsamples';
+    private const CONTROL_TEST_SAMPLE_ITEMS_TABLE = 'glpi_plugin_grcmanager_controltestsampleitems';
     // Issue #537 : référentiels personnalisés importés et leurs exigences.
     private const CUSTOM_FRAMEWORKS_TABLE = 'glpi_plugin_grcmanager_customframeworks';
     private const CUSTOM_REQUIREMENTS_TABLE = 'glpi_plugin_grcmanager_customrequirements';
@@ -1429,6 +1432,7 @@ final class Installer
         $this->installSentinelOneTables($keySign, $charset, $collation);
         $this->installEndOfLifeTables($keySign, $charset, $collation);
         $this->installManagementReviewDossierTables($keySign, $charset, $collation);
+        $this->installControlTestSampleTables($migration, $keySign, $charset, $collation);
 
         // Issue #30 (registre des obligations légales/réglementaires/contractuelles, clause 4.2
         // ISO 27001 "parties intéressées et leurs exigences", Annexe A A.5.31-36) : lien optionnel
@@ -4836,6 +4840,83 @@ final class Installer
      * correspondances manuelles entre un nom de GLPI et un produit. Idempotent.
      */
     /**
+     * Issue #607 : échantillon tiré dans GLPI pour un test d'efficacité (population, critères,
+     * période couverte, taille, méthode et graine du tirage, auteur et date), liste figée des
+     * éléments tirés avec leur résultat ; relecture du test par une seconde personne. Tables et
+     * colonnes nouvelles, créées aussi à la mise à jour sans toucher aux tests existants.
+     */
+    private function installControlTestSampleTables(
+        Migration $migration,
+        string $keySign,
+        string $charset,
+        string $collation
+    ): void {
+        global $DB;
+
+        if (!$DB->tableExists(self::CONTROL_TEST_SAMPLES_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::CONTROL_TEST_SAMPLES_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_controls_id` int {$keySign} NOT NULL DEFAULT 0,
+                `plugin_grcmanager_controltests_id` int {$keySign} NOT NULL DEFAULT 0
+                    COMMENT 'Test enregistre depuis l echantillon, 0 tant qu il est ouvert',
+                `name` varchar(255) NOT NULL DEFAULT '' COMMENT 'Question posee sur chaque element',
+                `itemtype` varchar(100) NOT NULL DEFAULT '' COMMENT 'User, Computer, Ticket, Change',
+                `criteria` text COMMENT 'Criteres de la population (JSON)',
+                `period_start` date DEFAULT NULL,
+                `period_end` date DEFAULT NULL,
+                `population_count` int NOT NULL DEFAULT 0,
+                `sample_size` int NOT NULL DEFAULT 0,
+                `operating_frequency` varchar(16) NOT NULL DEFAULT '',
+                `draw_method` varchar(32) NOT NULL DEFAULT '',
+                `seed` varchar(64) NOT NULL DEFAULT '',
+                `users_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Auteur du tirage',
+                `date_draw` timestamp NULL DEFAULT NULL,
+                `proposed_result` varchar(16) NOT NULL DEFAULT '',
+                `result_justification` text,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `plugin_grcmanager_controls_id` (`plugin_grcmanager_controls_id`),
+                KEY `plugin_grcmanager_controltests_id` (`plugin_grcmanager_controltests_id`),
+                KEY `users_id` (`users_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+        if (!$DB->tableExists(self::CONTROL_TEST_SAMPLE_ITEMS_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::CONTROL_TEST_SAMPLE_ITEMS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_controltestsamples_id` int {$keySign} NOT NULL DEFAULT 0,
+                `rank` int NOT NULL DEFAULT 0 COMMENT 'Ordre du tirage',
+                `itemtype` varchar(100) NOT NULL DEFAULT '',
+                `items_id` int {$keySign} NOT NULL DEFAULT 0,
+                `label` varchar(255) NOT NULL DEFAULT '' COMMENT 'Nom de l element au tirage',
+                `entities_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Entite de l element au tirage',
+                `result` varchar(16) NOT NULL DEFAULT '' COMMENT 'compliant, noncompliant, na',
+                `comment` text,
+                `users_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Derniere personne a l avoir evalue',
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity` (`plugin_grcmanager_controltestsamples_id`, `itemtype`, `items_id`),
+                KEY `item` (`itemtype`, `items_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+
+        if (!$DB->fieldExists(self::CONTROL_TESTS_TABLE, 'review_status')) {
+            $migration->addField(self::CONTROL_TESTS_TABLE, 'users_id_recorder', 'fkey', ['after' => 'users_id']);
+            $migration->addField(self::CONTROL_TESTS_TABLE, 'review_status', 'string', [
+                'value'   => '',
+                'comment' => 'vide (pas de relecture), pending, approved, returned',
+                'after'   => 'plugin_grcmanager_nonconformities_id',
+            ]);
+            $migration->addField(self::CONTROL_TESTS_TABLE, 'users_id_reviewer', 'fkey', ['after' => 'review_status']);
+            $migration->addField(self::CONTROL_TESTS_TABLE, 'review_date', 'timestamp', ['after' => 'users_id_reviewer']);
+            $migration->addField(self::CONTROL_TESTS_TABLE, 'review_comment', 'text', ['after' => 'review_date']);
+            $migration->addKey(self::CONTROL_TESTS_TABLE, 'review_status', 'review_status');
+            $migration->addKey(self::CONTROL_TESTS_TABLE, 'users_id_reviewer', 'users_id_reviewer');
+            $migration->migrationOneTable(self::CONTROL_TESTS_TABLE);
+        }
+    }
+
+    /**
      * Issue #542 : actions décidées en revue de direction (suivies jusqu'à leur réalisation, reprises
      * par le dossier de la revue suivante, 9.3.2 a) et dossiers préparatoires générés (PDF archivé
      * sur la revue, période couverte et empreinte SHA-256).
@@ -5637,6 +5718,8 @@ final class Installer
         $migration->dropTable(self::CANONICAL_PRODUCTS_TABLE);
         $migration->dropTable(self::CONTROLS_RISKS_TABLE);
         $migration->dropTable(self::CONTROLS_COMPENSATIONS_TABLE);
+        $migration->dropTable(self::CONTROL_TEST_SAMPLE_ITEMS_TABLE);
+        $migration->dropTable(self::CONTROL_TEST_SAMPLES_TABLE);
         $migration->dropTable(self::CONTROL_TESTS_TABLE);
         $migration->dropTable(self::CUSTOM_REQUIREMENTS_TABLE);
         $migration->dropTable(self::CUSTOM_FRAMEWORKS_TABLE);
