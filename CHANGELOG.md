@@ -7,6 +7,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.58.0] - 2026-11-19
+
 ### Added
 
 - **Grille d'audit interne par exigence et couverture du programme d'audit** (issue #606,
