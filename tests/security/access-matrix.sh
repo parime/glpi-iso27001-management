@@ -950,5 +950,24 @@ fi
 contains "tableau de bord consolide : non-conformites ouvertes par entite" "grcmanager-perimeters-findings" \
   $IS_ADMIN "$(curl -s -c "$JAR" -b "$JAR" "$P/dashboard.php?view=perimeters")"
 
+# Issue #732 : bilan apres exercice. Lire et modifier le bilan suivent l'incident d'exercice (lecture,
+# modification) ; le valider exige le droit dedie (continuite d'activite), que seul le super-admin a.
+case $ROLE in
+  none|general) ROOM_A=403; ROOM_B=403; EDIT_A=403; EDIT_B=403; VALIDATE_A=403 ;;
+  reader)       ROOM_A=200; ROOM_B=404; EDIT_A=403; EDIT_B=404; VALIDATE_A=403 ;;
+  limited)      ROOM_A=200; ROOM_B=404; EDIT_A=302; EDIT_B=404; VALIDATE_A=403 ;;
+  *)            ROOM_A=200; ROOM_B=200; EDIT_A=302; EDIT_B=302; VALIDATE_A=302 ;;
+esac
+expect "salle de crise d'un exercice de A" $ROOM_A "$(code "$P/crisisexercise.form.php?id=$(id exercise_A)")"
+expect "salle de crise d'un exercice de B" $ROOM_B "$(code "$P/crisisexercise.form.php?id=$(id exercise_B)")"
+contains "bilan d'un exercice de A : objectif" "Objectif securite A" "$([ "$ROOM_A" = 200 ] && echo oui || echo non)"   "$(curl -s -c "$JAR" -b "$JAR" "$P/crisisexercise.form.php?id=$(id exercise_A)")"
+expect "constat sur un exercice de A" $EDIT_A   "$(code -d "add_finding=1&id=$(id exercise_A)&name=Constat%20securite&severity=minor&_glpi_csrf_token=$(csrf)" "$P/crisisexercise.form.php")"
+expect "constat sur un exercice de B" $EDIT_B   "$(code -d "add_finding=1&id=$(id exercise_B)&name=Constat%20securite&severity=minor&_glpi_csrf_token=$(csrf)" "$P/crisisexercise.form.php")"
+expect "constat sans jeton CSRF" 403   "$(code -d "add_finding=1&id=$(id exercise_A)&name=Constat%20securite&severity=minor" "$P/crisisexercise.form.php")"
+expect "valider le bilan d'un exercice de A (droit dedie)" $VALIDATE_A   "$(code -d "validate_review=1&id=$(id exercise_A)&_glpi_csrf_token=$(csrf)" "$P/crisisexercise.form.php")"
+if [ "$ROLE" != admin ]; then
+  expect "repasser en brouillon le bilan d'un exercice de A" 403     "$(code -d "reopen_review=1&id=$(id exercise_A)&reason=securite&_glpi_csrf_token=$(csrf)" "$P/crisisexercise.form.php")"
+fi
+
 rm -f "$JAR"
 exit $FAIL

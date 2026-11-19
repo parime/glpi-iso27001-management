@@ -273,6 +273,19 @@ if ($mode === 'xss') {
         'plugin_grcmanager_businessprocesses_id' => $out['process'], 'licensed_activity' => $canary,
         'criticality' => 1, 'criticality_reasons' => $canary,
     ]);
+    // Issue #732 : bilan de l'exercice de B (non validé) piégé : objectif, constat, historique.
+    $exercise = (int) $ids['exercise_B'];
+    $insert('crisisexerciseobjectives', [
+        'plugin_grcmanager_crisisexercises_id' => $exercise, 'name' => $canary, 'comment' => $canary,
+    ]);
+    $insert('crisisexercisefindings', [
+        'plugin_grcmanager_crisisexercises_id' => $exercise, 'name' => $canary, 'description' => $canary,
+    ]);
+    $insert('crisisexercisereviews', [
+        'plugin_grcmanager_crisisexercises_id' => $exercise, 'action' => 'reopened', 'users_id' => 2,
+        'date' => date('Y-m-d H:i:s'), 'comment' => $canary,
+    ]);
+    $out['exercise'] = $exercise;
     echo json_encode($out), "\n";
     exit(0);
 }
@@ -880,5 +893,22 @@ foreach (['A' => [$a, 'important'], 'B' => [$b, 'essential']] as $suffix => [$en
     $acn->getFromDBByCrit(['entities_id' => $entity, 'code' => 'DE.CM-01', 'point' => 2]);
     $ids['acn_' . $suffix] = (int) $acn->getID();
     $ids['acn_entity_' . $suffix] = $entity;
+}
+// Issue #732 : exercice de crise terminé dans chaque entité, avec un objectif évalué (bilan à valider).
+foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
+    $drill = $add(new PluginGrcmanagerSecurityIncident(), [
+        'name' => '[EXERCICE] Exercice securite ' . $suffix, 'content' => 'Exercice fictif',
+        'entities_id' => $entity, 'is_exercise' => 1,
+    ]);
+    $DB->insert(\GlpiPlugin\Grcmanager\CrisisExercise::getTable(), [
+        'entities_id' => $entity, 'plugin_grcmanager_securityincidents_id' => $drill, 'scenario' => 'outage',
+        'users_id' => 2, 'started_at' => date('Y-m-d H:i:s', strtotime('-2 hours')),
+        'ended_at' => date('Y-m-d H:i:s', strtotime('-1 hour')),
+    ]);
+    $ids['exercise_' . $suffix] = (int) $DB->insertId();
+    $DB->insert(\GlpiPlugin\Grcmanager\CrisisExerciseReview::OBJECTIVES_TABLE, [
+        'plugin_grcmanager_crisisexercises_id' => $ids['exercise_' . $suffix],
+        'name' => 'Objectif securite ' . $suffix, 'outcome' => 'met',
+    ]);
 }
 echo json_encode($ids), "\n";
