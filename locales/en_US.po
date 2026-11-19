@@ -1,4 +1,4 @@
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: grcmanager\n"
@@ -663,8 +663,7 @@ msgstr "No function linked yet."
 #: templates/my_evidence_requests.html.twig
 #: templates/tabs/playbook_steps.html.twig
 #: templates/tabs/incident_playbook.html.twig
-#: templates/tabs/action_log.html.twig
-#: templates/tabs/ebios_workshop4.html.twig
+#: templates/tabs/action_log.html.twig templates/tabs/ebios_workshop4.html.twig
 #: templates/tabs/business_process_items.html.twig
 #: templates/tabs/business_process_recovery.html.twig
 #: templates/tabs/ebios_workshop2.html.twig
@@ -1557,8 +1556,7 @@ msgstr "Save decisions"
 msgid "Perimeter: %s"
 msgstr "Perimeter: %s"
 
-#: templates/pdf/postmortem_report.html.twig
-#: templates/postmortem_tab.html.twig
+#: templates/pdf/postmortem_report.html.twig templates/postmortem_tab.html.twig
 msgid "Met"
 msgstr "Met"
 
@@ -1575,19 +1573,16 @@ msgstr "Overdue"
 msgid "Not notified"
 msgstr "Not notified"
 
-#: templates/pdf/postmortem_report.html.twig
-#: templates/postmortem_tab.html.twig
+#: templates/pdf/postmortem_report.html.twig templates/postmortem_tab.html.twig
 #: templates/itil_regulatory_section.html.twig src/DataBreach.php:161
 msgid "Not notified (decision recorded)"
 msgstr "Not notified (decision recorded)"
 
-#: templates/pdf/postmortem_report.html.twig
-#: templates/postmortem_tab.html.twig
+#: templates/pdf/postmortem_report.html.twig templates/postmortem_tab.html.twig
 msgid "Waiting for the corrective measure"
 msgstr "Waiting for the corrective measure"
 
-#: templates/pdf/postmortem_report.html.twig
-#: templates/postmortem_tab.html.twig
+#: templates/pdf/postmortem_report.html.twig templates/postmortem_tab.html.twig
 #: templates/itil_regulatory_section.html.twig src/Control.php:125
 #: src/Control.php:833 src/CustomRequirement.php:66
 #: src/SecurityIncidentPlaybookTask.php:70
@@ -1639,8 +1634,7 @@ msgstr "Solved / closed on"
 msgid "Time to resolution"
 msgstr "Time to resolution"
 
-#: templates/pdf/postmortem_report.html.twig
-#: templates/postmortem_tab.html.twig
+#: templates/pdf/postmortem_report.html.twig templates/postmortem_tab.html.twig
 msgid "Total cost"
 msgstr "Total cost"
 
@@ -1657,8 +1651,7 @@ msgstr "Total cost"
 msgid "Description"
 msgstr "Description"
 
-#: templates/pdf/postmortem_report.html.twig
-#: templates/postmortem_tab.html.twig
+#: templates/pdf/postmortem_report.html.twig templates/postmortem_tab.html.twig
 msgid "Timeline"
 msgstr "Timeline"
 
@@ -1696,8 +1689,7 @@ msgstr "Detail"
 msgid "Scope"
 msgstr "Scope"
 
-#: templates/pdf/postmortem_report.html.twig
-#: templates/postmortem_tab.html.twig
+#: templates/pdf/postmortem_report.html.twig templates/postmortem_tab.html.twig
 msgid "Affected items"
 msgstr "Affected items"
 
@@ -1750,8 +1742,7 @@ msgstr "Notified on"
 msgid "Outcome"
 msgstr "Outcome"
 
-#: templates/pdf/postmortem_report.html.twig
-#: templates/postmortem_tab.html.twig
+#: templates/pdf/postmortem_report.html.twig templates/postmortem_tab.html.twig
 #: templates/itil_classification_section.html.twig
 #: templates/nonconformity_form.html.twig inc/securityincident.class.php:811
 #: src/Nonconformity.php:373
@@ -1775,8 +1766,7 @@ msgctxt "plural"
 msgid "Not filled in."
 msgstr "Not filled in."
 
-#: templates/pdf/postmortem_report.html.twig
-#: templates/postmortem_tab.html.twig
+#: templates/pdf/postmortem_report.html.twig templates/postmortem_tab.html.twig
 msgid "Decided actions"
 msgstr "Decided actions"
 
@@ -2179,8 +2169,7 @@ msgstr "No frozen version: approval date entered manually."
 
 #: templates/pdf/policy_approval_record.html.twig
 #: templates/pdf/policy_version.html.twig templates/soa_approval.html.twig
-#: templates/policy_approval_tab.html.twig src/Waiver.php:86
-#: src/Waiver.php:114
+#: templates/policy_approval_tab.html.twig src/Waiver.php:86 src/Waiver.php:114
 msgid "Requested"
 msgstr "Requested"
 
@@ -2199,8 +2188,7 @@ msgstr "Approval rule"
 #: templates/tabs/risk_business_processes.html.twig
 #: templates/tabs/business_process_recovery.html.twig
 #: templates/tabs/business_process_risks.html.twig
-#: templates/tabs/mitre_attack.html.twig
-#: templates/access_review_form.html.twig
+#: templates/tabs/mitre_attack.html.twig templates/access_review_form.html.twig
 #: templates/custom_framework_form.html.twig
 #: templates/risk_indicator_values.html.twig src/IsmsRequirement.php:288
 #: src/NotificationTargetAccessReview.php:107
@@ -2242,8 +2230,7 @@ msgstr "Audits"
 #: templates/objective_form.html.twig templates/risk_import.html.twig
 #: templates/policy_form.html.twig templates/risk_asset_tab.html.twig
 #: templates/tabs/business_process_risks.html.twig
-#: templates/audit_form.html.twig
-#: templates/data_subject_request_form.html.twig
+#: templates/audit_form.html.twig templates/data_subject_request_form.html.twig
 #: templates/nonconformity_form.html.twig
 #: templates/audit_findings_tab.html.twig templates/risk_form.html.twig
 #: templates/supplier_security_watch.html.twig
@@ -2256,8 +2243,7 @@ msgstr "Audits"
 #: src/NotificationTargetNonconformity.php:91
 #: src/NotificationTargetPolicy.php:130
 #: src/NotificationTargetPolicyVersion.php:137
-#: src/NotificationTargetRisk.php:93
-#: src/NotificationTargetSupplierRisk.php:115
+#: src/NotificationTargetRisk.php:93 src/NotificationTargetSupplierRisk.php:115
 #: src/NotificationTargetTraining.php:125 src/Objective.php:149
 #: src/Policy.php:135 src/Risk.php:345 src/RiskRegisterImport.php:588
 #: src/SupplierRisk.php:160 src/Training.php:528
@@ -2265,8 +2251,7 @@ msgid "Title"
 msgstr "Title"
 
 #: templates/pdf/audit_report.html.twig
-#: templates/pdf/internal_audit_report.html.twig
-#: templates/audit_form.html.twig
+#: templates/pdf/internal_audit_report.html.twig templates/audit_form.html.twig
 #: templates/audit_evidence_requests_tab.html.twig src/Audit.php:209
 #: src/AuditTeam.php:54 src/AuditTeam.php:198
 msgid "Auditor"
@@ -2325,8 +2310,7 @@ msgstr "Severity"
 #: templates/business_process_form.html.twig
 #: templates/periodic_reviews.html.twig src/BusinessProcess.php:544
 #: src/BusinessProcess.php:616 src/ComplianceEvent.php:228
-#: src/EbiosStudy.php:594 src/IsmsRequirement.php:279
-#: src/Nonconformity.php:332
+#: src/EbiosStudy.php:594 src/IsmsRequirement.php:279 src/Nonconformity.php:332
 msgid "Owner"
 msgstr "Owner"
 
@@ -2513,8 +2497,7 @@ msgstr "ISMS requirements (clauses 4 to 10)"
 msgid "ISMS completeness: %1$d %% (%2$d / %3$d requirements compliant)"
 msgstr "ISMS completeness: %1$d %% (%2$d / %3$d requirements compliant)"
 
-#: templates/pdf/soa_report.html.twig
-#: templates/isms_requirement_form.html.twig
+#: templates/pdf/soa_report.html.twig templates/isms_requirement_form.html.twig
 #: templates/custom_framework_form.html.twig src/IsmsRequirement.php:254
 msgid "Requirement"
 msgstr "Requirement"
@@ -2665,8 +2648,7 @@ msgstr ""
 "Consistency checks: objectives of the process, plus items and processes it "
 "depends on that do not meet them."
 
-#: templates/pdf/business_continuity_report.html.twig
-#: src/BusinessImpact.php:44
+#: templates/pdf/business_continuity_report.html.twig src/BusinessImpact.php:44
 msgid "Business impact analysis"
 msgstr "Business impact analysis"
 
@@ -2953,8 +2935,7 @@ msgstr "Protocol and ports"
 #: templates/supplier_risk_form.html.twig templates/objective_form.html.twig
 #: templates/processing_activity_form.html.twig
 #: templates/policy_form.html.twig templates/risk_indicator_form.html.twig
-#: templates/risk_form.html.twig
-#: templates/compliance_obligation_form.html.twig
+#: templates/risk_form.html.twig templates/compliance_obligation_form.html.twig
 #: templates/network_flow_form.html.twig src/ComplianceObligation.php:213
 #: src/NetworkFlow.php:266 src/Objective.php:190 src/Policy.php:176
 #: src/ProcessingActivity.php:571 src/ProcessingActivity.php:997
@@ -3935,8 +3916,7 @@ msgstr "Nothing is waiting for you at the moment."
 msgid "Details"
 msgstr "Details"
 
-#: templates/my_space.html.twig
-#: templates/audit_evidence_requests_tab.html.twig
+#: templates/my_space.html.twig templates/audit_evidence_requests_tab.html.twig
 #: src/Services/Workspace/MySpaceProvider.php:138
 #, php-format
 msgid "%d day(s) late"
@@ -3948,8 +3928,7 @@ msgstr "%d day(s) late"
 msgid "Due soon"
 msgstr "Due soon"
 
-#: templates/my_space.html.twig
-#: templates/audit_evidence_requests_tab.html.twig
+#: templates/my_space.html.twig templates/audit_evidence_requests_tab.html.twig
 #: src/Services/Workspace/MySpaceProvider.php:136
 msgid "No due date"
 msgstr "No due date"
@@ -4105,8 +4084,7 @@ msgstr ""
 "once a week; nothing else happens to them."
 
 #: templates/policy_acknowledgement_tab.html.twig
-#: templates/park_vulnerabilities.html.twig
-#: templates/account_hygiene.html.twig
+#: templates/park_vulnerabilities.html.twig templates/account_hygiene.html.twig
 #, php-format
 msgid "%d days"
 msgstr "%d days"
@@ -4179,8 +4157,7 @@ msgstr "Read on %s"
 msgid "Latecomers (CSV)"
 msgstr "Latecomers (CSV)"
 
-#: templates/policy_acknowledgement_tab.html.twig
-#: templates/tabs/dpia.html.twig
+#: templates/policy_acknowledgement_tab.html.twig templates/tabs/dpia.html.twig
 msgid "Report (PDF)"
 msgstr "Report (PDF)"
 
@@ -4454,8 +4431,7 @@ msgstr "Exploited"
 msgid "Published"
 msgstr "Published"
 
-#: templates/park_vulnerabilities.html.twig
-#: templates/park_cve_ticket.html.twig
+#: templates/park_vulnerabilities.html.twig templates/park_cve_ticket.html.twig
 msgid "Remediation deadline"
 msgstr "Remediation deadline"
 
@@ -5357,8 +5333,7 @@ msgstr ""
 "Per category of data if needed (e.g. \"5 years after the employee leaves, "
 "then archived\")."
 
-#: templates/processing_activity_form.html.twig
-#: src/ProcessingActivity.php:1007
+#: templates/processing_activity_form.html.twig src/ProcessingActivity.php:1007
 msgid "Security measures"
 msgstr "Security measures"
 
@@ -5401,8 +5376,7 @@ msgstr "Last review"
 msgid "The register is reviewed at least once a year (Periodic reviews)."
 msgstr "The register is reviewed at least once a year (Periodic reviews)."
 
-#: templates/processing_activity_form.html.twig
-#: src/ProcessingActivity.php:1008
+#: templates/processing_activity_form.html.twig src/ProcessingActivity.php:1008
 msgid "Applications, assets and suppliers"
 msgstr "Applications, assets and suppliers"
 
@@ -5742,16 +5716,14 @@ msgstr "Back to the risk list"
 #: templates/risk_heatmap.html.twig src/AssetClassification.php:92
 #: src/AssetClassification.php:183 src/ConsistencyCheck.php:142
 #: src/DoraRegister.php:236 src/DoraRegister.php:241
-#: src/Traits/RiskAssessmentTrait.php:84
-#: src/Traits/RiskAssessmentTrait.php:223
+#: src/Traits/RiskAssessmentTrait.php:84 src/Traits/RiskAssessmentTrait.php:223
 msgid "Low"
 msgstr "Low"
 
 #: templates/risk_heatmap.html.twig src/AssetClassification.php:93
 #: src/AssetClassification.php:184 src/ConsistencyCheck.php:137
 #: src/DoraRegister.php:237 src/DoraRegister.php:242
-#: src/Traits/RiskAssessmentTrait.php:85
-#: src/Traits/RiskAssessmentTrait.php:224
+#: src/Traits/RiskAssessmentTrait.php:85 src/Traits/RiskAssessmentTrait.php:224
 msgid "Medium"
 msgstr "Medium"
 
@@ -8892,8 +8864,7 @@ msgstr ""
 "This asset has not been classified yet (confidentiality/integrity/"
 "availability)."
 
-#: templates/asset_classification_tab.html.twig
-#: src/AssetClassification.php:143
+#: templates/asset_classification_tab.html.twig src/AssetClassification.php:143
 msgid "RTO (maximum downtime)"
 msgstr "RTO (maximum downtime)"
 
@@ -8901,8 +8872,7 @@ msgstr "RTO (maximum downtime)"
 msgid "Time beyond which an outage of this asset becomes unacceptable."
 msgstr "Time beyond which an outage of this asset becomes unacceptable."
 
-#: templates/asset_classification_tab.html.twig
-#: src/AssetClassification.php:151
+#: templates/asset_classification_tab.html.twig src/AssetClassification.php:151
 msgid "RPO (maximum data loss)"
 msgstr "RPO (maximum data loss)"
 
@@ -9364,8 +9334,7 @@ msgid_plural "%d days late"
 msgstr[0] "%d day late"
 msgstr[1] "%d days late"
 
-#: templates/data_subject_request_form.html.twig
-#: src/DataSubjectRequest.php:360
+#: templates/data_subject_request_form.html.twig src/DataSubjectRequest.php:360
 msgid "Right exercised"
 msgstr "Right exercised"
 
@@ -9391,8 +9360,7 @@ msgstr "Requester"
 msgid "Only what is needed to answer: this field stays on this request."
 msgstr "Only what is needed to answer: this field stays on this request."
 
-#: templates/data_subject_request_form.html.twig
-#: src/DataSubjectRequest.php:369
+#: templates/data_subject_request_form.html.twig src/DataSubjectRequest.php:369
 msgid "Date of receipt"
 msgstr "Date of receipt"
 
@@ -9432,8 +9400,7 @@ msgstr ""
 msgid "Reason for the extension"
 msgstr "Reason for the extension"
 
-#: templates/data_subject_request_form.html.twig
-#: src/DataSubjectRequest.php:378
+#: templates/data_subject_request_form.html.twig src/DataSubjectRequest.php:378
 msgid "Date of the answer"
 msgstr "Date of the answer"
 
@@ -16888,8 +16855,7 @@ msgstr "From orange"
 msgid "Planned"
 msgstr "Planned"
 
-#: src/ManagementReview.php:81 src/ManagementReview.php:378
-#: src/Training.php:96
+#: src/ManagementReview.php:81 src/ManagementReview.php:378 src/Training.php:96
 msgctxt "feminine"
 msgid "Completed"
 msgstr "Completed"
@@ -22101,6 +22067,1613 @@ msgstr "Firmware"
 msgid "Firmware of network equipment, printers, phones or computers"
 msgstr "Firmware of network equipment, printers, phones or computers"
 
+msgid "Level labels"
+msgstr "Level labels"
+
+#, php-format
+msgid "Default label: %s"
+msgstr "Default label: %s"
+
+msgid "The level labels have been saved."
+msgstr "The level labels have been saved."
+
+msgid "Levels are listed from the lowest (1) to the highest."
+msgstr "Levels are listed from the lowest (1) to the highest."
+
+msgid ""
+"Rename the levels of probability and impact to match your method, for "
+"example the wording of your risk management policy. Leave a field empty to "
+"keep the default label, translated into the language of each user; a label "
+"you enter is shown as is in every language. Renaming a level changes nothing "
+"in existing risks."
+msgstr ""
+"Rename the levels of probability and impact to match your method, for "
+"example the wording of your risk management policy. Leave a field empty to "
+"keep the default label, translated into the language of each user; a label "
+"you enter is shown as is in every language. Renaming a level changes nothing "
+"in existing risks."
+
+msgid "End of support (endoflife.date)"
+msgstr "End of support (endoflife.date)"
+
+msgid "Settings and links"
+msgstr "Settings and links"
+
+msgid ""
+"Not enabled: the plugin can show which software, operating systems and "
+"firmwares no longer receive security fixes, from the public site endoflife."
+"date."
+msgstr ""
+"Not enabled: the plugin can show which software, operating systems and "
+"firmwares no longer receive security fixes, from the public site endoflife."
+"date."
+
+msgid "Enable it in the configuration"
+msgstr "Enable it in the configuration"
+
+msgid "%d asset"
+msgid_plural "%d assets"
+msgstr[0] "%d asset"
+msgstr[1] "%d assets"
+
+msgid "Ended or ending soon"
+msgstr "Ended or ending soon"
+
+msgid "All followed items"
+msgstr "All followed items"
+
+msgid "\"End of support soon\": within %d days."
+msgstr "\"End of support soon\": within %d days."
+
+msgid ""
+"The end of support dates have not been read yet: they arrive with the next "
+"daily task, or with the button \"Update now\" of the configuration."
+msgstr ""
+"The end of support dates have not been read yet: they arrive with the next "
+"daily task, or with the button \"Update now\" of the configuration."
+
+msgid ""
+"Some products could not be read during the last update: their previous data "
+"is still used."
+msgstr ""
+"Some products could not be read during the last update: their previous data "
+"is still used."
+
+msgid ""
+"%d name of the inventory is not linked to an endoflife.date product and is "
+"not followed."
+msgid_plural ""
+"%d names of the inventory are not linked to an endoflife.date product and "
+"are not followed."
+msgstr[0] ""
+"%d name of the inventory is not linked to an endoflife.date product and is "
+"not followed."
+msgstr[1] ""
+"%d names of the inventory are not linked to an endoflife.date product and "
+"are not followed."
+
+msgid "Add a link"
+msgstr "Add a link"
+
+msgid ""
+"%1$d items: the %2$d most urgent ones are shown, all of them are in the "
+"export."
+msgstr ""
+"%1$d items: the %2$d most urgent ones are shown, all of them are in the "
+"export."
+
+msgid "No followed item in your entities."
+msgstr "No followed item in your entities."
+
+msgid "No followed item has reached or is close to its end of support."
+msgstr "No followed item has reached or is close to its end of support."
+
+msgid "Release cycle"
+msgstr "Release cycle"
+
+msgid "End of support"
+msgstr "End of support"
+
+msgid "Assets"
+msgstr "Assets"
+
+msgid "latest: %s"
+msgstr "latest: %s"
+
+msgid "%1$d item(s) no longer supported on %2$d asset(s)"
+msgstr "%1$d item(s) no longer supported on %2$d asset(s)"
+
+msgid "%1$d ending within %2$d days"
+msgstr "%1$d ending within %2$d days"
+
+msgid "%d supported"
+msgstr "%d supported"
+
+msgid "View the details"
+msgstr "View the details"
+
+msgid ""
+"Shows which installed software, operating systems and firmwares no longer "
+"receive security fixes, from the public site endoflife.date (ISO 27001 A.8.8 "
+"and A.8.9). Once a day, the plugin reads the end of support dates of the "
+"products found in the inventory; only the product name is sent (for instance "
+"\"debian\"), never the name of a computer or of an entity. Nothing is "
+"changed in the inventory, and no ticket is created."
+msgstr ""
+"Shows which installed software, operating systems and firmwares no longer "
+"receive security fixes, from the public site endoflife.date (ISO 27001 A.8.8 "
+"and A.8.9). Once a day, the plugin reads the end of support dates of the "
+"products found in the inventory; only the product name is sent (for instance "
+"\"debian\"), never the name of a computer or of an entity. Nothing is "
+"changed in the inventory, and no ticket is created."
+
+msgid "Read the end of support dates on endoflife.date"
+msgstr "Read the end of support dates on endoflife.date"
+
+msgid "Warn this many days before the end of support"
+msgstr "Warn this many days before the end of support"
+
+msgid ""
+"Below this number of days, a version is shown as \"End of support soon\"."
+msgstr ""
+"Below this number of days, a version is shown as \"End of support soon\"."
+
+msgid "Last successful reading"
+msgstr "Last successful reading"
+
+msgid "%d product(s) in cache"
+msgstr "%d product(s) in cache"
+
+msgid ""
+"Reads now the products whose data is more than one day old (the daily task "
+"does the rest)."
+msgstr ""
+"Reads now the products whose data is more than one day old (the daily task "
+"does the rest)."
+
+msgid "Update now"
+msgstr "Update now"
+
+msgid "Links between GLPI names and endoflife.date products"
+msgstr "Links between GLPI names and endoflife.date products"
+
+msgid ""
+"Well-known names are linked automatically (for instance \"Debian GNU/Linux\" "
+"or \"Mozilla Firefox\"). For any other name, add a link: type the name "
+"exactly as GLPI shows it, and the product identifier found in the address of "
+"its page on endoflife.date (for instance \"fortios\" for https://endoflife."
+"date/fortios). Leave the product empty to stop following a name."
+msgstr ""
+"Well-known names are linked automatically (for instance \"Debian GNU/Linux\" "
+"or \"Mozilla Firefox\"). For any other name, add a link: type the name "
+"exactly as GLPI shows it, and the product identifier found in the address of "
+"its page on endoflife.date (for instance \"fortios\" for https://endoflife."
+"date/fortios). Leave the product empty to stop following a name."
+
+msgid "Kind of item"
+msgstr "Kind of item"
+
+msgid "Name in GLPI"
+msgstr "Name in GLPI"
+
+msgid "endoflife.date product"
+msgstr "endoflife.date product"
+
+msgid "Not followed"
+msgstr "Not followed"
+
+msgid "Product unknown to the source"
+msgstr "Product unknown to the source"
+
+msgid "Delete this link"
+msgstr "Delete this link"
+
+msgid "%d name(s) linked automatically"
+msgstr "%d name(s) linked automatically"
+
+msgid "%d name(s) of the inventory not linked to a product"
+msgstr "%d name(s) of the inventory not linked to a product"
+
+msgid ""
+"These names are not followed: add a link above for those that matter (choose "
+"them from the list of the \"Name in GLPI\" field)."
+msgstr ""
+"These names are not followed: add a link above for those that matter (choose "
+"them from the list of the \"Name in GLPI\" field)."
+
+msgid "%d more not shown."
+msgstr "%d more not shown."
+
+msgid ""
+"Link not saved: give the exact name shown in GLPI and an endoflife.date "
+"product identifier (lower case letters, digits and dashes, for instance "
+"\"debian\")."
+msgstr ""
+"Link not saved: give the exact name shown in GLPI and an endoflife.date "
+"product identifier (lower case letters, digits and dashes, for instance "
+"\"debian\")."
+
+msgid ""
+"Assets running software, a system or a firmware that is no longer supported"
+msgstr ""
+"Assets running software, a system or a firmware that is no longer supported"
+
+msgid ""
+"Upgrade to a supported version, or record a waiver with compensating "
+"measures until the upgrade."
+msgstr ""
+"Upgrade to a supported version, or record a waiver with compensating "
+"measures until the upgrade."
+
+msgid "No longer supported: %s"
+msgstr "No longer supported: %s"
+
+msgid "No longer supported"
+msgstr "No longer supported"
+
+msgid "This version no longer receives security fixes."
+msgstr "This version no longer receives security fixes."
+
+msgid "End of support soon"
+msgstr "End of support soon"
+
+msgid "Plan the move to a version that is still supported."
+msgstr "Plan the move to a version that is still supported."
+
+msgid "Supported"
+msgstr "Supported"
+
+msgid "This version still receives security fixes."
+msgstr "This version still receives security fixes."
+
+msgid "Support unknown"
+msgstr "Support unknown"
+
+msgid "End of support not determined: never counted as supported."
+msgstr "End of support not determined: never counted as supported."
+
+msgid "Not linked to an endoflife.date product."
+msgstr "Not linked to an endoflife.date product."
+
+msgid ""
+"Not read yet: the daily task has not run since this product was linked, or "
+"the source could not be reached."
+msgstr ""
+"Not read yet: the daily task has not run since this product was linked, or "
+"the source could not be reached."
+
+msgid "Product unknown to endoflife.date: check the link in the configuration."
+msgstr ""
+"Product unknown to endoflife.date: check the link in the configuration."
+
+msgid "No release cycle of this product matches the installed version."
+msgstr "No release cycle of this product matches the installed version."
+
+msgid "Too many requests: the source asked to wait"
+msgstr "Too many requests: the source asked to wait"
+
+msgid "Error on the source server"
+msgstr "Error on the source server"
+
+msgid "Unexpected answer from the source"
+msgstr "Unexpected answer from the source"
+
+msgid "Source unreachable"
+msgstr "Source unreachable"
+
+msgid "Not queried (earlier error or limit reached)"
+msgstr "Not queried (earlier error or limit reached)"
+
+msgid "Operating system"
+msgstr "Operating system"
+
+msgid "Manual link"
+msgstr "Manual link"
+
+msgid "Automatic link"
+msgstr "Automatic link"
+
+msgid "Not linked"
+msgstr "Not linked"
+
+msgid "Support ended (date not published)."
+msgstr "Support ended (date not published)."
+
+msgid "No end of support announced."
+msgstr "No end of support announced."
+
+msgid "Support ended on %s."
+msgstr "Support ended on %s."
+
+msgid "Support ends on %1$s (in %2$d day)."
+msgid_plural "Support ends on %1$s (in %2$d days)."
+msgstr[0] "Support ends on %1$s (in %2$d day)."
+msgstr[1] "Support ends on %1$s (in %2$d days)."
+
+msgid "The end of support source is disabled: nothing was read."
+msgstr "The end of support source is disabled: nothing was read."
+
+msgid ""
+"End of support: %1$d products, %2$d read, %3$d already up to date, %4$d "
+"unknown to the source."
+msgstr ""
+"End of support: %1$d products, %2$d read, %3$d already up to date, %4$d "
+"unknown to the source."
+
+msgid "%d product(s) not read: the data already in cache is still used."
+msgstr "%d product(s) not read: the data already in cache is still used."
+
+msgid "End of support of software, systems and firmwares (endoflife.date)"
+msgstr "End of support of software, systems and firmwares (endoflife.date)"
+
+msgid "Asset"
+msgstr "Asset"
+
+msgid "Latest version of the cycle"
+msgstr "Latest version of the cycle"
+
+msgid "How it was linked"
+msgstr "How it was linked"
+
+msgid "Also detected by SentinelOne"
+msgstr "Also detected by SentinelOne"
+
+#, php-format
+msgid "SentinelOne: %d computer(s)"
+msgstr "SentinelOne: %d computer(s)"
+
+msgid "Detected by SentinelOne only"
+msgstr "Detected by SentinelOne only"
+
+#, php-format
+msgid "Last read: %s"
+msgstr "Last read: %s"
+
+msgid "SentinelOne reports no vulnerability beyond those listed above."
+msgstr "SentinelOne reports no vulnerability beyond those listed above."
+
+msgid ""
+"Application vulnerabilities seen by SentinelOne on your computers and not "
+"found by the software watch. Source: SentinelOne API, read only."
+msgstr ""
+"Application vulnerabilities seen by SentinelOne on your computers and not "
+"found by the software watch. Source: SentinelOne API, read only."
+
+msgid "Applications"
+msgstr "Applications"
+
+msgid ""
+"From the last reading of SentinelOne: a computer is covered when an active "
+"agent is matched with it (serial number or exact name)."
+msgstr ""
+"From the last reading of SentinelOne: a computer is covered when an active "
+"agent is matched with it (serial number or exact name)."
+
+msgid "SentinelOne coverage"
+msgstr "SentinelOne coverage"
+
+msgid "SentinelOne alerts to review"
+msgstr "SentinelOne alerts to review"
+
+msgid "Settings"
+msgstr "Settings"
+
+msgid "No SentinelOne alert waiting for review."
+msgstr "No SentinelOne alert waiting for review."
+
+msgid ""
+"The automatic reading is disabled: enable it in the plugin configuration, or "
+"use the button \"Fetch now\" there."
+msgstr ""
+"The automatic reading is disabled: enable it in the plugin configuration, or "
+"use the button \"Fetch now\" there."
+
+msgid ""
+"Tick the alerts that deserve a security incident: each one becomes an "
+"incident with its indicators, MITRE ATT&CK techniques and computer. The "
+"others can be set aside. Nothing is changed in SentinelOne."
+msgstr ""
+"Tick the alerts that deserve a security incident: each one becomes an "
+"incident with its indicators, MITRE ATT&CK techniques and computer. The "
+"others can be set aside. Nothing is changed in SentinelOne."
+
+#, php-format
+msgid "%1$d alerts: the %2$d most recent are shown."
+msgstr "%1$d alerts: the %2$d most recent are shown."
+
+msgid "Select all"
+msgstr "Select all"
+
+msgid "Computer"
+msgstr "Computer"
+
+msgid "Not found in GLPI"
+msgstr "Not found in GLPI"
+
+msgid "Create the incidents of the selected alerts"
+msgstr "Create the incidents of the selected alerts"
+
+msgid "Set the selected alerts aside"
+msgstr "Set the selected alerts aside"
+
+msgid "SentinelOne connector"
+msgstr "SentinelOne connector"
+
+msgid "Read only"
+msgstr "Read only"
+
+msgid ""
+"Every hour, the threats and alerts detected by SentinelOne are fetched and "
+"proposed as security incidents on the EDR import screen: nothing is created "
+"without your validation. The agents are matched with the GLPI computers "
+"(serial number, then exact name) and the application vulnerabilities join "
+"the fleet vulnerabilities. Nothing is ever sent to SentinelOne (no "
+"isolation, no resolution)."
+msgstr ""
+"Every hour, the threats and alerts detected by SentinelOne are fetched and "
+"proposed as security incidents on the EDR import screen: nothing is created "
+"without your validation. The agents are matched with the GLPI computers "
+"(serial number, then exact name) and the application vulnerabilities join "
+"the fleet vulnerabilities. Nothing is ever sent to SentinelOne (no "
+"isolation, no resolution)."
+
+msgid "Fetch automatically from SentinelOne"
+msgstr "Fetch automatically from SentinelOne"
+
+msgid ""
+"Turns on the automatic action that reads SentinelOne every hour. Off by "
+"default."
+msgstr ""
+"Turns on the automatic action that reads SentinelOne every hour. Off by "
+"default."
+
+msgid "Console address"
+msgstr "Console address"
+
+msgid "The address you use to open the SentinelOne console, in HTTPS."
+msgstr "The address you use to open the SentinelOne console, in HTTPS."
+
+msgid "API token"
+msgstr "API token"
+
+msgid "Token saved (leave empty to keep it)"
+msgstr "Token saved (leave empty to keep it)"
+
+msgid "Token saved"
+msgstr "Token saved"
+
+msgid ""
+"Token of a service user with the Viewer role only. Encrypted with the GLPI "
+"key, never displayed again nor logged."
+msgstr ""
+"Token of a service user with the Viewer role only. Encrypted with the GLPI "
+"key, never displayed again nor logged."
+
+msgid "Delete the saved token"
+msgstr "Delete the saved token"
+
+msgid "Entity of the alerts whose computer is not found in GLPI"
+msgstr "Entity of the alerts whose computer is not found in GLPI"
+
+msgid "Test the connection"
+msgstr "Test the connection"
+
+msgid "Fetch now"
+msgstr "Fetch now"
+
+msgid "Automatic action"
+msgstr "Automatic action"
+
+msgid "active"
+msgstr "active"
+
+msgid "disabled"
+msgstr "disabled"
+
+msgid "Open the automatic action"
+msgstr "Open the automatic action"
+
+#, php-format
+msgid "%d read"
+msgstr "%d read"
+
+#, php-format
+msgid "%d new"
+msgstr "%d new"
+
+msgid "continued at the next run"
+msgstr "continued at the next run"
+
+msgid "Review the proposed alerts"
+msgstr "Review the proposed alerts"
+
+msgid "Agents"
+msgstr "Agents"
+
+#, php-format
+msgid "%d agent(s) in the console"
+msgstr "%d agent(s) in the console"
+
+#, php-format
+msgid "%d without a matching GLPI computer"
+msgstr "%d without a matching GLPI computer"
+
+msgid "all matched with a GLPI computer"
+msgstr "all matched with a GLPI computer"
+
+msgid ""
+"These agents are never matched by a similar name: create or rename the "
+"computer in the inventory, or fill in its serial number."
+msgstr ""
+"These agents are never matched by a similar name: create or rename the "
+"computer in the inventory, or fill in its serial number."
+
+msgid "Computer name in SentinelOne"
+msgstr "Computer name in SentinelOne"
+
+msgid ""
+"The console address was not saved: it must start with https:// and contain "
+"no user name or password."
+msgstr ""
+"The console address was not saved: it must start with https:// and contain "
+"no user name or password."
+
+msgid "Enter the console address and the API token first."
+msgstr "Enter the console address and the API token first."
+
+msgid ""
+"Connection accepted, but the token sees no agent and no threat: check that "
+"its user has the Viewer role on the right accounts or sites."
+msgstr ""
+"Connection accepted, but the token sees no agent and no threat: check that "
+"its user has the Viewer role on the right accounts or sites."
+
+#, php-format
+msgid ""
+"Connection to SentinelOne succeeded: %1$d agent(s) and %2$s threat(s) "
+"visible."
+msgstr ""
+"Connection to SentinelOne succeeded: %1$d agent(s) and %2$s threat(s) "
+"visible."
+
+#, php-format
+msgid ""
+"SentinelOne read: %1$d new alert(s) to review, %2$d agent(s), %3$d "
+"application vulnerabilities."
+msgstr ""
+"SentinelOne read: %1$d new alert(s) to review, %2$d agent(s), %3$d "
+"application vulnerabilities."
+
+msgid "Select at least one alert."
+msgstr "Select at least one alert."
+
+#, php-format
+msgid ""
+"%1$d incident(s) created, %2$d alert(s) ignored (already imported or not "
+"allowed)."
+msgstr ""
+"%1$d incident(s) created, %2$d alert(s) ignored (already imported or not "
+"allowed)."
+
+#, php-format
+msgid "%d alert(s) set aside."
+msgstr "%d alert(s) set aside."
+
+msgid "SentinelOne alerts"
+msgstr "SentinelOne alerts"
+
+msgid ""
+"SentinelOne: reads new threats, alerts and application vulnerabilities (read "
+"only)"
+msgstr ""
+"SentinelOne: reads new threats, alerts and application vulnerabilities (read "
+"only)"
+
+msgid ""
+"SentinelOne refused the API token (401): check that it is valid and has not "
+"expired."
+msgstr ""
+"SentinelOne refused the API token (401): check that it is valid and has not "
+"expired."
+
+msgid ""
+"The API token is not allowed to read this information (403): give it the "
+"Viewer role on the accounts or sites to read, or check the licence."
+msgstr ""
+"The API token is not allowed to read this information (403): give it the "
+"Viewer role on the accounts or sites to read, or check the licence."
+
+msgid ""
+"This information is not available on this console (404): it may not be "
+"included in the licence."
+msgstr ""
+"This information is not available on this console (404): it may not be "
+"included in the licence."
+
+msgid ""
+"SentinelOne limits the number of requests (429): the next run resumes where "
+"this one stopped."
+msgstr ""
+"SentinelOne limits the number of requests (429): the next run resumes where "
+"this one stopped."
+
+msgid ""
+"The SentinelOne console could not be reached: check its address, the GLPI "
+"proxy and, for an internal address, the setting that allows them."
+msgstr ""
+"The SentinelOne console could not be reached: check its address, the GLPI "
+"proxy and, for an internal address, the setting that allows them."
+
+msgid ""
+"The console address is an internal address, refused by default: an "
+"administrator can allow internal addresses in this configuration page."
+msgstr ""
+"The console address is an internal address, refused by default: an "
+"administrator can allow internal addresses in this configuration page."
+
+msgid ""
+"The SentinelOne console sent an unexpected answer: check the console address."
+msgstr ""
+"The SentinelOne console sent an unexpected answer: check the console address."
+
+msgid "Not read during this run: an earlier step stopped it."
+msgstr "Not read during this run: an earlier step stopped it."
+
+msgid "The SentinelOne console returned an error."
+msgstr "The SentinelOne console returned an error."
+
+msgid "Threats"
+msgstr "Threats"
+
+msgid "Alerts"
+msgstr "Alerts"
+
+msgid "Application vulnerabilities"
+msgstr "Application vulnerabilities"
+
+msgid "Classification"
+msgstr "Classification"
+
+msgid "ACN determination %s"
+msgstr "ACN determination %s"
+
+msgid "Annex %d"
+msgstr "Annex %d"
+
+msgid "%d not applicable"
+msgstr "%d not applicable"
+
+msgid "Implemented requirements"
+msgstr "Implemented requirements"
+
+msgid "Approvals to record"
+msgstr "Approvals to record"
+
+msgid "Function"
+msgstr "Function"
+
+msgid "Required, not recorded"
+msgstr "Required, not recorded"
+
+msgid ""
+"Codes and point numbers come from the annexes published by the ACN; titles "
+"and summaries are written by this project and do not replace the official "
+"text."
+msgstr ""
+"Codes and point numbers come from the annexes published by the ACN; titles "
+"and summaries are written by this project and do not replace the official "
+"text."
+
+msgid ""
+"Codes and point numbers come from the annexes published by the ACN; titles "
+"and summaries are written by this project and do not replace the official "
+"text:"
+msgstr ""
+"Codes and point numbers come from the annexes published by the ACN; titles "
+"and summaries are written by this project and do not replace the official "
+"text:"
+
+msgid "NIS2 Italy: ACN basic security measures (determination %s)"
+msgstr "NIS2 Italy: ACN basic security measures (determination %s)"
+
+msgid "Open the NIS2 Italy register"
+msgstr "Open the NIS2 Italy register"
+
+msgid "Classify the entities"
+msgstr "Classify the entities"
+
+msgid ""
+"Measures of the Italian NIS2 law (D.Lgs. 138/2024). Codes follow the "
+"national framework, aligned with NIST CSF 2.0. Each requirement has its own "
+"record in the register of the entity, without going through ISO 27001 Annex "
+"A."
+msgstr ""
+"Measures of the Italian NIS2 law (D.Lgs. 138/2024). Codes follow the "
+"national framework, aligned with NIST CSF 2.0. Each requirement has its own "
+"record in the register of the entity, without going through ISO 27001 Annex "
+"A."
+
+msgid "Annex 1, important entities: %1$d measures, %2$d requirements"
+msgstr "Annex 1, important entities: %1$d measures, %2$d requirements"
+
+msgid "Annex 2, essential entities: %1$d measures, %2$d requirements"
+msgstr "Annex 2, essential entities: %1$d measures, %2$d requirements"
+
+msgid "Your entity: %s"
+msgstr "Your entity: %s"
+
+msgid "Measure"
+msgstr "Measure"
+
+msgid ""
+"Source: ACN determination %s, annexes 1 and 2 (public documents). Codes and "
+"point numbers are the official ones; titles, summaries and the mapping to "
+"NIS2 are made by this project. Only the text published by the ACN is "
+"authentic."
+msgstr ""
+"Source: ACN determination %s, annexes 1 and 2 (public documents). Codes and "
+"point numbers are the official ones; titles, summaries and the mapping to "
+"NIS2 are made by this project. Only the text published by the ACN is "
+"authentic."
+
+msgid "ACN requirement"
+msgstr "ACN requirement"
+
+msgid "Management approval required"
+msgstr "Management approval required"
+
+msgid ""
+"Summary written by this project to help you find the requirement. Only the "
+"text published by the ACN is authentic: open the source below."
+msgstr ""
+"Summary written by this project to help you find the requirement. Only the "
+"text published by the ACN is authentic: open the source below."
+
+msgid "Official reference"
+msgstr "Official reference"
+
+msgid ""
+"This requirement only applies to essential entities: it is not part of the "
+"catalogue of this entity (%s). It is kept in case the classification changes."
+msgstr ""
+"This requirement only applies to essential entities: it is not part of the "
+"catalogue of this entity (%s). It is kept in case the classification changes."
+
+msgid ""
+"Required when the requirement is not fully applicable: the ACN accepts "
+"exceptions only for reasons that are justified and documented."
+msgstr ""
+"Required when the requirement is not fully applicable: the ACN accepts "
+"exceptions only for reasons that are justified and documented."
+
+msgid "Notes"
+msgstr "Notes"
+
+msgid "Approval by the management bodies"
+msgstr "Approval by the management bodies"
+
+msgid ""
+"This point requires the approval of the administrative and management "
+"bodies. Record the date and attach the minutes in the Documents tab."
+msgstr ""
+"This point requires the approval of the administrative and management "
+"bodies. Record the date and attach the minutes in the Documents tab."
+
+msgid "Approval reference"
+msgstr "Approval reference"
+
+msgid "For example \"Board resolution no. 12 of 3 March\"."
+msgstr "For example \"Board resolution no. 12 of 3 March\"."
+
+msgid "Policies and documents"
+msgstr "Policies and documents"
+
+msgid "Related policies"
+msgstr "Related policies"
+
+msgid ""
+"Policies of this plugin that answer the requirement. Procedures, plans and "
+"evidence go in the Documents tab."
+msgstr ""
+"Policies of this plugin that answer the requirement. Procedures, plans and "
+"evidence go in the Documents tab."
+
+msgid "Approval of the linked policies"
+msgstr "Approval of the linked policies"
+
+msgid "Related references"
+msgstr "Related references"
+
+msgid "NIS2 directive (EU)"
+msgstr "NIS2 directive (EU)"
+
+msgid "Indicative mapping made by this project."
+msgstr "Indicative mapping made by this project."
+
+msgid "ISO 27001 Annex A (optional)"
+msgstr "ISO 27001 Annex A (optional)"
+
+msgid ""
+"Controls that NIST links to this subcategory. You do not need the Statement "
+"of Applicability to follow this requirement."
+msgstr ""
+"Controls that NIST links to this subcategory. You do not need the Statement "
+"of Applicability to follow this requirement."
+
+msgid "Back to the NIS2 Italy register"
+msgstr "Back to the NIS2 Italy register"
+
+msgid ""
+"Basic security measures of the ACN determination %s (D.Lgs. 138/2024): one "
+"record per requirement."
+msgstr ""
+"Basic security measures of the ACN determination %s (D.Lgs. 138/2024): one "
+"record per requirement."
+
+msgid "Important or essential entities"
+msgstr "Important or essential entities"
+
+msgid ""
+"No entity is classified yet. In the configuration of the plugin, say for "
+"each GLPI entity whether it is an important entity (annex 1) or an essential "
+"entity (annex 2): its register is then created with all the requirements of "
+"its annex."
+msgstr ""
+"No entity is classified yet. In the configuration of the plugin, say for "
+"each GLPI entity whether it is an important entity (annex 1) or an essential "
+"entity (annex 2): its register is then created with all the requirements of "
+"its annex."
+
+msgid "Ask an administrator of the plugin to do it."
+msgstr "Ask an administrator of the plugin to do it."
+
+msgid "%1$d measures, %2$d requirements"
+msgstr "%1$d measures, %2$d requirements"
+
+msgid "Register"
+msgstr "Register"
+
+msgid "Without owner"
+msgstr "Without owner"
+
+msgid "By function of the national framework"
+msgstr "By function of the national framework"
+
+msgid "Approval to record"
+msgstr "Approval to record"
+
+msgid "Approved on %s"
+msgstr "Approved on %s"
+
+msgid ""
+"For each GLPI entity subject to the Italian NIS2 law, choose whether it is "
+"an important entity (annex 1 of the ACN determination) or an essential "
+"entity (annex 2). Its register is created with one record per requirement; "
+"sub-entities without a choice follow their parent. Changing or removing the "
+"choice never deletes what was entered."
+msgstr ""
+"For each GLPI entity subject to the Italian NIS2 law, choose whether it is "
+"an important entity (annex 1 of the ACN determination) or an essential "
+"entity (annex 2). Its register is created with one record per requirement; "
+"sub-entities without a choice follow their parent. Changing or removing the "
+"choice never deletes what was entered."
+
+msgid "Not subject (or follows its parent)"
+msgstr "Not subject (or follows its parent)"
+
+msgid "Classification saved; %d requirement record(s) created."
+msgstr "Classification saved; %d requirement record(s) created."
+
+msgid "Important entity (annex 1)"
+msgstr "Important entity (annex 1)"
+
+msgid "Essential entity (annex 2)"
+msgstr "Essential entity (annex 2)"
+
+msgid ""
+"A justification is required whenever a requirement is not fully applicable."
+msgstr ""
+"A justification is required whenever a requirement is not fully applicable."
+
+msgid "Annex"
+msgstr "Annex"
+
+msgid "NIS2 Italy compliance (ACN determination %s)"
+msgstr "NIS2 Italy compliance (ACN determination %s)"
+
+msgid "Point"
+msgstr "Point"
+
+msgid ""
+"Italian NIS2 basic security measures (ACN determination 379907/2025): a "
+"register with one record per requirement, per GLPI entity set as important "
+"or essential below. Disabled by default."
+msgstr ""
+"Italian NIS2 basic security measures (ACN determination 379907/2025): a "
+"register with one record per requirement, per GLPI entity set as important "
+"or essential below. Disabled by default."
+
+msgid "NIS2 Italy requirement (ACN)"
+msgid_plural "NIS2 Italy requirements (ACN)"
+msgstr[0] "NIS2 Italy requirement (ACN)"
+msgstr[1] "NIS2 Italy requirements (ACN)"
+
+msgid "Last reviewed by"
+msgstr "Last reviewed by"
+
+msgid "%1$s by %2$s"
+msgstr "%1$s by %2$s"
+
+msgid "Never reviewed"
+msgstr "Never reviewed"
+
+msgid ""
+"Records today as the review date, with your name, and sets the next review "
+"one year later. Your other changes on this form are saved too."
+msgstr ""
+"Records today as the review date, with your name, and sets the next review "
+"one year later. Your other changes on this form are saved too."
+
+msgid "Record the review"
+msgstr "Record the review"
+
+msgid "Register for the auditor (PDF)"
+msgstr "Register for the auditor (PDF)"
+
+msgid "Register (CSV)"
+msgstr "Register (CSV)"
+
+msgid ""
+"Issues and interested parties of the context of the organization (ISO 27001, "
+"4.1 and 4.2) that refer to this item."
+msgstr ""
+"Issues and interested parties of the context of the organization (ISO 27001, "
+"4.1 and 4.2) that refer to this item."
+
+msgid "No issue or interested party refers to this item yet."
+msgstr "No issue or interested party refers to this item yet."
+
+msgid "Internal and external issues"
+msgstr "Internal and external issues"
+
+msgid "Items past their review date"
+msgstr "Items past their review date"
+
+msgid "Not answered yet"
+msgstr "Not answered yet"
+
+msgid "No item recorded."
+msgstr "No item recorded."
+
+msgid "Activities"
+msgstr "Activities"
+
+msgid "Alerts to fix"
+msgstr "Alerts to fix"
+
+msgid "Responsibility matrix"
+msgstr "Responsibility matrix"
+
+msgid "Sensitive"
+msgstr "Sensitive"
+
+msgid "No activity yet."
+msgstr "No activity yet."
+
+msgid ""
+"No alert: every activity has someone who performs it and a single approver, "
+"without conflict of duties."
+msgstr ""
+"No alert: every activity has someone who performs it and a single approver, "
+"without conflict of duties."
+
+msgid "To fix"
+msgstr "To fix"
+
+msgid "To check"
+msgstr "To check"
+
+msgid ""
+"Only the activities of the entities of the person who exported this matrix "
+"are listed. Nothing has been modified by this export."
+msgstr ""
+"Only the activities of the entities of the person who exported this matrix "
+"are listed. Nothing has been modified by this export."
+
+msgid "%d activity"
+msgid_plural "%d activities"
+msgstr[0] "%d activity"
+msgstr[1] "%d activities"
+
+msgid "%d alert to fix"
+msgid_plural "%d alerts to fix"
+msgstr[0] "%d alert to fix"
+msgstr[1] "%d alerts to fix"
+
+msgid "%d point to check"
+msgid_plural "%d points to check"
+msgstr[0] "%d point to check"
+msgstr[1] "%d points to check"
+
+msgid "No alert"
+msgstr "No alert"
+
+msgid "Open the responsibility matrix"
+msgstr "Open the responsibility matrix"
+
+msgid "To fix before the audit"
+msgstr "To fix before the audit"
+
+msgid ""
+"Nothing is changed automatically: adjust the assignments below if needed."
+msgstr ""
+"Nothing is changed automatically: adjust the assignments below if needed."
+
+msgid ""
+"Leave empty to keep the default name, shown in the language of each user."
+msgstr ""
+"Leave empty to keep the default name, shown in the language of each user."
+
+msgid "For example \"Review of firewall rules\"."
+msgstr "For example \"Review of firewall rules\"."
+
+msgid "Sensitive activity"
+msgstr "Sensitive activity"
+
+msgid ""
+"The same person must not both perform and approve a sensitive activity "
+"(segregation of duties)."
+msgstr ""
+"The same person must not both perform and approve a sensitive activity "
+"(segregation of duties)."
+
+msgid "Related Annex A controls"
+msgstr "Related Annex A controls"
+
+msgid ""
+"Optional: the controls of your Statement of Applicability that this activity "
+"implements."
+msgstr ""
+"Optional: the controls of your Statement of Applicability that this activity "
+"implements."
+
+msgid "Who does what"
+msgstr "Who does what"
+
+msgid ""
+"Nobody is assigned yet. Add below who performs and who approves this "
+"activity."
+msgstr ""
+"Nobody is assigned yet. Add below who performs and who approves this "
+"activity."
+
+msgid "User or group"
+msgstr "User or group"
+
+msgid "Add a role"
+msgstr "Add a role"
+
+msgid ""
+"Choose the role, then a user or a group, and save. Only one person or group "
+"approves."
+msgstr ""
+"Choose the role, then a user or a group, and save. Only one person or group "
+"approves."
+
+msgid "Add an activity"
+msgstr "Add an activity"
+
+msgid ""
+"Adds the proposed activities that are missing, without changing the existing "
+"ones."
+msgstr ""
+"Adds the proposed activities that are missing, without changing the existing "
+"ones."
+
+msgid "Add the missing default activities"
+msgstr "Add the missing default activities"
+
+msgid "Download as PDF"
+msgstr "Download as PDF"
+
+msgid ""
+"Attaches a dated PDF to requirement 5.3 and to control A.5.3 of your "
+"Statement of Applicability."
+msgstr ""
+"Attaches a dated PDF to requirement 5.3 and to control A.5.3 of your "
+"Statement of Applicability."
+
+msgid "Archive as evidence"
+msgstr "Archive as evidence"
+
+msgid ""
+"Alerts only report: nothing is changed automatically in the assignments, "
+"rights or statuses."
+msgstr ""
+"Alerts only report: nothing is changed automatically in the assignments, "
+"rights or statuses."
+
+msgid ""
+"No activity yet. Add the default activities, then say for each one who "
+"performs it and who approves it."
+msgstr ""
+"No activity yet. Add the default activities, then say for each one who "
+"performs it and who approves it."
+
+msgid "No active member"
+msgstr "No active member"
+
+msgid "Segregation of duties is checked on this activity."
+msgstr "Segregation of duties is checked on this activity."
+
+msgid "Archived matrices"
+msgstr "Archived matrices"
+
+msgid ""
+"No archived matrix yet. Archive it before the audit: the dated PDF is "
+"attached to requirement 5.3 and to control A.5.3."
+msgstr ""
+"No archived matrix yet. Archive it before the audit: the dated PDF is "
+"attached to requirement 5.3 and to control A.5.3."
+
+msgid "%d default activity added."
+msgid_plural "%d default activities added."
+msgstr[0] "%d default activity added."
+msgstr[1] "%d default activities added."
+
+msgid ""
+"The responsibility matrix has been archived as evidence of requirement 5.3 "
+"and control A.5.3."
+msgstr ""
+"The responsibility matrix has been archived as evidence of requirement 5.3 "
+"and control A.5.3."
+
+msgid "The matrix could not be archived."
+msgstr "The matrix could not be archived."
+
+msgid ""
+"Who performs, approves, is consulted on or is informed of each activity of "
+"the ISMS, with the GLPI users and groups. Conflicts of duties and missing "
+"approvers are reported here."
+msgstr ""
+"Who performs, approves, is consulted on or is informed of each activity of "
+"the ISMS, with the GLPI users and groups. Conflicts of duties and missing "
+"approvers are reported here."
+
+msgid ""
+"For each activity, add who performs it and a single approver, mark the "
+"sensitive activities, fix the alerts, then archive the matrix as evidence "
+"before the audit."
+msgstr ""
+"For each activity, add who performs it and a single approver, mark the "
+"sensitive activities, fix the alerts, then archive the matrix as evidence "
+"before the audit."
+
+msgid "ISO/IEC 27001, clause 5.3 and control A.5.3"
+msgstr "ISO/IEC 27001, clause 5.3 and control A.5.3"
+
+msgid "ISMS activity"
+msgid_plural "ISMS activities"
+msgstr[0] "ISMS activity"
+msgstr[1] "ISMS activities"
+
+msgid "Performs"
+msgstr "Performs"
+
+msgid "Approves"
+msgstr "Approves"
+
+msgid "Consulted"
+msgstr "Consulted"
+
+msgid "Informed"
+msgstr "Informed"
+
+msgctxt "responsibility"
+msgid "P"
+msgstr "P"
+
+msgctxt "responsibility"
+msgid "A"
+msgstr "A"
+
+msgctxt "responsibility"
+msgid "C"
+msgstr "C"
+
+msgctxt "responsibility"
+msgid "I"
+msgstr "I"
+
+msgid "Information security risk assessment"
+msgstr "Information security risk assessment"
+
+msgid "Acceptance of residual risks"
+msgstr "Acceptance of residual risks"
+
+msgid "Approval of security policies"
+msgstr "Approval of security policies"
+
+msgid "Inventory of information assets"
+msgstr "Inventory of information assets"
+
+msgid "Granting and removing access rights"
+msgstr "Granting and removing access rights"
+
+msgid "Periodic review of access rights"
+msgstr "Periodic review of access rights"
+
+msgid "Management of privileged accounts"
+msgstr "Management of privileged accounts"
+
+msgid "Approval of changes in production"
+msgstr "Approval of changes in production"
+
+msgid "Backups and restore tests"
+msgstr "Backups and restore tests"
+
+msgid "Review of logs and security events"
+msgstr "Review of logs and security events"
+
+msgid "Handling of security incidents"
+msgstr "Handling of security incidents"
+
+msgid "Security of suppliers"
+msgstr "Security of suppliers"
+
+msgid "Security awareness and training"
+msgstr "Security awareness and training"
+
+msgid "Business continuity and recovery plans"
+msgstr "Business continuity and recovery plans"
+
+msgid "Internal audit of the ISMS"
+msgstr "Internal audit of the ISMS"
+
+msgid "Give the activity a name."
+msgstr "Give the activity a name."
+
+msgid "This user or group does not belong to the entity of the activity."
+msgstr "This user or group does not belong to the entity of the activity."
+
+msgid "Only one person or group approves \"%s\": remove the current one first."
+msgstr ""
+"Only one person or group approves \"%s\": remove the current one first."
+
+msgid "Deleted item #%d"
+msgstr "Deleted item #%d"
+
+msgid "Nobody approves this activity."
+msgstr "Nobody approves this activity."
+
+msgid "Several people or groups approve this activity: keep only one."
+msgstr "Several people or groups approve this activity: keep only one."
+
+msgid "Nobody performs this activity."
+msgstr "Nobody performs this activity."
+
+msgid ""
+"Segregation of duties: %s both performs and approves this sensitive activity."
+msgstr ""
+"Segregation of duties: %s both performs and approves this sensitive activity."
+
+msgid "The group %s has no active member."
+msgstr "The group %s has no active member."
+
+msgid "%s is disabled or no longer exists in GLPI."
+msgstr "%s is disabled or no longer exists in GLPI."
+
+msgid "ISMS responsibility matrix"
+msgstr "ISMS responsibility matrix"
+
+msgid "Archived responsibility matrix"
+msgid_plural "Archived responsibility matrices"
+msgstr[0] "Archived responsibility matrix"
+msgstr[1] "Archived responsibility matrices"
+
+msgid "ISMS responsibility matrix - %s"
+msgstr "ISMS responsibility matrix - %s"
+
+msgid "Audit checklist"
+msgstr "Audit checklist"
+
+#, php-format
+msgid "%1$d of %2$d audited"
+msgstr "%1$d of %2$d audited"
+
+msgid "Question asked"
+msgstr "Question asked"
+
+msgid "Auditee"
+msgstr "Auditee"
+
+msgid "Evidence examined"
+msgstr "Evidence examined"
+
+msgid "Audit programme coverage"
+msgstr "Audit programme coverage"
+
+msgid ""
+"The audit programme must cover the whole ISMS over the certification cycle. "
+"For each ISMS requirement and each applicable control, this page shows the "
+"last internal audit that gave it a result in its audit checklist, and lists "
+"first those never audited over the period. Cancelled audits and lines left "
+"\"Not audited\" do not count; the date is the actual date of the audit, "
+"otherwise its planned date."
+msgstr ""
+"The audit programme must cover the whole ISMS over the certification cycle. "
+"For each ISMS requirement and each applicable control, this page shows the "
+"last internal audit that gave it a result in its audit checklist, and lists "
+"first those never audited over the period. Cancelled audits and lines left "
+"\"Not audited\" do not count; the date is the actual date of the audit, "
+"otherwise its planned date."
+
+#, php-format
+msgid "Since %s"
+msgstr "Since %s"
+
+msgid "Requirements and controls"
+msgstr "Requirements and controls"
+
+#, php-format
+msgid "Audited over the period (%d %%)"
+msgstr "Audited over the period (%d %%)"
+
+msgid "Never audited over the period"
+msgstr "Never audited over the period"
+
+msgid "No ISMS requirement nor applicable control to show."
+msgstr "No ISMS requirement nor applicable control to show."
+
+msgid "Last audit"
+msgstr "Last audit"
+
+msgid "Never audited"
+msgstr "Never audited"
+
+msgid ""
+"The audit checklist is reserved to the audit team and the CISO group, like "
+"the documents of the audit. Ask the audit owner to add you to the \"Team\" "
+"tab."
+msgstr ""
+"The audit checklist is reserved to the audit team and the CISO group, like "
+"the documents of the audit. Ask the audit owner to add you to the \"Team\" "
+"tab."
+
+msgid "Lines with a result"
+msgstr "Lines with a result"
+
+msgid "Audit report (PDF)"
+msgstr "Audit report (PDF)"
+
+msgid ""
+"One line per audited requirement: write the question you asked, who you "
+"interviewed, the evidence you examined (text, and documents of the "
+"\"Documents\" tab), then the result. For a non-conformity, an observation or "
+"an opportunity for improvement, \"Create the finding\" opens a pre-filled "
+"non-conformity that you review and save yourself. Like the documents of the "
+"audit, only the audit team and the CISO group see this checklist."
+msgstr ""
+"One line per audited requirement: write the question you asked, who you "
+"interviewed, the evidence you examined (text, and documents of the "
+"\"Documents\" tab), then the result. For a non-conformity, an observation or "
+"an opportunity for improvement, \"Create the finding\" opens a pre-filled "
+"non-conformity that you review and save yourself. Like the documents of the "
+"audit, only the audit team and the CISO group see this checklist."
+
+msgid ""
+"This audit is completed or cancelled: its checklist is read only. Set the "
+"audit back to \"In progress\" to change it."
+msgstr ""
+"This audit is completed or cancelled: its checklist is read only. Set the "
+"audit back to \"In progress\" to change it."
+
+msgid ""
+"The checklist is empty. Add the requirements to audit below, or apply a "
+"checklist template."
+msgstr ""
+"The checklist is empty. Add the requirements to audit below, or apply a "
+"checklist template."
+
+msgid "The checklist is empty."
+msgstr "The checklist is empty."
+
+msgid "No question yet"
+msgstr "No question yet"
+
+msgid "Create the finding"
+msgstr "Create the finding"
+
+msgid "No finding yet"
+msgstr "No finding yet"
+
+msgid "Fill in"
+msgstr "Fill in"
+
+msgid "Number"
+msgstr "Number"
+
+msgid "Documents of the audit"
+msgstr "Documents of the audit"
+
+msgid "Add documents to the \"Documents\" tab of the audit to cite them here."
+msgstr "Add documents to the \"Documents\" tab of the audit to cite them here."
+
+msgid "Linked finding"
+msgstr "Linked finding"
+
+msgid ""
+"Remove this line from the checklist? A finding created from it stays in the "
+"non-conformity register."
+msgstr ""
+"Remove this line from the checklist? A finding created from it stays in the "
+"non-conformity register."
+
+msgid "Remove the line"
+msgstr "Remove the line"
+
+#, php-format
+msgid "Last change: %1$s, %2$s"
+msgstr "Last change: %1$s, %2$s"
+
+msgid "Add requirements to audit"
+msgstr "Add requirements to audit"
+
+msgid "Every proposed requirement is already in the checklist."
+msgstr "Every proposed requirement is already in the checklist."
+
+msgid ""
+"ISMS requirements (clauses 4 to 10), applicable Annex A controls of the "
+"statement of applicability, and requirements of the enabled custom "
+"frameworks. Requirements already in the checklist are not offered again."
+msgstr ""
+"ISMS requirements (clauses 4 to 10), applicable Annex A controls of the "
+"statement of applicability, and requirements of the enabled custom "
+"frameworks. Requirements already in the checklist are not offered again."
+
+msgid "The controls of the audit scope (audit form) are preselected."
+msgstr "The controls of the audit scope (audit form) are preselected."
+
+msgid "Add to the checklist"
+msgstr "Add to the checklist"
+
+msgid "Free item"
+msgstr "Free item"
+
+msgid "An internal rule, a process or a site, for example"
+msgstr "An internal rule, a process or a site, for example"
+
+msgid "Add this item"
+msgstr "Add this item"
+
+msgid "Checklist templates"
+msgstr "Checklist templates"
+
+msgid ""
+"A template keeps the requirements and the questions of a checklist, never "
+"the answers. Reuse it from one audit to the next, for example \"Annual "
+"access control audit\"."
+msgstr ""
+"A template keeps the requirements and the questions of a checklist, never "
+"the answers. Reuse it from one audit to the next, for example \"Annual "
+"access control audit\"."
+
+msgid "Add its lines to the checklist"
+msgstr "Add its lines to the checklist"
+
+msgid ""
+"Delete this template? The checklists already built from it do not change."
+msgstr ""
+"Delete this template? The checklists already built from it do not change."
+
+msgid "Delete the template"
+msgstr "Delete the template"
+
+msgid "No checklist template yet."
+msgstr "No checklist template yet."
+
+msgid "Save this checklist as a template"
+msgstr "Save this checklist as a template"
+
+msgid "Name of the template"
+msgstr "Name of the template"
+
+msgid "Save as template"
+msgstr "Save as template"
+
+#, php-format
+msgid ""
+"Finding proposed from the audit checklist (%s): review and adapt each field, "
+"then click \"Add\". Nothing is created before, and the checklist line is "
+"linked to this finding once it is saved."
+msgstr ""
+"Finding proposed from the audit checklist (%s): review and adapt each field, "
+"then click \"Add\". Nothing is created before, and the checklist line is "
+"linked to this finding once it is saved."
+
+msgid "Audit checklist line"
+msgstr "Audit checklist line"
+
+msgid "Checklist template deleted."
+msgstr "Checklist template deleted."
+
+msgid "Checklist template saved."
+msgstr "Checklist template saved."
+
+msgid "Checklist line saved."
+msgstr "Checklist line saved."
+
+msgid "Minor non-conformity"
+msgstr "Minor non-conformity"
+
+msgid "Major non-conformity"
+msgstr "Major non-conformity"
+
+msgid "Observation"
+msgstr "Observation"
+
+msgid "Opportunity for improvement"
+msgstr "Opportunity for improvement"
+
+msgid "Not audited"
+msgstr "Not audited"
+
+msgid "Framework requirement"
+msgstr "Framework requirement"
+
+msgid "Applicable Annex A controls"
+msgstr "Applicable Annex A controls"
+
+msgid "Give at least a title or a question for the free item."
+msgstr "Give at least a title or a question for the free item."
+
+msgid "Audited requirement"
+msgstr "Audited requirement"
+
+msgid "Auditor comment"
+msgstr "Auditor comment"
+
+msgid "Give the template a name."
+msgstr "Give the template a name."
+
+msgid ""
+"The checklist is empty: add requirements before saving it as a template."
+msgstr ""
+"The checklist is empty: add requirements before saving it as a template."
+
+msgid "A checklist template with this name already exists."
+msgstr "A checklist template with this name already exists."
+
+#, php-format
+msgid ""
+"%d line of the template was already in the checklist or is no longer offered."
+msgid_plural ""
+"%d lines of the template were already in the checklist or are no longer "
+"offered."
+msgstr[0] ""
+"%d line of the template was already in the checklist or is no longer offered."
+msgstr[1] ""
+"%d lines of the template were already in the checklist or are no longer "
+"offered."
+
+#, php-format
+msgid "Last %d year"
+msgid_plural "Last %d years"
+msgstr[0] "Last %d year"
+msgstr[1] "Last %d years"
+
+#, php-format
+msgid "%d line added to the checklist."
+msgid_plural "%d lines added to the checklist."
+msgstr[0] "%d line added to the checklist."
+msgstr[1] "%d lines added to the checklist."
+
+#, php-format
+msgid "%1$s (%2$d line)"
+msgid_plural "%1$s (%2$d lines)"
+msgstr[0] "%1$s (%2$d line)"
+msgstr[1] "%1$s (%2$d lines)"
+
 #~ msgid "Participant: %s"
 #~ msgstr "Participant: %s"
 
@@ -23111,1055 +24684,3 @@ msgstr "Firmware of network equipment, printers, phones or computers"
 #~ msgstr ""
 #~ "Sent to the person who submitted a version of a security policy and to "
 #~ "the policy owner when the version is approved or rejected."
-
-
-msgid "Level labels"
-msgstr "Level labels"
-
-#, php-format
-msgid "Default label: %s"
-msgstr "Default label: %s"
-
-msgid "The level labels have been saved."
-msgstr "The level labels have been saved."
-
-msgid "Levels are listed from the lowest (1) to the highest."
-msgstr "Levels are listed from the lowest (1) to the highest."
-
-msgid "Rename the levels of probability and impact to match your method, for example the wording of your risk management policy. Leave a field empty to keep the default label, translated into the language of each user; a label you enter is shown as is in every language. Renaming a level changes nothing in existing risks."
-msgstr "Rename the levels of probability and impact to match your method, for example the wording of your risk management policy. Leave a field empty to keep the default label, translated into the language of each user; a label you enter is shown as is in every language. Renaming a level changes nothing in existing risks."
-
-msgid "End of support (endoflife.date)"
-msgstr "End of support (endoflife.date)"
-
-msgid "Settings and links"
-msgstr "Settings and links"
-
-msgid "Not enabled: the plugin can show which software, operating systems and firmwares no longer receive security fixes, from the public site endoflife.date."
-msgstr "Not enabled: the plugin can show which software, operating systems and firmwares no longer receive security fixes, from the public site endoflife.date."
-
-msgid "Enable it in the configuration"
-msgstr "Enable it in the configuration"
-
-msgid "%d asset"
-msgid_plural "%d assets"
-msgstr[0] "%d asset"
-msgstr[1] "%d assets"
-
-msgid "Ended or ending soon"
-msgstr "Ended or ending soon"
-
-msgid "All followed items"
-msgstr "All followed items"
-
-msgid "\"End of support soon\": within %d days."
-msgstr "\"End of support soon\": within %d days."
-
-msgid "The end of support dates have not been read yet: they arrive with the next daily task, or with the button \"Update now\" of the configuration."
-msgstr "The end of support dates have not been read yet: they arrive with the next daily task, or with the button \"Update now\" of the configuration."
-
-msgid "Some products could not be read during the last update: their previous data is still used."
-msgstr "Some products could not be read during the last update: their previous data is still used."
-
-msgid "%d name of the inventory is not linked to an endoflife.date product and is not followed."
-msgid_plural "%d names of the inventory are not linked to an endoflife.date product and are not followed."
-msgstr[0] "%d name of the inventory is not linked to an endoflife.date product and is not followed."
-msgstr[1] "%d names of the inventory are not linked to an endoflife.date product and are not followed."
-
-msgid "Add a link"
-msgstr "Add a link"
-
-msgid "%1$d items: the %2$d most urgent ones are shown, all of them are in the export."
-msgstr "%1$d items: the %2$d most urgent ones are shown, all of them are in the export."
-
-msgid "No followed item in your entities."
-msgstr "No followed item in your entities."
-
-msgid "No followed item has reached or is close to its end of support."
-msgstr "No followed item has reached or is close to its end of support."
-
-msgid "Release cycle"
-msgstr "Release cycle"
-
-msgid "End of support"
-msgstr "End of support"
-
-msgid "Assets"
-msgstr "Assets"
-
-msgid "latest: %s"
-msgstr "latest: %s"
-
-msgid "%1$d item(s) no longer supported on %2$d asset(s)"
-msgstr "%1$d item(s) no longer supported on %2$d asset(s)"
-
-msgid "%1$d ending within %2$d days"
-msgstr "%1$d ending within %2$d days"
-
-msgid "%d supported"
-msgstr "%d supported"
-
-msgid "View the details"
-msgstr "View the details"
-
-msgid "Shows which installed software, operating systems and firmwares no longer receive security fixes, from the public site endoflife.date (ISO 27001 A.8.8 and A.8.9). Once a day, the plugin reads the end of support dates of the products found in the inventory; only the product name is sent (for instance \"debian\"), never the name of a computer or of an entity. Nothing is changed in the inventory, and no ticket is created."
-msgstr "Shows which installed software, operating systems and firmwares no longer receive security fixes, from the public site endoflife.date (ISO 27001 A.8.8 and A.8.9). Once a day, the plugin reads the end of support dates of the products found in the inventory; only the product name is sent (for instance \"debian\"), never the name of a computer or of an entity. Nothing is changed in the inventory, and no ticket is created."
-
-msgid "Read the end of support dates on endoflife.date"
-msgstr "Read the end of support dates on endoflife.date"
-
-msgid "Warn this many days before the end of support"
-msgstr "Warn this many days before the end of support"
-
-msgid "Below this number of days, a version is shown as \"End of support soon\"."
-msgstr "Below this number of days, a version is shown as \"End of support soon\"."
-
-msgid "Last successful reading"
-msgstr "Last successful reading"
-
-msgid "%d product(s) in cache"
-msgstr "%d product(s) in cache"
-
-msgid "Reads now the products whose data is more than one day old (the daily task does the rest)."
-msgstr "Reads now the products whose data is more than one day old (the daily task does the rest)."
-
-msgid "Update now"
-msgstr "Update now"
-
-msgid "Links between GLPI names and endoflife.date products"
-msgstr "Links between GLPI names and endoflife.date products"
-
-msgid "Well-known names are linked automatically (for instance \"Debian GNU/Linux\" or \"Mozilla Firefox\"). For any other name, add a link: type the name exactly as GLPI shows it, and the product identifier found in the address of its page on endoflife.date (for instance \"fortios\" for https://endoflife.date/fortios). Leave the product empty to stop following a name."
-msgstr "Well-known names are linked automatically (for instance \"Debian GNU/Linux\" or \"Mozilla Firefox\"). For any other name, add a link: type the name exactly as GLPI shows it, and the product identifier found in the address of its page on endoflife.date (for instance \"fortios\" for https://endoflife.date/fortios). Leave the product empty to stop following a name."
-
-msgid "Kind of item"
-msgstr "Kind of item"
-
-msgid "Name in GLPI"
-msgstr "Name in GLPI"
-
-msgid "endoflife.date product"
-msgstr "endoflife.date product"
-
-msgid "Not followed"
-msgstr "Not followed"
-
-msgid "Product unknown to the source"
-msgstr "Product unknown to the source"
-
-msgid "Delete this link"
-msgstr "Delete this link"
-
-msgid "%d name(s) linked automatically"
-msgstr "%d name(s) linked automatically"
-
-msgid "%d name(s) of the inventory not linked to a product"
-msgstr "%d name(s) of the inventory not linked to a product"
-
-msgid "These names are not followed: add a link above for those that matter (choose them from the list of the \"Name in GLPI\" field)."
-msgstr "These names are not followed: add a link above for those that matter (choose them from the list of the \"Name in GLPI\" field)."
-
-msgid "%d more not shown."
-msgstr "%d more not shown."
-
-msgid "Link not saved: give the exact name shown in GLPI and an endoflife.date product identifier (lower case letters, digits and dashes, for instance \"debian\")."
-msgstr "Link not saved: give the exact name shown in GLPI and an endoflife.date product identifier (lower case letters, digits and dashes, for instance \"debian\")."
-
-msgid "Assets running software, a system or a firmware that is no longer supported"
-msgstr "Assets running software, a system or a firmware that is no longer supported"
-
-msgid "Upgrade to a supported version, or record a waiver with compensating measures until the upgrade."
-msgstr "Upgrade to a supported version, or record a waiver with compensating measures until the upgrade."
-
-msgid "No longer supported: %s"
-msgstr "No longer supported: %s"
-
-msgid "No longer supported"
-msgstr "No longer supported"
-
-msgid "This version no longer receives security fixes."
-msgstr "This version no longer receives security fixes."
-
-msgid "End of support soon"
-msgstr "End of support soon"
-
-msgid "Plan the move to a version that is still supported."
-msgstr "Plan the move to a version that is still supported."
-
-msgid "Supported"
-msgstr "Supported"
-
-msgid "This version still receives security fixes."
-msgstr "This version still receives security fixes."
-
-msgid "Support unknown"
-msgstr "Support unknown"
-
-msgid "End of support not determined: never counted as supported."
-msgstr "End of support not determined: never counted as supported."
-
-msgid "Not linked to an endoflife.date product."
-msgstr "Not linked to an endoflife.date product."
-
-msgid "Not read yet: the daily task has not run since this product was linked, or the source could not be reached."
-msgstr "Not read yet: the daily task has not run since this product was linked, or the source could not be reached."
-
-msgid "Product unknown to endoflife.date: check the link in the configuration."
-msgstr "Product unknown to endoflife.date: check the link in the configuration."
-
-msgid "No release cycle of this product matches the installed version."
-msgstr "No release cycle of this product matches the installed version."
-
-msgid "Too many requests: the source asked to wait"
-msgstr "Too many requests: the source asked to wait"
-
-msgid "Error on the source server"
-msgstr "Error on the source server"
-
-msgid "Unexpected answer from the source"
-msgstr "Unexpected answer from the source"
-
-msgid "Source unreachable"
-msgstr "Source unreachable"
-
-msgid "Not queried (earlier error or limit reached)"
-msgstr "Not queried (earlier error or limit reached)"
-
-msgid "Operating system"
-msgstr "Operating system"
-
-msgid "Manual link"
-msgstr "Manual link"
-
-msgid "Automatic link"
-msgstr "Automatic link"
-
-msgid "Not linked"
-msgstr "Not linked"
-
-msgid "Support ended (date not published)."
-msgstr "Support ended (date not published)."
-
-msgid "No end of support announced."
-msgstr "No end of support announced."
-
-msgid "Support ended on %s."
-msgstr "Support ended on %s."
-
-msgid "Support ends on %1$s (in %2$d day)."
-msgid_plural "Support ends on %1$s (in %2$d days)."
-msgstr[0] "Support ends on %1$s (in %2$d day)."
-msgstr[1] "Support ends on %1$s (in %2$d days)."
-
-msgid "The end of support source is disabled: nothing was read."
-msgstr "The end of support source is disabled: nothing was read."
-
-msgid "End of support: %1$d products, %2$d read, %3$d already up to date, %4$d unknown to the source."
-msgstr "End of support: %1$d products, %2$d read, %3$d already up to date, %4$d unknown to the source."
-
-msgid "%d product(s) not read: the data already in cache is still used."
-msgstr "%d product(s) not read: the data already in cache is still used."
-
-msgid "End of support of software, systems and firmwares (endoflife.date)"
-msgstr "End of support of software, systems and firmwares (endoflife.date)"
-
-msgid "Asset"
-msgstr "Asset"
-
-msgid "Latest version of the cycle"
-msgstr "Latest version of the cycle"
-
-msgid "How it was linked"
-msgstr "How it was linked"
-
-msgid "Also detected by SentinelOne"
-msgstr "Also detected by SentinelOne"
-
-#, php-format
-msgid "SentinelOne: %d computer(s)"
-msgstr "SentinelOne: %d computer(s)"
-
-msgid "Detected by SentinelOne only"
-msgstr "Detected by SentinelOne only"
-
-#, php-format
-msgid "Last read: %s"
-msgstr "Last read: %s"
-
-msgid "SentinelOne reports no vulnerability beyond those listed above."
-msgstr "SentinelOne reports no vulnerability beyond those listed above."
-
-msgid "Application vulnerabilities seen by SentinelOne on your computers and not found by the software watch. Source: SentinelOne API, read only."
-msgstr "Application vulnerabilities seen by SentinelOne on your computers and not found by the software watch. Source: SentinelOne API, read only."
-
-msgid "Applications"
-msgstr "Applications"
-
-msgid "From the last reading of SentinelOne: a computer is covered when an active agent is matched with it (serial number or exact name)."
-msgstr "From the last reading of SentinelOne: a computer is covered when an active agent is matched with it (serial number or exact name)."
-
-msgid "SentinelOne coverage"
-msgstr "SentinelOne coverage"
-
-msgid "SentinelOne alerts to review"
-msgstr "SentinelOne alerts to review"
-
-msgid "Settings"
-msgstr "Settings"
-
-msgid "No SentinelOne alert waiting for review."
-msgstr "No SentinelOne alert waiting for review."
-
-msgid "The automatic reading is disabled: enable it in the plugin configuration, or use the button \"Fetch now\" there."
-msgstr "The automatic reading is disabled: enable it in the plugin configuration, or use the button \"Fetch now\" there."
-
-msgid "Tick the alerts that deserve a security incident: each one becomes an incident with its indicators, MITRE ATT&CK techniques and computer. The others can be set aside. Nothing is changed in SentinelOne."
-msgstr "Tick the alerts that deserve a security incident: each one becomes an incident with its indicators, MITRE ATT&CK techniques and computer. The others can be set aside. Nothing is changed in SentinelOne."
-
-#, php-format
-msgid "%1$d alerts: the %2$d most recent are shown."
-msgstr "%1$d alerts: the %2$d most recent are shown."
-
-msgid "Select all"
-msgstr "Select all"
-
-msgid "Computer"
-msgstr "Computer"
-
-msgid "Not found in GLPI"
-msgstr "Not found in GLPI"
-
-msgid "Create the incidents of the selected alerts"
-msgstr "Create the incidents of the selected alerts"
-
-msgid "Set the selected alerts aside"
-msgstr "Set the selected alerts aside"
-
-msgid "SentinelOne connector"
-msgstr "SentinelOne connector"
-
-msgid "Read only"
-msgstr "Read only"
-
-msgid "Every hour, the threats and alerts detected by SentinelOne are fetched and proposed as security incidents on the EDR import screen: nothing is created without your validation. The agents are matched with the GLPI computers (serial number, then exact name) and the application vulnerabilities join the fleet vulnerabilities. Nothing is ever sent to SentinelOne (no isolation, no resolution)."
-msgstr "Every hour, the threats and alerts detected by SentinelOne are fetched and proposed as security incidents on the EDR import screen: nothing is created without your validation. The agents are matched with the GLPI computers (serial number, then exact name) and the application vulnerabilities join the fleet vulnerabilities. Nothing is ever sent to SentinelOne (no isolation, no resolution)."
-
-msgid "Fetch automatically from SentinelOne"
-msgstr "Fetch automatically from SentinelOne"
-
-msgid "Turns on the automatic action that reads SentinelOne every hour. Off by default."
-msgstr "Turns on the automatic action that reads SentinelOne every hour. Off by default."
-
-msgid "Console address"
-msgstr "Console address"
-
-msgid "The address you use to open the SentinelOne console, in HTTPS."
-msgstr "The address you use to open the SentinelOne console, in HTTPS."
-
-msgid "API token"
-msgstr "API token"
-
-msgid "Token saved (leave empty to keep it)"
-msgstr "Token saved (leave empty to keep it)"
-
-msgid "Token saved"
-msgstr "Token saved"
-
-msgid "Token of a service user with the Viewer role only. Encrypted with the GLPI key, never displayed again nor logged."
-msgstr "Token of a service user with the Viewer role only. Encrypted with the GLPI key, never displayed again nor logged."
-
-msgid "Delete the saved token"
-msgstr "Delete the saved token"
-
-msgid "Entity of the alerts whose computer is not found in GLPI"
-msgstr "Entity of the alerts whose computer is not found in GLPI"
-
-msgid "Test the connection"
-msgstr "Test the connection"
-
-msgid "Fetch now"
-msgstr "Fetch now"
-
-msgid "Automatic action"
-msgstr "Automatic action"
-
-msgid "active"
-msgstr "active"
-
-msgid "disabled"
-msgstr "disabled"
-
-msgid "Open the automatic action"
-msgstr "Open the automatic action"
-
-#, php-format
-msgid "%d read"
-msgstr "%d read"
-
-#, php-format
-msgid "%d new"
-msgstr "%d new"
-
-msgid "continued at the next run"
-msgstr "continued at the next run"
-
-msgid "Review the proposed alerts"
-msgstr "Review the proposed alerts"
-
-msgid "Agents"
-msgstr "Agents"
-
-#, php-format
-msgid "%d agent(s) in the console"
-msgstr "%d agent(s) in the console"
-
-#, php-format
-msgid "%d without a matching GLPI computer"
-msgstr "%d without a matching GLPI computer"
-
-msgid "all matched with a GLPI computer"
-msgstr "all matched with a GLPI computer"
-
-msgid "These agents are never matched by a similar name: create or rename the computer in the inventory, or fill in its serial number."
-msgstr "These agents are never matched by a similar name: create or rename the computer in the inventory, or fill in its serial number."
-
-msgid "Computer name in SentinelOne"
-msgstr "Computer name in SentinelOne"
-
-msgid "The console address was not saved: it must start with https:// and contain no user name or password."
-msgstr "The console address was not saved: it must start with https:// and contain no user name or password."
-
-msgid "Enter the console address and the API token first."
-msgstr "Enter the console address and the API token first."
-
-msgid "Connection accepted, but the token sees no agent and no threat: check that its user has the Viewer role on the right accounts or sites."
-msgstr "Connection accepted, but the token sees no agent and no threat: check that its user has the Viewer role on the right accounts or sites."
-
-#, php-format
-msgid "Connection to SentinelOne succeeded: %1$d agent(s) and %2$s threat(s) visible."
-msgstr "Connection to SentinelOne succeeded: %1$d agent(s) and %2$s threat(s) visible."
-
-#, php-format
-msgid "SentinelOne read: %1$d new alert(s) to review, %2$d agent(s), %3$d application vulnerabilities."
-msgstr "SentinelOne read: %1$d new alert(s) to review, %2$d agent(s), %3$d application vulnerabilities."
-
-msgid "Select at least one alert."
-msgstr "Select at least one alert."
-
-#, php-format
-msgid "%1$d incident(s) created, %2$d alert(s) ignored (already imported or not allowed)."
-msgstr "%1$d incident(s) created, %2$d alert(s) ignored (already imported or not allowed)."
-
-#, php-format
-msgid "%d alert(s) set aside."
-msgstr "%d alert(s) set aside."
-
-msgid "SentinelOne alerts"
-msgstr "SentinelOne alerts"
-
-msgid "SentinelOne: reads new threats, alerts and application vulnerabilities (read only)"
-msgstr "SentinelOne: reads new threats, alerts and application vulnerabilities (read only)"
-
-msgid "SentinelOne refused the API token (401): check that it is valid and has not expired."
-msgstr "SentinelOne refused the API token (401): check that it is valid and has not expired."
-
-msgid "The API token is not allowed to read this information (403): give it the Viewer role on the accounts or sites to read, or check the licence."
-msgstr "The API token is not allowed to read this information (403): give it the Viewer role on the accounts or sites to read, or check the licence."
-
-msgid "This information is not available on this console (404): it may not be included in the licence."
-msgstr "This information is not available on this console (404): it may not be included in the licence."
-
-msgid "SentinelOne limits the number of requests (429): the next run resumes where this one stopped."
-msgstr "SentinelOne limits the number of requests (429): the next run resumes where this one stopped."
-
-msgid "The SentinelOne console could not be reached: check its address, the GLPI proxy and, for an internal address, the setting that allows them."
-msgstr "The SentinelOne console could not be reached: check its address, the GLPI proxy and, for an internal address, the setting that allows them."
-
-msgid "The console address is an internal address, refused by default: an administrator can allow internal addresses in this configuration page."
-msgstr "The console address is an internal address, refused by default: an administrator can allow internal addresses in this configuration page."
-
-msgid "The SentinelOne console sent an unexpected answer: check the console address."
-msgstr "The SentinelOne console sent an unexpected answer: check the console address."
-
-msgid "Not read during this run: an earlier step stopped it."
-msgstr "Not read during this run: an earlier step stopped it."
-
-msgid "The SentinelOne console returned an error."
-msgstr "The SentinelOne console returned an error."
-
-msgid "Threats"
-msgstr "Threats"
-
-msgid "Alerts"
-msgstr "Alerts"
-
-msgid "Application vulnerabilities"
-msgstr "Application vulnerabilities"
-
-msgid "Classification"
-msgstr "Classification"
-
-msgid "ACN determination %s"
-msgstr "ACN determination %s"
-
-msgid "Annex %d"
-msgstr "Annex %d"
-
-msgid "%d not applicable"
-msgstr "%d not applicable"
-
-msgid "Implemented requirements"
-msgstr "Implemented requirements"
-
-msgid "Approvals to record"
-msgstr "Approvals to record"
-
-msgid "Function"
-msgstr "Function"
-
-msgid "Required, not recorded"
-msgstr "Required, not recorded"
-
-msgid ""
-"Codes and point numbers come from the annexes published by the ACN; titles "
-"and summaries are written by this project and do not replace the official "
-"text."
-msgstr ""
-"Codes and point numbers come from the annexes published by the ACN; titles "
-"and summaries are written by this project and do not replace the official "
-"text."
-
-msgid ""
-"Codes and point numbers come from the annexes published by the ACN; titles "
-"and summaries are written by this project and do not replace the official "
-"text:"
-msgstr ""
-"Codes and point numbers come from the annexes published by the ACN; titles "
-"and summaries are written by this project and do not replace the official "
-"text:"
-
-msgid "NIS2 Italy: ACN basic security measures (determination %s)"
-msgstr "NIS2 Italy: ACN basic security measures (determination %s)"
-
-msgid "Open the NIS2 Italy register"
-msgstr "Open the NIS2 Italy register"
-
-msgid "Classify the entities"
-msgstr "Classify the entities"
-
-msgid ""
-"Measures of the Italian NIS2 law (D.Lgs. 138/2024). Codes follow the "
-"national framework, aligned with NIST CSF 2.0. Each requirement has its own "
-"record in the register of the entity, without going through ISO 27001 Annex "
-"A."
-msgstr ""
-"Measures of the Italian NIS2 law (D.Lgs. 138/2024). Codes follow the "
-"national framework, aligned with NIST CSF 2.0. Each requirement has its own "
-"record in the register of the entity, without going through ISO 27001 Annex "
-"A."
-
-msgid "Annex 1, important entities: %1$d measures, %2$d requirements"
-msgstr "Annex 1, important entities: %1$d measures, %2$d requirements"
-
-msgid "Annex 2, essential entities: %1$d measures, %2$d requirements"
-msgstr "Annex 2, essential entities: %1$d measures, %2$d requirements"
-
-msgid "Your entity: %s"
-msgstr "Your entity: %s"
-
-msgid "Measure"
-msgstr "Measure"
-
-msgid ""
-"Source: ACN determination %s, annexes 1 and 2 (public documents). Codes and "
-"point numbers are the official ones; titles, summaries and the mapping to "
-"NIS2 are made by this project. Only the text published by the ACN is "
-"authentic."
-msgstr ""
-"Source: ACN determination %s, annexes 1 and 2 (public documents). Codes and "
-"point numbers are the official ones; titles, summaries and the mapping to "
-"NIS2 are made by this project. Only the text published by the ACN is "
-"authentic."
-
-msgid "ACN requirement"
-msgstr "ACN requirement"
-
-msgid "Management approval required"
-msgstr "Management approval required"
-
-msgid ""
-"Summary written by this project to help you find the requirement. Only the "
-"text published by the ACN is authentic: open the source below."
-msgstr ""
-"Summary written by this project to help you find the requirement. Only the "
-"text published by the ACN is authentic: open the source below."
-
-msgid "Official reference"
-msgstr "Official reference"
-
-msgid ""
-"This requirement only applies to essential entities: it is not part of the "
-"catalogue of this entity (%s). It is kept in case the classification changes."
-msgstr ""
-"This requirement only applies to essential entities: it is not part of the "
-"catalogue of this entity (%s). It is kept in case the classification changes."
-
-msgid ""
-"Required when the requirement is not fully applicable: the ACN accepts "
-"exceptions only for reasons that are justified and documented."
-msgstr ""
-"Required when the requirement is not fully applicable: the ACN accepts "
-"exceptions only for reasons that are justified and documented."
-
-msgid "Notes"
-msgstr "Notes"
-
-msgid "Approval by the management bodies"
-msgstr "Approval by the management bodies"
-
-msgid ""
-"This point requires the approval of the administrative and management "
-"bodies. Record the date and attach the minutes in the Documents tab."
-msgstr ""
-"This point requires the approval of the administrative and management "
-"bodies. Record the date and attach the minutes in the Documents tab."
-
-msgid "Approval reference"
-msgstr "Approval reference"
-
-msgid "For example \"Board resolution no. 12 of 3 March\"."
-msgstr "For example \"Board resolution no. 12 of 3 March\"."
-
-msgid "Policies and documents"
-msgstr "Policies and documents"
-
-msgid "Related policies"
-msgstr "Related policies"
-
-msgid ""
-"Policies of this plugin that answer the requirement. Procedures, plans and "
-"evidence go in the Documents tab."
-msgstr ""
-"Policies of this plugin that answer the requirement. Procedures, plans and "
-"evidence go in the Documents tab."
-
-msgid "Approval of the linked policies"
-msgstr "Approval of the linked policies"
-
-msgid "Related references"
-msgstr "Related references"
-
-msgid "NIS2 directive (EU)"
-msgstr "NIS2 directive (EU)"
-
-msgid "Indicative mapping made by this project."
-msgstr "Indicative mapping made by this project."
-
-msgid "ISO 27001 Annex A (optional)"
-msgstr "ISO 27001 Annex A (optional)"
-
-msgid ""
-"Controls that NIST links to this subcategory. You do not need the Statement "
-"of Applicability to follow this requirement."
-msgstr ""
-"Controls that NIST links to this subcategory. You do not need the Statement "
-"of Applicability to follow this requirement."
-
-msgid "Back to the NIS2 Italy register"
-msgstr "Back to the NIS2 Italy register"
-
-msgid ""
-"Basic security measures of the ACN determination %s (D.Lgs. 138/2024): one "
-"record per requirement."
-msgstr ""
-"Basic security measures of the ACN determination %s (D.Lgs. 138/2024): one "
-"record per requirement."
-
-msgid "Important or essential entities"
-msgstr "Important or essential entities"
-
-msgid ""
-"No entity is classified yet. In the configuration of the plugin, say for "
-"each GLPI entity whether it is an important entity (annex 1) or an essential "
-"entity (annex 2): its register is then created with all the requirements of "
-"its annex."
-msgstr ""
-"No entity is classified yet. In the configuration of the plugin, say for "
-"each GLPI entity whether it is an important entity (annex 1) or an essential "
-"entity (annex 2): its register is then created with all the requirements of "
-"its annex."
-
-msgid "Ask an administrator of the plugin to do it."
-msgstr "Ask an administrator of the plugin to do it."
-
-msgid "%1$d measures, %2$d requirements"
-msgstr "%1$d measures, %2$d requirements"
-
-msgid "Register"
-msgstr "Register"
-
-msgid "Without owner"
-msgstr "Without owner"
-
-msgid "By function of the national framework"
-msgstr "By function of the national framework"
-
-msgid "Approval to record"
-msgstr "Approval to record"
-
-msgid "Approved on %s"
-msgstr "Approved on %s"
-
-msgid ""
-"For each GLPI entity subject to the Italian NIS2 law, choose whether it is "
-"an important entity (annex 1 of the ACN determination) or an essential "
-"entity (annex 2). Its register is created with one record per requirement; "
-"sub-entities without a choice follow their parent. Changing or removing the "
-"choice never deletes what was entered."
-msgstr ""
-"For each GLPI entity subject to the Italian NIS2 law, choose whether it is "
-"an important entity (annex 1 of the ACN determination) or an essential "
-"entity (annex 2). Its register is created with one record per requirement; "
-"sub-entities without a choice follow their parent. Changing or removing the "
-"choice never deletes what was entered."
-
-msgid "Not subject (or follows its parent)"
-msgstr "Not subject (or follows its parent)"
-
-msgid "Classification saved; %d requirement record(s) created."
-msgstr "Classification saved; %d requirement record(s) created."
-
-msgid "Important entity (annex 1)"
-msgstr "Important entity (annex 1)"
-
-msgid "Essential entity (annex 2)"
-msgstr "Essential entity (annex 2)"
-
-msgid ""
-"A justification is required whenever a requirement is not fully applicable."
-msgstr ""
-"A justification is required whenever a requirement is not fully applicable."
-
-msgid "Annex"
-msgstr "Annex"
-
-msgid "NIS2 Italy compliance (ACN determination %s)"
-msgstr "NIS2 Italy compliance (ACN determination %s)"
-
-msgid "Point"
-msgstr "Point"
-
-msgid ""
-"Italian NIS2 basic security measures (ACN determination 379907/2025): a "
-"register with one record per requirement, per GLPI entity set as important "
-"or essential below. Disabled by default."
-msgstr ""
-"Italian NIS2 basic security measures (ACN determination 379907/2025): a "
-"register with one record per requirement, per GLPI entity set as important "
-"or essential below. Disabled by default."
-
-msgid "NIS2 Italy requirement (ACN)"
-msgid_plural "NIS2 Italy requirements (ACN)"
-msgstr[0] "NIS2 Italy requirement (ACN)"
-msgstr[1] "NIS2 Italy requirements (ACN)"
-
-msgid "Last reviewed by"
-msgstr "Last reviewed by"
-
-msgid "%1$s by %2$s"
-msgstr "%1$s by %2$s"
-
-msgid "Never reviewed"
-msgstr "Never reviewed"
-
-msgid "Records today as the review date, with your name, and sets the next review one year later. Your other changes on this form are saved too."
-msgstr "Records today as the review date, with your name, and sets the next review one year later. Your other changes on this form are saved too."
-
-msgid "Record the review"
-msgstr "Record the review"
-
-msgid "Register for the auditor (PDF)"
-msgstr "Register for the auditor (PDF)"
-
-msgid "Register (CSV)"
-msgstr "Register (CSV)"
-
-msgid "Issues and interested parties of the context of the organization (ISO 27001, 4.1 and 4.2) that refer to this item."
-msgstr "Issues and interested parties of the context of the organization (ISO 27001, 4.1 and 4.2) that refer to this item."
-
-msgid "No issue or interested party refers to this item yet."
-msgstr "No issue or interested party refers to this item yet."
-
-msgid "Internal and external issues"
-msgstr "Internal and external issues"
-
-msgid "Items past their review date"
-msgstr "Items past their review date"
-
-msgid "Not answered yet"
-msgstr "Not answered yet"
-
-msgid "No item recorded."
-msgstr "No item recorded."
-
-msgid "Activities"
-msgstr "Activities"
-
-msgid "Alerts to fix"
-msgstr "Alerts to fix"
-
-msgid "Responsibility matrix"
-msgstr "Responsibility matrix"
-
-msgid "Sensitive"
-msgstr "Sensitive"
-
-msgid "No activity yet."
-msgstr "No activity yet."
-
-msgid "No alert: every activity has someone who performs it and a single approver, without conflict of duties."
-msgstr "No alert: every activity has someone who performs it and a single approver, without conflict of duties."
-
-msgid "To fix"
-msgstr "To fix"
-
-msgid "To check"
-msgstr "To check"
-
-msgid "Only the activities of the entities of the person who exported this matrix are listed. Nothing has been modified by this export."
-msgstr "Only the activities of the entities of the person who exported this matrix are listed. Nothing has been modified by this export."
-
-msgid "%d activity"
-msgid_plural "%d activities"
-msgstr[0] "%d activity"
-msgstr[1] "%d activities"
-
-msgid "%d alert to fix"
-msgid_plural "%d alerts to fix"
-msgstr[0] "%d alert to fix"
-msgstr[1] "%d alerts to fix"
-
-msgid "%d point to check"
-msgid_plural "%d points to check"
-msgstr[0] "%d point to check"
-msgstr[1] "%d points to check"
-
-msgid "No alert"
-msgstr "No alert"
-
-msgid "Open the responsibility matrix"
-msgstr "Open the responsibility matrix"
-
-msgid "To fix before the audit"
-msgstr "To fix before the audit"
-
-msgid "Nothing is changed automatically: adjust the assignments below if needed."
-msgstr "Nothing is changed automatically: adjust the assignments below if needed."
-
-msgid "Leave empty to keep the default name, shown in the language of each user."
-msgstr "Leave empty to keep the default name, shown in the language of each user."
-
-msgid "For example \"Review of firewall rules\"."
-msgstr "For example \"Review of firewall rules\"."
-
-msgid "Sensitive activity"
-msgstr "Sensitive activity"
-
-msgid "The same person must not both perform and approve a sensitive activity (segregation of duties)."
-msgstr "The same person must not both perform and approve a sensitive activity (segregation of duties)."
-
-msgid "Related Annex A controls"
-msgstr "Related Annex A controls"
-
-msgid "Optional: the controls of your Statement of Applicability that this activity implements."
-msgstr "Optional: the controls of your Statement of Applicability that this activity implements."
-
-msgid "Who does what"
-msgstr "Who does what"
-
-msgid "Nobody is assigned yet. Add below who performs and who approves this activity."
-msgstr "Nobody is assigned yet. Add below who performs and who approves this activity."
-
-msgid "User or group"
-msgstr "User or group"
-
-msgid "Add a role"
-msgstr "Add a role"
-
-msgid "Choose the role, then a user or a group, and save. Only one person or group approves."
-msgstr "Choose the role, then a user or a group, and save. Only one person or group approves."
-
-msgid "Add an activity"
-msgstr "Add an activity"
-
-msgid "Adds the proposed activities that are missing, without changing the existing ones."
-msgstr "Adds the proposed activities that are missing, without changing the existing ones."
-
-msgid "Add the missing default activities"
-msgstr "Add the missing default activities"
-
-msgid "Download as PDF"
-msgstr "Download as PDF"
-
-msgid "Attaches a dated PDF to requirement 5.3 and to control A.5.3 of your Statement of Applicability."
-msgstr "Attaches a dated PDF to requirement 5.3 and to control A.5.3 of your Statement of Applicability."
-
-msgid "Archive as evidence"
-msgstr "Archive as evidence"
-
-msgid "Alerts only report: nothing is changed automatically in the assignments, rights or statuses."
-msgstr "Alerts only report: nothing is changed automatically in the assignments, rights or statuses."
-
-msgid "No activity yet. Add the default activities, then say for each one who performs it and who approves it."
-msgstr "No activity yet. Add the default activities, then say for each one who performs it and who approves it."
-
-msgid "No active member"
-msgstr "No active member"
-
-msgid "Segregation of duties is checked on this activity."
-msgstr "Segregation of duties is checked on this activity."
-
-msgid "Archived matrices"
-msgstr "Archived matrices"
-
-msgid "No archived matrix yet. Archive it before the audit: the dated PDF is attached to requirement 5.3 and to control A.5.3."
-msgstr "No archived matrix yet. Archive it before the audit: the dated PDF is attached to requirement 5.3 and to control A.5.3."
-
-msgid "%d default activity added."
-msgid_plural "%d default activities added."
-msgstr[0] "%d default activity added."
-msgstr[1] "%d default activities added."
-
-msgid "The responsibility matrix has been archived as evidence of requirement 5.3 and control A.5.3."
-msgstr "The responsibility matrix has been archived as evidence of requirement 5.3 and control A.5.3."
-
-msgid "The matrix could not be archived."
-msgstr "The matrix could not be archived."
-
-msgid "Who performs, approves, is consulted on or is informed of each activity of the ISMS, with the GLPI users and groups. Conflicts of duties and missing approvers are reported here."
-msgstr "Who performs, approves, is consulted on or is informed of each activity of the ISMS, with the GLPI users and groups. Conflicts of duties and missing approvers are reported here."
-
-msgid "For each activity, add who performs it and a single approver, mark the sensitive activities, fix the alerts, then archive the matrix as evidence before the audit."
-msgstr "For each activity, add who performs it and a single approver, mark the sensitive activities, fix the alerts, then archive the matrix as evidence before the audit."
-
-msgid "ISO/IEC 27001, clause 5.3 and control A.5.3"
-msgstr "ISO/IEC 27001, clause 5.3 and control A.5.3"
-
-msgid "ISMS activity"
-msgid_plural "ISMS activities"
-msgstr[0] "ISMS activity"
-msgstr[1] "ISMS activities"
-
-msgid "Performs"
-msgstr "Performs"
-
-msgid "Approves"
-msgstr "Approves"
-
-msgid "Consulted"
-msgstr "Consulted"
-
-msgid "Informed"
-msgstr "Informed"
-
-msgctxt "responsibility"
-msgid "P"
-msgstr "P"
-
-msgctxt "responsibility"
-msgid "A"
-msgstr "A"
-
-msgctxt "responsibility"
-msgid "C"
-msgstr "C"
-
-msgctxt "responsibility"
-msgid "I"
-msgstr "I"
-
-msgid "Information security risk assessment"
-msgstr "Information security risk assessment"
-
-msgid "Acceptance of residual risks"
-msgstr "Acceptance of residual risks"
-
-msgid "Approval of security policies"
-msgstr "Approval of security policies"
-
-msgid "Inventory of information assets"
-msgstr "Inventory of information assets"
-
-msgid "Granting and removing access rights"
-msgstr "Granting and removing access rights"
-
-msgid "Periodic review of access rights"
-msgstr "Periodic review of access rights"
-
-msgid "Management of privileged accounts"
-msgstr "Management of privileged accounts"
-
-msgid "Approval of changes in production"
-msgstr "Approval of changes in production"
-
-msgid "Backups and restore tests"
-msgstr "Backups and restore tests"
-
-msgid "Review of logs and security events"
-msgstr "Review of logs and security events"
-
-msgid "Handling of security incidents"
-msgstr "Handling of security incidents"
-
-msgid "Security of suppliers"
-msgstr "Security of suppliers"
-
-msgid "Security awareness and training"
-msgstr "Security awareness and training"
-
-msgid "Business continuity and recovery plans"
-msgstr "Business continuity and recovery plans"
-
-msgid "Internal audit of the ISMS"
-msgstr "Internal audit of the ISMS"
-
-msgid "Give the activity a name."
-msgstr "Give the activity a name."
-
-msgid "This user or group does not belong to the entity of the activity."
-msgstr "This user or group does not belong to the entity of the activity."
-
-msgid "Only one person or group approves \"%s\": remove the current one first."
-msgstr "Only one person or group approves \"%s\": remove the current one first."
-
-msgid "Deleted item #%d"
-msgstr "Deleted item #%d"
-
-msgid "Nobody approves this activity."
-msgstr "Nobody approves this activity."
-
-msgid "Several people or groups approve this activity: keep only one."
-msgstr "Several people or groups approve this activity: keep only one."
-
-msgid "Nobody performs this activity."
-msgstr "Nobody performs this activity."
-
-msgid "Segregation of duties: %s both performs and approves this sensitive activity."
-msgstr "Segregation of duties: %s both performs and approves this sensitive activity."
-
-msgid "The group %s has no active member."
-msgstr "The group %s has no active member."
-
-msgid "%s is disabled or no longer exists in GLPI."
-msgstr "%s is disabled or no longer exists in GLPI."
-
-msgid "ISMS responsibility matrix"
-msgstr "ISMS responsibility matrix"
-
-msgid "Archived responsibility matrix"
-msgid_plural "Archived responsibility matrices"
-msgstr[0] "Archived responsibility matrix"
-msgstr[1] "Archived responsibility matrices"
-
-msgid "ISMS responsibility matrix - %s"
-msgstr "ISMS responsibility matrix - %s"
