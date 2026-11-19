@@ -18,6 +18,8 @@
 use Glpi\Exception\Http\AccessDeniedHttpException;
 use GlpiPlugin\Grcmanager\AcnRequirement;
 
+global $CFG_GLPI;
+
 // Issue #703 : registre NIS2 Italia - ACN de l'entité active (ou d'une entité de la session qui a
 // une catégorie), avec sa synthèse et ses exports. Pas d'entrée de menu : ouvert depuis la page
 // Référentiels et la configuration. Droit général du plugin, référentiel actif.

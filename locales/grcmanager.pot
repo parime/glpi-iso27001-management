@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-19 06:42+0000\n"
+"POT-Creation-Date: 2026-11-19 06:52+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4166,6 +4166,7 @@ msgid "E.g. 40 for a quiz scored out of 40. 0 = no score."
 msgstr ""
 
 #: templates/training_form.html.twig
+#, php-format
 msgid ""
 "E.g. 80: passed from 80% of the maximum score. With a maximum score and a "
 "threshold, each participant's result is computed from their score."

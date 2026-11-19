@@ -565,7 +565,8 @@ expect "ticket depuis un KRI de B" "$([ "$ROLE" = admin ] && echo 302 || echo 40
   "$(code -d "create_ticket=1&id=$(id kri_B)&_glpi_csrf_token=$(csrf)" "$P/riskindicator.form.php")"
 expect "creer un KRI dans l'entite B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
   "$(code -d "add=1&name=KRI%20cree&entities_id=$(id b)&_glpi_csrf_token=$(csrf)" "$P/riskindicator.form.php")"
-# Issue #703 : une exigence NIS2 Italia - ACN appartient au registre de son entite.
+# Issue #703 : une exigence NIS2 Italia - ACN appartient au registre de son entite
+# (front/acnrequirement.form.php : lecture et modification, par entite).
 expect "exigence ACN, entite A"         200    "$(code "$P/acnrequirement.form.php?id=$(id acn_A)")"
 expect "exigence ACN, entite B"         $DENY  "$(code "$P/acnrequirement.form.php?id=$(id acn_B)")"
 expect "modifier une exigence ACN de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)"   "$(code -d "update=1&id=$(id acn_B)&comment=securite&_glpi_csrf_token=$(csrf)" "$P/acnrequirement.form.php")"
