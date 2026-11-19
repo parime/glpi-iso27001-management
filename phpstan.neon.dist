@@ -90,6 +90,8 @@ parameters:
         - src/Services/Incident/SecurityIncidentModuleConfig.php
         # Issue #600 : lit et écrit la configuration de GLPI (Config), même raison que FrameworkConfig.
         - src/Services/Incident/CraReportingConfig.php
+        # Issue #707 : Config et GLPIKey du cœur (jeton chiffré), même raison que CraReportingConfig.
+        - src/Services/Incident/SentinelOneConfig.php
         # Security-incident module absorbed from glpi-security-incidents (ROADMAP.md "Version
         # 2.0"): depends on GLPI's runtime global $DB and legacy PluginGrcmanagerSecurityIncident
         # class, same rationale as DashboardCardService.php above.

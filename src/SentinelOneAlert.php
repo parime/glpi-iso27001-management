@@ -51,6 +51,16 @@ class SentinelOneAlert extends SentinelOneAlertBase
     public const AGENTS_TABLE = 'glpi_plugin_grcmanager_sentineloneagents';
     public const VULNERABILITIES_TABLE = 'glpi_plugin_grcmanager_sentinelonevulnerabilities';
 
+    /** Codes d'erreur affichables (bilan du dernier passage). */
+    public const ERROR_CODES = [
+        SentinelOneClient::ERROR_UNAUTHORIZED, SentinelOneClient::ERROR_FORBIDDEN, SentinelOneClient::ERROR_NOT_FOUND,
+        SentinelOneClient::ERROR_RATE_LIMITED, SentinelOneClient::ERROR_UNREACHABLE, SentinelOneClient::ERROR_INTERNAL,
+        SentinelOneClient::ERROR_INVALID, SentinelOneClient::ERROR_STATUS, self::SKIPPED,
+    ];
+
+    /** Liste non lue pendant ce passage (une liste précédente l'a arrêté). */
+    public const SKIPPED = 'skipped';
+
     /** Propositions affichées au plus dans l'écran de vérification. */
     public const MAX_SHOWN = 200;
 
@@ -108,7 +118,7 @@ class SentinelOneAlert extends SentinelOneAlertBase
             $volume += $step['items'];
             if ($step['error'] !== '') {
                 // Code d'erreur et libellé seulement : ni jeton, ni adresse complète.
-                $task->log(sprintf('SentinelOne %s: %s', $name, SentinelOneClient::errorLabel($step['error'])));
+                $task->log(sprintf('SentinelOne %s: %s', $name, self::errorLabel($step['error'])));
             }
         }
         $task->addVolume($volume);
@@ -128,7 +138,7 @@ class SentinelOneAlert extends SentinelOneAlertBase
         $stop = false;
         foreach (['agents', 'threats', 'alerts', 'vulnerabilities'] as $list) {
             if ($stop) {
-                $steps[$list] = ['items' => 0, 'new' => 0, 'complete' => false, 'error' => 'skipped'];
+                $steps[$list] = ['items' => 0, 'new' => 0, 'complete' => false, 'error' => self::SKIPPED];
                 continue;
             }
             $steps[$list] = match ($list) {
@@ -427,6 +437,58 @@ class SentinelOneAlert extends SentinelOneAlertBase
     }
 
     /**
+     * Données de l'écran de vérification (import EDR) : null si le connecteur n'est pas configuré
+     * et que rien n'attend.
+     *
+     * @return array<string, mixed>|null
+     */
+    public static function reviewData(): ?array
+    {
+        global $DB, $CFG_GLPI;
+
+        if (!$DB->tableExists(self::getTable())) {
+            return null;
+        }
+        $pending = self::pendingForCurrentUser();
+        if (!SentinelOneConfig::isConfigured() && $pending['total'] === 0) {
+            return null;
+        }
+        $rows = [];
+        foreach ($pending['rows'] as $row) {
+            $computerId = (int) $row['computers_id'];
+            $data = json_decode((string) $row['data'], true);
+            $consoleUrl = is_array($data) ? (string) ($data['console_url'] ?? '') : '';
+            $rows[] = [
+                'id'           => (int) $row['id'],
+                'kind'         => (string) $row['kind'],
+                'name'         => (string) $row['name'],
+                'detected_at'  => (string) $row['detected_at'],
+                'severity'     => (string) $row['severity'],
+                'hostname'     => (string) $row['hostname'],
+                'username'     => (string) $row['username'],
+                'computer'     => $computerId > 0 ? \Dropdown::getDropdownName(Computer::getTable(), $computerId) : '',
+                'computer_url' => $computerId > 0 ? Computer::getFormURLWithID($computerId) : '',
+                'entity'       => \Dropdown::getDropdownName('glpi_entities', (int) $row['entities_id']),
+                // Lien vers la console seulement s'il est bien en HTTP(S).
+                'console_url'  => preg_match('#^https?://#i', $consoleUrl) === 1 ? $consoleUrl : '',
+            ];
+        }
+        $run = SentinelOneConfig::lastRun();
+
+        return [
+            'rows'       => $rows,
+            'total'      => $pending['total'],
+            'enabled'    => SentinelOneConfig::isEnabled(),
+            'last_run'   => $run['date'] ?? '',
+            'kinds'      => self::getKindLabels(),
+            'severities' => \PluginGrcmanagerSecurityIncident::getSeverities(),
+            'can_import' => SecurityIncidentEdrImport::canImport(),
+            'config_url' => Session::haveRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE)
+                ? $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/config.php#grc-sentinelone' : '',
+        ];
+    }
+
+    /**
      * Crée un incident par proposition choisie (une alerte = une ligne de l'import EDR), dans
      * l'entité de la proposition, et y rattache l'ordinateur reconnu. Une proposition hors des
      * entités de l'utilisateur, déjà traitée ou déjà importée est ignorée.
@@ -559,6 +621,82 @@ class SentinelOneAlert extends SentinelOneAlertBase
             'rows'   => $rows,
             'total'  => countElementsInTable(self::AGENTS_TABLE, ['computers_id' => 0]),
             'agents' => countElementsInTable(self::AGENTS_TABLE),
+        ];
+    }
+
+    /**
+     * Message lisible d'un code d'erreur (jamais le jeton ni l'adresse complète).
+     */
+    public static function errorLabel(string $error): string
+    {
+        return match ($error) {
+            SentinelOneClient::ERROR_UNAUTHORIZED => __('SentinelOne refused the API token (401): check that it is valid and has not expired.', 'grcmanager'),
+            SentinelOneClient::ERROR_FORBIDDEN    => __('The API token is not allowed to read this information (403): give it the Viewer role on the accounts or sites to read, or check the licence.', 'grcmanager'),
+            SentinelOneClient::ERROR_NOT_FOUND    => __('This information is not available on this console (404): it may not be included in the licence.', 'grcmanager'),
+            SentinelOneClient::ERROR_RATE_LIMITED => __('SentinelOne limits the number of requests (429): the next run resumes where this one stopped.', 'grcmanager'),
+            SentinelOneClient::ERROR_UNREACHABLE  => __('The SentinelOne console could not be reached: check its address, the GLPI proxy and, for an internal address, the setting that allows them.', 'grcmanager'),
+            SentinelOneClient::ERROR_INTERNAL     => __('The console address is an internal address, refused by default: an administrator can allow internal addresses in this configuration page.', 'grcmanager'),
+            SentinelOneClient::ERROR_INVALID      => __('The SentinelOne console sent an unexpected answer: check the console address.', 'grcmanager'),
+            self::SKIPPED            => __('Not read during this run: an earlier step stopped it.', 'grcmanager'),
+            ''                       => '',
+            default                  => __('The SentinelOne console returned an error.', 'grcmanager'),
+        };
+    }
+
+    /**
+     * La tâche automatique suit l'interrupteur du connecteur (désactivée par défaut).
+     */
+    public static function syncCronState(bool $enabled): void
+    {
+        $task = new CronTask();
+        if ($task->getFromDBbyName(self::class, 'sentinelone')) {
+            $state = $enabled ? CronTask::STATE_WAITING : CronTask::STATE_DISABLE;
+            if ((int) $task->fields['state'] !== $state && !($enabled && (int) $task->fields['state'] === CronTask::STATE_RUNNING)) {
+                $task->update(['id' => $task->getID(), 'state' => $state]);
+            }
+        }
+    }
+
+    /**
+     * Données de la carte de configuration. Le jeton n'y figure jamais : seulement sa présence.
+     *
+     * @return array<string, mixed>
+     */
+    public static function configData(): array
+    {
+        global $DB;
+
+        $task = new CronTask();
+        $hasTask = $task->getFromDBbyName(self::class, 'sentinelone');
+        $tablesReady = $DB->tableExists(self::AGENTS_TABLE);
+        $pending = $tablesReady ? countElementsInTable(self::getTable(), ['status' => self::STATUS_PENDING]) : 0;
+
+        return [
+            'enabled'      => SentinelOneConfig::isEnabled(),
+            'configured'   => SentinelOneConfig::isConfigured(),
+            'url'          => SentinelOneConfig::rawUrl(),
+            'has_token'    => SentinelOneConfig::hasToken(),
+            'entities_id'  => SentinelOneConfig::entityId(),
+            'last_run'     => SentinelOneConfig::lastRun(),
+            'cron_url'     => $hasTask ? CronTask::getFormURLWithID($task->getID()) : '',
+            'cron_active'  => $hasTask && (int) $task->fields['state'] !== CronTask::STATE_DISABLE,
+            'review_url'   => $pending > 0 ? SecurityIncidentEdrImport::getImportURL() . '#grc-sentinelone-review' : '',
+            'agents'       => $tablesReady ? self::unmatchedAgents() : ['rows' => [], 'total' => 0, 'agents' => 0],
+            'step_labels'  => self::getStepLabels(),
+            'error_labels' => array_combine(self::ERROR_CODES, array_map([self::class, 'errorLabel'], self::ERROR_CODES)),
+        ];
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    public static function getStepLabels(): array
+    {
+        return [
+            'agents'          => __('Agents', 'grcmanager'),
+            'threats'         => __('Threats', 'grcmanager'),
+            'alerts'          => __('Alerts', 'grcmanager'),
+            'vulnerabilities' => __('Application vulnerabilities', 'grcmanager'),
         ];
     }
 

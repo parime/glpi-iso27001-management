@@ -119,11 +119,12 @@ final class WazuhEvidenceProvider
     }
 
     /**
-     * Ordinateurs réels et visibles de l'utilisateur (entités actives), par id.
+     * Ordinateurs réels et visibles de l'utilisateur (entités actives), par id. Issue #707 : aussi
+     * utilisé par le connecteur SentinelOne (même cloisonnement par entité).
      *
      * @return array<int, true>
      */
-    private static function visibleComputerIds(): array
+    public static function visibleComputerIds(): array
     {
         global $DB;
 
@@ -196,25 +197,40 @@ final class WazuhEvidenceProvider
             }
             $result = WazuhEvidence::aggregateVulnerabilities($findings, $knownCves);
 
-            // Signaux d'exploitation déjà collectés par la veille (KEV, EPSS), pour la même priorisation.
-            $signals = [];
-            $cves = array_column($result['only'], 'cve_id');
-            if ($cves !== [] && $DB->tableExists(ParkVulnerabilitySync::SIGNALS_TABLE)) {
-                foreach (
-                    $DB->request([
-                        'SELECT' => ['cve_id', 'is_kev', 'epss'],
-                        'FROM'   => ParkVulnerabilitySync::SIGNALS_TABLE,
-                        'WHERE'  => ['cve_id' => $cves],
-                    ]) as $row
-                ) {
-                    $signals[(string) $row['cve_id']] = $row;
-                }
-            }
+            return ['also' => $result['also'], 'only' => self::withExploitSignals($result['only'])];
         } catch (\Throwable $e) {
             return null;
         }
+    }
+
+    /**
+     * Signaux d'exploitation déjà collectés par la veille (KEV, EPSS) et priorité, pour les lignes
+     * d'une source externe (Wazuh, SentinelOne : issue #707), avec la même priorisation.
+     *
+     * @param list<array{cve_id: string, packages: list<string>, machines: int, score: float|null,
+     *     severity: string}> $rows
+     * @return list<array{cve_id: string, packages: list<string>, machines: int, score: float|null,
+     *     severity: string, is_kev: bool, epss: float|null, priority: bool}>
+     */
+    public static function withExploitSignals(array $rows): array
+    {
+        global $DB;
+
+        $signals = [];
+        $cves = array_column($rows, 'cve_id');
+        if ($cves !== [] && $DB->tableExists(ParkVulnerabilitySync::SIGNALS_TABLE)) {
+            foreach (
+                $DB->request([
+                    'SELECT' => ['cve_id', 'is_kev', 'epss'],
+                    'FROM'   => ParkVulnerabilitySync::SIGNALS_TABLE,
+                    'WHERE'  => ['cve_id' => $cves],
+                ]) as $row
+            ) {
+                $signals[(string) $row['cve_id']] = $row;
+            }
+        }
         $only = [];
-        foreach ($result['only'] as $row) {
+        foreach ($rows as $row) {
             $signal = $signals[$row['cve_id']] ?? null;
             $isKev = (bool) ($signal['is_kev'] ?? false);
             $epss = isset($signal['epss']) ? (float) $signal['epss'] : null;
@@ -225,7 +241,7 @@ final class WazuhEvidenceProvider
             ];
         }
 
-        return ['also' => $result['also'], 'only' => $only];
+        return $only;
     }
 
     /**

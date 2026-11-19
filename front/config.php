@@ -25,6 +25,8 @@ use GlpiPlugin\Grcmanager\Services\GithubVersionChecker;
 use GlpiPlugin\Grcmanager\IncidentSecurityGroup;
 use GlpiPlugin\Grcmanager\Services\Incident\CraReportingConfig;
 use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentModuleConfig;
+use GlpiPlugin\Grcmanager\Services\Incident\SentinelOneConfig;
+use GlpiPlugin\Grcmanager\SentinelOneAlert;
 use GlpiPlugin\Grcmanager\Services\Notification\SensitiveNotification;
 use GlpiPlugin\Grcmanager\Services\Policy\PolicyApprovalConfig;
 use GlpiPlugin\Grcmanager\Services\Risk\RiskMatrixConfig;
@@ -173,6 +175,80 @@ if (isset($_POST['update_breach_config']) || isset($_POST['test_breach_config'])
                 ? __('Have I Been Pwned refused the API key.', 'grcmanager')
                 : sprintf(__('Have I Been Pwned could not be reached (code %d).', 'grcmanager'), $response->status);
             Session::addMessageAfterRedirect(htmlescape($message), false, ERROR);
+        }
+    }
+
+    Html::back();
+}
+
+// Issue #707 : connecteur SentinelOne en lecture seule. Réglage réservé au droit de modifier la
+// configuration du plugin ; le jeton n'est jamais renvoyé au navigateur ni écrit dans un journal.
+if (isset($_POST['update_sentinelone_config']) || isset($_POST['test_sentinelone_config']) || isset($_POST['fetch_sentinelone_now'])) {
+    Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
+
+    if (isset($_POST['update_sentinelone_config'])) {
+        $wasEnabled = SentinelOneConfig::isEnabled();
+        $hadToken = SentinelOneConfig::hasToken();
+        $previousUrl = SentinelOneConfig::rawUrl();
+        $accepted = SentinelOneConfig::save(
+            !empty($_POST['sentinelone_enabled']),
+            (string) ($_POST['sentinelone_url'] ?? ''),
+            (string) ($_POST['sentinelone_api_token'] ?? ''),
+            !empty($_POST['sentinelone_clear_token']),
+            (int) ($_POST['sentinelone_entities_id'] ?? 0)
+        );
+        if (!$accepted) {
+            Session::addMessageAfterRedirect(htmlescape(__(
+                'The console address was not saved: it must start with https:// and contain no user name or password.',
+                'grcmanager'
+            )), false, ERROR);
+        }
+        // La tâche automatique suit l'interrupteur : désactivée tant que le connecteur l'est.
+        SentinelOneAlert::syncCronState(SentinelOneConfig::isEnabled());
+        $changes = array_filter([
+            'sentinelone_enabled' => $wasEnabled !== SentinelOneConfig::isEnabled() ? (int) SentinelOneConfig::isEnabled() : null,
+            'sentinelone_url'     => $previousUrl !== SentinelOneConfig::rawUrl() ? SentinelOneConfig::rawUrl() : null,
+            // Jeton : seulement le fait qu'il ait changé, jamais sa valeur.
+            'sentinelone_token'   => trim((string) ($_POST['sentinelone_api_token'] ?? '')) !== ''
+                || ($hadToken && !SentinelOneConfig::hasToken()) ? 'changed' : null,
+        ], static fn ($value): bool => $value !== null);
+        if ($changes !== []) {
+            \GlpiPlugin\Grcmanager\AuditLog::record('config_change', 'Config', 0, 0, 'success', ['changes' => $changes]);
+        }
+    } elseif (!SentinelOneConfig::isConfigured()) {
+        Session::addMessageAfterRedirect(htmlescape(__('Enter the console address and the API token first.', 'grcmanager')), false, ERROR);
+    } elseif (isset($_POST['test_sentinelone_config'])) {
+        $test = SentinelOneConfig::client()->testConnection();
+        if (!$test['ok']) {
+            Session::addMessageAfterRedirect(htmlescape(SentinelOneAlert::errorLabel($test['error'])), false, ERROR);
+        } elseif ($test['empty']) {
+            Session::addMessageAfterRedirect(htmlescape(__(
+                'Connection accepted, but the token sees no agent and no threat: check that its user has the Viewer role on the right accounts or sites.',
+                'grcmanager'
+            )), false, WARNING);
+        } else {
+            $message = sprintf(
+                __('Connection to SentinelOne succeeded: %1$d agent(s) and %2$s threat(s) visible.', 'grcmanager'),
+                (int) $test['agents'],
+                $test['threats'] === null ? '?' : (string) $test['threats']
+            );
+            if ($test['error'] !== '') {
+                $message .= ' ' . SentinelOneAlert::errorLabel($test['error']);
+            }
+            Session::addMessageAfterRedirect(htmlescape($message));
+        }
+    } else {
+        // Lecture demandée par un administrateur : même passage que la tâche automatique.
+        $steps = SentinelOneAlert::synchronize(SentinelOneConfig::client());
+        $errors = array_filter(array_column($steps, 'error'), static fn (string $error): bool => $error !== '' && $error !== SentinelOneAlert::SKIPPED);
+        Session::addMessageAfterRedirect(htmlescape(sprintf(
+            __('SentinelOne read: %1$d new alert(s) to review, %2$d agent(s), %3$d application vulnerabilities.', 'grcmanager'),
+            $steps['threats']['new'] + $steps['alerts']['new'],
+            $steps['agents']['items'],
+            $steps['vulnerabilities']['items']
+        )), false, $errors === [] ? INFO : WARNING);
+        foreach (array_unique($errors) as $error) {
+            Session::addMessageAfterRedirect(htmlescape(SentinelOneAlert::errorLabel($error)), false, WARNING);
         }
     }
 
@@ -441,6 +517,8 @@ Html::header(
     'breach_enabled'            => BreachMonitorConfig::isEnabled(),
     'breach_has_key'            => BreachMonitorConfig::hasApiKey(),
     'breach_domains'            => implode(', ', BreachMonitorConfig::domains()),
+    // Issue #707 : connecteur SentinelOne (le jeton n'est jamais transmis, seulement sa présence).
+    'sentinelone'               => SentinelOneAlert::configData(),
     'frameworks'                => FrameworkConfig::frameworks(),
     'custom_frameworks_url'     => \GlpiPlugin\Grcmanager\CustomFramework::getSearchURL(),
     'frameworks_help'           => FrameworkConfig::helpTexts(),

@@ -201,22 +201,4 @@ final class SentinelOneClient
             default                         => self::ERROR_STATUS,
         };
     }
-
-    /**
-     * Message lisible d'un code d'erreur (jamais le jeton ni l'adresse complète).
-     */
-    public static function errorLabel(string $error): string
-    {
-        return match ($error) {
-            self::ERROR_UNAUTHORIZED => __('SentinelOne refused the API token (401): check that it is valid and has not expired.', 'grcmanager'),
-            self::ERROR_FORBIDDEN    => __('The API token is not allowed to read this information (403): give it the Viewer role on the accounts or sites to read, or check the licence.', 'grcmanager'),
-            self::ERROR_NOT_FOUND    => __('This information is not available on this console (404): it may not be included in the licence.', 'grcmanager'),
-            self::ERROR_RATE_LIMITED => __('SentinelOne limits the number of requests (429): the next run resumes where this one stopped.', 'grcmanager'),
-            self::ERROR_UNREACHABLE  => __('The SentinelOne console could not be reached: check its address, the GLPI proxy and, for an internal address, the setting that allows them.', 'grcmanager'),
-            self::ERROR_INTERNAL     => __('The console address is an internal address, refused by default: an administrator can allow internal addresses in this configuration page.', 'grcmanager'),
-            self::ERROR_INVALID      => __('The SentinelOne console sent an unexpected answer: check the console address.', 'grcmanager'),
-            ''                       => '',
-            default                  => __('The SentinelOne console returned an error.', 'grcmanager'),
-        };
-    }
 }
