@@ -9,6 +9,29 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Fin de support des logiciels, systèmes et firmwares** (issue #704 ; ISO 27001 A.8.8 et A.8.9),
+  d'après l'API publique d'endoflife.date.
+  - Source désactivée par défaut, activée dans la configuration du plugin (section « Fin de support
+    (endoflife.date) »), avec un seuil de « fin proche » réglable (90 jours par défaut). Lecture
+    seule, par le client sortant durci du plugin (`Compat\Http::send()`) ; seul l'identifiant public
+    du produit est envoyé. Réponses validées (structure et dates) avant d'être gardées en cache.
+  - Cache en base, rafraîchi une fois par jour par la tâche automatique `endoflifesync` et par le
+    bouton « Mettre à jour maintenant » ; jamais à l'affichage d'une page, hors ligne avec le dernier
+    cache. Une limite de requêtes (429) ou une panne arrête seulement les appels de la mise à jour en
+    cours : les données déjà connues restent utilisées et la tâche ne passe pas en erreur.
+  - Logiciels installés (tous les types de `software_types`), systèmes d'exploitation et firmwares
+    des matériels (`Item_DeviceFirmware`, #705) rapprochés d'un produit : automatiquement quand le
+    nom entier correspond à une forme connue (« Debian GNU/Linux », « Mozilla Firefox (x64 fr) »,
+    « Microsoft Windows 11 Professionnel »...), sinon par une correspondance manuelle saisie dans
+    la configuration, qui peut aussi écarter un nom. Les noms non rapprochés sont listés, jamais
+    devinés. Le cycle est retrouvé depuis la version installée (« 12.5 », « 22H2 », nom de code).
+  - Page « Vulnérabilités du parc » : carte « Fin de support » avec les états plus supporté, fin
+    proche, supporté et support inconnu, par nom et version, avec les actifs concernés, dans les
+    entités de la personne (#536), et export CSV d'un élément par ligne.
+  - Preuves des mesures A.8.8 et A.8.9 (fiche de la mesure) et nouvelle règle du contrôle de
+    cohérence « Actifs avec un logiciel, un système ou un firmware qui n'est plus supporté ».
+  - Aucun ticket ni statut n'est créé ou modifié automatiquement, aucune entrée de menu n'est
+    ajoutée.
 - **Matrice des risques : libellés des niveaux personnalisables, EBIOS RM, AIPD et rapport PDF en
   5 x 5** (issue #706, second lot).
   - Dans la configuration, « Libellés des niveaux » renomme chaque niveau de probabilité et d'impact

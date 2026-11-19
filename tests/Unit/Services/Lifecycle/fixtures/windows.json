@@ -1,0 +1,7 @@
+{"schema_version":"1.2.1","result":{"name":"windows","label":"Microsoft Windows","releases":[
+{"name":"11-24h2-e","codename":null,"isEol":false,"eolFrom":"2027-10-12","latest":{"name":"10.0.26100"}},
+{"name":"11-24h2-w","codename":null,"isEol":false,"eolFrom":"2026-10-13","latest":{"name":"10.0.26100"}},
+{"name":"11-23h2-e","codename":null,"isEol":false,"eolFrom":"2026-11-10","latest":{"name":"10.0.22631"}},
+{"name":"11-23h2-w","codename":null,"isEol":true,"eolFrom":"2025-11-11","latest":{"name":"10.0.22631"}},
+{"name":"10-22h2","codename":null,"isEol":true,"eolFrom":"2025-10-14","latest":{"name":"10.0.19045"}}
+]}}

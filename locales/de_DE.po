@@ -18446,3 +18446,246 @@ msgstr "Die Stufen sind von der niedrigsten (1) bis zur höchsten aufgeführt."
 
 msgid "Rename the levels of probability and impact to match your method, for example the wording of your risk management policy. Leave a field empty to keep the default label, translated into the language of each user; a label you enter is shown as is in every language. Renaming a level changes nothing in existing risks."
 msgstr "Benennen Sie die Stufen der Wahrscheinlichkeit und der Auswirkung nach Ihrer Methode um, zum Beispiel mit den Begriffen Ihrer Risikomanagementrichtlinie. Lassen Sie ein Feld leer, um die Standardbezeichnung zu behalten, die in die Sprache jedes Benutzers übersetzt wird; eine eingegebene Bezeichnung wird in allen Sprachen unverändert angezeigt. Das Umbenennen einer Stufe ändert nichts an bestehenden Risiken."
+
+msgid "End of support (endoflife.date)"
+msgstr "Supportende (endoflife.date)"
+
+msgid "Settings and links"
+msgstr "Einstellungen und Zuordnungen"
+
+msgid "Not enabled: the plugin can show which software, operating systems and firmwares no longer receive security fixes, from the public site endoflife.date."
+msgstr "Nicht aktiviert: Das Plugin kann anzeigen, welche Software, Betriebssysteme und Firmwares keine Sicherheitsupdates mehr erhalten, laut der öffentlichen Website endoflife.date."
+
+msgid "Enable it in the configuration"
+msgstr "In der Konfiguration aktivieren"
+
+msgid "%d asset"
+msgid_plural "%d assets"
+msgstr[0] "%d Asset"
+msgstr[1] "%d Assets"
+
+msgid "Ended or ending soon"
+msgstr "Beendet oder bald"
+
+msgid "All followed items"
+msgstr "Alle verfolgten Elemente"
+
+msgid "\"End of support soon\": within %d days."
+msgstr "„Supportende bald\": innerhalb von %d Tagen."
+
+msgid "The end of support dates have not been read yet: they arrive with the next daily task, or with the button \"Update now\" of the configuration."
+msgstr "Die Supportende-Daten wurden noch nicht gelesen: Sie kommen mit der nächsten täglichen Aufgabe oder über die Schaltfläche „Jetzt aktualisieren\" der Konfiguration."
+
+msgid "Some products could not be read during the last update: their previous data is still used."
+msgstr "Einige Produkte konnten bei der letzten Aktualisierung nicht gelesen werden: Ihre bisherigen Daten werden weiter verwendet."
+
+msgid "%d name of the inventory is not linked to an endoflife.date product and is not followed."
+msgid_plural "%d names of the inventory are not linked to an endoflife.date product and are not followed."
+msgstr[0] "%d Name des Inventars ist keinem endoflife.date-Produkt zugeordnet und wird nicht verfolgt."
+msgstr[1] "%d Namen des Inventars sind keinem endoflife.date-Produkt zugeordnet und werden nicht verfolgt."
+
+msgid "Add a link"
+msgstr "Zuordnung hinzufügen"
+
+msgid "%1$d items: the %2$d most urgent ones are shown, all of them are in the export."
+msgstr "%1$d Elemente: Die %2$d dringendsten werden angezeigt, alle sind im Export enthalten."
+
+msgid "No followed item in your entities."
+msgstr "Kein verfolgtes Element in Ihren Entitäten."
+
+msgid "No followed item has reached or is close to its end of support."
+msgstr "Kein verfolgtes Element hat sein Supportende erreicht oder steht kurz davor."
+
+msgid "Release cycle"
+msgstr "Release-Zyklus"
+
+msgid "End of support"
+msgstr "Supportende"
+
+msgid "Assets"
+msgstr "Assets"
+
+msgid "latest: %s"
+msgstr "neueste: %s"
+
+msgid "%1$d item(s) no longer supported on %2$d asset(s)"
+msgstr "%1$d Element(e) ohne Support auf %2$d Asset(s)"
+
+msgid "%1$d ending within %2$d days"
+msgstr "%1$d enden innerhalb von %2$d Tagen"
+
+msgid "%d supported"
+msgstr "%d unterstützt"
+
+msgid "View the details"
+msgstr "Details anzeigen"
+
+msgid "Shows which installed software, operating systems and firmwares no longer receive security fixes, from the public site endoflife.date (ISO 27001 A.8.8 and A.8.9). Once a day, the plugin reads the end of support dates of the products found in the inventory; only the product name is sent (for instance \"debian\"), never the name of a computer or of an entity. Nothing is changed in the inventory, and no ticket is created."
+msgstr "Zeigt, welche installierte Software, Betriebssysteme und Firmwares keine Sicherheitsupdates mehr erhalten, laut der öffentlichen Website endoflife.date (ISO 27001 A.8.8 und A.8.9). Einmal täglich liest das Plugin die Supportende-Daten der im Inventar gefundenen Produkte; nur der Produktname wird gesendet (zum Beispiel „debian\"), nie der Name eines Computers oder einer Entität. Im Inventar wird nichts geändert und kein Ticket erstellt."
+
+msgid "Read the end of support dates on endoflife.date"
+msgstr "Supportende-Daten auf endoflife.date lesen"
+
+msgid "Warn this many days before the end of support"
+msgstr "So viele Tage vor dem Supportende warnen"
+
+msgid "Below this number of days, a version is shown as \"End of support soon\"."
+msgstr "Unterhalb dieser Anzahl von Tagen wird eine Version als „Supportende bald\" angezeigt."
+
+msgid "Last successful reading"
+msgstr "Letzte erfolgreiche Abfrage"
+
+msgid "%d product(s) in cache"
+msgstr "%d Produkt(e) im Cache"
+
+msgid "Reads now the products whose data is more than one day old (the daily task does the rest)."
+msgstr "Liest jetzt die Produkte, deren Daten älter als einen Tag sind (die tägliche Aufgabe erledigt den Rest)."
+
+msgid "Update now"
+msgstr "Jetzt aktualisieren"
+
+msgid "Links between GLPI names and endoflife.date products"
+msgstr "Zuordnungen zwischen GLPI-Namen und endoflife.date-Produkten"
+
+msgid "Well-known names are linked automatically (for instance \"Debian GNU/Linux\" or \"Mozilla Firefox\"). For any other name, add a link: type the name exactly as GLPI shows it, and the product identifier found in the address of its page on endoflife.date (for instance \"fortios\" for https://endoflife.date/fortios). Leave the product empty to stop following a name."
+msgstr "Bekannte Namen werden automatisch zugeordnet (zum Beispiel „Debian GNU/Linux\" oder „Mozilla Firefox\"). Fügen Sie für jeden anderen Namen eine Zuordnung hinzu: Geben Sie den Namen genau so ein, wie GLPI ihn anzeigt, und die Produktkennung aus der Adresse seiner Seite auf endoflife.date (zum Beispiel „fortios\" für https://endoflife.date/fortios). Lassen Sie das Produkt leer, um einen Namen nicht mehr zu verfolgen."
+
+msgid "Kind of item"
+msgstr "Elementart"
+
+msgid "Name in GLPI"
+msgstr "Name in GLPI"
+
+msgid "endoflife.date product"
+msgstr "endoflife.date-Produkt"
+
+msgid "Not followed"
+msgstr "Nicht verfolgt"
+
+msgid "Product unknown to the source"
+msgstr "Produkt der Quelle unbekannt"
+
+msgid "Delete this link"
+msgstr "Diese Zuordnung löschen"
+
+msgid "%d name(s) linked automatically"
+msgstr "%d Name(n) automatisch zugeordnet"
+
+msgid "%d name(s) of the inventory not linked to a product"
+msgstr "%d Name(n) des Inventars ohne Produktzuordnung"
+
+msgid "These names are not followed: add a link above for those that matter (choose them from the list of the \"Name in GLPI\" field)."
+msgstr "Diese Namen werden nicht verfolgt: Fügen Sie oben eine Zuordnung für die wichtigen hinzu (wählen Sie sie aus der Liste des Felds „Name in GLPI\")."
+
+msgid "%d more not shown."
+msgstr "%d weitere nicht angezeigt."
+
+msgid "Link not saved: give the exact name shown in GLPI and an endoflife.date product identifier (lower case letters, digits and dashes, for instance \"debian\")."
+msgstr "Zuordnung nicht gespeichert: Geben Sie den genauen in GLPI angezeigten Namen und eine endoflife.date-Produktkennung an (Kleinbuchstaben, Ziffern und Bindestriche, zum Beispiel „debian\")."
+
+msgid "Assets running software, a system or a firmware that is no longer supported"
+msgstr "Assets mit Software, System oder Firmware ohne Support"
+
+msgid "Upgrade to a supported version, or record a waiver with compensating measures until the upgrade."
+msgstr "Auf eine unterstützte Version aktualisieren oder bis zur Aktualisierung eine Ausnahme mit Ausgleichsmaßnahmen erfassen."
+
+msgid "No longer supported: %s"
+msgstr "Ohne Support: %s"
+
+msgid "No longer supported"
+msgstr "Ohne Support"
+
+msgid "This version no longer receives security fixes."
+msgstr "Diese Version erhält keine Sicherheitsupdates mehr."
+
+msgid "End of support soon"
+msgstr "Supportende bald"
+
+msgid "Plan the move to a version that is still supported."
+msgstr "Den Wechsel auf eine noch unterstützte Version planen."
+
+msgid "Supported"
+msgstr "Unterstützt"
+
+msgid "This version still receives security fixes."
+msgstr "Diese Version erhält noch Sicherheitsupdates."
+
+msgid "Support unknown"
+msgstr "Support unbekannt"
+
+msgid "End of support not determined: never counted as supported."
+msgstr "Supportende nicht bestimmt: nie als unterstützt gezählt."
+
+msgid "Not linked to an endoflife.date product."
+msgstr "Keinem endoflife.date-Produkt zugeordnet."
+
+msgid "Not read yet: the daily task has not run since this product was linked, or the source could not be reached."
+msgstr "Noch nicht gelesen: Die tägliche Aufgabe lief seit der Zuordnung nicht, oder die Quelle war nicht erreichbar."
+
+msgid "Product unknown to endoflife.date: check the link in the configuration."
+msgstr "Produkt bei endoflife.date unbekannt: Prüfen Sie die Zuordnung in der Konfiguration."
+
+msgid "No release cycle of this product matches the installed version."
+msgstr "Kein Release-Zyklus dieses Produkts passt zur installierten Version."
+
+msgid "Too many requests: the source asked to wait"
+msgstr "Zu viele Anfragen: Die Quelle bittet zu warten"
+
+msgid "Error on the source server"
+msgstr "Fehler auf dem Server der Quelle"
+
+msgid "Unexpected answer from the source"
+msgstr "Unerwartete Antwort der Quelle"
+
+msgid "Source unreachable"
+msgstr "Quelle nicht erreichbar"
+
+msgid "Not queried (earlier error or limit reached)"
+msgstr "Nicht abgefragt (früherer Fehler oder Limit erreicht)"
+
+msgid "Operating system"
+msgstr "Betriebssystem"
+
+msgid "Manual link"
+msgstr "Manuelle Zuordnung"
+
+msgid "Automatic link"
+msgstr "Automatische Zuordnung"
+
+msgid "Not linked"
+msgstr "Nicht zugeordnet"
+
+msgid "Support ended (date not published)."
+msgstr "Support beendet (Datum nicht veröffentlicht)."
+
+msgid "No end of support announced."
+msgstr "Kein Supportende angekündigt."
+
+msgid "Support ended on %s."
+msgstr "Support endete am %s."
+
+msgid "Support ends on %1$s (in %2$d day)."
+msgid_plural "Support ends on %1$s (in %2$d days)."
+msgstr[0] "Supportende am %1$s (in %2$d Tag)."
+msgstr[1] "Supportende am %1$s (in %2$d Tagen)."
+
+msgid "The end of support source is disabled: nothing was read."
+msgstr "Die Supportende-Quelle ist deaktiviert: Es wurde nichts gelesen."
+
+msgid "End of support: %1$d products, %2$d read, %3$d already up to date, %4$d unknown to the source."
+msgstr "Supportende: %1$d Produkte, %2$d gelesen, %3$d bereits aktuell, %4$d der Quelle unbekannt."
+
+msgid "%d product(s) not read: the data already in cache is still used."
+msgstr "%d Produkt(e) nicht gelesen: Die Daten im Cache werden weiter verwendet."
+
+msgid "End of support of software, systems and firmwares (endoflife.date)"
+msgstr "Supportende von Software, Systemen und Firmwares (endoflife.date)"
+
+msgid "Asset"
+msgstr "Asset"
+
+msgid "Latest version of the cycle"
+msgstr "Neueste Version des Zyklus"
+
+msgid "How it was linked"
+msgstr "Art der Zuordnung"
