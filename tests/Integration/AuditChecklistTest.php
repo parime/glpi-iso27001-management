@@ -152,7 +152,10 @@ final class AuditChecklistTest extends GrcmanagerIntegrationTestCase
             'comment'                              => 'Deux comptes de prestataires non revus',
             'plugin_grcmanager_nonconformities_id' => $foreignFinding,
         ]));
-        $this->assertFalse(AuditChecklist::updateLine($other, (int) $line['id'], ['result' => 'compliant']), 'autre audit');
+        $this->assertFalse(
+            AuditChecklist::updateLine($other, (int) $line['id'], ['result' => 'compliant']),
+            'autre audit'
+        );
 
         $row = AuditChecklist::present($audit->getID())[0];
         $this->assertSame(Rules::RESULT_NC_MINOR, $row['result']);
@@ -175,7 +178,10 @@ final class AuditChecklistTest extends GrcmanagerIntegrationTestCase
         AuditChecklist::updateLine($audit, $lineId, [
             'result' => Rules::RESULT_NC_MAJOR, 'question' => 'Revue des droits ?', 'comment' => 'Aucune revue',
         ]);
-        $countBefore = countElementsInTable(Nonconformity::getTable(), ['plugin_grcmanager_audits_id' => $audit->getID()]);
+        $countBefore = countElementsInTable(
+            Nonconformity::getTable(),
+            ['plugin_grcmanager_audits_id' => $audit->getID()]
+        );
 
         $draft = AuditChecklist::findingDraft($lineId);
         $this->assertNotNull($draft);
@@ -209,7 +215,10 @@ final class AuditChecklistTest extends GrcmanagerIntegrationTestCase
             '_grcmanager_checklistitem'   => $lineId,
         ]);
         $this->assertGreaterThan(0, $findingId);
-        $this->assertSame($findingId, (int) $this->linesByCode($audit)['A.5.15']['plugin_grcmanager_nonconformities_id']);
+        $this->assertSame(
+            $findingId,
+            (int) $this->linesByCode($audit)['A.5.15']['plugin_grcmanager_nonconformities_id']
+        );
         $this->assertSame('open', (string) $finding->fields['status'], 'statut du constat inchangé');
         $this->assertNull(AuditChecklist::findingDraft($lineId), 'déjà un constat');
 
@@ -259,13 +268,19 @@ final class AuditChecklistTest extends GrcmanagerIntegrationTestCase
         AuditChecklist::addFreeLine($audit, 'P-1', 'Procédure de départ', 'Comptes fermés ?');
         $lines = $this->linesByCode($audit);
         AuditChecklist::updateLine($audit, (int) $lines['A.5.15']['id'], [
-            'question' => 'Comment les droits sont-ils revus ?', 'result' => Rules::RESULT_COMPLIANT, 'comment' => 'RAS',
+            'question' => 'Comment les droits sont-ils revus ?',
+            'result' => Rules::RESULT_COMPLIANT,
+            'comment' => 'RAS',
         ]);
 
         $this->assertSame(0, AuditChecklistTemplate::saveFromAudit($audit, '  '), 'nom exigé');
         $templateId = AuditChecklistTemplate::saveFromAudit($audit, 'Audit annuel du contrôle d\'accès');
         $this->assertGreaterThan(0, $templateId);
-        $this->assertSame(0, AuditChecklistTemplate::saveFromAudit($audit, 'Audit annuel du contrôle d\'accès'), 'doublon');
+        $this->assertSame(
+            0,
+            AuditChecklistTemplate::saveFromAudit($audit, 'Audit annuel du contrôle d\'accès'),
+            'doublon'
+        );
         $this->assertArrayHasKey($templateId, AuditChecklistTemplate::available());
 
         $next = $this->audit('Audit interne 2028, société Exemple');
