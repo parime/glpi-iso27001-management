@@ -98,5 +98,28 @@
    {{ fields.dateField('review_date', item.fields['review_date'], __('Review date', 'grcmanager'), {
       'add_field_html': hints.hint(__('The owner receives a reminder 30 days before this date.', 'grcmanager')),
    }) }}
+   {% if not item.isNewItem() %}
+      {# Lot 2 : revue périodique tracée (date et auteur), conservée dans l'historique de la fiche. #}
+      <div class="form-field row col-12 col-sm-6 mb-2">
+         <label class="col-form-label col-xxl-5 text-xxl-end">{{ __('Last review', 'grcmanager') }}</label>
+         <div class="col-xxl-7 field-container d-flex align-items-center flex-wrap gap-2">
+            {% if item.fields['last_review_date'] %}
+               <span class="badge bg-success-subtle text-success-emphasis">
+                  <i class="ti ti-circle-check me-1"></i>{{ __('%1$s by %2$s', 'grcmanager')|format(item.fields['last_review_date']|formatted_date, last_reviewer ?: '-') }}
+               </span>
+            {% else %}
+               <span class="badge bg-warning-subtle text-warning-emphasis">
+                  <i class="ti ti-alert-triangle me-1"></i>{{ __('Never reviewed', 'grcmanager') }}
+               </span>
+            {% endif %}
+            {% if can_review %}
+               <button type="submit" name="{{ review_marker }}" value="1" class="btn btn-sm btn-outline-success"
+                  title="{{ __('Records today as the review date, with your name, and sets the next review one year later. Your other changes on this form are saved too.', 'grcmanager') }}">
+                  <i class="ti ti-calendar-check me-1"></i>{{ __('Record the review', 'grcmanager') }}
+               </button>
+            {% endif %}
+         </div>
+      </div>
+   {% endif %}
    {{ fields.textareaField('comment', item.fields['comment'], __('Comments'), {'full_width': true}) }}
 {% endblock %}

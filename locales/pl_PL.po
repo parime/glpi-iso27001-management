@@ -18939,6 +18939,45 @@ msgstr[0] "Wymaganie NIS2 Włochy (ACN)"
 msgstr[1] "Wymagania NIS2 Włochy (ACN)"
 msgstr[2] "Wymagań NIS2 Włochy (ACN)"
 
+msgid "Last reviewed by"
+msgstr "Ostatni przegląd wykonał(a)"
+
+msgid "%1$s by %2$s"
+msgstr "%1$s (%2$s)"
+
+msgid "Never reviewed"
+msgstr "Nigdy nie przeglądano"
+
+msgid "Records today as the review date, with your name, and sets the next review one year later. Your other changes on this form are saved too."
+msgstr "Zapisuje dzisiejszą datę jako datę przeglądu wraz z Twoim nazwiskiem i ustala następny przegląd za rok. Pozostałe zmiany w tym formularzu również zostaną zapisane."
+
+msgid "Record the review"
+msgstr "Zapisz przegląd"
+
+msgid "Register for the auditor (PDF)"
+msgstr "Rejestr dla audytora (PDF)"
+
+msgid "Register (CSV)"
+msgstr "Rejestr (CSV)"
+
+msgid "Issues and interested parties of the context of the organization (ISO 27001, 4.1 and 4.2) that refer to this item."
+msgstr "Kwestie i strony zainteresowane z kontekstu organizacji (ISO 27001, 4.1 i 4.2), które odnoszą się do tego elementu."
+
+msgid "No issue or interested party refers to this item yet."
+msgstr "Żadna kwestia ani strona zainteresowana nie odnosi się jeszcze do tego elementu."
+
+msgid "Internal and external issues"
+msgstr "Kwestie wewnętrzne i zewnętrzne"
+
+msgid "Items past their review date"
+msgstr "Pozycje z przekroczoną datą przeglądu"
+
+msgid "Not answered yet"
+msgstr "Brak odpowiedzi"
+
+msgid "No item recorded."
+msgstr "Brak zapisanych pozycji."
+
 msgid "Audit checklist"
 msgstr "Lista kontrolna audytu"
 

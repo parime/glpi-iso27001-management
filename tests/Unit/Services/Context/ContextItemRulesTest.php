@@ -98,4 +98,32 @@ final class ContextItemRulesTest extends TestCase
         $this->assertSame('4.1', Rules::clauseFor(Rules::KIND_ISSUE));
         $this->assertSame('4.2', Rules::clauseFor(Rules::KIND_PARTY));
     }
+
+    public function testNextReviewDateIsOneYearLater(): void
+    {
+        $this->assertSame('2027-11-19', Rules::nextReviewDate('2026-11-19'));
+        $this->assertSame('2027-11-19', Rules::nextReviewDate('2026-11-19 14:30:00'));
+        $this->assertSame('2029-03-01', Rules::nextReviewDate('2028-02-29'), 'Année bissextile.');
+    }
+
+    public function testLinkFieldFor(): void
+    {
+        $this->assertSame('_linked_risks', Rules::linkFieldFor('risk'));
+        $this->assertSame('_linked_obligations', Rules::linkFieldFor('obligation'));
+        $this->assertSame('_linked_controls', Rules::linkFieldFor('control'));
+        $this->assertNull(Rules::linkFieldFor('ticket'));
+        $this->assertNull(Rules::linkFieldFor(['risk']));
+        $this->assertNull(Rules::linkFieldFor(null));
+    }
+
+    public function testCsvCellNeutralizesFormulas(): void
+    {
+        $this->assertSame("'=SUM(A1:A2)", Rules::csvCell('=SUM(A1:A2)'));
+        $this->assertSame("'+33 1 00 00 00 00", Rules::csvCell('+33 1 00 00 00 00'));
+        $this->assertSame("'-x", Rules::csvCell('-x'));
+        $this->assertSame("'@cmd", Rules::csvCell('@cmd'));
+        $this->assertSame('Clients grands comptes', Rules::csvCell('Clients grands comptes'));
+        $this->assertSame('12', Rules::csvCell(12));
+        $this->assertSame('', Rules::csvCell(null));
+    }
 }
