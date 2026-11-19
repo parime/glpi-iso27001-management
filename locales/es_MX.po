@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: grcmanager\n"
-"Language: es_MX\n"
+"Language: es_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19034,3 +19034,269 @@ msgid "NIS2 Italy requirement (ACN)"
 msgid_plural "NIS2 Italy requirements (ACN)"
 msgstr[0] "Requisito NIS2 Italia (ACN)"
 msgstr[1] "Requisitos NIS2 Italia (ACN)"
+
+msgid "Preparatory file for the management review"
+msgstr "Expediente preparatorio de la revisión por la dirección"
+
+msgid "One PDF that gathers what top management has to review (ISO 27001 clause 9.3.2), straight from the plugin registers: no copy and paste. It is attached to this review as evidence, with its SHA-256 fingerprint."
+msgstr "Un único PDF que reúne lo que la dirección debe revisar (ISO 27001, cláusula 9.3.2), directamente desde los registros del plugin: sin copiar y pegar. Se adjunta a esta revisión como evidencia, con su huella SHA-256."
+
+msgid "Period from"
+msgstr "Periodo desde"
+
+msgid "Period to"
+msgstr "hasta"
+
+msgid "Generate the PDF"
+msgstr "Generar el PDF"
+
+msgid "Proposed period: since the previous management review (or the last twelve months) up to the date of this review. Figures follow your rights and active entities."
+msgstr "Periodo propuesto: desde la revisión por la dirección anterior (o los últimos doce meses) hasta la fecha de esta revisión. Las cifras siguen sus derechos y entidades activas."
+
+msgid "You need the right to update this review to generate its preparatory file."
+msgstr "Necesita el derecho de modificar esta revisión para generar su expediente preparatorio."
+
+msgid "Contents"
+msgstr "Contenido"
+
+msgid "Archived files"
+msgstr "Expedientes archivados"
+
+msgid "Document deleted"
+msgstr "Documento eliminado"
+
+msgid "SHA-256 fingerprint"
+msgstr "Huella SHA-256"
+
+msgid "No preparatory file generated yet for this review."
+msgstr "Todavía no se ha generado ningún expediente preparatorio para esta revisión."
+
+msgid "Actions decided at this review"
+msgstr "Acciones decididas en esta revisión"
+
+#, php-format
+msgid "%d action(s)"
+msgstr "%d acción(es)"
+
+#, php-format
+msgid "%d done"
+msgstr "%d realizada(s)"
+
+msgid "Each decision becomes an action with an owner, a due date and a status. The preparatory file of the next review reports where they stand."
+msgstr "Cada decisión se convierte en una acción con un responsable, una fecha límite y un estado. El expediente preparatorio de la siguiente revisión informa de su avance."
+
+msgid "Create the actions from the decisions"
+msgstr "Crear las acciones a partir de las decisiones"
+
+msgid "Write one decision per line in the \"Decisions and actions\" field of the review: each new line is offered here."
+msgstr "Escriba una decisión por línea en el campo «Decisiones y acciones» de la revisión: cada nueva línea se propone aquí."
+
+msgid "No action recorded for this review yet."
+msgstr "Todavía no hay ninguna acción registrada para esta revisión."
+
+msgid "Period covered"
+msgstr "Periodo cubierto"
+
+msgid "Perimeter"
+msgstr "Perímetro"
+
+msgid "Prepared by"
+msgstr "Preparado por"
+
+msgid "Figures are read from the GRC registers when the file is generated, with the rights and active entities of the person who generated it. A section whose register that person cannot read is marked as not included."
+msgstr "Las cifras se leen de los registros GRC al generar el expediente, con los derechos y las entidades activas de la persona que lo generó. Una sección cuyo registro esa persona no puede leer se indica como no incluida."
+
+msgid "Input to review"
+msgstr "Elemento a revisar"
+
+msgid "Included"
+msgstr "Incluido"
+
+msgid "Not included (no right)"
+msgstr "No incluido (sin derecho)"
+
+msgid "Not included: the person who generated this file cannot read this register."
+msgstr "No incluido: la persona que generó este expediente no puede leer este registro."
+
+msgid "Actions decided"
+msgstr "Acciones decididas"
+
+msgid "Completion"
+msgstr "Realización"
+
+msgid "No action from a previous review is open or was completed during the period."
+msgstr "Ninguna acción de una revisión anterior está abierta ni se realizó durante el periodo."
+
+msgid "Internal and external issues"
+msgstr "Cuestiones internas y externas"
+
+msgid "Updated during the period"
+msgstr "Actualizados durante el periodo"
+
+msgid "Review overdue"
+msgstr "Revisión vencida"
+
+msgid "Raised during the period"
+msgstr "Detectados durante el periodo"
+
+msgid "Closure verified during the period"
+msgstr "Cierre verificado durante el periodo"
+
+#, php-format
+msgid "Open non-conformities: %1$d in %2$s, %3$d in %4$s"
+msgstr "No conformidades abiertas: %1$d en %2$s, %3$d en %4$s"
+
+msgid "Declared during the period"
+msgstr "Declarados durante el periodo"
+
+msgid "Still open today"
+msgstr "Todavía abiertos hoy"
+
+msgid "Security incidents not included: no right to read them, or module disabled."
+msgstr "Incidentes de seguridad no incluidos: sin derecho de lectura o módulo desactivado."
+
+msgid "No internal audit was completed during the period."
+msgstr "Ninguna auditoría interna se terminó durante el periodo."
+
+msgid "No information security objective recorded."
+msgstr "No hay ningún objetivo de seguridad de la información registrado."
+
+msgid "Objective"
+msgstr "Objetivo"
+
+msgid "Target set"
+msgstr "Meta fijada"
+
+msgid "Latest measurement in the period"
+msgstr "Última medición del periodo"
+
+msgid "On the agenda of this review"
+msgstr "En el orden del día de esta revisión"
+
+#, php-format
+msgid "%d measurement(s) in the period"
+msgstr "%d medición(es) en el periodo"
+
+msgid "No measurement in the period"
+msgstr "Ninguna medición en el periodo"
+
+msgid "Identified during the period"
+msgstr "Identificados durante el periodo"
+
+#, php-format
+msgid "Open risks: %1$d in %2$s, %3$d in %4$s"
+msgstr "Riesgos abiertos: %1$d en %2$s, %3$d en %4$s"
+
+#, php-format
+msgid "Latest approved version: %1$d, on %2$s"
+msgstr "Última versión aprobada: %1$d, el %2$s"
+
+msgid "The SoA has changed since this approval"
+msgstr "La SoA ha cambiado desde esta aprobación"
+
+msgid "Unchanged since this approval"
+msgstr "Sin cambios desde esta aprobación"
+
+msgid "No approved version of the SoA yet"
+msgstr "Todavía no hay ninguna versión aprobada de la SoA"
+
+msgid "Maturity level"
+msgstr "Nivel de madurez"
+
+msgid "Change since the start of the period"
+msgstr "Evolución desde el inicio del periodo"
+
+msgid "No monthly maturity score recorded during the period."
+msgstr "No se registró ninguna puntuación de madurez mensual durante el periodo."
+
+msgid "To be completed during the meeting: decisions on improvement opportunities, changes needed to the ISMS, and resources."
+msgstr "A completar durante la reunión: decisiones sobre oportunidades de mejora, cambios necesarios en el SGSI y recursos."
+
+msgid "One decision per line: each line can then become a tracked action, with an owner and a due date, from the \"Preparatory file\" tab."
+msgstr "Una decisión por línea: cada línea puede convertirse después en una acción con seguimiento, con un responsable y una fecha límite, desde la pestaña «Expediente preparatorio»."
+
+msgid "Choose a valid period: a start date before the end date, ten years at most."
+msgstr "Elija un periodo válido: una fecha de inicio anterior a la fecha de fin, diez años como máximo."
+
+msgid "Preparatory file generated and attached to the review."
+msgstr "Expediente preparatorio generado y adjuntado a la revisión."
+
+msgid "The preparatory file could not be generated."
+msgstr "No se pudo generar el expediente preparatorio."
+
+msgid "Every decision already has its action."
+msgstr "Cada decisión ya tiene su acción."
+
+msgid "Management review not found."
+msgstr "Revisión por la dirección no encontrada."
+
+msgid "Describe the action."
+msgstr "Describa la acción."
+
+msgid "Actions from previous reviews"
+msgstr "Acciones de revisiones anteriores"
+
+msgid "Where the actions decided at earlier management reviews stand today."
+msgstr "En qué punto están hoy las acciones decididas en revisiones por la dirección anteriores."
+
+msgid "Context and interested parties"
+msgstr "Contexto y partes interesadas"
+
+msgid "Internal and external issues and interested parties: what changed during the period and what is overdue for review."
+msgstr "Cuestiones internas y externas y partes interesadas: qué cambió durante el periodo y qué revisión está vencida."
+
+msgid "Findings raised and closed during the period, and corrective actions still open or late."
+msgstr "Hallazgos detectados y cerrados durante el periodo, y acciones correctivas aún abiertas o vencidas."
+
+msgid "Monitoring, measurement and incidents"
+msgstr "Seguimiento, medición e incidentes"
+
+msgid "Key risk indicators and information security incidents over the period."
+msgstr "Indicadores clave de riesgo e incidentes de seguridad de la información en el periodo."
+
+msgid "Audit results"
+msgstr "Resultados de auditoría"
+
+msgid "Internal audits completed during the period and what they found."
+msgstr "Auditorías internas terminadas durante el periodo y sus hallazgos."
+
+msgid "Status of each objective and its latest measurement in the period."
+msgstr "Estado de cada objetivo y su última medición del periodo."
+
+msgid "Risk assessment and treatment"
+msgstr "Apreciación y tratamiento de riesgos"
+
+msgid "Open risks by level, risks beyond appetite, and progress of the treatment plan."
+msgstr "Riesgos abiertos por nivel, riesgos por encima del apetito y avance del plan de tratamiento."
+
+msgid "Implementation of the applicable controls and the latest approved version of the SoA."
+msgstr "Implementación de los controles aplicables y última versión aprobada de la SoA."
+
+msgid "Opportunities for improvement"
+msgstr "Oportunidades de mejora"
+
+msgid "Maturity score over the period and consistency gaps still to fix."
+msgstr "Puntuación de madurez en el periodo y brechas de coherencia aún por corregir."
+
+msgid "Management review preparatory file"
+msgstr "Expediente preparatorio de la revisión por la dirección"
+
+#, php-format
+msgid "Management review preparatory file - %1$s (%2$s to %3$s)"
+msgstr "Expediente preparatorio de la revisión por la dirección - %1$s (del %2$s al %3$s)"
+
+#, php-format
+msgid "%d action created from the decisions."
+msgid_plural "%d actions created from the decisions."
+msgstr[0] "%d acción creada a partir de las decisiones."
+msgstr[1] "%d acciones creadas a partir de las decisiones."
+
+msgid "Management review action"
+msgid_plural "Management review actions"
+msgstr[0] "Acción de revisión por la dirección"
+msgstr[1] "Acciones de revisión por la dirección"
+
+msgid "Preparatory file"
+msgid_plural "Preparatory files"
+msgstr[0] "Expediente preparatorio"
+msgstr[1] "Expedientes preparatorios"

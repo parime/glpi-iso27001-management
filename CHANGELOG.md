@@ -7,6 +7,29 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Added
+
+- **Dossier préparatoire de la revue de direction** (issue #542, ISO 27001 clause 9.3.2). Nouvel
+  onglet « Dossier préparatoire » sur la fiche d'une revue de direction, sans nouvelle entrée de
+  menu.
+  - Un PDF avec une section par entrée de 9.3.2 : actions des revues précédentes, contexte et
+    parties intéressées, non-conformités et actions correctives, KRI et incidents de sécurité,
+    audits internes terminés, objectifs et leur dernière mesure, risques (niveaux, appétence, plan
+    de traitement), SoA (mise en œuvre, dernière version approuvée), score de maturité et écarts de
+    cohérence. Tendances mensuelles quand elles sont enregistrées.
+  - Période paramétrable, proposée depuis la revue précédente (ou les douze derniers mois) jusqu'à
+    la date de la revue. Chiffres tirés des fournisseurs du tableau de bord, avec les droits et les
+    entités de la personne qui génère : une section dont elle ne peut pas lire le registre est
+    signalée « non incluse », jamais remplie.
+  - Le PDF est joint automatiquement à la revue (onglet Documents, lisible par qui peut lire la
+    revue), avec sa période, son auteur et son empreinte SHA-256 affichés dans l'onglet.
+  - Actions décidées en revue : une action par ligne du champ « Décisions et actions » (sans
+    doublon, sur demande), ou saisie à la main ; responsable, échéance et statut suivis, retards
+    signalés. Le dossier de la revue suivante reprend leur avancement (9.3.2 a). Rien n'est
+    affecté, planifié ni clôturé automatiquement.
+  - La fiche de la revue s'affiche désormais avec ses onglets (dossier préparatoire, documents).
+
+
 ## [2.56.0] - 2026-11-19
 
 ### Added

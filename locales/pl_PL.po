@@ -18938,3 +18938,272 @@ msgid_plural "NIS2 Italy requirements (ACN)"
 msgstr[0] "Wymaganie NIS2 Włochy (ACN)"
 msgstr[1] "Wymagania NIS2 Włochy (ACN)"
 msgstr[2] "Wymagań NIS2 Włochy (ACN)"
+
+msgid "Preparatory file for the management review"
+msgstr "Dokumentacja przygotowawcza przeglądu zarządzania"
+
+msgid "One PDF that gathers what top management has to review (ISO 27001 clause 9.3.2), straight from the plugin registers: no copy and paste. It is attached to this review as evidence, with its SHA-256 fingerprint."
+msgstr "Jeden plik PDF zbierający to, co najwyższe kierownictwo musi przejrzeć (ISO 27001, punkt 9.3.2), prosto z rejestrów wtyczki: bez kopiowania i wklejania. Jest dołączany do tego przeglądu jako dowód, wraz z odciskiem SHA-256."
+
+msgid "Period from"
+msgstr "Okres od"
+
+msgid "Period to"
+msgstr "do"
+
+msgid "Generate the PDF"
+msgstr "Wygeneruj PDF"
+
+msgid "Proposed period: since the previous management review (or the last twelve months) up to the date of this review. Figures follow your rights and active entities."
+msgstr "Proponowany okres: od poprzedniego przeglądu zarządzania (lub ostatnich dwunastu miesięcy) do daty tego przeglądu. Dane uwzględniają Twoje uprawnienia i aktywne jednostki."
+
+msgid "You need the right to update this review to generate its preparatory file."
+msgstr "Aby wygenerować dokumentację przygotowawczą, potrzebujesz uprawnienia do modyfikacji tego przeglądu."
+
+msgid "Contents"
+msgstr "Zawartość"
+
+msgid "Archived files"
+msgstr "Zarchiwizowane dokumentacje"
+
+msgid "Document deleted"
+msgstr "Dokument usunięty"
+
+msgid "SHA-256 fingerprint"
+msgstr "Odcisk SHA-256"
+
+msgid "No preparatory file generated yet for this review."
+msgstr "Dla tego przeglądu nie wygenerowano jeszcze dokumentacji przygotowawczej."
+
+msgid "Actions decided at this review"
+msgstr "Działania postanowione podczas tego przeglądu"
+
+#, php-format
+msgid "%d action(s)"
+msgstr "Działania: %d"
+
+#, php-format
+msgid "%d done"
+msgstr "Zrealizowane: %d"
+
+msgid "Each decision becomes an action with an owner, a due date and a status. The preparatory file of the next review reports where they stand."
+msgstr "Każda decyzja staje się działaniem z osobą odpowiedzialną, terminem i statusem. Dokumentacja przygotowawcza następnego przeglądu przedstawia ich stan."
+
+msgid "Create the actions from the decisions"
+msgstr "Utwórz działania na podstawie decyzji"
+
+msgid "Write one decision per line in the \"Decisions and actions\" field of the review: each new line is offered here."
+msgstr "Wpisz jedną decyzję w wierszu w polu „Decyzje i działania” przeglądu: każdy nowy wiersz jest tu proponowany."
+
+msgid "No action recorded for this review yet."
+msgstr "Dla tego przeglądu nie zarejestrowano jeszcze działań."
+
+msgid "Period covered"
+msgstr "Objęty okres"
+
+msgid "Perimeter"
+msgstr "Zakres"
+
+msgid "Prepared by"
+msgstr "Przygotował(a)"
+
+msgid "Figures are read from the GRC registers when the file is generated, with the rights and active entities of the person who generated it. A section whose register that person cannot read is marked as not included."
+msgstr "Dane są odczytywane z rejestrów GRC w chwili generowania, z uprawnieniami i aktywnymi jednostkami osoby generującej. Sekcja, której rejestru ta osoba nie może odczytać, jest oznaczona jako nieuwzględniona."
+
+msgid "Input to review"
+msgstr "Element do przeglądu"
+
+msgid "Included"
+msgstr "Uwzględniono"
+
+msgid "Not included (no right)"
+msgstr "Nieuwzględniono (brak uprawnień)"
+
+msgid "Not included: the person who generated this file cannot read this register."
+msgstr "Nieuwzględniono: osoba, która wygenerowała tę dokumentację, nie może odczytać tego rejestru."
+
+msgid "Actions decided"
+msgstr "Postanowione działania"
+
+msgid "Completion"
+msgstr "Realizacja"
+
+msgid "No action from a previous review is open or was completed during the period."
+msgstr "Żadne działanie z poprzedniego przeglądu nie jest otwarte ani nie zostało zrealizowane w tym okresie."
+
+msgid "Internal and external issues"
+msgstr "Kwestie wewnętrzne i zewnętrzne"
+
+msgid "Updated during the period"
+msgstr "Zaktualizowane w okresie"
+
+msgid "Review overdue"
+msgstr "Przegląd po terminie"
+
+msgid "Raised during the period"
+msgstr "Stwierdzone w okresie"
+
+msgid "Closure verified during the period"
+msgstr "Zamknięcie zweryfikowane w okresie"
+
+#, php-format
+msgid "Open non-conformities: %1$d in %2$s, %3$d in %4$s"
+msgstr "Otwarte niezgodności: %1$d w %2$s, %3$d w %4$s"
+
+msgid "Declared during the period"
+msgstr "Zgłoszone w okresie"
+
+msgid "Still open today"
+msgstr "Nadal otwarte"
+
+msgid "Security incidents not included: no right to read them, or module disabled."
+msgstr "Incydenty bezpieczeństwa nieuwzględnione: brak uprawnień do odczytu lub moduł wyłączony."
+
+msgid "No internal audit was completed during the period."
+msgstr "W okresie nie zakończono żadnego audytu wewnętrznego."
+
+msgid "No information security objective recorded."
+msgstr "Nie zarejestrowano żadnego celu bezpieczeństwa informacji."
+
+msgid "Objective"
+msgstr "Cel"
+
+msgid "Target set"
+msgstr "Wyznaczona wartość docelowa"
+
+msgid "Latest measurement in the period"
+msgstr "Ostatni pomiar w okresie"
+
+msgid "On the agenda of this review"
+msgstr "W porządku obrad tego przeglądu"
+
+#, php-format
+msgid "%d measurement(s) in the period"
+msgstr "Pomiary w okresie: %d"
+
+msgid "No measurement in the period"
+msgstr "Brak pomiaru w okresie"
+
+msgid "Identified during the period"
+msgstr "Zidentyfikowane w okresie"
+
+#, php-format
+msgid "Open risks: %1$d in %2$s, %3$d in %4$s"
+msgstr "Otwarte ryzyka: %1$d w %2$s, %3$d w %4$s"
+
+#, php-format
+msgid "Latest approved version: %1$d, on %2$s"
+msgstr "Ostatnia zatwierdzona wersja: %1$d, dnia %2$s"
+
+msgid "The SoA has changed since this approval"
+msgstr "Deklaracja SoA zmieniła się od tego zatwierdzenia"
+
+msgid "Unchanged since this approval"
+msgstr "Bez zmian od tego zatwierdzenia"
+
+msgid "No approved version of the SoA yet"
+msgstr "Brak zatwierdzonej wersji deklaracji SoA"
+
+msgid "Maturity level"
+msgstr "Poziom dojrzałości"
+
+msgid "Change since the start of the period"
+msgstr "Zmiana od początku okresu"
+
+msgid "No monthly maturity score recorded during the period."
+msgstr "W okresie nie zarejestrowano miesięcznego wyniku dojrzałości."
+
+msgid "To be completed during the meeting: decisions on improvement opportunities, changes needed to the ISMS, and resources."
+msgstr "Do uzupełnienia podczas spotkania: decyzje dotyczące możliwości doskonalenia, potrzebnych zmian w SZBI i zasobów."
+
+msgid "One decision per line: each line can then become a tracked action, with an owner and a due date, from the \"Preparatory file\" tab."
+msgstr "Jedna decyzja w wierszu: każdy wiersz może następnie stać się monitorowanym działaniem z osobą odpowiedzialną i terminem, z karty „Dokumentacja przygotowawcza”."
+
+msgid "Choose a valid period: a start date before the end date, ten years at most."
+msgstr "Wybierz prawidłowy okres: data początkowa przed datą końcową, najwyżej dziesięć lat."
+
+msgid "Preparatory file generated and attached to the review."
+msgstr "Dokumentacja przygotowawcza wygenerowana i dołączona do przeglądu."
+
+msgid "The preparatory file could not be generated."
+msgstr "Nie udało się wygenerować dokumentacji przygotowawczej."
+
+msgid "Every decision already has its action."
+msgstr "Każda decyzja ma już swoje działanie."
+
+msgid "Management review not found."
+msgstr "Nie znaleziono przeglądu zarządzania."
+
+msgid "Describe the action."
+msgstr "Opisz działanie."
+
+msgid "Actions from previous reviews"
+msgstr "Działania z poprzednich przeglądów"
+
+msgid "Where the actions decided at earlier management reviews stand today."
+msgstr "Na jakim etapie są dziś działania postanowione podczas wcześniejszych przeglądów zarządzania."
+
+msgid "Context and interested parties"
+msgstr "Kontekst i strony zainteresowane"
+
+msgid "Internal and external issues and interested parties: what changed during the period and what is overdue for review."
+msgstr "Kwestie wewnętrzne i zewnętrzne oraz strony zainteresowane: co zmieniło się w okresie i czego przegląd jest po terminie."
+
+msgid "Findings raised and closed during the period, and corrective actions still open or late."
+msgstr "Ustalenia stwierdzone i zamknięte w okresie oraz działania korygujące nadal otwarte lub po terminie."
+
+msgid "Monitoring, measurement and incidents"
+msgstr "Monitorowanie, pomiary i incydenty"
+
+msgid "Key risk indicators and information security incidents over the period."
+msgstr "Kluczowe wskaźniki ryzyka i incydenty bezpieczeństwa informacji w okresie."
+
+msgid "Audit results"
+msgstr "Wyniki audytów"
+
+msgid "Internal audits completed during the period and what they found."
+msgstr "Audyty wewnętrzne zakończone w okresie i ich ustalenia."
+
+msgid "Status of each objective and its latest measurement in the period."
+msgstr "Status każdego celu i jego ostatni pomiar w okresie."
+
+msgid "Risk assessment and treatment"
+msgstr "Szacowanie i postępowanie z ryzykiem"
+
+msgid "Open risks by level, risks beyond appetite, and progress of the treatment plan."
+msgstr "Otwarte ryzyka według poziomu, ryzyka powyżej apetytu i postęp planu postępowania."
+
+msgid "Implementation of the applicable controls and the latest approved version of the SoA."
+msgstr "Wdrożenie mających zastosowanie zabezpieczeń i ostatnia zatwierdzona wersja deklaracji SoA."
+
+msgid "Opportunities for improvement"
+msgstr "Możliwości doskonalenia"
+
+msgid "Maturity score over the period and consistency gaps still to fix."
+msgstr "Wynik dojrzałości w okresie i niespójności nadal do usunięcia."
+
+msgid "Management review preparatory file"
+msgstr "Dokumentacja przygotowawcza przeglądu zarządzania"
+
+#, php-format
+msgid "Management review preparatory file - %1$s (%2$s to %3$s)"
+msgstr "Dokumentacja przygotowawcza przeglądu zarządzania - %1$s (od %2$s do %3$s)"
+
+#, php-format
+msgid "%d action created from the decisions."
+msgid_plural "%d actions created from the decisions."
+msgstr[0] "Utworzono %d działanie na podstawie decyzji."
+msgstr[1] "Utworzono %d działania na podstawie decyzji."
+msgstr[2] "Utworzono %d działań na podstawie decyzji."
+
+msgid "Management review action"
+msgid_plural "Management review actions"
+msgstr[0] "Działanie z przeglądu zarządzania"
+msgstr[1] "Działania z przeglądu zarządzania"
+msgstr[2] "Działań z przeglądu zarządzania"
+
+msgid "Preparatory file"
+msgid_plural "Preparatory files"
+msgstr[0] "Dokumentacja przygotowawcza"
+msgstr[1] "Dokumentacje przygotowawcze"
+msgstr[2] "Dokumentacji przygotowawczych"

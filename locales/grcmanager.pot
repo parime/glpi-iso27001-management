@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-19 06:40+0000\n"
+"POT-Creation-Date: 2026-11-19 20:47+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -310,11 +310,13 @@ msgstr ""
 msgid "Verified breach"
 msgstr ""
 
-#: templates/breach_exposure_form.html.twig templates/dora/register.html.twig
-#: templates/pdf/postmortem_report.html.twig
+#: templates/breach_exposure_form.html.twig
+#: templates/management_review_dossier_tab.html.twig
+#: templates/dora/register.html.twig templates/pdf/postmortem_report.html.twig
 #: templates/pdf/audit_report.html.twig
 #: templates/pdf/internal_audit_report.html.twig
 #: templates/pdf/business_continuity_report.html.twig
+#: templates/pdf/management_review_dossier.html.twig
 #: templates/pdf/risk_register_report.html.twig
 #: templates/processing_activity_tab.html.twig
 #: templates/policy_acknowledgement_tab.html.twig
@@ -336,7 +338,7 @@ msgstr ""
 #: templates/management_review_form.html.twig
 #: templates/policy_approval_tab.html.twig src/AccessReview.php:302
 #: src/Audit.php:201 src/BreachExposure.php:132 src/ComplianceEvent.php:226
-#: src/EndOfLife.php:476 src/ManagementReview.php:296 src/Nonconformity.php:324
+#: src/EndOfLife.php:476 src/ManagementReview.php:320 src/Nonconformity.php:324
 #: src/NotificationTargetAuditEvidenceRequest.php:159
 #: src/NotificationTargetPolicy.php:132
 #: src/NotificationTargetRiskIndicator.php:148 src/Objective.php:158
@@ -358,6 +360,195 @@ msgstr ""
 msgid ""
 "Action taken: password changed, multi-factor authentication enabled, user "
 "informed…"
+msgstr ""
+
+#: templates/management_review_dossier_tab.html.twig
+msgid "Preparatory file for the management review"
+msgstr ""
+
+#: templates/management_review_dossier_tab.html.twig
+msgid ""
+"One PDF that gathers what top management has to review (ISO 27001 clause "
+"9.3.2), straight from the plugin registers: no copy and paste. It is "
+"attached to this review as evidence, with its SHA-256 fingerprint."
+msgstr ""
+
+#: templates/management_review_dossier_tab.html.twig
+msgid "Period from"
+msgstr ""
+
+#: templates/management_review_dossier_tab.html.twig
+msgid "Period to"
+msgstr ""
+
+#: templates/management_review_dossier_tab.html.twig
+msgid "Generate the PDF"
+msgstr ""
+
+#: templates/management_review_dossier_tab.html.twig
+msgid ""
+"Proposed period: since the previous management review (or the last twelve "
+"months) up to the date of this review. Figures follow your rights and active "
+"entities."
+msgstr ""
+
+#: templates/management_review_dossier_tab.html.twig
+msgid ""
+"You need the right to update this review to generate its preparatory file."
+msgstr ""
+
+#: templates/management_review_dossier_tab.html.twig
+msgid "Contents"
+msgstr ""
+
+#: templates/management_review_dossier_tab.html.twig
+msgid "Archived files"
+msgstr ""
+
+#: templates/management_review_dossier_tab.html.twig front/audit.report.php:77
+#: front/databreach.export.php:65 front/networkflow.report.php:31
+#: front/processingactivity.export.php:64 front/risk.report.php:73
+#: src/AccessReview.php:745 src/AcnRequirement.php:805 src/Audit.php:549
+#: src/ConsistencyCheck.php:1380 src/CrisisExercise.php:613 src/Dpia.php:443
+#: src/EbiosStudy.php:313 src/ManagementReviewDossier.php:585
+#: src/PolicyAcknowledgement.php:703 src/PolicyVersion.php:765
+#: src/SecurityIncidentPostMortem.php:242
+#: src/Services/Control/SoaReportBuilder.php:121 src/Training.php:725
+#, php-format
+msgid "Generated on %s"
+msgstr ""
+
+#: templates/management_review_dossier_tab.html.twig
+#: templates/dora/register.html.twig templates/training_quiz_tab.html.twig
+#: templates/my_trainings_tab.html.twig
+msgid "Download"
+msgstr ""
+
+#: templates/management_review_dossier_tab.html.twig
+msgid "Document deleted"
+msgstr ""
+
+#: templates/management_review_dossier_tab.html.twig
+msgid "SHA-256 fingerprint"
+msgstr ""
+
+#: templates/management_review_dossier_tab.html.twig
+msgid "No preparatory file generated yet for this review."
+msgstr ""
+
+#: templates/management_review_dossier_tab.html.twig
+msgid "Actions decided at this review"
+msgstr ""
+
+#: templates/management_review_dossier_tab.html.twig
+#, php-format
+msgid "%d action(s)"
+msgstr ""
+
+#: templates/management_review_dossier_tab.html.twig
+#, php-format
+msgid "%d done"
+msgstr ""
+
+#: templates/management_review_dossier_tab.html.twig
+#: templates/my_space.html.twig src/Services/Workspace/MySpaceProvider.php:121
+#, php-format
+msgid "%d overdue"
+msgstr ""
+
+#: templates/management_review_dossier_tab.html.twig
+msgid ""
+"Each decision becomes an action with an owner, a due date and a status. The "
+"preparatory file of the next review reports where they stand."
+msgstr ""
+
+#: templates/management_review_dossier_tab.html.twig
+msgid "Create the actions from the decisions"
+msgstr ""
+
+#: templates/management_review_dossier_tab.html.twig
+msgid ""
+"Write one decision per line in the \"Decisions and actions\" field of the "
+"review: each new line is offered here."
+msgstr ""
+
+#: templates/management_review_dossier_tab.html.twig
+#: templates/pdf/management_review_dossier.html.twig
+#: templates/risk_treatment_plan.html.twig
+#: src/NotificationTargetRiskTreatmentAction.php:99
+msgid "Action description"
+msgstr ""
+
+#: templates/management_review_dossier_tab.html.twig
+#: templates/pdf/acn_report.html.twig templates/pdf/audit_report.html.twig
+#: templates/pdf/internal_audit_report.html.twig
+#: templates/pdf/soa_report.html.twig
+#: templates/pdf/business_continuity_report.html.twig
+#: templates/pdf/management_review_dossier.html.twig
+#: templates/pdf/access_review_report.html.twig
+#: templates/ebios_study_form.html.twig
+#: templates/acn_requirement_form.html.twig
+#: templates/isms_requirement_form.html.twig
+#: templates/risk_treatment_plan.html.twig
+#: templates/tabs/_access_review_rows.html.twig
+#: templates/acn_register.html.twig templates/compliance_event_form.html.twig
+#: templates/nonconformity_form.html.twig
+#: templates/audit_findings_tab.html.twig
+#: templates/business_process_form.html.twig
+#: templates/periodic_reviews.html.twig src/AcnRequirement.php:756
+#: src/AcnRequirement.php:834 src/BusinessProcess.php:544
+#: src/BusinessProcess.php:616 src/ComplianceEvent.php:228
+#: src/EbiosStudy.php:598 src/IsmsRequirement.php:300 src/Nonconformity.php:332
+msgid "Owner"
+msgstr ""
+
+#: templates/management_review_dossier_tab.html.twig
+#: templates/pdf/acn_report.html.twig templates/pdf/postmortem_report.html.twig
+#: templates/pdf/audit_report.html.twig
+#: templates/pdf/internal_audit_report.html.twig
+#: templates/pdf/management_review_dossier.html.twig
+#: templates/my_space.html.twig templates/objective_form.html.twig
+#: templates/acn_requirement_form.html.twig
+#: templates/risk_treatment_plan.html.twig templates/crisis_room.html.twig
+#: templates/acn_register.html.twig templates/access_review_form.html.twig
+#: templates/nonconformity_form.html.twig
+#: templates/audit_evidence_requests_tab.html.twig
+#: templates/audit_findings_tab.html.twig templates/auditor_space.html.twig
+#: src/AccessReview.php:323 src/AcnRequirement.php:757
+#: src/AcnRequirement.php:837 src/Nonconformity.php:341
+#: src/NotificationTargetAccessReview.php:106
+#: src/NotificationTargetAuditEvidenceRequest.php:158
+#: src/NotificationTargetBusinessProcess.php:161
+#: src/NotificationTargetNonconformity.php:93
+#: src/NotificationTargetRiskTreatmentAction.php:100 src/Objective.php:166
+msgid "Due date"
+msgstr ""
+
+#: templates/management_review_dossier_tab.html.twig
+#: templates/pdf/acn_report.html.twig templates/pdf/postmortem_report.html.twig
+#: templates/pdf/crisis_exercise_report.html.twig
+#: templates/pdf/management_review_dossier.html.twig
+#: templates/postmortem_tab.html.twig templates/risk_treatment_plan.html.twig
+#: templates/crisis_room.html.twig templates/acn_register.html.twig
+#: templates/periodic_reviews.html.twig src/DataSubjectRequest.php:111
+msgid "Overdue"
+msgstr ""
+
+#: templates/management_review_dossier_tab.html.twig
+#: templates/risk_treatment_plan.html.twig
+msgid "Update"
+msgstr ""
+
+#: templates/management_review_dossier_tab.html.twig
+#: templates/risk_treatment_plan.html.twig
+#: templates/objective_measurements.html.twig
+#: templates/canonical_product_lists.html.twig
+#: templates/risk_indicator_values.html.twig
+msgid "Confirm deletion?"
+msgstr ""
+
+#: templates/management_review_dossier_tab.html.twig
+msgid "No action recorded for this review yet."
 msgstr ""
 
 #: templates/dora/arrangement_tab.html.twig src/DoraRegister.php:66
@@ -822,8 +1013,8 @@ msgstr ""
 msgid "Contract"
 msgstr ""
 
-#: templates/dora/register.html.twig templates/risk_import.html.twig
-#: templates/processing_activity_form.html.twig
+#: templates/dora/register.html.twig templates/pdf/acn_report.html.twig
+#: templates/risk_import.html.twig templates/processing_activity_form.html.twig
 #: templates/tabs/item_security_incidents.html.twig
 #: templates/audit_evidence_requests_tab.html.twig
 #: templates/supplier_security_watch.html.twig
@@ -964,13 +1155,9 @@ msgstr ""
 msgid "Lines"
 msgstr ""
 
-#: templates/dora/register.html.twig templates/training_quiz_tab.html.twig
-#: templates/my_trainings_tab.html.twig
-msgid "Download"
-msgstr ""
-
 #: templates/dora/register.html.twig
-#: templates/pdf/training_session_report.html.twig src/DoraRegister.php:234
+#: templates/pdf/training_session_report.html.twig
+#: templates/pdf/management_review_dossier.html.twig src/DoraRegister.php:234
 #: src/DoraRegister.php:278 src/SupplierAssessment.php:90
 msgid "Yes"
 msgstr ""
@@ -1254,8 +1441,8 @@ msgstr ""
 
 #: templates/control_list_header.html.twig
 #: templates/isms_requirement_list_header.html.twig
-#: templates/risk_list_actions.html.twig front/audit.php:47
-#: front/databreach.php:44 front/processingactivity.php:44
+#: templates/acn_register.html.twig templates/risk_list_actions.html.twig
+#: front/audit.php:47 front/databreach.php:44 front/processingactivity.php:44
 msgid "Export PDF"
 msgstr ""
 
@@ -1263,7 +1450,8 @@ msgstr ""
 msgid "CSV import/export"
 msgstr ""
 
-#: templates/control_list_header.html.twig templates/pdf/soa_report.html.twig
+#: templates/control_list_header.html.twig templates/pdf/acn_report.html.twig
+#: templates/pdf/soa_report.html.twig src/AcnRequirement.php:758
 msgid "Management approval"
 msgstr ""
 
@@ -1332,15 +1520,16 @@ msgstr ""
 #: templates/crisis_exercises.html.twig src/AccessReview.php:104
 #: src/Audit.php:96 src/Audit.php:336 src/Control.php:154 src/Control.php:1364
 #: src/DataSubjectRequest.php:97 src/EbiosStudy.php:90
-#: src/IsmsRequirement.php:154 src/RiskTreatmentAction.php:88
-#: src/RiskTreatmentAction.php:172 src/SecurityIncidentPlaybookTask.php:64
-#: src/Waiver.php:101
+#: src/IsmsRequirement.php:154 src/ManagementReviewAction.php:62
+#: src/RiskTreatmentAction.php:88 src/RiskTreatmentAction.php:172
+#: src/SecurityIncidentPlaybookTask.php:64 src/Waiver.php:101
 msgid "In progress"
 msgstr ""
 
 #: templates/control_list_header.html.twig templates/pdf/soa_report.html.twig
-#: src/ManagementReview.php:80 src/ManagementReview.php:377
-#: src/RiskTreatmentAction.php:87 src/RiskTreatmentAction.php:171
+#: src/ManagementReview.php:81 src/ManagementReview.php:401
+#: src/ManagementReviewAction.php:61 src/RiskTreatmentAction.php:87
+#: src/RiskTreatmentAction.php:171
 msgid "Planned"
 msgstr ""
 
@@ -1378,8 +1567,9 @@ msgstr ""
 msgid "Applicable controls"
 msgstr ""
 
-#: templates/control_list_header.html.twig templates/pdf/soa_report.html.twig
-#: templates/dashboard_perimeters.html.twig
+#: templates/control_list_header.html.twig templates/pdf/acn_report.html.twig
+#: templates/pdf/soa_report.html.twig templates/dashboard_perimeters.html.twig
+#: templates/acn_register.html.twig
 msgid "Implementation rate"
 msgstr ""
 
@@ -1535,6 +1725,112 @@ msgstr ""
 msgid "Save decisions"
 msgstr ""
 
+#: templates/pdf/acn_report.html.twig templates/pdf/postmortem_report.html.twig
+#: templates/pdf/policy_acknowledgement_report.html.twig
+#: templates/pdf/crisis_exercise_report.html.twig
+#: templates/pdf/action_log.html.twig templates/pdf/audit_report.html.twig
+#: templates/pdf/internal_audit_report.html.twig
+#: templates/pdf/soa_report.html.twig
+#: templates/pdf/training_session_report.html.twig
+#: templates/pdf/business_continuity_report.html.twig
+#: templates/pdf/remediation_plan.html.twig
+#: templates/pdf/network_flow_report.html.twig
+#: templates/pdf/risk_register_report.html.twig
+#: templates/pdf/consistency_report.html.twig
+#: templates/pdf/access_review_report.html.twig
+#: templates/acn_requirement_form.html.twig templates/acn_register.html.twig
+#: src/AcnRequirement.php:751 src/NotificationTargetVulnerabilityDigest.php:233
+msgid "Summary"
+msgstr ""
+
+#: templates/pdf/acn_report.html.twig
+#: templates/pdf/policy_acknowledgement_report.html.twig
+#: templates/pdf/network_flow_report.html.twig
+#: templates/pdf/data_breach_register.html.twig
+#: templates/pdf/processing_register_report.html.twig
+#: templates/pdf/access_review_report.html.twig
+#: templates/policy_acknowledgement_tab.html.twig
+#: templates/policy_charter_signatures.html.twig
+#: templates/acn_register.html.twig templates/config_form.html.twig
+#: front/policyacknowledgement.export.php:48 src/PolicyAcknowledgement.php:131
+msgid "Entity"
+msgstr ""
+
+#: templates/pdf/acn_report.html.twig templates/config_form.html.twig
+msgid "Classification"
+msgstr ""
+
+#: templates/pdf/acn_report.html.twig templates/acn_requirement_form.html.twig
+#, php-format
+msgid "ACN determination %s"
+msgstr ""
+
+#: templates/pdf/acn_report.html.twig templates/referentiels_acn_card.html.twig
+#: templates/acn_requirement_form.html.twig templates/acn_register.html.twig
+#, php-format
+msgid "Annex %d"
+msgstr ""
+
+#: templates/pdf/acn_report.html.twig templates/custom_framework_list.html.twig
+#: templates/acn_register.html.twig templates/custom_framework_form.html.twig
+msgid "Requirements"
+msgstr ""
+
+#: templates/pdf/acn_report.html.twig
+#, php-format
+msgid "%d not applicable"
+msgstr ""
+
+#: templates/pdf/acn_report.html.twig templates/acn_register.html.twig
+msgid "Implemented requirements"
+msgstr ""
+
+#: templates/pdf/acn_report.html.twig templates/acn_register.html.twig
+msgid "Approvals to record"
+msgstr ""
+
+#: templates/pdf/acn_report.html.twig templates/acn_register.html.twig
+msgid "Function"
+msgstr ""
+
+#: templates/pdf/acn_report.html.twig templates/pdf/soa_report.html.twig
+#: templates/acn_requirement_form.html.twig
+#: templates/isms_requirement_form.html.twig templates/acn_register.html.twig
+#: templates/custom_framework_form.html.twig src/AcnRequirement.php:749
+#: src/IsmsRequirement.php:275
+msgid "Requirement"
+msgstr ""
+
+#: templates/pdf/acn_report.html.twig templates/pdf/soa_report.html.twig
+#: templates/acn_requirement_form.html.twig templates/acn_register.html.twig
+#: templates/control_form.html.twig src/AcnRequirement.php:753
+#: src/Control.php:1033
+msgid "Applicability"
+msgstr ""
+
+#: templates/pdf/acn_report.html.twig templates/pdf/soa_report.html.twig
+#: templates/acn_requirement_form.html.twig templates/acn_register.html.twig
+#: templates/framework_assessment.html.twig templates/control_form.html.twig
+#: src/AcnRequirement.php:755 src/Control.php:1041
+#: src/NotificationTargetControl.php:150
+msgid "Implementation status"
+msgstr ""
+
+#: templates/pdf/acn_report.html.twig templates/park_cve_ticket.html.twig
+msgid "overdue"
+msgstr ""
+
+#: templates/pdf/acn_report.html.twig src/AcnRequirement.php:770
+msgid "Required, not recorded"
+msgstr ""
+
+#: templates/pdf/acn_report.html.twig
+msgid ""
+"Codes and point numbers come from the annexes published by the ACN; titles "
+"and summaries are written by this project and do not replace the official "
+"text."
+msgstr ""
+
 #: templates/pdf/_pdf_style.html.twig
 #, php-format
 msgid "Perimeter: %s"
@@ -1542,14 +1838,6 @@ msgstr ""
 
 #: templates/pdf/postmortem_report.html.twig templates/postmortem_tab.html.twig
 msgid "Met"
-msgstr ""
-
-#: templates/pdf/postmortem_report.html.twig
-#: templates/pdf/crisis_exercise_report.html.twig
-#: templates/postmortem_tab.html.twig templates/risk_treatment_plan.html.twig
-#: templates/crisis_room.html.twig templates/periodic_reviews.html.twig
-#: src/DataSubjectRequest.php:111
-msgid "Overdue"
 msgstr ""
 
 #: templates/pdf/postmortem_report.html.twig templates/postmortem_tab.html.twig
@@ -1567,27 +1855,10 @@ msgid "Waiting for the corrective measure"
 msgstr ""
 
 #: templates/pdf/postmortem_report.html.twig templates/postmortem_tab.html.twig
-#: templates/itil_regulatory_section.html.twig src/Control.php:142
-#: src/Control.php:1351 src/CustomRequirement.php:66
+#: templates/acn_register.html.twig templates/itil_regulatory_section.html.twig
+#: src/Control.php:142 src/Control.php:1351 src/CustomRequirement.php:66
 #: src/SecurityIncidentPlaybookTask.php:70
 msgid "Not applicable"
-msgstr ""
-
-#: templates/pdf/postmortem_report.html.twig
-#: templates/pdf/policy_acknowledgement_report.html.twig
-#: templates/pdf/crisis_exercise_report.html.twig
-#: templates/pdf/action_log.html.twig templates/pdf/audit_report.html.twig
-#: templates/pdf/internal_audit_report.html.twig
-#: templates/pdf/soa_report.html.twig
-#: templates/pdf/training_session_report.html.twig
-#: templates/pdf/business_continuity_report.html.twig
-#: templates/pdf/remediation_plan.html.twig
-#: templates/pdf/network_flow_report.html.twig
-#: templates/pdf/risk_register_report.html.twig
-#: templates/pdf/consistency_report.html.twig
-#: templates/pdf/access_review_report.html.twig
-#: src/NotificationTargetVulnerabilityDigest.php:233
-msgid "Summary"
 msgstr ""
 
 #: templates/pdf/postmortem_report.html.twig
@@ -1643,6 +1914,7 @@ msgstr ""
 #: templates/pdf/crisis_exercise_report.html.twig
 #: templates/pdf/action_log.html.twig
 #: templates/pdf/policy_approval_record.html.twig
+#: templates/pdf/management_review_dossier.html.twig
 #: templates/tabs/item_security_incidents.html.twig
 #: templates/tabs/action_log.html.twig
 #: templates/document_accesses_tab.html.twig templates/audit_log.html.twig
@@ -1683,23 +1955,6 @@ msgstr ""
 #: templates/itil_deadline_banner.html.twig
 #: templates/itil_regulatory_section.html.twig
 msgid "Regulatory notifications"
-msgstr ""
-
-#: templates/pdf/postmortem_report.html.twig
-#: templates/pdf/audit_report.html.twig
-#: templates/pdf/internal_audit_report.html.twig templates/my_space.html.twig
-#: templates/objective_form.html.twig templates/risk_treatment_plan.html.twig
-#: templates/crisis_room.html.twig templates/access_review_form.html.twig
-#: templates/nonconformity_form.html.twig
-#: templates/audit_evidence_requests_tab.html.twig
-#: templates/audit_findings_tab.html.twig templates/auditor_space.html.twig
-#: src/AccessReview.php:323 src/Nonconformity.php:341
-#: src/NotificationTargetAccessReview.php:106
-#: src/NotificationTargetAuditEvidenceRequest.php:158
-#: src/NotificationTargetBusinessProcess.php:161
-#: src/NotificationTargetNonconformity.php:93
-#: src/NotificationTargetRiskTreatmentAction.php:100 src/Objective.php:166
-msgid "Due date"
 msgstr ""
 
 #: templates/pdf/postmortem_report.html.twig
@@ -1805,17 +2060,6 @@ msgstr ""
 #: templates/pdf/policy_acknowledgement_report.html.twig
 #: templates/policy_acknowledgement_tab.html.twig
 msgid "Rate per entity"
-msgstr ""
-
-#: templates/pdf/policy_acknowledgement_report.html.twig
-#: templates/pdf/network_flow_report.html.twig
-#: templates/pdf/data_breach_register.html.twig
-#: templates/pdf/processing_register_report.html.twig
-#: templates/pdf/access_review_report.html.twig
-#: templates/policy_acknowledgement_tab.html.twig
-#: templates/policy_charter_signatures.html.twig
-#: front/policyacknowledgement.export.php:48 src/PolicyAcknowledgement.php:131
-msgid "Entity"
 msgstr ""
 
 #: templates/pdf/policy_acknowledgement_report.html.twig
@@ -1986,6 +2230,7 @@ msgstr ""
 
 #: templates/pdf/crisis_exercise_report.html.twig
 #: templates/pdf/training_session_report.html.twig
+#: templates/pdf/management_review_dossier.html.twig
 #: templates/training_form.html.twig templates/crisis_room.html.twig
 #: templates/training_sessions_tab.html.twig
 #: templates/management_review_form.html.twig
@@ -2184,6 +2429,7 @@ msgid "Approver"
 msgstr ""
 
 #: templates/pdf/policy_approval_record.html.twig
+#: templates/pdf/management_review_dossier.html.twig
 #: templates/pdf/access_review_report.html.twig
 #: templates/context_item_form.html.twig templates/data_breach_form.html.twig
 #: src/ContextItem.php:544 src/NotificationTargetContextItem.php:78
@@ -2202,6 +2448,7 @@ msgstr ""
 #: templates/pdf/audit_report.html.twig
 #: templates/pdf/internal_audit_report.html.twig
 #: templates/pdf/business_continuity_report.html.twig
+#: templates/pdf/management_review_dossier.html.twig
 #: templates/pdf/risk_register_report.html.twig
 #: templates/training_form.html.twig templates/supplier_risk_form.html.twig
 #: templates/objective_form.html.twig templates/risk_import.html.twig
@@ -2215,7 +2462,7 @@ msgstr ""
 #: templates/compliance_obligation_form.html.twig
 #: templates/data_breach_form.html.twig
 #: templates/management_review_form.html.twig src/Audit.php:192
-#: src/ComplianceObligation.php:189 src/ManagementReview.php:287
+#: src/ComplianceObligation.php:189 src/ManagementReview.php:311
 #: src/Nonconformity.php:297 src/NotificationTargetComplianceObligation.php:91
 #: src/NotificationTargetNonconformity.php:91
 #: src/NotificationTargetPolicy.php:130
@@ -2264,31 +2511,12 @@ msgstr ""
 #: templates/tabs/ticket_security_incidents.html.twig
 #: templates/config_form.html.twig templates/itil_deadline_banner.html.twig
 #: templates/nonconformity_form.html.twig
-#: templates/audit_findings_tab.html.twig templates/auditor_space.html.twig
-#: templates/consistency_check.html.twig front/consistencycheck.export.php:50
-#: inc/securityincident.class.php:793 src/Nonconformity.php:316
-#: src/NotificationTargetNonconformity.php:92
+#: templates/audit_findings_tab.html.twig templates/edr_import.html.twig
+#: templates/auditor_space.html.twig templates/consistency_check.html.twig
+#: front/consistencycheck.export.php:50 inc/securityincident.class.php:793
+#: src/Nonconformity.php:316 src/NotificationTargetNonconformity.php:92
 #: src/SecurityIncidentEdrImport.php:75
 msgid "Severity"
-msgstr ""
-
-#: templates/pdf/audit_report.html.twig
-#: templates/pdf/internal_audit_report.html.twig
-#: templates/pdf/soa_report.html.twig
-#: templates/pdf/business_continuity_report.html.twig
-#: templates/pdf/access_review_report.html.twig
-#: templates/ebios_study_form.html.twig
-#: templates/isms_requirement_form.html.twig
-#: templates/risk_treatment_plan.html.twig
-#: templates/tabs/_access_review_rows.html.twig
-#: templates/compliance_event_form.html.twig
-#: templates/nonconformity_form.html.twig
-#: templates/audit_findings_tab.html.twig
-#: templates/business_process_form.html.twig
-#: templates/periodic_reviews.html.twig src/BusinessProcess.php:544
-#: src/BusinessProcess.php:616 src/ComplianceEvent.php:228
-#: src/EbiosStudy.php:598 src/IsmsRequirement.php:300 src/Nonconformity.php:332
-msgid "Owner"
 msgstr ""
 
 #: templates/pdf/internal_audit_report.html.twig
@@ -2300,6 +2528,7 @@ msgid "Risk categories"
 msgstr ""
 
 #: templates/pdf/internal_audit_report.html.twig
+#: templates/pdf/management_review_dossier.html.twig
 #: templates/auditor_space.html.twig src/Nonconformity.php:581
 msgid "Findings"
 msgstr ""
@@ -2355,8 +2584,9 @@ msgstr ""
 msgid "Corrective action"
 msgstr ""
 
-#: templates/pdf/internal_audit_report.html.twig templates/audit_form.html.twig
-#: src/Audit.php:250
+#: templates/pdf/internal_audit_report.html.twig
+#: templates/pdf/management_review_dossier.html.twig
+#: templates/audit_form.html.twig src/Audit.php:250
 msgid "Conclusion"
 msgstr ""
 
@@ -2431,22 +2661,11 @@ msgstr ""
 msgid "Control details"
 msgstr ""
 
-#: templates/pdf/soa_report.html.twig templates/custom_framework_list.html.twig
-#: templates/referentiels.html.twig templates/control_form.html.twig
-#: front/customframework.php:157
+#: templates/pdf/soa_report.html.twig templates/referentiels_acn_card.html.twig
+#: templates/custom_framework_list.html.twig templates/referentiels.html.twig
+#: templates/control_form.html.twig front/customframework.php:157
 msgctxt "label"
 msgid "Title"
-msgstr ""
-
-#: templates/pdf/soa_report.html.twig templates/control_form.html.twig
-#: src/Control.php:1033
-msgid "Applicability"
-msgstr ""
-
-#: templates/pdf/soa_report.html.twig templates/framework_assessment.html.twig
-#: templates/control_form.html.twig src/Control.php:1041
-#: src/NotificationTargetControl.php:150
-msgid "Implementation status"
 msgstr ""
 
 #: templates/pdf/soa_report.html.twig templates/control_form.html.twig
@@ -2456,11 +2675,13 @@ msgstr ""
 
 #: templates/pdf/soa_report.html.twig
 #: templates/pdf/network_flow_report.html.twig
-#: templates/supplier_risk_form.html.twig templates/context_item_form.html.twig
-#: templates/waiver_ticket.html.twig templates/control_form.html.twig
-#: templates/risk_form.html.twig templates/waiver_form.html.twig
-#: templates/network_flow_form.html.twig src/ContextItem.php:564
-#: src/Control.php:1049 src/NetworkFlow.php:265 src/RiskRegisterImport.php:610
+#: templates/supplier_risk_form.html.twig
+#: templates/acn_requirement_form.html.twig
+#: templates/context_item_form.html.twig templates/waiver_ticket.html.twig
+#: templates/control_form.html.twig templates/risk_form.html.twig
+#: templates/waiver_form.html.twig templates/network_flow_form.html.twig
+#: src/AcnRequirement.php:754 src/ContextItem.php:564 src/Control.php:1049
+#: src/NetworkFlow.php:265 src/RiskRegisterImport.php:610
 msgid "Justification"
 msgstr ""
 
@@ -2495,11 +2716,6 @@ msgstr ""
 msgid "ISMS completeness: %1$d %% (%2$d / %3$d requirements compliant)"
 msgstr ""
 
-#: templates/pdf/soa_report.html.twig templates/isms_requirement_form.html.twig
-#: templates/custom_framework_form.html.twig src/IsmsRequirement.php:275
-msgid "Requirement"
-msgstr ""
-
 #: templates/pdf/soa_report.html.twig
 #: templates/pdf/training_session_report.html.twig
 msgid "Signature"
@@ -2531,7 +2747,8 @@ msgstr ""
 msgid "Mandatory"
 msgstr ""
 
-#: templates/pdf/training_session_report.html.twig src/DoraRegister.php:234
+#: templates/pdf/training_session_report.html.twig
+#: templates/pdf/management_review_dossier.html.twig src/DoraRegister.php:234
 #: src/DoraRegister.php:279 src/SupplierAssessment.php:92
 msgid "No"
 msgstr ""
@@ -2874,6 +3091,306 @@ msgid ""
 "printed."
 msgstr ""
 
+#: templates/pdf/management_review_dossier.html.twig
+#: src/ComplianceEvent.php:118 src/ConsistencyCheck.php:119
+#: src/ManagementReview.php:67
+msgid "Management review"
+msgid_plural "Management reviews"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/pdf/management_review_dossier.html.twig
+#: templates/pdf/risk_register_report.html.twig
+#: templates/supplier_risk_form.html.twig templates/context_item_form.html.twig
+#: templates/risk_form.html.twig templates/compliance_obligation_form.html.twig
+#: templates/management_review_form.html.twig src/ComplianceObligation.php:231
+#: src/ContextItem.php:558 src/ManagementReview.php:328
+#: src/NotificationTargetComplianceObligation.php:94
+#: src/NotificationTargetContextItem.php:79 src/NotificationTargetRisk.php:96
+#: src/NotificationTargetSupplierRisk.php:119 src/Risk.php:410
+#: src/RiskRegisterImport.php:613 src/SupplierRisk.php:241
+msgid "Review date"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid "Period covered"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid "Perimeter"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid "Prepared by"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid ""
+"Figures are read from the GRC registers when the file is generated, with the "
+"rights and active entities of the person who generated it. A section whose "
+"register that person cannot read is marked as not included."
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+#: front/consistencycheck.export.php:48
+msgid "Clause"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid "Input to review"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid "Included"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid "Not included (no right)"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid ""
+"Not included: the person who generated this file cannot read this register."
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid "Actions decided"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+#: src/ManagementReviewAction.php:63 src/RiskTreatmentAction.php:89
+#: src/RiskTreatmentAction.php:173 src/SecurityIncidentPlaybookTask.php:67
+msgid "Done"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+#: templates/park_vulnerabilities.html.twig
+msgid "Still open"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid "Completion"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid ""
+"No action from a previous review is open or was completed during the period."
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+#: templates/periodic_reviews.html.twig
+msgid "Review"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid "Internal and external issues"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+#: src/IsmsRequirement.php:104
+msgid "Interested parties"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid "Updated during the period"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid "Review overdue"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+#: templates/_context_summary.html.twig
+msgid "Climate change question answered"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid "Raised during the period"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid "Closure verified during the period"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+#: templates/dashboard_perimeters.html.twig hook.php:112
+#: src/Services/Dashboard/DashboardCardService.php:346
+#: src/Services/Dashboard/PilotageCards.php:696
+msgid "Open non-conformities"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig hook.php:118
+#: src/Services/Dashboard/DashboardCardService.php:373
+msgid "Overdue corrective/preventive actions"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+#, php-format
+msgid "Open non-conformities: %1$d in %2$s, %3$d in %4$s"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig hook.php:398
+#: src/Services/Dashboard/DashboardCardService.php:980
+msgid "Risk indicators (KRI) by status"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+#: templates/config_form.html.twig hook.php:446
+#: src/Services/Dashboard/SecurityIncidentCardProvider.php:232
+msgid "Security incidents"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid "Declared during the period"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid "Still open today"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid ""
+"Security incidents not included: no right to read them, or module disabled."
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid "No internal audit was completed during the period."
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+#: templates/my_evidence_requests.html.twig src/MySpace.php:148
+#: src/NotificationTargetAuditEvidenceRequest.php:157
+msgid "Audit"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid "No information security objective recorded."
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid "Objective"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid "Target set"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid "Latest measurement in the period"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid "On the agenda of this review"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+#, php-format
+msgid "%d measurement(s) in the period"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid "No measurement in the period"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+#: templates/dashboard_perimeters.html.twig hook.php:48
+#: src/Services/Dashboard/DashboardCardService.php:104
+#: src/Services/Dashboard/PilotageCards.php:695
+msgid "Open risks"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid "Identified during the period"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+#: templates/risk_appetite.html.twig hook.php:386
+#: src/Services/Dashboard/DashboardCardService.php:943
+msgid "Open risks above appetite"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig hook.php:392
+#: src/RiskIndicator.php:131
+#: src/Services/Dashboard/DashboardCardService.php:959
+msgid "Open risks above tolerance"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig hook.php:373
+#: src/ConsistencyCheck.php:259 src/RiskIndicator.php:132
+#: src/Services/Dashboard/DashboardCardService.php:848
+msgid "Overdue risk treatment actions"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig hook.php:379
+#: src/Services/Dashboard/DashboardCardService.php:884
+msgid "Risks to mitigate/transfer with no treatment plan"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig hook.php:54
+#: src/Services/Dashboard/DashboardCardService.php:135
+msgid "Risks by level"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+#, php-format
+msgid "Open risks: %1$d in %2$s, %3$d in %4$s"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+#, php-format
+msgid "Latest approved version: %1$d, on %2$s"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid "The SoA has changed since this approval"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid "Unchanged since this approval"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid "No approved version of the SoA yet"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+#: src/Services/Dashboard/DashboardCardService.php:46
+msgid "Maturity score (out of 100)"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid "Maturity level"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid "Change since the start of the period"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+#: src/Services/Dashboard/DashboardCardService.php:65
+msgid "ISMS consistency gaps to fix before the audit"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid "No monthly maturity score recorded during the period."
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+#: templates/management_review_form.html.twig src/ManagementReview.php:336
+msgid "Agenda"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+#: templates/management_review_form.html.twig src/ManagementReview.php:344
+msgid "Decisions and actions"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid ""
+"To be completed during the meeting: decisions on improvement opportunities, "
+"changes needed to the ISMS, and resources."
+msgstr ""
+
 #: templates/pdf/network_flow_report.html.twig
 msgid "Active flows"
 msgstr ""
@@ -3053,18 +3570,6 @@ msgstr ""
 #: src/RiskRegisterImport.php:606 src/RiskScaleChange.php:106
 #: src/SecurityIncidentTechnique.php:67 src/SupplierRisk.php:200
 msgid "Impact"
-msgstr ""
-
-#: templates/pdf/risk_register_report.html.twig
-#: templates/supplier_risk_form.html.twig templates/context_item_form.html.twig
-#: templates/risk_form.html.twig templates/compliance_obligation_form.html.twig
-#: templates/management_review_form.html.twig src/ComplianceObligation.php:231
-#: src/ContextItem.php:558 src/ManagementReview.php:304
-#: src/NotificationTargetComplianceObligation.php:94
-#: src/NotificationTargetContextItem.php:79 src/NotificationTargetRisk.php:96
-#: src/NotificationTargetSupplierRisk.php:119 src/Risk.php:410
-#: src/RiskRegisterImport.php:613 src/SupplierRisk.php:241
-msgid "Review date"
 msgstr ""
 
 #: templates/pdf/dpia_report.html.twig templates/tabs/dpia.html.twig
@@ -3315,7 +3820,7 @@ msgid "Trust"
 msgstr ""
 
 #: templates/pdf/ebios_study_report.html.twig
-#: templates/tabs/ebios_workshop3.html.twig
+#: templates/tabs/ebios_workshop3.html.twig src/SentinelOneAlert.php:782
 msgid "Threat"
 msgstr ""
 
@@ -3514,6 +4019,7 @@ msgstr ""
 
 #: templates/pdf/access_review_report.html.twig
 #: templates/policy_acknowledgement_tab.html.twig src/AccessReview.php:563
+#: src/ManagementReviewDossier.php:261
 msgid "(and sub-entities)"
 msgstr ""
 
@@ -3544,7 +4050,7 @@ msgid "Decisions per account"
 msgstr ""
 
 #: templates/pdf/access_review_report.html.twig
-#: templates/tabs/_access_review_rows.html.twig
+#: templates/tabs/_access_review_rows.html.twig templates/edr_import.html.twig
 #: src/SecurityIncidentEdrImport.php:74
 msgid "Account"
 msgstr ""
@@ -3997,11 +4503,6 @@ msgstr ""
 msgid "%d to do"
 msgstr ""
 
-#: templates/my_space.html.twig src/Services/Workspace/MySpaceProvider.php:121
-#, php-format
-msgid "%d overdue"
-msgstr ""
-
 #: templates/my_space.html.twig
 #, php-format
 msgid "%1$d due within %2$d days"
@@ -4099,7 +4600,6 @@ msgid "E.g. 40 for a quiz scored out of 40. 0 = no score."
 msgstr ""
 
 #: templates/training_form.html.twig
-#, php-format
 msgid ""
 "E.g. 80: passed from 80% of the maximum score. With a maximum score and a "
 "threshold, each participant's result is computed from their score."
@@ -4407,10 +4907,6 @@ msgid "%d covered by a waiver"
 msgstr ""
 
 #: templates/park_vulnerabilities.html.twig
-msgid "Still open"
-msgstr ""
-
-#: templates/park_vulnerabilities.html.twig
 msgid "Past the deadline"
 msgstr ""
 
@@ -4523,6 +5019,15 @@ msgid "Wazuh: %d computer(s)"
 msgstr ""
 
 #: templates/park_vulnerabilities.html.twig
+msgid "Also detected by SentinelOne"
+msgstr ""
+
+#: templates/park_vulnerabilities.html.twig
+#, php-format
+msgid "SentinelOne: %d computer(s)"
+msgstr ""
+
+#: templates/park_vulnerabilities.html.twig
 msgid "Open the software in the inventory"
 msgstr ""
 
@@ -4593,6 +5098,30 @@ msgstr ""
 
 #: templates/park_vulnerabilities.html.twig
 msgid "Packages"
+msgstr ""
+
+#: templates/park_vulnerabilities.html.twig
+msgid "Detected by SentinelOne only"
+msgstr ""
+
+#: templates/park_vulnerabilities.html.twig templates/edr_import.html.twig
+#: templates/config_sentinelone.html.twig
+#, php-format
+msgid "Last read: %s"
+msgstr ""
+
+#: templates/park_vulnerabilities.html.twig
+msgid "SentinelOne reports no vulnerability beyond those listed above."
+msgstr ""
+
+#: templates/park_vulnerabilities.html.twig
+msgid ""
+"Application vulnerabilities seen by SentinelOne on your computers and not "
+"found by the software watch. Source: SentinelOne API, read only."
+msgstr ""
+
+#: templates/park_vulnerabilities.html.twig
+msgid "Applications"
 msgstr ""
 
 #: templates/park_vulnerabilities.html.twig
@@ -4671,18 +5200,6 @@ msgid_plural "Approved SoA versions"
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/dashboard_perimeters.html.twig hook.php:48
-#: src/Services/Dashboard/DashboardCardService.php:104
-#: src/Services/Dashboard/PilotageCards.php:695
-msgid "Open risks"
-msgstr ""
-
-#: templates/dashboard_perimeters.html.twig hook.php:112
-#: src/Services/Dashboard/DashboardCardService.php:346
-#: src/Services/Dashboard/PilotageCards.php:696
-msgid "Open non-conformities"
-msgstr ""
-
 #: templates/dashboard_perimeters.html.twig
 msgid "This entity only"
 msgstr ""
@@ -4697,8 +5214,58 @@ msgid "Not approved yet"
 msgstr ""
 
 #: templates/dashboard_perimeters.html.twig src/ConsistencyCheck.php:954
-#: src/ConsistencyCheck.php:956
+#: src/ConsistencyCheck.php:956 src/ManagementReviewDossier.php:112
 msgid "Statement of Applicability"
+msgstr ""
+
+#: templates/referentiels_acn_card.html.twig
+#, php-format
+msgid "NIS2 Italy: ACN basic security measures (determination %s)"
+msgstr ""
+
+#: templates/referentiels_acn_card.html.twig templates/config_form.html.twig
+msgid "Open the NIS2 Italy register"
+msgstr ""
+
+#: templates/referentiels_acn_card.html.twig templates/acn_register.html.twig
+msgid "Classify the entities"
+msgstr ""
+
+#: templates/referentiels_acn_card.html.twig
+msgid ""
+"Measures of the Italian NIS2 law (D.Lgs. 138/2024). Codes follow the "
+"national framework, aligned with NIST CSF 2.0. Each requirement has its own "
+"record in the register of the entity, without going through ISO 27001 Annex "
+"A."
+msgstr ""
+
+#: templates/referentiels_acn_card.html.twig
+#, php-format
+msgid "Annex 1, important entities: %1$d measures, %2$d requirements"
+msgstr ""
+
+#: templates/referentiels_acn_card.html.twig
+#, php-format
+msgid "Annex 2, essential entities: %1$d measures, %2$d requirements"
+msgstr ""
+
+#: templates/referentiels_acn_card.html.twig
+#, php-format
+msgid "Your entity: %s"
+msgstr ""
+
+#: templates/referentiels_acn_card.html.twig src/AcnRequirement.php:750
+#: src/AcnRequirement.php:824
+msgid "Measure"
+msgstr ""
+
+#: templates/referentiels_acn_card.html.twig
+#, php-format
+msgid ""
+"Source: ACN determination %s, annexes 1 and 2 (public documents). Codes and "
+"point numbers are the official ones; titles, summaries and the mapping to "
+"NIS2 are made by this project. Only the text published by the ACN is "
+"authentic."
 msgstr ""
 
 #: templates/supplier_risk_form.html.twig
@@ -4798,6 +5365,121 @@ msgstr[1] ""
 
 #: templates/_causal_graph.html.twig
 msgid "cause → consequence; click an item to open it"
+msgstr ""
+
+#: templates/acn_requirement_form.html.twig
+msgid "ACN requirement"
+msgstr ""
+
+#: templates/acn_requirement_form.html.twig
+msgid "Management approval required"
+msgstr ""
+
+#: templates/acn_requirement_form.html.twig
+msgid ""
+"Summary written by this project to help you find the requirement. Only the "
+"text published by the ACN is authentic: open the source below."
+msgstr ""
+
+#: templates/acn_requirement_form.html.twig
+msgid "Official reference"
+msgstr ""
+
+#: templates/acn_requirement_form.html.twig
+#, php-format
+msgid ""
+"This requirement only applies to essential entities: it is not part of the "
+"catalogue of this entity (%s). It is kept in case the classification changes."
+msgstr ""
+
+#: templates/acn_requirement_form.html.twig src/Control.php:116
+msgid "Compliance"
+msgstr ""
+
+#: templates/acn_requirement_form.html.twig
+msgid ""
+"Required when the requirement is not fully applicable: the ACN accepts "
+"exceptions only for reasons that are justified and documented."
+msgstr ""
+
+#: templates/acn_requirement_form.html.twig src/AcnRequirement.php:759
+#: src/AcnRequirement.php:841
+msgid "Notes"
+msgstr ""
+
+#: templates/acn_requirement_form.html.twig
+msgid "Approval by the management bodies"
+msgstr ""
+
+#: templates/acn_requirement_form.html.twig templates/policy_form.html.twig
+#: src/Policy.php:160
+msgid "Approval date"
+msgstr ""
+
+#: templates/acn_requirement_form.html.twig
+msgid ""
+"This point requires the approval of the administrative and management "
+"bodies. Record the date and attach the minutes in the Documents tab."
+msgstr ""
+
+#: templates/acn_requirement_form.html.twig
+msgid "Approval reference"
+msgstr ""
+
+#: templates/acn_requirement_form.html.twig
+msgid "For example \"Board resolution no. 12 of 3 March\"."
+msgstr ""
+
+#: templates/acn_requirement_form.html.twig
+msgid "Policies and documents"
+msgstr ""
+
+#: templates/acn_requirement_form.html.twig
+msgid "Related policies"
+msgstr ""
+
+#: templates/acn_requirement_form.html.twig
+#: templates/context_item_form.html.twig
+#, php-format
+msgid "%d other linked item is not shown to you."
+msgid_plural "%d other linked items are not shown to you."
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/acn_requirement_form.html.twig
+msgid ""
+"Policies of this plugin that answer the requirement. Procedures, plans and "
+"evidence go in the Documents tab."
+msgstr ""
+
+#: templates/acn_requirement_form.html.twig
+msgid "Approval of the linked policies"
+msgstr ""
+
+#: templates/acn_requirement_form.html.twig
+msgid "Related references"
+msgstr ""
+
+#: templates/acn_requirement_form.html.twig
+msgid "NIS2 directive (EU)"
+msgstr ""
+
+#: templates/acn_requirement_form.html.twig
+msgid "Indicative mapping made by this project."
+msgstr ""
+
+#: templates/acn_requirement_form.html.twig
+msgid "ISO 27001 Annex A (optional)"
+msgstr ""
+
+#: templates/acn_requirement_form.html.twig
+msgid ""
+"Controls that NIST links to this subcategory. You do not need the Statement "
+"of Applicability to follow this requirement."
+msgstr ""
+
+#: templates/acn_requirement_form.html.twig
+msgid "Back to the NIS2 Italy register"
 msgstr ""
 
 #: templates/context_item_form.html.twig src/ContextItem.php:109
@@ -4915,13 +5597,6 @@ msgid "Controls that respond"
 msgstr ""
 
 #: templates/context_item_form.html.twig
-#, php-format
-msgid "%d other linked item is not shown to you."
-msgid_plural "%d other linked items are not shown to you."
-msgstr[0] ""
-msgstr[1] ""
-
-#: templates/context_item_form.html.twig
 msgid "Follow-up"
 msgstr ""
 
@@ -5018,11 +5693,6 @@ msgstr ""
 
 #: templates/my_evidence_requests.html.twig
 msgid "Evidence already submitted"
-msgstr ""
-
-#: templates/my_evidence_requests.html.twig src/MySpace.php:148
-#: src/NotificationTargetAuditEvidenceRequest.php:157
-msgid "Audit"
 msgstr ""
 
 #: templates/my_evidence_requests.html.twig
@@ -5529,10 +6199,6 @@ msgid ""
 "\"Approval\" tab."
 msgstr ""
 
-#: templates/policy_form.html.twig src/Policy.php:160
-msgid "Approval date"
-msgstr ""
-
 #: templates/policy_form.html.twig
 msgid "Date of the last approval, filled in by the approval workflow."
 msgstr ""
@@ -5739,11 +6405,6 @@ msgid ""
 msgstr ""
 
 #: templates/custom_framework_list.html.twig
-#: templates/custom_framework_form.html.twig
-msgid "Requirements"
-msgstr ""
-
-#: templates/custom_framework_list.html.twig
 msgid "Self-assessed"
 msgstr ""
 
@@ -5767,13 +6428,13 @@ msgstr ""
 
 #: templates/custom_framework_list.html.twig
 #: templates/custom_framework_form.html.twig
-#: templates/endoflife_config.html.twig
+#: templates/endoflife_config.html.twig templates/config_sentinelone.html.twig
 msgid "Enabled"
 msgstr ""
 
 #: templates/custom_framework_list.html.twig
 #: templates/custom_framework_form.html.twig
-#: templates/endoflife_config.html.twig
+#: templates/endoflife_config.html.twig templates/config_sentinelone.html.twig
 msgid "Disabled"
 msgstr ""
 
@@ -5972,22 +6633,6 @@ msgstr ""
 msgid ""
 "Concrete actions implementing the treatment decision (ISO 27001 clause "
 "8.3/6.1.3): each has its own owner, its own due date and its own status."
-msgstr ""
-
-#: templates/risk_treatment_plan.html.twig
-#: src/NotificationTargetRiskTreatmentAction.php:99
-msgid "Action description"
-msgstr ""
-
-#: templates/risk_treatment_plan.html.twig
-msgid "Update"
-msgstr ""
-
-#: templates/risk_treatment_plan.html.twig
-#: templates/objective_measurements.html.twig
-#: templates/canonical_product_lists.html.twig
-#: templates/risk_indicator_values.html.twig
-msgid "Confirm deletion?"
 msgstr ""
 
 #: templates/risk_treatment_plan.html.twig
@@ -6299,7 +6944,7 @@ msgid ""
 "automatically."
 msgstr ""
 
-#: templates/referentiels_iso_card.html.twig
+#: templates/referentiels_iso_card.html.twig templates/acn_register.html.twig
 #: templates/custom_framework_form.html.twig templates/referentiels.html.twig
 msgid "Filter…"
 msgstr ""
@@ -7879,6 +8524,72 @@ msgstr ""
 msgid "Session"
 msgstr ""
 
+#: templates/acn_register.html.twig
+#, php-format
+msgid ""
+"Basic security measures of the ACN determination %s (D.Lgs. 138/2024): one "
+"record per requirement."
+msgstr ""
+
+#: templates/acn_register.html.twig front/referentiels.php:72
+#: src/Referentials.php:34
+msgid "Reference frameworks"
+msgstr ""
+
+#: templates/acn_register.html.twig
+msgid "Important or essential entities"
+msgstr ""
+
+#: templates/acn_register.html.twig
+msgid ""
+"No entity is classified yet. In the configuration of the plugin, say for "
+"each GLPI entity whether it is an important entity (annex 1) or an essential "
+"entity (annex 2): its register is then created with all the requirements of "
+"its annex."
+msgstr ""
+
+#: templates/acn_register.html.twig
+msgid "Ask an administrator of the plugin to do it."
+msgstr ""
+
+#: templates/acn_register.html.twig
+#, php-format
+msgid "%1$d measures, %2$d requirements"
+msgstr ""
+
+#: templates/acn_register.html.twig
+msgid "Register"
+msgstr ""
+
+#: templates/acn_register.html.twig front/databreach.php:50
+#: front/processingactivity.php:50
+msgid "Export CSV"
+msgstr ""
+
+#: templates/acn_register.html.twig
+msgid "Without owner"
+msgstr ""
+
+#: templates/acn_register.html.twig
+msgid "By function of the national framework"
+msgstr ""
+
+#: templates/acn_register.html.twig
+msgid "Approval to record"
+msgstr ""
+
+#: templates/acn_register.html.twig
+#, php-format
+msgid "Approved on %s"
+msgstr ""
+
+#: templates/acn_register.html.twig
+msgid ""
+"Codes and point numbers come from the annexes published by the ACN; titles "
+"and summaries are written by this project and do not replace the official "
+"text:"
+msgstr ""
+
 #: templates/account_hygiene.html.twig
 msgid ""
 "Active accounts in the entities you can see that deserve a check. Nothing is "
@@ -7987,6 +8698,19 @@ msgstr ""
 
 #: templates/config_form.html.twig templates/referentiels.html.twig
 msgid "Import a custom framework"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid ""
+"For each GLPI entity subject to the Italian NIS2 law, choose whether it is "
+"an important entity (annex 1 of the ACN determination) or an essential "
+"entity (annex 2). Its register is created with one record per requirement; "
+"sub-entities without a choice follow their parent. Changing or removing the "
+"choice never deletes what was entered."
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Not subject (or follows its parent)"
 msgstr ""
 
 #: templates/config_form.html.twig
@@ -8226,11 +8950,6 @@ msgstr ""
 
 #: templates/config_form.html.twig
 msgid "Whatever the rule, one rejection rejects the version."
-msgstr ""
-
-#: templates/config_form.html.twig hook.php:446
-#: src/Services/Dashboard/SecurityIncidentCardProvider.php:232
-msgid "Security incidents"
 msgstr ""
 
 #: templates/config_form.html.twig
@@ -9499,7 +10218,7 @@ msgstr ""
 msgid "%d signed"
 msgstr ""
 
-#: templates/control_form.html.twig
+#: templates/control_form.html.twig templates/edr_import.html.twig
 #, php-format
 msgid "%d pending"
 msgstr ""
@@ -9565,6 +10284,16 @@ msgstr ""
 
 #: templates/control_form.html.twig
 msgid "Wazuh coverage"
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid ""
+"From the last reading of SentinelOne: a computer is covered when an active "
+"agent is matched with it (serial number or exact name)."
+msgstr ""
+
+#: templates/control_form.html.twig
+msgid "SentinelOne coverage"
 msgstr ""
 
 #: templates/control_form.html.twig
@@ -9772,10 +10501,6 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: templates/_context_summary.html.twig
-msgid "Climate change question answered"
-msgstr ""
-
-#: templates/_context_summary.html.twig
 msgid "Climate change question not answered yet"
 msgstr ""
 
@@ -9793,10 +10518,6 @@ msgstr ""
 
 #: templates/park_cve_ticket.html.twig
 msgid "Actively exploited vulnerabilities (CISA KEV catalog)"
-msgstr ""
-
-#: templates/park_cve_ticket.html.twig
-msgid "overdue"
 msgstr ""
 
 #: templates/park_cve_ticket.html.twig
@@ -10592,7 +11313,7 @@ msgid ""
 "checked in the plugin configuration."
 msgstr ""
 
-#: templates/supplier_security_watch.html.twig front/config.php:430
+#: templates/supplier_security_watch.html.twig front/config.php:555
 msgid "Configuration"
 msgstr ""
 
@@ -10610,7 +11331,7 @@ msgstr ""
 msgid "Last CERT-FR check: %s."
 msgstr ""
 
-#: templates/supplier_security_watch.html.twig
+#: templates/supplier_security_watch.html.twig src/SentinelOneAlert.php:783
 msgid "Alert"
 msgstr ""
 
@@ -10637,6 +11358,68 @@ msgstr ""
 
 #: templates/itil_analysis_section.html.twig src/Playbook.php:60
 msgid "Analysis"
+msgstr ""
+
+#: templates/edr_import.html.twig
+msgid "SentinelOne alerts to review"
+msgstr ""
+
+#: templates/edr_import.html.twig
+msgid "Settings"
+msgstr ""
+
+#: templates/edr_import.html.twig
+msgid "No SentinelOne alert waiting for review."
+msgstr ""
+
+#: templates/edr_import.html.twig
+msgid ""
+"The automatic reading is disabled: enable it in the plugin configuration, or "
+"use the button \"Fetch now\" there."
+msgstr ""
+
+#: templates/edr_import.html.twig
+msgid ""
+"Tick the alerts that deserve a security incident: each one becomes an "
+"incident with its indicators, MITRE ATT&CK techniques and computer. The "
+"others can be set aside. Nothing is changed in SentinelOne."
+msgstr ""
+
+#: templates/edr_import.html.twig
+#, php-format
+msgid "%1$d alerts: the %2$d most recent are shown."
+msgstr ""
+
+#: templates/edr_import.html.twig
+msgid "Select all"
+msgstr ""
+
+#: templates/edr_import.html.twig src/SecurityIncidentEdrImport.php:71
+msgid "Detection date"
+msgstr ""
+
+#: templates/edr_import.html.twig src/SecurityIncidentEdrImport.php:72
+msgid "Alert name"
+msgstr ""
+
+#: templates/edr_import.html.twig
+msgid "Computer"
+msgstr ""
+
+#: templates/edr_import.html.twig src/SecurityIncidentEdrImport.php:85
+msgid "Console link"
+msgstr ""
+
+#: templates/edr_import.html.twig
+msgid "Not found in GLPI"
+msgstr ""
+
+#: templates/edr_import.html.twig
+msgid "Create the incidents of the selected alerts"
+msgstr ""
+
+#: templates/edr_import.html.twig
+msgid "Set the selected alerts aside"
 msgstr ""
 
 #: templates/edr_import.html.twig
@@ -11350,11 +12133,6 @@ msgstr ""
 msgid "Approved by"
 msgstr ""
 
-#: templates/risk_appetite.html.twig hook.php:386
-#: src/Services/Dashboard/DashboardCardService.php:943
-msgid "Open risks above appetite"
-msgstr ""
-
 #: templates/risk_appetite.html.twig
 msgid "Position"
 msgstr ""
@@ -11494,10 +12272,6 @@ msgstr ""
 msgid "Only the first %1$d items are listed; the CSV export gives all %2$d."
 msgstr ""
 
-#: templates/management_review_form.html.twig src/ManagementReview.php:312
-msgid "Agenda"
-msgstr ""
-
 #: templates/management_review_form.html.twig
 msgid ""
 "Topics actually covered (status of previous actions, changes in context, "
@@ -11505,8 +12279,10 @@ msgid ""
 "opportunities for improvement...)."
 msgstr ""
 
-#: templates/management_review_form.html.twig src/ManagementReview.php:320
-msgid "Decisions and actions"
+#: templates/management_review_form.html.twig
+msgid ""
+"One decision per line: each line can then become a tracked action, with an "
+"owner and a due date, from the \"Preparatory file\" tab."
 msgstr ""
 
 #: templates/management_review_form.html.twig
@@ -11531,10 +12307,6 @@ msgstr ""
 msgid ""
 "Read only: enabling a review requires the plugin update right and the right "
 "to create recurrent tickets and ticket templates."
-msgstr ""
-
-#: templates/periodic_reviews.html.twig
-msgid "Review"
 msgstr ""
 
 #: templates/periodic_reviews.html.twig
@@ -11798,6 +12570,138 @@ msgid ""
 "dashboard\"."
 msgstr ""
 
+#: templates/config_sentinelone.html.twig
+msgid "SentinelOne connector"
+msgstr ""
+
+#: templates/config_sentinelone.html.twig
+msgid "Read only"
+msgstr ""
+
+#: templates/config_sentinelone.html.twig
+msgid ""
+"Every hour, the threats and alerts detected by SentinelOne are fetched and "
+"proposed as security incidents on the EDR import screen: nothing is created "
+"without your validation. The agents are matched with the GLPI computers "
+"(serial number, then exact name) and the application vulnerabilities join "
+"the fleet vulnerabilities. Nothing is ever sent to SentinelOne (no "
+"isolation, no resolution)."
+msgstr ""
+
+#: templates/config_sentinelone.html.twig
+msgid "Fetch automatically from SentinelOne"
+msgstr ""
+
+#: templates/config_sentinelone.html.twig
+msgid ""
+"Turns on the automatic action that reads SentinelOne every hour. Off by "
+"default."
+msgstr ""
+
+#: templates/config_sentinelone.html.twig
+msgid "Console address"
+msgstr ""
+
+#: templates/config_sentinelone.html.twig
+msgid "The address you use to open the SentinelOne console, in HTTPS."
+msgstr ""
+
+#: templates/config_sentinelone.html.twig
+msgid "API token"
+msgstr ""
+
+#: templates/config_sentinelone.html.twig
+msgid "Token saved (leave empty to keep it)"
+msgstr ""
+
+#: templates/config_sentinelone.html.twig
+msgid "Token saved"
+msgstr ""
+
+#: templates/config_sentinelone.html.twig
+msgid ""
+"Token of a service user with the Viewer role only. Encrypted with the GLPI "
+"key, never displayed again nor logged."
+msgstr ""
+
+#: templates/config_sentinelone.html.twig
+msgid "Delete the saved token"
+msgstr ""
+
+#: templates/config_sentinelone.html.twig
+msgid "Entity of the alerts whose computer is not found in GLPI"
+msgstr ""
+
+#: templates/config_sentinelone.html.twig
+msgid "Test the connection"
+msgstr ""
+
+#: templates/config_sentinelone.html.twig
+msgid "Fetch now"
+msgstr ""
+
+#: templates/config_sentinelone.html.twig
+msgid "Automatic action"
+msgstr ""
+
+#: templates/config_sentinelone.html.twig
+msgid "active"
+msgstr ""
+
+#: templates/config_sentinelone.html.twig
+msgid "disabled"
+msgstr ""
+
+#: templates/config_sentinelone.html.twig
+msgid "Open the automatic action"
+msgstr ""
+
+#: templates/config_sentinelone.html.twig
+#, php-format
+msgid "%d read"
+msgstr ""
+
+#: templates/config_sentinelone.html.twig
+#, php-format
+msgid "%d new"
+msgstr ""
+
+#: templates/config_sentinelone.html.twig
+msgid "continued at the next run"
+msgstr ""
+
+#: templates/config_sentinelone.html.twig
+msgid "Review the proposed alerts"
+msgstr ""
+
+#: templates/config_sentinelone.html.twig src/SentinelOneAlert.php:767
+msgid "Agents"
+msgstr ""
+
+#: templates/config_sentinelone.html.twig
+#, php-format
+msgid "%d agent(s) in the console"
+msgstr ""
+
+#: templates/config_sentinelone.html.twig
+#, php-format
+msgid "%d without a matching GLPI computer"
+msgstr ""
+
+#: templates/config_sentinelone.html.twig
+msgid "all matched with a GLPI computer"
+msgstr ""
+
+#: templates/config_sentinelone.html.twig
+msgid ""
+"These agents are never matched by a similar name: create or rename the "
+"computer in the inventory, or fill in its serial number."
+msgstr ""
+
+#: templates/config_sentinelone.html.twig
+msgid "Computer name in SentinelOne"
+msgstr ""
+
 #: templates/ticket_security_section.html.twig
 msgid "Security"
 msgstr ""
@@ -11902,17 +12806,6 @@ msgstr ""
 msgid "Internal audit program and CAPA"
 msgstr ""
 
-#: front/audit.report.php:77 front/databreach.export.php:65
-#: front/networkflow.report.php:31 front/processingactivity.export.php:64
-#: front/risk.report.php:73 src/AccessReview.php:745 src/Audit.php:549
-#: src/ConsistencyCheck.php:1380 src/CrisisExercise.php:613 src/Dpia.php:443
-#: src/EbiosStudy.php:313 src/PolicyAcknowledgement.php:703
-#: src/PolicyVersion.php:765 src/SecurityIncidentPostMortem.php:242
-#: src/Services/Control/SoaReportBuilder.php:121 src/Training.php:725
-#, php-format
-msgid "Generated on %s"
-msgstr ""
-
 #: front/auditevidencerequest.form.php:65
 msgid "Evidence request added."
 msgstr ""
@@ -11997,59 +12890,90 @@ msgstr ""
 msgid "Compliance calendar"
 msgstr ""
 
-#: front/config.php:89
+#: front/config.php:91
 msgid "The level labels have been saved."
 msgstr ""
 
-#: front/config.php:166
+#: front/config.php:168
 #, php-format
 msgid "%s: verified domain, one request per run"
 msgstr ""
 
-#: front/config.php:167
+#: front/config.php:169
 #, php-format
 msgid "%s: checked address by address"
 msgstr ""
 
-#: front/config.php:170
+#: front/config.php:172
 msgid "Have I Been Pwned key accepted."
 msgstr ""
 
-#: front/config.php:174
+#: front/config.php:176
 msgid "Have I Been Pwned refused the API key."
 msgstr ""
 
-#: front/config.php:175
+#: front/config.php:177
 #, php-format
 msgid "Have I Been Pwned could not be reached (code %d)."
 msgstr ""
 
-#: front/config.php:369
+#: front/config.php:207
+msgid ""
+"The console address was not saved: it must start with https:// and contain "
+"no user name or password."
+msgstr ""
+
+#: front/config.php:229
+msgid "Enter the console address and the API token first."
+msgstr ""
+
+#: front/config.php:238
+msgid ""
+"Connection accepted, but the token sees no agent and no threat: check that "
+"its user has the Viewer role on the right accounts or sites."
+msgstr ""
+
+#: front/config.php:244
+#, php-format
+msgid ""
+"Connection to SentinelOne succeeded: %1$d agent(s) and %2$s threat(s) "
+"visible."
+msgstr ""
+
+#: front/config.php:262
+#, php-format
+msgid ""
+"SentinelOne read: %1$d new alert(s) to review, %2$d agent(s), %3$d "
+"application vulnerabilities."
+msgstr ""
+
+#: front/config.php:318
+#, php-format
+msgid "Classification saved; %d requirement record(s) created."
+msgstr ""
+
+#: front/config.php:494
 msgid ""
 "Link not saved: give the exact name shown in GLPI and an endoflife.date "
 "product identifier (lower case letters, digits and dashes, for instance "
 "\"debian\")."
 msgstr ""
 
-#: front/config.php:410
+#: front/config.php:535
 msgid ""
 "Enable the NVD enrichment first: without it, the report would wrongly say "
 "that nothing is exposed."
 msgstr ""
 
-#: front/config.php:415
+#: front/config.php:540
 msgid "The report has been queued for sending to its recipients."
 msgstr ""
 
-#: front/config.php:420
+#: front/config.php:545
 msgid ""
 "The report could not be sent: check that notifications are enabled in GLPI "
 "and that the notification \"GRC Manager - Fleet vulnerability report\" is "
 "active."
-msgstr ""
-
-#: front/consistencycheck.export.php:48
-msgid "Clause"
 msgstr ""
 
 #: front/control.csv.php:56
@@ -12143,10 +13067,6 @@ msgstr ""
 msgid "Register of personal data breaches"
 msgstr ""
 
-#: front/databreach.php:50 front/processingactivity.php:50
-msgid "Export CSV"
-msgstr ""
-
 #: front/doraregister.form.php:55
 msgid "The DORA register has been updated."
 msgstr ""
@@ -12175,6 +13095,30 @@ msgstr ""
 
 #: front/impactanalysis.php:42
 msgid "This risk already exists for this item."
+msgstr ""
+
+#: front/managementreview.dossier.php:38
+msgid ""
+"Choose a valid period: a start date before the end date, ten years at most."
+msgstr ""
+
+#: front/managementreview.dossier.php:44
+msgid "Preparatory file generated and attached to the review."
+msgstr ""
+
+#: front/managementreview.dossier.php:49
+msgid "The preparatory file could not be generated."
+msgstr ""
+
+#: front/managementreviewaction.form.php:45
+#, php-format
+msgid "%d action created from the decisions."
+msgid_plural "%d actions created from the decisions."
+msgstr[0] ""
+msgstr[1] ""
+
+#: front/managementreviewaction.form.php:46
+msgid "Every decision already has its action."
 msgstr ""
 
 #: front/networkflow.import.php:32
@@ -12332,10 +13276,6 @@ msgstr ""
 msgid "Record of processing activities"
 msgstr ""
 
-#: front/referentiels.php:72 src/Referentials.php:34
-msgid "Reference frameworks"
-msgstr ""
-
 #: front/referentiels.php:312
 #, php-format
 msgid "Applies from %s."
@@ -12442,12 +13382,28 @@ msgid_plural "%d CVE references added."
 msgstr[0] ""
 msgstr[1] ""
 
-#: front/securityincidentedrimport.php:41
-#: front/securityincidentedrimport.php:60 src/ControlTest.php:504
+#: front/securityincidentedrimport.php:40
+msgid "Select at least one alert."
+msgstr ""
+
+#: front/securityincidentedrimport.php:44
+#, php-format
+msgid ""
+"%1$d incident(s) created, %2$d alert(s) ignored (already imported or not "
+"allowed)."
+msgstr ""
+
+#: front/securityincidentedrimport.php:53
+#, php-format
+msgid "%d alert(s) set aside."
+msgstr ""
+
+#: front/securityincidentedrimport.php:66
+#: front/securityincidentedrimport.php:85 src/ControlTest.php:504
 msgid "The file could not be received."
 msgstr ""
 
-#: front/securityincidentedrimport.php:45
+#: front/securityincidentedrimport.php:70
 msgid "The file is too large."
 msgstr ""
 
@@ -12537,10 +13493,6 @@ msgstr ""
 msgid "The copy could not be attached (file type not allowed?)."
 msgstr ""
 
-#: hook.php:54 src/Services/Dashboard/DashboardCardService.php:135
-msgid "Risks by level"
-msgstr ""
-
 #: hook.php:60 src/Services/Dashboard/DashboardCardService.php:169
 msgid "Risks by category"
 msgstr ""
@@ -12567,10 +13519,6 @@ msgstr ""
 
 #: hook.php:105 src/Services/Dashboard/DashboardCardService.php:316
 msgid "SoA controls by implementation status"
-msgstr ""
-
-#: hook.php:118 src/Services/Dashboard/DashboardCardService.php:373
-msgid "Overdue corrective/preventive actions"
 msgstr ""
 
 #: hook.php:124 src/Services/Dashboard/DashboardCardService.php:408
@@ -12724,24 +13672,6 @@ msgstr ""
 
 #: hook.php:366 src/Services/Dashboard/SecurityIncidentCardProvider.php:298
 msgid "Security incidents by severity"
-msgstr ""
-
-#: hook.php:373 src/ConsistencyCheck.php:259 src/RiskIndicator.php:132
-#: src/Services/Dashboard/DashboardCardService.php:848
-msgid "Overdue risk treatment actions"
-msgstr ""
-
-#: hook.php:379 src/Services/Dashboard/DashboardCardService.php:884
-msgid "Risks to mitigate/transfer with no treatment plan"
-msgstr ""
-
-#: hook.php:392 src/RiskIndicator.php:131
-#: src/Services/Dashboard/DashboardCardService.php:959
-msgid "Open risks above tolerance"
-msgstr ""
-
-#: hook.php:398 src/Services/Dashboard/DashboardCardService.php:980
-msgid "Risk indicators (KRI) by status"
 msgstr ""
 
 #: hook.php:404 src/Services/Dashboard/DashboardCardService.php:1025
@@ -13201,6 +14131,43 @@ msgid "Account hygiene: %d account to check"
 msgid_plural "Account hygiene: %d accounts to check"
 msgstr[0] ""
 msgstr[1] ""
+
+#: src/AcnRequirement.php:76
+msgid "NIS2 Italy requirement (ACN)"
+msgid_plural "NIS2 Italy requirements (ACN)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/AcnRequirement.php:143
+msgid "Important entity (annex 1)"
+msgstr ""
+
+#: src/AcnRequirement.php:144
+msgid "Essential entity (annex 2)"
+msgstr ""
+
+#: src/AcnRequirement.php:441
+msgid ""
+"A justification is required whenever a requirement is not fully applicable."
+msgstr ""
+
+#: src/AcnRequirement.php:752
+msgid "Annex"
+msgstr ""
+
+#: src/AcnRequirement.php:801
+#, php-format
+msgid "NIS2 Italy compliance (ACN determination %s)"
+msgstr ""
+
+#: src/AcnRequirement.php:829
+msgid "Point"
+msgstr ""
+
+#: src/AcnRequirement.php:845 src/ContextItem.php:579 src/Control.php:1065
+#: src/IsmsRequirement.php:317
+msgid "Last update"
+msgstr ""
 
 #: src/AssetClassification.php:58
 msgid "C/I/A classification"
@@ -13925,13 +14892,6 @@ msgstr ""
 msgid "Penetration test"
 msgstr ""
 
-#: src/ComplianceEvent.php:118 src/ConsistencyCheck.php:119
-#: src/ManagementReview.php:66
-msgid "Management review"
-msgid_plural "Management reviews"
-msgstr[0] ""
-msgstr[1] ""
-
 #: src/ComplianceEvent.php:119
 msgid "Certificate renewal"
 msgstr ""
@@ -14059,7 +15019,7 @@ msgstr ""
 msgid "Evidence and monitoring"
 msgstr ""
 
-#: src/ConsistencyCheck.php:120
+#: src/ConsistencyCheck.php:120 src/ManagementReviewDossier.php:92
 msgid "Nonconformities and corrective actions"
 msgstr ""
 
@@ -14551,10 +15511,6 @@ msgstr ""
 msgid "Kind"
 msgstr ""
 
-#: src/ContextItem.php:579 src/Control.php:1065 src/IsmsRequirement.php:317
-msgid "Last update"
-msgstr ""
-
 #: src/ContextItem.php:720
 #, php-format
 msgid "%d context item(s) awaiting review, %d notification(s) raised."
@@ -14565,10 +15521,6 @@ msgid "Annex A control"
 msgid_plural "Annex A controls"
 msgstr[0] ""
 msgstr[1] ""
-
-#: src/Control.php:116
-msgid "Compliance"
-msgstr ""
 
 #: src/Control.php:128
 msgid "Organizational"
@@ -16675,10 +17627,6 @@ msgstr[1] ""
 msgid "Organization and its context"
 msgstr ""
 
-#: src/IsmsRequirement.php:104
-msgid "Interested parties"
-msgstr ""
-
 #: src/IsmsRequirement.php:105
 msgid "ISMS scope"
 msgstr ""
@@ -16711,7 +17659,7 @@ msgstr ""
 msgid "Risk treatment"
 msgstr ""
 
-#: src/IsmsRequirement.php:115
+#: src/IsmsRequirement.php:115 src/ManagementReviewDossier.php:104
 msgid "Information security objectives"
 msgstr ""
 
@@ -16826,9 +17774,106 @@ msgstr ""
 msgid "From orange"
 msgstr ""
 
-#: src/ManagementReview.php:81 src/ManagementReview.php:378 src/Training.php:96
+#: src/ManagementReview.php:82 src/ManagementReview.php:402 src/Training.php:96
 msgctxt "feminine"
 msgid "Completed"
+msgstr ""
+
+#: src/ManagementReviewAction.php:47
+msgid "Management review action"
+msgid_plural "Management review actions"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/ManagementReviewAction.php:97
+msgid "Management review not found."
+msgstr ""
+
+#: src/ManagementReviewAction.php:107
+msgid "Describe the action."
+msgstr ""
+
+#: src/ManagementReviewDossier.php:55
+msgid "Preparatory file"
+msgid_plural "Preparatory files"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/ManagementReviewDossier.php:84
+msgid "Actions from previous reviews"
+msgstr ""
+
+#: src/ManagementReviewDossier.php:85
+msgid "Where the actions decided at earlier management reviews stand today."
+msgstr ""
+
+#: src/ManagementReviewDossier.php:88
+msgid "Context and interested parties"
+msgstr ""
+
+#: src/ManagementReviewDossier.php:89
+msgid ""
+"Internal and external issues and interested parties: what changed during the "
+"period and what is overdue for review."
+msgstr ""
+
+#: src/ManagementReviewDossier.php:93
+msgid ""
+"Findings raised and closed during the period, and corrective actions still "
+"open or late."
+msgstr ""
+
+#: src/ManagementReviewDossier.php:96
+msgid "Monitoring, measurement and incidents"
+msgstr ""
+
+#: src/ManagementReviewDossier.php:97
+msgid "Key risk indicators and information security incidents over the period."
+msgstr ""
+
+#: src/ManagementReviewDossier.php:100
+msgid "Audit results"
+msgstr ""
+
+#: src/ManagementReviewDossier.php:101
+msgid "Internal audits completed during the period and what they found."
+msgstr ""
+
+#: src/ManagementReviewDossier.php:105
+msgid "Status of each objective and its latest measurement in the period."
+msgstr ""
+
+#: src/ManagementReviewDossier.php:108
+msgid "Risk assessment and treatment"
+msgstr ""
+
+#: src/ManagementReviewDossier.php:109
+msgid ""
+"Open risks by level, risks beyond appetite, and progress of the treatment "
+"plan."
+msgstr ""
+
+#: src/ManagementReviewDossier.php:113
+msgid ""
+"Implementation of the applicable controls and the latest approved version of "
+"the SoA."
+msgstr ""
+
+#: src/ManagementReviewDossier.php:116
+msgid "Opportunities for improvement"
+msgstr ""
+
+#: src/ManagementReviewDossier.php:117
+msgid "Maturity score over the period and consistency gaps still to fix."
+msgstr ""
+
+#: src/ManagementReviewDossier.php:583
+msgid "Management review preparatory file"
+msgstr ""
+
+#: src/ManagementReviewDossier.php:613
+#, php-format
+msgid "Management review preparatory file - %1$s (%2$s to %3$s)"
 msgstr ""
 
 #: src/Maturity.php:82
@@ -18951,7 +19996,7 @@ msgid ""
 "person(s)."
 msgstr ""
 
-#: src/Policy.php:475
+#: src/Policy.php:477
 #, php-format
 msgid "%d policy(ies) awaiting review, %d notification(s) raised."
 msgstr ""
@@ -20082,11 +21127,6 @@ msgid_plural "Risk treatment actions"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/RiskTreatmentAction.php:89 src/RiskTreatmentAction.php:173
-#: src/SecurityIncidentPlaybookTask.php:67
-msgid "Done"
-msgstr ""
-
 #: src/RiskTreatmentAction.php:128
 msgid "Risk not found."
 msgstr ""
@@ -20207,14 +21247,6 @@ msgstr[1] ""
 msgid "Alert identifier"
 msgstr ""
 
-#: src/SecurityIncidentEdrImport.php:71
-msgid "Detection date"
-msgstr ""
-
-#: src/SecurityIncidentEdrImport.php:72
-msgid "Alert name"
-msgstr ""
-
 #: src/SecurityIncidentEdrImport.php:73
 msgid "Host"
 msgstr ""
@@ -20247,10 +21279,6 @@ msgstr ""
 
 #: src/SecurityIncidentEdrImport.php:84 src/SecurityIncidentIoc.php:68
 msgid "URL"
-msgstr ""
-
-#: src/SecurityIncidentEdrImport.php:85
-msgid "Console link"
 msgstr ""
 
 #: src/SecurityIncidentEdrImport.php:95
@@ -20499,6 +21527,77 @@ msgstr ""
 msgid "Security watch"
 msgstr ""
 
+#: src/SentinelOneAlert.php:83
+msgid "SentinelOne alerts"
+msgstr ""
+
+#: src/SentinelOneAlert.php:104
+msgid ""
+"SentinelOne: reads new threats, alerts and application vulnerabilities (read "
+"only)"
+msgstr ""
+
+#: src/SentinelOneAlert.php:673
+msgid ""
+"SentinelOne refused the API token (401): check that it is valid and has not "
+"expired."
+msgstr ""
+
+#: src/SentinelOneAlert.php:678
+msgid ""
+"The API token is not allowed to read this information (403): give it the "
+"Viewer role on the accounts or sites to read, or check the licence."
+msgstr ""
+
+#: src/SentinelOneAlert.php:683
+msgid ""
+"This information is not available on this console (404): it may not be "
+"included in the licence."
+msgstr ""
+
+#: src/SentinelOneAlert.php:688
+msgid ""
+"SentinelOne limits the number of requests (429): the next run resumes where "
+"this one stopped."
+msgstr ""
+
+#: src/SentinelOneAlert.php:693
+msgid ""
+"The SentinelOne console could not be reached: check its address, the GLPI "
+"proxy and, for an internal address, the setting that allows them."
+msgstr ""
+
+#: src/SentinelOneAlert.php:698
+msgid ""
+"The console address is an internal address, refused by default: an "
+"administrator can allow internal addresses in this configuration page."
+msgstr ""
+
+#: src/SentinelOneAlert.php:703
+msgid ""
+"The SentinelOne console sent an unexpected answer: check the console address."
+msgstr ""
+
+#: src/SentinelOneAlert.php:707
+msgid "Not read during this run: an earlier step stopped it."
+msgstr ""
+
+#: src/SentinelOneAlert.php:709
+msgid "The SentinelOne console returned an error."
+msgstr ""
+
+#: src/SentinelOneAlert.php:768
+msgid "Threats"
+msgstr ""
+
+#: src/SentinelOneAlert.php:769
+msgid "Alerts"
+msgstr ""
+
+#: src/SentinelOneAlert.php:770
+msgid "Application vulnerabilities"
+msgstr ""
+
 #: src/Services/Control/FrameworkConfig.php:143
 msgid ""
 "Annex A table, ISMS requirements (clauses 4 to 10) and ISO 27001 scores. The "
@@ -20587,20 +21686,19 @@ msgstr ""
 
 #: src/Services/Control/FrameworkConfig.php:210
 msgid ""
+"Italian NIS2 basic security measures (ACN determination 379907/2025): a "
+"register with one record per requirement, per GLPI entity set as important "
+"or essential below. Disabled by default."
+msgstr ""
+
+#: src/Services/Control/FrameworkConfig.php:216
+msgid ""
 "Custom framework imported from a file: its requirements, their references on "
 "the controls and its score. Disabled until you enable it."
 msgstr ""
 
 #: src/Services/Control/SoaReportBuilder.php:119
 msgid "Statement of Applicability: ISO/IEC 27001:2022 Annex A"
-msgstr ""
-
-#: src/Services/Dashboard/DashboardCardService.php:46
-msgid "Maturity score (out of 100)"
-msgstr ""
-
-#: src/Services/Dashboard/DashboardCardService.php:65
-msgid "ISMS consistency gaps to fix before the audit"
 msgstr ""
 
 #: src/Services/Dashboard/DashboardCardService.php:249
@@ -20984,532 +22082,4 @@ msgstr ""
 #: src/Waiver.php:616
 #, php-format
 msgid "Re-assess the waiver \"%s\""
-msgstr ""
-
-msgid "Also detected by SentinelOne"
-msgstr ""
-
-#, php-format
-msgid "SentinelOne: %d computer(s)"
-msgstr ""
-
-msgid "Detected by SentinelOne only"
-msgstr ""
-
-#, php-format
-msgid "Last read: %s"
-msgstr ""
-
-msgid "SentinelOne reports no vulnerability beyond those listed above."
-msgstr ""
-
-msgid "Application vulnerabilities seen by SentinelOne on your computers and not found by the software watch. Source: SentinelOne API, read only."
-msgstr ""
-
-msgid "Applications"
-msgstr ""
-
-msgid "From the last reading of SentinelOne: a computer is covered when an active agent is matched with it (serial number or exact name)."
-msgstr ""
-
-msgid "SentinelOne coverage"
-msgstr ""
-
-msgid "SentinelOne alerts to review"
-msgstr ""
-
-msgid "Settings"
-msgstr ""
-
-msgid "No SentinelOne alert waiting for review."
-msgstr ""
-
-msgid "The automatic reading is disabled: enable it in the plugin configuration, or use the button \"Fetch now\" there."
-msgstr ""
-
-msgid "Tick the alerts that deserve a security incident: each one becomes an incident with its indicators, MITRE ATT&CK techniques and computer. The others can be set aside. Nothing is changed in SentinelOne."
-msgstr ""
-
-#, php-format
-msgid "%1$d alerts: the %2$d most recent are shown."
-msgstr ""
-
-msgid "Select all"
-msgstr ""
-
-msgid "Computer"
-msgstr ""
-
-msgid "Not found in GLPI"
-msgstr ""
-
-msgid "Create the incidents of the selected alerts"
-msgstr ""
-
-msgid "Set the selected alerts aside"
-msgstr ""
-
-msgid "SentinelOne connector"
-msgstr ""
-
-msgid "Read only"
-msgstr ""
-
-msgid "Every hour, the threats and alerts detected by SentinelOne are fetched and proposed as security incidents on the EDR import screen: nothing is created without your validation. The agents are matched with the GLPI computers (serial number, then exact name) and the application vulnerabilities join the fleet vulnerabilities. Nothing is ever sent to SentinelOne (no isolation, no resolution)."
-msgstr ""
-
-msgid "Fetch automatically from SentinelOne"
-msgstr ""
-
-msgid "Turns on the automatic action that reads SentinelOne every hour. Off by default."
-msgstr ""
-
-msgid "Console address"
-msgstr ""
-
-msgid "The address you use to open the SentinelOne console, in HTTPS."
-msgstr ""
-
-msgid "API token"
-msgstr ""
-
-msgid "Token saved (leave empty to keep it)"
-msgstr ""
-
-msgid "Token saved"
-msgstr ""
-
-msgid "Token of a service user with the Viewer role only. Encrypted with the GLPI key, never displayed again nor logged."
-msgstr ""
-
-msgid "Delete the saved token"
-msgstr ""
-
-msgid "Entity of the alerts whose computer is not found in GLPI"
-msgstr ""
-
-msgid "Test the connection"
-msgstr ""
-
-msgid "Fetch now"
-msgstr ""
-
-msgid "Automatic action"
-msgstr ""
-
-msgid "active"
-msgstr ""
-
-msgid "disabled"
-msgstr ""
-
-msgid "Open the automatic action"
-msgstr ""
-
-#, php-format
-msgid "%d read"
-msgstr ""
-
-#, php-format
-msgid "%d new"
-msgstr ""
-
-msgid "continued at the next run"
-msgstr ""
-
-msgid "Review the proposed alerts"
-msgstr ""
-
-msgid "Agents"
-msgstr ""
-
-#, php-format
-msgid "%d agent(s) in the console"
-msgstr ""
-
-#, php-format
-msgid "%d without a matching GLPI computer"
-msgstr ""
-
-msgid "all matched with a GLPI computer"
-msgstr ""
-
-msgid "These agents are never matched by a similar name: create or rename the computer in the inventory, or fill in its serial number."
-msgstr ""
-
-msgid "Computer name in SentinelOne"
-msgstr ""
-
-msgid "The console address was not saved: it must start with https:// and contain no user name or password."
-msgstr ""
-
-msgid "Enter the console address and the API token first."
-msgstr ""
-
-msgid "Connection accepted, but the token sees no agent and no threat: check that its user has the Viewer role on the right accounts or sites."
-msgstr ""
-
-#, php-format
-msgid "Connection to SentinelOne succeeded: %1$d agent(s) and %2$s threat(s) visible."
-msgstr ""
-
-#, php-format
-msgid "SentinelOne read: %1$d new alert(s) to review, %2$d agent(s), %3$d application vulnerabilities."
-msgstr ""
-
-msgid "Select at least one alert."
-msgstr ""
-
-#, php-format
-msgid "%1$d incident(s) created, %2$d alert(s) ignored (already imported or not allowed)."
-msgstr ""
-
-#, php-format
-msgid "%d alert(s) set aside."
-msgstr ""
-
-msgid "SentinelOne alerts"
-msgstr ""
-
-msgid "SentinelOne: reads new threats, alerts and application vulnerabilities (read only)"
-msgstr ""
-
-msgid "SentinelOne refused the API token (401): check that it is valid and has not expired."
-msgstr ""
-
-msgid "The API token is not allowed to read this information (403): give it the Viewer role on the accounts or sites to read, or check the licence."
-msgstr ""
-
-msgid "This information is not available on this console (404): it may not be included in the licence."
-msgstr ""
-
-msgid "SentinelOne limits the number of requests (429): the next run resumes where this one stopped."
-msgstr ""
-
-msgid "The SentinelOne console could not be reached: check its address, the GLPI proxy and, for an internal address, the setting that allows them."
-msgstr ""
-
-msgid "The console address is an internal address, refused by default: an administrator can allow internal addresses in this configuration page."
-msgstr ""
-
-msgid "The SentinelOne console sent an unexpected answer: check the console address."
-msgstr ""
-
-msgid "Not read during this run: an earlier step stopped it."
-msgstr ""
-
-msgid "The SentinelOne console returned an error."
-msgstr ""
-
-msgid "Threats"
-msgstr ""
-
-msgid "Alerts"
-msgstr ""
-
-msgid "Application vulnerabilities"
-msgstr ""
-
-#: templates/pdf/acn_report.html.twig templates/config_form.html.twig
-msgid "Classification"
-msgstr ""
-
-#: templates/pdf/acn_report.html.twig templates/acn_requirement_form.html.twig
-#, php-format
-msgid "ACN determination %s"
-msgstr ""
-
-#: templates/pdf/acn_report.html.twig templates/referentiels_acn_card.html.twig
-#: templates/acn_requirement_form.html.twig templates/acn_register.html.twig
-#, php-format
-msgid "Annex %d"
-msgstr ""
-
-#: templates/pdf/acn_report.html.twig
-#, php-format
-msgid "%d not applicable"
-msgstr ""
-
-#: templates/pdf/acn_report.html.twig templates/acn_register.html.twig
-msgid "Implemented requirements"
-msgstr ""
-
-#: templates/pdf/acn_report.html.twig templates/acn_register.html.twig
-msgid "Approvals to record"
-msgstr ""
-
-#: templates/pdf/acn_report.html.twig templates/acn_register.html.twig
-msgid "Function"
-msgstr ""
-
-#: templates/pdf/acn_report.html.twig src/AcnRequirement.php:770
-msgid "Required, not recorded"
-msgstr ""
-
-#: templates/pdf/acn_report.html.twig
-msgid ""
-"Codes and point numbers come from the annexes published by the ACN; titles "
-"and summaries are written by this project and do not replace the official "
-"text."
-msgstr ""
-
-#: templates/referentiels_acn_card.html.twig
-#, php-format
-msgid "NIS2 Italy: ACN basic security measures (determination %s)"
-msgstr ""
-
-#: templates/referentiels_acn_card.html.twig templates/config_form.html.twig
-msgid "Open the NIS2 Italy register"
-msgstr ""
-
-#: templates/referentiels_acn_card.html.twig templates/acn_register.html.twig
-msgid "Classify the entities"
-msgstr ""
-
-#: templates/referentiels_acn_card.html.twig
-msgid ""
-"Measures of the Italian NIS2 law (D.Lgs. 138/2024). Codes follow the "
-"national framework, aligned with NIST CSF 2.0. Each requirement has its own "
-"record in the register of the entity, without going through ISO 27001 Annex "
-"A."
-msgstr ""
-
-#: templates/referentiels_acn_card.html.twig
-#, php-format
-msgid "Annex 1, important entities: %1$d measures, %2$d requirements"
-msgstr ""
-
-#: templates/referentiels_acn_card.html.twig
-#, php-format
-msgid "Annex 2, essential entities: %1$d measures, %2$d requirements"
-msgstr ""
-
-#: templates/referentiels_acn_card.html.twig
-#, php-format
-msgid "Your entity: %s"
-msgstr ""
-
-#: templates/referentiels_acn_card.html.twig src/AcnRequirement.php:750
-#: src/AcnRequirement.php:824
-msgid "Measure"
-msgstr ""
-
-#: templates/referentiels_acn_card.html.twig
-#, php-format
-msgid ""
-"Source: ACN determination %s, annexes 1 and 2 (public documents). Codes and "
-"point numbers are the official ones; titles, summaries and the mapping to "
-"NIS2 are made by this project. Only the text published by the ACN is "
-"authentic."
-msgstr ""
-
-#: templates/acn_requirement_form.html.twig
-msgid "ACN requirement"
-msgstr ""
-
-#: templates/acn_requirement_form.html.twig
-msgid "Management approval required"
-msgstr ""
-
-#: templates/acn_requirement_form.html.twig
-msgid ""
-"Summary written by this project to help you find the requirement. Only the "
-"text published by the ACN is authentic: open the source below."
-msgstr ""
-
-#: templates/acn_requirement_form.html.twig
-msgid "Official reference"
-msgstr ""
-
-#: templates/acn_requirement_form.html.twig
-#, php-format
-msgid ""
-"This requirement only applies to essential entities: it is not part of the "
-"catalogue of this entity (%s). It is kept in case the classification changes."
-msgstr ""
-
-#: templates/acn_requirement_form.html.twig
-msgid ""
-"Required when the requirement is not fully applicable: the ACN accepts "
-"exceptions only for reasons that are justified and documented."
-msgstr ""
-
-#: templates/acn_requirement_form.html.twig src/AcnRequirement.php:759
-#: src/AcnRequirement.php:841
-msgid "Notes"
-msgstr ""
-
-#: templates/acn_requirement_form.html.twig
-msgid "Approval by the management bodies"
-msgstr ""
-
-#: templates/acn_requirement_form.html.twig
-msgid ""
-"This point requires the approval of the administrative and management "
-"bodies. Record the date and attach the minutes in the Documents tab."
-msgstr ""
-
-#: templates/acn_requirement_form.html.twig
-msgid "Approval reference"
-msgstr ""
-
-#: templates/acn_requirement_form.html.twig
-msgid "For example \"Board resolution no. 12 of 3 March\"."
-msgstr ""
-
-#: templates/acn_requirement_form.html.twig
-msgid "Policies and documents"
-msgstr ""
-
-#: templates/acn_requirement_form.html.twig
-msgid "Related policies"
-msgstr ""
-
-#: templates/acn_requirement_form.html.twig
-msgid ""
-"Policies of this plugin that answer the requirement. Procedures, plans and "
-"evidence go in the Documents tab."
-msgstr ""
-
-#: templates/acn_requirement_form.html.twig
-msgid "Approval of the linked policies"
-msgstr ""
-
-#: templates/acn_requirement_form.html.twig
-msgid "Related references"
-msgstr ""
-
-#: templates/acn_requirement_form.html.twig
-msgid "NIS2 directive (EU)"
-msgstr ""
-
-#: templates/acn_requirement_form.html.twig
-msgid "Indicative mapping made by this project."
-msgstr ""
-
-#: templates/acn_requirement_form.html.twig
-msgid "ISO 27001 Annex A (optional)"
-msgstr ""
-
-#: templates/acn_requirement_form.html.twig
-msgid ""
-"Controls that NIST links to this subcategory. You do not need the Statement "
-"of Applicability to follow this requirement."
-msgstr ""
-
-#: templates/acn_requirement_form.html.twig
-msgid "Back to the NIS2 Italy register"
-msgstr ""
-
-#: templates/acn_register.html.twig
-#, php-format
-msgid ""
-"Basic security measures of the ACN determination %s (D.Lgs. 138/2024): one "
-"record per requirement."
-msgstr ""
-
-#: templates/acn_register.html.twig
-msgid "Important or essential entities"
-msgstr ""
-
-#: templates/acn_register.html.twig
-msgid ""
-"No entity is classified yet. In the configuration of the plugin, say for "
-"each GLPI entity whether it is an important entity (annex 1) or an essential "
-"entity (annex 2): its register is then created with all the requirements of "
-"its annex."
-msgstr ""
-
-#: templates/acn_register.html.twig
-msgid "Ask an administrator of the plugin to do it."
-msgstr ""
-
-#: templates/acn_register.html.twig
-#, php-format
-msgid "%1$d measures, %2$d requirements"
-msgstr ""
-
-#: templates/acn_register.html.twig
-msgid "Register"
-msgstr ""
-
-#: templates/acn_register.html.twig
-msgid "Without owner"
-msgstr ""
-
-#: templates/acn_register.html.twig
-msgid "By function of the national framework"
-msgstr ""
-
-#: templates/acn_register.html.twig
-msgid "Approval to record"
-msgstr ""
-
-#: templates/acn_register.html.twig
-#, php-format
-msgid "Approved on %s"
-msgstr ""
-
-#: templates/acn_register.html.twig
-msgid ""
-"Codes and point numbers come from the annexes published by the ACN; titles "
-"and summaries are written by this project and do not replace the official "
-"text:"
-msgstr ""
-
-#: templates/config_form.html.twig
-msgid ""
-"For each GLPI entity subject to the Italian NIS2 law, choose whether it is "
-"an important entity (annex 1 of the ACN determination) or an essential "
-"entity (annex 2). Its register is created with one record per requirement; "
-"sub-entities without a choice follow their parent. Changing or removing the "
-"choice never deletes what was entered."
-msgstr ""
-
-#: templates/config_form.html.twig
-msgid "Not subject (or follows its parent)"
-msgstr ""
-
-#: front/config.php:222
-#, php-format
-msgid "Classification saved; %d requirement record(s) created."
-msgstr ""
-
-#: src/AcnRequirement.php:76
-msgid "NIS2 Italy requirement (ACN)"
-msgid_plural "NIS2 Italy requirements (ACN)"
-msgstr[0] ""
-msgstr[1] ""
-
-#: src/AcnRequirement.php:143
-msgid "Important entity (annex 1)"
-msgstr ""
-
-#: src/AcnRequirement.php:144
-msgid "Essential entity (annex 2)"
-msgstr ""
-
-#: src/AcnRequirement.php:441
-msgid ""
-"A justification is required whenever a requirement is not fully applicable."
-msgstr ""
-
-#: src/AcnRequirement.php:752
-msgid "Annex"
-msgstr ""
-
-#: src/AcnRequirement.php:801
-#, php-format
-msgid "NIS2 Italy compliance (ACN determination %s)"
-msgstr ""
-
-#: src/AcnRequirement.php:829
-msgid "Point"
-msgstr ""
-
-#: src/Services/Control/FrameworkConfig.php:210
-msgid ""
-"Italian NIS2 basic security measures (ACN determination 379907/2025): a "
-"register with one record per requirement, per GLPI entity set as important "
-"or essential below. Disabled by default."
 msgstr ""
