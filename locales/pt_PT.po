@@ -18159,3 +18159,227 @@ msgstr "Os níveis são listados do mais baixo (1) ao mais alto."
 
 msgid "Rename the levels of probability and impact to match your method, for example the wording of your risk management policy. Leave a field empty to keep the default label, translated into the language of each user; a label you enter is shown as is in every language. Renaming a level changes nothing in existing risks."
 msgstr "Renomeie os níveis de probabilidade e de impacto conforme o seu método, por exemplo com os termos da sua política de gestão de riscos. Deixe um campo vazio para manter o rótulo padrão, traduzido para o idioma de cada usuário; um rótulo digitado é exibido como está em todos os idiomas. Renomear um nível não altera os riscos existentes."
+
+msgid "Also detected by SentinelOne"
+msgstr "Também detectada pelo SentinelOne"
+
+#, php-format
+msgid "SentinelOne: %d computer(s)"
+msgstr "SentinelOne: %d computador(es)"
+
+msgid "Detected by SentinelOne only"
+msgstr "Detectadas apenas pelo SentinelOne"
+
+#, php-format
+msgid "Last read: %s"
+msgstr "Última leitura: %s"
+
+msgid "SentinelOne reports no vulnerability beyond those listed above."
+msgstr "O SentinelOne não indica nenhuma vulnerabilidade além das listadas acima."
+
+msgid "Application vulnerabilities seen by SentinelOne on your computers and not found by the software watch. Source: SentinelOne API, read only."
+msgstr "Vulnerabilidades de aplicações vistas pelo SentinelOne nos seus computadores e não encontradas pela vigilância de software. Fonte: API do SentinelOne, somente leitura."
+
+msgid "Applications"
+msgstr "Aplicações"
+
+msgid "From the last reading of SentinelOne: a computer is covered when an active agent is matched with it (serial number or exact name)."
+msgstr "Segundo a última leitura do SentinelOne: um computador está coberto quando um agente ativo lhe é associado (número de série ou nome exato)."
+
+msgid "SentinelOne coverage"
+msgstr "Cobertura do SentinelOne"
+
+msgid "SentinelOne alerts to review"
+msgstr "Alertas do SentinelOne a verificar"
+
+msgid "Settings"
+msgstr "Definições"
+
+msgid "No SentinelOne alert waiting for review."
+msgstr "Nenhum alerta do SentinelOne a aguardar verificação."
+
+msgid "The automatic reading is disabled: enable it in the plugin configuration, or use the button \"Fetch now\" there."
+msgstr "A leitura automática está desativada: ative-a na configuração do plugin ou use aí o botão «Ler agora»."
+
+msgid "Tick the alerts that deserve a security incident: each one becomes an incident with its indicators, MITRE ATT&CK techniques and computer. The others can be set aside. Nothing is changed in SentinelOne."
+msgstr "Marque os alertas que merecem um incidente de segurança: cada um torna-se um incidente com os seus indicadores, técnicas MITRE ATT&CK e computador. Os outros podem ser postos de lado. Nada é alterado no SentinelOne."
+
+#, php-format
+msgid "%1$d alerts: the %2$d most recent are shown."
+msgstr "%1$d alertas: são mostrados os %2$d mais recentes."
+
+msgid "Select all"
+msgstr "Selecionar tudo"
+
+msgid "Computer"
+msgstr "Computador"
+
+msgid "Not found in GLPI"
+msgstr "Não encontrado no GLPI"
+
+msgid "Create the incidents of the selected alerts"
+msgstr "Criar os incidentes dos alertas selecionados"
+
+msgid "Set the selected alerts aside"
+msgstr "Pôr de lado os alertas selecionados"
+
+msgid "SentinelOne connector"
+msgstr "Conector do SentinelOne"
+
+msgid "Read only"
+msgstr "Somente leitura"
+
+msgid "Every hour, the threats and alerts detected by SentinelOne are fetched and proposed as security incidents on the EDR import screen: nothing is created without your validation. The agents are matched with the GLPI computers (serial number, then exact name) and the application vulnerabilities join the fleet vulnerabilities. Nothing is ever sent to SentinelOne (no isolation, no resolution)."
+msgstr "A cada hora, as ameaças e alertas detetados pelo SentinelOne são lidos e propostos como incidentes de segurança no ecrã de importação EDR: nada é criado sem a sua validação. Os agentes são associados aos computadores do GLPI (número de série, depois nome exato) e as vulnerabilidades de aplicações juntam-se às do parque. Nada é alguma vez enviado ao SentinelOne (nem isolamento, nem resolução)."
+
+msgid "Fetch automatically from SentinelOne"
+msgstr "Ler automaticamente o SentinelOne"
+
+msgid "Turns on the automatic action that reads SentinelOne every hour. Off by default."
+msgstr "Ativa a ação automática que lê o SentinelOne a cada hora. Desativada por predefinição."
+
+msgid "Console address"
+msgstr "Endereço da consola"
+
+msgid "The address you use to open the SentinelOne console, in HTTPS."
+msgstr "O endereço com que abre a consola do SentinelOne, em HTTPS."
+
+msgid "API token"
+msgstr "Token de API"
+
+msgid "Token saved (leave empty to keep it)"
+msgstr "Token guardado (deixe vazio para o manter)"
+
+msgid "Token saved"
+msgstr "Token guardado"
+
+msgid "Token of a service user with the Viewer role only. Encrypted with the GLPI key, never displayed again nor logged."
+msgstr "Token de um utilizador de serviço apenas com a função Viewer. Cifrado com a chave do GLPI, nunca mais apresentado nem registado."
+
+msgid "Delete the saved token"
+msgstr "Eliminar o token guardado"
+
+msgid "Entity of the alerts whose computer is not found in GLPI"
+msgstr "Entidade dos alertas cujo computador não é encontrado no GLPI"
+
+msgid "Test the connection"
+msgstr "Testar a ligação"
+
+msgid "Fetch now"
+msgstr "Ler agora"
+
+msgid "Automatic action"
+msgstr "Ação automática"
+
+msgid "active"
+msgstr "ativa"
+
+msgid "disabled"
+msgstr "desativada"
+
+msgid "Open the automatic action"
+msgstr "Abrir a ação automática"
+
+#, php-format
+msgid "%d read"
+msgstr "%d lido(s)"
+
+#, php-format
+msgid "%d new"
+msgstr "%d novo(s)"
+
+msgid "continued at the next run"
+msgstr "continua na próxima execução"
+
+msgid "Review the proposed alerts"
+msgstr "Verificar os alertas propostos"
+
+msgid "Agents"
+msgstr "Agentes"
+
+#, php-format
+msgid "%d agent(s) in the console"
+msgstr "%d agente(s) na consola"
+
+#, php-format
+msgid "%d without a matching GLPI computer"
+msgstr "%d sem computador do GLPI correspondente"
+
+msgid "all matched with a GLPI computer"
+msgstr "todos associados a um computador do GLPI"
+
+msgid "These agents are never matched by a similar name: create or rename the computer in the inventory, or fill in its serial number."
+msgstr "Estes agentes nunca são associados por um nome parecido: crie ou mude o nome do computador no inventário, ou preencha o seu número de série."
+
+msgid "Computer name in SentinelOne"
+msgstr "Nome do computador no SentinelOne"
+
+msgid "The console address was not saved: it must start with https:// and contain no user name or password."
+msgstr "O endereço da consola não foi guardado: deve começar por https:// e não conter nome de utilizador nem palavra-passe."
+
+msgid "Enter the console address and the API token first."
+msgstr "Indique primeiro o endereço da consola e o token de API."
+
+msgid "Connection accepted, but the token sees no agent and no threat: check that its user has the Viewer role on the right accounts or sites."
+msgstr "Ligação aceite, mas o token não vê nenhum agente nem ameaça: verifique se o seu utilizador tem a função Viewer nas contas ou sites corretos."
+
+#, php-format
+msgid "Connection to SentinelOne succeeded: %1$d agent(s) and %2$s threat(s) visible."
+msgstr "Ligação ao SentinelOne bem-sucedida: %1$d agente(s) e %2$s ameaça(s) visíveis."
+
+#, php-format
+msgid "SentinelOne read: %1$d new alert(s) to review, %2$d agent(s), %3$d application vulnerabilities."
+msgstr "Leitura do SentinelOne: %1$d alerta(s) novo(s) a verificar, %2$d agente(s), %3$d vulnerabilidades de aplicações."
+
+msgid "Select at least one alert."
+msgstr "Selecione pelo menos um alerta."
+
+#, php-format
+msgid "%1$d incident(s) created, %2$d alert(s) ignored (already imported or not allowed)."
+msgstr "%1$d incidente(s) criado(s), %2$d alerta(s) ignorado(s) (já importado(s) ou não permitido(s))."
+
+#, php-format
+msgid "%d alert(s) set aside."
+msgstr "%d alerta(s) posto(s) de lado."
+
+msgid "SentinelOne alerts"
+msgstr "Alertas do SentinelOne"
+
+msgid "SentinelOne: reads new threats, alerts and application vulnerabilities (read only)"
+msgstr "SentinelOne: lê as novas ameaças, alertas e vulnerabilidades de aplicações (somente leitura)"
+
+msgid "SentinelOne refused the API token (401): check that it is valid and has not expired."
+msgstr "O SentinelOne recusou o token de API (401): verifique se é válido e não expirou."
+
+msgid "The API token is not allowed to read this information (403): give it the Viewer role on the accounts or sites to read, or check the licence."
+msgstr "O token de API não pode ler esta informação (403): atribua-lhe a função Viewer nas contas ou sites a ler, ou verifique a licença."
+
+msgid "This information is not available on this console (404): it may not be included in the licence."
+msgstr "Esta informação não está disponível nesta consola (404): talvez não esteja incluída na licença."
+
+msgid "SentinelOne limits the number of requests (429): the next run resumes where this one stopped."
+msgstr "O SentinelOne limita o número de pedidos (429): a próxima execução retoma onde esta parou."
+
+msgid "The SentinelOne console could not be reached: check its address, the GLPI proxy and, for an internal address, the setting that allows them."
+msgstr "Não foi possível contactar a consola do SentinelOne: verifique o seu endereço, o proxy do GLPI e, para um endereço interno, a definição que os autoriza."
+
+msgid "The console address is an internal address, refused by default: an administrator can allow internal addresses in this configuration page."
+msgstr "O endereço da consola é um endereço interno, recusado por predefinição: um administrador pode autorizar os endereços internos nesta página de configuração."
+
+msgid "The SentinelOne console sent an unexpected answer: check the console address."
+msgstr "A consola do SentinelOne enviou uma resposta inesperada: verifique o endereço da consola."
+
+msgid "Not read during this run: an earlier step stopped it."
+msgstr "Não lido nesta execução: um passo anterior interrompeu-a."
+
+msgid "The SentinelOne console returned an error."
+msgstr "A consola do SentinelOne devolveu um erro."
+
+msgid "Threats"
+msgstr "Ameaças"
+
+msgid "Alerts"
+msgstr "Alertas"
+
+msgid "Application vulnerabilities"
+msgstr "Vulnerabilidades de aplicações"

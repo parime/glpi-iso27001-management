@@ -80,7 +80,7 @@ class SentinelOneAlert extends SentinelOneAlertBase
 
     public static function getTypeName($nb = 0)
     {
-        return _n('SentinelOne alert', 'SentinelOne alerts', $nb, 'grcmanager');
+        return __('SentinelOne alerts', 'grcmanager');
     }
 
     public static function getIcon()
