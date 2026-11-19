@@ -52,13 +52,18 @@
    <div class="card mb-3">
       <div class="card-header"><h3 class="card-title"><i class="ti ti-alert-triangle me-1"></i>{{ __('Alerts', 'grcmanager') }}</h3></div>
       <div class="list-group list-group-flush">
-         {% for alert in matrix.alerts %}
-            <a href="{{ alert.url }}" class="list-group-item list-group-item-action d-flex flex-wrap align-items-center gap-2">
-               <span class="badge {{ alert.severity == 'high' ? 'bg-danger-subtle text-danger-emphasis' : 'bg-warning-subtle text-warning-emphasis' }}">
-                  <i class="ti {{ alert.severity == 'high' ? 'ti-alert-octagon' : 'ti-alert-triangle' }} me-1"></i>{{ alert.severity == 'high' ? __('To fix', 'grcmanager') : __('To check', 'grcmanager') }}
+         {% for row in matrix.rows|filter(r => r.alerts is not empty) %}
+            {% set worst = row.alerts|filter(a => a.severity == 'high') is not empty ? 'high' : 'medium' %}
+            <a href="{{ row.url }}" class="list-group-item list-group-item-action d-flex align-items-start gap-2">
+               <span class="badge {{ worst == 'high' ? 'bg-danger-subtle text-danger-emphasis' : 'bg-warning-subtle text-warning-emphasis' }}">
+                  <i class="ti {{ worst == 'high' ? 'ti-alert-octagon' : 'ti-alert-triangle' }} me-1"></i>{{ worst == 'high' ? __('To fix', 'grcmanager') : __('To check', 'grcmanager') }}
                </span>
-               <strong>{{ alert.activity }}</strong>
-               <span class="text-secondary">{{ alert.message }}</span>
+               <div>
+                  <strong>{{ row.label }}</strong>
+                  {% for alert in row.alerts %}
+                     <div class="small {{ alert.severity == 'high' ? 'text-danger' : 'text-secondary' }}">{{ alert.message }}</div>
+                  {% endfor %}
+               </div>
             </a>
          {% endfor %}
       </div>

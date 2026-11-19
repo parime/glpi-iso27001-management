@@ -21,6 +21,7 @@
    {% if alerts is not empty %}
       <div class="col-12">
          <div class="alert alert-warning">
+          <div class="w-100">
             <div class="fw-bold mb-1"><i class="ti ti-alert-triangle me-1"></i>{{ __('To fix before the audit', 'grcmanager') }}</div>
             <ul class="mb-1">
                {% for alert in alerts %}
@@ -33,6 +34,7 @@
                {% endfor %}
             </ul>
             <div class="small">{{ __('Nothing is changed automatically: adjust the assignments below if needed.', 'grcmanager') }}</div>
+          </div>
          </div>
       </div>
    {% endif %}

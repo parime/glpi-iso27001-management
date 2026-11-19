@@ -18938,3 +18938,271 @@ msgid_plural "NIS2 Italy requirements (ACN)"
 msgstr[0] "Wymaganie NIS2 Włochy (ACN)"
 msgstr[1] "Wymagania NIS2 Włochy (ACN)"
 msgstr[2] "Wymagań NIS2 Włochy (ACN)"
+
+msgid "Activities"
+msgstr "Działania"
+
+msgid "Alerts to fix"
+msgstr "Alerty do poprawienia"
+
+msgid "Responsibility matrix"
+msgstr "Macierz odpowiedzialności"
+
+msgid "Sensitive"
+msgstr "Wrażliwe"
+
+msgid "No activity yet."
+msgstr "Brak działań."
+
+msgid "No alert: every activity has someone who performs it and a single approver, without conflict of duties."
+msgstr "Brak alertów: każde działanie ma wykonawcę i jednego zatwierdzającego, bez konfliktu obowiązków."
+
+msgid "To fix"
+msgstr "Do poprawienia"
+
+msgid "To check"
+msgstr "Do sprawdzenia"
+
+msgid "Only the activities of the entities of the person who exported this matrix are listed. Nothing has been modified by this export."
+msgstr "Wymienione są tylko działania jednostek osoby, która wyeksportowała tę macierz. Eksport niczego nie zmienił."
+
+msgid "%d activity"
+msgid_plural "%d activities"
+msgstr[0] "%d działanie"
+msgstr[1] "%d działania"
+msgstr[2] "%d działań"
+
+msgid "%d alert to fix"
+msgid_plural "%d alerts to fix"
+msgstr[0] "%d alert do poprawienia"
+msgstr[1] "%d alerty do poprawienia"
+msgstr[2] "%d alertów do poprawienia"
+
+msgid "%d point to check"
+msgid_plural "%d points to check"
+msgstr[0] "%d punkt do sprawdzenia"
+msgstr[1] "%d punkty do sprawdzenia"
+msgstr[2] "%d punktów do sprawdzenia"
+
+msgid "No alert"
+msgstr "Brak alertów"
+
+msgid "Open the responsibility matrix"
+msgstr "Otwórz macierz odpowiedzialności"
+
+msgid "To fix before the audit"
+msgstr "Do poprawienia przed audytem"
+
+msgid "Nothing is changed automatically: adjust the assignments below if needed."
+msgstr "Nic nie jest zmieniane automatycznie: w razie potrzeby popraw przypisania poniżej."
+
+msgid "Leave empty to keep the default name, shown in the language of each user."
+msgstr "Pozostaw puste, aby zachować nazwę domyślną, wyświetlaną w języku każdego użytkownika."
+
+msgid "For example \"Review of firewall rules\"."
+msgstr "Na przykład „Przegląd reguł zapory sieciowej”."
+
+msgid "Sensitive activity"
+msgstr "Działanie wrażliwe"
+
+msgid "The same person must not both perform and approve a sensitive activity (segregation of duties)."
+msgstr "Ta sama osoba nie może jednocześnie wykonywać i zatwierdzać działania wrażliwego (rozdział obowiązków)."
+
+msgid "Related Annex A controls"
+msgstr "Powiązane zabezpieczenia z Załącznika A"
+
+msgid "Optional: the controls of your Statement of Applicability that this activity implements."
+msgstr "Opcjonalnie: zabezpieczenia z deklaracji stosowania, które realizuje to działanie."
+
+msgid "Who does what"
+msgstr "Kto co robi"
+
+msgid "Nobody is assigned yet. Add below who performs and who approves this activity."
+msgstr "Nikt nie jest jeszcze przypisany. Dodaj poniżej, kto wykonuje, a kto zatwierdza to działanie."
+
+msgid "User or group"
+msgstr "Użytkownik lub grupa"
+
+msgid "Add a role"
+msgstr "Dodaj rolę"
+
+msgid "Choose the role, then a user or a group, and save. Only one person or group approves."
+msgstr "Wybierz rolę, a następnie użytkownika lub grupę, i zapisz. Zatwierdza tylko jedna osoba lub grupa."
+
+msgid "Add an activity"
+msgstr "Dodaj działanie"
+
+msgid "Adds the proposed activities that are missing, without changing the existing ones."
+msgstr "Dodaje brakujące proponowane działania, bez zmiany istniejących."
+
+msgid "Add the missing default activities"
+msgstr "Dodaj brakujące działania domyślne"
+
+msgid "Download as PDF"
+msgstr "Pobierz jako PDF"
+
+msgid "Attaches a dated PDF to requirement 5.3 and to control A.5.3 of your Statement of Applicability."
+msgstr "Dołącza datowany plik PDF do wymagania 5.3 i zabezpieczenia A.5.3 w deklaracji stosowania."
+
+msgid "Archive as evidence"
+msgstr "Zarchiwizuj jako dowód"
+
+msgid "Alerts only report: nothing is changed automatically in the assignments, rights or statuses."
+msgstr "Alerty tylko sygnalizują: nic nie jest automatycznie zmieniane w przypisaniach, uprawnieniach ani statusach."
+
+msgid "No activity yet. Add the default activities, then say for each one who performs it and who approves it."
+msgstr "Brak działań. Dodaj działania domyślne, a następnie wskaż dla każdego, kto je wykonuje, a kto zatwierdza."
+
+msgid "No active member"
+msgstr "Brak aktywnych członków"
+
+msgid "Segregation of duties is checked on this activity."
+msgstr "Rozdział obowiązków jest sprawdzany dla tego działania."
+
+msgid "Archived matrices"
+msgstr "Zarchiwizowane macierze"
+
+msgid "No archived matrix yet. Archive it before the audit: the dated PDF is attached to requirement 5.3 and to control A.5.3."
+msgstr "Brak zarchiwizowanej macierzy. Zarchiwizuj ją przed audytem: datowany PDF zostanie dołączony do wymagania 5.3 i zabezpieczenia A.5.3."
+
+msgid "%d default activity added."
+msgid_plural "%d default activities added."
+msgstr[0] "Dodano %d działanie domyślne."
+msgstr[1] "Dodano %d działania domyślne."
+msgstr[2] "Dodano %d działań domyślnych."
+
+msgid "The responsibility matrix has been archived as evidence of requirement 5.3 and control A.5.3."
+msgstr "Macierz odpowiedzialności została zarchiwizowana jako dowód dla wymagania 5.3 i zabezpieczenia A.5.3."
+
+msgid "The matrix could not be archived."
+msgstr "Nie udało się zarchiwizować macierzy."
+
+msgid "Who performs, approves, is consulted on or is informed of each activity of the ISMS, with the GLPI users and groups. Conflicts of duties and missing approvers are reported here."
+msgstr "Kto wykonuje, zatwierdza, jest konsultowany lub informowany w każdym działaniu SZBI, z użytkownikami i grupami GLPI. Konflikty obowiązków i brakujący zatwierdzający są tu sygnalizowani."
+
+msgid "For each activity, add who performs it and a single approver, mark the sensitive activities, fix the alerts, then archive the matrix as evidence before the audit."
+msgstr "Dla każdego działania dodaj wykonawcę i jednego zatwierdzającego, oznacz działania wrażliwe, popraw alerty, a następnie zarchiwizuj macierz jako dowód przed audytem."
+
+msgid "ISO/IEC 27001, clause 5.3 and control A.5.3"
+msgstr "ISO/IEC 27001, punkt 5.3 i zabezpieczenie A.5.3"
+
+msgid "ISMS activity"
+msgid_plural "ISMS activities"
+msgstr[0] "Działanie SZBI"
+msgstr[1] "Działania SZBI"
+msgstr[2] "Działań SZBI"
+
+msgid "Performs"
+msgstr "Wykonuje"
+
+msgid "Approves"
+msgstr "Zatwierdza"
+
+msgid "Consulted"
+msgstr "Konsultowany"
+
+msgid "Informed"
+msgstr "Informowany"
+
+msgctxt "responsibility"
+msgid "P"
+msgstr "W"
+
+msgctxt "responsibility"
+msgid "A"
+msgstr "Z"
+
+msgctxt "responsibility"
+msgid "C"
+msgstr "K"
+
+msgctxt "responsibility"
+msgid "I"
+msgstr "I"
+
+msgid "Information security risk assessment"
+msgstr "Szacowanie ryzyka bezpieczeństwa informacji"
+
+msgid "Acceptance of residual risks"
+msgstr "Akceptacja ryzyka szczątkowego"
+
+msgid "Approval of security policies"
+msgstr "Zatwierdzanie polityk bezpieczeństwa"
+
+msgid "Inventory of information assets"
+msgstr "Inwentaryzacja aktywów informacyjnych"
+
+msgid "Granting and removing access rights"
+msgstr "Nadawanie i odbieranie uprawnień dostępu"
+
+msgid "Periodic review of access rights"
+msgstr "Okresowy przegląd uprawnień dostępu"
+
+msgid "Management of privileged accounts"
+msgstr "Zarządzanie kontami uprzywilejowanymi"
+
+msgid "Approval of changes in production"
+msgstr "Zatwierdzanie zmian w środowisku produkcyjnym"
+
+msgid "Backups and restore tests"
+msgstr "Kopie zapasowe i testy odtwarzania"
+
+msgid "Review of logs and security events"
+msgstr "Przegląd dzienników i zdarzeń bezpieczeństwa"
+
+msgid "Handling of security incidents"
+msgstr "Obsługa incydentów bezpieczeństwa"
+
+msgid "Security of suppliers"
+msgstr "Bezpieczeństwo dostawców"
+
+msgid "Security awareness and training"
+msgstr "Podnoszenie świadomości i szkolenia z bezpieczeństwa"
+
+msgid "Business continuity and recovery plans"
+msgstr "Plany ciągłości działania i odtwarzania"
+
+msgid "Internal audit of the ISMS"
+msgstr "Audyt wewnętrzny SZBI"
+
+msgid "Give the activity a name."
+msgstr "Nadaj działaniu nazwę."
+
+msgid "This user or group does not belong to the entity of the activity."
+msgstr "Ten użytkownik lub grupa nie należy do jednostki działania."
+
+msgid "Only one person or group approves \"%s\": remove the current one first."
+msgstr "Tylko jedna osoba lub grupa zatwierdza „%s”: najpierw usuń obecnego zatwierdzającego."
+
+msgid "Deleted item #%d"
+msgstr "Usunięty element nr %d"
+
+msgid "Nobody approves this activity."
+msgstr "Nikt nie zatwierdza tego działania."
+
+msgid "Several people or groups approve this activity: keep only one."
+msgstr "Kilka osób lub grup zatwierdza to działanie: zostaw tylko jedną."
+
+msgid "Nobody performs this activity."
+msgstr "Nikt nie wykonuje tego działania."
+
+msgid "Segregation of duties: %s both performs and approves this sensitive activity."
+msgstr "Rozdział obowiązków: %s jednocześnie wykonuje i zatwierdza to działanie wrażliwe."
+
+msgid "The group %s has no active member."
+msgstr "Grupa %s nie ma aktywnych członków."
+
+msgid "%s is disabled or no longer exists in GLPI."
+msgstr "%s jest wyłączony lub nie istnieje już w GLPI."
+
+msgid "ISMS responsibility matrix"
+msgstr "Macierz odpowiedzialności SZBI"
+
+msgid "Archived responsibility matrix"
+msgid_plural "Archived responsibility matrices"
+msgstr[0] "Zarchiwizowana macierz odpowiedzialności"
+msgstr[1] "Zarchiwizowane macierze odpowiedzialności"
+msgstr[2] "Zarchiwizowanych macierzy odpowiedzialności"
+
+msgid "ISMS responsibility matrix - %s"
+msgstr "Macierz odpowiedzialności SZBI - %s"
