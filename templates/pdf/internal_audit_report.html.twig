@@ -64,6 +64,39 @@
   </table>
 {% endif %}
 
+{# Issue #606 : grille d'audit par exigence (question, audité, preuves examinées, résultat, constat). #}
+{% if checklist is defined and checklist.rows is not empty %}
+  <h2>{{ __('Audit checklist', 'grcmanager') }}</h2>
+  <p>{{ __('%1$d of %2$d audited', 'grcmanager')|format(checklist.summary.audited, checklist.summary.total) }}
+    {% for key, label in checklist_results %}{% if checklist.summary.counts[key] > 0 %} | {{ __('%1$s: %2$d', 'grcmanager')|format(label, checklist.summary.counts[key]) }}{% endif %}{% endfor %}</p>
+  <table class="grcmanager-pdf-table">
+    <thead>
+      <tr>
+        <th>{{ __('Requirement', 'grcmanager') }}</th>
+        <th>{{ __('Question asked', 'grcmanager') }}</th>
+        <th>{{ __('Auditee', 'grcmanager') }}</th>
+        <th>{{ __('Evidence examined', 'grcmanager') }}</th>
+        <th>{{ __('Result', 'grcmanager') }}</th>
+        <th>{{ __('Comment', 'grcmanager') }}</th>
+        <th>{{ __('Finding', 'grcmanager') }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for line in checklist.rows %}
+        <tr>
+          <td>{{ line.title }}</td>
+          <td>{{ line.question|nl2br }}</td>
+          <td>{{ line.auditee }}</td>
+          <td>{{ line.evidence|nl2br }}{% for doc in line.documents %}<br>{{ doc.name }}{% endfor %}</td>
+          <td>{{ line.result_label }}</td>
+          <td>{{ line.comment|nl2br }}</td>
+          <td>{{ line.finding_title }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}
+
 <h2>{{ __('Findings', 'grcmanager') }}</h2>
 {% if findings is empty %}
   <p>{{ __('No finding for this audit.', 'grcmanager') }}</p>

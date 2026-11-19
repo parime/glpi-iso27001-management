@@ -28,6 +28,7 @@ parameters:
         - src/Services/Acn
         - src/Services/Lifecycle
         - src/Services/Exercise/ExerciseReview.php
+        - src/Services/Review
     excludePaths:
         # Issue #539 : lit les registres du plugin via le $DB global, Session et les classes
         # CommonDBTM du plugin, même raison que RiskMatrixConfig.php ci-dessous. MySpaceRules.php,

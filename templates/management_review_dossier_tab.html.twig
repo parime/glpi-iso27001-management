@@ -1,0 +1,186 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #542 : onglet « Dossier préparatoire » d'une revue de direction : génération du PDF (9.3.2),
+   dossiers déjà archivés avec leur empreinte, et actions décidées pendant la revue. #}
+<div class="row g-3 mt-1">
+   <div class="col-xl-7">
+      <div class="card h-100">
+         <div class="card-header">
+            <h3 class="card-title"><i class="ti ti-file-analytics me-2"></i>{{ __('Preparatory file for the management review', 'grcmanager') }}</h3>
+         </div>
+         <div class="card-body">
+            <p class="text-secondary">{{ __('One PDF that gathers what top management has to review (ISO 27001 clause 9.3.2), straight from the plugin registers: no copy and paste. It is attached to this review as evidence, with its SHA-256 fingerprint.', 'grcmanager') }}</p>
+            {% if can_edit %}
+               <form method="post" action="{{ dossier_action }}" class="mb-3">
+                  <input type="hidden" name="id" value="{{ review_id }}">
+                  <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                  <div class="row g-2 align-items-end">
+                     <div class="col-sm-4">
+                        <label class="form-label" for="grc-dossier-start">{{ __('Period from', 'grcmanager') }}</label>
+                        <input type="date" id="grc-dossier-start" name="period_start" value="{{ period.start }}" class="form-control" required>
+                     </div>
+                     <div class="col-sm-4">
+                        <label class="form-label" for="grc-dossier-end">{{ __('Period to', 'grcmanager') }}</label>
+                        <input type="date" id="grc-dossier-end" name="period_end" value="{{ period.end }}" class="form-control" required>
+                     </div>
+                     <div class="col-sm-4">
+                        <button type="submit" name="generate" value="1" class="btn btn-primary w-100">
+                           <i class="ti ti-file-type-pdf me-1"></i>{{ __('Generate the PDF', 'grcmanager') }}
+                        </button>
+                     </div>
+                  </div>
+                  <small class="form-hint d-block mt-1">{{ __('Proposed period: since the previous management review (or the last twelve months) up to the date of this review. Figures follow your rights and active entities.', 'grcmanager') }}</small>
+               </form>
+            {% else %}
+               <div class="alert alert-info">{{ __('You need the right to update this review to generate its preparatory file.', 'grcmanager') }}</div>
+            {% endif %}
+            <h4 class="mt-2">{{ __('Contents', 'grcmanager') }}</h4>
+            <ul class="list-unstyled mb-0">
+               {% for section in sections %}
+                  <li class="d-flex align-items-start gap-2 mb-2">
+                     <span class="badge bg-primary-subtle text-primary-emphasis text-nowrap"><i class="ti {{ section.icon }} me-1"></i>{{ section.clause }}</span>
+                     <span><strong>{{ section.title }}</strong><br><small class="text-secondary">{{ section.summary }}</small></span>
+                  </li>
+               {% endfor %}
+            </ul>
+         </div>
+      </div>
+   </div>
+   <div class="col-xl-5">
+      <div class="card h-100">
+         <div class="card-header">
+            <h3 class="card-title"><i class="ti ti-archive me-2"></i>{{ __('Archived files', 'grcmanager') }}</h3>
+         </div>
+         <div class="card-body">
+            {% for dossier in dossiers %}
+               <div class="border rounded p-2 mb-2">
+                  <div class="d-flex justify-content-between align-items-start gap-2">
+                     <div>
+                        <span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-calendar me-1"></i>{{ dossier.period_start|formatted_date }} - {{ dossier.period_end|formatted_date }}</span>
+                        <div class="small text-secondary mt-1">{{ __('Generated on %s', 'grcmanager')|format(dossier.date|formatted_datetime) }}{% if dossier.author %} - {{ dossier.author }}{% endif %}</div>
+                        {% if dossier.filename %}<div class="small text-secondary"><i class="ti ti-file-type-pdf me-1"></i>{{ dossier.filename }}</div>{% endif %}
+                     </div>
+                     {% if dossier.url %}
+                        <a href="{{ dossier.url }}" class="btn btn-sm btn-outline-primary text-nowrap"><i class="ti ti-download me-1"></i>{{ __('Download', 'grcmanager') }}</a>
+                     {% else %}
+                        <span class="badge bg-warning-subtle text-warning-emphasis"><i class="ti ti-alert-triangle me-1"></i>{{ __('Document deleted', 'grcmanager') }}</span>
+                     {% endif %}
+                  </div>
+                  <div class="small mt-1"><i class="ti ti-fingerprint me-1"></i>{{ __('SHA-256 fingerprint', 'grcmanager') }}</div>
+                  <code class="small text-break d-block">{{ dossier.sha256 }}</code>
+               </div>
+            {% else %}
+               <p class="text-secondary mb-0"><i class="ti ti-info-circle me-1"></i>{{ __('No preparatory file generated yet for this review.', 'grcmanager') }}</p>
+            {% endfor %}
+         </div>
+      </div>
+   </div>
+</div>
+
+<div class="card mt-3">
+   <div class="card-header d-flex flex-wrap justify-content-between align-items-center gap-2">
+      <h3 class="card-title mb-0"><i class="ti ti-checklist me-2"></i>{{ __('Actions decided at this review', 'grcmanager') }}</h3>
+      <div class="d-flex flex-wrap gap-1">
+         <span class="badge bg-secondary-subtle text-secondary-emphasis"><i class="ti ti-list me-1"></i>{{ __('%d action(s)', 'grcmanager')|format(summary.total) }}</span>
+         <span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-check me-1"></i>{{ __('%d done', 'grcmanager')|format(summary.done) }}</span>
+         {% if summary.overdue > 0 %}
+            <span class="badge bg-danger-subtle text-danger-emphasis"><i class="ti ti-alert-triangle me-1"></i>{{ __('%d overdue', 'grcmanager')|format(summary.overdue) }}</span>
+         {% endif %}
+      </div>
+   </div>
+   <div class="card-body">
+      <small class="form-hint d-block mb-2">{{ __('Each decision becomes an action with an owner, a due date and a status. The preparatory file of the next review reports where they stand.', 'grcmanager') }}</small>
+      {% if can_edit %}
+         <div class="d-flex flex-wrap gap-2 mb-3">
+            <form method="post" action="{{ action_url }}" class="mb-0">
+               <input type="hidden" name="plugin_grcmanager_managementreviews_id" value="{{ review_id }}">
+               <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+               <button type="submit" name="from_decisions" value="1" class="btn btn-outline-primary" {{ new_decisions == 0 ? 'disabled' }}>
+                  <i class="ti ti-wand me-1"></i>{{ __('Create the actions from the decisions', 'grcmanager') }}
+                  <span class="badge bg-primary-subtle text-primary-emphasis ms-1">{{ new_decisions }}</span>
+               </button>
+            </form>
+            {% if new_decisions == 0 %}
+               <small class="text-secondary align-self-center">{{ __('Write one decision per line in the "Decisions and actions" field of the review: each new line is offered here.', 'grcmanager') }}</small>
+            {% endif %}
+         </div>
+         <form method="post" action="{{ action_url }}" class="mb-3">
+            <input type="hidden" name="plugin_grcmanager_managementreviews_id" value="{{ review_id }}">
+            <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+            <div class="row g-2 align-items-end">
+               <div class="col-md-5">
+                  <label class="form-label" for="grc-review-action-description">{{ __('Action description', 'grcmanager') }}</label>
+                  <input type="text" id="grc-review-action-description" name="description" class="form-control" maxlength="1000" required>
+               </div>
+               <div class="col-md-3">
+                  <div class="form-label">{{ __('Owner', 'grcmanager') }}</div>
+                  {{ user_dropdown|raw }}
+               </div>
+               <div class="col-md-2">
+                  <label class="form-label" for="grc-review-action-due">{{ __('Due date', 'grcmanager') }}</label>
+                  <input type="date" id="grc-review-action-due" name="due_date" class="form-control">
+               </div>
+               <div class="col-md-2">
+                  <button type="submit" name="add" value="1" class="btn btn-primary w-100"><i class="ti ti-plus me-1"></i>{{ __('Add') }}</button>
+               </div>
+            </div>
+         </form>
+      {% endif %}
+      <div class="table-responsive">
+         <table class="table table-vcenter">
+            <thead><tr><th>{{ __('Action description', 'grcmanager') }}</th><th>{{ __('Owner', 'grcmanager') }}</th><th>{{ __('Due date', 'grcmanager') }}</th><th>{{ __('Status', 'grcmanager') }}</th>{% if can_edit %}<th></th>{% endif %}</tr></thead>
+            <tbody>
+               {% for a in actions %}
+                  <tr>
+                     <td>{{ a.description }}</td>
+                     <td>{{ a.user ?: '-' }}</td>
+                     <td>
+                        {{ a.due_date ? a.due_date|formatted_date : '-' }}
+                        {% if a.overdue %}<span class="badge bg-danger-subtle text-danger-emphasis ms-1"><i class="ti ti-alert-triangle me-1"></i>{{ __('Overdue', 'grcmanager') }}</span>{% endif %}
+                     </td>
+                     <td>
+                        {% include '@grcmanager/_badge.html.twig' with a.badge only %}
+                        {% if a.completion_date %}<div class="small text-secondary">{{ a.completion_date|formatted_date }}</div>{% endif %}
+                     </td>
+                     {% if can_edit %}
+                        <td>
+                           <div class="d-flex gap-1 justify-content-end">
+                              <form method="post" action="{{ action_url }}" class="d-flex gap-1 align-items-center mb-0">
+                                 <input type="hidden" name="id" value="{{ a.id }}">
+                                 <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                                 <input type="date" name="due_date" value="{{ a.due_date }}" class="form-control form-control-sm" aria-label="{{ __('Due date', 'grcmanager') }} - {{ a.description }}">
+                                 <select name="status" class="form-select form-select-sm" aria-label="{{ __('Status', 'grcmanager') }} - {{ a.description }}">
+                                    {% for value, label in statuses %}<option value="{{ value }}" {{ value == a.status ? 'selected' }}>{{ label }}</option>{% endfor %}
+                                 </select>
+                                 <button type="submit" name="update" value="1" class="btn btn-sm btn-primary text-nowrap">{{ __('Update', 'grcmanager') }}</button>
+                              </form>
+                              <form method="post" action="{{ action_url }}" class="mb-0" data-grc-confirm="{{ __('Confirm deletion?', 'grcmanager') }}">
+                                 <input type="hidden" name="id" value="{{ a.id }}">
+                                 <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                                 <button type="submit" name="purge" value="1" class="btn btn-sm btn-outline-danger" title="{{ __('Delete') }}" aria-label="{{ __('Delete') }}"><i class="ti ti-trash"></i></button>
+                              </form>
+                           </div>
+                        </td>
+                     {% endif %}
+                  </tr>
+               {% else %}
+                  <tr><td colspan="{{ can_edit ? 5 : 4 }}" class="text-secondary">{{ __('No action recorded for this review yet.', 'grcmanager') }}</td></tr>
+               {% endfor %}
+            </tbody>
+         </table>
+      </div>
+   </div>
+</div>
+{% include '@grcmanager/_confirm_forms.html.twig' %}

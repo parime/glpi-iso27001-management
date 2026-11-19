@@ -129,6 +129,14 @@ if ($mode === 'xss') {
         'plugin_grcmanager_auditevidencerequests_id' => $out['evreq'], 'documents_id' => (int) $ids['document_A'],
         'origin' => 'existing', 'users_id' => 2, 'is_submitted' => 1, 'date_submitted' => $now,
     ]);
+    // Issue #606 : ligne de grille piégée de l'audit piégé (glpi dans l'équipe pour la voir).
+    $insert('audits_users', ['plugin_grcmanager_audits_id' => $out['audit'], 'users_id' => 2, 'role' => 'auditor']);
+    $insert('auditchecklistitems', [
+        'plugin_grcmanager_audits_id' => $out['audit'], 'ref_type' => 'free', 'code' => mb_substr($canary, 0, 50),
+        'label' => $canary, 'question' => $canary, 'evidence' => $canary, 'comment' => $canary,
+        'result' => 'nc_minor', 'rank' => 1,
+    ]);
+    $insert('auditchecklisttemplates', ['entities_id' => 0, 'is_recursive' => 1, 'name' => $canary]);
     $insert('auditoraccesses', [
         'plugin_grcmanager_audits_id' => $out['audit'], 'users_id' => 2, 'date_begin' => date('Y-m-d'),
         'date_end' => date('Y-m-d', strtotime('+5 days')), 'users_id_grantor' => 2, 'date_creation' => $now,
@@ -838,6 +846,20 @@ if (\GlpiPlugin\Grcmanager\AuditorAccess::grant($ids['audit'], $noRight, $access
     fwrite(STDERR, "Accès auditeur impossible\n");
     exit(1);
 }
+// Issue #606 : ligne de la grille de « Audit securite » (glpi en est l'auditeur, seul de l'équipe
+// parmi les profils testés) et modèle de grille de l'entité racine, hors de portée des profils
+// limités à A.
+$DB->insert(\GlpiPlugin\Grcmanager\AuditChecklist::TABLE, [
+    'plugin_grcmanager_audits_id' => $ids['audit'], 'ref_type' => 'free', 'code' => 'S-1',
+    'label' => 'Point securite grille', 'question' => 'Question securite grille', 'result' => 'not_audited',
+    'rank' => 1, 'date_creation' => date('Y-m-d H:i:s'),
+]);
+$ids['checklist_line'] = (int) $DB->insertId();
+$DB->insert(\GlpiPlugin\Grcmanager\AuditChecklistTemplate::TABLE, [
+    'entities_id' => 0, 'is_recursive' => 1, 'name' => 'Modele securite ' . uniqid(),
+    'date_creation' => date('Y-m-d H:i:s'),
+]);
+$ids['checklist_template'] = (int) $DB->insertId();
 
 // Issue #536, lot 2 : audit, constat et action de traitement de l'entité B, jamais montrés aux
 // profils limités à A, même confiés au gestionnaire de A. Une demande de preuve de l'audit de B
@@ -911,4 +933,11 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
         'name' => 'Objectif securite ' . $suffix, 'outcome' => 'met',
     ]);
 }
+// Issue #542 : revue de direction fictive, pour le dossier préparatoire et ses actions.
+$ids['mreview'] = $add(new \GlpiPlugin\Grcmanager\ManagementReview(), [
+    'title'       => 'Revue de direction securite',
+    'status'      => 'planned',
+    'review_date' => date('Y-m-d'),
+    'decisions'   => 'Decision securite',
+]);
 echo json_encode($ids), "\n";

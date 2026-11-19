@@ -82,7 +82,7 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/processingactivity.php front/datasubjectrequest.php front/processingactivity.export.php?format=pdf
   front/processingactivity.export.php?format=csv
   front/databreach.php front/databreach.form.php front/databreach.export.php?format=pdf front/databreach.export.php?format=csv
-  front/riskappetite.php front/riskindicator.php
+  front/riskappetite.php front/riskindicator.php front/auditcoverage.php
   front/businessprocess.php front/businessprocess.php?export=csv front/businessprocess.report.php
   front/customframework.php front/customframework.php?template=1
   front/riskimport.php front/riskimport.php?template=1 front/riskimport.php?export=1
@@ -108,9 +108,16 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
     front/cpereference.form.php front/productalias.form.php \
     front/waiver.form.php front/coveragerule.form.php front/controltest.form.php \
     front/processingactivity.form.php front/datasubjectrequest.form.php front/databreach.form.php \
-    front/businessprocess.form.php front/riskindicator.form.php front/contextitem.form.php; do
+    front/businessprocess.form.php front/riskindicator.form.php front/contextitem.form.php \
+    front/managementreviewaction.form.php; do
     expect "$form : creation" "$1" "$(code -d "add=1&name=securite&title=securite&_glpi_csrf_token=$(csrf)" "$BASE/plugins/grcmanager/$form")"
   done
+  # Issue #542 : generer le dossier preparatoire d'une revue de direction (document joint) et creer
+  # les actions a partir de ses decisions exigent de pouvoir modifier la revue.
+  expect "front/managementreview.dossier.php : generer le dossier" "$1" \
+    "$(code -d "generate=1&id=$(id mreview)&period_start=2026-01-01&period_end=2026-06-30&_glpi_csrf_token=$(csrf)" "$P/managementreview.dossier.php")"
+  expect "front/managementreviewaction.form.php : actions depuis les decisions" "$1" \
+    "$(code -d "from_decisions=1&plugin_grcmanager_managementreviews_id=$(id mreview)&_glpi_csrf_token=$(csrf)" "$P/managementreviewaction.form.php")"
   # Issue #537 : analyser un fichier, confirmer un import, et modifier un referentiel personnalise
   # (statuts, description, activation, suppression) sont refuses sans droit comme en lecture seule.
   expect "front/customframework.php : analyser un fichier" "$1" \
@@ -445,6 +452,14 @@ if [ "$ROLE" = admin ]; then
   contains "front/config.php : matrice toujours en 4 x 4" 'name="matrix_very_rare_negligible"' non \
     "$(curl -s -c "$JAR" -b "$JAR" "$P/config.php")"
   for p in $READABLE; do expect "$p : super-admin" 200 "$(code "$BASE/plugins/grcmanager/$p")"; done
+  # Issue #542 : dossier preparatoire de la revue de direction : refuse sans jeton CSRF, genere avec,
+  # puis liste sur l'onglet de la revue avec son empreinte.
+  expect "front/managementreview.dossier.php : sans jeton CSRF" 403 \
+    "$(code -d "generate=1&id=$(id mreview)&period_start=2026-01-01&period_end=2026-06-30" "$P/managementreview.dossier.php")"
+  expect "front/managementreview.dossier.php : generer le dossier" 302 \
+    "$(code -d "generate=1&id=$(id mreview)&period_start=2026-01-01&period_end=2026-06-30&_glpi_csrf_token=$(csrf)" "$P/managementreview.dossier.php")"
+  contains "onglet Dossier preparatoire : empreinte du dossier archive" 'dossier-revue-direction' oui \
+    "$(tab GlpiPlugin%5CGrcmanager%5CManagementReview 'GlpiPlugin%5CGrcmanager%5CManagementReviewDossier$1' "$(id mreview)")"
   # Issue #380 : reglage du rappel des tests d'efficacite au groupe RSSI. Sans jeton CSRF, refuse
   # et inchange ; avec, enregistre ; une valeur inconnue revient au reglage par defaut.
   expect "front/config.php : rappel des tests, sans jeton CSRF" 403 \
@@ -852,6 +867,31 @@ if [ "$ROLE" = none ] || [ "$ROLE" = reader ]; then
   expect "front/auditevidencerequest.form.php : import CSV" 403 \
     "$(code -F import_csv=1 -F "plugin_grcmanager_audits_id=$(id audit)" -F "csv_file=@$EVIDENCE_PDF;filename=liste.csv" -F "_glpi_csrf_token=$(csrf)" "$P/auditevidencerequest.form.php")"
 fi
+
+# Issue #606 : grille d'audit, memes regles d'acces que les documents de l'audit. glpi, auditeur de
+# « Audit securite », la lit et la modifie ; les autres profils, hors de l'equipe, ne voient que le
+# message de refus, et chaque action leur est refusee. Le modele de grille de l'entite racine reste
+# hors de portee des profils limites a A.
+cktab=$(tab GlpiPlugin%5CGrcmanager%5CAudit 'GlpiPlugin%5CGrcmanager%5CAuditChecklist$1' "$(id audit)")
+contains "onglet Grille d'audit : ligne de la grille" "Question securite grille" $IS_ADMIN "$cktab"
+contains "onglet Grille d'audit : refus hors equipe" "grc-checklist-denied" \
+  "$({ [ "$ROLE" = admin ] || [ "$ROLE" = none ]; } && echo non || echo oui)" "$cktab"
+expect "front/auditchecklist.pdf.php : rapport de l'audit" "$([ "$ROLE" = admin ] && echo 200 || echo 403)" \
+  "$(code "$P/auditchecklist.pdf.php?id=$(id audit)")"
+expect "front/auditchecklist.pdf.php : audit de B" $DENY "$(code "$P/auditchecklist.pdf.php?id=$(id audit_B)")"
+if [ "$ROLE" != admin ]; then
+  for action in add_refs=1 add_free=1 update=1 purge=1 save_template=1 apply_template=1 delete_template=1; do
+    expect "front/auditchecklist.form.php : ${action%%=*}" 403 \
+      "$(code -d "$action&plugin_grcmanager_audits_id=$(id audit)&id=$(id checklist_line)&refs[]=control:A.5.1&label=securite&question=x&result=compliant&template_name=securite&templates_id=$(id checklist_template)&_glpi_csrf_token=$(csrf)" "$P/auditchecklist.form.php")"
+  done
+else
+  expect "front/auditchecklist.form.php : renseigner la ligne" 302 \
+    "$(code -d "update=1&plugin_grcmanager_audits_id=$(id audit)&id=$(id checklist_line)&question=Question%20securite%20grille&result=compliant&_glpi_csrf_token=$(csrf)" "$P/auditchecklist.form.php")"
+  contains "ligne renseignee" "grc-checklist-result-compliant" oui \
+    "$(tab GlpiPlugin%5CGrcmanager%5CAudit 'GlpiPlugin%5CGrcmanager%5CAuditChecklist$1' "$(id audit)")"
+fi
+expect "front/auditchecklist.form.php : grille d'un audit de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
+  "$(code -d "add_free=1&plugin_grcmanager_audits_id=$(id audit_B)&label=securite&_glpi_csrf_token=$(csrf)" "$P/auditchecklist.form.php")"
 
 # Issue #540 : registre d'informations DORA (referentiel DORA active par setup.php). Le contrat de
 # chaque entite est au registre ; le gestionnaire et le lecteur limites a A ne voient pas celui de B,

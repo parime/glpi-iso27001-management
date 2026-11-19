@@ -944,8 +944,8 @@ msgid ""
 "One CSV file per template of the implementing regulation, with the official "
 "column codes (c0010...), as in an xBRL-CSV report package. Closed lists are "
 "written with their official English wording: your reporting tool converts "
-"them into the codes of the EBA taxonomy and adds the package files "
-"(report.json, parameters, filing indicators)."
+"them into the codes of the EBA taxonomy and adds the package files (report."
+"json, parameters, filing indicators)."
 msgstr ""
 
 #: templates/dora/register.html.twig
@@ -7289,8 +7289,8 @@ msgstr ""
 
 #: templates/tabs/incident_evidence.html.twig
 msgid ""
-"Useful evidence formats (to allow in the GLPI document "
-"types): .log, .evtx, .json, .pcap, .eml, .csv, .zip."
+"Useful evidence formats (to allow in the GLPI document types): .log, .evtx, ."
+"json, .pcap, .eml, .csv, .zip."
 msgstr ""
 
 #: templates/tabs/_access_review_rows.html.twig
@@ -7529,8 +7529,8 @@ msgstr ""
 #: templates/park_endoflife.html.twig
 msgid ""
 "Not enabled: the plugin can show which software, operating systems and "
-"firmwares no longer receive security fixes, from the public site "
-"endoflife.date."
+"firmwares no longer receive security fixes, from the public site endoflife."
+"date."
 msgstr ""
 
 #: templates/park_endoflife.html.twig
@@ -11269,8 +11269,8 @@ msgid ""
 "Well-known names are linked automatically (for instance \"Debian GNU/Linux\" "
 "or \"Mozilla Firefox\"). For any other name, add a link: type the name "
 "exactly as GLPI shows it, and the product identifier found in the address of "
-"its page on endoflife.date (for instance \"fortios\" for https://"
-"endoflife.date/fortios). Leave the product empty to stop following a name."
+"its page on endoflife.date (for instance \"fortios\" for https://endoflife."
+"date/fortios). Leave the product empty to stop following a name."
 msgstr ""
 
 #: templates/endoflife_config.html.twig src/EndOfLife.php:479
@@ -13764,9 +13764,9 @@ msgstr ""
 
 #: src/CanonicalProduct.php:187
 msgid ""
-"A CPE identifier as reported by the NVD for this product (e.g. "
-"\"cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point "
-"to the same product."
+"A CPE identifier as reported by the NVD for this product (e.g. \"cpe:2.3:a:"
+"apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point to the same "
+"product."
 msgstr ""
 
 #: src/CanonicalProduct.php:196
@@ -13805,8 +13805,8 @@ msgstr ""
 #, php-format
 msgid ""
 "GLPI also refuses internal addresses for this plugin: add %s to the constant "
-"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/"
-"local_define.php)."
+"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/local_define."
+"php)."
 msgstr ""
 
 #: src/ComplianceAudit.php:100
@@ -21891,4 +21891,719 @@ msgstr ""
 
 #: src/Profile.php:112
 msgid "Validate crisis exercise reviews and return them to draft"
+msgstr ""
+
+#: templates/management_review_dossier_tab.html.twig
+msgid "Preparatory file for the management review"
+msgstr ""
+
+#: templates/management_review_dossier_tab.html.twig
+msgid ""
+"One PDF that gathers what top management has to review (ISO 27001 clause "
+"9.3.2), straight from the plugin registers: no copy and paste. It is "
+"attached to this review as evidence, with its SHA-256 fingerprint."
+msgstr ""
+
+#: templates/management_review_dossier_tab.html.twig
+msgid "Period from"
+msgstr ""
+
+#: templates/management_review_dossier_tab.html.twig
+msgid "Period to"
+msgstr ""
+
+#: templates/management_review_dossier_tab.html.twig
+msgid "Generate the PDF"
+msgstr ""
+
+#: templates/management_review_dossier_tab.html.twig
+msgid ""
+"Proposed period: since the previous management review (or the last twelve "
+"months) up to the date of this review. Figures follow your rights and active "
+"entities."
+msgstr ""
+
+#: templates/management_review_dossier_tab.html.twig
+msgid ""
+"You need the right to update this review to generate its preparatory file."
+msgstr ""
+
+#: templates/management_review_dossier_tab.html.twig
+msgid "Contents"
+msgstr ""
+
+#: templates/management_review_dossier_tab.html.twig
+msgid "Archived files"
+msgstr ""
+
+#: templates/management_review_dossier_tab.html.twig
+msgid "Document deleted"
+msgstr ""
+
+#: templates/management_review_dossier_tab.html.twig
+msgid "SHA-256 fingerprint"
+msgstr ""
+
+#: templates/management_review_dossier_tab.html.twig
+msgid "No preparatory file generated yet for this review."
+msgstr ""
+
+#: templates/management_review_dossier_tab.html.twig
+msgid "Actions decided at this review"
+msgstr ""
+
+#: templates/management_review_dossier_tab.html.twig
+#, php-format
+msgid "%d action(s)"
+msgstr ""
+
+#: templates/management_review_dossier_tab.html.twig
+#, php-format
+msgid "%d done"
+msgstr ""
+
+#: templates/management_review_dossier_tab.html.twig
+msgid ""
+"Each decision becomes an action with an owner, a due date and a status. The "
+"preparatory file of the next review reports where they stand."
+msgstr ""
+
+#: templates/management_review_dossier_tab.html.twig
+msgid "Create the actions from the decisions"
+msgstr ""
+
+#: templates/management_review_dossier_tab.html.twig
+msgid ""
+"Write one decision per line in the \"Decisions and actions\" field of the "
+"review: each new line is offered here."
+msgstr ""
+
+#: templates/management_review_dossier_tab.html.twig
+msgid "No action recorded for this review yet."
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid "Period covered"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid "Perimeter"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid "Prepared by"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid ""
+"Figures are read from the GRC registers when the file is generated, with the "
+"rights and active entities of the person who generated it. A section whose "
+"register that person cannot read is marked as not included."
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid "Input to review"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid "Included"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid "Not included (no right)"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid ""
+"Not included: the person who generated this file cannot read this register."
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid "Actions decided"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid "Completion"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid ""
+"No action from a previous review is open or was completed during the period."
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid "Updated during the period"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid "Review overdue"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid "Raised during the period"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid "Closure verified during the period"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+#, php-format
+msgid "Open non-conformities: %1$d in %2$s, %3$d in %4$s"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid "Declared during the period"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid "Still open today"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid ""
+"Security incidents not included: no right to read them, or module disabled."
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid "No internal audit was completed during the period."
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid "No information security objective recorded."
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid "Target set"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid "Latest measurement in the period"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid "On the agenda of this review"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+#, php-format
+msgid "%d measurement(s) in the period"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid "No measurement in the period"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid "Identified during the period"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+#, php-format
+msgid "Open risks: %1$d in %2$s, %3$d in %4$s"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+#, php-format
+msgid "Latest approved version: %1$d, on %2$s"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid "The SoA has changed since this approval"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid "Unchanged since this approval"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid "No approved version of the SoA yet"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid "Maturity level"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid "Change since the start of the period"
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid "No monthly maturity score recorded during the period."
+msgstr ""
+
+#: templates/pdf/management_review_dossier.html.twig
+msgid ""
+"To be completed during the meeting: decisions on improvement opportunities, "
+"changes needed to the ISMS, and resources."
+msgstr ""
+
+#: templates/management_review_form.html.twig
+msgid ""
+"One decision per line: each line can then become a tracked action, with an "
+"owner and a due date, from the \"Preparatory file\" tab."
+msgstr ""
+
+#: front/managementreview.dossier.php:38
+msgid ""
+"Choose a valid period: a start date before the end date, ten years at most."
+msgstr ""
+
+#: front/managementreview.dossier.php:44
+msgid "Preparatory file generated and attached to the review."
+msgstr ""
+
+#: front/managementreview.dossier.php:49
+msgid "The preparatory file could not be generated."
+msgstr ""
+
+#: front/managementreviewaction.form.php:46
+#, php-format
+msgid "%d action created from the decisions."
+msgid_plural "%d actions created from the decisions."
+msgstr[0] ""
+msgstr[1] ""
+
+#: front/managementreviewaction.form.php:51
+msgid "Every decision already has its action."
+msgstr ""
+
+#: src/ManagementReviewAction.php:47
+msgid "Management review action"
+msgid_plural "Management review actions"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/ManagementReviewAction.php:97
+msgid "Management review not found."
+msgstr ""
+
+#: src/ManagementReviewAction.php:107
+msgid "Describe the action."
+msgstr ""
+
+#: src/ManagementReviewDossier.php:55
+msgid "Preparatory file"
+msgid_plural "Preparatory files"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/ManagementReviewDossier.php:84
+msgid "Actions from previous reviews"
+msgstr ""
+
+#: src/ManagementReviewDossier.php:85
+msgid "Where the actions decided at earlier management reviews stand today."
+msgstr ""
+
+#: src/ManagementReviewDossier.php:88
+msgid "Context and interested parties"
+msgstr ""
+
+#: src/ManagementReviewDossier.php:90
+msgid ""
+"Internal and external issues and interested parties: what changed during the "
+"period and what is overdue for review."
+msgstr ""
+
+#: src/ManagementReviewDossier.php:98
+msgid ""
+"Findings raised and closed during the period, and corrective actions still "
+"open or late."
+msgstr ""
+
+#: src/ManagementReviewDossier.php:103
+msgid "Monitoring, measurement and incidents"
+msgstr ""
+
+#: src/ManagementReviewDossier.php:105
+msgid "Key risk indicators and information security incidents over the period."
+msgstr ""
+
+#: src/ManagementReviewDossier.php:110
+msgid "Audit results"
+msgstr ""
+
+#: src/ManagementReviewDossier.php:111
+msgid "Internal audits completed during the period and what they found."
+msgstr ""
+
+#: src/ManagementReviewDossier.php:115
+msgid "Status of each objective and its latest measurement in the period."
+msgstr ""
+
+#: src/ManagementReviewDossier.php:118
+msgid "Risk assessment and treatment"
+msgstr ""
+
+#: src/ManagementReviewDossier.php:120
+msgid ""
+"Open risks by level, risks beyond appetite, and progress of the treatment "
+"plan."
+msgstr ""
+
+#: src/ManagementReviewDossier.php:127
+msgid ""
+"Implementation of the applicable controls and the latest approved version of "
+"the SoA."
+msgstr ""
+
+#: src/ManagementReviewDossier.php:132
+msgid "Opportunities for improvement"
+msgstr ""
+
+#: src/ManagementReviewDossier.php:133
+msgid "Maturity score over the period and consistency gaps still to fix."
+msgstr ""
+
+#: src/ManagementReviewDossier.php:605
+msgid "Management review preparatory file"
+msgstr ""
+
+#: src/ManagementReviewDossier.php:635
+#, php-format
+msgid "Management review preparatory file - %1$s (%2$s to %3$s)"
+msgstr ""
+
+#: templates/pdf/internal_audit_report.html.twig
+#: templates/audit_checklist_tab.html.twig src/AuditChecklist.php:60
+#: src/AuditChecklist.php:858
+msgid "Audit checklist"
+msgstr ""
+
+#: templates/pdf/internal_audit_report.html.twig
+#: templates/audit_checklist_tab.html.twig
+#, php-format
+msgid "%1$d of %2$d audited"
+msgstr ""
+
+#: templates/pdf/internal_audit_report.html.twig
+#: templates/audit_checklist_tab.html.twig src/AuditChecklist.php:675
+msgid "Question asked"
+msgstr ""
+
+#: templates/pdf/internal_audit_report.html.twig
+#: templates/audit_checklist_tab.html.twig
+msgid "Auditee"
+msgstr ""
+
+#: templates/pdf/internal_audit_report.html.twig
+#: templates/audit_checklist_tab.html.twig src/AuditChecklist.php:676
+msgid "Evidence examined"
+msgstr ""
+
+#: templates/audit_coverage.html.twig templates/audit_checklist_tab.html.twig
+#: front/audit.php:53 front/auditcoverage.php:34
+msgid "Audit programme coverage"
+msgstr ""
+
+#: templates/audit_coverage.html.twig
+msgid ""
+"The audit programme must cover the whole ISMS over the certification cycle. "
+"For each ISMS requirement and each applicable control, this page shows the "
+"last internal audit that gave it a result in its audit checklist, and lists "
+"first those never audited over the period. Cancelled audits and lines left "
+"\"Not audited\" do not count; the date is the actual date of the audit, "
+"otherwise its planned date."
+msgstr ""
+
+#: templates/audit_coverage.html.twig
+#, php-format
+msgid "Since %s"
+msgstr ""
+
+#: templates/audit_coverage.html.twig templates/audit_checklist_tab.html.twig
+msgid "Requirements and controls"
+msgstr ""
+
+#: templates/audit_coverage.html.twig
+#, php-format
+msgid "Audited over the period (%d %%)"
+msgstr ""
+
+#: templates/audit_coverage.html.twig
+msgid "Never audited over the period"
+msgstr ""
+
+#: templates/audit_coverage.html.twig
+msgid "No ISMS requirement nor applicable control to show."
+msgstr ""
+
+#: templates/audit_coverage.html.twig
+msgid "Last audit"
+msgstr ""
+
+#: templates/audit_coverage.html.twig
+msgid "Never audited"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid ""
+"The audit checklist is reserved to the audit team and the CISO group, like "
+"the documents of the audit. Ask the audit owner to add you to the \"Team\" "
+"tab."
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "Lines with a result"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "Audit report (PDF)"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid ""
+"One line per audited requirement: write the question you asked, who you "
+"interviewed, the evidence you examined (text, and documents of the "
+"\"Documents\" tab), then the result. For a non-conformity, an observation or "
+"an opportunity for improvement, \"Create the finding\" opens a pre-filled "
+"non-conformity that you review and save yourself. Like the documents of the "
+"audit, only the audit team and the CISO group see this checklist."
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid ""
+"This audit is completed or cancelled: its checklist is read only. Set the "
+"audit back to \"In progress\" to change it."
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid ""
+"The checklist is empty. Add the requirements to audit below, or apply a "
+"checklist template."
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "The checklist is empty."
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "No question yet"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "Create the finding"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "No finding yet"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "Fill in"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "Number"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "Documents of the audit"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "Add documents to the \"Documents\" tab of the audit to cite them here."
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "Linked finding"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid ""
+"Remove this line from the checklist? A finding created from it stays in the "
+"non-conformity register."
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "Remove the line"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+#, php-format
+msgid "Last change: %1$s, %2$s"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "Add requirements to audit"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "Every proposed requirement is already in the checklist."
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid ""
+"ISMS requirements (clauses 4 to 10), applicable Annex A controls of the "
+"statement of applicability, and requirements of the enabled custom "
+"frameworks. Requirements already in the checklist are not offered again."
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "The controls of the audit scope (audit form) are preselected."
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "Add to the checklist"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig src/AuditChecklist.php:139
+msgid "Free item"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "An internal rule, a process or a site, for example"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "Add this item"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "Checklist templates"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid ""
+"A template keeps the requirements and the questions of a checklist, never "
+"the answers. Reuse it from one audit to the next, for example \"Annual "
+"access control audit\"."
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "Add its lines to the checklist"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid ""
+"Delete this template? The checklists already built from it do not change."
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "Delete the template"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "No checklist template yet."
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "Save this checklist as a template"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "Name of the template"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "Save as template"
+msgstr ""
+
+#: templates/nonconformity_form.html.twig
+#, php-format
+msgid ""
+"Finding proposed from the audit checklist (%s): review and adapt each field, "
+"then click \"Add\". Nothing is created before, and the checklist line is "
+"linked to this finding once it is saved."
+msgstr ""
+
+#: templates/nonconformity_form.html.twig
+msgid "Audit checklist line"
+msgstr ""
+
+#: front/auditchecklist.form.php:45
+msgid "Checklist template deleted."
+msgstr ""
+
+#: front/auditchecklist.form.php:51
+msgid "Checklist template saved."
+msgstr ""
+
+#: front/auditchecklist.form.php:70
+msgid "Checklist line saved."
+msgstr ""
+
+#: front/auditchecklist.form.php:82
+#, php-format
+msgid ""
+"%d line of the template was already in the checklist or is no longer offered."
+msgid_plural ""
+"%d lines of the template were already in the checklist or are no longer "
+"offered."
+msgstr[0] ""
+msgstr[1] ""
+
+#: front/auditcoverage.php:43
+#, php-format
+msgid "Last %d year"
+msgid_plural "Last %d years"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/AuditChecklist.php:105
+msgid "Minor non-conformity"
+msgstr ""
+
+#: src/AuditChecklist.php:108
+msgid "Major non-conformity"
+msgstr ""
+
+#: src/AuditChecklist.php:111
+msgid "Observation"
+msgstr ""
+
+#: src/AuditChecklist.php:114
+msgid "Opportunity for improvement"
+msgstr ""
+
+#: src/AuditChecklist.php:117
+msgid "Not audited"
+msgstr ""
+
+#: src/AuditChecklist.php:138
+msgid "Framework requirement"
+msgstr ""
+
+#: src/AuditChecklist.php:354
+msgid "Applicable Annex A controls"
+msgstr ""
+
+#: src/AuditChecklist.php:534
+msgid "Give at least a title or a question for the free item."
+msgstr ""
+
+#: src/AuditChecklist.php:634
+#, php-format
+msgid "%d line added to the checklist."
+msgid_plural "%d lines added to the checklist."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/AuditChecklist.php:674
+msgid "Audited requirement"
+msgstr ""
+
+#: src/AuditChecklist.php:677
+msgid "Auditor comment"
+msgstr ""
+
+#: src/AuditChecklistTemplate.php:71
+#, php-format
+msgid "%1$s (%2$d line)"
+msgid_plural "%1$s (%2$d lines)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/AuditChecklistTemplate.php:124
+msgid "Give the template a name."
+msgstr ""
+
+#: src/AuditChecklistTemplate.php:130
+msgid ""
+"The checklist is empty: add requirements before saving it as a template."
+msgstr ""
+
+#: src/AuditChecklistTemplate.php:140
+msgid "A checklist template with this name already exists."
 msgstr ""

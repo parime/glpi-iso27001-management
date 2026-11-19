@@ -1,0 +1,101 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #606 : couverture du programme d'audit (clause 9.2) : dernier audit et résultat de chaque
+   exigence du SMSI et de chaque mesure applicable, exigences jamais auditées sur la période en tête. #}
+<div class="container-fluid" id="grc-coverage">
+   <div class="card mb-3">
+      <div class="card-header">
+         <h3 class="card-title"><i class="ti ti-chart-dots-3 me-2"></i>{{ __('Audit programme coverage', 'grcmanager') }}</h3>
+         <div class="card-actions">
+            <a href="{{ audits_url }}" class="btn btn-sm btn-outline-secondary"><i class="ti ti-clipboard-check me-1"></i>{{ _n('Internal audit', 'Internal audits', 2, 'grcmanager') }}</a>
+         </div>
+      </div>
+      <div class="card-body">
+         <p class="text-muted small">
+            <i class="ti ti-info-circle me-1"></i>{{ __('The audit programme must cover the whole ISMS over the certification cycle. For each ISMS requirement and each applicable control, this page shows the last internal audit that gave it a result in its audit checklist, and lists first those never audited over the period. Cancelled audits and lines left "Not audited" do not count; the date is the actual date of the audit, otherwise its planned date.', 'grcmanager') }}
+         </p>
+         <form method="get" class="d-flex flex-wrap align-items-center gap-2 mb-3" id="grc-coverage-period">
+            <label class="form-label mb-0" for="grc-coverage-years">{{ __('Period', 'grcmanager') }}</label>
+            <select name="years" id="grc-coverage-years" class="form-select form-select-sm w-auto" onchange="this.form.submit()">
+               {% for value, label in year_choices %}
+                  <option value="{{ value }}"{% if value == coverage.years %} selected{% endif %}>{{ label }}</option>
+               {% endfor %}
+            </select>
+            <noscript><button type="submit" class="btn btn-sm btn-primary">{{ __('Show', 'grcmanager') }}</button></noscript>
+            <span class="text-muted small">{{ __('Since %s', 'grcmanager')|format(coverage.since) }}</span>
+         </form>
+
+         <div class="row g-2 mb-3">
+            <div class="col-sm-4">
+               <div class="card card-sm"><div class="card-body d-flex align-items-center gap-3">
+                  <span class="avatar bg-blue-subtle text-blue-emphasis"><i class="ti ti-list-check"></i></span>
+                  <div><div class="fw-bold fs-3">{{ coverage.total }}</div><div class="text-muted small">{{ __('Requirements and controls', 'grcmanager') }}</div></div>
+               </div></div>
+            </div>
+            <div class="col-sm-4">
+               <div class="card card-sm"><div class="card-body d-flex align-items-center gap-3">
+                  <span class="avatar bg-green-subtle text-green-emphasis"><i class="ti ti-circle-check"></i></span>
+                  <div><div class="fw-bold fs-3" id="grc-coverage-covered">{{ coverage.covered }}</div><div class="text-muted small">{{ __('Audited over the period (%d %%)', 'grcmanager')|format(coverage.percent) }}</div></div>
+               </div></div>
+            </div>
+            <div class="col-sm-4">
+               <div class="card card-sm"><div class="card-body d-flex align-items-center gap-3">
+                  <span class="avatar {{ coverage.never > 0 ? 'bg-red-subtle text-red-emphasis' : 'bg-green-subtle text-green-emphasis' }}"><i class="ti ti-eye-off"></i></span>
+                  <div><div class="fw-bold fs-3" id="grc-coverage-never">{{ coverage.never }}</div><div class="text-muted small">{{ __('Never audited over the period', 'grcmanager') }}</div></div>
+               </div></div>
+            </div>
+         </div>
+         {% if coverage.total > 0 %}
+            <div class="progress mb-3" style="height: .75rem" title="{{ __('Audited over the period (%d %%)', 'grcmanager')|format(coverage.percent) }}">
+               <div class="progress-bar bg-green" role="progressbar" style="width: {{ coverage.percent }}%" aria-label="{{ __('Audited over the period (%d %%)', 'grcmanager')|format(coverage.percent) }}"></div>
+            </div>
+         {% endif %}
+
+         {% if coverage.rows is empty %}
+            <div class="alert alert-info mb-0"><i class="ti ti-info-circle me-1"></i>{{ __('No ISMS requirement nor applicable control to show.', 'grcmanager') }}</div>
+         {% else %}
+         <div class="table-responsive">
+         <table class="table table-sm table-vcenter table-hover" id="grc-coverage-list">
+            <thead>
+               <tr>
+                  <th>{{ __('Requirement', 'grcmanager') }}</th>
+                  <th>{{ __('Type', 'grcmanager') }}</th>
+                  <th>{{ __('Last audit', 'grcmanager') }}</th>
+                  <th>{{ __('Result', 'grcmanager') }}</th>
+               </tr>
+            </thead>
+            <tbody>
+            {% for row in coverage.rows %}
+               <tr class="grc-coverage-row {{ row.audited ? 'grc-coverage-audited' : 'grc-coverage-never' }}">
+                  <td><span class="fw-bold">{{ row.code }}</span> {{ row.label != row.code ? row.label : '' }}</td>
+                  <td><span class="badge bg-secondary-subtle text-secondary-emphasis">{{ row.type_label }}</span></td>
+                  <td>
+                     {% if row.audited %}
+                        {{ row.last_date_text }}
+                        {% if row.audit_url %}<div class="small"><a href="{{ row.audit_url }}"><i class="ti ti-clipboard-check me-1"></i>{{ row.audit_title }}</a></div>{% endif %}
+                     {% else %}
+                        <span class="badge bg-red-subtle text-red-emphasis"><i class="ti ti-eye-off me-1"></i>{{ __('Never audited', 'grcmanager') }}</span>
+                     {% endif %}
+                  </td>
+                  <td>{% if row.audited %}<span class="badge {{ row.result_class }}"><i class="ti {{ row.result_icon }} me-1"></i>{{ row.result_label }}</span>{% else %}<span class="text-muted small">-</span>{% endif %}</td>
+               </tr>
+            {% endfor %}
+            </tbody>
+         </table>
+         </div>
+         {% endif %}
+      </div>
+   </div>
+</div>

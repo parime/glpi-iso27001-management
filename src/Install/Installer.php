@@ -134,6 +134,11 @@ final class Installer
     private const AUDIT_EVIDENCE_REQUESTS_TABLE = 'glpi_plugin_grcmanager_auditevidencerequests';
     private const AUDIT_EVIDENCE_PIECES_TABLE = 'glpi_plugin_grcmanager_auditevidencepieces';
     private const AUDITOR_ACCESSES_TABLE = 'glpi_plugin_grcmanager_auditoraccesses';
+    // Issue #606 : grille d'audit interne (lignes, preuves examinées) et modèles de grille.
+    private const AUDIT_CHECKLIST_ITEMS_TABLE = 'glpi_plugin_grcmanager_auditchecklistitems';
+    private const AUDIT_CHECKLIST_DOCUMENTS_TABLE = 'glpi_plugin_grcmanager_auditchecklistitems_documents';
+    private const AUDIT_CHECKLIST_TEMPLATES_TABLE = 'glpi_plugin_grcmanager_auditchecklisttemplates';
+    private const AUDIT_CHECKLIST_TEMPLATE_ITEMS_TABLE = 'glpi_plugin_grcmanager_auditchecklisttemplateitems';
 
     // Sprint 5 (risques fournisseurs/tiers), same table-name derivation rule.
     private const SUPPLIER_RISKS_TABLE = 'glpi_plugin_grcmanager_supplierrisks';
@@ -166,6 +171,9 @@ final class Installer
     // Issue #704 : fin de vie des logiciels, systèmes et firmwares (endoflife.date).
     private const ENDOFLIFE_CYCLES_TABLE = 'glpi_plugin_grcmanager_endoflifecycles';
     private const ENDOFLIFE_MAPPINGS_TABLE = 'glpi_plugin_grcmanager_endoflifemappings';
+    // Issue #542 : actions décidées en revue de direction, et dossiers préparatoires générés.
+    private const MANAGEMENT_REVIEW_ACTIONS_TABLE = 'glpi_plugin_grcmanager_managementreviewactions';
+    private const MANAGEMENT_REVIEW_DOSSIERS_TABLE = 'glpi_plugin_grcmanager_managementreviewdossiers';
     private const WAIVERS_CVES_TABLE = 'glpi_plugin_grcmanager_waivers_cves';
     private const POLICY_AUDIENCES_TABLE = 'glpi_plugin_grcmanager_policyaudiences';
     private const POLICY_CAMPAIGNS_TABLE = 'glpi_plugin_grcmanager_policycampaigns';
@@ -1417,6 +1425,7 @@ final class Installer
         $this->installPolicyAcknowledgementTables($keySign, $charset, $collation);
         $this->installPolicyApprovalTables($migration, $keySign, $charset, $collation);
         $this->installAuditEvidenceRequestTables($keySign, $charset, $collation);
+        $this->installAuditChecklistTables($keySign, $charset, $collation);
         $this->installDoraRegisterTables($keySign, $charset, $collation);
         $this->installDataBreachTables($keySign, $charset, $collation);
         $this->installContextTables($migration, $keySign, $charset, $collation);
@@ -1424,6 +1433,7 @@ final class Installer
         $this->installParkRemediationTables($keySign, $charset, $collation);
         $this->installSentinelOneTables($keySign, $charset, $collation);
         $this->installEndOfLifeTables($keySign, $charset, $collation);
+        $this->installManagementReviewDossierTables($keySign, $charset, $collation);
 
         // Issue #30 (registre des obligations légales/réglementaires/contractuelles, clause 4.2
         // ISO 27001 "parties intéressées et leurs exigences", Annexe A A.5.31-36) : lien optionnel
@@ -4234,6 +4244,86 @@ final class Installer
     }
 
     /**
+     * Issue #606 : grille d'audit interne. Une ligne par exigence auditée (article du SMSI, mesure de
+     * l'Annexe A, exigence d'un référentiel personnalisé ou point libre), avec la question, l'audité,
+     * les preuves examinées (texte et documents de l'audit), le résultat et le constat lié ; modèles
+     * de grille réutilisables d'un audit à l'autre. Tables nouvelles, créées aussi à la mise à jour.
+     */
+    private function installAuditChecklistTables(string $keySign, string $charset, string $collation): void
+    {
+        global $DB;
+
+        if (!$DB->tableExists(self::AUDIT_CHECKLIST_ITEMS_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::AUDIT_CHECKLIST_ITEMS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_audits_id` int {$keySign} NOT NULL DEFAULT 0,
+                `ref_type` varchar(16) NOT NULL DEFAULT 'free' COMMENT 'clause, control, custom, free',
+                `items_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Exigence, mesure ou exigence de referentiel',
+                `code` varchar(50) NOT NULL DEFAULT '' COMMENT 'Numero de l exigence (ex. 9.2.2, A.5.15)',
+                `label` varchar(255) NOT NULL DEFAULT '' COMMENT 'Intitule (referentiel personnalise, point libre)',
+                `question` text,
+                `users_id_auditee` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Personne interrogee',
+                `evidence` text COMMENT 'Preuves examinees',
+                `result` varchar(16) NOT NULL DEFAULT 'not_audited'
+                    COMMENT 'compliant, nc_minor, nc_major, observation, improvement, not_audited',
+                `comment` text,
+                `plugin_grcmanager_nonconformities_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Constat lie',
+                `rank` int NOT NULL DEFAULT 0,
+                `users_id_lastupdater` int {$keySign} NOT NULL DEFAULT 0,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `plugin_grcmanager_audits_id` (`plugin_grcmanager_audits_id`),
+                KEY `ref` (`ref_type`, `code`),
+                KEY `items_id` (`items_id`),
+                KEY `result` (`result`),
+                KEY `users_id_auditee` (`users_id_auditee`),
+                KEY `plugin_grcmanager_nonconformities_id` (`plugin_grcmanager_nonconformities_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+        if (!$DB->tableExists(self::AUDIT_CHECKLIST_DOCUMENTS_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::AUDIT_CHECKLIST_DOCUMENTS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_auditchecklistitems_id` int {$keySign} NOT NULL DEFAULT 0,
+                `documents_id` int {$keySign} NOT NULL DEFAULT 0,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity` (`plugin_grcmanager_auditchecklistitems_id`, `documents_id`),
+                KEY `documents_id` (`documents_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+        if (!$DB->tableExists(self::AUDIT_CHECKLIST_TEMPLATES_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::AUDIT_CHECKLIST_TEMPLATES_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `entities_id` int {$keySign} NOT NULL DEFAULT 0,
+                `is_recursive` tinyint NOT NULL DEFAULT 1,
+                `name` varchar(255) NOT NULL DEFAULT '',
+                `users_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Auteur',
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `entities_id` (`entities_id`),
+                KEY `is_recursive` (`is_recursive`),
+                KEY `name` (`name`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+        if (!$DB->tableExists(self::AUDIT_CHECKLIST_TEMPLATE_ITEMS_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::AUDIT_CHECKLIST_TEMPLATE_ITEMS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_auditchecklisttemplates_id` int {$keySign} NOT NULL DEFAULT 0,
+                `ref_type` varchar(16) NOT NULL DEFAULT 'free' COMMENT 'clause, control, custom, free',
+                `items_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Exigence de referentiel personnalise',
+                `code` varchar(50) NOT NULL DEFAULT '',
+                `label` varchar(255) NOT NULL DEFAULT '',
+                `question` text,
+                `rank` int NOT NULL DEFAULT 0,
+                PRIMARY KEY (`id`),
+                KEY `plugin_grcmanager_auditchecklisttemplates_id` (`plugin_grcmanager_auditchecklisttemplates_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+    }
+
+    /**
      * Issue #540 : registre d'informations DORA. Champs propres à DORA rattachés aux objets de GLPI
      * sans les dupliquer : fournisseur (prestataire TIC, B_05.01), contrat (accord contractuel,
      * B_02.01, B_02.02, B_07.01), processus métier (fonction, B_06.01) ; fonctions soutenues par un
@@ -4808,6 +4898,50 @@ final class Installer
      * Issue #704 : cache des cycles de vie lus sur endoflife.date (un produit par ligne) et
      * correspondances manuelles entre un nom de GLPI et un produit. Idempotent.
      */
+    /**
+     * Issue #542 : actions décidées en revue de direction (suivies jusqu'à leur réalisation, reprises
+     * par le dossier de la revue suivante, 9.3.2 a) et dossiers préparatoires générés (PDF archivé
+     * sur la revue, période couverte et empreinte SHA-256).
+     */
+    private function installManagementReviewDossierTables(string $keySign, string $charset, string $collation): void
+    {
+        global $DB;
+
+        if (!$DB->tableExists(self::MANAGEMENT_REVIEW_ACTIONS_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::MANAGEMENT_REVIEW_ACTIONS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_managementreviews_id` int {$keySign} NOT NULL DEFAULT 0,
+                `description` text,
+                `users_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Responsable de l''action',
+                `due_date` date DEFAULT NULL,
+                `status` varchar(16) NOT NULL DEFAULT 'planned' COMMENT 'planned, in_progress, done',
+                `completion_date` date DEFAULT NULL,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `reviews_id` (`plugin_grcmanager_managementreviews_id`),
+                KEY `users_id` (`users_id`),
+                KEY `status` (`status`),
+                KEY `due_date` (`due_date`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+        if (!$DB->tableExists(self::MANAGEMENT_REVIEW_DOSSIERS_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::MANAGEMENT_REVIEW_DOSSIERS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_managementreviews_id` int {$keySign} NOT NULL DEFAULT 0,
+                `documents_id` int {$keySign} NOT NULL DEFAULT 0,
+                `sha256` varchar(64) NOT NULL DEFAULT '' COMMENT 'Empreinte du PDF archive',
+                `period_start` date DEFAULT NULL,
+                `period_end` date DEFAULT NULL,
+                `users_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Auteur de la generation',
+                `date_creation` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `reviews_id` (`plugin_grcmanager_managementreviews_id`),
+                KEY `documents_id` (`documents_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+    }
+
     private function installEndOfLifeTables(string $keySign, string $charset, string $collation): void
     {
         global $DB;
@@ -5577,6 +5711,10 @@ final class Installer
         $migration->dropTable(self::AUDIT_EVIDENCE_PIECES_TABLE);
         $migration->dropTable(self::AUDIT_EVIDENCE_REQUESTS_TABLE);
         $migration->dropTable(self::AUDITOR_ACCESSES_TABLE);
+        $migration->dropTable(self::AUDIT_CHECKLIST_DOCUMENTS_TABLE);
+        $migration->dropTable(self::AUDIT_CHECKLIST_ITEMS_TABLE);
+        $migration->dropTable(self::AUDIT_CHECKLIST_TEMPLATE_ITEMS_TABLE);
+        $migration->dropTable(self::AUDIT_CHECKLIST_TEMPLATES_TABLE);
         $migration->dropTable(self::DORA_PROVIDERS_TABLE);
         $migration->dropTable(self::DORA_ARRANGEMENTS_TABLE);
         $migration->dropTable(self::DORA_ARRANGEMENT_FUNCTIONS_TABLE);
@@ -5586,6 +5724,8 @@ final class Installer
         $migration->dropTable(self::AUDITS_TABLE);
         $migration->dropTable(self::TRAININGS_USERS_TABLE);
         $migration->dropTable(self::TRAININGS_TABLE);
+        $migration->dropTable(self::MANAGEMENT_REVIEW_ACTIONS_TABLE);
+        $migration->dropTable(self::MANAGEMENT_REVIEW_DOSSIERS_TABLE);
         $migration->dropTable(self::MANAGEMENT_REVIEWS_USERS_TABLE);
         $migration->dropTable(self::MANAGEMENT_REVIEWS_TABLE);
         $migration->dropTable(self::RISKS_ITEMS_TABLE);

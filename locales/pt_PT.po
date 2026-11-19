@@ -1,4 +1,4 @@
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: grcmanager\n"
@@ -18157,8 +18157,18 @@ msgstr "Os rótulos dos níveis foram salvos."
 msgid "Levels are listed from the lowest (1) to the highest."
 msgstr "Os níveis são listados do mais baixo (1) ao mais alto."
 
-msgid "Rename the levels of probability and impact to match your method, for example the wording of your risk management policy. Leave a field empty to keep the default label, translated into the language of each user; a label you enter is shown as is in every language. Renaming a level changes nothing in existing risks."
-msgstr "Renomeie os níveis de probabilidade e de impacto conforme o seu método, por exemplo com os termos da sua política de gestão de riscos. Deixe um campo vazio para manter o rótulo padrão, traduzido para o idioma de cada usuário; um rótulo digitado é exibido como está em todos os idiomas. Renomear um nível não altera os riscos existentes."
+msgid ""
+"Rename the levels of probability and impact to match your method, for "
+"example the wording of your risk management policy. Leave a field empty to "
+"keep the default label, translated into the language of each user; a label "
+"you enter is shown as is in every language. Renaming a level changes nothing "
+"in existing risks."
+msgstr ""
+"Renomeie os níveis de probabilidade e de impacto conforme o seu método, por "
+"exemplo com os termos da sua política de gestão de riscos. Deixe um campo "
+"vazio para manter o rótulo padrão, traduzido para o idioma de cada usuário; "
+"um rótulo digitado é exibido como está em todos os idiomas. Renomear um "
+"nível não altera os riscos existentes."
 
 msgid "End of support (endoflife.date)"
 msgstr "Fim do suporte (endoflife.date)"
@@ -18166,8 +18176,14 @@ msgstr "Fim do suporte (endoflife.date)"
 msgid "Settings and links"
 msgstr "Configurações e correspondências"
 
-msgid "Not enabled: the plugin can show which software, operating systems and firmwares no longer receive security fixes, from the public site endoflife.date."
-msgstr "Não ativado: o plugin pode indicar quais softwares, sistemas operacionais e firmwares não recebem mais correções de segurança, segundo o site público endoflife.date."
+msgid ""
+"Not enabled: the plugin can show which software, operating systems and "
+"firmwares no longer receive security fixes, from the public site endoflife."
+"date."
+msgstr ""
+"Não ativado: o plugin pode indicar quais softwares, sistemas operacionais e "
+"firmwares não recebem mais correções de segurança, segundo o site público "
+"endoflife.date."
 
 msgid "Enable it in the configuration"
 msgstr "Ativar na configuração"
@@ -18186,22 +18202,41 @@ msgstr "Todos os itens acompanhados"
 msgid "\"End of support soon\": within %d days."
 msgstr "\"Fim do suporte em breve\": em até %d dias."
 
-msgid "The end of support dates have not been read yet: they arrive with the next daily task, or with the button \"Update now\" of the configuration."
-msgstr "As datas de fim do suporte ainda não foram lidas: chegam com a próxima tarefa diária ou com o botão \"Atualizar agora\" da configuração."
+msgid ""
+"The end of support dates have not been read yet: they arrive with the next "
+"daily task, or with the button \"Update now\" of the configuration."
+msgstr ""
+"As datas de fim do suporte ainda não foram lidas: chegam com a próxima "
+"tarefa diária ou com o botão \"Atualizar agora\" da configuração."
 
-msgid "Some products could not be read during the last update: their previous data is still used."
-msgstr "Alguns produtos não puderam ser lidos na última atualização: seus dados anteriores continuam sendo usados."
+msgid ""
+"Some products could not be read during the last update: their previous data "
+"is still used."
+msgstr ""
+"Alguns produtos não puderam ser lidos na última atualização: seus dados "
+"anteriores continuam sendo usados."
 
-msgid "%d name of the inventory is not linked to an endoflife.date product and is not followed."
-msgid_plural "%d names of the inventory are not linked to an endoflife.date product and are not followed."
-msgstr[0] "%d nome do inventário não está vinculado a um produto do endoflife.date e não é acompanhado."
-msgstr[1] "%d nomes do inventário não estão vinculados a um produto do endoflife.date e não são acompanhados."
+msgid ""
+"%d name of the inventory is not linked to an endoflife.date product and is "
+"not followed."
+msgid_plural ""
+"%d names of the inventory are not linked to an endoflife.date product and "
+"are not followed."
+msgstr[0] ""
+"%d nome do inventário não está vinculado a um produto do endoflife.date e "
+"não é acompanhado."
+msgstr[1] ""
+"%d nomes do inventário não estão vinculados a um produto do endoflife.date e "
+"não são acompanhados."
 
 msgid "Add a link"
 msgstr "Adicionar uma correspondência"
 
-msgid "%1$d items: the %2$d most urgent ones are shown, all of them are in the export."
-msgstr "%1$d itens: os %2$d mais urgentes são exibidos, todos estão na exportação."
+msgid ""
+"%1$d items: the %2$d most urgent ones are shown, all of them are in the "
+"export."
+msgstr ""
+"%1$d itens: os %2$d mais urgentes são exibidos, todos estão na exportação."
 
 msgid "No followed item in your entities."
 msgstr "Nenhum item acompanhado nas suas entidades."
@@ -18233,8 +18268,20 @@ msgstr "%d com suporte"
 msgid "View the details"
 msgstr "Ver o detalhe"
 
-msgid "Shows which installed software, operating systems and firmwares no longer receive security fixes, from the public site endoflife.date (ISO 27001 A.8.8 and A.8.9). Once a day, the plugin reads the end of support dates of the products found in the inventory; only the product name is sent (for instance \"debian\"), never the name of a computer or of an entity. Nothing is changed in the inventory, and no ticket is created."
-msgstr "Indica quais softwares, sistemas operacionais e firmwares instalados não recebem mais correções de segurança, segundo o site público endoflife.date (ISO 27001 A.8.8 e A.8.9). Uma vez por dia, o plugin lê as datas de fim do suporte dos produtos encontrados no inventário; apenas o nome do produto é enviado (por exemplo \"debian\"), nunca o nome de um computador ou de uma entidade. Nada é alterado no inventário e nenhum chamado é criado."
+msgid ""
+"Shows which installed software, operating systems and firmwares no longer "
+"receive security fixes, from the public site endoflife.date (ISO 27001 A.8.8 "
+"and A.8.9). Once a day, the plugin reads the end of support dates of the "
+"products found in the inventory; only the product name is sent (for instance "
+"\"debian\"), never the name of a computer or of an entity. Nothing is "
+"changed in the inventory, and no ticket is created."
+msgstr ""
+"Indica quais softwares, sistemas operacionais e firmwares instalados não "
+"recebem mais correções de segurança, segundo o site público endoflife.date "
+"(ISO 27001 A.8.8 e A.8.9). Uma vez por dia, o plugin lê as datas de fim do "
+"suporte dos produtos encontrados no inventário; apenas o nome do produto é "
+"enviado (por exemplo \"debian\"), nunca o nome de um computador ou de uma "
+"entidade. Nada é alterado no inventário e nenhum chamado é criado."
 
 msgid "Read the end of support dates on endoflife.date"
 msgstr "Ler as datas de fim do suporte no endoflife.date"
@@ -18242,8 +18289,11 @@ msgstr "Ler as datas de fim do suporte no endoflife.date"
 msgid "Warn this many days before the end of support"
 msgstr "Avisar este número de dias antes do fim do suporte"
 
-msgid "Below this number of days, a version is shown as \"End of support soon\"."
-msgstr "Abaixo deste número de dias, uma versão é exibida como \"Fim do suporte em breve\"."
+msgid ""
+"Below this number of days, a version is shown as \"End of support soon\"."
+msgstr ""
+"Abaixo deste número de dias, uma versão é exibida como \"Fim do suporte em "
+"breve\"."
 
 msgid "Last successful reading"
 msgstr "Última leitura bem-sucedida"
@@ -18251,8 +18301,12 @@ msgstr "Última leitura bem-sucedida"
 msgid "%d product(s) in cache"
 msgstr "%d produto(s) em cache"
 
-msgid "Reads now the products whose data is more than one day old (the daily task does the rest)."
-msgstr "Lê agora os produtos cujos dados têm mais de um dia (a tarefa diária faz o resto)."
+msgid ""
+"Reads now the products whose data is more than one day old (the daily task "
+"does the rest)."
+msgstr ""
+"Lê agora os produtos cujos dados têm mais de um dia (a tarefa diária faz o "
+"resto)."
 
 msgid "Update now"
 msgstr "Atualizar agora"
@@ -18260,8 +18314,19 @@ msgstr "Atualizar agora"
 msgid "Links between GLPI names and endoflife.date products"
 msgstr "Correspondências entre nomes do GLPI e produtos do endoflife.date"
 
-msgid "Well-known names are linked automatically (for instance \"Debian GNU/Linux\" or \"Mozilla Firefox\"). For any other name, add a link: type the name exactly as GLPI shows it, and the product identifier found in the address of its page on endoflife.date (for instance \"fortios\" for https://endoflife.date/fortios). Leave the product empty to stop following a name."
-msgstr "Nomes conhecidos são vinculados automaticamente (por exemplo \"Debian GNU/Linux\" ou \"Mozilla Firefox\"). Para qualquer outro nome, adicione uma correspondência: digite o nome exatamente como o GLPI o exibe e o identificador do produto que aparece no endereço da sua página no endoflife.date (por exemplo \"fortios\" para https://endoflife.date/fortios). Deixe o produto vazio para deixar de acompanhar um nome."
+msgid ""
+"Well-known names are linked automatically (for instance \"Debian GNU/Linux\" "
+"or \"Mozilla Firefox\"). For any other name, add a link: type the name "
+"exactly as GLPI shows it, and the product identifier found in the address of "
+"its page on endoflife.date (for instance \"fortios\" for https://endoflife."
+"date/fortios). Leave the product empty to stop following a name."
+msgstr ""
+"Nomes conhecidos são vinculados automaticamente (por exemplo \"Debian GNU/"
+"Linux\" ou \"Mozilla Firefox\"). Para qualquer outro nome, adicione uma "
+"correspondência: digite o nome exatamente como o GLPI o exibe e o "
+"identificador do produto que aparece no endereço da sua página no endoflife."
+"date (por exemplo \"fortios\" para https://endoflife.date/fortios). Deixe o "
+"produto vazio para deixar de acompanhar um nome."
 
 msgid "Kind of item"
 msgstr "Tipo de item"
@@ -18287,20 +18352,35 @@ msgstr "%d nome(s) vinculado(s) automaticamente"
 msgid "%d name(s) of the inventory not linked to a product"
 msgstr "%d nome(s) do inventário sem produto vinculado"
 
-msgid "These names are not followed: add a link above for those that matter (choose them from the list of the \"Name in GLPI\" field)."
-msgstr "Estes nomes não são acompanhados: adicione uma correspondência acima para os que importam (escolha-os na lista do campo \"Nome no GLPI\")."
+msgid ""
+"These names are not followed: add a link above for those that matter (choose "
+"them from the list of the \"Name in GLPI\" field)."
+msgstr ""
+"Estes nomes não são acompanhados: adicione uma correspondência acima para os "
+"que importam (escolha-os na lista do campo \"Nome no GLPI\")."
 
 msgid "%d more not shown."
 msgstr "Mais %d não exibidos."
 
-msgid "Link not saved: give the exact name shown in GLPI and an endoflife.date product identifier (lower case letters, digits and dashes, for instance \"debian\")."
-msgstr "Correspondência não salva: informe o nome exato exibido no GLPI e um identificador de produto do endoflife.date (letras minúsculas, dígitos e hífens, por exemplo \"debian\")."
+msgid ""
+"Link not saved: give the exact name shown in GLPI and an endoflife.date "
+"product identifier (lower case letters, digits and dashes, for instance "
+"\"debian\")."
+msgstr ""
+"Correspondência não salva: informe o nome exato exibido no GLPI e um "
+"identificador de produto do endoflife.date (letras minúsculas, dígitos e "
+"hífens, por exemplo \"debian\")."
 
-msgid "Assets running software, a system or a firmware that is no longer supported"
+msgid ""
+"Assets running software, a system or a firmware that is no longer supported"
 msgstr "Ativos com um software, sistema ou firmware sem suporte"
 
-msgid "Upgrade to a supported version, or record a waiver with compensating measures until the upgrade."
-msgstr "Atualize para uma versão com suporte ou registre uma exceção com medidas compensatórias até a atualização."
+msgid ""
+"Upgrade to a supported version, or record a waiver with compensating "
+"measures until the upgrade."
+msgstr ""
+"Atualize para uma versão com suporte ou registre uma exceção com medidas "
+"compensatórias até a atualização."
 
 msgid "No longer supported: %s"
 msgstr "Sem suporte: %s"
@@ -18332,11 +18412,17 @@ msgstr "Fim do suporte não determinado: nunca contado como com suporte."
 msgid "Not linked to an endoflife.date product."
 msgstr "Não vinculado a um produto do endoflife.date."
 
-msgid "Not read yet: the daily task has not run since this product was linked, or the source could not be reached."
-msgstr "Ainda não lido: a tarefa diária não rodou desde a correspondência, ou a fonte estava inacessível."
+msgid ""
+"Not read yet: the daily task has not run since this product was linked, or "
+"the source could not be reached."
+msgstr ""
+"Ainda não lido: a tarefa diária não rodou desde a correspondência, ou a "
+"fonte estava inacessível."
 
 msgid "Product unknown to endoflife.date: check the link in the configuration."
-msgstr "Produto desconhecido pelo endoflife.date: verifique a correspondência na configuração."
+msgstr ""
+"Produto desconhecido pelo endoflife.date: verifique a correspondência na "
+"configuração."
 
 msgid "No release cycle of this product matches the installed version."
 msgstr "Nenhum ciclo de versão deste produto corresponde à versão instalada."
@@ -18385,11 +18471,16 @@ msgstr[1] "O suporte termina em %1$s (em %2$d dias)."
 msgid "The end of support source is disabled: nothing was read."
 msgstr "A fonte de fim do suporte está desativada: nada foi lido."
 
-msgid "End of support: %1$d products, %2$d read, %3$d already up to date, %4$d unknown to the source."
-msgstr "Fim do suporte: %1$d produtos, %2$d lidos, %3$d já atualizados, %4$d desconhecidos pela fonte."
+msgid ""
+"End of support: %1$d products, %2$d read, %3$d already up to date, %4$d "
+"unknown to the source."
+msgstr ""
+"Fim do suporte: %1$d produtos, %2$d lidos, %3$d já atualizados, %4$d "
+"desconhecidos pela fonte."
 
 msgid "%d product(s) not read: the data already in cache is still used."
-msgstr "%d produto(s) não lido(s): os dados já em cache continuam sendo usados."
+msgstr ""
+"%d produto(s) não lido(s): os dados já em cache continuam sendo usados."
 
 msgid "End of support of software, systems and firmwares (endoflife.date)"
 msgstr "Fim do suporte de softwares, sistemas e firmwares (endoflife.date)"
@@ -18418,16 +18509,26 @@ msgid "Last read: %s"
 msgstr "Última leitura: %s"
 
 msgid "SentinelOne reports no vulnerability beyond those listed above."
-msgstr "O SentinelOne não indica nenhuma vulnerabilidade além das listadas acima."
+msgstr ""
+"O SentinelOne não indica nenhuma vulnerabilidade além das listadas acima."
 
-msgid "Application vulnerabilities seen by SentinelOne on your computers and not found by the software watch. Source: SentinelOne API, read only."
-msgstr "Vulnerabilidades de aplicações vistas pelo SentinelOne nos seus computadores e não encontradas pela vigilância de software. Fonte: API do SentinelOne, somente leitura."
+msgid ""
+"Application vulnerabilities seen by SentinelOne on your computers and not "
+"found by the software watch. Source: SentinelOne API, read only."
+msgstr ""
+"Vulnerabilidades de aplicações vistas pelo SentinelOne nos seus computadores "
+"e não encontradas pela vigilância de software. Fonte: API do SentinelOne, "
+"somente leitura."
 
 msgid "Applications"
 msgstr "Aplicações"
 
-msgid "From the last reading of SentinelOne: a computer is covered when an active agent is matched with it (serial number or exact name)."
-msgstr "Segundo a última leitura do SentinelOne: um computador está coberto quando um agente ativo lhe é associado (número de série ou nome exato)."
+msgid ""
+"From the last reading of SentinelOne: a computer is covered when an active "
+"agent is matched with it (serial number or exact name)."
+msgstr ""
+"Segundo a última leitura do SentinelOne: um computador está coberto quando "
+"um agente ativo lhe é associado (número de série ou nome exato)."
 
 msgid "SentinelOne coverage"
 msgstr "Cobertura do SentinelOne"
@@ -18441,11 +18542,21 @@ msgstr "Definições"
 msgid "No SentinelOne alert waiting for review."
 msgstr "Nenhum alerta do SentinelOne a aguardar verificação."
 
-msgid "The automatic reading is disabled: enable it in the plugin configuration, or use the button \"Fetch now\" there."
-msgstr "A leitura automática está desativada: ative-a na configuração do plugin ou use aí o botão «Ler agora»."
+msgid ""
+"The automatic reading is disabled: enable it in the plugin configuration, or "
+"use the button \"Fetch now\" there."
+msgstr ""
+"A leitura automática está desativada: ative-a na configuração do plugin ou "
+"use aí o botão «Ler agora»."
 
-msgid "Tick the alerts that deserve a security incident: each one becomes an incident with its indicators, MITRE ATT&CK techniques and computer. The others can be set aside. Nothing is changed in SentinelOne."
-msgstr "Marque os alertas que merecem um incidente de segurança: cada um torna-se um incidente com os seus indicadores, técnicas MITRE ATT&CK e computador. Os outros podem ser postos de lado. Nada é alterado no SentinelOne."
+msgid ""
+"Tick the alerts that deserve a security incident: each one becomes an "
+"incident with its indicators, MITRE ATT&CK techniques and computer. The "
+"others can be set aside. Nothing is changed in SentinelOne."
+msgstr ""
+"Marque os alertas que merecem um incidente de segurança: cada um torna-se um "
+"incidente com os seus indicadores, técnicas MITRE ATT&CK e computador. Os "
+"outros podem ser postos de lado. Nada é alterado no SentinelOne."
 
 #, php-format
 msgid "%1$d alerts: the %2$d most recent are shown."
@@ -18472,14 +18583,30 @@ msgstr "Conector do SentinelOne"
 msgid "Read only"
 msgstr "Somente leitura"
 
-msgid "Every hour, the threats and alerts detected by SentinelOne are fetched and proposed as security incidents on the EDR import screen: nothing is created without your validation. The agents are matched with the GLPI computers (serial number, then exact name) and the application vulnerabilities join the fleet vulnerabilities. Nothing is ever sent to SentinelOne (no isolation, no resolution)."
-msgstr "A cada hora, as ameaças e alertas detetados pelo SentinelOne são lidos e propostos como incidentes de segurança no ecrã de importação EDR: nada é criado sem a sua validação. Os agentes são associados aos computadores do GLPI (número de série, depois nome exato) e as vulnerabilidades de aplicações juntam-se às do parque. Nada é alguma vez enviado ao SentinelOne (nem isolamento, nem resolução)."
+msgid ""
+"Every hour, the threats and alerts detected by SentinelOne are fetched and "
+"proposed as security incidents on the EDR import screen: nothing is created "
+"without your validation. The agents are matched with the GLPI computers "
+"(serial number, then exact name) and the application vulnerabilities join "
+"the fleet vulnerabilities. Nothing is ever sent to SentinelOne (no "
+"isolation, no resolution)."
+msgstr ""
+"A cada hora, as ameaças e alertas detetados pelo SentinelOne são lidos e "
+"propostos como incidentes de segurança no ecrã de importação EDR: nada é "
+"criado sem a sua validação. Os agentes são associados aos computadores do "
+"GLPI (número de série, depois nome exato) e as vulnerabilidades de "
+"aplicações juntam-se às do parque. Nada é alguma vez enviado ao SentinelOne "
+"(nem isolamento, nem resolução)."
 
 msgid "Fetch automatically from SentinelOne"
 msgstr "Ler automaticamente o SentinelOne"
 
-msgid "Turns on the automatic action that reads SentinelOne every hour. Off by default."
-msgstr "Ativa a ação automática que lê o SentinelOne a cada hora. Desativada por predefinição."
+msgid ""
+"Turns on the automatic action that reads SentinelOne every hour. Off by "
+"default."
+msgstr ""
+"Ativa a ação automática que lê o SentinelOne a cada hora. Desativada por "
+"predefinição."
 
 msgid "Console address"
 msgstr "Endereço da consola"
@@ -18496,8 +18623,12 @@ msgstr "Token guardado (deixe vazio para o manter)"
 msgid "Token saved"
 msgstr "Token guardado"
 
-msgid "Token of a service user with the Viewer role only. Encrypted with the GLPI key, never displayed again nor logged."
-msgstr "Token de um utilizador de serviço apenas com a função Viewer. Cifrado com a chave do GLPI, nunca mais apresentado nem registado."
+msgid ""
+"Token of a service user with the Viewer role only. Encrypted with the GLPI "
+"key, never displayed again nor logged."
+msgstr ""
+"Token de um utilizador de serviço apenas com a função Viewer. Cifrado com a "
+"chave do GLPI, nunca mais apresentado nem registado."
 
 msgid "Delete the saved token"
 msgstr "Eliminar o token guardado"
@@ -18551,35 +18682,59 @@ msgstr "%d sem computador do GLPI correspondente"
 msgid "all matched with a GLPI computer"
 msgstr "todos associados a um computador do GLPI"
 
-msgid "These agents are never matched by a similar name: create or rename the computer in the inventory, or fill in its serial number."
-msgstr "Estes agentes nunca são associados por um nome parecido: crie ou mude o nome do computador no inventário, ou preencha o seu número de série."
+msgid ""
+"These agents are never matched by a similar name: create or rename the "
+"computer in the inventory, or fill in its serial number."
+msgstr ""
+"Estes agentes nunca são associados por um nome parecido: crie ou mude o nome "
+"do computador no inventário, ou preencha o seu número de série."
 
 msgid "Computer name in SentinelOne"
 msgstr "Nome do computador no SentinelOne"
 
-msgid "The console address was not saved: it must start with https:// and contain no user name or password."
-msgstr "O endereço da consola não foi guardado: deve começar por https:// e não conter nome de utilizador nem palavra-passe."
+msgid ""
+"The console address was not saved: it must start with https:// and contain "
+"no user name or password."
+msgstr ""
+"O endereço da consola não foi guardado: deve começar por https:// e não "
+"conter nome de utilizador nem palavra-passe."
 
 msgid "Enter the console address and the API token first."
 msgstr "Indique primeiro o endereço da consola e o token de API."
 
-msgid "Connection accepted, but the token sees no agent and no threat: check that its user has the Viewer role on the right accounts or sites."
-msgstr "Ligação aceite, mas o token não vê nenhum agente nem ameaça: verifique se o seu utilizador tem a função Viewer nas contas ou sites corretos."
+msgid ""
+"Connection accepted, but the token sees no agent and no threat: check that "
+"its user has the Viewer role on the right accounts or sites."
+msgstr ""
+"Ligação aceite, mas o token não vê nenhum agente nem ameaça: verifique se o "
+"seu utilizador tem a função Viewer nas contas ou sites corretos."
 
 #, php-format
-msgid "Connection to SentinelOne succeeded: %1$d agent(s) and %2$s threat(s) visible."
-msgstr "Ligação ao SentinelOne bem-sucedida: %1$d agente(s) e %2$s ameaça(s) visíveis."
+msgid ""
+"Connection to SentinelOne succeeded: %1$d agent(s) and %2$s threat(s) "
+"visible."
+msgstr ""
+"Ligação ao SentinelOne bem-sucedida: %1$d agente(s) e %2$s ameaça(s) "
+"visíveis."
 
 #, php-format
-msgid "SentinelOne read: %1$d new alert(s) to review, %2$d agent(s), %3$d application vulnerabilities."
-msgstr "Leitura do SentinelOne: %1$d alerta(s) novo(s) a verificar, %2$d agente(s), %3$d vulnerabilidades de aplicações."
+msgid ""
+"SentinelOne read: %1$d new alert(s) to review, %2$d agent(s), %3$d "
+"application vulnerabilities."
+msgstr ""
+"Leitura do SentinelOne: %1$d alerta(s) novo(s) a verificar, %2$d agente(s), "
+"%3$d vulnerabilidades de aplicações."
 
 msgid "Select at least one alert."
 msgstr "Selecione pelo menos um alerta."
 
 #, php-format
-msgid "%1$d incident(s) created, %2$d alert(s) ignored (already imported or not allowed)."
-msgstr "%1$d incidente(s) criado(s), %2$d alerta(s) ignorado(s) (já importado(s) ou não permitido(s))."
+msgid ""
+"%1$d incident(s) created, %2$d alert(s) ignored (already imported or not "
+"allowed)."
+msgstr ""
+"%1$d incidente(s) criado(s), %2$d alerta(s) ignorado(s) (já importado(s) ou "
+"não permitido(s))."
 
 #, php-format
 msgid "%d alert(s) set aside."
@@ -18588,29 +18743,62 @@ msgstr "%d alerta(s) posto(s) de lado."
 msgid "SentinelOne alerts"
 msgstr "Alertas do SentinelOne"
 
-msgid "SentinelOne: reads new threats, alerts and application vulnerabilities (read only)"
-msgstr "SentinelOne: lê as novas ameaças, alertas e vulnerabilidades de aplicações (somente leitura)"
+msgid ""
+"SentinelOne: reads new threats, alerts and application vulnerabilities (read "
+"only)"
+msgstr ""
+"SentinelOne: lê as novas ameaças, alertas e vulnerabilidades de aplicações "
+"(somente leitura)"
 
-msgid "SentinelOne refused the API token (401): check that it is valid and has not expired."
-msgstr "O SentinelOne recusou o token de API (401): verifique se é válido e não expirou."
+msgid ""
+"SentinelOne refused the API token (401): check that it is valid and has not "
+"expired."
+msgstr ""
+"O SentinelOne recusou o token de API (401): verifique se é válido e não "
+"expirou."
 
-msgid "The API token is not allowed to read this information (403): give it the Viewer role on the accounts or sites to read, or check the licence."
-msgstr "O token de API não pode ler esta informação (403): atribua-lhe a função Viewer nas contas ou sites a ler, ou verifique a licença."
+msgid ""
+"The API token is not allowed to read this information (403): give it the "
+"Viewer role on the accounts or sites to read, or check the licence."
+msgstr ""
+"O token de API não pode ler esta informação (403): atribua-lhe a função "
+"Viewer nas contas ou sites a ler, ou verifique a licença."
 
-msgid "This information is not available on this console (404): it may not be included in the licence."
-msgstr "Esta informação não está disponível nesta consola (404): talvez não esteja incluída na licença."
+msgid ""
+"This information is not available on this console (404): it may not be "
+"included in the licence."
+msgstr ""
+"Esta informação não está disponível nesta consola (404): talvez não esteja "
+"incluída na licença."
 
-msgid "SentinelOne limits the number of requests (429): the next run resumes where this one stopped."
-msgstr "O SentinelOne limita o número de pedidos (429): a próxima execução retoma onde esta parou."
+msgid ""
+"SentinelOne limits the number of requests (429): the next run resumes where "
+"this one stopped."
+msgstr ""
+"O SentinelOne limita o número de pedidos (429): a próxima execução retoma "
+"onde esta parou."
 
-msgid "The SentinelOne console could not be reached: check its address, the GLPI proxy and, for an internal address, the setting that allows them."
-msgstr "Não foi possível contactar a consola do SentinelOne: verifique o seu endereço, o proxy do GLPI e, para um endereço interno, a definição que os autoriza."
+msgid ""
+"The SentinelOne console could not be reached: check its address, the GLPI "
+"proxy and, for an internal address, the setting that allows them."
+msgstr ""
+"Não foi possível contactar a consola do SentinelOne: verifique o seu "
+"endereço, o proxy do GLPI e, para um endereço interno, a definição que os "
+"autoriza."
 
-msgid "The console address is an internal address, refused by default: an administrator can allow internal addresses in this configuration page."
-msgstr "O endereço da consola é um endereço interno, recusado por predefinição: um administrador pode autorizar os endereços internos nesta página de configuração."
+msgid ""
+"The console address is an internal address, refused by default: an "
+"administrator can allow internal addresses in this configuration page."
+msgstr ""
+"O endereço da consola é um endereço interno, recusado por predefinição: um "
+"administrador pode autorizar os endereços internos nesta página de "
+"configuração."
 
-msgid "The SentinelOne console sent an unexpected answer: check the console address."
-msgstr "A consola do SentinelOne enviou uma resposta inesperada: verifique o endereço da consola."
+msgid ""
+"The SentinelOne console sent an unexpected answer: check the console address."
+msgstr ""
+"A consola do SentinelOne enviou uma resposta inesperada: verifique o "
+"endereço da consola."
 
 msgid "Not read during this run: an earlier step stopped it."
 msgstr "Não lido nesta execução: um passo anterior interrompeu-a."
@@ -18902,8 +19090,13 @@ msgstr "%1$s por %2$s"
 msgid "Never reviewed"
 msgstr "Nunca revisado"
 
-msgid "Records today as the review date, with your name, and sets the next review one year later. Your other changes on this form are saved too."
-msgstr "Registra a data de hoje como data de revisão, com o seu nome, e define a próxima revisão um ano depois. Suas outras alterações neste formulário também são salvas."
+msgid ""
+"Records today as the review date, with your name, and sets the next review "
+"one year later. Your other changes on this form are saved too."
+msgstr ""
+"Registra a data de hoje como data de revisão, com o seu nome, e define a "
+"próxima revisão um ano depois. Suas outras alterações neste formulário "
+"também são salvas."
 
 msgid "Record the review"
 msgstr "Registrar a revisão"
@@ -18914,8 +19107,12 @@ msgstr "Registro para o auditor (PDF)"
 msgid "Register (CSV)"
 msgstr "Registro (CSV)"
 
-msgid "Issues and interested parties of the context of the organization (ISO 27001, 4.1 and 4.2) that refer to this item."
-msgstr "Questões e partes interessadas do contexto da organização (ISO 27001, 4.1 e 4.2) que se referem a este item."
+msgid ""
+"Issues and interested parties of the context of the organization (ISO 27001, "
+"4.1 and 4.2) that refer to this item."
+msgstr ""
+"Questões e partes interessadas do contexto da organização (ISO 27001, 4.1 e "
+"4.2) que se referem a este item."
 
 msgid "No issue or interested party refers to this item yet."
 msgstr "Nenhuma questão ou parte interessada se refere a este item ainda."
@@ -18958,7 +19155,8 @@ msgstr "Objetivo"
 
 #, php-format
 msgid "%1$d achieved, %2$d partially, %3$d not achieved, %4$d to evaluate"
-msgstr "%1$d atingido(s), %2$d parcialmente, %3$d não atingido(s), %4$d a avaliar"
+msgstr ""
+"%1$d atingido(s), %2$d parcialmente, %3$d não atingido(s), %4$d a avaliar"
 
 msgid "Findings and improvement plan"
 msgstr "Constatações e plano de melhoria"
@@ -18996,26 +19194,45 @@ msgid "Exercise review"
 msgstr "Balanço do exercício"
 
 #, php-format
-msgid "Review validated on %1$s by %2$s: it can no longer be changed unless it is returned to draft."
-msgstr "Balanço validado em %1$s por %2$s: não pode mais ser alterado, salvo se voltar a rascunho."
+msgid ""
+"Review validated on %1$s by %2$s: it can no longer be changed unless it is "
+"returned to draft."
+msgstr ""
+"Balanço validado em %1$s por %2$s: não pode mais ser alterado, salvo se "
+"voltar a rascunho."
 
-msgid "No objective defined. Objectives say what the exercise must demonstrate (for example: \"the crisis team is convened within 45 minutes\"); they are evaluated when the exercise is finished."
-msgstr "Nenhum objetivo definido. Os objetivos dizem o que o exercício deve demonstrar (por exemplo: \"a célula de crise é reunida em até 45 minutos\"); são avaliados ao final do exercício."
+msgid ""
+"No objective defined. Objectives say what the exercise must demonstrate (for "
+"example: \"the crisis team is convened within 45 minutes\"); they are "
+"evaluated when the exercise is finished."
+msgstr ""
+"Nenhum objetivo definido. Os objetivos dizem o que o exercício deve "
+"demonstrar (por exemplo: \"a célula de crise é reunida em até 45 minutos\"); "
+"são avaliados ao final do exercício."
 
 msgid "What was observed"
 msgstr "O que foi observado"
 
 msgid "New objective, for example: restore the file server within 4 hours"
-msgstr "Novo objetivo, por exemplo: restaurar o servidor de arquivos em até 4 horas"
+msgstr ""
+"Novo objetivo, por exemplo: restaurar o servidor de arquivos em até 4 horas"
 
 msgid "New objective"
 msgstr "Novo objetivo"
 
-msgid "Evaluate each objective: the review can be validated once they are all evaluated."
-msgstr "Avalie cada objetivo: o balanço poderá ser validado quando todos estiverem avaliados."
+msgid ""
+"Evaluate each objective: the review can be validated once they are all "
+"evaluated."
+msgstr ""
+"Avalie cada objetivo: o balanço poderá ser validado quando todos estiverem "
+"avaliados."
 
-msgid "No finding yet. Record each gap observed during or after the exercise (delay, missing contact, unusable procedure…)."
-msgstr "Nenhuma constatação ainda. Registre cada desvio observado durante ou após o exercício (atraso, contato ausente, procedimento inutilizável…)."
+msgid ""
+"No finding yet. Record each gap observed during or after the exercise "
+"(delay, missing contact, unusable procedure…)."
+msgstr ""
+"Nenhuma constatação ainda. Registre cada desvio observado durante ou após o "
+"exercício (atraso, contato ausente, procedimento inutilizável…)."
 
 msgid "Create an improvement action"
 msgstr "Criar uma ação de melhoria"
@@ -19026,14 +19243,24 @@ msgstr "Risco (somente ação de tratamento)"
 msgid "Create the action"
 msgstr "Criar a ação"
 
-msgid "An improvement action is only created when you click it: a non-conformity linked to the exercise incident, or a treatment action of an existing risk. Its progress is shown here."
-msgstr "Uma ação de melhoria só é criada quando você clica: uma não conformidade ligada ao incidente do exercício, ou uma ação de tratamento de um risco existente. Seu andamento é exibido aqui."
+msgid ""
+"An improvement action is only created when you click it: a non-conformity "
+"linked to the exercise incident, or a treatment action of an existing risk. "
+"Its progress is shown here."
+msgstr ""
+"Uma ação de melhoria só é criada quando você clica: uma não conformidade "
+"ligada ao incidente do exercício, ou uma ação de tratamento de um risco "
+"existente. Seu andamento é exibido aqui."
 
 msgid "New finding"
 msgstr "Nova constatação"
 
-msgid "Validate the review? It will no longer be editable and the validated report will be archived."
-msgstr "Validar o balanço? Ele não poderá mais ser alterado e o relatório validado será arquivado."
+msgid ""
+"Validate the review? It will no longer be editable and the validated report "
+"will be archived."
+msgstr ""
+"Validar o balanço? Ele não poderá mais ser alterado e o relatório validado "
+"será arquivado."
 
 msgid "Comment (optional)"
 msgstr "Comentário (opcional)"
@@ -19041,11 +19268,18 @@ msgstr "Comentário (opcional)"
 msgid "Validate the review"
 msgstr "Validar o balanço"
 
-msgid "The review is validated by a person holding the \"Validate exercise reviews\" right (Business continuity, in the GRC Manager tab of profiles)."
-msgstr "O balanço é validado por uma pessoa com o direito \"Validar balanços de exercício\" (Continuidade de negócios, aba GRC Manager dos perfis)."
+msgid ""
+"The review is validated by a person holding the \"Validate exercise "
+"reviews\" right (Business continuity, in the GRC Manager tab of profiles)."
+msgstr ""
+"O balanço é validado por uma pessoa com o direito \"Validar balanços de "
+"exercício\" (Continuidade de negócios, aba GRC Manager dos perfis)."
 
-msgid "Return the review to draft? The reason is recorded in the validation history."
-msgstr "Devolver o balanço a rascunho? O motivo é registrado no histórico de validações."
+msgid ""
+"Return the review to draft? The reason is recorded in the validation history."
+msgstr ""
+"Devolver o balanço a rascunho? O motivo é registrado no histórico de "
+"validações."
 
 msgid "Reason for returning to draft (required)"
 msgstr "Motivo da volta a rascunho (obrigatório)"
@@ -19077,8 +19311,11 @@ msgstr "Ação de melhoria criada."
 msgid "The review could not be changed."
 msgstr "Não foi possível alterar o balanço."
 
-msgid "Review validated: the validated report is archived in the incident documents."
-msgstr "Balanço validado: o relatório validado está arquivado nos documentos do incidente."
+msgid ""
+"Review validated: the validated report is archived in the incident documents."
+msgstr ""
+"Balanço validado: o relatório validado está arquivado nos documentos do "
+"incidente."
 
 msgid "The review is back to draft."
 msgstr "O balanço voltou a rascunho."
@@ -19096,8 +19333,12 @@ msgstr "O balanço já está validado."
 msgid "Define at least one objective before validating the review."
 msgstr "Defina pelo menos um objetivo antes de validar o balanço."
 
-msgid "Evaluate every objective (achieved, partially achieved or not achieved) before validating the review."
-msgstr "Avalie cada objetivo (atingido, parcialmente atingido ou não atingido) antes de validar o balanço."
+msgid ""
+"Evaluate every objective (achieved, partially achieved or not achieved) "
+"before validating the review."
+msgstr ""
+"Avalie cada objetivo (atingido, parcialmente atingido ou não atingido) antes "
+"de validar o balanço."
 
 msgid "Finish the exercise before validating its review."
 msgstr "Conclua o exercício antes de validar seu balanço."
@@ -19113,3 +19354,628 @@ msgid "%d action overdue"
 msgid_plural "%d actions overdue"
 msgstr[0] "%d ação atrasada"
 msgstr[1] "%d ações atrasadas"
+
+msgid "Preparatory file for the management review"
+msgstr "Dossiê preparatório da análise crítica pela direção"
+
+msgid ""
+"One PDF that gathers what top management has to review (ISO 27001 clause "
+"9.3.2), straight from the plugin registers: no copy and paste. It is "
+"attached to this review as evidence, with its SHA-256 fingerprint."
+msgstr ""
+"Um único PDF que reúne o que a alta direção deve analisar (ISO 27001, "
+"cláusula 9.3.2), direto dos registros do plugin: sem copiar e colar. Ele é "
+"anexado a esta análise como evidência, com sua impressão digital SHA-256."
+
+msgid "Period from"
+msgstr "Período de"
+
+msgid "Period to"
+msgstr "até"
+
+msgid "Generate the PDF"
+msgstr "Gerar o PDF"
+
+msgid ""
+"Proposed period: since the previous management review (or the last twelve "
+"months) up to the date of this review. Figures follow your rights and active "
+"entities."
+msgstr ""
+"Período proposto: desde a análise crítica anterior (ou os últimos doze "
+"meses) até a data desta análise. Os números seguem seus direitos e entidades "
+"ativas."
+
+msgid ""
+"You need the right to update this review to generate its preparatory file."
+msgstr ""
+"É preciso ter o direito de modificar esta análise para gerar seu dossiê "
+"preparatório."
+
+msgid "Contents"
+msgstr "Conteúdo"
+
+msgid "Archived files"
+msgstr "Dossiês arquivados"
+
+msgid "Document deleted"
+msgstr "Documento excluído"
+
+msgid "SHA-256 fingerprint"
+msgstr "Impressão digital SHA-256"
+
+msgid "No preparatory file generated yet for this review."
+msgstr "Nenhum dossiê preparatório gerado ainda para esta análise."
+
+msgid "Actions decided at this review"
+msgstr "Ações decididas nesta análise"
+
+#, php-format
+msgid "%d action(s)"
+msgstr "%d ação(ões)"
+
+#, php-format
+msgid "%d done"
+msgstr "%d realizada(s)"
+
+msgid ""
+"Each decision becomes an action with an owner, a due date and a status. The "
+"preparatory file of the next review reports where they stand."
+msgstr ""
+"Cada decisão torna-se uma ação com um responsável, um prazo e um status. O "
+"dossiê preparatório da próxima análise informa o andamento."
+
+msgid "Create the actions from the decisions"
+msgstr "Criar as ações a partir das decisões"
+
+msgid ""
+"Write one decision per line in the \"Decisions and actions\" field of the "
+"review: each new line is offered here."
+msgstr ""
+"Escreva uma decisão por linha no campo \"Decisões e ações\" da análise: cada "
+"nova linha é proposta aqui."
+
+msgid "No action recorded for this review yet."
+msgstr "Nenhuma ação registrada ainda para esta análise."
+
+msgid "Period covered"
+msgstr "Período coberto"
+
+msgid "Perimeter"
+msgstr "Perímetro"
+
+msgid "Prepared by"
+msgstr "Preparado por"
+
+msgid ""
+"Figures are read from the GRC registers when the file is generated, with the "
+"rights and active entities of the person who generated it. A section whose "
+"register that person cannot read is marked as not included."
+msgstr ""
+"Os números são lidos dos registros GRC no momento da geração, com os "
+"direitos e entidades ativas de quem gerou o dossiê. Uma seção cujo registro "
+"essa pessoa não pode ler é indicada como não incluída."
+
+msgid "Input to review"
+msgstr "Item a analisar"
+
+msgid "Included"
+msgstr "Incluído"
+
+msgid "Not included (no right)"
+msgstr "Não incluído (sem direito)"
+
+msgid ""
+"Not included: the person who generated this file cannot read this register."
+msgstr "Não incluído: quem gerou este dossiê não pode ler este registro."
+
+msgid "Actions decided"
+msgstr "Ações decididas"
+
+msgid "Completion"
+msgstr "Conclusão"
+
+msgid ""
+"No action from a previous review is open or was completed during the period."
+msgstr ""
+"Nenhuma ação de uma análise anterior está aberta ou foi concluída no período."
+
+msgid "Updated during the period"
+msgstr "Atualizados no período"
+
+msgid "Review overdue"
+msgstr "Revisão atrasada"
+
+msgid "Raised during the period"
+msgstr "Registrados no período"
+
+msgid "Closure verified during the period"
+msgstr "Encerramento verificado no período"
+
+#, php-format
+msgid "Open non-conformities: %1$d in %2$s, %3$d in %4$s"
+msgstr "Não conformidades abertas: %1$d em %2$s, %3$d em %4$s"
+
+msgid "Declared during the period"
+msgstr "Declarados no período"
+
+msgid "Still open today"
+msgstr "Ainda abertos hoje"
+
+msgid ""
+"Security incidents not included: no right to read them, or module disabled."
+msgstr ""
+"Incidentes de segurança não incluídos: sem direito de leitura ou módulo "
+"desativado."
+
+msgid "No internal audit was completed during the period."
+msgstr "Nenhuma auditoria interna foi concluída no período."
+
+msgid "No information security objective recorded."
+msgstr "Nenhum objetivo de segurança da informação registrado."
+
+msgid "Target set"
+msgstr "Meta definida"
+
+msgid "Latest measurement in the period"
+msgstr "Última medição do período"
+
+msgid "On the agenda of this review"
+msgstr "Na pauta desta análise"
+
+#, php-format
+msgid "%d measurement(s) in the period"
+msgstr "%d medição(ões) no período"
+
+msgid "No measurement in the period"
+msgstr "Nenhuma medição no período"
+
+msgid "Identified during the period"
+msgstr "Identificados no período"
+
+#, php-format
+msgid "Open risks: %1$d in %2$s, %3$d in %4$s"
+msgstr "Riscos abertos: %1$d em %2$s, %3$d em %4$s"
+
+#, php-format
+msgid "Latest approved version: %1$d, on %2$s"
+msgstr "Última versão aprovada: %1$d, em %2$s"
+
+msgid "The SoA has changed since this approval"
+msgstr "A SoA mudou desde esta aprovação"
+
+msgid "Unchanged since this approval"
+msgstr "Inalterada desde esta aprovação"
+
+msgid "No approved version of the SoA yet"
+msgstr "Nenhuma versão aprovada da SoA ainda"
+
+msgid "Maturity level"
+msgstr "Nível de maturidade"
+
+msgid "Change since the start of the period"
+msgstr "Evolução desde o início do período"
+
+msgid "No monthly maturity score recorded during the period."
+msgstr "Nenhuma pontuação de maturidade mensal registrada no período."
+
+msgid ""
+"To be completed during the meeting: decisions on improvement opportunities, "
+"changes needed to the ISMS, and resources."
+msgstr ""
+"A completar durante a reunião: decisões sobre oportunidades de melhoria, "
+"mudanças necessárias no SGSI e recursos."
+
+msgid ""
+"One decision per line: each line can then become a tracked action, with an "
+"owner and a due date, from the \"Preparatory file\" tab."
+msgstr ""
+"Uma decisão por linha: cada linha pode depois se tornar uma ação "
+"acompanhada, com um responsável e um prazo, na aba \"Dossiê preparatório\"."
+
+msgid ""
+"Choose a valid period: a start date before the end date, ten years at most."
+msgstr ""
+"Escolha um período válido: uma data de início anterior à data de fim, dez "
+"anos no máximo."
+
+msgid "Preparatory file generated and attached to the review."
+msgstr "Dossiê preparatório gerado e anexado à análise."
+
+msgid "The preparatory file could not be generated."
+msgstr "Não foi possível gerar o dossiê preparatório."
+
+msgid "Every decision already has its action."
+msgstr "Cada decisão já tem sua ação."
+
+msgid "Management review not found."
+msgstr "Análise crítica pela direção não encontrada."
+
+msgid "Describe the action."
+msgstr "Descreva a ação."
+
+msgid "Actions from previous reviews"
+msgstr "Ações de análises anteriores"
+
+msgid "Where the actions decided at earlier management reviews stand today."
+msgstr ""
+"Em que ponto estão hoje as ações decididas nas análises críticas anteriores."
+
+msgid "Context and interested parties"
+msgstr "Contexto e partes interessadas"
+
+msgid ""
+"Internal and external issues and interested parties: what changed during the "
+"period and what is overdue for review."
+msgstr ""
+"Questões internas e externas e partes interessadas: o que mudou no período e "
+"o que está com a revisão atrasada."
+
+msgid ""
+"Findings raised and closed during the period, and corrective actions still "
+"open or late."
+msgstr ""
+"Constatações registradas e encerradas no período, e ações corretivas ainda "
+"abertas ou atrasadas."
+
+msgid "Monitoring, measurement and incidents"
+msgstr "Monitoramento, medição e incidentes"
+
+msgid "Key risk indicators and information security incidents over the period."
+msgstr ""
+"Indicadores-chave de risco e incidentes de segurança da informação no "
+"período."
+
+msgid "Audit results"
+msgstr "Resultados de auditoria"
+
+msgid "Internal audits completed during the period and what they found."
+msgstr "Auditorias internas concluídas no período e suas constatações."
+
+msgid "Status of each objective and its latest measurement in the period."
+msgstr "Status de cada objetivo e sua última medição do período."
+
+msgid "Risk assessment and treatment"
+msgstr "Avaliação e tratamento de riscos"
+
+msgid ""
+"Open risks by level, risks beyond appetite, and progress of the treatment "
+"plan."
+msgstr ""
+"Riscos abertos por nível, riscos acima do apetite e andamento do plano de "
+"tratamento."
+
+msgid ""
+"Implementation of the applicable controls and the latest approved version of "
+"the SoA."
+msgstr ""
+"Implementação dos controles aplicáveis e última versão aprovada da SoA."
+
+msgid "Opportunities for improvement"
+msgstr "Oportunidades de melhoria"
+
+msgid "Maturity score over the period and consistency gaps still to fix."
+msgstr ""
+"Pontuação de maturidade no período e lacunas de consistência ainda a "
+"corrigir."
+
+msgid "Management review preparatory file"
+msgstr "Dossiê preparatório da análise crítica pela direção"
+
+#, php-format
+msgid "Management review preparatory file - %1$s (%2$s to %3$s)"
+msgstr ""
+"Dossiê preparatório da análise crítica pela direção - %1$s (de %2$s a %3$s)"
+
+#, php-format
+msgid "%d action created from the decisions."
+msgid_plural "%d actions created from the decisions."
+msgstr[0] "%d ação criada a partir das decisões."
+msgstr[1] "%d ações criadas a partir das decisões."
+
+msgid "Management review action"
+msgid_plural "Management review actions"
+msgstr[0] "Ação da análise crítica pela direção"
+msgstr[1] "Ações da análise crítica pela direção"
+
+msgid "Preparatory file"
+msgid_plural "Preparatory files"
+msgstr[0] "Dossiê preparatório"
+msgstr[1] "Dossiês preparatórios"
+
+msgid "Audit checklist"
+msgstr "Lista de verificação de auditoria"
+
+#, php-format
+msgid "%1$d of %2$d audited"
+msgstr "%1$d de %2$d auditados"
+
+msgid "Question asked"
+msgstr "Pergunta feita"
+
+msgid "Auditee"
+msgstr "Auditado"
+
+msgid "Evidence examined"
+msgstr "Evidências examinadas"
+
+msgid "Audit programme coverage"
+msgstr "Cobertura do programa de auditoria"
+
+msgid ""
+"The audit programme must cover the whole ISMS over the certification cycle. "
+"For each ISMS requirement and each applicable control, this page shows the "
+"last internal audit that gave it a result in its audit checklist, and lists "
+"first those never audited over the period. Cancelled audits and lines left "
+"\"Not audited\" do not count; the date is the actual date of the audit, "
+"otherwise its planned date."
+msgstr ""
+"O programa de auditoria deve cobrir todo o SGSI durante o ciclo de "
+"certificação. Para cada requisito do SGSI e cada controle aplicável, esta "
+"página mostra a última auditoria interna que lhe deu um resultado em sua "
+"lista de verificação, e lista primeiro os nunca auditados no período. "
+"Auditorias canceladas e linhas deixadas como \"Não auditado\" não contam; a "
+"data é a data real da auditoria, senão sua data prevista."
+
+#, php-format
+msgid "Since %s"
+msgstr "Desde %s"
+
+msgid "Requirements and controls"
+msgstr "Requisitos e controles"
+
+#, php-format
+msgid "Audited over the period (%d %%)"
+msgstr "Auditados no período (%d %%)"
+
+msgid "Never audited over the period"
+msgstr "Nunca auditados no período"
+
+msgid "No ISMS requirement nor applicable control to show."
+msgstr "Nenhum requisito do SGSI nem controle aplicável a exibir."
+
+msgid "Last audit"
+msgstr "Última auditoria"
+
+msgid "Never audited"
+msgstr "Nunca auditado"
+
+msgid ""
+"The audit checklist is reserved to the audit team and the CISO group, like "
+"the documents of the audit. Ask the audit owner to add you to the \"Team\" "
+"tab."
+msgstr ""
+"A lista de verificação da auditoria é reservada à equipe de auditoria e ao "
+"grupo do CISO, como os documentos da auditoria. Peça ao responsável pela "
+"auditoria para adicioná-lo na aba \"Equipe\"."
+
+msgid "Lines with a result"
+msgstr "Linhas com um resultado"
+
+msgid "Audit report (PDF)"
+msgstr "Relatório de auditoria (PDF)"
+
+msgid ""
+"One line per audited requirement: write the question you asked, who you "
+"interviewed, the evidence you examined (text, and documents of the "
+"\"Documents\" tab), then the result. For a non-conformity, an observation or "
+"an opportunity for improvement, \"Create the finding\" opens a pre-filled "
+"non-conformity that you review and save yourself. Like the documents of the "
+"audit, only the audit team and the CISO group see this checklist."
+msgstr ""
+"Uma linha por requisito auditado: anote a pergunta feita, a pessoa "
+"entrevistada, as evidências examinadas (texto e documentos da aba "
+"\"Documentos\") e depois o resultado. Para uma não conformidade, uma "
+"observação ou uma oportunidade de melhoria, \"Criar a constatação\" abre uma "
+"não conformidade pré-preenchida que você revisa e salva. Como os documentos "
+"da auditoria, apenas a equipe de auditoria e o grupo do CISO veem esta lista."
+
+msgid ""
+"This audit is completed or cancelled: its checklist is read only. Set the "
+"audit back to \"In progress\" to change it."
+msgstr ""
+"Esta auditoria está concluída ou cancelada: sua lista é somente leitura. "
+"Volte a auditoria para \"Em andamento\" para alterá-la."
+
+msgid ""
+"The checklist is empty. Add the requirements to audit below, or apply a "
+"checklist template."
+msgstr ""
+"A lista está vazia. Adicione abaixo os requisitos a auditar ou aplique um "
+"modelo de lista."
+
+msgid "The checklist is empty."
+msgstr "A lista está vazia."
+
+msgid "No question yet"
+msgstr "Ainda sem pergunta"
+
+msgid "Create the finding"
+msgstr "Criar a constatação"
+
+msgid "No finding yet"
+msgstr "Ainda sem constatação"
+
+msgid "Fill in"
+msgstr "Preencher"
+
+msgid "Number"
+msgstr "Número"
+
+msgid "Documents of the audit"
+msgstr "Documentos da auditoria"
+
+msgid "Add documents to the \"Documents\" tab of the audit to cite them here."
+msgstr ""
+"Adicione documentos na aba \"Documentos\" da auditoria para citá-los aqui."
+
+msgid "Linked finding"
+msgstr "Constatação vinculada"
+
+msgid ""
+"Remove this line from the checklist? A finding created from it stays in the "
+"non-conformity register."
+msgstr ""
+"Remover esta linha da lista? Uma constatação criada a partir dela permanece "
+"no registro de não conformidades."
+
+msgid "Remove the line"
+msgstr "Remover a linha"
+
+#, php-format
+msgid "Last change: %1$s, %2$s"
+msgstr "Última alteração: %1$s, %2$s"
+
+msgid "Add requirements to audit"
+msgstr "Adicionar requisitos a auditar"
+
+msgid "Every proposed requirement is already in the checklist."
+msgstr "Todos os requisitos propostos já estão na lista."
+
+msgid ""
+"ISMS requirements (clauses 4 to 10), applicable Annex A controls of the "
+"statement of applicability, and requirements of the enabled custom "
+"frameworks. Requirements already in the checklist are not offered again."
+msgstr ""
+"Requisitos do SGSI (cláusulas 4 a 10), controles aplicáveis do Anexo A da "
+"declaração de aplicabilidade e requisitos dos frameworks personalizados "
+"ativados. Os requisitos já presentes na lista não são propostos novamente."
+
+msgid "The controls of the audit scope (audit form) are preselected."
+msgstr ""
+"Os controles do escopo da auditoria (ficha da auditoria) estão pré-"
+"selecionados."
+
+msgid "Add to the checklist"
+msgstr "Adicionar à lista"
+
+msgid "Free item"
+msgstr "Item livre"
+
+msgid "An internal rule, a process or a site, for example"
+msgstr "Uma regra interna, um processo ou um local, por exemplo"
+
+msgid "Add this item"
+msgstr "Adicionar este item"
+
+msgid "Checklist templates"
+msgstr "Modelos de lista"
+
+msgid ""
+"A template keeps the requirements and the questions of a checklist, never "
+"the answers. Reuse it from one audit to the next, for example \"Annual "
+"access control audit\"."
+msgstr ""
+"Um modelo mantém os requisitos e as perguntas de uma lista, nunca as "
+"respostas. Reutilize-o de uma auditoria para outra, por exemplo \"Auditoria "
+"anual do controle de acesso\"."
+
+msgid "Add its lines to the checklist"
+msgstr "Adicionar suas linhas à lista"
+
+msgid ""
+"Delete this template? The checklists already built from it do not change."
+msgstr "Excluir este modelo? As listas já criadas a partir dele não mudam."
+
+msgid "Delete the template"
+msgstr "Excluir o modelo"
+
+msgid "No checklist template yet."
+msgstr "Ainda não há modelos de lista."
+
+msgid "Save this checklist as a template"
+msgstr "Salvar esta lista como modelo"
+
+msgid "Name of the template"
+msgstr "Nome do modelo"
+
+msgid "Save as template"
+msgstr "Salvar como modelo"
+
+#, php-format
+msgid ""
+"Finding proposed from the audit checklist (%s): review and adapt each field, "
+"then click \"Add\". Nothing is created before, and the checklist line is "
+"linked to this finding once it is saved."
+msgstr ""
+"Constatação proposta a partir da lista de verificação (%s): revise e adapte "
+"cada campo e clique em \"Adicionar\". Nada é criado antes, e a linha da "
+"lista é vinculada a esta constatação depois de salva."
+
+msgid "Audit checklist line"
+msgstr "Linha da lista de auditoria"
+
+msgid "Checklist template deleted."
+msgstr "Modelo de lista excluído."
+
+msgid "Checklist template saved."
+msgstr "Modelo de lista salvo."
+
+msgid "Checklist line saved."
+msgstr "Linha da lista salva."
+
+msgid "Minor non-conformity"
+msgstr "Não conformidade menor"
+
+msgid "Major non-conformity"
+msgstr "Não conformidade maior"
+
+msgid "Observation"
+msgstr "Observação"
+
+msgid "Opportunity for improvement"
+msgstr "Oportunidade de melhoria"
+
+msgid "Not audited"
+msgstr "Não auditado"
+
+msgid "Framework requirement"
+msgstr "Requisito de framework"
+
+msgid "Applicable Annex A controls"
+msgstr "Controles aplicáveis do Anexo A"
+
+msgid "Give at least a title or a question for the free item."
+msgstr "Informe pelo menos um título ou uma pergunta para o item livre."
+
+msgid "Audited requirement"
+msgstr "Requisito auditado"
+
+msgid "Auditor comment"
+msgstr "Comentário do auditor"
+
+msgid "Give the template a name."
+msgstr "Dê um nome ao modelo."
+
+msgid ""
+"The checklist is empty: add requirements before saving it as a template."
+msgstr "A lista está vazia: adicione requisitos antes de salvá-la como modelo."
+
+msgid "A checklist template with this name already exists."
+msgstr "Já existe um modelo de lista com este nome."
+
+#, php-format
+msgid ""
+"%d line of the template was already in the checklist or is no longer offered."
+msgid_plural ""
+"%d lines of the template were already in the checklist or are no longer "
+"offered."
+msgstr[0] "%d linha do modelo já estava na lista ou não é mais proposta."
+msgstr[1] "%d linhas do modelo já estavam na lista ou não são mais propostas."
+
+#, php-format
+msgid "Last %d year"
+msgid_plural "Last %d years"
+msgstr[0] "Último %d ano"
+msgstr[1] "Últimos %d anos"
+
+#, php-format
+msgid "%d line added to the checklist."
+msgid_plural "%d lines added to the checklist."
+msgstr[0] "%d linha adicionada à lista."
+msgstr[1] "%d linhas adicionadas à lista."
+
+#, php-format
+msgid "%1$s (%2$d line)"
+msgid_plural "%1$s (%2$d lines)"
+msgstr[0] "%1$s (%2$d linha)"
+msgstr[1] "%1$s (%2$d linhas)"
