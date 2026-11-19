@@ -266,10 +266,11 @@ final class SentinelOneConnectorTest extends GrcmanagerIntegrationTestCase
 
             // Une proposition de l'entité B devient un incident de l'entité B.
             $inB = new SentinelOneAlert();
-            self::assertTrue($inB->getFromDBByCrit([
-                'entities_id' => $entityB,
-                'status'      => SentinelOneAlert::STATUS_PENDING,
-            ]));
+            // Plusieurs propositions dans l'entité B : la première suffit.
+            $criteria = ['entities_id' => $entityB, 'status' => SentinelOneAlert::STATUS_PENDING];
+            $firstInB = $inB->find($criteria, ['id'], 1);
+            self::assertNotSame([], $firstInB);
+            self::assertTrue($inB->getFromDB((int) array_key_first($firstInB)));
             $created = SentinelOneAlert::importProposals([(int) $inB->getID()])['created'];
             self::assertCount(1, $created);
             $incident = new PluginGrcmanagerSecurityIncident();
