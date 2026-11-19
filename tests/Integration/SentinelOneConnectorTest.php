@@ -52,6 +52,11 @@ final class SentinelOneConnectorTest extends GrcmanagerIntegrationTestCase
         foreach ($tables as $table) {
             $DB->delete($table, ['id' => ['>', 0]]);
         }
+        // Identifiants de la fausse console déjà importés sur une instance de développement : oubliés
+        // le temps du test (transaction annulée ensuite).
+        $DB->delete(SecurityIncidentEdrImport::getAlertsTable(), [
+            'OR' => [['alert_id' => ['LIKE', '195000000000000%']], ['alert_id' => ['LIKE', '196000000000000%']]],
+        ]);
         \Config::setConfigurationValues(SentinelOneConfig::CONTEXT, [
             SentinelOneConfig::URL_KEY           => self::BASE,
             SentinelOneConfig::THREATS_SINCE_KEY => '',
