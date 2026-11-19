@@ -169,7 +169,9 @@ final class SampleRules
      */
     public static function tally(array $items): array
     {
-        $tally = ['total' => 0, 'compliant' => 0, 'noncompliant' => 0, 'na' => 0, 'pending' => 0, 'missing_comment' => 0];
+        $tally = [
+            'total' => 0, 'compliant' => 0, 'noncompliant' => 0, 'na' => 0, 'pending' => 0, 'missing_comment' => 0,
+        ];
         foreach ($items as $item) {
             $tally['total']++;
             $result = self::normalizeItemResult($item['result'] ?? '');

@@ -36,7 +36,9 @@ if (isset($_POST['draw'])) {
     $control = new Control();
     $control->getFromDB($controlsId);
     $sampleId = ControlTestSample::draw($control, $_POST);
-    Html::redirect($sampleId > 0 ? ControlTestSample::getPageURL($sampleId) : ControlTest::getControlTabURL($controlsId));
+    Html::redirect(
+        $sampleId > 0 ? ControlTestSample::getPageURL($sampleId) : ControlTest::getControlTabURL($controlsId)
+    );
 }
 
 $sampleId = (int) ($_POST['id'] ?? $_GET['id'] ?? 0);

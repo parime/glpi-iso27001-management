@@ -4908,7 +4908,12 @@ final class Installer
                 'after'   => 'plugin_grcmanager_nonconformities_id',
             ]);
             $migration->addField(self::CONTROL_TESTS_TABLE, 'users_id_reviewer', 'fkey', ['after' => 'review_status']);
-            $migration->addField(self::CONTROL_TESTS_TABLE, 'review_date', 'timestamp', ['after' => 'users_id_reviewer']);
+            $migration->addField(
+                self::CONTROL_TESTS_TABLE,
+                'review_date',
+                'timestamp',
+                ['after' => 'users_id_reviewer']
+            );
             $migration->addField(self::CONTROL_TESTS_TABLE, 'review_comment', 'text', ['after' => 'review_date']);
             $migration->addKey(self::CONTROL_TESTS_TABLE, 'review_status', 'review_status');
             $migration->addKey(self::CONTROL_TESTS_TABLE, 'users_id_reviewer', 'users_id_reviewer');

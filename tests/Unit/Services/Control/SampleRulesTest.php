@@ -75,7 +75,8 @@ final class SampleRulesTest extends TestCase
         self::assertSame(25, SampleRules::sampleSize('', 'daily', 1000));
         self::assertSame(2, SampleRules::sampleSize(null, 'quarterly', 1000));
         self::assertSame(1, SampleRules::sampleSize('0', 'annual', 1000));
-        self::assertSame(SampleRules::FREQUENCY_SIZES[SampleRules::DEFAULT_FREQUENCY], SampleRules::sampleSize('', 'x', 1000));
+        $default = SampleRules::FREQUENCY_SIZES[SampleRules::DEFAULT_FREQUENCY];
+        self::assertSame($default, SampleRules::sampleSize('', 'x', 1000));
         self::assertSame(10, SampleRules::sampleSize('10', 'daily', 1000));
         self::assertSame(3, SampleRules::sampleSize('10', 'daily', 3), 'Jamais plus que la population.');
         self::assertSame(SampleRules::MAX_SAMPLE, SampleRules::sampleSize('100000', 'daily', 100000));
@@ -131,7 +132,10 @@ final class SampleRulesTest extends TestCase
 
     public function testRecordingRequiresEveryItemAndAJustifiedOverride(): void
     {
-        $done = SampleRules::tally([['result' => 'compliant'], ['result' => 'noncompliant', 'comment' => 'Sans validation']]);
+        $done = SampleRules::tally([
+            ['result' => 'compliant'],
+            ['result' => 'noncompliant', 'comment' => 'Sans validation'],
+        ]);
         $proposed = SampleRules::proposedResult($done);
         self::assertSame(ControlTestRules::RESULT_INEFFECTIVE, $proposed);
         self::assertNull(SampleRules::recordError($done, $proposed, (string) $proposed, ''));

@@ -988,12 +988,16 @@ class ControlTest extends ControlTestBase
 
         return TemplateRenderer::getInstance()->render('@grcmanager/pdf/control_test_record.html.twig', [
             'report_title'       => sprintf(__('Effectiveness test of %s', 'grcmanager'), $code),
-            'generated_at_label' => sprintf(__('Generated on %s', 'grcmanager'), Html::convDateTime(date('Y-m-d H:i:s'))),
+            'generated_at_label' => sprintf(
+                __('Generated on %s', 'grcmanager'),
+                Html::convDateTime(date('Y-m-d H:i:s'))
+            ),
             'code'               => $code,
             'control_title'      => Control::getControlTitle($code),
             'test'               => $fields,
             'method'             => self::getMethods()[(string) $fields['method']] ?? (string) $fields['method'],
-            'result'             => self::getResults()[(string) $fields['result']]['label'] ?? (string) $fields['result'],
+            'result'             => self::getResults()[(string) $fields['result']]['label']
+                ?? (string) $fields['result'],
             'tester'             => (int) $fields['users_id'] > 0 ? getUserName((int) $fields['users_id']) : '',
             'recorder'           => (int) ($fields['users_id_recorder'] ?? 0) > 0
                 ? getUserName((int) $fields['users_id_recorder'])

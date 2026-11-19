@@ -255,7 +255,11 @@ class ControlTestSample extends CommonGLPI
         if ($itemtype === 'User') {
             $name = (string) getUserName($id);
         } else {
-            $table = $itemtype === 'Computer' ? 'glpi_computers' : ($itemtype === 'Ticket' ? 'glpi_tickets' : 'glpi_changes');
+            $table = match ($itemtype) {
+                'Computer' => 'glpi_computers',
+                'Ticket'   => 'glpi_tickets',
+                default    => 'glpi_changes',
+            };
             $name = (string) Dropdown::getDropdownName($table, $id);
         }
 
@@ -569,7 +573,10 @@ class ControlTestSample extends CommonGLPI
         if ($error !== null) {
             return self::refuse(match ($error) {
                 'pending'       => __('Give a result to every item drawn before recording the test.', 'grcmanager'),
-                'comment'       => __('Explain each non-compliant or not applicable item in its comment.', 'grcmanager'),
+                'comment'       => __(
+                    'Explain each non-compliant or not applicable item in its comment.',
+                    'grcmanager'
+                ),
                 'all_na'        => __('Every item is not applicable: draw another sample.', 'grcmanager'),
                 'justification' => __('Justify a result different from the proposed one.', 'grcmanager'),
                 'result'        => __('Choose the result of the test.', 'grcmanager'),
@@ -578,7 +585,10 @@ class ControlTestSample extends CommonGLPI
         }
 
         $summary = sprintf(
-            __('Sample of %1$d items drawn at random out of %2$d (%3$s): %4$d compliant, %5$d non-compliant, %6$d not applicable.', 'grcmanager'),
+            __(
+                'Random sample, %1$d of %2$d (%3$s): %4$d compliant, %5$d non-compliant, %6$d not applicable.',
+                'grcmanager'
+            ),
             $tally['total'],
             (int) $sample['population_count'],
             self::getPopulations()[(string) $sample['itemtype']] ?? (string) $sample['itemtype'],
@@ -686,7 +696,10 @@ class ControlTestSample extends CommonGLPI
         $lines[] = [
             _n('Entity', 'Entities', count($entityNames)),
             $entitiesId > 0
-                ? sprintf(__('%s and its sub-entities', 'grcmanager'), Dropdown::getDropdownName('glpi_entities', $entitiesId))
+                ? sprintf(
+                    __('%s and its sub-entities', 'grcmanager'),
+                    Dropdown::getDropdownName('glpi_entities', $entitiesId)
+                )
                 : implode(', ', $entityNames),
         ];
         $start = (string) ($sample['period_start'] ?? '');
@@ -771,7 +784,8 @@ class ControlTestSample extends CommonGLPI
         $canEdit = ControlTest::canEditControl($controlsId);
         $testsId = (int) $sample['plugin_grcmanager_controltests_id'];
 
-        TemplateRenderer::getInstance()->display('@grcmanager/control_test_sample.html.twig', self::viewData($sample) + [
+        $data = self::viewData($sample);
+        TemplateRenderer::getInstance()->display('@grcmanager/control_test_sample.html.twig', $data + [
             'control'        => $control,
             'control_title'  => Control::getControlTitle((string) $control->fields['code']),
             'control_url'    => ControlTest::getControlTabURL($controlsId),
