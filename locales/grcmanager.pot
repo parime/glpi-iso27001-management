@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-18 21:55+0000\n"
+"POT-Creation-Date: 2026-11-19 06:40+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -47,7 +47,7 @@ msgstr ""
 #: templates/risk_catalog.html.twig templates/pdf/ebios_study_report.html.twig
 #: templates/dashboard_perimeters.html.twig templates/tabs/dpia.html.twig
 #: templates/tabs/ebios_workshop5.html.twig front/risk.report.php:26
-#: front/risk.report.php:65
+#: front/risk.report.php:71
 msgid "Risk register"
 msgstr ""
 
@@ -342,7 +342,7 @@ msgstr ""
 #: src/NotificationTargetRiskIndicator.php:148 src/Objective.php:158
 #: src/Policy.php:152 src/ProcessingActivity.php:550
 #: src/ProcessingActivity.php:994 src/Risk.php:402 src/RiskIndicator.php:713
-#: src/RiskRegisterImport.php:600 src/SupplierRisk.php:233
+#: src/RiskRegisterImport.php:614 src/SupplierRisk.php:233
 msgid "Status"
 msgstr ""
 
@@ -830,7 +830,7 @@ msgstr ""
 #: inc/securityincident.class.php:932
 #: src/NotificationTargetAuditEvidenceRequest.php:154
 #: src/ProcessingActivity.php:548 src/ProcessingActivity.php:991
-#: src/RiskRegisterImport.php:587
+#: src/RiskRegisterImport.php:601
 msgid "Reference"
 msgstr ""
 
@@ -1631,7 +1631,7 @@ msgstr ""
 #: templates/audit_evidence_requests_tab.html.twig
 #: templates/risk_form.html.twig src/Nonconformity.php:365
 #: src/NotificationTargetAuditEvidenceRequest.php:155 src/Objective.php:199
-#: src/Policy.php:185 src/RiskRegisterImport.php:589 src/Training.php:577
+#: src/Policy.php:185 src/RiskRegisterImport.php:603 src/Training.php:577
 msgid "Description"
 msgstr ""
 
@@ -1665,7 +1665,7 @@ msgstr ""
 #: templates/pdf/ebios_study_report.html.twig
 #: templates/ebios_study_form.html.twig templates/audit_form.html.twig
 #: templates/compliance_event_form.html.twig templates/auditor_space.html.twig
-#: src/Audit.php:242 src/ComplianceEvent.php:232 src/EbiosStudy.php:597
+#: src/Audit.php:242 src/ComplianceEvent.php:232 src/EbiosStudy.php:601
 #: src/NotificationTargetComplianceEvent.php:113
 msgid "Scope"
 msgstr ""
@@ -2222,7 +2222,7 @@ msgstr ""
 #: src/NotificationTargetPolicyVersion.php:137
 #: src/NotificationTargetRisk.php:93 src/NotificationTargetSupplierRisk.php:115
 #: src/NotificationTargetTraining.php:125 src/Objective.php:149
-#: src/Policy.php:135 src/Risk.php:344 src/RiskRegisterImport.php:588
+#: src/Policy.php:135 src/Risk.php:344 src/RiskRegisterImport.php:602
 #: src/SupplierRisk.php:160 src/Training.php:528
 msgid "Title"
 msgstr ""
@@ -2287,7 +2287,7 @@ msgstr ""
 #: templates/business_process_form.html.twig
 #: templates/periodic_reviews.html.twig src/BusinessProcess.php:544
 #: src/BusinessProcess.php:616 src/ComplianceEvent.php:228
-#: src/EbiosStudy.php:594 src/IsmsRequirement.php:300 src/Nonconformity.php:332
+#: src/EbiosStudy.php:598 src/IsmsRequirement.php:300 src/Nonconformity.php:332
 msgid "Owner"
 msgstr ""
 
@@ -2374,7 +2374,7 @@ msgstr ""
 msgid "Requested on %1$s by %2$s"
 msgstr ""
 
-#: templates/pdf/soa_report.html.twig src/RiskRegisterImport.php:601
+#: templates/pdf/soa_report.html.twig src/RiskRegisterImport.php:615
 msgid "Annex A controls"
 msgstr ""
 
@@ -2460,7 +2460,7 @@ msgstr ""
 #: templates/waiver_ticket.html.twig templates/control_form.html.twig
 #: templates/risk_form.html.twig templates/waiver_form.html.twig
 #: templates/network_flow_form.html.twig src/ContextItem.php:564
-#: src/Control.php:1049 src/NetworkFlow.php:265 src/RiskRegisterImport.php:596
+#: src/Control.php:1049 src/NetworkFlow.php:265 src/RiskRegisterImport.php:610
 msgid "Justification"
 msgstr ""
 
@@ -2824,7 +2824,7 @@ msgstr ""
 #: templates/supplier_risk_form.html.twig
 #: templates/tabs/business_process_risks.html.twig
 #: templates/risk_form.html.twig templates/risk_appetite.html.twig
-#: src/Risk.php:385 src/RiskRegisterImport.php:595 src/SupplierRisk.php:216
+#: src/Risk.php:385 src/RiskRegisterImport.php:609 src/SupplierRisk.php:216
 msgid "Treatment"
 msgstr ""
 
@@ -2933,7 +2933,7 @@ msgstr ""
 #: src/ContextItem.php:554 src/NetworkFlow.php:266 src/Objective.php:190
 #: src/Policy.php:176 src/ProcessingActivity.php:571
 #: src/ProcessingActivity.php:997 src/Risk.php:393 src/RiskIndicator.php:740
-#: src/RiskRegisterImport.php:597 src/RiskRegisterImport.php:598
+#: src/RiskRegisterImport.php:611 src/RiskRegisterImport.php:612
 #: src/SupplierRisk.php:224
 msgctxt "owner"
 msgid "Owner"
@@ -3010,6 +3010,12 @@ msgid "Risks in the register"
 msgstr ""
 
 #: templates/pdf/risk_register_report.html.twig
+#: templates/pdf/ebios_study_report.html.twig
+#: templates/tabs/ebios_workshop4.html.twig templates/config_form.html.twig
+msgid "Risk matrix"
+msgstr ""
+
+#: templates/pdf/risk_register_report.html.twig
 #: templates/pdf/dpia_report.html.twig templates/park_vulnerabilities.html.twig
 #: templates/tabs/dpia.html.twig templates/risk_form.html.twig
 msgid "Level"
@@ -3025,9 +3031,28 @@ msgstr ""
 #: src/ContextItem.php:542 src/NotificationTargetRisk.php:94
 #: src/NotificationTargetRiskIndicator.php:156
 #: src/NotificationTargetSupplierRisk.php:117 src/Playbook.php:212
-#: src/Risk.php:353 src/RiskIndicator.php:737 src/RiskRegisterImport.php:590
+#: src/Risk.php:353 src/RiskIndicator.php:737 src/RiskRegisterImport.php:604
 #: src/SupplierRisk.php:184
 msgid "Category"
+msgstr ""
+
+#: templates/pdf/risk_register_report.html.twig
+#: templates/risk_scale_change.html.twig templates/supplier_risk_form.html.twig
+#: templates/risk_heatmap.html.twig templates/config_form.html.twig
+#: templates/risk_form.html.twig src/Risk.php:361
+#: src/RiskRegisterImport.php:605 src/RiskScaleChange.php:106
+#: src/SupplierRisk.php:192
+msgid "Probability"
+msgstr ""
+
+#: templates/pdf/risk_register_report.html.twig
+#: templates/risk_scale_change.html.twig templates/supplier_risk_form.html.twig
+#: templates/risk_heatmap.html.twig templates/tabs/business_impact.html.twig
+#: templates/config_form.html.twig templates/risk_form.html.twig
+#: templates/itil_analysis_section.html.twig src/Risk.php:369
+#: src/RiskRegisterImport.php:606 src/RiskScaleChange.php:106
+#: src/SecurityIncidentTechnique.php:67 src/SupplierRisk.php:200
+msgid "Impact"
 msgstr ""
 
 #: templates/pdf/risk_register_report.html.twig
@@ -3038,7 +3063,7 @@ msgstr ""
 #: src/NotificationTargetComplianceObligation.php:94
 #: src/NotificationTargetContextItem.php:79 src/NotificationTargetRisk.php:96
 #: src/NotificationTargetSupplierRisk.php:119 src/Risk.php:410
-#: src/RiskRegisterImport.php:599 src/SupplierRisk.php:241
+#: src/RiskRegisterImport.php:613 src/SupplierRisk.php:241
 msgid "Review date"
 msgstr ""
 
@@ -3094,7 +3119,7 @@ msgid "Description of the processing"
 msgstr ""
 
 #: templates/pdf/dpia_report.html.twig templates/tabs/dpia.html.twig
-#: src/Dpia.php:119
+#: src/Dpia.php:118
 msgid "Necessity and proportionality"
 msgstr ""
 
@@ -3134,7 +3159,7 @@ msgid "Residual level"
 msgstr ""
 
 #: templates/pdf/dpia_report.html.twig templates/tabs/dpia.html.twig
-#: src/Dpia.php:121
+#: src/Dpia.php:120
 msgid "Planned measures"
 msgstr ""
 
@@ -3144,7 +3169,7 @@ msgstr ""
 
 #: templates/pdf/dpia_report.html.twig templates/tabs/dpia.html.twig
 #: templates/data_breach_form.html.twig src/DataBreach.php:1061
-#: src/Dpia.php:122
+#: src/Dpia.php:121
 msgid "Opinion of the DPO"
 msgstr ""
 
@@ -3212,7 +3237,7 @@ msgstr[1] ""
 
 #: templates/pdf/ebios_study_report.html.twig
 #: templates/tabs/ebios_workshop2.html.twig
-#: src/EbiosOperationalScenario.php:140
+#: src/EbiosOperationalScenario.php:145
 msgid "Target objective"
 msgstr ""
 
@@ -3325,7 +3350,7 @@ msgstr ""
 
 #: templates/pdf/ebios_study_report.html.twig
 #: templates/tabs/ebios_workshop3.html.twig
-#: src/EbiosOperationalScenario.php:141
+#: src/EbiosOperationalScenario.php:146
 msgid "Attack path"
 msgstr ""
 
@@ -3336,18 +3361,13 @@ msgstr ""
 
 #: templates/pdf/ebios_study_report.html.twig
 #: templates/tabs/ebios_workshop3.html.twig
-#: src/EbiosOperationalScenario.php:134
+#: src/EbiosOperationalScenario.php:139
 msgid "Direct attack"
 msgstr ""
 
 #: templates/pdf/ebios_study_report.html.twig
 #: templates/tabs/ebios_workshop4.html.twig
 msgid "No operational scenario yet"
-msgstr ""
-
-#: templates/pdf/ebios_study_report.html.twig
-#: templates/tabs/ebios_workshop4.html.twig templates/config_form.html.twig
-msgid "Risk matrix"
 msgstr ""
 
 #: templates/pdf/ebios_study_report.html.twig
@@ -3364,7 +3384,7 @@ msgstr[1] ""
 
 #: templates/pdf/ebios_study_report.html.twig
 #: templates/tabs/ebios_workshop4.html.twig
-#: src/EbiosOperationalScenario.php:143
+#: src/EbiosOperationalScenario.php:148
 msgid "Attack sequence"
 msgstr ""
 
@@ -3737,23 +3757,6 @@ msgstr ""
 msgid ""
 "Default grid of the new size. You can adjust it afterwards in the "
 "configuration."
-msgstr ""
-
-#: templates/risk_scale_change.html.twig templates/supplier_risk_form.html.twig
-#: templates/risk_heatmap.html.twig templates/config_form.html.twig
-#: templates/risk_form.html.twig src/Risk.php:361
-#: src/RiskRegisterImport.php:591 src/RiskScaleChange.php:106
-#: src/SupplierRisk.php:192
-msgid "Probability"
-msgstr ""
-
-#: templates/risk_scale_change.html.twig templates/supplier_risk_form.html.twig
-#: templates/risk_heatmap.html.twig templates/tabs/business_impact.html.twig
-#: templates/config_form.html.twig templates/risk_form.html.twig
-#: templates/itil_analysis_section.html.twig src/Risk.php:369
-#: src/RiskRegisterImport.php:592 src/RiskScaleChange.php:106
-#: src/SecurityIncidentTechnique.php:67 src/SupplierRisk.php:200
-msgid "Impact"
 msgstr ""
 
 #: templates/risk_scale_change.html.twig
@@ -4628,18 +4631,18 @@ msgstr ""
 #: templates/park_vulnerabilities.html.twig templates/risk_heatmap.html.twig
 #: inc/securityincident.class.php:264 inc/securityincident.class.php:1192
 #: src/BusinessImpact.php:75 src/Control.php:201 src/Nonconformity.php:106
-#: src/Nonconformity.php:497 src/Traits/RiskAssessmentTrait.php:93
-#: src/Traits/RiskAssessmentTrait.php:111
-#: src/Traits/RiskAssessmentTrait.php:286
+#: src/Nonconformity.php:497 src/Traits/RiskAssessmentTrait.php:123
+#: src/Traits/RiskAssessmentTrait.php:139
+#: src/Traits/RiskAssessmentTrait.php:310
 msgid "Critical"
 msgstr ""
 
 #: templates/park_vulnerabilities.html.twig templates/risk_heatmap.html.twig
 #: src/AssetClassification.php:94 src/AssetClassification.php:185
 #: src/ConsistencyCheck.php:132 src/Control.php:200 src/DoraRegister.php:238
-#: src/DoraRegister.php:243 src/Traits/RiskAssessmentTrait.php:92
-#: src/Traits/RiskAssessmentTrait.php:110
-#: src/Traits/RiskAssessmentTrait.php:285
+#: src/DoraRegister.php:243 src/Traits/RiskAssessmentTrait.php:122
+#: src/Traits/RiskAssessmentTrait.php:138
+#: src/Traits/RiskAssessmentTrait.php:309
 msgid "High"
 msgstr ""
 
@@ -5459,7 +5462,7 @@ msgstr ""
 msgid "Impact assessment and review"
 msgstr ""
 
-#: templates/processing_activity_form.html.twig src/Dpia.php:49
+#: templates/processing_activity_form.html.twig src/Dpia.php:48
 #: src/ProcessingActivity.php:569 src/ProcessingActivity.php:1009
 msgid "DPIA"
 msgstr ""
@@ -5789,16 +5792,18 @@ msgstr ""
 #: templates/risk_heatmap.html.twig src/AssetClassification.php:92
 #: src/AssetClassification.php:183 src/ConsistencyCheck.php:142
 #: src/Control.php:198 src/DoraRegister.php:236 src/DoraRegister.php:241
-#: src/Traits/RiskAssessmentTrait.php:90 src/Traits/RiskAssessmentTrait.php:108
-#: src/Traits/RiskAssessmentTrait.php:283
+#: src/Traits/RiskAssessmentTrait.php:120
+#: src/Traits/RiskAssessmentTrait.php:136
+#: src/Traits/RiskAssessmentTrait.php:307
 msgid "Low"
 msgstr ""
 
 #: templates/risk_heatmap.html.twig src/AssetClassification.php:93
 #: src/AssetClassification.php:184 src/ConsistencyCheck.php:137
 #: src/Control.php:199 src/DoraRegister.php:237 src/DoraRegister.php:242
-#: src/Traits/RiskAssessmentTrait.php:91 src/Traits/RiskAssessmentTrait.php:109
-#: src/Traits/RiskAssessmentTrait.php:284
+#: src/Traits/RiskAssessmentTrait.php:121
+#: src/Traits/RiskAssessmentTrait.php:137
+#: src/Traits/RiskAssessmentTrait.php:308
 msgid "Medium"
 msgstr ""
 
@@ -8508,6 +8513,28 @@ msgid ""
 "the sensitive registers."
 msgstr ""
 
+#: templates/config_form.html.twig
+msgid "Level labels"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid ""
+"Rename the levels of probability and impact to match your method, for "
+"example the wording of your risk management policy. Leave a field empty to "
+"keep the default label, translated into the language of each user; a label "
+"you enter is shown as is in every language. Renaming a level changes nothing "
+"in existing risks."
+msgstr ""
+
+#: templates/config_form.html.twig
+#, php-format
+msgid "Default label: %s"
+msgstr ""
+
+#: templates/config_form.html.twig
+msgid "Levels are listed from the lowest (1) to the highest."
+msgstr ""
+
 #: templates/control_test_due.html.twig
 msgid "Tests to carry out"
 msgstr ""
@@ -10057,8 +10084,8 @@ msgid ""
 msgstr ""
 
 #: templates/audit_evidence_requests_tab.html.twig
-#: templates/auditor_space.html.twig src/Traits/RiskAssessmentTrait.php:152
-#: src/Traits/RiskAssessmentTrait.php:300
+#: templates/auditor_space.html.twig src/Traits/RiskAssessmentTrait.php:165
+#: src/Traits/RiskAssessmentTrait.php:324
 msgid "Accepted"
 msgstr ""
 
@@ -10104,7 +10131,7 @@ msgid "None yet"
 msgstr ""
 
 #: templates/audit_evidence_requests_tab.html.twig
-#: src/Traits/RiskAssessmentTrait.php:137
+#: src/Traits/RiskAssessmentTrait.php:150
 msgid "Accept"
 msgstr ""
 
@@ -10305,7 +10332,7 @@ msgid ""
 msgstr ""
 
 #: templates/risk_form.html.twig src/Risk.php:446
-#: src/RiskRegisterImport.php:593
+#: src/RiskRegisterImport.php:607
 msgid "Residual probability"
 msgstr ""
 
@@ -10316,7 +10343,7 @@ msgid ""
 msgstr ""
 
 #: templates/risk_form.html.twig src/Risk.php:447
-#: src/RiskRegisterImport.php:594
+#: src/RiskRegisterImport.php:608
 msgid "Residual impact"
 msgstr ""
 
@@ -10384,7 +10411,7 @@ msgid ""
 "see further down this record."
 msgstr ""
 
-#: templates/risk_form.html.twig src/RiskRegisterImport.php:602
+#: templates/risk_form.html.twig src/RiskRegisterImport.php:616
 msgid "Linked assets (CMDB)"
 msgstr ""
 
@@ -10565,7 +10592,7 @@ msgid ""
 "checked in the plugin configuration."
 msgstr ""
 
-#: templates/supplier_security_watch.html.twig front/config.php:394
+#: templates/supplier_security_watch.html.twig front/config.php:430
 msgid "Configuration"
 msgstr ""
 
@@ -11877,8 +11904,8 @@ msgstr ""
 
 #: front/audit.report.php:77 front/databreach.export.php:65
 #: front/networkflow.report.php:31 front/processingactivity.export.php:64
-#: front/risk.report.php:67 src/AccessReview.php:745 src/Audit.php:549
-#: src/ConsistencyCheck.php:1380 src/CrisisExercise.php:613 src/Dpia.php:445
+#: front/risk.report.php:73 src/AccessReview.php:745 src/Audit.php:549
+#: src/ConsistencyCheck.php:1380 src/CrisisExercise.php:613 src/Dpia.php:443
 #: src/EbiosStudy.php:313 src/PolicyAcknowledgement.php:703
 #: src/PolicyVersion.php:765 src/SecurityIncidentPostMortem.php:242
 #: src/Services/Control/SoaReportBuilder.php:121 src/Training.php:725
@@ -11970,47 +11997,51 @@ msgstr ""
 msgid "Compliance calendar"
 msgstr ""
 
-#: front/config.php:130
+#: front/config.php:89
+msgid "The level labels have been saved."
+msgstr ""
+
+#: front/config.php:166
 #, php-format
 msgid "%s: verified domain, one request per run"
 msgstr ""
 
-#: front/config.php:131
+#: front/config.php:167
 #, php-format
 msgid "%s: checked address by address"
 msgstr ""
 
-#: front/config.php:134
+#: front/config.php:170
 msgid "Have I Been Pwned key accepted."
 msgstr ""
 
-#: front/config.php:138
+#: front/config.php:174
 msgid "Have I Been Pwned refused the API key."
 msgstr ""
 
-#: front/config.php:139
+#: front/config.php:175
 #, php-format
 msgid "Have I Been Pwned could not be reached (code %d)."
 msgstr ""
 
-#: front/config.php:333
+#: front/config.php:369
 msgid ""
 "Link not saved: give the exact name shown in GLPI and an endoflife.date "
 "product identifier (lower case letters, digits and dashes, for instance "
 "\"debian\")."
 msgstr ""
 
-#: front/config.php:374
+#: front/config.php:410
 msgid ""
 "Enable the NVD enrichment first: without it, the report would wrongly say "
 "that nothing is exposed."
 msgstr ""
 
-#: front/config.php:379
+#: front/config.php:415
 msgid "The report has been queued for sending to its recipients."
 msgstr ""
 
-#: front/config.php:384
+#: front/config.php:420
 msgid ""
 "The report could not be sent: check that notifications are enabled in GLPI "
 "and that the notification \"GRC Manager - Fleet vulnerability report\" is "
@@ -13512,12 +13543,11 @@ msgstr ""
 msgid "Operational"
 msgstr ""
 
-#: src/BusinessImpact.php:71 src/Dpia.php:106
+#: src/BusinessImpact.php:71 src/Dpia.php:105
 msgid "Not rated"
 msgstr ""
 
-#: src/BusinessImpact.php:72 src/Traits/RiskAssessmentTrait.php:89
-#: src/Traits/RiskAssessmentTrait.php:271
+#: src/BusinessImpact.php:72 src/Traits/RiskAssessmentTrait.php:119
 msgid "Negligible"
 msgstr ""
 
@@ -15233,7 +15263,7 @@ msgid "The file exceeds the maximum size allowed by GLPI (%d MiB)."
 msgstr ""
 
 #: src/ControlTest.php:503 src/CustomFramework.php:316
-#: src/RiskRegisterImport.php:483
+#: src/RiskRegisterImport.php:497
 msgid "The file is empty."
 msgstr ""
 
@@ -15463,7 +15493,7 @@ msgstr ""
 msgid "Code missing."
 msgstr ""
 
-#: src/CustomFramework.php:322 src/RiskRegisterImport.php:497
+#: src/CustomFramework.php:322 src/RiskRegisterImport.php:511
 msgid "Title missing."
 msgstr ""
 
@@ -15477,7 +15507,7 @@ msgstr ""
 msgid "Code already used on line %s."
 msgstr ""
 
-#: src/CustomFramework.php:332 src/RiskRegisterImport.php:515
+#: src/CustomFramework.php:332 src/RiskRegisterImport.php:529
 #, php-format
 msgid "Unknown ISO 27001 Annex A control: %s (expected format: A.5.1)."
 msgstr ""
@@ -16183,104 +16213,104 @@ msgstr ""
 msgid "%s (direct provider)"
 msgstr ""
 
-#: src/Dpia.php:63
+#: src/Dpia.php:62
 msgid "Evaluation or scoring of people"
 msgstr ""
 
-#: src/Dpia.php:64
+#: src/Dpia.php:63
 msgid "Automated decisions with legal or similar effects"
 msgstr ""
 
-#: src/Dpia.php:65
+#: src/Dpia.php:64
 msgid "Systematic monitoring of people"
 msgstr ""
 
-#: src/Dpia.php:66
+#: src/Dpia.php:65
 msgid "Sensitive or highly personal data"
 msgstr ""
 
-#: src/Dpia.php:67
+#: src/Dpia.php:66
 msgid "Processing on a large scale"
 msgstr ""
 
-#: src/Dpia.php:68
+#: src/Dpia.php:67
 msgid "Matching or combining datasets"
 msgstr ""
 
-#: src/Dpia.php:69
+#: src/Dpia.php:68
 msgid "Data about vulnerable people"
 msgstr ""
 
-#: src/Dpia.php:70
+#: src/Dpia.php:69
 msgid "Innovative use of technology"
 msgstr ""
 
-#: src/Dpia.php:71
+#: src/Dpia.php:70
 msgid "Prevents the exercise of a right or access to a service"
 msgstr ""
 
-#: src/Dpia.php:81
+#: src/Dpia.php:80
 msgid "Illegitimate access to data"
 msgstr ""
 
-#: src/Dpia.php:82
+#: src/Dpia.php:81
 msgid "Unwanted change of data"
 msgstr ""
 
-#: src/Dpia.php:83
+#: src/Dpia.php:82
 msgid "Disappearance of data"
 msgstr ""
 
-#: src/Dpia.php:93
+#: src/Dpia.php:92
 msgid "1 - Negligible"
 msgstr ""
 
-#: src/Dpia.php:94
+#: src/Dpia.php:93
 msgid "2 - Limited"
 msgstr ""
 
-#: src/Dpia.php:95
+#: src/Dpia.php:94
 msgid "3 - Significant"
 msgstr ""
 
-#: src/Dpia.php:96
+#: src/Dpia.php:95
 msgid "4 - Maximum"
 msgstr ""
 
-#: src/Dpia.php:107 src/EbiosStudy.php:141
+#: src/Dpia.php:106 src/EbiosStudy.php:141
 msgid "Low risk"
 msgstr ""
 
-#: src/Dpia.php:108 src/EbiosStudy.php:142
+#: src/Dpia.php:107 src/EbiosStudy.php:142
 msgid "Moderate risk"
 msgstr ""
 
-#: src/Dpia.php:109 src/EbiosStudy.php:143
+#: src/Dpia.php:108 src/EbiosStudy.php:143
 msgid "High risk"
 msgstr ""
 
-#: src/Dpia.php:120
+#: src/Dpia.php:119
 msgid "Rating of the three risks, before and after measures"
 msgstr ""
 
-#: src/Dpia.php:192
+#: src/Dpia.php:191
 msgid "This DPIA is approved: reopen it to change it."
 msgstr ""
 
-#: src/Dpia.php:231
+#: src/Dpia.php:230
 #, php-format
 msgid "This DPIA cannot be approved yet, missing: %s"
 msgstr ""
 
-#: src/Dpia.php:243
+#: src/Dpia.php:242
 msgid "DPIA approved"
 msgstr ""
 
-#: src/Dpia.php:252
+#: src/Dpia.php:251
 msgid "DPIA reopened, approval withdrawn"
 msgstr ""
 
-#: src/Dpia.php:328 src/EbiosOperationalScenario.php:116
+#: src/Dpia.php:327 src/EbiosOperationalScenario.php:121
 msgid "The risk has been added to the register."
 msgstr ""
 
@@ -16288,11 +16318,11 @@ msgstr ""
 msgid "The linked element does not belong to this study."
 msgstr ""
 
-#: src/EbiosElement.php:128 src/EbiosStudy.php:559
+#: src/EbiosElement.php:128 src/EbiosStudy.php:563
 msgid "The name is required."
 msgstr ""
 
-#: src/EbiosOperationalScenario.php:37
+#: src/EbiosOperationalScenario.php:38
 msgid "Operational scenario"
 msgid_plural "Operational scenarios"
 msgstr[0] ""
@@ -17072,8 +17102,8 @@ msgid "Open"
 msgstr ""
 
 #: src/Nonconformity.php:134 src/Nonconformity.php:509
-#: src/Traits/RiskAssessmentTrait.php:151
-#: src/Traits/RiskAssessmentTrait.php:299
+#: src/Traits/RiskAssessmentTrait.php:164
+#: src/Traits/RiskAssessmentTrait.php:323
 msgid "In treatment"
 msgstr ""
 
@@ -19913,115 +19943,115 @@ msgid_plural "Risk indicator values"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/RiskRegisterImport.php:455
+#: src/RiskRegisterImport.php:469
 msgid "Theft of a laptop containing customer data"
 msgstr ""
 
-#: src/RiskRegisterImport.php:456
+#: src/RiskRegisterImport.php:470
 msgid "A laptop is stolen while travelling; its disk holds customer files."
 msgstr ""
 
-#: src/RiskRegisterImport.php:458
+#: src/RiskRegisterImport.php:472
 msgid "Disk encryption deployed on every laptop."
 msgstr ""
 
-#: src/RiskRegisterImport.php:462
+#: src/RiskRegisterImport.php:476
 msgid "Prolonged outage of the hosting provider"
 msgstr ""
 
-#: src/RiskRegisterImport.php:464
+#: src/RiskRegisterImport.php:478
 msgid "Penalties and recovery time written into the contract."
 msgstr ""
 
-#: src/RiskRegisterImport.php:468
+#: src/RiskRegisterImport.php:482
 msgid "Targeted phishing of the accounting team"
 msgstr ""
 
-#: src/RiskRegisterImport.php:485
+#: src/RiskRegisterImport.php:499
 msgid ""
 "Header line without the \"reference\" and \"title\" columns: start from the "
 "template."
 msgstr ""
 
-#: src/RiskRegisterImport.php:489
+#: src/RiskRegisterImport.php:503
 msgid ""
 "Reference missing: each risk needs its own reference, so that a later import "
 "updates it instead of creating a duplicate."
 msgstr ""
 
-#: src/RiskRegisterImport.php:494
+#: src/RiskRegisterImport.php:508
 #, php-format
 msgid "Reference longer than %d characters."
 msgstr ""
 
-#: src/RiskRegisterImport.php:499
+#: src/RiskRegisterImport.php:513
 #, php-format
 msgid "Reference already used on line %s."
 msgstr ""
 
-#: src/RiskRegisterImport.php:505
+#: src/RiskRegisterImport.php:519
 #, php-format
 msgid ""
 "Owner not found: %s (expected: login, e-mail address or first and last name "
 "of a GLPI user)."
 msgstr ""
 
-#: src/RiskRegisterImport.php:511
+#: src/RiskRegisterImport.php:525
 #, php-format
 msgid "Several users match the owner %s: use their login or e-mail address."
 msgstr ""
 
-#: src/RiskRegisterImport.php:520
+#: src/RiskRegisterImport.php:534
 #, php-format
 msgid ""
 "Asset not found in GLPI: %s (expected: name or inventory number of an asset "
 "you can see)."
 msgstr ""
 
-#: src/RiskRegisterImport.php:526
+#: src/RiskRegisterImport.php:540
 #, php-format
 msgid "Several assets are named %s: use their inventory number."
 msgstr ""
 
-#: src/RiskRegisterImport.php:530
+#: src/RiskRegisterImport.php:544
 #, php-format
 msgid "Invalid review date: %s (expected: 31/12/2026 or 2026-12-31)."
 msgstr ""
 
-#: src/RiskRegisterImport.php:534
+#: src/RiskRegisterImport.php:548
 #, php-format
 msgid "More than %s risks: the following lines were not read."
 msgstr ""
 
-#: src/RiskRegisterImport.php:538
+#: src/RiskRegisterImport.php:552
 #, php-format
 msgid ""
 "%s risks of the register already carry this reference: correct them in GLPI "
 "first."
 msgstr ""
 
-#: src/RiskRegisterImport.php:542
+#: src/RiskRegisterImport.php:556
 msgid ""
 "A risk being mitigated or transferred cannot be closed without a treatment "
 "plan: add its actions in GLPI first."
 msgstr ""
 
-#: src/RiskRegisterImport.php:546
+#: src/RiskRegisterImport.php:560
 msgid "You are not allowed to create risks."
 msgstr ""
 
-#: src/RiskRegisterImport.php:547
+#: src/RiskRegisterImport.php:561
 msgid "You are not allowed to modify risks."
 msgstr ""
 
-#: src/RiskRegisterImport.php:571
+#: src/RiskRegisterImport.php:585
 #, php-format
 msgid ""
 "Unknown value for \"%1$s\": %2$s. Expected: %3$s, or a score within the "
 "scale chosen below."
 msgstr ""
 
-#: src/RiskRegisterImport.php:574
+#: src/RiskRegisterImport.php:588
 #, php-format
 msgid "Unknown value for \"%1$s\": %2$s. Expected: %3$s."
 msgstr ""
@@ -20825,49 +20855,49 @@ msgstr ""
 msgid "Technical"
 msgstr ""
 
-#: src/Traits/RiskAssessmentTrait.php:71
+#: src/Traits/RiskAssessmentTrait.php:103
 msgid "Very rare"
 msgstr ""
 
-#: src/Traits/RiskAssessmentTrait.php:72
+#: src/Traits/RiskAssessmentTrait.php:104
 msgid "Rare"
 msgstr ""
 
-#: src/Traits/RiskAssessmentTrait.php:73
+#: src/Traits/RiskAssessmentTrait.php:105
 msgid "Possible"
 msgstr ""
 
-#: src/Traits/RiskAssessmentTrait.php:74
+#: src/Traits/RiskAssessmentTrait.php:106
 msgid "Probable"
 msgstr ""
 
-#: src/Traits/RiskAssessmentTrait.php:75
+#: src/Traits/RiskAssessmentTrait.php:107
 msgid "Almost certain"
 msgstr ""
 
-#: src/Traits/RiskAssessmentTrait.php:136
+#: src/Traits/RiskAssessmentTrait.php:149
 msgid "No decision"
 msgstr ""
 
-#: src/Traits/RiskAssessmentTrait.php:138
+#: src/Traits/RiskAssessmentTrait.php:151
 msgid "Mitigate"
 msgstr ""
 
-#: src/Traits/RiskAssessmentTrait.php:139
+#: src/Traits/RiskAssessmentTrait.php:152
 msgid "Transfer"
 msgstr ""
 
-#: src/Traits/RiskAssessmentTrait.php:140
+#: src/Traits/RiskAssessmentTrait.php:153
 msgid "Avoid"
 msgstr ""
 
-#: src/Traits/RiskAssessmentTrait.php:150
-#: src/Traits/RiskAssessmentTrait.php:298
+#: src/Traits/RiskAssessmentTrait.php:163
+#: src/Traits/RiskAssessmentTrait.php:322
 msgid "Identified"
 msgstr ""
 
-#: src/Traits/RiskAssessmentTrait.php:153
-#: src/Traits/RiskAssessmentTrait.php:301
+#: src/Traits/RiskAssessmentTrait.php:166
+#: src/Traits/RiskAssessmentTrait.php:325
 msgctxt "masculine"
 msgid "Closed"
 msgstr ""

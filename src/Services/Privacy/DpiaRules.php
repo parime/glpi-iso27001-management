@@ -19,6 +19,8 @@ declare(strict_types=1);
 
 namespace GlpiPlugin\Grcmanager\Services\Privacy;
 
+use GlpiPlugin\Grcmanager\Services\Risk\RiskScale;
+
 /**
  * Issue #375 : règles d'une analyse d'impact relative à la protection des données (AIPD, RGPD article
  * 35). Critères de déclenchement des lignes directrices européennes WP248, trois risques de la méthode
@@ -121,7 +123,7 @@ final class DpiaRules
      *
      * @return array{risk: string, impact: string, probability: string}|null
      */
-    public static function worstResidualRisk(mixed $risks): ?array
+    public static function worstResidualRisk(mixed $risks, int $size = RiskScale::DEFAULT_SIZE): ?array
     {
         $worst = null;
         $worstScore = 0;
@@ -131,8 +133,17 @@ final class DpiaRules
                 $worstScore = $score;
                 $worst = [
                     'risk'        => $key,
-                    'impact'      => self::SEVERITY_TO_IMPACT[$risk['residual_severity']],
-                    'probability' => self::LIKELIHOOD_TO_PROBABILITY[$risk['residual_likelihood']],
+                    // Issue #706 : valeurs de l'échelle de la matrice du registre (4x4 ou 5x5).
+                    'impact'      => RiskScale::fromFourLevels(
+                        'impact',
+                        self::SEVERITY_TO_IMPACT[$risk['residual_severity']],
+                        $size
+                    ),
+                    'probability' => RiskScale::fromFourLevels(
+                        'probability',
+                        self::LIKELIHOOD_TO_PROBABILITY[$risk['residual_likelihood']],
+                        $size
+                    ),
                 ];
             }
         }

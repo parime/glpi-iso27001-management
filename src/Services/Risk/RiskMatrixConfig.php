@@ -35,12 +35,14 @@ namespace GlpiPlugin\Grcmanager\Services\Risk;
  * returns a complete grid for that size, whatever is stored (see RiskScale::normalizeMatrix()).
  * The size only changes through RiskScaleChange, after the administrator validated the
  * correspondence of the old values to the new ones.
+ *
+ * @phpstan-type ScaleLabels array{probability: array<string, string>, impact: array<string, string>}
  */
 final class RiskMatrixConfig
 {
     private const TABLE = 'glpi_plugin_grcmanager_riskmatrixconfig';
 
-    /** @var array{size: int, matrix: array<mixed>}|null */
+    /** @var array{size: int, matrix: array<mixed>, labels: ScaleLabels}|null */
     private static ?array $cache = null;
 
     /**
@@ -59,6 +61,33 @@ final class RiskMatrixConfig
         $stored = self::read();
 
         return RiskScale::normalizeMatrix($stored['matrix'], $stored['size']);
+    }
+
+    /**
+     * Libellés personnalisés des niveaux de probabilité et d'impact (issue #706, lot 2). Vide :
+     * libellés par défaut, traduits.
+     *
+     * @return ScaleLabels
+     */
+    public static function labels(): array
+    {
+        return self::read()['labels'];
+    }
+
+    /**
+     * Enregistre les libellés personnalisés (seul appelant : front/config.php).
+     *
+     * @param array<mixed> $labels ['probability' => [clé => libellé], 'impact' => [...]]
+     */
+    public static function saveLabels(array $labels): void
+    {
+        global $DB;
+
+        $DB->update(self::TABLE, [
+            'scale_labels' => json_encode(RiskScale::sanitizeLabels($labels)),
+            'date_mod'     => date('Y-m-d H:i:s'),
+        ], ['id' => 1]);
+        self::reset();
     }
 
     /**
@@ -110,7 +139,7 @@ final class RiskMatrixConfig
     }
 
     /**
-     * @return array{size: int, matrix: array<mixed>}
+     * @return array{size: int, matrix: array<mixed>, labels: ScaleLabels}
      */
     private static function read(): array
     {
@@ -121,15 +150,19 @@ final class RiskMatrixConfig
         }
         $size = RiskScale::DEFAULT_SIZE;
         $matrix = RiskMatrixDefaults::MATRIX;
+        $labels = RiskScale::sanitizeLabels([]);
         if ($DB->tableExists(self::TABLE)) {
             $hasSize = $DB->fieldExists(self::TABLE, 'scale_size');
+            $hasLabels = $DB->fieldExists(self::TABLE, 'scale_labels');
             foreach ($DB->request(['FROM' => self::TABLE, 'ORDER' => 'id', 'LIMIT' => 1]) as $row) {
                 $decoded = json_decode((string) $row['matrix'], true);
                 $matrix = is_array($decoded) ? $decoded : $matrix;
                 $size = $hasSize ? RiskScale::normalizeSize((int) $row['scale_size']) : $size;
+                $storedLabels = $hasLabels ? json_decode((string) $row['scale_labels'], true) : null;
+                $labels = RiskScale::sanitizeLabels(is_array($storedLabels) ? $storedLabels : []);
             }
         }
-        self::$cache = ['size' => $size, 'matrix' => $matrix];
+        self::$cache = ['size' => $size, 'matrix' => $matrix, 'labels' => $labels];
 
         return self::$cache;
     }

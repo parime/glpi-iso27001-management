@@ -18187,6 +18187,22 @@ msgstr ""
 "Oprogramowanie układowe urządzeń sieciowych, drukarek, telefonów lub "
 "komputerów"
 
+msgid "Level labels"
+msgstr "Etykiety poziomów"
+
+#, php-format
+msgid "Default label: %s"
+msgstr "Etykieta domyślna: %s"
+
+msgid "The level labels have been saved."
+msgstr "Etykiety poziomów zostały zapisane."
+
+msgid "Levels are listed from the lowest (1) to the highest."
+msgstr "Poziomy są wymienione od najniższego (1) do najwyższego."
+
+msgid "Rename the levels of probability and impact to match your method, for example the wording of your risk management policy. Leave a field empty to keep the default label, translated into the language of each user; a label you enter is shown as is in every language. Renaming a level changes nothing in existing risks."
+msgstr "Zmień nazwy poziomów prawdopodobieństwa i wpływu zgodnie ze swoją metodą, na przykład według terminologii polityki zarządzania ryzykiem. Pozostaw pole puste, aby zachować etykietę domyślną, tłumaczoną na język każdego użytkownika; wpisana etykieta jest wyświetlana bez zmian we wszystkich językach. Zmiana nazwy poziomu nie zmienia istniejących ryzyk."
+
 msgid "End of support (endoflife.date)"
 msgstr "Koniec wsparcia (endoflife.date)"
 

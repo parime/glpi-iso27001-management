@@ -22,7 +22,6 @@ use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compat\Base\DpiaBase;
 use GlpiPlugin\Grcmanager\Services\Privacy\DpiaRules;
 use GlpiPlugin\Grcmanager\Services\Risk\RiskMatrixConfig;
-use GlpiPlugin\Grcmanager\Services\Risk\RiskScoringService;
 use Html;
 use Log;
 use Session;
@@ -302,7 +301,7 @@ class Dpia extends DpiaBase
         if ($linked > 0 && (new Risk())->getFromDB($linked)) {
             return $linked;
         }
-        $worst = DpiaRules::worstResidualRisk($this->fields['risk_assessment']);
+        $worst = DpiaRules::worstResidualRisk($this->fields['risk_assessment'], RiskMatrixConfig::size());
         if ($worst === null) {
             return 0;
         }
@@ -418,12 +417,11 @@ class Dpia extends DpiaBase
         if ($riskId <= 0 || !Risk::canView() || !$risk->getFromDB($riskId) || !$risk->canViewItem()) {
             return null;
         }
-        $matrix = RiskMatrixConfig::load();
-
         return [
             'title' => (string) $risk->fields['title'],
             'url'   => Risk::getFormURLWithID($riskId),
-            'level' => (new RiskScoringService($matrix))->level(
+            // Issue #706 : grille et taille configurées.
+            'level' => RiskMatrixConfig::scoring()->level(
                 (string) $risk->fields['probability'],
                 (string) $risk->fields['impact']
             ),
