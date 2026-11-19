@@ -56,7 +56,8 @@ class AuditChecklist extends CommonGLPI
 
     public static function getTypeName($nb = 0)
     {
-        return _n('Audit checklist', 'Audit checklists', $nb, 'grcmanager');
+        // Une seule grille par audit : pas de forme plurielle (même msgid que l'onglet).
+        return __('Audit checklist', 'grcmanager');
     }
 
     public static function getIcon()

@@ -18938,3 +18938,237 @@ msgid_plural "NIS2 Italy requirements (ACN)"
 msgstr[0] "Wymaganie NIS2 Włochy (ACN)"
 msgstr[1] "Wymagania NIS2 Włochy (ACN)"
 msgstr[2] "Wymagań NIS2 Włochy (ACN)"
+
+msgid "Audit checklist"
+msgstr "Lista kontrolna audytu"
+
+#, php-format
+msgid "%1$d of %2$d audited"
+msgstr "%1$d z %2$d zaudytowanych"
+
+msgid "Question asked"
+msgstr "Zadane pytanie"
+
+msgid "Auditee"
+msgstr "Osoba audytowana"
+
+msgid "Evidence examined"
+msgstr "Zbadane dowody"
+
+msgid "Audit programme coverage"
+msgstr "Pokrycie programu audytów"
+
+msgid "The audit programme must cover the whole ISMS over the certification cycle. For each ISMS requirement and each applicable control, this page shows the last internal audit that gave it a result in its audit checklist, and lists first those never audited over the period. Cancelled audits and lines left \"Not audited\" do not count; the date is the actual date of the audit, otherwise its planned date."
+msgstr "Program audytów musi obejmować cały SZBI w cyklu certyfikacji. Dla każdego wymagania SZBI i każdego mającego zastosowanie zabezpieczenia ta strona pokazuje ostatni audyt wewnętrzny, który nadał mu wynik na swojej liście kontrolnej, i najpierw wymienia te, które nigdy nie były audytowane w okresie. Anulowane audyty i wiersze pozostawione jako \"Nie audytowano\" nie są liczone; data to rzeczywista data audytu, a w przeciwnym razie data planowana."
+
+#, php-format
+msgid "Since %s"
+msgstr "Od %s"
+
+msgid "Requirements and controls"
+msgstr "Wymagania i zabezpieczenia"
+
+#, php-format
+msgid "Audited over the period (%d %%)"
+msgstr "Zaudytowane w okresie (%d %%)"
+
+msgid "Never audited over the period"
+msgstr "Nigdy nie audytowane w okresie"
+
+msgid "No ISMS requirement nor applicable control to show."
+msgstr "Brak wymagań SZBI ani mających zastosowanie zabezpieczeń do wyświetlenia."
+
+msgid "Last audit"
+msgstr "Ostatni audyt"
+
+msgid "Never audited"
+msgstr "Nigdy nie audytowane"
+
+msgid "The audit checklist is reserved to the audit team and the CISO group, like the documents of the audit. Ask the audit owner to add you to the \"Team\" tab."
+msgstr "Lista kontrolna audytu jest zastrzeżona dla zespołu audytu i grupy CISO, tak jak dokumenty audytu. Poproś właściciela audytu o dodanie Cię w zakładce \"Zespół\"."
+
+msgid "Lines with a result"
+msgstr "Wiersze z wynikiem"
+
+msgid "Audit report (PDF)"
+msgstr "Raport z audytu (PDF)"
+
+msgid "One line per audited requirement: write the question you asked, who you interviewed, the evidence you examined (text, and documents of the \"Documents\" tab), then the result. For a non-conformity, an observation or an opportunity for improvement, \"Create the finding\" opens a pre-filled non-conformity that you review and save yourself. Like the documents of the audit, only the audit team and the CISO group see this checklist."
+msgstr "Jeden wiersz na audytowane wymaganie: zapisz zadane pytanie, osobę, z którą rozmawiano, zbadane dowody (tekst i dokumenty z zakładki \"Dokumenty\"), a następnie wynik. W przypadku niezgodności, obserwacji lub możliwości doskonalenia \"Utwórz ustalenie\" otwiera wstępnie wypełnioną niezgodność, którą sam sprawdzasz i zapisujesz. Podobnie jak dokumenty audytu, tę listę widzą tylko zespół audytu i grupa CISO."
+
+msgid "This audit is completed or cancelled: its checklist is read only. Set the audit back to \"In progress\" to change it."
+msgstr "Ten audyt jest zakończony lub anulowany: jego lista kontrolna jest tylko do odczytu. Przywróć audytowi status \"W toku\", aby ją zmienić."
+
+msgid "The checklist is empty. Add the requirements to audit below, or apply a checklist template."
+msgstr "Lista kontrolna jest pusta. Dodaj poniżej wymagania do audytu lub zastosuj szablon listy."
+
+msgid "The checklist is empty."
+msgstr "Lista kontrolna jest pusta."
+
+msgid "No question yet"
+msgstr "Brak pytania"
+
+msgid "Create the finding"
+msgstr "Utwórz ustalenie"
+
+msgid "No finding yet"
+msgstr "Brak ustalenia"
+
+msgid "Fill in"
+msgstr "Uzupełnij"
+
+msgid "Number"
+msgstr "Numer"
+
+msgid "Documents of the audit"
+msgstr "Dokumenty audytu"
+
+msgid "Add documents to the \"Documents\" tab of the audit to cite them here."
+msgstr "Dodaj dokumenty w zakładce \"Dokumenty\" audytu, aby je tu wskazać."
+
+msgid "Linked finding"
+msgstr "Powiązane ustalenie"
+
+msgid "Remove this line from the checklist? A finding created from it stays in the non-conformity register."
+msgstr "Usunąć ten wiersz z listy kontrolnej? Ustalenie utworzone z niego pozostaje w rejestrze niezgodności."
+
+msgid "Remove the line"
+msgstr "Usuń wiersz"
+
+#, php-format
+msgid "Last change: %1$s, %2$s"
+msgstr "Ostatnia zmiana: %1$s, %2$s"
+
+msgid "Add requirements to audit"
+msgstr "Dodaj wymagania do audytu"
+
+msgid "Every proposed requirement is already in the checklist."
+msgstr "Wszystkie proponowane wymagania są już na liście."
+
+msgid "ISMS requirements (clauses 4 to 10), applicable Annex A controls of the statement of applicability, and requirements of the enabled custom frameworks. Requirements already in the checklist are not offered again."
+msgstr "Wymagania SZBI (rozdziały 4 do 10), mające zastosowanie zabezpieczenia z Załącznika A deklaracji stosowania oraz wymagania włączonych własnych ram. Wymagania już obecne na liście nie są ponownie proponowane."
+
+msgid "The controls of the audit scope (audit form) are preselected."
+msgstr "Zabezpieczenia z zakresu audytu (formularz audytu) są wstępnie wybrane."
+
+msgid "Add to the checklist"
+msgstr "Dodaj do listy"
+
+msgid "Free item"
+msgstr "Punkt dowolny"
+
+msgid "An internal rule, a process or a site, for example"
+msgstr "Na przykład zasada wewnętrzna, proces lub lokalizacja"
+
+msgid "Add this item"
+msgstr "Dodaj ten punkt"
+
+msgid "Checklist templates"
+msgstr "Szablony list kontrolnych"
+
+msgid "A template keeps the requirements and the questions of a checklist, never the answers. Reuse it from one audit to the next, for example \"Annual access control audit\"."
+msgstr "Szablon zachowuje wymagania i pytania listy kontrolnej, nigdy odpowiedzi. Używaj go ponownie od audytu do audytu, na przykład \"Coroczny audyt kontroli dostępu\"."
+
+msgid "Add its lines to the checklist"
+msgstr "Dodaj jego wiersze do listy"
+
+msgid "Delete this template? The checklists already built from it do not change."
+msgstr "Usunąć ten szablon? Listy już na nim zbudowane nie zmienią się."
+
+msgid "Delete the template"
+msgstr "Usuń szablon"
+
+msgid "No checklist template yet."
+msgstr "Brak szablonów list kontrolnych."
+
+msgid "Save this checklist as a template"
+msgstr "Zapisz tę listę jako szablon"
+
+msgid "Name of the template"
+msgstr "Nazwa szablonu"
+
+msgid "Save as template"
+msgstr "Zapisz jako szablon"
+
+#, php-format
+msgid "Finding proposed from the audit checklist (%s): review and adapt each field, then click \"Add\". Nothing is created before, and the checklist line is linked to this finding once it is saved."
+msgstr "Ustalenie zaproponowane z listy kontrolnej audytu (%s): sprawdź i dostosuj każde pole, a następnie kliknij \"Dodaj\". Wcześniej nic nie jest tworzone, a wiersz listy zostanie powiązany z tym ustaleniem po jego zapisaniu."
+
+msgid "Audit checklist line"
+msgstr "Wiersz listy kontrolnej audytu"
+
+msgid "Checklist template deleted."
+msgstr "Szablon listy usunięty."
+
+msgid "Checklist template saved."
+msgstr "Szablon listy zapisany."
+
+msgid "Checklist line saved."
+msgstr "Wiersz listy zapisany."
+
+msgid "Minor non-conformity"
+msgstr "Niezgodność mniejsza"
+
+msgid "Major non-conformity"
+msgstr "Niezgodność większa"
+
+msgid "Observation"
+msgstr "Obserwacja"
+
+msgid "Opportunity for improvement"
+msgstr "Możliwość doskonalenia"
+
+msgid "Not audited"
+msgstr "Nie audytowano"
+
+msgid "Framework requirement"
+msgstr "Wymaganie ram"
+
+msgid "Applicable Annex A controls"
+msgstr "Mające zastosowanie zabezpieczenia z Załącznika A"
+
+msgid "Give at least a title or a question for the free item."
+msgstr "Podaj co najmniej tytuł lub pytanie dla punktu dowolnego."
+
+msgid "Audited requirement"
+msgstr "Audytowane wymaganie"
+
+msgid "Auditor comment"
+msgstr "Komentarz audytora"
+
+msgid "Give the template a name."
+msgstr "Nadaj szablonowi nazwę."
+
+msgid "The checklist is empty: add requirements before saving it as a template."
+msgstr "Lista jest pusta: dodaj wymagania przed zapisaniem jej jako szablonu."
+
+msgid "A checklist template with this name already exists."
+msgstr "Szablon listy o tej nazwie już istnieje."
+
+#, php-format
+msgid "%d line of the template was already in the checklist or is no longer offered."
+msgid_plural "%d lines of the template were already in the checklist or are no longer offered."
+msgstr[0] "%d wiersz szablonu był już na liście lub nie jest już proponowany."
+msgstr[1] "%d wiersze szablonu były już na liście lub nie są już proponowane."
+msgstr[2] "%d wierszy szablonu było już na liście lub nie jest już proponowanych."
+
+#, php-format
+msgid "Last %d year"
+msgid_plural "Last %d years"
+msgstr[0] "Ostatni %d rok"
+msgstr[1] "Ostatnie %d lata"
+msgstr[2] "Ostatnie %d lat"
+
+#, php-format
+msgid "%d line added to the checklist."
+msgid_plural "%d lines added to the checklist."
+msgstr[0] "%d wiersz dodany do listy."
+msgstr[1] "%d wiersze dodane do listy."
+msgstr[2] "%d wierszy dodanych do listy."
+
+#, php-format
+msgid "%1$s (%2$d line)"
+msgid_plural "%1$s (%2$d lines)"
+msgstr[0] "%1$s (%2$d wiersz)"
+msgstr[1] "%1$s (%2$d wiersze)"
+msgstr[2] "%1$s (%2$d wierszy)"

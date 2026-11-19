@@ -944,8 +944,8 @@ msgid ""
 "One CSV file per template of the implementing regulation, with the official "
 "column codes (c0010...), as in an xBRL-CSV report package. Closed lists are "
 "written with their official English wording: your reporting tool converts "
-"them into the codes of the EBA taxonomy and adds the package files "
-"(report.json, parameters, filing indicators)."
+"them into the codes of the EBA taxonomy and adds the package files (report."
+"json, parameters, filing indicators)."
 msgstr ""
 
 #: templates/dora/register.html.twig
@@ -7289,8 +7289,8 @@ msgstr ""
 
 #: templates/tabs/incident_evidence.html.twig
 msgid ""
-"Useful evidence formats (to allow in the GLPI document "
-"types): .log, .evtx, .json, .pcap, .eml, .csv, .zip."
+"Useful evidence formats (to allow in the GLPI document types): .log, .evtx, ."
+"json, .pcap, .eml, .csv, .zip."
 msgstr ""
 
 #: templates/tabs/_access_review_rows.html.twig
@@ -7529,8 +7529,8 @@ msgstr ""
 #: templates/park_endoflife.html.twig
 msgid ""
 "Not enabled: the plugin can show which software, operating systems and "
-"firmwares no longer receive security fixes, from the public site "
-"endoflife.date."
+"firmwares no longer receive security fixes, from the public site endoflife."
+"date."
 msgstr ""
 
 #: templates/park_endoflife.html.twig
@@ -11269,8 +11269,8 @@ msgid ""
 "Well-known names are linked automatically (for instance \"Debian GNU/Linux\" "
 "or \"Mozilla Firefox\"). For any other name, add a link: type the name "
 "exactly as GLPI shows it, and the product identifier found in the address of "
-"its page on endoflife.date (for instance \"fortios\" for https://"
-"endoflife.date/fortios). Leave the product empty to stop following a name."
+"its page on endoflife.date (for instance \"fortios\" for https://endoflife."
+"date/fortios). Leave the product empty to stop following a name."
 msgstr ""
 
 #: templates/endoflife_config.html.twig src/EndOfLife.php:479
@@ -13764,9 +13764,9 @@ msgstr ""
 
 #: src/CanonicalProduct.php:187
 msgid ""
-"A CPE identifier as reported by the NVD for this product (e.g. "
-"\"cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point "
-"to the same product."
+"A CPE identifier as reported by the NVD for this product (e.g. \"cpe:2.3:a:"
+"apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point to the same "
+"product."
 msgstr ""
 
 #: src/CanonicalProduct.php:196
@@ -13805,8 +13805,8 @@ msgstr ""
 #, php-format
 msgid ""
 "GLPI also refuses internal addresses for this plugin: add %s to the constant "
-"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/"
-"local_define.php)."
+"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/local_define."
+"php)."
 msgstr ""
 
 #: src/ComplianceAudit.php:100
@@ -21003,13 +21003,17 @@ msgstr ""
 msgid "SentinelOne reports no vulnerability beyond those listed above."
 msgstr ""
 
-msgid "Application vulnerabilities seen by SentinelOne on your computers and not found by the software watch. Source: SentinelOne API, read only."
+msgid ""
+"Application vulnerabilities seen by SentinelOne on your computers and not "
+"found by the software watch. Source: SentinelOne API, read only."
 msgstr ""
 
 msgid "Applications"
 msgstr ""
 
-msgid "From the last reading of SentinelOne: a computer is covered when an active agent is matched with it (serial number or exact name)."
+msgid ""
+"From the last reading of SentinelOne: a computer is covered when an active "
+"agent is matched with it (serial number or exact name)."
 msgstr ""
 
 msgid "SentinelOne coverage"
@@ -21024,10 +21028,15 @@ msgstr ""
 msgid "No SentinelOne alert waiting for review."
 msgstr ""
 
-msgid "The automatic reading is disabled: enable it in the plugin configuration, or use the button \"Fetch now\" there."
+msgid ""
+"The automatic reading is disabled: enable it in the plugin configuration, or "
+"use the button \"Fetch now\" there."
 msgstr ""
 
-msgid "Tick the alerts that deserve a security incident: each one becomes an incident with its indicators, MITRE ATT&CK techniques and computer. The others can be set aside. Nothing is changed in SentinelOne."
+msgid ""
+"Tick the alerts that deserve a security incident: each one becomes an "
+"incident with its indicators, MITRE ATT&CK techniques and computer. The "
+"others can be set aside. Nothing is changed in SentinelOne."
 msgstr ""
 
 #, php-format
@@ -21055,13 +21064,21 @@ msgstr ""
 msgid "Read only"
 msgstr ""
 
-msgid "Every hour, the threats and alerts detected by SentinelOne are fetched and proposed as security incidents on the EDR import screen: nothing is created without your validation. The agents are matched with the GLPI computers (serial number, then exact name) and the application vulnerabilities join the fleet vulnerabilities. Nothing is ever sent to SentinelOne (no isolation, no resolution)."
+msgid ""
+"Every hour, the threats and alerts detected by SentinelOne are fetched and "
+"proposed as security incidents on the EDR import screen: nothing is created "
+"without your validation. The agents are matched with the GLPI computers "
+"(serial number, then exact name) and the application vulnerabilities join "
+"the fleet vulnerabilities. Nothing is ever sent to SentinelOne (no "
+"isolation, no resolution)."
 msgstr ""
 
 msgid "Fetch automatically from SentinelOne"
 msgstr ""
 
-msgid "Turns on the automatic action that reads SentinelOne every hour. Off by default."
+msgid ""
+"Turns on the automatic action that reads SentinelOne every hour. Off by "
+"default."
 msgstr ""
 
 msgid "Console address"
@@ -21079,7 +21096,9 @@ msgstr ""
 msgid "Token saved"
 msgstr ""
 
-msgid "Token of a service user with the Viewer role only. Encrypted with the GLPI key, never displayed again nor logged."
+msgid ""
+"Token of a service user with the Viewer role only. Encrypted with the GLPI "
+"key, never displayed again nor logged."
 msgstr ""
 
 msgid "Delete the saved token"
@@ -21134,34 +21153,46 @@ msgstr ""
 msgid "all matched with a GLPI computer"
 msgstr ""
 
-msgid "These agents are never matched by a similar name: create or rename the computer in the inventory, or fill in its serial number."
+msgid ""
+"These agents are never matched by a similar name: create or rename the "
+"computer in the inventory, or fill in its serial number."
 msgstr ""
 
 msgid "Computer name in SentinelOne"
 msgstr ""
 
-msgid "The console address was not saved: it must start with https:// and contain no user name or password."
+msgid ""
+"The console address was not saved: it must start with https:// and contain "
+"no user name or password."
 msgstr ""
 
 msgid "Enter the console address and the API token first."
 msgstr ""
 
-msgid "Connection accepted, but the token sees no agent and no threat: check that its user has the Viewer role on the right accounts or sites."
+msgid ""
+"Connection accepted, but the token sees no agent and no threat: check that "
+"its user has the Viewer role on the right accounts or sites."
 msgstr ""
 
 #, php-format
-msgid "Connection to SentinelOne succeeded: %1$d agent(s) and %2$s threat(s) visible."
+msgid ""
+"Connection to SentinelOne succeeded: %1$d agent(s) and %2$s threat(s) "
+"visible."
 msgstr ""
 
 #, php-format
-msgid "SentinelOne read: %1$d new alert(s) to review, %2$d agent(s), %3$d application vulnerabilities."
+msgid ""
+"SentinelOne read: %1$d new alert(s) to review, %2$d agent(s), %3$d "
+"application vulnerabilities."
 msgstr ""
 
 msgid "Select at least one alert."
 msgstr ""
 
 #, php-format
-msgid "%1$d incident(s) created, %2$d alert(s) ignored (already imported or not allowed)."
+msgid ""
+"%1$d incident(s) created, %2$d alert(s) ignored (already imported or not "
+"allowed)."
 msgstr ""
 
 #, php-format
@@ -21171,28 +21202,43 @@ msgstr ""
 msgid "SentinelOne alerts"
 msgstr ""
 
-msgid "SentinelOne: reads new threats, alerts and application vulnerabilities (read only)"
+msgid ""
+"SentinelOne: reads new threats, alerts and application vulnerabilities (read "
+"only)"
 msgstr ""
 
-msgid "SentinelOne refused the API token (401): check that it is valid and has not expired."
+msgid ""
+"SentinelOne refused the API token (401): check that it is valid and has not "
+"expired."
 msgstr ""
 
-msgid "The API token is not allowed to read this information (403): give it the Viewer role on the accounts or sites to read, or check the licence."
+msgid ""
+"The API token is not allowed to read this information (403): give it the "
+"Viewer role on the accounts or sites to read, or check the licence."
 msgstr ""
 
-msgid "This information is not available on this console (404): it may not be included in the licence."
+msgid ""
+"This information is not available on this console (404): it may not be "
+"included in the licence."
 msgstr ""
 
-msgid "SentinelOne limits the number of requests (429): the next run resumes where this one stopped."
+msgid ""
+"SentinelOne limits the number of requests (429): the next run resumes where "
+"this one stopped."
 msgstr ""
 
-msgid "The SentinelOne console could not be reached: check its address, the GLPI proxy and, for an internal address, the setting that allows them."
+msgid ""
+"The SentinelOne console could not be reached: check its address, the GLPI "
+"proxy and, for an internal address, the setting that allows them."
 msgstr ""
 
-msgid "The console address is an internal address, refused by default: an administrator can allow internal addresses in this configuration page."
+msgid ""
+"The console address is an internal address, refused by default: an "
+"administrator can allow internal addresses in this configuration page."
 msgstr ""
 
-msgid "The SentinelOne console sent an unexpected answer: check the console address."
+msgid ""
+"The SentinelOne console sent an unexpected answer: check the console address."
 msgstr ""
 
 msgid "Not read during this run: an earlier step stopped it."
@@ -21512,4 +21558,347 @@ msgid ""
 "Italian NIS2 basic security measures (ACN determination 379907/2025): a "
 "register with one record per requirement, per GLPI entity set as important "
 "or essential below. Disabled by default."
+msgstr ""
+
+#: templates/pdf/internal_audit_report.html.twig
+#: templates/audit_checklist_tab.html.twig src/AuditChecklist.php:60
+#: src/AuditChecklist.php:858
+msgid "Audit checklist"
+msgstr ""
+
+#: templates/pdf/internal_audit_report.html.twig
+#: templates/audit_checklist_tab.html.twig
+#, php-format
+msgid "%1$d of %2$d audited"
+msgstr ""
+
+#: templates/pdf/internal_audit_report.html.twig
+#: templates/audit_checklist_tab.html.twig src/AuditChecklist.php:675
+msgid "Question asked"
+msgstr ""
+
+#: templates/pdf/internal_audit_report.html.twig
+#: templates/audit_checklist_tab.html.twig
+msgid "Auditee"
+msgstr ""
+
+#: templates/pdf/internal_audit_report.html.twig
+#: templates/audit_checklist_tab.html.twig src/AuditChecklist.php:676
+msgid "Evidence examined"
+msgstr ""
+
+#: templates/audit_coverage.html.twig templates/audit_checklist_tab.html.twig
+#: front/audit.php:53 front/auditcoverage.php:34
+msgid "Audit programme coverage"
+msgstr ""
+
+#: templates/audit_coverage.html.twig
+msgid ""
+"The audit programme must cover the whole ISMS over the certification cycle. "
+"For each ISMS requirement and each applicable control, this page shows the "
+"last internal audit that gave it a result in its audit checklist, and lists "
+"first those never audited over the period. Cancelled audits and lines left "
+"\"Not audited\" do not count; the date is the actual date of the audit, "
+"otherwise its planned date."
+msgstr ""
+
+#: templates/audit_coverage.html.twig
+#, php-format
+msgid "Since %s"
+msgstr ""
+
+#: templates/audit_coverage.html.twig templates/audit_checklist_tab.html.twig
+msgid "Requirements and controls"
+msgstr ""
+
+#: templates/audit_coverage.html.twig
+#, php-format
+msgid "Audited over the period (%d %%)"
+msgstr ""
+
+#: templates/audit_coverage.html.twig
+msgid "Never audited over the period"
+msgstr ""
+
+#: templates/audit_coverage.html.twig
+msgid "No ISMS requirement nor applicable control to show."
+msgstr ""
+
+#: templates/audit_coverage.html.twig
+msgid "Last audit"
+msgstr ""
+
+#: templates/audit_coverage.html.twig
+msgid "Never audited"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid ""
+"The audit checklist is reserved to the audit team and the CISO group, like "
+"the documents of the audit. Ask the audit owner to add you to the \"Team\" "
+"tab."
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "Lines with a result"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "Audit report (PDF)"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid ""
+"One line per audited requirement: write the question you asked, who you "
+"interviewed, the evidence you examined (text, and documents of the "
+"\"Documents\" tab), then the result. For a non-conformity, an observation or "
+"an opportunity for improvement, \"Create the finding\" opens a pre-filled "
+"non-conformity that you review and save yourself. Like the documents of the "
+"audit, only the audit team and the CISO group see this checklist."
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid ""
+"This audit is completed or cancelled: its checklist is read only. Set the "
+"audit back to \"In progress\" to change it."
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid ""
+"The checklist is empty. Add the requirements to audit below, or apply a "
+"checklist template."
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "The checklist is empty."
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "No question yet"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "Create the finding"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "No finding yet"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "Fill in"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "Number"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "Documents of the audit"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "Add documents to the \"Documents\" tab of the audit to cite them here."
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "Linked finding"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid ""
+"Remove this line from the checklist? A finding created from it stays in the "
+"non-conformity register."
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "Remove the line"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+#, php-format
+msgid "Last change: %1$s, %2$s"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "Add requirements to audit"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "Every proposed requirement is already in the checklist."
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid ""
+"ISMS requirements (clauses 4 to 10), applicable Annex A controls of the "
+"statement of applicability, and requirements of the enabled custom "
+"frameworks. Requirements already in the checklist are not offered again."
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "The controls of the audit scope (audit form) are preselected."
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "Add to the checklist"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig src/AuditChecklist.php:139
+msgid "Free item"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "An internal rule, a process or a site, for example"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "Add this item"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "Checklist templates"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid ""
+"A template keeps the requirements and the questions of a checklist, never "
+"the answers. Reuse it from one audit to the next, for example \"Annual "
+"access control audit\"."
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "Add its lines to the checklist"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid ""
+"Delete this template? The checklists already built from it do not change."
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "Delete the template"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "No checklist template yet."
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "Save this checklist as a template"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "Name of the template"
+msgstr ""
+
+#: templates/audit_checklist_tab.html.twig
+msgid "Save as template"
+msgstr ""
+
+#: templates/nonconformity_form.html.twig
+#, php-format
+msgid ""
+"Finding proposed from the audit checklist (%s): review and adapt each field, "
+"then click \"Add\". Nothing is created before, and the checklist line is "
+"linked to this finding once it is saved."
+msgstr ""
+
+#: templates/nonconformity_form.html.twig
+msgid "Audit checklist line"
+msgstr ""
+
+#: front/auditchecklist.form.php:45
+msgid "Checklist template deleted."
+msgstr ""
+
+#: front/auditchecklist.form.php:51
+msgid "Checklist template saved."
+msgstr ""
+
+#: front/auditchecklist.form.php:70
+msgid "Checklist line saved."
+msgstr ""
+
+#: front/auditchecklist.form.php:82
+#, php-format
+msgid ""
+"%d line of the template was already in the checklist or is no longer offered."
+msgid_plural ""
+"%d lines of the template were already in the checklist or are no longer "
+"offered."
+msgstr[0] ""
+msgstr[1] ""
+
+#: front/auditcoverage.php:43
+#, php-format
+msgid "Last %d year"
+msgid_plural "Last %d years"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/AuditChecklist.php:105
+msgid "Minor non-conformity"
+msgstr ""
+
+#: src/AuditChecklist.php:108
+msgid "Major non-conformity"
+msgstr ""
+
+#: src/AuditChecklist.php:111
+msgid "Observation"
+msgstr ""
+
+#: src/AuditChecklist.php:114
+msgid "Opportunity for improvement"
+msgstr ""
+
+#: src/AuditChecklist.php:117
+msgid "Not audited"
+msgstr ""
+
+#: src/AuditChecklist.php:138
+msgid "Framework requirement"
+msgstr ""
+
+#: src/AuditChecklist.php:354
+msgid "Applicable Annex A controls"
+msgstr ""
+
+#: src/AuditChecklist.php:534
+msgid "Give at least a title or a question for the free item."
+msgstr ""
+
+#: src/AuditChecklist.php:634
+#, php-format
+msgid "%d line added to the checklist."
+msgid_plural "%d lines added to the checklist."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/AuditChecklist.php:674
+msgid "Audited requirement"
+msgstr ""
+
+#: src/AuditChecklist.php:677
+msgid "Auditor comment"
+msgstr ""
+
+#: src/AuditChecklistTemplate.php:71
+#, php-format
+msgid "%1$s (%2$d line)"
+msgid_plural "%1$s (%2$d lines)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/AuditChecklistTemplate.php:124
+msgid "Give the template a name."
+msgstr ""
+
+#: src/AuditChecklistTemplate.php:130
+msgid ""
+"The checklist is empty: add requirements before saving it as a template."
+msgstr ""
+
+#: src/AuditChecklistTemplate.php:140
+msgid "A checklist template with this name already exists."
 msgstr ""
