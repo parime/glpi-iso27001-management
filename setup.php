@@ -279,6 +279,12 @@ function plugin_init_grcmanager(): void
         'addtabon' => [\GlpiPlugin\Grcmanager\Control::class, \GlpiPlugin\Grcmanager\IsmsRequirement::class],
     ]);
 
+    // Issue #608, lot 2 : onglet « Contexte de l'organisation » des risques, obligations et mesures
+    // (enjeux et parties intéressées qui les citent).
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\ContextItem::class, [
+        'addtabon' => array_values(\GlpiPlugin\Grcmanager\ContextItem::LINK_FIELDS),
+    ]);
+
     // Issue #380 : onglet « Tests d'efficacité » des mesures de l'Annexe A.
     Plugin::registerClass(\GlpiPlugin\Grcmanager\ControlTest::class, [
         'addtabon' => [\GlpiPlugin\Grcmanager\Control::class],

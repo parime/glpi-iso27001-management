@@ -292,6 +292,121 @@ final class ContextItemTest extends GrcmanagerIntegrationTestCase
 
         ob_start();
         ContextItem::showOverview();
-        $this->assertStringContainsString(__('Add an interested party', 'grcmanager'), (string) ob_get_clean());
+        $html = (string) ob_get_clean();
+        $this->assertStringContainsString(__('Add an interested party', 'grcmanager'), $html);
+        $this->assertStringContainsString('contextitem.export.php?format=pdf', $html);
+    }
+
+    public function testRecordedReviewIsTraced(): void
+    {
+        $party = $this->item([
+            'kind' => Rules::KIND_PARTY, 'name' => 'PHPUnit assureur cyber', 'party_type' => 'insurer',
+            'review_date' => '2020-06-30',
+            // Jamais saisi à la main, même à la création.
+            'last_review_date' => '2001-01-01', 'users_id_lastreviewer' => 99,
+        ]);
+        $this->assertNull($party->fields['last_review_date']);
+        $this->assertSame(0, (int) $party->fields['users_id_lastreviewer']);
+
+        $this->assertTrue($party->update(['id' => $party->getID(), 'last_review_date' => '2001-01-01']));
+        $party->getFromDB($party->getID());
+        $this->assertNull($party->fields['last_review_date'], 'Date de revue non modifiable à la main.');
+
+        $this->assertTrue($party->update(['id' => $party->getID(), ContextItem::REVIEW_MARKER => 1]));
+        $party->getFromDB($party->getID());
+        $today = date('Y-m-d');
+        $this->assertSame($today, $party->fields['last_review_date']);
+        $this->assertSame((int) \Session::getLoginUserID(), (int) $party->fields['users_id_lastreviewer']);
+        $this->assertSame(Rules::nextReviewDate($today), $party->fields['review_date']);
+
+        ob_start();
+        $party->showForm($party->getID());
+        $html = (string) ob_get_clean();
+        $this->assertStringContainsString(ContextItem::REVIEW_MARKER, $html);
+    }
+
+    public function testTabOnLinkedItemsAndPreselection(): void
+    {
+        $riskId = (int) (new Risk())->add(['title' => 'PHPUnit risque fuite chez un client', 'entities_id' => 0]);
+        $risk = new Risk();
+        $risk->getFromDB($riskId);
+        $this->assertSame([], ContextItem::linkedTo($risk));
+
+        $party = $this->item([
+            'kind' => Rules::KIND_PARTY, 'name' => 'PHPUnit clients du secteur public', 'party_type' => 'customer',
+            ContextItem::LINKS_MARKER => 1, '_linked_risks' => [$riskId],
+        ]);
+        $linked = ContextItem::linkedTo($risk);
+        $this->assertCount(1, $linked);
+        $this->assertSame((int) $party->getID(), (int) $linked[0]['id']);
+        $tab = (string) (new ContextItem())->getTabNameForItem($risk);
+        $this->assertStringContainsString(htmlescape(__('Context of the organization', 'grcmanager')), $tab);
+        $this->assertMatchesRegularExpression('/>1<\/span>/', $tab, 'Une fiche citée.');
+
+        ob_start();
+        $this->assertTrue(ContextItem::displayTabContentForItem($risk));
+        $html = (string) ob_get_clean();
+        $this->assertStringContainsString('PHPUnit clients du secteur public', $html);
+        $this->assertStringContainsString('link_type=risk&amp;link_id=' . $riskId, $html);
+
+        // Formulaire de création ouvert depuis l'onglet : le risque est présélectionné.
+        ob_start();
+        (new ContextItem())->showForm(0, [
+            'kind' => Rules::KIND_ISSUE, 'link_type' => 'risk', 'link_id' => $riskId,
+        ]);
+        $html = (string) ob_get_clean();
+        $this->assertMatchesRegularExpression('/<option[^>]*value=.' . $riskId . '.[^>]*selected/', $html);
+
+        // À la corbeille, la fiche n'est plus citée ; sans droit, rien.
+        $party->delete(['id' => $party->getID()]);
+        $this->assertSame([], ContextItem::linkedTo($risk));
+        $party->restore(['id' => $party->getID()]);
+        $saved = $_SESSION['glpiactiveprofile'][ContextItem::RIGHTNAME];
+        try {
+            $_SESSION['glpiactiveprofile'][ContextItem::RIGHTNAME] = 0;
+            $this->assertSame([], ContextItem::linkedTo($risk));
+            $this->assertSame('', (new ContextItem())->getTabNameForItem($risk));
+            $this->assertFalse(ContextItem::displayTabContentForItem($risk));
+        } finally {
+            $_SESSION['glpiactiveprofile'][ContextItem::RIGHTNAME] = $saved;
+        }
+    }
+
+    public function testExportForTheAuditor(): void
+    {
+        $riskId = (int) (new Risk())->add(['title' => 'PHPUnit risque export contexte', 'entities_id' => 0]);
+        $this->item([
+            'kind' => Rules::KIND_PARTY, 'name' => '=PHPUnit partie formule', 'party_type' => 'partner',
+            'expectations' => 'Notification sous 24 h.', ContextItem::LINKS_MARKER => 1,
+            '_linked_risks' => [$riskId],
+        ]);
+        $this->item([
+            'kind' => Rules::KIND_ISSUE, 'name' => 'PHPUnit enjeu export', 'category' => 'technological',
+        ]);
+
+        $rows = ContextItem::csvRows();
+        $this->assertSame(__('Needs and expectations', 'grcmanager'), $rows[0][5]);
+        $flat = implode(PHP_EOL, array_map(static fn (array $r): string => implode(';', $r), $rows));
+        $this->assertStringContainsString("'=PHPUnit partie formule", $flat, 'Formule neutralisée.');
+        $this->assertStringContainsString('PHPUnit risque export contexte', $flat);
+        $this->assertStringContainsString('PHPUnit enjeu export', $flat);
+
+        // Sans le droit des registres sensibles, le risque lié n'est pas nommé.
+        $saved = $_SESSION['glpiactiveprofile'][Risk::RIGHTNAME];
+        try {
+            $_SESSION['glpiactiveprofile'][Risk::RIGHTNAME] = 0;
+            $flat = implode(PHP_EOL, array_map(
+                static fn (array $r): string => implode(';', $r),
+                ContextItem::csvRows()
+            ));
+            $this->assertStringNotContainsString('PHPUnit risque export contexte', $flat);
+        } finally {
+            $_SESSION['glpiactiveprofile'][Risk::RIGHTNAME] = $saved;
+        }
+
+        $html = ContextItem::reportHtml();
+        $this->assertStringContainsString('PHPUnit enjeu export', $html);
+        $this->assertStringContainsString(__('Interested parties', 'grcmanager'), $html);
+        $this->assertStringContainsString('(4.2)', $html);
     }
 }

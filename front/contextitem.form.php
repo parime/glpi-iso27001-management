@@ -40,7 +40,9 @@ if (isset($_POST['add'])) {
     $item->check((int) $_POST['id'], PURGE);
     $item->delete($_POST, true);
     Html::redirect(ContextItem::getSearchURL());
-} elseif (isset($_POST['update'])) {
+} elseif (isset($_POST['update']) || isset($_POST[ContextItem::REVIEW_MARKER])) {
+    // « Enregistrer la revue » : même contrôle qu'une modification ; la date et l'auteur de la revue
+    // sont fixés par la fiche (prepareInputForUpdate), jamais repris de la saisie.
     $item->check((int) $_POST['id'], UPDATE);
     $item->update($_POST);
     Html::back();
@@ -60,11 +62,15 @@ if (isset($_POST['add'])) {
         ContextItem::class
     );
 
-    // Création depuis les boutons de la liste : enjeu, partie intéressée ou question climatique.
+    // Création depuis les boutons de la liste : enjeu, partie intéressée ou question climatique ;
+    // depuis l'onglet d'un risque, d'une obligation ou d'une mesure, cet élément est présélectionné
+    // (seulement s'il fait partie des choix que la personne peut lire).
     $item->display([
-        'id'       => $id,
-        'kind'     => (string) ($_GET['kind'] ?? ''),
-        'category' => (string) ($_GET['category'] ?? ''),
+        'id'        => $id,
+        'kind'      => (string) ($_GET['kind'] ?? ''),
+        'category'  => (string) ($_GET['category'] ?? ''),
+        'link_type' => (string) ($_GET['link_type'] ?? ''),
+        'link_id'   => (int) ($_GET['link_id'] ?? 0),
     ]);
 
     Html::footer();
