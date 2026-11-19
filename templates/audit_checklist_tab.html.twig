@@ -1,0 +1,224 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #606 : onglet « Grille d'audit » d'un audit interne : une ligne par exigence auditée
+   (question, audité, preuves examinées, résultat, commentaire, constat), ajout depuis les exigences
+   du SMSI, les mesures de l'Annexe A ou un référentiel, points libres, modèles de grille. #}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+{% set v = {'is_horizontal': false} %}
+
+{% if not allowed %}
+   <div class="alert alert-warning" id="grc-checklist-denied">
+      <i class="ti ti-lock me-1"></i>{{ __('The audit checklist is reserved to the audit team and the CISO group, like the documents of the audit. Ask the audit owner to add you to the "Team" tab.', 'grcmanager') }}
+   </div>
+{% else %}
+<div class="row g-3" id="grc-checklist">
+   {# ---------------------------------------------------------------- Grille #}
+   <div class="col-12">
+      <div class="card">
+         <div class="card-header">
+            <h3 class="card-title"><i class="ti ti-list-details me-2"></i>{{ __('Audit checklist', 'grcmanager') }}</h3>
+            <div class="card-actions d-flex flex-wrap gap-1 align-items-center">
+               <span class="badge bg-blue-subtle text-blue-emphasis" id="grc-checklist-progress" title="{{ __('Lines with a result', 'grcmanager') }}"><i class="ti ti-chart-pie me-1"></i>{{ __('%1$d of %2$d audited', 'grcmanager')|format(summary.audited, summary.total) }}</span>
+               {% for key, result in results %}
+                  {% if summary.counts[key] > 0 %}
+                     <span class="badge {{ result[1] }}"><i class="ti {{ result[2] }} me-1"></i>{{ __('%1$s: %2$d', 'grcmanager')|format(result[0], summary.counts[key]) }}</span>
+                  {% endif %}
+               {% endfor %}
+               <a href="{{ pdf_url }}" class="btn btn-sm btn-outline-secondary ms-2" id="grc-checklist-pdf"><i class="ti ti-file-type-pdf me-1"></i>{{ __('Audit report (PDF)', 'grcmanager') }}</a>
+               <a href="{{ coverage_url }}" class="btn btn-sm btn-outline-secondary"><i class="ti ti-chart-dots-3 me-1"></i>{{ __('Audit programme coverage', 'grcmanager') }}</a>
+            </div>
+         </div>
+         <div class="card-body">
+            <p class="text-muted small mb-2">
+               <i class="ti ti-info-circle me-1"></i>{{ __('One line per audited requirement: write the question you asked, who you interviewed, the evidence you examined (text, and documents of the "Documents" tab), then the result. For a non-conformity, an observation or an opportunity for improvement, "Create the finding" opens a pre-filled non-conformity that you review and save yourself. Like the documents of the audit, only the audit team and the CISO group see this checklist.', 'grcmanager') }}
+            </p>
+            {% if is_closed %}
+               <div class="alert alert-secondary" id="grc-checklist-closed"><i class="ti ti-lock me-1"></i>{{ __('This audit is completed or cancelled: its checklist is read only. Set the audit back to "In progress" to change it.', 'grcmanager') }}</div>
+            {% endif %}
+            {% if summary.total > 0 %}
+               <div class="progress progress-separated mb-3" style="height: .75rem" title="{{ __('%1$d of %2$d audited', 'grcmanager')|format(summary.audited, summary.total) }}">
+                  {% for key, color in {'compliant': 'green', 'improvement': 'purple', 'observation': 'azure', 'nc_minor': 'orange', 'nc_major': 'red'} %}
+                     {% if summary.counts[key] > 0 %}
+                        <div class="progress-bar bg-{{ color }}" role="progressbar" style="width: {{ (summary.counts[key] * 100 / summary.total)|round(1) }}%" aria-label="{{ results[key][0] }}"></div>
+                     {% endif %}
+                  {% endfor %}
+               </div>
+            {% endif %}
+
+            {% if rows is empty %}
+               <div class="alert alert-info mb-0" id="grc-checklist-empty"><i class="ti ti-info-circle me-1"></i>{{ can_edit ? __('The checklist is empty. Add the requirements to audit below, or apply a checklist template.', 'grcmanager') : __('The checklist is empty.', 'grcmanager') }}</div>
+            {% else %}
+            <div class="table-responsive">
+            <table class="table table-sm table-vcenter card-table" id="grc-checklist-list">
+               <thead>
+                  <tr>
+                     <th>{{ __('Requirement', 'grcmanager') }}</th>
+                     <th>{{ __('Question asked', 'grcmanager') }}</th>
+                     <th>{{ __('Auditee', 'grcmanager') }}</th>
+                     <th>{{ __('Evidence examined', 'grcmanager') }}</th>
+                     <th>{{ __('Result', 'grcmanager') }}</th>
+                     <th>{{ __('Finding', 'grcmanager') }}</th>
+                  </tr>
+               </thead>
+               <tbody>
+               {% for row in rows %}
+                  <tr id="grc-checklist-line-{{ row.id }}" class="grc-checklist-row grc-checklist-result-{{ row.result }}">
+                     <td>
+                        <div class="fw-bold">{{ row.title ?: '-' }}</div>
+                        <span class="badge bg-secondary-subtle text-secondary-emphasis">{{ row.type_label }}</span>
+                     </td>
+                     <td>{% if row.question %}<div class="small">{{ row.question|nl2br }}</div>{% else %}<span class="text-muted small">{{ __('No question yet', 'grcmanager') }}</span>{% endif %}</td>
+                     <td>{% if row.auditee %}<i class="ti ti-user me-1"></i>{{ row.auditee }}{% else %}<span class="text-muted small">-</span>{% endif %}</td>
+                     <td>
+                        {% if row.evidence %}<div class="small">{{ row.evidence|nl2br }}</div>{% endif %}
+                        {% for doc in row.documents %}
+                           <div class="text-nowrap small"><i class="ti ti-file me-1"></i><a href="{{ doc.url }}">{{ doc.name }}</a></div>
+                        {% endfor %}
+                        {% if not row.evidence and row.documents is empty %}<span class="text-muted small">-</span>{% endif %}
+                     </td>
+                     <td>
+                        <span class="badge {{ row.result_class }} grc-checklist-badge"><i class="ti {{ row.result_icon }} me-1"></i>{{ row.result_label }}</span>
+                        {% if row.comment %}<div class="text-muted small mt-1"><i class="ti ti-message me-1"></i>{{ row.comment|nl2br }}</div>{% endif %}
+                     </td>
+                     <td>
+                        {% if row.finding_id %}
+                           <a href="{{ row.finding_url }}" class="grc-checklist-finding"><i class="ti ti-alert-hexagon me-1"></i>{{ row.finding_title }}</a>
+                        {% elseif row.can_raise and can_create_finding %}
+                           <a href="{{ finding_url }}?audit={{ audit_id }}&amp;checklistitem={{ row.id }}" class="btn btn-sm btn-outline-danger grc-checklist-raise"><i class="ti ti-alert-hexagon me-1"></i>{{ __('Create the finding', 'grcmanager') }}</a>
+                        {% elseif row.can_raise %}
+                           <span class="badge bg-yellow-subtle text-yellow-emphasis"><i class="ti ti-hourglass me-1"></i>{{ __('No finding yet', 'grcmanager') }}</span>
+                        {% else %}
+                           <span class="text-muted small">-</span>
+                        {% endif %}
+                     </td>
+                  </tr>
+                  {% if can_edit %}
+                  <tr class="grc-checklist-edit-row">
+                     <td colspan="6" class="border-top-0 pt-0">
+                        <details class="grc-checklist-edit"{% if row.result == 'not_audited' and loop.first and summary.audited == 0 %} open{% endif %}>
+                           <summary class="btn btn-sm btn-ghost-secondary"><i class="ti ti-pencil me-1"></i>{{ __('Fill in', 'grcmanager') }}</summary>
+                           <form method="post" action="{{ action }}" class="row g-2 mt-1">
+                              <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                              <input type="hidden" name="plugin_grcmanager_audits_id" value="{{ audit_id }}">
+                              <input type="hidden" name="id" value="{{ row.id }}">
+                              {% if row.type == 'free' %}
+                                 {{ fields.textField('code', row.code, __('Number', 'grcmanager'), v|merge({'field_class': 'col-md-3'})) }}
+                                 {{ fields.textField('label', row.label, __('Title', 'grcmanager'), v|merge({'field_class': 'col-md-9'})) }}
+                              {% endif %}
+                              {{ fields.textareaField('question', row.question, __('Question asked', 'grcmanager'), v|merge({'field_class': 'col-md-6', 'rows': 2})) }}
+                              {{ fields.dropdownField('User', 'users_id_auditee', row.auditee_id, __('Auditee', 'grcmanager'), v|merge({'field_class': 'col-md-6', 'right': 'all', 'rand': 'grcckuser' ~ row.id, 'entity': user_entity, 'entity_sons': user_entity_sons})) }}
+                              {{ fields.textareaField('evidence', row.evidence, __('Evidence examined', 'grcmanager'), v|merge({'field_class': 'col-md-6', 'rows': 2})) }}
+                              {% if documents is not empty %}
+                                 {{ fields.dropdownArrayField('documents', null, documents, __('Documents of the audit', 'grcmanager'), v|merge({'field_class': 'col-md-6', 'multiple': true, 'values': row.document_ids, 'rand': 'grcckdoc' ~ row.id})) }}
+                              {% else %}
+                                 <div class="col-md-6 form-hint align-self-center">{{ __('Add documents to the "Documents" tab of the audit to cite them here.', 'grcmanager') }}</div>
+                              {% endif %}
+                              {{ fields.dropdownArrayField('result', row.result, result_labels, __('Result', 'grcmanager'), v|merge({'field_class': 'col-md-4', 'rand': 'grcckres' ~ row.id})) }}
+                              {{ fields.dropdownArrayField('plugin_grcmanager_nonconformities_id', row.finding_id, findings, __('Linked finding', 'grcmanager'), v|merge({'field_class': 'col-md-8', 'rand': 'grcckfind' ~ row.id})) }}
+                              {{ fields.textareaField('comment', row.comment, __('Comment', 'grcmanager'), v|merge({'field_class': 'col-12', 'rows': 2})) }}
+                              <div class="col-12 d-flex flex-wrap gap-2 align-items-center">
+                                 <button type="submit" name="update" value="1" class="btn btn-sm btn-primary"><i class="ti ti-device-floppy me-1"></i>{{ __('Save') }}</button>
+                                 <button type="submit" name="purge" value="1" class="btn btn-sm btn-ghost-danger" onclick="return confirm('{{ __('Remove this line from the checklist? A finding created from it stays in the non-conformity register.', 'grcmanager')|e('js') }}');"><i class="ti ti-trash me-1"></i>{{ __('Remove the line', 'grcmanager') }}</button>
+                                 {% if row.updater %}<span class="form-hint ms-auto">{{ __('Last change: %1$s, %2$s', 'grcmanager')|format(row.updater, row.updated) }}</span>{% endif %}
+                              </div>
+                           </form>
+                        </details>
+                     </td>
+                  </tr>
+                  {% endif %}
+               {% endfor %}
+               </tbody>
+            </table>
+            </div>
+            {% endif %}
+         </div>
+      </div>
+   </div>
+
+   {% if can_edit %}
+   {# ---------------------------------------------------------------- Ajout d'exigences #}
+   <div class="col-12 col-xl-7">
+      <div class="card h-100">
+         <div class="card-header"><h3 class="card-title"><i class="ti ti-list-check me-2"></i>{{ __('Add requirements to audit', 'grcmanager') }}</h3></div>
+         <div class="card-body">
+            {% if catalog_options is empty %}
+               <div class="alert alert-info mb-3"><i class="ti ti-info-circle me-1"></i>{{ __('Every proposed requirement is already in the checklist.', 'grcmanager') }}</div>
+            {% else %}
+            <form method="post" action="{{ action }}" class="row g-2" id="grc-checklist-add">
+               <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+               <input type="hidden" name="plugin_grcmanager_audits_id" value="{{ audit_id }}">
+               {{ fields.dropdownArrayField('refs', null, catalog_options, __('Requirements and controls', 'grcmanager'), v|merge({'field_class': 'col-12', 'multiple': true, 'values': scope_keys, 'rand': 'grcckrefs'})) }}
+               <div class="col-12 form-hint">
+                  {{ __('ISMS requirements (clauses 4 to 10), applicable Annex A controls of the statement of applicability, and requirements of the enabled custom frameworks. Requirements already in the checklist are not offered again.', 'grcmanager') }}
+                  {% if scope_keys is not empty %}{{ __('The controls of the audit scope (audit form) are preselected.', 'grcmanager') }}{% endif %}
+               </div>
+               <div class="col-12">
+                  <button type="submit" name="add_refs" value="1" class="btn btn-primary"><i class="ti ti-plus me-1"></i>{{ __('Add to the checklist', 'grcmanager') }}</button>
+               </div>
+            </form>
+            {% endif %}
+            <hr class="my-3">
+            <form method="post" action="{{ action }}" class="row g-2" id="grc-checklist-add-free">
+               <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+               <input type="hidden" name="plugin_grcmanager_audits_id" value="{{ audit_id }}">
+               <div class="col-12 fw-bold"><i class="ti ti-pencil-plus me-1"></i>{{ __('Free item', 'grcmanager') }}</div>
+               {{ fields.textField('code', '', __('Number', 'grcmanager'), v|merge({'field_class': 'col-md-3'})) }}
+               {{ fields.textField('label', '', __('Title', 'grcmanager'), v|merge({'field_class': 'col-md-9', 'add_field_html': '<div class="form-hint">' ~ __('An internal rule, a process or a site, for example', 'grcmanager')|e ~ '</div>'})) }}
+               {{ fields.textareaField('question', '', __('Question asked', 'grcmanager'), v|merge({'field_class': 'col-12', 'rows': 2})) }}
+               <div class="col-12">
+                  <button type="submit" name="add_free" value="1" class="btn btn-outline-primary"><i class="ti ti-plus me-1"></i>{{ __('Add this item', 'grcmanager') }}</button>
+               </div>
+            </form>
+         </div>
+      </div>
+   </div>
+
+   {# ---------------------------------------------------------------- Modèles #}
+   <div class="col-12 col-xl-5">
+      <div class="card h-100">
+         <div class="card-header"><h3 class="card-title"><i class="ti ti-template me-2"></i>{{ __('Checklist templates', 'grcmanager') }}</h3></div>
+         <div class="card-body">
+            <p class="text-muted small">{{ __('A template keeps the requirements and the questions of a checklist, never the answers. Reuse it from one audit to the next, for example "Annual access control audit".', 'grcmanager') }}</p>
+            {% if templates is not empty %}
+            <form method="post" action="{{ action }}" class="row g-2 mb-3" id="grc-checklist-apply">
+               <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+               <input type="hidden" name="plugin_grcmanager_audits_id" value="{{ audit_id }}">
+               {{ fields.dropdownArrayField('templates_id', 0, templates, __('Template', 'grcmanager'), v|merge({'field_class': 'col-12', 'rand': 'grccktpl'})) }}
+               <div class="col-12 d-flex flex-wrap gap-2">
+                  <button type="submit" name="apply_template" value="1" class="btn btn-outline-primary"><i class="ti ti-copy me-1"></i>{{ __('Add its lines to the checklist', 'grcmanager') }}</button>
+                  {% if can_delete_templates %}
+                     <button type="submit" name="delete_template" value="1" class="btn btn-ghost-danger" onclick="return confirm('{{ __('Delete this template? The checklists already built from it do not change.', 'grcmanager')|e('js') }}');"><i class="ti ti-trash me-1"></i>{{ __('Delete the template', 'grcmanager') }}</button>
+                  {% endif %}
+               </div>
+            </form>
+            {% else %}
+               <div class="alert alert-info mb-3"><i class="ti ti-info-circle me-1"></i>{{ __('No checklist template yet.', 'grcmanager') }}</div>
+            {% endif %}
+            {% if rows is not empty %}
+            <form method="post" action="{{ action }}" class="row g-2" id="grc-checklist-save-template">
+               <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+               <input type="hidden" name="plugin_grcmanager_audits_id" value="{{ audit_id }}">
+               {{ fields.textField('template_name', '', __('Save this checklist as a template', 'grcmanager'), v|merge({'field_class': 'col-12', 'add_field_html': '<div class="form-hint">' ~ __('Name of the template', 'grcmanager')|e ~ '</div>'})) }}
+               <div class="col-12">
+                  <button type="submit" name="save_template" value="1" class="btn btn-outline-secondary"><i class="ti ti-device-floppy me-1"></i>{{ __('Save as template', 'grcmanager') }}</button>
+               </div>
+            </form>
+            {% endif %}
+         </div>
+      </div>
+   </div>
+   {% endif %}
+</div>
+{% endif %}

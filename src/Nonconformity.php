@@ -220,6 +220,24 @@ class Nonconformity extends NonconformityBase
     }
 
     /**
+     * Issue #606 : constat enregistré depuis une ligne de la grille d'audit : la ligne y est liée.
+     */
+    public function post_addItem()
+    {
+        parent::post_addItem();
+        $lineId = (int) ($this->input['_grcmanager_checklistitem'] ?? 0);
+        if ($lineId > 0) {
+            AuditChecklist::attachFinding($lineId, $this);
+        }
+    }
+
+    /** Issue #606 : constat purgé, les lignes de grille qui le citaient restent sans lien. */
+    public function cleanDBonPurge()
+    {
+        AuditChecklist::unlinkFinding($this->getID());
+    }
+
+    /**
      * Issue #536 : quand un audit change d'entité, ses constats restés dans l'ancienne le suivent
      * (entité seulement).
      */
@@ -616,6 +634,18 @@ class Nonconformity extends NonconformityBase
         if ($this->isNewItem() && (int) ($options['audit'] ?? 0) > 0) {
             $this->fields['plugin_grcmanager_audits_id'] = (int) $options['audit'];
         }
+        // Issue #606 : « Créer le constat » depuis une ligne de la grille d'audit : fiche pré-remplie,
+        // relue et enregistrée par l'utilisateur (rien n'est créé avant).
+        $checklistDraft = null;
+        if ($this->isNewItem() && (int) ($options['checklistitem'] ?? 0) > 0) {
+            $checklistDraft = AuditChecklist::findingDraft((int) $options['checklistitem']);
+            if ($checklistDraft !== null) {
+                $preset = ['plugin_grcmanager_audits_id', 'title', 'description', 'finding_type', 'severity'];
+                foreach ($preset as $field) {
+                    $this->fields[$field] = $checklistDraft[$field];
+                }
+            }
+        }
 
         $auditTitles = [0 => Dropdown::EMPTY_VALUE];
         // Issue #536 : audits des entités de la session seulement.
@@ -652,6 +682,8 @@ class Nonconformity extends NonconformityBase
             'statuses'        => self::getStatuses(),
             'audits'          => $auditTitles,
             'audit_label'     => Audit::getTypeName(1),
+            'checklist_draft' => $checklistDraft,
+            'checklist_lines' => $this->isNewItem() ? [] : AuditChecklist::linesForFinding($this->getID()),
             'corrective_hint' => CapaRequirementService::isCapaMandatory($findingType)
                 ? __('Required to close or verify this non-conformity.', 'grcmanager')
                 : __('Optional for an observation: it may still be filled in if useful.', 'grcmanager'),
