@@ -1,0 +1,90 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #608, lot 2 : registre du contexte de l'organisation pour l'auditeur (ISO 27001, 4.1 et
+   4.2) : synthèse, réponse sur le changement climatique, enjeux, parties intéressées. #}
+{% include '@grcmanager/pdf/_pdf_style.html.twig' %}
+
+<h2>{{ __('Summary', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-summary">
+  <tr><td>{{ __('Internal and external issues', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ summary.issues }}</td></tr>
+  <tr><td>{{ __('Interested parties', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ summary.parties }}</td></tr>
+  <tr><td>{{ __('Items past their review date', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ summary.overdue }}</td></tr>
+  <tr><td>{{ __('Climate change', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ climate_answered ? climate.relevance : __('Not answered yet', 'grcmanager') }}</td></tr>
+</table>
+{% if climate and climate.justification %}
+  <p><strong>{{ __('Climate change', 'grcmanager') }} :</strong> {{ climate.justification }}</p>
+{% endif %}
+
+<h2>{{ __('Internal and external issues', 'grcmanager') }} (4.1)</h2>
+{% if issues is empty %}
+  <p>{{ __('No item recorded.', 'grcmanager') }}</p>
+{% else %}
+  <table class="grcmanager-pdf-table">
+    <thead>
+      <tr>
+        <th style="width: 18%;">{{ __('Name') }}</th>
+        <th style="width: 13%;">{{ __('Category', 'grcmanager') }}</th>
+        <th>{{ __('Effect on the ISMS', 'grcmanager') }}</th>
+        <th style="width: 15%;">{{ __('Decision', 'grcmanager') }}</th>
+        <th style="width: 16%;">{{ __('Related risks', 'grcmanager') }}</th>
+        <th style="width: 14%;">{{ __('Review', 'grcmanager') }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for line in issues %}
+        <tr>
+          <td><strong>{{ line.name }}</strong><br>{{ line.nature }}</td>
+          <td>{{ line.category }}</td>
+          <td>{{ line.effect }}</td>
+          <td>{{ line.relevance }}{% if line.justification %}<br>{{ line.justification }}{% endif %}</td>
+          <td>{{ line.risks|join(', ') }}</td>
+          {% include '@grcmanager/pdf/_context_review_cell.html.twig' %}
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}
+
+<h2>{{ __('Interested parties', 'grcmanager') }} (4.2)</h2>
+{% if parties is empty %}
+  <p>{{ __('No item recorded.', 'grcmanager') }}</p>
+{% else %}
+  <table class="grcmanager-pdf-table">
+    <thead>
+      <tr>
+        <th style="width: 15%;">{{ __('Name') }}</th>
+        <th style="width: 17%;">{{ __('Needs and expectations', 'grcmanager') }}</th>
+        <th style="width: 17%;">{{ __('Requirements retained by the ISMS', 'grcmanager') }}</th>
+        <th style="width: 11%;">{{ __('Decision', 'grcmanager') }}</th>
+        <th style="width: 13%;">{{ __('Related obligations', 'grcmanager') }}</th>
+        <th style="width: 13%;">{{ __('Controls that respond', 'grcmanager') }}</th>
+        <th style="width: 14%;">{{ __('Review', 'grcmanager') }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for line in parties %}
+        <tr>
+          <td><strong>{{ line.name }}</strong><br>{{ line.party_type }}</td>
+          <td>{{ line.expectations }}</td>
+          <td>{{ line.requirements }}</td>
+          <td>{{ line.relevance }}{% if line.justification %}<br>{{ line.justification }}{% endif %}</td>
+          <td>{{ line.obligations|join(', ') }}</td>
+          <td>{{ line.controls|join(', ') }}</td>
+          {% include '@grcmanager/pdf/_context_review_cell.html.twig' %}
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}

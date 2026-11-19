@@ -189,6 +189,15 @@ final class ContextItemRules
     }
 
     /**
+     * Revue enregistrée le jour $today : prochaine revue un an plus tard (le propriétaire peut
+     * ensuite choisir une autre date).
+     */
+    public static function nextReviewDate(string $today): string
+    {
+        return (new \DateTimeImmutable(substr($today, 0, 10)))->modify('+1 year')->format('Y-m-d');
+    }
+
+    /**
      * Cellule de l'export CSV neutralisée contre l'injection de formules (= + - @ en tête).
      */
     public static function csvCell(mixed $value): string

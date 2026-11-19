@@ -1,0 +1,21 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #608, lot 2 : cellule « Revue » du registre PDF du contexte (propriétaire, dernière revue
+   tracée, prochaine revue). #}
+<td>
+  {% if line.owner %}{{ line.owner }}<br>{% endif %}
+  {{ __('Last review', 'grcmanager') }} : {{ line.last_review ? line.last_review|formatted_date ~ (line.last_reviewer ? ' (' ~ line.last_reviewer ~ ')' : '') : __('Never reviewed', 'grcmanager') }}<br>
+  {{ __('Next review', 'grcmanager') }} : {{ line.review_date ? line.review_date|formatted_date : '-' }}{% if line.overdue %} ({{ __('overdue', 'grcmanager') }}){% endif %}
+</td>

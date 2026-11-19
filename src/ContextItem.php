@@ -61,6 +61,9 @@ class ContextItem extends ContextItemBase
 
     public const FK = 'plugin_grcmanager_contextitems_id';
 
+    /** Bouton « Enregistrer la revue » de la fiche (lot 2 : revue périodique tracée). */
+    public const REVIEW_MARKER = '_mark_reviewed';
+
     /** Marqueur du formulaire : une liste vide n'envoie rien, seul lui la remplace. */
     public const LINKS_MARKER = '_context_links_defined';
 
@@ -179,6 +182,7 @@ class ContextItem extends ContextItemBase
             'kind'      => Rules::KIND_ISSUE,
             'relevance' => Rules::RELEVANCE_TO_ASSESS,
         ];
+        unset($input['last_review_date'], $input['users_id_lastreviewer']);
         // Sans entité dans la saisie : l'entité active (celle que check() a contrôlée).
         if (!isset($input['entities_id'])) {
             $input['entities_id'] = Session::getActiveEntity();
@@ -192,6 +196,15 @@ class ContextItem extends ContextItemBase
         // Jamais déplacée vers une entité que la personne ne voit pas.
         if (array_key_exists('entities_id', $input) && !Session::haveAccessToEntity((int) $input['entities_id'])) {
             unset($input['entities_id']);
+        }
+        // Revue tracée : jamais saisie à la main, seulement par le bouton (date du jour, personne
+        // connectée) ; la prochaine revue passe à un an. L'historique de la fiche garde chaque revue.
+        unset($input['last_review_date'], $input['users_id_lastreviewer']);
+        if (!empty($input[self::REVIEW_MARKER])) {
+            $today = date('Y-m-d');
+            $input['last_review_date'] = $today;
+            $input['users_id_lastreviewer'] = (int) Session::getLoginUserID();
+            $input['review_date'] = Rules::nextReviewDate($today);
         }
 
         return $this->normalizeInput($input, $this->fields);
@@ -707,6 +720,9 @@ class ContextItem extends ContextItemBase
                 'owner'         => (int) $row['users_id'] > 0 ? getUserName((int) $row['users_id']) : '',
                 'review_date'   => (string) ($row['review_date'] ?? ''),
                 'overdue'       => Rules::isOverdue($row['review_date'] ?? null, $today),
+                'last_review'   => (string) ($row['last_review_date'] ?? ''),
+                'last_reviewer' => (int) ($row['users_id_lastreviewer'] ?? 0) > 0
+                    ? getUserName((int) $row['users_id_lastreviewer']) : '',
                 'entity'        => Dropdown::getDropdownName('glpi_entities', (int) $row['entities_id']),
             ];
         }
@@ -737,6 +753,8 @@ class ContextItem extends ContextItemBase
             __('Controls that respond', 'grcmanager'),
             _x('owner', 'Owner', 'grcmanager'),
             __('Review date', 'grcmanager'),
+            __('Last review', 'grcmanager'),
+            __('Last reviewed by', 'grcmanager'),
             Entity::getTypeName(1),
         ]];
         foreach (self::exportLines() as $line) {
@@ -744,7 +762,8 @@ class ContextItem extends ContextItemBase
                 $line['kind'], $line['name'], $line['nature'], $line['category'], $line['party_type'],
                 $line['expectations'], $line['requirements'], $line['effect'], $line['relevance'],
                 $line['justification'], implode(' | ', $line['risks']), implode(' | ', $line['obligations']),
-                implode(' | ', $line['controls']), $line['owner'], $line['review_date'], $line['entity'],
+                implode(' | ', $line['controls']), $line['owner'], $line['review_date'], $line['last_review'],
+                $line['last_reviewer'], $line['entity'],
             ]);
         }
 
@@ -834,6 +853,15 @@ class ContextItem extends ContextItemBase
         $tab[] = [
             'id' => 16, 'table' => $table, 'field' => 'date_mod',
             'name' => __('Last update', 'grcmanager'), 'datatype' => 'datetime', 'massiveaction' => false,
+        ];
+        $tab[] = [
+            'id' => 17, 'table' => $table, 'field' => 'last_review_date',
+            'name' => __('Last review', 'grcmanager'), 'datatype' => 'date', 'massiveaction' => false,
+        ];
+        $tab[] = [
+            'id' => 18, 'table' => 'glpi_users', 'field' => 'name', 'linkfield' => 'users_id_lastreviewer',
+            'name' => __('Last reviewed by', 'grcmanager'), 'datatype' => 'dropdown', 'right' => 'all',
+            'massiveaction' => false,
         ];
         $tab[] = [
             'id' => 80, 'table' => 'glpi_entities', 'field' => 'completename', 'name' => Entity::getTypeName(1),
@@ -950,6 +978,10 @@ class ContextItem extends ContextItemBase
             'relevances'   => self::getRelevances(),
             'links'        => $links,
             'links_marker' => self::LINKS_MARKER,
+            'review_marker' => self::REVIEW_MARKER,
+            'can_review'   => !$this->isNewItem() && $this->can((int) $ID, UPDATE),
+            'last_reviewer' => (int) ($this->fields['users_id_lastreviewer'] ?? 0) > 0
+                ? getUserName((int) $this->fields['users_id_lastreviewer']) : '',
         ]);
 
         return true;

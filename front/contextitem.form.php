@@ -40,7 +40,9 @@ if (isset($_POST['add'])) {
     $item->check((int) $_POST['id'], PURGE);
     $item->delete($_POST, true);
     Html::redirect(ContextItem::getSearchURL());
-} elseif (isset($_POST['update'])) {
+} elseif (isset($_POST['update']) || isset($_POST[ContextItem::REVIEW_MARKER])) {
+    // « Enregistrer la revue » : même contrôle qu'une modification ; la date et l'auteur de la revue
+    // sont fixés par la fiche (prepareInputForUpdate), jamais repris de la saisie.
     $item->check((int) $_POST['id'], UPDATE);
     $item->update($_POST);
     Html::back();
