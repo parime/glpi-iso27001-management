@@ -19034,3 +19034,42 @@ msgid "NIS2 Italy requirement (ACN)"
 msgid_plural "NIS2 Italy requirements (ACN)"
 msgstr[0] "Requisito NIS2 Italia (ACN)"
 msgstr[1] "Requisitos NIS2 Italia (ACN)"
+
+msgid "Last reviewed by"
+msgstr "Última revisión por"
+
+msgid "%1$s by %2$s"
+msgstr "%1$s por %2$s"
+
+msgid "Never reviewed"
+msgstr "Nunca revisado"
+
+msgid "Records today as the review date, with your name, and sets the next review one year later. Your other changes on this form are saved too."
+msgstr "Registra la fecha de hoy como fecha de revisión, con su nombre, y fija la próxima revisión un año después. También se guardan sus demás cambios en este formulario."
+
+msgid "Record the review"
+msgstr "Registrar la revisión"
+
+msgid "Register for the auditor (PDF)"
+msgstr "Registro para el auditor (PDF)"
+
+msgid "Register (CSV)"
+msgstr "Registro (CSV)"
+
+msgid "Issues and interested parties of the context of the organization (ISO 27001, 4.1 and 4.2) that refer to this item."
+msgstr "Cuestiones y partes interesadas del contexto de la organización (ISO 27001, 4.1 y 4.2) que hacen referencia a este elemento."
+
+msgid "No issue or interested party refers to this item yet."
+msgstr "Todavía ninguna cuestión ni parte interesada hace referencia a este elemento."
+
+msgid "Internal and external issues"
+msgstr "Cuestiones internas y externas"
+
+msgid "Items past their review date"
+msgstr "Elementos con la fecha de revisión vencida"
+
+msgid "Not answered yet"
+msgstr "Aún sin respuesta"
+
+msgid "No item recorded."
+msgstr "Ningún elemento registrado."
