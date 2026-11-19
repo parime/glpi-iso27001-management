@@ -18,6 +18,7 @@
 namespace GlpiPlugin\Grcmanager;
 
 use CommonDBTM;
+use CommonGLPI;
 use CronTask;
 use Document_Item;
 use Dropdown;
@@ -31,6 +32,7 @@ use GlpiPlugin\Grcmanager\Services\Control\FrameworkSelection;
 use GlpiPlugin\Grcmanager\Services\Risk\ReviewReminderService;
 use GlpiPlugin\Grcmanager\Services\Ui\Badge;
 use Group;
+use Html;
 use Log;
 use Session;
 use Supplier;
@@ -425,9 +427,10 @@ class ContextItem extends ContextItemBase
      * Fiches du contexte (hors corbeille) des entités de la session.
      *
      * @param array<string, mixed> $where
+     * @param list<string>|string   $order
      * @return list<array<string, mixed>>
      */
-    private static function visibleRows(array $where = []): array
+    private static function visibleRows(array $where = [], array|string $order = 'date_mod DESC'): array
     {
         global $DB;
 
@@ -439,7 +442,7 @@ class ContextItem extends ContextItemBase
             $DB->request([
                 'FROM'  => self::getTable(),
                 'WHERE' => array_merge(['is_deleted' => 0] + $where, EntityPerimeter::criteria(self::getTable())),
-                'ORDER' => 'date_mod DESC',
+                'ORDER' => $order,
             ]) as $row
         ) {
             $rows[] = $row;
@@ -488,7 +491,8 @@ class ContextItem extends ContextItemBase
      * Synthèse pour la revue de direction (9.3.2 b et c) et les exigences 4.1 et 4.2 : nombre
      * d'enjeux et de parties, fiches modifiées depuis $since, revues dépassées, question climatique.
      *
-     * @return array{issues: int, parties: int, changed: int, overdue: int, climate: bool, since: string, url: string}
+     * @return array{issues: int, parties: int, changed: int, overdue: int, climate: bool, since: string, url: string,
+     *     export_url: string}
      */
     public static function summary(?string $since = null): array
     {
@@ -496,6 +500,7 @@ class ContextItem extends ContextItemBase
         $summary = [
             'issues' => 0, 'parties' => 0, 'changed' => 0, 'overdue' => 0,
             'climate' => false, 'since' => (string) $since, 'url' => self::getSearchURL(),
+            'export_url' => self::getExportURL('pdf'),
         ];
         $rows = self::visibleRows();
         foreach ($rows as $row) {
@@ -516,7 +521,7 @@ class ContextItem extends ContextItemBase
      * Synthèse affichée sur la fiche des exigences 4.1 et 4.2, null pour les autres ou sans droit.
      *
      * @return array{issues: int, parties: int, changed: int, overdue: int, climate: bool, since: string,
-     *     url: string, code: string}|null
+     *     url: string, export_url: string, code: string}|null
      */
     public static function clauseReadiness(string $code): ?array
     {
@@ -525,6 +530,258 @@ class ContextItem extends ContextItemBase
         }
 
         return self::summary() + ['code' => $code];
+    }
+
+    // ------------------------------------------------------------------
+    // Lot 2 : onglet « Contexte de l'organisation » des risques, obligations et mesures
+    // ------------------------------------------------------------------
+
+    /**
+     * Fiches du contexte (lisibles) qui citent cet élément.
+     *
+     * @return list<array<string, mixed>>
+     */
+    public static function linkedTo(CommonDBTM $item): array
+    {
+        global $DB;
+
+        if (!in_array($item::class, self::LINK_FIELDS, true) || $item->isNewItem() || !self::canView()) {
+            return [];
+        }
+        $ids = [];
+        foreach (
+            $DB->request([
+                'SELECT' => self::FK,
+                'FROM'   => self::LINKS_TABLE,
+                'WHERE'  => ['itemtype' => $item::class, 'items_id' => (int) $item->getID()],
+            ]) as $row
+        ) {
+            $ids[] = (int) $row[self::FK];
+        }
+        if ($ids === []) {
+            return [];
+        }
+
+        return self::visibleRows(['id' => $ids], ['kind', 'name']);
+    }
+
+    public function getTabNameForItem(CommonGLPI $item, $withtemplate = 0)
+    {
+        if (
+            !$item instanceof CommonDBTM
+            || !in_array($item::class, self::LINK_FIELDS, true)
+            || $item->isNewItem()
+            || !self::canView()
+        ) {
+            return '';
+        }
+
+        return self::createTabEntry(
+            __('Context of the organization', 'grcmanager'),
+            count(self::linkedTo($item)),
+            null,
+            self::getIcon()
+        );
+    }
+
+    public static function displayTabContentForItem(CommonGLPI $item, $tabnum = 1, $withtemplate = 0)
+    {
+        // ajax/common.tabs.php sert le contenu sans passer par getTabNameForItem().
+        if (
+            !$item instanceof CommonDBTM
+            || !in_array($item::class, self::LINK_FIELDS, true)
+            || $item->isNewItem()
+            || !self::canView()
+            || !$item->can($item->getID(), READ)
+        ) {
+            return false;
+        }
+        self::showForLinkedItem($item);
+
+        return true;
+    }
+
+    private static function showForLinkedItem(CommonDBTM $item): void
+    {
+        $today = date('Y-m-d');
+        $rows = [];
+        foreach (self::linkedTo($item) as $row) {
+            $isParty = $row['kind'] === Rules::KIND_PARTY;
+            $rows[] = [
+                'url'             => self::getFormURLWithID((int) $row['id']),
+                'name'            => (string) $row['name'],
+                'is_party'        => $isParty,
+                'kind'            => self::getKinds()[$row['kind']] ?? '',
+                'detail'          => $isParty
+                    ? (self::getPartyTypes()[$row['party_type']] ?? '')
+                    : (self::getCategories()[$row['category']] ?? ''),
+                'relevance'       => (string) $row['relevance'],
+                'relevance_label' => self::getRelevances()[$row['relevance']] ?? '',
+                'owner'           => (int) $row['users_id'] > 0 ? getUserName((int) $row['users_id']) : '',
+                'review'          => (string) ($row['review_date'] ?? ''),
+                'overdue'         => Rules::isOverdue($row['review_date'] ?? null, $today),
+            ];
+        }
+        $field = (string) array_search($item::class, self::LINK_FIELDS, true);
+        $linkType = (string) array_search($field, Rules::LINK_TYPES, true);
+        $addUrl = self::getFormURL() . '?link_type=' . $linkType . '&link_id=' . (int) $item->getID() . '&kind=';
+
+        TemplateRenderer::getInstance()->display('@grcmanager/context_linked_tab.html.twig', [
+            'rows'                   => $rows,
+            'can_create'             => self::canCreate(),
+            'add_issue'              => $addUrl . Rules::KIND_ISSUE,
+            'add_party'              => $addUrl . Rules::KIND_PARTY,
+            'list_url'               => self::getSearchURL(),
+            'relevance_retained'     => Rules::RELEVANCE_RETAINED,
+            'relevance_not_retained' => Rules::RELEVANCE_NOT_RETAINED,
+        ]);
+    }
+
+    // ------------------------------------------------------------------
+    // Lot 2 : export du registre pour l'auditeur (CSV et PDF)
+    // ------------------------------------------------------------------
+
+    public static function getExportURL(string $format): string
+    {
+        global $CFG_GLPI;
+
+        return $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/contextitem.export.php?format='
+            . ($format === 'pdf' ? 'pdf' : 'csv');
+    }
+
+    /**
+     * Libellés des éléments liés que la personne peut lire. Les autres ne sont pas nommés.
+     *
+     * @return array<string, list<string>> champ du formulaire => libellés
+     */
+    private static function linkedLabels(int $contextId): array
+    {
+        $labels = [];
+        foreach (self::LINK_FIELDS as $field => $itemtype) {
+            $labels[$field] = [];
+            if (!$itemtype::canView()) {
+                continue;
+            }
+            foreach (self::getLinkedIds($contextId, $itemtype) as $id) {
+                $linked = new $itemtype();
+                if (!$linked->can($id, READ)) {
+                    continue;
+                }
+                $labels[$field][] = $linked instanceof Control
+                    ? trim($linked->fields['code'] . ' ' . Control::getControlTitle((string) $linked->fields['code']))
+                    : (string) $linked->fields['title'];
+            }
+            sort($labels[$field], SORT_NATURAL);
+        }
+
+        return $labels;
+    }
+
+    /**
+     * Lignes du registre exporté : fiches hors corbeille des entités de la session.
+     *
+     * @return list<array<string, mixed>>
+     */
+    public static function exportLines(): array
+    {
+        $today = date('Y-m-d');
+        $lines = [];
+        foreach (self::visibleRows([], ['kind', 'name']) as $row) {
+            $isParty = $row['kind'] === Rules::KIND_PARTY;
+            $links = self::linkedLabels((int) $row['id']);
+            $lines[] = [
+                'is_party'      => $isParty,
+                'kind'          => self::getKinds()[$row['kind']] ?? '',
+                'name'          => (string) $row['name'],
+                'nature'        => $isParty ? '' : (self::getNatures()[$row['nature']] ?? ''),
+                'category'      => $isParty ? '' : (self::getCategories()[$row['category']] ?? ''),
+                'party_type'    => $isParty ? (self::getPartyTypes()[$row['party_type']] ?? '') : '',
+                'expectations'  => (string) ($row['expectations'] ?? ''),
+                'requirements'  => (string) ($row['requirements'] ?? ''),
+                'effect'        => (string) ($row['effect'] ?? ''),
+                'relevance'     => self::getRelevances()[$row['relevance']] ?? '',
+                'justification' => (string) ($row['justification'] ?? ''),
+                'risks'         => $links['_linked_risks'],
+                'obligations'   => $links['_linked_obligations'],
+                'controls'      => $links['_linked_controls'],
+                'owner'         => (int) $row['users_id'] > 0 ? getUserName((int) $row['users_id']) : '',
+                'review_date'   => (string) ($row['review_date'] ?? ''),
+                'overdue'       => Rules::isOverdue($row['review_date'] ?? null, $today),
+                'entity'        => Dropdown::getDropdownName('glpi_entities', (int) $row['entities_id']),
+            ];
+        }
+
+        return $lines;
+    }
+
+    /**
+     * Lignes de l'export CSV (en-tête compris), cellules neutralisées contre les formules.
+     *
+     * @return list<list<string>>
+     */
+    public static function csvRows(): array
+    {
+        $rows = [[
+            __('Kind', 'grcmanager'),
+            __('Name'),
+            __('Internal or external', 'grcmanager'),
+            __('Category', 'grcmanager'),
+            __('Type of interested party', 'grcmanager'),
+            __('Needs and expectations', 'grcmanager'),
+            __('Requirements retained by the ISMS', 'grcmanager'),
+            __('Effect on the ISMS', 'grcmanager'),
+            __('Decision', 'grcmanager'),
+            __('Justification', 'grcmanager'),
+            __('Related risks', 'grcmanager'),
+            __('Related obligations', 'grcmanager'),
+            __('Controls that respond', 'grcmanager'),
+            _x('owner', 'Owner', 'grcmanager'),
+            __('Review date', 'grcmanager'),
+            Entity::getTypeName(1),
+        ]];
+        foreach (self::exportLines() as $line) {
+            $rows[] = array_map(Rules::csvCell(...), [
+                $line['kind'], $line['name'], $line['nature'], $line['category'], $line['party_type'],
+                $line['expectations'], $line['requirements'], $line['effect'], $line['relevance'],
+                $line['justification'], implode(' | ', $line['risks']), implode(' | ', $line['obligations']),
+                implode(' | ', $line['controls']), $line['owner'], $line['review_date'], $line['entity'],
+            ]);
+        }
+
+        return $rows;
+    }
+
+    /**
+     * Rapport PDF du registre du contexte (HTML pour PdfRenderer) : synthèse, réponse sur le
+     * changement climatique, enjeux puis parties intéressées.
+     */
+    public static function reportHtml(): string
+    {
+        $lines = self::exportLines();
+        $climate = null;
+        $climateRow = self::climateRows()[0] ?? null;
+        if ($climateRow !== null) {
+            $climate = [
+                'relevance'     => self::getRelevances()[$climateRow['relevance']] ?? '',
+                'justification' => (string) ($climateRow['justification'] ?? ''),
+            ];
+        }
+
+        return TemplateRenderer::getInstance()->render('@grcmanager/pdf/context_report.html.twig', [
+            'report_title'       => __('Context of the organization', 'grcmanager'),
+            'generated_at_label' => sprintf(
+                __('Generated on %s', 'grcmanager'),
+                Html::convDateTime(date('Y-m-d H:i:s'))
+            ),
+            'perimeter'          => EntityPerimeter::isMultiEntity()
+                ? Dropdown::getDropdownName('glpi_entities', Session::getActiveEntity())
+                : '',
+            'summary'            => self::summary(),
+            'climate'            => $climate,
+            'climate_answered'   => self::isClimateAnswered(),
+            'issues'             => array_values(array_filter($lines, static fn (array $l): bool => !$l['is_party'])),
+            'parties'            => array_values(array_filter($lines, static fn (array $l): bool => $l['is_party'])),
+        ]);
     }
 
     public function rawSearchOptions()
@@ -668,10 +925,15 @@ class ContextItem extends ContextItemBase
         foreach (self::LINK_FIELDS as $field => $itemtype) {
             $choices = self::linkChoices($itemtype, $entityId);
             $linked = $this->isNewItem() ? [] : self::getLinkedIds((int) $ID, $itemtype);
+            // Lot 2 : création depuis l'onglet d'un risque, d'une obligation ou d'une mesure.
+            if ($this->isNewItem() && Rules::linkFieldFor($options['link_type'] ?? null) === $field) {
+                $linked = [(int) ($options['link_id'] ?? 0)];
+            }
             $links[$field] = [
                 'choices' => $choices,
                 'values'  => array_values(array_filter($linked, static fn (int $id): bool => isset($choices[$id]))),
-                'hidden'  => count(array_filter($linked, static fn (int $id): bool => !isset($choices[$id]))),
+                'hidden'  => $this->isNewItem()
+                    ? 0 : count(array_filter($linked, static fn (int $id): bool => !isset($choices[$id]))),
                 'allowed' => $itemtype::canView(),
             ];
         }
@@ -704,6 +966,8 @@ class ContextItem extends ContextItemBase
             'form_url'   => self::getFormURL(),
             'kind_issue' => Rules::KIND_ISSUE,
             'kind_party' => Rules::KIND_PARTY,
+            'export_csv' => self::getExportURL('csv'),
+            'export_pdf' => self::getExportURL('pdf'),
         ]);
     }
 

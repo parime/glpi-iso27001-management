@@ -60,11 +60,15 @@ if (isset($_POST['add'])) {
         ContextItem::class
     );
 
-    // Création depuis les boutons de la liste : enjeu, partie intéressée ou question climatique.
+    // Création depuis les boutons de la liste : enjeu, partie intéressée ou question climatique ;
+    // depuis l'onglet d'un risque, d'une obligation ou d'une mesure, cet élément est présélectionné
+    // (seulement s'il fait partie des choix que la personne peut lire).
     $item->display([
-        'id'       => $id,
-        'kind'     => (string) ($_GET['kind'] ?? ''),
-        'category' => (string) ($_GET['category'] ?? ''),
+        'id'        => $id,
+        'kind'      => (string) ($_GET['kind'] ?? ''),
+        'category'  => (string) ($_GET['category'] ?? ''),
+        'link_type' => (string) ($_GET['link_type'] ?? ''),
+        'link_id'   => (int) ($_GET['link_id'] ?? 0),
     ]);
 
     Html::footer();

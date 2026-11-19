@@ -174,6 +174,31 @@ final class ContextItemRules
     }
 
     /**
+     * Lot 2 : type d'élément lié passé dans l'adresse (« Ajouter un enjeu » depuis l'onglet d'un
+     * risque, d'une obligation ou d'une mesure) => champ du formulaire à présélectionner.
+     */
+    public const LINK_TYPES = [
+        'risk'       => '_linked_risks',
+        'obligation' => '_linked_obligations',
+        'control'    => '_linked_controls',
+    ];
+
+    public static function linkFieldFor(mixed $type): ?string
+    {
+        return is_string($type) ? (self::LINK_TYPES[$type] ?? null) : null;
+    }
+
+    /**
+     * Cellule de l'export CSV neutralisée contre l'injection de formules (= + - @ en tête).
+     */
+    public static function csvCell(mixed $value): string
+    {
+        $value = is_scalar($value) ? (string) $value : '';
+
+        return preg_match('/^[=+\-@\t\r]/', $value) === 1 ? "'" . $value : $value;
+    }
+
+    /**
      * @param list<string> $allowed
      */
     private static function pick(mixed $value, array $allowed, string $default): string
