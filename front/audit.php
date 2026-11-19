@@ -46,6 +46,11 @@ TemplateRenderer::getInstance()->display('@grcmanager/_list_toolbar.html.twig', 
         'icon'  => 'ti-file-type-pdf',
         'label' => __('Export PDF', 'grcmanager'),
         'new_tab' => true,
+    ], [
+        // Issue #606 : couverture du programme d'audit (exigences et mesures jamais auditées).
+        'url'   => \GlpiPlugin\Grcmanager\AuditChecklist::getCoverageURL(),
+        'icon'  => 'ti-chart-dots-3',
+        'label' => __('Audit programme coverage', 'grcmanager'),
     ]],
 ]);
 
