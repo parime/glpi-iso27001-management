@@ -19280,6 +19280,32 @@ msgstr "Erledigungsgrad"
 
 msgid "No action from a previous review is open or was completed during the period."
 msgstr "Keine Maßnahme aus einer früheren Bewertung ist offen oder wurde im Zeitraum erledigt."
+msgid "Last reviewed by"
+msgstr "Zuletzt überprüft von"
+
+msgid "%1$s by %2$s"
+msgstr "%1$s von %2$s"
+
+msgid "Never reviewed"
+msgstr "Nie überprüft"
+
+msgid "Records today as the review date, with your name, and sets the next review one year later. Your other changes on this form are saved too."
+msgstr "Speichert das heutige Datum als Überprüfungsdatum mit Ihrem Namen und legt die nächste Überprüfung ein Jahr später fest. Ihre anderen Änderungen in diesem Formular werden ebenfalls gespeichert."
+
+msgid "Record the review"
+msgstr "Überprüfung erfassen"
+
+msgid "Register for the auditor (PDF)"
+msgstr "Register für den Auditor (PDF)"
+
+msgid "Register (CSV)"
+msgstr "Register (CSV)"
+
+msgid "Issues and interested parties of the context of the organization (ISO 27001, 4.1 and 4.2) that refer to this item."
+msgstr "Themen und interessierte Parteien des Kontexts der Organisation (ISO 27001, 4.1 und 4.2), die auf dieses Element verweisen."
+
+msgid "No issue or interested party refers to this item yet."
+msgstr "Noch kein Thema und keine interessierte Partei verweist auf dieses Element."
 
 msgid "Internal and external issues"
 msgstr "Interne und externe Themen"
@@ -19454,3 +19480,11 @@ msgid "Preparatory file"
 msgid_plural "Preparatory files"
 msgstr[0] "Vorbereitungsunterlage"
 msgstr[1] "Vorbereitungsunterlagen"
+msgid "Items past their review date"
+msgstr "Einträge mit überschrittenem Überprüfungsdatum"
+
+msgid "Not answered yet"
+msgstr "Noch nicht beantwortet"
+
+msgid "No item recorded."
+msgstr "Kein Eintrag erfasst."

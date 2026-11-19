@@ -1417,7 +1417,7 @@ final class Installer
         $this->installAuditEvidenceRequestTables($keySign, $charset, $collation);
         $this->installDoraRegisterTables($keySign, $charset, $collation);
         $this->installDataBreachTables($keySign, $charset, $collation);
-        $this->installContextTables($keySign, $charset, $collation);
+        $this->installContextTables($migration, $keySign, $charset, $collation);
         $this->installAcnTables($keySign, $charset, $collation);
         $this->installParkRemediationTables($keySign, $charset, $collation);
         $this->installSentinelOneTables($keySign, $charset, $collation);
@@ -4356,8 +4356,12 @@ final class Installer
      * Issue #608 : contexte de l'organisation (ISO 27001, articles 4.1 et 4.2). Enjeux et parties
      * intéressées dans une même table (`kind`), liens vers les risques, obligations et mesures.
      */
-    private function installContextTables(string $keySign, string $charset, string $collation): void
-    {
+    private function installContextTables(
+        Migration $migration,
+        string $keySign,
+        string $charset,
+        string $collation
+    ): void {
         global $DB;
 
         if (!$DB->tableExists(self::CONTEXT_ITEMS_TABLE)) {
@@ -4379,6 +4383,8 @@ final class Installer
                 `justification` text,
                 `users_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Proprietaire',
                 `review_date` date DEFAULT NULL,
+                `last_review_date` date DEFAULT NULL COMMENT 'Derniere revue enregistree',
+                `users_id_lastreviewer` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Auteur de la derniere revue',
                 `comment` text,
                 `is_deleted` tinyint NOT NULL DEFAULT 0,
                 `date_creation` timestamp NULL DEFAULT NULL,
@@ -4392,9 +4398,19 @@ final class Installer
                 KEY `groups_id` (`groups_id`),
                 KEY `users_id` (`users_id`),
                 KEY `review_date` (`review_date`),
+                KEY `users_id_lastreviewer` (`users_id_lastreviewer`),
                 KEY `is_deleted` (`is_deleted`),
                 KEY `date_mod` (`date_mod`)
             ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+        // Issue #608, lot 2 : revue périodique tracée (date et auteur de la dernière revue).
+        if (!$DB->fieldExists(self::CONTEXT_ITEMS_TABLE, 'last_review_date')) {
+            $migration->addField(self::CONTEXT_ITEMS_TABLE, 'last_review_date', 'date', ['after' => 'review_date']);
+            $migration->addField(self::CONTEXT_ITEMS_TABLE, 'users_id_lastreviewer', 'fkey', [
+                'after' => 'last_review_date',
+            ]);
+            $migration->addKey(self::CONTEXT_ITEMS_TABLE, 'users_id_lastreviewer');
+            $migration->migrationOneTable(self::CONTEXT_ITEMS_TABLE);
         }
         if (!$DB->tableExists(self::CONTEXT_ITEMS_LINKS_TABLE)) {
             $DB->doQuery("CREATE TABLE `" . self::CONTEXT_ITEMS_LINKS_TABLE . "` (
