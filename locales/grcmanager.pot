@@ -4327,6 +4327,7 @@ msgid "E.g. 40 for a quiz scored out of 40. 0 = no score."
 msgstr ""
 
 #: templates/training_form.html.twig
+#, php-format
 msgid ""
 "E.g. 80: passed from 80% of the maximum score. With a maximum score and a "
 "threshold, each participant's result is computed from their score."

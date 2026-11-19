@@ -123,9 +123,13 @@ final class ResponsibilityActivityTest extends GrcmanagerIntegrationTestCase
     {
         $alice = $this->member('Alice');
         $bob = $this->member('Bob');
-        $groupId = (int) (new Group())->add(['name' => 'PHPUnit équipe sauvegardes', 'entities_id' => 0, 'is_recursive' => 1]);
+        $groupId = (int) (new Group())->add([
+            'name' => 'PHPUnit équipe sauvegardes', 'entities_id' => 0, 'is_recursive' => 1,
+        ]);
         (new Group_User())->add(['groups_id' => $groupId, 'users_id' => $alice]);
-        $emptyGroup = (int) (new Group())->add(['name' => 'PHPUnit groupe vide', 'entities_id' => 0, 'is_recursive' => 1]);
+        $emptyGroup = (int) (new Group())->add([
+            'name' => 'PHPUnit groupe vide', 'entities_id' => 0, 'is_recursive' => 1,
+        ]);
 
         $activity = $this->activity(['name' => 'PHPUnit administration des sauvegardes', 'is_sensitive' => 1]);
         $types = array_column($this->row($activity->getID())['alerts'], 'type');
@@ -153,7 +157,8 @@ final class ResponsibilityActivityTest extends GrcmanagerIntegrationTestCase
         $this->assertCount(3, $assignments);
 
         // Bob approuve à la place d'Alice : plus de conflit. Puis Bob est désactivé.
-        $aliceRow = array_values(array_filter($assignments, static fn (array $a): bool => $a['role'] === 'accountable'))[0];
+        $approvers = array_filter($assignments, static fn (array $a): bool => $a['role'] === 'accountable');
+        $aliceRow = array_values($approvers)[0];
         $activity->update(['id' => $activity->getID(), '_remove_assignments' => [$aliceRow['id']]]);
         $this->assign($activity, Rules::ROLE_ACCOUNTABLE, $bob);
         (new User())->update(['id' => $bob, 'is_active' => 0]);
