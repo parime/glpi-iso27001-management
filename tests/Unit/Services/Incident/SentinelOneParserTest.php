@@ -72,7 +72,7 @@ final class SentinelOneParserTest extends TestCase
         self::assertSame('1900000000000000001', $threat['agent_id']);
         self::assertSame(str_repeat('a1', 32), $threat['sha256']);
         self::assertSame('T1204.002, T1547.001', $threat['technique']);
-        self::assertSame('major', EdrCsvImport::severity($threat['severity']));
+        self::assertSame('critical', EdrCsvImport::severity($threat['severity']));
         self::assertSame(
             'https://console.example.test/incidents/threats/1950000000000000101/overview',
             $threat['console_url']

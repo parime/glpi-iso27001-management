@@ -106,10 +106,10 @@ final class SentinelOneParser
             'agent_id'     => self::str($realtime, 'agentId'),
             'agent_uuid'   => self::str($realtime, 'agentUuid') ?: self::str($detection, 'agentUuid'),
             'username'     => self::str($detection, 'agentLastLoggedInUserName'),
-            // Confiance de SentinelOne : « malicious » est une gravité élevée, « suspicious » moyenne.
+            // Confiance de SentinelOne : « malicious » (menace confirmée) est critique, « suspicious » majeure.
             'severity'     => match ($confidence) {
-                'malicious'  => 'High',
-                'suspicious' => 'Medium',
+                'malicious'  => 'Critical',
+                'suspicious' => 'High',
                 default      => 'Low',
             },
             'tactic'       => implode(', ', $tactics),
