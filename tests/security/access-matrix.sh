@@ -89,6 +89,7 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/doraregister.php front/doraregister.php?export=B_02.01 front/doraregister.php?export=zip
   front/consistencycheck.php front/consistencycheck.export.php?format=csv front/consistencycheck.export.php?format=pdf
   front/contextitem.php front/contextitem.form.php
+  front/responsibilityactivity.php front/responsibilityactivity.form.php front/responsibilityactivity.export.php
   front/acnrequirement.php front/acnrequirement.export.php?format=csv front/acnrequirement.export.php?format=pdf"
 # Creations : refusees sans droit comme en lecture seule (etat en base compare par la CI).
 create_attempts() { # code attendu, code attendu pour la classification (404 sans droit sur l'actif)
@@ -107,7 +108,7 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
     front/cpereference.form.php front/productalias.form.php \
     front/waiver.form.php front/coveragerule.form.php front/controltest.form.php \
     front/processingactivity.form.php front/datasubjectrequest.form.php front/databreach.form.php \
-    front/businessprocess.form.php front/riskindicator.form.php front/contextitem.form.php; do
+    front/businessprocess.form.php front/riskindicator.form.php front/contextitem.form.php     front/responsibilityactivity.form.php; do
     expect "$form : creation" "$1" "$(code -d "add=1&name=securite&title=securite&_glpi_csrf_token=$(csrf)" "$BASE/plugins/grcmanager/$form")"
   done
   # Issue #537 : analyser un fichier, confirmer un import, et modifier un referentiel personnalise
@@ -584,6 +585,19 @@ contains "liste du contexte : partie de B" "Partie securite B" $SEE_B "$contexts
 # Le nom est conserve : la fiche reste reconnaissable pour les profils suivants.
 expect "modifier le contexte de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
   "$(code -d "update=1&id=$(id context_B)&name=Partie%20securite%20B&_glpi_csrf_token=$(csrf)" "$P/contextitem.form.php")"
+# Issue #612 : une activite de la matrice des responsabilites appartient a son entite. Ajouter les
+# activites par defaut ou archiver la matrice est refuse sans droit comme en lecture seule.
+expect "matrice, activite de A"          200    "$(code "$P/responsibilityactivity.form.php?id=$(id responsibility_A)")"
+expect "matrice, activite de B"          $DENY  "$(code "$P/responsibilityactivity.form.php?id=$(id responsibility_B)")"
+matrix=$(curl -s -c "$JAR" -b "$JAR" "$P/responsibilityactivity.php")
+contains "matrice : activite de A" "Activite securite A" oui    "$matrix"
+contains "matrice : activite de B" "Activite securite B" $SEE_B "$matrix"
+expect "modifier l'activite de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)"   "$(code -d "update=1&id=$(id responsibility_B)&name=Activite%20securite%20B&_glpi_csrf_token=$(csrf)" "$P/responsibilityactivity.form.php")"
+if [ "$ROLE" = none ] || [ "$ROLE" = reader ]; then
+  for action in add_defaults=1 archive=1; do
+    expect "front/responsibilityactivity.php : ${action%%=*}" 403       "$(code -d "$action&_glpi_csrf_token=$(csrf)" "$P/responsibilityactivity.php")"
+  done
+fi
 kris=$(curl -s -c "$JAR" -b "$JAR" "$P/riskindicator.php")
 contains "liste des KRI : KRI de A" "KRI securite A" oui    "$kris"
 contains "liste des KRI : KRI de B" "KRI securite B" $SEE_B "$kris"
