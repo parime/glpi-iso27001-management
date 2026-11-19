@@ -51,7 +51,7 @@ final class CrisisExerciseReview
 
     public static function canValidate(): bool
     {
-        return Session::haveRight(Installer::CONTINUITY_RIGHT, self::VALIDATE);
+        return (bool) Session::haveRight(Installer::CONTINUITY_RIGHT, self::VALIDATE);
     }
 
     public static function isValidated(CrisisExercise $exercise): bool
