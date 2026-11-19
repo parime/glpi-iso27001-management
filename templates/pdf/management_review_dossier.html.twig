@@ -28,6 +28,8 @@
   .kpis .num { font-size: 15px; font-weight: bold; color: #206bc4; display: block; }
   .kpis .num-bad { color: #b42318; }
   .muted { color: #6c757d; }
+  .kpis { margin-bottom: 8px; page-break-inside: avoid; }
+  .nowrap { white-space: nowrap; }
   h2 { page-break-after: avoid; }
 </style>
 
@@ -90,7 +92,7 @@
               <td>{{ a.review_title }}</td>
               <td>{{ a.description }}</td>
               <td>{{ a.user ?: '-' }}</td>
-              <td>{{ a.due_label ?: '-' }}</td>
+              <td class="nowrap">{{ a.due_label ?: '-' }}</td>
               <td>
                 {{ m.pill(a.badge.label, a.status == 'done' ? 'ok' : (a.overdue ? 'bad' : 'neutral')) }}
                 {% if a.overdue %}{{ m.pill(__('Overdue', 'grcmanager'), 'bad') }}{% endif %}
@@ -153,7 +155,7 @@
           {% for a in d.completed %}
             <tr>
               <td>{{ a.title }}</td>
-              <td>{{ a.date }}</td>
+              <td class="nowrap">{{ a.date }}</td>
               <td>
                 <strong>{{ a.findings }}</strong>
                 {% for type, count in a.by_type %}<br>{{ type }} : {{ count }}{% endfor %}
@@ -173,7 +175,7 @@
       <p class="muted">{{ __('No information security objective recorded.', 'grcmanager') }}</p>
     {% else %}
       <table class="grcmanager-pdf-table">
-        <thead><tr><th>{{ __('Objective', 'grcmanager') }}</th><th>{{ __('Target', 'grcmanager') }}</th><th>{{ __('Status', 'grcmanager') }}</th><th>{{ __('Latest measurement in the period', 'grcmanager') }}</th></tr></thead>
+        <thead><tr><th>{{ __('Objective', 'grcmanager') }}</th><th>{{ __('Target set', 'grcmanager') }}</th><th>{{ __('Status', 'grcmanager') }}</th><th>{{ __('Latest measurement in the period', 'grcmanager') }}</th></tr></thead>
         <tbody>
           {% for o in d.objectives %}
             {% set tone = o.status == 'achieved' ? 'ok' : (o.status in ['at_risk', 'missed'] ? 'bad' : 'neutral') %}

@@ -579,10 +579,8 @@ class ManagementReviewDossier extends CommonGLPI
     public static function render(ManagementReview $review, string $start, string $end): string
     {
         return TemplateRenderer::getInstance()->render('@grcmanager/pdf/management_review_dossier.html.twig', [
-            'report_title'       => sprintf(
-                __('Management review preparatory file: %s', 'grcmanager'),
-                $review->fields['title']
-            ),
+            // Titre court : l'en-tête fixe du PDF n'a la place que d'une ligne (titre de la revue dans le corps).
+            'report_title'       => __('Management review preparatory file', 'grcmanager'),
             'generated_at_label' => sprintf(
                 __('Generated on %s', 'grcmanager'),
                 Html::convDateTime(date('Y-m-d H:i:s'))

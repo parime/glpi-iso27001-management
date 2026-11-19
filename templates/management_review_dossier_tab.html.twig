@@ -70,6 +70,7 @@
                      <div>
                         <span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-calendar me-1"></i>{{ dossier.period_start|formatted_date }} - {{ dossier.period_end|formatted_date }}</span>
                         <div class="small text-secondary mt-1">{{ __('Generated on %s', 'grcmanager')|format(dossier.date|formatted_datetime) }}{% if dossier.author %} - {{ dossier.author }}{% endif %}</div>
+                        {% if dossier.filename %}<div class="small text-secondary"><i class="ti ti-file-type-pdf me-1"></i>{{ dossier.filename }}</div>{% endif %}
                      </div>
                      {% if dossier.url %}
                         <a href="{{ dossier.url }}" class="btn btn-sm btn-outline-primary text-nowrap"><i class="ti ti-download me-1"></i>{{ __('Download', 'grcmanager') }}</a>
