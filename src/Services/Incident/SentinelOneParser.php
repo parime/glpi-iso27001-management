@@ -121,7 +121,9 @@ final class SentinelOneParser
             'ip'           => self::str($detection, 'agentIpV4'),
             'domain'       => '',
             'url'          => '',
-            'console_url'  => $consoleUrl !== '' ? $consoleUrl . '/incidents/threats/' . rawurlencode($id) . '/overview' : '',
+            'console_url'  => $consoleUrl !== ''
+                ? $consoleUrl . '/incidents/threats/' . rawurlencode($id) . '/overview'
+                : '',
             'status'       => self::str($info, 'incidentStatus'),
         ]);
     }
@@ -147,10 +149,10 @@ final class SentinelOneParser
         $techniques = [];
         $tactics = [];
         foreach (self::list($item, 'mitreTechniques') as $technique) {
-            $techniques[] = is_array($technique) ? self::str($technique, 'name') : (is_scalar($technique) ? (string) $technique : '');
+            $techniques[] = self::nameOf($technique);
         }
         foreach (self::list($item, 'mitreTactics') as $tactic) {
-            $tactics[] = is_array($tactic) ? self::str($tactic, 'name') : (is_scalar($tactic) ? (string) $tactic : '');
+            $tactics[] = self::nameOf($tactic);
         }
 
         return self::bounded([
@@ -225,7 +227,11 @@ final class SentinelOneParser
             'cve'           => $cve,
             'endpoint_id'   => mb_substr(self::str($item, 'endpointId') ?: self::str($item, 'agentId'), 0, 64),
             'endpoint_name' => mb_substr(self::str($item, 'endpointName') ?: self::str($item, 'computerName'), 0, 255),
-            'application'   => mb_substr(self::str($item, 'applicationName') ?: self::str($item, 'application'), 0, 255),
+            'application'   => mb_substr(
+                self::str($item, 'applicationName') ?: self::str($item, 'application'),
+                0,
+                255
+            ),
             'version'       => mb_substr(self::str($item, 'applicationVersion') ?: self::str($item, 'version'), 0, 100),
             'score'         => $score,
             'severity'      => mb_substr(strtolower(self::str($item, 'severity')), 0, 20),
@@ -293,6 +299,16 @@ final class SentinelOneParser
         $clean = static fn (array $values): array => array_values(array_unique(array_filter($values)));
 
         return [$clean($tactics), $clean($techniques)];
+    }
+
+    /** Nom d'une technique ou tactique (objet avec « name », ou simple chaîne). */
+    private static function nameOf(mixed $value): string
+    {
+        if (is_array($value)) {
+            return self::str($value, 'name');
+        }
+
+        return is_scalar($value) ? trim((string) $value) : '';
     }
 
     /**

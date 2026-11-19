@@ -141,8 +141,13 @@ final class SentinelOneConfig
      * jamais réaffiché) ; $clearToken l'efface. Une adresse refusée (pas HTTPS, identifiants dans
      * l'adresse) n'est pas enregistrée : renvoie false.
      */
-    public static function save(bool $enabled, string $url, #[\SensitiveParameter] string $token, bool $clearToken, int $entityId): bool
-    {
+    public static function save(
+        bool $enabled,
+        string $url,
+        #[\SensitiveParameter] string $token,
+        bool $clearToken,
+        int $entityId
+    ): bool {
         $url = trim($url);
         $normalized = $url === '' ? '' : SentinelOneParser::normalizeConsoleUrl($url, Http::allowsPrivateNetworks());
         $values = [

@@ -174,7 +174,10 @@ final class SentinelOneClient
         $transportError = (string) ($result['error'] ?? '');
         if (
             $result['status'] === 0
-            && (str_starts_with($transportError, Http::ERROR_INTERNAL) || str_starts_with($transportError, Http::ERROR_GLPI_CONTEXT))
+            && (
+                str_starts_with($transportError, Http::ERROR_INTERNAL)
+                || str_starts_with($transportError, Http::ERROR_GLPI_CONTEXT)
+            )
         ) {
             $error = self::ERROR_INTERNAL;
         }

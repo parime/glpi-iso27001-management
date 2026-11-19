@@ -24,8 +24,6 @@ use GlpiPlugin\Grcmanager\Services\Incident\SentinelOneParser;
 use GlpiPlugin\Grcmanager\Tests\Mock\MockSentinelOne;
 use PHPUnit\Framework\TestCase;
 
-require_once dirname(__DIR__, 3) . '/mock-sentinelone/MockSentinelOne.php';
-
 /**
  * Issue #707 : client SentinelOne contre la fausse console (en mémoire, aucun appel réseau).
  * Assertions sur des codes et des nombres, jamais sur des textes traduits.
@@ -108,8 +106,9 @@ final class SentinelOneClientTest extends TestCase
 
     public function testMaxPagesStopsAndLeavesTheRestForTheNextRun(): void
     {
-        $fetch = $this->client(MockSentinelOne::VIEWER_TOKEN)->fetchAll('threats', ['limit' => '1'], static function (): void {
-        }, 2);
+        $noop = static function (): void {
+        };
+        $fetch = $this->client(MockSentinelOne::VIEWER_TOKEN)->fetchAll('threats', ['limit' => '1'], $noop, 2);
 
         self::assertFalse($fetch['complete']);
         self::assertSame(2, $fetch['items']);
@@ -119,9 +118,10 @@ final class SentinelOneClientTest extends TestCase
     public function testRateLimitStopsTheListWithItsDelay(): void
     {
         $seen = 0;
-        $fetch = $this->client(MockSentinelOne::RATE_LIMIT_TOKEN)->fetchAll('threats', ['limit' => '2'], static function (array $items) use (&$seen): void {
+        $count = static function (array $items) use (&$seen): void {
             $seen += count($items);
-        });
+        };
+        $fetch = $this->client(MockSentinelOne::RATE_LIMIT_TOKEN)->fetchAll('threats', ['limit' => '2'], $count);
 
         self::assertFalse($fetch['complete']);
         self::assertSame(SentinelOneClient::ERROR_RATE_LIMITED, $fetch['error']);
@@ -152,7 +152,8 @@ final class SentinelOneClientTest extends TestCase
     public function testCreatedAfterFilterReturnsOnlyNewThreats(): void
     {
         $since = SentinelOneParser::apiDate(gmdate('Y-m-d H:i:s', time() - 40 * 3600));
-        $page = $this->client(MockSentinelOne::VIEWER_TOKEN)->page('threats', ['createdAt__gt' => $since, 'limit' => '100']);
+        $page = $this->client(MockSentinelOne::VIEWER_TOKEN)
+            ->page('threats', ['createdAt__gt' => $since, 'limit' => '100']);
 
         self::assertSame('', $page['error']);
         self::assertSame(3, $page['total']);
@@ -160,13 +161,25 @@ final class SentinelOneClientTest extends TestCase
 
     public function testUnreadableAnswerAndUnreachableConsole(): void
     {
-        $garbage = new SentinelOneClient(self::BASE, 't', static fn (): array => ['status' => 200, 'body' => '<html>', 'retry_after' => 0]);
+        $garbage = new SentinelOneClient(
+            self::BASE,
+            't',
+            static fn (): array => ['status' => 200, 'body' => '<html>', 'retry_after' => 0]
+        );
         self::assertSame(SentinelOneClient::ERROR_INVALID, $garbage->page('agents', [])['error']);
 
-        $down = new SentinelOneClient(self::BASE, 't', static fn (): array => ['status' => 0, 'body' => '', 'retry_after' => 0, 'error' => 'transport_error: timeout']);
+        $down = new SentinelOneClient(
+            self::BASE,
+            't',
+            static fn (): array => ['status' => 0, 'body' => '', 'retry_after' => 0, 'error' => 'transport_error: x']
+        );
         self::assertSame(SentinelOneClient::ERROR_UNREACHABLE, $down->page('agents', [])['error']);
 
-        $internal = new SentinelOneClient(self::BASE, 't', static fn (): array => ['status' => 0, 'body' => '', 'retry_after' => 0, 'error' => 'internal_address']);
+        $internal = new SentinelOneClient(
+            self::BASE,
+            't',
+            static fn (): array => ['status' => 0, 'body' => '', 'retry_after' => 0, 'error' => 'internal_address']
+        );
         self::assertSame(SentinelOneClient::ERROR_INTERNAL, $internal->page('agents', [])['error']);
     }
 }

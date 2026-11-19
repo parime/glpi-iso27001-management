@@ -56,7 +56,8 @@ final class SentinelOneEvidenceProvider
             $total = 0;
             $active = 0;
             $covered = [];
-            foreach ($DB->request(['SELECT' => ['is_active', 'computers_id'], 'FROM' => SentinelOneAlert::AGENTS_TABLE]) as $row) {
+            $request = ['SELECT' => ['is_active', 'computers_id'], 'FROM' => SentinelOneAlert::AGENTS_TABLE];
+            foreach ($DB->request($request) as $row) {
                 $total++;
                 if ((int) $row['is_active'] !== 1) {
                     continue;
@@ -71,7 +72,12 @@ final class SentinelOneEvidenceProvider
             return null;
         }
 
-        return WazuhEvidence::coverage($total, $active, count(array_intersect_key($covered, $computerIds)), count($computerIds));
+        return WazuhEvidence::coverage(
+            $total,
+            $active,
+            count(array_intersect_key($covered, $computerIds)),
+            count($computerIds)
+        );
     }
 
     /**
@@ -97,7 +103,9 @@ final class SentinelOneEvidenceProvider
             if ($visible !== []) {
                 foreach (
                     $DB->request([
-                        'SELECT' => ['cve_id', 'computers_id', 'score', 'severity', 'application', 'version', 'date_mod'],
+                        'SELECT' => [
+                            'cve_id', 'computers_id', 'score', 'severity', 'application', 'version', 'date_mod',
+                        ],
                         'FROM'   => SentinelOneAlert::VULNERABILITIES_TABLE,
                         'WHERE'  => ['computers_id' => array_keys($visible)],
                     ]) as $row
@@ -113,7 +121,8 @@ final class SentinelOneEvidenceProvider
                     $updated = max($updated, (string) $row['date_mod']);
                 }
             }
-            if ($findings === [] && $DB->request(['FROM' => SentinelOneAlert::VULNERABILITIES_TABLE, 'LIMIT' => 1])->count() === 0) {
+            $any = $DB->request(['FROM' => SentinelOneAlert::VULNERABILITIES_TABLE, 'LIMIT' => 1])->count() > 0;
+            if ($findings === [] && !$any) {
                 // Rien lu (licence sans ce module) : pas de section vide trompeuse.
                 return null;
             }

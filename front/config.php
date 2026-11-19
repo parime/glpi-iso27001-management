@@ -183,7 +183,11 @@ if (isset($_POST['update_breach_config']) || isset($_POST['test_breach_config'])
 
 // Issue #707 : connecteur SentinelOne en lecture seule. Réglage réservé au droit de modifier la
 // configuration du plugin ; le jeton n'est jamais renvoyé au navigateur ni écrit dans un journal.
-if (isset($_POST['update_sentinelone_config']) || isset($_POST['test_sentinelone_config']) || isset($_POST['fetch_sentinelone_now'])) {
+if (
+    isset($_POST['update_sentinelone_config'])
+    || isset($_POST['test_sentinelone_config'])
+    || isset($_POST['fetch_sentinelone_now'])
+) {
     Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
 
     if (isset($_POST['update_sentinelone_config'])) {
@@ -206,24 +210,32 @@ if (isset($_POST['update_sentinelone_config']) || isset($_POST['test_sentinelone
         // La tâche automatique suit l'interrupteur : désactivée tant que le connecteur l'est.
         SentinelOneAlert::syncCronState(SentinelOneConfig::isEnabled());
         $changes = array_filter([
-            'sentinelone_enabled' => $wasEnabled !== SentinelOneConfig::isEnabled() ? (int) SentinelOneConfig::isEnabled() : null,
+            'sentinelone_enabled' => $wasEnabled !== SentinelOneConfig::isEnabled()
+                ? (int) SentinelOneConfig::isEnabled()
+                : null,
             'sentinelone_url'     => $previousUrl !== SentinelOneConfig::rawUrl() ? SentinelOneConfig::rawUrl() : null,
             // Jeton : seulement le fait qu'il ait changé, jamais sa valeur.
             'sentinelone_token'   => trim((string) ($_POST['sentinelone_api_token'] ?? '')) !== ''
                 || ($hadToken && !SentinelOneConfig::hasToken()) ? 'changed' : null,
         ], static fn ($value): bool => $value !== null);
         if ($changes !== []) {
-            \GlpiPlugin\Grcmanager\AuditLog::record('config_change', 'Config', 0, 0, 'success', ['changes' => $changes]);
+            \GlpiPlugin\Grcmanager\AuditLog::record('config_change', 'Config', 0, 0, 'success', [
+                'changes' => $changes,
+            ]);
         }
     } elseif (!SentinelOneConfig::isConfigured()) {
-        Session::addMessageAfterRedirect(htmlescape(__('Enter the console address and the API token first.', 'grcmanager')), false, ERROR);
+        Session::addMessageAfterRedirect(htmlescape(__(
+            'Enter the console address and the API token first.',
+            'grcmanager'
+        )), false, ERROR);
     } elseif (isset($_POST['test_sentinelone_config'])) {
         $test = SentinelOneConfig::client()->testConnection();
         if (!$test['ok']) {
             Session::addMessageAfterRedirect(htmlescape(SentinelOneAlert::errorLabel($test['error'])), false, ERROR);
         } elseif ($test['empty']) {
             Session::addMessageAfterRedirect(htmlescape(__(
-                'Connection accepted, but the token sees no agent and no threat: check that its user has the Viewer role on the right accounts or sites.',
+                'Connection accepted, but the token sees no agent and no threat: check '
+                    . 'that its user has the Viewer role on the right accounts or sites.',
                 'grcmanager'
             )), false, WARNING);
         } else {
@@ -240,9 +252,16 @@ if (isset($_POST['update_sentinelone_config']) || isset($_POST['test_sentinelone
     } else {
         // Lecture demandée par un administrateur : même passage que la tâche automatique.
         $steps = SentinelOneAlert::synchronize(SentinelOneConfig::client());
-        $errors = array_filter(array_column($steps, 'error'), static fn (string $error): bool => $error !== '' && $error !== SentinelOneAlert::SKIPPED);
+        $errors = array_filter(
+            array_column($steps, 'error'),
+            static fn (string $error): bool => $error !== '' && $error !== SentinelOneAlert::SKIPPED
+        );
         Session::addMessageAfterRedirect(htmlescape(sprintf(
-            __('SentinelOne read: %1$d new alert(s) to review, %2$d agent(s), %3$d application vulnerabilities.', 'grcmanager'),
+            __(
+                'SentinelOne read: %1$d new alert(s) to review, %2$d agent(s), %3$d '
+                    . 'application vulnerabilities.',
+                'grcmanager'
+            ),
             $steps['threats']['new'] + $steps['alerts']['new'],
             $steps['agents']['items'],
             $steps['vulnerabilities']['items']

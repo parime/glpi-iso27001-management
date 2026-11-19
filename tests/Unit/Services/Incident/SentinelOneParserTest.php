@@ -24,8 +24,6 @@ use GlpiPlugin\Grcmanager\Services\Incident\SentinelOneParser;
 use GlpiPlugin\Grcmanager\Tests\Mock\MockSentinelOne;
 use PHPUnit\Framework\TestCase;
 
-require_once dirname(__DIR__, 3) . '/mock-sentinelone/MockSentinelOne.php';
-
 /**
  * Issue #707 : lecture des réponses de SentinelOne (données fictives de la fausse console).
  */
@@ -51,7 +49,10 @@ final class SentinelOneParserTest extends TestCase
             'https://euce1-100.sentinelone.net',
             SentinelOneParser::normalizeConsoleUrl(' https://EUCE1-100.sentinelone.net/web/api/v2.1/?x=1 ')
         );
-        self::assertSame('https://console.example.test:8443', SentinelOneParser::normalizeConsoleUrl('https://console.example.test:8443/'));
+        self::assertSame(
+            'https://console.example.test:8443',
+            SentinelOneParser::normalizeConsoleUrl('https://console.example.test:8443/')
+        );
         self::assertNull(SentinelOneParser::normalizeConsoleUrl('http://console.example.test'));
         self::assertSame('http://mock:8099', SentinelOneParser::normalizeConsoleUrl('http://mock:8099', true));
         self::assertNull(SentinelOneParser::normalizeConsoleUrl('https://user:secret@console.example.test'));
@@ -72,7 +73,10 @@ final class SentinelOneParserTest extends TestCase
         self::assertSame(str_repeat('a1', 32), $threat['sha256']);
         self::assertSame('T1204.002, T1547.001', $threat['technique']);
         self::assertSame('major', EdrCsvImport::severity($threat['severity']));
-        self::assertSame('https://console.example.test/incidents/threats/1950000000000000101/overview', $threat['console_url']);
+        self::assertSame(
+            'https://console.example.test/incidents/threats/1950000000000000101/overview',
+            $threat['console_url']
+        );
         self::assertNotNull(EdrCsvImport::parseDate($threat['detected_at']));
     }
 
@@ -139,7 +143,9 @@ final class SentinelOneParserTest extends TestCase
     {
         self::assertNull(SentinelOneParser::page('not json'));
         self::assertNull(SentinelOneParser::page('{"errors": []}'));
-        $page = SentinelOneParser::page('{"data": [{"id": "1"}, "x"], "pagination": {"nextCursor": "abc", "totalItems": 7}}');
+        $page = SentinelOneParser::page(
+            '{"data": [{"id": "1"}, "x"], "pagination": {"nextCursor": "abc", "totalItems": 7}}'
+        );
         self::assertNotNull($page);
         self::assertCount(1, $page['items']);
         self::assertSame('abc', $page['next_cursor']);

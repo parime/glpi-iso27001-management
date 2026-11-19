@@ -29,8 +29,6 @@ use GlpiPlugin\Grcmanager\Tests\Mock\MockSentinelOne;
 use PluginGrcmanagerSecurityIncident;
 use PluginGrcmanagerSecurityIncident_Item;
 
-require_once dirname(__DIR__) . '/mock-sentinelone/MockSentinelOne.php';
-
 /**
  * Issue #707 : connecteur SentinelOne contre la fausse console (en mémoire). Propositions sans
  * création automatique, absence de doublon, rapprochement par numéro de série ou nom exact,
@@ -48,7 +46,10 @@ final class SentinelOneConnectorTest extends GrcmanagerIntegrationTestCase
     {
         parent::setUp();
         global $DB;
-        foreach ([SentinelOneAlert::getTable(), SentinelOneAlert::AGENTS_TABLE, SentinelOneAlert::VULNERABILITIES_TABLE] as $table) {
+        $tables = [
+            SentinelOneAlert::getTable(), SentinelOneAlert::AGENTS_TABLE, SentinelOneAlert::VULNERABILITIES_TABLE,
+        ];
+        foreach ($tables as $table) {
             $DB->delete($table, ['id' => ['>', 0]]);
         }
         \Config::setConfigurationValues(SentinelOneConfig::CONTEXT, [
@@ -101,8 +102,14 @@ final class SentinelOneConnectorTest extends GrcmanagerIntegrationTestCase
         // Aucune création automatique.
         self::assertSame($incidentsBefore, countElementsInTable(PluginGrcmanagerSecurityIncident::getTable()));
         // Rapprochement par numéro de série, même avec un autre nom.
-        self::assertSame(1, countElementsInTable(SentinelOneAlert::AGENTS_TABLE, ['computers_id' => $bySerial, 'agent_id' => '1900000000000000002']));
-        self::assertSame(1, countElementsInTable(SentinelOneAlert::getTable(), ['external_id' => '1950000000000000102', 'computers_id' => $bySerial]));
+        self::assertSame(1, countElementsInTable(SentinelOneAlert::AGENTS_TABLE, [
+            'computers_id' => $bySerial,
+            'agent_id'     => '1900000000000000002',
+        ]));
+        self::assertSame(1, countElementsInTable(SentinelOneAlert::getTable(), [
+            'external_id'  => '1950000000000000102',
+            'computers_id' => $bySerial,
+        ]));
         // Uniquement des lectures.
         self::assertSame(['GET'], array_values(array_unique($this->methods)));
 
@@ -134,7 +141,8 @@ final class SentinelOneConnectorTest extends GrcmanagerIntegrationTestCase
             'itemtype' => Computer::class,
             'items_id' => $computerId,
         ]));
-        self::assertSame(1, countElementsInTable(SecurityIncidentEdrImport::getAlertsTable(), ['alert_id' => '1950000000000000102']));
+        $alerts = SecurityIncidentEdrImport::getAlertsTable();
+        self::assertSame(1, countElementsInTable($alerts, ['alert_id' => '1950000000000000102']));
         $proposal->getFromDB($proposal->getID());
         self::assertSame(SentinelOneAlert::STATUS_IMPORTED, $proposal->fields['status']);
 
@@ -159,7 +167,8 @@ final class SentinelOneConnectorTest extends GrcmanagerIntegrationTestCase
 
         SentinelOneAlert::synchronize($this->client(MockSentinelOne::VIEWER_TOKEN));
 
-        self::assertSame(0, countElementsInTable(SentinelOneAlert::getTable(), ['external_id' => '1950000000000000101']));
+        $table = SentinelOneAlert::getTable();
+        self::assertSame(0, countElementsInTable($table, ['external_id' => '1950000000000000101']));
         self::assertSame(6, $this->pendingCount());
     }
 
@@ -221,13 +230,19 @@ final class SentinelOneConnectorTest extends GrcmanagerIntegrationTestCase
         $entityA = $this->createTestEntity(0, 'Entité S1 A ' . random_int(1000, 9999));
         $entityB = $this->createTestEntity(0, 'Entité S1 B ' . random_int(1000, 9999));
         $this->computer('PORTABLE-RH-' . random_int(1000, 9999), 'SN-FICTIF-RH-01', $entityA);
-        \Config::setConfigurationValues(SentinelOneConfig::CONTEXT, [SentinelOneConfig::ENTITY_KEY => (string) $entityB]);
+        \Config::setConfigurationValues(SentinelOneConfig::CONTEXT, [
+            SentinelOneConfig::ENTITY_KEY => (string) $entityB,
+        ]);
 
         SentinelOneAlert::synchronize($this->client(MockSentinelOne::VIEWER_TOKEN));
         self::assertSame(1, countElementsInTable(SentinelOneAlert::getTable(), ['entities_id' => $entityA]));
 
         // Session limitée à l'entité B : la proposition de l'entité A n'est ni vue ni importable.
-        $saved = [$_SESSION['glpiactiveentities'], $_SESSION['glpiactiveentities_string'], $_SESSION['glpiactive_entity']];
+        $saved = [
+            $_SESSION['glpiactiveentities'],
+            $_SESSION['glpiactiveentities_string'],
+            $_SESSION['glpiactive_entity'],
+        ];
         $_SESSION['glpiactiveentities'] = [$entityB];
         $_SESSION['glpiactiveentities_string'] = "'" . $entityB . "'";
         $_SESSION['glpiactive_entity'] = $entityB;
@@ -235,7 +250,10 @@ final class SentinelOneConnectorTest extends GrcmanagerIntegrationTestCase
             $pending = SentinelOneAlert::pendingForCurrentUser();
             self::assertNotContains($entityA, array_map('intval', array_column($pending['rows'], 'entities_id')));
             self::assertSame(
-                countElementsInTable(SentinelOneAlert::getTable(), ['entities_id' => $entityB, 'status' => SentinelOneAlert::STATUS_PENDING]),
+                countElementsInTable(SentinelOneAlert::getTable(), [
+                    'entities_id' => $entityB,
+                    'status'      => SentinelOneAlert::STATUS_PENDING,
+                ]),
                 $pending['total']
             );
             self::assertGreaterThan(0, $pending['total']);
@@ -248,14 +266,19 @@ final class SentinelOneConnectorTest extends GrcmanagerIntegrationTestCase
 
             // Une proposition de l'entité B devient un incident de l'entité B.
             $inB = new SentinelOneAlert();
-            self::assertTrue($inB->getFromDBByCrit(['entities_id' => $entityB, 'status' => SentinelOneAlert::STATUS_PENDING]));
+            self::assertTrue($inB->getFromDBByCrit([
+                'entities_id' => $entityB,
+                'status'      => SentinelOneAlert::STATUS_PENDING,
+            ]));
             $created = SentinelOneAlert::importProposals([(int) $inB->getID()])['created'];
             self::assertCount(1, $created);
             $incident = new PluginGrcmanagerSecurityIncident();
             self::assertTrue($incident->getFromDB($created[0]));
             self::assertSame($entityB, (int) $incident->fields['entities_id']);
         } finally {
-            [$_SESSION['glpiactiveentities'], $_SESSION['glpiactiveentities_string'], $_SESSION['glpiactive_entity']] = $saved;
+            $_SESSION['glpiactiveentities'] = $saved[0];
+            $_SESSION['glpiactiveentities_string'] = $saved[1];
+            $_SESSION['glpiactive_entity'] = $saved[2];
         }
     }
 

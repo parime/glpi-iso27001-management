@@ -25,7 +25,7 @@
  * jeton) est ajoutée à ce fichier : le jeton lui-même n'est jamais écrit.
  */
 
-require_once __DIR__ . '/MockSentinelOne.php';
+require_once dirname(__DIR__) . '/Unit/Mock/MockSentinelOne.php';
 
 $path = (string) parse_url((string) $_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $query = [];

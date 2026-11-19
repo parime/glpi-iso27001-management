@@ -162,7 +162,7 @@ class SentinelOneAlert extends SentinelOneAlertBase
 
         $seen = [];
         $new = 0;
-        $fetch = $client->fetchAll('agents', ['limit' => '1000'], static function (array $items) use (&$seen, &$new, $DB): void {
+        $onItems = static function (array $items) use (&$seen, &$new, $DB): void {
             foreach ($items as $item) {
                 $agent = SentinelOneParser::agent($item);
                 if ($agent === null) {
@@ -178,7 +178,7 @@ class SentinelOneAlert extends SentinelOneAlertBase
                     'is_active'     => $agent['is_active'] ? 1 : 0,
                     'last_active'   => EdrCsvImport::parseDate($agent['last_active']),
                     'computers_id'  => $computerId,
-                    'entities_id'   => $computerId > 0 ? self::entityOfComputer($computerId) : SentinelOneConfig::entityId(),
+                    'entities_id'   => self::entityFor($computerId),
                     'date_mod'      => $_SESSION['glpi_currenttime'] ?? date('Y-m-d H:i:s'),
                 ];
                 $existing = $DB->request([
@@ -195,13 +195,19 @@ class SentinelOneAlert extends SentinelOneAlertBase
                     $new++;
                 }
             }
-        });
+        };
+        $fetch = $client->fetchAll('agents', ['limit' => '1000'], $onItems);
         // Liste complète : les agents disparus de la console sont oubliés.
         if ($fetch['complete']) {
             $DB->delete(self::AGENTS_TABLE, $seen === [] ? ['id' => ['>', 0]] : ['NOT' => ['id' => $seen]]);
         }
 
-        return ['items' => $fetch['items'], 'new' => $new, 'complete' => $fetch['complete'], 'error' => $fetch['error']];
+        return [
+            'items'    => $fetch['items'],
+            'new'      => $new,
+            'complete' => $fetch['complete'],
+            'error'    => $fetch['error'],
+        ];
     }
 
     /**
@@ -229,7 +235,9 @@ class SentinelOneAlert extends SentinelOneAlertBase
                     if ($proposal === null) {
                         continue;
                     }
-                    $created = $proposal['detected_at'] !== '' ? SentinelOneParser::apiDate($proposal['detected_at']) : '';
+                    $created = $proposal['detected_at'] !== ''
+                        ? SentinelOneParser::apiDate($proposal['detected_at'])
+                        : '';
                     if ($created !== '') {
                         $ordered = $ordered && strcmp($created, $latest) >= 0;
                         $latest = strcmp($created, $latest) > 0 ? $created : $latest;
@@ -244,7 +252,12 @@ class SentinelOneAlert extends SentinelOneAlertBase
             SentinelOneConfig::setSince($list, $latest);
         }
 
-        return ['items' => $fetch['items'], 'new' => $new, 'complete' => $fetch['complete'], 'error' => $fetch['error']];
+        return [
+            'items'    => $fetch['items'],
+            'new'      => $new,
+            'complete' => $fetch['complete'],
+            'error'    => $fetch['error'],
+        ];
     }
 
     /**
@@ -271,14 +284,18 @@ class SentinelOneAlert extends SentinelOneAlertBase
         return $DB->insert(self::getTable(), [
             'external_id'   => $alertId,
             'kind'          => $proposal['kind'] === 'alert' ? 'alert' : 'threat',
-            'name'          => mb_substr($proposal['title'] !== '' ? $proposal['title'] : 'SentinelOne: ' . $proposal['hostname'], 0, 255),
+            'name'          => mb_substr(
+                $proposal['title'] !== '' ? $proposal['title'] : 'SentinelOne: ' . $proposal['hostname'],
+                0,
+                255
+            ),
             'detected_at'   => EdrCsvImport::parseDate($proposal['detected_at']),
             'severity'      => EdrCsvImport::severity($proposal['severity']),
             'hostname'      => mb_substr($proposal['hostname'], 0, 255),
             'username'      => mb_substr($proposal['username'], 0, 255),
             'agent_id'      => mb_substr($proposal['agent_id'], 0, 64),
             'computers_id'  => $computerId,
-            'entities_id'   => $computerId > 0 ? self::entityOfComputer($computerId) : SentinelOneConfig::entityId(),
+            'entities_id'   => self::entityFor($computerId),
             'data'          => (string) json_encode($proposal, JSON_UNESCAPED_UNICODE),
             'status'        => self::STATUS_PENDING,
             'date_creation' => $_SESSION['glpi_currenttime'] ?? date('Y-m-d H:i:s'),
@@ -298,13 +315,16 @@ class SentinelOneAlert extends SentinelOneAlertBase
 
         $seen = [];
         $new = 0;
-        $fetch = $client->fetchAll('vulnerabilities', ['limit' => '1000'], static function (array $items) use (&$seen, &$new, $DB): void {
+        $onItems = static function (array $items) use (&$seen, &$new, $DB): void {
             foreach ($items as $item) {
                 $finding = SentinelOneParser::vulnerability($item);
                 if ($finding === null) {
                     continue;
                 }
-                $key = sha1(implode('|', [$finding['cve'], $finding['endpoint_id'], $finding['endpoint_name'], $finding['application'], $finding['version']]));
+                $key = sha1(implode('|', [
+                    $finding['cve'], $finding['endpoint_id'], $finding['endpoint_name'],
+                    $finding['application'], $finding['version'],
+                ]));
                 $computerId = self::computerOfAgent($finding['endpoint_id']);
                 if ($computerId === 0) {
                     $computerId = self::matchComputer($finding['endpoint_name'], '');
@@ -321,7 +341,11 @@ class SentinelOneAlert extends SentinelOneAlertBase
                     'computers_id'  => $computerId,
                     'date_mod'      => $_SESSION['glpi_currenttime'] ?? date('Y-m-d H:i:s'),
                 ];
-                $existing = $DB->request(['SELECT' => ['id'], 'FROM' => self::VULNERABILITIES_TABLE, 'WHERE' => ['unicity' => $key]])->current();
+                $existing = $DB->request([
+                    'SELECT' => ['id'],
+                    'FROM'   => self::VULNERABILITIES_TABLE,
+                    'WHERE'  => ['unicity' => $key],
+                ])->current();
                 if ($existing !== null) {
                     $DB->update(self::VULNERABILITIES_TABLE, $row, ['id' => (int) $existing['id']]);
                     $seen[] = (int) $existing['id'];
@@ -331,12 +355,18 @@ class SentinelOneAlert extends SentinelOneAlertBase
                     $new++;
                 }
             }
-        });
+        };
+        $fetch = $client->fetchAll('vulnerabilities', ['limit' => '1000'], $onItems);
         if ($fetch['complete']) {
             $DB->delete(self::VULNERABILITIES_TABLE, $seen === [] ? ['id' => ['>', 0]] : ['NOT' => ['id' => $seen]]);
         }
 
-        return ['items' => $fetch['items'], 'new' => $new, 'complete' => $fetch['complete'], 'error' => $fetch['error']];
+        return [
+            'items'    => $fetch['items'],
+            'new'      => $new,
+            'complete' => $fetch['complete'],
+            'error'    => $fetch['error'],
+        ];
     }
 
     /**
@@ -381,7 +411,8 @@ class SentinelOneAlert extends SentinelOneAlertBase
         global $DB;
 
         $ids = [];
-        foreach ($DB->request(['SELECT' => ['id'], 'FROM' => Computer::getTable(), 'WHERE' => $criteria, 'LIMIT' => 2]) as $row) {
+        $request = ['SELECT' => ['id'], 'FROM' => Computer::getTable(), 'WHERE' => $criteria, 'LIMIT' => 2];
+        foreach ($DB->request($request) as $row) {
             $ids[] = (int) $row['id'];
         }
 
@@ -404,11 +435,19 @@ class SentinelOneAlert extends SentinelOneAlertBase
         return (int) ($row['computers_id'] ?? 0);
     }
 
+    /** Entité d'un ordinateur reconnu, sinon l'entité choisie dans la configuration. */
+    private static function entityFor(int $computerId): int
+    {
+        return $computerId > 0 ? self::entityOfComputer($computerId) : SentinelOneConfig::entityId();
+    }
+
     private static function entityOfComputer(int $computerId): int
     {
         $computer = new Computer();
 
-        return $computer->getFromDB($computerId) ? (int) $computer->fields['entities_id'] : SentinelOneConfig::entityId();
+        return $computer->getFromDB($computerId)
+            ? (int) $computer->fields['entities_id']
+            : SentinelOneConfig::entityId();
     }
 
     /**
@@ -630,13 +669,41 @@ class SentinelOneAlert extends SentinelOneAlertBase
     public static function errorLabel(string $error): string
     {
         return match ($error) {
-            SentinelOneClient::ERROR_UNAUTHORIZED => __('SentinelOne refused the API token (401): check that it is valid and has not expired.', 'grcmanager'),
-            SentinelOneClient::ERROR_FORBIDDEN    => __('The API token is not allowed to read this information (403): give it the Viewer role on the accounts or sites to read, or check the licence.', 'grcmanager'),
-            SentinelOneClient::ERROR_NOT_FOUND    => __('This information is not available on this console (404): it may not be included in the licence.', 'grcmanager'),
-            SentinelOneClient::ERROR_RATE_LIMITED => __('SentinelOne limits the number of requests (429): the next run resumes where this one stopped.', 'grcmanager'),
-            SentinelOneClient::ERROR_UNREACHABLE  => __('The SentinelOne console could not be reached: check its address, the GLPI proxy and, for an internal address, the setting that allows them.', 'grcmanager'),
-            SentinelOneClient::ERROR_INTERNAL     => __('The console address is an internal address, refused by default: an administrator can allow internal addresses in this configuration page.', 'grcmanager'),
-            SentinelOneClient::ERROR_INVALID      => __('The SentinelOne console sent an unexpected answer: check the console address.', 'grcmanager'),
+            SentinelOneClient::ERROR_UNAUTHORIZED => __(
+                'SentinelOne refused the API token (401): check that it is valid and has '
+                    . 'not expired.',
+                'grcmanager'
+            ),
+            SentinelOneClient::ERROR_FORBIDDEN    => __(
+                'The API token is not allowed to read this information (403): give it the '
+                    . 'Viewer role on the accounts or sites to read, or check the licence.',
+                'grcmanager'
+            ),
+            SentinelOneClient::ERROR_NOT_FOUND    => __(
+                'This information is not available on this console (404): it may not be '
+                    . 'included in the licence.',
+                'grcmanager'
+            ),
+            SentinelOneClient::ERROR_RATE_LIMITED => __(
+                'SentinelOne limits the number of requests (429): the next run resumes '
+                    . 'where this one stopped.',
+                'grcmanager'
+            ),
+            SentinelOneClient::ERROR_UNREACHABLE  => __(
+                'The SentinelOne console could not be reached: check its address, the '
+                    . 'GLPI proxy and, for an internal address, the setting that allows them.',
+                'grcmanager'
+            ),
+            SentinelOneClient::ERROR_INTERNAL     => __(
+                'The console address is an internal address, refused by default: an '
+                    . 'administrator can allow internal addresses in this configuration page.',
+                'grcmanager'
+            ),
+            SentinelOneClient::ERROR_INVALID      => __(
+                'The SentinelOne console sent an unexpected answer: check the console '
+                    . 'address.',
+                'grcmanager'
+            ),
             self::SKIPPED            => __('Not read during this run: an earlier step stopped it.', 'grcmanager'),
             ''                       => '',
             default                  => __('The SentinelOne console returned an error.', 'grcmanager'),
@@ -651,7 +718,8 @@ class SentinelOneAlert extends SentinelOneAlertBase
         $task = new CronTask();
         if ($task->getFromDBbyName(self::class, 'sentinelone')) {
             $state = $enabled ? CronTask::STATE_WAITING : CronTask::STATE_DISABLE;
-            if ((int) $task->fields['state'] !== $state && !($enabled && (int) $task->fields['state'] === CronTask::STATE_RUNNING)) {
+            $current = (int) $task->fields['state'];
+            if ($current !== $state && !($enabled && $current === CronTask::STATE_RUNNING)) {
                 $task->update(['id' => $task->getID(), 'state' => $state]);
             }
         }
@@ -683,7 +751,10 @@ class SentinelOneAlert extends SentinelOneAlertBase
             'review_url'   => $pending > 0 ? SecurityIncidentEdrImport::getImportURL() . '#grc-sentinelone-review' : '',
             'agents'       => $tablesReady ? self::unmatchedAgents() : ['rows' => [], 'total' => 0, 'agents' => 0],
             'step_labels'  => self::getStepLabels(),
-            'error_labels' => array_combine(self::ERROR_CODES, array_map([self::class, 'errorLabel'], self::ERROR_CODES)),
+            'error_labels' => array_combine(
+                self::ERROR_CODES,
+                array_map([self::class, 'errorLabel'], self::ERROR_CODES)
+            ),
         ];
     }
 
