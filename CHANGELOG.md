@@ -7,6 +7,34 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+### Added
+
+- **Grille d'audit interne par exigence et couverture du programme d'audit** (issue #606,
+  ISO 27001, clause 9.2). Nouvel onglet « Grille d'audit » sur chaque audit interne.
+  - Lignes générées depuis les exigences du SMSI (articles 4 à 10), les mesures applicables de la
+    SoA de l'entité de l'audit (celles du périmètre de l'audit présélectionnées) ou les exigences
+    d'un référentiel personnalisé activé, ou ajoutées à la main (point libre).
+  - Pour chaque ligne : question posée, audité (utilisateur GLPI), preuves examinées (texte et
+    documents de l'onglet Documents de l'audit), résultat (conforme, non-conformité mineure ou
+    majeure, observation, piste d'amélioration, non audité) et commentaire ; avancement et
+    compteurs par résultat.
+  - « Créer le constat » sur une non-conformité, une observation ou une piste d'amélioration ouvre
+    une non-conformité pré-remplie (audit, type, gravité, exigence, question, preuves) que
+    l'utilisateur relit et enregistre lui-même ; la ligne y est alors liée, et la fiche du constat
+    renvoie vers sa ligne de grille. Une ligne peut aussi être liée à un constat existant de l'audit.
+    Rien n'est créé ni modifié automatiquement.
+  - Modèles de grille réutilisables (exigences et questions, jamais les réponses) : enregistrer la
+    grille comme modèle, ajouter les lignes d'un modèle à un autre audit, supprimer un modèle.
+  - Page « Couverture du programme d'audit » (bouton de la liste des audits et de l'onglet) : pour
+    chaque exigence du SMSI et chaque mesure applicable, date et résultat du dernier audit, celles
+    jamais auditées sur la période (1 à 10 ans, 3 par défaut) en tête.
+  - Grille incluse dans le rapport PDF de l'audit (archivé à la clôture), et rapport téléchargeable
+    à tout moment depuis l'onglet.
+  - Mêmes règles d'accès que les documents de l'audit : équipe de l'audit et groupe RSSI ; la
+    modifier exige en plus le droit de modifier l'audit. La grille est figée une fois l'audit
+    terminé ou annulé. Pas de nouvelle entrée de menu ; désinstallation complète. Traductions dans
+    les 7 langues, tests unitaires, d'intégration et matrice d'accès.
+
 ## [2.56.0] - 2026-11-19
 
 ### Added

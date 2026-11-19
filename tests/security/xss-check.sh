@@ -101,6 +101,9 @@ check "onglet registre DORA d'un fournisseur" "$(tab Supplier 'GlpiPlugin%5CGrcm
 check "onglet fonction DORA d'un processus"   "$(tab 'GlpiPlugin%5CGrcmanager%5CBusinessProcess' 'GlpiPlugin%5CGrcmanager%5CDoraRegister$3' "$(xid process)")"
 # Issue #538 : demande de preuve piegee (onglet de l'audit, page de la personne designee, espace
 # auditeur et sa liste).
+# Issue #606 : ligne de grille et modele pieges (onglet de l'audit et page de couverture).
+check "onglet grille d'un audit"              "$(tab 'GlpiPlugin%5CGrcmanager%5CAudit' 'GlpiPlugin%5CGrcmanager%5CAuditChecklist$1' "$(xid audit)")"
+check "couverture du programme d'audit"      "$P/auditcoverage.php"
 check "onglet demandes de preuves d'un audit" "$(tab 'GlpiPlugin%5CGrcmanager%5CAudit' 'GlpiPlugin%5CGrcmanager%5CAuditEvidenceRequest$1' "$(xid audit)")"
 check "mes demandes de preuves"               "$P/auditevidencerequest.mine.php"
 check "espace auditeur d'un audit"            "$P/auditorspace.php?id=$(xid audit)"
