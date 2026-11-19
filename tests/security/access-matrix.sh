@@ -115,9 +115,9 @@ create_attempts() { # code attendu, code attendu pour la classification (404 san
   # Issue #542 : generer le dossier preparatoire d'une revue de direction (document joint) et creer
   # les actions a partir de ses decisions exigent de pouvoir modifier la revue.
   expect "front/managementreview.dossier.php : generer le dossier" "$1" \
-    "$(code -d "generate=1&id=$(id review)&period_start=2026-01-01&period_end=2026-06-30&_glpi_csrf_token=$(csrf)" "$P/managementreview.dossier.php")"
+    "$(code -d "generate=1&id=$(id mreview)&period_start=2026-01-01&period_end=2026-06-30&_glpi_csrf_token=$(csrf)" "$P/managementreview.dossier.php")"
   expect "front/managementreviewaction.form.php : actions depuis les decisions" "$1" \
-    "$(code -d "from_decisions=1&plugin_grcmanager_managementreviews_id=$(id review)&_glpi_csrf_token=$(csrf)" "$P/managementreviewaction.form.php")"
+    "$(code -d "from_decisions=1&plugin_grcmanager_managementreviews_id=$(id mreview)&_glpi_csrf_token=$(csrf)" "$P/managementreviewaction.form.php")"
   # Issue #537 : analyser un fichier, confirmer un import, et modifier un referentiel personnalise
   # (statuts, description, activation, suppression) sont refuses sans droit comme en lecture seule.
   expect "front/customframework.php : analyser un fichier" "$1" \
@@ -455,11 +455,11 @@ if [ "$ROLE" = admin ]; then
   # Issue #542 : dossier preparatoire de la revue de direction : refuse sans jeton CSRF, genere avec,
   # puis liste sur l'onglet de la revue avec son empreinte.
   expect "front/managementreview.dossier.php : sans jeton CSRF" 403 \
-    "$(code -d "generate=1&id=$(id review)&period_start=2026-01-01&period_end=2026-06-30" "$P/managementreview.dossier.php")"
+    "$(code -d "generate=1&id=$(id mreview)&period_start=2026-01-01&period_end=2026-06-30" "$P/managementreview.dossier.php")"
   expect "front/managementreview.dossier.php : generer le dossier" 302 \
-    "$(code -d "generate=1&id=$(id review)&period_start=2026-01-01&period_end=2026-06-30&_glpi_csrf_token=$(csrf)" "$P/managementreview.dossier.php")"
+    "$(code -d "generate=1&id=$(id mreview)&period_start=2026-01-01&period_end=2026-06-30&_glpi_csrf_token=$(csrf)" "$P/managementreview.dossier.php")"
   contains "onglet Dossier preparatoire : empreinte du dossier archive" 'dossier-revue-direction' oui \
-    "$(tab GlpiPlugin%5CGrcmanager%5CManagementReview 'GlpiPlugin%5CGrcmanager%5CManagementReviewDossier$1' "$(id review)")"
+    "$(tab GlpiPlugin%5CGrcmanager%5CManagementReview 'GlpiPlugin%5CGrcmanager%5CManagementReviewDossier$1' "$(id mreview)")"
   # Issue #380 : reglage du rappel des tests d'efficacite au groupe RSSI. Sans jeton CSRF, refuse
   # et inchange ; avec, enregistre ; une valeur inconnue revient au reglage par defaut.
   expect "front/config.php : rappel des tests, sans jeton CSRF" 403 \
