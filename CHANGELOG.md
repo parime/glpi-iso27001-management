@@ -9,6 +9,24 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Connecteur SentinelOne en lecture seule** (issue #707, demande d'un utilisateur).
+  - Carte « Connecteur SentinelOne » dans la configuration du plugin : adresse de la console
+    (HTTPS), jeton d'API chiffré avec la clé de GLPI (jamais réaffiché ni journalisé), entité des
+    alertes sans ordinateur reconnu, bouton « Tester la connexion » (avertissement si le jeton ne
+    voit rien), bouton « Lire maintenant », bilan de la dernière lecture et agents non rapprochés.
+  - Tâche automatique « sentinelone » (chaque heure), désactivée par défaut et activée avec le
+    connecteur : agents, nouvelles menaces et alertes depuis la dernière lecture (pagination par
+    curseur), vulnérabilités applicatives si la licence les fournit. Les erreurs 401, 403, 404 et
+    429 ne bloquent rien ; la lecture reprend au passage suivant.
+  - Les menaces et alertes sont proposées dans l'écran d'import EDR : un incident n'est créé que
+    pour les alertes cochées, avec le même traitement qu'une ligne de fichier CSV (indicateurs,
+    techniques MITRE ATT&CK, ordinateur rattaché par numéro de série ou nom exact). Aucun doublon,
+    y compris avec un import CSV ; cloisonnement par entité.
+  - Vulnérabilités applicatives sur la page des vulnérabilités du parc (source indiquée), couverture
+    des agents sur les mesures A.8.16 et A.8.7.
+  - Lecture seule stricte : seules des requêtes GET sur une liste fermée de chemins ; aucune action
+    n'est envoyée à SentinelOne. Droits minimaux du jeton (rôle Viewer) dans le README.
+
 - **Matrice des risques : libellés des niveaux personnalisables, EBIOS RM, AIPD et rapport PDF en
   5 x 5** (issue #706, second lot).
   - Dans la configuration, « Libellés des niveaux » renomme chaque niveau de probabilité et d'impact

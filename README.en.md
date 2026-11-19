@@ -239,6 +239,33 @@ classification fields merged directly onto it.
 **Common principle**: the plugin never changes a status, a right or an assignment by itself. It
 creates the ticket or the notification, and the team decides.
 
+## SentinelOne connector (read only)
+
+Besides importing an EDR / XDR CSV file, the plugin can read the SentinelOne console directly
+(Management API v2.1), from **Setup > Plugins > GRC Manager**, card "SentinelOne connector".
+
+- **Alerts and threats**: the "sentinelone" automatic action (hourly, **disabled** until the
+  connector is enabled) reads what is new since the last reading (last 30 days the first time).
+  They are **proposed** on the EDR import screen, section "SentinelOne alerts to review": each one
+  becomes an incident only if you tick it, or can be set aside. No duplicate (SentinelOne
+  identifier, including an alert already imported from a CSV file), no status or assignment changed
+  automatically.
+- **Computers**: each agent is matched with a GLPI computer by serial number, then exact name; never
+  by a similar name. Unmatched agents are listed on the configuration card. A proposal takes the
+  entity of its computer (otherwise the entity chosen in the configuration): everyone only sees and
+  handles the alerts of their entities.
+- **Application vulnerabilities** (if the licence provides them): added to the "Fleet
+  vulnerabilities" page, section "Detected by SentinelOne only", or as a badge on a CVE already
+  tracked. Agent coverage is shown on controls A.8.16 and A.8.7.
+- **Strictly read only**: only GET requests are sent, on a closed list of paths; no action
+  (isolation, resolution, status change) is ever sent. Errors 401, 403, 404 and 429 do not block
+  anything: they are shown on the configuration card and the reading resumes at the next run.
+
+**Minimum rights of the API token**: create a dedicated **service user** in SentinelOne with the
+**Viewer** role (read only), restricted to the accounts or sites to monitor, and generate its API
+token. No other role is needed. The token is encrypted with the GLPI key, never displayed again nor
+logged; the "Test the connection" button warns about an accepted token that sees nothing.
+
 ## Menu layout
 
 The **GRC & Conformité** menu has six sections, in the order of the ISMS cycle. Each section opens
