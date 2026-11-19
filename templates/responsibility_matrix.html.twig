@@ -1,0 +1,149 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #612 : matrice des responsabilités du SMSI, activités en lignes, utilisateurs et groupes en
+   colonnes, alertes de séparation des tâches et de responsables manquants. #}
+{% set high = matrix.counts.high %}
+{% set medium = matrix.counts.medium %}
+<div class="card mb-3">
+   <div class="card-body d-flex flex-wrap align-items-center gap-2">
+      <div class="me-auto">
+         <span class="badge bg-primary-subtle text-primary-emphasis me-1"><i class="ti ti-list-check me-1"></i>{{ _n('%d activity', '%d activities', matrix.counts.activities, 'grcmanager')|format(matrix.counts.activities) }}</span>
+         {% if high == 0 and medium == 0 and matrix.counts.activities > 0 %}
+            <span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-circle-check me-1"></i>{{ __('No alert', 'grcmanager') }}</span>
+         {% else %}
+            <span class="badge bg-danger-subtle text-danger-emphasis me-1"><i class="ti ti-alert-octagon me-1"></i>{{ _n('%d alert to fix', '%d alerts to fix', high, 'grcmanager')|format(high) }}</span>
+            <span class="badge bg-warning-subtle text-warning-emphasis"><i class="ti ti-alert-triangle me-1"></i>{{ _n('%d point to check', '%d points to check', medium, 'grcmanager')|format(medium) }}</span>
+         {% endif %}
+      </div>
+      {% if can_create %}
+         <a href="{{ form_url }}" class="btn btn-sm btn-outline-secondary"><i class="ti ti-plus me-1"></i>{{ __('Add an activity', 'grcmanager') }}</a>
+         <form method="post" action="{{ page_url }}" class="d-inline">
+            <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+            <button type="submit" name="add_defaults" value="1" class="btn btn-sm btn-outline-secondary" title="{{ __('Adds the proposed activities that are missing, without changing the existing ones.', 'grcmanager') }}">
+               <i class="ti ti-list-details me-1"></i>{{ __('Add the missing default activities', 'grcmanager') }}
+            </button>
+         </form>
+      {% endif %}
+      <a href="{{ export_url }}" class="btn btn-sm btn-outline-primary"><i class="ti ti-file-type-pdf me-1"></i>{{ __('Download as PDF', 'grcmanager') }}</a>
+      {% if can_update %}
+         <form method="post" action="{{ page_url }}" class="d-inline">
+            <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+            <button type="submit" name="archive" value="1" class="btn btn-sm btn-primary" title="{{ __('Attaches a dated PDF to requirement 5.3 and to control A.5.3 of your Statement of Applicability.', 'grcmanager') }}">
+               <i class="ti ti-archive me-1"></i>{{ __('Archive as evidence', 'grcmanager') }}
+            </button>
+         </form>
+      {% endif %}
+   </div>
+</div>
+
+{% if matrix.alerts is not empty %}
+   <div class="card mb-3">
+      <div class="card-header"><h3 class="card-title"><i class="ti ti-alert-triangle me-1"></i>{{ __('Alerts', 'grcmanager') }}</h3></div>
+      <div class="list-group list-group-flush">
+         {% for alert in matrix.alerts %}
+            <a href="{{ alert.url }}" class="list-group-item list-group-item-action d-flex flex-wrap align-items-center gap-2">
+               <span class="badge {{ alert.severity == 'high' ? 'bg-danger-subtle text-danger-emphasis' : 'bg-warning-subtle text-warning-emphasis' }}">
+                  <i class="ti {{ alert.severity == 'high' ? 'ti-alert-octagon' : 'ti-alert-triangle' }} me-1"></i>{{ alert.severity == 'high' ? __('To fix', 'grcmanager') : __('To check', 'grcmanager') }}
+               </span>
+               <strong>{{ alert.activity }}</strong>
+               <span class="text-secondary">{{ alert.message }}</span>
+            </a>
+         {% endfor %}
+      </div>
+      <div class="card-footer small text-secondary">{{ __('Alerts only report: nothing is changed automatically in the assignments, rights or statuses.', 'grcmanager') }}</div>
+   </div>
+{% endif %}
+
+<div class="card mb-3">
+   <div class="card-header d-flex flex-wrap gap-2 align-items-center">
+      <h3 class="card-title me-auto"><i class="ti ti-table me-1"></i>{{ __('Responsibility matrix', 'grcmanager') }}</h3>
+      {% for key, style in role_styles %}
+         <span class="badge {{ style.class }}"><i class="ti {{ style.icon }} me-1"></i>{{ style.letter }} = {{ roles[key] }}</span>
+      {% endfor %}
+   </div>
+   {% if matrix.rows is empty %}
+      <div class="card-body text-secondary">
+         <i class="ti ti-info-circle me-1"></i>{{ __('No activity yet. Add the default activities, then say for each one who performs it and who approves it.', 'grcmanager') }}
+      </div>
+   {% else %}
+      <div class="table-responsive">
+         <table class="table table-sm table-bordered table-hover align-middle mb-0">
+            <thead>
+               <tr>
+                  <th>{{ __('Activity', 'grcmanager') }}</th>
+                  {% for column in matrix.columns %}
+                     <th class="text-center small">
+                        <i class="ti {{ column.itemtype == 'Group' ? 'ti-users' : 'ti-user' }} me-1 text-secondary"></i>{{ column.label }}
+                        {% if column.flag == 'empty' %}
+                           <div><span class="badge bg-warning-subtle text-warning-emphasis">{{ __('No active member', 'grcmanager') }}</span></div>
+                        {% elseif column.flag == 'inactive' %}
+                           <div><span class="badge bg-warning-subtle text-warning-emphasis">{{ __('Disabled', 'grcmanager') }}</span></div>
+                        {% endif %}
+                     </th>
+                  {% endfor %}
+               </tr>
+            </thead>
+            <tbody>
+               {% for row in matrix.rows %}
+                  <tr>
+                     <td>
+                        <a href="{{ row.url }}" class="fw-bold">{{ row.label }}</a>
+                        {% if row.is_sensitive %}
+                           <span class="badge bg-danger-subtle text-danger-emphasis ms-1" title="{{ __('Segregation of duties is checked on this activity.', 'grcmanager') }}"><i class="ti ti-lock me-1"></i>{{ __('Sensitive', 'grcmanager') }}</span>
+                        {% endif %}
+                        {% for alert in row.alerts %}
+                           <i class="ti {{ alert.severity == 'high' ? 'ti-alert-octagon text-danger' : 'ti-alert-triangle text-warning' }} ms-1" title="{{ alert.message }}"></i>
+                        {% endfor %}
+                        {% if row.codes is not empty %}
+                           <div class="mt-1">
+                              {% for c in row.codes %}
+                                 {% if c.url %}
+                                    <a href="{{ c.url }}" class="badge bg-info-subtle text-info-emphasis text-decoration-none">{{ c.code }}</a>
+                                 {% else %}
+                                    <span class="badge bg-secondary-subtle text-secondary-emphasis">{{ c.code }}</span>
+                                 {% endif %}
+                              {% endfor %}
+                           </div>
+                        {% endif %}
+                     </td>
+                     {% for column in matrix.columns %}
+                        <td class="text-center">
+                           {% for role in row.cells[column.key] ?? [] %}
+                              <span class="badge {{ role_styles[role].class }}" title="{{ roles[role] }}">{{ role_styles[role].letter }}</span>
+                           {% endfor %}
+                        </td>
+                     {% endfor %}
+                  </tr>
+               {% endfor %}
+            </tbody>
+         </table>
+      </div>
+   {% endif %}
+</div>
+
+<div class="card mb-3">
+   <div class="card-header"><h3 class="card-title"><i class="ti ti-file-certificate me-1"></i>{{ __('Archived matrices', 'grcmanager') }}</h3></div>
+   {% if exports is empty %}
+      <div class="card-body text-secondary">{{ __('No archived matrix yet. Archive it before the audit: the dated PDF is attached to requirement 5.3 and to control A.5.3.', 'grcmanager') }}</div>
+   {% else %}
+      <div class="list-group list-group-flush">
+         {% for export in exports %}
+            <a href="{{ export.url }}" class="list-group-item list-group-item-action">
+               <i class="ti ti-file-type-pdf me-1 text-danger"></i>{{ export.date }} <span class="text-secondary">- {{ export.user }}</span>
+            </a>
+         {% endfor %}
+      </div>
+   {% endif %}
+</div>

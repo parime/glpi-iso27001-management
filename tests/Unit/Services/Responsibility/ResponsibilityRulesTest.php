@@ -43,7 +43,10 @@ final class ResponsibilityRulesTest extends TestCase
         $this->assertNull(Rules::normalizeRole(['accountable']));
         $this->assertSame('Group', Rules::normalizePrincipal('Group'));
         $this->assertNull(Rules::normalizePrincipal('Supplier'));
-        $this->assertSame('A.5.3,A.5.15,A.8.13', Rules::normalizeCodes(['A.8.13', 'A.5.15', 'A.5.3', 'A.5.3', '<b>', 'B.1']));
+        $this->assertSame(
+            'A.5.3,A.5.15,A.8.13',
+            Rules::normalizeCodes(['A.8.13', 'A.5.15', 'A.5.3', 'A.5.3', '<b>', 'B.1'])
+        );
         $this->assertSame('A.5.18', Rules::normalizeCodes(' A.5.18 ,x'));
         $this->assertSame([], Rules::splitCodes(''));
         $this->assertSame(['A.5.1', 'A.5.9'], Rules::splitCodes('A.5.9,A.5.1'));
