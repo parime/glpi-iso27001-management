@@ -29,9 +29,12 @@
       </a>
    {% endif %}
 </div>
-{% if can_create %}
-   <div class="d-flex justify-content-end mb-2 gap-2">
+<div class="d-flex justify-content-end mb-2 gap-2 flex-wrap">
+   {# Lot 2 : registre complet pour l'auditeur (enjeux, parties, liens, revues). #}
+   <a href="{{ export_pdf }}" class="btn btn-outline-primary btn-sm"><i class="ti ti-file-type-pdf me-1"></i>{{ __('Register for the auditor (PDF)', 'grcmanager') }}</a>
+   <a href="{{ export_csv }}" class="btn btn-outline-primary btn-sm"><i class="ti ti-file-spreadsheet me-1"></i>{{ __('Register (CSV)', 'grcmanager') }}</a>
+   {% if can_create %}
       <a href="{{ form_url }}?kind={{ kind_issue }}" class="btn btn-outline-secondary btn-sm"><i class="ti ti-world me-1"></i>{{ __('Add an issue', 'grcmanager') }}</a>
       <a href="{{ form_url }}?kind={{ kind_party }}" class="btn btn-outline-secondary btn-sm"><i class="ti ti-users-group me-1"></i>{{ __('Add an interested party', 'grcmanager') }}</a>
-   </div>
-{% endif %}
+   {% endif %}
+</div>

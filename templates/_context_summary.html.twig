@@ -35,7 +35,10 @@
                </li>
             {% endif %}
          </ul>
-         <a href="{{ summary.url }}"><i class="ti ti-link me-1"></i>{{ __('Open the context of the organization', 'grcmanager') }}</a>
+         <a href="{{ summary.url }}" class="me-3"><i class="ti ti-link me-1"></i>{{ __('Open the context of the organization', 'grcmanager') }}</a>
+         {% if summary.export_url|default('') %}
+            <a href="{{ summary.export_url }}"><i class="ti ti-file-type-pdf me-1"></i>{{ __('Register for the auditor (PDF)', 'grcmanager') }}</a>
+         {% endif %}
       </div>
    </div>
 </div>

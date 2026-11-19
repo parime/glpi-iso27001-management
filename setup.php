@@ -33,7 +33,7 @@ if (is_readable(__DIR__ . '/vendor/autoload.php')) {
     \GlpiPlugin\Grcmanager\Compat\LegacyNamespace::register();
 }
 
-define('PLUGIN_GRCMANAGER_VERSION', '2.55.0');
+define('PLUGIN_GRCMANAGER_VERSION', '2.56.0');
 define('PLUGIN_GRCMANAGER_MIN_GLPI', '11.0.0');
 // GLPI 11 and 12 from a single code base (see src/Compat/).
 define('PLUGIN_GRCMANAGER_MAX_GLPI', '12.99.99');
@@ -277,6 +277,12 @@ function plugin_init_grcmanager(): void
     // Issue #164 : onglet « Couverture des preuves » sur les mesures et les exigences du SMSI.
     Plugin::registerClass(\GlpiPlugin\Grcmanager\CoverageRule::class, [
         'addtabon' => [\GlpiPlugin\Grcmanager\Control::class, \GlpiPlugin\Grcmanager\IsmsRequirement::class],
+    ]);
+
+    // Issue #608, lot 2 : onglet « Contexte de l'organisation » des risques, obligations et mesures
+    // (enjeux et parties intéressées qui les citent).
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\ContextItem::class, [
+        'addtabon' => array_values(\GlpiPlugin\Grcmanager\ContextItem::LINK_FIELDS),
     ]);
 
     // Issue #380 : onglet « Tests d'efficacité » des mesures de l'Annexe A.

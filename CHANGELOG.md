@@ -27,6 +27,26 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   - Export PDF daté, et archivage comme preuve : le PDF est joint à l'exigence 5.3 et à la mesure
     A.5.3 de la SoA de l'entité, lisible seulement avec le droit du plugin dans cette entité.
   - Synthèse sur l'exigence 5.3 du SMSI ; historique des ajouts et retraits d'affectations.
+- **Contexte de l'organisation, deuxième lot : revue tracée, registre pour l'auditeur, vue inverse**
+  (issue #608 ; ISO 27001, articles 4.1 et 4.2).
+  - Bouton « Enregistrer la revue » sur chaque enjeu ou partie intéressée : date du jour et nom de
+    la personne, prochaine revue fixée un an plus tard ; chaque revue reste dans l'historique de la
+    fiche. Date et auteur de la dernière revue jamais saisissables à la main (colonnes ajoutées par
+    migration). Colonnes « Dernière revue » et « Dernière revue par » dans la liste.
+  - Registre pour l'auditeur en PDF ou CSV (boutons de la page, lien depuis les exigences 4.1 et
+    4.2 et la revue de direction) : synthèse, réponse sur le changement climatique, enjeux puis
+    parties intéressées, attentes, exigences retenues, risques, obligations et mesures liés,
+    dernière et prochaine revue. Entités de la session seulement ; un élément lié n'est nommé que
+    s'il est lisible (risques : droit des registres sensibles). Cellules CSV neutralisées contre
+    les formules.
+  - Onglet « Contexte de l'organisation » sur les risques, les obligations et les mesures : enjeux
+    et parties qui les citent, avec « Ajouter un enjeu » ou « Ajouter une partie intéressée » déjà
+    relié(e) à l'élément.
+
+## [2.56.0] - 2026-11-19
+
+### Added
+
 - **Référentiel facultatif « NIS2 Italia – ACN »** (issue #703, demandé par un utilisateur italien).
   Mesures de sécurité de base de la déterminazione ACN n. 379907/2025 (D.Lgs. 138/2024) :
   allegato 1 pour les entités importantes (37 mesures, 87 points), allegato 2 pour les entités

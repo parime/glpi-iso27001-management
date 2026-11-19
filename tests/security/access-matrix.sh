@@ -90,6 +90,7 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/consistencycheck.php front/consistencycheck.export.php?format=csv front/consistencycheck.export.php?format=pdf
   front/contextitem.php front/contextitem.form.php
   front/responsibilityactivity.php front/responsibilityactivity.form.php front/responsibilityactivity.export.php
+  front/contextitem.export.php?format=csv front/contextitem.export.php?format=pdf
   front/acnrequirement.php front/acnrequirement.export.php?format=csv front/acnrequirement.export.php?format=pdf"
 # Creations : refusees sans droit comme en lecture seule (etat en base compare par la CI).
 create_attempts() { # code attendu, code attendu pour la classification (404 sans droit sur l'actif)
@@ -331,6 +332,8 @@ if [ "$ROLE" = general ]; then
            front/businessprocess.php front/businessprocess.php?export=csv front/businessprocess.report.php; do
     expect "$p : sans le droit des registres sensibles" 403 "$(code "$BASE/plugins/grcmanager/$p")"
   done
+  # Issue #608, lot 2 : l'export du contexte ne nomme pas le risque lie sans le droit dedie.
+  contains "export du contexte : aucun titre de risque lie" "Risque securite" non     "$(body "$P/contextitem.export.php?format=csv")"
   expect "front/businessprocess.report.php : PCA d'un processus, sans le droit de la continuite" 403 \
     "$(code "$P/businessprocess.report.php?id=$(id process_A)")"
   contains "onglet Processus metier d'un risque : rien" "Processus securite" non \
@@ -598,6 +601,13 @@ if [ "$ROLE" = none ] || [ "$ROLE" = reader ]; then
     expect "front/responsibilityactivity.php : ${action%%=*}" 403       "$(code -d "$action&_glpi_csrf_token=$(csrf)" "$P/responsibilityactivity.php")"
   done
 fi
+# Issue #608, lot 2 : export du registre et onglet du risque de A, limites aux entites de la session.
+context_csv=$(curl -s -c "$JAR" -b "$JAR" "$P/contextitem.export.php?format=csv")
+contains "export du contexte : partie de A" "Partie securite A" oui    "$context_csv"
+contains "export du contexte : partie de B" "Partie securite B" $SEE_B "$context_csv"
+risk_context=$(tab GlpiPlugin%5CGrcmanager%5CRisk 'GlpiPlugin%5CGrcmanager%5CContextItem$1' "$(id risk)")
+contains "onglet Contexte du risque : partie de A" "Partie securite A" oui    "$risk_context"
+contains "onglet Contexte du risque : partie de B" "Partie securite B" $SEE_B "$risk_context"
 kris=$(curl -s -c "$JAR" -b "$JAR" "$P/riskindicator.php")
 contains "liste des KRI : KRI de A" "KRI securite A" oui    "$kris"
 contains "liste des KRI : KRI de B" "KRI securite B" $SEE_B "$kris"
