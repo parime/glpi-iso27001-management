@@ -106,6 +106,11 @@ class Profile extends CommonGLPI
                     UPDATE => __('Update'),
                     CREATE => __('Create'),
                     PURGE  => ['short' => __('Purge'), 'long' => _x('button', 'Delete permanently')],
+                    // Issue #732 : validation des bilans d'exercice de crise.
+                    CrisisExerciseReview::VALIDATE => [
+                        'short' => __('Validate exercise reviews', 'grcmanager'),
+                        'long'  => __('Validate crisis exercise reviews and return them to draft', 'grcmanager'),
+                    ],
                 ],
                 'label'    => __('Business continuity (business processes, BIA)', 'grcmanager'),
                 'field'    => Installer::CONTINUITY_RIGHT,

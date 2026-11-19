@@ -28,7 +28,11 @@ if (isset($_POST['launch'])) {
     if (!\GlpiPlugin\Grcmanager\CrisisExercise::canCreate()) {
         throw new \Glpi\Exception\Http\AccessDeniedHttpException();
     }
-    $exerciseId = \GlpiPlugin\Grcmanager\CrisisExercise::launch((string) $_POST['launch']);
+    $exerciseId = \GlpiPlugin\Grcmanager\CrisisExercise::launch(
+        (string) $_POST['launch'],
+        // Issue #732 : objectifs de l'exercice, un par ligne.
+        \GlpiPlugin\Grcmanager\Services\Exercise\ExerciseReview::splitObjectives((string) ($_POST['objectives'] ?? ''))
+    );
     if ($exerciseId > 0) {
         Html::redirect(\GlpiPlugin\Grcmanager\CrisisExercise::getFormURLWithID($exerciseId));
     }
