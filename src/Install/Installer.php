@@ -358,6 +358,9 @@ final class Installer
         \GlpiPlugin\Grcmanager\NotificationTargetContextItem::class,
         // Issue #703 : registre NIS2 Italia - ACN.
         \GlpiPlugin\Grcmanager\AcnRequirement::class,
+        // Issue #612 : matrice des responsabilités du SMSI et ses exports archivés.
+        \GlpiPlugin\Grcmanager\ResponsibilityActivity::class,
+        \GlpiPlugin\Grcmanager\ResponsibilityExport::class,
     ];
     // Issue #703 : registre NIS2 Italia - ACN, voir \GlpiPlugin\Grcmanager\AcnRequirement.
     private const ACN_ENTITIES_TABLE = 'glpi_plugin_grcmanager_acnentities';
@@ -366,6 +369,10 @@ final class Installer
     // Issue #608 : contexte de l'organisation, voir \GlpiPlugin\Grcmanager\ContextItem.
     private const CONTEXT_ITEMS_TABLE = 'glpi_plugin_grcmanager_contextitems';
     private const CONTEXT_ITEMS_LINKS_TABLE = 'glpi_plugin_grcmanager_contextitems_items';
+    // Issue #612 : matrice des responsabilités, voir \GlpiPlugin\Grcmanager\ResponsibilityActivity.
+    private const RESPONSIBILITY_ACTIVITIES_TABLE = 'glpi_plugin_grcmanager_responsibilityactivities';
+    private const RESPONSIBILITY_ASSIGNMENTS_TABLE = 'glpi_plugin_grcmanager_responsibilityassignments';
+    private const RESPONSIBILITY_EXPORTS_TABLE = 'glpi_plugin_grcmanager_responsibilityexports';
     // Issue #375 : registre des activités de traitement (RGPD, article 30) et éléments GLPI cités,
     // voir \GlpiPlugin\Grcmanager\ProcessingActivity.
     private const PROCESSING_ACTIVITIES_TABLE = 'glpi_plugin_grcmanager_processingactivities';
@@ -1429,6 +1436,7 @@ final class Installer
         $this->installDoraRegisterTables($keySign, $charset, $collation);
         $this->installDataBreachTables($keySign, $charset, $collation);
         $this->installContextTables($migration, $keySign, $charset, $collation);
+        $this->installResponsibilityTables($keySign, $charset, $collation);
         $this->installAcnTables($keySign, $charset, $collation);
         $this->installParkRemediationTables($keySign, $charset, $collation);
         $this->installSentinelOneTables($keySign, $charset, $collation);
@@ -4502,6 +4510,67 @@ final class Installer
     }
 
     /**
+     * Issue #612 : matrice des responsabilités du SMSI (article 5.3, mesure A.5.3). Les activités
+     * par défaut ne sont proposées qu'à la création de la table : une mise à jour ne touche jamais
+     * aux activités existantes ni ne fait revenir une activité supprimée.
+     */
+    private function installResponsibilityTables(string $keySign, string $charset, string $collation): void
+    {
+        global $DB;
+
+        if (!$DB->tableExists(self::RESPONSIBILITY_ACTIVITIES_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::RESPONSIBILITY_ACTIVITIES_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `entities_id` int {$keySign} NOT NULL DEFAULT 0,
+                `is_recursive` tinyint NOT NULL DEFAULT 0,
+                `default_key` varchar(64) NOT NULL DEFAULT '' COMMENT 'Activite proposee par defaut, vide sinon',
+                `name` varchar(255) NOT NULL DEFAULT '' COMMENT 'Vide : libelle traduit de l''activite par defaut',
+                `is_sensitive` tinyint NOT NULL DEFAULT 0 COMMENT 'Separation des taches verifiee',
+                `control_codes` varchar(255) NOT NULL DEFAULT '' COMMENT 'Mesures de l''Annexe A (A.5.3,...)',
+                `ranking` int NOT NULL DEFAULT 0,
+                `comment` text,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `entities_id` (`entities_id`),
+                KEY `is_recursive` (`is_recursive`),
+                KEY `default_key` (`default_key`),
+                KEY `ranking` (`ranking`),
+                KEY `date_mod` (`date_mod`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+            \GlpiPlugin\Grcmanager\ResponsibilityActivity::addDefaults(0, []);
+        }
+        if (!$DB->tableExists(self::RESPONSIBILITY_ASSIGNMENTS_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::RESPONSIBILITY_ASSIGNMENTS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_responsibilityactivities_id` int {$keySign} NOT NULL DEFAULT 0,
+                `itemtype` varchar(100) NOT NULL DEFAULT '' COMMENT 'User ou Group',
+                `items_id` int {$keySign} NOT NULL DEFAULT 0,
+                `role` varchar(16) NOT NULL DEFAULT 'responsible' COMMENT 'responsible, accountable, consulted...',
+                `date_creation` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity` (`plugin_grcmanager_responsibilityactivities_id`, `itemtype`, `items_id`, `role`),
+                KEY `item` (`itemtype`, `items_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+        if (!$DB->tableExists(self::RESPONSIBILITY_EXPORTS_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::RESPONSIBILITY_EXPORTS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `entities_id` int {$keySign} NOT NULL DEFAULT 0,
+                `is_recursive` tinyint NOT NULL DEFAULT 0,
+                `documents_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'PDF archive',
+                `users_id` int {$keySign} NOT NULL DEFAULT 0,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `entities_id` (`entities_id`),
+                KEY `documents_id` (`documents_id`),
+                KEY `users_id` (`users_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+    }
+
+    /**
      * Issue #608 : contexte de l'organisation (ISO 27001, articles 4.1 et 4.2). Enjeux et parties
      * intéressées dans une même table (`kind`), liens vers les risques, obligations et mesures.
      */
@@ -5788,6 +5857,9 @@ final class Installer
         $migration->dropTable(self::DATA_BREACHES_TABLE);
         $migration->dropTable(self::CONTEXT_ITEMS_LINKS_TABLE);
         $migration->dropTable(self::CONTEXT_ITEMS_TABLE);
+        $migration->dropTable(self::RESPONSIBILITY_ASSIGNMENTS_TABLE);
+        $migration->dropTable(self::RESPONSIBILITY_ACTIVITIES_TABLE);
+        $migration->dropTable(self::RESPONSIBILITY_EXPORTS_TABLE);
         $migration->dropTable(self::ACN_REQUIREMENTS_LINKS_TABLE);
         $migration->dropTable(self::ACN_REQUIREMENTS_TABLE);
         $migration->dropTable(self::ACN_ENTITIES_TABLE);

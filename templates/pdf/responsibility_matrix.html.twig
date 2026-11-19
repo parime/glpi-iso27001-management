@@ -1,0 +1,76 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #612 : matrice des responsabilités du SMSI, preuve de l'article 5.3 et de la mesure A.5.3.
+   Une ligne par activité (portrait A4) : qui réalise, approuve, est consulté ou informé. #}
+{% include '@grcmanager/pdf/_pdf_style.html.twig' %}
+<style>
+  .grc-sev { padding: 1px 4px; border-radius: 3px; font-size: 8px; font-weight: bold; }
+  .grc-sev-high { background: #fbe0e0; color: #a61e1e; }
+  .grc-sev-medium { background: #fdebd3; color: #a35200; }
+  .grc-sensitive { color: #a61e1e; font-size: 8px; font-weight: bold; }
+  .grc-codes { color: #495057; font-size: 8px; }
+</style>
+
+<h2>{{ __('Summary', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-summary">
+  <tr><td>{{ __('Activities', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ matrix.counts.activities }}</td></tr>
+  <tr><td>{{ __('Alerts to fix', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ matrix.counts.high }}</td></tr>
+  <tr><td>{{ __('Points to check', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ matrix.counts.medium }}</td></tr>
+  <tr><td>{{ __('Exported by', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ generated_by }}</td></tr>
+</table>
+
+<h2>{{ __('Responsibility matrix', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-table">
+  <thead>
+    <tr>
+      <th>{{ __('Activity', 'grcmanager') }}</th>
+      {% for role, label in roles %}<th>{{ label }}</th>{% endfor %}
+    </tr>
+  </thead>
+  <tbody>
+    {% for row in matrix.rows %}
+      <tr>
+        <td>
+          {{ row.label }}
+          {% if row.is_sensitive %}<br><span class="grc-sensitive">{{ __('Sensitive', 'grcmanager') }}</span>{% endif %}
+          {% if row.codes is not empty %}<br><span class="grc-codes">{{ row.codes|map(c => c.code)|join(', ') }}</span>{% endif %}
+        </td>
+        {% for role, label in roles %}
+          <td>{{ (row.by_role[role] ?? [])|join(', ') }}</td>
+        {% endfor %}
+      </tr>
+    {% else %}
+      <tr><td colspan="5">{{ __('No activity yet.', 'grcmanager') }}</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h2>{{ __('Alerts', 'grcmanager') }}</h2>
+{% if matrix.alerts is empty %}
+  <p>{{ __('No alert: every activity has someone who performs it and a single approver, without conflict of duties.', 'grcmanager') }}</p>
+{% else %}
+  <table class="grcmanager-pdf-table">
+    <tbody>
+      {% for alert in matrix.alerts %}
+        <tr>
+          <td><span class="grc-sev grc-sev-{{ alert.severity }}">{{ alert.severity == 'high' ? __('To fix', 'grcmanager') : __('To check', 'grcmanager') }}</span></td>
+          <td>{{ alert.activity }}</td>
+          <td>{{ alert.message }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}
+<p>{{ __('Only the activities of the entities of the person who exported this matrix are listed. Nothing has been modified by this export.', 'grcmanager') }}</p>
