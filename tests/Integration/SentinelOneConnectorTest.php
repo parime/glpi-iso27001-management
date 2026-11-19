@@ -289,7 +289,9 @@ final class SentinelOneConnectorTest extends GrcmanagerIntegrationTestCase
         \Config::setConfigurationValues(SentinelOneConfig::CONTEXT, [SentinelOneConfig::TOKEN_KEY => 'stored']);
 
         $steps = SentinelOneAlert::synchronize($this->client(MockSentinelOne::VIEWER_TOKEN));
-        self::assertSame(5, $steps['vulnerabilities']['items']);
+        // Six lignes lues, dont une sans CVE valide, ignorée.
+        self::assertSame(6, $steps['vulnerabilities']['items']);
+        self::assertSame(5, countElementsInTable(SentinelOneAlert::VULNERABILITIES_TABLE));
 
         $vulnerabilities = SentinelOneEvidenceProvider::fetchVulnerabilities([]);
         self::assertNotNull($vulnerabilities);
