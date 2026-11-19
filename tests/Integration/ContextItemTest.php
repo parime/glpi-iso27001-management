@@ -339,10 +339,9 @@ final class ContextItemTest extends GrcmanagerIntegrationTestCase
         $linked = ContextItem::linkedTo($risk);
         $this->assertCount(1, $linked);
         $this->assertSame((int) $party->getID(), (int) $linked[0]['id']);
-        $this->assertStringContainsString(
-            __('Context of the organization', 'grcmanager'),
-            (string) (new ContextItem())->getTabNameForItem($risk)
-        );
+        $tab = (string) (new ContextItem())->getTabNameForItem($risk);
+        $this->assertStringContainsString(htmlescape(__('Context of the organization', 'grcmanager')), $tab);
+        $this->assertMatchesRegularExpression('/>1<\/span>/', $tab, 'Une fiche citée.');
 
         ob_start();
         $this->assertTrue(ContextItem::displayTabContentForItem($risk));
@@ -356,7 +355,7 @@ final class ContextItemTest extends GrcmanagerIntegrationTestCase
             'kind' => Rules::KIND_ISSUE, 'link_type' => 'risk', 'link_id' => $riskId,
         ]);
         $html = (string) ob_get_clean();
-        $this->assertMatchesRegularExpression('/<option[^>]*value="' . $riskId . '"[^>]*selected/', $html);
+        $this->assertMatchesRegularExpression('/<option[^>]*value=.' . $riskId . '.[^>]*selected/', $html);
 
         // À la corbeille, la fiche n'est plus citée ; sans droit, rien.
         $party->delete(['id' => $party->getID()]);

@@ -38,7 +38,7 @@
         <th style="width: 13%;">{{ __('Category', 'grcmanager') }}</th>
         <th>{{ __('Effect on the ISMS', 'grcmanager') }}</th>
         <th style="width: 15%;">{{ __('Decision', 'grcmanager') }}</th>
-        <th style="width: 16%;">{{ __('Related risks', 'grcmanager') }}</th>
+        <th style="width: 18%;">{{ __('Links with the ISMS', 'grcmanager') }}</th>
         <th style="width: 14%;">{{ __('Review', 'grcmanager') }}</th>
       </tr>
     </thead>
@@ -49,7 +49,7 @@
           <td>{{ line.category }}</td>
           <td>{{ line.effect }}</td>
           <td>{{ line.relevance }}{% if line.justification %}<br>{{ line.justification }}{% endif %}</td>
-          <td>{{ line.risks|join(', ') }}</td>
+          {% include '@grcmanager/pdf/_context_links_cell.html.twig' %}
           {% include '@grcmanager/pdf/_context_review_cell.html.twig' %}
         </tr>
       {% endfor %}
@@ -64,12 +64,11 @@
   <table class="grcmanager-pdf-table">
     <thead>
       <tr>
-        <th style="width: 15%;">{{ __('Name') }}</th>
-        <th style="width: 17%;">{{ __('Needs and expectations', 'grcmanager') }}</th>
-        <th style="width: 17%;">{{ __('Requirements retained by the ISMS', 'grcmanager') }}</th>
-        <th style="width: 11%;">{{ __('Decision', 'grcmanager') }}</th>
-        <th style="width: 13%;">{{ __('Related obligations', 'grcmanager') }}</th>
-        <th style="width: 13%;">{{ __('Controls that respond', 'grcmanager') }}</th>
+        <th style="width: 14%;">{{ __('Name') }}</th>
+        <th style="width: 18%;">{{ __('Needs and expectations', 'grcmanager') }}</th>
+        <th style="width: 18%;">{{ __('Requirements retained by the ISMS', 'grcmanager') }}</th>
+        <th style="width: 12%;">{{ __('Decision', 'grcmanager') }}</th>
+        <th style="width: 22%;">{{ __('Links with the ISMS', 'grcmanager') }}</th>
         <th style="width: 14%;">{{ __('Review', 'grcmanager') }}</th>
       </tr>
     </thead>
@@ -80,8 +79,7 @@
           <td>{{ line.expectations }}</td>
           <td>{{ line.requirements }}</td>
           <td>{{ line.relevance }}{% if line.justification %}<br>{{ line.justification }}{% endif %}</td>
-          <td>{{ line.obligations|join(', ') }}</td>
-          <td>{{ line.controls|join(', ') }}</td>
+          {% include '@grcmanager/pdf/_context_links_cell.html.twig' %}
           {% include '@grcmanager/pdf/_context_review_cell.html.twig' %}
         </tr>
       {% endfor %}
