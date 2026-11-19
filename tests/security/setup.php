@@ -555,6 +555,20 @@ $ids['risk'] = $add(new \GlpiPlugin\Grcmanager\Risk(), [
 $ids['risk_B'] = $add(new \GlpiPlugin\Grcmanager\Risk(), [
     'title' => 'Risque securite B', 'entities_id' => $b, 'external_ref' => 'RISQUE-SECURITE-B',
 ]);
+// Issue #608, lot 2 : les parties intéressées de A et de B citent le risque de A (onglet du risque,
+// export du registre : la partie de B n'est montrée qu'aux profils qui voient B).
+foreach (['context_A', 'context_B'] as $contextKey) {
+    $contextLink = [
+        'plugin_grcmanager_contextitems_id' => (int) $ids[$contextKey],
+        'itemtype' => \GlpiPlugin\Grcmanager\Risk::class, 'items_id' => (int) $ids['risk'],
+    ];
+    if (countElementsInTable('glpi_plugin_grcmanager_contextitems_items', $contextLink) === 0) {
+        $DB->insert(
+            'glpi_plugin_grcmanager_contextitems_items',
+            $contextLink + ['date_creation' => date('Y-m-d H:i:s')]
+        );
+    }
+}
 // Registres sensibles : la fiche du contrôle, lisible sans le droit dédié, ne doit pas montrer ce
 // risque lié.
 $linkWhere = ['plugin_grcmanager_controls_id' => $controlId, 'plugin_grcmanager_risks_id' => (int) $ids['risk']];

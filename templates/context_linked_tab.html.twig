@@ -1,0 +1,85 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #608, lot 2 : onglet « Contexte de l'organisation » d'un risque, d'une obligation ou d'une
+   mesure : enjeux et parties intéressées qui le citent (vue inverse des liens, sans recopie). #}
+<div class="d-flex align-items-center flex-wrap gap-2 mb-3">
+   <div class="text-secondary me-auto">
+      <i class="ti ti-info-circle me-1"></i>{{ __('Issues and interested parties of the context of the organization (ISO 27001, 4.1 and 4.2) that refer to this item.', 'grcmanager') }}
+   </div>
+   {% if can_create %}
+      <a href="{{ add_issue }}" class="btn btn-sm btn-outline-secondary"><i class="ti ti-world me-1"></i>{{ __('Add an issue', 'grcmanager') }}</a>
+      <a href="{{ add_party }}" class="btn btn-sm btn-outline-secondary"><i class="ti ti-users-group me-1"></i>{{ __('Add an interested party', 'grcmanager') }}</a>
+   {% endif %}
+</div>
+
+{% if rows is empty %}
+   <div class="alert alert-info d-flex align-items-center">
+      <i class="ti ti-building-community me-2"></i>
+      <div>
+         {{ __('No issue or interested party refers to this item yet.', 'grcmanager') }}
+         <a href="{{ list_url }}">{{ __('Open the context of the organization', 'grcmanager') }}</a>
+      </div>
+   </div>
+{% else %}
+   <div class="table-responsive">
+      <table class="table table-hover card-table">
+         <thead>
+            <tr>
+               <th>{{ __('Name') }}</th>
+               <th>{{ __('Kind', 'grcmanager') }}</th>
+               <th>{{ __('Decision', 'grcmanager') }}</th>
+               <th>{{ _x('owner', 'Owner', 'grcmanager') }}</th>
+               <th>{{ __('Review date', 'grcmanager') }}</th>
+            </tr>
+         </thead>
+         <tbody>
+            {% for row in rows %}
+               <tr>
+                  <td><a href="{{ row.url }}">{{ row.name }}</a></td>
+                  <td>
+                     {% if row.is_party %}
+                        <span class="badge bg-purple-subtle text-purple-emphasis"><i class="ti ti-users-group me-1"></i>{{ row.kind }}</span>
+                     {% else %}
+                        <span class="badge bg-info-subtle text-info-emphasis"><i class="ti ti-world me-1"></i>{{ row.kind }}</span>
+                     {% endif %}
+                     {% if row.detail %}<div class="small text-secondary mt-1">{{ row.detail }}</div>{% endif %}
+                  </td>
+                  <td>
+                     {% if row.relevance == relevance_retained %}
+                        <span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-circle-check me-1"></i>{{ row.relevance_label }}</span>
+                     {% elseif row.relevance == relevance_not_retained %}
+                        <span class="badge bg-warning-subtle text-warning-emphasis"><i class="ti ti-circle-minus me-1"></i>{{ row.relevance_label }}</span>
+                     {% else %}
+                        <span class="badge bg-secondary-subtle text-secondary-emphasis"><i class="ti ti-help me-1"></i>{{ row.relevance_label }}</span>
+                     {% endif %}
+                  </td>
+                  <td>{{ row.owner ?: '-' }}</td>
+                  <td>
+                     {% if row.review %}
+                        {% if row.overdue %}
+                           <span class="badge bg-danger-subtle text-danger-emphasis"><i class="ti ti-clock-exclamation me-1"></i>{{ row.review|formatted_date }}</span>
+                        {% else %}
+                           {{ row.review|formatted_date }}
+                        {% endif %}
+                     {% else %}
+                        -
+                     {% endif %}
+                  </td>
+               </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+   </div>
+{% endif %}

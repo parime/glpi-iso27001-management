@@ -21513,3 +21513,61 @@ msgid ""
 "register with one record per requirement, per GLPI entity set as important "
 "or essential below. Disabled by default."
 msgstr ""
+
+#: templates/pdf/context_report.html.twig
+msgid "Internal and external issues"
+msgstr ""
+
+#: templates/pdf/context_report.html.twig
+msgid "Items past their review date"
+msgstr ""
+
+#: templates/pdf/context_report.html.twig
+msgid "Not answered yet"
+msgstr ""
+
+#: templates/pdf/context_report.html.twig
+msgid "No item recorded."
+msgstr ""
+
+#: templates/pdf/_context_review_cell.html.twig
+#: templates/context_item_form.html.twig
+msgid "Never reviewed"
+msgstr ""
+
+#: templates/context_item_form.html.twig
+#, php-format
+msgid "%1$s by %2$s"
+msgstr ""
+
+#: templates/context_item_form.html.twig
+msgid ""
+"Records today as the review date, with your name, and sets the next review "
+"one year later. Your other changes on this form are saved too."
+msgstr ""
+
+#: templates/context_item_form.html.twig
+msgid "Record the review"
+msgstr ""
+
+#: templates/context_overview.html.twig templates/_context_summary.html.twig
+msgid "Register for the auditor (PDF)"
+msgstr ""
+
+#: templates/context_overview.html.twig
+msgid "Register (CSV)"
+msgstr ""
+
+#: templates/context_linked_tab.html.twig
+msgid ""
+"Issues and interested parties of the context of the organization (ISO 27001, "
+"4.1 and 4.2) that refer to this item."
+msgstr ""
+
+#: templates/context_linked_tab.html.twig
+msgid "No issue or interested party refers to this item yet."
+msgstr ""
+
+#: src/ContextItem.php:757 src/ContextItem.php:863
+msgid "Last reviewed by"
+msgstr ""
