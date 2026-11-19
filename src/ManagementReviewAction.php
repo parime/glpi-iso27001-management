@@ -136,12 +136,13 @@ class ManagementReviewAction extends ManagementReviewActionBase
      */
     public static function statusBadgeData(?string $value): array
     {
+        $neutral = 'bg-secondary-subtle text-secondary-emphasis';
         $map = [
-            TreatmentPlanRules::STATUS_PLANNED     => ['bg-secondary-subtle text-secondary-emphasis', 'ti-calendar-event'],
+            TreatmentPlanRules::STATUS_PLANNED     => [$neutral, 'ti-calendar-event'],
             TreatmentPlanRules::STATUS_IN_PROGRESS => ['bg-info-subtle text-info-emphasis', 'ti-progress'],
             TreatmentPlanRules::STATUS_DONE        => ['bg-success-subtle text-success-emphasis', 'ti-check'],
         ];
-        [$class, $icon] = $map[$value] ?? ['bg-secondary-subtle text-secondary-emphasis', 'ti-help'];
+        [$class, $icon] = $map[$value] ?? [$neutral, 'ti-help'];
 
         return ['class' => $class, 'icon' => $icon, 'label' => self::getStatuses()[$value] ?? (string) $value];
     }

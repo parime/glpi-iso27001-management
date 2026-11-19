@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-19 20:47+0000\n"
+"POT-Creation-Date: 2026-11-19 20:54+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -410,7 +410,7 @@ msgstr ""
 #: front/processingactivity.export.php:64 front/risk.report.php:73
 #: src/AccessReview.php:745 src/AcnRequirement.php:805 src/Audit.php:549
 #: src/ConsistencyCheck.php:1380 src/CrisisExercise.php:613 src/Dpia.php:443
-#: src/EbiosStudy.php:313 src/ManagementReviewDossier.php:585
+#: src/EbiosStudy.php:313 src/ManagementReviewDossier.php:607
 #: src/PolicyAcknowledgement.php:703 src/PolicyVersion.php:765
 #: src/SecurityIncidentPostMortem.php:242
 #: src/Services/Control/SoaReportBuilder.php:121 src/Training.php:725
@@ -4019,7 +4019,7 @@ msgstr ""
 
 #: templates/pdf/access_review_report.html.twig
 #: templates/policy_acknowledgement_tab.html.twig src/AccessReview.php:563
-#: src/ManagementReviewDossier.php:261
+#: src/ManagementReviewDossier.php:282
 msgid "(and sub-entities)"
 msgstr ""
 
@@ -5214,7 +5214,7 @@ msgid "Not approved yet"
 msgstr ""
 
 #: templates/dashboard_perimeters.html.twig src/ConsistencyCheck.php:954
-#: src/ConsistencyCheck.php:956 src/ManagementReviewDossier.php:112
+#: src/ConsistencyCheck.php:956 src/ManagementReviewDossier.php:125
 msgid "Statement of Applicability"
 msgstr ""
 
@@ -13110,14 +13110,14 @@ msgstr ""
 msgid "The preparatory file could not be generated."
 msgstr ""
 
-#: front/managementreviewaction.form.php:45
+#: front/managementreviewaction.form.php:46
 #, php-format
 msgid "%d action created from the decisions."
 msgid_plural "%d actions created from the decisions."
 msgstr[0] ""
 msgstr[1] ""
 
-#: front/managementreviewaction.form.php:46
+#: front/managementreviewaction.form.php:51
 msgid "Every decision already has its action."
 msgstr ""
 
@@ -15019,7 +15019,7 @@ msgstr ""
 msgid "Evidence and monitoring"
 msgstr ""
 
-#: src/ConsistencyCheck.php:120 src/ManagementReviewDossier.php:92
+#: src/ConsistencyCheck.php:120 src/ManagementReviewDossier.php:96
 msgid "Nonconformities and corrective actions"
 msgstr ""
 
@@ -17659,7 +17659,7 @@ msgstr ""
 msgid "Risk treatment"
 msgstr ""
 
-#: src/IsmsRequirement.php:115 src/ManagementReviewDossier.php:104
+#: src/IsmsRequirement.php:115 src/ManagementReviewDossier.php:114
 msgid "Information security objectives"
 msgstr ""
 
@@ -17811,67 +17811,67 @@ msgstr ""
 msgid "Context and interested parties"
 msgstr ""
 
-#: src/ManagementReviewDossier.php:89
+#: src/ManagementReviewDossier.php:90
 msgid ""
 "Internal and external issues and interested parties: what changed during the "
 "period and what is overdue for review."
 msgstr ""
 
-#: src/ManagementReviewDossier.php:93
+#: src/ManagementReviewDossier.php:98
 msgid ""
 "Findings raised and closed during the period, and corrective actions still "
 "open or late."
 msgstr ""
 
-#: src/ManagementReviewDossier.php:96
+#: src/ManagementReviewDossier.php:103
 msgid "Monitoring, measurement and incidents"
 msgstr ""
 
-#: src/ManagementReviewDossier.php:97
+#: src/ManagementReviewDossier.php:105
 msgid "Key risk indicators and information security incidents over the period."
 msgstr ""
 
-#: src/ManagementReviewDossier.php:100
+#: src/ManagementReviewDossier.php:110
 msgid "Audit results"
 msgstr ""
 
-#: src/ManagementReviewDossier.php:101
+#: src/ManagementReviewDossier.php:111
 msgid "Internal audits completed during the period and what they found."
 msgstr ""
 
-#: src/ManagementReviewDossier.php:105
+#: src/ManagementReviewDossier.php:115
 msgid "Status of each objective and its latest measurement in the period."
 msgstr ""
 
-#: src/ManagementReviewDossier.php:108
+#: src/ManagementReviewDossier.php:118
 msgid "Risk assessment and treatment"
 msgstr ""
 
-#: src/ManagementReviewDossier.php:109
+#: src/ManagementReviewDossier.php:120
 msgid ""
 "Open risks by level, risks beyond appetite, and progress of the treatment "
 "plan."
 msgstr ""
 
-#: src/ManagementReviewDossier.php:113
+#: src/ManagementReviewDossier.php:127
 msgid ""
 "Implementation of the applicable controls and the latest approved version of "
 "the SoA."
 msgstr ""
 
-#: src/ManagementReviewDossier.php:116
+#: src/ManagementReviewDossier.php:132
 msgid "Opportunities for improvement"
 msgstr ""
 
-#: src/ManagementReviewDossier.php:117
+#: src/ManagementReviewDossier.php:133
 msgid "Maturity score over the period and consistency gaps still to fix."
 msgstr ""
 
-#: src/ManagementReviewDossier.php:583
+#: src/ManagementReviewDossier.php:605
 msgid "Management review preparatory file"
 msgstr ""
 
-#: src/ManagementReviewDossier.php:613
+#: src/ManagementReviewDossier.php:635
 #, php-format
 msgid "Management review preparatory file - %1$s (%2$s to %3$s)"
 msgstr ""

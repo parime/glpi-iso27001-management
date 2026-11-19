@@ -49,4 +49,6 @@ if ($period === null) {
     Session::addMessageAfterRedirect(__('The preparatory file could not be generated.', 'grcmanager'), false, ERROR);
 }
 
-Html::redirect(ManagementReview::getFormURLWithID($reviewId) . '&forcetab=' . urlencode(ManagementReviewDossier::class . '$1'));
+Html::redirect(
+    ManagementReview::getFormURLWithID($reviewId) . '&forcetab=' . urlencode(ManagementReviewDossier::class . '$1')
+);

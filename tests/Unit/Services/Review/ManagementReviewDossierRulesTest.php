@@ -49,8 +49,10 @@ final class ManagementReviewDossierRulesTest extends TestCase
 
     public function testPeriodInputIsChecked(): void
     {
-        self::assertSame(['start' => '2026-01-01', 'end' => '2026-06-30'], Rules::normalizePeriod('2026-01-01', '2026-06-30'));
-        self::assertSame(['start' => '2026-03-01', 'end' => '2026-03-01'], Rules::normalizePeriod('2026-03-01', '2026-03-01'));
+        $half = ['start' => '2026-01-01', 'end' => '2026-06-30'];
+        self::assertSame($half, Rules::normalizePeriod('2026-01-01', '2026-06-30'));
+        $day = ['start' => '2026-03-01', 'end' => '2026-03-01'];
+        self::assertSame($day, Rules::normalizePeriod('2026-03-01', '2026-03-01'));
         self::assertNull(Rules::normalizePeriod('2026-06-30', '2026-01-01'), 'Début après la fin.');
         self::assertNull(Rules::normalizePeriod('2026-02-31', '2026-06-30'), 'Date impossible.');
         self::assertNull(Rules::normalizePeriod('', '2026-06-30'));
@@ -104,7 +106,10 @@ final class ManagementReviewDossierRulesTest extends TestCase
         ], '2026-11-19');
         self::assertSame(['total' => 4, 'done' => 1, 'open' => 3, 'overdue' => 1, 'percent' => 25], $summary);
         self::assertNull(Rules::actionSummary([], '2026-11-19')['percent']);
-        self::assertFalse(Rules::isOverdue('2026-11-19', 'planned', '2026-11-19'), 'Échéance du jour : pas encore en retard.');
+        self::assertFalse(
+            Rules::isOverdue('2026-11-19', 'planned', '2026-11-19'),
+            'Échéance du jour : pas encore en retard.'
+        );
         self::assertFalse(Rules::isOverdue('2026-01-01', 'done', '2026-11-19'));
     }
 
@@ -120,7 +125,11 @@ final class ManagementReviewDossierRulesTest extends TestCase
     {
         self::assertSame(
             ['2026-01' => 50, '2026-03' => 58],
-            Rules::monthsInPeriod(['2026-03' => 58, '2025-12' => 40, '2026-01' => 50, '2026-07' => 70], '2026-01-15', '2026-06-30')
+            Rules::monthsInPeriod(
+                ['2026-03' => 58, '2025-12' => 40, '2026-01' => 50, '2026-07' => 70],
+                '2026-01-15',
+                '2026-06-30'
+            )
         );
     }
 

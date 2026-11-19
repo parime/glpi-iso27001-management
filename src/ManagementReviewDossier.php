@@ -86,15 +86,25 @@ class ManagementReviewDossier extends CommonGLPI
             ],
             'context'          => [
                 'title'   => __('Context and interested parties', 'grcmanager'),
-                'summary' => __('Internal and external issues and interested parties: what changed during the period and what is overdue for review.', 'grcmanager'),
+                'summary' => __(
+                    'Internal and external issues and interested parties: what changed during the period and what '
+                        . 'is overdue for review.',
+                    'grcmanager'
+                ),
             ],
             'nonconformities'  => [
                 'title'   => __('Nonconformities and corrective actions', 'grcmanager'),
-                'summary' => __('Findings raised and closed during the period, and corrective actions still open or late.', 'grcmanager'),
+                'summary' => __(
+                    'Findings raised and closed during the period, and corrective actions still open or late.',
+                    'grcmanager'
+                ),
             ],
             'measurement'      => [
                 'title'   => __('Monitoring, measurement and incidents', 'grcmanager'),
-                'summary' => __('Key risk indicators and information security incidents over the period.', 'grcmanager'),
+                'summary' => __(
+                    'Key risk indicators and information security incidents over the period.',
+                    'grcmanager'
+                ),
             ],
             'audits'           => [
                 'title'   => __('Audit results', 'grcmanager'),
@@ -106,11 +116,17 @@ class ManagementReviewDossier extends CommonGLPI
             ],
             'risks'            => [
                 'title'   => __('Risk assessment and treatment', 'grcmanager'),
-                'summary' => __('Open risks by level, risks beyond appetite, and progress of the treatment plan.', 'grcmanager'),
+                'summary' => __(
+                    'Open risks by level, risks beyond appetite, and progress of the treatment plan.',
+                    'grcmanager'
+                ),
             ],
             'soa'              => [
                 'title'   => __('Statement of Applicability', 'grcmanager'),
-                'summary' => __('Implementation of the applicable controls and the latest approved version of the SoA.', 'grcmanager'),
+                'summary' => __(
+                    'Implementation of the applicable controls and the latest approved version of the SoA.',
+                    'grcmanager'
+                ),
             ],
             'improvement'      => [
                 'title'   => __('Opportunities for improvement', 'grcmanager'),
@@ -141,7 +157,11 @@ class ManagementReviewDossier extends CommonGLPI
         $reviewId = (int) $item->getID();
         $canEdit = $item->can($reviewId, UPDATE);
         $actions = ManagementReviewAction::getForReview($reviewId);
-        $period = Rules::defaultPeriod($item->previousReviewDate(), $item->fields['review_date'] ?? null, date('Y-m-d'));
+        $period = Rules::defaultPeriod(
+            $item->previousReviewDate(),
+            $item->fields['review_date'] ?? null,
+            date('Y-m-d')
+        );
         $labels = self::getSectionLabels();
         $sections = [];
         foreach (Rules::SECTIONS as $key => [$clause, $icon]) {
@@ -244,6 +264,7 @@ class ManagementReviewDossier extends CommonGLPI
             ];
         }
         $entityId = EntityPerimeter::activeEntity();
+        $recursive = (bool) ($_SESSION['glpiactive_entity_recursive'] ?? false);
 
         return [
             'review'    => [
@@ -258,7 +279,7 @@ class ManagementReviewDossier extends CommonGLPI
             ],
             'period'    => ['start' => Html::convDate($start), 'end' => Html::convDate($end)],
             'perimeter' => Dropdown::getDropdownName(Entity::getTable(), $entityId)
-                . (($_SESSION['glpiactive_entity_recursive'] ?? false) ? ' ' . __('(and sub-entities)', 'grcmanager') : ''),
+                . ($recursive ? ' ' . __('(and sub-entities)', 'grcmanager') : ''),
             'author'    => getUserName((int) Session::getLoginUserID()),
             'sections'  => $sections,
         ];
@@ -278,7 +299,8 @@ class ManagementReviewDossier extends CommonGLPI
         // Les actions encore ouvertes, et celles terminées pendant la période.
         $listed = array_values(array_filter(
             $actions,
-            static fn (array $a): bool => $a['status'] !== 'done' || Rules::inPeriod($a['completion_date'], $start, $end)
+            static fn (array $a): bool => $a['status'] !== 'done'
+                || Rules::inPeriod($a['completion_date'], $start, $end)
         ));
 
         return [

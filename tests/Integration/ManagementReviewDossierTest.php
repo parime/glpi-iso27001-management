@@ -167,10 +167,11 @@ final class ManagementReviewDossierTest extends GrcmanagerIntegrationTestCase
             $this->assertNull($sections['nonconformities']['data']['trend'], 'Tendance tirée du registre des risques.');
             $this->assertTrue($sections['objectives']['included']);
             $html = ManagementReviewDossier::render($review, '2025-11-25', '2026-11-25');
-            $this->assertStringContainsString(
-                htmlspecialchars(__('Not included: the person who generated this file cannot read this register.', 'grcmanager'), ENT_QUOTES),
-                $html
+            $notIncluded = __(
+                'Not included: the person who generated this file cannot read this register.',
+                'grcmanager'
             );
+            $this->assertStringContainsString(htmlspecialchars($notIncluded, ENT_QUOTES), $html);
         } finally {
             $_SESSION['glpiactiveprofile'] = $saved;
         }

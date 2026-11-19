@@ -42,7 +42,12 @@ if (isset($_POST['add'])) {
     $created = ManagementReviewAction::createFromDecisions($review);
     Session::addMessageAfterRedirect(
         $created > 0
-            ? sprintf(_n('%d action created from the decisions.', '%d actions created from the decisions.', $created, 'grcmanager'), $created)
+            ? sprintf(_n(
+                '%d action created from the decisions.',
+                '%d actions created from the decisions.',
+                $created,
+                'grcmanager'
+            ), $created)
             : __('Every decision already has its action.', 'grcmanager'),
         false,
         $created > 0 ? INFO : WARNING
@@ -68,4 +73,6 @@ if (isset($_POST['add'])) {
     Session::checkRight(ManagementReviewAction::$rightname, READ);
 }
 
-Html::redirect(ManagementReview::getFormURLWithID($reviewId) . '&forcetab=' . urlencode(ManagementReviewDossier::class . '$1'));
+Html::redirect(
+    ManagementReview::getFormURLWithID($reviewId) . '&forcetab=' . urlencode(ManagementReviewDossier::class . '$1')
+);
