@@ -88,7 +88,8 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/riskimport.php front/riskimport.php?template=1 front/riskimport.php?export=1
   front/doraregister.php front/doraregister.php?export=B_02.01 front/doraregister.php?export=zip
   front/consistencycheck.php front/consistencycheck.export.php?format=csv front/consistencycheck.export.php?format=pdf
-  front/contextitem.php front/contextitem.form.php"
+  front/contextitem.php front/contextitem.form.php
+  front/acnrequirement.php front/acnrequirement.export.php?format=csv front/acnrequirement.export.php?format=pdf"
 # Creations : refusees sans droit comme en lecture seule (etat en base compare par la CI).
 create_attempts() { # code attendu, code attendu pour la classification (404 sans droit sur l'actif)
   local incident; incident=$(id incident_A)
@@ -566,6 +567,14 @@ expect "ticket depuis un KRI de B" "$([ "$ROLE" = admin ] && echo 302 || echo 40
   "$(code -d "create_ticket=1&id=$(id kri_B)&_glpi_csrf_token=$(csrf)" "$P/riskindicator.form.php")"
 expect "creer un KRI dans l'entite B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)" \
   "$(code -d "add=1&name=KRI%20cree&entities_id=$(id b)&_glpi_csrf_token=$(csrf)" "$P/riskindicator.form.php")"
+# Issue #703 : une exigence NIS2 Italia - ACN appartient au registre de son entite
+# (front/acnrequirement.form.php : lecture et modification, par entite).
+expect "exigence ACN, entite A"         200    "$(code "$P/acnrequirement.form.php?id=$(id acn_A)")"
+expect "exigence ACN, entite B"         $DENY  "$(code "$P/acnrequirement.form.php?id=$(id acn_B)")"
+expect "modifier une exigence ACN de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)"   "$(code -d "update=1&id=$(id acn_B)&comment=securite&_glpi_csrf_token=$(csrf)" "$P/acnrequirement.form.php")"
+acn_csv=$(curl -s -c "$JAR" -b "$JAR" "$P/acnrequirement.export.php?format=csv&entities_id=$(id acn_entity_B)")
+contains "export ACN : registre de B" "DE.CM-01, punto 7" $SEE_B "$acn_csv"
+
 # Issue #608 : une fiche du contexte de l'organisation appartient a son entite.
 expect "contexte, entite A"             200    "$(code "$P/contextitem.form.php?id=$(id context_A)")"
 expect "contexte, entite B"             $DENY  "$(code "$P/contextitem.form.php?id=$(id context_B)")"

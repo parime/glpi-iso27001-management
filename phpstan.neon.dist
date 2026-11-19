@@ -25,6 +25,7 @@ parameters:
         - src/Services/Dora
         - src/Services/Consistency
         - src/Services/Perimeter
+        - src/Services/Acn
         - src/Services/Lifecycle
     excludePaths:
         # Issue #539 : lit les registres du plugin via le $DB global, Session et les classes

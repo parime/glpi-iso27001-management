@@ -44,7 +44,8 @@ final class FrameworkSelectionTest extends TestCase
                 FrameworkSelection::ISO27090, FrameworkSelection::DORA,
                 FrameworkSelection::ISO27701, FrameworkSelection::ISO22301,
                 FrameworkSelection::ISO42001, FrameworkSelection::PCI_DSS,
-                FrameworkSelection::SOC2, FrameworkSelection::AI_ACT, FrameworkSelection::HDS],
+                FrameworkSelection::SOC2, FrameworkSelection::AI_ACT, FrameworkSelection::HDS,
+                FrameworkSelection::ACN_IT],
             FrameworkSelection::decode($stored)
         );
         $this->assertSame(

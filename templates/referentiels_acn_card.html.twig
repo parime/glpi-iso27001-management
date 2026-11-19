@@ -1,0 +1,71 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #703 : carte NIS2 Italia - ACN de la page Référentiels, avec l'accès au registre. #}
+<div class="card mb-3" id="grcmanager-ref-acn">
+  <div class="card-header d-flex flex-wrap justify-content-between align-items-center gap-2">
+    <h3 class="card-title mb-0"><i class="ti ti-flag me-1"></i>{{ __('NIS2 Italy: ACN basic security measures (determination %s)', 'grcmanager')|format(acn.determination) }}</h3>
+    <div class="d-flex flex-wrap gap-2">
+      {% if acn.has_register %}
+        <a class="btn btn-primary btn-sm" href="{{ acn.register_url }}"><i class="ti ti-list-check me-1"></i>{{ __('Open the NIS2 Italy register', 'grcmanager') }}</a>
+      {% elseif acn.can_configure %}
+        <a class="btn btn-primary btn-sm" href="{{ acn.config_url }}"><i class="ti ti-settings me-1"></i>{{ __('Classify the entities', 'grcmanager') }}</a>
+      {% endif %}
+    </div>
+  </div>
+  <div class="card-body">
+    <p class="text-muted mb-2">
+      {{ __('Measures of the Italian NIS2 law (D.Lgs. 138/2024). Codes follow the national framework, aligned with NIST CSF 2.0. Each requirement has its own record in the register of the entity, without going through ISO 27001 Annex A.', 'grcmanager') }}
+    </p>
+    <div class="d-flex flex-wrap gap-2 mb-3">
+      <span class="badge bg-blue-subtle text-blue-emphasis"><i class="ti ti-shield me-1"></i>{{ __('Annex 1, important entities: %1$d measures, %2$d requirements', 'grcmanager')|format(acn.important[0], acn.important[1]) }}</span>
+      <span class="badge bg-red-subtle text-red-emphasis"><i class="ti ti-shield-star me-1"></i>{{ __('Annex 2, essential entities: %1$d measures, %2$d requirements', 'grcmanager')|format(acn.essential[0], acn.essential[1]) }}</span>
+      {% if acn.own_category %}
+        <span class="badge bg-green-subtle text-green-emphasis"><i class="ti ti-building me-1"></i>{{ __('Your entity: %s', 'grcmanager')|format(acn.own_category) }}</span>
+      {% endif %}
+    </div>
+    {% for function in acn.functions %}
+      <details class="mb-2">
+        <summary class="fw-bold">{{ function.name }} <span class="text-muted fw-normal">({{ function.measures|length }})</span></summary>
+        <div class="table-responsive">
+          <table class="table table-sm table-vcenter mb-0">
+            <thead>
+              <tr>
+                <th>{{ __('Measure', 'grcmanager') }}</th>
+                <th>{{ _x('label', 'Title', 'grcmanager') }}</th>
+                <th>{{ __('Annex %d', 'grcmanager')|format(1) }}</th>
+                <th>{{ __('Annex %d', 'grcmanager')|format(2) }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for measure in function.measures %}
+                <tr>
+                  <td><span class="badge bg-blue-subtle text-blue-emphasis">{{ measure.code }}</span></td>
+                  <td>{{ measure.title }}</td>
+                  <td>{{ measure.important > 0 ? measure.important : '-' }}</td>
+                  <td>{{ measure.essential }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </details>
+    {% endfor %}
+  </div>
+  <div class="card-footer text-muted small">
+    {{ __('Source: ACN determination %s, annexes 1 and 2 (public documents). Codes and point numbers are the official ones; titles, summaries and the mapping to NIS2 are made by this project. Only the text published by the ACN is authentic.', 'grcmanager')|format(acn.determination) }}
+    <a href="{{ acn.source_annex_1 }}" target="_blank" rel="noopener noreferrer">{{ __('Annex %d', 'grcmanager')|format(1) }}</a>,
+    <a href="{{ acn.source_annex_2 }}" target="_blank" rel="noopener noreferrer">{{ __('Annex %d', 'grcmanager')|format(2) }}</a>
+  </div>
+</div>

@@ -347,7 +347,13 @@ final class Installer
         // Issue #608 : contexte de l'organisation (enjeux et parties intéressées).
         \GlpiPlugin\Grcmanager\ContextItem::class,
         \GlpiPlugin\Grcmanager\NotificationTargetContextItem::class,
+        // Issue #703 : registre NIS2 Italia - ACN.
+        \GlpiPlugin\Grcmanager\AcnRequirement::class,
     ];
+    // Issue #703 : registre NIS2 Italia - ACN, voir \GlpiPlugin\Grcmanager\AcnRequirement.
+    private const ACN_ENTITIES_TABLE = 'glpi_plugin_grcmanager_acnentities';
+    private const ACN_REQUIREMENTS_TABLE = 'glpi_plugin_grcmanager_acnrequirements';
+    private const ACN_REQUIREMENTS_LINKS_TABLE = 'glpi_plugin_grcmanager_acnrequirements_items';
     // Issue #608 : contexte de l'organisation, voir \GlpiPlugin\Grcmanager\ContextItem.
     private const CONTEXT_ITEMS_TABLE = 'glpi_plugin_grcmanager_contextitems';
     private const CONTEXT_ITEMS_LINKS_TABLE = 'glpi_plugin_grcmanager_contextitems_items';
@@ -1409,6 +1415,7 @@ final class Installer
         $this->installDoraRegisterTables($keySign, $charset, $collation);
         $this->installDataBreachTables($keySign, $charset, $collation);
         $this->installContextTables($keySign, $charset, $collation);
+        $this->installAcnTables($keySign, $charset, $collation);
         $this->installParkRemediationTables($keySign, $charset, $collation);
         $this->installSentinelOneTables($keySign, $charset, $collation);
         $this->installEndOfLifeTables($keySign, $charset, $collation);
@@ -4400,6 +4407,67 @@ final class Installer
     }
 
     /**
+     * Issue #703 : registre NIS2 Italia - ACN. Catégorie (importante ou essentielle) réglée par entité
+     * GLPI, un point par exigence des allegati 1 et 2 pour chaque entité réglée, et liens des points
+     * vers les politiques du plugin.
+     */
+    private function installAcnTables(string $keySign, string $charset, string $collation): void
+    {
+        global $DB;
+
+        if (!$DB->tableExists(self::ACN_ENTITIES_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::ACN_ENTITIES_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `entities_id` int {$keySign} NOT NULL DEFAULT 0,
+                `category` varchar(16) NOT NULL DEFAULT '' COMMENT 'important, essential',
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `entities_id` (`entities_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+        if (!$DB->tableExists(self::ACN_REQUIREMENTS_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::ACN_REQUIREMENTS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `entities_id` int {$keySign} NOT NULL DEFAULT 0,
+                `is_recursive` tinyint NOT NULL DEFAULT 1,
+                `code` varchar(16) NOT NULL DEFAULT '' COMMENT 'Misura del Framework nazionale, ex. DE.CM-01',
+                `point` int NOT NULL DEFAULT 0 COMMENT 'Punto della misura',
+                `applicability` varchar(16) NOT NULL DEFAULT 'yes' COMMENT 'yes, partial, no',
+                `justification` text,
+                `implementation_status` varchar(16) NOT NULL DEFAULT 'not_started'
+                    COMMENT 'not_started, in_progress, implemented, verified',
+                `users_id` int {$keySign} NOT NULL DEFAULT 0 COMMENT 'Responsabile',
+                `due_date` date DEFAULT NULL,
+                `approval_date` date DEFAULT NULL COMMENT 'Approvazione degli organi di amministrazione',
+                `approval_reference` varchar(255) NOT NULL DEFAULT '' COMMENT 'Delibera, verbale...',
+                `comment` text,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                `date_mod` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity` (`entities_id`, `code`, `point`),
+                KEY `is_recursive` (`is_recursive`),
+                KEY `implementation_status` (`implementation_status`),
+                KEY `users_id` (`users_id`),
+                KEY `due_date` (`due_date`),
+                KEY `date_mod` (`date_mod`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+        if (!$DB->tableExists(self::ACN_REQUIREMENTS_LINKS_TABLE)) {
+            $DB->doQuery("CREATE TABLE `" . self::ACN_REQUIREMENTS_LINKS_TABLE . "` (
+                `id` int {$keySign} NOT NULL AUTO_INCREMENT,
+                `plugin_grcmanager_acnrequirements_id` int {$keySign} NOT NULL DEFAULT 0,
+                `itemtype` varchar(100) NOT NULL DEFAULT '' COMMENT 'Politique',
+                `items_id` int {$keySign} NOT NULL DEFAULT 0,
+                `date_creation` timestamp NULL DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unicity` (`plugin_grcmanager_acnrequirements_id`, `itemtype`, `items_id`),
+                KEY `item` (`itemtype`, `items_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET={$charset} COLLATE={$collation}");
+        }
+    }
+
+    /**
      * Issue #535 : public cible d'une politique (groupes, profils, entités), campagnes de prise de
      * connaissance (une par version approuvée) et confirmation de chaque personne du public.
      */
@@ -5498,6 +5566,9 @@ final class Installer
         $migration->dropTable(self::DATA_BREACHES_TABLE);
         $migration->dropTable(self::CONTEXT_ITEMS_LINKS_TABLE);
         $migration->dropTable(self::CONTEXT_ITEMS_TABLE);
+        $migration->dropTable(self::ACN_REQUIREMENTS_LINKS_TABLE);
+        $migration->dropTable(self::ACN_REQUIREMENTS_TABLE);
+        $migration->dropTable(self::ACN_ENTITIES_TABLE);
         $migration->dropTable(self::EBIOS_STUDIES_TABLE);
         $migration->dropTable(self::EBIOS_VALUES_TABLE);
         $migration->dropTable(self::EBIOS_FEARED_EVENTS_TABLE);

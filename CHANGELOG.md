@@ -9,6 +9,23 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ### Added
 
+- **Référentiel facultatif « NIS2 Italia – ACN »** (issue #703, demandé par un utilisateur italien).
+  Mesures de sécurité de base de la déterminazione ACN n. 379907/2025 (D.Lgs. 138/2024) :
+  allegato 1 pour les entités importantes (37 mesures, 87 points), allegato 2 pour les entités
+  essentielles (43 mesures, 116 points), codes du Framework nazionale aligné sur le NIST CSF 2.0
+  (par exemple « DE.CM-01, punto 2 »). Désactivé par défaut (configuration, Référentiels).
+  - Catégorie importante ou essentielle réglée par entité GLPI dans la configuration du plugin ; une
+    sous-entité sans catégorie suit sa parente. Changer ou retirer la catégorie ne supprime rien.
+  - Une fiche par point : applicabilité (justification si non applicable), état de mise en œuvre,
+    responsable, échéance, notes, approbation des organes de direction quand le point l'exige,
+    politiques liées avec leur état d'approbation, documents et preuves (onglet Documents).
+  - Renvois vers NIS2 (UE, indicatif), le NIST CSF 2.0 et l'Annexe A ISO 27001 (correspondance du
+    NIST), facultatifs : la SoA n'est pas nécessaire pour suivre le registre.
+  - Registre avec tableau de bord (taux, échéances dépassées, approbations à enregistrer, par
+    fonction), exports CSV et PDF ; carte sur la page Référentiels. Aucune nouvelle entrée de menu.
+  - Intitulés et résumés en italien, anglais et français rédigés par le projet, avec la référence
+    exacte vers les allegati publiés par l'ACN. Droits d'entité standards (#536) ; désinstallation
+    complète.
 - **Connecteur SentinelOne en lecture seule** (issue #707, demande d'un utilisateur).
   - Carte « Connecteur SentinelOne » dans la configuration du plugin : adresse de la console
     (HTTPS), jeton d'API chiffré avec la clé de GLPI (jamais réaffiché ni journalisé), entité des
