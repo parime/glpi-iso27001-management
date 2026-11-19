@@ -1620,6 +1620,10 @@ class Control extends ControlBase
 
         // Issue #368 : couverture Wazuh (A.8.16, A.8.7), ligne absente si le plugin Wazuh n'est pas exploitable.
         $wazuh = WazuhEvidence::isRelevantControl($code) ? WazuhEvidenceProvider::fetchCoverage() : null;
+        // Issue #707 : couverture SentinelOne, d'après la dernière lecture de la tâche automatique.
+        $sentinelone = WazuhEvidence::isRelevantControl($code)
+            ? \GlpiPlugin\Grcmanager\Services\Control\SentinelOneEvidenceProvider::fetchCoverage()
+            : null;
 
         // Docker Inventory #10 : preuves du plugin Inventaire Docker (A.5.9, A.8.8, A.8.9, A.8.32), lues
         // par son API ; ligne absente si le plugin n'est pas exploitable.
@@ -1685,6 +1689,7 @@ class Control extends ControlBase
             'assetsign_charter'       => $charter,
             'campaigns_url'           => $charter !== null ? AssetsignEvidenceProvider::campaignsUrl() : null,
             'wazuh'                   => $wazuh,
+            'sentinelone_coverage'    => $sentinelone,
             'wazuh_agents_url'        => $wazuh !== null ? WazuhEvidenceProvider::agentsUrl() : null,
             'docker'                  => $docker,
             'referentials_url'        => $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/referentiels.php',
