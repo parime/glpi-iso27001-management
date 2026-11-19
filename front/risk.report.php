@@ -32,6 +32,10 @@ $categories = \GlpiPlugin\Grcmanager\Risk::getCategories();
 $treatments = \GlpiPlugin\Grcmanager\Risk::getTreatments();
 $statuses   = \GlpiPlugin\Grcmanager\Risk::getStatuses();
 $levels     = \GlpiPlugin\Grcmanager\Risk::getRiskLevels(); // low/medium/high/critical, any matrix size
+// Issue #706 : libellés de l'échelle configurée (4x4 ou 5x5, libellés personnalisés), toutes tailles
+// confondues pour qu'une valeur d'une autre taille reste lisible.
+$probabilities = \GlpiPlugin\Grcmanager\Risk::getProbabilities(5);
+$impacts       = \GlpiPlugin\Grcmanager\Risk::getImpacts(5);
 
 $risks = [];
 foreach (
@@ -45,6 +49,8 @@ foreach (
     $risks[] = [
         'title'       => $row['title'],
         'category'    => $categories[$row['category']] ?? $row['category'],
+        'probability' => $probabilities[$row['probability']] ?? $row['probability'],
+        'impact'      => $impacts[$row['impact']] ?? $row['impact'],
         'risk_level'  => $levels[$row['risk_level']] ?? $row['risk_level'],
         'treatment'   => $treatments[$row['treatment']] ?? $row['treatment'],
         'status'      => $statuses[$row['status']] ?? $row['status'],
@@ -69,6 +75,9 @@ $html = \Glpi\Application\View\TemplateRenderer::getInstance()->render(
         ),
         'risks'              => $risks,
         'by_level'           => $byLevel,
+        'matrix_size'        => \GlpiPlugin\Grcmanager\RiskScaleChange::sizeName(
+            \GlpiPlugin\Grcmanager\Services\Risk\RiskMatrixConfig::size()
+        ),
         'open_count'         => DashboardCardService::openRisksCount(),
         'total_count'        => count($risks),
     ]

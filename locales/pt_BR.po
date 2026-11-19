@@ -18144,6 +18144,22 @@ msgid "Firmware of network equipment, printers, phones or computers"
 msgstr ""
 "Firmware de equipamentos de rede, impressoras, telefones ou computadores"
 
+msgid "Level labels"
+msgstr "Rótulos dos níveis"
+
+#, php-format
+msgid "Default label: %s"
+msgstr "Rótulo padrão: %s"
+
+msgid "The level labels have been saved."
+msgstr "Os rótulos dos níveis foram salvos."
+
+msgid "Levels are listed from the lowest (1) to the highest."
+msgstr "Os níveis são listados do mais baixo (1) ao mais alto."
+
+msgid "Rename the levels of probability and impact to match your method, for example the wording of your risk management policy. Leave a field empty to keep the default label, translated into the language of each user; a label you enter is shown as is in every language. Renaming a level changes nothing in existing risks."
+msgstr "Renomeie os níveis de probabilidade e de impacto conforme o seu método, por exemplo com os termos da sua política de gestão de riscos. Deixe um campo vazio para manter o rótulo padrão, traduzido para o idioma de cada usuário; um rótulo digitado é exibido como está em todos os idiomas. Renomear um nível não altera os riscos existentes."
+
 msgid "Classification"
 msgstr "Classificação"
 

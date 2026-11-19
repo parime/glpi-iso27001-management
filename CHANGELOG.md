@@ -26,6 +26,26 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   - Intitulés et résumés en italien, anglais et français rédigés par le projet, avec la référence
     exacte vers les allegati publiés par l'ACN. Droits d'entité standards (#536) ; désinstallation
     complète.
+- **Matrice des risques : libellés des niveaux personnalisables, EBIOS RM, AIPD et rapport PDF en
+  5 x 5** (issue #706, second lot).
+  - Dans la configuration, « Libellés des niveaux » renomme chaque niveau de probabilité et d'impact
+    de la taille actuelle (par exemple selon la politique de gestion des risques). Un champ vide
+    garde le libellé par défaut, traduit ; un libellé saisi s'affiche tel quel dans toutes les
+    langues. Saisie, listes, filtres, carte de chaleur, grille de la configuration, écran de
+    correspondance, import et exports CSV et PDF reprennent ces libellés.
+  - Seules les clés connues sont enregistrées (60 caractères au plus) ; renommer un niveau ne
+    modifie aucun risque. Le libellé d'une valeur hors de la taille actuelle (« très rare » en
+    4 x 4) est conservé pour un passage ultérieur en 5 x 5. Le journal d'audit du plugin garde
+    l'ancien et le nouveau libellé. Réservé au droit de modifier la configuration du plugin.
+  - Import CSV : avec des libellés personnalisés, le libellé par défaut reste reconnu. Export CSV :
+    les colonnes de niveau de risque affichent les libellés des niveaux, plus ceux de l'impact.
+  - EBIOS RM et AIPD gardent leurs échelles à quatre niveaux. En 5 x 5, un scénario opérationnel
+    ou une AIPD versés au registre prennent les valeurs 5 x 5 de la correspondance proposée par
+    défaut (V1 devient « très rare », G1 « négligeable ») : avec les grilles par défaut, le niveau
+    de risque reste celui de la 4 x 4, sauf sur une case. La grille de l'atelier 4 et l'écart
+    signalé à l'atelier 5 suivent la même correspondance.
+  - Rapport PDF du registre : colonnes probabilité et impact, et taille de la matrice dans le
+    résumé.
 
 ## [2.55.0] - 2026-11-18
 

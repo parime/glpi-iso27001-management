@@ -23112,6 +23112,23 @@ msgstr "Firmware of network equipment, printers, phones or computers"
 #~ "Sent to the person who submitted a version of a security policy and to "
 #~ "the policy owner when the version is approved or rejected."
 
+
+msgid "Level labels"
+msgstr "Level labels"
+
+#, php-format
+msgid "Default label: %s"
+msgstr "Default label: %s"
+
+msgid "The level labels have been saved."
+msgstr "The level labels have been saved."
+
+msgid "Levels are listed from the lowest (1) to the highest."
+msgstr "Levels are listed from the lowest (1) to the highest."
+
+msgid "Rename the levels of probability and impact to match your method, for example the wording of your risk management policy. Leave a field empty to keep the default label, translated into the language of each user; a label you enter is shown as is in every language. Renaming a level changes nothing in existing risks."
+msgstr "Rename the levels of probability and impact to match your method, for example the wording of your risk management policy. Leave a field empty to keep the default label, translated into the language of each user; a label you enter is shown as is in every language. Renaming a level changes nothing in existing risks."
+
 msgid "Classification"
 msgstr "Classification"
 

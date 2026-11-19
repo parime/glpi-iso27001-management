@@ -87,14 +87,26 @@ final class EbiosRules
         return $threat >= self::CONTROL_THRESHOLD ? 'control' : 'watch';
     }
 
-    public static function severityToImpact(int $severity): string
+    /**
+     * Impact du registre pour une gravité G1 à G4, dans l'échelle de la matrice du registre
+     * (issue #706 : en 5x5, correspondance RiskScale::fromFourLevels()).
+     */
+    public static function severityToImpact(int $severity, int $size = RiskScale::DEFAULT_SIZE): string
     {
-        return self::SEVERITY_TO_IMPACT[self::level($severity)];
+        return RiskScale::fromFourLevels('impact', self::SEVERITY_TO_IMPACT[self::level($severity)], $size);
     }
 
-    public static function likelihoodToProbability(int $likelihood): string
+    /**
+     * Probabilité du registre pour une vraisemblance V1 à V4, dans l'échelle de la matrice du
+     * registre (issue #706).
+     */
+    public static function likelihoodToProbability(int $likelihood, int $size = RiskScale::DEFAULT_SIZE): string
     {
-        return self::LIKELIHOOD_TO_PROBABILITY[self::level($likelihood)];
+        return RiskScale::fromFourLevels(
+            'probability',
+            self::LIKELIHOOD_TO_PROBABILITY[self::level($likelihood)],
+            $size
+        );
     }
 
     /**
@@ -102,15 +114,17 @@ final class EbiosRules
      * gravité et à la même vraisemblance, d'après sa matrice (une seule source de vérité).
      *
      * @param array<string, array<string, string>> $riskMatrix Matrice du registre.
+     * @param int $size Taille de la matrice du registre (issue #706).
      */
     public static function riskLevel(
         int $severity,
         int $likelihood,
-        array $riskMatrix = RiskMatrixDefaults::MATRIX
+        array $riskMatrix = RiskMatrixDefaults::MATRIX,
+        int $size = RiskScale::DEFAULT_SIZE
     ): string {
-        return (new RiskScoringService($riskMatrix))->level(
-            self::likelihoodToProbability($likelihood),
-            self::severityToImpact($severity)
+        return (new RiskScoringService($riskMatrix, $size))->level(
+            self::likelihoodToProbability($likelihood, $size),
+            self::severityToImpact($severity, $size)
         );
     }
 
@@ -119,15 +133,19 @@ final class EbiosRules
      *
      * @param list<array{severity: int, likelihood: int}> $scenarios
      * @param array<string, array<string, string>> $riskMatrix Matrice du registre.
+     * @param int $size Taille de la matrice du registre (issue #706).
      * @return array<int, array<int, array{level: string, count: int}>>
      */
-    public static function riskMatrix(array $scenarios, array $riskMatrix = RiskMatrixDefaults::MATRIX): array
-    {
+    public static function riskMatrix(
+        array $scenarios,
+        array $riskMatrix = RiskMatrixDefaults::MATRIX,
+        int $size = RiskScale::DEFAULT_SIZE
+    ): array {
         $grid = [];
         foreach (array_reverse(self::LEVELS) as $severity) {
             foreach (self::LEVELS as $likelihood) {
                 $grid[$severity][$likelihood] = [
-                    'level' => self::riskLevel($severity, $likelihood, $riskMatrix),
+                    'level' => self::riskLevel($severity, $likelihood, $riskMatrix, $size),
                     'count' => 0,
                 ];
             }

@@ -403,6 +403,7 @@ class EbiosStudy extends EbiosStudyBase
     private static function workshopFourData(int $studyId): array
     {
         $riskMatrix = RiskMatrixConfig::load();
+        $riskSize = RiskMatrixConfig::size();
         $events = self::eventsById($studyId);
         $strategic = [];
         foreach (EbiosStrategicScenario::getForStudy($studyId) as $row) {
@@ -420,7 +421,7 @@ class EbiosStudy extends EbiosStudyBase
             $scenarios[] = $row + [
                 'strategic_name' => (string) ($parent['name'] ?? ''),
                 'severity'       => $severity,
-                'level'          => EbiosRules::riskLevel($severity, (int) $row['likelihood'], $riskMatrix),
+                'level'          => EbiosRules::riskLevel($severity, (int) $row['likelihood'], $riskMatrix, $riskSize),
                 'support_name'   => (string) ($supports[(int) $row[EbiosSupport::getForeignKeyField()]]['name'] ?? ''),
             ];
         }
@@ -433,7 +434,7 @@ class EbiosStudy extends EbiosStudyBase
             'scenarios'   => $scenarios,
             'strategic'   => $strategic,
             'supports'    => $supports,
-            'matrix'      => EbiosRules::riskMatrix($pairs, $riskMatrix),
+            'matrix'      => EbiosRules::riskMatrix($pairs, $riskMatrix, $riskSize),
             'severities'  => self::getSeverityLabels(),
             'likelihoods' => self::getLikelihoodLabels(),
             'risk_labels' => self::getRiskLevelLabels(),
@@ -458,8 +459,11 @@ class EbiosStudy extends EbiosStudyBase
             $riskId = (int) $scenario[Risk::getForeignKeyField()];
             if ($riskId > 0 && $risk->getFromDB($riskId) && $risk->canViewItem()) {
                 $registered++;
-                $probability = EbiosRules::likelihoodToProbability((int) $scenario['likelihood']);
-                $impact = EbiosRules::severityToImpact((int) $scenario['severity']);
+                $probability = EbiosRules::likelihoodToProbability(
+                    (int) $scenario['likelihood'],
+                    RiskMatrixConfig::size()
+                );
+                $impact = EbiosRules::severityToImpact((int) $scenario['severity'], RiskMatrixConfig::size());
                 $scenario['risk'] = [
                     'title'   => (string) $risk->fields['title'],
                     'url'     => Risk::getFormURLWithID($riskId),

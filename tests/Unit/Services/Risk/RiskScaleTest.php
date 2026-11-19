@@ -334,4 +334,78 @@ final class RiskScaleTest extends TestCase
         self::assertSame(8, $merged['total']);
         self::assertSame(['medium' => 2], $merged['level_moves']['low']);
     }
+
+    public function testLabelsKeepOnlyKnownKeysAndNonEmptyValues(): void
+    {
+        $labels = RiskScale::sanitizeLabels([
+            'probability' => [
+                'very_rare' => "  Exceptionnel \t ",
+                'rare'      => '',
+                'unknown'   => 'Ignoré',
+                'possible'  => ['pas une chaîne'],
+                'certain'   => "Quasi\x00certain",
+            ],
+            'impact'  => 'pas un tableau',
+            'level'   => ['low' => 'Ignoré'],
+        ]);
+
+        self::assertSame(['very_rare' => 'Exceptionnel', 'certain' => 'Quasi certain'], $labels['probability']);
+        self::assertSame([], $labels['impact']);
+        self::assertSame(['probability' => [], 'impact' => []], RiskScale::sanitizeLabels([]));
+    }
+
+    public function testLabelsAreTruncated(): void
+    {
+        $labels = RiskScale::sanitizeLabels(['impact' => ['critical' => str_repeat('é', 200)]]);
+
+        self::assertSame(RiskScale::LABEL_MAX_LENGTH, mb_strlen($labels['impact']['critical']));
+    }
+
+    public function testCustomLabelsOverrideDefaultsForTheScaleKeysOnly(): void
+    {
+        $defaults = ['very_rare' => 'Very rare', 'rare' => 'Rare', 'possible' => 'Possible'];
+        $labels = RiskScale::labelsFor(
+            $defaults,
+            ['rare' => 'Peu probable', 'possible' => ''],
+            ['rare', 'possible', 'probable']
+        );
+
+        self::assertSame(['rare' => 'Peu probable', 'possible' => 'Possible', 'probable' => 'probable'], $labels);
+    }
+
+    public function testFourLevelValuesAreUnchangedInFourByFour(): void
+    {
+        foreach (RiskScale::probabilityKeys(4) as $key) {
+            self::assertSame($key, RiskScale::fromFourLevels('probability', $key, 4));
+        }
+        foreach (RiskScale::impactKeys(4) as $key) {
+            self::assertSame($key, RiskScale::fromFourLevels('impact', $key, 4));
+        }
+    }
+
+    /**
+     * EBIOS RM et AIPD cotent sur quatre niveaux : en 5x5, leurs valeurs suivent la correspondance
+     * proposée, qui garde le niveau de risque de la 4x4 sur toutes les cases sauf une.
+     */
+    public function testFourLevelValuesFollowTheProposedMappingInFiveByFive(): void
+    {
+        $mapping = RiskScale::proposedMapping(4, 5);
+        $four = new RiskScoringService(RiskMatrixDefaults::MATRIX, 4);
+        $five = new RiskScoringService(RiskMatrixDefaults::MATRIX_5, 5);
+        $changed = 0;
+        foreach (RiskScale::probabilityKeys(4) as $probability) {
+            $mapped = RiskScale::fromFourLevels('probability', $probability, 5);
+            self::assertSame($mapping['probability'][$probability], $mapped);
+            self::assertContains($mapped, RiskScale::probabilityKeys(5));
+            foreach (RiskScale::impactKeys(4) as $impact) {
+                $mappedImpact = RiskScale::fromFourLevels('impact', $impact, 5);
+                self::assertSame($mapping['impact'][$impact], $mappedImpact);
+                $changed += (int) ($four->level($probability, $impact) !== $five->level($mapped, $mappedImpact));
+            }
+        }
+        self::assertLessThanOrEqual(1, $changed);
+        self::assertSame('very_rare', RiskScale::fromFourLevels('probability', 'rare', 5));
+        self::assertSame('certain', RiskScale::fromFourLevels('probability', 'certain', 5));
+        self::assertSame('critical', RiskScale::fromFourLevels('impact', 'critical', 5));
+    }
 }
