@@ -40,21 +40,16 @@ if (isset($_POST['add'])) {
 } else {
     Session::checkRight(\GlpiPlugin\Grcmanager\ManagementReview::$rightname, READ);
 
-    Html::header(
-        \GlpiPlugin\Grcmanager\ManagementReview::getTypeName(1),
-        $_SERVER['PHP_SELF'],
-        'grcmanager',
-        \GlpiPlugin\Grcmanager\Audit::class,
-        \GlpiPlugin\Grcmanager\ManagementReview::class
+    // Issue #542 : page complète avec onglets (dossier préparatoire, documents).
+    \GlpiPlugin\Grcmanager\ManagementReview::displayFullPageForItem(
+        (int) ($_GET['id'] ?? 0),
+        [
+            'central'  => [
+                'grcmanager',
+                \GlpiPlugin\Grcmanager\Audit::class,
+                \GlpiPlugin\Grcmanager\ManagementReview::class,
+            ],
+            'helpdesk' => [],
+        ]
     );
-
-    $id = (int) ($_GET['id'] ?? 0);
-
-    if ($id > 0) {
-        $item->getFromDB($id);
-    }
-
-    $item->showForm($id);
-
-    Html::footer();
 }

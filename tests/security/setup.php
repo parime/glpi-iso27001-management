@@ -903,4 +903,11 @@ foreach (['A' => [$a, 'important'], 'B' => [$b, 'essential']] as $suffix => [$en
     $ids['acn_' . $suffix] = (int) $acn->getID();
     $ids['acn_entity_' . $suffix] = $entity;
 }
+// Issue #542 : revue de direction fictive, pour le dossier préparatoire et ses actions.
+$ids['mreview'] = $add(new \GlpiPlugin\Grcmanager\ManagementReview(), [
+    'title'       => 'Revue de direction securite',
+    'status'      => 'planned',
+    'review_date' => date('Y-m-d'),
+    'decisions'   => 'Decision securite',
+]);
 echo json_encode($ids), "\n";

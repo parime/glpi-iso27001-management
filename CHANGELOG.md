@@ -7,10 +7,31 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.59.0] - 2026-11-19
+
 ## [2.58.0] - 2026-11-19
 
 ### Added
 
+- **Dossier préparatoire de la revue de direction** (issue #542, ISO 27001 clause 9.3.2). Nouvel
+  onglet « Dossier préparatoire » sur la fiche d'une revue de direction, sans nouvelle entrée de
+  menu.
+  - Un PDF avec une section par entrée de 9.3.2 : actions des revues précédentes, contexte et
+    parties intéressées, non-conformités et actions correctives, KRI et incidents de sécurité,
+    audits internes terminés, objectifs et leur dernière mesure, risques (niveaux, appétence, plan
+    de traitement), SoA (mise en œuvre, dernière version approuvée), score de maturité et écarts de
+    cohérence. Tendances mensuelles quand elles sont enregistrées.
+  - Période paramétrable, proposée depuis la revue précédente (ou les douze derniers mois) jusqu'à
+    la date de la revue. Chiffres tirés des fournisseurs du tableau de bord, avec les droits et les
+    entités de la personne qui génère : une section dont elle ne peut pas lire le registre est
+    signalée « non incluse », jamais remplie.
+  - Le PDF est joint automatiquement à la revue (onglet Documents, lisible par qui peut lire la
+    revue), avec sa période, son auteur et son empreinte SHA-256 affichés dans l'onglet.
+  - Actions décidées en revue : une action par ligne du champ « Décisions et actions » (sans
+    doublon, sur demande), ou saisie à la main ; responsable, échéance et statut suivis, retards
+    signalés. Le dossier de la revue suivante reprend leur avancement (9.3.2 a). Rien n'est
+    affecté, planifié ni clôturé automatiquement.
+  - La fiche de la revue s'affiche désormais avec ses onglets (dossier préparatoire, documents).
 - **Grille d'audit interne par exigence et couverture du programme d'audit** (issue #606,
   ISO 27001, clause 9.2). Nouvel onglet « Grille d'audit » sur chaque audit interne.
   - Lignes générées depuis les exigences du SMSI (articles 4 à 10), les mesures applicables de la
@@ -176,7 +197,6 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
     à jour lient aussi les matériels concernés par un firmware.
   - Entités et droits inchangés : un utilisateur ne voit et ne compte que les matériels de ses
     entités, d'un type qu'il peut lire dans l'onglet CVE, comme pour les logiciels.
-
 
 - **Déclaration d'applicabilité : motifs de sélection et mesures compensatoires des exclusions**
   (issue #609, ISO 27001 6.1.3 d).
@@ -1040,6 +1060,7 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   proportionnalité, trois risques cotés avant et après mesures, avis du DPO, approbation signée puis
   figée. Un risque résiduel élevé rappelle l'obligation de consulter l'autorité de contrôle (article
   36). Rapport PDF. Le statut de la fiche et le registre des risques ne changent que sur demande.
+
 ### Changed
 
 - **Incidents de sécurité** : la fiche affichait deux champs « Catégorie ». La classification du plugin
@@ -1120,7 +1141,6 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
     ajouté ou retiré que par qui peut le lire ; modifications dans le journal d'audit ; cellules du
     CSV protégées contre l'injection de formules.
   - restent à venir : AIPD (article 35), demandes d'exercice des droits, contact du DPO sur l'export.
-
 
 - **Appétence et tolérance au risque, indicateurs de risque (KRI)** (issue #378, première étape) :
   - écran **« Appétence et tolérance au risque »** (rubrique Risques) : par catégorie de risque, le
@@ -1298,7 +1318,6 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   - sur la page Tableau de bord du plugin, les cartes ne se superposent plus, ni au-delà de la
     24e rangée, ni à la largeur d'un téléphone ;
   - délais moyens et tactiques MITRE calculés par une seule requête d'agrégat.
-
 
 ## [2.20.0] - 2026-11-03
 
@@ -2070,8 +2089,6 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
     invalides signalées par leur numéro, aucun doublon en cas de réimport.
   - La revue périodique « matrice des flux » (#141) renvoie vers cet écran.
 
-### Added
-
 - **Revues périodiques du SMSI** (issue #141), menu GRC & Conformité > Revues périodiques.
   - Onze revues proposées : droits d'accès, comptes à privilèges, matrice des flux, registre des
     risques, risques fournisseurs, politiques, SoA, obligations légales, test de restauration des
@@ -2604,7 +2621,6 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
   tableau de bord "Objectifs ISMS par statut" (`DashboardCardService::objectivesByStatus()`),
   reprise dans le tableau de bord seedé à l'installation (`DefaultDashboardService`, 16e carte).
   Réutilise le droit plat existant `plugin_grcmanager`, aucune preuve d'un besoin de droit dédié par
-  fonctionnalité dans ce plugin.
 - **Plan d'action de traitement des risques** (issue #31, ISO 27001 clause 8.3/6.1.3) : un risque
   "à mitiger"/"à transférer" n'avait jusqu'ici que sa décision (`treatment`) et une justification en
   texte libre, rien ne suivait les actions concrètes menant réellement à sa clôture, contrairement
@@ -2712,6 +2728,20 @@ par défaut, suivi de version GitHub).
   réel du projet, sans toucher aux champs `version`/`state`/`screenshots` (réservés à la
   publication de la v1.0.0).
 
+- **Colonne Titre non cliquable sur les listes Risques, Risques fournisseurs, Audits, Non-
+  conformités, Formations et Revues de direction** : seule la colonne ID (petite cible) ouvrait
+  la fiche, le titre affiché s'affichait en texte brut. Constat direct du porteur du plugin sur un
+  écran comparable. Colonne Titre passée en `datatype => 'itemlink'` (`itemtype => self::class`)
+  sur les 6 classes concernées, vérifié en conditions réelles (HTML rendu avec un vrai lien vers
+  la fiche).
+
+- Fil d'Ariane incorrect sur tous les écrans du plugin : `Html::header()` déclarait la catégorie
+  `'admin'` (Administration) sur 11 fichiers alors que le plugin est enregistré sous `'tools'`
+  (Outils) dans `Hooks::MENU_TOADD`, même bug que sur `glpi-vulnerability-manager`, confirmé en
+  direct sur les deux dépôts. Corrigé partout (y compris les 4 nouveaux écrans du Sprint 6 ci-dessus,
+  qui n'existaient pas encore lors du premier correctif) pour que le fil d'Ariane et le menu actif
+  reflètent l'emplacement réel.
+
 ### Added
 
 - **Sprint 7 (tableaux de bord, consolidation)** : les 15 cartes posées aux Sprints 1 à 6 ont été
@@ -2730,17 +2760,6 @@ par défaut, suivi de version GitHub).
 - Lien vers le tutoriel utilisateur bilingue (`docs/TUTORIAL.md`) ajouté dans la section
   Documentation de `README.md`/`README.en.md`, jusque-là non référencé depuis la page d'accueil du
   dépôt.
-
-### Fixed
-
-- **Colonne Titre non cliquable sur les listes Risques, Risques fournisseurs, Audits, Non-
-  conformités, Formations et Revues de direction** : seule la colonne ID (petite cible) ouvrait
-  la fiche, le titre affiché s'affichait en texte brut. Constat direct du porteur du plugin sur un
-  écran comparable. Colonne Titre passée en `datatype => 'itemlink'` (`itemtype => self::class`)
-  sur les 6 classes concernées, vérifié en conditions réelles (HTML rendu avec un vrai lien vers
-  la fiche).
-
-### Added
 
 - **Suivi des formations de sensibilisation à la sécurité (clauses 7.2 "compétence" et 7.3
   "sensibilisation" ISO/IEC 27001:2022)** : nouvel itemtype `PluginGrcmanagerTraining`, une ligne
@@ -2766,15 +2785,6 @@ par défaut, suivi de version GitHub).
   accumulateur-safe que les cartes précédentes) : taux de réalisation des formations, participants
   en retard de renouvellement de formation, revues de direction par statut.
 - Nouvelles chaînes traduites dans `locales/fr_FR.po`/`locales/en_GB.po`.
-
-### Fixed
-
-- Fil d'Ariane incorrect sur tous les écrans du plugin : `Html::header()` déclarait la catégorie
-  `'admin'` (Administration) sur 11 fichiers alors que le plugin est enregistré sous `'tools'`
-  (Outils) dans `Hooks::MENU_TOADD`, même bug que sur `glpi-vulnerability-manager`, confirmé en
-  direct sur les deux dépôts. Corrigé partout (y compris les 4 nouveaux écrans du Sprint 6 ci-dessus,
-  qui n'existaient pas encore lors du premier correctif) pour que le fil d'Ariane et le menu actif
-  reflètent l'emplacement réel.
 
 ## [0.5.0] - 2026-08-24
 

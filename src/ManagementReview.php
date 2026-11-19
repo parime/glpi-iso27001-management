@@ -17,6 +17,7 @@
 
 namespace GlpiPlugin\Grcmanager;
 
+use Document_Item;
 use Dropdown;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compat\Base\ManagementReviewBase;
@@ -118,6 +119,29 @@ class ManagementReview extends ManagementReviewBase
         }
 
         return $input;
+    }
+
+    /**
+     * Issue #542 : onglet du dossier préparatoire (et des actions décidées), et documents de la
+     * revue (dossiers archivés, compte rendu signé...).
+     */
+    public function defineTabs($options = [])
+    {
+        $tabs = [];
+        $this->addDefaultFormTab($tabs)
+            ->addStandardTab(ManagementReviewDossier::class, $tabs, $options)
+            ->addStandardTab(Document_Item::class, $tabs, $options);
+
+        return $tabs;
+    }
+
+    /**
+     * Issue #542 : les actions et l'historique des dossiers partent avec la revue.
+     */
+    public function cleanDBonPurge()
+    {
+        ManagementReviewAction::purgeForReview((int) $this->getID());
+        ManagementReviewDossier::purgeForReview((int) $this->getID());
     }
 
     public function post_addItem()
