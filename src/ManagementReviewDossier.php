@@ -637,10 +637,11 @@ class ManagementReviewDossier extends CommonGLPI
                 Html::convDate($period['start']),
                 Html::convDate($period['end'])
             ),
-            // La revue de direction couvre tout le SMSI : document à la racine, lisible seulement
-            // par qui peut lire la revue (RestrictedDocument).
+            // La revue de direction couvre tout le SMSI : document à la racine, non récursif, lisible
+            // seulement par qui peut lire la revue (RestrictedDocument), jamais avec le seul droit
+            // Documents des sous-entités (même règle que les versions de la SoA et des politiques).
             'entities_id'   => 0,
-            'is_recursive'  => 1,
+            'is_recursive'  => 0,
             '_filename'     => [$fileName],
             '_tag_filename' => [$fileName],
         ]);
@@ -648,12 +649,13 @@ class ManagementReviewDossier extends CommonGLPI
         if ($documentsId <= 0) {
             return 0;
         }
+        // Réservé avant d'être lié à la revue.
+        RestrictedDocument::register($documentsId, $review);
         (new Document_Item())->add([
             'documents_id' => $documentsId,
             'itemtype'     => ManagementReview::class,
             'items_id'     => (int) $review->getID(),
         ]);
-        RestrictedDocument::register($documentsId, $review);
 
         $DB->insert(self::TABLE, [
             'plugin_grcmanager_managementreviews_id' => (int) $review->getID(),

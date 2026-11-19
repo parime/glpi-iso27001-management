@@ -126,7 +126,8 @@ final class ManagementReviewDossierRules
      */
     public static function decisionLines(string $decisions): array
     {
-        $text = str_ireplace(['<br>', '<br/>', '<br />', '</p>', '</li>'], "\n", $decisions);
+        // Fins de ligne HTML (retour à la ligne, fin de paragraphe ou d'élément de liste) : une ligne.
+        $text = (string) preg_replace('~<\s*(?:br\s*/?|/\s*(?:p|li))\s*>~i', "\n", $decisions);
         $text = html_entity_decode(strip_tags($text), ENT_QUOTES | ENT_HTML5, 'UTF-8');
         $lines = [];
         $seen = [];
